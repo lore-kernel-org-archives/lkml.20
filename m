@@ -1,59 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838702;
-	b=HaS+gSiwuI3GZ+b4cQC6/ISFrs5MBa7uvFbWG954NeG/W8W7pPAX1K3N9VkPmZpTXON+
-	 ryYO1WDNt9WPPv1s79DjO/dxLHsPrsCC0HODfRum7vsvLEiNB9xKGXWtTJsffA9PyA+uZ
-	 tJ/bmM2R9fkb7Mr0wTnVmye6/VI0XCAkT38cvspKZKEuUgGXQAeIem9lID7dEfFaWv4xa
-	 urTqpO9Yd+VEfvy6XxlrpvCsDd1mGXSdc+lrbflSqfo6GpLnGuKcbC6VnkLNgPuJ/Bfow
-	 OIxH4XQ+obQQOrvC2RsgwuZqGVdTjpwdAM4Rut5gWvkyEMmoycsT/vegVJ87XpXmUGA==
+	t=1793838713;
+	b=rdTLW9P0u0oD6nPCaQeL4JFgONUG1s63e5R5LJcrT3FGjYBbm3u4MmUb7cONDSGGxHAu
+	 zvTthlEouaMTG8emMBcOawuIS50aSrX12dXOrENuCU3axXnBblILNkCXvofQg9D9UvD1l
+	 r3fJc3gYFZYUFf7ApJ1xUlkfW9SS2iLyD30X7z7SfFOLL1OrYwdiSiZNnWF29SPlaUDTu
+	 btaRcBk69oSHu2OswOkXGFFRXsjN9K/d3xu3N8wlv7ahmAxSxusCX7uXKm8d7OFZu+EaH
+	 db3UmdkfAZK05bjIR2VHGC4InSHdzFpeKxGF2rnl7WnUDcuCXXLqRscdpFOmgVsnjNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838702;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838713;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lAmBesaOP9WbY92VQ9mycf1mX+fARPiDETnXQKonJVU=;
-	b=ws3jmSG+FpTkRrkC5TGXqjwtJQ56ctUxeW9eealyuY8qeMhTryARKIbyT+FqQOgcza/O
-	 H6wlMdHuxBU9q0xoGmZH+QiQDMv5mpdO80fgRS9rMwURtxwRJS2A1cN8NpL5DOASqKAeI
-	 t9uW4x4bwQnJyLRUZEit0c/2nqGrAKMFlsXZItGwyYGbAygFS7L0EfGqIHlDu5xwJz4A8
-	 N8UJdQrL8uUJTPbJKdXdcU8EudI45NO5IwSXrvIKGuackdoW9GV6B8xR/tptwKYik2Zux
-	 6aYdFleSAuvsoSZzr5fJtZdH+dTp5b1wo/R/gZpxzF7UDSStVFLCkiGhZF41pKxzOig==
+	bh=xoz3voyt+WqTQ3cDULXr0zXhqbpHN0+5VdPzNta2SwY=;
+	b=vX1ViFWSvJxPeunkVmMLGCv4hJgYaNPvs01ZSIsy4poaNj/mFu74wWhvSIJDWQ+IcDi1
+	 PkUBx7hibqv0FBb4FOkbsCAh+NRry4dK43MBql9Kc+B3VG9LPM2PO/IjYVZ8r89SXSif9
+	 AzjNJ3sHP2pQmTF0hODXa//C2rsUnadpE6y/jnkypvMWyvlc41fLkz59mjb0C0aVN5QXY
+	 qjXhe8WTnktlMF9T+aGHfPJ1REs2rw4FYZ+Jf5g+GZXpGLSvoBtG+n5b3sbTkRg8JAlX5
+	 JBA8T5E4EnI4Oyk5CCnc+uhP5Fg4MJJB35R7Ny0ylJmoRVuNzLz8DSPVgeNDurPIMlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mainlining.org;
 	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=H9jVLqyb;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="/4zWFp47";
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=oKLRNbaj;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=IpV5YplR;
 	arc=none smtp.remote-ip=5.75.144.95
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2520C606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:31:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2520C606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E31606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:31:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E31606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=H9jVLqyb;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=/4zWFp47
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=oKLRNbaj;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=IpV5YplR
 DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1793838697; bh=lAmBesaOP9WbY92VQ9mycf1
-	mX+fARPiDETnXQKonJVU=; b=H9jVLqybn0vtAdiv+Rme08HoPWX9WZGnzYifHnYrzOdUMXTwF5
-	/xbgrVlH3fG+0A1y5By80uFLVaHO2sjKjtdDqAw2PXMQcij3arrY0tudg37UWZfmZF+da1lprYo
-	kFiA3RGvqP7tS8AUqKyBkUNgItDFtkEBXhsNMkgJNdO2vEd5NUE5YGLpV2sATMr81y1/NHMDvMn
-	NpRCRp3wQ8bSSvLXdjZ0iHFcwnXCMO3JRCbeh5zRDmEqT8vyOiTUcW+olD5gYiILSYFuH9fsvUh
-	+ROINK5OMZUtQ7UvPCt61BEhm1xg65mboPR4LyCogcMZV3AGFzjv/u++cyPETdDOMnw==;
+	h=Message-ID:Date:Subject:To:From; t=1793838695; bh=xoz3voyt+WqTQ3cDULXr0zX
+	hqbpHN0+5VdPzNta2SwY=; b=oKLRNbajrvRacpvJwW7cZe+9aq43Idbj1MbZg/XT0vR1xa9YZv
+	Bi9bz3s0hZsbQZ8gkovmP2TtZdGiNXggnfZ1SQSQbmbrzasgXm6Bme2mmpndD8bxiJdnVDL/WMN
+	Gvip7myhZYedjKcNyLUWdkNAkISCduG/vmlfJ7dsiV37NpCBXaBe3bGABoh3uT5IQtfHVeyK0J0
+	1T58KFKoerQkqNcQ3UZOpTzCl3oQwPd2mDgSvxwJWI9eIJpNzumN10EFIFMs+gobjS+N3WhFp/5
+	b2l5sUD6bvP4CUjK+2pCy5jYRqTRAXGJMWGh1d9b7j5pNA/Ojv+pW1pQPTolhuUfVQQ==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1793838697; bh=lAmBesaOP9WbY92VQ9mycf1
-	mX+fARPiDETnXQKonJVU=; b=/4zWFp47eSy1X+Fxo6L85qyYdGYQ144tcdPHhlOaOEGPaCM1xk
-	D7ix338zpK/Ct/NaZh0YljbmoqH2kTf7GIAQ==;
+	h=Message-ID:Date:Subject:To:From; t=1793838695; bh=xoz3voyt+WqTQ3cDULXr0zX
+	hqbpHN0+5VdPzNta2SwY=; b=IpV5YplRCpTZK4keygQPKYZ4yjZ3JtP6h7rOlwfqwRDHI9cUU2
+	DekE/25FlQXSH1fJPthZtesSlil9VSWy2mCw==;
 From: Bradley Morgan <brads@mainlining.org>
-To: Andrew Morton <akpm@linux-foundation.org>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>
 Cc: Bradley Morgan <brads@mainlining.org>,
-	Arnd Bergmann <arnd@arndb.de>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] compat: make compat_sysinfo() scale far enough to actually fit
-Date: Thu,  5 Nov 2026 00:31:29 +0000
-Message-ID: <20261105003129.3130709-4-brads@mainlining.org>
+Subject: [PATCH 2/3] futex: reject the unused PR_FUTEX_HASH arguments
+Date: Thu,  5 Nov 2026 00:31:28 +0000
+Message-ID: <20261105003129.3130709-3-brads@mainlining.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105003129.3130709-1-brads@mainlining.org>
 References: <20261105003129.3130709-1-brads@mainlining.org>
@@ -68,80 +72,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-compat_sysinfo() checks whether totalram or totalswap is too big for the
-compat struct and scales the values down to fit, but the loop stops as
-soon as s.mem_unit reaches PAGE_SIZE.  That caps the compression at one
-page, 12 bits with 4K pages.  On a 64 bit kernel do_sysinfo() always
-hands it values in bytes with mem_unit == 1, its own overflow math runs
-on unsigned long so it does not bail until 16 EiB, so the loop runs its
-12 turns, the values come back out as a page count, and anything past
-2^32 pages still does not fit.  Storing that into the u32 field then
-just drops the top bits.
+PR_SET_MM, PR_SET_MDWE and the shadow stack cases all check that the
+args they do not use are zero before doing anything.  PR_FUTEX_HASH is
+the one that does not.  arg5 never even reaches futex_hash_prctl(), and
+the GET_SLOTS branch never looks at arg3 or arg4, so
+prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS, 1, 2, 3) hands back the
+slot count.
 
-So a 32 bit process on a box past 2^32 pages gets a wrapped number
-instead of a coarse one, with 4K pages that starts at 16 TiB:
+Once an arg is ignored it is burned, whatever userspace sends there
+today becomes part of the ABI and we can never use it for anything
+without breaking whoever already passes garbage.  Take arg5 too and
+reject the unused args per sub command, same as the neighbours do.
 
-  ram      old                  new
-  8 TiB    2147483648 x 4096    unchanged
-  16 TiB   0 x 4096             2147483648 x 8192
-  17 TiB   268435456 x 4096     2281701376 x 8192
-  32 TiB   0 x 4096             2147483648 x 16384
+prctl() is variadic, so the two callers under tools/ leave those args as
+whatever the register holds, they only work today because nothing was
+checked.  The preceding patch in this series writes the zeros out first,
+so this does not break them.
 
-The 17 TiB row is the nasty one, a 32 bit process is told the box has
-1 TiB of ram.  Keep scaling until the values fit instead of until the
-unit reaches a page, the unit then says how coarse the number is, which
-is what mem_unit is for.
-
-Nothing that works today changes.  I ran both loops side by side over
-ram from 1 MiB to 2^56 with 4K and 64K pages, they disagree on exactly
-the inputs where the old one dropped bits and agree on every one it got
-right.
-
+Fixes: 80367ad01d93 ("futex: Add basic infrastructure for local task local hash")
 Signed-off-by: Bradley Morgan <brads@mainlining.org>
 ---
- kernel/sys.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ include/linux/futex.h | 6 ++++--
+ kernel/futex/core.c   | 7 +++++--
+ kernel/sys.c          | 2 +-
+ 3 files changed, 10 insertions(+), 5 deletions(-)
 
+diff --git a/include/linux/futex.h b/include/linux/futex.h
+index a895d8c69d663..70adc9fce6e63 100644
+--- a/include/linux/futex.h
++++ b/include/linux/futex.h
+@@ -80,7 +80,8 @@ void futex_exec_done(struct task_struct *tsk);
+ 
+ long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout,
+ 	      u32 __user *uaddr2, u32 val2, u32 val3);
+-int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4);
++int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4,
++		     unsigned long arg5);
+ 
+ #ifdef CONFIG_FUTEX_PRIVATE_HASH
+ int futex_hash_allocate_default(void);
+@@ -100,7 +101,8 @@ static inline long do_futex(u32 __user *uaddr, int op, u32 val, ktime_t *timeout
+ {
+ 	return -EINVAL;
+ }
+-static inline int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
++static inline int futex_hash_prctl(unsigned long arg2, unsigned long arg3,
++				   unsigned long arg4, unsigned long arg5)
+ {
+ 	return -EINVAL;
+ }
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index a240638f69e5c..eabf8abc2624b 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -2068,19 +2068,22 @@ void futex_mm_init(struct mm_struct *mm)
+ 	futex_robust_unlock_init_mm(&mm->futex);
+ }
+ 
+-int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4)
++int futex_hash_prctl(unsigned long arg2, unsigned long arg3, unsigned long arg4,
++		     unsigned long arg5)
+ {
+ 	unsigned int flags = FH_CUSTOM;
+ 	int ret;
+ 
+ 	switch (arg2) {
+ 	case PR_FUTEX_HASH_SET_SLOTS:
+-		if (arg4)
++		if (arg4 || arg5)
+ 			return -EINVAL;
+ 		ret = futex_hash_allocate(arg3, flags);
+ 		break;
+ 
+ 	case PR_FUTEX_HASH_GET_SLOTS:
++		if (arg3 || arg4 || arg5)
++			return -EINVAL;
+ 		ret = futex_hash_get_slots();
+ 		break;
+ 
 diff --git a/kernel/sys.c b/kernel/sys.c
-index c4839c986f5e0..8f683b6bb87b8 100644
+index 755bfa5ccd92c..c4839c986f5e0 100644
 --- a/kernel/sys.c
 +++ b/kernel/sys.c
-@@ -3035,24 +3035,22 @@ COMPAT_SYSCALL_DEFINE1(sysinfo, struct compat_sysinfo __user *, info)
- 	do_sysinfo(&s);
- 
- 	/* Check to see if any memory value is too large for 32-bit and scale
--	 *  down if needed
-+	 * down if needed.  Keep going until the values fit, not just until the
-+	 * unit reaches a page.  The values halve each turn, so this ends.
- 	 */
- 	if (upper_32_bits(s.totalram) || upper_32_bits(s.totalswap)) {
--		int bitcount = 0;
--
--		while (s.mem_unit < PAGE_SIZE) {
-+		while (s.mem_unit < PAGE_SIZE || upper_32_bits(s.totalram) ||
-+		       upper_32_bits(s.totalswap)) {
- 			s.mem_unit <<= 1;
--			bitcount++;
-+			s.totalram >>= 1;
-+			s.freeram >>= 1;
-+			s.sharedram >>= 1;
-+			s.bufferram >>= 1;
-+			s.totalswap >>= 1;
-+			s.freeswap >>= 1;
-+			s.totalhigh >>= 1;
-+			s.freehigh >>= 1;
- 		}
--
--		s.totalram >>= bitcount;
--		s.freeram >>= bitcount;
--		s.sharedram >>= bitcount;
--		s.bufferram >>= bitcount;
--		s.totalswap >>= bitcount;
--		s.freeswap >>= bitcount;
--		s.totalhigh >>= bitcount;
--		s.freehigh >>= bitcount;
- 	}
- 
- 	memset(&s_32, 0, sizeof(s_32));
+@@ -2885,7 +2885,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+ 		error = posixtimer_create_prctl(arg2);
+ 		break;
+ 	case PR_FUTEX_HASH:
+-		error = futex_hash_prctl(arg2, arg3, arg4);
++		error = futex_hash_prctl(arg2, arg3, arg4, arg5);
+ 		break;
+ 	case PR_RSEQ_SLICE_EXTENSION:
+ 		if (arg4 || arg5)
 -- 
 2.53.0
