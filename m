@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904071;
-	b=ONCdblAeLs0M12qEzKFTHUKN58yxZ7PEpdR8F7Zp2mQoX4bd+GtuNH/vTP9rvKQ1oqpH
-	 EbqRY8NOwL0XAogU38gKuqNb8fGNsH/RD6lEDpYRApeINdUzM7+EH4BvIBA8t3/IDQSY1
-	 3gH3FE49lQY5nFghOlo4WNiiT2I0SctbEIlSXrZA9QdWIV1LEQu5Dgso8HEHRgrJ2O4wR
-	 1GEDWQyyyREBWIHy2Qm1R8Nb6W/rRbqCr9oDpHGuHHwsWnvS+3VFNRWVA6fjAScKQro1H
-	 rwJNcHJIq0IgIq+yQimozeEJyzh7WK1KBy2PhapARL1t7b+40M3/wMO08ZW7XvpmHow==
+	t=1793904074;
+	b=3OJ0A7DS+MG1ntR86FPkBtJEojTC/Mp/KCI6Sm/Es4uYEL+C669h6wI0hPJUfMPa0s+C
+	 /f0DtnnWkDwdtmzHe5cuPQnB51SKSDwjcj8X8NZEeZfhz1rQJpv/i81v1jFcObp3brbr0
+	 fFNc658TfhjI6/OAs/epw3DkGpCI8+hcgB0/ACx+aXT6cQyP7SZi9ydTpDwYyVKATi7i9
+	 HyPPFc/tswXKNUkAoI9StKH+HoHZIe6IF8XXk41nfZh/P7I2Go/tIMJDEv/TXV1Wu+zND
+	 zZCz/sn0NTUJMXObueNkOVkypC477pWZ6yRb9ZtLtO+91283DlkwcDqJY312OmkKrBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904074;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=t7Jct9y+6ArpUxCaGk0vmeQH2/k8NYaEq0BCM+Ywj4U=;
-	b=ljnWp0nv3eNxygAohFh/Bt2XEwewNRWybrK+P2cDFJURyVzLEl/k3nt46+t8it0YNcVB
-	 aWYxkV0XwBL3M5NhkOkSTI3K9RjicFqU+Aw9eT+9aQXKBBiZ6lW8IH0Ve8rHu8GKfEP2V
-	 XSbhMqGqDCHZ8Xku2J+vCK+5RDEn3YUJ5qrK+tpy5O6T3Y59NVFOLFf7g4eH5MNAQxpWG
-	 K3xzWTgBzUdgf7m0iVKuhTFoeU0ikMCHpWadLJrMm1NfCmnldVS3Kas/97ma7MqGEN99Y
-	 tfWQmPu5vh1+fTgNu/S04XWryGCmVobiA+iCrXq+V7h8yxOCsXFHq89DnvODrYy6fKA==
+	bh=99OaPNUALtrEo1DyIHDA5LAxQ/Si4UJO2itR3fKmwI0=;
+	b=HPBKr+xhU5Mv5si/H1AQalHe+3Vi4uufs6ou9+6ADQuzrsms/oXAED2k2goynMAg+Pe3
+	 VRjJU4+XZF8Gn712ycFDzO7yhRah8Ifrfp9egQ5YOccNaoHypBkJHXc+94wqJAuE1h2OD
+	 v1oE0WLkld4A1HoI5Ldm3dfVxG2zL2FCLs+nrKPMHN2S8k+VJrv+cUxbr5QAfh94Hx3vC
+	 tM0ejrtjBJQYTfdHK9ymKntQwzV5to96nn5cVFWJxaLHUkBmTZ1n5HGBKRK7OkJ070kQa
+	 +4W1DcXy+pemf3c3YW9TejK9zvM6vaRNaS71bdVkhYNANWZXIdekk3vwY7aNHVW2u+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nvU86g8p;
-	arc=none smtp.remote-ip=95.215.58.152
-Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JeFYc1RQ;
+	arc=none smtp.remote-ip=95.215.58.165
+Received: from mta1.migadu.com (out-165.mta1.migadu.com [95.215.58.165])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16428606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:41:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16428606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B20606A33C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8B20606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nvU86g8p
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JeFYc1RQ
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lWRNmKDZPAcDKyorsbfNDAYvamSfN3OR0hdfegr8JeU=;
+DKIM-Signature: a=rsa-sha256; bh=A3/111gOQUX96DxN2YJbLmOUYLhJf9za3+Chp1HLx+s=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904069; v=1; x=1794508869;
- b=nvU86g8pfSGr+7tVrn5cIij0TtrUvRENOpR5PlV7fpUMigWYGIIhRYfbj50aMJCaKO/DUp7x
- sVrnYToam4oFB2veuoJ26xPHZGltti1O0JHCngCbFkaa96pXcwjyaLipXP4MM/jq1CGaKpikqVr
- Fs2z6qNA5Mh6yW/sqmM2yJm4=
+ t=1793904071; v=1; x=1794508871;
+ b=JeFYc1RQnXyaNCJi/kyAaBHUekbi6bmrdzsnqK7rYDG+rMLVn4DiMXZ8DtDVzr/+Hk9EMxg1
+ iLWSonkmVL34zf6pBK5xgn6z5nRo2DEsIT8nvAmfu8oDG0IqVhNPQjVe5lnTxBeiXbDhUgfXFus
+ VKqHQK/lkslH7VOm0K10IA4A=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id c067aed4d3f4d4a2;
-	Thu, 05 Nov 2026 18:41:08 +0000
-X-Mizu-Trace-ID: c067aed4d3f4d4a2
+Received: by mta12.migadu.com with ESMTPS id 587db54ab7101a72;
+	Thu, 05 Nov 2026 18:41:11 +0000
+X-Mizu-Trace-ID: 587db54ab7101a72
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -81,9 +81,9 @@ Cc: chenhuacai@kernel.org,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v9 12/32] mm: split PMD swap entries into PTE swap entries
-Date: Thu,  5 Nov 2026 10:38:56 -0800
-Message-ID: <20261105183940.2236717-13-usama.arif@linux.dev>
+Subject: [PATCH v9 13/32] mm/swap: allow duplicating a range of swap entries
+Date: Thu,  5 Nov 2026 10:38:57 -0800
+Message-ID: <20261105183940.2236717-14-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
 References: <20261105183940.2236717-1-usama.arif@linux.dev>
@@ -98,79 +98,251 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
-or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
-handler - has to be able to split that entry too. A swap PMD already passes
-the pmd_is_valid_softleaf() gate, so without this it reaches
-__split_huge_pmd_locked() and falls through to the present-PMD path, which
-pmdp_invalidate()s it and calls pmd_page() on a non-present entry.
+swap_dup_entry_direct() duplicates one slot at a time. The PMD swap entry
+fork path needs HPAGE_PMD_NR of them, and doing that one slot at a time
+would take and drop the cluster lock HPAGE_PMD_NR times.
 
-No reference counting is needed: a swap entry pins no folio, and swap_map
-is already one per slot, so the PTEs simply take over what the PMD held.
+Give it an @nr argument and rename it swap_dup_entries_direct(), and do the
+same for swap_retry_table_alloc(), whose GFP_KERNEL retry has to cover the
+same range - the caller does not know which slot in it overflowed. Keep the
+old single-slot names as inline wrappers so existing callers are untouched.
 
-The migration-only entry point cannot reach the new branch:
-page_vma_mapped_walk() never hands back a swap PMD, and
-__split_huge_pmd_locked() already asserts that to_migration_entries
-implies a present or device-private PMD.
+Unlike the put side, @nr is handed straight to the per-cluster helper, so
+the range has to sit inside one cluster. That holds for the only caller
+passing nr > 1: a PMD swap entry only exists under CONFIG_THP_SWAP, where
+SWAPFILE_CLUSTER == HPAGE_PMD_NR, and a PMD-order folio's slots are only
+ever allocated at a cluster head (see alloc_swap_scan_cluster()), so the
+range is exactly one cluster. Reject a crossing range with -EINVAL so a
+future caller cannot walk off the end of the swap table.
 
-Test the pre-split old_pmd rather than re-reading *pmd in the trailing
-folio_remove_rmap_pmd() gate, so every entry-type test in the function
-interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
-leaves the PMD present as far as software is concerned.
+No functional change intended.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
 ---
- mm/huge_memory.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ include/linux/swap.h | 12 +++++++++-
+ mm/swap.h            | 13 +++++++++-
+ mm/swapfile.c        | 56 +++++++++++++++++++++++++++++++++-----------
+ 3 files changed, 65 insertions(+), 16 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 82a4fa9342672..696813776e45d 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3292,6 +3292,11 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
- 						 vma, haddr, rmap_flags);
- 		}
-+	} else if (pmd_is_swap_entry(*pmd)) {
-+		old_pmd = *pmd;
-+		soft_dirty = pmd_swp_soft_dirty(old_pmd);
-+		uffd_wp = pmd_swp_uffd(old_pmd);
-+		anon_exclusive = pmd_swp_exclusive(old_pmd);
- 	} else {
- 		/*
- 		 * Up to this point the pmd is present and huge and userland has
-@@ -3429,6 +3434,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
- 			set_pte_at(mm, addr, pte + i, entry);
- 		}
-+	} else if (pmd_is_swap_entry(old_pmd)) {
-+		pte_t entry = softleaf_to_pte(softleaf_from_pmd(old_pmd));
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 4f686709d71f0..861193d5ea109 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -417,9 +417,14 @@ sector_t swap_folio_sector(struct folio *folio);
+  * All entries must be allocated by folio_alloc_swap(). And they must have
+  * a swap count > 1. See comments of folio_*_swap helpers for more info.
+  */
+-int swap_dup_entry_direct(swp_entry_t entry);
++int swap_dup_entries_direct(swp_entry_t entry, int nr);
+ void swap_put_entries_direct(swp_entry_t entry, int nr);
+ 
++static inline int swap_dup_entry_direct(swp_entry_t entry)
++{
++	return swap_dup_entries_direct(entry, 1);
++}
 +
-+		if (soft_dirty)
-+			entry = pte_swp_mksoft_dirty(entry);
-+		if (uffd_wp)
-+			entry = pte_swp_mkuffd(entry);
-+		if (anon_exclusive)
-+			entry = pte_swp_mkexclusive(entry);
+ /*
+  * folio_free_swap tries to free the swap entries pinned by a swap cache
+  * folio, it has to be here to be called by other components.
+@@ -464,6 +469,11 @@ static inline void free_swap_cache(struct folio *folio)
+ {
+ }
+ 
++static inline int swap_dup_entries_direct(swp_entry_t ent, int nr)
++{
++	return 0;
++}
 +
-+		for (i = 0, addr = haddr; i < HPAGE_PMD_NR; i++, addr += PAGE_SIZE) {
-+			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
-+			set_pte_at(mm, addr, pte + i, entry);
-+			entry = pte_next_swp_offset(entry);
+ static inline int swap_dup_entry_direct(swp_entry_t ent)
+ {
+ 	return 0;
+diff --git a/mm/swap.h b/mm/swap.h
+index b8181bd056ee2..f028bd10c2cea 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -223,7 +223,12 @@ static inline void swap_cluster_unlock_irq(struct swap_cluster_info *ci)
+ 	spin_unlock_irq(&ci->lock);
+ }
+ 
+-extern int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp);
++int swap_retry_table_alloc_nr(swp_entry_t entry, unsigned int nr, gfp_t gfp);
++
++static inline int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp)
++{
++	return swap_retry_table_alloc_nr(entry, 1, gfp);
++}
+ 
+ /*
+  * Below are the core routines for doing swap for a folio.
+@@ -453,6 +458,12 @@ static inline int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
+ 	return 0;
+ }
+ 
++static inline int swap_retry_table_alloc_nr(swp_entry_t entry, unsigned int nr,
++					    gfp_t gfp)
++{
++	return -EINVAL;
++}
++
+ static inline int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp)
+ {
+ 	return -EINVAL;
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 8dd2ba8254137..6b5149b88fa43 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -1473,11 +1473,16 @@ static bool swap_sync_discard(void)
+ 
+ static int swap_extend_table_alloc(struct swap_info_struct *si,
+ 				   struct swap_cluster_info *ci,
+-				   unsigned int ci_off, gfp_t gfp)
++				   unsigned int ci_off, unsigned int nr,
++				   gfp_t gfp)
+ {
+ 	int count;
++	unsigned int i;
+ 	void *table;
+ 
++	/* The range must not run past the end of @ci's swap table. */
++	VM_WARN_ON_ONCE(ci_off + nr > SWAPFILE_CLUSTER);
++
+ 	table = kzalloc(sizeof(ci->extend_table[0]) * SWAPFILE_CLUSTER, gfp);
+ 	if (!table)
+ 		return -ENOMEM;
+@@ -1491,15 +1496,21 @@ static int swap_extend_table_alloc(struct swap_info_struct *si,
+ 	 */
+ 	if (!cluster_table_is_alloced(ci))
+ 		goto out_free;
+-	count = swp_tb_get_count(__swap_table_get(ci, ci_off));
+-	if (count < (SWP_TB_COUNT_MAX - 1))
+-		goto out_free;
+ 	if (ci->extend_table)
+ 		goto out_free;
+-
+-	ci->extend_table = table;
+-	spin_unlock(&ci->lock);
+-	return 0;
++	/*
++	 * The caller may not know which slot in [ci_off, ci_off + nr) hit
++	 * SWP_TB_COUNT_MAX - 1. Confirm at least one slot in the range still
++	 * needs the extend table before committing the allocation.
++	 */
++	for (i = 0; i < nr; i++) {
++		count = swp_tb_get_count(__swap_table_get(ci, ci_off + i));
++		if (count >= (SWP_TB_COUNT_MAX - 1)) {
++			ci->extend_table = table;
++			spin_unlock(&ci->lock);
++			return 0;
 +		}
- 	} else {
- 		pte_t entry;
++	}
  
-@@ -3456,7 +3476,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ out_free:
+ 	spin_unlock(&ci->lock);
+@@ -1507,19 +1518,23 @@ static int swap_extend_table_alloc(struct swap_info_struct *si,
+ 	return 0;
+ }
+ 
+-int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp)
++int swap_retry_table_alloc_nr(swp_entry_t entry, unsigned int nr, gfp_t gfp)
+ {
+ 	int ret;
+ 	struct swap_info_struct *si;
+ 	struct swap_cluster_info *ci;
+ 	unsigned long offset = swp_offset(entry);
+ 
++	if (WARN_ON_ONCE(swp_cluster_offset(entry) + nr > SWAPFILE_CLUSTER))
++		return -EINVAL;
++
+ 	si = get_swap_device(entry);
+ 	if (IS_ERR_OR_NULL(si))
+ 		return 0;
+ 
+ 	ci = __swap_offset_to_cluster(si, offset);
+-	ret = swap_extend_table_alloc(si, ci, swp_cluster_offset(entry), gfp);
++	ret = swap_extend_table_alloc(si, ci, swp_cluster_offset(entry), nr,
++				      gfp);
+ 
+ 	put_swap_device(si);
+ 	return ret;
+@@ -1695,6 +1710,9 @@ static int __swap_cluster_dup_entry(struct swap_cluster_info *ci,
+  * @offset: start offset of slots.
+  * @nr: number of slots.
+  *
++ * The range [offset, offset + nr) must not cross a cluster boundary; the
++ * caller is responsible for splitting a range that can.
++ *
+  * Context: The specified slots must be pinned by existing swap count or swap
+  * cache reference, so they won't be released until this helper returns.
+  * Return: 0 on success. -ENOMEM if the swap count maxed out (SWP_TB_COUNT_MAX)
+@@ -1709,6 +1727,7 @@ static int swap_dup_entries_cluster(struct swap_info_struct *si,
+ 
+ 	ci_start = offset % SWAPFILE_CLUSTER;
+ 	ci_end = ci_start + nr;
++	VM_WARN_ON_ONCE(ci_end > SWAPFILE_CLUSTER);
+ 	ci_off = ci_start;
+ 	ci = swap_cluster_lock(si, offset);
+ restart:
+@@ -1717,7 +1736,8 @@ static int swap_dup_entries_cluster(struct swap_info_struct *si,
+ 		if (unlikely(err)) {
+ 			if (err == -ENOMEM) {
+ 				spin_unlock(&ci->lock);
+-				err = swap_extend_table_alloc(si, ci, ci_off, GFP_ATOMIC);
++				err = swap_extend_table_alloc(si, ci, ci_off, 1,
++							      GFP_ATOMIC);
+ 				spin_lock(&ci->lock);
+ 				if (!err)
+ 					goto restart;
+@@ -1728,6 +1748,7 @@ static int swap_dup_entries_cluster(struct swap_info_struct *si,
+ 	swap_cluster_unlock(ci);
+ 	return 0;
+ failed:
++	/* The caller's page-table or swap-cache reference pins every slot. */
+ 	while (ci_off-- > ci_start)
+ 		__swap_cluster_put_entry(ci, ci_off);
+ 	swap_cluster_unlock(ci);
+@@ -3964,8 +3985,9 @@ void si_swapinfo(struct sysinfo *val)
+ }
+ 
+ /*
+- * swap_dup_entry_direct() - Increase reference count of a swap entry by one.
++ * swap_dup_entries_direct() - Increase reference count of swap entries by one.
+  * @entry: first swap entry from which we want to increase the refcount.
++ * @nr: number of contiguous swap entries to duplicate.
+  *
+  * Returns 0 for success, or -ENOMEM if the extend table is required
+  * but could not be atomically allocated.  Returns -EINVAL if the swap
+@@ -3976,8 +3998,11 @@ void si_swapinfo(struct sysinfo *val)
+  * owner. e.g., locking the PTL of a PTE containing the entry being increased.
+  * Also the swap entry must have a count >= 1. Otherwise folio_dup_swap should
+  * be used.
++ *
++ * Unlike swap_put_entries_direct(), the whole range [entry, entry + nr) must
++ * lie within one swap cluster; a crossing range is rejected with -EINVAL.
+  */
+-int swap_dup_entry_direct(swp_entry_t entry)
++int swap_dup_entries_direct(swp_entry_t entry, int nr)
+ {
+ 	struct swap_info_struct *si;
+ 
+@@ -3987,6 +4012,9 @@ int swap_dup_entry_direct(swp_entry_t entry)
+ 		return -EINVAL;
  	}
- 	pte_unmap(pte);
  
--	if (!pmd_is_migration_entry(*pmd))
-+	if (!pmd_is_migration_entry(old_pmd) && !pmd_is_swap_entry(old_pmd))
- 		folio_remove_rmap_pmd(folio, page, vma);
- 	if (to_migration_entries)
- 		put_page(page);
++	if (WARN_ON_ONCE(swp_cluster_offset(entry) + nr > SWAPFILE_CLUSTER))
++		return -EINVAL;
++
+ 	/*
+ 	 * The caller must be increasing the swap count from a direct
+ 	 * reference of the swap slot (e.g. a swap entry in page table).
+@@ -3994,7 +4022,7 @@ int swap_dup_entry_direct(swp_entry_t entry)
+ 	 */
+ 	VM_WARN_ON_ONCE(!swap_entry_swapped(si, entry));
+ 
+-	return swap_dup_entries_cluster(si, swp_offset(entry), 1);
++	return swap_dup_entries_cluster(si, swp_offset(entry), nr);
+ }
+ 
+ #if defined(CONFIG_MEMCG) && defined(CONFIG_BLK_CGROUP)
 -- 
 2.53.0-Meta
 
