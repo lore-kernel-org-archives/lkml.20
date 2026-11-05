@@ -1,90 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880771;
-	b=BTVNPYuhgydoWobr6+xhjmf1S4YeTy0iebMMDHn6EYYl7aiu2QmZRrMg9ycqGL8uD/k9
-	 DJ6PpjF1RZ2sfbk5YnTTr+PA7PrjT0GLDBjKrx4x04ETgvHOSA6EfzxZt1aAaKI1N5jIN
-	 qEFAvvSmDR2XCyZiwojG7DMLstWH1UCKLCF8sXNzdshJKfmMl2wcwbXis+m6H+k9nk33j
-	 P6bFQHSUKNpPTHQa8agkQnrujlgpTHfEjDebZHUF+6/9jqui5pJbkJ+EmZ05igc2Jtb1Y
-	 ArdJk2oOo4N2qQnt/Qaey6vmrEXJ7OUNjUZhTyoyHjsPs8ncI0qQEyI03SzK9q7yJzQ==
+	t=1793880815;
+	b=pdL1V7oNr5F1Fd9vNFTOS7/jyeRSEDJfezXion/VZQSV/i4p13YO4KMd63sugtLmT6CU
+	 l/qjRu5FPYmRa/RvxZMSSv1o/Jz2nJEMlCPUShJKXJMo2Y4y9vyQ10l607pQJwowJt39C
+	 AwuvKxf35tc+JA5py8nO5PzwaGGka8GvLO5I+J4g9Iunas4nUohp6qeIjXFEUSyVlZZ2x
+	 eZgH3qZqXQ2z6zt/SoA02z+SEl7Di0SnGcS1m8X6Ep0/IAuwftc1Yj+r+TvbzsshLcpmn
+	 02HxHJrVoNCV2L1ZNPkOzTV0a8p2GWEYWI0qyDxw6o+o+NBarIh4Y3kg3JekXLU6Myg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880771;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=JwBvuE3bjt73zFG5tuWHoqrRtys0xckmF/DPCouW6rk=;
-	b=Wv45nLCXYyxY2eXQ4ynRMQ2Sj3W1Yey6jTDAoHv2QDPvpAolXYQJzZtwVKSSSjFsi3ZE
-	 YKoTdhsNjQclZXXX1gqvJWF73GfHR8bXZIh0PogNpt00bBpsuC43CobxOLLEVIzlRp3rY
-	 hDqSEyixO80LUKJIIaYfRFiucVI75VrXiCvWHaAuf2rU+81tvs5Fg+HS3h21BMAyjJsAU
-	 9qQDCyt+vxYEjR/c55reA139uyFsn2CiFVobQ7fncQ0jdmdmHkBCYsvn5lRdUgQKSHeNC
-	 cco9h0LPWryKbb9xQEY6mQ40LXpK+LUXoK6t1RyT/xfCbFyOzbKL5LHZEQcby7Sdb9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880815;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=pksQ9ydEkR7hKW9OrSgdMPBgmVI8kSXRvLVcfHzAEyM=;
+	b=v3DMorVsv+pWxRfUdFWKaEh/01wPLsuN/UJlPpXrx+sEcUEwpyzhascxef075UmAPIe5
+	 Gdi18Z9xKYAuRi66EVIA3v2yapBGkK1DaNaDa9sFxARe8NQdO01zsn92uNyLMFesjasYl
+	 9NXmRWXMImBw0iazT5RV7zhPHzkZJ/owQKqYPv6AKGy06s+NLFSc4GPPE4Htbjrw5GNlv
+	 kgftVEup7ryRhpypiLinO0JBjAuOdMp8KAX4L8kcAxo8PWKKEp3C9H9bcrkR6SXD2URAe
+	 HFsxzDkZgm1iRmINPCmCp93PfBslTmXMTxNARFI3GylqYrjCT8mmdROGWh4AElCW+bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PFmaoBLU;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=da95RKeT;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8AC606D83B;
-	Thu,  5 Nov 2026 12:12:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D8AC606D83B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE56606A328;
+	Thu,  5 Nov 2026 12:13:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE56606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PFmaoBLU
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AEFFo1609216;
-	Thu, 5 Nov 2026 12:12:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=JwBvuE3bjt73zFG5t
-	uWHoqrRtys0xckmF/DPCouW6rk=; b=PFmaoBLU3iIC2soaiHwssw93BL7a/tukU
-	OhWQPYKgQjykxAle2x7Re17nLeKSFOrLZ6hOMwmzM6xyLoBSMfnuUo9ktfVVp1E5
-	kn9gTpvPxNRkQX3asBi+6sbxFdj3xYoOTuuix7a+m6QfCRyL0nXGwsr7h2zwYAOm
-	mUYDRIDHTvji94D4cnzufYAA2E0R9lrxGYYbLLA7DRzjCT5dfy/lDWss0m0GjVZt
-	7VQcwVtLWFpWZDwKb6AHUoMIbh495bWCo2mBoFJoZXiX37YZZG11bf6obl/vqkbn
-	3BHJWMXdE0rNUtVtR0jsWtCemTTa9WrKH+sSS7DwzSL+SGOZncQHg==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80t21st-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 12:12:42 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5A4x6b271729;
-	Thu, 5 Nov 2026 12:12:41 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqsf5gb5j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 12:12:41 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5CCdKF31785634
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 12:12:39 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CB8372004B;
-	Thu,  5 Nov 2026 12:12:39 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E579620040;
-	Thu,  5 Nov 2026 12:12:37 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com.com (unknown [9.61.54.214])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  5 Nov 2026 12:12:37 +0000 (GMT)
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: linux-integrity@vger.kernel.org
-Cc: Mimi Zohar <zohar@linux.ibm.com>, Jarkko Sakkinen <jarkko@kernel.org>,
-        David Howells <dhowells@redhat.com>,
-        Roberto Sassu <roberto.sassu@huawei.com>, keyrings@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 3/3] ima: remove the experimental IMA blacklist keyring
-Date: Thu,  5 Nov 2026 07:12:27 -0500
-Message-ID: <20261105121227.4089147-4-zohar@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105121227.4089147-1-zohar@linux.ibm.com>
-References: <20261105121227.4089147-1-zohar@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=da95RKeT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793880812; x=1825416812;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=t3q41Lk1t46q2jZPidQXOdV2YqSwsGH1AhoLFZlB4CA=;
+  b=da95RKeTEpMvZMEVHskSLyglwhMS0JUCTpmtctfnJIsiQxxrihlotWAK
+   HzRGLvnDVb8MqxFUx6jYEcjZ6V99iPSA9Cv8p7zLL0LbhkVG7wrvbw3SS
+   N3CVJFjr1z6thTylqem5g/QkfwcT0TJoo4JOCd4qQ0txcDTAozNX8H+eT
+   Qup94QSINuYMLxnrh1BPB1vJTW87KIHyPYsjcwDO7hub1+jYRRC78q1IJ
+   gCR/6t4OP1u6oZzDlfqU62lCYFekmW56f/5uS1nqTe2vvgYg6vVINdtbo
+   jUE5rS2L+LljWq355pGzYZoDU4C5rCBhR7U9AVyXixWcC1gPopUgg5u1W
+   g==;
+X-CSE-ConnectionGUID: T5zGxJ8bRdOLHv5T6akIBg==
+X-CSE-MsgGUID: oKOAcvuRQyC7utg0dC8H2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2682943"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2682943"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:13:31 -0800
+X-CSE-ConnectionGUID: YgrG8tPaS2aKgHC7GT0JFg==
+X-CSE-MsgGUID: yu5E/HkqTs+AO3j/zKQz/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7302217"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:13:28 -0800
+Date: Thu, 5 Nov 2026 14:13:25 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, khtsai@google.com,
+	fangxy@xiaopeng.com, Randy Dunlap <rdunlap@infradead.org>,
+	dbrownell@users.sourceforge.net, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] usb: gadget: u_ether: fix out-of-bounds read in
+ get_ether_addr
+Message-ID: <auxy5cmALpy0AMzu@ashevche-desk.local>
+References: <20261105072147.3383565-1-liuc63@xiaopeng.com>
+ <20261105072147.3383565-3-liuc63@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,177 +87,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: VFjBsWZZOKBzGrxNHX9exw6sZR36JfWh
-X-Proofpoint-ORIG-GUID: VFjBsWZZOKBzGrxNHX9exw6sZR36JfWh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0NiBTYWx0ZWRfXzqhyb1MmSsE1
- oEUu5U4B/f0aqtmimi+gh5jQEKMjCywV9y52l2LqKktoSYKl/uITbpReM1J+e4lOcrAdqmwVuKe
- Fw9oFOEfIZdoOJRb+BYNYQTjyynMlubGUDYNBM2AeRL/neLVVgmzIqRtTpZsfC8KO2ilMxHckIZ
- ZnPnqcLIiNW77ct4G0FTOubp2A3meyEttJye/SJWcq68Gak3SfnYeOZTpPWiEQlxQsqmZ6FtAkh
- cMPTQQj6tIR3plVdn2VxHcoNnHpaQw7T9mMUHJMqAm+w3z5ORRh3WPeFV3DDupx1F6MiD56/4VV
- POeyaEE54UZcF6uaOOQHOB9EKegrYrOxjmo5mq+mYbsEywzjhu42RAz7z6UvoYqfrQ2Rc65oQk0
- YYvlUX7Pt+jcD3bR6GnZ57f4lIFQlMvwm4aJiRQMyq4dRBOqrWpoWPgtVcrOFV1cDCw8F5fQZ7y
- 72YXomAtfUfi3tKo5QA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0NiBTYWx0ZWRfX5m1XxGfZQqZw
- Sp64UUtDrbxIl67w9Cr4WEiOrxfBHMA/+n2a3JGWXLd6vzGhqtPXTWU8yLspOp3AvCnK0yxlycQ
- xNcnlDCJFlHp3JosqayXIUg0zuQw7VE=
-X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aec72ba cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=k-42gJp3AAAA:8
- a=aDROAyrWbko_J3lkjIUA:9 a=uCSXFHLys93vLW5PjgO_:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 clxscore=1011 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050046
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105072147.3383565-3-liuc63@xiaopeng.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The experimental IMA blacklist keyring accepts any certificate signed by
-a key on the builtin trusted keyring.  Since every certificate issued by
-such a key qualifies, root can add any of them, including legitimate
-ones.  Nothing differentiates the authority to sign from the authority
-to revoke.
+On Thu, Nov 05, 2026 at 03:21:47PM +0800, Liu Chao wrote:
+> get_ether_addr() walks the MAC address string with a fixed six iteration
+> loop, calling hex_to_bin() twice per iteration, and never checks for the
+> terminating NUL.  A short string therefore makes it read past the end of
+> the buffer.  The dev_addr and host_addr module parameters of the legacy
+> gadget drivers are copied into their own kmalloc'ed buffer by
+> param_set_charp(), so the overrun crosses a slab boundary and KASAN
+> reports it at insmod time:
+> 
+>   # insmod g_ether.ko dev_addr=ab
+> 
+>   BUG: KASAN: slab-out-of-bounds in get_ether_addr+0x1ec/0x230
+>   Read of size 1 at addr ffff888009f91f53 by task insmod/70
+>   ...
+>    get_ether_addr+0x1ec/0x230
+>    gether_set_dev_addr+0x6b/0x180
+>    eth_bind+0xfd/0x3b0 [g_ether]
+>    composite_bind+0x1bb/0x7b0
+>    gadget_bind_driver+0x229/0xb00
+>   ...
+>   Allocated by task 70:
+>    __kmalloc_noprof+0x1d1/0x4a0
+>    param_set_charp+0x4a/0x220
+>    parse_args+0x267/0x5c0
+>    load_module+0x4f6a/0x6600
+>   ...
+>   The buggy address is located 0 bytes to the right of
+>    allocated 19-byte region [ffff888009f91f40, ffff888009f91f53)
+> 
+> Besides reading past the end of the string, the loop ignores what
+> hex_to_bin() returns: it yields -1 for a character that is not a hex
+> digit, and that value is shifted and OR'ed into dev_addr unchecked, so a
+> malformed address can be accepted as a valid one and the interface comes
+> up with an address that nobody asked for:
+> 
+>   # insmod g_ether.ko dev_addr=aazz:cc:dd:ee:ff
+>   # cat /sys/class/net/usb0/address
+>   aa:ff:cc:dd:ee:ff
+> 
+> The configfs dev_addr and host_addr attributes of the ECM and NCM
+> functions reach the same parser through gether_set_dev_addr() and
+> gether_set_host_addr().  Their store handler passes the whole configfs
+> buffer on, so an overrun there stays inside the same object and is never
+> reported, but a malformed address is silently accepted all the same.
+> 
+> Replace the open coded loop with parse_mac_pton() for the delimited
+> notations and hex2bin() for the raw one, and keep the existing
+> eth_random_addr() fallback for everything both of them reject.
+> parse_mac_pton() checks the length and every digit before writing
+> anything to dev_addr, and hex2bin() stops at the first character that is
+> not a hex digit, which the NUL terminator is, so neither reads past the
+> end of the string.
+> 
+> The notations that keep working are the byte pair ones, ':' and '.', in
+> any mixture, and the separator-less "aabbccddeeff".  What stops working
+> is the Cisco notation "aabb.ccdd.eeff" and irregular groupings such as
+> "123456:789abc", which the old loop only accepted because it skipped a
+> delimiter wherever it happened to find one.  Supporting them would need
+> a parser per grouping, so such input now falls back to a random address.
 
-Remove CONFIG_IMA_BLACKLIST_KEYRING, the ".ima_blacklist" keyring in
-ima_mok.c, get_ima_blacklist_keyring() and the related Kconfig help
-text.
+It is worth to mention that the occurrences of use those formats
+(Cisco and irregular grouping) are more historical and rare to meet these
+days.  Also point out that the original commit didn't explain the choice of
+implementation, most likely it was just for simplification and not really
+allowing non-standard formats to be used.
+(So, some kind of summary of our discussion in v1 round.)
 
-Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
----
- include/keys/system_keyring.h    | 14 ---------
- security/integrity/ima/Kconfig   | 13 +--------
- security/integrity/ima/Makefile  |  1 -
- security/integrity/ima/ima_mok.c | 49 --------------------------------
- 4 files changed, 1 insertion(+), 76 deletions(-)
- delete mode 100644 security/integrity/ima/ima_mok.c
+> Select GENERIC_NET_UTILS so that parse_mac_pton() is built in.
+> 
+> The loop is older than the git history: it is already present in
+> drivers/usb/gadget/ether.c in commit 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> and was copied into u_ether.c by commit 2b3d942c4878 ("usb ethernet
+> gadget: split out network core"), hence no Fixes tag.
 
-diff --git a/include/keys/system_keyring.h b/include/keys/system_keyring.h
-index 48c830850b70..28695f96c091 100644
---- a/include/keys/system_keyring.h
-+++ b/include/keys/system_keyring.h
-@@ -115,20 +115,6 @@ static inline int is_key_on_revocation_list(struct pkcs7_message *pkcs7)
- }
- #endif
- 
--#ifdef CONFIG_IMA_BLACKLIST_KEYRING
--extern struct key *ima_blacklist_keyring;
--
--static inline struct key *get_ima_blacklist_keyring(void)
--{
--	return ima_blacklist_keyring;
--}
--#else
--static inline struct key *get_ima_blacklist_keyring(void)
--{
--	return NULL;
--}
--#endif /* CONFIG_IMA_BLACKLIST_KEYRING */
--
- #if defined(CONFIG_INTEGRITY_PLATFORM_KEYRING) && \
- 	defined(CONFIG_SYSTEM_TRUSTED_KEYRING)
- extern void __init set_platform_trusted_keys(struct key *keyring);
-diff --git a/security/integrity/ima/Kconfig b/security/integrity/ima/Kconfig
-index 72654cf797cd..fc42ddd34385 100644
---- a/security/integrity/ima/Kconfig
-+++ b/security/integrity/ima/Kconfig
-@@ -255,7 +255,7 @@ config IMA_KEYRINGS_PERMIT_SIGNED_BY_BUILTIN_OR_SECONDARY
- 	select INTEGRITY_TRUSTED_KEYRING
- 	default n
- 	help
--	  Keys may be added to the IMA or IMA blacklist keyrings, if the
-+	  Keys may be added to the IMA keyring, if the
- 	  key is validly signed by a CA cert in the system built-in,
- 	  machine (if configured), or secondary trusted keyrings. The
- 	  key must also have the digitalSignature usage set.
-@@ -265,17 +265,6 @@ config IMA_KEYRINGS_PERMIT_SIGNED_BY_BUILTIN_OR_SECONDARY
- 	  provided they are validly signed by a key already resident in the
- 	  built-in, machine (if configured) or secondary trusted keyrings.
- 
--config IMA_BLACKLIST_KEYRING
--	bool "Create IMA machine owner blacklist keyrings (EXPERIMENTAL)"
--	depends on SYSTEM_TRUSTED_KEYRING
--	depends on INTEGRITY_TRUSTED_KEYRING
--	default n
--	help
--	   This option creates an IMA blacklist keyring, which contains all
--	   revoked IMA keys.  It is consulted before any other keyring.  If
--	   the search is successful the requested operation is rejected and
--	   an error is returned to the caller.
--
- config IMA_LOAD_X509
- 	bool "Load X509 certificate onto the '.ima' trusted keyring"
- 	depends on INTEGRITY_TRUSTED_KEYRING
-diff --git a/security/integrity/ima/Makefile b/security/integrity/ima/Makefile
-index b376d38b4ee6..ad5840ba085e 100644
---- a/security/integrity/ima/Makefile
-+++ b/security/integrity/ima/Makefile
-@@ -11,7 +11,6 @@ ima-y := ima_fs.o ima_queue.o ima_init.o ima_main.o ima_crypto.o ima_api.o \
- ima-$(CONFIG_IMA_APPRAISE) += ima_appraise.o
- ima-$(CONFIG_IMA_APPRAISE_MODSIG) += ima_modsig.o
- ima-$(CONFIG_HAVE_IMA_KEXEC) += ima_kexec.o
--ima-$(CONFIG_IMA_BLACKLIST_KEYRING) += ima_mok.o
- ima-$(CONFIG_IMA_MEASURE_ASYMMETRIC_KEYS) += ima_asymmetric_keys.o
- ima-$(CONFIG_IMA_QUEUE_EARLY_BOOT_KEYS) += ima_queue_keys.o
- 
-diff --git a/security/integrity/ima/ima_mok.c b/security/integrity/ima/ima_mok.c
-deleted file mode 100644
-index 14d93d573a6a..000000000000
---- a/security/integrity/ima/ima_mok.c
-+++ /dev/null
-@@ -1,49 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Copyright (C) 2015 Juniper Networks, Inc.
-- *
-- * Author:
-- * Petko Manolov <petko.manolov@konsulko.com>
-- */
--
--#include <linux/export.h>
--#include <linux/kernel.h>
--#include <linux/sched.h>
--#include <linux/cred.h>
--#include <linux/err.h>
--#include <linux/init.h>
--#include <linux/slab.h>
--#include <keys/system_keyring.h>
--
--
--struct key *ima_blacklist_keyring;
--
--/*
-- * Allocate the IMA blacklist keyring
-- */
--static __init int ima_mok_init(void)
--{
--	struct key_restriction *restriction;
--
--	pr_notice("Allocating IMA blacklist keyring.\n");
--
--	restriction = kzalloc_obj(struct key_restriction);
--	if (!restriction)
--		panic("Can't allocate IMA blacklist restriction.");
--
--	restriction->check = restrict_link_by_builtin_trusted;
--
--	ima_blacklist_keyring = keyring_alloc(".ima_blacklist",
--				KUIDT_INIT(0), KGIDT_INIT(0), current_cred(),
--				(KEY_POS_ALL & ~KEY_POS_SETATTR) |
--				KEY_USR_VIEW | KEY_USR_READ |
--				KEY_USR_WRITE | KEY_USR_SEARCH,
--				KEY_ALLOC_NOT_IN_QUOTA |
--				KEY_ALLOC_SET_KEEP,
--				restriction, NULL);
--
--	if (IS_ERR(ima_blacklist_keyring))
--		panic("Can't allocate IMA blacklist keyring.");
--	return 0;
--}
--device_initcall(ima_mok_init);
+As I pointed out, you may use the correct SHA, but you need to point
+the readers out to the history.git tree.
+
+Code wise LGTM, so after addressing the commit message and reference
+to the culprit commit, feel free to add
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+(with all awareness of the potential weirdness of the user input)
+
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
 
