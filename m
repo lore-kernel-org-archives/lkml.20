@@ -1,77 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840953;
-	b=cNfNgOFecBqJR7S2YNXXyD0ifHVsapm16JZZ4FZezU0a8RniXll04OhlZXVf9WmjjbIA
-	 QxDRD9oe+RSfn1n2UJWduyYzKMdaWdD12mH9mEVTjKf9czIzCkBHyHbefSlZLbmWxPreg
-	 3z7x4B6ZyzYKkn6qJrM+9EoFqs7nBBOJ3u/PU3YEt0i/o1KyZjszpuK6zH15GqWYmmAJZ
-	 3KUNP9qT/B+P8S05ONimgbljSXkjml6FnMUnX68pDtqcrEfk4ajrDndFATlkDvxElVv3p
-	 ifrYyF58cgEYAS0t6GSrVKG/WThOIwkAS5Z4CjihHL4fAYtXsRegRQaxw+3UmYAWWtg==
+	t=1793841016;
+	b=eMByqbfpo0jHtEl7cPdvL3+zrDlBHJER2oN+sDSeKw5Intos9QHoKd3h2og8N+37paBf
+	 zgLgwdZwONvk0XkmI8ETWm6JQgeyc+BIivTAg68EfHL4sY0kGTC5bQO03UcirZhSDT7Hh
+	 fMi14AYO7jl4yVsbALu4frNsCig+lFNF2NxenihJ9CclomIAK8rk9VLtGOpeMHkWTI9Oj
+	 XvPylCF1K7nDskBB++nCjZzVRvZiOyOcmxYyzvnn8bICBHuyLz5XJKF/+th+5gutifx0l
+	 ehA9xvje+0sGUeA6hyPnBxn8ZGv009jHl32WiN9u/+INxx6p576hsgffZFyhotsl6Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840953;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=CQurrROuzFaL/bzIbqErWOb2Vd+DZtt8rcZK18O3FYQ=;
-	b=fW8raHetoArSb2jVn2ph7OhnciPraQH7Vm1dtQOwk99b2XAwpkvIPdQsPq3wlro36OHx
-	 Y+ueKFp9yGV9YqA5n7CE5CEH71NUipnQ2vyHyeAhiXQlbgDJDX0WQ4gzcYuQfPcNAYWVd
-	 QT5BfJwV+sYSON0+rQ/7Vw0SD8S5bzM6tzW9sCRowI47mw+wWhKl5bFpB8fq5iFK9f9Uo
-	 Ob0x8uP3L36cZUmumNLwfjYaVRxNuTl/NOa09YMv7p5ly0N95wPkAw0H8VAzBMGa1o9Q1
-	 LnmF9Hwxzwo7TFah1FB6ogsNgb9/8zj0lvUp7BWdt7hmvfTYX5wF1GD+1joGGiFcmyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841016;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=06i9S58upGsm3b8HTfTIZOPkxtQFsVP1RAkt5cgN0pg=;
+	b=NKqV4A/9cMciUHE48CapJOy4RRixoEfbCeR8pQ8EX0jCv10UDpQmfUFPHiCSV8xXetg1
+	 Z6bKjN6oqMj8PwY1wNETb/X0wUVjxwxtwA6f55o9zifIxn3Jsaexw1/zu18K0ut77tJ9R
+	 5wWyZP58cjgdcGXoBM165yJzyb0cvNMQYmSjiE4L/9Ln0D+u/rDX1eLst0oNgykOg2oUc
+	 HP50oPOIyWowtNbLNTw6Z7rUg7v6UU0HQ0wUSx093x5kPKzf2omrzikWp+pafU2Z3Xhnt
+	 PZDOO0ZC569K92BZBvUi7TwSD4LYwKMO6y2ko9rSL52InWhd+FuqfyEb04tVrml0rLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SfM9ui5B;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CFF606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9CFF606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso7968665ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:09:12 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793840952; x=1794445752;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CQurrROuzFaL/bzIbqErWOb2Vd+DZtt8rcZK18O3FYQ=;
-        b=PwpxAxX1BDjPyqyHeJ+q63fsKKO9tTu6s+xKczSP6ZJpqN4FSZhxZd2C4uHPghSNcw
-         x7goutdUTTy+wXAIxabHvW1aIG54H4ZiRbwkarq3ci8Z9sqqN+aQ5nQPKaXoz8J178+E
-         l/N92s7M/Ls3PeqzK8yIuO6RORPHd2JVvexxYu7NI+915WCAdgPRIy40+OQiHIAcTvDz
-         HoAPwvLEl8BoAX3OCBgt1qFahZ5cn1p2eRmlQQT40QG664bvGb8qV+XUyilBkWuHlRL0
-         7bdIShklb1EnuzthBVebJYK86MuztcfN1emaKlAUwtXN6eiUMUyhZrq4DGMh/MZ9GqMO
-         cJkw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7h9qxV4xY3F0UgowkGI+HmRrRA/e9Xv9YfXm1wf0eHExmskU/cMp7Cuz+THpwT9INVkYob1lP24FtQ6c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/H4UdYf97/AA3NElhpKF6un0RtO+vYDTa5sfBg0T+521HYP7qy
-	ndKGgqCQMfqbhNL9GvfGOWO9JYdouJ1V7afmAYy4ahoZ/8ETDsOz22bIQYsFwux3
-X-Gm-Gg: AYBFou05gC9KSqFeZoNk5dTCmIvMZfJ41kkW/TNsWEoTldUylLVzAQrUR1VflaYuwDX
-	xYyBRomctMszGMZ14e0NvXZcPDWSmlIhojGyEKtSEqyVMqAs2cGGFM0UzpBIyUDMow7AT52MjZ/
-	mlgYS6OqTWc7FqKBYHKidzojZqEIioKjCqw+tbHWtByJBOuhfnOH0853GIjRpeTJRqyrYlSbSYI
-	2I3Zem3fUGJ5t6ogZ6+U7QyqtGrz4sf4AWjzCZs5yvOQDoCd3ap+NZIu8xmlmBhuMcQF2SAZaXy
-	rwgws7Pq+57XuEQ1qn0VkjiIyIF3RDBHoB7yTuW2PmKhVN1OjLo63KxBH85GGZ3sLm7D+J3csEW
-	9t4mMeZt96GyCUV0fg88Cb1CaJ/WeAJoFbwCWzFfALrXZXemO/EAl8KshxlQpLJrfBXXti2tztq
-	B1p3pWIoCdE15TEUHmp8Z0zFMZyHVcanvBLrRgPhVvOeI+o42E9PYTI2QDOZyoINyKsvudYmgzH
-	xRWfqsEOqYA+KW/Mtj2VY8M0KtnQRj2Am6Ts5Z9Pjidv2d4d1XOwNU7dwV1EoXSMF17nB/CHwN2
-	l/RUY1TnvGEFfLgKGdzN7xLSAH0rH0S9xy8/uiFHtMM94jjURxpMF0ahzFjFnyiRGA4W/xyXovW
-	i9gl9jYwE/h7p0k4SACHAtDf7P+wGCtCPKRBhz+5gRBk=
-X-Received: by 2002:a17:903:37c7:b0:2e9:2a0e:aaaf with SMTP id d9443c01a7336-2eb3648844emr173222505ad.57.1793840952187;
-        Wed, 04 Nov 2026 17:09:12 -0800 (PST)
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com. [74.125.82.170])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed091f3473sm12067775ad.70.2026.11.04.17.09.10
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 17:09:11 -0800 (PST)
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36d6e342f98so1534128eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:09:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxiqNiokBx/D30hC87+13Ueg+1P0sNxXsAQXH57Rz6vkTB1ZSwz7t73JQViNF60ph6aX/FInW78nZs+toU=@vger.kernel.org
-X-Received: by 2002:a05:693c:6211:b0:36a:1cbc:1093 with SMTP id
- 5a478bee46e88-36a42417707mr24317606eec.30.1793840950169; Wed, 04 Nov 2026
- 17:09:10 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7066A606A31B;
+	Thu,  5 Nov 2026 01:10:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7066A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SfM9ui5B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793841016; x=1825377016;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=I+YiZY/GNN0hx/CgEHMS2Vj81O65bVBjTSY+GjWMxsY=;
+  b=SfM9ui5BZZEe7Uu3SHeC6f4avg5Pnf6wCob7HmRGEoNhkEpwK1+yV4Gd
+   lroaa3Lynn8XbneO9BZjpqg1pYX1MYFVPRcQ+ftS0tGry0POHNl+z2u6e
+   rOBRv3nfqoaKrHJei4smy2WhzdEZyaBGY6djo9Yzmf/ltnt5Jiiz9dRmD
+   guriUozmdDZqVBvybnCGoDrfeuitqPXw/lrcDWMqwLPGLDCIXlZiyPVxr
+   oOyq0vdtCLAHqcg+q1zChFY2/f8axh+/It/rUq/DsRuExRqjV4slkafVE
+   i4eP9+m1P+bDSG843tda4DTrGO7n5rmZtHs6wPbLdon+E8g9/JS5MhZS/
+   Q==;
+X-CSE-ConnectionGUID: 4jxDbUQyT/WPU3JKVjjIrA==
+X-CSE-MsgGUID: M1iz/vbsRnCSNZMoM4+JBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2500399"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2500399"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:10:15 -0800
+X-CSE-ConnectionGUID: 4KySTrwQT9KHlMAPuYHeFA==
+X-CSE-MsgGUID: 02/vagQKS/6/runkKsdT2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6877447"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:10:14 -0800
+Date: Thu, 5 Nov 2026 09:10:10 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Ian Rogers <irogers@google.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-perf-users@vger.kernel.org, yi1.lai@intel.com
+Subject: [linus:master] [perf vendor events intel]  3c989481ee:
+ perf-sanity-tests.x86_topdown.topdown_events.fail
+Message-ID: <202611050801.67bb4af4-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,60 +77,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
- <20261104-sf19a2890-sysm-v1-3-a4fac07df823@telaak.dev> <20261104-remote-festive-1e6d807ef014@spud>
-In-Reply-To: <20261104-remote-festive-1e6d807ef014@spud>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 20:08:57 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ5Q7BJuay6D0F6-yvjruHvOO4UQaP1wHKK9_exbH=hUxw@mail.gmail.com>
-X-Gm-Features: AclHuK_2FUPcxo1PWKolFGMOegNvDHrx-kpQJpfPG4duyjujJtN05LYWI2fgwq8
-Message-ID: <CAPY4CJ5Q7BJuay6D0F6-yvjruHvOO4UQaP1wHKK9_exbH=hUxw@mail.gmail.com>
-Subject: Re: [PATCH 3/4] dt-bindings: clock: Add Siflower SF19A2890 peripheral
- clock/reset managers
-To: Conor Dooley <conor@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> This binding looks like things that we often see that are actually
-> incorrect models of the devices in question - things that should be a
-> syscon but not implemented as one. I'd like to see what the actual dts
-> for this device looks like before signing off (or really even reviewing
-> this at all). Given how the clocks look, it is probably accurate but I
-> wanna be sure.
 
-The dts is a separate series I'm holding until the bindings settle. In
-it, each manager is a node like this one:
 
-uart_crm: clock-controller@19e24c00 {
-compatible = "siflower,sf19a2890-uart-crm";
-reg = <0x19e24c00 0x10>;
-clocks = <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_PBUS>,
-<&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_UART>,
-<&clk CLK_MUXDIV_UART>, <&clk CLK_MUXDIV_UART>;
-#clock-cells = <1>;
-#reset-cells = <1>;
-};
+Hello,
 
-with twelve of them, at 0x19e04400 (gmac), 0x19e08000 (wlan24),
-0x19e08800 (rf), 0x19e0c000 (usb), 0x19e0c400 (wlan5), 0x19e24400 (i2c),
-0x19e24800 (spi), 0x19e24c00 (uart), 0x19e25400 (pwm), 0x19e25800
-(timer), 0x19e25c00 (wdt) and 0x19e2b400 (gpio).
+kernel test robot noticed "perf-sanity-tests.x86_topdown.topdown_events.fail" on:
 
-You may well be right. I dumped the first 256 bytes of each block from
-U-Boot: all twelve have the same four registers at 0x0-0xc (reset, clock
-gate, one I have no documentation for, and bus output enable), and five
-have more past that: the GMAC's interface and RGMII delay registers at
-0x40-0x4c, the USB PHY's at 0x40-0x8c, one register at 0x50 in each WLAN
-block, and two at 0x48 in the SPI block. So each block looks like a
-small system controller for its peripheral, with the clock and reset
-manager at its start.
+commit: 3c989481ee3cc22ac5d34e73862a4016af770710 ("perf vendor events intel: Update emeraldrapids events from 1.24 to 1.25") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
 
-If that should be one syscon node per block, providing the clocks and
-resets and holding the peripheral's control registers, I'll restructure
-the binding, the GMAC glue and the USB PHY that way. I can also post the
-dts series now if that helps.
+[test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
+
+in testcase: perf-sanity-tests
+with following parameters:
+
+  perf_compiler: gcc
+  group: group-02
+
+
+config: x86_64-rhel-9.4-bpf
+compiler: gcc-14
+test machine: 256 threads 4 sockets INTEL(R) XEON(R) PLATINUM 8592+ (Emerald Rapids) with 256G memory
+
+(please refer to attached dmesg/kmsg for entire log/backtrace)
+
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202611050801.67bb4af4-lkp@intel.com
+
+
+2026-10-04 03:23:58 sudo ASAN_OPTIONS=fast_unwind_on_malloc=0 /usr/src/linux-perf-x86_64-rhel-9.4-bpf-3c989481ee3cc22ac5d34e73862a4016af770710/tools/perf/perf test 77 -v
+ 77: x86 topdown                                                                                               :
+ 77.1: topdown events                                                                                          : Running (4 active)
+---- start ----
+...
+event syntax error: 'cpu/mem_trans_retired.load_latency/'
+                     \___ Bad event or PMU ...
+event syntax error: '..atency/'
+                                  \___ expected numeric value ...
+event syntax error: '..atency/'
+                                  \___ expected numeric value ...
+WARNING: events were regrouped to match PMUs evlist after sorting/fixing: '{slots,cpu/topdown-bad-spec/}'
+---- end(-1) ----
+ 77.1: topdown events                                                                                          : FAILED!
+ 77.2: topdown sorting                                                                                         : Ok
+ 77.3: topdown slots injection                                                                                 : Ok
+ 77.4: topdown metrics_clear no extra slots                                                                    : Ok
+
+=== Test Summary ===
+Passed main tests : 0
+Passed subtests   : 3
+Skipped tests     : 0
+Failed tests      : 1
+List of failed tests:
+   77.1: topdown events
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261105/202611050801.67bb4af4-lkp@intel.com
+
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
+
