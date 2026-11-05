@@ -1,81 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900244;
-	b=SPfjKU5Q19LI2ina25Pth5ebBqpaO3n+kFc8tYg3sNecc9UZzFmoY+pca4P3sayheX0o
-	 IzMMw7WJFV9LE3nbct2IL81Meya1CVNKF1smJ5ysa0k3FauRGwjR0Q9BxrAhXjAydywye
-	 JA4dryGYxwaD62m35+MGvjMa82exs8lXTDPBaK4890KRIgRrSznt8vnNU636F1u1J9Gxd
-	 qVWImvytoLKIKfOuZe2EAcNLvqp0OsNESVsrBW6dJp1Ug3OSMYv4fUe41CuuM4c9KCCE7
-	 ue9GL9JUpog4Gcd7x2J2jQd8EZst2+C2lOPYML00RfTCAlaZn17UhKAtWg0t9gh0Cmw==
+	t=1793900274;
+	b=X9KMRkTq0cGj0TRHl0nSAlVEw0IMuaFo/2XtVVVna7favOxXqiewuQuQyJK4CtRF4H0h
+	 +H95NiDvCWHIaxCClU2cDu4pqJwWvgXXY1QO2q1EfZ0lmzA1xPp8NQr3bmnQ0tBOAfJTH
+	 7Hv9ZSQto/SQ97/GlfL8utDkJFQsc645kJRVZEMJEErutpfjHzcP02yfR3JxpjhkB82Jp
+	 FwN29QlItT3sRWNTs/xg8CLFBc8SxgEapmlib6+7C8TuLEfpthECP4R+3kTBOXdJjPqG3
+	 zpB0YusOo/UkIG1HorjPLs0+zZp6oHzTKWACD1YGiOg6VDslYtRh+n1/RQeNBnQO1KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900244;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=daANv2owEleGHEwWXjX7Y1sfpf4L+AqmR3TChu8spLk=;
-	b=0Jp1RBQZJ/+T1ifeDp+KHmKUO1zBrDuDc0Kg46SNzYzoj3bfCs2fpdNWodfGAfGXnDip
-	 nlzo/DvIV2/9QtupH1KWDinkal0CgXmVJF7PlRIvlMfJAH3co5WO9XeaPJNZfn7pxz2JT
-	 pUSjCfYi9VarZOzJopXwG+no17MLw3k9JA6Bn1Ypw2IEOv3fbdh8gWDJ8I5M1uMBc9VCC
-	 YDH1dfSgiYuVoT4Rgd5yr88CnTlZdPAPdndBRJWP93E1OBrzLLK7l57BAxnGCWcErlLTt
-	 tpp2v09JlNmE2RtVAaOyfv5FLvu/nIDDR5UhngpZdfmgmCvPRdoBiSVZpbfgrD7pMBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900274;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=I/9VHkQVwisO5bupjKzX692XjiMS3IZKTYKgohOq9P0=;
+	b=3rDGNymxEye1jQ4ohPp5t4z7PkBnZcbG7cx1/uBRUkR0BHR2fdXjKkxPPxvuDqufuLkQ
+	 QUjiW/lSTg3pwVtXUfVG2+ztvS2G8S8hrX12xozy7bXmGoImpmxL5uyk9MeMDrK0aakZW
+	 XPSzQa1yF0zRoi4mnk+6lZ6KYSXQzJv4Yt3W1Qa7l7Shg4kZF/PRkeg5e7QtWw9T9Csyt
+	 2hBH9ZhSHsg+7/YzKfdGpzw3NVpkhsSVDI0yklFa0PapDMBCXJQh7R8X0E2HHvBBLDTWU
+	 h04GcvnojfcU6fMN8pHL7+zDduOD+fOTLm+mR6VANs/koBCAjrGc3lVXaabBW+YK6+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QyBXwjnF;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rtW9JhWR;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9E9606A326;
-	Thu,  5 Nov 2026 17:37:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE9E9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4DD606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:37:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF4DD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QyBXwjnF
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiNgG2627463;
-	Thu, 5 Nov 2026 17:36:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=daANv2
-	owEleGHEwWXjX7Y1sfpf4L+AqmR3TChu8spLk=; b=QyBXwjnF75HgfGJXoudRq3
-	+9akNI5kLom/+D98s3fbL/5ZH6th9jH73sTzYCeAaLdUoQp6zh45lWRheSk+nzVq
-	p4hPXqs5jUnjEQKFmTzPhmKI8yGaOy0vs4V1Fzs106tbwBnpcgAFaQyZjyQuKjZB
-	Qo5bdYtgH4MwoSJZrB3KtLlEEI3wZ5rSrNUYbTNdMpxx31wo2XFXsLX+fG2ukF2W
-	VOtk3zac6KAfESs/c9VZTucCjZbEahnRceUUtK+pJcKUv7uMBaF5EnO7297/OHOd
-	XLl6eNBSv89hWve035KHsH2mMA331uh0cn/ZjXdun9f9bVuOrhTew5t9dkPNFtng
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rdkp0f-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 17:36:38 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Gou761746203;
-	Thu, 5 Nov 2026 17:36:37 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrk9mkg4v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 17:36:37 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5HaafD26346132
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 17:36:37 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A99845805A;
-	Thu,  5 Nov 2026 17:36:36 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EEA2658056;
-	Thu,  5 Nov 2026 17:36:27 +0000 (GMT)
-Received: from [9.68.10.150] (unknown [9.68.10.150])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  5 Nov 2026 17:36:27 +0000 (GMT)
-Message-ID: <fbfb36b4-1ac7-444b-b898-f509f0b3c273@linux.ibm.com>
-Date: Thu, 5 Nov 2026 18:36:14 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rtW9JhWR
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so3512018a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:37:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793900272; x=1794505072; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I/9VHkQVwisO5bupjKzX692XjiMS3IZKTYKgohOq9P0=;
+        b=rtW9JhWRKUehWAWBFJ67ewxZw5Sq5AhUkrmHEUH3E9xFpX2UZZEkcUkuiY0OXLiVso
+         OvhBRgL2naJls/kePq+fHAMp05e7EuLmEzNHdMXYWf5cl26qeQMstIAAPpfohQ/tyLJK
+         D2A9ITOnDfhb0hFaf3UvqqlV+4z7c5VzqSnG0HfJVhc1/2Yl5EovgXB3OeVnUKU8XXAQ
+         9JJWaB5U4MlNr5hYUDqG5E6avjxl/dPr6VvsorTfUQ2QXiqULLgByCg3l6m7ywbSUQqT
+         mAIyuL3AnkcP+4Mr1vkl4PPOwa4aIGT6i2Pqt9Jgyi0/bL+ZVNDMO4AXbGfBqgbjwRA0
+         LhxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793900272; x=1794505072;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I/9VHkQVwisO5bupjKzX692XjiMS3IZKTYKgohOq9P0=;
+        b=M5NxB7wrkBg5Wy9n+h3zDUE5CUIoPjLGD+wVp2wiPVI+KiA4vwsu8x7TytC0OZFRoL
+         l18HfEp9kOK4g1zaujalhUNJilWYnD9eSiGlJRVMJo/Xwl+nH63gxlEnn+ukvR8VaOFp
+         ajNMMzyV4x4KoFRA3Jq3mzyY7lVdoB9a7XgF62bNmRJNH6QJzfdrnUzFk56RnoAqYRr5
+         GvK08yhZZ2yUPqwhJ+9tAaqpe8bAY+aaIy7DjUUD7wUbHx1HLJdvOFHXvcdoruazERp6
+         0LLU5aEuOLLAiYa/EutInvUNfhQ0DT38y31/z4ScBRowW49IQqNqKsJ2RqDxiiD74gSc
+         Sihw==
+X-Forwarded-Encrypted: i=1; AKwUvBywXClB29yujav3tCFNpXWAvZ947Va5bKPBOyVi7GT6pCVe0LtwR/VvULnPCzO9KytYN7c1qbC/lWDA5bo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/r+wCRncjuylwL3b25SCkZvLqhcNaspiTTEewILg7b8Qe+VhpJ
+	Mh29bzKo76u1EgBauSc3H/uJFHgTtd5Op5SEsfb4+q+7ESXczBk/MZZ7
+X-Gm-Gg: AYBFou2h0cuBxsRNKQOMOAh7O3MalhvXg+Q1McRzPUZQv0ICpbPimyiYdzVZso92mj7
+	tacFLRWMwmDNlijC8Bhui77R87l/hMzP/jwfSAuMGDEB+UbIjTrNWBv6Nk7ZXT2jqRJNs9omtSj
+	FWrHW2ktq5AAakw1w11BJEs7pnT9m6gU4USRQ5U7ZGaWwNNSTUzOHfdDlzAwHkQSHdjm1RNhclj
+	58c+3uaCtQBhsE8UsJdbxIj7Aat0BPZ+SMBzpBex+xXCaJKpfspxQnVQ5wgik8TOqvPWviNdNLy
+	s0LUjqSZw5ERoB0OHjMtj8K6FyklkvxxwDoZYWrW6c0PTIf3zxlsZ1HteBVIuqhnbL+et2VX0tK
+	HxBbwzbpcoEqshbpFuDj5RUtKNRBaBEgLdrMyesj7L7cf9rZNWkkRwAYo8ZOTCSHxtIlPsn6Qkx
+	6c+0Rgvpu3jizMuO2lDWcUVoPmV2qtVfpnefRSoiDkr7LXeaiWKwRWKoMKQ6fOxiCKKttuSUfdX
+	Hwc2E7qncp0He5gsdXwY7ZmQytem6dbLYIhT3k2Tb0aagQlzy2XxKe9zrFpUJheZ5qT
+X-Received: by 2002:aa7:d281:0:b0:6b5:916f:938c with SMTP id 4fb4d7f45d1cf-6b5916f94c8mr459489a12.41.1793900272060;
+        Thu, 05 Nov 2026 09:37:52 -0800 (PST)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b5876145a9sm494548a12.36.2026.11.05.09.37.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:37:51 -0800 (PST)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Thu, 5 Nov 2026 18:37:49 +0100
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	"Liam R. Howlett (Google)" <liam@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <bhe@redhat.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <auy-7TvVzJ-VCrG4@milan>
+References: <auaFhOa5EBz4gJwK@gondor.apana.org.au>
+ <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
+ <auqtTjXhD8is-y9f@gondor.apana.org.au>
+ <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+ <aurAxRpCwzeyXeVj@gondor.apana.org.au>
+ <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+ <aurJZ81qnbiHH_P1@gondor.apana.org.au>
+ <ausS3LQNkdc6lBy3@milan>
+ <auxDm_YO4oACA_d2@gondor.apana.org.au>
+ <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,125 +119,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/20] Unify code coverage and add Clang source-based
- coverage with MC/DC
-To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
-        Alexander Potapenko <glider@google.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Andrey Konovalov <andreyknvl@gmail.com>,
-        Andy Lutomirski <luto@kernel.org>,
-        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Arnd Bergmann <arnd@arndb.de>, Ben Segall <bsegall@google.com>,
-        Bill Wendling <morbo@google.com>, Boqun Feng <boqun@kernel.org>,
-        Borislav Petkov <bp@alien8.de>, Chuck Wolber <chuck@wolber.net>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Dmitry Vyukov <dvyukov@google.com>,
-        Frantisek Hrbata <fhrbata@redhat.com>,
-        Frederic Weisbecker <frederic@kernel.org>,
-        "H. Peter Anvin" <hpa@zytor.com>, Ian Rogers <irogers@google.com>,
-        Ingo Molnar <mingo@redhat.com>, James Clark <james.clark@linaro.org>,
-        Jiri Olsa <jolsa@kernel.org>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jonathan Corbet <corbet@lwn.net>, Josh Poimboeuf <jpoimboe@kernel.org>,
-        Julian Braha <julianbraha@gmail.com>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Justin Stitt <justinstitt@google.com>, kasan-dev@googlegroups.com,
-        K Prateek Nayak <kprateek.nayak@amd.com>, linux-doc@vger.kernel.org,
-        linux-kbuild@vger.kernel.org, llvm@lists.linux.dev,
-        Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Mel Gorman <mgorman@suse.de>, Miguel Ojeda <ojeda@kernel.org>,
-        Namhyung Kim <namhyung@kernel.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Nicolas Schier <nsc@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        "Paul E. McKenney"
- <paulmck@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Richard Weinberger <richard@nod.at>,
-        Sean Christopherson <seanjc@google.com>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Steven Rostedt
- <rostedt@goodmis.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Valentin Schneider <vschneid@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Waiman Long <longman@redhat.com>, Will Deacon <will@kernel.org>,
-        x86@kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>
-References: <20261103015238.3780910-1-sashal@kernel.org>
-From: Peter Oberparleiter <oberpar@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <20261103015238.3780910-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 8GuvPdtkZT98o2kwnst12PlIYWYluKM0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2OCBTYWx0ZWRfXyQy8yBstwcbM
- Rkc5xP/dYOg1fgJ+NWjdQN4tVTCYfdKnOtO/mNQOfih1iR+UR2rIx4PUzBiyrdp/D/15qOd1S+o
- 7IZjnxHupAGDtkaowjEjbpcDPUtbTsI8ybI1rXejxheRgQDgIAGieHRt7+cRQvWxKQ9NzAd+XGG
- wvLqfJQjTu/uYqe+eJ1U+LoUufrhR9SN4PESkdQUpyVHKRY9nXCI55lmOtuHV7JOr7A9QdIBgzZ
- 1MXgsu24oErNUM5kwh2EaBpswjBT0mmSDU6TgCmmH2WeVUppSEbeAfMNxVDBG7w9SMwwr+xg5pl
- I38pfZNQDJfAUYpOaW5jqzTWADH7ovR4dQwk4X5D+A4OjmMnRFV0GPSJ0VVFh0CJ8e3zB8GTK9G
- EetQPJbvHsM9v29Ud5JKECXRotYWXMk711DpQfJoDP2N66ktbFXYpY+iOwb4q4x4bkcBsCBSokp
- bW63s937KIzDicIaUCA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2OCBTYWx0ZWRfX0TAlrJrb+pqq
- PgBa+KAxcOY+XVOz5FBHXV9251G+GkMlFvSTR4ejT+P1SGyL5tXhByO82fHDlGhDTpDMYnp2U6i
- oYYAX4uXsMKmzah/S4NgVZDPIqwtByE=
-X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6aecbea7 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=8BOYBDInhozIBXGn-nEA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: qegOwV1GJ8hxllrcELoypkKbdceA7Ix3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
- impostorscore=0 clxscore=1011 lowpriorityscore=0 adultscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050068
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
 
-On 03.11.2026 02:52, Sasha Levin wrote:
-> The previous postings of Clang's source-based code coverage [1][2] drew
-> objections [3][4]: rather than a third coverage implementation with its
-> own interface next to gcov and KCOV, reviewers asked for a unified
-> coverage interface, and for coverage instrumentation to honour noinstr.
-> This series first restructures the existing coverage support into one
-> framework, then adds source-based coverage and MC/DC as part of it.
+On Thu, Nov 05, 2026 at 08:22:52AM -0800, Linus Torvalds wrote:
+> On Thu, 5 Nov 2026 at 00:51, Herbert Xu <herbert@gondor.apana.org.au> wrote:
+> >
+> > On Wed, Nov 04, 2026 at 12:11:24PM +0100, Uladzislau Rezki wrote:
+> > >
+> > > There are users in kernel. For example:
+> >
+> > Thanks for the list.
+> >
+> > > drivers/GPU
+> > >     /* Allocate the file in vmalloc memory, it's likely to be big */
+> > >     iter.start = __vmalloc(file_size, GFP_NOWAIT);
+> > >
+> > > AMD-GPU:
+> > >     kvzalloc(size, GFP_NOWAIT);
+> > >     kvzalloc_objs(struct amdgpu_coredump_ring, GFP_NOWAIT);
+> > >     kvzalloc(ring->ring_size, GFP_NOWAIT);
+> >
+> > These appear to be executing out of process context without spin
+> > locks so they're not really GFP_ATOMIC.
+> 
+> Historically, GFP_ATOMIC and GFP_NOWAIT have been largely the same
+> except for GFP_ATOMIC eating into reserves.
+> 
+> But I wonder if we might be able to soften that a bit, or add a new
+> form, because it looks like the AMD-GPU case at least doesn't really
+> care about any kind of "don't sleep", what it really just wants is an
+> "optimistic allocation" - try to get the memory, but don't spend
+> effort on freeing things if there is not enough memort.
+> 
+> The AMD code in question literally has a comment that says
+> 
+>         /* Dump ring content if memory allocation succeeds. */
+> 
+> so while it's possible that it has some atomicity requirements, it
+> doesn't look that way to me from a very quick look.
+> 
+> The etnaviv case looks to be the exact same thing: it is definitely
+> called in normal process context (that code takes a mutex lock around
+> it all).
+> 
+> So those two cases really don't looke like they are about "atomicity" at all.
+> 
+> > > net/ipv4/udp.c:
+> > >     err = bpf_iter_udp_realloc_batch(iter, batch_sks, GFP_NOWAIT);
+> >
+> > This looks buggy in exactly the same way as rhashtable.  It's
+> > called under spin_lock_bh, and the same lock can be taken on
+> > the softirq path on another CPU.
+> 
+> Yeah, that case is definitely actually atomic and holds a lock. Not great.
+> 
+> Is there any way to limit the vmalloc() case to the actuall atomic one
+> and just fail when it needs to busy-wait?
+>
+Probably it is not easy. vmalloc() takes several locks including
+during page-table setup.
 
-Thanks for driving these improvements to the kernel coverage
-infrastructure! The overall approach taken to unify the different
-backends looks sane to me, and I'm looking forward to seeing this
-integrated!
+Probably the simplest option is to return NULL for non-blocking vmalloc()
+allocations when BH are disabled. That would address the reported
+rhashtable deadlock.
 
-I successfully tested the gcov-backend on s390 with GCC 16.1.0, GCC
-15.2.0 and latest Clang 24 (git).
-
-[...]
-
-> - Runtime interface: /sys/kernel/debug/coverage/, with "backend" naming
->   the backend and its features, "reset" resetting its data, and the
->   backend's data files. The existing gcov and kcov entries stay where
->   they are, for lcov and syzkaller, and are linked from there.
-
-Just as a FYI - I found a minor incompatibility when using lcov with the
-series applied where it fails to automatically determine the kernel base
-directory due to the changed location of gcov-kernel base code, but
-that's nothing that should affect the kernel series. The issue can be
-worked around by specifying the path manually and I'm planning to
-address this with a corresponding lcov change once the series is integrated.
-
--- 
-Peter Oberparleiter
-Linux on IBM Z Development - IBM Germany R&D
+--
+Uladzislau Rezki
