@@ -1,58 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868977;
-	b=Nw5aEBcGCXvnSPN6PQ9ejHnDTxFZI9F+NCgqxSzW3GXfFaRLppMfdp9+s9wVAzasp9gf
-	 YUm8FXDzjE9L7LHrIFlbf+1zIUh/pQKbaINJGYS0x7+z4cbeB/60Z4p3xIhWhpV1ZlD5i
-	 sU2oSWod7xOX6y6gHByqZ+3SNjYYk7e5THjylMySMG/MZ26fFbKEMlX5MxqpCefnZUKyJ
-	 e/5sqWOCOvI+QKLEdeNMXkbgk7O9hWHVZ+850mr6af85+88SNxsVQAIVlRVtfF3p/gtll
-	 bXK8/xLKKV3YFVbSl+Rwmhw+Ya4yFpCY/sJ3XJPKgGFkWSdH96Aq8lLSJOIaaVxDf0Q==
+	t=1793869012;
+	b=igfjhGKLc0VNK3paKMsJLy18l6XZOMJQiS4OL/Ua5u9XAnqcVvlNuLQRqalP0JZTIUoZ
+	 QOLQ+U3dB6gy0DyzO3kolynAvNPhvdHpwm3jMwdMF77LJFCSBeEmFM2mruae7ona3kuND
+	 kN1L/qmfLOmvdxAyntVrs3Lg7wG4gXXPXQDUrrbzgJQpNluW8d5ONYvnj+tKhdj+igPkI
+	 ub2DoHliXNGbnVev2BcLnPpg/9CfF1OCgqUF/uxP93RlTeYv0EpqESUCeWK0DAZ51BGSn
+	 cDiq4p7fIdLix+1+0if4JhiM85cjJBnDCrVbsf1X/gczLW8e7nBTPLIREZmH49inGJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868977;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=Uy9D3SP0x0Tj1umi/HazEvpl4dUpXQf1BHy267Mgz6A=;
-	b=zIwXWtUnAgebyNl1WmhZx6xRFwJN2TQWZTq0mhVNFktJ6WEG8fTsHxGXby0cLrMAnbZX
-	 BFKQhk7ScZwt5sScJwg6u4YuSTrXts6ZXmMnaJZq3ex+fjqEYBssu3AzpabK4Ll5ZROKg
-	 kfg+k3uXk1Vrk9FrIMmOVlJeb6rdS7keI/JL4XjHdw5Y4rE7Kx4+WZ60GvUGAiBroNCPf
-	 BXu4yfxX04EfGxljUOA6nOLEcLQGLeWQSV61dqgDj4rIy6XgBW3wI/wtR/cPZWzZ0eW6M
-	 EC1CxVLY3ki2Wa+u49swb4UUPsdWJWirQ4/gdSir1EINTkHqLa+IlagOE0kIGvRvAPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869012;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Ll5HHjmuNho7sSH/k8QiuGBNexPrd5SRjnX5v1inucM=;
+	b=sIKm4xzDJFHbIUYgZlkbwBk9MTE+JL/qaPG8G3B0Xt/nCs97AM7OWlq5jhVyu1v0Kkcm
+	 SIx3n/VfXcR9+960i9Y6TYXOKWvjDlVdjhakNTtQImEOLzuGkq4gU01KgbhQUidmpc9jH
+	 VML/JEY1/YBUCNwFTzVNlcniaSW+HnTwFE19BwJMtx8J2qoqB/hY1dp5HRl+zCbkqgrO4
+	 5/ZkiKXN8iBx8ZHVz5yPEVBvHmoN/AlW8JqwqNXYvkfTmtvNxlq5pqi/MYfPtKL4nOw+A
+	 dAg3d//2Hrib1DziZ2rRmWFlWFKpV+X1dIJOFjiNmWuhMyQks+grjZVQ2dWlQczCFzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WbSSAeI3;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cFGku3p3;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LXRZPdzS;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44844606A31B;
-	Thu,  5 Nov 2026 08:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44844606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D52606A334
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:56:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80D52606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WbSSAeI3
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Uy9D3SP0x0Tj1umi/HazEvpl4dUpXQf1BHy267Mgz6A=;
-	b=WbSSAeI3nlO0bN5eirTi5OLJZ5OkJUkY7IpJjQru+bnKADaUEyHaMCRuVWNz7ZugtI+V3Q4bc
-	zcUj/vD7AeMA2rXPh7vgt8XG1XiDkIB7h3WtLus/leXfhc2JAvx7HCy9nf4VifSu2JR3SFlgkcZ
-	u+wRUz0TofUlGN/0qsYRnSw=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jKx4D1vDmznTtw;
-	Thu,  5 Nov 2026 16:56:12 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8C4164056C;
-	Thu,  5 Nov 2026 16:56:10 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
- 2026 16:56:09 +0800
-Message-ID: <59ceb6ca-cde1-4e04-b4b3-5f26e856fa69@huawei.com>
-Date: Thu, 5 Nov 2026 16:56:09 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cFGku3p3;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LXRZPdzS
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56Ttv33223155
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:56:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ll5HHjmuNho7sSH/k8QiuGBNexPrd5SRjnX5v1inucM=; b=cFGku3p3DX77c7Od
+	hScyCf6gq+Ionde83X23nIUfLXVdmqqusgQE6NmZFxrGVZChKwXmWMOt+lCCsaCq
+	rS5iVlzBCL3W26ai7m4EjDXwmrdC6MRQBbCIKtsEPQsBO3EfISJ8D8ZQNAicSpZv
+	FDxFTLxesGz9rGnMQemaytfY88E8g59ck0Z/Zd5ua/V9DPvMdWlmexmYgA6GH1e8
+	Nflk1KAdsKYadeBpXAziTw5UuZAf9cSfa+xtYMR1L+lOyi1gGoKBNPpilmUFXRzu
+	2FjUKLJrD25/I/2NqfZnYl3gIl9E6ZIGZpxosFpJHcEz4D6HOtzGyBegQu8/BBrA
+	YZDWDA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrj43h6t8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:56:51 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ac0ae43900so1982784a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:56:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793869011; x=1794473811; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ll5HHjmuNho7sSH/k8QiuGBNexPrd5SRjnX5v1inucM=;
+        b=LXRZPdzSBk6hG7METAaIvNcKTRuM52N7KGWPG89CSvwRTS5yOR77KVPvYpPijD20IE
+         pUH5Aa0tHufuqs/vajUAa35IseanAJ9aqF9Nt0UZt7j+lG1Vur+Q1MjDeDqqVLmhL9Nb
+         Bi0c4j/IDEApNQz3NNuE+FK0CwZwTmCTYl7SQXb4w7iKikjufDFoFIUuBffNP2dLubBf
+         K27TEOcyc12Oc67libY8ljhtths3DZWi7Dr4BOWRKQEVb3dEqh5YdcZVcPazAsUQW5O5
+         RceICo4057hkN+K5jEYWxDVFOCtiQmzlnWG7+kXrq2grI89W7c5E2ZbyXKfVTu/1LfL5
+         lpkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793869011; x=1794473811;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ll5HHjmuNho7sSH/k8QiuGBNexPrd5SRjnX5v1inucM=;
+        b=OasDia2O+dwBr5AGj6bc025HrW/Yzw67OTJPeq1oK/FElxYvRbvGzsDUKSPTVydn4I
+         CG0Sd+iuEmzgfBYX4zC6PgJtWP6bluQiTn4o6rczIL9i10NZ/hsgn412UPi8hEqAqLN2
+         xVgyfe3cutTf30GNqdrjxVhiQyDdJdAuHmws/uJjvbsxdJe4eUJCoQs+U/b49AerTe3i
+         t8pgGdSkmpvRkCS9roJCMxNhP3Vsp9R4/09qMvbGDzktgi8soYHHwNdLGr1Q8OV710Qf
+         cYICPUY+Z7+Wns32hWya+FDpS55wp+HjBlGDqhmQoSEwpRns33zFqCFEyBe7oTLWZKYW
+         XpXg==
+X-Forwarded-Encrypted: i=1; AKwUvBx505gletgGC07vj7kLaBrI0zRDKqNw8bP1e2GU05fqrARnAzL8x/a713BzuQ8U8oGFS9xEhMUpG+8+YsQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Fhb2hwZM5aKzEh4ROsojrLvXpYa1z1o0+Fh1aOH+d8LSgMJ6D
+	dvRHp+sT+z0le7Hg39LgIuvSdwb1SBTIlqqXaVWuCMMVvba0JeHDl6B6m2yMdQyCTuwMC2TW0TI
+	to1rM01DSC8hgyiecAXV6rPSBe0p+uK7Lkw1J7JtuuZr9+KTreciv8inLy1xwFNSl2Yg=
+X-Gm-Gg: AYBFou01i+MnrPsbFb5Z28qRZeK/1npV1OVpgKjQUKihGqW3TnKt9ho49lpYIe/tJcK
+	7anfhRBQQG/NAxb6Vouicq2skPdF/IPPp+IyG7YazSOUFTuAeSR/trW9qG8s+shyKppzNjNvkHP
+	8UTikf0TPqzVh2kYmWcuDTJqGrRMqduzJiGfdcj3Q8FZnYpNwzMSC6Gl2vB1MhERy0oeTMC3uqp
+	2m2/n1em0RotLzNxrkynSfn1YdKiUDSfr5ib2vkBvzS15qGIJaOMEoeinzgyX5cgHQE81xUCStR
+	S208OqjA0mkeeHSBYOGbqKGlbQi45pwKSF5f017R/7wCZL7RQaxD07T6hJP5mixG/bsC38IKTS4
+	Vm61fBCbe75kIxHyCNunBzTCXI8nGTaWdQ3kHQhnWF+ML64xN3iR0AUq+xlhGWZEcXUefuaIGCe
+	V4vDs33oyJwVFnJUJpg7qEr2/7hjWQHuqPebsgadXyEw==
+X-Received: by 2002:a17:90b:33c2:b0:3a7:a6bc:9d58 with SMTP id 98e67ed59e1d1-3ae897e076cmr13614233a91.54.1793869011158;
+        Thu, 05 Nov 2026 00:56:51 -0800 (PST)
+X-Received: by 2002:a17:90b:33c2:b0:3a7:a6bc:9d58 with SMTP id 98e67ed59e1d1-3ae897e076cmr13614209a91.54.1793869010516;
+        Thu, 05 Nov 2026 00:56:50 -0800 (PST)
+Received: from [10.133.33.106] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31f8804sm2910640a91.17.2026.11.05.00.56.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 00:56:50 -0800 (PST)
+Message-ID: <f8ba83df-f149-4703-b0ed-a7fd00608cbc@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 16:56:43 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,116 +117,100 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/resctrl: Disallow monitor group rename when the RMID
- changes
-To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
-	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <jic23@kernel.org>, <tan.shaopeng@jp.fujitsu.com>,
-	<gshan@redhat.com>, <zengheng4@huawei.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-References: <20261104101913.586595-1-ruanjinjie@huawei.com>
- <88c180d8-156d-400d-8537-5fd79b7ad10b@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <88c180d8-156d-400d-8537-5fd79b7ad10b@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH RESEND v7 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC
+ haptics
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+        Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+References: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
+ <20261103-qcom-spmi-haptics-v7-1-418de67ef84a@oss.qualcomm.com>
+ <20261104-myrtle-kelpie-of-chemistry-de43cf@quoll>
+ <6964d550-2ddd-463a-a142-9e8f72588803@oss.qualcomm.com>
+ <4edbe80d-f1f0-4e85-9973-86da7649e9bf@oss.qualcomm.com>
+ <1a83f9a4-73c8-4a13-bd53-2e779f6ade22@kernel.org>
+Content-Language: en-US
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+In-Reply-To: <1a83f9a4-73c8-4a13-bd53-2e779f6ade22@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: ja7X3u3gv1OlW353a-PL-_XJIgqqW6zS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX45NITmU2giLm
+ 1Qk5/LCSH3g0/xjJJzryr0iSXfgrDBeTabogyRnHRDS12zFoGkJd9DkcP4iQ1xr9vJgGyzH7Mxv
+ Dn8+wXPiqmE0e5nw2FtCkPeArcoO0kBoQSNCEIiYao1sX+DQ50UWqXNl3ZGZJWim47+sRM2KHSY
+ nKEM+XdXxfQhtCqRzS9gmCD3WbrGCujgU795a8KxKG+FcFSGWDYeepyEip21MRkSgeiWZkP020b
+ zst3f1inKvEGDb0V1Aa65rWEa1R99hdJfzk1drNTqKII6e5LFaiH/IsVvhlp96Rb6EQPbCNpUcc
+ X33DMX9asAKeu9cOn3w5JZWptar0TULpMs/l25IakBdFCNr+f57zZw31xLW4VTCy3Gb45DC73nV
+ Y5Tekj3cLPb4RmScOszZo9y80V4bIMhWnBEmmEkgKy//F/aM7KRKiZEM0RdjMLi9saa8jcebnsW
+ Ppww5DwIKnXG6P21miw==
+X-Proofpoint-GUID: ja7X3u3gv1OlW353a-PL-_XJIgqqW6zS
+X-Authority-Analysis: v=2.4 cv=SZdi5fRu c=1 sm=1 tr=0 ts=6aec44d3 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=yLkMS7TIAoMVBHN_cM4A:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX9smVI69YXdjZ
+ sUgAFNuLC55DPda/Mf3cDDy+chwxnnHypLT2O6vtcj51yLfTCKbvpNAT0WdIlU5y/xyzZzS9L9+
+ dIsL+O7LA6DX5ypEvtl1ofPUmmAAWnU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050035
 
 
 
-在 2026/11/4 22:36, Ben Horgan 写道:
-> Hi Jinjie,
-> 
-> On 04/11/2026 10:19, Jinjie Ruan wrote:
->> From: Peter Newman <peternewman@google.com>
+On 11/5/2026 3:27 PM, Krzysztof Kozlowski wrote:
+> On 05/11/2026 01:48, Fenglin Wu wrote:
 >>
->> Renaming a monitor group to move it below a different control group
->> changes the CLOSID of its tasks. Where the RMID only has meaning
->> together with the CLOSID, the RMID index changes as well: on arm64 MPAM
->> the RMID is a PMG that extends the PARTID, so the group's counters
->> belong to the old PARTID and cannot follow the move. The monitor data
->> would be reset and would then report the new PARTID's traffic.
 >>
->> Check that the RMID index is unchanged before moving the group and
->> reject the rename with -EOPNOTSUPP otherwise. Only MPAM systems are
->> affected; architectures where the RMID is independent of the CLOSID,
->> such as x86, keep the same index and still allow the move. Document
->> the restriction in resctrl.rst.
+>> On 11/4/2026 4:44 PM, Krzysztof Kozlowski wrote:
+>>> On 04/11/2026 09:29, Krzysztof Kozlowski wrote:
+>>>> On Tue, Nov 03, 2026 at 08:51:17PM -0800, Fenglin Wu wrote:
+>>>>> Add binding document for the haptics module inside Qualcomm PMIC
+>>>>> PMIH0108.
+>>>>>
+>>>>
+>>>> Why are you ending this? On what sort of ancient, downstream fork are
+>>>
+>>> s/ending/sending/
+>>>
+>>>> you working?
+>>>>
+>>>>
+>>>> NAK
+>>> Best regards,
+>>> Krzysztof
 >>
->> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
->> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+>> What's the concern on sending them? I don't understand.
 > 
-> Perhaps stretching the meaning of a 'Suggested-by' tag as I only suggested the repost of Peter's patch.
+> That they are based on 4 months old tree? Or half year old? Or longer?
+> Try yourself. Does this apply?
 > 
-> It is probably worth pointing out that the moving of monitor groups is existingly broken other than
-> just the resetting of mbm_total_bytes counters and so the current behaviour isn't something that an
-> existing user could be relying on. As you already point out in [1]
+> No. And if you tried to work on recent tree, you would understand why I
+> am asking.
+> 
+Thanks for the info, Krzysztof. I was working on the tip of input@next
+in September. I understand now that I should rebase them before resending.
 
-Sorry, will delete the Suggested-by and supplement the information in [1].
 
-> 
-> [1] https://lore.kernel.org/lkml/20261031101052.1692230-1-ruanjinjie@huawei.com/
-> 
-> Thanks,
-> 
-> Ben
-> 
->> Signed-off-by: Peter Newman <peternewman@google.com>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> Cc: <stable@vger.kernel.org> # 7.1.x
->> Link: https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
->> ---
->>  Documentation/filesystems/resctrl.rst |  7 ++++---
->>  fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
->>  2 files changed, 17 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
->> index b52795e03303..5f21ab20030a 100644
->> --- a/Documentation/filesystems/resctrl.rst
->> +++ b/Documentation/filesystems/resctrl.rst
->> @@ -552,9 +552,10 @@ will automatically remove all MON groups below it.
->>  Moving MON group directories to a new parent CTRL_MON group is supported
->>  for the purpose of changing the resource allocations of a MON group
->>  without impacting its monitoring data or assigned tasks. This operation
->> -is not allowed for MON groups which monitor CPUs. No other move
->> -operation is currently allowed other than simply renaming a CTRL_MON or
->> -MON group.
->> +is not allowed for MON groups which monitor CPUs, and fails with
->> +-EOPNOTSUPP on systems where the RMID depends on the CLOSID, such as
->> +arm64 MPAM. No other move operation is currently allowed other than
->> +simply renaming a CTRL_MON or MON group.
->>  
->>  All groups contain the following files:
->>  
->> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
->> index 9290a346386e..358f2dc8301d 100644
->> --- a/fs/resctrl/rdtgroup.c
->> +++ b/fs/resctrl/rdtgroup.c
->> @@ -4405,6 +4405,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
->>  		goto out;
->>  	}
->>  
->> +	/*
->> +	 * Moving the group changes the CLOSID. Where the RMID is only
->> +	 * meaningful together with the CLOSID, the RMID index changes and the
->> +	 * monitor state cannot follow the move.
->> +	 */
->> +	if (rdtgrp->mon.parent != new_prdtgrp && resctrl_arch_mon_capable() &&
->> +	    resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
->> +	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
->> +		rdt_last_cmd_puts("Changing parent control group not supported\n");
->> +		ret = -EOPNOTSUPP;
->> +		goto out;
->> +	}
->> +
->>  	/*
->>  	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
->>  	 * current parent CTRL_MON group and therefore cannot be assigned to
-> 
-
--- 
-Best regards,
-Jinjie
+> Best regards,
+> Krzysztof
 
