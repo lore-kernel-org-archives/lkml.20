@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878980;
-	b=PXPIfd/kD8d1isUquRVUhZxJMqitTJtF74xr1kxJ+4N4sLRH9ZGzz9u0uYqT7sGlEcJk
-	 EUdSvVhZDWMLU9EgDKEirZaGMm5qewG0Z3TMR6rmOtZslOdy6daSeAi5aQNMwEZilxWHR
-	 zJ23oGzbCmfVTvw2angaCmbg/8aNKbrVDLrELH9zpXmxcqRrUviYTMGvUINbzGc+AMrt2
-	 v2O3KRrlKQq1y7/SBCIZuuRdSzTKBuoy6Iv8gf07+tOz49viGNVAm4it7jpK78eW9+hgv
-	 GAJFJLPCgQ+YmgsaqqoMy5AXqnbL1KwMxcQtyx0Q0zhP+or54elWz10PV06pWiU2e5A==
+	t=1793879002;
+	b=mbR+uNdt7wxdn61RTT2vbrkShxcysLBesM1G7pvaqgCnsLIW73Smtp9NiIyKmE3MJ26x
+	 N8FW6IuQpNJAuEHl45f8tT/+zpGr9wOdtgd9Rq65FnXJnAz2suoK84mBuzmDDrn9lvE5v
+	 PxjkVgHpw/ipRrahpWOF8V//BgUFDSfJ58O6By6v/Zg2YPsAgJN1rHLx+GUblAjAaLZMe
+	 vuW6WxZcUqQpTz1pnlLqCdX25SU6vLTvQtUEfD6/2A4ZTclM777iIokKDabCRq+HEwakK
+	 UlTVl5AmkfN0si3cdaoxw6+PGy2wcuNcIxkkqv21DpUfxBXC66s0maizHGAXdUgdKUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878980;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879002;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
 	 Content-Transfer-Encoding;
-	bh=wh2ChqYF9XmNrt6b8ATpGBOGwb3/qYFuxeZ+hTus5/8=;
-	b=IODUXf09rZU4m1IVrAa/B1AAOrTQ4VXlt+Fdj04brOQZUo2mjNr7wm+EyVUcHuqsbF+W
-	 nqF9C06rUzVs6Y45gyouSq3T/1du0YddjMN4bUzgdVxx7n2UyG59QRhkYA3OuPm5TIIKR
-	 P335YGmsdumVbzNbMxUxMBbY2wE5qfhdTcYxCyDNZrboBBwDZ87f9eu5yQYq3tzpWlSho
-	 geiV3f/LfOKwnCUaMOow+4z1s+53xkGBbUdH9eyi8GjLC1Rp+4VqRdmVxI1ZtQxBM4uH6
-	 me9Gi5xRfRvrkUzJWbrk7EFVONggoiHtBT8k6IuQJKjJy/TuvtchEttGY59Di+FJq2g==
+	bh=Kya3esT+ja5CoFsJojA0B+sdCKA8A1pbdw4lgiA8vnE=;
+	b=qMzfbiIGBysfGSonX5+pgkS3yZWD4OnEnM1ujY2vrTIMpBH2HAPREIX0Fh5TMaQC97/d
+	 GTbFlucqLpxWBg52FV213QEet+7DliFD4W9PiUV7zACd1P+/zYC484GTPCS+SPkq7RYfW
+	 Xfum1EU9pkWq7JIgrNuv8Xdx0CzeoTyNxv4TNteS+U5O2SC2HeJPvyh+DMS9mNBpGctom
+	 LcmC9Nj8T4gjkFMbw3CtM+VIRQQlM4kw7pDgCMFcgYQdhtOuuglC/JEVaMHvGNrDZdCby
+	 wI6rJqWi5ha/E75J11dbrQ78u+A/tkDEVfBZ7OJQ1r44OT7iaDbtAUs0bNRyD9ZauXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hz+Q7l13;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqNb1Wne;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218496082BC1;
-	Thu,  5 Nov 2026 11:43:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ACC606A927;
+	Thu,  5 Nov 2026 11:43:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hz+Q7l13
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C471F00A15;
-	Thu,  5 Nov 2026 11:42:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqNb1Wne
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC0B1F0093A;
+	Thu,  5 Nov 2026 11:43:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793878980;
-	bh=wh2ChqYF9XmNrt6b8ATpGBOGwb3/qYFuxeZ+hTus5/8=;
+	s=k20260515; t=1793879001;
+	bh=Kya3esT+ja5CoFsJojA0B+sdCKA8A1pbdw4lgiA8vnE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hz+Q7l13ehrAH4JfC/EmnFHGXEzuVKlpCJ2hy0jgirPvlXDfbh9TzTMxvSEM6ftXL
-	 V4gRcdHtqAxgaJGYxhvb9wFCVxSfrsAAeFspTWF18H2yAevJRWmbTRoiB1VxTBL26V
-	 drIvK0pp+5Vy5BVtDKiwEoAjO2KuKEYGtBLshn+pSKmASjMVYF2/2OfECXUV/zq7Vf
-	 DwdlYasjopA6fDNUUo1tirp/B5e/etym3wKTgkWVqF782WshoLHDVjRmtlDChPvjZY
-	 oRH4EFh4/hTEI4ToBhirlTH+z+6szkJ4Rr4SuE9x29hl4l1rkbr6TNhUpciGDZtZox
-	 s4g7D59du+NYA==
+	b=VqNb1WneZNPbHxf4k7WsDFngZ6BOP7gcl9wUZ464/qJHWz7uxNhiTKlzCzYy6yKGf
+	 ssc7CpnrgxYN3lgXedAnuf+DrTVWvNurDczkpqqd+kr9KyXsBHeEy6AymFhZsEhxO4
+	 L7ElhgOGMxNsUHFkrq9nsmJRUlao2FbFpCcPLFh7xq/WfoxcM2KOlb8d04i0P64ujY
+	 jbRwLMs6xYhfH4N5gGZssLCYJaSH9XEkUZRc1Fol1YUztvfoRUga2w0VJThMMX04Ku
+	 cuOlQbDssvAzzGLr41KaX0wiuUx2sc2yxEPXzYXxKl85BAQILPI1ZCZhcjWZZ0CKJH
+	 HcKsJdKYGed1g==
 From: Leon Romanovsky <leon@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J. Wysocki" <rafael@kernel.org>,
@@ -82,9 +82,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-pci@vger.kernel.org,
 	iommu@lists.linux.dev,
 	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH 07/17] cdx: Propagate DMA configuration errors
-Date: Thu,  5 Nov 2026 13:42:20 +0200
-Message-ID: <20261105-device-trust-core-v1-7-1e536825b4eb@nvidia.com>
+Subject: [PATCH 08/17] driver core: Allow userspace to detect EPROBE_DEFER when using sysfs drivers_probe
+Date: Thu,  5 Nov 2026 13:42:21 +0200
+Message-ID: <20261105-device-trust-core-v1-8-1e536825b4eb@nvidia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
 References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
@@ -103,32 +103,82 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-CDX reports successful DMA configuration when firmware setup defers or
-default-domain acquisition fails. Driver probing can then proceed without
-the required DMA setup or IOMMU ownership.
+commit b8c5cec23d5c ("Driver core: udev triggered device-<>driver
+binding") introduced the concept of "Systems who want to control the
+driver binding with udev" can use the drivers_probe sysfs to trigger a
+driver bind based on the kernel's match list.
 
-Return the configuration result so driver core stops or defers probing
-instead of allowing a driver to use a rejected domain.
+If attaching the driver is deferred before its probe callback runs,
+userspace sees EINVAL and cannot tell it should try again, maybe after
+loading other drivers.
 
-Fixes: 2959ab247061 ("cdx: add the cdx bus driver")
+Map that deferral to EAGAIN and add missed documentation for the
+drivers_probe sysfs. A deferral requested by the probe callback itself
+is still not reported.
+
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/cdx/cdx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/ABI/testing/sysfs-bus-drivers-probe | 13 +++++++++++++
+ MAINTAINERS                                       |  1 +
+ drivers/base/bus.c                                |  9 +++++++--
+ 3 files changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/cdx/cdx.c b/drivers/cdx/cdx.c
-index a118a89a7779d..0a030bf522690 100644
---- a/drivers/cdx/cdx.c
-+++ b/drivers/cdx/cdx.c
-@@ -367,7 +367,7 @@ static int cdx_dma_configure(struct device *dev)
- 			arch_teardown_dma_ops(dev);
- 	}
+diff --git a/Documentation/ABI/testing/sysfs-bus-drivers-probe b/Documentation/ABI/testing/sysfs-bus-drivers-probe
+new file mode 100644
+index 0000000000000..851c65b9331ae
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-bus-drivers-probe
+@@ -0,0 +1,13 @@
++What:		/sys/bus/.../drivers_probe
++Date:		February 2007
++Contact:	driver-core@lists.linux.dev
++Description:
++		(WO) Writing a device name requests driver attachment on this
++		bus, even when drivers_autoprobe is disabled. A successful
++		write does not guarantee that a driver bound. The device's
++		driver link reports the result.
++
++		EAGAIN means attachment was deferred before the driver's probe
++		callback, for example while a supplier or the device itself
++		is not ready. ENODEV means the device was not found. Other
++		attachment errors return EINVAL.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065d..b726344362b41 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8149,6 +8149,7 @@ M:	Johan Hovold <johan@kernel.org>
+ L:	driver-core@lists.linux.dev
+ S:	Supported
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
++F:	Documentation/ABI/testing/sysfs-bus-drivers-probe
+ F:	Documentation/core-api/kobject.rst
+ F:	Documentation/driver-api/driver-model/
+ F:	drivers/base/
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index 396097fdb3162..ecff32c3704b5 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -310,13 +310,18 @@ static ssize_t drivers_probe_store(const struct bus_type *bus,
+ 				   const char *buf, size_t count)
+ {
+ 	struct device *dev;
+-	int err = -EINVAL;
++	int err;
  
--	return 0;
-+	return ret;
+ 	dev = bus_find_device_by_name(bus, NULL, buf);
+ 	if (!dev)
+ 		return -ENODEV;
+-	if (bus_rescan_devices_helper(dev, NULL) == 0)
++	err = bus_rescan_devices_helper(dev, NULL);
++	if (!err)
+ 		err = count;
++	else if (err == -EPROBE_DEFER)
++		err = -EAGAIN;
++	else
++		err = -EINVAL;
+ 	put_device(dev);
+ 	return err;
  }
- 
- static void cdx_dma_cleanup(struct device *dev)
 
 -- 
 2.56.0
