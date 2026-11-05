@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793857735;
-	b=vigChZ6MjPomMc31kQyB5Delvyx8lkb+m7oOSr7xpJuhKro+T0/ISekRjLFyv0iWVGDT
-	 WHdm2k2aXkinhKz+/JBhHezW+o+f04y5WTJJ6L0scyPwGGlvrm8S2OKBu38G4sB3l/aTf
-	 G2H/x+nhnGNYXt20hxScLO5S5uCHTfv+RFlOk+3QYfW059sgoXna5S7mrwpjja07sLCP5
-	 W3NJCQRW5Xy/S11m4zv4z9qW/pV3XpOKfy89JuNaNIB8bP+zc1Y9WQfmeNKeds1oi+Tpe
-	 Xpp4Bma17JwfI5v2jl2wmk3t9TP7PZQX7ror8DOmZ96hqaJdEXxZ80dDWY1PHXAjzUQ==
+	t=1793857741;
+	b=aJVQVaeKWn/4amwWotQG1D9DEeOjBuTjbRkbx9lYqqvGP2wCN+QvJdOqzJ7U0G+KBTrF
+	 QUgn/+aCRiU0uHOitjxvwmYzvja0zTHxo2voWmMmSTLenkhREj4n10YmiAOD3QafCu9kV
+	 tQUKIsdqdXmii38mlyJWd62I0YJOQr/yTp6YhUtxQUripiKiyqvzXh3f5HKui/vLMd70+
+	 9Y0CZL5X8o1tN3vDKYnqK4Lc0CIv40iefvZTCMGqDVRIae/KCtFwBZRywYeTanR4Ro0nA
+	 kEVVoPdt+Og+jZv44RZe6acgBzDxo+KIHXNVDCgDBQ4Dlrz86p/LOn0U1a8NKIiIXjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793857735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793857741;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/tLj2CYL+xeFoB/kDteydYBzhpIqHWBZsG7xgIdv21w=;
-	b=j2biy+I7JzL6QXuLNqWp19r1bfa3e862BNa7r1ccbneNw04RFZrwXtIOdMnaq0qkQ1F6
-	 MtQFVrHFrGPi3zVfUntDix4klSdpu8EVJvaGYRTQU+HbBHbBZsMYAOU/fO8htZmAVvuTn
-	 /wpXjijByxznJJzp5y1q2tCyIc6tq7yE3sY67ssPV8ofadDwfKo689IBzJzF/bsKRX2B3
-	 I3RSgHFxh/gwm7PAFIgq+a+llNtz1/hJtim0TdMiJVOyJqsHRqw4GAsRGrVyvJkSvRyvk
-	 8a6c3qJergGzQihG40hFl11qQruEKRyyWjbGZ9dZ9qWfOeJLO5ShEKB9MkBnpYmNO9Q==
+	bh=7vRCSNcyZCs3Byo+z/ZAnwu5XcUvruiiG1cQha9Q2S4=;
+	b=Cw21FeUmkBL85hGyMt0cIB9UOeWPlzB1tNs6YiAsu4zi+Cauctr86siszncALe2I2uGt
+	 kSqPTrb6SbzvsrZV8K6xX9ru25vSS/3Q0Mv2ET7adHM6qEw5JZF3zl7y177FgUNpHfNp6
+	 lYzC2pgbNA5iou5nltZFlmqkKRkEav6mYJ8KeV2jvvd5HRGl0MgKdIXITJHfRy03YBxpz
+	 r9XCwMG38ko50mFa3bAaf+s4IRGxduLf2gwKFt/oBxlPL23zSfKcmnRwFFIIaVtgohcmv
+	 i5E+LCosdgGCstbzwY+jauEi8BNNCzj3qyt+VGF0PfxNqa63xE0kO8J8KZLny6sgT6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jclark.com;
 	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hwQcSTB1;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VZvLZAcD;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124CC606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:48:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 124CC606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580E5606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:49:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 580E5606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hwQcSTB1
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdb1199bfd8so644373a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:48:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VZvLZAcD
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so141545a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:49:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793857734; x=1794462534; darn=vger.kernel.org;
+        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793857741; x=1794462541; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/tLj2CYL+xeFoB/kDteydYBzhpIqHWBZsG7xgIdv21w=;
-        b=hwQcSTB1rtvVSsJLuT5CEar20rpGeR11znLLq/8YGPN+em4gayJ5i8tJGd+z3PzTaT
-         VJwbrWgZRcFsGpYhTN1I5ZcN3Xnlv7DLr9/qnboc7riIvUyvtKGIfsqLlbly85galEJy
-         N8aW3KLi5qbMK4baEwzLU+hCIyj4fPPfXmD0NF6Fj+7K6fsv2+5J71rm8lDFIo3iAtJ9
-         LzFBdTi9DX51vs9FJ0IpLuriTPCo68E30aE4JUo3c+JYgpMLRzRTN4hY07gk1IFYSS7p
-         z2OS8uVrIRx2xZI2iYqFWcvQgGZJU2hJIQ/TsllEi+Dehg8/QL55Ja58ivX6FBTeOOAO
-         AZ/g==
+        bh=7vRCSNcyZCs3Byo+z/ZAnwu5XcUvruiiG1cQha9Q2S4=;
+        b=VZvLZAcDX/9Zig8n+WP3af6cqSzQ9xFLCzOecmHMvPvnbKelKS6a5KSssA33wAcwKN
+         j50Gsh3bUwV1sjj2G+afpF+EDM60oWhRaYs5KbjutXmgsMvk2jhfc1KhsDzksERgp19u
+         3NW28rwInhnZH+UvIZF4tJEUtdpw1lPFj8kM8vha7aUQjed0hoVy/xBj240ybYsoAqNo
+         Mp83HFdzyU0Apdz3slFknlCMhZOhXXPpEGIdF9G8s3XLHRpIA9dIENA8vtFuiWnaWk+z
+         Cx9nKw0tdzy4hzwDa+At7sbQSwkp1Xti+NBUepOyrcvIhlgFvPgODKVIfbTICraghFoj
+         69+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793857734; x=1794462534;
+        d=1e100.net; s=20260707; t=1793857741; x=1794462541;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/tLj2CYL+xeFoB/kDteydYBzhpIqHWBZsG7xgIdv21w=;
-        b=q2WQqctXLhO62PfhK+Q0cTVP82f1BtFY7AEzA1Xr+QvF2Kx5c0t/u56T28UbnjisH5
-         dHEOfEFQsZcQWD5vY/qSVshUN3DiezhK2BRIQqdlE8xAF3J2owfSjVyL41FN6DKeQfrD
-         M2KZkrRyxMIIxKvhrodXu9lN8Ao0p0t482MCeO0ve6wWq7uckQiE5X9UsSfKGtb6hv8y
-         Y7kJBU7Idlx7DLFPsCAdwNP+2pp91InbwoYpVgKa3SLealwMFA0i95qP9vDwZcQv6Ayz
-         9Gr37S/ni194hu/FELiyiub55nuz5r85CJy7TxIIs2A+rXX46At2FxjiGxFuEty0RZ/i
-         a5uQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzL9VBthvR2Ju/Z5abr/fSo0iCzi5Pb0AkxdL1rf335/XOCeUOhN/dJseFOAvziT/Z9TGaPeRxFHF5M0D4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SZhCth88l6iEtb/NHdE3BC85ltoI7CWCs6oIP0l91P+cN3d5S
-	pyz/CVakWNAi4OCfX23g4lc89QA93t2Qgpk2lgKzhSrW6Duw2Zya4EoxUwqisXEz/g==
-X-Gm-Gg: AYBFou17MM5rw4643gjg3P+3MOs9NrcaXj5YfwpIh8WRuNzRCpGPq3OxDAxEsU7YABy
-	N2zDX5+c1KkiSNiZouXA+vIG1yUrtcJme9ohv4XnIoY7BTroQ05Q16SK2eJJZf0BhkFHdEHp0DE
-	k+n+eL4fD9oH1Lsgo/WpCc78VLLi4EPw5eIMJpWuwhaLdiXtIPNSutVF4OEZVeY+mH6vnUrk79p
-	xFL9NXAYkwPxsb37g0+3WGQYnfokafGZ4c94FZJJrwMtFmLNimMcUAueBhuZ1t0SCUQ3WFFpz+q
-	ZFzT8jlmUw6Bobxl72bPULpFc1SmJgor0UymBUA119xZUhrxDsgkXhKipQdpEQQ6KWmKwWVqyUy
-	3jV056W1PmfZMJx73tUUO3mXEbhkkirOeIBwM5gHXVcDPQkxFnpXvTqIPgQWbYJ/W//cQt0ARdp
-	HsWxqxmylJ2Cg5kq3ZSmblcbwpQEp70P+H8ASOQV9ifXcMnpQnQtioD2PeUbE0BYffGThK/r+x0
-	EBo1EOoVpSCBJ8lQtk21Ec/KI3ZaOCnfR7eULWCS2nmkeNUnM0EEF+Op55UYhYBCm+AgaM5LK5T
-	CkBQblH8NrVCxoeGSO8ajpETSNt1vUgjUhCy/LiotLXyy3IYgtwBU50dmu6WHJhAJx+qJ73vi3e
-	/EFZ5XWEOcvfnm2aXJrPRrkLE/tv1ar+JNbGcsAA=
-X-Received: by 2002:a17:90b:57cb:b0:39e:4c81:6c5f with SMTP id 98e67ed59e1d1-3ae897f6192mr15189506a91.26.1793857734239;
-        Wed, 04 Nov 2026 21:48:54 -0800 (PST)
+        bh=7vRCSNcyZCs3Byo+z/ZAnwu5XcUvruiiG1cQha9Q2S4=;
+        b=bMnkGdCPTGzQKps2H75DD7zkRkoqfyP0388u+7XKvCw+po/f81V4HXsgpT63WYv1UQ
+         gFFqVI0sgzZ+lakoAwduTS/O2i4hT0JMjMAGZPuEPQrKvl3ap/TKlZ/lBZW1OARjdBzu
+         C7ksB/MVXEfOJyf6EtocBnUHYMuEaH8NwYCT9cQuZW2dj27CIC0eAjKHQ49gcIH2GwDE
+         vg9v/v5G8XtAuMx1oFPFKb4sJwWRO2Yh01XmFRc4nO9+Ax9gxICKtp3sjLc3PoQruJU+
+         n0n9+zbnu45UDEVuhcTF7+BjdYreb9SRai6HTL2szga7LkUaT4+UiES3w5ikyb8Su58t
+         OYoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwdDdH+DHjSLS/FJ5W+QSnVyy46qXds++JdFUOgnctVWui4ugDWUbrKmjKokFu06rUh3Qa2iCKkdTYif5o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/X0ZydFE/TLMHhOq5a8WBX88qcquuObbcb1IMwjZU7fD0JYItf
+	TFTmym2mnSEm8oS4Myr1KkAa98eJ6FXx6tVSIT6sNesXZtTuGX21jQ7vTKpvc9zetg==
+X-Gm-Gg: AYBFou3EMhzhlXkaVDmwjqpMDmrPq2mYrYNZ9VgxRIa2DkguZj1wHuQ47EkaOBccHah
+	2wAHwW5jVie6B/WTusRzB8ip4IENz1k4dDloyC1QD6cmKK+OGPNaeEhCzoR+L3U2YKX0MD4GYig
+	n5VOYhf9VB6sDVD2xhLeI8Ofk96lNpxj5cmQtoKKyDZ9MpgMOOw60o6PVmwJyjsZSFuJbAN21Hz
+	crLQUY+eCf5SMt8be5yZUbQ3kfPImyRAA9NwVtEIJKnSmeeI5tL1vRW9G9y2H+jxE/FVz8aqLBs
+	zxAtWVREx9/wiyfWNYj5niy5mlMP2hbcdTBz1dNtiIAPX2Z0fWPd4RmYPTYzPdfRRZQVyibzpmg
+	2yzt6cEiRHqcLVdpHLMD3DIkLUS83NYWg8tBb18AR+M2+FS1fUUeNe+IfJEC5jqY7SJkglAkcC/
+	chVfXKX6W6pp1Rlxe8YokOcP1nbA2K1yWFHGBIug1Gz2OlmUnHAvLIB9tBYVKVC1dUY0c1qwhFS
+	8F6LJPp3ikECnIfdeTF6KjGd9dN6dMZvBIpjwtMsvCconfD2btq5irlGncFYE1rsDnB9gX0Z8uH
+	SYEn5zAzVLYXfXtvUxwTarrSR4NxZLYc+58gEWQFtj8BTbgmQmfk8P2fTpXAXu3+C4ojpP/gVjI
+	yOPT378i2HRnMZsn3C54eDZSxtbOU8x7LiyQ7OwY=
+X-Received: by 2002:a17:90b:4486:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3b0afbf69a0mr944027a91.8.1793857740594;
+        Wed, 04 Nov 2026 21:49:00 -0800 (PST)
 Received: from cantal.lan ([58.136.77.237])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b319f2c9sm1989676a91.10.2026.11.04.21.48.48
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b319f2c9sm1989676a91.10.2026.11.04.21.48.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:48:53 -0800 (PST)
+        Wed, 04 Nov 2026 21:49:00 -0800 (PST)
 From: James Clark <jjc@jclark.com>
 To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -103,9 +103,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Hubert Feurstein <h.feurstein@gmail.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 1/6] timekeeping: add ktime_scale_raw_ns()
-Date: Thu,  5 Nov 2026 12:48:34 +0700
-Message-ID: <20261105054839.2248046-2-jjc@jclark.com>
+Subject: [PATCH net-next v3 2/6] ptp: add functions to adjust system timestamps
+Date: Thu,  5 Nov 2026 12:48:35 +0700
+Message-ID: <20261105054839.2248046-3-jjc@jclark.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261105054839.2248046-1-jjc@jclark.com>
 References: <20261105054839.2248046-1-jjc@jclark.com>
@@ -120,110 +120,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add ktime_scale_raw_ns(), which scales a duration in monotonic raw
-time by the frequency of a given clock relative to monotonic raw.
+Add ptp_adjust_system_prets() and ptp_adjust_system_postts(), which
+shift the pre or post system timestamp by a given CLOCK_MONOTONIC_RAW
+duration. The selected clock's time is shifted by the duration scaled by
+that clock's current frequency relative to CLOCK_MONOTONIC_RAW, with
+ktime_scale_raw_ns().
 
-A PTP driver that takes a ktime_get_snapshot_id() snapshot around a
-hardware access may know how long after the snapshot, in monotonic raw
-time, the hardware event happened. To shift the snapshot's time of the
-selected clock by the same interval, the duration has to be scaled by
-that clock's frequency relative to monotonic raw.
-
-Scale by tkr_mono.mult / tkr_raw.mult of the clock's timekeeper, as
-adjust_historical_crosststamp() does. For an AUX clock this is the AUX
-clock's own timekeeper.
+An MDIO bus driver can take system timestamps around the command that
+starts a write, and knows how long after that command the write
+completes, so it can shift the timestamps to bound the completion of
+the write.
 
 Signed-off-by: James Clark <jjc@jclark.com>
 ---
 Changes in v2:
-- New patch, used by the ptp helpers in the next patch
+- Scale the shift of the selected clock's time by that clock's current
+  frequency relative to CLOCK_MONOTONIC_RAW with ktime_scale_raw_ns(),
+  in place of adding the CLOCK_MONOTONIC_RAW duration unscaled
+- Move before the mdio core patch (was 3/5), which now uses these
+  helpers
 
- include/linux/timekeeping.h |  6 +++++
- kernel/time/timekeeping.c   | 54 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 60 insertions(+)
+ include/linux/ptp_clock_kernel.h | 55 ++++++++++++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
-diff --git a/include/linux/timekeeping.h b/include/linux/timekeeping.h
-index efa9442aaeef..c3737aa844f8 100644
---- a/include/linux/timekeeping.h
-+++ b/include/linux/timekeeping.h
-@@ -366,6 +366,12 @@ extern int get_device_system_crosststamp(
-  */
- extern void ktime_get_snapshot_id(clockid_t clock_id, struct system_time_snapshot *systime_snapshot);
- 
-+/*
-+ * Scale a monotonic raw duration by the frequency of a given clock
-+ * relative to monotonic raw.
-+ */
-+extern u64 ktime_scale_raw_ns(clockid_t clock_id, u64 ns);
-+
- /*
-  * Persistent clock related interfaces
-  */
-diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-index dcf47f1ffdcf..a6e2d2b8642a 100644
---- a/kernel/time/timekeeping.c
-+++ b/kernel/time/timekeeping.c
-@@ -1335,6 +1335,60 @@ void ktime_get_snapshot_id(clockid_t clock_id, struct system_time_snapshot *syst
+diff --git a/include/linux/ptp_clock_kernel.h b/include/linux/ptp_clock_kernel.h
+index 36a27a910595..b952744ff696 100644
+--- a/include/linux/ptp_clock_kernel.h
++++ b/include/linux/ptp_clock_kernel.h
+@@ -520,4 +520,59 @@ static inline void ptp_read_system_postts(struct ptp_system_timestamp *sts)
+ 		ktime_get_snapshot_id(sts->clockid, &sts->post_sts);
  }
- EXPORT_SYMBOL_GPL(ktime_get_snapshot_id);
  
-+/**
-+ * ktime_scale_raw_ns - Scale a monotonic raw duration by a clock's frequency
-+ * @clock_id:	The clock ID whose frequency to scale by
-+ * @ns:		Duration in nanoseconds of the monotonic raw clock related
-+ *		to @clock_id
-+ *
-+ * Multiply a duration measured in monotonic raw time by the current
-+ * frequency of @clock_id relative to monotonic raw.
-+ *
-+ * Return: @ns scaled by the frequency of @clock_id relative to monotonic
-+ * raw. @ns unchanged for CLOCK_MONOTONIC_RAW, or if @clock_id is an AUX
-+ * clock that is not enabled.
-+ */
-+u64 ktime_scale_raw_ns(clockid_t clock_id, u64 ns)
++static inline void __ptp_adjust_snapshot(clockid_t clockid,
++					 struct system_time_snapshot *snap,
++					 s64 ns)
 +{
-+	u32 mult_sys, mult_raw;
-+	struct timekeeper *tk;
-+	struct tk_data *tkd;
-+	unsigned int seq;
++	s64 sys_ns;
 +
-+	switch (clock_id) {
-+	case CLOCK_REALTIME:
-+	case CLOCK_MONOTONIC:
-+	case CLOCK_BOOTTIME:
-+		tkd = &tk_core;
-+		break;
-+	case CLOCK_MONOTONIC_RAW:
-+		return ns;
-+	case CLOCK_AUX ... CLOCK_AUX_LAST:
-+		tkd = aux_get_tk_data(clock_id);
-+		if (!tkd)
-+			return ns;
-+		break;
-+	default:
-+		WARN_ON_ONCE(1);
-+		return ns;
-+	}
-+
-+	tk = &tkd->timekeeper;
-+
-+	do {
-+		seq = read_seqcount_begin(&tkd->seq);
-+
-+		if (!tk->clock_valid)
-+			return ns;
-+
-+		mult_sys = tk->tkr_mono.mult;
-+		mult_raw = tk->tkr_raw.mult;
-+	} while (read_seqcount_retry(&tkd->seq, seq));
-+
-+	return mul_u64_u32_div(ns, mult_sys, mult_raw);
++	if (!snap->valid)
++		return;
++	if (ns < 0)
++		sys_ns = -(s64)ktime_scale_raw_ns(clockid, -ns);
++	else
++		sys_ns = ktime_scale_raw_ns(clockid, ns);
++	snap->systime = ktime_add_ns(snap->systime, sys_ns);
++	snap->monoraw = ktime_add_ns(snap->monoraw, ns);
++	/* No counter value corresponds to the adjusted times. */
++	snap->cycles = 0;
++	snap->cs_id = CSID_GENERIC;
++	snap->hw_cycles = 0;
++	snap->hw_csid = CSID_GENERIC;
 +}
-+EXPORT_SYMBOL_GPL(ktime_scale_raw_ns);
 +
- /* Scale base by mult/div checking for overflow */
- static int scale64_check_overflow(u64 mult, u64 div, u64 *base)
- {
++/**
++ * ptp_adjust_system_prets - Shift the lower system timestamp bound
++ * @sts: system timestamps, or NULL
++ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
++ *
++ * Add @ns to the CLOCK_MONOTONIC_RAW time of the lower bound, and @ns
++ * scaled by the selected clock's current frequency relative to
++ * CLOCK_MONOTONIC_RAW to its time, and clear its clocksource counter
++ * values.
++ */
++static inline void ptp_adjust_system_prets(struct ptp_system_timestamp *sts,
++					   s64 ns)
++{
++	if (sts)
++		__ptp_adjust_snapshot(sts->clockid, &sts->pre_sts, ns);
++}
++
++/**
++ * ptp_adjust_system_postts - Shift the upper system timestamp bound
++ * @sts: system timestamps, or NULL
++ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
++ *
++ * Add @ns to the CLOCK_MONOTONIC_RAW time of the upper bound, and @ns
++ * scaled by the selected clock's current frequency relative to
++ * CLOCK_MONOTONIC_RAW to its time, and clear its clocksource counter
++ * values.
++ */
++static inline void ptp_adjust_system_postts(struct ptp_system_timestamp *sts,
++					    s64 ns)
++{
++	if (sts)
++		__ptp_adjust_snapshot(sts->clockid, &sts->post_sts, ns);
++}
++
+ #endif
 -- 
 2.56.0
 
