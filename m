@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904033;
-	b=HWK8CcBAS2aVj6IoRvTTx1KBT1d7xa0t6EczNteUCShVgNiXJnQsa0mAqiRRddHemkRO
-	 ZhUYRVdtLmaYy9ZFRScedYZ186myeNId1enCptmn9YkkB+moIj/VBJjebjqyzpOWZwq0a
-	 adeHY7SCjIQ7m/BwK7LmrdSIhp5uUp+YNTOtdZIMQNXiaQjWL3NrTocChIcQNYeSzo8E6
-	 eZNH2doBR10GeoO3etsQVbTC7SJacVZGxOpgl/SDbDAOlJePUNyx/mOyE/D6vIu2Hx9hL
-	 QfvLIIxoaV0rxTAikh742G4hoRKYl5aD4VdYes03o6TEYE6Y1LzfVdxOc10grIzRoRg==
+	t=1793904040;
+	b=3AfSVjLXJYaAgjOiFWWpU/6gr7+y2x6ut6sjKHM6kTJSEXMTbN2wS8tktoSndOtbhLm1
+	 5+gsVIOF3K/rIdMtOlH/Xp+hMlVaI+8j/Ha6wV/1V0SPSCml7BmL3phCIBZedM+Jauhhf
+	 JK3BljZ66kpAZ/gfIlgrhxm+SAnfiFnmsZkKrPVarXeWY81LUlMV/pYj9oM4OjvNOacYY
+	 lz+Lkvcft9G/88wpH0P8ZyeErUBBssyAikvWocsmiQwJ+AJrPUDi115TspKmeIvw3/N2A
+	 iIa5rATkAgxfGdBP7Yxmkg2SV3VKVGZC1EXtJo378B8sPb/oeLuxlL1WgAnxhzYTrzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904033;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904040;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=oFQCr7m3VJS53WKkGLDYfsPN+SWWbvo+wFSmzZ6dt3A=;
-	b=tcg1kdZS3jxPAJGqfHBfUHwVE2iFawqBAxn+iW/1NFoT5oep2p+PNS2nPiD3wWdgzDoE
-	 4kjXRU+ufvt6W4UEerWhVBwlNM36rhESUynKbQSOH2yOuogjUeLSl+SxqcZNRn2TZr8Io
-	 hJSvwJWnGDtRaOojxPFSfpk6VUeuNT/vlVCnBij4uLw4lyomWO7krkiaVYFBRbAtJ7Rv+
-	 4GZZ08oumW735AHnrQMk13d3GsqyYrZVNihppA2+Lzhieus50qFz/9WC3gWwQGyexPRuP
-	 Hh/EScDUsjhrFI9dLIi3vTJNTacVdQcB8GpWru8mMZar1mqni4HOXftMJ7gmpT3EsWA==
+	bh=BW1nQsutnrZitd0IEzC284qt4pUoWTmeWnhpOQZQ17M=;
+	b=ntimhxa7ODFSt03mAMVqrCCWo6RMerbVD8vZSWioRh4ipl22dVj9ky7yWqzrZ997n6Pz
+	 a7/tY+JTjlKuhNDgOnODZ9on2z40l2CPfXb05jQiBoiCZ4Xj+a8mKN1bDPp5lHby/Qbif
+	 6xKUrcLTAEn5ealOLvw86ScE4PDTr4reFiSae1qeSpzZk0k6R+4lq9lB2FuCpX6zqg5lb
+	 CAEY9ZP/B6S+P1MA6p6VZtiCFHWJr0pEiQRffSuyAWkAiWGwTlubdCXr7F33bgajKIlkt
+	 zGTJip+UUGKfiysI80ut2xldIN5CENF9v1oqBgg4e9w/NMs0f7phqi/9pbLfYjj7ciA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ys07SmHJ;
-	arc=none smtp.remote-ip=95.215.58.11
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xiFtTF+U;
+	arc=none smtp.remote-ip=91.218.175.95
+Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C592F606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C592F606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E10606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:40:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E10606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ys07SmHJ
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xiFtTF+U
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pLzdrNFS5rkH0iH7ngCOM+5sJEDVQrr95NdzUO/r4P8=;
+DKIM-Signature: a=rsa-sha256; bh=wz3IjU8MmdepamXobqBOtTMChOSj7PBIYvSm39xyfBE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904030; v=1; x=1794508830;
- b=Ys07SmHJ2H/cIoQA+Q0tN7SuPuvVLR+FtppzrUHVPEl8PTOi0RosDXZ/Bzsomf9DT900ihDI
- heprMEyH1mQBtsgkRxuMgyt0lf9tInGLxfVuO2cJcWmK6Zdf7LaJ6084VoQGmNz5kPXg7ffuouN
- fTxdXB4UKAFImREglHl+A9Xo=
+ t=1793904038; v=1; x=1794508838;
+ b=xiFtTF+Ui1yW1hheZjC/GYAEq7qkv2Pn/Ap+dIotL/UKmFuuwNaxgA3PGhI3gWuvk1j+kRDt
+ 7UaK0xTSrhxeGop6VjjFG822+hZlOJmPTT9Jwf+C8kYCgXbyourH4IYuvppWPO35RAeLBzxJTf+
+ ZN25/Xwwi/rO8Y9VuKrFZ0w0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id ac5bc4f198cc9f78;
-	Thu, 05 Nov 2026 18:40:19 +0000
-X-Mizu-Trace-ID: ac5bc4f198cc9f78
+Received: by mta11.migadu.com with ESMTPS id 50c412d95539fb94;
+	Thu, 05 Nov 2026 18:40:37 +0000
+X-Mizu-Trace-ID: 50c412d95539fb94
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -81,13 +81,14 @@ Cc: chenhuacai@kernel.org,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	linux-riscv@lists.infradead.org
-Subject: [PATCH v9 05/32] riscv: mm: add PMD swap-exclusive helpers
-Date: Thu,  5 Nov 2026 10:38:49 -0800
-Message-ID: <20261105183940.2236717-6-usama.arif@linux.dev>
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	linux-s390@vger.kernel.org
+Subject: [PATCH v9 06/32] s390: mm: add PMD swap-exclusive helpers
+Date: Thu,  5 Nov 2026 10:38:50 -0800
+Message-ID: <20261105183940.2236717-7-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
 References: <20261105183940.2236717-1-usama.arif@linux.dev>
@@ -106,45 +107,74 @@ Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
 swap round-trip, which makes PG_anon_exclusive have to survive in a swap
 PMD and not just in a swap PTE.
 
-riscv encodes a swap PMD exactly like a swap PTE, so the new helpers wrap
-the PTE ones and reuse _PAGE_SWP_EXCLUSIVE.
+s390 is the one architecture where a swap PMD is not a swap PTE in
+disguise: it is an RSTE with its own layout, converted to a fake PTE swap
+entry for the common code. Give it its own exclusive bit rather than
+borrowing the PTE-format macro, and document it in the RSTE swap layout,
+where bit 52 was listed as unused.
 
-Cc: Paul Walmsley <pjw@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>
-Cc: linux-riscv@lists.infradead.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- arch/riscv/include/asm/pgtable.h | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ arch/s390/include/asm/pgtable.h | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-index 2ebd5fa5adc58..fda94dba9bb3e 100644
---- a/arch/riscv/include/asm/pgtable.h
-+++ b/arch/riscv/include/asm/pgtable.h
-@@ -1219,6 +1219,21 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
+index 2d5c2ab06de98..2c6b5205ee3bc 100644
+--- a/arch/s390/include/asm/pgtable.h
++++ b/arch/s390/include/asm/pgtable.h
+@@ -333,6 +333,7 @@ void setup_protection_map(void);
+ /* Common bits in region and segment table entries, for swap entries */
+ #define _RST_ENTRY_COMM		0x0010	/* Common-Region/Segment, marks swap entry */
+ #define _RST_ENTRY_INVALID	0x0020	/* invalid region/segment table entry */
++#define _RST_ENTRY_SWP_EXCLUSIVE 0x0800	/* SW exclusive swap bit, see mk_swap_rste() */
+ 
+ #define _CRST_ENTRIES	2048	/* number of region/segment table entries */
+ #define _PAGE_ENTRIES	256	/* number of page table entries	*/
+@@ -893,6 +894,21 @@ static inline pmd_t pmd_clear_soft_dirty(pmd_t pmd)
  }
  
  #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
 +static inline bool pmd_swp_exclusive(pmd_t pmd)
 +{
-+	return pte_swp_exclusive(pmd_pte(pmd));
++	return pmd_val(pmd) & _RST_ENTRY_SWP_EXCLUSIVE;
 +}
 +
 +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
 +{
-+	return pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)));
++	return set_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
 +}
 +
 +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
 +{
-+	return pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)));
++	return clear_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
 +}
 +
- #define __pmd_to_swp_entry(pmd) ((swp_entry_t) { pmd_val(pmd) })
- #define __swp_entry_to_pmd(swp) __pmd((swp).val)
- #endif /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
+ #define pmd_swp_soft_dirty(pmd)		pmd_soft_dirty(pmd)
+ #define pmd_swp_mksoft_dirty(pmd)	pmd_mksoft_dirty(pmd)
+ #define pmd_swp_clear_soft_dirty(pmd)	pmd_clear_soft_dirty(pmd)
+@@ -1900,15 +1916,15 @@ static inline swp_entry_t __swp_entry(unsigned long type, unsigned long offset)
+  * Bits 59 and 63 are used to indicate the swap entry. Bit 58 marks the rste
+  * as invalid.
+  * A swap entry is indicated by bit pattern (rste & 0x011) == 0x010
+- * |			  offset			|Xtype |11TT|S0|
++ * |			  offset			|Etype |11TT|S0|
+  * |0000000000111111111122222222223333333333444444444455|555555|5566|66|
+  * |0123456789012345678901234567890123456789012345678901|234567|8901|23|
+  *
+  * Bits 0-51 store the offset.
++ * Bit 52 (E) is used to remember PG_anon_exclusive (_RST_ENTRY_SWP_EXCLUSIVE).
+  * Bits 53-57 store the type.
+  * Bit 62 (S) is used for softdirty tracking.
+  * Bits 60-61 (TT) indicate the table type: 0x01 for REGION3 and 0x00 for SEGMENT.
+- * Bit 52 (X) is unused.
+  */
+ 
+ #define __SWP_OFFSET_MASK_RSTE	((1UL << 52) - 1)
 -- 
 2.53.0-Meta
 
