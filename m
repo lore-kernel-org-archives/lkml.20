@@ -1,92 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793892919;
-	b=LovSomIhEptpo7qsZZJyfsPmspVBKIb/B2Gx2vRkucfNAbFikoK8D3a9yUoux2SvABjU
-	 uVDc5jotCoQZHTGSyE9rTXU5bo6ODe6w3tXZhG8XMWe6vKAU5ksic4sD8K7FhPdCVT3zg
-	 813iFTzayuziPOo7Cs/0G7X//UyvI6imb7EN64CjXV4kagchtQRWrvE0JFLKZutVLf0Ew
-	 eWAVYRZZp7xP0/fzTpA17OthlA1xtxKxDar1VhshaRBsgMGhlg3KR8YCQbk6FgfDw1N02
-	 Z6oyxjkygMtgAArK8ymOgO6SqQqbccq0zJecb9qO8SAvnBsBq4KpiHvY7b4pAs8a6SA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892919;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
-	b=KdoRq9CyHo1CiEcdB2SnhMxJUrWIkSUgGdCKzwOHmjKkVk3jWphOTsF/3P6sKNOlk8/M
-	 /7gmU2fKNp5WBgRt+Xv4hljw5gifN6GV3vLQQULfFdRNV1DgW0ST+k6WaiOGkyKx+wi28
-	 tFpk07NnbyOUbcUrmGArOx0M1dOLTMlMPF9UGo+K4Cvwn3vIOBZjP9v4QEoQEgJXz4wiw
-	 BWZIutoreto/5bAl9srAf0ciYJgTt/h3bivviPe2OYyXGzIZDczdiJRLFIGk1v2PaHm28
-	 ARLV1aYKOwdeiJFcBmmxJqfoUwoTF0SIPXrig98mbjv3YNenk4k0PKsvXfSz5dvAjog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XmDVUKYp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.100
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793892941;
+	b=EDqhMmzOnEHrjrENhq20qfMTuSqBlrILAZt2MKIVuy+llvFkM5WZvBkaN4CY8FNQXbS8
+	 aBiBU1TBsSSp5qelZeTXorD5XptMy6BNu9zf3gFaY1RSiM9RgEGV4FTsBACpyavk4Eu4m
+	 0EtPnYldwoXKao2uaKf/5jQBXS/VYdgWns4zbnBFo6XvNun8yXTzhT2s0n7rf5BnK9LkG
+	 5jCcXcTjT3Ge8sFMugGY3PZTBu/znagHt0KMbdDWKjOqb5pdD678P66gfCwPo9c3ef56F
+	 LklZo1LIqtOCfO4WyKnwfu8jHhtGzCW/+LSksy9r6hAbKmm/ZXPpuMxgNT+LrKXLC8A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892941;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lvinUM9bdOIzQQT+vOy1XPr/IQD9o1XMDhdE9KnkQhw=;
+	b=MSgtxKh2WRAOpvcDwgQgkBHG7n2ZkZk4BBOFsc4ya9q/IqQyK0+nuvOp2eEm7lLuNAG0
+	 D04byeTfPRvt71dmMnnhdPnXwbR6rOHrihw2ekRM6J5BEhwR7re3b1sXMGDSWCFIYZQ5Z
+	 MGX2IRyw7kKPOmW5tW5g5flpNsPOm+BZbyc3HqfPVObeYqX2KycWmYXxPnAUPPpATWOo7
+	 l/CwtH2Zo8//Hrk8NARlOlR/rKUDHVnOxYGWxUaI3mQi+RBZ++RGyjnEdUZLvXHZxSU79
+	 D1GuKu+ppHYxFrtot+m7FhMmqei4n4vIwFmGnJqrSfsxOLu9NomjawwzHZAk07O40ag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=PWCM5JUG;
+	arc=none smtp.remote-ip=209.85.208.100
+Received: from mail-ed1-f100.google.com (mail-ed1-f100.google.com [209.85.208.100])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAACE606A31B;
-	Thu,  5 Nov 2026 15:35:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAACE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6613E606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:35:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6613E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XmDVUKYp
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 029092001A4;
-	Thu, 05 Nov 2026 16:35:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793892912;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
-	b=XmDVUKYpjZcwC7b8SlEXCovgkE/JBQsHmhhVyAYs5zigkZ87oowPnVy5aj3Q89rUMSTsoa
-	FyNTbgM8GQKFolXErydMGzN0GKnXaLpIdxrYMOi5gcc4D28kiyjAKJlW/MkVsr/K3Pzpgw
-	gbQLZZWgVLw2PQSM3mtoxdFLCx4jHsTpgbAzi/CPiKqRe7dq3qyNyoHKCKpT3aOmUSOJul
-	nFyTSSq74Qb/hvmcL3oJU/CAF17hnBUFTuSlIWwAcBXqhVP7UmIJnQq2rFmIW8RY2ZVmBY
-	OA/ksBPvOrQFjNg8basVTflOnG0YdJ+Sy9WsCc6X1Ztmzhg14xF5ZTUbbuVRGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793892912;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
-	b=eIGmtle9gor9BJZPw2wpF6K1snehL6cGfp1+oFlwj4LMLugIgm+6bVtFxVR/Fqs3vYi77n
-	Myyq3rQHLsZUKYkGi9RRBC7pRfuiocb4N9YYTI6jIDXTywq4uSVz1bfJA5Rrqlr5bVyFn6
-	DpGsmL/8WH64BdR1VKUILhlamHop5oRDTDv07wULbTPerVF/leaAWdI2uLZnIBj+BtSu4m
-	6pXFLNmFw1moZScD4X4RudOcDTVU2K/h2ea7e/uryswPVNkq0XN7lJDofhrH5Kdua7X8zV
-	PHHVieSnhX2VCtfWfr6o+f0+lXoocJR/xf40S76c8qNFQUZpFUClmKQ2uUCy2w==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=mfe@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793892912; a=rsa-sha256;
-	cv=none;
-	b=YBq/iClsbsm9V9sGw6to7W9CKWhSSAgQsh08spGFJmdt+gYRlYpVIzyvVsukUOe0/LuIW3
-	S7m7obN/ZnmCBrd+YIHVcraz4vGWal/gt6muIEGSepK3ZhDGU7Rftr2+4iUWUikAAv2VBa
-	ugWMDzIY2AoCv+Sjl2RAtG8Wm5qen+TpwJ6Ag/2D1gWoU9bmF5hTjajKxo0tZ7rVJ2nFP8
-	GIYLLO0G9BBQCPwI5XsM/SrW/8ViJY06U0hqB3uSAM05/JvPhaUBNADsdYQDmck5B9a7fw
-	xsGql6365IhC/14rsm0EobVq+6iq02Ybi1/bX8peEE0fdXjPY/GhkggSZQASEA==
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1064)
-	id E15511BF56B; Thu, 05 Nov 2026 16:35:11 +0100 (CET)
-Date: Thu, 5 Nov 2026 16:35:11 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
-	imx@lists.linux.dev, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
-Message-ID: <vvsd6rchs6wff2n7zxtcarxcvbnuxd7fx632xogm6hrcxxxqsl@dp5dvof3qa7c>
-References: <20261105144920.2796623-2-robh@kernel.org>
- <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
- <CAL_JsqLETyrx7ew0zirS9r6+3=GEFaRE0g96OZHYwqjxMCZKcQ@mail.gmail.com>
- <hvrfbvmyzsa6npzh6wpa6o3xxygslqc7g5ukt7ph7ty4povogh@wge2z4rejnf7>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=PWCM5JUG
+Received: by mail-ed1-f100.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so3249357a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:35:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793892939; x=1794497739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lvinUM9bdOIzQQT+vOy1XPr/IQD9o1XMDhdE9KnkQhw=;
+        b=PWCM5JUGt2vM7IoWvZ2VRy/K1pZWjolfIrZvNnnrIcVUCmKuwQSNtxHRCsfWsYW2YN
+         n5RR3UmHSzqRH84ms8sRvR55ma2onqpmsjP2uhFSHqR9BEXm9vzd4rhtJfYuLMnwcLaO
+         4ekvrvwBN531NBXuN8cWbQLvzJVzFsLFQt9LSbiQNLBCPSl8vs+bpW46ZBeEY9hN6H8A
+         OQrjLyVKDMSFH/UZTUmIuB5WCmhpYUt/GjaDqeIKC1Y3py7x7L2eSbF2T+dCNRfeWAuv
+         IR/ajfFa4PACXPv1H+8IfPasF+e86OENGadezOhGXXbOZhaFtDX/X8ukte0DnN/fcUUK
+         2X5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892939; x=1794497739;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lvinUM9bdOIzQQT+vOy1XPr/IQD9o1XMDhdE9KnkQhw=;
+        b=cEWy3T6Ck99Sa+UPRkxjTmcpUiEsfdPeAlKL8dPjK8a0ddT3ULzQVenEvCFJVGEStR
+         Lb33Qlrk25EWBplvTzDoGqUMBujLcoKRxHXzPQXyx+4gIvib9z3dUcdkTq9CPuids9aC
+         6aFZfrWRMb8Um2xc+I5mifoq9BhMYq1oQIyA8Gl5NU48VaCg+yuuhb2UnN/WNkclNsab
+         /Kbx+s71Va+jjS0ksave/bS2yft+DgBc0Al1shI/q6sj2xWWZvPonc9A2ZxLxpoxhE1Q
+         LTN1AqumPG8qEBYL09KZu/l562M8cioWh/MCIIAtOAQoc9L7/AdkLAkBrrfyhHLsw/R7
+         ejtQ==
+X-Forwarded-Encrypted: i=1; AKwUvByD2oBlKWy0IixUgXUqTi1N5anFKmf20BmpbYJ1QIbSVTnI2WZt02tBf8McqTRazExcheQDtZTJSzgKZmU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UzSz/3nMTAIUZkPnFt9TrQdPdVgp7viGLa+kl6Prv5QxCc8mR
+	jh72Yz1oaCMPHuR3gcHu5o9/UMV6H3Ha21ZxtOLqsy6yuDHAR1sM7NRnQk+gzMVyOq+Xyp4bC95
+	IE4ZO16391nafPlqTbIbBrZsKNqWHAfKAEh2o
+X-Gm-Gg: AYBFou31UGnrlAEyzVa47zArr4MBvlkUYkkyWe1UEVqLNuELGi1j77xU8cvV+noUzfs
+	vLJcmw6vFqByRtCL4ebLkoCKMi5mjX6pUIke2NTDz+xipcM8cP21k0TIjXkfPDchjbiphe2+0er
+	Rrj1g5WHoTpHZxeqlI/RzFv7HSmhxc721Glg547NYr/xgJ7zijfDUw2fOlpu1FsZPJ0Vf+/eWjp
+	eLN8tsI2dStFC6creOr3YckQ4Wxj3av9MhDikU5Krpgfz+f/QVNGTFpY/Emyl4G2ZeR7xXG1IiV
+	3qeNQIU6fuMKQb7x/PZ3wqFXkyti/ZF48dq0LvLgenJGytUohL8B51XtZ7A9s9Arj3fNh3Ebg4h
+	HYIRAmDJT0S7RXU5shqynCw+7rQBdfau8ZWDMIA==
+X-Received: by 2002:a05:6402:ea7:b0:6b5:78bc:406b with SMTP id 4fb4d7f45d1cf-6b578bc4265mr1906328a12.23.1793892938711;
+        Thu, 05 Nov 2026 07:35:38 -0800 (PST)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6b55ac1beefsm1194828a12.4.2026.11.05.07.35.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:35:38 -0800 (PST)
+X-Relaying-Domain: purestorage.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id E2A1E34040C;
+	Thu,  5 Nov 2026 07:35:06 -0800 (PST)
+From: tmenninger@purestorage.com
+To: trondmy@kernel.org
+Cc: anna@kernel.org,
+	bcodding@hammerspace.com,
+	ebadger@everpuredata.com,
+	jcurley@everpuredata.com,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	prabhakar.pujeri@dell.com,
+	stable@vger.kernel.org,
+	tmenninger@everpuredata.com
+Subject: Re: [PATCH v2] pNFS: avoid repeatedly cancelling I/O for the same lseg
+Date: Thu,  5 Nov 2026 15:35:07 +0000
+Message-ID: <20261105153507.3145077-1-tmenninger@purestorage.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <0a489565ca1693403d08eaef7c3545f5b8366bb2.camel@kernel.org>
+References: <0a489565ca1693403d08eaef7c3545f5b8366bb2.camel@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,56 +107,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <hvrfbvmyzsa6npzh6wpa6o3xxygslqc7g5ukt7ph7ty4povogh@wge2z4rejnf7>
 
-On 26-11-05 16:09, Marco Felsch wrote:
-> On 26-11-05 09:06, Rob Herring wrote:
-> > On Thu, Nov 5, 2026 at 9:00 AM Marco Felsch <m.felsch@pengutronix.de> wrote:
-> > >
-> > > On 26-11-05 08:49, Rob Herring (Arm) wrote:
-> > > > These .dtsi files are not included anywhere in the tree and can't be
-> > > > tested.
-> > > >
-> > > > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> > > > ---
-> > > > v2:
-> > > >  - Rebased
-> > > >
-> > > > It's been nearly a year and these are still orphans. There was a promise
-> > > > to upstream something for the kontron ones, but that hasn't happened.
-> > >
-> > > That's unfortunate, but these includes are used at least by the barebox
-> > > bootloader [1,2], dropping these would cause a DT regresssion.
-> > >
-> > > Would it help to upstream [1,2]?
-> > 
-> > You said you were going to do that on v1:
+> This claim isn't making sense to me.
 > 
-> Unfortunate no Kontron dev was chiming in. Will do it now!
+> If a layout segment is recalled or revoked, we should always be
+> clearing the NFS_LSEG_VALID flag bit in order to prevent it being
+> looked up again. New RPC calls should not be able to add that layout
+> segment.
+>
+> So the only thing that can be found on a second run of
+> rpc_cancel_tasks() is a task that has been attempted cancelled
+> previously, but for which that cancel failed.
+> If you're seeing actual spinning, where the RPC call is just being
+> requeued by the rpc_call_done() callback, then we need to look at why
+> the latter is failing to handle the situation correctly.
 
-Okay, after checking the current linux source tree I noticed that
-Kontron did upstream the carrier board .dts files but in a different
-manner:
+Agreed. I am not seeing new I/O acquire an invalid lseg.
 
- * arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i-ads2.dts
- * arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i-ads2.dts
+The issue is that the set of lsegs affected by return processing can
+expand while the original I/O drains. Newer lsegs can exist on the same
+layout header, with I/O that has not previously been cancelled.
+Cancellation and cleanup of the old I/O can then redrive return
+processing against that shared header and bring the newer lsegs into the
+return scope here:
 
-This means that barebox would need to adapt the includes. Can you please
-mention that the .dtsi are not used by linux mainline and instead a
-different approach was used?
+  pnfs_put_lseg(A)             [final reference]
+    pnfs_cache_lseg_for_layoutreturn()
+      pnfs_set_plh_return_info(..., seq=0)
+    pnfs_put_layout_hdr()
+      ...
+      pnfs_mark_matching_lsegs_return(..., lo->plh_return_seq)
 
-Regards,
-  Marco
+The zero argument to pnfs_set_plh_return_info() resolves to the current
+header sequence. If that sequence has advanced while A was draining, the
+pending return cutoff can advance with it.
 
+For example, my trace records, on the same header:
 
-> 
-> Regards,
->   Marco
-> 
-> > 
-> > >> I will add the som.dts, please don't remove the kontron dtsi files yet.
-> 
-> 
+  final put:       lseg A, pls_seq=336
+  return info:     input_seq=0, resolved_seq=529
+                   plh_return_seq=528 -> 529
+  header-put scan: seq=529
+  cancel_io:       a different lseg B, pls_seq=529
+
+A was already covered by the previous return boundary of 528. Its final
+put nevertheless expanded that boundary to 529, and the next scan
+invoked cancellation for B.
+
+B does not need to have encountered an independent I/O error to be
+selected by that expanded scan. Its I/O can be cancelled for the first
+time because cleanup of A broadened the return scope. As B drains, the
+same interaction can affect another newer lseg:
+
+  cancel I/O on A
+    -> cleanup redrives return processing with an expanded scope
+    -> invalidate B and cancel its previously uncancelled I/O
+    -> cleanup of B can repeat the process
+
+Counting only newly requested cancellations does not break that sequence
+because each newly selected lseg can supply previously uncancelled
+tasks.
+
+This does not require new I/O to acquire invalid A, or the same RPC to
+be repeatedly requeued by rpc_call_done(). The feedback can proceed
+through completion/release processing and cancellation of different
+tasks on different lsegs.
+
+The cache-path sequence update is what I tried to address in [1]. I
+asked to hold off merging it because later recovery in [2] ("SUNRPC: let
+cancelled RPC/RDMA requests drain before release") testing left some
+ranks slow even when the reconnect loop was gone.
+
+[1] https://lore.kernel.org/all/20260921235520.502987-1-tmenninger@everpuredata.com/
+[2] https://lore.kernel.org/all/20261105030710.2652306-1-tmenninger@everpuredata.com/
