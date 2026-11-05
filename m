@@ -1,70 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891073;
-	b=Pd6Y2Xa/mHzC8XMMpGazXgKJ+C6yMfZgXSnNf/ObGizzJ4VBhAlBcyUvmIuGMPxf8OcG
-	 iDCVsoxftIdMibOfzHhhxTsgIe/GBLc/waTtcIOYz6Sf7ZBX2GiUWuIPJiSQVL+dgQ06b
-	 6pH+ZiRQIut5yQo3SlIHXPgLBj2q0lGoDhvdLRnOPfznxja8y5WWxJJCtuBIteTcAEhz4
-	 btUHzbIWL6iVW8rX1nF62Ee2xMkoGMjJFYWILOCsrieDh2Awz4ONYcEZV1KfkxJhgCSv8
-	 7bj6822PQTJhZrWcn+bQa5fk+G9NK8f5uvKyA6v92n4oeW24w7s6dELGoYsu4+CzJag==
+	t=1793891092;
+	b=W3gqDcK65NZ9Xmnj2eqrG8emlrxVbIsSe2HNbNEpUM/V5LCG6NZTHbr+oYsiu6sK/Bzd
+	 Gqq/fzri2YWRn84CUt7NssSWTWUhkBWwmW+tst4EBWgSg1XIdpP/ZrughA61pVPiHuAfp
+	 722ObY49aYLqRjgB08QFzmR0aX8VT15l8K9JSglng9woqQDu3xOoIei+exKQLLwzfd+N/
+	 qrfdC8DsJz3yAdpMTEzn+Gsqn6veElaKry2HgnO27kOzCQhxJrWEKfn+ff84n1s5hC0so
+	 cHsT1iI/retIcI/xS7QFRwStr7QJK9npbQOGwdWtwXi0wp2LW7UNLcOJ08ZVCl2OXoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891073;
-	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-malware-bazaar;
-	bh=5hdPZuerhWgKlWAPIqm6pL4yyIFyw2APmpiX9MIpxVM=;
-	b=KCjmd7ElXctlYJqvWVjAUvWt4EU0Zse8iUt3X5VyZfAerhki0eZ5OGe67lFftgeum8fx
-	 cBwVgOBbv1TtSVMcbDsmURrAL1da3dCDRJ+q8YP9vLReMhIfNgpNc0X71CK/R27fwUjGx
-	 lrG+Wjt79ROeObQEOdZyKI9FtNNYjN2pkE7478CMZ+m5Z5aLcXg+N5CFCJpcaK7yp7T0N
-	 vhMxG/5EJ7eP+FwCrjZH4CZ2hK7Vgf9mjiWex1P8wxGMRrmlBIQ4QH6CksNpG8TJ8viHo
-	 s7pjX41vlFiNk3d+F6DmV3KmIXyNMp3PHSsuzNJPkrU/dcM28+1Or5JEAG1TX4kBZww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891092;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bfpdbUUIX16VN5mCBIU3OZ+av/8U5ZQPuLtnxoG4U/M=;
+	b=a8RFiqalf+LChTutfbV7BfZy8GMkYTdjS0lH2YyoYHnfkbha5s1ziikiXkUcFn4vexNo
+	 m8QeYpRJOT0HvY/zU2BW5zsjs6WDy4KB9nnsHCUq3KKyaOGX6mj/EpBEhwEqS8lI53FZl
+	 rmVD5S4xnoF6e43RhntUK9F3oe9BF1okzNg+RWmkebmrGtyA2WNP9RpdccHGM0UBxdgzI
+	 D3THGXEhmnSyzSgHQ19AL7rypEjxCltli5QmWGUk3H8fhtATWH0BkXRrWOWD6RUQBcc9i
+	 pc7q4ijRPJe7ki31el7xaGqMMTqMuFQyw+M+/xITKCop4HKhcQJBUc6cuCzz4uKXU+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=permerror header.from=sipsolutions.net;
-	spf=pass smtp.mailfrom=sipsolutions.net;
-	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=e9j7ywGo;
-	arc=none smtp.remote-ip=168.119.38.16
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bzFOeGay;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E818E606A31B;
-	Thu,  5 Nov 2026 15:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4410606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:04:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4410606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=e9j7ywGo
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=5hdPZuerhWgKlWAPIqm6pL4yyIFyw2APmpiX9MIpxVM=;
-	t=1793891072; x=1795100672; b=e9j7ywGoXsw2DPAC5YiiaZRaZXvqiFUwS4XSED/zRWqgS7b
-	TUQFWGenjmITERDEgYOrX7q4t4uTUhN4h4s/5xz782/4YClQvGiDL06AtGKAPWrKKdM7bURFOnLFp
-	t5viHWtdD3YrqTRCSowTWoCq+RUU+eGrkRGS5bW25hImbYo9nrKNQcMTbG/NjVNBfxmUWXKo4W354
-	dm3BKc+4wprU7pWmKJyrcMbA9QXil0W5EE/22joP704VN9iIQk/ToxV6CsxJAijkbjJ2CEyPUUp57
-	GamS+eJYO/K4w8uAqPr4rOPAuN9Bd/C2SjB7oNWTQGfmzlkl2wqQ9NjzN/jvqy7g==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xOz0o-000000080jP-0X49;
-	Thu, 05 Nov 2026 16:04:22 +0100
-Message-ID: <8da2902c233de42ce756b3bfba5e5821f4dfa82b.camel@sipsolutions.net>
-Subject: Re: [PATCH v7 0/4] tracing: improve symbolic printing
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>, Ilya Maximets
- <i.maximets@ovn.org>, Matthieu Baerts	 <matttbe@kernel.org>, Aaron Conole
- <aconole@redhat.com>, Eelco Chaudron	 <echaudro@redhat.com>,
- dev@openvswitch.org, Adrian Moreno <amorenoz@redhat.com>,  Antoine Tenart
- <atenart@kernel.org>
-Date: Thu, 05 Nov 2026 16:04:21 +0100
-In-Reply-To: <20261105091216.7b91db5a@gandalf.local.home>
-References: <20260922110955.363677-6-johannes@sipsolutions.net>
-	 <20261105091216.7b91db5a@gandalf.local.home>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bzFOeGay
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3297411eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:04:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793891091; x=1794495891; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bfpdbUUIX16VN5mCBIU3OZ+av/8U5ZQPuLtnxoG4U/M=;
+        b=bzFOeGayjr/M5InmbjnG+mZzsQJNJyGjTjP8LVB8WONzHZ7oSs8qa0N9nw2STWV8bi
+         0yCpaqQA1Kr363JXv1yq++tKnGLSMxNrzMyCdn9zWauPDQHW4/1nDqrMFhEDNaDYWgtC
+         gClU0IA/e8md0gpkNY62b+BeH2ZOH7xEIX+c2PC6cRif+rdndbxt5zC43niNl0WWEjLs
+         lxq7dKIJBSFtulQKRfKN82gMNktOjMsfhbze4OdtyKgSNDM+2duIwoOPPDxEYlK2Us5o
+         Gc2tEf5oF8IJuOR/HqVT+KU/2PCUDPkRmXWRAYrN4EVE/CoS4bBq4xQ6LXl5wsFVxFsy
+         JPzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793891091; x=1794495891;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bfpdbUUIX16VN5mCBIU3OZ+av/8U5ZQPuLtnxoG4U/M=;
+        b=Tuvxt262Dm2qpnR/fBNg4HJCwn58KXVeAH4D3LWUQj+0abJFzfRp5ht17hEbeLvGBx
+         9qw5HerlmPEawGtTSeqSp5PW6zPkm7ZUgjpNH40CVaPPpCfzhy7jOXIKbhZuyBvNac3i
+         qjT0POwn9MifES+/O2z3E+6T5t8HVCQTyyoyIsgCTZmZo1XZ44dHZF1qnwkChSVThRkv
+         H+OCLmwKEvDEt8/s4Z6rmvnzgGe3dUJZgoLLEFOef7LAuWSrin0Q7V7UsOtYNzENDXn7
+         9r2Ign511+BobQoB3j6ncVCY9/TGqBP7qXdON4QPThVPjGdDtdidOud272/9dU6D70vx
+         Tuyw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/ZBRFfSCUJAk+WZxd6P0zWq6c+yoa008k+i+mXe8LbDAT0B5GOkkAvL7ZLeU67qbP7noqxqiDtHBPIs4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sx7B3+PgyLCvhJH7ME5/+e3V9Qyw6Hkh+BYDM5EiTq+XKEbOL
+	p72hJDdqmmw/HINAAt9Hd+5oIxy7hP39ZqeHCxwLoRlqn+Tw7U0Lk9OC
+X-Gm-Gg: AYBFou1HKyi2WerStzsRdn/daw/dOvACqTnZBXaaWXYCRGa4ygukEn+zB0So6U3dZ/h
+	jWiaWA4VmETjOu3NwnaM4WChyazBkTOYUd8RbZxIDsFcY147h6BVdNArXUQ+cothnl/fmH+HcIs
+	QtiuSREf/3oCv2s7N8WKZwV8mDbl+5nFV399FSWH5rSd7NpRTXeJZDQJQ/+XJ7qKorexTGp9Ig4
+	uUuNVQPS01zheDAkrGswU7kBcgkfMU97d/D3OMWviOeGugVJ86kRA37Q1QQRh/zDbnLRAb53J67
+	P4Op39D1ydaaIeuq6eJEH4XCfVDJXiyhmqN/QSGXpM+BYL1Tvr4SDHf/zylBoMVauKE/E9ol52J
+	4KS91DIvq/sDmx409lXwu9dC9E0Hlulhd6iFCnB6E0qOaaZChrBfqUSk9Z2xqrilqzdsDBFnCRH
+	kh12PiVy3+cvKKBgVTuiiFTlbvkfAXA/XxiiPWcIeIU3Y8GQLruXSLHXIeUXz0hCgbvdAttfaxZ
+	80QZ3VdymyrT7ZPWmcKo6mGdL5YRZAQImYN1YPw/QysRDKgeaBfnSM87jK05+zq+zGduDZA/SA1
+	SwIMmpx0UPKwYZVlyLYy45DaGNWJ1k+EzbCwQsGWVQXIkY8q35oZsA==
+X-Received: by 2002:a05:693c:4145:20b0:36f:551:2bd5 with SMTP id 5a478bee46e88-36f05512dbfmr772632eec.32.1793891090524;
+        Thu, 05 Nov 2026 07:04:50 -0800 (PST)
+Received: from Anonymous.localdomain ([223.181.63.167])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm18325064eec.5.2026.11.05.07.04.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:04:49 -0800 (PST)
+From: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+To: outreachy@lists.linux.dev
+Cc: johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+Subject: [PATCH] wifi: mac80211: remove unused drv_offchannel_tx_cancel_wait tracepoint
+Date: Thu,  5 Nov 2026 15:04:33 +0000
+Message-ID: <20261105150433.10816-1-husainsitamuwala21@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,85 +96,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-11-05 at 09:12 -0500, Steven Rostedt wrote:
-> Could you also add code in the samples/trace_events directory. Perhaps ad=
-d
-> a new event?
->=20
-> This will make it easier to understand exactly how to add new __print_sym=
-()s.
+The drv_offchannel_tx_cancel_wait tracepoint is defined but never
+used. Its only call site was in drv_offchannel_tx_cancel_wait() in
+driver-ops.h, which was removed by commit b4ca6084a84d ("mac80211:
+remove offchannel_tx API"). That commit left the trace event
+definition behind.
 
-I guess so. I was kinda hoping to simply convert all the others - it
-clearly has advantages this way.
+Remove the unused tracepoint. It was found with "make UT=1".
 
-Any objection to simply converting the __print_symbolic() sample? It
-would look something like this:
+Signed-off-by: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+---
+ net/mac80211/trace.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
+diff --git a/net/mac80211/trace.h b/net/mac80211/trace.h
+index ea46c3cca21a..f34d079f3d38 100644
+--- a/net/mac80211/trace.h
++++ b/net/mac80211/trace.h
+@@ -1472,11 +1472,6 @@ DEFINE_EVENT(local_only_evt, drv_tx_frames_pending,
+ 	TP_ARGS(local)
+ );
+ 
+-DEFINE_EVENT(local_only_evt, drv_offchannel_tx_cancel_wait,
+-	TP_PROTO(struct ieee80211_local *local),
+-	TP_ARGS(local)
+-);
+-
+ TRACE_EVENT(drv_set_bitrate_mask,
+ 	TP_PROTO(struct ieee80211_local *local,
+ 		 struct ieee80211_sub_if_data *sdata,
+-- 
+2.53.0
 
---- a/samples/trace_events/trace-events-sample.h
-+++ b/samples/trace_events/trace-events-sample.h
-@@ -297,6 +297,28 @@ TRACE_DEFINE_ENUM(TRACE_SAMPLE_FOO);
- TRACE_DEFINE_ENUM(TRACE_SAMPLE_BAR);
- TRACE_DEFINE_ENUM(TRACE_SAMPLE_ZOO);
-=20
-+/* define the names as { value, "name" } tuples for __print_sym() below */
-+TRACE_DEFINE_SYM_LIST(sample_names,
-+	{ 0, "zero" },
-+	{ TRACE_SAMPLE_FOO, "TWO" },
-+	{ TRACE_SAMPLE_BAR, "FOUR" },
-+	{ TRACE_SAMPLE_ZOO, "EIGHT" },
-+	{ 10, "TEN" }
-+);
-+
-+/*
-+ * Alternatively, you could define a function for the names:
-+ *
-+ * The _lookup() function returns the string for the given value.
-+ *
-+ * The _show() function must
-+ *	seq_printf(m, ", { %u, \"%s\" }", value, name);
-+ * for each value that userspace should be able to parse.
-+ */
-+const char *sample_names2_lookup(unsigned long long value);
-+void sample_names2_show(struct seq_file *m);
-+TRACE_DEFINE_SYM_FNS(sample_names2, sample_names2_lookup, sample_names2_sh=
-ow);
-+
- TRACE_EVENT(foo_bar,
-=20
- 	TP_PROTO(const char *foo, int bar, const int *lst,
-@@ -340,14 +362,10 @@ TRACE_EVENT(foo_bar,
-  *    the variable matches one of the values, then it will print the
-  *    string in that pair. If non are matched, it returns a string
-  *    version of the number (if __entry->bar =3D=3D 7 then "7" is returned=
-).
-+ *
-+ *    See above for the declaration of "sample_names".
-  */
--		  __print_symbolic(__entry->bar,
--				   { 0, "zero" },
--				   { TRACE_SAMPLE_FOO, "TWO" },
--				   { TRACE_SAMPLE_BAR, "FOUR" },
--				   { TRACE_SAMPLE_ZOO, "EIGHT" },
--				   { 10, "TEN" }
--			  ),
-+		  __print_sym(__entry->bar, sample_names),
-=20
- /*
-  *  __print_flags( variable, "delim", { value, "flag" }, ... ),
-
-
-
-It did show a bug because TRACE_SYSTEM isn't a C var in that file (and
-perhaps only in that file?), so I'll have to resend with that fixed
-anyway.
-
-
-> FYI, this series did pass all my tests.
-
-Cool. Sorry the earlier (long time ago) version had the __init_data
-issue, I'd mostly tested on UML and that wasn't protected there.
-
-johannes
