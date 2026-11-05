@@ -1,91 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889839;
-	b=y+KN2tvK9hMH2RGcHxwiCiXlA8bDCWXAJpeBQu4q1h5Omw7dffkPi7ADeHX7BAyLmrbQ
-	 iNWTUCGwsvKGsiIJgn9WkLhD80Y1LdK5Jo9IlzZpKF8bvpKnnM/DtK5x0T7wq6ZiCvi8G
-	 GOj+yB/7Uf7MqOs/SPj86I6miZ8kZ5rYzp/GgOY9y+xf/iuL8u7F8fZk5dNHMcTijb7X/
-	 jtaw5HH6cEtulmvJx97l9pXnHglSgh2zNJe8jdAiHBleEVOjkPPIriBD4CTZ3hZXj9RK7
-	 az2I7VCmzS4jka4dIpg+S7Rw4GQM1Kg0tc8r2dV52+n+AvWp7jD6hwBY+2vJcPe0UHg==
+	t=1793889820;
+	b=u18ZhkgHYcprxAmlVzay2LqkMHYRvbucAng4++I02+tkV6e5PuBP1WJ458nd1Egi3vIe
+	 6544M5Re4icFDVINOy0+hMtggAkekHm/WHd4KeeBLMIIks5GBZRbdrWW/us57hDOQjQOS
+	 xU2l19MHUIwUE8wATCAdPNvlRuVqq4uW/rsyHVUwEXcLCZu8lkOhYcgkYs/luglW8REBr
+	 /7HCfIWw+G5udWDdffACiBSrIb9nS8U05+Ba/2EDicHAOYndH3oyVqyroAitUIsrHxzIy
+	 tPyLH40Ih6xcOGyFkpZIsJBLXNEKEtVazNNQR2xP9P4noqLXy5VKTIAQYe1uvxzS6Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889839;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=sQrCRoliZd1zlb3rt/5YQhInFDdr0lZwJn246gGNKTE=;
-	b=frDDThirER4PCL6QFGU1VjZL/N+/uHuYRCaXlS40M639ozhA4Jc8OeQ7bz07JoSGsIUw
-	 kqaiExh6KxwwfqtP4+cvyJ1YqGqm61N07JKSFJcKMF7lZKosJyBIXK8qZxwvxl6ewv/Kv
-	 4lAnQgTmd/2fTpV4POgkfk6PH+OiXrWzeY+W7PIPdKTDblBmwZIaj/8Jh6hywFM5Q7dE5
-	 QKlvzv9cF1wyw4zcJXMl6BVgn22DbSzz9JdEZRPE3LE/eQFNNbKb7gpp3JbRxxOOgadmR
-	 nQ8RQWqSI6o3UBggZdcNbbYDc8WDPna+Oi781dI5mMZmecG8pNN2ZH49IbpW/RRr5WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889820;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=M70OQDuXK+abJGMUE43Gfl7rDaTxBy+PUpescgSqPPw=;
+	b=3f3HyN6zHX97uyt0cAlWwxfvsIDlVosGoS/gmoWelc0JLWciH8J7S1mRbC5VYc/fmQTR
+	 kHB4/DAmdM7e3XeICWssV9tZl5rVv27vh5MAlJCpDMpt6EThDlFpXBYRqog+bdvpGQaaZ
+	 RiM/7pO3a3BlXaasROCk8alQRqH964biJWV5fUbU6Ovob9Ro/+LM8ZNn9+0ILUW9KYkQf
+	 jqKuMpA9iTbZuCPnX1jfpXFDkkQ2ocfok1D+6rMgQW5x26iwfo6B53DD+w/1drs3WCDMs
+	 5/32pU87L5OU7I3y2LxIwZKYqz8V4jxf0jnjatZfzoZT3k65SAB/TP7gUztrmHu20Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QWxinNsQ;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSC+QDU8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE59606A328;
-	Thu,  5 Nov 2026 14:43:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BE59606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 72F63606A31B;
+	Thu,  5 Nov 2026 14:43:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QWxinNsQ
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AEBVE3166383;
-	Thu, 5 Nov 2026 14:43:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=sQrCRoliZd1zlb3rt/5YQhInFDdr0lZwJn246gGNK
-	TE=; b=QWxinNsQ/dT+S/Sln4aYpQYtPAGzaClCWkV3uad7N7XFMkLS8gDWeRxP/
-	mHlKhSzS+oSdq8RHb9ryvrkJXTZWNHGFggN1q/wHTFeakoJAbobw2QASC3czYnHd
-	1mzmu+r63NTUzk8qGu/HrlI+K2Ki802OJ4gmFB4PIyVQDELpYPd1784+CRjsiQec
-	rGtAWApffSETUWOI9fI7gW0yF4QO8YCcCmoA5Jl7BpshV2lzaHZJQmOZy7azSVnG
-	JQmIjRJecWjyN3mcd97/KGzb5ltZoKvX/jz+kSWge8kbtfUmGZoA75AMjhFtQ/DS
-	jLoJOngLZpYNoLU+hp2FM+AI00s2A==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rj2mnw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 14:43:36 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EZApf1796824;
-	Thu, 5 Nov 2026 14:43:35 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka6tech-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 14:43:35 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5EhW0X47120720
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 14:43:32 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 12DE220040;
-	Thu,  5 Nov 2026 14:43:32 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BFB7120049;
-	Thu,  5 Nov 2026 14:43:25 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.70.234])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  5 Nov 2026 14:43:25 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com, ssrish@linux.ibm.com
-Subject: [PATCH v6 0/9] Extend PKWM to support user-created wrapping keys
-Date: Thu,  5 Nov 2026 20:13:11 +0530
-Message-ID: <20261105144320.357260-1-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSC+QDU8
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2C2651F000C1;
+	Thu,  5 Nov 2026 14:43:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793889820;
+	bh=M70OQDuXK+abJGMUE43Gfl7rDaTxBy+PUpescgSqPPw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kSC+QDU8YghkJtFS0cLl+FXR5kGvQmGksdDxWEQD6tFm97MuGJ1pn3ZS7pG/7rLVS
+	 5jfIYUpob8t1hHTzVtyYSby95FQO29OVXYfTzIMrOuD3KN/0fe9m/haB3Uo46aND4W
+	 m1/VVPWwUVWIBBIi+e16ZhqRqMLI6SkR3ZD07idmuCnQZ8P9igxpDaVAayQIeucoY0
+	 icUwZGifc7WRq4sxRyQfkZwiCzo23WALnKM6o/fJbVaLKrZxWXQjfMYTUyklb98WB2
+	 bweb8Q/tlIMxG4AL6XiDGN6J/g39odx88A0eHSsMpqUCAV94v00u9mR9WbMPoLYDEc
+	 exE4ROZHXypJQ==
+Date: Thu, 5 Nov 2026 15:43:36 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, 
+	linux-pci@vger.kernel.org, lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, 
+	bhelgaas@google.com, krishna.chundru@oss.qualcomm.com, 
+	bartosz.golaszewski@oss.qualcomm.com, deepti.jaggi@oss.qualcomm.com, yadu.mg@oss.qualcomm.com, 
+	shengchao.guo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: qcom: Power on pwrctrl devices for firmware-managed
+ hosts
+Message-ID: <twprfauh4hgbmmsmeejzpq7d75eqwsd22e26luzjix27ygtybr@nnxrapllp6fn>
+References: <20261105101521.434361-1-zhangfei.gao@oss.qualcomm.com>
+ <auyUXp1Fgk2yC7fZ@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,132 +61,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: 3irOr4P377RmltnbQVN8xsmcAw-fAKDh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1NiBTYWx0ZWRfX8SFuTe989GVG
- 40LBK1/63bgaBd7jx3pugk9x+q5JorpqVuOq33C1fLVH3np7A1EG0Z852+3mjt//y583hQkhRZK
- bkhdrXAnd9xJsXm630dyarHnQ/YwKTg=
-X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6aec9619 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=ZmkVjOJ7g21S_g4humkA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1NiBTYWx0ZWRfXzxKSvWymtLlt
- T9OdGfKPq2zWi82MRM4+KACsx1+75qSNPnzusgIPsmBj/icEW1WqnW/qwUHTykntHowp6FcRGE8
- mNZLh4andbZCfYwohcJ/bqOiwoXZ2BrTTfgbbQRzyrd+ppLv37LX8G8dJpbdXgX8/qAg5OxbtHR
- 16euz3gl/bsdeh4l4kECd6LlmkUFWL504Kp0nlssMpvs7tAP6/js7M7Ubul9XCqASdirgGpbEE2
- 8lcO+xkbW9gxOCoQDD67SYeyIKeZa+mvyoip8l3w04lCFcLGNdperQnpazkwKzfDZnlvhce6aAT
- 9Ya5AwwJkN9NlOinC2mcNbr7dJsisx5tLM6fFX94bYqLkGE6CcgRz8QrPBlldTD/O7guFnhtufZ
- h08BVjRV0cFKeL3AL8lgLPV3T8sxk2VraK3+BqQDg8/K1kApNVEZ2fb0e4lcUD3pWWSmS52uRGO
- Sq6efiZjqJn4upivEuQ==
-X-Proofpoint-GUID: Ve7yx-SFnF9ClQIkML5-lQsjtc5od3ap
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050056
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auyUXp1Fgk2yC7fZ@debian>
 
-The PKWM trusted source currently uses a single default wrapping key per
-LPAR. This key is created during trusted source initialization, and all
-trusted keys backed by PKWM are sealed and unsealed using it.
+On Thu, Nov 05, 2026 at 08:07:18PM +0530, Manivannan Sadhasivam wrote:
+> On Thu, Nov 05, 2026 at 06:15:21PM +0800, Zhangfei Gao wrote:
+> > commit b921aa3f8dec ("PCI/pwrctrl: Switch to pwrctrl create, power
+> > on/off, destroy APIs") switched PCI pwrctrl users to explicit create and
+> > power control APIs, but only added the calls to the regular DesignWare
+> > host initialization path.
+> > 
+> > Firmware-managed hosts bypass that path and probe the ECAM host bridge
+> > directly. Endpoints already powered by firmware, such as NVMe devices,
+> > remain discoverable. Endpoints that rely on Linux pwrctrl and pwrseq,
+> > such as WCN7850, remain powered off and cannot be discovered.
+> > 
+> 
+> NACK. For FW initialized platforms, FW should power on the Endpoints before
+> booting Linux.
+>
 
-Recent versions of PKWM allow users to create and manage their own wrapping
-keys through a set of lifecycle operations. This patch series brings these
-PKWM capabilities into the kernel, allowing users to create, manage, and
-select wrapping keys for sealing their trusted keys, rather than requiring
-all trusted keys to use the default wrapping key.
+Ah, sorry for the earlier tag. I should have known this and pointed it
+out.
 
-This series extends PKWM to support user-created wrapping keys. It adds
-the required HCALLs, allows users to select a wrapping key by label when
-creating PKWM-backed trusted keys, and introduces a sysfs interface for
-managing wrapping keys from userspace.
-
-This patchset also includes six preparatory fixes. These correct double
-conversion of PLPKS write, remove, and wrapping key flush errors; align
-wrapping length types with the underlying HCALL interfaces; preserve the
-original error returned when default wrapping key generation fails;
-initialize PKWM output buffer pointers before cleanup; and clear sensitive
-PKWM seal and unseal buffers before freeing them.
-
-Changelog:
-
-v5 -> v6:
-- Hardened wrapping key lifecycle HCALL helpers
-  - Default wrapping key check
-  - Component prefix and wrapping key handling
-  - Label length validation
-  - -ENXIO when revoke/unrevoke are unsupported
-- Rejected non-ASCII characters in wrapping key labels
-- Added stable prerequisite to the wrapping key flush error fix
-- Re-ordered the stable fixes
-
-v4 -> v5:
-- Addressed issues reported by Sashiko
-  - Added HCALL-defined length validation for wrapping operations
-  - Cleared stale PLPKS sysfs kobject pointers on initialization failure
-  - Documented "default-wrapping-key" as a reserved label without assuming
-    it exists
-- Dropped Tested-by tags from modified patches
-
-v3 -> v4:
-- Addressed issues reported by Sashiko
-  - Fixed double conversion of PLPKS object flush errors
-  - Initialized PKWM output buffer pointers before cleanup
-  - Corrected the documented H_PKS_GET_OBJECTLABELS output field order
-  - Prevented stale policy use and caller data modification during
-    revocation checks
-  - Fixed wrapping key sysfs kobject cleanup
-  - Restricted wrapping key sysfs initialization to pseries
-- Dropped Tested-by tags from modified patches
-
-v2 -> v3:
-- Moved most of the refactoring and hardening patches into a separate
-  series:
-  https://lore.kernel.org/all/20260923182816.151451-1-ssrish@linux.ibm.com/
-- Added a fix to clear sensitive PKWM seal and unseal buffers before
-  freeing them
-- Added Nageswara's Tested-by tag
-- Refined error handling and documented default wrapping key restrictions
-
-v1 -> v2:
-- Addressed parameter validation issues reported by Nageswara
-- Tweaked PLPKS_WRAPKEY_SYSFS Kconfig help text
-- Added two preparatory bug-fix patches
-- Cc'd stable@vger.kernel.org where applicable
-
-Srish Srinivasan (9):
-  keys/trusted_keys: propagate wrapping key generation errors
-  keys/trusted_keys: fix PKWM output buffer cleanup
-  keys/trusted_keys: clear sensitive PKWM buffers
-  pseries/plpks: fix double conversion of write and remove flush errors
-  pseries/plpks: fix double conversion of wrapping key flush errors
-  pseries/plpks: fix length types for wrapping operations
-  pseries/plpks: add HCALLs for PKWM wrapping key life cycle management
-  keys/trusted_keys: enable PKWM wrapping key selection by label
-  pseries/plpks/wrapkey: expose PKWM wrapping key management to
-    userspace via sysfs
-
- .../ABI/testing/sysfs-firmware-plpks          | 113 ++++
- Documentation/arch/powerpc/papr_hcalls.rst    |  33 +
- .../security/keys/trusted-encrypted.rst       |   4 +-
- arch/powerpc/include/asm/hvcall.h             |   5 +-
- arch/powerpc/include/asm/plpks.h              |  40 +-
- arch/powerpc/platforms/pseries/Kconfig        |  15 +
- arch/powerpc/platforms/pseries/Makefile       |   1 +
- arch/powerpc/platforms/pseries/plpks-sysfs.c  |  14 +
- .../platforms/pseries/plpks-wrapkey-sysfs.c   | 408 +++++++++++++
- arch/powerpc/platforms/pseries/plpks.c        | 576 ++++++++++++++++--
- include/keys/trusted_pkwm.h                   |   3 +
- security/keys/trusted-keys/trusted_pkwm.c     |  52 +-
- 12 files changed, 1203 insertions(+), 61 deletions(-)
- create mode 100644 arch/powerpc/platforms/pseries/plpks-wrapkey-sysfs.c
-
--- 
-2.52.0
-
+Bart
