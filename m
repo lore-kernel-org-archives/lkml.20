@@ -1,106 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901393;
-	b=lbKDGnXQzAzOEb7Dzakdqd9YKS16L6+NbWgYvdzMIwAJBtZFkLNTj/5xSD8oCaabLJSr
-	 XVbXBnMsJfSWLJ2ptAMTYg3VmlgTpzQxiO9aztRVrk0fDn5LQCKuoAi2M6HULzncr9ItU
-	 SjoQjQdp1WMW5a0kjnd/e4wNSc3h0eRBeirNx2VQddIVemgg2SGL5zjtcAJMpbIkBz1lW
-	 3dtkEMJZYAkH6G1fSXD0D5mWVmiqMYZIzdbwC+Okj5ho4ruzu6d9QLoQaubQ9QdQZ/JYh
-	 N4Ukk3KHw83+JidNWod8vvgUEeGY7oG1Kr431su/AcDrmR0e7Pc93iW0rFbjBYjxS0Q==
+	t=1793901433;
+	b=tQSibDg4Y+8vUiKUN0opYgA9/uWdJhSa7Nc+kO7iw2bxHWNX7rednqCjEMLd4VZSnzY0
+	 1/ROpy3g4XKFKDFYbk2JuFpzBO+3uqwtmTJ0o71zwMhMkWoBG3LYZT2OgHkdJWYtmkwSg
+	 usCIru6tft03Y/AuTVF+OO6823yf6r8GYm2PW6kywTbS41pvHxS+YjDVScUyejh948Rn8
+	 gWvMIyFytCsRWfBG5uOIUn+v/nVV2N7gtG9RFKkU1N0jyPxncT1bC+UzGmL3HRUqXdkS2
+	 pzl2xU8SDWDCd3qKrIpHleK+yh7q0jxsfGLtapwrZZPB4ksvhKfDtApvuWP/cj4njrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901393;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=GcH6tkHTL24evFghlRPkmxW8tDFnCzFpfv744zRs954=;
-	b=B/x+Y+dzJelIEl1WmEzu5wM1dAr4mHk+88Zo7+1ilcwGpHnijwfK9x9IHGRtSGxGTvzs
-	 Ndv5XOwQSpZYVxIq4scLsJhND6swzaYo5ghXv2sEQi+1FmLeECnmmB8ALYwkQWEwH2crN
-	 VOe4iKNFMISqHKjsUWv0SL2ELYTbYNieINL6LF4vomq4PpLUpS/0M6N7g11qxW8RYwMlF
-	 +STed+0UO/XhDrbhmffH5OawdiAkFqlERukBRa8yHHHu4VxI60xW7AN1ONAYvkbhj+GLT
-	 k2O8BkZYwvta3mLgXyL5yIN05KdIERD8CO8vXS5jbLcV6DsDnwQunNyFSmf/bQdwWDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901433;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=1miHHjHzX+PzIvHEGZ5sEbAebfzqkab44G9tf/WJJPk=;
+	b=MSGH2vk4i31nzMEBdxu0Z5HEJTFvKa1G+lb8RpguEzOvgibNijpxbFrdZCPPaOmtllp+
+	 Xg0hOdWj7iJZRaA42iOpWN7UTboZCjIZu9YUrOPyhpL9YvZ66gKofziyESUEJmUm9vouk
+	 xVrMjfePeueqe9qdl67zPbcYKsfu+Qg7AuaOG7ij+hVBVqpFFY8C0aNS7/yyrQmxSz2el
+	 3fp+DB8Ng4Dw1U9vvUXWS4cVqtwMxTkHCI21TlrG/Tn3bB2o80BmB+D3XfCs+kTd4JEiC
+	 AlByeuBxrpAxjFqfyjaVAH2lzL5YoZBpumTUBANn9epxZDQw2JiWm+bldodaQrQNwcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cJmY0Cwu;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Y8sEM9N7;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C425F606A331
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C425F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C6F606A31B;
+	Thu,  5 Nov 2026 17:57:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85C6F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cJmY0Cwu
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so14439855e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:56:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793901386; x=1794506186; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GcH6tkHTL24evFghlRPkmxW8tDFnCzFpfv744zRs954=;
-        b=cJmY0Cwu6TtDV5WiAgmzfVBCQQqvnYouHSNh33AexNqrfhXucHbCLb2aHz0C2naaKk
-         LbEQYg5ofq5mnI0ljzuQdwNpRV+N4pzjJZJCAJGJ2fm091j/m0HFPhMOnnGowywWBVqD
-         3TJNNjZGtudxjg6KP3q0qXNlbrJbiu3dN6QV1bwAnWNhoPYOrkqky8xQgCFPaW8Jl/51
-         v9Q26N6upYf1KVIAi/2sNeNDQQA37q51GaHUWwfa8qpddNDzvosiKZZYtRKvFTQiYLeV
-         hKXG2cWxXy7eNwIssKCuojY6ezcgcbqe5GKzn2Nnh7vJE5PHduxqZny0AjsJfRmpuWPS
-         SYIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793901386; x=1794506186;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GcH6tkHTL24evFghlRPkmxW8tDFnCzFpfv744zRs954=;
-        b=NzxP1f/mgf/8qU3Fdaao6wx5JTxjR5t3faGwDp7c3H7ek96rGJT4BTixcB7/Hfc/8m
-         pGjP0Ih1JGIlYw7WjZCoTWOgaMwjx2tpWnyfHcLV1qLtkaL5THQcjDk+isZnZEBebo9n
-         fW3MMpExS51r1xwSAp3oa8iptuUkaGpuRh0M1Q1CgSwRK0ul2XIwOjXhhsYlKw8a5kJr
-         RYT/N48kH6YEgt9ikWTjaYAtRKyqB7h25Y7fwuq0VhWuMfvtEu+Wv078qN+sstpC0Sq2
-         QgIUVc1OeRObIOlrNb9jm8VAnkIHKNuacpWG7xSapw1GzjJhgq6PqQLb8B7gpO9l0z3U
-         P6lA==
-X-Forwarded-Encrypted: i=1; AKwUvBzISwI6C3er3d4gpX/2/9Eu6IjLwFPq5aGFXPMOQepRSri/qBwULQZpziab2sEHAsxQSmYBwuK0T0D3oZ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91W3o6Zcrowa4KqMRH6WQSZbtvkc7UvbNxuA2L57blWfdfT9ks
-	ixcDquLTsnJ5745nOoSmWpyVmYb6q88lNcJzYps/GfqlHS/7NHjHmiJq
-X-Gm-Gg: AYBFou1mJMOWdYnyIqE2U2uYN9Il9TALUjrDvibsw1AsHyu+yiiHq3y3GrUnd861c8c
-	uQ+miW5EMV8nAwrfNhRlAtVhd5Sg5Pz4xorFCVURpttzcugzq8qVxJ6Ax93ocdxMs5f60kYHWnt
-	Z0Uz8WS/6QCSTSrOUg1Bg3Az8ocJ2WcpO+bkdZIH7ttoanxx8qWyScP46eQm5IsIQxDvGWdjGJp
-	o+1fxOcGUBVcuvnT4iHStRlJDVAsRBwZ0dfnUqLk/3r4mtSXkda/bBbIz/Vtsq6bEXYZYrpxLgr
-	bZlr9CwjUPGfY60wtJmgV5l2s6abQ6iP+y+uU15XF/99nKfapgAqnQVgPILQRD2zLB1r0tW2VBe
-	4PdKzSpOk/4HKDCNvIw8ZNxKo7HZh81x061NT/0HuSptQfPOzNOMGnXrSCJvG5EuiAJUdXTuWf3
-	/L1hLQh9XhwoC4yQXSskZZech6DNe0vgEGFWz0o2Ze45owKV8wtw/nWaJYw6TLoEPN2mYp9QA/3
-	QA9Mp2MyeIq45y3j3UidsQc3IKRtSz7DVsmeVI5Y/bpbjaokcan+JGsBqjiuYqN+z2poapzBWPB
-	hrai3WaUSoflscRfZFaDhE5PPqAlV7EB2ubUOCV73D2fWKnWJ2YBuUxY+oxXzmynKjRyVAe21Kh
-	N3gpJjY0rczGjLE/Th44TYz/8MLEmmO0sMF7om2SoF0/S/3pBAe3db+I9L+BZaxt4IZjgy3XhL1
-	gBsIg6
-X-Received: by 2002:a05:600c:540f:b0:4a3:18ca:806 with SMTP id 5b1f17b1804b1-4ac17d1a1f1mr456154495e9.20.1793901386029;
-        Thu, 05 Nov 2026 09:56:26 -0800 (PST)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcb8sm77678635e9.1.2026.11.05.09.56.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:56:25 -0800 (PST)
-Date: Thu, 5 Nov 2026 18:56:23 +0100
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Nate.D@variscite.com, Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: Move Variscite Ethernet
- LEDs to carrier boards
-Message-ID: <auzDR5B5k5GR9SRc@Lord-Beerus.station>
-References: <20261105101739.10614-1-stefano.r@variscite.com>
- <auy-OW_td7N8oHK_@SMW015318>
- <auzAh7404GAsY-U0@Lord-Beerus.station>
- <auzCs1MXC8gWXtu8@SMW015318>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Y8sEM9N7
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Hi5gq2578573;
+	Thu, 5 Nov 2026 17:56:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=1miHHj
+	HzX+PzIvHEGZ5sEbAebfzqkab44G9tf/WJJPk=; b=Y8sEM9N7vKdTj6HjUdcTCE
+	lDre9uofWsAQ7o7uy5AJHZSLEV1PIL00IQugh9KRKMlY62hbMijXhrXSjyO+ed+c
+	J/2Rie84cN6rU96v90RO1WZw5PsqWTupgTAezHl7czmZ7p4qlIEn/dLIUIzZhEM+
+	KsFSNHeh5lGVSkhAzE192O+EKw9/Kjohw1sKpMRHU1UziEkIUwSyewANcWmc295D
+	/3LtCCmCiu6Q43qLmSna0RhHXzv9Ctj56euvM1JN1GRd70nbtTzOlwHu9hqX6fUN
+	xZqI55WsjzQkZPe/i85EQayFpfOQ3fRUkbcdlFfwItk0DKJpce97wCaJq7duqHeQ
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80t48tf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 17:56:28 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Hnv1m1992972;
+	Thu, 5 Nov 2026 17:56:27 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrk9mkjtx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 17:56:27 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5HuRYe55116032
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 17:56:27 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1B19158056;
+	Thu,  5 Nov 2026 17:56:27 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 351EC58052;
+	Thu,  5 Nov 2026 17:56:23 +0000 (GMT)
+Received: from [9.68.10.150] (unknown [9.68.10.150])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 17:56:23 +0000 (GMT)
+Message-ID: <dd2b2658-cb4a-4ba9-b69c-470d433a0ef5@linux.ibm.com>
+Date: Thu, 5 Nov 2026 18:56:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,19 +86,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auzCs1MXC8gWXtu8@SMW015318>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 19/20] gcov: add MC/DC condition coverage support
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Alexander Potapenko <glider@google.com>,
+        Andrey Konovalov <andreyknvl@gmail.com>,
+        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+        Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
+        Chuck Wolber <chuck@wolber.net>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Dmitry Vyukov <dvyukov@google.com>, "H. Peter Anvin" <hpa@zytor.com>,
+        Ingo Molnar <mingo@redhat.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Justin Stitt <justinstitt@google.com>, kasan-dev@googlegroups.com,
+        linux-kbuild@vger.kernel.org, linux-um@lists.infradead.org,
+        llvm@lists.linux.dev, Marco Elver <elver@google.com>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Nathan Chancellor
+ <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Nicolas Schier <nsc@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+        Richard Weinberger <richard@nod.at>, Thomas Gleixner <tglx@kernel.org>,
+        x86@kernel.org
+References: <20261103015238.3780910-1-sashal@kernel.org>
+ <20261103015238.3780910-20-sashal@kernel.org>
+From: Peter Oberparleiter <oberpar@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <20261103015238.3780910-20-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: cwJQeRxNyTX6GxuOPvxXzzLS9v8CaHuu
+X-Proofpoint-ORIG-GUID: GbsN-ftVfGBhsujieJJUbKTF56leZQN_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3MCBTYWx0ZWRfX1gk+JYltK+M8
+ DygLW0mOD+DQkRT3cIKfLw6/lmf+c0JpeETlNklR/Yk+/kcILG5PekV1j9GPGRDxjIQsLmTTAZQ
+ 6613WDfbIwSuV6Eim+g+LaCsURCYBJ2OFhcqRtEqU5Dqn6x6MmZpAB0Lyr8esHZN+XMTxEtZgw9
+ exf1KMFPDDcmcgQ1xCdwtaEA80GXLLktS/sMMckHqhlBfxTUE0a5GZYpyov7AsmXAXGoN13qxPD
+ 7dIl3heqFc2bByOrsP+JU0Hr8p/99ddhdVFFGWls7H+vkWlCoxn4fX619ZnSoufkajtikhHBllR
+ 69XpH/7s4tvQsNN27DkG0U3ttWkxL/scslzXxAea2KrkiE3x5IJzU6+Ubl9ssLYCYVjePTCVgLz
+ tIiIuLiBlt0wkLI0WOe6oogHb29/uEWyQgQZTEfZFTvMEVeZsKf3G17pq49cxYDSdQeW3+1ZLjp
+ S8JDGPgQR+r17YF2TZA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3MCBTYWx0ZWRfX1ozUU4RVvpGI
+ 6Lth9lZO3YH9esa47BEBKiHNcBs/H+CcZ91iuk0wP/tbXrw1UaZnFs3Wz0tvuxx0mMXhY2fE8Hl
+ 1ltlXCDND+afsZYAasLP12+56MDzI4E=
+X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aecc34c cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=95rrPwSdFze6aSbNxQIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050070
 
-On Thu, Nov 05, 2026 at 11:53:55AM -0600, Frank Li wrote:
+On 03.11.2026 02:52, Sasha Levin wrote:
+> Support CONFIG_COVERAGE_MCDC with gcov, using GCC's MC/DC condition
+> coverage instrumentation (-fcondition-coverage), which is available
+> since GCC 14. The data is shown by "gcov --conditions".
 > 
-> If not impact for current user, needn't fix tags to back port it.
+> Add -fcondition-coverage to the gcov compiler flags when enabled, and
+> disable the warnings about decisions it leaves out, as is done for
+> Clang. Both are gated on the config option to avoid Clang warnings
+> about unknown options.
 > 
-> Frank
+> Also add -fcondition-coverage to CFLAGS_REMOVE in the x86 UML vDSO
+> Makefile to prevent instrumentation of userspace vDSO code.
 > 
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Understood. Would you prefer a v2 without the Fixes tags, or can you drop
-them when applying the patch?
+Looks good, minor comment below.
 
-Best Regards,
-Stefano
+Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+
+[...]
+
+> @@ -108,8 +108,8 @@ config COVERAGE_PROFILE_ALL
+>  
+>  config COVERAGE_MCDC
+>  	bool "Measure modified condition/decision coverage (MC/DC)"
+> -	depends on LLVM_COV_KERNEL
+> -	depends on CLANG_VERSION >= 220000 || !WERROR
+> +	depends on LLVM_COV_KERNEL || (GCOV_KERNEL && CC_HAS_CONDITION_COVERAGE)
+> +	depends on !LLVM_COV_KERNEL || CLANG_VERSION >= 220000 || !WERROR
+
+Would it make sense to transform this for readability, i.e.
+
+depends on !(LLVM_COV_KERNEL && CLANG_VERSION < 220000 && WERROR)
+
+
+-- 
+Peter Oberparleiter
+Linux on IBM Z Development - IBM Germany R&D
