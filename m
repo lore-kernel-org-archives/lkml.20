@@ -1,165 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878836;
-	b=C7kBDvEN5x9gLQNrF6AFL89VY4PDwMMlgz6sHLIOHzfm/5X1j5mPM+fHArYm3Dbcp3ie
-	 XSzgX4snYFmGMMolGA77zdCBNgtK/fIXDKtdYL2dw0fDhuBpA/hOudItTfI+eVUej67GI
-	 pIxZ/R/1z3ljHfGiEcTNmtJM40AbpmfVZoe89znoXas0XkWHR/PMAbURMJcI0rDZZwFEL
-	 dcY9L8nAC+YPAQDzuEukfSgMZNPdkgpzJZJbM9gnMpCr3vrBEQvVsZhA3m0HxFU1kFT2E
-	 PpDIBg7hME8vdSgBfrWSk5KGdf6KtmoIDt1AYYxZpuLE2zqGr1TMfKM8FxhYzs4PjZQ==
+	t=1793878863;
+	b=phlaKSjocDbeVIhQUcpJEZRfDnsBWubDIssF5hpPmtajMdpDBsXypmVtnqC/jadMGhH3
+	 rvsC9CCnSMpemB/GIdWZKNk8rBpQo42aFwEWZcVig/cPyakCsukKcBB3vw/psUwcd5vy9
+	 rVNMv+zm1E+fpR/kFDooqhkrznN0EacNGtl5dY3Em5eth2upl1AlEoo3JKRrFHBmXmMO7
+	 D9epftVHpVRjrLi2jFn600RaVQh9LG5IFjdXYubKBDUBdsqPPG4v6RWEYIGCWu0BjsirA
+	 SIyq07ZTai+OwKf7Nu+6utT57Fs/d/hFCAgL9nNFOE6tJZqNrxACDypv7vS/xQd6pvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878836;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zyIV87KvFE0knJG+E8ltk8/vfmvsVvYdTTr3ey3DQco=;
-	b=zkb4tA+Ci+BjW7oJc8Cjfu2WMWp7+pmcf1wqbCu1Bj6l+7jHU38qJwBVbjPcU5xR0G0n
-	 AVPftD2HA8oYLzHXPGsAeaatXkOUUR7Bth5WB8lzJLy/0lG1Un9OxWWFXlFbnGkK6MzMY
-	 5tdfOpwTbT1x2BHQIVSVXbqUVjuUghrgoIqKk41AD5DbE7mZvBzlLmY0kHkfCiE1qq/Z6
-	 LKTlwcCDsou7ZE12r2RJn0w3V0kc0kRTAWewU5DhAsMggK7RcMjbZSVviMyz7Sz8IzHrv
-	 4p9EHOi1vjQTXthJZ1ahqSH6dK1nXCzpyL4q4fv1vB44MjToiO4SaQMV9kfY5FMOMpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878863;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=APCybssPVDEk08dxo9yYemACe7ZseVauIwXpk4cGm1k=;
+	b=T5KMhABQsN/LhlFayAOLzSlwJD/CQjjgf/cgcoUmlbruj0Y6D3SfK3/rWTXVEDm4dzSD
+	 JVx+doPtzrWBt4kV/QGrJKkhx9/4sHEW/3VUlhJ4KcVKESgpOMrYUnar/065fnlxLPTYl
+	 lPo4ipPfns9Cra8bH+MG4z/lXGJGH32+WaB8/6dHanIdfJRki836ZtiA6ESn9QtX6VucG
+	 aM+2rq3sULKHmUNrtbwdxgongg6ps5i/jVFHrf272hh5TTumkEZAYHyOxtvGOFI29RbSC
+	 UKEMUzPSVCyrR90oPot/CWzwSiPXINZv55Lc1z4HwOkNgFAGK1uATa1ZjoDHvjksNKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bIkf/cAU";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZsPJKRVJ;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F59E606A326;
-	Thu,  5 Nov 2026 11:40:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A31606A326;
+	Thu,  5 Nov 2026 11:41:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A31606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bIkf/cAU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA1E1F00A16;
-	Thu,  5 Nov 2026 11:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793878835;
-	bh=zyIV87KvFE0knJG+E8ltk8/vfmvsVvYdTTr3ey3DQco=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bIkf/cAUayJAST5nxBaDm2r1gDLZk464lMw4yx34u5Ky9D6OvUVzHp+wKK1AOefOm
-	 r+kjYHBphMf2uvUL98WgB4Hjtnh8K1yZNSuvrWrFomeLu6ODVYt3zRihR8D2zzIsZ3
-	 btH7balNkjt0D4YAZ7OXuZdZNtagQcAh5ETZREuD8w2gSo2t5NNv4iO1doqusXmt0G
-	 juOlg0eYNfvWNEwRoJTozaxT6R/Qc7ZaNeekdRcePShhJ776LtBu8i33C/2ALD2cAa
-	 K/bcKWB8ua/vNDzPTLpS1vyW817JgGZl/tSxFF6qrRjVzHdozN88JDmzcAO4sbSI3H
-	 v6zAfJyRSPMzg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Min Ma <mamin506@gmail.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Karol Wachowski <karol.wachowski@linux.intel.com>,
-	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Russell King <linux+etnaviv@armlinux.org.uk>,
-	Christian Gmeiner <christian.gmeiner@gmail.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Qiang Yu <yuq825@gmail.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Melissa Wen <mwen@igalia.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Neill Kapron <nkapron@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Sunil Khatri <sunil.khatri@amd.com>,
-	Prike Liang <Prike.Liang@amd.com>,
-	Vitaly Prosyak <vitaly.prosyak@amd.com>,
-	Jesse Zhang <Jesse.Zhang@amd.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
-	David Rosca <david.rosca@amd.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Krzysztof Karas <krzysztof.karas@intel.com>,
-	Andi Shyti <andi.shyti@linux.intel.com>,
-	Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
-	Shixiong Ou <oushixiong@kylinos.cn>,
-	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	Sam Day <me@samcday.com>,
-	Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	etnaviv@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	imagination@lists.freedesktop.org,
-	lima@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	linux-tegra@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	rust-for-linux@vger.kernel.or
-Subject: [PATCH 3/3] dma-buf: dma-fence: Remove dma_fence_init64()
-Date: Thu,  5 Nov 2026 12:35:30 +0100
-Message-ID: <20261105113529.1989375-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105113529.1989375-2-phasta@kernel.org>
-References: <20261105113529.1989375-2-phasta@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZsPJKRVJ
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AEKit2060001;
+	Thu, 5 Nov 2026 11:41:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=APCybssPVDEk08dxo9yYemACe7ZseV
+	auIwXpk4cGm1k=; b=ZsPJKRVJ/YwC57J9TIMRO0cK8XskuadtVmTVgYPP2LSAXI
+	w0RTUXzDMqsz9U5Vd261SjK7VnWkef0ygkQgSGuFk68dQrAKjMY2bEPQM2JWBFDm
+	VAltUAtLj2aEDcZ0jiCJ5GEpmeTMBrh71xHTYBUElgzf4qW4ZO5UB2gt17wrnRJQ
+	iUvlAU+XlR8VGQJxyLU10606XCB6kNG7bV4+rxD2Lbo/mXuwT/JQTedC5xyzgzeg
+	XI9N/sdz1qEG4ZrIZzNGjveMuJY3/Ic2PaBAAv9iWmO9SjRJYVHOJUDunKAOCshP
+	kYWaWfSVB5S8myE4MjmxdaDEwa9Uei2EGvC3z+9Q==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rdhfkm-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 11:41:01 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5A4xw4271729;
+	Thu, 5 Nov 2026 11:41:01 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqsf5g77y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 11:41:01 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5BevOD30737000
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 11:40:57 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4653B20043;
+	Thu,  5 Nov 2026 11:40:57 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 26A9020040;
+	Thu,  5 Nov 2026 11:40:57 +0000 (GMT)
+Received: from localhost (unknown [9.111.35.118])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 11:40:57 +0000 (GMT)
+Date: Thu, 5 Nov 2026 12:40:56 +0100
+From: Andreas Grapentin <gra@linux.ibm.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] s390: Add assembler-level include guard to
+ insn-common-asm.h
+Message-ID: <auxq_7KszQp0JXGE@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
+References: <20261102-insn-v1-1-df048a0be0d5@linux.ibm.com>
+ <9b3348d9-7510-48e4-8be8-31efabbf152c-agordeev@linux.ibm.com>
+ <20261104084033.8132-D-seiden@linux.ibm.com>
+ <auxlzfQe32jZHc_4@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -169,70 +97,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auxlzfQe32jZHc_4@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: FwUkmL8A8fpsVpBFwJcQ78jtKBCcAtTX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0NCBTYWx0ZWRfXw8Q3L2b5dAqN
+ lZB8goHQZmBv04yNBU9fpboWdljlqffibyfudCl6TFHRXV9C/scQGji/eIMuyB8S0D2plSIuVEJ
+ fS7h1A2Xt3MTupbvrRthp6RMbJaeo4hDQT+CogLdghDeZ8xI7vYTD2b9+IDBZ4nJj5zEGgaum3g
+ pXEfcO9vfHTszLaHO+Pfejp34567sf/eRx6+PEWaJ+wgSx72/9w1WD85NPTM+1dkhGXMghF+PIj
+ d6A8WjujwawK6GSn3J3EWpxyD5wxagNdZKu+pDSarUtWqJqhUJghHEF0OGEgXspxK/jl2sr01+u
+ K+oELai4A7+tQ0jSnaBUlYPzTrkOfcqSFhnglcZs7eYRIJzEzzRTsTrwN4okp8a401PVbGtLwJY
+ psdKDJXXy91Ek4yGPk1N/m9epqsa5vaB28OyivbNeMeRlAohGdXZl3ku5cTOPGAMidX0x0xlSwE
+ 3/WAFOZAXKHcL1j0AEw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0NCBTYWx0ZWRfX4UGaKWya6aTf
+ qa28qUaWjaaI3vLku9ha9/AcyzaUwDn6jnm90WcJfbzQlbadi0aPcHe5AK5JXM+i6BJGXxubSP0
+ bQAYLkTjYkQ6XwO3WmGrwm8KTnf8BRo=
+X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6aec6b4d cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=U-2YEEF98ZwNu8pyFNsA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: FwUkmL8A8fpsVpBFwJcQ78jtKBCcAtTX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050044
 
-All users of dma_fence_init64() have been removed. They now use the
-respective initialization flag in dma_fence_init().
+On Nov 05 26, Andreas Grapentin wrote:
+> The same should also work if we wrap the asm(.include...) in another
+> header.
 
-Remove dma_fence_init64().
+Something like this (compile tested):
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/dma-buf/dma-fence.c | 27 ---------------------------
- include/linux/dma-fence.h   |  2 --
- 2 files changed, 29 deletions(-)
+diff --git a/arch/s390/include/asm/fpu-insn.h b/arch/s390/include/asm/fpu-insn.h
+index eeb0a233d5c7..f1167aa2ab45 100644
+--- a/arch/s390/include/asm/fpu-insn.h
++++ b/arch/s390/include/asm/fpu-insn.h
+@@ -15,7 +15,7 @@
+ #include <linux/kmsan.h>
+ #include <asm/asm-extable.h>
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index a511cf755ee8..da784fd7bdae 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1138,33 +1138,6 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- }
- EXPORT_SYMBOL(dma_fence_init);
- 
--/**
-- * dma_fence_init64 - Initialize a custom fence with 64-bit seqno support.
-- * @fence: the fence to initialize
-- * @ops: the dma_fence_ops for operations on this fence
-- * @lock: optional irqsafe spinlock to use for locking this fence
-- * @context: the execution context this fence is run on
-- * @seqno: a linear increasing sequence number for this context
-- *
-- * Initializes an allocated fence, the caller doesn't have to keep its
-- * refcount after committing with this fence, but it will need to hold a
-- * refcount again if &dma_fence_ops.enable_signaling gets called.
-- *
-- * Context and seqno are used for easy comparison between fences, allowing
-- * to check which fence is later by simply using dma_fence_later().
-- *
-- * New users MUST NOT use external locks. Check the documentation in
-- * dma_fence_init() to understand the motives behind the legacy use cases.
-- */
--void
--dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
--		 spinlock_t *lock, u64 context, u64 seqno)
--{
--	__dma_fence_init(fence, ops, lock, context, seqno,
--			 BIT(DMA_FENCE_FLAG_SEQNO64_BIT));
--}
--EXPORT_SYMBOL(dma_fence_init64);
--
- /**
-  * dma_fence_driver_name - Access the driver name
-  * @fence: the fence to query
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 6f5c245d89ec..56c4e5beaafe 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -288,8 +288,6 @@ struct dma_fence_ops {
- void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- 		    spinlock_t *lock, u64 context, u64 seqno,
- 		    unsigned long flags);
--void dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
--		      spinlock_t *lock, u64 context, u64 seqno);
- void dma_fence_release(struct kref *kref);
- void dma_fence_free(struct dma_fence *fence);
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
--- 
-2.56.0
+-asm(".include \"asm/insn-common-asm.h\"\n");
++#include <asm/insn-common-asm-emit.h>
+ asm(".include \"asm/fpu-insn-asm.h\"\n");
 
+ /*
+diff --git a/arch/s390/include/asm/insn-common-asm-emit.h b/arch/s390/include/asm/insn-common-asm-emit.h
+new file mode 100644
+index 000000000000..26a31e8439bf
+--- /dev/null
++++ b/arch/s390/include/asm/insn-common-asm-emit.h
+@@ -0,0 +1,8 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#ifndef __ASM_S390_INSN_COMMON_ASM_EMIT_H
++#define __ASM_S390_INSN_COMMON_ASM_EMIT_H
++
++asm(".include \"asm/insn-common-asm.h\"\n");
++
++#endif /* __ASM_S390_INSN_COMMON_ASM_EMIT_H */
