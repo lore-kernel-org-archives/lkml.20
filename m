@@ -1,61 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872721;
-	b=Pr2IaOhKjmEuU959hSt1POJan+ueZ+/jShl2baWqSF6oHaHyVU2WRhn8cGF/Tniuzl7o
-	 HSyQO9QAsE3PUmjud7hbUm3IRiwAc6Dap7L19voaEncEITrgAHXyVNiurDhdbnQObVqJx
-	 HzqOLg0AhEcjRHKxcLCzZ7IKdXZm4SR5chBfAe/Go4b9sVEbdt6sjLLzlX2ZW5h2szFax
-	 LNucUPZPWehnMEYmw0VCA/KY4FCGS6ElhkvnuGkrdARSDKbsojsaJH/agqmyLBj9snV6J
-	 hEw15Y4AlExpaV/cDSipjS8NYzPW2IdBiLcU0HKuSxJjqBaJFE2nEcibUGziefHwvRw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872721;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=muRVNtpHPN8u6TD6ZpfYVyyB4/5pebiG/RBZ2qZUbIA=;
-	b=AfE9SFxa595g7hWYZcayBGy2vKnkRicQ6abRprQRYGH+9sArxW5YCrDsD4vuVghpqEmU
-	 QsOcGJBZK1N8zn0mJeQe5B1gs3jib5YVxda6xJsRTAokSjilElY3+TA94SlDVYD/ZC1tR
-	 TgtsQVGrQXJsRZ0U+eTD4i5ZUGL8OyC8iIA7gIsSDit6WFJogoEs0JS12JqLXbg83aAx3
-	 NotZO2U1SJ/KqZFa9e5hFvqwElJXENgPISZo/E6kcxKSbZPq3eN7CsLxHgdd1W9UevP8r
-	 GAyxZXDgl5qoRYR14ftkj6tgeN+miHBOLYhBhcd+9werF6eNWuu6oz/mY4mXGWQBojg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTKJMCls;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.83
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793872727;
+	b=pPMx8wcREH02fTMMxgqmBTB9DH3VFO/YaT8FsD9YkwLP4NhxGhKyOTGSJ1GTOkRjA7jW
+	 DADpOE7lSOfxQP//GbigkEDeuLwZTvZOFj6rDUL3YEJj0l3ac+X8VzEygKRSY9tdHGSqA
+	 0uRvdwJ8Qs26Ed/14CvT9+kWfELtB6DK3Iae6NPzF2t17a3JTWJGH7zqJxxdoHHrK7skf
+	 WX14h2pvOwzun2+GftDAUH1h2bzfVEj8kgxhcrcEspiB/FScJj8+pI1R0OEtEd1ElG7qW
+	 eioogIqactd7+IgMYo2gSDHBkUrsHB0PtZCyQZGB5UyFNuJZIBJtnhSyUXHrU3v/tqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872727;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
+	b=gKIzWPgcjAzj/l+sKeyLrbt6qe6+UcQLLVS0oEuTJRaTodtNhODSQBAgv3qBx39CbRyJ
+	 HTOxm7qNukExMa9LoZkzOhpnbhT8VuncO++lFH2ImYAj2B6SjGo2/zI0rurH+i7bW/w61
+	 J+0F0pnQhnMvEFQVTI6xcLBgPgi29KmyKNJg5uh07cHcl804PBPl4kFpb4yu9bT6X9nzf
+	 uMqg4fAV5BvSf84Yg1J+Ca8l5rb8CaCdlNbAtTgORmjH+mDiiCPzZ5ZbuvSD6xMc8vLzD
+	 LkCwwaunVQhDfa2qXWlfo2Rdx4k5edu/NXEDPlF6HlLwehUg1MzoJhn8Jo7b+g5Og3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=MuwPLE0E;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2C0YJTtJ;
+	arc=fail smtp.remote-ip=85.215.255.83
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6832606A326;
-	Thu,  5 Nov 2026 09:58:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0652E606A31B;
+	Thu,  5 Nov 2026 09:58:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0652E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTKJMCls
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B216F1F000C1;
-	Thu,  5 Nov 2026 09:58:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793872720;
-	bh=muRVNtpHPN8u6TD6ZpfYVyyB4/5pebiG/RBZ2qZUbIA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dTKJMClsYHnp06jclLbts2Q4zCBaBIqZ4Yc2s92swYekKBG1ruRI0th2GBOll7rxl
-	 AIeYkYXYfD6x+Porhrg5HdPLmndCLYBDT5WuCYwcXf+oat8DZAtEOiOV1DlnI3hmOn
-	 vrWDalfzkPln0aEk6OkFLzwwOLMuMHnR4jCFAoVcmkvSYj7zmTqRrK5D+/Qtzq78Jh
-	 Qcgcg8C0Gph8m5XDmKpSScmir+OC+RkO1cdLzSwjEkOb5fM/bXfhiL9Oh6Zt3ZZxbi
-	 PxvwGlGFPw93PR0FLhO8xw+KMrEJk00O0+oSbLOpUhi8kLdqaSOTbmSLfGktuWufBS
-	 H2ZDSzOSQ+rpQ==
-Subject:
- Re: [PATCH] nfc: rawsock: prevent TX work requeue after socket shutdown
-From: netdev-bot+sashiko@kernel.org
-To: shunsheng1218@gmail.com
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, lauro.venancio@openbossa.org,
- sameo@linux.intel.com, linville@tuxdriver.com, aloisio.almeida@openbossa.org,
- oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 05 Nov 2026 09:58:39 +0000
-Message-ID: <179387271921.488856.11043838083216323158@kernel.org>
-In-Reply-To: <179378590950.74297.14503648624087894519@gmail.com>
-References: <179378590950.74297.14503648624087894519@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=MuwPLE0E;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2C0YJTtJ
+ARC-Seal: i=1; a=rsa-sha256; t=1793872709; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=UAU7tFL6ASXSY5WfQoE+EY69DFAylUSfjkk6FFe9/YueQKCpKq/39gu1XrB5rHzij+
+    08joy3O1CPyI3+LkEO8nba02voBPS5BufTkj+wEJBIHmNfcdILnrAo3A8t2Pa/rmNHpR
+    6ncPrFH0RwQ2mTNcJiPoGuYXtEzaatAfizzbRWNOxMwIy1KL+MWbihquB05Qdgn8uRAT
+    p2HNMa7cgWBVpO+U0BQ+tYRho9AhIk5cAYlyOqUHf8ougnGWJ+5VieW5JSVk9DqLy34I
+    F+929gQIsvIZrDISCuQWSTf9UWQNAKNjdqwXUhzWEvUqrNUeIOo6I48UCNuwNIuXGqR+
+    FkIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872709;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
+    b=IyjgxLGHzWWsmhCtwfV0KSOWsqLb+VSKBTqivf7eXIpIyqH9NePtH/ciY79w8cPuuN
+    L9PgtkLcwlNqHuAdTlE2gE0kcJFuvXg/ZfGcBwlHd+mxZ9Qdvrrn8qYc7ZMpDcbwRGKZ
+    KV3iwZUT1TRtJz4fykc/Rxnv6q8T80sPn7gsl3M2/NW6G+sLh+xCIQD6NWPCiuhAjxR/
+    k6qz4kGKDB0gLDwq8RnEmyDoUSfmYrMuqcqOAMxtQ7/HokbVqpFrP4u+Q5TZMKPoABWC
+    CDXOhzmwEXmSEh9DL83GTRqNOyAZLIMJwHq7qqFca9NeRdkrAafukCkg0qxNJQ2U9LZp
+    ngKA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872709;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
+    b=MuwPLE0EP7Q+7BN6r8irxnxS+h8RNDUOmjqEy2bWkl5ebfyFrpO6PSLLZN4xruoShZ
+    Z9uZmrGWCk2Lh1z4xsv0UubYeucolyNWk6QABsM9DspFfcnFprbDH1QL4JJfzwEW7+74
+    qhffCfjCcbV+dJASNNDvBMN39PbINcxkQWQkAUfL4rxjtqdS+YzZsmHU4Z0Gr8cFOuyr
+    0dpVkxdrXNWLyT9tXj/iuG41ufCxTDQnWRVdcky/zpzrH6zPGczLrqWvtiTr2D86HKOd
+    zKc9lpDQ9s0vhTDv0ce+G0sktilgPJiGrwHlZ3bHq9SUm79ie6BZPtOX0rImsiCyMGE9
+    /YuQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793872709;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
+    b=2C0YJTtJ/OA1gU/RHPMXBtj7uxP9l+gu9vAVdXPPxKeDcMj02c3xpiqN9+Uf5S0nDA
+    RYCFZvcmV6xuVwnWHVBQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV25oGlMiNUOZNJoYXSTSpu/Ae46f1NE9YxyvD"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22A59wSi3s
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Thu, 5 Nov 2026 10:58:28 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,136 +93,172 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20261102-salute-cylinder-22c9a8896ca9@spud>
+Date: Thu, 5 Nov 2026 10:57:58 +0100
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Joshua Crofts <joshua.crofts1@gmail.com>,
+ linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <C0C6F46A-45B7-4B1E-9398-71CD8A26FBD5@goldelico.com>
+References: <20261102201155.10948-1-olivier@mgcrea.io>
+ <20261102201155.10948-2-olivier@mgcrea.io>
+ <20261102-salute-cylinder-22c9a8896ca9@spud>
+To: Olivier Louvignes <olivier@mgcrea.io>,
+ Conor Dooley <conor@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Olivier, Conor,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+> Am 02.11.2026 um 21:48 schrieb Conor Dooley <conor@kernel.org>:
+>=20
+> On Mon, Nov 02, 2026 at 09:11:54PM +0100, Olivier Louvignes wrote:
+>> The X1600's SAR ADC has four auxiliary channels and none of the
+>> touchscreen or battery engines of the JZ47xx ADCs in =
+ingenic,adc.yaml,
+>> so it gets a binding of its own.
+>>=20
+>> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+>> ---
+>> .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 53 =
++++++++++++++++++++
+>> MAINTAINERS                                   |  5 ++
+>> 2 files changed, 58 insertions(+)
+>> create mode 100644 =
+Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>>=20
+>> diff --git =
+a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml =
+b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>> new file mode 100644
+>> index 000000000000..f6356ea97980
+>> --- /dev/null
+>> +++ =
+b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>> @@ -0,0 +1,53 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Ingenic X1600 ADC
+>> +
+>> +maintainers:
+>> +  - Olivier Louvignes <olivier@mgcrea.io>
+>> +
+>> +description:
+>> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
+channels
+>> +  measured against a 3.3 V reference.
+>=20
+> The wording here makes me wonder if a 3v3 supply is missing here? Or =
+is
+> this some internal supply on the soc?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+It is an external SADC_VREFP input pin (ball P12) which is usually =
+connected to
+the 3v3 supply. But it is specified to be min=3D0V .. typical=3D3.3V ... =
+max=3DVADC
+voltage levels.
 
-- [High] The fix is still racy, so the use-after-free it claims to close
-  remains reachable.
-- [Low] The patch only works on top of commit d793458c45df2a ("nfc:
-  rawsock: cancel tx_work before socket teardown", 2026-03-03), and the…
+VADC is indeed the power supply for the SADC on a separate ball. It must
+be in the range of 2.97V .. 3.3V .. 3.63V so that it is extremely likely =
+to be
+connected to the system 3.3V rail.
 
---
+Therefore I do not see a necessity to require a separate regulator =
+reference here.
 
-nfc: rawsock: prevent TX work requeue after socket shutdown
+I would suggest:
 
-The patch makes rawsock_data_exchange_complete() check SEND_SHUTDOWN
-under sk_write_queue.lock before it reschedules tx_work. The goal is to
-stop a delayed data-exchange completion from requeueing the work after
-rawsock_release() has started tearing the socket down.
+  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
+channels
+  measured against an external SADC_VREFP reference (typically 3.3 V).
 
-> diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
-> index f7d7a599fade7..efdbd512d4600 100644
-> --- a/net/nfc/rawsock.c
-> +++ b/net/nfc/rawsock.c
-> @@ -168,7 +168,13 @@ static void rawsock_data_exchange_complete(void *context, struct sk_buff *skb,
->  		goto error_skb;
->  
->  	spin_lock_bh(&sk->sk_write_queue.lock);
-> -	if (!skb_queue_empty(&sk->sk_write_queue))
-> +	/*
-> +	 * The release path sets SEND_SHUTDOWN before cancel_work_sync():
-> +	 * once it is set, do not requeue tx_work - the socket may be freed
-> +	 * right after the cancel returns.
-> +	 */
+>=20
+> Otherwise, this looks fine really.
+>=20
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: ingenic,x1600-adc
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  '#io-channel-cells':
+>> +    const: 1
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - interrupts
+>> +  - '#io-channel-cells'
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    adc@10070000 {
+>> +        compatible =3D "ingenic,x1600-adc";
+>> +        reg =3D <0x10070000 0x30>;
+>=20
+> That said, the 0x30 looks suspiciously small - but the region is =
+aligned
+> neatly so I suppose it's probably not problematic..
+>=20
+> Cheers,
+> Conor.
+>=20
+>> +
+>> +        clocks =3D <&cgu 28>;
+>> +
+>> +        interrupt-parent =3D <&intc>;
+>> +        interrupts =3D <11>;
+>> +
+>> +        #io-channel-cells =3D <1>;
+>> +    };
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index ecc22d1149d1..fd4bb5c6bf16 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -12925,6 +12925,11 @@ F: include/linux/mfd/ingenic-tcu.h
+>> F: sound/soc/codecs/jz47*
+>> F: sound/soc/jz4740/
+>>=20
+>> +INGENIC X1600 ADC DRIVER
+>> +M: Olivier Louvignes <olivier@mgcrea.io>
+>> +S: Maintained
+>> +F: Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>> +
+>> INJOINIC IP5xxx POWER BANK IC DRIVER
+>> M: Samuel Holland <samuel@sholland.org>
+>> S: Maintained
+>> --=20
+>> 2.54.0
+>>=20
 
-[Severity: Low]
-This comment relies on the SEND_SHUTDOWN / cancel_work_sync() block in
-rawsock_release(). That block was added by commit d793458c45df2a ("nfc:
-rawsock: cancel tx_work before socket teardown"). Before that commit,
-rawsock_release() did not set SEND_SHUTDOWN and did not cancel tx_work.
+BR and thanks,
+Nikolaus
 
-The patch only carries:
 
-    Fixes: 23b7869c0fd08 ("NFC: add the NFC socket raw protocol")
-
-The lines it changes date back to 2011. It would apply cleanly to a
-stable tree that lacks d793458c45df2a, and there the new check would do
-nothing during release.
-
-Should this have a Fixes: tag for d793458c45df ("nfc: rawsock: cancel
-tx_work before socket teardown"), or at least name it as a prerequisite?
-
-> +	if (!skb_queue_empty(&sk->sk_write_queue) &&
-> +	    !(sk->sk_shutdown & SEND_SHUTDOWN))
->  		schedule_work(&nfc_rawsock(sk)->tx_work);
-
-[Severity: High]
-Is this check actually serialized with the release path? Only the
-completion side takes sk_write_queue.lock here. rawsock_release() sets
-the flag and cancels the work without holding that lock:
-
-net/nfc/rawsock.c:rawsock_release() {
-    ...
-	if (sk->sk_state == TCP_ESTABLISHED) {
-		...
-		sk->sk_shutdown |= SEND_SHUTDOWN;
-		cancel_work_sync(&nfc_rawsock(sk)->tx_work);
-		rawsock_write_queue_purge(sk);
-	}
-
-	sock_orphan(sk);
-	sock_put(sk);
-    ...
-}
-
-Release only takes the lock later, inside rawsock_write_queue_purge().
-
-Can the following interleaving still happen? CPU0 holds the reference
-taken by sock_hold() in rawsock_tx_work():
-
-CPU0 (rawsock_data_exchange_complete)   CPU1 (rawsock_release)
-spin_lock_bh(&sk->sk_write_queue.lock)
-queue non-empty, sk_shutdown == 0
-                                        sk->sk_shutdown |= SEND_SHUTDOWN
-                                        cancel_work_sync(&tx_work)
-                                          tx_work idle, returns at once
-schedule_work(&tx_work) succeeds
-spin_unlock_bh()
-sock_put(sk)
-                                        rawsock_write_queue_purge(sk)
-                                        sock_orphan(sk)
-                                        sock_put(sk)
-                                          last ref, socket freed
-
-If tx_work is neither pending nor running, cancel_work_sync() returns
-right away. __cancel_work_sync() also calls enable_work() before it
-returns, so the later schedule_work() can still queue the work.
-
-rawsock_destruct() does not cancel tx_work, and the queued work holds no
-socket reference. When the worker runs, rawsock_tx_work() would read
-freed memory:
-
-	struct sock *sk = to_rawsock_sk(work);
-	struct nfc_dev *dev = nfc_rawsock(sk)->dev;
-	u32 target_idx = nfc_rawsock(sk)->target_idx;
-	...
-	if (sk->sk_shutdown & SEND_SHUTDOWN) {
-
-Would it close this window to set SEND_SHUTDOWN under sk_write_queue.lock
-in rawsock_release(), before cancel_work_sync()? Then either the
-completion sees the flag, or its schedule_work() ran before release took
-the lock, and cancel_work_sync() will cancel or wait for that work.
-
-Separately, the unlocked read-modify-write of sk->sk_shutdown in
-rawsock_release() races with the plain read here. It also races with the
-plain store in rawsock_report_error():
-
-	sk->sk_shutdown = SHUTDOWN_MASK;
-
-KCSAN would likely report this as a data race. The rest of the
-networking stack accesses sk_shutdown with READ_ONCE()/WRITE_ONCE().
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179378590950.74297.14503648624087894519%40gmail.com
