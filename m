@@ -1,16 +1,16 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.138
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.86
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793862779;
-	b=cDszZH2ALIYh4bsZAkdaVfvkht4ouim1h9m4lQFJmAFj/RoI+KPMtCTfrFn3N0MqKgye
-	 mEJCuQbH2C99uXVJ5dIcS0fP22rbfTuJyf8w0ZwJnRk0B800UhkXfzPasCu9RDIcOPYyI
-	 IDNwr3H71c0BK/LBpfmQBEMYk5qyGirNUsfPUdUpWpKi1xY8ICvju2SoZaif3SAeCLFi5
-	 ZuwAoUsOcTLbe4+MGBX01cLQ0kqhvasYkaDQANllZ5mLrEVArODyi62kwWnZRPFlTjHh7
-	 ULzKrUg/lflr5q2M1HVkNKIaLhWENRBFHYkMuB9yN/Bhmx7SkSGW/3IhT1iNvZLUXQA==
+	t=1793862791;
+	b=BrloMPnU/YFBjHD1b9HwJAgAYYUBwRsIbWMqnISsMGIUSaQRZiA13bk8ZG/6p+v1J6Qi
+	 zkPNJ/ATowz30Vrq1deJXONLKPIiNt0lB5xvX9AR4/UyYkJdrebnLbyoukesJ+qY/sJhi
+	 M54ACLc+mfv+LmmbtYD+PtNf4vviaxdnknGiHwnTwRUiVMdm2qlBcEU4pbz28sUH56dZA
+	 JXaQE8N16VralQA1i7fPYeYthXRjikf3cbSa5DJkREGQpwcqK9V+H+wmuyyVXEj7mB33B
+	 2ICEXKbKuSJEuQC9XE5yGrjUdCR5H1ZWjdq28Xc0Gc/zz99jKIte8mR5yspKRahz63g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862779;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
-	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862791;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -25,65 +25,63 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OEu5RHTlj9OTJ4RaFhoVwJjeW4OAtL5kI7qzH+pfpZI=;
-	b=ipJFTVPryfXU/WiS9hdArZ1VrNozOWqhvrz3xl7CYl1rnjHsDVUXbeqcOcCjCeY3Rtsr
-	 pfRj0ClWsN0tjrI9xwWaXMCGmqGgTpx1bN3e4wJ2d4xmE9xFftHG85NF4uvPTB0uj1FD/
-	 NGBYzEBkm4u6lUDGFpMDedXkF5T8V8/z9xTKSlazs6FHC76m10g5GntUFnQYUKLQC+c2r
-	 ieE54Un+K0nsOaRS+1t2D3j+zy1GsJfmT7t9Pu6KzFyKTZaBW20nur7LHOuulPfzyq3sr
-	 D3JqGATV7yADW6IJRP5sDAvaWNvMSQSkUe5c4jMw+mK0NuOENIOdnGpUGr7loR0ES4A==
+	bh=VLD3S1pvnvayU8UANz6NSPgC30d38FpHHSTHX9Ku/j8=;
+	b=rY2idS45xGCnBVx92Bub077qed3EvcLvioaylKZFwmNPzz+3vwQHB9o9n9jrLE2jFmN+
+	 DOU/Dm77zyurw6Ge/qiaskm73/a6yPcfTkiG9WEMBOXyKnabW83IzFeskWylWhXxUKI5v
+	 UnXGdD8Q5mAS2wdOQi2MKopDcyygkONbtWhgshFzHtQgJtpABivIm70ikhhMyPOYNead2
+	 tTM+KUi3EAb8Wpwib17ogI0XhSCoEnTZL4s+EIOymJmpdAFHaMpCFrZUyTnlJMw/8KF/z
+	 myj8C63c3z5tl63bGn3A17cWgUG70KpL7ha7eWBbT4Yk6EdHdaa7nRdVL6pZPQ5Dzcw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=vaisala.com;
 	spf=pass smtp.mailfrom=vaisala.com;
-	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=Au07uMNw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.138
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023138.outbound.protection.outlook.com [52.101.83.138])
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=TyGgZksQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.86
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023086.outbound.protection.outlook.com [52.101.83.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C986A606A330;
-	Thu,  5 Nov 2026 07:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C986A606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11320606D804;
+	Thu,  5 Nov 2026 07:13:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11320606D804
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=Au07uMNw
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=TyGgZksQ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vKCQXg9R2zDWzdJ/HnUISsrD36HuXotwcXLTKPllLYwn1xsywvjSBX5VfWBtYWhUWe/ZGS8132Dt957wyWygvXutPq++pG0Mlj9A1IwrYfqp7mEur9WgR6egWAJPuz9pTzM87GT8c9BNDJ99zEZU3FC0KVdQbWb6zv2bVY2lnPMgy5nHkHDwN3tZ6gptJBsEcDVdez6EQfN+fw8FfaCaKfw+WBp8+58tJ5CCEhcb07vzKQIlP2YlpfFZVKduu4tfxsCBZsBO15V+43/EeWqIcKcIVDpBVe8rDCN+nZMPkc8AezQNuf2u5U9lelHjkzwO8UulwTqx+Sd69U1HTx8BIg==
+ b=ODPjEq2v37JPw1iGzt/z2DryZgeoY1fVayv+8uGXNa3myqKS+KXQCMw+ThlwMzdqAsknMBMQUgqcY3YnpPB75gH0B1IGxjvo1WVbB81rtQnoD8vl1uNd4NUt8yGiVBNX8g8u3ZKlNHm1W5HC/QUE7nCkk+aj1sR+mFIB/GgYJxHYGayoYUiSCkP55fmr1Qo7ExXS0BjpRkuHKNDbBTlqUoQafNBWpHSgAT5CsYoA/EVjtGMTrtHp/zhmjutE1+fifY4RlAHUaWRDbfF04Koewwhnss3DUpTRZ1RQdpWVmLkVKcNa8RMFKnUYhsvS0URSNyrAXYFIPjF2XQurcuGdXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OEu5RHTlj9OTJ4RaFhoVwJjeW4OAtL5kI7qzH+pfpZI=;
- b=miwA7esFv1uhN3Gvs8nzsqQm6tHA8tF04en0ltceGC8xzysI/h5w5F8T30faopbMZ5PSDiw4L3oIdAthDzuU6WmJ0lGDBf1EvopiyG1VDdJHusO+XeLX787iQoRl39LLaNq3u85ImZxpFd7RjGR2CohNJojV77FUDvwXm2edJ022TOmP/HsbWStBYgYZHo9Ag9mhDAH1rPGVZu7lggJ455OLplhu1GC3mfsKT3L+VgFCdMpyaVrYMGKFNH1GXX9JiQM9XDDhvTIWtKZCQZNogJ5I7Av+wbgCWitmX+3BfDbvODxZzzBNqFA0b+SgF5kKGQgAPaNMA+4ETOIq34A/fw==
+ bh=VLD3S1pvnvayU8UANz6NSPgC30d38FpHHSTHX9Ku/j8=;
+ b=yvgaRmqopXUcaeRxNYPC+Ym9tqKq+CpXIUwYfc9Pc0K4G/CPDKUfdnz0fJaHYuokoja9c7474pcYyK1xZKTZ8FtZD0CF4+vhiZKEncdw3BErweYytAIWx4DrXrExDSYoxEB39ldq6vaCwYz0hCd2gyJp6vIOAaqI0GVvOs7IpIDfEt2O/ks5V9e4+8zeUSZ7kbdvmQ16FuzVPaj34PlatV4z7rj0t8tvYTpXG2q1kRHqyRreo2YFWh238XeXJjDdJYe1fwnu+fjpNoyEpLtTuKwoyFoQ86VszarMy2jm3YW0D4MUDu4rWmk/WGkRNxeVboq48c/ajPBnF7gLfxBKlQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
  dkim=pass header.d=vaisala.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OEu5RHTlj9OTJ4RaFhoVwJjeW4OAtL5kI7qzH+pfpZI=;
- b=Au07uMNw6X8+fnbZ6YEye/I0FtGRH7kxybjMzK5/0NqZk8utBgSXyRgDoNohbeoGx6varsDdxLVLc8EwMcQC4Wyn0bHUrVzqOrSyA1H2TuNeryMZhlnJ7QqFd0nyY7cA8PmXZ0QArA8yuKJHr1nouZg6l1JefGQ1t1AMd+WducQrjEgo86aAsquxkbAxGgR+7ZEhoIhdqX90YzIWA6DXSI4C9dlxjK+71sofftjuVonPW5cGIGM7ZrRHoNvuYfA7HlGvkfYW4dyXRFJ3KXnMANjWhKbzDOd9SMCTYoEuP2ZgAIfcvDntoNkd8n3UP9XdkfgJwHUMSVVOE6QSb2yv7Q==
+ bh=VLD3S1pvnvayU8UANz6NSPgC30d38FpHHSTHX9Ku/j8=;
+ b=TyGgZksQTPNfSXYvOynXtKC8QGEEZ/WSGpINtxkbt0nF6lPMOQXo4spmiZk2I0JwexJ1M3DeUCKhn79dYi8wCrY0+5wa0+32Oex0/8efnRgpfgyZULOa35SQk+fRTo3E/evyIWOSBH+bHA6/vziVOt9lD8T6Xf1BFK3BufhmbXmJ9p8P/JpxdY+UaINR/bjgXRK+uGavf0lCGihvLXUL3FOqc4CAA9acBg6oYMHPDKKuoMbJH2J8Hufk1ZNxVAJQfNLxMR3MUdvmBoOEbu0C1mRId/6pUVGSIB1aB8nCP+f7vGof5mewrKiyfOSuB8QSfqGh9V5auRDRHMPNtmHq5Q==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vaisala.com;
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
  by AS8PR06MB7877.eurprd06.prod.outlook.com (2603:10a6:20b:3c1::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 07:12:49 +0000
+ 2026 07:12:53 +0000
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 07:12:48 +0000
+ 07:12:53 +0000
 From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Subject: [PATCH v2 0/3] serial: core: add transceiver interface select GPIO
-Date: Thu, 05 Nov 2026 07:12:19 +0000
-Message-Id: <20261105-serial-rs485-mode-gpio-v2-0-027e5348892f@vaisala.com>
+Date: Thu, 05 Nov 2026 07:12:22 +0000
+Subject: [PATCH v2 3/3] serial: core: Drive the transceiver interface
+ select GPIO
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFMs7GoC/3WNzQqDMBCEX0X23C1JbP079T2Kh8SsuqBGkhJax
- HdvlF57/IaZbzYI5JkCNNkGniIHdksCdcmgG/UyELJNDEqoQgpZ49HXE/pwq+44O0s4rOyQysK
- YUpmiVxLSePXU8/sUP9vEI4eX85/zJ8oj/SmV/KeMEgVWwpZG1CK3df6ImoOe9LVzM7T7vn8Bs
- 1nlNr4AAAA=
-X-Change-ID: 20261019-serial-rs485-mode-gpio-e76bb72b6f21
+Message-Id: <20261105-serial-rs485-mode-gpio-v2-3-027e5348892f@vaisala.com>
+References: <20261105-serial-rs485-mode-gpio-v2-0-027e5348892f@vaisala.com>
+In-Reply-To: <20261105-serial-rs485-mode-gpio-v2-0-027e5348892f@vaisala.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -96,11 +94,11 @@ Cc: linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
  Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
  Tapio Reijonen <tapio.reijonen@vaisala.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793862767; l=3322;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793862767; l=7233;
  i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
- bh=GZs6fbmKI9QvNH19tzD1RgfkEpqEyRf3hn84N2sO8x4=;
- b=dsD9PnPwfLqx7nN4b69t8KQ/PSRd5CN6oyyfu4ne5Fs9+dJ0N3JVoVbKURtrMbwkbzNMFGgy6
- ADI5iDd+SgzBcDWm9iShYIFFs8YqzVpwp5Gd2R94yW8MoosCR1x9LwD
+ bh=G98c9yvhGNxj1XRhzOKqtGzSNZC9fllfwRQJFQqG6T8=;
+ b=VCesDIZ6hlGwvoAOKQEnrCYqS36gEsjsbHgfB1oI0/D0zEXsebKPmDxV4q6xjAYi4/WIMpkRR
+ xBG5vaPSVcuDuok5WzOHWT6vRnKNuxXOK0Vm4gUwh7dAWJkO+m2vjdG
 X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
  pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
 X-ClientProxiedBy: GV2PEPF00046789.SWEP280.PROD.OUTLOOK.COM
@@ -117,133 +115,236 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|AS8PR06MB7877:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ee870ec-745d-48a6-2e48-08df3b0c32c2
+X-MS-Office365-Filtering-Correlation-Id: ed4bce80-1131-4c12-6b71-08df3b0c3544
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|52116014|376014|1800799024|366016|38350700014|11063799006|56012099006|261102123227099003|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261009223027099003|261028144727099003|261026121527099003|261026140227099003|18002099003|10067099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|23010399003|7416014|52116014|376014|1800799024|366016|38350700014|11063799006|56012099006|261102123227099003|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261009223027099003|261102130727099003|261028144727099003|261026121527099003|261026140227099003|18002099003|10067099003|6133799003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	QjZdGihqvTcegMCnZVePSI1bZQmE6QKEk6Huh/Glt55fQ0anzOU8xAoaMXoZEyBqqEQB7WeqFjIEkcDKpsXwaNIeQfRWvhSoLwoUHkecwAQQxnqekp094IQsK5UvTPk9+DYa+QVvWoR4zZY+xwOMi+6q+OFoxwibYttObT240fQluIYKm1xGmq7r99mmME0LEEpguh1a+/8hgcW/e1mA1ckCvwTVWQMpkLY7UFq2W8ca+LKptKvqeRe9P1iqMEyOueOpga+NrmD8UxtGfG3eVV3Py0T9y22hUfVgajYEX3ze0VBdgXS8sQ7L1bkFec7JbTnibMQ6u8ESf/Is/iCE3wOyyYfsRkqgjhLZuQWAUs/qSmZF4BjYAyOqEamT1tmgdLSQDt4/wqqqnA2RDBL4ITeJhNEGS9zuPlzt7WmeKoKgtIQT63Bv8Ge8C4Ibd/TVVQkuZPucjSuzKv+34D3GGbwieGSi/8ttia8vKAGg/+/FJWCKnoCat7dXpDDo6P8qL9o/2CXO8wVCD3x+L32Eyr24CjhVnIKD5xkGbUr0Yyu8J9/k8JjJNZGPH0mQDDaZrJRTaaI+U/3Yxg25VneW9aBFdxruNcFKUJAcj3kWAPdVIbtqiwjoyeOVGq0w0KBtnXjQKF8qJGrtHUbnV5kotIJnZ/aWzaBuYstm1qgq6g4=
+	tjRW+fMOZePso2kJGuBQL739sZ6+ucesCS0azPpvb1+R2giFEMc0l5k3if7lbPD5SmqRVCADoHWBmu+yfjVSeuHVesfgFlEvjItcTcc9BqdVFqvgUn46j8Fl9aLbf7sHuj/FyHp623BKuWuqa3KkP96sz+vX1fSGvgOe7tgAQDkusmLLY0mrAceQukGmmF69VoadYmWlqRy6ZOIK6YEDuxG7N0E++blrC08lUzRr/9qZmYFHGaH1iF3ouzlbjt9beWhMH8c04539y1wYmXvolBfuFBq55JX8rzVmXkMhPHuhoCsmfVl3juLsIkhsVerdq5ZDA2bQU1NE/Cxyf4C9zqTfPnMv9ZsKW0hrhPlueMOkCgH7Ac8LtgEqxuSb1xNTttMFlRYLJMM46Qi32UyY19MbmrJ5edNKPo5vJR4zm0zDOhaVRsMxt636nY/uxmGuTe/hS/FrVdtNhf0UI47r/YrgD9PsWwXcOXLVHWlKvWC1gqqKcACKFeZLHV0HoFZigujP+fJVtQnYj2Ojfnajcc5QzP4+Xboec0FTfBNWO+Ftwr46Vpi7Ja3xRDlCrS7EYMG4pjTwtktOE/7d+mIRj9YrlLpy1WrWF3PEyVvMe2iaIGCeP5nLlpAmTjMswmcSDe9JKc65o67IBhZt3e03hPUHhWG5qf4yNvKMBuaRxEZ++TaXjBUGI2d2KDQw1pDP89ozoKmFBO0pH0jP+GdMO4aYwX0OY+zEZnXeDkbFflo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(52116014)(376014)(1800799024)(366016)(38350700014)(11063799006)(56012099006)(261102123227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(18002099003)(10067099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(52116014)(376014)(1800799024)(366016)(38350700014)(11063799006)(56012099006)(261102123227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261102130727099003)(261028144727099003)(261026121527099003)(261026140227099003)(18002099003)(10067099003)(6133799003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aFp1Z2VOZ2o2RVhlRTBxU3V4Q2tGQnBpN1BCWUtGWGs0b284YkFOcldmMldx?=
- =?utf-8?B?c1pjRXk1YjlyREdhT3BJaG5KK0pFL3BIYnNsZlFEVG5od2hVSDFUbGJ2VVJt?=
- =?utf-8?B?QWNVL3FjcmFKK016RW42bXAxeVM0QWhDQnBzbFNzb0lnRlRmVk55dWlGUk1j?=
- =?utf-8?B?a0pJRUp5aXVHaTFlTkNyd2x5V2Z5RkhraFpNSjArNjkrYkdhelpnaklLOW5N?=
- =?utf-8?B?MzBXc1VsZ056T0lyeEN2Zm10SVNWSHpBZnVkTG4xeVdMbFY3c3hnZ3pnOE1r?=
- =?utf-8?B?UUxRaFp6ODBuVkNLQ0lreklTeGhQUUJ2bmMyQTMxZ1F6SmdXUEhoYm1VMDV1?=
- =?utf-8?B?THdTTVVLcUpYb3hjSjkzRGV5UFRlc0RhRlBTZWlvZ0d6S0gzdUt0R0JPaDJ5?=
- =?utf-8?B?Nno2MlljYnQyTmY0cmhzempvOFFOTnVTZEx5M1J4MW04M2swTUw2Z20zWWVo?=
- =?utf-8?B?NzZuc2orWER0cUdGa0tVMXp0TDBLSitXV2xmOWJwdGJPOFR3VkpBWW14cXln?=
- =?utf-8?B?Ly9TRjdyV1NQelR2d2h1RjdEbmpKcExvUWZsOTNpVFAxY3kxQmNLVXQxUmtU?=
- =?utf-8?B?OEt4bXFvaEQ2bGFnMXREem85VWNWWEpLOGR0YXI1T3hieTI4eTR0dXRRemwv?=
- =?utf-8?B?Z29CcllXN2FudHFHY0ErUUVTMzBNV29qQXVwZnZtemJlZjlkajV3UjBGcU81?=
- =?utf-8?B?eXI3bktZbURadnlZNzRZLzlYbUEzVmlPZ2VNZE1KY0RENEFwRVdPbTRTWEM3?=
- =?utf-8?B?VGhuM241YVI3dEliV0F5bnJHUVlxeXBSK0lMVUpQR0lxMG03NTRXcklZL2RL?=
- =?utf-8?B?Q2c0MERLOTBKUmM4SUptRlN4VUJYOWpZMVRPdUsrejFRUzZoQVRJeW80RjMy?=
- =?utf-8?B?NDhVWFllVWxFdkJNWDZvcVRIUXJrRUxlRHpYUnRhclpNRk1kZHJ6K01mNHhS?=
- =?utf-8?B?M2l4RDhNUEoxUEpHU2U4YVJzMlFTTE5nOTBLQ01vd2xLYThCVkFWTHFCSCtR?=
- =?utf-8?B?VnNuN3R2MXg0OW81cEVreTBqcU8rZHZYRlVkUFlPM3ZoaFhMS2tFQzVyR1Bs?=
- =?utf-8?B?bUtEU04rRUhHT3lKWkxLdW5EaUZRdEswbHR3ZlpYUk8vRFBpU0NUMm5adGhr?=
- =?utf-8?B?YkUyeWZFZ0Y3UWFLWFJkRnh4Z2pKN3FNd0VoeHNGbFNDYzc4cThFWnpiWkV3?=
- =?utf-8?B?a1NjSG05UTRQQmxyMUkxU0V5ZkhLZnMxTWI2SVNuZHd4bGUvMVN2Z0ZwL2dO?=
- =?utf-8?B?REFXTjUvME9LdXRkR0ZuNCtha3Z1NFI2MDNBdVR1RjhyUGtoOEtTMWhBZW91?=
- =?utf-8?B?bzNHcnZxb0t3enl2TmZKZms0SWV4TVhrb0VaNWtmL0NpVjBQQ2pab3ZRYWQ1?=
- =?utf-8?B?UXhONWFJc3dpc1Ywb2JDWDh4QlJ6K3J1QlBJRjJsdjYvZzJFMzcrWXFzcXFI?=
- =?utf-8?B?RTlVdVd1MGtWbHBsMkxhbVV1M1hoRWJSN0l2Qld4L3VJWldGbWI4WGtxV2li?=
- =?utf-8?B?T2dtOHh2ck53N3oxTGxNcVZiOGJXWDVvZFAvWklQbUVxN0N6aitVWWl3Q2tS?=
- =?utf-8?B?NXd0d2lwckdwRUNMWFY3TGlUVDB4M2VyMU11YVFQTlVCWmlOa280T29rQTl0?=
- =?utf-8?B?dXFQVmJFQTd3OUZqQkJqdEdRZTJDNDFyc3NNUVJPTit4QmFiNVkxdzRsWTdW?=
- =?utf-8?B?UnVoNHdXV0QrVThkQ0dWTXY5MmQ3MmlMSS9ndkxuZ0kwVmdQUzZYUDhKblZR?=
- =?utf-8?B?dDZiU1ZiWFlrdzk2VEFMNmZiOUJpSkhCcmhkc1d2SzV4bUFwbDB2QlJDbnQz?=
- =?utf-8?B?NE1JblBrQkFRZ1FXNzZ0elVWVDVwT0Zkc1V4cEdPNEFJUEkyS2JSYkcycmt6?=
- =?utf-8?B?WlVDRy9aL0wzZHVtWFIrQk1ZVWhMS3NwK1VnZy9ZdzBBUmgwR1pkYXBQZ1Ft?=
- =?utf-8?B?MldMOE5yeS9rY29rMTZzMFMxN2dOV3dmUGhtTHJQbldXRTF5cHdpMStSck9w?=
- =?utf-8?B?VHc4SXBhVlpzSEZpVFdFOTF0cVhlUDRaMzNJVHZBWE9yMW55NGU3N0Jaa014?=
- =?utf-8?B?dEhHbVJ5VzlGMGZrM3N0b212dEtic1dsNmpHd2F3eWI4SjM1a3Izdnl3ZjY3?=
- =?utf-8?B?MjU0MjRIMWhLc1UzOVB3Tm5NeSt2Z2ZtNjM1QkJMTFlIeHZqWmhKam9udWkw?=
- =?utf-8?B?VzRDNWcwWWRiTHVpRXNpY1g4Q3dqYzVkVWt2Vlh4ODRkOStFYmRhSDhabThY?=
- =?utf-8?B?S1ZBRWNJYVBjRXFWTDQ0U0ZIMVFxam9IVnY2ZUJuMEVLT281RFgrVzZoSTdD?=
- =?utf-8?B?Z2EzQTk1SmJOSHMybkV1M2JSaXZKYlBEOFUzTUZyVTdjK0VnU1JjelF6QXhH?=
- =?utf-8?Q?J22qCbruuZrU/AMA=3D?=
+	=?utf-8?B?SDhuYi8yUnloYmRvOXV5Tm95eUxxUzU0UzdUU0lzeE96QTdVZVg3dThQR05M?=
+ =?utf-8?B?R25oejF2STl3WEpRNGk2Wk4yaVdETlpicG9FQlg0a1RFTVJ6VFZYS3FxQ2hx?=
+ =?utf-8?B?Mkw2RU9tVzVWS2VTVzhsSXNUeFYraWV1RitNaFNuTW1wbmliUVhxRnlvbzRn?=
+ =?utf-8?B?NWFGeFg4VWlYUW42Rk43M25lWDBNTjh2MDRGVFBOOVMxQllkQzlLUFhqOW4v?=
+ =?utf-8?B?dk5PTzNmRWtyVUdLNGpZTXo4VHlva3E2eDNqYVczS1lyTitkVXJmY3g0djNB?=
+ =?utf-8?B?blVlMEh4a2Y3QjgwMlhUMkhsZnM2enoyRHBhTm5Vd2l6cTJEcUw3TjVodEdn?=
+ =?utf-8?B?MStXcVFEaWVRNmpPdHhOd3RVQ1pkQWdhQWtNanRqRmhMTGNLa1hYYWVobnk1?=
+ =?utf-8?B?ZDJxVG1tZU0yc0tFTlJlc3I1OHNBQnBCR1F6NjZidHdUbXBSYVJaQVl5b0dT?=
+ =?utf-8?B?Q1pBTWpBeWxoQWtzaUE1ZFJBTUlZa2dEKy9EYWtRNW1zQnJwSllvTXFsY2Zh?=
+ =?utf-8?B?T3ZrWFRTOEVuVkVhNHViRUJQb3U4eGNQUk41Q010b0dLcVNmdzY0c0Z5Ri9Q?=
+ =?utf-8?B?OWhWOXdwQklib0k0dmlMeXRVL3JzYWtlZEJZK1VjSFdVbXB1SUh2b3IyczFY?=
+ =?utf-8?B?RCsramxtUi9vaTJ0ejFmaERuUEpvMXF4V2pLNkc5aDNrRXVzcEpsSTRobmMx?=
+ =?utf-8?B?V2hSRzNyNTAyMVZvNjZIU2FOTHd6WXJjYytpMTRWZXUvSHEycW1mNlgyWVhZ?=
+ =?utf-8?B?L0xkWXlTMUczRHl6L0gvam9MYU9GaHRZMGt5Tk02bzcwZ1ZHRXBGeG1wNzhD?=
+ =?utf-8?B?elZERVROeVpiTE4vTTFKaVEvSWtnUUJ1OTd3L0dpellLMUlvSmRBQ29QcE1J?=
+ =?utf-8?B?RSthd2V3TlNQdnp4cjVHNXhpdlFadnJoZ1h0MWw4bC93enJGa2pEYkZmUVVp?=
+ =?utf-8?B?RmVqV2JJY0hDNkdiNGkwOCtEL00vc0hTSjhYeXZwV3B5YmV3Ly82OE9lMmFV?=
+ =?utf-8?B?aEhpa2F2Y3Y2WmR6c3FRbUtLR3BWKy8xWGl3eENsdElpbmw3V3NQQ3M1UVZE?=
+ =?utf-8?B?NWlDSTZKZDk5aExBdGxvTE1zNUp4d2Y0QUV3ajA0VXZtMzd6akVhdUM5Ukw3?=
+ =?utf-8?B?UWdzblFvcTdqQ1libWtod2VOaENkKy9FUWR4WWVVMmtVejdUTHJxK1VnTHE1?=
+ =?utf-8?B?Y012L1FNYXBwVG9HRDF1YVE3ekNGLzcvNHAvT0o1VXFxQWVUSXEzUGxPZFA1?=
+ =?utf-8?B?SXB3NVN0dXIrK3NMSmdsSXdzUXNSdW92R2tRSWYvU2RvRWtjQ0ZCZWVqRlkz?=
+ =?utf-8?B?NTV0bUlFaXdReG9nN2tnV3NlaklJU3VKc05vd2tsMExWSTFEZGh1THZUUTIr?=
+ =?utf-8?B?SFdYY0tTUEt2ek5kazRaWGtrSWQxN2N6OTlXMnhIYy96YzZtWmxyaWhIS2k1?=
+ =?utf-8?B?TGlKeXF0KzZWVHpTKzFYQU1RYXlMZlpjMTBoNGpoRy9QWEVSZnRFOHRqOGd2?=
+ =?utf-8?B?bm0rZWM4cm0zT0pQMG1yZ3Z2eWVHenJwRDd2QS9adGdVUUc1N1pBMTRPd2xu?=
+ =?utf-8?B?bFQwaW5GaTB6OFFUbDhzcCtoRndaTDcvUlZrZzA5NEFTZUJ1d3BGWUJTN1dD?=
+ =?utf-8?B?bkEyY1RMWWpRekdVREpaMGp0UENKMWZXakIxdWFjTnRYaWFKUzU2Z0VvNjM5?=
+ =?utf-8?B?aVp3WEhaOHpEQzJjVExtRURsc0tiNlUvY0xGWS9aQklacklJQUMvbEFwclNY?=
+ =?utf-8?B?eUNpU3owUys5bFRVVFJ2Z3JxZW5qOEx0dnFjWCt0aStSUkthRWVaeVdHb3lz?=
+ =?utf-8?B?Sm1rV0hGRmViaHV3aGUyUzV5WkVPQkVaMWRMZnRBb3ZDR2JySDlRUks3bHAr?=
+ =?utf-8?B?NEFVTWxlQkU5elNDbEdINm9TM0o2T21rdXNzNkJPNFZkcE4vc2NPUkZqakxH?=
+ =?utf-8?B?NGJuM054c1ZSbFZ6RnNjd1orSkZvVVY3NDZmWjltejdFMkUwKzBFNUQxVVdy?=
+ =?utf-8?B?YVNpQm1UQ0hLdmpWMWVnRXFWRlBiOWVtTWtWRm5vSjB2aEM1citKNUNQcHZE?=
+ =?utf-8?B?K2FUWlltYzcweVN1NC9BdnNjc0JFODZMZ0dQSXZUVHZPYll5cjlGUFpjMUNG?=
+ =?utf-8?B?aUVYd3pCUTRSUTMyUWhOUTJna1MxUHdiYmZjbnFPZTBaSkYyUldUaitJSU4w?=
+ =?utf-8?B?SUt1OVVra1FxSlVyOWpYL2VNNEp2cWRoU0lXMDR2Smxqc2czZWQxQ0ZmOGVZ?=
+ =?utf-8?B?eEloMUJQVVFSWk1EQUwxaG1kblpXL2FoZENGVnk5MTR0SkJFV25pVmtzVERN?=
+ =?utf-8?B?dE44aHhGdTZQQ1lYTk0yMGxJbTVKT2JUTUIyMVJvTW9tZ0xhUENsRFhDVjdC?=
+ =?utf-8?Q?QweQcvDLTaCzX2S0=3D?=
 X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ee870ec-745d-48a6-2e48-08df3b0c32c2
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed4bce80-1131-4c12-6b71-08df3b0c3544
 X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 07:12:48.8095
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 07:12:52.9825
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kT5DtJ9/onCPCXvEgm7MCoZcmsf+w7lr7MzLDgT4TgAj89X4YTTYteRt3BBfRBxe1KPYEXWr84DNu2dU7aLuqVx0ugt3W/TrBRzbPUC8E9c=
+X-MS-Exchange-CrossTenant-UserPrincipalName: s40+rYr2aLpIVUGE5wuCFvNlNnvB3X5dbhNLl96zTpE6XOcRbQBNCsLAIb2P3xejAK28D15dof6p+T9nPvBESzZCTF/k+UaYm/unUXX4mO8=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR06MB7877
 
-Multiprotocol transceivers such as the LTC2873 provide an RS485
-interface and an alternative interface, typically RS232, on the same
-bus pins and choose between them with an interface select input. Add
-an optional rs485-select-gpios property next to the existing
-rs485-term-gpios and rs485-rx-during-tx-gpios, and let the serial core
-drive it from the RS485 configuration state, so that every UART driver
-using uart_get_rs485_mode() supports such transceivers without driver
-changes.
+Multiprotocol transceivers such as the LTC2873 provide both an RS232
+and an RS485 interface on the same bus pins and choose between them
+with an interface select input. There is no generic way to drive that
+input today, so a port wired to such a transceiver is stuck in
+whichever interface the pin is strapped to.
 
-Patch 1 is new in v2 and fixes a pre-existing problem the review
-found: the RS485 GPIO descriptors stored in struct uart_port were
-never cleared, so a port that outlives its device, as the 8250 ports
-do, kept descriptors of lines devres had already released. The select
-GPIO would have made that worse, since it is driven whenever RS485 is
-reconfigured, not only while RS485 is enabled.
+Add the optional rs485-select-gpios property to the GPIOs acquired by
+uart_get_rs485_mode() and drive it from the RS485 configuration state:
+the GPIO is active while RS485 is enabled, which selects the RS485
+interface, and inactive otherwise, which selects the alternative
+interface, typically RS232. RS422 is a mode of SER_RS485_ENABLED and
+therefore selects the RS485 interface as well.
 
-Tested on an i.MX6SX UART and on a MAX14830 channel, each wired to an
-LTC2873, by observing the bus line while switching RS485 on and off
-with TIOCSRS485, across probe, unbind and rebind of both drivers.
+The state is applied in uart_rs485_config() for the boot-time and
+resume paths and in uart_set_rs485_config() for the ioctl path. Unlike
+the termination and RX-during-TX GPIOs, which only matter while RS485
+is enabled, this GPIO must also be driven when RS485 is disabled to
+return the transceiver to its alternative interface. It is deasserted
+when the driver rejects the boot-time configuration, restored to the
+previous setting when the driver rejects an ioctl, and forgotten with
+the other RS485 descriptors on failure and port removal.
 
-Tool use: Claude Code (Anthropic) was used throughout. It drafted the
-code and the commit messages, reviewed the series against the serial
-core and the 8250 port lifetime, and prepared the v2 changes from the
-review findings. I decided the design, in particular that the select
-line keeps its strapped level until the port is configured, reviewed
-every change against the code, and ran the hardware tests. The code
-and the messages are mine to defend.
+Unlike the termination and RX-during-TX lines, whose level is harmless
+before the port is configured, the select line decides which driver sits
+on the bus pins. Driving it to the configured state at request time is
+wrong either way: a port strapped for RS485 would present the
+alternative interface during probe, and a port strapped for the
+alternative interface would select RS485 while probe code such as the
+8250 autoconfig still toggles RTS, the driver enable in RS485 mode.
+Request the GPIO without changing its state and make it an output at the
+level it already has, so the transceiver keeps the interface it was
+strapped for until uart_rs485_config() runs after the driver has placed
+RTS at its RS485 idle level. A line that cannot be read back, as on
+output-only GPIO controllers, starts at the inactive level instead of
+failing the probe. A port that boots with RS485 disabled is switched to
+the alternative interface by uart_rs485_config() as well, after the
+modem-control lines have been deasserted and without involving the
+driver callback.
+
+In RS485 mode RTS is the driver enable of the transceiver. The GPIO is
+therefore driven after the driver callback when RS485 is enabled, so
+RTS already sits at its RS485 idle level when the transceiver switches
+over, and before the driver callback when RS485 is disabled, so the
+transceiver has left RS485 mode before RTS reverts to modem control.
+
+Drivers calling uart_get_rs485_mode() need no change to support such
+transceivers.
 
 Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 ---
-Changes in v2:
-- New patch 1: forget the RS485 GPIO descriptors when a port is
-  removed, on entry to uart_get_rs485_mode() and on its error paths,
-  so a port never carries descriptors of a device it no longer belongs
-  to.
-- Request the select GPIO without changing its state and make it an
-  output at the level it already has, or inactive when that level
-  cannot be read back, as on output-only GPIO controllers, so the
-  transceiver keeps the interface it was strapped for until
-  uart_rs485_config() has placed RTS at its RS485 idle level; forget
-  the descriptor if the request fails.
-- Commit message of the select patch explains the ordering of the GPIO
-  against the driver callback and why the select line, unlike the
-  termination and RX-during-TX lines, must not be driven at request
-  time.
-- Rebased onto v7.4-rc1; Rob's Reviewed-by added to the binding, which
-  is unchanged.
-- Link to v1: https://lore.kernel.org/r/20261021-serial-rs485-mode-gpio-v1-0-80d7b0903d93@vaisala.com
+ drivers/tty/serial/serial_core.c | 45 +++++++++++++++++++++++++++++++++++++++-
+ include/linux/serial_core.h      |  1 +
+ 2 files changed, 45 insertions(+), 1 deletion(-)
 
----
-Tapio Reijonen (3):
-      serial: core: Forget the RS485 GPIO descriptors when a port is removed
-      dt-bindings: serial: rs485: Add transceiver interface select GPIO
-      serial: core: Drive the transceiver interface select GPIO
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 9516f50a72139c73d70826f4bb0627aed2d3d310..6c0a6d9dcb851b6db0acd91143e651bcb33ce5ae 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -1424,6 +1424,7 @@ static void uart_forget_rs485_gpios(struct uart_port *port)
+ {
+ 	port->rs485_term_gpio = NULL;
+ 	port->rs485_rx_during_tx_gpio = NULL;
++	port->rs485_select_gpio = NULL;
+ }
+ 
+ static void uart_set_rs485_termination(struct uart_port *port,
+@@ -1446,13 +1447,22 @@ static void uart_set_rs485_rx_during_tx(struct uart_port *port,
+ 				 !!(rs485->flags & SER_RS485_RX_DURING_TX));
+ }
+ 
++static void uart_set_rs485_select_gpio(struct uart_port *port,
++				       const struct serial_rs485 *rs485)
++{
++	gpiod_set_value_cansleep(port->rs485_select_gpio,
++				 !!(rs485->flags & SER_RS485_ENABLED));
++}
++
+ static int uart_rs485_config(struct uart_port *port)
+ {
+ 	struct serial_rs485 *rs485 = &port->rs485;
+ 	int ret;
+ 
+-	if (!(rs485->flags & SER_RS485_ENABLED))
++	if (!(rs485->flags & SER_RS485_ENABLED)) {
++		uart_set_rs485_select_gpio(port, rs485);
+ 		return 0;
++	}
+ 
+ 	uart_sanitize_serial_rs485(port, rs485);
+ 	uart_set_rs485_termination(port, rs485);
+@@ -1467,6 +1477,8 @@ static int uart_rs485_config(struct uart_port *port)
+ 		gpiod_set_value_cansleep(port->rs485_rx_during_tx_gpio, 0);
+ 	}
+ 
++	uart_set_rs485_select_gpio(port, rs485);
++
+ 	return ret;
+ }
+ 
+@@ -1503,6 +1515,10 @@ static int uart_set_rs485_config(struct tty_struct *tty, struct uart_port *port,
+ 	uart_set_rs485_termination(port, &rs485);
+ 	uart_set_rs485_rx_during_tx(port, &rs485);
+ 
++	/* Leave RS485 before RTS reverts to modem control below */
++	if (!(rs485.flags & SER_RS485_ENABLED))
++		uart_set_rs485_select_gpio(port, &rs485);
++
+ 	scoped_guard(uart_port_lock_irqsave, port) {
+ 		ret = port->rs485_config(port, &tty->termios, &rs485);
+ 		if (!ret) {
+@@ -1519,9 +1535,14 @@ static int uart_set_rs485_config(struct tty_struct *tty, struct uart_port *port,
+ 			!!(port->rs485.flags & SER_RS485_TERMINATE_BUS));
+ 		gpiod_set_value_cansleep(port->rs485_rx_during_tx_gpio,
+ 			!!(port->rs485.flags & SER_RS485_RX_DURING_TX));
++		uart_set_rs485_select_gpio(port, &port->rs485);
+ 		return ret;
+ 	}
+ 
++	/* Enter RS485 only once the driver has parked RTS */
++	if (rs485.flags & SER_RS485_ENABLED)
++		uart_set_rs485_select_gpio(port, &rs485);
++
+ 	if (copy_to_user(rs485_user, &port->rs485, sizeof(port->rs485)))
+ 		return -EFAULT;
+ 
+@@ -3663,6 +3684,28 @@ int uart_get_rs485_mode(struct uart_port *port)
+ 	if (port->rs485_rx_during_tx_gpio)
+ 		port->rs485_supported.flags |= SER_RS485_RX_DURING_TX;
+ 
++	/*
++	 * Keep the strap level until the port has been configured. A line
++	 * that cannot be read back, as on output-only GPIO controllers,
++	 * starts on the alternative interface.
++	 */
++	desc = devm_gpiod_get_optional(dev, "rs485-select", GPIOD_ASIS);
++	if (IS_ERR(desc)) {
++		uart_forget_rs485_gpios(port);
++		return dev_err_probe(dev, PTR_ERR(desc),
++				     "Cannot get rs485-select-gpios\n");
++	}
++	if (desc) {
++		ret = gpiod_get_value_cansleep(desc);
++		ret = gpiod_direction_output(desc, ret > 0);
++		if (ret) {
++			uart_forget_rs485_gpios(port);
++			return dev_err_probe(dev, ret,
++					     "Cannot drive rs485-select-gpios\n");
++		}
++	}
++	port->rs485_select_gpio = desc;
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(uart_get_rs485_mode);
+diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+index 4eeb8253752aa08b27829e80a259c7db65728e8e..fe90a8aada98cacf5a80f20ec2a91e249c92d0ed 100644
+--- a/include/linux/serial_core.h
++++ b/include/linux/serial_core.h
+@@ -600,6 +600,7 @@ struct uart_port {
+ 	struct serial_rs485	rs485_supported;	/* Supported mask for serial_rs485 */
+ 	struct gpio_desc	*rs485_term_gpio;	/* enable RS485 bus termination */
+ 	struct gpio_desc	*rs485_rx_during_tx_gpio; /* Output GPIO that sets the state of RS485 RX during TX */
++	struct gpio_desc	*rs485_select_gpio;	/* select the RS485 interface */
+ 	struct serial_iso7816   iso7816;
+ 	void			*private_data;		/* generic platform data pointer */
+ };
 
- .../devicetree/bindings/serial/rs485.yaml          |  8 +++
- drivers/tty/serial/serial_core.c                   | 73 ++++++++++++++++++++--
- include/linux/serial_core.h                        |  1 +
- 3 files changed, 77 insertions(+), 5 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261019-serial-rs485-mode-gpio-e76bb72b6f21
-
-Best regards,
 -- 
-Tapio Reijonen <tapio.reijonen@vaisala.com>
+2.47.3
 
