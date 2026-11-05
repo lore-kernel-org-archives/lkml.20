@@ -1,82 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881573;
-	b=kHofzyQHmPSbcGXVGAsHcZbJIGXPHIfQOePk898Y+n0M8KuuZd9HbVt24ofXYIV0VrW9
-	 F/SKJ4gmY8lbu9Riv+AfUp0ulP0/ao5Yy0Nr3jfwWmu11bgIGI0sFqTOp/6Qm0RBqCF9N
-	 7gvCaCoJPrq9KryT7KkRRO+pV9XO+7WPwyVgX9cE1/YRKh+g89uG2L2sXyFngS8+H7nsQ
-	 jD91NtFOGd42I1whBuPKSttTfwl+U56K5lB2sL9mIFuD5iOLIt1jIAUCUKyBkpLmMX/fH
-	 Me9lBs1xFHY0z+Qq5o/yvc28kJsdgFA8oX3bLDLF6LCr+lpwWoJEqy1uqED0zZ2mHLQ==
+	t=1793881730;
+	b=R2Dxk+jsMTJxnnE/CUAujzZznwn1dpbqnOGOJB6COFSk8suRrRWzUHzoNKOmXu1MPP0Q
+	 zTILGLj2433DvL1MGlqQscXXpFttY6ujk4Zk1wK28yE2RcEgPYS8StuNlXP2yN+k9llPA
+	 LTdxwNhTxm6bojEU3PS2aeFg1uZUrH8nr44JhzRIK0vDAr7gt3iEUQmOlan9zJ+WvDxqd
+	 /HCko26xjTCFKXdqa4eWirrBkfvIDgkaSnRRf6TS/La4aDQ4u7ZXEHBnyPP9+uNkhhAaR
+	 yYyDuIR0oMPyj40wi2WsxFhOfK9aRWjSLb/MpdaEizCbyDeYPT0CYXPvbPhtC3BGbIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881573;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=SOhMdo0S3VoEznsmoM+S40XpUm7IcJEEZYZHmhkEm3g=;
-	b=Yp4PQWzKXc531xG5tB4d5MPqBI6X0I5E213uh+XDb7ATVWq76eN6JSejiGJG19C2H+T6
-	 NMrnANri3cywILqhyWtauS+sCItelBGKqIJ2W+rc1brRvIr+Vptn/u6PK/9cBaY2Q83bR
-	 /Sm8JxlyjSZfUX/TIkwqIIVdlq93bajxQTA8CYgE/1JwKN1mMe1eiMaHRwNseSFTriLH0
-	 NkuYY9+Qnoo8MSz0m/mbMbhgAD/PrjAmT3sPPN/28hpoDZdIhpNnnD9KTX9L/Pxr+wgQ+
-	 NMbc3CrfRvaO79d1H5sD7vc31ut1Nq03lB1ddwUTIapRxav1oRT3kxxXuyv0mXjEBmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881730;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FsZqO5FR4mq2gQTlk44IBTsOMir2UzDLRvKhXJMYJ80=;
+	b=MwkADVsrD8ehGzlUvpNFSIxdAtD5tPooiZzXTsJT6BzQtovEweXVf6XbvhdPZpvbv5GF
+	 rJqfZsmQvWt5LolWpVOQjarJGWoybBxhxokv6v+H/JMbSBU2cQcK8j3VkHseYvHJQ5/7T
+	 QbiLb9Dh0o6lAds/jp8jnxOekQAtGl37m+QVfzCGWrnobP5JloUUbB/hv4Xh4v7IwJFB2
+	 FPDL5dts64MwCv8DTve83ETz70Rimr2F1oHFepAH/ESTBHvDHBBB58hfrqnygdH7PizPw
+	 jduI/iVRcJIIyimXARet2aCzdvbDsc0Y3g1k5EFQsCF6oCmpDOrcthAAGANZ9H1Y+Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=GfFR9ZA3;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yz82hJKk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979FB606A32C;
-	Thu,  5 Nov 2026 12:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 979FB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F01606A331;
+	Thu,  5 Nov 2026 12:28:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=GfFR9ZA3
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=SOhMdo0S3VoEznsmoM+S40XpUm7IcJEEZYZHmhkEm3g=; b=GfFR9ZA3ZvPtPrpOktrGrpr2Bt
-	Nagr/IUr79PbLpTffvL0MrTMEavQra/op0vcEdvs1RByq9F77mvbQeA7wmSkHnYu7LI8IhkCwNIR6
-	+Rd0oPvbNImVxLFxX+v5G+TzzJuBKZNqYKCwjj0hhDLOrlswWRZKr+bHOaMvrUilqvTMVtgL+KdUD
-	0hh30vc+UcZwPq1reYlXZ9uyYH1Z8qGZLeMaim33Jx2WpodO/P3oza8r/Cwko9ass/6xpo+QLgoMP
-	M2+UUunbRr0diO2fG6jL0y1S28WUJ9Zvgtal7hXk9CmtyRgBRQCXg87gtXiAe7YZBe0CAJ0Gsyq5F
-	iuAhPVjQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOwXd-000000086ip-3VmT;
-	Thu, 05 Nov 2026 12:26:05 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id A547D3002F0; Thu, 05 Nov 2026 13:26:04 +0100 (CET)
-Date: Thu, 5 Nov 2026 13:26:04 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Martin Kelly <martin.kelly@crowdstrike.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Mike Bazov <mikeba@sentinelone.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let
- preemption cause false recursion drops in trampoline progs
-Message-ID: <20261105122604.GB1779021@noisy.programming.kicks-ass.net>
-References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
- <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com>
- <CAPnbwjrB_je6jXt3BGD-1q1yFs_wFd-Yh9KzixKzLK_X3Stuag@mail.gmail.com>
- <DML75890DWIX.EYB690LPBM1O@gmail.com>
- <CAPnbwjpv3bkGAKVjc7Eywgo-H4X6uDLYPJWFuSakGs_sBdgr3w@mail.gmail.com>
- <DMM2FJ2SNYYO.24TEJ05OOR08E@gmail.com>
- <CAH=2mMABxvf+GNr7vUKNkGvyU-gmaXKMGNJHg4URUCW_eyuxGg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yz82hJKk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE90C1F00919;
+	Thu,  5 Nov 2026 12:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793881729;
+	bh=FsZqO5FR4mq2gQTlk44IBTsOMir2UzDLRvKhXJMYJ80=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yz82hJKkMymEJOScjv8sYjss2OQ1kINPiDdkaHg5ad9RyZEWOiGaO7o1lbpp8pQ4e
+	 9epzUzeGty9sRCXEfCTqC0fJFd/C1ie8YzBRyCUTfi3SMPvSHQFrQ9bQAMK8nD9/Kl
+	 myWGH8iuE8WJEibwJzc39kqDQnnaTND68Xynk1OcHrcs7ZIA4JjiJ8NbRuvXOf4gub
+	 c+dgetCSx67SZN1w9wXrmlf5ohPmNlEByvteNCZFdHa2+C65WPzFbhCkmz0/GXWZHr
+	 5XPvRBgsUc9cyKC805nfy5Nxa7Lc6dyz6auCKc3CEq1uAfCdSwc7NkApLxKvWmzHAh
+	 Ni5TNSAsINLPg==
+Date: Thu, 5 Nov 2026 13:28:46 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, 
+	Richard Genoud <richard.genoud@bootlin.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Orson Zhai <orsonzhai@gmail.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Cunhao Lu <1579567540@qq.com>, Raul E Rangel <rrangel@chromium.org>, 
+	Yenchia Chen <yenchia.chen@mediatek.com>, Zhiyong Tao <zhiyong.tao@mediatek.com>, 
+	Carlo Caione <ccaione@baylibre.com>, Moteen Shah <m-shah@ti.com>, Kendall Willis <k-willis@ti.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>, 
+	Nicolai Buchwitz <nb@tipi-net.de>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	Stefan =?utf-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>, Shitalkumar Gandhi <shital.gandhi45@gmail.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>, 
+	John Ogness <john.ogness@linutronix.de>, Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>, 
+	Robin Gong <yibin.gong@nxp.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu <2426767509@qq.com>, 
+	"Nikola Z. Ivanov" <zlatistiv@gmail.com>, Haoxiang Li <haoxiang_li2024@163.com>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Myeonghun Pak <mhun512@gmail.com>, 
+	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>, 
+	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
+	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
+	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
+	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
+Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
+Message-ID: <aux2VKHnVLwq_wzi@orome>
+References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,180 +89,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i6ogfjkah26q6ktw"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAH=2mMABxvf+GNr7vUKNkGvyU-gmaXKMGNJHg4URUCW_eyuxGg@mail.gmail.com>
-
-On Wed, Nov 04, 2026 at 05:12:15PM -0800, Martin Kelly wrote:
-> We have noticed this issue independently in testing of our own security
-> agent and have hit the same false recursion skips on 7.0 and 7.1
-> kernels. More details and measurements below.
-> 
-> On Tue, Nov 3, 2026 at 6:24 PM Alexei Starovoitov
-> <alexei.starovoitov@gmail.com> wrote:
-> > Today a fentry prog never runs twice at the same time on one cpu.
-> > Existing progs rely on that for their per-cpu maps.
-> >
-> >   task A, cpu 0                     task B, cpu 0
-> >   buf = lookup(&percpu_scratch)
-> >   fill buf
-> >   <preempted>
-> >                                     buf = lookup(&percpu_scratch)
-> >                                     fill buf
-> >                                     output(buf)
-> >   output(buf)   <- data of B
-> >
-> > A plain (*cnt)++ in a per-cpu map loses updates the same way.
-> > Today B is skipped and recursion_misses counts it.
-> > With the per-task check A sends a corrupted event and nothing counts it.
-> 
-> Our programs avoid writing to per-CPU arrays because of corruption on
-> PREEMPT_RT kernels, where trampolines have always been preemptible and
-> thus can corrupt these structures. So for us, an opt-in flag that allows
-> preemption (instead of skipping) would work well and not regress current
-> programs that don't opt in. A verifier scan for per-CPU arrays could
-> also work, but it would need to distinguish read-only vs write access to
-> those maps.
-
-This seems weird; your task-B bpf prog would never run due to the
-prog_active thing.
-
-> In a process-heavy workload on a 2-vCPU VM (~1M fork+exec of
-> short-lived processes, ~606/second) we recorded the following number of
-> recursion_misses on a 7.0.9 and a 7.1.5 kernel. Both kernels use lazy
-> preemption with PREEMPT_RCU enabled. The miss rate has increased
-> significantly, which we suspect is due to the HRTICK change.
-> 
->                                   7.0.9 (HRTICK off) 7.1.5 (HRTICK on)
->                                   ================== =================
-> security_file_permission fentry   1 in 61,580        1 in 1,568
-> security_inode_getattr fentry     1 in 59,242        1 in 1,707
-> do_file_open fexit                1 in 813,983       1 in 2,503
-> sched_process_exec raw_tracepoint 1 in 1,000,816     1 in 500,408
-> 
-> The sched_process_exec raw_tp had few misses (1-2) but is included just
-> to show that raw_tp can have misses as well since tracepoints became
-> preemptible.
-
-So HRTICK will still only set RESCHED_LAZY, which should not tickle
-preempt_enable() into a reschedule. RESCHED_LAZY is acted upon in only 2
-distinct spots:
-
- - return to userspace; it will reschedule.
- - the periodic tick; it will upgrade RESCHED_LAZY to RESCHED.
-
-This would suggest you're seeing a lot of tick driven promotion. One
-reason could be due to HRTICK setting LAZY and the normal tick happening
-very shortly after it. 
-
-You've not mentioned your CONFIG_HZ setting? Anyway, something daft like
-the below would make promotion less aggressive (also, clearly I couldn't
-come up with a decent name for the intermediate step :-).
+In-Reply-To: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
 
 
-> Possible approaches
-> ===
-> We don't have a preferred mechanism and are generally open to any
-> approach that would help reduce these recursion_misses. Whatever the
-> mechanism, it would be ideal to cover raw_tp programs too, since
-> a46023d5616e made those preemptible.
-> 
-> We'd be happy to help test or develop patches if needed.
+--i6ogfjkah26q6ktw
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
+MIME-Version: 1.0
 
-I would strongly prefer all BPF programs that attach to known
-preemptible sites to use a per-task recursion counter or something of
-that sort.
+On Mon, Nov 02, 2026 at 12:54:48PM -0500, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+>=20
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper across serial drivers.
+>=20
+> No functional change intended. Prepare to make struct
+> dma_async_tx_descriptor private to the DMA engine.
+>=20
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  drivers/tty/serial/8250/8250_dma.c  | 6 ++----
+>  drivers/tty/serial/8250/8250_mtk.c  | 3 +--
+>  drivers/tty/serial/8250/8250_omap.c | 6 ++----
+>  drivers/tty/serial/amba-pl011.c     | 6 ++----
+>  drivers/tty/serial/atmel_serial.c   | 6 ++----
+>  drivers/tty/serial/fsl_lpuart.c     | 6 ++----
+>  drivers/tty/serial/imx.c            | 6 ++----
+>  drivers/tty/serial/msm_serial.c     | 6 ++----
+>  drivers/tty/serial/mxs-auart.c      | 6 ++----
+>  drivers/tty/serial/pch_uart.c       | 6 ++----
+>  drivers/tty/serial/samsung_tty.c    | 6 ++----
+>  drivers/tty/serial/serial-tegra.c   | 6 ++----
+>  drivers/tty/serial/sh-sci.c         | 9 +++------
+>  drivers/tty/serial/sprd_serial.c    | 3 +--
+>  drivers/tty/serial/stm32-usart.c    | 6 ++----
+>  15 files changed, 29 insertions(+), 58 deletions(-)
 
-This per-cpu active count stuff is quite mad; and I think I've told
-Alexei that plenty of times.
+Reviewed-by: Thierry Reding <treding@nvidia.com>
 
+--i6ogfjkah26q6ktw
+Content-Type: application/pgp-signature; name="signature.asc"
 
----
-diff --git a/include/asm-generic/thread_info_tif.h b/include/asm-generic/thread_info_tif.h
-index 528e6fc7efe9..feed08b51a62 100644
---- a/include/asm-generic/thread_info_tif.h
-+++ b/include/asm-generic/thread_info_tif.h
-@@ -22,33 +22,35 @@
- #define _TIF_NEED_RESCHED	BIT(TIF_NEED_RESCHED)
- 
- #ifdef HAVE_TIF_NEED_RESCHED_LAZY
--# define TIF_NEED_RESCHED_LAZY	5	// Lazy rescheduling needed
-+# define TIF_NEED_RESCHED_MEH	5
-+# define _TIF_NEED_RESCHED_MEH	BIT(TIF_NEED_RESCHED_MEH)
-+# define TIF_NEED_RESCHED_LAZY	6	// Lazy rescheduling needed
- # define _TIF_NEED_RESCHED_LAZY	BIT(TIF_NEED_RESCHED_LAZY)
- #endif
- 
- #ifdef HAVE_TIF_POLLING_NRFLAG
--# define TIF_POLLING_NRFLAG	6	// idle is polling for TIF_NEED_RESCHED
-+# define TIF_POLLING_NRFLAG	7	// idle is polling for TIF_NEED_RESCHED
- # define _TIF_POLLING_NRFLAG	BIT(TIF_POLLING_NRFLAG)
- #endif
- 
--#define TIF_USER_RETURN_NOTIFY	7	// notify kernel of userspace return
-+#define TIF_USER_RETURN_NOTIFY	8	// notify kernel of userspace return
- #define _TIF_USER_RETURN_NOTIFY	BIT(TIF_USER_RETURN_NOTIFY)
- 
--#define TIF_UPROBE		8	// breakpointed or singlestepping
-+#define TIF_UPROBE		9	// breakpointed or singlestepping
- #define _TIF_UPROBE		BIT(TIF_UPROBE)
- 
--#define TIF_PATCH_PENDING	9	// pending live patching update
-+#define TIF_PATCH_PENDING	10	// pending live patching update
- #define _TIF_PATCH_PENDING	BIT(TIF_PATCH_PENDING)
- 
- #ifdef HAVE_TIF_RESTORE_SIGMASK
--# define TIF_RESTORE_SIGMASK	10	// Restore signal mask in do_signal()
-+# define TIF_RESTORE_SIGMASK	11	// Restore signal mask in do_signal()
- # define _TIF_RESTORE_SIGMASK	BIT(TIF_RESTORE_SIGMASK)
- #endif
- 
--#define TIF_RSEQ		11	// Run RSEQ fast path
-+#define TIF_RSEQ		12	// Run RSEQ fast path
- #define _TIF_RSEQ		BIT(TIF_RSEQ)
- 
--#define TIF_HRTIMER_REARM	12       // re-arm the timer
-+#define TIF_HRTIMER_REARM	13       // re-arm the timer
- #define _TIF_HRTIMER_REARM	BIT(TIF_HRTIMER_REARM)
- 
- #endif /* _ASM_GENERIC_THREAD_INFO_TIF_H_ */
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 1c93da75226e..d5f9176e1a75 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2117,7 +2117,9 @@ static inline void set_tsk_need_resched(struct task_struct *tsk)
- 
- static inline void clear_tsk_need_resched(struct task_struct *tsk)
- {
--	atomic_long_andnot(_TIF_NEED_RESCHED | _TIF_NEED_RESCHED_LAZY,
-+	atomic_long_andnot(_TIF_NEED_RESCHED |
-+			   _TIF_NEED_RESCHED_MEH |
-+			   _TIF_NEED_RESCHED_LAZY,
- 			   (atomic_long_t *)&task_thread_info(tsk)->flags);
- }
- 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 04b62c16fa8c..f8e225dc2504 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5854,8 +5854,17 @@ void sched_tick(void)
- 	hw_pressure = arch_scale_hw_pressure(cpu_of(rq));
- 	update_hw_load_avg(rq_clock_task(rq), rq, hw_pressure);
- 
--	if (dynamic_preempt_lazy() && tif_test_bit(TIF_NEED_RESCHED_LAZY))
--		resched_curr(rq);
-+	/*
-+	 * Two-stage promotion of LAZY to RESCHED, ensuring there is at least
-+	 * one full tick of respite.
-+	 */
-+	if (dynamic_preempt_lazy()) {
-+		if (tif_test_bit(TIF_NEED_RESCHED_MEH))
-+			resched_curr(rq);
-+
-+		else if (tif_test_bit(TIF_NEED_RESCHED_LAZY))
-+			 set_thread_flag(TIF_NEED_RESCHED_MEH);
-+	}
- 
- 	donor->sched_class->task_tick(rq, donor, 0);
- 	if (sched_feat(LATENCY_WARN))
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrsdnwACgkQ3SOs138+
+s6FFLRAAsArTl7ZnP2uWe8E8No/HaZXTw2qwzanL18HSrQ99Y5LTIiGMUG2lNlh4
+g4SVAB5ZpAe1Ji8Irltia/BRsUboLVvofPgbGh8AvBrhByWtDx75pNBJGwlxzDsn
+/oYyAQ6U+6BZob6VZ/1hVv5xt6UtjqRjcOQGM/Eebu+IsJ1bXUzcfwOt+p6oJuDe
+bipFPggDf4w54a/AdsicEctD3BZABAPpOkemtHUrKCZ0pq/Qcws/7tPdpV2NU6SD
+p3j35THe6Jr8VUMni10amNN28l476GcajsPWb53gIjQaxKdbNaiJunTLw3lbjuIw
+jH3LKXaKXy0mxXm70YGNdZfOKwsVxEClwBuxV3s+TD6hhCkf6Xi9GizuqgdtqLEZ
+AMAjAOH+7VKVIqAFeKXPlABN6RR7TVhJf1knWwm8FzFmFdfstBFjFIeeSptCQ+To
+r9+rxI4r4O6hD2u6IKFLHYBU4iZVd0x7osDD59Cjkwi1CQgp07bK+WcFtf4rjV+6
+oaROTq/FTtv1JlpaJ/LPiV97e0OxAs4aVGYO/PFsfVDFHPaeJAYdM2ZbwbOyNNZp
+mn8EhmbQatX8t4zSy4bCo46/VdBeOAIJYs+nCZBq/yZrxziIWbjxg6dKPrwre0Co
+iBi6BCt/mumt4uPdViNg3N5fwgBmPT/t1IxjJuOjXCR9B17XeKg=
+=NGc/
+-----END PGP SIGNATURE-----
+
+--i6ogfjkah26q6ktw--
