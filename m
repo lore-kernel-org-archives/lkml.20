@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904961;
-	b=bzx1W//zcqWFryaaF3BEJHxX9Z3ZTfWo+pAl+BX8cg+0LOl4kvFybO+27NCEBDR56TMr
-	 NBPnAmlpvyXMH6Zjdut+v+uyC1ehFyEsqJVxm7xcEouHXQj1xy7+717uTxmi5BDHPl/7X
-	 WozxS8PbH8stkyr8i9FmzDEs41ocatyfimsraZhjrrfuCYt0mlZG/AMkGRDGNs5kIsdLG
-	 rxfDSWDCjwRDlOWtAlbZfspNht6NIZXE0euT1Wop3wZ9uVAtf++A3SyR1pO+Zeax3Ivsj
-	 8sewJmKs9am9op18ZpRlhEBEt85DLOsrV2bHXNQCpf04ZcZCcBRu7OAZECn5QONX/7Q==
+	t=1793905025;
+	b=qmvp0LGC81d2okCHK4oUVKLq09ySukuyfrVgoTSlcfNKkjbhWzFA+gBj3lp6cr2IF0wR
+	 kshRs/sf2/Ddf+oB7BGmeMRTgxE9JD0RGHIhSc/b3qQd/TIFbZqbNYiL29ZCYiOI+Wv/u
+	 z8GOlyIyy4w1vV8Gpaqyxbke2e0Hv9FAolcpGreAiXBi2AuZYHmpN0u+9HILll0W4UkKn
+	 gDtz6qggA8urRQInpVM5RMiH9y24lb/CtKZ3YdwgQOIwpWK1JWR8olYLxBQURko0FMYq1
+	 IgYEB3MTHsJLQZvsQ4SIGbQblot9EwwFHv7Cxb7c8pQaDIpK9mS+TLPxNYFeZBqt0qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904961;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=RwjIT0DqDPAYZ6NuHVGHzHM6/S203rMIqUTfEYiNenQ=;
-	b=L9RHK5woS/is51D4ORWAHcpmsxr4mVfd3DlJC293KyrI2/5Ui7TKkdllIGhC4yIEWbUg
-	 XWVjpOs2Ju6acmrw6P1IrAopo9pvQ7AHzDjVH8NXYgS6X6nNjgObsogYyXsJfvwxw1z1l
-	 ZpSAkvVvS2JCQKTCK2sVdEyT6H4V4VUiATLBpbR9+DsS6fz7ReoYVjACtv716eoLRDs9A
-	 6ZSE41bBMNs7zX62w21OO3O1stF2MvF9TXFVBbU89Mdn9xPkIUiNZzw/qcq0MlXTzjpQi
-	 +BcxGMuXZBHpD4fJ1I1ejNshpvihKboUWmxU2pKHIRHXxXj4G9l2poNCfw1wxugc/+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905025;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WQ9sffyuRp/irYxXc7dRPeziYbjvSyitG8dEJ6yeqEg=;
+	b=TssEsm2WRLgvOoh7e3GIcFoDmxN5cKqge227ploT94et4jkwvnBnzb8AI2JUVkIE38El
+	 faCxr4h2N20tGtvJ3xmpOe0lhwjunCfSm9jq8brjCLNlnqunml8RvmiS0V6HtxNuj5+JB
+	 ljJBn6h3jFM6VonBg8OmDY4sBDlrsNKGe9a/ERgMsVQdkti2inyvNyZh1uQPJFcY1kfl9
+	 s2l4K0vrvd/WvwJGxuELcolMv8Wc6XU23GcSGwLAoX26ObleltJ/GQuem4v6ZNXfff2x7
+	 tDylc6XC/4/KTEb4culLsQnXopw135RlVNmC1fmxSI+JkZxnlvpbdaEbhL+M+yFMyRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GB9tIId3;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSRL7qeZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1234B6083610
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:56:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1234B6083610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B877E606A31B;
+	Thu,  5 Nov 2026 18:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GB9tIId3
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-716d052dc23so686131eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:56:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793904960; x=1794509760; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RwjIT0DqDPAYZ6NuHVGHzHM6/S203rMIqUTfEYiNenQ=;
-        b=GB9tIId3+JGtHdpSj8+SCUC05CYMqrh2iNDHeefPkLPhwIlVQYoGSLLXzN62bIvE5/
-         VQfKsVQ4nrrDLEiHvv3uhnIZ18lyeNQIHh3j3dX7lMdt26zkvyuDBTUDwC+j9dcXiuWU
-         sW9cotx2d9rXGJTTqFBtowipegZqAoG/LqADcpJOgRgdHGdIx5IOqyYPqYo2U5Xeebq/
-         HnX9MLADFI38vZrnfeBIsTQtOhu/9iYMuOd2L9cGqjUBoZav4enZr/BC6vHqVSxD7+YC
-         m47JblqnuWPMFX66foWioU2EoVpailTF36iPZXglXidZYHtV/wZ0bL+SqPqvC2th9dU/
-         G02w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793904960; x=1794509760;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RwjIT0DqDPAYZ6NuHVGHzHM6/S203rMIqUTfEYiNenQ=;
-        b=d/GJTDnhNEnGpXogEpdmg+walsZG3YUUJn2hcu7RqqmXD1K6BMX4rlKY7P/aPnEHbi
-         hh6xp1Y+htjuKzFoFin28ETpuI3VOP1svzZAgubBu47CX6WVsqZj6lXiCYF8Hz5Hn+78
-         LAwEseDV6mTOFJn74j0DMQRXxkaTB6+3kuo5tN05UwDSCob1yu0my1eZl1Fr9E+XNzro
-         39339Kf8Swrg7MmhEEDwWYup3gpEi5pRkzesG165+4/0amY3YRLUBV4uVeOLMeaxHzQ8
-         Guhojn5nEP1qkp67+4aEDf6W/dmim7pMo/4Lwdh6JveIPqGLo5cz5v9bTfk2Fpj3fMDL
-         jzXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwna3BhVZ1GAxcCV93b+vHyu2ZMnDejEr3F7k4d0Nmx3EYxPQow02tnF7Tyi8P+vaIEa5zTNqYNKhqsEyE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QwNDaDMqwbIR8nNi9dbZlFo6rWBrzPkHnmED/e4qdqWCwqDjq
-	d2sgAkEb/3kiN3mBu80pRZTyS73OLFnLFxGXlTMy+T+/0RVQivD93EWM
-X-Gm-Gg: AYBFou20iDPKxSZidSbkxE9B8+KTlQF/2Pkgcm6vmSRwRxH+1Tv8yGhrDjJxQIT9BNB
-	0F19Xu8KH//8WyJdBuEQv7owinm1bcXHOgMLrHdSFZQ+xL07JKRnlAoqiTBzbNuBFoDokSZh8a7
-	nysc05shbrB/sPmhfUsACLOxwEEAMhzw8cqtHmOsAZjeY6pxbISY8HZ8NFsMqQnixbi4mcNMlkP
-	/98bZYHWpfMzyGCT19Xuk0kddLAbT2Xn9C1rtE5TNz9IFCom4O8gn9Ur2NY5t1mM1ffhAra/j8b
-	WfwRhVsekyTlRSHtMniCC+IbYwfri1Lis32M9gpvBVlTsgZhYLn0dzIKmuT7vcJyJgDe+C06dSE
-	f5XihmEeENqyH38jcP5r98SsrYxLMpahgebD4nCpD1FhtjZSbhzbZalnEw2OcDdkzv0Kc/f2Ju+
-	H23v27sTdw77DXnkg6Oekb7wI8DzChygCcknWjF/wOqmxX6jh1ZQKE7HcT5uPc8b//88joYdU8a
-	yb+SFdMBoZ0FOlKexzpSvkgaaTumhN+1ECMgEhlXczOAeGFOrBvYgkOJLLgssAyqrO/PviEpo4c
-	boibnaUZm/pf/KYsLXE1tdgivhtt3X9bOFrUmSJQdvQmqEDPlL7KBcQoduGP2Hjvn45r2rc7xCJ
-	ztv17vqSfsrioarH4Wk+44xsAA6DZ6NezhI0O4gqqkutrjH/IqNrZa6EsE03VoUidiEwuBaqOGI
-	crhLht5DkQLfQaA35OcgDvVhMPLQddedTOmQaCqEJVfN1aBAFosicF
-X-Received: by 2002:a05:6820:160f:b0:70b:9b1f:e8a2 with SMTP id 006d021491bc7-716e73de95bmr322359eaf.3.1793904960035;
-        Thu, 05 Nov 2026 10:56:00 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716e99465dbsm115897eaf.0.2026.11.05.10.55.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 10:55:59 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 05 Nov 2026 11:55:34 -0700
-Subject: [PATCH v10 18/26] mtd: rawnand: sunxi: skip unavailable NAND child
- nodes
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSRL7qeZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF3C31F00919;
+	Thu,  5 Nov 2026 18:56:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793905024;
+	bh=WQ9sffyuRp/irYxXc7dRPeziYbjvSyitG8dEJ6yeqEg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nSRL7qeZefZsFlhbewfbotp8isdhCFKOicgcQPuFTjUejyFw8L89bYizUJWdyBeeX
+	 DSl3dtsx64ZntdIq0Euec2b587YGxISmGsI+JBa80+upYr7n0EMYVeA6a87B4QpCib
+	 E4DlTWWHYVyAyF6o6QGbkxDvFJhiEfXmvA6ZDQrse+l0HP0KWkyhM/XEHlkp/0+qDO
+	 uPv/qhdVQp7R8IMPu0vCr4Pnz6mLKt2wblai4ewjnD0U48c/s+Tyqm2tfW35BuFrqu
+	 qLfEWbX+bBsVRRzhWsEVR6+tFQgbtuJHbwMC6YtW+xyLsNiqQIDSbGocuQxtu3JRt8
+	 GfRbkJEVmHNow==
+Message-ID: <4e393e6f-34d4-4d8d-a12a-270aea843f17@kernel.org>
+Date: Thu, 5 Nov 2026 19:56:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,60 +51,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] google: Add support for Laguna CPM
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+ linux-arm-kernel@lists.infradead.org,
+ Mariano Marciello <mmarciello@google.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+ =?UTF-8?Q?Jakub_G=C5=82owacki?= <jglow@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261028-armored-glistening-cheetah-6f3070@quoll>
+ <aulBrFWi54E6a7Br@google.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <aulBrFWi54E6a7Br@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-18-dca1f6ed29a8@gmail.com>
-References: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
-In-Reply-To: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- James Hilliard <james.hilliard1@gmail.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Richard Genoud <richard.genoud@bootlin.com>, 
- Boris Brezillon <bbrezillon@kernel.org>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>, 
- Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- devicetree@vger.kernel.org
-X-Mailer: b4 0.15.2
 
-sunxi_nand_chips_init() scans every child of the controller node,
-including those marked disabled or reserved. Neither the chip setup nor
-the NAND scan path checks availability, so these children are still
-probed and registered. If an unavailable child describes an absent chip,
-its scan failure can also prevent the other chips from being used.
+On 03/11/2026 03:06, Brian Norris wrote:
+> On Wed, Oct 28, 2026 at 02:24:35PM +0100, Krzysztof Kozlowski wrote:
+>> Either you expect review or not. RFC means no.
+> 
+> OK, PATCH.
+> 
+>> If that's patch, then at
+>> the top level of cover letter, as the most important thing, you explain
+>> the dependency and merging proposal of this.
+> 
+> OK, I'll try to move it up. To be fair though, every change that has any
+> dependency is clearly noted in its below-the-fold notes.
+> 
+>> You combined here like 5
+>> different subsystens...
+> 
+> What do you recommend here? I believe the general principles of DT
+> binding development suggest there should be a single binding doc for
+> describing the "Central Power Manager" (and the services it supports).
+> CPM supports functionality covered by many subsystems.
 
-Iterate over available children so unavailable nodes are skipped before
-claiming their chip selects or issuing NAND commands. Keep the scoped
-iterator so node references are released on both normal and error exits.
+Standard upstreaming process for new SoCs.
+https://lore.kernel.org/linux-samsung-soc/CADrjBPq_0nUYRABKpskRF_dhHu+4K=duPVZX==0pr+cjSL_caQ@mail.gmail.com/T/#m2d9130a1342ab201ab49670fa6c858ee3724c83c
 
-Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller support")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/sunxi_nand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+and the perfect example:
+https://lore.kernel.org/all/20231121-topic-sm8650-upstream-dt-v3-0-db9d0507ffd3@linaro.org/
 
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 636a04f49418..3de9ed6795fe 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -2771,7 +2771,7 @@ static int sunxi_nand_chips_init(struct device *dev, struct sunxi_nfc *nfc)
- 	struct device_node *np = dev->of_node;
- 	int ret;
- 
--	for_each_child_of_node_scoped(np, nand_np) {
-+	for_each_available_child_of_node_scoped(np, nand_np) {
- 		ret = sunxi_nand_chip_init(dev, nfc, nand_np);
- 		if (ret) {
- 			sunxi_nand_chips_cleanup(nfc);
+> 
+> While in theory, bindings can be written without corresponding software
+> support (drivers), in practice it usually works out better to develop
+> them together, to prove that the binding describes the hardware/firmware
+> sufficiently.
+> 
+> And even if the binding goes separately, I don't think I can 100% split
+> the driver support by subsystem, as they all require the same underlying
+> CPM helpers, and those helpers don't have much meaning without their
+> clients. So some multi-subsystem work is still necessary IMO.
+> 
+> So I don't really see how I can address your complaint. But I'm open to
+You don't know how to split patchset per respective subsystems? Somehow
+Linaro, Qualcomm and many other people managed to do that, so just ask
+them. Linaro folks might be easiest to reach, through Peter Griffin for
+example.
 
--- 
-2.53.0
 
+Best regards,
+Krzysztof
