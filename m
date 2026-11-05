@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.190
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901484;
-	b=ayXNH1F90672QXubjqT7YcnDggLVgDwZ8FmVSxk9Hf36mlagy2Ud5HKUWbeQyPEtCG1E
-	 6RSCjcQIkpkvsvpp7Ow4PtLd9sS+iHLSuik1CZrPa8U+ubLxArgi8E7sg5yW3GvMsxmX0
-	 2YZCnhNqf7cXHTYrlewIT6pVaS0IBUs4pSXOfBW6uv2Udw+TnGzlfNWnvzygVFptNCHhm
-	 4XzvSouvOB+OL6JL8YAJ6gmV4Hix37CLmXPuBpPeg6Zzv4cuyVP8rgLmslvxg3psTuR+2
-	 n12VdY44jx42HtJc7YnlGrkXxOmKsZPvVTWpzKyB1Et9t7ttHHJNs2if68NDWG+wTyg==
+	t=1793901548;
+	b=vPri3BYMPgOLsfrozCUmds2il7gPzvQHsU+Dbg/YeDOOm6ci/CZle65Hr13fhA9lka60
+	 VCdYbtvOc+QGPwTIxlUWiYDLjq9Qm+UCrkJhwG2DozbHBGAAQeubHjmg01qVmmDweKjyY
+	 mDNPTo9cCNMT18abHDGq+zuTrmqNhn1OKHPR/9jmrUmzCtv7hnnSf48qDXZeN2lonAvoK
+	 /LtB/vx9jC8yYqlNDBLeoiWKCGWzKogPlBOsWN/L820T+ZyvfWjnOw4nSsOhgjuwmCLEf
+	 V6UkGgmvOIumRsCWA2KSuiBoRe23TZ1TOjYCX7K71+X8oBFWKmwGFz9maMjy/4DvEyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901484;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=jt/ZC4ffziQ7HvruyvzDkrQAXNr+AY6nKD92MbqZCIk=;
-	b=e4TTqeDJRgAm7TXprnMD1VP+X5DITMon+JIchcvd9tRQUF1O25StEgng0MLbodfAGjJa
-	 rIk3oxs4IPdYo309HnWYdOBRCcgVpRyVp5mlIsqBEfMKWc+2Qna8nNe95jbOsWY8LZtje
-	 +FBtpf/1qZesoyE2BPHJP1wjx9JrenpnCMd4b9u7jRRWT2UTYZMQbfaK8cLxxtR3j0puk
-	 HZw009YYza3fgklHRjnNrr3TsYd7ZEtTOK1XFaTNJem9WrGx+lPO0XFrDDd8Suj/RW1t+
-	 c3K7B3bHntVR1kp/n9zA5PDmXGBjUlZtH56NdGd6qMRm4hK3G8vXBQjjmyj26Yav3wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901548;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Y7xeTFp5Z0R3BfvoCv14UiADEzEqwyyGG4Zubwum7Zo=;
+	b=B7zss2jTEu0e9mnOiSFjqhhDRacD+Uf46VD9sO6cwky9TofsmyXowgbQ3i8XdmDkzb5E
+	 ir8wFijX3YuWtHpVIiqlVdvs8wibY8nEqww0NMZievWiXmhNx+SY1hL/MFiHukEnEkAwZ
+	 kAds3U20ThLOtTd5t2/GcWQlqoCALC0E04hpQfC16M7IrB+t85yDfssD2FBetON55I6rP
+	 WxDjY/0t6j5lmkg6kjaQ/+B9OE1zYmybvr1fWLiHqVJB7PuQ4gK/Zb5Rquu09G8SUqpVB
+	 iXsOAtHn3drO8B7CLadwvaPlKfPka7UNtSZjlmDzkkb5CvS+uYgfQAfPxUZz4EbxhVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AgAKc8wg;
-	arc=none smtp.remote-ip=91.218.175.190
-Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
+	dmarc=pass header.from=tenstorrent.com;
+	spf=pass smtp.mailfrom=tenstorrent.com;
+	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=dqJ44NkJ;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F74606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59F74606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038B3606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 038B3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AgAKc8wg
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=t/uW8VN3ksFEgU2O3uKnkH6tZzjG+ETFuBB6/SpxnVs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793901481; v=1; x=1794506281;
- b=AgAKc8wgFWLMex2cNUdFjuEf2C6u0ObZqSX0huen+CbkVNeZbCIfBEieWWXUZL5OohEZ80Qa
- TZ464/+4niDatN8XLS08scBUgMzaBp7Xpfhf/o3h2ZMbj+Q0GIZu/Fs/uBTnbbA1oPZI6SWi+8s
- eG+lDm5q9ychMP+YyHCeAtgU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ff7274c36764d8fc;
-	Thu, 05 Nov 2026 17:58:01 +0000
-X-Mizu-Trace-ID: ff7274c36764d8fc
-X-Migadu-Flow: FLOW_OUT
-From: Vineet Gupta <vineet.gupta@linux.dev>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Vineet Gupta <vineet.gupta@linux.dev>,
-	Borislav Petkov <bp@alien8.de>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Jakub Jelinek <jakub@redhat.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v2] kbuild: move gcc's -Wconstant-logical-operand to W=2
-Date: Thu,  5 Nov 2026 09:57:45 -0800
-Message-ID: <20261105175748.3057520-1-vineet.gupta@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=dqJ44NkJ
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-84e513874f8so1634785a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:59:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1793901546; x=1794506346; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y7xeTFp5Z0R3BfvoCv14UiADEzEqwyyGG4Zubwum7Zo=;
+        b=dqJ44NkJPiwGo2V96AHNwnQBndqAun+3UlTEsRT5Q7d+2bWxgD7zUbx4MAcSW3OVLv
+         CpBI53xmJwrpxIDNzDkdWDhm46YxXpkmMEcMoo21KCOT6WzLpQ1jaVjd/wbajl90/xrS
+         yFU5mkfQmPn1aCJBfCzRgxAhqy/lV6uDGRUtgtL4MRshxyqUrJ/Z1QGVUMk5qhT60yIM
+         3mueNUrasfH/oVVd4ADB7ZQ4HcaGDYdEsKHNoy1BJK/tdieMGN9OOtYaSBZXcnbErdNJ
+         YzSdAA2Dcnj4lQPwhMNUDyr3pYllAFHoZKHXfH4LsR6RfDYP+QDWA3gCThLqLMeChKPD
+         teSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793901546; x=1794506346;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y7xeTFp5Z0R3BfvoCv14UiADEzEqwyyGG4Zubwum7Zo=;
+        b=MYs9VLFA0WLyGiyfpr15lSVKCV9O69EhqVJhaLAdGmtHlkD4WhtcL9OKy+1SXBK6AZ
+         g2K00yBoCXpN/ZxW4SV17vFOZEo0/51J2K0tj1T7ivyRdt7gfNNS/xteLGA2Q2Xr1/zj
+         bEM4/eAN7vTiZbDpQgdSoxJISRZ9Jz/i/1jXd79kSnmgc8ssogHskm/2APFxQiULwYUe
+         /916VFi1MkKe37qNtxQbLywws1rss3CgJ4TnoTk6kSrBE97+UjTGmrkV4eikIIfwuRLJ
+         8gyCXNm5JwHxema3CMjL/dfYDkNPr5avTNFuDa+Bl108LtUFaBIY6ovNU0dl7dWnR3uZ
+         sd7w==
+X-Forwarded-Encrypted: i=1; AKwUvBx5/mTxNKuiti9vGBGRzZi8oUbLkstmWxsVUNYMtsOqVSnnvt7l/ajWQ09ZO8efVxTkoSiCk+UkFNvAiuE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IeAexIzg7FnjAeulbzQGcuPb6cpzplBDT1MQ7prTpURmh1IZ0
+	Zy8qiY2hOq+jTm5FijMDCXBb1jCy6xEzSLG4seo/glXIMU1VRwFUrSYm0kdR8TsyLDw=
+X-Gm-Gg: AYBFou1LNSBmobSn3TfLaX9hu4yMe3772HYduZJL5a3tbpXBRS7sWMwnuyB34u4fvtQ
+	YDeJVGkXzT/+qKWtLwuuFn4EbLnti1a6xoVtvVd2adteBMIbbuEWizqm6anO7n9tZUBLX03HWPO
+	M2gzhX00fAN1hP53rLCaFEaO+x7wFi6N7PGhddVKCEEVO5AzVb1MNtFrWp8hRBqNePGWgBxxzkm
+	dP9DQwNU0kCxeGBcA4O8ugxLnov+SGIeIKzoh8TWWHAUBPVmfaxgl279NwlOdeo+JiXpzwRqlAv
+	swxoSuMBAQ+AW6va1/xVfVP9OfbDdcGvzzwA6tdMlP6vY+7esH3p20yUl1KCOpRJYXCRMDUlHlC
+	/hWRzc8T+5ORHjAO/Aq/AVbnpCcZAOJpOhn2pr6FGEjQyUfjKY5VKAtrZ+ZYX2RN5aGMOylzF/3
+	eu5aacMr9VEpKkUsEfZND3UyXhenKQtayLsBVNTOFtg/lSU69skUWNCmLG+dVDK5TN8nhJy7crf
+	K28sh6g7sHQEiM3kDGhHhwRZv73eBTM8f20c7449VWWu+0NTVrVp8O4Mecwe1fto8wgcw/UD4Ll
+	ICvfOYyPGHQpekitD7ghm/cvZoAc9ssn825rVl0=
+X-Received: by 2002:a05:6830:2b0e:b0:85c:4897:f2ff with SMTP id 46e09a7af769-85f1d0de43bmr99174a34.25.1793901545806;
+        Thu, 05 Nov 2026 09:59:05 -0800 (PST)
+Received: from localhost ([12.55.13.134])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e603b9sm5021990a34.20.2026.11.05.09.59.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:59:05 -0800 (PST)
+Date: Thu, 5 Nov 2026 11:59:04 -0600
+From: Andy Chiu <tchiu@tenstorrent.com>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Chiu <andybnac@gmail.com>,
+	Guobin Zhang <guobin.zhang@intel.com>,
+	Deepak Gupta <debug@rivosinc.com>, Shuah Khan <shuah@kernel.org>,
+	linux-riscv@lists.infradead.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] selftests: riscv: test FP state restore when
+ rt_sigreturn() faults
+Message-ID: <auzD6JgYSnW186Bb@Tao-Chiu's-Mac>
+References: <20261031161826.858908-1-nickolai@csail.mit.edu>
+ <20261031161826.858908-3-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,66 +103,210 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031161826.858908-3-nickolai@csail.mit.edu>
 
-GCC 17 adds -Wconstant-logical-operand to -Wall. It warns when an operand
-of && or || folds to a constant other than 0 or 1. Unlike clang's version,
-it also checks constant left operands and operators that come from a
-macro expansion. With CONFIG_WERROR=y, an x86 defconfig build fails in
-prepare0:
+Hi Nickolai,
 
-  arch/x86/include/asm/cpufeature.h:72:36: error: use of logical '&&' with constant operand '4194304' [-Werror=constant-logical-operand]
+On Sat, Oct 31, 2026 at 12:18:26PM -0400, Nickolai Zeldovich wrote:
+> Add a test for the previous patch: the signal frame sits on a
+> userfaultfd page that the handler drops after dirtying the FP
+> registers, so rt_sigreturn() sleeps in the middle of copying the FP
+> registers from the frame. The interrupted code must get its own
+> registers back.
+> 
+> The test is skipped without the D extension or when userfaultfd is not
+> available to the caller.
+>
 
-The warning is meant to catch && written for &. Kernel history has no
-such catch. Of the 13 earlier kernel fixes for clang's version, only
-commit dd7fe5d9fd6a ("rtc: max31335: Fix comparison in
-max31335_volatile_reg()") fixed a bug that the warning found. Commit
-394b52462020 ("drm/i915/gem: fix bitwise and logical AND mixup") fixed a
-& written for &&, which the warning cannot see. The other fixes rewrote
-correct code. In GCC's own tree, the warning found two sites since it
-was added, and both were false positives.
+The test is failing on qemu, with or without the patch applied.
 
-Disable the warning for GCC unless W=2 is given. Keep clang's version,
-which skips macros and constant left operands.
-
-Suggested-by: Borislav Petkov <bp@alien8.de>
-Link: https://lore.kernel.org/all/20261104160722.1637541-1-vineet.gupta@linux.dev/
-Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
----
-v1 -> v2:
- - Replace the four per-site fixes with this one change (Borislav, Peter)
- - Link to v1: https://lore.kernel.org/all/20261104160722.1637541-1-vineet.gupta@linux.dev/
-
- scripts/Kconfig.toolchain | 3 +++
- scripts/Makefile.warn     | 1 +
- 2 files changed, 4 insertions(+)
-
-diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
-index 2acbd40a38f1..1d68075f0469 100644
---- a/scripts/Kconfig.toolchain
-+++ b/scripts/Kconfig.toolchain
-@@ -233,6 +233,9 @@ config CC_OPT_WNO_FORMAT_OVERFLOW
- config CC_OPT_WNO_STRINGOP_TRUNCATION
- 	def_string "$(cc-option-str,-Wno-stringop-truncation)"
- 
-+config CC_OPT_WNO_CONSTANT_LOGICAL_OPERAND
-+	def_string "$(cc-option-str,-Wno-constant-logical-operand)"
-+
- config CC_HAS_COUNTED_BY
- 	bool
- 	# clang needs to be at least 20.1.0 to avoid potential crashes
-diff --git a/scripts/Makefile.warn b/scripts/Makefile.warn
-index 556fa249ca07..03b677bdbb0a 100644
---- a/scripts/Makefile.warn
-+++ b/scripts/Makefile.warn
-@@ -167,6 +167,7 @@ endif
- 
- ifdef CONFIG_CC_IS_GCC
- KBUILD_CFLAGS += -Wno-maybe-uninitialized
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_CONSTANT_LOGICAL_OPERAND)
- endif
- 
- endif
--- 
-2.53.0-Meta
-
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> ---
+>  .../selftests/riscv/sigreturn/.gitignore      |   1 +
+>  .../selftests/riscv/sigreturn/Makefile        |   5 +-
+>  .../selftests/riscv/sigreturn/fp_restore.c    | 146 ++++++++++++++++++
+>  3 files changed, 151 insertions(+), 1 deletion(-)
+>  create mode 100644 tools/testing/selftests/riscv/sigreturn/fp_restore.c
+> 
+> diff --git a/tools/testing/selftests/riscv/sigreturn/.gitignore b/tools/testing/selftests/riscv/sigreturn/.gitignore
+> index 35002b8ae780..8ed282ecb618 100644
+> --- a/tools/testing/selftests/riscv/sigreturn/.gitignore
+> +++ b/tools/testing/selftests/riscv/sigreturn/.gitignore
+> @@ -1 +1,2 @@
+> +fp_restore
+>  sigreturn
+> diff --git a/tools/testing/selftests/riscv/sigreturn/Makefile b/tools/testing/selftests/riscv/sigreturn/Makefile
+> index 8c77508641f3..ac7ae7a7c2ae 100644
+> --- a/tools/testing/selftests/riscv/sigreturn/Makefile
+> +++ b/tools/testing/selftests/riscv/sigreturn/Makefile
+> @@ -4,9 +4,12 @@
+>  
+>  CFLAGS += -I$(top_srcdir)/tools/include
+>  
+> -TEST_GEN_PROGS := sigreturn
+> +TEST_GEN_PROGS := sigreturn fp_restore
+>  
+>  include ../../lib.mk
+>  
+>  $(OUTPUT)/sigreturn: sigreturn.c
+>  	$(CC) -static -o $@ $(CFLAGS) $(LDFLAGS) $^
+> +
+> +$(OUTPUT)/fp_restore: fp_restore.c
+> +	$(CC) -static -pthread -o $@ $(CFLAGS) $(LDFLAGS) $^
+> diff --git a/tools/testing/selftests/riscv/sigreturn/fp_restore.c b/tools/testing/selftests/riscv/sigreturn/fp_restore.c
+> new file mode 100644
+> index 000000000000..1a56684c5f28
+> --- /dev/null
+> +++ b/tools/testing/selftests/riscv/sigreturn/fp_restore.c
+> @@ -0,0 +1,146 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Check that rt_sigreturn() restores the FP registers from the signal
+> + * frame when the copy of the frame sleeps on a page fault while the
+> + * handler's FP state is dirty.  The frame is placed on a userfaultfd
+> + * page that the handler drops, so the copy faults after f0-f15.
+> + */
+> +#include <fcntl.h>
+> +#include <pthread.h>
+> +#include <signal.h>
+> +#include <stdint.h>
+> +#include <string.h>
+> +#include <sys/auxv.h>
+> +#include <sys/ioctl.h>
+> +#include <sys/mman.h>
+> +#include <sys/syscall.h>
+> +#include <ucontext.h>
+> +#include <unistd.h>
+> +#include <asm/hwcap.h>
+> +#include <linux/userfaultfd.h>
+> +#include "kselftest_harness.h"
+> +
+> +#define PAGE		4096UL
+> +#define STACK_SIZE	65536UL
+> +/* the page boundary falls this far into the FP image, after f0-f15 */
+> +#define SPLIT		128
+> +
+> +#define F0_15	"0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15"
+> +/* caller-saved only, so the handler's epilogue does not reload them */
+> +#define HANDLER_REGS	"0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15"
+> +
+> +static uint64_t pattern[16], handler_pattern[16];
+> +static void *saved;
+> +static int placed;
+> +
+> +static void handler(int sig, siginfo_t *si, void *context)
+> +{
+> +	ucontext_t *uc = context;
+> +	unsigned long split = (unsigned long)&uc->uc_mcontext.__fpregs + SPLIT;
+> +
+> +	placed = !(split & (PAGE - 1));
+> +	if (placed) {
+> +		/* rt_sigreturn() will fault on this page and wait for serve() */
+> +		memcpy(saved, (void *)split, PAGE);
+> +		if (madvise((void *)split, PAGE, MADV_DONTNEED))
+> +			_exit(1);
+> +	}
+> +	asm volatile(".irp i, " HANDLER_REGS "\n"
+> +		     "fld f\\i, \\i * 8(%[h])\n"
+> +		     ".endr\n"
+> +		     : : [h] "r" (handler_pattern)
+> +		     : "memory", "ft0", "ft1", "ft2", "ft3", "ft4", "ft5",
+> +		       "ft6", "ft7", "fa0", "fa1", "fa2", "fa3", "fa4", "fa5");
+> +}
+> +
+> +static void *serve(void *arg)
+> +{
+> +	struct uffdio_copy copy = { .src = (unsigned long)saved, .len = PAGE };
+> +	struct uffd_msg msg;
+> +	int fd = (long)arg;
+> +
+> +	while (read(fd, &msg, sizeof(msg)) == sizeof(msg)) {
+> +		copy.dst = msg.arg.pagefault.address & ~(PAGE - 1);
+> +		copy.copy = 0;
+> +		ioctl(fd, UFFDIO_COPY, &copy);
+> +	}
+> +	return NULL;
+> +}
+> +
+> +TEST(fp_restore_frame_fault)
+> +{
+> +	struct sigaction sa = {
+> +		.sa_sigaction = handler,
+> +		.sa_flags = SA_SIGINFO | SA_ONSTACK,
+> +	};
+> +	struct uffdio_api api = { .api = UFFD_API };
+> +	struct uffdio_register reg = { .mode = UFFDIO_REGISTER_MODE_MISSING };
+> +	stack_t ss = { .ss_size = STACK_SIZE };
+> +	long pid = getpid(), tid = syscall(__NR_gettid);
+> +	uint64_t out[16];
+> +	unsigned long fcsr, shift;
+> +	pthread_t thread;
+> +	int fd, i;
+> +
+> +	if (!(getauxval(AT_HWCAP) & COMPAT_HWCAP_ISA_D))
+> +		SKIP(return, "no D extension");
+> +
+> +	fd = syscall(__NR_userfaultfd, O_CLOEXEC);
+> +	if (fd < 0)
+> +		SKIP(return, "userfaultfd not available");
+> +	ASSERT_EQ(0, ioctl(fd, UFFDIO_API, &api));
+> +
+> +	for (i = 0; i < 16; i++) {
+> +		pattern[i] = 0x4010000000000000ULL + i;
+> +		handler_pattern[i] = 0xbff0000000000000ULL + i;
+> +	}
+> +
+> +	saved = mmap(NULL, PAGE, PROT_READ | PROT_WRITE,
+> +		     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +	ASSERT_NE(MAP_FAILED, saved);
+> +	ss.ss_sp = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
+> +			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +	ASSERT_NE(MAP_FAILED, ss.ss_sp);
+> +	/* populate it, so only the page the handler drops faults */
+> +	memset(ss.ss_sp, 0, STACK_SIZE);
+> +	reg.range.start = (unsigned long)ss.ss_sp;
+> +	reg.range.len = STACK_SIZE;
+> +	ASSERT_EQ(0, ioctl(fd, UFFDIO_REGISTER, &reg));
+> +	ASSERT_EQ(0, pthread_create(&thread, NULL, serve, (void *)(long)fd));
+> +	ASSERT_EQ(0, sigaction(SIGUSR1, &sa, NULL));
+> +
+> +	/* lower the frame until the FP image crosses a page at SPLIT */
+> +	for (shift = 0; shift < PAGE && !placed; shift += 16) {
+> +		register long a0 asm("a0") = pid;
+> +		register long a1 asm("a1") = tid;
+> +		register long a2 asm("a2") = SIGUSR1;
+> +		register long a7 asm("a7") = __NR_tgkill;
+> +
+> +		ss.ss_size = STACK_SIZE - shift;
+> +		ASSERT_EQ(0, sigaltstack(&ss, NULL));
+> +		fcsr = 0x1f;
+> +		asm volatile(".irp i, " F0_15 "\n"
+> +			     "fld f\\i, \\i * 8(%[in])\n"
+> +			     ".endr\n"
+> +			     "csrw fcsr, %[fcsr]\n"
+> +			     "ecall\n"
+> +			     "csrr %[fcsr], fcsr\n"
+> +			     ".irp i, " F0_15 "\n"
+> +			     "fsd f\\i, \\i * 8(%[out])\n"
+> +			     ".endr\n"
+> +			     : "+r" (a0), [fcsr] "+r" (fcsr)
+> +			     : "r" (a1), "r" (a2), "r" (a7),
+> +			       [in] "r" (pattern), [out] "r" (out)
+> +			     : "memory", "ft0", "ft1", "ft2", "ft3", "ft4", "ft5",
+> +			       "ft6", "ft7", "fs0", "fs1", "fa0", "fa1", "fa2",
+> +			       "fa3", "fa4", "fa5");
+> +	}
+> +	ASSERT_TRUE(placed);
+> +
+> +	for (i = 0; i < 16; i++) {
+> +		EXPECT_EQ(pattern[i], out[i]) TH_LOG("f%d", i);
+> +	}
+> +	EXPECT_EQ(0x1fUL, fcsr);
+> +}
+> +
+> +TEST_HARNESS_MAIN
+> -- 
+> 2.53.0
+> 
