@@ -1,58 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896310;
-	b=EGaOixTYyDi4AhEXDsG3Ewr80PRtdKPYM6fV84tR0fza4TOOrOaHVzdTWJOPU45R5Tb0
-	 1JMmSYZNXTW2XZqJxgOI9W6rez1zSoBifQq9I+N0+pFLiq1ngRDQoyzGQZzhnXw8tUzGm
-	 rE/THX3Swg+QGDeL0hUwaxHSAdb52qJapyNz8ewILcmxXFGTH3mUxtTvlE0STkVHOAm2B
-	 Sj3RlFj/K1mCerasRZ4WrvOkgT4KRsfPRPUrTuuHjT+kwWeZHOo3NHbvB+zHNhpEnfNut
-	 Wp9JMvPMbss+LCNZI9Fb3lwWg4l+UXCCakgtqzHI/0udxxMySXf4Fj7+A22f4mrvfnw==
+	t=1793896307;
+	b=zPXYn1PFbW7aNPJi+MYHKzLu3wl/3ujKYDvFPhGwtd+uY62DYsBLS035C7JsoLFCby2b
+	 5+tzRb6qX8/0mz8zB2hdoqK8DUOMstIigHr8OOR8TrkXxuFK6HPVXckuL3vKdOvEnrm7Z
+	 ebKYKpwQInk9bL3M0EvXmxkabWUskFjOO4A7cLfV7J1P5l5b4DVQdm1Q4j7U5uYY+EHxM
+	 TqzWRr+rXhGtakGn8ZNNAMkrQyjslZsy9RCVDJC5ny86023WKzBHlHvdzt91fFk8SjmMN
+	 qufJQ/IbsWBDmEV+IdfD3wmhjiW1IMFj7XiWjsD2pXdF2i8glciNEtYvIJV9QXp6biw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896307;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1YG6GqkB8WcinTnE6Efs8v7lhqd+S55sath7HlxpGDY=;
-	b=Ljbe5T1H50aLmDjjDPyOvq63bvFWIgFR+IaXqGXSNgngiGPNGBs+ilYMzlqJWKWVSHcI
-	 SmFbEzRbgrPztVwRhQXahf6SwaJgUKPNeHL+p0MDD6OC43Wsk8+eeuE+tZz6C8kWI7NPz
-	 txZdEaeoSyr62RThwEZGTly74bh0ZMqUvokyP1ADgoc4qqAEPdSV+UQ5aXStBHvsZiVYm
-	 JEGAJm9d353AmxH07kKNjn1CqkTXaNprW/2WfvMoFZfOv1Rdoq2zVCMbhtWC4teqKCILA
-	 2XR8CqYXuVvE+RLATCwkX5VfOVg3y/Fz1NwbAERnD0qT68P2Q+FdYxgOFGMz1+FAKsQ==
+	bh=M0g1TqxZAXBtu+G7hNFKNUC1sBJS+hgGITTMSmHw6P0=;
+	b=XCdCTo9xjFymCJFGFpRCLWY9VdOGCVg7qs2Wl0DEEFxb8rIQQw+G3JGsLVM7v1cUy+Aj
+	 KQJnEQMz7aFE8hIOy56YE57DdqyDD53TvKstdu+RmQHLlU6Igis7OeJdF7v2Hl2Il9WjP
+	 76uVKdJuymlS6x2HKQ5dodaLgQ9+e0cVUewAbgyAG1v8/mWL318BwYuapERfrt71GE6E5
+	 qafpNNKle2kzrJjIoEss+ocSp5XVWqYnS+piRNFk3LTXopN1StXutuEq9k5UraGJxdN2I
+	 ZIiS5MXD3PXqgsK3fYwNSW7828UHph2VUAIcM42NH6KLqOheKANE3lfVRDNko6mCrSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QqOt2k9P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqzq4rgg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0FB606D81C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:31:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QqOt2k9P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB601F00919;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDF0606EEA4;
 	Thu,  5 Nov 2026 16:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqzq4rgg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165EA1F000C1;
+	Thu,  5 Nov 2026 16:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896310;
-	bh=1YG6GqkB8WcinTnE6Efs8v7lhqd+S55sath7HlxpGDY=;
+	s=k20260515; t=1793896307;
+	bh=M0g1TqxZAXBtu+G7hNFKNUC1sBJS+hgGITTMSmHw6P0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QqOt2k9PQmF+h0ysOFrKZjWVDMKdg86OMBr8ssGaB6Cgrfw11+yf/ZhDOPrzsPZXD
-	 T2FiELiBmR0AIQMj7rVWkP6DbV1/DFC7R8xoICGjWaHQSI39ExMdqYLe3vmfO2aqO2
-	 AtQ86iRzOivcDfRmrMe8rKSXU8PW/B8sXJlGFty+w71eLC6rggI7jXRSc24qUpQ9vj
-	 xnZ+qo/aqdUkX2qL2pNC3A/a6pd3xefVcVw+UuuiF6dgFCiZj81af2Z5bVXhByz5zY
-	 CCsGt7sFdf4PntJPKj2oICuLkvs5dsOn2xGXsiV6YDYmRtHVY70AaGhkwWKtENEKdF
-	 WiS3wiq8KKjEg==
+	b=jqzq4rggM6or54Ou5AX10WjfF2kEgLwDbvv+p8jNyzM5gKmQCm/0yvP+zkD9kA/Sr
+	 BITYHBBrVKvkjrym3owfZetSFs2EZgLVYDWMDwcey1qn8s8Hj0mRJgDB6PZMM92jQO
+	 ymqdUBtPhSQuqmXZ3261oHBOhwBairbrU3VGyQeu/5vpw7PLr/WnVIK5mLEG8EMimB
+	 sEMtGJXBLSWioallO7nxsWA4pzbe/J07H5D9cyT9KIoI9Its/vyJkNHG4LF3SPBZai
+	 NRDuvKx8XOoJmjHHmcOZcmq1FkKN+qNsWy2pU6bGG0azr06k6TK8edbTcn+T9zsqfm
+	 YZD2ei9BwAFFw==
 From: Frederic Weisbecker <frederic@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Chris Zankel <chris@zankel.net>,
+	Ian Rogers <irogers@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
 	Marco Crivellari <marco.crivellari@suse.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Namhyung Kim <namhyung@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Phil Auld <pauld@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Waiman Long <longman@redhat.com>,
-	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 17/47] ARM: vfp: Move CPUHP_AP_ARM_VFP_STARTING post stop_machine()
-Date: Thu,  5 Nov 2026 17:30:15 +0100
-Message-ID: <20261105163045.38862-18-frederic@kernel.org>
+Subject: [PATCH 16/47] cpu: Move CPUHP_AP_PERF_XTENSA_STARTING post stop_machine()
+Date: Thu,  5 Nov 2026 17:30:14 +0100
+Message-ID: <20261105163045.38862-17-frederic@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105163045.38862-1-frederic@kernel.org>
 References: <20261105163045.38862-1-frederic@kernel.org>
@@ -77,9 +87,7 @@ a new stop machine post function has been introduced to be executed
 after the main one with IRQs still disabled while other CPUs can exit
 stop_machine().
 
-The teardown callback here only removes the local VFP state which is
-never accessed remotely. As such it can run concurrently with other
-CPUs.
+This state doesn't have a teardown callback.
 
 Move it to post stop_machine() accordingly.
 
@@ -89,15 +97,15 @@ Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index a9c5b0c1974b..4952a53e028b 100644
+index 678cb9efce05..a9c5b0c1974b 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
 @@ -1275,7 +1275,7 @@ void clear_tasks_mm_cpumask(int cpu)
  static int take_cpu_down(void *_param)
  {
  	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
--	enum cpuhp_state target = max((int)st->target, CPUHP_AP_PERF_XTENSA_STARTING);
-+	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARM_VFP_STARTING);
+-	enum cpuhp_state target = max((int)st->target, CPUHP_AP_PERF_X86_AMD_IBS_STARTING);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_PERF_XTENSA_STARTING);
  	int err, cpu = smp_processor_id();
  
  	/* Ensure this CPU doesn't handle any more interrupts. */
@@ -105,8 +113,8 @@ index a9c5b0c1974b..4952a53e028b 100644
  	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
  	int cpu = smp_processor_id();
  
--	WARN_ON(st->state != CPUHP_AP_PERF_XTENSA_STARTING);
-+	WARN_ON(st->state != CPUHP_AP_ARM_VFP_STARTING);
+-	WARN_ON(st->state != CPUHP_AP_PERF_X86_AMD_IBS_STARTING);
++	WARN_ON(st->state != CPUHP_AP_PERF_XTENSA_STARTING);
  	/*
  	 * Invoke the former CPU_DYING callbacks. DYING must not fail!
  	 */
