@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.157
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793908850;
-	b=ulT7JXVvujM8spgBKxF05yZcWZ1kgTI0QV/x4O0w3n4rkk7lQYTwqIqBUsRn4gmEJ7pa
-	 BuiMieOIT7P3C9oVNlVbUv+QH7m4JS6FoUXVruEgJvVAeIKmRC8K+V9SPVL1wLmu59zIN
-	 r/mypVdH+JbBH17gK+8tMfE8wgu/iHLdfgkT6x0Lsa24Kpt5+Iapf5uvLdT757S468AhA
-	 O7IMoDqHmh5eLoQ+bJGyiZIR5AI6R0Pge6gUCovxtxnghCl/nEAaL7DG1tImeBtx0VnmE
-	 JlQ3WhmxRiHHw/RAUDzrSs/fpK1REBK8+VWOo2R+ra4euaVmhrPbuvmmi7DH91JUyqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793908850;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SgY78uwqrS4EsUYLLkILtWxPMLctMC4kPiWZSKB2PMQ=;
-	b=uA0PpUE6N3QdVuobvNoI8E7XldUYm2svXgWgIj7EzaVeg73CKITqjNbkC1bNQrEhcUIz
-	 RIluS7tILmQsU3Y4lka2yQ+zxf6/E2KToyHFdrf7VIK1ut3gxEn5deRdOl9kBz5b/Wy76
-	 aFGSS0zbiDh6vI0kJV7P0Ul+vewSZFYfaC6aUt9eTJOF01XhfccI001aLK//MQfOMPHvH
-	 cNU568CHx2VPohNDGTRGpdXdATV183NalqVPhrU6WLpwxckIb7B6zhtd5YFfVLce+9xIe
-	 nGLom6XZmK7zIs2p0ux6hQsYFLH7E0kzgWwEYWLkS2vhaPgGWo7Ebt2oJrZ5s5jDVnQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="filnGHn/";
-	arc=none smtp.remote-ip=95.215.58.157
-Received: from mta1.migadu.com (out-157.mta1.migadu.com [95.215.58.157])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793908943;
+	b=3B7S+8wayLp2TJ6PwE/DOw+J6Mr6gjWOY6GpA6fQEIpm/wk0PNV5VAu48ozL0INhCmjC
+	 grdQ21dWzRb9y2tYWaE0MJdCLzbpcirhqLMsdNpkTQyRy39BniC5CqNOO9BXkLbxEdhC2
+	 H1jzW6iHK3FYtQ8tdrsbJsT6sM9Mmv6xGpFS7C1T6MJW0PuUTA8tBPD857x+cQsCKs3ln
+	 PrZPzU6Kc455qw14k+qdjriWuEejTNnC65j2a3jmGBIvBxBw938VQ3L9FgSMp99h/8Uyj
+	 MHDUwGitiujUFBY6VctxwzMDfnbPS2lkMOaeL5VP6T5XsrkzVxj2Vibggvc0ARK6w/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908943;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3RgE0+S3OudSaNCCCBczPyxwQeNV9VnXv4HG8DcRRbM=;
+	b=NG1OmCsyRbNJWJKgIqyUkno59Js/5984BFXJwbI+ggX/iTseHXSABFDWJudPMUw4aWCm
+	 Hr14KmDfbPl/nVa77kGhj/qudxEs2UTHcJ5MzPUOFBRxXSz9CYk9r0HW2VVXAbdKPk7Wl
+	 T9guzwVOMkDaEjuvE+k5ipYOHy2aiJw9BsRPTWUjGr7t/hiZgyloxKk31sTDkZQ4fCyFt
+	 +isfdt+akaX/SwM2erWRwuUk5RB+awxlMKRLB2db7dqRU1o7++/eM2FKGLbfP7O8EtBpF
+	 aLzl7iWfJXo+iBZwSltquQjCDZs/yHZvZu28GUyM+AvwBS0BE+WZlW0mc14ydkBDWjA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vs+KnoJ5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.9
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011009.outbound.protection.outlook.com [40.107.130.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6632B606A6D1
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:00:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6632B606A6D1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976A3606A326;
+	Thu,  5 Nov 2026 20:02:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 976A3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=filnGHn/
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=twfyUPAmdfk3qnqxVC0Wt+Mi04r75IwvyEQqrmIURMQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793908846; v=1; x=1794513646;
- b=filnGHn/I8QFJBHnT7pj9KItFE+4BpANMruJYHksrOMppVAZAEHZL5CAaxXFVCu4OUffnojF
- xDnTJmWQOiZV6YF7ejoVNFoc3N/PKfHfZmybIG0Yu2xGWDvewHWOQy4JEaJmIUntjsTKl+YduM6
- o7+cb6pJt6NJJKhNrkiaVY68=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 23876777463ec8d0;
-	Thu, 05 Nov 2026 20:00:37 +0000
-X-Mizu-Trace-ID: 23876777463ec8d0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <58a98f7d-b2c5-47b5-a372-0ab5afa6a8ed@linux.dev>
-Date: Thu, 5 Nov 2026 21:00:27 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Vs+KnoJ5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kQaqlETPkZFZhoQPi+YHrOZ6H5RkaCpvMN/L8+1aQsdDL3yjAKZ1ufNZNIVwnMhGxkctuAkSbzUp7qJWPv6V6FEKeuJfQqIRBFdMt6M8QQiGmbmG4KpkX5o6G8livfO8Co+MLdGORxcu8lAL34bnJV3MnEYjIj7gKnKehAbPKRA0AaBQQADOrV+OnD1dhm8r19gp+5ePXS2U10jPwV3/GxJ9j6PO0ruUFSyMe8SDRLuVNK5enVipIMo4J9vj2Z0d79OYQ/w2tVbWJ7E4AtCYZQiiRnOIhxXXqzLHOgoPnPTIenlZMIvBFQG2A6zusy7i3l4bGwegVjsBrcaq07TF/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3RgE0+S3OudSaNCCCBczPyxwQeNV9VnXv4HG8DcRRbM=;
+ b=Bq5lWFbL/GJURTLkmDV6RNnU/l6QfV5LZJ53NtQ7JlLulB1KwaHbUbf6R0VeLllojVqvEZbkAb6zab08KhkY6OTIAFVhvIEnQYFbNKTE1tuTbylEfU3ENrmy2RfOvnlQ14URCKHxqr4D9X9GROGsg4h5bMZD4Wz4n/pLOWHQhsqXenU68ArBMKpfy4C7ojPsB6dLZiRl3ArjiNVmIvyUkNpyuXME4RHz0K5r+KEDZVMuNV/NRQe4GONslAqpshQ5e5gUgq9KWSJ4J+0vAuVaNI/vD5KQzeGgXLq/+hE4j/aIUUQbGYcIbzVybOZWNHj9U9pQrBZ/Ri8nsZzRMT6fhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3RgE0+S3OudSaNCCCBczPyxwQeNV9VnXv4HG8DcRRbM=;
+ b=Vs+KnoJ5ZjMKmNZi42ZxJemdetdl9FkdjOwCsY4yEZp9d5ujxHUn/7NLriVyNBBjJ4t/ibMBy9Yl/7rcxhz6+sk//bysPOv8y5VOZDaW1oH3SMSxMKbgWoZ4LsKOBNj/Xu+LdEVEPpkf8VqoatmCdY024J3YOQt7DABP3vANhCmXeSmOJAffl8KOWxOHjApocH5y0jY1XPmX/Iy2KV6zhuXvZr71pjrJSUzEAagHDAYIMp2P4SEM1GOuWRVIxoUJGS7SLBfsCFiAAsgcc8vjJl+iU4YB42VynBXeu75o1PnogvJrDnWvL30NcGBFWvaOj5Mx6Mb2o3RXHSycCj37CQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21) by FRWPR04MB11199.eurprd04.prod.outlook.com
+ (2603:10a6:d10:172::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 20:02:19 +0000
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 20:02:19 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH v4] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7 remoteproc
+Date: Thu,  5 Nov 2026 15:01:57 -0500
+Message-ID: <179390890787.1675761.12799490750797393286.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261028-verdin-imx8mp-m7-v4-1-d4e23e62ebea@toradex.com>
+References: <20261028-verdin-imx8mp-m7-v4-1-d4e23e62ebea@toradex.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH3PEPF000040AB.namprd05.prod.outlook.com
+ (2603:10b6:518:1::4d) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,148 +106,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v3 for-next 1/3] block: Reject unknown status tags in error
- injection rules
-To: Mohamed Khalfella <mkhalfella@purestorage.com>,
- Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Keith Busch <kbusch@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
-References: <20260928221634.43239-1-haris.iqbal@linux.dev>
- <20260928221634.43239-2-haris.iqbal@linux.dev> <20261005084917.GA9160@lst.de>
- <20261020223402.GA1582237-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Haris Iqbal <haris.iqbal@linux.dev>
-In-Reply-To: <20261020223402.GA1582237-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|FRWPR04MB11199:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef909610-be0b-4d07-046c-08df3b77ad98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|7416014|376014|22082099003|18002099003|10067099003|56012099006|11063799006|261026140227099003|261028144727099003|261022105027099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	iTktDrdgezKDtT5t/c2KcWDinqXaze4iu3VtKoVTfFQV1TEpDK0gzkiAEF0qWDlkKvPW5KrDTRJjehPy8a5cdqQ6WWsaoUxhydwNL/J1lahVC4bv7QCcbJLK7/3Bi4iiZnkgNxoOfVscD2hTdvDqubO5GKtyaktenxKdrrBdWNOnrdfhFNB7Yux//Prv3MmbJ1wwigVZ26Bs6umHeo/qAIUdnW9ngBoConhucRg9WxOA2Vf7cBwGoxegPahpOPBlu3qEwBsQu9u3833BIJ4TQpT6DnfUEOmDeDvI2TGYpAxjMI+4h1oQtRkzTMUexsAdcKmmj/2lGSkk2OWp5DSvw0WPpHfoJXZLGXrMytCam6c/znDuVBUtAB1ihd2DlyZ0w1BJMduKvYjwZUA9lTblnqzabT4RzX49b6gqd5Vq862xQAmUI3o7rzA39EylarzGdPxitpBvU5rHw6aOmHRazqwynj+59f3x7G5wcr7MNM3ZNLzcXrVzw3T9yNCt11zBOS2FGzREEmzRjgslGZB5Aq0XOo1jlaC3nol12SEwqB9Z1v00ZfRJdDnxHlT3nvyXwMTGXG0xhylbbsnnvevumhBkdnt5WI6atdaPF1mftum6ViG16J4ltJ27F9SvFH1GnoQONsqLVVbybyEXNhvBOgVK8BefOmsSG9emR2UaBUI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(7416014)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(261026140227099003)(261028144727099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TWhLYnlKRTJaSHVPNjVrQnI4ZGNKQjZRV2psNzFOTzFnNVBndnJWS0NmSFNG?=
+ =?utf-8?B?NnB0OHppclppWllrRFc5TzkrOTdnUmt6eGJPc1NwNzRiV1dyb2NzTDEvME9Q?=
+ =?utf-8?B?eDJOYm9sQXdkNmRqdS9oeURjNUFuTm4rNTJNK0dCWk16S3VBeG5OQ2UxbmFM?=
+ =?utf-8?B?NW9RM243ZjgxSUJtMHY2N2hlcWZlbTBiOHFJbjBjaFBVWkZ0OU9TRXFkNUM4?=
+ =?utf-8?B?UDJRdnFiS3NpU3h2ckdpMFk2QnpTQlQ3UFJNYlQ0N0VYRVJzSDhTUU9ySEVJ?=
+ =?utf-8?B?S2t4TUNDZ3lMVmxZc3JwdVpGTFRXODNrZndDOWZwSzJwTm8wdEYwOXdtbE4z?=
+ =?utf-8?B?eTlrY0NlbUN6WWVuR0tKTENyUVBzRFNsMmFIMmxwZ3pDRXJxbzZXajFGMDJV?=
+ =?utf-8?B?eFdTUjNkeFFrbjZ0cXBMVTA4SCtEVjZmdnkyeTMwd2QwcE91MnozdCt0ekZk?=
+ =?utf-8?B?VFJIbTROdlpUVVBMTEdZcmdDa2VOZy9KZkJpK056UFF3SUdvNXVBNXA1S3hZ?=
+ =?utf-8?B?b1ArMXhRV3BVMWVqSUE5cVNnbGhPYTlRVGdQY1dtNnoxL2NTa0toaFkxTzdF?=
+ =?utf-8?B?OWdFMGprUHFJdVhCV0ptQjY4ek5udWVDQ25zZlkxSCt2Y2NaWUJlWlIyeWs2?=
+ =?utf-8?B?cjdsWjA1cEFGT2RObkZDOFNXb3lJaHpnVDhJQUdJRTVSSURRTDJaVWtaY3lB?=
+ =?utf-8?B?ak9ibS8yeFFhTEhpbzJtbHRvRWlsdHFXVTd1YXJPQWd1RElRTmJPMkxLa292?=
+ =?utf-8?B?NXV1UklGZWQyNjdhWW56cUpEclp0STJEdUFSV0E3aVZHdm41VGxwT0JuSnFk?=
+ =?utf-8?B?cGtTMk81Yk1IbTNJdWpGMjA5Sm81OWh2b1RNNVEwc2pxYkhhZFJDRFEwN3lj?=
+ =?utf-8?B?LytzVXJhZ2o0U0grUzlxNFU1aEFFNzZZS1p0bUVZVkllTkt2Z0xRS3psWlhP?=
+ =?utf-8?B?dFBrZDBMdWxWb1NMdkoxSzVMMndOeE5KVDFmd3NtYVFHMEtYSGZpNm92MjNV?=
+ =?utf-8?B?ajFXS0gvVmpaaEw1M2VvY2x6RW1wejhveEZSUHhSSDdzYmxCUmlHNy8wS1l6?=
+ =?utf-8?B?RUFrRkdQRFZXaGd2V2JRdFVrMWgrNDBRbXNONjZEeEE0M0s3QUcxOVc5b0NG?=
+ =?utf-8?B?WW5BV0QvYjJPMG9FMGZDUmZrQVJNUU16aWVwc1VNd0VUenFFWlk1SkEwdUJo?=
+ =?utf-8?B?U252VXJYTzNwMmJ1VWNDcUJMTmczaTlwek55U2t3UlhBYVFHTlI3VFM2aUpX?=
+ =?utf-8?B?TW1qNUhYSm5yOUpSVEd4ZEZ1NU5odVZRMkpjRkRNNE8vZlV5bXI2QTVOWVEz?=
+ =?utf-8?B?Q2dyeGQvVzBYcG1ZaXdyMFplNEo2RGtBWjBTRE9JaVRRbk80c0FEd2srMy9r?=
+ =?utf-8?B?QnpjOGJHLzZoV1Z2WHhJZFpFY2dFcGg1cGxPL1p6dHAzSHgyQzVZVC9CY1Zl?=
+ =?utf-8?B?VmZJQ2p6eDhNUkp3Um5PL3FJWEJjWVh1Q1plMDNXYW0rWGFYSnptajFhbG1r?=
+ =?utf-8?B?dngvN3RxSkQ2c1BuMndBdWlFdUExN2VQL0FjZTRWeEp6YlNLTlh0WldURC82?=
+ =?utf-8?B?N3cwSFEvRWh2Q05la2xGZnZ1LzN2d2M4RUlaUGdXSTVqSHN0NXFvbnZ4bVhi?=
+ =?utf-8?B?WXdqaUdITFlxK1k3UTRndkl5aEpuN3p0U1g1cUtWMVRGWkNRRGJnWnhoak5C?=
+ =?utf-8?B?eWkvaTBmMU1mbm5PTG5VZngzMXdlaWpJR2hLYUVWSTNoRmM0cC9jWG5INkxi?=
+ =?utf-8?B?cnRneExEcndtTmlSTjhUak9oUG53L2s3ZG94akVBL0FSSUt3VEpXTUNOWTVY?=
+ =?utf-8?B?TVZBcDBCTUhFb3ZsK3NWTjZzZ0xnSVZHRTdjRW1ndGdjS2FSdzdzdUN4SjNl?=
+ =?utf-8?B?UFJST09kZXFMQndqQmZsTXkzWWlGdlhBMnl3blJjR1g1c2Y0VlV5RTVsMTFl?=
+ =?utf-8?B?VlBBejIzenk4Sitaa1FBY3ZzcjcrU1hpYjZOSzF5R1lDRHR3Y3E2dm56c1I5?=
+ =?utf-8?B?S0RNaGE0a202QTZ1ODZVSk1CQ2ZCeHFRNEl4YUlHWXFCcTJ4NUdOZTdicFRj?=
+ =?utf-8?B?K2tkL3NEZUR1bE8vci84aDVNT3NvV2NFc3I1NGhKWm44TWN6V2pIUlU5d0VO?=
+ =?utf-8?B?SFlPNFF1WFZrdXJZeDJyK3ovWUVja3hvSHAvS2JBNk9sN0pOTkNDWHRwUEpY?=
+ =?utf-8?B?STI4VGJId2xPYkxvajRpcDhVd1Z5cjNSemVkK3k4Z2ZuVWcyMi9Zck1McCta?=
+ =?utf-8?B?T0N6eHoxcG00ODhQMUptVHphNDhJVHRJUTNBT1JPdHYxY0d4SEZTcCtWa1l5?=
+ =?utf-8?B?aStmWE1oS1BxOTZuZU5OcGExWjZWb0RsUXBwcjZOYlRuYTNIeTNFa3dsanBB?=
+ =?utf-8?Q?Av1vGfjHaChqpJfJJsNF597mU2SKPLt242W2C?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef909610-be0b-4d07-046c-08df3b77ad98
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 20:02:19.8596
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UVNC7k3xK2gAoxLNDGJUAAAmdywgnBGj4/22tSP6WMR3hM+MeGxAUb2kRkkt54bO1KQhNjv3bI6wEhsNPI/FKTjWsqbKKQOL3MUxNZbaB+e7vKZT8n34eLXL7tqZbwaT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11199
+
+From: Frank Li <Frank.Li@nxp.com>
 
 
+On Wed, 28 Oct 2026 12:35:09 +0100, Ernest Van Hoecke wrote:
+> Describe the Cortex-M7 remote processor available on the Verdin iMX8M
+> Plus SoM.
 
-On 10/21/26 00:34, Mohamed Khalfella wrote:
-> On Mon 2026-10-05 10:49:17 +0200, Christoph Hellwig wrote:
->> On Tue, Sep 29, 2026 at 12:16:32AM +0200, Md Haris Iqbal wrote:
->>> tag_to_blk_status() returns BLK_STS_OK both for the "OK" tag and for a
->>> tag it does not recognize, so a caller cannot tell the two apart. The
->>> block error injection code (which is the sole user of this function
->>> currently) relies on error_inject_add() later to reject adding a rule with
->>> status=BLK_STS_OK. This is okay for the current state of error injection.
->>>
->>> The delay option added in the next commit makes the rule with status=OK
->>> valid, meaning the function tag_to_blk_status() now needs to explicitly
->>> match BLK_STS_OK for it, and fail for a tag it does not recognize. Hence
->>> make tag_to_blk_status() take a second param to update the matched status,
->>> and return true in case of a successful match. If a match is not found,
->>> the function tag_to_blk_status() returns false and *status remains
->>> unchanged.
->>>
->>> A repeated status= where an invalid tag comes first is now rejected
->>> instead of being overridden by the later one.
->>>
->>> Cc: Christoph Hellwig <hch@lst.de>
->>> Assisted-by: Claude:claude-opus-5
->>> Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
->>> ---
->>>   block/blk-core.c        | 14 ++++++--------
->>>   block/blk.h             |  2 +-
->>>   block/error-injection.c |  7 ++++---
->>>   3 files changed, 11 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/block/blk-core.c b/block/blk-core.c
->>> index 13dc70e8f55d..c45846b9c50d 100644
->>> --- a/block/blk-core.c
->>> +++ b/block/blk-core.c
->>> @@ -225,21 +225,19 @@ const char *blk_status_to_tag(blk_status_t status)
->>>   	return blk_errors[idx].tag;
->>>   }
->>>   
->>> -blk_status_t tag_to_blk_status(const char *tag)
->>> +bool tag_to_blk_status(const char *tag, blk_status_t *status)
->>>   {
->>>   	int i;
->>>   
->>>   	for (i = 0; i < ARRAY_SIZE(blk_errors); i++) {
->>>   		if (blk_errors[i].tag &&
->>> -		    !strcmp(blk_errors[i].tag, tag))
->>> -			return (__force blk_status_t)i;
->>> +		    !strcmp(blk_errors[i].tag, tag)) {
->>> +			*status = (__force blk_status_t)i;
->>> +			return true;
->>> +		}
->>>   	}
->>>   
->>> -	/*
->>> -	 * Return BLK_STS_OK for mismatches as this function is intended to
->>> -	 * parse error status values.
->>> -	 */
->>> -	return BLK_STS_OK;
->>> +	return false;
->>>   }
->>>   
->>>   /**
->>> diff --git a/block/blk.h b/block/blk.h
->>> index 2cc03aa54c53..5fa54162c686 100644
->>> --- a/block/blk.h
->>> +++ b/block/blk.h
->>> @@ -52,7 +52,7 @@ void blk_free_flush_queue(struct blk_flush_queue *q);
->>>   
->>>   const char *blk_status_to_str(blk_status_t status);
->>>   const char *blk_status_to_tag(blk_status_t status);
->>> -blk_status_t tag_to_blk_status(const char *tag);
->>> +bool tag_to_blk_status(const char *tag, blk_status_t *status);
->>>   enum req_op str_to_blk_op(const char *op);
->>>   
->>>   bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic);
->>> diff --git a/block/error-injection.c b/block/error-injection.c
->>> index e14bc4b723ef..db543fe27630 100644
->>> --- a/block/error-injection.c
->>> +++ b/block/error-injection.c
->>> @@ -171,15 +171,16 @@ static int match_op(substring_t *args, enum req_op *op)
->>>   static int match_status(substring_t *args, blk_status_t *status)
->>>   {
->>>   	const char *tag;
->>> +	bool found;
->>>   
->>>   	tag = match_strdup(args);
->>>   	if (!tag)
->>>   		return -ENOMEM;
->>> -	*status = tag_to_blk_status(tag);
->>> -	if (!*status)
->>> +	found = tag_to_blk_status(tag, status);
->>> +	if (!found)
->>>   		pr_warn("invalid status '%s'\n", tag);
->>>   	kfree(tag);
->>> -	return 0;
->>> +	return found ? 0 : -EINVAL;
->>
->> 	if (!found) {
->>    		pr_warn("invalid status '%s'\n", tag);
->> 		return -EINVAL;
->> 	}
->> 	return 0;
+Applied, thanks!
 
-As Mohamed mentioned below, "tag" would leak then.
+[1/1] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7 remoteproc
+      commit: 347fa3f6d5e349a8ad399caa8ded1f0f521f4203
 
-> 
-> Doing it this way will result in use-after-free. "tag" has already been
-> freed above.
-> 
-> Maybe change tag_to_blk_status() to return an int (0 on success and
-> -EINVAL on failure) and use its return value without mapping it?
-
-I am not sure I get your suggestion completely. Even if we change the 
-return type of tag_to_blk_status(), we would have to free the "tag" 
-before returning.
-
-What can make it simpler is allocating "tag" on stack, and then use 
-match_strlcpy() instead of match_strdup().
-
-> 
->>
->> to keep the code a bit more readable.
->>
->> Otherwise looks good:
->>
->> Reviewed-by: Christoph Hellwig <hch@lst.de>
-
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
