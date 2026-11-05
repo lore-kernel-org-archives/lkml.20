@@ -1,112 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866960;
-	b=XrO2jz4npVoLiCu91Sw2vYscvLFD1rnPqxc0VspLdnMA1GWIST87yGN6xq0VJQdZolq/
-	 NKLdazoxcND3uG8AG2AynHzS5SbTechNmgfGykPYjmo6Qru7Xhc7P1Kph0tw2IwCMHS3D
-	 u0gYWZHyC5AJkT922sNqheEYrql9gK0/6kpJKd6WJbcRMsTU9ccEVfO8/w4KibP6F/9oz
-	 +6IrwsSxoAaz2OdddQnPXMe0RPGQ0QNZHORj2Uea4dnH3Bq0LO5i/xAsTzaYXmjcQT+6M
-	 0Fkrwuj53SSJ58pdIjkKk+9hun100ZZ5yTYsAbEyR3iE1zezy8R3t7oHzkU3G5SmKDw==
+	t=1793867028;
+	b=5bpEtzD/tEVGSxFFxhnNQ1+2Q4rVwlga/bcBLy9QuF0teixYi6PLOhiTbIODpjbOCwIQ
+	 3EX+uMhUVE2BZWpE093MqwV9CJwJBM+wBq6kzOOFTQhPuGaOpoo+fiVDJxDc5KQgBMl+6
+	 jRAXJxunJSGUUdeWdcyNWfkoG2Ei/PSBDo8nDG4nKoLHYUq5U+QHGMoB63JUoDGM+T/3n
+	 gN4J83eVoksuBDDP+YdSicGDAOtXXYm4jTqApMW64SwCIRwrCXQLQ2gtO1Te1/HSyD89p
+	 2LDduUmximie32CTNVBJBb2/oWjkF6jRT8459JqGERlWWSZdy1CigFUnLW6L7aFzWQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866960;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ix1+20DyoRCGmBOgAiA9EOhmvPdqx6nMCYqJ+YFb1H4=;
-	b=5bBECZiHbl34zEbCepbgzrBWwQep7oXy4Is2TeWk8V/fnZzsaAYnC31M2SAoxVF8IceD
-	 5OARrN2PX9CYMocru/3yTuBm2AeL5V6soWeiOnCK50ot/iVRXcUpX5D2OMqhh4z8S5z3G
-	 GSHzDaWOnGv7zHEdSJowxo3h/TJBrglQW0jJ5VwIQjrrfwRphGFMHpj7bl6aCsiTgP5x2
-	 6UAyHwzjxF9ksm9bkmxlRRf4pEFZsIxTQoZusPB2eb4T4LCpSpsv5uEpPvS0tg6xXyRgQ
-	 N3sQDuW34F4rOaWnMpRZbe1DLZCHBJ2Siumqt2BE4l5SAQTggAGXQH9dzYYhQK80NnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867028;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=NI1GgIgXNQObAgyI4VamVXZkG9i7zMwG2QWU7SC7WiU=;
+	b=MJt02Qr2gLeCNSQahAS6h6xi49gyG2PgQBGyl65ONtJpONIVFyFia7WLw9+qmLqKEWET
+	 rfeB4N1gSEqz1/WroeovoTh1qgQ4iWD1lfMQZGdp1ZNbEx3b3MIThcd71L/9XqgCzQDI1
+	 QVUte1UZulngK7wQb1aoXtS1bxUasMhyCiUBcCOZ3wdHWzfpmJoPmg2KZeVJw30m03IAK
+	 fCOI0cSRy5qPW475PSMRyru3Guu2T4Zg8f+vHmA6aJ+e+rYvgHZbDe660v2byErBPanUC
+	 Mc19ovo4Bj39hqG7Bo/1DaK18/EAIX1I0gujviRQXRrHsD0rig5bzuwvIFignA02nhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=memcz5aT;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YOJ7WMtd;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6EE606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:22:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE6EE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=memcz5aT;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YOJ7WMtd
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56UZGC595348
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:22:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ix1+20DyoRCGmBOgAiA9EOhmvPdqx6nMCYqJ+YFb1H4=; b=memcz5aTefo4KGOZ
-	rgWnJ/uabi3neKbmngooBNvd7gHrIpsZOx1v8gPp01TSx/0fhIHBJqOv+lwgFfCG
-	47mYl3Tw62xnSS9XD1oqDXhK5a/cCwCK/aVh3WfzN4HGy183y1iKNnw34xGH7CNM
-	4w8Z96I4V1sjRr/VMEsm3PlWdHTFJ0E+2oc1RrYHWy+IF57bJtBK8XPAutXx1Gnr
-	5SnOA9FmmYdNboeTIRW1b2MUIOABLurLebyBAgssvIq6xdd4XnkDpyqgfFtQCrlj
-	MgZaKBrrCyBTdr6m9HNGLaIGAfiZOPg0BL/B22YQa/XLqzoZV5RttPlEF0V78/Wo
-	+SaTBA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr8rv3en4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:22:38 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91ca23ede8fso3494146d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:22:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793866958; x=1794471758; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ix1+20DyoRCGmBOgAiA9EOhmvPdqx6nMCYqJ+YFb1H4=;
-        b=YOJ7WMtdQz0aIapT4F9RwpJ2i+ZE3XgX5li2D8OAA3ZdxMkOyrB23muMp/CaD6usN7
-         fJP5JAMRjY0aFPc1hNf8n+yLXnPuEbHWd9meh9NQjFtJFw1wS+bK5ljm2OBd4xKND3zR
-         uheh6pWUqEny6VHsU+U1Ye5NgpqgpGKRKgIvy1e0JMzA4cRH83XKidvXwWT4igX6QiRS
-         BSwYIozmcmtbIVoaUNi0JIHwfr4NGdoYFYnPsdsNbGEhd8wqecVz5ORdfVCd0es0D0lO
-         8HaLGcYOIgZIpuO6X3bxxs8QywZU5YItmgNUEUc7iaLP/JusFA1bdqLTE5/AGO9wfcEn
-         /aLw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CEB606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:23:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1CEB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso2032597b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:23:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866958; x=1794471758;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ix1+20DyoRCGmBOgAiA9EOhmvPdqx6nMCYqJ+YFb1H4=;
-        b=waY62X4zQb0YEAKBhW8cbwoY1mYuACz2cEV/XYKBUn/GbeSSz2ENicslDOWOOtmmrT
-         AC8xGAcXFEs657YH++4No456lRghL5AK7zYKBZezZMNb1qTOKvr+Wgh7VblWn0Cf+7jV
-         H8Y4WJBR9V5eXkdA8y6vyNxx81hfiFrd6OyI3ejKDFoI+z2Q3yYvaVgMLw0Ey7h99MsL
-         9W33FyHfvzrMVu6ebZjwCBPK43HjAXqi0PMrUBI64B3T9E6VBFKlN3EmSj+X8qrYvb2E
-         18V3rAhpwr4X0QJsWLftY0zkbO8Js3RMkzPTnq3b/4+6JfFmewIIj/1qSMrJO84FAQFX
-         Xs4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxC60TLpcwj/sitZt29J4k5TTY8YTn1SynO1Z2j2ZZlVUYwqXaN2dtHZKqxZt+vSUthNSGRm4i2Hqpj3d4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xB1mmjyDIKrdhH7LiGem1QviX0kkF21CxTGaF5JBNKnFdocB7
-	UjcPO3b1VHw0XQjVpEbfdAU33xbsDWkz+1Q1OPAFsQh58q/HxBptyRslFtTu62jhPdul/Vifwr0
-	nfRat+AZ5FcVTrNqBDRMISzwL/zWTIWpw+iFtgEzfN25RLV1twE0K/220P0OLkhjI5qk61yP50k
-	M=
-X-Gm-Gg: AYBFou0FUAFwDPPVeK5qKSfl1fce3RVtDKvugoRSzbuNM7VlgfstrpTQ5YOOwNZyXgl
-	ie6lb4dFAcNJnUDUob//QK0QSSh24SPZLUhGGaVYD6aQMwTr1ynKgpUwAul/5mNiAuKMPnuPZV4
-	Thxx22sSK2ntCir0VlL+PYOjt3qJ4nmK6tmWij0nz1Z5dzUGB2SWvXwhWrzYAdjhDdLMsgfKV/9
-	L+5m2gGgApiAlgEBcf91h9Fi4DwOrGF3pucyC8/tmvcxYpJPAxuhXZpC5vzoq5+Ln87sY9dI42G
-	DQd+bzwa+YN87BNpj1VaZaJ9KqXUzwBCs/aAjiQciOygME+A/Ad75Be745wzoBiVQXc7rOkQrbt
-	2rxHX7jItd/DdvU//nnCNd1afNwG3UVIqSvH2Bffg7MO4kuPaqYDtoua23x+D8uHZTJDD
-X-Received: by 2002:a05:6214:5284:b0:914:521e:7da5 with SMTP id 6a1803df08f44-91ca49e1e07mr371652966d6.1.1793866957749;
-        Thu, 05 Nov 2026 00:22:37 -0800 (PST)
-X-Received: by 2002:a05:6214:5284:b0:914:521e:7da5 with SMTP id 6a1803df08f44-91ca49e1e07mr371652436d6.1.1793866957143;
-        Thu, 05 Nov 2026 00:22:37 -0800 (PST)
-Received: from [192.168.226.1] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b57e26b0ffsm438510a12.32.2026.11.05.00.22.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 00:22:35 -0800 (PST)
-Message-ID: <2711cffc-81b0-4078-b3a4-decad4969e33@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 09:22:32 +0100
+        d=1e100.net; s=20260707; t=1793867026; x=1794471826;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NI1GgIgXNQObAgyI4VamVXZkG9i7zMwG2QWU7SC7WiU=;
+        b=jX5JMDxIFMmRJi6wgTcUJODr63Nvn/QIWLfjgPVN4h836uV7/BmqPJI4gIcfmaEzCX
+         yp5RGwXObgpMAlG9jj5C6LY3XrOdCCdNRZkYN9MLtadd98cKgGp6rjGR7wkT0ukv2WaN
+         8sLQbiOS3YfJTBhVy3MKaMnC443fjzwCE6MCouUDnvekhJHXwaemQxXDowsGGgE3NPe5
+         R9MD3cJGhiUUnYMMRndcoeA5k6sGVVoWWjWlBnqtEzJ54or8p9qKKC/b6UCqzbERCcd5
+         R2oe5599nsio7oYfWL7PhgdbvXq/kKnOuGZ4eVpKkP0kXXsJD6d4Sfk9iCp6M5Pw8T4w
+         ZV9g==
+X-Forwarded-Encrypted: i=1; AKwUvBz+QsTYsioZWc24J+4qM6pm9V1eaKDxNETRnsenfMl9rCnW3y9ABaQB3uR7GfNlk+vpYisz9OxiYsT6yQQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CdMG40hYUSbTHKLir5etQqk4PXcis1a6RTqbdd+vemC/AM3Hj
+	uf6YKfTQtUm7czaDd9a1NuAu62ds7gXeSbSazKvPGWNTDC95AeAN3xzPTuuSZkscJEdtIuUOr+w
+	cNNmlXqz3mAZfUHbO9bfbU1i46/K2EqSlMaCeRSqJCTUtLRx9ixS5Ob+N300=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,75 +58,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] backlight: qcom-wled: Avoid AB-BA deadlock in
- wled_module_enable()
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-        Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
-        Kiran Gunda <quic_kgunda@quicinc.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, David Heidelberg <david@ixit.cz>
-References: <20261104183935.1214630-1-lee@kernel.org>
- <20261104183935.1214630-7-lee@kernel.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261104183935.1214630-7-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Vtm2kO2n c=1 sm=1 tr=0 ts=6aec3cce cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=cyDCuRFuYf_2H7WJZrMA:9
- a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzMyBTYWx0ZWRfX4InbrFJELR80
- IuuLKWNrFn3T1M/d/pAwdNAZQg35eGW3bc4zrgMdSt2in6Y9OXYTWeAtbdyrA6ze2a4C6VaqntR
- 5y/Iu4ZbYKBqW/ED0Umb5j7J+EAakdI=
-X-Proofpoint-ORIG-GUID: LKfZXK-TgoxIU5Ek3IOpdmv5OzMw671J
-X-Proofpoint-GUID: LKfZXK-TgoxIU5Ek3IOpdmv5OzMw671J
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzMyBTYWx0ZWRfX948UnPmWEd9O
- Rz1zSobzs+HgQ5PCL4AY33qhNi3vRPujo7pwDH8+MqUS/pGRfBNaapv8+AJ/R7LpFOIziIFNa/e
- Z479gFJb2pkU9MIvaFWZ8aUylk4DFx+G7iajA17XMk0y02McPyMjrc7AbGyeHte7OS1i9VbcM7l
- 6hPEgR7QV6756TftcYHH3HwyK0Sh4AQ1l2H/ucu7k8pGjZNJuQciMgBAtpJCpDVgz80sCgpWm7y
- ja9g+jwEfBQrptd87xoic8bo6p2Z2zt1ls6JLW1NVUjMRWZ4wl0CrjncyfUnX1263Srraam0mk8
- v+mGmhOj6N33x2eDlRB++UKfV3lV2pBzDEGTlRuHunHUdFkHlHh0rgu5x8/M5SCeRN0+20Tk+sB
- c+CRlKTVl+vn10NLlyMlwsn8VXZEAo96NU1dY/00QnyFUSDc68+7hQ4aFvkZmwVHkdslKlDMjHR
- dXG55EOu8Avj+YYrShQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 malwarescore=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050033
+X-Received: by 2002:a05:6808:e8d4:20b0:564:48f3:df91 with SMTP id
+ 5614622812f47-56448f3e1fbmr6077549b6e.12.1793867026656; Thu, 05 Nov 2026
+ 00:23:46 -0800 (PST)
+Date: Thu, 05 Nov 2026 00:23:46 -0800
+In-Reply-To: <6acd1c88.a150a118.27e199.0053.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aec3d12.f31022ea.233d2f.0004.GAE@google.com>
+Subject: Re: [syzbot] [nfc?] KASAN: slab-out-of-bounds Read in pn533_recv_frame
+From: syzbot <syzbot+93f169a8e7d66864f800@syzkaller.appspotmail.com>
+To: chandradhar.2003@gmail.com, david@ixit.cz, krzk@kernel.org, 
+	linux-kernel@vger.kernel.org, michael.thalmeier@hale.at, 
+	netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev, sameo@linux.intel.com, 
+	shreeramrahul94@gmail.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/4/26 7:39 PM, Lee Jones wrote:
-> When disabling the WLED module (for example from wled_update_status() or
-> wled_short_irq_handler()), the caller holds wled->lock and invokes
-> wled_module_enable(wled, false), which calls disable_irq(wled->ovp_irq)
-> and blocks waiting for any executing OVP threaded interrupt handler to
-> complete.
-> 
-> If wled_ovp_irq_handler() is concurrently executing, it attempts to
-> acquire wled->lock before running wled_auto_string_detection(),
-> resulting in an AB-BA deadlock between wled->lock and IRQ completion.
-> 
-> Use disable_irq_nosync() instead of disable_irq() in
-> wled_module_enable() so that the OVP interrupt is masked without
-> synchronously waiting for the threaded handler while holding wled->lock.
-> Because wled_ovp_irq_handler() may already be waiting on wled->lock when
-> the module is disabled, verify under wled->lock that the module is still
-> enabled and not disabled by a short before running
-> wled_auto_string_detection().
-> 
-> Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
-> Closes: https://sashiko.dev/#/bug/linux-3afa151c-7b8f-432c-8f85-8c43a83b964a
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
+syzbot has found a reproducer for the following issue on:
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+HEAD commit:    8b7179210b22 Add linux-next specific files for 20261104
+git tree:       linux-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=1472fca1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5dad87d6a9d5ee90
+dashboard link: https://syzkaller.appspot.com/bug?extid=93f169a8e7d66864f800
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1641aca1580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15c09edd580000
 
-Konrad
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/24dabb992a55/disk-8b717921.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/efb6c59219d5/vmlinux-8b717921.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ced4d906c236/bzImage-8b717921.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+93f169a8e7d66864f800@syzkaller.appspotmail.com
+
+PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+==================================================================
+BUG: KASAN: slab-out-of-bounds in hex_dump_to_buffer+0x36c/0xd70 lib/hexdump.c:194
+Read of size 1 at addr ffff888027737a00 by task swapper/1/0
+
+CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ hex_dump_to_buffer+0x36c/0xd70 lib/hexdump.c:194
+ print_hex_dump+0x16b/0x2b0 lib/hexdump.c:277
+ pn533_recv_frame+0x5f6/0x6d0 drivers/nfc/pn533/pn533.c:2202
+ __usb_hcd_giveback_urb+0x378/0x540 drivers/usb/core/hcd.c:1658
+ dummy_timer+0xa9a/0x4ce0 drivers/usb/gadget/udc/dummy_hcd.c:2051
+ __run_hrtimer kernel/time/hrtimer.c:2079 [inline]
+ __hrtimer_run_queues+0x3bc/0xa10 kernel/time/hrtimer.c:2136
+ hrtimer_run_softirq+0x1e3/0x2e0 kernel/time/hrtimer.c:2153
+ handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
+ __do_softirq kernel/softirq.c:703 [inline]
+ invoke_softirq kernel/softirq.c:542 [inline]
+ __irq_exit_rcu+0xc6/0x220 kernel/softirq.c:786
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1073 [inline]
+ sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1073
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:finish_task_switch+0x413/0xc60 kernel/sched/core.c:5434
+Code: 04 00 00 41 c7 84 24 20 0e 00 00 00 00 00 00 0f 1f 44 00 00 49 83 c4 48 4c 89 e7 e8 c7 56 89 0a e8 22 92 3a 00 fb 4c 8b 65 c8 <49> 8d bc 24 18 17 00 00 48 89 f8 48 c1 e8 03 42 0f b6 04 30 84 c0
+RSP: 0018:ffffc900001c7be0 EFLAGS: 00000206
+RAX: 000000000008812b RBX: ffff8880b833d3a0 RCX: 8000000000000001
+RDX: 0000000000000000 RSI: ffffffff8e9ef560 RDI: ffffffff8cb01080
+RBP: ffffc900001c7c30 R08: ffffffff91e104bf R09: 1ffffffff23c2097
+R10: dffffc0000000000 R11: fffffbfff23c2098 R12: ffff88801fa99f40
+R13: ffff88801fa99f40 R14: dffffc0000000000 R15: 1ffff11017067a74
+ context_switch kernel/sched/core.c:5586 [inline]
+ __schedule+0x17e5/0x5830 kernel/sched/core.c:7382
+ schedule_idle+0x51/0x90 kernel/sched/core.c:7500
+ do_idle+0x4ad/0x540 kernel/sched/idle.c:384
+ cpu_startup_entry+0x43/0x60 kernel/sched/idle.c:458
+ start_secondary+0x101/0x110 arch/x86/kernel/smpboot.c:312
+ common_startup_64+0x13e/0x157
+ </TASK>
+
+Allocated by task 0:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3f/0x90 mm/kasan/common.c:79
+ unpoison_slab_object mm/kasan/common.c:354 [inline]
+ __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:380
+ kasan_slab_alloc include/linux/kasan.h:257 [inline]
+ slab_post_alloc_hook mm/slub.c:4716 [inline]
+ slab_alloc_node mm/slub.c:5029 [inline]
+ kmem_cache_alloc_node_noprof+0x34f/0x600 mm/slub.c:5101
+ kmalloc_reserve net/core/skbuff.c:616 [inline]
+ __alloc_skb+0x27a/0x7a0 net/core/skbuff.c:716
+ alloc_skb include/linux/skbuff.h:1390 [inline]
+ pn533_recv_response+0xc4/0x230 drivers/nfc/pn533/usb.c:65
+ __usb_hcd_giveback_urb+0x378/0x540 drivers/usb/core/hcd.c:1658
+ dummy_timer+0xa9a/0x4ce0 drivers/usb/gadget/udc/dummy_hcd.c:2051
+ __run_hrtimer kernel/time/hrtimer.c:2079 [inline]
+ __hrtimer_run_queues+0x3bc/0xa10 kernel/time/hrtimer.c:2136
+ hrtimer_run_softirq+0x1e3/0x2e0 kernel/time/hrtimer.c:2153
+ handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
+ __do_softirq kernel/softirq.c:703 [inline]
+ invoke_softirq kernel/softirq.c:542 [inline]
+ __irq_exit_rcu+0xc6/0x220 kernel/softirq.c:786
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1073 [inline]
+ sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1073
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+
+The buggy address belongs to the object at ffff888027737740
+ which belongs to the cache skbuff_small_head of size 704
+The buggy address is located 0 bytes to the right of
+ allocated 704-byte region [ffff888027737740, ffff888027737a00)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x27734
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff888140a9bdc0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000200130013 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff888140a9bdc0 dead000000000100 dead000000000122
+head: 0000000000000000 0000000200130013 00000000f5000000 0000000000000000
+head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5650, tgid 5650 (syz-executor223), ts 84263979260
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1874
+ prep_new_page+0x22/0xb0 mm/page_alloc.c:1882
+ get_page_from_freelist+0x22a1/0x22e0 mm/page_alloc.c:3964
+ __alloc_frozen_pages_noprof+0x211/0x450 mm/page_alloc.c:5506
+ alloc_slab_page mm/slub.c:3382 [inline]
+ allocate_slab+0x7d/0x5e0 mm/slub.c:3497
+ new_slab mm/slub.c:3548 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7522
+ refill_sheaf mm/slub.c:2915 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4807
+ alloc_from_pcs mm/slub.c:4883 [inline]
+ slab_alloc_node mm/slub.c:5017 [inline]
+ kmem_cache_alloc_node_noprof+0x432/0x600 mm/slub.c:5101
+ kmalloc_reserve net/core/skbuff.c:616 [inline]
+ __alloc_skb+0x27a/0x7a0 net/core/skbuff.c:716
+ napi_alloc_skb+0x86/0xaf0 net/core/skbuff.c:856
+ page_to_skb+0x240/0x1780 drivers/net/virtio_net.c:880
+ receive_mergeable drivers/net/virtio_net.c:2426 [inline]
+ receive_buf+0x720/0x1b60 drivers/net/virtio_net.c:2596
+ virtnet_receive_packets drivers/net/virtio_net.c:2921 [inline]
+ virtnet_receive drivers/net/virtio_net.c:2945 [inline]
+ virtnet_poll+0x22bf/0x3100 drivers/net/virtio_net.c:3040
+ __napi_poll+0xaa/0x330 net/core/dev.c:7985
+ napi_poll net/core/dev.c:8048 [inline]
+ net_rx_action+0x61d/0xf50 net/core/dev.c:8205
+ handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
+page last free pid 5317 tgid 5317 ts 54559667751 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1416 [inline]
+ __free_frozen_pages+0xd1a/0xe10 mm/page_alloc.c:2972
+ __slab_free+0x269/0x2c0 mm/slub.c:5922
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:364
+ kasan_slab_alloc include/linux/kasan.h:257 [inline]
+ slab_post_alloc_hook mm/slub.c:4716 [inline]
+ slab_alloc_node mm/slub.c:5029 [inline]
+ kmem_cache_alloc_noprof+0x2b4/0x600 mm/slub.c:5043
+ vm_area_alloc+0x24/0x140 mm/vma_init.c:36
+ __mmap_new_vma mm/vma.c:2765 [inline]
+ __mmap_region mm/vma.c:3119 [inline]
+ mmap_region+0x18e8/0x2820 mm/vma.c:3201
+ do_mmap+0xe0a/0x1300 mm/mmap.c:573
+ vm_mmap_pgoff+0x27a/0x520 mm/util.c:581
+ ksys_mmap_pgoff+0x4dc/0x760 mm/mmap.c:619
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff888027737900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff888027737980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff888027737a00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                   ^
+ ffff888027737a80: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888027737b00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+----------------
+Code disassembly (best guess), 1 bytes skipped:
+   0:	00 00                	add    %al,(%rax)
+   2:	41 c7 84 24 20 0e 00 	movl   $0x0,0xe20(%r12)
+   9:	00 00 00 00 00
+   e:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  13:	49 83 c4 48          	add    $0x48,%r12
+  17:	4c 89 e7             	mov    %r12,%rdi
+  1a:	e8 c7 56 89 0a       	call   0xa8956e6
+  1f:	e8 22 92 3a 00       	call   0x3a9246
+  24:	fb                   	sti
+  25:	4c 8b 65 c8          	mov    -0x38(%rbp),%r12
+* 29:	49 8d bc 24 18 17 00 	lea    0x1718(%r12),%rdi <-- trapping instruction
+  30:	00
+  31:	48 89 f8             	mov    %rdi,%rax
+  34:	48 c1 e8 03          	shr    $0x3,%rax
+  38:	42 0f b6 04 30       	movzbl (%rax,%r14,1),%eax
+  3d:	84 c0                	test   %al,%al
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
