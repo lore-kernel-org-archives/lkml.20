@@ -1,86 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872757;
-	b=UfrCu3wppF7oZlnEVCu2bye/WAC4am0dzYzwJ4at6/D8PoUdEy/5Pf63JW6LZC6wZoj4
-	 jJVHZ1C3cmxQ2b24XEewgCR6b2Z/OWSdPMEsTdOCvQbIOQ2kzBDGiHKpRfPh337wmgktM
-	 98V6eCn5RLhy2sjbL49JCqmP37fIXJJ7IjPXe0f0B0krfhrDsmFWMiz4EvsYbx495wXQK
-	 Cr2Hqc0iFsmDOtZ+R1OaK4b76gR5tuGiXVorMtuhdu3ryH7QiXkPmVt/HhhegsZT+T7P1
-	 zxlhDCBKjXNmP/wrKGxwsYbWzi46GrFPlVFAeyw8sr5DrPzu7r1T3eout1y1bYe1FDA==
+	t=1793872807;
+	b=fQylMqJDSb9oKSijcqEs9FOxrk1HlxuBRXd3l+yrtZpX0NDGo7J3NW2Ezo4LpczJfUc3
+	 5XwqCnaVQae84IGUkJoxW3R6fcOL0b9x8wrRZ/A3TYYZpxH/XO1x+MnD8HRuZOQ7MULjZ
+	 stV4hjD0jnFctl1UAYSjI62DlGDZtoEPzKEsiXVj17oMuqAEQh+Z5q59aqB7/RkAANtzB
+	 OC4ql0XF3nI0lg+hNAdkEuNsL0yeG46aAkayEQ6nUfL5iiIUmmPri3xnMNSuRWG6ftDYs
+	 xoeZ9ROWoa3DMtst47YMqkpz3Srwbp+bPk23zgP/4Z/piQ0MtoVfhsD1OMPj4fxeGSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872757;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=72hF0zaijNyHtswxhUEwhT+OMs8ScZ0feIrG+Lm2KOU=;
-	b=otdR4/Pt90lh6cTYe5Z8U1xOoH7t4pgRHt9f4MT/EfkOIbhq4K50SrRa0dgRXQzZzpVB
-	 5AXKY7gF3h11nN8tCjQuRCfb3f8zsji+8fTu6AtzAA4RyWyNBYy6pEkeE9IJkmkakJsd6
-	 aCSAeD/NM2Syg3+lwwW42gHv9HYJ1U+NrPI9gAwl/ZMYwt7gKcLw2LFVfmqDn1PpwA0AQ
-	 0U4Jc/64h1I/v8zugxgbDhgjtp+SSIgJS0xya9ntQxHrOZ5eLnVLMGS0HohpCAJQsNObJ
-	 0c7gmvZjjqI6iODDtD+QTeZdiZycD59VBlkyZ3Sr0hdqSEii8nK+UOavOFWGeD6c15w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872807;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=370JADXfW9i0EWeJs1wgZBZqKsihj4K7fewf2qq0vn4=;
+	b=o5BImRaQtXXEMg2a0qXV+cXKrVkvnKKM2c9yjBz/9sk0vVZ6DdoFu5GN5xeeGqD8t/mX
+	 aEOOTEZWZutUc02TWcdj97MWJxYTHz6BFthxZ2gebmfsOMXvwS8rrU8lIpaYeaDLJ+st5
+	 LDx1Hc+WFZ0BqocLfN594ZMJa/Rp5P1vz1gV4pH36zs7rulUyHvWIby7f3mnCcJAhNtnr
+	 3WZXEDehZyRL8ucFQaSFMkT5jGBn/FfSbTTjtp8Z490hhlK91bmXS3F8rjzdywHSLdFEv
+	 QUnD08a3knbueeSxQqgmlghg8Yg6Svz3jir9SCgvez6iiLUekzkGOzWbu7oBYtD2IKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bOsLWi3y;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RUUkonw4;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A83E606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:59:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A83E606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6084A606A33F;
+	Thu,  5 Nov 2026 10:00:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6084A606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bOsLWi3y
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso11034335e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:59:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793872755; x=1794477555; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=72hF0zaijNyHtswxhUEwhT+OMs8ScZ0feIrG+Lm2KOU=;
-        b=bOsLWi3yDV2SwlL808R2GcqEQVSxTvrL2oD7ob3OjAAj6tc3AbRZuHB9WpYAvZbY10
-         D6CIX5o7pS2ybUuf9EOUZIHcOKf13g7OUQP2bG7nXOCQgB4/gJ5St+I4C4dnbGG4ja2w
-         TX2WQIAOxwA25adjgPV111iGrBu3uyctFICYclZcFy+OVEwEWY9Z/SqdvWHuNlVSMPuW
-         XvW7fkWFFCEAfBIcFSjcLlbSlyotblLpMJcUhSVJ7DCcbP4GYxoPIfPVkZheVRG5p3Hv
-         WZAZRidihq0S+ndsMpq6Y1wlZwoHVhs8tXQCEqn9HZmgQyjzKuJuCf8rB0hxpj52nNfA
-         L31w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793872755; x=1794477555;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=72hF0zaijNyHtswxhUEwhT+OMs8ScZ0feIrG+Lm2KOU=;
-        b=UxPBh4UL4gJRbPl9ra92vI9T/1oJIDt2hPWf455QPgDE1IfZJBZLS0Z6M0BEhbclGz
-         0LC5NG5wGiOvXHMCBYlsWaqD8e1s+7Gg057lEwFX2APKu6UbcxZS2nHGiZ5KfoyN85Yv
-         icX5hQ4Q9Cqc3iwa0hQZTDH6LMDR/XxytFhIV+ZJxTSwkAzBs12ZidunVUBYIO30BrV9
-         QmIP0geamWG+ukegM0jhgwwiKguL+93SYMv4gWVt7aT2wkQhJPZsxFF+u2OKVQzxw+yr
-         8K8KpZa/UuPSrdH/ZSZiZ/POIPiPoHu5qAmyCnoLSw8+ATG4yWwzGl2m/zOjqHNZBsyJ
-         PGFg==
-X-Forwarded-Encrypted: i=1; AKwUvBygqsp2APuxKoYsrqJsxWxnylKaGdCFgu9WEqHzig9Ov2gOCSCREix+z9qWsVWMZ1RRg4jRqT3nDSHp15Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/K4liwxUrKCXos+B5rdWtGgAuxBFHdmTuYO67hJTLr0HM6yDfS
-	5RdRn9ofiIuucSTMBsBAa+UXga6ZUXwIPXsSKvD55BdTa0SYyzhiz15nphJFKD1LwK4=
-X-Gm-Gg: AYBFou3OKNTLqZGUJXZnGsDd4aMpDCpkWRatqkY/XAlEnn1K7IiFBWEUraQy8F3Xwb6
-	Q5YJoVW72FTgLEjdaD8OVf9JXrl0t0i3fxQlTXeibbC4yrNUA+CSfDOBwihglZtiGTWXDHmjGxp
-	x7cpmTuTjTkPFqABGE4njAWZVkGWqkE6PULRSEsVOyru8IXqA/alBArPC+SZRTNlYiZ/ehY1Dwp
-	C8AC+V1v6T0p6E05DBSEWYiy5ytN4+NFcoi52Df4lP6SrpQk6M7k4DwVtnHMZWiUnveGtiSuEUM
-	9EprNGxVbxjwaq4Vj56oGBHRAWG/NLv/bQiezIUPuyu9UKuI2uNiAR/mYMGYtosdGdhriJP7BvA
-	6zTgIthUDFNd2l/x90dJcohEpF9Tb7aps0Xe8T4Bu2L1jQlCgHk7fIde//4h34wStwxO2PX2B8L
-	Iv043CxkIEVRXo4vqRi462vYf+GugSl+nKfh15JW7fRjogfkavYCNWfs8DzXcu+/LSRDTdGd1fO
-	qwKzks9spR+fXRTdHrJWSbIwHEMXxFvEb9mf5c6bh1Q/D4BjB082bOB32P/mZCsNRNkjyxYBDE1
-	2Py33vY7DBIOrY1rnNxUJ0ImdmjsgrAdV0xptk7iTEp+DtnJuNOFleKrBPe+Bw==
-X-Received: by 2002:a05:600c:848c:b0:4a1:efd3:9862 with SMTP id 5b1f17b1804b1-4ac1765d977mr384989555e9.21.1793872755037;
-        Thu, 05 Nov 2026 01:59:15 -0800 (PST)
-Received: from [192.168.0.167] ([51.37.126.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b432a883ffsm54957825e9.3.2026.11.05.01.59.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:59:14 -0800 (PST)
-Message-ID: <f46f0d98-5756-4b2d-a8b6-ca68a1a071bb@linaro.org>
-Date: Thu, 5 Nov 2026 09:59:13 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RUUkonw4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793872807; x=1825408807;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7+Ug2Y9DgI9SCO4BXtWTniKjKlY+RxuQM71CwBaxMws=;
+  b=RUUkonw4Vpd3QV6HVdYgfHs544n62CsxQf8JGMGUT3zgObVx8Hb80JVH
+   mKNfEhiIUXHXlWBXZnx2pjMgRSb1JH6AQfVhm8wVYzMWubQztXoAYdffy
+   sXeBYOKmaG/rABi6ddG5koaMzFFr60xIKNbwb/+Ke7c5k57DssS3zSR2a
+   C4FXYHI81EbDJztVGBI9lMjNHdnMThYrKUQh3YwX0WrhZ3zeH8L7s+KI2
+   EOkk4slLCougD9bPJfjdty9BogJVD7Rh8h7OhDe+e9Kht4PUjRtRjk6nZ
+   EXulMPy9aCKfWcpkfMXQX5CgR0xL2B/McuLFE1fDuWhLUEGcBdnkf2TYt
+   Q==;
+X-CSE-ConnectionGUID: YV5pZZh/QSyx+K8To4WkrQ==
+X-CSE-MsgGUID: vSRmDUhwSm+OLMklUFCgrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2747324"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2747324"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:00:06 -0800
+X-CSE-ConnectionGUID: +1AEHJ8uS9GaR+4rSJOonw==
+X-CSE-MsgGUID: z22zOkOUTlmfgKu1wErqGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7377686"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:00:03 -0800
+Date: Thu, 5 Nov 2026 12:00:00 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Satyam Gupta <sgsatyam@google.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Gwendal Grignou <gwendal@chromium.org>, linux-iio@vger.kernel.org,
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: cros_ec: Use platform sensor_num to unregister FIFO
+ callback
+Message-ID: <auxToA8qgIa7vR7k@ashevche-desk.local>
+References: <20261105073107.172121-1-sgsatyam@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,67 +86,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] media: qcom: camss: use contiguous buffers when there
- is no IOMMU
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-To: Allan Siriani <allan@fatecpompeia.edu.br>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
- <20261104202313.72494-2-allan@fatecpompeia.edu.br>
- <8824d3fd-4b39-4355-a4ab-5f7e711aceb9@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <8824d3fd-4b39-4355-a4ab-5f7e711aceb9@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105073107.172121-1-sgsatyam@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 05/11/2026 09:57, Bryan O'Donoghue wrote:
-> On 04/11/2026 20:23, Allan Siriani wrote:
->> +static int video_buf_plane_addr(struct camss_video *video,
->> +                struct vb2_buffer *vb, unsigned int plane,
->> +                dma_addr_t *addr)
->> +{
->> +    struct scatterlist *sg;
->> +    struct sg_table *sgt;
->> +    dma_addr_t next;
->> +    unsigned int i;
->> +
->> +    if (video->vb2_q.mem_ops == &vb2_dma_contig_memops) {
->> +        *addr = vb2_dma_contig_plane_dma_addr(vb, plane);
->> +        return 0;
->> +    }
->> +
->> +    sgt = vb2_dma_sg_plane_desc(vb, plane);
->> +    if (!sgt || !sgt->nents)
->> +        return -EFAULT;
->> +
->> +    next = sg_dma_address(sgt->sgl);
->> +    for_each_sgtable_dma_sg(sgt, sg, i) {
->> +        if (sg_dma_address(sg) != next) {
->> +            dev_err(video->camss->dev,
->> +                "Plane %u is not contiguous in DMA space\n",
->> +                plane);
->> +            return -EINVAL;
->> +        }
->> +        next += sg_dma_len(sg);
->> +    }
->> +
->> +    *addr = sg_dma_address(sgt->sgl);
->> +
->> +    return 0;
->> +}
+On Thu, Nov 05, 2026 at 07:31:07AM +0000, Satyam Gupta wrote:
+> cros_ec_sensors_core_register() registers the FIFO callback for the
+> sensor number found in the platform data. The matching cleanup action,
+> cros_ec_sensors_core_clean(), reads the number back from
+> st->param.info.sensor_num instead.
 > 
-> STOP SENDING THIS SLOP !
+> st->param is the EC host command buffer. Drivers fill it in under
+> cmd_lock before each command, while the cleanup action reads it without
+> that lock. It is also set only for physical sensors. If the field holds
+> another value when the device is unbound, the cleanup clears the wrong
+> slot and leaves the callback in place, still pointing to the iio_dev
+> that is about to be freed.
 > 
+> Use the platform data in the cleanup action too, so it always
+> unregisters the slot that cros_ec_sensors_core_register() registered.
+
+Sounds like a Fixes tag is good to have.
+
+> Signed-off-by: Satyam Gupta <sgsatyam@google.com>
 > ---
-> bod
+> Tested on an Android desktop device (6.18, Intel) with two
+> accelerometers and a lid angle sensor: each sensor was unbound and
+> bound 20 times while a reader kept EC commands in flight, then FIFO
+> samples were streamed. Also tested on a ChromeOS device (6.6) with an
+> RGB light sensor, together with downstream changes to that driver.
+> 
+>  drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c | 8 ++++----
+> @@ -216,11 +216,11 @@ static void cros_ec_sensors_core_clean(void *arg)
+>  	struct platform_device *pdev = (struct platform_device *)arg;
+>  	struct cros_ec_sensorhub *sensor_hub =
+>  		dev_get_drvdata(pdev->dev.parent);
+> -	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
+> -	struct cros_ec_sensors_core_state *st = iio_priv(indio_dev);
+> -	u8 sensor_num = st->param.info.sensor_num;
+> +	struct cros_ec_sensor_platform *sensor_platform =
+> +		dev_get_platdata(&pdev->dev);
 
-Oops - pardon me I thought you resent and NAK'd patch.
+With context I see it would be better written in the following form:
 
-My mistake :)
+	struct platform_device *pdev = (struct platform_device *)arg;
+	struct device *dev = &pdev->dev;
+	struct cros_ec_sensorhub *sensor_hub = dev_get_drvdata(dev->parent);
+	struct cros_ec_sensor_platform *pdata = dev_get_platdata(dev);
 
----
-bod
+> -	cros_ec_sensorhub_unregister_push_data(sensor_hub, sensor_num);
+> +	cros_ec_sensorhub_unregister_push_data(sensor_hub,
+> +					       sensor_pdata->sensor_num);
+
+	cros_ec_sensorhub_unregister_push_data(sensor_hub, pdata->sensor_num);
+
+>  }
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
