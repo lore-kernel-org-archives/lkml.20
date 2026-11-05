@@ -1,76 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903131;
-	b=iA6jpk3ecRYd3o9XflNIF5+/mZvFAvXJnow2QmqoNW1i6rztc+2n1rZechxQzeNpfeIy
-	 m0cxFD+gxq9KvOfJ0YFeJ92fAhxdwFpf7UohM0AwwaiikjWiFsGd2n4cLPzTDbP+HtUdf
-	 M1720akB7pfjFkt52EwwbDBIBD9gNVJpflcwAkalSIGtZeAaDpz+h1frKGhS5vMrrz9Tc
-	 /xVQL+AgSfNMzHpgETqFPpJUw6WbnBwMtYQHzOLHyOzd50FQwIlo9P79midLq59Fw5Qo/
-	 xolZSXfs+ziDeFygam9HBp7b0Kfn4fdkV3CYk7Mu4lyOPS7QMcHCTfrxfoRP1MZkXgw==
+	t=1793903144;
+	b=CZVP0Mh2Sv+2zzx6w0aNwVy5LshnZdGIOmmzEqlpAwR0binp1DxXBv3TsNhrQ7Y0f4/6
+	 k9Le3RM1ljL/R4cY+jjELIZ42QIvdRQy/84D5xcA4MnmeDgcTpxzjgW94x2NhygwiINzu
+	 v4eBadUU8umMAI8xW8DLf1gOLG16kBuk+2RVyAmer+Yj2bCx9/9OtJ+7lsjz0kfi+WCEU
+	 /SDtd30dV8bWdI/E60L50VVsWcvVx6/q/tsSylRxyFB0pQdVhhpAStJ1KtaRQbI+vdaaM
+	 Bhcp0pLUyuHH4erpM/vlxpDt06gXB1X5LJSmoIm/+RHZHe+4BWVXR0LJS6aP78lM01Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903131;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kRFmKBJ1bTsk0r4k62R1tR6K48M0BUczLV02WnOFo08=;
-	b=fW0pQsDR7RLxGC7AWWRYq3UvQSmdfVewcFCWK+/F1WbLxfJUyqdV4dt4alIUnI3Fza2p
-	 o7BeGT8taavPR/VS2qAEZrK6ECbxPJgguc76tI0zbc06PXat+tyusg54LS85PAURFLLfd
-	 pfvMY8qyD79Opxr7UysDLWuN3TR7ozan9vUQl/dztQUrxm61EwgDbx2JCGjJJzAZDsW8N
-	 lXGlX3RXHmvYosX03ygo9ILdZZXbQSWXn6MPJ7ZjGVZPAd6gg3QnihCRnJCRE+52o5EPu
-	 WogXgGGn5vG9xIXdQSqx4fnKsAr0BpiblGf0qIZZk03io9fIGNnepFqdqKDoslmXziw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903144;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=fsQ6mSUj8J58sizxRKgAFmXPAAGpzg0QL1uwhWUDIDeZJYKVndaoagU11/H6j681Kwub
+	 Ou1b13hMnHuY5tE4ylickFjKCT0tqH+9W99l3CVqk61iGHq0ZyQAGVm1/6KEvd8XSt/EV
+	 LDLuD93fRl5QPnEebpoTWQyP9bj+k5Am1l6oXFUpFPdh8Pg9lraec8MiH8Pxcyeocp2zy
+	 qidF7o9FxB1E7uEm9+F4ZwLK0/fxbwdhZe5BS9zdhWSm5IJuHmW/LtVm5Si7yBAdmvDdV
+	 ooGPsMb7UyKYbNIGoUP8rZ1ZdXR8A3jZZi6qAD5bCPkKVkD6vVs2DT/SU49Jq8ZsnGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=otZSp2qt;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="t/G+WT5S";
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/Zr3qgE1";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6920606A326;
-	Thu,  5 Nov 2026 18:25:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6920606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230C1606A326;
+	Thu,  5 Nov 2026 18:25:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 230C1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=otZSp2qt;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=t/G+WT5S
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793903127; bh=kRFmKBJ1bTsk0r4k62R1tR6
-	K48M0BUczLV02WnOFo08=; b=otZSp2qtxJG37B/ApQTfBnhkp2XGFFU/z+4qbEbJkhy3OStcbq
-	RGof9IeEBw6N/qHY3Yu6r0uoEiqO67zc7qxUmyjbhUsUxBJ7qN2wdhpavhK/BZ7zgAxAGshZ6rT
-	v6i2Dxa+J/fpWw7e6U0t1vlkHDWh7xI8Z+DSwmHXj3OZK7ys8nfoSJ7vLuftMaVda8z2hSvp6bx
-	zJvLYqh19IBxxaKu+U/kNE9dyTNIrC6g+dNzzYOI6psdlh7PfzGYBwyO5JH0xwcC8aI273V30C2
-	uSiIuQJ4MkcJuIocSFzbgldpwfxcZJqgpOuw4FfhVNJNbig7vnN0vtyJG3DeGVL2yhQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793903127; bh=kRFmKBJ1bTsk0r4k62R1tR6
-	K48M0BUczLV02WnOFo08=; b=t/G+WT5SdK1eYG0AuecJ0JuXuDjbTUb88Wr5cK0QcM/zMNPhHJ
-	NWzlDczieM7G/L/IhldS6YQWyVDnWMI/sIAA==;
-Date: Thu, 05 Nov 2026 18:25:29 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: Faruque Ansari <faruque.ansari@oss.qualcomm.com>,
- Sebastian Reichel <sre@kernel.org>, Benson Leung <bleung@chromium.org>,
- Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-CC: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev,
- avaneesh.dwivedi@oss.qualcomm.com,
- Umang Chheda <umang.chheda@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>,
- Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- kernel test robot <lkp@intel.com>, Francesco Valla <francesco@valla.it>,
- akpm@linux-foundation.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v17_0/6=5D_power?=
- =?US-ASCII?Q?=3A_reset=3A_Introduce_the_Pow?=
- =?US-ASCII?Q?er_State_Change_Reasons_Recording_=28PSCRR=29_framework?=
-In-Reply-To: <85e8effa-dc1d-441e-a721-e4078388c9ef@oss.qualcomm.com>
-References: <20261019-pscrr-framework-v17-0-69ea6cdf4731@oss.qualcomm.com> <85e8effa-dc1d-441e-a721-e4078388c9ef@oss.qualcomm.com>
-Message-ID: <A12AE726-6439-438B-B9E8-721179C47710@mainlining.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/Zr3qgE1
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 680B41F806;
+	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793903142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=gpLik4NpZai2UCjBWJ/B95wrHx4MFifwTzLWTRBPuU4JR4/ciZjfkZNijMo/jVikJg/ygF
+	hXxQy95vm+/D72Fq30mAwhIbXoERwC3lkAK+lm6im+qEmXKSAMyCFceZGJneyxAC1IgVze
+	Jzdww+rCxUQNhEyS3mcIi9GyDQooxhA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793903142;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=IRCfsY0DDHNNDPM4eXi8rOYTYZ4Xoyq6uw0m4wt/msxYws1pV66lh10BLLtzBT9ELWY4ZG
+	CAAL25a7JaiBzFDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793903140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=qpZ4fh0QxEdi0FT26Cr+9xiUgjtuL0capIrgzL6ruIrFpfI80vQ6Zmkpoh/99Vql2oxws5
+	cD93of+Fqf+ld9B00RpMC/cOTXFB/rLYJlmvqYUYgtvJ7BMtW5S1qcVmbueCji3IDM2wff
+	LRazJdXXvLpumw9+JCsWwDGVSym4yKU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793903140;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=/Zr3qgE1TUmuiHY93oePEYHUzm7HO4+DFmlFo2o14oM23SU60+Tpdx+yUWXDjuHfGG8YcQ
+	Jd41VfGUr+OCttBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C052133F6;
+	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3Xl0BiTK7GqAHQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 18:25:40 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id B89CDB819; Thu, 05 Nov 2026 19:25:39 +0100 (CET)
+Date: Thu, 5 Nov 2026 19:25:39 +0100
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
+	shr@devkernel.io, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/page-writeback: avoid overflow when reporting BDI
+ byte limits
+Message-ID: <ijzndqxlfmivwaujc7nhtsa4p3hyd43g3aqud3vovajnd7jh7f@wcarf4xjxm5b>
+References: <20261103193627.71959-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,26 +111,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103193627.71959-1-dennylin0707@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -12.80
 
-On 5 November 2026 18:22:07 GMT, Faruque Ansari
-<faruque.ansari@oss.qualcomm.com> wrote:
->Hi everyone,
->
->I believe I took into account all the comments and got the different
->reviewed-by tags from the different maintainers for the changes touching
->the files out of the scope of the 'reset' area. Is it possible to consider
->this series for merging ?
+On Tue 03-11-26 19:36:26, Hungyu Lin wrote:
+> bdi_get_bytes() multiplies unsigned long operands before assigning the
+> result to u64. On 32-bit kernels, the intermediate product wraps and
+> min_bytes and max_bytes report incorrect limits. For example, with
+> vm.dirty_bytes set to 104857600 and max_ratio set to 100, max_bytes
+> reports 268 instead of 104857600.
+> 
+> Convert the page count to bytes in u64 and use mul_u64_u32_div() to avoid
+> overflow in the subsequent multiplication. This also handles large dirty
+> limits on systems with larger pages. Combining the two divisions keeps
+> the existing rounding behavior.
+> 
+> Fixes: 00df7d51263b ("mm: add bdi_get_max_bytes() function")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-This series looks sane enough to me. I recommend this for merging too.
+Looks good. Feel free to add:
 
-Let's give akpm a try because he does loads of merging. 
+Reviewed-by: Jan Kara <jack@suse.cz>
 
+								Honza
 
->
->Thanks,
->Faruque Ansari
-
---- Thanks!
+> ---
+>  mm/page-writeback.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
+> index 499a35473e4f..ddebec79d8d9 100644
+> --- a/mm/page-writeback.c
+> +++ b/mm/page-writeback.c
+> @@ -665,7 +665,8 @@ static u64 bdi_get_bytes(unsigned int ratio)
+>  	u64 bytes;
+>  
+>  	global_dirty_limits(&background_thresh, &dirty_thresh);
+> -	bytes = (dirty_thresh * PAGE_SIZE * ratio) / BDI_RATIO_SCALE / 100;
+> +	bytes = mul_u64_u32_div((u64)dirty_thresh << PAGE_SHIFT, ratio,
+> +				100 * BDI_RATIO_SCALE);
+>  
+>  	return bytes;
+>  }
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
