@@ -1,52 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881324;
-	b=ZtrjNNogfEp/bTXKuGIMct+SDbr5/lKyEJjotGHUnav9Kc0SH3z0U4JHB095KcM3o/hH
-	 f4GvjlMwe/lhjWoBMTMvrNpDnTzQqQ9dDJYiztifsY16TR41P27eY/0dvUJ7+Xyg+77Zd
-	 fI6uR3bz2tCXsaYxNanhEuT8hELFehL50SBKqC9SUzQCBVMk/oJGlYz4JECwfZS9PXHWp
-	 Rbqds1c2KykMsHNG/k3NN31dIuXGnf6X2ttmPYG+DDVz4Ee1veR0JJaXMQcKzILLOodYD
-	 8hjjzHe2Kfsm787iN4iWu7+qrq/gHnzmcwT3NojpclUJgNPQUIH5SgF55SabQLLEvig==
+	t=1793881323;
+	b=kzTtPye1E8hL4I3vUrW81cqTl1iFLAzXqd5f0T9hvvuF93hP5ncCr5k1KTtByqPMXsL6
+	 GQZIyNYhMqs/p9+u7F3VItTIxw0ulKjelj08fTNY+zJqABgHp2F/28QEprRBSHzR6JN43
+	 MwMJy+twRiu8H/6lbe3bZ7QJG8KTdXP2sFjbZY1pfvP9e3+BdAo0lABKAW9PzklhjvE5W
+	 MNApD8SyeTmsLjuq+iL7kKnUWwKb7PbEs4PqpE1msnftNmM4Jt5PjmpIjASP2fuzjRV1b
+	 FyaD8NFCNzO6bN5eEPZlD2ZMiwbaK3/AojloIUFePuRCMWYZvO0wjNBTTMUkt6llR/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881324;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ijJ2iToW1vV9ZzguubAIBwNUbZXaAj9CKriPNkowt/E=;
-	b=V4y2rY0oUsFBue8U9NyV5s/DNlopuJrspQPpNiGko66zian04SgCEpQOiQlUmo5crYTa
-	 K1H3WbFPJ0lKBm0bfRcuFCdq6pXl5V3uIXsfT/782eebNdVwQNdwqZjp0qspfdOi8EAS6
-	 m6dipUi+/NgjKM1xxdabWnomYK4zQIeTTv9VsagYaOLFbX2X5715qT1MKrmjSk1XSbtct
-	 k6pqwM+QCnmO1BLFPoJeWcfk1ZsSoOjIwx7U5tPuF543itRIFdKhD0X6rtMRhIZX2u/O2
-	 tTxV2i9EqKAVZ9tJjjutcmigtGQzM+1rNPiJDg6ol7Zh1S7t0C0bwgetn/hwovxGKlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881323;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=cNjLxshjbldmtVi7ezW8lx2AJPpiQwNaAFoiNC9ElWA=;
+	b=As3rB8I4LPFBGwZfw8qlWNQ+fjH25jrzSkov6cnNmBaqP0F3oNAIV0cEuussSFQ0MHY3
+	 4cW4EQWixnPYwKOb07Sk3tO2dZKzp9ipBdn0SG6VM94LcM21xYMF+Odx4OgD/qVA6eDLr
+	 NszNDwYYcYoC7LObotwj5r8ZfUleJzXAiX5giz8JC1uQtVdsN8kq49zeop4YFo+xyoSJA
+	 GvFEPI6dypJwQ0UDE59beuvl8Uvx6VzQm9nmRaRG4bWUkWYgEu0+E2OxOv86NrAmVEBk0
+	 Sv6CTjzIXcIr79MI4zNIg6YhUc9zNtYVH9j11IMcEL7R7HSsaG3r/RWp9BOfjjwUrNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=HTtx2Z5m;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F76606A33D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:22:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D85C1F00A1D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:22:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881323;
-	bh=ijJ2iToW1vV9ZzguubAIBwNUbZXaAj9CKriPNkowt/E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RXjPwgPyrp7SAvVpXG443pqp/sNrLtao2GijuVfbEp6ck0hUMSRpXDYsZC9lwi2ur
-	 XGCqk2+D3tRN+YuFfKy8vfHukZj/lhF0gXbEC2qWUSxtUbVZpuaFEP/t1LO/CFugvG
-	 RWqrqFdrkrbF16vqtn1FrwjNez2oA1C0FYIVoA5BvHgxJUQQs4Y1KmXkYv7kitzKId
-	 bOZAHjSEQttjBYzZf45PCJ4dyaQc4nctHCvY7V/4yUGQfdmNbjG9aqTsc1L8cQ8gug
-	 rqhGD64bHEqYv9wFhRBv7+h4Ek7eCeis/AfBq3aPDpAd76cRdJLsozvs2Ufb2lkR+u
-	 s6IsvSU1TOQNg==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1480870e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:22:03 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwv4O27FBGURUGxUgQiIMB5PW5xKnbTJxVTVzWRLgeI2cfuKtW9TZfLR+GEeVPFkTOKEkVj9s3HPv/85rg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vAk3GxFebWcJxE134y/Wf7l8ArdzAW2E9NBOJ/6XvnvSMw0rz
-	NPX2kiqEInkT4bexf5oGYKeZ1sRE1u1cUvdM+C91IhLow/lkYUyvE+8TpdKf8wYhWpt+fW8Pazz
-	1OndWyLkKUZ+9yxP/Oqmq9bRJrbBsK5M=
-X-Received: by 2002:a05:6512:3986:b0:5bb:27df:414c with SMTP id
- 2adb3069b0e04-5bfd9574e22mr6049721e87.45.1793881321795; Thu, 05 Nov 2026
- 04:22:01 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADBE606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:22:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ADBE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=HTtx2Z5m
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261105122200epoutp02ec75a23c8f090bede7a4f118527e0429~lJY5q3H2d1878818788epoutp02f
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:22:00 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261105122200epoutp02ec75a23c8f090bede7a4f118527e0429~lJY5q3H2d1878818788epoutp02f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793881320;
+	bh=cNjLxshjbldmtVi7ezW8lx2AJPpiQwNaAFoiNC9ElWA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=HTtx2Z5mL5rvw12jKQfhGYsXeW0lv32F1V8xMP3ap5FBhTtpo3kuHw1+yZzRg1wZV
+	 UwWZwe8TfhWpt3XO0P/UV0lTP43yhFt36z1VOjtPhD8H9td/Aus80y9xuD7TDgPfxt
+	 b9ohh/fSY/FipVYMt8BU/Qaqtfkr+dZWa1X0babg=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261105122158epcas5p41fe17543c8abcd4c86815bcdcfa554d8~lJY4Xi13h2387123871epcas5p40;
+	Thu,  5 Nov 2026 12:21:58 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.89]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jL1dd5nMXz3hhTC; Thu,  5 Nov
+	2026 12:21:57 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105122157epcas5p1320966a69d34521faeaabda354501162~lJY2_W1Ae2240322403epcas5p1F;
+	Thu,  5 Nov 2026 12:21:57 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261105122154epsmtip29c3fc114ce1213d5c87c233119230900~lJY0PNi8z0501305013epsmtip2l;
+	Thu,  5 Nov 2026 12:21:54 +0000 (GMT)
+Message-ID: <b68297b5-58cb-4dd6-ac2e-07d6bd408c1c@samsung.com>
+Date: Thu, 5 Nov 2026 17:51:46 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,172 +71,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022075901.3436021-1-zhangpengjie2@huawei.com>
- <d9fa8052-f562-4867-9e9f-1fd2a66fa794@arm.com> <940a9a70-71fb-491d-a1a7-1a7b4d6dc089@huawei.com>
- <f688c3fc-1375-4803-9775-9b4da78536c9@arm.com> <02dd34f0-c9fb-4dc5-bc1d-af83ae080724@huawei.com>
-In-Reply-To: <02dd34f0-c9fb-4dc5-bc1d-af83ae080724@huawei.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 5 Nov 2026 13:21:47 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0j1YpOu9SnjAF4VFVOVFEr6bLzRWaqCJ3jmFP4-01s1LQ@mail.gmail.com>
-X-Gm-Features: AclHuK9oMZfBryf9lbbu8I5G5dZsnK6LN0Tjd2Rx7NfvoiDwhphAy4g9-_ebdcU
-Message-ID: <CAJZ5v0j1YpOu9SnjAF4VFVOVFEr6bLzRWaqCJ3jmFP4-01s1LQ@mail.gmail.com>
-Subject: Re: [PATCH v2] cpufreq: CPPC: Enable boost by default when supported
-To: Pengjie Zhang <zhangpengjie2@huawei.com>
-Cc: Christian Loehle <christian.loehle@arm.com>, rafael@kernel.org, viresh.kumar@linaro.org, 
-	linuxarm@huawei.com, zhanjie9@hisilicon.com, prime.zeng@hisilicon.com, 
-	wanghuiqiang@huawei.com, xuwei5@huawei.com, zhenglifeng1@huawei.com, 
-	yubowen8@huawei.com, pierre.gondois@arm.com, sumitg@nvidia.com, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, mojunjun4@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] usb: dwc3: Add Exynos8855 to the generic
+ platform driver
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"peter.griffin@linaro.org" <peter.griffin@linaro.org>,
+	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-samsung-soc@vger.kernel.org"
+	<linux-samsung-soc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "jh0801.jung@samsung.com"
+	<jh0801.jung@samsung.com>, "h10.kim@samsung.com" <h10.kim@samsung.com>,
+	"dh10.jung@samsung.com" <dh10.jung@samsung.com>, "akash.m5@samsung.com"
+	<akash.m5@samsung.com>, "hongpooh.kim@samsung.com"
+	<hongpooh.kim@samsung.com>, "eomji.oh@samsung.com" <eomji.oh@samsung.com>,
+	"shijie.cai@samsung.com" <shijie.cai@samsung.com>,
+	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
+	"thiagu.r@samsung.com" <thiagu.r@samsung.com>
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <auvcLYl-ZnagU-7H@vbox>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261105122157epcas5p1320966a69d34521faeaabda354501162
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261026135755epcas5p4efa15a5e7540d91b4411a7b324aeaa5d
+References: <20261026135715.33071-1-selvarasu.g@samsung.com>
+	<CGME20261026135755epcas5p4efa15a5e7540d91b4411a7b324aeaa5d@epcas5p4.samsung.com>
+	<20261026135715.33071-3-selvarasu.g@samsung.com> <auvcLYl-ZnagU-7H@vbox>
 
-On Thu, Nov 5, 2026 at 8:04=E2=80=AFAM Pengjie Zhang <zhangpengjie2@huawei.=
-com> wrote:
->
->
-> On 11/5/2026 12:12 AM, Christian Loehle wrote:
-> > On 11/4/26 07:43, Pengjie Zhang wrote:
-> >> On 10/29/2026 4:51 AM, Christian Loehle wrote:
-> >>> On 10/22/26 08:59, Pengjie Zhang wrote:
-> >>>> The CPPC driver leaves boost disabled by default when Highest Perfor=
-mance
-> >>>> exceeds Nominal Performance. Userspace must explicitly enable boost
-> >>>> before governors can use the full advertised performance range.
-> >>>>
-> >>>> Enable boost by default when at least one possible CPU reports suppo=
-rt,
-> >>>> while users who prefer to stay within the sustained nominal limit ca=
-n
-> >>>> still disable it via the boost knob without determining scaling_max_=
-freq
-> >>>> for each policy.
-> >>>>
-> >>>> Check the performance capabilities before registering the driver so =
-that
-> >>>> the cpufreq core enables boost for each policy that supports it.
-> >>>>
-> >>>> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
-> >>> Just to be clear I'm not blocking this per se, but continuing my comm=
-ents:
-> >>>
-> >>> I just wonder if this is a configuration worth keeping.
-> >>> You mentioned your platforms have a BIOS to set nominal=3D=3Dhighest =
-or not.
-> >>> If we removed interpreting highest - nominal as boost entirely that
-> >>> would also make that BIOS setting obsolete. Userspace could still
-> >>> query nominal and restrict cpufreq to that if it wishes to do that,
-> >>> we could add that to cpupower for convenience (i.e. set all policies'
-> >>> max to nominal).
-> >>>
-> >>> With the changes that are coming with CPCv4 we would save ourselves
-> >>> some headache (like keeping track of boost status when ospm_nominal_p=
-erf
-> >>> is being written).
-> >>>
-> >>> The question is also how often the combination of "enable nominal < h=
-ighest"
-> >>> and then explicitly toggling boost at runtime actually happens...
-> >>>
-> >>>> ---
-> >>>> Changes in v2:
-> >>>> - Drop "even" and clarify the commit message (Christian).
-> >>>> - Link to v1: https://lore.kernel.org/all/20261015015812.867988-1-zh=
-angpengjie2@huawei.com/
-> >>>>
-> >>>>    drivers/cpufreq/cppc_cpufreq.c | 20 ++++++++++++++++++++
-> >>>>    1 file changed, 20 insertions(+)
-> >>>>
-> >>>> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_c=
-pufreq.c
-> >>>> index 80893844353c..0a4255a36f60 100644
-> >>>> --- a/drivers/cpufreq/cppc_cpufreq.c
-> >>>> +++ b/drivers/cpufreq/cppc_cpufreq.c
-> >>>> @@ -1052,6 +1052,25 @@ static struct cpufreq_driver cppc_cpufreq_dri=
-ver =3D {
-> >>>>        .name =3D "cppc_cpufreq",
-> >>>>    };
-> >>>>    +static void __init cppc_cpufreq_default_boost_init(void)
-> >>>> +{
-> >>>> +    struct cppc_perf_caps caps;
-> >>>> +    bool enable =3D false;
-> >>>> +    int cpu;
-> >>>> +
-> >>>> +    for_each_possible_cpu(cpu) {
-> >>>> +        if (cppc_get_perf_caps(cpu, &caps))
-> >>>> +            continue;
-> >>>> +
-> >>>> +        if (caps.highest_perf > caps.nominal_perf) {
-> >>>> +            enable =3D true;
-> >>>> +            break;
-> >>>> +        }
-> >>>> +    }
-> >>>> +
-> >>>> +    cppc_cpufreq_driver.boost_enabled =3D enable;
-> >>> Any reason for the scan instead of just setting
-> >>> boost_enabled =3D true? Platforms without boost would
-> >>> also expose the toggle, but that's mostly in line with
-> >>> the other drivers? (also again the ospm_nominal_perf
-> >>> angle)
-> >> The reason for scanning here is to keep the initial sysfs state
-> >> consistent on platforms where highest_perf =3D=3D nominal_perf on all =
-CPUs
-> >> (i.e. policy->boost_supported is false everywhere). If we just set
-> >> boost_enabled =3D true unconditionally, the global cpufreq/boost file =
-will
-> >> read 1 on boot while every policyX/boost reads 0 (and rejects writes
-> >> with -EINVAL).
-> > FWIW, amd-pstate can already expose global boost=3D1 while all per-poli=
-cy
-> > boost knobs read 0 and writes to either knob then fail with -EINVAL AFA=
-ICS?
-> >
-> > AFAIU the global sysfs knob represents permission to boost where
-> > supported, rather than meaning boost is supported, too?
->
-> Yes, Documentation/admin-guide/pm/cpufreq.rst also states that 1 in the
-> global boost file "only means a permission to use the frequency boost
-> mechanism (which still may never be used for other reasons)", while 0
-> means it "is disabled and cannot be used at all".
->
-> > PS:
-> > Also another fun one I discovered...
-> > power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
-> > 0
-> > power-orion-o6-01# echo 1 > /sys/devices/system/cpu/cpufreq/boost
-> > echo: write error: invalid argument
-> > power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
-> > 0
-> > power-orion-o6-01# echo 0 > /sys/devices/system/cpu/cpufreq/boost
-> > echo: write error: invalid argument
-> > power-orion-o6-01# cat /sys/devices/system/cpu/cpufreq/boost
-> > 1
-> >
-> > I'll go and fix that...
-> >
-> >> Also, since ospm_nominal_perf has a valid range of [lowest_perf,
-> >> nominal_perf], it actually pairs quite well with the boost knob: on
-> >> platforms with highest_perf > nominal_perf, ospm_nominal_perf will
-> >> always stay below highest_perf, and even on platforms with
-> >> nominal_perf =3D=3D highest_perf, lowering ospm_nominal_perf could
-> >> dynamically define a nominal ceiling for when boost is disabled.
-> > I don't think I agree with the latter. OSPM nominal has its own (platfo=
-rm)
-> > semantics, but making boost=3D0 impose that value as a frequency ceilin=
-g
-> > is just another way of setting scaling_max_freq.
-> > I don't see why these two need to be coupled?
-> >
-> > Also I think the fact that caps.highest_perf =3D=3D caps.nominal_perf
-> > but ospm_nominal_perf can change boost supported later is a reason
-> > against the boot-time scan? (which would need to exclude
-> > ospm_nominal_perf platforms?)
->
-> Fair enough, ospm_nominal_perf doesn't need to be coupled with boost.
->
-> Viresh, Rafael, any preference here? Should we keep the boot-time check
-> in v2 (so global boost stays 0 on platforms without boost support), or
-> drop the scan and just set .boost_enabled =3D true statically in
-> cppc_cpufreq_driver?
 
-I have no specific opinions regarding boost support other than it's
-better be made consistent across all drivers and the core.
+On 11/5/2026 7:04 AM, Thinh Nguyen wrote:
+> On Mon, Oct 26, 2026, Selvarasu Ganesan wrote:
+>> Add the "samsung,exynos8855-dwc3" compatible string to dwc3-generic-plat
+>> so the Exynos8855 DWC3 controller can probe through the generic DWC3
+>> platform glue. While at it, alphabetically reorder the existing entries.
+> Please split the reordering into a separate patch, or just add the new
+> entry without it. There are other pending additions to this driver, and
+> the reorder will likely cause conflicts.
+>
+> Thanks,
+> Thinh
+
+
+Hi Thinh,
+
+Thanks for your feedback.
+
+We posted new patchset with drop the alphabetical reorder of 
+dwc3_generic_of_match and just add our new entry.
+
+https://lore.kernel.org/all/20261105121401.1661711-1-selvarasu.g@samsung.com/
+
+
+Thanks,
+Selva
+>
+>> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
+>> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
+>> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> ---
+>>   drivers/usb/dwc3/dwc3-generic-plat.c | 5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
+>> index ca69ac0eb07c..d57496716204 100644
+>> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
+>> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+>> @@ -232,10 +232,11 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
+>>   };
+>>   
+>>   static const struct of_device_id dwc3_generic_of_match[] = {
+>> +	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
+>> +	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+>> +	{ .compatible = "samsung,exynos8855-dwc3", },
+>>   	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
+>>   	{ .compatible = "spacemit,k3-dwc3", },
+>> -	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+>> -	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
+>>   	{ .compatible = "starfive,jhb100-dwc3", },
+>>   	{ /* sentinel */ }
+>>   };
+>> -- 
+>> 2.17.1
