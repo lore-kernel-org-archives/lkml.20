@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793908624;
-	b=GC7nJ+zGJhdn6fPVRacndpSjKxAe6bBPiFcrNm4ShT0XG4o1OsOnwTg5JFmfAh6N9jYl
-	 8t5hOeswzWDVeKD350ETBVhhoV1jsRo9drBBFE3VpU+QLt/slrRIbOBaGbzQ1oiIo3dRY
-	 q5XQ1Nl1/3ToDjLp6byMP5loFj+5UEHen3JiidIFrBF/mveFQTJHbBeENlwXXOlUbeJI7
-	 XNVmuhfyaGLnO7Pz15t+cJw+zCF10BodDFlRkWXXUAvAWWDxvPczdhWtNvQpGJU9tthLn
-	 DEWXX4rgzL7KdhtfHZKVtb3ZQPnQK1dq45uqA1Y8Iz8MYkOtEdkoWwgUa5PGV1NDcgQ==
+	t=1793908639;
+	b=hIMIycivQ1WF28HUy4d1Yqe3EHFDa7m7OcuSESD+fjUHLYRTkXshM53w1E5jDBWyH82b
+	 to0UUCMgNPbnvli/Jf90Nc9M8bfDbxCMIJ7yZruR0laRtfNzX9cEMA+kQUs9Y5vdkWSQD
+	 piwxXvAtTagerxeP/z1hrQf41F/plUDQzE2Sagnc21Y+uLeeaHTtdvMCejuSvj1MqFtTV
+	 JLypW3wzIvkV3v6r5VFg8I7tMCatD7r3BnKPtWkdiTLbLo682ug/BnhQFg32XP1ht8XJ8
+	 LlnSBWRWVX4VZSusBkmrP5KgEMAUW545pGmQydoSJlYnlSWURkGcLJwq9EYY9/01Rmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793908624;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=An15+6Q2vdxwWmE0oN0s91oBzGP/evs72hqZz0pEBcY=;
-	b=r3KtJBTWL4DQq0ia3SOegzboF7tZ9rnzDQ+lqU+tQw8adbhsueSaPS03kuJbBXXhL0Em
-	 In5P7IXeA4858e54JWSkiIRNkP+Y1prbwJyY1i5G19cScqwqTSHu+M+Tu1oHB7nWvgA7f
-	 jpDBFpo4ybg81mmGo78V3Bv1FTlxEz+JBo/aJyc95vK2hWKf8OquU9gGxaIGzbtBTataZ
-	 seb4FvqO734NNyxhR/ax5SSo7rrw9P61BXg00pXYwod4HPeX+IiyGn7alWVcww6ZI22zk
-	 pc0AmUv9D1fevzo5VI+jCfbdHzq7t/tXFKEtVbS7xlkNBhuWISoQB78f2ZuXr+zkNsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908639;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=B3PGuBtYsDkPS6q+oBmmpl9f1c4rCqFvxlpSZWi2nUM=;
+	b=k6GEZwKQOmoPP80+e7bGD6g8JpnMIiPFuVFzu8KBtKp7tdbdS3GTEYtQC1b3/VMD34aM
+	 gKjkCtjdUldYjTS+CGer4OwEMhlBwKpnaAA3KH9Rc7WEHsEb4ekU9Lh0HF0hP1KvM4W1n
+	 HQ14yXbnYvuZQkUklbe4eaBqSb0uRZqmD5LZeNv0bXEuLycLODYuz1rbN0wK73kTapSGC
+	 e7yBBvyuSf705oTi/P/0YRX5kQ/uVAETK5yL6i6IWfSX7SeREqFBxyjs5jbbGs5Fd7WNN
+	 LwFrCLlAhsjfHupDmHSdF+fT7SRPRPVSN3qiVvwzeB9wWlvSL90iwVxfNIB4SvYnM0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTscwhw+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3qmXXbI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A44606A6D3;
-	Thu,  5 Nov 2026 19:57:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A86606A6D3
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTscwhw+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07CD71F0089F;
-	Thu,  5 Nov 2026 19:56:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3qmXXbI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D431F008A4
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:57:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793908623;
-	bh=An15+6Q2vdxwWmE0oN0s91oBzGP/evs72hqZz0pEBcY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JTscwhw+mTShBq0wph9YhJwuRM3f0Dfn1aGxn2/HpuOvvVNb84RX/BvM1kJ5Q8YhP
-	 OO13lpqAXlMv/4w2WzXx/1pByWA85tnqT8UV6kDiL059H+L6z5RGOu+mQYckOAx+tU
-	 AODmIzFqxR/0mr59bRm/ijv0+75m3p3ET5rRike+P+9zI1TCFNfacLiGx3sEDYpusm
-	 N/7J9I0Svkhbnd12oxdQXjXVhgkO7+MOrEhSJfjpAhRuQ6cEeAXiSoCJiNCniejsym
-	 2nTfqlzWg5LYotXAqsWLsMfbznpcXqTRJQzejWCBqHIqbygr8bYVfr2Ur++U4jPI74
-	 lsEqriE4pYaGA==
-Message-ID: <86a7f015-3b0a-4cc3-b465-0065ee7b87ec@kernel.org>
-Date: Thu, 5 Nov 2026 20:56:57 +0100
+	s=k20260515; t=1793908638;
+	bh=B3PGuBtYsDkPS6q+oBmmpl9f1c4rCqFvxlpSZWi2nUM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=S3qmXXbIx25aGds7p3bB+v5AtkJyF+kyhfVaF0ROCKX2dI6oLSwKbRQMtvm8S8khf
+	 zzdLXtVWE2OiqZhdwbeVC8kTfjfo4R7yj+1eaQL5QJtVD+jwvO48wyfHIE7JMmBXhN
+	 1WQcDnOt8C3FdMpDCgWDux9Gt7hXcYw978m3rZB9p6SiQihqIt8kRh+hbxol3qljbp
+	 Ji2ksMv28Br0OrulPYIKdXlTO1wlTbW0/gJ57BuQzQmN8VoWYiCs3kvUrjaSbLEKjO
+	 /SKBq5uttgr6WAVYsF0Zlf2RKeDlxbGnPBv+9GJBAfXTFt04VTEJ/nmgrFygZ0yhgB
+	 xZ5opK3LP4Gaw==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so1773391e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:57:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwdmMbAHk/BVviz42l2OCKzI7UxHaJnsnZYdWgspWqNlisqJoHW/v0otoeYk5wBG3MB3uJtF25Wj5nKD+g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qNx1z8ZyGkwqQp8Ekl0psjvJXX09vRZgXQhAPxrn8ByH7IDcz
+	45x+siZuAyLY4uPhYj8cHmia9r34jOW0ZEFXD3uYLKAOq5dpT5hEplyR9w4SV8NkhAvQNwDL23d
+	C1QN+UloPP+Sj0KPB+sJ1Da1OOyBtSg8=
+X-Received: by 2002:a05:6512:4013:b0:5bf:e4e6:7f78 with SMTP id
+ 2adb3069b0e04-5c003ab0e58mr40161e87.39.1793908636836; Thu, 05 Nov 2026
+ 11:57:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,101 +59,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: cpufreq: qcom-nvmem: Allow generic OPP
- tables
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Ilia Lin <ilia.lin@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261015-opp-v1-1-f18fb6f9bae1@oss.qualcomm.com>
- <20261017-calm-tangerine-marmot-2e8bfc@quoll>
- <athPyI5nvYG4vmfl@hu-varada-blr.qualcomm.com>
- <cfc75bf5-eb1c-4433-a4d0-770c56778392@kernel.org>
- <auGNhbKwIMGsOsbK@hu-varada-blr.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auGNhbKwIMGsOsbK@hu-varada-blr.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260924132859.24751-1-fbeltranmillalen@gmail.com> <20261008232912.GA940274@bhelgaas>
+In-Reply-To: <20261008232912.GA940274@bhelgaas>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 5 Nov 2026 20:57:04 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0i38rL7xmQY=_e5ppnn3bjQJcPBKQkvS_pHVJvUqX1ksg@mail.gmail.com>
+X-Gm-Features: AclHuK9RZC5U3cVKmSaUv-6y1OIrV-lQyNCOTrFAabFo6_FZlScfgW00KN5G-54
+Message-ID: <CAJZ5v0i38rL7xmQY=_e5ppnn3bjQJcPBKQkvS_pHVJvUqX1ksg@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: PCI: take native PME control on Apple machines
+To: Bjorn Helgaas <helgaas@kernel.org>, 
+	=?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+Cc: bhelgaas@google.com, linux-acpi@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Darrell Gum <d@rrell.co>, 
+	Matthew Garrett <mjg59@srcf.ucam.org>, Andreas Noever <andreas.noever@gmail.com>, 
+	Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>, 
+	Lukas Wunner <lukas@wunner.de>, linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28/10/2026 06:52, Varadarajan Narayanan wrote:
-> On Tue, Oct 27, 2026 at 04:50:56PM +0100, Krzysztof Kozlowski wrote:
->> On 21/10/2026 07:38, Varadarajan Narayanan wrote:
->>> On Sat, Oct 17, 2026 at 06:45:53PM +0200, Krzysztof Kozlowski wrote:
->>>> On Thu, Oct 15, 2026 at 04:25:28PM +0530, Varadarajan Narayanan wrote:
->>>>> The OPP table node-name pattern also matches peripheral OPP tables on
->>>>> supported SoCs. However, it only handles Qualcomm CPU and level OPP
->>>>> compatibles, causing unevaluatedProperties errors for generic
->>>>> operating-points-v2 tables.
->>>>
->>>> But the select should not select them. How can I reproduce the issue?
->>>
->>> Sorry for the delay, it was a long weekend here.
->>>
->>> With the attached patch, I get the following error.
->>>
->>> $ make LLVM=-18 ARCH=arm64 CHECK_DTBS=1 qcom/ipq5210-rdp504.dtb
->>
->> OK, I can reproduce. I wonder why do we need qcom-cpufreq-nvmem.yaml in
->> the first place. It duplicates top level compatibles and opp
->> compatibles. For qcom,qcs404 it does something useful - enforces cpu
->> power supplies. But for others?
-> 
-> CPR capable SoCs are added to this bindings file. Not sure if all of the
-> SoCs present here are CPR capable. Will have to check. However, CPR
-> capable SoC like IPQ9650 might need this and will face the same issue when
-> I2C or SPI opp tables are added.
-> 
+On Fri, Oct 9, 2026 at 1:29=E2=80=AFAM Bjorn Helgaas <helgaas@kernel.org> w=
+rote:
+>
+> [+cc Matthew (author of 7bc5a2bad0b8), Darrell, Andreas, Mika,
+> Yehezkel, Lukas, linux-usb]
+>
+> On Thu, Sep 24, 2026 at 10:28:59AM -0300, Francisco Beltr=C3=A1n Millal=
+=C3=A9n wrote:
+> > Since commit 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
+> > negotiate_os_control() skips the _OSC handshake on Apple machines and
+> > hardcodes the set of features the OS takes over, because those firmware=
+s
+> > return failure once _OSI("Darwin") has been acknowledged.  The hardcode=
+d
+> > set is ~OSC_PCI_EXPRESS_PME_CONTROL, i.e. everything except PME.  No
+> > reason was given for leaving PME out.
+>
+> It's clear there *was* a reason, but I don't know either.  Maybe
+> Matthew will remember?
+>
+> > The result is that host_bridge->native_pme stays 0, so portdrv never
+> > registers the PME service for any root port.  A PCIe device that
+> > runtime suspends still arms PME# (the PCI core enables it because
+> > pci_dev_run_wake() only looks at capability), asserts it when it needs
+> > attention, and is never resumed: no service handles the root port
+> > interrupt, and the polling fallback in pci_pme_list_scan() skips the
+> > device whenever the bridge above it is runtime suspended, which is
+> > exactly when the device itself is suspended.
+> >
+> > On a MacBookPro14,3 this silently breaks USB-C hotplug.  Both xHCI
+> > controllers sit inside the Thunderbolt (Alpine Ridge) switches and
+> > runtime suspend to D3hot when idle, together with their parent
+> > bridges.  Plugging a SuperSpeed device in is then never noticed:
+> >
+> >   0000:7d:00.0 suspended, PMCSR 0x8103 (D3hot, PME_En=3D1, PME_Status=
+=3D1)
+> >   ... no kernel message at all, for minutes ...
+> >
+> > The device only appears once something else resumes the controller,
+> > which makes it look intermittent.  The firmware on this machine does no=
+t
+> > handle PME on behalf of the OS either: XHC2/XHC3 declare _PRW returning
+> > GPE 0x6D, that GPE is enabled and has never fired, and its _L6D handler
+> > notifies PWRB, XHC1 and HDEF only - never XHC2 or XHC3.
+> >
+> > With PME control taken, the root port PME interrupt is serviced and the
+> > controller is resumed as soon as something is plugged in.
+> >
+> > Use calculate_control() for the assumed set rather than open coding it:
+> > that is by definition the set that would have been requested, it drops =
+a
+> > magic constant, and on a kernel built without some of those features it
+> > no longer claims control of services the OS cannot provide.
+> >
+> > Note this also makes pme_is_native() true for pciehp (drivers/pci/
+> > hotplug/pciehp_core.c), so hotplug ports now disable their interrupt
+> > across suspend and clear spurious events on resume, as they do on every
+> > non-Apple machine.  x86_apple_machine covers Macs back to 2006, so this
+> > reaches models that were never tested with native PME.
+> >
+> > Tested on a MacBookPro14,3, 6.18.49, with a USB 3.1 SATA enclosure:
+> >
+> >   - before: plugged in at 09:20 with 0000:7d:00.0 runtime suspended, st=
+ill
+> >     invisible at 09:21 with PME_Status latched at 1; only appeared when
+> >     0000:7d:00.0 was forced to power/control=3Don.
+> >   - with pcie_ports=3Dnative (which reaches the same code path in
+> >     get_port_device_capability()): pcie_pme bound to 5 root ports, and =
+the
+> >     same enclosure enumerated in the same second it was plugged in, 66 =
+s
+> >     after the controller had suspended, with nothing forced.
+> >   - with this patch, nothing forced: pcie_pme bound to 5 root ports and=
+ the
+> >     _OSC line now reads "OS assumes control of [PCIeHotplug SHPCHotplug=
+ PME
+> >     AER PCIeCapability LTR DPC]".  The enclosure was unplugged at 20:42=
+:13,
+> >     0000:7d:00.0 runtime suspended to D3hot, and on plugging it back in=
+ at
+> >     20:43:06 (53 s later) the root port took a PME interrupt and the de=
+vice
+> >     enumerated in the same second.
+> >   - wifi, internal keyboard, touchbar and audio all came up; 66 warning=
+s
+> >     and 45 errors during boot, against 65/43 on the distribution kernel=
+.
+> >
+> > One rough edge, reproducible on both boots: the port driver logs
+> > "PME: Spurious native interrupt!" right before the device is resumed.
+> > pcie_pme_handle_request() falls back to pcie_pme_walk_bus() when the ro=
+ot
+> > port reports its own requester ID without PCI_PM_CTRL_PME_STATUS set, a=
+nd
+> > that walk skips PCIe devices, so the xHCI is never attributed.  The dev=
+ice
+> > is still resumed and the wakeup works, but attributing PMEs from PCIe
+> > devices behind a switch looks like a separate shortcoming; it is not
+> > addressed here.
+> >
+> > Boot with pcie_ports=3Dnative also showed no new AER/DPC activity and
+> > slightly fewer warnings than a boot without it, so taking the remaining
+> > control bit does not appear to disturb anything else on this machine.
+> >
+> > Fixes: 7bc5a2bad0b8 ("ACPI: Support _OSI("Darwin") correctly")
+> > Signed-off-by: Francisco Beltr=C3=A1n Millal=C3=A9n <fbeltranmillalen@g=
+mail.com>
+>
+> I don't object from a PCI standpoint, but Rafael generally takes care
+> of acpi/pci_root.c.  I would again suggest putting some of the commit
+> log detail below "---" and relying on the https://patch.msgid.link/
+> tag Rafael adds.
 
-Only QCS404 needs it. I'll send a patch to limit the binding which might
-solve your problem as well. I'll Cc you.
+So I trimmed the changelog a bit and applied the patch as 7.5 material.
 
-Best regards,
-Krzysztof
+Thanks!
+
+>
+> > ---
+> > --- a/drivers/acpi/pci_root.c
+> > +++ b/drivers/acpi/pci_root.c
+> > @@ -568,9 +568,14 @@
+> >        * Apple always return failure on _OSC calls when _OSI("Darwin") =
+has
+> >        * been called successfully. We know the feature set supported by=
+ the
+> >        * platform, so avoid calling _OSC at all
+> > +      *
+> > +      * Assume control of the same features that would have been reque=
+sted,
+> > +      * PCIe PME included.  Leaving PME out disables the PME service f=
+or
+> > +      * every root port, and nothing takes over: a device that runtime
+> > +      * suspends asserts PME# and is never resumed.
+> >        */
+> >       if (x86_apple_machine) {
+> > -             root->osc_control_set =3D ~OSC_PCI_EXPRESS_PME_CONTROL;
+> > +             root->osc_control_set =3D calculate_control();
+> >               decode_osc_control(root, "OS assumes control of",
+> >                                  root->osc_control_set);
+> >               return;
