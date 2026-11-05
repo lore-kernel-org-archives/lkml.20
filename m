@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793892583;
-	b=WADyo/Gu/QV/H65Y9sTJQKf7sh/+MER2o4KTsILohpxj05k3YfsHUmUnLAIXv4xvAWvX
-	 Z+nMdpbiUv6wN4Rja7haazxmK48wSUZafT8mJycENVj/Nghht4tB00st/haaFCicGY5ek
-	 ouSq0vqCHNQsM7adtTf1Y9TKQWBMFpL/tA2Nkjs7oRudsv3ENuSRxInuhIR+Te4PJWbWe
-	 Q/lKhNp8N8v652LXu7aivcdzMlt1kYytM5u9Pt2535McqqNy4TnUMM10oVVJftvVk3Yim
-	 S2ebZyOXtT4Ww2wTY/kjBpgnce2xvooQhnhkhjtGV4urNIYh+B7eD2yifTJ9bDZYOVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892583;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=bizg8nXSrF877Om64bX/m79m7mPaW/iGKz1ARahMme4=;
-	b=z6ofG+xXSEtjRKcdEv7PlOaSq31X1yRbh3kvXLw2qUdunKZUeMGxkmZwnizX4+GzZvUn
-	 pCWwQ1CPXi8pIWCHlb37/HWhm13DBNOvIhqmWqPEE1y1RVPi+o6IExlSD2OYWAa47GfaW
-	 M2OwO53xuGdrZaq1KGG1AMIq7j4FbIEV/RuryIygVuY3wZR4nBSZfBiCwDjoXcT+bodnU
-	 eKRVK0ybNu2K9rGr2bQ60Ttta5d3Gbm1JrEbQSuRjTLZaq8hJgLJq0BH6G3O3InSgaDef
-	 hXkB3pVeBl2pGdFkT+dSupVp6CHHGFcRFO0O0gbnJcLXSTizLG8qiri/JTR8W+TTCDQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HywIhXfg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1F7606D80A;
-	Thu,  5 Nov 2026 15:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HywIhXfg
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793892582;
-	b=gkj7+mO3SGT2LX+jODHlIsjpnPLF0iy2WCLpYsCkixxQoy1TvamgMQdzY5VvnYpX+yRE
-	 7VwNPdS27KnkAQBJSL8sUiTc+ht+NENfDIN0OTNhTCcYRd/dK1vOkjZSR9Q1yD0pCGE8u
-	 RIw/CXL54Cv9RS+LMmvfaO/7BaFh8fpfwU6/OfCI6fEj+Ug4PI4OmfiZ5OfUHVNzV6aCc
-	 /7PACSWwatJVHf5QT36ix4phWLcKIfBqpCP0ZJ0mQmp+SHLbr1zg7img4QdLld0Mb5wvM
-	 s9+/y/EYMLkY1P57zo7jAQG/fc2YV71wOzeMFOMZyECnSjEGH8+e9lBGmzgr74D59nQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793892582;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=bizg8nXSrF877Om64bX/m79m7mPaW/iGKz1ARahMme4=;
-	b=FPWIkTxnA2uAItRxC0tfwzcrBbbNwhm9lbzJwgrtjwOaZthbHxKcxOsaLxUtrCxlVWpQ
-	 gHJqBpvSaDYeug/xBClV8sRBnMBRYj8xS5Sn2/ynO1K9jNQ+c/r3F+9kRaeI7+0nqb5RJ
-	 UAsk33K7rHRr8GTettzj8Nczryboz8HeQfXMDt0Vu018MEXXNbpNrlq9hTDqZM/SLfcbZ
-	 U6DKk9SBfq7HsWyMakxgY1rt36xUPd8a3HeUHORkkhtA2VsVMBCYqlYhsdc8VcscTv3zX
-	 14a8yt3h9vpWe+yOXELLVkig2wf1dPeErEA/xxWqpY+8BVXVhK/ffwZ48DEHaA3SQ8A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793892605;
+	b=vK81PMEH4fcBZZVfEfIGK/wKiMpHmG0o4l9tIkK4AmV3FiWa8sSYOhkdxw7tOwUikZWZ
+	 HV17a1Ggf2KEIszZZi2H9o9YW1cXWTVaS9JCoCRf+1lvO2Ld+vN3MAL4chKP8jNDirznx
+	 Z9MNYRl8hW4rQ93gVtLHbZxvRfTnibfSGiluo1Sx+JiRMyGsAVpgMo6DmLbeKG2AXD5qr
+	 zPEjX45at1EZJ1eBK6C4ofM8OVxGze6dCmpSoBxzzTACwbYUuW/Nywz1y+dxtCjhn2bon
+	 not/70tjohEC3qL/GFNihvC/04JsGBChkfeizXn9+JfqkvpapO72Oghx0cJA67qoXlg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892605;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=H7D7yhropaYIP0/pL9q+MsUBGzWnLUACI4oHFA7OPZE=;
+	b=MruGMU74bHZcke+5WfcOTQEJuJUQtv/7zxG+GXEiNK3qq6/mBzTCYJxS+DkYkoxazkCd
+	 slXTI4yeGydwMl36WsEGdn7D34/pzfQzCn7erTKIAAa6rDMYEHATKRTkUFKoosrVr6rSR
+	 vlyJ4zv566yk5tKULwsTtpgBBpQQ55NBWbUoKgnYZMIZQvr5/HmJ5w+675EOJMsxtcCGj
+	 93jowXMP6nCqTf+qhDGxgx5iPg2eBkc5ZpJ4pOhZdIl6/mbHvpAp/1EpnJBgGU7Xul6yU
+	 MmnTn+jSqjyMTzflabjgs/ak5TTJ4RPdy3HHoz3HRD+MFKtkh8ve4YfNd13xP3FA9GQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=iGXHVwdK;
+	arc=none smtp.remote-ip=209.85.221.172
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BE8741F00A15;
-	Thu,  5 Nov 2026 15:29:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793892582;
-	bh=bizg8nXSrF877Om64bX/m79m7mPaW/iGKz1ARahMme4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=HywIhXfgYRoggo+52lGjkmJUxL0eVwZVh9S+f3uP4VA39QTSgy8jgRc9Oylz49d2Y
-	 6dzaXruy94t2hB7N/zHK/MwTBcNOPQN4eBIQKjasIatBpK4UJqVywXzUG0De04AoP3
-	 Dc0BoZ3Sdo4iNPSKGFwrFBRfOcGacgO+Aur4IJ7S5PkkPEp4OoJDYbb3tLkm6U+mID
-	 Ysqg1MrCErSWbo0IhkzyTNv8S7NUZYm0VKbAa4TJ2XL81hrTXfE7/FjGlvKW+4sPHP
-	 EakdQ1fVnQbFNnac+0asaEQ997HDPOECrRcYtKUtJ7BYmn0HFoJoX/rC69tSRsSLDl
-	 EmNF8E2DanuCQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 23F3D472EE;
-	Thu,  5 Nov 2026 15:29:41 +0000 (UTC)
-From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: qcom: sm8350: Add the inline crypto engine
-Date: Thu, 05 Nov 2026 15:29:29 +0000
-Message-Id: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAED606D838
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:30:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEAED606D838
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=iGXHVwdK
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5eae1276409so664758e0c.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:30:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793892604; x=1794497404; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H7D7yhropaYIP0/pL9q+MsUBGzWnLUACI4oHFA7OPZE=;
+        b=iGXHVwdK2OyUuEwtigKed6XUtBXEKdT+3EtKeX0rNHKNR++WsFzSY7NMkcfCXeU00V
+         K8DwTOnEnGKnNeg/VKgGYBzML07Q0jeoZ0tKU0z2CTsdL3YXVsVCgTax4hbO3fT93K39
+         n4BSUKC920c5bMCqSevbL6uK+8BaSjQfUol6/pMo6YJo8DDo/FpuNLdWj9DMyY8T404u
+         9llPU3/5AOk9kMD9zPMR4mq5GrsYJE1yxcFxUkj2wNR4mQ0qHgbtE7rCKmDz0SzMUiqP
+         QcKecp+nfCPFGAt9jFhqcDQ3hEsy3EASWT9XOrHlcaxbdVKQOuVpobNF8PRyX/+VU6JD
+         nx1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892604; x=1794497404;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H7D7yhropaYIP0/pL9q+MsUBGzWnLUACI4oHFA7OPZE=;
+        b=bnN9Tbt06T+E+LVrEgQ4CVyzwFENt4DdUBNh+e58xgpeVXrJ5EgottdjgKswyJCXbl
+         uuRhaAUaOZ1qBZlSFO6wIHF0HwOY/h4EW6xkQfFq/zncekcURzzjcQt7RaWrUlUAwHKH
+         VrRcmlrSF1GQfpacUxTeyKFUDRehQ7ykQbkYVY24wHCc14YmasI7Llm7XBQ9vFeJoAMR
+         U0M6RCypVkjWD7tMdxZmCAkRT7XJ0qfHVhbjX2Ydths68RHzpp3bMmpa5a17r+ENOBfg
+         MHmuncyFiHHKM1uRhQirQ+gMYwrb+0NqWmGugYpHoEk7SIyqab9bRneZ5IFXBgwEVq4J
+         AaFg==
+X-Forwarded-Encrypted: i=1; AKwUvBzqFkM/fj/aBn0BRD8odb/qUwCyV7WUquos9YDkVaZpDsdqNq3v82wmVFaepQCs+IQ/5NU+X2WBcxm+0HA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uxy89cgobSGKoANcoeQvsWFUBYupL1K0XVD6oUH93S3jnLO/6
+	x1lS7ucGdJFyG2K8CXxt2+r9XbN0Nrttgm0PkXc2TlwektBwVrF2JGnADzcjJV/IB/s=
+X-Gm-Gg: AYBFou0AHvvz5HbTlhSNDMSqTNpH+xRce+3pV+yOa5+TPs1TP5T6NPeJ3Tqfe9P/LQK
+	V1VIkV2kJecqFfH/PD2eBRBB0eo82Tts74fLx558+xRu9l52DE95IovKwoaj71rMqfPF4eJccMK
+	JYN5glG/AtWcQRMdv3qXCdinqxkdNUU3JetRuXuVxJwCihiD+dnWy6OUiUbM3Ic475jYWCibm56
+	sG0sNRqGosG3dnkrTdjRA0vxfbVlNtcELDBTsRquaL33kK+cyQ5nrKcbcmhN7/gjfp1o8x7JohE
+	M7REfF8bHgv2PsbIGUZULNQ6tpDEp4Vy2Vj9K6UdhnUfHroPX+PUqoGU5XyyOZLqmnd9XEB0sMd
+	r+64z6mB+geoemj3rz6Mzi1knPx9+AUvumiXKDep2a/6s104GYYIveKs1V2zibugZzHmnTPZ4IR
+	kRGCppK146AT1UwDVoGpDGnmcVctAeCrAvNr2GgyEun0pVSYCIY36jHyL14uHIVeG/RJIUSHxdE
+	yOiA8Mqei9HFS21ovN9p66o4GhamQjwE2kR9QPvi75NPD2emQ59rRBt3cCCevrbOaGOtuUUYmfr
+	vJvQAYrwzxrFrs+/rPhfYXCubUuHJ8w=
+X-Received: by 2002:a05:6102:3ec5:b0:7cc:2bb7:131d with SMTP id ada2fe7eead31-7d072baa484mr7972673137.9.1793892603471;
+        Thu, 05 Nov 2026 07:30:03 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.246])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca8d775aesm4495753e0c.4.2026.11.05.07.30.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:30:02 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:03:13 +0000
+Subject: [PATCH RFC v3 81/90] net: use net_may() for privileged socket
+ options
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,63 +95,154 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrB1IohHbq0gXGn91CrUlU0UQ7
- 25al9/ivZ0UUaB0z3aKWEXlPSfYPKMwtfMIlj6ZnHGVtcZzV7K+6sIblgDG0Palx61wlaPUfCI
- G2f6/5nFZl+6J8P1N6DhOIthlk3EAAAA=
-X-Change-ID: 20261105-b4-sm8350-ice-efad45e93262
-To: Abel Vesa <abelvesa@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Demeter Barna <me@fromdisposition.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793892578; l=1321;
- i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=suhANv7bOMWCMhQ8xWZ6gPrL/h1+3YpM+oSA0xcQSBk=;
- b=Lit8UbrinNlhQJDYfrDII+oLqibmjgAWVno/4aiYqq5Nz9BX7KLkgZUl0bztXoJBkV5NCQPRs
- LQzq48Aekn2BdADzCUZsBQY5LTfjNg8Gd+bP+qKQvy6LHUJ4o3pR1gh
-X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
- pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
-X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
- auth_id=1163
-X-Original-From: Demeter Barna <me@fromdisposition.org>
-Reply-To: me@fromdisposition.org
+Message-Id: <20261105-b4-cells-v3-81-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=4991;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=eW6u9uQ0Wsmh3Os08bQUEqftrsYKdy1N88JIsBJuoEc=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QL8/5Krgo+1D1BousniGNKt/9o0yYC27T0CQ8djI/9gfhK/kChE2x/kdhPQZeiWy4jXRQ+tiqJP
+ duiCL/Mg9SQY=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-SM8350 has an inline crypto engine (ICE v3.2.0) next to its UFS host,
-but sm8350.dtsi does not describe it, so ufs-qcom runs without inline
-encryption. Add the compatible to the binding and the node to
-sm8350.dtsi, as on SM8450.
+Some socket options affect how the network namespace treats packets, not
+just the socket, and require a capability. Convert their checks.
 
-The region covers the engine (0x1d88000, 0x8000) and its key manager
-(0x1d90000, 0x9000), as in Qualcomm's SM8350 device tree; the clocks and
-the power domain are those of SM8450. The TrustZone offers the raw-key
-SCM calls but not GENERATE/PREPARE/IMPORT_ICE_KEY, so qcom-ice uses raw
-keys.
+These accept CAP_NET_ADMIN or CAP_NET_RAW today, and now accept
+NET_RIGHT_SOCKOPT or NET_RIGHT_RAW: SO_MARK, both as an option and as a
+control message, SO_PRIORITY outside of the unprivileged range,
+IP_TRANSPARENT and IPV6_TRANSPARENT.
 
-Tested on a Razer Edge 5G with fscrypt v2 on ext4: "AES-256-XTS using
-blk-crypto (native)", and files written with and without inlinecrypt
-read back correctly either way. dtbs_check is clean for all SM8350
-boards.
+This one requires CAP_NET_ADMIN, and now NET_RIGHT_SOCKOPT: SO_TXTIME with
+a clock other than CLOCK_MONOTONIC.
 
-Signed-off-by: Demeter Barna <me@fromdisposition.org>
+These require CAP_NET_RAW, and now NET_RIGHT_RAW: SO_BINDTODEVICE on a
+socket that is already bound to a device, and the IPv6 hop-by-hop and
+destination options.
+
+Not converted: IP_IPSEC_POLICY, IP_XFRM_POLICY and their IPv6
+counterparts, and SO_ATTACH_FILTER on a TCP socket.
+
+No functional change.
+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
-Demeter Barna (2):
-      dt-bindings: crypto: qcom,inline-crypto-engine: Add SM8350
-      arm64: dts: qcom: sm8350: Add the inline crypto engine
+ net/core/sock.c          | 16 ++++++++--------
+ net/ipv4/ip_sockglue.c   |  4 ++--
+ net/ipv6/ipv6_sockglue.c |  7 +++----
+ 3 files changed, 13 insertions(+), 14 deletions(-)
 
- .../bindings/crypto/qcom,inline-crypto-engine.yaml          |  2 ++
- arch/arm64/boot/dts/qcom/sm8350.dtsi                        | 13 +++++++++++++
- 2 files changed, 15 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261105-b4-sm8350-ice-efad45e93262
+diff --git a/net/core/sock.c b/net/core/sock.c
+index 352310066e35..ba870aa6b967 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -462,8 +462,8 @@ static int sock_set_timeout(long *timeo_p, sockptr_t optval, int optlen,
+ static bool sk_set_prio_allowed(const struct sock *sk, int val)
+ {
+ 	return ((val >= TC_PRIO_BESTEFFORT && val <= TC_PRIO_INTERACTIVE) ||
+-		sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_RAW) ||
+-		sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN));
++		sockopt_net_may(sk, NET_RIGHT_RAW) ||
++		sockopt_net_may(sk, NET_RIGHT_SOCKOPT));
+ }
+ 
+ static bool sock_needs_netstamp(const struct sock *sk)
+@@ -642,7 +642,7 @@ static int sock_bindtoindex_locked(struct sock *sk, int ifindex)
+ 
+ 	/* Sorry... */
+ 	ret = -EPERM;
+-	if (sk->sk_bound_dev_if && !ns_capable(net->user_ns, CAP_NET_RAW))
++	if (sk->sk_bound_dev_if && !net_may(net, NET_RIGHT_RAW))
+ 		goto out;
+ 
+ 	ret = -EINVAL;
+@@ -1540,8 +1540,8 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+ 		break;
+ 
+ 	case SO_MARK:
+-		if (!sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_RAW) &&
+-		    !sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN)) {
++		if (!sockopt_net_may(sk, NET_RIGHT_RAW) &&
++		    !sockopt_net_may(sk, NET_RIGHT_SOCKOPT)) {
+ 			ret = -EPERM;
+ 			break;
+ 		}
+@@ -1649,7 +1649,7 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+ 		 * scheduler has enough safe guards.
+ 		 */
+ 		if (sk_txtime.clockid != CLOCK_MONOTONIC &&
+-		    !sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN)) {
++		    !sockopt_net_may(sk, NET_RIGHT_SOCKOPT)) {
+ 			ret = -EPERM;
+ 			break;
+ 		}
+@@ -3172,8 +3172,8 @@ int __sock_cmsg_send(struct sock *sk, struct cmsghdr *cmsg,
+ 
+ 	switch (cmsg->cmsg_type) {
+ 	case SO_MARK:
+-		if (!ns_capable(sock_net(sk)->user_ns, CAP_NET_RAW) &&
+-		    !ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN))
++		if (!net_may(sock_net(sk), NET_RIGHT_RAW) &&
++		    !net_may(sock_net(sk), NET_RIGHT_SOCKOPT))
+ 			return -EPERM;
+ 		if (cmsg->cmsg_len != CMSG_LEN(sizeof(u32)))
+ 			return -EINVAL;
+diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
+index e06c1f48ecad..cc9e0bc952f2 100644
+--- a/net/ipv4/ip_sockglue.c
++++ b/net/ipv4/ip_sockglue.c
+@@ -1008,8 +1008,8 @@ int do_ip_setsockopt(struct sock *sk, int level, int optname,
+ 		inet_assign_bit(MC_ALL, sk, val);
+ 		return 0;
+ 	case IP_TRANSPARENT:
+-		if (!!val && !sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_RAW) &&
+-		    !sockopt_ns_capable(sock_net(sk)->user_ns, CAP_NET_ADMIN))
++		if (!!val && !sockopt_net_may(sk, NET_RIGHT_RAW) &&
++		    !sockopt_net_may(sk, NET_RIGHT_SOCKOPT))
+ 			return -EPERM;
+ 		if (optlen < 1)
+ 			return -EINVAL;
+diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
+index 4b3536571c98..d2880493d33b 100644
+--- a/net/ipv6/ipv6_sockglue.c
++++ b/net/ipv6/ipv6_sockglue.c
+@@ -304,12 +304,11 @@ static int ipv6_set_opt_hdr(struct sock *sk, int optname, sockptr_t optval,
+ {
+ 	struct ipv6_pinfo *np = inet6_sk(sk);
+ 	struct ipv6_opt_hdr *new = NULL;
+-	struct net *net = sock_net(sk);
+ 	struct ipv6_txoptions *opt;
+ 	int err;
+ 
+ 	/* hop-by-hop / destination options are privileged option */
+-	if (optname != IPV6_RTHDR && !sockopt_ns_capable(net->user_ns, CAP_NET_RAW))
++	if (optname != IPV6_RTHDR && !sockopt_net_may(sk, NET_RIGHT_RAW))
+ 		return -EPERM;
+ 
+ 	/* remove any sticky options header with a zero option
+@@ -405,8 +404,8 @@ int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
+ 		inet_assign_bit(FREEBIND, sk, valbool);
+ 		return 0;
+ 	case IPV6_TRANSPARENT:
+-		if (valbool && !sockopt_ns_capable(net->user_ns, CAP_NET_RAW) &&
+-		    !sockopt_ns_capable(net->user_ns, CAP_NET_ADMIN))
++		if (valbool && !sockopt_net_may(sk, NET_RIGHT_RAW) &&
++		    !sockopt_net_may(sk, NET_RIGHT_SOCKOPT))
+ 			return -EPERM;
+ 		if (optlen < sizeof(int))
+ 			return -EINVAL;
 
-Best regards,
---  
-Demeter Barna <me@fromdisposition.org>
-
+-- 
+2.55.0
 
