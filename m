@@ -1,64 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882902;
-	b=mj5ZRetN9sL4mTxu9t/tONKOJczoRoVxa8rrpMh3TAUX0/h+owhOhH+8MiYetKDn6xOs
-	 b+i6YojsrdNtCP3kaktEQKe29WA7ccaXDu1Wr07tEw9vaDB5lEOjpz5bqweWeKBr8qhdG
-	 jCQYpF5Ve5P0//4yi4k0A4J3zE2/URC47G0Ze1a5zZHZ8dCuiTF28QCgud1dXhNgPC38A
-	 1Nc6axO43vm0Xidqm5ewU9Il2oBhLEI0GSiQI+xaA+GwkoBRA3hTKgCUGrN3mUpDj8aRM
-	 C/4XAuDqHVq7QF6VCm93+5NkATpeqmS4W4D6Dub4/vc2xbLTDU69xhItHWlJF5tJawA==
+	t=1793882929;
+	b=SmY2ByrDJi2SLZ4oxt2zTLpuhDQWKUlo1CjkIJBVgn+Zexrg7zT4AcgJnOFwWaLgMW/2
+	 3ofPIvyYvKV4PWKeh6gAcyEE77J6sfSd0TcififnDi796d71xWiCEcok39IR22fDNsxXb
+	 OncwjHYnfC1MpiJaqjimBToptU7BfzVSNT4j4iYy7IwS6jwoDX3zaeFYgZVPZ6AJwEETC
+	 yjBmBCyQ2qNanb/HdPnp/QnL5mSQOxCcUgSc/J3IMHBqVa4S6A0aB5nEQjzHc7YL6aSeL
+	 3Xckz5nGPqomcWbIXFwsOc0R8nbHFfxIdFo2hNKwAKudedUDuza0zQE3k2eAW6vH8Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882902;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QY8lCwmkmind44M0So4KIeiIQuRudzX0HtJ/2Z9V0Ew=;
-	b=joYZpnxEXxBeOt5mc2jmhEzruGPDY0/7tkCGEorRLB6iVVChtapfcXVRheUx/v76UXMN
-	 xKs1Nmh+DXmX7HM1ws089JiHJuiMXghZm71vgK2n5TBbRHXnB2J1AOEu6DWFpjTB5OVvE
-	 yxExU4Mn5Cvg02OGKOFPYiuqwYKmhTFqTVSOJNiSMOGzNfqaC3G0apMs0Sf0Q6NgQ3/RI
-	 uq0MieG2yUFkyuZqE+bNCgjdLE+emvvllUnMAOckfyrN81Hz43J+OvZ5hZLsJlj8VtVJP
-	 Jxgakzty/myisq4LTgrfPPR28pc98d4kdCWgdIWvLqGVH53JDFkag/w7IIJYvbndW2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882929;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=FpsCnQXulO1zACpv3lZ/XLdDu6HqgPswy6BO1ThvjQA=;
+	b=r1o+p7/nIqY64/Yb82miGbhvYOpxaMxka2GDeUCZj0xkuUnFeC/u1mdCga3muDK2xF2h
+	 i/GSGCjsl9ijY54IK3Ds1o+Iua5wu7c2S2Rz/NCAHZLYNKzoL6gSnpdWT5ISYUaSwirqu
+	 Us+5aNmUKhYp8BR8U9X8iIjAM3d3os0TPiABGoRaLdLOoDgIcuVt6cNSovfMl3LEOYFp2
+	 c84I4zzti75D4qj/OhtbA6vx8B4l1vFF4jMHn6QlcQZRMCx+vMeElAct/Kflf4CVWSApG
+	 LjA2dGedvLOuJNfA/5dXXINRE4PEo5GLS75MA+vDOmeo5FJDfDV/ciKXwU/xDaDy6zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASExXGBv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HA96C3Dr;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C11606A326;
-	Thu,  5 Nov 2026 12:48:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6CC606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:48:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC6CC606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASExXGBv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9F911F00A21;
-	Thu,  5 Nov 2026 12:48:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793882902;
-	bh=QY8lCwmkmind44M0So4KIeiIQuRudzX0HtJ/2Z9V0Ew=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ASExXGBvEOYAz2bb/LUlqbCHgdW/CLfiA4bmdMGdDzOvFZwqheIdS65o8NFSROpgR
-	 4hzxoYHIzaPWHwoxv8j96U4JRBUbwWg+l/ROA17/euuErxG1CbzC8kt81izsXGgsBl
-	 eSB0XZIo8H+PmIKumciFK7rcAnEAf1+NwfsvEGy2Gfm3uu6Oy2dQMDmcYXdVkk9VXb
-	 fqd7N8WJT1XYSaRD+UWEOYrSa4h37BVM3/8y3AcIh+vrkuRV4m5mswTbuLOXBHsxy9
-	 cCLScHsxa3vC0Aq4HyHM5Wv902zFZXT8VV4zJ4aDr7lm00QAGywUrm0aprBoq5vDft
-	 JTGal4r2g72oQ==
-From: Sasha Levin <sashal@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Dmitry Safonov <0x7f454c46@gmail.com>,
-	Hangbin Liu <hangbin.liu@linux.dev>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: net: tcp_ao: don't shift a size_t by 32
-Date: Thu,  5 Nov 2026 07:48:19 -0500
-Message-ID: <20261105124819.1532111-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105110856.2dc9f08c@pumpkin>
-References: <20261103163921.641347-1-sashal@kernel.org> <20261105110856.2dc9f08c@pumpkin>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HA96C3Dr
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-490d59c3edaso438273f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:48:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793882927; x=1794487727; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FpsCnQXulO1zACpv3lZ/XLdDu6HqgPswy6BO1ThvjQA=;
+        b=HA96C3DrHLN/jyqIepgGp+YvWNWAcP74Bo3C5bFpShRZqhxLdK4Z6rSNcGXqcUkGXL
+         WHpTDpfC1e3ghpAjayvCaBXpjGaZTr5WfrOKl5HQ08Mrd04oTpJTbrM2nqZcLG1RbcH6
+         pE1KVs0SNXF+CKIt8JXdsZK+g5BDHLasMRGVpqIoaqLScK97qdYh+yQn85LpRwaZ0D88
+         38d/eBGJu8n5QinTAy8Eha7bFtHCLADDqY1rIOXS+k+UT5nv/SXGE7A0iP8+Nd8foD8J
+         tXhpQLLl2KXm8l4Jtn0kC67qJkCI0FcH1sWkev/oCY0iisHx24vfp5Gw2vlzlHlhwASA
+         F8AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793882927; x=1794487727;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FpsCnQXulO1zACpv3lZ/XLdDu6HqgPswy6BO1ThvjQA=;
+        b=W6P35LwZ6hTi3gSZHjrcy1fj0OtZwJgzDIUUlysFKIKYcmQ0kWrWsQ25xHkieuxZLm
+         XRwWYcdYzmgNpl6HAXcCB3lmdM0qUFEJB87GRUE6Pnvn2nQ0lR1Fhr2LUAH01hESzdTa
+         zdiRxqnsxrhXipAwZ+0UNwvbQd4kzd42svzpBgYTtwZiIH/21uXPE/FgCBIC5NxGQkRy
+         soxRPbmbXjzgNp78FXu+DWYOrXzeQQGgzcaCZUui6EBvFQrEUiZB7c+cbr/KBDYe4MRH
+         tEzkLJ0W9PtlVCEVOSkUbSaFivtSAzH2XXdQqWxaz2FVfKIKc3J23Obp/uqWjYeugmr7
+         Or1g==
+X-Forwarded-Encrypted: i=1; AKwUvBw0TyuUP2LEnmPCwLXlIIQBbctCxglYvCveYMAiAWbOvh6++gnOI/XU4D6v0rVNUtCs42WYrKcAI9zJUCA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wBvVGXYrnBDxmcnJkFOTNsjAJhKvF4hYSKrT9KcbXXNmurQm1
+	zv66b1QCrD+MsGnkPnQJ5YImG6nJ3/eKh8PPSDxFlVb/vaNWsoC7SkCE
+X-Gm-Gg: AYBFou21o//6XThD42u3xZYry8d0in4hNMVT2mm519X98SZkjGB5MOW+SCQdOoL7eFD
+	wQWwGq5nIdjPPI+2deG7mzR07jnbjQirH+XENIHx1DEA2vLVVzEWShmd9hFyElgvjj1TJ+G6EP6
+	Ozsnl8fJsMM2Q/c998FsSZc7Lm677ZylMGLKXiZ2XsIpfyeoZuwwnaOYh0pK1thBnQvekPKfPrL
+	LJTE6pCRhjNSRpUXfsZMptqjKleaDjb0RqcMWheQUAinKp9HTcg7/QPCRBgrxK6/hvBPcnHEtDI
+	zc4t/ae4S7x+0IEYp6PmFvRRBjtKfFLNU1UQeaUrKdblejb7gVyXRC+qczmPChhQ39fQTwBFckm
+	9rLbduppm/N8erd0z8kPyKk+oKB/wBk1zQCEIEy917EnbEsdMzlKTfbPirTVFATOGU6IZybuziv
+	KHiRtl2MbpxLVvSzTL2AMTfWMEFBMVi1G9xUliJQuLa1ZYbcAwQsMLpGoarSQMFNT3Mzn2jxDPw
+	fMzTWRDKSNIao+ZGe2P8r40ABa3mNrTCjw72lIMdsRThJxIBeTM292UvA2usByqojXXhD9tJiib
+	CT671JDj6y00YG4X8ae9p9/4Nj/sInKocpDSXhELSM9+3pKrXpAaZcMowIg/bTRi48Gq4bnxEjV
+	AiGcp4mQxGx17y2TfD7r8SfRmX+sEhVK2sCHheHfmRpgsUkGfxKyUckeKKxZbsajSgmc=
+X-Received: by 2002:a05:6000:1847:b0:491:e477:6820 with SMTP id ffacd0b85a97d-491e4776b1emr2280105f8f.20.1793882926933;
+        Thu, 05 Nov 2026 04:48:46 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed45d2bbsm10342778f8f.33.2026.11.05.04.48.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 04:48:46 -0800 (PST)
+Date: Thu, 5 Nov 2026 15:48:42 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+Cc: outreachy@lists.linux.dev, parthiban.veerasooran@microchip.com,
+	christian.gromm@microchip.com, gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: most: video: document lock fields
+Message-ID: <aux7KmnRHloDL8dj@stanley.mountain>
+References: <20261105101222.5478-1-husainsitamuwala21@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,32 +98,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105101222.5478-1-husainsitamuwala21@gmail.com>
 
-On Thu, Nov 05, 2026 at 11:08:56AM +0000, David Laight wrote:
->On Tue,  3 Nov 2026 11:39:21 -0500
->Sasha Levin <sashal@kernel.org> wrote:
->
->>  #ifdef IPV6_TEST
->> -	ret.a6.s6_addr32[3] = htonl(n & (BIT(32) - 1));
->> -	ret.a6.s6_addr32[2] = htonl((n >> 32) & (BIT(32) - 1));
->> +	ret.a6.s6_addr32[3] = htonl((uint64_t)n & 0xffffffff);
->
->You don't need a cast or mask there.
->
->> +	ret.a6.s6_addr32[2] = htonl((uint64_t)n >> 32);
->
->That can also be n >> 16 >> 16
->
->Also see upper_32_bits() and lower_32_bits() in wordpart.h
->which might not be available for selftests?
+On Thu, Nov 05, 2026 at 10:12:22AM +0000, Hussain Sitamouwala wrote:
+> Fix checkpatch.pl checks:
+> 
+> CHECK: spinlock_t definition without comment
+> CHECK: struct mutex definition without comment
+> 
+> Add a comment to each lock in struct most_video_dev describing what it
+> protects. No functional change.
+> 
+> Signed-off-by: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
+> ---
+>  drivers/staging/most/video/video.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
+> index 3a0445ff62f4..d60be8a741ed 100644
+> --- a/drivers/staging/most/video/video.c
+> +++ b/drivers/staging/most/video/video.c
+> @@ -33,14 +33,14 @@ struct most_video_dev {
+>  	bool mute;
+>  
+>  	struct list_head pending_mbos;
+> -	spinlock_t list_lock;
+> +	spinlock_t list_lock; /* protects pending_mbos */
 
-They aren't, tools/include has no copy of wordpart.h.
+What I want here is an audit of the locking.  I imagine that the result
+of the audit will be more than a two word summary.
 
-It works as is, but you're right, htonl(n) and htonl(n >> 16 >> 16) are enough.
-Happy to respin with those if the maintainers prefer.
+regards,
+dan carpenter
 
--- 
-Thanks,
-Sasha
