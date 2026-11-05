@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793854484;
-	b=2wVGB8cekVxx7eG2aYLc3rfgYODNfidMM/5/mBSwLMi65jUw4WSHDSew6480pzL6rsGw
-	 Xfah9VQVKH9E2ItIaacpV3j3ORX1I1ZBPpx+mS89vjS6n05mfz+LROG0Cj6gNNnfyPllI
-	 cVmLdTsT5b7xU+FP1JTSaPnB4pUpN2ylepNaw3n7Ki3mzmJNcYAUwig+DjWd+V8gOqkJt
-	 01t/Pu1C5jEXntwk7HtvTrD9qRB0Fbe/Z7r+AsiZGZ3Sr3CYJWEVtRD2GvZeZMZLHFTkf
-	 BzXXLgoFDlrEWPfMPlVX5nC2iI9YhG9jIL5wrVzxXjOyubvEKvbH799jqKhYVDPk+RA==
+	t=1793854523;
+	b=2jrdDw9O6R+dd1oQ78TR0BWxrX/hmKMVl40gJT5A5b4S1ORU00CoWf84Row8TyiqlXg1
+	 AYIz1lrXKgZwdniAIRQPjng9s+BmP9TedWRVNysiyHKJnc6VIlzBaL1TcNZLpHFyGQO4F
+	 BaXbO4myebbqBoXmNZdMO5QRCYJJeRznrU2NYoVr+g0j338hxhNq6c0p/WQ/8+1T1UmoW
+	 Qr4Sa52vGM1AAkbwrCka0GXozW2VUZv95zCZa7TNFhxRq1omST6o5QiyHC0puAHvi7Ja1
+	 Wzc/hhTNHp+VIhsOG+EEf3BV5SHh78yU/KVQ+KIGlm0C7yow+2BrEAiZo9LndvTiTxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793854484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793854523;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rnpw/Qplf1e1mjAlvFuzX+A+KTU8pa0uB9bJ3uepkt8=;
-	b=YHtzKKDb737qavDhBpn2mEtrSxASPM0mQx4G1VWmDWFgCoDegpy7NtHrg/C3Ouyf1vfL
-	 Www7pomO11uPud3GpDuvULsPH3RguMNbOoVbll8QVflyZ1ZVqaTQVJKEJFFbO2r6ixmBj
-	 C6Ts7a+WDGSS+zes95iA0Bk3uTL9kkUKeAUmukN988uytsBYypIPx5xn96B23Rxcr0RpX
-	 lehAEIysTnpkusiJCdhaYHxjI6bTzz1yvKJOEfASPlBgf8915YuGvI2heG2XHDMDYAmiA
-	 lzaG1tEO3maiAdmEDUDlAwxLAxQVYMR7V8KyylHoKFpkp6rY9Bl5iR3U1/dAyYi70rA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0K/OpJSJDyeiHFgRi2dD4j6fShhHweBIMHEcvs+4Jvc=;
+	b=jTndQ5pDKEO3vM/6uTs2EPAUZVheACvDqx7ZbNFRzhSo6rHthZVNg2kor0QKVdhbW3Cc
+	 p/4px0qMQCbSXNLQt+UITN3/y+7jG4RwtG1DbUEJb1roy2HB3BIaH7kijXeN7TQugxoW2
+	 Cde8TFr767TgH3GZ1DjbGDgXQw3s5/J6Iz0ZXq51q7/Dg8eZAbmbohqPHrlNuNPldiWbi
+	 QqlQFvIKcBmhgVl13c4j4g7eYPHsBdvUtXNHkNrYOcuXV5oWxB5zM21blZ+MJrKd3qbyF
+	 ihVQdjmMs0RzPQRb8qMz2+FYBxuuYI4pke6k/EuxO92fQvkNYq8F4X5eEPot6V7P+nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=GNpZLdJG;
-	arc=none smtp.remote-ip=209.85.222.170
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mTKYyYeV;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEE2606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DEE2606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FC1606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:55:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92FC1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=GNpZLdJG
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f2b8cf037so119826685a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:54:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mTKYyYeV
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso217397a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:55:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793854483; x=1794459283; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rnpw/Qplf1e1mjAlvFuzX+A+KTU8pa0uB9bJ3uepkt8=;
-        b=GNpZLdJG+LTTiIlTRKwMKjhF6TnQOxOgxfa7jy1lhFpUrReYPsi0yeZXT+IzCFm1dT
-         whbow8+ZzyIAYrQSqvw7l54G5BPJbhFn+TCuTi0+AWO1GPJXuTbxEvH9Q9UGJAn8KWQX
-         UUaTP8bmypPC18y3ggRlCReMnMkASackE0LJy1RJE9Q44fNGKK78aqmOrjCIaX8a6IPA
-         8HLWXJz0wR4hG3EWNTkd70PItozUUNemNisL3iKCOySVGuhsEu5VLbtxlOICGz3ZZXXH
-         W9LqKAmXaLdw0+IdnywPay86sFYXmpXnmW8VAPFD+UGHuM18ChjULRhxdwK9kcmeKaJ3
-         DCuw==
+        d=gmail.com; s=20260707; t=1793854522; x=1794459322; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0K/OpJSJDyeiHFgRi2dD4j6fShhHweBIMHEcvs+4Jvc=;
+        b=mTKYyYeVr7uxttrPBh/zbgdicB4GtUsAEPY7xWdW42ONQLpFWniKAVmHzgolRVnz1R
+         7cGjdcpTCPUuQy/A64lwRFiyY3CHLGj3nlqbK6AEQwT2zG7biKPOWYGbyqYZoXfGRvF9
+         VMNjEFP/372eFVw5FbTuSsi8X8vRwpvlmPjZMD5VyyudE8jzRBB7z6J5DpdMGoY7Hq5p
+         KRhkUg8+WaJVVEcdue/XWCVzhYJgAPz+7SROTuyUkDUJZGvY0euOB/3t+nKtd4g2liXU
+         30ygp2YrQxS3ncCjh2vsNdYieq6M3aMH+1rBdw0W/ieO4AuFjVJakOI9Kr5nAz8+hS5n
+         ycYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793854483; x=1794459283;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rnpw/Qplf1e1mjAlvFuzX+A+KTU8pa0uB9bJ3uepkt8=;
-        b=OWjx0Lvs1xbbYmi6wfyH3H0KaIUTuXT6BnxQjJPLtBHODwfW421XyH3F3c1bxyqBtx
-         vjIyLpupq9h+wL0lkdbVDGkNLY6cKSWb/Zej1tI+61IMmoRVY24InXWf4Sg68G+6Fvc7
-         ZVxuYO8JIpUnI6yiHXTvJwQjQDg01pqmnW5Ybpbn83MqhRDl1ZKKk3+VrEdyqrn/Q/Ae
-         uiKSwR8SpUyYurFrt8O05V9U9ZQOJTSO9f0KhLRvb4x/PO6e5ZcrqCr1Fh1qxtqn1QdW
-         UNoo6eNc669V44Y2G7JP2IXXJ2biPCAfAlTUszNe20R4h9s1Kjw1dKamROoEa4eba4vn
-         5FCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzw5Z19kxOWFSgJX0ypqMRqWv9xcgZuWyFr/mF+fsCqoaI2fMaDC8vZ23TbdXTCioBoLrgrHbNx3TwkdsM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gmwcS0UQtD5oPdrQO6RP1/udYazRmTlW5CpJ3a+zmhF8PF8l7
-	eUNkW2dddVtobDaDLmkkGmpONNyeH1NnB/dYjRiNGo1I0zHwUl86leV6ZOByohYseg==
-X-Gm-Gg: AYBFou0IEb/XNIhN6aY0jfdSIdhIL3ml7zjxpGSyPwk9IhZJiRphwcrLKmOHGmZVFEj
-	eFmsdfPtJxdeOZHdwgvHP0tEBHpHvxk1/BEGgseI2EztJkVXjLSwWWfpUgEozCKNv5p+H2L46qT
-	j9kSYMTIUrXbYxdP6T3d5/8C8DRxnmLsI3OeDujbLPkj0lL3so3Epr4d7tSeTb7QqlfXvwf0amD
-	oL+vMkonH/nTp68Xg26fiae7XUlY9WYjv/DD2nVTr/UkOhfMcXyI0w8kO11Z75s76AoWKGOPqLW
-	B3MY+AJubO8XoYI69KKVtoyBsm00J/FNJCMHepur8iB3CMpBb/ZIWZcsPGKU5l8Y0tPKvtw/Zjz
-	4RUv1Kh8vM7q5LPY4YyJNxmdQgXv55Suf2vZEjWg0Z8jDlJ/fQJ8dShtVZ85Alt7mBOV0qrYNkK
-	GOUiRYwehaEvya17Vq/LgjsKul1IXyjB8h+5h6JifI2P55sP46JtrEXUQ5tOo5eqeA1nefwVCVT
-	MUUjDi1Hs0rgEVSvYmsyLSWYn0HmQPkmxHhHl1cN63o8cWnUOEolfb7+Jk8/xRVOlB8QD3Vk/BA
-	loZJCNqLh+OkOKSoHcc9yUhoSwlSyA==
-X-Received: by 2002:a05:620a:4515:b0:93f:2b23:481b with SMTP id af79cd13be357-944216f074fmr3225502985a.22.1793854483013;
-        Wed, 04 Nov 2026 20:54:43 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d48694cfsm378985185a.36.2026.11.04.20.54.41
+        d=1e100.net; s=20260707; t=1793854522; x=1794459322;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0K/OpJSJDyeiHFgRi2dD4j6fShhHweBIMHEcvs+4Jvc=;
+        b=sgo/p8gtLrp6q4Ata4RFpICAvCEchTX/gYt+Vef+rBvNx0veBWsd0zmqHTgxxwy7rQ
+         Z5e4+dkhCPW2HL+YAQ7hFWUtWPQIg/09bY+23fKiYa+3R8IjfWRGBHg9ytQdv5rHMNTF
+         hPskAT3n5LF2DUkyPyWL7n1yjgHJ5g2bDufDAjmYL2UPBoQUg47yis/JiEIOjkoilKx9
+         Sn43yD5VfP1WYlBx7sV1NB7/qHEH0skuZ1hwaIVPypSxhvE1e4r7Usgx/BCVg38gphPg
+         Fw/4ju6qJqRAw3+sW5F35u47enp7+3svnQPub9dw2BlRxrfxJOER6tO50nOePzjhNLZ+
+         P3yA==
+X-Forwarded-Encrypted: i=1; AKwUvByogBB7ITxzYZn+liCxdXlmTs9LI3u6YlFNjsSkrzjDkHzkIu0C1ncZwRfYDmreUa7IHpiPZLdZp/Akr8U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9krbx3ZpdBMj/FxhqmfJVw2nCZewfE67uIPrgisfr78toGgZ8l
+	iyGI3Xpo5JFtK1jk84UvevcQIKXxV8ZNZvu5Glcyp7qHC/jz39iN2i9/
+X-Gm-Gg: AYBFou2BN+0peMbXJpFMYyWA35pb9rFJcB6Ek52fb0mXHNbgXcTwgU38+2bcmM/Kje9
+	l1BfzPBpZTW3hqSYL/mieb0dvA/gSmG9Rxmtu1Zbn/L2v/gX7dpYijXAgtd+5aPj0azHqYYxR2t
+	mcvAtFJqLsXK+Qhqpcw6ABylpsBI4oDqhnDNbxkK65CJz1RyQIwONmS6Ib5G1eevrFDlWHAPyj8
+	FDlrswuDxZIkqp5+/DIQrBqMZhow1uRfn20oyIgUX6iCuDdJaiQJxK/69/u7kRnSbktJd/2izgw
+	Xqum7MLuo6MGPCapqXlwr5PyiuGykQUGX3C7ONm3/4szy5Mz9TpJUrQCqYc9Gce14Yy7YDg3NAP
+	CVG98Bv6/JTrr3Vc0OVAWmL16oHNLa3kuK7MtxHzFaEk4w9m8IX2qFS1N/sHbGPB0TuARBjZm7B
+	37nOoA3DsGVg3xnlg1SjN186xmy3XFkCAm3HaFrFQ/EVZSGNa0zP5pJmyaf9javyk01SKPrLumf
+	tpz+MAhsB2aAoH9/Tl4QNja5d3l+CiXeRszodVyfUnJ7wR9SEq1HB7nUN/kxPaOG0y6dgjMxf4I
+	RQbh8rdpD3i/jUQkevQMgi7KAFKRwA0zjCEyEtP7gT6R5HiQubyA6zccZw5N
+X-Received: by 2002:a17:90b:4487:b0:3ac:9c37:9422 with SMTP id 98e67ed59e1d1-3ae89626108mr25602011a91.2.1793854521680;
+        Wed, 04 Nov 2026 20:55:21 -0800 (PST)
+Received: from localhost.localdomain ([189.1.242.96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944eb1d1sm3726000a91.0.2026.11.04.20.55.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:54:42 -0800 (PST)
-Date: Wed, 4 Nov 2026 23:54:39 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v5] usb: xhci: Fix use-after-free race in
- xhci_stop_device()
-Message-ID: <d7448504-a63e-4f3a-a828-7656b1084105@rowland.harvard.edu>
-References: <20261104000031.679944e7.michal.pecio@gmail.com>
- <20261104035637.3325-1-25031212351@stu.xidian.edu.cn>
- <b8ea2f8f-ff9e-4cc6-853b-114fe51173e6@rowland.harvard.edu>
- <20261104175949.71804650.michal.pecio@gmail.com>
+        Wed, 04 Nov 2026 20:55:20 -0800 (PST)
+From: Yiqi Sun <sunyiqixm@gmail.com>
+To: fuchen.dust@gmail.com
+Cc: coreteam@netfilter.org,
+	fw@strlen.de,
+	kadlec@netfilter.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	pablo@netfilter.org,
+	phil@nwl.cc,
+	stable@vger.kernel.org
+Subject: Re: [PATCH nf v3] netfilter: ipset: fix double free on kernel-side delete during resize
+Date: Thu,  5 Nov 2026 12:52:10 +0800
+Message-Id: <20261105045210.1179991-1-sunyiqixm@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261026102957.5530-1-fuchen.dust@gmail.com>
+References: <20261025090609.v2reply.4093.fuchen.dust@gmail.com> <20261026102957.5530-1-fuchen.dust@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,79 +104,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104175949.71804650.michal.pecio@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 05:59:49PM +0100, Michal Pecio wrote:
-> On Wed, 4 Nov 2026 10:02:48 -0500, Alan Stern wrote:
-> > On Wed, Nov 04, 2026 at 11:56:37AM +0800, YuanZhe Liu wrote:
-> > > If you think the mutual exclusion belongs higher up instead - do not
-> > > let usbfs suspend a port while the hub is being unbound - I am happy to
-> > > work on that; from your message it sounds like you would prefer the fix
-> > > there.  
-> > 
-> > Don't know about Michal, but _I_ think the problem should be solved 
-> > higher up in the stack.
-> 
-> Perhaps in userspace? Or is it expected that root hubs (or other hubs)
-> receive random and conflicting requests through USBFS?
+Hi,
 
-In usbfs, as I just wrote to YuanZhe.  It should not be allowed to 
-send random requests to hubs while they are running.
+I discovered the same double-free during ipset hash resize
+and confirmed its exploitability by successfully exploiting it
+in my test environment.
 
-> Do we know that the device whose port is being suspended has been
-> quiesced? Is its driver even aware of anything?
-> 
-> What I find more disturbing is the existing protection from this race
-> added by 88716a93766b - it looks like core was triggering this too.
+While reviewing this fix, I noticed two remaining issues with the
+deferred operations in net/netfilter/ipset/ip_set_hash_gen.h:
 
-I don't know anything about it.  That commit only touches xhci-hub.c, 
-not usbcore.
+1. Failure-path replay can resurrect a deleted element.
 
-> I found this usb_disconnect() code suspicious:
-> 
->         if (port_dev && test_and_clear_bit(port1, hub->child_usage_bits))
->                 pm_runtime_put(&port_dev->dev);
-> 
->         msleep(150);		// my addition
-> 
->         hub_free_dev(udev);	// this drops xHCI device state
-> 
->         put_device(&udev->dev);
+In mtype_resize(), cleanup clears orig->resizing before reaching the new
+drain path. Packet-path operations can then modify the original table
+directly, while earlier operations are still waiting in the backlog.
 
-I don't see how this is related to the problem at hand.  The 
-pm_runtime_put() above merely undoes a pm_runtime_get_sync() earlier in 
-the same routine.
+For example, starting with A absent:
 
-> but it seems that even with the sleep, the bus only gets suspended
-> after put_device(). So IDK how that panic was possible in 2016.
-> 
-> > It sounds like the sort of race that could  affect any HCD, not just
-> > xhci-hcd.
-> 
-> xhci-hcd is affected because it tracks association between devices
-> and ports and accesses devices on port suspend. IDK if others do.
-> 
-> xhci-hcd shouldn't even need to do this, becaues it's pointless if
-> devices behind the port have already had their URBs unlinked. Case in
-> point, nobody noticed it's only done to the immediate child :)
-> 
-> I would have sent a patch to nuke xhci_stop_device() altogether, if
-> there weren't known cases where core leaves URBs on suspended ports.
-> That stuff should probably be fixed, it caused problems before.
+  - During resize, a packet-path ADD inserts A into the original table
+    and also queues an ADD in orig->ad.
+  - A bucket allocation in the resize copy loop fails. cleanup clears
+    orig->resizing and waits for an RCU grace period.
+  - Before drain replays the backlog, a later packet-path DEL removes A
+    from the original table and returns success without queuing a DEL.
+  - drain replays the earlier ADD, inserting A again.
 
-There should never be any outstanding URBs on suspended ports.  If you 
-have any examples, they need to be fixed.
+The final state therefore contradicts the later successful DEL. Before
+this change, the failure path discarded the queued ADD, so this sequence
+left A absent.
 
-> I recall the main blocker being that core wants to setup wakeups in
-> the same call which puts ports to suspend, so it cannot reject ep0
-> URBs before doing this call.
+The set->lock around list_splice_init() protects the list, but does not
+serialize replay with packet-path updates under the region locks. The
+RCU grace period does not prevent new updates either. Could failure-path
+replay preserve ordering with those updates as well as within the backlog?
 
-The core relies on drivers to unlink outstanding URBs and not submit any 
-new ones after they have been told that their devices are going into 
-suspend.  I suppose we could check that there are no errant URBs still 
-in progress just before putting the port into suspend, but is this 
-really necessary?
+2. The new deferred-ADD branch can return success without queuing the ADD.
 
-Alan Stern
+In mtype_add(), the new branch for an existing element sets ret = 0 and
+jumps to resize. If allocation of struct mtype_resize_ad fails there,
+the existing "Don't bother" path goes to out with ret still zero.
+
+For example, starting with A present:
+
+  - During resize, a packet-path DEL queues a deletion of A, leaving A
+    in the original table.
+  - A subsequent packet-path ADD of A, without IPSET_FLAG_EXIST, takes
+    the new branch.
+  - Backlog allocation fails, but the ADD returns success.
+  - Replaying the queued DEL leaves A absent because no ADD was queued.
+
+This branch relies entirely on the backlog to preserve the ADD after
+the pending DEL. Allocation failure should at least return -ENOMEM for
+this deferred-only case, consistent with the deferred-DEL path.
+
+Validation of the two review findings above used a userspace harness
+containing the extracted add/delete functions and failure-path replay
+code, with lock/RCU stubs. Both sequences produced the incorrect final
+state with v3; the corresponding unpatched baseline cases did not.
+The baseline was mainline commit 05441d697f7f ("Merge tag 'cocci-7.4-rc1'
+of git://git.kernel.org/pub/scm/linux/kernel/git/jlawall/linux"). These
+are deterministic control-flow checks, not reproductions on a running
+kernel.
+
+This review and the harness were prepared with AI assistance.
+
+Thanks.
