@@ -1,86 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894803;
-	b=4/9PtnUb8GNV3SiL1ndvJv+Dj25Iv5cS6S+bYVIso0ahl/Xpk4AI0cUmSyRZ1i5zDwGX
-	 Yro2my9NmDRmrDOgTEXhOFpyShIVpal753v69yT/Y9q3wMRQpagOSTDKUXFYcHMFyUsfU
-	 ipCQerC7+DA0HbKv3vK4WAiupEeoNk7jw0Kt/U8kYNIOxzeMQsGIfCJq80LPKL/6bFwHX
-	 XeXJjw1/9tHpjHyCNe/btckapkAPcKwnJbXHMY3ukajDdzCNqSD9CE1M6J1fNjxBnpmP3
-	 XSWKii3s+xbN4p/nM2t8cEFmD/nBr6c8YYZ9MGcU3okjp/9xQQ6rbDhVzGNaxasbztQ==
+	t=1793894834;
+	b=fNLwFiif9hDZwh+K3SijGwnS/oD63EbwzbOIjRiBBkWrwynv9l2Yb2Ktn3Jf6rQaOqF+
+	 wm0VVGg/9jIlVbkNJaRj1M6S2tZj6HIznOvE1IumosQY7ZTv68n0mgCKxxXWmg392q2F8
+	 azg1ZimLfHpXeVuLrO1wU+TSAzr+jznjK8byplTMu2oHq8dIyno8hBcPSDwsnxF7mOq4F
+	 87ObQRTBGbZZoqxSVEuNsm2cKgAZnPCIPb/U+KrO1gll0ahosEOR19sn1h/CbxKTWAfua
+	 CIwg228ooyYckysYTopPanuu7uF7trwEbklcDczbFDN4D+tyW9tjLWQZZodRDa2xnIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894803;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
-	b=M9Zo37+dEa9fO9VP14OvXrx9WDBMfDPDIWkq1Stx66eoDYKGPl4Q6naGc6lNDPTf9HUj
-	 yqxKxe9Nu5kzPcGQVJCwjbW6tegPX1COsNcgNmQb8qMxNzYyVFaDSEz2Jp/rIq07SZ8lU
-	 B5KTNKUVPW0YdBatywakE6SK/i1URl2OnqdKLeV3gRCLNW+3Bzb/ChMGYWhYLDogiK9Gb
-	 DfIPf8uprDoAYkVa2/zj1qgUWHFCjNQaiNse70Ir3gJB6s4pxQvj7XboHCS+RJIEvX9Bu
-	 28hcVJttQBew5cJxvY94CwqPph/ldU6l0Oy9BnLBpLYM1yUCBsoVJJlvQFm47xZNIcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894834;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
+	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=xx5/rJe0/XQBZuUO9PHWJWNTnjJFKaJX5lV5BiHZwec=;
+	b=f7EtlymV8BrIxKHQsMpSBblOm2gCklfRTCUFJw66aKeJtDlSEcIea5E8H5b0uNQt3j73
+	 5r+0Ag8lg+Ggq05UhM6FP4/JH4FMoVjfLmlBx3pWqX/E0sGPxcAPcWoo8Wc/Xpa82uiCM
+	 GpvFr71kXn3t5DIS4X++JpNdC/vlbGjJ9qLZa+gZJcuLfqz8TIK5G41ee3xdGz+qtYL4R
+	 Vz96TEJzXJiKzItZeqRX+a5Tm81g9XriNVghPriJTLQKNQWr2/BoPl0VhvxUQzLwjooY8
+	 1m/dZsFUV6NZDZUb5w8qT8UWdyAfdnc4893NkTIbSde/ynQhnZ5/XVTeS5yegFN52GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="bZN/dLgT";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=14.137.139.46
+Received: from frasgout13.his.huawei.com (frasgout13.his.huawei.com [14.137.139.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F9F606BEAA
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:06:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F9F606BEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bZN/dLgT
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a215e64962so19690725e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:06:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793894801; x=1794499601; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
-        b=bZN/dLgTnwp3fVVxvRKU30Fx8i1rNQrjZjCQICPIYUDtFBMcNfXrz13yJLAP/Lag7D
-         sM0fRylYUGUx9byUV6VmGokaPZhUs1RL/o8x9cHERoSkp8m9dTLG9eFqZ3F8ua3kIZyA
-         TqnkIpYWzGYjtTVpFhrd+2emTG9VOHrEHirJ0Yho04oZsBkZ/DTQCOn7Lszf9NUQwu6H
-         K/FxM9ySoLX8UhIFXx0oegPlstft3EhkIbYx82ggNtGeybiohK0FmIIhOtDrx4ugzrvw
-         g1854rsGGOmmgAbre2IlSyJOs4ShUKOOsyUcBB5YaTwIv1sShYNju1wnbnu+h6QcV0rf
-         56XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894801; x=1794499601;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
-        b=VAdFRwCdUpV1xwxfwn00YTeJq1AMG6rtn7D7/JbRh+5vAU48sr2O/pDsTV/p8sIOzi
-         AdyvLSMfuozeivxvdHL0uBN2gmhErVNOI8yp3ucjshRgrVIp46nL6sCAXwC29DP2Bi1+
-         27H7VxqeB1dYRCDmAmw8BMerX7MvmuQ5Rhw+aIMjRT3WbLVqFtAfzw82buCukynZczvk
-         8V/Y124mccr7SAFWzQGaayL+akbLZeOPIvT6LficLlrpiFeyyc8GDLAvoORpCRqcgu36
-         WpmSrgdOghJQKei1Ufr7/nOqQkbnCJKRwPWYWUfN/HGF1GedLsPAYYeK9gdVpTvznIdC
-         H7zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxYEty6PPJQ/gLe7NCjjYdcA/RE9YewYciZi/fPWiDqopx2H44pfqniOjnApUNU1Bz9qgWLHczKGtXwFSc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9d7z6NSbijx87CoRy3rrdyhmQHZah44L8mlMf+pn12QtGiQSsi
-	iYj4xpQj1rq0A4Mu8Ky1jvsrGZk+qc7f3gxEh2o1UEk+uinkJ/UNtkz9/UDSkW5G+V4=
-X-Gm-Gg: AYBFou0gEGHGnpIEuId08SWRbQIMPYPGjwnyV1Q+8qwLkJfEMwuFha9V2fGfGuAYFsC
-	3lxL1teOAfJH+fcsU4aGv+NIEUqavNm/DHm20rodCtRGFR/u3iSRmrSWhYB8//QIg3J9lFjzUJo
-	vqst7CaysIzsJaq/Gc2nPc61RCdCCBb/1RhOJHmyrJXukErdCrJx6cThNZiWH21NuS+F+AqZdKI
-	DdUSqCjTqxVNsq36dzx9XwUyDtWq354545euSkmPWH8l97uskgY03pYgx3YqfsbfrOMrH9QddYL
-	T3cfWEeEa/+1Syo7xD9p5c8YnYDqf1AVKyJqpHD01OHhnerktIwGRqTqdzRiZ62ZGze3ET4omHW
-	hlqK6OlhW66yNWJSW8yBBkqxLDCJxKl3E6mIts9sozxyjvkgB5E8Cf2WGE4JBseBMURMBhQXuFE
-	Wp4qbbkGaWjptfGW2IiiBtvuFNj52kdJ2Xhu5hO/e1y1bq9vTVG/ewyffJ64oBCcKDS/24sLUhm
-	W0isZu069XRZCaQWdyBNXrdi7KhlI/A7JJUgolnCnM0o0Ig8z6elV75YUwo8r87Jyq1hJgHfmG8
-	dVmNBuEbuQwlZRYZx0BabsbVH5muRAfoz2s1XCKt
-X-Received: by 2002:a05:600c:c088:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4acda922e24mr314506055e9.1.1793894800616;
-        Thu, 05 Nov 2026 08:06:40 -0800 (PST)
-Received: from [192.168.0.167] ([51.37.126.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f0237aesm77536955e9.9.2026.11.05.08.06.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 08:06:39 -0800 (PST)
-Message-ID: <770ddb46-2f4a-4eab-9ce0-fa537860c310@linaro.org>
-Date: Thu, 5 Nov 2026 16:06:38 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C32E606A339;
+	Thu,  5 Nov 2026 16:07:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C32E606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.18.224.196])
+	by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4jL6d14f8DzpWSw;
+	Fri,  6 Nov 2026 00:06:45 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.157])
+	by mail.maildlp.com (Postfix) with ESMTP id 7099040006;
+	Fri,  6 Nov 2026 00:07:03 +0800 (CST)
+Received: from [10.204.63.22] (unknown [10.204.63.22])
+	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0AG6l+eqexqDYkMAA--.2475S2;
+	Thu, 05 Nov 2026 17:07:02 +0100 (CET)
+Message-ID: <012a5324b4e77e1ab1e952670e1de5e4774503c2.camel@huaweicloud.com>
+Subject: Re: [PATCH] ima: hold ima_extend_list_mutex while locating the trim
+ position
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: Weibin Liu <liuwb@xiaopeng.com>, linux-integrity@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	zohar@linux.ibm.com, roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, 
+	stable@vger.kernel.org, Zhu Guanglei <zhugl3@xiaopeng.com>, 
+	gregorylumen@linux.microsoft.com, chenste@linux.microsoft.com, 
+	nramas@linux.microsoft.com
+Date: Thu, 05 Nov 2026 17:06:51 +0100
+In-Reply-To: <c7c8104ca8734f52a50ac2cfd058d4ce95e1cdbc.camel@huaweicloud.com>
+References: <20261104053705.3967228-1-liuwb@xiaopeng.com>
+	 <c7c8104ca8734f52a50ac2cfd058d4ce95e1cdbc.camel@huaweicloud.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,127 +66,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: qcom: camss: Use contiguous DMA buffers
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Todor Tomov
- <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Allan Siriani <allan@fatecpompeia.edu.br>
-References: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:nRC2B0AG6l+eqexqDYkMAA--.2475S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrW8Cry5Xry3ZF15Kw17KFg_yoW7Gry5pa
+	9YgFy7Kr4kJrWIyw1xK3Wfur1ru3ykWF4UJrnrG3WUAFy5Jr1j9r13Gr1Y9F95CrWDKF1r
+	tF4aq39xAan0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1
+	v3UUUUU
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQAODWrr9Mtr3gADsK
 
-On 05/11/2026 15:08, Loic Poulain wrote:
-> The VFE write masters are programmed with a single base address per
-> plane and then write the whole plane from there. video_buf_init() took
-> that address from sg_dma_address() of the first scatterlist entry of a
-> vb2_dma_sg buffer, which is only correct when the whole plane is mapped
-> as one contiguous range in the device address space.
-> 
-> Neither the driver nor the hardware can handle a plane split across
-> several DMA segments, so scatter-gather buffers were never really
-> supported here. The issue stayed dormant because vb2_dma_sg gives no
-> IOVA contiguity guarantee but still tries hard to keep the number of
-> segments low, and with an IOMMU dma_map_sgtable() usually maps the
-> whole table into a single IOVA range. The mapping therefore almost
-> always came back contiguous in the device address space, so reading
-> only the first entry happened to work.
-> 
-> Where that does not hold, the write master runs past the first segment
-> and writes the rest of the frame into memory belonging to someone else.
-> 
-> This recently surfaced as patch proposals enforcing contiguity in
-> camss itself, walking the scatterlist to verify that the DMA segments
-> follow each other, which amounts to re-implementing what the dma-contig
-> framework already provides.
-> 
-> Use vb2_dma_contig instead. It guarantees that each plane is mapped as
-> a single contiguous range in the device address space, one IOVA range
-> when an IOMMU is present, physically contiguous memory when there is
-> none.
-> 
-> Fixes: 0ac2586c410f ("media: camss: Add files which handle the video device nodes")
-> Reported-by: Allan Siriani <allan@fatecpompeia.edu.br>
-> Link: https://lore.kernel.org/all/20261104202313.72494-2-allan@fatecpompeia.edu.br/
-> ---
+On Wed, 2026-11-04 at 13:34 +0100, Roberto Sassu wrote:
+> On Wed, 2026-11-04 at 13:37 +0800, Weibin Liu wrote:
+> > ima_queue_delete_partial() looks up the queue entry at which the
+> > measurement list has to be cut without holding ima_extend_list_mutex,
+> > and only takes the mutex afterwards for __list_cut_position().  The
+> > comment above the cut justifies this with "ima_fs.c enforces
+> > single-writer exclusion".
+> >=20
+> > That exclusion does not cover the write() path.  ima_measure_lock()
+> > registers measure_writer at open() time and even lets the same task
+> > open the file again by incrementing measure_writer_extra_writes, while
+> > _ima_measurements_write() never checks the caller's identity.  A
+> > privileged task can therefore open several descriptors for the
+> > measurement list and use them concurrently from its own threads.  Each
+> > open() creates a separate struct file, so the f_pos_lock taken by
+> > fdget_pos() does not serialize these writers (sharing a single
+> > descriptor would be serialized there).
 
-I'll fix this
++ Microsoft folks.
 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/camss/Kconfig       |  2 +-
->   drivers/media/platform/qcom/camss/camss-video.c | 14 ++++----------
->   2 files changed, 5 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-> index b51745c942c9fd71a95d09993213bde4b7e877e2..e1967bc20cf03ea1b0b159c5175294eeb40fe1c1 100644
-> --- a/drivers/media/platform/qcom/camss/Kconfig
-> +++ b/drivers/media/platform/qcom/camss/Kconfig
-> @@ -5,7 +5,7 @@ config VIDEO_QCOM_CAMSS
->   	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
->   	select MEDIA_CONTROLLER
->   	select VIDEO_V4L2_SUBDEV_API
-> -	select VIDEOBUF2_DMA_SG
-> +	select VIDEOBUF2_DMA_CONTIG
->   	select V4L2_FWNODE
->   	select GENERIC_PHY
->   	imply PHY_QCOM_MIPI_CSI2
-> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-> index 0852eb6f13154cfae7147ce39d22de64d14a5cba..5de6ff5ecc76a2863e536fca1c40ae6b2de6dc0c 100644
-> --- a/drivers/media/platform/qcom/camss/camss-video.c
-> +++ b/drivers/media/platform/qcom/camss/camss-video.c
-> @@ -13,7 +13,7 @@
->   #include <media/v4l2-device.h>
->   #include <media/v4l2-ioctl.h>
->   #include <media/v4l2-mc.h>
-> -#include <media/videobuf2-dma-sg.h>
-> +#include <media/videobuf2-dma-contig.h>
->   
->   #include "camss-video.h"
->   #include "camss.h"
-> @@ -154,16 +154,10 @@ static int video_buf_init(struct vb2_buffer *vb)
->   						   vb);
->   	const struct v4l2_pix_format_mplane *format =
->   						&video->active_fmt.fmt.pix_mp;
-> -	struct sg_table *sgt;
->   	unsigned int i;
->   
-> -	for (i = 0; i < format->num_planes; i++) {
-> -		sgt = vb2_dma_sg_plane_desc(vb, i);
-> -		if (!sgt)
-> -			return -EFAULT;
-> -
-> -		buffer->addr[i] = sg_dma_address(sgt->sgl);
-> -	}
+Roberto
 
-I hadn't even realised this existed, ick.
+> Yes, I assumed the good behavior of the privileged task, but you are
+> right that it must be fixed.
+>=20
+> > Two racing writers can then resolve the same, or an overlapping, trim
+> > position, and the second one dereferences a queue entry that the first
+> > one has already detached and handed to ima_queue_delete().  Depending
+> > on the interleaving this corrupts the measurement list, reads freed
+> > memory in __list_cut_position(), or frees the same entry twice.
+> >=20
+> > Reproducer: generate some tens of thousands of measurement records,
+> > open() the measurement list for writing several times from one task,
+> > then write "20000\n" from that many threads using one descriptor each.
+> > KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
+> > called from ima_queue_delete_partial().
+> >=20
+> > Move the lookup into the same critical section as the cut, so that the
+> > entry stays valid until it has been detached.  Holding
+> > ima_extend_list_mutex also excludes ima_extend_list(), so the plain
+> > list_for_each_entry() is sufficient and the RCU variant is no longer
+> > needed.  Keep the existing error precedence (a short list returns
+> > -ENOENT before the suspended check) and keep ima_queue_delete()
+> > outside the mutex, since the trimmed list is already private.
+>=20
+> Not enough, it does not protect against the read concurrent with
+> replacing/cutting the list (originated from the same writer).
+>=20
+> A reasonable way to solve the problem would be to introduce an rwsem,
+> and wrap the write, read and lseek operations. This restores the
+> assumptions the code was written with.
+>=20
+> We still need the current exclusion to avoid that a process deletes a
+> staged list created by another process.
+>=20
+> Thanks
+>=20
+> Roberto
+>=20
+> > Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements =
+records")
+> > Cc: stable@vger.kernel.org # v7.2+
+> > Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+> > Reviewed-by: Zhu Guanglei <zhugl3@xiaopeng.com>
+> > Assisted-by: LLM
+> > ---
+> >  security/integrity/ima/ima_queue.c | 20 +++++++++++---------
+> >  1 file changed, 11 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/im=
+a/ima_queue.c
+> > index 0f1b7e4113c4..cf8c164eea13 100644
+> > --- a/security/integrity/ima/ima_queue.c
+> > +++ b/security/integrity/ima/ima_queue.c
+> > @@ -427,12 +427,16 @@ int ima_queue_delete_partial(unsigned long req_va=
+lue)
+> >  	struct ima_queue_entry *qe;
+> >  	int ret =3D 0;
+> > =20
+> > +	mutex_lock(&ima_extend_list_mutex);
+> > +
+> >  	/*
+> > -	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
+> > -	 * only list append can happen concurrently. No list replace due to t=
+he
+> > -	 * staging/delete writers mutual exclusion.
+> > +	 * The lookup and the cut have to be atomic with respect to other
+> > +	 * writers: ima_fs.c serializes open(), but write() can run
+> > +	 * concurrently on independently opened descriptors. Holding
+> > +	 * ima_extend_list_mutex also excludes ima_extend_list(), so the
+> > +	 * plain list traversal is sufficient.
+> >  	 */
+> > -	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
+> > +	list_for_each_entry(qe, &ima_measurements, later) {
+> >  		size_to_remove +=3D get_binary_runtime_size(qe->entry);
+> >  		num_to_remove++;
+> > =20
+> > @@ -441,18 +445,16 @@ int ima_queue_delete_partial(unsigned long req_va=
+lue)
+> >  	}
+> > =20
+> >  	/* Not enough records to delete. */
+> > -	if (req_value_copy > 0)
+> > +	if (req_value_copy > 0) {
+> > +		mutex_unlock(&ima_extend_list_mutex);
+> >  		return -ENOENT;
+> > +	}
+> > =20
+> > -	mutex_lock(&ima_extend_list_mutex);
+> >  	if (ima_measurements_suspended) {
+> >  		mutex_unlock(&ima_extend_list_mutex);
+> >  		return -ESTALE;
+> >  	}
+> > =20
+> > -	/*
+> > -	 * qe remains valid because ima_fs.c enforces single-writer exclusion=
+.
+> > -	 */
+> >  	__list_cut_position(&ima_measurements_trim, &ima_measurements,
+> >  			    &qe->later);
+> > =20
+>=20
+>=20
 
-> +	for (i = 0; i < format->num_planes; i++)
-> +		buffer->addr[i] = vb2_dma_contig_plane_dma_addr(vb, i);
->   
->   	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
->   			format->pixelformat == V4L2_PIX_FMT_NV21 ||
-> @@ -699,7 +693,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
->   
->   	q = &video->vb2_q;
->   	q->drv_priv = video;
-> -	q->mem_ops = &vb2_dma_sg_memops;
-> +	q->mem_ops = &vb2_dma_contig_memops;
->   	q->ops = &msm_video_vb2_q_ops;
->   	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
->   	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
-> 
-> ---
-> base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-> change-id: 20261105-camss-fix-dma-c32288664dd2
-> 
-> Best regards,
-
-LGTM
-
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
