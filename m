@@ -1,112 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868109;
-	b=yLNGglULTGPWM5+PliFcVFAQ/aj2oNBv5c255ib5UDo5IumUs1G9/A3+mbwco5p4VdEZ
-	 WOlql0YzDod5v5a6qt+o3AhGQKlFKiO3NgNCHzd15UR+ZtxhnSVVdFnB5JNsY5PaJ2Rtr
-	 vOWN8hRdD5tvh605u1eZuAYjKtdxoz6FiEtyHEKi7hSdFzFqeXbpXh6OvwaCGb4V10pRu
-	 kx6U41Guu46Jbo/t803IZHPxG2hRYk3XVWP23PQAkxL3IdXySXGyosX9CjXea08M0GW+5
-	 TLFk8jjjENhSCp9E5jPJqIlIDeheHVbrRhDpdzeaIQVq6vtXxKuaV/v6E1oiVKqKBAA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868109;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=;
-	b=ZueNE80Et/cRH6HhsZhRSK3r3GnlBcvFHFvwYYgmu1K90KAi7VzHac2dCucjagrgixoF
-	 7ZYWr3tVedJn6UiY1gzkv0nypZL7z10pzFhP/CWc+2+Bk4Sq4EITPWpO3HruBfvBqxUFp
-	 j3CtePyB8wk9h4EhsqpFlL6zajLrtAKL9bSfa9+wY97MOiJAnFS7x4hdsvB+d2Iy27JYm
-	 ZvBNUKdT1Fto3xeJQRJ9uK5a0Dg8EH0xy9VY0zPrhSQCYufYokDHie5rZG1E7h/1tdiZ7
-	 d27ylguoGDK8DiicE3L0BMpFVMbq4TjvG2/7NdOJ6AVw4TdLjn6GSUgp8jsHmtm4f0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A5cEaOjk;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="cbeBoS2/";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.103
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793868122;
+	b=HhVaJ5qRNiAQFXYVs5sWmvw7tan0tXQ9uY8wn+7/p77+MhktMC47WAr2iRv4pwJ631Tf
+	 f2sHYMql+yTdHBDxbR1LksBpj4JItgm+aTWNWXeg7gP6ALMygvh/JqZyAdy0sXDsWfK2h
+	 cJjLzVLux0JufIJSm1nCTUbWpK8iLRKMPKwudvkWoYsMi8Cl5titUyt1H4k1K72bD1/vU
+	 oKlZJVWGZ6FpLTO1DdrHl2eYfM0dyP14En5G2jpi7riB3qoCLmJuJr9Fq68ajjL18O/VL
+	 sHbCNHxsT8xe9U64ZlIImv2G2di71bnFacBMm22DTVZC+EMN/bcW7zqnuRrqoZZ4i5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868122;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SebBKmfhtvA4XN5jZ2SI84YRvgNOooZ5HVpz40dOFmU=;
+	b=tKwLC5zbKH+hU8TrV+kGVbOOemLsMH0zeM8MzXREFvdaV4bS/GiGyScOzZ5PWo1X5gna
+	 RzmrV0G3bxmRH7v+UnXZpHv1Z9nEGqGAlDUyWKM50Qpc9L2j0xjCm2nP4KntNwB+tYUEd
+	 ifks5PEF946sHgFfaoHOGa5htW6aGUo/GrQe31JwKrorew7XbEfnCt50BjRQ4FlEeDwnV
+	 WMIMLSzEuBUOa8bWV5NFk1yG84UxvSazp9cDB7DxuAb4kh/4Q2I2mU/cqLtrUx+sR3esT
+	 GaDhIy3eZP8NkkPWO1Nu5dOpvQ+v2uUnIYAx7L7g1EEzJHxFmRY9cJDTxna1CYhCY1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.103
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022103.outbound.protection.outlook.com [40.107.75.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57BE606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:41:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D57BE606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A5cEaOjk;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cbeBoS2/
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56UDhw942036
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:41:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=; b=A5cEaOjkZG6jeKoW
-	iUiHCSTWhVprmAbUmI3yFaJ6LX38TxM9gQ/VzWGCt1sQgNvTvwvWoN7KG0kpwp/m
-	trV5+jGDk7X69utliI84CwAx6EJbSsNGZYjavXf+O5ssfGsr5+VslBzFYpaU2TVR
-	9DRxhVukkzqwB9CM2+qoH43D3Bu0JBgp5kZhxjFB3sh6fmoSZmD50iOYgtmEGgDT
-	aaHYPkog0C2GwpiKx/spI7TrQYX5Nqo70eT758t2DQva8jrcc6OXVac61AkIJq9E
-	QmSgDc8Q5c/zrJUBrbrdUoYuyo8CQPS57cmVnCTwR1zFsfxQFdomVdjxjN78M4Jv
-	BuiHmg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bj41tr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:41:47 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e942b1cc86so19401475ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:41:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793868107; x=1794472907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=;
-        b=cbeBoS2/yZ1g9JbmZFj98awnPr8UaNlHWXc9YXhamUt6ivka0u3MGmlInJjKZ10+eC
-         42LRaBqX0x/41ih33KFeS0RGAvB6pXhfVUme4CaUTerKJNPkMCMej4BGTaWWlbEuSfW0
-         lRXX+i6D8Gty7GiSGkHU7VRLrBUNLdyYWjHYqaIZmZrgPqdva33P0lumiuL1laNnIvj9
-         E22jCuHF5dqv26T/PSWdSMi+xTxnlO3TRODicOMznl0KFmspGQsBLv1EmfRWoMYppYjr
-         dwORHVwdlMRTRgT94RwyMPaCpjP4HPFgHD+Qr93d4ntGUwN+DgiYAb+j7PR6E4s09MA8
-         Fv9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793868107; x=1794472907;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=;
-        b=xV6Hyhwr2MV0n3ZjefkZI6fvAO3iaSmMNxe0ABXqho2cwO8qyY/3+JGgtHaSMwemGk
-         pIyfSp4FQXMOmr1M2NhCaJDWnrUrdRV3HHYPbPHrcGPlz9pZuI3oMcsEhRFHSFpH+ZC+
-         YDpq+OsS9964+XwxRYEqDtnKwerM/0Ynn1f0h0XNlFIknR0Pay9iE2/zG1Ae0nBPw3ul
-         M/pNXJWSE3ITM20GyYCqMDzKqbmIbqIjjdlSN5L3FJhzgO3dexcTWv8wgO/F9/D4xeL3
-         WLxv0i0lWdCZkfugeR7yj0LJ4tg3BoPMH8WlNs2EI94dA9NguYsk8x67H/+4Zs0tCgEk
-         hl4A==
-X-Forwarded-Encrypted: i=1; AKwUvBynjEa2rHlLCZdMp+S76bv8OgaTSp0azJxnOQywrnzozUbCRl6ixC6jDi/ibv7GJD/NL5IUxxfKtz9Q3LM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CZFTf0euPKQ9lGNwMswkHOlHg7j39TeixoSVoH9toEdWw/UXi
-	Nka74+YOMQFKJLTF7zIS3BgVYD3qrndOmLZwO8bCglCHytUjHYtCH0G0FbwhhFNPHQEn6HTPEnb
-	f2zo5zsGrVbnY6rj3tJHYz/x6cJGFschdDC3HE0aTDi+kGPCLuYCs9a4e9SP9RqRUyDk=
-X-Gm-Gg: AYBFou2PjGafuA+ww8vaj/pdS1GyjjW3RCzZ618gnPL62eLpI4yzAFBCeBoVHfQ7HiH
-	1V3PzcBREA1MBWI+/cCKOEVYZV6f35jilQLBDlxvDLWPSua+0awv7Kiyf0plj8tka6vmbiZ7R27
-	wCFhCk9kSP60KglVONyrEiHzzsR+gDm1v1Ma+VL7JFGP4xSruM94bn1Zz27sO3AQM3jTPrlJNmQ
-	iS4x0ImhDg9DtvdVGRaTtYFN8z3INHEN+YCukN9nOLLh8pqnfTgFlE61UlKIkEPIU6LBnsN5Ko4
-	TcxN+x8VdaJgTXCObIGGgCz/nyjLFc5qwSpnxe5XX9r0oJB9dH7OQPJBzZSshjsVEFK93FnooIG
-	FUI2A3X7BB/Xp9set5N8wXX9MhrN36HDbOD32xZ/qCNyzcPAQPAl8NCF1qFG4xrP+gMXcPPZAm0
-	5I/NookKBynZ0nT00Jg7eERoLAYD1ZQh6ZexTMid5uEKFp
-X-Received: by 2002:a17:90b:1a85:b0:3a4:967c:6947 with SMTP id 98e67ed59e1d1-3ae89736172mr15307618a91.21.1793868107150;
-        Thu, 05 Nov 2026 00:41:47 -0800 (PST)
-X-Received: by 2002:a17:90b:1a85:b0:3a4:967c:6947 with SMTP id 98e67ed59e1d1-3ae89736172mr15307600a91.21.1793868106642;
-        Thu, 05 Nov 2026 00:41:46 -0800 (PST)
-Received: from [10.133.33.108] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b312e45dsm3486678a91.3.2026.11.05.00.41.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 00:41:46 -0800 (PST)
-Message-ID: <2291138c-0e2b-4625-b982-8d72a43c23be@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 16:41:41 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAD4606A31B;
+	Thu,  5 Nov 2026 08:41:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BAD4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fWHkfqJd8jyKrBGLk/H4UhylVI7J2ncK0YhAbsBKhkWTkCIUtWI/D0mss3E2JdVdX0DfdaUC+XntriqLBvbPrDdXba2kltXOw3QFmSfswDMGpgmAWiSszfi/30qkR3lUzATR3QPu/kZf5X9XR7PVpnYZ7i3KENm0CeX31MU738eDrdx6/vy2R54Bf8EHc3WXyzYFUzSpPhVPn3gNYKNuYtbXBWEkE16MEc59nVTXZvzhb+ZvAe79RFezxR1pDi+4G4Bt5Z8GTxIL27q4XSjDzQXiUn0cbXTfa9ztEA03LzfWkp7wFkhPU4B9qX5ka9Z4ny8LsGb6By6SnRYh2LCG7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SebBKmfhtvA4XN5jZ2SI84YRvgNOooZ5HVpz40dOFmU=;
+ b=K9HfpRSVgh2PFzRlXURRpMtVtEBBZQxDiteZLtawDX+kmwXcdSZNsXMGao5IjJgBpnuWiEsM9wGG1NLXBmxOAsJmlXot/hY9H9LbqhxKlzsVYU0k6FNdkYvQD9JgG8PQTuL8tsqLl7tGYj9htUaz85WQg0d2nfmtN5cXnVEV5GtRaZgQqgJtgyqHLK2AwFRrpcqcLW+hQg5mY/4Xs//2G/b+GI31rJvgdytjgxPDChwcfI0i6mHeDXq55k/dqEhlz0XB2eV76LLJLUNlRlK3brTgwz9QLKhU7BRfqldwezTRWi4VTamNuvEZYhvVFzogQG0ka/X1+SklKLVpm280SA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PUZP153CA0003.APCP153.PROD.OUTLOOK.COM (2603:1096:301:c2::9) by
+ OSQPR06MB7156.apcprd06.prod.outlook.com (2603:1096:604:293::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
+ 08:41:53 +0000
+Received: from OSA0EPF000000CD.apcprd02.prod.outlook.com
+ (2603:1096:301:c2:cafe::44) by PUZP153CA0003.outlook.office365.com
+ (2603:1096:301:c2::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.3 via Frontend Transport; Thu, 5
+ Nov 2026 08:41:53 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CD.mail.protection.outlook.com (10.167.240.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 08:41:53 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 05CA64102E60;
+	Thu,  5 Nov 2026 16:41:51 +0800 (CST)
+Date: Thu, 5 Nov 2026 16:41:50 +0800
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.murphy@arm.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, joakim.zhang@cixtech.com
+Subject: Re: [PATCH v2 4/5] dmaengine: arm-dma350: Honour dma-channel-mask
+Message-ID: <auxBTkn7Z+Ssr05B@ubuntu>
+References: <20261104124437.296753-1-Jelly.Jia@cixtech.com>
+ <20261104124437.296753-5-Jelly.Jia@cixtech.com>
+ <auuLEgmZFGJ0Ol0g@SMW015318>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,132 +102,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq: Preserve global boost state on failed updates
-To: Christian Loehle <christian.loehle@arm.com>,
-        "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        sumit.gupta@nvidia.com, zhanjie9@hisilicon.com, superm1@kernel.org,
-        zhangpengjie2@huawei.com, zhongqiu.han@oss.qualcomm.com
-References: <20261104161657.546370-1-christian.loehle@arm.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261104161657.546370-1-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzNCBTYWx0ZWRfX+gBkRDIW/J2w
- yOVGJr6AzcRAjMfugt1HzkL9tWPqPM+JxB7XtRMMOBpGJ91BNBQSpHgcIp3ujg1zmu12kKIEI9a
- l9YkJ92lCJe9ZCs9DTpkM6JylszVvT2oJUT2PPiGr0WP9R/guHWeJdgbW8Pwpnv8Mo7V9g2NIyQ
- GsdQvhfOQLBgxB2thb1M3VSugo3GsdI9RmteFLh6k8wLj33Ko3DJKPD3WEE9HiayWncObnJNCvq
- q2lgC9Phcm1YCnM17in9tTlb3Y9Tqe/XoXEWK8IzhS8b2Kllk3eL0PKHckO096A6Is+VSfAzeWD
- ohkO9PkgCVWR/O/5KVSoocVebQBoASnQfViAAwMaKp8gh/MYbt6MjHHic6HoFNtZtECyVDRvy84
- aLwovVIyChALSeNVNhWxcJCY+CLtBQ7k4BrPJ96dFGM4yEg9ElKy4mFwPL0QrvwrWhA6j3ixMsR
- moA+8ZxievocYh92Vgg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzNCBTYWx0ZWRfXxcDTzVTGL55+
- a4xeyPMX/fVyJA9MV9SIA9saATyTn6pDIeX09uKzx8ylaAoly22B4VpI45TvngEtK8Ek7ISHI1T
- 45fovxPmz+J0FiGu1aJk9wNTGXWxnZk=
-X-Proofpoint-ORIG-GUID: 4iPQ2R1AF0mzvjkeYoBk0m0ymYXKRCIg
-X-Proofpoint-GUID: 4iPQ2R1AF0mzvjkeYoBk0m0ymYXKRCIg
-X-Authority-Analysis: v=2.4 cv=N/u8hG9B c=1 sm=1 tr=0 ts=6aec414b cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=7CQSdrXTAAAA:8 a=pplq8beJeo5HEFBEY2cA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050034
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auuLEgmZFGJ0Ol0g@SMW015318>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CD:EE_|OSQPR06MB7156:EE_
+X-MS-Office365-Filtering-Correlation-Id: b34a18ad-c616-4d6c-bcee-08df3b18a47d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|82310400026|7416014|376014|4143699003|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	1iKjxzsrYrIKuSnUIykAwftPl9jtumQreYV2dparnsjc4to7o8poQZKyl0CgN1M5juoSVx2AC60IEISmPktQuU318i7K5n1i9lGWqkMletnLZh3I9WfBYLrCSGUu2Wfw/oHBH+R3eH6Ip6aPlh4rlhVCtzSeWSIHgartLdubMuwWtdWm0QJxXFBUia0STVV3fbgvlARGXnxUPXWQf78GuWLYhPWS1qno0E/Ukff4SO7uIh1C/xLrPvnDaaNFIqxDXDHEmN5E8n+L+vwqsvv3Ikr+OtR+kB555dwEt2X3LkTgNiGp7Uq+sQ+1tyGb3+xwU3yq8vUnCuUA1T+YxwYOQ5wnH2fFY4zHQcBDtvPnachfbZjLwFVaDSg7FuCDT/keT24PjHLT4fPE96Bu2rySvLC2Hi+uJ8in/ZvwXTYYwphAti9FyvLmXzC8+XsOXqjN9Hh4wfpZXXkjEnHFbYnvwjmZpdFDVTl3/WDxzwgyScOv2D4/v2UWcxXsygafOCtffivSmtqc/xiZ6cr4LTNJ2jqyVcoE5uNwYNkb/GMTdOIy6PbEXxY/zVNzpoIF4ffn04a/1BJAfhsjUgGidCJfnL5CZR1l1/WvH+atQvc6aKAKp5Pt5rtTqmHR4lTI5UxJnbvBeMsANL17d9Ua+i8tfdyLZmTB2KXSC3KCtBoH6bvpUehV5TRCvUcgpvDLyJOghWz3R++agYiUqENmMlH+ig==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(7416014)(376014)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	M2RukX08AyQUcW6PUXy2+1hovag382aKjAfpUCgPaSxdax0TXdw/Cb2uaDjSuyHi6l3KsfU+KHm4aTBbp6DBoSuBCyHiPOeiZoF9FoRf+H//cWrACjl0Zv/LJras9EzmNWCNfv7tXJdaFIvHCwHagkzQnDm95YpRRHxKU2K5WGtLhZbiUBiWxIIwQj5L03cjLVcuj4Fl0cRXFDHchEh0qjh9L6mH2otigxov7dQUAjmZDq6/xFcMI9UuCRT061l5Cb2EG6bsPgOHF22lWSD/N8pn1Hwgg0rDu+Nx4r1Z5Y21nu206fliJCB3szBQ4qKugAxmqaLEBuk5wN7pjIuispoEkCpme11pbCMOJYllSQnlckQaoOUI6fxtaOrDIzF0xMO0wW8IdbAq1AFx3lx0dveuTj0pU5p5G8+8Q2IIo2mgFy8km6DKEeW437GpPj39
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 08:41:53.2821
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b34a18ad-c616-4d6c-bcee-08df3b18a47d
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000CD.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR06MB7156
 
-On 11/5/2026 12:16 AM, Christian Loehle wrote:
-> cpufreq_boost_trigger_state() restores the opposite of the requested
-> state when updating policy boost state fails. For example, a failed
-> write of 0 when global boost is already disabled enables the global
-> flag without enabling any policies.
-> 
-> Save the original global boost state using a mutex and restore it on
-> failure.
-> 
-> Fixes: 121baab7b88e ("cpufreq: Force sync policy boost with global boost on sysfs update")
-> Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
+Hi Frank,
 
-It seems the only appropriate Fixes tag here is 121baab7b88e ("cpufreq:
-Force sync policy boost with global boost on sysfs update"). Commit
-6f19efc0a1ca ("cpufreq: Add boost frequency support in core") did not
-have this issue, since it returned early when the state was unchanged:
+> max nchan is 8 (in your cover letter), why need check i >= 8 here?
 
-     if (cpufreq_driver->boost_enabled == state)
-         return 0;
+The i >= 32 check was intended to guard the single-u32 mask and avoid
+out-of-range shifts on 32-bit builds. However, DMA-350 supports at most
+eight channels, so the check is unnecessary. I've removed it locally
+and will include the change in the next revision.
 
-so restoring "!state" on failure was equivalent to restoring the old
-value. 121baab7b88e removed that check, which is what introduced the
-bug.
-
-Also, is the new mutex meant to address a separate race between
-concurrent sysfs writers? If so, it would be good to mention that in the
-commit message or using separate patch?
-
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
-> On a platform without boost_supported the unfixed behaviour is:
-> # cat /sys/devices/system/cpu/cpufreq/boost
-> 0
-> # echo 1 > /sys/devices/system/cpu/cpufreq/boost
-> echo: write error: invalid argument
-> # cat /sys/devices/system/cpu/cpufreq/boost
-> 0
-> # echo 0 > /sys/devices/system/cpu/cpufreq/boost
-> echo: write error: invalid argument
-> # cat /sys/devices/system/cpu/cpufreq/boost
-> 1
-> 
->   drivers/cpufreq/cpufreq.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 54dde8419bdc..d95c849f79c5 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -2810,18 +2810,24 @@ int cpufreq_boost_set_sw(struct cpufreq_policy *policy, int state)
->   }
->   EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
->   
-> +static DEFINE_MUTEX(cpufreq_boost_mutex);
-> +
->   static int cpufreq_boost_trigger_state(int state)
->   {
->   	struct cpufreq_policy *policy;
->   	unsigned long flags;
-> +	bool boost_enabled;
->   	int ret = -EOPNOTSUPP;
->   
-> +	guard(mutex)(&cpufreq_boost_mutex);
-> +
->   	/*
->   	 * Don't compare 'cpufreq_driver->boost_enabled' with 'state' here to
->   	 * make sure all policies are in sync with global boost flag.
->   	 */
->   
->   	write_lock_irqsave(&cpufreq_driver_lock, flags);
-> +	boost_enabled = cpufreq_driver->boost_enabled;
->   	cpufreq_driver->boost_enabled = state;
->   	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
->   
-> @@ -2841,7 +2847,7 @@ static int cpufreq_boost_trigger_state(int state)
->   		return 0;
->   
->   	write_lock_irqsave(&cpufreq_driver_lock, flags);
-> -	cpufreq_driver->boost_enabled = !state;
-> +	cpufreq_driver->boost_enabled = boost_enabled;
->   	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
->   
->   	pr_err("%s: Cannot %s BOOST\n",
-
-
--- 
-Thx and BRs,
-Zhongqiu Han
+Best regards,
+Jelly
