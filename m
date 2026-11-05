@@ -1,77 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915516;
-	b=yHAQYcWVC6s8F/4Bp2QMAqI38Ek7lKjjvCGOm4exmNyh8Wjjt1Z25IY4kBcEWjK0J+44
-	 qCdhp8Bv/5xY8328AfxGXsuSKoDyL310ijXXa7w30ONGM7ieMGl22wMBrI0A95y+A88ID
-	 Fmj6c65Tfn8TEDjmqBaGlV8lMYwpkj/lhSnZn8IpUwo+tYJ00G4m0INzSI8TysSll/cQN
-	 jDMPiVNpzyqWU6I9a6C8Sg87uu7hvC0Wj4sAf1EACmh27hajkr3hHkmzxu8L5zvEMmBNg
-	 EE6lndKZ500vvKFi2R0CkjAZzkK4nQ/KkurrppYKw1Qp1aMPtFlsgNTqZ6WrSbb7lIQ==
+	t=1793915535;
+	b=N4C1L863XGBFeVEBXqCR+1AWMJhHHX7dKb7TcNQ5TEbaVEiwkOYIM/tPlQXv9KxiiS3T
+	 /jfq/cZ16pib+9DffU3vCvbfC/SxCXz/9W/3evVIzY6xP3DEWMtwEn9gUvlHLguArkuut
+	 7LeZ7wLKgMcmErBxbPOlVnaTWOUxHEWLjg6oCxHgDcW5aFYPMtkSbPQb6tGBv+fPtPXLa
+	 psnKIofimUTx9xbT2+QxDsFsZ/fn8aEi2pwBtXqNhG6NkCGCDdvIvg5RS5mb3KEqSi92K
+	 jam1KAi2FdCy48UtWLbyBXFun9LvzvNxaZNzc5B1D3N9wVVE6ItMfTZoLYf5YMKL5Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915516;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=JyvKj/BvlW8+6fz7K9+CtTrZqOGel4PT34AP4CpOPD8=;
-	b=zOfxMZ+i7LLLxdLT50Deh+5vn96n4+XZ+9NgH3rVIwUD6VUIfsaQGz5Y1X68w3mn5VL2
-	 7SeEHNaefHE/IoyIIih4dEXoVZRcuVPpN5O+WTL90Cfd/QcnUXeiHaz16WKz10S6qBbcO
-	 G/5j0rh7ul7Zf/MKJkkBex1544NQVWO8x68W6dj3q++uVzz7u2JKiVAPNMXWAzqevXfTB
-	 vVC/njn4QKrseCPlO3/qcVeq0fwYTicALTJ3hVpeAiEesL6x4kIOeyvosxON+byB/IRl0
-	 eD2pnm6NKsuaCHaWkdMZ3Av/k0H7cvscXdIns1xJtrP26qRlNG5DFHtZjEAoxNfmO9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915535;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=f5e+r6C+Y+boKKU1c+tSb6Bf3yIjeJVK+Xx6iJaNfGA=;
+	b=XqoXkdXUaoe3oWc3YNpj2zTjuN3qGeGCuwmygKK6v9MVU09pF+D6kVhk99fVGQFepuc1
+	 EAoyAcdNlgAXs/SYs2rolicPW3YAEPHkhrvBDvllYiSXkXv/pKp29yLu6k1d/Zdmy2a4a
+	 MngBjoN8L3djzYuT1BGY8uWNV46tClqYR9gdLfHl30mz1CVy/ieh6GR5lulGyd5GIHS6H
+	 A0DTIqOw6tVjvNXxMO8+SeHPBhw91mzYfuq0n5sjn30V75OG8/C9Zy7C59u06ZQUN8gBf
+	 PgK0eV13P16bQDuPcHkfj7YO+TY3JhuvsAlMvk9+ba9ngWV3zoQ+7t7ocmLhn7I1kUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=svanheule.net;
-	spf=pass smtp.mailfrom=svanheule.net;
-	dkim=pass header.d=svanheule.net header.i=@svanheule.net header.a=rsa-sha256 header.s=mail1707 header.b=xvR0GAZF;
-	arc=none smtp.remote-ip=84.16.241.116
-Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=andrewgigena.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CF1606A334
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29CF1606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=svanheule.net header.i=@svanheule.net header.a=rsa-sha256 header.s=mail1707 header.b=xvR0GAZF
-Received: from [IPv6:2a02:1812:1620:5d00:3b08:a3e3:d87d:2eff] (2a02-1812-1620-5d00-3b08-a3e3-d87d-2eff.ip6.access.telenet.be [IPv6:2a02:1812:1620:5d00:3b08:a3e3:d87d:2eff])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sander@svanheule.net)
-	by polaris.svanheule.net (Postfix) with ESMTPSA id 1BD4E9D45B4;
-	Thu,  5 Nov 2026 22:51:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
-	s=mail1707; t=1793915507;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JyvKj/BvlW8+6fz7K9+CtTrZqOGel4PT34AP4CpOPD8=;
-	b=xvR0GAZFd5UZrfDKoeb5LNCdGHKkHjtkJwUiEr9kML+RBGjytpaVxAxkRIFb3VszzLoneh
-	YWSB3cpehSojWjYoJhKx7BSMJAbhQJycPS/0+WWfkPZ91UukPU8oVgLYyFykAxTgghMxvr
-	w5phmvTYa2fwCYhqT7gEZwIuzvm8sTtsTOj8ziNacs2kA+dZ37i+di/y/1TOm7nFSwQunZ
-	cxFw58GSKZB4qlhiee81zGVNtOKwAMelO7rS1L7icKRsv3nziJ+dtCS2kgiT3Xy+KtnhNP
-	wsc+eObk7Ch0IhupGxuiT5HACQxlD7/DmZBmp7ZUiNbEcrGEzW6eYabJewtJ6A==
-Message-ID: <f67e328bcd20f405f2f15c62123bf3e0e740c14f.camel@svanheule.net>
-Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
- global power budget
-From: Sander Vanheule <sander@svanheule.net>
-To: Jonas Jelonek <jonas@jonasjelonek.de>, Oleksij Rempel	
- <o.rempel@pengutronix.de>, Kory Maincent <kory.maincent@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet	 <edumazet@kernel.org>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>,
- netdev@vger.kernel.org, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Russell Senior
-	 <russell@personaltelco.net>
-Date: Thu, 05 Nov 2026 22:51:45 +0100
-In-Reply-To: <20261103220312.860629-4-jonas@jonasjelonek.de>
-References: <20261103220312.860629-1-jonas@jonasjelonek.de>
-	 <20261103220312.860629-4-jonas@jonasjelonek.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D911606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D911606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso27074e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:52:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793915533; x=1794520333;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f5e+r6C+Y+boKKU1c+tSb6Bf3yIjeJVK+Xx6iJaNfGA=;
+        b=p4DbCx9nxKEejqE0SDLypmT6nlPdThJaUzlJifflRhzA6moB4UdcjpD4KKt16yY4xn
+         nBkAN0jD608oRSZ0kiGnc+XKoJnpKVcpXVv9Kf6QNASepdMGShkH8mqq/C1vKXNZMBOg
+         O2xNyfuEHzEuJUdXvOOfIYRczwIOq4t23kYk/ToPv/jXeft1DBdC6zr/mrwL5lzeRqwI
+         WlrZ241ZAj4E+IDKBNpuL8bCUthooKZFjq4LzR76h9r9FVmkQped12nVePs9u8cTyzft
+         8nIqYeVa1UeXf6ySXiLxf6DMhJMr/LBodKPVxrqnHgZmF7nhM6gSvl3nrJ8ahDevrj6j
+         ZCgw==
+X-Forwarded-Encrypted: i=1; AKwUvBzip4H546of82TBY5+vCsrtwTQGwEgtLZBBk6U0cHnN2EM79dZZldTM6U4UxOwG9VY1Y1FoUwd9k/dUpig=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rBlA6cujAeHetSSC0cGg1OyA3TowxqSx1bpKxGP+bMGH6RxxJ
+	hicKLZ0HIwrYJehm7++ZyR34B4/0nmrFwdlmdhVoT3KNtURfpx+4Y7SzkUMBZnCPvFhydw==
+X-Gm-Gg: AYBFou1ZaziaDnGYYzcF9F10SrZm7b0fnf1M0AVc2BSL9dOH2jAUg+VlNdx+QvtFQMo
+	DwDZ0fJRdK89qCQYEOvoH1moXdWePdsbDOxy7L224hJgfGr7aQL7mLIZ+aUJS448plLocm1Ze1Z
+	oi1RBAFeVj6R9V6zR130Wbs1qLNDlYkZbP76Yh34z8kf2u5RFtSePN3PLRmm9ndXK7QvVf3kW1B
+	OyV3KDtcBeV0FPl/JK1ChyO2yvxmGHlu1MfjgiIXDzKq0CTREKpbLEpi1YRcIfpUwgkDKjbym1n
+	8TjGpGbM3RBzi8ZBaMrLxfVpOmaYDvaJFy1jdkr3FsmIl1A/HkmxOcK7LvizIyyhpVg7jpKFh8q
+	M1eLlfzV5Sh6IjJDLw2eVGXPsZn4Q53AtV7O+9Rym8kQlKvKzWsCMA9Bp4fgD8oJGx2iXI9drxI
+	QnKbRZDtvXsdWBZVgOL38RA0c9FQTEng78c2wpZv+erES+8bDFM5ATkWzr1aV9rASx1sWcGFvYR
+	A8YJma1A2imriM9lPDPTvNKHh78Mh990XAk3/48beUX+jjNwkrKN+cVG3otXKB0OHKis1ewjteO
+	LW9m2T5xGGrx+NNEiT5e5tS6E5VTBCCCxrsWbm6won6j7NwznN29+D86117tK0GzKg/Ljdo=
+X-Received: by 2002:a05:6512:2399:b0:5be:4904:d2c4 with SMTP id 2adb3069b0e04-5c00397d2e2mr125143e87.15.1793915532486;
+        Thu, 05 Nov 2026 13:52:12 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com. [209.85.208.172])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c002ed5656sm72014e87.3.2026.11.05.13.52.12
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 13:52:12 -0800 (PST)
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab3b29a298so19372311fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:52:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBycgWgDhcBDhMmTQsrZwXEGam7836lkodFj9d8/x6qLk0RISB3uD838s/bz0gBRHmnVjDBdDPYTPdZPEDo=@vger.kernel.org
+X-Received: by 2002:a05:651c:a14c:b0:3ac:ddd9:7820 with SMTP id
+ 38308e7fff4ca-3acf3b201eemr1185331fa.15.1793915531874; Thu, 05 Nov 2026
+ 13:52:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,155 +81,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261104-sm8150-ice-rfc-v2-0-d697bbce0278@andrewgigena.dev>
+ <20261104-sm8150-ice-rfc-v2-2-d697bbce0278@andrewgigena.dev> <dxb7s2d25ixowmfifhvetctpckj7h4y5puiai7orhkimgj7uxu@ekhwvpm536mk>
+In-Reply-To: <dxb7s2d25ixowmfifhvetctpckj7h4y5puiai7orhkimgj7uxu@ekhwvpm536mk>
+From: Andrew Gigena <mail@andrewgigena.dev>
+Date: Thu, 5 Nov 2026 18:51:44 -0300
+X-Gmail-Original-Message-ID: <CANn8UmeS0Fvdkamzu0Cgbv25+WdjHsXvCLMpsL98QSo-Gd731g@mail.gmail.com>
+X-Gm-Features: AclHuK9TNVNMsMH-gS3LyhmcwXP0L8JEpTnOqnWuyNklory8rcuhuvvX8_jSoFw
+Message-ID: <CANn8UmeS0Fvdkamzu0Cgbv25+WdjHsXvCLMpsL98QSo-Gd731g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8150: Use standalone ICE node
+ for UFS
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Andrew Gigena <mail@andrewgigena.dev>, Abel Vesa <abelvesa@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
+	Stanley Jhu <stanleyjhu@google.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Andy Gross <agross@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-scsi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jonas,
+I understand, I'll keep that in mind for future patches. Should I
+release patch v3 removing the "Tested-By" now, or wait for other
+reviews?
 
-On Tue, 2026-11-03 at 22:03 +0000, Jonas Jelonek wrote:
-> Use the optional VMAIN regulator power budget to configure the MCU's
-> aggregate PoE power limit during probe. Quantize the available budget to
-> the protocol's 100 mW units and reserve exactly that amount through the
-> regulator core.
->=20
-> The regulator budget represents the usable PoE allowance. Program zero
-> reserved power so the previous firmware guard band does not further reduc=
-e
-> that allowance.
->=20
-> Require a finite budget of at least one protocol unit when vmain-supply i=
-s
-> provided. Program the budget before selecting dynamic power management an=
-d
-> ungating the ports, so enforcement starts with the regulator-derived limi=
-t.
->=20
-> Enable VMAIN before hardware initialization and register one managed clea=
-nup
-> action to free any reserved budget and release the enable reference on pr=
-obe
-> failure and driver removal. Record each successful reservation immediatel=
-y
-> so subsequent initialization failures are covered by this action.
->=20
-> Read the current budget index before programming the MCU. Retain the
-> programmed MCU limit on probe failure and driver removal, as reducing tha=
-t
-> limit to zero would interrupt ongoing power delivery.
->=20
-> Boards without vmain-supply retain their existing firmware-managed
-> budget.
->=20
-> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
-> ---
-
-...
-
-> =C2=A0
-> +static int rtpse_mcu_get_global_budget_idx(struct rtpse_mcu_ctrl *pse, u=
-8
-> *budget_idx)
-> +{
-> +	struct rtpse_mcu_msg req, resp;
-> +	const struct rtpse_mcu_opcode *opc;
-> +	int ret;
-> +
-> +	opc =3D &pse->dialect->opcode[RTPSE_MCU_CMD_GET_POWER_STATUS];
-> +	if (!opc->valid)
-> +		return -EOPNOTSUPP;
-> +
-> +	rtpse_mcu_msg_init(&req, opc->op);
-> +	ret =3D rtpse_mcu_do_xfer(pse, &req, &resp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (resp.payload[4] > 0x7)
-> +		return -ERANGE;
-> +
-> +	*budget_idx =3D resp.payload[4];
-> +	return 0;
-> +}
-> +
-> +static int rtpse_mcu_set_global_budget(struct rtpse_mcu_ctrl *pse, u8
-> budget_idx,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u16 budget_raw)
-> +{
-> +	const struct rtpse_mcu_opcode *opc;
-> +	struct rtpse_mcu_msg req, resp;
-> +	int ret;
-> +
-> +	opc =3D &pse->dialect->opcode[RTPSE_MCU_CMD_SET_GLOBAL_BUDGET];
-> +	if (!opc->valid)
-> +		return -EOPNOTSUPP;
-> +
-> +	rtpse_mcu_msg_init(&req, opc->op);
-> +	req.payload[0] =3D budget_idx;
-> +	put_unaligned_be16(budget_raw, &req.payload[1]);
-> +	put_unaligned_be16(0, &req.payload[3]);
-
-You don't want to configure a guard band? Can this lead to flapping of devi=
-ces,
-where a port is rapidly switched off and on by the consumed power going abo=
-ve
-and below the power limit?
-
-> +
-> +	ret =3D rtpse_mcu_do_xfer(pse, &req, &resp);
-> +	if (ret)
-> +		return ret;
-> +	if (resp.payload[0] !=3D budget_idx || resp.payload[1] !=3D 0)
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +static int rtpse_mcu_apply_global_budget(struct rtpse_mcu_ctrl *pse,
-> +					 struct regulator *vmain)
-> +{
-> +	int budget, ret;
-> +	u16 budget_raw;
-> +	u8 budget_idx;
-> +
-> +	budget =3D regulator_get_unclaimed_power_budget(vmain);
-> +	if (budget =3D=3D INT_MAX)
-> +		return -ENODATA;
-> +	if (budget < 0 || budget > U16_MAX * RTPSE_MCU_GLOBAL_BUDGET_LSB_MW)
-> +		return -ERANGE;
-> +
-> +	budget =3D rounddown(budget, RTPSE_MCU_GLOBAL_BUDGET_LSB_MW);
-> +	if (!budget)
-> +		return -ERANGE;
-> +	budget_raw =3D budget / RTPSE_MCU_GLOBAL_BUDGET_LSB_MW;
-> +
-> +	ret =3D regulator_request_power_budget(vmain, budget);
-> +	if (ret)
-> +		return ret;
-> +	pse->requested_budget_mW =3D budget;
-> +
-> +	ret =3D rtpse_mcu_get_global_budget_idx(pse, &budget_idx);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Retain the programmed MCU limit even if later probe steps fail. */
-> +	return rtpse_mcu_set_global_budget(pse, budget_idx, budget_raw);
-
-This index is different from an earlier version of this patch, no?=C2=A0
-
-My (old) documentation [1] describes the retrieved index as:
-    "Last updated PSE device ID. Also the PSE device the budget belongs to.=
-"
-
-I'm afraid I don't remember what I meant with the second part, but I suspec=
-t the
-power budget needs to be configured on all PSE devices. Does this work
-consistently on switches with multiple PSE chips? If "last updated" means i=
-t
-might sometimes return a lower index, I'm worried this might also lead to s=
-ome
-cases where you query the MCU in the middle of an update cycle.
-
-Otherwise this looks okay to me. I'll try to test it over the weekend.
-
-Best,
-Sander
-
-[1] https://svanheule.net/switches/software/broadcom_poe_control_protocol#g=
-et_power_statistics
+El jue, 5 nov 2026 a la(s) 5:56=E2=80=AFa.m., Abel Vesa
+(abel.vesa@oss.qualcomm.com) escribi=C3=B3:
+>
+> On 26-11-04 18:38:13, Andrew Gigena wrote:
+> > Convert SM8150 UFS to use a standalone ICE node.
+> >
+> > Move the ICE register region and clock from the UFS controller node
+> > into a dedicated ICE node. Reference the new node from the UFS
+> > controller using the qcom,ice property.
+> >
+> > This brings the SM8150 device tree in line with the standalone ICE
+> > representation used on newer Qualcomm platforms.
+> >
+> > Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> > Tested-by: Andrew Gigena <mail@andrewgigena.dev>
+>
+> Tested-by tag should come from someone else, other than the author.
+>
+> Authors are expected to test their patches by default.
+>
