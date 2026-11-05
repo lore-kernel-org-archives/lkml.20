@@ -1,96 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793858453;
-	b=mhGPgVXPkfui+oNdwR7aOcI6xGz4HVPWmYVTQ3UICwuJbECeiwEMsHyPjaAYIOW7UEoW
-	 iR2vGJ8paMKeHR31lid7ThkiizezUL9/u4hbsPfzOMxiQdfY+SLaqsG0TYLrTSzOZ/Su0
-	 RxyGjwsTFLVXzFP4KQaiOLkNVh8wHtQer0yd4ME45wEz70o3xX6YcDaG+immAD4guusCg
-	 DcNtTod07HgpvpJrsM52uAvaYdLL26QQf6+wvk06dUNxfJw/E9TAnsVo31L2MenhI2JWs
-	 0je8cVEUrQ6fmEbeGAzAwBBuWNNPw3Hbta1pgvIowNKxWW/zFcggKbNsPYpw8I+dW2w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858453;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9M0yfwebD4fAJPUL1SH//vCIzURvhWlb24Lpv4vJd58=;
-	b=CgLuTxEVtTungieMMOUVZ1qxSZBaN9jyOJXoiUAGiKSq507CkY/Q/1mwpk5XA8bL7sy8
-	 DQphzQL8XTEW9Wf6+wIvkVF5b4rEl6STgxTal2IAhV1olS+8YyVocnKI6IqUtHjQ/dGRc
-	 ZrWIRm7VJUK9gI7i6j//uXo2EkDQbvbsTOMmo2DraYkHpL2UsiYwl/RjaFqSWIiucQFXo
-	 z6BuYBTjQayCNPKIBRhfocl37GkRU2rKfJ2rAPh/RAnq14i8RP2XJ7LCqbVL+4mswBXPs
-	 ocphiaMR51cNsSKR4sJDvm9CroOzgUdFOCbkE/kaR2+PTlr91+CDgMujynO7eLB+QUg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XeYdAa+i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.22
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013022.outbound.protection.outlook.com [40.93.201.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793858564;
+	b=JE6BDcOwCHzji5rvCwfxoE3MwZNsdL/HCQoLnlgYGJoNDA2Cx0lxOZDfXCenD2JBXxux
+	 /rlAUJuAS1BwjyX5pdKgYMkw2HppU+foVwAdw81zex02Wghv1AxfQmUEUOklDg9GOgR1g
+	 eDG+r16rvD4cGG/BEvnH7uHaZQw9ipUj+F08R2HEIQiMHD4BqkIvxihiB0LFXzYg286CR
+	 jBKUI+us2S08CYMLDXW0OnBvruBtQssnbcfsGdDccnZJknFabUygjGvXXQRqOMhEfKhwU
+	 hjt22JJQZWHFZFHXE7f8GKJ1tOklpGjaNJakHiH+Pf1ox7j0BrJYrw3fWtxynfEXYaw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858564;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=cczdSvxkXhuJ+XLaUhFZC1PNZn+3DdI+EeldN1X1aUQ=;
+	b=DZfYBrkvU1FNbiLyCA/dzXH14OKL7830f1qHIdxFTAh8ApeoV5sm4AeW80tf8b80sfOX
+	 JFUmbC+b/Gu8dpWzfAWpA8Nnb4me8zA+bM3tkN/3lkwvXKOsabmwz+qQNo/OLHczOwlvQ
+	 BaNNCF/pdBu6Ua/CxsD8p3lYHMGEK0RTRK7JviL9Vdcy3qtc657JSNGoEbLv8G8dIdqKd
+	 meqi8QpahDGirUgDQCYWu2iO0VTTqc3zeDBmkBTNNTz+157Rqql2fII8UL5ssriUBtPGq
+	 PMrNMlYqPJGApcqGurVl7s3iYJKojQ5X1T8HACZuQbNVfpf6njo1r9DZEMUor39LcGQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jgU6Q3Gr;
+	arc=none smtp.remote-ip=74.125.227.130
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89131606A326;
-	Thu,  5 Nov 2026 06:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89131606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DEE606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:02:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95DEE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XeYdAa+i
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wFZ57NqnyDl4i1fd3pAIoo8/popzsBFo3JjGCsXCcTpOpvTaeyCJ0Gwqvpz6pbsI1BJSUuyB3VhYEn34WOo8961ZPif4gfeCFqiHS18oAPGUdO5ocM0B0ITSLrudTVtzjwMaeq17KzYgBf6u5aS+WzQEsJkjKsOI5pcOr2zZTNh4CU8egzdwhDKGfg58TrxAaTsGqWCXSM2u3+OjS9KZ7lBosjR6zFSOrNjmO/+5stE2yugSjK7IQPdAmDINLzROV2RG7neUPanatTHv0esMm+UzeqDzkryO5SEKk5mwkLJWRcpXA9nvjtn3h5CHdyMLxgT+e/Qh0LTOTHRxBKgjfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9M0yfwebD4fAJPUL1SH//vCIzURvhWlb24Lpv4vJd58=;
- b=c/Hh7JoFzJVFMmYd+5paOhJUjOFwWyXw5A+8bx+YkLPufPumbCQCACRiA8GsBFSdO0IttR6hTv2iSGJVig/B34pZvUW9zD+CFd/5fYhZhwwAi+vo+NM9DKqktGZg4c8xE1cPzLtYf0H+6ge79izrcCQB8P8BmwDnCX9eiQUmns8VLlVbZt07Jn28Z+QwUfg850uL901k1ZlsrzGok3KJ/lk6Iwl7fMLEZp7qqaNWnalXFSa9bSwDxA/Ok5l8xs96xzXZuMGa4bekrPHttvAedIMXITvvvyHZTI8RhNbaOeBB/Jk8mtex3Xd0emQb0a1f76MaM85EFO0Yjwe2Z2DzhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9M0yfwebD4fAJPUL1SH//vCIzURvhWlb24Lpv4vJd58=;
- b=XeYdAa+iT35bkto3V8Uhn78/RsD467HTXR3oIEI46lRVj0oWRz3mQBo49J3i1tTCcsShCTg6wTlOMavX7M0hi/LrPWrxy9WI79x4S0GYoDJMMMdlq99BGOvnkZ1Tc/+d/8MqOOX431YKlEI3+Z5ueLTvwRO2I7N1PB8OVWXE428NgxMnM8xl6J4JCuMEmk5S4n8K4HGERLFLUw8DRJN3IElQ1sBPgvBN3NjX99tiU42ZBZWyCFWCC14rxGIgDhsM56V/N13s1Pw777ZHny4MlwfrIZIIMmwDUnnstuKRQXAYpFiDApdNazZ1C5w8ojQj6MObkpvU5tKze0zBOLS0mA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by SN7PR12MB7452.namprd12.prod.outlook.com (2603:10b6:806:299::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 06:00:49 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 06:00:49 +0000
-Date: Thu, 5 Nov 2026 14:00:45 +0800
-From: Richard Cheng <icheng@nvidia.com>
-To: Jongwon Lee <ai@linux.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, 
-	Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>, 
-	Alison Schofield <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, 
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, 
-	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] cxl/edac: Mask DPA flags in the event record
- cache key
-Message-ID: <auwbbYkbjswoBMrv@MWDK4CY14F>
-References: <20261102123233.74598-1-ai@linux.com>
- <20261102123233.74598-3-ai@linux.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102123233.74598-3-ai@linux.com>
-X-ClientProxiedBy: TP0P295CA0001.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:2::10) To BL0PR12MB2370.namprd12.prod.outlook.com
- (2603:10b6:207:47::27)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jgU6Q3Gr
+Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-3b092ea1afbso490707a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:02:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793858563; x=1794463363; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cczdSvxkXhuJ+XLaUhFZC1PNZn+3DdI+EeldN1X1aUQ=;
+        b=jgU6Q3Gri2cVuteXXx2kn6dCr/iRYSaPsqgU/gajbjvMK/HKEFBQqT82x6ALvp6C8n
+         aJC/fbs/CZJPjQaMksYYkbOwz2n03rRIL0ueheY6Bgphcgt8GTgX5dMkrJCC+Zko54R0
+         wUlA0bA1eDJBJifecvu1b+57y/QRER/GOK3TYCKwYRKZmOZFQ1Jy9uBCHbxNIaBySBsh
+         axqK+wtFK5EwSskYaY2mehNtzJrD448oT9VjmOL3OsPzzXk5Q3ptpvbFL+Q+Y+6anmoX
+         hrV/qTKwtoCYvD2MO8LSeS1JytMda7IDwx6kQJz6eDDtUMnb0+ISUOOtJUP2q0mQfy+q
+         rlVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793858563; x=1794463363;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cczdSvxkXhuJ+XLaUhFZC1PNZn+3DdI+EeldN1X1aUQ=;
+        b=D1K854RYOXbHzPoHd0eiLkCnSwOkmSnbL4RsKJyqPz8uuTdLfkUuAjAhicG4V4YFW1
+         zXGILoaomtqGvsDbipPe2jpS27rEw9hzQXGlqbQHp9u0egKrSXnYaO9w5Rwlh/YhrryW
+         GFYcbJMDDHKDQveYLhJ3eqNGLXvfueCdcQec+5SM89mEoC2em72BwZIZcEBUaSzX5aoE
+         miC8rvGyegLGzPKeK1sKjYKMKV1pjD6+lIkkb7zvdXCCLWSBArllR8xenxBzsgOfrsq4
+         BO5FVaOm/V0GUh7ObwqPt7e4VVzQmWJ2Bd0RGzgjIt9cdhQgmItRDaSd3aisV3/TkkjR
+         gABQ==
+X-Forwarded-Encrypted: i=1; AKwUvByL5CBDFYT9CTioy3FfpDwXl/8iaBEDApKRFpaIE7jQHhbU8TQ6+sKWYKL1C29SfClobWgvpWd5eGs/taA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+X/pWoC7TVu5GrmxlPqiW86VbxedVXYTYvEQympL8fZwF0WbFj
+	gRgu1zqF8D7UtNnBIBO+G9CjKx+4YjQtPJ/HRIx/WY4gx29tetwmDG6l
+X-Gm-Gg: AYBFou2Ztl9a6ljAD+J7Gnk7UyrYu6e52gKUGaPckggMJm/5HdgluFq0DW5/ZLgCrho
+	+g2XXrRnJgBvU6gn277hdv920bgWcvybAaeVc3KqaIgKL+Kbvu21V+rmISLzoMZK2m77hkMPNjg
+	TXSrtrRAxmoiRAHzO1G4Ocjga05AaHkN4amv+ovMVwmB4sfVS/0CPtjCoiqdqtY1HtxXN4dtt57
+	mXg8JIMdz0zDIfGFURs96Zkef8s5gi75m7fZC8xMIIKLaVyo2r4GzL6AnGthOH3W3MDe5saT22A
+	s37I6MxbYRiBiFcGEA+I/zjjxQ6tQARTnEoKKMwuJr2+8ufjxtP7zz3qm7tpT3TTRXuS0s8ERyP
+	ggYmdgLYs7VcWWm+3ioQPLe3TaDYPtUTiSH0FfHnk7gnIEQGdinrb3LfMAhPQ9qNZho82kyJNma
+	TRT0i0imC1uD/VGP4mxhGNUZ1NQ+N/MQUqDlySvo/s5JMviSYvcbdFVz3tN/l2N7Lsay4NgNaxl
+	AJ2G4J7dhywPh3zMnzX1Q1bkAB7sIWH+jwl4tWh39WuY7YrhXSzaSBh5V8FFzXJxAIHlsw4lmqS
+	heZ+DJpWwqfGvB6ASw3SqO4DHp4m3RXRaeUkJB3sxGzhEKcxAyhe4LrC
+X-Received: by 2002:a17:90b:184c:b0:3ac:452b:4a63 with SMTP id 98e67ed59e1d1-3ae897c4ea4mr14514730a91.55.1793858562916;
+        Wed, 04 Nov 2026 22:02:42 -0800 (PST)
+Received: from lima-ubuntu.hz.ali.com ([47.246.98.214])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b094d572e7sm3539249a91.1.2026.11.04.22.02.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 22:02:40 -0800 (PST)
+From: Qing Wang <wangqing7171@gmail.com>
+To: peterz@infradead.org
+Cc: bsegall@google.com,
+	davichazbh@gmail.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	rostedt@goodmis.org,
+	tim.c.chen@linux.intel.com,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com,
+	wangqing7171@gmail.com,
+	yu.c.chen@intel.com
+Subject: Re: [PATCH v4] sched/fair: Replace random newidle_balance with Bresenham accumulator
+Date: Thu,  5 Nov 2026 14:02:31 +0800
+Message-Id: <20261105060231.2701208-1-wangqing7171@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261030103916.GV2668564@noisy.programming.kicks-ass.net>
+References: <20261030103916.GV2668564@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,167 +110,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|SN7PR12MB7452:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2032f1f3-2120-43fb-e2d2-08df3b02241a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|10067099003|18002099003|22082099003|261102123227099003|261026121527099003|261021121427099003|11063799006|56012099006|261009223027099003|261026140227099003|261022105027099003|4143699003|261028144727099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	G5u6QdiVQCrQW9gTVL96zrdC7mnWVzCwM6+sYyw9jwRtdUuIGj6a1rAZnfaf8Qddc9F7pa4ueJELQN2QMZ3RszPjpRIr+UDLuWAmDeM7o3ndVV0me9L7qufHzWk5b2Xp9N/7GCtvQhsbemOoFxUoyYiTCFfZOnYvOT1IXixrOMWfR3ladth3uQCcSUA0zyDg14zvHggVtoqlnr5WWbzcbfFWvke99J3UjRlvnlTFLMnjCznWhS23GDyH3bnJA5gDaCluehCoJpwht+XjCad95Q5EsZJRmPzvn0AFJyBuYzFlXZ98cArpuFEhRhyQoNgfGwao48S4OUQClPOEEBgflTFR5yTDl1utv4FOKUM5wabZ/U58rQPWNlExOdZTKMOq7MXK6GxV4o+0gEHFWBl2m1kB8cO4OQugP367fMLFk+uGlQ9IbLCiyzNKjDvI38C6k2Y2iRW+TCw3UVbUAWKdwzbRkQ3gJcl6OoxKXMbL6M54oU9AlYjM9lAkjTa1d5ORihNlT03bLaz2AZMVX84dDIILmtzQv8SAnnZy8aELWGT7rpAZJrAJSM0YZUac3vZ9shXWF+9c1EYserJtyFZo5lThiyiih6dXnWySHxZ4ub9NhpbzjJ0LcQzh03q7dX1ZCZqRbjZvtp1zoCzOL39EgpKx2XSGxTovbpd5eEnrRAE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(10067099003)(18002099003)(22082099003)(261102123227099003)(261026121527099003)(261021121427099003)(11063799006)(56012099006)(261009223027099003)(261026140227099003)(261022105027099003)(4143699003)(261028144727099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?23QRoqUfDX9kc5RowRP125oAwq1RL9rxJFhmLTwXlj0OQc6e3JpKyabolLlL?=
- =?us-ascii?Q?fFQZ9BXn7cxRI3XxOkRtaBjMFz+9gb4XSGn8PdWhUKzCibIMrvIxPTJ8KiVv?=
- =?us-ascii?Q?LmnaabDvAzeLhJe4Swsoqa7Jb3Y8WHVclKE/mZ6MnMzyxGTqbDDT4nkWsO8I?=
- =?us-ascii?Q?9UwKitjsjND2dGxC5Jl/UwcSt1IdyMVxKjj23ij77WCGiit4g9iV+JEvDsL3?=
- =?us-ascii?Q?yMAZrRdQcjLt8aGctZB2Cy8f7S5mxrTUxryWl1okLbIRU670vgxqAXQ35q3T?=
- =?us-ascii?Q?Z+oIzBB3WlErNP42wM8ogqpdqf2664LOFkIYsa0ESu2UMnrbxhtKJtLMnCNL?=
- =?us-ascii?Q?qqcspJsuW2dHqYYz0TAaVNFSPW4/VQA/zW58ziGBFXjJv3Xv68E61JRRmMeI?=
- =?us-ascii?Q?oE2ieB5l/Hn+Nv528hlRtezl8jBapJq5Tha4dNUIj+JgPJIUqXb0/GZzkJCy?=
- =?us-ascii?Q?1FY+jSeW8jGHgC1dKDq00ZFlqGfZibLSjslKmLBHBO4tt77+8e6/DV7xbbKU?=
- =?us-ascii?Q?7tGTJH/CXOSC5bJdcdwrKl4FRAhb6m/coZpN4VQFFtPTH6gt5eOoDVTGZ8F4?=
- =?us-ascii?Q?R5NLXatq3W/yl3dw3So7lkXnPktjcvVqRekwGFYWT7q0DLM/ojCcDQkb8bHd?=
- =?us-ascii?Q?B0C1sFjrxxuTE56tNAK3z34mtCIZAsbk/biAX0Ipa/35NtFZ0VX5q1Bfy1MV?=
- =?us-ascii?Q?qaecM0ihGL+h0kf9SnLoPuZuZIZvZDRTAeu1WLb846kPF/GizIL6viVxqlGI?=
- =?us-ascii?Q?zkhXT8982wvWsc3jJpy9v7V31Jiz+w2uCl6gMgOT4Ps5KCHP+LF1q3o/RJN/?=
- =?us-ascii?Q?95FHb1PDsv4gweq0vgH8Xc50hndgpTgENwZ6NQdfDZovLn4VxuxI0bqUaLce?=
- =?us-ascii?Q?tvXB3NmVcABrNUtiau142gpGiqWfb/pCR68ZcNlFieW9ZLWcd+glGBKHTId8?=
- =?us-ascii?Q?HaIV7TfniUNQb8g5DUyneIkQvd+mRqnGPQ8e4A4soXEAp+ivt8i9j4nvnOst?=
- =?us-ascii?Q?fBj9E7YpuUevWtnksl5A6fhv8O0Hx/pg7aFye8WHotEndWOQLrZncP6iWM5a?=
- =?us-ascii?Q?3gOh3Iu81MZcfKcjEHVSLACzQQg1asDk2fzAhjTvIEulp82PeI7Jk7NsA1hx?=
- =?us-ascii?Q?v8TaAensc+ysPpH3G4DVLf7pIwVqsN49ASnJqBI9wRDv0X862a7unrN/Uh9b?=
- =?us-ascii?Q?etps41n6wFYYH9bVQHETFEUeB45nP6SwHHvHYW77sDRG+jXWjZtjGygvDbJN?=
- =?us-ascii?Q?3Ns6+0qZTY4uz7DiGSGpohYDXExBC5pGGX+8534fVKraFOj1PG//Rgo9ReDA?=
- =?us-ascii?Q?DE7Q4XRgTD5XbLzZzkfWXw8p4kZzfjQ5nKosNkt2fUg3bEsmOaTb/ZqtNnZ6?=
- =?us-ascii?Q?/QAMedn8E/lVHm3R8dDeKj2m55m1267ADmo7nhhZUbwB0E4uvbqIsPF24Cwa?=
- =?us-ascii?Q?OGMagGXbiG0Kh2jmuxG1S9o3xACGTwCteevTZIQ6Ixt1RMSqtAzIozoeViEf?=
- =?us-ascii?Q?tKLf4z/wXOIZhUncCIO3ZVWbSzdjYyDDQbktUHc2N5/BWQgxcMFBiDsCJEAO?=
- =?us-ascii?Q?+AXLZr/RTCR0LT3IObwSPERZG9BR1f6qB9V3ua0aAtwye8duBkK4vCCh6Rg2?=
- =?us-ascii?Q?OlmPzWFBzBdVnCG8ekX04DQxs9VdK4q5WTVA4u03c18A26ym0SM8xkahuc+S?=
- =?us-ascii?Q?djgZjOgYQZa0zWnKENRu0UNMSrjDjtIRxDu02p48DdubgAmq?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2032f1f3-2120-43fb-e2d2-08df3b02241a
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:00:49.5177
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iwUBLpz1PqkX//ejr/eKHlG32sgsWtKuGpxVV6CYQBsmDgaSNEcQ1tA5PEuuW8fzl9gfaPihHyPqSvXPQ40VtA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7452
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 09:32:35PM +0800, Jongwon Lee wrote:
-> The low bits of the DPA in a General Media or DRAM event record are
-> flags: bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace events
-> report the DPA with CXL_DPA_MASK applied, but cxl_store_rec_gen_media()
-> and cxl_store_rec_dram() use the raw value as the xarray key.
-> 
-> User space reads the DPA from the trace event and writes it to the
-> mem_repair dpa attribute. If the record had any flag set, xa_load()
-> misses it and the repair fails with -EINVAL. The raw key also lets a
-> repair go through for a record the device marked NOT_REPAIRABLE, if the
-> DPA is written with bit 1 set.
-> 
-> Key the records by the masked DPA and skip records marked
-> NOT_REPAIRABLE. cxl_find_rec_gen_media() now reads the record, so do
-> the lookup under the xarray lock as cxl_find_rec_dram() does, and
-> return a bool since its only caller tests the result.
-> 
-> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-> Signed-off-by: Jongwon Lee <ai@linux.com>
-> ---
->  drivers/cxl/core/edac.c | 43 ++++++++++++++++++++++++++---------------
->  1 file changed, 27 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index c5c8dda20e..a5f198b561 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -918,24 +918,37 @@ struct cxl_mem_repair_attrbs {
->  	enum cxl_mem_repair_type repair_type;
->  };
->  
-> -static struct cxl_event_gen_media *
-> -cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> -		       struct cxl_mem_repair_attrbs *attrbs)
-> +/*
-> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
-> + * Records are looked up by the DPA user space writes back, which comes from
-> + * the trace event and has the flags masked off, so key them the same way.
-> + */
-> +static inline unsigned long cxl_rec_key(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
-> +}
-> +
-> +static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-> +}
-> +
-> +static bool cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> +				   struct cxl_mem_repair_attrbs *attrbs)
->  {
->  	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
->  	struct cxl_event_gen_media *rec;
-> +	bool found;
->  
-> -	if (!array_rec)
-> -		return NULL;
-> +	if (!array_rec || attrbs->repair_type != CXL_PPR)
-> +		return false;
->  
-> +	xa_lock(&array_rec->rec_gen_media);
->  	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
-> -	if (!rec)
-> -		return NULL;
-> +	found = rec && !cxl_rec_not_repairable(&rec->media_hdr);
-> +	xa_unlock(&array_rec->rec_gen_media);
->  
-> -	if (attrbs->repair_type == CXL_PPR)
-> -		return rec;
-> -
-> -	return NULL;
-> +	return found;
->  }
->  
->  /* Caller holds the xarray lock. The record may be freed once it is dropped. */
-> @@ -949,7 +962,7 @@ __cxl_find_rec_dram(struct xarray *rec_xarray,
->  	lockdep_assert_held(&rec_xarray->xa_lock);
->  
->  	rec = xa_load(rec_xarray, attrbs->dpa);
-> -	if (!rec)
-> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
->  		return NULL;
->  
->  	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
-> @@ -1130,8 +1143,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
->  		return -ENOMEM;
->  
->  	old_rec = xa_store(&array_rec->rec_gen_media,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
->  	if (xa_is_err(old_rec)) {
->  		kfree(rec);
->  		return xa_err(old_rec);
-> @@ -1160,8 +1172,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
->  		return -ENOMEM;
->  
->  	old_rec = xa_store(&array_rec->rec_dram,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
->  	if (xa_is_err(old_rec)) {
->  		kfree(rec);
->  		return xa_err(old_rec);
-> -- 
-> 2.55.0
+On Fri, 30 Oct 2026 at 18:39, Peter Zijlstra <peterz@infradead.org> wrote:
+> On Fri, Oct 30, 2026 at 06:22:26PM +0800, Qing Wang wrote:
+> > On Fri, 30 Oct 2026 at 17:56, Peter Zijlstra <peterz@infradead.org> wrote:
+> > > Funnily enough, treating this as an independent variable and using a
+> > > random number works and 'fixes' the slope change problems.
+> >
+> > Hi Peter,
+> >
+> > I explained this in the v3 thread: on a slope change, carrying
+> > newidle_window_pos over from the previous window only shifts the
+> > first allowed balance in the new-slope window (512 calls) earlier or
+> > later; subsequent balances are still uniformly spaced. So the
+> > initial value can be anything — it doesn't matter.
 >
+> It does matter; you're rounding down. If you discard two fractions that
+> sum up to more than a whole, you've lost a call.
+>
+> Let '/' be the integer division; then (3/2 + 3/2) = 2, but (3+3)/2 = 3.
+>
+> IOW integer division (flooring) does not distribute.
+>
+> The result here is less newidle calls than should have happened.
+>
+> You cannot argue they are equal, you can argue the difference is
+> irrelevant. But so far you seem unable to see this distinction :-(
 
-Reviewed-by: Richard Cheng <icheng@nvidia.com> 
+Thanks again for your patience.
+
+I think we talked past each other: the lost-calls problem from repeated
+rounding down is already fixed in v4 by not clearing newidle_window_pos.
+The position is never reset, so the total number of balances is
+floor((initial_pos + total accumulated weight) / 1024) -- the long-run
+count is exact.
+
+My last mail was only about the initial value of newidle_window_pos in
+sd_init(): it shifts the timing of first balance call.
+
+> Also, the uniformity isn't a feature per se, another thing I called out
+> earlier. One reason why uniform distribution can be detrimental is if
+> two CPUs end up in a synchronized pattern, then you increase contention.
+>
+> Now, again, there's plenty arguments to be had why that isn't a likely
+> issue in this case, but you cannot blindly state that uniform is better.
+
+You're right, and I'm sorry for that. I favored uniformity without a
+strong argument, and I kept claiming "equivalent" where the honest claim
+is "the difference is bounded" -- the distinction you point out.
+
+Performance-wise, the uniform version should be on par with the random.
+And it can indeed run into the synchronization problem you describe,
+but that can be mitigated by giving each sd a different initial value.
+e.g.:
+
+    .newidle_window_pos = (cpu * 1024) / cpumask_weight(cpu_map)
+
+That leaves the per-window deviation as the only remaining advantage,
+as described in v4: the call count stays within one call of the
+expected value in every window (vs up to ~41 call for the random
+dice in the simulation). I understand if that alone is not enough to justify
+the patch -- I'm grateful for the rounds of discussion.
+
+--
+Best regards,
+Qing
