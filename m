@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872199;
-	b=B1FE4iGkOiUH4UT7E/CLSYYiE9lY5MHpwx2OkIxlPkag2FjjcjiAL1IciL5yZj1xz/BG
-	 +3zHRrD0tZIg9+wbZqhqJxDR6YWl5DWX88KygkXwrxX1u/KZdpcAB4gAydMkx63U46Dph
-	 /W7hw7/Iwn1khlppH/EsR/7djBNcyYfqFGg5So70emdZz7GoU91s6wpjAtrcgIAA9EvjR
-	 08l2IQoQ6AXPgZ/X71A8WJCCede7waio+qlvjtWmjnM/Jz8cBuPYTuQ0zRl2emTpX+f8D
-	 iek5+Xm1URKEoSMbOl4lhU+Mn6XaY8ZLyvn6nEfLEGs7M7cDry1BqXikRAa8wlnxIwQ==
+	t=1793872190;
+	b=nAv9AJKaajnkvAf6dUmN/xJgLAtCCdGuX3anAtmIr3yIfGvf32js5yGlgSv6Q6TIrZ3z
+	 ZcFGYQoG93SONqn1RuD2HGK4peiFPPtwc7P+/4LbFf8fase1LMf2WFeJRnMWt9aalpHeu
+	 KgAmv77ktNdutw6XMKYKWqJVlGTMx2Tzu9qwzB8ctuwd96/gNiEFmnAreOdXLehGsynsr
+	 nYGHsAeSbWriAlxmUBD4nMQCX6W4LL9aSEiLG7WKkCJEIfaSALqZLueRL2+/tRjCQbaTq
+	 MtwgFac4ixMnHxAKYXqedJl3rqN0sJ4w/Hmw4eEU4xcVLqFhLwFJ4EL6yUzYULb5Wvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872190;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SX2iWgwwTTnfuBkVYLRjLx6wOTnegLABFMy8vXMq74M=;
-	b=iVcLdKAhkJj+CQAfiOd4i2y3klhfBhKeZirEv0or17pGl5++H3ERqExLBmtcoEtVUEC5
-	 1I0e1QG6bysa8GdQTgKOJ7uC7Lt2UJfRzfa71Oa6jfGHoBsFly0vQiDNqgaoHk+Af4q4C
-	 MDqy+VcBVByKF6zXKaLDZ3eeHEP7G1T+mnzSaTNf8h2BoSxBe3xhNMfe/VzkAyTB6tyML
-	 E+E2H763TJo8dMGq8kebJIw/8orwiUNUU+Fxri1blJrxxnpEezH53yeIW3wWxHWOnWUhq
-	 KsXucPnU513QJGUbSS/ohLpQ63RuF/uEubXeZPOVnO6UiF9e/gGOPpCgzpgBDLyawUw==
+	bh=DQ1+acxGA/cVA3xPDg8bZPRUvTTb0uWDFMTwgPkJtB4=;
+	b=gpfoHsF/bvHFZnvsX0jfGcGmuB3Do6oqEcjGP1Rh5pwW23XjiEWD2aSlCDaltAN0jSmq
+	 zOPWR3jKVukZMtKaHuP9Dt7EbBJGUEscT419yw8EwabuQ+00acUNTQVUt9wJUSdnxBKPU
+	 lq9YhJ9k/mYyjnsbGOLf5ebw9lPjCVbS/J8+G9lvwKJhX+GNzzd8pvTOsgweMxs3bveEW
+	 vcyscXKP5i0XZOoq1xVsFLOfM0/PVkfqpf+GlDuWXuBuojkrlsZrKRzC20dectmvhgR++
+	 rTBxw98FyIqyDRbmpS6zkzGjCzRUaNEDbPDKsExnbOmdYIoG2zOHAVD2vWysp+O9aCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p8xzellJ;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=adO5YKwf;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2B7606EE94
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2B7606EE94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5657606D801
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5657606D801
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p8xzellJ
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=adO5YKwf
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1793872195; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=SX2iWgwwTTnfuBkVYLRjLx6wOTnegLABFMy8vXMq74M=;
-	b=p8xzellJ3Vln4GU5eh9uRy6v9tQ46VoLSGXhPCbSkx7h2oFnG42ubhPsLBuV0TE5jdEmbbL6m9HgC/yD2LZwCqLNddplfiAGqEJ5Ax8lm5s7QAXuEzi0tc4SP1D++tmLEHJPrHjM9xEmhLclXZZaYp/bhQevuNBnXkFepDkw+w0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R481e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XE8RZh4_1793872194;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE8RZh4_1793872194 cluster:ay36)
+	t=1793872187; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=DQ1+acxGA/cVA3xPDg8bZPRUvTTb0uWDFMTwgPkJtB4=;
+	b=adO5YKwfe/tAonmLtelSur8/0o3HPDdFTvIhAKPjj7pRPoyc7Wz0eQ/M625TaaZVAW2cqJ7o2A6UhiZt8IpY2tLoC85sSkvpmF6rvqEFU/+bf3NEIX+uUXNuu43Q+asGO2TVLvR144c9XG4Zp2e0ex/o0K+Fh1i2ebDKMvcj914=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R951e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XE8RZde_1793872185;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE8RZde_1793872185 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 17:49:54 +0800
+          Thu, 05 Nov 2026 17:49:45 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -50,9 +50,9 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH 29/30] ocfs2: check dinode refcount location in online filecheck
-Date: Thu,  5 Nov 2026 17:49:25 +0800
-Message-Id: <20261105094926.3203416-30-joseph.qi@linux.alibaba.com>
+Subject: [PATCH 19/30] ocfs2: abstract the oversized extent list count check
+Date: Thu,  5 Nov 2026 17:49:15 +0800
+Message-Id: <20261105094926.3203416-20-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
 References: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
@@ -67,34 +67,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Wire the OCFS2_HAS_REFCOUNT_FL without i_refcount_loc predicate into the
-filecheck validator.  A reflink-capable inode with no refcount tree
-location cannot be reflinked or have its refcount tree removed cleanly.
+Fold the l_count against ocfs2_extent_recs_per_inode() test into a
+predicate.
+
+Move the rationale for using the no-xattr maximum into the predicate,
+next to the bound it explains, rather than leaving it at the call site
+where the bound is no longer computed.
+
+No functional change intended.
 
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- fs/ocfs2/inode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/ocfs2/inode.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
 diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index e0fc68ff997a..0f7391c9f30b 100644
+index 70fb032ce891..f68f8a26e6ab 100644
 --- a/fs/ocfs2/inode.c
 +++ b/fs/ocfs2/inode.c
-@@ -2185,6 +2185,14 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
- 		}
- 	}
- 
-+	if (ocfs2_dinode_has_refcount_without_loc(di)) {
-+		mlog(ML_ERROR,
-+		     "Filecheck: inode #%llu has refcount flag but no i_refcount_loc\n",
-+		     (unsigned long long)bh->b_blocknr);
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	}
-+
- bail:
- 	return rc;
+@@ -255,6 +255,19 @@ static bool ocfs2_dinode_has_zero_extent_count(struct ocfs2_dinode *di)
+ 	return le16_to_cpu(di->id2.i_list.l_count) == 0;
  }
+ 
++static bool ocfs2_dinode_has_oversized_extent_count(struct super_block *sb,
++						    struct ocfs2_dinode *di)
++{
++	/*
++	 * The exact capacity depends on i_xattr_inline_size, another
++	 * unvalidated on-disk field. Inline xattrs only shrink the list, so
++	 * the no-xattr maximum is a safe upper bound that a valid l_count
++	 * never exceeds.
++	 */
++	return le16_to_cpu(di->id2.i_list.l_count) >
++		ocfs2_extent_recs_per_inode(sb);
++}
++
+ void ocfs2_set_inode_flags(struct inode *inode)
+ {
+ 	unsigned int flags = OCFS2_I(inode)->ip_attr;
+@@ -1908,13 +1921,7 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 					 (unsigned long long)bh->b_blocknr);
+ 			goto bail;
+ 		}
+-		/*
+-		 * The exact capacity depends on i_xattr_inline_size, another
+-		 * unvalidated on-disk field. Inline xattrs only shrink the
+-		 * list, so the no-xattr maximum is a safe upper bound that a
+-		 * valid l_count never exceeds.
+-		 */
+-		if (count > ocfs2_extent_recs_per_inode(sb)) {
++		if (ocfs2_dinode_has_oversized_extent_count(sb, di)) {
+ 			rc = ocfs2_error(sb,
+ 					 "Invalid dinode %llu: extent list l_count %u exceeds max %u\n",
+ 					 (unsigned long long)bh->b_blocknr, count,
 -- 
 2.39.3
 
