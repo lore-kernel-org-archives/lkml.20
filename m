@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900035;
-	b=HkC2IhinvRW5Yj84INfelLUQyAVrjD5OTGvKKyjkfUxseLacy/HOyqd6/6ldqCNM7l9J
-	 AAg13G9iDyZc0yP00YleTq/TTc3hIVDDi8JY67kC+JPU6Lv50II2AikF+CVqnqOFZtzxt
-	 2YWewt4FE0qLgLIZfNyQyqBZq68xeuDiy+y4ZmeOvyv92s5wdTjf2bnxwsy4669m0QxIh
-	 dcY9lToPBWJXKBz1oI5RF/WVZ/PGCx8Mhc4ERsJBV3biql2M/trZoMqzsdjP11QS2uITS
-	 kQKq2/AEP7ygsFNcVFHG3WB1d42FeXQt35tGhduTETPoxyP/HdRIc2tk0YJVyUJXZxQ==
+	t=1793900040;
+	b=R01x59gDcaJkl3VGV9Mtz7bNoEy7nPzMrN6VKU6nmsM9VkIx9kwHUHdLVpz64pQCMuld
+	 BmmuWlHeXdLjMKOrSn/fKzoqvlSKITw9hrbcV8IMX6wwy/npogz8/yCKVxVY/LUN4Ingn
+	 5SuSSoChTygA9EUjhnmuPhmRO5n+L5sLZq9HGzSlobKnIiEyw01patLqd3QHsQe/Pe/Uj
+	 v8Ckms+cjcWLXA6WUkpx3GyfUBlF+8bbyQ5VLT/cNxNuJ4kT+T0WqJuHaZUZdBC9I87CX
+	 at6ecs6dQQWNbcN6xqN2f1Bv38CnjQdtNe9Q+C6Sc3HmnZISfN4rdQ4/aLQ6cmxFJgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900035;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=txE0NqAVE4GnjCwwk4oto1phoERpL/8EZaIMIn89g98=;
-	b=0fItoWLSD3lC/C/xCM3Kj4eB0zOU/41B4gd4ABf9rcMbQS7eogIZiy3yuqZihlp1E6g7
-	 +Xi/GMai/R+B597vu96nKeGbvCW+40pXkQNTt7fJJTweUYCGq3oeKY54iLlXkEcGlgMdH
-	 elFtP0elbk1+GHbSneikfC12jTAt9OOPrnZupR+vGudhCxb+MUi/KlDGou7gR98jGl7lE
-	 EnNwmqgRKMtUd6Kn9eVuxhixwylQUltUaks40wOTfu6WbJnauigMPejepjDaNDNmq/F8h
-	 wIvmcfqyKtA1JMxf1LmVqD+Ly+t4pBvnKdFqQTVpBtkIcy3w2SYUwShle5bA3QvFQNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900040;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fHbz90ILaaCOBKWqIHRp1aZbsJQSwVFsjChRBvgZnSQ=;
+	b=KVA2hiAaft7/OYKjtW0w9sGwDX3dsavw1YuDayxIQiur3/zAc2FEWGCGiEhl3jOTAFBf
+	 KU2a7WCYAhiqD8hqgaHoADCfVI279ekNNZCqqbyIVEChKECeKpfRNTkZw2jdTbqLF2CIb
+	 pxDoWDnm8VLRE8WVmvxU6oIWkvh9MAaIOyRKXVe+lHiH21gaBehwbIGyCb7czfFt7MIDc
+	 8YufpxTny9Z3QeFj/+EbvZMHHO+3Ik9TxUjzhKuNG/veue9KEvlBMz+b43hr7xGk+uJMV
+	 fqaAYlaEKK0z0Pcwa3eGZhRkmnl+XnidLs2eR47jSX2DXqPiNMqhGgttkrHDvWaypag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CSqi1VF+;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NawCArld;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1784E606A31B;
-	Thu,  5 Nov 2026 17:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1784E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38AF606A332
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:33:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E38AF606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CSqi1VF+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793900035; x=1825436035;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=DJhn81Zphg4t0gNU/PzOflNMenC2xx9cmWC8YHMmS4k=;
-  b=CSqi1VF+naMtWBNHxz0GvJX0XWk7B9Bwj94j5Y3FjJOi1+XZnf6PbsxX
-   w9q15dAUbrsyRb/aPE5v4/h8Gp8SMQFSUgY3BTM5fOWdm3QBLAhz6jN0P
-   0BhYsQqPY3YjeyRR7dofrBz5W+oIqVpaFaJBcQBbWa71GsVaJl11SQR8j
-   dwTr1cO+tZvoIJ/joTweI5E+R2xcyl8tgSxnw3lrvhvbocWU6kZot9NC2
-   I3M8wHMaBsqk5N/h1EhiBEbRU95koNvkuPIxV2lhdtXbYdkq4EdoTr6oN
-   9vIsiRx230Ttxn1+0vP0NlbF44QUSQ7vtxMOj1p3cjDLJ7juOgbaeoI2g
-   w==;
-X-CSE-ConnectionGUID: ovVBMrj8TH62esNxh1BA6g==
-X-CSE-MsgGUID: mY/qSzkvSJGYKUBLrYyliQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2725643"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2725643"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:33:54 -0800
-X-CSE-ConnectionGUID: ubKcXfV2T7ynYh0a64Nkkg==
-X-CSE-MsgGUID: 034hYj82R92RRvNl4nU7jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7061547"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:33:48 -0800
-Date: Thu, 5 Nov 2026 19:33:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Raag Jadav <raag.jadav@intel.com>,
-	Junjie Cao <junjie.cao@linux.dev>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Maulik Shah <maulik.shah@oss.qualcomm.com>,
-	Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
-	Peter Tyser <ptyser@xes-inc.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
-	William Breathitt Gray <wbg@kernel.org>,
-	Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
-	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH v1 0/5] gpio: Move most of the Intel GPIO to the
- dedicated folder
-Message-ID: <auy9-ToSFN9BQDsf@ashevche-desk.local>
-References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
- <gxfngcnnkgkk5zrmsyrmqam6bk2ti2aflipwsutvce3dtgc7tv@nu3mmjfrt75u>
- <CAHp75Vdocfk5b7GkL21z4nKv4mNcGMF4Y_aZP_sPPeL16FrsdA@mail.gmail.com>
- <auyUFrrAYLobE_cy@ashevche-desk.local>
- <y5aamdx67etg7dgzwbjorb65qikacw2zsnjomkkklty63dya7f@iapehkxib3gs>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NawCArld
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso956468eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:33:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793900039; x=1794504839; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fHbz90ILaaCOBKWqIHRp1aZbsJQSwVFsjChRBvgZnSQ=;
+        b=NawCArld5mDlRaHTnohEFmR3qAMd9eBT/BbnogqCVMr5UMLgEENuWsKJhoTahYsyub
+         VU2C1J3DG553LT420QqDfFVza6EhS6gxAnF++LztO5WOM1cOiWoLKUMTHHX3GMKeK+wC
+         d6VGOQd1Oq3stKTsbpyjO/lwmlpcAWydLMWoNFbKvykZYfVGGUPw1aBY94V5nGhunoFc
+         ST1llR8uhamQQc5v0FKxSWvPVI/GGdUokITzEU9WQxBNiXclOX0vDmphAB7y1AEpfm2d
+         jsHA8KJ742Nzm+THKcpaGu5/8aY7+BB/xG/q3d9f1GSaylz8gynyEQR5gltBXDNE6jmG
+         ERNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793900039; x=1794504839;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fHbz90ILaaCOBKWqIHRp1aZbsJQSwVFsjChRBvgZnSQ=;
+        b=SGD4wz3uHVDxw3kxYMp7QnWjwYPbhNhtFvqCEYjSxqnHsqqHeN4whXVdzUWkwzS8x7
+         ymAMMgaW7NZvoDlsRvkQ2DkcZv6dMQv/6BnJiFhHCCiCjfcfBfoM9CvQFHmPyX3a4A5B
+         PUlsD+lydBX73SOMDPPO+w15itrow4bihzkNkSnc/Uxz590bdQvDxbHqzUV1TDpVJtK0
+         WzC7S5hhWhY9GgaCkPUwIufd/ZqXEds0610pTGUZ96BTgSqSKuo0CiJN0Sb3h/sWMhM2
+         2Yr8Q+TIUe09Rh7FMvIkWrVn3KVxKWOdUfGzYC4M5iQ4Yan9lIHJkFw9/IbaiOjIKsjD
+         5iOA==
+X-Forwarded-Encrypted: i=1; AKwUvByn7EqLE4OYlZr9NxMBIfomqdGDUQTbtq7+mh8/S/rDKIitALkSFxC5zCCmDct4pi3A+8Q41MykSy7UrjA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/K+vdBBn8l+yWSPKC/WYsyiGXGds9vawDIv86GbIGqkJSIWdQN
+	ZWz42BpiOeYpH4bziOOUdoWyij7M9kSYzNpnMTDxLb1UFJGmBWCTnnzy
+X-Gm-Gg: AYBFou3hKSxocKhZR0u51H4htKrHxjh0cuerQw/FHqsj4Vjw4J2DS+fHSKCMGAZakrr
+	4CjjtOWJdPbHdejSWcsyvxeUm4ZvrXiMilECXStI0KEwd5NtbwUVmLD+0LweLaurJvf2QSAa4+o
+	WmY5JmUY2APHtlVSNYpIqKwcSyufEL+SoMrjgW0lmjYWedwbAmwPZzRmqN6Zi6JzdhhXIPdbdDY
+	ao3xHgHwlcm9hLcG/cjj3QqSruyNnArh/67YJi+qiFakp5zfxnrGE5Co4MlfrEr0dhEffXS3h4r
+	Z3YRRzLRqEU5k+lAGlpo6er5m+O7l/jISYh2slcrvJ99NekoTt1lIYCmiT29usXUhm+jc1FWGKA
+	GP/gBJmbbxDA2h+gOwCvSj63E70XQlGoTWWoic9Wv2HeXUl+yG5OVKYfqNzoD88FLVfOeFDuIim
+	hiD41PArHDF5THq9MFSpOtFEZczJNKayiTL2UJyfWAfKAuvKArwZXgYfoHgk37R8VsSwtQIs2jc
+	J1J+l8rzsoteSjzMF3Hlvxg5QB3CifeXk2F8SlwjJwd+dxKsq4U8P+yfg5SUKrA6/czmYMzEke+
+	MIwmYHY4XVi8PKS1jofhi8KJE/8TnhfBVlFV91X7zl8X2ucrrg==
+X-Received: by 2002:a05:7022:1104:b0:19d:6484:869f with SMTP id a92af1059eb24-1ac5c369c59mr25098320c88.7.1793900038915;
+        Thu, 05 Nov 2026 09:33:58 -0800 (PST)
+Received: from AERO17.taila7786d.ts.net ([152.175.97.38])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c272sm17925023c88.8.2026.11.05.09.33.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:33:58 -0800 (PST)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4] net: phy: realtek: Add support for JLSemi JL2101 and JL2121 PHYs
+Date: Fri,  6 Nov 2026 01:33:50 +0800
+Message-ID: <20261105173350.159060-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,57 +100,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <y5aamdx67etg7dgzwbjorb65qikacw2zsnjomkkklty63dya7f@iapehkxib3gs>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Nov 05, 2026 at 03:45:13PM +0100, Bartosz Golaszewski wrote:
-> On Thu, Nov 05, 2026 at 04:35:02PM +0200, Andy Shevchenko wrote:
-> > On Mon, Nov 02, 2026 at 10:48:42PM +0200, Andy Shevchenko wrote:
-> > > On Mon, Nov 2, 2026 at 5:33 PM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> > > > On Fri, Sep 25, 2026 at 05:57:02PM +0200, Andy Shevchenko wrote:
-> > > > > For the easier maintenance and future development move most of Intel GPIO
-> > > > > drivers to the dedicated 'intel' folder. For now it only covers the drivers
-> > > > > I maintain (as per record in the MAINTAINERS).
-> > > >
-> > > > I wanted to apply this in order to see how the menuconfig looks like
-> > > > with it but it doesn't apply neither to next/master nor v7.4-rc1.
-> > > 
-> > > I will check this as soon as I can (currently I have something else to
-> > > address which is more urgent and it's not related to Linux at all).
-> > 
-> > Actually I can't do it right now as it will be a race with the incoming
-> > patches (for example, I see gpio-sodaville change in the mailing list).
-> > Can you tell me when it will be the time that
-> > 
-> > 1) your for-current is present in for-next (so no merging conflicts)
-> > 2) your for-next is closed for new patches for a few days?
-> > 
-> > Only with that I can achieve some good result, otherwise you will always
-> > tell me to rebase/resend and while I do this, there will be a chance of
-> > a new contribution that continues the loop.
-> > 
-> > TL;DR: I truly believe that the best timing for such a series is just
-> > after the -rc1 as a first batch against for-current *and* for-next
-> > (same piece assumed to go to -rc2). But of course, we may resolve
-> > the potential conflicts.
-> >
-> 
-> Can we do it during the next merge window? After I send my initial PR,
-> you rebase, resend, I queue it and send it to Linus in a subsequent PR?
+JLSemi (JingLue Semiconductor) JL2101 and JL2121 Gigabit Ethernet PHYs
+are register-compatible second-source alternatives to the Realtek
+RTL8211F. They share the same paged register layout (page select at
+register 0x1f), RGMII TX/RX internal delay registers (page 0xd08
+regs 11/15), specific status register (0x1a), and LED control registers
+(page 0xd04 reg 0x10).
 
-Sure.
+In the IEEE 802.3 PHY ID allocation, JL2101 (0x937c4032) and JL2121
+(0x937c4030) share the same Model number 0x03 (bits [9:4] of register 3),
+differing only in revision number bits [3:0] (0x2 vs 0x0). Both chips
+share identical operational characteristics. Consolidate them under a
+single PHY_ID_MATCH_MODEL(0x937c4030) entry covering all revisions of
+this model.
 
-> Do you have a public branch in the meantime that I could play with?
+Unlike RTL8211F where PHYSR (0x1a) can be read directly on page 0,
+JL21xx requires reading PHYSR from page 0xa43 via phy_read_paged().
+Reading 0x1a on page 0 yields 0x0000, which causes rtlgen_decode_physr()
+to erroneously downshift to 10Mbps half duplex. Introduce
+jlsemi_read_status() to read PHYSR from page 0xa43.
 
-Not at the moment, but I can resurrect my public GitLab repo.
-I will provide details later on.
+Extend the Realtek PHY driver to bind JLSemi JL21xx by its Model ID to
+the RTL8211F-compatible driver operations, using the generic rtl821x
+probe and suspend/resume routines to avoid touching unverified WoL
+registers. Add the ID to the MDIO module device table.
 
+Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+---
+Changes in v4:
+- Consolidate JL2101 and JL2121 into a single PHY_ID_MATCH_MODEL entry
+  since both share Model 0x03 in IEEE 802.3 PHY ID allocation. (Andrew Lunn)
+- Drop unverified WoL callbacks (.set_wol, .get_wol) and switch .probe to
+  rtl821x_probe and .suspend/.resume to rtl821x_* to avoid touching unverified
+  WoL registers (page 0xd8a). Tested on hardware: page 0xd8a/0xd8c read back
+  as 0x0000 on JL2121. (Andrew Lunn)
+- Retain hardware LED callbacks (.led_hw_*) after thorough validation on
+  hardware (ALINX AX7Z020B): Mode B page 0xd04 reg 0x10 bitfields verified
+  via single/dual LED blinking tests and netdev trigger hardware offload.
+
+Changes in v3:
+- Drop standalone driver drivers/net/phy/jlsemi.c and extend the Realtek
+  PHY driver directly as suggested by Andrew Lunn.
+- Add jlsemi_read_status() to read PHYSR (0x1a) from page 0xa43, avoiding
+  erroneous downshift to 10Mbps half duplex (verified on physical ALINX AX7Z020B).
+
+Changes in v2:
+- Drop redundant phy_interface_is_rgmii() check in jlsemi_config_init() (Andrew Lunn)
+- Check device_can_wakeup() and configure wakeup capability and wake IRQ in probe()
+  when 'wakeup-source' is present (Andrew Lunn)
+- Drop redundant .features = PHY_GBIT_FEATURES (Andrew Lunn)
+- Use PHY_ID_MATCH_VENDOR() for generic driver and mdio table (Andrew Lunn)
+ drivers/net/phy/realtek/realtek_main.c | 38 ++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 4927ee838..355135143 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -270,6 +270,9 @@
+ #define RTL_8261CE_CG				0x001cc899
+ #define RTL_8261D_VM				0x001cc89a
+ 
++#define JLSEMI_JL21XX_PHYID			0x937c4030
++#define JLSEMI_STATUS_PAGE			0xa43
++
+ #define RTL8261C_CE_MODEL		0x00
+ #define RTL8261D_MODEL			0x81
+ #define RTL8261X_INT_AUTONEG_ERROR	BIT(0)
+@@ -1755,6 +1758,23 @@ static int rtlgen_read_status(struct phy_device *phydev)
+ 	return 0;
+ }
+ 
++static int jlsemi_read_status(struct phy_device *phydev)
++{
++	int ret, val;
++
++	ret = genphy_read_status(phydev);
++	if (ret < 0 || !phydev->link)
++		return ret;
++
++	val = phy_read_paged(phydev, JLSEMI_STATUS_PAGE, RTL_PHYSR);
++	if (val < 0)
++		return val;
++
++	rtlgen_decode_physr(phydev, val);
++
++	return 0;
++}
++
+ static int rtlgen_read_vend2(struct phy_device *phydev, int regnum)
+ {
+ 	return __mdiobus_c45_read(phydev->mdio.bus, 0, MDIO_MMD_VEND2, regnum);
+@@ -3283,6 +3303,23 @@ static struct phy_driver realtek_drvs[] = {
+ 		.led_hw_control_get = rtl8211f_led_hw_control_get,
+ 		.led_hw_control_set = rtl8211f_led_hw_control_set,
+ 		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
++	}, {
++		PHY_ID_MATCH_MODEL(JLSEMI_JL21XX_PHYID),
++		.name		= "JLSemi JL2101/JL2121 Gigabit Ethernet",
++		.probe		= rtl821x_probe,
++		.config_init	= &rtl8211f_config_init,
++		.read_status	= jlsemi_read_status,
++		.config_intr	= &rtl8211f_config_intr,
++		.handle_interrupt = rtl8211f_handle_interrupt,
++		.suspend	= rtl821x_suspend,
++		.resume		= rtl821x_resume,
++		.read_page	= rtl821x_read_page,
++		.write_page	= rtl821x_write_page,
++		.flags		= PHY_ALWAYS_CALL_SUSPEND,
++		.led_hw_is_supported = rtl8211x_led_hw_is_supported,
++		.led_hw_control_get = rtl8211f_led_hw_control_get,
++		.led_hw_control_set = rtl8211f_led_hw_control_set,
++		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
+ 	}, {
+ 		.name		= "Generic FE-GE Realtek PHY",
+ 		.match_phy_device = rtlgen_match_phy_device,
+@@ -3527,6 +3564,7 @@ module_phy_driver(realtek_drvs);
+ 
+ static const struct mdio_device_id __maybe_unused realtek_tbl[] = {
+ 	{ PHY_ID_MATCH_VENDOR(0x001cc800) },
++	{ PHY_ID_MATCH_MODEL(JLSEMI_JL21XX_PHYID) },
+ 	{ }
+ };
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
