@@ -1,87 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793876873;
-	b=Oi5uXl7KOWWGB3g+cbo2Vm2O7u6caMGi2UZgaBk+IhEW2egb6A/5OktllaLymmWFXOHP
-	 oLKpDTltsfP9RBr1yyCmO34umeHZnp3i3GDaHYqQDxt4UgQiy3+8jgwWp3EA16k5gNLXg
-	 5RQrgCskHIttWpU5cGcnQH+cyWscqTkuYLFwDh4xdd5kiTH4lBUtNQGnQlbAn3Zb8EXQc
-	 On4SsvuUfbnY3IxSkoC2InH5fHVeLwOK/TVSbk4pqoeUI+P9bsX2726Hsk7u2cnOVR5Dw
-	 3yOchGZsv1K2wK8h+ToW/+TJeNDH74TIGxQ+dhKNYSewRogpnhmY7WnWaZiRYuG+Vdw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876873;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=CILwCXfBslkBEegazfT+Lv0EIlDyNxw4aeUfHpw5q0I=;
-	b=3tfyhYnQMnBloRjaPD3zTKGrA+esEGham+E4aUTH53uoI6WQoleeYlPBpUPMNLk3rPAY
-	 RWo0eYUcgQH22LqX/LSVXrhvbxXXylsDOM13wXffMtgMnWfS3FZiE9D43/7GMTZlnKjHy
-	 Lae1zMyhWC/SEuYrS/VdurLTFPIj3ENZT8hJo4MjJNi5EneRkpjzfN/YV1pnS0PYiP/Pn
-	 0KJx3tLKquCZEdgY1b6T0KWyoMIkxaHvSK94ziiY1H+wcQ3B6s3NICUhiRM85WbZa/2fb
-	 aBJpMHpWI5io0wXC/7xO4polpAdMh7OCNTUP+jjuV/0dhkLYoot2sbQOMjQWdtjxHeQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="TWgSnI3/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793876892;
+	b=EX6qCIVS5KNWL/Jfej9UFQlqRlRCTj+WPqS+gI47OtOwDye/MzWh64t1/WNa1uXev9yZ
+	 x9m3klRj68H3NcqiYNgVcRQXbijQ+ZnFooivg3aQAXcaTQNJDA8Z/MzJ3re+8P4czCcgL
+	 CsNbb/ud4Ofe8WCLgjymJTq6swkLaGuFvX3vZW1zZxZnIFi3MgDyEBk6bf93qwGjkWWlX
+	 3PFb8yL/5rll52Ddk6xjqWHHa8cGyo5Q24KXmoH6w6HTbocaA2QSceDrO5wgPW2y+KtVD
+	 AgsTeaJI5IrIuqq67VCDKuWVlNqjSz2ZerWQ2+Fy8WGiNSB62FyIyDExYkc6anI1lng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876892;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=441X45gSk9zUWM+BKp8ddCPWW5+eG4Ep8QeHVB4L9ow=;
+	b=qT6Ho2t9pfhtRtRTf8vkvLm7W8l7UQfWbrQE21kNsgNQFSyLg0Me+5rqu7X/aoVxnms5
+	 7cbdDeNOa/l1XTr/Z3+Ov+YqVrnwCwOmSYnaWWVx3HYidDyZJNJwF0MCWyVFaJWJcXg6C
+	 vlVF15RcoleGXnpxYYBT/zwc6xdTEE4uNKfOTi82G64coKSKPFjvoLexspXG6pJIf5c9i
+	 Hm2lfFm4boN1936aOB6uO3fdjyC17nvRfVWsTH24E7877jM7TKLvNJ+OHV4CqN88YojWC
+	 iTWMvYsUtf5Pjgq5VYdoO5F+DxBBBdGmaL9neFyyZN+nZLJtZhgv606KC4+tIhzuIeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ISByzQtX;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA753606EE9A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:07:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA753606EE9A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41EF606A32D;
+	Thu,  5 Nov 2026 11:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D41EF606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TWgSnI3/
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B04072007BB;
-	Thu, 05 Nov 2026 12:07:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793876868;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CILwCXfBslkBEegazfT+Lv0EIlDyNxw4aeUfHpw5q0I=;
-	b=TWgSnI3/xYBMcClqGjKffL3s/mp7vaijLNcs5AGX63a97M4w/xiQ/pb7AFS5/nA9eDBq2C
-	1jxdiFRjdYrOx1Dll/bd10NEEtA8CUnMVX0hfddH6K0KtLP6tH9wV7VV55f1ETUus0qWlV
-	S1ozBJayEk807XEdH6rRnMTLYNkO9HTqcOrADhgINx8gsA6TkmO7lp6vPVD3101O1kb8EE
-	LRKDsl6ZGR+n4KxdW1aEKHlhbH5Orl8doubA7qS56Pj5PR+udALBgzg0zyBSIT83wNcfh3
-	uLQfJ9PnRNxpUDvqzL75kR+g7dmFtPHvv6Ll5ndtBiExb1q64Kdk/Z5UZ9SAWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793876868;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CILwCXfBslkBEegazfT+Lv0EIlDyNxw4aeUfHpw5q0I=;
-	b=GCHCpthNXtqgrnusm0GBRmPjyym9d3SFdcof2bGjieU1LQ6dcpdiFUZusnZsDkW1K8mnfj
-	WRntESm3SeuC74ZjI5oijtoNc3Euo50LV60VNywavlisrDsUKtFJn/9Mf34abhrObktHKH
-	eUwxLe4+fL2rSmhzDIldYX5YmGoDJbB/7MyT2K+R28sMvUOvra52X92+OpGnVXPKOcJ7EE
-	LmcmrtBsZ6oDtNEQC350/BpzvMYU4o0ishG9WN4FmMA0Pannm+hnkZhtr1MSajgwAJPZzq
-	LrHumKbcLnBuxFmAWUmT3N0uxxDTttV6j68FZLVYozPz9gtR9gndIhqG8+9qlQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793876868; a=rsa-sha256;
-	cv=none;
-	b=gEE34WI7ZikDNceGk6d9gIiTBFjvvbiFBrGp/zLklHOvmsz3GkbUMhHowDjrPeLev/I2Ws
-	+fDlgu9PZ/LyiyxWEm/gr9Kpf+zjusQzDdIBGcPYDTFswAmEp6fkXTaLpwAfUaakN0b+cB
-	DjhbVH0e8e6qH2mOJBHncjAGQsecN/SOSynI34xwx0F4EYUs/VSuZsA+I8xgFX4juSgEmA
-	4HFNoh+CZlGbZWCrgYX9b8hVyPtwMZTtX4seAsTzkng3+JKsBkAucWI2ga74v9XV+lNqs1
-	dhwuMIAP+stAo3/n82m/SLyJowbodtODgchICetOBQenOUn44yJ98F6qLYqQmA==
-Message-ID: <29d122e3c71f4235e940eec7907351d3b054059d.camel@pengutronix.de>
-Subject: Re: [PATCH v3] reset: Add KUnit test cases
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Date: Thu, 05 Nov 2026 12:07:48 +0100
-In-Reply-To: <20261104160123.6784-1-tzungbi@kernel.org>
-References: <20261104160123.6784-1-tzungbi@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ISByzQtX
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=441X45gSk9zUWM+BKp8ddCPWW5+eG4Ep8QeHVB4L9ow=; t=1793876890; x=2109236890; 
+	b=ISByzQtXa7+sVoumDakC5Jwji8CyKj2aq23smIyog525CSogxKdb63W/SWPX31mddOJoqyEmkQs
+	C4yYgqI4Ckcyo++8eReidTLDT1DXPXpm/enjKz+QixtE7d+IOcPmY3R8G7Fqu6oOTe3ELzcG5Lfly
+	5WgOtsjaY+bRhFNHUJyUyU8qg3uZ/XtdVOuNII3qX0aLClD/04zVVmYz6tTX4VoW7S4mYn6WNhQMP
+	3SS4FSqMOviyV5tvEoVXMmaGYmKHokHF/KM/TQ9HIuReC5KUmi2V+IxxulmnIoCVSonQPhaHSWhZb
+	RIDpS5Q5bAR61RK63fLfzYZlXf9RgoVTkfPw==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xOvK5-003G9k-8t; Thu, 05 Nov 2026 12:08:01 +0100
+Message-ID: <bd2c65d2-c94c-4eca-9fc5-ec366e0be0fb@igalia.com>
+Date: Thu, 5 Nov 2026 08:07:57 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,32 +57,274 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] accel/rocket: Report NPU usage through fdinfo
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Sidong Yang <sidong.yang@furiosa.ai>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: Gyeyoung Baek <gye976@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+References: <20261103155338.1949294-1-sidong.yang@furiosa.ai>
+ <a9f016ce-f086-412d-9ca6-6608a41840e5@ursulin.net>
+ <33ccceef-3498-426a-ae7c-a8bafbb88992@igalia.com>
+ <2ca12f1b-89f6-4069-aedf-4e5d645e8deb@ursulin.net>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <2ca12f1b-89f6-4069-aedf-4e5d645e8deb@ursulin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Do, 2026-11-05 at 00:01 +0800, Tzung-Bi Shih wrote:
-> Since commit 9035073d0ef1 ("reset: convert reset core to using firmware
-> nodes"), reset suppliers and consumers can be wired up using software
-> nodes without requiring Device Tree or hardware devices.  Leverage this
-> to add KUnit test cases for the reset controller framework.
->=20
-> The test cases cover the following scenarios:
->=20
-> - Basic: Verifies that a consumer can acquire a reset control via
->   fwnode and perform reset, assert, deassert, status, release, and
->   acquire operations.
-> - Use After Unregister: Verifies that after the supplier unregisters
->   the reset_controller_dev while a consumer still holds a reset_control
->   handle, subsequent consumer operations fail safely with -ENODEV.
-> - Concurrent Unregister: Verifies that unregistering the
->   reset_controller_dev concurrently with an in-flight reset operation
->   waits for the active operation to complete before returning.
->=20
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+On 05/11/26 08:04, Tvrtko Ursulin wrote:
+> 
+> On 05/11/2026 10:43, Maíra Canal wrote:
+>> Hi Tvrtko,
+>>
+>> On 05/11/26 06:22, Tvrtko Ursulin wrote:
+>>>
+>>> On 03/11/2026 15:53, Sidong Yang wrote:
+>>>> There is no way to tell how much of the NPU a client uses. Implement 
+>>>> the
+>>>> DRM usage stats: account the time each job occupies a core and report
+>>>> it per client as drm-engine-npu, along with drm_show_memory_stats() for
+>>>> the BOs.
+>>>>
+>>>> The cores are identical, so they are reported as a single engine with
+>>>> drm-engine-capacity-npu set to rdev->max_cores, the number of core
+>>>> slots. The time is summed over all cores, with an atomic counter as the
+>>>> cores complete jobs concurrently.
+>>>>
+>>>> Jobs can outlive the file that submitted them, so the counter is
+>>>> refcounted and each job holds a reference. The time covers the whole
+>>>> period a job owns a core, so it also includes handling the completion
+>>>> interrupt and the gaps between the tasks of a multi-task job.
+>>>>
+>>>> Document the keys in the rocket driver documentation.
+>>>>
+>>>> Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
+>>>> ---
+>>>> v4: Report a single drm-engine-npu key with drm-engine-capacity-npu,
+>>>>      instead of drm-engine-npu0..2, as drm-usage-stats.rst specifies 
+>>>> for
+>>>>      a group of identical engines, and document the keys (Tomeu 
+>>>> Vizoso).
+>>>>      The subject no longer says per-core. Gyeyoung's tags are 
+>>>> dropped as
+>>>>      the accounting changed.
+>>>>
+>>>>      Still depends on commit 6eff1d69dae8 ("accel/rocket: search every
+>>>>      core slot when a core is removed") for rdev->max_cores.
+>>>>
+>>>> v3: Add a rocket_engine_usage_create() helper for the counter
+>>>>      allocation in rocket_open(), to pair with
+>>>>      rocket_engine_usage_destroy() (Gyeyoung Baek).
+>>>>
+>>>> v2: Size the per-core counters by rdev->max_cores, the number of core
+>>>>      slots, instead of the number of cores bound when the file is 
+>>>> opened.
+>>>>      Sashiko reported the out-of-bounds read and Gyeyoung Baek 
+>>>> reproduced
+>>>>      it with KASAN.
+>>>>
+>>>> Link to v3: https://lore.kernel.org/all/20261103104804.1887489-1- 
+>>>> sidong.yang@furiosa.ai/
+>>>> Link to v2: https://lore.kernel.org/all/20261101152723.1430312-1- 
+>>>> sidong.yang@furiosa.ai/
+>>>> Link to v1: https://lore.kernel.org/all/20261031083642.1076356-1- 
+>>>> sidong.yang@furiosa.ai/
+>>>>
+>>>>   Documentation/accel/rocket/index.rst  | 28 +++++++++++
+>>>>   Documentation/gpu/drm-usage-stats.rst |  1 +
+>>>>   drivers/accel/rocket/rocket_drv.c     | 70 +++++++++++++++++++++++ 
+>>>> +++-
+>>>>   drivers/accel/rocket/rocket_drv.h     | 15 ++++++
+>>>>   drivers/accel/rocket/rocket_job.c     |  7 +++
+>>>>   drivers/accel/rocket/rocket_job.h     |  4 ++
+>>>>   6 files changed, 123 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/Documentation/accel/rocket/index.rst b/Documentation/ 
+>>>> accel/rocket/index.rst
+>>>> index 70f97bccf100..53c9aa7e2229 100644
+>>>> --- a/Documentation/accel/rocket/index.rst
+>>>> +++ b/Documentation/accel/rocket/index.rst
+>>>> @@ -17,3 +17,31 @@ project.
+>>>>   Hardware currently supported:
+>>>>   * RK3588
+>>>> +
+>>>> +.. _rocket-usage-stats:
+>>>> +
+>>>> +Rocket DRM client usage stats implementation
+>>>> +============================================
+>>>> +
+>>>> +The accel/rocket driver implements the DRM client usage stats 
+>>>> specification as
+>>>> +documented in :ref:`drm-client-usage-stats`.
+>>>> +
+>>>> +The NPU cores are reported as a single engine, npu, with a capacity 
+>>>> equal to the
+>>>> +number of cores. The time is summed over all cores, and covers the 
+>>>> whole period
+>>>> +a job occupies a core.
+>>>> +
+>>>> +Example of the output showing the implemented key value pairs:
+>>>> +
+>>>> +::
+>>>> +
+>>>> +        pos:    0
+>>>> +        flags:    02400002
+>>>> +        mnt_id:    33
+>>>> +        ino:    749
+>>>> +        drm-driver:    rocket
+>>>> +        drm-client-id:    246
+>>>> +        drm-engine-npu:    2296549300 ns
+>>>> +        drm-engine-capacity-npu:    3
+>>>> +        drm-total-memory:    24216 KiB
+>>>> +        drm-shared-memory:    0
+>>>> +        drm-active-memory:    1920 KiB
+>>>> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/ 
+>>>> gpu/drm-usage-stats.rst
+>>>> index 70b7cfcc194f..288764730d23 100644
+>>>> --- a/Documentation/gpu/drm-usage-stats.rst
+>>>> +++ b/Documentation/gpu/drm-usage-stats.rst
+>>>> @@ -218,3 +218,4 @@ Driver specific implementations
+>>>>   * :ref:`panthor-usage-stats`
+>>>>   * :ref:`xe-usage-stats`
+>>>>   * :ref:`amdxdna-usage-stats`
+>>>> +* :ref:`rocket-usage-stats`
+>>>> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/ 
+>>>> rocket/ rocket_drv.c
+>>>> index 2bcfe4ab3c68..e22e8623db64 100644
+>>>> --- a/drivers/accel/rocket/rocket_drv.c
+>>>> +++ b/drivers/accel/rocket/rocket_drv.c
+>>>> @@ -3,8 +3,10 @@
+>>>>   #include <drm/drm_accel.h>
+>>>>   #include <drm/drm_drv.h>
+>>>> +#include <drm/drm_file.h>
+>>>>   #include <drm/drm_gem.h>
+>>>>   #include <drm/drm_ioctl.h>
+>>>> +#include <drm/drm_print.h>
+>>>>   #include <drm/rocket_accel.h>
+>>>>   #include <linux/clk.h>
+>>>>   #include <linux/err.h>
+>>>> @@ -68,6 +70,38 @@ rocket_iommu_domain_put(struct 
+>>>> rocket_iommu_domain *domain)
+>>>>       kref_put(&domain->kref, rocket_iommu_domain_destroy);
+>>>>   }
+>>>> +static struct rocket_engine_usage *
+>>>> +rocket_engine_usage_create(void)
+>>>> +{
+>>>> +    struct rocket_engine_usage *usage;
+>>>> +
+>>>> +    usage = kzalloc_obj(*usage);
+>>>> +    if (!usage)
+>>>> +        return NULL;
+>>>> +    kref_init(&usage->kref);
+>>>> +
+>>>> +    return usage;
+>>>> +}
+>>>> +
+>>>> +static void
+>>>> +rocket_engine_usage_destroy(struct kref *kref)
+>>>> +{
+>>>> +    kfree(container_of(kref, struct rocket_engine_usage, kref));
+>>>> +}
+>>>> +
+>>>> +struct rocket_engine_usage *
+>>>> +rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
+>>>> +{
+>>>> +    kref_get(&rocket_priv->engine_usage->kref);
+>>>> +    return rocket_priv->engine_usage;
+>>>> +}
+>>>> +
+>>>> +void
+>>>> +rocket_engine_usage_put(struct rocket_engine_usage *usage)
+>>>> +{
+>>>> +    kref_put(&usage->kref, rocket_engine_usage_destroy);
+>>>> +}
+>>>> +
+>>>>   static int
+>>>>   rocket_open(struct drm_device *dev, struct drm_file *file)
+>>>>   {
+>>>> @@ -86,10 +120,17 @@ rocket_open(struct drm_device *dev, struct 
+>>>> drm_file *file)
+>>>>       }
+>>>>       rocket_priv->rdev = rdev;
+>>>> +
+>>>> +    rocket_priv->engine_usage = rocket_engine_usage_create();
+>>>> +    if (!rocket_priv->engine_usage) {
+>>>> +        ret = -ENOMEM;
+>>>> +        goto err_free;
+>>>> +    }
+>>>
+>>> Glanced over this patch by chance and it very reminded me of 
+>>> drm_sched_entity_stats tracking. That object is reference counted by 
+>>> the entity so I think it would satisfy your requirements. We would 
+>>> only need to add an accessor like drm_sched_entity_get_runtime() and 
+>>> just call it from rocket. Thoughts?
+>>>
+>>
+>> I believe we tried something similar in the past (commit 97804a133c68)
+> 
+> You mean df622729ddbf? But yes, I don't think I knew about that.
 
-Applied to reset/next, thanks!
+Yes, sorry for the copy/paste mistake.
 
-[1/1] reset: Add KUnit test cases
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3Ddb2f5f4ccc3df
+> 
+>> and it ended up being reverted after this regression [1]. I would be
+>> great to give this idea another change (specially now that we have
+>> drm_sched_entity_stats), as it would also be useful for V3D.
+> 
+> It makes sense to me if Philipp and Danilo will agree so adding them cc.
+> 
+> It would just be adding u64 drm_sched_entity_get_runtime(entity). 
+> Nothing else would need to be exported and the implementation simply 
+> locks entity->stats and returns the runtime. As long as the caller knows 
+> they haven't destroyed the entity it is safe since entity holds a 
+> reference to the stats object.
+> 
+> If rocket and v3d can use it that's a reasonable starting point for 
+> adding common API. Three users would be even better than two though, 
+> going by the long standing DRM tradition. :)
 
-regards
-Philipp
+Considering commit 97804a133c68 (right commit this time), I believe that
+Etnaviv could also benefit from it.
+
+Best regards,
+- Maíra
+
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+>> [1] https://lore.kernel.org/dri-devel/3e00d8a9- 
+>> b6c4-8202-4f2d-5a659c61d094@redhat.com/
+>>
+>> Best regards,
+>> - Maíra
+> 
+
