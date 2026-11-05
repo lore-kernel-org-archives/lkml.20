@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907534;
-	b=dpNsUMFgDcLJQIeDHV/sX+6hwQlYg2zTzOcvV20n2K0U/kWgBao/wQ75Eh34vPa7fphs
-	 zqU0E447WG6cGDQbO0ySqeHYW86M1maNmODtpyDtp4WheCt739Q4l7rmMoFrh9yjx+mLW
-	 uziZMwksrwCCTdWcanI9a4BIydYfItEmYpovg72jCHJfwr8MxsyAfPS+kRo1vQGbV6duf
-	 nb0pzc0f4rTxotGzLchu3koSK0oIqxK01pbG7eXt+GyfcFResi3Ia8nOFf6jL7Wy7kfQs
-	 JkbqZV3F9eaZDqwdCrXs8peibTX7/nMXR2qdy/BDw5+fQ/jCgCfU9wZtAKKCZyZBcXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907534;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9oidt3W9iu8GAyDMM4ltoZqLGvtpDsP22WY6CZR8UYo=;
-	b=Egx2HXRIc4+TnPLfPCL1FyMvcXP0rbIirbUqON8PZucuHHbbQ339jF21pKhHCyDpFqly
-	 dKFuflpdQz/UAmmMkADOTN68DEPqXYVO5/jPJTF+eLWzy/Fq4juNT9j3eeCwANpJcHhPG
-	 4RWzh073MjfgB9vLhJ0ZcJwO21s8hyLDxAotyFBH3fwzrJgONMQ0k0dpjNXeMQnC3kQ0z
-	 52ihq72oAPUPqyntkObE8JxnHWbQoom3a6DpvBOMCjEn0+jdney3xqm1Q+Dcp0q8hT9/w
-	 fJlFN+qO4W0mYary937b90cRdltFN8hL4qn9hzCy4VAVQaxnOglJoUWYI5aV5eAzIaA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjyN9Fuf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793907576;
+	b=CoOcryWMCQ7Iew7kOhaZxMxFrKbkBkCbAaiitcOCKgLuJynX47gcQH29rpvzdOIYgEdz
+	 7N5ZTr16Y05rpYpbSgsACWQ1RR0aZ3VAiXPfC/VSATF3/3rXP12+eKG5DOCJK6VAltxVL
+	 Ik+SYhJF91vH2o8q2HUvAT9cVZCbPboZAQpHtoPX4THyw0SBJsknFdaI4V+dOtla7ciRG
+	 ZL/GvkHYJgKq3CzaBX9XugfSZZRVgTJb8CusXDPnxjEEXTWGYZsS/2eQqHTnDyZWsZY/T
+	 9xPkzcA52+7oB7N7TmIHoAP05Gyk91XdFyJTNBvYy7eCtbvwjyOyP61lBLWRKSig70Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907576;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
+	b=REFur/lR8fSEkfdFWozUyz11hLKzB8gqwI0h9m9XbEuCXY5ssRUB8OXY5as4r0/v8pWL
+	 2WV1yCEfuMRUl8cdu8U5+y2vRf0vyrfe3Jr5xUrvgpgcSL9F0eU+MMFwuSCTmv2stKtlp
+	 6s5EieAM1iqxBDqSi5Q5XmSGa9JusXe5SVK4fQOIEHRdd3LTcMK1/SfOQndrRxY9pj9nU
+	 xrx/w1nTsx5fBvheptegaBD9CIlTL2n5SIoBuG34jWU7AvloDvKM2imLzcfBNg0F/az1w
+	 PCwIYH88+rgAX6H5uMX38aqNJ9fPUTs/mGx1rgEU17aTna/Jl82XwR8X/7pakMi3Bgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GVDeanTW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.10
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011010.outbound.protection.outlook.com [52.101.62.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B3360705C3
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:38:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F983606D505
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:39:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F983606D505
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjyN9Fuf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24C961F0089F;
-	Thu,  5 Nov 2026 19:38:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907534;
-	bh=9oidt3W9iu8GAyDMM4ltoZqLGvtpDsP22WY6CZR8UYo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SjyN9Fuf/+rCKMLpNKRgJnjQV8FQ3r5/qOTVKUkTxVJvouyVGPiDzw0OkHzFqxgKG
-	 laFZ92O779WGlYoHtt4x7OgAaT6CLe9ONxfm9G5yqpI7ZNZlmvkQnOu5q4ByamZRdm
-	 L9Fa4DI7ZHkI+eICgdV/7RW89hxHvH7iuJCJYbYxpp92efjX/m+VCymss6/ixHmrDN
-	 12kChIvAWV9AtsUij8vMhjPj9MhltujZlW0mx570IIOXk1pCWs3IL8H/kofvglWjjS
-	 2xu6VTI9YLzsjeqvrW+thUXrvpq+6fKQ2fB67NXiVUDcKL4toIdtYOoiBNWAzH1PIB
-	 ODUgYMm7viDDA==
-Message-ID: <6099bcde-15be-4197-905e-13dfa4c83bfe@kernel.org>
-Date: Thu, 5 Nov 2026 20:38:48 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GVDeanTW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KYAc+4RLEOYqhWDCP0IA6LUWIDU4o+4aVFLcpdJvpEBtOBVkGGBeNHIG7NwVBNHB25Am6/Usl+lPlDMtWAQwGXWJF25NgDtgTqfHyFIrUfpxHFohDBWZIHK1HJ5Fdvb/JKCanMKYnPDnWQLHGJrTs2YKBeyGLx0nA+id7hdmJrlGrT/ruLgA+XqW6ictlF61UCaJVAQGyPIeKH3g5RtKzL/SGBOcPua3kTuPMFpGFOHOek4hiZci6uHBlLlJIsrBWKwkjd4pA/F/3GxdISS+6WYoFbgEDiQ8CSsvM35MBIWP2iU6fVxppz3UHtVL/oILabolxJo5OTssik6J0TgacQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
+ b=i5HkeK+p5NQoLLB0DlxjXWqfjKgt6eXtczWAcsOhXE8isWuwMm4Y6fOvOlg02pHzdggCFO8Jz5sgHOYkGg2SHv0CjUPp9L66QeVfqRrl/zDmJmpTwMMi9xRSU/R46CWKEAeZlHnLcpvmzHAgVcyEDHADha+ZlSiv8fwW9hj53s69QK11cASdYuX+e3947ze2J0mwnXm4pBUqaezk7ro0EVMY+7TuXJbm+GMzShpqIXHQk/T6kNKr1NOQ3esdmJgA1JETk/JMWhhndD2pEE0Mm+eld2ptJI0Ks2aDJbgUN4/NtG9ITo+APHIIFSZRvuZ2BzBDOC7DriwpWRMtqrnLXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
+ b=GVDeanTW8IfuuyyOXfYGjMup6gLC5gzzJ+qWdOd10AcyAhkz87yF7Ivo7TE76Ih6oGQZ+u2NjQCzZqKrhA1d9ujqa8GXJ4hSEAm+TzYviU8B9GjRV1fUGLPIVnmvvWFbk7DGbqEbyQKtW7HSfNQWdqXmO8wkzj4Szl+28ClGoRM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by DM6PR12MB4137.namprd12.prod.outlook.com (2603:10b6:5:218::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 5 Nov 2026
+ 19:38:37 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 19:38:36 +0000
+Message-ID: <0161e0ed-3b6a-496f-8502-6dcd219f3aca@amd.com>
+Date: Thu, 5 Nov 2026 13:38:33 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
+ reports
+Content-Language: en-US
+To: "Zhang, Yidong (David)" <yidong.zhang@amd.com>,
+ Lizhi Hou <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
+ <2cf0906c-9766-4e3c-bfd0-3390263f5390@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <2cf0906c-9766-4e3c-bfd0-3390263f5390@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR03CA0410.namprd03.prod.outlook.com
+ (2603:10b6:610:11b::22) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,78 +98,380 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] mm/cma: fix range selection in
- cma_declare_contiguous_multi()
-To: Mike Rapoport <rppt@kernel.org>, Ivy Lopez <skunkolee@gmail.com>
-Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, surenb@google.com, mhocko@suse.com, fvdl@google.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <cover.1792032699.git.skunkolee@gmail.com>
- <auM6nqlB9FusAr4B@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auM6nqlB9FusAr4B@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|DM6PR12MB4137:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70d1a072-3fd6-43de-0efe-08df3b746227
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|22082099003|18002099003|261102123227099003|56012099006|261026140227099003|11063799006|261026121527099003|261022115727099003|261022105027099003|4143699003|10067099003|261022075727099003|261028144727099003|261021121427099003|261009223027099003|260925021911599003|260925022911599003|261021123027099003|260925021311599003;
+X-Microsoft-Antispam-Message-Info:
+	tylvNDGkngzIuB7thnsAqijCdKTDHe/gUgmin2zNHCS5gpKdlstgD0ohq27kLRGpayD6fDsLRUfofDdm2XXuD4bhaqXZvD2e8wtXHZzNAEbbAQSoRzhvZGgJRU9sDcOfP89/Bna3exdIfW1Ghzn7lTDiRNiUcSoy7HnXgWA0Wv/etpiyO5L5paidCaSJu6idGmEbgBoEzXG9eH175w837RACmNxpuDarAflkMVjJXpE9a3uG4uTAMatrqIuSImDTLCOQezSJKxV6KWjy3VhNf0yhKnfEpnYtao/Vq0dsxMeEPPA5frJRySwP3pk44uC9awIOZ1C/d6O1hf+AEzQBlHjlXTnK78j91X2vzRuPlGhdlJK48+G2p6T9BX283aMeetnH9xkJMUCbw6zuEXo36bIouqz4TtV0GoB0/fQf9Q4B4akP1BrerV8lWljvo15rjPHhTU1j/cmv0oJQkX4bQhazi9pn3y4xGAP1Jn9ot7r6DC71wy0Lh/V5CchDvTlYoTL6l4CsFxcM1ICgCKLVzVCxXIi4VflsCTLsR9ZEJoqWYSe4fD+BvHGf8xRikVcAttALFR7ELisjcYFBOaqfj3M3m2qD8hWqZnCY/eC/aU3hXeUoPbzAZkjA/sSmvAk8
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(261102123227099003)(56012099006)(261026140227099003)(11063799006)(261026121527099003)(261022115727099003)(261022105027099003)(4143699003)(10067099003)(261022075727099003)(261028144727099003)(261021121427099003)(261009223027099003)(260925021911599003)(260925022911599003)(261021123027099003)(260925021311599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NDJvYVA4bXY3V0dRMDM4NXpwTXRYSE9qSWZHRDR5cUw4ay82VElQN29rZ2Zk?=
+ =?utf-8?B?eVdLc0VRckRsenBWQnlUNHh6M1grWDJvUG8zVSt4ekJvZ0RESU91ZDk2N1RP?=
+ =?utf-8?B?eXJJQmZab0pzOGNpbDk3NHByYTlBeUE3UURsVU1DaGE0NnY2U3RydTJkZGk4?=
+ =?utf-8?B?RnNIQlM2OGFRd0xIT0h2Snp1NzJZSHV0Z0hWV3ZmRU9zNTJJcXJ4U1p1Z1Bw?=
+ =?utf-8?B?TEJLOEZGYWREcEdJdDFyRkhtaXJDckk3bTE3dWdwd3p4S2NuZDFWWjY0clVI?=
+ =?utf-8?B?dHp5SENaZUFUNnRrclR0ZWxRU1Y3eVdNQlVBN2pzTURPOGQ1aGh3NHFuVjZm?=
+ =?utf-8?B?bHFncFBObSt1cEJ3OFBXKzVhUGpDalpPc2d4bDBtMHRjOHhuK0xaTmJSWnk4?=
+ =?utf-8?B?WUlKczcveWpUTGRYY3RrR3BmM1oxNjROZFU5a1dmNHh4cTVqT2swMU9hTFVp?=
+ =?utf-8?B?MElWL3p5bmlIbi9ET1l4bTl3V0d3VEduVTk5SVN1dzdEaDRFblBUbVAzcFhs?=
+ =?utf-8?B?a3ptVUhrbm5LV3liYzBtMHJOUmNaVExnWlJiODQzdi9vVmhITGtLdThKRTZh?=
+ =?utf-8?B?NFVTdUFzNkh1ZEZDd1VjamN5YWhlRWlsU1ZzeTQ1Uk5IaElPelhkem96VWkz?=
+ =?utf-8?B?Rjhyd3k3VE01SUlORGczNFZpVDFhWXhJM095MEtranJsRnFIOWlQT3RkTllL?=
+ =?utf-8?B?aE9sZTQzd1pMNTR2OVFKaytvRHQwSHlFT0VkZFgwYXRHdFJJS1Z6RkhJdzBD?=
+ =?utf-8?B?MFFhQTdENllwc09QQWZxYVZvc1hibWlUY0p3YmhMZUdHUVB2V1c2WVRtdEU4?=
+ =?utf-8?B?cmtWaUE4d2dONFdONEo2Y01LTDZyTGo5UzZUaVI4RkhYa1VsaGZuZHM2R0Fq?=
+ =?utf-8?B?ZGhZYVcxeHZ3Z002OVhTUWNCVE43YUNGU2FmV0JKYlc3WlZUZVNxNytqT3gv?=
+ =?utf-8?B?Z1ZLd3NDUVQ1TUo3eStVM1pPUG9HL1l5elRyOUE0d3BPSTZpbzJWTndVYUFz?=
+ =?utf-8?B?TU85VFdnaXFKUm9CWHF5bmNWSnVSYnY3LzV0endhMmxEeEg5SEw2WFVlUi9t?=
+ =?utf-8?B?OXpBUTdWZzZvaUdVa09LZ1ErOTdxSEdSOG80dTRuSjVYZER3WlBsdW9lK1BN?=
+ =?utf-8?B?cUUrczJhT2dlczF2eHRkS0t4ZkFuenVWUnVrTTZqOVhkNjV0a2g4c3lpWGxZ?=
+ =?utf-8?B?NWh0SS9OV3lVY2JBQVZBY0lwWVRMeXdsalBrN0ZTSHdUVlBhQUtzNEZ5Wmwv?=
+ =?utf-8?B?b1VQcWI0Wlp6WHZzSHZBcUV4eEQ3MTZIVmlLc1VKRjM2d2dEVWpuNUt5b0lw?=
+ =?utf-8?B?Q2d4MjNQQU5ZNGxMM2JnSnNSVmhWcndlOENvdW1WZ0dwajhqbHVWVTVYNmxy?=
+ =?utf-8?B?bjd0ZjBORWNoYWQrQ1lkTVh6V09aN3Mya3pINGQ4TGYzNDBOMVRFT3Z4cFc5?=
+ =?utf-8?B?elNoNzNPWmVNelZjRlBhQkhZTTAyOVdRazU0ZTBXKzVqUjhiVnd1eWJma3BE?=
+ =?utf-8?B?VlNWWEV2MmNPSlVwb29HSndBY2JsM2tlVWZXYjY1M1d6QnpVMmlRdnNHaWh1?=
+ =?utf-8?B?WVgxa29Va0RtcVViQjIyV0J3ZFdHMDVFZWk3TXhUWVQ1VCtoVUpKam42a3Vk?=
+ =?utf-8?B?YVNwWGNMV0tEQVdkZTE0WkVTa2o2T085Sm9CaTF3Uno5ZElJdnplSFpLWW11?=
+ =?utf-8?B?S1FzbzZ5NmJiVjJKejc2M3ZxQ1I3WGN2dGRIN2RUVTZaQjFNOXNFMGpVbERx?=
+ =?utf-8?B?UXhtbVBuZTJJdDZ0b2RkazN0d2lTL0ZWbjU2TDA1NmI4cW9VaWQvRVBQcFVy?=
+ =?utf-8?B?U1JQMFFtcUNUUnhwY3RBVWNrajRaSnp3cUZMNVFMc2FwWURLd2tsSGRNczIv?=
+ =?utf-8?B?Z0RIdjNhS2RSSmxkOWZtbkI0NEdVcms4YmR6RHA1OFF4bElpMnFySVE0SE80?=
+ =?utf-8?B?dnB4K2p2UmdYeXRCQ204WnVWSDF0NGF0TVNFUTBSVHlCeHdKRkhUYU9UK29R?=
+ =?utf-8?B?ZHdxTDhGdUdiK1BGVm55allKcjM0eE5rNXBuS213dUthWGJ4dnpqT1dYUHps?=
+ =?utf-8?B?MWNzTHJOQ1FjUi9UUlQ0QlppRjNpUDN0a3NIeXZQWFpReGxhZWVERE9xaXd2?=
+ =?utf-8?B?RVJrNHRyM3FuV3NoZTArMmdYSVFzTTNia2tYYVJ4WnFyaUFIbkdTSFRWeHFX?=
+ =?utf-8?B?RTVuWkVrR21TK3pQRDVtMklSNy9JTWcvOTJJbkpTUCt0KzFqdVRvNnZVYzNy?=
+ =?utf-8?B?WGVzZ040OTloUEpYRnY5UVdTRXQ3V1VqYUVIeDRHcXBoOHJXUmVJQTVWdHVy?=
+ =?utf-8?B?REI5d012UVppOVRLRERtWDRoMThWWFhLNWJ1S25CbE5YdFBtdjJxdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70d1a072-3fd6-43de-0efe-08df3b746227
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:38:36.3806
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5nZ6FHTssiDi5YbSNDp67oCmEXR8f/9GO3nkOOwJsA2wzTilMGWm6qUcjfNlaSjTCDs2Pr832QM0eZRrTTzKYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4137
 
-On 10/29/26 13:22, Mike Rapoport wrote:
-> On Wed, Oct 14, 2026 at 08:53:39PM -0600, Ivy Lopez wrote:
->> These two patches fix two independent bugs in the multi-range selection
->> of cma_declare_contiguous_multi(), found by code inspection with the
->> help of an LLM (both patches carry Assisted-by: LLM).
+
+
+On 11/5/26 13:19, Zhang, Yidong (David) wrote:
 > 
-> cma_declare_contiguous_multi() seems broken in many ways.
-> I'm working on a patch to rewrite it.
->  
+> On 11/5/2026 7:51 AM, Mario Limonciello wrote:
+>> Some Platforms ship BIOS with either a default or an alternative trust
+>> authority. The PSP validates the NPU firmware, so it must be signed with
+>> the matching scheme. Firmware for the alternative scheme is named with
+>> an "_l" suffix before the extension. A preproduction part needs firmware
+>> of its own, named with a "_p" suffix.
+>>
+>> The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
+>> whether this is a preproduction part. A preproduction part that also
+>> reports the alternative scheme is not expected, so warn about it and
+>> use the default firmware.
+>>
+>> Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
+>> images of the aie4 devices so that initramfs generators include them.
+>>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>> Changes in v2:
+>> - Initialize val in aie4_psp_fw_variant() so a failed SMN read can't 
+>> leave
+>>    it uninitialized
+>> - Only read the PSP firmware variant after the npufw/certfw path 
+>> check, so
+>>    VFs (which have no firmware paths) skip the SMN access
+>> - Drop the redundant all-ones check, amd_smn_read() already returns - 
+>> ENODEV
+>> - Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1- 
+>> dbffcc5abc23@amd.com
+>> ---
+>>   drivers/accel/amdxdna/Kconfig           |   1 +
+>>   drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++ 
+>> ++++------
+>>   drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
+>>   3 files changed, 141 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/ 
+>> Kconfig
+>> index eddff490b4f75..cd17a89cf4146 100644
+>> --- a/drivers/accel/amdxdna/Kconfig
+>> +++ b/drivers/accel/amdxdna/Kconfig
+>> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+>>       depends on DRM_ACCEL
+>>       depends on PCI && HAS_IOMEM
+>>       depends on X86_64
+>> +    depends on AMD_NODE
+>>       depends on AMD_PMF || !AMD_PMF
+>>       select DRM_SCHED
+>>       select DRM_GEM_SHMEM_HELPER
+>> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/ 
+>> aie4_pci.c
+>> index 02dcb2f813d45..26c6162893760 100644
+>> --- a/drivers/accel/amdxdna/aie4_pci.c
+>> +++ b/drivers/accel/amdxdna/aie4_pci.c
+>> @@ -11,6 +11,8 @@
+>>   #include <linux/debugfs.h>
+>>   #include <linux/firmware.h>
+>>   #include <linux/sizes.h>
+>> +#include <linux/string.h>
+>> +#include <asm/amd/node.h>
+>>   #include "aie.h"
+>>   #include "aie4_msg_priv.h"
+>> @@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct 
+>> amdxdna_dev_hdl *ndev)
+>>       aie4_fw_stop(ndev);
+>>   }
+>> -static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+>> -                 const struct firmware **npufw,
+>> -                 const struct firmware **certfw)
+>> +/*
+>> + * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = 
+>> alternative
+>> + * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction 
+>> part
+>> + */
+>> +#define AIE4_PSP_C2PMSG_63_SMN_ADDR    0x38109fc
+>> +#define AIE4_PSP_FW_SIGN_ALT        BIT(6)
+>> +#define AIE4_PSP_FW_PREPROD        BIT(28)
+>> +
+>> +enum aie4_fw_variant {
+>> +    AIE4_FW_DEFAULT,
+>> +    AIE4_FW_ALT,        /* "_l" images */
+>> +    AIE4_FW_PREPROD,    /* "_p" images */
+>> +};
+>> +
+>> +/*
+>> + * The PSP only trusts firmware signed with the scheme the platform 
+>> firmware
+>> + * uses and a preproduction part needs firmware of its own. Reading 
+>> which one is
+>> + * in use is optional and only used as a hint for which images to try 
+>> first:
+>> + * anything but a clear answer is treated as default.
+>> + */
+>> +static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev 
+>> *xdna)
+>>   {
+>> -    struct amdxdna_dev *xdna = ndev->aie.xdna;
+>> -    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>> -    char fw_name[128];
+>> +    u32 val = 0;
+>>       int ret;
+>> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+>> -               pdev->device, pdev->revision, ndev->priv->npufw_path);
+>> -    if (ret >= sizeof(fw_name)) {
+>> -        XDNA_ERR(xdna, "npu firmware path is truncated");
+>> -        return -EINVAL;
+>> +    ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
+>> +    if (ret) {
+>> +        XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", 
+>> ret);
+>> +        return AIE4_FW_DEFAULT;
+>>       }
+>> -    ret = request_firmware(npufw, fw_name, &pdev->dev);
+>> -    if (ret) {
+>> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
+>> fw_name, ret);
+>> -        return ret;
+>> +    if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
+>> +        XDNA_WARN(xdna,
+>> +              "Preproduction part with alternative signing, using 
+>> default firmware");
+>> +        return AIE4_FW_DEFAULT;
+>>       }
+>> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+>> -               pdev->device, pdev->revision, ndev->priv->certfw_path);
+>> -    if (ret >= sizeof(fw_name)) {
+>> -        XDNA_ERR(xdna, "cert firmware path is truncated");
+>> -        ret = -EINVAL;
+>> -        goto release_npufw;
+>> +    if (val & AIE4_PSP_FW_PREPROD)
+>> +        return AIE4_FW_PREPROD;
+>> +
+>> +    return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
+>> +}
+>> +
+>> +/*
+>> + * Images for the other variants have a suffix before the ".sbin" 
+>> extension.
+>> + * Returns -ENOENT if @path has no such variant.
+>> + */
+>> +static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t 
+>> size,
+>> +            const char *path, enum aie4_fw_variant variant)
+>> +{
+>> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>> +    const char *suffix;
+>> +    size_t len, base;
+>> +    int ret;
+>> +
+>> +    ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
+>> +               pdev->device, pdev->revision, path);
+>> +    if (ret >= size) {
+>> +        XDNA_ERR(xdna, "firmware path %s is truncated", path);
+>> +        return -EINVAL;
+>>       }
+>> -    ret = request_firmware(certfw, fw_name, &pdev->dev);
+>> -    if (ret) {
+>> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
+>> fw_name, ret);
+>> -        goto release_npufw;
+>> +    switch (variant) {
+>> +    case AIE4_FW_ALT:
+>> +        suffix = "_l.sbin";
+>> +        break;
+>> +    case AIE4_FW_PREPROD:
+>> +        suffix = "_p.sbin";
+>> +        break;
+>> +    default:
+>> +        return 0;
+>>       }
+>> +    len = ret;
+>> +    if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), 
+>> ".sbin"))
+>> +        return -ENOENT;
+>> +
+>> +    base = len - strlen(".sbin");
+>> +    if (strscpy(name + base, suffix, size - base) < 0)
+>> +        return -EOVERFLOW;
+>> +
+>>       return 0;
+>> +}
+>> +
+>> +static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const 
+>> struct firmware **fw,
+>> +                const char *path, enum aie4_fw_variant variant)
+>> +{
+>> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
+>> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>> +    char name[128];
+>> +    int ret;
+>> +
+>> +    ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
+>> +    if (ret)
+>> +        return ret;
+>> -release_npufw:
+>> -    release_firmware(*npufw);
+>> +    ret = firmware_request_nowarn(fw, name, &pdev->dev);
+>> +    if (ret)
+>> +        XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +/* The NPU and cert images are validated together, so both use the 
+>> same variant */
+>> +static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+>> +                 const struct firmware **npufw,
+>> +                 const struct firmware **certfw,
+>> +                 enum aie4_fw_variant variant)
+>> +{
+>> +    int ret;
+>> +
+>> +    ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, 
+>> variant);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, 
+>> variant);
+>> +    if (ret)
+>> +        release_firmware(*npufw);
+>>       return ret;
+>>   }
+>> @@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct 
+>> amdxdna_dev_hdl *ndev,
+>>       return 0;
+>>   }
+>> +/*
+>> + * The firmware can only be started once. It is the PSP that decides 
+>> whether it
+>> + * accepts the images, and it does that when the firmware is started, 
+>> so there
+>> + * is no trying a variant and falling back. Pick the variant that the 
+>> PSP
+>> + * reported (the default one if it can't be read) and use the others 
+>> only if
+>> + * its images are missing.
+>> + */
+>>   static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
+>>               void __iomem *tbl[PCI_NUM_RESOURCES])
+>>   {
+>> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
+>>       const struct firmware *npufw, *certfw;
+>> -    int ret;
+>> +    enum aie4_fw_variant order[3], hint;
+>> +    int i, n = 0, ret = -ENOENT;
+>>       if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
+>>           return 0;
+>> -    ret = aie4_request_firmware(ndev, &npufw, &certfw);
+>> -    if (ret)
+>> +    hint = aie4_psp_fw_variant(xdna);
+>> +    order[n++] = hint;
+>> +    if (hint != AIE4_FW_DEFAULT)
+>> +        order[n++] = AIE4_FW_DEFAULT;
+>> +    if (hint != AIE4_FW_ALT)
+>> +        order[n++] = AIE4_FW_ALT;
+>> +
+>> +    for (i = 0; i < n; i++) {
+>> +        ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
+>> +        if (!ret)
+>> +            break;
+>> +    }
+>> +    if (ret) {
+>> +        XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
+>>           return ret;
+>> +    }
+>>       ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
+>>       aie4_release_firmware(ndev, npufw, certfw);
+>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/ 
+>> amdxdna/amdxdna_pci_drv.c
+>> index f233eb70a2957..dab8603e2381f 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> @@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
+>>   MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
+>>   MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
+>>   MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
+> 
+> 
+> I tested against both _l, _p and default sbins. All passed.
+> 
+> Reviewed-by: David Zhang <yidong.zhang@amd.com>
+> 
+> Tested-by: David Zhang <yidong.zhang@amd.com>
+> 
+> /David
+> 
+>>   /*
+>>    * 0.0: Initial version
+>>
+>> ---
+>> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
+>> change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
+>>
+>> Best regards,
+>> -- 
+>> Mario Limonciello <mario.limonciello@amd.com>
 
-Do these two fixes still apply?
+applied to drm-misc-next
 
--- 
-Cheers,
 
-David
