@@ -1,80 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851939;
-	b=KwGwFSDyqF8Jf+io77Rr5yzqSKVH2mOKyP4021OVuRoJ7FMR4dIe5s+fhfHvFfBI7P3D
-	 cJiP1RtEt/VQvZyhzknOX6QKKpIZrHBNp97ypWv6Euf5aR2Bf2XJbstoq+/bYWUZ5gdOZ
-	 QT/S916jC4K37Hqk8x7Fvj0sVw+lXcFlhs7C3LHDcoWbJ0LQ15EDANiYBbsckNvhBhD+j
-	 fhsHIi8xf7+wtkhl8N1M97Wi4JVzCJIGKfZr44XKpCzvEJDaCEmJbA0srxOVYLiUoH0E8
-	 bWX63isSpLhUl2mNwQv9LyPcwHCsl/EZHKrDf0GEp8FEF6+adZ3Q2af2pdrpBIQzfTg==
+	t=1793852049;
+	b=czL0U/v0lRPouLxd7s3hM1qx12PBLqnTg36xBDHrz2S0NmrIQ07GS4+3lKfWMnjzNPj1
+	 kl3SKOehzi0r/1exKFSdVdxyQ5uotQblHcm0nMXxnOv/uIYF9L/UQ7kdB9ukBGamEPshN
+	 0S2YzXoo4IGBC9DFcKb74BE1eP1ifqsHfAMRYfiS/F3YkipMab7w0FlgBe3b+IzpVZq+k
+	 DubzmMWQg9APYbQshqHxC8924rJXwB+poRw54fJaTogsaXHkvGwKU8Sz9tGshfqf2FnhO
+	 saFYGB8mgf+GxqWHRNDLFWer27kNGQmc/9SN5Fdru2lD/YrnWGWKSE4dySvn+nhnoLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851939;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=c8m5MIJPDMmiDGEpNvB5AEdQQVP/9nxkivagAbmdY3E=;
-	b=2gy+3hNo+DepUtbF2UrKpHjnxC75l/chg5tdwcnQUeFq6mA/4Xv124Oe04CfsClYNjCs
-	 gU/H1xVQ8jUWrgm29p+4xst/O/rxl7VyjyDUrFBoQO/o0TwQhI23Le+h0XPlTaItpjCjh
-	 tmhXJpG6WnKhIa5LJ5JRTTzRP45muA5rYWV4K0Pj/Oq7E1xWaFQFNb+DZJB+wXLWntzSD
-	 iwG0Gc7tQ6v6A9JZeargnkMvfP8ONcyhMXNdu6Wm970IZ724x92mryzpHDSu926Gq6RYy
-	 yMPOJlyvsUaGIGhfGkHYIu4OHsE5KphQD4P/RlnzyeNCARc38rz6GVyCFiLfk0ZuRag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852049;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:X-Mailer:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=82C0pMCYwMzWMRl19g9H4sTrB8Sq3TP728Ks6dqFnPk=;
+	b=jv5dEbnQUbPdmD8OiJ8Yi48Gh3ZdH75jjF63XEW0wjAYH4o7D279bq4e+eR9+u6uD93K
+	 +Mh9fM0GSrSQBTJEH81R3nitM1gqQIasteGYHudrE31RrOPfnekTqgK76QJLtVvzZXm5U
+	 KsfS9TSOYWUGvzymNRBSiej3nEtr41ADFKkzI8tEwfV2dFA33u0g3hZ41xev+bfkstC9i
+	 RevupEYW7xrIwwm8V6rvAVp35ptjkBWp4BCH/aXbjW/TwMQymif6xrjrZeLkSACakqsmW
+	 oQnxXvzY3eH7r9DF0uB/6iJ2yL7XM5dbR306Rm538ESUKszj4cqltINEMj/nd9Qj45g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=drn8R2A+;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fMuRMBBc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51152606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:12:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51152606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C8D606A326;
+	Thu,  5 Nov 2026 04:14:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=drn8R2A+
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id Ojxbxa2RgVK9UOopnxKgWc; Thu, 05 Nov 2026 04:12:19 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Oopmxt4tyuJrPOopmxTEQ8; Thu, 05 Nov 2026 04:12:18 +0000
-X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6aec0222
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gAnH3GRIAAAA:8
- a=4dYrO911E-Z2Nd993hQA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=c8m5MIJPDMmiDGEpNvB5AEdQQVP/9nxkivagAbmdY3E=; b=drn8R2A++CY7/9cj26bKs6QiaD
-	J6pcWbAyKj9SHdAz892lRIdOdsexDxV48JWnpvyYaHeM8BXjCiktAO8SFWYJwG3raZXF4dGfc2Fzo
-	IB/quCSEYeyr5gOHKFl2NBIk23YSKpL/8ygJWK8ACNBOjXEQQESxhKF6VZHrr9mrMxt3EERFkdrra
-	slrNuoGUiAjeR+jmX8a4ebeDeRsBS6TQo5vM7omEKD5BugR2FDOOt/4NC2mQ0YFQxKt3gxehPAOLK
-	TcH6cJMz6HHd6fFV+6/885QELU4fSZWlg/j1OTRw62ySBJ22rtqzeV6ANpt806NpsO+kWSvuBh+Ly
-	LEY+ncnw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:46092 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOopl-00000004BYe-4AfM;
-	Thu, 05 Nov 2026 09:42:18 +0530
-Date: Wed, 4 Nov 2026 20:12:17 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Carlos Jones <carlosjr.jones@analog.com>
-Cc: alexisczezar.torreno@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/max20830) Add support for MAX20810,
- MAX20815, LTM4739, LTM4740
-Message-ID: <777a34ee-aa9c-44ee-ba00-5bda32539324@roeck-us.net>
-References: <20261103084331.449-1-carlosjr.jones@analog.com>
- <20261103084331.449-3-carlosjr.jones@analog.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fMuRMBBc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9221F1F000C1;
+	Thu,  5 Nov 2026 04:14:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793852048;
+	bh=82C0pMCYwMzWMRl19g9H4sTrB8Sq3TP728Ks6dqFnPk=;
+	h=Date:From:To:Cc:Subject;
+	b=fMuRMBBcxjfVKX72ikgs6rV4/6aNZ4lGc7ylD5catLudQ3gRPolVBNa1TYvP8Kh5p
+	 xmgALlpu5IepSZJmD52pmSWeNujLKlM38z42YeFpDDfl9ML2kORZdw6VX+agi+tco/
+	 01G5Dhderx4jxQoXw1QrJmcB653YTZDsg0NpaslQ=
+Date: Wed, 4 Nov 2026 20:14:08 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ mm-commits@vger.kernel.org, David Hildenbrand <david@kernel.org>
+Subject: [GIT PULL] MM hotfixes for 7.4-rc2
+Message-Id: <20261104201408.90579e9988fe725faf3ad859@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,60 +52,240 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103084331.449-3-carlosjr.jones@analog.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOopl-00000004BYe-4AfM
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:46092
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 17
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfFMBS5da0g1H4Y6Bc9MU4GMbv3EkQizOEBCJi+oTU7WAIPzepUb2Dt6X2M6s+6M2et8CYSsb4w1COBqOrAZGPpwoHNZ6S9jWVszksGpOe0vu7lJZ/TVP
- XGsrPWzn+XKbhWJv/u0MnL9nFL83FBNqltcSsCrzPMCt6zH0ntluoBVCNYOzJjY8q/pO1fMwGCpQycNZ9sbiXgNYfNc6efb8uJsqxTeXPuBsFY2x/YX1Lqp2
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 04:43:31PM +0800, Carlos Jones wrote:
-> From: Carlos Jones Jr <carlosjr.jones@analog.com>
-> 
-> Add support for additional members of the MAX20830 family:
-> - MAX20810: 2.7V-16V input, up to 10A output
-> - MAX20815: 2.7V-16V input, up to 15A output
-> - LTM4739:  3V-15V input, up to 10A output
-> - LTM4740:  3V-15V input, up to 15A output
-> 
-> The LTM4739 and LTM4740 are the LTM-series equivalents of the MAX20810
-> and MAX20815 respectively. All share the MAX20830 PMBus command set and
-> telemetry, so no new register handling is required; they are accepted by
-> matching their IC_DEVICE_ID.
-> 
-> The LTM4739 and LTM4740 are uModules built around the MAX20810/MAX20815
-> dies and report the die's IC_DEVICE_ID with a "B" suffix ("MAX20810B" /
-> "MAX20815B"), not the "LTM4739"/"LTM4740" names printed in their
-> datasheets (which are being corrected to match). Only the IDs observed on
-> hardware are matched; the plain datasheet IDs ("MAX20810", "MAX20815",
-> "LTM4739", "LTM4740") are not matched, as no part reporting them has been
-> observed.
-> 
-> Matching is via the existing adi,max20830 fallback compatible; no new
-> of_match entries are needed.
-> 
-> Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
 
-I'll make the change to Kconfig as suggested by Sashiko. No need to resend.
-Applied.
+Linus, please merge this batch of hotfixes, thanks.
 
-Thanks,
-Guenter
+
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-11-04-20-02
+
+for you to fetch changes up to 19eab4cf787c917bfb7615460933e4ae894af65b:
+
+  MAINTAINERS: move SLAB ALLOCATOR under MEMORY MANAGEMENT (2026-11-02 18:14:50 -0800)
+
+----------------------------------------------------------------
+mm.git review status for linus..mm-hotfixes-stable
+
+Everything:
+
+Total patches:       43
+Fixes: tags:         42
+cc:stable patches:   30
+Reviews/patch:       3.67
+Reviewed rate:       88%
+
+Excluding DAMON:
+
+Total patches:       40
+Fixes: tags:         39
+cc:stable patches:   27
+Reviews/patch:       3.95
+Reviewed rate:       95%
+
+Summary of patch series in this merge:
+
+- "mm: avoid losing atomic VMA flags" (Lorenzo Stoakes):
+
+  Preserve guard-page and soft-dirty state across VMA changes. Prevent
+  fork and THP collapse from losing guard markers, and keep changes
+  visible to applications which track modified memory.
+
+- "MAINTAINERS: MM updates" (David Hildenbrand):
+
+  Start routing more MM components through mm/core.git and add Zi Yan
+  as a THP co-maintainer. Update component coverage and integration
+  branches as part of the transition to separate MM component trees.
+
+- "mm/hugetlb: fix mremap bugs" (Li Zhe):
+
+  Fix hugetlb mremap deadlocks and truncated move lengths. Prevent
+  userfaultfd poison markers from affecting other processes through
+  shared hugetlb page tables.
+
+- "MAINTAINERS updates for page and slab allocators" (Vlastimil Babka):
+
+  Add Johannes Weiner as a page allocator co-maintainer and update
+  page and slab allocator entries for their component trees and
+  integration through mm/linux.
+
+- "mm/damon: fix three race bugs in sysfs and core" (SJ Park):
+
+  Serialize DAMOS tuning updates and stop monitoring contexts from
+  sharing mutable state. Avoid interference between concurrent DAMON
+  instances and incorrect auto-tuning.
+
+- "mm: page_alloc: fix reserve access for non-blocking requests"
+  (Johannes Weiner):
+
+  Stop ordinary non-blocking allocations from consuming reserves or
+  bypassing watermarks. Avoid severe allocation stalls under memory
+  pressure and preserve reserves for requests entitled to use them.
+
+- "mm/cma: accept memory of CMA areas reserved with memblock_reserve()"
+  (Mike Rapoport):
+
+  Accept memory in fixed-address and multi-range CMA reservations.
+  Prevent fatal accesses to these pages in TDX and SEV-SNP guests.
+
+Summary of the 20 singletons in this merge:
+
+Several fixes address crashes and unsafe memory access. Failed THP
+collapse now flushes stale translations before releasing pages which
+another collapse can free. A truncation race with MADV_DONTNEED could
+remove still-mapped shmem pages and hit a kernel BUG. Large-folio
+page-table scans no longer wrap addresses and crash near address-space
+boundaries. Hugetlb vmemmap optimization no longer causes write faults
+from racing reference-count operations. Memory-cgroup teardown is
+also protected against reclaim work accessing released state.
+
+KSM now preserves userfaultfd protection during merging and unmerging,
+and retains soft-dirty information needed by incremental memory
+dumpers. Reads of /proc/PID/maps and related files no longer omit
+continuously mapped ranges during concurrent VMA changes. There are
+also fixes for expanding mixed mappings with mremap() and querying
+NUMA placement with tagged addresses. Swapoff checks for signals while
+processing large address spaces and shmem files, so it can be
+interrupted without holding up suspend until the whole object is read.
+
+Costly allocations with cheap smaller-order fallbacks avoid direct
+reclaim and compaction. Reported arm64 PostgreSQL tests improved from
+58,602 to 157,246 transactions per second with defrag_mode disabled;
+this addresses a buffered-write regression under fragmentation.
+Background reclaim can recover on the highest-numbered memory node
+after it has given up, and 32-bit writeback threshold calculations
+no longer overflow and assign incorrect dirty-memory limits.
+
+----------------------------------------------------------------
+Baolin Wang (1):
+      mm: memory: fix truncation removing mapped folios
+
+Chris Down (1):
+      mm: make swapoff interruptible when unusing mms/shmem
+
+Danish Khateeb (1):
+      selftests/mm: merge: keep the far mremap() targets in the carveout
+
+David Hildenbrand (Arm) (11):
+      mm: fix address wraparound when scanning large folio PTEs
+      mm/hugetlb: disable PMD sharing for UFFD missing mode
+      mm/vma: write lock source VMA before duplicating it in __split_vma()
+      mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
+      MAINTAINERS: mention for-next branch in MEMORY MANAGEMENT - MEMORY MAP
+      MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
+      MAINTAINERS: add Zi Yan as co-maintainer for MEMORY MANAGEMENT - THP
+      MAINTAINERS: sort entries in MM sections
+      MAINTAINERS: add missing files to MM component sections
+      MAINTAINERS: rename and move MEMORY HOT(UN)PLUG
+      MAINTAINERS: route more MM changes through mm/core.git
+
+Gregory Price (Meta) (1):
+      mm/page_alloc: let the highest memory node recover from hopeless state
+
+Hengyu Liang (1):
+      fs/proc/task_mmu: return -ENOTTY for unknown pagemap ioctls
+
+Hungyu Lin (2):
+      mm/page-writeback: avoid 32-bit overflow in dirty threshold shares
+      mm/migrate: untag addresses when querying page nodes
+
+Johannes Weiner (2):
+      mm: page_alloc: do not give all non-blocking requests reserve access
+      mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
+
+Kiryl Shutsemau (Meta) (1):
+      mm/hugetlb_vmemmap: map the shared tail page writable
+
+Kyle Zeng (1):
+      mm/khugepaged: flush deferred unmaps before dropping a failed folio
+
+Lance Yang (1):
+      mm/ksm: fix userfaultfd protection during merge and unmerge
+
+Li Zhe (2):
+      mm/hugetlb: fix mremap move length truncation
+      mm/hugetlb: fix mremap deadlock when PMD sharing is possible
+
+Lorenzo Stoakes (ARM) (5):
+      mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
+      mm: do not unintentionally overwrite atomic VMA flags
+      mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags
+      mm/vma: update VMA iterator state on error in new VMA merge
+      fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps and friends
+
+Mike Rapoport (Microsoft) (2):
+      mm/cma: accept memory of multi-range CMA areas
+      mm/cma: accept memory of CMA areas reserved at a fixed address
+
+SJ Park (3):
+      mm/damon/sysfs-schemes: hold damon_sysfs_lock in target_metric_store()
+      mm/damon/core: move static variable last_nr_regions to damon_ctx
+      mm/damon/core: move static variable rotation to damon_ctx
+
+Salvatore Dipietro (1):
+      mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY allocations
+
+Samarth Narang (1):
+      mm/ksm: keep soft-dirty when merging a page
+
+T.J. Mercier (1):
+      mm: memcontrol: fix NULL pointer deref and UAF from high_work_func() on dying memcg
+
+Vlastimil Babka (SUSE) (2):
+      MAINTAINERS: add Johannes as the page allocator co-maintainer
+      MAINTAINERS: move SLAB ALLOCATOR under MEMORY MANAGEMENT
+
+Yafang Shao (1):
+      mm/migrate: snapshot the source nid before the misplaced migration
+
+Zenghui Yu (Huawei) (2):
+      mm/page_alloc: mark pages freed by __free_pages_core() as not tagged
+      selftests/mm: fix khugepaged_race build with older glibc
+
+ Documentation/mm/vmemmap_dedup.rst           |  15 +-
+ MAINTAINERS                                  | 224 ++++++++++++++++-----------
+ fs/proc/internal.h                           |   1 +
+ fs/proc/task_mmu.c                           |  15 +-
+ include/linux/damon.h                        |  10 ++
+ include/linux/hugetlb.h                      |  15 +-
+ include/linux/mm.h                           | 166 ++++++++++----------
+ include/linux/mmap_lock.h                    |  22 ++-
+ include/linux/userfaultfd_k.h                |  16 +-
+ mm/cma.c                                     |   4 +
+ mm/damon/core.c                              |  10 +-
+ mm/damon/sysfs-schemes.c                     |   3 +
+ mm/hugetlb.c                                 |  55 +++++--
+ mm/hugetlb_vmemmap.c                         |   8 +-
+ mm/internal.h                                |  10 +-
+ mm/khugepaged.c                              |  10 +-
+ mm/ksm.c                                     |  10 ++
+ mm/madvise.c                                 |  10 +-
+ mm/memcontrol.c                              |   5 +
+ mm/memory.c                                  |  99 ++++++++----
+ mm/migrate.c                                 |   5 +-
+ mm/mlock.c                                   |   6 +-
+ mm/mm_init.c                                 |   2 -
+ mm/mmap_lock.c                               |  61 ++++++--
+ mm/mprotect.c                                |   2 +-
+ mm/page-writeback.c                          |   8 +-
+ mm/page_alloc.c                              |  30 +++-
+ mm/page_alloc.h                              |  14 +-
+ mm/shmem.c                                   |   4 +
+ mm/swapfile.c                                |   4 +-
+ mm/vma.c                                     | 104 ++++++++-----
+ mm/vma_init.c                                |   3 +
+ tools/testing/selftests/mm/khugepaged_race.c |   1 +
+ tools/testing/selftests/mm/merge.c           |  33 ++--
+ tools/testing/vma/include/dup.h              |  83 ++++++----
+ tools/testing/vma/include/stubs.h            |   2 +-
+ tools/testing/vma/shared.h                   |  16 +-
+ 37 files changed, 682 insertions(+), 404 deletions(-)
+
