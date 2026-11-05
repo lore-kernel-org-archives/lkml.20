@@ -1,110 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881158;
-	b=I23GPrLprEOw8fxPflqhUKLfA4DoC4+rq7dPsIJHkmeSbdjUSz97EcXaHjs2fl73IVME
-	 kyX+pEmBpt3tOaEGkgAidYPYwg4uBtf04smwwnkoPPRf5A4GgxTeagXXaVEqbfll53+/1
-	 bLtPFt8dVsw4pzYiOH0/eEH8k2PKG2sOUxUTA5Xi5vmLQ+urPC05DU3at4ZAzhuCpc6b4
-	 OuOjJt1SDtNfWWwB2wBFY34v38m+/oFgHoCH1wbFPg0JBI8Fnl7H0JC74ieijoNEMldxT
-	 OKetn01jP7aL7eAWUDm4AQAA0uJd39rPm7vq3X3z158CrnUykBE1sqpFF08xCBUFufQ==
+	t=1793880877;
+	b=skM5l27GzaGyISX8OZOOavKSthtKPInrSSfat1w9d4gDtI9ghRDpm+pRTQIEmjDl7MdN
+	 ycFLKQ18LWifU7a1gMypzyeTDN2JK5R4bUUEwphROUzFeN20GCQxeqX+OUiUCecTSSO5J
+	 FYETzJ8pW9hwentKq9mqLXYg3adSNYfwCzp8d6gEj44+a+YmLpxZwHG/dWJs4HaKCWt5m
+	 BbgSuDVu/+yTK/NHQghGCUP0+/cjkNmHEFSaXbH38IQs6nl/va2fRoVWFEWsSL0j2es0T
+	 C9kHytSSqHj1Tm4bcEP+DiM/UVmfhQUAxQbFG4PyNcRXl55txobH7rI9V/pwWr9rcbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881158;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=VqpWQ/H56gC40ALaqhyZMF3XlYC2+ROVooz7JGVgA9M=;
-	b=mTs79ZIXL2eiE/ogg+w32Fdul0kQufbEJWJWNFKwrcWxbt1iQeZfdwv1X3FI0ZbQeY9d
-	 zyi+dtiCxkPel39y9TX0O9V9HI2yiGxzXgrFkQAlM/iMNS1X5EXjZg9NR6794EAjBlvYs
-	 /QxTalGtywrLobu5Cw4z6BZPMIdG1cZMn+bIEBvmQuz6hiA+U5cjiAfQc2+IiaEY2+sJQ
-	 NvRItHSgQWTiC2y+lERT0DpG67/R9zN25pCBdNWrHYmcwjPwQXhrepV0ttjxeMCNPoiIR
-	 cOP93uMqt4Vdt7RPXMwFyWPvRrhOFxJawhdoPNpINOj+OLVnUbnC+W5/yf/PRWGi5Ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880877;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=Y+gV7tHyKEL0otgCQlQTt2Pz/4VwismWKNTtEGO49oM=;
+	b=wJAm51q6S/61Q/RP1GzdVErNegSYuyPd3Q8VgMNoBRY7ycZhQWEdFpp8hneROWSILGGM
+	 6EonNUxSpLhOlNj+02dfmL94HQwRHqZa+c0/JVkg5M3tLYMzK7utF05FelGZVJ+8H9bN2
+	 WpwGOL3WnvFPh5ZXb2KdNY4PTZDmhjYeNfxVdExWs+UjhgWwzXC2FfmNJCa9YPdLJwSCu
+	 mgYqIbNFJMfEb7+bKhspT7pXz109K0NStwrVo1mdpmHjZaXg/Wv6UDV8J8M9UlIwLZOEX
+	 QTimsBIQQl8wmP5nSjbsy9GKkZhpStAaj0su6u0fGoegcwqS+WyGvLP6A3uF7mtnwOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gwOrADE0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hqy7mCyS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2QGf1cFd;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2i2QQIsM;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=s2wIy+V7;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6C4606A330;
-	Thu,  5 Nov 2026 12:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB6C4606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB57606D808
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BB57606D808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gwOrADE0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hqy7mCyS;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=2QGf1cFd;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2i2QQIsM
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E01831F458;
-	Thu,  5 Nov 2026 12:19:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793881156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VqpWQ/H56gC40ALaqhyZMF3XlYC2+ROVooz7JGVgA9M=;
-	b=gwOrADE0Qod4PVwDfNsd6RKN3cB+sGE4cNvv4wbkyzZCV0V1foN+caBz5Hskcp4NF8tF26
-	w1nbcHD5aFeef44QG95h9KpqD4JsxU4qHmCJqtxAwp9DS3oQ3LnpbJhU1tBBz2DqOsd9ZF
-	uVZLQax3NHgAnPgrND7VAX4D1zeCtNs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793881156;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VqpWQ/H56gC40ALaqhyZMF3XlYC2+ROVooz7JGVgA9M=;
-	b=Hqy7mCySg0o+D767jvmxe6zGPvs4rTxKWmK+ZRuz1ctNWbsc51XXPoLH1HMo8nDf5H7/20
-	Pz0DjigL/jYbgZBw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=2QGf1cFd;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=2i2QQIsM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793881155; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VqpWQ/H56gC40ALaqhyZMF3XlYC2+ROVooz7JGVgA9M=;
-	b=2QGf1cFd8g+b2CTSCS0uxz7GbK5LPqBWmMPKf4TvU5AQH5Dg1HRUE9HTNITO5QmYusd8Gv
-	YsOgOMJWElI+5g4u6nec3o3Xm7Mzt5Wj6kZrNRmsVHewMKcUp+ANSWJTPATn3eydPsmqzk
-	AMabRSzYjzezo1rQKBR1OSv5TTNBcug=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793881155;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VqpWQ/H56gC40ALaqhyZMF3XlYC2+ROVooz7JGVgA9M=;
-	b=2i2QQIsMAWELvaPa0IejbpFt4bdvx6dVBY2kuOnzugjipXn4e7MRfHQXH1YwSMYg5HDZIq
-	/r8/1foBG6ruJUBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 19864133F6;
-	Thu,  5 Nov 2026 12:19:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3z2mNUJ07GqdHgAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 05 Nov 2026 12:19:15 +0000
-Date: Thu, 5 Nov 2026 12:19:13 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
-Message-ID: <auxvLCiljPhy0n_q@pedro-suse.tail5790ac.ts.net>
-References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
- <aunPI5eOUOAEUa8d@pedro-suse.tail5790ac.ts.net>
- <20261104-jf-filemap-v2-pedro-reply-r2-74c87c6fbcf@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=s2wIy+V7
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261105121434epoutp02a89a0baf43058dd0818839a54e75557f~lJSbBKAI21418914189epoutp02R
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:14:34 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261105121434epoutp02a89a0baf43058dd0818839a54e75557f~lJSbBKAI21418914189epoutp02R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793880874;
+	bh=Y+gV7tHyKEL0otgCQlQTt2Pz/4VwismWKNTtEGO49oM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=s2wIy+V7A6rn7gzjWZ6JCgKgS2JxTf7NcTsSyZeK0GnbownEtSo+aCnjLx86lWM2b
+	 bnM2I/CUp+GoBmvXJ1zndHJiOo2eAAg9ZqQm7PWhXnxRkFvDUnyjaG3GZrs6RmGUPY
+	 oMUGlZxesLiupkwFYD4W1xIma7QUQVDeVdYyNxbM=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105121434epcas5p1c149e359c38860c237960af2d948a102~lJSaPN-5c0588705887epcas5p1t;
+	Thu,  5 Nov 2026 12:14:34 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.91]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jL1T50Dmdz6B9m7; Thu,  5 Nov
+	2026 12:14:33 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261105121432epcas5p30c05ba935557ad6dd59514ef4d834e96~lJSYpwq6A2344923449epcas5p3B;
+	Thu,  5 Nov 2026 12:14:32 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105121429epsmtip1207e894c73db06501ec40665dd115c3a~lJSV6EnKM3079930799epsmtip1i;
+	Thu,  5 Nov 2026 12:14:29 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	Thinh.Nguyen@synopsys.com, selvarasu.g@samsung.com,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
+	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
+	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
+Subject: [PATCH v5 2/2] usb: dwc3: Add Exynos8855 to the generic platform
+ driver
+Date: Thu,  5 Nov 2026 17:44:01 +0530
+Message-Id: <20261105121401.1661711-3-selvarasu.g@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20261105121401.1661711-1-selvarasu.g@samsung.com>
+X-CMS-MailID: 20261105121432epcas5p30c05ba935557ad6dd59514ef4d834e96
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105121432epcas5p30c05ba935557ad6dd59514ef4d834e96
+References: <20261105121401.1661711-1-selvarasu.g@samsung.com>
+	<CGME20261105121432epcas5p30c05ba935557ad6dd59514ef4d834e96@epcas5p3.samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,69 +92,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-jf-filemap-v2-pedro-reply-r2-74c87c6fbcf@linux.dev>
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,kernel.org,vger.kernel.org,kvack.org,gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: E01831F458
 
-On Wed, Nov 04, 2026 at 11:12:41PM +0000, Jose Fernandez (Anthropic) wrote:
-> On Tue, Nov 03, 2026 at 12:12:58PM +0000, Pedro Falcato wrote:
-> > I'm not sure I understand. xas_find() was fixed. Is there any other case where
-> > this loop can step backwards?
-> >
-> > If not, I don't think this should be Cc: stable, and should probably be a WARN_ON().
-> > As it's a hardening patch and not an actual bugfix.
-> 
-> Yes, there is at least one more case. It triggers when a read fault
-> starts a lookup inside a large folio while a hole punch removes that
-> folio and a write puts part of it back. A stress test I wrote for the
+Add the "samsung,exynos8855-dwc3" compatible string to dwc3-generic-plat
+so the Exynos8855 DWC3 controller can probe through the generic DWC3
+platform glue.
 
-Thank you. So, if I'm not mistaken, this is the race:
-First, you map/see this:
-	[folio pgoff 4, length 4]
-Then, at some point in time, someone punches the hole:
-	[no folios here]
-Then, at some point in time, someone faults another folio in the range:
-	[folio pgoff 0, length 8]
-so you step backwards. Is this correct? Or am I misunderstanding this?
+Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
+Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+---
+ drivers/usb/dwc3/dwc3-generic-plat.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-If so, how can this happen while we hold the PTE lock? That itself should
-block truncation.
-
-Can you share the reproducer?
-
+diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
+index ca69ac0eb07c..069b265c9808 100644
+--- a/drivers/usb/dwc3/dwc3-generic-plat.c
++++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+@@ -236,6 +236,7 @@ static const struct of_device_id dwc3_generic_of_match[] = {
+ 	{ .compatible = "spacemit,k3-dwc3", },
+ 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+ 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
++	{ .compatible = "samsung,exynos8855-dwc3", },
+ 	{ .compatible = "starfive,jhb100-dwc3", },
+ 	{ /* sentinel */ }
+ };
 -- 
-Pedro
+2.17.1
+
