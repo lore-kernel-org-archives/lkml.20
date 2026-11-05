@@ -1,55 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793843085;
-	b=pPcq+IO/sfwlyKwwvosOimGDanhAZp6MVZLBpX3eDKJh2QpAvRJLL6VoVvF84nK4oEm0
-	 UcT4DXktYzKiZdACT3MgjDzdcwUod0vt340VGjgMWX6rAlLk9Dygr0DXuR4MPN1ahhLrN
-	 Zz3WE77b3ghvGGu+EymHcDd8xK6DtRFfT3esZyiH+qJgr7ZRY2f1z4vUzYLf8zYGA21I+
-	 3lPxvG/GzQkmCpUuj7WOMQtnFWbsciW++HZ6ZOxDox1S1wyJR+M0Ox852Pa5bhryy1akJ
-	 iXJkeyujfKWPXClhqUGuNuhuIDIYs8HWNBszQ4+TD8VLjHiNf7PQUinEsYFIj7DUy1g==
+	t=1793843116;
+	b=J8U0Wzj78eDF623eKnNSWBgAbG+7zItmDyMs0b2d/0rtTsYCF6Nhh+zbwxBohCejzXbR
+	 c/cnAyeKcBqIQDu/vYNVhWwZ5mr+uu+gKsOLT6hxVz9+GCuLD+qLeXeyx7DM6xGuIL2Tw
+	 nS5Nz0p82rwVHrgK51hRi/MViz5XUmCRutfpH/h8pn3X/G56nd8ieVjIjzPYmVM63C1ve
+	 fy58zn7FWhKRmL30fIosPJQ2uTZiPHZmqtPkBv7QvExE/zm4oMhgPjRmgmuIyfDgCIHMs
+	 aJIRulL2VXVAswavRUmAPkx2AWM6ihVxkNn719gYTY437GiTR1oJD1ACGlUAM/W8BSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843085;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=KCPP0dcD8EhOUqbX6pSZ0CLuO8QQgf4ncI0Xmf3yuyY=;
-	b=M9K4sHjmgibYEhuX9jFgNHLIhrNvu+G3+dIPSZ82+86qiX9KABDJgNLBVAhLDFSvvgHT
-	 5moSMkM5HwwtAlz4bMy/brBqvRZQ2JVr0Ub91owh/oUee1NUAxJauGsFfFMamVKbeQ1f5
-	 qUmvK7LdAgbdA6XKn4ZpUg0B7AUujUbgTq4oDj98UkF3Ge8uYf/4r4XIvarn2zOeJm/tW
-	 xmH8vwaR3Sn4BOSNVRWKdUP/BAiX/T7Je79+GKqPz7BNtn9sw/Wv0dOFVKB3W5dJuDT/L
-	 k1VTX93stFa1zzZDrw/lp8l0ohAwj+7LNENquflfD/Xb0HnmFmlzl6hBHdYa1hkZCeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843116;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=aw1j/DMSrkeRfjbyviCP/rue4/RfxPKGIkftd8fC4p8=;
+	b=YbthPd8fLFKesyKjWd1i9D/Ku2OEfwjXQi9njKxUpHdY1O+GV82oVOWOsi3Gc6g0OlE8
+	 MB8WtZ+HWojlrpdPdqeXHz3GosIA2Ma937Nto58oKZXiYM6CX+86h4wYTb9cXRLlPIlBY
+	 Jpa7cbstii37KzIRXI1MNiu3t+HRLeGpwKSiXnrUD7pS0SGP5EczmQMS9dADJs0pdT+4k
+	 sgM8LoLQ6FyFkQc6y5s3Ni7V1vDYjWjE2WOcATcu0ifhpjx+LokWKxZZopQaR4/QwAV5T
+	 Z5SnE0uchagILbMkOXE947WcI8ei7wpXiw2OUBRLBW3i82E8GW2xAzsgxrwlIFOu/Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raidlab.org;
-	spf=pass smtp.mailfrom=raidlab.org;
-	arc=none smtp.remote-ip=79.135.106.111
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bBAZvD7X;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1537606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:44:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1537606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=raidlab.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raidlab.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=raidlab.org;
-	s=protonmail; t=1793843081; x=1794102281;
-	bh=KCPP0dcD8EhOUqbX6pSZ0CLuO8QQgf4ncI0Xmf3yuyY=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=O+WjvewahS1O7uDT8Yim7m+7q/1JG9unKziCUB3Ti6maqnoJeIL6y30bPDdqs6v6G
-	 YCPJGBZuz0QjvW7DsY7io32qvLwQD1SUs8quAvycFed7kDEXcJH+qbb2Eqy5faP3UK
-	 ky6HDmKW2xS+Bsp9aPw/MCa1nsErvvUHpQO7mA3z2v4mjAhiT6AXkWjW+qlqor8K8Y
-	 /rBShc8/vbkH+UkgqFGED2zlrmQy4F9CM3PmGZeIItV8zpAvDsiqHCl/HaiDgqjkiB
-	 6V1E7P9W6OxLA7uSUk1RdZQ4CmzGKdtBgnAeH9QfWh1r68EBQm7ZZSctHFUpR6qXIh
-	 gCdt+X3PN9nrw==
-X-Pm-Submission-Id: 4jKlVJ1dv4z2ScX3
-From: Miroslav Cimerman <mc@raidlab.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Miroslav Cimerman <mc@raidlab.org>
-Subject: [PATCH] null_blk: reset throttled state before device setup
-Date: Thu,  5 Nov 2026 01:42:45 +0000
-Message-ID: <20261105014245.436826-1-mc@raidlab.org>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F91606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:45:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74F91606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bBAZvD7X
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb2893531bso775030a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:45:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793843116; x=1794447916; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aw1j/DMSrkeRfjbyviCP/rue4/RfxPKGIkftd8fC4p8=;
+        b=bBAZvD7X2qxqnVxmX3qR10bvg/TMHOASdti/3z/WlQubvrJcW/AVlrGVDFL7ny89QK
+         wJHOC/gKEtr9M40oqv3wqysmzIa7sTBr7W6O6z2fnCq0gvanT+rDqZ+R1GkgnaYN0plw
+         7iwahSPNtBUhXQw31Zw7Uk7jziiutQy/ol+W2fa+vJovbbsGLfY34D5JjIcYLoeWRgDO
+         VepUNrFj2ceP6iZ5dLKpk5ssyrO6pLAS/lJXTPFQkZuth3+WOyBDS66aJ5U0oK+PQi8x
+         wQQPSSZBHEtl+75Wn/h/ugqAV5cGd2blf6pVevC4FFtFwFN9UDyyKEf9ybcoLOtvWJ7n
+         89tQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793843116; x=1794447916;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aw1j/DMSrkeRfjbyviCP/rue4/RfxPKGIkftd8fC4p8=;
+        b=J7uLuH3KB1vCWAE/kV19D5jxOMiueyaNS4njqWuKBpUEMWd0/nE5PexcSv3WdnZt8K
+         K80Iz6uxvQ6gYv3HMHjVzeTHeCLQ7FO/lSj0XNuWZpH+HkPWgeLC9fFtZmsKmoTsimqo
+         YLbm+vlgwKQxY+N2qGdA1OJqZKdEQ6GhfAK8dfyiBFlfUU1F+IDlIMKSLdHXnZcMIXmF
+         1e43VJUCdSO2f2W+oQjeivPSRYajJyq8nOAFazHnf2cW3BCLk9nlJCGHJCF/hkYArAwA
+         RJMQs1Z0s4Cgn1Q7RzSpI2p3toTZxKp2o4y65KI780/lR8xj8A37APgQuAMpg1BViuOg
+         tyoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwtl5kn6QdqggOTTnxcuEK1LkWhT4/MkjEB4skxpubuESpp0zilHPGntKuTAPCZO4Qr0qOnQAHTp7/pM8o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LEG9dR0FFoz7gqAXwkcXyucmVTJ/SnfVlbP6iKLpubrA7mrTy
+	mpBlqkygql72l9oTU2ycxM9sMUgVLvMcO8AyESko6yFpW8DSWsQ3FZVTMpOnZoXTNZY=
+X-Gm-Gg: AYBFou0RZcY1XnDV8HXTOY5+dF+XMWNpXyufUO8XQzGjLOtcz2X4p33jbQqSZUkaiTy
+	oSDs62R0jt4J1SzNTg1FCKRJ3Q2mVYZRgx/XwsKzSoB1zvDZMdQ6RZyc5euMFKrloBlfyAleYZx
+	3ftk5HC0I3EMpXhSviPGCPDTSMsC2sOIV0nH0Glcpe2XQTQe/hbUgOgTYwz1SH17YKcfOoaSh8+
+	+M/LA3FrJnUc6Qq/Zzx0dbDkEdzxyJk2IO1P1xSrHmXZW8SwvhgOd32VSOnT+buQgzrciz/fkPU
+	XNOufluJNXKfRiBSY73XGBJm2sTadfCtxX+t9+BIEpykTuT3aA1nk2Oipj2HUGqoxhMA8X1SoRH
+	vVzyow588iUCgsAwfztvkp3b9MfUJAQf9CNo7vL1s8ni3g9KUvNXwAL3AdDMGbgHcgE56gbVvDr
+	8fiNCaTO3h/VuTLMpnK84aFCfaEiO9kiBYbI5eUTBNuQkKSnsqimR/vpR5Lzl+qgmo9TY743jq0
+	HhAmPubrRBI6lNnMHZaWFJq0gDfJVCGsRWu4K9vWgIqsfMv5wOs0IfdkevgzTAe6hmKKPM912DX
+	6nMZs9jGS0Nh/MubmYGtbEVjq2MI7d/SVKGvv69vDXoPXtoVKhwScV6qMzYQqguEElHcaqeBVGD
+	zF8aJLgcSNikWXOLe+nV+O/oFzA==
+X-Received: by 2002:a17:90b:2f08:b0:3ad:50a2:9abf with SMTP id 98e67ed59e1d1-3ae89835db3mr14659660a91.38.1793843115728;
+        Wed, 04 Nov 2026 17:45:15 -0800 (PST)
+Received: from [192.168.52.49] (ec2-13-158-86-59.ap-northeast-1.compute.amazonaws.com. [13.158.86.59])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3131f8csm1307297a91.2.2026.11.04.17.45.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 17:45:15 -0800 (PST)
+Message-ID: <0ee661a9-b642-424f-99a1-21c9731c53aa@gmail.com>
+Date: Thu, 5 Nov 2026 09:45:10 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,44 +91,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/damon/core: reject empty access pattern intervals on
+ scheme commit
+To: SJ Park <sj@kernel.org>
+Cc: jm5905938@gmail.com, akpm@linux-foundation.org, david@kernel.org,
+ ljs@kernel.org, error27@gmail.com, damon@lists.linux.dev,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ "Liam R. Howlett" <liam@infradead.org>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>
+References: <20261105013653.88123-1-sj@kernel.org>
+From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+In-Reply-To: <20261105013653.88123-1-sj@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The NULLB_DEV_FL_THROTTLED flag is set at power on when mbps is set, and
-is never cleared. Since commit 00a8cdb84fcb ("null_blk: remove
-NULLB_DEV_FL_CONFIGURED on turning off nullb device") mbps can change
-when the device is off. After a change to 0, the stale THROTTLED flag
-sends I/O into the throttled I/O handler, whose hrtimer_active() runs on
-an uninitialized timer, dereferencing a NULL pointer. A crash happens at
-power on, as the first I/O that triggers the NULL dereference is
-partition scanning I/O. This sequence triggers the crash:
 
-  echo 100 > mbps; echo 1 > power; echo 0 > power; echo 0 > mbps;
-  echo 1 > power
+在 2026/11/5 9:36, SJ Park 写道:
+> On Wed, 4 Nov 2026 09:17:24 +0800 Wang Xiaolei <xiaoleiwangxiaolei@gmail.com> wrote:
+>
+>> Hi SeongJae and Aveline
+>>
+>>    Thank you both for the careful review.
+>>
+>> I appreciate the clarification that DAMON simply executes what
+>>
+>>    the user configured, and that this is more of an input validation
+>>
+>> improvement than a bug fix. Perhaps I was too aggressive in framing
+>>
+>> it as a bug.
+> Thank you for clarifying.  But my point is that this change might be just
+> unnecessary behavior change rather than an improvement.  What do you think?
+Hi SeongJae
 
-Clear the flag at the start of null_add_dev(), as is done in commit
-5a4236bf2262 ("null_blk: reset cache state before device setup") for
-NULLB_DEV_FL_CACHE. It is set again when mbps is set.
+Thank you again for the clear explanation.
 
-Fixes: 00a8cdb84fcb ("null_blk: remove NULLB_DEV_FL_CONFIGURED on turning off nullb device")
-Signed-off-by: Miroslav Cimerman <mc@raidlab.org>
----
- drivers/block/null_blk/main.c | 1 +
- 1 file changed, 1 insertion(+)
+I agree with you . My earlier framing was wrong;
 
-diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
-index ec0d7ba4d938..924ec6cfdcaa 100644
---- a/drivers/block/null_blk/main.c
-+++ b/drivers/block/null_blk/main.c
-@@ -1977,6 +1977,7 @@ static int null_add_dev(struct nullb_device *dev)
- 	if (rv)
- 		return rv;
- 	clear_bit(NULLB_DEV_FL_CACHE, &dev->flags);
-+	clear_bit(NULLB_DEV_FL_THROTTLED, &dev->flags);
- 
- 	nullb = kzalloc_node(sizeof(*nullb), GFP_KERNEL, dev->home_node);
- 	if (!nullb) {
+I won't push this patch further. Let me focus on the
 
-base-commit: e6ac1da6a53c5f670bf09e60a2500d15be68d2fc
--- 
-2.53.0
+other items that are genuine bugs instead.
 
+thanks
+
+xiaolei
+
+>
+>
+> Thanks,
+> SJ
+>
+> [...]
