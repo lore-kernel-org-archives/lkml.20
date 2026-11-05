@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.15
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.22
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793893752;
-	b=Od5xBJwi8/Dm0bdUiJeDPJ60WKoFs5lnf02Cdkq9sTc4GcPIr1EM+X4NOW6hUZGL9cq4
-	 +pePSA+avS+3vBSb0aBe+Tsntp3fjdgfNBmd9x2LTKyg05hbQNStvMAtCSV0XFQLXwQIe
-	 dfvEkU42l/l25fT41AOhQOzYmRfM2+ltk898YD1VeEd+Ev7GZXquJfmRwbjCuBmdxL43m
-	 tbuGmoD46YEy38zEiT1cPx3aaqvrdxYhtD29tavOBzwDmy8mAEDr8zppPppJ724QJZp/y
-	 LMlbYyvKkZztV2zotgaKgVjZh283lvIm5bAeqoa/Zw+EM4PANrt01gXXBla3vmZmqNg==
+	t=1793893756;
+	b=qXaICOJwagNsGEf0ANuvIPic6OWRbf8JVW1MiVLcPCmYf32XLOhwnXdAiIegjOYwvt7E
+	 7ZKr18axHCoIDZHRVev+V2fZEAqlrPQwxRjmfkbHNRgAiPIYWQYVp7jODXEaUKQF7AD+q
+	 8laNWoufOy9xlAPZvfwsoiSH1Mx23ArH0gFKq2RFW/bKyLu4ynGfeFk7EGacW5ubyb4bP
+	 +s32EEnMJaH93ixo4Q2IMscERBqKAR4VZ1O9/LlZA9wHDvuTnXGmLxj/4ZOevYcvjcCAz
+	 i880Gl87pT1H3cvHQdAxhIBsoZf3MSXoc716RrLXmZrnVIwg7+pG3VPTCPoUitjH5Gg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893756;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:Received:Received:From:Date:Subject:MIME-Version:
@@ -27,51 +27,51 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cir2iGw1unTRB3cP/gB2cjCrkLV2S7xV1hDo/GuTvvg=;
-	b=2KAHaIxC1ez77V8INoXhVpqq9ZXhPXfaMT0bPvFno79vAbcYAkw3IYlzBr7pmmKRk79f
-	 D4gAOwo2jEjt/LRXlsqTMMLrjO61TJ73mIPoiymAJ/I8LJNDtK4bIDeYXloQB4ThR9rvo
-	 lhny5H0GR3b2bUVMfsXFeJip0Me/YdelvWCC47xhBlR1WPKKjbB0y/DNXtymK4EYZO4N4
-	 CuwqzkfC6UQGqgujQhmVohxh62FDty5ls0SaTltb5Zm4I21H8yoc/zVF+ZBab1OQE21Nc
-	 1XOJsKm6sygvZQLZSemnsNfdi5UrkurT+HpXr4pfuq1QNkrBwbRCf1TvT7Tth/JiSxA==
+	bh=EdXRdi7dF2jKY6Bsuyhju/UpaofjqICOZpUFku29LtQ=;
+	b=BA0IT5sx/VzJPMN5pJ6sjUTQ5HRiSdz3ZRt0dazEFDhg3qomt1YwPeKqm8Ckl3eCY/ro
+	 IzWMOzqNdCT3UFKmDjJTjDXcVCMiAxG9RRUE4XczPpivYF5qvlqF5jXDSp67UXs6/X048
+	 Pu64ExiOwtpsxCDOCR4rxrdlZ/hNZTJ52k0GKYMrff/CUbuFTz0qkBZC8ee3NwGNJtmJ4
+	 Z7GjtMtIWgVGStvr9cOw5IEKMs0avqvsSLmaLyu5Gk5/Yd4DNBamC1NiMWKUlmG5hK/Xb
+	 +/WMsIPid68paHF3TRn2a9m8717uVFpi83SpPvZEuQ3usvGCfB/ZMKtdpZyVRwk6cyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=axis.com;
 	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=Z0yS9nSF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.15
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010015.outbound.protection.outlook.com [52.101.84.15])
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=AtfXQHg+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.22
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010022.outbound.protection.outlook.com [52.101.84.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08F0606A330;
-	Thu,  5 Nov 2026 15:49:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B08F0606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C4C6082BD2;
+	Thu,  5 Nov 2026 15:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98C4C6082BD2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=Z0yS9nSF
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=AtfXQHg+
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=saCH7EkPXPUf0EV92qGG9L1gTVHxsuMVrI+QvPWBWo+ZiqdL45/VXj6zIxvwOrYNV1E2qzralUtniY8+uNSP9qYjHlP5ChkF4ewbQ1BEJgwou918zknfDxm5yxjhTIvzUk4iHCrdOz+qkUe1fdQ5PyaJXn3AlORZKLFIFnJ8CzeeKm7dqkokGj5FQIOc1W8LbQKZZy9OB4I1UXqQVf8H+A6hOrA7EnkNHhVZXOSrtf6ss+vxCugF4szvOupjbqPygBqxrihzpnZz1Jcf4tz+7LboYqFu74jRQZd4qFbAeNgqkVJB4SFCo0cUSQRI6zF0rJ9F2Dzdb+wvNjgOWxoxmQ==
+ b=snIkQ80fzI1AwM7JS4ecMZpjhjqlxmc5AMFuy3/jpyRgVb0Pe7VDzuF8kysLF5/L1sLB4ISRhxGQ/ZMrsVl0NEIW3MtSD89LFxTBnDxRCJHB6R1Z5HtbBZZIlWaF1WqryDR2xu/caU3NtKqXeiSMeJO8lLJNSiHnMstEVnOWfbjVC2OVkKf4EObzXoD6bUXl6rR5Td2naxO8ulA6xfIjVS0lmnvEdNXgyDG1BAzxIwKwytJ7sgE7eGMZLk1k2FeNcreWWXCnjkTQCyNL2lZi4i3SYUY6TUt0o6LWZQfs418z5t4mLSrfieNDe3X2WeRW8g9zBTEUg3TpF+XkQ9vRLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cir2iGw1unTRB3cP/gB2cjCrkLV2S7xV1hDo/GuTvvg=;
- b=tQdKDuu6LTIYe7jTPJeb+NLy/D5YSYOHYL8Ts6B2jKaR8VTJI77oUPRE6ySSxSTjv7pZapyP620ocNUmQuqdmH25YuMKLUcga4MIkHAV2zv08LfVQEZRnNYuturNHY08wAss/MXe1tNeXLiarT+MH5oTym+oLvumVccQM+sPWLUwi/US7M+2QyKmwO2lKybyHNLaBC1tY81fL3BNeJm9XhMzMA/HFpOvuY2TtnAV1aXxInVbD5JKrxF5op7GJeE55EbXN5NtfnpFUOuX/GfmvXFe5aOn0hivA65pT5mfe61p4zuOUvt3/1Vt3/UAT/dAbqedbPGwsVeX40isFDV6rQ==
+ bh=EdXRdi7dF2jKY6Bsuyhju/UpaofjqICOZpUFku29LtQ=;
+ b=bKEY64uWOZkOLDveOWucSIDj3Elx0MwioR81TMrqr9GBQMBYcUUI0o+3kwB0F8aVNPr22Z/a4tPIRDyfOryqWBO4JUweudnNI4fJsjzsFq9BdPBC+BbgzIpF8fYRcTDW5lWmHoxAOOqGyBpf+zo7lYqOoIj/f7CkXVW3n511LapC6q2ZniLYnOvuxbHU7YvYxY7O0Vlw+ws1XbrFrglMYlEu5MCcnnjvB93ZyuA7F5ETsUsAN8ur1b6qSj+/zRGZ5siQRepfTlTQb/W5AU0H/Bd9nOe5mD1SOEBgM397H7dVWiMvCZMU7BQW5OhnXokqwXG5LDI4naHFYjBW5/3CSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=analog.com smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cir2iGw1unTRB3cP/gB2cjCrkLV2S7xV1hDo/GuTvvg=;
- b=Z0yS9nSFqL4xCE/Slm3+2vBkLq98tjmweMDB5G1pTb8dXSvak/GdvTshQkZd4GBcXmBuiwjik7TCyMAT+uDPioG4adYx0lBEFVhAa0i7zQSNCjXV+EjLm4gNrvMinCFLzhvkGkfSfGjaRJ8lsIeEJ/aXbbth2j9muaZTR9gJFQU=
-Received: from DUZPR01CA0206.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b6::21) by PA6PR02MB10740.eurprd02.prod.outlook.com
- (2603:10a6:102:3c7::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 15:49:06 +0000
+ bh=EdXRdi7dF2jKY6Bsuyhju/UpaofjqICOZpUFku29LtQ=;
+ b=AtfXQHg+jIrQmF9SCbPIHaeEDtC9w2WzSx6webs7D0DH6/cI4jbqBB6eTOstd7soKaPpRloanSmnSnUZVu9CiRTW8gilnCBE/qHzRCMKDwrBFHZLyChlIDR9asLGICGEJmTVmOH/LvU/NDtkvItr2UQVJ7jpml3aO4Z5XGvHaXs=
+Received: from DUZPR01CA0208.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b6::6) by PA1PPFFDEC473B7.eurprd02.prod.outlook.com
+ (2603:10a6:108:1::267) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 15:49:05 +0000
 Received: from DB1PEPF000509F1.eurprd03.prod.outlook.com
- (2603:10a6:10:4b6:cafe::6d) by DUZPR01CA0206.outlook.office365.com
- (2603:10a6:10:4b6::21) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:10:4b6:cafe::13) by DUZPR01CA0208.outlook.office365.com
+ (2603:10a6:10:4b6::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
  Nov 2026 15:49:05 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
@@ -83,23 +83,22 @@ Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
 Received: from mail.axis.com (195.60.68.100) by
  DB1PEPF000509F1.mail.protection.outlook.com (10.167.242.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 15:49:05 +0000
-Received: from se-mail10w.axis.com (10.20.40.10) by se-mail10w.axis.com
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 15:49:04 +0000
+Received: from se-mail11w.axis.com (10.20.40.11) by se-mail10w.axis.com
  (10.20.40.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Thu, 5 Nov
  2026 16:49:03 +0100
-Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
- (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail11w.axis.com
+ (10.20.40.11) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Thu, 5 Nov 2026 16:49:03 +0100
 Received: from pc66231-2602.sto.se.axis.com (pc66231-2602.sto.se.axis.com [10.133.4.42])
-	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 81EA718DF;
+	by se-intmail02x.se.axis.com (Postfix) with ESMTP id 83BA11865;
 	Thu,  5 Nov 2026 16:49:03 +0100 (CET)
 Received: by pc66231-2602.sto.se.axis.com (Postfix, from userid 21940)
-	id 752D5305D5AB; Thu,  5 Nov 2026 16:49:03 +0100 (CET)
+	id 76F82305D283; Thu,  5 Nov 2026 16:49:03 +0100 (CET)
 From: Kanak Shilledar <kanak.shilledar@axis.com>
-Date: Thu, 5 Nov 2026 16:48:49 +0100
-Subject: [PATCH v8 1/7] dt-bindings: iio: imu: icm42600: Drop interrupt
- requirement
+Date: Thu, 5 Nov 2026 16:48:51 +0100
+Subject: [PATCH v8 3/7] iio: imu: inv_icm42607: Simplify IIO channel macros
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,7 +110,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261105-b4-inv_icm42370p-v8-1-b44eb96020b6@axis.com>
+Message-ID: <20261105-b4-inv_icm42370p-v8-3-b44eb96020b6@axis.com>
 References: <20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com>
 In-Reply-To: <20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com>
 To: Henrik Grimler <henrik.grimler@axis.com>, Jonathan Cameron
@@ -128,83 +127,130 @@ CC: Kanak Shilledar <kanak.shilledar@axis.com>, <kernel@axis.com>,
 	<jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
 	<krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1699;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3705;
  i=kanak.shilledar@axis.com; h=from:subject:message-id;
- bh=NpyTF589htG7SvRt7jrt9ePKXuaFTCJ8VcyVkjFXNeI=;
- b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsh6szTvdVXk1GuzDjBITRCb++vQvlNu8tUfvq52nloSz
- 7d8V1Xg845SFgYxLgZZMUWWc0bbo/cn/9OdI+10CWYOKxPIEAYuTgGYyJvPDH8l9Z6bneVlSQ/5
- t7x8ytYvJ31EZt3QuMjl+bZedEJu0v3rDH84v7c6J8X/Lfws6n6o6ktqVUz/+ZtCfsX/fz3hMLi
- nIMkMAA==
+ bh=lPbqmw97WHqi9a7JRElEt72C+UI1eV2jc6uPxGQ2Eqc=;
+ b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsh6szTPsT2Rx7Otdu9O9f8+FdNqj/bP/vdKK150x8m1G
+ kL/dY1fdpSyMIhxMciKKbKcM9oevT/5n+4caadLMHNYmUCGMHBxCsBEztxhZGj7OenwJhORN1V7
+ WvdL7nBsP55jbXIn+WEH10Vu7Y48Rn9GhkMlcxyWM6Y+f37YOPyLoSB/A7P+as3Fu5+vz58fbM0
+ uzgsA
 X-Developer-Key: i=kanak.shilledar@axis.com; a=openpgp;
  fpr=CDB0F1C8EAD5B522C7B3A77928221FF065DB55F9
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F1:EE_|PA6PR02MB10740:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c983987-3028-4fc3-bc42-08df3b5452a0
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F1:EE_|PA1PPFFDEC473B7:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0a465ef-1249-4fb9-e7dc-08df3b5451de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|82310400026|32650700020|36860700016|921020|261026140227099003|11063799006|56012099006|261102123227099003|261009223027099003|261021123027099003|261022105027099003|261026121527099003|261028144727099003|261021121427099003|18002099003|22082099003|10067099003|13003099007|3023799007;
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|32650700020|23010399003|376014|7416014|10067099003|22082099003|18002099003|921020|3613699012|56012099006|261022075727099003|11063799006|261021121427099003|261102123227099003|261021123027099003|261028144727099003|261009223027099003|261022105027099003|261026140227099003;
 X-Microsoft-Antispam-Message-Info:
-	bUscP6657sLJU4Gm5pUb9wps3LoQNcwKwM9108iNAZG/Y1fiQ51yM8WsjzuLAml5NzgWEEC6sTVQGpGaazMwYBasAkV+zfR3OyvYgAFbNvuxClmmnxvzAEl6clpNyQ6erm0OdfFhttuAClQLdapVbbKdGhsm9OYO+KmXJh2Bzx4RwBKwcAWUNc3MiI64wAjfh1c57j4bL9IxdvkuBOg68Au4bXBgVw9VJ+CHe4nsjUj/PfcRaKH/5dCARAWD678MmyUXCyKFBzp62ovDlvXMVmsK/L/9mYns0IBQOB59m2t3pHKckQTWePt0hb/dG1L75NZ+mw/OOYHXzwYKozsT3ihc1WP/TvsM3uBmJjd69ON0c8SbUVoRjsE4OtWVo1jHN8fW0Rs062SJaj9HRs2IcCP8dYLVSFzH2ZcPI3KfraW4kL8LvgBFBGMF+zg4L6pDpr56AZtufihoy6ksAZF/gbKT8Kon4UNKNJac6xco4u5cwOFbtmpabHA2rH2v7PTz30PKhKK3VuOd3+ea/yosvhrSReYXwKiwfOc+OVzz8ExRBGT4i5T638JY9nPQv9uzbQlFp0p8etg2U6cBTHIWEvuGYDH9FN7LB5ULLUv0qnZ5ZjrHMerzktGGMY2cPl8kaERm5Zew7Mmu3jXGHN6vbqJDoz6d7SUdH0aNej+Nl0QP41odmbenW0mIbxVM8ePaNcODQ+gSGFW7XK4EuybzaQ==
+	ebSZUTocYHU23WE/vnIz37E58u4DMHm/fEEkPulA4d52usLgTzSMRlsAuaD7DsLHejquLtduRYTII8EUTkdiNdQDH6qEwzjAHlMW/BeoAtgnW+hZuPkAMx3DmFs19rVx77vQa+ki01g5bmAVe0AJvt5FXcL3JCfa5qRFjzNwuBc5izxwn0AYP8VvuHVxJY/+y+3omrkpZAnBdRwHoeGLMvfbSZaYxmvlR9HyTI8aYsBTjSBTPHQAU/L6D7WN9RNG6urU9D4u8iuhy/8h03CChlH3APfjk6u/e7ophaKVLvJHg90i3YEyGZmeLG+q/oJ0oJT0wOfr/nbgfVHr0ONeQzV5P993HrLbg/Hw+L/nnI5k/+m0pzvVk7Ma2Wo4VDs9jWwYSxlOdHJ802m00S8K/lFDokiDFaM0uakWDUgDf+mF8Yms4QuSA3J7hl3iSF7z53pYzsVcVHqBsZ5iqediNigvyCSl2WQHo0QWMh6dEK2sH7bexK6GQ2xwSQhIKmNQI7YGxHpUBk6f+n8v/m68kvOPkdzD4CyrmhVTDzbQxJDPhkZpjh1U2TEixkY8PXY4n31xSdfAcPnx2Lh4gHF5Nx+h6mFCI3M6epFSsvekFLrlxq2r5T87yWO8EkNdDeMlCTTIBkGXcnwymRI2IlqyAoBupMIa6UJsFhdbaDzzRlGXbjyx3QB2MK3J1cB9WLJCr0RxOJUmfYVTaaIm1+LHfnzKIM8J2OoikyjJqqlIgSLI32NEFvfEqBIYrkq6+qE/xwLMqfQVUWRUXruThlPHsw==
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(82310400026)(32650700020)(36860700016)(921020)(261026140227099003)(11063799006)(56012099006)(261102123227099003)(261009223027099003)(261021123027099003)(261022105027099003)(261026121527099003)(261028144727099003)(261021121427099003)(18002099003)(22082099003)(10067099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(32650700020)(23010399003)(376014)(7416014)(10067099003)(22082099003)(18002099003)(921020)(3613699012)(56012099006)(261022075727099003)(11063799006)(261021121427099003)(261102123227099003)(261021123027099003)(261028144727099003)(261009223027099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	M0EddlJdvUUNV7eFnwmBpqcCfTdbkZXljOwafcnzJfM/1sOovgyGlBhY3yomduQw9t992Bb/usHkfQdtDy9+Sq9oKMxmo0ajD5/d6h6MJtTf5q9EVNsIXhVXLPir/2dgLDhMyMVWXa7p1LYfq85Z5OqidRGWVuW3MKUipXVp5fi/IX73mELTmGQXuxIs/uhbh36fIP9eo8kxOPjYmr2oVaqgmF/Dn4i+XUCXoW1e3cEzk3qV9atvjHfG2bLthOPJONroMJlSD2vQb4nfgzD98kyV2duoBJs6hBLNZoToRfF6ukN2j4DzPHH2dL+sjlhOJk7y1tKZKoPtasqQz9dVp24qyTTXFMBJjpvHQQEJbkLfKGNdxtDzMpuO7Jehag2AgvWWGGLiiW/0SwxK4vA/AGQxZwKsVSxCGFOGPMC5wap9OOO794BdrFD6wZU/qTxa
+	7RmOlwKTr6cK0kW8b2HNWXfUxtuF782/PB56B4F+BUuQniAAjPM00x/jebFF/Gpb3ASMdEYSHjwIy+imReNpOFi75g7/HUklbD9ekrmDduwqMz1FMoUlCrH2DrO3Um7i1hpkud3AUby1IZBJjdJWfgEfF25Lhgdci2McjGQ09+xiY76kznBmoyj6zrOrhcUYQMhUv9TjrkQ30oG5+iAwjcZ/EgFMxh5OYaTeErvSdMJhEl9CVLzt6DIlzrYwuS/Q8r4e+ewv9Iwod58jzZiq9SujteO+kt0RTokt1ydXheVtxmGUZlMHGmMmPuP30v+ndEJBNuHL9RTcvkcPMNKgGOk+840z9V/zeeLAiPveTiVHj2x3kRnbm5Jw7RQZNQvFmcFKDrGkJDy6oH9LnXN6vZHYmycC7NAYNxsgjrGcy8euAI9CjByK25rtftMx4AzO
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:49:05.8943
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:49:04.6240
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c983987-3028-4fc3-bc42-08df3b5452a0
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0a465ef-1249-4fb9-e7dc-08df3b5451de
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	DB1PEPF000509F1.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR02MB10740
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PPFFDEC473B7
 
-The devicetree documentation for the invensense,icm426xx devices was
-documented wrongly. As per the discussion in the thread[1], the IMUs can
-work in polling mode, making the interrupts as not required.
+The INV_ICM42607_ACCEL_CHAN and INV_ICM42607_GYRO_CHAN macro had a third
+parameter of _ext_info, drop it and just point the .ext_info field to
+the respective inv_icm42607_*_ext_infos. This reduces the repetitive
+calling of inv_icm42607_*_ext_infos struct in the IIO channel spec
+struct and makes the code more easy to follow.
 
-Fix the dt-binding to not have interrupt property as mandatory. The
-driver will need to be fixed to not fail if interrupts are missing from
-the device tree. This will be done in a separate patch.
-
-Link: https://lore.kernel.org/linux-iio/20261018034134.2bf170a0@jic23-hlaptop/ [1]
-Fixes: 22addefdabdf ("dt-bindings: iio: imu: icm42600: Add icm42607")
-Change-Id: I91ec65f6c00cbd6a48273ccd8cc476ee5266b995
+Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
 Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 ---
- .../devicetree/bindings/iio/imu/invensense,icm42600.yaml  | 15 ---------------
- 1 file changed, 15 deletions(-)
+ drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c | 13 +++++--------
+ drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 13 +++++--------
+ 2 files changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-index 9e22b603d47fb..8d16421c6f82e 100644
---- a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-+++ b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
-@@ -76,21 +76,6 @@ required:
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+index 0b3f035c2da0c..9a3ace3e7fcf9 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+@@ -17,7 +17,7 @@
+ #include "inv_icm42607.h"
+ #include "inv_icm42607_temp.h"
  
- allOf:
-   - $ref: /schemas/spi/spi-peripheral-props.yaml#
--  - if:
--      properties:
--        compatible:
--          contains:
--            enum:
--              - invensense,icm42600
--              - invensense,icm42602
--              - invensense,icm42605
--              - invensense,icm42622
--              - invensense,icm42631
--              - invensense,icm42686
--              - invensense,icm42688
--    then:
--      required:
--        - interrupts
+-#define INV_ICM42607_ACCEL_CHAN(_modifier, _index, _ext_info)			\
++#define INV_ICM42607_ACCEL_CHAN(_modifier, _index)				\
+ {										\
+ 	.type = IIO_ACCEL,							\
+ 	.modified = 1,								\
+@@ -34,7 +34,7 @@
+ 		.storagebits = 16,						\
+ 		.endianness = IIO_BE,						\
+ 	},									\
+-	.ext_info = _ext_info,							\
++	.ext_info = inv_icm42607_accel_ext_infos,				\
+ }
  
- unevaluatedProperties: false
+ enum inv_icm42607_accel_scan {
+@@ -50,12 +50,9 @@ static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
+ };
+ 
+ static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X,
+-				inv_icm42607_accel_ext_infos),
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y,
+-				inv_icm42607_accel_ext_infos),
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z,
+-				inv_icm42607_accel_ext_infos),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z),
+ 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
+ };
+ 
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+index 5b4683c2dd1e4..a3bad6fbc1981 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+@@ -17,7 +17,7 @@
+ #include "inv_icm42607.h"
+ #include "inv_icm42607_temp.h"
+ 
+-#define INV_ICM42607_GYRO_CHAN(_modifier, _index, _ext_info)			\
++#define INV_ICM42607_GYRO_CHAN(_modifier, _index)				\
+ {										\
+ 	.type = IIO_ANGL_VEL,							\
+ 	.modified = 1,								\
+@@ -34,7 +34,7 @@
+ 		.storagebits = 16,						\
+ 		.endianness = IIO_BE,						\
+ 	},									\
+-	.ext_info = _ext_info,							\
++	.ext_info = inv_icm42607_gyro_ext_infos,				\
+ }
+ 
+ enum inv_icm42607_gyro_scan {
+@@ -50,12 +50,9 @@ static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
+ };
+ 
+ static const struct iio_chan_spec inv_icm42607_gyro_channels[] = {
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X,
+-			       inv_icm42607_gyro_ext_infos),
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y,
+-			       inv_icm42607_gyro_ext_infos),
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z,
+-			       inv_icm42607_gyro_ext_infos),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z),
+ 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_GYRO_SCAN_TEMP),
+ };
  
 
 -- 
