@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793913134;
-	b=YX6ylFDWYqj3ROZ1YNa4iKuHkZ+nopMCj1dwqlqjWQM+f1rLgXC8Kt9sQyN33Hi+NHQW
-	 g0K+GAU2yNYJkpt/V6I4DfU3HIK9a9yXQFWSboezjHtdl7VvYTAsf7SHzxu7sYeSQ+vZT
-	 QVk1HJ9lz++XfFJ3L7kKwBaBk4vP2BV4WP/YmP24liWNYIoU1CYu1w1G96Zjogg2sreUj
-	 sLL7WM7vSvJt1AWZsvICs45ySksqLBMvpTgCQNpij8DDLUZQxhhH/M8xiuZRtyV74pd5R
-	 rEoYcn3iW3CC5M2Jpnk16VLC8S7olrOehMk3cEdRUdZHk4+gS/xfRP+jq0HlnC7a3Rg==
+	t=1793913217;
+	b=k0hlj+8TY6HD1A+JyB1WGlgdiVef8tpTFZbvVQNUnFNhXWN7v7NDSGFtL9FwWkbzWwic
+	 5axKIPzranaR/Rk+ELjgg0rjPRQSeK2oseIy05ySe7cMdVZ4MI1VOW6rmC1m5JK+orN46
+	 62dJfGTi/hf587FbRrk8vYovfzfbGWrhAWFZtCz/+4yviFrtQZL7hAp+KCkmeX1nP7GbY
+	 DxNlb22zPtV1uPUq1odG3EJSwvS/j2n6mfuq2xezx5ATjLzcgcn17+JA1BmOZET/ocutS
+	 +Q5m5qVSRgaHVHk0xofFEHxMn3Wel9VtGEwAMSZBVaqD9laHPWJniv1PBdpjrw7kKXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913134;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=el8UefO7rpr/wOf0GvsC+VQdx4hFeG+XXR6vxfOLdeE=;
-	b=t4ny23vECWbLJDIxTylXmW61100wFE1sd8XgLkEH9bo2967cthr1n+SrvUh491twK1tj
-	 kxtUJ82VLznT3PGNucr/jTzSNO7J0rmK/+ojzK/UUZg0PgXumYM3EGWikbyKMs3h4TZNN
-	 7vCltVaxhq7+/ibAB+RvdCLGb/wOifBEUf5oMn/u1RY4Tei9QntUjgsecohq1VRLJleC3
-	 LfdBGsIJ8VUT3HCgOCAECOZH0Ha9YNnf6IhkUcqi+o/xIPd/kkE4L+fA7rBDzHOuNZ46+
-	 OKZo91RhJOaeI/9qIz7D8cpO5AxznAslaPEv6vumIyCODu35cb8oPP8l2GPHa1M+Mvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913217;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=UmHX//7Wohb0Gcd1yh+Uxm9hRlUusQrSBkZoBu31kNw=;
+	b=PfbLYmNBtHmlnkzwbzOzPmE5eNU0lBtPo8mQypBR0cWsb6yp7QRQI6wAe2+NDm4HRlUg
+	 3Rveo9h4CGPmX3e4uvoCYBA23A+yiGp2DRy/4/lrlwDt7JcFYTkFXpjRybMIvv5qbKsti
+	 H0oTNmLUN/eUazdAouxsRLrnM1kSJlh0Cb8kdps4b9SRVpP6FAWvuPDqzeoeQKdwqwOj7
+	 bxNorpqLkbOdU4enil2ObI2oAkqrHp9L3hB32KRj3dAO+A+3SXLfZcl7D40MVdW0QdRxf
+	 gXZSvRzOe5syw7DHV6w7eSnHpFBM8EBWwrSbspHLm/54Iw97hUGwvJqO7Mw0AAxsA4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4JDxf5L;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwiEMgzA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BE2606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:12:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0BE2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7C7606A31B;
+	Thu,  5 Nov 2026 21:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4JDxf5L
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4919a880834so13080f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:12:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793913132; x=1794517932; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=el8UefO7rpr/wOf0GvsC+VQdx4hFeG+XXR6vxfOLdeE=;
-        b=q4JDxf5L2LWswqnHpLm48eiDUPJNMr/N0W/sKzOggrPXzmqsWZuyGk8M4vXlBZiTG+
-         folBIb6R9Cd+pczRgv8NWmer+NbzJqFXAZJ/5C0u4dyU9LLeosGLfHsPqjfY6eOCL3fz
-         0pbCqzD/8dZa1P4mmZtCtasFx4i9XKNDC0c0N+BBgrwm4ePD3fqlNPF8zmUZhVVYzpiy
-         KODGnoEjdHyVZYhBV4SDSpTXI5X0oZjTEQ6bIb4IcsxdupDGOOBWVNg2Aa6uMtXuPtZN
-         WdETnZx/QKZeMrDJix+h9WWpweOMPRgVKJAedT4D1dGJoRjPwI/9drf3gwwXH8x8qKZp
-         ROzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793913132; x=1794517932;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=el8UefO7rpr/wOf0GvsC+VQdx4hFeG+XXR6vxfOLdeE=;
-        b=xr+IgcgJLo8EHFKQe15D3aKJCdexEKgddsp14qB1UzhwPv4y+xBJvyqj3f3U8ixfpg
-         u9w6lQH1BObe+yzFkHALxBx0iKG01dBalt1ZMqxYwMoq2/tlPdxN67gDfTK2bcg9w6A+
-         8pYJ20h+Tk6kvkl4pv+CDUianscUQCKKFbQMcFkeHrv7QQ9/vk8+9jFLf6Y9He2AK7O8
-         jxi6lQ0y6TVcQmoXdM0InrKReuG0/2r6GHfqajw4kwBIpgP/NDxF1eED2KZQsbJQcMfV
-         fpni3DprZ7ytsqg7E7vXiYND/AE+Bob2r9zCzjc4Oc6Ksl6m7TEAA5ia8dy5WLQQBAdb
-         yJ4w==
-X-Forwarded-Encrypted: i=1; AKwUvBzv/x3JDVnLXCsZ/OjY05Y+21+uBLF5glAIjWxZ4lJpmNqwNJaH8vxNZcwCgo3673ECC5R9VciVrFqUrbI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8P60QAIWRJBqWeU329YDZw2kr+ZE58oVnqsZdhgxtARCI8hbcj
-	5uW1HHqmu2whHzwhqF8n2pC9Estc8Kv3se4lrkUHXVx82/fe4i12ftBH
-X-Gm-Gg: AYBFou0Cta4TOWZO70rAjVXPjDLf7QSnkC4gICfycBxSTN4t4Fyy+bF1tKo9rtAXODQ
-	sA/+tggxtJ+lwvek9BHCyTP57uZl3HlR2pq9pr3isisUzGDxCTrHzd5N0qYpHdb0rM8V1dvRDKw
-	SD0aou1nYtaN3v3RhdkNs05eZtUp6Lb+U+J+Y5Xr2pRXd4pVS6s0mcdfMc1fOjJTicX9lHkkx3h
-	re/qQ0Oe18PmD6BI/xche3mnuH6N7/VIok8xgCbsbw65lJGaVBi5LgaZa5sEJJrzkytvLvMOPlT
-	1s5C0rnldg05F4yKXNLtpmMjyxMH0qgGtDLmkQGKap3mq3OdqSo+zf/dgC9oBSbLp1YZVJTzVA8
-	SuN4F0t7wjUvqTyfFJ8SjldEXJajS3OBysn4h5Mj4P4B97bkQKOHJpsF9tV6e0laeiOAlWYtAdH
-	KUeFqXpM1Ulk4SXx0EXEHdMzYXhxYG5CF8FdgNWsEqouayphLTqXk96nZjtfG3ZtjG7ZPEIBeC7
-	+4YwSp7Wy4P802iFdM9KLl2J2MN+H0qQYNCXb+y53yuVxobOVook/4vg09/OwMx5l8MSK63KyW+
-	bRCzfcs8rpUmfEtZHQSqTQYr4qS4tdAS0rF7ZVo=
-X-Received: by 2002:a05:6000:184e:b0:490:5327:7670 with SMTP id ffacd0b85a97d-49274bc834bmr1865777f8f.10.1793913131990;
-        Thu, 05 Nov 2026 13:12:11 -0800 (PST)
-Received: from fedora ([109.76.85.13])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed552aaesm12408979f8f.40.2026.11.05.13.12.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 13:12:11 -0800 (PST)
-From: Paul Dolan <paul.dolan.dev@gmail.com>
-To: kees@kernel.org,
-	shuah@kernel.org
-Cc: x86@kernel.org,
-	eyal.birger@gmail.com,
-	jolsa@kernel.org,
-	mhiramat@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paul Dolan <paul.dolan.dev@gmail.com>
-Subject: [PATCH] selftests: reject malformed uprobe sysfs values
-Date: Thu,  5 Nov 2026 21:11:50 +0000
-Message-ID: <20261105211150.9964-1-paul.dolan.dev@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwiEMgzA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A961F0089F;
+	Thu,  5 Nov 2026 21:13:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793913216;
+	bh=UmHX//7Wohb0Gcd1yh+Uxm9hRlUusQrSBkZoBu31kNw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RwiEMgzADRnOFK3/b+bz9krDkKhY+hMnbmx7HrTivfoBgaUMBQ/XAf+2tNKlWm76J
+	 woz8j1tySZEwNwxFP3r0MBHwSgBXm7/WjAGwhFN2reiPdcwCqSX68KpyNDcoSZL4RA
+	 aeU2VeJXSM9xWb9aI4r6k16AadbBXdOOXx7KS1TGS6yq6yoFy7KEkqEu0Q/K5AeUiy
+	 XYYRW7xfcGPvPlfPfp07Vx15GhBSpxRPN6W1dNddD6iqZ5h6IB0amnzQCx5tArVnPB
+	 iDehLMXG8pb+odLYfleg0uXC60J2Zy6VX63xJj5uREBrAbf8QLU2c5AdZ5BALEm+sl
+	 Ml9tRnPmIaTdQ==
+Message-ID: <sashiko-outbox-200204@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 20/24] sched/deadline: Count the bandwidth a boosted
+ task is given
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105193359.1450487-21-mathieu.desnoyers@efficios.com>
+References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+ <20261105193359.1450487-21-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 21:13:35 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,55 +60,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The uprobe helpers in the seccomp and x86 selftests parse integer values
-from sysfs with fscanf(). A matching failure returns zero and does not
-necessarily set errno, so malformed input can be returned as a valid
-zero value.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] sched/deadline: uncounted bandwidth skipped in sched_dl_overflow()
+--
 
-Both callers treat non-negative values as successful parses, allowing
-the failure to propagate as valid uprobe configuration.
+commit 58e85ecec73a900cbca47b57215c8b485328d349
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Return -EINVAL for matching failures while preserving the existing
-handling for successful parses and EOF.
+sched/deadline: Count the bandwidth a boosted task is given
 
-Fixes: c2debdb8544f ("selftests/seccomp: validate uretprobe syscall passes through seccomp")
-Fixes: 29edd8b003db ("selftests/x86: Add return uprobe shadow stack test")
-Signed-off-by: Paul Dolan <paul.dolan.dev@gmail.com>
----
- tools/testing/selftests/seccomp/seccomp_bpf.c   | 3 +++
- tools/testing/selftests/x86/test_shadow_stack.c | 2 +-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+This commit moves the runqueue bandwidth accounting update from
+sched_dl_overflow() to __setparam_dl() so that tasks boosted into
+SCHED_DEADLINE via priority inheritance have their new bandwidth added to
+rq->dl.this_bw when their parameters are updated. It also charges new_bw wh=
+en
+dl_se->dl_bw_oncpu is not set and skips special SCHED_FLAG_SUGOV requests.
 
-diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
-index 66bb53bad93b..5671890f0b13 100644
---- a/tools/testing/selftests/seccomp/seccomp_bpf.c
-+++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
-@@ -5752,6 +5752,9 @@ static int parse_uint_from_file(const char *file, const char *fmt)
- 	if (f) {
- 		err = fscanf(f, fmt, &ret);
- 		fclose(f);
-+
-+		if (!err)
-+			err = -EINVAL;
- 	}
- 	return err == 1 ? ret : err;
- }
-diff --git a/tools/testing/selftests/x86/test_shadow_stack.c b/tools/testing/selftests/x86/test_shadow_stack.c
-index 3d6ca33edba4..ab1232fbe523 100644
---- a/tools/testing/selftests/x86/test_shadow_stack.c
-+++ b/tools/testing/selftests/x86/test_shadow_stack.c
-@@ -748,7 +748,7 @@ static int parse_uint_from_file(const char *file, const char *fmt)
- 	}
- 	err = fscanf(f, fmt, &ret);
- 	if (err != 1) {
--		err = err == EOF ? -EIO : -errno;
-+		err = err == EOF ? -EIO : -EINVAL;
- 		printf("failed to parse '%s': %d\n", file, err);
- 		fclose(f);
- 		return err;
--- 
-2.56.0
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index f772a944a3e53..746bffb03b7cb 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
 
+[ ... ]
+
+> @@ -4283,6 +4292,20 @@ int sched_dl_overflow(struct task_struct *p, int p=
+olicy,
+>  void __setparam_dl(struct task_struct *p, const struct sched_attr *attr)
+>  {
+>  	struct sched_dl_entity *dl_se =3D &p->dl;
+> +	u64 period =3D attr->sched_period ?: attr->sched_deadline;
+> +
+> +	/*
+> +	 * The bandwidth of a special entity is counted on no runqueue, and
+> +	 * the request tells one, the flags of the entity being those of the
+> +	 * parameters it had. The rest have theirs changed here, where their
+> +	 * parameters are:
+> +	 * switched_to_dl() hands it to the runqueue of a task that enters
+> +	 * the class, and a task that priority inheritance boosted into the
+> +	 * class is in it already, so nothing dequeues it and enqueues it
+> +	 * back for that.
+> +	 */
+> +	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
+> +		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
+
+[Severity: High]
+When a sugov kthread is given a reservation of its own via sched_setattr()
+without SCHED_FLAG_SUGOV, or when a deadline task whose bandwidth was dropp=
+ed
+by a root domain rebuild updates its parameters, what happens if the new
+runtime-to-period ratio matches the existing p->dl.dl_bw?
+
+For example, sugov_kthread_create() initializes a sugov kthread with
+SCHED_DEADLINE, SCHED_FLAG_SUGOV, sched_runtime =3D 1ms, and sched_period =
+=3D
+10ms. In sched_dl_overflow(), the SCHED_FLAG_SUGOV check returns 0 early,
+leaving p->dl.dl_bw_cpu at -1 and not adding to dl_b->total_bw, while
+__setparam_dl() still sets p->dl.dl_bw to to_ratio(10ms, 1ms).
+
+If sched_setattr() is later called on that kthread without SCHED_FLAG_SUGOV
+and with the same 1:10 ratio, dl_param_changed() returns true because the
+flags changed, and __sched_setscheduler() calls sched_dl_overflow():
+
+kernel/sched/deadline.c:sched_dl_overflow() {
+	...
+	/* !deadline task may carry old deadline bandwidth */
+	if (new_bw =3D=3D p->dl.dl_bw && task_has_dl_policy(p))
+		return 0;
+
+	counted =3D task_has_dl_policy(p) && p->dl.dl_bw_cpu >=3D 0 &&
+		  p->dl.dl_bw_gen =3D=3D dl_bw_gen;
+	...
+}
+
+Because new_bw =3D=3D p->dl.dl_bw && task_has_dl_policy(p) is checked before
+counted, sched_dl_overflow() returns 0 early without running admission
+control, adding new_bw to dl_b->total_bw, or setting p->dl.dl_bw_cpu.
+
+__setparam_dl() then adds the bandwidth to rq->dl.this_bw via
+dl_change_utilization() (or on enqueue if queued) and clears SCHED_FLAG_SUG=
+OV
+from p->dl.flags while p->dl.dl_bw_cpu remains -1. If the task later exits =
+or
+leaves SCHED_DEADLINE, dl_task_release_bw() hits:
+
+kernel/sched/deadline.c:dl_task_release_bw() {
+	...
+	cpu =3D dl_se->dl_bw_cpu;
+	WARN_ON_ONCE(dl_se->dl_bw && cpu < 0);
+	if (cpu < 0 || dl_se->dl_bw_gen !=3D dl_bw_gen)
+		return;
+	...
+}
+
+The same early return in sched_dl_overflow() also skips restoring root doma=
+in
+bandwidth when a task whose bandwidth was dropped by a root domain rebuild
+(p->dl.dl_bw_gen !=3D dl_bw_gen) changes its deadline or flags while keeping
+new_bw =3D=3D p->dl.dl_bw.
+
+Should the early return in sched_dl_overflow() require counted to be true
+before skipping the root domain update when new_bw =3D=3D p->dl.dl_bw?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105193359.1450=
+487-1-mathieu.desnoyers@efficios.com?part=3D20
