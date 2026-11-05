@@ -1,99 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890803;
-	b=ugrWCcPut3ZmOBSiyc1p/Rw3PrZaQwL3RfqH2rCCMIGOh2DGCJh5mmGGIP+BrISCRgKb
-	 KIT0jA2sWUNZ99bCstNLZcvwcVM2stX3u57r4FWRSZ5L5z8ygGQl2+88N7IOKbfhcWzA1
-	 DolAiyh44N7KhZ80T7izZsxMNTiemqTo6RFdFEdT2HBS+fmP7IpgJrQQJsPRcdSJQadLw
-	 zAlW8r0O2qgVv9SzcKjDWHu7mzkZQ+TT+o2wRK2OSRpFwCvxHIPrnXRiMTi5HkjOBn/tY
-	 FxjNGSXaqMmIogfXzIviliN2w/9LTDLDld7efc2Pu/UOXawffjpI0kMEXgh1/dQbbgQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890803;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:User-Agent:MIME-Version:Content-Type:
-	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=lFDPT0oaNH/zvfvIcUK9rsDJdNG9sPVoATFrcaQax9Y=;
-	b=jKQb1F7Q84yopJgOl6FNWG/Sx0MDi5Ui4b4pL0RP9rJ7JawfjCGnGcZSUeNpbg/3ZCdJ
-	 CG2+xbcpAHfUsacxDbMTWut9aktsEFv9TThT5OIWG+6gsRxsblXuA3VAAGRCGnm+TQVrV
-	 U8dQxTUdabaBDLtc04crynnVlaXAodePIfAYgL2b3ytyINuGOPsYSCqExbgZl0vl9bE78
-	 iPXyint9XjTtJ1OIWgNpgY9IgvkNVvYfW34njh9j9ZIpn5yx6yAk+4lXqlOuLKTbCD4HA
-	 wjnoRiayCPCLld/q9Ob6tKSQUQpkgC+vf2uPIqI2KnAveQLwLhsfwuL5PZSDM++f/ZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=hiIOyBnB;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793890841;
+	b=wSZLJEhL+zYzoArl25EXV08PBOg8sJCCJhEfLe2VjT0vgPBrTE+xNr/TKBhV7gAvaHRA
+	 AGvsipTjcvSqej/AJPxApkS0XuxzXoGeSS8zW8sqFQs4iwa7/dig5AE8sXiAELJlchMem
+	 iuL9F4B8fV1EprQXwHqCAeqybdhdeBeZ90kkcBwoAcRfN7veNfRrcH6fkDW9fmDKropVw
+	 4zx/6OlADW8YrvEY9dyUf4x2UC3X3KhDUB+DdCcW4fOP+WYKIdTnGxvqb6vYx7roTILpG
+	 GdxB0GQ7lPMIkS12whvtvmVnWB9lp7IqYT2yjlGzeOSDcOPJCcAiMHpfGN7nlzA9tfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890841;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=GGID1vEGmxlhJubnVm56qCe+584XOcxBg6J482g0XBI=;
+	b=P2XEQ/zcoDXbTfIjlEmIhsFZEfVn1DP/kK4mnym0eON9CiK9wuNawdkO8QS8XLRVQo9L
+	 EjMiRJRt4tvxHOoNAbCE+KHoiezNFVIkG7VUppW3U1wcQP4rdZYnrLnb18upIs1X1PTfe
+	 MYIxoruBwi7sO2rtX0MRY+KwCb8lG5GQrZgzVDZnh4IomG83ktJN0bW5i6toymNisx4jJ
+	 QfmKlWQ61jlEcX8i9rply5W3eonhlY9T9PQ7FdCEcxOawjKBOdhgv2550RGkI9PrU855k
+	 CmE8wM3i0KGOS6B+M3z1k66LLgzFkwLiTqDuuFh0OknPImLyfKkLU2glM8APJfpG1Ww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OpINkCMT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4ED606EE99;
-	Thu,  5 Nov 2026 15:00:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB4ED606EE99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8709A606A333;
+	Thu,  5 Nov 2026 15:00:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8709A606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=hiIOyBnB
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiHD62627300;
-	Thu, 5 Nov 2026 14:59:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=lFDPT0oaNH/zvfvIcUK9rsDJdNG9sP
-	VoATFrcaQax9Y=; b=hiIOyBnBG8zF5ri+rtwFsTlw+pu1uzZZ+Fv0V/TvlMKtmq
-	WrP/GiIO+2G+VrDzSJB9UqQmlHxrg8viVK3ZDrQptyBYI86UqK217otEIDTF6M1u
-	f+szl3PGHM92AZ/LKucBQgHtzs7W+wXfmTI7xqXDpJpa/sgiry0U32YD795Y2tfb
-	6A3uP7UmTxqF78b83LWUICoRsGGnSi2IjW9zDJlcMQtQC1O0UMLYzg8fJdDS+cry
-	MOcaJJh7j6MIxJUiG0nUL23iXBojQyWJQVgoETIENihJl5hya3s53z3hy/xMAITZ
-	M0V+NjtDUfL5Fmgk2pblLCuYmxU+wg2Lc7M1M5kw==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rdjk2q-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 14:59:48 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EZ0Bk1685738;
-	Thu, 5 Nov 2026 14:59:48 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrmrej6um-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 14:59:48 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5Exk8a20120120
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 14:59:46 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BCB6C58045;
-	Thu,  5 Nov 2026 14:59:46 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2A15758052;
-	Thu,  5 Nov 2026 14:59:46 +0000 (GMT)
-Received: from e (unknown [9.16.46.225])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu,  5 Nov 2026 14:59:46 +0000 (GMT)
-From: Dave Marquardt <davemarq@linux.ibm.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman
- <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe
- Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>,
-        Tyrel Datwyler
- <tyreld@linux.ibm.com>, linux-scsi@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v17 00/13] scsi: ibmvfc: make ibmvfc support FPIN messages
-In-Reply-To: <yq18q38ym3n.fsf@mail.kernel.org> (Martin K. Petersen's message
-	of "Wed, 04 Nov 2026 22:52:46 -0500")
-References: <20261102-ibmvfc-fpin-support-v17-0-9ee5f195ac91@linux.ibm.com>
-	<yq18q38ym3n.fsf@mail.kernel.org>
-Date: Thu, 05 Nov 2026 08:59:45 -0600
-Message-ID: <87qzgz8gta.fsf@linux.ibm.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=OpINkCMT
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 34AEB2020F5;
+	Thu, 05 Nov 2026 16:00:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793890833;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GGID1vEGmxlhJubnVm56qCe+584XOcxBg6J482g0XBI=;
+	b=OpINkCMTWfmWgbQqY37XhoZ8X9wm4O2L3BWfnUPYRAth8HkmMe4fzWhQn3gBFzNG/ypfEs
+	MpIITGdsaV+v/f8LVF8pR55ZZS3IvRtBNUW/jP7TUoX6hFdG0H3RadL2cRJE3UZ/Ky9fZO
+	EErUUBqiW4uNvEqH+61XAW3mlge+z8XJHoKRAQJyXgvyftQx7ku0F96VYC3JWaSDIn/B5k
+	BiQlGEDU3SH8knrpfiR5uNsGErlvw/i8HwhNiQjvgYNac2ZW4RvEXO/AA7sFXcImtOMRk+
+	4lhvs5brzSaGqh3Urb7kvmSN+DLR7OVRaBnTvfAa3LJtw+UM1jTZ2TIGGOwVKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793890833;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GGID1vEGmxlhJubnVm56qCe+584XOcxBg6J482g0XBI=;
+	b=AfEQ9ItYIfx67ZQHnZOiSCYhIozwM6hgy30D8bFub2sla6xj+BMUezQSQdRG3/tPvcLPXj
+	Sr5aRX5kTa7JVA/iR6HEgIGZ+pQ6aOR1LjLHgT9SD45O3SpVaEgk8x/rC+cDTqsXsPbicc
+	vwQ4NMzFtIxqO3ONlPtSK2HSznSrozM1U94k11rRluDsGsOkYLYa056Rmb74aLU9nZxL/M
+	E8ZJsvmS4ZYA1nx0jdRbqecqmhvC27VsIeUxp4FYplS7LD8gYcvdShAAVRc8jkTkEKmEEz
+	0FfC9Ni6nKqGbzSzi+RWRxBXf1Jvp4R8sI9WTFoLjZbYRXAIxZeOhjZxAUBGqA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=mfe@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793890833; a=rsa-sha256;
+	cv=none;
+	b=J43jk3juJ6r4hf7tDRXaaJIfsdU70nVFRR2ywvs2kQTcqrsRAqZkUq5TaTlbxVFpUF9EBw
+	1bsCG/GTGWGXI92+iVgQeEsByCZqYvEI6xXYwN1N27ilZda6nOJxCR2xirGhM2zkJhqEiB
+	NZ00yft5WBRR7/foUf9Qyj75qO9mtsQSASnndyRI1zgdVI8t5OWHNNFYjIzj1Ca3hw76xr
+	0Vh7rGZXAIp3mfjdbr5jqp0iOEkFpKKim/5BCplmpTZKsrhwsGTIXe6E2ySnqT0ktN1Xji
+	krki923h0pCgjSmo451il+FavEr48Z5gvelEDeQOrJmIFLN+rV0kzNj/nAb5dA==
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1064)
+	id 16AA81BF5CC; Thu, 05 Nov 2026 16:00:33 +0100 (CET)
+Date: Thu, 5 Nov 2026 16:00:33 +0100
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
+Message-ID: <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
+References: <20261105144920.2796623-2-robh@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,46 +91,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: DyQQh8tTjtKJ30E5dPBoRwGquZwbbWwT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1OCBTYWx0ZWRfX5DBV24jkie24
- Nb3RvCk1eYaqH2TTLjNn3FiG05Gy+Zb+m+X/Qv+8mwUY+CKTwBCSy7S7CnMLsX9NNWVGr13mGXj
- XHoptb0gFgCpOpYBQijZ1KOSveAEancSW37I4lkLdTbgEVmSjQKbiqNcoZ5lVGHVlTNv13wkubL
- mZ7+yJZF4VVMQ91WXmEiB7+oOqJQ816W5rzX5iGdaxOoHEb0wIXncFyNE7hI3yF0LgLlRqU+/hS
- wSVr33H8JL8yvRR2lktRDIuIk7jV7pTEiTlBaJgCSeGdgHT6TPhLdZeob5wO2iV5111KgdOJ3w6
- 5nM7KZBtzDu3gM5N0tdqZjCWFOkb+Tl71gvSUKrKjenmCp1coc4SLy3h0BFWEctGqOkMm4cDNj0
- lg4Mr9yOzQsYpdlQ8fNN7S/40QI4UzeoBG3nAiadIaEH41kDfwOTex0Bc7FUBqILOu0RwKr4+FY
- NRIIRH/8Adt1YnYuhnA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1OCBTYWx0ZWRfX5ZlK/mOpb3UI
- QlikIp9p+XTXfBV7UA3wqf69B3fKGsjSb3om1BqqLsSad4WfWh2sFinhlRAO5tLVObqq/V7sKiN
- HQezDdj+/ORJ/eHCplxzzZTJyBECQmg=
-X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6aec99e4 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=kPyA1ZOQVYL41U-xMvUA:9
-X-Proofpoint-ORIG-GUID: cegMXEoSwNwjXKYYnXaD69cVs0Zx-jPG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050058
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105144920.2796623-2-robh@kernel.org>
 
-"Martin K. Petersen" <mkp@kernel.org> writes:
+On 26-11-05 08:49, Rob Herring (Arm) wrote:
+> These .dtsi files are not included anywhere in the tree and can't be
+> tested.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+> v2:
+>  - Rebased
+> 
+> It's been nearly a year and these are still orphans. There was a promise
+> to upstream something for the kontron ones, but that hasn't happened.
 
-> Dave,
->
-> A malformed patch 12 in this series meant Sashiko failed to apply it and
-> therefore could not provide feedback.
->
-> We are getting close. However, a manually triggered analysis identifies
-> lingering issues in patches 6, 9, and 13.
+That's unfortunate, but these includes are used at least by the barebox
+bootloader [1,2], dropping these would cause a DT regresssion.
 
-Thanks! I'll take another look.
+Would it help to upstream [1,2]?
 
--Dave
+Regards,
+  Marco
+
+[1] https://elixir.bootlin.com/barebox/v2026.10.0/source/arch/arm/dts/imx6dl-samx6i.dts#L8
+[2] https://elixir.bootlin.com/barebox/v2026.10.0/source/arch/arm/dts/imx6q-samx6i.dts#L8
+
+> 
+>  .../dts/nxp/imx/imx6dl-kontron-samx6i.dtsi    | 12 -----
+>  .../dts/nxp/imx/imx6q-kontron-samx6i.dtsi     | 12 -----
+>  .../boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi  | 45 ----------------
+>  .../boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi  | 54 -------------------
+>  4 files changed, 123 deletions(-)
+>  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
+>  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
+>  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
+>  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
+> 
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi b/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
+> deleted file mode 100644
+> index 5a9b819d7ee8..000000000000
+> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i.dtsi
+> +++ /dev/null
+> @@ -1,12 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0 OR X11
+> -/*
+> - * Copyright 2019 (C) Pengutronix, Marco Felsch <kernel@pengutronix.de>
+> - */
+> -
+> -#include "imx6dl.dtsi"
+> -#include "imx6qdl-kontron-samx6i.dtsi"
+> -
+> -/ {
+> -	model = "Kontron SMARC-sAMX6i Dual-Lite/Solo";
+> -	compatible = "kontron,imx6dl-samx6i", "fsl,imx6dl";
+> -};
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi b/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
+> deleted file mode 100644
+> index e76963436079..000000000000
+> --- a/arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i.dtsi
+> +++ /dev/null
+> @@ -1,12 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0 OR X11
+> -/*
+> - * Copyright 2019 (C) Pengutronix, Marco Felsch <kernel@pengutronix.de>
+> - */
+> -
+> -#include "imx6q.dtsi"
+> -#include "imx6qdl-kontron-samx6i.dtsi"
+> -
+> -/ {
+> -	model = "Kontron SMARC-sAMX6i Quad/Dual";
+> -	compatible = "kontron,imx6q-samx6i", "fsl,imx6q";
+> -};
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
+> deleted file mode 100644
+> index 3a968782e854..000000000000
+> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
+> +++ /dev/null
+> @@ -1,45 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0+ OR MIT
+> -//
+> -// Copyright 2017 NXP
+> -
+> -#include "imx6qdl-pico.dtsi"
+> -
+> -/ {
+> -	leds {
+> -		compatible = "gpio-leds";
+> -		pinctrl-names = "default";
+> -		pinctrl-0 = <&pinctrl_gpio_leds>;
+> -
+> -		led {
+> -			label = "gpio-led";
+> -			gpios = <&gpio5 31 GPIO_ACTIVE_HIGH>;
+> -		};
+> -	};
+> -
+> -};
+> -
+> -&i2c1 {
+> -	mpl3115@60 {
+> -		compatible = "fsl,mpl3115";
+> -		reg = <0x60>;
+> -	};
+> -};
+> -
+> -&i2c2 {
+> -	io-expander@25 {
+> -		compatible = "nxp,pca9554";
+> -		reg = <0x25>;
+> -		gpio-controller;
+> -		#gpio-cells = <2>;
+> -		#interrupt-cells = <2>;
+> -	};
+> -
+> -};
+> -
+> -&iomuxc {
+> -	pinctrl_gpio_leds: gpioledsgrp {
+> -		fsl,pins = <
+> -			MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31	0x1b0b0
+> -		>;
+> -	};
+> -};
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
+> deleted file mode 100644
+> index 3d56a4216448..000000000000
+> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
+> +++ /dev/null
+> @@ -1,54 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0+ OR MIT
+> -
+> -#include "imx6qdl-pico.dtsi"
+> -
+> -/ {
+> -	leds {
+> -		compatible = "gpio-leds";
+> -		pinctrl-names = "default";
+> -		pinctrl-0 = <&pinctrl_gpio_leds>;
+> -
+> -		led {
+> -			label = "gpio-led";
+> -			gpios = <&gpio5 31 GPIO_ACTIVE_HIGH>;
+> -		};
+> -	};
+> -
+> -};
+> -
+> -&i2c1 {
+> -	adc@52 {
+> -		compatible = "ti,adc081c";
+> -		reg = <0x52>;
+> -		vref-supply = <&reg_2p5v>;
+> -	};
+> -};
+> -
+> -&i2c2 {
+> -	io-expander@25 {
+> -		compatible = "nxp,pca9554";
+> -		reg = <0x25>;
+> -		gpio-controller;
+> -		#gpio-cells = <2>;
+> -		#interrupt-cells = <2>;
+> -	};
+> -};
+> -
+> -&i2c3 {
+> -	rtc@68 {
+> -		compatible = "dallas,ds1337";
+> -		reg = <0x68>;
+> -	};
+> -};
+> -
+> -&pcie {
+> -	status = "okay";
+> -};
+> -
+> -&iomuxc {
+> -	pinctrl_gpio_leds: gpioledsgrp {
+> -		fsl,pins = <
+> -			MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31	0x1b0b0
+> -		>;
+> -	};
+> -};
+> -- 
+> 2.53.0
+> 
