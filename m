@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793860626;
-	b=CAXWTeuxlzAmiOgmkEyVL7SE/5GNQdO87FM7hpaAeMyuFHRnOMCTQSyZfmtjYJteS+0u
-	 B4uMXKpGlOAnprnvN4BqNargeCDX9UEzI28GF5Us0i37K6ak3sVrgNbPGKuwxsm27ol4L
-	 VMe5qoGS8vWUsQ8EHCoREovKfGtRC1nO3BW9y9Wdewi4cvkLI+wJCOrpzn757Ij9EY23e
-	 FwO81YYGXbxLfyLChOL1MGRfV2Gi8tellv6+/ZclWR2PypoEf3V9JJlKqfJB0T/wu5fJC
-	 XTSQw5CInTsClLiacZCEc49EB9ILXbV5F+oCi0lbrtwKMR3TEi5YiXJZaeJicIZK+wQ==
+	t=1793860725;
+	b=XAzbUgdS+fN6RC5SF7+quXoUP9YCvSB10693fIxdk7p3XG7eb1fV01z194sSgEDPmEyU
+	 o/wVVjmXGTfsH6IY5+svZ32SmlB+D5ZEnnTx8MNst3fv7EcalitYqh/dq2gsaMbjZqotO
+	 nWDXhJYfev2iYiUHm6KPNOAkOKAwJburbaak6gFnDSiwHdQplybkogIH4f8oGcKjEGoC1
+	 zIR28i8ZDIi0o1qukCtld8SOUgD/g8MSvrpPdPDDuw/5MEuUu3imoDkSvVSMlQqwy3TSc
+	 0W3i1cm1oyPdPK8wlnDV7UE7iHKr5fUq1zOt9qUFDKeI3LRDIDFgaQzTpqROV9VvqIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793860626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793860725;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ri6QhTI7eIqC2wOgZnfY7LlsXr+RKpA1hIBgc4QsOtw=;
-	b=GcidrSPDF3IuIpcH8zpmWhuzl4WSVzif3dC+YwrbMk3yYC2hIrEDpKWKaA3v5EqCE0ax
-	 Q6JSEHJgf7ScN+nI5PFo/tAZSE+u5cX9JWGJBx7vf4TbfhWvx7AQ0JhXq2JfO+YVyRrLk
-	 geu8TJw5FH5QMqmHG8YIU66or99QcVfTdrgCIx9zkQ3JogKI+8d8fx5F5BFwVhGthTyfV
-	 yy2l6rrvhfLAGAWzbdEzoivFI12EDFtAmlF7CuQMJa3nFh4aygC4nIA8DnSnz9sJe/aY8
-	 LALHHq6pn3FAt10ffzlA/xD4yt/f1HHLppmb0njyTSBxTfK6vh5lMlhKFBfx+rQderw==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=L5dubiE1iWMYoNsbYmd6mG0ptehWJeLitxAHfWNlAHY=;
+	b=Ilskc3P2Rw1GoMHH2WN93FGnvE/DZFfjEwnn0iZoORnLlYtdj2m09N93E5eQUbvLCLuv
+	 eX79sb15ttGJv638Wzk+kxpaYy7OBjLuOfqCuvgdUYqjjg849x6OpxEYzLwx5i/bYKrbf
+	 iKSZ/i/m93aI6yk7wTbk2TSnQSsDFPaEYMz6tuLGiU7xBq0o4ea7eeotHpN+nZVS4BP9O
+	 th3QMoY0XVAraH6j/ZIUiBbygP9/ebvWd8dWmGpwDs6ZDWCtNL50f1sVudpb1aCYbpJVe
+	 c3PZAG875JTgClVy4VpLDyAch4KYuFzOllcL2OMB9OWT1CNU5QXRRrE0Fje+Za2r54Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xivW+ZvK;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dmy2ttyu;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F8D606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:37:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19F8D606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8F2606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F8F2606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xivW+ZvK
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1adbf62dd31so2123699c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:37:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dmy2ttyu
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a1947498bso4221508eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:38:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793860625; x=1794465425; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ri6QhTI7eIqC2wOgZnfY7LlsXr+RKpA1hIBgc4QsOtw=;
-        b=xivW+ZvKGqGXv9ZTf3/jIQEbyfh8//YBBmqTy5ejfOMUvGL7/u6Ccyz2to63bHTeSO
-         vqfdblXuM8uNivTnQCrLTkswwS0s1tJeGcX+BJJMCfTxAtokNHbDQxK28ggaEHHSVOw9
-         mhmUXNY3SOEGgxD2XLrxnfUqwoP0UfQ6CIYxlxijHcpANYqT9jzDKaUcpsvRmTq/8IAC
-         KCTarXhax613QulIdNZFhUFZiFpNID24EN/K3KsDRMqQegnJ/m6wQyRMpTMU0b9A8aD8
-         KHmDmlWUX5aX+E8u725FPO4SjRMj8BHf738JWHnbVBTIGEtZFdf47RB8z/jvI52SCLkt
-         vztQ==
+        d=gmail.com; s=20260707; t=1793860724; x=1794465524; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=L5dubiE1iWMYoNsbYmd6mG0ptehWJeLitxAHfWNlAHY=;
+        b=dmy2ttyud2RdZpUcJr4Drxij5+uLFzQIHSItErh+GocLVUSYIJu4xfuXE53V1clj7l
+         5P/CpBt8+Nm/ePEwoPtEGJOH/wHXrX1gffxgqEY96wIt+yBOUJUc5BusK11VwDH6Q9SH
+         To05ceoiKqJEIeh9r5y4ef0sDu/NyGfnjOLZT9nE6fZkfLaAOjeDkbZoWORtWGpk6/CB
+         d57L4oeJVUTJ8ODy2F1OcpnNy4gTpvBokxTS+viveiI8vuhU2iKaN7g+5RI6MU6EBx83
+         MZvNrrUFLxdajDJGx3kisnNZzg1wfd7qoVfbsXwz8mLkqY2rMqKie1y2/AqtDzUFw47o
+         2LQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793860625; x=1794465425;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ri6QhTI7eIqC2wOgZnfY7LlsXr+RKpA1hIBgc4QsOtw=;
-        b=DX8TqkOdne0OgqWAmdr5GjWhV3Afr7fquCEnSHi9BV9zV4fo3h1PYOBAz79I90ti3E
-         jNZw/lBqeOKPBp+avHnyuDv8O088Qfz/pSxrXP73pa+iIkRS7sChhuuCMUMgWeQFVEkb
-         wheRV1nIJTIYxOSpUnjtzekcBeuddNHMP1LdY+ezbbtdmEecJpyjx73/50WgWyIXev7b
-         y1d2231mtlELP7zqlAGEhFeF2ntb4j2rm7TH1EHs3vq6DtDt+/H7x7ealBigjLBpyt/t
-         /cGY6l8FXXYxloDYqXSzWxkJZnqwRnxX21mCxLTyxYaLszD+yrqiEpU0rm07CPNOgAq9
-         QODg==
-X-Forwarded-Encrypted: i=1; AKwUvBwPVaApAdm4Wkg3D0UQ/TSVqocCain1wB5BshYs+BIzO8U+VzLHef/ihYHBFx7ZunkijMAgeglh9rtGXTQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eqbwGUO+4UEKgX3li3+Q0umWEQyVFhxrQexkmS55y7dYlkdxQ
-	EY41MELh28u86YM324n+WeMYEjCTdkxmH+/hldl/zImkGdvDY+PT76n4
-X-Gm-Gg: AYBFou0nTiKSwzTshGMqZwRTI0RXDWwepqlwNX44JBw1HrpBVX6WnequHvrTmBdWxTX
-	953FBBN0EPjsMm+X0RSGMcRj8eNftWjVRiDn73V9Hku45h+1iPw6g2m/ezTFR+6vlZPRFdaMeuC
-	Kzq0njjFUDK+WoDT/GccBruUOGTQX5eCZQ7kcV15xYVlauow+O5RKhah7v4bpqZhnl5Yk68XyE2
-	HbqDLKWyA23oeGxsN/5UdXJFUwb069ugP6erGQT9mkg8lQiO00laPZWuh7JeYblxc7mRGi7GNOA
-	ycMRkAMtdh6iCRUu2gEvLc+6nQYhsM3djY98BzoWlcNq/rbUGMf10N4x15u/37oA+8puH5vU+Z4
-	Muc53VMVEULBBBu9lkWByVCQrFUQ/5/Qp5kkLmREBQAtpBPxM5DPvbCfKKL5nxK+tQ4SauRZLdL
-	ibKrjyz+cxWUH3oL6y1ZcERym4hUTNQOVuNPqJ4zKaDOkl0k4s2k8EgnLUlv5r+4HHRWoIOfq5C
-	2dwVPggqhBL/VhSGNAbsu79/y1BPgOGhCoPqn7WQQYCyuQz95nGVyrSjp1qb9cqyeQQJBWMpvMu
-	e4j0qVnVP0daHI2BEeGyNsvZAOTC78Ft8ORBDeoPMM/+rKe1o5i8atVHXaoYYrYmPMdVGSrQAi3
-	M
-X-Received: by 2002:a05:701b:455a:20b0:1b2:42db:8a54 with SMTP id a92af1059eb24-1b242db8f29mr8683525c88.23.1793860625118;
-        Wed, 04 Nov 2026 22:37:05 -0800 (PST)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm13148900eec.5.2026.11.04.22.37.01
+        d=1e100.net; s=20260707; t=1793860724; x=1794465524;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=L5dubiE1iWMYoNsbYmd6mG0ptehWJeLitxAHfWNlAHY=;
+        b=JbKrLxQQU/GMEur+RGeKEbyrTAJmAx3B8b0rxsvRYO7kApIzb/Rrr5rZgQL83vIB93
+         y6LjGR63Lyk98Y5u3r7NFDJ+X+SPE7jzjqWmmFYlnY338nz1Kv6vckcjRxvktbXgKsFV
+         Ar7J8xn14rgT/eMlO1C3G/xrLDhT4NNC4Fw/N20q1gIYkSDa8TkZnv0oG4VJOeEDktSb
+         /dlz6rKb4UN8fc75Uxi91nn6s32h1rb/mbPU6WyUywXW3uPrMR1yHgdrVIVi6Dg25Sdr
+         UxpJeveOTs9dJgP0LQmIp+/Wi8Yze3duJd9uXk3I69v+85wmfPFSshdoNZ6kuyXYrT3I
+         u2SA==
+X-Forwarded-Encrypted: i=1; AKwUvBywcD7km5dtV4QOvOacvjMztZJM3tKFYC3A1TTCn3l4Se5JKN80RobFoXqu3v7YF0pEhaMS2vdz6GIOhbA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dM/NmK1VtFqa28H7aElrAh0cDxfvZOLIFxrkVrseXDbvplUs2
+	Y9vnhhEwcrdVZiXQ4Yr+MMzZ5s/T64p7nB2adC5rTM752ILmg56Fa+cK
+X-Gm-Gg: AYBFou3EGbWUwzI0zMhu0de/Rog44tki8cBru74MZT2xNIBtyQu/ArvzFdvi6d/B7Y/
+	VMLLB3sek+3w8S5jR9D5geF0fhNnMu72GYF8VFK6EVHwj1tVO6egbqrDtpKSkTAOp/SCUv/foDb
+	rIOuVAs4n5J2taF4NBgVbrd5KETZKYsJXlHl7uTsY4iAVpQn705JVQCzxFI2MqRCevn1MYuIjXx
+	s3reJkfbDm517aqOqBE0OtUAyj78FMBXjkn8FQvKfUbRkNCcOthVRmgHF3suV+VEtmqvp7Wq4sm
+	L2qd6ZVrome4u+h1lo8jobIzkbihPIt302RpUmKH+h5iTK1rNHWD6nwJ+yeyfJmNGRPAcidPVqa
+	3htKAMzmzn0ErZbTV07bT359n9wH5dDacq7IodkJd+XWD1/yMTF43JzmD3Tp/JQDy49N+K4zjLv
+	93vi+oQBhHZwBrUVVHk/De9E+i4Mt9/WZR8AVNxe+tel1Y/xkptmONSda3aXQcMBVXZ438DSaES
+	XePTrC/PxVPIXBBpfN5HGaB/K87Kb/SeI171kXK6QBi2hed7js+46cSjj01Pwia7EQnBfH33GCU
+	9YuA2QNeb2SU30gXD8L9RGZ7MCOl5THMuXwQFMz/rcSiZjpWdsWLaeXHJYbLCt2+nCTjJ9klIDK
+	TS313srP1Ec94KsgUug==
+X-Received: by 2002:a05:701b:4589:b0:19b:39f4:88c9 with SMTP id a92af1059eb24-1ac5bbb487bmr26600863c88.10.1793860723477;
+        Wed, 04 Nov 2026 22:38:43 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c283sm14414169c88.4.2026.11.04.22.38.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 22:37:04 -0800 (PST)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Xiong Weimin <xiongweimin@kylinos.cn>
-Cc: virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] vdpa: alibaba: fix typos in comment
-Date: Thu,  5 Nov 2026 12:06:53 +0530
-Message-ID: <e68b7938e19affe2b18ba0ba9711e079fe1f7084.1793860522.git.hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <cover.1793860522.git.hemanth.selam@gmail.com>
-References: <20261102043526-mutt-send-email-mst@kernel.org> <cover.1793860522.git.hemanth.selam@gmail.com>
+        Wed, 04 Nov 2026 22:38:42 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Wed, 04 Nov 2026 22:38:32 -0800
+Subject: [PATCH] regulator: arizona-ldo1: Fix double gpiod_put() on enable
+ GPIO
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,30 +92,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-arizona-ldo1-gpiod-fix-v1-1-5b3c02d8a4d0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGck7GoC/yXMUQqDMBCE4avIPnfBDaFor1L6EM2oW0oiSZVS8
+ e5N9fEbmH+jjKTIdKs2Slg1awwFcqmon1wYweqLydTmKlJbdkm/MTh++Sg8zho9D/ph26C1A4y
+ BNFTOc0KZj/D9cTov3RP9+1+jff8Bze8mKXoAAAA=
+X-Change-ID: 20261104-arizona-ldo1-gpiod-fix-48e94fe22e18
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.17-dev-e56a4
 
-The comment above eni_vdpa_set_vq_state() misspells "specification",
-and "ENI is build upon" should be "built".
+When arizona-ldo1 registers the regulator, the regulator core takes
+ownership of the GPIO descriptor passed in regulator_config.ena_gpiod.
+The core frees this enable GPIO descriptor both on registration error
+and when the regulator device is unregistered.
 
-Link: https://lore.kernel.org/all/20261102043526-mutt-send-email-mst@kernel.org/
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Because the driver also tracked the descriptor and called gpiod_put()
+in its driver remove callback, unbinding the driver causes a duplicate
+gpiod_put(). Remove the driver remove callback and stop storing the
+enable GPIO descriptor in driver private data to avoid the double
+free.
+
+Fixes: a9191579ba10 ("regulator: arizona-ldo1: Use correct device to get enable GPIO")
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/vdpa/alibaba/eni_vdpa.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/regulator/arizona-ldo1.c | 14 --------------
+ 1 file changed, 14 deletions(-)
 
-diff --git a/drivers/vdpa/alibaba/eni_vdpa.c b/drivers/vdpa/alibaba/eni_vdpa.c
-index 1288402d3dd8..af163b4f9259 100644
---- a/drivers/vdpa/alibaba/eni_vdpa.c
-+++ b/drivers/vdpa/alibaba/eni_vdpa.c
-@@ -276,7 +276,7 @@ static int eni_vdpa_set_vq_state(struct vdpa_device *vdpa, u16 qid,
- 	struct virtio_pci_legacy_device *ldev = vdpa_to_ldev(vdpa);
- 	const struct vdpa_vq_state_split *split = &state->split;
+diff --git a/drivers/regulator/arizona-ldo1.c b/drivers/regulator/arizona-ldo1.c
+index 501843996faa..f719158ac360 100644
+--- a/drivers/regulator/arizona-ldo1.c
++++ b/drivers/regulator/arizona-ldo1.c
+@@ -35,8 +35,6 @@ struct arizona_ldo1 {
  
--	/* ENI is build upon virtio-pci specfication which not support
-+	/* ENI is built upon virtio-pci specification which not support
- 	 * to set state of virtqueue. But if the state is equal to the
- 	 * device initial state by chance, we can let it go.
- 	 */
+ 	struct regulator_consumer_supply supply;
+ 	struct regulator_init_data init_data;
+-
+-	struct gpio_desc *ena_gpiod;
+ };
+ 
+ static int arizona_ldo1_hc_set_voltage_sel(struct regulator_dev *rdev,
+@@ -262,8 +260,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
+ 	if (IS_ERR(config.ena_gpiod))
+ 		return PTR_ERR(config.ena_gpiod);
+ 
+-	ldo1->ena_gpiod = config.ena_gpiod;
+-
+ 	if (pdata->init_data)
+ 		config.init_data = pdata->init_data;
+ 	else
+@@ -339,14 +335,6 @@ static int arizona_ldo1_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static void arizona_ldo1_remove(struct platform_device *pdev)
+-{
+-	struct arizona_ldo1 *ldo1 = platform_get_drvdata(pdev);
+-
+-	if (ldo1->ena_gpiod)
+-		gpiod_put(ldo1->ena_gpiod);
+-}
+-
+ static int madera_ldo1_probe(struct platform_device *pdev)
+ {
+ 	struct madera *madera = dev_get_drvdata(pdev->dev.parent);
+@@ -375,7 +363,6 @@ static int madera_ldo1_probe(struct platform_device *pdev)
+ 
+ static struct platform_driver arizona_ldo1_driver = {
+ 	.probe = arizona_ldo1_probe,
+-	.remove = arizona_ldo1_remove,
+ 	.driver = {
+ 		.name = "arizona-ldo1",
+ 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
+@@ -384,7 +371,6 @@ static struct platform_driver arizona_ldo1_driver = {
+ 
+ static struct platform_driver madera_ldo1_driver = {
+ 	.probe = madera_ldo1_probe,
+-	.remove = arizona_ldo1_remove,
+ 	.driver = {
+ 		.name = "madera-ldo1",
+ 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
+
+---
+base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
+change-id: 20261104-arizona-ldo1-gpiod-fix-48e94fe22e18
+
+Thanks.
+
 -- 
-2.48.1
+Dmitry
 
