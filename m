@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793858035;
-	b=WIjOO668kU0Y+1E2hoRgtx4P5TkcHw1nk3NXx212GkhUVhNlAaMRQoh96wkEuNOu+PBT
-	 H3LQ1N/iRbDzIm9cI871Y0yLsIXf4Dj230WD+a8GriTdu6bS+WC8h3RQOUog852ojdejP
-	 OmlQclJlZA9H8D/E0MD6aY2IgemJwMX0xxK7ENH5vODd04j5XXp/hF4KnFB/xIy/8WJSY
-	 heRIVFXaFn5evxOkqxnkBBEi4r7OqC9ih2ppLZNqAPdS5u0xJhrriD9f/Hx0h1SRXN99a
-	 VD5BmaGJOvlSmKPE6oGTS2cOkXKdjbM0eyTyc+waZ0ENrnLfy1/QJhuSbI7ALdfmJqA==
+	t=1793858047;
+	b=SSGCaC9H3NpSju8HuFLTIy2feU4RzyE3BPWG3zh57rjoeqMMttNp3/iU8s3AkH49cle1
+	 LLD4PUivASp9yJtttFWrjfxvNIzq/VYknNcedUoGa/I5dIP6QwB6b0AxzvSGcU5lnydib
+	 27Lt0NsopeTVu7FlTNkwVm3qRHUk1knKrdN3RCDamxVj8E9wzKkBTbR4359iBFxByo0e6
+	 tw8Ca4XWnOUzQCyEECwqxmxdsuYh8IT22PLWLVmU5ChpHyJB/JAqVBz0K6QeKTffJM7EN
+	 dJje0RjvxXU04OEV8egdX8ipGGHdwnus2jRZF2IpKMbmAaSWeCY3Ln20KOmbGzCaczg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858035;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=igsohCGD/my9F05BJ5ZdAf3sM/HA3G6ndburhp8TXQ4=;
-	b=uFYIFj9lAwJAYBYJstrE9i+1JqYos5NBQbrP2/zzMBkeZphNebX3eDwN4qYMbySn154r
-	 1nq8P/ScrtxFNcbQ8+uE1o8cwXfHltYrHA+ayMaUWWWFwwGbj+MUw83uBAALj3zdTGB3u
-	 gUojv98oVPoC3n5nd8Jote6ERnSuzfF1izDlQReP4Rb9ShRdd8Ks3hRZQJvIR0IpEtyG2
-	 pGiubBDx/at/57CeTV807A/IvJX5uwWaPaPxvSOA0h/IX+zm9DkTnfKkDxLwRKfiQimjQ
-	 sahCEr9OFHy2qS/ibf5vn8DBHOYcJcp7yj/hhovccZIvTSrwOfNHGvU6WbXJznD12cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858047;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
+	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=VDXls04qQSI4HIp6mJhgcpmi+rXfyrJwAbauaHnqrtc=;
+	b=hXighX1+TheLB/BIIpWavL8qu1pAtWNpPK5qXnxqYm7zZI2wAxRLR+hWHfll73ezVi/t
+	 O8ZAbSQuj9SX9XDL0HSJVfu+3frss2NbCnf2+d9ABenPsaX641Tqh/hCjcGXypuaxNHz5
+	 M9sXAchXsebiyBOfXKKxxxNe/OgZZnrNDsrGcWgCIEdSgGL3Fdl7sCxeKYfK35rj5H1HE
+	 KtUmw7aI8Hnoj6GCDFLkcBuyZ7jAoOp7ZpnlD4XxjwBEC7CypquJUHeALMUoMQGYpJXU2
+	 BZPzPd9BaHbeLiBJC/Ev5gbikRhGmLHwJ8/RzY7EGhOpiLHJhmAXCEaQabdh5HXEHnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWtEO7kP;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E6E606A334
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:53:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E6E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWtEO7kP
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b08cf16decso1044503a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:53:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793858034; x=1794462834; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=igsohCGD/my9F05BJ5ZdAf3sM/HA3G6ndburhp8TXQ4=;
-        b=uWtEO7kPbQwyLbeKx3WLFl/Pb+ogG4nPrB4bl7Ex5y0v3lZAgUnyRii+1xiSyFGLIf
-         wa5nEo2rQf0TC/A2rsToWG8msA+dWD449sNcAPENrxLbbcuuiSc9y1n1e4Kjm/8zBUVb
-         gxcJqidzZp6FzQNdePsgcU/udo+1YyDvocc1lluwY4p6b5Tm74mPMw/C/zrxBTanMy3B
-         mhTwMnEw0d81nCSrBwxFUK2KlDr1VUk7ylaQEBskClVlSDY05eqxhdPTDPtu2uxd2lhr
-         whRDWrGvqk16DM+0YjJldmrK3TRxxRlg1alNLmD5zTo4AQ98ppxgPXLpCZmtHK7yQOQ7
-         S5jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793858034; x=1794462834;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=igsohCGD/my9F05BJ5ZdAf3sM/HA3G6ndburhp8TXQ4=;
-        b=MoKjPBsQ6tRXH0OuqQfm5LJJvc8SRGbpZDEFItoGUZkwGAcWZufC+q2VGaj4EdqlZ+
-         T6xPR4p8bVjBIyG5qGvalLY3PN22lORKpjeiroMDY1ro5e8D6StJJW08nKitM5AaOsY7
-         4iH6mUFmnO+1c0HDmJh4iddMlOj7iYmJbSdr2rdrXL6249+dUJ7A2xNveFkgeIsBjMWR
-         numqSK7eGTjTHC+3k325IbMSJNK7vsr/2H0Ru4DlQJUjwuuViarBymDmUsz37GErZfzI
-         +5dzPj4vDKVxUnAa+NU+JaJwVMULPLGWcPYvuaFNWpzTPPxT8xtZd6CoYg31txCYGpqJ
-         JuXA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfEtfbhYF2JRwjMogdpSNCi+V0EGSsawzvrlzXFHSGDzUC54hdNnMmAr97Sx8TJvJ83gF50TJW2E2Lmac=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6e9YxDxn6vc5/AZXGVP1diWXuXedpaGKWixoUGKRmy9LXPI8p
-	ZXFXYeYl+vuJXO1StI674TGcqnJnKKzwQ/PAc6J1wIrgh9WBicSJO606
-X-Gm-Gg: AYBFou2ED9b6VIT+0YlWe79vR8OWhGfeXMOSpz2DWD3mo7HtaVeAiclpTiW8D4AzBFb
-	uJO0BjQoDLmOBWg86qNf89FXY65l0sHjMRO3tOEaM/m4I0Kxcu2428JrdS54T67Cfu7nRtyB5O5
-	X/D/sHaysNsr4LcXb0DpyM2HIIWKfYj9ADshdo7MN1a8nf2eSPJrq2G4ajsfjK122AS0HaNPixw
-	X35lhYnyH0rJf+8wq829B8p0ShOAvns9qgMmds0NLlz/C2/EfRVJ0yvwjvPsjqBqN7szM3ujhXn
-	AAhvivJ3wTR6NvwJi68211DlyCI4P+zF/KCz4RYCJWmsoCY/LoFq/ZVSTOWN2MP5nyA+0kx5B2G
-	kO58PFY2ot2wzrT4g5Mx1h+X1pr2eSVB0EMRGWFUZXaBh05X8RnBtdYJxh+n9Dex90kMzwa1sov
-	2mAIzPn/6zcelPziXSDy5yWAkCu8glRuKgi7UcQYz/W4oWYo0BXlr5O7ZSkXZuspMTAkuWyPcHS
-	cGmwBIRudHLovZRSYuZe1upfI9iFrMIrvrSQ/oUafERayXJbgKtyygWajW7iGoSWKdplJkuikLq
-	shFEJ4WQ5/EcwcoEdv4OARc5bbQZu+75S02zl7jyi0vD3Wq3QeEVR9A=
-X-Received: by 2002:a17:90b:1b11:b0:3ad:4bfc:1e77 with SMTP id 98e67ed59e1d1-3ae897dd40fmr15148293a91.66.1793858033891;
-        Wed, 04 Nov 2026 21:53:53 -0800 (PST)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b312cc44sm2293530a91.1.2026.11.04.21.53.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:53:53 -0800 (PST)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: yin.li@oss.qualcomm.com
-Cc: robh@kernel.org,
-	james.morse@arm.com,
-	ben.horgan@arm.com,
-	sdonthineni@nvidia.com,
-	andre.przywara@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738A2606A330;
+	Thu,  5 Nov 2026 05:54:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 738A2606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jKs1y00vLz3CgW;
+	Thu, 05 Nov 2026 13:53:57 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ping Li <leeonion.muyu@gmail.com>
-Subject: Re: [PATCH v4 0/6] arm-mpam: Add basic device tree support for resctrl
-Date: Thu,  5 Nov 2026 13:53:47 +0800
-Message-Id: <20261105055347.947416-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <9d370f12-9e4c-4b80-9d28-ff8085ce3aee@oss.qualcomm.com>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com> <20261104081302.304667-1-leeonion.muyu@gmail.com> <9d370f12-9e4c-4b80-9d28-ff8085ce3aee@oss.qualcomm.com>
+	zhangdaolong <dlzhangak@isoftstone.com>
+Subject: [PATCH] ceph: fix inode and i_filelock_ref leak on file lock rollback
+Date: Thu,  5 Nov 2026 13:53:57 +0800
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,46 +59,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Thu, 05 Nov 2026 13:53:58 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AEC19F5.003 by FangMail milter!
+X-FangMail-Envelope: 1793858038/4jKs1y00vLz3CgW/6AEC19F5.003/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1793858038.6AEC19F5.003
+X-FangMail-Outinfo: 1793858038/6AEC19F5.003/4jKs1y00vLz3CgW/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1793858040.6AEC19F5.003.4jKs1y00vLz3CgW@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEC19F5.003/4jKs1y00vLz3CgW
 
-Hi Yin,
+When ceph_lock() or ceph_flock() succeeds in acquiring a file lock on
+the MDS via ceph_lock_message() but fails to install the lock locally in
+VFS (for example when posix_lock_file() returns -EAGAIN or -EDEADLK, or
+locks_lock_file_wait() is interrupted), it sends a CEPH_LOCK_UNLOCK
+rollback request to the MDS reusing the same struct file_lock instance.
 
-Sure. Our memory controller MSC is described as a top-level node.
-The MPAM register window is mapped independently in the SoC (the
-component sits on the DDR egress path rather than being a sub-block
-of a memory-controller DT node), so the node is a direct child of
-the root:
+Because ceph_lock_message() unconditionally invokes
+fl->fl_ops->fl_copy_lock(fl, NULL) for every CEPH_MDS_OP_SETFILELOCK
+operation, the rollback call increments ci->i_filelock_ref a second time
+and overwrites fl->fl_u.ceph.inode with a second igrab(inode) reference.
+When the caller subsequently frees or releases the request file_lock,
+ceph_fl_release_lock() only runs once, permanently leaking one
+i_filelock_ref count and one inode reference per rollback and causing
+'VFS: Busy inodes after unmount of ceph' on unmount.
 
-	ddr_msc: msc@2238000 {
-		compatible = "<vendor>,<soc>-ddr-qos",
-			     "arm,mpam-memory-controller-msc",
-			     "arm,mpam-msc";
-		reg = <0x0 0x02238000 0x0 0x1000>;
-		arm,not-ready-us = <10>;
-	};
+Fix this by:
+1. Skipping fl_copy_lock() in ceph_lock_message() when cmd is
+   CEPH_LOCK_UNLOCK, since unlocking does not add a file_lock to the
+   inode.
+2. Guarding ceph_fl_copy_lock() against being called when
+   dst->fl_u.ceph.inode is already set, ensuring a single file_lock
+   never acquires multiple inode references across retries or rollbacks.
 
-The first compatible in the list is for our platform glue; I have
-replaced it with a placeholder here since it is not relevant to the
-binding discussion.
+Fixes: 89aa59301013 ("ceph: keep auth cap when inode has flocks or posix locks")
+Fixes: 8e1858710d9a ("ceph: avoid use-after-free in ceph_fl_release_lock()")
+Link: https://tracker.ceph.com/issues/81372
+Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
+---
+ fs/ceph/locks.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Notes on the properties, in case they matter for the binding:
+diff --git a/fs/ceph/locks.c b/fs/ceph/locks.c
+index 677221bd64e0..17b893c234d3 100644
+--- a/fs/ceph/locks.c
++++ b/fs/ceph/locks.c
+@@ -34,6 +34,10 @@ void __init ceph_flock_init(void)
+ static void ceph_fl_copy_lock(struct file_lock *dst, struct file_lock *src)
+ {
+ 	struct inode *inode = file_inode(dst->c.flc_file);
++
++	if (dst->fl_u.ceph.inode)
++		return;
++
+ 	atomic_inc(&ceph_inode(inode)->i_filelock_ref);
+ 	dst->fl_u.ceph.inode = igrab(inode);
+ }
+@@ -81,7 +85,7 @@ static int ceph_lock_message(u8 lock_type, u16 operation, struct inode *inode,
+ 	u64 length = 0;
+ 	u64 owner;
+ 
+-	if (operation == CEPH_MDS_OP_SETFILELOCK) {
++	if (operation == CEPH_MDS_OP_SETFILELOCK && cmd != CEPH_LOCK_UNLOCK) {
+ 		/*
+ 		 * increasing i_filelock_ref closes race window between
+ 		 * handling request reply and adding file_lock struct to
+-- 
+2.48.1
 
-- reg: the MPAM register window. Only a subset of the architectural
-  register space is implemented, so the size is the truncated window.
-- single RIS: the component reports HAS_RIS=0, so there are no
-  ris@N child nodes.
-- no interrupts: the component has no MPAM ESR block, so there is
-  no interrupts property.
-- arm,not-ready-us: 10.
-
-The verified probe path: the node matches via "arm,mpam-msc", and
-patch 6/8 in v3 classifies it as MPAM_CLASS_MEMORY and treats it as
-accessible from all CPUs, which is exactly the behavior we need.
-
-One question in return: with the node being a direct child of the
-root rather than a child of a memory-controller node, is that a
-form the binding should cover? If the binding expects the MSC to
-always be a sub-node of a memory controller, we would need the
-top-level form to be allowed as well.
-
-Thanks,
-Ping Li
