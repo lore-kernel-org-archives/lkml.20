@@ -1,80 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890215;
-	b=KnbfAx+c848JKjlkgKj9tu0gZ7pw1YMCKq0/C7Y1NbIccCZBzXT/j1ghC063QH8BULy7
-	 GBbZ2rdY2cmE7kYCrbNlTtcuJaCi63KZYTUecNASO3NTiMztcZwdYFnp2gG6a+e1oAlLj
-	 Nuui/ozSq9r/fbRP8/sblPAMp1sYtw7rAzmdoj5QG0fWxr6HKCVu0OyaJfNoTAzaxe9fV
-	 cp+WIyZytQuXeOwxaYsof0zJu0y469KB0uC8LpTYgi5GJCGJ77jWd5dXI5+o+9y09iT2F
-	 D+3WB6TbeSdBfmJOYLyCQ13bp80KdJenqqhg7Ce+T/gtaN9BtJfDC7OfE2+C9aP5mVA==
+	t=1793890220;
+	b=qUrpdFYcQgFJHEyJPokvaJyjxMle6ZDZygv6WNuP+3G7Ya7NwETl/gCNjWAmPzz34Isk
+	 O3X7UrdNyQRTLG5KMdBxo2xNOYW4GsXz6/F58kxYA+BLAmkG7bBnES2kfZq4J1RTYu8Nd
+	 IuI7gbhMGLSsTQvcruJGN/kdHBbaMgFGsOQKPBY60Fl5tcRmh669ghGlfx7x91mJp54iZ
+	 DtTHlrxhmh7pVj2YBqbHgT8bwNEDkTtqiPosqxfAfpPm/W3qlhBOVy3XwuW3MX+SLPHVZ
+	 KAHSGDTrn7sOfgPUBOGFCNNYZ645P/09UHqoF8YB27KR1/j6NmCYYjkUST4sRI6RvBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890220;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=b2crl1kVB09+F59TlrEUv7P01dSBP3Uf/xIwzH7wMCc=;
-	b=vT6jXnJaRVTNg8Eu3C3l0wWFsuXjlpcgI0TQRsSVHNJaZ+kXYRO1JdSQV6/S6V9u7QkM
-	 X5UAaR/bsyhRmquZ9zKrV/OC4TPpdvai31FIE0K3ZjcxVWr/z7Q2eYvxY9Q2MmLx2WUsk
-	 mIGgJ8iU4zHGBy5VJQyZSNq5YbDFhmR6HYiuRMV/uwSsuANarrWOJ5xAgBVzwEjIaiDgc
-	 Ik1IWuz3kTSpO0lW0m6Vr+tVZiQJOHhv46RMp4lPp+0g5B4Oxa4B/UdD/tN6mcZffu9u7
-	 4aRXlAL98nDWwk7cyX2Aw/JllCS4yAy2/R7jWd/p74VuuEtZFh8QigSnvwWBeWSG39w==
+	bh=zngDh/hn+d+IfbRxuQD9941zh0dh76DUZmGv37oN1yw=;
+	b=HzMLGIqqVn2//dkvQAT22iGKMMeJt7UDh7uxzsQpUygD+qtPFM9tCQx9xfJhWIcVcFwz
+	 J5gars6JiHHJjX8YepJ8imlv2pLLYGboWD+nHUPbNvP2MBcMeAmhAvEC6Xjy3sKdeWhFP
+	 LQYPG0KEDK4FVLFn5tTeuix7rKExdFGmQS4yFwo1WwVJ3YO/F8SMkG4PXtLN3V2Gk7AHU
+	 PiBhR3SvD3lRgsBp6ikLCyDy3Ytoj4yLutedNRb+OZZisQ2YUq6D154s2sEj0l5z46GiO
+	 6nk402WnkMZlGr60ggNieF8eVbmK5cfo6xBHazWkSJps2WnrlCb4p5mnPZl3FKYNNWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IyXJrk6W;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CaH54igg;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C20606A329;
-	Thu,  5 Nov 2026 14:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46C20606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B667606A333;
+	Thu,  5 Nov 2026 14:50:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B667606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IyXJrk6W
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CaH54igg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793890214; x=1825426214;
+  t=1793890220; x=1825426220;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=n9n7IjbZl9ZQnOs7J/aNx4lKInGmgZYASnXAQCl7QHY=;
-  b=IyXJrk6WnfzpPAKbLyRImaW7zSH5cPAqQWFoDoJySTzxSwD5SlPeJAXQ
-   TJ+/vMsFPOfoGgc80t1/Q1XbirxydpaLTWMFQCx5pcPHDaSk8BhZ8ZLbV
-   w6QYaJN9LIY5D5ZdP+ltPBItwjDuqO+oGzOZ5zcwmJt8jHmPcmwH0x4rA
-   gxQqOqqThYwBBhyNqi7OcOHpSN/OnkP/AM3P+3xIGASoe0XMTSPATr2IS
-   85JuCORsGvN3xgHOuyX+shqt5VLxaXG0y9W7sLhlcU3cVrzWyZ9tBDS4T
-   9l3JGXguqHwzQZwVjns1uuMwYvmN8hRVqvPXCKl2WxCMp7QFzAj5LrcNh
-   w==;
-X-CSE-ConnectionGUID: DduQdqJoRqCK5OvVbPpDQg==
-X-CSE-MsgGUID: 8XxZihLvTdaoUFm9bl5vNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2556688"
+  bh=pR76mBghhXMOKm2t2fE0Nbyxh5lA9YdTCI2eN6g0oNY=;
+  b=CaH54iggLRDvQu+fJy5qc9rHlSnF6nsEVdBBbu3Ar6gIvJuB8AHBpkPM
+   kCA7K7QuaiBsHFbRWy9TTYTaWKa3D7Zt92JuZ/ksDLmMqCKsttD1DpZom
+   pkVIgwhUNfwLRm54cVXI0rSfvLC036msgNFCu8F4xD0jLJU64AJ8/51Qu
+   6BabFNr6P1nwSVwlm3ZlksDHdPa8gS8Nm3pLNYVRLO9CytwaN93oP88zt
+   CMOm2lBojG4H/vZuJGRvjmXoCkdBqh1xbiG8vEPM9udN0dDqdjQTboPRM
+   QleP0cr+b4qYN72v4nHfL9cyupgrhozEzja8wYoOC23dG7xOG85PP0/Ux
+   g==;
+X-CSE-ConnectionGUID: Upc1HOLNSC+zVEVTogBspw==
+X-CSE-MsgGUID: 1Mq3vmUnT22ZxrH0dNtgfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2551306"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2556688"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:50:14 -0800
-X-CSE-ConnectionGUID: JkPnTE3XTFiHxOj97f85iA==
-X-CSE-MsgGUID: SttL37Z+QyyqYRlYmUfUzw==
+   d="scan'208";a="2551306"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:50:19 -0800
+X-CSE-ConnectionGUID: /dk8MTNSRPGYLMVUiJXO/Q==
+X-CSE-MsgGUID: pVjBF9RvTTCjveglukFKDg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7342497"
+   d="scan'208";a="7151193"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 05 Nov 2026 06:50:13 -0800
+  by orviesa009.jf.intel.com with ESMTP; 05 Nov 2026 06:50:13 -0800
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xOyn3-00000000mLX-3e4V;
-	Thu, 05 Nov 2026 14:50:09 +0000
-Date: Thu, 5 Nov 2026 22:49:35 +0800
+	id 1xOyn4-00000000mLb-00W9;
+	Thu, 05 Nov 2026 14:50:10 +0000
+Date: Thu, 5 Nov 2026 22:49:53 +0800
 From: kernel test robot <lkp@intel.com>
-To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
-	dmitry.torokhov@gmail.com
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	iommu@lists.linux.dev
 Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Subject: Re: [PATCH] Input: synaptics - make InterTouch quirks table driven
-Message-ID: <202611052257.XSUus1c3-lkp@intel.com>
-References: <20261105042614.688312-1-lovekeshsolanki00@gmail.com>
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Krishna Reddy <vdumpa@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+	Steven Price <steven.price@arm.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v8 11/15] iommufd/viommu: Select vIOMMU operations before
+ allocation
+Message-ID: <202611052227.TxHIjde3-lkp@intel.com>
+References: <20261104161632.3547423-12-aneesh.kumar@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,54 +108,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105042614.688312-1-lovekeshsolanki00@gmail.com>
+In-Reply-To: <20261104161632.3547423-12-aneesh.kumar@kernel.org>
 
-Hi Lovekesh,
+Hi Aneesh,
 
 kernel test robot noticed the following build warnings:
 
-[auto build test WARNING on dtor-input/next]
-[also build test WARNING on dtor-input/for-linus hid/for-next linus/master v7.3 next-20261030]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+[auto build test WARNING on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Lovekesh-Solanki/Input-synaptics-make-InterTouch-quirks-table-driven/20261105-095614
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
-patch link:    https://lore.kernel.org/r/20261105042614.688312-1-lovekeshsolanki00%40gmail.com
-patch subject: [PATCH] Input: synaptics - make InterTouch quirks table driven
-config: um-defconfig (https://download.01.org/0day-ci/archive/20261105/202611052257.XSUus1c3-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 812626a41399a1d464a0d69627ab45c83b8ebfb9)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611052257.XSUus1c3-lkp@intel.com/reproduce)
+url:    https://github.com/intel-lab-lkp/linux/commits/Aneesh-Kumar-K-V-Arm/PCI-TSM-Move-core-code-into-its-own-directory/20261104-214618
+base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+patch link:    https://lore.kernel.org/r/20261104161632.3547423-12-aneesh.kumar%40kernel.org
+patch subject: [PATCH v8 11/15] iommufd/viommu: Select vIOMMU operations before allocation
+config: x86_64-allmodconfig (https://download.01.org/0day-ci/archive/20261105/202611052227.TxHIjde3-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611052227.TxHIjde3-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611052257.XSUus1c3-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611052227.TxHIjde3-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
->> drivers/input/mouse/synaptics.c:226:1: warning: unused variable 'synaptics_intertouch_blocklist' [-Wunused-const-variable]
-     226 | synaptics_intertouch_blocklist[] = {
-         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/iommu/amd/iommufd.c:81:40: warning: unused variable 'amd_viommu_ops' [-Wunused-const-variable]
+      81 | static const struct iommufd_viommu_ops amd_viommu_ops = {
+         |                                        ^~~~~~~~~~~~~~
    1 warning generated.
 
 
-vim +/synaptics_intertouch_blocklist +226 drivers/input/mouse/synaptics.c
+vim +/amd_viommu_ops +81 drivers/iommu/amd/iommufd.c
 
-   221	
-   222	/*
-   223	 * List of devices with broken board revisions.
-   224	 */
-   225	static const struct synaptics_intertouch_quirk
- > 226	synaptics_intertouch_blocklist[] = {
-   227		{
-   228			/* ThinkPad T440p */
-   229			.board_id = 2722,
-   230			.pnp_id = "LEN0036",
-   231		},
-   232	};
-   233	
+757d2b1fdf5b7d6 Suravee Suthikulpanit 2026-01-15  76  
+757d2b1fdf5b7d6 Suravee Suthikulpanit 2026-01-15  77  /*
+757d2b1fdf5b7d6 Suravee Suthikulpanit 2026-01-15  78   * See include/linux/iommufd.h
+757d2b1fdf5b7d6 Suravee Suthikulpanit 2026-01-15  79   * struct iommufd_viommu_ops - vIOMMU specific operations
+757d2b1fdf5b7d6 Suravee Suthikulpanit 2026-01-15  80   */
+757d2b1fdf5b7d6 Suravee Suthikulpanit 2026-01-15 @81  static const struct iommufd_viommu_ops amd_viommu_ops = {
 
 --
 0-DAY CI Kernel Test Service
