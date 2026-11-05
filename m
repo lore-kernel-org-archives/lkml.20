@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879175;
-	b=c1AtUMeU/+ynkmQHjXKjKMdJnBd0aEfmlqOKSUlqBpAJPzsDosJR0W+N5IefODyfwisd
-	 N94wRLACxr0BMDgCchqx001//rtrHpgp3f4HDpcdATPknqHOFgw0tpZ6eG6oS6rE9onmJ
-	 CwfhyuSHfwOxlWYG1doD0Dc1VhxwC26qMVbji9URNSdo8wHGZV7cTfQ2tTVSMv38YJ45k
-	 EmDJkGPIHNyOgsKdaHy/b/AGtOnITlGBT7hTxlVhBTI+Dpca4ZwUtI1N3Po2wdTkIMdr0
-	 YHU5njqfj1p6Yax07C7o7ZODuugSV9vkcGKZbTV3knzs4djVuvZAlF+MGgRmo2GIoMQ==
+	t=1793879275;
+	b=hJwdqOfxasXQJfnZ8A9p6A95iv8KBmq3HnR+SvHKjdRdb40hoq9r7AgJ/tMx+o0wKe78
+	 ztoTJXHTd0eJs2S/pGE6lvT31QOtQNmLaGg6/0vIeoBd9E4Og78A549GRPQaqXtcRn62C
+	 Di0Mt/cNYZ9tzp+DeAONX1j1WIdgvphqvkPGhQj7g7L96atkXO1rDyoOnEXhoJXkIKTtS
+	 Dg+on0bIg2nUIDzpkyQXA7gto3MTmWiZ2GrKCKc0s7zF1lLnYodRyKFSQKKiqlS9uh3iP
+	 PPZ+Rk5QWognbbMORXdDOC+4nBZCRPX1WruXbR2UmAR0cdhC85sTAwf7swwuZRhnN3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879175;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=NSKZa4ye0LkUdsLkrm7Rm28ju04K47Dqy5NWckuPC+k=;
-	b=R0yY+SVlwjdrCDEsst5tyGGxcK8n0tyifo0hPlKMsrW9sKam2+uNK7ypZoT1X6WYxQAF
-	 0/YeYXDDQXXqJI9qsI+S324AN55LsIuhfcoVw0/DUcZ872KcqUuMQEVPFxRSoWdP/pWpP
-	 bN/EdOx8W2mMZTiFkL8kzUlhEOVy4+tmHVZKffoQRYzhWYfM74i2pmQZL5LkK6NUBIkUS
-	 VlGKRnZwc63FfDzAlZApSF7VO3+ntHTKJ+BFFldTuf7ULHEl/jWKD2qDuFNIyCEGe88YA
-	 49rRnzIZXqHKcHkusKb3gkESlrqs/ian2s+jCmFMwbAtsq0dxY3CTy9TdshSIaYIRwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879275;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=5jiuSYWr/X4Yj8yrZR9utlC8Rdw8fQ7cuQ21H6LtP70=;
+	b=eBR8KhUR2Q1BkZPx2vdv7Lx5ZfFXj0Ljv2PNGUAMyei15kkgCjY+CCnJUi08OVaJFvNj
+	 Tiit/8U89a2p7XL0KUF1Ku3azCSdJm37yF28DlmaUmnHw8Iie6HDqJUJ+FateoM7zGRC6
+	 ceuIXc7nmHOfbxZrC/Uwlprrdog5IUfH1EwfNpyFtqm7X/9I94X60HEpeJV4Lsa0UWavI
+	 Aky+giLDgq/DNH08vDJD69wMIklQbvN2LlLNZ9Sj+3Qvu2YuMCpPyyIJQ9xlZagYcZbu3
+	 41vBAhe3vJFzUQuFZiHCe/VQmCu00qKDm1nsAzpgfJrcv8/H7yMCEGm5qykTh/hMSQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oEAl6rSn;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8524606A929;
-	Thu,  5 Nov 2026 11:46:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8524606A929
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FD6606B546;
+	Thu,  5 Nov 2026 11:47:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84FD6606B546
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793879173; x=1825415173;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OCg2W30o8vQ8OO1s+xdsqkrOdBHhLk2OtMes1baq76c=;
-  b=Sr4C7iZ9s0umWaZx9amVQ2t0Hc2an7JmRL1z8Optpa67ofauSGIpe3ij
-   qkVWRnYSJRCPGXp/+XenM5QQ1M/XH0zWeEy2GPz7nCOjsP7POvqPBIYx2
-   wZt6aoawM7ppPcsrMdchyCvF72M0fLIMsn4tvncGWIq9A3pq9PI4IU+AL
-   HeNUTYbNmCg0q9RJ5HOKC5PYlhhKWqMhzwnhy1iWGavcLgHxW9z+k5aJo
-   1qVIHAPO742jKJUsmjxV8iUQi1jjc8OZft383EO7Xs0blEVXN5+C3OUb3
-   Ob6BJ12bZALuCQPxF4byOt8XOT6BNEkVmlQ3Df3PrDnpKzy3ik/rAt4Vk
-   Q==;
-X-CSE-ConnectionGUID: ikH6ayYAS56OD+IhwId09g==
-X-CSE-MsgGUID: RodlU/yTR8aEHagp006/nA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2548016"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2548016"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:12 -0800
-X-CSE-ConnectionGUID: Vdd75W6xS4i/w10gfKSiGA==
-X-CSE-MsgGUID: DBVu0q0gTD6lwwwebdsT1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7113980"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:10 -0800
-Date: Thu, 5 Nov 2026 13:46:07 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Gobi Durairaj <gobidurairaj@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: atomisp: fix block comment style in sh_css_sp.c
-Message-ID: <auxsf6qUD4XeAV2D@ashevche-desk.local>
-References: <20261105064312.360626-1-gobidurairaj@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oEAl6rSn
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6C4B64E407D8;
+	Thu,  5 Nov 2026 11:47:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BEA05FF85;
+	Thu,  5 Nov 2026 11:47:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 16F1110328CE3;
+	Thu,  5 Nov 2026 12:47:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793879262; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=5jiuSYWr/X4Yj8yrZR9utlC8Rdw8fQ7cuQ21H6LtP70=;
+	b=oEAl6rSn/0Yk4SEMdJ+UAoZyhj4Cb8QKHfvLkq5DO9ySBTIiJy2RjhH0LRJSeDNBpZoqgI
+	cMz32xkW8TQBpiui7fCtQuRqEBg2qMvwOpcK92uqsIB20qIpG6nPNTTbdHtCEz5NYJTPOL
+	WX9Cawg49OL4gHKkmsekEg6p6R6AD6EeuXJLmWDXVw7bx+m3+5Fmh4Aa+IfzZPYlzQHrdf
+	UL01ujuPaGgXrXHKtQwrsOaGoOnM/62t5JVq5V8wNdPasKaFv9q1QyxtkWRN5vMyeTf5fp
+	HW6Pf9FaEyBPyEXRg5W1HNgGzi/FhDd2nKvsi6fd4epoj7kfgm7Wec6UMDO1zQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,25 +59,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105064312.360626-1-gobidurairaj@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 1/9] drm/connector: report out-of-band IRQ_HPD
+ events
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Francesco Dolcini <francesco@dolcini.it>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+In-Reply-To: <20261024-hpd-irq-events-v8-1-6ee949e7a384@oss.qualcomm.com>
+References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
+ <20261024-hpd-irq-events-v8-1-6ee949e7a384@oss.qualcomm.com>
+Date: Thu, 05 Nov 2026 12:47:24 +0100
+Message-Id: <179387924490.1025980.16294467387972507446.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Nov 05, 2026 at 12:13:12PM +0530, Gobi Durairaj wrote:
-> Convert block comments to the preferred kernel style with a leading
-> "*" on each line and the closing "*/" on its own line, as reported
-> by checkpatch.
+On Sat, 24 Oct 2026 03:35:17 +0300, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> The DisplayPort standard defines a special kind of events called IRQ.
+> These events are used to notify DP Source about the events on the Sink
+> side. It is extremely important for DP MST handling, where the MST
+> events are reported through this IRQ.
+> 
+> In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+> events are reported through the bits in the AltMode VDOs.
+> 
+> [...]
 
-If Sakari wants to take it...
-This type of changes to this driver are not appreciated at this moment, sorry.
-I can point to the success story in case you want to continue with this driver
-
-https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurares@gmail.com/
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
