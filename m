@@ -1,53 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869220;
-	b=SCLzWKLco9htKU8eRflh0aTi2XXU6XGiowTjXUaJfV69lKrX02rTs8n75chUaHpg3jfE
-	 qfgxH/co2JJNL0pGt8XT1nE2nx0ajhFAsMKOajewpKjpU7IRFs4LnPaol7fK2BJNrbJs8
-	 EBKSyIP5oFmpCpM0ck9vGh+MIUodq8Qd1oW/r1z/08U8145SzDLoNVjNTdR679r6brlDf
-	 en8NVlUS1y2Tv23QXFn5EJ8Xsg1U1yFBAG7LvsoKhYpkzupEJ3baL0LFm1vrpINCFH5an
-	 HhOHUwg5DOczDqWH6TzUSQ+xtjN2TJF5+3076OoodG119PpY1Jm8J75f9vWpdlzrIfQ==
+	t=1793869233;
+	b=cQucyMFBKyPeLgRM1zE7xTw/E0VVoFVgYUVDV8eGseSCAgiHmsoDSR5T1kkfn4DjAIhb
+	 3FVnQpbriCrct+3H/ujajt3IXMgqrbIJoE5TB3XmVvsfJmA5dCP2PlU85T5he6HE2+JxA
+	 TZfw6FL0Z4mkqsW73fSTTv+QLdtMGw5U+c0ifZj9qEbO2Kx46NdvNCB0gLz4T/03BQUt5
+	 jMdj43GEmxEt0QiFjfrWKqE1w5WbANF7+r5LCrU3LpKS5yE6AQN/bDw0siqp+NKm6eJ3J
+	 Ew1xIlua1ZjVvx6mZSNEk0Ow9sVaw9LFI+ZVoOcIK+BmcJouLjN1A/5PuD/8EmieFtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869220;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HmYOI6OvjM4jd4ffqfJ98NdtDMwj8BkWxzXi+FrHdLA=;
-	b=IFSRksnlYnX6/LE26u8jIqbDmfwSRZzCIaXaKTDo3GFNEuDnolgGaRpmlrD8YDyxK4iM
-	 D8A/OoyGNuyl5O0kgQymXSLQ5JMmcLV8jdIfrpQK9FgiP5E6Jpwl/Xvz6L9P36fAYgOE4
-	 mSfYV4N1ooPIY6hzd05EGdivMvUivAU80fS0sUcrUAMMq0iMNEf000A8nQZRayB25dcfV
-	 ZKjVgbiuMNOTsa3AbNrJgR+Z4Yovl/z97sZqCeT+Ptm3wXTDaJHcOgQ3TTzI918OaX1vb
-	 nMtn7qi+FsPV6syKzvJkrgmyT7At1jexcI3q+qp++2QAO+N77aTm+MQWNMRgH4RunMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869233;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=C7KvMZPRU76PPXEPvoU8lYiUrmsq36mfhVdKnn0oTEA=;
+	b=0ujDnoMKE89Mb1Q0RwYgLBO9O2OTXAa9qDXMQbHf0YnhCsk3ApXebcHYGwcnCjO/5n4G
+	 YE2L0AM7nPkXjBzk0I9QYdcw0/lR+pTdG/7WbgXirePbPy9M4Z3jGsQt07HRGsuNZHb7Y
+	 WGX6wd/45tf5YNzIQpU2BV8rP6SR2XSpeAmf+/7nyKPyljLIVEl4U1WKVKN0QOQ9hx65D
+	 EIbw1z8LvWHIp4KR/PjuFlJgxWpVWpnTp98fow7lpQo8AM1QFhvuVshhPxadTm7jdDyVF
+	 fGKfuSoVqynYZPg2QOcy0sTLFtICaPPo8zZaYjRYs/ko+vaMub/cnnAAl9iONGRpPBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhdiEJuB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHEVG93S;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 8BFA0606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:00:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD0F606A31B;
+	Thu,  5 Nov 2026 09:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD0F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhdiEJuB
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 48E8F1F000C1;
-	Thu,  5 Nov 2026 09:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793869220;
-	bh=HmYOI6OvjM4jd4ffqfJ98NdtDMwj8BkWxzXi+FrHdLA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lhdiEJuBiBd0BhIH1unccaDcRQc8M6TZnRiXcQd710bJzpJ9zdhfPJ7RXdcsacAp7
-	 Htk7IlLL65Lkha75/Jv9uyMu2JPeCYYvLgZjPBVrc3j3FPtg4MghzsNS/MnbJjcbx7
-	 Ynvm+qIJbcOZsaFJLR3cWE0rmwRS6PXHUCbjluG9wpeGw/1ezC4piW4mDPGbNjvu0r
-	 rG3mUgPvC7JJpK6mGVo7NLWKZPn8KgGQUMX+381UBkMOK7eiC+slm5i/qn9M0D4KNb
-	 odo99iAm2yHZd2i8S+B3atQig/0dmQwpFVpVv3Qx8BPmYxG+VF1ZMSLvc3S8S5m+yO
-	 1G5bIibKZMhQQ==
-Date: Thu, 5 Nov 2026 10:00:16 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Yige Jiang <yigejiang86@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	WenTao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH] regulator: as3722: use the platform OF node setter
-Message-ID: <brzyrqnyrayxdpnyginamtdewj6cp3odhndlstjp6kupnr4q3e@rt73ebxxvbms>
-References: <rc-review-20261103-19-ee1e37733b2e@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHEVG93S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793869229;
+	bh=xUW3p4976DC2PBpXz3aw+f2y1/CP/AUXZ42/p8PrJHQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=EHEVG93SvO2MRQ9DqlNGT69xnJHgOChAl4GvABrnxnu6DRTM20aBAKXu0iZVBoxNv
+	 KgRR9dSB3fYPc+YlhHcfxLX53M6BHsy/9oQDScMSfFjYaYHhL2nSglo49d9x5GErIe
+	 bQPFlOCxfeacr6lrbh0FDCh/6J0IY9bN95uq0FkOij2bqZgIRQcnEDeERmlMx4Yf7p
+	 wloqNvk9ClFSjuJgZ0+3R8wa2SXSqfgUdwfST9EG9SNAQBV5kEmWnnQeutK/smBy07
+	 Q8MYyN30HYpN1yHXJh2+b01UP275QGYgKs441XpqVuQTXTXbqW1wgvWODZ8itTSBls
+	 Ti1iVBcoKMi1Q==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C676117E05D6;
+	Thu, 05 Nov 2026 10:00:28 +0100 (CET)
+Message-ID: <1c0e5b1a-b1a8-42a3-8dd1-75fceee078a2@collabora.com>
+Date: Thu, 5 Nov 2026 10:00:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,53 +61,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <rc-review-20261103-19-ee1e37733b2e@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 05/13] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ CK Hu <ck.hu@mediatek.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+ <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
+ <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 02:09:20AM +0800, Yige Jiang wrote:
-> as3722_get_regulator_dt_data() gets the regulators child node and
-> assigns it only to dev.of_node. Platform device release now puts
-> dev.fwnode, leaving the acquired node reference unreleased.
+On 11/4/26 19:56, Roman Vivchar wrote:
+> On Wednesday, September 16th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> wrote:
 > 
-> Use platform_device_set_of_node() to synchronize both fields and
-> give the device its own reference, then put the local lookup
-> reference. This keeps the node valid for regulator matching and
-> the platform device lifetime, while also replacing the previous
-> device-owned reference on a probe retry.
+>> Having the DSI interrupt enabled before actually binding the DSI
+>> component to the display controller driver is both useless and
+>> dangerous: the main purpose of this interrupt is to signal CMD
+>> done, LP RX data ready, or VideoMode done, or to reset the HW
+>> engine if this doesn't come.
+>>
+>> Should this interrupt come too late (during probe), the HW will
+>> be reset only at the next occurrence of a timeout, which slows
+>> down boot and may render artifacts to the DSI display.
+>>
+>> Moreover, clearing the DSI interrupt while the display controller
+>> is not ready yet, may result in an interrupt storm.
+>>
+>> In order to prevent this from happening, request the interrupt
+>> with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
+>> display controller component master.
+>>
+>> Reviewed-by: CK Hu <ck.hu@mediatek.com>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > 
-> Fixes: 7b5b51b2b05c ("driver core: platform: count references to all kinds of firmware nodes")
-> Assisted-by: LLM
-> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
-> ---
-> Based on linux-next next-20261102 (2637bdec0535).
-> Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
-> COMPILE_TEST=y.
-> Baseline and patched target objects built from this exact base.
-> No full kernel/module-link, hardware or runtime test was performed.
-> AI assistance: Codex (LLM) for ownership analysis, code and changelog.
+> This was necessary on mt6595, otherwise it would get stuck.
 > 
-> The earlier dangling-node fix is already present in this base.
-> 
->  drivers/regulator/as3722-regulator.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/regulator/as3722-regulator.c b/drivers/regulator/as3722-regulator.c
-> index 85e2aaa1a06b..9bf28e4b9821 100644
-> --- a/drivers/regulator/as3722-regulator.c
-> +++ b/drivers/regulator/as3722-regulator.c
-> @@ -596,7 +596,8 @@ static int as3722_get_regulator_dt_data(struct platform_device *pdev,
->  		dev_err(&pdev->dev, "Device is not having regulators node\n");
->  		return -ENODEV;
->  	}
-> -	pdev->dev.of_node = np;
-> +	platform_device_set_of_node(pdev, np);
-> +	of_node_put(np);
->  
->  	ret = of_regulator_match(&pdev->dev, np, as3722_regulator_matches,
->  			ARRAY_SIZE(as3722_regulator_matches));
->
 
-Same comment as for the other patch, use __free(device_node).
+Yep, I guess it was getting stuck before this because your platform's bootloader
+has continuous splash functionality and leaves it on while booting Linux, right?
 
-Bart
+Just a curiosity... ;-)
+
+Cheers,
+Angelo
+
+> Acked-by: Roman Vivchar <rva333@protonmail.com>
+> Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6595, mt6768
+> 
+>> ---
+>>   drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
+>>   1 file changed, 13 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> index 28ba532210ff..6ac6daa61e68 100644
+>> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> @@ -225,6 +225,7 @@ struct mtk_dsi {
+>>   	int refcount;
+>>   	bool enabled;
+>>   	bool lanes_ready;
+>> +	int irq;
+>>   	u32 irq_data;
+>>   	wait_queue_head_t irq_wait_queue;
+>>   	const struct mtk_dsi_driver_data *driver_data;
+>> @@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
+>>   		return ret;
+>>   	}
+>>
+>> +	enable_irq(dsi->irq);
+>> +
+>>   	return 0;
+>>   }
+>>
+>> @@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
+>>   {
+>>   	struct mtk_dsi *dsi = dev_get_drvdata(dev);
+>>
+>> +	disable_irq(dsi->irq);
+>> +
+>>   	drm_encoder_cleanup(&dsi->encoder);
+>>   }
+>>
+>> @@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>   {
+>>   	struct mtk_dsi *dsi;
+>>   	struct device *dev = &pdev->dev;
+>> -	int irq_num;
+>>   	int ret;
+>>
+>>   	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
+>> @@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>   	if (IS_ERR(dsi->phy))
+>>   		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
+>>
+>> -	irq_num = platform_get_irq(pdev, 0);
+>> -	if (irq_num < 0)
+>> -		return irq_num;
+>> +	dsi->irq = platform_get_irq(pdev, 0);
+>> +	if (dsi->irq < 0)
+>> +		return dsi->irq;
+>>
+>>   	dsi->host.ops = &mtk_dsi_ops;
+>>   	dsi->host.dev = dev;
+>> @@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>
+>>   	platform_set_drvdata(pdev, dsi);
+>>
+>> +	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
+>> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
+>> +	if (ret)
+>> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+>> +
+>>   	ret = mipi_dsi_host_register(&dsi->host);
+>>   	if (ret < 0)
+>>   		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+>>
+>> -	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+>> -			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
+>> -	if (ret) {
+>> -		mipi_dsi_host_unregister(&dsi->host);
+>> -		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+>> -	}
+>> -
+>>   	dsi->bridge.of_node = dev->of_node;
+>>   	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+>>
+>> --
+>> 2.55.0
+>>
+>>
+>>
