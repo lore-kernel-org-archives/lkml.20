@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893093;
-	b=EI4CCHYpVL5sHqZRCH911/fEfLGgg54842S7n0ZKL33uFXyrR+XwzPNFxyTkW3RZ+sLW
-	 vp6BRqX9q36b3J65odnHK6L1JQYcM5qdqSXMSainZT6VnPsA5JPh7eVkxFmTrFz3kZIEz
-	 xFss97PDP0WsVCdIu7zVY3JbdJBfTkwCUZ2SVB07HU89rsZmJ1XJfA77tRB9DPG8DuSIF
-	 N0iBOdL52I33xi/vdM4kMQJgctVAipQ843dsGGaNKZe5fP+fntlGfb/S1CVakTD8X7GTC
-	 dmKhvUX3I/Y+mzXHUBCsgzG/pLFbCvnPqSoelZgrv748KasW24jFMnlh0UW8K4q2aqg==
+	t=1793893096;
+	b=Zr1Hyy0mqvLQzeuKYGBIH/fM/gqjxLVZR4WjPUD7m3pWqAjUH0j0qCJLeNZ26+9ytGpk
+	 EdWBABTcqvkJWd03KXULrmjlpIIne5PGWeN9t2sjeE9cY5fcVkrrvHMLiFU8plbTWb1cR
+	 Dnpd8rqs6R9HCQne2oBwhw6qW7u16FOgwyumYQF3NyUblTHkvzxBdy1jNVo/OtXI5NkZ/
+	 ldZB12876lMSIbfPWdWZMHfP19/4GrQf76jS0FbObRHMwj8KYGD2pRVHEnNmHcQF3Km3J
+	 RwJSyNnntUNv+uZGV62XfY2USehag8lJUsHPn4+k2sgobqa5ye0cNYXuNjLXWm/12QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893096;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8y4St0IhZwQVyzFdSxU5JacHnztQsqHZO0Wii9zP/Z4=;
-	b=NdX5k2F/elvkZqubCTCmanPUmct+aq0W7b7qJl+GGYJflcctBv+9GoRntlilmCSwcsL3
-	 bbvVLjGDVPTtlbyacynPO8YYMM+xBNOHgPWBgnjfTaQ55gx/inx39HtVbccfx+wC4pQW6
-	 +Whvspby0d6HB8J1D51TSt2K/+o2bkAO1pZu8Qe2W7/bDFMwzllNrwAg36WJLlUE0bPJ6
-	 Ku8aDJ7fDUPIb6dWHefaNZFjMI3IYHUYckALxAHlOUxtBa/H5GUS1LveHJztZveUpotyk
-	 zewB2oksxHXKXjqvWOs3wxZJviy3ypp9UURzigGwbqN0dur1ijkU7wvSCnkzgir7svw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=F4fUx97bi7pwf9S3207BDQnL8pq2tpTO+X6+3lO1kvg=;
+	b=VqwFYdNEKgR7liavHNQKOIRz0C9p9JCI3HGWttvDHK3wl3i+V9UcwcztUziXFWDhFPWu
+	 Rv5mgPH2qY4eWzeznQdHLU+wU6aBUJtjCcY9l2y3pavdwxEkJJZ3dWoNuj14mtA1Fs9W9
+	 nh7Jq4PogGntzzZV61uJoXr0kEOsUPskh6DTx5rsciEDucT8TvjMKNgdsb4dYPh8GXh6S
+	 1wYfyXhHC/dLSyBY4SK+8We10K7FrcxBcyF2SVHJjz7sb9/iFKQcETAbBFy8EiorcV4Wg
+	 AnMTGvjzyKH+XeMaYyCLPhqPyGjGXubzKwYdaGAGHdev6Xb+vh9+Um7UKsxeYlamy+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=riscstar.com;
 	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=5KN60z+V;
-	arc=none smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=LqeGpx0o;
+	arc=none smtp.remote-ip=209.85.167.178
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539BE606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 539BE606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2DF606D81D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F2DF606D81D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=5KN60z+V
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-55e0090c580so768844b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:38:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=LqeGpx0o
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-53656465d1dso1066060b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:38:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1793893092; x=1794497892; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8y4St0IhZwQVyzFdSxU5JacHnztQsqHZO0Wii9zP/Z4=;
-        b=5KN60z+VeUPIVPforSmLJZ4fHI39IfjWlQrF0OEOlpgnrL+kFR1BWr2JibCftcnkMv
-         UtVTLtkzxm1KGtHU9g79wLkVn5n11rC90lH84cQCCd8Dkeo6bLW9SdmwpfyCEQbliO2b
-         jhNxe6IGhhfuS3nmRM5fNugHo2WFpjiNOu9O1flHSluOpaeoVTW2GXoSk8jVDHbzuK+3
-         hw11BbX8JGJCNzDELKe/j1/bz/DwOcPmFRC1qJfOaCsINUn9i/sLVUf1DaTT4PuS1K13
-         gXGwvG4yTZ3bNqqjQrGoy71RHbtUkpRG9lC3Qic6R6mZk93Ax/Q/N/CQ+ukAnDhgcSwn
-         z6WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793893092; x=1794497892;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=riscstar.com; s=google; t=1793893095; x=1794497895; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8y4St0IhZwQVyzFdSxU5JacHnztQsqHZO0Wii9zP/Z4=;
-        b=idg8Xe4G3BrPbQE/gPxeTBP+LIibnMLYv6P4MO27mib1dLomoVBsnkaNx2YTY7xC8Z
-         yGiA4Jgg9uXEVOuso6s/EONObc1/+Gg4imEJHgYeWavCuCPZTzE5+gmTuZyaHeifVmIK
-         AAvEeYx6yrpmMiWPfi3e+f1rkdepbDRvNRg/n20CprBKw2/zliXTLfl2DB+P8DjatRdf
-         o7smObmxS8DYSuLvCPr61CYIiLghfpNl2XifWz92KKyC733vadadyZSN2ET87CAkn8Ce
-         N0vexDt8UNt2Wfpiie3LqQJsaUAxuSanP1DnFbqaITReUvjve0IA3j37hlJ+s2coDn5A
-         PJyw==
-X-Forwarded-Encrypted: i=1; AKwUvBy7SmtopDU91dkpYsiisLEeAi5MvgQmrSgl31Ub9KH1FrX3IotxQ14sdETh3IbuZbXSHlrPdOnQi5yuAi4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8o9NRXtirbc00A55X6YL+tlltbSau4ZrgxKzfYj9FHwtUACm6P
-	PBtVpdLCDxgerFws7BuibxgNkhIvFIF2WQR6Td+VwuXCUaM8UBe3ZWQsp0KA0suIz5I=
-X-Gm-Gg: AYBFou2C9+w4PMoMTOG1zMaAJ5NHlOvnWbpgzHh/PA5R4kSK6qLzhyKAbws08OM0mBc
-	i8vRjkAMczBxquvLj52pSh3X1h1vaj/6kVsokTCNNpAxtW0syZQc881xaBJ5OUv1EpFjDCrF2Lp
-	PYGG9iWDxwzTCBRITUfqo8BC1evSQG+328coJeKRN3sdu3UokIsFob53q3EBY6Ech/v6rlgVAbN
-	6dWqGVKp83bYWzou/Zg00CRRtzLXlHvwJAjNmLY0LsatDM7+iUm1lk3antlKZYd4I5luaoHf1cH
-	AMfZQW9S5zqvYarpIfTwF41BEEoFIFT+lC4I9PrS29SFgJtQ4TRRIu6D0wheJaLOFG8mEL/BRss
-	JMz7/SVIXEe1v6i1SyQOnn7GVChDoqlVHfSV4w84czlpZEWo6rfJPN8PrHn5D9CbkdgcjWtDCZM
-	cEF48AMtIsIAk46OijAZC6ovl8zmmi0Ese5RNH0C282v21r6jZpmJChT6JklkJ5irlELefdYvv1
-	Pkx7BO0I3iOD5vcX1OSuA3jwhJcxgE9G1APbdl/m9zmfibMv6+X6r/vzbmBTiPWA6DhMPap2LLY
-	20pYHq0dS2gCwmdAFLCB/ElocwkQSN1Prj0IHu2rpBXiNzaVJLptcoU=
-X-Received: by 2002:a05:6808:4491:b0:4d6:9283:1bdf with SMTP id 5614622812f47-5640de7a752mr12836651b6e.60.1793893092182;
-        Thu, 05 Nov 2026 07:38:12 -0800 (PST)
+        bh=F4fUx97bi7pwf9S3207BDQnL8pq2tpTO+X6+3lO1kvg=;
+        b=LqeGpx0onwzV4nNyO7gBwy8hvbgQTlF1kY2WTObUIJzlJA0199/1A21cmefHZCNJUp
+         F36lt/w2/mBVr76879+aQx28ku60ASRAh00HEjWJ6kSUN7txwODiQWoCsDACTA7t5mAU
+         te9uqemzhvEIqBrRkDaM+F8O0X9/tlmKrShAHkJyGUnFTCqHbAmk9WeV/pZ7DgCO/cqK
+         oBUO0YrZRxytKcBuf0CF+umwg6WESLSLbMCUhPoHGnRU3ACelIjdDPXmMJX6MudTjKqM
+         twBfOVYYyWQThXl4gnAWbMqxSK3nP8Oiz0GWtV2xqXpMjCuA/ULcXu/bqFiMGPlpVTDu
+         EEsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793893095; x=1794497895;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F4fUx97bi7pwf9S3207BDQnL8pq2tpTO+X6+3lO1kvg=;
+        b=sK1/vUkBzU83z/8CHuaoKYMs/hRe8AGhonNCbdVtaD1EfCbY68Y7zk+3LyP6YNFBdn
+         z/vhiI1kUYGho4miJ9OkreNZvdjMMVxWrhKDENnirTTHbgXhKRtZiQzKcTzs9KrfwguG
+         Q+zEW1OK1J8SL60QkSOwyt7kpD3xLiKO/yzEgLBrXePncaY7EscmmYgwIQYPCmkdIWo+
+         upXheOxmLm8C2TOMxTOyOjelCrGveX2ilrYGpIXitHT7IKKtj6iTIjAOZdCgGZ8Z9pHS
+         ct3kja+5NuN2Fvrb/s6itipXyhAwkbRsGbxL/0oTC2qHADhmoj5AapSjxH8gyPoT2oyZ
+         jVpA==
+X-Forwarded-Encrypted: i=1; AKwUvByrbok5Lo8qesIOPAcN9XGsqMXZDO8FoEooy+kbKICbMixuY1VqOgbPgK5G+HWkm7DI/g1jDH0faj0oPWA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zUrmeewebiCvhplEVroWr8NLj7t5gUBQU3dfFrneMmuVdExDD
+	GSiV8wpEnT12b8Es9Qr1UQ7V/v9BrdoDcw6QPWHvEgdjW0Mmb4Ti71oJRQqCy4o6v7JPWo8yycL
+	ttw60XC4=
+X-Gm-Gg: AYBFou2xR6SKsQpc5ALy1Xswg1TnXJyUOWB3PazQLmLL5gAYCwRXL0TRxPk7X7remFD
+	SznWtZrQkqx49FKy/xAKdJqPlcOHifEl5bvmLfO6ljv9NRcy8CO7ksO+kVeSsD4ZGdtMF+Mhl8F
+	/LPJNx5dHsuPgAxMurfs0apm6Byi9B3JxKLfArFdl01FvGDd/KvqyDuoICaFuAisO2DI6MAlu+w
+	kCG8vgpUJ4ZNyvcEDL55w2lQBcrNdQLN/7cvqLm+uGpCC3iwdJvxTh9zHCwb2PY0yKGrLwK2uKk
+	jVUCNshtPh5tDzNRBCT5FUkpaic8x0JS9n1xn8NGDLo4mx0t54hrSo65cGzYw6pNUe0QUyspTrP
+	nA0S5HnXktjCfbAf1bBC+24Bpv/GaTIwGaCvgPpFNJdhK1FINvbmBKWf+lh5jmeJnN56RTU59+B
+	AgOduuF4xdiklNd6zazh/eGkV9eY1o1GiB4Fn+zs9S4dhG452U3SDqdJZCyZ5/fRHKmSXB0wkN9
+	Efh/0u2PPsLq01Aj33RsKlLKuIYGsZW9+jAboRLX/flieegEZXtcMcf2wlW4FDwO2NEx9ZQOCtc
+	59171L8D5JfVHIvvg35GBFFByjfflE0EJg==
+X-Received: by 2002:a05:6808:1527:b0:4c4:28a5:1885 with SMTP id 5614622812f47-5640d9278d9mr14332042b6e.9.1793893095035;
+        Thu, 05 Nov 2026 07:38:15 -0800 (PST)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef6e3bsm4435329b6e.5.2026.11.05.07.38.10
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef6e3bsm4435329b6e.5.2026.11.05.07.38.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:38:11 -0800 (PST)
+        Thu, 05 Nov 2026 07:38:12 -0800 (PST)
 From: Alex Elder <elder@riscstar.com>
 To: bhelgaas@google.com,
 	robh@kernel.org
@@ -85,11 +87,14 @@ Cc: herve.codina@bootlin.com,
 	mohd.anwar@oss.qualcomm.com,
 	lorenzo.bianconi@oss.qualcomm.com,
 	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 0/4] PCI: of: warn on bogus device_type property
-Date: Thu,  5 Nov 2026 09:37:57 -0600
-Message-ID: <20261105153801.435566-1-elder@riscstar.com>
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v7 1/4] PCI: of: avoid allocations in of_pci_prop_compatible()
+Date: Thu,  5 Nov 2026 09:37:58 -0600
+Message-ID: <20261105153801.435566-2-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105153801.435566-1-elder@riscstar.com>
+References: <20261105153801.435566-1-elder@riscstar.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,83 +106,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-  *** Bjorn seems happy with this series, and Herve has reviewed ***
-  ***  almost all of it, but we'd prefer to get an ACK from Rob  ***
+Three compatible strings are formatted in of_pci_prop_compatible().
+Their sizes are known in advance, and the largest is 16 bytes.
 
-Add a check when adding a PCI device to ensure the device_type
-property is (or is not) correctly defined when the device has
-a non-null devicetree node pointer.
+Rather than dynamically allocating the space for those strings, just
+set aside a buffer on the stack large enough to hold all three.
 
-This series also includes three other minor cleanups to the PCI
-devicetree code.  The first patch prevents a possible null pointer
-dereference that Sashiko pointed out some time back.  The second
-and third patches are simple cleanups.  The last adds the new PCI
-devicetree node checks and warnings.
+This avoids a problem that Sashiko pointed out, where an allocation
+failure would cause subsequent crash because strlen() is called
+unconditionally in of_changeset_add_prop_string_array().
 
-					-Alex
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/sashiko-reviews/a647bd56-7dc8-4fec-9d96-834622054cdf@riscstar.com
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+v7: - Don't check for snprintf() buffer overflow (buffer is big enough)
 
-Between version 6 and version 7:
-- Simplified the wording on this cover letter
-- No longer check for snprintf() overflow in of_pci_prop_compatible()
-- Rebased onto 7.4-rc1
+ drivers/pci/of_property.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
-Version 6 is available here:
-  https://lore.kernel.org/lkml/20260924150222.1179235-1-elder@riscstar.com/
-
-Between version 5 and version 6:
-- Simplified the patch header on the last patch, as suggested by
-  Bjorn
-- Rebased on v7.3-rc4; otherwise no code changes
-
-Version 5 is available here:
-  https://lore.kernel.org/lkml/20260908213459.2519059-1-elder@riscstar.com/
-
-Between version 4 and version 5:
-- Made a local variable (bufp) a pointer type in the first patch
-- Eliminated an unused local variable (i) in the first patch
-
-Version 4 is available here:
-  https://lore.kernel.org/lkml/20260904134607.1856121-1-elder@riscstar.com/
-
-Between version 3 and version 4:
-- Insert a first patch that fixes a Sashiko-reported issue
-- Drop the final "duplicate warning" patch from v3
-- Include "pciex" as a valid PCI bridge device_type property value
-- Add Herve's Reviewed-by tag on the last patch
-
-Version 3 is available here:
-  https://lore.kernel.org/lkml/20260901011338.1323243-1-elder@riscstar.com/
-
-Between version 2 and version 3:
-- Drop a patch that made a change only needed by a different series
-- Switch a function header to use kernel-doc format
-- Add a warning if a PCI bridge node has no device_type property
-- Added a patch to remove a duplicate warning in the devicetree code
-
-Version 2 is available here:
-  https://lore.kernel.org/lkml/20260812172247.276554-1-elder@riscstar.com/
-
-Between version 1 and version 2:
-- Check the PCI devicetree node even when PCI_DYNAMIC_OF_NODES is
-  not enabled
-
-Version 1 is available here:
-  https://lore.kernel.org/lkml/20260807194100.455599-1-elder@riscstar.com/
-
-Alex Elder (4):
-  PCI: of: avoid allocations in of_pci_prop_compatible()
-  PCI: of: drop the reg_num argument to of_pci_set_address()
-  PCI: of: don't zero flags in of_pci_get_addr_flags()
-  PCI: of: introduce of_pci_verify_node()
-
- drivers/pci/bus.c         |  1 +
- drivers/pci/of.c          | 32 +++++++++++++++++++++++++++++
- drivers/pci/of_property.c | 43 +++++++++++++++++++++------------------
- drivers/pci/pci.h         |  3 +++
- 4 files changed, 59 insertions(+), 20 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+index 1500740cc55d2..d351f500c2ce1 100644
+--- a/drivers/pci/of_property.c
++++ b/drivers/pci/of_property.c
+@@ -331,27 +331,32 @@ static int of_pci_prop_intr_map(struct pci_dev *pdev, struct of_changeset *ocs,
+ 	return ret;
+ }
+ 
++/* The three compatible property strings have max sizes 12+1, 15+1, and 13+1 */
++#define PROP_SIZE	16	/* Enough for any of the three strings */
+ static int of_pci_prop_compatible(struct pci_dev *pdev,
+ 				  struct of_changeset *ocs,
+ 				  struct device_node *np)
+ {
+ 	const char *compat_strs[PROP_COMPAT_NUM] = { 0 };
+-	int i, ret;
++	char buf[PROP_COMPAT_NUM * PROP_SIZE] = { 0 };
++	char *bufp = buf;
++	int ret;
+ 
+-	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] =
+-		kasprintf(GFP_KERNEL, "pci%x,%x", pdev->vendor, pdev->device);
+-	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] =
+-		kasprintf(GFP_KERNEL, "pciclass,%06x", pdev->class);
+-	compat_strs[PROP_COMPAT_PCICLASS_CCSS] =
+-		kasprintf(GFP_KERNEL, "pciclass,%04x", pdev->class >> 8);
++	ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
++	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
++	bufp += ret + 1;
+ 
+-	ret = of_changeset_add_prop_string_array(ocs, np, "compatible",
+-						 compat_strs, PROP_COMPAT_NUM);
+-	for (i = 0; i < PROP_COMPAT_NUM; i++)
+-		kfree(compat_strs[i]);
++	ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
++	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
++	bufp += ret + 1;
+ 
+-	return ret;
++	ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
++	compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
++
++	return of_changeset_add_prop_string_array(ocs, np, "compatible",
++						  compat_strs, PROP_COMPAT_NUM);
+ }
++#undef PROP_SIZE
+ 
+ int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
+ 			  struct device_node *np)
 -- 
 2.53.0
 
