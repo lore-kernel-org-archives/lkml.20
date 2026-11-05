@@ -1,44 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868065;
-	b=o6sjAtZ/RfdKFvWretmu1mfUL7VBXP7khcfhDhVPw04l6oxLleiMC7RpBwilHOx+ecUu
-	 4BkA4azBAjtRBQ5gKEFbKwtjBtjBEFM14WmuHnv7iQv7mSIoOnq3z3OmP9T98okrH41U+
-	 MdD5Byf8v+CLmzRKqaLerl1kA3XgjBzS/484u4rOWy5CaR8oXixaxulKo0PEl8MEtYSkF
-	 c26yWyjm48jpbhfYA1X9rs/Ac45woL8O+qfcuKIIteW+/p06MbEbzegv87uZLhMGanTd7
-	 yMzTU61awjsWBRnpuGKew29Soi3TYxxrh6qyvK1Ud1q9VIJmAJFhnXRM0DypluDNckg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868065;
-	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:
-	 Subject:Cc:From:To:X-Mailer:References:In-Reply-To;
-	bh=EyS1Vaex1qh0ymGPOrjfqXS9hLerdXLqS1mjQFe74nk=;
-	b=HO9c+oQ0GYrRakjrQcGynaTtKm9ELDCFHBNJmPJNg4UShfLIfP9V80GUp6E0n+Vbupo6
-	 LBuaQsJRgR7gDXz+CtTj9ODjBEN66tm/G12PLOKrrSkyZoeQazEK3gKaOa+ZAdPddg3xg
-	 xl5ghz6+Z1Fippd27Ad8qsTc6ct8Q4qmFgqSfD8eAoVzG8YViBCURQ0kjb1GRzPX+23fe
-	 EKjqOFswOoBxUnPN3Tau7Of1NdlPFtgvrCeWziNX8lWXbO/ieAM6QrzqcOe5iK/uoOKk9
-	 Sujx/kCvK2XNYSnr94QVYxrop4VMgz5SwhQQ/fxFaNpkVx+kppi2i2IwKeiB650ehog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DtcmsLPf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793868085;
+	b=js7i3173qWaMO88OSkXX2DVx9nJ1C39ktyHJj8s1b1UOYIqQrkVvrbDdL2sRJh7DaqMJ
+	 aDcqp07lkPRDRlcr1M36l6UUGOKqsZjVSq4drqpE+2/o2v3cj5L7RwDNXASo6Sb/vX8F2
+	 8g7/0X9ivyA15ljh5cUYNi28GTslyA5wrFDsCejd+Cs0dHaW8EGbVrDGeefucs61h3G00
+	 zduKn/B1ASKnzGETSD9JoB1mUm2sN32KjZnpNPHtxk5zAqa6wZaTryauJeGJWO/pTsTzX
+	 rQUFMDnS/oJ0dqH6JkUblX1/fwKKJbp1c6cw2aNVRf1zx8qchSvMUzFe7ZtQdpNOTUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868085;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=93jv87Iwyy3JRzOhRq5Cce/h8tGYeWiXhCqgOwKlqf8=;
+	b=FFsO78GNetubmoJVZLr8U7MJwgjEIywo6Z7X1s3SINvY2aQNoGUF4x0cBD7hoDfWZCfE
+	 adPfyrbeIRtDS3z1b7/WpBqnmnEf/cDCmHLl5PP2EV3q3g99vuyNzTUNjMPvLwhnXGwY/
+	 sualIhzBozkCdElixxWwMGpctBrLNvBPGqCoLsZtffkCc1PQeYIbzZ3SjExstZ4M8hOi9
+	 lhZVqTzRcBVpnv63Q4XHZ/GkACN1UayRtG97lUYb2EF2tqCTU1noUlrJyen2Lngxop2SA
+	 p5w7RC+XumMcZIeuj+Ofd7L97MhZ3fMEhsE6SZk36WDLNDGZhAsQvGLsUmC7/DNQ9mA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TL9xyeax;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 65C3E606A31B;
-	Thu,  5 Nov 2026 08:41:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C54606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:41:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69C54606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DtcmsLPf
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 693161F000C1;
-	Thu,  5 Nov 2026 08:41:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793868065;
-	bh=EyS1Vaex1qh0ymGPOrjfqXS9hLerdXLqS1mjQFe74nk=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=DtcmsLPfZkmEcY5AarenNSNJXh7GTf+Js3l8r5iueA1ACJ1FSoRyYXPrl4qK35qG1
-	 HSkGuxQZlyrYbLwVEws86T0zoiAsLXBiPk6mpQojhjl2EJnSzs96Sxspo75s9jtg12
-	 E3I6YJgUDAMsbIteWO1LKwHsW0wKoRb1M+0LmzxYqFg7LUChO5gVQe1izV7DeAhd+s
-	 dAPsSGsXNenHPCi8YzaNMHHSwfkmuVq4UToXR0u7l/GkNykhgsvj7XgNA+KFWodKZE
-	 LC8J8s+tT6AtZOzl+Y3ASw22eEj4x0jk08jNKtOGQvpIHZ+1aQ8KdiULR+IQZMUAjb
-	 +PEmGyBVM9oPg==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TL9xyeax
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91c75267b0fso16951396d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:41:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793868084; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FerZxRpGnufacp52ObVcfeRZIeIu6pW55IOTbpLeNq/LYNCDcoqwNJsfbMf2n8zXep
+         SRQE0cZuRHVkUUBObrFj+ZEWxlCT9DLsOSqI/9CuQk0gLwH0J9eDaX2RsaKz0oeSMhp3
+         k1md8Ow/2Fkq9geMBMifkanWvf4NMJQzU06Zx+SrGPDsPq/nrQoN4EdRXUHqKRarTgix
+         7E6D15zhISPUsJs0bZ5McBatj51vPMi81aXQ7R1SrbBehvmjMf2ZN5YxrQkdqf3I5Ev0
+         eNa2yIkxWKLA0F/5/EaPpekFHw6BSo9qTv5MyYM6k4/cvmHFqx0/Ke4VtMAqi4KQ2KWs
+         gHuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=93jv87Iwyy3JRzOhRq5Cce/h8tGYeWiXhCqgOwKlqf8=;
+        fh=mKK9NKM+oMmxbMaEhJifebPD6Rj/nn4y3IMt7oVnZ9o=;
+        b=Ueo7TFSSeAJafAZxdX4eVZbE+mgkb8JuOzs6U4rk8UStukm0CBY/rn3ri89VWEgb31
+         nDIi+NWZct1RuXe7+3tTdF1qkzORNo4PETl0SaPLWhcEdzdV99ipv2ymELpR5fntEaGU
+         eVQoeukY8FOAQRivHZEvw5+n3hB38PgAEOH0A88MyVdDej2VZLFQO9Spz9ziQOC17z7o
+         FwyZG4jIKS1W2SsGnIKS11GzlAGxahOAxVvTrSAZd+I7ma+lJlAqSh5ps05FRdF/c1uy
+         vmxtOCvZHMnMPhdQKR8MPIeiatYVjm55iXgpPnb5qhxss4nZsMXs0+TdBqMm8CZYVmqb
+         TnTA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793868084; x=1794472884; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=93jv87Iwyy3JRzOhRq5Cce/h8tGYeWiXhCqgOwKlqf8=;
+        b=TL9xyeax+1FAjH3Eo2+1TVVSspDAnVAbEh8JS5BmkGC/8ybmCf6fqFprH4TC1r+IQJ
+         mmoJwUCiwTDiZ/Ugf8OM5lxr8Eox9S0IpUC+Hi6pheICYakL2v1sP4Tuc7jbHBoCAbiD
+         qgqkupgtmoVIPhIqz6oGjGe3h9wRmHWwB15pAUKucZoIt5QFzs0wcR0YwyrV+xn9SzgC
+         SXDBS2g2GSqa7fuRqKbWmT5Jxh9pvw3+qYTXsUVN+l/L+YXtLs6S7KC0fZyZwFil1/nU
+         1Wl2XdrBe4c8Kjxqlkg746cHiLFBlYIG6ONAE4zg4m2tJT4EakZhuQaM1gXjDrogXoi1
+         zqjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793868084; x=1794472884;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=93jv87Iwyy3JRzOhRq5Cce/h8tGYeWiXhCqgOwKlqf8=;
+        b=hXV8XMVh26xiY6ABqxVwaiX9sOXxhMEDmjvZYa1i8kmm9fIMFB0wlNGb/mq/cCBYQq
+         AL+nXtm6tgGjKUWwuSvZsssFP55qGbiuh+qnv6F+Xdgf6g0t8UxCZIEj3C/kaH2atH/p
+         J+l/PpQNc4cZfRuqkhTddzJmHE7l4N21zf3/ElOOavjLYpyc/6yOKm2c7vixJTNSTIr3
+         O8qWAIoy1G7MhTmBNBxaIVky92KKVCnvozS2rrae0AeewUwqsCLRoEMhfXa37EMzDClc
+         dSzjS5UeRLGMYRr3Qk392uiOKVMjMrX34VcwIfrnyo/3hwUGzt7LiCGuG09CoFqdUMQN
+         BfFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxer/tIMyP3tZqUP+u9DbjjcEqD+EpclTa7pr4jLW33BIyj82nRoazR6f18BmKO/fXGp2XrUzqKINurMXQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QIDvrQStmHMewidYxx8ybAAITDvXj6mmiBPNpItAqK3HbNJGC
+	hoZJLxE4ieNMZwzKZLrM5S/pPMR8ZKZH5uzvk3ZFdQlh/KRhuxv32pIEyGOw3Qn9Vw9xrCF/V/K
+	jUNH04SwR62bxYXZkpKf5hBaTbjrVoaw=
+X-Gm-Gg: AYBFou1Vyxl9aq4WJ3wDvGQxv48W5MipN9cKdOMFMFt7xl7ouRFwHleHrHiwZgbGOTX
+	j0LP4sLLqG5vKD4+Ja/IEvETJ8XCOuzuSLjCZYV01Q/kh1W3R8yiZczzJCFvPPhXva+YWQDbK5a
+	diCpr+21SXR4otgzvhZ++vq7sNPFWgVXUqQbN8iQeRyQ0gAgqGtxuBufPUp6yEzq+9Wu6cxuSz5
+	STa9vlJgiXaiqH6UM7Cse7rB28D26met59zQWy8+HsQSlc9hZLucMVSfzpmeyxiF9R2oK6jwRBB
+	JshuH3duNaZGvU5DWBZU/b45fUe5pruDnGFsFW/6jpv3GHQgB2UcHsycCMbw8UVoLKwQyWHw+5a
+	43m6hlT5XW117hfDBf6OeFJ4Aj8kpTo4BodrjYNIrfNQdf8i2ApI2IL0YuUP2lf/d+mxZZ+Kr5a
+	FAVDAP7ebngD6KCbDOmo1sSIyKWv0B4vjlZmAxEN/m+iw=
+X-Received: by 2002:a05:6214:2f93:b0:91e:97f7:c7a2 with SMTP id
+ 6a1803df08f44-91e97f7cacemr17909686d6.11.1793868084037; Thu, 05 Nov 2026
+ 00:41:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,119 +103,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=be7b4e5d39c5489a31f05dbd21d857bce5195eedfb88e8c4c34fff550383;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Thu, 05 Nov 2026 09:41:00 +0100
-Message-Id: <DMN55MF5SLDY.21QNY4T1VJ4IQ@kernel.org>
-Subject: Re: [PATCH 1/2] i2c: imx-lpi2c: fix SMBus block read with PEC
-Cc: "Carlos Song" <carlos.song@nxp.com>, "Wolfram Sang"
- <wsa+renesas@sang-engineering.com>, <linux-i2c@vger.kernel.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Carlos Song" <carlos.song@oss.nxp.com>, "Dong Aisheng"
- <aisheng.dong@nxp.com>, "Andi Shyti" <andi.shyti@kernel.org>, "Frank Li"
- <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <20261104121108.659820-1-mwalle@kernel.org>
- <e0094b33-f73d-43f5-bd07-19bc0e88aaa5@oss.nxp.com>
-In-Reply-To: <e0094b33-f73d-43f5-bd07-19bc0e88aaa5@oss.nxp.com>
+MIME-Version: 1.0
+References: <20261103221529.585436-1-rosenp@gmail.com>
+In-Reply-To: <20261103221529.585436-1-rosenp@gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Thu, 5 Nov 2026 18:41:11 +1000
+X-Gm-Features: AclHuK_Xgyxbeq-Ri9AU0jIyOpkBmLy-X-m-DhPanCxRRFlqIAlhliusmaAXcBU
+Message-ID: <CAPM=9tyLS7z5BF573bjRsFPjh3+nmE+nqF_6Rwr+qCF4JZgSwg@mail.gmail.com>
+Subject: Re: [PATCH] drm/nouveau/fifo: map Kepler video engine contexts non-privileged
+To: Rosen Penev <rosenp@gmail.com>
+Cc: nouveau@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>, 
+	"open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
---be7b4e5d39c5489a31f05dbd21d857bce5195eedfb88e8c4c34fff550383
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-Hi Carlos,
-
-On Thu Nov 5, 2026 at 9:29 AM CET, Carlos Song wrote:
+On Wed, 4 Nov 2026 at 08:15, Rosen Penev <rosenp@gmail.com> wrote:
 >
+> Since the engine context rework, gk104_ectx_ctor() maps every engine
+> context into the channel's VMM as a privileged page.  The MSVLD,
+> MSPDEC and MSPPP falcons on Kepler fetch their context with
+> non-privileged requests, so the first method sent to any of them
+> faults and the channel is killed:
 >
->> If PEC is enabled, the I2C core sets msgs->len to 2 instead of 1. The
->> length calculation for the second receive command assumes it's always
->> 1. This will lead to a short read and eventually a timeout because the
->> PEC byte is never received.
->>=20
->> Take msgs->len into account when calculating the remaining bytes.
->>=20
->> This was tested on a board which uses an IPMI SSIF BMC.
->>=20
->> Fixes: efdc383d1cc2 ("i2c: imx-lpi2c: fix SMBus block read NACK after by=
-te count")
->> Signed-off-by: Michael Walle <mwalle@kernel.org>
->> ---
->>  drivers/i2c/busses/i2c-imx-lpi2c.c | 10 +++++++---
->>  1 file changed, 7 insertions(+), 3 deletions(-)
->>=20
->> diff --git a/drivers/i2c/busses/i2c-imx-lpi2c.c b/drivers/i2c/busses/i2c=
--imx-lpi2c.c
->> index 7302464c371a..f57e800ac3b5 100644
->> --- a/drivers/i2c/busses/i2c-imx-lpi2c.c
->> +++ b/drivers/i2c/busses/i2c-imx-lpi2c.c
->> @@ -563,7 +563,7 @@ static unsigned int lpi2c_SMBus_block_read_length_by=
-te(struct lpi2c_imx_struct *
->>  static int lpi2c_imx_read_init(struct lpi2c_imx_struct *lpi2c_imx,
->>  			       struct i2c_msg *msgs)
->>  {
->> -	unsigned int temp, val, block_len;
->> +	unsigned int temp, val, block_len, remaining;
->>  	int ret;
->> =20
->>  	lpi2c_imx->rx_buf =3D msgs->buf;
->> @@ -612,9 +612,13 @@ static int lpi2c_imx_read_init(struct lpi2c_imx_str=
-uct *lpi2c_imx,
->>  		 * keep MTDR non-empty and ensuring continuous ACKs. Only update comm=
-and register
->>  		 * here. All block bytes will be read out at IRQ handler or lpi2c_imx=
-_read_atomic()
->>  		 * function.
->> +		 *
->> +		 * msgs->len is 1 - or if PEC enabled msgs->len is 2. Two bytes
->> +		 * have already been requested.
->>  		 */
->> -		if (block_len > 1)
->> -			writel((RECV_DATA << 8) | (block_len - 2), lpi2c_imx->base + LPI2C_M=
-TDR);
->> +		remaining =3D msgs->len + block_len - 2;
->> +		if (remaining)
->> +			writel((RECV_DATA << 8) | (remaining - 1), lpi2c_imx->base + LPI2C_M=
-TDR);
+>   fifo: fault 00 [READ] at 0000000001050000 engine 10 [MSVLD] client 0d [HUB/MSVLD] reason 05 [PRIV_VIOLATION] on channel 9
+>   fifo: fault 00 [READ] at 0000000001051000 engine 14 [MSPDEC] client 0b [HUB/MSPDEC] reason 05 [PRIV_VIOLATION] on channel 10
+>   fifo: fault 00 [READ] at 0000000001052000 engine 11 [MSPPP] client 0c [HUB/MSPPP] reason 05 [PRIV_VIOLATION] on channel 11
 >
-> Hi Michael,
+> Before the rework, gk104_fifo_gpfifo_engine_ctor() mapped engine
+> contexts without the privileged bit.  Restore that for the three video
+> engines, and keep the privileged mapping for everything else.
 >
-> Just to confirm my understanding:
->
-> For SMBus block read with PEC enabled, the PEC (CRC-8) byte is appended
-> at the end of the transfer. In that case the I2C core sets msgs->len to
-> 2 instead of 1.
->
-> The previous code still calculated the remaining receive count assuming
-> msgs->len =3D=3D 1, which means the PEC byte was not included in the tota=
-l
-> number of bytes requested from the controller.
->
-> As a result, the last PEC byte was never read out, leading to a short
-> read and eventually a timeout.
->
-> Is that the issue this patch is fixing?
+> Fixes: 8ab849d6dd4c ("drm/nouveau/fifo: add new engine context handling")
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
+Appled to drm-misc-fixes
 
-Yes exactly.
-
--michael
-
---be7b4e5d39c5489a31f05dbd21d857bce5195eedfb88e8c4c34fff550383
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCauxBHRIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/hpmAGA7NYvq+xpxg+2/2QVA9m4GNTNFDpS+4x/
-0W5UOIiTMaupw5X9BSdyNznrickkvakGAYCK8XtgVS2/9dfE1Ux0lx7UZSZDT4+T
-bjWi7Cvu54ACiyfU2Fmo4GKjsy0++bfnqzc=
-=I6KU
------END PGP SIGNATURE-----
-
---be7b4e5d39c5489a31f05dbd21d857bce5195eedfb88e8c4c34fff550383--
+Thanks,
+Dave.
