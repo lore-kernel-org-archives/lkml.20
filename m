@@ -1,53 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793885596;
-	b=OI+t68XlJQ41uEgPHkHqigdPU0DhJgOrnpmwRKeorOYXEd+6xEXj5wGDuiwWGoJpNCUk
-	 BS0H4eNDRnM6MbDgpqy0eODXNmIkdmaw8ftpQEmaymXyX7pwdKNptJDowCNMsjkY4ozNy
-	 WUabv4cAReCP4o4Lqv717FYR5ZAs/2asQJRK+N26/FUPx2rOLEVohGrkP3IlqVIK4ZqyG
-	 iitLZlIcf/gSztPWpJ6ZcI4tKf7tYu2EVmsYCCfJtyztKVCEoFEleQXB3noTHVHTwMTYZ
-	 r9EgKsT79I3ERjaxShDIBWebkdJM6U/0gEGnzZah1WyQp43p0lOzNquJnS7CrurZ33Q==
+	b=sDdBKhiTP7xe8nDHAa9Gc8t7tBHXrqn1/MHHCp0x3+aUkspzwMdR2y/+n9nYiduWREfk
+	 fsxvVBxuMPrqIXlvFe2QA7pG9i1I4bP3czTetcqV5yzp7fUiI4IGPqoc3a74IzUCqXWsu
+	 w2pEc2xIclSoYbp3+cKk8q/EBGADD869dT+RLC/RBBpmfdtDWE/1GpG5aySZGb9+iL/Et
+	 Eqi9gASdIiyLHKJQp9Pg/gnAjfCwR3r11uoIy9l4Nz1mJ0YTjPcHSgSmTedIEO4kVQ092
+	 z0NGCGD8srzSjYQlS3UGeIXwzdqthAs7L5XiBpwaWMJzAX1aH3G+TSslmLmyGjWy/UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793885596;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=/xokk+mumoVo5RGwLyOL1H9rS08KX2wY6K+MTAP66tA=;
-	b=CmtmxwyBgoI2rJvcAyGmjDDaTQg9RVEifCnmshE+HBLWXT4a3s9OzDEQHhKRGMAjt/ep
-	 ujXgc0KlurOBssY5qjnZr4dUApGVaCxb10fuKmbDVw6+24IVeIm8b3r8yzPrTrXxwsJZW
-	 bdu0e8xbInDhM0elENjW60xX5GjmAAkD6RSXuVn2GLWCo9M9TACN/YF1TRa7ssOL5TlJi
-	 fu1+fkhc/9Lk74WO98BfFaYRufyk1kTMlAhTywJU20FjKjuZ18WIxOGJSITl/poZ7s9A3
-	 tifyMnfFXYLKSae6J5PAL+Z8/snPrapiGQXizDkFsLDTDEI9czAuZfAxW9cbDkq7qBg==
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=V7idvstUKq5Y3g5dooO1YgpGOwROoEie37j6p8edmkE=;
+	b=IyomySdPp7c2C5KpDxQLjirRZTNXmgiXeIynWlqx5QrCHIbyXJGEW8CJnQFbMAuUIUgh
+	 74DB21Z4SQtmVvaQwJxBLkO/hjOMxejQkXH52072DN3cNApwih77CpS1z9crhFokqZwih
+	 vChmLqPubv874WzAaPGvhcanj0k041cf9qF/7itCng+55JbNJnrP30CVcuxInaBZWnzds
+	 WpnTSKXvf8uSogYY2ilY4O0c5oCeJSCjE9KXSa7Lx85M1RpMfKC52dggIW1FCWeCc0cm4
+	 7p5yVPg4dHCmEmcp8TWHXM6/Q+t4gtNrUDJ9JBUuE1sE7xGYPPgs4AbFN2wpakYuiuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cSh9vyw+;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42195606D820
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:33:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42195606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so2554483b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:33:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793885595; x=1794490395;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/xokk+mumoVo5RGwLyOL1H9rS08KX2wY6K+MTAP66tA=;
-        b=QCnt305cSjrq1qIgCPIDueMSrGSHJNFwMlKqLFgErMq34E0r7PZO/WRd4EJGx1aw6d
-         c8stwIHpXj4O2VW50/Q9Q6zCIhlunHBXdzfs+ZpS1TpaApkWajpoW0Lzk0n1CMu4sBmF
-         GPT+Lv/F9SySaOIAfvYHcRES3sWOudLWmhkfTH1owvoARELGtR/mdl/jsIXqrr9MBJ8u
-         kk1YQ9ANHzc4tP2cYfTAKnzi8Qfr99F9DvdkTMM+wiqX+1HtPX2QJFCKWIIVLTaoQBsW
-         nUaa/4ULvJ1I/sT8vH3LfswO/2c6VUFL/aQ9sYdZKd9YGl/lVBkpn4WVmfQuWkRrPSkP
-         T7Wg==
-X-Gm-Message-State: APuU4Z/zJfWMBevwRYQjr2uRMRSCVqTE2U3sMrzocDUIhsSK/Bt67ppV
-	F8R25pDlUAwTZWKKbwXTW647M4tkP/C4ROw6ceskeiFEWVD4wzkmCJTD89WgOBQOfhqGUi+X5zO
-	RL8RFG6/jgYKYElp09Nn8L9KHN/sPEuBg7G6TQa4OX+tE1bD1Khf6f6KZmIU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236B1606D81C;
+	Thu,  5 Nov 2026 13:33:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236B1606D81C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cSh9vyw+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793885591;
+	bh=a03maraQoPJPOSS4qJMpaXsYfopSi59sHbEBuBxkyzk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=cSh9vyw+/WrkTy1uo97nSXi1VvuoXyudRP6l6Z/AaK/86m541UeEIEIEQBrMKRO+t
+	 2vkmmOOQGRKd7IemcpLwLyOlfgLmeLWsANI3ECBN2QZa9EVoLJZpAiBsF7QpBRlFon
+	 NAB/nuA8Hl9FxEWWR5WNS45uGxqCMyOi6N6LFq9uiI361xU8LRfFmKFduqwfxcvgVI
+	 fOZ8YJqnUEjksY2j8wF/0I02j5uS+lejDHgDkZAPpo8+P66xmXYYbvSDQgzo/yWkmR
+	 65h/DnteNeTajg69LcoCtgqBfF5TjbgRuIgXn0kr4ooo4a8lDmIF67rOO+Gs0mdhgr
+	 qZxodJgy3s0bA==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A045417E0C7E;
+	Thu, 05 Nov 2026 14:33:11 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id F0241480047; Thu, 05 Nov 2026 14:33:10 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 05 Nov 2026 14:33:17 +0100
+Subject: [PATCH v9 9/9] PCI: dw-rockchip: Add system PM support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,83 +65,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6408:b0:4d6:9283:1df2 with SMTP id
- 5614622812f47-5640de79c53mr13450992b6e.61.1793885595128; Thu, 05 Nov 2026
- 05:33:15 -0800 (PST)
-Date: Thu, 05 Nov 2026 05:33:15 -0800
-In-Reply-To: <6aec6433.0ce67c00.35143.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aec859b.aca85a03.3b899.0012.GAE@google.com>
-Subject: Forwarded: [PATCH] RDMA/uverbs: Fix radix tree node leak in uapi_add_elm()
-From: syzbot <syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-rockchip-pcie-system-suspend-v9-9-a2e55846649e@collabora.com>
+References: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
+In-Reply-To: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>, 
+ Shawn Lin <shawn.lin@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, 
+ "Yury Norov (NVIDIA)" <yury.norov@gmail.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4897;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=a03maraQoPJPOSS4qJMpaXsYfopSi59sHbEBuBxkyzk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrshZYb3BOu/8nm682Cgw0Um/Z9FM/+aUhUI
+ i+U/8Y9YZ7A7okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7IWWAAoJENju1/PI
+ O/qaNlIP/jN7gAEqv+U8MZsvoZ7/YnCQh4mqb4bXxILeneRRBtNCcSx5iJ05lZ46+DEby+NFqJY
+ +iC8VKwwWhe9rLjW5XzG0Hfvmhu8k4tEfTLbI7zU8+Kgk9dXRfSSgzvDkLU+IsFjIfhu4DRKglg
+ tZMS3+eV1xehTQfttdAmVRYbIAYWvXYYRy020vKIyzLaI5dcN96h7v+sehedV3CGAWQduIxXO3f
+ p+mETp8NBs3Ljw++EdDa0PjBJ6EyUHEWd6x5GX/iZc887Pe0g+v5ShCplngVMPyNXdIHcqEAkb6
+ moTFhvCtGIVPxLUS9V4ysT3vQ0YAz1mzl1/3Dow/xSUU04SdGs0qw14uAC+CHoV7c7NxjbXyYvH
+ LwgxgmunC96tS8gaUB8NAY+lBdZxa6aMhVDuAywlJKvzXP7bw2KBtQ7f58P/mCBUv9B5o/LIQ0L
+ Uu4w4dJRT8TBfc8PtX6T650s4GOQA+MEwOveEw9+2hCSDjDJh47DgEPd9SAgavmE55Ey05gENtg
+ XEUEAP799/eNV/9eMHrKy+h7Z4/Q7zsebHr95WicGifChqTrL2Sf2s+wlTrQUXl5075H+qR/sTB
+ X+BVg/Z6T2I7nfEg3rBmwiP7unQ1+BSfFsuv9FaVaqn62A0zH+3QAFQaCo4PdmsYAitTzL7xGuZ
+ EGRWyKftN1Jm2xB1Zorkxcg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Add system PM support for Rockchip PCIe Designware Controllers.
 
-***
+I've tested this on the Rockchip RK3576 EVB1, the Radxa ROCK 4D
+and the ArmSom Sige5 boards.
 
-Subject: [PATCH] RDMA/uverbs: Fix radix tree node leak in uapi_add_elm()
-Author: kartikey406@gmail.com
+While I haven't experienced any issues, most of my tests have been done
+without any devices attached (i.e. default board without any extras), so
+there _might_ still be some problems. As system suspend does not work at
+all right now, I think it makes sense to get at least the basic
+configurations working as soon as possible as it will allow us to catch
+regressions by enabling system suspend in CI systems like KernelCI.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-
-
-syzbot reported a memory leak of radix_tree_node objects allocated
-while registering a siw device:
-
-  unreferenced object 0xffff88810d78f488 (size 576):
-    radix_tree_node_alloc+0x81/0x1a0 lib/radix-tree.c:276
-    radix_tree_insert+0x140/0x390 lib/radix-tree.c:712
-    uapi_add_elm+0x61/0x140 drivers/infiniband/core/uverbs_uapi.c:41
-    uverbs_alloc_api+0x85/0xc50 drivers/infiniband/core/uverbs_uapi.c:659
-    ib_uverbs_add_one+0x1b1/0x350 drivers/infiniband/core/uverbs_main.c:1196
-    ib_register_device+0x4fe/0x7f0 drivers/infiniband/core/device.c:1503
-    siw_newlink+0x36a/0x3f0 drivers/infiniband/sw/siw/siw_main.c:433
-
-radix_tree_insert() can fail with -ENOMEM after __radix_tree_create()
-has already linked intermediate nodes into the tree, leaving them with
-no entries. uapi_add_elm() frees the element on failure, but nothing
-frees these empty nodes: uverbs_destroy_api() only removes populated
-slots, and radix tree nodes are freed only as a side effect of
-deleting an entry. The nodes are therefore leaked when the uapi is
-destroyed.
-
-On -ENOMEM, populate the same key with a dummy entry and delete it
-again so that radix_tree_delete() reclaims the empty node chain.
-
-Reported-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d60be66dd00b4490fa96
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Co-developed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/infiniband/core/uverbs_uapi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c | 102 ++++++++++++++++++++++++++
+ 1 file changed, 102 insertions(+)
 
-diff --git a/drivers/infiniband/core/uverbs_uapi.c b/drivers/infiniband/core/uverbs_uapi.c
-index b67db3790f03..aa0c980ad1e8 100644
---- a/drivers/infiniband/core/uverbs_uapi.c
-+++ b/drivers/infiniband/core/uverbs_uapi.c
-@@ -17,6 +17,7 @@ static void *uapi_add_elm(struct uverbs_api *uapi, u32 key, size_t alloc_size)
- {
- 	void *elm;
- 	int rc;
-+	static void *dummy;
+diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+index a603475d4450..39faefaf568d 100644
+--- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
++++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+@@ -124,6 +124,7 @@ struct rockchip_pcie {
+ 	struct gpio_desc *rst_gpio;
+ 	struct regulator *vpcie3v3;
+ 	struct irq_domain *irq_domain;
++	u32 intx;
+ 	const struct rockchip_pcie_of_data *data;
+ 	bool supports_clkreq;
+ 	struct delayed_work trace_work;
+@@ -807,6 +808,7 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
  
- 	if (key == UVERBS_API_KEY_ERR)
- 		return ERR_PTR(-EOVERFLOW);
-@@ -27,6 +28,9 @@ static void *uapi_add_elm(struct uverbs_api *uapi, u32 key, size_t alloc_size)
- 	rc = radix_tree_insert(&uapi->radix, key, elm);
- 	if (rc) {
- 		kfree(elm);
-+		if (rc == -ENOMEM &&
-+                    !radix_tree_insert(&uapi->radix, key, &dummy))
-+			radix_tree_delete(&uapi->radix, key);
- 		return ERR_PTR(rc);
- 	}
+ 	pp = &rockchip->pci.pp;
+ 	pp->ops = &rockchip_pcie_host_ops;
++	pp->suspend_poweroff = true;
  
+ 	ret = dw_pcie_host_init(pp);
+ 	if (ret) {
+@@ -1030,6 +1032,100 @@ static int rockchip_pcie_rc_reset_root_port(struct pci_host_bridge *bridge,
+ 	return ret;
+ }
+ 
++static int rockchip_pcie_suspend(struct device *dev)
++{
++	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
++	struct dw_pcie *pci = &rockchip->pci;
++	int ret;
++
++	if (rockchip->data->mode == DW_PCIE_EP_TYPE)
++		return 0;
++
++	if (pci->suspended)
++		return 0;
++
++	ret = dw_pcie_suspend_noirq(pci);
++	if (ret)
++		return ret;
++
++	rockchip->intx = rockchip_pcie_readl_apb(rockchip, PCIE_CLIENT_INTR_MASK_LEGACY);
++	rockchip->intx &= PCIE_INTR_MASK;
++
++	gpiod_set_value_cansleep(rockchip->rst_gpio, 0);
++	rockchip_pcie_phy_deinit(rockchip);
++	clk_bulk_disable_unprepare(rockchip->clk_cnt, rockchip->clks);
++	reset_control_assert(rockchip->rst);
++	if (rockchip->vpcie3v3)
++		regulator_disable(rockchip->vpcie3v3);
++
++	return 0;
++}
++
++static int rockchip_pcie_resume(struct device *dev)
++{
++	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
++	struct dw_pcie *pci = &rockchip->pci;
++	int ret;
++
++	if (rockchip->data->mode == DW_PCIE_EP_TYPE)
++		return 0;
++
++	if (rockchip->vpcie3v3) {
++		ret = regulator_enable(rockchip->vpcie3v3);
++		if (ret) {
++			dev_err(dev, "regulator enable failed: %d\n", ret);
++			return ret;
++		}
++	}
++
++	ret = rockchip_pcie_phy_init(rockchip);
++	if (ret) {
++		dev_err(dev, "phy init failed: %d\n", ret);
++		goto err_disable_regulator;
++	}
++
++	ret = reset_control_deassert(rockchip->rst);
++	if (ret) {
++		dev_err(dev, "reset deassert failed: %d\n", ret);
++		goto err_deinit_phy;
++	}
++
++	ret = clk_bulk_prepare_enable(rockchip->clk_cnt, rockchip->clks);
++	if (ret) {
++		dev_err(dev, "clock init failed: %d\n", ret);
++		goto err_assert_reset;
++	}
++
++	rockchip_pcie_writel_apb(rockchip, FIELD_PREP_WM16(PCIE_INTR_MASK, rockchip->intx),
++				 PCIE_CLIENT_INTR_MASK_LEGACY);
++
++	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, 0);
++	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_RC);
++
++	ret = dw_pcie_resume_noirq(pci);
++	if (ret) {
++		dev_err(dev, "failed to resume: %d\n", ret);
++		goto err_reassert_rst;
++	}
++
++	rockchip_pcie_unmask_dll_interrupts(rockchip, false);
++
++	return 0;
++
++err_reassert_rst:
++	gpiod_set_value_cansleep(rockchip->rst_gpio, 0);
++	clk_bulk_disable_unprepare(rockchip->clk_cnt, rockchip->clks);
++err_assert_reset:
++	reset_control_assert(rockchip->rst);
++err_deinit_phy:
++	rockchip_pcie_phy_deinit(rockchip);
++err_disable_regulator:
++	if (rockchip->vpcie3v3)
++		regulator_disable(rockchip->vpcie3v3);
++
++	return ret;
++}
++
+ static const struct rockchip_pcie_of_data rockchip_pcie_rc_of_data_rk3568 = {
+ 	.mode = DW_PCIE_RC_TYPE,
+ };
+@@ -1060,11 +1156,17 @@ static const struct of_device_id rockchip_pcie_of_match[] = {
+ 	{},
+ };
+ 
++static const struct dev_pm_ops rockchip_pcie_pm_ops = {
++	NOIRQ_SYSTEM_SLEEP_PM_OPS(rockchip_pcie_suspend,
++				  rockchip_pcie_resume)
++};
++
+ static struct platform_driver rockchip_pcie_driver = {
+ 	.driver = {
+ 		.name	= "rockchip-dw-pcie",
+ 		.of_match_table = rockchip_pcie_of_match,
+ 		.suppress_bind_attrs = true,
++		.pm = &rockchip_pcie_pm_ops,
+ 	},
+ 	.probe = rockchip_pcie_probe,
+ };
+
 -- 
-2.43.0
+2.53.0
 
