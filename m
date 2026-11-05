@@ -1,80 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.185.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892453;
-	b=Svh6q+OGeTVaOPIkwORST8OswGHyUh+9UHxiyBFrjLmqk+G5EydAXZfIAr7n+9uKlZSv
-	 QyTzksgUKTBI/FYS2zALt1VNR9ac1VwbDHh44cHF4UdspP81EoPREg5PrijUkv+PVvSN5
-	 KqJ1c5nv2hnIUdtcffpv7bEWqvszfZ5cX6bGghaqFRnqzq1W3bY8meR+dQHvZnVCckZ2Z
-	 BxeR3B7CbBktiaU2WHz9MUk0tWUkTSYi1Y1UohyFi88crAQlL8ABrbJ/tSIc3q5etqZTg
-	 2Ny0qPvYiPke+eWcR9zRfK8C3bOPuxWsv5cJbYA5lqBk5dR4xLSVwe2tm0Stcmzm/dA==
+	t=1793892455;
+	b=P+No+URavwJXqxLgAALawXkX+Hk9Lcqh64YTWYBrtoX9ThWyerE5Ww+sockj3JqBu33a
+	 6FrYYO7aiM76ukgLR/EZ25oRU1ly8o9jPQYOsOpZcU0YemD/LrJH3FRq4bvsCCDthAls8
+	 HnFtNj1o6QJ5yHv+BkyEcwlYCCiS31UdirENBCdizBAcR9Cg4YkIDGaTFjV5imq3qJ2cx
+	 c13IFlqbrta+JCfvVDuVUE4GjbuJ0EHfOYb9xH2YeJvOBxf2aLl/3arCDTLR1cDp3dPRi
+	 WfgIsVLQPd2Jkvba5AIsiZLhSSvsLHO1qlgQSULbepEwLJdZChMPyxz1vYKPFQKEzEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892453;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=F25zbrRYQ8DfmWFmcox/lBxkdydxYVArfXbr72jFMJ4=;
-	b=hvAy3EmFcBpMIunptrj3sY54zFjAFocc6OkZ4Y3225BU6QyY2SgUwPs8zoI9LsH+IZF/
-	 Pt/4BVqBvTlJKx58d7ywCO+RjBepVhavd7moJopyJjZkmgoHUEV06bXesiSkXw4PZ1Lu1
-	 KAYBNIFtCKhQLwmMbVR6LKQMSpnjDCt1LpX3ZKNEpP7v051hltevIWctKToXQvgf7MZOJ
-	 xrwU9QDtF/8h7xD25NVSMCPPzTk4Brr5mjOvWX0kcgcGTvkWnVg1U/QmfSKLqylvKiqwo
-	 a3cUqrKV2peLChq58FpqsPbvL7Jp8kKz5Zp2sKl7rfHYvunrOUtdN50O2aesz2wQZiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892455;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=pbsocLyCu9Rmc4dh+QFJRSGvOQb5wt/oaKgO1G9gF5g=;
+	b=H7Y36h/UbMKbWlvrjkiBKvj9aTUUEL5ucSJVo8+mI/bEeOufYbBdQS/KSrI7KP91yuVS
+	 G8Dg088IZ8EnMK2hLl9jPaoyaV7s7///pdM2XdMqeNodbGpbfFwC6E8PVa/2PMvx32q0Y
+	 JBmqFmq94LT2cTJqSdRuY3xwsSM1GfGF7ilHJHFGobHp5rCoKd0O8N22KETLAlmjW8qdW
+	 KI+jrJljqn2H8yLao/bzuOsa832hpxIfvZpVa+Kfd+5S3dG8oKTvvAbjOAnwn/4H0IAyI
+	 v3RNKXWeclePS79vM/qvhUjSgSg0+J2fPQa8yoQ0UdOm9DhyFJgdEt4OYdXVikTzopA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=OiqEvvIA;
-	arc=none smtp.remote-ip=66.163.185.31
-Received: from sonic313-56.consmr.mail.ne1.yahoo.com (sonic313-56.consmr.mail.ne1.yahoo.com [66.163.185.31])
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b="KQK5LU/x";
+	arc=none smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1DA606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:27:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC1DA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7447F606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:27:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7447F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=OiqEvvIA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793892449; bh=F25zbrRYQ8DfmWFmcox/lBxkdydxYVArfXbr72jFMJ4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=OiqEvvIArU2s9y6QL9DhQomS2gtFi2lHpPe/LVO+Lf49ABGfA4ewXnxJMq3nSD2AmNvxYEQ6RpLzMtKvhSO5WHhorEx14J6jUpEfD5k6qzEXY0RHQ7aUKcGUqqYMYB1O0HCajWLYsbrXBHtoF8sA60UaFD8sv0EX+KYE6qMqwjBV2DQV8Rh2SnT3X1sv4ff0m3kH0TjZs74E9zGgg6LJ9hkSI1MJ3ADjjRwZDQKMoJ5G13Odd80IWcSHQnpkESYqZZ2kgm7ehrEzLE8OxJXx2SjKH8AF+WIwwtJanOBtKPb8pcPg8zJm0rbic0cktY2nbKXMvMQKd+EIM1g4CB8kIQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793892449; bh=02Paj9COAmDq8/NNdJC7OcDWLUscjr45yBqO6zmH0fw=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=oRIy52rYouS80bmELgWwePTdT3gGo0g6rvuRFQmdcs5/a2SzuZ64bIVPZ2S9pS6iwEBoBByFuOtBFwRd8D6LtJRJx0w5JPFNw5cHhTWN0+OsVZviaNK2TuQdjFxt+gHJc3CLEUQmT+2/SBnLepibyhfdBBo2naQcW6jBwPTAuklYdf07AAQXNeqSOQBnl9wgacZoy0U+hvtSCEic2802oABgh1cYgieErxxzO5CRC6GMZETZoizEGXQh1rC0TAD/gUrywHorGo7Ns3z2DHN5hMSVnxaRfnL8atnA+BlCEpNSAkYJ3hpL3Y/DqunwKD1NpeRrKdULzVmppY7rEwz3Tw==
-X-YMail-OSG: E.t3OUgVM1nzEL1C2tUlut1A0RXjkMqTqqDYPZdyoZBDdMc_V5DrWjn3vMb0_Fz
- itRasVl6n6xADHS7PHTrR7NuVnLQLqF4wV0rVOiTLMZ7huPDaHsoCvsfgNKG7R6Y6EMAshs6Ki3v
- ccQsFyt4Xwu2ZEjRQ4WEp26HIudD8h6W3mzH48mNDgTImNqqJlmbC2Opf_B2bjIDTR90z6cudua9
- 3ckHbhbtx3Y32bZD0Pr1XGhSgsIKZCmDOp4C.MA4M6uzG5cIJV9irmt1bsJsGCijTed590StpHzn
- eqUFQYQK2JV2X_PKstUpV3BR9DMt9yE72uZzB0hlyAHI4NRYTBm9le4g0EoOtNiN4v7_zHaXTxmV
- 2WyWxGAXWBqFj1VYKPCQHKxQfNeSqFrQztu3miI.9jtF5kH6l5b2kl2LntWIaD.aS89oPDTWbRU2
- cIbKbXIJk.yvZ8V5vuC2zlma5ilO7k4qOp8xeszqzPFLklQeAA_OsU1oiJ_0NymshyN3SERdwjbR
- hyc1yB0WsXkFLctnjePgxQYyhv27pg6wTQgEt8slWED2ChpgYyQnNYJ__rEZ6u9CXhmxatV167Tw
- pu3u.UH6LU8P0hyPTMTOnPu33aNid3fA_0AwmFM.CsgEzAPLd8k.RSE.xau8EntWEDIs06nS1gdr
- 38KLk7lp10YVo3AB0r_USPROf6KphEjzk03p6nhdi5VmTMo8rTdJ4LvEc8hZxVvJO.uxgspAsxDu
- DWmDbcsSltFAgBY83tXfHGvRhQkIRYzDqrEbrR1J0p4OVod5Q.PuPxbKWRtAhEeYt3bVy1Lsg4gj
- 6EZKjPQ8O3QRCSpx.__tkwHntVsmJ2JzTWtdvlE6xGOTwoy9xPnPKQfzjOtS8zBBbEsi4yP6dlYm
- C67iHUy7_U3_vHfMpRn6ZkpSDL_koRxfJKM_Y_KrvXoRWBGgr_S64KOlNX4M2dISNBH0Cdmc_NXk
- lXay_ahj2J04AdBWXtACoj_BAOi01BjYTeNK7SFqe7Ew7fhvbI3hCejs4K6UIbsWTgZk8knkm9XL
- P7gAtV6LgQdapvqRA8SL2knNN19HLDJtuPKJl5X3aGgeHUcmsNM3DM1w86Eoew2jzq3IuHFvBDtv
- MKISsbSNpzTPlQKw15AW5zQONYvQyg_QuaVUqyUyJB3z.XpUGtpLL0DQMtr0agELyaEw5d9D_tne
- zeFzbRsn1r2BxF1dZacs.ZreEDteuCm47A.heoBYxeAuzGxs1i58aHGgcShm2BSX_fZQzP.2DOIu
- SRJyZnsjXER0P0fa1ITzBKNrtVZ3cnwz0EdU0HQOKcMApv2mBgCZH1SISJfhR_VxqRV_KXGx_04L
- HAcq9l6Sfqu4vII_nT.qw3Y38DDDG7MbyxipiRSHHr8Iv2.CyC5b4Yp3HQ0Uwr0hGr2YtlKDjsrO
- _xvOnBsPsTn2oHd6jC_AJFhdXRKhWMrfalX2gP0AxYGYIyVEuZyDtY92uk7NQ72v7RlACmki2EDo
- U1oRfOS5MEnW94Mp4V4Yr0bl5.TmVlOflyMVvOupoZGn5axeDIWK8R8Q3JkyDzg_zmU4jSxPhFj8
- NM6DYMEljAXdQXHxztPQuePFz5SCY7WRxvO8R6EMcbT.gNigUD_he5JbmJ0ZTNxk4nLH.LtzGat_
- SAkCGOY8XR5mITEb1QgmT4cu11PQmbQNhF6VGvnOYqXWma_bKhsSJrJaOHWp_.MZQk7eWAwAX3c1
- etcxruNcFdgbnDji7wJtZk22vRW8uA4ERzT1HrYMlvHg4Lht_wwWImAs_gugUqJl0v0jRsZ8_6Vv
- EveBg9XGWRD_osH3gploItTaUjFcRUh8rbNi.DX5X_ckf4U8y3Pxo9HJKf6ic39qvjftxjbWs4HN
- DSP7MMHdrTTG1Uj8Fuph5gCqQiCX4JkEAv0X9WZT1W7PMrbgAeJDAA3FjRT6wusiuRyZHi1m3Ef2
- _ix1FoyTqeKPeV0oa7nxMy9X6Ug8D95sAN6fk44B09fC8Cc2M1M.dwRmeWy8jiABNKItcjmfJGCr
- 3a6Ep10jsHIeTVWRWR.f0eg7zLop7WgQotpREjzGNW_N6z5dDPRBua94xxEDXXF8tdRz9mTwSMaa
- 4TnemkmaQBViR.6U4cm.En6u3WShbHvPELltZhIhZ5GyuC8FbO97skXoSQ0HLZBkUgA1WRUoqUPz
- uOz8CZyQbVHIC0IRv75lozP8JExLeuVUMv6BPZ0NltgseLtt3ddkjlVsqOpd88QJDUhdPgs3nlHo
- .uh8jF_Z9cR0uEiutMhpYj3Hw7E1n.wULP3PzLfFSJA_frxrLTR64u6PjhRm.kFYaDpilKv0fE6f
- SoercykQgo4gj0kujDSgRmEjMwkTCxouT6FnXrwA-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: e0425162-394e-4926-9578-e60353190b5f
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic313.consmr.mail.ne1.yahoo.com with HTTP; Thu, 5 Nov 2026 15:27:29 +0000
-Received: by hermes--production-ir2-5dd9bf4598-z289g (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 8174fcee853681a34dc83a7ff3f9c0ff;
-          Thu, 05 Nov 2026 15:27:25 +0000 (UTC)
-Message-ID: <e66204e5-ac33-4a35-8d36-6f37372da97f@yahoo.com>
-Date: Thu, 5 Nov 2026 16:27:22 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=KQK5LU/x
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53381e53b80so20803621cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:27:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793892454; x=1794497254; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pbsocLyCu9Rmc4dh+QFJRSGvOQb5wt/oaKgO1G9gF5g=;
+        b=KQK5LU/x+9RemIJlJmNJfQXWDClHpcCB4smF2/Z013ksgNIE2GSzRwQWL7t/PN3NCP
+         JQBx5Tsm1WViOWMPWLoa71ExO5S9JECK0Xko1UCk8O3kluG5fD/5LTancgyxyMcMMHLG
+         MgvbY/KGZpFbWbH6Lbb/Ya+6YhHK601aDSRX+QihB+c0w5WDPQ1ReKTflS55CYfERIyZ
+         R0HIsfS3SeCPIdoYEdkEVjGC5yL0DD7g5SVNCTD2PDGqNK6g+XKRAarv7sJSLpgxTIkG
+         YKNtA66ZoOgEIoXTbe5wXRCWgc2zg3KitJ/2RhCLMLFRg0tTswBkUCviG5eiMFUNTKeH
+         JMSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892454; x=1794497254;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pbsocLyCu9Rmc4dh+QFJRSGvOQb5wt/oaKgO1G9gF5g=;
+        b=W3cOMyFO/VErTmJx9At9FeE60d9JzvBJZFAXo53Z119koMzIIpanWFj7WL6ny3T2Xx
+         zr+EXwU9D7L/8nctFRXccoVrvQUODmmavekB79ybdSdmiQ6kjvmXn0KSx+QrGpUrvy1d
+         Cb99udejKfpym1kR7zlSuw/ADPopqaquwSrCeOEv6FQtLd2t43jEoRJEjbZhuBLfNc06
+         Yvlr2D/o6n4GCVeCxQJI8bYIVZuFZEd4fguov05FQHsexZkKBmSDToraSXNpoF6aqvKr
+         ql2b7BGyNZiquaCP97M6xKDqHLZKAUyZvQ8VVSo+psUkqrMBqMO+5cuvc6l6FiFmYsmH
+         HETw==
+X-Forwarded-Encrypted: i=1; AKwUvBwu+15H28/hZcvcJUerDUtaYtSoulS5l2KptuaJLw47CqmnfSO3H2oC5ftYzTrIUfJo7LJTv/BFDidUwY0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sn6PzksS9xL4MjM1v08qZbwUsDys3fZLdsw1jB7sDInm+20mU
+	nav16ZOR9IpOVzh44Bht7mH/X6OnuIvMT/7F7t72BtJ8Xeal52enL/CMMCZzvY8o8eg=
+X-Gm-Gg: AYBFou31y69GwDu5rOZTJoAGxHUhqUPmjs0jADxK8WchG0PcVmcm1g08BciI0Og1v3X
+	LdhG5wQ6xujLB6bkQcLvqbIk9Lu3TlVeFPVoCaX0IXc7vj5b2VvIalsoszUV5kqbrGWGQgPj1cT
+	85S44WdFrR/jBtH2wfYRtMLcNHgbvX/v4MLS6NEfRuFw4oXOV4Ao+50XQbTUm6n52tHsCIuZq0o
+	3+8vl/+KfAIwJigpp/WjbXSMAt6Z0ZxxwF43H9U5W98uBCk1b4EJCIcO2Zpz91PmM/l5XE4lFG5
+	cdWILiPW6nB36dtnDY95KZMC3P4nDrD1GS/ZN4gh2vkImHM1Cn2SVV7HJFtRtEkTLlUEQA8OVMK
+	oGIw2aiVmjeA9tq8Y0lUKG4/s486lCh0TfvL4W56hSPVeuQV+k/W29oSj7ETB0PcY+qmuO9Gzrx
+	R0/UZb12lqBfbk5St87FyvfqNxjCu+MSdZWQ8F7Ry/1aucE/6wemWHhZzFQsYZEdo0lcSEq8z5v
+	zEtqQ7l4UbtByJDRh4FQiViSpM23+uhoXFwLBs7gjMLGA8HiGIY7p29MEagBMillMUykNk2Igj+
+	jguInbvH6o89nRcrbYiQOirclDFzbseerprWf0LKxJQ+9Hvang4SRhDt9Mk8dSelacg=
+X-Received: by 2002:a05:622a:1f10:b0:537:59b4:3338 with SMTP id d75a77b69052e-542b65931a6mr335957311cf.25.1793892454290;
+        Thu, 05 Nov 2026 07:27:34 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.250])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b100af507sm54208461cf.6.2026.11.05.07.27.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:27:33 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:03:06 +0000
+Subject: [PATCH RFC v3 74/90] net: give a cell without a network no sockets
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,79 +92,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 04/10] net: dsa: realtek: rtl8365mb: set RGMII
- mode for family D
-To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
- <2befac48-25eb-4c1b-9632-2f3237d68a3d@yahoo.com>
- <auskP2mSY4sCRa6x@analog.com>
- <82c96971-be5b-4c11-b20f-c4b074181515@yahoo.com>
- <aux1v3R-efbWF2GD@analog.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <aux1v3R-efbWF2GD@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-74-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890935; l=7967;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=27wHnLTXQNwpvpKsc5xrNHL8AKs/aDpCLvYXPRw6xys=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QN4edvDZLJ38j6ZZlJw8SqR/x4qkVV6HRcflJwWxhKmSLIhxpCrA54ubBo/fCXZqK+UetRMfRMd
+ FGBZElve8fAc=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Thu, Nov 05, 2026 at 01:39:53PM +0100, Alvin Šipraga wrote:
-> During your work on the D family, did you find that the vendor driver
-> is programming the same values?
->
-> One thing I'm wondering is: for the other C family chips, is some extra
-> RGMII TX delay being silently added by the jam table we already have?
-> [...]
+A cell whose "net" slot is left empty should have no network. So far it
+has a network namespace that nobody has set up, which is not the same
+thing. It is an empty network, and all the code that operates on one is
+within reach. The tasks can create sockets of every family and talk to
+rtnetlink and every other netlink family, although none of that is of any
+use to them. There is no equivalent of failfs for the network.
 
-I did not diff the vendor family D init table against the family C one,
-so I cannot say they are identical. I only know this register: our table
-writes 0x0090 to 0x13f9, which leaves the EXT1 RGMII TX delay field at
-2, and the vendor RGMII setup for EXT1 on family D clears that field. I
-do not know what the field does on family C.
+Refuse every socket except a unix socket for a task of such a cell. The
+error is EAFNOSUPPORT, which is what a kernel returns that was built
+without the family. The check is in __sock_create(), which socket(),
+socketpair() and the socket operation of io_uring all go through.
 
-> Anyway, if the jam table the vendor driver uses is indeed the same for
-> both families, maybe it's best to keep it explicit like you have
-> done.
+A socket that is handed to the cell works, and so do the sockets that
+accept() returns for it. Holding the socket is the authority to use it,
+and it is the only network that such a cell has.
 
-OK, I will keep it as it is.
+Holding the socket is not the authority to inspect the network that it
+belongs to, though. Many ioctls are about the network rather than the
+socket, and they work on any socket. Through a single socket of the host,
+a cell could list the devices of the host and their addresses. Refuse
+those ioctls with ENODEV, by number, before anything else looks at them.
+That covers every ioctl from SIOCADDRT upwards except SIOCOUTQNSD. The
+protocol private range can contain either kind, so it is refused as well.
 
-> Do you have a datasheet I can look at? I couldn't find one.
+The check looks at the cell of the caller, not at a mark on the network
+namespace. So it holds no matter which network namespace a socket belongs
+to.
 
-No, I do not have one either. Everything about family D comes from the
-vendor RTL8367D API.
+The decision is recorded once the seal has created the network namespace.
+If the seal fails before that point, the slot can still be filled. If it
+fails later and the builder then asks for the namespace with cell_open(),
+the decision is reverted.
 
-> I'm also a bit confused by what it means for MAC4 to "own" EXT1. Are we
-> talking about physical pin muxing [...] or is this internal muxing? And
-> since you say MAC4 is a UTP port, I don't understand how it can also be
-> associated with EXT1 [...].
+The network namespace still exists, because unix sockets need one. A
+single static namespace for all such cells would avoid creating and
+destroying a whole network namespace per cell. That requires moving the
+unix socket tables out of struct net and is left for later. It would make
+no difference from inside of the cell.
 
-I cannot answer that. "Owns" was my shorthand for the bit. All I have is
-this check in the vendor RGMII setup for port 7:
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ include/linux/cell.h   |  7 +++++++
+ kernel/cell/boundary.c | 19 +++++++++++++++++++
+ kernel/cell/internal.h |  1 +
+ kernel/cell/slots.c    |  9 +++++++++
+ net/socket.c           | 28 ++++++++++++++++++++++++++++
+ 5 files changed, 64 insertions(+)
 
-    /* Configure RGMII/MII mux to port 7 if UTP_PORT4 is not RGMII mode */
-    if ((retVal = rtl8367d_getAsicRegBit(RTL8367D_REG_TOP_CON0,
-            RTL8367D_MAC4_SEL_EXT1_OFFSET, &mux)) != RT_ERR_OK)
-        return retVal;
+diff --git a/include/linux/cell.h b/include/linux/cell.h
+index 0451055f74fc..b12e2f124769 100644
+--- a/include/linux/cell.h
++++ b/include/linux/cell.h
+@@ -249,6 +249,13 @@ bool cell_may_change_cgroup(struct cgroup *cgrp);
+ static inline bool cell_may_change_cgroup(struct cgroup *cgrp) { return true; }
+ #endif
+ 
++/* A cell without a network. */
++#ifdef CONFIG_CELLS
++bool cell_no_net(void);
++#else
++static inline bool cell_no_net(void) { return false; }
++#endif
++
+ /* A mount is idmapped for a cell. */
+ #ifdef CONFIG_CELLS
+ struct user_namespace *cell_idmap_userns(const struct file *file);
+diff --git a/kernel/cell/boundary.c b/kernel/cell/boundary.c
+index 3891dfe899f2..af67ef68d4a2 100644
+--- a/kernel/cell/boundary.c
++++ b/kernel/cell/boundary.c
+@@ -85,3 +85,22 @@ bool cell_may_change_cgroup(struct cgroup *cgrp)
+ {
+ 	return cell_may_migrate(current, cgrp);
+ }
++
++/**
++ * cell_no_net - is the caller in a cell that was built without a network?
++ *
++ * A cell whose "net" slot was left empty has no network. Its tasks make no
++ * socket but a unix socket, and learn nothing about a network through any socket.
++ * What they are handed works: a socket is the authority to use it.
++ *
++ * It goes by the cell of the caller and not by the network namespace it is in,
++ * so that it holds whatever that is.
++ *
++ * Return: true if so, false for a task of any other cell and of the host.
++ */
++bool cell_no_net(void)
++{
++	struct cell *cell = current_cell();
++
++	return cell && cell->no_net;
++}
+diff --git a/kernel/cell/internal.h b/kernel/cell/internal.h
+index c7a1895eadd4..4eafa19daa25 100644
+--- a/kernel/cell/internal.h
++++ b/kernel/cell/internal.h
+@@ -33,6 +33,7 @@ struct cell {
+ 	struct mnt_namespace	*mnt_ns;
+ 	struct pid_namespace	*pid_ns;
+ 	struct net		*net;
++	bool			no_net;		/* the slot was left empty */
+ 	struct cgroup		*budget;
+ 	u64			budget_id;
+ 	kuid_t			budget_uid;	/* who owned it before */
+diff --git a/kernel/cell/slots.c b/kernel/cell/slots.c
+index 75855f2ee020..2273d9ce733f 100644
+--- a/kernel/cell/slots.c
++++ b/kernel/cell/slots.c
+@@ -211,6 +211,7 @@ static int cell_seal(struct cell *cell)
+ 	struct nsproxy *nsproxy;
+ 	kuid_t root_uid;
+ 	kgid_t root_gid;
++	bool no_net;
+ 	int ret;
+ 
+ 	if (!cell->budget || !cell->mnt_ns)
+@@ -227,9 +228,15 @@ static int cell_seal(struct cell *cell)
+ 	ret = cell_make_pid_ns(cell);
+ 	if (ret)
+ 		return ret;
++	/* No network, see cell_no_net(). Unix sockets need a namespace to live in all the same. */
++	no_net = !cell->net;
+ 	ret = cell_make_net(cell);
+ 	if (ret)
+ 		return ret;
++	/* Only now. Had that failed, the slot would still be there to be filled. */
++	if (no_net)
++		cell->no_net = true;
++
+ 	cgroup_ns = cgroup_cell_ns(cell->user_ns, cell->budget);
+ 	if (IS_ERR(cgroup_ns))
+ 		return PTR_ERR(cgroup_ns);
+@@ -410,6 +417,8 @@ SYSCALL_DEFINE5(cell_open, int, cfd, unsigned int, what,
+ 			ret = cell_make_net(cell);
+ 			if (ret)
+ 				return ret;
++			/* A seal that failed may have made it. Whoever asks means to set it up. */
++			cell->no_net = false;
+ 			ns = &get_net(cell->net)->ns;
+ 		} else if (!strcmp(key, "pids")) {
+ 			ret = cell_make_pid_ns(cell);
+diff --git a/net/socket.c b/net/socket.c
+index 2e3b5737c481..c9659f7370ef 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -106,6 +106,7 @@
+ #include <linux/route.h>
+ #include <linux/termios.h>
+ #include <linux/sockios.h>
++#include <linux/cell.h>
+ #include <net/busy_poll.h>
+ #include <linux/errqueue.h>
+ #include <linux/ptp_clock_kernel.h>
+@@ -1352,6 +1353,22 @@ static long sock_do_ioctl(struct net *net, struct socket *sock,
+  *	what to do with it - that's up to the protocol still.
+  */
+ 
++/*
++ * Is @cmd about the network that a socket is in, its devices, addresses and
++ * routes, and not about the socket? Those are served for any socket, whatever
++ * its family, some of them by the family itself. From SIOCADDRT up that is all
++ * of them but one. What a protocol keeps to itself, SIOCPROTOPRIVATE, may be
++ * either, the counters of multicast routing are in there, so it counts.
++ */
++static bool sock_ioctl_about_net(unsigned int cmd)
++{
++	if (cmd >= SIOCIWFIRST && cmd <= SIOCIWLAST)
++		return true;
++	if (!is_socket_ioctl_cmd(cmd) || _IOC_NR(cmd) < _IOC_NR(SIOCADDRT))
++		return false;
++	return cmd != SIOCOUTQNSD;
++}
++
+ static long sock_ioctl(struct file *file, unsigned cmd, unsigned long arg)
+ {
+ 	const struct proto_ops  *ops;
+@@ -1361,6 +1378,10 @@ static long sock_ioctl(struct file *file, unsigned cmd, unsigned long arg)
+ 	int pid, err;
+ 	struct net *net;
+ 
++	/* There is no network, so there are no devices. */
++	if (sock_ioctl_about_net(cmd) && cell_no_net())
++		return -ENODEV;
++
+ 	sock = file->private_data;
+ 	ops = READ_ONCE(sock->ops);
+ 	sk = sock->sk;
+@@ -1620,6 +1641,10 @@ int __sock_create(struct net *net, int family, int type, int protocol,
+ 	if (type < 0 || type >= SOCK_MAX)
+ 		return -EINVAL;
+ 
++	/* As in a kernel that was built without the rest of them. */
++	if (!kern && family != PF_UNIX && cell_no_net())
++		return -EAFNOSUPPORT;
++
+ 	/* Compatibility.
+ 
+ 	   This uglymoron is moved from INET layer to here to avoid
+@@ -3642,6 +3667,9 @@ static long compat_sock_ioctl(struct file *file, unsigned int cmd,
+ 	struct sock *sk;
+ 	struct net *net;
+ 
++	if (sock_ioctl_about_net(cmd) && cell_no_net())
++		return -ENODEV;
++
+ 	sk = sock->sk;
+ 	net = sock_net(sk);
+ 
 
-I did not verify anything beyond it, so I do not know whether this is a
-physical or an internal mux.
+-- 
+2.55.0
 
-> Since MAC7_SEL_EXT1 is writable, I would guess that so is
-> MAC4_SEL_EXT1. Could we not instead keep it configurable, and do some
-> bookkeeping in the driver to see who has requested these pins? [...]
-
-The vendor code only reads MAC4_SEL_EXT1 in this path, and I have not
-verified that writing it is safe or what it does to UTP port 4. The
-driver has no code path that selects MAC4 for EXT1, so port 7 would be
-the only requester.
-
-I can implement the bookkeeping in v9, but I would need to know how you
-want the MAC4 side handled. Alternatively, I can read the bit once in
-rtl8365mb_setup() and refuse RGMII on port 7 when it is set.
-
-Kind regards,
-Mieczyslaw
