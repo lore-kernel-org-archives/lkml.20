@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793857434;
-	b=nJbUsjqZaUlV2/siLc3WiBQ1vbpolrNWHCEonZ6AAHQA29zceuu60qlIbimNcEnZMfD4
-	 w5pFMUIRChRbIrAmJdijQDpqjAdV0OMxQIH4ElWZB4O0KSPYy6ILFufMt7T+o0ZMABw14
-	 4TvxCs919Cd47u2xIOPiuhqFNbE5TCQKcZ7oMtf6Ck6hlsdvhVgIfd0RHJUiOPcJnVlPL
-	 jujh7uYurRyaNgoj2GQEtn16405uCXtrBARPPMgFjXA5MxU5RDNGw5kxD3cIiHGv+fV06
-	 iIER2wyU8hJbAAbPlDLjejmM9ElWFQ2gjDf5SkkEk2YM/rbDqZn5YW/FdbO2tW1IeBA==
+	t=1793857445;
+	b=dX++nuCIUGUfHkL5sfsgDUyplvZXeTrU6uAktdodS05CQXm8TEKLEMHBmX7g6XxgoRuH
+	 2LxPsgCT9DAH9EfNZ5ikDcEIjn9pv/BxqeZfkJxVXnDcYkgrdjnu6oDtjpONDfdBGPJby
+	 mPZSprwqHh2kLqfuMdqkKW4scBaC2k840JtPJwg3O5vj+iMCD0gJQPnECPca5rvyoGFIj
+	 e5sBT5Z2TLtXPeSexE9Funm+hi6+U00HV1haU4khypusIqpffh9FnpFoNgFUyxJ9EICRN
+	 Kpi9810jkJFyqx6A4sVnqcLqxcdLa2v2Lgr3EALi0tceM/haN46CY40J57fY8lMm4zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793857434;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=iQ0ks1fAdnbL9YniuLvzzH+q9/ADCHiEgeX/Tm8mGms=;
-	b=hxtinqvuY7edvhXCC1W1ma1pyDDYr6Rne5SrqtxiL9ZKjC3tp0G0N//nwUegkX6yP4jX
-	 Fyd+CKlZjM4Ni13ZMhNl6Q1c4UzNYP4r2VUfH2YoPhBQbVBkkHDDWeNVh68g4yrcJTnWb
-	 BVlXsD6jjQhPmQP3qmtTlJY6nzkbHHC56xwgSSmk48wn+32IDTX/5mckRrdYhyqr+byR1
-	 f5AZByrfhz6UNE0VF1JgxPpCh7OoFOyQozQRTzXouIYX8nLlDyDKma4jsT7kGD2fNA7Mu
-	 Jitq4WDrWMTQZbYkYmNNGcmVRy34zcTH7K8uj5yynvmd7XWWbK2Yy0w4j4aQxnaJpxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793857445;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=Ly0o2yvAJl0IsLAF+/wHkF0nVo3U/9omSFjEB7jyHsw=;
+	b=3Iq8/Vibw69QZJthRQYMHLWsw/RoKyKhGRy5K/hdYFXime/jK6nh7Xu4IqfNTZ+iTyy1
+	 zsqMsE3XmmhLb2Hvx33EPkpZFwPa0p1zzjiwqc2bmQ5ZvpR95xKzDalbsYEz+xi2GSJxg
+	 a9LfNQ2OUgNSiR8GgYebiHAvoomQzz9UVPPxmLWcGafDuFztiih3vcA+AX1QDkEXWcKed
+	 hw3NCdKI0qTNtGqrd6osWKVQ0HEezhftxeQiRNNV8PvtltthLLr1jGQkN2Lo/w1/OuaHq
+	 BaVmJ3tfa0HK9yShTszS+shlHh6EaUEqfo/ToSRw8eCJwbfqntyZh+tXBFR8qi0unnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 23FD4606A31B;
-	Thu,  5 Nov 2026 05:43:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23FD4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=iQ0ks1fAdnbL9YniuLvzzH+q9/ADCHiEge
-	X/Tm8mGms=; b=qE0fQE0Ct0YShgUUKh6do0FQMmjt/lx2+lNk2cI4fagp0cZhn0
-	o91XaSv3MzD6B3ImXlavMJthkn7bJPECV73G34T9KFmKu/tWGgXJyqO+wVTaI24R
-	q+hqYtXwQ/HT95R5CT3DQ5ujBiUiW/tTokd2YGyfbq5D5MPF7Ue/fpqVk=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.104])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkAGLAKFF+xqWxUpAQ--.51686S2;
-	Thu, 05 Nov 2026 13:43:34 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Michal Pecio <michal.pecio@gmail.com>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] usb: usbfs: Require claiming a hub interface for hub class requests
-Date: Thu,  5 Nov 2026 13:43:33 +0800
-Message-Id: <20261105054333.7811-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <82a746b7-4e87-4d46-88c3-bb881f11b8de@rowland.harvard.edu>
-References: <82a746b7-4e87-4d46-88c3-bb881f11b8de@rowland.harvard.edu>
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.69
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A4F606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:44:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74A4F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8468290b866so2175242a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:44:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793857443; x=1794462243;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ly0o2yvAJl0IsLAF+/wHkF0nVo3U/9omSFjEB7jyHsw=;
+        b=pkeNMMuJp57p3KUKoFgNR6CNo3L2Mt7/ZQhq693p+2/Zhp9QCcgFK/9pEcqzmBs3JR
+         D6AOKdEuuTs4JYniqyiekV3J4Ft+UybtHdZRf2NkwhWamGCHpW2fNsBxbBaFD7346gcC
+         YGlYkZJ7FJx7aQbP5aYBR98h8kWGT5JgETHQhtwsKJdp+sPfNW177o2J8vUMqgg8kFN9
+         7MQV/YyJCA270kaE8lulAsi9Kd+3D+q3yPZdS7FGoBgHerzn8N+0jH1XdhHDBgpH89D8
+         0BOtVywoE8Wa2zd1pYtojap3BUvzLaoaycZNP/avqMTJesBy12SfAe2rNpzxvDZLn/Hs
+         F0vA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFPtXnTNrJzKHfNqKmovaQsWJkBdVbtzJjityKXZXCVIwK/D26B3eyuE1mhl0EfM+2JB40JrNqefqXMPI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p7zUTFdIF13/Nyv4LjaqyqCIkbfw4JWraqRSowWmRgcbCAVES
+	htKPRRWrkO5tV4OM5kKZVUTITnx5u3eB3c7cYypena/YaPzjW7Op0g/7Ws905o8PT92NeEwjwB/
+	yDqAJSltvJVrgGUOxIR+ud2MOc03Iq70+xyV7nqWX3WgmI4yRnWvWYYRfRoQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,110 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkAGLAKFF+xqWxUpAQ--.51686S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXFy5Gw4UKF1kWFykCF18Grg_yoWrAF1fpF
-	ZIqFW2kryDGr1aywn3tayUua4rGwsxCa1jkFyrt345Cw45JrZ7Zry5K343WanrCFn3Ja4I
-	yrZ0gwnxu3yDGFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
-	15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5Qdb7UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUID2rrTMSRvQAAsl
+X-Received: by 2002:a05:6820:351a:10b0:6f5:b6a8:446b with SMTP id
+ 006d021491bc7-714f1f82ebemr7873410eaf.10.1793857443434; Wed, 04 Nov 2026
+ 21:44:03 -0800 (PST)
+Date: Wed, 04 Nov 2026 21:44:03 -0800
+In-Reply-To: <20261105033431.42266-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aec17a3.f31022ea.233d2f.0002.GAE@google.com>
+Subject: Re: [syzbot] [media?] [dri?] kernel BUG in sync_timeline_signal
+From: syzbot <syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-check_ctrlrecip() requires the matching interface to be claimed for
-requests addressed to an interface or an endpoint, but requests
-addressed to the device or to a port are passed through without any
-check.  For a hub that means userspace can send hub class requests
-through usbfs without claiming the hub interface, while the hub driver
-owns the ports.  Port requests use USB_RT_PORT, whose recipient is
-USB_RECIP_OTHER, and SetPortFeature(PORT_SUSPEND) is one of them.
+Hello,
 
-That is more than a policy question.  The request goes to the HCD, and
-it can run concurrently with userspace releasing the hub interface
-through USBDEVFS_DISCONNECT_CLAIM, which unbinds the hub driver and
-disconnects the devices behind it.  xhci_hcd tracks the device behind
-each port and issues stop endpoint commands for it in its port suspend
-path, and it ended up reading a freed xhci_virt_device.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Require interface 0 to be claimed for every non-GET request to a hub
-device.  A hub has a single interface, so hub-wide and port requests
-are covered by the same check.  Tools that manipulate ports of a hub
-under control of the hub driver now fail with -EBUSY unless they first
-disconnect the hub driver.
+Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Tested-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
 
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
+Tested on:
 
-Hi Alan,
+commit:         6628e7d4 Linux 7.4-rc1
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=15563cbe580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1d2c97eac7d33533
+dashboard link: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1246e455580000
 
-v2.  v1 was wrong: I required USB_RECIP_DEVICE, but port requests are
-sent as USB_RT_PORT, whose recipient is USB_RECIP_OTHER, and
-check_ctrlrecip() has no case for that recipient at all.  v1 would not
-have stopped the SET_FEATURE(PORT_SUSPEND) request this started from.
-The test is now on the direction only, which is what you asked for, and
-since a hub has a single interface, hub-wide and port requests both end
-up checking interface 0.
-
-To your question: yes, that is exactly the sequence - one thread sends
-SET_FEATURE(PORT_SUSPEND) to the root hub without claiming interface 0,
-and another one releases the hub interface through usbfs.  Once a claim
-is required, the request either fails with -EBUSY while the hub driver
-is bound, or the claim itself is what unbinds the driver and disconnects
-the children, after which the port has no slot left to suspend.
-
-One thing to decide before this goes anywhere: tools that power-cycle
-ports by sending SET_FEATURE(PORT_POWER) to a hub they have not claimed
-(uhubctl is the usual one) will now get -EBUSY from checkintf(), because
-the hub driver owns interface 0.  Do you want an exception while
-privileges have not been dropped, or is losing that use case the point?
-
-Whether this should be marked for stable is your call.  The missing
-check goes back to the initial git import (1da177e4c3f4) and the ioctl
-that can race with it arrived with 0837e7e5270b, so I did not add a
-Fixes: tag; I also left out Cc: stable because this changes behaviour
-for userspace.  The stable candidate is the xhci_hcd fix in the other
-thread.  If you would rather see this backported, tell me which commit
-you want named and I will resend with the tags.
-
-YuanZhe
-
- drivers/usb/core/devio.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
-index 486ced74405e..943f0f7f6b64 100644
---- a/drivers/usb/core/devio.c
-+++ b/drivers/usb/core/devio.c
-@@ -891,6 +891,19 @@ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
- 	if (USB_TYPE_VENDOR == (USB_TYPE_MASK & requesttype))
- 		return 0;
- 
-+	/*
-+	 * A hub driver owns the ports and the devices behind them.  Letting
-+	 * userspace change port state behind its back, for example with a
-+	 * SET_FEATURE(PORT_SUSPEND) request while the hub interface is being
-+	 * released, is not safe: the request is passed down to the HCD, which
-+	 * may walk per-device state that is being torn down at the same time.
-+	 * Port requests use USB_RECIP_OTHER and hub-wide ones USB_RECIP_DEVICE,
-+	 * and a hub has a single interface, so check interface 0 for both.
-+	 */
-+	if (ps->dev->descriptor.bDeviceClass == USB_CLASS_HUB &&
-+	    (requesttype & USB_DIR_IN) == 0)
-+		return checkintf(ps, 0);
-+
- 	/*
- 	 * check for the special corner case 'get_device_id' in the printer
- 	 * class specification, which we always want to allow as it is used
--- 
-2.34.1
-
+Note: testing is done by a robot and is best-effort only.
