@@ -1,94 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879103;
-	b=Faj74q/k4GNODhp6VSvU998QnSF9aIT65P5zkrUDbcikijiOu0pHHTcOB/3tB2+44hGZ
-	 A7yeDFxTzjHVMtFcNWflg2fLgIHZkLKneBQ6hswSjvSUefaU3qzQw5Z0jWaD3OTC1u4TX
-	 lcnmLEkNMHbxly9iun6ypEGFcb7GmFjYROnomLqr4/3tFEvu4FlyXIas64SkvONNyvkDo
-	 xHlPLPJieq8ZQKUqfP84BW8qyRRyXIwYlS9amjBB28cnqH1wEByhB4fTXImP3wF4ERiEV
-	 SKoZrAV6JsA9QLk83j9877Ez6w0OZ+AjSU5B1549gXtmb8SHUYk3JBTlGAv8pv4cs4w==
+	t=1793879121;
+	b=MZpmWJP4VNdnTmy/bIK0JmGdC62pbb7LhA86xyj/Vfqlcd60Uudog9Yf4AoXM+rhMB8+
+	 l7wMXFsGgnlQlQELzIoT9N3DCRpB9WcC7KaJoVvcFnk7B/pwAnhuPvpPfg+3qAXjJfUK+
+	 LqDe/n2z8rozVat/m3D6CZpIow9JdCn3s4l53LAUrKry0RBpEv3Sj70ItGnOjx7tFym0P
+	 DIJOnmTHAkVGpWd6M//LeABmPbZjSodx1/DwD1T/suetObG6LoI2P2iOSPejoQ/ZyxLjQ
+	 M4jkVKXgrTgt2GH59EYEXQ1GyBBRlcSdSFDpLszOh2y8hLfCbpncyqkjHT3Lyt8gg7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879121;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HUzBUAOyVMMNnWBATop3PHNYHsyg1DIgGmHpxUSzv7E=;
-	b=dyqerhkSvD/ERqJsCKqrjrVE/RSooXkuljsRwM+CUk0HPfHPcXS4RSB1+SLCtFHh9RPB
-	 WmgPt8TeQdh1UYbSXxooZ8trOoF8uLYGTaNRAmFp6bkbSm3cTDZjgwXoKWTYlHkJMoqus
-	 BtF3wwHbLkG1PBdcwJuNWcKiVNpL69YUOepBwCWUFAAhJ7zzHmtAp1XBKcCcENcIx6C1c
-	 Gk1GKBCGe2ryzB6h90+/8XsrcVxPuKSCokzEObIc0JMt4ACJ+uJ2faK8RUNM6hVwjrFwn
-	 wQnVKEzol5CEykzmH8dto/Uw4I7SkgPSwyd67vROOueywjj0oxsIAltWoCw4TH0hp5A==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=wkXcoerwl72ld/nPiXesFgETWpZwTzTrpPsVrFQKphs=;
+	b=3bOEMexwqGa1MeOl2gR6JCbGnKorimxR/HZtgSJgHFMUzfAokn9kqwFoqL4HYNhsqNNa
+	 VHRtwdie3In6rZNPE3wj2tm0bsPkPir05eOLXBkdTNP81Ndy0W9KZx+st0pIx9gTuZ17R
+	 gLBNaItFPeee6dDvgJeyhAkq/pX2TpNCAYytlbvujh3vXHXzt7UHRPjgD2jCh3DaZQrdg
+	 Dkf6y02TAknO3sQZLKzquKM4C1bgB6G+iEElNXoZOxZDVm/wF6OFrbMDih80NVl881ljR
+	 EPYMvsGvv7imShtUw7MfvxFz4WmwewsUj17ZRIvWmznnrVKTNxOvteoaVJmW/JcpGbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J+JMGahA;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=C79oBavf;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CF8606D80F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58CF8606D80F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCA1606EE9A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BCA1606EE9A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J+JMGahA
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a2af4c8d00so526157c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=C79oBavf
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e4831c028so1602725f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793879102; x=1794483902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HUzBUAOyVMMNnWBATop3PHNYHsyg1DIgGmHpxUSzv7E=;
-        b=J+JMGahAN0kpCtU8BOpFVZOiphJHBbi4LTbwrWNz3R08QrZ6uEAhQMmm17g41uhZ+8
-         gYq0gt3Js8MMiPOnN99HbkGAi/k9E8FHgaW+Z1Ewjw0tobWJn3PY63j3pNfiv8UQlGu0
-         e0/6QR6QkPWxVDBu0XR+cWX4MWj0VhtjzkQUz/K1FhKdgx2WGN6kXWPLHrPY9KASQD8v
-         /w/PQ8n7pt/2oe8MHbtIQL3vAZbx+VEPreR4qL2sK8UwulcP2Ytx373NO5zZOD5dGd23
-         1b5rBGC8vOkpMlezwaG2Xx6i3VsZIHWbyGKpLab4XV3qoV06mDzYObVuMwMF8RwEXHub
-         OTBw==
+        d=linaro.org; s=google; t=1793879119; x=1794483919; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wkXcoerwl72ld/nPiXesFgETWpZwTzTrpPsVrFQKphs=;
+        b=C79oBavfJTQ96/SeVgPtQrB4HRfRcODb+0y2si6NV53CzbOeTC2AdFCUJ+tfZbL9x6
+         p6DVB0STsUxd/IR2HoV05cSPgdXc+1DyodbAuHzCQDDp+9kRfXdbZpvKRea+xm0cio8e
+         Pkkm5ABHvSQ2sgLyKXKWXYJT/nw7rPG3yUDUoJvWcpCv0okIKTDg/UJClh9PZVKSbqmD
+         M8uj03DlpEYLavf4IITIfKq+D3lkXjM+AfumBNThJVARxHJHjBwc27hnBOd1tJdpG8Fb
+         M4lqwcJli1qeW3CDJAF7g8ZQAqX6UGMf8Y3t505NnhKVsdsAw1v5YYTlWMCEnUQbTuw3
+         BRKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793879102; x=1794483902;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HUzBUAOyVMMNnWBATop3PHNYHsyg1DIgGmHpxUSzv7E=;
-        b=0mlo7xRCllzlW8RJE3txBwaKX2aC69YFB/n69UF7+mwlIxdVoGiyfC0iRhGHDGroxx
-         iV8iUvQnu17PBtbf4I9isvCLi1AEt3zhgoeXqWWWEijID4w7a7QUirA5J9KudoSbb4fH
-         hw0wUkQMLbH0sNKB+LpGav++UiBuS7Rt+ONU6V3pGJI9fey4kozdL5QqZTSxITMfWm3y
-         usgfkvjF9IZTb/TgtGp4ugvnO/Svi8Vn+Xg+ZOzHXhTGukwfE4G28HIVhXpkNhSsfDDS
-         lZIZUQZuaf/uMy5xZ23tYVJOEDVMZDoVKXIzkUiaGHGLjhOsKVBDYXFTf2wMjmv0WvXv
-         ZC6w==
-X-Forwarded-Encrypted: i=1; AKwUvBw9jd4X5NE1lqBIkqW/4lzYXDZEPw+TUbLboeBp1ckcb95sEqyQI9pGBnjkZFE6Q8FRvHgodIeX2UVl/T4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9e2f3rBV40h0z6O7nH454WyWSKYd+zjT9/GOOUmSU7aViaKVcj
-	ZHqjiUOaVvH8ujoBOH8yIn3FeXMT0IvhyvVb1EsPa1G/Nf9m4yLUDDJL
-X-Gm-Gg: AYBFou2U1SV2iGnNBPvEoxmRvDAXn/DnFTA9QqEJQtdYJ+WkycQfsuhORR6F1XkVWAf
-	3hXIAJWOU9Juipv5YCN1iDfysM9ath0hE7b+4I2tmI2BLMuG108roskE3I41gwKev+hSqH3Wqla
-	NRwsksqOIxieGnRiKGX75ujsC5NgDZQkcdyTzzMVNMjkU3Nnbjx8SGFQXa8Ixuw+0sM+voNOqBR
-	BS937cm4Km6fXd8DBRd5ktj71zQXLqoqFcL3P5NO9hiLLTkMNwX2iIvo/S+YlaNzVNOCSBsUOx1
-	tH0N9OL3DMDb89O8+p/PISM7IW0uabVKxTN3m36DqaOLaycvcQc/ssokhDXaEY513WphyPmZpJg
-	Dqwcpk0S/tGVni9Stb6+rIohS79KjdSNrhfXYT/bUc354Dc7G1Fu0xN6bRKZf8TaqxO4tHp0/Au
-	/4a5hMDgYew0tOVVCd6itWAyikN1Yjj55krZAoOcoaEfZrUOg/NBwcWI1gaz8KlYV8UoNY2y1BO
-	s4Nbl/Qr6ujbiJb9X4MIh6y/V4nqN/G1eM3di6kUEZdO+HQRQiZ8cJTf1Qo5lKnel7GOZbK8jEa
-	Esn7ZzUSgZY7qWtUY4I5QMKYKSaaX+4yfiStlA8X5tqZ06cuWfcwov0hwICGq8chGaact0EBA0D
-	fd19CFF3dqA==
-X-Received: by 2002:a05:7022:120b:b0:151:5d01:9316 with SMTP id a92af1059eb24-1ac5ac4f406mr25397405c88.23.1793879102040;
-        Thu, 05 Nov 2026 03:45:02 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245ac2f44sm16650061c88.0.2026.11.05.03.44.59
+        d=1e100.net; s=20260707; t=1793879119; x=1794483919;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wkXcoerwl72ld/nPiXesFgETWpZwTzTrpPsVrFQKphs=;
+        b=mXqRyU8hoTZ8IEyZLrMEHYeXEGKsaGSAo2z9KrTZLZT9znShQJEa88s5T7W84rXQkG
+         Xo4jLCOQK5eudFQqYJAcA2qKhX33aR8imvRjKzMrVNuVxyUt6n8u8S0U3/t3yWha5QCC
+         60+sXotQnqvMCyzWWm0fkga8BHUNOdFFTtxapURTcoWmvckMhCHuMZaSTgwuJpmzulpG
+         i4q0sbk3uDGBQqcs3jsyem3OK98yEcHNXOE04tk5yCB8/DOTXz9/dO6ngEvOuUnKmvk6
+         u77nOrdWYlr2DAVuTfI5Fkfvv8MfbFqdPNuOSGePzQOcfH78eQNn+WeXKZTeyG928NvK
+         6qRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEAUD38e40AhHM/wf3zrWkovnMcCX9ldhb0NUfrOt0589ta/dii4MCM7mADR3pxUjhiGe2x5IrpXCtQ9c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/IsCZcLvcMju0bUm+idDK/2+vyngFCCrv5ylgSeMpN9tq/7yiT
+	Kw6YesUfMLLogcJgcjZKhK8GVgK/ADep/vXuLVwGxqN/PGQ5Nf3ZH8rLyZvZGLENrrQ=
+X-Gm-Gg: AYBFou1oqEUObnnT7PYtmKKg1iurXsMU0WbcAgZlLO4RgHV4PjxSIEwPgzcJtmzg3Az
+	7xfmTFVqtIQK6vnCrS5W2jiLE2y5aja6qy/lurOxGMqEBX01fs6ZmIpqrRKM7vb32TGJnXUu1Rw
+	9Z2Nf2QYMUSul9bakf9vBceYaiSGb7jFfjmlajr7kn48T7lWuWKjqpnYr/8W6hIKQaGcgSuB5NC
+	IzRga8vt5DU/L+FpZy9FNTNeWkjVWjZvh5wHNVV4+R+g6ByNRdYeg2qCCKKwWQKvIVwhD7mrPpW
+	58Cvshf9rvqTp0B5fDo+nOC81JEmT1IJlJsqDuke6In67QF0k5GFUl0qzMwvfGZepketzn5E96g
+	BzK9j5Gjd3oFa1lYrLkb3JQsydCgrZmMukp6vP73uObQ/hqn5abu3xoh81K78Tk+6/yvc/xdj82
+	sd9JNjaDyyjpLvUH3Ul/Qo5gC2aiPEAYm0gZdajBFTptZeNLDTuoP7UJ8nhOPSTXpKISRAsgUtd
+	W5PyK7MIPQg4SNDir4eLJINNqsfY0+7jubcFmiCaFFrpFx1bPzDxhh+EEWFV7aaNzuZRquqIpQn
+	RAuxvJxJPOLcrWn1YJ8qPBywNksm79Zp
+X-Received: by 2002:a05:600c:19d2:b0:4a4:4d57:8487 with SMTP id 5b1f17b1804b1-4ac1737c51dmr404872225e9.5.1793879118947;
+        Thu, 05 Nov 2026 03:45:18 -0800 (PST)
+Received: from pop-os.local ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:45:01 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: amit@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org
-Cc: rusty@rustcorp.com.au,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] virtio_console: defer HVC polling out of the virtqueue callback
-Date: Thu,  5 Nov 2026 19:44:50 +0800
-Message-Id: <20261105114450.971521-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 05 Nov 2026 03:45:18 -0800 (PST)
+From: James Clark <james.clark@linaro.org>
+Subject: [PATCH v4 00/19] perf cs-etm: Per-thread mode fixes and snapshot
+ wrap support
+Date: Thu, 05 Nov 2026 11:44:48 +0000
+Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,91 +92,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADFs7GoC/43QzUrEMBSG4VspWZvhJG36M4jMfYiUJD2ZRm0yJ
+ pmiDHPvpi2I4qbLcxbPC9+NRAwWIzkWNxJwttF6l4/qoSB6lO6M1A75Jhx4DTUI+ionjFRHenX
+ Gh0mmhAO9YKBpDCgHauwnFYANL6VsDCDJ0iVgfq+V55d8jzYmH77W6MyW7+a3jO3yZ0aBdiBqU
+ bLWCNOe3q2TwR98OJMlMPNfKN+J8owC6MoM0ABT1T+0/EEZA74PLTM6KK1A85apTv1B79s2AT+
+ uefi0DUSyGuU6/LF4XGtQwgKbXsce09RnuXfe9Um+odsaTc07JbhUUDUnGaaD9tNTLty/AUgmt
+ L7iAQAA
+X-Change-ID: 20260605-james-cs-unformatted-per-thread-fix-50e723aa7f0e
+To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>, 
+ linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arnaldo Carvalho de Melo <acme@redhat.com>, linux-doc@vger.kernel.org, 
+ James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
+X-Mailer: b4 0.15.2
 
-The input virtqueue callback calls hvc_poll() on port->cons.hvc
-without any synchronization against HVC adapter removal.  A port
-removed via a VIRTIO_CONSOLE_PORT_REMOVE control message runs
-unplug_port() -> hvc_remove(), which drops the adapter's last
-tty_port reference and frees it, while the callback may still be
-about to dereference the freed adapter:
+This series depends on:
+https://lore.kernel.org/linux-perf-users/20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com/
 
-    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
-    BUG: KASAN: slab-use-after-free in __hvc_poll
+Fix a few issues with per-thread mode:
+  - On nVHE, everything looks like guest trace instead of host
+  - Tracing multiple threads didn't really work
 
-Both sides hold only the port kref; nothing protects
-struct hvc_struct between the callback's pointer read and its use.
+After adding a tests for those, it turns out there were some snapshot
+bugs not picked up by the other snapshot tests. That showed that the
+different snapshot searches for Intel BTS and Arm SPE were inconsistent
+and I think all tracers can benefit from using the same pointer fixup
+logic, so that gets refactored into the common auxtrace.c. Then SPE can
+just share the Intel BTS search as it was obviously copied from it
+originally. IntelPT keeps the more advanced duplicate data search, but
+in the future that could probably be made the common one and all tracers
+would benefit from using it (except maybe BTS if it always has a very
+small buffer, but I doubt the overhead of the duplicate search would be
+an issue). For now this is more of a refactor rather than behavioral
+change so don't do that yet.
 
-Do not touch the adapter from hard IRQ context at all.  Only wake
-the HVC worker with hvc_kick(): khvcd polls registered adapters
-while holding hvc_structs_mutex, which also serializes
-hvc_port_destruct() before it removes the adapter from the list
-and frees it, so the worker can never poll a removed adapter.  The
-callback now only reads the adapter pointer value (never
-dereferences it) to decide whether to kick; a stale value can cause
-at most a harmless extra kick.  The IS_ERR_OR_NULL() check also
-avoids waking the worker for a port whose hvc_alloc() failed.
-
-The price is one extra scheduling latency for console input
-delivery.  A 64-byte echo benchmark over a virtio console port
-shows no significant difference (RTT p50 0.089 ms vs 0.083 ms,
-855 vs 767 msg/s).
-
-The race and the fix were verified with an injection-assisted QEMU
-setup: stalling the callback between the waitqueue wakeup and the
-adapter access while a QMP device_del removes the port produces six
-slab-use-after-free reports per run on the unpatched kernel and
-zero reports with this change.
-
-This issue was investigated and the fix was developed with AI
-assistance (ZCode/GLM-4).
-
-Fixes: 203baab8ba319 ("virtio: console: Introduce function to hand off data from host to readers")
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+Signed-off-by: James Clark <james.clark@linaro.org>
 ---
+Changes in v4:
+- Change test snapshot size to 128K for 64K machines
+- Put patchset depencency in cover letter text
+- Link to v3: https://patch.msgid.link/20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org
 
-Changes since v1:
-- v1 protected the in-flight hvc_poll() call with an RCU read-side
-  critical section and published a NULL adapter before removal.  This
-  version drops the RCU scheme entirely: the virtqueue callback no
-  longer touches the HVC adapter at all and only wakes the HVC worker,
-  which polls adapters under hvc_structs_mutex - the same mutex that
-  serializes adapter destruction - so it can never poll a removed
-  adapter, and the unplug side needs no change.
-- Verified with an injection-assisted A/B run at the same stall point
-  (in_intr+0x18b, between the waitqueue wakeup and the adapter
-  access): the unpatched kernel reports six slab-use-after-frees per
-  run, this patch reports none.  Round-trip latency and throughput on
-  a console port are unchanged (p50 0.089 ms vs 0.083 ms).
-- resize_console() and the control-message HVC accesses remain out of
-  scope, as in v1.
-v1: https://lore.kernel.org/r/179378553951.72222.12851179500568566393@gmail.com/
+Changes in v3:
+- Keep the find_snapshot() callback instead of adding
+  snapshot_has_wrapped() and monotonic_snapshot_head boolean (Adrian)
+- Add auxtrace_record__default_find_snapshot() for the simple search for
+  BTS and SPE (Adrian)
+- Add auxtrace_record__snapshot_fixup() for any snapshot search
+  implementation to use to update the pointers (Adrian)
+- Reword UINT64_MAX timestamp comment (Leo)
+- Fix disassembly test after rebasing onto exception sample fixes
+- Only take 'perf_guest' into account if there is no PIDFMT_CTXTID2
+- Improve decoding of old files by hard coding queue 0 for per-thread
+- Link to v2: https://patch.msgid.link/20260821-james-cs-unformatted-per-thread-fix-v2-0-00c4fd0701b4@linaro.org
 
- drivers/char/virtio_console.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Changes in v2:
+- Remove stale "may be reset to -1 in per-thread mode" comment
+- Set CPU when queueing auxtrace fragments otherwise
+  auxtrace_queues__add_event() overwrites the queue's CPU
+- Link to v1: https://patch.msgid.link/20260811-james-cs-unformatted-per-thread-fix-v1-0-90565318f5f8@linaro.org
 
-diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
-index 019bcae81af5c..c5b3a6c0ff3d7 100644
---- a/drivers/char/virtio_console.c
-+++ b/drivers/char/virtio_console.c
-@@ -1820,7 +1820,14 @@ static void in_intr(struct virtqueue *vq)
- 
- 	wake_up_interruptible(&port->waitqueue);
- 
--	if (is_console_port(port) && hvc_poll(port->cons.hvc))
-+	/*
-+	 * Leave HVC polling to the khvcd thread: it walks its adapter list
-+	 * under hvc_structs_mutex, which also serializes adapter
-+	 * destruction, so it cannot poll a removed adapter.  Do not touch
-+	 * the adapter here: hvc_remove() can free it concurrently during
-+	 * port unplug and this callback holds no reference to it.
-+	 */
-+	if (!IS_ERR_OR_NULL(READ_ONCE(port->cons.hvc)))
- 		hvc_kick();
- 
- 	kref_put(&port->kref, remove_port);
+---
+James Clark (19):
+      perf cs-etm: Fix nVHE per-thread decoding
+      perf cs-etm: Warn for invalid timestamp option
+      perf cs-etm: Turn on context packet timestamps in per-thread mode
+      perf cs-etm: Use per-CPU queues for per-thread mode
+      perf test: cs-etm: Increase window size in disassembly test
+      perf cs-etm: Don't drop previous target for kernel samples
+      perf python: Expose sample instruction length
+      perf cs-etm: Use instruction length in disassembly script
+      perf cs-etm: Increase default timestamp generation period
+      perf auxtrace: Turn Intel BTS snapshot search into a generic one
+      perf arm-spe: Use generic snapshot search
+      perf auxtrace: intel-pt: Use common snapshot pointer fixup
+      perf cs-etm: Queue partial AUX records
+      perf cs-etm: Don't print missing buffers in snapshot mode
+      perf auxtrace: cs-etm: Capture wrapped snapshots
+      perf test: Allow infinite named_thread loops
+      perf test: cs-etm: Add test for per-thread mode
+      perf test: cs-etm: Test multiple per-thread threads
+      perf test: cs-etm: Increase snapshot size
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.34.1
+ tools/perf/Documentation/perf-test.txt             |   2 +-
+ tools/perf/arch/arm/util/cs-etm.c                  |  34 ++++-
+ tools/perf/arch/arm64/util/arm-spe.c               | 147 +--------------------
+ tools/perf/arch/x86/util/intel-bts.c               | 115 +---------------
+ tools/perf/arch/x86/util/intel-pt.c                |  21 +--
+ tools/perf/python/arm-cs-trace-disasm.py           |  22 +--
+ tools/perf/python/perf.pyi                         |   1 +
+ .../perf/tests/shell/coresight/per-thread-multi.sh |  76 +++++++++++
+ tools/perf/tests/shell/coresight/per-thread.sh     |  48 +++++++
+ .../perf/tests/shell/coresight/raw_dump_stress.sh  |   5 -
+ .../shell/coresight/test_arm_coresight_disasm.sh   |   8 +-
+ tools/perf/tests/workloads/named_threads.c         |   7 +-
+ tools/perf/util/auxtrace.c                         | 145 +++++++++++++++++++-
+ tools/perf/util/auxtrace.h                         |  18 +++
+ tools/perf/util/cs-etm.c                           | 113 +++++++++++-----
+ tools/perf/util/python.c                           |   1 +
+ 16 files changed, 420 insertions(+), 343 deletions(-)
+---
+base-commit: 28ef93607ad52acc8f8be25199711153ba11a0c2
+change-id: 20260605-james-cs-unformatted-per-thread-fix-50e723aa7f0e
+prerequisite-message-id: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
+prerequisite-patch-id: 4ef889ad751e344ae47c1d75a2a2e6cb2eadf6e1
+prerequisite-patch-id: 636b39730334cbc5a76642c070e704ffe178e7be
+prerequisite-patch-id: fb58f6daebdf5a194f8aa56ccc4022f932a5a6e5
+prerequisite-patch-id: d240c10c6824f8ae6c3f10a1da01226a957f05fb
+prerequisite-patch-id: 17b291db261e32dcb0d6f1ab2ed0adb7e0411813
+prerequisite-patch-id: 45ae1d523c9e5c8c573309f1dab107a598f3d4f8
+prerequisite-patch-id: 39a3eb25b3a45f4481760c25fa270773bcfd94f5
+prerequisite-patch-id: 5723a15636c2a28ec40eb6b5c9836d162e971786
+prerequisite-patch-id: d18054b586fc38bc832ead185e8c1fbb0ce46f39
+prerequisite-patch-id: 6735b192189d7945613458abce3da871cb79b35d
+prerequisite-patch-id: 387cb2c6181bef8f45a8fb167e8ef86e4a54ff69
+prerequisite-patch-id: 50243a8d1739141aa24aa371a8452d4d2d078a99
+prerequisite-patch-id: 2ae6f1e7707ba0c71a0678331b02d738fb25cb3c
+prerequisite-patch-id: 1fa0a90cfbc904c4429c1427409125ac44b27aed
+
+Best regards,
+--  
+James Clark <james.clark@linaro.org>
 
