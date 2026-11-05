@@ -1,82 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901059;
-	b=srYbK1fK3ouLXqNvRVVGzg2Wez0WC8h777+HNyxeVA1LEaXNm4dAkUj2tmqXNEVQtoa7
-	 PhPlraMWzhNI6QQEb7e63AMDmX0ksctaIkx55CP/AI31Jk9H2pIlA1jzht+3sjdc7Kmjy
-	 o1AiAePPAqkXJWKo7HtFP1h98ud1JxMvi/Bcg+JPQwSDLVFGUGvZuU042GalYlwriwMrm
-	 wNnDJ2+Z9zkApSQJZDVSFuJcxnfefuwhy777L27GWvwQeUAg6prwONAvxVvzMI+P8aQQc
-	 cJE6Yg1WJMgqbYSFZ0QEq7fsVgJnJWfd3BPGrrvw0pHY7CGZIrRjO5tmykqTMpM1Hxg==
+	t=1793901061;
+	b=mHWNAJQminIM26SBkcB3eVK0eBkHCU2lrmdbQzyoAeWM/+DuL/Yf1iA+otBta3HTfIph
+	 tw0pxDGjiXE6V1aZenf178mfuNSJ3EylF+BQ+kjTyPdh3RH7baPtJU9bjhznmjzswo5Xi
+	 b9X10i+d7XuYIaWM03pcwVU/9GUJV3a1ngLDgK7WFyJsg/+dKR3uq+xRQMxkck1Tgz4dY
+	 ZzfQzzdUzunuonhj8YnGSHpRrtvEK+QoPxCQ2G2vMFpOUY/aeHZBSppUPfjfsjUP1emHr
+	 LqH3jmlvBKLbdVuuBIwu6/97KKFgUH6QcdWscifOmkdAAPxlIFgXTmqoBdTy4iGzsbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901059;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=M7cEymzOZLIIrJvm4Dq8ALdmxrFPncHDTEjFCCwAuZQ=;
-	b=Vtk96L4y+AOrtnbIdusuYXlAw7jaHQnq2fd3tGLM/jKYGLSiZeD/OZRv9Xb/ssRte8+9
-	 ITT8wyC4TLWWvRUzKspeL0FGDwmPqjL7asaLQC4LFd5T26yqjKps2i2YJW8hwZOfaiwGz
-	 HLp/oduVSf8hqECXFSeSLlz/R3d64KjpTLcciL1ZInaeU0+rFGNfRd1HuDdkYOIp1sBIk
-	 YsXiEWzXT6H4sQLIC6wPMWlGgBHIDOng5yaUBEQYkgbn8EkORE4FnewNVoYokZwZ1/9pc
-	 Iw5nIAybpuFvcKVPebBiLXz+5PFZ2XYi/ETh1m4kY//yjdi5GG/5SAK+dL5Jzrt0Buw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901061;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZhdVqYyJgINg9IrwVF2fFSRbyuvUGS+mFdqNxUpqXys=;
+	b=hUNSfml60v+jiEejy8Czsvx/Z8CLl02R9UK6x4o7zNSvIqXh0JOO+GUpNREbMKhWlOSa
+	 cjAXnPwl8ORMiWSd2DtBl2M17mbfkaU9UJdTlX6/3Z4r+4wL3p5pcm8Wdv498n+fiYwQL
+	 cBrTM+vfre+8CS665RDJjey7GlI+gprm3qNIkPYrNkkeFkq/Xsm7dYoOO76c+14/+dZOx
+	 Jzihl5P+l1B4FYv7WjSzZJDxD1AhVYfwClF+7+Wx85oYH0U+sAw8gUkyyDtq5O0erV1HT
+	 kwvHB95prGeyXXth53lx7oS9DSz9PQkTCfyhj1woBlO7qZ9yf9MTEh4RD+y+DjkuEXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=U+irHUeO;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WLNoPJU9;
+	arc=none smtp.remote-ip=95.215.58.1
+Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CFC606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8ADB606A32C
 	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66CFC606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8ADB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=U+irHUeO
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5HiHDr2579485;
-	Thu, 5 Nov 2026 17:50:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=M7cEym
-	zOZLIIrJvm4Dq8ALdmxrFPncHDTEjFCCwAuZQ=; b=U+irHUeODLy2GFTgO1beys
-	Z8j1UdHqtaeCGTtJDgcBBhQCFkyVdC0kSgYD1YVqE19iOwzLY9a5cl95AYK2ix1M
-	eLTWwQBg8cUEtWo8a9uaKQBp8w9mkyQgn/BuHFn5ej3vfP9O7JYWaS2OM51CLo7g
-	uEGfi0XXR54VzEdHyvDR+A67xETORkR6zi5HXF2QDNR0Ex24a3LIjIj2h2ylaZ8R
-	pTn1WHPZ58b/2R2KizX+8HTYZHZd5OZPzGPdCD9RAC0rQ1dUmDxs8RXQ02Hg8q7t
-	7+a+HOfCwQnJyENE+o8V1BvoOwouo/dN+WhaeM2zmb/NHIt465NDDDoWsJavsRfQ
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80t47vf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 17:50:50 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5HnxBh2075288;
-	Thu, 5 Nov 2026 17:50:49 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrdd7n14n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 17:50:49 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5HonMK1639154
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 17:50:49 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F276058052;
-	Thu,  5 Nov 2026 17:50:48 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 96AB65805E;
-	Thu,  5 Nov 2026 17:50:47 +0000 (GMT)
-Received: from [9.68.10.150] (unknown [9.68.10.150])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  5 Nov 2026 17:50:47 +0000 (GMT)
-Message-ID: <f94b603b-1e5d-45c0-871b-4bc96941b47a@linux.ibm.com>
-Date: Thu, 5 Nov 2026 18:50:34 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WLNoPJU9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/BVKvpIADixZ13OwLNYripVHwph2q5FYJij+y5nG44o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793901057; v=1; x=1794505857;
+ b=WLNoPJU97H7hs8tO3Tvgdj1lmp/j7A4C8uLPv+NuR4lybSTXBtl6PC8i3XR9kcadCpZJZdWu
+ XCQfwgd6D6aCh8woW0V8Hxq9XoELOlScrXQsmPjMGBRgWQ0ipsp193kJ6DkNHCM6ATlVKqUfHHn
+ DrjstHaqsVQOXJAkU2dwkiXo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id b0601804b98257ef;
+	Thu, 05 Nov 2026 17:50:57 +0000
+X-Mizu-Trace-ID: b0601804b98257ef
+X-Migadu-Flow: FLOW_OUT
+From: wen.yang@linux.dev
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: Nam Cao <namcao@linutronix.de>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wen Yang <wen.yang@linux.dev>
+Subject: [PATCH v8 13/14] selftests/verification: Add tlob selftests
+Date: Fri,  6 Nov 2026 01:49:13 +0800
+Message-Id: <fb7f7a5e565e0b3e781257b8b870b0b684446d51.1793900349.git.wen.yang@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1793900349.git.wen.yang@linux.dev>
+References: <cover.1793900349.git.wen.yang@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,71 +68,1158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 17/20] gcov: fix gcov_info_add() merge semantics for
- IOR counters
-To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Chuck Wolber
- <chuck@wolber.net>,
-        Frantisek Hrbata <fhrbata@redhat.com>, Marco Elver <elver@google.com>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Thomas Gleixner <tglx@kernel.org>
-References: <20261103015238.3780910-1-sashal@kernel.org>
- <20261103015238.3780910-18-sashal@kernel.org>
-From: Peter Oberparleiter <oberpar@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <20261103015238.3780910-18-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 2h8oofa_vFqzC4GFvZbh7TlBn7MNTIRH
-X-Proofpoint-ORIG-GUID: 5P6p7-gxYZ9YWc2mrSrk__8Byb2rMBzk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3MCBTYWx0ZWRfX3bNqcn4kDxI9
- IKa34PNQqOasXjtcPK0sLR4eyRXLotpg6U4NDXsiH41VwS/wJswNMfagx+U+DgnMSaMvug+YLRY
- SXFACPKhVg+3UNOxGNH67ZGdrdQu1iOjIw5YdTHeJ7m+SXoS66nHFMxGoLZKeycg7pOA7Lfz7aq
- E3lyhY8bU0AlRbnez2+cZS2aaIkB41mAtJKNLCM7nFZdp78i8b5mrSY3+lC1JheRPgALYnKyuYk
- StvIkgX6cX0xl5QHltN4lrl3aCcvhCBPMFvdvc312DJF3l+cdLqLh0ExzXqDFyGltD3KJSdHSEp
- wcII37aKbNuvDEpBKWCuxnbWJneIybGZuDPi9dTeTErgoO+wILJoWLJnEY6xlq+ZRcZQ/YgZGt4
- /+hNOYikUKsC7ptHTI3r1jKFuZ7gC5rnfZk2j0R4LJOwkSK/Qpun5wIYKGYpWo2ZcqAy5ZUFkN3
- 6Q1nzuKUuM3d/WaCt2w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3MCBTYWx0ZWRfX/8TZ/FfcQQo0
- m6anrMsAclLsjLEN0CItxgbSi4DFsoSG8Zcm1Ad7gVhtPMGRpNE6q2T9r6DPmyG6+OTUvPr37sl
- n8594CSiqwQCseT71aaGPFa7OKsv6Cc=
-X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aecc1fb cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=JJMpogqkKgZq-FOXKlsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050070
+Content-Transfer-Encoding: 8bit
 
-On 03.11.2026 02:52, Sasha Levin wrote:
-> gcov_info_add() unconditionally uses += to merge all counter types.
-> This is wrong for counters that use IOR merge semantics (bitwise OR),
-> such as GCOV_COUNTER_IOR and GCC 14's GCOV_COUNTER_CONDS (MC/DC
-> condition coverage). These counters store bitsets that must be merged
-> with |=, not accumulated with +=.
-> 
-> Detect IOR merge semantics by comparing the merge function pointer
-> against __gcov_merge_ior, matching how GCC's own libgcov identifies
-> merge semantics. This fixes the pre-existing bug for GCOV_COUNTER_IOR
-> and also enables correct merging for MC/DC condition coverage data.
-> 
-> Fixes: 5f41ea0386a5 ("gcov: add support for gcc 4.7 gcov format")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+From: Wen Yang <wen.yang@linux.dev>
 
-Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+Add thirteen ftrace-style test scripts for the tlob RV monitor under
+tools/testing/selftests/verification/test.d/tlob/.  The tests cover
+uprobe binding management, budget violation detection, multi-binding,
+multi-task sharing of one binding, overlap registration rejection,
+unbind and disable on live tasks, start/stop restart (both normal and
+after a violation), task exit inside a live window, nested START
+reporting, and the 64-task pool exhaustion cap.
 
+Helper binary tlob_target is built via TEST_GEN_FILES, following
+the standard kselftests convention.  run_tlob_tests.sh verifies helper
+availability and delegates argument handling to ftracetest.
 
+The multi-instance test, covering several tasks bound to the same
+uprobe pair, was contributed by Gabriele Monaco.
+
+Reviewed-by: Gabriele Monaco <gmonaco@redhat.com>
+Signed-off-by: Wen Yang <wen.yang@linux.dev>
+---
+ .../testing/selftests/verification/.gitignore |   1 +
+ tools/testing/selftests/verification/Makefile |   4 +
+ tools/testing/selftests/verification/config   |   3 +
+ .../selftests/verification/test.d/functions   |   9 +
+ .../test.d/tlob/run_tlob_tests.sh             |  32 ++++
+ .../verification/test.d/tlob/uprobe_bind.tc   |  47 ++++++
+ .../test.d/tlob/uprobe_disable_live.tc        |  79 +++++++++
+ .../verification/test.d/tlob/uprobe_multi.tc  |  58 +++++++
+ .../test.d/tlob/uprobe_multi_instance.tc      |  65 ++++++++
+ .../test.d/tlob/uprobe_nested_start.tc        |  62 +++++++
+ .../test.d/tlob/uprobe_no_event.tc            |  17 ++
+ .../test.d/tlob/uprobe_overlap_register.tc    |  66 ++++++++
+ .../test.d/tlob/uprobe_pool_exhausted.tc      |  75 +++++++++
+ .../test.d/tlob/uprobe_restart.tc             |  66 ++++++++
+ .../test.d/tlob/uprobe_restart_violation.tc   |  48 ++++++
+ .../test.d/tlob/uprobe_task_exit.tc           |  65 ++++++++
+ .../test.d/tlob/uprobe_unbind_live.tc         |  65 ++++++++
+ .../test.d/tlob/uprobe_violation.tc           |  53 ++++++
+ .../selftests/verification/tlob_target.c      | 156 ++++++++++++++++++
+ 19 files changed, 971 insertions(+)
+ create mode 100755 tools/testing/selftests/verification/test.d/tlob/run_tlob_tests.sh
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_bind.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_disable_live.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_multi.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_multi_instance.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_nested_start.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_no_event.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_overlap_register.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_pool_exhausted.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_restart.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_restart_violation.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_task_exit.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_unbind_live.tc
+ create mode 100644 tools/testing/selftests/verification/test.d/tlob/uprobe_violation.tc
+ create mode 100644 tools/testing/selftests/verification/tlob_target.c
+
+diff --git a/tools/testing/selftests/verification/.gitignore b/tools/testing/selftests/verification/.gitignore
+index 2659417cb2c7..92d7ebdb1dd1 100644
+--- a/tools/testing/selftests/verification/.gitignore
++++ b/tools/testing/selftests/verification/.gitignore
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ logs
++tlob_target
+diff --git a/tools/testing/selftests/verification/Makefile b/tools/testing/selftests/verification/Makefile
+index aa8790c22a71..dcdfe3ea3c06 100644
+--- a/tools/testing/selftests/verification/Makefile
++++ b/tools/testing/selftests/verification/Makefile
+@@ -5,4 +5,8 @@ TEST_PROGS := verificationtest-ktap
+ TEST_FILES := test.d settings
+ EXTRA_CLEAN := $(OUTPUT)/logs/*
+ 
++TEST_GEN_FILES := tlob_target
++
+ include ../lib.mk
++
++export VERIFICATIONTEST_BINDIR := $(OUTPUT)
+diff --git a/tools/testing/selftests/verification/config b/tools/testing/selftests/verification/config
+index 43072c1c38f4..5869ae4a9217 100644
+--- a/tools/testing/selftests/verification/config
++++ b/tools/testing/selftests/verification/config
+@@ -1 +1,4 @@
+ CONFIG_RV=y
++CONFIG_RV_MON_TLOB=y
++CONFIG_UPROBES=y
++CONFIG_HIGH_RES_TIMERS=y
+diff --git a/tools/testing/selftests/verification/test.d/functions b/tools/testing/selftests/verification/test.d/functions
+index ec36a092f56e..43c119682c1f 100644
+--- a/tools/testing/selftests/verification/test.d/functions
++++ b/tools/testing/selftests/verification/test.d/functions
+@@ -25,6 +25,15 @@ check_requires() { # Check required files, monitors and reactors
+ 	done
+ }
+ 
++sym_offset() { # <binary> <symbol>: print the ELF file offset of <symbol>
++	readelf -W -S -s "$1" | awk -v symbol="$2" '
++		{ gsub(/\[ /, "[") }
++		$1 ~ /^\[[0-9]+\]$/ { sections[$1]="0x"$4; offsets[$1]="0x"$5 }
++		$1 ~ /^[0-9]+:$/ && $NF == symbol { addr="0x"$2; sec="["$7"]" }
++		END { printf "printf \"0x%%x\\n\" $((%s - %s + %s))\n", addr, sections[sec], offsets[sec] }
++	' | sh
++}
++
+ initialize_system() { # Reset RV to initial-state
+ 	echo > enabled_monitors
+ 	for m in monitors/*; do
+diff --git a/tools/testing/selftests/verification/test.d/tlob/run_tlob_tests.sh b/tools/testing/selftests/verification/test.d/tlob/run_tlob_tests.sh
+new file mode 100755
+index 000000000000..c87484813fc8
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/run_tlob_tests.sh
+@@ -0,0 +1,32 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++#
++# Standalone runner for tlob selftests
++
++SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
++BINDIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
++FTRACETEST="$(cd "$SCRIPT_DIR/../../../ftrace" && pwd)/ftracetest"
++
++# The helper is built on the host by the selftests Makefile
++# (TEST_GEN_FILES in $BINDIR/Makefile); the VM (virtme-ng) mounts the
++# source read-only and may lack a compiler, so this runner never builds.
++# Build it on the host first:
++#   make -C "$BINDIR" tlob_target
++if [ ! -x "$BINDIR/tlob_target" ]; then
++	echo "ERROR: tlob_target not built in $BINDIR" >&2
++	echo "       build it on the host: make -C $BINDIR tlob_target" >&2
++	exit 1
++fi
++
++# Flag (not fail) the helper older than its source: git checkouts can bump
++# source mtimes, so a hard check would misfire; a host rebuild picks up
++# the new code.
++if [ -f "$BINDIR/tlob_target.c" ] &&
++   [ "$BINDIR/tlob_target" -ot "$BINDIR/tlob_target.c" ]; then
++	echo "WARNING: $BINDIR/tlob_target is older than $BINDIR/tlob_target.c;" >&2
++	echo "         rebuild on the host to test the current source" >&2
++fi
++
++export VERIFICATIONTEST_BINDIR="$BINDIR"
++
++exec "$FTRACETEST" -K --rv "$SCRIPT_DIR" "$@"
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_bind.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_bind.tc
+new file mode 100644
+index 000000000000..6484f37d8d2e
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_bind.tc
+@@ -0,0 +1,47 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor uprobe binding (named, listed, removable, duplicate name/range rejected, O_TRUNC clears)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++
++"$UPROBE_TARGET" 30000 &
++busy_pid=$!
++teardown() {
++    kill "$busy_pid" 2>/dev/null || true; wait "$busy_pid" 2>/dev/null || true
++}
++trap teardown EXIT
++sleep 0.05
++
++echo 1 > monitors/tlob/enable
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${stop_offset} threshold=5000000000" >> "$TLOB_MONITOR"
++
++# Binding must appear in monitor file with canonical hex-offset format.
++grep -qE "^p:busy_work ${UPROBE_TARGET}:0x[0-9a-f]+ 0x[0-9a-f]+ threshold=[0-9]+$" "$TLOB_MONITOR"
++grep -q "threshold=5000000000" "$TLOB_MONITOR"
++
++# Duplicate range must be rejected.
++! echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${stop_offset} threshold=9999000" >> "$TLOB_MONITOR" 2>/dev/null || false
++
++# Duplicate name on a disjoint range must be rejected too.
++! echo "p:busy_work ${UPROBE_TARGET}:$((stop_offset + 64)) $((stop_offset + 128)) threshold=5000000" >> "$TLOB_MONITOR" 2>/dev/null || false
++
++# Remove the binding; it must no longer appear.
++echo "-:busy_work" >> "$TLOB_MONITOR"
++! grep -q "^p:busy_work " "$TLOB_MONITOR" || false
++
++# '>' opens with O_TRUNC and clears all bindings (ftrace dynamic-event
++# convention); individual commands must use '>>'.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${stop_offset} threshold=5000000000" >> "$TLOB_MONITOR"
++echo > "$TLOB_MONITOR"
++! grep -q "^p:" "$TLOB_MONITOR" || false
++
++echo 0 > monitors/tlob/enable
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_disable_live.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_disable_live.tc
+new file mode 100644
+index 000000000000..c997405d75cc
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_disable_live.tc
+@@ -0,0 +1,79 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor disable with a live window (armed hrtimer cancelled, no post-cycle violation)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++sleep_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work_done)
++
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++# 300 ms budget keeps the live window far from expiry at disable; duration 0
++# loops the target so no STOP can fire while the monitor is down.
++echo "p:sleep_work ${UPROBE_TARGET}:${sleep_offset} ${stop_offset} threshold=300000000" >> "$TLOB_MONITOR"
++
++"$UPROBE_TARGET" 0 sleep &
++target_pid=$!
++teardown() {
++    kill "$target_pid" 2>/dev/null || true; wait "$target_pid" 2>/dev/null || true
++}
++trap teardown EXIT
++sleep 0.05
++
++# Disable with the window open: the armed hrtimer must be cancelled by the
++# disable path, or it fires on freed storage.  Check /proc/timer_list.
++echo 0 > monitors/tlob/enable
++
++if [ ! -r /proc/timer_list ]; then
++    echo "/proc/timer_list unavailable, cannot check for leaked timers" >&2
++    exit_unresolved
++fi
++
++armed=$(grep -c ha_monitor /proc/timer_list || true)
++if [ "$armed" != "0" ]; then
++    echo "===== tlob disable-with-live-window diagnostic =====" >&2
++    echo "$armed armed ha_monitor hrtimer(s) after disable:" >&2
++    grep ha_monitor /proc/timer_list >&2 || true
++    false
++fi
++
++# A leaked timer would fire on freed storage once re-enabled.
++echo 1 > monitors/tlob/enable
++
++# Re-enabled before the 300 ms budget would have elapsed; wait past it.
++sleep 0.5
++
++if grep -q "error_env_tlob" ../trace; then
++    echo "===== tlob disable-with-live-window diagnostic =====" >&2
++    grep "error_env_tlob" ../trace >&2 || true
++    false
++fi
++
++# Disable/enable must not break detection: a 10 us budget fires on the
++# next sleep window.
++echo > ../trace
++echo "p:sleep_work ${UPROBE_TARGET}:${sleep_offset} ${stop_offset} threshold=10000" >> "$TLOB_MONITOR"
++
++found=0; i=0
++while [ "$i" -lt 20 ]; do
++    sleep 0.1
++    grep -q "error_env_tlob" ../trace && { found=1; break; }
++    i=$((i+1))
++done
++
++echo "-:sleep_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > ../events/rv/error_env_tlob/enable
++echo 0 > monitors/tlob/enable
++
++[ "$found" = "1" ]
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_multi.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_multi.tc
+new file mode 100644
+index 000000000000..709561ebc94c
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_multi.tc
+@@ -0,0 +1,58 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor multiple uprobe bindings (different offsets fire independently)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++busy_stop=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++sleep_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work)
++sleep_stop=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work_done)
++
++"$UPROBE_TARGET" 30000 &       # busy mode: tlob_busy_work fires every 200 ms
++busy_pid=$!
++"$UPROBE_TARGET" 30000 sleep & # sleep mode: tlob_sleep_work fires every 200 ms
++sleep_pid=$!
++teardown() {
++    kill "$sleep_pid" 2>/dev/null || true; wait "$sleep_pid" 2>/dev/null || true
++    kill "$busy_pid"  2>/dev/null || true; wait "$busy_pid"  2>/dev/null || true
++}
++trap teardown EXIT
++sleep 0.05
++
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++# Binding A: 5 s budget on the busy probe - must not fire in 200 ms loops.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${busy_stop} threshold=5000000000" >> "$TLOB_MONITOR"
++# Binding B: 10 us budget on the sleep probe - fires on first invocation.
++echo "p:sleep_work ${UPROBE_TARGET}:${sleep_offset} ${sleep_stop} threshold=10000" >> "$TLOB_MONITOR"
++
++# Wait up to 2 s for error_env_tlob from binding B.
++found=0; i=0
++while [ "$i" -lt 20 ]; do
++	sleep 0.1
++	grep -q "error_env_tlob" ../trace && { found=1; break; }
++	i=$((i+1))
++done
++
++echo "-:busy_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo "-:sleep_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/error_env_tlob/enable
++
++[ "$found" = "1" ]
++# error_env_tlob payload: clock variable must be present.
++# The event field can be "budget_exceeded" (hrtimer path) or the DA event
++# name ("sleep", "preempt") depending on which fires first; don't constrain it.
++grep "error_env_tlob" ../trace | head -n 1 | grep -q "clk_elapsed="
++
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_multi_instance.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_multi_instance.tc
+new file mode 100644
+index 000000000000..238ceed065b0
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_multi_instance.tc
+@@ -0,0 +1,65 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor multiple tasks sharing one uprobe binding (concurrent instances)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++UPROBE_COMM=$(basename "$UPROBE_TARGET")
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++busy_stop=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++
++# Start 3 concurrent instances of the target; each one hits the same binding.
++"$UPROBE_TARGET" 30000 &
++pid1=$!
++"$UPROBE_TARGET" 30000 &
++pid2=$!
++"$UPROBE_TARGET" 30000 &
++pid3=$!
++teardown() {
++	kill "$pid1" 2>/dev/null || true; wait "$pid1" 2>/dev/null || true
++	kill "$pid2" 2>/dev/null || true; wait "$pid2" 2>/dev/null || true
++	kill "$pid3" 2>/dev/null || true; wait "$pid3" 2>/dev/null || true
++}
++trap teardown EXIT
++sleep 0.05
++
++echo 1 > ../events/rv/event_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++# 5 s budget on the busy probe: no violation expected in 200 ms loops.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${busy_stop} threshold=5000000000" >> "$TLOB_MONITOR"
++
++# Wait up to 2 s for all three pids to register and transition through start.
++# This proves multiple tasks can hit the same uprobe binding concurrently.
++found1=0; found2=0; found3=0
++i=0
++while [ "$i" -lt 20 ]; do
++	sleep 0.1
++	grep "event_tlob" ../trace | grep -wq "${UPROBE_COMM}-${pid1}" && found1=1
++	grep "event_tlob" ../trace | grep -wq "${UPROBE_COMM}-${pid2}" && found2=1
++	grep "event_tlob" ../trace | grep -wq "${UPROBE_COMM}-${pid3}" && found3=1
++	if [ "$found1" = "1" ] && [ "$found2" = "1" ] && [ "$found3" = "1" ]; then
++		break
++	fi
++	i=$((i+1))
++done
++
++[ "$found1" = "1" ]
++[ "$found2" = "1" ]
++[ "$found3" = "1" ]
++
++# Removing the binding while tasks are active must succeed cleanly.
++echo "-:busy_work" >> "$TLOB_MONITOR"
++! grep -q "^p:busy_work " "$TLOB_MONITOR" || false
++
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/event_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_nested_start.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_nested_start.tc
+new file mode 100644
+index 000000000000..fe30db3f0134
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_nested_start.tc
+@@ -0,0 +1,62 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob reporting a nested START (a window is already open)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++start_offset=$(sym_offset "$UPROBE_TARGET" tlob_nested_start)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_nested_done)
++
++echo 1 > ../events/rv/error_tlob/enable
++echo 1 > ../events/rv/event_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++
++# Generous budget: anything reported here is the nested START, not the clock.
++echo "p:nested ${UPROBE_TARGET}:${start_offset} ${stop_offset} threshold=5000000000" >> "$TLOB_MONITOR"
++echo > ../trace
++
++"$UPROBE_TARGET" 0 nest 1 &
++tpid=$!
++teardown() {
++    kill "$tpid" 2>/dev/null || true; wait "$tpid" 2>/dev/null || true
++}
++trap teardown EXIT
++wait "$tpid" || true
++trap - EXIT
++
++# The second entry is a START while the window is open: running x start is an
++# invalid transition, reported through error_tlob rather than silently ignored.
++if ! grep -q "error_tlob: ${tpid}: event start not expected in the state running" ../trace; then
++    echo "ERROR: nested START was not reported" >&2
++    grep -E "event_tlob|error_tlob" ../trace | grep ":${tpid}:" >&2 || true
++    false
++fi
++
++# One START opened the window; the nested one is refused and does not open a
++# second.  The violation resets the monitor, so the STOP that follows is a
++# no-op: no further transition may be recorded for this pid.
++starts=$(grep -c "event_tlob: ${tpid}: stopped x start -> running" ../trace)
++if [ "$starts" -ne 1 ]; then
++    echo "ERROR: expected exactly 1 window for ${tpid}, saw ${starts}" >&2
++    grep "event_tlob" ../trace | grep ":${tpid}:" >&2 || true
++    false
++fi
++
++if grep -q "event_tlob: ${tpid}: running x stop -> stopped" ../trace; then
++    echo "ERROR: STOP after a violation reopened/closed a window" >&2
++    grep "event_tlob" ../trace | grep ":${tpid}:" >&2 || true
++    false
++fi
++
++echo "-:nested" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/error_tlob/enable
++echo 0 > ../events/rv/event_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_no_event.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_no_event.tc
+new file mode 100644
+index 000000000000..23f8abeca090
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_no_event.tc
+@@ -0,0 +1,17 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor no spurious events without active uprobe binding
++# requires: tlob:monitor
++
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++sleep 0.5
++
++! grep -q "error_env_tlob" ../trace || false
++
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/error_env_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_overlap_register.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_overlap_register.tc
+new file mode 100644
+index 000000000000..eb3590fa21aa
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_overlap_register.tc
+@@ -0,0 +1,66 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob rejecting overlapping uprobe bindings and reporting shadowing
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++busy_stop=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++sleep_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work)
++sleep_stop=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work_done)
++
++echo 1 > ../events/rv/error_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++# Scenario 1: overlapping ranges on the same binary are rejected at
++# registration (a task runs one window at a time; the second would shadow).
++# Covers three flavours: identical, nested, and crossing.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${busy_stop} threshold=1000000000" >> "$TLOB_MONITOR"
++for r in \
++	"${busy_offset} ${busy_stop}" \
++	"$((busy_offset + 8)) ${busy_stop}" \
++	"$((busy_stop - 8)) $((busy_stop + 8))"; do
++	set -- $r
++	if echo "p:dup ${UPROBE_TARGET}:$1 $2 threshold=1000000000" >> "$TLOB_MONITOR" 2>/dev/null; then
++		echo "ERROR: overlapping binding accepted: $r" >&2
++		false
++	fi
++done
++# Only the original binding survives.
++if [ "$(grep -c "^p:busy_work " "$TLOB_MONITOR")" -ne 1 ]; then
++	echo "ERROR: rejected range left a binding behind" >&2
++	false
++fi
++
++# Scenario 2: two disjoint ranges on the same binary are both accepted, but a
++# task running them sequentially is shadowed by the first binding -- reported
++# via error_tlob instead of a silent no-op.
++echo "p:sleep_work ${UPROBE_TARGET}:${sleep_offset} ${sleep_stop} threshold=1000000000" >> "$TLOB_MONITOR"
++"$UPROBE_TARGET" 0 seq 2 &
++tpid=$!
++teardown() {
++	kill "$tpid" 2>/dev/null || true; wait "$tpid" 2>/dev/null || true
++}
++trap teardown EXIT
++wait "$tpid" || true
++
++if ! grep -q "error_tlob" ../trace; then
++	echo "ERROR: no error_tlob for sequentially shadowed binding" >&2
++	echo "--- trace ---" >&2
++	grep "error_tlob\|event_tlob" ../trace >&2 || true
++	false
++fi
++
++echo "-:busy_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo "-:sleep_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/error_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_pool_exhausted.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_pool_exhausted.tc
+new file mode 100644
+index 000000000000..2b876566936a
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_pool_exhausted.tc
+@@ -0,0 +1,75 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob per-object storage pool cap (64 tasks, the 65th is not monitored)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++# TLOB_MAX_MONITORED in kernel/trace/rv/monitors/tlob/tlob.h.
++POOL_SIZE=64
++
++sleep_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work_done)
++
++echo 1 > ../events/rv/event_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++
++# 5 s budget: no window may report here, only the pool accounting matters.
++echo "p:sleep_work ${UPROBE_TARGET}:${sleep_offset} ${stop_offset} threshold=5000000000" >> "$TLOB_MONITOR"
++echo > ../trace
++
++pids=
++for i in $(seq 1 $POOL_SIZE); do
++    "$UPROBE_TARGET" 5000 sleep 0 &
++    pids="$pids $!"
++done
++teardown() {
++    for p in $pids; do kill "$p" 2>/dev/null || true; done
++    wait 2>/dev/null || true
++}
++trap teardown EXIT
++
++# Wait until every slot is taken: each of the 64 tasks opened a window once.
++n=0
++i=0
++while [ "$i" -lt 200 ]; do
++    n=$(sed -n 's/.*event_tlob: \([0-9][0-9]*\): stopped x start -> running.*/\1/p' ../trace | sort -u | wc -l)
++    [ "$n" -ge "$POOL_SIZE" ] && break
++    sleep 0.05
++    i=$((i + 1))
++done
++
++if [ "$n" -ne "$POOL_SIZE" ]; then
++    echo "ERROR: expected $POOL_SIZE monitored tasks, got $n" >&2
++    false
++fi
++
++# One more task must be left unmonitored: no START is possible without a slot.
++"$UPROBE_TARGET" 3000 sleep 0 &
++extra=$!
++pids="$pids $extra"
++sleep 0.5
++
++if grep -q "event_tlob: ${extra}: stopped x start -> running" ../trace; then
++    echo "ERROR: task ${extra} was monitored past the ${POOL_SIZE}-task cap" >&2
++    grep "event_tlob" ../trace | grep ":${extra}:" >&2 || true
++    false
++fi
++
++# A monitored task still holds its slot while the extra one is refused.
++n=$(sed -n 's/.*event_tlob: \([0-9][0-9]*\): stopped x start -> running.*/\1/p' ../trace | sort -u | wc -l)
++[ "$n" -eq "$POOL_SIZE" ] || {
++    echo "ERROR: pool accounting changed while refusing: $n" >&2
++    false
++}
++
++echo "-:sleep_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/event_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_restart.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_restart.tc
+new file mode 100644
+index 000000000000..1584fc3d84de
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_restart.tc
+@@ -0,0 +1,66 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor restarting a parked window on the same task (unbind of a repeatedly-started task works)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++# On failure: dump violations and the target's transitions, to tell a genuine
++# per-window overrun from a broken restart.
++dump_tlob_diag() {
++	TRACE=../trace
++	echo "===== tlob restart diagnostic (pid ${busy_pid}) =====" >&2
++	echo "--- error_env_tlob (violations) ---" >&2
++	grep "error_env_tlob" "$TRACE" >&2 || true
++	echo "--- event_tlob (state transitions for target pid) ---" >&2
++	grep "event_tlob" "$TRACE" | grep ":${busy_pid}:" >&2 || true
++	echo "--- last 50 trace lines (full context) ---" >&2
++	tail -50 "$TRACE" >&2 || true
++}
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++
++# tlob_target busy-loops ~200ms start/stop windows on the same task for
++# 900ms, driving tlob_start_task()'s restart path on every iteration
++# after the first (~4 windows).
++"$UPROBE_TARGET" 900 &
++busy_pid=$!
++teardown() {
++	kill "$busy_pid" 2>/dev/null || true; wait "$busy_pid" 2>/dev/null || true
++}
++trap teardown EXIT
++sleep 0.05
++
++echo 1 > ../events/rv/event_tlob/enable
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++# 300ms budget covers one ~200ms window.  A restart that failed to re-anchor
++# the budget clock would trip on the second window; with a correct restart,
++# no window exceeds it.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${stop_offset} threshold=300000000" >> "$TLOB_MONITOR"
++
++wait "$busy_pid" || true
++
++if grep -q "error_env_tlob" ../trace; then
++	dump_tlob_diag
++	false
++fi
++
++# The task has exited (tlob_destroy_task() ran via handle_sched_process_exit);
++# removing its now-stale binding must still succeed cleanly.
++echo "-:busy_work" >> "$TLOB_MONITOR"
++! grep -q "^p:busy_work " "$TLOB_MONITOR" || false
++
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/event_tlob/enable
++echo 0 > ../events/rv/error_env_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_restart_violation.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_restart_violation.tc
+new file mode 100644
+index 000000000000..dccb4e5baa11
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_restart_violation.tc
+@@ -0,0 +1,48 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor restarting a window after a budget overrun (each later START on the same task starts a fresh window)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++
++# 30 ms budget: every ~200 ms window overruns.  Bind first, clear the trace
++# after, so the target's first window (START soon after launch) is caught.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${stop_offset} threshold=30000000" >> "$TLOB_MONITOR"
++echo > ../trace
++
++# 3 iterations (duration arg unused).  Every window overruns; a dropped
++# restart would leave one unmonitored, dropping the count below 3.
++"$UPROBE_TARGET" 0 busy 3 &
++busy_pid=$!
++teardown() {
++    kill "$busy_pid" 2>/dev/null || true; wait "$busy_pid" 2>/dev/null || true
++}
++trap teardown EXIT
++wait "$busy_pid" || true
++
++errors=$(grep -c "error_env_tlob" ../trace || true)
++if [ "$errors" -lt 3 ]; then
++    echo "ERROR: expected >= 3 error_env_tlob (one per window), got $errors" >&2
++    echo "--- error_env_tlob ---" >&2
++    grep "error_env_tlob" ../trace >&2 || true
++    echo "--- event_tlob (state transitions for target pid) ---" >&2
++    grep "event_tlob" ../trace | grep ":${busy_pid}:" >&2 || true
++    false
++fi
++
++echo "-:busy_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/error_env_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_task_exit.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_task_exit.tc
+new file mode 100644
+index 000000000000..b9122bc002e3
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_task_exit.tc
+@@ -0,0 +1,65 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob task exiting inside a window (timer disarmed, no late violation)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../events/rv/event_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++
++# 1 s budget: the task is killed well inside its 200 ms busy window, so the
++# exit path (sched_process_exit) is what has to disarm the timer.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${stop_offset} threshold=1000000000" >> "$TLOB_MONITOR"
++echo > ../trace
++
++"$UPROBE_TARGET" 0 busy 0 &
++tpid=$!
++teardown() {
++    kill -9 "$tpid" 2>/dev/null || true; wait "$tpid" 2>/dev/null || true
++}
++trap teardown EXIT
++
++# Wait until the target actually opened a window, so the kill below lands
++# inside it rather than before the first START.
++i=0
++while [ "$i" -lt 100 ]; do
++    grep -q "event_tlob: ${tpid}: stopped x start -> running" ../trace && break
++    sleep 0.01
++    i=$((i + 1))
++done
++if ! grep -q "event_tlob: ${tpid}: stopped x start -> running" ../trace; then
++    echo "ERROR: target never opened a window" >&2
++    grep -E "event_tlob|error_tlob" ../trace >&2 || true
++    false
++fi
++
++kill -9 "$tpid"
++wait "$tpid" 2>/dev/null || true
++trap - EXIT
++
++# Past the budget: a timer the exit path left armed fires here and reports
++# against a task that no longer exists.
++sleep 1.3
++
++if grep -q "error_env_tlob: ${tpid}:" ../trace; then
++    echo "ERROR: violation reported for a task that exited inside its window" >&2
++    grep "error_env_tlob" ../trace >&2
++    false
++fi
++
++echo "-:busy_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > monitors/tlob/enable
++echo 0 > ../events/rv/error_env_tlob/enable
++echo 0 > ../events/rv/event_tlob/enable
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_unbind_live.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_unbind_live.tc
+new file mode 100644
+index 000000000000..698bf907f653
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_unbind_live.tc
+@@ -0,0 +1,65 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob unbind with a live window (no post-unbind violation, detection still works)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++sleep_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_sleep_work_done)
++
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++# 300 ms budget keeps the live window far from expiry at unbind; duration 0
++# loops the target.
++echo "p:sleep_work ${UPROBE_TARGET}:${sleep_offset} ${stop_offset} threshold=300000000" >> "$TLOB_MONITOR"
++
++"$UPROBE_TARGET" 0 sleep &
++target_pid=$!
++teardown() {
++    kill "$target_pid" 2>/dev/null || true; wait "$target_pid" 2>/dev/null || true
++}
++trap teardown EXIT
++sleep 0.05
++
++# Unbind while the window is open: the task can no longer reach STOP, so the
++# window must be ended and its timer cancelled before the budget expires.
++echo "-:sleep_work" >> "$TLOB_MONITOR"
++
++# Wait past the 300 ms budget.
++sleep 0.6
++
++if grep -q "error_env_tlob" ../trace; then
++    echo "===== tlob unbind-with-live-window diagnostic =====" >&2
++    grep "error_env_tlob" ../trace >&2 || true
++    false
++fi
++
++# The target survived the unbind (its window was torn down, not the task).
++kill -0 "$target_pid"
++
++# Unbind must not break detection: a 10 us budget fires on the next sleep window.
++echo > ../trace
++echo "p:sleep_work ${UPROBE_TARGET}:${sleep_offset} ${stop_offset} threshold=10000" >> "$TLOB_MONITOR"
++
++found=0; i=0
++while [ "$i" -lt 20 ]; do
++    sleep 0.1
++    grep -q "error_env_tlob" ../trace && { found=1; break; }
++    i=$((i+1))
++done
++
++echo "-:sleep_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > ../events/rv/error_env_tlob/enable
++echo 0 > monitors/tlob/enable
++
++[ "$found" = "1" ]
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/test.d/tlob/uprobe_violation.tc b/tools/testing/selftests/verification/test.d/tlob/uprobe_violation.tc
+new file mode 100644
+index 000000000000..eb4e5c9bd2e3
+--- /dev/null
++++ b/tools/testing/selftests/verification/test.d/tlob/uprobe_violation.tc
+@@ -0,0 +1,53 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# description: Test tlob monitor budget violation (error_env_tlob fires with correct fields)
++# requires: tlob:monitor readelf:program
++
++# Fall back to the verification directory relative to FTRACETEST_ROOT when not
++# set by make (e.g. in installed kselftest environments).
++: "${VERIFICATIONTEST_BINDIR:="$FTRACETEST_ROOT/../verification"}"
++
++UPROBE_TARGET="${VERIFICATIONTEST_BINDIR}/tlob_target"
++TLOB_MONITOR=monitors/tlob/monitor
++
++busy_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work)
++stop_offset=$(sym_offset "$UPROBE_TARGET" tlob_busy_work_done)
++
++"$UPROBE_TARGET" 30000 &
++busy_pid=$!
++teardown() {
++    kill "$busy_pid" 2>/dev/null || true; wait "$busy_pid" 2>/dev/null || true
++}
++trap teardown EXIT
++sleep 0.05
++
++echo 1 > ../events/rv/error_env_tlob/enable
++echo 1 > ../tracing_on
++echo 1 > monitors/tlob/enable
++echo > ../trace
++
++# 10 us budget - fires almost immediately; task is busy-spinning on-CPU.
++echo "p:busy_work ${UPROBE_TARGET}:${busy_offset} ${stop_offset} threshold=10000" >> "$TLOB_MONITOR"
++
++# wait up to 2 s for error_env_tlob
++found=0; i=0
++while [ "$i" -lt 20 ]; do
++	sleep 0.1
++	grep -q "error_env_tlob" ../trace && { found=1; break; }
++	i=$((i+1))
++done
++
++echo "-:busy_work" >> "$TLOB_MONITOR" 2>/dev/null
++echo 0 > ../events/rv/error_env_tlob/enable
++echo 0 > monitors/tlob/enable
++
++[ "$found" = "1" ]
++
++# error_env_tlob must carry the clk_elapsed environment field.
++# The event label is "budget_exceeded" when detected by the hrtimer callback,
++# or the triggering sched event name when detected by the constraint path on a
++# preemption that races with the timer (common on PREEMPT_RT / VM).  Both are
++# valid detections; check the env field instead of the label.
++grep "error_env_tlob" ../trace | head -n 1 | grep -q "clk_elapsed="
++
++echo > ../trace
+diff --git a/tools/testing/selftests/verification/tlob_target.c b/tools/testing/selftests/verification/tlob_target.c
+new file mode 100644
+index 000000000000..706ff5e1eeca
+--- /dev/null
++++ b/tools/testing/selftests/verification/tlob_target.c
+@@ -0,0 +1,156 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * tlob_target.c - uprobe target binary for tlob selftests.
++ *
++ * Provides two start/stop probe pairs:
++ *
++ *   tlob_busy_work  / tlob_busy_work_done  - busy-spin
++ *   tlob_sleep_work / tlob_sleep_work_done - nanosleep
++ *
++ * Usage: tlob_target <duration_ms> [mode] [iterations]
++ *
++ * mode is one of: busy (default), sleep, seq, nest.
++ * Loops in 200 ms iterations until <duration_ms> has elapsed
++ * (0 = run until killed, capped at TLOB_MAX_DURATION_MS), or exactly
++ * [iterations] times when > 0.
++ * seq runs busy then sleep in each iteration (two ranges back to back).
++ * nest opens a window and re-enters its own start probe once.
++ */
++#define _GNU_SOURCE
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <time.h>
++
++#ifndef noinline
++#define noinline __attribute__((noinline))
++#endif
++
++/*
++ * Ceiling for duration_ms == 0.  The live tests background the target and
++ * kill it from their EXIT trap; the cap bounds an orphan left behind when
++ * the trap does not run.
++ */
++#define TLOB_MAX_DURATION_MS	60000UL
++
++static inline int timespec_before(const struct timespec *a,
++				  const struct timespec *b)
++{
++	return a->tv_sec < b->tv_sec ||
++	       (a->tv_sec == b->tv_sec && a->tv_nsec < b->tv_nsec);
++}
++
++static void timespec_add_ms(struct timespec *ts, unsigned long ms)
++{
++	ts->tv_sec  += ms / 1000;
++	ts->tv_nsec += (long)(ms % 1000) * 1000000L;
++	if (ts->tv_nsec >= 1000000000L) {
++		ts->tv_sec++;
++		ts->tv_nsec -= 1000000000L;
++	}
++}
++
++/* stop probe; noinline keeps the entry point visible to uprobes */
++noinline void tlob_busy_work_done(void)
++{
++	asm volatile("" ::: "memory");
++}
++
++/* Busy-wait for at least duration_ms ms of wall-clock time. */
++static inline void __tlob_busy_wait(unsigned long duration_ms)
++{
++	struct timespec start, now;
++	unsigned long elapsed;
++
++	clock_gettime(CLOCK_MONOTONIC, &start);
++	do {
++		clock_gettime(CLOCK_MONOTONIC, &now);
++		elapsed = (unsigned long)(now.tv_sec - start.tv_sec)
++			  * 1000000000UL
++			+ (unsigned long)(now.tv_nsec - start.tv_nsec);
++	} while (elapsed < duration_ms * 1000000UL);
++}
++
++/* start probe; busy-spin so the window is spent running */
++noinline void tlob_busy_work(unsigned long duration_ms)
++{
++	__tlob_busy_wait(duration_ms);
++	tlob_busy_work_done();
++}
++
++/* stop probe; noinline keeps the entry point visible to uprobes */
++noinline void tlob_sleep_work_done(void)
++{
++	asm volatile("" ::: "memory");
++}
++
++/* start probe; nanosleep so the window is spent sleeping */
++noinline void tlob_sleep_work(unsigned long duration_ms)
++{
++	struct timespec ts = {
++		.tv_sec  = duration_ms / 1000,
++		.tv_nsec = (long)(duration_ms % 1000) * 1000000L,
++	};
++	nanosleep(&ts, NULL);
++	tlob_sleep_work_done();
++}
++
++/*
++ * Nested window: the probe is placed on tlob_nested_start, and the function
++ * re-enters itself once, so the second entry is a START while the window is
++ * already open.
++ */
++static int tlob_nested_depth;
++
++noinline void tlob_nested_start(void)
++{
++	if (tlob_nested_depth++ < 1)
++		tlob_nested_start();
++}
++
++/* stop probe; noinline keeps the entry point visible to uprobes */
++noinline void tlob_nested_done(void)
++{
++	asm volatile("" ::: "memory");
++}
++
++static void tlob_nested_work(void)
++{
++	tlob_nested_depth = 0;
++	tlob_nested_start();
++	tlob_nested_done();
++}
++
++int main(int argc, char *argv[])
++{
++	unsigned long duration_ms = 0, iterations = 0, i = 0;
++	const char *mode = "busy";
++	struct timespec deadline, now;
++
++	if (argc >= 2)
++		duration_ms = strtoul(argv[1], NULL, 10);
++	if (argc >= 3)
++		mode = argv[2];
++	if (argc >= 4)
++		iterations = strtoul(argv[3], NULL, 10);
++
++	clock_gettime(CLOCK_MONOTONIC, &deadline);
++	timespec_add_ms(&deadline, duration_ms ? duration_ms : TLOB_MAX_DURATION_MS);
++
++	do {
++		if (strcmp(mode, "sleep") == 0)
++			tlob_sleep_work(200);
++		else if (strcmp(mode, "seq") == 0) {
++			tlob_busy_work(200);
++			tlob_sleep_work(200);
++		} else if (strcmp(mode, "nest") == 0)
++			tlob_nested_work();
++		else
++			tlob_busy_work(200);
++		clock_gettime(CLOCK_MONOTONIC, &now);
++		i++;
++	} while (iterations ? i < iterations : timespec_before(&now, &deadline));
++
++	return 0;
++}
 -- 
-Peter Oberparleiter
-Linux on IBM Z Development - IBM Germany R&D
+2.25.1
+
