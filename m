@@ -1,78 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882941;
-	b=FrCqbYfkE3MIDxkSmSEkU89mdaRI4G3/8xHCq+81qKpjPWcDA7RWVhrvMBOGax3kgP8i
-	 AfaijNSVAbfMwh9wyk7+WLJIDqquEFsaHoOJGZ01DCCtJdekb2zZ4xJmIKqyTuRIZhOoK
-	 /TIgZsAUlg2ZCna1CPMut+Hqx70+KL3tXNwDbLmGVR8sk+PTY91tuapiEWACctaceh6lG
-	 ARQ4nA/nkoxlgA8X9GQzv8HRx0WqDjrfrhXUm9sQMGDX/ZMcNIX1D+plqitxPebZVPsIY
-	 5crzIz/HZyp3c3KYI67rJn5PL5c/mOB1YlIdmvtIapjIYDDhaDXSBsd2Iguq3SbHG1g==
+	t=1793882966;
+	b=XHY044WF5hv/1WKpbwoPMDuiiLJbLAlPqR8ZqOIP1X7vVQBH3ZIgGDILAvpHWvBzoo5F
+	 fjoSf2RcSkVGRmBzQ7z9ZY3MBHexyDPEvpI9ETpJ1NiOdqMY8U6PkIbMRRfowA9rJfKdh
+	 8jBQK0pT4V8ubtVxpRPUlZOs2lI491Nk0ny1+usuzt44sTcgcwXSSQ2/abT7PQy8LEzhe
+	 zCFCM32inuKHJk2ugjo0Q+KAAok/+8XgmRxOTmmhPN1hlZt9ZbC7zJts/F5l4y/Jk9pMm
+	 bxaUNyVJNsvZSrTmhfDyuEdyxgYgietRMIxgkWzqFKfKHrJ9uDtP0v/6f9T5IOOo0qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882941;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8lNES7HOAcQtbypia4I77W3fBXnSYdPVadaze0MP+7o=;
-	b=ziUBQOmNjyH7WDv+ar5U85aq2DNnrXBPzK8VDyYjxX+Ul09avIi65R/9nH8o5pY4KyOe
-	 KZCRthd4Sqbtvu+Dd6AJEBLrfYwA7i+0kXIYLYVzGFh/J7Y2W0UDVnGxzbLgaKOmpAF+M
-	 cVZszpWTegBuFNOicVsZgxcJCeoxsbplRMnRoMbLrPkiYS+eyNHPuqFXPsvKF4IJ/K+MP
-	 CVvdnvIIKtUfV5+NeT7IjbXhqALS/BaHakM4tfnCV1N1c5MxuSuGX1iVlt94pWtGRNvC/
-	 1yYm2Rd/M6d0/G8V1RAza9mb05y9GgbdWA+Fso75LizqiNlU1ZrDAaZLQM0952jmjYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882966;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jm/wpw0aBzb0o0AOc3jfnmw4DQX6HAAVWZR9EuNYLsE=;
+	b=eTE9So3vfSZ+DfonouwIc5voWPX89EbCTzJ3bJJRkpNrKU+55V+aWhqGU+FadRXwRllf
+	 9qv0283Aw8r7hRVj0ZG3sizObfzcyWoUPNtEMy82hwQkXI9UM4B1IT5i0ZTxQ8GPPkgBp
+	 zzczQ1niI/Jz6mZ2iArT1FM7IhVwHKFRXQtOV8UQ6Urh6gFjCEjVy2lNGqT1/hcmsoyta
+	 2GIgw/4JzGzUdeI7cxMlxPVqiBpPI5BvY5qLpIVMG9Odz33P3GFl4GXfO/2NOEAQhbWCK
+	 apP/HromaKmsVcDwzr+CEijKMNPizye588HA3WitA9Oq69NDkgq5T4PD3opLhGZtx3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLWHo9b7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E4606A328;
-	Thu,  5 Nov 2026 12:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A8E4606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 3ed29f84d91711f19a56ed5b684f684d-20261105
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CHARSET
-	HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
-	HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
-	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_CHARSET
-	HR_TO_CHARSET_NUM, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, SA_TRUSTED
-	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
-	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
-	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:f03f5e37-40c5-467b-b83c-79ae097e5bc3,IP:10,
-	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:30
-X-CID-INFO: VERSION:1.3.19,REQID:f03f5e37-40c5-467b-b83c-79ae097e5bc3,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:30
-X-CID-META: VersionHash:7db8b62,CLOUDID:80bdff4df7e3f81b0ec11ec1ebd4f49a,BulkI
-	D:261105204853AFQH8L54,BulkQuantity:0,SF:10|38|66|78|102|127|153|865|898,T
-	C:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
-	,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3ed29f84d91711f19a56ed5b684f684d-20261105
-X-User: sunshaojie@kylinos.cn
-Received: from sunshaojie-pc [(114.244.3.119)] by mailgw.kylinos.cn
-	(envelope-from <sunshaojie@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1841114905; Thu, 05 Nov 2026 20:48:48 +0800
-From: Shaojie Sun <sunshaojie@kylinos.cn>
-To: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shaojie Sun <sunshaojie@kylinos.cn>
-Subject: [PATCH] cgroup: replace BUG_ON()s in compare_css_sets() with WARN_ON_ONCE()
-Date: Thu,  5 Nov 2026 20:48:13 +0800
-Message-ID: <20261105124813.862460-1-sunshaojie@kylinos.cn>
-X-Mailer: git-send-email 2.50.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E51E606A31B;
+	Thu,  5 Nov 2026 12:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLWHo9b7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA771F00919;
+	Thu,  5 Nov 2026 12:49:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793882966;
+	bh=jm/wpw0aBzb0o0AOc3jfnmw4DQX6HAAVWZR9EuNYLsE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hLWHo9b7hGosYSZW7trOle1t4JGK+lOuRPHSSG2ne8QkE8RxORZgz/3ScR/mCd2NY
+	 h4x0RAkm3nAKpJimuuuZNFst2I0wlcVKPd9C3H8o1ZlG88z0q32xfuIRl09+T0hymM
+	 02iY45Rq4Iz9PPnlIJQdwDBnQiAqnoGCt2Q9E4My7WZ+jOZgXT6sVvUBPcnCgA3QkO
+	 R63JJQQ4ALhdm4ZoSLQ+trtZJKWSmaG3b+ELBuyu7Fskp8LXuzheAoK5YOhjbl2OZF
+	 rQ1FK5kT9Ia2+DOVQKMDOaF5dIo90ieLAZjIb1NU/BVZmxs/9LNOkGjNHAEIzv9rVv
+	 3ZWIE3NaexvvQ==
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 875C5198003A;
+	Thu,  5 Nov 2026 07:49:22 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Thu, 05 Nov 2026 07:49:24 -0500
+X-ME-Sender: <xms:UnvsahYHfhfuowuo7CsP8DI_Mq629tzha1V6duSqF3d2rOoPSMOv2A>
+    <xme:Unvsapt5IHWqJRc9M1sDyX7maYF_aTnvkF3rMU-NZSWrWQAwToH4sJh1chBA8zN9S
+    vs5PWUD70Qqfv5gbjKLksaFf6psAS_xzlGAl-EQFYJgCyqCRlGupGA>
+X-ME-Received: <xmr:UnvsaokNKCzaNhhvvjKtVP_uXeFX2Ktxdm7UD05Mw8QsKXMyVPjJI11dUpQ>
+X-ME-Proxy-Cause: dmFkZTEW4JllTt5Idft6CjxHmeLyHBmFga2y1IuhusNWLkk+RuUzgi27fIRUkj6zehD73Z
+    qXCwJB+LL25tnZ7MVvsM1jJdiEBmACdZ24JuSELrb7onelR59Gex48EX9ZAQtwkYfzKv6O
+    uaYpMi0+N/MMtqlBvS8vtGqvcrtbxioqnmLvVVrtYt7ftIUJbtV5gX1DIVLeAqEZt1hxdV
+    1+ToEn+FZOdUeh1da2rslwkQZ+AzZG7c40X/kdHTPxPibTU64dnYA36koXg0Tlz8Wztmyv
+    SwnwNjIN0SiiiHU6wxG2euwX+lZfIbFsB8NG0sjX2VL9xr9B8DML+aHpZRMo5jzBfq1zPR
+    ktSIxz93afPY52xXAJMQtDa6ryeGSkd99uQQ6HftCDK/5lq4A4EXG6248hlloaD1dqQXli
+    ZfBqDxP6dPOx+dZRQ5Ewmf0owbcmym2T/DPtrd1oHh+5f0JrozQg5Z3q1nnwt2feob/tEk
+    u4jNZriHcMDhzf+vukSoUlT4TCc8bTEwt3z1Ad0c8X1v6VONQOnV2MwVoZxOFNxVbqAT1s
+    uTKzMC5Z5cFTuo+YI/c5cGoRfBKchT5UlKqB4cs8vwCsJf5yvPg+fHKtjE73dCphA+JD6X
+    4lrlpVaOJ6xaw9/S6Ce8EuGV+CFGCBHfLl4DzEOInSySvMg3qWI/C/CplHqA
+X-ME-Proxy: <xmx:UnvsaiWBPrxsObXpEfarSHjcZGtPcIfjWRAQTuI4KwVlYpuTuVT4jA>
+    <xmx:UnvsajnY5bhdHIG9jufPM0V3sE_xvLSab1AQ3GDusGs1dZGlzkyHiw>
+    <xmx:UnvsanQNGRjIVbPM2n1URzuw1Dv5PS7K8oFUojWmDZegXctMcg26AQ>
+    <xmx:UnvsavE1b5ie_x4Ez0D48lT6jS7Xz-4pnh1JAvyrcmsJuSzP25PwqA>
+    <xmx:UnvsapjUNKB-WYf_Z5-t4A4Z6DmdPTQ_jrkdSpcEREnYB4Kk8P0E7FuG>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 07:49:21 -0500 (EST)
+Date: Thu, 5 Nov 2026 12:49:20 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Hungyu Lin <dennylin0707@gmail.com>, willy@infradead.org, jack@suse.cz, 
+	akpm@linux-foundation.org, dave.hansen@linux.intel.com, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] filemap: prefault writes starting beyond EOF
+Message-ID: <aux4uyBHKsFo5bTd@thinkstation>
+References: <20261104071002.49693-1-dennylin0707@gmail.com>
+ <aux0ruR5HpMBMPI2@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,55 +87,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aux0ruR5HpMBMPI2@pedro-suse.tail5790ac.ts.net>
 
-compare_css_sets() walks the cgrp_links lists of two css_sets in
-lockstep.  Both lists carry exactly one link per hierarchy root, so a
-length or ordering mismatch just means the two css_sets are not the same
-one, which is what the function already reports with "return false".
-The caller keeps walking the hash chain and allocates a new css_set if
-nothing matches.
+On Thu, Nov 05, 2026 at 12:33:16PM +0000, Pedro Falcato wrote:
+> On Wed, Nov 04, 2026 at 07:10:02AM +0000, Hungyu Lin wrote:
+> > Since prefaulting moved to the slow write path, a buffered write can reach
+> > ->write_begin() and ->write_end() before discovering that its source buffer
+> > is unreadable. Several filesystems can extend i_size in these callbacks
+> > even when no data was copied. For example, a one-byte pwrite() at offset
+> > 4096 into an empty file can fail with EFAULT but leave a 4096-byte file.
+> 
+> I've been following this discussion rather passively on the other thread, so
+> I'll ask my stupid question: Why is this a problem? Yes, it's a bit of
+> weird behavior, but system calls are generally not expected to behave
+> super sanely in the case of bad input/weird errors.
 
-None of these checks is a user-reachable error path; they are invariant
-checks on kernel-internal bookkeeping that are expected never to fire,
-and each one has a way out.
+The input does not have to be bad. Write from an mmap() of a file that
+another process has truncated: write() fails with EFAULT and the
+destination file has grown anyway. I see it on ext4 and tmpfs. Before
+665575cff098 the file was left alone
 
-No functional change for a consistent state.
+> > 
+> > Prefault the source before ->write_begin() when the write position is
+> > beyond EOF, and return EFAULT if no source bytes can be made readable.
+> > Overwrites and appends continue to skip this prefault. Keep the existing
+> > slow-path faulting for forward progress after a failed atomic copy.
+> > 
+> > This also leaves intentional zero-length ->write_end() calls used by
+> > generic_cont_expand_simple() unchanged. As with the previous prefaulting
+> > behavior, a concurrent userspace unmap can still race with the later copy.
+> 
+> Ok, so it's still racy? What do you do if you can't fault it in at all?
+> You still get a hole?
 
-Signed-off-by: Shaojie Sun <sunshaojie@kylinos.cn>
----
- kernel/cgroup/cgroup.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Only if the buffer goes away between the prefault and the copy, e.g.
+another thread munmap()s it mid-write. That is userspace racing with
+itself, and every write had that window before 665575cff098.
 
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index a284225f8dc9..81c82d137fa2 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -1024,10 +1024,12 @@ static bool compare_css_sets(struct css_set *cset,
- 		l2 = l2->next;
- 		/* See if we reached the end - both lists are equal length. */
- 		if (l1 == &cset->cgrp_links) {
--			BUG_ON(l2 != &old_cset->cgrp_links);
-+			if (WARN_ON_ONCE(l2 != &old_cset->cgrp_links))
-+				return false;
- 			break;
- 		} else {
--			BUG_ON(l2 == &old_cset->cgrp_links);
-+			if (WARN_ON_ONCE(l2 == &old_cset->cgrp_links))
-+				return false;
- 		}
- 		/* Locate the cgroups associated with these links. */
- 		link1 = list_entry(l1, struct cgrp_cset_link, cgrp_link);
-@@ -1035,7 +1037,8 @@ static bool compare_css_sets(struct css_set *cset,
- 		cgrp1 = link1->cgrp;
- 		cgrp2 = link2->cgrp;
- 		/* Hierarchies should be linked in the same order. */
--		BUG_ON(cgrp1->root != cgrp2->root);
-+		if (WARN_ON_ONCE(cgrp1->root != cgrp2->root))
-+			return false;
- 
- 		/*
- 		 * If this hierarchy is the hierarchy of the cgroup
+> > Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> > Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> > Closes: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
+> > Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> > Link: https://lore.kernel.org/all/at-XtWBQg3jv3H8Z@thinkstation/
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> > ---
+> > 
+> >  mm/filemap.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> > 
+> > diff --git a/mm/filemap.c b/mm/filemap.c
+> > index b74bc1e5015c6f318333427f223b9f42061a6213..30414d55412b84f11ebe98b8eea607ee8c04eef5 100644
+> > --- a/mm/filemap.c
+> > +++ b/mm/filemap.c
+> > @@ -4389,6 +4389,16 @@ ssize_t generic_perform_write(struct kiocb *iocb, struct iov_iter *i)
+> >  			break;
+> >  		}
+> >  
+> > +		/*
+> > +		 * Some filesystems can extend i_size even when nothing was copied.
+> > +		 * Prefault writes beyond EOF to catch unreadable source buffers.
+> > +		 */
+> > +		if (unlikely(pos > i_size_read(mapping->host)) &&
+> > +		    fault_in_iov_iter_readable(i, bytes) == bytes) {
+> 
+> I say this doesn't matter, and if you pass insane inputs you get
+> insane outputs.
+
+As I mentioned above, it can happen with pretty legitimate input.
+
+> Even more so considering this is racy, e.g races
+> against munmap(), mremap(), mprotect(), memory poisoning, and other things
+> like truncated memory mapped files sending out a SIGBUS (or uffd) :)
+> 
+> I don't think it makes to add random prefault loops in hopes this makes
+> for saner semantics.
+
+A buffer that is already unmapped, PROT_NONE, poisoned or beyond EOF of
+its file fails the prefault, and the file is not touched. Only the races
+in your list get through.
+
+It is one prefault, not a loop, and only for writes that start beyond
+EOF. Overwrites and appends keep the fast path.
+
 -- 
-2.50.1
-
+  Kiryl Shutsemau / Kirill A. Shutemov
