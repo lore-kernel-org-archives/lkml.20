@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912262;
-	b=lt6rt2qxl4Zxpg7aS8xtV6Nv5hZdnQNhK4sY93Ok22vapMZV8T8LHjpd3M94a1tXrVDQ
-	 IpU54qfB4z/T2xzfIiW2CNnaLwuZNS8zdn2fzWpbkPAjcuetLezDpxut6rlYmssw1d6/S
-	 jEj/gbFxJCKoWNFGhMvZK8VFQzVVoyNnGxGxtlpOM3PbgCs+OA8Ve9gfKavVziWllekYz
-	 0EEvjRGY9iYVep0WW4a80r2Y3dpNAmVyxzVCOmtjfBONbKLlhfawpMOOPK0V56id3ja6L
-	 BW1LcsSmCvF+X2xOMNyIKj08LneELh+leul/U57a3Zj4vsFmumVx3jlOaqESgi0R89g==
+	t=1793912265;
+	b=yCFj7FMNr0Ln2Zf++7dUfiFNHORMp05z4lWY4pX/tugyFDnuOEPStI5JgMluk9Q5ZV9u
+	 9YsMd3bwnH6bruHgB7BU/NgQBpYiidKK7yETtFBBixcFDQRDB6XLP7zrkznfDvXSCkPkZ
+	 TRtzP9R7WIFc5wXZDlNWBtW1kK+sUMeSn1LbH2GqOYP4yOtuj4UfdxZsUgX66W3U5RzGv
+	 axeL7GBMMwe2/0iJVISt8GK9xZpSfrwyVldlotbrzpuKhpmJb+NrvzodcFwksGJwjHq5H
+	 6gWog1OorlX5LDgllKTsDNoOkvheQz7uVoEnxQCdjBB1U3jKaGkKbRtS3zZ+4b0KHuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912262;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=blozq/9ueN/weaanR6fA4D8Rh3f233RzyvTmlM0ePmw=;
-	b=JUj3U26/DFkYTCppnh2B/lt2zW4UhNnY1LZpkVthJhxafE5UZkfyOGEA2gowVG4NYCiC
-	 MncrPlr+Lg1uIWFhTreCdKQIn0vDzo+u6q0Y/smsOIBWinKHYvKUqDEPTyBHX9UCb1lrk
-	 t+95fSy0FRdkZYA8aWD0mzrjyuhwXrDhr+8/7hmQdWkP4VDS2o0EXNt/CTtNnrWYQaFuB
-	 OmcXVll2pfdWNpJIi78Rmeo1pQffFz83H2OehVGvRv/pMMpZhCQNMNG26RHN24lBEZfEF
-	 TfckC58E0OxHS0bI3URWRi06sigNGamKmcquIjbxxPkgyIv1B+ehpJQR/ld9XoneMJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912265;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dVRouAQ60e15ocRevqhuKqhJOtr4RnEhxrGu9kOZJ7w=;
+	b=FBuL0GzjpcFYJHux4RyMLZKJmI1eae46x+bBapIdzJyvltV8p+3UtG1d4ucbzagBJ7P8
+	 m37S78T6YjTG9ZDnlXRJXb/iNcNn1ijTosna5aLf16dKbw3IVfQ3NISw0fQOhdHHGC5Mr
+	 yByGUjLwvbkBT3btysPMD/aePG7y/U8RjcmOxg6+Vxf/exXkRDPWhYnwx3X0M9iCCm65/
+	 OKRoVyCJRSGc6hWfo56QawgbrOM0EpJVnj0upiBj+gO5/lP0axhcY5M4agb/u7djeaX7V
+	 CCUJoC9JyS+WD2axsaxlWzEPgCD41mJOirPytvluu61RkrH9s05JwezAK9vQTQ+F0Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=It9CE4lv;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NR7h8R1W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A459606A31B;
-	Thu,  5 Nov 2026 20:57:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A459606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB72B606D80F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:57:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=It9CE4lv
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 32065809DE;
-	Thu,  5 Nov 2026 20:57:33 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 105FE60010;
-	Thu,  5 Nov 2026 20:57:30 +0000 (UTC)
-Date: Thu, 5 Nov 2026 15:57:29 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Vincent Donnefort <vdonnefort@google.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Steven
- Rostedt <srostedt@redhat.com>, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
- rb_handle_head_page()
-Message-ID: <20261105155729.0f9c7e4d@gandalf.local.home>
-In-Reply-To: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
-References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NR7h8R1W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 666811F008A1;
+	Thu,  5 Nov 2026 20:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793912264;
+	bh=dVRouAQ60e15ocRevqhuKqhJOtr4RnEhxrGu9kOZJ7w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=NR7h8R1WOquh/FhA8p0k+/+Pv1X0RUR6onT5PSAQrKP9tdQ3/ODEVhkOQ4/e955g3
+	 Xr1rfAvg4kEI6+wGcgJpeJiCMqjhr7QGWnWOmC+fzcA9T0xVQoI02tzHxc7go6Hjn3
+	 Todt74T7PwY9qHf8PJ+i69mYzKU7p1iMQN44L5vUttlrmxayfshEXKbBtJdZmhQZML
+	 5s2Q+mXvBghgjxHByMNqrpZm9r+YuHlosTDXHJFIqilVpsJOP8AWIJbvoDd2Mnk5/6
+	 1pD4k97nUe+9DZ3wr2Un4Jm+4V3NIX/YiI4hpnWM+8OIHe6gasBSOfzGgjAOyijij3
+	 OdwPhwf+D/7AQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 05 Nov 2026 20:57:22 +0000
+Subject: [PATCH v2 1/3] Revert "mm/khugepaged: remove definition of struct
+ khugepaged_mm_slot"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,194 +53,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: 105FE60010
-X-Stat-Signature: 6qfsq7daudr6yyda71ijchhsf35r7559
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+4Bg73+KnseAa5PLXLoS9cef7i0GghHeQ=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=blozq/9ueN/weaanR6fA4D8Rh3f233RzyvTmlM0ePmw=; b=It9CE4lv+r3Uipb69ba2Za5u/pZmyJcCxz4re8T+sOE3Gr3BgCmIYaCPfb/xnPE+Hk5s3SJi4LaYySSpRaDba3dfBdUlneZzZVNW8dSOxrrMEl/SdIqnbwab2su9RPx8liRflmpcgYY3xXhz07xFWqpE633XIXUncP5bCKDxgTg=
-X-HE-Tag: 1793912250-675543
-X-HE-Meta: U2FsdGVkX1+Fu2fFcimacg/INWUVEqvFi2pTYqwZUUwVJY5vabqITdCd9b46KkJUUZbTkotHeKC/j+G9Xu2XUfLiisCJ3H75FAC3oA9SLradMCeWENpbOeUcGhRmZ1aP0ZNQ6j/m7ihVPbo52Tt7HIDU0OrPALad9lUlu069cy0xIfq15AkMEQqXFfX7WumiCrKtOE/es19IjC5KmRHM+3kQ98kKgWPDOh8nLESBntDk9vntr35sqSj/ngfXoDcvAH3GQxADfHfI00sFGrfmSKIjl3Oaa5mM1AKkcE2rXE+3xvBTeQSwxUTCycCk1dxtgQAXxB9UIB681YcCEHL+iuqG6/Iqmf8VTEOokcpr0m5rVPDYhJNBD8hY0v092hpKssa5tp3Nfh5sRWwrUs/xVHwmf6y9eRjtEEbbh2Rm520QNA84HdGcCAtV4c2LgkvcZG2OsVFBkk6GTtJcDMSHZC1sNb/IKMdr
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-khugepaged-latency-fix-v2-1-4384bbfe4606@kernel.org>
+References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
+In-Reply-To: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
+To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6956; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=ziMC6cguTgWTEd4kdoyX8HRN50ZLauaFxC4x777zQVY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLevD34se91tuVXQxX+5fVX/4uVPJzWfqfsnaXZmgqbs
+ 4dUWS8GdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAix6Yz/DM7M7dO8vjlJWKT
+ P0zP+6jtHezsNLHt1puyzYHq65XKLqgzMmy72dnPOXePl8Tcb7s4K35ULdmzzLNfb/u9jo1C9xM
+ nf+YGAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Thu, 05 Nov 2026 03:12:42 -0800
-Breno Leitao <leitao@debian.org> wrote:
+This partially reverts commit b4c9ffb54b32 ("mm/khugepaged: remove
+definition of struct khugepaged_mm_slot"), as a subsequent commit needs to
+resurrect this type to store additional data alongside the mm_slot.
 
-> The following warning occasionally fires on a KASAN-enabled debug
-> kernel in Meta's fleet:
->=20
->   WARNING: kernel/trace/ring_buffer.c:3793 at rb_move_tail+0xf78/0x1050
->   Call trace:
->    rb_move_tail+0xf78/0x1050 (P)
->    __rb_reserve_next+0x648/0xac0
->    ring_buffer_lock_reserve+0xd00/0xf00
->    trace_buffer_lock_reserve+0x28/0x188
->    trace_graph_return+0x220/0x3e8
->    ftrace_return_to_handler+0x2bc/0x5a8
->    return_to_handler+0x20/0x48
->    __arm64_sys_sched_yield+0x18/0x30 (F)
->=20
-> rb_handle_head_page() moves the head page forward in two steps: it marks
-> the pointer to the old head page UPDATE, then marks the pointer to the
-> page after it (new_head) HEAD. The second cmpxchg is assumed to return
-> only HEAD or NORMAL, but it can also return RB_PAGE_MOVED:
->=20
->   CPU 0 (writer)                        CPU 1 (reader)
->   ------------------------------------  --------------------------------
->   rb_handle_head_page()
->     old head ptr: HEAD -> UPDATE
->     new_head =3D page after old head
->     <interrupt: nested write>
->       sees UPDATE, marks new_head
->       HEAD and moves the tail page
+The stated intent of the commit was to address a NULL check in
+__khugepaged_exit():
 
-Wait? The interrupt should never change UPDATE to HEAD.
+	mm_slot = mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
 
-Something else is broken here. Because only the one that set HEAD to update
-is allowed to set it back to NORMAL.
+slot can be NULL and mm_slot_entry() is an alias for container_of(), so
+this is container_of() a NULL value.
 
->     </interrupt>
->                                         rb_get_reader_page()
->                                           swaps new_head out for the
->                                           reader page
+This was benign as there was only 1 field in khugepaged_mm_slot (offsetting
+NULL at 0 results in NULL), however it was right to fix this, so retain the
+fix.
 
-				This should not happen. The entire point of
-				setting the pointer to UPDATE is to prevent
-				swaps from happening when any commit is in
-				progress.
+It also unwrapped KMEM_CACHE() in khugepaged_init(). This was a mistake,
+and was itself reverted in commit c14bdcc9f274 ("mm/khugepaged: use
+KMEM_CACHE()"). Therefore, retain the KMEM_CACHE() form in this revert.
 
-The rb_handle_head_page() even states this:
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/khugepaged.c | 57 ++++++++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 38 insertions(+), 19 deletions(-)
 
-	/*
-	 * If this was the outer most commit (the one that
-	 * changed the original pointer from HEAD to UPDATE),
-	 * then it is up to us to reset it to NORMAL.
-	 */
-	if (type =3D=3D RB_PAGE_HEAD) {
-		ret =3D rb_head_page_set_normal(cpu_buffer, next_page,
-					      tail_page,
-					      RB_PAGE_UPDATE);
-		if (RB_WARN_ON(cpu_buffer,
-			       ret !=3D RB_PAGE_UPDATE))
-			return -1;
-	}
-
-
-
->     cmpxchg(new_head|NORMAL ->
->             new_head|HEAD) -> MOVED
->     RB_WARN_ON()
->=20
-> A nested writer that interrupts the outer one after the second cmpxchg
-> still sees the old head pointer UPDATE and repeats the second step. If
-> the reader swaps new_head out just before that cmpxchg, it returns
-> RB_PAGE_MOVED too.
->=20
-> RB_WARN_ON() permanently disables recording on the whole ring buffer,
-> and the outer writer returns without clearing its UPDATE flag.
->=20
-> In both cases another writer has already moved the head off the old
-> head page, as when the cmpxchg returns HEAD. Treat RB_PAGE_MOVED the
-> same way and fall through: the outer writer still clears its UPDATE
-> flag, and the caller updates the tail page as usual.
->=20
-> Fixes: 77ae365eca89 ("ring-buffer: make lockless")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
-> Changes in v2:
-> - Fall through on RB_PAGE_MOVED instead of returning 1, so a nested
->   writer still moves the tail page (Vincent)
-> - Drop the duplicated UPDATE clear (Vincent)
-> - Document RB_PAGE_MOVED in the "Valid returns" comment (Vincent)
-> - Commit message improvements
-> - Link to v1: https://patch.msgid.link/20261102-ring-buffer-head-moved-v1=
--1-165973790be4@debian.org
-
-=46rom your v1 comment:
-
-> A nested writer and a consuming reader can race so that the second
-> cmpxchg of a head page move in rb_handle_head_page() returns
-> RB_PAGE_MOVED. That trips RB_WARN_ON(), which disables the ring buffer
-> and leaves the old head pointer flagged UPDATE. The patch handles the
-> return like the RB_PAGE_MOVED case of the first cmpxchg: clear the
-> UPDATE flag if this writer set it, and retry.
->=20
-> Testing, on arm64 KVM guests under virtme-ng (32 vCPUs, KASAN config,
-> next-20261030; kernel/trace/ring_buffer.c is identical in v7.4-rc1):
-> - Setup: function_graph tracer filtered to "*sched*", buffer_size_kb=3D7
->   (two pages per CPU), overwrite on, a trace_pipe_raw reader on every
->   CPU plus a trace_pipe reader, and stress-ng --yield/--timer/--futex.
-
-OK, I think I see the issue here. I believe the reader is finding the wrong
-head page. Making the buffer really small can make this scenario happen
-more often.
-
-The problem is where the reader thinks the "head_page" is. When the reader
-swaps out the page, it first looks for the "head_page". The head page
-always has flags set in the pointer to it, so before the swap, the reader
-will search for the head page.
-
-It starts with the cpu_buffer->head_page pointer which is where it found it
-last. It then searches for the head page and when it finds it, it tries the
-swap. The swap will only succeed if the pointer is HEAD.
-
-The issue I think you hit was that we have two HEAD pages, when interrupts
-come in. That is, we can get a state of:
-
-  --> subbuf --UPDATE--> subbuf --> subbuf --HEAD--> subbuf -->
-
-With the expectation that the reader will never be between those two
-pointers and it will always find the UPDATE before it sees the new HEAD. But
-since only the reader moves the cpu_buffer->head_page around and the writer
-does not, we can have a stale pointer of this:
-
-
-  --> subbuf --UPDATE--> subbuf --> subbuf --HEAD--> subbuf -->
-                                      ^
-                                      |
-                            cpu_buffer->head_page
-
-And when the reader looks for the new head, it will find this:
-
-
-  --> subbuf --UPDATE--> subbuf --> subbuf --HEAD--> subbuf -->
-                                                       ^
-                                                       |
-                                             cpu_buffer->head_page
-
-And possibly swap out the head page before it is allowed to.
-
-To prevent this, I believe having the writer move this pointer will keep it
-from being stale and ending up between the two.
-
-Can you try this?
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index c64e001c3fc0..f0bb2d23d818 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -3721,6 +3721,14 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_=
-buffer,
- 		local_sub(rb_page_commit(next_page), &cpu_buffer->entries_bytes);
- 		local_inc(&cpu_buffer->pages_lost);
-=20
-+		/*
-+		 * To prevent a stale head_page from being between
-+		 * the UPDATE and new HEAD pages, set it here to have
-+		 * the reader check always find the update before
-+		 * finding the HEAD page.
-+		 */
-+		cpu_buffer->head_page =3D next_page;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index da91762f6358..aad8797f8d5a 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -66,6 +66,14 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
+ 
+ static struct kmem_cache *mm_slot_cache __ro_after_init;
+ 
++/**
++ * struct khugepaged_mm_slot - khugepaged information per mm that is being scanned
++ * @slot: hash lookup from mm to mm_slot
++ */
++struct khugepaged_mm_slot {
++	struct mm_slot slot;
++};
 +
- 		if (cpu_buffer->ring_meta)
- 			rb_update_meta_head(cpu_buffer, next_page);
+ /**
+  * struct khugepaged_scan - cursor for scanning
+  * @mm_head: the head of the mm list to scan
+@@ -76,7 +84,7 @@ static struct kmem_cache *mm_slot_cache __ro_after_init;
+  */
+ struct khugepaged_scan {
+ 	struct list_head mm_head;
+-	struct mm_slot *mm_slot;
++	struct khugepaged_mm_slot *mm_slot;
+ 	unsigned long address;
+ };
+ 
+@@ -386,7 +394,7 @@ int hugepage_madvise(struct vm_area_struct *vma,
+ 
+ int __init khugepaged_init(void)
+ {
+-	mm_slot_cache = KMEM_CACHE(mm_slot, 0);
++	mm_slot_cache = KMEM_CACHE(khugepaged_mm_slot, 0);
+ 	if (!mm_slot_cache)
+ 		return -ENOMEM;
+ 
+@@ -446,20 +454,22 @@ static bool hugepage_enabled(void)
+ 
+ void __khugepaged_enter(struct mm_struct *mm)
+ {
++	struct khugepaged_mm_slot *mm_slot;
+ 	struct mm_slot *slot;
+ 	int wakeup;
+ 
+ 	/* __khugepaged_exit() must not run from under us */
+ 	VM_BUG_ON_MM(collapse_test_exit(mm), mm);
+ 
+-	slot = mm_slot_alloc(mm_slot_cache);
+-	if (!slot)
++	mm_slot = mm_slot_alloc(mm_slot_cache);
++	if (!mm_slot)
+ 		return;
+ 
+ 	if (unlikely(mm_flags_test_and_set(MMF_VM_HUGEPAGE, mm))) {
+-		mm_slot_free(mm_slot_cache, slot);
++		mm_slot_free(mm_slot_cache, mm_slot);
+ 		return;
+ 	}
++	slot = &mm_slot->slot;
+ 
+ 	spin_lock(&khugepaged_mm_lock);
+ 	mm_slot_insert(mm_slots_hash, mm, slot);
+@@ -504,12 +514,15 @@ void khugepaged_enter_vma(struct vm_area_struct *vma,
+ 
+ void __khugepaged_exit(struct mm_struct *mm)
+ {
++	struct khugepaged_mm_slot *mm_slot;
+ 	struct mm_slot *slot;
+ 	int free = 0;
+ 
+ 	spin_lock(&khugepaged_mm_lock);
+ 	slot = mm_slot_lookup(mm_slots_hash, mm);
+-	if (slot && khugepaged_scan.mm_slot != slot) {
++
++	mm_slot = slot ? mm_slot_entry(slot, struct khugepaged_mm_slot, slot) : NULL;
++	if (mm_slot && khugepaged_scan.mm_slot != mm_slot) {
+ 		mm_slot_remove(slot);
+ 		free = 1;
+ 	}
+@@ -517,9 +530,9 @@ void __khugepaged_exit(struct mm_struct *mm)
+ 
+ 	if (free) {
+ 		mm_flags_clear(MMF_VM_HUGEPAGE, mm);
+-		mm_slot_free(mm_slot_cache, slot);
++		mm_slot_free(mm_slot_cache, mm_slot);
+ 		mmdrop(mm);
+-	} else if (slot) {
++	} else if (mm_slot) {
  		/*
+ 		 * This is required to serialize against
+ 		 * collapse_test_exit() (which is guaranteed to run
+@@ -1773,8 +1786,9 @@ static enum scan_result collapse_scan_anon(struct vm_area_struct *vma,
+ 	return result;
+ }
+ 
+-static void collect_mm_slot(struct mm_slot *slot)
++static void collect_mm_slot(struct khugepaged_mm_slot *mm_slot)
+ {
++	struct mm_slot *slot = &mm_slot->slot;
+ 	struct mm_struct *mm = slot->mm;
+ 
+ 	lockdep_assert_held(&khugepaged_mm_lock);
+@@ -1790,7 +1804,7 @@ static void collect_mm_slot(struct mm_slot *slot)
+ 		 */
+ 
+ 		/* khugepaged_mm_lock actually not necessary for the below */
+-		mm_slot_free(mm_slot_cache, slot);
++		mm_slot_free(mm_slot_cache, mm_slot);
+ 		mmdrop(mm);
+ 	}
+ }
+@@ -2891,6 +2905,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ 	__acquires(&khugepaged_mm_lock)
+ {
+ 	struct vma_iterator vmi;
++	struct khugepaged_mm_slot *mm_slot;
+ 	struct mm_slot *slot;
+ 	struct mm_struct *mm;
+ 	struct vm_area_struct *vma;
+@@ -2900,12 +2915,14 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ 	*result = SCAN_FAIL;
+ 
+ 	if (khugepaged_scan.mm_slot) {
+-		slot = khugepaged_scan.mm_slot;
++		mm_slot = khugepaged_scan.mm_slot;
++		slot = &mm_slot->slot;
+ 	} else {
+ 		slot = list_first_entry(&khugepaged_scan.mm_head,
+ 				     struct mm_slot, mm_node);
++		mm_slot = mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
+ 		khugepaged_scan.address = 0;
+-		khugepaged_scan.mm_slot = slot;
++		khugepaged_scan.mm_slot = mm_slot;
+ 	}
+ 	spin_unlock(&khugepaged_mm_lock);
+ 
+@@ -2981,7 +2998,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ breakouterloop_mmap_lock:
+ 
+ 	spin_lock(&khugepaged_mm_lock);
+-	VM_BUG_ON(khugepaged_scan.mm_slot != slot);
++	VM_BUG_ON(khugepaged_scan.mm_slot != mm_slot);
+ 	/*
+ 	 * Release the current mm_slot if this mm is about to die, or
+ 	 * if we scanned all vmas of this mm, or THP got disabled.
+@@ -2993,14 +3010,16 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ 		 * mm_slot not pointing to the exiting mm.
+ 		 */
+ 		if (!list_is_last(&slot->mm_node, &khugepaged_scan.mm_head)) {
+-			khugepaged_scan.mm_slot = list_next_entry(slot, mm_node);
++			slot = list_next_entry(slot, mm_node);
++			khugepaged_scan.mm_slot =
++				mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
+ 			khugepaged_scan.address = 0;
+ 		} else {
+ 			khugepaged_scan.mm_slot = NULL;
+ 			khugepaged_full_scans++;
+ 		}
+ 
+-		collect_mm_slot(slot);
++		collect_mm_slot(mm_slot);
+ 	}
+ 
+ 	trace_mm_khugepaged_scan(mm, cc->progress - progress_prev,
+@@ -3090,7 +3109,7 @@ static void khugepaged_wait_work(void)
+ 
+ static int khugepaged(void *none)
+ {
+-	struct mm_slot *slot;
++	struct khugepaged_mm_slot *mm_slot;
+ 
+ 	set_freezable();
+ 	set_user_nice(current, MAX_NICE);
+@@ -3101,10 +3120,10 @@ static int khugepaged(void *none)
+ 	}
+ 
+ 	spin_lock(&khugepaged_mm_lock);
+-	slot = khugepaged_scan.mm_slot;
++	mm_slot = khugepaged_scan.mm_slot;
+ 	khugepaged_scan.mm_slot = NULL;
+-	if (slot)
+-		collect_mm_slot(slot);
++	if (mm_slot)
++		collect_mm_slot(mm_slot);
+ 	spin_unlock(&khugepaged_mm_lock);
+ 	return 0;
+ }
 
-We may need to add memory barriers here, but for now, I think this could
-fix it. As it should prevent the search from ever starting in between the
-two heads.
-
--- Steve
+-- 
+2.56.0
 
