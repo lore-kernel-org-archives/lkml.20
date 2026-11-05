@@ -1,129 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862955;
-	b=qBIRUIurMxm1+qA9gHdrsjELclxhffpjivlqbRdjGxyry4wdfauarn8pR0JvLQkMkAet
-	 MtezO+nN4SYJrfBGHJHlFHR61qe9UalWLMPmh39KDr2Irk/jHdOFU7mDOL8EsX39qUhXk
-	 fZFjAo/9K9cDT20jzqFwRM4FO+MFk7pinjbnwZ14MqHAmZAHDOgvPZy0zxQtHCrEFWXOT
-	 ye8JTWhaRkprQvcdmYFeJva5zFBGjRgyMO8D3Y1E6V1w0hYcOdIgIpsx4JDQbHNSetZ5V
-	 IgRZg31ZucahjjAMNiDgUeVh4KqUkrawICOS4r5luWl37HgSxUYwMAZeP6XypkbguHA==
+	t=1793862986;
+	b=cqVqAx8G+HKDM8oScoq1hfOTYwz63CqK0gHO4vL9mK9DTu3HNSA35OfQKF/5SUcziECS
+	 fX7s3g5x1NO0Nhircp+xUktizRd5pxK/p0lBdljmpmp7RzFmbPwXYr/YThpYbwTPhXfgt
+	 u1Ixx6xjSziB/G/wSdzqk2RmWHRHAQj2KCiBNeis4KcE37bCSsdwbChoCRKVxYWLVVCwo
+	 pyQTIfDuU9ZXS22ne/XJOwI2vmqU9VonCH0ifGEzoImVZEB85B0P5mKggwyKHwVhMzorS
+	 n+q+ZnOMOc29Tr6r+BIGMQmsEOrscu6ZIiPubFNmEGzboTm+Qd9NbgSM1u3aPXCT/LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862955;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OhNvDsZJpE4KS30+qaZ5e8X21eLLhO3Q56fZ1Ek8d2I=;
-	b=YUnFNv9JJDr/6AyiIcQQYsOgR2e88l8NPz0YYpG5Pv9Ks9Bhk+gENS7ABz5qElFr189t
-	 /1/4jRU3EN+CIoilIzpEiNKraRg8XnFPlyGnJLvSOznWeTTykxUQY0vMQP0X98X9yhmAx
-	 7QVlUI3jK5FpddC3w4J8taQQ7rlgg8G1vIek0GDsJH/KQH8z4B//PImboKIZs3WPI4hiO
-	 MBZanmJqTCJHwqb9+KonXnKLZsQmIJwJdyi4VbAYdGeF5N44wfXAi8EbrcKtMwULXkJ4a
-	 PXRAnpvTFc4kk2weGtf73xseyBf6BjxoidkfllWYBvhkgvz6gSaRCs/qGCmpm/DEcbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862986;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=xmDWGutiin4uCx8kXq9+NVdqng5FIqT+d5iQkfyQ+W8=;
+	b=yIcEh28WBAMstKCAK7vooI9o4t14RaXOjUVE3eyT9Tr+/eiSBSPYRepKoNCWIIvbWGgN
+	 BZtQvZv0jfdcikz/n9tIKXMHttS4S91ppftke7KDZ7AVxycJOur/6fUKz38tGGvREqah5
+	 TV8S9N3q3MMp+wu9FSD+DuaDK7KURLzoidtrZoyWibb7usaR3iVKv3djTBolJ8CGJXV8T
+	 ER4Il4ujfmR8l04Z1qJ5qg7wPOIjXtMzkXFii53Vh/JybQC2MSnThMZ4hV9w8YI/7cGNj
+	 iq4iHikXzexRFGZeQaj885MlqoBSNaKeEKAKd5rOuiV8j/K6OV0C8HbFLGYyZ7ZCtvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DyE64Cep;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UC6dPSWO;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qcMq0vmm;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0908D606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0908D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79A1606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:16:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B79A1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DyE64Cep;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UC6dPSWO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793862954;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OhNvDsZJpE4KS30+qaZ5e8X21eLLhO3Q56fZ1Ek8d2I=;
-	b=DyE64CepA+WkHBw620xDqa78UQMllzWe4dil9Adj7wSj0i5NZfe+zc4JGXkes3L0/zrbap
-	687iDF0/6ARJSh6HCzKvuymlLmI/+bMm4J/Z4xenmT/p/ExuV49prS2zQYAuCiZ2XjjMvI
-	hflQfSObd/ugxWL5u63BX2T/krEHjFw=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-641-8uvhm00OPkSvbncUVvluig-1; Thu, 05 Nov 2026 02:15:50 -0500
-X-MC-Unique: 8uvhm00OPkSvbncUVvluig-1
-X-Mimecast-MFC-AGG-ID: 8uvhm00OPkSvbncUVvluig_1793862950
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1fa972b4fso8602005e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:15:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793862950; x=1794467750; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OhNvDsZJpE4KS30+qaZ5e8X21eLLhO3Q56fZ1Ek8d2I=;
-        b=UC6dPSWOvEiKo+YH17r3sJM+YGz+JwKvul+7LxPXUtwj6RL+6qFbI6JugCqMlwcyIS
-         Ysz20AhBz904sHWlq8h5BrXnZnsCEuii2vQxyBozXHqHJpe8yAzyuW8QMBmoHYn8KEw5
-         5oqJiAMb1qYcWEo3xoktCD08dgQ90usype0flBeLFooyXgUSFzg/ECgJfMgnHl+4+Sc8
-         JSDfmVai8SdggbryHet7nQRwU4RWgeDgYkAdZhAZWz7EMKofHNM1nLReci5DfLuzZgyD
-         33E297uS6YQXtwVqkF3dE9u6mfSfxJU87cOwZSdf4n2+3p4+cjXj+1z208w+HtRXz2HY
-         hKZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793862950; x=1794467750;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OhNvDsZJpE4KS30+qaZ5e8X21eLLhO3Q56fZ1Ek8d2I=;
-        b=dMlHmNfB9qtA1RS7MLw8R1mK0AhRpQm8QOzg91t/8ISV0GwCLNaSO7gO3HZKY5Uywo
-         3FYzOKzNcTmcRv8AEI5DJEjJLcVxgMpTduoXhpOPiI8Ko3eLaTsJiS/sTIL7vqLlbunS
-         SeBB2DZDw3PCuKakrEPPHmCeqo98iJWZnomjGIQnICqoJCp/bNc0lkrNoPPIF9kuL9YV
-         5VKF1OA77DT+7r+fa3O9CVIv2Gx+/erh1broP+yMiKlQEQFyqOQ1gVsxw/jDnZtL4NS3
-         wKerkO4T/HnttUCFqjeWxzZeFI8C4LBVz5QM967nJESDqzYeb4cfb1qbNEf24vrDbwzw
-         JprQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjwKscDmuFAL+xemQcm4x1aBLHR1bBU6tmQIlyCJ8/sR7PVMDLtX9inUZ4fw5mVkgJPDn0Jl9VAQzJAKQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Y0jrX1k+FFc2pQwqwlqevEQSYtnvJzBokaK7baCgvUY2F+eE2
-	qCW/mzIBrhIzE4l9SrPdfGeBr4gjurDCyf5qMmgTnJtQmU8QNSWbIcR6cj0SOeNyUUDZnEiq3aK
-	wXkYJXv5NPn3Up4s18OqHS0V9vv+nZLDpMCo7uhqicUKiDk5/QDLMWuiKtfODHwpXcw==
-X-Gm-Gg: AYBFou2lykau3pTYZnxiP/cfmRfNIPYJV4uXykZibYYjafAwyA/bsH5okMvHRgb/AeP
-	OxNzpV1cuCNPeoU0rgJ1mFwMeYFJBZogvKv0TUR8XA9n+B+Bmq3vkm9bpo39f9miHsMTS1uYXhX
-	P51VyhSCnwYNe7RQ6vfn5HfpPdd9g27ZVGfDKSmkEqKrlg+8f92UfqiIz4if7X6CFN7FR6GHmUE
-	O/SdMIEIV0yrYo9lTJqzUwmw7UQn3Dhofki2y4jZg0jImuOqcKxiJUwBCtJPWUb7VS18l4tLXir
-	p5cZEOaldqRBHyIA6oJ8AsyR+RLg3VwmlU8Rrj+Px3dWQYQQUx9XV9rB9J4whxTqOyOW0FPRwsd
-	TyKdLx4Tv3EOx+//CgpfvD/kZBMhQ6ZwmJXPp6cy4NuamC4k2X+KtLmEfbK1xSHYFZdFfSSI3ar
-	LnUQ==
-X-Received: by 2002:a05:600c:1f8d:b0:4a2:c9b:9b98 with SMTP id 5b1f17b1804b1-4ac177539f6mr393038785e9.17.1793862949730;
-        Wed, 04 Nov 2026 23:15:49 -0800 (PST)
-X-Received: by 2002:a05:600c:1f8d:b0:4a2:c9b:9b98 with SMTP id 5b1f17b1804b1-4ac177539f6mr393038455e9.17.1793862949360;
-        Wed, 04 Nov 2026 23:15:49 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e65c8sm42015295e9.12.2026.11.04.23.15.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 23:15:48 -0800 (PST)
-Date: Thu, 5 Nov 2026 08:15:46 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v2 02/21] sched: Refuse SCHED_FLAG_KEEP_PARAMS that would
- change the policy
-Message-ID: <auwtIqa4H4Fqjq6V@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-3-mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qcMq0vmm
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=xmDWGutiin4uCx8kXq9+NVdqng5FIqT+d5iQkfyQ+W8=;
+	b=qcMq0vmmCG+QJ06/5tuCyDejH+9yDD2CBbqRmS3yCn7bs80aWley02L2N3S3jymkY6dVNZTl0
+	eY9OZcUVoMN0yt45VCA0PDWf7LeBJ+jz9ewSY+sKYXs4siDGDsr21dnT3I8sFeaTOe8nIKeHVq/
+	rGeLwyEATGTYaN2icQF11Rw=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jKtrY68hyz1T4KC;
+	Thu,  5 Nov 2026 15:15:57 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D2FA940538;
+	Thu,  5 Nov 2026 15:16:18 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 15:16:18 +0800
+Message-ID: <b2d59ec8-31f3-4454-9127-0cea58d27716@huawei.com>
+Date: Thu, 5 Nov 2026 15:16:17 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,50 +62,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104211207.1392343-3-mathieu.desnoyers@efficios.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: Round the CDP RMID count down to whole CLOSIDs
+To: Ben Horgan <ben.horgan@arm.com>, <james.morse@arm.com>,
+	<reinette.chatre@intel.com>, <fenghuay@nvidia.com>, <zengheng4@huawei.com>,
+	<gshan@redhat.com>, <jic23@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20261104101622.563280-1-ruanjinjie@huawei.com>
+ <45efa783-21b4-4f67-a0fd-c6772d5cb038@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <45efa783-21b4-4f67-a0fd-c6772d5cb038@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hello,
 
-On 04/11/26 16:11, Mathieu Desnoyers wrote:
-> SCHED_FLAG_KEEP_PARAMS keeps the parameters of a task: it skips
-> __setscheduler_params(), which is what sets p->policy. A request that
-> asks for another policy is then carried out by half, and succeeds:
-> SCHED_OTHER to SCHED_BATCH with SCHED_FLAG_KEEP_PARAMS returns 0 and
-> leaves the task where it was.
-> 
-> For SCHED_DEADLINE it costs bandwidth. A task that priority inheritance
-> boosted into the deadline class is of that class already, so
-> prev_class == next_class and the class check of
-> commit 8a70415351ba ("sched: Reject SCHED_FLAG_KEEP_PARAMS when it would
-> change scheduling class") lets the request through: sched_dl_overflow()
-> admits it and adds
-> its bandwidth, which the skipped __setscheduler_params() never gives to
-> the task. It keeps SCHED_NORMAL and a dl_bw of 0, so nothing releases
-> that bandwidth, and total_bw of the root domain holds it for good.
-> 
-> Refuse a policy change as well, where the class change was refused
-> alone.
-> 
-> A SCHED_OTHER owner of a PTHREAD_PRIO_INHERIT mutex with a slice of
-> 40ms, boosted by a deadline waiter blocked on it, leaves 0.4 of a CPU
-> behind at every such call: total_bw 419424 -> 838854 and there to stay,
-> in 8-CPU VMs of v7.4-rc1 with the four deadline fixes of sched/urgent,
-> and of this series up to here. With this change the call is refused and
-> total_bw is as it was. The selftest added later in this series has the
-> case, params_keep_boosted.
-> 
-> Found by the Sashiko AI review of the first posting of this series.
-> 
-> Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
 
-Makes sense to me.
+在 2026/11/4 22:21, Ben Horgan 写道:
+> Hi Jinjie,
 
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Hi Ben,
 
-Thanks,
-Juri
+> 
+> For patches touching the glue between MPAM and resctrl, essentially mpam_resctrl.c, the prefix used
+> is 'arm_mpam: resctrl' rather than just 'arm_mpam'.
+
+The following will be done in this format.
+
+> 
+> On 04/11/2026 10:16, Jinjie Ruan wrote:
+>> resctrl_arch_set_cdp_enabled() halves the whole RMID index space, while
+>> the resctrl core halves the CLOSID count: schemata_list_add() divides a
+>> CDP resource's schema by two, and closid_init() takes the smallest
+>> across the schemata.
+>>
+>> When the PMG count and the CLOSID count are both odd, halving the
+>> product counts RMIDs that belong to a CLOSID resctrl never allocates.
+>> With 3 PMGs and 5 CLOSIDs MPAM reports 7 RMIDs, but the 2 CLOSIDs that
+>> resctrl has times 3 PMGs only allow 6. The count is visible in
+>> /sys/fs/resctrl/info/L3_MON/num_rmids, so userspace reads a value that
+>> includes RMIDs no CLOSID can use; 
+> 
+> Good spot.
+> 
+> It occurs to me that 'num_rmids' is also too high on a monitor only system too as there is only one
+> PARTID that can be used.  Can you see a clean way to fix this in one go?
+
+I will have a try to fix both problems in a clean way, thank you very much.
+
+> 
+> Thanks,
+> 
+> Ben
+> 
+> RMID allocation itself is bounded by
+>> the free list.
+>>
+>> Derive the number of RMID groups from the index space and halve that, so
+>> the count follows resctrl_arch_system_num_rmid_idx().
+>>
+>> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> Cc: <stable@vger.kernel.org> # 7.1.x
+>> Cc: James Morse <james.morse@arm.com>
+>> Cc: Ben Horgan <ben.horgan@arm.com>
+>> Cc: Reinette Chatre <reinette.chatre@intel.com>
+>> Cc: Fenghua Yu <fenghuay@nvidia.com>
+>> ---
+>>  drivers/resctrl/mpam_resctrl.c | 12 +++++++++---
+>>  1 file changed, 9 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+>> index 5468367776e2..d3f957162b68 100644
+>> --- a/drivers/resctrl/mpam_resctrl.c
+>> +++ b/drivers/resctrl/mpam_resctrl.c
+>> @@ -217,10 +217,16 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+>>  	cdp_enabled = enable;
+>>  	mpam_resctrl_controls[rid].cdp_enabled = enable;
+>>  
+>> -	if (enable)
+>> -		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
+>> -	else
+>> +	if (enable) {
+>> +		u32 num_group;
+>> +
+>> +		/* Halve the number of RMID groups, keeping whole PMG rows. */
+>> +		num_group = resctrl_arch_system_num_rmid_idx() /
+>> +			    (mpam_pmg_max + 1);
+>> +		l3->mon.num_rmid = (mpam_pmg_max + 1) * (num_group / 2);
+>> +	} else {
+>>  		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+>> +	}
+>>  
+>>  	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
+>>  	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
+> 
+
+-- 
+Best regards,
+Jinjie
 
