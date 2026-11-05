@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897074;
-	b=4uHMbnN644y57EbZp6OcMzFHqXAIoKpwSJhsSTzXXBWEvD9roEoykQqmdYlcJEBseKU6
-	 SVXqpb9vY14wmHZHEuS4VZA1D5UBHaac1fszlc53zf8zpGmrSPdvcaZKacpcJQ0bAPdRu
-	 OZOZAb7iNTQBFu5IENm6bXXDobDuqewIN3i7hYkHPzyDVGth5k6lFj5E08Wra18UWXMDG
-	 u/sp6KrDEMItAlV3adve2wNbO423qSbqlJsPu84SvuRVzODkfN9h19IsEKEmZ9P7FBwFQ
-	 Lv5XAiTXSdfyzZxv0TPNunVdA6sx0WLHUD8G9i/TBG9Y/DjZjh1PdIKeeOUNtfA/njw==
+	t=1793897079;
+	b=2VKYAWZZqd9cq5chojAPxMeI3tPb5hePbDVpXcswQBUV7BvwFJFe73dJLOGoFMx2AzfI
+	 vgJ/2cSdG9w/JXcoZfv3jt4WE/NUI/tnQYi3eyM9NdZ0RtCQuNVQGbs4WG/leVwVTOHNi
+	 a8HKPYk572FVslP3XXfL3m0VH5JslKrbO1raxCySsfd0JDX15i9ml9Yizuug4suhsqbJm
+	 advwSpbldX3cHbPKqImOHZrsj5Y+QPxP+cpo3xIZ3A6B17QpJumNMrijJID4KFYdICYPt
+	 /ifs2+IHr8C6PAJBhrgXfs8w3suSzWZCGkkwb5iN7KWO/v4LgWXABwtyjASKFlsqorg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897074;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
-	b=vLet9QAlWFTrXqGlTRdnk/NiAexXUafaRm8oa8RzgqhDr+78k27JWDib0n75HcARa2go
-	 9GM2oFYYB0gRm8z7OL4SnJLC9JN8PkW+MnmAu5G7HldsOdxfYvSSqr1zSnQlj3XJENANq
-	 9A9OxtAJ1+KdbEzjHkGAe4pjaY1ijsMA2rFyjRrY1ROj+apsG5ArECcefNJeQNv5Xr84z
-	 6wnl67omdQ5OTsRqz1OsPj9LiwiGrfeDj8rxy/+uO44jYP06Jt/IuTz8abuxXobSUrrSI
-	 7wf6cKnd50k8iAACHpHc6TS88K4HikHJmpiJLDMuTl0+BBPr+1ZQPMG2uF4E3zOGwNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897079;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GbC7Iece9zSoootC12B+Bn/H8PC2Rlg/VwOOVmaQcoU=;
+	b=M9/q/ACkOvIuearNalVc9fgBjQ2WwFn3a2nv/vKducYrlPe/Oa4JnLquUIDp1DR2Sg/B
+	 3FSjHi2BE8DjBfwq/O9k4f2pbCPRTlwBnLMvgJYPn8LjaIkVYlVRksYxYuSLNftuWIcj+
+	 bG4YEcB0vy8HZi5G0TjvH8P0IO32LJqdsqzdIj40ET3aQDCbtnF61NyXhmNaUtalDHjBq
+	 siIJ3k6NCKBkXB6xv/mgKw07034Nek/MZmmDrBk4uWWz98hoQBPsM3G1WBNStnGQYjvsA
+	 XM1s7dKppTAHnPrKe5b26DtDkNVvGQ5ux7XIUvGxJiQcavOooEEMMSTuW58dEfrkgrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xfIfLYcP;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKMbUO4f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A71606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63A71606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB68F606A332
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:44:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xfIfLYcP
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d1b35dc42so188153366b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:44:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793897072; x=1794501872; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
-        b=xfIfLYcP64DFbq+WXEUe9TYpwTOFTkySIMUElL9UJ0zJsmsGjdUUciQoXTGP3wKcCo
-         1XYgvft/Fv/0vFCllUsu0rxITDqYRLwtlkrRR7lIvP4FEHCYwhjN3uVlvnDpoqXCTdyN
-         796+LDnAGjm+fL5Sc/0IWvBT8ZuXds9TSREtvCM9VKinLLCn5CVRD8puQMFZIfIpsyxY
-         DxrA4lYIWf7bvJINbPD2tmaONSHIK0aPYwRxhwRUeH8y+C8Wkj2JkauvpVoHxozWKDnk
-         nV7NMzCd0VIT9n6AQ2vl2kNPmXustP6x5H/QcsdvSfm9ao9GLQvFQHw54wGY/ZXrDpOQ
-         zuJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897072; x=1794501872;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
-        b=SPdKGddOXhuWxk2a9tVqHK8HmLhiWhBn0dTLh1ipVycJ/CptopowKNcuw7WWsdvF1E
-         O+ZRU1oUVm0s0UhIk/4o5vlUxMJOFMt6johKa+QjUFAL0B0IbfYuR4QN+1HQs4s8fRb+
-         4VSoN4NM+yLCRzKuem5GKr61hujGheGblYme2FbL0yLnG87DtSr9i5qgABHcJj9MXeP6
-         MBJRFBHI9DQPbjWQyHmPYw0X6MK1pzBGycvlqZDG/TU6NNUoraGayphLlkGI4tdpzBCV
-         67FKNFrMoNijFFP/t8xT7piDXS02c0fD0rZ0pSqvvBcvS5nbDMn5Z00jkPgCvXMRQjs/
-         dHjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByUuChMz3/ydfM/XG0oegcnnh9XvdsFgbMpnVrVaqOLMVe5Tn+/By73ouRDaAufuyoyHRsXdpe44OKxb34=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+N2EUey1r8fkRYObhUijXEdP/gwy+A2awlGRUt1VhCVBG2q+g6
-	dq+Gy0LLmg+MHeNbCn6WKdatTAo3cBoEFhvrYk69zC/8xeY3Se66v6vki+SYG0FA9DQ=
-X-Gm-Gg: AYBFou0ufAn+Zm/sD5qFxMYf7xvN0sIehJZfSJRO9EPfBhIfGTeocm3kcjgjWpxusVG
-	EjXrooyEdl7YoDni4ShBUPOmZsrGVHi755nCkluGXETj9oXAHMGrkSc7O3+KFDL3UhnLzDFFpER
-	xAb6wfWBn6+ARtaoBU9cSp/16zDOLf/FU3WdY9MQyqxxjBTG8CiwK6s9hjQditQ9+KjvNnEBphv
-	n1I6Dvm2PBrd7bNXmXhLZVsa/u9AlhcZz5/30XEgil3PIGm9cTTEH+2F3puRjffyw7bWkevEp2b
-	zngkiYo6VZahglsdIUGFKa3WmGcfu8Bje7EeaZb/KI7LJDM+wAIrz//vmPqcR+ikgnqUJtX6iGU
-	2Kq1uJ+0U1Nf5uwkcDK/9UM/SOVZVlxCl6T64CBouA0YkThSmkptrloU1v3zcKG1UMwYTPARV5D
-	u6JPWZi6DKvO6nioFyBgLbipo2YCYzWZObKasR1GamBiP0PJa/RCYwLVQljsyrRw8iclF0L4N5w
-	ErB+FiT/uJcxbp6r7RjzMaFDYXkJCpUUhujCE2jJ5Cn2CTrnHaoqYN3xM7IK3ZNmbG78zzPkFLW
-	gZqVTf+pw4V0Z5sgfpkNB9kVaP9l04miBDS1L67QgOwvtSXO806RXuErLwVjEa+aAy2IQsjDjfN
-	DZss8FgGqM9sUgIiWRZqC
-X-Received: by 2002:a17:907:86a3:b0:c46:9745:ac13 with SMTP id a640c23a62f3a-c4d207ef40cmr272696766b.32.1793897071769;
-        Thu, 05 Nov 2026 08:44:31 -0800 (PST)
-Received: from puffmais2.c.googlers.com (180.192.141.34.bc.googleusercontent.com. [34.141.192.180])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e48d0dcsm186593666b.70.2026.11.05.08.44.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:44:31 -0800 (PST)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Thu, 05 Nov 2026 16:44:29 +0000
-Subject: [PATCH] Revert "arm64: dts: exynos: gs101-oriole: add pd-disable
- and typec-power-opmode"
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKMbUO4f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47AEB1F000C1;
+	Thu,  5 Nov 2026 16:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793897078;
+	bh=GbC7Iece9zSoootC12B+Bn/H8PC2Rlg/VwOOVmaQcoU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cKMbUO4f9Wuq5g5XaQZqMv0rXtM1jLCI7bMERYW/Gw1QgMaf5F0KUlXy2oGF5XwK0
+	 +obMDs9xtkJgHuS9Ws1Sa43UQxHiDkKxPfOdvwmT6VxVo/o7akRSpYD090dStm/Vax
+	 A1zdWtGTgFQ6jzWzfvRtWExGfuho4kgrS3tHG5p3XUQe/B+lL1xGfQMmI7V+oonWhs
+	 ruGng9XXuxpL6dE8ulWap6uKniAG2mC257uQaRlgFGOpc9088QIPLIkOwccxCwExOK
+	 8MV9URA5ooJ2ejdKYElX+Ga29bfPDTB2sOmKT3CTEfE8tT8SUB0do5lcbvGH3wqfce
+	 /414hbS4bn+/w==
+Message-ID: <96a53088-e131-4bca-bf9c-f1b0746b0745@kernel.org>
+Date: Thu, 5 Nov 2026 17:44:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,73 +51,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261105-gs101-tcpci-bootloader-dt-v1-1-4b7e373778f2@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAG2y7GoC/x2MywqAIBAAfyX23IIuRY9fiQ6mWy1EhkoE0r8nz
- W0OMxkiB+EIY5Uh8C1R/FlE1xXY3Zwbo7jiQIpaXcAtaqUx2csKLt6nwxvHAV1C6hpue9PTQAp
- KfwVe5fnf0/y+H+0rQNNrAAAA
-X-Change-ID: 20251111-gs101-tcpci-bootloader-dt-274e58a82920
-To: Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Juan Yescas <jyescas@google.com>, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel-team@android.com, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] ARM: configs: multi_v5: Enable the TEO cpuidle
+ governor
+To: Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Frederic Weisbecker <frederic@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261105-multi-timers-cpufreq-cpuidle-v2-0-2df7a17f4835@kernel.org>
+ <20261105-multi-timers-cpufreq-cpuidle-v2-1-2df7a17f4835@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261105-multi-timers-cpufreq-cpuidle-v2-1-2df7a17f4835@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This reverts commit 817473b6ddaf9eb5f2bc7d6dce9fa13a921477a0.
+On 05/11/2026 13:10, Linus Walleij wrote:
+> The TEO governor introduced in commit b26bf6ab716f ("cpuidle: New
+> timer events oriented governor for tickless systems") takes a different
+> approach to idle-state prediction from menu. The governor gives a
+> better behaviour than the current default for tickless idle systems,
+> and for the multi-platform configs that enable tickless idle, this
+> should be the default governor.
+> 
+> multi_v5_defconfig already enables CPU_IDLE and NO_HZ_IDLE. Selecting
+> CPU_IDLE_GOV_TEO suppresses Kconfig's automatic menu selection, making
+> TEO the default governor for this tickless configuration.
+> 
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  arch/arm/configs/multi_v5_defconfig | 1 +
+>  1 file changed, 1 insertion(+)
 
-The Pixel 6 / 6 Pro bootloader version 17.0-15681480, part of the
-Android 17.0.0 release, knows about the upstream DT and disables power
-delivery itself when the serial console is enabled. The workaround is
-therefore not needed anymore and can be reverted, as anticipated in the
-commit message of the above commit.
-
-Since then, the node has moved to gs101-pixel-common.dtsi, so this now
-applies to both Pixel 6 (oriole) and Pixel 6 Pro (raven).
-
-With older bootloaders, enabling the serial console will again result
-in endless TCPCI interrupts.
-
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
----
- arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-index e5736c39d1e0..dc908dd7e1c6 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-@@ -662,6 +662,7 @@ connector {
- 			self-powered;
- 			try-power-role = "sink";
- 			op-sink-microwatt = <2600000>;
-+			new-source-frs-typec-current = <FRS_5V_1P5A>;
- 			slow-charger-loop;
- 			pd-revision = /bits/ 8 <0x03 0x01 0x01 0x08>;
- 			cc-debounce-time-ms = <170>;
-@@ -704,12 +705,6 @@ VDO_DFP(DFP_VDO_VER1_1,
- 						0, 0, 0x18d1)
- 					VDO_CERT(0x0)
- 					VDO_PRODUCT(0x4ee1, 0x0)>;
--			/*
--			 * Until bootloader is updated to set those two when
--			 * console is enabled, we disable PD here.
--			 */
--			pd-disable;
--			typec-power-opmode = "default";
- 
- 			ports {
- 				#address-cells = <1>;
-
----
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-change-id: 20251111-gs101-tcpci-bootloader-dt-274e58a82920
+Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 
 Best regards,
--- 
-André Draszik <andre.draszik@linaro.org>
-
+Krzysztof
