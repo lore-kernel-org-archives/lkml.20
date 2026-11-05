@@ -1,93 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793901150;
-	b=mCh99u6GSHI3ojgYdzPHPqrpiSzTy+hP3w0lOBovRMUzlvzdxuTUWmAYQCr4uscYYr01
-	 hhFOJ4ApB3X875SheHbf7pgjrAMa+cVqKsuiRWR27TsIdZIxmtn4s+/qmrNSlRlhWtuez
-	 43QBoXouYr3f0a/u1GSZ75FPLZ2Y2hj433BomQRtFZhYM4tXY2oKAcraX6pFIPY7Prwbo
-	 5WzEwiy+F+FmeAezv+KZ99kLV2rv1hi2uOa1OIU34Wy8wYP/ciwgdZOf1SkVU2ArqTn0X
-	 jjM9j55HlD2YBo80Ogdm8Td3d3R0gh4widWs5f9gDa0UWKbnPRzSfLzox0QWo6zGcTg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901150;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=50nPFRXRnBFn8Zx5v3yf5gXABfHFg/x/IWnNUu7chhw=;
-	b=nKOB8KUtmIFBE4Vyg+GH7Qd5JL1qB81gzC3645aMpML/xv+nHeFnOjKQMFzW1CPEO0Ro
-	 Mxkyv/HxZEVoCs2S1yjQ17PWL93U3KWngjjsUqSHdsnxYFsLsamsbg8ym7f8A6otjq+uQ
-	 53kbnGoZIy+kcS1gpv7a0VPSe8AMqJiUaUFvnWqT29InYCbuxnF/QDc+n9o0EDmb8YI37
-	 AxmEMxjZnwM5TXVRoZbfpqjfUrVgGplZc+js7mZu7Cw1tXCbxHkrH/PO+TSPvfs7tfoRa
-	 dgOOakN2YSwPN3wGEab/A16MRdB+v3HkFSTtTxAD+7GfDqcQHm7U78AB1uur4ol9etA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KPdWAQx5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.61
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013061.outbound.protection.outlook.com [40.93.196.61])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793901187;
+	b=GfMi6zrsLFYUGppsr13aKYoBMvBjSRV49x9OVLLr2JG/5Nle9ruTzUeXVOYubhbonHfi
+	 89XPoGonLR8Krz091Qgu0y5RFa9wPBRG62zUmo05BBVv7F0Jn6Nxf/RtqAYTPVBB3GiN1
+	 +6bF/Q+KIX3fVm7cbqcU1Syve6bXd0VEUmEyIg7YsNr35iPh46U+IwwRW+9ncoYAiUPgT
+	 wnbsmFcqAZAmPvvaU0yyFDajhN7JGR0vmG7uu31lWQ4kAccwHL/3Y3Lwhy54ekpJ78rrW
+	 rn0OZj2f3Zae3NaLXPPrBZhKZxr474+WoPl45LNLKw5kT5JnVhpi0jqYVtDZ9H1ZLwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901187;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=s9wUzlGzFd1RKxNPzo4f2vgY8WDmbO0ienfaNsKgswQ=;
+	b=G+XKnxKqYy6PbdGCDM+OYxgwlinjkYgOhsHMaUI+kho2oKcjXT6PCWWVN5UmQ1e5+Ee+
+	 hIOYeFveOa0V2duFK0xa9UriCD3NZbuDRFDfQGYjmp50twQvYqjrtTaTTcy9YgPed0VQw
+	 Gsn6T/LoAh6dQc134x6eV3/3iJad1fWwNEPwUGIJVNQkst4eqyuLH0fE5KzBHtlrMEf+j
+	 cGUJ+M6eXy4Zaw/V/D5oTPSiI6GUXB0Bshy/jtEVqp60UEeuOKYM41J6N7X5VWaSWyveW
+	 qjvvvyIqMl6xMBt5r1ObP9dnthrNbyB6+xCUeWdfxCB+xUVZieYrII5fy0ZgGfMH0bg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=bur.io;
+	spf=pass smtp.mailfrom=bur.io;
+	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=L52lqOd+;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EBjyFGQT;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EAD606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5EAD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4626B606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4626B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KPdWAQx5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oIhLAOasj2LVQvfTLiHA3lCBeAB8mEBz52MKlBmdFjPC4kNP8+CFo9EEmMUyQTQqK26fnU9ezup6ixmg5NCoVguI9oHtU4bLdyS/NxgTRtBQs1RRlWnN06q9ihPMlUwpayJdacZuzxbhPskNK9nyV42ZTuC8rf507VDRg6mp+DYvDGcDhzL41u1/xqOMIDjQ41+RbsUHYK6piLAKlk2q62o4AWhIGAn2aJXvyZKvq4sg4Yz+jje4E1UwcKkeIQkaDu4KC9Xz/TMmyRHRerugx81OBTzTdYxXoA+kENgojXW1yUIHbfeASZ2h6xDJ7u/d3mvlmghcvQHvA7fFUbg/bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=50nPFRXRnBFn8Zx5v3yf5gXABfHFg/x/IWnNUu7chhw=;
- b=gSSme+S1PpgezqBE7xAoH0Dq+lVWdfc90iGjG77tOjN8YVYy5Jc/LZjuQ9SuKcZLxot2urY8WbaR7zyvKObxMF3P4qn8669cDmadrzn4T81nn1ge/uvfp6fsfa30S4fdIVghrd7WBpgNV5qhYIjDgxItinkWPX0HHGzYXOW+JSkJWxJM+Y2vmA0lBPmTTa+ynvW8u8nzvncL6ynZ7Q+Dx93yfc//wSCkYrRh+2QtUDxNq07JUsYtKJHVyZpfeUiCuq6YRyU450IJITlvoUa1p+hIRtt5EMloLzhzrzrzrJLZTMG/TCeFjxeUoqAoMVhuJMzJKvAzvugrcAW+6xXEZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=50nPFRXRnBFn8Zx5v3yf5gXABfHFg/x/IWnNUu7chhw=;
- b=KPdWAQx536YPZFTgqdftlLejFzp/KMknI9OvUjqXRHaTsVrkuyXS8OZzfRcP2U5uVX9E9Ugh0St5oR6fhP6BitB6S5khtYB9Yr2IAZecvkx2MaQWHDJF6E/TmP1VE3eGrk7ptFxWufl2LTtg3SJ/+nC6fvTYiLsPtZuyhqeDgUs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by SJ2PR12MB8136.namprd12.prod.outlook.com (2603:10b6:a03:4f8::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 17:52:21 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 17:52:21 +0000
-Message-ID: <d8287036-7b05-41b3-bc99-3d351a3bce90@amd.com>
-Date: Thu, 5 Nov 2026 11:52:19 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
- reports
-Content-Language: en-US
-To: Lizhi Hou <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
- <18efa128-ffd5-793c-fe4e-6538d6eacd24@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <18efa128-ffd5-793c-fe4e-6538d6eacd24@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR07CA0047.namprd07.prod.outlook.com
- (2603:10b6:610:5b::21) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=L52lqOd+;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EBjyFGQT
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id A0F331D00192
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:53:06 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Thu, 05 Nov 2026 12:53:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793901185; x=1793987585; bh=s9wUzlGzFd
+	1RKxNPzo4f2vgY8WDmbO0ienfaNsKgswQ=; b=L52lqOd+0EZ+TaDZBpZa7ySIMu
+	ZLyFejqS7YCK0NpjtVPvikznSi87vJV0rk4rlNOdYH0jSrLGnQq5oljOZ7affDT9
+	OR83JTIvI3IaB2RRVzMG0Z6uREBVNa6Y7VyoUzb9vGh7QzxndSC8uSR4FsveJssL
+	LpygKH+WZjTjGUbM0pE6GGpfPsZgm8PUv/Ug9uBe/UlTPwP+4kh30S9Hz6GZI7ih
+	U8rMrl/R/2wXHuBzP/0jNZdaAzXRpiyJNMFst8FcB+C89wdfOzf80ldjChLPS72A
+	Ej5K8lL4A/qUOpQsnX4HUxNCyc8ycbIgdbi7tHYr5rmzl3hy+DrRY94K9KsA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793901185; x=1793987585; bh=s9wUzlGzFd1RKxNPzo4f2vgY8WDmbO0ienf
+	aNsKgswQ=; b=EBjyFGQTET75iQtGowZv6QOaXqP0fDpqCcC2Qr0Erq6yha4+eqU
+	HqKrSReAJGaN9WMoWNGxs8zEk5Pr6cJ56kbomxeCV8XySvswUiWTQ+yC+eE9ykhP
+	U4LJvTi6RLPc0Xx+Om5qM9tqfBUyzCklBzEXQX39zPJI6AZt3xyeQFBcwtrS/7ir
+	Oabn4CunGbSPSVxCRo5s4HL9mpERz5GSzF1YBsptUKqjim/IV9byOVjpLcXjaPD5
+	IEzNmjoGHC4akqvIMclelJXVA0E1tILB1W9zI/9UcQjA0W/EgYj3cYBAoNHXqwa2
+	Nb54OrdWfszhWrTZXu5A/JXVyRuZzvAKr8w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=bur.io a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793901185; d=bur.io;
+	mf=PGJvcmlzQGJ1ci5pbz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:dyL/h1dJ3wiRiYm0AaXkcbzufjIjooCfEJrYDqIjJncHzkP
+	lcZD1hOR+qyCuKFDFUmBWoEeuryfb9Zn+vpPyCddOafke08po0Z5O5PzJlkFNc6J
+	hbQS49CKp3tBpULmmB2Nht/GLN7oeAw4q06NUCyPx0xqzG+XMXIG7jmT6itP6xpW
+	NtWeYpHtsYL4NOdheFWcDd/61sfhUBHkvL5f99LMsQt3W9mdq6HCn9tbDhmeWlM2
+	Y1pMQJR+06s/2eVg8wlfEBp+AimWsq8EcMKh9ZCNgBTAsMuddXscmrdUaFHffLG3
+	g4ovFhbqaYvu7RVymnJh2NoedzL5Zo6pc5q9QUg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:kbtP4yKDe2IW2ddvtqEcK7mKtWDMvLvep9lgju732A8=:F+86diZaYWeQCXUjfSM6Gzo48+V4OZfPuP9ypSFG0nY=;
+X-ME-Sender: <xms:gcLsamrDWdErybHbWXOIUPvHFzmc4Nbi8tp7NOxlUFlHfwmWCw0Ymw>
+    <xme:gcLsalEmI-w_S-eEIX_-UwntApexJZwu_pvg-1I4n-awn4MOtUP4MRo50B7Tnek1c
+    WmH47y5pKOGH-tAbZU_hR-D2NlTwy1YmsJUECpAOL-if2Ch_S5rXyVq>
+X-ME-Received: <xmr:gcLsar4SF3mAFsjctUKg8YZqliFimb2iCS0eOBZV-8SX7RCK_ltgN2nH>
+X-ME-Proxy-Cause: dmFkZTFNkbq3oflfiKRMQKnm7iDgMmA5pLBcg1U9Q+sh9sAX6FMeh2mj5oSt50GTBILcHQ
+    NtFy08k5egVC03iKPjToZhWSSwYzt9ZsVwyyRgc5eettMrjSddaT9G39r2Nx6FyjP4L2C1
+    CM7a/Q0X2ckQeoW65p3kKsAnFtwGCMjddFYK1kVbMQO49Tet+AZa2UjT29LXQiXGFDZz2P
+    fFtXz7vS8Mb62xjS1zZyhO658FlPfrjFDYmxbEObW3VWGMtbSuqa04AV7QgX5dfCtFxvm2
+    1g2I+mILEE/tZ1E6Fil7N4F32hcC1hm+780dfnCKYPw+6xh/+2XfxS6lqELzGEaFVx/0tX
+    aROFiTbRjdDjjzeHCxJ99l+G1LLPvmiLu2+FflT4C0Bn4s8NqI/oi3KEXe+RQFWv2S47jH
+    xJcxdutWDr1MRGF0Q5vak/fR15XSdUkALk+4MvTYTwxsCs+Y/p93TGoRHex8KuUT1GBDMz
+    aas2EJUYbT7Gr/DLeQqDGl7iKveJeuFn07ThrO9ZwD5OszWM0tmJbP40yYBgvi8Ya7srMT
+    0mO3B7ZxJyC5PVqSeYCY2ZHhQKJKutpVX6uVhj3Nn7xyfE9sa+aeRlacdLIl9THB4qgt6y
+    wOEpMwFaZ/HJLE/8Kb4IUsZJtYFG1NaIDt2kcAsdeMAmZnj5kGcPjnOLXEbg
+X-ME-Proxy: <xmx:gcLsateVncwvoRm17flKdWdle73LNBZcwI5NCqKgz8dYfv30Wb0LMw>
+    <xmx:gcLsam4vkrsfxIuDt7moQaEadDdAhrpG2ZWmctX-tIUSPn2cQTURCg>
+    <xmx:gcLsai8HuIGchFqmV30bpSVTA8UZJpfH4x68GerkQPefqJV5hskRjw>
+    <xmx:gcLsagEhQU9P_nc5hHg6RZ07HbNZ1iFw4rw-TAnyfOai9CsPdEoZeQ>
+    <xmx:gcLsagZez6HtWGLtrKFPRs7wik1G5GFZsNihD0bZ5tPQNW3NrQW87tDL>
+Feedback-ID: i083147f8:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 12:53:04 -0500 (EST)
+Date: Thu, 5 Nov 2026 09:53:21 -0800
+From: Boris Burkov <boris@bur.io>
+To: Breno Leitao <leitao@debian.org>
+Cc: linux-btrfs@vger.kernel.org, David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>, Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@kernel.org>,
+	Atish Patra <atish.patra@linux.dev>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: bug: btrfs: direct IO fallback racing with in-flight direct IO
+ fails fsync
+Message-ID: <20261105175321.GA3915752@zen.localdomain>
+References: <auxv7Tg0xSq5yHmb@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,378 +125,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SJ2PR12MB8136:EE_
-X-MS-Office365-Filtering-Correlation-Id: b248e1fd-9c0a-4619-6028-08df3b658aa1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261026140227099003|261026121527099003|261022115727099003|261028144727099003|261021123027099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|260925021311599003|260925022911599003|260925021911599003;
-X-Microsoft-Antispam-Message-Info:
-	BkOP+fMvatNkWt/z3YZsY4VDYTbtF07QWHFuppcZ3W4kt/uo+aRk3lK5o097zmEsDkaXeoXFs26qgJ/54E0bFLpXWStd7VszMvu4Vm5aA15BFWNi6aTgjd6chSnBvRUmMGppyXexFQSbZogyyHx+0D/MS8586xpHEviK/T7TRxJ3V3MpjqXCWQFpHsBtqK/YXbM/RHQuvoH/jNrR1ZD+XlxByo4f1yq+1XExW/LatyZnmY+/V2UULDLJVnrXXm037Jx50c8SHwHzvOc3aBmA4gwP0gv5SGgEpW1RARw/id2G7Dd5JPOuMZqm598AqttMLsPlLTCQ7bL9pIVdoLbmqD1W05OtD2zPCzFTipyh5TNX1qLj2mG4G36VswhancYuIbdKM6S7tprZ1g4QAsS5IsPTUNr0Qv0NVLf7MXO18hqxeauRFb2mJfd6QexjijLrJfXKj1k96HnkhbVQ9fHDRa6bEqHEG5u3xh8rIm+k7gGv77EUcT9vXs7U5NfUtu2MjH4HrmvaoTYQXe2/2UnP5GftKwPFuaF7Aej7suZeSjINd8NHOgnvSSUj/yNrt6n6mjR97jcZ3r7AavLK3Kd8yWJsE+KiPmG8MsGrp+omqGc9wHqFtpCyMxu1RhppPe+l
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261026140227099003)(261026121527099003)(261022115727099003)(261028144727099003)(261021123027099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(260925021311599003)(260925022911599003)(260925021911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ejVtaFUyRklBRTM0T2lVbDB2RFcxVnBhdFpXQjd4RHpUcVBvYlRLQWxpQ2k4?=
- =?utf-8?B?dXJVVTljVExDWnJXSDlXS0tVS2UwTjNtNUw2S0t1cHRmRHQxWWtlTXpmK1ln?=
- =?utf-8?B?Ukx2YVZWejcyeXgza0JpaFJib3pONi9vMG5ZM2FLOWFwekdoVXRNL3p2SUQr?=
- =?utf-8?B?WW5PeEFmNmp2VVFlKzIrTTljaXhsMVhnMmNQeUpBVGxtMjhWYVF0MzNpeGE4?=
- =?utf-8?B?T0pPclB3QzN5MWNMejJTZEF4a2UxdG54YmJGcS9aZkYycVVSTXhRR29xaEl6?=
- =?utf-8?B?azd4dzZla2Y0WUs4aWd4amo1bFpxQktsdVplTkhHZ3lpSUJMYmErVVNldkI5?=
- =?utf-8?B?ZnlwZFdqODlYZkZmRFR0WjNhZFl6ZVJiaURVRS82TmtnckRLcG5USEdTUWtB?=
- =?utf-8?B?UVhUWXdJSWZEeVBKVEtrV1NmU0Fza1ZtU1RlQSszYjRmcmJId3p5WHR2S2d0?=
- =?utf-8?B?Um9FUWd6MTJqbzgwNXNGdkVvblo4REpYcDNjYno0WnlvY2dqdldJYm9tRlV0?=
- =?utf-8?B?ZXNlajRKTWEybjB5NzA5Ymp6ckpoZW82UWZGS1F6bWVzbHFxKzU3ZHZUdkVi?=
- =?utf-8?B?a3J2SC9Nb0tSN3ZQT1IwWExyRERxYWhER21oZ3ZwZzIycGlQOEJCcmZLeWtM?=
- =?utf-8?B?eXAwdzNhbXdVMDlnUEQ1RGgvTEJTMzVDRG1tdDI5c2gza05zczQ0cjRqbnNG?=
- =?utf-8?B?aUM5dlZjTWptUUhsVmw4N2FpVHlOemFWQnNoRnIyNFBuM3FlMnhhemNoQ2Vk?=
- =?utf-8?B?S3I1YXdmYy82Y1dZYWZaenNuNUlBemRWenVnRTNleldvaU1MVVpJUTlyREdJ?=
- =?utf-8?B?L1prTnNqa1VWMjVhWTJuSk9PVXJPTHVYdDQ0VXVXNmJYc2xqZWNjRjNjYXh2?=
- =?utf-8?B?Y3lzUVVNMzhNcmZrOGJOcVlaWWNUc3hvckNZdG9oS0RwSUhHa3pxMzJXM1VQ?=
- =?utf-8?B?UjNSdDVVNzJCbGZ2WTQ4U1piNHg0aG1EbkZtWEZ3M0tXcDJqUnV1YnBQMjQ5?=
- =?utf-8?B?NURBd25EeE5QM0V6MDBCR3BwSmc4TWt1Yzhmb3d0aWxHNGpyYk9QTmdzQ011?=
- =?utf-8?B?ZXlXVUhGazZaeXBVaHhEOUc5VWdoajU5bEhOK0FVUUZJWDFnWXE3QVAzY3BQ?=
- =?utf-8?B?ODU1NVk2ejJsd0RqMGROY1E5a3JUdHNwMFA0U1puSmNZN2RqZ2VXM3VkUzMr?=
- =?utf-8?B?cHl3dThPcWlPWjNqSzhRTE4zYVZ6bTd1c2NuWloxT2J5MmJSNkFYYndvWmF5?=
- =?utf-8?B?V1RLZzRDdGNEeDFjK2ViR21POUF0aDBMeW5oaGI0NjUxSnBxMTZubGQyRzF0?=
- =?utf-8?B?WVZuUmlvdjVOb013MEtUc2Z0S1ovRTlUa2premI4aTdTdkVaOXB0YlllcnIx?=
- =?utf-8?B?cmJjUkN1TzFUTHJGU0QxUk0wdTN4c1dZNVlybTJyU0htRm9OTC94dDl4blJ6?=
- =?utf-8?B?c09ld3FyejAvNTRRR0psK2c5ajZpV2FsaDFHRnJvcWwrNlN0STVXQ0FsZ1RD?=
- =?utf-8?B?Q2dHdjBhNk1Xd3NacGdvcXlBRVFHNzhVZEZPMXBGOGZ5ZzVDRWRQeUJJWGVP?=
- =?utf-8?B?MTlCTnJoZWhOS2MzSThMWE15RTlRU0YvNncyQjVmaThsTWtQQzJINGVKZWtO?=
- =?utf-8?B?L0JQK1J3S21kdzErTEpRWld2M0tJb2NZYmovZXkxejhUWWVLMEtuZldqdno3?=
- =?utf-8?B?YXE3ZVh4WUR0SW4yNjhaaE9OS1JyUFFzeHlHL3BYYktzVldqb0NYaGZRTndC?=
- =?utf-8?B?YU1UTnFOREhsclpzdE9BSElJeXlQM2dubkY4S3k3T3A3ZzdITEZCTDlSMmRD?=
- =?utf-8?B?M0VhNVNTTTN2cmtJUlRlY1ptV1loYllSeDJCVWt6YUZ5R29ZVVNWQ2NJb0Ro?=
- =?utf-8?B?anBNckt1UHhNVVZJMUhST3VXUXYrSGdxOCswL1FydzF6cDVLZHEwTlBkaEpv?=
- =?utf-8?B?ODhKZm42WHFXZEJyZmxPVWthb0paeFltODNFQ3FSazhwL2JOR0g0a1NBQWIv?=
- =?utf-8?B?cm83ajUzK3IwNG92a1ZwdnR2bU8rUE9OallIRUQvakdLT1hsUkJsQktYSlEz?=
- =?utf-8?B?YlBGYXIzbk42V3V4TFNKV2tNM2NRbGhmb3YyeUlKNVN0bUthNzZOSW9hRzIw?=
- =?utf-8?B?b0Jvb0NUcTN5aCsvb0pNQjY4aXZZV1c5QXhXejZwM1hxSjBSS2NCU1JNSjFC?=
- =?utf-8?B?bG5FaitVN3VPSlZ5ZlExM05qZEdDUVQwczBxc010ZUEyZnFxNHdNb1lodmVZ?=
- =?utf-8?B?Sm0rMU1PNzI0SHdXNUt3YTgxdTFNTjRWb05wZVU5VHZDYUl0RlhOZGVLWXE3?=
- =?utf-8?Q?1qkOj9Vm41aOBV0+UN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b248e1fd-9c0a-4619-6028-08df3b658aa1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:52:21.5878
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FLb3viU7EcLbx2hW5SvAQZ1scvWls1WWSKC8lYhqFfpVVUDX5b0R8Aj2eRHSwJxiB/S5IEoekl8R/LlpvIXVWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8136
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auxv7Tg0xSq5yHmb@gmail.com>
 
-
-
-On 11/5/26 11:47, Lizhi Hou wrote:
+On Thu, Nov 05, 2026 at 04:07:49AM -0800, Breno Leitao wrote:
+> Hi,
 > 
-> On 11/5/26 07:51, Mario Limonciello wrote:
->> Some Platforms ship BIOS with either a default or an alternative trust
->> authority. The PSP validates the NPU firmware, so it must be signed with
->> the matching scheme. Firmware for the alternative scheme is named with
->> an "_l" suffix before the extension. A preproduction part needs firmware
->> of its own, named with a "_p" suffix.
->>
->> The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
->> whether this is a preproduction part. A preproduction part that also
->> reports the alternative scheme is not expected, so warn about it and
->> use the default firmware.
->>
->> Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
->> images of the aie4 devices so that initramfs generators include them.
->>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->> Changes in v2:
->> - Initialize val in aie4_psp_fw_variant() so a failed SMN read can't 
->> leave
->>    it uninitialized
->> - Only read the PSP firmware variant after the npufw/certfw path 
->> check, so
->>    VFs (which have no firmware paths) skip the SMN access
->> - Drop the redundant all-ones check, amd_smn_read() already returns - 
->> ENODEV
->> - Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1- 
->> dbffcc5abc23@amd.com
->> ---
->>   drivers/accel/amdxdna/Kconfig           |   1 +
->>   drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++ 
->> ++++------
->>   drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
->>   3 files changed, 141 insertions(+), 30 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/ 
->> Kconfig
->> index eddff490b4f75..cd17a89cf4146 100644
->> --- a/drivers/accel/amdxdna/Kconfig
->> +++ b/drivers/accel/amdxdna/Kconfig
->> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
->>       depends on DRM_ACCEL
->>       depends on PCI && HAS_IOMEM
->>       depends on X86_64
->> +    depends on AMD_NODE
->>       depends on AMD_PMF || !AMD_PMF
->>       select DRM_SCHED
->>       select DRM_GEM_SHMEM_HELPER
->> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/ 
->> aie4_pci.c
->> index 02dcb2f813d45..26c6162893760 100644
->> --- a/drivers/accel/amdxdna/aie4_pci.c
->> +++ b/drivers/accel/amdxdna/aie4_pci.c
->> @@ -11,6 +11,8 @@
->>   #include <linux/debugfs.h>
->>   #include <linux/firmware.h>
->>   #include <linux/sizes.h>
->> +#include <linux/string.h>
->> +#include <asm/amd/node.h>
->>   #include "aie.h"
->>   #include "aie4_msg_priv.h"
->> @@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct 
->> amdxdna_dev_hdl *ndev)
->>       aie4_fw_stop(ndev);
->>   }
->> -static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
->> -                 const struct firmware **npufw,
->> -                 const struct firmware **certfw)
->> +/*
->> + * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = 
->> alternative
->> + * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction 
->> part
->> + */
->> +#define AIE4_PSP_C2PMSG_63_SMN_ADDR    0x38109fc
->> +#define AIE4_PSP_FW_SIGN_ALT        BIT(6)
->> +#define AIE4_PSP_FW_PREPROD        BIT(28)
->> +
->> +enum aie4_fw_variant {
->> +    AIE4_FW_DEFAULT,
->> +    AIE4_FW_ALT,        /* "_l" images */
->> +    AIE4_FW_PREPROD,    /* "_p" images */
->> +};
->> +
->> +/*
->> + * The PSP only trusts firmware signed with the scheme the platform 
->> firmware
->> + * uses and a preproduction part needs firmware of its own. Reading 
->> which one is
->> + * in use is optional and only used as a hint for which images to try 
->> first:
->> + * anything but a clear answer is treated as default.
->> + */
->> +static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev 
->> *xdna)
->>   {
->> -    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> -    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> -    char fw_name[128];
->> +    u32 val = 0;
->>       int ret;
->> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
->> -               pdev->device, pdev->revision, ndev->priv->npufw_path);
->> -    if (ret >= sizeof(fw_name)) {
->> -        XDNA_ERR(xdna, "npu firmware path is truncated");
->> -        return -EINVAL;
->> +    ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
->> +    if (ret) {
->> +        XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", 
->> ret);
->> +        return AIE4_FW_DEFAULT;
->>       }
->> -    ret = request_firmware(npufw, fw_name, &pdev->dev);
->> -    if (ret) {
->> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
->> fw_name, ret);
->> -        return ret;
->> +    if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
->> +        XDNA_WARN(xdna,
->> +              "Preproduction part with alternative signing, using 
->> default firmware");
->> +        return AIE4_FW_DEFAULT;
->>       }
->> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
->> -               pdev->device, pdev->revision, ndev->priv->certfw_path);
->> -    if (ret >= sizeof(fw_name)) {
->> -        XDNA_ERR(xdna, "cert firmware path is truncated");
->> -        ret = -EINVAL;
->> -        goto release_npufw;
->> +    if (val & AIE4_PSP_FW_PREPROD)
->> +        return AIE4_FW_PREPROD;
->> +
->> +    return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
->> +}
->> +
->> +/*
->> + * Images for the other variants have a suffix before the ".sbin" 
->> extension.
->> + * Returns -ENOENT if @path has no such variant.
->> + */
->> +static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t 
->> size,
->> +            const char *path, enum aie4_fw_variant variant)
->> +{
->> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> +    const char *suffix;
->> +    size_t len, base;
->> +    int ret;
->> +
->> +    ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
->> +               pdev->device, pdev->revision, path);
->> +    if (ret >= size) {
->> +        XDNA_ERR(xdna, "firmware path %s is truncated", path);
->> +        return -EINVAL;
->>       }
->> -    ret = request_firmware(certfw, fw_name, &pdev->dev);
->> -    if (ret) {
->> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
->> fw_name, ret);
->> -        goto release_npufw;
->> +    switch (variant) {
->> +    case AIE4_FW_ALT:
->> +        suffix = "_l.sbin";
->> +        break;
->> +    case AIE4_FW_PREPROD:
->> +        suffix = "_p.sbin";
->> +        break;
->> +    default:
->> +        return 0;
->>       }
->> +    len = ret;
->> +    if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), 
->> ".sbin"))
->> +        return -ENOENT;
->> +
->> +    base = len - strlen(".sbin");
->> +    if (strscpy(name + base, suffix, size - base) < 0)
->> +        return -EOVERFLOW;
->> +
->>       return 0;
->> +}
->> +
->> +static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const 
->> struct firmware **fw,
->> +                const char *path, enum aie4_fw_variant variant)
->> +{
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> +    char name[128];
->> +    int ret;
->> +
->> +    ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
->> +    if (ret)
->> +        return ret;
->> -release_npufw:
->> -    release_firmware(*npufw);
->> +    ret = firmware_request_nowarn(fw, name, &pdev->dev);
->> +    if (ret)
->> +        XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
->> +
->> +    return ret;
->> +}
->> +
->> +/* The NPU and cert images are validated together, so both use the 
->> same variant */
->> +static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
->> +                 const struct firmware **npufw,
->> +                 const struct firmware **certfw,
->> +                 enum aie4_fw_variant variant)
->> +{
->> +    int ret;
->> +
->> +    ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, 
->> variant);
->> +    if (ret)
->> +        return ret;
->> +
->> +    ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, 
->> variant);
->> +    if (ret)
->> +        release_firmware(*npufw);
->>       return ret;
->>   }
->> @@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct 
->> amdxdna_dev_hdl *ndev,
->>       return 0;
->>   }
->> +/*
->> + * The firmware can only be started once. It is the PSP that decides 
->> whether it
->> + * accepts the images, and it does that when the firmware is started, 
->> so there
->> + * is no trying a variant and falling back. Pick the variant that the 
->> PSP
->> + * reported (the default one if it can't be read) and use the others 
->> only if
->> + * its images are missing.
->> + */
->>   static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
->>               void __iomem *tbl[PCI_NUM_RESOURCES])
->>   {
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->>       const struct firmware *npufw, *certfw;
->> -    int ret;
->> +    enum aie4_fw_variant order[3], hint;
->> +    int i, n = 0, ret = -ENOENT;
->>       if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
->>           return 0;
->> -    ret = aie4_request_firmware(ndev, &npufw, &certfw);
->> -    if (ret)
->> +    hint = aie4_psp_fw_variant(xdna);
->> +    order[n++] = hint;
->> +    if (hint != AIE4_FW_DEFAULT)
->> +        order[n++] = AIE4_FW_DEFAULT;
->> +    if (hint != AIE4_FW_ALT)
->> +        order[n++] = AIE4_FW_ALT;
->> +
->> +    for (i = 0; i < n; i++) {
->> +        ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
->> +        if (!ret)
->> +            break;
->> +    }
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
->>           return ret;
->> +    }
->>       ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
->>       aie4_release_firmware(ndev, npufw, certfw);
->> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/ 
->> amdxdna/amdxdna_pci_drv.c
->> index f233eb70a2957..dab8603e2381f 100644
->> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> @@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
-> need to add entries for "_p" images.
+> Atish reported that arm64 production hosts (64K pages, 4K blocks) that
+> keep VM disk images as NOCOW files on btrfs, opened with O_DIRECT, on
+> 7.x based kernels, and it still reproduces in linux-next as of
+> next-20261104:
+> 
+>   Page cache invalidation failure on direct I/O.  Possible data corruption due to collision with buffered I/O!
+> 
+> Besides the message, dio_warn_stale_pagecache() records -EIO in the
+> mapping, so the next fsync() on the image fails. The message blames the
+> application for mixing buffered and direct IO, but every write here is
+> O_DIRECT: the buffered writes come from btrfs itself, when it falls back
+> for writes that are not 4K aligned.
+> 
+> It does not look like a regression, since the fallback never waited for
+> in-flight direct IO. 64K pages make it easy to hit, as a folio then holds
+> 16 blocks. Since e9b7b9d9e78e5b ("btrfs: use IOMAP_DIO_BOUNCE flag
+> instead of falling back to buffered IO"), COW files are exposed too.
+> 
+> I was able to come up with a reproducer that hits the issue within
+> seconds with 64K pages. With XFS on a loop device backed by such a file,
+> standing in for the VM, XFS shuts down on "log I/O error -5":
+> 
+>         https://github.com/leitao/btrfs-dio-fallback
+> 
+> My robot identified this as the root cause:
+> 
+> 1. Task A has an async O_DIRECT write in flight to one 4K block of a 64K
+>    folio. iomap invalidated the page cache before submitting it, and the
+>    inode lock was dropped.
+> 2. Task B issues an O_DIRECT write whose offset, length or buffer is not
+>    4K aligned. btrfs_direct_write() falls back to btrfs_buffered_write(),
+>    which does not wait for in-flight direct IO, and dirties another block
+>    of the same folio.
+> 3. Task A's write completes. kiocb_invalidate_post_direct_write() finds
+>    the folio dirty, so invalidate_inode_pages2_range() fails with -EBUSY
+>    and dio_warn_stale_pagecache() records -EIO. The next fsync() fails.
+> 
+> ext4 fixed the same race in 15cdefd0c052 ("ext4: drain in-flight DIO
+> before buffered write fallback"), and ext2, ntfs and exfat are getting
+> the same fix. Doing the same in btrfs_buffered_write() for the fallback
+> case makes the reproducer clean, and I can send that patch if it looks
+> like the right direction.
+> 
+> This patch is a copy of the fixes above (from other FS) and make the
+> reproducer happy.
+> 
+> commit 16cd17d1e8205f9f86b8da0a9b1ccefdb2665764
+> Author: Breno Leitao <leitao@debian.org>
+> Date:   Thu Nov 5 02:59:39 2026 -0800
+> 
+>     btrfs: drain in-flight direct IO before buffered write fallback
+>     
+>     When btrfs_direct_write() cannot do a write as direct IO, because the
+>     offset, the length or the user buffer is not aligned to the sectorsize,
+>     or the range has compressed extents or page cache, it falls back to
+>     btrfs_buffered_write(). That dirties the page cache without waiting for
+>     direct IO still in flight from other tasks:
+>     
+>     1) Task A submits an async direct write to block 1 of a folio. iomap
+>        invalidates the page cache in the range and submits the bio, and the
+>        inode lock is dropped.
+>     2) Task B issues a 512 byte O_DIRECT write to block 0 of the same folio.
+>        btrfs_direct_write() falls back to btrfs_buffered_write(), which
+>        dirties the folio.
+>     3) Task A's write completes. kiocb_invalidate_post_direct_write() finds
+>        the folio dirty, invalidate_inode_pages2_range() fails with -EBUSY,
+>        and dio_warn_stale_pagecache() logs:
+>     
+>        [    2.048568] Page cache invalidation failure on direct I/O.  Possible data corruption due to collision with buffered I/O!
+>        [    2.048574] File: /tmp/diorepro.JTCKpJ/block.img PID: 260 Comm: kworker/11:1
+>     
+>        It also records -EIO in the mapping, so the next fsync() fails.
+>     
+>     The two writes do not touch the same bytes, they only share a folio.
+>     With 4K blocks on 64K pages a folio holds 16 blocks, so this is easy to
+>     hit there. Meta's arm64 hosts with 64K pages hit it with VM disk images
+>     that are NOCOW files on btrfs, opened with O_DIRECT. In a test, XFS on a
+>     loop device with direct IO on such a file gets EIO on a log write and
+>     shuts down within seconds.
+>     
+>     Wait for in-flight direct IO before the fallback dirties the page cache,
+>     as ext4 does since commit 15cdefd0c052 ("ext4: drain in-flight DIO
+>     before buffered write fallback"). btrfs_buffered_write() holds the inode
+>     lock exclusively there, so no new direct IO can start until the write is
+>     done. NOWAIT writes never get there, as btrfs_direct_write() returns
+>     -EAGAIN for them before falling back.
+>     
+>     A reproducer that keeps 4K libaio O_DIRECT writes in flight while other
+>     threads issue 512 byte O_DIRECT writes to the same folios of a NOCOW
+>     file got 1123 fdatasync() EIOs in 10 seconds on a 64K page VM, and none
+>     with this patch.
+>     
+>     Fixes: f85781fb505e ("btrfs: switch to iomap for direct IO")
+>     Reported-by: Atish Patra <atish.patra@linux.dev>
+>     Signed-off-by: Breno Leitao <leitao@debian.org>
+> 
+> diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+> index f978c6524aa03f..2017a96814d857 100644
+> --- a/fs/btrfs/file.c
+> +++ b/fs/btrfs/file.c
+> @@ -1334,6 +1334,14 @@ ssize_t btrfs_buffered_write(struct kiocb *iocb, struct iov_iter *iter)
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	/*
+> +	 * A direct write that fell back to buffered IO must not dirty folios
+> +	 * while direct IO is in flight: its completion fails to invalidate
+> +	 * them and records -EIO in the mapping.
+> +	 */
+> +	if (iocb->ki_flags & IOCB_DIRECT)
+> +		inode_dio_wait(inode);
+> +
 
-Let me tell you my thought process in excluding them.
+The explanation and fix make good sense, thanks!
 
-They are only for pre-prod hardware, and so *most people* who use this 
-driver after the product launches shouldn't need them in their 
-initramfs; they'll just bloat the initramfs.
+However, thinking out loud, we do know that if we have started the DIO,
+we will have an ordered_extent from:
 
-If you think they should still be there; I'll spin a v3 an add them.
+btrfs_dio_iomap_begin()
+  btrfs_get_blocks_direct_write()
+    btrfs_create_dio_extent()
+      btrfs_alloc_ordered_extent()
 
->>   /*
->>    * 0.0: Initial version
->>
->> ---
->> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
->> change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
->>
->> Best regards,
->> -- 
->> Mario Limonciello <mario.limonciello@amd.com>
->>
+so perhaps rather than waiting for *all* dio on the inode we can just do
+some variant of btrfs_wait_ordered_range() which only waits on dio OEs.
 
+Anyway, that is an enhancement for later, and not necessary for a fix,
+so I would be happy with this fix as-is.
+
+Reviewed-by: Boris Burkov <boris@bur.io>
+
+>  	/*
+>  	 * We can only trust the isize with inode lock held, or it can race with
+>  	 * other buffered writes and cause incorrect call of
