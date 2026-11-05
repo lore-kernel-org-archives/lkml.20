@@ -1,61 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882433;
-	b=NuDGHjbYcJE0weTg4vvDypwvxzDSpnqQh97pk6XAScAGBrdiH1ofFB+WDGMhLCZIBbEw
-	 lO3vURuDqC7DqEzZJMWWZoyzSL6KeuyhiZCH27d07G8PBMgkNUAOkpgtTVbuou2i1RY/I
-	 i0frjvXsdbdRn+SQWh9o8BeVQ0IOCTjmE1MiezHwP3ilDCqbWcCmAdMOGnKtZKNm6TN2Q
-	 L2OppO8jhw/Lx4jx/MrZCS4SuEo7qwyNfN0oGjtKqAfJWFfEVC6NFnkv1EbXfmp5sBSyI
-	 0+U4Q4O5XMpn8ag8QoQOHk52DMFDtlILemhhyDlSWkjSu0C5ECUfTymzMRECjwwMv5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882433;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EHcjPl8SLxhy6iADuCeocUb5e1mc5lkkIEwaRQ0cMEs=;
-	b=aeNw5yiOZ28E5Dtg9SqMCdawK8XsWBaOCI7EnynJa/+/0FsyTpXZHTyLYuzIqP4vsX2N
-	 5jdENsZx/9vpmia8g668TRIKalJ1X2+KN0GsHLKqKVOB6rZvegkyyH5Z3RN/Cr8HbFKzG
-	 eU7yKnDV067WsfQ60xsMljNoqcr+vb4RxmmmRg+Moe5bEkTFYv/UoDsmngJ8GBlQKmyn4
-	 7Z95qCHG/us0TTluEL/0kwfrW6FGU5PPUeZNn2nS2EjBYBjuSvyKKKa2i+92hgqm5AcM9
-	 USFBuOJ/wxQKMOQW02uuAP7N+0lnvoanYs/3icKL1cNnsuCXWGSUWUc6xkwMwVPIJyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNQchzaj;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793882517;
+	b=B1WHEXNxn7CV3+scOWDG3Zb/KNMALgqjcwuCbuPMm0IuvJTcQ3BYCfcvBprN8DQN++8N
+	 uXGGhDrvmc2WbPdKM+2j/bCyJs9glCKfEkI1BPahr5CPO5ajrgzzF6z40wxlDffSt7CIn
+	 JYLRQu+yQ2Pny02stSo7xVts44e7VvzjKJ7bbMRpp6ul876dP3ZqctvQHiV6u+GdW5TGC
+	 jKP66GcPojFwpMwgiTRZeBEzkfvQQ/1YBe/6F7b4qM9QEdcsNRbDKmoTCOVlHVT0b7Xqp
+	 z9DPR5EuzSr5l6jflZgEy1NUdB3T4XHwYaQuXrYjjhJDgMxkioYiLDH5HzcTsGx7CxQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882517;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ncXXXFEKjc/BcbHimc5MYEqIG5apTaCUodWRVSaeEAA=;
+	b=gx34A0/gex66MiElc6+GEZ2RFHJ9QWe/pa3f8/t3+dNuHsJ3Mu7Z6GvIm1SayAVtSg4Z
+	 yMlGB/Qzh1gwehkrPNXY51ntDXnq2P9M1x4bY+KG2fKs+CA6/Pi80yUN5qlyclUJwF062
+	 LtYAXAq6a+yWZTBLu7MgPhl7gESTnj7LIjYqn6tyi/tBxuzSYk8bJi0mNR1UAwc20Ll7O
+	 JzK2gwR8ES649PWwD1Oq7Fb1nAzFx9+tnf5Fu9Ehl0FoQQGM366wjsnIMYTHPMrZZGAGs
+	 812L0NXMc/fIzvBS+c9z2HsOmyMgwimmYX9SzB55hhkSntCxqHf+4NVg5xCaycAF4UA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+L6UMQ1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A10E606A32D;
+	Thu,  5 Nov 2026 12:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+L6UMQ1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793882517;
+	b=DDvDrjUxLdx3G05qMXhPTHXB2nrMNSDoKIT+JXK76S7kcNrD8A3Tm+lpWkQxJGu6jEMh
+	 PIFgLb/qcNlSB0dwD78jKCwwqHY3zrkq39CMvTRMC80nbTnVoKZT+lPekTCWTaHnbVoaF
+	 WIm8550pt78bg5R9/ouy/hAPfkHoi7g2AZpwg+PRLzP53xF7Bg6vG0zTYpOvx1DS1OgCc
+	 Flk1bZlI4YnQYaUpFXjdAiM+m9Nn//bp9AkUPqOK9gQ07qllQzvsYkE3Q8K7L4jH577xS
+	 YQefbJRhLlL10DRsyrJTSYbLtt8einjXDq1z05BJgSDsxXZ9kpWkZG0HAgZM8/yg1ug==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793882517;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ncXXXFEKjc/BcbHimc5MYEqIG5apTaCUodWRVSaeEAA=;
+	b=xlB/aWmT4jGHQu+HYZrPrAr530M+tMDaqJTESWsAkRlFyIZCR+TU5Ii9aI72pJafmaRA
+	 RVquoG5UbMJbJuOUA7cyTNNnNACfjyBITWRrEo2kerfIkF3Y0m5wZzKb5pp6ompdTRobf
+	 OeGYWE3Wie3WIq7dWF28JeVrOlX3Byqfyd729Trh9E/bWMFSAd+CxZ93xJG5ZfT2LmFPg
+	 +6pCwQOceXTqZd6D0WWISr7AKCf0GPclQi9m+TFvo0r0Q7pJx2nd3skdR3VAdNIsBGvV/
+	 hysWNo8k4zOYt0phy5KjWxdNZJJx/wpDfeUKfdVwE8qoV72tu4E2IZJE/mTdx+mWIgA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A715606A326;
-	Thu,  5 Nov 2026 12:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNQchzaj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14FE1F000C1;
-	Thu,  5 Nov 2026 12:40:32 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 269761F0093A;
+	Thu,  5 Nov 2026 12:41:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793882433;
-	bh=EHcjPl8SLxhy6iADuCeocUb5e1mc5lkkIEwaRQ0cMEs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oNQchzajsgvnN28o4MzAMbObiWGxBzWjoKzKnxXZOgyyLbAAtbOCLkdnAhoe0ve0B
-	 lkZU/zcBo8qwaAdZiybnhOqwSspZ3pOxV0XUWXGjZAITdtwuq1XXIzjhkjND4kzwYh
-	 8doUmHMe/TjJvppNzesJXQqaAEe7GsV1gKMcvHTXeba6a+UXXLsOOig2WaFtroq7XW
-	 ETGSf74RYZZwi6fwGMmGIYbX9XznhIwqfL7/h6MpGW3NBD5a/TFjwT4nfBdmszgo7E
-	 IEoON0L0EjqN/bOC12KUYPMSyQ8VKVjTAzroSOgjWnuB0ppojup3de+MVotemwmYDY
-	 1J2ZhE87CEaZw==
-Date: Thu, 5 Nov 2026 06:40:30 -0600
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	Grant Likely <grant.likely@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	David Daney <david.daney@cavium.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
-Message-ID: <20261105124030.GA1449284-robh@kernel.org>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
+	s=k20260515; t=1793882517;
+	bh=ncXXXFEKjc/BcbHimc5MYEqIG5apTaCUodWRVSaeEAA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=j+L6UMQ13mv7xN8areLTWee7ppXHe0XsSTDC2LWyuqjubNCIa9s/ouy/ZSYdx5E96
+	 rtB8VYbR7B77grKS2hsiVW1UHrdcRjVs3ddS2ZyJ/WxyJ8YITpiB5GooOqKsWb2WiG
+	 LdRIz5uibLoi6RUL8hCFzVA01d5ubEmuzebNeb2L+HgjLAloyU88ANcDNMAgSUmEVB
+	 tXgUrxhSnOQ+oVQ3khTtLFdY/EPE4NfI7iOb4n7aQpY1A/6Ymz8c2Z2tJfvJSQQHDR
+	 ceo5yXU59Puryi7jBlWuaN+Wj6MNtN8Dq1Z4FIsM5m+LhB45vhlxEgUARrGIdEJjiy
+	 w0G+I3PpT6kbQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 98CFE4724E;
+	Thu,  5 Nov 2026 12:41:55 +0000 (UTC)
+From: Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 18:11:44 +0530
+Subject: [PATCH 2/5] iio: Remove redundant devm_kmemdup() allocation
+ failure messages
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,62 +83,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-19-oct-hid-iio-unified-print-framework-v1-2-0b360d9552d9@gmail.com>
+References: <20261105-19-oct-hid-iio-unified-print-framework-v1-0-0b360d9552d9@gmail.com>
+In-Reply-To: <20261105-19-oct-hid-iio-unified-print-framework-v1-0-0b360d9552d9@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sanjay Chitroda <sanjayembeddedse@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793882514; l=3473;
+ i=sanjayembeddedse@gmail.com; s=20260702; h=from:subject:message-id;
+ bh=GYfroI7CBTuLtaumkcLBm2D6Hmur3RtVQHOcYJz2ogE=;
+ b=wmNDhR8qIp8Ex97D7o1qZIaB5UBXiBRKVhj5TiQb3+NZT7L7IXg8HIPq+vbxbFhendIGpu6aJ
+ pA1A5OpyzKmCEkgfjaYJbQlW9khIugJ1EXpgACzW9Kk/fOdxplA5xAz
+X-Developer-Key: i=sanjayembeddedse@gmail.com; a=ed25519;
+ pk=PcneEFtkmY+Ldl+KmOTpB/Q/HDsqko6Fb0/Z/5cuycI=
+X-Endpoint-Received: by B4 Relay for sanjayembeddedse@gmail.com/20260702
+ with auth_id=848
+X-Original-From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+Reply-To: sanjayembeddedse@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 14, 2026 at 04:17:25PM -0700, Abdurrahman Hussain wrote:
-> /aliases entries added by a device-tree overlay are stored in the live
-> tree but never enter the global aliases_lookup list that of_alias_scan()
-> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-> aliases declared inside overlays, and any driver that relies on
-> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-> pinned id and falls back to auto-assignment.
-> 
-> The gap has been public since 2015 [1] and reproduces trivially: apply
-> an overlay that declares e.g. `i2c99 = &foo;`, ask
-> of_alias_get_id(foo, "i2c") -> -ENODEV.
+From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 
-[...]
+Several HID IIO drivers print a dev_err() message before returning
+-ENOMEM when devm_kmemdup() fails.
 
-> Overlay aliases colliding with dynamic ids
-> ------------------------------------------
-> 
-> On v7 you raised the question from the 2024 repost of Geert's series
-> [2]: an overlay alias can name an id a subsystem has already handed
-> out dynamically, because subsystems may pick any number that has no
-> alias. I went through what the of_alias_get_id() users do in that
-> case, and in every one of them the collision is a loud registration
-> failure, never two devices on one number:
-> 
->   i2c      i2c_allocate_adapter_id() does idr_alloc(nr, nr + 1), so a
->            taken index gives -EBUSY plus pr_err("adapter '%s': failed
->            to allocate id") and the adapter is not registered.
->   spi      spi_controller_id_alloc(bus_num, bus_num + 1) likewise:
->            WARN() and -EBUSY, controller not registered.
->   serial   serial_port.c sets port->line from the alias;
->            serial_core_add_one_port() returns -EINVAL if that line is
->            already occupied.
-> 
-> What this series changes is the failure mode for an overlay asking
-> for an index a dynamic allocation already took: today the alias is
-> ignored and the device quietly gets some other number, which is the
-> bug being fixed, since the pinned number was the point of the alias.
-> After it, the probe fails and says why. That seems the right
-> contract -- an alias is a request for one specific number, and
-> refusing it is more useful than pretending it was honored. It is also
-> what already happens in the base DT when two aliases name the same
-> index, or when a driver calls i2c_add_numbered_adapter() with a taken
-> number.
+The failure is already conveyed by the returned error code and the log
+messages do not provide additional debugging information. Remove the
+redundant messages to reduce log noise.
 
-I'd rather have my added device working than refusing to probe because 
-some arbitrary device index couldn't be used. There may be some user 
-that has a working system today and then this change would break them. 
-We can't really have that. I view aliases as a request, not a 
-requirement. It's perfectly valid for an OS to just ignore them 
-completely. 
+Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+---
+ drivers/iio/accel/hid-sensor-accel-3d.c      | 7 +++----
+ drivers/iio/gyro/hid-sensor-gyro-3d.c        | 4 +---
+ drivers/iio/orientation/hid-sensor-incl-3d.c | 4 +---
+ drivers/iio/pressure/hid-sensor-press.c      | 4 +---
+ 4 files changed, 6 insertions(+), 13 deletions(-)
 
-I have no issue if we make the failure to use an alias louder, but I 
-guess that's not your main issue.
+diff --git a/drivers/iio/accel/hid-sensor-accel-3d.c b/drivers/iio/accel/hid-sensor-accel-3d.c
+index 51f1ae6b222f..f9e04ed2a7cd 100644
+--- a/drivers/iio/accel/hid-sensor-accel-3d.c
++++ b/drivers/iio/accel/hid-sensor-accel-3d.c
+@@ -354,13 +354,12 @@ static int hid_accel_3d_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "failed to setup common attributes\n");
+ 		return ret;
+ 	}
++
+ 	indio_dev->channels = devm_kmemdup(&pdev->dev, channel_spec,
+ 					   channel_size, GFP_KERNEL);
+-
+-	if (!indio_dev->channels) {
+-		dev_err(&pdev->dev, "failed to duplicate channels\n");
++	if (!indio_dev->channels)
+ 		return -ENOMEM;
+-	}
++
+ 	ret = accel_3d_parse_report(pdev, hsdev,
+ 				    (struct iio_chan_spec *)indio_dev->channels,
+ 				    hsdev->usage, accel_state);
+diff --git a/drivers/iio/gyro/hid-sensor-gyro-3d.c b/drivers/iio/gyro/hid-sensor-gyro-3d.c
+index ebf34365819c..a785a9fc7f9d 100644
+--- a/drivers/iio/gyro/hid-sensor-gyro-3d.c
++++ b/drivers/iio/gyro/hid-sensor-gyro-3d.c
+@@ -292,10 +292,8 @@ static int hid_gyro_3d_probe(struct platform_device *pdev)
+ 
+ 	indio_dev->channels = devm_kmemdup(&pdev->dev, gyro_3d_channels,
+ 					   sizeof(gyro_3d_channels), GFP_KERNEL);
+-	if (!indio_dev->channels) {
+-		dev_err(&pdev->dev, "failed to duplicate channels\n");
++	if (!indio_dev->channels)
+ 		return -ENOMEM;
+-	}
+ 
+ 	ret = gyro_3d_parse_report(pdev, hsdev,
+ 				   (struct iio_chan_spec *)indio_dev->channels,
+diff --git a/drivers/iio/orientation/hid-sensor-incl-3d.c b/drivers/iio/orientation/hid-sensor-incl-3d.c
+index 4570a698cf0e..2aed92c3526d 100644
+--- a/drivers/iio/orientation/hid-sensor-incl-3d.c
++++ b/drivers/iio/orientation/hid-sensor-incl-3d.c
+@@ -323,10 +323,8 @@ static int hid_incl_3d_probe(struct platform_device *pdev)
+ 
+ 	indio_dev->channels = devm_kmemdup(&pdev->dev, incl_3d_channels,
+ 					   sizeof(incl_3d_channels), GFP_KERNEL);
+-	if (!indio_dev->channels) {
+-		dev_err(&pdev->dev, "failed to duplicate channels\n");
++	if (!indio_dev->channels)
+ 		return -ENOMEM;
+-	}
+ 
+ 	ret = incl_3d_parse_report(pdev, hsdev,
+ 				   (struct iio_chan_spec *)indio_dev->channels,
+diff --git a/drivers/iio/pressure/hid-sensor-press.c b/drivers/iio/pressure/hid-sensor-press.c
+index b081990ffc03..9506284bb798 100644
+--- a/drivers/iio/pressure/hid-sensor-press.c
++++ b/drivers/iio/pressure/hid-sensor-press.c
+@@ -258,10 +258,8 @@ static int hid_press_probe(struct platform_device *pdev)
+ 
+ 	indio_dev->channels = devm_kmemdup(&pdev->dev, press_channels,
+ 					   sizeof(press_channels), GFP_KERNEL);
+-	if (!indio_dev->channels) {
+-		dev_err(&pdev->dev, "failed to duplicate channels\n");
++	if (!indio_dev->channels)
+ 		return -ENOMEM;
+-	}
+ 
+ 	ret = press_parse_report(pdev, hsdev,
+ 				 (struct iio_chan_spec *)indio_dev->channels,
 
-Rob
+-- 
+2.34.1
+
+
