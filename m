@@ -1,60 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864896;
-	b=f7IZzU+r52oDgKZOXERvRVLCAa+kELtxNdo7SiX51iOSHfI6fVqWrpaFgestZ7NuhtQa
-	 11fic88yejp1Vk6MPbSHC1nWOB279M29dVt4TALvhk4J+xILDEDsX1bo+pSYuAdyPPbas
-	 av+LAKaXeM1k6lB9yKwqbqh1KqS2V5M0BFgjDtoYwk4D/Nx39g1tyZQgQL7Yh2gemrsyG
-	 mWLtlIAyeq1ABG11BkCurHl3xwV19Lt7uDnzWyrELML8nt+iQ+Bry/jrCBKeLndostO71
-	 Wkyr/5lCN15Vz0by5GvOnq/MwNIxHlECIfXwaBusaOVncAI0erFQ6m0j6HFoU4uWz1w==
+	t=1793864914;
+	b=LpuW7vrgNkQWwZebglJJoN4s/G7r5OnxYmsRcauJi21JeEhG0fBP2Zhr36xqugN7GQpv
+	 jk9OzyOZKDplondgtZ4fPgRRzrz00d9glzCGyY/ZHF+PpdDRuGderFotpbS2f/H5CwtGc
+	 Y9c1MwhYCve1zVgxEvpjduRS9CRem3EU8tE6Nb5BJv/AivXLWlXuXKZhOSDciq1BF0/oB
+	 rMxyeRQLni9ggDbeuCrEIMmsdSft0cP7GTrTGrR7nqH5bnBegxNHIWhlL8XdO2JXLX9VA
+	 vo6kiA71F2DN8rcuVjXl6qyHxQzIsfsisTnuwYuWtfir5dqHJ66srhZHW2yfhzXsrIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864896;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cccu6IRsMQeLQd78s6fwoKTtP+m0EnGz9D3UFhBgw70=;
-	b=TNavUDPWc9u20eFsYvXcSFisl2a/UlFFrHsSzKr5lbXBvL0xEua+yGnU2qFnTBMPZ5Ee
-	 tuwmfyL8RPRziO6ezWMpgkPpYLCR1u3h0rm7MCrqVciAicrRAmLUQgD/VsjYa1AoJL7zm
-	 ogrYjQEVonlNWhuByJGhmnR9qSvWK9c6i9KecVM1aiHg6ZEkzaC8hlDpJxuos2jU9xjsy
-	 dPbc5hisEMmGMEZRoD5gvlPAtWiy9NOMF47xudLdWrirsdNi2lHBiF5KQT0+JYMh5bdn3
-	 Mu10rwGz5ZXAvux/IAClxIhNfnEe6R8elpOBbDW8ioM9nqt0qOVNLE767DraoDNIbag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864914;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=s8wKTBhOQSZ8HcIzINfe5pzdBiZUh/d4z6gCUtG+v9A=;
+	b=vS31J9TQX+t0LoyTpwYmqdQRUhW18pzwljtH3sCwyLW7VKD2tvMHWIvreGGxQcVRUM4q
+	 QpIxG+tdlSfVhvui37/JpAmpIcJOOo5OVxuNQf8ovP+ZRIYiY08y+XciJ2BLC24RbGfiL
+	 7/Ff+sg4JwOLPZlyJtlGiirYkdiaX0OoQdlcS4YM4fM91ztBNl2H5vNTL6CdxaeixUkYy
+	 RepcBjPez9x15DdoatgapPl3mFMZ4avNrzSQJhkTrHdrSliTMVcnQEmj39yDcl25CtG9L
+	 KfTVbm9/khjGGDQ7WYiEjyYOEpD2M8YCIdR6w5JlJYK/W2kJayzzArAS1rJgstBKytA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tus64+ki;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCUhYSsD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AF1606A326;
-	Thu,  5 Nov 2026 07:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEF8606A31B;
+	Thu,  5 Nov 2026 07:48:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tus64+ki
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204FC1F000C1;
-	Thu,  5 Nov 2026 07:48:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCUhYSsD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F161F000C1;
+	Thu,  5 Nov 2026 07:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793864895;
-	bh=cccu6IRsMQeLQd78s6fwoKTtP+m0EnGz9D3UFhBgw70=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Tus64+kiiu8OCMzKk6Heycm1KF6FxRYt561NxnLKxXsXtN0qLbCDwpRtK5/a7KCEp
-	 fkR2rRoHU8dJU47985DAeip4Y7Vi2OWAZIFdJIH8Rzrra54g/aW+IAGtx3LnFm/g78
-	 mZrJ5/bTh0WHEZZlUTOiZ5MliGL9kkmDX88m+CfwFPhQ910iBwePtLaIePmyP7q/Xl
-	 yGHIBJI+oCTpUYVeJVx4uLtEbb4uQPlxVZdPHnpMo1OEi9BNfvaJHAwivueZPicjz5
-	 UBNq8PanCBb9RS5Uu1mV05PTBxbP0f/4FHnFEyK58B7xt6t0Pz9qbELZaxy8mIIhOq
-	 XsSHaIc5sJqUw==
-Date: Thu, 5 Nov 2026 08:48:10 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Sascha Bischoff <sascha.bischoff@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 03/10] irqchip/gic-v5: Serialise IRS synchronisation
- requests
-Message-ID: <auw0ulR3wrsKVcYe@red-moon>
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
- <20261104-host_gicv5_fixes-v2-3-e47ad20ea3c8@arm.com>
+	s=k20260515; t=1793864914;
+	bh=s8wKTBhOQSZ8HcIzINfe5pzdBiZUh/d4z6gCUtG+v9A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hCUhYSsDt6Z0eLMOX8DcNxX+eF94MgoD5saWOhYOSiXCMg5k/2Xo2O/z7QsvzoFci
+	 efOclXvsfLf2XYLtrX2b//zc9DRPAzBixr7n+WgC/VJ6SFmwyX49VlsGzjQIws2jcI
+	 htM2XFg3o3T0oAnohSfXfA+uWLCqDcCZ/wkIwJCIpDNNBX0zvbt74A9gvIQzxpgGQD
+	 rxGWHbIFDaG8SFtkJFBXxXf1nWpW5pgbrIKxyZYu3GkbxepqD6hacqPDNSRgyM5uW5
+	 rjEE0TjucHh54wTp6KZoKyZDhW0TAgaOJgkFDzzRhM/edH6a69bE0aZJnr9R+/6W/v
+	 K72SPPf7vaz0w==
+Message-ID: <7a3f7171-ee2f-41b7-b578-da602d95cbc6@kernel.org>
+Date: Thu, 5 Nov 2026 08:48:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,84 +51,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-host_gicv5_fixes-v2-3-e47ad20ea3c8@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] arm64: dts: cix: Add USB4/USB5 nodes for Sky1
+To: =?UTF-8?B?SG9uZ2xpYW5nIFlhbmcgKOadqOWuj+S6rik=?=
+ <hongliang.yang@cixtech.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>,
+ Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ =?UTF-8?B?R2FyeSBZYW5nICjmnajmlrDkvJ8p?= <Gary.Yang@cixtech.com>,
+ =?UTF-8?B?RnVnYW5nIER1YW4gKOauteWvjOWImik=?= <fugang.duan@cixtech.com>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
+References: <20261105011803.4058557-1-hongliang.yang@cixtech.com>
+ <20261105011803.4058557-4-hongliang.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261105011803.4058557-4-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-[Remove stable from the CC email recipient list, leave it only in the log]
-
-On Wed, Nov 04, 2026 at 05:47:57PM +0000, Sascha Bischoff wrote:
-> IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
-> Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
-
-Nit: gicv5_irs_syncr() has no notion of specific IRQs, this is
-misleading.
-
-> the second request to be dropped. Its caller can then observe the
-> first request completing and assume that its own events have been
-> processed.
+On 05/11/2026 02:18, Hongliang Yang (杨宏亮) wrote:
+> Add USB4 and USB5 controller nodes for the CIX Sky1 SoC. Enable USB4
+> and USB5 in host mode on the Radxa Orion O6 board.
 > 
-> With GICv5 ITS KVM support, gicv5_irs_syncr() is also called while
-> restoring the host ITTE in gicv5_its_set_vcpu_affinity(). The callback
-> runs under the IRQ descriptor lock via irq_set_vcpu_affinity(), so it
-> cannot sleep.
-
-Technically we are talking about a use case that does not exist yet.
-
-I understand it is churn to fix it first and change it again later,
-I would just say that gicv5_irs_syncr() might need to be called in atomic
-context.
-
-> Serialise the request and completion poll with a raw spinlock, and use
-> atomic polling because the synchronisation runs while holding the IRQ
-> descriptor lock.
+> Each controller node is placed at the address of its glue registers in
+> the RCSU and contains the Cadence USBSSP core child node at the core
+> address. The mode strap register offset and bit position are passed as
+> arguments of the cix,usb-syscon phandle.
 > 
-> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
 > ---
->  drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
-> index 4edf787f3f97f..ead76560ea08f 100644
-> --- a/drivers/irqchip/irq-gic-v5-irs.c
-> +++ b/drivers/irqchip/irq-gic-v5-irs.c
-> @@ -10,6 +10,7 @@
->  #include <linux/log2.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
-> +#include <linux/spinlock.h>
->  
->  #include <linux/irqchip.h>
->  #include <linux/irqchip/arm-gic-v5.h>
-> @@ -22,6 +23,8 @@
->  #define LPI_ID_BITS_LINEAR		12
->  
->  static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
-> +/* Synchronization requests must not overlap in an IRS Domain. */
-> +static DEFINE_RAW_SPINLOCK(irs_sync_lock);
->  static LIST_HEAD(irs_nodes);
->  
->  static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
-> @@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
->  		return;
->  
->  	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
-> +	guard(raw_spinlock_irqsave)(&irs_sync_lock);
->  	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
->  
-> -	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
-> -			  GICV5_IRS_SYNC_STATUSR_IDLE);
-> +	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
-> +				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
->  }
+> Changes in v6:
 
-Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+So you keep ignoring review or parts of review and never responding to it.
 
->  
->  int gicv5_irs_register_cpu(int cpuid)
-> 
-> -- 
-> 2.34.1
-> 
+NAK last time, I will be NAKing this.
+
+Best regards,
+Krzysztof
