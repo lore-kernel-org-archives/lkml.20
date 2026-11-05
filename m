@@ -1,50 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.247
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884967;
-	b=DDrYJqHqFdccSVRukvp5L4wv87Fuvw5+CltF8xF1lAeM3rIEKKzSzACwGw8d2TBus3Y2
-	 F7N3ar3oVPO0C4Dfsne31fGoh85pCCLjFsxZqGXfrHuGag0v6ad0VhqbkkzcKGb+lEMrF
-	 /lH0jSmTyy4pDR23iqx1DxPL2aZSiLVb8koc+ATLiUHOU4vcH7K9950iWDtPITDFmrobb
-	 KyWJykBfoiOlF6Ook0gn/igAXZ+HljiOUB35MMmQoRGueKJGZiwIfl2JEhGzgnn78Xpjh
-	 c9w/oYiZ6Azrbw7xGCCvRxGPHVFGVZLtf6hmk7xUo3imYNNMi0b7gLpGBBm0pIxT22Q==
+	t=1793884971;
+	b=1jhPBogfX+sh2S5k0OfIVzAD0vmBx0HEFvDoGITjdEDLAa3xErF/Kdin3RfbnMDbhdrS
+	 Dfe/i3zf8/u/baDe1ma+dBsSswcF7YNlJx/uNNl3+86cFooPYQGJTYb1f23NEHuW6iibH
+	 RTN/vBpwg6367lxQCcu28WIVPhXU+R3ce9ZpZ4kVgbBGm4hjgDHwglhX5C0/ziCB3/YcX
+	 Ms3LFYtnLcI2yfAtrnOU9vyD3tERRQLyVi/JV2BqGuYh3xo4DgC1fHGLpNr4P6iJZQpg6
+	 B07JRuTHrasHJjmq9C39jS1a2ZaLys0jvjDyN9E/vyEPeqPXUvPozb2772KBWXbmIAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884967;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PmLgfONm0B9kDi1GLc/kUSc/oZ1yeBtj5KqaQkDNgWE=;
-	b=l/a7hygobFKoVcRJdIgiS3n3pEKDDd6C1IhBIhcIKLpiOdy+p7RoIzm88zw6kCeto7Co
-	 kCZLsm++wjz3GxY0sP9QAzBslr6LVOFprnNL6ZfSiCOak6WH/4shyy67+Ml4iGTH131YO
-	 nOmVMi5SgMGDpj7fRc7dpl5Mm38rX2rSnxoDHUSEx+gAzv8OWv4uinW1CQrn7cw1c4aUh
-	 mzheKGs0ERg4C57Os/gyqhaHl3+Af/m7zh/UzrHgfDXYsF95gQsaXFYjYpDneyTgHBGLB
-	 WFbumB3cLOaYNGmQm15DHhxvA2S+NXIwFg8DFHVTP2CVhOch78ieDmde+hg7xChNXQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884971;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fri77Ouh0dXSItKeLm+uZQQa1TNA6WNylQ1SLkvlG9s=;
+	b=T+l6Qfq4gpRc5/Yox/v5yFprf3ikmoME4V4QxCLt+ZQYueplg82QkvOKoZ1bknkZ4KYR
+	 qefevG8zREkNmGt6QzDW8pZkF5b9IP8oK7NUxYxI1nK2qJgkkuubSRPooEJi8mfKbUVR7
+	 oUsugsO8ExwYgjE+dyQdnzieYBPQ2ErwPK+8kSdH0kvGI149c1JwW70QY8ofHgbjJDHDg
+	 2MRY9Xjn8y3mlBRCnGqGTXDybf3gFRENUfAnkwwz2eUw7h/NFwQo0Mx4/41KJ+pFK46+o
+	 RZZ+BYkboo9Qj52jzlnJGrRKR+FLv942anbm5XmgXADj4DU+RBODgJZtntF30dQpNQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LAr2QT90;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=axpKCeIN;
+	arc=none smtp.remote-ip=91.218.175.247
+Received: from mta0.migadu.com (out-247.mta0.migadu.com [91.218.175.247])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37910606D809;
-	Thu,  5 Nov 2026 13:22:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6EC606D821
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:22:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6EC606D821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LAr2QT90
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3E91F000C1;
-	Thu,  5 Nov 2026 13:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793884966;
-	bh=PmLgfONm0B9kDi1GLc/kUSc/oZ1yeBtj5KqaQkDNgWE=;
-	h=From:Subject:Date:To:Cc;
-	b=LAr2QT901Y+36f6XoQd0SRA85p3FJ5jGKt2xU4Ssz3ZjhjVbPECQwBJy8IHcQYN3s
-	 YGSqQNxmcgmcCzYi1UPxVmWcqqTKo5BmOwJ7iJifK57Z42cElH0mHHJ/ZUl+usKsck
-	 SuNMxgPsBGmrDorl0FNK8opSAjhQPTQMKwcRTfGNBj05rUrDRjNf1tq+lk/RYhEBFh
-	 wBWHhfVL9kGWmJ8gi2w/YzbsGa38ZOUwP4fDTpge/m5G+9XUg02Y4WCkw5V6PRS7Hd
-	 dRtFxPXBY28tM0nTLicnqyF5+v7xFcehUNytj5HBuCEi5FYczmbIv2+8KJRe21Qczk
-	 nNkJXWO9KYhMw==
-From: Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2 0/3] arm64/gcs: Store the GCSCRE0_EL1 register value not
- userspace mode
-Date: Thu, 05 Nov 2026 13:00:11 +0000
-Message-Id: <20261105-arm64-gcs-store-gcscre0-v2-0-954d5bffd69f@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=axpKCeIN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1lVizr8Ol+N2CmNjk66k3Xjp7AKzedZ36gloFs1PijY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793884969; v=1; x=1794489769;
+ b=axpKCeINbD4YGzjd9KkMnJyuCLkebbF6Q8aSNteiraie0QLDpBDPxCzYXpdCaqiff/KZ+rSq
+ oCJsXjmND0TbUpJA6yKb6SJTktKf+L2gbnVHqA00qcgEmui5tqmujgNI61Dy35asPtMvtC03SWD
+ hQR5laQI4uWOTi9Nv/CppMoU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1c23da4eaab331e3;
+	Thu, 05 Nov 2026 13:22:48 +0000
+X-Mizu-Trace-ID: 1c23da4eaab331e3
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [RFC PATCH 1/3] mm/mglru: skip redundant bitmap store in lru_gen_use_mm()
+Date: Thu,  5 Nov 2026 21:22:18 +0800
+Message-Id: <20261105132220.2233677-2-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261105132220.2233677-1-ridong.chen@linux.dev>
+References: <20261105132220.2233677-1-ridong.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,67 +86,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAN197GoC/3WOyw6CMBBFf4XM2iG0EAiu/A/DotQBqkJ1Co2G8
- O+Wx9bdvcm5jxkcsSEH52gGJm+csUMw8hSB7tTQEppb8CATmSelEKi4zzNstUM3WqZVaaYEJaU
- ks5zyplAQ0i+mxny25mu1ezfVd9LjWncQTO8pTI47BrVyhNr2vRnPkS/iDFkLWNOdWde+200vN
- vh4VPx95AUmmOqyUaUUaa305UE80DO23EK1LMsPUVRK+P0AAAA=
-X-Change-ID: 20260911-arm64-gcs-store-gcscre0-2e3e246e6f7a
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1938; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Fp7oPz3FzNcGX9WflaVw2B2izesgMMHdYL9LcvF2wwU=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeNCv/bTxpOfdDDcOVe0Xlz5fcm2NWoMy0sylv05QvZ
- /Q8Sm+VdJSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiVe8Y/tmkSLywWrjq3fv/
- +ho5qV8UmLkedipZrXe016g+6LrNv4aR4YullsdzjuzknQIfonU/uMn5S3Aw3Yw8JHzm5do1M4u
- XMwMA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-At present we store the userspace GCS mode for a task using the prctl()
-value set by userspace rather than the mode configuration written to
-GCSCRE0_EL1 which means the register value needs to be generated on each
-task switch when the new task uses GCS.  Since the mapping between the
-two is easily reversable switch things around and store the value that
-we need in the context switch path.
+From: Ridong Chen <chenridong@xiaomi.com>
 
-While reviewing this Catalin noticed a bug with handling of mode during
-signal restore so fix that, then do a small refactoring to move code out
-of the header, and finally make the switch.
+lru_gen_use_mm() is called from context_switch() on every switch to a
+user task and unconditionally sets mm->lru_gen.bitmap to -1. The bitmap
+is only cleared by the page table walkers in get_next_mm() during aging,
+so between aging passes it is already all ones and the store is
+redundant.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
+The store is not free when the mm_struct is shared: every CPU running a
+thread of the same process must take the cacheline in exclusive state,
+so the line bounces between CPUs on every context switch. On x86,
+switch_mm_irqs_off() returns early when switching between threads of
+the same mm, which can make this the only shared write on that path.
+
+Read the bitmap first and only write it when it is not already set.
+The semantics are unchanged: the plain WRITE_ONCE() had no ordering
+guarantees, and a walker clearing a bit concurrently can be missed in
+either version.
+
+Tested on an i7-13700HX (8P+8E cores, 24 threads), with turbo disabled
+and the performance governor. On each CPU two tasks sched_yield() to
+each other, either as threads of one process (shared mm) or as one
+process per CPU (private mm, control). Context switches per second per
+CPU, median of 5 runs, averaged over 2 boots of each kernel:
+
+  CPUs   shared mm              private mm
+         base     patched       base     patched
+     1   1114766  1106870 -0.7% 1104512  1109284 +0.4%
+     2   1086513  1110204 +2.2% 1110334  1112209 +0.2%
+     4   1085872  1112258 +2.4% 1113146  1112467 -0.1%
+     8   1085945  1111371 +2.3% 1111662  1111876 +0.0%
+    16    660870   666748 +0.9%  665470   667058 +0.2%
+    24    579382   596472 +2.9%  596177   598500 +0.4%
+
+The 16 CPU case uses both SMT siblings of each P-core, which share the
+L1/L2, so less of the traffic crosses cores. With the patch, the shared
+mm case is within noise of the private mm case.
+
+will-it-scale context_switch1 and sched_yield do not show a difference
+(within 1% for both threads and processes): sched_yield runs one task
+per CPU and never switches, and context_switch1 leaves the pipe peer
+unpinned, so most switches stay on one CPU and the line does not move.
+
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 ---
-Changes in v2:
-- Add a fix for failing to update the GCS mode.
-- Always write GCSCRE0_EL1 when setting it for the current task.
-- Use u64 rather than unsigned int to store the register value.
-- WRITE_ONCE() when updating the stored register value.
-- Link to v1: https://patch.msgid.link/20260917-arm64-gcs-store-gcscre0-v1-0-3c9fa9213bac@kernel.org
+ include/linux/mm_types.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
----
-Mark Brown (3):
-      arm64/gcs: Ignore attempts to change GCS mode during signal return
-      arm64/gcs: Move gcs_check_locked() out of the header
-      arm64/gcs: Store GCSCRE0_EL1 values instead of userspace mode
-
- Documentation/arch/arm64/gcs.rst   | 13 +++------
- arch/arm64/include/asm/gcs.h       | 25 +++++-------------
- arch/arm64/include/asm/processor.h |  2 +-
- arch/arm64/kernel/process.c        | 11 ++++----
- arch/arm64/kernel/ptrace.c         |  4 +--
- arch/arm64/kernel/signal.c         | 28 +++-----------------
- arch/arm64/mm/gcs.c                | 54 +++++++++++++++++++++++++++++---------
- 7 files changed, 63 insertions(+), 74 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm master
-change-id: 20260911-arm64-gcs-store-gcscre0-2e3e246e6f7a
-
-Best regards,
---  
-Mark Brown <broonie@kernel.org>
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 1ed35d258d2e..3680cc0fd714 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -1553,7 +1553,8 @@ static inline void lru_gen_use_mm(struct mm_struct *mm)
+ 	 * used since the last time it cleared the bitmap. So it might be worth
+ 	 * walking the page tables of this mm_struct to clear the accessed bit.
+ 	 */
+-	WRITE_ONCE(mm->lru_gen.bitmap, -1);
++	if (READ_ONCE(mm->lru_gen.bitmap) != -1UL)
++		WRITE_ONCE(mm->lru_gen.bitmap, -1UL);
+ }
+ 
+ #else /* !CONFIG_LRU_GEN_WALKS_MMU */
+-- 
+2.34.1
 
