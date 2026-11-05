@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892626;
-	b=vIaZ5+0cWZgfr/huR+P3K8l8hMQkKv6IyAgmwoXjRJfqo+0ZL7OZc8upCTCIYTNIkcQ4
-	 DgD2HyFBvaJg7tPoWEfo6BUhpE3/cubWxDNwWPS9TXrsLItMmFlUpcvbSxSYGYklrtEGg
-	 wTSgiAS28lD729P3FULRLfhnrSi4NaUS6mJQaBpL4SeZWorb9N4yoHNOaCPKw6gZU2Pc6
-	 Nm8N1XRt4hSaZiAKCHSD4UUgtuic76DDsP7fT5fNqm0BZ3tgr+BhUzYMsEC/yoAICQBnQ
-	 Z1QbOwhiiCVyODfzfZ8wwuxzC3UyMfEOo3EXqKLurw2iK2gc+xbyfqOAWq5SvCwYrSg==
+	t=1793892648;
+	b=r2PDk2ob+SOKjghkQSUS6URGCjxVmbvvebKUu4YDGjIFTiGYGvrE5gHtzmHN9F4MF6lX
+	 t5WlFxoobNTobM2Bk+hdciEOU+XqbkAPUI3r20ZoG+Mxzjx1XnLxSdf6As++HBbcjAnz4
+	 tGowy4q+Kq0DUtvSbek4FZNrcluOQGpXfUHd5HBkyqoCBnRKKVOQy/QBOPT7IGkd5YZZH
+	 BsKSClSSxGa5yeLDQ/Glxtr4To6R9UkrD7agN5nlJ89GBpAtsUzp5Jz3oq3CS8kq915SZ
+	 oqIsRMv84IsDQ/62hBf/mZbLrveDQqKxLM5F85bn2z5ja/PyR3kcmTr4gxLNwZVBqqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892648;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=z0DbPNMeG6nNdW76+j3b+tBCShft1G1Sg+ofOhCOv1c=;
-	b=AE46SAZe+22hJXFMuE0GpWZQXV6mWfjECHacO0SGAMcG+xeIOywLNNcRQYT8Jj2wJ88A
-	 Y9bcoUqRjazVN/RAo7Yw8+p1TiyeVj1QqAp6VoR0frOuHdpyVbQsJi69Ho5uG5Y27F7GC
-	 yt9GF3uIeo7XhVTiD3/ASGYWPimrM8B1v96rgrhkXfvHZTc1IbzpWGjexocCXf+OLU/DA
-	 JG34130SROYxxQRxk3b8RNMXulfC+4BS/qfCdcL5dhJLPOzFxOU6SEyCJaCXbGgVsm3Pu
-	 o/vre7phDf4jYEmUN1NlGsjhme1yBsDpJhbbI65RrHS+ImEwewc9nBFceJuTX57PINQ==
+	bh=nVOLC1481GlgjMTkzK8f9vuBxCGSBwLfRkCkFzdoPWA=;
+	b=Gcon1zUdKHrdkItlk/UW/3WVL7JLmFL0og92YWScL8wCnSKWNf/vtEVycTOP7Zeinne1
+	 L6bG/b+GCRysJtXwCh7VbVogPJOz3HyGUYdjdxE09niS1gqGWORZIlgP031Mc99QgObDV
+	 kUVvtsvoBmNr2M3vBCFYX7ZAAtw6E60FXozqbe+yZ4jE1ZySSG7w13Z0BPExqtkyRgVkS
+	 MRcr7dWNFTyylumTD208XNxr8hyvPwSBZrVSKYRu8AEoTqp+GvJEabYFRNa35T9qCSKge
+	 1haFRu2XpDtPCdS9nscyPkLPiDJm2PD8v9JnkFhT2syeglpi4HnLXKaf+MiPgFBsiTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=E+XD8tKL;
-	arc=none smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=gYy1L3ol;
+	arc=none smtp.remote-ip=209.85.160.51
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F819606EEAF
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:30:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F819606EEAF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA35606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA35606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=E+XD8tKL
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53644b28706so29214991cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:30:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=gYy1L3ol
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4a822463a22so1246261fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:30:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892625; x=1794497425; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1793892647; x=1794497447; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z0DbPNMeG6nNdW76+j3b+tBCShft1G1Sg+ofOhCOv1c=;
-        b=E+XD8tKLAqSpIB2a3mjjEEIU6vYr6js7OISpKNQfZiTwkzvbaNFERfuOH9foiR7Rkn
-         RijDr/vZA7jCDTsR0HBcj9XwLHv+OF8CMoWQ+7ABrTDnyU5WLt4Bu9Pv1H0ShwMknjti
-         OL7tqa+xgGlq4IM3oaI/oW+p1AKnd4s0XE5L3C+lW11fGgar9B0yhPf5TnWAdqqquWq6
-         LWHyacZ5KfRddK3VFkDpkSGbKrj6qCXjifrQDFq5rfVMIuwZgRLpo49k7VzJRRuI+41W
-         B460uaCehqi3sEsMUhMAsDFrEXvFv3KY0ieHHYNbZWQ3fpzVomijycGmVSJ8h8fLdefw
-         Qahg==
+        bh=nVOLC1481GlgjMTkzK8f9vuBxCGSBwLfRkCkFzdoPWA=;
+        b=gYy1L3olEkVSBDVUFUntLn7+j+BlFkB6QjdST16Wz3CO3VtGW4Y5gzIrHizC6J2DLi
+         tg2GuvJ4PbMTlGLewaJ3n4iHNT1M56KOPs8gT0BlSh/s2sZDwm7R5slHdSoiRPk3YCWr
+         AzMyLDUgolfw9HbKHscZKhmue8ndT3wKIN5aycsZwFD7/TSyHHqR5ap/SG9nfR+jZDuI
+         +c1CD8xJjPeHu5QYRQVjcRuLGe4SuKVua+NBS7VnjGMu7JnN65DrEtJvN5Kg3fMurHVn
+         /kfPCXuf4r3h8unPNu0oPAVXNHS63WpcJd2KoTcwCJZJE++Dt9zZzTd0K4ar0zOwBoRf
+         o9bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892625; x=1794497425;
+        d=1e100.net; s=20260707; t=1793892647; x=1794497447;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=z0DbPNMeG6nNdW76+j3b+tBCShft1G1Sg+ofOhCOv1c=;
-        b=PhvNN9pBjU2flEZxpFF+V2Smbsr/anwDQpdzgfgMchBkFUQPfjPnBq+1awcwlyNhO1
-         GqJeIr9Eqy75G4khFlb67YSethGBHHFs6BdXALGX/FPwfwok1sIz3FgfI5oaH61OoM9z
-         ZqjA4ZFmQa5Ed5qWeOT7E7O1qeuL0ORja/bfOlFBZxsTrEmlUDbEV9LawadURtyYoKst
-         femNvzVOyADR4P1xjUU6FkNzorzksGJwa1nhlU4G0sdI2YKe/gi1zByKGF8eq4ALR3Wc
-         6fYMsma6cdSc9XjqHfedX/NbT68+XGV3lqQBkVoBHJDZw0l1kXuT/JwZ9SKFhtgzm0aE
-         8lPg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8BZe3W48/9PxXGwQqOHPJwU6JFIuyCCT/mh5FY6F34z3skZP4wDLC9SKnQM1Dwu1Hcfk0JJPX/+URvrY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8du3Aoj91+xhTmH8VFZRSMxGG8bITIGCWJgAToFT8eRheMhu+K
-	nhZvd57w/JSsPclELbfnT71P9QVsVXPgmymoQVCNeYd1xc60P9+uSeuWpOh2LHYNbDs=
-X-Gm-Gg: AYBFou0MFfXPl0PKDSokVu6/3PgtwlImgxwTJwAm6c6NaVHVHPDc3Z9yMLSloRl+HQH
-	AAv6a9klq5azZFmcrHxDPq2UNBvyABeKPEdL18NEL8hP8Iu3x+M8UGpfzHUXyN//otpPaQY0pEI
-	gLuXJU4DHq12n5Z0N5J+g8RqOWTrS1TA7KO36hFVf0rxMVETAp/0co5eM884sVNJNUrsi9E3Ecg
-	nk4ifj0xk3Mxp9lLRsHEz9eAVblDYtagHDV5lVtlLssiKefO5lBcVk6T4f3zz1nne72lgzmXOKc
-	s51yqbUC6sFHtgYjLMhFaEmcKLM5o2TYQHRH760IYtVtMP+92C8a5hbg9hBiD8t8DDsXcPzjKdu
-	ityAcqg8YZVGqshgmIXP70E/9hIBLqXxrQ3Iu74Jh9iitLOFId/0yutXetPGfQSlP4lVuJccDHw
-	SAUT1y+qquysU2/4KkTzdL/3he67mlTAGgTyVgcylRS5UiJ4csR4lPlf7u5l+PmphG2ssQwjV1y
-	KeanSWRbLYDU4VvgoLcZKfwLXeq20QNsolJkT6ebN4OUpI6L2CMA3bzRldtmdBruxXkBoYrIXYa
-	RYnvrc1DNN9tuar8HWHpkHB2Sg28Hz24iAnGp0RgvGWjnA==
-X-Received: by 2002:a05:622a:550e:b0:536:691f:b7a7 with SMTP id d75a77b69052e-542b6972edcmr341696291cf.29.1793892624874;
-        Thu, 05 Nov 2026 07:30:24 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.240])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10c49ab3sm53794761cf.19.2026.11.05.07.30.24
+        bh=nVOLC1481GlgjMTkzK8f9vuBxCGSBwLfRkCkFzdoPWA=;
+        b=zvN08Zdx5pzEnV9KDD1WisJgEyeuGs6b9KJnyJTNDRl4ejdQsXPAHMy9ZY4bn5Q1Ld
+         rVf6lXngF2Auitgnm/kj6squfEHWXfyAjZ3vCi+5TUD4PT4cDtBNSCnBjebX3jGFDSc3
+         mr3GmXDIoSaPWgmF9Yopa2sC8vKTilG+h/9GrP75OMGEiODu3lRkx9zIHFDo+/hOQKF5
+         P8dRoguReBvv04ccx05uE89W+z2hjxyenx4c2d1mLt/mlyn0ITE1SDGQu+068/Twui5N
+         aSios/qRF39foRdvMeDxAWt9L3+1IitKabSyOnvBINSbjYDEEa6M0Ll+OdugNjURVQZH
+         OmBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqcqygS05H3jB3s0qCAyzV5d2B+mOxL2LI4bqVfw6rz3N2X/Lj3pNHVWXX8riLAiO2H62Xbenu7N9kKj8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GY/f9UJSWKfyBX0C3vrQ/+Vl4wEb2IjTs+N7Wa5Pqvz3fXRSa
+	XMi/p5xAZPlXyRYrpcBv8O6h0hGYRWmrTgYfaUGXiX2/oxqes0UJw21bopS2rrxZfFw=
+X-Gm-Gg: AYBFou19YDWcbSOWJ5OVKs/BNevJr7YjdGqhyQY+BUuPuD2G+rLjWMPBLwVEqQFUPA6
+	lC8/FFCSWsKm09TQIxwzBg7qsGn4462U3PvXNIOfEaeXz7pjP8JHpnF5AsVs4on0UUYMiZ+WF9e
+	B+Y2ijqRd07WiKWKsHAhF/eHV9tK9nuNfkRbwyk1aIBuyxNGtsLfwdkgMLRUp6/ohuGlF1srRil
+	9dTXTRifsvXjswvhsaj+r+ixb5L36I6McY7nrrfaHz9yZOL+I38XAuEM6Q+fFQ9mfQn46grVN2W
+	qOVeeDNl84BkPlN9/wZgZFkGmDmaZ3xeEsBvHaL21KweSvhO18EfBSWXESCEPyZXvitRRn+LZ94
+	ph49S8y8X35KE+cxgh9KN/I7wVZVTlJ04t7vtTICNpPmNc932I9RrRjvYwukS3kEhR/mKckmB1U
+	dySc0ySApau4NshIZHwFuGan6LDdbZNpy7RRzClhEEL3SfLFbtCxejuNPrTN9pvCo8s7PWw9kwR
+	hdRrwOC/GLjLaHAj0VqvsQrEfVtcnrsF71C4XAkEhsnH2hEowUppm6qjNV/k5HXFwa8VxNFyX7Z
+	ud/X01FB2R7u4vBG8arVNfZlhyLpfNmW1HoSP4eTk0iy+A==
+X-Received: by 2002:a05:6871:2b17:b0:494:895e:c3e2 with SMTP id 586e51a60fabf-4a90764ca88mr13284805fac.20.1793892646658;
+        Thu, 05 Nov 2026 07:30:46 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.241])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea547bfasm5076176fac.7.2026.11.05.07.30.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:30:24 -0800 (PST)
+        Thu, 05 Nov 2026 07:30:45 -0800 (PST)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:03:14 +0000
-Subject: [PATCH RFC v3 82/90] net: use net_may() for raw and packet sockets
+Date: Thu, 05 Nov 2026 15:03:15 +0000
+Subject: [PATCH RFC v3 83/90] cells: add the "net-rights" slot
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-82-bc9095937a84@toxicpanda.com>
+Message-Id: <20261105-b4-cells-v3-83-bc9095937a84@toxicpanda.com>
 References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 To: Christian Brauner <brauner@kernel.org>, 
@@ -105,144 +105,146 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=4356;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=5322;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=3gXPfoooqpzhufGJ7QkT8q08tGiStjFRxFNh5oB2gRo=;
+ bh=mxfNqe1Q4Agi5B9+WEE4ECRvr76+56ghqo3HPxPudx4=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHBSOC7DHQO2uNe6YZUtz3e6beW/rb/2WbzhvN0wWQZ4G5jap5EeRGONpapQXrVIiVdVYDdAmKl
- C5eqo+dzeTgY=
+ QMjBvTwzaahX+4bZL+xD+NdT+JgCUyZb+3+pI5tuZjIdiZTOdDdZeOYSHYN8Bjvq18Wr9RNNucP
+ dmUIUbFNTPwA=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Creating an IPv4 or IPv6 raw socket or a packet socket requires
-CAP_NET_RAW over the owner of the network namespace. So does sending
-certain IP options and IPv6 extension headers from an ordinary socket.
-Convert these checks to NET_RIGHT_RAW.
+A cell never owns its network namespace. The capabilities of its tasks are
+over the user namespace of the cell, so they do not apply to the network
+namespace, and the tasks cannot change anything about their network.
 
-AF_XDP, LLC, NFC and IEEE 802.15.4 sockets are not converted.
+That is right for most workloads but not for all. Some need to add
+netfilter rules, run a VPN client, or create a tap device for a VM. A
+container gets CAP_NET_ADMIN for any of these, and with it everything else
+that the capability allows.
 
-No functional change.
+Let the builder list what the tasks of the cell may do to the network
+namespace in the "net" slot. The new "net-rights" slot takes a __u64 with
+one bit for each enum net_right. An empty slot grants nothing, which is
+the behaviour so far.
+
+The caller can only grant what it could do itself. It must pass net_may()
+on that network namespace for every right it names. This is why the "net"
+slot has to be filled first. For a builder this means having the
+capability over the owner of the namespace. Once cells can nest, the same
+check will let a task of a cell pass on the rights of its own cell.
+
+This patch only stores the rights. A later patch makes net_may() use them.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- net/ipv4/af_inet.c     | 2 +-
- net/ipv4/ip_options.c  | 8 ++++----
- net/ipv6/af_inet6.c    | 2 +-
- net/ipv6/datagram.c    | 6 +++---
- net/packet/af_packet.c | 2 +-
- 5 files changed, 10 insertions(+), 10 deletions(-)
+ include/uapi/linux/cell.h | 15 +++++++++++++++
+ kernel/cell/internal.h    |  1 +
+ kernel/cell/slots.c       | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 61 insertions(+)
 
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index 7677b0343abd..b24b50e0098e 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -320,7 +320,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
+diff --git a/include/uapi/linux/cell.h b/include/uapi/linux/cell.h
+index 3c10c9179289..c0d17c890552 100644
+--- a/include/uapi/linux/cell.h
++++ b/include/uapi/linux/cell.h
+@@ -21,6 +21,21 @@ enum cell_configure_cmd {
+ 	CELL_CMD_SEAL		= 4,	/* Validate everything and seal */
+ };
  
- 	err = -EPERM;
- 	if (sock->type == SOCK_RAW && !kern &&
--	    !ns_capable(net->user_ns, CAP_NET_RAW))
-+	    !net_may(net, NET_RIGHT_RAW))
- 		goto out_rcu_unlock;
++/*
++ * The "net-rights" slot: what the tasks of a cell may do to the network of the cell.
++ * What is not here they may not do.
++ */
++#define CELL_NET_LINK		(1ULL << 0)	/* change a device: up, down, mtu, name */
++#define CELL_NET_LINK_NEW	(1ULL << 1)	/* make and remove devices */
++#define CELL_NET_ADDR		(1ULL << 2)	/* addresses */
++#define CELL_NET_ROUTE		(1ULL << 3)	/* routes, rules, neighbours */
++#define CELL_NET_FILTER		(1ULL << 4)	/* netfilter */
++#define CELL_NET_TC		(1ULL << 5)	/* queueing disciplines, classes, filters */
++#define CELL_NET_TUN		(1ULL << 6)	/* make tun and tap devices */
++#define CELL_NET_SYSCTL		(1ULL << 7)	/* /proc/sys/net */
++#define CELL_NET_SOCKOPT	(1ULL << 8)	/* SO_MARK, IP_TRANSPARENT and the like */
++#define CELL_NET_RAW		(1ULL << 9)	/* raw and packet sockets */
++
+ /* Life of a cell. It only ever moves down this list. */
+ enum cell_state {
+ 	CELL_BUILDING		= 0,	/* Slots may be filled */
+diff --git a/kernel/cell/internal.h b/kernel/cell/internal.h
+index 4eafa19daa25..469842ebee95 100644
+--- a/kernel/cell/internal.h
++++ b/kernel/cell/internal.h
+@@ -34,6 +34,7 @@ struct cell {
+ 	struct pid_namespace	*pid_ns;
+ 	struct net		*net;
+ 	bool			no_net;		/* the slot was left empty */
++	u64			net_rights;	/* what its tasks may do to @net */
+ 	struct cgroup		*budget;
+ 	u64			budget_id;
+ 	kuid_t			budget_uid;	/* who owned it before */
+diff --git a/kernel/cell/slots.c b/kernel/cell/slots.c
+index 2273d9ce733f..5f5378ddfe15 100644
+--- a/kernel/cell/slots.c
++++ b/kernel/cell/slots.c
+@@ -157,6 +157,49 @@ static int cell_set_caps(struct cell *cell, const void __user *uvalue, size_t le
+ 	return 0;
+ }
  
- 	sock->ops = answer->ops;
-diff --git a/net/ipv4/ip_options.c b/net/ipv4/ip_options.c
-index 09d745112c15..c9ab57a6f1a8 100644
---- a/net/ipv4/ip_options.c
-+++ b/net/ipv4/ip_options.c
-@@ -393,7 +393,7 @@ int __ip_options_compile(struct net *net,
- 					optptr[2] += 8;
- 					break;
- 				default:
--					if (!skb && !ns_capable(net->user_ns, CAP_NET_RAW)) {
-+					if (!skb && !net_may(net, NET_RIGHT_RAW)) {
- 						pp_ptr = optptr + 3;
- 						goto error;
- 					}
-@@ -428,7 +428,7 @@ int __ip_options_compile(struct net *net,
- 				opt->router_alert = optptr - iph;
- 			break;
- 		case IPOPT_CIPSO:
--			if ((!skb && !ns_capable(net->user_ns, CAP_NET_RAW)) || opt->cipso) {
-+			if ((!skb && !net_may(net, NET_RIGHT_RAW)) || opt->cipso) {
- 				pp_ptr = optptr;
- 				goto error;
- 			}
-@@ -441,7 +441,7 @@ int __ip_options_compile(struct net *net,
- 		case IPOPT_SEC:
- 		case IPOPT_SID:
- 		default:
--			if (!skb && !ns_capable(net->user_ns, CAP_NET_RAW)) {
-+			if (!skb && !net_may(net, NET_RIGHT_RAW)) {
- 				pp_ptr = optptr;
- 				goto error;
- 			}
-@@ -530,7 +530,7 @@ int ip_options_get(struct net *net, struct ip_options_rcu **optp,
- 		kfree(opt);
- 		return -EINVAL;
- 	}
--	if (opt->opt.srr && !ns_capable(net->user_ns, CAP_NET_RAW)) {
-+	if (opt->opt.srr && !net_may(net, NET_RIGHT_RAW)) {
- 		kfree(opt);
- 		return -EPERM;
- 	}
-diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-index a9b8b4b42a1a..03a630b92680 100644
---- a/net/ipv6/af_inet6.c
-+++ b/net/ipv6/af_inet6.c
-@@ -164,7 +164,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
++/*
++ * What the tasks of the cell may do to its network. The network namespace is never
++ * the cell's, so no capability of theirs counts for it, see net_may().
++ *
++ * Nobody hands out what is not theirs to do: whoever fills the slot has to be able
++ * to do all of it to that network namespace itself.
++ */
++static int cell_set_net_rights(struct cell *cell, const void __user *uvalue, size_t len)
++{
++	unsigned long rights;
++	unsigned int right;
++	u64 val;
++
++	BUILD_BUG_ON(BIT_ULL(NET_RIGHT_LINK) != CELL_NET_LINK ||
++		     BIT_ULL(NET_RIGHT_LINK_NEW) != CELL_NET_LINK_NEW ||
++		     BIT_ULL(NET_RIGHT_ADDR) != CELL_NET_ADDR ||
++		     BIT_ULL(NET_RIGHT_ROUTE) != CELL_NET_ROUTE ||
++		     BIT_ULL(NET_RIGHT_FILTER) != CELL_NET_FILTER ||
++		     BIT_ULL(NET_RIGHT_TC) != CELL_NET_TC ||
++		     BIT_ULL(NET_RIGHT_TUN) != CELL_NET_TUN ||
++		     BIT_ULL(NET_RIGHT_SYSCTL) != CELL_NET_SYSCTL ||
++		     BIT_ULL(NET_RIGHT_SOCKOPT) != CELL_NET_SOCKOPT ||
++		     BIT_ULL(NET_RIGHT_RAW) != CELL_NET_RAW ||
++		     NET_RIGHT_NR > BITS_PER_LONG);
++
++	if (len != sizeof(val))
++		return -EINVAL;
++	if (copy_from_user(&val, uvalue, sizeof(val)))
++		return -EFAULT;
++	if (val & ~(BIT_ULL(NET_RIGHT_NR) - 1))
++		return -EINVAL;
++	/* Rights over what? */
++	if (!cell->net)
++		return -EINVAL;
++	rights = val;
++	for_each_set_bit(right, &rights, NET_RIGHT_NR) {
++		if (!net_may(cell->net, right))
++			return -EPERM;
++	}
++	cell->net_rights = val;
++	return 0;
++}
++
+ static int cell_set_string(struct cell *cell, const char *key, const char *val)
+ {
+ 	if (!strcmp(key, "hostname"))
+@@ -173,6 +216,8 @@ static int cell_set_binary(struct cell *cell, const char *key,
+ 		return cell_set_ids_binary(cell, uvalue, len);
+ 	if (!strcmp(key, "caps"))
+ 		return cell_set_caps(cell, uvalue, len);
++	if (!strcmp(key, "net-rights"))
++		return cell_set_net_rights(cell, uvalue, len);
+ 	return -EINVAL;
+ }
  
- 	err = -EPERM;
- 	if (sock->type == SOCK_RAW && !kern &&
--	    !ns_capable(net->user_ns, CAP_NET_RAW))
-+	    !net_may(net, NET_RIGHT_RAW))
- 		goto out_rcu_unlock;
- 
- 	sock->ops = answer->ops;
-diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-index 191c9733ff9f..3d3e9fd4443a 100644
---- a/net/ipv6/datagram.c
-+++ b/net/ipv6/datagram.c
-@@ -912,7 +912,7 @@ int ip6_datagram_send_ctl(struct net *net, struct sock *sk,
- 				err = -EINVAL;
- 				goto exit_f;
- 			}
--			if (!ns_capable(net->user_ns, CAP_NET_RAW)) {
-+			if (!net_may(net, NET_RIGHT_RAW)) {
- 				err = -EPERM;
- 				goto exit_f;
- 			}
-@@ -932,7 +932,7 @@ int ip6_datagram_send_ctl(struct net *net, struct sock *sk,
- 				err = -EINVAL;
- 				goto exit_f;
- 			}
--			if (!ns_capable(net->user_ns, CAP_NET_RAW)) {
-+			if (!net_may(net, NET_RIGHT_RAW)) {
- 				err = -EPERM;
- 				goto exit_f;
- 			}
-@@ -957,7 +957,7 @@ int ip6_datagram_send_ctl(struct net *net, struct sock *sk,
- 				err = -EINVAL;
- 				goto exit_f;
- 			}
--			if (!ns_capable(net->user_ns, CAP_NET_RAW)) {
-+			if (!net_may(net, NET_RIGHT_RAW)) {
- 				err = -EPERM;
- 				goto exit_f;
- 			}
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index cf6429f09477..006349f214e6 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -3417,7 +3417,7 @@ static int packet_create(struct net *net, struct socket *sock, int protocol,
- 	__be16 proto = (__force __be16)protocol; /* weird, but documented */
- 	int err;
- 
--	if (!ns_capable(net->user_ns, CAP_NET_RAW))
-+	if (!net_may(net, NET_RIGHT_RAW))
- 		return -EPERM;
- 	if (sock->type != SOCK_DGRAM && sock->type != SOCK_RAW &&
- 	    sock->type != SOCK_PACKET)
 
 -- 
 2.55.0
