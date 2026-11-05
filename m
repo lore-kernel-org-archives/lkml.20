@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.227.133
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793877098;
-	b=2WnKSHSS+1R25sAekvmWKNZoXdUcmoFi8tEPu/SzK2zeTcJqIweg3Yp3a/bq/vBtCxwG
-	 CCJtU+38Vz6g10qQu7t6e8NyFjFH45r9SeBtYZw4FgX/zCtnNqDfjAZoDkDoyhLY5WCqX
-	 KD/neoBvwsStHEwLmNDgGE2vsoHMl+cY6stFMNmIMHB857w84vHi0ODRDSE1BFjR9nCkq
-	 5vg5kldqJhXKfHESvFDNSrl4/MPcJDsCeU24ITLXkZAmT2yBArNdsbcYZKcAJ8OYrjSrq
-	 ar3BqLBrugoAkozNq5ZdV58+lefiVBd5jSkMQTQh+pzWy6vaJOmCqxIy1RFqXbmvbXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877098;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XuSFZPqiwo0/+iUG4wYz7aJW1g1w6mQvKfCSFgzt1nw=;
-	b=uCtqe2/w8Pycb4VgaJbJCz9z2trWlikaCQ+1sFbATL8yn65Iyc997tDVPv6/Pb32dfj7
-	 JoE4V2ZN1IIQ1uVoS1XH/1yTrRM+8lCpC7/XvorR10ySxUjNf3CoQJFWHFjrdp9drxNsX
-	 gYjjQDT6U9zADqrFNyZQXSgM4ZIx9X8Ri0Fe9NKOo89bHVVkrYqw4vH/iAynO5AF/JQWh
-	 ymsB8LIIXhvahVrWSVRphnLJ7QYA1V0BqA88ClOjO8GBa248NR8lXnuGzw5KrnrzrfID+
-	 CPyTweWMtE6+zbiCzSFK1cXJLLbQzchUXFRIMBEEL2Koz1dCMErXwTRTHwEZoQ3ISMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xCJHKpGU;
-	arc=fail smtp.remote-ip=74.125.227.133
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793877104;
+	b=Edg1Ys7OJJEGHyz47OZyxut9MRTye4vuZTgzUrAwUaHy+wJ8JGDKyxg4FN3f8zJrs5ya
+	 lLBhH0s97x3qMb0cI8xj78iNrR5nIaPuGWJEDUcfcUBuXv/w1leCLnzDZaXDhlQECr0TA
+	 OewVLQu+Fz30OBAUxvEil6LT9dIThrMjOUODfNndCLe6rmfNryLA3GrYBk3BSFcz9G4Ej
+	 nYTtHyUEKKsNNib0obHwqDAHmi6iOqVNGHvvRY8aRtGUxCAu3O+vSdd5d4EqK/gs2Asf8
+	 b7GMBuUGdreXjKh/bd0AFo8GYqa7HZaz3wGcdRBECjdsICBWzIPsTa2kB2dFnUeF6wQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877104;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=3jVc4SI3dwrhCHlixWzw1rVfq5AqGHNQ1RV/3qjkXoU=;
+	b=4jsKtyPTYiqZrMHzYHaAdyww4lfLRsYNHuFhENjvY5AZOJV7gThpMRYd1FN16jigIx/x
+	 qAj1Spe90G5SHXv5OllqaDbD+h9ieWRQbyTvrNUt+lMRfIRiNxAiTIdZbYh3VG6w5IqlD
+	 /UDDQ6YqFj3mRiwvK9hp9PnD6zq9dSWyVn0usAs8T0hY/TuzBAgG0AFFGCcT2QAP6nlyg
+	 dJ+vdefngPs9w59IhPHesxO2Ka/TIeIoEQ2p+0zduviW8jE/iGCmI0lKR7nPFtzDn/7/k
+	 VsGIw/kS/ES5eM/SMDwhABm0tPmEreQYivF95HWXHnG0Xn+FsuLGIs4YvIfCzrkVPrg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F23606A336
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:11:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09F23606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xCJHKpGU
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2e7c8213b09so6493735ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:11:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793877097; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CDr9qeJWH+ob/tK9deBk8OZwRdqI0UuJzxTWibaey6PbGAgNW3N3wWVml5UBvMxwuV
-         fkB3NVfgLtautuA9Gd8Dj3iXfYha3mWxzKGXR2WEuvDVo50vtD2CZ5Vla7jOCZ+YPElS
-         oG1ywHY594pxbYblS0bRpnTcaZ5jbAvr/lKszBwYS7wbiq//RIq+EXpr1vhrPKkw0vfx
-         YQ9/s+FVaeopNyvhTeXJ4ONUajflftkiMTSHDYQHhWleTQb6HqhCZ11in3jtPU7FWIeA
-         1mcWDQ/aD2lBS5t3LgZn4SbpPvx1TjgF7UGUQw3PHuv0bTlaLezswNBt2UbAIdwrvIrO
-         AIOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XuSFZPqiwo0/+iUG4wYz7aJW1g1w6mQvKfCSFgzt1nw=;
-        fh=ZL6hKb/qkkXpeAv2kqwVX1+4g8X+7kZFFiKah1Ug32g=;
-        b=YC/xYA+n7eGFB402HCTD6Vpkhv+Oxr7jwCu9GMgiD0d49Q+a8E14GD7jvam/zZU4CI
-         gMot/faQvEN4IBgAgURjupMWncQHSjVpjMaftjuUuxvlsQejr4BJtfo7Rz4VqC7XTWFV
-         j+dKkNsZeR+TYCs/uNvSKU/X2XiA2KJlwK9rwRCrnxcd/ru0BTwGYjvkiRFNtbpb6j1Z
-         EYdddf5qgB+DK1xf21eyeMNDm2DVyEmqH9uzP654vvCp6ScluCrpiRWkrtQt9T/lT3ZF
-         wGkbIdeCbRSbDXbBt87RBJ2FMTnfqV6+eZyE7CNP4lQCtt3VxfqrIG0+CsHnpp+4rClP
-         Q0Nw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793877097; x=1794481897; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XuSFZPqiwo0/+iUG4wYz7aJW1g1w6mQvKfCSFgzt1nw=;
-        b=xCJHKpGUq7uzZhoQ74QyaADEcbOAnTn6kZVHVUMQQjBb41VKKpimkEb2TmR1fjgl3r
-         s9eYFKxwfoGMN6yrGs7ZuT+oBN6HNA2n5EaP4pUGcfKjSh5pI0S1jllEaiMar8v/40Zb
-         wZ5WRM6oKOTA6KlZFC05vsGytferTk+vVQ4u0R+lyo/nvZkH42SsIdR7mW+fzVN9IKZU
-         w/Jt+eF6/yyPr5W4NBKk8TGb2JUMOu/GrM+791mRV+XDmJ98gnbjThKYcPS08UeHNSNj
-         iOiAJR5dH4MnNhcvcO+rxiw0jV/PiX0acPFVoMGTzdRM8L0/Esjv/B7j0nY9EivpJKYb
-         d/kA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B335606EE91
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:11:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B335606EE91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2d1eb484aso2169257b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:11:43 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793877097; x=1794481897;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XuSFZPqiwo0/+iUG4wYz7aJW1g1w6mQvKfCSFgzt1nw=;
-        b=hpKnRxagc9ZvvborPpsVjO84okHjYy504132RvzWIgsJwjz+I1xep/1kpH2nw+T9Pr
-         VvSmD8NROvJkCBc8DR54o2mH+jUnVu0aomqMlpQnLcs6c6UJ3Z0TJE2MuuIfYkwLig0e
-         RTBJYVy5vN8h0saVdyzxv4bt7A8/9XXlqNx9bNdIpEm0qd95jAKib6+TdAOuXKmBDwzn
-         mJ4SdcOJbmxzkYoxmhJYLmfjgarlIqklqnVvGqh5PVcJBiS4PZhL4erNgnno0iGmAuv2
-         +T8PWOE2ipXq5tRrQVqsn/X9U2xUnZVbC5E2MhdJofWEkXUUPH1QsFbry7uhE+RlZsgM
-         /QNw==
-X-Forwarded-Encrypted: i=1; AKwUvByjzAlqptZ8FbmvPjbOpPm2tUi5sgu3eKmTc37IJqwWpeO3B4V9cZ6oxc0iZGNX2yzv3t5Wvt+3ltZHhzo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+uTuYrCXil/FirT03wOZex2If9PB5W/J0finUFKXaTC+gAe1Rg
-	FhY3xZkrjCTapUHhjQUmRm4VoUkScFj/OOfvo+vC7ymD0rfwaTnHPgu5ny3dMMsLRnKwIoOiNmt
-	Hhr8UK+iBMGPhvdLj5QSY4m57r+dZXw==
-X-Gm-Gg: AYBFou37kPPpIP47NBaDMtWwKEqEic5Y6uSvaRcdKmsWqK70P6UgSUufihnbfSmcfRE
-	FoQp7e6YVno5PAAQQsrH5aFlAGJ61cwoTfSspScT7ZfxPKa1jU8MYYwZue77A14UNOVlHbizKay
-	vxniwOeVf26tspACjtRW6aMg77t0Iao59SIadNWXVf68Aq9GFEjHQewRehVqj5Tgh642qbBfks3
-	aXVMB1ujSrW/EqO5i2OkhUucW05VIXm4QUVoqf3QtC1pNgPh8ha5d8QDTSEHBxE4ghJaz1uZ4UH
-	Cd2uoCUR5QFI7tOKry0a3UNzWfS/oyOJNna/xhwsSXbJd0S/S9oZEk1H+J0wTi55lfMMf4Yrrhc
-	L13x//G3+LTs0RtdYHLHl0WpIIpsFbygCOCVR
-X-Received: by 2002:a17:903:3205:b0:2e9:5714:608b with SMTP id
- d9443c01a7336-2eb364b11ffmr186637435ad.34.1793877097307; Thu, 05 Nov 2026
- 03:11:37 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793877103; x=1794481903;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3jVc4SI3dwrhCHlixWzw1rVfq5AqGHNQ1RV/3qjkXoU=;
+        b=Ogk0beihN/Zx2pySL4qBDADnecMunD7j5GK9NOYvMBhBBRXM2fFecvwpkUzpAvjl1i
+         elZGAxV/kJZnjxSEb1ESG2rHFrGN6xXLSUKUuqAe0xDBTV6SYwzrViNBCydu9gr6KEpB
+         jaFR/VXVGQ8q12P5vYYqXxRKGuV5mW4LaJRlqLlR/mTxf/X9/gBHc0X/9VxMTXljJmcX
+         1KUo/V8yNQrrQqzbJj0iHMzlnPE2FAagKeLK90LdsowHBDDF3pOXFwqux0Eyowi9Q/de
+         1X/a2XGVSrn2T0bHyl4Sy+ecxpYQIFBg3oI2C7PIM+HobFUNv48ETGnN9K2pMkre/qNl
+         qGuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwil0cGVP1/7ot3ekK+VLukq1pPL+PVAK/r+NRUwvgbhHMhm3U3jYLzrfWiMgrj5ryUIxOM+U8og0qhEY8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z907a4+8N/aYgLTQgruQG6HkEAGJrpIQf44iC5C29XncoH/90OU
+	uCuRpItjsJV7r11INrijUc30q7inwh6xC/6p6Pfa9snDJRnDOYn/SssgAsaxHOFU4U4gnSQUdeO
+	F/z3p715ovpuT+C/BwTQLA9zN1eX2KZbG5JiByQVuLBXUYM+uZ7sqnmAWM8o=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,41 +58,309 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-m52xq-dts-v1-0-b198f02912ff@gmail.com>
- <20261104-m52xq-dts-v1-2-b198f02912ff@gmail.com> <b2498fed-5420-44a3-a215-02438b623ef6@oss.qualcomm.com>
-In-Reply-To: <b2498fed-5420-44a3-a215-02438b623ef6@oss.qualcomm.com>
-From: Asdlerto Korry <korryasdlerto@gmail.com>
-Date: Thu, 5 Nov 2026 13:11:25 +0200
-X-Gm-Features: AclHuK_K1rA2ODQYQXEgmmGIBBNJicth9b7WPHwdpfBELTwGQmOcDjIv1-lq_Vc
-Message-ID: <CAARotkeDeZAY-rxXApYE0qs_-kYEvLX8e9UjjtEVFH83Q+ogKw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm7325: Add Samsung Galaxy M52 5G
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6808:c40a:b0:4b9:e65b:8c33 with SMTP id
+ 5614622812f47-5640ddb8b16mr12457733b6e.33.1793877103079; Thu, 05 Nov 2026
+ 03:11:43 -0800 (PST)
+Date: Thu, 05 Nov 2026 03:11:43 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aec646f.aca85a03.3b899.0000.GAE@google.com>
+Subject: [syzbot] [net?] possible deadlock in sk_stream_wait_memory
+From: syzbot <syzbot+a761911cb2560f3ca2f7@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-On 11/5/26 10:10 AM, Konrad Dybcio wrote:
-> Drop the reg and unit address (numbers after the @ sign), since you
-> have a memory-region handle
+Hello,
 
-Will do in v2.
+syzbot found the following issue on:
 
-> > + /* NFC chip power, switched by TLMM 42 (no consumer property in the binding) */
->
-> Please fix the binding
+HEAD commit:    03897066069f tipc: raise the minimum bearer MTU to fit tun..
+git tree:       net
+console output: https://syzkaller.appspot.com/x/log.txt?x=12215969580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d30e1495ee3ac817
+dashboard link: https://syzkaller.appspot.com/bug?extid=a761911cb2560f3ca2f7
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 
-Will do: v2 adds a pvdd-supply to samsung,s3fwrn5 and makes the driver
-enable it, so the regulator no longer needs regulator-always-on.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-> No superspeed / displayport?
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/4416adab3ebe/disk-03897066.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/2165a756da2b/vmlinux-03897066.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d949ba699d8b/bzImage-03897066.xz
 
-No, the Type-C port of the M52 is USB 2.0 only. The vendor DT limits
-the DWC3 to high-speed as well, and I tested it: with the QMP combo PHY
-enabled and the orientation switch wired up, a USB 3 stick still
-enumerates at 480 Mbit/s in both plug orientations. There is no DP alt
-mode on this phone either.
+AI-generated root cause summary:
+In drivers/block/nbd.c, nbd_add_socket() reclassifies user-supplied socket locks
+to sk_lock-AF_INET-NBD using nbd_reclassify_socket(). Because the socket was
+obtained via sockfd_lookup(), userspace retains access to the socket file
+descriptor and can issue sendto()/sendmsg() calls on it. During userspace
+transmission, tcp_sendmsg() holds lock_sock(sk) (sk_lock-AF_INET-NBD) while
+copying user data, creating a dependency on &mm->mmap_lock via page faults.
+Concurrently, memory allocations while holding &mm->mmap_lock can trigger direct
+reclaim (fs_reclaim) to write back dirty pages through the NBD block device
+(nbd_queue_rq), which acquires &nsock->tx_lock and subsequently lock_sock(sk)
+(sk_lock-AF_INET-NBD), creating an ABBA circular locking dependency between
+&mm->mmap_lock and sk_lock-AF_INET-NBD.
 
-Thanks for the review!
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=a761911cb2560f3ca2f7
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a761911cb2560f3ca2f7@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.4.7408/2091 is trying to acquire lock:
+ffff888036f0a800 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0xaf/0x130 mm/memory.c:7530
+
+but task is already holding lock:
+ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1717 [inline]
+ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: sk_stream_wait_memory+0x8de/0xff0 net/core/stream.c:148
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #7 (sk_lock-AF_INET-NBD){+.+.}-{0:0}:
+       lock_sock_nested+0x41/0x100 net/core/sock.c:3908
+       lock_sock include/net/sock.h:1717 [inline]
+       inet_shutdown+0x6a/0x390 net/ipv4/af_inet.c:911
+       nbd_mark_nsock_dead+0x2cb/0x550 drivers/block/nbd.c:319
+       recv_work+0x1d14/0x1e30 drivers/block/nbd.c:1030
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #6 (&nsock->tx_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
+       nbd_queue_rq+0x373/0xff0 drivers/block/nbd.c:1207
+       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2131
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2546
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #5 (&cmd->lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       nbd_queue_rq+0xc1/0xff0 drivers/block/nbd.c:1199
+       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2131
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2546
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #4 (set->srcu){.+.+}-{0:0}:
+       srcu_lock_sync include/linux/srcu.h:225 [inline]
+       __synchronize_srcu+0xca/0x2f0 kernel/rcu/srcutree.c:1662
+       elevator_switch+0x1e8/0x7b0 block/elevator.c:576
+       elevator_change+0x2fa/0x480 block/elevator.c:681
+       elevator_set_default+0x375/0x440 block/elevator.c:754
+       blk_register_queue+0x404/0x4f0 block/blk-sysfs.c:992
+       __add_disk+0x6b8/0xdb0 block/genhd.c:531
+       add_disk_fwnode+0x100/0x3a0 block/genhd.c:600
+       add_disk include/linux/blkdev.h:801 [inline]
+       nbd_dev_add+0x733/0xb60 drivers/block/nbd.c:2026
+       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
+       do_one_initcall+0x250/0x870 init/main.c:1419
+       do_initcall_level+0x10a/0x1a0 init/main.c:1481
+       do_initcalls+0x59/0xa0 init/main.c:1497
+       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
+       kernel_init+0x22/0x1d0 init/main.c:1622
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #3 (&q->elevator_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       elevator_change+0x1af/0x480 block/elevator.c:679
+       elevator_set_none+0xb5/0x140 block/elevator.c:769
+       blk_mq_elv_switch_none block/blk-mq.c:5114 [inline]
+       __blk_mq_update_nr_hw_queues block/blk-mq.c:5159 [inline]
+       blk_mq_update_nr_hw_queues+0x5ef/0x19e0 block/blk-mq.c:5224
+       nbd_start_device+0x189/0xb30 drivers/block/nbd.c:1530
+       nbd_genl_connect+0x167d/0x1cd0 drivers/block/nbd.c:2310
+       genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2584
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
+       netlink_unicast+0x8ef/0xa80 net/netlink/af_netlink.c:1361
+       netlink_sendmsg+0x7f0/0xb20 net/netlink/af_netlink.c:1920
+       sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
+       __sock_sendmsg net/socket.c:818 [inline]
+       ____sys_sendmsg+0x54e/0x850 net/socket.c:2715
+       ___sys_sendmsg+0x2a5/0x360 net/socket.c:2769
+       __sys_sendmsg net/socket.c:2801 [inline]
+       __do_sys_sendmsg net/socket.c:2806 [inline]
+       __se_sys_sendmsg net/socket.c:2804 [inline]
+       __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2804
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&q->q_usage_counter(io)#50){++++}-{0:0}:
+       blk_alloc_queue+0x544/0x690 block/blk-core.c:505
+       blk_mq_alloc_queue block/blk-mq.c:4439 [inline]
+       __blk_mq_alloc_disk+0x194/0x390 block/blk-mq.c:4486
+       nbd_dev_add+0x494/0xb60 drivers/block/nbd.c:1996
+       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
+       do_one_initcall+0x250/0x870 init/main.c:1419
+       do_initcall_level+0x10a/0x1a0 init/main.c:1481
+       do_initcalls+0x59/0xa0 init/main.c:1497
+       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
+       kernel_init+0x22/0x1d0 init/main.c:1622
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       __fs_reclaim_acquire mm/page_alloc.c:4360 [inline]
+       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4374
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4673 [inline]
+       slab_alloc_node mm/slub.c:5011 [inline]
+       kmem_cache_alloc_noprof+0x5f/0x600 mm/slub.c:5047
+       mt_alloc_one lib/maple_tree.c:139 [inline]
+       mas_alloc_nodes+0x291/0x350 lib/maple_tree.c:1049
+       mas_preallocate+0x42a/0x840 lib/maple_tree.c:5016
+       vma_iter_prealloc mm/vma.h:698 [inline]
+       vma_link+0x123/0x460 mm/vma.c:1922
+       insert_vm_struct+0x3db/0x5b0 mm/vma.c:3608
+       create_init_stack_vma+0x607/0xa40 mm/vma_exec.c:155
+       bprm_mm_init fs/exec.c:279 [inline]
+       alloc_bprm+0x507/0x640 fs/exec.c:1570
+       class_bprm_constructor fs/exec.c:1580 [inline]
+       kernel_execve+0x85/0x9a0 fs/exec.c:1976
+       try_to_run_init_process+0x13/0x60 init/main.c:1548
+       kernel_init+0xb2/0x1d0 init/main.c:1678
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #0 (&mm->mmap_lock){++++}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       __might_fault+0xcb/0x130 mm/memory.c:7530
+       _copy_from_iter+0x100/0x1680 lib/iov_iter.c:271
+       copy_from_iter include/linux/uio.h:236 [inline]
+       copy_from_iter_full include/linux/uio.h:253 [inline]
+       skb_do_copy_data_nocache include/net/sock.h:2333 [inline]
+       skb_copy_to_page_nocache include/net/sock.h:2359 [inline]
+       tcp_sendmsg_locked+0x214a/0x53c0 net/ipv4/tcp.c:1321
+       tcp_sendmsg+0x2f/0x50 net/ipv4/tcp.c:1462
+       sock_sendmsg_nosec+0x10f/0x190 net/socket.c:801
+       __sock_sendmsg net/socket.c:818 [inline]
+       __sys_sendto+0x408/0x5a0 net/socket.c:2283
+       __do_sys_sendto net/socket.c:2290 [inline]
+       __se_sys_sendto net/socket.c:2286 [inline]
+       __x64_sys_sendto+0xde/0x100 net/socket.c:2286
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &mm->mmap_lock --> &nsock->tx_lock --> sk_lock-AF_INET-NBD
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(sk_lock-AF_INET-NBD);
+                               lock(&nsock->tx_lock);
+                               lock(sk_lock-AF_INET-NBD);
+  rlock(&mm->mmap_lock);
+
+ *** DEADLOCK ***
+
+locks held by syz.4.7408/2091: 1, last CPU#0:
+ #0: ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1717 [inline]
+ #0: ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: sk_stream_wait_memory+0x8de/0xff0 net/core/stream.c:148
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 2091 Comm: syz.4.7408 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ __might_fault+0xcb/0x130 mm/memory.c:7530
+ _copy_from_iter+0x100/0x1680 lib/iov_iter.c:271
+ copy_from_iter include/linux/uio.h:236 [inline]
+ copy_from_iter_full include/linux/uio.h:253 [inline]
+ skb_do_copy_data_nocache include/net/sock.h:2333 [inline]
+ skb_copy_to_page_nocache include/net/sock.h:2359 [inline]
+ tcp_sendmsg_locked+0x214a/0x53c0 net/ipv4/tcp.c:1321
+ tcp_sendmsg+0x2f/0x50 net/ipv4/tcp.c:1462
+ sock_sendmsg_nosec+0x10f/0x190 net/socket.c:801
+ __sock_sendmsg net/socket.c:818 [inline]
+ __sys_sendto+0x408/0x5a0 net/socket.c:2283
+ __do_sys_sendto net/socket.c:2290 [inline]
+ __se_sys_sendto net/socket.c:2286 [inline]
+ __x64_sys_sendto+0xde/0x100 net/socket.c:2286
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2f21b9fb19
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2f22997028 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
+RAX: ffffffffffffffda RBX: 00007f2f21e25fa0 RCX: 00007f2f21b9fb19
+RDX: ffffffffffffff94 RSI: 0000200000000100 RDI: 0000000000000004
+RBP: 00007f2f21c37b70 R08: 0000000000000000 R09: 0000000000000000
+R10: 000000000000000b R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2f21e26038 R14: 00007f2f21e25fa0 R15: 00007fffcbec2ed8
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
