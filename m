@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907259;
-	b=pkOVP/QYebmcuJbvmACF3su8Wsy3DvVyyA+n2vndtC8SCb0kuWtSpOHpvV8V0XrvIaMT
-	 FmjasoZMbjt2Vg3NqWe53a6uJBkswqIhrSUuq5DsFzcryRy139f1VblAqOzv0IMXbxgVH
-	 WKDe8onSx5lcSD+urm7hNPsFZOLVrZFrXXrYjAu9yP6Pqxuzjn+n2zuEIwCpfeDK1P8KL
-	 41umv/URmv55UOhB2bCx06sb7xY71o8sG2zG7Sbm4gdczU6wuM4BxqUTTGD8e6AUH/sVI
-	 zU7Y/LdwpXgDheaIxQ9ZDWrpFXq3rGho9VkSzn5NsSA4XIxtn6MVN4ImJI3niq6/n0A==
+	t=1793907260;
+	b=QyBQ7zsqEtR3y+HUCW1kWflie//YmZZJgP64KNnRcF+YZPy8NWXTN9GKR+FGD0ONDA8u
+	 niZu2w6uXQuEZAttGfxr2rzwvNWy4mfe53Gt6k9RJ5QkzXwzW4JuJhgKgWOjeRtVqQKM3
+	 dKV2sv1qSX5bl2qWw+KcUfS3yHUSYYR23zS6OWVs85Ou/+ckr38dQAAS/F7CuZRUve+uC
+	 9MKzZ0d0kyOrOQu+5c0jMphIT3fzRfbKZpIQx1F8xSva+CDVmFMRAFngBjtGVi8/dC3pg
+	 MkH4alcsSuQ3YfAs7QCcfU9xANJktWEd8InwvHnYJQ8e4D+b49Kj2bzAUEUXFtPmWfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907260;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NoC2zAIkoVjKX/vWrf9dz8engB12YIaGq6z5KLIjDe4=;
-	b=vnLjvv+JV5DdbqnUnA/NNym7V7kEXrRgeQFUr5CV5RSADVes1SNWet6uVn9QbORTYOYm
-	 mkPCTD80h8MSWBLDxBp4WgybE9LR/qXFEoijBSgKMRhXY+LwaiQk/jSuT8DV/ReAbEEsc
-	 5O8JuKLUqPUaZhdtsToMAINv4U3it891sKn6Pk76tP5oVW9GIqwa+6SJt9s508gd2y9zj
-	 9bzomZh18w6d7ECLZRkONEQbu2aXc3UZ6VaFFwsYACJF/zn8lz0/4bdY80DMI4EbzyI0P
-	 LrDCjv6DOCx/Hb/Sg4XAN1iqa0I+TlEAO8y/Ms0XD7AODAulYZpJue+UIjL9xkwnlVg==
+	bh=ZDauTg8gKMEyI5TlSf5nU88RVwmY9xMl46WsxT/Kql0=;
+	b=g+p2bCGXyVP8vvXI34ApqIv0WjImNwrpGiGYSThyHEiTLsU/8zTlSI8+imGJ7vJHtwrr
+	 abaVg5BnCSw7myGcGymXCoQrJ2t6wKOlRrwy5lNFm3PvRG5gRekTtCxmuprHWJB9NdQXw
+	 i9Rc3hzpmBguhZD/91CBo/gbVJ8/QbGfIF0spoFp78aII+qWubGDbR8meQNU8n3tRDr4d
+	 0EkB3lYXpEnetmGlXP7bmmxoLPtleEI9TtBh8GmYXhLR2kM84p6gEBhFMiYHeHjo02j3W
+	 IYj2Eywy/SyAGXXX7hjXd5OZXQUdA8fViX9sBtmxctDznik50q6MvpQCVOYZ1bZcbBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=TYuaAV8m;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=MxUMWdVd;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0F96082BE2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585A36082BFB;
 	Thu,  5 Nov 2026 19:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F0F96082BE2
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 585A36082BFB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=TYuaAV8m
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=MxUMWdVd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1793907251;
-	bh=NoC2zAIkoVjKX/vWrf9dz8engB12YIaGq6z5KLIjDe4=;
+	s=smtpout1; t=1793907252;
+	bh=ZDauTg8gKMEyI5TlSf5nU88RVwmY9xMl46WsxT/Kql0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TYuaAV8mcQJ26HWhwytJj/7UJdigAMGWiEsxVjVTXlPtqJd1aqzbVJAQ19oWhfcTE
-	 K3ibgODmXYuWtk6TwtQBvxPss70Vg42xR7oV9H/6epsl+yaPRe0fIM4UjnflIab4cO
-	 Uq9ltJERINboji8ZAiC2ORXBrWmP4/JEjZelKN5L5BAdb9pVDmr2hwep9te7aXzwho
-	 pDOS5HmIlpHdsnYDkq7LMDx13F3ewb6YAC7qyQoAQWdlnL0qF1ylCJU5cx1ulrgpaQ
-	 FOd19QnlzlnONKD8sTzCs4eeizZ1FzPUm+os5tXpCyk7YdnUgmA51r2wxBGSD2Bj0c
-	 1Evs1PAcnBOEg==
+	b=MxUMWdVd6/pklGok+d+2pr8LCG7Da1OkwGinGCiulCKd2hIdDh9TYu869i232OIsm
+	 QdKAOQmhoUCNREpVKOM0ou8rcvk9vdRxSPl98kMQp3XrcLIZcZ90q5jBl1w0NsPgRO
+	 to4ktXfkemmarOGDrXL7JxL/2QPnKEeOoiEoXRI+CBL94il8CDG7nmBEQabTEYsVXK
+	 L1igVVVzrBrAhUujjYwEDOf+HFvCXsU6Zv/5F+zTRcioAjncQYQDjjVOLnK3xIijMB
+	 KHzk1RICiwEueDWTftboNrNr/G1CFucBXhPFLPKWuVgjYBBHpYDjVaEddru2vaDTr0
+	 ll+ugCNo1C7VA==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDM619MzLYJ;
-	Thu, 05 Nov 2026 14:34:11 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDN1NXpzKVJ;
+	Thu, 05 Nov 2026 14:34:12 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -77,9 +77,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v3 18/24] sched/deadline: Credit a rebuild to the CPU recorded with the task's bandwidth
-Date: Thu,  5 Nov 2026 14:33:53 -0500
-Message-Id: <20261105193359.1450487-19-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 20/24] sched/deadline: Count the bandwidth a boosted task is given
+Date: Thu,  5 Nov 2026 14:33:55 -0500
+Message-Id: <20261105193359.1450487-21-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
 References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
@@ -94,128 +94,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A rebuild of the root domains' accounting takes a CPU of the task's
-cpuset for each deadline task it finds, dl_add_task_root_domain()
-through dl_get_task_effective_cpus(), the first active one: a guess
-that admission did not make, and three things go wrong with it.
+The runqueue a sleeping deadline task is on counts the bandwidth of
+that task in this_bw, which switched_to_dl() hands it as the task
+enters the class. A task that priority inheritance boosted into the
+class is in it already: __sched_setscheduler() neither dequeues it nor
+enqueues it back, so switched_to_dl() does not run, and sched_setattr()
+of SCHED_DEADLINE on such a task leaves this_bw without the bandwidth
+the task now has. Its wake-up gives that bandwidth to running_bw alone:
 
- - The CPUs isolated by isolcpus="domain" belong to the default root
-   domain, and the cpuset of a task that runs on a housekeeping CPU can
-   hold them beside its housekeeping CPUs, as the root cpuset does;
-   without cpusets the mask is every CPU the task may run on. The first
-   active CPU of either is an isolated one where it comes first, and the
-   task's bandwidth is counted in the default root domain instead of the
-   one that admitted it, which underflows when the task leaves the
-   class, or dies.
- - A task confined to isolated CPUs has them all taken offline, which
-   nothing refuses: a deadline task of the default root domain does not
-   keep the last of its CPUs online, dl_bw_deactivate() asking the root
-   domain of the CPU going offline. The rebuild then finds no active CPU
-   for it and BUG()s.
- - A throttled task whose CPUs went offline is moved by
-   dl_task_offline_migration() to an active CPU, with its bandwidth,
-   while its mask still names the offline ones: the rebuild counts it
-   where the cpuset says, which is not where the move put it.
+	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
 
-Take the CPU recorded with the task's bandwidth where it is active and
-the task's cpuset still allows it: the rebuild then counts the bandwidth
-where admission did, or where the last move put it, and the CPU that
-dl_task_offline_migration() recorded answers for a task whose own CPUs
-are offline. Where the record is of no use, its CPU offline or the
-cpuset changed, take the first active CPU the cpuset allows, a
-housekeeping one where it has any. The CPUs isolated at boot,
-HK_TYPE_DOMAIN_BOOT, are the ones a cpuset can hold beside housekeeping
-CPUs: those an isolated cpuset partition takes have a cpuset of their
-own, and HK_TYPE_DOMAIN, which excludes them too, lags a change of
-partitions by the rebuild that change makes,
-cpuset_update_sd_hk_unlock() updating it after. Leave out a task with
-no active CPU at all: the generation of "sched/deadline: Keep departing
-bandwidth across a root domain rebuild" keeps the release of its
-bandwidth out as well, so that nothing is taken from a root domain that
-no longer counts it, and the next rebuild counts it again where it can.
+and the two sums GRUB reclaims from disagree by the bandwidth of the
+task until it migrates, where the enqueue adds it (add_rq_bw()).
 
-Found by the Sashiko AI reviews of the first posting of this series,
-the BUG() and the isolated CPU coming first, and of the second, the
-housekeeping mask lagging a change of partitions and the task that
-dl_task_offline_migration() moved.
+Change the bandwidth the runqueue counts where the parameters change,
+in __setparam_dl(), which every task that gains deadline parameters
+goes through, rather than in sched_dl_overflow(), which only a task of
+the class reaches that way. A runqueue that counts nothing of the task
+takes the new bandwidth, where the previous patch left it to the
+enqueue to come: that enqueue finds the bandwidth there and leaves it
+(add_rq_bw() of a task a runqueue counts), and a task waking up has
+task_cpu() pointing at the runqueue it wakes on. The bandwidth of a
+special entity stays counted nowhere, and the request tells one, since
+the flags of the entity are those of the parameters it had: a sugov
+kthread given a reservation of its own gets that one counted.
 
-Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
+Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 45 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 40 insertions(+), 5 deletions(-)
+ kernel/sched/deadline.c | 37 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 7 deletions(-)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index a058e0c65eca..bcf7f88b204a 100644
+index f772a944a3e5..746bffb03b7c 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -3607,6 +3607,36 @@ static void dl_get_task_effective_cpus(struct task_struct *p, struct cpumask *cp
- 	cpuset_cpus_allowed_locked(p, cpus);
+@@ -440,22 +440,32 @@ void cancel_inactive_timer(struct sched_dl_entity *dl_se)
+ 	cancel_dl_timer(dl_se, &dl_se->inactive_timer);
  }
  
 +/*
-+ * A CPU of the root domain that a rebuild of the accounting counts @p's
-+ * bandwidth in. The one recorded with it, where it is active and the
-+ * cpuset of @p allows it: that of the root domain that admitted the
-+ * bandwidth, or that the last move put it in, which the cpuset alone does
-+ * not tell where it holds CPUs of two root domains, housekeeping ones
-+ * beside the ones isolcpus="domain" leaves to the default root domain. The
-+ * record answers as well for a task whose own CPUs went offline, moved to
-+ * an active one by dl_task_offline_migration(). Else the first active CPU
-+ * the cpuset allows, a housekeeping one where it has any; and nr_cpu_ids
-+ * where it allows none, which the isolated CPUs allow, no deadline task
-+ * of theirs keeping the last of them online.
++ * The runqueue a sleeping task is on counts the bandwidth the task has:
++ * give it @new_bw in place of what it counts of the task's.
 + */
-+static unsigned int dl_task_rebuild_cpu(struct task_struct *p)
-+{
-+	struct cpumask *msk = this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
-+	int recorded = p->dl.dl_bw_cpu;
-+	unsigned int cpu;
-+
-+	dl_get_task_effective_cpus(p, msk);
-+	cpumask_and(msk, msk, cpu_active_mask);
-+	if (recorded >= 0 && cpu_active(recorded) &&
-+	    (cpumask_test_cpu(recorded, msk) || cpumask_empty(msk)))
-+		return recorded;
-+	cpu = cpumask_first_and(msk, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-+	if (cpu < nr_cpu_ids)
-+		return cpu;
-+	return cpumask_first(msk);
-+}
-+
- /* The caller should hold cpuset_mutex */
- void dl_add_task_root_domain(struct task_struct *p)
+ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
  {
-@@ -3614,7 +3644,6 @@ void dl_add_task_root_domain(struct task_struct *p)
- 	struct rq *rq;
- 	struct dl_bw *dl_b;
- 	unsigned int cpu;
--	struct cpumask *msk;
+-	WARN_ON_ONCE(p->dl.flags & SCHED_FLAG_SUGOV);
++	struct sched_dl_entity *dl_se = &p->dl;
++	struct rq *rq = task_rq(p);
  
- 	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
- 	/*
-@@ -3626,10 +3655,16 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 	if (task_on_rq_queued(p))
  		return;
- 	}
  
--	msk = this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
--	dl_get_task_effective_cpus(p, msk);
--	cpu = cpumask_first_and(cpu_active_mask, msk);
--	BUG_ON(cpu >= nr_cpu_ids);
-+	cpu = dl_task_rebuild_cpu(p);
-+	if (cpu >= nr_cpu_ids) {
-+		/*
-+		 * No active CPU to count this task's bandwidth: leave it out
-+		 * of this rebuild, where dl_bw_gen keeps its release out as
-+		 * well, until one has a CPU for it.
-+		 */
-+		raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
-+		return;
+ 	/*
+-	 * Waking up on another CPU, the task has its bandwidth on no
+-	 * runqueue: the enqueue to come charges the new one, with the new
+-	 * parameters, which __setparam_dl() sets right after this.
++	 * No runqueue counts bandwidth of the task's: this one takes the
++	 * new one, and the enqueue to come leaves it there (add_rq_bw() of
++	 * a task a runqueue counts). A task waking up on another CPU has
++	 * none of its bandwidth on a runqueue, and task_cpu() points at the
++	 * one it wakes on.
+ 	 */
+-	if (!p->dl.dl_bw_oncpu)
++	if (!dl_se->dl_bw_oncpu) {
++		__add_rq_bw(new_bw, &rq->dl);
++		dl_se->dl_bw_oncpu = 1;
+ 		return;
 +	}
  
- 	raw_spin_lock(&dl_departed_lock);
- 	/*
+-	dl_rq_change_utilization(task_rq(p), &p->dl, new_bw);
++	dl_rq_change_utilization(rq, dl_se, new_bw);
+ }
+ 
+ static void __dl_clear_state(struct sched_dl_entity *dl_se);
+@@ -4234,7 +4244,6 @@ int sched_dl_overflow(struct task_struct *p, int policy,
+ 		if (counted)
+ 			__dl_sub(dl_b, p->dl.dl_bw, cpus);
+ 		__dl_add(dl_b, new_bw, cpus);
+-		dl_change_utilization(p, new_bw);
+ 		err = 0;
+ 	} else if (!dl_policy(policy) && task_has_dl_policy(p)) {
+ 		/*
+@@ -4283,6 +4292,20 @@ int sched_dl_overflow(struct task_struct *p, int policy,
+ void __setparam_dl(struct task_struct *p, const struct sched_attr *attr)
+ {
+ 	struct sched_dl_entity *dl_se = &p->dl;
++	u64 period = attr->sched_period ?: attr->sched_deadline;
++
++	/*
++	 * The bandwidth of a special entity is counted on no runqueue, and
++	 * the request tells one, the flags of the entity being those of the
++	 * parameters it had. The rest have theirs changed here, where their
++	 * parameters are:
++	 * switched_to_dl() hands it to the runqueue of a task that enters
++	 * the class, and a task that priority inheritance boosted into the
++	 * class is in it already, so nothing dequeues it and enqueues it
++	 * back for that.
++	 */
++	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
++		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
+ 
+ 	dl_se->dl_runtime = attr->sched_runtime;
+ 	dl_se->dl_deadline = attr->sched_deadline;
 -- 
 2.47.3
 
