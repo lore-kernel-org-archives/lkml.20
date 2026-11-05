@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872185;
-	b=ErPjcYyHgKGPvZesAwcZcRRsksNR8nRZ/jLK8+UdzVVkNlNIhywcbTO+tTpxqtbaPAQ8
-	 l5eGflwCe2NovOx5ydqppzyIFwbRliFEroWOs52Zk2mK23lCiTTEo2bZ56bFOi3n4H7gZ
-	 ECvrHOoBJtv8VhLDijPDyrm1IoG/AsGuKEYNBWQCmUzKlL68j3lXOERJzHcvj6NQysoI+
-	 Tn1NUNYOXYccML8rwh4OzBcpY8FPLUU18BO9QFByo4xUhW7xaA3/XuLrPuHiNBfuSDUuf
-	 81egLfl580achaiS7aA1g0vcRpzA7vjvJnTv15PdEt1ylTJ1Rou/txi+RAa29koIy1w==
+	t=1793872199;
+	b=B1FE4iGkOiUH4UT7E/CLSYYiE9lY5MHpwx2OkIxlPkag2FjjcjiAL1IciL5yZj1xz/BG
+	 +3zHRrD0tZIg9+wbZqhqJxDR6YWl5DWX88KygkXwrxX1u/KZdpcAB4gAydMkx63U46Dph
+	 /W7hw7/Iwn1khlppH/EsR/7djBNcyYfqFGg5So70emdZz7GoU91s6wpjAtrcgIAA9EvjR
+	 08l2IQoQ6AXPgZ/X71A8WJCCede7waio+qlvjtWmjnM/Jz8cBuPYTuQ0zRl2emTpX+f8D
+	 iek5+Xm1URKEoSMbOl4lhU+Mn6XaY8ZLyvn6nEfLEGs7M7cDry1BqXikRAa8wlnxIwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872185;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872199;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=kvjeYd4fqsT4ixPyNrODgPZ3f4+GoGEaruKu44ZzFgY=;
-	b=Ry2E7BD/yMADlxEnoI3KwhhNIDMHlP1UXNiltmjrYJdoOQ5MV9Qo87zjMVD/+q2I9XGf
-	 UTND/DMCFidFBUuXQ7oGYT6fAigzdRVjqMBmw5YJ/Mhx/jaN7gEER5cl75PNhDs4GNaxi
-	 qqGMH+n39TZwgySD9IIQNQyM3h67pP1wkZlt07WtMLnwsEF5uxuUMZvlhpauOWn5HC5dV
-	 1zHXDPu76Lj6KHpLXgJOqidpJVSdPzH7UcjWk1bqQ3ilB/74r4cBTRXVcffLzygAo/dBF
-	 vTxhd5OTlVSYbg1eUgYgb4jWxev25zTCImeU1qTVS9nK9mz3zdAPLaY69bOqSSuyNLw==
+	bh=SX2iWgwwTTnfuBkVYLRjLx6wOTnegLABFMy8vXMq74M=;
+	b=iVcLdKAhkJj+CQAfiOd4i2y3klhfBhKeZirEv0or17pGl5++H3ERqExLBmtcoEtVUEC5
+	 1I0e1QG6bysa8GdQTgKOJ7uC7Lt2UJfRzfa71Oa6jfGHoBsFly0vQiDNqgaoHk+Af4q4C
+	 MDqy+VcBVByKF6zXKaLDZ3eeHEP7G1T+mnzSaTNf8h2BoSxBe3xhNMfe/VzkAyTB6tyML
+	 E+E2H763TJo8dMGq8kebJIw/8orwiUNUU+Fxri1blJrxxnpEezH53yeIW3wWxHWOnWUhq
+	 KsXucPnU513QJGUbSS/ohLpQ63RuF/uEubXeZPOVnO6UiF9e/gGOPpCgzpgBDLyawUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fPqhSKtc;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p8xzellJ;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8B96082BDE
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:49:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C8B96082BDE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2B7606EE94
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:49:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2B7606EE94
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fPqhSKtc
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p8xzellJ
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1793872182; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=kvjeYd4fqsT4ixPyNrODgPZ3f4+GoGEaruKu44ZzFgY=;
-	b=fPqhSKtcRaoDLmcoHzWYoPhkZDh7jYRjRru9Hj9o3rUEluPsDk9aCVYVH9Gx0E74lZGyQpYqy6s65QHnIAV1/j7SSkXhP7k8DVU4pTq6qSdc3U8OdQ4KcMYML/x24lTCJfjGGPNYsgtmAOTSvPCjJsBwzos2JNal8f4rDM0NzdY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XE8K73U_1793872181;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE8K73U_1793872181 cluster:ay36)
+	t=1793872195; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=SX2iWgwwTTnfuBkVYLRjLx6wOTnegLABFMy8vXMq74M=;
+	b=p8xzellJ3Vln4GU5eh9uRy6v9tQ46VoLSGXhPCbSkx7h2oFnG42ubhPsLBuV0TE5jdEmbbL6m9HgC/yD2LZwCqLNddplfiAGqEJ5Ax8lm5s7QAXuEzi0tc4SP1D++tmLEHJPrHjM9xEmhLclXZZaYp/bhQevuNBnXkFepDkw+w0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R481e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XE8RZh4_1793872194;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE8RZh4_1793872194 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 17:49:41 +0800
+          Thu, 05 Nov 2026 17:49:54 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -50,9 +50,9 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH 15/30] ocfs2: abstract the chain list next free record check
-Date: Thu,  5 Nov 2026 17:49:11 +0800
-Message-Id: <20261105094926.3203416-16-joseph.qi@linux.alibaba.com>
+Subject: [PATCH 29/30] ocfs2: check dinode refcount location in online filecheck
+Date: Thu,  5 Nov 2026 17:49:25 +0800
+Message-Id: <20261105094926.3203416-30-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
 References: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
@@ -67,45 +67,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fold the cl_next_free_rec against cl_count test into a predicate.
-
-ocfs2_claim_suballoc_bits() in suballoc.c open-codes a similar test that
-also rejects cl_next_free_rec == 0.  It is left alone because this
-predicate is not equivalent to it.
-
-No functional change intended.
+Wire the OCFS2_HAS_REFCOUNT_FL without i_refcount_loc predicate into the
+filecheck validator.  A reflink-capable inode with no refcount tree
+location cannot be reflinked or have its refcount tree removed cleanly.
 
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- fs/ocfs2/inode.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ fs/ocfs2/inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index f3ee6491c141..88284a64cf49 100644
+index e0fc68ff997a..0f7391c9f30b 100644
 --- a/fs/ocfs2/inode.c
 +++ b/fs/ocfs2/inode.c
-@@ -228,6 +228,12 @@ static bool ocfs2_dinode_has_bad_chain_count(struct super_block *sb,
- 		ocfs2_chain_recs_per_inode(sb);
- }
- 
-+static bool ocfs2_dinode_has_bad_chain_next_free(struct ocfs2_dinode *di)
-+{
-+	return le16_to_cpu(di->id2.i_chain.cl_next_free_rec) >
-+		le16_to_cpu(di->id2.i_chain.cl_count);
-+}
-+
- void ocfs2_set_inode_flags(struct inode *inode)
- {
- 	unsigned int flags = OCFS2_I(inode)->ip_attr;
-@@ -1852,7 +1858,7 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 					 le16_to_cpu(cl->cl_count));
- 			goto bail;
+@@ -2185,6 +2185,14 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
  		}
--		if (le16_to_cpu(cl->cl_next_free_rec) > le16_to_cpu(cl->cl_count)) {
-+		if (ocfs2_dinode_has_bad_chain_next_free(di)) {
- 			rc = ocfs2_error(sb, "Invalid dinode %llu: chain list index %u\n",
- 					 (unsigned long long)bh->b_blocknr,
- 					 le16_to_cpu(cl->cl_next_free_rec));
+ 	}
+ 
++	if (ocfs2_dinode_has_refcount_without_loc(di)) {
++		mlog(ML_ERROR,
++		     "Filecheck: inode #%llu has refcount flag but no i_refcount_loc\n",
++		     (unsigned long long)bh->b_blocknr);
++		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
++		goto bail;
++	}
++
+ bail:
+ 	return rc;
+ }
 -- 
 2.39.3
 
