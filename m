@@ -1,97 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904047;
-	b=1uX+LX9YQegs5CQlylqK3sLx21DRxTDICxH6j2AzKVheKYJFkITiGXdfnPh93ADkS0TF
-	 H+3uQrjM3r7tNG/AvykC3oEVXNLeoWMp2BeH3kmppQpkILKaRsp2FZIvB3uHPmmF2dnwM
-	 OEPoiLJ6fxehRel30Qc3PNIpDUDJfrRYh0sge0R+3mujCuziZtVcNPVtaiJAdmXGSDscJ
-	 pzE3BjcSo3qI0E0FyMPojnMLD7Jti1lWmY8nR9PSAZSRVi+LiXqSj7fM8uj8EMcooYA9u
-	 KhwoTmsc/NTLswV8NvHW762mKZz6MmNrux5+QR0BKifbGmlEjIh3tkFkpUi/Mj4kL4g==
+	t=1793904043;
+	b=tia/WcoUVqZyUJKxJHH6A6V143IU9DC1VBKE+emaG6ZmnLUmW9DXUB9GwKOETEKmqDCy
+	 P8RWiXoM3zF23hlyRfpnla0xbQdZ3O4Jo2TsNMhMnsE68OY7enqGVzaRh3dneovBDnI1a
+	 IZ6NZpI6PbFhXJ+cER/SyF1unYr4j4l9g4k0FZ6Apxeplnm7sTixzw3F9rzD0cG4SQZsY
+	 ZPSXajqffzni3nV9LwePdGAOqULheP1yp/cHZA0jht/fIJC5rt083ev9gy8KFo7yR8KGQ
+	 ShuQboCKbi+CxkEWts3Mn6DYZs6GVi3tUBrzpJTqP3c4ZnSWjEobyOOHOExR3KIIJ6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904047;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Nc3YPnJRwzfEYdDYZsDx/eGvT25xHUbuaxqftb/2MH8=;
-	b=iIJrIEUXfzgO9Vcpz5jLK3YOAcVUNBDk7GIVEsa+F3C+m+gz5VReGzuddYi6avcYcFAt
-	 DK3BP3U/hF6ByV7WqjNG/ao1+JGIv8lWl9w8NAgAUDxoYjf0xnlWtFgneO1Go7h3dqvwv
-	 +VcOEN7FyCp+d4kdI+GLybjfh0LOBoex9/KTc+oZ2qTq+McHtG04C6xTeY0NkI05MMX84
-	 MoZWLb1yYyk+8FS3yLCvcpZ4iVX87NiDAhFeiKCWoMvs93ei1AliCz+LCLNSIuRfrvi6v
-	 PGL5ExVutvNn54JysTx7dYwGtpOs+Uryi/9Ayrzz6lgxRtNK+bzBkQJHbqof27UtnUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904043;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=mrPZKSww78CDEYriyViFtkzmvPXUmkfVcHviTAAFbSE=;
+	b=aC4GamOAfIQC+jSSNoSZ0dfXPLjc5DqPbF8nOVqniHGT6vBMUkly2GuDfYvMikwwHMSV
+	 0PO+N0utNwvrWMc+srkbAmB8mXJggCqt6w/UHG7ooag4D6GvtLDINdlEca/KW3TbOO0O0
+	 f7OPO4KrNh2Kpu2pGJlH1pBTXv9iwAT/iujZin1vHqbpPU2ByrQvXcr2zHiEwdFg7dNlY
+	 QzVtbUJ553sKY4sw+4dNs5Q5AV203uj6A7ZlFxIT3vwBQP2vIJ0z4iLA7vi4xlwMxEnBN
+	 0hALtSEOZmYS+C5Ae/loPltDwG8uwZ+AIsWQpxAoTettatsqqX+i54KG56YVraZljlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PrLtTorS;
-	arc=none smtp.remote-ip=91.218.175.107
-Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIco+KWB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E32606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22E32606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C47606D810;
+	Thu,  5 Nov 2026 18:40:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PrLtTorS
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4vYsAp5tXIMe+S4AuLT8YclXyC62fvhe94CH6TAcEyY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904045; v=1; x=1794508845;
- b=PrLtTorSLLtlQD0HL7ZTW0iiXnlnYbfMfl/pSSrSXGk42BtjuZW+JLkNwBT38tnDa2LHN6S0
- cMApJ2LoAapPL/UJRtMG1dCYAu6p1zJPgRGNKq+XkmE/n9TikEWEoHBgtqPFnVEGYF5qaSXFzdM
- G1eYY+BJgoQZOfwXxg9g+ouk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 054e15d9c411ead7;
-	Thu, 05 Nov 2026 18:40:44 +0000
-X-Mizu-Trace-ID: 054e15d9c411ead7
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org
-Cc: chenhuacai@kernel.org,
-	ying.huang@linux.alibaba.com,
-	Baoquan He <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	Liam R. Howlett <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	lance.yang@linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIco+KWB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8013F1F000C1;
+	Thu,  5 Nov 2026 18:40:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793904042;
+	bh=mrPZKSww78CDEYriyViFtkzmvPXUmkfVcHviTAAFbSE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mIco+KWBQtZn/2+Ylet//LqsWczzhlOZomRiI2LpIHZJJ6GPSbMN3VrA+4GsWiOjP
+	 DTefVeYO+vOt0oX7+UKiHR7UPvDyVn2j0VLV+cr0nqT0kANak0XZ+F9J1oeBqzFzW7
+	 AD5l3l2XONsnJes0BuTj0msmUcsGwo13np2CjNSsjgs2Rn4bP0rx9ODyXjQZOSNSqS
+	 n+uP8CanP5yBNA5mu58RK9qyc9D0p9vmrFSmdKSHROFRIAw4Uiq0NfHZQL0A3PqiBI
+	 mDD2EvsYBb1gG6r7daXML1EoXyXhcVejztiSvtd6e6s2QJyJSjY6kXbYMZgQB+9R3r
+	 RwFLIkJ1GbdeA==
+From: Conor Dooley <conor@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Yixun Lan <dlan@kernel.org>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Subject: [PATCH v9 07/32] x86: mm: add PMD swap-exclusive helpers
-Date: Thu,  5 Nov 2026 10:38:51 -0800
-Message-ID: <20261105183940.2236717-8-usama.arif@linux.dev>
+	linux-riscv@lists.infradead.org,
+	samuel.holland@sifive.com,
+	domibel@debian.org,
+	panchuang@vivo.com,
+	trivial@kernel.org
+Subject: Re: [PATCH] cache: sifive: Add bounds check for interrupt count in probe
+Date: Thu,  5 Nov 2026 18:39:45 +0000
+Message-ID: <179390394386.1477457.13551015598281475758.b4-ty@microchip.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
-References: <20261105183940.2236717-1-usama.arif@linux.dev>
+In-Reply-To: <20261029064137.569-1-zhangjiao2@cmss.chinamobile.com>
+References: <20261029064137.569-1-zhangjiao2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,65 +80,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=782; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=N1v/Z75LuaIRQEGlixlkdCi8GYwdg/qEI2roVFh8XyQ=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFlvzuZy7Jiw8uljAwkdKW3Vj6vCfe5t37uTW+J0prt2t meQ5tbpHaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZhIuSPDHz6Or7yVIfd8vWTZ vtgqMz7YV/JFpGzz8lKpE6sj5jd9W8HwT9PFy28Rr4Dw3q9OAYafni5cyLOYVTxjyszLXYxBLVK KDAA=
+X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
-Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
-swap round-trip, which makes PG_anon_exclusive have to survive in a swap
-PMD and not just in a swap PTE.
+From: Conor Dooley <conor.dooley@microchip.com>
 
-x86-64 encodes a swap PMD exactly like a swap PTE, so the new helpers reuse
-_PAGE_SWP_EXCLUSIVE, bit 3, which the swap-entry layout already reserves
-for PG_anon_exclusive. 32-bit x86 aliases that bit to _PAGE_PSE and does
-not select ARCH_HAS_PMD_SOFTLEAVES; assert that, because an exclusive swap
-PMD would otherwise be pmd_present().
+On Thu, 29 Oct 2026 14:41:36 +0800, zhangjiao2 wrote:
+> The sifive_ccache_probe() function uses platform_irq_count() to
+> determine the number of interrupts and then iterates over them,
+> storing each IRQ number into the global g_irq[] array which has
+> a fixed size of SIFIVE_CCACHE_MAX_ECCINTR (4).
+> 
+> If the device tree defines more than 4 interrupts for the cache
+> controller, the loop writes past the end of g_irq[], causing a
+> buffer overflow in kernel BSS memory. This could corrupt adjacent
+> global variables and potentially be exploited for privilege
+> escalation.
+> 
+> [...]
 
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
----
- arch/x86/include/asm/pgtable.h | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Applied to riscv-soc-fixes, thanks!
 
-diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
-index 000fc6c1ca37c..22cf9b57a135b 100644
---- a/arch/x86/include/asm/pgtable.h
-+++ b/arch/x86/include/asm/pgtable.h
-@@ -1529,6 +1529,29 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
- 	return pte_clear_flags(pte, _PAGE_SWP_EXCLUSIVE);
- }
- 
-+#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-+/*
-+ * _PAGE_SWP_EXCLUSIVE must not alias _PAGE_PSE, which would make an
-+ * exclusive swap PMD present.
-+ */
-+static_assert(_PAGE_SWP_EXCLUSIVE != _PAGE_PSE);
-+
-+static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
-+{
-+	return pmd_set_flags(pmd, _PAGE_SWP_EXCLUSIVE);
-+}
-+
-+static inline bool pmd_swp_exclusive(pmd_t pmd)
-+{
-+	return pmd_flags(pmd) & _PAGE_SWP_EXCLUSIVE;
-+}
-+
-+static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
-+{
-+	return pmd_clear_flags(pmd, _PAGE_SWP_EXCLUSIVE);
-+}
-+#endif
-+
- #ifdef CONFIG_HAVE_ARCH_SOFT_DIRTY
- static inline pte_t pte_swp_mksoft_dirty(pte_t pte)
- {
--- 
-2.53.0-Meta
+[1/1] cache: sifive: Add bounds check for interrupt count in probe
+      https://git.kernel.org/conor/c/56ca3e2f00b6
 
+Thanks,
+Conor.
