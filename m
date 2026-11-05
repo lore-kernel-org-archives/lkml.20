@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900290;
-	b=YxQquPKc1nP2kPKWCOBFJmgAhDKL5z38RmnWwjWdOt/8+/awMi8SX/GSaCy/0UujnghS
-	 zSMFD9nRZoktIbd4ObIpr2eXZKD1RumMZyrJGWz7RyXx4DVFJVDCEZCDPr03M+fQHHI26
-	 CZ8+wnnPBUWHAbC+reiWh/ueBxRM1XEjqAPtgc9pYEwmteOZk0Zx4UZjAJMGxZ7Uc1f60
-	 Iz4vjkJYZHeadv5B490GtF/JRde+gE2tS9QGfNB1zIkvb+z9rGgQeQURLJz5hZqn2dmJy
-	 Z7ILPii94Rszqr7kJA/P4is/jlMcFwMBxPqcjHzdtMfRpi4Fmi3u8B8amkeYZwFx5dg==
+	t=1793900314;
+	b=G7dBUl/RN7peNs7S1HL6V7mAs0YgJh/rWli21O92juPdh/DcMoGVYsD3l2+KM8eapD0b
+	 w0RxTd+bpO9hsBiaGHRO+6pg2tjbmtUqvVUq+pmb9z90NaT5GOI0CM947rFJPrnJCxyoX
+	 QwpxJnYLquvo+dL7q6YfHHg8oQXJBz4Q8bpsLykj8mrFps1FJNxqlwKIOy/yTmnWXqoGR
+	 maGtQeLUcoOuVjBQm6EgBKjRW66HFp/zhrqsCrU1GCFaS6gQtMYP76cp5Owl2Izfx+Ycz
+	 9QcKP444SgB2g2vcD1kbjM8IzHnDlEMAxEBCY0LnJoOmR9VoS3sYSVMY68DHgM2sCLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900290;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u97daDPbLSvJLC4/kWBpFhMk+GUB0qImCFzFeWlD+3s=;
-	b=NyqKNM2mjV3C4BxO/9nEKGyd5b5/O0KxE06KHs64//Gmnc5P2QHaCqGf6dYYGU2VZgnN
-	 YhOR9TGAX5zStlQFGSL/T8UOzVGohbKUoI6c0upfjVrasT3iW4BWvCBSkE/pXqxSTHRs/
-	 +n/JbtnNl9IqLiKXL9RWErLlvxzOr0GAWsPdBaJtd3iirTU/2AmWLC7Kt32HLuEs+5YJy
-	 BN5CGCYtWn8a2/DmymtlriebAn2ZFx5Bv6SH2C99LAc9Zdyj1+aqc2/lbVi2R2fl8hm6H
-	 7LCBysr1ZXAHV4P/jPm1pG/c7H+L3JOunwgj23XafhL0v3QXtK2E3nv4Fbh8A9l5Wdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900314;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=8fz6RmNx4rsL9ZO9RoSk+toa+/2KKetNvBTZ87Q/PdE=;
+	b=XeMaBITzK4o/TTzdJNxm3SKMICn4jyPwQu6tnTxNfzbigK8TRGmRVeMfocjivIXLE2pN
+	 HrGop5nSKQqrDpMrkI70qHGHFIV1NbiBvuUoFzppGv8ghWHaukUa9+OgwaRT9W+SCj+qZ
+	 f4O78ekyMd0QtBSoU2AiwKQ3tf3p0xrpFXYN2KJ20m9E026UwtJSCSuU3Sz4PmIqryY09
+	 0cDhhsBVGhxoTEejZkBkaUGOOiAY3koN13TQ/uk5AAaUCbR1ucw2UT5PQKT7F8VlyGsCw
+	 IZlM233J9uS2RqTGb6f0TASvdphgQYDxDR5mNzanFTE0FZ9fxDSI3r/8FCqzC62dI3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3vd+O2G;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EC0606A331;
-	Thu,  5 Nov 2026 17:38:09 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=baRLamw0;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F698606A31B;
+	Thu,  5 Nov 2026 17:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F698606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3vd+O2G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1E81F00A16;
-	Thu,  5 Nov 2026 17:38:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793900289;
-	bh=u97daDPbLSvJLC4/kWBpFhMk+GUB0qImCFzFeWlD+3s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=l3vd+O2G2SjYoKoPLf9g2HwDuqf6yOywdTDN34jdKJCkm4lDU/9pxH1c6wvdrUT3X
-	 kTuoP7DIa+Ud2h3Xdxo9T2vCXxhQtEq+7t3naaQoPrw6vlsOWYjyP2AhSXumPw7Pgh
-	 VrQoIxZkq08axZFxipuRNPD1PaGx99VMjm42Br6E6EghaBkPPE4Bd2ieXBdbfcvDxP
-	 LOOSEldlqFc3THSgGa0An/Rl8c6psWvXge6Au9+vChIjsPhqna4baUBmv1VtdfQk07
-	 rzlnmWSq+V3vV+/sqqDDpOU1iMIhodCwBFdSwHtAA/bTDx/DjhyXPs+DDangsP1Blf
-	 UKL6FsgZ3ZidA==
-Date: Thu, 5 Nov 2026 11:38:08 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Toan Le <toan@os.amperecomputing.com>,
-	Mahesh Vaidya <mahesh.vaidya@altera.com>, DM@bhelgaas,
-	Sharath Kumar <sharath.kumar.d.m@intel.com>
-Subject: Re: [PATCH] PCI: altera-msi: Convert to subsys_platform_driver()
-Message-ID: <20261105173808.GA1527544@bhelgaas>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=baRLamw0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4D3B168F;
+	Thu,  5 Nov 2026 09:38:29 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F9CA3F628;
+	Thu,  5 Nov 2026 09:38:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793900312; bh=kQasTs69GJMYTewLpWCOSipBS9yqMY8wtuGqJ6c4A5I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=baRLamw0BEo+tFUEnaSWrk8Nev4Q5y0Y6eyDS+bv2ePivPxrN/r6dmXeVJw6EAruG
+	 LmVvAwErn2pWSVM95ht9FO1Jat+mG0L3qVd816hE8H5/fdYhC/yFe8eoYfW8dKF/Dp
+	 GuOi21pPZk+MOhq3hVAGBNMbSd7yiVE5q6xXpyWA=
+Date: Thu, 5 Nov 2026 17:38:20 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+	f.fainelli@gmail.com, vincent.guittot@linaro.org,
+	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+	philip.radford@arm.com, david@kernel.org,
+	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
+	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v14 03/32] firmware: arm_scmi: Refactor
+ __scmi_event_handler_get_ops helper
+Message-ID: <auy_DP2okO9o7Yee@pluto>
+References: <20261016185553.2794459-1-cristian.marussi@arm.com>
+ <20261016185553.2794459-4-cristian.marussi@arm.com>
+ <20261019134657.0000624a@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,54 +72,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104113235.1634024-1-peng.fan@oss.nxp.com>
+In-Reply-To: <20261019134657.0000624a@oss.qualcomm.com>
 
-[+cc Altera, X-Gene folks]
-
-On Wed, Nov 04, 2026 at 07:32:35PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+On Mon, Oct 19, 2026 at 01:46:57PM -0700, Jonathan Cameron wrote:
+> On Fri, 16 Oct 2026 19:55:24 +0100
+> Cristian Marussi <cristian.marussi@arm.com> wrote:
 > 
-> Replace the open-coded subsys_initcall()/module_exit() platform driver
-> registration with subsys_platform_driver().
+> > Refactor the __scmi_event_handler_get_ops notification helper to simplify
+> > its logic and make use of guards for locking.
+> > 
+> > Mostly no functional change, in the sense that while the functionality
+> > remained the same, a richer set of errors is returned where before was
+> > always a -EINVAL.
 > 
-> No functional change.
+> Maybe mention why scmi_allocate_event_handler() is now wrapped in
+> an scmi_allocate_pending_event_handler()
 > 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->  drivers/pci/controller/pcie-altera-msi.c | 13 +------------
->  1 file changed, 1 insertion(+), 12 deletions(-)
+> I like the change but beyond logical division of activities it
+> isn't immediately obvious why that split exists.
+
+I'll do.
+
 > 
-> diff --git a/drivers/pci/controller/pcie-altera-msi.c b/drivers/pci/controller/pcie-altera-msi.c
-> index ea2ca2e70f20..8c0696cbd4ae 100644
-> --- a/drivers/pci/controller/pcie-altera-msi.c
-> +++ b/drivers/pci/controller/pcie-altera-msi.c
-> @@ -267,18 +267,7 @@ static struct platform_driver altera_msi_driver = {
->  	.remove = altera_msi_remove,
->  };
->  
-> -static int __init altera_msi_init(void)
-> -{
-> -	return platform_driver_register(&altera_msi_driver);
-> -}
-> -
-> -static void __exit altera_msi_exit(void)
-> -{
-> -	platform_driver_unregister(&altera_msi_driver);
-> -}
-> -
-> -subsys_initcall(altera_msi_init);
-> +subsys_platform_driver(altera_msi_driver);
->  MODULE_DEVICE_TABLE(of, altera_msi_of_match);
-> -module_exit(altera_msi_exit);
->  MODULE_DESCRIPTION("Altera PCIe MSI support driver");
->  MODULE_LICENSE("GPL v2");
+> One really minor thing inline that I don't care that much about.
+> 
+> Anyhow, both trivial so
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> 
+> > 
+> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+> > ---
+> >  drivers/firmware/arm_scmi/notify.c | 73 +++++++++++++++++++-----------
+> >  1 file changed, 46 insertions(+), 27 deletions(-)
+> > 
+> > diff --git a/drivers/firmware/arm_scmi/notify.c b/drivers/firmware/arm_scmi/notify.c
+> > index 7d1bb424a723..2bc2e03df639 100644
+> > --- a/drivers/firmware/arm_scmi/notify.c
+> > +++ b/drivers/firmware/arm_scmi/notify.c
+> > @@ -890,7 +890,6 @@ void scmi_deregister_protocol_events(const struct scmi_handle *handle,
+> >  
+> >  /**
+> >   * scmi_allocate_event_handler()  - Allocate Event handler
+> > - * @ni: A reference to the notification instance to use
+> >   * @evt_key: 32bit key uniquely bind to the event identified by the tuple
+> >   *	     (proto_id, evt_id, src_id)
+> >   *
+> > @@ -903,8 +902,7 @@ void scmi_deregister_protocol_events(const struct scmi_handle *handle,
+> >   * Context: Assumes to be called with @pending_mtx already acquired.
+> >   * Return: the freshly allocated structure on Success
+> >   */
+> > -static struct scmi_event_handler *
+> > -scmi_allocate_event_handler(struct scmi_notify_instance *ni, u32 evt_key)
+> > +static struct scmi_event_handler *scmi_allocate_event_handler(u32 evt_key)
+> >  {
+> >  	struct scmi_event_handler *hndl;
+> >  
+> > @@ -914,8 +912,20 @@ scmi_allocate_event_handler(struct scmi_notify_instance *ni, u32 evt_key)
+> >  	hndl->key = evt_key;
+> >  	BLOCKING_INIT_NOTIFIER_HEAD(&hndl->chain);
+> >  	refcount_set(&hndl->users, 1);
+> > -	/* New handlers are created pending */
+> > -	hash_add(ni->pending_events_handlers, &hndl->hash, hndl->key);
+> > +
+> > +	return hndl;
+> > +}
+> > +
+> > +static struct scmi_event_handler *
+> > +scmi_allocate_pending_event_handler(struct scmi_notify_instance *ni,
+> > +				    u32 evt_key)
+> > +{
+> > +	struct scmi_event_handler *hndl;
+> > +
+> > +	lockdep_assert_held(&ni->pending_mtx);
+> > +	hndl =  scmi_allocate_event_handler(evt_key);
+> > +	if (hndl)
+> > +		hash_add(ni->pending_events_handlers, &hndl->hash, hndl->key);
+> Trivial but I'd keep to a strict errors out of line
+> 	if (!hndl)
+> 		return NULL
+> 
+> 	hash_add(ni->...
+> 	
+> 	return hndl;
+> 
+> It burns a few lines be saves a few brain cells.
+> 
 
-Looks like a nice improvement.
+yes, I prefer this too...I'll do.
 
-There are only three drivers that have separate MSI Kconfig options
-and separate -msi.c files: altera, iproc, and xgene.
-
-pcie-iproc-msi.c doesn't look like it has its own DT .compatible
-string and driver registration stuff, but altera and xgene do.  I
-wonder if it's possible to integrate them into the main drivers so we
-don't need separate Kconfig and separate .c files?
+Thanks,
+Cristian
