@@ -1,95 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878098;
-	b=tsyXUwphPG8ImbHfanSeWSE5uuB8RHozHsleZBkOI/bxPkBAG7MZGP2DOOOqggij3Hj9
-	 OlyyTHe2io1a5iGVZB1QmPzi1AVRDuN2+oN1ZD0j8Yv/dnb56jFObuA5l13PyKEwcfhzf
-	 WEGXqTdGIPIOMQD4bFX0G5FxJM1LdMebwkYxUKd5Rtk6704TvLs7TOaYZuvgN9p+eXKvM
-	 7Vi4hgYPyCHRxJ9IoQNOftg2FyWmbujuS5oFnxvPh38e3SEIn5KmnJr9NJkYz85hn12Xp
-	 YnOf2fln57GsV3xImuZF5plCFwu8j+Oe5ah3CGqfYabVDwcUQ1Z2mu3U1qWzNP6ivNg==
+	t=1793878138;
+	b=5HMlbjhSVB5v0+QLcsNfXGnU8+77BNInZVRrfS58rOAlknXz1W1aGW+oiieGn3Vi36hl
+	 B56RZO7NexSzUaHhSlmLU6f3DMDGiIRdom2/RbAP6V/LdSgDNkhPgHb9VlCBaslVb4sCP
+	 JuJLrrRCuHq26UMW2y7FPIcM251xGuH0pDdEUV6dDfPBwrKNGk2ZKpt8UWNmlaWMHnXQE
+	 hBPEZJuWL4SxZZ08gZYeXTZ8V7zLMFp79+YlqpgiuSs9MQGw+/cbk4YaeOYylM3T4AtTa
+	 WDcFpaHCMHRNdXOBRd4nUKQyOTTODXWsRhcERj5AG1GKtkGSu/OzkoJgQr0HfOWbOKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878138;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XIvvCs+k7eLYLtLSx2FRqYXI7MEHUp/Na9v+SW9QvaM=;
-	b=FTpALCBy59k+VUa6XdZObxeICacDptZipP428CHnPxLpBLXFL/hMVpV81UJ/oe/pHO3r
-	 Gs7aA2vr8q9w5j4n5iWVMYahILt/Q7sqVQPqQ9616l6vI4KkldSwhFj13LLLSXCA5k6Ax
-	 3i8A1+04JufYYktwxFRd8GBTyX+UF7EQWskMdHGGNpFM4GolOMrr7zQVzlPVh5JNWBud8
-	 ULdFnx+fOOEHbULHCYAeRHc2cMQqF5WP5220XghSY42Nc9beJXEi0FTRQOvk7lO9CvYw3
-	 LCT4k4/CXQA+W0QTCKT/LhWfitYTpXfW3kwPHx+GK0UILaG1UMUQQuwcZOa1iAr9Y7A==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
+	b=Ty4GTENShV+REJDqeYdicVlGIoPE1tqkiyJKioM2GMmCwD1NgFjRs9Lix00RiwqWq17/
+	 J6XvM+tnBI74warp7T7Xyto5SQPwyp1e6Y3/lP3wVpf4xS0bviKfaO6yngbZ4yZYBJ6bf
+	 BIEPUEUdWcUizOtOrv8VOjsIwBR+QwXR9fhYjOGDEKtMbLvEgVTjXz4ouF8DFKMG+UmuL
+	 eipsouTjsInumziBJSV4lI2JnpFxKACTK7DRUvo2OZN1Hj2AyUGkf/nUNALuw6Opc8QDL
+	 8ciRd6RqxhQ2H3cPf0GqaPWnOkS62hQx9Iqo+OTKEgvghoOzwvMicEgTA39wvtMT6gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xhGPxa/r";
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="gqx8gRD/";
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E555606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:28:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E555606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2DD606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:28:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D2DD606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xhGPxa/r
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490c1d337d8so801253f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:28:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gqx8gRD/
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a215e64962so16440605e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:28:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793878095; x=1794482895; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XIvvCs+k7eLYLtLSx2FRqYXI7MEHUp/Na9v+SW9QvaM=;
-        b=xhGPxa/rgYkWlxNrvyrwQEkX6SzKw0FYWANtKQnChjWff3XwBBq3mGwV5BQErdoyek
-         mPuRE+JIKIEQtG5UVyRs89ovm3SCV9fvObum9cS6jw3bmURv9nKALqe+uwI3/oHxs5gJ
-         yWGOSI/cqyTNlsqGfHQqUW55btccS5uqIHBJHfRTYDBTzTTknIpTMyGTx7hvYxVQS5X9
-         +Tt3oRfWlpgEfLP1vXhYzoukbzBiypRrLZbhUSH0eN4/hOLA3uXjMoq9fu1kj5oDfB/J
-         qejJ8Oo5lNpID6G0YuAX+Y9Pk1Il63eLoEn7pgv/ZeEF1AlO4qLd1Xxv3DwmyWF8/qaz
-         dWSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793878095; x=1794482895;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793878137; x=1794482937; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XIvvCs+k7eLYLtLSx2FRqYXI7MEHUp/Na9v+SW9QvaM=;
-        b=1i+xgt30BNukx3CMrHLLWrNNyhKElQXqep+UMkijrkOITMFtQ93+jU65/zmpTNsEOk
-         qT7zZ2TcBfADjCBcNSXHL13q8AtBsiOZog/ux3R9iR2CoDCPOkUbgmSVrcw5LNxkMYiX
-         Jpyj7e2UgwihREo/jcBOj20Ag6jxuxXs82SONIYG6c/wxjzRj9GEXxUFDIL+KDtMFiXO
-         jNBVQW+MJtWi7FOD7Z6+CYiPl10YRJxRf7HQrpCfKHoqkEOWNTsu+RFQ1C4LS8efPRun
-         7D1UdYLZhdTJimtrZ3fhpDURhYfiAfGZPsLNpipMEq2Zo+7m0x2n0gfchTUbhb35oPFA
-         30Ng==
-X-Forwarded-Encrypted: i=1; AKwUvBw5kJcfCd+K6UK4xP4zm9OhE2OZk8zT630/P2dPgJFha43+oPCcke702TYUORXHMPQ9Nvz61mnatS3Bbdo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9q3QgE9vZjWIwXYkPTFMYT3QfyXZwvyDvRxg7snsTFw51mpVNp
-	OdTGM7dkgDt90Gy17vGRP+uigKyP2s+nE/piZE6i2Dq88qZGI4mlF9Yt
-X-Gm-Gg: AYBFou36yU4gKXO2giwyK4aVmf6I6IJjRq+6Y+e6kPKQqQV5+aqRQuHGZDfpLdZ5m8d
-	Mypeu3EH9Q6CLOtMM3pZXx62Ri6baRpXd/6AAV/qwZeM5FgHJVqLgnNnvKgiwXSMG8xpc3V79Od
-	BdzFL7wPaAyl5PqLRWcU9IHY5gBkDgTHkxBiONQ77cg03D6aug4OY87DR45TXvKtDJGE5rkV9AJ
-	6jN5Tau1BlNgOHQGIqvO2QKXug/xHZpliqwl73GnfF4T8H2KDCP9rU4E/8xUKDrY8Z6H7NW4fZ9
-	0ctH73RD5S5PKwoPTF/xkItONFXZdEblCowy7wIMvc3G3fs+Z0DTEXsh8qyX0k2V0rBtvlBWvIm
-	fgCoQkGqCfgdYeWKZYDblmuD9iIuI7LGWnV4inbsTZFjdG/63yr4W3/n9TsmhKFqcR/Mkp/R5S3
-	04o0ZBwgTu2tkGCnog/5Ot0/RB6gXOmR8DLttXpVOMyIvnv6cKdJNWC4PwquCfQhZKw4cixjGjw
-	2W7duWoFQ2lO6v/v1bWvfEM2e6/Ci0M24EDGBMKxyZo4KGUTLeKD2k8Ps+/fHOqVdBSVjgwHBFX
-	Oot1Kw3EbGJAOFwolmEL2cq77VsYF67wv9DAx4NXmO3RsrvH5/WL8dpAU6qvDv+i
-X-Received: by 2002:a05:6000:4310:b0:492:149f:67ae with SMTP id ffacd0b85a97d-492149f6981mr789005f8f.32.1793878095471;
-        Thu, 05 Nov 2026 03:28:15 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac2772sm9135636f8f.18.2026.11.05.03.28.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:28:15 -0800 (PST)
-Date: Thu, 5 Nov 2026 11:28:13 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- kees@kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
-Message-ID: <20261105112813.13210334@pumpkin>
-In-Reply-To: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
-References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
+        b=gqx8gRD/xAb7RuPGcePdw5i58wmVjCmdROs5keeVRsQ+e2FiKoCw2xe2wLD6r0eLTr
+         KHS62rHjipUJbgzcUJm0UJJFNQH84tknqVP1NKhf4RrRFF0DXKC495rhGra20vqL+SdZ
+         LPTESJdsXY1i33d532BzUnFcBlAmWFrNnRDtv2wQRyNyyZNqQZugtCwz5tbgS2jC+Qaj
+         e3JFtJuxOUhYudTFkFTRmFe7anxpOOIsHbtyG91/iDvDN20qSNsgdH2698O0wM0D1HpP
+         7o8G2JvBXOIrHelgOM/7oTsIOraf5Ocdxxsv8+jwMP45cwBaHf0ao90s4qrt04njJ+8W
+         JV/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793878137; x=1794482937;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
+        b=hhVdkKSmRp0vnuRsJydMxMgsjur+6A0p1rPkjaCP14M4kZQHWmcoBqrCgR5RDFJQ3G
+         jN7ujJLcFiuL/g/sDs5QE0j21apcS2dJTcNQCEQI6e+cH/XZDeaDzgqg18G7eNSTKlDL
+         a2Hzfx8RgsOqu70tVZpaQzZj2IsG4w2tmNW6+3O0y/lZW0pfMZllQMGpdhYwHLuTsXgB
+         xBJA0t8tutlTmgyda4xLtmMLRplPL7D+xMHEQVtSTlg/pjuDzHlQRaf7KKN9gsI9mg9K
+         0H4AeiS21k4bvpkItUX5XExj5wpDohn8mIJ5fArr5StxUFIR4fCH8UHHaABJTKbhJG4J
+         rzCg==
+X-Gm-Message-State: APuU4Z9OEarWbFw1I7B57c1S+ftwO1nusNximA0kzZsDVuq2H/EgIM4p
+	H9LMMxUfYsfT6ckwPU5wljZYzJ2shYTdPBolOI1wuV2Wvq2FdkoNeN0e
+X-Gm-Gg: AYBFou0pDo3yKYZGBiFRgSakfGw1M44/pnzVSPI+gYW6cWfwtoSLc0v7sKEh5OIdOJx
+	Sveur6+pBEnx9H+WClvHh93Wq6QwuKTMwOgV6q486RH18YSlXcYgdj2vx5DGKL2Y9rnNFVQ3wkW
+	ZRYPeiWpxtdDEb2iGsvi/6ygaay5vLbdX9Pc0cQwwPe5k+unODev7rcgBghflOuk9GONr/zROXQ
+	xd72FC+Bi8G4FcuxuyWLP3c1FHLQ3vH5By05TRuX06ZKt0R8am5I7R2WtG2oZXdfdtsN3FgUvK4
+	SEzjjsIESQgQdx6/xDBwBPOv6m8KbRpZzl3Q+hvqurZHLzdPRkCiYYF+JbgbKpE8BlyHQrARhP2
+	g8DkuNEAzXvzIDT+vSiAKw/MTIGxQ8XLBnWKvsNJHcHdca2FaWxd5mQ/N+tqNSz2amZS2PUkHUw
+	olfZ1gq1UwHmpi9TLwjKPGdUikQathlSVokvg1pQj2w2dZSEUX4b05S0gDPYCaI0GeGA0UucqDz
+	vdv4730mLb6VUaGvPq+vBRIXcCwO6G2TjP5MCUwmkqmUd6fxrlK7JHTHipV5uCmYq2fF/F5R+hH
+	+L9abHgnnQYEM0X6YtmNgtE=
+X-Received: by 2002:a05:600c:840e:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4ac17d168b1mr461927035e9.11.1793878136849;
+        Thu, 05 Nov 2026 03:28:56 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae72dsm102176495e9.3.2026.11.05.03.28.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 03:28:56 -0800 (PST)
+Message-ID: <4f63ce1d-4e74-4fed-aa97-e00cd30781a5@gmail.com>
+Date: Thu, 5 Nov 2026 12:28:55 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,56 +90,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
+To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
+ david@kernel.org, akpm@linux-foundation.org, lance.yang@linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue,  3 Nov 2026 22:23:18 -0800
-Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
-
-> In preparation for removing the deprecated strlcat() API[1], use
-> strscpy() to initialize the mouse device name.
+On 11/5/26 5:07 AM, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
-> The destination is zero-initialized, and the constant string fits
-> within the buffer. Since the return value is unused, this preserves
-> the existing behavior.
+> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+> during the first MPOL_PREFERRED_MANY allocation attempt even though
+> the caller clears __GFP_DIRECT_RECLAIM.
 > 
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> ---
->  drivers/input/mouse/vsxxxaa.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> Pass the caller's GFP mask through the helper so CMA respects its
+> reclaim constraints when trying the preferred nodes.
 > 
-> diff --git a/drivers/input/mouse/vsxxxaa.c b/drivers/input/mouse/vsxxxaa.c
-> index 042a17fe81db..b3a0d7ff5738 100644
-> --- a/drivers/input/mouse/vsxxxaa.c
-> +++ b/drivers/input/mouse/vsxxxaa.c
-> @@ -463,8 +463,8 @@ static int vsxxxaa_connect(struct serio *serio, struct serio_driver *drv)
->  
->  	mouse->dev = input_dev;
->  	mouse->serio = serio;
-> -	strlcat(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
-> -		 sizeof(mouse->name));
-> +	strscpy(mouse->name, "DEC VSXXX-AA/-GA mouse or VSXXX-AB digitizer",
-> +		sizeof(mouse->name));
+> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
-You might as well use the 2 argument form.
-Moreover, if you use strcpy() you'll get a compile-time error if the
-string doesn't fit.
-strscpy() will truncate and return an errors.
+LGTM:
 
-The other question is whether mouse->name even has to be char[].
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Personally I think that while there are issues with strlcat()
-(mostly to do with its return value), and that there are often
-much better (and faster - so sprintf is out) ways of getting
-the same result, the deprecation really needs to propose a
-sensible alternative (not inlined strlen() + strscpy()).
-
-This case is, of course one of the 'better ways' cases.
-
-David
-
->  	snprintf(mouse->phys, sizeof(mouse->phys), "%s/input0", serio->phys);
->  
->  	input_dev->name = mouse->name;
-
+-- 
+cheers,
+jose a. p-a
