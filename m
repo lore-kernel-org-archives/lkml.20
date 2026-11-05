@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880622;
-	b=Atvfwx+1Qhi2SsArQg9htzAbmQK4QgrS3tOako83DXzykIB/v/CFscS9qcaUITekxbaD
-	 WXg7O0ywfPO66vysa+1owLZZbl8abu32QsGz2o67cbecZ+1F4PYhEQrKYEOfuIxdOVQ2z
-	 EFolSbxlfJyxk4pcFMxRuP38sbQMoxR45wf2MNi4WW/3twB42MSIdyauHo3Acpbs1cxxt
-	 AzQEm53uJs16HgHp16blAwe3Z9K/j8XQu12FXu2pNO4yJJnxZLyw73olTYbM1ZhghFq7c
-	 qf5lo/anTuLOMyubDiKz1xAmp1fLwvxyK3YlOASh+sbnoxXgT5VksjlBbrFEznobAow==
+	t=1793880626;
+	b=R7ZM9y0k/h7z9Qw1N2nOkb6bUKJiptzY6ok23ED5lt6Z1Mq0r0ace6f0Eb4UV4g8L1R+
+	 gKDFpCpDNNfYRMXrFkWRkG3moGV5vWPGbolb1px4jMJJ1sFJGon4USVo5D74h/s9UQ1rm
+	 qqzSEy6dX1yuA5e+KFvVmspjVU3jMgcMYVLz48X2/XAjXPozSvUfKOUv0DuXy/sPRovBZ
+	 piMY+ScsyTE1q1spbj2UqtR0XjSSohICsnhyjZvkoMHo4yk6lShTJt9ukqB9PvW3mmxTG
+	 UfTbHiAijKJb5BDFTRIp2QvozVDCOjzXOXmJ98ZK9qpesM5j0zv1caOsQOnAtBzGb2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880622;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=UT2bhfJPakwe9j2dLSC+DY8J4CfLe5CxwZabWLy4JS0=;
-	b=X1oB11o+dTjxKDy9v9EA0XFpUKBkuYv/D1/CyVOCiW7xu9NYxV8XEPgM+2tzsfimzOYH
-	 OOhefl6Ev7MtD9drB7qcQnlGviwD405q47DM/xYYAByc/vPIbj0iVJJEpBCiaA93kklKP
-	 Ftsz9qLKgWb9l2TpTqtxYbUaDaOlRFrkCI92H+MlFPQGPnYgYmCUGrWjqk76CGVo6k76y
-	 JiPQ98MZv90qKVJv+ia4kiEahpQKGlzmqfwgIsJsCJAM/qjLu1+x/zEDyUBC7nZPHMZc4
-	 tz5epOU0hgms3yOzoWDL8dSyRTLxTmVpeyHRdCy3hQWN6szOmJFAZ3oBsYK9HcYMjLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880626;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=x7AQe7KFeXSU6fqII5BxEjVO6D8yW5Usa+EB19K5zIo=;
+	b=G3Gr9T5QGmpDlBcYqsP+gmP6fr3OWFoOuRAC5oFV+Nmyr975MTq52AI+ME4ehaCb2jFX
+	 4iUeWwGNZ/QGkWLzfSAoPiWhHQ19v1VRHkv5M63LlQ/5xo3m/PP8889TdXeO+MO7TKWu0
+	 1u/s5KIQs8gYi6bhiA2KyUjBhIvgM1tQ/sL9De+KvIm5833NNFuWDYkj2WUNva2LeKsPA
+	 zEMdrOEblbtUmabgu59AXMqjEtT9kmQ7ik8/vhYPGKR2FJEqB5i10oVjFB8d6JlHprBPa
+	 BMw85xIBrxSrZwZ6XKt5uvAytFbf50YPxGREgF05MPpivleMjZPoVuIs5S3xQYHbLlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQi2mDqU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M3Y1LsuJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D8A606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:10:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE90606EE88
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQi2mDqU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 084021F000C1;
-	Thu,  5 Nov 2026 12:10:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M3Y1LsuJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813641F0093A;
+	Thu,  5 Nov 2026 12:10:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793880622;
-	bh=UT2bhfJPakwe9j2dLSC+DY8J4CfLe5CxwZabWLy4JS0=;
-	h=From:Subject:Date:To:Cc;
-	b=EQi2mDqUszZHlnoDVptK+pRNgC/HdzxBpLEqckFPfRXrryPL45UVNlnIHA6PkghVh
-	 eJeXcXUTOLFn2l2F7TCkHPUINMxNSJYJmLBCdclZrOFsKWWJR4J+4r3Bpv7lkXGm34
-	 4fUu63uF47PrnV4iuEqlRDPmIU+BHZ11+YgadcaC7Pel+x/YI9wLaC2+G8NMrSINCZ
-	 xu7qhUoM+cd9Sy+p/hjXBWI64qW9kCW/gVaVYEoqXHGh0t/qN/W+ZZ0v74L8wXq1f8
-	 qw847BFuPN31CMPhHiWBTnYmEGSYurikcoYcKs6dZ5Ey5IzZFaNWC1KoM+UWiM5RCT
-	 GCBIWDaUlovBA==
+	s=k20260515; t=1793880625;
+	bh=x7AQe7KFeXSU6fqII5BxEjVO6D8yW5Usa+EB19K5zIo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=M3Y1LsuJGddxQx6RpgYOmHLg3jdZxzHoVcNi3cJBuZHJS/OTjb68gQbASBxc/4Fg3
+	 iaf5IvtiqxOrTQExd+EbBE3pJaugt8pRrzQYlYeMTPqpRckuWzxL8It8F5denkQpxk
+	 1S/gBZ5MpOTjIPtZt4STkTVfERFhvPTfBkWCX5IwWkA+grJFjrL2TA3pV7JAUvyali
+	 3iVfzKOWNKsYAFmB624rxO9ambgUDUWBTbzePHuT2T4RWYxT9pf76YBdA//zDW5gwa
+	 UiOr3pNOD0Y0GcY52QZb77qzKBa4UyBJP/+oNQQkiV8Sez6CrIvdotjqtcinsM9uu5
+	 mBfEgvxin0nDg==
 From: Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v2 0/2] ARM: configs: Enable the TEO cpuidle governor in
- multi-platform defconfigs
-Date: Thu, 05 Nov 2026 13:10:16 +0100
-Message-Id: <20261105-multi-timers-cpufreq-cpuidle-v2-0-2df7a17f4835@kernel.org>
+Date: Thu, 05 Nov 2026 13:10:17 +0100
+Subject: [PATCH v2 1/2] ARM: configs: multi_v5: Enable the TEO cpuidle
+ governor
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,11 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NSw6DMAwFr4K8rqsk/NSuuEfFghIHrPKrA6gV4
- u4NnKCrp3mLmQ08CZOHe7SB0MqexyGAuURQt9XQELINDEaZTGuVYL90M+PMPYnHelqc0PtYth1
- haisTqzi2t6eDoJiEHH9O/aMM3LKfR/metVUf75/iVaPCOndWJ7nKcp0WL5KBuusoDZT7vv8An
- RghUMkAAAA=
-X-Change-ID: 20261104-multi-timers-cpufreq-cpuidle-5da23033d9bf
+Message-Id: <20261105-multi-timers-cpufreq-cpuidle-v2-1-2df7a17f4835@kernel.org>
+References: <20261105-multi-timers-cpufreq-cpuidle-v2-0-2df7a17f4835@kernel.org>
+In-Reply-To: <20261105-multi-timers-cpufreq-cpuidle-v2-0-2df7a17f4835@kernel.org>
 To: Russell King <linux@armlinux.org.uk>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, 
  Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
@@ -73,48 +70,35 @@ To: Russell King <linux@armlinux.org.uk>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-Enable the Timer Events Oriented (TEO) cpuidle governor in the ARM
-multi_v5 and multi_v7 defconfigs.
+The TEO governor introduced in commit b26bf6ab716f ("cpuidle: New
+timer events oriented governor for tickless systems") takes a different
+approach to idle-state prediction from menu. The governor gives a
+better behaviour than the current default for tickless idle systems,
+and for the multi-platform configs that enable tickless idle, this
+should be the default governor.
 
-The upsides of the TEO governor are described in
-commit b26bf6ab716f27955e2a503ffca1691582127cbb
-"cpuidle: New timer events oriented governor for tickless systems"
-by Rafael.
-
-We need to gain some traction for this governor.
-
-Both defconfigs already enable CPU_IDLE and NO_HZ_IDLE. Selecting
-CPU_IDLE_GOV_TEO suppresses Kconfig's automatic menu selection, so TEO
-becomes the default governor on these tickless configurations.
-
-Leave multi_v4t_defconfig unchanged. It uses periodic ticks, which
-select the ladder governor and give it a higher runtime rating than
-TEO. Enabling TEO alone would not make it the default.
-
-Configuration generation was checked for both patches. No hardware
-runtime testing was performed.
-
-Prepared with OpenAI Codex assistance.
+multi_v5_defconfig already enables CPU_IDLE and NO_HZ_IDLE. Selecting
+CPU_IDLE_GOV_TEO suppresses Kconfig's automatic menu selection, making
+TEO the default governor for this tickless configuration.
 
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
-Changes in v2:
-- Explain the TEO selection rationale in both patch changelogs.
-- Link to v1: https://patch.msgid.link/20261104-multi-timers-cpufreq-cpuidle-v1-0-c7fd14706715@kernel.org
-
----
-Linus Walleij (2):
-      ARM: configs: multi_v5: Enable the TEO cpuidle governor
-      ARM: configs: multi_v7: Enable the TEO cpuidle governor
-
  arch/arm/configs/multi_v5_defconfig | 1 +
- arch/arm/configs/multi_v7_defconfig | 1 +
- 2 files changed, 2 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261104-multi-timers-cpufreq-cpuidle-5da23033d9bf
+ 1 file changed, 1 insertion(+)
 
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+diff --git a/arch/arm/configs/multi_v5_defconfig b/arch/arm/configs/multi_v5_defconfig
+index a0d2fb2fcf9a..5e5c3dba1d72 100644
+--- a/arch/arm/configs/multi_v5_defconfig
++++ b/arch/arm/configs/multi_v5_defconfig
+@@ -34,6 +34,7 @@ CONFIG_CPU_FREQ=y
+ CONFIG_CPU_FREQ_STAT=y
+ CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y
+ CONFIG_CPU_IDLE=y
++CONFIG_CPU_IDLE_GOV_TEO=y
+ CONFIG_ARM_KIRKWOOD_CPUIDLE=y
+ CONFIG_KPROBES=y
+ CONFIG_MODULES=y
+
+-- 
+2.56.0
 
