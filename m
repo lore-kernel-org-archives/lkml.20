@@ -1,47 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901240;
-	b=5oLUWyzI4/LDEJvqhWU2i5A5gq7D6nHAZ8agf3dPraWPzI/TJq+qpXZ/lVBKs/c2vdQ/
-	 JIG8FINofWlxYpGZD0DhRC+iZOjAkVvrqbURAv4tz1bxnAbY36eLbgRxcdCh0xVQ1lLW/
-	 UQkQt581t+M/i8pZ0YJFI2zF3UVbo98tQ89g6UNU3s0BlecTMPF1wH1YNaWg0l9xcVkbX
-	 afu5x/oToshbheszyBH5tknxFuxmo7+R1IsNLIbNksD6xMsL2qTs3+kVU/KQbLIS1zJqv
-	 QQaoZk9qd/gG6dLKj2iGI4atQ1KU4ugTiD0buZjUyZk9cKfY50H/m0eOQQj6e6191mQ==
+	t=1793901260;
+	b=4LRG9VY1EDUyI7inb/UXCPusKHpgk6AcGgnqiKayYNvtqKM571TRS4/Pi4eBvurmWeqs
+	 SLQhqe9DZI6Xcy4atw2icFAMjepX9qVR1us1y3eQJSKZJYcCSHFQS5fBbEpV2wf/FPMR7
+	 JJsrvCqWfeIknmfTBScH7jkuD+4vX0i6Tzd+dKm5J+0aTLv9fRTHZ6zffcK0hkOmGrqm5
+	 fxYhRQNKNKNFxq2/Ma/Y2rlOFl81MFZ9UaMHjFD3ebWYyopKyk8iZcVZ8zQzQd+hR1N6o
+	 vamqvYdS4eNaUsvIS+tnyF3G7hiHhAwQ8u6hp2HvMIk4s7LTbgWMHnjVqmVZ4UV1ltg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901240;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=EftwWfre2aiDydKcjXOvHDcLO/ReuFB640bdDH18DBw=;
-	b=27O5MMcgKDEO9XZJh2ajmtab5ykC3QbVVjNDRBEd93k7DURH3k1QFhpIpB0MsaELxtOI
-	 i5GNHeX0XTS++TdlS7JI7PHA8fMcUXLNrWllEeWtuvYugtrEXrP1MP+4ibzhe87TojCNn
-	 10HkDfbtjxZoK1mci6ZI30VAT532GqL8N5Mp48ymQck91jT/DHx4mKdnpCjpyeXhEronP
-	 npUGnaWEmVF6X7KyXkQe8K9lwhiP0Md+kdHzzN8wMTbxfCE2xR50bhizpiHCJ5bVC+QLm
-	 8nkbAn3ir6bogtBD4QvFGjsNIcHuZ7lTfVVnJNqxPvV6ejAPoRr4l2vAZ3wAMVJQYrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901260;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=IUS9uy1A757F7l9nAmXx+AvA2dFR9sGvwvphdz+BVvQ=;
+	b=lzA5wNZW0B7ldKr9Wz62CFRbllS//w9Y+yTtuLj3ji2fy700xsHHLgtaqIcgFeVs4Zkk
+	 GNmA/y/8Ot1tm64NMT+i+vB4H8xazBpyqFS/QuOU68HyNAbIc2xaLN7dxzL3PWy088aMJ
+	 9H1zA/BxcOdIGIeDRc32Rm9y63XxcM2+GE3cYSc+j/Td8WkYpcVi3DHD+R+258OtXlD5V
+	 EmkGPkrtLnmdHsL3EDr45Bqd7kieWQ2kvZO5UunHqyUwpqIThPGwj2sZiuOyGBfJg0oeP
+	 2vs0I93fJz148QCYllGZetPcgvNy1wKQH1r2jQuqzBTnfMEmcVWvOj9evDZ3rNO+qzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkqe2n1G;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EqGflQhA;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04677606A328;
-	Thu,  5 Nov 2026 17:53:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88D4606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:54:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C88D4606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mkqe2n1G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47541F000C1;
-	Thu,  5 Nov 2026 17:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793901239;
-	bh=EftwWfre2aiDydKcjXOvHDcLO/ReuFB640bdDH18DBw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mkqe2n1GxIwCwQwvgdl50QCVqj2q1MbFYLkfBeiERFWUDpe4nCnIe+a/pC6Di4bYg
-	 M0Wfsf63FAXtZ0YnG0EJ/ShbJp/nJjebcHidgjwK4p3Nxrp0ichyUVEd/juN/BbNmz
-	 7lsP+Uy8J81vrCF+SonSWIW0IvJkzG0w9fqBhdF5u9970NqFk9lMwcw/gJH1gujL8t
-	 z9LgCWRt22lk9sxZ3GjxsmyCi3FhU4T1J8KK/AzxOw0ar50XQkEsbV2wNp37Ku0Vtd
-	 zlGGUIHZLduyWGqKmqAnTLCUJt+jC4zRYY9ZvPSb8h9vOFSs9YQ8ULVMKy9IwguXDp
-	 ubgTD021UX0aQ==
-Message-ID: <0514745a-872f-4027-9831-da06b7f075ba@kernel.org>
-Date: Thu, 5 Nov 2026 18:53:50 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EqGflQhA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793901260; x=1825437260;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WtBNB9JFBHsmj3js6YP38W4eYVV19WpWJBt1NYTfGIc=;
+  b=EqGflQhAXlaN0kt/9A6Yc2ROo2EpFLfPEQd/3U3+uZXEKsuY/VqNTI9n
+   4F6rhNk7gSVqqSkybPmls3ENjuSJ3WxZZYf9FnCvQeymo20jd9YFBLp1t
+   t/nIy+1STFTNXlnfJHmrtvShlWjvBczIUQCGO0uMsxGenTomnZ2uIPXi2
+   6gqHxs8IOvi14fpqteZdtr98jlVHNO0GJthZMqoBhzh3QbDyKaDdXq/bO
+   y3jpd5auv9/XXPcly0Wd93yPwOhj/RH+rxGewProg5sSAvZMzbGPgZBmD
+   Qo3PxoBZt0GlB9469ZWBXv2nuIikzP09HowsrDyMws0b2yKHFtFrjBjpr
+   w==;
+X-CSE-ConnectionGUID: RzX2JPyWRfagU6CklJJ8XA==
+X-CSE-MsgGUID: eYgIIt9/RIOFJPw7aKvsRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2603775"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2603775"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:54:20 -0800
+X-CSE-ConnectionGUID: mnW3WlSUR0aEpQAfIuL3fg==
+X-CSE-MsgGUID: ANMFLOeBTzeuxMI1sqsYUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7404699"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:54:17 -0800
+Date: Thu, 5 Nov 2026 19:54:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: broonie@kernel.org, dakr@kernel.org, driver-core@lists.linux.dev,
+	gregkh@linuxfoundation.org, johan@kernel.org,
+	linux-kernel@vger.kernel.org, peng.fan@nxp.com, rafael@kernel.org
+Subject: Re: [PATCH v1 1/1] regmap: Add REG_FIELD_GENMASK() helper macro
+Message-ID: <auzCxxkUB9p6WKNC@ashevche-desk.local>
+References: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
+ <SN1PR12MB2528E9E6548816E119881537A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +80,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: add CONFIG_DEBUG_FS to the config fragment
-To: Zi Yan <ziy@nvidia.com>, Sasha Levin <sashal@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Lorenzo Stoakes
- <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261105030242.1241448-1-sashal@kernel.org>
- <4B926B36-D797-4861-B6D6-27E8D7870287@nvidia.com>
- <20261105171801.2189772-1-sashal@kernel.org>
- <3BC61F94-0385-4603-B12E-BEA458BB307A@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <3BC61F94-0385-4603-B12E-BEA458BB307A@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528E9E6548816E119881537A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 11/5/26 18:21, Zi Yan wrote:
-> On 5 Nov 2026, at 12:18, Sasha Levin wrote:
+On Thu, Nov 05, 2026 at 09:39:45AM -0600, Victor Chernyakin wrote:
+> > #define REG_FIELD_GENMASK(_reg_field)	GENMASK(_reg_field.msb, _reg_field.lsb)
 > 
->> The split_huge_page and gup tests need debugfs, and CONFIG_GUP_TEST
->> depends on it. Add CONFIG_DEBUG_FS=y to the fragment.
->>
->> Suggested-by: Zi Yan <ziy@nvidia.com>
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> ---
->> Merged into an x86_64 tinyconfig, the fragment leaves CONFIG_DEBUG_FS
->> and CONFIG_GUP_TEST unset without this change and sets both with it.
->> x86_64_defconfig already has CONFIG_DEBUG_FS=y and is unaffected.
->>
-> 
-> Thanks.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Macro parameter should have parens around it:
 
-Thanks, I'll wait a bit and then queue both.
+In this case no, it shouldn't. It a shortcut which assumes that _reg_field is
+not an expression.
+
+> + #define REG_FIELD_GENMASK(_reg_field)	GENMASK((_reg_field).msb, (_reg_field).lsb)
+
+This doesn't look good as it implies that _reg_field can be an expression that
+will be evaluated twice.
+
+> (In the patch you link to, I wrote it without parens at first too,
+> then had to figure out why I was getting "too many arguments to macro"
+> error messages)
+
+This is strange.
+
+I have compiled it with GCC-15 and clang-22 (in both cases sparse enabled),
+no such a problem (It's also -Werror build). Can you elaborate?
+
+> BTW, I've been thinking about making reg_field store the mask directly,
+> by putting GENMASK(lsb, msb) in the REG_FIELD macro, but that's probably
+> a more involved change.
+
+But it's already there as you see in the regmap core. What you want is to make
+it at the beginning. Not sure if it's feasible and needed change.
 
 -- 
-Cheers,
+With Best Regards,
+Andy Shevchenko
 
-David
+
