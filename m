@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840470;
-	b=qkPUoN9K8s0kCB7hwZwhX4NJksjaoP6v4WhyNm6NONkrQRhaMnG9ERqPLPGi6fSt0N0w
-	 iTEDtJn25t9tuFF2mFWNYZfrHXlIw29VljyEEUQgypYhPJMWiGaE+4KwuLIhpTScdGx6C
-	 dFXb0gKeIaTbMHqbPEO0PGjOoXm1hk9RaQVAk9hASb16iGfEyvIqLb/lvBUUeD/31+FMl
-	 7V0Uq2jmBqKlP4pb1Zn3JwP2bX4Cl4NGTZuva1a7QPPRtp7CQBxBJhnHYfXhMQaSZbMks
-	 7ydmzi9a+w5idY0uDz9aoi1RLCs4Xfy4qx0bvmD++v8rebTtEJEB7efsFGKyuUVGpPw==
+	t=1793840475;
+	b=F0lgy2uLWjsW1Eu+FPQnA/zgTfmdK1jQ2XNVFrJbDMh8YbXEFxZcJl5R6pBAd9KorNrO
+	 47A/JwZxk0FV/I3sQw2/BoYzyKZSD/xUcksfpmWhrB3QdmcDAyDGXbyfNLEosPoKMLdr5
+	 ko8p3s8ZLucwlrGWeagl3oRzftUb4StymseMsodmu6RzpXYqmUVR4hGcO6j6snIuUOFdZ
+	 HsNrNzCpB+6wrbg5mHKXNYi1kT96r21K/OhMvHy2ueFIdr9VcVNqulwV8IuEk+06JxJpM
+	 d3jwm3MVW+w+4NDp2jj7yTGqnv3D3zjUQ1aR+37FSHHr2CHyDPCGB8kGVxUsyxLYYAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840470;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840475;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=JaCz2pjwdhmbPvoQWJsq8h33NIOafU4tbDW1Meto1jk=;
-	b=kIFdxgqKtPGawtW9DG3HlMbFVhcV2AYNRBYx31yxmBcFzPl6pZkf4Ugzo5xr+2kLzmrv
-	 OImSHB7oi5OiWuO2N/CIoW5D8boyp82Wa6tKLMhzrbAv81iTSsa6pGbHf5Wu0E2cM6dFT
-	 dlXPfroTeWsgyhpQNMsKa+El0hv1Ug1pX8Cgx8scv7qcfD7MQjZ6iN6CyilNGrjxrZAoU
-	 F59ROG9R6VHUud2c51R1XRSa3kHw+5XmvJoKj+2nKEuhFnDXHe+crPRE/IeLV+x+mrIAC
-	 vE/7pWY/1UkVKpUhFVs3bA0gps4m2by3TXoifs2buT5oW9mZAmVadm/pzDgMBPBgqJQ==
+	bh=D+1hr04V0jXYBZduuGYXPpQOimZ3lNa/M5RDPdtr5wU=;
+	b=3fRoQnDSPyZuNde0+6degkXamwTxOAkLpUJ+fNttJ6SXWjtKckOA3cUUsJIL+shRFLRT
+	 qIuxp8lq7pQJuQPJ19MAyjPO9+buR8nqf4/BqBWEMaKwAMCd1nBtRyxySQ+GFVjC7KxFl
+	 kzrO6hO8HFAZVGxxqxsifTCp+73QbC/BuYMrA0BQRUZuFzCxhL8iXcy08LANXIuLgI8X3
+	 ybvSgFwsQOoS33S60ddjs06Fh9uptcWlv/HyCrRjQTcLEya46+8QCNRX9g+VKBgmAjxes
+	 MjWwsvNhe1/3dXAezXvbdP7b9ng0CkjPl8IbLDBIJ3lkgoAovIs1IVbMLwoyW0c/hSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Yh5Hi3oc;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="oBN2vH/O";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C18606D801;
-	Thu,  5 Nov 2026 01:01:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4C18606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75032606EE98;
+	Thu,  5 Nov 2026 01:01:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75032606EE98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Yh5Hi3oc
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=oBN2vH/O
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840468;
-	bh=mWgrnwl5Shcis6cfVvrP/tZHq/7rzXTp7ZFtzMbA1Qo=;
+	s=mail; t=1793840472;
+	bh=Nombu86J0Q84Br7Nx4D8vE6Z266SQx5BEp7YtcUBtmI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Yh5Hi3octqZQeb54H/wJxy+ZaxzNe+0Q8+YgonE3u4ml94QUEZjxVtoKc7wKa7l8i
-	 GzEC/u39Nv+e8YdxeHxYTTeycSdicS9eukHEX5cpAvh0pPLObG+r/1LNxLsEfEs/Mc
-	 UpjmIsQFubALnX3r3pZ5E/URoeXbPyRoLZ22ts+BrfBZ1czKqpGdcW2JV3xmd8uTUX
-	 7+ovWhnaauRSsT6HCZw7NnvK/5qQh1uUYwRMMRlZeh9KBcVir0y3ZNj+RRVe3dsVEu
-	 CESmKJhMW7xfRX0MiVs5WCN+6OLfzmL2QFAawCQTmhAfEe8YDbl0jd45hfxV8VjJsp
-	 vNPRNWowguBoQ==
+	b=oBN2vH/O6d0cX2n7QNWUq5ti5YHXWRD+p3QBcWR9H5K3g3TwEcIZzIZv8Xu9kqpc4
+	 sp6SkWN4xW8FbPtFy46xIG1K25Q961O1nilb9b/9aAevksEHZUi5a9lcA4CDqieP8x
+	 +p98cWsFGEq+qvMtaWFidhK1uu9/cIgwRX45z7RM2GdQS7Ffqx2tESbMtMdTGINtCj
+	 T6Wf9c6OgmndAHh5q5YmZ+i1el5bf9HtOyCWVp1Z5DdKxw2g/fFalqgZN6ZbTTIkzK
+	 AvqK8ghbQZMzROH5vK4m7D3+GnDU93e4JE91iJRDjPccjQ/b2qxAGd+QIrchyIy+7j
+	 Knx/UM8LcCGNQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 37C6817E0D13;
-	Thu, 05 Nov 2026 02:01:08 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B642817E0D69;
+	Thu, 05 Nov 2026 02:01:12 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:37 +0200
-Subject: [PATCH v6 03/15] drm/rockchip: vop2: Disable core clocks before
- dropping runtime PM reference
+Date: Thu, 05 Nov 2026 03:00:43 +0200
+Subject: [PATCH v6 09/15] drm/rockchip: vop2: Use TMDS character rate to
+ select DCLK source
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-3-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-9-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -87,44 +87,138 @@ To: Sandy Huang <hjc@rock-chips.com>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-vop2_enable() acquires the runtime PM reference before enabling the core
-clocks, and its error path releases them in the reverse order.  However,
-vop2_disable() drops the runtime PM reference first, potentially
-powering off the VOP power domain while the core clocks are still
-running.
+The HDMI PHY PLL can only be used as DCLK source while the HDMI link
+operates in TMDS mode, i.e. for TMDS character rates up to 600 MHz.
+Beyond that, HDMI 2.1 FRL is required, in which case the PLL would run
+at the link rate and VOP2 must keep using the system CRU.
 
-Make the teardown mirror the bring-up sequence by disabling the core
-clocks before calling pm_runtime_put_sync().
+Currently, this is decided by reconstructing the TMDS character rate
+from the DCLK rate and the color depth, i.e. DCLK * bpc / 8, which does
+not hold for all possible output configurations:
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-170627@kernel.org/
+- YUV422 always transmits two 12-bit components per clock cycle,
+  regardless of the color depth, which from a clock-rate perspective is
+  equivalent to three 8-bit RGB components.  For example, 4K@60Hz 10-bit
+  YUV422 requires the same bandwidth as 4K@60Hz 8-bit RGB, typically 594
+  MHz.  However, VOP2 wrongly assumes it needs 742.5 MHz (594 * 10 / 8)
+  and ends up switching the DCLK source.  As a consequence, modes
+  requiring uncommon pixel clocks, such as those corresponding to
+  fractional refresh rates, will fail.  An example is 3840x2160@59.94Hz,
+  which would likely rely on a 593.407 MHz clock rate, unsupported by
+  the system CRU.
+
+- When VOP2 processes multiple pixels per clock cycle, DCLK is only a
+  fraction of the pixel clock, e.g. RK3576 halves it for pixel clocks
+  above 600 MHz.  Hence, an FRL mode such as 4K@120Hz 8-bit RGB, with a
+  pixel clock of 1188 MHz, ends up with a 594 MHz DCLK, which slips
+  under the limit and wrongly selects the HDMI PHY PLL as DCLK source.
+
+In preparation for supporting the use cases above, rework the DCLK
+source switch logic to check the TMDS character rate computed by the
+HDMI connector state helpers, which already accounts for the output
+color format and depth.  Keep using the system CRU when the rate is not
+available.
+
+While at it, drop the VOP2_MAX_DCLK_RATE define in favor of the generic
+HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ, since the 600 MHz limit applies to the
+TMDS character rate rather than to DCLK.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 50 ++++++++++++++++++----------
+ 1 file changed, 32 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index e0caea93a896..bc14ca9d598d 100644
+index ab6ced49ae40..7c35d73c82cb 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -955,11 +955,11 @@ static void vop2_disable(struct vop2 *vop2)
- {
- 	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+@@ -7,6 +7,7 @@
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/delay.h>
++#include <linux/hdmi.h>
+ #include <linux/iopoll.h>
+ #include <linux/kernel.h>
+ #include <linux/media-bus-format.h>
+@@ -103,8 +104,6 @@ enum vop2_afbc_format {
+ 	VOP2_AFBC_FMT_INVALID = -1,
+ };
  
--	pm_runtime_put_sync(vop2->dev);
+-#define VOP2_MAX_DCLK_RATE		600000000ULL
 -
- 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
- 
- 	vop2_core_clks_disable_unprepare(vop2);
-+
-+	pm_runtime_put_sync(vop2->dev);
+ /*
+  * bus-format types.
+  */
+@@ -1800,6 +1799,23 @@ static int us_to_vertical_line(struct drm_display_mode *mode, int us)
+ 	return us * mode->clock / mode->htotal / 1000;
  }
  
- static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
++static bool vop2_hdmi_phy_pll_usable(struct drm_atomic_commit *state,
++				     struct drm_encoder *encoder)
++{
++	struct drm_connector_state *conn_state;
++	struct drm_connector *connector;
++	unsigned long long rate;
++
++	connector = drm_atomic_get_new_connector_for_encoder(state, encoder);
++	if (!connector)
++		return false;
++
++	conn_state = drm_atomic_get_new_connector_state(state, connector);
++	rate = conn_state->hdmi.tmds_char_rate;
++
++	return rate && rate <= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ;
++}
++
+ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 				    struct drm_atomic_commit *state)
+ {
+@@ -1950,28 +1966,26 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	vop2_vp_write(vp, RK3568_VP_MIPI_CTRL, 0);
+ 
+ 	/*
+-	 * Switch to HDMI PHY PLL as DCLK source for display modes up
+-	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
++	 * Switch to HDMI PHY PLL as DCLK source while the HDMI link operates
++	 * in TMDS mode, if available, otherwise keep using the system CRU.
+ 	 */
+ 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
+-		unsigned int bpc = vcstate->output_bpc ?: 8;
+-		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
+ 		struct clk *pll_hdmiphy = NULL;
+ 
+-		if (clock <= max_dclk) {
+-			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
+-				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
++		drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
++			struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
+ 
+-				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI0) {
+-					pll_hdmiphy = vop2->pll_hdmiphy0;
+-					break;
+-				}
++			if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI0)
++				pll_hdmiphy = vop2->pll_hdmiphy0;
++			else if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI1)
++				pll_hdmiphy = vop2->pll_hdmiphy1;
++			else
++				continue;
+ 
+-				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI1) {
+-					pll_hdmiphy = vop2->pll_hdmiphy1;
+-					break;
+-				}
+-			}
++			if (pll_hdmiphy && !vop2_hdmi_phy_pll_usable(state, encoder))
++				pll_hdmiphy = NULL;
++
++			break;
+ 		}
+ 
+ 		if (pll_hdmiphy) {
 
 -- 
 2.55.0
