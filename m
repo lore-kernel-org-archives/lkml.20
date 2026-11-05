@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793882152;
-	b=scnOO2Jys6ScQLcsWkTT9TuY4Dz9fWe/Guhz7wa/8+JdCJyNDPA26rxZv+t3xB5NjBS3
-	 R7HErE1UH5wIEBhIlItjR/XYmBuYsjO+sNjy5Q7a/AH/CTodna2buxtMhpsOnAL3kP0uw
-	 Zb/nyehsbNnv04G0VA39acvjsYfLHKiNGDJDMENG+2+BgrFcxOtdNjmDOghQtoaxplWcA
-	 OwjW3CiJBkO8fi2+NLQfqy7RRpZJGTZuh8LnepQOpwMioujn9PrFjn0KkxnYaM7NA7G/f
-	 5rEO46DTHOtTE7SH+781xkQaq0tLq7Ns2Nes//4u5dfhUee4MhsOtmAhfQSH3mZu02g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882152;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=;
-	b=F9Vb17iU4ChWG0uYIk4WjeQQmLZsEtTYvaMSOR8dr/3VVg+QuHXJe4yJ7xos6kpssmpG
-	 DwDVdx46ZGgiPIJmOsQ5qU3NBwZeY6NmtbLQHsqb+QFMV98l9qwTobWXnqeohQCmHLaG3
-	 uDo8jmJ/fA7geP4TWmkwPflNKdT4Cm1jACeugUshoEGuLTp4RuJaC+VDtLQ/AMfOELxHo
-	 a52dvHBlIUvsfn5GD7h8Lu/cJKpHoD/uYiWK1BnZDviwqYZ5DeIEvv3kM+ta7QwyQidTo
-	 VI0rOA/TiHFQlTfpJKnDpdvCpKqGftwfSmgvtokaKX0WOR4STSSktT0txX1h2Fck1qw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DWG3eOkk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C31606A339;
-	Thu,  5 Nov 2026 12:35:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C31606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793882186;
+	b=aTlh7Yb+SKI2FqjR3EqE93s0jNuMQ0Fv439q6F9U8V1OTeuHQ9q3y8RlI4A7jm1fHyVr
+	 QF7Ug+D3oMlytsslVW4rPKISXHALBpR37GV03ngfnZ/46USzYL7G7ZoXVHPKqKJCMA0m6
+	 Qm/mvhI1czIHy2dszeexGjI3H2y4n2/G3HOag9u5nsV/wrVwUb7OUb6AoGoLgX9gYq/uD
+	 jQkBUNYxbZYUrME1MP36Rj/ePV708HqJaX2uEOE8G5O9LTyL0kMM13W5Inc2IJ9LG2bl9
+	 fiIMMLyC7kF9Y2EFeW2BHDRM06CmP+QXSseDYbEK9eNBlyBUtXTEKqD2Y+sVssKeREA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882186;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/NsG0cyMzXROSstgbjVKXoEsL+g2CwtLRSNxnglyzKA=;
+	b=1Lr6TBvb42pG05pjiBtYrineTt3RlzqGTv/6H3bySHzBaNFeU6ZTwFmhOD5rOWrvshVm
+	 NvNLtpX22bxcjf2INMutcaAXVEdcG0YgUi7J6ZdcC6gVo7fuCXTdJ5aZCAdovKIxZBr1p
+	 8lzCvnMEdOfckSweM0ptTSgQWgOeegcFxeBRAtWKpWDsWez6sx7H/Vamh5sxymxWtJPqc
+	 pF7IR0FBJZphosah9YgFpXS/OQHTqeNHQaP6SHMAiltLGiXU5s+XTRmy/tjpc6bvejHmV
+	 O7KI+rroMUNX25OohqVAXgEKo6Q6pczMVIdR+zsV5WkWTu2fKqb6xLeiYRaqr9LHp8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jHQeGkBo;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5F21606A326;
+	Thu,  5 Nov 2026 12:36:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F21606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DWG3eOkk
-ARC-Seal: i=1; a=rsa-sha256; t=1793882120; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Uz72HdtyQIk/Jx/Kx8+D2p3/h8mj8zQG1p/ZQuEx9Ctu6YFaXmhXgaXvD47v/+AGyMuZ+RkOBb0E0AvGZaA2WygzN9avwB4BL1P5OioIxd7DOJ89ec+DFgnWaDaRj0NXgLWVoNDvqWYI2hycGqNTGDB7WrXm4dJDq6qflVkfFcw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793882120; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=; 
-	b=Al46/yeMX1achccMCKjlLVt9UmEm8U+GMthh3oAN/pCjATJZtUwKPzEFu4wYehVzHWTgea6wUaQYkG2HRT4aIMBffLRrOBZd2unFe7wFruujnLcH2c3e1i5Uhl//DhtBnT61p8OVKTWFTrImdel0o7NbJkuRJ/3311CnOrsMWRU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
-	dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=DWG3eOkkBDYLa23q1FTMIv8iDNe2lcBQrIYi3DJlWMUK6rZMToWXUvzV6DDZmDFj4XbepNLaJuzRoZRs2fLxMLJpROXUNSPiw0A7a4GmA6TbD0nE+6poAsud1nqIH1mvJW1c/sFBLkKI/Ha6VcNAUzeq58X6WG+xosGKqmA+Yd8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793882118217571.0019856779174;
-	Thu, 5 Nov 2026 04:35:18 -0800 (PST)
-Message-ID: <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
-Date: Thu, 5 Nov 2026 13:35:10 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jHQeGkBo
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BF0331E8D;
+	Thu,  5 Nov 2026 04:36:21 -0800 (PST)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 978DF3F673;
+	Thu,  5 Nov 2026 04:36:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793882184; bh=Xy2a35D5lFs3xumDyQSNHeQOf3ovIJScDgtK1Ak0u04=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jHQeGkBozT/P4vps+KO9ztDP0/y2NBmMxgQj1XLDVLrgzbghOtq+A4YxSebRD114v
+	 RaJDs7jmao2mC0baEwZGDmyQFlADuqFH5RLPwGmr+9yleq0uPMQig6k3EKtZF7sgzh
+	 4hED0g3Z2l1Tf+AlvvQnAw+9ZkTlntjqurTZEDpM=
+Message-ID: <6fb4ce7c-c173-4e86-8f8b-9bbc53751d8c@arm.com>
+Date: Thu, 5 Nov 2026 12:36:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,99 +54,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-To: rob.clark@oss.qualcomm.com
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bryan O'Donoghue <bod@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
- <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
- <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
- <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v6 06/40] arm64: mpam: Context switch the MPAM registers
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: amitsinght@marvell.com, baisheng.gao@unisoc.com,
+ baolin.wang@linux.alibaba.com, carl@os.amperecomputing.com,
+ dave.martin@arm.com, david@kernel.org, dfustini@baylibre.com,
+ fenghuay@nvidia.com, gshan@redhat.com, james.morse@arm.com,
+ jonathan.cameron@huawei.com, kobak@nvidia.com, lcherian@marvell.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ peternewman@google.com, punit.agrawal@oss.qualcomm.com,
+ quic_jiles@quicinc.com, reinette.chatre@intel.com, rohit.mathew@arm.com,
+ scott@os.amperecomputing.com, sdonthineni@nvidia.com,
+ tan.shaopeng@fujitsu.com, xhao@linux.alibaba.com, catalin.marinas@arm.com,
+ will@kernel.org, corbet@lwn.net, maz@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, suzuki.poulose@arm.com, kvmarm@lists.linux.dev,
+ zengheng4@huawei.com, linux-doc@vger.kernel.org,
+ Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+References: <20260313144617.3420416-1-ben.horgan@arm.com>
+ <20260313144617.3420416-7-ben.horgan@arm.com>
+ <145b3c09-ff33-4fd7-935a-fa4f4c3c07b2@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <145b3c09-ff33-4fd7-935a-fa4f4c3c07b2@huawei.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04.11.26 23:11, Rob Clark wrote:
-> On Wed, Nov 4, 2026 at 11:00 AM Robert Mader <robert.mader@collabora.com> wrote:
->> Nice, very happy to see the series!
->>
->> On 04.11.26 17:36, Dmitry Baryshkov wrote:
->>> The comment describing the QC10C buffer layout calls it a compressed
->>> P010. It is not:
->> If I'm not mistaken the display engine / the DRM side (including Mesa)
->> describes it as P010+QCOM_COMPRESSED as well, and so does my pending
->> Gstreamer MR [1] . So if we can't pretend that QC10C ==
->> P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that
->> up everywhere etc. OTOH if we want to keep the DRM side as is, then the
->> comment should reflect that, IMO.
-> IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
-> as distinct formats, both with and without UBWC.  I'm not sure if the
-> same is true on video side but P010+UBWC was never exposed, or if it
-> truely only supports linear P010 and UBWC TP10.
+Hi Jinjie,
 
-Oh, do I understand you correctly that the P010+UBWC implementation is 
-not compatible with QC10C, meaning on the GPU side (Mesa and display) we 
-don't yet have any support for QC10C exposed to userspace? If that's so 
-then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
+On 05/11/2026 12:20, Jinjie Ruan wrote:
+> 
+> 
+> 在 2026/3/13 22:45, Ben Horgan 写道:
 
-On the plus side - this would allow us to make the format single plane, 
-matching what we get on the V4L2 side.
+> 
+> Hi, everyone,
+> 
+> We found a problem as below:
+> 
+> In an offline/online co-located setup, MPAM gives the offline group a
+> smaller MBW share, a softirq serving an online service runs with the
+> PARTID of the throttled offline task it interrupted and is throttled
+> with it -- a priority inversion.
+> 
+> Is this a known limitation?
 
->
-> BR,
-> -R
->
->> Best regards,
->>
->> Robert
->>
->> 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
->>
->>> P010 stores each sample in 16 bits, QC10C packs three
->>> 10-bit samples in each 32-bit word, which is what the stride computed
->>> below (width * 4 / 3) assumes. Name the format correctly.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> ---
->>>    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
->>> index eb8de60c1177..ec2bf2a2d953 100644
->>> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
->>> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
->>> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
->>>
->>>    /*
->>>     * QC10C:
->>> - * UBWC-compressed format for P010.
->>> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
->>>     * Contains 4 planes in the following order -
->>>     * (A) Y_Meta_Plane
->>>     * (B) Y_UBWC_Plane
->>>
--- 
-Robert Mader
-Consultant Software Developer
+Yes. The initial MPAM support was introduced with the userspace and kernel PARTID changing in
+lockstep so that it matched the standard x86 setup. This left the way open for a generic resctrl way
+to express that they may be different.
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+> 
+> I see the following patchset uses a separate closid for kernel.
+> 
+> https://lore.kernel.org/all/cover.1790867441.git.babu.moger@amd.com/
+> 
+MPAM should be able to work with that as outlined by Reinette [1].
 
+[1] https://lore.kernel.org/lkml/2ab556af-095b-422b-9396-f845c6fd0342@intel.com/
+
+Thanks,
+
+Ben
