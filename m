@@ -1,77 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888066;
-	b=i1a793zL/oX39Bk3mnaBjFiDDgZVAq17vz/zmvFidiRJEoOIxZaqNZNTMehf0ByckfBH
-	 R8QMmP7yBmwyBXpEy2SM1LQ2C68BqX0bC9DByvz118ooDK8o3ESseMlJZmr71bsi5A3mf
-	 36kor7cGYL5LXmsREPnlH9LylqBLfReBfm0DwBHmUYViVMTQl85ARSNUVBrb/A8d83pFC
-	 hRNgSmxQJZTzTC0NQM+V2ij73XxcfVfHznukNmnWXYeKPGV2LocWDkbFr25lCzd/rOxWP
-	 JMfMZYMoNMFwAxZPxCj5HUCbilWD8vwHoOxKBjFfBXxMiaqv/NVR0XkNmGr40TPa9Lw==
+	t=1793888071;
+	b=FmZp59cEI3BXthcixcGA39mO+gKu63Oqj3OU77ihWzHO5S4llG1BYVeM82PmGl3M1wp0
+	 iZc8qtnGOkAIzhbkP2fLvAQkACQsFH0PC2Z9URq48LEnuOwuNGE7SEgTCM0k4IteIB8xd
+	 wG3ivztC5FLxQaQ6HJiGCOHv0zh1iwf04xADrux+2DNGUdC+DnLRxLO9gcSFVT9D5QIFa
+	 OOfBlfCZzI4HZ5tFt6iimBGDzFQuhieREKN/LzgPOwcSbCG4tyqF3TmUPnqV7bgx54b+s
+	 686SnNmbCmJE1oMbsfbAaULYHrWs9YwdneAdfFr+WBsAHbY0eHLSI7UrotpX2zJ6aXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888066;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=4QpYJSS9gn8AjXi8jX/3Dtqw7BlVuFU8dH7dnogBVO0=;
-	b=BgLohuSeZMZIaDr8O2VZ8kLrYts1KGUCH/tdFBMIa019RxnucZxV6jvsirfdEQZas3tw
-	 PpVsF9YzvCRaKDlZgcEy428qWX/DqGDdMv1Y2EVzlb9WPsbRGqJ6rG9b3gpK3vpwkLbce
-	 Uj26qMhDHXr9oeJxj3eOvsOa+WwrjofgqQoUSlbwex9GLxPQnUoc1Bht0iqYnCVb50+jI
-	 14lFaJGWFf0xbqaZ7QuhNDPCHJznIFCccgpB5VNHmoBNtMQxfVUDREcySkCq45dnbRl6x
-	 UgX95Bq2AxOsNLCx+CvJdeOq5TfXHjTtUR5v9CXtR5l1nlR2qBVLYALckvymvoZJn0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888071;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=UUr2L0xZXuVjXC0opxsWwmpYI8eWn5RdN8+EU6TaHG8=;
+	b=SI0TZaQmtF/wD5FxDTTGw5C1kdrSO2Uh/eZKqKpdbDIIRuCylrO6olhIi5b1C/H0Ipn8
+	 JJuYa1Rfd2SCnRBfpO/Xc+kdtfi560BfmIAtFy+oth4MmrsWHbGa9he+yCBNrgreARJy9
+	 bXgoPsJUvr+iHP4VTR1DWLuEiu3x002wvhfClyG1UnaPpsHs+rXeWxG9NEEwxAF65b1o2
+	 cCFE5YJYnxurWd6nTZwVcmJR3YvixseDVMqvbFIYJplHD/PrLMbLBM5mIXe/yQ+Jo9Qvd
+	 2qKbqlAAxDcl7ObMlfqwEoaoELKhVLFFfNH15IRtKvNKwu64EhDDVvbsM2mbuZQZiLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHt7HSGu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bWQ1VH/f";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B5E606D812;
-	Thu,  5 Nov 2026 14:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF41A6082BCC;
+	Thu,  5 Nov 2026 14:14:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHt7HSGu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2B311F00A1B;
-	Thu,  5 Nov 2026 14:14:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWQ1VH/f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE961F00A2A;
+	Thu,  5 Nov 2026 14:14:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888065;
-	bh=4QpYJSS9gn8AjXi8jX/3Dtqw7BlVuFU8dH7dnogBVO0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ZHt7HSGugybN5tt7aBm2DYpjLqmVSzGHPf+FbQmlOA5T4Nk5fCKWzCEZb+J82PHlw
-	 l6AVe6kDbgKPpfD8/3R3rRcmmEPrg353sNwySWNZPUaC8eFmRslm5bIRcVZkF6IdyU
-	 ruk1UXsR2KoKlIyaiX4m5Bt2MaupvTmPsJkjn50vKnSDxBeKsVV4bwubvy7qds1fXh
-	 dHtWj4Z4lh+pj2d8Bkkjb5jAZcuLTyb0EPvvsrr0CO/XIRBV5F5Y3YmW39L6T82LYq
-	 MDqcufEATybJTn1bGcMM2j64t0KtpUgUMcx8vhy/hXPFsBB7xQM1sVp6uE3gUGspMg
-	 8BTqLnNf590eA==
-From: Lee Jones <lee@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
- Matthew Wilcox <willy@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
- linux-doc@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>
-In-Reply-To: <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
-References: <ed2b0b67c306bb458ba389f16dc92904203a104b.1793027261.git.d@ilvokhin.com>
-Subject: Re: (subset) [PATCH 08/10] leds: pwm: Switch to __nonnull_args()
- macro
-Message-Id: <179388805861.2575351.14283088205507759337.b4-ty@b4>
-Date: Thu, 05 Nov 2026 14:14:18 +0000
+	s=k20260515; t=1793888070;
+	bh=UUr2L0xZXuVjXC0opxsWwmpYI8eWn5RdN8+EU6TaHG8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=bWQ1VH/fZ0ys/xQSByUc/nnlX5qnS4Lak9ARwR9szLBLFBMZTIL0hcty8eWwrodL9
+	 zpXWe0LDZ4F+S850sMnlzWhOTWSN7EhgsNm20G3UANsXVLXlALfZfJFeFY20Jts1xq
+	 akvDecTtSlbJSje6yaMgDd+algzfQUg6iFnZMoIlX0vsOrfZB+/h0T8D29nGOlWiMA
+	 kHvVY7XBAJoHUvpl2h253LTuQOotHdQKUde6VyZqdbZWVuf2XVC5G3lioxQ6/KQKEV
+	 BjPaD3dWpfNZDBjrBJr9WG9wwWIcIo849Mg9iwdwfMqLbQY0W7IF45h6Lk9XICre8w
+	 +dvuHZDzLgYgg==
+From: Mark Brown <broonie@kernel.org>
+Date: Thu, 05 Nov 2026 14:01:23 +0000
+Subject: [PATCH v2 10/11] kselftest/arm64: Use execv() to start fp-stress
+ test loads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,25 +54,157 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-arm64-fp-stress-kvm-v2-10-81a5172468f0@kernel.org>
+References: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
+In-Reply-To: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kselftest@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3995; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=OD+Ba64C7inB0cl5Iu32U66JVXkD8/nZCh6jkxPgkhI=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe9Gs+KjG1WNFTudJ4ewPr8bTelFXeJx+k2k1xObR29
+ l9B4W8XO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjARTU1Ghr0N1/crdgSypkze
+ nq7KbH21csYGq/CzYroamg87uo7sa2ZkuPLJ7rPTUQP+s9rsB2wf7OT4PeWioresm1lgxN/Yqaf
+ l2QA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 28 Oct 2026 08:19:47 +0000, Dmitry Ilvokhin wrote:
-> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
-> nonnull") added the macro __nonnull_args() to wrap raw compiler
-> attribute.
-> 
-> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
-> nonnull attribute usage across the tree and keep the attribute's quirks
-> in one place rather than open-coded at every call site.
-> 
-> [...]
+In preparation for adding KVM test loads which will take command line
+arguments switch to using execv() instead of execl() to start the test
+load programs.
 
-Applied, thanks!
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ tools/testing/selftests/arm64/fp/fp-stress.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
-[08/10] leds: pwm: Switch to __nonnull_args() macro
-        commit: 687615faae92e36a2b6c5ab0d007751e8e88a645
+diff --git a/tools/testing/selftests/arm64/fp/fp-stress.c b/tools/testing/selftests/arm64/fp/fp-stress.c
+index 65e01aba96ff..e96fe1ac1ad1 100644
+--- a/tools/testing/selftests/arm64/fp/fp-stress.c
++++ b/tools/testing/selftests/arm64/fp/fp-stress.c
+@@ -60,7 +60,7 @@ static int num_processors(void)
+ 	return nproc;
+ }
+ 
+-static void child_start(struct child_data *child, const char *program)
++static void child_start(struct child_data *child, char *const prog_args[])
+ {
+ 	int ret, pipefd[2], i;
+ 	struct epoll_event ev;
+@@ -116,9 +116,9 @@ static void child_start(struct child_data *child, const char *program)
+ 			printf("%d bytes of data on startup pipe\n", ret);
+ 		close(3);
+ 
+-		ret = execl(program, program, NULL);
+-		printf("execl(%s) failed: %d (%s)\n",
+-		       program, errno, strerror(errno));
++		ret = execv(prog_args[0], prog_args);
++		printf("execv(%s) failed: %d (%s)\n",
++		       prog_args[0], errno, strerror(errno));
+ 
+ 		exit(EXIT_FAILURE);
+ 	} else {
+@@ -310,32 +310,35 @@ static void handle_exit_signal(int sig, siginfo_t *info, void *context)
+ 
+ static void start_fpsimd(struct child_data *child, int cpu, int copy)
+ {
++	char *args[] = { "./fpsimd-test", NULL };
+ 	int ret;
+ 
+ 	ret = asprintf(&child->name, "FPSIMD-%d-%d", cpu, copy);
+ 	if (ret == -1)
+ 		ksft_exit_fail_msg("asprintf() failed\n");
+ 
+-	child_start(child, "./fpsimd-test");
++	child_start(child, args);
+ 
+ 	ksft_print_msg("Started %s\n", child->name);
+ }
+ 
+ static void start_kernel(struct child_data *child, int cpu, int copy)
+ {
++	char *args[] = { "./kernel-test", NULL };
+ 	int ret;
+ 
+ 	ret = asprintf(&child->name, "KERNEL-%d-%d", cpu, copy);
+ 	if (ret == -1)
+ 		ksft_exit_fail_msg("asprintf() failed\n");
+ 
+-	child_start(child, "./kernel-test");
++	child_start(child, args);
+ 
+ 	ksft_print_msg("Started %s\n", child->name);
+ }
+ 
+ static void start_sve(struct child_data *child, int vl, int cpu)
+ {
++	char *args[] = { "./sve-test", NULL };
+ 	int ret;
+ 
+ 	ret = prctl(PR_SVE_SET_VL, vl | PR_SVE_VL_INHERIT);
+@@ -346,13 +349,14 @@ static void start_sve(struct child_data *child, int vl, int cpu)
+ 	if (ret == -1)
+ 		ksft_exit_fail_msg("asprintf() failed\n");
+ 
+-	child_start(child, "./sve-test");
++	child_start(child, args);
+ 
+ 	ksft_print_msg("Started %s\n", child->name);
+ }
+ 
+ static void start_ssve(struct child_data *child, int vl, int cpu)
+ {
++	char *args[] = { "./ssve-test", NULL };
+ 	int ret;
+ 
+ 	ret = asprintf(&child->name, "SSVE-VL-%d-%d", vl, cpu);
+@@ -363,13 +367,14 @@ static void start_ssve(struct child_data *child, int vl, int cpu)
+ 	if (ret < 0)
+ 		ksft_exit_fail_msg("Failed to set SME VL %d\n", ret);
+ 
+-	child_start(child, "./ssve-test");
++	child_start(child, args);
+ 
+ 	ksft_print_msg("Started %s\n", child->name);
+ }
+ 
+ static void start_za(struct child_data *child, int vl, int cpu)
+ {
++	char *args[] = { "./za-test", NULL };
+ 	int ret;
+ 
+ 	ret = prctl(PR_SME_SET_VL, vl | PR_SVE_VL_INHERIT);
+@@ -380,20 +385,21 @@ static void start_za(struct child_data *child, int vl, int cpu)
+ 	if (ret == -1)
+ 		ksft_exit_fail_msg("asprintf() failed\n");
+ 
+-	child_start(child, "./za-test");
++	child_start(child, args);
+ 
+ 	ksft_print_msg("Started %s\n", child->name);
+ }
+ 
+ static void start_zt(struct child_data *child, int cpu)
+ {
++	char *args[] = { "./zt-test", NULL };
+ 	int ret;
+ 
+ 	ret = asprintf(&child->name, "ZT-%d", cpu);
+ 	if (ret == -1)
+ 		ksft_exit_fail_msg("asprintf() failed\n");
+ 
+-	child_start(child, "./zt-test");
++	child_start(child, args);
+ 
+ 	ksft_print_msg("Started %s\n", child->name);
+ }
 
---
-Lee Jones [李琼斯]
+-- 
+2.47.3
 
