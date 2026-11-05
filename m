@@ -1,94 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793857178;
-	b=fjFmkHwB5vZMoGKBLMYvyqY4yhnGftARu9nEdcLn7/zXjfLTClxb5lsYW6UMO4UPxsIZ
-	 rgJ9+hW0z8jWpwotBawwU+m/J5tPteSLigLlzbJ1jjTPZ3INeXap9YD+2MdXLRaS+1QTg
-	 ZJKUvnTn8E2QK5FFpAgoCis3fY6BLunY84i8JHKygK2nU1daOv1DI6QcbpoFW9cC6Xf3Y
-	 i+YWMT8Jm8xzmgbOLZnhdOETUpnFYqvTWPnyHIYx8Hni+gVAbkGyz9WkrwrhxhmA/G6u8
-	 op8LQcwy49wwSvFbjEb/6GJUe1por/VoDoEBMPeCUcGw2LT2+iJoh1tSevwV3NY4vMg==
+	t=1793857322;
+	b=SPJdWzMYDsPTWJPdVgc/tyzmjOZ10Qe6HLtFMWo4bwDGlxX3jpFlpQckPbrBLir5cfXM
+	 qOti/Z+qSvMfBMIonk2NX8yyqMGKvxLSIyyCenFVK93dc9XdmnRHVHdMmDtOOlvm3drPC
+	 XXAB4/3j4afykEIbUJHM1ow4NM7xHBDiRz1+dcJgYFeoOGGtbF03MaN26CTQudjNXcQh3
+	 PsaoMbF3j5wXM5mOCUrJf88PWv/JkW50HB1UKCOA4GTl4qFy9DJQ2nlVdkUKgHJ8HxtVc
+	 RAJts5vKCfvX6o8aiW0kdCazhhSa+9jz5IEfzio8DXsvKA2L8MkMi6QraQuIV5/CoVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793857178;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zb8urviQtBLgbNWUzwiTWUQPBuOVmT07HgtSLoEJuzw=;
-	b=s4FVPB/FmBuM0RUhbWlJ6Wuerit4UJJpNQkL+3gCJhYa+jkA25EfYeVK3Kv/FbFoJJ+9
-	 r1UbNbDNZXWJzpu0jZUpSh0TyHmWrmY/R2Sud9COUdSsSRZCGwXZdnbo7lRzN6udZ80KZ
-	 eWZq7NaOjKvBfYFTfckz59q+sllQHmC2JVF8/tTT0MQ/8UIlrJNQyM5oo3eoqDRGNCIjT
-	 0y7E4pWaSzi/7HFflLla7aoYZxqzzpWcRWp+JmjxZT28DahIvy+9e4fsyJNzBWUsLEPXl
-	 i8PJoVJMNRH6PiFOR8aAnpu3dc6wKD/E8C1tDxtKktxd/20nRQAr4WQdUd547XOVjXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793857322;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=9wlTg2Dr/LsFlagA3DtpGqNOCAVA82K6+eoM9BoGZ50=;
+	b=fl62C7tviQuli6KN7PG2+doUTJEMMmbV86debnPm0SGdhdA8aSFwhmW+1tEU/TZ8bf+4
+	 ogWtgu7cE9QqkRCVuwUXq4zq0UzIBQwbv2T8BtwMGccOoVQk7CLTmOJ10oVQ7S8kpAqKV
+	 HdpH9rAQnBsh6c17TJxywjb70dWk3wcd0gyiIVC6iOveDJAdF6oX0hId5gV45Ld5h7VLC
+	 1xzL71TDn7uDM1KZwNyaU4BiLpBJQAhDt3895ybykM+GtB/o2agk4pH0S2Du5tBRfGxgY
+	 1phDpF5R3ZlUV3/Vm5klYttTDvts6MmVJrIHB2klR1QqzCqMAs1sSHsHaK85e0BAMwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XrtykEZN;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FIvAoHki;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4017B606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:39:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4017B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22150606A326;
+	Thu,  5 Nov 2026 05:42:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22150606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XrtykEZN
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2585734eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:39:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793857177; x=1794461977; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zb8urviQtBLgbNWUzwiTWUQPBuOVmT07HgtSLoEJuzw=;
-        b=XrtykEZNasYdt/6SffzLapgWzNs+vL+S1AK/vssprL9RC934PkjJvS79m5XK33gK/W
-         rOSil0n3jpCdsRoetjwk7ZrF6JHeEmXJ+eUM23meDLZTmRknGUobWy2JlZ5jCTWyMXmO
-         NT2W9+eLolDUJ58egFtRa+h+HPuMrjSbN/lLW9BfmGx4EjTZqZ+NYyrD/XszF7qdymR0
-         062vslxfhzkBAPNCxQaVMCNfCRXbSAlfn5/EvT7rE6hr3sJAVobQRsvz4Qj3V7wL79Sx
-         fIEoX6H7LoQwxNscLqHn48m5g5BSM8PtA0wl9i+WbGKAg5lSjIaf3ovBx07+a5FVHynO
-         9ipw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793857177; x=1794461977;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zb8urviQtBLgbNWUzwiTWUQPBuOVmT07HgtSLoEJuzw=;
-        b=yfMW/VC8xT82WRRwva6uRzPaGw7iDNHRQCtcCyfpek9LoaA1E27TQ3sdpF9nSY1FYL
-         aG3grm8YG499TGF77hwvh+ymKfSdnUdiQqc3OBZdGZKZs4H2DNH7j04TtNWt023Lw+31
-         ldfg5RBBA/TvhZ1XrBgDQT2yO0W6ZzORxkjJzN9jznb0bN2GzpRHOLxpd5/SEBAo5cQx
-         nDoClvEi+iMtHSITXobI59epx4WKfob8etv+VGdYfQUrxlEQrjS6PsQmpzUYKDHqXKf3
-         k6DMwIbG+vWVGH/Z4SeExH5s9DA+YC4i8ZlN/Qk1WQfoZuaG58WDQEVxQGSVHZl1dYfV
-         igdg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2DtoCbhT7BrDuz0/k/yC9OWg37oY6Z+6e0d3vYKKjqQ+UfRviWOLRm9HjgmPAIPXK1mBmbF1r3i80gME=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZQDgXTAMQUnO/xQ6aEpkQWVhDXIXaH36f0gsCAx1UOufOuAGl
-	ibiY01B1safzj9ZRYukMzghSlHJNgjgLWVdbkl06VB54dXgjdLXadtXY
-X-Gm-Gg: AYBFou1/DomHEiZ7qF6IL2HFV6R6CpKK2joberxXaEVmTWVoHZeoMF08JW0wJbt3RkM
-	wUlMd/PeYCJ7c7LwmX7eBAmy7FA+f/AtzFcKEF5owju+JnFGJfrdbO3brkcYgRLMdtMWYnKY+8E
-	7YmrgcZEZv/8pZu27ELIivE2LjHNbvb02yjywn1fZ895SE1hb1+qS7TEfRhwpwtuY4mIPSjmqxu
-	/vXiEvrWwcAEjYutOXt40SmUf83Ea6uZjllrkutyQ+hkyuMlcg+X5JopMyZkfxDhlBZM+7AYq2T
-	3hmISShiFvPGdU+fSwQyPygAALFrdhFA4hoRD+SmvkFnsYMuVvA3rlPlilDU3E4qsxQJOtbsBDW
-	ttgu5eKkNrVWb/qeb8YGAquUYwnFYVEVDU97XQgKHiFoaJ7DmpJaT8HfgP4kyQq/9idN8qsdUCb
-	80PfHjQ3kdBUIiFIjkYQu21hFTcsBg8aD7yA0l0Ga1d2dfxspPHVY56N+/PZnqddhpbdaFiX4qW
-	XuCZmQsHxyvtcT68dfFoxDaFRFZnBqW4D1OuhJSyMNNA2W01sDmVtbDY+EhSki4/qTZFDCRihEp
-	8tnFRSrTOUfDiuRn5RPfi1R6pHh24Nvfin8UzcHD6ZDnD7LHWUYvCPc5fK0GxZjr/Vz/c8dDRKu
-	o4SrBJA==
-X-Received: by 2002:a05:701b:454d:20b0:1b2:3b5b:b80b with SMTP id a92af1059eb24-1b23b5bb847mr11221092c88.8.1793857177219;
-        Wed, 04 Nov 2026 21:39:37 -0800 (PST)
-Received: from localhost.localdomain (c-73-158-21-37.hsd1.ca.comcast.net. [73.158.21.37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2d69asm12417912c88.11.2026.11.04.21.39.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:39:36 -0800 (PST)
-From: Saad Varshani <varshanisaad@gmail.com>
-To: nkapron@google.com,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Saad Varshani <varshanisaad@gmail.com>,
-	syzbot+300213c2b5b55c0244f4@syzkaller.appspotmail.com
-Subject: [PATCH] usb: gadget: uvc: Fix deadlock in uvcg_extension_bm_controls_store
-Date: Wed,  4 Nov 2026 21:39:00 -0800
-Message-ID: <20261105053900.20082-1-varshanisaad@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FIvAoHki
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793857322; x=1825393322;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=DJf4bTNPHkLVygRJnF6XNHKdcTG9QdbUCz5UjaoLfmM=;
+  b=FIvAoHkizvI1n3/v/lbGYAq2MlS1hpmKrHIKQEnwgLqJ4wP+K1P0w8t5
+   ASdvErTWYYhkmxSIEfOZ4Q2V7WVNd9f+sxvDDvgy4wwAKKFUboVjCH3fT
+   l9y8/AQoCRqL8aTqyfuJmjjcLF7uybCz1XlreX4WQoUx5tZtNL2W6WrNT
+   H0/X+9cNM4NaiVUL+ZtauGujuouok+T91DZ2obi35eq/5M8RKAOLMvwIP
+   n17YBftmnMBC8ph7X9NVjdBH6U5kH1l5XnurujgfmS0IMjQz7Sjjqitqt
+   Glkco7py6wHGPoWYG122AgwwCvFzrFXwGMWaE6KtlOMDL61bUHnJ48sNp
+   w==;
+X-CSE-ConnectionGUID: PtdEtMypTxiZATzIukLhfQ==
+X-CSE-MsgGUID: hZ8pYdBQQGCCo3U+541zSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2667958"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2667958"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 21:42:01 -0800
+X-CSE-ConnectionGUID: g4XYH+QNRBaBCIfS0JtifA==
+X-CSE-MsgGUID: N0+cnYwkScmA2LHAHWG8JA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7041297"
+Received: from unknown (HELO [10.238.2.61]) ([10.238.2.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 21:41:56 -0800
+Message-ID: <2d1a2dcb-f1db-4126-80b7-217a62cea136@linux.intel.com>
+Date: Thu, 5 Nov 2026 13:41:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,49 +72,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [linus:master] [perf vendor events intel] 31efbec216:
+ perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU.fail
+To: Ian Rogers <irogers@google.com>, kernel test robot <yi1.lai@intel.com>,
+ "Taylor, Perry" <perry.taylor@intel.com>,
+ Thomas Falcon <thomas.falcon@intel.com>, Edward <edward.baker@intel.com>,
+ "Chen, Zide" <zide.chen@intel.com>, luis.f.recalde@intel.com
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+ Arnaldo Carvalho de Melo <acme@redhat.com>,
+ linux-perf-users@vger.kernel.org, Stephane Eranian <eranian@google.com>
+References: <202611050912.2cdf1ff5-lkp@intel.com>
+ <CAP-5=fUk4Q3PxNiqwHtyM6XTt9LGZaTe9p7o9k2gL7f2LBRBHw@mail.gmail.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <CAP-5=fUk4Q3PxNiqwHtyM6XTt9LGZaTe9p7o9k2gL7f2LBRBHw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Removed su_mutex locking in the function uvcg_extension_bm_controls_store.
-Done this due to the deadlock caused by the mutex conflict in
-fs/configfs_write_iter. Validated commit with the C repro provided by
-syzbot.No other conficts observed.
 
-Reported-by: syzbot+300213c2b5b55c0244f4@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=300213c2b5b55c0244f4
-Signed-off-by: Saad Varshani <varshanisaad@gmail.com>
----
- drivers/usb/gadget/function/uvc_configfs.c | 5 -----
- 1 file changed, 5 deletions(-)
+On 11/5/2026 12:22 PM, Ian Rogers wrote:
+> On Wed, Nov 4, 2026 at 5:47 PM kernel test robot <yi1.lai@intel.com> wrote:
+>>
+>>
+>> Hello,
+>>
+>> kernel test robot noticed "perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU.fail" on:
+>>
+>> commit: 31efbec2161d2d31b020b086958e41f35f070a38 ("perf vendor events intel: Update sapphirerapids events from 1.39 to 1.40") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+>>
+>> [test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
+>>
+>> in testcase: perf-stat-tests
+>> with following parameters:
+>>
+>>
+>> config: x86_64-rhel-9.4-bpf
+>> compiler: gcc-14
+>> test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
+>>
+>> (please refer to attached dmesg/kmsg for entire log/backtrace)
+>>
+>>
+>> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+>> | Reported-by: kernel test robot <yi1.lai@intel.com>
+>> | Closes: https://lore.kernel.org/oe-lkp/202611050912.2cdf1ff5-lkp@intel.com
+>>
+>>
+>> EventName: UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU
+>> 2026-10-05 17:15:24 perf stat -e UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU -a sleep 0.1
+>> event syntax error: 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                      \___ Bad event name
+>>
+>> Unable to find event on a PMU of 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
+> Ok, this is an ugly issue. When we fixed the issue so that umasks of 0
+> weren't dropped, we added new umasks:
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=31efbec2161d2d31b020b086958e41f35f070a38
+> ```
+> ...
+> @@ -1923,6 +1974,7 @@
+>          "PerPkg": "1",
+>          "PortMask": "0x0000",
+>          "PublicDescription": "UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU",
+> +        "UMask": "0x7000000",
+> ...
+> ```
+> The umask calculation is odd:
+> https://github.com/intel/perfmon/blob/main/scripts/create_perf_json.py#L361
+> ```
+>         # Combine the umask with the umask_ext. We don't know the
+>         # width of the umask as we concatenate the strings, removing
+>         # "0x"
+>         if umask_ext:
+>             self.umask = umask_ext + self.umask[2:] if self.umask else
+> umask_ext + "00"
+> ```
+> For Sapphire Rapids the UMaskExt is:
+> https://github.com/intel/perfmon/blob/main/SPR/events/sapphirerapids_uncore_experimental.json#L17422
+> ```
+> ...
+>     {
+>       "Unit": "IIO",
+>       "EventCode": "0x8f",
+>       "UMask": "0x00",
+>       "PortMask": "0x0000",
+>       "FCMask": "0x00",
+>       "UMaskExt": "0x00070000",
+>       "EventName": "UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU",
+>       "BriefDescription": "ITC address map 1",
+>       "PublicDescription": "UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU",
+>       "Counter": "0,1,2,3",
+>       "ELLC": "0",
+>       "Filter": "na",
+>       "ExtSel": "0",
+>       "Deprecated": "0",
+>       "FILTER_VALUE": "0",
+>       "CounterType": "PGMABLE"
+>     },
+> ...
+> ```
+> So that's hex 7 followed by 4 zeros. In the generated perf json it is
+> hex 7 followed by 6 zeros as we concatenated the UMask's 00 to the
+> front.
+>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+> This error indicates that the UMask for the IIO PMU only expects
+> values from 0 to 255.
 
-diff --git a/drivers/usb/gadget/function/uvc_configfs.c b/drivers/usb/gadget/function/uvc_configfs.c
-index 70a1415ea401..78588366f656 100644
---- a/drivers/usb/gadget/function/uvc_configfs.c
-+++ b/drivers/usb/gadget/function/uvc_configfs.c
-@@ -1114,16 +1114,12 @@ static ssize_t uvcg_extension_bm_controls_show(struct config_item *item,
- static ssize_t uvcg_extension_bm_controls_store(struct config_item *item,
- 						const char *page, size_t len)
- {
--	struct config_group *group = to_config_group(item->ci_parent);
--	struct mutex *su_mutex = &group->cg_subsys->su_mutex;
- 	struct uvcg_extension *xu = to_uvcg_extension(item);
- 	struct config_item *opts_item;
- 	struct f_uvc_opts *opts;
- 	u8 *bm_controls, *iter;
- 	int ret, n = 0;
- 
--	mutex_lock(su_mutex);
--
- 	opts_item = item->ci_parent->ci_parent->ci_parent;
- 	opts = to_f_uvc_opts(opts_item);
- 
-@@ -1157,7 +1153,6 @@ static ssize_t uvcg_extension_bm_controls_store(struct config_item *item,
- 
- unlock:
- 	mutex_unlock(&opts->lock);
--	mutex_unlock(su_mutex);
- 	return ret;
- }
- 
--- 
-2.55.0
++ Zide, Luis
 
+According to current uncore driver, SPR IIO supports the extended umask
+field which locates at bits [50:32], so the UMaskExt data of
+UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU looks correct. I suppose we should not
+or could be very hard to check the valid range of umaskext in perf tools.
+Currently different uncore PMUs may have different umaskext layout and the
+umaskext of some uncore events could be very large.
+
+Currently the Intel uncore driver would validate the umask/umaskext from
+user space. It would be good enough.
+
+@Luis, @Edward, please double confirm. Thanks.
+
+
+>
+> So something is wrong in how we interpret the UMask and UMaskExt for
+> Sapphire Rapids' IIO. Could someone from Intel take a look? Is the
+> problem in the original perfmon event json, is there a different way
+> to encode the UMaskExt for the IIO on SPR or is the IIO PMU on SPR
+> constraining the umask too much?
+>
+> Thanks,
+> Ian
+>
+>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>>
+>> event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
+>>                                   \___ value too big for format (umask), maximum is 255
+>> Run 'perf list' for a list of valid events
+>>
+>>  Usage: perf stat [<options>] [<command>]
+>>
+>>     -e, --event <event>   event selector. use 'perf list' to list available events
+>>
+>>
+>> The kernel config and materials to reproduce are available at:
+>> https://download.01.org/0day-ci/archive/20261105/202611050912.2cdf1ff5-lkp@intel.com
+>>
+>>
+>> --
+>> 0-DAY CI Kernel Test Service
+>> https://github.com/intel/lkp-tests/wiki
+>>
+>>
