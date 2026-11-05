@@ -1,76 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903404;
-	b=POh0gfCfsS4YneE3F8t+Fs//6fFnfnQfKAqMbWP8dzlnIHMyUse87YW4kCWlmnWfpbfn
-	 FlOPZV9iLp55r2mrd9b3VhpbCTC1u4j/CsglyHt18l7Iq9vCl5EWM0BK4xKBI6wkqsDwU
-	 h3sY1ns/ILmjZz2COIekvZttyT4mCU55TOISEJNigva9rePikLRpVfIYfFOs/2/RbDg/4
-	 SwcVyScfGl7/2+uA8sEl9NQS7ahQ6/RWH+8EwX05ItjUvqEz49KT4kbO6QLXpqbqSQVmb
-	 DJ9W7NCwGVI1SrUfFJH16/++pC7EbamfKXEdsty+6k6t7gG7AGzAMPnILxenwsFy00A==
+	t=1793903407;
+	b=nc7Kek4wKJ438pzsLrDrc4NYiW+iNNfnFXv8G+zivArwDmkEAQsiC7IE2eRQ0Tz0zzHj
+	 p4ivHbzr8SbgbK7n3KVPbmsaowzZJerWbJY85inmL+gwSz/eoYQKB0ZTxh9A+K0ViZLHB
+	 sXEmmAfh/9TdB0kxkRVh0fZZCCkrVFBEzgGxqZ590W7CvW2GBheoZcxLGkey6xuKCVPPB
+	 6ioxmsHGrD1W2t/1I9E3bff/XXCY2MQ06aa1mjdqAOD/JHiJosE51ILiaPY4saA8EGhOJ
+	 nqzagSI+V5FxZbWImprWvmE8W1qa4GETqJZcJ9LJ2Hkn7QXNbkHQ9NIPevoCIX3/x7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903404;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-FB-Internal:Content-Type:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=8QAiaS4n20R6Be5/OEFRscYsIl59MRsTRHc5xWVH89k=;
-	b=XKjMKq5Tbz96JtO1p6V6pWj+EEsyMCP3wEkBxlql/GSWppgz+fVf6O/gVXr6d7T2hSiR
-	 WQh+/EC3x8d4pvqAP+kuFiSOeS46e2L1HsHR8O/Dmm36lARYPdp7XHbtpZZfyYI77fXJl
-	 yjKldaIB8BdYIhSfMFuHUNWoqaFG8FPcCSbsdc/A3Vf8aKQTO3Tj1B63tnXSwsVEafoj1
-	 8iEy+p15CUZezJNY6Ys4LdEEiWGm1dl67ciLsTtbqY3WEtJe2jkU4qgebG3Zb0dZE40Ew
-	 TpESz6/vkPxjKdoOFRpAQ+F1yexldG86/7IP2Ji9A7UdQuWLoVoDcFgOtLTzVLuSmcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903407;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=dKAVEUZfk/rWKWdFpJ2rZqQA7SNePVsYzwAVLNjYZck=;
+	b=1dClCLmyVfXsrUq7TiWQT0geHcW2zDG3HPd6c8Gc6R5lAXp8/5Usmb3rYJJ58Ah6Dqhn
+	 iBBMF8B71IVQW84tPET1GXSpar9zWpoIVXnPaX91Ufv/18YRSGZV1Q/mmD22oEjjvqoBp
+	 BGpU1XKMYWXCDZQr+NxFu+Dmc62Hwj0ucz3H2P2qSrndy+pefFkfu/rngo8UGByvfOsO/
+	 lCM22oHKQ1PSwbR8j2qbvUJHU8QG/5xCwje914K9ZXMieIhDPssIqsgZlVX2Rn6xXFHft
+	 t9PkRC2tShv2nGz0K5tRW45oS9lTddaW7aSjEBomk/w5z1CvJqnDzicOiiDEkZORszw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=aMD4140M;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ZvNcjhdf;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=r27LTYuL;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zwAbWFKE;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wANjwfZk;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4BD606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:30:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E4BD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AC0606A32D;
+	Thu,  5 Nov 2026 18:30:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37AC0606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=aMD4140M
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5ITiHU462662
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 10:30:02 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=8QAiaS4n20R6Be5/OEFRscYsIl59MRsTRHc5x
-	WVH89k=; b=aMD4140MsfuES1+z6UsommAf5FK3cMfW9MowPfXjn+Fc833WyFtEc
-	ZXapLiZUe0BhDqs8d9xofiizTeAB0brgcn3Y8EszxfjcrGzKiflrF07rKIYj5gl6
-	UZLaTHrneXO5LO0g5gDAKtqq49B8YBgi0fOcHUHXuQlDQz5juWq6z9kRT0BQOzwc
-	o6B31gj+qZ64RxomZugBEI2N2r4tWERVvhZBkCAHex11UTFOuL73sGnlzAuRUG/i
-	BeE+xgVIX8DBedFH1G7h+2wY8a2p0BxMU3rbKvo010Ox/incAVeTumJoDqAQxbkM
-	D+4af1IMOV98d84k5O/LCg74tv7x6rbGg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hrb4egaep-3
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:30:02 -0800 (PST)
-Received: from twshared8585.02.snb3.facebook.com (2620:10d:c0a8:fe::f072) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 5 Nov 2026 18:30:00 +0000
-Received: by devbig197.nha3.facebook.com (Postfix, from userid 544533)
-	id DD6C72E80C125; Thu,  5 Nov 2026 10:27:06 -0800 (PST)
-From: Keith Busch <kbusch@meta.com>
-To: <tglx@kernel.org>, <bhelgaas@google.com>
-CC: <maz@kernel.org>, <lrizzo@google.com>, <hch@lst.de>,
-        <changfengnan@bytedance.com>, <namjain@linux.microsoft.com>,
-        <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-        <linux-nvme@lists.infradead.org>, Keith Busch <kbusch@kernel.org>
-Subject: [PATCH 1/2] genirq: Add disable_irq_noflush()
-Date: Thu, 5 Nov 2026 10:27:05 -0800
-Message-ID: <20261105182706.3700908-2-kbusch@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261105182706.3700908-1-kbusch@meta.com>
-References: <20261105182706.3700908-1-kbusch@meta.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ZvNcjhdf;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=r27LTYuL;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zwAbWFKE;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wANjwfZk
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 04EC421F91;
+	Thu,  5 Nov 2026 18:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793903404; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dKAVEUZfk/rWKWdFpJ2rZqQA7SNePVsYzwAVLNjYZck=;
+	b=ZvNcjhdfrU5LGt8mvgauc05n6wOXrd1+1eC4mHnmw8h5ZjE3Fn9r+pSBTr0jFI+xokFrsj
+	Os84xtP6ACgRJ9ALub7zBiuHTZpGqfA9qlO7rFk59x4X/7uCkwibR1Ke9WZ2+NF2+w1kJu
+	szLZaXHN9deh7RlTRCZGFMG32Eoee4Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793903404;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dKAVEUZfk/rWKWdFpJ2rZqQA7SNePVsYzwAVLNjYZck=;
+	b=r27LTYuLApuUZfuzQ6+fx6km1uDQ0FeC3rUoztkaJUrQzyKBY2qngAKGl1d4L6xnpemcX6
+	xXblI7LGBqHSxoBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793903403; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dKAVEUZfk/rWKWdFpJ2rZqQA7SNePVsYzwAVLNjYZck=;
+	b=zwAbWFKELyEKdGdXvEYyP5tO7oUnDv8gC1yBYgRyLdyfNJ5U4ECHbXeH0TYKv4x7saofup
+	4wD5kr+s1fgQnrK/MegCRLY7JBb04qisZMn58hITZNbM7pZIGPRdqCzEWJLaQJXnrJ1Pwa
+	CKf/ifUyGclcQx9USz7ua53xHXwDab0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793903403;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dKAVEUZfk/rWKWdFpJ2rZqQA7SNePVsYzwAVLNjYZck=;
+	b=wANjwfZkAy8hG8vOHw6ygHEucy82GZZG3TndWS2/FRkMlhY7B70k8g85GmyQDj/cTxBq9q
+	uwnvL9d+gCVBd9BQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A6DA1133F6;
+	Thu,  5 Nov 2026 18:30:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id koUGHyrL7Gr1IQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 18:30:02 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 325C8B820; Thu, 05 Nov 2026 19:30:02 +0100 (CET)
+Date: Thu, 5 Nov 2026 19:30:02 +0100
+From: Jan Kara <jack@suse.cz>
+To: Jianping Liu <frankljpliu@gmail.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, frankjpliu@tencent.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: fix soft lockup while shrinking the extent
+ status cache
+Message-ID: <rszreimkiwsu3yrksfrjvalosmvhsybnfrabups7dv2jfmrkdc@qvzzx3sw67rp>
+References: <20261104033539.3031910-1-frankljpliu@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,178 +112,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-GUID: _FTx8M8_Bo8XoAhyTeXfmL28dSDOWI5Q
-X-Proofpoint-ORIG-GUID: _FTx8M8_Bo8XoAhyTeXfmL28dSDOWI5Q
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3MyBTYWx0ZWRfX30MGNgaOOG5C
- JtgFZe6ILH6L2Sb22OJOBwjhuwaSQVg5M6qT4y7wvaF4fgiQXMK8aiviUCoYslAr0xHRU0aMTUe
- J/T8heDVaA6f9MII0Vc/lX3AOJS1Lzo=
-X-Authority-Analysis: v=2.4 cv=DJ8acCNb c=1 sm=1 tr=0 ts=6aeccb2a cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=tpM8CJlwf7uhpglF1g9U:22 a=VwQbUJbxAAAA:8 a=aOCmZ3BWbme0XkIVnlwA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3MyBTYWx0ZWRfXxI0LrnMqQsY2
- +Sq9B66YrF3gPZKhF3fydu7aF2E4sAj79jNNQV42NbbQ4jmjpJyMqSI7RUjAdwm5voLh+7PvtsU
- QsT17WEg1fhcrin0v/xCQqlDu6fqDpH4Jccu3GYpnAJcDR3SlA7G4myhDVrcXUXjy6Me3vv6saF
- KN6tg6xUa4cSlZwsVXiIxb6OaIGxp/YtmEb8wYXMj95f9LlHxd0lW95WJd/3R6Rkf/RvbOhEscl
- qvyhw2E4dlVrA+TD1N6JobEKH/NDOWZ0EoS/13JxO8s+08ug68y71lp0fcgimzzDNHlxQtBHg9z
- r4yBXqRJd1KWaCsm+hpeHGzHpgpVC8f1ahHy4yZ3bJNPuVhYqctidHsbIAAN0BKhpJXdRexIBaQ
- SJc+V0EwwSuULqfut3MkTEyn41iQkKC3a4qjzFSx+jrF13L97gsyKZ4IlEBX9uOFJeOXNHwj+9E
- e43P96bvphZg3etqb3g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104033539.3031910-1-frankljpliu@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,tencent.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email,tencent.com:email]
+X-Spam-Score: -11.30
 
-From: Keith Busch <kbusch@kernel.org>
+On Wed 04-11-26 11:35:39, Jianping Liu wrote:
+> From: Jianping Liu <frankjpliu@tencent.com>
+> 
+> __es_shrink() walks sbi->s_es_list and reclaims extents from each
+> inode. On a non-preemptible kernel that walk never gives up the CPU.
+> 
+> There is a soft lockup report on our company's machine. The machine
+> with millions of active inodes, 256 CPUs, and heavy memory pressure,
+> concurrent shrinkers run too long.
+> 
+> i_es_lock is dropped after es_reclaim_extents(), and s_es_lock is not
+> taken again until the next inode. When nr_to_scan remains, call
+> cond_resched_tasks_rcu_qs() before continuing the scan.
+> 
+> cond_resched() does not report the RCU quiescent state needed here.
+> It is compiled out when CONFIG_PREEMPTION=y. Otherwise it schedules
+> through preempt_schedule(), and RCU records that switch as a
+> preemption. An RCU-tasks read-side section ends only at a voluntary
+> context switch, cond_resched_tasks_rcu_qs(), idle, or return to
+> userspace. The helper reports that voluntary quiescent state and still
+> lets a non-preemptible kernel reschedule.
+> 
+> Changes from v1:
+> - Delete time out logic.
+> - Change "cond_resched" to "cond_resched_tasks_rcu_qs".
 
-Drivers that switch between interrupt and polled completions don't need
-the mask write flushed to the device; the disabled state already
-keeps their handler from running and a late interrupt is replayed on
-enable. Add an optional irq_chip::irq_mask_noflush() callback, falling
-back to irq_mask(), and disable_irq_noflush() to mask through it right
-away rather than lazily.
+These three lines belong below the ---. Otherwise feel free to add:
 
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
----
- include/linux/interrupt.h |  1 +
- include/linux/irq.h       |  3 +++
- kernel/irq/chip.c         | 31 +++++++++++++++++++++++++++++++
- kernel/irq/internals.h    |  1 +
- kernel/irq/manage.c       | 21 +++++++++++++++++++++
- 5 files changed, 57 insertions(+)
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
-index ee2dd5349697d..6cfa1f8f3d400 100644
---- a/include/linux/interrupt.h
-+++ b/include/linux/interrupt.h
-@@ -233,6 +233,7 @@ extern void devm_free_irq(struct device *dev, unsigne=
-d int irq, void *dev_id);
-=20
- bool irq_has_action(unsigned int irq);
- extern void disable_irq_nosync(unsigned int irq);
-+extern void disable_irq_noflush(unsigned int irq);
- extern bool disable_hardirq(unsigned int irq);
- extern void disable_irq(unsigned int irq);
- extern void disable_percpu_irq(unsigned int irq);
-diff --git a/include/linux/irq.h b/include/linux/irq.h
-index f485369b1b4f7..3a428dad6666e 100644
---- a/include/linux/irq.h
-+++ b/include/linux/irq.h
-@@ -455,6 +455,8 @@ static inline irq_hw_number_t irqd_to_hwirq(struct ir=
-q_data *d)
-  * @irq_disable:	disable the interrupt
-  * @irq_ack:		start of a new interrupt
-  * @irq_mask:		mask an interrupt source
-+ * @irq_mask_noflush:	mask an interrupt source without flushing the writ=
-e
-+ *			to the hardware (optional, falls back to @irq_mask)
-  * @irq_mask_ack:	ack and mask an interrupt source
-  * @irq_unmask:		unmask an interrupt source
-  * @irq_eoi:		end of interrupt
-@@ -505,6 +507,7 @@ struct irq_chip {
-=20
- 	void		(*irq_ack)(struct irq_data *data);
- 	void		(*irq_mask)(struct irq_data *data);
-+	void		(*irq_mask_noflush)(struct irq_data *data);
- 	void		(*irq_mask_ack)(struct irq_data *data);
- 	void		(*irq_unmask)(struct irq_data *data);
- 	void		(*irq_eoi)(struct irq_data *data);
-diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
-index de754db414d1d..28285d7274e69 100644
---- a/kernel/irq/chip.c
-+++ b/kernel/irq/chip.c
-@@ -399,6 +399,37 @@ void irq_disable(struct irq_desc *desc)
- 	__irq_disable(desc, irq_settings_disable_unlazy(desc));
- }
-=20
-+static void mask_irq_noflush(struct irq_desc *desc)
-+{
-+	if (irqd_irq_masked(&desc->irq_data))
-+		return;
-+
-+	if (desc->irq_data.chip->irq_mask_noflush) {
-+		desc->irq_data.chip->irq_mask_noflush(&desc->irq_data);
-+		irq_state_set_masked(desc);
-+	} else {
-+		mask_irq(desc);
-+	}
-+}
-+
-+/**
-+ * irq_disable_noflush - Mark interrupt disabled and mask it without flu=
-shing
-+ * @desc:	irq descriptor which should be disabled
-+ *
-+ * Like irq_disable() with lazy disable turned off, but the hardware may
-+ * still deliver an interrupt after this returns. The flow handler deals
-+ * with that the same way it does for a lazily disabled interrupt.
-+ */
-+void irq_disable_noflush(struct irq_desc *desc)
-+{
-+	if (desc->irq_data.chip->irq_disable) {
-+		__irq_disable(desc, true);
-+		return;
-+	}
-+	irq_state_set_disabled(desc);
-+	mask_irq_noflush(desc);
-+}
-+
- void irq_percpu_enable(struct irq_desc *desc, unsigned int cpu)
- {
- 	if (desc->irq_data.chip->irq_enable)
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 703a062be8783..7995970babb77 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -101,6 +101,7 @@ extern void irq_startup_managed(struct irq_desc *desc=
-);
- extern void irq_shutdown(struct irq_desc *desc);
- extern void irq_shutdown_and_deactivate(struct irq_desc *desc);
- extern void irq_disable(struct irq_desc *desc);
-+extern void irq_disable_noflush(struct irq_desc *desc);
- extern void irq_percpu_enable(struct irq_desc *desc, unsigned int cpu);
- extern void irq_percpu_disable(struct irq_desc *desc, unsigned int cpu);
- extern void mask_irq(struct irq_desc *desc);
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index ec3ecb0e48cec..152dabea3102b 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -706,6 +706,27 @@ void disable_irq_nosync(unsigned int irq)
- }
- EXPORT_SYMBOL(disable_irq_nosync);
-=20
-+/**
-+ * disable_irq_noflush - mask an irq without flushing the mask to the ha=
-rdware
-+ * @irq: Interrupt to disable
-+ *
-+ * Like disable_irq_nosync(), but masks the interrupt at the chip right =
-away
-+ * instead of lazily, and does not flush the mask write to the hardware.=
- An
-+ * interrupt that still arrives is held pending and replayed by enable_i=
-rq().
-+ * Use this when an extra interrupt is cheaper than flushing the mask, e=
-.g.
-+ * switching from interrupts to polling.
-+ *
-+ * This function may be called from IRQ context.
-+ */
-+void disable_irq_noflush(unsigned int irq)
-+{
-+	scoped_irqdesc_get_and_buslock(irq, IRQ_GET_DESC_CHECK_GLOBAL) {
-+		if (!scoped_irqdesc->depth++)
-+			irq_disable_noflush(scoped_irqdesc);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(disable_irq_noflush);
-+
- /**
-  * disable_irq - disable an irq and wait for completion
-  * @irq: Interrupt to disable
---=20
-2.52.0
+								Honza
 
+> 
+> Link: https://patchwork.ozlabs.org/project/linux-ext4/patch/20261028061628.1209508-1-frankljpliu@gmail.com/
+> Signed-off-by: Jianping Liu <frankjpliu@tencent.com>
+> ---
+>  fs/ext4/extents_status.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+> index 018b6146b9d8..62346eaf4350 100644
+> --- a/fs/ext4/extents_status.c
+> +++ b/fs/ext4/extents_status.c
+> @@ -1721,6 +1721,16 @@ static int __es_shrink(struct ext4_sb_info *sbi, int nr_to_scan,
+>  
+>  		if (nr_to_scan <= 0)
+>  			goto out;
+> +
+> +		/*
+> +		 * Report a voluntary RCU-tasks quiescent state before continuing.
+> +		 * cond_resched() is not enough: it is compiled out under
+> +		 * CONFIG_PREEMPTION, and otherwise switches via preemption, which
+> +		 * does not end an RCU-tasks read-side section.
+> +		 * This also lets a non-preemptible kernel reschedule.
+> +		 */
+> +		cond_resched_tasks_rcu_qs();
+> +
+>  		spin_lock(&sbi->s_es_lock);
+>  	}
+>  	spin_unlock(&sbi->s_es_lock);
+> -- 
+> 2.43.7
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
