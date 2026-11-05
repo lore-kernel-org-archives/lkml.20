@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872843;
-	b=uO1CIpmV5L6utGfBTzDCbbKC2mIkAeVHo3+8IH1tf87UTILYpcrNHhnifSxTdW8w8UQf
-	 Sv+octsD2GyKORGcJoDPIZIzKpiVlKjQWD6C7FdJuVnAne07i6EOYuqgYCjD4CrzhO4QR
-	 J3ySU5LTtZPJ05L3ujSO0ALug7Vog5VJOPpYlhEh9dnG4wB+x3VtYRZxC862d4odTY2Xl
-	 auFgd36Gb0zkWl1kDVlPt7RCDH80ZTxF+BxR0dEyojg+VqXSNvQ6DnFw4mQiyfb/Ob9bX
-	 K9HytTfEUHC39cIIIwEplzl7xowjAzr2lupbgwbGex/Q7IZfdislBR+FLkwGtaw2Nxg==
+	t=1793872840;
+	b=DgOu6aldr3yj9F0WWiD078QQiISSQ1gemiMqRBMOP2dOcXCJ2CFWbT03DkL+ShUEOPDt
+	 83TO4o0LJRapRJ5QcJymf/SxIt5v+xBhprFCj3FTRITvSGxl3XKV7CqinIzoVV29lG2TW
+	 Ox576Ja/vULQc4poB0xYtLSeF2nUXkoRbMoTSFQmTyYYq58hczbQo6hYGfEiibRnya4gb
+	 dTzqjbX0LztWR4X3fIXNSCzS9rOydX+bIFn23JYtblhxICX3WbPUwmBL3Qlg+1F6beExd
+	 ZSZ+S5uEXdAmhFci5JQEIzQTceeTRNvyOrvazIS8Xg9QVapRbCLimyLM63Jaya58K2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872843;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=9gWIZ556XELV/JZHPdAe42L4BaKxg02n4+cgVq+thzI=;
-	b=QF5uB6gapw0vvkAWpHczZWxDJJ49KnIS8T8tYQF4mcQoeeGzCAyPfhgn5c1BNq7x5LSu
-	 XC/M4ExhfzeFMrm2JUbmC64xJBxxWf4QWPuxoD0NptYr4C+3KplAaHJMMtBX13QmeooBs
-	 u3BP0dlS9Dkxtv4TaoGzPtDrYDBSXpM9RH8/JF9iqVm6HmFb54bGD3djlL3QhvN2VXIEs
-	 vq+dPWB7JzuzzgbWUr5R9O4H61ibujGSlwDiP5R/XTguBYoKv0ts/0x/lZApTypgR8/7A
-	 BjS3yq+8gkmmYJD5jy8LY7DdjB4Nyb/q8wHuK29VuN+2BA8CfUbXw93U6I5E+FqgmGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872840;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RGrCpm98nfFc36ckFB0Am9EO9qX6FTFJ6f1d4Ty4H3M=;
+	b=V0BVgRYKP01fmC4zApPumkNJO0Eupi2JlK3m3s1R7pzTRycxzzvGVVhYKY/2e0tw3yVp
+	 t2Ci60Ydmro1IvbItWwgd/iN74VM5fXfANF+YwEnNDVH6lpWGPRWSD3FWLzTvZkYXx4R5
+	 PwixIbt2rZGqgkpa0T7TXm6HGTj7aHjOWEqV0xVqmr+IB+0DWDbxVYRohQiaiF/m0U1ll
+	 d3jSC7c2h1my9m1xCpMbGMOLxmHwgM1NiTer4+dFaGFYykKSnuLYyhnnMKEyBpw1ETCC+
+	 nIuG/dmgOuvHRtvmxvQOQ9UNTU6TdzNNSukR1MxYkzOBEI9IezAI9r8FCZGM7F9eStg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PBJmRi5k;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUDo1t7x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBADE606A339;
-	Thu,  5 Nov 2026 10:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBADE606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409AB606A328;
+	Thu,  5 Nov 2026 10:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PBJmRi5k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793872843; x=1825408843;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Z2H65UprW7zW8X/iim3pTFZF4OSbKQfsuukCJNwgJ8k=;
-  b=PBJmRi5krXwXp/lWwIejtxGkwqeeUujHhzM4QhFGH4/9OVKYOGoy/FJY
-   GUwltGtFuD6ddm9NsUfJJmssn/VDuufi0IpkSIP/cINhOX0drNHriJsE8
-   YmmRSCHusbUXof7dh9MWDGQ3f6Zs0W1wuduDCWeDoTJh/001zjwQvkZ/r
-   ogbGV7QAVkaf7vZqAH8U8gYtHYJA4cuT6YGeahY/vJJ4ybjOJe9fYHohs
-   kRxAhg84cZICsgOtvfWfRjVsAAqQNuXrMnj7WiBlnInc+EkGTo2rfPnQ1
-   69z/oKXB5D1ooFYrR5TZ7lpHNhuPhlTTkBDW6+cJqGjsczZkmSmxdevkS
-   w==;
-X-CSE-ConnectionGUID: el5fV4B6Qt2d23gnI1aq5Q==
-X-CSE-MsgGUID: S1U+r8aLTLiX7xYibPZC8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2669792"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2669792"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:00:42 -0800
-X-CSE-ConnectionGUID: Ryrj45DQTF6F9fytzqA4ug==
-X-CSE-MsgGUID: CDdCSctqTauHKpXvMmTb7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="6862765"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.182])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:00:37 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3CC51121B97;
-	Thu, 05 Nov 2026 12:00:48 +0200 (EET)
-Date: Thu, 5 Nov 2026 12:00:48 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 1/9] device property: fix fwnode_name_eq() for empty node
- names
-Message-ID: <auxT0Av4jDvcIGBS@kekkonen.localdomain>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUDo1t7x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1A81F000C1;
+	Thu,  5 Nov 2026 10:00:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793872839;
+	bh=RGrCpm98nfFc36ckFB0Am9EO9qX6FTFJ6f1d4Ty4H3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bUDo1t7xw8a83rTXWT21nRyRGLwNZUd8Dp4TB6RBQN7XdDXprEUGdVgLXDQONY/Cv
+	 S2yeNKkiAmoO1aRdGAyozxT0tcGfC42be3IeZAEpFF3kyRiE6+VOaPAIGlunc2xmZ/
+	 gJjQw+E8lxM/hDVylWGVUv2c+F7gSHqKGGozOjFeK5OaUF10QXUBSfNsSQh569z6+e
+	 nvi6qn+NBzaUiY0ylV48nmC8XNr81hb6xLwtsCu4wdbbO+0t6ySGZFhPxjpQPvoG2s
+	 +E5y3O+JNhI9o9nl8EvRmgMyn416AYrW9c2ChA0xCqlnr/kV9+16xM1q1vB49H5Ht6
+	 5GS1Y3dpRgw7Q==
+Date: Thu, 5 Nov 2026 11:00:34 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+	akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
+Message-ID: <auxTwrKCeg7a3hfY@localhost.localdomain>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,58 +61,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
+In-Reply-To: <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
 
-Hi Bartosz,
-
-On Wed, Nov 04, 2026 at 03:03:43PM +0100, Bartosz Golaszewski wrote:
-> str_has_prefix() returns the prefix length on match and 0 on mismatch,
-> so the mistmatch case can't be told from "empty prefix matched an empty
-> string". For instance: the OF root node's name as returned by
-> fwnode_get_name() is "" and will return 0 for any name matched against
-> it and since len is 0 too, fwnode_name_eq() will return true.
+On Thu, Nov 05, 2026 at 12:07:45PM +0800, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
-> Do what OF code already does in of_node_name_eq(): check if the length
-> of the expected name matches the length of the actual node name before
-> comparing it.
+> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+> during the first MPOL_PREFERRED_MANY allocation attempt even though
+> the caller clears __GFP_DIRECT_RECLAIM.
 > 
-> Fixes: a9c8c738066b ("device property: Add fwnode_name_eq()")
-
-Is there a need to cc this to stable? I'm not sure if anything is affected
-there, probably not, but it's hard to be sure.
-
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/base/property.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Pass the caller's GFP mask through the helper so CMA respects its
+> reclaim constraints when trying the preferred nodes.
 > 
-> diff --git a/drivers/base/property.c b/drivers/base/property.c
-> index 51109794d7275ddaf4571584d0e77d8573ebb475..a97575ff9199004b4f401f432aed6c95e40d0c25 100644
-> --- a/drivers/base/property.c
-> +++ b/drivers/base/property.c
-> @@ -700,7 +700,7 @@ bool fwnode_name_eq(const struct fwnode_handle *fwnode, const char *name)
->  
->  	len = strchrnul(node_name, '@') - node_name;
->  
-> -	return str_has_prefix(node_name, name) == len;
-> +	return len == strlen(name) && !strncmp(node_name, name, len);
-
-I'd test strncmp() first as it's more likely to return faster. I'd also put
-the variable on the right side as that's the typically preferred order,
-i.e.
-
-	return !strncmp(node_name, name, len) && strlen(name) == len;
-
-Either way,
-
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
+> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+...
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -933,9 +933,9 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>  	return __cma_alloc_frozen(cma, count, align, gfp);
 >  }
->  EXPORT_SYMBOL_GPL(fwnode_name_eq);
 >  
-> 
+> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
+>  {
+> -	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
+> +	gfp |= __GFP_COMP | __GFP_NOWARN;
+
+Do we really need __GFP_COMP | __GFP_NOWARN here?
+It is my understanding that all allocations coming from hugetlb are
+handled with htlb_alloc_mask(), and that should already provide
+__GFP_COMP | __GFP_NOWARN.
+We might have needed it when cma_alloc_frozen_compound() constructed its
+own mask, but not it gets it from the caller, and that should have been
+done via htlb_alloc_mask() up the chain.
+
+So, any reason to have it here now?
+
+ 
 
 -- 
-Regards,
-
-Sakari Ailus
+Oscar Salvador
+SUSE Labs
