@@ -1,68 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891218;
-	b=WgI0OcO1NIXSm6FAHKG6X8/rrbesDssU4/hK3Bd1CQiUX1oM5/P+9Y12QCYHu03IsqKg
-	 ty3cYRsSrwMY6PWAwRBQoNi9XTF/iYeHNWdrszZrFfhWvWth2J0tu51cwq94HBOBbo2Nl
-	 OAOKfn3k2I47aZHY2XKM51SWWYYaPOHD1sHAvkdXmfpiKfEsTYkArd0DwbAKnXNgyeSC4
-	 S4/bWLLejVHk4fOEZc7CxTR+on8nNyAfk5nqlc6cmF6hJtRv6Vhy8pIoyamdHuKNdni94
-	 sOqVi+V3eUoreYOUQLa8AX1EN1mEPibyGaf2y7H31RNloH6VZ6Yyx2kof4CtlfJb06A==
+	t=1793891234;
+	b=abQ18rnNmeEroNuNELKcWnGMA88f2bjeQA4TblR8kXbXJsYDsb0AxMwZvm+uzdq8H6ee
+	 y1FB6KiHp3E5ApiRPuJeSxgGtrvThU+UzVWNsZMfioGAvvlWHJP29HGYRfl5EZFOXLwOV
+	 /YPRnGL2d7EFOPMLax6+r14WdCGUQJ4JLxu/7DH0BGlCELgnjbB6g2izwkJeTLcRBuYtm
+	 yNw4A5LgTPKu8SELvb/5PpBGfCuCIqZUX979KjVKzGAu6rGs31FsAu+F/fGdZqSE/m70a
+	 WUUWlYytSkpte4ezmRfd/BbNPrjqA8r8QceMkhjTUxxE2oTZfNeYbbChe222gPkjyBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891218;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6cAL6r8QQzEft1u86gabuPPWB/y7spYhNu37XkYd50Y=;
-	b=o1g+oA99iaNoVT47gPUnZ/28ep62i3m0pMVaQdCZvZ6IkihH1tVMMApjRMjKXT93KEor
-	 vRJUN45HlrSMq/bMAs9WZFHUeii8YjJ8KGGecGLQPM7N1loFSx38TnzTR07bB030LcPnd
-	 vEpeXUBOTZFXN03EADyahQ0PSpPoZe+2hC8HuF8/Q5PsQH/mT2P01oG669B+VSB/myayt
-	 Fjp87BxCHvRrBvJjXP5LjUJadVNhSynVa/rJg0oCo8G5iYcDsyeSRnEiiKyNYuEWd6Nu+
-	 f4wm+r53Mjl+WkpoRp9pBPCELIzH5ScFhBJ7pjh9ETLkDpg6M4UdwY39WAs1ikxTnWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891234;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6LZ+1+Vvz+jfm5vRHAeunaTxWBAAAXS8a4MaB1JvOmw=;
+	b=w/w0qJg8Gs7JYDrR3OO+XkqNx+G55sY7iVX+AElkcAk0EsHye9ct8BPC8wSazfv/kagW
+	 laWRsgrv08ExSkFQ2oZQ0ntJR+VwCItmRDME/2KHz4k6+RXYerrhqY0wDz0nPYGOwH6Hl
+	 2MbAZJH3PcybgSQ/+R9mZFYkV1TXlEYU54cdihtNDlr9TXuMq10dh/GT/i3cGkvdLHPF7
+	 fd2WSiR9QYa2r45uezsxf/YrcxfndSzsxELUWIMfc8kSWrluquW7vAayc+JYaqJzwqaz8
+	 qXW+WfCPaD21ptJ/a9eBbMLM4PMSmB2qw4m0xhy3ixTWZht5NMfHIV5AzkSV96VnIcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HrgQd/ds";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GD5p0u6J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32934606A326;
-	Thu,  5 Nov 2026 15:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56420606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:07:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrgQd/ds
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408551F000C1;
-	Thu,  5 Nov 2026 15:06:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GD5p0u6J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B681F00A1B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793891217;
-	bh=6cAL6r8QQzEft1u86gabuPPWB/y7spYhNu37XkYd50Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HrgQd/dsCi3Ma85IVLzL4vude7xoT3QcW99egomnDZI+mvhtw4zYEoaL/XC6TfkAD
-	 YFhWRebOvNYFFM0Nm1G7ScUXQEj5IpIEOE7P1t7sUjWvTNPN0yKgKQj4trYAxqb5MG
-	 bM3aYiGGcnP5g17JXXZHqQmG1PJWzkdehDQSKf4kq20OwgvjeUqKgZzpYzpjuvTLM4
-	 FyNHRYO8N93jN/B0f4LQv4qrrMd87Cnr7uNJcR37atuX7Pdu0xUmdgmqFjzWtj5uJd
-	 9ajpURToUXg0OTVxqnJep8adfqCMBdemBzf/MvWV6S3wJahbVoesgfcbleyHRkrmVc
-	 Q2aObvhIA4yRg==
-Date: Thu, 5 Nov 2026 16:06:48 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auyZMjHue2lUzOT9@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
- <auyOkL1Vb1iKicS9@devuan>
- <auyV47xUCr1EJ7A3@ashevche-desk.local>
+	s=k20260515; t=1793891233;
+	bh=6LZ+1+Vvz+jfm5vRHAeunaTxWBAAAXS8a4MaB1JvOmw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GD5p0u6Jseapx+w+38qghF/bxRs/L8q4opQu6FB7+4aFCDyJUWDg/stoFH7v+Zuzh
+	 FwX/xd9Lw4PkbjplDNow/MwokktVQMCMD4J7OuqP+19Ou83wnaXIzD+3zwVqQHm8mB
+	 63w6mEKeV5f8UcMwHxMZSIbxSSqQp3GRKNlyhiSigCECj7HUQIvcmhxBbuQEKIFh5U
+	 QiAgL3de6CPWo7S6R9IvfyPgAgfFkwFYvNkMScBM/furgvFJPBEXHkpDFL/rY0lVTX
+	 +umoa5XA2vTXys+cOkMDbG1Kiyd2X4vVmhth7Z9PsUSQ53k/Qf1fsBNju40h7KgsT4
+	 nFxkJpbwXVe8A==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b429f71dbeso196411a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:07:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzgU8WWGeUh06g9Om4C2ulrL2bLecm6KWjrogbpX3+biIgC+NiFYIoL98JWNiS24AnLwqziuLXx1i5CtLY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lI6E+FqC1fX6v6dcOxSY6Uah8UEvPO0VQhUl5tD6JMsMy++22
+	IdazvyNY2tbSu0HfNI3zpk7JJet5N179428KJwECdUvbtb8ge0wIpBwl2dVJvnDsWG2IpyQBMF9
+	o0WMNHXSXdeUVNGMoRM1uShoUUsU3lNM=
+X-Received: by 2002:a05:6402:27cb:b0:6b5:685a:aa29 with SMTP id
+ 4fb4d7f45d1cf-6b5685aabaemr3342720a12.30.1793891232594; Thu, 05 Nov 2026
+ 07:07:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,140 +59,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="63nmargg22lh3d7z"
-Content-Disposition: inline
-In-Reply-To: <auyV47xUCr1EJ7A3@ashevche-desk.local>
-
-
---63nmargg22lh3d7z
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20261029172956.20791-1-dongtai.guo@linux.dev> <20261029172956.20791-6-dongtai.guo@linux.dev>
+ <aux9Hm0QFJLUDPWv@kernel.org>
+In-Reply-To: <aux9Hm0QFJLUDPWv@kernel.org>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 5 Nov 2026 23:07:01 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H7Dsnz03iXChzE6nYM2cs+D6fdDFiWrDxX5jM13kYL6HA@mail.gmail.com>
+X-Gm-Features: AclHuK-7ZT562FqR8Q8-CsL50vorYou5ohB9VqtWfcaV8ssgwEH9NV-xDdP2-NM
+Message-ID: <CAAhV-H7Dsnz03iXChzE6nYM2cs+D6fdDFiWrDxX5jM13kYL6HA@mail.gmail.com>
+Subject: Re: [PATCH v6 5/8] LoongArch: Allow memblock arrays to resize
+To: Mike Rapoport <rppt@kernel.org>
+Cc: George Guo <dongtai.guo@linux.dev>, pasha.tatashin@soleen.com, pratyush@kernel.org, 
+	ardb@kernel.org, shuah@kernel.org, ilias.apalodimas@linaro.org, 
+	akpm@linux-foundation.org, baoquan.he@linux.dev, ruirui.yang@linux.dev, 
+	guodongtai@kylinos.cn, kernel@xen0n.name, graf@amazon.com, 
+	liukexin@kylinos.cn, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, linux-efi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auyZMjHue2lUzOT9@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
- <auyOkL1Vb1iKicS9@devuan>
- <auyV47xUCr1EJ7A3@ashevche-desk.local>
-MIME-Version: 1.0
-In-Reply-To: <auyV47xUCr1EJ7A3@ashevche-desk.local>
 
-Hi Andy,
+Hi, Mike,
 
-> Date: 2026-11-05 16:42:43+0200
-> From: Andy Shevchenko <andriy.shevchenko@intel.com>
+On Thu, Nov 5, 2026 at 8:57=E2=80=AFPM Mike Rapoport <rppt@kernel.org> wrot=
+e:
 >
-[...]
-> >=20
-> > We do this in the Linux man-pages, as it helps me keep track of all
-> > revisions of a patch set easily in mutt(1), without having to follow
-> > links or use more-complex tools like b4(1).
->=20
-> Exactly the same reason on my side to *not* put everything into a single
-> thread!
->=20
-> > > Don't do this. Each new iteration must be a separate thread. Please u=
-se
-> > > b4 to manage patch series.
-> >=20
-> > I won't use b4(1); I like bare git-send-email(1) and git-format-patch(1=
-).
-> > But yeah, I can send them as separate threads, if that's the preference
-> > here.
->=20
-> Yes, in Linux kernel majority of the maintainers (a bit of speculation,
-> I haven't counted, but it feels like this to me) do want separate threads.
-> IIO with a huge traffic is one of them, tty/serial IIRC also does because
-> it's how Greg's workflow is set up.
->=20
-> > Out of curiosity, what's the benefit of having separate threads?
->=20
-> ^^^ See above.
->=20
-> > (Or the converse question: what's the main problem of using a single
-> >  thread?)
->=20
-> In mutt for tracking I often delete the old email threads when they are
-> considered closed to me (or archive, if you wish), I don't want a blast
-> from the past for this. It's like starting fresh on each Monday :-)
->=20
-> > They're morally a continuation of the previous threads, which is why it
-> > makes sense to me to have them as subthreads.
->=20
-> The email thread with big patch-series and discussions looks awful
-> in such a setup (my opinion).
+> On Fri, Oct 30, 2026 at 02:29:52AM +0900, George Guo wrote:
+> > From: George Guo <guodongtai@kylinos.cn>
+> >
+> > LoongArch never calls memblock_allow_resize(), so the reserved region
+> > array cannot grow beyond INIT_MEMBLOCK_RESERVED_REGIONS entries
+> > (INIT_MEMBLOCK_REGIONS + NR_CPUS).
+>
+> This might be something to fix independent of KHO.
+>
+> Huacai,
+>
+> What's the reason LoongArch never enables memblock resizing and why it
+> defines INIT_MEMBLOCK_RESERVED_REGIONS to include NR_CPUS?
+At first we didn't define INIT_MEMBLOCK_RESERVED_REGIONS, then we got
+boot failures on a 128-cores machine, so define it, and the value is
+similar to arm64.
 
-Hmmm, I have some two-or-three-years-long threads (with hundreds of
-mails) in some GCC patch sets, and I find it very convenient that I can
-look at all the revisions in mutt(1), because sometimes I want to look
-for a comment that happened in some earlier revision, but I don't
-remember in which one, so the single block makes it easy to search and
-review the history.
+The reason LoongArch never enables memblock resizing is because the mm
+code is derived from MIPS, and MIPS never enables it.
 
-When I receive patches in the man-pages, I also find it very nice to get
-new revisions as replies, because it bumps the old subthreads next to
-it, and so I can check what I said in earlier revisions, to check that
-it has been addressed (I don't necessarily remember what I said in
-previous reviews, so a patch claiming to have solved my reviews is not
-enough information; I want to compare what I said with what the new
-patch says).
+Huacai
 
-I never archive email, but rather rely on unread mail being the
-"non-archived" mail, and when it's read, it's as-if-archived to me.
-Indeed, the reason is that it allows me tracking the whole thread in the
-same maildir, including relies from now, and old messages from two years
-ago.  I've been wondering for a long time what people do to be able to
-follow old threads with new replies, but I guess the answer is "they
-don't".  :)
-
-But I understand your setup, and can solve this.  I'll send email
-without In-Reply-To, and then can add it manually by editing my local
-copy so that I'm able to keep track of the threads, without affecting
-your threads.
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---63nmargg22lh3d7z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsm4IACgkQ64mZXMKQ
-wqnNTw//e0l8SLoSSAEq44FGq5CdgxEiU+hX1MvBTmDcqSyg3ZcF+OhW5lIp+LiV
-SHXzp/ExBt18TKew7drqU3EmUNgZgwJIMn+FWUyVdBK+JHFujiSfK5HeXqKU07w6
-ks0mB/kNEnG00avAOHh1NiPQMz+XcPc+vgVoBK983iHFUuwSAzBatGH6q3RVc9Cs
-8Pe0Zzr25nerHZEqRAgQYUVq1IvVyVaoyi1c8vhS7ydbHEbg7YOJigKreFj4ycZ9
-vKsHKRYPSQbBxttBZ2nk7mJ42EJU96g60iHHMWk9k5F+QLhvaaHO/fQchRKJBfNK
-FwusnL7hETLZGefhvhrHw+0cysJ2V9KaF/VELCPpPp7jDlbZSC7+sZPx5GQS3Hd9
-/E2oye251dTkYsakY2FYUy/3mZwesPUHOUrWjFBMPvGRj2P84szBEwB5H5ZufkST
-IPxQIaGnWDZ0tRETvpelNq9W8nCFlNgAgSiEOTH+HDWAJDg9uz49KDu16sm0ZA14
-gSNmz3wb2AbsqPfhNstoW6LZZ1SOWJrP6C1dt2gok2UnFc562cb16g99s4JYvCbE
-PdGszPcyM4aOqIFwFQamJKx3WIsEr2KmnDXngWxO4TYUUSPbmt0YAxJRvzV8JMGh
-Dzk4572eLmQlE7B/RvFLPnN8/NTdGQAjqrMYjtIypLzef8QmeuQ=
-=GDM+
------END PGP SIGNATURE-----
-
---63nmargg22lh3d7z--
+>
+> --
+> Sincerely yours,
+> Mike.
