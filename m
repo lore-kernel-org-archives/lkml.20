@@ -1,90 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895796;
-	b=uMhrVS6o7oHcTTuucM/oDPHLR0vqSxa7ndjKNra4q1Des7CiJPqnMsYSyDDvS64dRVUl
-	 uDPJNEZabqB9tq9f1bZxZXxvSaoc6VstaSlAAR3SZR1B09vMGjzagPaFvo1YPj0qedY4O
-	 2i00S76tSIkGn7HiMucg8GoCCrehHTVR/ID/InPqJlhmVKxRhNFHw13pym3fSwkidKazS
-	 OD/Thne1getOVLwwBEHIHZJ3W8RZeBxCpFjQKGHBbQAQvIKMXSU26WWcj15Zc4VdyHYRS
-	 xATMbpbNL/eBJWlsfe9CesUyDxVXuxiAKpI93q3WUIbSm9AIyEfHLMuc6xXN1/2qiWg==
+	t=1793895845;
+	b=qpprrQbUyrVDosGT3kDlf7+hao/54FLAxjcVMP9/FPIx7lyqp1NF+eTeF6PY0xNkoHxi
+	 1KBbDN2KfZYc5fLWZBvoQHXIAzcWiVFi98eqpZPNsMIAGNSCXuPjzHeO6NSSdIPpDhM2g
+	 7cNApbOBk7mA13OK2WNp47nMm+39zem4VQRRPqrebr2aU+Oc20QOSUHaxfOxEw0B9Oeii
+	 4aYbIQnSbtPf6ZeAM9TfhHoo5PaHuV4ofC8aPrpF/+KIw0ZMZVPl7Q/DT8g7LLTVAriAL
+	 +ih6+qXUAZKY/2AZWgXRcqXVM5QxqtqU6SXNzJHIiuHeax5uYpqBk9bbiTzRh0C7pwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895796;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
-	b=RGYz+c631jHaOOZxWDrWwxB5YA2csJxVnF1h/todNsJHajrAb3LxyDSsPdz12bZsJyWd
-	 nNutEPtKSj+dMLcUKCM9op19EsDRYKGQwh/Tlhz3iQ7x4/Ui8dx6cUeS7LoqMi6C4S1Ft
-	 KqGzn5A+suC8h6fOfR3jGPK+Ntji0QolqXbjTArBFqSqE2Rh6qn/MhVS9QlyYNECtKluf
-	 A0OVZu/MYzGz6VfLx2OYmoa8TrpQk6cXJ+7+Acy30b0NIwIbo5bNZJxPKv7txMU28TgAY
-	 h+6VzZkXNOp5/7VVdnYPpSNaQcf84UXmk3Ck9FqMG39yih6utyLPmjR4RYcepW3w2mQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895845;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=YfnetXFivmec/rd5vIT2qFZC+wX/EEPdyDtghpGsOik=;
+	b=IKpmGr1ifGNWUWKi/M/CRpO04E984VoRuCi5MHI5qNbkxmGyyn5306KqHNEtZ++quFsH
+	 9V93W9/s32+x0EvdyFucwoWFXoCNktzz4z8vWN3PnrdLjpJs4HBkI81d1F0AhLdxRBfDR
+	 MjixlWptVPPaeEh8qndo3ekAceCotk+iSgitF2EO7+15M6VnlKwmReAZX+gtbeeYTlHk+
+	 BwwWCSDNhh2LrrEIhDxMk2Mz1oLZTaZ2HFX7UBSJD1vpfoVkZ8OYQ6ex0p/GtQQXhzF0j
+	 jrsUBJGqMTRI0UKrqOo1Ly7NlMiqYdeggx+/uMEq8mV0BttzKSW0LdhOYuL2KTk4rTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=XVtulKYA;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE97606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:23:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECE97606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=XVtulKYA
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso2244136a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:23:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793895793; x=1794500593; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
-        b=XVtulKYA+d2lnkmNdJQPF+3Clphkg793QbmwzgnueMRJxFmHuAGqBTrvq1dDNSXEcT
-         DfU92+Djmg3iL41qbtBM16KqdGI0fAdtr2VrmTU29t76XWf7QW86dZgosRpC9WjLV0qR
-         I9GrRf42uBZj5iZZ2R1AbfZ4vLro4tQe32Lcs=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B71606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:24:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48B71606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4db3db8687fso3099438b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:24:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793895793; x=1794500593;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
-        b=HDNoIjTyMutlbXBR+XS1Mf0mVADCFvvHu4aMuRPUPLWiKuv4Mda94BXrrm4+seuftq
-         6cMybvF5/PIFoFZTKTgUdxlK/WZW8C7hkKKYn5VJ0DjQwnsJ5Ey45fqmMOY67W/Pc/24
-         dqk7jPL2BXob1GiLfQn6poklLy6e6rrOVFzBrbWLYljcPkgxa0He4pV8tX4Z8Bwl8qTC
-         3ARcJM4vEmiIHEmtsutqzY7q7fgbXc0oyiOGep8OYTgLsennt4mRFZcN+2m5x757QeIV
-         80gGJfxe4Od6eyC3hH4Msx7oS4gF/7VW5fq7b/LD50eoduhSBTbSXOi8ITU5G+fY4rGE
-         PKNw==
-X-Forwarded-Encrypted: i=1; AKwUvByGo1y53ueTnuIwx+qVT8qNDpKbfKWgoAeRXtMbPxtgXy9c4CSsb94FuZJ2SoAIjVjHVZKtvdJVveaQHJs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/a6SFgulBxtzCr0KKgWpby3NvcRg9fMKedZHjY8jz8RJudwpO
-	W39+LDSE2TWudIe7oIz/kv83ae9+tf+EF8fRt33o7qM/ZdKvQDD00JT6fLxKPP2hTaBSGZqKbkx
-	KkBJSydI=
-X-Gm-Gg: AYBFou2HTscjcgNnqQOLAz99Ev+sjhgKrxVG59UVooL51wfbA3ctG7koPESrLCATkRQ
-	0eqVLI/ql6NBg2hyyyfFngP1uY39dVTm5+GfGuvsTebATEcBYy645qNsxyf8OL6Kom4ktNzmLlx
-	PdcW0TZVdKAoOhYOrlQE3QIpRbGmwuiq/ajKN54kpWl6VWtzCVx+6aQPgSJXW5uVZ7O/ZC1b+cn
-	dtwr0qvfTSWq6nB2HK4TRMoFbrEO152oTLTXgp4XPbJkELDWoIAP5Slbu1kJ7jfAOB4naSnYsn5
-	6ATuQhUUQiz7TiXLxZlBNZDEtNTyiXNAFYZFn0wNv7kj4I+p3u9EtLTx7qgFkY4W7Z00YqtNIa/
-	JRMJUJncuNSMAiy0raNcPTHRPZI/58LJovyt3bD8rrgHnbKR3gIz+AKPWs4IM75gz3OoF9xUuwG
-	9UAwFjxyPnVclti+0QKCrNZl3TvkscuUwialIJy2/WdoHngtK46cC9zzdJnLk35AS/cIQS6rlMZ
-	vpGfOZcIcgfpoXS6iiRrVBoSb7njcK3TzZVB0VVJgKdQQx3fX1zpGRgWE0FTW5MQkNOtmPbOEo0
-	cOsdkSBpAWRYIHY7lzDcQQ4iFkBqQ7Ed0BhXoW59txImBDkgaYeLpQoh/oLmdp12JjnF2Ra9Cr6
-	G6A==
-X-Received: by 2002:a05:6402:2417:b0:6b5:8247:7bc7 with SMTP id 4fb4d7f45d1cf-6b582477d18mr1582367a12.44.1793895792817;
-        Thu, 05 Nov 2026 08:23:12 -0800 (PST)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac6f120sm1868875a12.26.2026.11.05.08.23.08
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 08:23:10 -0800 (PST)
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b5766b2986so1481913a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:23:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByQjkvfzu+5onsAhpzphUUaJj1hXvUaVYAUWFy+SmTP9URRCoiBb+gGQQztmA+Tq/qlmMJVEsaPXAKOHlo=@vger.kernel.org
-X-Received: by 2002:a05:6402:3899:b0:6b5:76b9:5040 with SMTP id
- 4fb4d7f45d1cf-6b576b95165mr2666079a12.41.1793895788549; Thu, 05 Nov 2026
- 08:23:08 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793895844; x=1794500644;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YfnetXFivmec/rd5vIT2qFZC+wX/EEPdyDtghpGsOik=;
+        b=GnZxjd/jQNYIodangFjKOSD7zNWUU5PAdmuT3ODl1Ut85+YpCQb3IoPqITbNNAN8L5
+         4RyU4SYy5R9oOM/1QoPy9XohiCqKhBKrkSaUSZL8HzV7BIseyyJiah53q1RLOlE38oQN
+         lCKqf4wFl2NV3SFY916b8az5tfii3OA8IJ8hsMDy4vrf+ed2Ga8kAW6ul91WbrPOZ/sJ
+         i016cCpMfYpiNDx9lqk7EZjqvJIouKAOdcYv5JXHiB99GvFZ7sotMIoN9BEOa2n8Iblm
+         Q/SC23iLpLKiwxr4lcYb8KQ8/s6si6j5r20VRejxpTgtNhciyOvMk6WdfJ4FurFQsUM9
+         hCKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwCnjncyTpb6KeQxCH8tlkM7jC30z/hRs9I6+JSTz1ztcsKLqWb7o4oVeBmtG9nEzbKRBzg63vIDPSrWEY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9X/edLjhSqzKZHs6ITVANDM2+NlR0DZBKL/zoVcxwpUkaDUv1/
+	/7RbI7wm102n31A8ZqKMm/ZwHq282BIvNKw+UryzDTFhzpOTgwPhFpw9fnXuXqKv33hY2fdBvKy
+	HK5NJZOncW5GZ1cr4N0aeMy5MfFgbMxLxErwaweS6jLcBekz7dlPus40K4LQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,84 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
- <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
- <auaFhOa5EBz4gJwK@gondor.apana.org.au> <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
- <auqtTjXhD8is-y9f@gondor.apana.org.au> <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au> <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
- <aurJZ81qnbiHH_P1@gondor.apana.org.au> <ausS3LQNkdc6lBy3@milan> <auxDm_YO4oACA_d2@gondor.apana.org.au>
-In-Reply-To: <auxDm_YO4oACA_d2@gondor.apana.org.au>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 5 Nov 2026 08:22:52 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
-X-Gm-Features: AclHuK_lYzOySVnPMTXkh-HXGHC850mf9gNJxZLEPPhkqoVD1gRX0QozBFysw7g
-Message-ID: <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Uladzislau Rezki <urezki@gmail.com>, "Liam R. Howlett (Google)" <liam@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>, 
-	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org, 
-	"David Hildenbrand (Arm)" <david@kernel.org>
+X-Received: by 2002:a05:6808:1691:b0:4f1:7c39:8a7c with SMTP id
+ 5614622812f47-5640df628e8mr13696901b6e.62.1793895844241; Thu, 05 Nov 2026
+ 08:24:04 -0800 (PST)
+Date: Thu, 05 Nov 2026 08:24:04 -0800
+In-Reply-To: <20261105133255.10238-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aecada4.8ef7ab9f.218cc.0031.GAE@google.com>
+Subject: Re: [syzbot] [rdma?] [f2fs?] memory leak in radix_tree_insert (3)
+From: syzbot <syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 5 Nov 2026 at 00:51, Herbert Xu <herbert@gondor.apana.org.au> wrote:
->
-> On Wed, Nov 04, 2026 at 12:11:24PM +0100, Uladzislau Rezki wrote:
-> >
-> > There are users in kernel. For example:
->
-> Thanks for the list.
->
-> > drivers/GPU
-> >     /* Allocate the file in vmalloc memory, it's likely to be big */
-> >     iter.start = __vmalloc(file_size, GFP_NOWAIT);
-> >
-> > AMD-GPU:
-> >     kvzalloc(size, GFP_NOWAIT);
-> >     kvzalloc_objs(struct amdgpu_coredump_ring, GFP_NOWAIT);
-> >     kvzalloc(ring->ring_size, GFP_NOWAIT);
->
-> These appear to be executing out of process context without spin
-> locks so they're not really GFP_ATOMIC.
+Hello,
 
-Historically, GFP_ATOMIC and GFP_NOWAIT have been largely the same
-except for GFP_ATOMIC eating into reserves.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-But I wonder if we might be able to soften that a bit, or add a new
-form, because it looks like the AMD-GPU case at least doesn't really
-care about any kind of "don't sleep", what it really just wants is an
-"optimistic allocation" - try to get the memory, but don't spend
-effort on freeing things if there is not enough memort.
+Reported-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
+Tested-by: syzbot+d60be66dd00b4490fa96@syzkaller.appspotmail.com
 
-The AMD code in question literally has a comment that says
+Tested on:
 
-        /* Dump ring content if memory allocation succeeds. */
+commit:         05441d69 Merge tag 'cocci-7.4-rc1' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=151b7c85580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4361b1bb937ae1c4
+dashboard link: https://syzkaller.appspot.com/bug?extid=d60be66dd00b4490fa96
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=128dfc55580000
 
-so while it's possible that it has some atomicity requirements, it
-doesn't look that way to me from a very quick look.
-
-The etnaviv case looks to be the exact same thing: it is definitely
-called in normal process context (that code takes a mutex lock around
-it all).
-
-So those two cases really don't looke like they are about "atomicity" at all.
-
-> > net/ipv4/udp.c:
-> >     err = bpf_iter_udp_realloc_batch(iter, batch_sks, GFP_NOWAIT);
->
-> This looks buggy in exactly the same way as rhashtable.  It's
-> called under spin_lock_bh, and the same lock can be taken on
-> the softirq path on another CPU.
-
-Yeah, that case is definitely actually atomic and holds a lock. Not great.
-
-Is there any way to limit the vmalloc() case to the actuall atomic one
-and just fail when it needs to busy-wait?
-
-               Linus
+Note: testing is done by a robot and is best-effort only.
