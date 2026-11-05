@@ -1,68 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887325;
-	b=IQr9phMyFpHaHTUx0BXfyjTpnKfEFN5rkHZzqkGxVqlX49BAREjkhvW8f4uWk0OitSbj
-	 mJejqF7ZPOrHjRagk8Txu8NDw3sbaz7C76cSwfD9f2CijBB9BWJ+ls+bfNJA4mMRD259e
-	 /fP9ILPBtcsv+bDjMYKiG2ctdLMKHbtc06Ini4M3OVATWebKzchNYAsHiNMyVhnu71u03
-	 3/TGRTQ4zAvgP20fC4FddgxCS/12U1JGFOYr700Pn3Lm3W0tGRjourAA/OEq0OtFwqSQb
-	 fpABNjuUWjXaz000WwF9SPFb7nSv/4mMOCFEJkO+ofdljEawcGYgIlUmSAMk8rKPzHQ==
+	t=1793887346;
+	b=UwxwXSHyU7ZlNsD1M1KoVL1JlvUcv9vbglheFFa3EMnvc0VOaRJZYwkcdFWv74F01uct
+	 gINvY6x+ayymjJ5aIrXOt4nBGCySsW9oN+F0Ms+pCcehaw3991Cn6l+B63MeX51MjhkSz
+	 4mDhopf+UUKJ5a92Qrxc/C9qsSCMcFcxOttEvbE79urWRvAuws3ECTjfr5y1cto96UAyS
+	 sF3HkceQQFwawPke1ULPh2lZq+YUBGCA0PKK4FqTrO/hvlzopjaeBaI8pknAy3ILsNfQg
+	 kAEFBo0rWVbukULCwANbJejBgYdV7Zq42N5uPWrd6ZX9n57x/+7QyXgH/RA5sKWgNfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887325;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887346;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xsq3HeGsICcD9qR4LeaVPKieAjkKF0z7rahKgx3b78c=;
-	b=M0p9Ysjv5P4s4uAFsqAc4r7YuhXRde3evJ8dfkA5aDWEx0qJe7KVmkIHMiNIXJZnCZWi
-	 9TKm3V6SR6AheBPjuRq89yeOF+uh3V0HlKRP2bto4Czy5894ux9fP142ViM1U8Vxfv4Oz
-	 ulcYzroJLrVr4I3mFgSIIQOAgMtzBKtEPFM7KEQQTcUd3etdZ4Yg6MFQVwNGu++/Z1Mfk
-	 VxQpush+6+lt2/cSHBEmbop2+U8eGOEGryfA4oXf1bjZL+tukuA5n07O5eOu5D2rq1bj5
-	 0BuB4Lj8jfXObYLNk/JTE6UAMnNphE5R08xPC9VFzHb2os4XEqsA5yz1MC73JVUJLeA==
+	bh=IYWGO80spbzXnKRHLjn6hQ6ImazjezIuBJYzl9eOaqs=;
+	b=kHrL6OYb3M/3e0ecZzpXddzghXaU25WS5vQIRLm6BoI1/qKdmQTc5zKPS5ivqPTd6Xch
+	 mBAvYB+9jdalVrfZIjOI1wCS6vbCjiaW0emmHG6BpMpmnyyzl/wagPffuYnRcaj+PGUjJ
+	 Ah+1qMYGoyrDZTMdEzDrMldG1GCP9Duc0Re5KRGMMm0g1hRVp4gedykCjkvQSU/IrjsgV
+	 Hxw6pqUrsYPOphS5mkaQwO8m7kdOg++2NxDl/q6o/SXGOL+Hmxv5d/kr+M1fwNOR8q0af
+	 B99lIb+ZK6EAEKV9r3S4OMCprPE6aZtVEGumpVAMgvVaR49ewIG3kiHIrCzf7qRr5GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCXdsPfc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d/LSzXBS";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE69F606A32C;
-	Thu,  5 Nov 2026 14:02:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E5A19606A326;
+	Thu,  5 Nov 2026 14:02:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCXdsPfc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E023E1F000C1;
-	Thu,  5 Nov 2026 14:01:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d/LSzXBS
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 53D3F1F000C1;
+	Thu,  5 Nov 2026 14:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793887324;
-	bh=xsq3HeGsICcD9qR4LeaVPKieAjkKF0z7rahKgx3b78c=;
+	s=k20260515; t=1793887345;
+	bh=IYWGO80spbzXnKRHLjn6hQ6ImazjezIuBJYzl9eOaqs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VCXdsPfcQokl8f+rjLdNBL+YCFkzVLRKWrFySEE1WMzPl+ktC9vx0bBWrQsN9nihj
-	 tI18V1AdcZLO2Wp4q/XVD+jddiqq8RxzmrwGeZc2I/5xJGlBmc/lzvB9ahZ8wbsrHo
-	 2uxI2T8kn4sNtptex1MZV2ldZjPoTKOBNL315/ys3xnd96b7/OmUqv3SMvRknBUU6n
-	 dlceNP+HUlg47v3tzKlUWNTjIKpN5HQZNGVg406HGvI1os0tGuxwamsSam0tHt6WI5
-	 TLF6oIQU3Cawwx/shvdd/m82/qVvcUBjYJs1I074yQfHmmLWRCw4F5bVOdVN7WG+5r
-	 flUIfgaLzHqIQ==
-Date: Thu, 5 Nov 2026 14:01:56 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 2/5] mm/khugepaged: scan mm's more efficiently under
- mmap_lock contention
-Message-ID: <auyL2gLT3lDVqwMJ@gremlin>
-References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
- <20261103-khugepaged-latency-fix-v1-2-a07ab16ac860@kernel.org>
- <dfa01a1d-0b95-4cd2-ab8a-390da5ffe2ab@kernel.org>
+	b=d/LSzXBSpjeA75i9jnsaoE12cbhfloRfvPokG+iP3ieFoT00Jep8xt+vQpVjON9Db
+	 tNPOgmyiBFILFTUW1bb3CrTjuTiOmNoUV/jhMJ/B24hQrSKg1UcmQg94CxWlBcheLW
+	 9P+/Xy0uuUCrnAXr4lkBXabc2Y1dwH0JzvpkX10+0A50AxfcxdIYkia5ZdP9WtuOZb
+	 ewwaA2xXWfDDSLYc844xTuG8ASHPrri7U6Opd6zWAfOqX+JG6gD+G6G2qxKqRM2aqr
+	 M+RcbVTKYXP4jhR0jscAKAF7+wyt5UosAlQflYxP0OOTzCwSJulJ6ZV0LPt1trONmC
+	 1NsK5seI9MmuA==
+Date: Thu, 5 Nov 2026 15:02:21 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Yige Jiang <yigejiang86@gmail.com>
+Cc: linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ASoC: cpcap: use the platform OF node setter
+Message-ID: <gondi6b7msxkf7cjil66vrpmhofhho4wmccq74zkuxxt3p5uxd@wowar3wxey22>
+References: <rc-review-20261105-v2-28-d7877b3f9c24@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,39 +59,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <dfa01a1d-0b95-4cd2-ab8a-390da5ffe2ab@kernel.org>
+In-Reply-To: <rc-review-20261105-v2-28-d7877b3f9c24@gmail.com>
 
-On Thu, Nov 05, 2026 at 11:23:41AM +0100, David Hildenbrand (Arm) wrote:
-> I could have sworn I saw a similar patch from Nico at some point ... maybe it
-> was in a private discussion.
+On Thu, Nov 05, 2026 at 08:32:28PM +0800, Yige Jiang wrote:
+> cpcap_codec_probe() gets the audio-codec child node and assigns it
+> only to dev.of_node. Platform device release now puts dev.fwnode,
+> so the acquired node reference is never returned.
+> 
+> Use platform_device_set_of_node() to synchronize both fields and
+> give the device its own reference. Use __free(device_node) to release
+> the local lookup reference when probe returns. The device keeps the
+> node until it is replaced or the platform device is released; a probe
+> retry also drops the old device-owned reference.
+> 
+> Fixes: 7b5b51b2b05c ("driver core: platform: count references to all kinds of firmware nodes")
+> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+> ---
 
-Ah, yeah, it seems a fairly obvious thing to do (as often these things
-are), was surprised somebody hadn't already tried it.
-
->
->
-> Am I correct or is the short version of this change "Remember the next scan
-> address per MM instead of starting from address 0 whenever we continue scanning
-> a MM after a skip; and we might skip under mmap lock contention" ?
-
-Yes!
-
->
-> I think a lot of the commit message above can be simplified.
-
-The book author part of me comes through sometimes ;) Will try and cut it
-down for the respin.
-
->
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Thanks!
-
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
