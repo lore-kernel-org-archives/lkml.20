@@ -1,90 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793875189;
-	b=xAUTzTLvDmcia3uJDpwusQsWnkLfs5p4nQc01C0RsVVTiTQDcUcML+v/Kua6hZnLJ5P2
-	 SUuiy0EuDCVGr6sD5qcKp+rC64Q1WAtYdAOozKeWAAqkeq0NsLOHwBvg3fGJ5r/2hP8hA
-	 7Qqmd0zrJ7uhqP4gPkFihBunW46mjyOlvsBj1E+VC8Q0m1ToqT6zjIfKXD5KVMwCIhYe0
-	 EsJsj0XLrKE4tiRxXnICt0kWwF7m7hYQmkTPYTp2/ubVks5X/oU91AOX8xJSsMDGs6WHm
-	 yUzDakgtj+Zjr3rP8eMOoga7j1Tyhn5PJAT5bl3K08vaFUXyh1ZxJPLEmHkMYzioX+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875189;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-	b=HRSG0tPr0pViNDJDHBcquyMUbwromPObOigFH+2p+jaN/Cz5cXFqbIpARIPezsmG9CsA
-	 Y5Pbdy0ggg8kYmkwYUu811/je81B7k1scFwsFA8vGSduktZZghoLu8sfreakNe/YtzmU6
-	 NEKRcUE70hdxellXlBcBU+oCwWtD14sMoHmhksk4TKlKuPm2MnTrh9uSQ2tnvQpZ5Tf1Q
-	 M4dhw3mhVHdyLW7VP7IOq5aB/YdR2DouAokYJbOK0uSo1K/iedFnlo1WGqhFmT520Qn67
-	 yfP2yje83nzX5n2IKmesxdj4qt+XMU6RzFVJik6j7Y8R5ubdjp8xjJdj9zxOiQ08ckA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b="m1189d/x";
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=fKDLwEQv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.168])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793875206;
+	b=i7+WI0856R4idqLzni0RMtvgknN6d6+NbX8e8FwmZaDuaIB4ivVXOuZu9zbmfvcL1Zes
+	 YdrUktHNNfBN5ZRHO2IcHJWlZINs1qpkUtogm/Door6TOuhIbPy4kRBDVnCF/9//glqbT
+	 08ImONTd6HpXETOI1FpCs2tDgkwJgPKTI+qHQMUlmE/AwN8IygAg0ZEmGhphr7JvbMl2O
+	 QhWm3dob1DUZYUB/1YSiUx1cWn6N30qqCxkYw/hQPB5NBaeG/ecKeH4W0k4oz5om9DNFk
+	 VEGT30dYWYW65lmPybLUPZQcT66T0vWO2Jm/zqxjPEBiNOwUb/WYaLPV4bsMT3w5iAQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875206;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=YklILbv3bPFdb8VwM9dwS1UkiPgxX1hg00WRWNTQU9c=;
+	b=odWum8wGWDnRYc7PEilmD1m7K/v/CWBSIqA7T3DlOU4ZOo094P0Ybfabs8CWdCZP78QM
+	 t96u0Ro/ERn7JnxfAa6jlHoF2q/zvrhnJzIIIe0kmmwAKMu6Z2oQGRyYOMkgtgmVJvUOq
+	 YXlqSUyidRpChB5UmywPMBBp9hiT6MeB08vrB+mNIebVDkRwaYWxKXe2w4iNhz5VG3E2b
+	 qAYtKuWI24Bu+Wi4Tt3Kz7GcyXffCCVZNstApQrWmyLdXx8L/72qk2ipRtbtPoPXdBelm
+	 btxEW5oJI1O+M/i1XnNnjtxs3zaugolmXy/WJoF0mUyH15L2BUyQPHPRyTX3nybmScQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZN2dhqMT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC917606A329;
-	Thu,  5 Nov 2026 10:39:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC917606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FD1606A326;
+	Thu,  5 Nov 2026 10:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=m1189d/x;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=fKDLwEQv
-ARC-Seal: i=1; a=rsa-sha256; t=1793875171; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=fqZXSa3JLwhAJbmgfOUrRrxwkeIGE3lE1q20elPby10KpnbZHXfL/LB/MGl4b+OOnJ
-    b/knkOhtNSolKY9ApR+hWNd5tj3WVjHJOmt+xQVqmbtrtv3MqiZOr8685NdBE41iMByD
-    vIU/DVOkK2FAdmTZNTQKm9olRgmR6E0WRxfwUCl2ecIKSOiQTs0+Omhih9RCPl7YUaN6
-    I+tCNY654skNsyJedk8wKex26tUm9DQMYDb7t0qoHz6/8L21ffS7Q4n9CT3fZOFM/fGr
-    6vQO+2Qk246vIpXWmX/rRYTC1xxypoVwAoO0mZNczGubHpregv3bdtas3u9M78V95tvN
-    sRCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793875171;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-    b=G3Foc2BD79VIefqwHGNlNBhfO/7j6snsfirdyZYxqkIrkuIrTmwvPH0Ri77DQbpXkn
-    hjbEsq6Gp9q6/qt8Twod/VYwJCkdIMokM9yOeJJcCfOLaEpsWawrH1giZyMzgzcBwZX0
-    joKM53tXFM2WPOb2rDTMKbDDCbvr33RSKOIGFMIN/J9FrlA0J5EqJ7qlrn52S2S/r2Kf
-    CwvPv0DTnEqLuynw6en+wZzKIJ9h/PlrKlk8rwz8IEz9muGdKjRpTzXVfpJ7Z+2aCQtj
-    x/uftRMIHeuxb9hfYlgNxGYMNTUrFVKan/qkuJSY/0vaAzx9ZEUkmFJLPXMuApEjCsJm
-    /1xQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793875171;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-    b=m1189d/xqAFdGFmoXldTi0i5Eo27ENr6L5NVWGBWy53nCDyx/E1PcbNKdPmHSKl5Ge
-    eSMl4N0lco2K431q6nLjKZZHRf+9862H7kk4uK7DU22xiliR//KmqT+wjMKHUZCWMSh5
-    w0vHc5I/e8kcULkNETzI84JuAs+fzmHUqrBRGVDb42u2T/JAVWvIf49wmnT+nhiIANuf
-    QxrZHHvtqaLUvMXyLzlpka4HLtpdjEZGlLSey/ZfvGJNzNDCi5T4s6t/znDRWm/A9wYY
-    wBrWjfYDxPezQHlehb7SAyRbWsAOkCfVFsk07/jHos7UhCuKKNO7wWgt1ARDv25431M0
-    F/+w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793875171;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-    b=fKDLwEQvq/Rg2H4E/PZr7f233E8WJCFHd8QaYBjs3JX2jUjAKLBhNa/w6eIIGAtuBV
-    LF1DWtLmOAIo+0LIE1Cw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV25oGlMiNUOZNJoYXSTSpu/Ae46f1NE9YxyvD"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A5AdUiJQ
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 5 Nov 2026 11:39:30 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZN2dhqMT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4AE41F00A02;
+	Thu,  5 Nov 2026 10:40:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793875205;
+	bh=YklILbv3bPFdb8VwM9dwS1UkiPgxX1hg00WRWNTQU9c=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ZN2dhqMTAsBeaHybh6h59fcFGtNXGyqwKh6qBAnZw2dnxRKaNl77ypLh9QRlWDWbq
+	 qwBw2Fl0uqmx6NDxgvme8Nd3X2kQklwe3UPq4LApsdu87wzToKNqUrgoZk4So6qIpA
+	 oeShsVrXBBieZojh5Bvn2296rnGEsDDHXSJ0iVYX4Q2NCvQiLgmzeSI5pyXwP/iy17
+	 3i3n5fQPavUFYfZ1PwGPHPRp4INzILWlA95UuUcAePI4xtMndS+Hq60FyJ9P9k0RSa
+	 sIBFCXjMfN7dw2uMv419+Y9csx0GCVIWWsCKSTITOqweqHclS+bBq6BIWnMEDmy0Z0
+	 7PXqaH3x9222A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA1A5391AFB7;
+	Thu,  5 Nov 2026 10:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,160 +52,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v2 4/5] dt-bindings: display: panel: Add the HiBy LG35583
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261025191640.13592-5-olivier@mgcrea.io>
-Date: Thu, 5 Nov 2026 11:39:00 +0100
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6DFF1C7F-E1B7-4B06-BA1C-372F5C5984E2@goldelico.com>
-References: <20261025191640.13592-1-olivier@mgcrea.io>
- <20261025191640.13592-5-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] ip6mr: Serialize multicast router socket ownership
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179387520450.3581681.4727389061337048747.git-patchwork-notify@kernel.org>
+Date: Thu, 05 Nov 2026 10:40:04 +0000
+References: <20261030042221.73996-1-kylebot@openai.com>
+In-Reply-To: <20261030042221.73996-1-kylebot@openai.com>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
 
-Hi,
+Hello:
 
-> Am 25.10.2026 um 20:16 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> The 480x800 parallel RGB panel of the HiBy R1, set up over a 3-wire =
-SPI
-> bus with 16-bit words.
->=20
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-> ---
-> .../bindings/display/panel/hiby,lg35583.yaml  | 71 +++++++++++++++++++
-> MAINTAINERS                                   |  5 ++
-> 2 files changed, 76 insertions(+)
-> create mode 100644 =
-Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
->=20
-> diff --git =
-a/Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml =
-b/Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
-> new file mode 100644
-> index 000000000000..19498910629c
-> --- /dev/null
-> +++ =
-b/Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
-> @@ -0,0 +1,71 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/hiby,lg35583.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: HiBy LG35583 480x800 panel
-> +
-> +maintainers:
-> +  - Olivier Louvignes <olivier@mgcrea.io>
-> +
-> +description:
-> +  The 480x800 parallel RGB panel of the HiBy R1, which HiBy calls the
-> +  LG35583. It is set up over a 3-wire SPI bus with 16-bit words.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-I have discussed with the Google AI and it hints at that the controller
-is a Novatek NT35510 / NT35580 family or derivative.
+On Thu, 29 Oct 2026 21:22:21 -0700 you wrote:
+> MRT6_TABLE checks whether the socket owns its current table before
+> acquiring RTNL. MRT6_INIT also looks up its table before taking RTNL.
+> Consequently, concurrent TABLE and INIT calls can initialize the old
+> table and then change the socket's selected table. Another INIT can
+> register the same socket in the new table.
+> 
+> rawv6_close() calls ip6mr_sk_done(), which clears only the first table
+> owned by the socket. After the socket's RCU-delayed free, the other
+> table retains a dangling mroute_sk pointer. A subsequent multicast cache
+> report passes that pointer to sock_queue_rcv_skb_reason(). This produces
+> a KASAN slab-use-after-free in sk_filter_trim_cap().
+> 
+> [...]
 
-It is possible to locate data sheets for comparing the lg35583_init[]
-table...
+Here is the summary with links:
+  - ip6mr: Serialize multicast router socket ownership
+    https://git.kernel.org/netdev/net/c/c6b41de4dd9f
 
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: hiby,lg35583
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-But based on the scarce information I think it is the best solution to
-stay with the hiby,lg35583 compatible.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vcc-supply:
-> +    description: Panel power supply
-> +
-> +  vccio-supply:
-> +    description: I/O power supply
-> +
-> +  reset-gpios: true
-> +  backlight: true
-> +  port: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vcc-supply
-> +  - vccio-supply
-> +  - reset-gpios
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        panel@0 {
-> +            compatible =3D "hiby,lg35583";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <1000000>;
-> +
-> +            vcc-supply =3D <&vcc_lcd>;
-> +            vccio-supply =3D <&vccio_lcd>;
-> +            reset-gpios =3D <&gpa 31 GPIO_ACTIVE_LOW>;
-> +            backlight =3D <&backlight>;
-> +
-> +            port {
-> +                panel_in: endpoint {
-> +                    remote-endpoint =3D <&lcd_out>;
-> +                };
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 57313163e59e..e65500a70c9d 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8152,6 +8152,11 @@ S: Maintained
-> T: git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> F: drivers/gpu/drm/tiny/gm12u320.c
->=20
-> +DRM DRIVER FOR HIBY LG35583 PANEL
-> +M: Olivier Louvignes <olivier@mgcrea.io>
-> +S: Maintained
-> +F: Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
-> +
-> DRM DRIVER FOR HIMAX HX8394 MIPI-DSI LCD panels
-> M: Ondrej Jirman <megi@xff.cz>
-> M: Javier Martinez Canillas <javierm@redhat.com>
-> --=20
-> 2.39.5
-
-
-BR and thanks,
-Nikolaus
 
