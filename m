@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894358;
-	b=rdEnIOEh2R0ScNUmd4TCd4z6daJH5LYSEn7f9cuj4Kx7J3U+eI30D3F9ZE1mcYlTMChK
-	 qTfw6clDY5/ebQSRSvFML0k2Lw/5U1fOdVnA2AY0ZYdFpZ6Gimhi78bAZcXqxv6QsCTnw
-	 XXs5lumknmKZl6nMNYS+C+mEn7WAoKno9bvXcTAZOd+c57mH/j3kPkdCz9HtB0QTyVuMK
-	 +wuOZ9biXsLi4eQNmd1Y6IYeep6TtnqCfk5p1azcU3DVKVzerjfD1rR1rvsn+UGPwlqE1
-	 Y8LiIhdUgryYs9abuQLPHHiEQ0eyb8qAL7cDsnoz+4i+w2eW5KIj4ifkOcurcZ8Zcdw==
+	t=1793894392;
+	b=Q4W3uYIXW88iOxkzyMGwILsJq4PoBjfpYGj++FaUAZVxukR7jAe8bQZgqPUfUtl5BK1+
+	 rc0HhhSj9r/pWd/ytsgLuXqrH1j+BZFlUZgkmREa+3VWPsGgd5EcWltlx3khWij0SGrRG
+	 v07c0+0hwu8rtYumiPtC9j5FA/8IASzOxLcc7qMScDPr4qj5SwMhfXck/Uil9yGmxH2xS
+	 gEAsZMh8f8JgCKwF3gH0K9/Hu/5300e9bC8axlo8iWa3opjACLFo/vkQD8Qt3gppsiOLE
+	 93uPMXwCa3m6qYCZE7xrkUTH/Y6iYlyX5vgz/+NtO2J2M+fDAoCVDH+Idm4eg0A9sMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894358;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894392;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+hWGsr6KFBkJnsArQ4dbK5v+XZDeY/Y1/v6u++CjxWc=;
-	b=ZdDg4Ojbt/B4LWN7JD5t/8d1c0+0Kg9OgdD2+TIAozOwsW4vzm0B4TlXhzoeYxTU/4gj
-	 E/iB+1+/L91T+tf75IwyQbQ7nOwMptkhNqTEvUgDakOpfZWf1ZDTp1CX7izmc8erjkLVs
-	 sdHL+sYEiEdp7tKbadEhxpMBwBtQSrj/orKIEIjbs/VBKoBBlDdykKJ6xGrHotOk/7tBu
-	 0QuSPoF3/5fqZFsUosWd6omH/UWdmDuO3XA2wPK3NPNysAA5ieHyeGGzJNi94YlSRXzNr
-	 aD8TEan9yOxnfmG2FJosMApiMhvrcZFb+aQulvoQGKjbv30CMGOdsTlQUIiG8nNfe/w==
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=SyweY0UXz6hh0hI/nESUYL8IRVfask0csXM9VevHXJw=;
+	b=BUoTz4lOcqM/NEut2IY6qAUngyBwBnDojxfyJivlsOJK4d4nkTg7Keo9Ej7K8iJc7ZQX
+	 CEYJPfcBnZ3Jqmm8S3xDEGg/oN8PzM6Un6nXm6gmtw/9KjSAtFElrKovpXcAQIviBrKDY
+	 uvQ9M1JpY4Mvx4AE6QcSl0FyslIFGzaG1w8dS0eVn4G2cXpTDJx2sy7189m9bfT2nRqjE
+	 bBmuEIfV3n36FohQ3f/2OtzPEeGxpJmQGcAQ6YSRE1lVY8Qty44n9LOmg4iWrZhbwomPH
+	 0kWp2a8gIgjNeFcfN214go0Q6oCIuVoKQRDoUefnfOwpzHGWRFpiz63o0SLG+Y10mlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QY8eW4zz;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=imh3HM7u;
+	arc=none smtp.remote-ip=209.85.222.46
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CCC606B45F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05CCC606B45F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0592F606A60C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0592F606A60C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QY8eW4zz
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so3071099a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:59:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=imh3HM7u
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-9950a7530d9so1014227241.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:59:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793894356; x=1794499156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+hWGsr6KFBkJnsArQ4dbK5v+XZDeY/Y1/v6u++CjxWc=;
-        b=QY8eW4zz++bTgr4WX1NDzJ3s/Wzvmhv/NKufMf2eIOibQeZMNGPrQSQ/z9T8N55xz7
-         1lmFoihEpfz3yBQcykfKXUF52L9uyk7w1HWgzQFiF2ZohADDSNzZIpNETknv14mlckgY
-         sf3Av6ms6EAvd4thsaYjexR/QDMoaLw2rw2O0=
+        d=toxicpanda.com; s=google; t=1793894386; x=1794499186; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SyweY0UXz6hh0hI/nESUYL8IRVfask0csXM9VevHXJw=;
+        b=imh3HM7uPpU/TSgpgy9tuGDfsT3kYPBMMDlqwUxIWR9eni6++YnmIn/DFaEGnaw6Dr
+         +nWZ4e9BcKaqrBG0RmBswk3iRHUnqLWWrADqGFso0TxcbQ1KdBvxxUF+siqurSVI4Yrf
+         BSz7ljqX0zkXncPcJgaHGMZ+OJ23cm4EEtj9KPVq7qB4frJ36YWuBBHG0wdJnVCpfH/K
+         L9No9V1wjswYmImK37+33bhDghJ8Wn3pZ2G7zh0kVua0SzhC4xUUvFZLkX+l6ChWDRb5
+         GhHADEPHBC6EWB62YFZ2bRuOVzR7/gwYMGmrawc407G4qZgEI7be0Lq9nOnreJdYyw7o
+         TLgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894356; x=1794499156;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+hWGsr6KFBkJnsArQ4dbK5v+XZDeY/Y1/v6u++CjxWc=;
-        b=b0R5ixbfFIWB932XnxnyRPuukfxVfheQCoEDQtymmQKusSZrdBSaFAKLkw7V1xC60j
-         k8wdcY/iZkJUn9zM/dLxCIWPJa78nPHCzqeGBDK1Uoh5fCizVku+8ryKEOBpSFs+q36K
-         JOd8s8S1vTCeYLEeXNAgGc0O6+GzK0R9p7ApMY9Hs7FbstqTDRNGP5PxnDmyozrEwrMU
-         pxiTfsF32SOfcD0Ho3e2SGiQCTSfRv3Zk3LbcRsa0UPedOT6bRL2tPKQSPho+i3CYlam
-         vrf7yjnbfseRnq0Tk6KfRZYdrPSry6CFgnNYXurTmHln93d3a7RFQw/mC2zfjMcsMBa1
-         oxlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzy8rFDk/MgrYYiWobvR4sUJcYUR1N5GHspqnSi8iRlCAlvH4rM0bXjwR+K3zlbwddEMsSBiHcQWJJ8/1M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+U9uqwUSOJNTbj6Rc+JfuM7O/ETVwQ2aOasmhVzbUoIansCGDf
-	KI+KdylwMwF+DPjY9Q/Qi/1wdq2udjEyJTUM0BwM3M3sGezLlQM0kaJWZ6nm8ytv7nXRoMeMVGd
-	YD8NHmw==
-X-Gm-Gg: AYBFou1GNMS5gGPxy4FjGSol4HllaqCSDB5TpYkdy6cQPBu/N7RcKTVCVvUOF3RoBvq
-	BH7SSYahNMyUZvfnjgAowVWvHbDDzDiBkXXcWNvpCMhemO7lREZuM5WHVS7wELoHE6DvxVOYpm0
-	86IkHqk2OIkLj4yVWTYiexUm545M8cAx049LxtOVcv0xlh3jVUFYlagkk+CiHAztDQ1kQT2m37f
-	9cX9V6TwqLzptmK/mJL5B4N4GeWpzmPX7diQFjozSxQ4sGqY73TOfyOOZQyubnCg4d3pNePbjUf
-	cjo1QqYM9anI0di1yUmRNBX20Wqvs3D7i4j7SSR9kxPLOje7NHoOSh07G1eKzTOwaV9I7OLS5o5
-	UfgqigiaSQL5Ps4ibsm2gL9CQ8ipZWZH25CWXVyIbwSrCvPVzftsF4ycaPFaF10yHl96SzfPm+s
-	/6N+Zn5UCu6MqEab3wftR8wEaecMhX999T8Y7CgSzeobuVh/kj1dzA69Ql3R1UbvOCpLVKU9OyD
-	p0AdaST68aF+wr7+S5DjQ/X3YLqnXLonKzmUuN9inlG1cCC051pK77/v8YQnRFNU8Y/RdNQ3GHi
-	wiyaS20BT2CA2ZHRnCHICuP9FEI1WFYgERbWH2wKWRbZxwamtYSaAax9Ya9nedybMQDDo3N5vyd
-	o51moYSS0OWQ+VCXLxA==
-X-Received: by 2002:a05:6402:2344:b0:6b3:e575:f4da with SMTP id 4fb4d7f45d1cf-6b4d33ab55bmr15476523a12.4.1793894356329;
-        Thu, 05 Nov 2026 07:59:16 -0800 (PST)
-Received: from localhost (103.45.147.34.bc.googleusercontent.com. [34.147.45.103])
-        by smtp.gmail.com with UTF8SMTPSA id 4fb4d7f45d1cf-6b58c868e70sm298094a12.24.2026.11.05.07.59.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 07:59:15 -0800 (PST)
-From: Andrei Kuchynski <akuchynski@chromium.org>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Jameson Thies <jthies@google.com>,
-	Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Andrei Kuchynski <akuchynski@chromium.org>
-Subject: [PATCH v4 2/2] platform/chrome: cros_ec_typec: Reorder altmode registration
-Date: Thu,  5 Nov 2026 15:59:06 +0000
-Message-ID: <20261105155906.2670094-3-akuchynski@chromium.org>
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-In-Reply-To: <20261105155906.2670094-1-akuchynski@chromium.org>
-References: <20261105155906.2670094-1-akuchynski@chromium.org>
+        d=1e100.net; s=20260707; t=1793894386; x=1794499186;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SyweY0UXz6hh0hI/nESUYL8IRVfask0csXM9VevHXJw=;
+        b=hSYJhKTr+5ZDQVGBDeT/1ghN8RQ+YI4JhKDeYZb5E0NdyNp6JRLrhzZZyK1PWOzQ5n
+         zDa1zA5lqF39uix49GVm45Ob5IfmjOVBCYruVxMEG+/8GCSfJrcUNl2m22tVQwzXpg8t
+         2UMG0w0JHLZgwVAMNIwqKWdbehME/xUYjQ8lpIVVFNcZPFb/JPakILHcray03zwbOqDq
+         F4UwWm6SQPgeTVeYGyCxFsn0Xqzi3JCAPgFrIEvyx4gNoJp17wOcqJJpRVSmsayjhkIq
+         Xzqpgs3Ddm+QbCiZNpPImbboSmB86PAcYw6Lk/qGDjDx5dCdAxTxh4vH3irjhlaTPUO5
+         N6bQ==
+X-Forwarded-Encrypted: i=1; AKwUvByGbtsOYoQmJIBji1PhrNZH0+bb7l0sZba3/kRgCpusN29+Dg9K6dyc0yBXyeKi3qhCZolr0GVX3jRvqkU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lZhi351bE/TYgBrP61VMumqntxYl88ZDh6n/LPtR9b2sa1Yfe
+	a7JkhAtO2XEe7TE2jsXb53GTTC5o0crdJyWMmQ/puxrswOQNnzx+16POnj6qjfcwzA8=
+X-Gm-Gg: AYBFou2CYu6/akqXU5QMbhy69EOClPlZ/eDPzTYWJyVbPkp//YkEufxLiB/GIhkCpB2
+	k895GjV6zl0+j9dRsjc0XGcEIdzBgSXiuAetLRI+YP5qa/i/LurKUdxDjT2tNw4i8KHfYTsz2w7
+	UKDvwEgfPf9lCaub/4oSSBpadAaHaruzJlzri/Fc7kfjw8aY6zTvmZkMUbtc0gDfh7kSbyl3UGi
+	oTVTqjZUBNhJOfNCJoRS5aeVHh1Zf27hDXnfG5xJvgwF5/vv93cDJVX3AM2wGqFjJheGCRyoXCY
+	KTjRsVusCBYooEsgVh6GDyu4xOdjzpGf6xe4Fppxp+g/qT0EBdD3mGFs4Z9jPa/NPGyQ3PwzYzE
+	nP67NvDol2sBVKhW1LciUTRvL5UeCdspfXTcBZ6jBMNuMkxv9m6Z8ObunijkLBL0XU868c9x8lQ
+	tqpyQ7mbJpMnalCJhDdN3OvSmm7u49dJPAHFeYn1Ilw32MVHMkFjEA3G03OeJwM7Rdx0PpKKEXB
+	GT2wmEU8Nx0FmKEQnihjXXkKom0Uj8VPwind+uDyCE8S4J0KoeG6sugjZAFpehi/n5Bhx4Da42n
+	T+7GPY7uLNeY1eltQ/2HsflK89+54+I3T+A8oxln2fjm6EvUu4rYC9BnWwqwfAFi+A==
+X-Received: by 2002:a67:e11a:0:b0:7cc:2c52:47aa with SMTP id ada2fe7eead31-7d2a0f73864mr14699137.0.1793894385884;
+        Thu, 05 Nov 2026 07:59:45 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.254])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d296415719sm1096670137.8.2026.11.05.07.59.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:59:45 -0800 (PST)
+Date: Thu, 05 Nov 2026 15:59:44 +0000
+Message-ID: <499ba73b1a72a30c6118a4f693f8fc5b.josef@toxicpanda.com>
+From: Josef Bacik <josef@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>,
+ Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
+ Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Takashi Iwai <tiwai@suse.de>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-raid@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RESEND v2 0/7] proc: move procfs to what kernfs does
+In-Reply-To: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
+References: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,60 +108,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-By default, alternate mode priorities are set in registration order, with
-the last mode registered taking precedence. Changing the registration order
-of alternate modes prioritizes DisplayPort over Thunderbolt.
+Hey Christian,
 
-Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
----
- drivers/platform/chrome/cros_ec_typec.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+This is a summary of my Claude review of v2.  v2 went out before my mail
+on the RFC [1] did, so the first part is what's left of that one with
+the new patch numbers and the second part is what's new in v2.  What
+says "run" was run in a VM on top of v2, the rest is from reading the
+code.
 
-diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
-index aeb3de4f09934..b13b0914a2cea 100644
---- a/drivers/platform/chrome/cros_ec_typec.c
-+++ b/drivers/platform/chrome/cros_ec_typec.c
-@@ -444,16 +444,10 @@ static int cros_typec_register_port_altmodes(struct cros_typec_data *typec,
- 	struct typec_altmode_desc desc;
- 	struct typec_altmode *amode;
- 
--	/* All PD capable CrOS devices are assumed to support DP altmode. */
--	memset(&desc, 0, sizeof(desc));
--	desc.svid = USB_TYPEC_DP_SID;
--	desc.mode = USB_TYPEC_DP_MODE;
--	desc.vdo = DP_PORT_VDO;
--	amode = cros_typec_register_displayport(port, &desc,
--						typec->ap_driven_altmode);
--	if (IS_ERR(amode))
--		return PTR_ERR(amode);
--	port->port_altmode[CROS_EC_ALTMODE_DP] = amode;
-+	/*
-+	 * Alternate modes registered later take precedence. Register DisplayPort
-+	 * after Thunderbolt to prioritize DisplayPort over Thunderbolt.
-+	 */
- 
- 	/*
- 	 * Register TBT compatibility alt mode. The EC will not enter the mode
-@@ -471,6 +465,17 @@ static int cros_typec_register_port_altmodes(struct cros_typec_data *typec,
- 		port->port_altmode[CROS_EC_ALTMODE_TBT] = amode;
- 	}
- 
-+	/* All PD capable CrOS devices are assumed to support DP altmode. */
-+	memset(&desc, 0, sizeof(desc));
-+	desc.svid = USB_TYPEC_DP_SID;
-+	desc.mode = USB_TYPEC_DP_MODE;
-+	desc.vdo = DP_PORT_VDO;
-+	amode = cros_typec_register_displayport(port, &desc,
-+						typec->ap_driven_altmode);
-+	if (IS_ERR(amode))
-+		return PTR_ERR(amode);
-+	port->port_altmode[CROS_EC_ALTMODE_DP] = amode;
-+
- 	port->state.alt = NULL;
- 	port->state.mode = TYPEC_STATE_USB;
- 	port->state.data = NULL;
--- 
-2.56.0.398.g882cbad275-goog
+3 (selftests Makefile), 4 (pde_seq_next()), 5 (sysctl readdir ending
+early) and the allocinfo deadlock from that mail are gone in v2.  These
+still apply:
 
+- 1 is bugfixes 32/51 ("proc: resume readdir after the last name it
+  returned") now and the patch is unchanged.  Run again, readdir(2)
+  still returns 1 without a dirent at the end of /proc/fs, bus, driver,
+  irq, tty, net and self/net, for all of the 100000 calls.
+
+- 2 is cleanup 5/6 ("proc: drop the _buf suffix from the new methods")
+  now.  Run again, the module with .proc_read = seq_read builds without
+  a warning with W=1, loads without a warning, and every read() fails
+  with -EFAULT.  There's still nothing in porting.rst.
+
+- 6 is bugfixes 47/51, 48/51 and 50/51 now.  47/51 has no Fixes: or
+  stable tag, 48/51 is tagged for stable and git apply takes it on top
+  of 46/51 with two hunks offset by 6 lines.  50/51 has the same Fixes:
+  7e0e953bb0cf.
+
+- All of the smaller stuff.  The cursor is allocated in one place since
+  core 03/23 and it's still GFP_KERNEL, copy_to_user_fromio() loses its
+  last caller in drivers 24/26, the sentence about ntfs_set_label() is
+  in fs 07/30, and snd_info_text_entry_write() still drops what was
+  written before it grows the buffer.
+
+New in v2:
+
+1) bugfixes 01/51 ("alloc_tag: don't remove /proc/allocinfo under the
+   codetag module lock")
+
+shutdown_mem_profiling_async() is defined outside of #ifdef
+CONFIG_MODULES and its three callers are inside of it.  Run with
+CONFIG_MODULES=n, CONFIG_MEM_ALLOC_PROFILING=y and CONFIG_WERROR=y,
+v7.4-rc1 builds mm/alloc_tag.o and with 01/51 it's
+
+	mm/alloc_tag.c:620:13: error: 'shutdown_mem_profiling_async' defined but not used [-Werror=unused-function]
+
+This one is tagged for stable.
+
+2) drivers 07/26 ("md: let procfs own the wait queue of /proc/mdstat")
+
+md_exit() used to remove /proc/mdstat first, which waited for the
+readers.  It now does that after destroy_workqueue(md_misc_wq), so that
+nothing can reach proc_poll_notify() on a removed entry.  But a reader
+can be in here while md_exit() runs:
+
+	mddev = list_entry(v, struct mddev, all_mddevs);
+	if (!mddev_get(mddev))
+		return 0;
+
+	spin_unlock(&all_mddevs_lock);
+	...
+	spin_lock(&all_mddevs_lock);
+	...
+	mddev_put_locked(mddev);
+
+md_exit() clears the array, but its mddev_put_locked() isn't the last
+one anymore, so nothing gets queued and destroy_workqueue() has nothing
+to wait for.  The reader's put is the last one and ends up in
+
+	queue_work(md_misc_wq, &mddev->del_work);
+
+on the destroyed workqueue.  It takes an rmmod with an inactive array
+left over and somebody reading /proc/mdstat, and this wasn't run.
+
+The two orders each fix one side.  If proc_poll_notify() was safe to
+call on an entry that's been removed the removal could stay where it
+was.
+
+3) core 21/23 ("proc: let lockdep check the pin")
+
+The class is keyed on the proc_ops, and every ALSA text entry uses
+snd_info_text_entry_ops, so they're all one class.  Run with
+PROVE_LOCKING and snd-dummy built in, cat /proc/asound/pcm and then
+unbind snd_dummy.0:
+
+	WARNING: possible circular locking dependency detected
+	init/1 is trying to acquire lock:
+	 (pde->in_use){++++}-{0:0}, at: __remove_proc_subtree
+	but task is already holding lock:
+	 (register_mutex#3){+.+.}-{4:4}, at: snd_pcm_dev_disconnect
+
+	-> #1 (register_mutex#3){+.+.}-{4:4}:
+	       snd_pcm_proc_read
+	       snd_info_seq_show
+	       seq_read_iter
+
+	-> #0 (pde->in_use){++++}-{0:0}:
+	       proc_entry_rundown
+	       __remove_proc_subtree
+	       snd_info_disconnect_entry
+	       snd_pcm_dev_disconnect
+
+snd_pcm_proc_read() is the only proc callback that takes register_mutex
+and it only serves /proc/asound/pcm.  What snd_pcm_dev_disconnect()
+removes under the mutex is pcmNp and pcmNc, and nothing below those
+takes it.  So it's a false positive, and it turns lockdep off for
+whoever unplugs a sound card.  The removal under register_mutex is
+already there at your base, only the annotation is new.
+
+proc_create_single_data() gets a key per registration site, but there's
+no way for a proc_create_data() user that multiplexes callbacks behind
+one proc_ops to say so.  sysfs has the per attribute key and
+ignore_lockdep for this.
+
+4) core 20/23 ("selftests/proc: check that a mapped entry can be
+   removed")
+
+The core cover letter says this one "fails without the mmap patch and
+passes with it".  Run against a virtio-rng device, it passes on core
+18/23, which has no proc_vm_ops in System.map, and it passes on the
+whole series.  The test checks that the removal doesn't wait, that the
+entry is gone and that pread() fails with -EIO, and it doesn't touch the
+mapping after the removal, so none of the new wrappers run on a removed
+entry.  These kernels had neither KASAN nor lockdep, so if what fails
+for you is a splat then that's the difference, but the test itself
+doesn't notice.
+
+5) core 18/23 ("proc: let procfs copy ioctl arguments in and out")
+
+No Signed-off-by in the mail.  It's the only one of the 172, and the RFC
+version had it.
+
+Smaller stuff:
+
+- The 0/7 mail still says "the xt_recent deadlock fixed in (1) below".
+  The part 1 cover letter has it right, it goes through netfilter now.
+
+- cleanup 03/06 says mmap() and write() are all that changes for kcore,
+  kmsg and the kpage files.  proc_reg_poll() answered for every regular
+  file, and kcore_fops and the three kpage ones have no ->poll(), so
+  EPOLL_CTL_ADD on them goes from working to -EPERM.  I doubt anybody
+  cares, it's only the changelog.
+
+One more old one for part 1, and this is the lockdep patch doing its
+job.  devm_rtc_unregister_device() holds rtc->ops_lock over
+rtc_proc_del_device(), and rtc_proc_show() -> rtc_read_time() takes
+ops_lock while it's pinned.  Run with PROVE_LOCKING and rtc-test as
+rtc0, cat /proc/driver/rtc and then unbind rtc-test.0:
+
+	WARNING: possible circular locking dependency detected
+	init/1 is trying to acquire lock:
+	 (pde->in_use){++++}-{0:0}, at: remove_proc_entry
+	but task is already holding lock:
+	 (&rtc->ops_lock){+.+.}-{4:4}, at: devm_rtc_unregister_device
+
+	-> #1 (&rtc->ops_lock){+.+.}-{4:4}:
+	       rtc_read_time
+	       rtc_proc_show
+	       seq_read_iter
+
+That one is the same entry on both sides, so it's real.
+rtc_read_time() uses mutex_lock_interruptible(), so a signal to the
+reader gets both of them out of it.
+
+The end state still checks out.  Every proc_ops initializer matches the
+final struct, nothing copies to or from userspace while pinned, and it
+didn't find anything wrong with the new seq_file, open node, poll or
+vm_ops code itself.
+
+[1] https://lore.kernel.org/r/464ef986eab97abf226791c7e19ad111.josef@toxicpanda.com
+
+Thanks,
+Josef
