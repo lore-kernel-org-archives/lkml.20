@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885596;
-	b=zphpDBYfUZ2khkbcyWQc1X8kYWBkpY+Wk8uCZDc9aqGBcV5NOOYgmfDDqojCxb4aPk7T
-	 VcETsHF2UCMv5jvbdteDs2Lmb076WnZdy7c4Sziu5Fci7/Ppoh5D6u+oHW1IS4rEbXgC7
-	 8lHcSqQxuUzFSxIPQJ1oJIwR0kJoueukyvASKanVCosoNgYHs/zz1T2TcCZJT0LLexfYt
-	 qLLFBvoGVrAQp+Yrdf35ydHLvK94sRNqxraC8Wo7Ed6Ow/JtG9cu4ZdMp5pIBrCbbf79W
-	 EIvmAOAlRs1V/AcpRURUWXEjQ00rml6QfLnrjYtFWd99hGx7cqBNTp3snhymaouwQEQ==
+	t=1793885639;
+	b=L7KdpLFyK5y4P+YrIKxw5KIMTZDokB63ZwzDMxMiOqoNJLem2UxKWAB7cPE2ncAxSPLG
+	 EwoQ97k7JIcWeL+rcy6B5o4ZB78H8aj7R8BVLhIXXUpouI2/Bhs3LonZlQ7TfrT8wrhQR
+	 JW/JRuYFg1BpGUU3SDSVom6qsV2Ow7BM790ZzWvsan8CJ/g7+cRJj63aG1QyO0Qi7SJ8v
+	 nZoh9LetO8QLk4QeyHkGyogi+d7WhimIONq8a4CEa6ALWM6NNgvjUsb2XqylmA3KEJ37p
+	 7dou06tXX3Z7aouC+l4+v/v945TL+1Xx6qXLpUZjzH/Yu0Oy1OdU9K1pet4lEIf32Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885596;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=SL3c+Xn0SPE41xc8Ad0l64gG9trCMljB+pCfmOkxawI=;
-	b=nikQkmcPGC6ry835tRQsPG3UIej/r0SJUMqiDH3RlMc1UJWBELD1FwlvaBp0ZMj3u9ru
-	 vX9+6/6KBOyFH+I2tARTtk7tV9zWQPICnngJ/GlHJCjadEs+CJ3iH8CHUgOEdarY4CV4d
-	 /nBPLbhdDX8K6BH4iJEOm9pPTiwwHwwZpdKkRaKK3I5hg6/YtENJ3evIt8e0nmjhlMhW6
-	 ThNRcogqS8CBxkJDuhkGNrM/GQpMrOg/i3dcQE97MaP1u/3wn2q8DvLJ/eZ9k1RfE8p/3
-	 qtjo4E/4z15Txg9hXl3x7yeTaFNxROny+qpUI34Xk2O3o5SIp9JxP2E/pdV3zdK4q6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885639;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=I3bAWnKCJBnbyR0aJvBMJR5ltQ+PdODDur6AdradSno=;
+	b=WOdZ2mUZ0Srungoxn7Yawdpu9kTetH3BsEL0pwrJPD+A/AXHe24G/RbKKuZBW+KkkoLC
+	 yTny23+BUHLV4YZ0H1GfzhgmfPuPadmrhMtZIUkDJ6jBNlOsH/KhS5MHPKxYB6gNcAXE2
+	 1kswrdbyrg6ZBVa3TM5GHnyLwzCK+kZv/w+C3iNttifxQ0AdHnRubE5jtQvj5EJdDtaL6
+	 Fx6An57zwVwKT6aHzdGZ7TykK4id3BZaG/A8zFMLah0G/WDIdvY+1zp2ZoT+Rs9yNNGtC
+	 6/WhPvBekhLXkwR5PRacyymlWNn//SqTxoD6WkiGCIfp6y8oOUH64Yg5Ilt/xfnJXzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=kGgr4fgS;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SZmuEBRQ;
+	arc=none smtp.remote-ip=95.215.58.222
+Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922EA606D80D;
-	Thu,  5 Nov 2026 13:33:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 922EA606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EED606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:33:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52EED606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=kGgr4fgS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793885591;
-	bh=ptLOgwdQ/b+rU6Uy0kx26Ht8mJ6/4NDPhmCMpGs0vUk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=kGgr4fgSB+QeXc1nzmhaz83Jz6wG6/Z/3vjapdSTZOcUOAlp7W+zrsx8EqNYUyGIw
-	 9mAEOFP/zIrz25+Z+NP8nom0B3iGfvpOlgHEkgSqqqebCH3H6SSp8/3GEZKDsZIETx
-	 VVYNshi4Ck/G33Tb6Prm9kOwv9As6I1mdlAs8MgnY6Et9t7yWE3xGR7Sfnvui0Kotr
-	 /SaWWfcHLYpVUOHDJX+TWBH6oxt0nHG06oqZuIh3lpYU0JpvuJtBXRvujX18EcwaQH
-	 1w6jM1RFyIVWk9EsZFP/97WTOEy+bUlOtAE8okXO844LMs+OBRB9QRiOnWZr7zv63w
-	 Ge8j29Kj/hgfQ==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8FD3817E0BBE;
-	Thu, 05 Nov 2026 14:33:11 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id E91FF480035; Thu, 05 Nov 2026 14:33:10 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 05 Nov 2026 14:33:13 +0100
-Subject: [PATCH v9 5/9] PCI: dw-rockchip: Add helper function for
- controller mode
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SZmuEBRQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=de7uJZx7NF3cVuzxaJ2ihuCpEPiMGYjY4vUsWroOYR8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793885636; v=1; x=1794490436;
+ b=SZmuEBRQwhGsepMtsIyF8VqiSHhCWYZsl7j8LRl9uN/eL95ThRe54HRIBgWbNIwN2Nu6AST6
+ l/AaLrqjW8ULAuItWOkZ0eNF8Bgt/M8/ITxMyDRHO1899fH5RUuJ+G1Rt5ji5MghuymFnluHlk7
+ +RQ39nXgqenRjQ+lR52UBwzQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d698f65570305b22;
+	Thu, 05 Nov 2026 13:33:56 +0000
+X-Mizu-Trace-ID: d698f65570305b22
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c8be6713-2378-4dc5-9959-fc7eddd800e1@linux.dev>
+Date: Thu, 5 Nov 2026 21:33:47 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,105 +58,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-rockchip-pcie-system-suspend-v9-5-a2e55846649e@collabora.com>
-References: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
-In-Reply-To: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>, 
- Shawn Lin <shawn.lin@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, 
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2427;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=ptLOgwdQ/b+rU6Uy0kx26Ht8mJ6/4NDPhmCMpGs0vUk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrshZY9E27T8dp5BasZn7iXWUdUKnjbXdFRH
- XaRdXRINPr7SokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7IWWAAoJENju1/PI
- O/qaS7cP/2xnyhbp4nAwb8YY8IfdPIIJRHMWG/LsS/aq3otLOhq+g0KocaKerSBPf2q3Cu603q+
- NW5VrL8eCutPMdOFVeJLlR/BbTu6xp7XCqPkKQdBd2nEo81hbTOo6mDfZjoHXX4O7OT+7I+XK9A
- f0uiVBpVXL+BxY2jn90yx7LZpRZVREI7O3SQCqFPlbR4Z1CnGAqQuKJO3623GAT3gKhTDg1NmrS
- 1b2boi769vl2w2fZOboab+zkGSnWqiX3aBqCI5huk9Gpk11El07OcVFSm7lvkxzzYVH+EHTfw8T
- 7r3uKPq0LOwx7NOovHYkWFn66KbIoO1AiADuNZePuaXEdrdeYlA1YvmD37JxdQ09Tr4iPDLu4l9
- FQUV8bJfGQXANulF0NSroJjV+x7L0J1Kaz47wgPgHXSorHn6iySRJ0R9MXgxHysAy7NtgVSPNnT
- ItUo1K9ZQpMZe0P5i3YBaVF4R3b1aERVEjv7j+vcEJ5J2G3Oh7AeahAbFbOciJK9g9BywXVha1S
- x3kMEepbJc+5CfGZWQVqxpB0faXoFBnnYgnySKw+X2RgNviFPTsf+4vvhtmP0xXpJhc9gvxIv4G
- /iL0tta++VY5GHor+yR598420Wpu6SZr6goKIZFHktbZh3QW6Kj0hcOpuX676pCG11Z4WWI2oPH
- eEaa4SeliVsSXXchno582hg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC net] net: force software segmentation of PPPoE packets
+To: Eric Dumazet <edumazet@kernel.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Stanislav Fomichev <sdf.kernel@gmail.com>, Hangbin Liu
+ <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
+ Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexander Duyck <alexander.duyck@gmail.com>
+References: <20261020143031.1829-1-qingfang.deng@linux.dev>
+ <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
+Content-Language: en-US
+From: Qingfang Deng <qingfang.deng@linux.dev>
+In-Reply-To: <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Remove code duplication and improve readability by introducing a new
-function to setup the controller mode.
+Hi,
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+On 10/20/2026 11:08 PM, Eric Dumazet wrote:
+> Le mar. 20 oct. 2026 à 16:30, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
+>>
+>> Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO packet
+>> forwarded by a bridge can retain hardware GSO features and reach the
+>> driver without software segmentation, if the egress Ethernet interface
+>> advertises TSO.
+>>
+>> To force software segmentation, clear the GSO feature mask for
+>> ETH_P_PPP_SES in harmonize_features().
+>>
+>> Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
+>> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+>> ---
+>>   net/core/dev.c | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/net/core/dev.c b/net/core/dev.c
+>> index a6951ea08961..27483a2ad747 100644
+>> --- a/net/core/dev.c
+>> +++ b/net/core/dev.c
+>> @@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(struct sk_buff *skb,
+>>          type = skb_network_protocol(skb, NULL);
+>>          features = net_mpls_features(skb, features, type);
+>>
+>> +       /* Ordinary TSO does not update the PPPoE payload length. */
+>> +       if (IS_ENABLED(CONFIG_PPPOE) && type == htons(ETH_P_PPP_SES))
+>> +               features &= ~NETIF_F_GSO_MASK;
+>> +
+>>          if (skb->ip_summed != CHECKSUM_NONE &&
+>>              !can_checksum_protocol(features, type)) {
+>>                  features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+>> --
+>> 2.34.1
+>>
+> 
+> Ouch.
+> 
+> harmonize_features() is called for every packet, GSO or not.
+> 
+> This is a GSO-only problem, please do not add more protocol-specific
+> tests in this path. gso_features_check() is only called for GSO
+> packets, and the cost there is amortized over all segments.
+> 
+> Devices without NETIF_F_HW_CSUM already lose GSO for ETH_P_PPP_SES
+> because of the can_checksum_protocol() check in harmonize_features(),
+> and fraglist GRO packets (the main use case for PPPoE GRO) are
+> segmented in software anyway.
+> 
+> This leaves bridged, non fraglist GRO PPPoE packets sent to a
+> NETIF_F_HW_CSUM + TSO device. Have you hit this on real hardware?
 
-diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index 92154a790ac0..07718667c225 100644
---- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-+++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -695,6 +695,11 @@ static void rockchip_pcie_enable_enhanced_ltssm_control_mode(struct rockchip_pci
- 	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_HOT_RESET_CTRL);
- }
- 
-+static void rockchip_pcie_set_controller_mode(struct rockchip_pcie *rockchip, u32 mode)
-+{
-+	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_SET_MODE(mode), PCIE_CLIENT_GENERAL_CON);
-+}
-+
- static int rockchip_pcie_configure_rc(struct platform_device *pdev,
- 				      struct rockchip_pcie *rockchip)
- {
-@@ -719,10 +724,7 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
- 	}
- 
- 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, false);
--
--	rockchip_pcie_writel_apb(rockchip,
--				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_RC),
--				 PCIE_CLIENT_GENERAL_CON);
-+	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_RC);
- 
- 	irq = of_irq_get_byname(dev->of_node, "legacy");
- 	if (irq < 0)
-@@ -776,10 +778,7 @@ static int rockchip_pcie_configure_ep(struct platform_device *pdev,
- 	}
- 
- 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, true);
--
--	rockchip_pcie_writel_apb(rockchip,
--				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_EP),
--				 PCIE_CLIENT_GENERAL_CON);
-+	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_EP);
- 
- 	rockchip->pci.ep.ops = &rockchip_pcie_ep_ops;
- 	rockchip->pci.ep.page_size = SZ_64K;
-@@ -945,10 +944,7 @@ static int rockchip_pcie_rc_reset_root_port(struct pci_host_bridge *bridge,
- 	}
- 
- 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, false);
--
--	rockchip_pcie_writel_apb(rockchip,
--				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_RC),
--				 PCIE_CLIENT_GENERAL_CON);
-+	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_RC);
- 
- 	ret = dw_pcie_setup_rc(pp);
- 	if (ret) {
++Cc: Alexander Duyck
 
--- 
-2.53.0
+I ran the real hardware test on Intel igc.
+
+igc_tso() requires skb_network_header() to point to the IP header, which 
+is not the case for PPPoE packets, so it won't work on an unmodified 
+driver. I therefore used a kernel module to inject PPPoE GSO skbs 
+directly to the driver's TX path, deliberately pointing 
+skb_network_header() to IP.
+
+Test results show that the hardware can still perform TCP segmentation, 
+but it cannot update the length field in the PPPoE header. So 
+theoretically, we might be able to make GSO_PARTIAL work in PPPoE.
+
+Kind regards,
+Qingfang
 
