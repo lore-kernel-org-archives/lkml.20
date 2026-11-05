@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838509;
-	b=xFuBqAofmTmsa1x+zJNMWXzHTPZsrghCLikI3aS+8t5Zi9NCtk0l4PbJqRtw+XnJ4M2z
-	 f/AG+27+go2P2EWPDh1Du3AUK+HXtC27BgbsRIoHtt7Ekvex2GvRDx66wiktjq/wi+yqW
-	 lr+/y3sl0+SHr+sOaXmYXAvTUqsysl2sOlHE26gj3YGSBeq2kovQbTIxtYWPM3w+FwrUw
-	 SOYSiUz7YuDxxspYELP/QWfoVbvkO+Cs27cPk9Xzk2XP9euGpVsCjM/Cu/EurfsijIsr1
-	 0KfrCfPFeoFPQ69KjhfLBn6upcCxzqGOu6t5FAaLXTm54JM0Di17Bx64ElxRisUt2hw==
+	t=1793838698;
+	b=lDLjxPo8pCGAeg6WkZYXzuMjeY63w3X+ge0SgiUFiqp4Gphb4zEoxtu6bYmVPnvo+p8X
+	 EqKG4d+q2fboyzFg+b6cyHabq/40KIZIP0cjKjrcZMw9LWc4BXSQSobE5cUI4gXcBinL6
+	 216mf+/f1HK08coinKBC561zo0mVeqXI0luld96Oq//bJOlWnnoSjhWATSHWq2QfELZir
+	 diw+vELOpK25QazGCuRVrxjP0x7dwY8FbO71wfRGepZKdyqvrq48mbO11VxXo1wF3nLz4
+	 zpZOBa4OYe1NH30xnacBuNZ9V37QfaIRfU77c+h6vHmFTLmRIPcsRGtKtiZk57DOXFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838509;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=K81hV8Ixa+KD7zZugzJFDJ9AdB7vh7U6NocjAnsxnFI=;
-	b=Mz54DBBlOnnWM/I27h6Q14MDS/l7ru8PonQXyGp/3kBRgeXmaSzhvAHGg8opCoyjh7n5
-	 3ixQIAyFrKaVPdWBwJvUAf12GbHiUuSDtXIpJLO8k9QvFlomzk8+207QrBwea47vDibgi
-	 SAtysP0kS8oRzYWoGFPGXDuTAsVYEf+GT6z+1XcI6Ct1PvOGTeQw6C5xuY8rv0WMGpZqv
-	 RIAh6eDKiDD8fPXLjH5XuPS8fMWf+Z1kGFYuM4OE/htD6fGSCXaxehC9kl7GghekMh4fB
-	 24gQkxW5Y4Usebw4rkz/Lo6hu6H/rtPwgMHP4o/yZ7aMp6fmEyJFI6V54hrZpAlkG1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838698;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8j65eSSWn/EEqAi9eftH5O3y7QuS/oV1lt57acdBekE=;
+	b=v7eCO8hqw1EIL/Si42iXcrYDxItpBLp/1IOtl38KaqzSeN04b71rsFwImPDWkzF5N5MK
+	 bF6Yf2Q1gBmIDyF+uMADp1ejGzeZdyqkFUPMmwryIizk/7V0Ggv+l9H03NZ2EN25gSuur
+	 PQ/MK0VXjzT4wXwghlFuHbpEv4Iau065Kuix9R89X4ANpbBbEpjC7rHQWqxMkn87ui1NY
+	 ynsiBnO5fAKRNtutkKwY6ee2ZCPTNNCDzMNIkoBD4SP9Y44TWXxGRjrvGxf6zTQ2kL7xD
+	 ZuW+4faazq41q3syk3OsrJR0UaBa6jraVwL7I8z7+sB0T+Jz3gAD8e5S9lbI4oqjueQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUqC6ZVv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=F6quFPOY;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=nAPQuaMr;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A951606A31B;
-	Thu,  5 Nov 2026 00:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86864606A31B;
+	Thu,  5 Nov 2026 00:31:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86864606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUqC6ZVv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6C91F00A02;
-	Thu,  5 Nov 2026 00:28:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793838508;
-	bh=K81hV8Ixa+KD7zZugzJFDJ9AdB7vh7U6NocjAnsxnFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mUqC6ZVvPYSI3j/QKkEzXYxzLhy/k7FQZrisVQmdsk3ePveecJDKmmGUXBVyLxCd1
-	 hapkQmyqdBxkchSUpAOg3fkLs1GEz0OpyUEO2lClqof3eWtxZOVC0L2wMq9koJYi+u
-	 tuTnb4z4OZ9D31NjdrvVTcys4YCQUcPLECLabNRM0GyW7S8PBGOW+xOwklaxZim/xB
-	 +uLYaASZbVhUTxrk6ZdSHQxHMWfV329oJz88+b4R6FAdo7n2+6BUEnOupPeNgtJZET
-	 GKxluBEh57kKeOh0u8DCJGrVFkRJYYXorij+fjqB9PXe00XWnF4L7t5oeWpcxbnbep
-	 4v3EtJ6aiQXrA==
-Date: Thu, 5 Nov 2026 00:28:23 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
-	p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	fabrice.gasnier@foss.st.com, alexandre.torgue@foss.st.com,
-	marex@nabladev.com, changhuang.liang@starfivetech.com,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=F6quFPOY;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=nAPQuaMr
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1793838693; bh=8j65eSSWn/EEqAi9eftH5O3
+	y7QuS/oV1lt57acdBekE=; b=F6quFPOYgfpIEHNwXIAv7EbTgIGkx/EhWJ+CVooTahsQrT4e7Y
+	Zpf1MVkx9VomEWmlOdclH39WrU29FzTEuEJYaa1LKC5c1VfkH1tkVNZj80BeLsTIqpcq3+CqsjS
+	fKu4QfNpU1gnramo9PjL0EWg+heXas43SaBHeC2hpYGlzASDnsWs73/rXKZ8uiWpaU0ohbZ7DAy
+	jv/TchnkA/atMuLdNe9xvqMhniQUyaTQkro2U8IZ6C79/GPPFTgfdYQbXc0f6VbR6KtJRjcgIGz
+	EwKOnWYKNzgf+B8M4ZEQiY3Owzm4ST9JmYw4hrkC6g4iXb9icgMjyW5QnqnXaUGtqcA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1793838693; bh=8j65eSSWn/EEqAi9eftH5O3
+	y7QuS/oV1lt57acdBekE=; b=nAPQuaMrtuY5u/oY9kCy2chF7LLq31y7s/BrQtB6v1O/ENxFjT
+	A2N2R59+fNfvDZwiijAlXaybdwm7WlVLiDBA==;
+From: Bradley Morgan <brads@mainlining.org>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Wake Liu <wakel@google.com>,
+	linux-perf-users@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: soc: introduce
- toshiba,tc9564-config-syscon.yaml
-Message-ID: <20261105-irregular-awaken-b329b9c37e70@spud>
-References: <20261104004332.2141282-1-elder@riscstar.com>
- <20261104004332.2141282-2-elder@riscstar.com>
+Subject: [PATCH 1/3] tools: pass the unused prctl() args explicitly for PR_FUTEX_HASH
+Date: Thu,  5 Nov 2026 00:31:27 +0000
+Message-ID: <20261105003129.3130709-2-brads@mainlining.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105003129.3130709-1-brads@mainlining.org>
+References: <20261105003129.3130709-1-brads@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,204 +76,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Scd5SOQBnLzS3Aso"
-Content-Disposition: inline
-In-Reply-To: <20261104004332.2141282-2-elder@riscstar.com>
+Content-Transfer-Encoding: 8bit
 
---Scd5SOQBnLzS3Aso
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+prctl() is declared variadic in sys/prctl.h, so an argument the caller
+leaves out of the call is whatever that register happens to hold.
+Neither file passes all five.  The two SET_SLOTS calls leave arg5 out
+and the two GET_SLOTS calls leave arg3, arg4 and arg5 out, so those are
+whatever the registers hold.  The kernel does not look at them today so
+it works, but it works by luck.  I checked that against a running
+kernel, garbage in arg5 on SET_SLOTS and in all three on GET_SLOTS are
+accepted.
 
-On Tue, Nov 03, 2026 at 06:43:28PM -0600, Alex Elder wrote:
-> Define the binding for the system controller that implements the clock
-> and reset controller functionality present in the Toshiba TC9564 SoC.
+Pass the zeros.  No functional change.
 
-Actually, can you mention the other features that this provides - the
-service it provides to the mac, for example.
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ tools/perf/bench/futex.c                                   | 4 ++--
+ tools/testing/selftests/futex/functional/futex_priv_hash.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-Cheers,
-Conor.
-
->=20
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  .../toshiba/toshiba,tc9564-config-syscon.yaml | 68 +++++++++++++++++++
->  MAINTAINERS                                   |  8 +++
->  include/dt-bindings/soc/toshiba,tc9564.h      | 46 +++++++++++++
->  3 files changed, 122 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/toshiba/toshiba=
-,tc9564-config-syscon.yaml
->  create mode 100644 include/dt-bindings/soc/toshiba,tc9564.h
->=20
-> diff --git a/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564=
--config-syscon.yaml b/Documentation/devicetree/bindings/soc/toshiba/toshiba=
-,tc9564-config-syscon.yaml
-> new file mode 100644
-> index 0000000000000..5a241a9c915d1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config=
--syscon.yaml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/soc/toshiba/toshiba,tc9564-config-sys=
-con.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Toshiba TC9564 Multifunction System Controller
-> +
-> +maintainers:
-> +  - Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> +  - Alex Elder <elder@riscstar.com>
-> +  - Daniel Thompson <daniel@riscstar.com>
-> +
-> +description:
-> +  The Toshiba TC9564 is an SoC accessed by a host system through the
-> +  upstream PCIe port on the PCIe switch it implements.  The switch
-> +  includes an embedded PCIe endpoint that provides access to various
-> +  SoC peripherals via its BARs.  These peripherals include a simple
-> +  controller to gate internal clocks, as well as a reset controller.
-> +
-> +  The clock controller uses registers within the same page as a reset
-> +  controller, so this system controller controls access to both.
-> +
-> +  A total of 21 simple gated clocks are implemented within the SoC.
-> +  At this time, support for enabling and disabling only a subset of
-> +  them is provided at this time.  Similarly, the SoC implements 13
-> +  resets, but currently not all of them can be controlled.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: toshiba,tc9564-config-syscon
-> +      - const: syscon
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +    description:
-> +      Clock ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +    description:
-> +      Reset ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#clock-cells"
-> +  - "#reset-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    syscon@0 {
-> +        compatible =3D "toshiba,tc9564-config-syscon", "syscon";
-> +        reg =3D <0x0 0x2000>;
-> +        clocks =3D <&tc9564_xo_board>;
-> +        #clock-cells =3D <1>;
-> +        #reset-cells =3D <1>;
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065d..2b1b29169e0e9 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28339,6 +28339,14 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
->  F:	drivers/misc/tc9564-pci.c
-> =20
-> +TOSHIBA TC9564 SYSTEM CONTROLLER DRIVER
-> +M:	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> +M:	Alex Elder <elder@kernel.org>
-> +M:	Daniel Thompson <danielt@kernel.org>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-s=
-yscon.yaml
-> +F:	include/dt-bindings/soc/toshiba,tc9564.h
-> +
->  TOSHIBA WMI HOTKEYS DRIVER
->  M:	Azael Avalos <coproscefalo@gmail.com>
->  L:	platform-driver-x86@vger.kernel.org
-> diff --git a/include/dt-bindings/soc/toshiba,tc9564.h b/include/dt-bindin=
-gs/soc/toshiba,tc9564.h
-> new file mode 100644
-> index 0000000000000..66bcdf837f958
-> --- /dev/null
-> +++ b/include/dt-bindings/soc/toshiba,tc9564.h
-> @@ -0,0 +1,46 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights res=
-erved.
-> + */
-> +
-> +#ifndef __SOC_TOSHIBA_TC9564_H__
-> +#define __SOC_TOSHIBA_TC9564_H__
-> +
-> +/* Clock IDs */
-> +
-> +#define CLOCK_PLL		0
-> +
-> +#define CLOCK_62_5M		1
-> +#define CLOCK_125M		2
-> +#define CLOCK_250M		3
-> +#define CLOCK_312_5M		4
-> +
-> +#define CLOCK_MSIGEN		5
-> +
-> +#define CLOCK_MAC0_TX		6
-> +#define CLOCK_MAC0_RX		7
-> +#define CLOCK_MAC0_125M		8
-> +#define CLOCK_MAC0_312_5M	9
-> +#define CLOCK_MAC0_ALL		10
-> +
-> +#define CLOCK_MAC1_TX		11
-> +#define CLOCK_MAC1_RX		12
-> +#define CLOCK_MAC1_125M		13
-> +#define CLOCK_MAC1_312_5M	14
-> +#define CLOCK_MAC1_ALL		15
-> +#define CLOCK_MAC1_RMII		16
-> +
-> +/* Reset IDs */
-> +
-> +#define RESET_MSIGEN		0
-> +
-> +#define RESET_MAC0_MAC		1
-> +#define RESET_MAC0_PMA		2
-> +#define RESET_MAC0_XPCS		3
-> +
-> +#define RESET_MAC1_MAC		4
-> +#define RESET_MAC1_PMA		5
-> +#define RESET_MAC1_XPCS		6
-> +
-> +#endif /* __SOC_TOSHIBA_TC9564_H__*/
-> --=20
-> 2.53.0
->=20
-
---Scd5SOQBnLzS3Aso
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvNpwAKCRB4tDGHoIJi
-0nPsAP4koOrvtWUPoUrqXiTiCzsqa9eVCeyJFRvIGaSzg4kN/AEA0HgkBnYYSRIC
-4qTvlim6KCBhs2Yq56DQL1AM/mK+6wo=
-=PRtR
------END PGP SIGNATURE-----
-
---Scd5SOQBnLzS3Aso--
+diff --git a/tools/perf/bench/futex.c b/tools/perf/bench/futex.c
+index 1968c9d00b5bb..f4c1c30efe0bd 100644
+--- a/tools/perf/bench/futex.c
++++ b/tools/perf/bench/futex.c
+@@ -20,7 +20,7 @@ void futex_set_nbuckets_param(struct bench_futex_parameters *params)
+ 	if (params->nbuckets < 0)
+ 		return;
+ 
+-	ret = prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS, params->nbuckets, 0);
++	ret = prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS, params->nbuckets, 0, 0);
+ 	if (ret) {
+ 		printf("Requesting %d hash buckets failed: %d/%m\n",
+ 		       params->nbuckets, ret);
+@@ -33,7 +33,7 @@ void futex_print_nbuckets(struct bench_futex_parameters *params)
+ 	char *futex_hash_mode;
+ 	int ret;
+ 
+-	ret = prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS);
++	ret = prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS, 0, 0, 0);
+ 	if (params->nbuckets >= 0) {
+ 		if (ret != params->nbuckets) {
+ 			if (ret < 0) {
+diff --git a/tools/testing/selftests/futex/functional/futex_priv_hash.c b/tools/testing/selftests/futex/functional/futex_priv_hash.c
+index a8742e2045402..96bfb72362221 100644
+--- a/tools/testing/selftests/futex/functional/futex_priv_hash.c
++++ b/tools/testing/selftests/futex/functional/futex_priv_hash.c
+@@ -32,12 +32,12 @@ static int counter;
+ 
+ static int futex_hash_slots_set(unsigned int slots)
+ {
+-	return prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS, slots, 0);
++	return prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_SET_SLOTS, slots, 0, 0);
+ }
+ 
+ static int futex_hash_slots_get(void)
+ {
+-	return prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS);
++	return prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS, 0, 0, 0);
+ }
+ 
+ static void futex_hash_slots_set_verify(struct __test_metadata *_metadata, int slots)
+-- 
+2.53.0
