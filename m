@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864874;
-	b=ommUJ+F6haznB0a/R99BU9f6BzGJE6tG3eoxS3r5cffROTec5y9fLmQAPAbK136YmMPA
-	 5ZBXTU3i/40gGpDB7MAjqyCPFfCQVT/dE9jbFtR5L6jlxJcs3cV7pDlHO+E3BXXHROjf6
-	 nHp1ctPDpWouHT1D4BkUXICV4cMibFImiAFBF0cjPidv+XVOxyzbfOBUdF7gqwzmrSI3D
-	 JFKSW/6K/A75glnCcq6twtdiaFaW8XOIXbh4zsnM0JiaDEvdTVKG/5WSnuUVueqM3kbLB
-	 5EHyqn7S463WlW8o2qGN4/Lqn5MkrzG048beUx2XAIemQ7f6s+YBmkFHXbn4qTYp1+Q==
+	t=1793864896;
+	b=f7IZzU+r52oDgKZOXERvRVLCAa+kELtxNdo7SiX51iOSHfI6fVqWrpaFgestZ7NuhtQa
+	 11fic88yejp1Vk6MPbSHC1nWOB279M29dVt4TALvhk4J+xILDEDsX1bo+pSYuAdyPPbas
+	 av+LAKaXeM1k6lB9yKwqbqh1KqS2V5M0BFgjDtoYwk4D/Nx39g1tyZQgQL7Yh2gemrsyG
+	 mWLtlIAyeq1ABG11BkCurHl3xwV19Lt7uDnzWyrELML8nt+iQ+Bry/jrCBKeLndostO71
+	 Wkyr/5lCN15Vz0by5GvOnq/MwNIxHlECIfXwaBusaOVncAI0erFQ6m0j6HFoU4uWz1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864874;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DrbFdPeJVGFrc8E9XpDNvFLxAqYYBIIEWSforRQNQpY=;
-	b=sAsBXn3+4khOj+AQjZY9l5evaPLxhHuaQptHZ5YCk0fp72SMsyo1d7wXHOx0Py/eGuC7
-	 2W9MAZHEdX5IbGtEOyIz2/2bKZHNgsgG1gXmqMST9KwwnAyidjoDBXJLD6dir8MiJ0DLL
-	 IT/1GV+vrqmP+AViL1JMJrWzyhhr+DywG1iHN1Uh1oGkpeEfro5fIyG7t3NCv30nR2sTl
-	 qxKDwQ8xqRtsMAkzMeX5QjGmE9Giku8tMvj3qz0CPBbPOtB+uNztOzC1l/5Tvf2a+ghjq
-	 xAcifbxY87ICdCG4fO/lL1LCyEFdpTjvAkwXm5YQL/H5ODX+DBvKzupyMYU0ci9mKOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864896;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cccu6IRsMQeLQd78s6fwoKTtP+m0EnGz9D3UFhBgw70=;
+	b=TNavUDPWc9u20eFsYvXcSFisl2a/UlFFrHsSzKr5lbXBvL0xEua+yGnU2qFnTBMPZ5Ee
+	 tuwmfyL8RPRziO6ezWMpgkPpYLCR1u3h0rm7MCrqVciAicrRAmLUQgD/VsjYa1AoJL7zm
+	 ogrYjQEVonlNWhuByJGhmnR9qSvWK9c6i9KecVM1aiHg6ZEkzaC8hlDpJxuos2jU9xjsy
+	 dPbc5hisEMmGMEZRoD5gvlPAtWiy9NOMF47xudLdWrirsdNi2lHBiF5KQT0+JYMh5bdn3
+	 Mu10rwGz5ZXAvux/IAClxIhNfnEe6R8elpOBbDW8ioM9nqt0qOVNLE767DraoDNIbag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="dm/gVz9N";
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1390606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:47:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1390606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tus64+ki;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AF1606A326;
+	Thu,  5 Nov 2026 07:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=dm/gVz9N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=dm/gVz9Nf120tAe8MlhWS5EjwwciKc2WiFf+0ZxgTAOI8ruwb6vnDkc0y45EJ9i2kaeBgayBx0luq
-	 Xvw6CN7YpAeCcadCTiSPKWTlPCT0Q/JRLDNg8ieeKjZyqq+o0JknCSsOdUXymxaTN8hAxAPPJdmTZQ
-	 JckOrFpMjiB8zpjI=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26aec34a5098-e0a8b;
-	Thu, 05 Nov 2026 15:47:50 +0800 (CST)
-X-RM-TRANSID:2ee26aec34a5098-e0a8b
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100250 (unknown[36.137.216.21])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56aec349f2f9-40b47;
-	Thu, 05 Nov 2026 15:47:50 +0800 (CST)
-X-RM-TRANSID:2ee56aec349f2f9-40b47
-From: Gu Bin <gubin@cmss.chinamobile.com>
-To: mst@redhat.com
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/virtio/virtio_test: advance next_reset by reset_n, not completed
-Date: Thu,  5 Nov 2026 15:47:40 +0800
-Message-ID: <20261105074741.2177-1-gubin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tus64+ki
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204FC1F000C1;
+	Thu,  5 Nov 2026 07:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793864895;
+	bh=cccu6IRsMQeLQd78s6fwoKTtP+m0EnGz9D3UFhBgw70=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Tus64+kiiu8OCMzKk6Heycm1KF6FxRYt561NxnLKxXsXtN0qLbCDwpRtK5/a7KCEp
+	 fkR2rRoHU8dJU47985DAeip4Y7Vi2OWAZIFdJIH8Rzrra54g/aW+IAGtx3LnFm/g78
+	 mZrJ5/bTh0WHEZZlUTOiZ5MliGL9kkmDX88m+CfwFPhQ910iBwePtLaIePmyP7q/Xl
+	 yGHIBJI+oCTpUYVeJVx4uLtEbb4uQPlxVZdPHnpMo1OEi9BNfvaJHAwivueZPicjz5
+	 UBNq8PanCBb9RS5Uu1mV05PTBxbP0f/4FHnFEyK58B7xt6t0Pz9qbELZaxy8mIIhOq
+	 XsSHaIc5sJqUw==
+Date: Thu, 5 Nov 2026 08:48:10 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 03/10] irqchip/gic-v5: Serialise IRS synchronisation
+ requests
+Message-ID: <auw0ulR3wrsKVcYe@red-moon>
+References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+ <20261104-host_gicv5_fixes-v2-3-e47ad20ea3c8@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,43 +64,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-host_gicv5_fixes-v2-3-e47ad20ea3c8@arm.com>
 
-run_test() arms the next device reset with
+[Remove stable from the CC email recipient list, leave it only in the log]
 
-	while (completed > next_reset)
-		next_reset += completed;
+On Wed, Nov 04, 2026 at 05:47:57PM +0000, Sascha Bischoff wrote:
+> IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
+> Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
 
-next_reset starts at reset_n, but each rearm advances the threshold by
-the absolute completion count instead of the configured interval, so
-the reset cadence stretches after every reset: with reset_n == 16 the
-resets fire at completions 17, 34, 68, 136, ... instead of every 16
-completions, and only a handful of resets happen over the whole run.
+Nit: gicv5_irs_syncr() has no notion of specific IRQs, this is
+misleading.
 
-Advance next_reset by reset_n so resets stay evenly spaced, matching
-the --reset=<n> option meaning.
+> the second request to be dropped. Its caller can then observe the
+> first request completing and assume that its own events have been
+> processed.
+> 
+> With GICv5 ITS KVM support, gicv5_irs_syncr() is also called while
+> restoring the host ITTE in gicv5_its_set_vcpu_affinity(). The callback
+> runs under the IRQ descriptor lock via irq_set_vcpu_affinity(), so it
+> cannot sleep.
 
-Fixes: 264ee5aa81ec ("tools/virtio: Add --reset")
-Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
----
- tools/virtio/virtio_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Technically we are talking about a use case that does not exist yet.
 
-diff --git a/tools/virtio/virtio_test.c b/tools/virtio/virtio_test.c
-index 028f54e6854a..b8deca893f12 100644
---- a/tools/virtio/virtio_test.c
-+++ b/tools/virtio/virtio_test.c
-@@ -250,7 +250,7 @@ static void run_test(struct vdev_info *dev, struct vq_info *vq,
- 
- 				started = completed;
- 				while (completed > next_reset)
--					next_reset += completed;
-+					next_reset += reset_n;
- 			}
- 		} while (r == 0);
- 		if (completed == completed_before && started == started_before)
--- 
-2.55.0.windows.3
+I understand it is churn to fix it first and change it again later,
+I would just say that gicv5_irs_syncr() might need to be called in atomic
+context.
 
+> Serialise the request and completion poll with a raw spinlock, and use
+> atomic polling because the synchronisation runs while holding the IRQ
+> descriptor lock.
+> 
+> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> ---
+>  drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
+> index 4edf787f3f97f..ead76560ea08f 100644
+> --- a/drivers/irqchip/irq-gic-v5-irs.c
+> +++ b/drivers/irqchip/irq-gic-v5-irs.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/log2.h>
+>  #include <linux/of.h>
+>  #include <linux/of_address.h>
+> +#include <linux/spinlock.h>
+>  
+>  #include <linux/irqchip.h>
+>  #include <linux/irqchip/arm-gic-v5.h>
+> @@ -22,6 +23,8 @@
+>  #define LPI_ID_BITS_LINEAR		12
+>  
+>  static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
+> +/* Synchronization requests must not overlap in an IRS Domain. */
+> +static DEFINE_RAW_SPINLOCK(irs_sync_lock);
+>  static LIST_HEAD(irs_nodes);
+>  
+>  static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
+> @@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
+>  		return;
+>  
+>  	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
+> +	guard(raw_spinlock_irqsave)(&irs_sync_lock);
+>  	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
+>  
+> -	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
+> -			  GICV5_IRS_SYNC_STATUSR_IDLE);
+> +	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
+> +				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
+>  }
 
+Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
 
+>  
+>  int gicv5_irs_register_cpu(int cpuid)
+> 
+> -- 
+> 2.34.1
+> 
