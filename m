@@ -1,129 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898067;
-	b=Xj/dGevi52SujcwdI+YKLFakpTAy11Rr4j0QpB0khChbVw1Hi58ZAKUiJj6CE6EXUS/b
-	 g0wB2VHZMKJYTGB+geMLEaGfCSmERT2dfuIX3wVHq4fddBpufYP5ZhvzYDA+dYvQiZYY0
-	 rbIG5+1RWgOSslIoqfbGA3T6YezHbRMQ729UGJfz2GUoHPlkpaH9x/ev8TOknbmgYo+td
-	 OJvl5d9pQ84qx8co2+Fm6QK7RYz8Y26XvzMzwAuJMLW0pxGmdEB1qTKnZzagyGf/gkwKL
-	 xl28nWjYRvIQjCD54IrTUm9SilrqGVgx9cEIXX+2ncl3oCuq83SIPWpPCwO6ukG2VkA==
+	t=1793898085;
+	b=AbcJUTG1+krkZUrKUqfP/8hOGJp0L38+SeDtTam3ukTvCn1JE1WuoPwveVZ7km+FRaJ1
+	 y644FxVzztjVcFS7Q4Dg0IkRF0YEf+A5XkqpoOGIkqFaNQoF+bUxPf3SPUSEBPIlSXesj
+	 2LcZwNlNVm7CinUx5kcFPmVqF2NHvo13jc0EUSLsd7exfoWasfu8q/VjVsPnpeLBFrkzt
+	 bos93IE2i06AjNNyEAtwRwzHDGBQVOEYpYwjuFESj63IwJsXdbyumD+TYPXEJG6/C/WCq
+	 t2kfxUZbvywmcAQdfMiqIrR1uPoSQBszNyiWts/yFsThAu+gs14jJR7LH/1CcEPUnSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898067;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=zJ4YMgar/+f3xch1CQmR84D/AWFtiNZ8AwAhZEnWX4g=;
-	b=iO7B5puWrr5xM85RZ6jFP9gN8lLFQOw9n9Q/z75KsJREAndC6pM71qTTc42tsH3hu9Yf
-	 aWxMK+QnQuQTEdBvKRNHE1JZrml4FHrw2TDIH3kSxN9jR/j0uZjhxK15/QUvBT0pirSLx
-	 dyki+tUswmO7pxEpNeevLujZXTzb0A5k8JH/lyB7qLYmeg5SewMEAo9wGq30uV0uk4gtu
-	 ohjsEVGmgL4xl0vODRD3POU26sxb5U6FuEw5oM4u7lFe8FjHKKlgNyD/Xsaa5pnsfUjDQ
-	 L4pASEuvrX9fl0G4SE6IOQaFw8Maqy6vehB/AHa0ebbYB8+GRFE1WXvlhtXTeb22cjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898085;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1Bj0+K8jV5yl/+WlXVdM+whsRRuk81dsUqfDRXtanZc=;
+	b=zdPjsvKxGObhJFH/bl5lmEcz2EJRiGkEseZknJIXf3d76Lku1sYhd6ELgdhsZme9250N
+	 wxdy7xUEvg6S9QlHOPgG5JEV7buBzstsxOq+W+0E0AsKdywj1rQb0wvv5AqTGh0vhQH8Z
+	 IDlVZQB4C/538fIXP1TLB3MAoDZu1DwAGEaHgupqJcomFflipCILkZxs+Kl/2XmDedb2w
+	 fZb7HEcB41qfixpCX3I3Yy+Eh9wySESdibH1N/UNi9q9kLQjZr5fUcNldn1hkM5HcMSyu
+	 cgq6kOlxVpkbqeKDka0kYMIBWNRZBRwpL29bhNiiazpRXtzv2dIl10UbHVKAxk/HPjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o2rewCfA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gNOFwnmK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o2rewCfA;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gNOFwnmK;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=grsecurity.net;
+	spf=pass smtp.mailfrom=opensrcsec.com;
+	dkim=pass header.d=grsecurity.net header.i=@grsecurity.net header.a=rsa-sha256 header.s=grsec header.b=lu7Fu7ru;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A556082BC7;
-	Thu,  5 Nov 2026 17:01:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3A556082BC7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A23260A262E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A23260A262E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grsecurity.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensrcsec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o2rewCfA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gNOFwnmK;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=o2rewCfA;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gNOFwnmK
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5FE6D22937;
-	Thu,  5 Nov 2026 17:01:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793898065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zJ4YMgar/+f3xch1CQmR84D/AWFtiNZ8AwAhZEnWX4g=;
-	b=o2rewCfAnbi1hi0MofFMdb9Ixx8NBxq97b3E5eyBcNFiBDcnEHA/FcNJrljUp4KAPbfEuN
-	MO7dqjK5dOd0b+XN3ue2BGEy1uOew2ZFUM7ucie5f0BEUHakLT+5Oxhlpe9roQPHm+E6Nc
-	QXqStp0DXuqg2djuEq5GdV7OvbrQtyA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793898065;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zJ4YMgar/+f3xch1CQmR84D/AWFtiNZ8AwAhZEnWX4g=;
-	b=gNOFwnmKOfXqFUyiXGIpJJR+IwTNMewBrh/2d7AdIwYvDM6h85yo91Qf+wKyAI2vats1dw
-	WdwdsPOSHQyQngBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793898065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zJ4YMgar/+f3xch1CQmR84D/AWFtiNZ8AwAhZEnWX4g=;
-	b=o2rewCfAnbi1hi0MofFMdb9Ixx8NBxq97b3E5eyBcNFiBDcnEHA/FcNJrljUp4KAPbfEuN
-	MO7dqjK5dOd0b+XN3ue2BGEy1uOew2ZFUM7ucie5f0BEUHakLT+5Oxhlpe9roQPHm+E6Nc
-	QXqStp0DXuqg2djuEq5GdV7OvbrQtyA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793898065;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zJ4YMgar/+f3xch1CQmR84D/AWFtiNZ8AwAhZEnWX4g=;
-	b=gNOFwnmKOfXqFUyiXGIpJJR+IwTNMewBrh/2d7AdIwYvDM6h85yo91Qf+wKyAI2vats1dw
-	WdwdsPOSHQyQngBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 16CD5134F6;
-	Thu,  5 Nov 2026 17:01:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HMEkC0K27GqWRwAAD6G6ig:T10
-	(envelope-from <clopez@suse.de>); Thu, 05 Nov 2026 17:01:04 +0000
-From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
-To: kvm@vger.kernel.org,
-	linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	seanjc@google.com,
-	pbonzini@redhat.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	peterx@redhat.com,
-	ljs@kernel.org,
-	imbrenda@linux.ibm.com,
-	borntraeger@linux.ibm.com,
-	frankja@linux.ibm.com,
-	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>
-Subject: [PATCH v2 9/9] KVM: s390: don't unmap the gmap on permission upgrade
-Date: Thu,  5 Nov 2026 17:50:06 +0100
-Message-ID: <20261105165004.2663799-13-clopez@suse.de>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261105165004.2663799-4-clopez@suse.de>
-References: <20261105165004.2663799-4-clopez@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=grsecurity.net header.i=@grsecurity.net header.a=rsa-sha256 header.s=grsec header.b=lu7Fu7ru
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e00eee27dso1295677f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:01:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=grsecurity.net; s=grsec; t=1793898083; x=1794502883; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1Bj0+K8jV5yl/+WlXVdM+whsRRuk81dsUqfDRXtanZc=;
+        b=lu7Fu7ruhWk17tVwfHYq+9Cf6MZ+ltAqQ1RSTydkOwv3SypLfT5YWqU9zFrisGAA+i
+         OfMDYAd8/AB8TcQ86vZpeTqs4/HmTYNLfULPSIK6KBD2RwvcR+HpwQ957XxcWgkPO0Pj
+         7eCpjcNBTxpmFxmcplaLHFrS1dOLi4aowGrydTFin7RbBrS3SPECyvqfVwJcgBBi3chm
+         6SnnE/LADV4UziNg3T9+3jOhHTcJSzEowOSyLYQwhP5Y94JvpypyRiLVthpLL6pAanxB
+         ra0vhxSivqKBO33DCa3jSTMRvZxLfpMLqrg7AQUfSdrHleLLmmgqqhukfYDn2Mq8fF53
+         sTEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793898083; x=1794502883;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Bj0+K8jV5yl/+WlXVdM+whsRRuk81dsUqfDRXtanZc=;
+        b=B147FIMvPNNmLEDsptWfISgs7I+EY3aBl7F8aUGdD9RmZ2n3vasO//cr1UAIBu+c51
+         kQuJgt/fmqgqZ6tR13eiM8+NMeCfPSJ4uzf3UaBkrED1baGIPDzjbGIKmrDXWlY2yXnW
+         NPhlwMqfzotT86n8WjmOFs8PDJffn3KQJis2MP6N9Um99RvC1aqwy7GOgYHFWGbHNtdE
+         s3rF9RwTaI5aws1E2oOcrUxWE5wT4YwGAweDQsY64TEuxCxLYjMjLAZzHKAD7T9jAopO
+         XWr9OLPwjoO7o8kES48PAFwXFl3CVJ6QzS4NPMSbLKuKXRoT6+zjNmnbqpk1CuZUIuHT
+         A32Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxXm+o56zLtE3ONTsfIb+JwTk32BUoRE0W+fCP+mnJayMdHjtP00pfg2v6Fmp7svCXRnPyY3ScUA5hhcFM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9yo0qUoohtFahgcjn+YekUk2hGycpE87A+d1mRI8avosCDMZ/L
+	UTEzMkrRudKzJiotSOcGCmk8w4oA3tAlmoMngsxf5N0pEJDEup6WaA5Rxo+0LtGRRY9428WD2ea
+	VO4Q3
+X-Gm-Gg: AYBFou1hiHFs6C2SCKvChuPfif4BE400J+tOMaiMIRccsWocO8tFjklpfBOxjjQ7TTA
+	svj/hog+9Q47KjzZKXfc2AD8kuTehLQNTKU2ujiGY6wTVDMvnqrp7sgPZcgs4dI3tqtsAz1zReP
+	cs1AEd925pgNsNIpO76Y3aTXP11DqlOAwKhY82MCY0fMfb5DHbclTYAe/HrVftlWpwFQo4uHqxf
+	NDwtjQMYmn05+x9yHN/RO/+ZOzGwF1CwKsmTeksnpcma/ylQIo6QVOp/HIjO3fvBXUkT3byRlRQ
+	xto9G8vnCviyW2dwvjsD+JwSdCAbX0bY/Akw4v0MPW1RbQxuEwrtCSnY9fbnxAgQWQgVbr2VTSF
+	eJ31kUaxTpeuiBkojo+pF4OtcE6iIr6WjTc+/Fxzj21NSm05yg5z1rLd6gkIBT9sukMRirNvc/F
+	8zICQfql1Big0Dslgj0blm9+NJhhSg+MJNvVI9WNEOrjtluJwP8abthpt+TVQ+roRpIA8bPaL9x
+	qNZFX6y4p6TcEb0CHQiYSFVDWe7tbVedIYeSD8MYZu8Ajif60yIAUFosCNXyfp0kBmMhIymbz32
+	/kCTdgpIbyDDSU1Nvrw65DOoibBQ463CfEiwYYT9ud0XhBqymD1pFTlgVh1uDx1ECbbERvFJrGL
+	l/6OcFCfgu/qwaGQtXKANuet0
+X-Received: by 2002:a05:6000:26cb:b0:491:e062:383d with SMTP id ffacd0b85a97d-4928030bd26mr175146f8f.57.1793898083236;
+        Thu, 05 Nov 2026 09:01:23 -0800 (PST)
+Received: from bell.fritz.box (p200300faaf11b90088550f04e79781cf.dip0.t-ipconnect.de. [2003:fa:af11:b900:8855:f04:e797:81cf])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d88e1sm11033465f8f.15.2026.11.05.09.01.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:01:21 -0800 (PST)
+From: Mathias Krause <minipli@grsecurity.net>
+To: Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mathias Krause <minipli@grsecurity.net>
+Subject: [PATCH] HID: Intel-thc-hid: Fix REGMAP dependency
+Date: Thu,  5 Nov 2026 18:01:16 +0100
+Message-ID: <20261105170116.3193223-1-minipli@grsecurity.net>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,85 +100,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLmtzipbxtgehzutu1qae44kxg)];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -12.30
 
-When an mmu_notifier invalidation only upgrades permissions
-(MMU_NOTIFIER_RANGE_PERM_UPGRADE), keep the existing gmap entries
-instead of unmapping them. The PFN is unchanged and no access is
-revoked, so an existing entry is no more permissive than the new host
-PTE.
+intel-thc-{dev,dma}.c make use of the regmap API and related data
+structures, breaking the build if CONFIG_REGMAP isn't set.
 
-A write to an entry that is still read-only causes a protection
-exception, which kvm_s390_faultin_gfn() handles as a write fault,
-picking up the new permissions. This applies to both s390 and arm64
-guests.
+Fix that by forcibly enabling REGMAP when this driver gets build.
 
-Signed-off-by: Carlos López <clopez@suse.de>
+Fixes: 1b2d05384c29 ("HID: intel-thc-hid: Add basic THC driver skeleton")
+Signed-off-by: Mathias Krause <minipli@grsecurity.net>
 ---
- arch/s390/kvm/arm64/arm.c | 7 +++++++
- arch/s390/kvm/s390/s390.c | 7 +++++++
- 2 files changed, 14 insertions(+)
+ drivers/hid/intel-thc-hid/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/s390/kvm/arm64/arm.c b/arch/s390/kvm/arm64/arm.c
-index bd9d85235f43..5aee1817aad8 100644
---- a/arch/s390/kvm/arm64/arm.c
-+++ b/arch/s390/kvm/arm64/arm.c
-@@ -678,6 +678,13 @@ void kvm_arch_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *old,
- 
- bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- {
-+	/*
-+	 * Do not bother unmapping if this is only a protection upgrade.
-+	 * Permissions will be faulted-in on demand.
-+	 */
-+	if (range->flags & MMU_NOTIFIER_RANGE_PERM_UPGRADE)
-+		return false;
-+
- 	return gmap_unmap_gfn_range(kvm->arch.gmap, range->slot, range->start, range->end);
- }
- 
-diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
-index 18fb200f854a..954bf6b64683 100644
---- a/arch/s390/kvm/s390/s390.c
-+++ b/arch/s390/kvm/s390/s390.c
-@@ -5871,6 +5871,13 @@ bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-  */
- bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- {
-+	/*
-+	 * Do not bother unmapping if this is only a protection upgrade.
-+	 * Permissions will be faulted-in on demand.
-+	 */
-+	if (range->flags & MMU_NOTIFIER_RANGE_PERM_UPGRADE)
-+		return false;
-+
- 	return gmap_unmap_gfn_range(kvm->arch.gmap, range->slot, range->start, range->end);
- }
- 
+diff --git a/drivers/hid/intel-thc-hid/Kconfig b/drivers/hid/intel-thc-hid/Kconfig
+index 9d74e53b8c62..57a1e51cb512 100644
+--- a/drivers/hid/intel-thc-hid/Kconfig
++++ b/drivers/hid/intel-thc-hid/Kconfig
+@@ -8,6 +8,7 @@ config INTEL_THC_HID
+ 	tristate "Intel Touch Host Controller"
+ 	depends on ACPI
+ 	select SGL_ALLOC
++	select REGMAP
+ 	help
+ 	  THC (Touch Host Controller) is the name of the IP block in PCH that
+ 	  interfaces with Touch Devices (ex: touchscreen, touchpad etc.). It
 -- 
-2.51.0
+2.47.3
 
