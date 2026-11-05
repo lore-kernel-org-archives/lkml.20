@@ -1,76 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870129;
-	b=IJaVpWGnm8fgT0d97TWf+LXo4BxSizJrDID8W3bXLmmLa0JXSWAAG701mJDs/hJ8FuyO
-	 MQBOGGsu29Jfnxrj31FRM7qyxQnquv1gZMiu8Us2YDefk1qAozd/CefQvNy/q0WPXyMLt
-	 VxHnwV7LtTZFyB9rclDartJUY9QDZ9H6cDQ36mR9g7saVbqEBouWF7P9QGWVzlsCbO77m
-	 nsX9TvNHiJjZ5JNnJ//jYW8hgbWu1uNPxg2ROUw2mR7SOnnrqQDVMB9e6zGqMLpcx4oSZ
-	 M55c0sij4qej0E/YbIC+OMaMuUGSYy0vuWqsHajhET/Z1hvTG1t0uBQfjC+snh/9ZJw==
+	t=1793870151;
+	b=pUQXfnsmwHmRN/Kq/zEYYN2j4Fjk+Tz1lL3VND5qHQZJV/2wTKPdHduO35+DwzBPzARA
+	 73JSwnwn94kwdtEfCi3FdkQBOVyYYgsbz1HAAr/bTQybbMFpPCIuXYBE9mp1omEtmfnvm
+	 rft3ntQt7tLAf9hCGgl8VpWYe+/b2lZ5qzRuz6AWxXn9AAMFfeZcPSRxCDTPAFGK7+o4g
+	 N4d0hSc2ElVav9fP9dG4NWJg2SjRKxL2L8RDmd1ns7ommFpsbfaWh6fNmTFCG1n/7YnGx
+	 A/7yQvRNwB+iqw6slTkb9WfjF/CZuUDhriqqHyDNbrXwy/xCdXoCp5+4TkIaKYJbYgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870129;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=gp+XvZ8u5ZE7X4dajdQ+NYbiZBnTVLgwCjJL4l80lxA=;
-	b=t0nLSVxQUHd8GR+2TvEO27J1rlPB+DoHOGlOBP9ojb+UcYUnsvJTrg3RdBvO9XD0hTVt
-	 PodoXWjEwf2NXdvSztPvGVDvKOQgrso9vDLgsFypmZ2IAyfAE0RA+78NzZwdDNY5DEBSp
-	 2oK2BdrHpR98b9yXirxqMtNw+TQgC/Q01h8ee9Os7o8H9nqFiQ5yqAxvUjsU1OxUUZF+Z
-	 zbg5LudrtJ4BzZHROUlkwZphEaitqRIuj75qw45gMOjBToWFdhn9b0ucqaxFQSalVXaFo
-	 yhQpimfyn9NwlAO5+2BYSh81DVU+oQCyzsgUvQJRGRflq/zmF6Xa5ezFgKi9BD0gJkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870151;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=X2YbtttX2ljZ/Cx/Wqr/rTeYStGymakIlZJnGpjWoAU=;
+	b=CyPkd1SYq96KH6OBP0BvkpQKJ74NvnG/FcQPWcSWEe1R3Rex2Be/SmIaVikI3m4oQOoU
+	 DK9MREgtYJBBoLoNi40AUIs/y4EeuI1MZ4n9dk/cqSA9oY+S7OWkLH2i8Onc0Rt/LDH4d
+	 3TLzsjcFOdqN2qjKPjIbvldDpLoKpSCa/y1i1k31P6MhCA8+tQDOqNqHsysFuq7tsp3aV
+	 sqR+O5c2V5+iAK+60QcmQvWX2U+UzazAlwWYo6oUu6Y649cWSeY/3D0eLiax8d/XfdSRg
+	 h13rFCKEusbHi0ddW5g0qx4MCSrzGAnc3MxnXBpUwHym3Ho03TEGOt8cXXz5ENHnKwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ik+qj3YW;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61A3606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:15:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D61A3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e7ad9f78dso196011285a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:15:28 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FE4606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:15:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4FE4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ik+qj3YW
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1438144f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:15:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793870148; x=1794474948; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X2YbtttX2ljZ/Cx/Wqr/rTeYStGymakIlZJnGpjWoAU=;
+        b=Ik+qj3YW6/tbM0GfgqD8u9GFlUuLRupsrDPDM3W86HK70+lqjEU0Ib2ss3aYQH7hIK
+         laxrlJD7u6ZwtCfi3T0HBPL52puC2CEJ5iHpdMuUvjelxMt2yN+KntPUAIzmsX9f0Fnq
+         C4JfHCYGQhEk5YpwZyfpPNIDDUME/xjqlb49duzpOn150X/42LPUkw7KqKHlFGmqArZ4
+         NQJWqwzcU0HmJvYHR8wcaNd4FV1+pFK4/JxZOsPm4vLsn77OmuE5/i7EUfcuVJg80wNu
+         /SLifkZMAJgpz95tXpEyw2rh4K4dYfJzP6ay7SfuFRq9lOttoEc3p5CLto02EYjtF7ON
+         0xLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793870128; x=1794474928;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gp+XvZ8u5ZE7X4dajdQ+NYbiZBnTVLgwCjJL4l80lxA=;
-        b=JRTyeXpTwDj7+fBK7y9j46KYB0U0W6lFlHdGC+O98z5ePgjCrLVC6r8TRx5O6PT9oy
-         cT9hHXoWRqEDUx0LdWJ7XDOywmtNmtDKh1jp3lMDyZm9Onx77a+RAYk5elAtAY0z60Zj
-         rFqWQQ/dDJuCBnhO6lpZR6AoH5mJO/HIretymCcpCMDI7x21vmDozbZGm0xYwosQw0I/
-         TRf3SRkHJREJvusUc4RVTOnrsQPsQy8vOr7hHVPHCKW7lPE9W7aXEL9xed/exSgi+oh4
-         p6FzRs4RaDIiGIDtuItSnObHnCA8UbbGWpCiyF7jbfaqvlIObIm/glRLfq4aE/JAE/ag
-         IUNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCEUhlS0Og3T8CiIfjPn/OYPk0+HX7Fodic5Wv1vgYXeHyvGHkAq9XM4cT1e08lfiQ8S4M5EnXKmxHqCw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/x+7eIB2OwYYIEDw/bN+pnY/k/A/mvx3Rj7R8eswBxibEW2+uB
-	D3o1zZVeFbySGoj0kkVIjsYqsOTO+PqkAdSDxgq6Xf7IjF6zQX9kyDJbpOqmmW6eZDY=
-X-Gm-Gg: AYBFou1xtiw41lkURIzX568iVXapaJGmy/D5HTv6LxKEp4Yw43h5HByxphJno/1Zms5
-	e9E+ZIKWEWrsHhDwRfJxvgq/Zohod8g/HjlfR6l3hwBlq8QIbW5baSDGeiyEg1FQZGVYr78lfx4
-	v5TDNmZGlIA64wzYLQ+A4vjDg85RDQ0vBauWLRuQb7Jz6zd6VOt16cfJ4jmhZGLVfEYdmGnWdDI
-	ADT+Dr8tCrSdJE3FOphd2mVoq8KAkurfGEKv4W8NaoKGp9VT2JQVxOF+vuXGVKIV3dU8kDWoQPo
-	YA4Y9E2beWUOXIBC4K+pt8x8SaYCW+Nc9ZYqNoE5myKCm1rpzS4dQ2CAzkFQCiCZn+Brz2LCeU+
-	T31XraqLZSZDMeiMo40RfIRLIKavyBYtr/REhyvVaICKF5RbNszUkJZAh4y2BpgbIC9ymLOrCTQ
-	6yxD9HH6SLMK8rTgs2tiKDqkqLQh0KVXO2Eip8StI+jU3sLYgmqywY1TcdWLrFgo/qZx0bnz3rv
-	3p2vEDQ42gkY9mQJjWWDCPiaTHqskwUp4ZhWjMA78t+YEmTm6gweqAXNlJ2dFjfhcDHORwqN0Hc
-	ABJgEzm8uPrJfWdNkTBn16/sKeB1LZvjvo7J+RXxL8f3NWZ7FwVVRlX7TSEy+8T4NIhbGw==
-X-Received: by 2002:a05:620a:84c4:b0:93f:dea:3b7e with SMTP id af79cd13be357-9442171286amr2995797485a.24.1793870127742;
-        Thu, 05 Nov 2026 01:15:27 -0800 (PST)
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com. [209.85.222.177])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4814c0asm416090485a.20.2026.11.05.01.15.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:15:27 -0800 (PST)
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93ece7a73b9so191016985a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:15:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxZaY0gmsiY6vpWPn6M4tMQCmBikNpoVaGlVuZ84Dzbl+g6dgjgePQrPM0ZCbUD2rGPvwIpdP5ddKplte8=@vger.kernel.org
-X-Received: by 2002:a05:6102:c4f:b0:7cc:3eb0:6ece with SMTP id
- ada2fe7eead31-7d072d53fa3mr9146730137.33.1793869733877; Thu, 05 Nov 2026
- 01:08:53 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793870148; x=1794474948;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X2YbtttX2ljZ/Cx/Wqr/rTeYStGymakIlZJnGpjWoAU=;
+        b=Zf3fgimLui2G8qn+m3+CYRNW9jf8GyCdo9Svd5/JZYWgmN70IzohdqJYDgJe4Tje3x
+         RHs7gIgUjiAjgR9EQ7dlhE8amKg8fPHI29virhWk48V2MIc/ICihVTtDiFhy8fS17hHZ
+         zupKxSxy+vJVQ0ChO1ePP5km7jMZwv/KFbjaUmyWMKjmSW5vvjKJlF2pWVK9J+tJQ0c/
+         jik5K/Ac7CMuTgnwob9TtJbWCeFFZnddd9WPfT1PAFixwQ4gj4UFYiQ74yT+JER+rNhb
+         +YKrBqyaff8NTmux7FBN3ZGEdDyfDyh1YSY+Yzs4F00E+dCI8810Qx0pQng7sI8w1EGM
+         TjIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6GnydzfS66rq2VGsbbDdKjfXSiWxKwdzxdRAU6FceI7t4llTpeSmaUkWAP1XHbQQmmkybEfV7MXxOP4g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+uB5WTMGk0Je6iRu9Wa1klrn/Q1OWPh97SN0UWdodhMurdV9y2
+	lkO9j3hoTQi6j8OQmCaXJxCQTzCy67yTBzKdcIiERawFHpAdhcaMrw3ZETDjNXlSXbXqbfXqyC7
+	gQgbGxA==
+X-Gm-Gg: AYBFou3UE8dnEpEfl0GDUxeoYLYEMTiN525kLvjZQZNkwvPztzmKIXJNUXg8sevHm2S
+	GJt1p22lzgR/Xpv5mbXUGle0aSNPesQ4as/HEJFAR3BnHHWfePDJttnu6P+gEL4mS02BAXfPH/D
+	Xn+ajpn7RWmTWrQ/vvENsoFyYXpq1Cj33oW+EErmaqejho+EAGISMAUhXxrmXf7bRSU/gaO6P+6
+	QV7D371HGuLD8jqB1AJeTWRYya/6y9Izb6ILbzZkEF5vVl27tBYzUKRY5/+h4zJjGeQ6pVKXaMC
+	1UE+qy78wSh8szzx/B6RgtbLbzFWsxgZOwdb5Bh7U8u4cc3A9VT5HuqsPk+dMo/bHvgvokpKHMR
+	fH54fyC67DgCFs5UcTdhfoV+qRXhlQied0N2rFu1ndT9Q5R/6VDtsDVyhcMFgv5SlgXasjQA/9a
+	xIYNjcUYN4sI3Pm2bX6/vk8Wzo3xokKeTtkXaiVFJdwyYRODp2DXGkgVNSzZqSIis/8tpOYc2+7
+	AIdXxYgq8YC8jxNvKoXzOYKKojvK4C1mdu1vxKznaCRNu6rBgOwfws3ZPKIKPhINEplWcyiSzjx
+	MqywcMFDM68RUNuiFxRNsKMjf+gP6KdsPz9JWXMzVIiGkqR/4sy0x9lu4Y7c7XCwhNmcdRBEstp
+	SY9tkI2Mf6Q==
+X-Received: by 2002:a5d:5e8d:0:b0:48d:fd53:828d with SMTP id ffacd0b85a97d-48e6e50d75fmr36610544f8f.30.1793870147754;
+        Thu, 05 Nov 2026 01:15:47 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d87b5sm8550950f8f.11.2026.11.05.01.15.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 01:15:46 -0800 (PST)
+Date: Thu, 5 Nov 2026 09:15:43 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
+Message-ID: <auxJP5fkEQOkvicE@google.com>
+References: <20261102-ring-buffer-head-moved-v1-1-165973790be4@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,78 +103,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 5 Nov 2026 10:08:40 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdWHyQhJwFHd5dguORb0=KTeQPT8AwMr0Uo6UAJRcn-fsg@mail.gmail.com>
-X-Gm-Features: AclHuK-Joxo1A4dnmlO7hQLoxC6QCg3Be9nelvt7mgpbpsg01EIWZ9Dok6aJ4CQ
-Message-ID: <CAMuHMdWHyQhJwFHd5dguORb0=KTeQPT8AwMr0Uo6UAJRcn-fsg@mail.gmail.com>
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-To: Frank.Li@oss.nxp.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Russell King <linux@armlinux.org.uk>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Chunyan Zhang <zhang.lyra@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Cunhao Lu <1579567540@qq.com>, 
-	Raul E Rangel <rrangel@chromium.org>, Yenchia Chen <yenchia.chen@mediatek.com>, 
-	Zhiyong Tao <zhiyong.tao@mediatek.com>, Carlo Caione <ccaione@baylibre.com>, 
-	Moteen Shah <m-shah@ti.com>, Kendall Willis <k-willis@ti.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Kartik Rajput <kkartik@nvidia.com>, 
-	Fan Wu <fanwu01@zju.edu.cn>, Nicolai Buchwitz <nb@tipi-net.de>, 
-	Karl Mehltretter <kmehltretter@gmail.com>, =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
-	Shitalkumar Gandhi <shital.gandhi45@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
-	Sherry Sun <sherry.sun@nxp.com>, John Ogness <john.ogness@linutronix.de>, 
-	Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>, Robin Gong <yibin.gong@nxp.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu <2426767509@qq.com>, 
-	"Nikola Z. Ivanov" <zlatistiv@gmail.com>, Haoxiang Li <haoxiang_li2024@163.com>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Myeonghun Pak <mhun512@gmail.com>, 
-	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>, 
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>, 
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
-	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-ring-buffer-head-moved-v1-1-165973790be4@debian.org>
 
-On Mon, 2 Nov 2026 at 18:56, <Frank.Li@oss.nxp.com> wrote:
-> From: Frank Li <Frank.Li@nxp.com>
->
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across serial drivers.
->
-> No functional change intended. Prepare to make struct
-> dma_async_tx_descriptor private to the DMA engine.
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+On Mon, Nov 02, 2026 at 06:30:11AM -0800, Breno Leitao wrote:
+> I am occasionally seeing the following  KASAN warning when running
 
->  drivers/tty/serial/sh-sci.c         | 9 +++------
+a KASAN warning?
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> # sh-sci
+> some debug kernel at Meta's fleet:
+> 
+>   WARNING: kernel/trace/ring_buffer.c:3793 at rb_move_tail+0xf78/0x1050
+>   Call trace:
+>    rb_move_tail+0xf78/0x1050 (P)
+>    __rb_reserve_next+0x648/0xac0
+>    ring_buffer_lock_reserve+0xd00/0xf00
+>    trace_buffer_lock_reserve+0x28/0x188
+>    trace_graph_return+0x220/0x3e8
+>    ftrace_return_to_handler+0x2bc/0x5a8
+>    return_to_handler+0x20/0x48
+>    __arm64_sys_sched_yield+0x18/0x30 (F)
+> 
+> I've understood that rb_handle_head_page() moves the head page forward
 
-Gr{oetje,eeting}s,
+Drop "I've understood". 
 
-                        Geert
+> in two steps: it marks the pointer to the old head page UPDATE, then
+> marks the pointer to the page after it (new_head) HEAD. The second
+> cmpxchg is assumed to return only HEAD or NORMAL, but it can also return
+> RB_PAGE_MOVED:
+> 
+>   CPU 0 (writer)                        CPU 1 (reader)
+>   ------------------------------------  --------------------------------
+>   rb_handle_head_page()
+>     old head ptr: HEAD -> UPDATE
+>     new_head = page after old head
+>     <interrupt: nested write>
+>       sees UPDATE, marks new_head
+>       HEAD and moves the tail page
+>     </interrupt>
+>                                         rb_get_reader_page()
+>                                           swaps new_head out for the
+>                                           reader page
+>     cmpxchg(new_head|NORMAL ->
+>             new_head|HEAD) -> MOVED
+>     RB_WARN_ON()
+> 
+> RB_WARN_ON() disables the whole ring buffer, and the function returns
+> without clearing its UPDATE flag, so tracing stays off until the buffer
+> is reset.
+> 
+> Do not treat RB_PAGE_MOVED as fatal, retry after clearing UPDATE. The
+> head already advanced past both pages, so the caller can simply try
+> again without losing tracing.
+> 
+> Fixes: 77ae365eca89 ("ring-buffer: make lockless")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+> A nested writer and a consuming reader can race so that the second
+> cmpxchg of a head page move in rb_handle_head_page() returns
+> RB_PAGE_MOVED. That trips RB_WARN_ON(), which disables the ring buffer
+> and leaves the old head pointer flagged UPDATE. The patch handles the
+> return like the RB_PAGE_MOVED case of the first cmpxchg: clear the
+> UPDATE flag if this writer set it, and retry.
+> 
+> Testing, on arm64 KVM guests under virtme-ng (32 vCPUs, KASAN config,
+> next-20261030; kernel/trace/ring_buffer.c is identical in v7.4-rc1):
+> - Setup: function_graph tracer filtered to "*sched*", buffer_size_kb=7
+>   (two pages per CPU), overwrite on, a trace_pipe_raw reader on every
+>   CPU plus a trace_pipe reader, and stress-ng --yield/--timer/--futex.
+> - Without the patch the warning fired after about 12 minutes. With a
+>   debug-only 50us udelay() between computing new_head and the cmpxchg
+>   it fired within a second, and a debug print showed ret ==
+>   RB_PAGE_MOVED, type == RB_PAGE_HEAD and new_head being the reader's
+>   page.
+> - With the patch: no warning in a 5 minute run with the udelay() (the
+>   RB_PAGE_MOVED case ran about 1000 times) or in a 25 minute run
+>   without it (it ran once), and the buffer kept recording in both.
+> - checkpatch --strict is clean, and kernel/trace/ring_buffer.o builds
+>   without warnings at W=1 on v7.4-rc1.
+> 
+> Not tested: the fix has not run on the arm64 Grace host where the
+> original WARN was seen.
+> 
+> The original WARN came from a next-20261030 KASAN kernel on an NVIDIA
+> Grace host under stress-ng, after an interrupted ftracetest run had left
+> that tracing setup in place.
+> 
+> The analysis, reproducer and patch were developed with an AI coding
+> assistant (Claude Code). It triaged the WARN from the netconsole logs,
+> wrote the virtme-ng reproducer and the debug instrumentation, and
+> drafted the fix and changelog.
+> ---
+>  kernel/trace/ring_buffer.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 1fd28a72e6ee13..7a60fa175e2cc6 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -3789,6 +3789,15 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
+>  	case RB_PAGE_NORMAL:
+>  		/* OK */
+>  		break;
+> +	case RB_PAGE_MOVED:
+> +		if (type == RB_PAGE_HEAD) {
+> +			ret = rb_head_page_set_normal(cpu_buffer, next_page,
+> +						      tail_page,
+> +						      RB_PAGE_UPDATE);
+> +			if (RB_WARN_ON(cpu_buffer, ret != RB_PAGE_UPDATE))
+> +				return -1;
+> +		}
+
+We should avoid duplicating this.
+
+> +		return 1;
+
+Besides, I am not sure about returning 1. If the nested writer interrupts
+between rb_head_page_set_head() and rb_head_page_set_normal(), it can also get
+RB_PAGE_MOVED and skipping rb_tail_page_update() means the retry will observe
+the old tail.
+
+All in all, I wonder if it shouldn't simply be: 
+
+  case RB_PAGE_MOVED:
+     break;
+
+Additionally, the comment with "Valid returns" must be amended.
+
+>  	default:
+>  		RB_WARN_ON(cpu_buffer, 1);
+>  		return -1;
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261102-ring-buffer-head-moved-f9caf5da9444
+> 
+> Best regards,
+> --  
+> Breno Leitao <leitao@debian.org>
+> 
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Vincent
