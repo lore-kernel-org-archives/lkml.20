@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849673;
-	b=bc2YYnwdfj3uNIZi8h8owOUD9CnRm/lDgeMJmEFgtXddzFJDzvv9gorIt28VcgR8zAvu
-	 9YBdUBRaPLfPB+79UgiZZeTyQnZSq4OP8hyzGWJRaTDevleaCmC6ei+o9DnRIbWhrvWgO
-	 D9x3ZXbtxsZHRjgpYW9t289oVslfsbIBL1tdMvl6YgHAFHs1acjIj6uaujmXvKSqDDrBC
-	 6w0/HJY6R7G/Z5OfDvhwfkr9Cg32N2Npp/TEX6gjmUWp061hyJL1rBkdwT715zT02CZD6
-	 L5aS3tzhaC2twf+VkyXhlPJghxkqGj5S4mOhWWX7nw9tHjGqt9t9Ez5RQzudiI7npog==
+	t=1793849688;
+	b=ex3CkhQlJE66ZQaRTYFzSbkiaDhCHlVk44lSiL3OJRmV+NdkTYGf4dsEglkFv405k9DA
+	 5x4q51Rr6kcfLZTTPFq/6+NUaYQEn26wDjWvVLvveByX+cBCx2+6AjeITPBvi1FQXajwL
+	 c3157Xtykz6H/UAAvahE4bFPgPZPaeYJeTOdgcjpqSpemKWx+jkA3udXi61JY/bKRyM+H
+	 qcbO/tPVdnBJNcfabyvnqcsufKEBw7VuuZvUnNGUKalNY6HRWkQnjNy7jQvLsQ6ButoCA
+	 wAADCosW6eqlzTYIA0zaENNf/nX5V/IPIpAfpRgqR5iVmG/bO5qlfr5FkLEJREkQTxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849673;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=SduXdqOazBa5GxKZ9IOIpheoAA30LJbtlvdLiKi6v3Q=;
-	b=S7L3zU/xRkdprcd9SWoGAyKFC8ot4DJWyt/oZREhBxe0D3ZGvRiqS6n8bG2uHypcba5R
-	 sK089Fyb8uWMAnz9zzICQCslVGD66FqLrHXO5HswDJqWVr+j8jxvitAPXSEf1lbPZZnhX
-	 hoqbNvhmCqBkmcuIZQ+yebMcp4PwCEbb5r/FiHP2qNx35AF10eZ4dKLFS9hGhQeOehicc
-	 hwbv/dZ512HXhee4+stIyYuabLK7NlPS9Bdqy2QHmxwGit4wF/JEYTTWsQFHlLmZowSZi
-	 /4d4pJbMo6wmvZHNapTKxKj2jx9wpIWQegdIi+1QSHHygiZmo+vNBzSvj2fcBpbeVHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849688;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kSUqYVXd3fleCuc82dAmdXpBBmDiMLE5sH3ebajdc/s=;
+	b=e8GUS5ulA9zmUnM3UnPhg8Yc/7KPWWvtWvw7fZKW4hdZBoHUNC496We677eTWHKFGS2T
+	 AV9UrPXwB0N5VtLBYNFn2i0vByVQD+hI7gIWlFgDsIaxY4tAGmqpFxaaj7nVbCfnAFMNB
+	 6F2vn7/YVUQ03yNO2Im3NbUOx/bqYCxg46SiMhpG5Zmf22h7cClKlIGw/a1aIpziZI5vE
+	 hCVPqFFZyf231XFW8eUZZM/uyoSuF1sGDo9vy+fTW+Qi8F7JwIJH4VQ0UvY+3UG080+O9
+	 hUQeQNo79tCqKf2p3SslxcSEmsr/Y/WsE0IP6JQkz9MFRN3z8+lOu9/pkH45WYfrtQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b="s/ONanSP";
+	arc=none smtp.remote-ip=61.135.153.170
+Received: from smtp153-170.sina.com.cn (smtp153-170.sina.com.cn [61.135.153.170])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D6C606A31B;
-	Thu,  5 Nov 2026 03:34:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D6C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXsrc3+etqwPxXAA--.15780S2;
-	Thu, 05 Nov 2026 11:34:15 +0800 (CST)
-From: Chen Ni <nichen@iscas.ac.cn>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chen Ni <nichen@iscas.ac.cn>,
-	Joshua Crofts <crofts@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: [PATCH v2] iio: adc: ad4134: Fix duplicate data_read mux state request
-Date: Thu,  5 Nov 2026 11:31:20 +0800
-Message-Id: <20261105033120.387616-1-nichen@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D894606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D894606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=s/ONanSP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793849683;
+	bh=kSUqYVXd3fleCuc82dAmdXpBBmDiMLE5sH3ebajdc/s=;
+	h=From:Subject:Date:Message-ID;
+	b=s/ONanSPdo7LBG7puX6z8b1yTPQpeiTOAw3KDNhQzGyKz5fjYHwiZKK9Xmh+XAWHo
+	 uhTwe/Y2beF5305rAbORLBX3AswmTd/cql2KUzTfLtfoc2nRsEPPPZT11VAl/2WxKM
+	 70HTx4RfaghW8yslnXswM6W7AVh3MY9x5RleqA4Y=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.231.89])
+	by sina.com (10.54.253.34) with ESMTP
+	id 6AEBF94800005DA8; Thu, 5 Nov 2026 11:34:34 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 5622856292137
+X-SMAIL-UIID: 8F42547E8B814353B99A1B6BAEBA918B-20261105-113434-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [media?] [dri?] kernel BUG in sync_timeline_signal
+Date: Thu,  5 Nov 2026 11:34:31 +0800
+Message-ID: <20261105033431.42266-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
+References: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,56 +70,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXsrc3+etqwPxXAA--.15780S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tFy5GFyDuw17tr4rGFy3Jwb_yoW8Jw1UpF
-	4DJFsxuFyxCFs7CrnFya4Uua95W3WxW3429FyUGay2vrs8JFy5Aa4fJa4xta4DGFW5Kasr
-	JF42vrWUC3W2qaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU11rW7UUUUU==
-X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
 
-devm_mux_state_get() is called twice in a row. The second call's result
-is stored directly into st->mux_st[AD4134_DOUT0_INPUT] without error
-checking, and then immediately overwritten by the first call's result.
+From: Edward Aadm Davis <eadavis@sina.com>
 
-Remove the duplicate call and check the return value before saving the
-state.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 6628e7d4c6b2
 
-Fixes: f12ecb3e147b ("iio: adc: ad4134: Support SPI 4-wire mode")
-Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
----
-Changes in v2:
-- Update commit message as suggested by Andy Shevchenko.
-- Add Reviewed-by tags from Andy Shevchenko and Joshua Crofts.
----
- drivers/iio/adc/ad4134.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-index bc6407ae25e0..35fe387b9ac8 100644
---- a/drivers/iio/adc/ad4134.c
-+++ b/drivers/iio/adc/ad4134.c
-@@ -1112,7 +1112,6 @@ static int ad4134_probe(struct spi_device *spi)
- 		st->mux_st[AD4134_SDO_INPUT] = mux_st;
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..4d885c8e1d4f 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -320,8 +320,9 @@ static inline void dma_fence_put(struct dma_fence *fence)
+ static inline struct dma_fence *dma_fence_get(struct dma_fence *fence)
+ {
+ 	if (fence)
+-		kref_get(&fence->refcount);
+-	return fence;
++		if (kref_get_unless_zero(&fence->refcount))
++			return fence;
++	return NULL;
+ }
  
- 		mux_st = devm_mux_state_get(dev, "data_read");
--		st->mux_st[AD4134_DOUT0_INPUT] = devm_mux_state_get(dev, "data_read");
- 		if (IS_ERR(mux_st))
- 			return dev_err_probe(dev, PTR_ERR(mux_st),
- 					     "failed to get data_read mux-state\n");
--- 
-2.25.1
-
+ /**
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b0218a9..ad60ad5e5cd9 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -221,7 +221,8 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
+ 		if (!timeline_fence_signaled(&pt->base))
+ 			break;
+ 
+-		dma_fence_get(&pt->base);
++		if (!dma_fence_get(&pt->base))
++			continue;
+ 
+ 		list_move_tail(&pt->link, &signalled);
+ 		rb_erase(&pt->node, &obj->pt_tree);
