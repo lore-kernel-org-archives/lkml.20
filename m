@@ -1,80 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.187.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793865362;
-	b=0p1k2EEDGJZbvK3KPS5YSnzJV7XGA9qW8v+ZhHj3AnvzvrNQXDpJQyB3yatb4VjGtPxQ
-	 C+rzcNojn5N75o12zWsdZDaKkq3sWhf9LUn5d04dcD30y053GIcl1kPdN+SP2gN0SEfzK
-	 AkvbBmtXjUNY4DHxdntOFq8cMULFyuwyYCfOylnav2Ss+p11bfIVviWajWL5dt+V0LiXr
-	 uMpd/c2nixwZXEOksX5xX5UAXSrmIgxd6uD/5VYOegjZyXubCHlIyjchtVBR3nrflCkuv
-	 gI/mHmxpbIiRcQ6zGkv1MyUXJ8p0ZOgv27LGG4OpGcVFj2mjZ58HWopKhnIbEeLll3g==
+	t=1793865380;
+	b=IqaYq2ZYpFa565NJZv/R6SQJljSNcbEnjqyR4PZwj/ATrtlHX5MWWiIlsAbIOntQWQbH
+	 7P+dZufUDixcZf9qEcBohHJj+rPAPrvSQIGC9xh5GSS+9xmOJnAKVdHYBi6k5hr2lZIwR
+	 rEMNWI6nKb7azNEDVAehG9mNvNBLU7dZB7//LTiDzOvG+4al5XHUV77J4VS34HpCrWvwa
+	 6ijRoxi/AsB4JDdOaJTn0piYRuaTg4ClxCGgq53BS/Oy7KB01AHpDI7DycL//VchpYzW3
+	 ehph7DbJ9O6cOpMgpAgCcu9F40cGk7kLVFQm3g6/KzRXF4Ye8eS3UsaLOtZqhGNugbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793865362;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=THkYLDB/2O+ui5t+rY9Tn3ksO+ZdfuSEdwuYNK1P9pY=;
-	b=ggX2EMTzl39hKbBwp+W9oR5UWY68Cs7ewCg4M8YcngSy5lpakvkMgcERwfFtQGqDvTx+
-	 gPYlkLp+18QLsO3yA+foZkcWRG+bf9K+sms8TSvB7zJ8ietHMAUnhvGsoEV/ATbD7GCOn
-	 B6isIrgUVhiE1GCT6NRwhZ/MY9BMfiqKbBJQzh1mFW4+iib1zgwAX3K8JyRFxmKDtIrn4
-	 Orzs8ZxU/Iw3H1ScQyh1ReeORtmH9Wk1ceTlyc80FY8NUyYPKsJgllJBSGsfpMpoqDUH3
-	 sxkJ2/CownLeMHg/NJNmQJbL2WmnfGMUvI2iKh71ZnKSq1/qOp6l18DIDWZqmE5Wflg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793865380;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=WYKLhjZojkV/Tmsr5BGvWu2TVcuinj9/B2ZB1xR8yqQ=;
+	b=rgOrFc/teV++JnElRocHLeslL769YzAiMuBrysVis+CutoKTdLy8kw91TM/cM+b4DoOR
+	 okrM6MPAWIxbmLQ7WUHbwluf17VjIb26NkUXEaCI0/l1gCVqeHTFoj2+sqD+eQXMWpaUV
+	 PStIIWXoy4VSlcOxntPIpi9oHLjXdYJp3SRUWdVqpAqcqFYt3Y6Y8/wTct65gcl67EaRU
+	 nkfXnpYFe7tJNZf8a9FjokgD3Ce8HrJZ7pcR7DsyZEgGc+mQ6+Z7MckOIXyCz7GMrERLK
+	 bzMRmFtfJuH0LS/jakVjV8YvqW3UUPmiEeO9BqzMlvnIKBuGMydiUIJ+9dpUGEcgWVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="j/WcpRHP";
-	arc=none smtp.remote-ip=66.163.187.148
-Received: from sonic316-22.consmr.mail.ne1.yahoo.com (sonic316-22.consmr.mail.ne1.yahoo.com [66.163.187.148])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fYBfivp2;
+	arc=none smtp.remote-ip=91.218.175.72
+Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B37606A331
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B37606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5F3606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D5F3606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=j/WcpRHP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793865360; bh=THkYLDB/2O+ui5t+rY9Tn3ksO+ZdfuSEdwuYNK1P9pY=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=j/WcpRHPrABQXPdGQifU2iMrUwzoh5rTNrcbTYgtQWkUFJQV4I62JD+TCXLQ+O/WjZA89jrvxbUMfA/V2BZVzO/HuuCvMAzbKuiqzEop+2hN/0EIAWTHQGI14kK9jPwqw0dShcZpoRXVEbpOJucmrj+iLznQ/DGKasHkAV4o0g+BgN0HP56wEeoOPdSdJJk6qmBaxt5MMLn7dQkG6cma/bE6plY0S3X5s8A+oxtNfUGhLnpF3We4FW9Uk9umv/oUpHs/vImA0y9AaIYnfHVu56DWHbuEu1j36kR51eoergX6sEd7pSGjf0FqL19MQVui3s5xO6lsPdWVR1GvOIv94Q==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793865360; bh=0ux6bTrmB3RPE9gIqFTSfHffLX99f+iHI0QjXurItEH=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=IxFU2ebP3wqzpzQL350ZjzhL/cLv47EOJxM7WSR4axbvz4IU5TkVvRfeZfSU6zr1sGVHjKp0K0QTHpSjGzp6uCnKJaq2oKGeAIIHGw13dI7imPG27K1Ce7H5yB/vxYuTmObjTYrPyiQUEXsOisrXrmIO217vl4ftRRSvdQyYBOTH+6Qw3IAbEXR2VrZFWRIH2LjOy6H7BramkYwWa7WJJHhy2cP9uCXW6TQSuU4LFlmTYxZIA7hxxGbKjOSCYvpcleZCrgL4BAXQ8kxXrO1XCdsxYSGckxQ/EPw48ZPZdoj1nSg7DhgK0gSfwrfFM6Yg99CeBJCq63EX/ytdYplvRQ==
-X-YMail-OSG: L6nwUXIVM1lTP6KM6DLV4Hq1IfWhSJ1T1yk_fYnoucJgTzFe50ewSRYwXHU049A
- PFTj1Ieq44xEsmBz5aBVRlu23lpKH5SeEbme4AcRrSOstFCwddJ.4ykHpTrLmJ3.Hy3_txAHckz.
- LmzWjaa4HKIUtQdWCRIqTXb6wnX295Be103ceb2pq7hfft0S7qjVwSQ7Chwj6bIpCEqo6hHEOGZn
- MKlJYWvxfkAumbGcgzxh7CmMIWRkay97GZLf_CVoyrVTKtWmadEgETsa.DU.bYnsd6Gbupu.mMye
- qZJ6d6TWt0SdMECdEYtolaO4Ph0XkO2j4Ae9RL7jTjQkS_uGLJ0Y0yXFcHGcLRctty.XLyDRqoH3
- f9v3MfO_emtErjuPuaqrG0gVdlU3SvFfCJo4HPDymB0yJAubt24NMSpWYh1Zp5pKm5uu9PRSxDQ9
- Nup9HLmiv2nwYjO4My7tpHswt.ACQS4x.74PUDlsVYWFMcQPkuo4UKCWdeGCg9NWVTUKe3OJzvsY
- 80eWv3iAPzCHHRvXWorV_l99R4XOkS.9giodojYcRSaGwIdvfMq6b2B6ABKwiYevAcUdAPyrrGZj
- AvwomP9qNyKJxHCrDmI.kgBM7dnGTY.HwP68YKK7nKyvH5T6.8QVDezyw9QqM.g3P7lGfj66pekY
- AuZzXSN0m6KfeGUdlY4meGaGH9Z7xC_NX8GtxTzB9Yfz3yJE5lsYJVlo.i13zhoDOeA99GjHSqCn
- getlfyx9eoeAVl3yZUZerz4Ev2MsS4HWrbAeiSil6SOl_C6tszOEBB00Fq57hsXo.AzRXESciXkz
- QrM0Rny6McDUSP4du3jpqLRNJqM_GJ3a.g_xU6Y84ykelphoeDa568g27o.iz3wxAnTUuM6ySSsM
- bjP.fK8isC5Yf__w4A5lOYoF.it.CT00BChbYor84eC8rg2KEN8Ggk82WCmATexYEMKEhwm2H_1m
- Tmj0tYKxApdtA4jbWLmIuRlOnmJ3nVELYfZQ14XyCb_LyU3T5QUxqscW3BNoWXuuwyzIFxRXStPv
- ychk7whqwha93QfkMCIgIipPHb6L_.YvE6eNp6gR8rRIKmSm2E2f4eRgT_q8kckFconKHTyAoc7Y
- LTA_QGsupLDBcGhhvCAMoRattDNWxuQpbE.KpSLyrCsm8jnsw7pD865O3IfpvcrhmVBcfE6jkhTg
- dfUsMoQcOcZ6uQPDaMakTCv2tPiFNnLA496_cIwYkMOgY2PCo3aTWK6SqTNRkHQyfteROzs2yOLt
- 1XTBkz87G7XiZ6.wDhVt2Q0AhOIaGOxJ1SKX3liDu.RKPlW8ykrIx7MVDzQO_s_rAwF8iBbwPkNR
- LIMYuGN4AZWsL.ENdy9ilU2I7UQu1f_qC0flwQk2w81p5w9dY1iqRoT58wtdx1BO9OKGw0SprNem
- SUQvGRNnbwQRBzgunPB0IAZXVjZ1gAII8Ehy4hIr1dVevSN7_C4VdxmKou6raNHOD3KK3bLeHfvv
- RLK00QxpZ7LKZrGFzXXAy95mJ2TbzIWFhf6apGNB3lAkZ6xe_KjSY7SvIXqSMelB7O3J70oE3oHR
- 4T3nyvvvSXGKMvkYCdBrjE84xnj.ZWw005UkZRpfEDARnGkzEv3zAQfdPGKlssED2PJFbE90dAL.
- CdOgYTNXi7KgX77kvLNnfAveyp25ZYZnbMdLNBtOjWMKZjcZEMutoUqxRH7z03fCdbb9LQE0gfUS
- LyuZxeFCl7.4NqJGkWgqZCHVgWkgj4d89APflWHQFbkmWhsYY44et2wbF_jfUXRFKTc3GzUNwCNo
- KjFi5ZP_eIppFxYgPJ.QN1oLAIltMzLcdjfMbxqcvDU9jAZvEk9dbCj8TcXC1DKr32YJrV63trD2
- rlXospx.qZiQDYPMRTjca8mIP7LRmS_J3i1TmQJfpVghJM3kuNIg64Y7eRRY970yj8qSYHEMmALu
- W3IYsMKSxHBf0y21KkC25PCFek4elXkT9Wnk1SuEYgcmF1SV6uQk8wNW70KDbxlAWtgN88570w6K
- pGBX5sgNgI3FQNUuVj.UabUp_vMToivAxOdvEfj5sJB0MhtFZohjCCy3BFT8RLSej_X9yZn3LD2L
- CF1VeKXawk1cqXWtXj0ouWAARu2i8aQlAdaDLi2iJTN53bDlS3LxU0lZTvRFOiLCoFG8cbMbwc4P
- f2GvZryLgRtTybO0TQgOZITT6FJTy0SqACYb3qLkAodLXA3XMmy7_04RlMpDy0uoRn3aMb9J42Og
- jjvY1VCNBddNKPvZVziaSJ7.gMC77qXK.zBPWNBCDI17YvGxHCSnEOd3wmvPN80qUdnXyI9CLFtn
- 1N187hInnvA--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: fc9aa044-175e-4b69-ac1b-a54a3e718188
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.ne1.yahoo.com with HTTP; Thu, 5 Nov 2026 07:56:00 +0000
-Received: by hermes--production-ir2-5dd9bf4598-zlkml (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID b8e093b6a054ea83b64fa4d9bb0fe8c7;
-          Thu, 05 Nov 2026 07:55:56 +0000 (UTC)
-Message-ID: <82c96971-be5b-4c11-b20f-c4b074181515@yahoo.com>
-Date: Thu, 5 Nov 2026 08:56:04 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fYBfivp2
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=k9y24bW4jo8B40iHLCIlVJwO4M8UIaQgR1LB6bPJ2yc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793865371; v=1; x=1794470171;
+ b=fYBfivp2nsHXnzHfCaZu2p4VvmARdAKyhzKpFcorw9fQJ3KMvFxuByEbdejQ7hQ/Qpo0G8sv
+ PYz7ZtNuMQCFJ7li90DL/bjY1uO0fZDw+DJ4Ei2bgEdGR/bedx5bGdnwqqqaX/3Kt0bRMWwt+1o
+ rA+7J/Y7hWrnG8kFnuThfOLY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 36aa00a02140456e;
+	Thu, 05 Nov 2026 07:56:11 +0000
+X-Mizu-Trace-ID: 36aa00a02140456e
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Quentin Perret <qperret@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Martijn Bogaard <martijnbogaard@google.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] KVM: arm64: Honour KVM_VM_TYPE_ARM_IPA_SIZE under pKVM
+Date: Thu,  5 Nov 2026 07:56:03 +0000
+Message-ID: <20261105075606.367005-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,112 +77,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 04/10] net: dsa: realtek: rtl8365mb: set RGMII
- mode for family D
-To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
- <2befac48-25eb-4c1b-9632-2f3237d68a3d@yahoo.com>
- <auskP2mSY4sCRa6x@analog.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <auskP2mSY4sCRa6x@analog.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Wed, Nov 04, 2026 at 01:39:59PM +0100, Alvin Šipraga wrote:
- > On Mon, Nov 02, 2026 at 03:39:47PM +0100, Mieczyslaw Nalewaj wrote:
- > > On family D, RGMII on extension interface 1 needs two things that the
- > > other families do not: the EXT1 RGMII TX clock delay field in
- > > EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, and the pin mux in
- > > the top-level configuration register must be set up.
- > >
- > > The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
- > > (0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
- > > Do the same. The init jam table writes 0x0090 to this register, which
- > > leaves the field at 2, so without the clear an extra TX delay would be
- > > applied on top of tx-internal-delay-ps. Clearing it makes
- > > tx-internal-delay-ps the only source of TX delay.
- >
- > Should we not just clear it with the jam table then? It would save some
- > code here, which is just undoing what the jam table did anyway. Or am I
- > missing something? If you deviate from the vendor driver's jam table
- > then a comment inline or in its own commit could be appropriate. But
- > either way it seems it would save some code here?
+Hi folks,
 
-The jam table rtl8365mb_init_jam_8365mb_vc is shared between family C
-and D. Changing the 0x13f9 entry from 0x0090 to 0x0080 would also
-change family C behaviour, which I cannot test. Duplicating the whole
-table for a single word seemed worse than two lines of code. Also, the
-vendor code clears this field only when configuring RGMII on EXT1, not
-on every init, so doing it in ext_config_rgmii() matches that.
+Changes since v1 [1]:
+  - Dropped v1's kvm_get_ipa_max() patch. EL2 checks the requested IPA
+    size against a copy of the host's limit taken at init.
+  - Added patch 2, which aligns the PGD of EL2's selftest VM.
+  - Rebased on 7.4-rc1.
 
-If you would still prefer a separate table for D, family_info->jam_table
-already allows it and I can do that in v10.
+pKVM ignores KVM_VM_TYPE_ARM_IPA_SIZE: every VM gets the host's IPA
+limit, and an out-of-range request is accepted. So the vgic_init
+selftest fails on any pKVM host whose limit exceeds 40 bits.
 
- > > If the internal MAC4 block occupies extension 1, do not advertise RGMII
- > > for port 7 in phylink_get_caps(), so the configuration is refused 
-before
- > > any EXT1 register is touched. [...]
- > >
- > > [...]
- > > +    if (extint->supported_interfaces & 
-RTL8365MB_PHY_INTERFACE_MODE_RGMII) {
- > > +        /* On family D the EXT1 pins are shared with MAC4 (UTP 
-port 4).
- > > +         * If MAC4 owns them, RGMII on this port cannot work.
- > > +         */
- > > +        if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D &&
- > > +            extint->id == 1) {
- > > +            ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, 
-&data);
- > > [...]
- >
- > I am a little confused about everything that's going on here, but it's
- > probably just me. Could you perhaps explain the two scenarios and the
- > order in which you expect things to happen? I'm sort of wondering when
- > this warning might be emitted. Part of me also wonders if you can't
- > avoid doing a regmap_read() here in phylink_get_caps.
+With patch 3, a VM gets the IPA size its VMM requested, and EL2 rejects
+one the host itself would reject.
 
-On family D the EXT1 pins are shared between MAC7 (the port described
-in the DT) and the internal MAC4 (UTP port 4). TOP_CON0 bit 12 tells
-which of them owns the pins. This comes from the vendor RTL8367D API,
-which refuses RGMII on port 7 when UTP port 4 uses the RGMII interface.
-The driver never writes bit 12 and I do not know what sets its value
-at reset (strap, EEPROM or bootloader); I do not have a board where
-it is set, so I could not test that case. That is why get_caps() reads
-the bit instead of assuming a value.
+Patch 1 rejects a PGD donation that isn't aligned to its size, which
+crashes EL2 today. It's first because patch 3 lets the host choose
+that size. Patch 2 aligns the PGD of EL2's own selftest VM under
+CONFIG_NVHE_EL2_DEBUG.
 
-1) Bit 12 set (MAC4 owns EXT1):
-    - get_caps() does not advertise RGMII for port 7,
-    - phylink refuses an RGMII phy-mode for that port,
-    - ext_config_rgmii() is never reached, so no EXT1 register is
-      touched,
-    - the warning is printed from get_caps() when phylink is created
-      for the port.
+A VMM that requests less than the host limit now gets that size. One
+passing the default type gets 40 bits. On a host whose limit is below
+40 bits the default type is rejected, as it is without pKVM. kvmtool
+and QEMU request the size their memory map spans, and crosvm the host
+limit, so none of them places anything beyond its request.
 
-2) Bit 12 clear (MAC4 does not own EXT1):
-    - get_caps() advertises RGMII,
-    - ext_config_rgmii() clears the EXT1 TX delay field, binds the pins
-      to MAC7 (MAC7_SEL_EXT1 in TOP_CON0) and disables SerDes 1, all
-      before RGMII is selected, so the shared pins are never driven by
-      RGMII and SerDes 1 at the same time.
+On QEMU, with 7.4-rc1 as a 64K/PA_BITS_48 pKVM host on a 52-bit part,
+KVM_RUN fails on a 52-bit VM's first access to a memslot above 2^48.
+With patch 3 the guest writes through it. The same kernel, with
+CONFIG_NVHE_EL2_DEBUG, panics at pKVM init on cortex-a57, which patch 2
+fixes.
 
-You are right that the regmap_read() in get_caps() is not nice. It also
-means the warning is printed whenever get_caps() runs for that port,
-even if the DT does not use RGMII there.
+On an M4, whose limit is 40 bits, pKVM now rejects a 44-bit request, as
+the M4 does without pKVM. A protected kvmtool guest there boots with the
+32 bits it requests.
 
-Since the driver never modifies the bit, reading it once in
-rtl8365mb_setup() should be sufficient. I could store it in
-struct rtl8365mb (e.g. bool ext1_owned_by_mac4) and have get_caps()
-only test that flag, so it no longer touches the regmap. The warning
-could then be moved to setup and printed only when the DT actually
-requests RGMII on port 7. Would you like me to do that in v10?
+Based on Linux 7.4-rc1 (6628e7d4c6b25).
 
-Kind regards,
-Mieczyslaw
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20260917091826.2639205-1-fuad.tabba@linux.dev/
+
+Fuad Tabba (2):
+  KVM: arm64: Align the pKVM selftest VM's stage-2 PGD
+  KVM: arm64: Honour the requested IPA size under pKVM
+
+Quentin Perret (1):
+  KVM: arm64: Check PGD alignment when creating a pVM
+
+ arch/arm64/include/asm/kvm_hyp.h      |  1 +
+ arch/arm64/kvm/arm.c                  |  1 +
+ arch/arm64/kvm/hyp/nvhe/mem_protect.c |  2 +-
+ arch/arm64/kvm/hyp/nvhe/pkvm.c        | 34 +++++++++++++++++++++------
+ arch/arm64/kvm/mmu.c                  |  4 +---
+ 5 files changed, 31 insertions(+), 11 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.47.3
+
