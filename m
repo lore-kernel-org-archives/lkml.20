@@ -1,104 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891815;
-	b=28xGA/4W+gR7xonwi51mRQMtAblDo5fHlwX/s3RH5maOwmcHV+tWFfMZ4KZQ7ib5FTbZ
-	 CrGXqwll3KpKZCgEQu07Zuk3e9O9BQQjUDFZVzQz0gYq2qnzbmToDOUVzlylSJ+uXHJb/
-	 7MBDB4/xkD4mkxnMuWObB6uRAehtyHW/FAcwxaHNBoPIQeQtyAjK0eROy47KI7EBRiMDS
-	 pc27neT+0ilCIPRe58vrqDXpXckUw0J/vK+l8EQR//QiK8TuVu3IhmfifHpwZIE+FI3Kq
-	 Kka8yHcmiJhfA13uh9eQo3ttg19EBhHYr8BJgSMczU8PPV+kwHS82uwtf+t3zIuGWzg==
+	t=1793891832;
+	b=InrPU72evoYDYhYWokElZyLFZ8xwIA3Xs+S+DOHhAaqGQZJybVUmofOKAGwis6Z6URRl
+	 4gdPqs9sD5KbAtP96nT5tE3hdNglBUdjpG2Z0GwuJgmVAOxQmouY7uv/PvLLxEKGQoFtj
+	 WoOLKUltPXY6LUWAxcm+SoTcRlpTbf1BCp4Hn7OFbtLPrCzShC8WAljaqo9i9XAbXP8CW
+	 PsA8He4Tai7v1PJM7bRNnPe8Fx4yOQzQjq8VC3yCoO4G9jJ15oWvUP8OMOIYMvW/O9ga6
+	 bw6JGiwhiHoalMgbrOUSVpAWqdlhf77Mb9ZTPMIAL61KiGwWmMSYH7KN6+g0PnNXQ+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891832;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=d1DBG15Qs677IqV1qKCXQt1NSsOYDVjlbEUzBHqWXEY=;
-	b=s1KzTopIrKnuaITqu80wCCsnySIGy/AWO6AJ1tppeHxO2S3+LV2ARQ5jqhX4bkS60PMD
-	 r7E4T3gAlogCzPSdU/VVa8iwQOk0q4qiABCHIW0d6fYXTdINyCE8c9AfH+ORGhlrUaI1Q
-	 R33SXuLrJuW+51k7ptvixHsut9nEdzXrCS4gIgK3LHW9oIVCfy90fCWZJXmSgISgoHX7y
-	 0e2L25vzCQGvezrHthYWyx291Yg7ZAILARrw/OxP1CU0shp+lJiOhxr78wW2tnnTRTs1d
-	 GcyWEBtDtBBBpUtSs40GHUJQD8CrVgfxkLP1OYRTj1QVIZzogaQz5wW5l5dLp8m5E7w==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=aoPWauBSyVHKPl2oUi1lGa4ZT6nCDPFRYidMRl6RqhM=;
+	b=U2BM9yiuDXUbjyNobgYw6oo7NQVYAliDmWJJsACx9KBO1Xx1BvniQlcC/gayJ+rJZjIm
+	 q/LwOHnOnPi5E9GC9Y/ATxIa7T32q9gl/jhuUhQd6ahXcD9hPA2W/S7i71BpiO3v7l/Gh
+	 FhzMNBzRO3u7euBGRJe77VwmyM8bZUX1oPT4X7BQHN3YeplkK8oKI88Zyez7A1+txnV93
+	 JtMWF5xHGxHryaGSb+tfRqxP6H4gSyc3LpZ6xa8dnB4zKXnuQ0sHk00K/PCwYNNaaPaqo
+	 iHE09KIwGG7/IMKoF3oCgCpvvAGW9XtptmXbkg/8gzheod8Naq+eJmp32XoHQ2tSQsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fvZ+cmBd;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=CGMPFFJb;
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C9D606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:16:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94C9D606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28CA606EE92
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:17:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D28CA606EE92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fvZ+cmBd
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-353804b591eso3792886eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:16:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=CGMPFFJb
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b30ff12f84so16490887b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:17:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793891814; x=1794496614; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d1DBG15Qs677IqV1qKCXQt1NSsOYDVjlbEUzBHqWXEY=;
-        b=fvZ+cmBdmC87qpW5m5qCIIUpSoJ4VzUCW6AloefJYZFgBVngGXLgK1+mRPhi+XN8Xb
-         4JVQnTmOOay5FCdPife/oOhKv2QR1w9MjuE4obKVnkcJoI8+o80E2d+ZK3msyyumremi
-         snegt0mUU8p3z1SOCth0R5tJKk+SrTiPWkjxvJUoZdDLadbOljnyO7kAd4O2k7xrIMaE
-         stV77oMB1QviJUMRR809xbdT6BidVXOlW3/MKsgTXqF5ZLRiBJVy1TCTaQhUUOQ8HEkn
-         n+eBxsySN5Tla/QBOnMn1Ay0isU1OdMKu+3mOf9yNZZcQRiHrwT5CyJbwfO3TbIFbI1M
-         m4rQ==
+        d=toxicpanda.com; s=google; t=1793891831; x=1794496631; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aoPWauBSyVHKPl2oUi1lGa4ZT6nCDPFRYidMRl6RqhM=;
+        b=CGMPFFJbayl7AKoKBdcePsu1H19b+8mZQaGdjNkKxUdaAKhHb3xbgSmXTeH6FHDtIS
+         7uKS+AvhNMPk4XM2mysj3yAPFFVjrdgwtusROnqMXYcZts5PlIDrLkEn7r9YgV/QkY4f
+         sJYYxKaC0UbPxPULy8TdOyHS+8tMuxI7FBbeIUjFDfsVbs1DWlYDAAr7/FVSG9f55hR1
+         7Eqr1yhE8m69Dj6ihG5BrRtoaBswDIX40VItZrF9mZHEGC+aRUd8wKo7Yq4nm9ZhxPo+
+         0/uyh6PQbCWb/7oI4LWe3puVzHhtO8Ya29RAKXrhT610cyFOM1klOPGp9MeNFATyZuAw
+         zMMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891814; x=1794496614;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793891831; x=1794496631;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d1DBG15Qs677IqV1qKCXQt1NSsOYDVjlbEUzBHqWXEY=;
-        b=Ahwor0+ZJngUv4WSuyQXx8RjCe86xtCku9Myow5FUZPTprfIoxPdzE3Ldz63Ist8KN
-         yztQ/7Ifbzl7z099xV3i5akepdDJ4F6RxmbJkK6B1EA0JwOZL67AqEWk3zSCCeyEb749
-         YBjSPDWiQtdJh9zefrpXxREwq5866DUNwVMpIs5w1hV9MHyYnb3eWCPfBbZDDSMBAwPi
-         ucD10uaqahC+X1tPFtAet53CrH3oSNB5rZZFHEzwC4qXCtqbUCpWc+jZG/UB8j5dyuHu
-         M6m1E3MqheUgtpnLsGcNG0OGfPJ8i9K9Ueh6hSim2E/ojcsFN4chJMOr+SQL372Vt659
-         h8lA==
-X-Forwarded-Encrypted: i=1; AKwUvBy64p+gh6Ohw+Cv6xGWzrEK+VLyKN6MAjsGj77T7oA1YQPHIRc6eKVJOWeQazampfagQPheUMjhQ2e1eUY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1o3D+wTRfNmpBxSAHod5pt2fNywJuH6EFOXEzr8LCWEfGlJPk
-	3vbDEltrhmfxao6SX/3B6IaTLilj3bCdMzY8GbEjVyyXbH7Bdq3f3+YD53D8dUPL4QM=
-X-Gm-Gg: AYBFou3O/uHz95tKZoZjmHfMCFz4MmmQWW6x4/Om40FcvhaVhNXItge/1XyrgZAFKSA
-	xThrwEMBQc0x6y33XXs/ihkexWWMMcfz736zNkxUyUcusbdgsRch3hlxqA3+ZrRKBO1bss2oBRP
-	QI6gGTEBIbQnswImoRtSWoyJ9U0MBK1ueMHfzWynAC/gM6MRoopYrRk8TjeTtK75gNrmE6c5+ce
-	ArbV4OmskVPFjE10WKRH0wbLmEQOn70SAWMpMThoiw1bJcsViRKZQXb3kQVbH3HZEiWMkTC69JT
-	SwdsjPPkEcj8ru0T6rjEjJlqSt4U4fPOPfmQW/K7Kpku2v5Fawnw2B6ljidUXOLVi3VCUeAIzK/
-	7wOS+C5Vth3r7yx5mkcYguK0jJwfT5GoKE2UBD7VkTsu7deStRuT9s6+9tU9ARUd2aR9jDI1lTG
-	lkafz9ca3pFTOyd67stUWB9rrlhZlv0w6laLSCWq+LroZeEYax4uHbkfTklY4g/ePgbIOlRZ1SV
-	6WhhgYgrM+/cHHSJLB+BVy2dOR0DLXdMiMLCMciHZj63ST5ntMLOl/orjyrWb+9dCIPIlizvSCQ
-	XuLGY/gaEHQdK5cWJlm3sROO8CRged45Lj61utCCQTk0gZnq+RenyGrdPx/wV9420rMJR31Nd4+
-	xEm3hbSLaCfPNojUeGKhQfAYC2YLKs21fEnz6NqXujw+EuVlC
-X-Received: by 2002:a05:693c:630c:b0:36c:a360:9c42 with SMTP id 5a478bee46e88-36ca360cda7mr9483693eec.31.1793891813414;
-        Thu, 05 Nov 2026 07:16:53 -0800 (PST)
-Received: from cachyos (2a01cb0c82caf900a186612f304bfea5.ipv6.abo.wanadoo.fr. [2a01:cb0c:82ca:f900:a186:612f:304b:fea5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6d3dsm21567087eec.7.2026.11.05.07.16.46
+        bh=aoPWauBSyVHKPl2oUi1lGa4ZT6nCDPFRYidMRl6RqhM=;
+        b=KLwVgdtHha4RjPVrRUSt5ekmFh/viePZaS9gjVRFb9u5mLCDGWoDfzGfPNnXL75uWG
+         BzA8Hfr1ibZT39O8qSGDyFmqES/jHmZDDu4VLjFboebv5cKcW1imE12S/zR012N4QqWz
+         cSXAY7HEVy3Hs6WW/1lRsV+nywvAx+wkeY/yU3ELI6w7F76XToujuxSpYFan/7S+9kSD
+         IFf7qTEnH4dkrdZVEAm/LFl7fts/xLkkuhnMT0yDbWD6vwghDVUJ5YbyRDFKbfC86WvA
+         v5u2CBgI8u9FSEIFV26lD/wsZCZXFWh3xsTHPcIjZm+mc1JaFWl4/M1JW6JqErgLKa+Q
+         zHPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztTBdROYF+obHwvM8vvrv5Y8N4CE+KXzgsb6oSLqhnUGRMjsOcJ8Dp2cM5Xox8st9cd3BSPlLNNJFWbFU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+2u8RsWWsb+D3DRagAPrJJG308LGL62wdTAFjMbFN7Ud2qC9h
+	x5Pvxv+mHTC1xTESpSufGZpPoASNkgJrYAqyJ/OpPOlo7penbwRtQJBQV2y/4rST4sg=
+X-Gm-Gg: AYBFou3Sqqmp6E6r4373hLyMxehcOsxEAPSMNtdpE2Uv0+CAvjmYlizu3kfPhCQTOCi
+	tazwP+B0uo8t0fmk1U3cwKqQrMVk3cy9jvoHQANykEeyhqwfpJV679q2w0tezvjjxPS24xbHc7v
+	ivlq28tvojcjw1iMO6afEcRbck7XdkGjpw5BlkFbrVVLQ+CXS+s1szBG2vjLRvbhr/cG2he0rJP
+	zAYeQtjkO+/jnAFAH+6W7sJYhjxHUz4fMbR237aW9nU3okU5X2i5mYvNtF4oXVBHyag51uut+CX
+	lv0vw9NUeE+SIQg6S4LUC92OMnIz8WdicxGPxL1damZTZV3qC2HFoI11VJv6o1XqksFhYj8Y2V8
+	SLteJT5nfHl4zGtFaSEAsR4B68x0KNCubfSNHSr3lP09QnM8+PJ6XelShQrj3Fr0Uxf9htDMJSw
+	Z5Npk0/I3SXVssXznRAX3n762xI40FBq72Bka8LGjpmfbVscjoK2WwYpmkObEvKjOTtz7Dkb9t6
+	5VlZH8JKaYJjSvgnO0kY8EZxftZ+AsQwRxT6sZyoxJyeDcSb5PTRGbgPVnPMZ9in+0ZYvRy4nxN
+	3kVYDCOKgLChf/Q2Hgul8U7fDhVUZlfqH1PRhDrTh7cVhg==
+X-Received: by 2002:a05:690c:498f:b0:8b3:1261:e79d with SMTP id 00721157ae682-8b31261ea4fmr33164897b3.33.1793891830814;
+        Thu, 05 Nov 2026 07:17:10 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.253])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bd1672sm42085697b3.43.2026.11.05.07.17.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:16:52 -0800 (PST)
-From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-usb@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>,
-	David Fredman <davfre@gmail.com>
-Subject: [PATCH v8 5/8] ALSA: usb: babyfacepro: add S3 suspend/resume
-Date: Thu,  5 Nov 2026 16:15:50 +0100
-Message-ID: <20261105151553.223722-6-i.bahloul01@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105151553.223722-1-i.bahloul01@gmail.com>
-References: <20261105151553.223722-1-i.bahloul01@gmail.com>
+        Thu, 05 Nov 2026 07:17:07 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:02:38 +0000
+Subject: [PATCH RFC v3 46/90] cells: end a cell when its init exits
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,192 +92,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-46-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890934; l=5281;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=icqex354zf4o5sksQppsVP1wXnBQ1CMP576psdYWpks=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QLkFrcfUZwg1+3O/Mj95ZhKUBstSAbFHFFjE1PvHa4Q1pUS1bF3xdXNgJJOZu2oWFeTC9qOe885
+ wZsTPvijKdgE=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-The device loses its registers across a system suspend.  On suspend,
-let the PCM core suspend the substreams (applications get -ESTRPIPE and
-restart), then kill the session's URBs before cancelling the stream
-work their handlers queue.  On resume, re-run the cold init and replay
-the cached mixer state and flags.  A resume that follows a device reset
-goes through reset_resume instead of a re-probe, so the cached state is
-replayed in place.
+The first task that is spawned into a cell is the init of its pid
+namespace. When it exits, the kernel kills everything else in that
+namespace, as it does for every pid namespace. That is also the end of the
+cell.
 
-USB autosuspend stays disabled: nothing in the driver holds a PM
-reference while streaming.
+Notify the cell from exit_notify(), after zap_pid_ns_processes(). The cell
+records the exit status and queues a work item for the rest. The work item
+kills whatever may still be in the budget, waits until the budget is no
+longer populated, tears the cell down, and only then sets the state to
+DEAD.
 
-Co-developed-by: David Fredman <davfre@gmail.com>
-Signed-off-by: David Fredman <davfre@gmail.com>
-Signed-off-by: Ismaïl Bahloul <i.bahloul01@gmail.com>
+The waiting is needed because the init itself keeps the budget populated
+until it has been scheduled out for the last time.
+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- sound/usb/babyfacepro/babyfacepro.c | 89 ++++++++++++++++++++++++++---
- sound/usb/babyfacepro/babyfacepro.h |  4 +-
- 2 files changed, 82 insertions(+), 11 deletions(-)
+ include/linux/cell.h |  7 +++++++
+ kernel/cell/core.c   | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ kernel/exit.c        | 14 ++++++++++++++
+ 3 files changed, 69 insertions(+)
 
-diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
-index 12cfd7fea..06ef1a97d 100644
---- a/sound/usb/babyfacepro/babyfacepro.c
-+++ b/sound/usb/babyfacepro/babyfacepro.c
-@@ -3,7 +3,8 @@
-  * RME Babyface Pro / Pro FS - proprietary-mode USB audio driver
-  *
-  * Core driver: USB vendor requests + cold init, interrupt-URB PCM
-- * streaming, and the card lifecycle (probe/disconnect/module entry).
-+ * streaming, the mixer-state replay after a resume, and
-+ * the card lifecycle (probe/disconnect/PM/module entry).
-  *
-  * See babyfacepro.h for the shared device state and register map,
-  * and babyfacepro-ctl.c for the ALSA control surface.
-@@ -198,9 +199,9 @@ int bf_pitch_write(struct snd_usb_babyface *chip, int pitch)
+diff --git a/include/linux/cell.h b/include/linux/cell.h
+index a68638b7319d..86999efc083d 100644
+--- a/include/linux/cell.h
++++ b/include/linux/cell.h
+@@ -228,4 +228,11 @@ static inline bool embryo_pidfd_is_empty(const struct file *file) { return false
+ static inline void embryo_pidfd_release(struct file *file) { }
+ #endif
+ 
++/* The end of a cell. */
++#ifdef CONFIG_CELLS
++void cell_init_exited(struct cell *cell, struct task_struct *tsk);
++#else
++static inline void cell_init_exited(struct cell *cell, struct task_struct *tsk) { }
++#endif
++
+ #endif /* _LINUX_CELL_H */
+diff --git a/kernel/cell/core.c b/kernel/cell/core.c
+index b9494b5fd7b9..c780094ad794 100644
+--- a/kernel/cell/core.c
++++ b/kernel/cell/core.c
+@@ -172,6 +172,53 @@ static void cell_kill_workfn(struct work_struct *work)
+ 	cell_put(cell);
  }
  
- /* The cold-start init (cap_coldplug.pcap), verbatim from the user-space
-- * reference (protocol::streaming_init).  Run at probe, where the
-- * device state is unknown; a session start does not need it (see
-- * babyface_stream_start()).
-+ * reference (protocol::streaming_init).  Run at probe and after resume,
-+ * where the device state is unknown; a session start does not need it
-+ * (see babyface_stream_start()).
-  */
- int bf_cold_init(struct snd_usb_babyface *chip)
- {
-@@ -267,8 +268,17 @@ int bf_cold_init(struct snd_usb_babyface *chip)
- 	return 0;
- }
- 
--/* Re-apply the whole cached mixer state to the device, whose registers
-- * the cold init cleared.  Caller holds chip->mutex.
-+/* Units probed since the module was loaded.
-+ * The SELECT selection is not in the readback, and the values alsactl
-+ * restores right after a probe are the ones of the last alsactl store.
-+ * After a boot that is the last shutdown, the newest there is.  A later
-+ * probe of the same unit (a usbfs claim released, an unbind, a replug)
-+ * may follow SELECT presses made since, so bf_panel_select_put() needs
-+ * to tell the two apart.
++static void cell_exit_workfn(struct work_struct *work)
++{
++	struct cell *cell = container_of(to_delayed_work(work), struct cell,
++					 exit_work);
++
++	scoped_guard(mutex, &cell->lock) {
++		if (cell->state == CELL_DEAD)
++			break;
++		WRITE_ONCE(cell->state, CELL_DYING);
++		/*
++		 * DEAD means gone. zap_pid_ns_processes() has reaped everything
++		 * else in the pid namespace, but the init itself is still on
++		 * its way out. It populates the budget until it is off the cpu
++		 * for good. Come back until then.
++		 */
++		if (cgroup_cell_kill(cell->budget)) {
++			queue_delayed_work(system_dfl_wq, &cell->exit_work,
++					   max(HZ / 100, 1));
++			return;
++		}
++		cell_teardown(cell);
++	}
++	cell_put(cell);
++}
++
++/**
++ * cell_init_exited - the init of the pid namespace of a cell is gone
++ * @cell: the cell
++ * @tsk:  the last thread of that init, which is the caller
++ *
++ * With its init everything else in the pid namespace is gone, and so the cell.
++ * This notes the exit status and owes the teardown to a work item.
++ *
++ * Context: The exit path of @tsk, after zap_pid_ns_processes(), with no locks
++ * held. The cell has not been torn down, since only this sets that off once a
++ * cell has run anything.
 + */
-+/* Re-apply the whole cached mixer state after a resume (the device
-+ * lost its registers across a system suspend - TotalMix does the same
-+ * re-apply).  Caller holds chip->mutex.
++void cell_init_exited(struct cell *cell, struct task_struct *tsk)
++{
++	cell->exit_status = (tsk->signal->flags & SIGNAL_GROUP_EXIT) ?
++			    tsk->signal->group_exit_code :
++			    tsk->group_leader->exit_code;
++	cell_get(cell);
++	if (!queue_delayed_work(system_dfl_wq, &cell->exit_work, 0))
++		cell_put(cell);
++}
++
+ /* The cellfd. */
+ 
+ static int cell_file_open(struct inode *inode, struct file *file)
+@@ -286,6 +333,7 @@ SYSCALL_DEFINE2(cell_create, int, parent, unsigned int, flags)
+ 	mutex_init(&cell->lock);
+ 	init_waitqueue_head(&cell->wait);
+ 	INIT_WORK(&cell->kill_work, cell_kill_workfn);
++	INIT_DELAYED_WORK(&cell->exit_work, cell_exit_workfn);
+ 	strscpy(cell->hostname, "(none)");
+ 
+ 	/* The scratch credential is only here to carry the new namespace. */
+diff --git a/kernel/exit.c b/kernel/exit.c
+index d5e7bc2af804..1ae82e7ac29f 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -6,6 +6,7 @@
   */
- int babyface_restore_state(struct snd_usb_babyface *chip)
+ 
+ #include <linux/mm.h>
++#include <linux/cell.h>
+ #include <linux/slab.h>
+ #include <linux/sched/autogroup.h>
+ #include <linux/sched/mm.h>
+@@ -741,11 +742,20 @@ static void forget_original_parent(struct task_struct *father,
+  */
+ static void exit_notify(struct task_struct *tsk, int group_dead)
  {
-@@ -797,8 +807,9 @@ static int babyface_stream_start(struct snd_usb_babyface *chip)
- 	/* A session start is what the RME Windows driver sends
- 	 * (cap_audio): the trigger pair, the URBs, the arm.  The device
- 	 * keeps its mixer state between sessions, so nothing is cleared
--	 * or re-applied here; the cold init runs at probe only.  The rate
--	 * is written first: hw_params only re-points the speed multiplier.
-+	 * or re-applied here; the cold init runs at probe and resume
-+	 * only.  The rate is written first: hw_params only re-points the
-+	 * speed multiplier.
- 	 */
- 	ret = bf_clock_write(chip);
- 	if (ret < 0)
-@@ -1497,7 +1508,8 @@ static int babyface_probe(struct usb_interface *intf,
- 	chip->card = card;
++	struct cell *cell = NULL;
+ 	bool autoreap;
+ 	struct task_struct *p, *n;
+ 	LIST_HEAD(dead);
  
- 	chip->dev = usb_get_dev(dev);
--	/* USB autosuspend is untested: nothing in this driver holds a PM
-+	/* USB autosuspend is untested: babyface_suspend()/_resume() don't
-+	 * check PMSG_IS_AUTO, and nothing in this driver holds a PM
- 	 * reference while streaming, so an autosuspend request could race
- 	 * a live stream.  Disable it explicitly rather than ship an
- 	 * untested code path - full autosuspend support (correct
-@@ -1752,6 +1764,62 @@ static void babyface_disconnect(struct usb_interface *intf)
- 	snd_card_free_when_closed(chip->card);
- }
- 
-+static int babyface_suspend(struct usb_interface *intf, pm_message_t message)
-+{
-+	struct snd_usb_babyface *chip = usb_get_intfdata(intf);
-+
-+	struct snd_device *sdev;
-+
-+	if (!chip)
-+		return 0;
-+	list_for_each_entry(sdev, &chip->card->devices, list) {
-+		if (sdev->type == SNDRV_DEV_PCM)
-+			snd_pcm_suspend_all(sdev->device_data);
-+	}
-+	/* The URB handlers queue the work: kill them first. */
-+	scoped_guard(mutex, &chip->mutex) {
-+		if (chip->streaming)
-+			babyface_stream_kill(chip);
-+	}
-+	cancel_work_sync(&chip->stream_work);
-+	return 0;
-+}
-+
-+static int babyface_resume(struct usb_interface *intf)
-+{
-+	struct snd_usb_babyface *chip = usb_get_intfdata(intf);
-+	int err;
-+
-+	if (!chip)
-+		return 0;
-+
-+	/* The device lost its state across the suspend; re-run the cold
-+	 * init and re-apply the cached mixer state.  Suspended PCM
-+	 * substreams are woken by the core - apps get -ESTRPIPE and
-+	 * restart (prepare starts a new session).
-+	 *
-+	 * This is also the reset_resume handler.  Some hosts reset the
-+	 * device on resume; that needs nothing more than the cold init
-+	 * already does here, and without the handler the USB core unbinds
-+	 * and re-probes the driver instead: the card goes away, open PCMs
-+	 * fail, and udev's alsactl restore then loads the mixer state
-+	 * stored at the last shutdown over the current one.
+ 	write_lock_irq(&tasklist_lock);
++	/*
++	 * Is this the end of the init of a cell? Asked of the pid namespace
++	 * and not of the task, and asked now: once the lock is dropped the
++	 * parent may reap us, pids and all. The cell holds on to its pid
++	 * namespace until it is torn down, which only this sets off.
 +	 */
-+	guard(mutex)(&chip->mutex);
-+	err = usb_set_interface(chip->dev, BF_IFACE, chip->alt);
-+	if (err < 0)
-+		return err;
-+	err = bf_cold_init(chip);
-+	if (err < 0)
-+		return err;
-+	err = babyface_restore_state(chip);
-+	if (err < 0)
-+		return err;
-+	err = bf_state_apply_flags(chip);
++	if (group_dead && is_child_reaper(task_tgid(tsk)))
++		cell = userns_cell(ns_of_pid(task_tgid(tsk))->user_ns);
+ 	forget_original_parent(tsk, &dead);
+ 
+ 	if (group_dead)
+@@ -776,6 +786,10 @@ static void exit_notify(struct task_struct *tsk, int group_dead)
+ 		wake_up_process(tsk->signal->group_exec_task);
+ 	write_unlock_irq(&tasklist_lock);
+ 
++	/* With its init, and so everything else in it, gone, so is a cell. */
++	if (cell)
++		cell_init_exited(cell, tsk);
 +
-+	return err;
-+}
-+
- static const struct usb_device_id babyface_ids[] = {
- 	{ USB_DEVICE(USB_VENDOR_RME, USB_PRODUCT_BABYFACE_PRO_FS) },
- 	{ }
-@@ -1762,6 +1830,9 @@ static struct usb_driver babyface_driver = {
- 	.name = "snd-usb-babyface-pro",
- 	.probe = babyface_probe,
- 	.disconnect = babyface_disconnect,
-+	.suspend = babyface_suspend,
-+	.resume = babyface_resume,
-+	.reset_resume = babyface_resume,
- 	.id_table = babyface_ids,
- };
- 
-diff --git a/sound/usb/babyfacepro/babyfacepro.h b/sound/usb/babyfacepro/babyfacepro.h
-index 1d4c358d9..a32849f83 100644
---- a/sound/usb/babyfacepro/babyfacepro.h
-+++ b/sound/usb/babyfacepro/babyfacepro.h
-@@ -12,7 +12,7 @@
-  * snd-usb-audio quirk.
-  *
-  * babyfacepro.c holds the card lifecycle, the PCM stream and the
-- * mixer-state persistence across re-probes;
-+ * mixer-state persistence across re-probes and resume;
-  * babyfacepro-ctl.c holds the ALSA control surface - the hardware
-  * mixer.
-  *
-@@ -386,7 +386,7 @@ void babyface_pcm_stop_both(struct snd_usb_babyface *chip, snd_pcm_state_t state
- void babyface_stream_work(struct work_struct *work);
- extern const struct snd_pcm_hw_constraint_list bf_rates_constraint;
- 
--/* Mixer-state persistence across interface re-probes. */
-+/* Mixer-state persistence across interface re-probes/resume. */
- int babyface_restore_state(struct snd_usb_babyface *chip);
- int bf_state_apply_flags(struct snd_usb_babyface *chip);
- 
+ 	list_for_each_entry_safe(p, n, &dead, ptrace_entry) {
+ 		list_del_init(&p->ptrace_entry);
+ 		release_task(p);
+
 -- 
-2.56.0
+2.55.0
 
