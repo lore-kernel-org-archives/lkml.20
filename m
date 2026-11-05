@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898232;
-	b=iasHoFyarJwAHabyHHf+zHRlQP2MX4xvmsKWF2fBsWmp++ms0Ns4grgFws5kQW8APC9o
-	 5Deo+y+VmgR+T/W1Xp7EMQ9hjnsTeIdS3AVEFX70byC9Mll7L81EGrorB3hNrqhPJASOa
-	 rTqw6HMTQZbM9sYBCzw4uJPRau6rdYbLkh5JQl5JPWJgvcCkpkug6ufzGmeG0/OpZsFaV
-	 OnHewZhNVx9yjk/s+8hBZZUBkW3guzAVQmEskbL8ib5QJateyXi/CLy0rLGVp3fCw4jAb
-	 lvUU5nM/CrSfDLqA9tUDcfyTLlyzOy2AFzUQb6OgW7HecQA6Kjk7O6b6jaSSFWuYwCQ==
+	t=1793898293;
+	b=nuBlUyqbvYrTEbnJvbpVYblnxcznYpJV2XQjQ790r1k/Bnxrl6ToGuTAuRqzZ1DGtfoz
+	 fI8pOgOQFMXuAt3PDmEAvIG1zoGk3Kkju3VRukj5tGEdI998M5phK5DGI6F3qfmOtm1cw
+	 OUCD8vktzldlWQVBHTcnuh3fstbHdQs8P6uoCcdmzwvr9PJg7EIht/P4LI0nvpbBOOq8H
+	 2CbC7D6mBDliM9KX/skv8QuztQxggus7kX0UODpN+GN9cHOHvYR0CE2vim/n0PgCnTlZJ
+	 KnCrq5DbA5QXkGWJ9uJoAPbiwcbImBVBkmsFJkaVdSWmRjH/DIspvH3PRqh9WNh/Avw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898232;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=eqymyfQPmkdowPtdPDEdokoee/Bn++kZOanEjmktYuw=;
-	b=2Teb+Vbq18OnAvoLjvGTOAh63qIedCTNIUPVujjCRb6HBeNG7DOqBiX4TrTY9buV/hJH
-	 XeMFJyFy7tk0LdOq5n5+O6TRaRrfovgYQRALfmQnEQrbP+2MKOue4yNGG5jgyMsUxUqLu
-	 3dBccqGKUbez9Jp061tBeHXuaAaXwcMXMUdluH14t9uv/4EFhNrGP8oz699nv1qPMMiQZ
-	 nrdmreBtTMgqtagA/9UeVs67cpporPWaQSb9GiI37vFJW2tZ6piHGTqw2c+svwJwqJDtW
-	 /Y0w34DYzp5xq/996n6pz9hSG3EWuyaJE6X828mzqcj3cXRX3rUTc9EGGXaiVNu7MBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898293;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:
+	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=tFELIg/XWdUdJ9mvJY05GWcNZWFrkuxK3FAD1A4Q1WY=;
+	b=RKofGezmfscq+fOMYgsft7li5Y4dy3TkJJYuVwNP2L4PKONo+QwFsKLv0yw+6hu03a2m
+	 mkkkuMWiARjQ6lRkqC3mn/7CI+ZnH5yueiSSwjP+UgJliHWcz4axCbu8sOYM1GzKe38Ci
+	 S0jCfXLAwc7e1M5fBxbH4ym461dz691+ZJK8D0dmHfCCN9knv6XRG0+HBORu/wyC2GIxm
+	 8dOTwxIU03wq5tpHmitno3FyNwH97tk5RjwYlChibTSEdJq2Y6ssvXGIPL5m7wyg/EU2Y
+	 DHMcTxr6DwJ6OUmV5MWcSUx3qLnQHf/zFS5eK7HL2p6QZFLNGUKexhS5hbcAY0qqF0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlSbgtkL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="NqFyd/e5";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7E8606A31B;
-	Thu,  5 Nov 2026 17:03:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7B5606A31B;
+	Thu,  5 Nov 2026 17:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F7B5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlSbgtkL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3474F1F00A16;
-	Thu,  5 Nov 2026 17:03:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793898232;
-	bh=eqymyfQPmkdowPtdPDEdokoee/Bn++kZOanEjmktYuw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LlSbgtkL0yI1ibmkCSFcsq2mdd5FstDe2qxfkOX+F8XEgiFGcb+3L+kCxBPA5q3l1
-	 s2CVCBpRGDxjeD9ci26z1UhkJVlpPN0GecGP4pz/Zk8dbwnzHIQOiyIB6BPNZ28Dln
-	 Z5ejaro/xMhMnZdGz2oWkwa92/BD+yErNsGQBbvE1kr91CAoVQjaAZy5yFtn/IpB4L
-	 2L0WZKvJFmj7Zm8fUoJbo7DISmWzgcNCTp3AwKNQop8z8tRl0TVrW0r/i9V5Or2frY
-	 QfwYIObGvm6AfvizoffY8UTS8YB6Ecj/XNIGWMHHj379UOZoUSfkSVPh+9wcNTTwmn
-	 umdGTAJ9pweiQ==
-From: Puranjay Mohan <puranjay@kernel.org>
-To: Sandipan Das <sandipan.das@amd.com>,
-	Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Andrii Nakryiko <andrii@kernel.org>
-Subject: [PATCH RFC] perf/x86/amd/lbr: Don't freeze the LBR on PMI for user-only filters
-Date: Thu,  5 Nov 2026 09:03:40 -0800
-Message-ID: <20261105170340.165507-1-puranjay@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <b7456dbb-16fd-45b4-8742-e9ea3f896317@amd.com>
-References: <b7456dbb-16fd-45b4-8742-e9ea3f896317@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NqFyd/e5
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A7BA51A0A53;
+	Thu,  5 Nov 2026 17:04:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 71B8E5FF43;
+	Thu,  5 Nov 2026 17:04:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9527E10329289;
+	Thu,  5 Nov 2026 18:04:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793898286; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=tFELIg/XWdUdJ9mvJY05GWcNZWFrkuxK3FAD1A4Q1WY=;
+	b=NqFyd/e5nL3p61EwsmZzQ7nHcCLXYexuBb8Hu5cSpMnIl55xb3eTuBYd1R+yPix5Z0VQDt
+	zziOUgEv+u911Z+wMpMidInZbWEi1tEOq7UxZMUvryOHys++veSE3Yvutxr2J1b03K5mgh
+	/ayBX9WTnaXsNAkq/iXcQcRpyUsAitmUzd0SIUx4DRdHpwRw31ZaHldiSPoayRy6FMqQS6
+	B+U1UlP+JUNn4Ob2sgYuV+pG7U+ffRCg5TvwoB4G97UTseguSloWVKX/nLXUzG6AAtEY1/
+	mg9MMPv7RYMFwyQu+7QK3VZrR7lGhiJ5x9Q+eUGbEOLQrxaMYyLSsSXtxWd68A==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,128 +58,164 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 05 Nov 2026 18:04:41 +0100
+Message-Id: <DMNFV9TGBTT7.2APJ533JDZBFN@bootlin.com>
+Subject: Re: [PATCH bpf-next v2] selftests/bpf: port test_ftrace.sh to
+ test_progs
+Cc: <ebpf@linuxfoundation.org>, "Bastien Curutchet"
+ <bastien.curutchet@bootlin.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Andrii Nakryiko" <andrii@kernel.org>,
+ "Eduard Zingerman" <eddyz87@gmail.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Shuah Khan" <shuah@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+To: "Jiri Olsa" <olsajiri@gmail.com>,
+ =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
+ <alexis.lothore@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261104-ftrace_in_test_progs-v2-1-45363230d228@bootlin.com>
+ <ausZvdHfmevg3mMZ@krava>
+In-Reply-To: <ausZvdHfmevg3mMZ@krava>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On CPUs with X86_FEATURE_AMD_LBR_PMC_FREEZE the LBR is always frozen on
-PMI, so the branch stack ends before the IP and callchain, which are
-taken when the NMI is delivered. IBS rejects branch-stack events, so
-there is no precise alternative.
+Hi Jiri,
 
-The freeze only keeps the PMI handler's branches out of the stack, which
-matters only if branches into the kernel are recorded. Skip it when
-LBR_SELECT suppresses them, and add a freeze format bit (config2:0) to
-request it anyway.
+On Wed Nov 4, 2026 at 12:40 PM CET, Jiri Olsa wrote:
+> On Wed, Nov 04, 2026 at 10:59:33AM +0100, Alexis Lothor=C3=A9 (eBPF Found=
+ation) wrote:
+>> Commit ff205766dbbe ("ftrace: Fix function_graph tracer interaction with
+>> BPF trampoline") made sure that trampolines generated for tracing
+>> programs did not collide with the function graph when we are returning
+>> from the hooked function. The series bringing this commit also came with
+>> a new test ensuring that the kernel does not crash when executing BPF
+>> programs handled by trampolines while the function graph trace is
+>> enabled, but this test is a standalone shell script, hence not executed
+>> in CI.
 
-Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
----
-Thanks both. A user-only default with an explicit request works for me,
-with one exception I would like to keep: when branches into the kernel
-are recorded the freeze has to stay. On a Zen 5 part with the freeze
-cleared and a user+kernel filter, every entry in every sample was a
-branch taken by amd_pmu_v2_handle_irq() or amd_pmu_lbr_read(), so users
-recording kernel branches would regress with a "never freeze" default.
+[...]
 
-This RFC does the following:
- - LBR_SELECT suppresses kernel branches: no freeze, unless the new
-   AMD-only freeze format bit (config2:0, advertised through the format
-   attributes) is set.
- - Otherwise: freeze as today.
+> lgtm, it might be worth to add something like this also for
+> tracing-multi (maybe also kprobe-multi) and run some tests
+> with function or function_graph enabled
 
-That needs no tool changes for the user-only case and gives an explicit
-way to request the freeze. This version is only compile tested; I will
-retest on a Zen 5 part if the approach is acceptable.
+Sure, I can take a look and follow-up with this. I guess it can be a
+separate series, unless I'm told that it should be added in a v3.
 
- arch/x86/events/amd/core.c | 14 ++++++++++++++
- arch/x86/events/amd/lbr.c  | 21 ++++++++++++++++++---
- 2 files changed, 32 insertions(+), 3 deletions(-)
+Alexis
 
-diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
-index 49b6b8fce5664..d63649c756a58 100644
---- a/arch/x86/events/amd/core.c
-+++ b/arch/x86/events/amd/core.c
-@@ -1404,8 +1404,22 @@ static struct attribute_group group_events_amd_brs = {
- 
- #endif	/* CONFIG_PERF_EVENTS_AMD_BRS */
- 
-+PMU_FORMAT_ATTR(freeze, "config2:0");
-+
-+static struct attribute *amd_pmu_lbr_format_attrs[] = {
-+	&format_attr_freeze.attr,
-+	NULL,
-+};
-+
-+static struct attribute_group group_format_amd_lbr = {
-+	.name       = "format",
-+	.attrs      = amd_pmu_lbr_format_attrs,
-+	.is_visible = amd_branches_is_visible,
-+};
-+
- static const struct attribute_group *amd_attr_update[] = {
- 	&group_caps_amd_branches,
-+	&group_format_amd_lbr,
- #ifdef CONFIG_PERF_EVENTS_AMD_BRS
- 	&group_events_amd_brs,
- #endif
-diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-index a55646fcb8465..f45e2c53566af 100644
---- a/arch/x86/events/amd/lbr.c
-+++ b/arch/x86/events/amd/lbr.c
-@@ -10,6 +10,12 @@
- /* LBR Branch Select valid bits */
- #define LBR_SELECT_MASK		0x1ff
- 
-+/* attr.config2: freeze the LBR on PMI */
-+#define LBR_CFG2_FREEZE		BIT_ULL(0)
-+
-+/* Software only, masked out before writing LBR_SELECT */
-+#define LBR_FREEZE		BIT_ULL(63)
-+
- /*
-  * LBR Branch Select filter bits which when set, ensures that the
-  * corresponding type of branches are not recorded
-@@ -307,6 +313,9 @@ static int amd_pmu_lbr_setup_filter(struct perf_event *event)
- 	/* Filter bits operate in suppress mode */
- 	reg->config = mask ^ LBR_SELECT_MASK;
- 
-+	if (event->attr.config2 & LBR_CFG2_FREEZE)
-+		reg->config |= LBR_FREEZE;
-+
- 	return 0;
- }
- 
-@@ -392,20 +401,26 @@ void amd_pmu_lbr_sched_task(struct perf_event_pmu_context *pmu_ctx,
- void amd_pmu_lbr_enable_all(void)
- {
- 	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
--	u64 lbr_select, dbg_ctl, dbg_extn_cfg;
-+	u64 lbr_cfg = 0, lbr_select = 0, dbg_ctl, dbg_extn_cfg;
- 
- 	if (!cpuc->lbr_users || !x86_pmu.lbr_nr)
- 		return;
- 
- 	/* Set hardware branch filter */
- 	if (cpuc->lbr_select) {
--		lbr_select = cpuc->lbr_sel->config & LBR_SELECT_MASK;
-+		lbr_cfg = cpuc->lbr_sel->config;
-+		lbr_select = lbr_cfg & LBR_SELECT_MASK;
- 		wrmsrq(MSR_AMD64_LBR_SELECT, lbr_select);
- 	}
- 
- 	if (cpu_feature_enabled(X86_FEATURE_AMD_LBR_PMC_FREEZE)) {
- 		rdmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
--		wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl | DEBUGCTLMSR_FREEZE_LBRS_ON_PMI);
-+		/* Skip the freeze if kernel branches are suppressed, unless asked */
-+		if ((lbr_select & LBR_KERNEL) && !(lbr_cfg & LBR_FREEZE))
-+			dbg_ctl &= ~DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
-+		else
-+			dbg_ctl |= DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
-+		wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
- 	}
- 
- 	rdmsrq(MSR_AMD_DBG_EXTN_CFG, dbg_extn_cfg);
+> Reviewed-by: Jiri Olsa <jolsa@kernel.org>
+>
+> jirka
+>
+> SNIP
+>
+>> +void test_modify_return_graph(void)
+>> +{
+>> +	char instance[MAX_INSTANCE_PATH_LEN];
+>> +	char *ftrace_dir;
+>> +	int ret;
+>> +
+>> +	ftrace_dir =3D access(TRACE_FTRACE_DEFAULT, F_OK) ? TRACEFS_IN_DEBUGFS=
+ :
+>> +							  TRACEFS_DEFAULT;
+>> +
+>> +	ret =3D snprintf(instance, MAX_INSTANCE_PATH_LEN,
+>> +		       "%s/instances/bpf-XXXXXX", ftrace_dir);
+>> +	if (ret < 0)
+>> +		return;
+>> +
+>> +	if (!ASSERT_OK_PTR(mkdtemp(instance), "mkdtemp"))
+>> +		return;
+>> +
+>> +	SYS(out, "echo 'bpf_modify_return_test*' > %s/set_ftrace_filter",
+>> +	    instance);
+>
+> nit, no need for new line
+>
+>> +	SYS(out, "echo function_graph > %s/current_tracer", instance);
+>> +
+>> +	test_modify_return();
+>> +
+>> +	SYS(out, "grep -q bpf_modify_return_test2 %s/trace", instance);
+>> +out:
+>> +	ASSERT_OK(rmdir(instance), "rmdir");
+>> +}
+>> diff --git a/tools/testing/selftests/bpf/test_ftrace.sh b/tools/testing/=
+selftests/bpf/test_ftrace.sh
+>> deleted file mode 100755
+>> index f5109eb0e951..000000000000
+>> --- a/tools/testing/selftests/bpf/test_ftrace.sh
+>> +++ /dev/null
+>> @@ -1,44 +0,0 @@
+>> -#!/bin/bash
+>> -
+>> -if [[ -e /sys/kernel/tracing/trace ]]; then
+>> -    TR=3D/sys/kernel/tracing/
+>> -else
+>> -    TR=3D/sys/kernel/debug/tracing/
+>> -fi
+>> -
+>> -clear_trace() { # reset trace output
+>> -    echo > $TR/trace
+>> -}
+>> -
+>> -disable_tracing() { # stop trace recording
+>> -    echo 0 > $TR/tracing_on
+>> -}
+>> -
+>> -enable_tracing() { # start trace recording
+>> -    echo 1 > $TR/tracing_on
+>> -}
+>> -
+>> -reset_tracer() { # reset the current tracer
+>> -    echo nop > $TR/current_tracer
+>> -}
+>> -
+>> -disable_tracing
+>> -clear_trace
+>> -
+>> -echo "" > $TR/set_ftrace_filter
+>> -echo '*printk* *console* *wake* *serial* *lock*' > $TR/set_ftrace_notra=
+ce
+>> -
+>> -echo "bpf_prog_test*" > $TR/set_graph_function
+>> -echo "" > $TR/set_graph_notrace
+>> -
+>> -echo function_graph > $TR/current_tracer
+>> -
+>> -enable_tracing
+>> -./test_progs -t fentry
+>> -./test_progs -t fexit
+>> -disable_tracing
+>> -clear_trace
+>> -
+>> -reset_tracer
+>> -
+>> -exit 0
+>>=20
+>> ---
+>> base-commit: b0e67f50519538b1b4c6364edc7811f482703f75
+>> change-id: 20261027-ftrace_in_test_progs-d5f70a2330ac
+>>=20
+>> Best regards,
+>> -- =20
+>> Alexis Lothor=C3=A9 (eBPF Foundation) <alexis.lothore@bootlin.com>
+>>=20
 
-base-commit: 0f443787a7f6ae907975742680aac2600483eaf1
--- 
-2.53.0-Meta
+
+
+
+
+--=20
+Alexis Lothor=C3=A9, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
