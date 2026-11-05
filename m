@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885597;
-	b=Jl2ZCZK6sGjqw8+sxhTzN1zyA7pJ7i1lb3esSq8RmpWXzAE0Ow1ed82+NKNkGbfO+y86
-	 cK/c7oOt3tpFQOWQDt9JUfHXlksCnc1KDxSAKYyD30DgJ0p3wQrK30WsdVA4DMNtAHLi3
-	 Jmhgsk17VrF2bZe+/prKcajdd3A77EsCpCJXVUNfSmrhyz9qljll5dEqrsIu7FrGH/sQM
-	 422prlqP1vdR6x2yZHplgOZly4Ub0LWfjTZE59bG1YMVvjxcVzMNuXd6jp0ISyt/jCQs/
-	 xho+qGAJdYykwzr5N49VOM9Ev5B+TDuWGtN7V3aMtwhbElioPT+fzBNExqnKJ8oiIKQ==
+	t=1793885596;
+	b=zphpDBYfUZ2khkbcyWQc1X8kYWBkpY+Wk8uCZDc9aqGBcV5NOOYgmfDDqojCxb4aPk7T
+	 VcETsHF2UCMv5jvbdteDs2Lmb076WnZdy7c4Sziu5Fci7/Ppoh5D6u+oHW1IS4rEbXgC7
+	 8lHcSqQxuUzFSxIPQJ1oJIwR0kJoueukyvASKanVCosoNgYHs/zz1T2TcCZJT0LLexfYt
+	 qLLFBvoGVrAQp+Yrdf35ydHLvK94sRNqxraC8Wo7Ed6Ow/JtG9cu4ZdMp5pIBrCbbf79W
+	 EIvmAOAlRs1V/AcpRURUWXEjQ00rml6QfLnrjYtFWd99hGx7cqBNTp3snhymaouwQEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885596;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=YbssYQbB4JLy0vSiuD/hwT+UYW+ej74pKnIb9aaZiqk=;
-	b=Bm2BmVzBny3nilF7BXTRpoPGK0RQJ/XrqY0j4UcqT335TFYRbn7ZpK7Ujy8vXCjGbuJS
-	 3yGIS1ks8dGqfchIpQVRX5V2iDEJSNymmzaA681FZFGJ3qimtZewNKtp4201ZyNsdq5j/
-	 MFl6lsQi5dXceRA/0+GtG6tgIQF1i7T+Lm0LwD7SQfurvvqXAhD8tm+Cu4UVSVc2BpkyA
-	 HqPT7CA2cW0EA4zuTodEBRc5/+1Wc8baM35Bhvsw5b7at2H3Xw+lgLXVCIWebYbtCLBvo
-	 4X2vj8R0leVMfFfghgJa937lAgKPY1Mpfx/kCUwcNBfLFrt9h8raFRwMAbLsJ4+s2NA==
+	bh=SL3c+Xn0SPE41xc8Ad0l64gG9trCMljB+pCfmOkxawI=;
+	b=nikQkmcPGC6ry835tRQsPG3UIej/r0SJUMqiDH3RlMc1UJWBELD1FwlvaBp0ZMj3u9ru
+	 vX9+6/6KBOyFH+I2tARTtk7tV9zWQPICnngJ/GlHJCjadEs+CJ3iH8CHUgOEdarY4CV4d
+	 /nBPLbhdDX8K6BH4iJEOm9pPTiwwHwwZpdKkRaKK3I5hg6/YtENJ3evIt8e0nmjhlMhW6
+	 ThNRcogqS8CBxkJDuhkGNrM/GQpMrOg/i3dcQE97MaP1u/3wn2q8DvLJ/eZ9k1RfE8p/3
+	 qtjo4E/4z15Txg9hXl3x7yeTaFNxROny+qpUI34Xk2O3o5SIp9JxP2E/pdV3zdK4q6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=I2tEcOSE;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=kGgr4fgS;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E61606D815;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922EA606D80D;
 	Thu,  5 Nov 2026 13:33:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4E61606D815
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 922EA606D80D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=I2tEcOSE
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=kGgr4fgS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1793885591;
-	bh=PoEgush9aFsqQlzS0lqV9IGVwSbPS6uQnjHBJkFkonc=;
+	bh=ptLOgwdQ/b+rU6Uy0kx26Ht8mJ6/4NDPhmCMpGs0vUk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=I2tEcOSE8UhVS1D0BuOUUBWKxpEf0PxJPfZ5ke7jkfCfNehogOU2eixVXh1g9Bvdz
-	 kT9SI4XcNt1JO9Ll+BTVVVaoUkiketIV10mr/8BpQph9k/FFUO7dDsXlKek6BxEaeF
-	 FVonW6WE1QYr6L2I+1DtMj4/1+5EkrgjS3j/6+bAoqPR0Ug5mbJFY24R3XDSfcktHs
-	 zDDgpTUSbkYZO1PVwwcLJOcAMTL8bB3xesDSzC/dE7T8j6jvNOG1NLKFToj+XGI6uY
-	 VI1Ggd88vE9wLA6rqUZ2W+by8RnYcuniYMOLTejAU7+RMylUXv8Qs/tigI4ufF4nN8
-	 0qSs8Y4ryXdcw==
+	b=kGgr4fgSB+QeXc1nzmhaz83Jz6wG6/Z/3vjapdSTZOcUOAlp7W+zrsx8EqNYUyGIw
+	 9mAEOFP/zIrz25+Z+NP8nom0B3iGfvpOlgHEkgSqqqebCH3H6SSp8/3GEZKDsZIETx
+	 VVYNshi4Ck/G33Tb6Prm9kOwv9As6I1mdlAs8MgnY6Et9t7yWE3xGR7Sfnvui0Kotr
+	 /SaWWfcHLYpVUOHDJX+TWBH6oxt0nHG06oqZuIh3lpYU0JpvuJtBXRvujX18EcwaQH
+	 1w6jM1RFyIVWk9EsZFP/97WTOEy+bUlOtAE8okXO844LMs+OBRB9QRiOnWZr7zv63w
+	 Ge8j29Kj/hgfQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9A9BB17E0C39;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8FD3817E0BBE;
 	Thu, 05 Nov 2026 14:33:11 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id EE4BC48003D; Thu, 05 Nov 2026 14:33:10 +0100 (CET)
+	id E91FF480035; Thu, 05 Nov 2026 14:33:10 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 05 Nov 2026 14:33:16 +0100
-Subject: [PATCH v9 8/9] PCI: dw-rockchip: Set broken L1SS resume flag
+Date: Thu, 05 Nov 2026 14:33:13 +0100
+Subject: [PATCH v9 5/9] PCI: dw-rockchip: Add helper function for
+ controller mode
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-rockchip-pcie-system-suspend-v9-8-a2e55846649e@collabora.com>
+Message-Id: <20261105-rockchip-pcie-system-suspend-v9-5-a2e55846649e@collabora.com>
 References: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
 In-Reply-To: <20261105-rockchip-pcie-system-suspend-v9-0-a2e55846649e@collabora.com>
 To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
@@ -84,64 +85,85 @@ Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1696;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2427;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=PoEgush9aFsqQlzS0lqV9IGVwSbPS6uQnjHBJkFkonc=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrshZbT8DYydnK1H+vhzDkeZihraJeSXlrcR
- f43OEulWH2SgokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7IWWAAoJENju1/PI
- O/qaXFEP/1piWnY13VMQD5+HXTGoxklRz8Of/4yzLfGzQbZyZglyoaZKS1CIdOo/Mf5TiUn06pN
- 6aPKL45MThnVfl/IU+wV3sZOBOu/1/1FWeawIrgcKr9Jlo5MyuNsmXrssx6E+E9YazzG6X22v1a
- X9v7ethg9Sk3g/3TXHvyHgP5as02IVlw3MXYS6JR55tzirg2/iaMDDe0BQBkb7OgRl8Vd1TLTcq
- z6SmPhxS1kXglKFMBswrGj8IYLlG3rmR8tFgzBxDMPEkn8wPa400pu+2DevlqxBvLHJAIECe9qw
- W09/65qjxNdp6U3KwYbda2h9B6VwLmIYaew6xZSPGWasPDD2IuoxCZTYUEs/YJY0hIj2xRjn01x
- e693akWrTIEBW/9ERDzAmVBNwZl26HayK66xJrkEUq81lLMIulsn3ZO8PIY9JJTkiK8nRqA4Mmg
- oh2zrelWj2Bj7m3rMQR1QbYHDDpXORPt0kpDwJN3fZr7SN0RcPgxAzIp6pnRnfzD0pgjz8o6z6p
- hJasrR867gaFh/u67Ir/Z5+/PfphZkfqQqDlWjLKgPeABm074xdQlLXL4Z7j1XvHa+aTzwOOMOZ
- IIzVAMuxXAU0EBJdxRKCfeQqxkfIBA+SyIXIgqjOPFxPAS1U/0kBieKlCjpzuTv9Gr271+Fc51L
- 9lBDUgDzgE+suB+uEH9gqRQ==
+ bh=ptLOgwdQ/b+rU6Uy0kx26Ht8mJ6/4NDPhmCMpGs0vUk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrshZY9E27T8dp5BasZn7iXWUdUKnjbXdFRH
+ XaRdXRINPr7SokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7IWWAAoJENju1/PI
+ O/qaS7cP/2xnyhbp4nAwb8YY8IfdPIIJRHMWG/LsS/aq3otLOhq+g0KocaKerSBPf2q3Cu603q+
+ NW5VrL8eCutPMdOFVeJLlR/BbTu6xp7XCqPkKQdBd2nEo81hbTOo6mDfZjoHXX4O7OT+7I+XK9A
+ f0uiVBpVXL+BxY2jn90yx7LZpRZVREI7O3SQCqFPlbR4Z1CnGAqQuKJO3623GAT3gKhTDg1NmrS
+ 1b2boi769vl2w2fZOboab+zkGSnWqiX3aBqCI5huk9Gpk11El07OcVFSm7lvkxzzYVH+EHTfw8T
+ 7r3uKPq0LOwx7NOovHYkWFn66KbIoO1AiADuNZePuaXEdrdeYlA1YvmD37JxdQ09Tr4iPDLu4l9
+ FQUV8bJfGQXANulF0NSroJjV+x7L0J1Kaz47wgPgHXSorHn6iySRJ0R9MXgxHysAy7NtgVSPNnT
+ ItUo1K9ZQpMZe0P5i3YBaVF4R3b1aERVEjv7j+vcEJ5J2G3Oh7AeahAbFbOciJK9g9BywXVha1S
+ x3kMEepbJc+5CfGZWQVqxpB0faXoFBnnYgnySKw+X2RgNviFPTsf+4vvhtmP0xXpJhc9gvxIv4G
+ /iL0tta++VY5GHor+yR598420Wpu6SZr6goKIZFHktbZh3QW6Kj0hcOpuX676pCG11Z4WWI2oPH
+ eEaa4SeliVsSXXchno582hg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-During system suspend, the Rockchip RC driver effectively powers off the
-controller. If the link is in L1SS and the endpoint asserts CLKREQ# to
-exit L1SS, the time required to wake the system and restore the
-PHY/REFCLK may exceed the L1SS exit timing (L10_REFCLK_ON +
-T_COMMONMODE), resulting in Link Down (LDn) and a reset of the endpoint.
-Set broken_l1ss_resume flag to indicate this limitation to the PCIe
-framework. This results in pci_suspend_retains_context() returning false
-and PCIe client can avoid relying on device state being preserved
-during system suspend.
+Remove code duplication and improve readability by introducing a new
+function to setup the controller mode.
 
 Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index d8968743732c..a603475d4450 100644
+index 92154a790ac0..07718667c225 100644
 --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
 +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -448,6 +448,11 @@ static int rockchip_pcie_host_init(struct dw_pcie_rp *pp)
- 	return 0;
+@@ -695,6 +695,11 @@ static void rockchip_pcie_enable_enhanced_ltssm_control_mode(struct rockchip_pci
+ 	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_HOT_RESET_CTRL);
  }
  
-+static void rockchip_pcie_host_post_init(struct dw_pcie_rp *pp)
++static void rockchip_pcie_set_controller_mode(struct rockchip_pcie *rockchip, u32 mode)
 +{
-+	pp->bridge->broken_l1ss_resume = true;
++	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_SET_MODE(mode), PCIE_CLIENT_GENERAL_CON);
 +}
 +
- static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
+ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+ 				      struct rockchip_pcie *rockchip)
  {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-@@ -487,6 +492,7 @@ static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
+@@ -719,10 +724,7 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+ 	}
  
- static const struct dw_pcie_host_ops rockchip_pcie_host_ops = {
- 	.init = rockchip_pcie_host_init,
-+	.post_init = rockchip_pcie_host_post_init,
- 	.pme_turn_off = rockchip_pcie_pme_turn_off,
- };
+ 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, false);
+-
+-	rockchip_pcie_writel_apb(rockchip,
+-				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_RC),
+-				 PCIE_CLIENT_GENERAL_CON);
++	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_RC);
  
+ 	irq = of_irq_get_byname(dev->of_node, "legacy");
+ 	if (irq < 0)
+@@ -776,10 +778,7 @@ static int rockchip_pcie_configure_ep(struct platform_device *pdev,
+ 	}
+ 
+ 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, true);
+-
+-	rockchip_pcie_writel_apb(rockchip,
+-				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_EP),
+-				 PCIE_CLIENT_GENERAL_CON);
++	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_EP);
+ 
+ 	rockchip->pci.ep.ops = &rockchip_pcie_ep_ops;
+ 	rockchip->pci.ep.page_size = SZ_64K;
+@@ -945,10 +944,7 @@ static int rockchip_pcie_rc_reset_root_port(struct pci_host_bridge *bridge,
+ 	}
+ 
+ 	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, false);
+-
+-	rockchip_pcie_writel_apb(rockchip,
+-				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_RC),
+-				 PCIE_CLIENT_GENERAL_CON);
++	rockchip_pcie_set_controller_mode(rockchip, PCIE_CLIENT_MODE_RC);
+ 
+ 	ret = dw_pcie_setup_rc(pp);
+ 	if (ret) {
 
 -- 
 2.53.0
