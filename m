@@ -1,49 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880976;
-	b=glVBC7Uk5ec0BYz7b2mPmtiLJsJX/WwK3RBLEs4e8rfGu99aom3OHUcECOFpdGqij4lT
-	 Mf28CVLW0Rg5JPWrF0urT77RcvxbIGQUCjF1O0cTD0dmw93CH8+VYVDLoyLXpsquW1GRk
-	 TUgV8cNQXQdPNh+vVisaLO4qQOgHgszRP11RcMMa/oj8cEaWuN+G87bumqXPDLdzk+vyE
-	 nakLfTbPq/c3haZTAO7vxVBvO/3RBokt2FRg2twTLn1KSk+T0sCmeF6LGglNdCLVgW2nb
-	 8LFVhj/tOEpIiWnopcjCRkl5Tzgj5IHxGCNGj8Mf1zul17gg1lCqRpK97vJboYNdW2Q==
+	t=1793880984;
+	b=dbTNsXpEqKwrjtIET6ieEZQs2hJBTK9PEQOKwNcq475kXJd0jWkkAyo1HZaqudVAp60V
+	 5SvzpOs1CthxushaYDMrIWXxqUCO1jU47pAfC2PgBro1Kzf7Q5JEJdSpTxjnjCGce5yjI
+	 1c41mP/rQt24jRMy4P0LPacaFYlJjS8Jr5o7/TQY1S/OKJ/e8qvAMz8+eTmPkzZucANhB
+	 d0NvO04MDHrsaE8zvwQGj5+xKpUdfin90OhVZ/hgHblNLTzsC4/hFYMi0CIpyMNOu/ru8
+	 mirquzoVnzzdz03pBrBkXXNzy0e4gSKAYhY5EeOKCpumIImQ/ftELfnPTyt3AeSKi9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880976;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=xRhIOQP7ycZj3AHtGBmP58IXy1Gmj04WWtW7XPCSAgQ=;
-	b=ZC1RD4/6WBH1EeLo391U6FaqzU14WHxfTUtrcGFul+CLGQ2LQ7wpb+pO1G9d3YvkKm0s
-	 YDsNI3YOyMxfRYRJVVxqhctbTcnF+0q9d+Ivua4WTK6wgQHnoDQCv7m5J4Gx1TSqY+OtI
-	 xBpC4bFrPIYndgwDPAw2U+dPHIbL3XvWs/q429ATSVxK7AQuuEvNpIIK4/q/fUkzlruOd
-	 h458Ji4gWz5OJ9c00873HkOFLVOvCAY35e+AkURkRljuyzFMUyk3zt6QlkrgGrbb4jEtv
-	 sLi/sH/3OCifzR1mD80eDURhPtiEUKHScn3tRX2SfkdMllPU6Uud5Cu+vSL10vawaMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880984;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=Rok9y466uiAnE7+/08y7ZZu4eo0bVUdHlL7+Y3vBUYM=;
+	b=EMaQ3UzHtgP+BLAJFrWBMjumVPPn8o+IkVJ2Dfs0d11ZbONIGHZVziYSQNY2eDr6UISA
+	 s/Nm4FERLe2B/46+rP9+HoFwWWZbuI66R5W99h9xYCAUD84IwmfNi57sZtCWu6IWt5TRF
+	 4SmJkX1Uof1cF8bBCSCWM4ubCxdgbzhFDFIqZB51KXJOItXe0AODDQP8T2rrQpNG+VVkT
+	 TpzmJXOevmUOZVUBQCz5Z62BrnsqTW/p2FikwDFRUlA8IKu9SoAeD/alttYLWHfCrgLSd
+	 DX7qRW0lwf5LZcO/C5VJOirFx75sa7d380J3LzTbmhTua7YPlS/LgtMMrjQefUCrvtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5weJtFu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdxOm3st;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44F2606A31B;
-	Thu,  5 Nov 2026 12:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FBE606A329;
+	Thu,  5 Nov 2026 12:16:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84FBE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5weJtFu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78EF1F000C1;
-	Thu,  5 Nov 2026 12:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793880975;
-	bh=xRhIOQP7ycZj3AHtGBmP58IXy1Gmj04WWtW7XPCSAgQ=;
-	h=From:Date:Subject:To:Cc;
-	b=f5weJtFuhjm0h7M6W8Hs3aNXIE5onxXNv8UIxEfi7uSgLumD+rte7uMoF/tR2ql1T
-	 B6dkQ81QmyzVVL8yHNY0PNGv+/MKrcJwZzWAQnuRYFJ5CyhvS57wEvLQLe317l9k3R
-	 8j9fPrL+KoXA3M3aWvW5mDu1zcS9hp2TeB9sNYCHFn5XMcnwpP4burhK4FRIQkVLzX
-	 kknT9PUK01t4IrFmAQz4ZOtbjEb2eqiXCk2C5HOF0Dbhk0654WgLJc6b0/Ildn5lyb
-	 BZyOBIwKtew55wrN6f7J6UcfRB7e8wikcU+xl/KCyWd/qwC41UtqcTFNSHxhgY13Io
-	 vNDdsNMRhogxg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 05 Nov 2026 13:16:05 +0100
-Subject: [PATCH] mm/khugepaged: free unused page table when setting a huge
- PMD fails
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdxOm3st
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793880984; x=1825416984;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=d3FPpE0PAVKvJcm9KCS0u8FKppycCkr6BvUrJr0nJvU=;
+  b=IdxOm3stJwgVyx85vZc4zW7hwqmAyxcg8fOrt20FzMXNM7M7plqUydf8
+   mJtlWD1Jd25gIZZhyGxjBeHIEqGndS9f1qp3HbN+ah8AqChG4LgvfRZzC
+   yKWnh81n3FYYE6DNEE3i6XfnPRbsBfDU7BOYM4wZbe+OD8qDGWuZsxrGo
+   uDyL4hU38yjdxLzDBV4+sAcYRbzot82GdPTvlGIE9WXwZDsImUIRzz+NL
+   ukP31S+PnL4GqLZIAnYDJxvuIxeYb3H4cineSitcIl7cr3zcJnnw2IFY0
+   FXNecH/xFnaB2ogZ/haaYPbEcRBcrJCfqqaQIUQu/hnSD3MQQpRgx9l85
+   A==;
+X-CSE-ConnectionGUID: Pa4mvpmYStS/BEF7Eqty9w==
+X-CSE-MsgGUID: 9BmKnDdoTrqQTfkkOvLwNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2550359"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2550359"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:16:24 -0800
+X-CSE-ConnectionGUID: ZKcPsXtrQtSIhU6MjnwIfw==
+X-CSE-MsgGUID: nL1LzVOSQS6LI3AF41/kRg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7320751"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:16:20 -0800
+Date: Thu, 5 Nov 2026 14:16:17 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+Cc: jic23@kernel.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dragos Bogdan <dragos.bogdan@analog.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: ad7405: Add support for
+ ADuM7801/7802/7811/7812
+Message-ID: <auxzkfpzV2Zr9QSo@ashevche-desk.local>
+References: <20261105093531.7562-1-pop.ioan-daniel@analog.com>
+ <20261105093531.7562-3-pop.ioan-daniel@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,85 +88,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-khugepaged_set_pmd-v1-1-cb79ab117199@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAIRz7GoC/yXM0QqCMBSH8VeRc91gG7aiV4mQ5f7OU2RjR0UQ3
- 72ll7+L71tJkBlCt2qljJmFv0OBOVXU9n6IUByKyWrrjNFn9e6niOQjQiMYm/QJymmvbXcxV7i
- aSpgyOl726f1xWKbnC+34P9G2/QBjC0WYdgAAAA==
-X-Change-ID: 20261105-khugepaged_set_pmd-60a02f718e64
-To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1769; i=david@kernel.org;
- h=from:subject:message-id; bh=x6hsSULERkoUAEHmmThvU0TJPUEgXBgWcpU2wORz2/k=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLeFLfPDkzxz3YPy/rirqUeVJXEeGOG4PHz37dGq63hu
- 6SmffdKRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABN5f5eR4YBr6qY7X+58/Lli
- UR+H9sfkqHcLeVvCJSJSxXJnT51wZDHDP8sqHcUfctFmqhW/Pvw+EHbd2Ox19OHm4xlJZi6nGcp
- uMAEA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261105093531.7562-3-pop.ioan-daniel@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-do_set_pmd() can allocate vmf.prealloc_pte on architectures that need a
-deposited page table, such as PowerPC with the hash MMU. If the PMD is
-no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-without consuming that table.
+On Thu, Nov 05, 2026 at 11:35:31AM +0200, Pop Ioan Daniel wrote:
+> Add a chip information structure and a device tree match table entry
+> for each of the ADuM7801, ADuM7802, ADuM7811 and ADuM7812. These parts
+> are handled the same way as the existing ADuM770x devices and differ
+> only in their full-scale input range: ±320 mV for the ADuM7801 and
+> ADuM7811, and ±64 mV for the ADuM7802 and ADuM7812.
+> 
+> The device tree binding lists the ADuM7701 and ADuM7702 as fallback
+> compatibles, so the driver can handle these parts through the fallback
+> alone. The dedicated entries are added so that the IIO device reports
+> the real part name instead of the name of the fallback part.
+> 
+> Rework the Kconfig help text to list one supported part per line, so
+> that new parts can be added without rewrapping the text, and make the
+> prompt generic instead of naming only the AD7405.
 
-Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-userfaultfd operation can install a PTE table before taking the folio
-lock. If that races with set_huge_pmd(), the unused preallocated table
-is lost when its local vm_fault goes out of scope.
+> -	tristate "Analog Devices AD7405 ADC Driver"
+> +	tristate "Analog Devices AD7405 and similar isolated sigma-delta modulators driver"
 
-Free vmf.prealloc_pte on failure, as do_fault() already does. Successful
-PMD installation consumes the table and clears the pointer.
+Update the top comment of the driver along with MODULE_DESCRIPTION() so that
+all three have the same (or quite similar text, like without word 'driver').
 
-Having to do this cleanup outside of do_set_pmd() is rather nasty, but
-other callers depend on it already having been allocated. This needs a
-cleanup at some point.
+...
 
-Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
-This isn't super urgent, so it can wait for 7.5.
----
- mm/khugepaged.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Otherwise LGTM.
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 8d9f05a39afb3..213c005fa8575 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1826,8 +1826,11 @@ static enum scan_result set_huge_pmd(struct vm_area_struct *vma, unsigned long a
- 	}
- 
- 	vmf.pmd = pmdp;
--	if (do_set_pmd(&vmf, folio, page))
-+	if (do_set_pmd(&vmf, folio, page)) {
-+		if (vmf.prealloc_pte)
-+			pte_free(mm, vmf.prealloc_pte);
- 		return SCAN_FAIL;
-+	}
- 
- 	folio_get(folio);
- 	return SCAN_SUCCEED;
+-- 
+With Best Regards,
+Andy Shevchenko
 
----
-
-base-commit: 02f72aa35c5e7dff443c62cd9964686396c8b201
-
-change-id: 20261105-khugepaged_set_pmd-60a02f718e64
-
---
-
-Cheers,
-
-David
 
