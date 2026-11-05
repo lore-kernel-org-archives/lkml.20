@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844905;
-	b=HGzIxHQ4P555Hu9exuzQtDO+JEzxtMEeEK6WLqXTla3f/xLhbvE+DVf3ROYpwTcYOfsU
-	 mSx9Q0s/cg3A+JdQgN5Y8Ghx6qm5LhYdFc9IAsxWW7HoUYzYnnsUKeP+4B9p4mxWHUX9T
-	 /q2iwr3e+CHiQ69gxcttMyabDLLuRhKP6QvyeQtMt/g47eQcFrchwwKETgo4b7ImZExqg
-	 8YLDB61wCNmKlxbwMb+RQJiykeawQ8Dtgd0pJdAcbKpFw23IxkBKZtvu+LRgBxXavBw4m
-	 nkyGN9evt1S0dJfXrMs01qKuhAnmQNILk0Y2GpgabW9K8yrzXk+/5MgR/zRx1h2LT3g==
+	t=1793845004;
+	b=M8WGckfvXn5Rokd3ZYxTAMBikvcIf7pJUFLV6/P5dr0xl6Muc3eP1r3KWrKGGAvC0Sl6
+	 9wmikmDXR6PRuv6MuJbVdB1sdS4UBf+rp4F8I/+eWGA4l8MDOntNifee/7Ajb4BZ398NE
+	 hGSMPReBci/816KlhJQyEcdM6B9uUCXGu7PSV1gsBZQfNHqgkb6uVzeyCVv7WMHE2hTOY
+	 AfQc6N/va2XY3ML8lEFe39MLDlHSZbK4NO730FKD89NJbockdVJ7HV+su7xonr4iHiklo
+	 CmOYO/XjOreZ5xdN+i9sFF7ADQw1eI2D7GpvwGvulfGP6gwTiQTqOK+5bQb62LtH71g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844905;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rjt5YYHQyrHnKk2C6dORwel1aYh+XX+d2qSk2l5pIw0=;
-	b=zzJKrLoGD1HvHDzZGUOuD9d2N6fXM5qZ+HK/H/yPBnMsNL5jqQspC2UxDgTBfOD3FyDG
-	 teBiqaDwYq/XUH1rS/beb80ZNuUA343u1yin5exZmhPkBpshegNh6ZsUohCN1+dglVw3K
-	 CmTb6ekFnYtIUV+sUcS25kBj7UUtfY1J+Rq86bzCTdc82qrx8Uog+gOPgOtk0+TDqOBsz
-	 X11Y91/afaK3OCeHC5cA6kXE/LYpRot4k2nRv2GFqtMVWfMLu6jEx3jOuI5Sqe0kb9o6c
-	 O/mom7NezD6Xy1HNmc8gdt2EhrCJ6bghs9gayzPczW7fE+QUqwCmKZNJwdN5Y+RUSgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793845004;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
+	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=Twiw4KRXHUHQ12rMtoDVbWi7KoiPfJvsi3ucSwrWXEE=;
+	b=t0/yk1B99mSPllDgJt2W4k51L9gT1ObVhpOintv8tKdnIQWjWU2bG2/J3AhKAGy5OODB
+	 KKfY+xgQ3Ev+rp5TGKsNvKHVj8iIgp4Vz101IeZAzU92m25nPCZhvxhhWLf82e9cOQ/r9
+	 tEHXB1o4R55TYP4dv1qOlaARUR+p9F6NF4Pp+rw72MwkOD+iYBeTPvm6bg1s+SRtBcPil
+	 R7m3UyXxg/JJeR+cT7IHF73C2B7pW0Ja9awABOsNyX/ZCOsMfW8EdxVKi9qGBHGL36BMJ
+	 Am1n8ga9YMN+yE+e+2ODTVvd9XlPoBwLGCfETiP2FTYB9CG3ImWEl2Vc2Ks/rpccp4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="gSwnk/RX";
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DEE606A329;
-	Thu,  5 Nov 2026 02:15:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22DEE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=gSwnk/RX
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 083EB40E01D2;
-	Thu,  5 Nov 2026 02:15:02 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 8kVkP3z-blek; Thu,  5 Nov 2026 02:14:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793844897; bh=rjt5YYHQyrHnKk2C6dORwel1aYh+XX+d2qSk2l5pIw0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gSwnk/RXnnG0AkqvY00T3nP/1WPkKzhSPBlgxu6C/w9Qb6PZ/FZ7uZrZBEC4nFtG0
-	 +fgIfvtifMcFOYFDEI53bU3yFzbygtGA0+g66Vv+bMxtca9hPAwwFm1LPdKBewA0oh
-	 6HDeKP7BwJvfegWBxiTz2g4oas7HrMvhwMVteMC3ShGjtH2KEX90gFrUQFAsFe0u5g
-	 Pnrd3rbmDhwYgLZm84tPgCmcbBi1g804eBZDHjISBVJgA7g4fkJap6pwPP9+aFkpcb
-	 hOPgFdQVcSWAUxafQk1wmmhKOO+EpXOtVIwZRlWzJ/oJ2ZqoeDqL9IFW6c5eXqcSoS
-	 ZvP7PdnxLyEYoIl9LbxrR/x/7f/KceaBNypq8lAtv5IfFXz9mrmoHCa0f/6SzM9PGX
-	 9VxDQC7wxzx+Iw9kOZErIQzrFz8rfsrs2yTmpNVzlGad127q5UoRiQfjO1woH1+71k
-	 afrzJCEZSYRbG9Hi5ULNnA3+o5AQwtbsxcmhkgpoRbpdY2QFKWNJGNddbJm+XTC/J4
-	 I4MkaujLpM/hqg7oP7CaQcoM0Hx/qBqWBOxMsWoX+Tc9/d6AiWwE0dT1jhdEepztPF
-	 ToqttauAVdLbLJRRynGtA+hkxL2zrH5fl8C4jNtu3HovCAaOYhc9jh8SVZtQ2gdPhw
-	 F5RTDsf/7f7Yp3lHzdm5cfIU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D7C606A328;
+	Thu,  5 Nov 2026 02:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15D7C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 28A9F40E0140;
-	Thu,  5 Nov 2026 02:14:52 +0000 (UTC)
-Date: Wed, 4 Nov 2026 18:14:48 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Tony Luck <tony.luck@intel.com>, Yazen Ghannam <yazen.ghannam@amd.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] EDAC/amd64: Stop allocating ECC settings separately
-Message-ID: <20261105021448.GEauvmmCp0LeSCb7N2@fat_crate.local>
-References: <ardZinoPZXbXZvhe@google.com>
- <41de3d396f470cdbb944ef521dfdeb4d@gmail.com>
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jKmBz10mpzWNj;
+	Thu, 05 Nov 2026 10:16:27 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: Mike Isely <isely@pobox.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+b91abe6ef9924496daf8@syzkaller.appspotmail.com,
+	zhangdaolong <dlzhangak@isoftstone.com>
+Subject: [PATCH] media: pvrusb2: initialize workpoll before error paths in pvr2_hdw_create
+Date: Thu,  5 Nov 2026 10:16:26 +0800
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,27 +58,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <41de3d396f470cdbb944ef521dfdeb4d@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Thu, 05 Nov 2026 10:16:27 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AEBE6FA.002 by FangMail milter!
+X-FangMail-Envelope: 1793844987/4jKmBz10mpzWNj/6AEBE6FA.002/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1793844987.6AEBE6FA.002
+X-FangMail-Outinfo: 1793844987/6AEBE6FA.002/4jKmBz10mpzWNj/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1793844992.6AEBE6FA.002.4jKmBz10mpzWNj@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEBE6FA.002/4jKmBz10mpzWNj
 
-On Wed, Nov 04, 2026 at 05:24:03PM -0800, Dmitry Torokhov wrote:
-> Hi Borislav, Tony,
-> 
-> On Fri, Sep 25, 2026 at 10:35:19PM -0700, Dmitry Torokhov wrote:
-> > There is no reason to allocate and manage ECC settings separately when
-> > struct ecc_settings can be embedded directly into the driver-private
-> > struct amd64_pvt.
-> >
-> > Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> 
-> Just a gentle ping on this patch. Could it be picked up?
+In pvr2_hdw_create(), the error handling path under 'fail:' calls
+flush_work(&hdw->workpoll) whenever hdw is non-NULL. However,
+INIT_WORK(&hdw->workpoll, pvr2_hdw_worker_poll) was placed near the
+end of pvr2_hdw_create(), after multiple 'goto fail;' error paths
+(such as v4l2_device_register() failure or kmalloc() failures for
+control buffers).
 
-Applied, thanks.
+If any of those earlier allocations or registrations fail, jumping to
+'fail:' invokes flush_work(&hdw->workpoll) on an uninitialized
+work_struct where work->func is still NULL, triggering WARN_ON(!work->func)
+in __flush_work().
 
+Move INIT_WORK(&hdw->workpoll, pvr2_hdw_worker_poll) right after timer
+and waitqueue initialization, before the first error path after hdw
+allocation, ensuring workpoll is always initialized before flush_work()
+can be called on it.
+
+Fixes: 29a3006e5209 ("[media] pvrusb2: Remove deprecated create_singlethread_workqueue")
+Reported-by: syzbot+b91abe6ef9924496daf8@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b91abe6ef9924496daf8
+Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
+---
+ drivers/media/usb/pvrusb2/pvrusb2-hdw.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/pvrusb2/pvrusb2-hdw.c b/drivers/media/usb/pvrusb2/pvrusb2-hdw.c
+index 3c270ef00752..1fb93f4c8471 100644
+--- a/drivers/media/usb/pvrusb2/pvrusb2-hdw.c
++++ b/drivers/media/usb/pvrusb2/pvrusb2-hdw.c
+@@ -2398,6 +2398,7 @@ struct pvr2_hdw *pvr2_hdw_create(struct usb_interface *intf,
+ 	hdw->master_state = PVR2_STATE_DEAD;
+ 
+ 	init_waitqueue_head(&hdw->state_wait_data);
++	INIT_WORK(&hdw->workpoll, pvr2_hdw_worker_poll);
+ 
+ 	hdw->tuner_signal_stale = !0;
+ 	cx2341x_fill_defaults(&hdw->enc_ctl_state);
+@@ -2567,8 +2568,6 @@ struct pvr2_hdw *pvr2_hdw_create(struct usb_interface *intf,
+ 	} while (0);
+ 	mutex_unlock(&pvr2_unit_mtx);
+ 
+-	INIT_WORK(&hdw->workpoll, pvr2_hdw_worker_poll);
+-
+ 	if (hdw->unit_number == -1)
+ 		goto fail;
+ 
 -- 
-Regards/Gruss,
-    Boris.
+2.48.1
 
-https://people.kernel.org/tglx/notes-about-netiquette
