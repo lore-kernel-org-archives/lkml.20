@@ -1,71 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852108;
-	b=Xw7rKrdV5k+OhZE9T++7BwNc/AfZIF07VWOVyXYZPdp7CHaYXkuU9GwDxzNQSYEDZ9NR
-	 5jPjY26yKSOKo1BHD2XDRgzzyF35xjPiYvA0mjri5k2ZbymAZ1caHF0LU9fPSA6+sGnst
-	 K2yw9Hb1UuuWdXWMvZUvw3ref42JO4fLtpfD+a7iLPgZdvZ1ADRsNyp2f+rtzyuK+Mb4Q
-	 hG2gDEu+VKAT1IaTNkobQmYCXyi4rh9JVoHi55MyfMqK68QxQ2GgqX9Z/7ubEnDps4KrU
-	 AcwxslRdYc1BZQvx299sehgQtdQVxgl9SLxas+6HwxMnarHoi3gZgdGXBPakoIM1BBQ==
+	t=1793852146;
+	b=mVjboV77OC1iFJrmrZvBOjIdxarP7xy+n7voNLWDgHpSmw7MzguWSRnvlvZPp8W/mHET
+	 Vks9BBDInVFznGGUnXPdgJxlt3kMJh7CRpUGd/QNAdIZJ15R63z1qw3UniEbZV0wiZSwD
+	 Kj5zplZOsmvZQlI+O2C1uRRUr7/VwT4d8TpaKSoB59IHycQzf6fUn1dXAm5SlA4EF7iRM
+	 ju2+gK5dEFv+4PvWZzRzkcbiRATklyPYgIjKfGN1kxTkU0SZSyQpzyYSQbETmiVoHyhml
+	 oAlufgNR8jqZ/xeiVdskzLlCINj8q1yM6N8DiyI8iI08p09jC6x8xX/gZFf1ds4hfmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852108;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=I70JP2SqokASsJErmH/yPweM9if0dk4HKlTSDOwI09E=;
-	b=aCDgGS+0MUJwXbkhaMBZGCwTDjRAt9+v+ZmY62wqOWipSv/Tn3lWnR3kaZdzwGvnGpkP
-	 Wlm94Pd011ljVl7kSwI+keg/CTlWI9XrsFi+uU+Jz+UCq6AU8VQfMdh/Bo9JveJRMmxjU
-	 PIwy+sVvcgipadMnkbg093f38/6NuyEUyNGc5wgNGA2R5KvvJaQRTXmWQ7MiSKTfuWtBn
-	 kMEd4hUoQcp7+t4XpW2t8LEwQFko5lNmauqPVUajBiMfK7pEiu9M6KStcM2eJ2kvNR8p3
-	 6dpMD321MzxULageN4V68Bl8dHhaEnijx6+PFQHis0WBFwb+d1Ik5PTP9RcH+Ks2SfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852146;
+	h=DMARC-Filter:DKIM-Signature:User-Agent:Content-Type:To:Mime-Version:
+	 X-Lms-Return-Path:Content-Transfer-Encoding:X-Original-From:
+	 References:Message-Id:In-Reply-To:Cc:From:Subject:Date;
+	bh=QZwA1ylfcTQpoiqvqbwvBbujn8CAZYbBXuwI3cwgUxk=;
+	b=VGvgqyJ0AJXBSJbhIegINP0qeCkmR2zOfGhFMxD49P+ENaHKmUI+ElD5aVwT693BXDsu
+	 2aIR5nThJFetBcTwOhCPAUx7EfQjzQODcb583LCBLLjQO8H2X5uTlImphEFmsh6Iwy+tq
+	 yIxvsyiK5g/4tAgEtOGlnD49Jtzo2puUJfgWRC17cPEpwUe6hqPRAfSj4JRoCLzhaY3PR
+	 mXbum2g6aKMAHQ4awrobac/6NklCGFbfOnfGW2WtbNSNfbhXbGBtGIGxty7l5wtvWImUR
+	 TMN6Vkayx5FZjtgZfFF+tsqi7VBq9fseoV8mtfgiXV15ebEsYBi3WOWN3hu6euMdx9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dd+wWpym;
-	arc=none smtp.remote-ip=202.108.3.164
-Received: from mail3-164.sinamail.sina.com.cn (mail3-164.sinamail.sina.com.cn [202.108.3.164])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dcoBMuqC;
+	arc=none smtp.remote-ip=209.127.230.115
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53598606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:15:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53598606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD37606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:15:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DD37606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dd+wWpym
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793852105;
-	bh=I70JP2SqokASsJErmH/yPweM9if0dk4HKlTSDOwI09E=;
-	h=From:Subject:Date:Message-ID;
-	b=dd+wWpymyVzAKs5EMjriS7Jh5yDuTr7q4O0W4UF+OQjv396SfE/ydTdq52cSCWyh+
-	 HSLA6ocKfsWPVzuI8HlmZWj4+QyfnfE5ePYgVKoLxcgJHX828MdTK1NdVqLstLbiCl
-	 3vnfZrrfVso/9sV2nlJZZW3hoZa7dQ+QLqdpO/Vo=
-X-SMAIL-HELO: lxu-pcd
-Received: from unknown (HELO lxu-pcd)([111.198.231.89])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AEC02B6000003F6; Thu, 5 Nov 2026 12:14:48 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 6194074457038
-X-SMAIL-UIID: 9A5FDA986C1D4943BA931602A231C7D6-20261105-121448-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	phasta@kernel.org,
-	robin.clark@oss.qualcomm.com
-Subject: [PATCH] dma-buf/sw_sync: Optimize the retrieval of fence reference counts
-Date: Thu,  5 Nov 2026 12:14:46 +0800
-Message-ID: <20261105041446.51979-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
-References: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dcoBMuqC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793852139; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=QZwA1ylfcTQpoiqvqbwvBbujn8CAZYbBXuwI3cwgUxk=;
+ b=dcoBMuqC9Ugy3/YP8rWZ9pogd982RtlOsQiKGJDu90izjwKAI0D12GAblLdJ/1/2xWrPHM
+ JD3nRIEe9hdHLCUDNiNNCgnAWjsqQgyzVB8WeEHdVc6AYV1534xJR2186bXWA4gzG7XbNS
+ S1qtyz8ztDMYWjbQzel8ZBHCkf8SohvKVIUs+tOezwhfXd7d0m2jeeJ2VPoLOWOj+BpUmT
+ nIfn/1yWVA/7WBu9Nz90YTzuM902nJsja1PFa6SU9c/7tLjDb+PyR+t81Onyz4dr0fPZkP
+ +6yRdXCmmW7GQxKqK/J6HDDjmVJaFa8ZXjuOI8z4wsMFebocPTStJMvUgTjxeQ==
+User-Agent: Mozilla Thunderbird
+Content-Type: text/plain; charset=UTF-8
+To: "Will Deacon" <will@kernel.org>, 
+	"Catalin Marinas" <catalin.marinas@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,70 +55,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26aec02e9+737ce7+vger.kernel.org+zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+References: <20261023110710.10145-1-zhaogongyi@bytedance.com> <at-czRUYRPRxi9dy@arm.com> <aus2Aq12Z-PKvoW7@willie-the-truck>
+Message-Id: <56ed8952-fb5a-4f88-90c9-6fe5476237cc@bytedance.com>
+In-Reply-To: <aus2Aq12Z-PKvoW7@willie-the-truck>
+Cc: <mark.rutland@arm.com>, <oleg@redhat.com>, <ruanjinjie@huawei.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a group-stop
+Date: Thu, 5 Nov 2026 12:15:24 +0800
 
-There is a race condition between closing a sync file and the SW_SYNC_IOC_INC
-operation on a sync obj. When a fence is created via SW_SYNC_IOC_CREATE_FENCE,
-its reference count is initialized to 1. When the sync file is closed, the
-fence's reference count drops to 0. A race occurs if SW_SYNC_IOC_INC accesses
-the fence whose ref count has already reached 0 before dma_fence_release()
-calls timeline_fence_release() to erase the corresponding pt_tree node from
-the sync object, potentially hitting:
+Hi Will,
 
-refcount_t: addition on 0; use-after-free.
-------------[ cut here ]------------
-kernel BUG at lib/refcount.c:34!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-Call Trace:
- kref_get include/linux/kref.h:45 [inline]
- dma_fence_get include/linux/dma-fence.h:323 [inline]
- sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
- sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
- sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
+On 11/4/26 9:41 PM, Will Deacon wrote:
+> I can't quite get my head around what it means to set NT_ARM_SYSTEM_CALL
+> in this context. Suddenly, in_syscall() will return true, which has
+> implications for things like signal handling that seem bizarre if we're
+> not actually in a syscall. Should we be avoiding this situation to start
+> with?
+> 
 
-Use kref_get_unless_zero() to optimize dma_get_fence(), in order to avoid
-acquiring an object with a reference count of 0.
+I ran an additional arm64 KVM test with SIGUSR1 and SIGUSR2 queued at a
+group-stop. After the tracer set NT_ARM_SYSTEM_CALL to __NR_getpid, the
+second signal-handling pass saw syscallno=172 (the control saw -1),
+although the task had not entered a syscall. I did not observe an
+incorrect restart: x0 held the first signal number (10) by that point.
 
-Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
-Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
- drivers/dma-buf/sw_sync.c | 3 ++-
- include/linux/dma-fence.h | 5 +++--
- 2 files changed, 5 insertions(+), 3 deletions(-)
+system_call_set() assigns syscallno before calling
+update_syscall_orig_x0_after_ptrace(), so retaining the early return
+will not prevent that state. I can investigate separately whether the
+regset write should be rejected at such a stop.
 
-diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-index 8df20b0218a9..ad60ad5e5cd9 100644
---- a/drivers/dma-buf/sw_sync.c
-+++ b/drivers/dma-buf/sw_sync.c
-@@ -221,7 +221,8 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
- 		if (!timeline_fence_signaled(&pt->base))
- 			break;
- 
--		dma_fence_get(&pt->base);
-+		if (!dma_fence_get(&pt->base))
-+			continue;
- 
- 		list_move_tail(&pt->link, &signalled);
- 		rb_erase(&pt->node, &obj->pt_tree);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dd07d128adc3..4d885c8e1d4f 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -320,8 +320,9 @@ static inline void dma_fence_put(struct dma_fence *fence)
- static inline struct dma_fence *dma_fence_get(struct dma_fence *fence)
- {
- 	if (fence)
--		kref_get(&fence->refcount);
--	return fence;
-+		if (kref_get_unless_zero(&fence->refcount))
-+			return fence;
-+	return NULL;
- }
- 
- /**
--- 
-2.43.0
 
+> I was trying to limit the scope of this hack as much as possible, so I
+> think I'd prefer the early return tbh (i.e. just drop the WARN_ON_ONCE()
+> and update the comment).
+> 
+
+Agreed. I'll retain the early return, drop WARN_ON_ONCE(), update the 
+comment, and send v3 with that minimal change.
+
+Thanks,
+Gongyi
