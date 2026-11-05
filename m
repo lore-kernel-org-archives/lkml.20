@@ -1,80 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871556;
-	b=e6IJnoR277VzMHyKQNKlI/rUYBRhrxS6D7YKrDrFsctqJkQxXh52ayueU9DGO28tqbwm
-	 BJJOtnwn2Th1XzlF+WIex/zyYsTaPEHxi2eS4s8Bkl80Z1QiMtoxTfan5pmJd/lzC5BYt
-	 zrb1f0R3yjK0ccMioHd0XdDAhDMAWBeIQZwV4nGOCdiQiKosFmHF0TkjTRuKDd9E3dhjk
-	 K+dAy56tpPAAg718b/xwgS1LWYDs2bwnZ3+w+R/vZDxA56d0WebnDZAMNtt99pILne9KI
-	 j1GParfauDdGZ0CTTAwJpd6R+9j5+0gifOpgyIiQ+kcRSTl1ZSTd8f2VTPECg2T+hSg==
+	t=1793871541;
+	b=lvyKUhfjme2SdXzaGKck2rDHgtLsu4iI4GdvLg8aRpdodDyo++xerz7/LNEK+XJVdQXj
+	 U0dzAjxyjNseNALcSzfgqa7GORYg1gwhSbB2MC1SO+5uDtITYRHmZsw8JJwoSVMZpEPRQ
+	 C8bC8/hrV/whzHOi4TGDEtdfj+RgpKEGPFrcJsQrpVhztLsYacOUkBV14+4ctTjeGB0V6
+	 bjkhxauKyzghIlDZyp4c6a3dwYMYVSQkKOpTfVsGZvVBjs6wLxgPSR9PlLxNn4BXK8oJX
+	 RC1F596EBKCnvH6jBJB3bpLTSjrAcxN7luYXv+u/isCRMqp0VV7km8mZs3banaduQ/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871556;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7R2UOvgn9PI8GoXBAsiFuJshfeF1YzTCjF9GuawHyn4=;
-	b=x8zaIttYY6bmy5GQSKuApcAG9/l3D+PTzTkot3WFqlywQHEjcskDau80IKY/AxHgSnqV
-	 +n02E+J4tclHCxht1t5JKpYcz9LWH4JH5r9ebQVZYC6kuWCIep09U+dEsHXiKD3+vQCy0
-	 okMI8VRUs3MYVfJHTNAYuNn8+YncFp8gXGtcRtrxrTbfEfemV6TIuNwBw1HIAdHCFhuun
-	 c7sMmhlrR4seQxxJ1L6U690zVuIMNLsNpyWykxbaouo5P3qP5TyB1sJVZzMHk4pcoRHqR
-	 jjq626IigAimehU2TTxhzWxeKktVw6Q1k37sj9MPkYSY7HjJwptKwFkQBRXubdFbRWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871541;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=KK6onKCfxr7bkL9HSFeq+KJ2AjJsxiy091lScR+TtCc=;
+	b=Xci2kmZg8Rjzpv/PTkpLrSbIDgPa4/34o1tntmrFVbB6JbK6FAR/OruH25b0BJstRMsl
+	 ZJabS/gx8hbVoSKhiu6MiBwkMqGIy9PP4dWvfimP7OA/x5QxxdFLklVzxf+G0/0ZzwY+O
+	 npelzJqB9lHt312LQJhXx7Z10sfS2PgXhKgh5S0gKhN//URtxcDNzv2YxAs5EpWb0/6FO
+	 ttyBtimLoVep2MFZmODZDNR+fcXtTYq7cSrQXus3EwdWdVx/pwjwts2nOisetsHDHPZiP
+	 LhR5nat/DdpRl69s+C3VhIL2Rcjdb8K7kMeAesqgYDUtxEGqjvv48gVnHQTak7xIzjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=NvW9ava0;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bB6H5JNA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A43606D819;
-	Thu,  5 Nov 2026 09:39:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92A43606D819
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B19C606A326;
+	Thu,  5 Nov 2026 09:39:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=NvW9ava0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793871562; x=1825407562;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cb0qXMc4wguc0QQCdheJz92gBP+uNeydJh/Nj2aUfIk=;
-  b=NvW9ava0pFJmacjE/IY2OEp6R4QMGfARBgjw9rKenVEOTnJ1mCtJzhYH
-   kV5KYLKNE/F4peiB/RIIcspNzBr3IpzRSF3ZEcL5mpUD6qT1TaKslLPpx
-   qPUQml7j1f28QAnydzsdJg3f8rymX1RVywE1FrBb6x3EI/8XZRbAA0z44
-   g2XxHeZPzPo8tqQDYP+C/2xjJATeo6+M6M7PhyJ9xx4GLmhyOo3+Oz7BR
-   WZ7V3qHu6NCOTHfbvjizq/mov0vjYzWFN+3Bvn9MB7Bzq80nwaEsc/1go
-   nFDzZaA9PpsgeLHJFJIEc33Q2xiJbU18Fw4r9rcxwGq+TYqG01cRGqabk
-   Q==;
-X-CSE-ConnectionGUID: uOkjWd00SQKHHMxTU88xVA==
-X-CSE-MsgGUID: KkZQKROvQzuPrPC+15rDBA==
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="66311469"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 05 Nov 2026 02:39:15 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 5 Nov 2026 02:39:08 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 5 Nov 2026 02:39:06 -0700
-Date: Thu, 5 Nov 2026 10:39:05 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Paolo Abeni <pabeni@redhat.com>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Steen Hegelund <Steen.Hegelund@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, <robert.marko@sartura.hr>,
-	<netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 0/5] net: sparx5: add tc matchall port
- policer offload
-Message-ID: <20261105093905.ln6tdot26wyej7pi@DEN-DL-M70577>
-References: <20261102-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v2-0-3bd47ec1b227@microchip.com>
- <679b8dcf-0aac-4674-a006-5af0156a82ae@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bB6H5JNA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2AD1F000C1;
+	Thu,  5 Nov 2026 09:38:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793871541;
+	bh=KK6onKCfxr7bkL9HSFeq+KJ2AjJsxiy091lScR+TtCc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bB6H5JNABr9jnK6w08hihsO+R+hTcyz8vFo42mAo8EIKyVyrDIIi1j5H8b3/O3PQD
+	 lTStYvLKHw6eM3uV4EK+f3kHzQ2XeShEQLRrmP5loxqVnK8pjB7OwjVpsHCzAR6V4b
+	 iZq3y6mOaBS3tuTOuXQ6CwTt1uhHo+0VizwNbR0cMKgY//Oz8i/xOzrLiv0IZ59VnP
+	 LCuxTOlO/mNOAzgdtuTwNqxOLBmEj8k+RcE8MCmCixG8zmujnVF/bZqi2pknGc4i0a
+	 WozQmp7rHqq6rzDbvV7UoLhhB3+hy5fThx8oSMCbxXx9+gfPj2nc3z0ZQF1ZTf9g5q
+	 EKTmJm8nMTGHw==
+Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK
+ control messages
+From: netdev-bot+sashiko@kernel.org
+To: yanxia@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, willemdebruijn.kernel@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com,
+ shuah@kernel.org, linux-kselftest@vger.kernel.org, willemb@google.com
+Date: Thu, 05 Nov 2026 09:38:59 +0000
+Message-ID: <179387153949.488856.16266299848614841295@kernel.org>
+In-Reply-To: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,64 +65,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <679b8dcf-0aac-4674-a006-5af0156a82ae@redhat.com>
 
-> > This series adds offload of tc matchall filters with a police action to
-> > the ingress port policers of Sparx5 and lan969x, which are both served
-> > by the sparx5 driver.
-> > 
-> > In hardware, each ingress port has four single-rate leaky bucket
-> > policers. A policer drops the frames that exceed its rate and burst.
-> > The four policers of a port share the pass and drop statistics counters
-> > of the port.
-> > 
-> > The driver uses one policer per port, because with more than one, the
-> > statistics reported to tc could not be attributed to the right policer.
-> > This matches lan966x and ocelot. The policer meters each frame without
-> > preamble and inter-frame gap, so the configured rate is a data rate, as
-> > tc police expects and as on lan966x and ocelot.
-> > 
-> > Since the policer meters all ingress frames on the port, only filters on
-> > chain 0 with protocol all are offloaded, and filters on shared blocks
-> > are rejected. A police action that is already offloaded as a port
-> > policer on another port is rejected too, since in software it is a
-> > single bucket for all of its users. Only drop is supported as the exceed
-> > action, and the police overhead parameter is not supported.
-> > 
-> > Patch #1 drops a redundant prefix from the existing POL_UPD_INT_CFG
-> > register macros.
-> > 
-> > Patch #2 adds the registers used by the port policer.
-> > 
-> > Patch #3 tracks whether the ingress block of a port is shared, and adds
-> > the per-port policer state.
-> > 
-> > Patch #4 adds the hardware programming of the port policer.
-> > 
-> > Patch #5 adds the tc matchall offload.
-> > 
-> > Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
-> I understand the following will be very frustrating, but for unknown
-> reason AI review did not kick on this series.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Yes, I noticed that. I thought you maybe had some magic button you could push,
-in order to trigger the review manually.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-> 
-> The changes looks sane to me, and addressing points raised on v1, but
-> I think nowadays we need an explicit AI feedback.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Ack. I think the missing sashiko-nipa check is not isolated to this patchset
-alone. Just FYI.
+- [High] The fix is incomplete.
 
-> 
-> Could you please re-submit the series?
-> 
-> Thanks!
-> 
-> Paolo
->
+--
 
-/Daniel
+ipv6: fix cached route reuse for SO_MARK control messages
+
+This patch adds a mark_set flag to struct ipcm6_cookie. The flag is set
+when an SO_MARK control message is supplied. When it is set,
+udpv6_sendmsg() and ping_v6_sendmsg() call ip6_dst_lookup_flow()
+directly instead of ip6_sk_dst_lookup_flow(), so a route cached for the
+socket mark is not reused for a different per-message mark.
+
+> diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+> index ff7a7ffbf9833..f3f3d0254e419 100644
+> --- a/net/ipv6/datagram.c
+> +++ b/net/ipv6/datagram.c
+> @@ -823,6 +823,8 @@ int ip6_datagram_send_ctl(struct net *net, struct sock *sk,
+>  			err = __sock_cmsg_send(sk, cmsg, &ipc6->sockc);
+>  			if (err)
+>  				return err;
+> +			if (cmsg->cmsg_type == SO_MARK)
+> +				ipc6->mark_set = true;
+>  			continue;
+>  		}
+>  
+> diff --git a/net/ipv6/ping.c b/net/ipv6/ping.c
+> index 6e90d0bf9f3da..e1676de75ae99 100644
+> --- a/net/ipv6/ping.c
+> +++ b/net/ipv6/ping.c
+> @@ -148,7 +148,10 @@ static int ping_v6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+>  
+>  	fl6.flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6.flowlabel);
+>  
+> -	dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
+> +	if (ipc6.mark_set)
+> +		dst = ip6_dst_lookup_flow(sock_net(sk), sk, &fl6, daddr);
+> +	else
+> +		dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
+>  	if (IS_ERR(dst))
+>  		return PTR_ERR(dst);
+>  	rt = dst_rt6_info(dst);
+> diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
+> index 59f9872c35521..35f7b0a47f7dd 100644
+> --- a/net/ipv6/udp.c
+> +++ b/net/ipv6/udp.c
+> @@ -1693,7 +1693,10 @@ int udpv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+>  
+>  	fl6->flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6->flowlabel);
+>  
+> -	dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
+> +	if (ipc6.mark_set)
+> +		dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_p);
+> +	else
+> +		dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
+
+[Severity: High]
+
+Does this fix all reuse of a stale cached route, or only the SO_MARK
+case? The commit message gives the root cause as ip6_sk_dst_lookup_flow()
+consulting the socket dst cache even when connected is false. Only
+mark_set bypasses the cache here, though.
+
+ip6_sk_dst_check() validates only daddr, saddr (and only with
+CONFIG_IPV6_SUBTREES) and oif:
+
+net/ipv6/ip6_output.c:ip6_sk_dst_check() {
+    ...
+	if (ip6_rt_check(&rt->rt6i_dst, &fl6->daddr,
+			 np->daddr_cache ? &sk->sk_v6_daddr : NULL) ||
+#ifdef CONFIG_IPV6_SUBTREES
+	    ip6_rt_check(&rt->rt6i_src, &fl6->saddr,
+			 np->saddr_cache ? &np->saddr : NULL) ||
+#endif
+	   (fl6->flowi6_oif && fl6->flowi6_oif != dst_dev(dst)->ifindex)) {
+    ...
+}
+
+The comment above that check says source and TOS routing are not
+supported. That no longer seems accurate.
+
+fib6_rule_match() also matches DSCP, flowlabel and sport/dport.
+Several other per-message keys appear to still get the route cached at
+connect() time:
+
+  - an IPV6_TCLASS cmsg sets ipc6->tclass, which is folded into
+    fl6->flowlabel just before the lookup
+  - an IPV6_FLOWINFO cmsg, or sin6_flowinfo with SNDFLOW set
+  - IPV6_PKTINFO with a different source address, when
+    CONFIG_IPV6_SUBTREES is off
+  - sendto() to the connected address with a different sin6_port
+
+For the sendto() case, udpv6_sendmsg() points daddr at sk_v6_daddr, so
+the daddr_cache check passes even though fl6_dport differs:
+
+	if (sk->sk_state == TCP_ESTABLISHED &&
+	    ipv6_addr_equal(daddr, &sk->sk_v6_daddr))
+		daddr = &sk->sk_v6_daddr;
+
+Here is one example: connect() a UDP socket, then call sendmsg() with no
+msg_name and an IPV6_TCLASS cmsg of 0x10.
+
+mark_set stays false, so
+ip6_sk_dst_lookup_flow()->sk_dst_check() returns the cached dst. The
+packet is sent on that route instead of hitting a dsfield prohibit rule
+that would return -EACCES. ping_v6_sendmsg() behaves the same way with
+an IPV6_TCLASS cmsg.
+
+None of these paths need CAP_NET_RAW or CAP_NET_ADMIN, which the
+SO_MARK cmsg does need.
+
+The socket-level IPV6_TCLASS option already calls sk_dst_reset() in
+do_ipv6_setsockopt(), so tclass is already treated as a cache key
+there.
+
+For comparison, the IPv4 udp_sendmsg() clears connected for any cmsg.
+It calls sk_dst_check() only when connected is still set:
+
+		if (err > 0) {
+			err = ip_cmsg_send(sk, msg, &ipc,
+					   sk->sk_family == AF_INET6);
+			connected = 0;
+		}
+	...
+	if (connected)
+		rt = dst_rtable(sk_dst_check(sk, 0));
+
+Would it be better for udpv6_sendmsg() to skip the cache whenever
+connected is false, with a matching condition in ping_v6_sendmsg(),
+instead of adding a flag just for SO_MARK?
+
+>  	if (IS_ERR(dst)) {
+>  		err = PTR_ERR(dst);
+>  		dst = NULL;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104092240.15649-1-yanxia%40cmss.chinamobile.com
