@@ -1,52 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.241.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915510;
-	b=zQuA20sOwZLOF5m/TZC/QZUzo4QNZ+/5xz5Z+FJffuU7Y+3p+hqeSGoXVTiXwlP8CmXw
-	 AUX2voxyUOiEE1ESWDq+fgKrN4+nk0MfXvDBJ7/rnjsBx+ecI/ju8XXUph+uFKqpb1QqX
-	 cU47UYfhKCVlDZHhZTWIVKBYfNTWYYpXbQo6EAl0JgQ70sTm7Tr+v6aQ4MaYXRQovUeud
-	 /QIBKFPTM1ASd3mtJjytfJ9JnHTssU8hLlNc7miQr0+sXx5cuAdaDHCGIBNpHiHb9N8kz
-	 3Kfg8oV7YBnTeipC2c1JPvPxO/GNRhd7Us3gKjwUZ08DxB19Tgsct3bd1budrNoM6uA==
+	t=1793915516;
+	b=yHAQYcWVC6s8F/4Bp2QMAqI38Ek7lKjjvCGOm4exmNyh8Wjjt1Z25IY4kBcEWjK0J+44
+	 qCdhp8Bv/5xY8328AfxGXsuSKoDyL310ijXXa7w30ONGM7ieMGl22wMBrI0A95y+A88ID
+	 Fmj6c65Tfn8TEDjmqBaGlV8lMYwpkj/lhSnZn8IpUwo+tYJ00G4m0INzSI8TysSll/cQN
+	 jDMPiVNpzyqWU6I9a6C8Sg87uu7hvC0Wj4sAf1EACmh27hajkr3hHkmzxu8L5zvEMmBNg
+	 EE6lndKZ500vvKFi2R0CkjAZzkK4nQ/KkurrppYKw1Qp1aMPtFlsgNTqZ6WrSbb7lIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915510;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nn59pGKdS6ZAYSfKCAK/dFr8+eqz3gwLAlKcsw0ScZQ=;
-	b=Aw817pnO+EbSijbq7o2Dk87aZYYmGMpcWsEh9IKlmRb3xl1TTCw34HbCan6KidQ7yWuK
-	 7eBefxDVKcB/ryAhavc6zRwLOcTbKZbaEmpIRE0M7B5OY+9TpPNNIHRaH37dXYJgPlpcm
-	 KkFiTsqRh1B2gOkISGnq5h3qyplK0UjA8A2vSPPZYmTrx31Rh73hgPANj/4gCvGSwSpDi
-	 T7ljURFaWY6hpJy1WY/nLm9e88LQVvrbEpEPVOGeS5YxX+nS4ZLBR0My6R5bDFFjEfm9d
-	 DabTEr9Spwk8zezL8GK3HY+4aS/IHSz3gOIsa10XAZNx8LrmEZOjEoq2LZwRkZjbd9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915516;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=JyvKj/BvlW8+6fz7K9+CtTrZqOGel4PT34AP4CpOPD8=;
+	b=zOfxMZ+i7LLLxdLT50Deh+5vn96n4+XZ+9NgH3rVIwUD6VUIfsaQGz5Y1X68w3mn5VL2
+	 7SeEHNaefHE/IoyIIih4dEXoVZRcuVPpN5O+WTL90Cfd/QcnUXeiHaz16WKz10S6qBbcO
+	 G/5j0rh7ul7Zf/MKJkkBex1544NQVWO8x68W6dj3q++uVzz7u2JKiVAPNMXWAzqevXfTB
+	 vVC/njn4QKrseCPlO3/qcVeq0fwYTicALTJ3hVpeAiEesL6x4kIOeyvosxON+byB/IRl0
+	 eD2pnm6NKsuaCHaWkdMZ3Av/k0H7cvscXdIns1xJtrP26qRlNG5DFHtZjEAoxNfmO9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e9QWj46W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=svanheule.net;
+	spf=pass smtp.mailfrom=svanheule.net;
+	dkim=pass header.d=svanheule.net header.i=@svanheule.net header.a=rsa-sha256 header.s=mail1707 header.b=xvR0GAZF;
+	arc=none smtp.remote-ip=84.16.241.116
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C92D606A326;
-	Thu,  5 Nov 2026 21:51:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CF1606A334
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29CF1606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e9QWj46W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE521F0089F;
-	Thu,  5 Nov 2026 21:51:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793915509;
-	bh=nn59pGKdS6ZAYSfKCAK/dFr8+eqz3gwLAlKcsw0ScZQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=e9QWj46WJmqKLLHeKyw0Yzz8G+RXC61IrMhy4Bas55drdXiGEYmRQwQhTbxK4pkW0
-	 ULAdE7Zd3tKO9VjaEfwhGmrchm/7jbCRDykhKwCJiPJeRaK5x/6JU+ok47BddiGFBD
-	 JckEzm0lGhIZT+uY0Ue+jHI2Ex2oKTbQVsk94uOrqei9hBITFU/dP2ngAyMlsRmSC5
-	 6wYQkd925iKUwnY6Z8gVHlhT9YMx1gxI4OBlnEJSMZEoaJhfcjQsB6RC6rRBCX3F/h
-	 d4YejkFDWeJkxO7LBAi/W9Nrs7G9zA6AeVd9hGTjGaL0pDwkuX7FmQB/etKrZtFlOA
-	 VgrBsWSQEU2oA==
-Date: Thu, 5 Nov 2026 15:51:48 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Jennifer Chan <jenniferchan@meta.com>
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Lukas Wunner <lukas@wunner.de>, Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH] PCI: Add d3cold delay quirk for NVIDIA LR10 NVSwitch
-Message-ID: <20261105215148.GA1566818@bhelgaas>
+	dkim=pass (2048-bit key, unprotected) header.d=svanheule.net header.i=@svanheule.net header.a=rsa-sha256 header.s=mail1707 header.b=xvR0GAZF
+Received: from [IPv6:2a02:1812:1620:5d00:3b08:a3e3:d87d:2eff] (2a02-1812-1620-5d00-3b08-a3e3-d87d-2eff.ip6.access.telenet.be [IPv6:2a02:1812:1620:5d00:3b08:a3e3:d87d:2eff])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id 1BD4E9D45B4;
+	Thu,  5 Nov 2026 22:51:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1793915507;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JyvKj/BvlW8+6fz7K9+CtTrZqOGel4PT34AP4CpOPD8=;
+	b=xvR0GAZFd5UZrfDKoeb5LNCdGHKkHjtkJwUiEr9kML+RBGjytpaVxAxkRIFb3VszzLoneh
+	YWSB3cpehSojWjYoJhKx7BSMJAbhQJycPS/0+WWfkPZ91UukPU8oVgLYyFykAxTgghMxvr
+	w5phmvTYa2fwCYhqT7gEZwIuzvm8sTtsTOj8ziNacs2kA+dZ37i+di/y/1TOm7nFSwQunZ
+	cxFw58GSKZB4qlhiee81zGVNtOKwAMelO7rS1L7icKRsv3nziJ+dtCS2kgiT3Xy+KtnhNP
+	wsc+eObk7Ch0IhupGxuiT5HACQxlD7/DmZBmp7ZUiNbEcrGEzW6eYabJewtJ6A==
+Message-ID: <f67e328bcd20f405f2f15c62123bf3e0e740c14f.camel@svanheule.net>
+Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
+ global power budget
+From: Sander Vanheule <sander@svanheule.net>
+To: Jonas Jelonek <jonas@jonasjelonek.de>, Oleksij Rempel	
+ <o.rempel@pengutronix.de>, Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet	 <edumazet@kernel.org>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>,
+ netdev@vger.kernel.org, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Russell Senior
+	 <russell@personaltelco.net>
+Date: Thu, 05 Nov 2026 22:51:45 +0100
+In-Reply-To: <20261103220312.860629-4-jonas@jonasjelonek.de>
+References: <20261103220312.860629-1-jonas@jonasjelonek.de>
+	 <20261103220312.860629-4-jonas@jonasjelonek.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,75 +81,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105201010.2297078-1-jenniferchan@meta.com>
 
-[+cc Lukas, author of ac91e6980563, Jason in case NVIDIA knows
-anything]
+Hi Jonas,
 
-On Thu, Nov 05, 2026 at 12:10:10PM -0800, Jennifer Chan wrote:
-> On a Supermicro HGX A100 system (X12DGO-6), each of the six LR10
-> NVSwitches (10de:1af1) sits alone behind a PLX PEX 8725 (10b5:8725)
-> downstream port.  "nvidia-smi -r" resets all GPUs: NVML unbinds the
-> switches from the nvidia-nvswitch driver, resets each one through sysfs
-> (reset_method "bus", a Secondary Bus Reset of its port) and binds them
-> again.  The PCI core waits 100 ms after the link comes back, the switch
-> answers config reads and the reset completes.  When nvidia-nvswitch then
-> probes the switches, one fails in pci_enable_device() with
-> 
->   Unable to change power state from D3cold to D0, device inaccessible
-> 
-> four others fail to initialize with -EIO, and the NVSwitch fabric does
-> not come back.
-
-Do you know where the -EIO is from?
-
-> The same systems recover every time on a kernel that sleeps 1 s after
-> each Secondary Bus Reset, as pci_reset_secondary_bus() did before commit
-> ac91e6980563 ("PCI: Unify delay handling for reset and resume").  Adding
-> a 1 s sleep before the link wait on the PEX 8725 ports of the failing
-> kernel fixes it too.  Config reads already succeed at that point, so
-> pci_dev_wait() does not cover it, and the switch's state there is not
-> known.
-
-Ugh, a second is a long time to wait.  Does the kernel you're testing
-include e8df1d194c39 ("PCI: Don't treat ~0 as ready in pci_dev_wait()
-with RRS SV"), by chance?  It only appeared in v7.3, so it's pretty
-new.
-
-> Give LR10 a 1 s d3cold_delay, so that pci_bridge_wait_for_secondary_bus()
-> waits 1 s after the downstream link comes up before the switch is used.
-> This adds 1 s to each LR10 reset (about 6 s to an "nvidia-smi -r" on
-> these systems) and to D3cold resume of its port.  Resets issued further
-> up the hierarchy keep the default delay.
-> 
-> Fixes: ac91e6980563 ("PCI: Unify delay handling for reset and resume")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jennifer Chan <jenniferchan@meta.com>
+On Tue, 2026-11-03 at 22:03 +0000, Jonas Jelonek wrote:
+> Use the optional VMAIN regulator power budget to configure the MCU's
+> aggregate PoE power limit during probe. Quantize the available budget to
+> the protocol's 100 mW units and reserve exactly that amount through the
+> regulator core.
+>=20
+> The regulator budget represents the usable PoE allowance. Program zero
+> reserved power so the previous firmware guard band does not further reduc=
+e
+> that allowance.
+>=20
+> Require a finite budget of at least one protocol unit when vmain-supply i=
+s
+> provided. Program the budget before selecting dynamic power management an=
+d
+> ungating the ports, so enforcement starts with the regulator-derived limi=
+t.
+>=20
+> Enable VMAIN before hardware initialization and register one managed clea=
+nup
+> action to free any reserved budget and release the enable reference on pr=
+obe
+> failure and driver removal. Record each successful reservation immediatel=
+y
+> so subsequent initialization failures are covered by this action.
+>=20
+> Read the current budget index before programming the MCU. Retain the
+> programmed MCU limit on probe failure and driver removal, as reducing tha=
+t
+> limit to zero would interrupt ongoing power delivery.
+>=20
+> Boards without vmain-supply retain their existing firmware-managed
+> budget.
+>=20
+> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
 > ---
->  drivers/pci/quirks.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index 7f1f47ea2ee4..4a84095e736f 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -6569,12 +6569,14 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x0220, of_pci_make_dev_node);
->   * after reset recovery or resume from D3cold:
->   *
->   * VideoPropulsion (aka Genroco) Torrent QN16e MPEG QAM Modulator
-> + * NVIDIA LR10 NVSwitch (HGX A100)
->   */
->  static void pci_fixup_d3cold_delay_1sec(struct pci_dev *pdev)
->  {
->  	pdev->d3cold_delay = 1000;
->  }
->  DECLARE_PCI_FIXUP_FINAL(0x5555, 0x0004, pci_fixup_d3cold_delay_1sec);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_NVIDIA, 0x1af1, pci_fixup_d3cold_delay_1sec);
->  
->  #ifdef CONFIG_PCIEAER
->  static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
-> -- 
-> 2.53.0-Meta
-> 
+
+...
+
+> =C2=A0
+> +static int rtpse_mcu_get_global_budget_idx(struct rtpse_mcu_ctrl *pse, u=
+8
+> *budget_idx)
+> +{
+> +	struct rtpse_mcu_msg req, resp;
+> +	const struct rtpse_mcu_opcode *opc;
+> +	int ret;
+> +
+> +	opc =3D &pse->dialect->opcode[RTPSE_MCU_CMD_GET_POWER_STATUS];
+> +	if (!opc->valid)
+> +		return -EOPNOTSUPP;
+> +
+> +	rtpse_mcu_msg_init(&req, opc->op);
+> +	ret =3D rtpse_mcu_do_xfer(pse, &req, &resp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (resp.payload[4] > 0x7)
+> +		return -ERANGE;
+> +
+> +	*budget_idx =3D resp.payload[4];
+> +	return 0;
+> +}
+> +
+> +static int rtpse_mcu_set_global_budget(struct rtpse_mcu_ctrl *pse, u8
+> budget_idx,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u16 budget_raw)
+> +{
+> +	const struct rtpse_mcu_opcode *opc;
+> +	struct rtpse_mcu_msg req, resp;
+> +	int ret;
+> +
+> +	opc =3D &pse->dialect->opcode[RTPSE_MCU_CMD_SET_GLOBAL_BUDGET];
+> +	if (!opc->valid)
+> +		return -EOPNOTSUPP;
+> +
+> +	rtpse_mcu_msg_init(&req, opc->op);
+> +	req.payload[0] =3D budget_idx;
+> +	put_unaligned_be16(budget_raw, &req.payload[1]);
+> +	put_unaligned_be16(0, &req.payload[3]);
+
+You don't want to configure a guard band? Can this lead to flapping of devi=
+ces,
+where a port is rapidly switched off and on by the consumed power going abo=
+ve
+and below the power limit?
+
+> +
+> +	ret =3D rtpse_mcu_do_xfer(pse, &req, &resp);
+> +	if (ret)
+> +		return ret;
+> +	if (resp.payload[0] !=3D budget_idx || resp.payload[1] !=3D 0)
+> +		return -EIO;
+> +
+> +	return 0;
+> +}
+> +
+> +static int rtpse_mcu_apply_global_budget(struct rtpse_mcu_ctrl *pse,
+> +					 struct regulator *vmain)
+> +{
+> +	int budget, ret;
+> +	u16 budget_raw;
+> +	u8 budget_idx;
+> +
+> +	budget =3D regulator_get_unclaimed_power_budget(vmain);
+> +	if (budget =3D=3D INT_MAX)
+> +		return -ENODATA;
+> +	if (budget < 0 || budget > U16_MAX * RTPSE_MCU_GLOBAL_BUDGET_LSB_MW)
+> +		return -ERANGE;
+> +
+> +	budget =3D rounddown(budget, RTPSE_MCU_GLOBAL_BUDGET_LSB_MW);
+> +	if (!budget)
+> +		return -ERANGE;
+> +	budget_raw =3D budget / RTPSE_MCU_GLOBAL_BUDGET_LSB_MW;
+> +
+> +	ret =3D regulator_request_power_budget(vmain, budget);
+> +	if (ret)
+> +		return ret;
+> +	pse->requested_budget_mW =3D budget;
+> +
+> +	ret =3D rtpse_mcu_get_global_budget_idx(pse, &budget_idx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Retain the programmed MCU limit even if later probe steps fail. */
+> +	return rtpse_mcu_set_global_budget(pse, budget_idx, budget_raw);
+
+This index is different from an earlier version of this patch, no?=C2=A0
+
+My (old) documentation [1] describes the retrieved index as:
+    "Last updated PSE device ID. Also the PSE device the budget belongs to.=
+"
+
+I'm afraid I don't remember what I meant with the second part, but I suspec=
+t the
+power budget needs to be configured on all PSE devices. Does this work
+consistently on switches with multiple PSE chips? If "last updated" means i=
+t
+might sometimes return a lower index, I'm worried this might also lead to s=
+ome
+cases where you query the MCU in the middle of an update cycle.
+
+Otherwise this looks okay to me. I'll try to test it over the weekend.
+
+Best,
+Sander
+
+[1] https://svanheule.net/switches/software/broadcom_poe_control_protocol#g=
+et_power_statistics
