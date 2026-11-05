@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793887602;
-	b=VwxUqElTPkl67mv/WlpcSZY8k/ngY2TI2vxGJaPymcXiEaIg7cm3rzY2fqYRH6skSER1
-	 g4L9l+GMFpAtiaFkXHD9vnBIaVDLrvuWVGoajPeBV1eWgGaAEm3b0Fe61DuXxoMU+kmXx
-	 ZWZ4GrK2XDYmQfbkL2Fjeja+e2eVgVBs5vV+DkSBSJ5JBJXlvaHsd6G9cbOYAqBIoD7U/
-	 FFZfeJ03RvOa29NScRjqxTNABddWjdLrWuv1ZE6nb+MbT4DmwsER0JKn4/3tM2r+sqF+y
-	 Q/U7dCoQF4V5Mg/a6ykdQ7tInxR2sjvO/0bwbx70ymm1mXSws4jUVDsdplIHH0zdRkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887602;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=onIgHLIVAs7MX99o13Ov7v+hJtEInFTXwUejUAfUW20=;
-	b=IdMLYTAxE6DFd67RkS3WcaKTtYLau/G2KIf+3aB+isRro+eo0TDo53aXVZSuzbNqWHOw
-	 gstnkeM8824a318FQuRJrKsiCA1diqxFMZAEJiCPEg1daOjAW5z9gBffZc+pMRfcMe1+4
-	 2R5od+biRASh++AhSM++tytBg5feqkIrxBu0UuCk4R6WWe+aHPLL5Lm9d4uk4e9Kq6dAp
-	 cA4/C8oNw1XHEU9y33n9icSnMVFRP9NGjR2rplkyYNIgepLNToAD7/k2nwq3xCgFxL8Av
-	 yIsVbS+YiLlT5G0e8IisRUkKui7loXIApucxV1pgfjn24heSnkQSpqTy7/GwpXH74QA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KJWksXtv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793887638;
+	b=b6G4L/rDyPPijG5LiMnGCpjJpkORd0nnZ3ntFzXpD4dvhuYO3nGmExJuCbaWCFz/FkVR
+	 fA7N68pau2ShluYRSJghkY1DSXTjO+9RdICAMQllsEXxH78RPLTrsoyy7aBTWxpFDTYm8
+	 bSctYq5V7XbWQq89zWWhrSasuAaaSidxbJHr5BVF9/N7D3sQSOlx1EL0G3PT9VsgkN9/X
+	 ZCbJRABn2V5nLSsiS4tHQF20VK9pgzHwZtfFE1dP1wAc1DiXjrDnT2/AANeSj9qkFcllS
+	 r4zSbJTc02rFAV6F6FykxLYri9D56+42lpQIr+c+LAs4IEglGmJODYiCzeeSPEE56eQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887638;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Rspamd-Server:
+	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=Utls/voivKi+vOuiVuSzZkWsQ+D1Jb0FNwOt2/GW5DQ=;
+	b=m6q5aqNKRAehewIZP7IcZZGNp3+nG6gWRe3LaNX8Nez35u1GyACTJwBV8ZLdo5PdUvip
+	 P4itTTtMu+ByzoPH7GPWhS9W++/B7r6k9UVUtUhWpChfIPXvRXfbwJRQ7kfVOVpMzQyem
+	 7aM6nr4bHzRjNjInfEgo7pf/KNVo5ZD05Qf2olFZXThgRfAE7/grIDqToL7/O1eDinqNv
+	 HGNVPJy2GBlq2bED3cZiO4/8nH2K2M2gI2NayUlXvv2rftSyPuf1brHBJmJ3OE8bZtMx2
+	 zLt7iNpRuyMClin3rGl2TlqozDWNbwRluDMtCOKcadgk2MLzvJnoFBRYkfZvZOoGmSA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=UmEpDNnc;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97016606EEB8;
-	Thu,  5 Nov 2026 14:06:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97016606EEB8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EFA606A326;
+	Thu,  5 Nov 2026 14:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64EFA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KJWksXtv
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6AB0A2022CC;
-	Thu, 05 Nov 2026 15:06:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793887594;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=onIgHLIVAs7MX99o13Ov7v+hJtEInFTXwUejUAfUW20=;
-	b=KJWksXtvrQkeHBB2QG3hlukLeXYtgKGn49r+HNdv+H61dtiBtgukpM1pnBu4xDWcQu7LUF
-	AJWVLZcoYavm/lMfN/KCOrvw/23mZfMUqDlpKVnBRsJMPnUajR2FjPRiy0pD2ILKWN46mc
-	kT835SAcncSxHpdCi1D5waQ97c169fQ71qG8Fq93S6PvN1LibzLMaGsTk7TwaGWXoMwnaH
-	Q6l3vdvoRsAMxChmcPB1Vnu94yJNLMRYIjpF7MfE3jIUUsXZaNnooTIJsVlhfcFnij2TSq
-	nBLSSo/gO5Xf50JUofbacG31eIz9oq48d9FO7Cti6sdYamye2tCfELCeBbCmCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793887594;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=onIgHLIVAs7MX99o13Ov7v+hJtEInFTXwUejUAfUW20=;
-	b=WY79QNjwoQ2bd8W2IccevfvDFHKxEM5EmG1MFmnVt/njesvffBqiOvSYWbAC0gAV5xaXua
-	LGXzm3Y+DIFCDf4Z7jSjRaReFEZdAGopxaebA1iw6VJDJ8J1eM/GI+4tCoOGx00QhKY5F/
-	fWG9HIUUE7E/rAWqQkcC/CLLo866ZS5HZBDU20xCQO/c4lIa0k39eywkg8t9Dj5/Wwfc+M
-	W2rNzH2bqjfhLAgU/a5TigA5gD+Ih5/IFYicRK4UXpEZVvs07GDQ0qT3RzoI8B3ttrL6k9
-	j/U3l/lKuDjmwQWZX5wNhT/vtIS19muPWqU+cL5gWycyhcMZ0PefbApr1HOphQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793887594; a=rsa-sha256;
-	cv=none;
-	b=SIrXT7f+EFYsrxfLyYrcXmzbUECmt3zbRWvxd9zUpBwt/NnlIu6UvlOe9h+NArWorHBLKg
-	LVknmoKvgYZltI53e8XXEeagXRI2jXgvCadcL9Luk/uMPiuOLiaAzyJHP2NRwm7y21vjWp
-	tG+fYANNl4kB/o2BFrfnluwN3xtrG7eDBDk5zmMA9W4DSQHkuj86Zoew0/X37f/yAVyz7U
-	xHQkusR/fbWNynYH8EtovlOODoiSG8+CxG48PQgqK3jq0f5eFNMxVhRFu46YxAENcsnHVS
-	0wYDWMWCj9HbQhbg9QWeuqi4TaOgzquPN4KPxhn/udpYGoLydw8CUexvcU9sbA==
-Message-ID: <dfdd4e30f31ebda533c1bc05d4578a5d23e31320.camel@pengutronix.de>
-Subject: Re: [PATCH v3 09/15] media: rcar-fcp: Handle resets
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>, Geert Uytterhoeven	
- <geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
- Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley	 <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Ulf
- Hansson	 <ulfh@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>,  Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Kieran Bingham
- <kieran.bingham+renesas@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org, Laurent Pinchart
-	 <laurent.pinchart+renesas@ideasonboard.com>
-Date: Thu, 05 Nov 2026 15:06:34 +0100
-In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-9-e052903a3832@ideasonboard.com>
-References: 
-	<20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
-	 <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-9-e052903a3832@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=UmEpDNnc
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay07.hostedemail.com (Postfix) with ESMTP id 2D87B160A01;
+	Thu,  5 Nov 2026 14:07:10 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 2828A6000C;
+	Thu,  5 Nov 2026 14:07:08 +0000 (UTC)
+Date: Thu, 5 Nov 2026 09:07:06 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com,
+ syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] ring-buffer: Skip time delta validation for the
+ counter clock
+Message-ID: <20261105090706.19ed0e07@gandalf.local.home>
+In-Reply-To: <CADZg-m0FeLntAS6XxE-kc74vwH-jAh+jXT68qnVwXuHZNUHzfA@mail.gmail.com>
+References: <CADZg-m04iG5kCZ5-yh=Vz_ysYjVDGSYn3je4_-8AzWWfiC-bXQ@mail.gmail.com>
+	<CADZg-m0FeLntAS6XxE-kc74vwH-jAh+jXT68qnVwXuHZNUHzfA@mail.gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,50 +63,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout06
+X-Stat-Signature: br9t7qdek5pz77odheo55xarxjukw1eb
+X-Rspamd-Queue-Id: 2828A6000C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19m525yaZt+H6oGT1CRSKAne1XcflCJr5E=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Utls/voivKi+vOuiVuSzZkWsQ+D1Jb0FNwOt2/GW5DQ=; b=UmEpDNncah1cps5RUnv6BgwixwT3Oc76JhZxj9cNfkv3zTwkF6M9s2B3EuNKt1yrp9j5AO1ND6uI0Qaamql9toycoDei7UP3vLwzZfIip/f8nM74NmikfLK5rJB88voThbnFlDky2Q2YKD0wldFvNw6vvIQu9NmtFed3Yvcc7FE=
+X-HE-Tag: 1793887628-646376
+X-HE-Meta: U2FsdGVkX1/v+RTy4pn4UivDt2OggKZ9IvuicZWGOYMuvZoMPPygV8iOsx+7Sho5F4Amu/FLqFWe8do4ZL8eYsZSTy1GgM1DKbMW27PojUF4vBAuTGtBzCAfS4arVmjjpOOiZDKgwhpuTsBgbYP0/CYuSejwJ10ubIvRZYuqy574rZkFTB6+ykZEyeGUrirZjy4LbxWBUdQXLrlVyNDoKRcnYOfliC5PfNBhWhfGouzJzETDsMJh3mP2ej8NEx6Z/1wIAQL3eli+yYK/2B/yrdZLckBXnpZ2qQSSYCiXNY7RTFFG52v+j0kc0P/D7ZYmvae8s3CYMZ4zLPVcIjxCZ09wqvvNbtUpRbDp5JwYIeNmF5NBmXWc6jB+mmhyQX2aaX1klIvJsAnHOIh+Voe6OBzenCBM2Q1Dm88Txq3ApSLKupVeKNQBgs6w/P4e9rzF1RvJ8wCSGNVR8JU77sNkpiXRxySqJIdsrQHj/zanzvIJlciVy6nbTInjJUhgkhDXfFrOFErsyts=
 
-On Do, 2026-10-15 at 16:51 +0900, Paul Elder wrote:
-> On some versions of the FCP, such as the one on the X5H, reset control
-> is required to operate the FCP. Add support for handling resets
-> optionally, to continue supporting versions that do not require it.
->=20
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
->=20
+On Wed, 4 Nov 2026 14:42:00 -0800
+Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com> wrote:
+
+> The counter trace clock increments on every read. Time delta validation
+> assumes that the clock values read while reserving and checking an event
+> can be reconciled with the deltas stored in the page. With the counter
+> clock, this assumption can fail for an intact ring buffer and report a
+> spurious TIME DOES NOT MATCH warning.
+> 
+> Skip time delta validation while the buffer uses trace_clock_counter().
+> Clock selection already resets the buffer, so events recorded under a
+> previous clock are not retained for this check. Recording and reading
+> counter-clock events are unchanged.
+> 
+> Link: https://lists.openwall.net/linux-kernel/2026/09/20/1283
+
+Nit, the above should be a lore link, but thanks for doing my todo ;-)
+
+-- Steve
+
+> Reported-by: syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=eb74dca0d1eb3ec227a7
+> Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
 > ---
-> Changes in v2:
-> - handle errors
-> ---
->  drivers/media/platform/renesas/rcar-fcp.c | 30 +++++++++++++++++++++++++=
-+++--
->  1 file changed, 28 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/pl=
-atform/renesas/rcar-fcp.c
-> index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..76d4c250b30815d9eac58f9b5=
-4ad923748df79f6 100644
-> --- a/drivers/media/platform/renesas/rcar-fcp.c
-> +++ b/drivers/media/platform/renesas/rcar-fcp.c
-[...]
-> @@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *p=
-dev)
-> =20
->  	fcp->dev =3D &pdev->dev;
-> =20
-> +	platform_set_drvdata(pdev, fcp);
-> +
->  	fcp->base =3D devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(fcp->base))
->  		return PTR_ERR(fcp->base);
-> =20
->  	dma_set_max_seg_size(fcp->dev, UINT_MAX);
-> =20
-> +	fcp->rstc =3D devm_reset_control_get_optional(&pdev->dev, NULL);
-
-Please use devm_reset_control_get_optional_exclusive() directly.
-
-Otherwise,
-
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-
-regards
-Philipp
