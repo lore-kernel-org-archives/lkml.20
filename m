@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891104;
-	b=HBtPVV9jHE6Zjt2TVix6atXCHxIUonHEQBZjMs/8MxIys/Fc/JSltE2vrOPcPz7JwoaR
-	 ci1UgPKLze9Xo5jhzvc9jIcPxfkyNVaxLFyUhUymWWslrUwfz3FAMpZFTR82+3IIb3Jt8
-	 vC2iUO9zDQkzx4NwBIuLbKTNdFE/6NUxo768ComsUHjr6RORBpeisePSRCDEAL1SoN5wo
-	 Ynu/MCf/qOdHqwGxyQX8tPNscXsqBFu8P3Kc1kldU88/Oku0JCYPuRoEqFaIRP0LXiNyE
-	 +kEfk7AfGOeuQSYFtPscN9M5cEwZGJB2KR+F3zgyXzmtEqdl7R2gxL8XTyDCAHKSM+A==
+	t=1793891202;
+	b=pa+TR4a/KmeLACusEnkH/urVdBAeJ4SM+pbpwwyDGXfDg9Py1/CnUeL5fWYbCdmCV9hr
+	 8+XCIv3t6AMrXyDOZjs1QU/2NrgqMDGivoesmPUOhoMHbR0CFhcQPj+yj7WA5a6U1b4TY
+	 lFATK8kQOGXADtTEAFsDGg4E3FvhbpbU9Kp9qobbtfhVi371Wl5NwQWICrvs58NG522op
+	 pohvdDFJrJXoc5hNzdLvvLTapr2thOlgwr4S/9jyaauFuaHYA0fWIzDj0DQs/wJk/zE7T
+	 2nViNV8e/QHIaeIDUWtnzTU7QIaDM9lLbYDpd0eFXhjnyYjfeo7BSRDkbvOXFd6LrPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891104;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=IDZiEDQ2fJcCZR1mPomOrN1HJzC+gocV2xQLf/Xmqno=;
-	b=ZINlSprPFoPW+BlDy2gFoGryyK4tbnD/wIiX0Vn3q/R2pUJzM8/bpl1AQiNzaDeltiFT
-	 k0nAo6OP5EM42uWZyUrUPR2WsKfuBgb41WJROA/2nFkAy7bFp5myirJ7pmgNasTOdZkj0
-	 SQl3vxyNejgwG/4Q1CYbjOvf7oW7lSLkcNeU5v75c2/xvXBmFG35QBHEygew0C3t02ZLr
-	 cjMh/cPmWQgL4+DpJPweZTd7h8onnPQ81GICQSytR5ckJ+PBa4jecZwCQQ1bJQbumMV/y
-	 qIM/zqoNkElm5wyI50mJyUEPDapE30oxzTDBOHQQowNLmoEE1HYtrOUg3KxLj4NNAdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891202;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lbu6CYbZmlg9LDpHvg31OE0O9sdelylvCrdhRi2mD7M=;
+	b=JmM/fDMUood7uk5NcK7bHS+GfYJtwaQ3iJWhAbvsE8iX4BPb5C0gkUTtcBf8aZVjoc2k
+	 WG1Pr84NqAOIr2J6kjgugWnkezJJ+zBT/cfm0aTmar3M6pdCH5NCx+FUTV1c8MFz1RyVR
+	 rMD8o7nGVsMi5SABvF0E3eUsxZanfayhghjczs9bvmEpOadS+sOdEvB6XdfdX47LzxIxo
+	 oc92tLnx0+yn0JXjuSUOmCut3nPosxkellkFu2itb29kYO/YTnAjG5YcwVby9dH93otYZ
+	 BxbcpzHC/42XzELU7WHBT0mrdgux/Q0hyv/WEx7djqWaVURPs02kEfOWlDUyyoMpdOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOw8A1j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ln31vRMh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A96606A31B;
-	Thu,  5 Nov 2026 15:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F98A606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:06:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOw8A1j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA91E1F000C1;
-	Thu,  5 Nov 2026 15:05:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ln31vRMh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1161F000C1
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:06:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793891103;
-	bh=IDZiEDQ2fJcCZR1mPomOrN1HJzC+gocV2xQLf/Xmqno=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HrOw8A1jlUuhJDo1BiAbNQGXgo0JMDDcCaPKHctvyeHpkOGNMXXK9/65YyKmpklzH
-	 rlN5wpQjCoPa3I+ssp3r4upL0cZMHwUddWnS+er5KF4ShJtKSv9Kxe6YZf3mMwZZk3
-	 SAvN2djBmxXJM/XX59Q/5PMOX4NA/rclcaRZTHsB94oMDA9H2FUvtVycQHZv4ravfX
-	 pTPN7wyffQwgwU7ShR+nKJNKSvSQSozsE59O/DR2/496o73Wv2MkC9P0Nz5b06UeBZ
-	 hkcjkn1ly8s5Yerske8dk0Ck2Sdd7endvSjESEOiAwolQU3ipl9m0CjobIs3Cyi+9U
-	 SfdfwyVMM80WA==
-Date: Thu, 5 Nov 2026 16:04:58 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: kernel test robot <yi1.lai@intel.com>, 
-	Breno Leitao <leitao@debian.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, 
-	Mateusz Guzik <mjguzik@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-fsdevel@vger.kernel.org
-Subject: Re: [linus:master] [fs/pipe]  f7f4665dc5:
- lmbench3.PIPE.bandwidth.MB/sec 18.5% regression
-Message-ID: <20261105-trommeln-einspannen-radius-ccb4e174e407@brauner>
-References: <202611041404.befe64cd-lkp@intel.com>
+	s=k20260515; t=1793891200;
+	bh=lbu6CYbZmlg9LDpHvg31OE0O9sdelylvCrdhRi2mD7M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ln31vRMhbFvxkAtvzVW75Y4HBOLjjrZC0SmEKIotyieRcq6ES6mnQJRuRutgvH4na
+	 2ntrXnFKWKITMWAZDTiek9ZeFMQEUUB4NGEi2Eu0bNaA7hZoFrl3esKlIeoxQpstlP
+	 KePk/w8r8S8D/uxBr+FuQ5L8SwZ+izhxnROeVnAgjSXp1NqLSl9MqJocmALEoO6rNX
+	 zrIqZEf7SHMIsj1kXWMvhq75PgcbWCWYYrY3OtcMtIQuqevvJt3ppSSdrpSe26Cxli
+	 WwCbuMef7RBXF2M9c5Qo5l8pNwwemhlpMcyMXahWz3nvCEa4pFLdfNv4nlc9T1WEB6
+	 zv2yO2mIsvHyw==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b561b60b78so1077920a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:06:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwhnmUgZ97hYqqLR/pw5XYW9XlA3RfP4jWU2hBCdVPaxOHKRSusAvPbrsr3Lr7PmvW8h1+T58JwPU/l4ZM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81ZHO+i+C5wN9+sTuJPlMxecnxjsiP+R3OanlBvfiHaYcg/2HI
+	zwWP089GUM46FSeh4l+yG0ULNOIRTgt3ArxGTvRyFiqt2TCGPywuXqvrREm93a1X7OithKE/11e
+	Ur8qsS1VFxBg+6NQ39DdDwLODCqc08g==
+X-Received: by 2002:a17:906:c102:b0:c46:d493:47be with SMTP id
+ a640c23a62f3a-c4d206aede3mr244770366b.19.1793891199414; Thu, 05 Nov 2026
+ 07:06:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,79 +59,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <202611041404.befe64cd-lkp@intel.com>
+References: <20261105144920.2796623-2-robh@kernel.org> <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
+In-Reply-To: <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 5 Nov 2026 09:06:27 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqLETyrx7ew0zirS9r6+3=GEFaRE0g96OZHYwqjxMCZKcQ@mail.gmail.com>
+X-Gm-Features: AclHuK9D1vVYdU6bP9ipfCUqtMD7cNI9yWkFwUZwsKz1kc9xgefpf4aNgPCbR6A
+Message-ID: <CAL_JsqLETyrx7ew0zirS9r6+3=GEFaRE0g96OZHYwqjxMCZKcQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
+To: Marco Felsch <m.felsch@pengutronix.de>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 05, 2026 at 08:38:45AM +0800, kernel test robot wrote:
-> 
-> 
-> Hello,
-> 
-> kernel test robot noticed a 18.5% regression of lmbench3.PIPE.bandwidth.MB/sec on:
-> 
-> 
-> commit: f7f4665dc520fd8bbc1db20e59945773e03744a0 ("fs/pipe: unify the page pools into a single per-pipe pool") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+On Thu, Nov 5, 2026 at 9:00=E2=80=AFAM Marco Felsch <m.felsch@pengutronix.d=
+e> wrote:
+>
+> On 26-11-05 08:49, Rob Herring (Arm) wrote:
+> > These .dtsi files are not included anywhere in the tree and can't be
+> > tested.
+> >
+> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > ---
+> > v2:
+> >  - Rebased
+> >
+> > It's been nearly a year and these are still orphans. There was a promis=
+e
+> > to upstream something for the kontron ones, but that hasn't happened.
+>
+> That's unfortunate, but these includes are used at least by the barebox
+> bootloader [1,2], dropping these would cause a DT regresssion.
+>
+> Would it help to upstream [1,2]?
 
-@Breno can you reproduce this?
-It's something we should at least investigate.
+You said you were going to do that on v1:
 
-> 
-> testcase: lmbench3
-> config: x86_64-rhel-9.4
-> compiler: gcc-14
-> test machine: 224 threads 2 sockets Intel(R) Xeon(R) (Sapphire Rapids) with 128G memory
-> parameters:
-> 
-> 	test_memory_size: 50%
-> 	nr_threads: 20%
-> 	mode: development
-> 	test: PIPE
-> 	cpufreq_governor: performance
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <yi1.lai@intel.com>
-> | Closes: https://lore.kernel.org/oe-lkp/202611041404.befe64cd-lkp@intel.com
-> 
-> Details are as below:
-> -------------------------------------------------------------------------------------------------->
-> 
-> The kernel config and materials to reproduce are available at:
-> https://download.01.org/0day-ci/archive/20261104/202611041404.befe64cd-lkp@intel.com
-> 
-> =========================================================================================
-> compiler/cpufreq_governor/kconfig/mode/nr_threads/rootfs/tbox_group/test/test_memory_size/testcase:
->   gcc-14/performance/x86_64-rhel-9.4/development/20%/debian-13-x86_64-20250902.cgz/lkp-spr-2sp2/PIPE/50%/lmbench3
-> 
-> commit: 
->   c610d2d078 ("fs: annotate inode timestamp accessors")
->   f7f4665dc5 ("fs/pipe: unify the page pools into a single per-pipe pool")
-> 
-> c610d2d0787961cd f7f4665dc520fd8bbc1db20e599
-> ---------------- --------------------------- 
->          %stddev     %change         %stddev
->              \          |                \  
->      29142 ±  2%     -18.5%      23737        lmbench3.PIPE.bandwidth.MB/sec
->     191.80 ±  8%     +54.1%     295.65 ±  5%  lmbench3.time.elapsed_time
->     191.80 ±  8%     +54.1%     295.65 ±  5%  lmbench3.time.elapsed_time.max
->      23261 ± 16%     +19.3%      27743 ±  5%  lmbench3.time.involuntary_context_switches
->       9853 ± 16%     +27.9%      12605 ±  5%  lmbench3.time.system_time
->      51.80 ±  2%     +11.6%      57.80 ±  3%  lmbench3.time.user_time
->  2.928e+08 ±  3%     +26.6%  3.706e+08 ±  4%  lmbench3.time.voluntary_context_switches
-> 
-> 
-> Disclaimer:
-> Results have been estimated based on internal Intel analysis and are provided
-> for informational purposes only. Any difference in system hardware or software
-> design or configuration may affect actual performance.
-> 
-> 
-> -- 
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
-> 
-> 
-> 
-
--- 
+>> I will add the som.dts, please don't remove the kontron dtsi files yet.
