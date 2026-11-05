@@ -1,45 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886945;
-	b=ytoQqDt221QCNZ1Mn8PoqlWKgYeForisACwTGtferEaCGIKvwwu/f5if4QWkVOdhfOwx
-	 BZ7ZOOJd54aOFmO5emaJyZPLLnt86p7x77lpZUwzNba8XRe5KBlQ6dQYzMSEqNtV26pD8
-	 kTy3J9VcfFHiuUvlwaApa1uHyjIDvCM5CCyGa5uenPV40DJ8N35032NR4yWWHYe9xl323
-	 xBK4l02h9/NbKzPi6of2E+faAEeeCAWZLfYGvgwuu9O1lyjHbk00nCvmRMpFWv6zOqeAY
-	 TbYfMCStzdaq69AheF9TjjciJqZ1etGrZ+C2EIzcCylmvUswYB5s5TBggfm05hrEzoA==
+	t=1793886988;
+	b=IZ8MKYorxocWrR04hsTaVmLsfGGjzN/q/3/gavQHZk5979AVp6nT+vi+L8bqTx1dK6c8
+	 xkiim/D1zVD1aSufroorqrPBgnmqiudB2wf4Q0IBKnS+tzAKefvjK2TzViQcybi3FIfn/
+	 6nCzHJjAOK4qfVqy++cVOCQUzaXGqbK+itY7tRaWtrmkcQ2VpNSFxhyiw0OQDvhVlHAv2
+	 468CVv/tsQQQTZVez12GNY2CSuk7NaVpFBN8NNUBbUgVLEKr5Jdt/4Ygtp3oJdB9QJGgx
+	 YcmxPx61AcV8uX9jFkX4OrBvrzVW5ZmOB+kBIKU7tk31d2dxOfoSyopc/wDfdh1DMbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886945;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=FRvCb0qdn0UFgCq8z99GAbGRLgJXO4j4sZWydl6Xwds=;
-	b=et/IS7fh6Nz9eQUvjljX0xUedY7AVDW0L4QdHu6o4/25GhqBxWMqGtyZMYL/viBRWstI
-	 OICCpO9bi4amx3EbkzN12auqCzdjoEs4mWYPzAgQxNgr5OrEvfIzaiYhmWlAU4Vwa851o
-	 n3ph3+xzWPx3KFhgyVUT5FucDcUbPvqvQUfnWW2lUxAhGFk08EcuQkCKUEZxb35Ov0MJj
-	 wgyRFuMFLkLc7TpdjJhaQZFOMF1R9BdE8gE1WPgWSdIwfjE0Sr8HNQeiPsoClNpbyyECi
-	 SiXLREUFLRjO0gslF75DRdtdCIULj5Uj91YARic6RoCuu/EYJPSyuvXtr5xosvgNs/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886988;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DgaNB918DvS/9e6kGL7HQ5e3QKA2xYrp9dfDsZ8DbFk=;
+	b=qPJG9L7bNUJLqxrfX4jiE3enUOgcNiFjqz2KuUk4+WK5AF6HF/psUGZFyyygsdatDg++
+	 dj01WK0XH4ofCy66kS9pPbdotOlhS5aCdFjM38BzWNG3aBK/bJ5AIJ9tDm5fYA7IscVFa
+	 GnqONS/Q32QqDnZj9cRv46++a8KQX1OEf6CZku7LRjUdGrG7ywr+TkHT0eTd+bmbGfapA
+	 iU3XSG2GBCKzQ5oGxgaVj+WFFKk9JVDc0AQjIvrlHwK8YbPT7eXtmONXOE+NYpYpORgph
+	 fWhZmcFa6RiwblDzQ+IBSWZ+39E8GTdXjwUuxOLgWhsnAs5oKD03DKFfohglKn1hSwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L8B5TUmk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwdO0XoI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788DA606A326;
-	Thu,  5 Nov 2026 13:55:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F12606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:56:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L8B5TUmk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9775A1F000C1;
-	Thu,  5 Nov 2026 13:55:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwdO0XoI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C8F1F00A17
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793886945;
-	bh=FRvCb0qdn0UFgCq8z99GAbGRLgJXO4j4sZWydl6Xwds=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=L8B5TUmkCR4s1r1wiNQSpXG2koNdEAW6KB+TqzDVo/Zb1Ew5F67tq4MoHL60J/a4d
-	 P1mzGlTZk78Ohq//u2YU359ZiciYbDIFCxJ8APqY6j4X1+ELfJvYEA0XAKiUZh9XIN
-	 KsOzC8VOUJuG92TnnENuZUUXAUS6zBXXtAzNxiZ6PzikDx0LxqXdWTatL7KdP+ob+z
-	 jwXhyQFGPr+lQSLfTzjTWdVPP+GPL1OuroIsxZuLLqAMK7zVbEB90pbErGwU1KU4UB
-	 /pfJvG7/H02SEG2FNqh5TF89cc9MyEvmGIay4WpWqDKsIgWkPckHt8aYC07f7x0D6N
-	 0DIcGyuEInHpw==
+	s=k20260515; t=1793886987;
+	bh=DgaNB918DvS/9e6kGL7HQ5e3QKA2xYrp9dfDsZ8DbFk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PwdO0XoI+xCqt9JcXnjbffFCF88c8/RWnV9n8+Sb6snUovYGGZ9rR6l6vuMQN4Wcq
+	 5sUf5w8H/5y25/kIR3ABjhT1hu8CuB9VXtgs4RKQwJ7cBeNvtnUlbCp/OKlSvA94kI
+	 +ujcDjZMuHcIEtc92k8W5JnUrzM7T2gDpB1Db7B6Iy51Cmqyef0PtVpi7GcsCeUCdB
+	 dfhxJr/q6CCYUddat/EaQwOAoYMSnQnh2h2bQq4zMRqBc6O+Lt3PbcSJYFE5a7J+XN
+	 ARISxm3Fwj+Q+EqG13Jgf3p4Kbk0Xh1edfbQsQDSklrWF23RM/osXQgDN17+GTmamf
+	 wTuuT/yAGePmA==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5ba328513b9so1574287e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:56:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxxJbUNgnitJa2stXbbPnPv4wwci0mgweAssgm1qz5rk+XqTEq+lwUibrC2lwaZ2ghTL78NT8WETzxD+As=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vgeKNDfSF0R/cfjZmKu2rXTLAyTIxsa87mLNaueFfZVUiB9Zq
+	FvCt2CCeIZroj0YSBuubL/FeZMKjH2WnG0jKQUVMTD7XM6ByKnGU90tdQykEgDXZ4paGVukXgYK
+	brxXbklORdJEhLn3NwUvm1R93A4+X0Go=
+X-Received: by 2002:a05:6512:10cf:b0:5be:5394:162d with SMTP id
+ 2adb3069b0e04-5bfd954b775mr5824256e87.3.1793886986138; Thu, 05 Nov 2026
+ 05:56:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,47 +58,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261105-gpio-sodaville-use-after-free-v1-1-f572f40feedd@oss.qualcomm.com>
+In-Reply-To: <20261105-gpio-sodaville-use-after-free-v1-1-f572f40feedd@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 14:56:12 +0100
+X-Gmail-Original-Message-ID: <CAD++jLk1_uAS4spZLg0pJuxd6KxQdLkXpxFe-DeUy4E-5sHp6Q@mail.gmail.com>
+X-Gm-Features: AclHuK_gydN3uFHqfkkpDZEjIzl9q_s993fpDvscnpCYeIU9fTXTp3QVFVyy_To
+Message-ID: <CAD++jLk1_uAS4spZLg0pJuxd6KxQdLkXpxFe-DeUy4E-5sHp6Q@mail.gmail.com>
+Subject: Re: [PATCH] gpio: sodaville: fix use-after-free bug when registering
+ the irqchip
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 14:55:41 +0100
-Message-Id: <DMNBUJVZHT7N.232EWW7QZINWD@kernel.org>
-Subject: Re: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence
- reference counts
-Cc: "Edward Adam Davis" <eadavis@sina.com>, <sashiko-bot@kernel.org>,
- <media-ci@linuxtv.org>, <sashiko-reviews@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <syzkaller-bugs@googlegroups.com>,
- <sumit.semwal@linaro.org>, <phasta@kernel.org>,
- <robin.clark@oss.qualcomm.com>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <sashiko-outbox-198550@kernel.org>
- <20261105052707.55911-1-eadavis@sina.com>
- <ad203438-ddbe-4445-bb3e-9632e738c1a5@amd.com>
-In-Reply-To: <ad203438-ddbe-4445-bb3e-9632e738c1a5@amd.com>
 
-On Thu Nov 5, 2026 at 11:03 AM CET, Christian K=C3=B6nig wrote:
-> On 11/5/26 06:27, Edward Adam Davis wrote:
->> Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence=
- signal")
+On Thu, Nov 5, 2026 at 2:14=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
+
+> In sdv_register_irqsupport(), if irq_domain_create_legacy() fails during
+> device probing, a generic IRQ chip is left registered in the global gc_li=
+st
+> while its underlying memory is freed, leading to a use-after-free. Use
+> the managed variant of irq_setup_generic_chip() to ensure that the chip
+> gets unregistered before the memory it uses is freed.
 >
-> Please completely drop that. This is not something which has any justific=
-ation to be backported.
+> Cc: stable@vger.kernel.org
+> Fixes: 9381fc5d655d ("gpio: sodaville: Convert to use managed functions p=
+cim_* and devm_*")
+> Closes: https://sashiko.dev/#/bug/linux-2f7ac8b6-5034-4ff1-9afa-5700ff44e=
+3e9
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Fixes: identifies the commit that introduced a bug for better reference,
-independently of whether the fix should be backported.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-If something shouldn't be selected by autosel one can add
-
-	Cc: <stable+noautosel@kernel.org> # reason to exclude from stable
-
-In this case I assume you said that because SW_SYNC is test infrastructure?=
- If
-so, AFAIK the stable team explicitly does backport test infrastructure as p=
-eople
-also run selftests on stable kernels.
-
-Thanks,
-Danilo
+Yours,
+Linus Walleij
