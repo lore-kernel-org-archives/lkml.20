@@ -1,52 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870571;
-	b=CrgQoWB8qBSUOlKuo5fLc8ZCoW6zpiqAWgGWxrLn1tRvWSL2v3brS1Eodgw2OSyXMQc9
-	 kQqMhk6rDuwK8kN6OPFMrCDw7JaQb9czEVxksURjLiWIXngnnE5yFZf8PrCfkZwUr1OEb
-	 I4tH5+BjE1kNOY5819XF9cLVYd0fzT0VqGu/2/+ufS0qutXaVOJux3I+dmDN5DldPy+Hj
-	 aE7LvQ+wYBXmTtXFQj04ervzCJwHO18lGQ49YiTm2dXOFq7CLZMlsjpR75Xe9yo0NmuYC
-	 qlcMBtRc5KSB2sE3i9VTIhB64dvl5vh3pYxuDwcZwroJojvbWrfChbVhMpnoH+SbnHQ==
+	t=1793870567;
+	b=jmBefvJ8Kd/IxGHfiEzSU6is4R38YaTY7GoBBFWsVt7J4X2pHeZEFIOjX1ilbutGg1uR
+	 VfvncIlfTxWhWICPcJjhRzwf4Vu3OkXjdDRdqYG4lDyZASAVMLC48wk67ez/bOB3t2xQr
+	 sGgCVktO/krrOnGi4tj2kv2enny75Ndir0dH3qAGc800kOZiJlf4wLsR4yAhmd2QeRNHU
+	 Q6jNiBkINYE88pbZ66kuTF6rxZrMfVx0tCTm1U2yKFF4Jyb6PX58KQazKp6hUGKcogcBk
+	 jvVbV9cnOyV8+HVKblPtJqyuOfH8Ka/lLuYjS7oMZDycQAEf5dRhxhP8fz6HzjiJOEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870571;
-	h=DMARC-Filter:Received:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=SyToh2cMEDIhE82RM4ykkXm/LGy+eMRbdb0cyJX6fTg=;
-	b=AtwYzTMG73CTRzFAwrTJTWmV8Zwm07qOG3IPzosi+5LAOktSQ88oC7C3X4v5XwCeDpqz
-	 sK5sx0whEJdqAfk1CYTLve7vRtD3UNG9LG+RHHDQmG2LHJPgkFfnM+IHa/vkOzj7z9vcB
-	 eo4QDpSOwv7kZoHP2+pLc1UvtvHAo2eSB2Ir+LhhjZ/MeVBMkQBAv6kij+JfiipZaCj9P
-	 9HQjCmi3ifVTnhZgZkUtAYD1kPiS4KliTh3uSFAJLz9Kdn/2TGhtGRRuiNowN8wTV+NJ0
-	 q5jutNPlndnA9p548luQAjmgkEmIp6OVhpMojYXFAxBowz4Sht4eL2Y06vRwvuzUKgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870567;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mhdlXR8A75L7YeWWJ2AV4SzYhiaJarkmp87eHXPOcrA=;
+	b=ikK9rBvvVXhGD9Wqd3XGoWVAqNNZ3R0uiEtQVp5J25GuIp0EEfZwKWEjVcr8HQCHzjJY
+	 NRO7KhJ193/3y8m42XVRez7HHP5MzXKVe4UlI/SVKBuhEY2SaerjCkjMIBvxMkAS4Kl5t
+	 Qq+Ko2BCM9h0jdRHp1J/bwX8tHYlNgE8dHTkIhz2jql+SRfjYmxp3PNs8OKljQoPasGjt
+	 83LPuT/MhzJsrvIXrIzfAbCH/gU/GhW+M+3JAlMSapWtQNAEh6lrySKv3fvabcqZNHOfU
+	 NvFOEtbuCD15osHqGjKfigj9C4krbUUmLeIX4/kIOKCuN/gg4gKuVFnFm/5ROrivrIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=GBGjJOT6;
+	arc=none smtp.remote-ip=115.124.30.100
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81188606A33A;
-	Thu,  5 Nov 2026 09:22:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81188606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAC3ULbiSuxquKtcAA--.2994S2;
-	Thu, 05 Nov 2026 17:22:42 +0800 (CST)
-Subject: [PATCH v2] driver core: cpu: Fix OF node reference leak in
- register_cpu() error path
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, lkml@vger.kernel.org, rafael@kernel.org,
- rob.herring@calxeda.com, stable@vger.kernel.org, vulab@iscas.ac.cn
-In-Reply-To: <20260923-uncovered-worthy-capuchin-a75edc@sudeepholla>
-References: <20260915043523.1725991-1-vulab@iscas.ac.cn>
- <20260923-uncovered-worthy-capuchin-a75edc@sudeepholla>
-Date: Thu, 05 Nov 2026 09:22:51 -0000
-Message-ID: <179387057178.2019441.5343067615150853888@iscas.ac.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A5B606A32C;
+	Thu,  5 Nov 2026 09:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7A5B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=GBGjJOT6
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793870563; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=mhdlXR8A75L7YeWWJ2AV4SzYhiaJarkmp87eHXPOcrA=;
+	b=GBGjJOT6ibqaEvGBrk/qxkgqGW5I8+tzyw/4xIZlBKuyr64cjDBmFUFltQrntxV4fY/DJKXjU+sZkMlszG+I7pvE9woIZUOJ2acC4T0SJqBUaIdNgW2rkzbPWlRllyulkydDFrnErlSubhjCKpOSHcjh+yxU3BUPG+K1ltB48CU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R761e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XE8K-1F_1793870560;
+Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XE8K-1F_1793870560 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 17:22:41 +0800
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+To: akpm@linux-foundation.org
+Cc: hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	mkoutny@suse.com,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	usama.arif@linux.dev,
+	david@fromorbit.com,
+	qi.zheng@linux.dev,
+	yosry@kernel.org,
+	nphamcs@gmail.com,
+	chengming.zhou@linux.dev,
+	xlpang@linux.alibaba.com,
+	ryncsn@gmail.com,
+	gourry@gourry.net,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: [PATCH v4 RESEND 4/5] mm: thp: restore SHRINKER_NONSLAB on the deferred split shrinker
+Date: Thu,  5 Nov 2026 17:22:32 +0800
+Message-ID: <20261105092233.3558950-5-qinyuntan@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261105092233.3558950-1-qinyuntan@linux.alibaba.com>
+References: <20261105092233.3558950-1-qinyuntan@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,59 +81,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowAC3ULbiSuxquKtcAA--.2994S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrWUJF43tw4xGw17GF1xKrg_yoW8JFyfpF
-	45Ka9IvrWDJF4xKw40va4jqa4jga17tFW8u3W8G343urs8X3WUJ34qqFW5XF1DGw4rJ343
-	tFy5twsY93s5AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU7nmRUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQCA2rsPxAvYAAAsv
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-register_cpu() stores the reference from of_get_cpu_node() in
-cpu->dev.of_node, but does not release it if device_register() fails.
+On a system booted with cgroup.memory=nokmem, the deferred split
+shrinker is demoted to a non-memcg-aware one.  As a result, partially
+unmapped THPs are only split under global reclaim; memcg
+(limit-induced) reclaim never splits them, so a cgroup under memory
+pressure keeps its underused THPs intact.
 
-Drop the reference on failure and clear the pointer, since architecture
-code such as PPC's register_cpu_online() checks it for NULL before
-obtaining a node reference.
+The shrinker has carried SHRINKER_NONSLAB since commit 0a432dcbeb32
+("mm: shrinker: make shrinker not depend on memcg kmem") precisely
+so it would keep working with kmem accounting disabled.  Commit
+fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+dropped it knowingly: under nokmem the list_lru collapses into a
+shared per-node list while __list_lru_add() still sets the shrinker
+bit on whichever memcg happens to add the first item, and with the
+flag set the shrinker would run twice per reclaim cycle.
 
-Fixes: f86e4718f24b ("driver/core: cpu: initialize of_node in cpu's device struture")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+NONSLAB-backed lrus keep their per-memcg lists under nokmem now, so
+the shrinker bit identifies the owning memcg again.  Restore the
+flag.
+
+This was noticed by Michal during review of the patch "mm/list_lru:
+don't copy stale shrinker id from non-memcg-aware shrinkers".
+
+Link: https://lore.kernel.org/all/ah9PGv12mqai84ES@cmpxchg.org/
+Link: https://lore.kernel.org/lkml/697713c4-0857-485b-aba7-c74f37a3c8b4@linux.alibaba.com/
+Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+Suggested-by: Michal Koutný <mkoutny@suse.com>
+Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
 ---
-Changes in v2:
-- Clear cpu->dev.of_node after of_node_put(), as Sudeep requested.
-- Drop the series numbering. This is an independent fix and does not
-  belong to a series with the other patches posted alongside it.
-  That is a submission mistake on my side. Sorry for the delayed reply,
-  the submission error, and the extra review work this caused.
+ mm/huge_memory.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/base/cpu.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/base/cpu.c b/drivers/base/cpu.c
-index 875abdc9942e..b50ba6a32a3a 100644
---- a/drivers/base/cpu.c
-+++ b/drivers/base/cpu.c
-@@ -431,6 +431,8 @@ int register_cpu(struct cpu *cpu, int num)
- 	error = device_register(&cpu->dev);
- 	if (error) {
- 		put_device(&cpu->dev);
-+		of_node_put(cpu->dev.of_node);
-+		cpu->dev.of_node = NULL;
- 		return error;
- 	}
- 
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index a62d6592af7e..4ddbbdbfcc2d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1059,7 +1059,8 @@ int folio_memcg_alloc_deferred(struct folio *folio)
+ static int __init thp_shrinker_init(void)
+ {
+ 	deferred_split_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE |
+-						 SHRINKER_MEMCG_AWARE,
++						 SHRINKER_MEMCG_AWARE |
++						 SHRINKER_NONSLAB,
+ 						 "thp-deferred_split");
+ 	if (!deferred_split_shrinker)
+ 		return -ENOMEM;
 -- 
-2.34.1
+2.43.7
 
