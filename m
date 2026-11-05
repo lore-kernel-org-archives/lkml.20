@@ -1,56 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899750;
-	b=3jorGQEJicE85aVB9fZRcG8DP+mHFCmGOuj1AHO9OKQg7qYY+iJEvlZypt9EPZ0BcMJ0
-	 t9Xiu5Y4mqVYKiV4F0SHqXR65C7C7YowwOIidTPWG77c7sfyznxA5LWKii8quCv8IRY0w
-	 1UG1fL3zX8VOzEEpqDh86E0U+ve9zt7ebVBFCwQLxj1W0Y+jaQv3uMFIGEL7t31F+mqla
-	 mSw5ng+lPIWj4og3TYewL4fdDg2scaLwujcwkUM7DR5XtUiJWLWX2Nembf+nRgDP5zScB
-	 lXr0cPCVnjPip2Mnf/eJANRnpmwcDiJ+n8eMaaw4rFgu9k6jHR14F4AIt4owusH/wOA==
+	t=1793899757;
+	b=O6UI2+09nvMgbG10gNSv6VBSiN4f42qfGuBomv+pU2r87Qr+ZWjMtCqDtL3Yz9HwMvF+
+	 X6g8sz3L7dln88zdkNvBR2fkXAp55/p3gFA6+fUVHG2oj2pZDC98NsMurx8Efdd58Cqj1
+	 kGvdIQTbG2NNn2T8WV1JG+bNpSUj61otIH0XM22lmlkjM8Z4aVRSN0NnuO+3NJxApGL7l
+	 0Z5uiKLwwCm0Lv48k78ppC73kUO+mbzDd79R4Jt/w5tRiWfMNHwOFDBC688W/e3H1jTgq
+	 F8s382/dYl51rjBWsIWtYrHOfDcrolVGkv1aK+A4t4pBGt1qv7oA5FNhtEgFKUujhhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899750;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OI82NC+VtO6XCg1b7sL9Mba+LLUc0Oyq52Xd0koXNtA=;
-	b=hHGkSF966AHOdqRq3M4qfxZc9wiXjpJvtIDA9Vfz5I7WZ0XmsMwaixPt5BfR1cSNBO3G
-	 S9xmTYjX8Z+gsCmbFi8I7ES5m1x/YDVEVnpDV0nQb1qbmX2vK4jp415Y73q8FYn00U+P5
-	 WptCEuEGNpa5kUvHyC4rNm0k/oMvOMluwR5PwBACj5M+/hKxqLua/daXFEgx4mMOmG6UL
-	 MFCDOMY8bJBYdvszEP6y27zKSmgrugtHmToSeXwgsy9MWb9BZakX+eTfz6q1YStLPoxEe
-	 Wr0gMEb3EySz+P+78X9BfoKk5Lf3pRcTqiN/MtsnvAhUs85PZfvajkZdHIiFvC2yFuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899757;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1OnqzRsvitQ4MyI4f27p0X1rJF88pgVycPeFzHfgJT8=;
+	b=EACv2k4dShGLwGCpx2zQpjkYHwbBoLAUHz/AxHwQOs7U41s0e0OXpmr4ZDj4+shpL1Dt
+	 Kqe7ia1AkWeR9rplATUmoK2qsNOhhmQ70vD7GWo3POVJxMN+IyzdsDCEqj5ZvjtKVrzTM
+	 CTPSmdURgJy15vrjOMOErl76CcwtCH6KNdtfYFe8N+yfAeGA35r7pk5APhAwAXfcJzIUd
+	 /qiaiHkkQBCIMw/lllBGr4O8P7uXBSFx7JriYSBbrQwHUW5mHsR+Ky2OqLiUvOv/yS7T9
+	 sYZUFpLA9H5oZJ04qYJYwMwSTQxYHtJO2RQYekxtawnjX4tod8oF16UqopPZvQRxOqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLB8QlI4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AiicqOKo;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0E7606A31B;
-	Thu,  5 Nov 2026 17:29:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F60606D803
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:29:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0F60606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLB8QlI4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4601F000C1;
-	Thu,  5 Nov 2026 17:29:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793899749;
-	bh=OI82NC+VtO6XCg1b7sL9Mba+LLUc0Oyq52Xd0koXNtA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MLB8QlI4b9Zj96xuu1gX2RDKKLpHjWgsbP+lWZ/jXYJAgMJaQP0yow/NhM2eVaerw
-	 RUl1gWByjCzr+FPSbtEBObL1y9PjsQTmtTwmlt3C1G0K03nDpp9ICWHkhGOPVfaqHB
-	 PooUz4IiQUp6OymGCzzlwIav3h+XQsZ9dBMQaLfT0OQ5gleCT87KAcKDSJENdGj+6v
-	 YICepRUZDih8ob8KMzawL3S2K4uLzieLoJa5pMxSuWZ4D4TeQBxlIBrBRhPZfZtIr6
-	 BamFIJDtq1UNS7fLmn3sr4TxMwc/Bcs8xFc4lHnswt1r7NTA2cohCcWKoJDVZ/iP0e
-	 Muxsn+zeGo5Iw==
-Date: Thu, 5 Nov 2026 17:29:08 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 6/7] zsmalloc: fold zs_obj_write() into zs_store()
-Message-ID: <auy6wQIz89NxpskT@google.com>
-References: <20261105044752.1997895-1-senozhatsky@chromium.org>
- <20261105044752.1997895-7-senozhatsky@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AiicqOKo
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso16597195e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:29:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793899755; x=1794504555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1OnqzRsvitQ4MyI4f27p0X1rJF88pgVycPeFzHfgJT8=;
+        b=AiicqOKoHaR/wnplxh7tZic5GCFf0bJjuSByayhefFdUTwR3Y4+QtRcQt6KpCMS/4F
+         li9JeUxeq92jDKHOKaByhLGOHb1g+x6GxI7jIE3Ld6cTNtguk41MNsSf9O6sXIe2b4j8
+         pzeMdtVlRx2lZK3VoCHpgOHelRygmREIl4RVFF2aitFAf9dTDgTNgbZK3cTW8y2L9O89
+         X2/eeBAyFe06+RK/MH+eSrAx/z2TBiYpsRZ7WaEbsK2RcG+gJqwmdK5TPPwaiosgYniL
+         3ignaZsdRrO8jGFuqekY57xrHNTp6XvHtyWUO18DnsVw1ArJf29ytn121FYVbbwtOPHS
+         tJLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793899755; x=1794504555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1OnqzRsvitQ4MyI4f27p0X1rJF88pgVycPeFzHfgJT8=;
+        b=s7QaZDumxYrULllpbTcxx+aqYAPbmP6ws3JhDodylvZANZyC1fyaKUZ16fh9O8SO4C
+         sJP/EntiBFNwPswA0zNlw6qqVeX5RHHKIM+GwP/qxCZcSKK2aIizfM7tZxBhxgEAz14s
+         A44Uv3G7aIxIeWHS0p/VgBg+sy79M7MOvfGt0Hcot1P40BluR8lXa0S8jFLHWPoMbVkR
+         YZlEdm4YwgJifp4Do5H3aZcGJv9JwJb2i5xs72lj30xZPHeoOtoGbuNINChTnYIvkVRu
+         7fTCt3/OLfx251MsJtk2QRT3DYoVW+NKdiTUi1Ir7AW2w8o7cI/pXC6GWXjqGdDZiL8O
+         9k+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwvf4gnQIYew4733PNUJ6wG3AXJvz4XgBC1gU4nap+Un2cO/2eI+D3TLrfsFq/hR2269711MYjMZUC3pV4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3ugJcLTB/TIHYnrBMGJoZS4QQBZ5n/uv1eo5Y5G/MrrHIvlVv
+	2t/tiAv5VqFKrffLg2r/1uuCN8HgzHkwwM4+tib27+sij9wc7U0/r/ss
+X-Gm-Gg: AYBFou2XJTKPvFqwdYTdd5iWyNlKFlEtnVZA9wBTqkg7IR4BtAzZJeNXbuJKfIevhyc
+	4wsk6zVJ7jHr6mjBSaDbXsAud7udmX35qhkmsDLVgfEr98A6Zsy5naX1YVfC2Pkku4EFVbGs5SZ
+	EHrycOP8rMaXsi176G9CNX3QC2GSSkpnn7ExFT/KdjIkQDEnyfj3nDDAfHoMuRhwYpToyjy8IBi
+	YnGliTUHwFNPeFrw+6PdxPK3YYC3oOgcoPgZNnJ+AZPu4QLqOFa0z4NfxsU4eeQtQBfA9aEnCjW
+	nfU/73M9g67Qx+sv4nZoS9QiYuL319dVCHsqnEI6FSXDHgdpCBXJIc6iEra3l5eYcjPajU0rErL
+	fpWwwOQLaZ4jCsjQQfaYWMAo0Yjj+S/cmOjimNixZZsOp+aCSC6gdotntyU/kxMITlV4svY5sw4
+	1cQIURDa7albdXFg5ehDUDcrOTk4CFZ63KitHueUfx+9zg9QZ7iExAxONBV5x+AzjVZWkystvmN
+	hBIdXYWEIPtyjl7vWYKs3sBLFFzM4twUfjTeUoRUw6IZ65QwZH0Lq8iWZ7JyG0C3S2RlQn5++Hi
+	oonyju1Em/0lTWnLDTWIZ5Vd1jkQkCGvrZ9OJIhwSo49nS3NJiKGRkx/0lsvXzV8TeO9d4tGDQp
+	CQIGKH+g=
+X-Received: by 2002:a05:600c:3b29:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4ac17d19aeamr401115205e9.21.1793899755121;
+        Thu, 05 Nov 2026 09:29:15 -0800 (PST)
+Received: from andreayoga.localdomain ([151.43.242.194])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae72dsm131080675e9.3.2026.11.05.09.29.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:29:14 -0800 (PST)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Luca Abeni <luca.abeni@santannapisa.it>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Kayra Cizmeci <kayracizmeci@gmail.com>,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH v2 19/21] sched: Clear cpuset_locked where the policy check retries
+Date: Thu,  5 Nov 2026 18:28:58 +0100
+Message-ID: <20261105172900.38029-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <a63396b0-9b0c-4d4b-9754-f503cdb84098@efficios.com>
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com> <20261104211207.1392343-20-mathieu.desnoyers@efficios.com> <20261105164356.28913-1-parri.andrea@gmail.com> <a63396b0-9b0c-4d4b-9754-f503cdb84098@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,171 +122,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105044752.1997895-7-senozhatsky@chromium.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 01:47:36PM +0900, Sergey Senozhatsky wrote:
-> zram and zswap always call zs_obj_write() right after zs_malloc(), and
-> zs_obj_write() has to take pool->lock and look up object location
-> again, which zs_malloc() just did.
-> 
-> Replace zs_malloc() and zs_obj_write() with one single zs_store()
-> call.
-> 
-> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-> ---
->  Documentation/core-api/memory-allocation.rst |  2 +-
->  Documentation/mm/zsmalloc.rst                |  4 +-
->  drivers/block/zram/zram_drv.c                | 43 ++++++-----------
->  include/linux/zsmalloc.h                     |  6 +--
->  mm/zsmalloc.c                                | 51 +++++++++-----------
->  mm/zswap.c                                   |  5 +-
->  6 files changed, 46 insertions(+), 65 deletions(-)
-> 
-> diff --git a/Documentation/core-api/memory-allocation.rst b/Documentation/core-api/memory-allocation.rst
-> index 648222b6c857..5069ac72b857 100644
-> --- a/Documentation/core-api/memory-allocation.rst
-> +++ b/Documentation/core-api/memory-allocation.rst
-> @@ -9,7 +9,7 @@ allocate small chunks using `kmalloc` or `kmem_cache_alloc` families,
->  large virtually contiguous areas using `vmalloc` and its derivatives,
->  or you can directly request pages from the page allocator with
->  `alloc_pages`. It is also possible to use more specialized allocators,
-> -for instance `cma_alloc` or `zs_malloc`.
-> +for instance `cma_alloc` or `zs_store`.
->  
->  Most of the memory allocation APIs use GFP flags to express how that
->  memory should be allocated. The GFP acronym stands for "get free
-> diff --git a/Documentation/mm/zsmalloc.rst b/Documentation/mm/zsmalloc.rst
-> index dbb5c1a8dcc3..52eaba8f97e9 100644
-> --- a/Documentation/mm/zsmalloc.rst
-> +++ b/Documentation/mm/zsmalloc.rst
-> @@ -20,9 +20,9 @@ For simplicity, zsmalloc can only allocate objects of size up to PAGE_SIZE
->  since this satisfies the requirements of all its current users (in the
->  worst case, page is incompressible and is thus stored "as-is" i.e. in
->  uncompressed form). For allocation requests larger than this size, failure
-> -is returned (see zs_malloc).
-> +is returned (see zs_store).
->  
-> -Additionally, zs_malloc() does not return a dereferenceable pointer.
-> +Additionally, zs_store() does not return a dereferenceable pointer.
+On Thu, Nov 05, 2026 at 12:08:50PM -0500, Mathieu Desnoyers wrote:
 
-Well, it doesn't return a pointer at all now.
+[...]
 
->  Instead, it stores the encoded location of the allocated object in the
->  provided ``struct zs_handle``. The reason for this indirection is that
->  zsmalloc does not keep zspages permanently mapped since that would cause
-[..]
+> Thanks for pointing this out! I'll pick the preexisting patch into my
+> series instead for v3 if that's OK. Then maintainers can feel free to
+> pick it up from whatever route they prefer.
 
-> diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
-> index 6c76fd10344e..674358f39191 100644
-> --- a/include/linux/zsmalloc.h
-> +++ b/include/linux/zsmalloc.h
-> @@ -48,8 +48,8 @@ struct scatterlist;
->  struct zs_pool *zs_create_pool(const char *name);
->  void zs_destroy_pool(struct zs_pool *pool);
->  
-> -int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
-> -	      gfp_t flags, const int nid);
-> +int zs_store(struct zs_pool *pool, struct zs_handle *handle, const void *src,
-> +	     size_t size, gfp_t flags, const int nid);
->  void zs_free(struct zs_pool *pool, struct zs_handle *handle);
->  #ifdef CONFIG_ZSMALLOC_REBIND_HANDLE
->  void zs_rebind_handle(struct zs_pool *pool, struct zs_handle *dst,
-> @@ -68,8 +68,6 @@ void zs_pool_stats(struct zs_pool *pool, struct zs_pool_stats *stats);
->  void zs_obj_read_sg_begin(struct zs_pool *pool, struct zs_handle *handle,
->  			  struct scatterlist *sg, size_t mem_len);
->  void zs_obj_read_sg_end(struct zs_pool *pool, struct zs_handle *handle);
-> -void zs_obj_write(struct zs_pool *pool, struct zs_handle *handle,
-> -		  void *handle_mem, size_t mem_len);
->  
->  extern const struct movable_operations zsmalloc_mops;
->  
-> diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-> index 71e6dcb1fb3f..ff1cde4c5dc2 100644
-> --- a/mm/zsmalloc.c
-> +++ b/mm/zsmalloc.c
-> @@ -1172,26 +1172,15 @@ void zs_obj_read_sg_end(struct zs_pool *pool, struct zs_handle *handle)
->  }
->  EXPORT_SYMBOL_GPL(zs_obj_read_sg_end);
->  
-> -void zs_obj_write(struct zs_pool *pool, struct zs_handle *handle,
-> -		  void *handle_mem, size_t mem_len)
-> +static void obj_write(struct size_class *class, struct zspage *zspage,
-> +		      unsigned long obj, const void *handle_mem,
-> +		      size_t mem_len)
+Fine with me, thanks.  Please keep it unchanged, with its tags, and
+ahead of dl_accounting_unlock() if you can, so it still backports
+cleanly.
 
-Should handle_mem and mem_len be renamed now?
-
-Also, there's a comment in zs_page_migrate() referring to zs_obj_read/write().
-
->  {
-> -	struct zspage *zspage;
->  	struct zpdesc *zpdesc;
-> -	unsigned long obj, off;
-> +	unsigned long off;
->  	unsigned int obj_idx;
-> -	struct size_class *class;
->  
-> -	/* Guarantee we can get zspage from handle safely */
-> -	read_lock(&pool->lock);
-> -	obj = handle_to_obj(handle);
->  	obj_to_location(obj, &zpdesc, &obj_idx);
-> -	zspage = get_zspage(zpdesc);
-> -
-> -	/* Make sure migration doesn't move any pages in this zspage */
-> -	zspage_read_lock(zspage);
-> -	read_unlock(&pool->lock);
-> -
-> -	class = zspage_class(pool, zspage);
->  	off = offset_in_page(class->size * obj_idx);
->  
->  	if (!ZsHugePage(zspage))
-[..]
-  
-> @@ -1318,12 +1306,16 @@ int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
->  	spin_lock(&class->lock);
->  	zspage = find_get_zspage(class);
->  	if (likely(zspage)) {
-> -		obj_malloc(pool, zspage, handle);
-> +		obj = obj_malloc(pool, zspage, handle);
->  		/* Now move the zspage to another fullness group, if required */
->  		fix_fullness_group(class, zspage);
->  		class_stat_add(class, ZS_OBJS_INUSE, 1);
-> +		zspage_read_lock(zspage);
-
-The zspage lock is now acquired under the class lock instead of the pool
-lock, this is probably fine but worth calling out explicitly in the
-changelog.
-
-> +		spin_unlock(&class->lock);
->  
-> -		goto out;
-> +		obj_write(class, zspage, obj, src, size);
-> +		zspage_read_unlock(zspage);
-> +		return 0;
->  	}
->  
->  	spin_unlock(&class->lock);
-> @@ -1332,8 +1324,14 @@ int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
->  	if (!zspage)
->  		return -ENOMEM;
->  
-> +	/*
-> +	 * New zspage is not in class->fullness_list or movable yet, so we
-> +	 * can allocate the object and copy data before taking class->lock.
-> +	 */
-> +	obj = obj_malloc(pool, zspage, handle);
-> +	obj_write(class, zspage, obj, src, size);
-> +
->  	spin_lock(&class->lock);
-> -	obj_malloc(pool, zspage, handle);
-
-Should moving obj_malloc() and obj_write() outside class->lock (and
-skipping zspage_read_lock()) for new zspages be split into a separate
-patch on top? AFAICT, it's a separate change from merging the
-interfaces.
-
->  	newfg = get_fullness_group(class, zspage);
->  	insert_zspage(class, zspage, newfg);
->  	atomic_long_add(class->pages_per_zspage, &pool->pages_allocated);
+Thanks,
+  Andrea
