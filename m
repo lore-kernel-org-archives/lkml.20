@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870048;
-	b=dZ184j40SYG+hZG0C1NR0xfkHOsFJ2P7Cob47uvrgDDNaXLtHfROFZghJNjQ1ZiBBxz7
-	 pufIJ3L9KqA0dERp+rZETM8rfhnqHCYV7EVBdFIk6ZKuTCb34yx7MXmhJXFNBZg+B7Byd
-	 nPdQ6ImxvOLtzNAYD012KaEZ0lzSeN1QXwDeg0paU9BFw7ZEUys0Xo6nbqAtoknOpoVh3
-	 SSfWqLmEyk4dVTjJ/iIUM06shejZGVIo+ApAK0C1T4Ump22MxlsrOsOrVaf/y+uP+AAZy
-	 pH/MBPnOqAKo1KRB64BL64H9T+gFgPAR6KcQ11enyL0CJ/mRXTLo682jsdC7Jp5FqMw==
+	t=1793870061;
+	b=cSqb09HoXepMPiyjy8UJRot9Fk36oTcW4FXBpve9cRxJE9JRHgs2HaFWp/A4788CCJv7
+	 LGuAZYnzHyVgA/fOoLkq3xk9Cq4xc9LnICSofNpahvQ3qJhzNLbu/XbxDcJVJlrtWrhfU
+	 4nRv2Wgx3XvBH87j9D9JBcaPHgygsEtco8mQJ6p9AT6rRCls9SSs8RsGlyO23ZmnPdGUk
+	 l01PDy+gX0ceZhHuWtgEObkfWLsRLGpioeSmv22QLL15TqE7NQs69d3mVydW0hubgmrAw
+	 +C5u7Rr5opvE3BBqjELa3fXebLJugrb2nJBMAccYZmdjObJF6zBnEDYfhc3zywaw8Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870048;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=n9Rf37eO4THPEC6BfsALgd8nh4beTqOK842MpIGgx80=;
-	b=3DG64UpqSO0zXoQBeEzlajLoZd4ZtCaKzvhAecdtutl38VhQsnZJtrm9NwpE7oBI3M5v
-	 gnOw6YEnhdX/vAgvmQKPR2Vz9ij5kaNKPGipNvCO++oe5Vom9KmIR6GUmtMED+4kBf1GX
-	 F3r3hHDWf7cxcJwQYYl9gpIUpULZK399POOljawc3Sa3YEOmSTQgv6sCJwnIMeicu7ipI
-	 mPlf2GpjOo4XAfhNQE7LjqiqTWtD+jsk1iB73n4eefGXwA3t75o1mOCrrBEHxxq5bRuS7
-	 jWv1/KeCSIC6iF+ILmm9POtrnY3anXcPIlzVGuVn8rYZ8jtif1OwRVm976iXU5ILtjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870061;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1ZiKnEgfHfPpMJ1mCuEff7XYe7UmVMKemG/M0rSuRDc=;
+	b=NH3pJi+dXTsxoug3rRqtfreIBMM+hEIia4HANlu+ki6ujYzkT7PbOmI9jjYJS/YyH26i
+	 BB8NpOtqCo1o/dSPFOhILkJ/DzMRV0awVmvtTAJNPI6e+VzXwvo5AVUPDpfRE86pAlPkk
+	 s/dMhXvW2fMWvJvWZtyHVCsItAADNzEkz+EyDlqsf/GsOAgQFngZ2hZpBP4G6GXdR5X1f
+	 3YJXLTiX7Zko6V/mgLMd2lNxCYwpk8VSI4+PYCZG7wLKb/YdGKed19VeW6rjSkQRM96yy
+	 dMSbwAkCmGLCavDXJj6reXBKB+3jgFeY5JdB3LWR6pcjjA91Fg4KTGYxaGElOMoJx/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 804F6606A329;
-	Thu,  5 Nov 2026 09:14:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 804F6606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8Bxn9HcSOxqnJocAA--.16622S3;
-	Thu, 05 Nov 2026 17:14:04 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJCx9czZSOxqbYgyAA--.10853S2;
-	Thu, 05 Nov 2026 17:14:03 +0800 (CST)
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: rafael@kernel.org, linux-acpi@vger.kernel.org,
- acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org,
- lixianglai@loongson.cn, loongarch@lists.linux.dev,
- maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
-References: <20260922121058.972734-2-maobibo@loongson.cn>
- <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
- <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn>
-Date: Thu, 5 Nov 2026 17:15:17 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6ashVfP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667CD606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6ashVfP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11871F00919
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:14:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793870060;
+	bh=1ZiKnEgfHfPpMJ1mCuEff7XYe7UmVMKemG/M0rSuRDc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=k6ashVfPPFI0i6JKfuV1tiBVeT337nYK/eyq7g90RY3/xKQXb5aEwiZaQ4HbXDMQ2
+	 0nXRBPt3exslF9DSfIVlkcu/4JXwMOLoVmsd3/vpvrDXE6X0gCf/xklWdyo9Mx69S9
+	 jpbQomZGjYd5q1nKQLAKPjknNS91L46P6758v3jdxlsEl8KCPiVgyPJZdrUurgAwbB
+	 cJNYjDrVDfOqVuH1oGrWCgXGgRgxsZlt0DgXjVydy3wkknAGnUqe2NE1SwFhwgx7nF
+	 8+zgWy7+lF1BWSsvfIAOeMnd5N4I316En+etl3dvjER42S72I9WDluay4wNNaeJnP5
+	 a3OpRkRum0FJQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be42ae8eb1so959721e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:14:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwyGPeB0uTjRU92q4YOPJ4VB2O5Atk4+C5Kj638b0Z1TrHY8EBo2hEa00WGzVL5CNKZ5Z1EcWBRpMoqJXk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VKQ/NRAlXS3/YFxid8Vfc804znrcSf2sW+tf7aEi7XJ6gNAvW
+	fZ8KpgMGA7wYxHHUNjBS+r5AaPHuI84GyzJaX6Be/MqxiHIMTEBmBhvQJ2PQ1bZMgKiwT82M2DP
+	Pzzo2+naV1+60KPsRaNOlJBPkpt63cUU=
+X-Received: by 2002:a05:6512:3f04:b0:5bc:dd8e:df73 with SMTP id
+ 2adb3069b0e04-5bfd9580e90mr6517186e87.62.1793870058769; Thu, 05 Nov 2026
+ 01:14:18 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,93 +59,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCx9czZSOxqbYgyAA--.10853S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7CF1ftr48JFWxuw4fAr1xXrc_yoW8ZrWrpr
-	s2vayrKFWDXr47Gr1vgwnxCF1rt398CF1a9r4Sgry7tr9akr1rtF4Uua1Y9a97CrZ5CayI
-	vFy2vrWfWFyjvrgCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Sb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
-	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
-	AlzVAYIcxG8wCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
-	7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
-	8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWU
-	CwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
-	1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBI
-	daVFxhVjvjDU0xZFpf9x07jnSdgUUUUU=
+References: <20261102212500.195783-1-auhmirza02@gmail.com>
+In-Reply-To: <20261102212500.195783-1-auhmirza02@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 10:14:07 +0100
+X-Gmail-Original-Message-ID: <CAD++jLne9FgabDUWoirYejnnNfm4GD5zh-E-b_vUGoiwH=CgpQ@mail.gmail.com>
+X-Gm-Features: AclHuK8F0VIEDKLYMK9m3DAXX4pxugopcZU_-apdZs3yndIet0l3l8rwt1ou_-c
+Message-ID: <CAD++jLne9FgabDUWoirYejnnNfm4GD5zh-E-b_vUGoiwH=CgpQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: keembay: make keembay_gpio_irqchip const
+To: Areeb Ul Haq Mirza <auhmirza02@gmail.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Nov 3, 2026 at 8:50=E2=80=AFPM Areeb Ul Haq Mirza <auhmirza02@gmail=
+.com> wrote:
 
+> gpiolib warns about mutable irq_chips at probe time:
+> "not an immutable chip, please consider fixing it!"
+>
+> Make keembay_gpio_irqchip const, flag it as IRQCHIP_IMMUTABLE, add the
+> GPIOCHIP_IRQ_RESOURCE_HELPERS and register it with
+> gpio_irq_chip_set_chip().
+>
+> The chip only implements .irq_enable() and .irq_disable(), so call
+> gpiochip_enable_irq() and gpiochip_disable_irq() from those callbacks,
+> following commit 35d008679a5a ("pinctrl: plgpio: Convert to immutable
+> irq_chip") [1] and commit 2993d2dd8ff4 ("gpio: timberdale: Make irq_chip
+> immutable") [2]. gpiochip_enable_irq() is called once a free interrupt
+> source and slot have been found, so a line is only marked enabled when
+> it is actually routed. gpiochip_disable_irq() is called after the line
+> has been cleared from the interrupt configuration register.
+>
+> Link: https://lore.kernel.org/r/20230414-immutable-irqchips-2-v1-3-6b59a5=
+186b00@linaro.org [1]
+> Link: https://lore.kernel.org/r/20250509-gpio-v1-8-639377c98288@nxp.com [=
+2]
+> Signed-off-by: Areeb Ul Haq Mirza <auhmirza02@gmail.com>
 
-On 2026/10/23 下午3:59, Huacai Chen wrote:
-> Bibo,
-> 
-> Now I have applied this series but with some modifications, please
-> double check and test the code.
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git/log/?h=loongarch-next
-In my v4 submit, it is:
-+               case ACPI_IOVT_DEVICE_ENTRY_START:
-+                       is_start = true;
-+                       start_devid = ep->device_id;
-+                       break;
-however in rc1, it is modified as:
-                 case ACPI_IOVT_DEVICE_ENTRY_START:
-                         is_start = true;
-                         entry->start_devid = ep->device_id;
-                         break;
-Here entry is not allocated and NULL pointer, it is allocated in 
-ACPI_IOVT_DEVICE_ENTRY_END switch case.
+Driver is marked as orphan so I just applied the patch.
 
-I really do not know what is aid to modify it and let others to test.
+Cc to Andy if he wants to pick up maintenance for this one, but I doubt
+it (not x86, right?)
 
-> 
-> Huacai
-> 
-> On Mon, Oct 12, 2026 at 3:16 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->> This change is already merged in acpica tree.
->>
->> slightly ping.
->>
->> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
->>   > According to the IOVT specification, define macros for each bit of the
->>   > Flags field in the IOVT IOMMU structure.
->>   >
->>   > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
->>   > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->>   > ---
->>   >  include/acpi/actbl2.h | 7 +++++++
->>   >  1 file changed, 7 insertions(+)
->>   >
->>   > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
->>   > index baef525367b5..76e4a5bc79b4 100644
->>   > --- a/include/acpi/actbl2.h
->>   > +++ b/include/acpi/actbl2.h
->>   > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
->>   >       u32 device_entry_offset;
->>   >  };
->>   >
->>   > +/* Masks for Flags field above */
->>   > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
->>   > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
->>   > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
->>   > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
->>   > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
->>   > +
->>   >  struct acpi_iovt_device_entry {
->>   >       u8 type;
->>   >       u8 length;
->>   > --
->>   > 2.39.3
->>   >
->>
-
+Yours,
+Linus Walleij
