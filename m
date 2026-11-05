@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896388;
-	b=ZFVp2SDH6Xj0Lxr1oRqlVPXlkuz5oFP5nClJOfHMsYI7nZWJgeKqoq0zp2NLyBqU7eyd
-	 TjEY33iLTpfb9o13Zukd3CcgH6aCTgJahbQ6HT5l/Lnp+AOjGsYtGn12q+DCDJkoGamAX
-	 AmMCq6jCqsbPd3h1VXhJ/GgchXrlP26KA6PIelolI8cRYCFztwqQn+jr/GtLPmKNWoEEQ
-	 gfmC+gPGvJTqOm2fg7aWYi5RhV3bmjrnq6iM0MitLnA5YpddzhLgsi8JDhLtyfEG6n6qX
-	 zAFIlxq6NyHaJ5feBuJudJoWSGTWFl87Ar5dV9EVmW2yycRkCOgi8qedt0bMNKbvCGg==
+	t=1793896394;
+	b=U7JdWIxpbpFoHuo4pU9ScwTOZFujqTIPCzcRYoN3seLmlFVWuoew9ucrEN0xr7IZz1pS
+	 zuOSbI4yXAqrbIOp/8btBRxdvLwrO+LWjpHd70U7caiwqpuUV3rIa04V7olZG5HfAT7vn
+	 SB6w66f5TUbAACALLZB3vEPlbssh0dry/eoHXzw4TgwZZlBLW6hOiZE1zO/J43KsOPjet
+	 FhMuHYSGHv3RnCKZEoPpLqyyyfmGPLQdS8xIX1wg11tvYNsh22jL1amb3kHYqAQOTVT/w
+	 78TEPSeTu9THCQIUbbzv1Y5M/jD6J3CEmz5ouTef2AmPMT0ChBwQZ6S8jssVtkAQ7mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896388;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896394;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7rN/QehWQXX2FoV5MxSHlgggY4+8n+tRG0clHdqH0NY=;
-	b=kWXY5HTtKRBfQJxE15xjfLMDoWwYEB6yh4RuWukx3xiONHdJM2U7zgRMsXjaLFIvaGJt
-	 LXMtlVRrgvh5rhTRcFWYcoiF+IYBqhemYQ7Y9/w7M1vQXTrLXI/RBmVrMiRpHlsi7vRMC
-	 soBruOm2rilLj5fN4/K0ROLiocbgxV4e6+nonJKDnu/sgN8i6i+H6i/2gXePeN4SmJ3y0
-	 KYYkWa/Wu+6W19berutp+PoRM4wfbiKewxF3B7ehphMCPAoyJigpuXmYhilVR6ReiIEC+
-	 HcZjfTFfFQ6Zxl8AwrbOj2JUlopafAMhaA2sLxoEAyFRZJhpdwihFMsr9+Ie+3eV0sA==
+	bh=6jlkUVb/gWI3Le+34SAC6/Tz4iZSDDWUllw6WlLU5mY=;
+	b=lzNAKACNZc6ZJO0j16ZkN09zaj46XdO/Xn37i34PminEydWo5cWDnKGRgy/3r5NXCbfn
+	 67PE5i5gh/Ui8Cry/rApgHJN6KkTOObv0qPVHyRuAaJfKwoKx+5TFRTVq4AUwbHD8Vy7A
+	 j1om2mWzj3JCPj2j+aFzPHuP87gh2vSa8+mqxNU12caR1R5Pll8DEC4RmLpWqhxCZjY9k
+	 srsgp6NZyK2EsA9NlnPGV+ZXEZ/DUUPmRCe5wC2/TxcQMenmJWlpgORVTIGPrfRK0Kf6b
+	 avJFFsDK3SqR/YwBKGlW+uGbPvYzT25Mxrtv0ZF1oBiFpV7OP4xKq25U3l2yZaYE5bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODPRyD6S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMoNsExK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5131606F93E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:33:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F13C6070381
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:33:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODPRyD6S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB7C1F0093A;
-	Thu,  5 Nov 2026 16:33:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMoNsExK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9F41F0093A;
+	Thu,  5 Nov 2026 16:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896387;
-	bh=7rN/QehWQXX2FoV5MxSHlgggY4+8n+tRG0clHdqH0NY=;
+	s=k20260515; t=1793896393;
+	bh=6jlkUVb/gWI3Le+34SAC6/Tz4iZSDDWUllw6WlLU5mY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ODPRyD6SvTay2w6IKMrxbaCr0mFudrybkDM9lQFSeQeF9MsXiiWAq1R0vXSZJZFal
-	 arSuA2hJ7MeYw++AbQxGh8T6/MM8MbK+3tVS463Y8ZB88qCjno7zXBbpUm8IfQ3jON
-	 cT6YK46MVYtDP5obwLM9XzWK0fXiVVpgWUYFq0LxkZxgZ44pgY8INlCR6Uh2GceFLv
-	 SO8M+QXWPxGZ9QtNZLtoMyuUkFTxUJaX2PLEdrnNp6GJNeMeZfTsBqwhBVtQdT+/YC
-	 YxVlfuPuZwSCM4FWX7Zp71Eyqky787qChI5HdanOQmHxAIvfo5EalSNrSqWA9uS7HG
-	 gKoW0yGckviVg==
+	b=JMoNsExK523hax99O+gPKCXuBCaq6h4JyTyvqPcxHvS2etUSAjJm19dioD9cQwTu6
+	 a2HWAHBPxsflioyu2MzM6Wo2jfWjondrIpgpRVR+jbuzICElKWN7ufWtW7PraPt85g
+	 GiBtysq93SNImAaMCOkvH5euITegScf7rM18e7FXTdd20l0E5DP+wesGIhutaD/vKZ
+	 DtxQLfTA4tkm2/4Gb/pgdVgZvHJwp5peoRVRVJe9RDeaDaOkIAb72YELaHfWGWxNDp
+	 vCrvfoLwNtSHRvHAgP6L+KDVLitdDMTNRpA7xJEkh6sIfRjczDeGIhNksdzFfSQzGJ
+	 O1vwwpDmzpZFg==
 From: Frederic Weisbecker <frederic@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Frederic Weisbecker <frederic@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
 	Marco Crivellari <marco.crivellari@suse.com>,
+	Ning Sun <ning.sun@intel.com>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Phil Auld <pauld@redhat.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Waiman Long <longman@redhat.com>,
+	tboot-devel@lists.sourceforge.net,
+	x86@kernel.org,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 44/47] hrtimer: Move CPUHP_AP_HRTIMERS_DYING post stop_machine()
-Date: Thu,  5 Nov 2026 17:30:42 +0100
-Message-ID: <20261105163045.38862-45-frederic@kernel.org>
+Subject: [PATCH 46/47] x86/boot/tboot: Move CPUHP_AP_X86_TBOOT_DYING post stop_machine()
+Date: Thu,  5 Nov 2026 17:30:44 +0100
+Message-ID: <20261105163045.38862-47-frederic@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105163045.38862-1-frederic@kernel.org>
 References: <20261105163045.38862-1-frederic@kernel.org>
@@ -75,10 +82,13 @@ a new stop machine post function has been introduced to be executed
 after the main one with IRQs still disabled while other CPUs can exit
 stop_machine().
 
-The migration of timers can happen while other CPUs are running because
-everything is serialized with the base locks. Also those locks only
-nest on the outgoing CPU during hotplug so no locking inversion should
-happen.
+tboot waits for all previously outgoing CPUs to be in Wait-For-SIPI mode
+when the last secondary CPU goes down.
+
+Although the expectation looks strange because the number in
+ap_wfs_count should only match tboot->num_in_wfs + 1 at this hotplug
+stage, anyway the CPU can run this wait loop while the other online CPU
+is running concurrently.
 
 Move this teardown callback to post stop_machine() accordingly.
 
@@ -88,15 +98,15 @@ Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 304a88fc7a62..4d34c4ed9836 100644
+index 82943ec3ba28..995b235da733 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
 @@ -1275,7 +1275,7 @@ void clear_tasks_mm_cpumask(int cpu)
  static int take_cpu_down(void *_param)
  {
  	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
--	enum cpuhp_state target = max((int)st->target, CPUHP_AP_SMPCFD_DYING);
-+	enum cpuhp_state target = max((int)st->target, CPUHP_AP_HRTIMERS_DYING);
+-	enum cpuhp_state target = max((int)st->target, CPUHP_AP_TICK_DYING);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_X86_TBOOT_DYING);
  	int err, cpu = smp_processor_id();
  
  	/* Ensure this CPU doesn't handle any more interrupts. */
@@ -104,8 +114,8 @@ index 304a88fc7a62..4d34c4ed9836 100644
  	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
  	int cpu = smp_processor_id();
  
--	WARN_ON(st->state != CPUHP_AP_SMPCFD_DYING);
-+	WARN_ON(st->state != CPUHP_AP_HRTIMERS_DYING);
+-	WARN_ON(st->state != CPUHP_AP_TICK_DYING);
++	WARN_ON(st->state != CPUHP_AP_X86_TBOOT_DYING);
  	/*
  	 * Invoke the former CPU_DYING callbacks. DYING must not fail!
  	 */
