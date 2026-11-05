@@ -1,67 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871053;
-	b=EdBPV3oAXljO7Lebmf5IYiThnHqc06vDltmdJYxvf/zdToA5Fso7RneyNSvNzb1s0eL2
-	 Pf1jB4yWcEq2GHbODJQi/h/+6CZMj2hhLSXK9TXRbazJp1N8YpshbdsHMOfY98PHLn5AK
-	 /8r1pmOgzC8g7sXX7JSOVXUp0U5GOD/gXVebdCE/TXMqE6NHoZYXdAefYqv25nAuUqj/e
-	 WGnKuBYE15LHVAhYrPCegAYnG0Nsy+iVHYO0J0JxfmuAjaI+r63C/cR6xewtkTicwp7ga
-	 ZbXt++SXxHoRW2UdEfp+8AXY5CQQdhK1N9UPmGO5mfngVKUGg+8t68yMa1arEh1qljg==
+	t=1793871075;
+	b=1Vqkm+LRJQs0VFOHcuIQ+M6Gwdvl2PVgJKEP77V0dMWY7pt1R8+ezubmH8g0GRTJE9H7
+	 Fw//U1eVkhHWOBHvfAO4s4nTcqLK6FIQxaVfkrq3HNaYfSF16FxhQu7m5wLO09An+ODb6
+	 PXpz+B4T9geir8CTigeIKqXf/XeVx7CgDO4xJjKhqzd35W33lRdStLW2sP0jLfal5VuC0
+	 ab5S/XstmLskVCxg0FudUmMKrCvMGbXz/esdECH6UOfF/6M9IuyORVw9wYrfLQ6jmktoM
+	 NxUbeScKpmZixGqclSUFxMCLKftbus/9vlmrJJJibXUDHAUMGovQt8xmLJgMjBtnqhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871053;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=37wtj/M3le9oyNnQ1tTCunMmuSqLkcRxzy3Nls/GfTI=;
-	b=yChtjVRIm1seJDapWUk4V8CAOarG/Y25enL/7RSTx3bVXf5VRxgPD6fzvuKGItmLJsPW
-	 QEEDGhdlw2AYKr0sckl6ONF7JG/o7kyT5+vy2/1pECHo3TeB16MlwJ7dCXOpaZo/iWlbY
-	 hCx5DyKSG0d6h7plRHAGDa08YGEqjPiKFShAgJXXp+TU/uhs8ZQuUvlQql+SsWdffNhIb
-	 CvCGBiSax3ihHplCW4KDstHU1TtKII9StUNspK03+xf/LSf899NBpBxJikMHBuXTqLeWF
-	 kmqd1qI/fG8adhirwzh399m/uiZdkxJ006bC80ZuzUnpDtRjnMpxy4nzlygGD5+RWaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871075;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=SRZQ0Gzs6aLf7t6xhqXhqon/Ja06I2IN6ER4ujbRXnw=;
+	b=08XG8AqNQtNgJBFkLULV739YI91ch8caVpvHOi3n9DTAWAvfVgKdoptK4BkmYUSrYwMk
+	 mClqDUoUiN4LFnYNaJGyorKYiTQAbbq4LgSVm8S6h833ggSPE0C6QL4E7CU008glOT5Dv
+	 JY5pSewh+aSQ2MnYv8oWDliPgEr9ElU4q70Gw1+d081LTDyEYpFfhbP7r5VUJyOLetr/p
+	 h84aK1Nlbd6MwUSEzZ+xRFF18s8dOrpZOXbVqN1kULU7BUJTbJjnRTE0BjloKoeQRmMrB
+	 pZPRjp4Hp1MVGHAAmxiFPKOggT3JWNzG6+o+VRLmjqy+cAkfDwS2w30sHJXP3pFGFnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Tiaujjsp;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2012606A326;
-	Thu,  5 Nov 2026 09:30:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2012606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Tiaujjsp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Tiaujjsp/ZKmhtc29nwvRGQw07XNt+bd4zZ9A8XcyoZTEFiVMSlrZGGItTwYVKa3vM17kA0a8VYo3
-	 77ypBNL6vH75No7bueBKypssIgYkS/D2DUEU3Mk5Jl90F96yJvTg8gt1NzkczZuBzjNzXvj642Vr9W
-	 C5niU1w2wZXMgaqQ=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96aec4cc690b-ab8a8;
-	Thu, 05 Nov 2026 17:30:47 +0800 (CST)
-X-RM-TRANSID:2ee96aec4cc690b-ab8a8
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aec4cc6d57-444ad;
-	Thu, 05 Nov 2026 17:30:47 +0800 (CST)
-X-RM-TRANSID:2ee76aec4cc6d57-444ad
-From: xujiahao <xujiahao@cmss.chinamobile.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Shijith Thotton <sthotton@marvell.com>,
-	Vamsi Attunuru <vattunuru@marvell.com>,
-	linux-pci@vger.kernel.org,
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F206A606A31B;
+	Thu,  5 Nov 2026 09:31:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F206A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jKxr065GBz1rqYh;
+	Thu,  5 Nov 2026 17:30:40 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 894F040573;
+	Thu,  5 Nov 2026 17:31:09 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgBnnu3OTOxqcwqpDA--.46006S3;
+	Thu, 05 Nov 2026 17:31:09 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	xujiahao <xujiahao@cmss.chinamobile.com>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH] PCI: octep: size the interrupt name buffer for the full format range
-Date: Thu,  5 Nov 2026 17:27:04 +0800
-Message-ID: <20261105092705.3099201-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH v3 1/2] perf/core: Prevent duplicate sigtrap task work enqueue
+Date: Thu,  5 Nov 2026 09:30:43 +0000
+Message-Id: <ff842e802e9ecb74510a90964f8ad2c4825834b7.1793870900.git.wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1793870900.git.wutengda@huaweicloud.com>
+References: <cover.1793870900.git.wutengda@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,45 +71,109 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgBnnu3OTOxqcwqpDA--.46006S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr15JFy8AF48XF1fGrW5GFg_yoW5Zr48pr
+	W3trn8ta1UXrnFqry5tws7Ar18Ww40qan8ArWDCa4SvF1YvF9rXay7W3WYvFW5ArnrAa43
+	Zw4j9rW7C34UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+	A2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
+	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
+	8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
+	jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
+	kIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc7CjxVAKzI0EY4vE52x082I5MxAIw28IcxkI7VAK
+	I48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRiR6wJUUUUU==
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-octep_hp_request_irq() formats the interrupt name with "octep_hp_%d"
-into a 16-byte array.  The prefix is 9 bytes and a full-range %d
-argument can add up to 11 more, so the worst case needs 21 bytes
-including the terminator and 0-day reports:
+The sigtrap handling in __perf_event_overflow() checks
+event->pending_work before calling task_work_add(), but only sets
+pending_work after the task work has been queued.
 
-  drivers/pci/hotplug/octep_hp.c:312:53: warning: '%d' directive output
-  may be truncated writing between 1 and 10 bytes into a region of size 7
-  [-Wformat-truncation=]
-  note: 'snprintf' output between 11 and 20 bytes into a destination of
-  size 16
+This leaves a window where an NMI can interrupt task_work_add()
+and re-enter __perf_event_overflow() for the same event. Since
+pending_work is still zero, the nested invocation can enqueue
+the same pending_task again.
 
-The values passed today are OCTEP_HP_INTR_ENA and OCTEP_HP_INTR_DIS, so
-no truncation actually happens, but the buffer carries no margin over
-the format's worst case.  Give it the room so the warning stops coming
-back from builds that cannot narrow the argument.
+The re-entrant call path is:
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202507261457.SXXHOjUk-lkp@intel.com/
-Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
+  __perf_event_overflow()
+    task_work_add()
+      kasan_record_aux_stack()
+        <NMI>
+          __perf_event_overflow()
+            task_work_add()
+
+The nested invocation can enqueue pending_task before the
+outer invocation does. When the outer invocation resumes, it
+inserts the same task_work entry again, potentially creating
+a cycle in the task work list.
+
+This causes perf_pending_task() to be executed repeatedly
+and leads to unbalanced event reference counting.
+
+Use cmpxchg() to atomically claim pending_work before calling
+task_work_add(). This ensures that only one invocation can
+enqueue the pending_task, even when interrupted by an NMI.
+
+If task_work_add() fails, clear the pending_work claim so that
+a subsequent overflow can retry.
+
+Also use READ_ONCE() when checking pending_work in the
+exclude_kernel warning path to avoid an unsynchronized read.
+
+Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 ---
- drivers/pci/hotplug/octep_hp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/events/core.c | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/pci/hotplug/octep_hp.c b/drivers/pci/hotplug/octep_hp.c
-index a0a7f9ccb..801c080e6 100644
---- a/drivers/pci/hotplug/octep_hp.c
-+++ b/drivers/pci/hotplug/octep_hp.c
-@@ -52,7 +52,7 @@ struct octep_hp_slot {
- struct octep_hp_intr_info {
- 	enum octep_hp_intr_type type;
- 	int number;
--	char name[16];
-+	char name[24];
- };
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 457d75ea7142..ee5c59158b89 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -10925,16 +10925,17 @@ static int __perf_event_overflow(struct perf_event *event,
  
- struct octep_hp_controller {
+ 		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
+ 
+-		if (!event->pending_work &&
+-		    !task_work_add(current, &event->pending_task, notify_mode)) {
+-			event->pending_work = pending_id;
+-			local_inc(&event->ctx->nr_no_switch_fast);
+-			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
+-
+-			event->pending_addr = 0;
+-			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
+-				event->pending_addr = data->addr;
+-
++		if (cmpxchg(&event->pending_work, 0, pending_id) == 0) {
++			if (!task_work_add(current, &event->pending_task, notify_mode)) {
++				local_inc(&event->ctx->nr_no_switch_fast);
++				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
++
++				event->pending_addr = 0;
++				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
++					event->pending_addr = data->addr;
++			} else {
++				cmpxchg(&event->pending_work, pending_id, 0);
++			}
+ 		} else if (event->attr.exclude_kernel && valid_sample) {
+ 			/*
+ 			 * Should not be able to return to user space without
+@@ -10948,7 +10949,7 @@ static int __perf_event_overflow(struct perf_event *event,
+ 			 *     To approximate progress (with false negatives),
+ 			 *     check 32-bit hash of the current IP.
+ 			 */
+-			WARN_ON_ONCE(event->pending_work != pending_id);
++			WARN_ON_ONCE(READ_ONCE(event->pending_work) != pending_id);
+ 		}
+ 	}
+ 
 -- 
-2.43.0
-
-
+2.34.1
 
