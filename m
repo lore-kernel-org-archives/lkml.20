@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910902;
-	b=fH3v0cV6Ei/H+KE504Sh2U8UdIK8Tj8NacoCLV4VxWyqQyTe1Ilt4IT4NUE0ALnr/VhI
-	 26VamimsnhGvWtVQMZZjafRciT+iOdLrH0oKQbd5J8qUv4yOAYlhZI4o2+42VYsFbEgnK
-	 xK38ha3ZVs+CKBSwZBAAURr4jb9GuqZsvnWD2Z06lgTPdxm5Xv+Sn7MHV0zcFLPgVdhms
-	 Af0jrzv0f4ijajmhxfopZg6hwg9pBcGKeHgTCHTiTcTgNUWld+m00izYkGMPrjGYomCfU
-	 kJwDzD9xSpQmZP//2PC4wcH3BkT/dCyF7fwgl4rOVPnaRXeXLOxZK99yzomsYfa+k+g==
+	t=1793910927;
+	b=2raO0/R6BU3MS/v9R2BegO+npslKQGKr2qsC8ZR0vUBJB4yhTof/OYUuI9qKwSAuxxbz
+	 Y7KtCrILoF12U3XcdJ9LRjMMOE/Eb3uiR55MUWhh7S8wdjQGh82K3h5l/Fy6Uszr0okbX
+	 BhvVEWysmbFJGCc4pq3bS63T38QwOfcME/vKNR1hGnHRNwLUXYwnTdZbr8aFNpf9mOWaZ
+	 mm+DyuF8ijLd1zYjhR6RJgLePvqWkfGffq9wcwORCPCdfYf9zlMOnVwGW3ybYre54H3Zp
+	 /k530giKxErJmUrTHR4+0GmSusb9CK5oNqahBa1udxkLjMOgzBq/ZvTRAe1RWIa6m4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910902;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=4F9MHnqST47YQc4LXUV+dglq2kAxezHjpsSBrJmZWJ0=;
-	b=MCTdWQNp8Ae1fVcCnU7id4mMOvx5rnkX3H1jcmhSVr2wVMGQCW6Cu6BvmymnbWEqUqpt
-	 nV/NcIywjVYGMXmZiM8ZMeLOOwp8ibFW1APwWKDJRAJmJvxjmUSpKMR96IOivF8tmdc6N
-	 C6jyAaJsCsrYrFt6+7bM4dFgRjhYAQwyoFLsfqDpKG35U0LaKJ+f4TrdwU92s/brHSZwE
-	 UscMiqevHB4bxpjPg/DllvCyrlgnrz6/1lx0QwZEyYeHKm52W9dUs2vKSEjUpbU++G1YV
-	 7bQl3ES3h4rWgoKEUmxbUvinBBOAMEQKbIVrcfkLFm86keipgXF2Ea7jTilSUovbn5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910927;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Ek88mUADN7Q+v+B3mP2BWCJjP45ejN496oxJwiHaM+0=;
+	b=jSe8XUQ43vPOY7NgHcCMpG8tzXuPmD0IuWlwAbxkNN0JFsS2kL7yUXSU9ife2lsEgehI
+	 uc12FoquBlh+5x1tsyUSa11mdJ0OIHTBDPB9ULV2R78nccSJev7XBgVRaa6ZKn462PnOL
+	 saK8NdMUxvgGje7rJxdBy2k2AMvVt25M90JyQPuMgABQKPteU+XQNdm/Q3wLpwvoNwCH7
+	 dXbgLynAXPQ7iUfXv/eTBVw2l9InMLrZQAbofFvPTWAefpE+EeQHbw6dL3nJMgf71IRDP
+	 omT9/XRRZzPjC1ff7Uh1PG6Lsl7zPGlreRXzuN15xfCTTO4joYF2N0jAIOgnOvgjfNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=CchIVmcO;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Un3J6mQl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2402D606D81C;
-	Thu,  5 Nov 2026 20:35:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2402D606D81C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6AF606D813;
+	Thu,  5 Nov 2026 20:35:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=CchIVmcO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793910900;
-	bh=Ad8kNBn6ea1rKcLdBncWP4sS0P7ZVgqFIjqnM+Vx+ew=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=CchIVmcO/I2BEc1zHQQHdUlGXs2hDmLp3A9nIXFKvYUqsc5LnY4FB8yD4tn1F1Jba
-	 rF6t5/LJLeMmxopc24UIVLoM+EnIQyaKFy/F+1TV/lMZCvSxyx5GO1oxO6MxrO0ovg
-	 BHEn3GfsZZXasg8YL5Imv0cvxKIPjlEXgtnAS7Xa5vxGioj0gN9CLsfokGvh9Cqzhm
-	 eOyuC1r0Hp7/1hs+uW9EAhBxZazo5BwlSWBZdek5+uAcCCcNlLS/eCA1+b7qJN3565
-	 //C5BPKMQCPeB6cx1vqAEI5FvrQ3Jtan+zCOekVV9M5JLgbkGzvEQfRCKvUUscLBro
-	 4kNgcevghwpYg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 67A0217E0048;
-	Thu, 05 Nov 2026 21:34:57 +0100 (CET)
-Message-ID: <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Robert Mader <robert.mader@collabora.com>, rob.clark@oss.qualcomm.com
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov	
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
- <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Bryan
- O'Donoghue <bod@kernel.org>, Stanimir Varbanov	
- <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>, 
-	linux-media@vger.kernel.org, Vikash Garodia
- <vikash.garodia@oss.qualcomm.com>,  Dikshita Agarwal
- <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
- <neil.armstrong@linaro.org>
-Date: Thu, 05 Nov 2026 15:34:55 -0500
-In-Reply-To: <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
-	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
-	 <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
-	 <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
-	 <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-USq9votTJRjBAWEZ+O+5"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Un3J6mQl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F21A1F008A1;
+	Thu,  5 Nov 2026 20:35:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793910926;
+	bh=Ek88mUADN7Q+v+B3mP2BWCJjP45ejN496oxJwiHaM+0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Un3J6mQleL9hAsn8hJ/Nyfnbr4vzJsTdecUip8PiYQeosWM2NalX7zUWrVRW3Utqh
+	 tMe1VsnFqYg9Pd/f+Df2m3DzV1vm2OZA/pT0HYFcKikAHVZqOK1Pf5aD6dIK7POfDy
+	 c2xD+iEDQ0NWtR5OjJLIx5hWVw+B/XZfBnCKP0i1nZtM1AFqs7UyComr7aqqXj0FP0
+	 EmLwd1WzGHvZ1HgBTAXsVECpCoZKfe700HIB+KbIH65zPWeMswIimFaMHvaginvA7f
+	 8K79PGUtD+dlCk+Qf4wz75ZJIxWLj3r43wBdlZx2wAjdJFqJw2fkNIc+n6LLyF8Hnr
+	 gStj8EQEZPjNQ==
+Message-ID: <sashiko-outbox-200114@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/24] sched/deadline: Do not take a waking task's
+ bandwidth off a runqueue it left
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105193359.1450487-12-mathieu.desnoyers@efficios.com>
+References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+ <20261105193359.1450487-12-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 20:35:25 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,109 +60,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] sched/deadline: premature bw release and state reset in switched=
+_from_dl()
+--
 
---=-USq9votTJRjBAWEZ+O+5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+commit 32169fc2d3492f6357debcf70a3512a72875ebc4
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-Le jeudi 05 novembre 2026 =C3=A0 13:35 +0100, Robert Mader a =C3=A9crit=C2=
-=A0:
-> On 04.11.26 23:11, Rob Clark wrote:
-> > On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@coll=
-abora.com> wrote:
-> > > Nice, very happy to see the series!
-> > >=20
-> > > On 04.11.26 17:36, Dmitry Baryshkov wrote:
-> > > > The comment describing the QC10C buffer layout calls it a compresse=
-d
-> > > > P010. It is not:
-> > > If I'm not mistaken the display engine / the DRM side (including Mesa=
-)
-> > > describes it as P010+QCOM_COMPRESSED as well, and so does my pending
-> > > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
-> > > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire t=
-hat
-> > > up everywhere etc. OTOH if we want to keep the DRM side as is, then t=
-he
-> > > comment should reflect that, IMO.
-> > IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
-> > as distinct formats, both with and without UBWC.  I'm not sure if the
-> > same is true on video side but P010+UBWC was never exposed, or if it
-> > truely only supports linear P010 and UBWC TP10.
->=20
-> Oh, do I understand you correctly that the P010+UBWC implementation is=
-=20
-> not compatible with QC10C, meaning on the GPU side (Mesa and display) we=
-=20
-> don't yet have any support for QC10C exposed to userspace? If that's so=
-=20
-> then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
->=20
-> On the plus side - this would allow us to make the format single plane,=
-=20
-> matching what we get on the V4L2 side.
+sched/deadline: Do not take a waking task's bandwidth off a runqueue it left
 
-Since its single plane, we should aim for a variation of
-DRM_FORMAT_YUV420_10BIT. Similar to YUV420_10BIT, there is no obvious linea=
-r
-single plane packing for that, it would only be there to support the
-compression. Or maybe this one is abstract enough to be used anyway?
+This commit adds a dl_bw_oncpu flag to struct sched_dl_entity to track
+whether a task's bandwidth is currently accounted in a runqueue's this_bw.
+This prevents double-charging or underflowing this_bw when a migrating task
+is modified or changes scheduling class while sitting on a target CPU's
+wake_list before being enqueued.
 
-Nicolas
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 37b931fc2faf2..d4cd5b5fb27b7 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
 
->=20
-> >=20
-> > BR,
-> > -R
-> >=20
-> > > Best regards,
-> > >=20
-> > > Robert
-> > >=20
-> > > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_request=
-s/8195
-> > >=20
-> > > > P010 stores each sample in 16 bits, QC10C packs three
-> > > > 10-bit samples in each 32-bit word, which is what the stride comput=
-ed
-> > > > below (width * 4 / 3) assumes. Name the format correctly.
-> > > >=20
-> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > ---
-> > > >    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
-> > > >    1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drive=
-rs/media/platform/qcom/iris/iris_buffer.c
-> > > > index eb8de60c1177..ec2bf2a2d953 100644
-> > > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> > > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct ir=
-is_inst *inst)
-> > > >=20
-> > > >    /*
-> > > >     * QC10C:
-> > > > - * UBWC-compressed format for P010.
-> > > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packe=
-d in 32 bits.
-> > > >     * Contains 4 planes in the following order -
-> > > >     * (A) Y_Meta_Plane
-> > > >     * (B) Y_UBWC_Plane
-> > > >=20
+[ ... ]
 
---=-USq9votTJRjBAWEZ+O+5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> @@ -2789,6 +2810,11 @@ static void migrate_task_rq_dl(struct task_struct =
+*p, int new_cpu __maybe_unused
+>  		 */
+>  		cancel_inactive_timer(&p->dl);
+>  	}
+> +	/*
+> +	 * Until the enqueue on the CPU it wakes on charges it there, this
+> +	 * bandwidth is on no runqueue: the rq of task_cpu() is not the one
+> +	 * it was taken from, which dl_bw_oncpu now says.
+> +	 */
+>  	sub_rq_bw(&p->dl, &rq->dl);
+>  	rq_unlock(rq, &rf);
+>  }
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+When a task blocks before its 0-lag time and then wakes up on another CPU,
+can switching it out of SCHED_DEADLINE while it is still on the target
+CPU's wake_list prematurely release its root-domain bandwidth and reset its
+CBS period state?
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauzobwAKCRDZQZRRKWBy
-9BDSAP9cXKQq7K5F0gKq47dzESPiGmNAJzGtw7IvXvIhKR3EMgD/fzhUWIDpE+6R
-qCrrzw8kwI/MdOykqk/E/2StgcPFaQM=
-=TeMi
------END PGP SIGNATURE-----
+When the task blocks, schedule() -> dequeue_task_dl() ->
+dequeue_dl_entity() calls task_non_contending(&p->dl, true), which sets
+p->dl.dl_non_contending =3D 1 and arms p->dl.inactive_timer for the 0-lag
+time.
 
---=-USq9votTJRjBAWEZ+O+5--
+If the task wakes up on another CPU before that 0-lag time passes,
+try_to_wake_up() -> set_task_cpu() -> migrate_task_rq_dl() subtracts
+running_bw from the old runqueue, clears p->dl.dl_non_contending =3D 0,
+cancels p->dl.inactive_timer, and clears p->dl.dl_bw_oncpu =3D 0 via
+sub_rq_bw():
+
+kernel/sched/deadline.c:migrate_task_rq_dl() {
+	...
+	if (p->dl.dl_non_contending) {
+		update_rq_clock(rq);
+		sub_running_bw(&p->dl, &rq->dl);
+		p->dl.dl_non_contending =3D 0;
+		cancel_inactive_timer(&p->dl);
+	}
+	sub_rq_bw(&p->dl, &rq->dl);
+}
+
+If try_to_wake_up() queues the task on the target CPU's wake_list via
+ttwu_queue_wakelist(), p->on_rq remains 0 (!task_on_rq_queued(p)) and
+p->dl.dl_bw_oncpu is 0 until sched_ttwu_pending() runs on the target CPU.
+
+If sched_setscheduler() or sched_setattr() switches the task out of
+SCHED_DEADLINE during that window (such as the switch out and back in
+described in the commit message), switched_from_dl() sees
+!task_on_rq_queued(p) and p->dl.dl_non_contending =3D=3D 0:
+
+kernel/sched/deadline.c:switched_from_dl() {
+	if (task_on_rq_queued(p) && p->dl.dl_runtime)
+		task_non_contending(&p->dl, false);
+
+	dec_dl_tasks_cs(p);
+
+	if (!task_on_rq_queued(p)) {
+		bool released =3D false;
+
+		if (p->dl.dl_non_contending) {
+			sub_running_bw(&p->dl, &rq->dl);
+		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
+			dl_task_release_bw(p, task_cpu(p));
+			released =3D true;
+		}
+		sub_rq_bw(&p->dl, &rq->dl);
+		if (released)
+			__dl_clear_state(&p->dl);
+	}
+}
+
+Because migrate_task_rq_dl() already cleared p->dl.dl_non_contending and
+canceled the inactive timer, switched_from_dl() treats the task as if its
+0-lag time has already passed. It immediately releases total_bw via
+dl_task_release_bw() and resets runtime, deadline, dl_throttled, and
+dl_yielded via __dl_clear_state(&p->dl), allowing another task to be
+admitted or the same task to switch back into SCHED_DEADLINE with a fresh
+full budget before its 0-lag time.
+
+Should switched_from_dl() also re-evaluate the 0-lag time via
+task_non_contending(&p->dl, false) when !p->dl.dl_bw_oncpu?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105193359.1450=
+487-1-mathieu.desnoyers@efficios.com?part=3D11
