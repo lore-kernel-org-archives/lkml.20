@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895480;
-	b=L/fQeFXslH0VcCVssTdDHC89Z7bV7MshNnhDjcdAW5Je1mdMVztm3ZGG/cauPFoqH4fX
-	 OKGA73qZz8a684/RKvR6/YGq+rGOw/isrtnIY2BGuxDOnzwu/6UtPkYmwShK0HQHaKYq2
-	 Pu5J8A+ch2RluvgAgtFt+uX+3RIkQgq9N9PQrybko2MemFvLLydC/6E4hDQSmnv55tWzG
-	 02pQCWQlqRHBuZvyRGeVwIfVzH8sqy1aMLqBzFlQ72z7if6gQg6LG9F0NLo5B7hto2pvm
-	 V/UBhWRApZl4BHnjrAyFbBz8ZDEplFKSnFqjQrxo09qn+EL25TXLJgmh9SJkFVD//gA==
+	t=1793895486;
+	b=o4WXw0krR5YL9bYTUIVSIh7d0VVMLVSBm74ttuEhb46pSEGH+oBtgdt7NWIrQBMVnNLa
+	 yvvf3ak6eju3yUpOtFNyM+FZxxQzj12De9CoBG+dk/4EgPUCR//Qm+56WFtk7cPku2XEF
+	 jV4/aeidx/cxB6UPnZb6fGlRLT1zyX39s0/zjjIuliLeUrCZOsVpux9HYHyPCNpzzGpy5
+	 uxuMkrzYxBO+qpuTO12TpkCdp5FdFrDJfZ/An+kKVShPV2HrpwZ5q3b67pZP39PlWXCWp
+	 p7EnkQJNl6Tfs8oDNi/uQ2gwZg8PvqoNR3KGOtOIqKFYtTYewomPAvCtsCs93ZBWxtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895486;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SrmULYxl+TwwnBiId1/h/KU7Rxvetx2iu6+IpbiBV3g=;
-	b=J1eAmqbAIIMFC2Pe61tQDFx0RGBAUjLlzsV+n+JkVfzYrbxatefPTpIJtYrECFZyk536
-	 lt0VTGkA3TX2pc2eWgfBR9EYtYg6GjKFBzIJ4wcYJ3Pe7mXD7a7P6WPQzo0rGuKNAtXP5
-	 UA1/5R4MPTKjgneDL3Vsox3JnPOzaiq08lPoLaN+pvz2mqSCj76uEZirqExoyVW66lEZX
-	 To5ZxCnIMcPn/Rsg8ysYdmdylf7xOv3MVSgijsMrt//sJkjnkLPJoK8EdZ1wjaZrbp6M8
-	 +H9HyUv4vE3e2lTR/WqGmFaPiNkSv9940qo3mRyDFDrh+v4Ddx3F+q0/CWA/DHU8aXw==
+	bh=Rcpn9+uSzInsVdObsHDfzPAAeCWQb6QnmPjXwJKGazg=;
+	b=39flqhqUFQ+fkmpAShMiM5CjDAdmfJVXLYKfuIA6OCMob5iXrQwNa4yudPvCtT0X69S+
+	 +4fyKAaZZkWD5Ty1F2H0Y4Wn4orerq+C5A/gNV0HzUhgMCs237/94kJvKTnYYxcJ03Me6
+	 LxsDGkYfa+rv/4Gh6dUhjvaLqISw7wIdr7NK706Q5MaDXRV0i3+OA2L64pvLUKbr1xVhC
+	 bQ9thhcYvK/6SWxziWlttVHYi19aEzGfzw8E6/u+MgPF/w5DvMhynwPqkwxHtYVMsrkVb
+	 EZtWTeofAuw6TCdM/bdDGwbG/AE0EZtBKFowHFGZA2uKNaB5ULJ0rkVALxC+choJ9hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lenRHN0w;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=asasNPyl;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73957606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:18:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73957606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AD7606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:18:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3AD7606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lenRHN0w
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so597626a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:18:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=asasNPyl
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so231699a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:18:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793895480; x=1794500280; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793895485; x=1794500285; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SrmULYxl+TwwnBiId1/h/KU7Rxvetx2iu6+IpbiBV3g=;
-        b=lenRHN0weog1JZwr4zo1E5NSnY1hPDdyygskorgc8rjvPM43mTMRNhGxPZyiZulXCi
-         +TcufP+vAJVvKD2KGnqPQnUb7+xTigb42hBb5vtOy6R+EH3/WiNvli9C3WW9y1vzCswZ
-         53Wdv9p1ZB6znt8L22fJqJLHIOEmhaX3nCqSafdLaSfITyfh1gzr7oPZ1SsdiFS5eDdZ
-         6hu+e+DBARGW8zp7iTHuDLCxn8cGWqLN3TL6Sq5YxEqaXKRHdXtuN+XHvL/sLIx+cDC8
-         rJrKEb21lQvuTuA/MUbDUFSlqnI5AUvBuV38c31rADaFMHjUcm9u8qFAnGYuLUQ9qTVj
-         tt9g==
+        bh=Rcpn9+uSzInsVdObsHDfzPAAeCWQb6QnmPjXwJKGazg=;
+        b=asasNPyl4ERwIZk3xdEGAOzUkhG1EHELGFa/rvqDri+osKFvYDFLAe9uYVQn8VQjCM
+         M0TQNNhHJeE+IymqoVCYd5zbBO9DH4EGaZSbSayINiFGPoE6LLuNkTK4cBQh4XQHH4KG
+         kQELqrMmLnVEFt0VioBYZFIBhOrmLIXyY5ylVeqLZ5siBsn21d4BwVQhUKVBXKt8pNwh
+         Ih8QVxC4i/FSYLTq5JUzJhjiuXkJoADrnSkuRwvDh5TkFfDTNEYL49wNljWXM3AscSod
+         Uzk+pqRymmWXoFkMiClU66Wj3taJTo9N/hqZjf2sUySzkk3DG5iDgKvTpVTA7043sqoD
+         gGdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793895480; x=1794500280;
+        d=1e100.net; s=20260707; t=1793895485; x=1794500285;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SrmULYxl+TwwnBiId1/h/KU7Rxvetx2iu6+IpbiBV3g=;
-        b=El1hOsqJkolhcFjb5bIinRejqErp980Hpl4hKQC/Bsm5jqNDbBCEW2KDJoBaMlGPDC
-         4OG+s62Pf13Yc/OWCQutCOFlGjItBY9K1cTo5oIvSTg1GUHLwUxbD/4DF6l4y/ypfsP2
-         qrkwLnHdymCuNBlfs/nEz8oqy102R5cetGNC5Jgtw6hlEiQCjeUss14/MmI1RvmItcLg
-         q8lRlMXXqKddtTYgBZQmccrfdRxl7wzv607d5NUVsFuys63EoEo3wqawqpG4G0RwDXeP
-         W6Zg6K8PtTFd++8hzHup2ISw6dbmf4gEdJSpmbwLG1B2yE282PD/a4qGHzy58l4MT6LM
-         gK2w==
-X-Forwarded-Encrypted: i=1; AKwUvBx/kFDeqnAkUIOUVHv/aWiFk7ekBSimvS9i7ghvGN/gluJRxxxeK+PXI/98LXaluVx53BG3A27W5TNCtHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tzr+1SUJbAglcSCdNtGyeNnOYUyZa3Lz2x94ktieVe5RhFE3o
-	xgUrUKd0wgf3xddCR69gD2mlGJDyI6Z1tKIavgHMsc+PQFjhz+6x1Ij4
-X-Gm-Gg: AYBFou2Rz4SkEGL3oycTcWd6ZbcXqNU0KQfJ/EL2eplnnWpp2C1RNr0AkhoLcHoH1PZ
-	DOe2zD19sl90ZuCelam5Jwl5vJ6sffYcAXnqIrgzS+/9ngzbwVmeRCOiJrxkYrcPwsMflCSC/sh
-	mjz625+KjHDQCAycbDOfmIgGgBupZNmpH9x41vZ7TWn5qcAjVPX9N48cnI4KFQNGeuIYNXaGMLQ
-	MD5uuK/DvrweJGnzUzYOwGeZpQl0Gw8X7Bn4nnnfrtm41iOk/veB0Af05c+WefYlxSllBbSKCfw
-	oru1EUN2Dyl5cRvhiyZEUFYnjFP19gSmgP8++Dw7LxlkrdWeZa6EP9DJTX4vduwnFO3TzadZIdq
-	dmp061RPlHp9ETEVJBIDcTTYERfz7hj/d5AYMZOT871qwEgIiLbd0dsDt2rWyel2GHNE/06PUq8
-	8M4dQSgvzQqU3CpnZLQpwWhscrhbhGwHlE7tNJSb6Qv26ccdgSco89dgYU0yBXbtceh7jGhf9i7
-	HnzoLuWoZSIQFBpJLRmnHiIPfMebGfaAmFrS7juy/vWzGw7dnblpSzbccNcqgLvxEm36KW3V6ix
-	LKthX12Nm4KthyDpacen5UwrdyruG27NHLvd2zov4baADd2wCBYGbvrmIIJIyt1+aVIH9S18+Q6
-	8SHqkLS6KYKWyDLncMlTrePjc
-X-Received: by 2002:a17:90b:4486:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3b0afbf69a0mr1776647a91.8.1793895479717;
-        Thu, 05 Nov 2026 08:17:59 -0800 (PST)
+        bh=Rcpn9+uSzInsVdObsHDfzPAAeCWQb6QnmPjXwJKGazg=;
+        b=lYCWK+RldY1GSm+kthU8iyY6wKTq0AbVwNTX/q0nu6aCLG0A/C1fT66m+o4ot2kdhJ
+         sVE85WTxJorJZh8I4h4o6KXQGEHmxed1TFJ+BXzbLlxpyM1gOje8r1hXHabhDRf6rA8d
+         tYCHrccN58QmCH2tErolrOWum5+4/h1C50EH9iQhAzschNRz1u/6aQKYWaFdJX4prtLe
+         X4lCbCCXU9jLLJMVn2hB80jMAodOZuMngk962M0LfTK78313xkuWZPo21QllQwEWXQb7
+         oT3OiWf7/2sACXBcVSRUbyKFHhZLi7zjbT23KQ/xEwsE44SLZ1CCnPfW4qmnfOu0g/vv
+         CdwA==
+X-Forwarded-Encrypted: i=1; AKwUvByov+C/P6EGi8dp1nRAZLw+220Gh5UXKKo0dFbSbWk30hMzYye5MVD50wCBjOv6MIApKX0KCc7J8QTY9xw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TMq6gG5BB4rIN/bXQA9JRKhVQDJHv1sH1OXSjE5rtYOQeEkaP
+	ztrDjg1ARw6TrhTpf7TtbjTte1jf4hjqFC2G5xnx2LGz8qzrI1AVuySA
+X-Gm-Gg: AYBFou1blrpyWkWbSJRX5XjQepsGzC6zamis9jfmSjg0Zqhtf3zOgiy8YOqmqka5ftI
+	lmxMjswjhi2efr+7c9SWZOAWdkEl/hp3HfhqYMJ/O+tW0tHIIzJVVrj5Axd+6OjXULdZaQmQ3Rz
+	DPak4sHQwpvrr03Ua8tUjQilPcplg4HRPzH485cKMZ3OosalHwbHm0K2ZYNceeajsrMPAPrOBvY
+	lqfRm+SUUcP2q8RS84ABaPQ9KAsWfO2Ssw8OMwvLDawDNBmSyo28y3huCsmNP/pqiGqvhdk5qHZ
+	FvRG+YBSsuYDj/evth4HpchVFz7crBwcQ1keB1HInwoThZgH+N/YYRyrrxC5i48qEr2Fh3eJLJJ
+	X7N2WdsfLb26JWD3VV46NacrqSLVuodD+ta5Pd2iFC7cJzAEaQRxHTo9CR8a1UKphc5qriV3sjC
+	Wyt09xE0NHn64bk+POM4zrCm4rVomU26sKJWbf01ReFWKvOYkxM8Xr8hqEIHd3sazu2htLlvwe9
+	YtrVvmU/Ifgmst33NdqXx71PeKEB7NVW7w1Pvf6SAw6R/CVBZ9afJk2wL61/6dFA3qHvIVVeaPL
+	Kfzj4YPw9VwjqZksj/Sw7yJ647rxNoVBZlUVXH3T1uEut5siJrgdAWcZd1AARhy41KLV4Bnnk3S
+	twmJDJH8zWRSAN1bj7IqJ4Nw=
+X-Received: by 2002:a17:90b:184c:b0:3ac:452b:4a63 with SMTP id 98e67ed59e1d1-3ae897c4ea4mr15905533a91.55.1793895485124;
+        Thu, 05 Nov 2026 08:18:05 -0800 (PST)
 Received: from visitorckw-work01.c.googlers.com.com (55.11.81.34.bc.googleusercontent.com. [34.81.11.55])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3287a60sm4981556a91.13.2026.11.05.08.17.51
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3287a60sm4981556a91.13.2026.11.05.08.18.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:17:59 -0800 (PST)
+        Thu, 05 Nov 2026 08:18:04 -0800 (PST)
 From: Kuan-Wei Chiu <visitorckw@gmail.com>
 To: daniel.lezcano@kernel.org,
 	tglx@kernel.org
@@ -95,9 +95,9 @@ Cc: pjw@kernel.org,
 	linux-riscv@lists.infradead.org,
 	linux-m68k@lists.linux-m68k.org,
 	Kuan-Wei Chiu <visitorckw@gmail.com>
-Subject: [PATCH 5/8] clocksource/drivers/timer-goldfish: Drop redundant max_idle_ns setting
-Date: Thu,  5 Nov 2026 16:16:59 +0000
-Message-ID: <20261105161702.3515900-6-visitorckw@gmail.com>
+Subject: [PATCH 6/8] clocksource/drivers/timer-goldfish: Set clock_event_device cpumask
+Date: Thu,  5 Nov 2026 16:17:00 +0000
+Message-ID: <20261105161702.3515900-7-visitorckw@gmail.com>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261105161702.3515900-1-visitorckw@gmail.com>
 References: <20261105161702.3515900-1-visitorckw@gmail.com>
@@ -112,29 +112,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-clocksource_register_hz() automatically calculates cs->max_idle_ns, so
-the explicit max_idle_ns assignment in goldfish_timer_init() is
-redundant and overwritten during registration.
+Leaving timerdrv->ced.cpumask uninitialized triggers a warning in
+clockevents_register_device() when num_possible_cpus() > 1.
 
-Remove the redundant assignment.
+Initialize .cpumask to cpu_possible_mask.
 
+Fixes: c92e7ef16400 ("clocksource/drivers: Add a goldfish-timer clocksource")
 Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
 ---
- drivers/clocksource/timer-goldfish.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/clocksource/timer-goldfish.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/clocksource/timer-goldfish.c b/drivers/clocksource/timer-goldfish.c
-index 88253bd1f569..bac84e0f9b7b 100644
+index bac84e0f9b7b..208b80c46193 100644
 --- a/drivers/clocksource/timer-goldfish.c
 +++ b/drivers/clocksource/timer-goldfish.c
-@@ -140,7 +140,6 @@ int __init goldfish_timer_init(int irq, void __iomem *base)
- 		.read		= goldfish_timer_read,
- 		.mask		= CLOCKSOURCE_MASK(64),
- 		.flags		= CLOCK_SOURCE_IS_CONTINUOUS,
--		.max_idle_ns	= LONG_MAX,
- 	};
- 
- 	ret = clocksource_register_hz(&timerdrv->cs, NSEC_PER_SEC);
+@@ -117,6 +117,7 @@ int __init goldfish_timer_init(int irq, void __iomem *base)
+ 	timerdrv->ced = (struct clock_event_device){
+ 		.name			= "goldfish_timer",
+ 		.features		= CLOCK_EVT_FEAT_ONESHOT,
++		.cpumask		= cpu_possible_mask,
+ 		.set_state_shutdown	= goldfish_timer_shutdown,
+ 		.set_state_oneshot      = goldfish_timer_set_oneshot,
+ 		.set_next_event		= goldfish_timer_next_event,
 -- 
 2.56.0.398.g882cbad275-goog
 
