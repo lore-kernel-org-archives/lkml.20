@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897224;
-	b=17h8OTw5NgKBYt25cf/VUQ2FmJTPq3YsDDCk8h/gS1MWhsol8HFW6fzII+GVAvmrL4ER
-	 O4u9uGwTPWO8Xwf12I9+LdLTxlVRJiolVGfBBYcq6l+SC7QX9+haVp25QqSTXC0Psedaw
-	 LwEKetAE3BJAekCIOMgw0BSG/IrY5yrXQkoxvimw2UW9PZDAnhFtUPekjO2GvrDuOAEgs
-	 gf8GBXYK9BN7R2+LtkRZmvP2F09C0yprpar2jcqcDQgGqxJzUa/VqPlRaiFS97lXvDmla
-	 ojiH6uW6z4ttR4F24YxN0ZCbMZ0xkMwfsqQDYcc39UJWeZwBr99oM7x20h/DEAHowJg==
+	t=1793897236;
+	b=22I1SdeYU6usMtDiwDrXiaCjqPn/Y/CkBxqZYFGL04JshTGnl1w7PbBgBlxvfKtdXHmW
+	 hbokga+4VRF1jD1GygGUNYtWB36EMDbWFbyYCKOwV6W6WC9o2x8GFG1SjwmWtkFctn/jE
+	 DYId+/xcmo3ZsX5Up7rI6rxHK6nBOJoqeiJWxrDxMaJn+hFCIGtT+rck+Azm4b29htHhe
+	 R6B2M/7EbvcuxbEFBcrXBJAoKoaPWw/XIyBKfaaI5qR+lnCMKuE9RvbyuOa4WStKiALT0
+	 23iC5GE4ekbc1+gqfZ8IDIhKENR1xLUm93NLhWDYmrK3YfN6lo1AFyZ1s0g9rFuV3+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897224;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=hQVqdw1jZnyTvf6HuEzkfI/ea8a/7UEr6wdSrPO21uM=;
-	b=oIxYHbOSDzlvnY8L84hfAo49MRfsPLbFSQIsASzmSd40el4ax02pKq0c4Ui+8Y/K9t2T
-	 tNJdNx0zPY+eBWoqMwupbX7t9lOgE+3C6JE4+eIldQ2LWjfml5VKz1Y4I9mMTQpVXPz6v
-	 t4hWNvJNzsgmzyVEjyuzUs2AHgd9dLm6cBfzQmTK2UXk3TF4ovUccu6Y0xEYan58ZRe0n
-	 hGAhW+rDneTWFO6NJZwfb/PSa4f/bjxy4195z8mUL/tZoryyB7sRoZ90TFCstmJ6KBa7J
-	 8YMY7Xr2q2/mqXHm5xJWriAecu4XIuvDCmsF0m/iLj5k61hnqmZ6fUnwpwJ5/RKpMOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897236;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=jNG1aps4R+HTumhwe6FbpJKRYYq9ElBPc4aOw7sMsq0=;
+	b=4Wz7lu/9C5OpdTyLBK0vMFOstsvao47fv+KzJjFjxUOi3r1nezBfjNZweX/OKYeKz+d1
+	 av5c6z6vAnymK0SfefHHfUR/3qmfuuqJaaGNut9uAEOvdOkCA8gUreznloIr7bs/kVrTH
+	 37ehXv7Ks+gQKEsMehrEA8FdMxcl/lp2WQ2lnIxBZQEwxyOmOO4lzXlWdyDvThjHhvWY8
+	 C4eOdrutWJsMSoT+BiOf9gCJB3VOAQz+EEakstIwK5cBbYnGuAGHNDDp9n0/aRLf2e1yn
+	 phH+wP+kXlR85trjD1hSft8SUXQTTNFn7b20TdssT99bRX3hYqva4hRbn/25pY0FY5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gH7f1rC3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C78606D802
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:47:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65C78606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-55bf11583d9so1086485b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:47:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897223; x=1794502023;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hQVqdw1jZnyTvf6HuEzkfI/ea8a/7UEr6wdSrPO21uM=;
-        b=rA5OGSIDfBzh3+vIfsAep9nRxVDFuW9yMeqfsqEXGuBl2+/CXlfztz/229t2EINyKe
-         OGUzyQZdRj760dQYkG5KeJ0eZibV/wVOOVn81D/A8Pb6elwaTtCyYAbWJwpWTNGjI/An
-         qWBA/NDRLzUg06UrBrlJ5jBLa74wOwu+js1tgL9YN7gC61f1jx67JyYFf0Orhj6a51wf
-         bzO7EKDw95VtiZNDA0dfX97vjT0tP5N3e5eui18AvVRGl2FcICV5llLDhbBnrg4sNq5d
-         VCXEPbgdpKlRpsWCju5iv5y+XTOPhf5wgkGZb/1PupG6RonHNUF1YQJ6nK3tKGO3AUQQ
-         mJZg==
-X-Forwarded-Encrypted: i=1; AKwUvBwzk4ruVQcM/XED6h1EfA12QiTSVkQc5I53YHuzj0zDsDSFQhX2QUZKY9dvKXD573ytqwNgws6Bft7hRO8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zqQfExQ5LOgXNs2V/qRojKePbKvDQqBRjtbmYJs7WTk/kvimd
-	/twa/5T+848H1qh7m11sceBqIBilaCV9yieN5btilWOF7enNtibmzJlorMZITE6F4qkgbHegHde
-	EtZSZD7DklRwtAtQ6lrfxbrDwIu0KHVSbMtzsGYy2sm3vhp7wfcxVKoKoRkU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E67606A32C;
+	Thu,  5 Nov 2026 16:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gH7f1rC3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B28D1F000C1;
+	Thu,  5 Nov 2026 16:47:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793897235;
+	bh=jNG1aps4R+HTumhwe6FbpJKRYYq9ElBPc4aOw7sMsq0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=gH7f1rC3nv+u5B47DXA6huc1TYmmshRhVSRnULRDdFNIdICi50wIeZGNiBadFBIp1
+	 rDt/ybvyr2JUqdFShutl43qfSHcq8Fh/POeFRrNxVGhlo7inoEvjD/s4/P6hFOU47a
+	 D1v0M4ux+vlP3iJr7xzed+JHTpg66CWdwEOMeMX1MZg9NQ9uAdab0S/aaRzw0MpQxB
+	 cMv20dy5cLQVYksPqBCloqhlv6b/AKQIY2laFVbYFKrssDo8FecDHTnqWuI92IBSOl
+	 1uPsi3nAqAFyNXR9YeFsz1+fvgNdPq9UvBsPvlxcz+ZEKiT6kIkoNdxwwG/6AlQNfv
+	 /K6lbJP6vfqSw==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ NeilBrown <neil@brown.name>, Jeff Layton <jlayton@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261103-statx-v2-1-8b09aa8118ab@kernel.org>
+References: <20261103-statx-v2-1-8b09aa8118ab@kernel.org>
+Subject: Re: [PATCH v2] statx: don't leak STATX_ATTR_CHANGE_MONOTONIC in
+ stx_attributes_mask
+Message-Id: <20261105-binnenmeer-gegessen-imponieren-c64f267ba409@brauner>
+Date: Thu, 05 Nov 2026 17:47:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,37 +60,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2f10:b0:495:f8a5:8797 with SMTP id
- 5614622812f47-567bde98696mr1829687b6e.0.1793897223413; Thu, 05 Nov 2026
- 08:47:03 -0800 (PST)
-Date: Thu, 05 Nov 2026 08:47:03 -0800
-In-Reply-To: <20261105082717.c459bb33778fcf27e5675082@linux-foundation.org>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aecb307.a24d9935.80af2.0019.GAE@google.com>
-Subject: Re: [syzbot] [mm?] [fuse?] WARNING in shmem_initxattrs
-From: syzbot <syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, baolin.wang@linux.alibaba.com, 
-	brauner@kernel.org, fuse-devel@lists.linux.dev, hughd@google.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, mszeredi@redhat.com, 
-	syzkaller-bugs@googlegroups.com, syzkaller@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-Hello,
+On Tue, 03 Nov 2026 07:04:00 -0500, Jeff Layton wrote:
+> STATX_ATTR_CHANGE_MONOTONIC is kernel-internal. cp_statx() strips it
+> from stx_attributes but copies attributes_mask verbatim, so it leaks to
+> userland on filesystems that advertise it (nfs, ceph), e.g.
+> stx_attributes_mask = 0x8000000000303000 on NFS.
+> 
+> Add a new mask constant and apply it to both fields.
+> 
+> [...]
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Reported-by: syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com
-Tested-by: syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Tested on:
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-commit:         05441d69 Merge tag 'cocci-7.4-rc1' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11953cbe580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
-dashboard link: https://syzkaller.appspot.com/bug?extid=4324f771847cecb27c54
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1624c98d580000
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-Note: testing is done by a robot and is best-effort only.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] statx: don't leak STATX_ATTR_CHANGE_MONOTONIC in stx_attributes_mask
+      https://git.kernel.org/vfs/vfs/c/3cfb4bcbdaa4
+
