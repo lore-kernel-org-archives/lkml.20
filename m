@@ -1,55 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870782;
-	b=JMAnz2L8YrP8l7fJOeF8yOj0rxARrS2MrfF9xxSns19ng/OOn4ESxpNyWXzQKvsqAJ2+
-	 oO8dlP8V5NTYW80p8ZnV0+yNdkPYWkE0ooDVgBk//HJJv5KiSU9bQf/zIbUAnOx5E1JIc
-	 WllS3Qsej09BzWSxbV9MpFzIhxeVHM9hOWXsrnShjxL89tZQ5Wzmk2APF2dgnOeHQ+slC
-	 e0CavZqWKaQ7F8dWw+o+0Oyo5JMeubgEMOJBMvY1rAO6ZpkhFN7sZss2CSOjVDuqfizxx
-	 /Yq9Ja1ShbpitnPAJUx0x1tLFi4VUZr5Jj72OVxJekKy6BtlJ2nIHNjaIxgPYNPKFcg==
+	t=1793870798;
+	b=p3tckwUxHsO5MDviEdGEaF6BlV6IoM/oE+nPBjiq+83IxAl6YjELPB0lyy7TuaPPx9Fv
+	 q3oepvmc5gBytVJKKx8w+lfiAVdOpeLhlIxGs8ib4sHoBPDj7mEdGLwOT8iFuiRyX6Tix
+	 wnVPdTqg05z64loAEkya+18XL4BjCO+VvhA7YMOdE9k4oJLflaVeSXwd/n0UeL5tAKpNU
+	 C/lic8s2r3hLi5koGmWyyrtM28xv/DbvFfvxWrLSVHhikuNIPPhSiO2genW0P3105hTul
+	 aMsBoQNxRlDfjdefadjaoA8XRbXaNChjCBmcrm6fuywvpC4Iwlxy4Jws92dpaNyH1cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870782;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5weTVNfU4RUIXGu4AdbAlzA0cfDEQJq11kojXW+pkrY=;
-	b=VS9q5QbbfTNDiwXkt8cOHIJ/EC/ttXkEwTbBl5LZ7heMtOjNvlZ0pMRQpcYQ1E85cv+f
-	 9YU52IvrZzoddOFqgj6QrYzU95svjToPqehzc0RgRPnrHWrmXv1oqW0cxaluxCT9QH/YE
-	 x37Z6uY4fnGpapfW8H8qnTzzUPTbivyIBs3H56ZEU+tIhmCMK3i1w6bBwivOUA+qpxLIS
-	 bXKxiLeuDHfJ1FzMwtNOSrVr267uiIjZbgTBEJX4uRyZO4N7BEl2rUkre/h9PKB/8m3D2
-	 rA3Xi7pLcR7WBd5Xbovve1U5T/8p+PdDEnIEMA8hdQqIRU7pQEQtDALFTz+uhmWPHvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870798;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=NtkrILUGf/nvkIn8ZHAAFeGkoeBwy8D5sSoL52f0eEg=;
+	b=UBiNe+EgBCKcxqU3IjlNvmrywHgt1OENlLZkAb6b9D3AI/+WA92QIDljHurguGw4x3XN
+	 uOyXc474hjDcHIHmeP1h1gkjcd5qin3785tl/HajC6JnSkSEm0BIq2qMNhk7ThnQsjba9
+	 1vM9s560Cg4hQnJNGNVWPrOa1JEFROnUaKDutFxb4a92VhiiWK/ixA7NJ4JOjDcGR7er7
+	 nQF6xuxSbwnw7VQiL6ogqegGBZlApUxmfnQ6+eT1YXR+H7pKs+Ehu2x9kZAL11vI/FA+7
+	 VZ+6buidxCw8kzD8zrL4DjsKXufsU/ZIN0uZyD+S5DfNJgN2b1u+vTFg8S8/qYVj8sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbG3gRvn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O6XmLm05;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B967606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:26:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069A5606A31B;
+	Thu,  5 Nov 2026 09:26:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069A5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbG3gRvn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE1E1F00A1B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:26:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870777;
-	bh=5weTVNfU4RUIXGu4AdbAlzA0cfDEQJq11kojXW+pkrY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ZbG3gRvnER6mcmNZ78al8p9Yy2sUU9nAr67z7Iu0pOZ0CbD6QzrYO0YAVZOxtEz6U
-	 OBYxMo4sEj9zh33od6kOmsZvuLCSVgR7j2oIdAXZNw0JkJ1Y66Dxlnuho5lLA0wGns
-	 ilLArm0Npn8kEe2gSbElNRJ6zx6U/KEW0orbBvOkXKjU5ru6yfZ36aYFrNCInS1uOw
-	 sOgA4lAfSpDqGbD2F+YIS32RslRYwvYzaQjaYyqEK37TkcIwUh1jZRw6zKyln2zhvC
-	 4QsYlRIiukxWDgmNxXpTfYbOnnqR+r7uK1pDgFAF9pAZjPLd/7ho2jD3SrFRqrYJav
-	 CvKGREnllCpkA==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be42ae8eb1so966320e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:26:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBy11P/Kh8kvq3m+fY+DytJToGpeEZofajL7LH3OjB3Si+TeIl+ir4Fexiiv+muHYgi/OFt5p3XwWWjwBJs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/zVuKY7K+jynj6XmKpZ6xLIxiEHbjnk49RLfRqaAqn3tPLrXm
-	DvyGy4j0afgfpweg3aMfsFRr7dYFGvvpp8t3vimvZKQBb+c20j4du80scSMQgc1wN3vQmjA3/to
-	h5FKyatb+MePQzBpo7hX8rgWqW17ETdY=
-X-Received: by 2002:a05:6512:3da6:b0:5bc:f29b:1a5c with SMTP id
- 2adb3069b0e04-5bfd956517bmr6620245e87.23.1793870775961; Thu, 05 Nov 2026
- 01:26:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O6XmLm05
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793870798; x=1825406798;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ktfdzqD84OijbhUvLsS+l/5tXhEGShY8wNnNh7b07Xk=;
+  b=O6XmLm05vpdpS6iWpdNstSE9xFe0Hpx7Z8Feh2KTXuJCcqdZjT5Qr5Gz
+   2HzNLkUD3C0ky6UZzVF4zBqGv8m/K4IH8MpQMx6gSDW1dDmFnxmtJI/CZ
+   yM8CeOQJDvmmMmu0qESCh3fhfoUmULCxtWOR7T1zquiCQdXrSFRcjxn82
+   Z6yLvJaYzelfuGU0LiBz8cX/uOIdcaZD5XF0NqHEJgzaR3SauZJSKZevn
+   hRRssDgVAO5eOkV5UWEz1MHwpsoXjTb0c1sWox52dpiC3pMQzRo4HacIU
+   FYq1LZLSmTeZ9UlroNqHBP8uzsCMaIcTDvb7/gF3cce7lQAmXOwVl+QSS
+   w==;
+X-CSE-ConnectionGUID: NDdwBDT1RVG72yekPTBAtQ==
+X-CSE-MsgGUID: FqPRx8+4QwmcNpT0hxYvhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2551483"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2551483"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:26:37 -0800
+X-CSE-ConnectionGUID: bkATDqLmQWGkxmw7oZjk4Q==
+X-CSE-MsgGUID: sCDUJk5xRjeOB5NN4TzEUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7072608"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:26:34 -0800
+Date: Thu, 5 Nov 2026 11:26:32 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
+ tags
+Message-ID: <auxLyK65Ycr7R9Un@ashevche-desk.local>
+References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <auxDTdfMVS3yazCk@shikoro>
+ <35983c5a-7deb-4b0e-9bd4-981754343200@oss.qualcomm.com>
+ <auxHASG78dTviSz8@shikoro>
+ <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,36 +86,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAKNLDZOndyGxLSWgBDrq0Vfbt88Pa5S2MDHVcnkHzAH3TQDpaQ@mail.gmail.com>
-In-Reply-To: <CAKNLDZOndyGxLSWgBDrq0Vfbt88Pa5S2MDHVcnkHzAH3TQDpaQ@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 10:26:03 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkgFOGT54_W6gOnz+aWG4_q3XHc7Cr5_=8mcdv8-aTcXA@mail.gmail.com>
-X-Gm-Features: AclHuK8CorVO8MUeqTFvv7Et7OujtWjRgY906_d19hm5pp_OhIMEqRRrkZlLLfw
-Message-ID: <CAD++jLkgFOGT54_W6gOnz+aWG4_q3XHc7Cr5_=8mcdv8-aTcXA@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/1] reset: add support the GPIO provider with #gpio-cells=3
-To: Marc Taylor <marctaylor700@gmail.com>
-Cc: bigunclemax@gmail.com, p.zabel@pengutronix.de, brgl@kernel.org, 
-	krzk@kernel.org, andre.przywara@arm.com, martin.botka@somainline.org, 
-	dlan@kernel.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 4, 2026 at 4:57=E2=80=AFAM Marc Taylor <marctaylor700@gmail.com=
-> wrote:
+On Thu, Nov 05, 2026 at 10:12:00AM +0100, Krzysztof Kozlowski wrote:
+> On 05/11/2026 10:06, Wolfram Sang wrote:
+> > 
+> >> Reviewed-by even with the "# subpart" still appears in person's credits
+> >> and reviewing entire patch of 700 lines of diff code (like Frank's SPI
+> >> patch) is not the same as 10 diff codes for one driver.
+> > 
+> > Yes, if you want to spoil that, you'd need to introduce
+> > 
+> > 	Partly-reviewed-by: ...
+> > 
+> > or something.
+> 
+> Ack is for that, no need for a new tag, quoting:
+> 
+> "Acked-by.... user may not have carried out a technical review of the
+> patch, yet they may be satisfied ..."
+> 
+> "Reviewed-by:, instead, indicates that *the patch* has been reviewed and
+> found acceptable according to the Reviewer's Statement:"
+> 
+> Note that there is little sense in reviewing - as in statement of
+> oversight credit review - pieces of patch in context I discuss here,
+> e.g. one big complex rework combined with updates of drivers. Who cares
+> about the drivers? The complex rework is important and should be
+> reviewed, but people skip bigger picture and put their stamp of approval.
 
-> Sorry, my mail client mangled the inline diff in my previous reply
-> (indentation stripped, and it turned "https://www.google.com/url?q=3Dhttp=
-://spec.np&source=3Dgmail&ust=3D1793850929317000&sa=3DE" into a link). The
-> attached reset-gpio-3cell-v7.2.15.patch is the correct version; it is
-> re-attached here so this message stands on its own.
+Nice, and what as a particular piece maintainer I should do if somebody
+created some helper somewhere (not Cc'ing me), waited to a cycle and started
+cleaning up or refactor the drivers based on that API? Basically I was stand
+in front of a fact, I may tell NAK to that, but what should we do if half of
+the kernel will use new API, half will use old one due to disagreements on
+implementation, naming, et cetera? Rb in this sense tells that I have reviewed
+the refactoring part that has been done on a piece that I'm in charge for and
+it looks good. Breaking the flow or behaviour might have been done on the
+upper layer for a bigger number of users.
 
-Don't send attachments, inline patches only.
+> Stamp of approval is Ack, no need to mix it with reviewer's statement of
+> oversight.
 
-Check:
-https://docs.kernel.org/process/email-clients.html
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Yours,
-Linus Walleij
+
