@@ -1,84 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839756;
-	b=3hXK/aUAq97EU/29ThpDW35M1LfKNQprAUnrKcGyRnQkgepoChmQyKjE5ZVAT0cxR12D
-	 ok7P8AOMQQS48nx+Gtb5JLFEdllcFz/oW3GZhtl8oI8GFQwlNohbwHqSgleJtZQfUYaaH
-	 eSi0O+xQcxSixd+ru1jVZB/ieV905ARNrlzIx2fETfusnBckIaVy8aF3WSoJv4rEjuMmz
-	 iQFkEnMUe92INXc5dVIHLYtgU7QaI/YxqJFjhntyOZpeOSfQzmX5BbBbnCcKN09Kbj5WL
-	 tknxNzcZ7Osb2FzrQ/YND5/hl5/enhmXJZtzQlggx6qfLYfMZUjWKTunOkeCQLVnVzQ==
+	t=1793839753;
+	b=SBTSmLglPRaB3KwxszK4Z8Tof6zCoHnNLtXXCDeCsvNudrlGn0r20zxtL+nK139mqLgq
+	 dfHMcZ3lCims6iH9JvGeov/P42Q3oLlOWi82i3Do9BBcCkzhWl65KzU2ipQKB6laYVckM
+	 HO1Z8YKwWgmr1sgo/jut8pUpFnY+fgi9f1AkuuKnxrtY5fJZoCr/g2h4+23ErAVCqPTBP
+	 PxjqnU2DTzwV6CzK/LBvFjtQ9Mb457/E7LMkAuQqvtBr+CIkwPKBThGk8Eze8avt3Eimt
+	 dnIYQxRmp0dUmLHP+hww+voTgcyLdBevo2uQ4gj2pVXw3zRFqgXm6LGQ1/zndGvK+uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839756;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839753;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
-	b=1yGH8OsG3AuFyFipE1A/q8c8w9evXDvzTAYpDS27t5Te6wji4u5IXfOgDCDzaWoCTCHC
-	 vHLcsQkM1P9I5kzeFyk9qQPBvXrkqjRvP6+0eANWH1mGZENwZAA965fZecveKDQCGka6q
-	 x7kQqoTbCEc8BGJJoEeoDr85Z325etMi5noPGbwqXcONQgwo+p3q2V1UAcqIjxHEgr4kB
-	 ptFfXBsPmuygKMLzGpedXO0EJjcKKpXBuUvHmE6TPw6vz/QgvNK0FC9FGgQfPs+euEDoA
-	 /ptWUOvb4WzHIiGrHjn3dtxIBHN1gQvYqtpQlJNmEoY0dYaANHdlt1fUGCnykvLIq6A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4h3BLrXVHnJpXsfgbQ6hyAgdCfmWNlHoclXhroqCLTQ=;
+	b=Nr4XsSMXTsIJl2CdINNiU19YT6gs83BmwqkrzlZojpnNBCTz/fwghDk3c8LHqwWUDWC3
+	 yK0syLSdnfd3MA/MmMnpxG18w9Jhw1lA4EJyQZRq8+uBccgmmEn42+k4OuHKGBe7v2+UC
+	 zmQgcZUZu3sdlYTu7dFyxMAF5xdNUAdkZhJ6u2Tx6bSsBNeAy6dRvG77PiiLfRiWaTuE+
+	 gQcBoB8CIj/Eo1Fh8X5xuVG/ufWCNhp1qTdV+xc0N/e0xhxAdaj+sJqz5jwoLxZjvSglI
+	 Oin0bH1OwHGxHSIt4XuHPEojlrblPcddwg5h+lvl/iwB63mzmTPci//cU7KOiNmmNog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CMlT76ti;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F95B606A33E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F95B606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5A9606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:49:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C5A9606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so15168265e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:49:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CMlT76ti
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso9742235e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:49:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793839754; x=1794444554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
-        b=jSyi771aSl1Rx4d1iTMMy3LLn2WobFNClF7Q1jPZHE35svH+Jbwk210AN47Q0QgFmf
-         v1iILxJ9rIsDPBJx08DuZvs9EIvPWwS3vS6Gu2GpdwsIyZWm1t6KYXQ/Gz7caJgQQ+Eu
-         +XkJaUkzQ3HcYhk9t8vR1Gu8cKoJ5/LUzhhwHHLkRPmHJTHrcfe+XG/Vx7515l+X2EtW
-         OcW5VZ1a5WMrFgX8e+KntpjbaTPnjdUC3bH68LgZkEZDPDMcjtUrfxOC8dJGc52w1XtV
-         n+0PBCqYiqPuOsokZsH/7HIBO86FPRYzLwbnrr4dyjWIInPpFANRcdTdih4prlSqG+CP
-         e4ag==
+        d=gmail.com; s=20260707; t=1793839751; x=1794444551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4h3BLrXVHnJpXsfgbQ6hyAgdCfmWNlHoclXhroqCLTQ=;
+        b=CMlT76tib7PSYcqx2zJ/vlCC/lC1Y0daCJu4o1YNPOKLP3c+5tnYv0v9swgUi+gbp7
+         4FaZZx90N1jeMtleG9SWq9Q2aqFTngJy59DzPT1wUhrX30GID1hbq7BF0f/YQAJd7X6K
+         SC+A8J9TyplMbbegXxfSEuamW5otF1aJ6HsfqFHqM+ij/2449+2fBfvCTTCGrFkRbC7n
+         /VL7Sz10wk8s1dZKHN3zvH6+UR40Fjtppr/Z1zmkDFSQQHugcgTnmEIQlpGy2iltTtIH
+         u/8zEqW6Vy8/1yvZ6Ibh0ApXRBz19pEPcZdz61JUj9zk2gfBoM4Ug0KLxkvTPdyuYU9i
+         gnUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839754; x=1794444554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
-        b=pk4MQfutZdhFhctlcE9hGtpLs017mApVaqpdauOnTznj6drgMpnoSbZ1+9VUCWHzvS
-         uN1DcOG2lCktwTPEG7j4Lj0kxDmBwH01JrVQdvV6jNjdR6nmX0sIrokD/EISJCibfrNV
-         WkvrW+igC8ICrBQvh74T/QYa9B0n1SIwFJZNdneVgriiSiKocVZ48qX+dJY/p57oq+JI
-         I6EhjFFtaUplfaTjtpzOUQi+7+1/R3i1jsSjlGnANd4lDIE4l2NrA/LVvT+DGfCTWF9C
-         j+5/BpKzQ5eydrO7ZplZCIfL+23PhekQHiJmbWi3CHKeeXiMx65q2p4/3HKbA6yLbL7g
-         IYtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxx3dlAPqWBUsd3EvTaZXpH6RlW+OjYJTSrEtTJblmg9+LQVu5m5YxSvbBDLAehiKVhVc0rRwSDOE6YV1c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RY5ZIswNlSbjimLaGJVR6z+Ae7z5h/3ep6IXHR1c73nYTAF0L
-	Kwp/zmQOJ6IUFAW30MkXAV5DGuvCusiiqo8RfH9QGqfIVQ1JoDb6J6aS
-X-Gm-Gg: AYBFou0+xeTF/tIOqEhPDw92y0EbXjxZB+7+vAnbDxqVs/B/t0jX0B1FBGBM8pfhsiw
-	6qN23tsRaKIS10crsl80oFOIDp19V9wbGU6bRtSYREm1QtewwpHZwRYv1FsPcvEE4hfU7t/H9zM
-	cXEXSvF2iUJoAxhWuhcU9DNgYGRb64LLF0lMRx4mXYAgR+WMUTC4mt37FCT/NeW44JAaU6tvuQU
-	OXIC+edqeyvDVzmdGzDmyBdtXTiU8DFa067JZWoA1VMMx9Dm4cm/XEbyolb5zV3mvUayF0EUzb3
-	LmYQwLRc+an3EH5sROBVdPnVHY5kg3YoUbyiOm63mpAt7YvDUj0YzdhbPlZEEhz3LMeDq0NUTbs
-	I36eV7aKsrxGhbYMaQHhcJYuvZ4eJC2fJmNtE7ABTgyDYJ/n+wxI2DqubiWp461LJUPY3S3gEvF
-	TYYCjycoV4pl49jyooygeWaKu1+Npd546GEnf1pApVWOgywKWPESB2RmRFNOYWmkaQ1w8DA7hl/
-	02+Zt6mtXTYkVLk0GNdSoTdPrpXWhBvbQdazys7uEUmihqoVV6y3j89YVEUTztZU8kWQRY7zejJ
-	L84XPlx/yHkuApIE5IgxKhaZ6z9n4CFY0xSTEfmqCZy0ZhXGEIebxumSeAq+8nBF/Gx1GhH2kZa
-	kOoT/w/nPVw==
-X-Received: by 2002:a05:600c:6087:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4ac1765ce52mr372660305e9.20.1793839754380;
-        Wed, 04 Nov 2026 16:49:14 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793839751; x=1794444551;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4h3BLrXVHnJpXsfgbQ6hyAgdCfmWNlHoclXhroqCLTQ=;
+        b=TZmXKElDsRE7oea8BFsbf2p3yecEHiruIey8eXIGIcwmOZW2w+PWL3MlNz5KHCnjUn
+         AUiouZjUonnFgeSa+aF6/dUpMSq3aaAF/YFHQTvHOr2ghMWOAHmeCa4cM7mKO3GxesEt
+         ylxxNBJ1mzNo+FWQZgu04IbgbjFtuJNuKqsRHwyivizbdLnIAqr1knJ0Jw0Xe5a6ULcJ
+         O/CdiBw+EqJm8FnjCLjP/Pyd0aP/PEiqYAD2WL4bPeROH24e2GedWvmVv78skj+11iOI
+         4iEzLqUOR1W4kCo5XSjtJ8endFooHaoqSDGCh32u3vyXZZPwOyqeqvXBQTjVdP2/RXcC
+         /bXg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhAnlMVpTHjIUhX4HDDGP8hsrbwHzgZaHIwd8XuS7y57UMxHh1SItlSJx3sbBwaKuUGp2cLiuripcAlrs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81GSdTxWC0a7a8kHLSNLYS3+/6wkM52GSqtoP3eZcAr979oPYx
+	L1HA8N7UgRmVnmWKNAVYLkgKKUXuG1Sxb4eW2mE2Chw5FsNWJnfeeSTy
+X-Gm-Gg: AYBFou20oiGvI+SWGWeVgt8izTrd5lvN6vHMQchCbcjERXnblhbGpRZJEHT1mhN53YX
+	Ik8d7zCcnPCYCRFBoOrZaGbGBfLYUVJ+1p6lKqodMY9vuxoBF5ZSfPYPixzI2teL2/BSvu/ZPhk
+	ZOkUv+Je9o34rXGoRpgvS/wkTngOXV/ShJ0TPZclFKsTaPJ4o6D6IJUTsp3Wpj1RX13h1xce+vK
+	6Zyj5qsBFOPpQJAIUmVFTuG8R7BDsx8SUHjtzMFkVlW+FdIi71nUWMEYy7GMS0W+zijQYoBRT5b
+	XD2RYN4rA8zoW7w6lEHmbnoB8b9fazY2PKLRKWb88djWJq54JbD2B8W7RleGcRv/Ix+wYEFaf6R
+	+g7nSXl7/PCpkUhJmNDwTfZPYcED9y8u+K0EFPHG7o9SQz1hzUd1oUkw6TKQQ03VB3r8JvXMaTe
+	ynOONW0U2/8v6YwVYqcfEJHSg4BFVnuXcNVhtEAu4Qr57MWd8At5bxcmysaq67hheP3B3i7+AfG
+	jxRUWapaIV0yHRieYsS7Qd1kf8GpcqI9px3zl0aygUoh4xlVb/yR2mV+DnWFqJN3fH7iJ9jJk3A
+	UtKqZPUHOcnHh4769HQm+lCI0scGEE1O4krq3l+J+zyfoF6MhhGIgV+JbJFrgoY=
+X-Received: by 2002:a05:600c:6087:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4ac17753befmr384150545e9.15.1793839751358;
+        Wed, 04 Nov 2026 16:49:11 -0800 (PST)
 Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm21341515e9.9.2026.11.04.16.49.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm21341515e9.9.2026.11.04.16.49.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 16:49:13 -0800 (PST)
+        Wed, 04 Nov 2026 16:49:10 -0800 (PST)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
 To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
 	Sylvain Petinot <sylvain.petinot@foss.st.com>
@@ -87,14 +85,11 @@ Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
 	Hans Verkuil <hans@jjverkuil.nl>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] media: i2c: vd55g1: Use the control handler lock for the subdev state
-Date: Thu,  5 Nov 2026 00:49:05 +0000
-Message-ID: <20261105004907.150545-3-fernandorimoli11@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] media: i2c: vd55g1: Two control fixes
+Date: Thu,  5 Nov 2026 00:49:03 +0000
+Message-ID: <20261105004907.150545-1-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105004907.150545-1-fernandorimoli11@gmail.com>
-References: <20261105004907.150545-1-fernandorimoli11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,154 +101,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vd55g1_subdev_init() sets sd.state_lock to ctrl_handler.lock before the
-control handler is initialised, while the pointer is still NULL, so the
-subdev state gets a mutex of its own. vd55g1_s_ctrl() under
-VIDIOC_S_CTRL, and __v4l2_ctrl_modify_range() and
-__v4l2_ctrl_handler_setup() under set_fmt and enable_streams, then run
-without the lock they assert, and format and control changes can race.
+1/2 marks the auto exposure lock and bias controls inactive rather than
+grabbed in manual exposure mode. It is unchanged; Sakari's question on
+it is answered on v2.
 
-Initialise the controls first and finalise last. The blanking ranges
-depend on the format, so set them, and the default frame length, once
-the active state exists. vd55g1_grab_ctrls() now runs with the lock
-held, so use __v4l2_ctrl_grab().
+2/2 replaces v2's hand-written event ops, as Sakari asked: it
+initialises the controls before v4l2_subdev_init_finalize(), which
+enables control events. The same order fixes a locking bug the driver
+has had since it was added: the state lock was set before the control
+handler lock existed, so the two were separate mutexes. Moving the
+finalise alone deadlocks the first stream start, because
+vd55g1_grab_ctrls() then takes the control handler lock a second time,
+so 2/2 also switches it to __v4l2_ctrl_grab(). 2/2 does not depend on
+1/2.
 
-With the control handler set, v4l2_subdev_init_finalize() also enables
-control events, which v4l2-compliance reported missing.
+Because of the locking bug, 2/2 carries Fixes and Cc: stable, unlike v2.
+Benjamin, drop them if you would rather not have it backported.
 
-Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
----
- drivers/media/i2c/vd55g1.c | 61 +++++++++++++++++++++-----------------
- 1 file changed, 33 insertions(+), 28 deletions(-)
+Changes since v2:
+ - 2/2: new approach, see above (Sakari)
 
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index 69ffb3a..9f737ea 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -1113,10 +1113,10 @@ static int vd55g1_ro_ctrls_setup(struct vd55g1 *sensor, struct v4l2_rect *crop)
- static void vd55g1_grab_ctrls(struct vd55g1 *sensor, bool enable)
- {
- 	/* These settings cannot change during stream */
--	v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
--	v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
--	v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
--	v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
- }
- 
- static int vd55g1_enable_streams(struct v4l2_subdev *sd,
-@@ -1580,14 +1580,6 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
- 	struct v4l2_ctrl_handler *hdl = &sensor->ctrl_handler;
- 	struct v4l2_ctrl *ctrl;
- 	struct v4l2_fwnode_device_properties fwnode_props;
--	struct vd55g1_vblank_limits vblank;
--	unsigned int hblank;
--	struct v4l2_subdev_state *state =
--		v4l2_subdev_lock_and_get_active_state(&sensor->sd);
--	struct v4l2_rect *crop =
--		v4l2_subdev_state_get_crop(state, 0);
--	struct v4l2_mbus_framefmt *format =
--		v4l2_subdev_state_get_format(state, 0);
- 	int ret;
- 
- 	v4l2_ctrl_handler_init(hdl, 16);
-@@ -1645,15 +1637,13 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
- 					     V4L2_CID_HDR_SENSOR_MODE,
- 					     ARRAY_SIZE(vd55g1_hdr_menu) - 1, 0,
- 					     VD55G1_NO_HDR, vd55g1_hdr_menu);
--	hblank = vd55g1_get_hblank_min(sensor, format, crop);
-+	/* Placeholder ranges, set from the format in vd55g1_subdev_init() */
- 	sensor->hblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_HBLANK,
--						hblank, hblank, 1, hblank);
-+						1, 1, 1, 1);
- 	if (sensor->hblank_ctrl)
- 		sensor->hblank_ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
--	vd55g1_get_vblank_limits(sensor, crop, &vblank);
- 	sensor->vblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_VBLANK,
--						vblank.min, vblank.max,
--						1, vblank.def);
-+						1, 1, 1, 1);
- 
- 	/* Additional controls based on device tree properties */
- 	if (sensor->ext_leds_mask) {
-@@ -1673,12 +1663,11 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
- 		goto free_ctrls;
- 
- 	sensor->sd.ctrl_handler = hdl;
--	goto unlock_state;
-+
-+	return 0;
- 
- free_ctrls:
- 	v4l2_ctrl_handler_free(hdl);
--unlock_state:
--	v4l2_subdev_unlock_state(state);
- 	return ret;
- }
- 
-@@ -1915,6 +1904,9 @@ static int vd55g1_parse_dt(struct vd55g1 *sensor)
- 
- static int vd55g1_subdev_init(struct vd55g1 *sensor)
- {
-+	struct v4l2_subdev_state *state;
-+	struct v4l2_mbus_framefmt *format;
-+	struct v4l2_rect *crop;
- 	int ret;
- 
- 	/* Init sub device */
-@@ -1930,6 +1922,14 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
- 		return ret;
- 	}
- 
-+	ret = vd55g1_init_ctrls(sensor);
-+	if (ret) {
-+		dev_err(sensor->dev, "Controls initialization failed %d\n",
-+			ret);
-+		goto err_media;
-+	}
-+
-+	/* The state shares the control handler lock, so finalize last */
- 	sensor->sd.state_lock = sensor->ctrl_handler.lock;
- 	ret = v4l2_subdev_init_finalize(&sensor->sd);
- 	if (ret) {
-@@ -1937,19 +1937,24 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
- 		goto err_ctrls;
- 	}
- 
--	/*
--	 * Initialize controls after v4l2_subdev_init_finalize() to make sure
--	 * active state is set
--	 */
--	ret = vd55g1_init_ctrls(sensor);
-+	/* Set the format dependent ranges and the default frame length */
-+	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
-+	format = v4l2_subdev_state_get_format(state, 0);
-+	crop = v4l2_subdev_state_get_crop(state, 0);
-+	ret = vd55g1_new_format_change_controls(sensor, format, crop);
-+	if (!ret)
-+		ret = __v4l2_ctrl_s_ctrl(sensor->vblank_ctrl,
-+					 sensor->vblank_ctrl->default_value);
-+	v4l2_subdev_unlock_state(state);
- 	if (ret) {
--		dev_err(sensor->dev, "Controls initialization failed %d\n",
--			ret);
--		goto err_media;
-+		dev_err(sensor->dev, "Controls update failed %d\n", ret);
-+		goto err_state;
- 	}
- 
- 	return 0;
- 
-+err_state:
-+	v4l2_subdev_cleanup(&sensor->sd);
- err_ctrls:
- 	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
- 
+Testing. I do not have a VD55G1, so this was tested on the VD55G0 of a
+Surface Pro 9 (IPU6) through an out-of-tree driver derived from vd55g1.
+It is identical in the code 2/2 touches, apart from one more
+format-dependent control (pixel rate). A test-only print in s_ctrl()
+compared the two locks:
+
+ - before 2/2, VIDIOC_S_CTRL ran s_ctrl() with only the control lock
+   held, and setting the active format and stream on ran it with only
+   the state lock held;
+ - with 2/2 they are one lock, held in all three cases;
+ - without the __v4l2_ctrl_grab() change, the first stream start hung in
+   vd55g1_grab_ctrls(), blocked on the mutex it already held.
+
+The controls at probe and after a format change match the unpatched
+driver, apart from the default of that driver's pixel rate control,
+which my port of 2/2 left at its placeholder. The flip and test pattern
+controls are grabbed while streaming and released after. R8 644x604, R10
+and R10_CSI2P 640x480 streamed 90 of 90 frames, and five start/stop
+cycles were clean. v4l2-compliance on the subdev gives the same results
+as with v2, in both exposure modes, and control events pass. The kernel
+here has no lockdep, hence the print.
+
+v2: https://lore.kernel.org/linux-media/20261101195006.220657-1-fernandorimoli11@gmail.com/
+v1: https://lore.kernel.org/linux-media/20261025154031.27083-1-fernandorimoli11@gmail.com/
+
+Fernando Rimoli (2):
+  media: i2c: vd55g1: Mark the AE lock and bias controls inactive in
+    manual mode
+  media: i2c: vd55g1: Use the control handler lock for the subdev state
+
+ drivers/media/i2c/vd55g1.c | 65 ++++++++++++++++++++------------------
+ 1 file changed, 35 insertions(+), 30 deletions(-)
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.43.0
 
