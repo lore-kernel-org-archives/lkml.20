@@ -1,16 +1,16 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.89
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.39
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793846102;
-	b=Z1eFBkgixMQF7Nqdus8njIrUowo9UzBhWeT5X0Z97YKJQxF8SAVNeul/FXjofJhq5utv
-	 XTWUlODmLodzsyXnOtWfG8/zqE8O98gkm0cSWyaU5FLqKV38iD16M/Ji3U5KXWtcBH+Fq
-	 xSjAXbLA/toOaGF+XDETJWt9oQbqHcEyBnEqNAACMHEhyuPnMwl1HSRdN9RNvGKti8+kn
-	 G34mE6htWpVZFX3Y+0D9nFdeHzWIDa6W8pC5SV85hyG6sO4jd2cgHVVnDZpNl952hMd59
-	 3d45h7emLkxdmd7MZCU7vfG5EmG8Ep7DdxoYxepseORZRlwSzzPwJMWgVQxfpbCxtZQ==
+	t=1793846282;
+	b=w+350TuoygVmqsmkZhSz/fxnZ+V3lgwz4OI6qaxP9BSe2DQBz1l5jAigALtI+vXc9gIu
+	 UB7XA6Mhl32dhbSNRx8MsBe2TLZO6FxmxcgSBia7orxrZwLFndOJQQ+Ahn82y+UN8/jIm
+	 ZiBFXhQI6otQNQVgojOTmx/3uQWDGvd9PEUK1f63ibPa9nS3hzsttVjbIFbrX7+pdU73a
+	 vhUOtq8UEZl7xywow4uIP7cUVcmfJGlnXGkfg7o1ESV7HszHFULPMK3RcIIb9/jr/7w94
+	 AJbAoVqBqDVtxFDJGLjkMed/HlX6W9Rs3bU+DADD69hsqJbWj0PIMfer3aXCHy/0YUA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846102;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846282;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:Date:
+	 Message-Id:X-Mailer:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
@@ -24,74 +24,81 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=33l98wbtnjVEPgB56xsbI7luqCxkNi7yBO3e3ae5MBA=;
-	b=lqMTMhAwypDT3piCObQTBL8yno9RcnQHGR95TMX65gEH/OfHdFjZ//Pj1SqzSML1K9H5
-	 wpmBLAZu6wtkoeUa/1x1od8hYRsUJqmD+cs/rK0dGFokGD/rFzAkg8z5HZRzC/rRRGOlq
-	 a2ALM7tAzS4BX8sfmKPv3/4bzuI0f7kyBFSTcLlNlS0mcWCPZiGzIL+N6Be/U68P66A52
-	 kqKVJyEfzP9V8A9o1ZF9XnD79ybP/XZGJPES7NnCnuUVc4kH++ci1i5V8Fhx39xTkxC9S
-	 q5v9ixia2mumlLcZusaC5wXD8cRrXzauRU+xlt56dhVUebdE0hHF4qW6dq3SomkqxHA==
+	bh=TAn7+Wk2M3UlzBXkuosoEWax/i3Bsgr0BRsGxMt6+MA=;
+	b=XbebKR5Y0eiLMa313ePkc513B5lxsFxjNS1iUv1yPoDc1mY7AbSKCG9RT4tPeNOqqYMR
+	 3akJxQiZca67hOJ5+daMi1QaS9zGwqpMfF0q8SiBtBawHCawsTkBFxU3Gnr7gJ48O2khn
+	 pHnjYSbLUqUW/LcM125aIW1BFpvYWK/Xr73FAJ/nmV5bp3vwyE8RT966I5WWvikKs86Sb
+	 8/LCm0LKGc9fpTagjEfQJMpAPXfaY9XQL10oNPUWlTd4S6e+kz/ATUeNCkdc5UV6IhsgZ
+	 zZ5D4oxbJgeSj4t3wdJG4ONYbEPLjLhfSg9xju7umU8QMB6/IwAwQtZ5q1U8a1Oc8eQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=V0MC0Mob;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.89
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021089.outbound.protection.outlook.com [52.101.125.89])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=uK+F9AnX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.39
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010039.outbound.protection.outlook.com [52.101.69.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9A4606A328;
-	Thu,  5 Nov 2026 02:35:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C9A4606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137F7606A326;
+	Thu,  5 Nov 2026 02:38:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 137F7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=V0MC0Mob
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=uK+F9AnX
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pAN4hmYBckT9HqxnJBtuK+MwZjjqDuklXE9lTP5TJuS5xcilLigp6+5q+GXzPu0zedfl69J2tnQfGqSbx3tYNq8bv48R/RF4KxVe0gHlEjhn9xSMTh4szTyzKeGUtIgXzRLVOnQW1vFfs7lZU4/WRxMzeCXOU0YakUfrW6f6tRcQxhXkolbpcmbKDFCAawebgNrsVQ9CWu+bv1W55xuVfMaNFwa4TvV+DQ0nAsyCPAACI9/ahGq4UtHBgn2Fm1QMA6z729HLwIKx0L3R+sUsEdLrFxQeyA2LKllsiLGQt50jeYP9KavjxWmke7ReHYhMC3IB+Cqutxbg/48WvLSiUw==
+ b=rPaMeY6cSrIBnWP7+IqqARetOoC1McQvrxIVgAfiVjyWgV3VSUK5NZhyIzpTQsgVcIlRpUhyYzFJmjCgZdXAn3CsEfVLizyMxpHvDtpdTMmA9A0qZnTdcI3owjLy9MIdlroRviVrLcIyC9CRTHJWzjiUJJxAWQ5Z8e8nuaodsgilzRpj7lvdQ7xWT7ktq7QPRR/fOtw+/N/pNIOW+3YO7RXVnncU1VABcgfbIHMOa06X1hZIHUYWiZmAUlt7+XVeOxmyv0+iG5nS5EiEu6Wv1LGFfvTbtCrB+mS9L62BZAZUWELdnscEel8IA7ix/NVBu4fMt+V3jPRpVjBBprV/bA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=33l98wbtnjVEPgB56xsbI7luqCxkNi7yBO3e3ae5MBA=;
- b=SbMmrgFOTaySLA+4r8jme8lkaTHQNOFhIXZkC0OBLJLyWT0xQyQrCRUJ/sPmuzF8vE5Z4geMFSVoHJy+zXiI/323F1Wuay3c7YzfY70b1DdkRfNseHY4qih0pjggCxeTWyzipX2HRWmjrTp1/CpV1m6rwu1DMxguLKv5tzrrQsIoQ9BfJnPi0Xo1eD+hjNj86o+Dyy/9Ieb7JTv5TwfJLBkvDeoqQbt2AJkEigeClhiTabLHxbFUXhpJMtDqX4SC6Y4/YUdkwdBOaUcIj82XRunHYUPr+ZHQ7Rx+yGaW6A3I6vd+/TV6kLEtDAR7d0EWgP1NWHiIzD/K4Iq26AgaAQ==
+ bh=TAn7+Wk2M3UlzBXkuosoEWax/i3Bsgr0BRsGxMt6+MA=;
+ b=tY8meiu6EpGVGpkymTmo8vHh+Wmyjjs1OPh2kFpiHMDdade4BvcjNl+p+buesGG7c7McoBw5UCIjJg3i7ChhzI9XlcaCPChwBOOoqFoOnuOMScYcxBcvYqUh11jVkupAXBBBnVkm4QZ0S/JmX/uaVB5eTBPFh9go1TancCegy3xTTdXhpcYtyGx4JIBMkyGP66rvo1MQc5RvI1Otnlx/MAOBXFkGR8JhUoALnQuH7J6Ggn4TqmkQ+fuHeGls3sTDbEEk3xaqaJs7GATfvrjgQUBDcslMST4v44LL4+dspCOGXPr0qIsf5NdYubIWp5hfmn6QtubgsmZ2X6DgH/l0eg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=33l98wbtnjVEPgB56xsbI7luqCxkNi7yBO3e3ae5MBA=;
- b=V0MC0MobhyzcyYt+ZRIkUssWK3l9rh9L6uiSMHSanypQBJg1jh5E9M18zAGwweCi6G8zEyoStOYkgFrEg0sjRJvj9s7FsY6LuE3URsAlFpXXhlenUqH/HgoUOLe6bFvxji30tZrHXzciKyfHIcJqo7b1cz21g3aej3cb173k+GE=
+ bh=TAn7+Wk2M3UlzBXkuosoEWax/i3Bsgr0BRsGxMt6+MA=;
+ b=uK+F9AnXn26aStQT0qnXXRBz5Hjx6z+yq0N8Z1/WPqUHZqu2KoV8H71bAHpC0ETP3Pze63UjoU5Xz8q6Ihzmm2vF5RrmWb49otTBKmj2I800MlWezQmfwQqP3wtu4bW9fabX5EGI+0pylHys6P0OzDGg0VS2/Nut+JaC+pkKweYpKFAmVC9sylCP8qhS+14/Vk48fFeLdMtPPQNtibrw1/iSA3KCSiYQL+WsA2bXcVu9sdj/0SfBa/4iFbZs3ep6hGHQELY4G0sRJEDQOZ4kRoIA2o6iL7sMIcwr8ychTCvoIqfzz3j/wHFdUR+MRk4OjACCpPaTRpGctoXwLfu3nw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TYXP286MB6090.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:277::6) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
+ by GVXPR04MB12060.eurprd04.prod.outlook.com (2603:10a6:150:2bf::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 02:34:57 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 02:34:56 +0000
-Date: Thu, 5 Nov 2026 11:34:55 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Magnus Damm <damm+renesas@opensource.se>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Marek Vasut <marek.vasut@mailbox.org>, iommu@lists.linux.dev, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] iommu/ipmmu-vmsa: Keep shared micro-TLBs enabled
- while in use
-Message-ID: <pwg6aqv4je2xxkaulozeqnmkvoeftawb3y6lmnezgazeyaqpcq@losutia6dgbe>
-References: <20261104162251.1749998-1-den@valinux.co.jp>
- <20261104162251.1749998-4-den@valinux.co.jp>
- <2d0fbfdd-4497-492e-be26-9f4b79fe47bb@arm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2d0fbfdd-4497-492e-be26-9f4b79fe47bb@arm.com>
-X-ClientProxiedBy: TY4P286CA0070.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:371::12) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
+ 2026 02:37:56 +0000
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa]) by PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 02:37:55 +0000
+From: shengjiu.wang@oss.nxp.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	shengjiu.wang@nxp.com,
+	daniel.baluta@nxp.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	andersson@kernel.org,
+	mathieu.poirier@linaro.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	p.zabel@pengutronix.de,
+	linux-remoteproc@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 0/4] Enable DSP device for i.MX8ULP
+Date: Thu,  5 Nov 2026 10:41:02 +0800
+Message-Id: <20261105024106.338791-1-shengjiu.wang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0011.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::6) To PAXPR04MB9351.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b6::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,299 +109,100 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYXP286MB6090:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce5cf87a-0250-40f9-97ab-08df3ae56152
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9351:EE_|GVXPR04MB12060:EE_
+X-MS-Office365-Filtering-Correlation-Id: d01dd598-2520-4719-9686-08df3ae5cbcb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|10070799003|1800799024|7416014|23010399003|6133799003|10067099003|22082099003|18002099003|56012099006|4143699003|261026121527099003|261028144727099003|261022105027099003|261021121427099003|261021123027099003|261009223027099003|261102123227099003|261026140227099003;
+	BCL:0;ARA:13230040|366016|19092799006|23010399003|1800799024|376014|7416014|6133799003|10067099003|18002099003|921020|56012099006|261021130227099003|11063799006|261022113327099003|261022115727099003|261102123227099003|261021135927099003|261021123027099003|261022105027099003|261026121527099003|261026140227099003|261028144727099003|261009223027099003|261021121427099003|261026130827099003|261022075727099003;
 X-Microsoft-Antispam-Message-Info:
-	o5B1MnpYHdYu+JxiKNzmuOOUOMZWRTYhx+sxneIaDG14O/j+ohueTJGrkSH71jyYMF+OWXYMD00qXeLrRypsb0CMzNTbjNp+q481xnSD3D9e35bjFwN5yM1GE5KWmkezEEKq3Gy/+PHceJqD7LPs7qU56YpS0Uo1NINnuoT6ThF7KfMb0VqojAQan3QMKWXf6JBytwu7XTkP01qWc2xf0OsaKJbKzp0iqMUuMrwmRiMCgAIfgD6H6hqBLAhMOWr3wFFz+c9QOshmUjBtKSdbyyixmwvkgFGaub0+qY2oEP+F58dBOJwczvw1GxSoyUP9cmiZSspLIzWrXGMA0c+qMTRb2MNCPhGQFrUSZGHaPmXjTApoUFOZWuSlCGNGcARUFWiajdW32OjosaVyygyi7kjvQXJSofNXN2BRyR1bxDbUlfJFhzdcT11X7CZDbbRVvY1U5m5hINgMRzoaSkwAa4EKyMTGtqzk5VojStHw6yck0SbOwnkAQIbP88QbaKmzGiKWttyMzOfBSNkqPF1akk2av8hSgS8Zw+yA+4V0902BGROoYJy/nzJb5Jx7SxreVv1sZI9cjanQ94wZueGwmljcvR+Pef93u0M5mRZ5R3GN6dXKukBu97ym6WHEVULnHOXoEDV24EY6fNTdYDdQ39W9APKWQ2fZ6GjMUesbxpk=
+	qDpRV7EOsZBY/m1dL4FjnxfXQQPJu/D8lrNB82xTIJDd5I+bpgalPbe+90scYiru7SD5pB2JHJIHKYivl1Wqv6dMV9ILVQQBPvrz3qZAfoiggvJAcfJTjeheTjFcf8HU9QeY1Al464EfTYhnf4wMwCA/e1kYvbUnNCfomMTRFMz/OLEUldLwlheGbokSU0BvWdbplmb7EI93ojBMFLA0vceWCxFp2eufD9q4cXR0GGWnUawQiwjHHr4huk0HEnKPOjcf/QHNv1IhNzXHRu0zGghXV97lDxWHEQfi3m8J0kSBK1r9SaW6ThbVhgbMYOlyU2y5djDooEk0o7N9N7P98pws8jLrVmS58AS6aEcsRsP6ydeMXhRnEMlT43Uqqv0thzeXsZMffcW1FErxMMWIFOFinxbpR2nzEVMRaitVZliX9msF+rPEwJPlYTS6gWtvEhfhQXQyIS3/OdmCDZnzfmMVPIrHPKKxFjqPGWnIdIRjIx7ljCLEv1TMLU/I2ahOTlKjDXpCSk7KXenKqNQzm0dzV6wPLyG8Wlmd0Tw1ocko+tI16/YpKykQWbyf2LNnKPvxlbWUU7PqMqVZIeLzTXqZygj+XAjGQ9R97wWAFiY/byV5zBg1eb0BcaLWC9utx1+wioJTwd4OeAHAtIvdkQRSNG7pTGRr+fSKiYX6NuTmOMFw2Uc0Ve3ZhpA0vBjLO8T02JDpwPJcoYpmU7NWNQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(1800799024)(7416014)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(261026121527099003)(261028144727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026140227099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9351.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(1800799024)(376014)(7416014)(6133799003)(10067099003)(18002099003)(921020)(56012099006)(261021130227099003)(11063799006)(261022113327099003)(261022115727099003)(261102123227099003)(261021135927099003)(261021123027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261009223027099003)(261021121427099003)(261026130827099003)(261022075727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ciEL65jJAUdsIAjJapLKolIWD+WTSVmO9skn26f/2dS8q5zgjiyumaLJq24E?=
- =?us-ascii?Q?3dZuCDOAwrJFNnOuMzF5L7LOwOjSQPqFDUC3zgqwKfQ4+n57OWCekXxnZFLQ?=
- =?us-ascii?Q?X0yKnZkNMOzzSY/Qzn4vCP5HjPe2uOmV7JunhdOgsUzN5KVjoVaC8lrrYG+l?=
- =?us-ascii?Q?FOZaTOz6doD8+MQL0P44yqhT398Dpiy82jpF2VwopvVC5DPKHCQuyRGiXH6R?=
- =?us-ascii?Q?hPBgCrJNVj4NYbPFhJvtj2WKH4VaNAOUubG2TTJ8BWD5Iw/CGoYXFZzOjwbx?=
- =?us-ascii?Q?guSV3/BmlnYwO3LHMUD0u4D00Sjb9mAdCUDPydOXzRhqZoojvTIfIbKLYKlD?=
- =?us-ascii?Q?YVEpTStZv/AeOzTvodvBA2320+ITKKZ7XpykgMEImguVlyQsgcgHWF/8nqgj?=
- =?us-ascii?Q?odE1GtA+QVbcnhvVSvLHqOVf6kuvhc8nsSnB8FhmFe7lZ8ciSZ3klcHEgNtE?=
- =?us-ascii?Q?0iQlRh1rKNhm72DcZeb3dtN2QxQBE953pcsdu502OyjQzHxNrYH+7wlTjxYk?=
- =?us-ascii?Q?AI6JDAuQEXplzZkz2xsc1n0uXuFta1IV52/rKEF33nbPfEf1VLixIatg7nZm?=
- =?us-ascii?Q?rTWULL0Zt6GMrVscFyEIKCtZMuslp7MmVT65aQ495iY8q15c4t6QHNOsvXzb?=
- =?us-ascii?Q?pMon8C7N6WrTZQBV+8RrMZm+yL2xqioyLMbku3Ma4rrGWixscwgRLc4+YGKs?=
- =?us-ascii?Q?aQNwDredozAdM/QqPtbxZGpUYQRs5MEHFhzEntRWMo0eoGCCek1BI2DrLXv5?=
- =?us-ascii?Q?b7zgOsLGB97Y0A2nFVQubXv5Kcqiv9w9ZfxlZi137wYFr8kGD9JzK7j2zjIz?=
- =?us-ascii?Q?wJ6dZFdReZFfZ2Z7UOxGHkYrHBDT5sXV+CqJIxVk+F3bMYRtkZ6PIIUOOUSH?=
- =?us-ascii?Q?6Se0VNolDL64BKHNnigxqVB620ASLk89n8FKAYolQ7ehlwhhEaRz6HIbc/iR?=
- =?us-ascii?Q?2tEXiqwcG9wRXcwW73EJTYXCyArLAvlkmnKzYnh0Ii0c4VihEiksv6e1flV+?=
- =?us-ascii?Q?/GkgPkcVHnlTetNJeVAnLf1Zpl/Sc+kXs1srrqW5ZO4JmPlkROr16Ne7Q/mu?=
- =?us-ascii?Q?7phuML3fYnN/Z4GTZzrm5lJADmokJ1iwJBdRqftm3CTsywQBdB5HTfnzTkn0?=
- =?us-ascii?Q?GLRV6T40tTYo52tJuAf9Ad+GnFfkpMkMg1Rv7Z30fQFqtY3n8O6N3EyW8Ouh?=
- =?us-ascii?Q?P+92bk7mVBFLbhHkEzi62jzysQ6G55D+SL4gpW3opN9d93i8UnbBR60P6QAL?=
- =?us-ascii?Q?PQ1ogHYlYqIPaLwN6dixgRHjnITHFztMYpnoBcMnbjmMTFi0GOSg0CqxS56F?=
- =?us-ascii?Q?IW7MOHwk2dHJMaVp2Katd9TMuEkL46JW0q5zK+32Ke7MV5eqf/edecB/qJbz?=
- =?us-ascii?Q?mfYBiuk2n42Qy+AL/E+Va8ZfmSXFJ4N7XZRaBaocMdL8nBIYtSd918DRmhNY?=
- =?us-ascii?Q?n+d1yA1XgZxujYooPhVnNF5FQ92NczTN6DfIyb06F2VPhaD3XVHWd9oVglls?=
- =?us-ascii?Q?uQGubMdenX6lDzSUU95JBDAcr5n2/4SP7jdk21kVpHp61J7EjQvprxaIHaTs?=
- =?us-ascii?Q?acqrBRpdt/7zlEPuQGOqTSM4XQi2DGUH/9MY9dM9Rpf80R11dpbFraKtr/zO?=
- =?us-ascii?Q?0mgEgWmQDdhy5A6LT44he4kNfH/KWAIMY4AFqDsP017UKAmH6l05tGK02nD+?=
- =?us-ascii?Q?GKqYgnIYKxfCWimeAe5AmHQBaHMQ9k/L7bFFsfup9wEb/qa11uFAGFPjz/nm?=
- =?us-ascii?Q?XVbNhe07J+lxXwVHImvAfcu+KcztChFcxFsU0qzSZb93gv+dZPxL?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce5cf87a-0250-40f9-97ab-08df3ae56152
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+	=?utf-8?B?M2RneDV4YXAwcC9OcWI4ZE44Zld2UFZaQTh6dDllT0RWek9oZEdBUDFrV2FR?=
+ =?utf-8?B?RlJTUjd4K2FvdlpzeUtFR1pwYnp0R1dnb210OG5HMmRRQ1JNVEZtU2l3OGYr?=
+ =?utf-8?B?eGZEaGk4L3lDL05MT1YvRWQ1M3k1djNTdnovT1Q3ZlpDYUtDTWJ2TUo1QjV3?=
+ =?utf-8?B?eGFMR2lRWnZLL09XTUc5TGNRTFV1Lzl5Yi9TQTFVTnpMbHBsUmFzYnFiR1hL?=
+ =?utf-8?B?UUN2aTNQVlJwU0ZwWVFMVVc0clpzR0dhMzJ2c3lyOFBGbEhxN1doajY3VEto?=
+ =?utf-8?B?TzdZd09IVFI0c2ZWaTAxRVdOT2lOUmhVK3NRaWszUVh0VE45RnNJaCs3V1ZZ?=
+ =?utf-8?B?Ykgwc01xWHp2a1BNM255VHRqMUNPMW5lZThpeG1BWmRYRmIxNlNSZlU0bmVn?=
+ =?utf-8?B?STBpc0g1UStsYmQrMkNUK3d3bGxuNGdBK045Z0tVZkNObVZzQUlWQ1VIV1Nv?=
+ =?utf-8?B?elZYMWp4L0xCbHlrOEZzcnJwR1JPekNtNFVBd2tGNFdQVmtPeCs2KzZpQ0dW?=
+ =?utf-8?B?TUI3b2FjQy9xSzRvZlBsUnNmOFhNd3JxM05vZ3diOEJVUzZWZEE0bVVZZkpP?=
+ =?utf-8?B?NWd5K2NRZ3I1cDR2bEdDZ083d21kNUJJdHJVNy84NnBWY0ZPT3hhSGFQbTBs?=
+ =?utf-8?B?OFNLR29PR2NlSzNQYXREVUhHcnQyaHphNi9kN0t6RmUwYnJhOGpQUENhaDlB?=
+ =?utf-8?B?bHMxSlNlcTRYZE03RUVVdWdhc2tybXB2UStmK1lDMDZSL2pGQkJaM0NEZm1n?=
+ =?utf-8?B?SVFGL3JPSU41Tm9hL3dKei9kQ1RrcmZIVWxkRWxsRjZJZUNUSTlLY2t1ME5D?=
+ =?utf-8?B?R3k2dHl6Mk5EQWYrMUM0TWhCaWNJL0I5cWFzanMvSmt6NHcxc2daTUNNVHJ6?=
+ =?utf-8?B?U3plRS9ob01MS3JJeFBkSm1xZ0JZcHVuOTdDVmZxTjVaa1hTWXJsbkVaUXkw?=
+ =?utf-8?B?TGZ5NFZxem9MRzFBTXBjTkdxYUs3Ym95VXZ3NWtzQy92SHNNNEpQN1o3b1Vn?=
+ =?utf-8?B?SmpKVTQyTGxpTUQ2b1VsOWFDR3hsT2NFRUI3KzAzS1EzK2hDWU5sWVVMTktZ?=
+ =?utf-8?B?OEFqYktVTlVjbkxHWXFyYTYxaGY0bmRuZGVmNU8xQTVXZ2hnWDZiYkdjeUxo?=
+ =?utf-8?B?NE10TjFFT2FXaGhUb0JiaEphVVBLdWl1V2Q2SExvMjJ3Nmd2RGdIS01BR3RB?=
+ =?utf-8?B?M1BYc21EcGhOYWhhTVFYUE9lT0FrMXBzSzBKYWRiNWZ0cWU1bk9WUDZCdm1n?=
+ =?utf-8?B?ZUExZk5tWUluWHBRQjN6S0IzblRzclhGZlF3Q2EzWmw2QnRXWUJZYUdIQ1Vu?=
+ =?utf-8?B?NzFyRHQ4TVRHTUQ5c0xaYlgrS25rQWRtdW9sdGkrVURtRnVHRnR0S3ZCdHh0?=
+ =?utf-8?B?Y0FyaUVTZnVFaEpMVTgza1FHbU9ScDR3YVVMTGw4TCtpYThzQnlNV0pBRXVi?=
+ =?utf-8?B?ZlIweFNOQlhoQ3k5VlgzWnZxS0VjdGVpZWxKYTIrZDlzRnF0SlBWYnl1MU9L?=
+ =?utf-8?B?Mk1paXBDQlU2WUFBRS9HWGZTVFZ0NUFUc3VZT2ZPY1RTNGZ2ajFsNFpZbVVi?=
+ =?utf-8?B?Vys3MDVkMVVTZkR1UGxQeSt2SjF6V3h6TjFNRVdrRk9pV3A3dk0yMFVBWXZu?=
+ =?utf-8?B?Qm5RQTVlUUphM2xDTUpEd0tWTktBZGZubUkwN05IUHJQb01KZVkvd2h2ZEJG?=
+ =?utf-8?B?RTh4YnRQajBBc3p3c0NQRm9kVTJqUVFrZXo1TnRQRExnR3hzQjlJNFN5VWF5?=
+ =?utf-8?B?SGpLUDdHdUtQWmNqZVljMVZ3Zm9qVU91S1NXNTlrbFB3Y2JKLzdscHNBN2M5?=
+ =?utf-8?B?bEZRR1FVZnpNZkc4NmhlYWdQMVFUdXdXbjdiRTdHWXY0UlRjd0pwLzRjQ1Nq?=
+ =?utf-8?B?Z01uQkJxdnhwRURQZWlxTmlkSnpFVGNJVDk0L0JUcllsVElUV1NnSXJaOW01?=
+ =?utf-8?B?SCt1S1ZiTWJSUDRJZE8wekMvRHQ4RVVrN3BXSHVFOGQ1N0RSUm1LMnBtZk5k?=
+ =?utf-8?B?bWtJdDc0eXNPOEZIeWd2MFBkbVFHTWxBVStXejVpU0JKbWRGWTZoUGVjb2R6?=
+ =?utf-8?B?VkR2ZjNBVTd0aERON1pJcy8yazVvM0p2TnR5Qm4rQ0pobkVrYmNpWTdpTDBI?=
+ =?utf-8?B?eGJjK29ZSGVoS0wrTDBsODdjc1ZGaHVkTjhObi9JRkpLQXFjc0duRWppMTBK?=
+ =?utf-8?B?eUM5RnhML081bVJjL0EzeUNIWHpXTm5tRS9PUTF0NmxUazNCQS96RWxFUDdt?=
+ =?utf-8?B?bTRINXpQSE9RWFMwM1NYVExxKzlDbTJaWWxxQVdXNTg3TDV5dEo0aHRHYTZv?=
+ =?utf-8?B?eEYwZFl1UkpHaUtJMDE4bnpBeTQ2WiszbkxxV2lxSXVzWGgxQkw0ZWpWU1hw?=
+ =?utf-8?Q?AOR/EBP1hBIP5U8KHZ9P4hhNcd+tGNs4Yz3Xe?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d01dd598-2520-4719-9686-08df3ae5cbcb
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9351.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:34:56.6811
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:37:55.7394
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N4EK6Jjh9amyXx9oq7xRsxhIAMQQs6bOWCFw9Atwfde9U1rfspR4hyuiDzr5oddn+ZV+vf590geQsSeVm99nQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYXP286MB6090
+X-MS-Exchange-CrossTenant-UserPrincipalName: BRf8+vNEbCc/IFm6LJhfnzDVbQcNZ2PWFPdUmxdm1ansqLS+RSTPPIoD6XuAy+3lD58CsFKkIHhmm8vge8IsmAmMgbCmePyfXCKaZjQ4+Lrma0lM4P8NsUvmm140yhyG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12060
 
-On Wed, Nov 04, 2026 at 05:42:52PM +0000, Robin Murphy wrote:
-> On 04/11/2026 4:22 pm, Koichiro Den wrote:
-> > PCI functions can share a micro-TLB. ipmmu_release_device() disables it
-> > unconditionally, so removing one function makes DMA from the others
-> > bypass translation even though they remain attached to a paging domain.
-> > Switching a device to the identity domain can disable a shared micro-TLB
-> > in the same way.
-> > 
-> > Count the users of each micro-TLB and disable it only when its last user
-> > leaves. Track whether each device holds a reference so paging-domain
-> > switches do not add another one and release does not drop a reference
-> > the device never acquired.
-> 
-> Shouldn't we just not touch the physical enable/disable state at all in
-> release_device? Once the device is removed, if it did happen to be the last
-> one in the group then the default domain will be torn down, so at most I
-> would think it should just be a case of ipmmu_domain_free() detecting if the
-> domain being freed is the currently-attached one, and if so then resetting
-> the uTLB to its desired default state.
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Agreed, tying uTLB state to the domain lifecycle is indeed much neater.
-I'll post v2 with that shortly. Thanks for the review!
+The debug reset control is one of the HIFI4 DSP’s reset mechanisms used
+by the debug interface; add documentation for the optional debug reset
+controls and update the driver to use both the soft reset and debug reset
+controller APIs (the soft reset is already documented).
 
-Best regards,
-Koichiro Den
+A HiFi4 DSP node is added and the DSP device is enabled in the i.MX8ULP
 
-> 
-> Thanks,
-> Robin.
-> 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 24dfb197c3b7 ("iommu/ipmmu-vmsa: Call arm_iommu_release_mapping() in release path")
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> >   drivers/iommu/ipmmu-vmsa.c | 121 ++++++++++++++++++++++++++-----------
-> >   1 file changed, 86 insertions(+), 35 deletions(-)
-> > 
-> > diff --git a/drivers/iommu/ipmmu-vmsa.c b/drivers/iommu/ipmmu-vmsa.c
-> > index cea9348ac10d..bfbb6795ec13 100644
-> > --- a/drivers/iommu/ipmmu-vmsa.c
-> > +++ b/drivers/iommu/ipmmu-vmsa.c
-> > @@ -7,6 +7,7 @@
-> >    */
-> >   #include <linux/bitmap.h>
-> > +#include <linux/cleanup.h>
-> >   #include <linux/delay.h>
-> >   #include <linux/dma-mapping.h>
-> >   #include <linux/err.h>
-> > @@ -59,14 +60,26 @@ struct ipmmu_vmsa_device {
-> >   	struct ipmmu_vmsa_device *root;
-> >   	const struct ipmmu_features *features;
-> >   	unsigned int num_ctx;
-> > -	spinlock_t lock;			/* Protects ctx and domains[] */
-> > +	/* Protects ctx, domains[], utlb_ctx[] and utlb_users[] */
-> > +	spinlock_t lock;
-> >   	DECLARE_BITMAP(ctx, IPMMU_CTX_MAX);
-> >   	struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
-> >   	s8 utlb_ctx[IPMMU_UTLB_MAX];
-> > +	unsigned int utlb_users[IPMMU_UTLB_MAX];
-> >   	struct dma_iommu_mapping *mapping;
-> >   };
-> > +/*
-> > + * Per bus master (device) data. Several bus masters can be connected to the
-> > + * same microTLB, which stays enabled until the last translated master using it
-> > + * is gone (see ipmmu_vmsa_device.utlb_users[]).
-> > + */
-> > +struct ipmmu_vmsa_master {
-> > +	struct ipmmu_vmsa_device *mmu;
-> > +	bool translated;		/* Counted in mmu->utlb_users[] */
-> > +};
-> > +
-> >   struct ipmmu_vmsa_domain {
-> >   	struct ipmmu_vmsa_device *mmu;
-> >   	struct iommu_domain io_domain;
-> > @@ -83,11 +96,18 @@ static struct ipmmu_vmsa_domain *to_vmsa_domain(struct iommu_domain *dom)
-> >   	return container_of(dom, struct ipmmu_vmsa_domain, io_domain);
-> >   }
-> > -static struct ipmmu_vmsa_device *to_ipmmu(struct device *dev)
-> > +static struct ipmmu_vmsa_master *to_master(struct device *dev)
-> >   {
-> >   	return dev_iommu_priv_get(dev);
-> >   }
-> > +static struct ipmmu_vmsa_device *to_ipmmu(struct device *dev)
-> > +{
-> > +	struct ipmmu_vmsa_master *master = to_master(dev);
-> > +
-> > +	return master ? master->mmu : NULL;
-> > +}
-> > +
-> >   #define TLB_LOOP_TIMEOUT		100	/* 100us */
-> >   /* -----------------------------------------------------------------------------
-> > @@ -281,11 +301,6 @@ static void ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
-> >   {
-> >   	struct ipmmu_vmsa_device *mmu = domain->mmu;
-> > -	/*
-> > -	 * TODO: Reference-count the microTLB as several bus masters can be
-> > -	 * connected to the same microTLB.
-> > -	 */
-> > -
-> >   	/* TODO: What should we set the ASID to ? */
-> >   	ipmmu_imuasid_write(mmu, utlb, 0);
-> >   	/* TODO: Do we need to flush the microTLB ? */
-> > @@ -297,15 +312,63 @@ static void ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
-> >   /*
-> >    * Disable MMU translation for the microTLB.
-> >    */
-> > -static void ipmmu_utlb_disable(struct ipmmu_vmsa_domain *domain,
-> > +static void ipmmu_utlb_disable(struct ipmmu_vmsa_device *mmu,
-> >   			       unsigned int utlb)
-> >   {
-> > -	struct ipmmu_vmsa_device *mmu = domain->mmu;
-> > -
-> >   	ipmmu_imuctr_write(mmu, utlb, 0);
-> >   	mmu->utlb_ctx[utlb] = IPMMU_CTX_INVALID;
-> >   }
-> > +/*
-> > + * Enable this master's micro-TLBs using the domain's context.
-> > + *
-> > + * Several bus masters can be connected to the same microTLB, so count the
-> > + * masters translated through each of them. Moving a master from one paging
-> > + * domain to another keeps its reference and only updates the context selection.
-> > + */
-> > +static void ipmmu_attach_utlbs(struct ipmmu_vmsa_domain *domain,
-> > +			       struct device *dev)
-> > +{
-> > +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> > +	struct ipmmu_vmsa_master *master = to_master(dev);
-> > +	struct ipmmu_vmsa_device *mmu = domain->mmu;
-> > +	unsigned int i;
-> > +
-> > +	guard(spinlock_irqsave)(&mmu->lock);
-> > +
-> > +	for (i = 0; i < fwspec->num_ids; ++i) {
-> > +		if (!master->translated)
-> > +			mmu->utlb_users[fwspec->ids[i]]++;
-> > +		ipmmu_utlb_enable(domain, fwspec->ids[i]);
-> > +	}
-> > +	master->translated = true;
-> > +}
-> > +
-> > +/*
-> > + * Drop this master's references to its micro-TLBs. A micro-TLB stays enabled
-> > + * as long as other bus masters connected to it are still translated.
-> > + */
-> > +static void ipmmu_detach_utlbs(struct device *dev)
-> > +{
-> > +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> > +	struct ipmmu_vmsa_master *master = to_master(dev);
-> > +	struct ipmmu_vmsa_device *mmu = master->mmu;
-> > +	unsigned int i;
-> > +
-> > +	guard(spinlock_irqsave)(&mmu->lock);
-> > +
-> > +	if (!master->translated)
-> > +		return;
-> > +
-> > +	for (i = 0; i < fwspec->num_ids; ++i) {
-> > +		unsigned int utlb = fwspec->ids[i];
-> > +
-> > +		if (!--mmu->utlb_users[utlb])
-> > +			ipmmu_utlb_disable(mmu, utlb);
-> > +	}
-> > +	master->translated = false;
-> > +}
-> > +
-> >   static void ipmmu_tlb_flush_all(void *cookie)
-> >   {
-> >   	struct ipmmu_vmsa_domain *domain = cookie;
-> > @@ -592,10 +655,8 @@ static void ipmmu_domain_free(struct iommu_domain *io_domain)
-> >   static int ipmmu_attach_device(struct iommu_domain *io_domain,
-> >   			       struct device *dev, struct iommu_domain *old)
-> >   {
-> > -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> >   	struct ipmmu_vmsa_device *mmu = to_ipmmu(dev);
-> >   	struct ipmmu_vmsa_domain *domain = to_vmsa_domain(io_domain);
-> > -	unsigned int i;
-> >   	int ret = 0;
-> >   	if (!mmu) {
-> > @@ -630,8 +691,7 @@ static int ipmmu_attach_device(struct iommu_domain *io_domain,
-> >   	if (ret < 0)
-> >   		return ret;
-> > -	for (i = 0; i < fwspec->num_ids; ++i)
-> > -		ipmmu_utlb_enable(domain, fwspec->ids[i]);
-> > +	ipmmu_attach_utlbs(domain, dev);
-> >   	return 0;
-> >   }
-> > @@ -640,16 +700,7 @@ static int ipmmu_iommu_identity_attach(struct iommu_domain *identity_domain,
-> >   				       struct device *dev,
-> >   				       struct iommu_domain *old)
-> >   {
-> > -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> > -	struct ipmmu_vmsa_domain *domain;
-> > -	unsigned int i;
-> > -
-> > -	if (old == identity_domain || !old)
-> > -		return 0;
-> > -
-> > -	domain = to_vmsa_domain(old);
-> > -	for (i = 0; i < fwspec->num_ids; ++i)
-> > -		ipmmu_utlb_disable(domain, fwspec->ids[i]);
-> > +	ipmmu_detach_utlbs(dev);
-> >   	/*
-> >   	 * TODO: Optimize by disabling the context when no device is attached.
-> > @@ -815,6 +866,7 @@ static struct iommu_device *ipmmu_probe_device(struct device *dev)
-> >   {
-> >   	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> >   	struct platform_device *ipmmu_pdev;
-> > +	struct ipmmu_vmsa_master *master;
-> >   	struct ipmmu_vmsa_device *mmu;
-> >   	if (!fwspec)
-> > @@ -830,7 +882,12 @@ static struct iommu_device *ipmmu_probe_device(struct device *dev)
-> >   	if (!mmu)
-> >   		return ERR_PTR(-ENODEV);
-> > -	dev_iommu_priv_set(dev, mmu);
-> > +	master = kzalloc_obj(*master);
-> > +	if (!master)
-> > +		return ERR_PTR(-ENOMEM);
-> > +
-> > +	master->mmu = mmu;
-> > +	dev_iommu_priv_set(dev, master);
-> >   	return &mmu->iommu;
-> >   }
-> > @@ -848,18 +905,12 @@ static void ipmmu_probe_finalize(struct device *dev)
-> >   static void ipmmu_release_device(struct device *dev)
-> >   {
-> > -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> > -	struct ipmmu_vmsa_device *mmu = to_ipmmu(dev);
-> > -	unsigned int i;
-> > +	struct ipmmu_vmsa_master *master = to_master(dev);
-> > -	for (i = 0; i < fwspec->num_ids; ++i) {
-> > -		unsigned int utlb = fwspec->ids[i];
-> > +	ipmmu_detach_utlbs(dev);
-> > -		ipmmu_imuctr_write(mmu, utlb, 0);
-> > -		mmu->utlb_ctx[utlb] = IPMMU_CTX_INVALID;
-> > -	}
-> > -
-> > -	arm_iommu_release_mapping(mmu->mapping);
-> > +	arm_iommu_release_mapping(master->mmu->mapping);
-> > +	kfree(master);
-> >   }
-> >   static const struct iommu_ops ipmmu_ops = {
-> 
+Changes in v2:
+- Update commit messages for all patches
+- Require the reset properties for the i.MX8ULP HiFi4 DSP in patch 1/4,
+  as suggested by Sashiko
+- Use sim_lpav as the clock provider for the ipg, ocram, and core clocks in
+  patch 3/4, as suggested by Sashiko
+- Rename the reserved-memory node from dsp_reserved to memory in patch 4/4,
+  as suggested by Sashiko
+
+Shengjiu Wang (4):
+  dt-bindings: dsp: fsl,dsp: document debug reset control
+  remoteproc: imx_dsp_rproc: Add softreset and dbgreset handling
+  arm64: dts: imx8ulp: add HiFi4 DSP node
+  arm64: dts: imx8ulp-evk: Enable HiFi4 DSP
+
+ .../devicetree/bindings/dsp/fsl,dsp.yaml      |  4 +
+ arch/arm64/boot/dts/freescale/imx8ulp-evk.dts | 34 +++++++++
+ arch/arm64/boot/dts/freescale/imx8ulp.dtsi    | 23 ++++++
+ drivers/remoteproc/imx_dsp_rproc.c            | 76 +++++--------------
+ 4 files changed, 82 insertions(+), 55 deletions(-)
+
+-- 
+2.34.1
+
