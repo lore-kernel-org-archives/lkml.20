@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904120;
-	b=UvNXIjfEt/IcGanqw9QmxijckQonSHMZ+hbh1Y3Dx3KLG8zFBqZP5VcVXVVPoES9Yguy
-	 wAEDOGgVIGtkV/fSSbp8MVajuD7aa1qDw+y4z8DgjE7fNRuFEh4+NiscbW70kaIDOsBrz
-	 rqy5mdo2HlM0CCFewtxI6NE6LkZb+3tiq+8mPllXhlcv7Lr0+Or0TrZtsO8szCVOOwRAw
-	 JLDejaqfAPpa53SA3KlPTjMqucXhu5UFaB9LNtZfO21zAxGeJ8beSz8GtSL69KGNwnK2f
-	 QjO63ZJN/+ULN7BXA3VZS2QPzbTDPKX8StG/yoYEE8KKpjlEuBUwPP4yOGlqQGYkz2Q==
+	t=1793904127;
+	b=fkUxJZRMuku+ZIZChxUdz1zN0Id+YjF+reWph0brHzzH2i6kKoi8sc5lN1LKnhR6vLA4
+	 54/nEGps3V4oN0Uj9MRQXz/H6OwaCZSYr/pQIQ8VD78MBacfCbTBoN6Z2+q4MUYslABq9
+	 lGuhmYFSRYIXi2jssfI2WqbZixrRPKSmb6p33dRtgbtuiU0cseB4O99IQ/tRLpDwmuS6O
+	 QB8LdlDWdy8fcwajiisJM7T/NrB0IxUB0CtVb22jGj6/vtIGhcn21a+tz8ra0PmFGEMQs
+	 AU/9aH0JJHszwToChe5fBtPg/tD+ddfQIwcxLpVp3L8hwrzPbwhQ2QZs2rky67JzXhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904120;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904127;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=EE1sb551x27Ej5Fjzi9j3H+2qleA12aesnVZEQWHbOY=;
-	b=AOIZuJQP9ixPrRX00ycsIuPbtG1Xi1fEspH6NE0HWcijVwx5MvfgmnArm7tavu+wI2E5
-	 CsAz5saYQczEgW1d6jbwn8P2P11bXwqzDnMn4MUe2Y/Tgi4DTRBZ78BSpbYi9+AXZfcgK
-	 n5doBLuibKED4Zd5AyscHj0nzOAL0pD7PzLxeH5NzrjtDKZ4iu8kUs8Zk0MJPURRyG7Xd
-	 Go5NPA4xUNWBQSrZ7J5GlRML7J6Mskm50HxhW1aWdIK2P0cZoIVMDRCrYKfx2JGaz5oOS
-	 R1zVfWvNigqAM5qkqeQbcShBrBkjfPpR48u9qxUeJoCdMdlBH5s1+IYzBTMg6ouvM+w==
+	bh=Z0fJm4CjdrCfT5IXpHPP6Zmi1Pfjwt/oCSIBuUnP62M=;
+	b=T0cRioQRY0BjoG5jIbVGkbq7PmCoazInFF0IIISqsEgAQxuRhFNv5j2GKZD8WMjXpCyd
+	 dPHS0rpkR5inbrnDHh6Amb/AJZiCH8wgRMvx+oYZ6kJZlNAUz4le1VZ/oNPtSzqomiThp
+	 ZL8x+Ub58G7gBIMeFGIc34tjCXoJsnwxL2tFX3hxYjgexqaWoQuzIIin3zmLtNukBxLLB
+	 YCKHK1tR+bCB32XSwYw9fZ6YAPA1+qoSvK3ni5R/KzoqX/Bx0Ps2AzwGlCnd11ECumfYh
+	 8Xqy0VHbawu8vBWXLr3rECNOx+a7+Sqoo0iUgecV/4FmtKgeXNWKokfF20stlD83lqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="GtyV4/Mu";
-	arc=none smtp.remote-ip=95.215.58.76
-Received: from mta1.migadu.com (out-76.mta1.migadu.com [95.215.58.76])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L6jwir4L;
+	arc=none smtp.remote-ip=91.218.175.22
+Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8B0606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A8B0606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130BC606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:42:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130BC606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GtyV4/Mu
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L6jwir4L
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bhr39nNBlSP/jhuooBjvFn5uupn8bYHVVZDQyyfyBlM=;
+DKIM-Signature: a=rsa-sha256; bh=4MFauMfvLoZ0FPm6jb4sWsILjkooRhf2DKKgeqRebo8=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904118; v=1; x=1794508918;
- b=GtyV4/MuKeVj46VrcoQ5xUjXP3XeFxeYMuIrS8xo4cZQdC6XoF77FcKAGcIBprrgIh5XilHP
- nWMpWO12XOvVofZrQGldNmtvLODwpy6ITHeHwAZvhvhdlF5i3ofwpuPM3rDNGkq/D4CPlHiTOzk
- 72+lX0a0VuLtt5U5gP2bv+X8=
+ t=1793904125; v=1; x=1794508925;
+ b=L6jwir4LMQEAZ22XcDmNgjUpAJKU1ky/Q6gVZb3mmTm5P9C0Elzoh0g7VQ/+oBUI5z7cxeFN
+ 8anikLSWjGeRSMpePBqmDgoLirtXghAi4D7TG15qBMQEYl8rEn4fjvMWT+m+3uK8c1XnW/SQ+HX
+ XDoVeJfEN5FnTSOPh6ytR/3o=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id c4e779a46879f223;
-	Thu, 05 Nov 2026 18:41:58 +0000
-X-Mizu-Trace-ID: c4e779a46879f223
+Received: by mta11.migadu.com with ESMTPS id 6e1d522fd8af9a39;
+	Thu, 05 Nov 2026 18:42:04 +0000
+X-Mizu-Trace-ID: 6e1d522fd8af9a39
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -81,9 +81,9 @@ Cc: chenhuacai@kernel.org,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v9 23/32] mm/madvise: skip PMD swap entries for MADV_COLD and MADV_PAGEOUT
-Date: Thu,  5 Nov 2026 10:39:07 -0800
-Message-ID: <20261105183940.2236717-24-usama.arif@linux.dev>
+Subject: [PATCH v9 24/32] mm/madvise: keep PMD swap entries whole for MADV_GUARD_INSTALL/REMOVE
+Date: Thu,  5 Nov 2026 10:39:08 -0800
+Message-ID: <20261105183940.2236717-25-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
 References: <20261105183940.2236717-1-usama.arif@linux.dev>
@@ -98,54 +98,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A swapped-out THP has no resident folio to deactivate or reclaim, which is
-also the conclusion the PTE path reaches when it walks the swap entries and
-skips every one.
+Both callbacks test bare pmd_trans_huge(), which is false for a PMD swap
+entry, so they return without consuming the PMD and walk_pmd_range() splits
+it - only for the PTE callbacks to find the range populated and abort, or
+to find no guard markers and do nothing.
 
-madvise_cold_or_pageout_pte_range() gets there the long way round:
-pmd_trans_huge() is false for a PMD swap entry, so it falls out of the huge
-branch and tries to map a PTE table that a non-present PMD does not have.
-
-The entry can also appear after that first, lockless test, so re-check
-under the PMD lock; otherwise a PMD that turned into a swap entry while
-pmd_trans_huge_lock() was being taken trips the VM_WARN_ON_ONCE() that
-expects a migration or device-private entry.
+Both already short-circuit at PMD level for a present THP. Do the same for
+a swapped-out one: it is just as populated, and just as free of guard
+markers.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- mm/madvise.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ mm/madvise.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
 diff --git a/mm/madvise.c b/mm/madvise.c
-index 156290227c236..576707e303cf2 100644
+index 576707e303cf2..f7f17efdd926d 100644
 --- a/mm/madvise.c
 +++ b/mm/madvise.c
-@@ -384,6 +384,15 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 					!can_do_file_pageout(vma);
+@@ -1109,8 +1109,12 @@ static int guard_install_pmd_entry(pmd_t *pmd, unsigned long addr,
+ {
+ 	pmd_t pmdval = pmdp_get(pmd);
  
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	/* If huge return >0 so we abort the operation + zap. */
+-	return pmd_trans_huge(pmdval);
 +	/*
-+	 * Swapped-out THPs have no resident folio to deactivate or reclaim.
-+	 * Avoid descending into or splitting a PMD swap entry.
++	 * If huge return >0 so we abort the operation + zap. A PMD swap entry
++	 * is a swapped-out THP: also populated, and splitting it here would
++	 * only demote it before the zap.
 +	 */
-+	if (pmd_is_swap_entry(*pmd)) {
-+		walk->action = ACTION_CONTINUE;
-+		return 0;
-+	}
-+
- 	if (pmd_trans_huge(*pmd)) {
- 		pmd_t orig_pmd;
- 		unsigned long next = pmd_addr_end(addr, end);
-@@ -394,6 +403,9 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 			return 0;
++	return pmd_trans_huge(pmdval) || pmd_is_swap_entry(pmdval);
+ }
  
- 		orig_pmd = *pmd;
-+		if (pmd_is_swap_entry(orig_pmd))
-+			goto huge_unlock;
-+
- 		if (unlikely(!pmd_present(orig_pmd))) {
- 			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
- 					!pmd_is_device_private_entry(orig_pmd));
+ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
+@@ -1249,8 +1253,12 @@ static int guard_remove_pmd_entry(pmd_t *pmd, unsigned long addr,
+ {
+ 	pmd_t pmdval = pmdp_get(pmd);
+ 
+-	/* If huge, cannot have guard pages present, so no-op - skip. */
+-	if (pmd_trans_huge(pmdval))
++	/*
++	 * If huge, cannot have guard pages present, so no-op - skip. The same
++	 * is true of a PMD swap entry, which must not be split just to discover
++	 * there is nothing to remove.
++	 */
++	if (pmd_trans_huge(pmdval) || pmd_is_swap_entry(pmdval))
+ 		walk->action = ACTION_CONTINUE;
+ 
+ 	return 0;
 -- 
 2.53.0-Meta
 
