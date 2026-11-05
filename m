@@ -1,106 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.3
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793897426;
-	b=134VzoeLsdfezGu8cfdAk7+436YIRrI2t/x0keTYXqz9Hma9yHQ2mhcbbkyTxP9FnRd9
-	 WkjHpkBOsLnFmu2Wd9epq8wBaBAp5mtrV6iN4S3wFXejHWs7AoP4kTKb5cbrvrKSdLO17
-	 iLM40eLT4uEuFcdzV6a0gzUjpu/K7a+rTvujHxM7YxHo/zgo6W5JNv1VscSXndnF7b9a7
-	 aNsqRsz6dRYXCEVxPnYhf2CaU2LYC2XLUdDN7B8WClh66zU19daunm127nh6Irf5A0Iin
-	 yjA4xPL5Tc4Ovtbn38Rl2nwvRvF9aWvX+4sGjSlHbotJWUkfw8XQFgCZFPPPjKxBEhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897426;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=u/2eRG2TbTCqLMP3KMdemToQDZbMrOfiyYj00In6B/M=;
-	b=m3A6WXF6/lBC8E3d/PpqeETVPojKbubF96pr+kgnrLXgkE8WZwYXoPc8qLyNot2L0QTl
-	 1nTtv91rPvMh7I0yBt/1hvBDS1wIXRb51q10vAN7+HeDnNHCy7nncwBCpsvgkLCQuq7B9
-	 IuyuPJ5bsoUEzgNbu6jufeWO66UMI5bWUYmst7uADQI5ulaLt8IackJ5jJMskB3rNDt/K
-	 kOVl7wbOTpfaO1Szhu0E1cIWO6SdtrJnto7z7upkHx5c723HNWldA6Y4hBfFtwfqBxVoY
-	 cb6XM+joR6v8Yo5ie6EvMGSrRQAQoyH2A6xSOspHBNnznVe8wiHmel4kP6zyM2RQQZw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="l/4tDfIh";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.3
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012003.outbound.protection.outlook.com [52.101.43.3])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793897438;
+	b=V6CyyDhvaYWYrT0UW21KbBl0Y3xOON+39PvINZif3rqBsx5h9u5VbWfglRd+NpRo2nZZ
+	 /7pO+240hHTkJYSvrIcLYpdnKEb0tifxd+Hvhe983pCX2n/wPi4oO2lumX1tlWxvBSsSP
+	 CU285vX9daXp6pw0Q8ZRRBzlUWJoOiC7OinnPZJdvrBFEB4rcDgms+zYuTu6eauIL9qkD
+	 AQSqgzAED523ulTr+FD0mqTJ5YOi/lgEOCOC1zQs0VXYvzCe42zfuquUu4MIqri8KgY+m
+	 wi05ce15MzEBd2AlcMnfONl2qezJ89wJMsTU8HMrVsCkDe1IDtxny9wWX0YFAxbM61w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897438;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=5Zwkee7Eda/oQ5obU9MTZY8ne/gaSD2tfbbvFVf8sL4=;
+	b=cl2/lKZfdhLxLgHz+/o+QqHnEbr4tgFTD4HbuoJHhfdzb4WMSEF6BcBugJSD6iJsa0xK
+	 a5JxLFaRgCtAVFs9T3B6BKsJG/hdjR+lHYMHGEmXZ7/rJ7ffy0xfAvbhFluHllw65uDvC
+	 EIOWHaphmXElaMrEosYdRC1/9v6Zps5Xt3adqyg54AgnSGmIJw1ELOYXKxv4tmRedgEG8
+	 tBG5Ba6Xsj+ZRZkY/DJWWbxGaWDIXLUlRpCfD/5+6etrjkKEei2MvlDC0nSphsqlIBUst
+	 HF5yGIIotkmZk/DrDrfoCM+HCpBhZQodkhxU0NJqMxH9kfaa6++b+W9tBW+hrdXG2Iw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bIOcdG4J;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E819E606A333;
-	Thu,  5 Nov 2026 16:50:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E819E606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B94606D807;
+	Thu,  5 Nov 2026 16:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B94606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=l/4tDfIh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TvJeIcD2ib+/l06HbDLF8vdQCk+QGWCNIKKFYHnnMYf6StSmieEccymj0NXXIwDdlJ3UIYV4abl7XUsaHhDT+vsNX6plz9uxJmdQzXsgfdfsVelN9G4b+uCsYNls7B6T4pUcdcTiYEMGZwg1qnRTv+KbpLQsjcwrRAzl+3tFs0281VS5QAV8FHys3eNtwbKXVMFJ26q9Q7mzdNnA+pHsogLgmnVGL9h4O2nB2VdYu7f+Pwgz7a1030F2sM+O2yf7nt1CqB9Mgafb8f+U6nl6HW+f60qHEdP6tYG1CRSk2m7PdSOd05oxKN7/01olLfNzEaVDXzu8DS6JKPvjux0kZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u/2eRG2TbTCqLMP3KMdemToQDZbMrOfiyYj00In6B/M=;
- b=yrbdwVlv+ZfbBDATApB2NW/bNG7caOiI3uu4hUmRC1famMu5dL3j8qMQbW/MTDdsIVV7UGYtG4wU/9zNLrQXU9c0aVaXUwXFoYJMfpRWOMHLrgH5H6j12yTGxSQFfXQUkwfMo1lGzQ5Bk/ZF3P0q+Gr38jWWax/xDplz+Pt1eQnjQNZbb2M+TwRLpI5zsu/VYQhd2x3DAQrMhmHzzWfMoxpTRPyRqh+6XsMG6NIhscrIzJPzMU1g8S2H13m/V0Er5M3ZUHAzDIv3UpuzduDZI94AhmjVXEJowAklBQHyh13a2lGYvVx3K6nX1rYuj8TUtLX9Cy7Qz9XwjhFvpaZWEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u/2eRG2TbTCqLMP3KMdemToQDZbMrOfiyYj00In6B/M=;
- b=l/4tDfIh4TqdDSYuLUXAUzNQk6MCo8TrRmMTULpm25OIQVpKvBxHj3yg0Y3+3hwhI26I8ff8PDEXqXko4KETjHr9aA2DHENwWaljSg/urb7+CPRZJganGm43OR5g/bGUFrIiP/3cmLx6Ftbq6vqDEuXHzxDo6P/XSJW1R0nWTnPTNEI3ixCr/2ao+9sDsmWBMdbE8dFSr9LHHbFjFz7OMCd2kX8madVbmqgglNlBZ6KF3ndfUTdxPSN7GBJzDzuLvseLjLZARLoydtD7x0EFnhYkJJ/pPVIZTCn/6+Z7kkzNjH1CHLYK/cHO4n0JQNTS5H4lHqtKNcH5usNdgd4xrQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5) by SJ2PR12MB7868.namprd12.prod.outlook.com
- (2603:10b6:a03:4cd::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 16:50:19 +0000
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 16:50:19 +0000
-Message-ID: <8f16600d-2ff7-4235-85bc-22f1cc929167@nvidia.com>
-Date: Thu, 5 Nov 2026 08:50:14 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 14/18] PCI/CXL: Reject reset with unsafe function
- scope
-To: Joshua Machauer <machaujo@amazon.de>
-Cc: Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- Li Ming <ming.li@zohomail.com>, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261029145703.2185231-1-smadhavan@nvidia.com>
- <20261029145703.2185231-15-smadhavan@nvidia.com>
- <20261105143611.31563-1-machaujo@amazon.de>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <20261105143611.31563-1-machaujo@amazon.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0210.namprd03.prod.outlook.com
- (2603:10b6:303:b8::35) To LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5)
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bIOcdG4J
+Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id DCFD8A8A1E;
+	Thu,  5 Nov 2026 16:50:26 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id E64E280014;
+	Thu,  5 Nov 2026 16:50:20 +0000 (UTC)
+Date: Thu, 5 Nov 2026 11:50:19 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab
+ <schwab@linux-m68k.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches
+ <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook
+ <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Len Brown <lenb@kernel.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>,
+ linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <20261105115019.2fe7c91b@gandalf.local.home>
+In-Reply-To: <auyuINXEJKc1KoG7@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+	<9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+	<20261105111423.360f4ba8@gandalf.local.home>
+	<auyuINXEJKc1KoG7@devuan>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,121 +79,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|SJ2PR12MB7868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76dcc546-85cb-4365-2fdf-08df3b5cdfe2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|261022105027099003|261021121427099003|261009223027099003|261026140227099003|261028144727099003|261102123227099003|10067099003|4143699003|11063799006|56012099006|18002099003|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	kqJ2O0AqzFB20yQ60Ty3Vx4P268iYeANrnwx8PCrL34rz0DXP0nWwAUMGFRZoRBQw4YYffmBQgsOBUw5SYiHdHvjPUbEybxo7i3ZVoanlUec5xGzZwzZFW/2pUDZEgIhG7TvO7EQLFU3uLc6Rz5/8ZOikWA/QHz4j26Q6lnUS9zpwwZncvR/DFPt8i4SZMcXxwmjZnUoBaiaDGzcWoiBqc//B/nv/wMnkbP9emHLF0hnR4FAt/h3Cvu1wAsD6enB9VP/uFg1INx4Zh0Ojzg/LRyN47SbD7YibVnaALWWBJUypTHzq02b07jJc8T6/WasiAzLQBXR7Z1Y/sALp9OUyERrUSBduS/mDU36l3KZFVlASnfONIY7XgIK+PN1Kozc7vuB3Qs29BY4jU7YrBmmkgjMHsYieUBdXiS4SOX2u4FLrZBEXdcI1yHKqafupfhZ2upeqkxLG+XC2pPi89n09mGmqFAW81hnjEJf1FqJrBzwmTYWSkixI06E1SfekXx4fjZLPURPaCnZV3+5iqmDzjXXZ/5K8R1YL1YvfNXPndckl41pC1PheeBjDGr+03akeMsjXuix9e/R7Gost6s53nKpl0dAxxsZMc/3Tz0Oqx/Xob91f20RVEmfYvN1x75s0IJ69jseD9wvU9xHtqOQLLfPgIhJ7qvojpdyfRAv8RA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(261022105027099003)(261021121427099003)(261009223027099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S0RxV0t4YktpSDkvRGhjSFpodlA3emNhb20zc1NNcGVFRi9XL1BLYWxXc1FZ?=
- =?utf-8?B?SURWV1dIRTVJUUxYSmtLN0FXd1NFanBnVUMrTnprbEwvaGNPYXEzbm5DUEpo?=
- =?utf-8?B?U2d0VHA5dHMzRkxMOCtmMDhSeEljdi9lTHNVVDE4U1lZWS9qdHd0YzQ5VnhY?=
- =?utf-8?B?di9xQlo1bXlTMkpoWlFXeHB4ZEpuMnVNeEtYcGVKQ0ZSa2JJT0hvZXprTUpG?=
- =?utf-8?B?N1FOOVZlRmpPTkxiSENwMExjaTFZRE5HL3FLblhwc0JCcStoemRydGtFU0Qy?=
- =?utf-8?B?N2lmM0pwcGk3NTFXREswN2ZuTktuWmRhaitPZjNaenY1OStJWUVQZWloaFNh?=
- =?utf-8?B?YlFJeE5nL2Z2czJIZG9CSzdnN2F5bURxZHUzeHJGUHZXTUZZMXVhQmZPYW96?=
- =?utf-8?B?aTQ5Qm9zMzdzczcwUXJEZTczWjNzZzVXUDVyUldmZzdPeVQ0K0orcGZpcjg2?=
- =?utf-8?B?czV3NzFnTm9UZDdabGxDUGVYenF0Z0owbThqZkxHbGZVM285QlZVbXBLQlVs?=
- =?utf-8?B?cGhLYnJNaTJOdWdlRFdSb3pOdVQyZTg3NHBla3VRNTJMVmZwSDdsS3JQdkw0?=
- =?utf-8?B?YVlzenRuM2lTb3lBdUZXRk1JeGlwMWU2Nk85WkZ3VDRwd2Fhc3QyT2RBZnho?=
- =?utf-8?B?Y0RGc0ZJdkNYdG91RGhodlNJYS9Cd2NsWjU2eEo0V3h1QlNFeHBueU9TMW0z?=
- =?utf-8?B?a3U3Umh6eFhJMTVlb2kycDBTZGlWTFVYbnkvL3FyNFJJMjBKNUVRaTRHUXhW?=
- =?utf-8?B?anhRcUhLR3JwVjEvZVRETDYzVnlMVTErajg0ODBxOFRzb3o5bHFZdnVXT1pN?=
- =?utf-8?B?OU85Nm1Ya3A0RWVXSG1vRmpxQ0s1N1dNWUFDcHY3dWV1QndGK1VFMDVFOHVy?=
- =?utf-8?B?T2MvbUJ4WitHZ1BXWFM2YVowVzVCOFRzM0o4Mm45Yk5OVlhuSTYwZTFWSXBR?=
- =?utf-8?B?U1FBeGZuYkQ3bStoejU2VUY5YlQ5b0FjcXlYYmRrdGZzZXRoQ05sRVRTVDdz?=
- =?utf-8?B?K1FNRWdZMjBYeVJoaWZSMndCeGNqUjBndlhMZXdxTVZqUHU0Vk14UWxtbXJL?=
- =?utf-8?B?UlVoUFlnK252WUtZaTB4T2J6Vmg1eUVMc3IwWGtqSlpWQlFlNTNUekFaYUZM?=
- =?utf-8?B?OHVGYnp0ME9Ha2dycVkxQVZpQ0xqVzJjK2gvcnNYSjMxQkZFdFNMRklHSUM0?=
- =?utf-8?B?d0RGUVBDRGdidXJXQS9La2JNd2tSODQ3NnRHblNEYnpHQVpqbE9qQ2hFOUdu?=
- =?utf-8?B?M2p1ZnVDSTNKOGhoWFlRM2g3TU5EVlNEbld6NDJtbGFYZXMxcVR5UVFOUzg4?=
- =?utf-8?B?Ykp3aXQrYWYxcUlrTmFMU3hsUERCbnJwUFNnZ0tnVjJaZDBjcjFyOUxTWGVJ?=
- =?utf-8?B?NDVxZzVNSW83Zkw2eDNBTkxyeE9sbnFzT3BiYVFkUlIxSi93elA3L2VaUW9t?=
- =?utf-8?B?UjRzNnM1M1Y0aElldkk3YnVkeU5PU0xNRkhGS2JhYUlYN3dqcnhxT2xaV2U3?=
- =?utf-8?B?QW50RHFVOFcwem5ZL3R1VklIa0FKTzk1TnBLQ1JXU1BodDRUeVZVMEQ1cnF6?=
- =?utf-8?B?UUxpYXR4NTVPbFdpQk4yVzZwSzJiMnFaOFRoTXlzeWJPNEpWTmQvR25uMjVK?=
- =?utf-8?B?VGhNRzNlU1FkUEpYajZsWnpmNXY4cFhWR0c3OFhXd1AwdklZTTdMNjBSdEdK?=
- =?utf-8?B?Uk9KU3JEdjE2Y3RhMzBVVnhjNkQ4bm51T2gvSTJvTnFCWCsxYjZxc2g2dUM5?=
- =?utf-8?B?dWVERFQ5TDA1bVRnZjVONVdLYlhmdWFMQnE0dVV6UlJHZzkwQ3FJenlxdGVt?=
- =?utf-8?B?S1pmbzlsSTNHSXdVdXY1N1JKazNORWgza29HWkdhbjJTcHkvWnNVb1V0Rkta?=
- =?utf-8?B?dkdDRzBiaC9oNHRQQm13ejUwZ3lhUWpqUzdKeXZHTGw5T085QUZVbC9wT0N5?=
- =?utf-8?B?SWVvTUd5cEpVNEtYMzY0ZTNITnJ1TG1uN0oxd3dvMmdUNXJQdnlDK04wSi9I?=
- =?utf-8?B?T2N5aDJKajBwQ1lGdVVqWExlWkpLTTBucDE1M2crV3pvVThyZUVPUEIya0xm?=
- =?utf-8?B?eWxRSFJSeFp0L3VORlRXd1pxd05XUCtFNU16SjdWemZaYUU1WDV0cVpJdUQw?=
- =?utf-8?B?Um5vS2JJcXZOMjVTVVFRQjlmSGxydWprWTgySDBJZTVtM3d4djROdm5iNWRB?=
- =?utf-8?B?REVXV2JXVWxXdmFkQ0thMGFkR3VLSm9iVTlJeXo2U2tiRjFuSmZyQWRlejMy?=
- =?utf-8?B?a2ROSGptR3IxcGtrSEl6Qm5jVjBsMk1uVmhORmhxeEhYYjBIMi83TDhYcjl6?=
- =?utf-8?B?S3lvNmNDVVdDd254TFlmZlU0eE5CQllzaGpxVXBOaHY3dzRGN3FQUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76dcc546-85cb-4365-2fdf-08df3b5cdfe2
-X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 16:50:18.9942
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xfbAlIi4S/GDC/VGbL3vbpmzMWQhjUfpR08krO4T3obxcBtKFZhpro9wqwdIPPy9hjPNjmPr1hmcHVtXkQKEAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout03
+X-Rspamd-Queue-Id: E64E280014
+X-Stat-Signature: jt6ge55y663npwc3oayseghzdtk7e3df
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19cl3Y/smj00nYIJMgPA2EZab7rnczjCaE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=5Zwkee7Eda/oQ5obU9MTZY8ne/gaSD2tfbbvFVf8sL4=; b=bIOcdG4J9j+16rixy1pyX/3+Km8E1J+gNaFcVTjGgYdWeCpzwVrKDrvCmTjHXmV1SmxYCuxDHAhfGHCafk0sO2et1SokUSAKCU4zUkjQyOJgaW8I+27HNX/DYqiiYYumoaJgQMC2uZsXGqgQ+2hUaPJmPrYo6p2L7tfHwgBcu54=
+X-HE-Tag: 1793897420-811383
+X-HE-Meta: U2FsdGVkX19bCecB5jioIhguq6rRgMe3rxF4TgEhqk9KP9NeKNMkUT+69RNNihc+daKgEKTqOXJQTs0rHkp15vWrQ3K+pvCwXnEYcFTSvqifAYR+m+FPHWu1d9zP7kvFElFCpDT8P78g6KnZxNm0r9p6JjBd+ViGmA1lo5/duRsnCadbZBGHHKc5/rqGhfV0FYIUh/TjJ1Tvz52bXk8eQ1YbHfPmZ6c8MyebafoN+YsfZYmzGr6UepNjTBEFsFDp4cZJfNtCcJsBaGpaCqaxKqUnFQPBIWjCJKjwkRi/gm8svcFm2yP2sU5oW/su03ZZRY6GYvn+nVCG3z+IsIxo6PgDUoCAwbrpo1jPUQAyX/DtL47Kb0zipc6wlaas3hUUdw8ZQTTtQ4x9zX17ar2qbz4fkpASG2qccBseCBJGprc=
 
-On 11/5/26 6:36 AM, Joshua Machauer wrote:
-> External email: Use caution opening links or attachments
-> 
-> 
-> On Thu, Oct 29, 2026 at 02:56:59PM +0000, Srirangan Madhavan wrote:
->> @@ -515,6 +515,9 @@ int cxl_reset_function(struct pci_dev *pdev, bool probe)
->>            !(ctrl & PCI_DVSEC_CXL_MEM_ENABLE))
->>                return -ENOTTY;
->>
->> +     if (pdev->is_virtfn || pdev->multifunction || pci_num_vf(pdev))
->> +             return -ENOTTY;
->> +
->>        if (probe)
->>                return 0;
-> 
-> [...]
-> 
->> @@ -5026,6 +5026,9 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
->>        if (!dvsec)
->>                return -ENOTTY;
->>
->> +     if (dev->is_virtfn || dev->multifunction || pci_num_vf(dev))
->> +             return -ENOTTY;
->> +
->>        if (probe)
->>                return 0;
-> 
-> Could both checks go at the top of their functions, before the DVSEC
-> lookups? None of the three conditions depends on what the lookups
-> find.
-> 
-> pci_init_reset_methods() probes every reset method for every device
-> that is added, and enabling SR-IOV adds the VFs one after another.
-> Where the checks are now, each VF probe walks the extended
-> capabilities twice before it returns -ENOTTY: cxl_reset walks the
-> VF's own list for the CXL Device DVSEC, and cxl_bus walks the
-> upstream bridge's list for the CXL Port DVSEC. All VFs of a PF share
-> that bridge, so its walk repeats once per VF with the same result.
-> 
-> With the checks first, a VF returns -ENOTTY without a config read,
-> and the result for every device stays the same.
-> 
-> Thanks,
-> Joshua
+On Thu, 5 Nov 2026 17:33:02 +0100
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-Hi Joshua,
+> Hi Steve,
+> 
+> > Date: 2026-11-05 11:14:23-0500
+> > From: Steven Rostedt <rostedt@goodmis.org>
+> >
+> > On Thu, 5 Nov 2026 12:13:03 +0100
+> > Alejandro Colomar <alx@kernel.org> wrote:
+> >   
+> > > As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
+> > > between an empty prefix matching an empty string from a non-matching
+> > > prefix.  This is a fundamental design flaw in this API, and not
+> > > something that can be fixed.
+> > > 
+> > > As always, this is a consequence of choosing sizes instead of pointers.
+> > > Sizes are often the wrong choice.  In this specific case, pointers are
+> > > more capable of differentiating these cases, as NULL is a special
+> > > sentinel value that doesn't need to overload a valid value.
+> > > 
+> > > Let's implement strprefix(), a function that returns a pointer
+> > > right after the prefix if found, and a null pointer if not found.
+> > > 
+> > > We'll slowly migrate existing code from str_has_prefix() to strprefix().
+> > > 
+> > > Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>  
+> > 
+> > Is there a link to the report? Please add that.  
+> 
+> Message-Id: <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
+> 
+> or in link format,
+> 
+> Link: <https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/>
+> 
+> Which one do you prefer?
 
-Thanks, that makes sense. In v17 both checks run at the top of
-cxl_reset_function() and cxl_reset_bus_function(), before the DVSEC
-lookups.
+The correct method is:
 
--- 
-Regards,
-Srirangan
+ Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
+
+
+
+> 
+> >   
+> > >  
+> > > +/**
+> > > + * strprefix - string prefix
+> > > + * @s: The string to be tested
+> > > + * @prefix: The string to see if @s starts with
+> > > + *  
+> > 
+> > Needs a better description. Feel free to use the one for str_has_prefix().  
+> 
+> Ok.
+> 
+> > > + * Returns:
+> > > + * *  @s+strlen(@prefix) if @s starts with @prefix
+> > > + * *  NULL if @s does not start with @prefix
+> > > + */
+> > > +static __always_inline char *strprefix(const char *s, const char *prefix)
+> > > +{
+> > > +	size_t len = strlen(prefix);
+> > > +	return strncmp(s, prefix, len) == 0 ? (char *) s + len : NULL;
+> > > +}
+> > > +
+> > >  /**
+> > >   * str_has_prefix - Test if a string has a given prefix
+> > >   * @str: The string to test
+> > >   * @prefix: The string to see if @str starts with
+> > >   *
+> > > + * DEPRECATED: Use strprefix()  
+> > 
+> > No, it is still useful. Converting trace_event_filter() to strprefix()
+> > would be very painful, and likely error prone.  
+> 
+> What is trace_event_filter()?
+
+Oops, typo, I meant trace_event_filter.c
+
+> 
+> 	alx@devuan:~/src/linux/linux/master$ grep -rn '\<trace_event_filter\>'
+> 	alx@devuan:~/src/linux/linux/master$ grepc trace_event_filter .
+> 	alx@devuan:~/src/linux/linux/master$ grep -rn trace_event_filter
+> 	kernel/trace/trace_events.c:2833:static const struct file_operations ftrace_event_filter_fops = {
+> 	kernel/trace/trace_events.c:3222:			*fops = &ftrace_event_filter_fops;
+> 
+> If you point me to a specific line of code, I can attempt a rewrite.
+
+I rather not touch that code.
+
+> 
+> > > + *
+> > >   * A common way to test a prefix of a string is to do:
+> > >   *  strncmp(str, prefix, sizeof(prefix) - 1)
+> > >   *
+> > >   * But this can lead to bugs due to typos, or if prefix is a pointer
+> > > - * and not a constant. Instead use str_has_prefix().
+> > > + * and not a constant. Instead use strprefix().  
+> > 
+> > The above can be replaced with:
+> > 
+> >  * This is useful for testing for a prefix and returning the length.
+> >  * If you only need to test the prefix and perhaps get the pointer to the
+> >  * position of the string after the prefix, then use strprefix().  
+> 
+> Ok, conditional to being convinced that str_has_prefix() is
+> actually useful in some case.
+
+Note, the only "bug" is that it can't handle an empty prefix case, which
+was never what it was designed to do. The place that the above fixes, was a
+helper function that used this inappropriately.
+
+Hence, the use of str_has_prefix() was never meant for an empty string. I
+should have added (and can still add)
+
+	/* Empty prefix is undefined */
+	WARN_ON_ONCE(!prefix[0]);
+
+The fwnode_name_eq() could have done:
+
+	/* Empty prefix always matches */
+	return name[0] || str_has_prefix(node_name, name) == len;
+
+Instead.
+
+-- Steve
+
+
+
