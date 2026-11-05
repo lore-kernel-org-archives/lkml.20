@@ -1,83 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793874082;
-	b=s/UoWdyHlOFapdPFtpawjDGAB/jEk49BYHFING1Mx6U0MnocBSSyodQ+vxjrxUY+/pxL
-	 ks1+aAW8W7MlKsayy5Mkm11TK7Wc1kAgDc+S7ePQMwGcH/KtDDbzeE9rogb8L7K7+uxyi
-	 +GpzvvJAkcZWIN1OR5KcvszI53tTRFZ1IBVcQl5kTfb8bnqmb63wA2eRyY/BSmFs+2sGk
-	 WoWuNLUJC9XLASbQCNqr6pUdGBY9Eqmn1K0LfgP2iy5BNaCNHJHOPN/Hu31MNZSuNQQtS
-	 Lu0yClvzisLipVkO3vwiL6EXvyUAGFqKeC04/2MU4D74P/Dyae9rU3glFLjaSt76Geg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874082;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=f8+V0rnxAQZoytXwU6raAwftOuX/dJxIAc4luNdjw80=;
-	b=oDGWsd6Deiqhy/lhYw9S3+NTdt6GUvt4SlDwyjUtJUS6v3gHXGdaJdBetCwkSoWYbUVq
-	 UAWGAbaNjFUvb9e2GzB7B8k4BJX4eU9yLFYxzoTqG3sdt2FW9B14Ce63l+HYK7iZ4cWNh
-	 7+tPvnwpd9R/KV1CtR0TBsC77+zAmkUqF6sPEVaQICz+RdbDKdcQsK8AZKeSfPIHtSlnj
-	 oLJ3/HkC101N4idlmc+MH4GqF/Q1udOImwAC17/6at8dfukejov4Of5Ohd07ZQaH/CHsy
-	 Kax52EJLjmsk3Ak+OHsCfwe1YeGyHSLFqNcde9GFtoCEsLRnjVc6s97xJ7bcs07yd7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ia5OX5I0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793874166;
+	b=l4sX6vE5N1ylOwngKBulIhmL1rh+RgCLefjORHT9JCCpGhicwHjjJxcbbU7xE+K0rlAR
+	 hjXrLoyMRyC8xvl7KuKfO7KSlWGPnNqnXWtAEReL+g5d7+VQ4Uf4YAo78S0Ssf4q5Zxj0
+	 uVUth4e1RQ8JaVnNEk+O0kfqIZrusN5psiMsUoRo7nvlR02zKuIM4TfvWAVfmBJoDkueU
+	 B2seSy2Zxa+LAcYBPGK+tCbziw2vTLK4rd1lqPr6hcIXAVRPPP10cZ010JHOmfwdm8hZi
+	 P+jHm94rW/y/ocxeV2AopeKWvOnpnhDL+n3yDfrEvo3s1zUCRwNXsbNKBviwgjpRtBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874166;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
+	b=EgLT3i7YXV+ZGr1oILZfBUm+dbhAU1w154zzMKKb+MLPcPKmpLxV4cc/sPBEb+iG4HF+
+	 AMfhqzBZPsfhltCFGasrNcGlHpqMe0OLjoN3AlwLQ0wZHwubupeZqopvxbevfOVCLFw6E
+	 LHtNXBiXkmsHNPC9u4OXY2sUYfislTkH6pFz9btp7Tqffd5Db06gaQt0RCSowKRJ6bzav
+	 bg4T+Hag5en/1t4UW0CyiOCyuT1xJ4nhPpDLFNFbrAN5KZia4z49HoED1qYHNWOJw+mAi
+	 s2AbOPIFzhG2h9RBKgtDAlgYWLYCib9CFklF+9+5tkE2FvqBPyQFS4RA+ynfw348v8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UeONTUv0;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="qC/e/HgG";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CCB606A31B;
-	Thu,  5 Nov 2026 10:21:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97709606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97709606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ia5OX5I0
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793874081;
-	b=TNPKxmmtg184qPEeT/j08C5gV5MZhkhDU8wXPv/pn+JQyqjx/fMlgMOsGoMNtQcNYoQ1
-	 mDQw46PqyH79yKMnLzsC2B+k0u2hKXlfHlMfOhH/zboCRdQHBLRexfF5JprbQFsTxwdZG
-	 5oxYs7r3Bg1eI4ivHkJmyUnto/+wPCVENuGCAKK8KIPZvLk/wxXFGpUgzZIhLTqVLR7qE
-	 PPPRIgF0Mha+mLJUwimzrmm73YTN8uk7uiIAGvi7kprDqUerJ5u+ZIx/zL/PLYzyxLHbX
-	 3F79jbtI+hHMrX9OZbupZlWqHaY9FG+uIc/RI5Gf6vw39RdjwCMBeICnDSm3fRM0rjw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793874081;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=f8+V0rnxAQZoytXwU6raAwftOuX/dJxIAc4luNdjw80=;
-	b=AGcN7LW3AQ96xFGyu3OyqbV7rEno5h8kEqwo9O0ZDMV/FrVNH5UZazIwH7qfVUtTDe80
-	 6bTmUpZDeR3d0rWpYv0PACLPUAh49BaUYRtnRa3/iKx6J2dEfdvfU99oNBtoBgvoaL1u4
-	 kSbQqCrnLd6ewBlzW1/4YEyA0hJd4hWhdhxKImxfTvvKeEOJhQhr5Gn0/1UJCcYXg/u4h
-	 K8Mn7v+ha7Sm+QJbf1LVzi/lh7Kw5YZMLeH9/XL3SM3nA1ppGUlVAXzfR65SBZed4pFJu
-	 ZF33FviIMZ6axncdNC2gh9HaUHz+cErEVNKkwludYqkMioK2Jaadqny9CstWmd+4k3Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 3E53E1F000C1;
-	Thu,  5 Nov 2026 10:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793874081;
-	bh=f8+V0rnxAQZoytXwU6raAwftOuX/dJxIAc4luNdjw80=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ia5OX5I0hASq9892LbGZEIVCIT9f+ubYtcPKQpY8hHVu1pjxp5QmYPs8Axa3Ro9tj
-	 5WdoX7YaZVl59bA+2aeo6MAxHoFN0hVl+lvc1NajxJjMObzHpExrqshP7ZjRhy2OpU
-	 AzkKznOXicrPkQntBd8xF7gvc3QXn1d2vKfna2rBXAWhIZwNB38rJVmP6O2dIPrfgk
-	 jUglhEEojV/Q15jJzuXolHLtocewrZCIBWJ+FWquRBRaYI/hOGaiMkjGIZYNdrcvIX
-	 E/e46HsPBlYSB5AOCcEMf/JFlwOxEIajwJXWRlTtEuEhbPI62SdEIX018YU2X6c+BI
-	 V52TgMcUG660Q==
-Date: Thu, 5 Nov 2026 11:21:12 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: jikos@kernel.org, jic23@kernel.org, bentiss@kernel.org,
- linux-input@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, simeon@maryasin.name, lixu.zhang@intel.com
-Subject: Re: [PATCH v2 3/7] HID: sensor: custom: Disable sensor before hub
- close on removal
-Message-ID: <20261105112112.00003ba5@kernel.org>
-In-Reply-To: <20261104201403.2039921-4-srinivas.pandruvada@linux.intel.com>
-References: <20261104201403.2039921-1-srinivas.pandruvada@linux.intel.com>
-	<20261104201403.2039921-4-srinivas.pandruvada@linux.intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UeONTUv0;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qC/e/HgG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793874164;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
+	b=UeONTUv0UgbS5IUIOd2M8qcgqpI9bup4ehO2VCa6ewq4x1MYJAwx6ft01Ive/vgQPmNKGi
+	B51756vtLbZspiZcqvueGLxArHlu9yOJClOBjaLP6vE4o1QQ0BOzwHKW5U1uCH7Pzjg5H8
+	g0ToCWbB9ajtcd6wwt8VLJXy45ul9hk=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-211-qvs27NRePROeQkdBceFFog-1; Thu, 05 Nov 2026 05:22:43 -0500
+X-MC-Unique: qvs27NRePROeQkdBceFFog-1
+X-Mimecast-MFC-AGG-ID: qvs27NRePROeQkdBceFFog_1793874162
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-490d2ac331bso969479f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:22:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793874162; x=1794478962; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
+        b=qC/e/HgGDYx/2Lh64K+89w43sgmoFIHWuFrBEhX60rDYwVSNtChRz09WqDqoa22QP3
+         e+RVTc/axkWchbGnZ3bhlpNKuPgym35DUljxtawDPCmFsmx777kOCV+ov8IzqAcZ/zCj
+         +m61HPAOhT4aaK+kunQ9lvKI9eb7DRq/zTkCF88XFdg8MfS59WYJv2wsJlIs17ttGDlZ
+         l04iU5g3LWp2lj1xaCjSfMW21OaWaWKSyNo/7BhXdOUfvHKpt/gxvo16mpMSe4BDPBED
+         6KeLgf6F0gh81FV1kkef3Co93QjgWMlUFqLJ2atYtMmUIreGL0IogeUNiQdWbznpjUJa
+         UwOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793874162; x=1794478962;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
+        b=QVhKzJLlW4ljJ7kaYpPLjKnURL4F6S+8/7gMOC7vwIy679QvlZ8UIkW8SdOGZP50EK
+         OMKJPkngWb9DsbyHStq2oBI9m7/SVrn75YWQ0cWkmie5WXaBq+ridNlJCATntxvZTxnM
+         7H6td18k2QohFQGv3QdpTUWs9cx55TAT5q1uXf7HUu/KF5rdo1qBn/vztQv37YLlRn6F
+         VUv8N00N54drPhvHz+lkflqLqWRjdYKRdVTscEmwqTDYYILL9YIDoH7+LyGUh+KCrBpV
+         PM544QsynNGYOnCWmJK9dMA0pM5woTnV8LZKXhcZyPEwymnIhgo3rN2nnUdpZ6JnTRjy
+         uY3g==
+X-Forwarded-Encrypted: i=1; AKwUvBw3QCOWNGj5eknf54zsVs7ljU87swBmBt/W/9Y2hseK98G2aBg44iIY2trh+PTdD60uFuWI/AUZnwhHB1k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FBDN/RAneSid9Fsq230jBVaYWmjNP/7z3biZO62lwYHOYYo92
+	Q5oSVRWbyPKuXXcBSHZ2bn4dd4YxukPqhamnX1QmDdFiFzmhp0W5qjaRyOJY9seheiORrInMsK9
+	nZ8j2bx8kY4yRqjNjd8it4pDNhGOOYXe9qU/HhPC61W+ubN7uqLJGxufm5qKzuXlQFJ5RTYklUQ
+	==
+X-Gm-Gg: AYBFou0f8Cdhr5vwMcfiZalBrRj1NvnA6HeFnVAvU8c19AmsuRodXVaMGipXIrsRNvf
+	xBYRd4BHVwibfgP9sKzVteT/EsyK3BKCugg6u0x/hhiZSQcpYvI1CI1Tva05+jWyQIwUak0+PEd
+	dAnRMtWBCd3v1QH/FpxS+RD4++/oXo0yC5naQ64w7tatyxKTkwCGFxxgbCS6kuWcuMJCcirLf53
+	Mx1+zM19RueSTLRNK+NIvSUHfr3xA8KuSsaUF0GStrmge2pPvCDJV6/0tcG7921a5JxPFcMusqu
+	CYjdeTVYOZoxpnfvEIrhku6PD2U//5ZUpJ5gkCIAlbDlGtGdTCdMShkgblO1z4R91NOgIBwdwo3
+	Vunx/Wgjro0YcaiIFjpZKysBJDW3cD1zfzB3pT4uCJWdX3q+JfHwW
+X-Received: by 2002:a05:600c:c87:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4ac186b1a2amr423568195e9.18.1793874162221;
+        Thu, 05 Nov 2026 02:22:42 -0800 (PST)
+X-Received: by 2002:a05:600c:c87:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4ac186b1a2amr423567735e9.18.1793874161708;
+        Thu, 05 Nov 2026 02:22:41 -0800 (PST)
+Received: from sgarzare-redhat ([80.116.143.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f0237aesm56586085e9.9.2026.11.05.02.22.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:22:41 -0800 (PST)
+Date: Thu, 5 Nov 2026 11:22:36 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: jrmmhm.kernel@eldare.de
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3 1/2] vsock/bpf: release sock lock while waiting
+ for data in recvmsg
+Message-ID: <auxYWGV4l-xEAajy@sgarzare-redhat>
+References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
+ <20261028-kbh3-1-022-fix-v2-v3-1-bc0752b2d3db@eldare.de>
+ <auSkQOU6qmj0NPEt@sgarzare-redhat>
+ <179381093020.9.4719932034061956856.1746278795@eldare.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,26 +123,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <179381093020.9.4719932034061956856.1746278795@eldare.de>
 
-On Wed,  4 Nov 2026 12:13:59 -0800
-Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
+On Wed, Nov 04, 2026 at 04:48:44PM +0000, jrmmhm.kernel@eldare.de wrote:
+>On Fri, Oct 30, 2026 at 03:18:10PM +0100, Stefano Garzarella wrote:
+>> Ditto about commit message, please put more effort on writing something
+>> readable by a human.
+>
+>Agreed, I'll rewrite both messages myself for v4, much shorter.
+>
+>> >+            if (sk->sk_err) {
+>> >+                    ret = -sk->sk_err;
+>>
+>> Why?
+>
+>Same as vsock_connectible_wait_data(): an error that arrives during the
+>wait is returned to recv(). Without the check the loop still ends, since
+>every path that sets sk_err also closes the socket or sets peer_shutdown,
+>but recv() then returns 0 or -ENOTCONN instead of the error.
 
-> When removing an enabled sensor, set its power and reporting states to
-> off before closing the hub. Keep the field descriptors alive until the
-> state update has completed, and release the hub's open reference.
->=20
-> Fixes: 4a7de0519df5 ("HID: sensor: Custom and Generic sensor support")
-> Reported-by: =D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=
-=8F=D1=81=D0=B8=D0=BD <simeon@maryasin.name>
-> Closes: https://lore.kernel.org/all/CAM2dg7ewfVJSP4rFyhkCB1Rmd1+X56sAg=3D=
-eUdbPthG2xrLqwQQ@mail.gmail.com/
-> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-> ---
+Please add a comment with the reason.
 
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
+>
+>> >+            if (sk->sk_state != TCP_ESTABLISHED) {
+>> >+                    ret = sock_flag(sk, SOCK_DONE) ? 0 : -ENOTCONN;
+>> >+                    break;
+>> >+            }
+>>
+>> I'm thinking if we should split this in multiple patches.
+>
+>From reading the code, it can be split without breaking bisect: first
+>loop on all exit conditions with the lock still held, then drop the lock
+>around wait_woken(). The order is fixed, since dropping the lock alone
+>brings back the early -EAGAIN, and the loop alone does not fix the
+>deadlock, so both would carry the Fixes tag. That is why I kept it as one
+>patch, but I'm fine either way. Split it like that for v4, with the
+>current 2/2 on top, or keep it as one?
 
---=20
-Kind regards,
-Joshua Crofts
+Okay, if the entire change is needed to fix the deadlock, then it makes 
+sense to have a single patch. Please make it clear in the commit 
+description.
+
+>
+>> >+            if (!timeo) {
+>> >+                    ret = -EAGAIN;
+>> >+                    break;
+>> >+            }
+>>
+>> Is the move of this check changing some user visible error?
+>> I mean before this patch it was one of the first checks, is this okay?
+>
+>Yes, for non-blocking reads, intentionally: -sk_err, 0 on peer shutdown
+>and the not-connected result now come before -EAGAIN, as on the native
+>recvmsg path. I'll say so in the commit message.
+
+Yes, please.
+
+>
+>> >+            if (signal_pending(current)) {
+>> >+                    ret = sock_intr_errno(timeo);
+>> >+                    break;
+>> >+            }
+>>
+>> Why? Should be a separate patch?
+>
+>No, the loop needs it: with a pending signal wait_woken() returns at
+>once, so without the check the loop spins until SO_RCVTIMEO expires, or
+>forever if none is set. I checked it by removing the check: a signalled
+>reader without SO_RCVTIMEO never returned and used a full CPU. The
+>native path does the same.
+
+Okay, please explain this in the commit description or in a comment on 
+top of that check.
+
+>
+>> >+            if (data < 0) {
+>>
+>> Why not data <= 0  and void the other if?
+>
+>Right, will do in v4.
+>
+>Thanks,
+>Jerome
+>
+>
+
