@@ -1,61 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871522;
-	b=otj7aXk5muLR23d0q2/Lj5f/hMa8v2gQtvi3loZvpqsdPXgbAwsGsZ0bKI6HpbgKFpXK
-	 /UbmyRa8VcqtA2wX9fa88zgGJVykiHPQyw8SOddlbVoX3EzNhuo0GQYuwNEi8tLky+GZv
-	 YMbau/HaY87bMQxCLrvZzjn+WeP1RQngJec6dECSRVUf9Mn+LGHiyLCD/7VYCH7hcI3zI
-	 uXM+5nUXVG0Jmzc90anOfz2VK60npwIH+HGZXFX2k3I8e5mjBLF69Afk+kLYNEqbXEI1t
-	 EgWMNv1yLvUV741dXTg0jSeVBoNsbJvXnho8rui7Sxx79H6vR2wce7HwHWrIqsOlrAA==
+	t=1793871523;
+	b=UWOGHanmqd6fEjldiiwGuMFAXp69M+HDrlTXIF/ucauYp4qMbsEaOXwPo3nuVL+s6K/0
+	 77ANdfI7/xqpKl6691S+Q1T2jCPUkFHGEIuhpZOHOTKL0shfPnlj02sYstTOZXIynspa4
+	 usEMuYshDdET3AEWxJjdluDTr2BJuymr3iAx70PccuhNHoMI2onc4Ed8enfFmcV9jEWC1
+	 XcLe2PgfpQeh1OklkbMEtrduPMJOfXdTXH6lJLIQMSnjKBLCZDFWYQnAsacLX1dosZ/z0
+	 Evr4G6hI8ivjky1IKomBWOBLwy/BM2JUDSXodhvN0p+tjsVdTrwBFR34r1o8Hdofwxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871522;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=NJOowqkaokprRQgrBwv7q6k2B3V31/vfYBmvVAJiIuQ=;
-	b=M2H7kVRvWbQX0XsTKXN2hLp961806YL+QPxB8Lbl813HOs0RzDutzEyRBrq9iU5lMxgk
-	 REFvfUqThp18T1Ik0gx/6yw+vtdV3r+/b4qnM2bYxexuGEhh2Fs9h37fkIxKKHF6yQ5db
-	 zQcvGSZAqabrFHBUEPRipcWonvrFG1F4Maq8b8W3cpLM6QYIS2RdnYrXSajvBpBwwoeQI
-	 VWJEZLid8M2tgt23mHKnhfM5gWQYzLVFR0b2IBFt5eS/RqvA08uORXEK7iPlmpn014W9H
-	 g8G7Zyfn2YV8s5HT/sfIdIZ5rGTYXTyBhFWwiDIBnRk5xB53qz2/dvLA5FZCkNBdoRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871523;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Date:
+	 Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/dGhVSuKdi1xxVlq9dPWbCRgclwBGEMzplmWMZ8WGuA=;
+	b=f80W8W/kHpQ5Lv3GSMkjNwtyriWFJbLzPTaSkkyVpO/HqAy0pit4I0/OR2wcWQyzViSg
+	 gIGybRxdM2NF5h28MrDedhlTaad7JgTjqMSoguV7Ae7p5ydqqmFUsOtc79gH6nzsZbB8L
+	 ZRx9gbnHvCXqS4cNOwMaJjuMCpMwvutP4euhG7k4Mk04PQuTVt6RZx6YzmC8gVOvU72t/
+	 3RSOnYfkHzG4tVKSY4dac+0nF+TAJon2f7C49tsGCCwGUoI8wPm70e5RHUNpjIQhhFM3Z
+	 RJMERGz8z61tA2Ah/SM9ojEaRaYcBjV3DDY7n4sMulhbEmV6h8mlRZ++PKKES/VPczg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGiIuSRZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ed3yBm8m;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AC1606A328;
-	Thu,  5 Nov 2026 09:38:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3607C606A32E;
+	Thu,  5 Nov 2026 09:38:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3607C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGiIuSRZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD9B1F000C1;
-	Thu,  5 Nov 2026 09:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793871522;
-	bh=NJOowqkaokprRQgrBwv7q6k2B3V31/vfYBmvVAJiIuQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AGiIuSRZjtkgDkzwYrd+MlIl56rdYiiahaJWJ40fFXgqbnst4AsVLaRJPucmdhc7m
-	 Go3i3s1L2eOQxd9O1ybBzKHxsky2wNDSDeie31win1yg+n2RZgcCf/bPm1XEF55FFk
-	 rBcUYUK7pIZDWBxvHX+youFmzhveP0zwNvSitqouLvAtEgMZ3ptcTFtftxtDrM8s+3
-	 vDrz7UTdrOBC/KU1MSjxEJVFeWE1cCOs56XG86woADfZcCCclkC+f/5adDti31Spsd
-	 QFmyB/Mfiwt5eIVrVrB3jrAaADJQNFJxc7bbIu5qT+QM+yfDrcCndj8sFTqbOqN5u6
-	 kvcXmbXEygs6w==
-Subject: Re: [PATCH net v5 1/2] genetlink: Reject joining multicast groups no
- family owns
-From: netdev-bot+sashiko@kernel.org
-To: anilkaushikwireless@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, idosch@nvidia.com,
- nicolas.dichtel@6wind.com, jacob.e.keller@intel.com, jiri@resnulli.us,
- fw@strlen.de, martineau@kernel.org, v3rdant.xiang@gmail.com,
- aliceryhl@google.com, linux-kernel@vger.kernel.org
-Date: Thu, 05 Nov 2026 09:38:40 +0000
-Message-ID: <179387152067.488856.5027284112549941042@kernel.org>
-In-Reply-To: <20261104092125.211537-2-anilkaushikwireless@gmail.com>
-References: <20261104092125.211537-2-anilkaushikwireless@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ed3yBm8m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793871523; x=1825407523;
+  h=from:to:cc:date:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=a+Xyx8JLtkZ+MrWZaTAqeyRXz1o1vzVa2SXdbydeRYU=;
+  b=Ed3yBm8mpRZ+p5Mu8PkZqxKTLeuMYq41VilEXfklQMaBzWUkLxeUppyv
+   FH1k/KEu2V7FOMdDQkx9XsbS6paQmR0JEHWNVQ00xTqCW33sPB3HrwTfI
+   ABH3B640UgteZVc6qIZUcvD8WwDGwX5nWUasdQYWRU7TNr2Fv+qWB4433
+   jJiTSEQKN9bMg5uEOZDTW7WDAAlYsnmh59JApXDx774yI79ucJcbHFy2H
+   9Jlr0HO7aVisYSgvjYh5hGdZ+gSvtJsoFzz2wpLIJlwpxmzRAieM21yhD
+   TYKSUV1PbCH6WlVsZdKAP8AfaI4cBvKpOaFIk0SRHomAZJ53gqlOAyKDa
+   Q==;
+X-CSE-ConnectionGUID: 8hHyMHdXSFyFsZgTWjuXLg==
+X-CSE-MsgGUID: ZHdVHQ+bQ3eNrCbTYu3RfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2682436"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2682436"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:38:42 -0800
+X-CSE-ConnectionGUID: KrrS9f3oT+WeN1PXqmOPHQ==
+X-CSE-MsgGUID: pC4xApMeQyCDbFf34+WYNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="6845781"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.191])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:38:40 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, PDx86 <platform-driver-x86@vger.kernel.org>, Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>
+Date: Thu, 05 Nov 2026 11:34:41 +0200
+Subject: [GIT PULL] platform-drivers-x86 for v7.4-2
+Message-ID: <pdx86-pr-20261105113441-239427279@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,142 +76,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Linus,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Here is a platform-drivers-x86 fixes PR for v7.4.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes
 
-- [Medium] The commit message says "Nothing is ever sent to such a group,
-  so joining it has no use." That is not true for the fixed legacy group…
-- [Low] The patch gives a reserved meaning to -ENOENT from the generic
-  `struct netlink_kernel_cfg::bind` callback…
+- arm64: asus-glymur-ec: Resolve config loop due to THERMAL symbol
 
---
+- uniwill-laptop: Add .hw_offloaded() to avoid leds subsystem warning
+                  about missing callback
 
-genetlink: Reject joining multicast groups no family owns
+Regards, i.
 
-This makes genl_bind() return -ENOENT for a multicast group ID that no
-family owns. Without this, the GENL_MCAST_CAP_* checks can be bypassed by
-joining a group before its family registers. netlink_bind() treats -ENOENT
-from the bind callback as "skip this group" and joins the rest of the mask,
-while setsockopt(NETLINK_ADD_MEMBERSHIP) returns the error.
 
-Link: https://lore.kernel.org/netdev/179324692107.3134.14443689892607921337@kernel.org/
+The following changes since commit c339f4010dea8b0d754f84ace70cd1b089878ef8:
 
-> diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-> index 1281c42a3456a..136055764a006 100644
-> --- a/net/netlink/af_netlink.c
-> +++ b/net/netlink/af_netlink.c
-> @@ -1033,6 +1033,12 @@ static int netlink_bind(struct socket *sock, struct sockaddr_unsized *addr,
->  			err = nlk->netlink_bind(net, group + 1);
->  			if (!err)
->  				continue;
-> +			/* no one owns this group, still join the others */
-> +			if (err == -ENOENT) {
-> +				__clear_bit(group, &groups);
-> +				err = 0;
-> +				continue;
-> +			}
+  Merge tag 'platform-drivers-x86-v7.4-1' of git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86 (2026-10-28 07:36:32 -1000)
 
-[Severity: Low]
-This is generic af_netlink code. For bind(2), -ENOENT from any protocol's
-bind callback now means "skip this group and report success". The other
-caller of the same callback, netlink_setsockopt(), still returns it as an
-error:
+are available in the Git repository at:
 
-net/netlink/af_netlink.c:netlink_setsockopt() {
-    ...
-		if (optname == NETLINK_ADD_MEMBERSHIP && nlk->netlink_bind) {
-			err = nlk->netlink_bind(sock_net(sk), val);
-			if (err)
-				return err;
-		}
-    ...
-}
+  https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git tags/platform-drivers-x86-v7.4-2
 
-The commit message says this difference is intended. Today only
-genl_bind() returns -ENOENT. rtnetlink_bind(), nfnetlink_bind(),
-sock_diag_bind(), audit_multicast_bind() and cn_bind() return only 0 or
--EPERM.
+for you to fetch changes up to 086aeca907789bd2604f16f07bfc073b19015015:
 
-Could the reserved meaning of -ENOENT be documented on the bind member of
-struct netlink_kernel_cfg in include/linux/netlink.h? Otherwise a later
-bind implementation that returns -ENOENT to mean "subsystem not present"
-would have its group silently dropped from bind(2) masks, while
-setsockopt(2) fails.
+  platform/x86: uniwill-laptop: Implement .hw_offloaded trigger callback (2026-11-02 13:32:40 +0200)
 
->  			netlink_undo_bind(group, groups, sk);
->  			return err;
->  		}
-> diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
-> index 5cc1037d4917e..f038f04ef4ead 100644
-> --- a/net/netlink/genetlink.c
-> +++ b/net/netlink/genetlink.c
-> @@ -1825,7 +1825,7 @@ static int genl_bind(struct net *net, int group)
->  {
->  	const struct genl_family *family;
->  	unsigned int id;
-> -	int ret = 0;
-> +	int ret = -ENOENT;
+----------------------------------------------------------------
+The following is an automated shortlog grouped by driver:
 
-[Severity: Medium]
-The commit message says:
+arm64:
+ -  drop the vacuous THERMAL dependency from EC_ASUS_GLYMUR
 
-    Nothing is ever sent to such a group, so joining it has no use.
+uniwill-laptop:
+ -  Implement .hw_offloaded trigger callback
 
-Does this hold for the group IDs that genetlink assigns as fixed values?
+----------------------------------------------------------------
 
-genl_validate_assign_mc_groups() always gives NET_DM group ID 1, and that
-ID is exported as uAPI:
-
-net/netlink/genetlink.c:genl_validate_assign_mc_groups() {
-    ...
-	} else if (strcmp(family->name, "NET_DM") == 0) {
-		first_id = 1;
-		BUG_ON(n_groups != 1);
-    ...
-}
-
-include/uapi/linux/net_dropmon.h:
-#define NET_DM_GRP_ALERT 1
-
-VFS_DQUOT and PMCRAID also have fixed IDs. Registering a family only
-assigns the ID and resizes the bitmaps, so existing members stay members.
-The "NET_DM/events (ID 1): member" line in the Before output shows that an
-early join gets the group's messages once the family registers.
-
-ret now starts as -ENOENT and is set to 0 only when a family owns the
-group. That means privileged callers get -ENOENT too. Take a CAP_SYS_ADMIN
-process that does this:
-
-  bind(nl_groups = 1 << (NET_DM_GRP_ALERT - 1))
-    netlink_bind()
-      genl_bind(net, 1)          -> -ENOENT, drop_monitor not loaded
-      __clear_bit(0, &groups); err = 0;
-  CTRL_CMD_GETFAMILY "NET_DM"   -> request_module() loads drop_monitor
-  NET_DM_CMD_START
-
-Before this patch the socket was a member of group 1 and got the alerts.
-Now bind() returns 0, the socket is never a member, and the alerts are
-lost without any error.
-
-Is this regression intended for privileged callers? I couldn't find
-existing userspace that does this; dropwatch appears to resolve the
-family first.
-
-The commit message mentions the getsockname() change and the setsockopt()
--ENOENT. Could it also say that early subscription to fixed IDs stops
-working for privileged callers, and that NETLINK_LIST_MEMBERSHIPS output
-changes as well?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104092125.211537-1-anilkaushikwireless%40gmail.com
+ drivers/platform/arm64/Kconfig              | 1 -
+ drivers/platform/x86/uniwill/uniwill-acpi.c | 6 ++++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
