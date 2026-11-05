@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793917931;
-	b=Wp7fq7Vf4XwG51iC4DW7lHu/YPidmpz+vnQ4zJE0gM8My975dq+Oqqqu1UFzlpm+SOeM
-	 7+yPEAs8pmIBzlkd4gLsDxw1CalrsIK7nXuhLMzW+ZrtsvpWINQ/Iad7Kn1nLSAHSH+CC
-	 DFROsx0dHLWma/JXrr1Cc9U/iQnekeWu+mEhDpCv0wN95+ERUolCHnVLjphVk5ljxBxoC
-	 47Biiarwcn7OXZ7XkUEDm85lyFNq01C/A7nPx7l3bZOBMqqOG0/HRT4i6pdoi4oHbBRne
-	 EOmbc6rggFXkIFj69xNS9yxKMH5yrStEn1x3BYTVyT7GHdBq/wX5yQlvgW3Der/d6jA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793917931;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dVk8FlSCk0p0X/zLsBRSgcQPtRAQ4rsApX2OtPYv6mA=;
-	b=KWjzq2nKyC2bWT2igZhJ6w6n1PNenrrEYN6E9CEi3FILA71TElCk2QBaVGilDgDC8NL6
-	 AI59W6DXJsGH3oPLaaFZpkcux0B+/R+7LzA6kUKUWF/4PTNOOZy4wvmCVkisC5xND0UQw
-	 0DtSN08Z97nqyQ5+SISgUMkbzvAK4ymfuwv5U6sIVxm8X2lQx9yHEwI8qVRsyXuc8UPUh
-	 HBKD4RJzZ4pqRIYkr5ZCWbkGnuAMKYC+vkjkPbrtLhWJZtulRcg+0WHXes97cQLOHVH80
-	 MjMNhHmADgsd65v/d1MfsJSwoyxZ8ds83/D+pkxUwQIgaGjgS6BCN7HEeP/NxSO37CA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eh+RrIwy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793918059;
+	b=B9AryALIegAf7WLE2G9/MQ6xXH1mBsuArriRpXQBUvrLiP/Pu/RNEvoUq8B1JevroYb6
+	 V/oY2+qI2I2Oorf1/EoH6JBqYX8gvc6IwNh/K5/r0YLC7sdP1sehB2D0kfy2qtxEW1Xd2
+	 3AkKeI2KF72kA0GDF8vavffM8IJOQ2G0Hvm2mSXTyi/t6y8YZqxfmktNZUOt0hCHv/Hag
+	 T6gPYU1dA1/8+F0uMEY/0jamyEgtcadZQ7C2MRhJFEYsZPFL4iZrCrfuACsM9AW3znjEg
+	 bJZr2+9TNpNfehUgD1gijDfWazqfX5pX/uxHUC69/huSY8Te22lY1PDuCPDYwYNFa8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793918059;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iIWyxXCkV5ahjt2ebCV4WwQbZmTr+s4l0TyythVjJvU=;
+	b=sUYcXgSMnDOpOL22BddMtRmnVGBy1H6RQ/kJKRM8/vBb0Uh0nu5zZe00KpxI2dBrJbMw
+	 QB0rlkxZ+/HCVezE7nUw5GJJDe2txMe6IFW+suP60gEOTee5hSrynFHgrBdmFUZ9JhImL
+	 ECWcl7FdgVZxiuA9uNU4hBV8vRg4868TwZGpJQ+8xBODgJ0vbs9V6SP3ZH4JaeiPhAVd3
+	 6nN519aG5A3Ee+74ayY7TD1SAB7xDAI4o28vwMwj2Ay801MKxMkHu0v+Wd1mnu9398YoC
+	 nWvR+eW8n6dwixmbkGJWlIpKlCd+QB4KvtZO/0x9WuXkJMbkfQ+IbqOFLsWo/GD8nZw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LpTQOPsa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50ED5606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:32:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50ED5606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C561A606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eh+RrIwy
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06210b29fso1324303b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:32:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793917930; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U9yPLZIsUoDGlTcwHxvGO29KcZj3/RfnW/QMHLqdDkX2Kl/L+PJqrD/hteCsaQhYoq
-         fSQVY50J4NfBU8MZE10UTIgceWXI/W5jiocm0cr+0AY01SbNdcFZYvW1+e0l8IovMyBD
-         ktA/qbGcjpGfCifbdCNgtYhdbHJ/qswrfyL9HzkX1EgtFWS/4IntzlOAdDmdK2PkLS8M
-         E4CnVEJq8CVhza8xB/dBaWvxNi4fBhGCu9lpfAxHnOEZ4OwYyH/hUVa/FDZPr73fqg3m
-         CQ8Q03BKYkxvk8CpdGIXG2/1WJzI2sr4HuHyh6D7pu9KD3yLTr9XD4C6NmkbxPt5NDS0
-         OB4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dVk8FlSCk0p0X/zLsBRSgcQPtRAQ4rsApX2OtPYv6mA=;
-        fh=kplT++7ihFiRZvW3gQ+6bLsGUgiBsrbDnf3iUr141c4=;
-        b=Ybv4gNB11pEAh4IUr+Tcw3jNdmwPjqIW+fSnTi3uTnxFtdni6l4E2qD+fgLI7+ztyR
-         /japAloUKYGzujoc78HifXUsPnnQ/ZqMl+8mJx6/aT0RZWUh2f7ifz8088ZeHCkZwlsh
-         vo6jfPTNfHKX84uzFoerd9db+pc5frkIr/U0OK1mf6XRCB3VaIwLeMjs7oloRQQ3YLG0
-         Amf+kQbLQ/RD8WpSSunaVbmldORYp4hl8+yf+g7IUHi95DO6A/PaL8F65RnFQuojt8yN
-         5yD8DWRr8Hia6r65y9VmmbZOAhc31JP9Qerfi557DgNuC/fIiKP/v4VtQiX45Tv0l+FT
-         DUkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793917930; x=1794522730; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dVk8FlSCk0p0X/zLsBRSgcQPtRAQ4rsApX2OtPYv6mA=;
-        b=Eh+RrIwyRW2pLFAckDF0MHCbB39wfpgowwsx1EjCEg4TjglDCPKN/+7ORVBplodNEl
-         jPsuezn9sp+54nY0YFIN5id6tKlbCmtePGeBOzUEgEtD3zRu4wGuAGpQI9AU5O9H/OG2
-         BPrZhYK4c4JMn8PnVzz5wZtQIKJrYDSceGNLApikgEpvL+Cm5kmuYnC7eHy1JGXZFMxb
-         f758muqYNnvb4aLtbgJMg7+gE4B3HhSKAGYRVp57kx0wCQq7XDhPMG4nfMdkf23f4ouv
-         mOvK402Ka+ie5oiUrYTV9bgBNPGKvXrkXueKKPphc1LciwU9R0c1CRCypkNY+ZaDHYvD
-         3AgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793917930; x=1794522730;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dVk8FlSCk0p0X/zLsBRSgcQPtRAQ4rsApX2OtPYv6mA=;
-        b=CaeEO7fhttI6U2X+kHCdJEsm9CVxMYf5aygUlcoPG7j1PYaTp8f0YNw7GbUl4vrTma
-         q9z1s5gb+8vl4C7qSmG9Ubo1nLwB5yUayA8NBIQVqWdpVOY6aV5kpoi5n1w6ypOPYqsH
-         RDCQGiwpV5rFOn28aE2DfJ+AQWXP59n+NSkZUZ2DhhlkUxfiqxDsMYw4OB4YYoB2PNmX
-         hIti1At+lWPbqciw59ER1uR2H6A4BaHwql8uYEbzuTLW0vPOvzrzs7wpjxGYmOU67jto
-         CAXQIdgVLKiI3LPfxDLLjXUQOJiryPD65Ng638vRP6LTUCfZb/1pfU3DMI5DiLlnaHEv
-         nJ+g==
-X-Forwarded-Encrypted: i=1; AKwUvBwcAy16+1oHoxwp+e8qVqT6hqE1f1aHtLA5diWal2csJr62ji6ugFMa35A0GFhgJKkjOwmyNYGO4xy7HL0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mVLAXgA0mzaV3TBVN/F3+Qr4ZR48uXpIaJfogwUM+imhWLvw7
-	8knHgaRXwbA0EaH1nEYbKNY3PBc1qJDOn0CdGmdDxl4X7X0Yvr0jbnWyd7cpt1h0c7Qhbagmkb3
-	LB0Ubn1yeJqsECQwx2M7df7ohB/yJaqk=
-X-Gm-Gg: AYBFou0mdlV4jZG09kNl/x+WqYSGKNgUNuH57ULHpIEm4BLPWjlIrw33IrSHeNF+ZSu
-	8AtewZK+E2SMOJfVT4wYSB2VqoeztWHi44h5hqvnvv/HYJBSW3YhKBVHngOUeKM/8+iz+ecQbPz
-	hGlokR7NxHkE3Lngw7F89hG+645sVVT4YCcbKAyFiOuJFO9RrRLKZpefybfFhYJ1UKWSl1K+DcA
-	+fAchfEn0FsXROm8A0hPbZfV0GSwkKHvQ6hMNnaQnT6KsSTs8mrWnBHvqdSS+OcQTRdWw+nO44m
-	WjuRhffphfH2RuzZWOyN+V+ExFz1i1fz+W5Uv319m1a9et+3xkHNadoU0NqAPDK7IOTQdvwnQ7h
-	jRyRyaADVakiIkOu5X4LMbrI8AizrqKjmr8mrgAxQ5MYofJJi3POp16gq+b+RQ15hInfUC+UW9T
-	S/7Vx4n7wSH1QL2EsUIzascq0Dz9BJitV9og==
-X-Received: by 2002:a17:903:2304:b0:2ed:1f0c:d31 with SMTP id
- d9443c01a7336-2ed40e688c7mr9370095ad.59.1793917930400; Thu, 05 Nov 2026
- 14:32:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LpTQOPsa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EDE21F008A6
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793918058;
+	bh=iIWyxXCkV5ahjt2ebCV4WwQbZmTr+s4l0TyythVjJvU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LpTQOPsazkS046yyu7iM/H6joY8tK05w+5aAecGuEF859grYWgXiB0qwH94f0v91u
+	 H9ZGV95ZVEp372EQYcpdhqBDbwWyETlxO2MXUA+Kfpvgf4kaeZdumCilG321pHF9fQ
+	 ir6w9AtFriLkQ3QBwri1xhrULnMmAqYMi2mSQZC/w5ZUVw+on9rPT+jT/CJx8win4o
+	 jfxSzyYGtPSo7RvCK6NdMtRJ22dkTptcY9L4IxSHXlxoEvTOO3Zty8Frw2PEg2OQK6
+	 mocIswp3bXfJLwXQtJFWJf++XgzHtVg258tnU4Nh3VhIx2xXS30WX16kqoEB0VDvM6
+	 odTsR0MKM4pPw==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b561b60b78so1702815a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:34:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzhMDDOQJ9UfTJNFvSMtzbouH10auZy9+H6kICt8fJ1FCgHOArr/OJ2xBebMEDVZeNopBD47qQKHyl4LTY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9383UpWwKeAogMa3quXOA+EAGTg4iStBtNAHUnG/Eu/Om7qQgm
+	9qpus5PjN8YUxo3VrkdQ2WpTQTUcYupjfTWoIPtsJcekFrdsbm4OO4psvAAYQ/z5SsEqntPlfbE
+	6Otxb2FqJYfrL7O1iLxbQamH15WQrZvs=
+X-Received: by 2002:a17:906:ef03:b0:c40:2439:4d9a with SMTP id
+ a640c23a62f3a-c4d207ad09fmr313558066b.28.1793918056929; Thu, 05 Nov 2026
+ 14:34:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,95 +59,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
- <20261028134012.01d52e94@pumpkin> <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
- <20261030100215.6f8e0d4f@pumpkin> <CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
- <20261104142307.431fc12f@pumpkin> <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
-In-Reply-To: <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Thu, 5 Nov 2026 14:31:58 -0800
-X-Gm-Features: AclHuK8BPGpbYIUoL0zJXTIzG60i-gPbL3KKgBgfTHwRc2VAS0UUrPKJVoGciTA
-Message-ID: <CAEf4BzbYqbPRPWQU9yM29E+Pr68y+KX0O8whK-36dyH=Zd_udg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
-To: Samuel Wu <wusamuel@google.com>
-Cc: David Laight <david.laight.linux@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+References: <20261105173838.1882328-1-wahidzk0091@gmail.com> <20261105211943.696696-1-icb@fastmail.org>
+In-Reply-To: <20261105211943.696696-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 6 Nov 2026 07:34:04 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8E-tBJhmfYdT7bwikCj2dN_sk_L5aSrAjyKX3-4wAZCA@mail.gmail.com>
+X-Gm-Features: AclHuK9MVVizSVLgfQxPDF_PUbcOqVST15KpDkJmfqMFUIuoIHX5YpXWT38l6mk
+Message-ID: <CAKYAXd8E-tBJhmfYdT7bwikCj2dN_sk_L5aSrAjyKX3-4wAZCA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: refuse to read a handle that is not open for reading
+To: Ian Bridges <icb@fastmail.org>
+Cc: Wahid Khan <wahidzk0091@gmail.com>, smfrench@gmail.com, senozhatsky@chromium.org, 
+	tom@talpey.com, chenxiaosong@chenxiaosong.com, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 4, 2026 at 4:06=E2=80=AFPM Samuel Wu <wusamuel@google.com> wrot=
-e:
+On Fri, Nov 6, 2026 at 6:19=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrote=
+:
 >
-> On Wed, Nov 4, 2026 at 6:23=E2=80=AFAM David Laight
-> <david.laight.linux@gmail.com> wrote:
-> >
-> > On Tue, 3 Nov 2026 17:14:26 -0800
-> > Samuel Wu <wusamuel@google.com> wrote:
-> >
-> > > On Fri, Oct 30, 2026 at 3:02=E2=80=AFAM David Laight
-> > > <david.laight.linux@gmail.com> wrote:
-> > > >
-> > > > On Thu, 29 Oct 2026 15:05:45 -0700
-> > > > Samuel Wu <wusamuel@google.com> wrote:
-> > > [...]
-> > > > > BY_NAME matches names exactly, like kallsyms_lookup_name(), so th=
-ey
-> > > > > would be different symbols at different addresses. Please correct=
- me
-> > > > > if I'm missing something here!
-> > > >
-> > > > Only that the user might really want one of the copies.
-> > > > Sometimes there is only the copy.
-> > >
-> > > Good point. I'll have v3 add KALLSYMS_F_PREFIX + pos/next_pos
-> > > pagination to cover these. A prefix query for "foo." also finds the
-> > > copies when plain foo does not exist (expanded on this in my reply to
-> > > Andrii's Oct 30 mail in this thread).
-> >
-> > I'm busy rebasing my patches - they got stamped all over :-(
-> > I should get a v3 that applies by the end of the week.
-> >
-> > I will add a 'prefix' variant for you.
-> > The 'next symbol matches' flag is exactly that (actually it is a
-> > this symbol is a duplicate to avoid issues at the start of the array).
-> > So in this case that application would always need to read
-> > the next symbol (by name).
+> On Thu, Nov 05, 2026 at 11:08:38PM +0530, Wahid Khan wrote:
+> > Return STATUS_ACCESS_DENIED when the file is not readable.
 >
-> Thanks, that would be helpful. For my v3, I'll keep the lower_bound()
-> approach so the two series stay independent, but I can switch over
-> once your series lands, so there is only one search over the name
-> table.
+> Tested on ksmbd-for-next with KASAN. A READ on a handle opened for
+> FILE_WRITE_DATA | FILE_EXECUTE | FILE_READ_ATTRIBUTES hits the warning
+> before and gets STATUS_ACCESS_DENIED after. smbtorture gives the same
+> results as without the patch.
 >
-> > I think it might be more sensible (less pitfalls later on) to return
-> > the symbol number - not that of the next one.
->
-> What pitfalls were you anticipating? If the current symbol's position
-> is returned, userspace needs another ioctl() call and an -ENOENT
-> check, to learn that there are no more matches. Alternatively,
-> returning the next position means every call pays for a look-ahead,
-> which for an unfiltered query walks the module symbols even when
-> userspace only wants the first match.
->
-> Andrii, do you have a preference between the two?
-
-no perfect solution, but given you don't always care about duplicates,
-I'd probably return the found symbol's position, which can be used for
-further pagination (if necessary, user just does +1). so, let's return
-current symbol index, and have way to say "find by name/prefix 'blah'
-starting from position X", where X will be previous symbol index + 1?
-
-but tbh, you have to write some code on how to do these "typical"
-queries and see whether API is convenient and meaningful, hard to know
-upfront what makes the most sense
+> Reviewed-by: Ian Bridges <icb@fastmail.org>
+> Tested-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
