@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876617;
-	b=3d+ukuwvElMRM7+pQHwMPE0hGHRKnHtXEY4weIIPspnZtvkg8pESV3+Q7uCAg3x4x9Qr
-	 2688FCVicuy8cEN7Nl4zBk/T0V+enupiyjpPuXTZA1mwMDvZhxX761422Mpdp1FFd1L1P
-	 ZtZfD/RVKLBANCXw5S9xUEF4bw8NXj0r8vaSxacPAgBF57QGWAq3toKpeQ9ccWUpiQNdE
-	 JkToIb3kvPnA+QIbE8AcnWjuCFwkhGzxE14JI2eT3N+kDCiO4zBLZLDFnnfhdpqhdT5Sg
-	 rt7deCK8DSxYk9vVeK/olZk4G58ZHFrTtY2UCIKm87SPLSuDfnwGSPqkG0eghsC7uVQ==
+	t=1793876625;
+	b=l6Gzwfl1/qFilyeCe49jrQa071kZp6zvniZ6bG6g2UCE3R1z1QHZhxcfn4zFGskTOCxM
+	 rh4yKCWMyHtdVU1MABBABl77fuzeEJiiZwhp3qsP7SF8ufWnKjkBYi7A++I91NXa3eo2v
+	 xA6+e4Qjin7lj7xjqRpz8YRBP7CAZ89sVAwWEChSMTvklxegt51rrnAyDbYAft0BncJG0
+	 ZbHDlI3qwKu9KmNvhVdhgp/OBKWGuSNMc6rF5zwL2XKK8n1v2k7+EZEJUjZqKllYFhz+I
+	 kD6WYlJmq3gOEWfvF/ktH6YO8JLZYnublqR7ToZxxVmxz5QptPWZzbColRAMiQj37QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876617;
-	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JNvALpT1uFvsDbmqg8UiSN7+IohS87cUGwq/ZbxvL34=;
-	b=2T/yEihC0gpcE2oVyvLUmzxNIu5WycWS8pmOwXA2Bu2FqLAKIBTETf4+oJGEtKf04CTg
-	 DksGz2/UPFPdds2vrDs6atLtk9wbHkRnD6VeDuLHBeU5TgWoQMfNTiWxY4p3e++/qRbZk
-	 5L+gL8OEMnbrivtUEHWnK5BNIzPI5+up8coJeimsA7hMrNCtvByVpl9mE8DajS7meaIzY
-	 QioxZgpXOa7f+zdkk0UiqfsyqT56JyjQmHf7NPMI298NHxtO6xN8jf4bzooD3biHsz9Sx
-	 Yikq3hByWewB+1Ebzvyq58RkiymgIUBAEpbW79ThFLtWXDDt/4wjZnUWeX/GUPIlzWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876625;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LvA7KEH6yP+f436RwxVH7W63a6lypb6pYWkMfhLxpI0=;
+	b=3m8aiLiFNMDcnUvf33u8Zd3R7l0FZWC/fNOfgQCjiHYlLstVBFL4aKntKtOvOLMQU3aO
+	 VN8vkwr+pkE0V/tRJt7t0vrvf9iyroONrx2KrTwxcCE65wLMeB6+FhQawKPC3z9ph5rdW
+	 Yb/NFOAqpNePprEpraWtdptI3R6vpbOo3NFvbx3ooIUB5R05IApr1tERbrciYqDaLl/95
+	 ll+Lu6METyOvJYKVtYSwsf5OUGdDSbdv1K1B+KwlQqyDt296YjtKJL7c0GCwoZG+PMXOz
+	 h2WTz+FwJwX44CTV6DLLaWOY1c/fswJhJ70IyPiN7nP115+SznmjuI7AXt+IQCgufkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RUC1KbMd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6Y05fdc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF18606A328;
-	Thu,  5 Nov 2026 11:03:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0ED606A326;
+	Thu,  5 Nov 2026 11:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RUC1KbMd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A73D1F000C1;
-	Thu,  5 Nov 2026 11:03:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6Y05fdc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAB31F0093A;
+	Thu,  5 Nov 2026 11:03:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793876617;
-	bh=JNvALpT1uFvsDbmqg8UiSN7+IohS87cUGwq/ZbxvL34=;
-	h=From:To:Subject:Date;
-	b=RUC1KbMdyytAt3+IB3RWXLI1jEttxjzGOfwM/zJLoThdoZhKDawLWQjrIOjE48ST/
-	 iL9dWchK/QOKsCWnI9MySXRYRA3eeo97NWL0h4i0nB/SAr9dPGAbZuo05NhmP5rX4V
-	 KvlP3BkY2AJZcDzqf0t/E1OuO/ZdgbTM25lm6ADauhw0IHGpJQKE3sT+LGL3p1e7EV
-	 yfbS/TMdUJzKmv78wtAWYPMoM3EZ9aY8tPzfKZfpbnxLgTCcoUvdXToIyoaZuPG7Wb
-	 306Hl8ZK66s0DdY306/NIxk0Mev58oyOnTVv8quOGA/P/pVH5hbW0q6xAupwXiWVCo
-	 80jnkLXHW8TZA==
+	s=k20260515; t=1793876625;
+	bh=LvA7KEH6yP+f436RwxVH7W63a6lypb6pYWkMfhLxpI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J6Y05fdcHjlvz9xbOvt9aO2hDEJypsE+JMGEgDQflQxInnU6ttxEEo2YIsuDhCwAo
+	 phYH6Ub8+S/Wr5NbUOCDr7XV9+LAVxdv2C0iG7i7AJWPNkClSjMFy2+Pe0clgH0oGw
+	 dXMiD8bAGPG9TBSCbmCPTwy0bP5ZjsK3Vv/jEXfT2KvU+a1cE0UQ+EGxFnwga+mQaO
+	 pUUMSSCh4ohXnxlWB35a6gtTke6IbKsyjCIKD/9huKH/mcpSPkxiJdX2kTuMuz/44i
+	 FYEibOT29v+b6hiROp4++oqn2xNaKPOHKuWA4W1kQRegR47f0KUQP8TN9K5MwBYhv6
+	 QuOmOwgwRut1Q==
+Date: Thu, 5 Nov 2026 11:03:40 +0000
 From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Kai Svahn <kai.svahn@nokia.com>,
-	syed khasim <x0khasim@ti.com>,
-	linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mfd: twl-core: Reset twl_priv using devm_add_action_or_reset()
-Date: Thu,  5 Nov 2026 11:03:23 +0000
-Message-ID: <20261105110332.1874728-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 01/10] pinctrl: sunxi: Fix out-of-bounds irq_bank index
+ when first bank has no IRQs
+Message-ID: <20261105110340.GH1650678@google.com>
+References: <20261103213002.1673560-1-lee@kernel.org>
+ <20261103213002.1673560-2-lee@kernel.org>
+ <e7cd2bf6-f9db-4a90-b11a-665f8219f7ce@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,67 +62,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e7cd2bf6-f9db-4a90-b11a-665f8219f7ce@arm.com>
 
-Register a devres cleanup action immediately after allocating twl_priv
-with devm_kzalloc() so that twl_priv is automatically reset to NULL just
-before its underlying memory is released on probe failure or driver
-unbind.  This removes the need to manually clear twl_priv in both
-twl_remove() and the probe error unwind path.
+On Thu, 05 Nov 2026, Andre Przywara wrote:
 
-Suggested-by: Andreas Kemnade <andreas@kemnade.info>
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/mfd/twl-core.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+> Hi Lee,
+> 
+> On 11/3/26 22:29, Lee Jones wrote:
+> > In prepare_function_table(), irq_bank and last_bank are initialised to 0
+> > and last_bank is updated on every bank regardless of whether it supports
+> > interrupts.  On SoCs where bank 0 (PA) has no pins or does not support
+> > interrupts (such as Allwinner A523 and A733), the first IRQ-capable bank
+> > has bank > 0, which causes irq_bank to be incremented to 1 instead of
+> > starting at 0.  As a result, the final IRQ bank receives irq_bank equal
+> > to desc->irq_banks and writes out-of-bounds past pctl->irq_array during
+> > sunxi_pinctrl_build_state().
+> > 
+> > Initialise irq_bank and last_bank to -1 and only update last_bank when
+> > processing an IRQ-capable bank so that irq_bank always starts at 0 and
+> > increments sequentially across IRQ-capable banks.
+> 
+> Can we please hold back this patch for now? There are more issues around the
+> IRQ bank usage on recent Allwinner SoCs, patches for which [1] are on the
+> list. They should solve the out-of-bounds access, I think, though we might
+> want to add explicit checks, maybe.
+> 
+> But taking just this patch here would torpedo the efforts in fixing the
+> correctness issues that we see.
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index 21fc0acb827b..6077a87282f5 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -711,7 +711,6 @@ static void twl_remove(struct i2c_client *client)
- 		twl->client = NULL;
- 	}
- 	twl_priv->ready = false;
--	twl_priv = NULL;
- }
- 
- 
-@@ -728,6 +727,11 @@ static const struct mfd_cell twl6032_cells[] = {
- 	{ .name = "twl6032-clk" },
- };
- 
-+static void twl_reset_priv(void *data)
-+{
-+	twl_priv = NULL;
-+}
-+
- /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
- static int
- twl_probe(struct i2c_client *client)
-@@ -776,6 +780,10 @@ twl_probe(struct i2c_client *client)
- 		goto free;
- 	}
- 
-+	status = devm_add_action_or_reset(&client->dev, twl_reset_priv, NULL);
-+	if (status)
-+		goto free;
-+
- 	if ((id->driver_data) & TWL6030_CLASS) {
- 		twl_priv->twl_id = TWL6030_CLASS_ID;
- 		twl_priv->twl_map = &twl6030_map[0];
-@@ -906,10 +914,8 @@ twl_probe(struct i2c_client *client)
- 	if (status < 0)
- 		twl_remove(client);
- free:
--	if (status < 0) {
-+	if (status < 0)
- 		platform_device_unregister(pdev);
--		twl_priv = NULL;
--	}
- 
- 	return status;
- }
+Sure, no problem.
+
 -- 
-2.56.0.398.g882cbad275-goog
-
+Lee Jones
