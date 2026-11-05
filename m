@@ -1,73 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844082;
-	b=sxcukLW6Tkm5G5smZXhQpVsw+MiYIjseSxCj6Dtd/tjhB8GB3UwAZPZxovrIO4l2DV+u
-	 dVfPJEHgTKoKSVR+IFNoyFtjLYcG76b2uA2aSSNFZMQKqMHRgD69NBdPJPGy8bPgcY37+
-	 zf1N/iG0U+21WL8Gir/O1zA4bPcd2X0ePEVleCLuLvKFISlkBszFvD1+QchRoNkay8RUb
-	 VThansLNlEBKAtcAG7WRptsUaVKzpTZmhxeNtNaZ5VPCp3JaPfoAXdJwVWlViuQs+7etf
-	 JC5hMnO7Xpm4SyQxjB0Cal1sVxgl5BXN3KoqzXNxSSTWlyhMI2q/BxwBVX2+oJlRTTg==
+	t=1793844078;
+	b=Ab/CvqPQoJKQY+TfIIbE9fXMchy8tzTl6GA36bqv2f9rnce+v5ugacyFPRJcMmFvHh08
+	 JhXq2JrAAHRCxp+hv51ZiEx7x4bNx3LjFzfAuZKRIG2UDXxmKAsVAAggkwdkq9IYn9kKm
+	 I7MAek+1NR66jaEAqpqGI9+AlpFOe0wa4/yT/LdR26DnftVCzw2IJWkU0W4iAq0zHGL/A
+	 +68ZqURYV4oOhYZEk6aSa2Uzgf6o6LAREq020KpNFK2fZgWwQDnSkZ8MRrTHDl62UxOGw
+	 Oi+1L2o3b37DByuA8En0T+SxrZBFiILmM4tuzIwa8ZPStkBGExioS4VkyaPsf9u2JSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844082;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844078;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
-	bh=4Y6oHXTvDP3D/r6bj3sFJrcNWxTqMhnFq48JU9X+5bk=;
-	b=1nf6yBT9Tl74gOLV0xIPKXO8Sn38AcBJ8fQXepd6rSmM7exp1FKyasaWTXjDusUSigS2
-	 XMgRrarXEN4HD2rIew3ZUXL0XmkJuzzJHtXVJKSbuqU2dkCwDk9fMEjEnnoOgdo9dERJL
-	 En5iCzsRHlVXfE2zpDQCg8pz9gq6MAbclz5MNRkOWB2zhLJTJCplxnbIgfHb2HwLFU5Sm
-	 K6HLs+FRSY7RrmU95A2PEsWaDbLwnclwsJvELXC/+o7dNzheDhf+5blhLIw8qh9bvdUqQ
-	 7/LS9W/ZfK1/FfF9JcqNIyZdL3ggnDCQItjwY5caAA8XVHwF2vu4a5b1eAjCFgDvHpw==
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=5928Fm1r4SKQS+jH4OMcVcprvnhzKwbhu15jXKH4aPQ=;
+	b=42glvD8ktPV2R4qacoM8o5mqYcQnIDSkm1MoOI8L/0ow2N0nX5hFeFoG72x4diJe5/Ed
+	 L0rwy9JCKZt0TJPyf2SfgXmyidFKj22o3ekZkLwr5a9Zn9roo/Jb0ScSeL+cUkXIxIIto
+	 9iYPsjMqm4jst0eYP0DxrDbWBX3OOgZ4xvhs9pCwHeiUncGw2Y8W74OoTMPmvDqAi8vtw
+	 EjW0oiAMwJ9fQ8JlaDo4cVxwnM/PIi6qVPCLFUTrDT0YGwHRUfIGJfLN3FU/KUpo50fGw
+	 J/BMPujc1Ld2sf6K+oXP46q+W/Z7wPRmwgKw9tezLL4C0acDk1dKFQAsGJ5YrEv8SJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=J4gTxX0+;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B915606D825;
-	Thu,  5 Nov 2026 02:01:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B915606D825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=c+cJAlqC;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE68606EEA9;
+	Thu,  5 Nov 2026 02:01:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EE68606EEA9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=J4gTxX0+
-Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A18E220B7167;
-	Wed,  4 Nov 2026 18:01:04 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A18E220B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793844065;
-	bh=4Y6oHXTvDP3D/r6bj3sFJrcNWxTqMhnFq48JU9X+5bk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=J4gTxX0+ZbXK5cEVNQtpaKI3EU+BNGmawIBDDLeG5Gq8G8lKD15gMPCNV2+hKi1r/
-	 KJdbXgEtgNCQzdRWP1rUOlTJVX0/wQ/mZ7FiBN++0I6IbjYF5ES/6mDk+0iCCVC06G
-	 zFbzE+I7wOULKPC5MZJR02Hn4zm/2ZaiEYFyLBrA=
-From: Mukesh R <mrathor@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-arch@vger.kernel.org
-Cc: jgg@nvidia.com,
-	jacob.pan@linux.microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	arnd@arndb.de,
-	mrathor@linux.microsoft.com
-Subject: [PATCH V4 1/5] mshv: Add gfp flags to deposit memory logic
-Date: Wed,  4 Nov 2026 18:01:02 -0800
-Message-ID: <20261105020106.3496339-2-mrathor@linux.microsoft.com>
-X-Mailer: git-send-email 2.51.2.vfs.0.1
-In-Reply-To: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
-References: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=c+cJAlqC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=5928Fm1r4SKQS+jH4OMcVcprvnhzKwbhu15jXKH4aPQ=; b=c+cJAlqCYvwVUBT4ZnFxngvmEg
+	j06UhJBCENC+EWoZ8uxTBe1BBkm/K3xpWMIPcGenCA3LmH+U9Q/Dg5bWoQ54giJNHszlHgrZ/nmot
+	dhX1Ys8wR7p0RlzClAALbcdELVnNJ+n8ApVB4ktMzDm28gJUocHY6GxrbkEN8ILJRpbL4N90IN/wv
+	KEfe9NuUJTyFIeG5ezpKPKjEKxQNKWJlzfO9vpntoZ27Nlk2dRBasRMfGfzsrAVa0oU66QBYPA3ou
+	HkHH3OBDWOEl+/9HKxOSoRtrVciGSUmi9AVPYqFy0schWzdIpdFTNN1CCTuLrEv1Jf2heYs55ZGDh
+	Yd1RUHlQ==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOmmo-00000002ROS-24dv;
+	Thu, 05 Nov 2026 02:01:08 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xOmmn-0000000AWEJ-0E2y;
+	Thu, 05 Nov 2026 02:01:05 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paul Durrant <paul@xen.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Fred Griffoul <fgriffo@amazon.co.uk>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v2 20/20] KVM: selftests: Add Xen evtchn vs mmu_notifier race test for HVA caches
+Date: Thu,  5 Nov 2026 02:01:02 +0000
+Message-ID: <20261105020104.2507083-21-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261105020104.2507083-1-dwmw2@infradead.org>
+References: <20261105020104.2507083-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,147 +81,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-Currently GFP_KERNEL is hard coded in hv_alloc_dep_pages(). Add gfp_flags
-parameter so it can be called in atomic context from map_pages callback in
-struct iommu_domain_ops and other places in future. A new function
-hv_deposit_memory_gfp() is added to facilitate this, so hv_deposit_memory()
-can continue to function as is.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+Race a guest EVTCHNOP_send loop against a host thread hammering
+MADV_DONTNEED on the userspace page backing HVA-based shared_info and
+vcpu_info caches. Every madvise zaps the PTE and invalidates both
+gfn_to_pfn_caches; every delivery must refresh through the window
+(hva_to_pfn_retry() retries until the invalidation has finished, then
+faults the page back in) and must succeed. The caches are HVA-based,
+so no memslot semantics excuse a drop: unlike
+xen_evtchn_memslot_race_test, which only pins the no-deadlock claim,
+this test asserts every one of the 20000 sends delivers, and any
+hypercall bounce to userspace fails the test.
+
+This exercises the pfncache invalidation protocol itself — the
+invalidate_start walk, the reader draining for a cache mid-teardown,
+and the handshake between a refresh publishing a new mapping and a
+concurrent invalidation vetoing it — which is where a lifetime bug
+in the cache would live; on a debug kernel one is expected to
+surface as a splat rather than a dropped event.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- drivers/hv/hv_proc.c           | 20 +++++++++++---------
- include/asm-generic/mshyperv.h | 14 +++++++++++---
- 2 files changed, 22 insertions(+), 12 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../kvm/x86/xen_evtchn_hva_notify_race_test.c | 188 ++++++++++++++++++
+ 2 files changed, 189 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race_test.c
 
-diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-index f811bb5c42a1..8380e9050f46 100644
---- a/drivers/hv/hv_proc.c
-+++ b/drivers/hv/hv_proc.c
-@@ -22,7 +22,7 @@
-  * Returns: number of pages allocated or -ENOMEM
-  */
- static int hv_alloc_dep_pages(int node, u64 *pfna, u64 *lastpfnp, int num_pages,
--			      bool single)
-+			      bool single, gfp_t gfp_flags)
- {
- 	struct page *page;
- 	int num_allocd, count = 0;
-@@ -37,7 +37,6 @@ static int hv_alloc_dep_pages(int node, u64 *pfna, u64 *lastpfnp, int num_pages,
- 	while (num_pages) {
- 		/* Find highest order we can actually allocate */
- 		int order = 31 - __builtin_clz(num_pages);
--		gfp_t gfp_flags = GFP_KERNEL;
- 
- 		if (!single)
- 			gfp_flags |= __GFP_NOWARN;
-@@ -81,7 +80,8 @@ static int hv_alloc_dep_pages(int node, u64 *pfna, u64 *lastpfnp, int num_pages,
-  * so we must split that also. Lastly, HV_MAX_CONTIGUOUS_ALLOCATION_PAGES is
-  * not guaranteed to always be power of 2.
-  */
--static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
-+static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous,
-+				 gfp_t gfp_flags)
- {
- 	struct hv_deposit_memory *hc_input;
- 	int i, rc, num_pages;
-@@ -98,14 +98,15 @@ static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
- 		num_pages = HV_DEPOSIT_MAX;
- 	}
- 
--	hc_input = (struct hv_deposit_memory *)get_zeroed_page(GFP_KERNEL);
-+	hc_input = (struct hv_deposit_memory *)get_zeroed_page(gfp_flags);
- 	if (hc_input == NULL)
- 		return -ENOMEM;
- 
- 	hc_input->partition_id = partition_id;
- 	pfna = hc_input->gpa_page_list;
- 
--	rc = hv_alloc_dep_pages(node, pfna, &lastpfn, num_pages, contiguous);
-+	rc = hv_alloc_dep_pages(node, pfna, &lastpfn, num_pages, contiguous,
-+				gfp_flags);
- 	if (rc < 0)
- 		goto out_free;
- 
-@@ -159,7 +160,7 @@ static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
- 	return rc;
- }
- 
--int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status)
-+int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status, gfp_t gfp_flags)
- {
- 	int result = hv_result(hv_status);
- 	bool contiguous = false;
-@@ -179,7 +180,7 @@ int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status)
- 	    result == HV_STATUS_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY)
- 		contiguous = true;
- 
--	return hv_call_deposit_pages(node, pt_id, contiguous);
-+	return hv_call_deposit_pages(node, pt_id, contiguous, gfp_flags);
- }
- EXPORT_SYMBOL_GPL(hv_deposit_memory_node);
- 
-@@ -232,7 +233,7 @@ int hv_call_add_logical_proc(int node, u32 lp_index, u32 apic_id)
- 			break;
- 		}
- 		ret = hv_deposit_memory_node(node, hv_current_partition_id,
--					     status);
-+					     status, GFP_KERNEL);
- 	} while (!ret);
- 
- 	return ret;
-@@ -266,7 +267,8 @@ int hv_call_create_vp(int node, u64 partition_id, u32 vp_index, u32 flags)
- 			}
- 			break;
- 		}
--		ret = hv_deposit_memory_node(node, partition_id, status);
-+		ret = hv_deposit_memory_node(node, partition_id, status,
-+					     GFP_KERNEL);
- 
- 	} while (!ret);
- 
-diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
-index 4c9f3353074a..2584e693d7b3 100644
---- a/include/asm-generic/mshyperv.h
-+++ b/include/asm-generic/mshyperv.h
-@@ -346,7 +346,7 @@ static inline bool hv_parent_partition(void)
- }
- 
- bool hv_result_needs_memory(u64 status);
--int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
-+int hv_deposit_memory_node(int node, u64 partition_id, u64 status, gfp_t gfp);
- int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
- int hv_call_notify_all_processors_started(void);
- bool hv_lp_exists(u32 lp_index);
-@@ -357,7 +357,8 @@ static inline bool hv_root_partition(void) { return false; }
- static inline bool hv_l1vh_partition(void) { return false; }
- static inline bool hv_parent_partition(void) { return false; }
- static inline bool hv_result_needs_memory(u64 status) { return false; }
--static inline int hv_deposit_memory_node(int node, u64 partition_id, u64 status)
-+static inline int hv_deposit_memory_node(int node, u64 partition_id, u64 status,
-+					 gfp_t gfp)
- {
- 	return -EOPNOTSUPP;
- }
-@@ -379,9 +380,16 @@ static inline int hv_call_create_vp(int node, u64 partition_id, u32 vp_index, u3
- }
- #endif /* CONFIG_MSHV_ROOT */
- 
-+/* Generic deposit function with no default numa node and GFP_KERNEL */
- static inline int hv_deposit_memory(u64 partition_id, u64 status)
- {
--	return hv_deposit_memory_node(NUMA_NO_NODE, partition_id, status);
-+	return hv_deposit_memory_node(NUMA_NO_NODE, partition_id, status,
-+				      GFP_KERNEL);
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index c17408f8d61f..19dc0744f25f 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -150,6 +150,7 @@ TEST_GEN_PROGS_x86 += x86/debug_regs
+ TEST_GEN_PROGS_x86 += x86/tsc_msrs_test
+ TEST_GEN_PROGS_x86 += x86/vmx_pmu_caps_test
+ TEST_GEN_PROGS_x86 += x86/xen_evtchn_memslot_race_test
++TEST_GEN_PROGS_x86 += x86/xen_evtchn_hva_notify_race_test
+ TEST_GEN_PROGS_x86 += x86/xen_shinfo_test
+ TEST_GEN_PROGS_x86 += x86/xen_vmcall_test
+ TEST_GEN_PROGS_x86 += x86/sev_dbg_test
+diff --git a/tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race_test.c b/tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race_test.c
+new file mode 100644
+index 000000000000..c105435f6357
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/xen_evtchn_hva_notify_race_test.c
+@@ -0,0 +1,188 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * xen_evtchn_hva_notify_race_test
++ *
++ * A guest EVTCHNOP_send loop racing continuous mmu_notifier
++ * invalidation of the HVA-based shared_info and vcpu_info caches: a
++ * host thread hammers MADV_DONTNEED on the userspace page backing
++ * both, zapping the PTE and invalidating the gfn_to_pfn_caches on
++ * every pass. Delivery must refresh through each invalidation window
++ * (hva_to_pfn_retry() retries until the notifier has finished, then
++ * faults the page back in) and must never fail: the caches are
++ * HVA-based, so no memslot semantics excuse a drop.
++ *
++ * This is the stress for the pfncache invalidation protocol itself —
++ * the invalidate_start walk, the GPC_INVALIDATING grace-period
++ * draining, and the announce/veto handshake between a refresh's
++ * publish and a concurrent invalidation. Unlike the sibling
++ * xen_evtchn_memslot_race_test, every send is asserted to succeed;
++ * any -EFAULT bounce to userspace, or any guest-visible failure, is
++ * a test failure, and a lifetime bug is expected to show up as a
++ * crash or splat on a debug kernel.
++ */
++#include <pthread.h>
++#include <stdatomic.h>
++#include <sys/mman.h>
++
++#include "test_util.h"
++#include "kvm_util.h"
++#include "processor.h"
++
++#include <stdint.h>
++
++#define EVTCHN_PORT		15
++#define TEST_ITERATIONS		5000
++
++#define EVTCHNOP_send		4
++#define __HYPERVISOR_event_channel_op	32
++
++#define XEN_HYPERCALL_MSR	0x40000000
++
++#define EVTCHNSTAT_ipi		5
++
++struct evtchn_send {
++	uint32_t port;
++};
++
++static void guest_code(void)
++{
++	struct evtchn_send s = { .port = EVTCHN_PORT };
++	uint64_t rc;
++	int i;
++
++	for (i = 0; i < TEST_ITERATIONS; i++) {
++		rc = __xen_hypercall(__HYPERVISOR_event_channel_op,
++				     EVTCHNOP_send, &s);
++		__GUEST_ASSERT(!rc,
++			       "EVTCHNOP_send failed with %ld on iteration %d",
++			       (long)rc, i);
++		GUEST_SYNC(i);
++	}
++
++	GUEST_DONE();
 +}
 +
-+static inline int hv_deposit_memory_gfp(u64 partition_id, u64 status, gfp_t gfp)
++static atomic_bool churn_stop;
++
++static void *backing_churn(void *arg)
 +{
-+	return hv_deposit_memory_node(NUMA_NO_NODE, partition_id, status, gfp);
- }
- 
- #if IS_ENABLED(CONFIG_HYPERV_VTL_MODE)
++	void *backing = arg;
++
++	while (!atomic_load(&churn_stop))
++		madvise(backing, PAGE_SIZE, MADV_DONTNEED);
++
++	return NULL;
++}
++
++int main(int argc, char *argv[])
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	pthread_t thread;
++	struct ucall uc;
++	void *backing;
++	int done = 0;
++
++	int xen_caps = kvm_check_cap(KVM_CAP_XEN_HVM);
++
++	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_SHARED_INFO_HVA);
++	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_EVTCHN_SEND);
++
++	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
++
++	/*
++	 * The shared_info page and the vcpu_info within it live in plain
++	 * anonymous VMM memory, not in any memslot: nothing but the
++	 * mmu_notifier churn below can perturb the caches.
++	 */
++	backing = mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE,
++		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	TEST_ASSERT(backing != MAP_FAILED, "mmap of backing page failed");
++
++	struct kvm_xen_hvm_config hvmc = {
++		.flags = KVM_XEN_HVM_CONFIG_INTERCEPT_HCALL |
++			 KVM_XEN_HVM_CONFIG_EVTCHN_SEND,
++		.msr = XEN_HYPERCALL_MSR,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_CONFIG, &hvmc);
++
++	struct kvm_xen_hvm_attr lm = {
++		.type = KVM_XEN_ATTR_TYPE_LONG_MODE,
++		.u.long_mode = 1,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &lm);
++
++	struct kvm_xen_hvm_attr ha = {
++		.type = KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA,
++		.u.shared_info.hva = (unsigned long)backing,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &ha);
++
++	struct kvm_xen_vcpu_attr vi = {
++		.type = KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA,
++		.u.hva = (unsigned long)backing + 0x40,
++	};
++	vcpu_ioctl(vcpu, KVM_XEN_VCPU_SET_ATTR, &vi);
++
++	/* Loop the port back to this vCPU as an IPI. */
++	struct kvm_xen_hvm_attr evt = {
++		.type = KVM_XEN_ATTR_TYPE_EVTCHN,
++		.u.evtchn.send_port = EVTCHN_PORT,
++		.u.evtchn.type = EVTCHNSTAT_ipi,
++		.u.evtchn.flags = 0,
++		.u.evtchn.deliver.port.port = EVTCHN_PORT,
++		.u.evtchn.deliver.port.vcpu = vcpu->id,
++		.u.evtchn.deliver.port.priority = KVM_IRQ_ROUTING_XEN_EVTCHN_PRIO_2LEVEL,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &evt);
++
++	kvm_pthread_create(&thread, NULL, backing_churn, backing);
++
++	/*
++	 * Self-guard against a kernel which livelocks a refresh under
++	 * continuous invalidation. Deliberately no SIGALRM handler, as in
++	 * xen_evtchn_memslot_race_test: only the default disposition can
++	 * kill a process whose vCPU thread never returns to userspace.
++	 * Empirically ~100-170 iterations/sec on a c6a.metal host: nearly
++	 * every send pays a full refresh (fault the page back in and remap
++	 * it), so budget generously; the healthy runtime is ~30-50s.
++	 */
++	alarm(240);
++
++	while (!done) {
++		vcpu_run(vcpu);
++
++		/*
++		 * An HVA-based cache has no memslot to be mid-update:
++		 * there is no legitimate reason for delivery to fail, so
++		 * unlike the memslot race test, a hypercall bouncing to
++		 * userspace is a straight failure.
++		 */
++		TEST_ASSERT(vcpu->run->exit_reason != KVM_EXIT_XEN,
++			    "EVTCHNOP_send bounced to userspace: delivery failed");
++
++		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++
++		switch (get_ucall(vcpu, &uc)) {
++		case UCALL_SYNC:
++			if (uc.args[1] && !(uc.args[1] % 1000))
++				pr_info("progress: %lu iterations\n", uc.args[1]);
++			break;
++		case UCALL_DONE:
++			done = 1;
++			break;
++		case UCALL_ABORT:
++			REPORT_GUEST_ASSERT(uc);
++			/* NOT REACHED */
++		default:
++			TEST_FAIL("Unexpected ucall %lu", uc.cmd);
++		}
++	}
++
++	atomic_store(&churn_stop, true);
++	kvm_pthread_join(thread, NULL);
++	alarm(0);
++
++	kvm_vm_free(vm);
++	return 0;
++}
 -- 
-2.51.2.vfs.0.1
+2.43.0
 
