@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793917269;
-	b=mmiJ0viEK/ojyEtoSFyezNEFxuJaHodrgmZxpmDYUZ0dzxbqDBJrK0di8U5WKZVCls2r
-	 XM+1tRaAalmPjxXrBcK0UXrC74Vxmxv6APmCK9n2J1+mHzCbTLbo6rBFh83Rv62gQdOw2
-	 1Zj2esKFDbdw0+vEBz3tHV0lS7sX73W3DBxqhsgkszlOrBLI21XvTiepc3+U63RWnaW6h
-	 S/r3IPUGA0f1/zsQFfyeuz7xLvk6Y+vnlQGdz51zhcXgtBJ9T7/h1YcHk9Urdpj9n8bcu
-	 M282JVH8nUIwZ3y1GjrstRqtHdaH5f7UQ4B/EU+KdY4+96YvUVqjtpzpWN8XdYL6P/w==
+	t=1793917267;
+	b=zlXEiybKF7BaWJcZuKCUuuWmOwL7xLNoTdZcpn3hW0966RbwaPyyUOzLGJx0pp1XZ63R
+	 LhIbt3K1A76EtctRIpwn331Dro9X9QXTaTM+yyMkt9Seh3PBZzEVetY2lIWCftWnCiN4d
+	 0rOZ7OikAxKuZuGiOiiVwz37WLfXuAhrn4jUhZNpNXNdg+h4wLexbKRCyK4RAgpKaG+Tc
+	 CJ2dcBwEW+PRuIhgvmCiQzjUOq13x5nHQEqR9ngrds4UtDXDRKoA5PUWY0xeUL9LLWBmt
+	 9AP2Ct+FsLstgYp7NAoiIyOyyCSeup3pUDVN1+S7Sidn6QdrkWJzgAogLG8uEmoJlpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793917269;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793917267;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4db2AlEwBuJ3NhUvd6DttANYOsA8cpC5/Z0gBUqIqT0=;
-	b=m8CmRTSGQzgBsKkic+5lKV6FLLvdjHeaGFbipw2ic00PKymWSgt6YAgmOn6RwiDROd7L
-	 Ffp4msPWZ8Riu1Ufrb1XSNPpy2F0ArR+GLpP/Nf7VIhKoTkiDnF2daG1tVI5f8TGn8Cye
-	 ETFPlgHjnmU0+JSMDhOAAVVxisQUN0YTk/vLZIVLG6E1lGaJBP3NjNwVu5Lvy5BQQIwRh
-	 SCtTxiYwYE7X7RxfdVJ2lNTfWXyW1LPFvQYgBUQ/THLHX5M5tkMd+i5Q6G2fcdDzL7GoD
-	 CMrAc07WVAnzMlXQwQ/2QuR6jd8+Df9BViMJyOarLLCg3zhgJyldyODiUSAIKw4REGA==
+	bh=Wko9jYbcFlAwe6oX0v98B8vdw+6Ys7oB0hN4NsC1Zvg=;
+	b=l2H1YU2sogo/niIYIsqnw/YsAmIDaEU0HKW/wTf88AZc2CpCXtyRFAUw0aZvVO55WMAa
+	 7jG8YYK43Z6fMY9/VnjRPFAFn7UMnHyT5RNYROk2qLoz4IAkhPTQ8YqGsD5raT2A1h5Qx
+	 oRG4ltVDGDbHpG/qLfYb0+E/0Bea+qwwAPimybBMh1ceR+MXE9XTXoh53s/4kGv7LjbIz
+	 8zd7laF1z1MUnpsimx7t8wHoBMK2tQ1aUAvmlwvyB2NgUo0MUV0jkWSGPJtaJTsWj21DP
+	 VWiTyIjfxFXlFslQVjlx19iNa0/eD+MggGQnaAxoa6mvQQt/FKSgtk5p49HLhLoUnGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZrlqBW95;
-	arc=none smtp.remote-ip=74.125.229.135
-Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tz21y1+Q;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2BD606D83E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:21:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE2BD606D83E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69742606D81B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:21:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69742606D81B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZrlqBW95
-Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-14345ae29c5so51663c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:21:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tz21y1+Q
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36f6728b1b7so35eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:21:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793917268; x=1794522068; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793917267; x=1794522067; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4db2AlEwBuJ3NhUvd6DttANYOsA8cpC5/Z0gBUqIqT0=;
-        b=ZrlqBW957FVRSJmhWtYT2LZ20iLqM9RUGB7Z0X1CqCOXFP0vE1Q7C6Q2nXJgpBFRq4
-         Y0uMg2XCt+yCfud4FgOvOKF0JHJPs0lVYLnGJQ4jcxxF70pQppH8nnLD50s6trUzqKW9
-         HGpBPaeom520SaQnpAAKksjsd0wAIXkDsU+aD/KgENAMz/PYFf5jq4jUvqCBiJJpoqLG
-         v+bH1XZdZ6WrabNwkAW+3z+BeWR94LS0RIHFvavciURbGe8OriTuxF/R+Rx58PPkE5Js
-         VeLlpHVqQwrZGLRVasQ9dARnv4xZUCKPjgg+Sgd9mEmFSk4Osvn6arU4uu75Bok6gbqw
-         aZQQ==
+        bh=Wko9jYbcFlAwe6oX0v98B8vdw+6Ys7oB0hN4NsC1Zvg=;
+        b=tz21y1+Qew7hl/Wnsu0cT4nQ9LapPqP/EcySc55XzEzSKyvsKJPQqZfz+zYFLEh7Pu
+         8g2X3a1E91Jy0F5IKQJ0GKPJdh8Fr66eG4DTrBw6XlKyXkOa/pYZriB8Js1SGkmxLOUy
+         IE5lxum48sXc1czWgAt6Q/hnyojkVE9KjN/7aotvbHY04rpX3SRuLsJVi/FcOLYhTuCz
+         aQGg121SHDcG9s08QKA2Wq4D568nrjceOo1sPCbasiCsiVNqCIGZDlS62S21v6ypct88
+         3guGUj+JrBBCf80e+jdO1jhBvMuBAs3N9PNQUY7GmVHXWnsHC591iuygoJwOC6lFcnyY
+         Yc/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793917268; x=1794522068;
+        d=1e100.net; s=20260707; t=1793917267; x=1794522067;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4db2AlEwBuJ3NhUvd6DttANYOsA8cpC5/Z0gBUqIqT0=;
-        b=SxNIdyu1y0uzeya8W4/MGmtxefaq0ccakTjRu5bOrdh5FXbKQDm0UODBcFFy0yc5mR
-         atXUzwJdy2L/fKuPaY46eStAyp0ytqyIpXM3JRHdNdKmUVJhEegPk65luNx2r6IeGUh6
-         MoG2OpyIVh6eAwsSpQ5cUjlwSgAFABVPrf/sWpnU4hm8Bfl/0pjbzh7L0yTWsOgzPeTx
-         JEE8wLF7HkP9bMvEZOYV3PncoRVXVwmd2P/xlzr2t2gl6JTB9Y/kP9h6nn1vjRQTufWu
-         /n+tCfmhQ6cHq4l6T9gfHhd//8abIIG8Z70yXt673aB8H+FmiaXgFlug21cMDuaHG2Pb
-         tPCg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlc5ODHo+ORfClS2PakMry6LAmqy7UP3PVdCw2f5iUKLXTfzHqrKZzcX3jwrQ7fz/0hEE9hrqR0XADK0E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QcHJx753dejVyUo8JjpGerIIIp18Q+lT3ubC/D87qi0TDuAQL
-	xPgDI/Oj1HbpCq1HM5P6+0H2VlD58nigpiVvyS+X4N0ZBVbmu6wPCOz5
-X-Gm-Gg: AYBFou1/mj/x5DwHL8ZFvDExf5DZFcMcUyqhaM4TctF0SUTJ70eMpR457krQqae7/GN
-	BtRq36AD+5JImbIoH0wkzLTHPDaCbtxTE+efLP7oI3giaeirVrV2hCWS6IQSdGY3VrdNLimubrh
-	NHduhOwb++TEM0DRK8KXG41Xae0BTHYcrkIslEOcOGxID6DD76d8vbACU7GkuWtZxLu6beTv5jK
-	FtNVSBBOCtVEuqkCx2aTCpOOq/r/0nUCaY5evxiOaxOxLJIACtz+Qrl66P7alW960OHFCeB4jkD
-	n9gruHJJq0uOakaV4kQHa7DOZa+TG0dmcCWZd0Ln1o9wqWeLiKCHOq8vQkXkxohMR57m9OFlORX
-	ymj0ledN8V77CUki02npSZ8xafnQphCSkfrl7jiGfMJzURGxxgUu8NvtVQVacc1CjLrAa0TMIep
-	/s+MXd3R2t9l/zPSS91w7hXFgKkRGiUvyQOlgQsEhGeQQNPq8t6o4pXNBUgJT6aE9eBjVsy1Wly
-	s6NJKDY8Xy/TJAgGIVsbSO9ECTotvf7jJqhL24ciqXUTvbV0ka016QmHhA6iEqCnz9/W359FOWd
-	8PsjRIWIJoXXo/edTn5K77U=
-X-Received: by 2002:a05:701b:4590:10b0:149:1feb:6d9d with SMTP id a92af1059eb24-1b25d31efafmr453115c88.19.1793917267847;
-        Thu, 05 Nov 2026 14:21:07 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:6a::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c6f0dcsm26931436c88.21.2026.11.05.14.21.07
+        bh=Wko9jYbcFlAwe6oX0v98B8vdw+6Ys7oB0hN4NsC1Zvg=;
+        b=adUiTLP/RZsP2IL625IOw8Ce+x1UlPl/zN80G2/fwOi4wd47VrGTXJZ5EAOhbn4Qzn
+         haqH24roRV52uL8Mqo+Di8TPqVNAG9ABkyT6ZyHEp+H1KFUQa2+WWOKHBDWVNUZNT6dx
+         8VZek7OQzfpN+RM8zp3G1WARls0OmVFB1dYDqtau5qVf5Clnm0H+4o//pBlfyFl6AWER
+         7ctKIA8ugvZKg19NQLN3TVvfyqH51in+P/M4QeWUAXjYK7MZ1vXxSYF1ejiKRucQU3vB
+         FypN9xaN2tB21URWzVNX3NgfYQhr9pzTOGFTgro8fvLtp8ASQrONlS9cqOy5SpxXI/1B
+         qyEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfMuUNRPr67CbPkBeDmszjK+Vqm4DlBT/ocWaj1K1+PA5QQ+ZGg2TDJMLxpp52fuFmmcBBrMDmn1HHGEY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BFKOwMbHvLxaNWhGOP4e2AkC8fOsIma7myx7WJ+4asVm9fwdx
+	+YMKsui3+N0fdPKPcVIf/TZE9d8HD0FinmJ4TJpPc4RzN5B2fdglRun0
+X-Gm-Gg: AYBFou3zZyjNf3CaD0lXim7sqRBTKUbUsmOjeqoEruqhAk4LhfzPTEh1fk14CF23ecw
+	b/0hUgD/vS28cV0DksLR101W6UwCTynga+penOtY54PpJz/OyLTT3I1uwJ03MBI3uhoacG93eDU
+	TFpgMcMPuc/Vju5nOEJNT60fLc8Ts4HLbK6vAmk4I2huw6d2HH4iW+a8/4/XkOzACj9/Wj4G4tM
+	IeoT4wfiqCuyCQpIJQulQ25fEXlhviaPh9Rhj8xzEPcdDzJFSPi50w7OvYb3pfsMOoJKDwKo9hE
+	jIRD4BdPkvAFZZQbhZdQvdYCF3kR4sQjzaEcbhjQEK14acc2Q6C0c/9sTGQu86W9zFzCvIbBp8B
+	snxKuXcn0HstOQ74dRuBYibZTKmtezxZhKO5+wbqhifklPQSP90EnGf9kiSEY6q2IEUn+TNTN5i
+	hq6hR1u5VM6ynKjIDy+5Jz9O5Hc3jtXFJW4H/0dD31W/crQjQ5+oWSv0zrw2xKtCJvDiit0Dx4K
+	gDwrzhZoaHyPnodRU40jyGCPJs3fw2ZthU0xOofYjv7dMtjBTQVEXSPSySs482glzI0cNAAHuws
+	0/XPIj8nRhvlcaWDIdxCSBg=
+X-Received: by 2002:a05:7301:460f:b0:36a:15ba:43ea with SMTP id 5a478bee46e88-36f76d177bdmr646010eec.5.1793917266455;
+        Thu, 05 Nov 2026 14:21:06 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:44::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922b205sm39909eec.11.2026.11.05.14.21.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 14:21:07 -0800 (PST)
+        Thu, 05 Nov 2026 14:21:06 -0800 (PST)
 From: Stanislav Fomichev <sdf.kernel@gmail.com>
 X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
 To: netdev@vger.kernel.org
@@ -112,9 +112,9 @@ Cc: davem@davemloft.net,
 	linux-rdma@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	leon@kernel.org
-Subject: [PATCH net-next v3 6/9] eth: fbnic: set the netmem TX frag size limit to 32KB
-Date: Thu,  5 Nov 2026 14:20:55 -0800
-Message-ID: <20261105222058.944293-7-sdf@fomichev.me>
+Subject: [PATCH net-next v3 5/9] bnxt_en: set the netmem TX frag size limit to 32KB
+Date: Thu,  5 Nov 2026 14:20:54 -0800
+Message-ID: <20261105222058.944293-6-sdf@fomichev.me>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105222058.944293-1-sdf@fomichev.me>
 References: <20261105222058.944293-1-sdf@fomichev.me>
@@ -129,28 +129,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TX descriptor length field (FBNIC_TWD_LEN_MASK) is 16 bits wide.
-Set the netmem TX frag size limit to the largest power of 2 which fits,
-like bnxt. With 64K pages this also lowers the PAGE_SIZE default, whose
-64KB frags don't fit the length field.
+The TX BD length field is 16 bits wide. Set the netmem TX frag size
+limit to the largest power of 2 which fits, which keeps 4K aligned
+frags 4K aligned.
+
+With 4K pages this raises the PAGE_SIZE default. With 64K pages it
+lowers it, 64KB frags would otherwise wrap the BD length to 0 with BIG
+TCP.
+
+Tested on a 50Gb/s NIC: devmem TX from a 2MB hugepage-backed udmabuf
+runs at line rate with 2-3 frags per 64KB skb, none above 32KB.
+
+kperf output (sender side, 1 flow):
+
+  client: == Source <sender>
+  client:   Tx 46.358 Gbps (174483046400 bytes in 30110590 usec)
+  client:   Rx  0.000 Gbps (0 bytes in 30110590 usec)
+  client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
+  client:           729   153 599     48    0 13893632 3147
+  client:   net CPU 71: usr: 0.03% sys: 0.06% idle:67.62% iow: 0.00% irq: 1.12% sirq:31.14%
+  client:   app CPU 72: usr: 0.16% sys: 6.01% idle:90.66% iow: 0.00% irq: 0.83% sirq: 2.32%
 
 Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+Reviewed-by: Mina Almasry <almasrymina@google.com>
+Reviewed-by: Michael Chan <michael.chan@broadcom.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 ---
- drivers/net/ethernet/meta/fbnic/fbnic_netdev.c | 1 +
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c b/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
-index 8a6703afca38..0a2b66202aec 100644
---- a/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
-+++ b/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
-@@ -760,6 +760,7 @@ struct net_device *fbnic_netdev_alloc(struct fbnic_dev *fbd)
- 	netdev->stat_ops = &fbnic_stat_ops;
- 	netdev->queue_mgmt_ops = &fbnic_queue_mgmt_ops;
- 	netdev->netmem_tx = NETMEM_TX_DMA;
-+	netdev->netmem_tx_max_frag_size = SZ_32K;
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index e7a4190a8c78..c8a887facc20 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -17439,6 +17439,7 @@ static int bnxt_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (BNXT_SUPPORTS_QUEUE_API(bp))
+ 		dev->queue_mgmt_ops = &bnxt_queue_mgmt_ops;
+ 	dev->netmem_tx = NETMEM_TX_DMA;
++	dev->netmem_tx_max_frag_size = SZ_32K;
  
- 	fbnic_set_ethtool_ops(netdev);
- 
+ 	rc = register_netdev(dev);
+ 	if (rc)
 -- 
 2.53.0-Meta
 
