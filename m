@@ -1,98 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852953;
-	b=U/chE4GbVSNo6uHPyxwv4okZo76qZoRfJOHRGXppp5I21Exm6TaMV1ovi8qmDtzO8Ha3
-	 KZaIKEXjQj24q3YQmLrl0CrKDcsw1AaSMa/D9vDI+S9j5uLSYT19eDjwjujEROix2pl2X
-	 LrBLXjGjIZtEgGr/vLYRlmsPESk9FVSfT4T15qNMXGmvsOvobBGEH2tlrzVbYqE558Qpe
-	 eciIxhXD4QU/uETJ19ytPqiug2x2OwH2z96o2HWgdGhcz/7q65FC7LhwP0fSaIsldD0kf
-	 MqAMV5XYojx5HCgh6T8yr0zxLf1wTHmvVEgOz3vHDr0n68RPqFNSlTb/ammBd/7AlFA==
+	t=1793852997;
+	b=zUnNuHltkS9e8Y+jEz2ezgaXdU9j15aLeL10ueEPIDThtsj7XPb68njawP+LHyfSiVAT
+	 AlXJU2PNt3G1gQQEoynAB5ryuAwug6/EW7tEvX96Mi3cuBKkNtdZdfX7Lzt1PzSHyu0SH
+	 J0YRgOd7j63YkTz/+7ZoK5y7tpGMe+RgtA0X9qYrPCAxm5n2Ysce7BWeyI+Pz5uFwuzLU
+	 O7fAf3k3phESUvbA19dIaEwBIQNOlSj10jpP7TZtzRVL1Tkb3/T/xGaLQ193MSNoJvvOe
+	 BYBfeAHKOOJ3QlYVuuRJiNsZ/K/hjMtDLyLeJ7rfgKgzvfc92bP6cT8X0y0p7cXuyAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852953;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JMo4bIblf20Ox/wHcnXswTyrH1vkkJSSvlX7wiz1Kyg=;
-	b=5N++FqmFnBiG2pvdnLSWfXr25Y7A9kKrT73PyR1LnsZerhdMedL5OL2xZBqI/gPMU8PG
-	 nwTCpDCreF0i5/3tVUHmk45rOMtPEo3SqBuU2AcBsuwv7M9TFq3/FpxxmRxltdhZ0UtrO
-	 FgNdF56sxIfq6NuECX4oJle+ctssBK6YtVQLz/w/HtVYe0xq2I45w3n7myeQLvnyWcM/P
-	 FIhJNL2pv73WJtMtFKbGsyN3JNaH2nzwO4AU6Pj+uWGKnNIqPNpV0cB4L9ABUBDzSACsH
-	 qmoTvA0QJO42/LR4FvruhcojfIOgQJtmiJAQPia9rxgAvhWJZFrnywGELztxWoQs3CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852997;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=KPAE/pf5spCt8tF+n7sHzxlhCQ7JpQ1fLOMEjct2Pr4=;
+	b=LfrJUDInLbGSNc7qMo+mwV7b1Fa3CnUZISjw4dt3QONJi8vjqFTScQBWhKcHt+k7DhJa
+	 CVn/uMGfV0BlSx+i2l3uEkwy0s8Orv852SjRnoBm29aKG8tKGVJkR9I8fx3GNUzmwtPl+
+	 AvK5uOlfHqDVHgLxlmfUBQADtEWNfMD93qZMkprz3Q0dV5iYOoF7CHdfNmuN0VUnWgct+
+	 xff6GDkOkhfiIlwNJdbvVDjPrYADP/IBIjLgYFLqjqXj3IGROTWI6DaWbdAF1GdDy3PKe
+	 aJJ468Zc/IVeJmZBmM0KweGHYCu2dy/byQU1dbW/4yp9AdSntn+Rx4w7dqWyXecCbJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tof0ZRuF;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnW1KUcH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCEA606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:29:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CCEA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5F3606A31B;
+	Thu,  5 Nov 2026 04:29:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tof0ZRuF
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1278622a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:29:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793852952; x=1794457752; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JMo4bIblf20Ox/wHcnXswTyrH1vkkJSSvlX7wiz1Kyg=;
-        b=tof0ZRuFm308akvK86pHS8lOvkDLODF7X76iDUMsZeoOAL5PeMPvKicgb+VR7eA8CE
-         CDZC4KeK2881mFNc4MHX8cmbbUI2qbshedQ/ofBO8Mq5HF4rC2Z+moQTT0ckFab2R5JR
-         fAPGQIoEe7N94vCvCdMy3q7kKIbMV3/p0/vvankyrxL6JVdvhKLjZ8BJCqAe8sDx5zDF
-         xsjq+wFej52YMT6lCH6GXSplD8aF8FkG7ure/XRkcPVwjxaXKUKuPuiSFPTLRnW4M5b/
-         gQ/Q8blQ6krBTOD7JQYVAhoGoHVRLdaU+XTeTnuOJrm0uaKCo/o0A3l5PAkQofZGm437
-         8nkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793852952; x=1794457752;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JMo4bIblf20Ox/wHcnXswTyrH1vkkJSSvlX7wiz1Kyg=;
-        b=P/uzmBsFHgjAkT84XEj8SHB5oOaxr3HV/bK0WPToTDroBIuebc9JuC386qqwppKdGb
-         jA+tFWSrwfQAPx7CPV9pnQrdvFS6custcF/dmFbNYJIqbnr/Cv0k0cQuxuUyeUbH7De4
-         /+lgJ8K0YXMuE+fIBoNMFIOlDIWag1TLvC5ap1zW/MeMPpJklUmo4dgMlnI0689ryqmr
-         m/asVJJ/5vN6ZyrHYgi7SKbEmI/WiwgMujWM8eeCklPg/p4BRBecU4iac2Auk2waoNOl
-         tOkIw0uWj4Z3u0u383M8ITtnBs5+04sk5ytD0Amin9mkdJdaE85HI7whjXni+Qxr+Fcm
-         HkPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxanxqtIzo/HpDIDOLa8whCWmBjFGw2Gl1BUFGEP0L78zNPrJzjh7wklFqKKpGDYpoERVH/1vuZYKY36Pk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pxNDh74mOpkGAFWRPPLajKofTjaHrPkJr9BcQxXQDmA98yDyW
-	w70glYpiZ5HT6Huno4pvHDZ0F28aD1r3XRSJ/0i1vKBcrGQJDNDgDVly
-X-Gm-Gg: AYBFou1lpf3h11ftwQPiHr90x3HWC3J2xHWoR5dezAmyd4A0MMamIe6iubVbNGn62kn
-	XhgefnqK5unBaklYAono/qq8YX5VUkV3pCHAYHF0ZEZunbA2DlyowXqgx92DngaLJ0GUyk/cRRN
-	WO6MLiwBsStj26eY5AoBF61ZAefzvgpg+tLYtuxwqzv4bpO3gQuysIINuoDR4HEsa9I91hkpJEc
-	+HmA8Jgk/VF1ssPH9XyonFCshLVSRTW9PmgzrY0VIY+0l0wJRPNKqEXjW8UD9RUF7n4/SnOogvw
-	o3pqCo+eJI0fWXs/NKHMmHNIo81xvkX2C0X5vFmdTb8gW2LqQxBGwkD+XwBHtQxjKGpFBm8MsM9
-	73tOfR9XlnY614OqY/EctHc0YuqHubqy/GpFvRHDKIg1eAEhyB5eiVnx6gXJFDKgP4QGDVYVEyN
-	IIOm5Oo0xftwsqlJAbht9Z30wxykTYFa8kR8gvNdyRDrsXXrrl2DCJerOQ8AEzJtElwDg4pLVd2
-	KtU5GYe+5p4n2Bc/12PF9v1nqZvXIUlO2NlUW4ZUp9CKTZylffFjgmhrAYqIY/tJJhN1todmz3t
-	aj1ygdahXtthp3xJTGNzs6UCYbAqa+GB77EbJVkNwHU/KA7g
-X-Received: by 2002:a17:90b:224f:b0:3ab:27f0:c90b with SMTP id 98e67ed59e1d1-3ae8983cf4emr16977504a91.53.1793852952411;
-        Wed, 04 Nov 2026 20:29:12 -0800 (PST)
-Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32812a6sm1611635a91.11.2026.11.04.20.29.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:29:11 -0800 (PST)
-Date: Thu, 5 Nov 2026 12:29:05 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 4/5] gpiolib: don't overwrite the entire flags field in
- gpiod_free_commit()
-Message-ID: <20261105042905.GB8436@rigel>
-References: <20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com>
- <20261104-gpio-desc-flags-atomic-v1-4-e23cedf619ba@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnW1KUcH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742131F000C1;
+	Thu,  5 Nov 2026 04:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793852996;
+	bh=KPAE/pf5spCt8tF+n7sHzxlhCQ7JpQ1fLOMEjct2Pr4=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=nnW1KUcHDyqhxCdLaCIf0P6zIXDgT0qimcY/G1Wi3jqu5KPta4IlSe7KvxzStMJWE
+	 ZmJ3UWpqpPxJWX6h7GknaqjOmOT8GdQ03kxOMuJfp8ZSz2MU0huCiXQrGBc9FTb08s
+	 H3QKxUiJQMmZWtjZGiXxU7WpW94aH8bHzKPYDNLJ04418w8fPZvHxjwNOOFbzMmLKI
+	 fe41DkyMi8OHOpWgiL8OYZcXSQmmFYncMRO4K2SlzvbIy4eb4nRzaHv2uwLcf8ffe4
+	 AHpphWhqAtXEuaEj8SsaxV94xjX1nUK3FBPMvviiY9r0SURBXkN0M6Bd68wcq+jhf/
+	 m1lALSSqPIKlQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,69 +49,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-gpio-desc-flags-atomic-v1-4-e23cedf619ba@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] scripts: add --registry option to container tool
+From: Nathan Chancellor <nathan@kernel.org>
+To: Guillaume Tucker <gtucker@gtucker.io>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Miguel Ojeda <ojeda@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-doc@vger.kernel.org, 
+ workflows@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
+References: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
+Date: Wed, 04 Nov 2026 21:29:46 -0700
+Message-Id: <179385298671.826739.5987343385077824329.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1042; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=ZBL3o99fNPmo9r7pegdnSdndLZN3q1BXEi5XkfHaaAM=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFlv2OyvTDbQS9vxsP5Zrlj9Aov106YWz3sTqD1xt1GSm
+ UjFrhaHjlIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjCRj3WMDI9muF9YssyAvfFg
+ lPzVvXfvrm+8o+uysJpxRp3B7qwJu68x/DNeFXSdUelA5xymI1dk2WetEbv0INJQ7vhDPX7vy4a
+ XXvEDAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Wed, Nov 04, 2026 at 04:36:59PM +0100, Bartosz Golaszewski wrote:
-> Use gpiod_update_flags() to clear all request-related flags in one go
-> instead of risking racing with concurrent users and overwriting any
-> changes they could have done between READ_ONCE() and WRITE_ONCE().
+> Add a --registry / -R command line argument to the container tool to
+> specify an altnerative image registry and support it in the TOML
+> configuration file accordingly.
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: 35b545332b80 ("gpio: remove gpio_lock")
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/gpio/gpiolib.c | 26 +++++++++++++-------------
->  1 file changed, 13 insertions(+), 13 deletions(-)
+> This uses a mechanism based on regular expressions to parse the
+> container registry and image names and construct the final one based
+> on a set of priority rules.  A registry can be included directly in an
+> image name; an empty string means a local image.  It can then be
+> overridden by explicitly specifying a registry name via the CLI option
+> or the TOML file, with the CLI option taking precedence as always.
 > 
-> diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-> index 63b65b646fbcfa9ea0f724d1d3e1ac22ba28f638..28d4cf0cef70f437dc4271f82975d09dc55125ea 100644
-> --- a/drivers/gpio/gpiolib.c
-> +++ b/drivers/gpio/gpiolib.c
-> @@ -2693,23 +2693,23 @@ void gpiod_free_commit(struct gpio_desc *desc)
->  		if (guard.gc->free)
->  			guard.gc->free(guard.gc, gpiod_hwgpio(desc));
->  
-> -		clear_bit(GPIOD_FLAG_ACTIVE_LOW, &flags);
-> -		clear_bit(GPIOD_FLAG_REQUESTED, &flags);
-> -		clear_bit(GPIOD_FLAG_OPEN_DRAIN, &flags);
-> -		clear_bit(GPIOD_FLAG_OPEN_SOURCE, &flags);
-> -		clear_bit(GPIOD_FLAG_PULL_UP, &flags);
-> -		clear_bit(GPIOD_FLAG_PULL_DOWN, &flags);
-> -		clear_bit(GPIOD_FLAG_BIAS_DISABLE, &flags);
-> -		clear_bit(GPIOD_FLAG_EDGE_RISING, &flags);
-> -		clear_bit(GPIOD_FLAG_EDGE_FALLING, &flags);
-> -		clear_bit(GPIOD_FLAG_EVENT_CLOCK_REALTIME, &flags);
-> -		clear_bit(GPIOD_FLAG_EVENT_CLOCK_HTE, &flags);
-> -		clear_bit(GPIOD_FLAG_IS_HOGGED, &flags);
->  #ifdef CONFIG_OF_DYNAMIC
->  		WRITE_ONCE(desc->hog, NULL);
->  #endif
->  		desc_set_label(desc, NULL);
-> -		WRITE_ONCE(desc->flags, flags);
-> +		gpiod_update_flags(desc,
-> +				   BIT(GPIOD_FLAG_ACTIVE_LOW) |
-> +				   BIT(GPIOD_FLAG_REQUESTED) |
-> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
-> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
-> +				   BIT(GPIOD_FLAG_PULL_UP) |
-> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
-> +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
-> +				   BIT(GPIOD_FLAG_EDGE_RISING) |
-> +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
-> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
-> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE) |
-> +				   BIT(GPIOD_FLAG_IS_HOGGED), 0);
->  #ifdef CONFIG_GPIO_CDEV
->  		WRITE_ONCE(desc->debounce_period_us, 0);
->  #endif
-> 
+> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
 
-Not directly related to your change, but the debounce_period_us is
-protected by the GPIOD_FLAG_REQUESTED flag, so it should be cleared
-before the flag, else it could potentially race with a new request.
-Not sure if you want to fix it here or in a separate patch.
+Hi Guillaume,
 
+I don't have any real strong opinions on the patch itself (although
+Sashiko seems to have its usual complaints about validation and such)
+but I am not sure the commit message or documentation make it very clear
+why it is useful to support this. In theory, the registry can be added
+to the image parameter, is that not sufficient?
+
+-- 
 Cheers,
-Kent.
+Nathan
+
