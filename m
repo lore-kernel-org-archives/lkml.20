@@ -1,47 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910211;
-	b=LJKV5s1uF1br/fGyLHMSLS24/BnOd4JZs359Tq0NfhwoAKNUy1okm6zw8ajN3cV6RgSe
-	 tpppGY5DB1Zj2Bwnv5I5iYfdRhU5v0+Vd3bExHH1cJ1mMUVlTPQJaOj57gc3vUQ/T7zCC
-	 nqjOZXmoHkpURHkkbodxiZ6vhBWKmR6etumQxyOqHc9DUcGEi13vbVLEjoyPR5VlhsjvM
-	 7JQW787N9dRHdBhegcGyf7ceqgRZ42QTCoyQFrY+Xfiwr4qt/m0ammB4WdiZyBXQ/MrIb
-	 4O/ODtpzf4+R3SRTlPGFQ/L3Y5MJS1nvrERSeF0I3+6+ShXN4Snolxmz0RDYLahmdHQ==
+	t=1793910272;
+	b=tpxWJ3zXdABFEC6mPRp4Uh519swh8j1X5MeXagGhnYwAdt7wFPeNru+HxwAuIs28nbhl
+	 g1g9dzhazlCxuaSfUMIFyQHKq3eVDLZ6dz5kMFZW/+of82F6sZ4sLdMwGDuFKDIBtnczU
+	 nPH8fzkZ4VxNqi3evrKzg2Fy4qmPzt23oaSDycbSB448+AQ46es1OCuXe0wfZQ89abxNO
+	 Lz60M2+5FcFE9bK1rISWM0sX91Ebk+oaXlY7DSpKh+HPMWlehj7jqRntYc4EbaYq26v0D
+	 mxD8lcnanAVjOe7qvbM0xalD3rFNE05LnTLB853JNcHaR+V4WhfL0THVJQPjPBUP0FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910211;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=EW+t71jhy7LMxyaA2zPHlVI+DPJ5VusFQchtnKOjjO4=;
-	b=XCogHgPW/DSpv7BMVSkXfirB0hojc0L9frQe5ntjBaMCR64JvXYbMocp2IYAuZMd8x1O
-	 hiNpzYqzee98ITXIAOxpnv5DkUmzTWib3eGxON+G36aEgPKkOCuhd0IueDu81zdGY6rmI
-	 D/T8HPPdP4uN6JqTbVsd0w1ilRKF8vrK+88rn4d4kY3P3BRsJK+y0l+Ciqe1OhotevUIA
-	 v9iLbPL9ehCkoUPCUSxt+MIigqUQdgADrQTfPKCivAJ75TkfMYC8gAFM04ZBvCg+RC2Xe
-	 Sh8dpOpFAXuxQA2y6ofsctLpLXKBj4GEcrXtMVphuN+txS5dA7EydGt1z3b+zG6zRDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910272;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=73PTVfrUcmO8FUqnE/YmJ5VjFV2irHPFR+RGv5xKzHs=;
+	b=EyxUpO3IcspkifQ0Ej26PagNxICQa2AUu5vozCcuzxkHuZFR6hW/us2fBzvWyQWgSu1z
+	 SCT78rG3xOCg4BVUvB/j3mK17aB50uQ38flNMRDWI2SoU49BrkCVj9HyvnE+MfjMtA6wB
+	 E4fDu3bEyX8pKWg8mIzPhvaw5c7zRR4Eb1yeA00VvoBfP6B84trep0ZlnEKYmcXzeHYP0
+	 XVuyb3JyN03GhsDKJ6Y5nt+adHSbTVebS+F9+SmX6AAymD6ste2G2ni8HI9OidWszlkbV
+	 BZnMkUTGf9BdL+YgTGGOJQ74Ig+Nar8YJliDPL+toMbOIL512pCK0WbdPWmzE8Yi3zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WtYRHUl/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxXcVELm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F80A606A329;
-	Thu,  5 Nov 2026 20:23:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF265606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:24:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtYRHUl/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698F61F008A1;
-	Thu,  5 Nov 2026 20:23:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YxXcVELm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34DEA1F0089F;
+	Thu,  5 Nov 2026 20:24:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793910210;
-	bh=EW+t71jhy7LMxyaA2zPHlVI+DPJ5VusFQchtnKOjjO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WtYRHUl/waP6OoYRdcQo/GE3JvGS8fKocRo+cJOuPumx17rncEQclB5f8h6X68j3Q
-	 RW729mDnYA33mXjmRcPotZRj7xg011VRnbjMvwfcdijHAl9yl0tke8azO0LeAPVmCY
-	 JG7dkMPDjpaxxx/sgbJfnjuEQkPQaKzIGQD+NG4n2mTtPvNGx8v/rf/OejnIoAyUsO
-	 DP8dyNV6cLmeEC4F8jU09BY2MZ6eDBNCSEVd+PzH32dMzkqrvMxvamTQdtfJ9p9aZR
-	 s8NVrboS0XwdAsXv36hp3JILfnfsthzQFZQTrXG6FmQv5QOkrKI4li9q77DnH3em8B
-	 yLVv1IovvmBvw==
-Message-ID: <53323b7e-5169-4a36-a051-ed1eb1718b7d@kernel.org>
-Date: Thu, 5 Nov 2026 21:23:20 +0100
+	s=k20260515; t=1793910271;
+	bh=73PTVfrUcmO8FUqnE/YmJ5VjFV2irHPFR+RGv5xKzHs=;
+	h=From:Date:Subject:To:Cc;
+	b=YxXcVELm1aaI1idfjy9RYC0nNnUgrsBv6yGPb9sflGWCewow7vYSVeuSbBSmJaGvk
+	 kBlEoWESb4Q4mmua8MYZF2MKeyCHuKfI/S3ftA3PDBmA26bCoDD+4cCeLh898h4Mfa
+	 6n+66hxSEbqW81wciX0kTlEpkj0GnQt2RShisHS8qgrudZxfiBnkzDTXBs4jVnBjLB
+	 s9oNdGnyUOyzKNruurCVn61PT8CHOdxTq0f+V5s9eduJUT5WBNmMzW21IIZpCpgnAB
+	 E4tiKJI9PxPSIb0hGo5gXo0gd7ZX1YzCCs1PKRaTdq4QnAcGVCqDJ+6iEm5QY9YZKt
+	 mvH9BMNnD6iwA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 05 Nov 2026 20:24:27 +0000
+Subject: [PATCH] locking/rwsem: don't let a read lock steal from a queued
+ writer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,165 +53,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: soc: introduce
- toshiba,tc9564-config-syscon.yaml
-To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
- alexandre.torgue@foss.st.com, marex@nabladev.com,
- changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104004332.2141282-1-elder@riscstar.com>
- <20261104004332.2141282-2-elder@riscstar.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261104004332.2141282-2-elder@riscstar.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQrCQAxG4auUrA3MlFrQq4iL1vzVgJ3RZGqF0
+ rs7uPw2723kMIXTudnI8FHXnCrioaHbY0h3sEo1taHtYwxHttUxs+RU2AuGJ0+WZ34vWCC8mhY
+ Yh26MUU7ShX6kWnoZJv3+L5frvv8AAb/aaHUAAAA=
+X-Change-ID: 20261105-rwsem-dont-steal-from-queued-writer-04b11d9d406b
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Waiman Long <longman@redhat.com>
+Cc: linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, ljs@kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3869; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=x1xda1C7CGx0sFscZ23xVdZFI9RbMceSNU2CDK5DgA8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLePP2jqf3DXcvVnNGc9cOepEQNgeSTOp4aH0u8Lockb
+ QndzVbcUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIlwcTL89//yWzXDiH/xrhfW
+ H9j/Xym5XaZ3lEXt5hMhn95rCovfzWRkWLGAOVaW6czNU9stj3NIZHjd+vLnohHHdufntxd8PTz
+ 5DisA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On 04/11/2026 01:43, Alex Elder wrote:
-> Define the binding for the system controller that implements the clock
-> and reset controller functionality present in the Toshiba TC9564 SoC.
-> 
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  .../toshiba/toshiba,tc9564-config-syscon.yaml | 68 +++++++++++++++++++
->  MAINTAINERS                                   |  8 +++
->  include/dt-bindings/soc/toshiba,tc9564.h      | 46 +++++++++++++
->  3 files changed, 122 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
->  create mode 100644 include/dt-bindings/soc/toshiba,tc9564.h
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
-> new file mode 100644
-> index 0000000000000..5a241a9c915d1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/soc/toshiba/toshiba,tc9564-config-syscon.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Toshiba TC9564 Multifunction System Controller
-> +
-> +maintainers:
-> +  - Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> +  - Alex Elder <elder@riscstar.com>
-> +  - Daniel Thompson <daniel@riscstar.com>
-> +
-> +description:
-> +  The Toshiba TC9564 is an SoC accessed by a host system through the
-> +  upstream PCIe port on the PCIe switch it implements.  The switch
-> +  includes an embedded PCIe endpoint that provides access to various
-> +  SoC peripherals via its BARs.  These peripherals include a simple
-> +  controller to gate internal clocks, as well as a reset controller.
-> +
-> +  The clock controller uses registers within the same page as a reset
-> +  controller, so this system controller controls access to both.
-> +
-> +  A total of 21 simple gated clocks are implemented within the SoC.
-> +  At this time, support for enabling and disabling only a subset of
-> +  them is provided at this time.  Similarly, the SoC implements 13
-> +  resets, but currently not all of them can be controlled.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: toshiba,tc9564-config-syscon
-> +      - const: syscon
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +    description:
-> +      Clock ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +    description:
-> +      Reset ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#clock-cells"
-> +  - "#reset-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    syscon@0 {
-> +        compatible = "toshiba,tc9564-config-syscon", "syscon";
+Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
+stealing"), a racing read lock can steal an rwsem from under a queued
+writer whose handoff timeout hasn't expired yet.
 
-I disagree this to be syscon.
+This is most problematic when an rwsem read lock is released then
+reacquired in order to relieve lock contention, as instead it will simply
+have the lock handed right back to it ahead of the intended beneficiary.
 
-This is internal to the PCI device. I read Daniel Thompson answer:
-https://lore.kernel.org/all/auOI8LbZNWbNGJuN@aspen.lan/
-And I accept arguments that you want to re-use a lot of existing
-bindings like DWMAC and so on. Syscon does not count there.
+Naturally, this behaviour rather defeats the object of doing this kind of
+thing, so this is less than ideal.
 
-I remember you posted somewhere full DTS, but now I could not find it
-again and I do not see it in the cover letter here.
+Fix this by updating the optimistic read lock stealing code in
+rwsem_down_read_slowpath() to explicitly check whether the first queued
+lock is a waiting writer, and to not allow the theft if so.
 
-So again, why does it have to be a syscon, which is pure
-internal-register-access thingy?
+When a steal is disallowed, keep the existing sem->wait_lock held when
+jumping to the queue code to avoid useless lock acquisition/release.
 
-Best regards,
-Krzysztof
+In order to perform this check, sem->wait_lock is acquired whenever there
+are queued waiters in the steal code, rather than the previous behaviour of
+only doing so when the reader count is 1.
+
+Since failing to steal a read lock unconditionally results in acquisition
+of the sem->wait_lock, this doesn't seem likely to be a significant
+overhead.
+
+Also update the comment describing optimistic read lock acquisition
+conditions to include this newly introduced behaviour.
+
+Care is taken to ensure correct ordering of lock acquisition, lock waking
+and marking the lock reader-owned.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ kernel/locking/rwsem.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+
+diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
+index b9c180ac1eee..cdb3dd6260bf 100644
+--- a/kernel/locking/rwsem.c
++++ b/kernel/locking/rwsem.c
+@@ -59,7 +59,8 @@
+  * A fast path reader optimistic lock stealing is supported when the rwsem
+  * is previously owned by a writer and the following conditions are met:
+  *  - rwsem is not currently writer owned
+- *  - the handoff isn't set.
++ *  - the handoff isn't set
++ *  - a writer isn't at the head of the wait queue.
+  */
+ #define RWSEM_READER_OWNED	(1UL << 0)
+ #define RWSEM_NONSPINNABLE	(1UL << 1)
+@@ -1034,31 +1035,36 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, unsigned int stat
+ 	 * Reader optimistic lock stealing.
+ 	 */
+ 	if (!(count & (RWSEM_WRITER_LOCKED | RWSEM_FLAG_HANDOFF))) {
+-		rwsem_set_reader_owned(sem);
+-		lockevent_inc(rwsem_rlock_steal);
+-
+-		/*
+-		 * Wake up other readers in the wait queue if it is
+-		 * the first reader.
+-		 */
+-		if ((rcnt == 1) && (count & RWSEM_FLAG_WAITERS)) {
++		if (count & RWSEM_FLAG_WAITERS) {
+ 			raw_spin_lock_irq(&sem->wait_lock);
+-			if (sem->first_waiter)
++			first = sem->first_waiter;
++			/* A writer at the head of queue takes precedence. */
++			if (first && first->type == RWSEM_WAITING_FOR_WRITE)
++				goto queue_locked;
++			rwsem_set_reader_owned(sem);
++			/* If first reader, wake other readers in queue. */
++			if (first && rcnt == 1)
+ 				rwsem_mark_wake(sem, RWSEM_WAKE_READ_OWNED,
+ 						&wake_q);
+ 			raw_spin_unlock_irq(&sem->wait_lock);
+-			wake_up_q(&wake_q);
++		} else {
++			rwsem_set_reader_owned(sem);
+ 		}
++
++		lockevent_inc(rwsem_rlock_steal);
++		if (!wake_q_empty(&wake_q))
++			wake_up_q(&wake_q);
+ 		return sem;
+ 	}
+ 
+ queue:
++	raw_spin_lock_irq(&sem->wait_lock);
++queue_locked:
+ 	waiter.task = current;
+ 	waiter.type = RWSEM_WAITING_FOR_READ;
+ 	waiter.timeout = jiffies + RWSEM_WAIT_TIMEOUT;
+ 	waiter.handoff_set = false;
+ 
+-	raw_spin_lock_irq(&sem->wait_lock);
+ 	first = sem->first_waiter;
+ 	if (!first) {
+ 		/*
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261105-rwsem-dont-steal-from-queued-writer-04b11d9d406b
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
