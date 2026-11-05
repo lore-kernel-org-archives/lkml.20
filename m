@@ -1,72 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912552;
-	b=NdSLMKplGYeadcrwbqsB4HuuW9iuKfFKsSRqGXs7f0uKGkPwkiZHpPmf8gPbifkvROg7
-	 7Q84LI4f0xaWDxkOl045O7pkeGg2+AI0eNKl5ATIKYiUnsH/D5vBlIdY0Ka3WIvAt8T05
-	 +a29ZlhYWnYBCvEhRk9Md9zcLdDlS7czNrIcs7sHZOkJ8HG2fxXq34slWIrHITS04s+Ov
-	 3nV2i1cQVoMOW0rEquNXjmGtou6gdgRaEMaMjo7d0ttCzXQ6sh4wRv/PQCk8XdxB6biDj
-	 520CYRGp3liaJgo8j1GfJP0eL2oSfFVRUJhj/A/VHEUyYqxZDq4/tjMqu0BaU+1d9rQ==
+	t=1793912581;
+	b=wMNLqa89kZeTru+JUkrFxFm/inTknr8838+miB+4/fT+hHvPVd9TK/wrAQa8pCOOWBF6
+	 BUvY4hsCjwTmaLVLnLuFn/+PzsSRfAK47F3dmAoYOyZsJEkUwibIhRB/FdJj/qVcPWpxf
+	 XIkstpiJk9U10Pal7kfeEiCmgG7rl5DXnhphd0QMNqaodhTa4B8zoWbOU42/4ma4MZoFx
+	 AJo+U4OX/kgUccwm1N8AiiH4zMpMW+t+dS+LxGnlJwZ6lcoS4iUUD6IQEnCUT4E/IfLZM
+	 UjuotdfoS3povtOgFtvKLR8QsMy3wBi0jCj5IvC6uNfyC6Ld6HbW/XqvyBHMuDJKcMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912552;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-FB-Internal:Content-Type:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=Nh/PNfZJ+4poa+/4MlOKZcsiZSQUMnjoP1xeoBQtGHs=;
-	b=RS0NvJOq21TrM1yvl5L2ybklv6LyG4n0oc1TpkCHsch2WligLmptDViud4o4dc6Fe8HW
-	 MA9ZoT51ngsiHKf6PfRoov4ehEhkFAgvcUuAmk4ec/o3WBY8YBReyI53gBkMWjSJtK8tF
-	 GDFXNX7QYZzNh1r8obICZ/KtOCyHsWh7UwRzs+ENdO+Clg+5rDcBPbYoJEThBM6xOTEA1
-	 TEunrD5LaopUPp0XqIMsOOSqp7TvYIvIs7sPaztrm5EQXseafPW0SbA96o1DAdLgKbv5l
-	 pWbaPDPVsGDC7lPRlcRiJEi53+b5QFJ20P4M/KG2Um6r9n8DN2M2Ds5jRyuMgHaqkPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912581;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vIPsFgpeDDDerv0ETdjJMk/BOk+taB7WxA1rqOHL3fI=;
+	b=IoFVKxv+WO1XcjFM+8RQzIa67x30es+etpuoZNx+OmNULHixhzOCqd/kbC7LE2mWgoXv
+	 rJBTx3wgwXchiz+LobxeXx4DQeJRWR6MotKcAqwOZx9ijdvXceUHW5LqzT3ZyXnFTfLRn
+	 sa+zPLj57ye3csJd4Dco4G00j29y3QhT4rISfa+Z2g+heHoK6W/4/uR3aAzj2GGFbomDN
+	 ims/opAG91FevbT6+BWCVVk0XPKWwk3nT3Jy/YmwYLczZeNM60ROZta/0hHTybjPZPHqq
+	 YxVWhui1p590Bs9+DXiLd8hj1q3rjpKTlvYoEloIXoCjUbGbF/zJXg/1quprILqjKGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b="NhbQ/54N";
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Dadc7a1M;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DC1606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:02:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8DC1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6791B606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:02:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6791B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=NhbQ/54N
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5L2Ki1794341
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 13:02:31 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=Nh/PNfZJ+
-	4poa+/4MlOKZcsiZSQUMnjoP1xeoBQtGHs=; b=NhbQ/54NdkTTqYzT4zKGaqa7N
-	dhTKqyKik6osO2OHCwsfUDXZFjj4MqYM5fXkmun8tkYV/ZC5LQDO+dyLtl1EbKg2
-	N8JnOoJkUZLrke5Qhl5583kono1icC+lqrvfvXcmhY3JmN6ZFuESMgwKfbID/605
-	IyJq1dMeTthVcA8T2oWljZgka4S5bTN0fCQXYL7wbVFfsXUfcpMcqgIJrWYmFt8E
-	FAXUvpcC24oXo7698TpgfhL9JZCyedCik8Z4Em/INNUmJoD/3dZCpf9b+s5wtPnd
-	QltcTIoHANEErB5/MN5sfOtSmjnuru6qmuF5o6Y/VfHq8aMFpZUBuEmC7imxg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hrb4ehejf-3
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:02:30 -0800 (PST)
-Received: from twshared9449.02.snb2.facebook.com (2620:10d:c0a8:fe::f072) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 5 Nov 2026 21:02:27 +0000
-Received: by devvm9890.eag0.facebook.com (Postfix, from userid 139328)
-	id 247EB540BD2E; Thu,  5 Nov 2026 13:02:15 -0800 (PST)
-From: Jennifer Chan <jenniferchan@meta.com>
-To: <bhelgaas@google.com>
-CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Jennifer Chan
-	<jenniferchan@meta.com>, <stable@vger.kernel.org>
-Subject: [PATCH] PCI: Add d3cold delay quirk for NVIDIA LR10 NVSwitch
-Date: Thu, 5 Nov 2026 12:10:10 -0800
-Message-ID: <20261105201010.2297078-1-jenniferchan@meta.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Dadc7a1M
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4301e334ceso203167166b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:02:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793912577; x=1794517377; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vIPsFgpeDDDerv0ETdjJMk/BOk+taB7WxA1rqOHL3fI=;
+        b=Dadc7a1MEdrUAjjYSrRyejntEfOG7pQDi9QusR3/ehgdTME+c0q2yHCD4MXs0P6Oo7
+         BWDHwDrgRHD3R+eVDVW6NvLTKxIRxIhf9iaKuM/VlsBhY2HJKUzh8QE2Dnuo78nZ8WH4
+         HNP7gc8fA8B1VlpH+LWBxk+cFm7mWdY0dZbjs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793912577; x=1794517377;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vIPsFgpeDDDerv0ETdjJMk/BOk+taB7WxA1rqOHL3fI=;
+        b=NDRle2xynv0IR4dlxG1Xl/aAvV+WqkautLSqzq0PlGBw4iitjiH1PBxyce6a0cWzcv
+         mtxjuKf3o0R6NcRLrJ5G0Y8La3J3ntaG+VlUHKzAPwGZpoGsg6u/dQgoMogUj/UaHxBa
+         AeJrJBnN3BUEsZDlAbU8mRHM1yVhSQxpmA+ZhN/C0O64HKUlVS0kjNMIXQ9LiOyxqg/f
+         MsEa7NTzQgw81IFxkZthDUzzd2bdcziMVf0T7Z00XB3j4xHCwtSPKkBssPRSdMQpDtp9
+         //7Fs8yUUKRh7Se9SQLmUb/a6aisY2ngBwyS4aZHi3Ju+GmcP2uulqH+iTbghKr6blhV
+         MUTw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFjZ1TM2eKlmYIh99MdNpKfgX/WYB8KdGCgtOepPVy7SC8pgC1BJQcleVtips2qZzxWIJ6Mcvjn4k++cE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hV2oK2BCOmYMF4Vubo5XbPo15QyKIRNFjlOaR0sv+TPVARmSM
+	+3wckAiuWUghrHpbXynoY3OGOFKyN/pqCb6ra1LLpIdV5RZJMnIhdRzYHDA2hsw/mMFdyvQHrLw
+	jQxN2PT8=
+X-Gm-Gg: AYBFou0xTON1bLDkXz7sz8YwSXF15IAnd+glQF/EACtlCJlLi4O2H84aBYzhDOw7GSS
+	qiFOco7OSIg3w7kQ5lSBBkiKjL+/0vNTExf1Upl5/jllRD/kiVcVkpG03f00aRMB2oMF1pxjdbs
+	JWd30We2SnSYAT+Ir5EcKsUoSfbe3CFEC7jAN1JLFCgl3dnbQfTpEiX3e8JhvMLMaHZbxgoJci6
+	JSvon9xs0vMXbTk4ZRLUuvNAJXDIDCm+hpA/de8ialMf8L6GX5pd+N9aDg5LpWy83B3HIPiCAPe
+	Buy1v0HNd9SLL++ThGwhHb00UlpMe56dO3SCSJ0TT3VdqwnAfTDYNXl3WdT32mFlSQThrVkAdLb
+	9QguMzMD1ZZvyibkIaujZeVcARn75123krpPAD3M3jANRoR4x0MOUtWptMLoMkqNpZAyOdQ/2u9
+	o0qwe9hAtOYGD7fCATQg2oXstbnnLHfT4OD/o9s93UHHdVsGQxHDulV1u20UGWINnSDMQzjgjmS
+	9qkmV5R8OTPFfCfEFk5coJy2DoyWM1NDZHgyP7Dmh47BaQOA62Ug8GJP4904Sp29Dtyjs++OHPi
+	zHJXNraK9B2FbjRG9u/q6nymzhxh/BuCirWquyjaVBkolSx5/b7xo8bX4psGux54ABS9O3Y0NTT
+	De0A=
+X-Received: by 2002:a17:907:9446:b0:c4c:999e:e6f1 with SMTP id a640c23a62f3a-c4d35559ad1mr52599966b.46.1793912577352;
+        Thu, 05 Nov 2026 13:02:57 -0800 (PST)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com. [209.85.218.47])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3562ec79sm17748766b.25.2026.11.05.13.02.54
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 13:02:55 -0800 (PST)
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c315869241fso364299866b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:02:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzqO4YDnmnIWZD90UhyP28jjGwgGybnwoZH35tOhiCxv3KMTh1syjHA64iMg9hpk3tn7OLng7kaMXQVMWQ=@vger.kernel.org
+X-Received: by 2002:a17:906:c150:b0:c46:9ca9:f524 with SMTP id
+ a640c23a62f3a-c4d354b9d04mr48470966b.32.1793912574580; Thu, 05 Nov 2026
+ 13:02:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,87 +94,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-GUID: _RUDsnjY-_3UxVLFtSsVs2OwQBCS-iqT
-X-Proofpoint-ORIG-GUID: _RUDsnjY-_3UxVLFtSsVs2OwQBCS-iqT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA4MyBTYWx0ZWRfX3o973uioViy4
- P5i79q2HcuvBJKlf/+rrTliYtHhdel9ACA3xb0S9JBQ90Nglesxm0pQOQGXH5YZoHlerVIgX23g
- +CyMnfhx9qpRbLU7TN4e2yZtgoWbFb0=
-X-Authority-Analysis: v=2.4 cv=DJ8acCNb c=1 sm=1 tr=0 ts=6aeceee6 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=tpM8CJlwf7uhpglF1g9U:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
- a=AQQVFG2uCnKRw25fG-IA:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA4MyBTYWx0ZWRfX78CnY3XoQTzL
- gw7Er9bx9srwxx/tZbXJO1F6+5M8ISJQQoC+OoWGIsh4cm0oMhjY+1CoqsLMAoJS/ezQw416Jqw
- Bw7eYA9wkRFnwvph2OxGxgsRHAk7Vu/QrX1feWFCLl9JkXYtBYZzEFZGPFLdCfjwaWDRC/f1hOj
- eZwezDMAt8uK/tg77VVIUVuREi7yIcArwfyaHpiezl1+aPl6kJ9b1B0XuiSnqNIkTBgziBndh1X
- uTEKaJLi0zBOO+5PEPNgf6gFQi64lfnYl6sxiSaGi+yCi/CnUFOQqiakmJ9cZJq25VVZBAEMmKM
- VdyhLIKtH1CayGWDXBAAWon1u15uq1iJdryOj75zrn0h5aLshnm+qYl2F9b6XSgeJY0t5oLGHFs
- RDWnoJXwYfB6xt1XKcV22qarLKjpPLI4TqVjV4Ihjko+qbJN+85MINDIaD6ONmSuscTET7TbiM+
- HjwAd/m4Xv29H21bc9g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+References: <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
+ <auaFhOa5EBz4gJwK@gondor.apana.org.au> <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
+ <auqtTjXhD8is-y9f@gondor.apana.org.au> <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+ <aurAxRpCwzeyXeVj@gondor.apana.org.au> <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+ <aurJZ81qnbiHH_P1@gondor.apana.org.au> <ausS3LQNkdc6lBy3@milan>
+ <auxDm_YO4oACA_d2@gondor.apana.org.au> <auzOjphJ8DWpXwUy@milan>
+In-Reply-To: <auzOjphJ8DWpXwUy@milan>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 5 Nov 2026 13:02:35 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjcKOC7O30L8_8PMniT71aqy_3ZEYK2xyoR8zW9ZCvO7g@mail.gmail.com>
+X-Gm-Features: AclHuK-6zo-9KtIYF9n0Bopl194z1pM7LoK-Wva3VmRK1J9HSt04b5Zu07i1Nu8
+Message-ID: <CAHk-=wjcKOC7O30L8_8PMniT71aqy_3ZEYK2xyoR8zW9ZCvO7g@mail.gmail.com>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
+	"Liam R. Howlett (Google)" <liam@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>, 
+	Baoquan He <bhe@redhat.com>, Alexander Potapenko <glider@google.com>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Marco Elver <elver@google.com>, 
+	Michal Hocko <mhocko@kernel.org>, 
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, 
+	Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org, 
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On a Supermicro HGX A100 system (X12DGO-6), each of the six LR10
-NVSwitches (10de:1af1) sits alone behind a PLX PEX 8725 (10b5:8725)
-downstream port.  "nvidia-smi -r" resets all GPUs: NVML unbinds the
-switches from the nvidia-nvswitch driver, resets each one through sysfs
-(reset_method "bus", a Secondary Bus Reset of its port) and binds them
-again.  The PCI core waits 100 ms after the link comes back, the switch
-answers config reads and the reset completes.  When nvidia-nvswitch then
-probes the switches, one fails in pci_enable_device() with
+On Thu, 5 Nov 2026 at 10:44, Uladzislau Rezki <urezki@gmail.com> wrote:
+>
+> @@ -1025,7 +1025,13 @@ void br_fdb_update(struct net_bridge *br, struct net_bridge_port *source,
+>                         }
+>                 }
+>         } else {
+> -               spin_lock(&br->hash_lock);
+> +               if (in_serving_softirq()) {
+> +                       if (!spin_trylock(&br->hash_lock))
 
-  Unable to change power state from D3cold to D0, device inaccessible
+I don't think that in_serving_softirq() makes any sense.
 
-four others fail to initialize with -EIO, and the NVSwitch fabric does
-not come back.
+If I read this code correctly - and it's possible I didn't - this is
+always called under local_bh_disable().
 
-The same systems recover every time on a kernel that sleeps 1 s after
-each Secondary Bus Reset, as pci_reset_secondary_bus() did before commit
-ac91e6980563 ("PCI: Unify delay handling for reset and resume").  Adding
-a 1 s sleep before the link wait on the PEX 8725 ports of the failing
-kernel fixes it too.  Config reads already succeed at that point, so
-pci_dev_wait() does not cover it, and the switch's state there is not
-known.
+And local_bh_disable() will have increased the preempt-count exactly
+so that it looks like it's in_serving_softirq().
 
-Give LR10 a 1 s d3cold_delay, so that pci_bridge_wait_for_secondary_bus()
-waits 1 s after the downstream link comes up before the switch is used.
-This adds 1 s to each LR10 reset (about 6 s to an "nvidia-smi -r" on
-these systems) and to D3cold resume of its port.  Resets issued further
-up the hierarchy keep the default delay.
+Maybe I got lost somewhere, but it basically looks like that test will
+always be true and is pointless (and misleading).
 
-Fixes: ac91e6980563 ("PCI: Unify delay handling for reset and resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jennifer Chan <jenniferchan@meta.com>
----
- drivers/pci/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 7f1f47ea2ee4..4a84095e736f 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6569,12 +6569,14 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x=
-0220, of_pci_make_dev_node);
-  * after reset recovery or resume from D3cold:
-  *
-  * VideoPropulsion (aka Genroco) Torrent QN16e MPEG QAM Modulator
-+ * NVIDIA LR10 NVSwitch (HGX A100)
-  */
- static void pci_fixup_d3cold_delay_1sec(struct pci_dev *pdev)
- {
- 	pdev->d3cold_delay =3D 1000;
- }
- DECLARE_PCI_FIXUP_FINAL(0x5555, 0x0004, pci_fixup_d3cold_delay_1sec);
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_NVIDIA, 0x1af1, pci_fixup_d3cold_d=
-elay_1sec);
-=20
- #ifdef CONFIG_PCIEAER
- static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
---=20
-2.53.0-Meta
-
+         Linus
