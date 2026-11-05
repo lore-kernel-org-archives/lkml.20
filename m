@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888048;
-	b=nVMHsdFyDQTamP+Ei22r2yjlObgNmBnlLiAtr0pDgGqHJUTOrntZy1LTn7Gdvx+Jqq+g
-	 6Qy3AYizjZQFDJI7MS0m+0rtWFvW+rSwbHUaq47IjhifuQRZr8zmH8qbmLiYGkosQaH13
-	 olpO+20VkEtrL0rYtXQkkj0300ZFDsyOMECE6SqksJ+EAYa4sR9dJXc0oV03f0oTC8syW
-	 7YEtIY1ynni8dP4V5ldrtkzaMdKuF/G+WuBuNVgkRKO6FGcn4lwcAaXMnzozOncwVppS2
-	 JmMpl5crWa8xGu5RGyzJARtOGxEN1arJdalyRy/Ru62dn1F9PK3aM9GZsPJ40BgHjgg==
+	t=1793888061;
+	b=TYuMn0epSryFJ5Xv4az1bH10NSpM/Q358qB7QkrvF4AWhTxu2yYIP7tLhWu078WFZovm
+	 R+UA9NH/eLo+gO8h1CnHPMwDNS3slH746Vo8NanIbJXJ9o6yvr+y2bSGp2GWDW1JNvd+7
+	 wulKnfUf6cjAXEIlNZWQMf95ehDCrnc39hWcowm904abHAuipeaYEv+3fQOS3kiKNKR7A
+	 1OgxmWFjG6dc3w9/YycABbrcDXoTOSoZcHeBqo+Fbn1D+v/QvoWTxjZtm4S1QyZ+aM/KK
+	 z+rNdatACMJGjSillh2pZKs+/vwGRG5idVqa343saRkSLGNNw2kSsQNf7OhtF0ich3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888048;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888061;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=1eNs2HQmPLiDjSiZ3s0FNJwEwtww+7IyFoHujvnoR4M=;
-	b=f1gIuqiQy/2OstClEoyRR19Rfxop2avegnsEdBQyrR7XsJ2bo6mS22n13nIpJzqms2wr
-	 DtBZ5SFaRT6A82WoZQ4lwkBke1cxYKNTMGBhrhkAtfHWinX4HiMWJcWPLsJiIY2BzPG8P
-	 V+aA2vzDmOxEBzqKxRQuPfo39nOxr83Xf/Wn8vvPjLnyz+Djdfyob4OTV4CKc4///UjXm
-	 XKDwEtX63IrnA35lY1DUgwWj3nIAqxlqRREF7/LxEjp0euKlceLRHRFqDaf52wCnaaSsA
-	 FFDi+KbtKxM75lDn6C3Huw+8Z1/lokzmAbGwn/j04Vd8tycmKalU8y8rIb1gliE7RRQ==
+	bh=9o8d4hiTOOwTkRtTLTXLCRK3aNU7pqZJPZXu3lxBqEE=;
+	b=5m9VFzTCWfBmGwL5SLLyeuWJ0/3zaAlkeb5WI1Pi+Xsq5oWi4uDnVt35FOTm6JkXLllI
+	 6mWQdkeyh0bkDnpqves+9WiSid70qBFny0+Y/RrkhdMsvo0RLYG8jXG2Vm8EbVr9nU405
+	 cvPIusQgm40nyrT7u1RfRqTZhEucYLuIkIMHeDRAnGRbP0zBDs28W4pHPIMe0U0g5Y8qy
+	 HPnUA7asZmngU0mWbl0/f/L1xxY+o86sMLl816IYuMf7vZDuiJZfN1DJ1osj4/uxI88AV
+	 qOVqK+UDkKjpVZaM74tBRYcitwYPvPZXGLwcRfrE+SjpUsv/Q3jpJADjb54L3fzFFWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dd7Sla9k;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hM1ieG+M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A7B606A331;
-	Thu,  5 Nov 2026 14:14:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE606606D82C;
+	Thu,  5 Nov 2026 14:14:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dd7Sla9k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDFF01F000C1;
-	Thu,  5 Nov 2026 14:14:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hM1ieG+M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6478D1F000C1;
+	Thu,  5 Nov 2026 14:14:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888047;
-	bh=1eNs2HQmPLiDjSiZ3s0FNJwEwtww+7IyFoHujvnoR4M=;
+	s=k20260515; t=1793888060;
+	bh=9o8d4hiTOOwTkRtTLTXLCRK3aNU7pqZJPZXu3lxBqEE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dd7Sla9k/M51jfVSL6DdmbOgXz246kcXWwyrecE/1nULnakRnhleRokQO48/Aq/X3
-	 ZqnMqsLKtocQ50yvrabfbOrUxtWq/AjL0p3XUEHGEHAPmD6yno919h6pghhnSXKUtA
-	 D2xGNrEe5dt7f9/Diq6Vds3WghQuE7lH0k90Bnz/8p8Qb2Ntsgut/uR+CKBse4qb2/
-	 SC1MaUspAeCY4OXsvPcQJwt2Zbv/61YtiEe5iG9ZWIN5NcJ+4zDZ+SeIXTl/+G+7sb
-	 ElfIZLJE/m0HubPCkihkVnutcOSgj9XVTMIGu/qMSv9X2y/j0w0THibYKnv61iInl0
-	 N7VUkDrVUKynw==
+	b=hM1ieG+MaT4kQJDDkG1dyTZEVITmNA/9Qsa3w+/Ut2GFnkARU+uCOeeWh7hcUYJL4
+	 xsA2APTlFzptj+sYVrHVZSSQJaRK/Qaf45Nd4DcrRUdqMA3woTGGBRTgvUqQNZ4BWs
+	 S4t0W1S0ihlXvOt9kRQVUPpgrQdktpGb8C/lasd+0e8qllR+yEJnjSbdfb5Py9zlax
+	 I/0Zu4otbvdsjev2x8fBtSf18yM6QtLAyrsXwLUnh5wM58hB3+btXF0FJk8LlHXr87
+	 LHw3yBw4fSbslP1viKIp06m3pgLBd4Il9nCFO59HW/r462xTwJtId2eIa5E3Jco1w0
+	 y1I/2v8ujbhAQ==
 From: Mark Brown <broonie@kernel.org>
-Date: Thu, 05 Nov 2026 14:01:14 +0000
-Subject: [PATCH v2 01/11] kselftest/arm64: Factor Linux syscalls out of
- asm-utils.S
+Date: Thu, 05 Nov 2026 14:01:19 +0000
+Subject: [PATCH v2 06/11] kselftest/arm64: Factor startup code out of
+ fp-stress load programs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-arm64-fp-stress-kvm-v2-1-81a5172468f0@kernel.org>
+Message-Id: <20261105-arm64-fp-stress-kvm-v2-6-81a5172468f0@kernel.org>
 References: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
 In-Reply-To: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
 To: Catalin Marinas <catalin.marinas@arm.com>, 
@@ -66,175 +66,530 @@ Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-kselftest@vger.kernel.org, 
  Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5000; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Y+BTJzhHc/37sRLFKtDWKMLORopVyDJW0jaxke4d/qg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe9Gt4/J+8+US56wOzAs4Xywr4Yxal8RhqrNjxNeXw0
- gTDa11SHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZhI2ROGfwbHbjlFvzbs9l+g
- +iw+0/5D8E4Nr1C9M7OtnHc8Vtw2ZQ/D//zEjB7mhfWOdu94twprTPlX/e31YeGi5y8y++RPcpr
- osQMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11975; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=q3b1eGQdxDEBjSpi5TVW+MGzgEyJNUbj5FC2Ius8GWg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe9Gt0/D4Zxnrd/rq9hYtY18t+I5W3Mwsv7tgVUnJSs
+ Vnt4/FHHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIqxJGhs8Hotxqvm/8/2jJ
+ 6denqvsvKJle/Nx/4qfMnb3KSwQ6o9QZ/ll9aqx95FlqwOiz6XEaT22qrklu34RL9zbwvj8XtSl
+ OjgUA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-In preparation for building versions of the load programs for fp-stress
-that run as bare metal KVM guests move the functions that perform
-syscalls out of the shared code assembly code in asm-utils.S into a new
-Linux specific file asm-utils-linux.S.
+The fp-stress load programs all start up with some startup code which
+installs signal handlers and fetches and reports the current PID into
+x20. In order to facilitate running as KVM guests and reduce duplication
+factor this code out into a asm-utils-linux.S, making the per-test entry
+point main() similarly to more normal environments. As the
+irritator_handler varies per test they are left in place.
 
-No functional change.
+Since the PID is now reported before main() runs it is printed before
+rather than after the vector length for those programs that report one,
+fp-stress does not parse the output so this has no impact.
+
+Since asm-utils is also used by fp-pidbench that also gets converted to
+the new _start implementation, this will install some signal handlers
+that were not previously there, enable GCS and report a PID which was
+not previously reported but should otherwise have no impact. Since it
+does not need an irritator none is provided and a weak definition left
+in asm-utils-linux.S, sending signals to the test while it is running
+would disrupt it anyway.
 
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- tools/testing/selftests/arm64/fp/Makefile          | 17 +++++----
- tools/testing/selftests/arm64/fp/asm-utils-linux.S | 43 ++++++++++++++++++++++
- tools/testing/selftests/arm64/fp/asm-utils.S       | 36 ------------------
- 3 files changed, 53 insertions(+), 43 deletions(-)
+ tools/testing/selftests/arm64/fp/asm-utils-linux.S | 87 ++++++++++++++++++++++
+ tools/testing/selftests/arm64/fp/fp-pidbench.S     |  6 +-
+ tools/testing/selftests/arm64/fp/fpsimd-test.S     | 76 +------------------
+ tools/testing/selftests/arm64/fp/sve-test.S        | 76 +------------------
+ tools/testing/selftests/arm64/fp/za-test.S         | 75 +------------------
+ tools/testing/selftests/arm64/fp/zt-test.S         | 75 +------------------
+ 6 files changed, 106 insertions(+), 289 deletions(-)
 
-diff --git a/tools/testing/selftests/arm64/fp/Makefile b/tools/testing/selftests/arm64/fp/Makefile
-index d171021e4cdd..d92a755837ff 100644
---- a/tools/testing/selftests/arm64/fp/Makefile
-+++ b/tools/testing/selftests/arm64/fp/Makefile
-@@ -22,21 +22,24 @@ TEST_GEN_PROGS_EXTENDED := fp-pidbench fpsimd-test \
- 	vlset
- TEST_PROGS_EXTENDED := fpsimd-stress sve-stress ssve-stress za-stress
- 
--EXTRA_CLEAN += $(OUTPUT)/asm-utils.o $(OUTPUT)/rdvl.o $(OUTPUT)/za-fork-asm.o
-+EXTRA_CLEAN += $(OUTPUT)/asm-utils.o $(OUTPUT)/asm-utils-linux.o \
-+	$(OUTPUT)/rdvl.o $(OUTPUT)/za-fork-asm.o
-+
-+ASM_UTILS_LINUX := $(OUTPUT)/asm-utils.o $(OUTPUT)/asm-utils-linux.o
- 
- # Build with nolibc to avoid effects due to libc's clone() support
--$(OUTPUT)/fp-pidbench: fp-pidbench.S $(OUTPUT)/asm-utils.o
-+$(OUTPUT)/fp-pidbench: fp-pidbench.S $(ASM_UTILS_LINUX)
- 	$(CC) -nostdlib $^ -o $@
- $(OUTPUT)/fp-ptrace: fp-ptrace.c fp-ptrace-asm.S
--$(OUTPUT)/fpsimd-test: fpsimd-test.S $(OUTPUT)/asm-utils.o
-+$(OUTPUT)/fpsimd-test: fpsimd-test.S $(ASM_UTILS_LINUX)
- 	$(CC) -nostdlib $^ -o $@
- $(OUTPUT)/rdvl-sve: rdvl-sve.c $(OUTPUT)/rdvl.o
- $(OUTPUT)/rdvl-sme: rdvl-sme.c $(OUTPUT)/rdvl.o
- $(OUTPUT)/sve-ptrace: sve-ptrace.c
- $(OUTPUT)/sve-probe-vls: sve-probe-vls.c $(OUTPUT)/rdvl.o
--$(OUTPUT)/sve-test: sve-test.S $(OUTPUT)/asm-utils.o
-+$(OUTPUT)/sve-test: sve-test.S $(ASM_UTILS_LINUX)
- 	$(CC) -nostdlib $^ -o $@
--$(OUTPUT)/ssve-test: sve-test.S $(OUTPUT)/asm-utils.o
-+$(OUTPUT)/ssve-test: sve-test.S $(ASM_UTILS_LINUX)
- 	$(CC) -DSSVE -nostdlib $^ -o $@
- $(OUTPUT)/vec-syscfg: vec-syscfg.c $(OUTPUT)/rdvl.o
- $(OUTPUT)/vlset: vlset.c
-@@ -45,10 +48,10 @@ $(OUTPUT)/za-fork: za-fork.c $(OUTPUT)/za-fork-asm.o
- 		-include ../../../../include/nolibc/nolibc.h -I../..\
- 		-static -ffreestanding -Wall $^ -o $@
- $(OUTPUT)/za-ptrace: za-ptrace.c
--$(OUTPUT)/za-test: za-test.S $(OUTPUT)/asm-utils.o
-+$(OUTPUT)/za-test: za-test.S $(ASM_UTILS_LINUX)
- 	$(CC) -nostdlib $^ -o $@
- $(OUTPUT)/zt-ptrace: zt-ptrace.c
--$(OUTPUT)/zt-test: zt-test.S $(OUTPUT)/asm-utils.o
-+$(OUTPUT)/zt-test: zt-test.S $(ASM_UTILS_LINUX)
- 	$(CC) -nostdlib $^ -o $@
- 
- include ../../lib.mk
 diff --git a/tools/testing/selftests/arm64/fp/asm-utils-linux.S b/tools/testing/selftests/arm64/fp/asm-utils-linux.S
-new file mode 100644
-index 000000000000..e6c22b41dc5e
---- /dev/null
+index 9cd31dc47709..9519be4d8f1e 100644
+--- a/tools/testing/selftests/arm64/fp/asm-utils-linux.S
 +++ b/tools/testing/selftests/arm64/fp/asm-utils-linux.S
-@@ -0,0 +1,43 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (C) 2015-2021 ARM Limited.
-+// Original author: Dave Martin <Dave.Martin@arm.com>
+@@ -92,3 +92,90 @@ function exit_error
+ 	svc	#0
+ endfunction
+ .globl	exit_error
++
++// Install a signal handler
 +//
-+// Utility functions for assembly code which use Linux syscalls.
++// w0: signal number
++// x1: sa_action
++// w2: sa_flags
++// Clobbers x0-x6,x8
++function setsignal
++	str	x30, [sp, #-((sa_sz + 15) / 16 * 16 + 16)]!
 +
-+#include <asm/unistd.h>
-+#include "assembler.h"
++	mov	w4, w0
++	mov	x5, x1
++	mov	w6, w2
 +
-+// Print a single character x0 to stdout
-+// Clobbers x0-x2,x8
-+function putc
-+	str	x0, [sp, #-16]!
++	add	x0, sp, #16
++	mov	x1, #sa_sz
++	bl	memclr
 +
-+	mov	x0, #1			// STDOUT_FILENO
-+	mov	x1, sp
-+	mov	x2, #1
-+	mov	x8, #__NR_write
-+	svc	#0
-+
-+	add	sp, sp, #16
-+	ret
-+endfunction
-+.globl	putc
-+
-+// Print a NUL-terminated string starting at address x0 to stdout
-+// Clobbers x0-x3,x8
-+function puts
-+	mov	x1, x0
-+
++	mov	w0, w4
++	add	x1, sp, #16
++	str	w6, [x1, #sa_flags]
++	str	x5, [x1, #sa_handler]
 +	mov	x2, #0
-+0:	ldrb	w3, [x0], #1
-+	cbz	w3, 1f
-+	add	x2, x2, #1
-+	b	0b
-+
-+1:	mov	w0, #1			// STDOUT_FILENO
-+	mov	x8, #__NR_write
++	mov	x3, #sa_mask_sz
++	mov	x8, #__NR_rt_sigaction
 +	svc	#0
 +
++	cbz	w0, 1f
++
++	puts	"sigaction failure\n"
++	b	exit_error
++
++1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
 +	ret
 +endfunction
-+.globl	puts
-diff --git a/tools/testing/selftests/arm64/fp/asm-utils.S b/tools/testing/selftests/arm64/fp/asm-utils.S
-index 4b9728efc18d..6d43eb10e01f 100644
---- a/tools/testing/selftests/arm64/fp/asm-utils.S
-+++ b/tools/testing/selftests/arm64/fp/asm-utils.S
-@@ -4,44 +4,8 @@
- //
- // Utility functions for assembly code.
++.globl	setsignal
++
++// Programs which want to be interrupted by SIGUSR1 provide an
++// irritator_handler(), for those that don't the signal is left alone.
++.weak	irritator_handler
++
++// Main program entry point.  Install the signal handlers shared by the
++// programs, zeroing the signal count in x23 that the handlers maintain,
++// read and report the PID the programs use for uniqueness in x20, then
++// run the program specific main().
++.globl _start
++function _start
++	enable_gcs
++
++	mov	x23, #0		// signal count
++
++	mov	w0, #SIGINT
++	adr	x1, terminate_handler
++	mov	w2, #SA_SIGINFO
++	bl	setsignal
++
++	mov	w0, #SIGTERM
++	adr	x1, terminate_handler
++	mov	w2, #SA_SIGINFO
++	bl	setsignal
++
++	// Load as a literal, adr can't reference the symbol when the
++	// program provides no handler and it resolves to 0
++	ldr	x1, =irritator_handler
++	cbz	x1, 1f
++	mov	w0, #SIGUSR1
++	mov	w2, #SA_SIGINFO
++	orr	w2, w2, #SA_NODEFER
++	bl	setsignal
++
++1:	mov	w0, #SIGUSR2
++	adr	x1, tickle_handler
++	mov	w2, #SA_SIGINFO
++	orr	w2, w2, #SA_NODEFER
++	bl	setsignal
++
++	// Obtain our PID, to ensure test pattern uniqueness between processes
++	mov	x8, #__NR_getpid
++	svc	#0
++	mov	x20, x0
++
++	puts	"PID:\t"
++	mov	x0, x20
++	bl	putdecn
++
++	b	main
++endfunction
+diff --git a/tools/testing/selftests/arm64/fp/fp-pidbench.S b/tools/testing/selftests/arm64/fp/fp-pidbench.S
+index 881dfa3b342e..80f45560290d 100644
+--- a/tools/testing/selftests/arm64/fp/fp-pidbench.S
++++ b/tools/testing/selftests/arm64/fp/fp-pidbench.S
+@@ -28,9 +28,9 @@
+ 	puts	"\n"
+ .endm
  
--#include <asm/unistd.h>
- #include "assembler.h"
+-// Main program entry point
+-.globl _start
+-function _start
++// Program specific main function
++.globl main
++function main
+ 	puts	"Iterations per test: "
+ 	mov	x20, #10000
+ 	lsl	x20, x20, #12
+diff --git a/tools/testing/selftests/arm64/fp/fpsimd-test.S b/tools/testing/selftests/arm64/fp/fpsimd-test.S
+index fcbb3a872490..df040283d076 100644
+--- a/tools/testing/selftests/arm64/fp/fpsimd-test.S
++++ b/tools/testing/selftests/arm64/fp/fpsimd-test.S
+@@ -148,69 +148,11 @@ function irritator_handler
  
--// Print a single character x0 to stdout
--// Clobbers x0-x2,x8
--function putc
--	str	x0, [sp, #-16]!
+ 	ret
+ endfunction
++.globl	irritator_handler
+ 
+-// w0: signal number
+-// x1: sa_action
+-// w2: sa_flags
+-// Clobbers x0-x6,x8
+-function setsignal
+-	str	x30, [sp, #-((sa_sz + 15) / 16 * 16 + 16)]!
 -
--	mov	x0, #1			// STDOUT_FILENO
--	mov	x1, sp
--	mov	x2, #1
--	mov	x8, #__NR_write
--	svc	#0
+-	mov	w4, w0
+-	mov	x5, x1
+-	mov	w6, w2
 -
--	add	sp, sp, #16
--	ret
--endfunction
--.globl	putc
--	
--// Print a NUL-terminated string starting at address x0 to stdout
--// Clobbers x0-x3,x8
--function puts
--	mov	x1, x0
+-	add	x0, sp, #16
+-	mov	x1, #sa_sz
+-	bl	memclr
 -
+-	mov	w0, w4
+-	add	x1, sp, #16
+-	str	w6, [x1, #sa_flags]
+-	str	x5, [x1, #sa_handler]
 -	mov	x2, #0
--0:	ldrb	w3, [x0], #1
--	cbz	w3, 1f
--	add	x2, x2, #1
--	b	0b
--
--1:	mov	w0, #1			// STDOUT_FILENO
--	mov	x8, #__NR_write
+-	mov	x3, #sa_mask_sz
+-	mov	x8, #__NR_rt_sigaction
 -	svc	#0
 -
+-	cbz	w0, 1f
+-
+-	puts	"sigaction failure\n"
+-	b	exit_error
+-
+-1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
 -	ret
 -endfunction
--.globl	puts
 -
- // Print an unsigned decimal number x0 to stdout
- // Clobbers x0-x4,x8
- function putdec
+-// Main program entry point
+-.globl _start
+-function _start
+-	enable_gcs
+-
+-	mov	x23, #0		// signal count
+-
+-	mov	w0, #SIGINT
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGTERM
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR1
+-	adr	x1, irritator_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR2
+-	adr	x1, tickle_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
++// Program specific main function
++.globl main
++function main
+ 	// Sanity-check and report the vector length
+ 
+ 	mov	x19, #128
+@@ -231,16 +173,6 @@ function _start
+ 	bl	putdec
+ 	puts	" bits\n"
+ 
+-	// Obtain our PID, to ensure test pattern uniqueness between processes
+-
+-	mov	x8, #__NR_getpid
+-	svc	#0
+-	mov	x20, x0
+-
+-	puts	"PID:\t"
+-	mov	x0, x20
+-	bl	putdecn
+-
+ 	mov	x22, #0		// generation number, increments per iteration
+ .Ltest_loop:
+ 
+diff --git a/tools/testing/selftests/arm64/fp/sve-test.S b/tools/testing/selftests/arm64/fp/sve-test.S
+index d2ed2a44bdb5..a1925761ae39 100644
+--- a/tools/testing/selftests/arm64/fp/sve-test.S
++++ b/tools/testing/selftests/arm64/fp/sve-test.S
+@@ -316,69 +316,11 @@ function irritator_handler
+ 
+ 	ret
+ endfunction
++.globl	irritator_handler
+ 
+-// w0: signal number
+-// x1: sa_action
+-// w2: sa_flags
+-// Clobbers x0-x6,x8
+-function setsignal
+-	str	x30, [sp, #-((sa_sz + 15) / 16 * 16 + 16)]!
+-
+-	mov	w4, w0
+-	mov	x5, x1
+-	mov	w6, w2
+-
+-	add	x0, sp, #16
+-	mov	x1, #sa_sz
+-	bl	memclr
+-
+-	mov	w0, w4
+-	add	x1, sp, #16
+-	str	w6, [x1, #sa_flags]
+-	str	x5, [x1, #sa_handler]
+-	mov	x2, #0
+-	mov	x3, #sa_mask_sz
+-	mov	x8, #__NR_rt_sigaction
+-	svc	#0
+-
+-	cbz	w0, 1f
+-
+-	puts	"sigaction failure\n"
+-	b	exit_error
+-
+-1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
+-	ret
+-endfunction
+-
+-// Main program entry point
+-.globl _start
+-function _start
+-	enable_gcs
+-
+-	mov	x23, #0		// Irritation signal count
+-
+-	mov	w0, #SIGINT
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGTERM
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR1
+-	adr	x1, irritator_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR2
+-	adr	x1, tickle_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
++// Program specific main function
++.globl main
++function main
+ #ifdef SSVE
+ 	puts	"Streaming mode "
+ 	smstart_sm
+@@ -404,16 +346,6 @@ function _start
+ 	bl	putdec
+ 	puts	" bits\n"
+ 
+-	// Obtain our PID, to ensure test pattern uniqueness between processes
+-
+-	mov	x8, #__NR_getpid
+-	svc	#0
+-	mov	x20, x0
+-
+-	puts	"PID:\t"
+-	mov	x0, x20
+-	bl	putdecn
+-
+ #ifdef SSVE
+ 	smstart_sm		// syscalls will have exited streaming mode
+ #endif
+diff --git a/tools/testing/selftests/arm64/fp/za-test.S b/tools/testing/selftests/arm64/fp/za-test.S
+index e1ba559b66e9..3fb9ac5c8f8b 100644
+--- a/tools/testing/selftests/arm64/fp/za-test.S
++++ b/tools/testing/selftests/arm64/fp/za-test.S
+@@ -161,69 +161,11 @@ function irritator_handler
+ 
+ 	ret
+ endfunction
++.globl	irritator_handler
+ 
+-// w0: signal number
+-// x1: sa_action
+-// w2: sa_flags
+-// Clobbers x0-x6,x8
+-function setsignal
+-	str	x30, [sp, #-((sa_sz + 15) / 16 * 16 + 16)]!
+-
+-	mov	w4, w0
+-	mov	x5, x1
+-	mov	w6, w2
+-
+-	add	x0, sp, #16
+-	mov	x1, #sa_sz
+-	bl	memclr
+-
+-	mov	w0, w4
+-	add	x1, sp, #16
+-	str	w6, [x1, #sa_flags]
+-	str	x5, [x1, #sa_handler]
+-	mov	x2, #0
+-	mov	x3, #sa_mask_sz
+-	mov	x8, #__NR_rt_sigaction
+-	svc	#0
+-
+-	cbz	w0, 1f
+-
+-	puts	"sigaction failure\n"
+-	b	exit_error
+-
+-1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
+-	ret
+-endfunction
+-
+-// Main program entry point
+-.globl _start
+-function _start
+-	enable_gcs
+-
+-	mov	x23, #0		// signal count
+-
+-	mov	w0, #SIGINT
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGTERM
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR1
+-	adr	x1, irritator_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR2
+-	adr	x1, tickle_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
++// Program specific main function
++.globl main
++function main
+ 	puts	"Streaming mode "
+ 	smstart_za
+ 
+@@ -247,15 +189,6 @@ function _start
+ 	bl	putdec
+ 	puts	" bits\n"
+ 
+-	// Obtain our PID, to ensure test pattern uniqueness between processes
+-	mov	x8, #__NR_getpid
+-	svc	#0
+-	mov	x20, x0
+-
+-	puts	"PID:\t"
+-	mov	x0, x20
+-	bl	putdecn
+-
+ 	mov	x22, #0		// generation number, increments per iteration
+ .Ltest_loop:
+ 	rdsvl	0, 8
+diff --git a/tools/testing/selftests/arm64/fp/zt-test.S b/tools/testing/selftests/arm64/fp/zt-test.S
+index 7fbd96face01..39af1c96a4e5 100644
+--- a/tools/testing/selftests/arm64/fp/zt-test.S
++++ b/tools/testing/selftests/arm64/fp/zt-test.S
+@@ -130,80 +130,13 @@ function irritator_handler
+ 
+ 	ret
+ endfunction
++.globl	irritator_handler
+ 
+-// w0: signal number
+-// x1: sa_action
+-// w2: sa_flags
+-// Clobbers x0-x6,x8
+-function setsignal
+-	str	x30, [sp, #-((sa_sz + 15) / 16 * 16 + 16)]!
+-
+-	mov	w4, w0
+-	mov	x5, x1
+-	mov	w6, w2
+-
+-	add	x0, sp, #16
+-	mov	x1, #sa_sz
+-	bl	memclr
+-
+-	mov	w0, w4
+-	add	x1, sp, #16
+-	str	w6, [x1, #sa_flags]
+-	str	x5, [x1, #sa_handler]
+-	mov	x2, #0
+-	mov	x3, #sa_mask_sz
+-	mov	x8, #__NR_rt_sigaction
+-	svc	#0
+-
+-	cbz	w0, 1f
+-
+-	puts	"sigaction failure\n"
+-	b	exit_error
+-
+-1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
+-	ret
+-endfunction
+-
+-// Main program entry point
+-.globl _start
+-function _start
+-	enable_gcs
+-
+-	mov	x23, #0		// signal count
+-
+-	mov	w0, #SIGINT
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGTERM
+-	adr	x1, terminate_handler
+-	mov	w2, #SA_SIGINFO
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR1
+-	adr	x1, irritator_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
+-	mov	w0, #SIGUSR2
+-	adr	x1, tickle_handler
+-	mov	w2, #SA_SIGINFO
+-	orr	w2, w2, #SA_NODEFER
+-	bl	setsignal
+-
++// Program specific main function
++.globl main
++function main
+ 	smstart_za
+ 
+-	// Obtain our PID, to ensure test pattern uniqueness between processes
+-	mov	x8, #__NR_getpid
+-	svc	#0
+-	mov	x20, x0
+-
+-	puts	"PID:\t"
+-	mov	x0, x20
+-	bl	putdecn
+-
+ 	mov	x22, #0		// generation number, increments per iteration
+ .Ltest_loop:
+ 	mov	x0, x20
 
 -- 
 2.47.3
