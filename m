@@ -1,111 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880477;
-	b=nz8j0AiZsObdxlNqidulVxpA4ek8wGHTaF8rMAu5ycZy/dniFF+3QVRG6lJhlfvvgpXC
-	 xST/RFaWbNrIRnYvJKf5WHuK4t6dnO9cC5urB8lsyIJqBxw+mTIN7F+XWQ4/mVGjswCj0
-	 SjHVQEvnuojeSjkLVKUKm+97VeQAHTJ+py6cvNnn6fTZOAbLodMOAxY7VGd1pVo9+FX10
-	 pNl1f9p8YJipZ+opB7d2Sr9noAbj/6gxGOmAPNs45Oz5UTvyQ+fLP0Dkzw+8dvNTWHnJd
-	 kerU7UaXFKMx6ivzBOS6TwlGx1jNyu4ZfUbsjq6DCIfiJY0RyxGUbhw/ymO3ZUO8vZg==
+	t=1793880492;
+	b=af5SemluiIrNTSUeEp0VoCLtSO0Dv2AWi+9vhcn2wSpexC890Q301l9e7E2H8mDcZCZX
+	 KgiILtn/utRm1GjgEiuzZG5NEN1WzuqrDDh12I6RYc3/BZ3cu8l142Ct1a/JVR90fulPe
+	 scFzttRtyawx5kFKvDMkG46CZg92W4nIvxcgBMHFsKuTG0eIrIZ8RGLjStzZhcgQH004E
+	 6Co7qlt9ueVUxpzl4GVcl+kWvKvL6ICI5U8nlWEmuzD03KTY8xsk/L87f9HgxU7pQfo4U
+	 YDftwfpA+Y7VfByDj1YjEwi8sa3AqJr9TD6YjVTwm3BW0mwce+NILyw7f+8jxVsHFZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880477;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fiu9RClNGooZHVgoSy8QR/YNbVqqklxgEaTF/aMjok4=;
-	b=0SInBWb+0yhJGr/6ij5YIzYJBNfzy5kNLcZupRXyQu82zgqTkqJ13NdKvU54vyt+Z9g8
-	 QAxL0zx7q+UwF3UPZYXVhyjXA5bU4eYqTCRBYFog6mBU8lkOeKMgvq6UjuIGjgMs8lCM6
-	 KBLGX7BEwHg081E2Qbqofij+Iz6mtXxF3Lexc7jWvQXA3BKC33qt83FtLIHb5Pmos7iqz
-	 MmcRV13zdYrAgzXmzqg6KzxbF4s+ZE/kMOzjrxs48r/G9oSugfPZFjv1+e5Z33ocCKxl4
-	 I2uzPYv/CEHqAocVXKALKI4PMqBgR2KwSk9KtAfKnvgzDuw1Oan1fPa1dwWqEVLALDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880492;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=l7F9TTWWbMuBr9Fre/VxX8gEqsdwrkbz9r1btreVxJE=;
+	b=3HI/AX69p1miOE0vQtETJ1wByY8lBCyZGRZVAODri5dcjmRpuKLxi3fJfYcFTXgipoVS
+	 prn/0GwfdvA9A5q4edfzIwD0BwcCJX+61YORdcjYR0YuVxmN0uJtz7Uu4urb48+IB8Qhi
+	 HfaByUr7g5mqDN2ze65saNAbJBv46yzxYbGxFLnKAZfy+F0Yfn9F1vop5lrDG2jl9Ea3b
+	 XH/cQXjJW8U9bh2A0IAA3hEqWxY5McIbrOgoDYCl1/IQns+Go5Uhj04rsYuEO84ulRTHe
+	 RdmX3DYH1E9dPd3AD/LRg5AUMMBaW+qdxXE1On5jpPekRAO+hZt0Q0oYDiGRCU3yATw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pPC6TXI5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JKoCkxAx;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VOHf58wf;
+	arc=none smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F32B606D806
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F32B606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DE9606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:08:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8DE9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pPC6TXI5;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JKoCkxAx
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Ai3vh1583132
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 12:07:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fiu9RClNGooZHVgoSy8QR/YNbVqqklxgEaTF/aMjok4=; b=pPC6TXI5k5cu8c5/
-	euzX6JjZXtNTvGDBeZMbjIlmHSE1P7u6icGrgwzL5C1ANqc/YaRy05NDQs0zUER7
-	jHHAxcSh7FChS4GUGbJbbrCnPnurwllr8KoYXeHgzuukMNPp+0ZZ7avU993oEDrd
-	ykui36jN6sTvOMM98+UBHE03QtlWYho4lpDgtzEnKIZEZBi4+bPK6ZpXspofOiV8
-	XIBSxgvI4c5KgR/8RIZGT9Pbm4VlVzA0PTRDxQG+qw5zCvSv+V+Dld9d4Fi0QRjW
-	kf7WUo6rOdtr8vUuVLJcRezBde6yfkWstlkL2JQ2bFl4PisExp3g2w2bzmR8o/G/
-	DYTShA==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrraarbj0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:07:56 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eacd73e83bso129745e0c.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:07:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VOHf58wf
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b56c3677f8so1634816a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:08:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793880475; x=1794485275; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fiu9RClNGooZHVgoSy8QR/YNbVqqklxgEaTF/aMjok4=;
-        b=JKoCkxAxiX6vkb6QBj6oxRK797XS4OSI31dQDId+QaSLCgtYm7pQ5Nsc7OvRzoyjII
-         hmxsn1b/vhXFltb2y3QJ747Z+5iaKjkXWpfmpATVkxTQXM0FUWPMErasa0N1hExne+KN
-         m/C527VtkzpKeIHpqxyDXB+tmGRCyAOHNM6MjZu7VNQR2XbQfnZlOR77F1zQhyPU5cK3
-         rIVTCrzvQsf4V5UBAaMEQBnH2bC1w7m9MEIrpSnQIYsYU4IpGxZ45luVEgdKZ6QtVmHg
-         lm27Ppp3d1c6QY5GvBgLnlJ/S5tB8kDIoHABEY7ma5oZBHaf9n+kjdIFHsRYWGuWR3ap
-         8p9A==
+        d=gmail.com; s=20260707; t=1793880490; x=1794485290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l7F9TTWWbMuBr9Fre/VxX8gEqsdwrkbz9r1btreVxJE=;
+        b=VOHf58wf8LTojh5I2KdMWrDXjHLT5K5fgYjJ4qsuu35mpAw6cc9jTBQ+katdsIkqER
+         /FC9cLHnmJzLdVOe1rWQiMo+2KkCsjRAS70gLoKLOlFSCbODbLMpd5yhmCQd8UFXy9HW
+         6sRR1ew/BesXTaAQjgfNB/uDyW1Gn+DQihCCuJNl/900YxQYeI/FbwLpPM3NnDoWmW3N
+         KTJtgVgkohuuY3OVbsj27j4m9KGVVCmYg30wOMjtKE62yD4T7YKCXc+hnNXxh3XmAT/Y
+         XWUGi2YYAlzZOdUmqLLf2ki8MXKcvjJHIr2C815CXawtvf+UZ5XkL0sGpkL/LjM4gWbN
+         3/qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793880475; x=1794485275;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793880490; x=1794485290;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fiu9RClNGooZHVgoSy8QR/YNbVqqklxgEaTF/aMjok4=;
-        b=0z0TtvSeFVlP+TGwMAZv1Ph/130Dw2hiuOO5gYVr4omYyHUuyv4d3FTx/dp9LOCD1z
-         YExekY+KBGnUQtduOEnj6XdpjHfwlv5fl8Es+7+EQyg/QpEMfR0PG9mAY9PFjUxFP6tZ
-         xWY7zDzdnfo9Ve68MMTGwQCYOb3iNT8ljT9h526wigXcg3HYr5bW6FL4MhGPAhTydR/A
-         hsNVWChKKR8+KpVgnkGi6gLcAIhsQO9YkslBth6YWKQwd9zz4kEkV5A+j0xaoRP9HIaA
-         qoujH39DHDB+eTb1glwpiN5eGVfUFDK5uJzHwxul2DlJ/rx/kE8dxkZMAA4vluYXi18a
-         0tPw==
-X-Forwarded-Encrypted: i=1; AKwUvBy2tETZakYEd3ueTVaCDlLPxSjCTZ0+Pq9t2YSonIPhijBqt/S79WICAPC1tx2JEnZ8A+bTjW1r3hS0cWw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//UvSawdx5IBO9bNzs2o3JhWPRVjkTM3S6X2xMWwVhXcpfIzjo
-	HSActIDrRzN1UscEEH0/xfKg6PQaOub+omf4HyXSKA11Ih01Yccg0F/CoUqQLOjnZ8EcZx9y2wM
-	z2KoRgdJogw8VyhYUL4ZsPqlJQzL61XLfZ9uBjq8xqucgi7tfRh42tOaE5JHz9LJhhaM=
-X-Gm-Gg: AYBFou1r9T1ZOv608EfMMHeUHfZ96AgUQJst+GWoI8Corg1gtXDmMbmB31CJ9dziJ+i
-	N8FGG9ajPTliioyq8YxwoS8OUNdo3IyKBE0LQnik1RLyfwMg7A1/5Ab0WcxAhsiKFKhy8H5Hvai
-	YceFsMS4RSIqelvQwrETCKipCNrWzZGbl+F5CrY0YM8TdwMBEH/LDLmyLZIqQn7SmkoJRFLnt/Y
-	10KBa8BrIxMi7sGwgIDIb5dtmdgT6CyKbenXC14DQHTwqjh2gUj+x6xA8Wiv8QVu/u1j9282zcV
-	EqEI++N5okUer4IFaZ5dw0OEOZKjac8xwLlF7+lk5KhhDDgmmkAsCQxqxuuE6yDHKssE8V6v6K5
-	YEZmGGXBg+7Ylg+P8Lw0tnsVWK05O7mDFREiMv2Vzr9zYszB68wpu/LFv0pGdf3Bdv9v7
-X-Received: by 2002:a05:6122:11ae:b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec689382bcmr9586245e0c.4.1793880475383;
-        Thu, 05 Nov 2026 04:07:55 -0800 (PST)
-X-Received: by 2002:a05:6122:11ae:b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec689382bcmr9586231e0c.4.1793880474981;
-        Thu, 05 Nov 2026 04:07:54 -0800 (PST)
-Received: from [192.168.226.1] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e423a48sm170533566b.27.2026.11.05.04.07.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 04:07:54 -0800 (PST)
-Message-ID: <e24d7d8c-ee7a-4a83-8daa-4805a7920f44@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 13:07:52 +0100
+        bh=l7F9TTWWbMuBr9Fre/VxX8gEqsdwrkbz9r1btreVxJE=;
+        b=Yddy6B9mR3NIrdttRRNZO5phQb784pxxtgghNz7YQYm07eywwb1ErKikjbNIynT+K8
+         uDvOhS3ucENT09jtx+U9kTm3xr8E6+rVqICHaYL1W7PFxQ+mc/DPufj/mURJsZdfFu4v
+         T8+098wwdPU+JRd4zS/N+I7X79ni7Ce5aimRc7nUByx2KFe6yyDkQqUsfBaswTSImK8X
+         y/QhCE6nirXPATxaeuSf5H9VVq72g1ogUE+3NB79EmuujMpomEHhoICpXmhnZpRwAjPi
+         ifItKaCNYuJcIP2777K1DuM7fWNWS8+f9AsHHspaGmMu9AowVCjKpbPeKKAlIvvv98qu
+         P28g==
+X-Gm-Message-State: APuU4Z84cldERBDV2ZoptI1Yi3RSkCabAMXZEcPghbKvVRzW7gsIo6Vf
+	Npn5EXLAn4l49YUbUGQ6DsnENwj4GI8gmWstxzpbNkyBJexVMjzi1pvA6q7xm3UK
+X-Gm-Gg: AYBFou1nbetfU30sYb76cmypwQDUZnIUYKY5k4HWLsjZPlCH524qalb4/QoDz2Jwq1W
+	j7C1iAWkOAigScKk6vctr29q2k6y73ilB6fiyKc40jdzOsM/LJLnZt/ekneNVEUxqly/dL8/qPK
+	5WjnrWhBDGr6QRBnxpjYCG/n7SBIkY77Tp49Y7Cs3BSSBPZkNzl++a8vw3Bx2i3gYmyvdXxitZC
+	ijQX8eyCpitTvToDoFQrZC2RayEI1mLA9KwXvAlpUUIG5RtFji22aKZtvAGTiHIQhJwken9pVJD
+	oBU2LdTCV0VgE1Hy+d55jiEta+PjgFNlSzAnQ6+qVGYfU+ZJeAUeW1qMoJm3S7Q4J0eiu7p9qAM
+	LxMcQKtq8Ht9LnN/z30PnSTdqfZYcShkwnn3/rnZwjUlkWB74BqJu4v3pR5RI8BPsyT7yuKyqKb
+	uJsdMBri9gTE8kGNQKZ01PXd1azyqVKQXY47cVsYDrTFw+TwTU6vzvF4n0WxlVwyDitOPsHzFH0
+	TlpX6WVi4VdVALCPqNbWSALJnB66wFkbTHNYeiL6vX/8FdivsKxaKAvh2QmTG8JE7uO4XumBirN
+	m8agR4jxv2XMqndDPFfl+eI4LTZWbm7e03Siy8VsvjE+IFNRwvIox4x0M0q8iLFNUXMsLzcViEF
+	uaPMFXgkcD8xjcjXR5hZ495mhvlma/hH1mP43P8NBE2c5EQ1U4bYjB6FY0aluqhZcGkY=
+X-Received: by 2002:a05:6402:a51a:10b0:6ac:8e1a:2b6f with SMTP id 4fb4d7f45d1cf-6b4d438baa9mr10181116a12.12.1793880489393;
+        Thu, 05 Nov 2026 04:08:09 -0800 (PST)
+Received: from linux-laptop.dynamic.ziggo.nl (2001-1c03-0884-3400-503b-37c4-84e0-7f98.cable.dynamic.v6.ziggo.nl. [2001:1c03:884:3400:503b:37c4:84e0:7f98])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac78e29sm1705142a12.27.2026.11.05.04.08.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 04:08:07 -0800 (PST)
+From: Laurijssen <lauserve@gmail.com>
+X-Google-Original-From: Laurijssen <laurijssen@protonmail.com>
+To: linux-kernel@vger.kernel.org,
+	pjw@kernel.org,
+	akpm@linux-foundation.org,
+	jannh@google.com,
+	brauner@kernel.org
+Cc: Laurijssen <laurijssen@protonmail.com>
+Subject: [PATCH] add utsname_set_field to reuse code in setdomainname and sethostname
+Date: Thu,  5 Nov 2026 13:07:51 +0100
+Message-ID: <20261105120751.920311-1-laurijssen@protonmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,55 +98,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: glymur-crd: add DisplayPort audio
- DAI link
-To: Chiluka Rohith <rohith.chiluka@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261105104657.621104-1-rohith.chiluka@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261105104657.621104-1-rohith.chiluka@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0OCBTYWx0ZWRfXyc+KZgdPfLmW
- mRa2SctzYzpR1GViqnecqnsvfmSeKnhK6gwqGOdJHoXWefDjKt7tQiIdeS1hhW2miNJghJrLQmF
- DZfF3vwJAvk8NyOIkPMf31Tsj6K52jQ=
-X-Proofpoint-ORIG-GUID: oWMEgNVUOfD94KdpC_CbTwJrQJA00R-y
-X-Authority-Analysis: v=2.4 cv=U54Hnuru c=1 sm=1 tr=0 ts=6aec719c cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=IKU54Xh4PqmdtQSvpVMA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0OCBTYWx0ZWRfX7uV0y0QvQuc3
- Fq30vtSfdkjITOVZbH4yhapuveRsjrXgxyZ7Sg1Y7NmxfB9Fn76yfmTFukaIBy9L8079FedcrTD
- Qy4RHGS3rP59owkM1Ip3gOye0veJqrZBRxWr6e0xYulkydVr1OEiQyHKuGwL006paar+BHWgK7Q
- 9MK9rPAOUyTB43cajesok/7bpGYKwMfGK5yT7Jtr3qmWY8zmKznFiLZZHoNWrGg2YOAO8NAnFKw
- YjIdjvja7/rPORffIVtcrKKUOmsxzV8aXU8ygUaM4IqJQ2BjR7Q5dS84IUAVTMPhMmHgoaC8J60
- 36umOtRmiZ3YT1O0TCsIB4bld1HsVgGFdxT2XKPtISC8+Q+QU+Hez7mjlCIZT06j1FuJrZvE7bO
- B2aPrMy3RB5RMCCJpN2nYbHXYKVkJ/Lyf+5pmc69gdPzQAWDi6BDjkkvc0Ui9riVezcee/6xqBI
- 6EmqQUpZAThSkfKbDzA==
-X-Proofpoint-GUID: oWMEgNVUOfD94KdpC_CbTwJrQJA00R-y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
- adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050048
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 11:46 AM, Chiluka Rohith wrote:
-> Add a DAI link for the DisplayPort RX path so that audio can be
-> routed over DisplayPort on glymur-crd. The link wires up the
-> DISPLAY_PORT_RX_1 backend of the q6apm ADSP to the mdss_dp1
-> controller, with q6apm providing the platform (DMA) component.
+- add utsname_set_field to utsname_sysctl.c, it reuses duplicated code
+- call utsname_set_field from sethostname/setdomainname
+- moved uts_proc_notify from .h into utsname_sysctl.c and turned static
 
-Why do you think we should only have audio on dp1?
+Signed-off-by: Laurijssen <laurijssen@protonmail.com>
+---
+ include/linux/utsname.h | 10 ++----
+ kernel/sys.c            | 46 ++-----------------------
+ kernel/utsname_sysctl.c | 75 ++++++++++++++++++++++++++++++++++-------
+ 3 files changed, 66 insertions(+), 65 deletions(-)
 
-Konrad
+diff --git a/include/linux/utsname.h b/include/linux/utsname.h
+index dc5594ffffcc..409261d5381f 100644
+--- a/include/linux/utsname.h
++++ b/include/linux/utsname.h
+@@ -18,14 +18,6 @@ enum uts_proc {
+ 	UTS_PROC_DOMAINNAME,
+ };
+ 
+-#ifdef CONFIG_SYSCTL
+-extern void uts_proc_notify(enum uts_proc proc);
+-#else
+-static inline void uts_proc_notify(enum uts_proc proc)
+-{
+-}
+-#endif
+-
+ static inline struct new_utsname *utsname(void)
+ {
+ 	return &current->nsproxy->uts_ns->name;
+@@ -38,4 +30,6 @@ static inline struct new_utsname *init_utsname(void)
+ 
+ extern struct rw_semaphore uts_sem;
+ 
++int utsname_set_field(char __user *name, int len, enum uts_proc proc);
++
+ #endif /* _LINUX_UTSNAME_H */
+diff --git a/kernel/sys.c b/kernel/sys.c
+index 755bfa5ccd92..688c5e9e222f 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -1421,28 +1421,7 @@ SYSCALL_DEFINE1(olduname, struct oldold_utsname __user *, name)
+ 
+ SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
+ {
+-	int errno;
+-	char tmp[__NEW_UTS_LEN];
+-
+-	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
+-		return -EPERM;
+-
+-	if (len < 0 || len > __NEW_UTS_LEN)
+-		return -EINVAL;
+-	errno = -EFAULT;
+-	if (!copy_from_user(tmp, name, len)) {
+-		struct new_utsname *u;
+-
+-		add_device_randomness(tmp, len);
+-		down_write(&uts_sem);
+-		u = utsname();
+-		memcpy(u->nodename, tmp, len);
+-		memset(u->nodename + len, 0, sizeof(u->nodename) - len);
+-		errno = 0;
+-		uts_proc_notify(UTS_PROC_HOSTNAME);
+-		up_write(&uts_sem);
+-	}
+-	return errno;
++	return utsname_set_field(name, len, UTS_PROC_HOSTNAME);
+ }
+ 
+ #ifdef __ARCH_WANT_SYS_GETHOSTNAME
+@@ -1475,28 +1454,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
+  */
+ SYSCALL_DEFINE2(setdomainname, char __user *, name, int, len)
+ {
+-	int errno;
+-	char tmp[__NEW_UTS_LEN];
+-
+-	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
+-		return -EPERM;
+-	if (len < 0 || len > __NEW_UTS_LEN)
+-		return -EINVAL;
+-
+-	errno = -EFAULT;
+-	if (!copy_from_user(tmp, name, len)) {
+-		struct new_utsname *u;
+-
+-		add_device_randomness(tmp, len);
+-		down_write(&uts_sem);
+-		u = utsname();
+-		memcpy(u->domainname, tmp, len);
+-		memset(u->domainname + len, 0, sizeof(u->domainname) - len);
+-		errno = 0;
+-		uts_proc_notify(UTS_PROC_DOMAINNAME);
+-		up_write(&uts_sem);
+-	}
+-	return errno;
++	return utsname_set_field(name, len, UTS_PROC_DOMAINNAME);
+ }
+ 
+ /* make sure you are allowed to change @tsk limits before calling this */
+diff --git a/kernel/utsname_sysctl.c b/kernel/utsname_sysctl.c
+index 6c1522201e39..026e5c877a8b 100644
+--- a/kernel/utsname_sysctl.c
++++ b/kernel/utsname_sysctl.c
+@@ -5,6 +5,7 @@
+  *  Author: Eric Biederman <ebiederm@xmision.com>
+  */
+ 
++#include <linux/capability.h>
+ #include <linux/export.h>
+ #include <linux/uts.h>
+ #include <linux/utsname.h>
+@@ -12,6 +13,9 @@
+ #include <linux/sysctl.h>
+ #include <linux/wait.h>
+ #include <linux/rwsem.h>
++#include <linux/uaccess.h>
++
++static const struct ctl_table uts_kern_table[];
+ 
+ #ifdef CONFIG_SYSCTL
+ 
+@@ -67,10 +71,68 @@ static int proc_do_uts_string(const struct ctl_table *table, int write,
+ 
+ 	return r;
+ }
++
++/*
++ * Notify userspace about a change in a certain entry of uts_kern_table,
++ * identified by the parameter proc.
++ */
++static void uts_proc_notify(enum uts_proc proc)
++{
++	const struct ctl_table *table = &uts_kern_table[proc];
++
++	proc_sys_poll_notify(table->poll);
++}
+ #else
+ #define proc_do_uts_string NULL
++
++static inline void uts_proc_notify(enum uts_proc proc)
++{
++}
+ #endif
+ 
++int utsname_set_field(char __user *name, int len, enum uts_proc proc)
++{
++	int errno;
++	char tmp[__NEW_UTS_LEN];
++
++	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
++		return -EPERM;
++
++	if (len < 0 || len > __NEW_UTS_LEN)
++		return -EINVAL;
++	errno = -EFAULT;
++	if (!copy_from_user(tmp, name, len)) {
++		struct new_utsname *u;
++		char *field;
++
++		add_device_randomness(tmp, len);
++		down_write(&uts_sem);
++
++		u = utsname();
++
++		switch (proc) {
++		case UTS_PROC_HOSTNAME:
++			field = u->nodename;
++			break;
++		case UTS_PROC_DOMAINNAME:
++			field = u->domainname;
++			break;
++		default:
++			WARN_ON_ONCE(1);
++			field = u->domainname;
++			break;
++		}
++
++		memcpy(field, tmp, len);
++		memset(field + len, 0, sizeof_field(struct new_utsname, nodename) - len);
++
++		errno = 0;
++		uts_proc_notify(proc);
++		up_write(&uts_sem);
++	}
++	return errno;
++}
++
+ static DEFINE_CTL_TABLE_POLL(hostname_poll);
+ static DEFINE_CTL_TABLE_POLL(domainname_poll);
+ 
+@@ -122,19 +184,6 @@ static const struct ctl_table uts_kern_table[] = {
+ 	},
+ };
+ 
+-#ifdef CONFIG_SYSCTL
+-/*
+- * Notify userspace about a change in a certain entry of uts_kern_table,
+- * identified by the parameter proc.
+- */
+-void uts_proc_notify(enum uts_proc proc)
+-{
+-	const struct ctl_table *table = &uts_kern_table[proc];
+-
+-	proc_sys_poll_notify(table->poll);
+-}
+-#endif
+-
+ static int __init utsname_sysctl_init(void)
+ {
+ 	register_sysctl("kernel", uts_kern_table);
+-- 
+2.53.0
+
