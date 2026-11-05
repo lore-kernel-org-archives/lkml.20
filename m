@@ -1,50 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867821;
-	b=B1vJMWd4BJ9CEgpOzZ9C1xfXPN/OXkz1Sv8SAd5Ws/iomeeUfJCGzRM4qaqX6C7yBtyd
-	 SloWf2fqaGkRDWVG8YmUbeenmoZpEBYP/nv9XB477cocSDdXh91GzKqGqYRKE2rujrz4Y
-	 It1GNqn6SUQlY0VykVFRJjbN4NO0DNHbitX03LQ7nkYvWfz+QM/DZ+QMmI9eRJhPG6UP7
-	 YUQOaKPlim5BgGZ/BjL0RT4sav+iDW/hYmc/Jok2hLBtdGrlJtmkEEHArS/nY7rSzMBhR
-	 Gehnf073GmROnY0d2Nr5Q43uaRBl620z7x6Qgq2EtkJn8PI6OBkdbuQQMLgZXcJXWIQ==
+	t=1793867836;
+	b=p6k8QO3oLfzDoucPuXx0BC7gd70TN5ncQL33Fq4uUqJKZ5tviLCCZDk9UbwhFbs2yM80
+	 9kw3GNfwFLCwe3UTXE+41LeBb7x5PvbiUxfeMOSeXwzsv2pfd0dIunULeIa+zE/KtU76/
+	 8f3c8UY1N75YwUezHWsFyuSLrduYE8nubhyY3mTXPW4jhrrg9i+Q781DqJ+zCcINSLW0O
+	 zeLKVKQN6fE6gcEzXUT2XDM2vruF5l4Ce9jHPV43f5bojR+Fb7jRqtDlbMBY7J3ml5upW
+	 MxKThtEjIZAgVOtzBK8Lq2itU8jAzBCfTQDKzFDaw9DESpSH1ph23jcdI8n/MKUojqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867821;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=W4Zk2FLpcNUrXr35foVG7Z4kYUlJ8eIkjf0ShH+qhDE=;
-	b=ElUAhosBScME3rR0q1mri5pInjlrz54qp0/Il9/Vb6L6WwQnWUEsjhdX4Wi1LeL/te6X
-	 GmnlPpFWVlcB7G3tklbwCjixDM+09/I0Px+cqBZ2AVzYY65zXAsffBFRqUQrr5Ch4rBmc
-	 54GwCwXDKRqvRV7OI9uq2wmUtVUorOG1Ygwt26ftR69QF8pauIzinAO75QkEnIzqCvcpp
-	 Axxt8C2cwFHcZRyE5m/HNi4wKErq4Zl5C5mIbuoN1KwYLSm7ynilSclIJAC9B52C0Li9A
-	 wG+AICYYSF98GkMFdU34ygcJFgBWPXoUnwDsGz75qfVTtB05EVG82lVG6isXG9I7RyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867836;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=3NU/G0xlaqrO1C6pRG/U/VFMHzB1bgOCQipgiOlTFyw=;
+	b=r+0InK9YRIyCxNpUf9AOmDXJP2HBqA4qASLsKAWv8wUm8f0O6zf0Kqr65JAbnDnQywMN
+	 qYqto++K6RHHn3ush4C+KYUldrIhBCV0tHISLK3zWzBJ7ZkzeKcpSTYbd7aGHnADKEmzA
+	 VVTAO5ceA3SqdPftxj4uSfkpvxzSmccACmBC2YHgWiPC2xjCjVb+W342m8v1+agcXFKn1
+	 jl78t5WdAFTXQPx+tdb9XQFRTi1gkqjKwWT4VN04V8OVK6nhAOaAoVt+ge5tJtDHQy0kH
+	 djMg1eU8hhInR1eRQVfZkv3fxytVlg0CZmWplCgcDVESIhAF0YQNguRyBtYfKw7siKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=YLgyPy4M;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TCd7OApu;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A72606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:36:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2A72606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA98606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:37:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CA98606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=YLgyPy4M
-Received: from user.localdomain (unknown [223.80.110.101])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 539a5dbea;
-	Thu, 5 Nov 2026 16:36:54 +0800 (GMT+08:00)
-From: Tian Xuechen <202300460064@mail.sdu.edu.cn>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	prashantrahul23@gmail.com
-Subject: [PATCH] staging: octeon: unwind receive initialization on IRQ failure
-Date: Thu,  5 Nov 2026 16:36:28 +0800
-Message-Id: <20261105083628.4043124-1-202300460064@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TCd7OApu
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so18366935e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:37:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793867834; x=1794472634; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3NU/G0xlaqrO1C6pRG/U/VFMHzB1bgOCQipgiOlTFyw=;
+        b=TCd7OApuoL5e3stS7D1Cly3qhe5s15objHkahbF02Otwe/HfYG0Lej3tHT+vvUg9fX
+         wM7/rDK0ZKfkmIKirGxQ4lCbjDhxdGdeY3tFpTNzaQ77gZIvgCQbEVQnLYSoAtRd/F0B
+         B3P1GQCvO1Ey7jnj2cNDru7e/V3p7HMD+mzycRvyeaEFiOSwlimL84H/o+T+Sa7HeYX2
+         947109hybPJgL421as69RaLomQaFhr95brhMHrb/jbGJdfW/+OsFTyr4iOavfSJAjTq1
+         /9RC8ylZyagig84Z8nnznPCc2Fzl/McnQn0vWxi72uOtuqDts7dZxdxnDXtW9AxgOA1e
+         XQpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793867834; x=1794472634;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3NU/G0xlaqrO1C6pRG/U/VFMHzB1bgOCQipgiOlTFyw=;
+        b=BCmngb+w9iZk/AXa6GgE733BhM/EUC7qSq/+pDzMc/sVK1FAnV5UAPh1UWBjMwfdu9
+         r9nfsUjirKdlh/SrxRlDQBrvL8rDtcrfWlWeImlkI3dRPqgyDqG9i6XFGnSbu5NFejat
+         LNbQDdWHa0pG0QdFFrdoEVZ4cZTPKWOIeBtn0Z8jFGFha1Cv2JDgAXEW7MzSz/CRg6GF
+         Vsd4PYLmuIm8Hq6jcAJgwIJ4f1LjY/cR0XqGyOMZKdddvQ/iF4BPyt2QIOPltEI8JwWb
+         9HhQ327X3f2KilwLcLC2hPmOwm4Z0/GfDqlZWKZP0mUK6AdYF0tHgSJ/2BN5UD1b75S4
+         y4wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ8puGvor2TRLYlrZjSgFz0Q2gvyR9UeNKfFmxJ4kAxWd3lMe8hML9RE0suC9nlrZh6P09ySK8i+lCz9c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++sypaCLe94HyQs/BSG651m0ONuemBpbEHILy8KV5SwKYeSiAD
+	FR/6fD8IpvIHMNH8sQSLFr3yxUZGL1RZE3Mc9P/KeWkhW8m8oXGLJCfn
+X-Gm-Gg: AYBFou05rYa8t1edO4RNcYFw48ljZu239Aaw5Ciy1FFS58GxYgzgefWeU/VTLET5h33
+	Q6Ehhq9qeMWPJdzLRMPEPhJQiLb+NuQtqedgJBYW7wvPlaquX2XYDD2m3SzRRYHqhyPAtLUkJ/Q
+	sPRUQQyHWlippnjuvrfxkz6ZHgJ/uhnzFPU1yS3w+XlfOuO6uci6rHLEoVz2duJl1jIUAgqarN5
+	ozQrj8WKm5EnyhW+A8CJ4T8/pmhxqM3EJG+Ur2k8T5gFoO740wlv9S8qZBaks2JUmaGVPeXD4Ao
+	PdNXCRa7MiJ54A3bG2iw5xdjs9bK0KunGNMkcTogNgzyAqSycisnygWbGasLSZHNv9su8xOF+RW
+	lWk0g3zSH1/5UbHT+gghr7RDWZQ4L3KO17SnFXluKrs8SMueYKMf8zxd/dv2anLtoRRN2cxvrDf
+	lHbgf7hT3M9x67pKFq4+Uxvf56X9zUE+n69int5TJ2yq+XC7qINLc4gf4SFzZs/WUNUo0+yXH3O
+	YOzWq5fKmr1krg3z5cJiNZdCSAyQVTn0N25OknalpEXuDZsSTVS56pV1/JrlCoRZvCZKp7iKV+G
+	Ggb/3uxWmixvtSaA+pJliuvCIOq02YSC1XdohLFS7KjgmshhZsTo8qebU7ykXDza
+X-Received: by 2002:a05:600c:4e88:b0:4a3:59c7:f226 with SMTP id 5b1f17b1804b1-4ac16bc4713mr417554995e9.6.1793867834333;
+        Thu, 05 Nov 2026 00:37:14 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cae5sm75471835e9.12.2026.11.05.00.37.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 00:37:13 -0800 (PST)
+Date: Thu, 5 Nov 2026 08:37:12 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Samuel Wu <wusamuel@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
+ <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi
+ <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu
+ <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+ <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Nathan
+ Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ kernel-team@android.com, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to
+ /proc/kallsyms
+Message-ID: <20261105083712.14847dcf@pumpkin>
+In-Reply-To: <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
+References: <20261023001603.560210-8-wusamuel@google.com>
+	<20261023001603.560210-9-wusamuel@google.com>
+	<20261028134012.01d52e94@pumpkin>
+	<CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
+	<20261030100215.6f8e0d4f@pumpkin>
+	<CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
+	<20261104142307.431fc12f@pumpkin>
+	<CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,105 +119,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1aada974103a2kunm1e8bc9a61940ec
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHkweVhkZGh5MH0NLTUtCGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVQ0tVSkpLVUpLSllXWRYaDxIVHRRZQVlLVUtVS1VLWQ
-	Y+
-DKIM-Signature: a=rsa-sha256;
-	b=YLgyPy4M+WG81hzOF6Ms4KdRyJ9eRna4bnhFrX6fJP2kTrcMHhqzmlFhoApbS/kpIJ11C2NI6954qntx4sqqpaddiMyEsx0zDCqF9cvTkrp26FCmmTQxY6DHcdUUobvLffr76LGIxIGMMaVLMGPuPiBbVxoY10P3NVtfhm9WUlk=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=W4Zk2FLpcNUrXr35foVG7Z4kYUlJ8eIkjf0ShH+qhDE=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-cvm_oct_rx_initialize() returns immediately when request_irq() fails.
-The failing receive group has already had its NAPI instance added and
-enabled, and earlier selected groups can still have registered IRQ
-handlers and active NAPI instances.
+On Wed, 4 Nov 2026 16:05:52 -0800
+Samuel Wu <wusamuel@google.com> wrote:
 
-When RX initialization fails, cvm_oct_probe() unwinds and returns an
-error. The driver core then releases the managed platform data, even
-though earlier RX IRQ actions still reference NAPI instances embedded
-in that data.
+> > I think it might be more sensible (less pitfalls later on) to return
+> > the symbol number - not that of the next one.  
+> 
+> What pitfalls were you anticipating? If the current symbol's position
+> is returned, userspace needs another ioctl() call and an -ENOENT
+> check, to learn that there are no more matches. Alternatively,
+> returning the next position means every call pays for a look-ahead,
+> which for an unfiltered query walks the module symbols even when
+> userspace only wants the first match.
 
-Disable and delete NAPI for the failing group, then unwind the previously
-initialized groups in reverse order. Mask their POW interrupts, disable
-and delete their NAPI instances, and free their IRQs before returning the
-original error.
+I was thinking more of the kernel api.
+The 'position' is just an array index.
+So a 'read by symbol name' would return the array index of that symbol.
+A 'read by symbol name index' would return the name (uncompressed) and
+do the lookup (binary search and linear scan) to find the value.
 
-Fixes: ae4350364008 ("staging: octeon: Propagate rx initialization failures")
-Signed-off-by: Tian Xuechen <202300460064@mail.sdu.edu.cn>
----
-An AI coding assistant helped analyze the RX error path, draft the
-unwind, and edit the changelog.
+I've used a bit in the 'sorted by name array' to indicate that the
+symbol is a duplicate of the previous one.
+So checking an 'exact match' for being a duplicate is cheap.
+But for a partial match you start needing the name buffer to be in-out
+on the read-by position request.
+So you start needing 'read by position' and 'read by position with
+name compare'.
+It is likely that the caller will need to validate the name anyway. 
 
-Cross-built drivers/staging/octeon/ with cavium_octeon_defconfig,
-GCC 10.3.0, and W=1.
-Not runtime-tested on Octeon hardware.
- drivers/staging/octeon/ethernet-rx.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+An 'interesting' idea would be an ioctl that returned the value of
+the nth symbol along with the name of the n+1th.
+That might get confusing though.
 
-diff --git a/drivers/staging/octeon/ethernet-rx.c b/drivers/staging/octeon/ethernet-rx.c
-index 5be43bbf6a1d..a1b5ccdbb6b2 100644
---- a/drivers/staging/octeon/ethernet-rx.c
-+++ b/drivers/staging/octeon/ethernet-rx.c
-@@ -450,6 +450,7 @@ void cvm_oct_poll_controller(struct net_device *dev)
- int cvm_oct_rx_initialize(struct platform_device *pdev)
- {
- 	int i;
-+	int ret;
- 	struct net_device *dev_for_napi = NULL;
- 	struct octeon_ethernet_platform *plat = platform_get_drvdata(pdev);
- 	struct oct_rx_group *rx_group = plat->rx_group;
-@@ -467,8 +468,6 @@ int cvm_oct_rx_initialize(struct platform_device *pdev)
- 	}
- 
- 	for (i = 0; i < ARRAY_SIZE(plat->rx_group); i++) {
--		int ret;
--
- 		if (!(pow_receive_groups & BIT(i)))
- 			continue;
- 
-@@ -485,7 +484,9 @@ int cvm_oct_rx_initialize(struct platform_device *pdev)
- 				  "Ethernet", &rx_group[i].napi);
- 		if (ret) {
- 			dev_err(&pdev->dev, "Could not acquire Ethernet IRQ %d\n", rx_group[i].irq);
--			return ret;
-+			napi_disable(&rx_group[i].napi);
-+			netif_napi_del(&rx_group[i].napi);
-+			goto err_irq;
- 		}
- 
- 		disable_irq_nosync(rx_group[i].irq);
-@@ -524,6 +525,25 @@ int cvm_oct_rx_initialize(struct platform_device *pdev)
- 	}
- 	atomic_inc(&oct_rx_ready);
- 	return 0;
-+
-+err_irq:
-+	while (--i >= 0) {
-+		if (!(pow_receive_groups & BIT(i)))
-+			continue;
-+
-+		/* Disable POW interrupt */
-+		if (OCTEON_IS_MODEL(OCTEON_CN68XX))
-+			cvmx_write_csr(CVMX_SSO_WQ_INT_THRX(i), 0);
-+		else
-+			cvmx_write_csr(CVMX_POW_WQ_INT_THRX(i), 0);
-+
-+		napi_disable(&rx_group[i].napi);
-+		/* Wait for the poll callback before freeing its IRQ. */
-+		netif_napi_del(&rx_group[i].napi);
-+		free_irq(rx_group[i].irq, &rx_group[i].napi);
-+	}
-+
-+	return ret;
- }
- 
- void cvm_oct_rx_shutdown(struct platform_device *pdev)
+David
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.34.1
 
+> 
+> Andrii, do you have a preference between the two?
