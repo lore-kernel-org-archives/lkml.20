@@ -1,82 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793856498;
-	b=cZmR/JHxcaSfZw3zs+7DG5BPH3lrWdeZwrtQYacTMY3RoKZYNzqJzXXeWzZhr56GPC/E
-	 SaEWTv2bSdSSGXz+sZYDVGiy7/bO8dY6cD5iIsoDi0qOOI9MLsSLmNSQIBbi5lkWzWsun
-	 oeGKs7Pja7pabg8+q2ptSG4GbJf0Pc2TYvqazMfNwP3qXu/qc+MFeIfx2BWk4WuGXGZYn
-	 hOR2jMHunDCedo/0lg5mZcmmoD3EnUNot5HrdrdykpbEs4RG9PIV659rv6i3448MZ92UQ
-	 AnqVncRTpH/GPmEDbnmLUGx7JYZuJA0mCC8aOcV4zOkqBiiCvFznEheBIOPQERoqlVA==
+	t=1793856673;
+	b=TKUsrWdRafqhCwHKDKNS3j+00qFcWK794u3GRQxgGMUKIh4p30R8jGNku0LzFL7EpgSC
+	 5eyTLwzhrKFRbDQfKYAD/D2spUMcWoTm1wRk7GCO2ysGbtssyjhPX0c9+JvwL/jloXMRX
+	 E130LYBev6LCur1Km1RpddRVaTysqXW5TyTEmCGoTUrHyLWfLKpqjkIBGIG6kfMAmoj3K
+	 i5rm+FjO1047LV7coo4RRH70kB+pUzkg+4+frrlrKOe4QcbvtUXTsQkMFs4tQH7o8zvwT
+	 xXB46giUX395msD+R1Ff+wkOoqJqB53oH1wsAGUsNbdoweOBU4Uea9LAjCbuBi59KdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793856498;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=HcoU1mf7kO9fvwMNLAx61kTpoNrJasMlL0pCTHLa1Co=;
-	b=YaWgLZX/r5skNzx9BX1NJPi5J0UZh6zIRGi1v7RPrUwWFGaAT23Y1nReVxc2P1+z76eQ
-	 GEp3iwAQYx3Yo6WiSmbLh60LAb2fysXwH23zsJIikwCtr+tevoAuIlmWrd9qqMiUl8Azf
-	 2CG7QykqWOI/6wmGYsCi5fu0ar7Z8wmL+/emrslZgk2ilDcMgDxtFuTZjHhzk56W2dX6j
-	 h2cL0prtvbFM7koJbSYaG6blZMEz3o8HZZZNIvRgA0tx4zHMPgpQ77JwLdp5UcVRq+ZWO
-	 y+Kq89Q0Gr4fwzkR3BBssz6vSreAruUOXanloDJEq+AWjeh7iAF4SvSze9WD2r0JOYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793856673;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Rt7NddFjTaihGhIW35sFykIUPE+dVwT+483FqeZHx1I=;
+	b=1+QthWEj0vP3LJu24zt3+08MUccPMLucbAnYunNl6erdyuOWm+FD950FFcu/rz6YwYAD
+	 E7EDsfrPlhbkMXAX8HugYGDTV32BN3WNicBvkiptC9isJq+IzRUac49BZNLZKhEShCoCi
+	 eQ2t3NNmm0LvX0T84MJ2D61XHvZUBhD4T8rZzksXu9BESclY/adpUn16tS9i8tvfZLlk/
+	 Cr9vBum0Mif2vZmPA4hCexDZCgPf8PxrVXCjwmIW+HtXgU3FReLBaT4xbH9jgwgKHcFqK
+	 UNfCI3+2SFEGYzSRz0s3ZUgYJCoC4IHD7M9NosBAn79g/3r6pjHiPjo62ajCVxYQhCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KBrD/Ngd";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27111606A31B;
-	Thu,  5 Nov 2026 05:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KBrD/Ngd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADF31F000C1;
-	Thu,  5 Nov 2026 05:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793856497;
-	bh=HcoU1mf7kO9fvwMNLAx61kTpoNrJasMlL0pCTHLa1Co=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=KBrD/Ngds9bqLOcBa7RpvNd4iMkexWpa+DzC6+ffKh1NhLEcaCBmEuvd0SpOEEPHV
-	 8jL17aLET5sVc1/TAi2tTazVETSBSX1k5gdhp8dNc51yhlt825KrAfTsm/PLVPQfs1
-	 9DrfPotW/M5CJ7LWNRkY9NQVWMQL33DBsrkDB24mg07HUa2Aj8OlTXilnd46qOgQEv
-	 k3CuSvDbuwDNqcLyuF0M2036cdvl79e8QDDblmq3o0qYsa+f6X05yCvSN7xzjURY4I
-	 9npdc1/J6QCtCKe6MDyezbs+VUY/TM6+1/uf5gFICQVmA2vkwcCTCg1cwzx5WXcGu5
-	 d6UQgbCzYGvFg==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Nicolin Chen <nicolinc@nvidia.com>
-Cc: iommu@lists.linux.dev, Alex Williamson <alex@shazbot.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-tegra@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v8 13/15] iommufd/viommu: Allow vIOMMUs without a parent
- HWPT
-In-Reply-To: <20261104193139.GB3889730@ziepe.ca>
-References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
- <20261104161632.3547423-14-aneesh.kumar@kernel.org>
- <auuBjRjQwXl7UvvO@nvidia.com> <20261104193139.GB3889730@ziepe.ca>
-Date: Thu, 05 Nov 2026 10:58:06 +0530
-Message-ID: <yq5afqxf97a1.fsf@kernel.org>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D08AB606A326;
+	Thu,  5 Nov 2026 05:31:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D08AB606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=Rt7NddFjTaihGhIW35sFykIUPE+dVwT+48
+	3FqeZHx1I=; b=aI1NZ9vqmZsTZEyF3lTmpg4VZ5ZxAZ6GaG947/d6Xp38ZFUl/P
+	IyjzH19qXN3C9gwXnO/yVFiQ1p6iHtHnxiQzLKzLOGycAzz//C/cPtFwU8p5NLKI
+	OFJri0xBvzKMvfjTWutrIsmwgk+3gUenVUn7G0dlAQo/Mysw643sKgIHI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.104])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCWuwGMFOxqYv4oAQ--.28220S2;
+	Thu, 05 Nov 2026 13:30:54 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: usbfs: Require claiming a hub interface for hub class requests
+Date: Thu,  5 Nov 2026 13:30:50 +0800
+Message-Id: <20261105053050.5245-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <82a746b7-4e87-4d46-88c3-bb881f11b8de@rowland.harvard.edu>
+References: <82a746b7-4e87-4d46-88c3-bb881f11b8de@rowland.harvard.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,63 +60,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkCWuwGMFOxqYv4oAQ--.28220S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFy5Gw4xJFyDXryxZF4ruFg_yoWrJryfpF
+	ZrtFZFkr9rGryavw1ftayjga4rWwsxC3WYkryrJ3s8uwn8JrWrZry3K343Wanrur1xXFya
+	yrZ8GwnxuayDGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
+	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
+	17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvj
+	DU0xZFpf9x07boE_iUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUID2rrTMSPlgAAsQ
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+check_ctrlrecip() requires the matching interface to be claimed for
+requests addressed to an interface or an endpoint, but requests
+addressed to the device itself are passed through without any check.
+For a hub that means userspace can send hub class requests, including
+SET_FEATURE(PORT_SUSPEND), through usbfs without claiming the hub
+interface, and while the hub driver owns the ports.
 
-> On Wed, Nov 04, 2026 at 11:03:41AM -0800, Nicolin Chen wrote:
->> On Wed, Nov 04, 2026 at 09:46:30PM +0530, Aneesh Kumar K.V (Arm) wrote:
->> > VIOMMU_ALLOC currently requires a nesting parent HWPT_PAGING even when
->> > the selected vIOMMU implementation has no use for one. This would force
->> > implementations such as the following Arm Realm vIOMMU to create an
->> > unused parent.
->> 
->> IIRC, MSI on ARM still goes through the NS pathway. So, it wouldn't
->> be "unused" if the device attaches to it (or its nested hwpts)?
->
-> It is unused by the RMM VIOMMU. I think that is what is Aneesh is
-> explaining.
->
+That is more than a policy question.  The request goes to the HCD, and
+it can run concurrently with userspace releasing the hub interface
+through USBDEVFS_DISCONNECT_CLAIM, which unbinds the hub driver and
+disconnects the devices behind it.  xhci_hcd tracks the device behind
+each port and issues stop endpoint commands for it in its port suspend
+path, and it ended up reading a freed xhci_virt_device.
 
-We create an IOMMU_HWPT_ALLOC_NEST_PARENT HWPT outside the vIOMMU and
-attach it before allocating the vIOMMU. This HWPT is used for untrusted
-devices and MSI-X.
+Require the interface to be claimed for non-GET device requests to a
+hub, the same way interface requests are already handled.  Tools that
+manipulate ports of a hub under control of the hub driver now fail
+with -EBUSY unless they first disconnect the hub driver.
 
-The sequence is:
-	ret = __iommufd_configure_device(kvm, vdev);
-	ret = iommufd_get_hwpt(vdev, hwpt_flags, &hwpt_id);
-	ret = iommufd_attach_hwpt(vdev, hwpt_id);
-	ret = iommufd_create_vdevice(kvm, vdev);
-        	viommu = iommufd_alloc_viommu(kvm, vdev, vdev->link_tsm_name);
-		if (ioctl(iommu_fd, IOMMU_VDEVICE_ALLOC, &alloc_vdev)) {
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
 
+Hi Alan,
 
-Alloc viommu does the below:
-	viommu->_viommu.size = sizeof(struct iommu_viommu_alloc);
-	viommu->_viommu.flags =  0;
-	viommu->_viommu.type = kvm__arch_get_viommu_type(kvm);
-	viommu->_viommu.dev_id = vdev->bound_devid;
-	viommu->_viommu.hwpt_id = 0;
+Yes, that is exactly the sequence: one thread sends
+SET_FEATURE(PORT_SUSPEND) to the root hub without claiming interface 0,
+and another one releases the hub interface through usbfs.  Once a claim
+is required, the request either fails with -EBUSY while the hub driver
+is bound, or the claim itself is what unbinds the driver and disconnects
+the children, after which the port has no slot left to suspend.
 
-	if (ioctl(iommu_fd, IOMMU_VIOMMU_ALLOC, &viommu->_viommu)) {
-		vfio_dev_err(vdev, "failed to allocate VIOMMU %d", -errno);
-		free(viommu);
-		return NULL;
-	}
+Here is the patch.  Interface and endpoint recipients already go
+through checkintf() further down, so I added the same requirement for
+device recipients.
 
->
->> By dropping the nesting parent from VIOMMU, it just simplifies the
->> attachment to an S1 paging hwpt, right?
->
-> Yes.
->
-> The VMM must always maintain a S1 paging attachment that is the
-> identity map of the VM on all devices, same action as when there is no
-> viommu.
->
+One thing to decide before this goes anywhere: tools that power-cycle
+ports by sending SET_FEATURE(PORT_POWER) to a hub they have not claimed
+(uhubctl is the usual one) will now get -EBUSY from checkintf(), because
+the hub driver owns interface 0.  Do you want an exception while
+privileges have not been dropped, or is losing that use case the point?
 
-I am currently creating an S2 paging attachment. This results in a
-configuration with S1 disabled and S2 enabled, which is used by all
-untrusted devices.
+Whether this should be marked for stable is your call.  The missing
+check goes back to the initial git import (1da177e4c3f4) and the ioctl
+that can race with it arrived with 0837e7e5270b, so I did not add a
+Fixes: tag; I also left out Cc: stable because this changes behaviour
+for userspace.  The stable candidate is the xhci_hcd fix in the other
+thread.  If you would rather see this backported, tell me which commit
+you want named and I will resend with the tags.
 
--aneesh
+YuanZhe
+
+ drivers/usb/core/devio.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
+index 486ced74405e..cc6669743017 100644
+--- a/drivers/usb/core/devio.c
++++ b/drivers/usb/core/devio.c
+@@ -891,6 +891,18 @@ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
+ 	if (USB_TYPE_VENDOR == (USB_TYPE_MASK & requesttype))
+ 		return 0;
+ 
++	/*
++	 * A hub driver owns the ports and the devices behind them.  Letting
++	 * userspace change port state behind its back, for example with a
++	 * SET_FEATURE(PORT_SUSPEND) request while the hub interface is being
++	 * released, is not safe: the request is passed down to the HCD, which
++	 * may walk per-device state that is being torn down at the same time.
++	 */
++	if (ps->dev->descriptor.bDeviceClass == USB_CLASS_HUB &&
++	    (requesttype & USB_DIR_IN) == 0 &&
++	    (requesttype & USB_RECIP_MASK) == USB_RECIP_DEVICE)
++		return checkintf(ps, 0);
++
+ 	/*
+ 	 * check for the special corner case 'get_device_id' in the printer
+ 	 * class specification, which we always want to allow as it is used
+-- 
+2.34.1
+
