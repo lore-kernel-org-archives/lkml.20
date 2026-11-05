@@ -1,99 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793912022;
-	b=L9dkXlo8A3PZ8HsHOkvZWQlscV09i6pv6r42cGxSEU8JNA0Frsh0g1ZRSC2RLTR33kfK
-	 SKOsc612JJoi6Fz7Y6mR88wMNt8EeiEZ+7FQgMlQnW2tfwakYsiAVVF/Fqjp1ZCSzcoOn
-	 77NYJKY3qsdavv+7xCeVeztj3iKcn0g+Aq6FB2kOk3JF46n+l4gXc0zQh6Ickz8TxPJ+Y
-	 cW7YLJIwiakLRuLzxhrWzCst24paxORIh3iIUumJsx0l3m6f/dVjzE1XB9Qw2bB7gSdQ2
-	 10HQy0Sb10ShyAblf0zeCNjNORbnHzxihd9aJYWxzrIXp2YYk2hj8V5idgo4IYqX91Q==
+	t=1793912014;
+	b=aeuJ/JaNWXZzCXBTBSCRU8wbGJizoJn0KF4hOnFqdZyP+UcZ6Ko6OmYH52xPQgkSGfuk
+	 Pduvjmcp74fMLLEABmpGElQtqyze/ian3wrPCKRGnyj1HhqMioYgHIX49kNWmybBkERwN
+	 0gzCchA2lKawuYKN2jzGb5pQcQZPgSolaoYcHxdcqEl5XP0OX3abbuWPeOgP2VWm3kOsJ
+	 Nx8w3WdpZ9ZezdjkV+iPszH+CFcx6s4ybsLrlIqcbAQiSnvMDgEjL66HS4PV5kjPaMruE
+	 KdlsSz6CLXUIvSbACxjYq76hIUopeyiEKCx2p6TK7p6LDe1Ybm1aF6IRoDXtiOc72pA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912022;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hytWD9a2VKx1375ydkRbOIQtDmQfvpxJlUnWTyatKr8=;
-	b=QEVqDq1yLVvemWg499z3jwpd0Ro5WDYQSvqUZSSRFvefdQG0HdFxCq7dsi96HMgkSRP7
-	 ybx5ApYABBQdkL7EntN45WEBonwUGJwQaO9N7QXI7fbvGEPihs4dhbL87kDoC6ypHWty2
-	 F9tbMx8jX0auxmGuyw0eZye3RdKfzspVVNXdv8N8ean4kl2bwcEMA5Nhcoxur9vpBuWrt
-	 vLwnJxwMsQNEqHWFJkeg5stjYtRw0IgwOIltQXRpMSLAcKqtYYTIbxxNJe/KEyacxPO0t
-	 VXOkIh+Kj1KMrzQwx4o6uJwdhrhOrqVQUw0ZGoK2kFQaqh8HtfiZpLJPfrYPSeJCwWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912014;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=VdfCr3YAfSkExQWrhbCZiTK2F7YdxiQNVYIqmgs7E9o=;
+	b=Na6FhD4w1hfdk6ECyRdRhe+I1EuK+Z74aUbCuuYT0K5oc1Y0sHLKnCGZpG/Cu1QHPHfh
+	 +dUV7Z4P0308q2NOZZxxrXMuGSz4Nic4S2UT8pLtDyDz51k7jbsHCej2UPO5NvmV5zPlM
+	 72MYpEo5kRE0IdwyJ07cF2g82hbVkas20qopvwA3c2IfmUz0YloHhl6tMhxWuauG7Ybu4
+	 v3YrSWveabnDIgQeF/vAsR+/zPoqxD9wo6rWWusZLK461ZqCCHHpKsM+L0IA1MEs7HHdj
+	 8XAXv9MsMV2fWXSDkfrOvro/a4DIAw/OFpvVjTngvaZ+hgDgs1BuLQzAR+bi97wmDMA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nokia.com;
-	spf=fail smtp.mailfrom=nokia.com;
-	dkim=pass header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b="eQ/thbis";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.11
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011011.outbound.protection.outlook.com [52.101.62.11])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M3rtgOhS;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Ccwam5W/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407E4606A32D;
-	Thu,  5 Nov 2026 20:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 407E4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5571606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5571606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=eQ/thbis
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KUtnxDV7q2MbqNPOUxbo5AJWpJyVpvA580fgVbGA3XTan+jiHBqJfF8jsUthHR96SAnlAf4b5reZPGWMb9cC0cVmr2oRhDzMSZHYPHhYhlOAqfRHMf06r9sUhNQrnS+G7qwR92RfohR4knM78WQ8y0ShOd+C3z86LchgocBsPnYJZDF8JAX1saYsvfdj+0fecHiAb7RcuV19aLbun0vY29oCXlAj7iXAK6AIVlb3lUEqoZO39uG+MBJxb97PKpTiunqFfP4TZccF+gylqovP/A4m89LOUFF7bHK+nG5QEKAXElBEy/v0DOi1H/RyOLZYEcrJcv/w0IwDQ79IfrcC9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hytWD9a2VKx1375ydkRbOIQtDmQfvpxJlUnWTyatKr8=;
- b=NEOfRhhUVjsu08xrdiKbiRR0LRItepUg+E2+lp2u3x9lCLCRZmmSOK2QlTZPHUVGmYwZSaSZ7y58EwoFLpRsnTKY+P8qofFx3Abqh2DEduL2wniE29w/S8I72snMh0eH8zguUCRF1ODUfcRFthF7ZJoI9p23zorxFM5hLjh8uZvZlT8OgoZ7FLhbWXgBU6WIcIfD59fU69fmEheZcyH4A7XxSmYmOE5OK/No9l1/3SDIW83fzQPtTTfUy7NtRHyDlitiFh0xHw3lf0Db1zTnJSgamoEtCXoUdoYKXjPLi5938uyQljG8bs6hbRJ+R5UtkFO2HgosqBUJ28Gn0oAvbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nokia.com; dmarc=pass action=none header.from=nokia.com;
- dkim=pass header.d=nokia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hytWD9a2VKx1375ydkRbOIQtDmQfvpxJlUnWTyatKr8=;
- b=eQ/thbislYbm5E7Qvhwceba7Nr+hpm+2IiM/Go40tCkYR79YNZDJy8PrKgXx+D1fIWMTlXjdEAERIV7e0/YY8ESRY+xEKTrZteD2EfZjAH1vCTgqjz9shJj2MTORdPVIFxC+iiNAmGHDcqOKMgDFfPYsdEJqv7BsaOyduvhdkGDwEttDfoZgxBzT5mp7X3ibjuFyZzY9az4KNZx6A6GAd7uelGd0mZAd19t6eCUMPtGwnUXVLv8ZXO7+5H5IPgfRLLPfypS8hCLcdPXrRVYyOMiHv97wcEpgFO8/EVdM8Szbgo/dviqA4qVk9Ba2nvVkI8RPxnCxrv1M3mhhGmU6yA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nokia.com;
-Received: from BN0PR08MB6951.namprd08.prod.outlook.com (2603:10b6:408:128::14)
- by IA3PR08MB10310.namprd08.prod.outlook.com (2603:10b6:208:507::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 20:53:27 +0000
-Received: from BN0PR08MB6951.namprd08.prod.outlook.com
- ([fe80::4dd1:e1e:56b0:b178]) by BN0PR08MB6951.namprd08.prod.outlook.com
- ([fe80::4dd1:e1e:56b0:b178%5]) with mapi id 15.21.0569.011; Thu, 5 Nov 2026
- 20:53:27 +0000
-From: Anthony Pighin <anthony.pighin@nokia.com>
-To: intel-wired-lan@lists.osuosl.org,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: stable@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Todd Fujinaka <todd.fujinaka@intel.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH iwl-net] igb: Retry the D0 write of the i210 PLL workaround
-Date: Thu,  5 Nov 2026 15:53:24 -0500
-Message-ID: <20261105205325.2624892-1-anthony.pighin@nokia.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH0P221CA0014.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:610:11c::12) To BN0PR08MB6951.namprd08.prod.outlook.com
- (2603:10b6:408:128::14)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M3rtgOhS;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ccwam5W/
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5JLEuX751780
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 20:53:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VdfCr3YAfSkExQWrhbCZiTK2F7YdxiQNVYIqmgs7E9o=; b=M3rtgOhSCcj95UjP
+	3/j4z5tdBB2n0bGDiKdqXcsrLqnbIpEvXe7ytaOgEsqBtRaCIB5Q+9qoFlKPhxaY
+	TigGajnv7BOLByYV+yFakkTo8hzBZGH3ptefucT9IVDby60awSQE2RMFPU9ti+Nc
+	+CNEsOWYOQqmSfBgKDhCSRP45oet2N4myk31oBxRca8evzE0D5J6mIURKqNHNe/1
+	6wY3k0rUy3jammAdM3kDUwflelcxKxdOuKcW49xP54FGl5hvA6j5SajDDaUUYUvn
+	3goc1QpDL+qWi47208V1SV+N3YIUp7XcBIGgXOZZoN1ac0CbIq0OFgKHYS+uRjoG
+	A59I4w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hryvp8c9h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 20:53:33 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cbf2fd504so450192085a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:53:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793912012; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QXWycvm5cRRsFcz8/VAp5iDN7R6g0AmELsRFnj9w9uUUlTSCEnFoSt9ukT2Hkc+AZv
+         tutD6Gk7TB6/Y7JBihU8oNT2R17YSbOT8UMDAn8chFhL6M1K1/8S3UBP6M3RK9DBYo9r
+         Uk0DiSqFGci0AByTkhBeuAkGdTXlaKOWKe/xJ14gKQ0OQzPJo9SfDD9z5/dfWuUDansj
+         VURE6XZqehGPzwXC+Xs7zpuplV+hIu+jokXf/BjnJjRkmAmO89L8fTLeoW3nw989MCHv
+         vabgPFmfREn/a3J6t81xhg4FzjLmH8FBVRUGg3DAQtKefRnu4GG99BsTqw2gLegkET72
+         sbvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VdfCr3YAfSkExQWrhbCZiTK2F7YdxiQNVYIqmgs7E9o=;
+        fh=/dYQ3TEw3bPBgm7Tn3WTB8IjrILOM0MT6j4cIwk2hX4=;
+        b=SFkoKdYHQgeb2si9KcZGsajbS/atwiBtUXfuw6+qm6JLRILSoMpSlwGGrGP0EuK1Op
+         Yw/Tz3m1z2l4g6/6HUnXtXYX1l21OKkY5i8Y9xT5BbP9ZLZMdnAHDxGTIIWFFICHX3Dn
+         iWw81eGmc78491lrdQvpiypV1hrQIashY2Tu4qTb4CG4uihGyHzR/9Wzm5dETs4rQoNS
+         Zd9+pxb3HRcRTewUqQb2g0qNUXZGMGkGeMOe+NU1omjyK1gI7ZnTVaIUyx7OkJvwFr8A
+         LAFzMyH+z4cCAcxQnbhE8dArFS2bLfJpRCjbl/QUmzMNnOTaay8fslGQqxYnJkHMKZL8
+         C8jA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793912012; x=1794516812; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VdfCr3YAfSkExQWrhbCZiTK2F7YdxiQNVYIqmgs7E9o=;
+        b=Ccwam5W/WvzY/IBMlx+xByb6wMF14LjejTxN5kK9JNwnRITHvxTw6KSqmVHLrah4Vz
+         Nt9kCNXV9z6nthF+5M82e4JBqnHZWmuPdImRg4IBte7FfHp8XJMmwn3pypN1JVSkiar2
+         sLYNnG2FSSDp1MU8IID/WBgKR9Lxjr16nv3+Yak3jmOelY5oCi2O7YzsiLmdnKrs8WFH
+         nXXKoqumLU4I3gc0ziDWbK0NQL9OG6hUUoeVLEBkP6edzlW7xks5Tm9U2MnUne9eA9Rm
+         /M7YXf278idBrE+qo11MZgruAyTfWhuq3iorvJb8JCHftFKJTJUo2v68xbEpv7djRb/f
+         bN7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793912012; x=1794516812;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VdfCr3YAfSkExQWrhbCZiTK2F7YdxiQNVYIqmgs7E9o=;
+        b=nqVBaOP/s4l3bMOAuFfELLi6V1SDTh/SXYEiwfXT4FuYr7L/U8ssRhvKcpd/AO3iH/
+         akQ+NXg3AxbIsD6oqz5V8g5upL5mj4qOHLknw4IB5crP350yMyvzw5UamvCYxviXE4j/
+         1b27zlKFBBeLA9gcc83GMueu8fgk0/X4EL8wGo8zCZw4vnD1qPD7SeOBOcT9uBicjMt2
+         iOhTANBRCsk7JCiiP9mtLUbATVssNe/lxihhoY/QBfhGEmLWoG1aCHQnjMCMQLc/DdBc
+         CQuoY8QPw5Em2WVRqRNcQ1OZTUQ+GI4FwCYuDPocLEyRDvsxZPOhQZ4YI3tZhwCp5wdr
+         E+/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ+Jhp5O3Zd2ueIO0Fzn9SZ+mEsXZI2ilVmYlFYO3GtpzrCfL5RVBSO44psYCdBsIIjWPCA8706NLm4w8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/11E/G/pgTLp3f+tSuCMQE9QSrP20QWB7iOXGPVKEUQhQgAzl
+	EdlBZ081Jd+I4IzU2tAaukGZ0XN2bCwtMuhRhB6djW6HBS6wrhNACMN01PpL9i3Hfk36f60N4ou
+	bM8QihswBRi2/v6PtJiNIe3OMHsg1fFRnk/E22/LfXY7z0kcuOzBTJPKdCN5WppbdXSOhQOKwJb
+	wh1S9WQqh+DxmjYIKjv/LkUC5tjzjb/4hKdwzbyzPOPg==
+X-Gm-Gg: AYBFou2zp6y/z/QSTNz3bQQISfYbLL3nVf2zH+6oEJYcBnP3kdRRzIX33H3KlAgcj1d
+	9+rBCbZeOJ9CPLStT8BTqQgDk/sJKIFW6tyowBKQ6JC14srhBpHlpF9B9FcJ0DX9LjWEN1eBFSJ
+	cuFQ6+pyx6eDRUxJrItsqNLxeYH6n8A5UCgdTEDCgb/d/zHfdr3n+z1CuzYXPcNZSZ+DOqD+0F+
+	a1h7VJoT4CIhDqB7kTCoffZ5tEUfDN7PP786d/nb+2jWRdPSj0JmZLgwwN+6fifFWlrafsxtIA=
+X-Received: by 2002:a05:620a:2842:b0:93f:1936:b206 with SMTP id af79cd13be357-945f360a793mr39835485a.83.1793912012157;
+        Thu, 05 Nov 2026 12:53:32 -0800 (PST)
+X-Received: by 2002:a05:620a:2842:b0:93f:1936:b206 with SMTP id
+ af79cd13be357-945f360a793mr39833985a.83.1793912011754; Thu, 05 Nov 2026
+ 12:53:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,160 +128,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN0PR08MB6951:EE_|IA3PR08MB10310:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89f4700e-0f68-476e-8892-08df3b7ed717
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|23010399003|1800799024|261026140227099003|11063799006|261026121527099003|56012099006|261022105027099003|261022075727099003|261009223027099003|261021121427099003|261102123227099003|261021123027099003|261028144727099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	S0J3RZkMcvcH6IDwbTpbTK8lcmD1ExsgP6lruqVS0wv6HvbOuo72wskjkswqAVG9WgK6XTNlno3ZYgWIVClbuwYZFkPvEsv799vE8ySVR7n+NjkLQ2YEh6ehnubwxMt0mrFNIh3LrwAbvkT0KRG6XcSeCx9dK/p2Ix/sfd+lPAdffHenJ6wqHA0NhuVvn5MCjoaFL+v3uandJrScIKB5dI4WVyySoL7+JEn233F27jlJy3rgTpRCRQJOXWmt2xZ1KDVqnHOZUX+DHESDC9HnMp8crmk6ZYuCpNcOZ+DRZ95mIKsq4Eq9kq49z6CICXn7KxTCYK31Zd7vsHGw/LkursctGdxt6FJsp+9hVe9oIbDNfo3d9u9qURrsnO+njg7n3XN3o33TpqPIJ9/oDCU3p0rmKn5cdElhz6oSFz1R+O02OpabMEsYSaUCtFJ87gzU8gM8bHgfvYqSiW2KXiAR5tA1EqmF4sGbO7NzCdnMWzxtmuWB32ROXYydQZUdLbJDogJLgYpSYMnmTgpOurrwAKXXevcvwqzBXIt3MUFXdaRhVPnNvRQRKH0g22y7XeMWsd/QPcr3qDGB5dqeO0sAzRopnO/pWz6UxBDUE4Mv4SLV4AjbYdWT4057rxNkCEZ4Lo9TdY5Nz4PVab+ki2DHoSJ7TAmEFmZzN6OOrWRQtic=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR08MB6951.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(23010399003)(1800799024)(261026140227099003)(11063799006)(261026121527099003)(56012099006)(261022105027099003)(261022075727099003)(261009223027099003)(261021121427099003)(261102123227099003)(261021123027099003)(261028144727099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0iWSCWAL1sbQHfhgWxqsB3vl+swQZcXhZ2obj+KLDU1YQ2A6clyLeBuzkmcD?=
- =?us-ascii?Q?iuLpJDwtkDN+NaDIUSchw5k7i9vjEB3/jmV469+Sxn+WvRH9DB960mW3Yr/v?=
- =?us-ascii?Q?g1v98IzfngC9GayXARBOqI7RNRSiul10Kutm7WXBzqtEUsdBEcGMk461VRuq?=
- =?us-ascii?Q?heWWZ+DTprd2DZkrW9CMIRYeDTcYUoQXTim9o8KSh5lKnMnmRV/8fDYE7Crw?=
- =?us-ascii?Q?UK6yi6v8HNgzxMk7bY+altdTHBJdULsViQcb+0VrMrg15IuvtAs+PkZLYqiF?=
- =?us-ascii?Q?/G5odAZjMp6l7fpHacRUHSjcEGLTokRrh1ubCOHSMktPTWkhX4ACRIHgEEY3?=
- =?us-ascii?Q?i4SMr27+aM2Nl7UmD5shNGALD8ZnzRD3x5m7d76xywdOG6YwowbYsAMaDgP6?=
- =?us-ascii?Q?b8s/CZKrocpBvktrt3Vy0zV842KeXzD/rizwfpT20XjfC9830ViBZsT2fCwo?=
- =?us-ascii?Q?+fYHy5kx4A7Nux5q2WJqr3D235v+xln1PxzJNnjj4JLhjkHZDrZo+QjXGd/n?=
- =?us-ascii?Q?r+tDrerihqLbhyQXAeanL6ryltgUz6oMUfjqZOQE85ch83i7b1w0s/1QWiYZ?=
- =?us-ascii?Q?fmh5UOpYhkCG1kvaClFs8GH2x5sJQAQJOcGZdlwPApDH0L3l+E5vncInFkfU?=
- =?us-ascii?Q?nlmrKexNqKE5PNCVeCjWXI3QQABKywqiKce/s8/u0KY6t0YH+lDx2wDO8GAq?=
- =?us-ascii?Q?Q6SdF9rcEXvEiKfFmYuU4j1V5gweeNiwTXTzYkZQbon8j5dFTSneOWsf87bw?=
- =?us-ascii?Q?PiOAnehG6vKE2u/PIWGopxlbWHFbXvTDPvKjTdBAMVdtK74uUe6Gwa2uf2lX?=
- =?us-ascii?Q?9vo+utcE1RnS1AnAo1xrNT3Av6GvD+K++8MyGA2jRdpN1Ebl+bK+Z3W3K3ji?=
- =?us-ascii?Q?XY/qHFFhqkangnJt0AN6/SOXs82GktiVJMp+w5uFGRr+Z7i8iz79d/GrzV4q?=
- =?us-ascii?Q?bpcYKfNZtNAry70CAgjkXyPl+UvuCxlPeS+enZRp1A21FSSw/cayyBdb55Ez?=
- =?us-ascii?Q?KcKfQkhtzMiBK6MRk8B399vKENQzJ303Q1eJNCV15z/R5U06/b1frLE80f8V?=
- =?us-ascii?Q?N0F61AizISX3bREIjD2Kd4tWRmjbonAP6uTuHrOsptyqXjHjyDXzQCHe+55v?=
- =?us-ascii?Q?OamPJI6bcBr+tvN1fILo5Bi94X+oljmRiKyhlVUqcMXw/sDQnmT3N/pCjl8W?=
- =?us-ascii?Q?YiE0R691Wdy8ubv7enyDrNo+RbBqV0uP7TfWoparCWf6zwjuFZ47TgKL+IW8?=
- =?us-ascii?Q?q3FcGzfvQtdmqLZqskVcDmPfX6yeho0uX0Mngn7WaEtaTnyw3Z7td0LxoUMr?=
- =?us-ascii?Q?mj0xgrQZy5Qt3MaVtkFSCWIMB3cNHV1JOL5D3Ni+Is5wlVeW11UlLhZ5ubfo?=
- =?us-ascii?Q?1Ij93UFovbHF4Zyl+pgMjUgSzC8vILUruMl4M0kv+gYAOh9h9RiAoregLZGK?=
- =?us-ascii?Q?bmavtkjeejTckWbgsJKVUv+ONa2POe5lIMZ3TC9h8XaG85AZOCc0zhE6bjv+?=
- =?us-ascii?Q?o++coe4/Cq3FdFNRCNgUKyElI/g/r5EX1koKica4R1kLJtzHsFfb1xnqiZt1?=
- =?us-ascii?Q?VI9RT4Y2Lo4J2WYUS5pRwEyNTxBrOvDvYgQyF/oud2r8dMLSd0mjh3M6Sfev?=
- =?us-ascii?Q?9gKdvgFgMJ4dswswx4mxDRIYfU4iepSeNNV/1k/YzS1AwNSv1Xi7FTNL7kFA?=
- =?us-ascii?Q?qXIE6B/IU7tKJgafEOnXDEp8ANnKeZsM2KLg0CZifJ6CZpBsxVEEYQoRRq1y?=
- =?us-ascii?Q?08QMUiCG/A=3D=3D?=
-X-OriginatorOrg: nokia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89f4700e-0f68-476e-8892-08df3b7ed717
-X-MS-Exchange-CrossTenant-AuthSource: BN0PR08MB6951.namprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 20:53:27.2649
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4D3RKhZMi+BBC1b2Gseu9/A95zwqkQE7dSt+hXKosK7iBLXQksATzIcvYECMMNT6x49Ln54TUxpiwN0wN/7YWGcZhX2u//fhP8//cJ+LO7I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR08MB10310
+References: <20261105-ath-recovery-scan-timeout-v1-0-99a70d89e114@gmail.com> <20261105-ath-recovery-scan-timeout-v1-3-99a70d89e114@gmail.com>
+In-Reply-To: <20261105-ath-recovery-scan-timeout-v1-3-99a70d89e114@gmail.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 21:53:20 +0100
+X-Gm-Features: AclHuK8M2UGEAgtgAaYS4CJiDcLNJz8p_a_dG3tur9BUocLC8UmA9Ko567IQDlQ
+Message-ID: <CAFEp6-0O=cPYKndr9hen1jvX==ot2WP4JpGfNFLokVvxUEbxiw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] wifi: ath10k: don't arm the scan timeout for a scan
+ that did not start
+To: christophergriffin05@gmail.com
+Cc: Jeff Johnson <jjohnson@kernel.org>, Kalle Valo <kvalo@kernel.org>,
+        Hari Chandrakanthan <quic_haric@quicinc.com>,
+        Venkateswara Naralasetty <quic_vnaralas@quicinc.com>,
+        Pradeep Kumar Chitrapu <quic_pradeepc@quicinc.com>,
+        Anilkumar Kolli <quic_akolli@quicinc.com>,
+        linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Maharaja Kennadyrajan <quic_mkenna@quicinc.com>,
+        John Crispin <john@phrozen.org>,
+        Govindaraj Saminathan <quic_gsamin@quicinc.com>,
+        ath10k@lists.infradead.org, Wen Gong <quic_wgong@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=Ib4Symqa c=1 sm=1 tr=0 ts=6aececcd cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=CkqNy8FowFOMXlqwbJ0A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: 24yogB5i0GNSH8nv3yEwLmfpSRA116pP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA4MyBTYWx0ZWRfXwAr0fDRpActP
+ x6xDLbpz+VOlEZ9EOB4QGPq40q+Vc4PSMWDMoKdDQAaDvAy1buLDpUX91o5aor8lU4hgrwFrcrB
+ hEDxbP7Ak4WAPPWc2tD5k7O/FRWhuAbZBmTc/6L68/1UlKzYEjP7Hp1wuaIHt6C1yGu7bHV8PyH
+ LalNb0kEYcW/ce8L8wgWoi1euyvxmgEWWUOr83c62XZ3gJ67he4As3vc+RugcbS2qDuKeIQ80jN
+ M+/H+OI9HKJBa97ZhLdTG22cUvX+yD76a51iW9aUBdlZ11etP6nei9FdT28hyhN/MkKrXReeN78
+ WFDMxgdlt7z8iK7zB8RM6TkIEbR6X4qT+JuaNLo61ShrFjk1xeiFWzKH8mvaHHjZxJVzu0fSi+8
+ c5MehC5dOIGjjiOWx0GQ5sg0yR7ucpGCFHBe2u93Jf/zas8LrjfWGUhqDE2ezUwZzwYrwzBLnh5
+ yMPKLLT/6xhbS/NT6zA==
+X-Proofpoint-ORIG-GUID: 24yogB5i0GNSH8nv3yEwLmfpSRA116pP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA4MyBTYWx0ZWRfX8oPSta0vc8jO
+ OH4J1UoxKFgq1xSj+JSkwGJ3Z+8go356zdRI43bcY3swc8nx9CYV85GuOvtwSN5vHrtgkWo8kbc
+ MX75aPqBWEKPlZOGvgXqS8Ucq4X19jQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050083
 
-When the PHY PLL of a flashless i210 fails to lock, the existing errata
-handler transitions the device through D3hot.
+On Thu, Nov 5, 2026 at 7:11=E2=80=AFPM Christopher Griffin via B4 Relay
+<devnull+christophergriffin05.gmail.com@kernel.org> wrote:
+>
+> From: Christopher Griffin <christophergriffin05@gmail.com>
+>
+> When ath10k_start_scan() fails, ath10k_hw_scan() sets the scan state
+> back to idle and returns the error to mac80211, but first still queues
+> ar->scan.timeout. The timeout then stays pending for the full scan time
+> (20 s by default) although no scan is running. A scan started within
+> that time gets no timeout of its own, as the work is already pending,
+> and the stale one aborts it early.
+>
+> Don't queue the timeout when the scan did not start, as
+> ath10k_remain_on_channel() already does. Until commit 634349bae0b2
+> ("ath10k: move hw_scan worker queuing") ath10k_start_scan() queued it,
+> on success only.
+>
+> ath11k has the same code; there, a QCN9074 firmware crash during a scan
+> left such a timeout pending.
+>
+> Fixes: 634349bae0b2 ("ath10k: move hw_scan worker queuing")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
 
-On some platforms, the root port frequently reports link training
-while the device is in D3hot. The generic DesignWare link check
-then treats the link as down, and the config access is rejected.
-If the write that requests D0 state is rejected, igb ignores the
-error and the device stays in D3hot. The next MMIO read fails, and
-igb reports "PCIe link lost" and detaches the device. Every later
-link setting fails.
+It looks more like a theoretical issue than something that is likely
+to occur in practice, but the fix looks good to me.
 
-  igb 0000:01:00.0 0000:01:00.0 (uninitialized): PCIe link lost
-  igb 0000:01:00.0: Hardware Error
-  ...
-  igb 0000:01:00.0: Cannot change link characteristics when SoL/IDER is active.
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Retry the D0 request until it is accepted, up to 1000 times. If the
-device never reaches D0, stop the workaround.
-
-Observed on LX2160A systems with a flashless i210. To confirm it, a
-test build of igb forced the workaround on every probe. Without this
-change, igb lost the device in 15 of 20 probes. Reading the root port
-registers during the workaround showed link training reported while the
-i210 was in D3hot.
-
-With this change, all 500 probes on the same systems reached D0 with
-no lost link. About 70% needed a retry, at most 21 D0 requests.
-Tested with 6.12.92.
-
-Fixes: 948264879b68 ("igb: Workaround for i210 Errata 25: Slow System Clock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Pighin <anthony.pighin@nokia.com>
----
- drivers/net/ethernet/intel/igb/e1000_i210.c | 33 +++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/igb/e1000_i210.c b/drivers/net/ethernet/intel/igb/e1000_i210.c
-index 784f9a7bcbed..fad7cdfea197 100644
---- a/drivers/net/ethernet/intel/igb/e1000_i210.c
-+++ b/drivers/net/ethernet/intel/igb/e1000_i210.c
-@@ -7,9 +7,11 @@
- 
- #include <linux/bitfield.h>
- #include <linux/if_ether.h>
-+#include <linux/pci.h>
- #include <linux/types.h>
- #include "e1000_hw.h"
- #include "e1000_i210.h"
-+#include "igb.h"
- 
- static s32 igb_update_flash_i210(struct e1000_hw *hw);
- 
-@@ -812,6 +814,33 @@ s32 igb_init_nvm_params_i210(struct e1000_hw *hw)
- 	return 0;
- }
- 
-+static bool igb_set_d0_i210(struct e1000_hw *hw, u16 pci_word)
-+{
-+	struct igb_adapter *adapter = hw->back;
-+	u16 pmcsr;
-+	int i;
-+
-+	pci_word &= ~PCI_PM_CTRL_STATE_MASK;
-+	pci_word |= PCI_D0;
-+
-+	/* Some host controller drivers refuse config accesses while the root
-+	 * port reports link training. The root port can report link training
-+	 * while the device is in D3hot, so the write that requests D0 can be
-+	 * refused.
-+	 */
-+	for (i = 0; i < 1000; i++) {
-+		igb_write_pci_cfg(hw, E1000_PCI_PMCSR, &pci_word);
-+		igb_read_pci_cfg(hw, E1000_PCI_PMCSR, &pmcsr);
-+		if (!PCI_POSSIBLE_ERROR(pmcsr) &&
-+		    (pmcsr & PCI_PM_CTRL_STATE_MASK) == PCI_D0)
-+			return true;
-+		usleep_range(50, 100);
-+	}
-+
-+	dev_err(&adapter->pdev->dev, "Device stuck in D3hot\n");
-+	return false;
-+}
-+
- /**
-  * igb_pll_workaround_i210
-  * @hw: pointer to the HW structure
-@@ -866,8 +895,8 @@ s32 igb_pll_workaround_i210(struct e1000_hw *hw)
- 		pci_word |= E1000_PCI_PMCSR_D3;
- 		igb_write_pci_cfg(hw, E1000_PCI_PMCSR, &pci_word);
- 		usleep_range(1000, 2000);
--		pci_word &= ~E1000_PCI_PMCSR_D3;
--		igb_write_pci_cfg(hw, E1000_PCI_PMCSR, &pci_word);
-+		if (!igb_set_d0_i210(hw, pci_word))
-+			break;
- 		reg_val = (E1000_INVM_AUTOLOAD << 4) | (nvm_word << 16);
- 		wr32(E1000_EEARBC_I210, reg_val);
- 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
-
+> ---
+>  drivers/net/wireless/ath/ath10k/mac.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless=
+/ath/ath10k/mac.c
+> index 8e604697d6c20..2fded15b61721 100644
+> --- a/drivers/net/wireless/ath/ath10k/mac.c
+> +++ b/drivers/net/wireless/ath/ath10k/mac.c
+> @@ -6491,6 +6491,7 @@ static int ath10k_hw_scan(struct ieee80211_hw *hw,
+>                 spin_lock_bh(&ar->data_lock);
+>                 ar->scan.state =3D ATH10K_SCAN_IDLE;
+>                 spin_unlock_bh(&ar->data_lock);
+> +               goto exit;
+>         }
+>
+>         ieee80211_queue_delayed_work(ar->hw, &ar->scan.timeout,
+>
+> --
+> 2.43.0
+>
+>
