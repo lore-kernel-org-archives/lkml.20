@@ -1,124 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793891523;
-	b=AHgaozaAHcgFAjsu/8HO+k3xA4f2cy2KSMlQHG101b9EuRN7yv6o2rjI+N1dhW9iBx47
-	 N/0QGKgGWz84F9GLvsHAhxLMnLDbdfPwSES1B2muN1VgfXbDLUdwTzK4aEqqJLm4E6EVa
-	 CGcGYMgI+NZs93q1xkkVuf+ab5b6CEMz2MhaX03GMjGT33xkSjalZ9P58fX5pOtm/n5C6
-	 lbfv6sKuW4vuVRfsjxMUn5elQq4dEKewav9qHuqBNinKPAVMF5tke1SqfiEjyoynGGGI4
-	 zljJ6KjEQxIpzEqy7xyOkdDabpLsxcNXWrxsjUSz0VrVQEvxUn92Fkaz4P5UDLWd+Rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891523;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NMveQ7/yT5IkErQUuJiGEeH/rHIZjVK+NolGDNiwJPU=;
-	b=bXdb++jN+Yd2d8SGxsqZ+l6WbKIy7RHuaDTOY9W2NsZDNJN+K4QyRU5G98J6GxI1TpSC
-	 Q1xLGVAy/En5McQAGtlDH8j0zTEt5HcNedbXMvVtTzm2O8lvnU+gxV0sMGiP6gBKmwa3i
-	 Khwe4aNHiTtAO+YBiNI27KBT2FRcNTJnj3IABLnLgZ0DjGoAHOlmkPNiehQWlaY58fI4h
-	 q3ySDtSTNuRUILsE4iUInWodIZJ7ouQ10/6KwmGTwXMYiPFukD2whEMj0lQzG/S1u9jXS
-	 QlyAbvkqjfNCyS0ZNcqSlZUKF38IXt8F/W6svzE8jmr/tf2jif0+OaazXR0xlmRNOTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="QjCI04V/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IuE7pDHQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793891542;
+	b=hk3axb4zSfH2v4OMCF+PkmjHVcVPo2khem1bpSl2KDoyW/Cweg5Y2sCX6+pnVdh0HU/d
+	 BYSK7M5P0ePWQ8qYFjZgfBXpuiMoNU2xxxi2iGlIzUoCRMUTOKDJRRyVY7KwlK2/1DV8C
+	 he/9RDju6WhmTwgkFQ3BVfEwqw7C2wkHwvzbfAIuXJzvJgn2CnDqJYMRdnVXSBefzZtgp
+	 UFeBtP5Pj1oV0Q/UaUVPyZrt+dgl4tTTmOuJx88+coL+9+Oe1c6d9B7N2QjpZM9GmRiOn
+	 o360XjO+yiXVWphJg4vj6rTDH7iyHrLc8ZODE5fjeIAedmeRSt/nRdtKHFHEHSYxzbw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891542;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=V4WHyIvQaAdoYwRYFnVyolgGRmHVGVpeDa+ix25o1vs=;
+	b=PLGWOWuiFpin9kl1FmkvzHVi+OsqgxdJhPVubzVMW2hIROrlWI0rPZ+5UhVJbjThAY0v
+	 k1IC8m3yQR9dY6Bnx0B5c2YGPNpGCh2XD90Xl7J2TUIDRxTi0IJ6gV/pQfguiPVnN5i0l
+	 9wu6UKGEw4p6D+vipq59a03IhphdJZRje7As7S8J5P0R73W/NQQMZcpNdKtnaoT3sB8Wj
+	 e3mCo58zVtGi0PG4GOXOQhToQYWt4psY/PZJr9Xgw3sWBIcqmpdaq4A+AmEu2EElTzACP
+	 ZFjAiQZScgSTxGGWpEfpatE6uqYAC/goqY+en1nEuKBTF92p2BLPwyQrtf4rrFWRuEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=pGbHnTdh;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28375606D821
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28375606D821
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB331606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:12:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB331606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QjCI04V/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IuE7pDHQ
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQ7tn1008639
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:12:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NMveQ7/yT5IkErQUuJiGEeH/rHIZjVK+NolGDNiwJPU=; b=QjCI04V/kzMoCcbD
-	nekpPVtwFjBdQ8hWq0FVWTb484XTF9yuHiaAljr4ep+hJeBVMXvndSz5iJKXpUGp
-	iVzHuFmxS6SDeYx+HWPcxC4pTQpda1yhcKtzGXnpgRtxl0fJIPVxQGe9YVrKj8OY
-	BQzvGgHzkiahBTxj9QltoX2/ghoV1QPB9PhoGkF+yivJR/5iTy20Nu1yI3DjAA5/
-	S0tfGhtqMRNBzrycN8SL+aXDAp2hvFy0n236eH1fmfhl+mnaDs85Ofo/kQRHWkOY
-	xuZB5Uor3dr/KUvYZLzV7JvLfFimGepBJxfUeXQJFTEnsexUC8/sCXKO4I+9DYkS
-	PR2SUQ==
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrm9v27qk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:12:01 +0000 (GMT)
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-54dbbf252cdso2852100b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:12:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793891521; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j7FquVhqA1Jy74WPSVMCF9o8HsrggrnCLogM1D4AeQFjiC5P76t86baQuQe039TMyW
-         MRQkJx5aFve1o40AWHYVW/9MA7QO3xoKI2PpqODp8fkbyy1twA1dv8oqDniLZpbwtKwF
-         CGj+4acb0Ji2XIcgC0Tgo3a+/hZ2DNp1GNVXeSzHSuJl0g1CiwZeC/eRmTorXF9fefKK
-         8r/jpQECu5Bkk6IZJ5hXBVuf2UbrrqV2DefOjM6KuOjsi4wdbE+/u+jsuaMqoUdAJexP
-         Y70ReW//wpmueR55qit9CKUGEYVpmdEv62vmk7p1cp8VyY+DhmEiiri+hAMjpRsG12lg
-         sjRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NMveQ7/yT5IkErQUuJiGEeH/rHIZjVK+NolGDNiwJPU=;
-        fh=+ymBFmCB6vdNQA3p/xydMRV2ICiCBRBLux3wedTPO04=;
-        b=IszPZwYoc+Wbl9cvHFBLU4e52SHRuPt2Nt/BvQV1JtUCBpweLIIX5Y76qwKUznhULi
-         dVTexNmEf7grSwih87DKlJqpino6Ia7HIQn5mJ+k3CNquzVeiBB0227u7t6lsvWmMKFR
-         ucXv1NaMWqS5d3S4XVUETNrQVGIkBdSZKGgo9qwPTuX5HT+9NzEiogmkPa4DCJTgABcr
-         fcnDPWCWCc8Zn45uDSNunTy1VVOo7Bw7pCT+H/3TrlDkaI7E6E3zZnV3pgiKF6vjAkt2
-         2Wyv6TxUYD8p25DT/z7UiW3KtFNrF07qQ2fLpDVgioTpk50GZ9J3S6cFyajcpYCQ5R8c
-         ZT3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=pGbHnTdh
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91ea0c05c92so3868886d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:12:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793891521; x=1794496321; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NMveQ7/yT5IkErQUuJiGEeH/rHIZjVK+NolGDNiwJPU=;
-        b=IuE7pDHQ6PfU1kFNvamXYka058eIkzJ0vtK1IUtTeNBRaHyhk5BSz8uO5Ny9mZ4hBH
-         ryDSxqWVnPMIhDpSqBrI3tMEa9wCBqfAcTEbVs994zE/7S+FzYStjEuka8h6WFkZP7/O
-         OidbEV8x4C8OqoEDb+pH8ozGBrz/8paHxOuSJ+3QmAtSkBDiYQ4LhNNmRKva5qXZXosc
-         4irsf5isOMNDFFgoTT/+rplWjJLG1vQSIufMasi+qTGsHZkKoKsk1TM2PteXIGq63TKl
-         H9RkjAoyurMQ4PESPuND0Zx7SwOaaRZYBQMQ+TmyqVysg8gqNZUkYYEOcdf/s2l8pHN/
-         GTew==
+        d=toxicpanda.com; s=google; t=1793891541; x=1794496341; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V4WHyIvQaAdoYwRYFnVyolgGRmHVGVpeDa+ix25o1vs=;
+        b=pGbHnTdhsok8r9OPns1EZUkpxWpon2zuI/+n+6I5fvXSyKNz+sRiSKiNZYiunH+5Fw
+         r55ANM7Y/X8ljRrrIBj6zPtCiMn7Nh6AIhtvQKCPdrWp8vDKg2NsW2OdYX0hAIID+8jj
+         EUmLmujGpMS9tsYmughyFUFJE+kAQoiyLWj4608HOKgYlBAeo4+bzY7Qlhdnn2mIMI7w
+         GYLZziI5o8FvtCCxrPLhVFK8hO5CZtCxsic6z0DZeXnKhzS/6XkHNvoqdlO5NHmptKb1
+         RwVB39w//ZvJxQZ842rN06ke3Vli6MG/ysyKQsFboGZVQkvLiYme5nQyaLw6PHlEq6KK
+         BzWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891521; x=1794496321;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793891541; x=1794496341;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NMveQ7/yT5IkErQUuJiGEeH/rHIZjVK+NolGDNiwJPU=;
-        b=NMedA3ktJMeci8Om9pgkz7qL9UaeNWCLIV8//WrmD5FDTx46MKCNmGbGpEv1RK0tQA
-         NNQh1DEAM/UkiWNqtMqOjiWzi3NcfqeVf2dCge0Hk22yGB6peYWtHIXE6sNsyb/sEddn
-         rZrFRzuIjUFfb1g+F88KwQyoFKghWYjDFWQ0eIfSUf+4rqiTQiVfIxlcYM6wUF7htmC1
-         ov6zg1xVLMfOYxu1WScEX/EAog/lfNc9QbY90WNjYnIszYZp9BN252d8z8f5Fnj3y17e
-         EHvu3Z2qHQoyrJsx5b8haEEm3Z2vvsx51km3Uy6wmmWR10eE3wFIcJ0SaIXkQ9AJ+kVi
-         QN2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByzA3WqzQcpqVHwOK3kEFILk5epxqUYlWPPySrAZwIdZbHh2o028c8me1jHd/cG6/DzwXVQBNoSzkVNFNY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IQEW21r06Ycu+VF6KGOBMd1hImm8UhoeaTw9wU2QBK3VN6+kw
-	yP4PpG54tgoVhMQM2G/Bac3HKfzv9NLOd/Vk+9RCCGtur1U3mpJOYQYVmlKccXnyjlMiwP/ozQp
-	o28DSBd4R0q0bL7yAuYw+A4598/ehQSbbDrKGS9Q/GARxDyc1vbOfCRR7fvaW5EPs5PZuh7Qt0g
-	UVUrT/qcex2/TbqK8Wbjp+F2bAjGrSUvx3sf/hbriaWw==
-X-Gm-Gg: AYBFou0YTjgBpbbH75lZNwOfUiEHpebN7wM52knugqQ9kg5rCYZoq+6YLl0qxgqZZTm
-	oAPpagTpBeZGTS8OKkWLCSGlbAJXfmCiBnl3xig0h8PPOiy3cyj9ftN0CkA2DmKy04+CBcvpYiZ
-	2I9lWvER64ag7Y+zVdq7ekQTiYQfutbmKHRb7ERQMDFC3bAJ1glxX5IQEUmP3568/OaCZjsQmAR
-	S59z3tsavWx/goYJkHs0k/MktR1SIx8WRqfL51ky/W/KJ3C/cDRc9yivcuTssRbUqV4wkU7z6s=
-X-Received: by 2002:a05:6808:3206:b0:522:1ac7:a573 with SMTP id 5614622812f47-5640dddbb38mr15160687b6e.43.1793891520421;
-        Thu, 05 Nov 2026 07:12:00 -0800 (PST)
-X-Received: by 2002:a05:6808:3206:b0:522:1ac7:a573 with SMTP id
- 5614622812f47-5640dddbb38mr15160662b6e.43.1793891519949; Thu, 05 Nov 2026
- 07:11:59 -0800 (PST)
+        bh=V4WHyIvQaAdoYwRYFnVyolgGRmHVGVpeDa+ix25o1vs=;
+        b=H+l1iAyhq3YAEREVAeJ6KEBubiuiWFIJh28KKJ+QN9/3q/wtdXKYxflEV4kwYkgQGO
+         GJwpBPnth/XG/i0eLeL7biA3DoRaZv2p56BMtBTVaNmulaMhIUFspCf/kScBIzQHnsUi
+         9EfJc4M/ZNC2toHQjRl7C9RlE41yJo7oEiZBDt85YvqEsu02nuKW+hCmgCIQGmdjN79O
+         GQQLno952rhfin4T/5LPRGuVFVpU8l8w07lNUKo3LCbKOgG6oItD8hS438voGSDR/cMB
+         HspDK8kPRz/V+9mHccierDjjdwrTGuPI3Qu43FE22UbitPQxDUqpt7iXBNWngqFjt2xJ
+         Nedw==
+X-Forwarded-Encrypted: i=1; AKwUvBzxnD+JgsBkrGuqM88fDhG3QeJQv5jy59ev8VyxExRynTPHpwEKVdJ05uCVh00dZvm1imWYXnYS9QUYZ0s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZFZWJr49Gq2Om/YnWd8+j1Zqgjyb/ehhOf10iCUDPxxS75Vn9
+	76i2mO00I4MuL0Q1LxLlispusWxLPmtC9A1U0ewIRNBeqYZY+RI88UTOFBjFS31ZuIQ=
+X-Gm-Gg: AYBFou2nIgTcKN3Rvj6z5o18u5Z8MAXAeinC1hGzrqFhqeHrBgQhf2LeNEy2SI4MBXl
+	+/mjGtdZ6LmyEZ1Wwwm2LIX4kid5Xjb4CUUiC5ce0WUsg+qD8LsutfXZAGuSL1L4BFWs6WN1xXk
+	99aO/z3qz6c6BYFxcIT1w2mcuh8yhBAbghNRIMSonm6y33CuQZtfweAJoj1ATjzNL3f0yJ0VvIG
+	Da8Cu13hlSRWnaxDox5wHKRxKSaMqI4QObgCiE59qNz4JCk3ogbKE8mziWkLOdVWLMCvqrfZ6h/
+	JG+BGh15Cns+5qZqZiS8CwQlUNuq4vukS7JBkMOEWacHg6x1y/MlkQFfY7mMXppkENODADjcxSu
+	v9iSGOIOzMQQc9QXQt001/uwlkUO7i0NOensJl4TjB14lUxSY88UYcpjnQfHdUek+zJx4FLU+Dl
+	opwlrXWvFMZUnjNxH9wVls/fXbpxIrfzh547ABCHM7JjEhBDkZHZZYov65euAEFa4zZ25ABt9G4
+	zstgx9HT+92KZ9vIARKU89AN/DTszFZPZSAhMVZpKiaFhywWQP+qeTKQN2dXlzF5H1scHwqwLHX
+	8+2zEfD9cwZmfLskxxgFYfpQhfFFJzEpVe0br6kTABjJpSw=
+X-Received: by 2002:a05:6214:8085:b0:91e:a362:fde4 with SMTP id 6a1803df08f44-91ea363000emr7929156d6.58.1793891540793;
+        Thu, 05 Nov 2026 07:12:20 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e896f09e3sm39078106d6.25.2026.11.05.07.12.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:12:18 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:02:25 +0000
+Subject: [PATCH RFC v3 33/90] cells: add cell_open()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,167 +92,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
-In-Reply-To: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 16:11:48 +0100
-X-Gm-Features: AclHuK88d_-DIiFJPT3VE6CsjWU_UolOKHe_xA6uaq4HpdexcKU8842YSMzPGiI
-Message-ID: <CAFEp6-3yTi8tnoO_W_2pZZds03qL1TMVX2S3H2xbU=LALtgy5A@mail.gmail.com>
-Subject: Re: [PATCH] media: qcom: camss: Use contiguous DMA buffers
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Allan Siriani <allan@fatecpompeia.edu.br>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX7zoZSgTeNzfM
- WHymibAgsPm6vl7FC0H6wrfgqXnYd8wfq++GhWaz5/J+T1l4sd21ZIxHYmzrlswAMRixbbcspKE
- /gQAVM1Zb2wGqUNVxjZhanNoPLvM+gU=
-X-Authority-Analysis: v=2.4 cv=KrHYSmWN c=1 sm=1 tr=0 ts=6aec9cc1 cx=c_pps
- a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=i_ZfCgqcnrk0lUYW26IA:9 a=QEXdDO2ut3YA:10 a=pF_qn-MSjDawc0seGVz6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfXxINz+M2g7mFY
- NZZSHUJRccB7NWF0bwY7LuQluH9WwfGpZyWgY6ZC6qbYxzirJoR0Mxkx2tZ8OVan8Bll9UYQNpK
- oHuEjS5TNeOJ2zbj0EGJ5lHzeSAH9NIFXWIpy7XBOZATnO2lKgHT4wuzLQiREsXYLe3u4Ab5d0U
- I+N0zhsBRIzbpG0X+KK8t9RxLrfvSh1N9MvL5B3hd6Vj/E+/Bix8TcAPHS3Kzgab4Iezv9zpXIz
- Pz0GA3NPk2yipzS4019pAeAjOghPyODjcK+y7I00+ZspxZdeir3EKqCSsN0h9RsU9Oo48y9dzzF
- b95Zm6T4mIV+wuAhxAdvTulAy0hmmoT10a6tHFdSYIixq3cfujvy2fzJUmh15ahpsbPNqXMa4EK
- NmVbno4bNTkHHi3JMiAJ0M8qX1/ieyB2xyM1WI2xTaaEKobY83ZrsJ1olDPaRCwhS7qfXDyGghW
- CUTpxT19gDqlGztWDtQ==
-X-Proofpoint-GUID: N6OpKZERithA8SoVXQcZ8sypSOF9cd5f
-X-Proofpoint-ORIG-GUID: N6OpKZERithA8SoVXQcZ8sypSOF9cd5f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 suspectscore=0
- spamscore=0 phishscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050060
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-33-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890933; l=3051;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=B2imLtKNARjJWVxJxwFWtkVKDNE3L9yp4pb6wUxpIrU=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QDKtzBzGvVrcBEkDqKW7vDWS3rqDDM/GYdB1J//ywLymILBa3r1bwCqd6RPt/C9NCmMUepLYf9f
+ CqmoPMyB/IQI=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Thu, Nov 5, 2026 at 4:08=E2=80=AFPM Loic Poulain
-<loic.poulain@oss.qualcomm.com> wrote:
->
-> The VFE write masters are programmed with a single base address per
-> plane and then write the whole plane from there. video_buf_init() took
-> that address from sg_dma_address() of the first scatterlist entry of a
-> vb2_dma_sg buffer, which is only correct when the whole plane is mapped
-> as one contiguous range in the device address space.
->
-> Neither the driver nor the hardware can handle a plane split across
-> several DMA segments, so scatter-gather buffers were never really
-> supported here. The issue stayed dormant because vb2_dma_sg gives no
-> IOVA contiguity guarantee but still tries hard to keep the number of
-> segments low, and with an IOMMU dma_map_sgtable() usually maps the
-> whole table into a single IOVA range. The mapping therefore almost
-> always came back contiguous in the device address space, so reading
-> only the first entry happened to work.
->
-> Where that does not hold, the write master runs past the first segment
-> and writes the rest of the frame into memory belonging to someone else.
->
-> This recently surfaced as patch proposals enforcing contiguity in
-> camss itself, walking the scatterlist to verify that the DMA segments
-> follow each other, which amounts to re-implementing what the dma-contig
-> framework already provides.
->
-> Use vb2_dma_contig instead. It guarantees that each plane is mapped as
-> a single contiguous range in the device address space, one IOVA range
-> when an IOMMU is present, physically contiguous memory when there is
-> none.
->
-> Fixes: 0ac2586c410f ("media: camss: Add files which handle the video devi=
-ce nodes")
-> Reported-by: Allan Siriani <allan@fatecpompeia.edu.br>
-> Link: https://lore.kernel.org/all/20261104202313.72494-2-allan@fatecpompe=
-ia.edu.br/
+Add the system call that returns another file descriptor from a cell. For
+now it returns an nsfs file descriptor for the network or the pid
+namespace of a cell that is still being built. The builder needs these to
+move a network device into the cell and to mount a procfs for it, as it
+would for any container.
 
-Feel free to review either this version or the one Allan plans to
-send. The main goal here is to provide additional context and
-rationale for the requested change, rather than to get ahead of
-another revision of the patch.
+The namespace is created if the cell does not have one yet.
 
-Regards,
-Loic
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ include/uapi/linux/cell.h |  5 ++++
+ kernel/cell/slots.c       | 61 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 66 insertions(+)
 
-> ---
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/camss/Kconfig       |  2 +-
->  drivers/media/platform/qcom/camss/camss-video.c | 14 ++++----------
->  2 files changed, 5 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/pl=
-atform/qcom/camss/Kconfig
-> index b51745c942c9fd71a95d09993213bde4b7e877e2..e1967bc20cf03ea1b0b159c51=
-75294eeb40fe1c1 100644
-> --- a/drivers/media/platform/qcom/camss/Kconfig
-> +++ b/drivers/media/platform/qcom/camss/Kconfig
-> @@ -5,7 +5,7 @@ config VIDEO_QCOM_CAMSS
->         depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
->         select MEDIA_CONTROLLER
->         select VIDEO_V4L2_SUBDEV_API
-> -       select VIDEOBUF2_DMA_SG
-> +       select VIDEOBUF2_DMA_CONTIG
->         select V4L2_FWNODE
->         select GENERIC_PHY
->         imply PHY_QCOM_MIPI_CSI2
-> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/me=
-dia/platform/qcom/camss/camss-video.c
-> index 0852eb6f13154cfae7147ce39d22de64d14a5cba..5de6ff5ecc76a2863e536fca1=
-c40ae6b2de6dc0c 100644
-> --- a/drivers/media/platform/qcom/camss/camss-video.c
-> +++ b/drivers/media/platform/qcom/camss/camss-video.c
-> @@ -13,7 +13,7 @@
->  #include <media/v4l2-device.h>
->  #include <media/v4l2-ioctl.h>
->  #include <media/v4l2-mc.h>
-> -#include <media/videobuf2-dma-sg.h>
-> +#include <media/videobuf2-dma-contig.h>
->
->  #include "camss-video.h"
->  #include "camss.h"
-> @@ -154,16 +154,10 @@ static int video_buf_init(struct vb2_buffer *vb)
->                                                    vb);
->         const struct v4l2_pix_format_mplane *format =3D
->                                                 &video->active_fmt.fmt.pi=
-x_mp;
-> -       struct sg_table *sgt;
->         unsigned int i;
->
-> -       for (i =3D 0; i < format->num_planes; i++) {
-> -               sgt =3D vb2_dma_sg_plane_desc(vb, i);
-> -               if (!sgt)
-> -                       return -EFAULT;
-> -
-> -               buffer->addr[i] =3D sg_dma_address(sgt->sgl);
-> -       }
-> +       for (i =3D 0; i < format->num_planes; i++)
-> +               buffer->addr[i] =3D vb2_dma_contig_plane_dma_addr(vb, i);
->
->         if (format->pixelformat =3D=3D V4L2_PIX_FMT_NV12 ||
->                         format->pixelformat =3D=3D V4L2_PIX_FMT_NV21 ||
-> @@ -699,7 +693,7 @@ int msm_video_register(struct camss_video *video, str=
-uct v4l2_device *v4l2_dev,
->
->         q =3D &video->vb2_q;
->         q->drv_priv =3D video;
-> -       q->mem_ops =3D &vb2_dma_sg_memops;
-> +       q->mem_ops =3D &vb2_dma_contig_memops;
->         q->ops =3D &msm_video_vb2_q_ops;
->         q->type =3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
->         q->io_modes =3D VB2_DMABUF | VB2_MMAP | VB2_READ;
->
-> ---
-> base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-> change-id: 20261105-camss-fix-dma-c32288664dd2
->
-> Best regards,
-> --
-> Loic Poulain <loic.poulain@oss.qualcomm.com>
->
+diff --git a/include/uapi/linux/cell.h b/include/uapi/linux/cell.h
+index 22337cab3da1..3c10c9179289 100644
+--- a/include/uapi/linux/cell.h
++++ b/include/uapi/linux/cell.h
+@@ -30,4 +30,9 @@ enum cell_state {
+ 	CELL_DEAD		= 4,	/* Nothing left. The status can be read */
+ };
+ 
++/* cell_open(): @what. */
++enum cell_open_what {
++	CELL_OPEN_SLOT		= 0,	/* An fd on the object in the slot named by @key */
++};
++
+ #endif /* _UAPI_LINUX_CELL_H */
+diff --git a/kernel/cell/slots.c b/kernel/cell/slots.c
+index 81f43744e858..0a406422ce34 100644
+--- a/kernel/cell/slots.c
++++ b/kernel/cell/slots.c
+@@ -302,3 +302,64 @@ SYSCALL_DEFINE5(cell_configure, int, cfd, unsigned int, cmd,
+ 	}
+ 	return -EOPNOTSUPP;
+ }
++
++/**
++ * sys_cell_open - get another file descriptor from a cell
++ * @cfd:   a cellfd
++ * @what:  one of enum cell_open_what
++ * @ukey:  for CELL_OPEN_SLOT the name of the slot, "net" or "pids"
++ * @arg:   nothing yet, must be NULL
++ * @flags: none yet, must be 0
++ *
++ * For now only this: an nsfs file descriptor on the network or pid namespace of
++ * a cell that is still being built, so that the builder can move a device in or
++ * mount a procfs for it, the way it would for any container. The namespace is
++ * made if the cell does not have it yet.
++ *
++ * Return: a file descriptor, which is close-on-exec, or a negative error.
++ */
++SYSCALL_DEFINE5(cell_open, int, cfd, unsigned int, what,
++		const char __user *, ukey, const void __user *, arg,
++		unsigned int, flags)
++{
++	char *key __free(kfree) = NULL;
++	struct ns_common *ns;
++	struct cell *cell;
++	int ret;
++
++	if (what != CELL_OPEN_SLOT)
++		return -EOPNOTSUPP;
++	if (!ukey || arg || flags)
++		return -EINVAL;
++
++	CLASS(fd, f)(cfd);
++	cell = cell_from_fd(&f);
++	if (IS_ERR(cell))
++		return PTR_ERR(cell);
++
++	key = strndup_user(ukey, CELL_KEY_MAX);
++	if (IS_ERR(key))
++		return PTR_ERR(no_free_ptr(key));
++
++	scoped_guard(mutex, &cell->lock) {
++		if (cell->state != CELL_BUILDING)
++			return -EBUSY;
++
++		if (!strcmp(key, "net")) {
++			ret = cell_make_net(cell);
++			if (ret)
++				return ret;
++			ns = &get_net(cell->net)->ns;
++		} else if (!strcmp(key, "pids")) {
++			ret = cell_make_pid_ns(cell);
++			if (ret)
++				return ret;
++			ns = &get_pid_ns(cell->pid_ns)->ns;
++		} else {
++			return -EINVAL;
++		}
++	}
++
++	/* Consumes the reference, whatever happens. */
++	return ns_open_namespace(ns);
++}
+
+-- 
+2.55.0
+
