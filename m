@@ -1,94 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890946;
-	b=BWQS1aEepCD4/y42zTTZkOlCGFZlGmlIT6w3g+uHwJQQvJTc4yJH1M3lgDFr0EWp5LY2
-	 jvv/knTI7mUiEgWhgdBflaYLFZW8C4Xenr8tgxpcOIfvyBIoJ49a/g56Seo8OBv1qAQGj
-	 /YMnhH9VB2Na/mFK/xalpmUZ5/iwUUmzM28bxsOB52bpR0HdZ+YvOUR79skcuGunevfvE
-	 oIFsoOpI0WkCYoh+9/cUiKh9qflW1my7pMeFPFKyOSSxAmB8ESS/m/ga8j9gG0p17Bapg
-	 lle91s+T1u3dHVlZdDs1ANXIGdfqrMJK7KuVPPSeIHdsQ9IBWZfAD8pWZxZzL8orqfg==
+	t=1793890953;
+	b=rdDBodfxYNufGpjTSGplPOTKCCSOa3MMzT6wMCJ7HhhZYly3zH4xvbhzw4LmQZvmQ7j1
+	 U1PhUm9FvxNz8kiWG1P/XY3WrdAlwAOdk+iIuEFeUdbsi8iLD3pgrBQyPHoGbbX8FmCJq
+	 //yOYP6cK0Y6nA6sMfXNXqzyvTLhndT3xy8UmnOxj0f+Uokz7G+pXpl9C1ormGaVgOPsq
+	 3TNn8XuW7oHrtRLNl8EUZaoJCLLjIeecwqebTzOvtE65Lyhct5Y94cq5eIftzY3vYgMuK
+	 1br2Jns5darep898LMwo2RVDrnT0zwFLA2Pz71b7IuTH6yHbrx9geGO8eEjjvJ16Piw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890946;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5XXfNWmUTdQwwlPTsJIdH+pEsp8jvzlkLP6kkxV9f6w=;
-	b=4RDStnMsyFEcPCbJ8hGMgVpJ6J85iiyFeoIQk69JWADk65H2R+OvpraaMv30XrmxA7HW
-	 HKBR9GxYYq57/ZIJwbbcS+fBHXOsJachYxOB8S/8IRh6iHFcFC1iZoJ6FF/TBcGOILhnf
-	 Y/uwQDq43I0XXeqEls6xCNFa+US0D40F6F33WYcHGyLZvnP0dZXhtv+8caeCA/ulYzOHY
-	 1kvklqJPDRZnXdwzMzM3exYXXQUwakDl+Px2FLUT7b0xirjg3W9siZJ9Q8fMeYBE9+Emx
-	 AiR1IxNSxJ0WoPIO571y1yqePdRM/0SIAlWJCgzZ5NF+GGjKp9kUGC4qrIral7hnRgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890953;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3u/QstQSJV0UAJtzHBVB+ScC/OFteWXsBLmgkvMVYeg=;
+	b=w24XDJfZ4HJyNHVBTmboBKMksqXfJP1YWhhUWuCPPbtYwLHbvAL9wtbDRi1b0ZjYxjFv
+	 XNZfvV0BxSKBWE27xGy3Ku4KyFwSAbS59UQvexcKJqqWGVaTLbq9HpIDde1g7YicHi265
+	 oQXE3a3CyXDQXFPsYsLLntm5L3mTnfC692Bf83/5f7XpTVXoA8J5L6dOczQC6wN3gN8tR
+	 +W4TdKgvMFJKCNtyk7UV5AmhZQrRqIf6lVLGOHCLB401tni6/MWDJgFXG5LkhZHrxHX/7
+	 n4rSA/iBQkYxz8c4/sTzCSmOrf5x0jXxkji08+I3fCNah+2Iyxf+XWkaE2AJvxAz02A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ytKq9M/f";
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3f015KA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955E9606D822
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:02:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 955E9606D822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524B7606EE92
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ytKq9M/f
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1068878f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:02:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793890939; x=1794495739; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5XXfNWmUTdQwwlPTsJIdH+pEsp8jvzlkLP6kkxV9f6w=;
-        b=ytKq9M/fQJibzBL1ikjVi8O60EPDMuZmD5vX7jCbFWq7L/oRNpFdLQNzvuWvhVd90X
-         N/YLCUCJ2OYpB/RLWFN2+qnKoEv/kBtaB7d8gEKwFIdOugpxEcOrgTSK/ZuHfwJnuNJA
-         1vV5evgrd/ZrNLzrFBQO/+74q3slAfoPyb73lz5RzDPfYfy6uk5eRc8HvS6+NszgFQFo
-         nx30fiAesFQEtLdz2sC7anOi93gMxP88nX9Wqdi24bGNBeXI0UMzj6HkEJl+6k17Q4t2
-         1sjFWaanmIL+1hoVxqMilcHJfXXDnhXwmJlXEAtpt7vHYEt5GeAWSO5aJYyp05EQonPs
-         oBEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890939; x=1794495739;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5XXfNWmUTdQwwlPTsJIdH+pEsp8jvzlkLP6kkxV9f6w=;
-        b=1CNONsnbo5ppzdms8WzFLVDWeiX2tMLZ/PULvLZ/I7gX45D8ajBVPAJoevSEcF4oXc
-         xGvMYVlZkSjVV8BCCoYTfNCJQNNuAgyxnncnSs5LfAVyGqRxqk5oCNsgcz4mg0GUVShx
-         flEFFhmowB16yZ/IOYQgC6n/O18AxMVGYI2QWirVIgH85Vy7c9XmYcFgqJpnb3R4snxE
-         DkpCsmRSrHET77ZPsMxs1lD3FquY3Sd9CGqotmX44iREZEU5o3duacTKOEX6Sbwgc/6D
-         nG+2BKz4FA37H01UH/jcsAGFHVa/c7RihubfyO6ANeRGwddr1ku+AcG2e8MHE3dec8fN
-         GSwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnuCfmdDinddvvfGqISZNPtEstBIe9NQh7IFal2OpVtoaTy2aKzTsUBMzGZ2XOk5bX78j0MTMPobfDlmI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TCD01c1kXN+Pcpbn4ch/xMscl2uGzVAL7cupBH5BiCu7o97dT
-	Up5P70NVAIRkx5DxMl0GaTLEyj8Tlksh1w3ek4l0kRSfkDS7TYuGPvTC
-X-Gm-Gg: AYBFou0ENyAa814kE/ZiQAZ3TzpqGN7F4R3lr+PLgVhiBPqfo3iafadJnun/iIwuh5y
-	jyyuqN03PcQD08Xm6zpIeRIEyrFCi8sW1G+0OuDBMOqIQT3jmq7ArAXPtybdmD96BIJ3cYrCYog
-	0TQOfETTnDgZDKGL8M4cpsoxG02mxmd5MdH5ZkEWonI5nKQDu0AeXOJmTrecT+OMFH1S3cRdjG4
-	Vr6CLWNX73BUk1U0XiKba+V+WgKmn+KtZe/mtmgNzNvBh9QAw3/ZrBuJOcOTsnbXcolQ955VHhB
-	aD95x3E94G4KkuIRG91ira/r3g8uYjYQUKTVI1+zaujelAi2MHZpVFD0UncN2+rYOLUtsnVTa8v
-	gGSmraDANZTByMXBi9pLXSM2HxJhu5mQQZr/U8cUW1DsIJLd7hVlSzjkAYDW7X18vpgqI/11Hgx
-	GxRrpmFg/yQ09++B2Jh3pYY43xujnKO0HDiBgk8L2UjRAzjFxAfEbOy/Oj+mtuAbi3clvDZQMup
-	SamsoFR53PGZcMJOzsH5wEoxiS7+QyjQPBqqZw7TraKUgxtSiZAKRT+Jw3LuKxbYGFTMVvAkrET
-	Vr5Uzxb2kLVHb5CQcvGhFfs/VI14XbTG58prowk3ZWasVFKcKXyjQEDk+XjbvKr/C0UpMJpi21f
-	eWBxBRn0kqxzf+C5/RHlEHbRFMMzERJsUmty2XJPICGBTnw==
-X-Received: by 2002:a05:6000:29d6:b0:48e:6f76:de98 with SMTP id ffacd0b85a97d-48e6f76f49bmr26301083f8f.9.1793890938744;
-        Thu, 05 Nov 2026 07:02:18 -0800 (PST)
-Received: from Ansuel-XPS24.lan (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fed552aaesm11042960f8f.40.2026.11.05.07.02.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:02:15 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v3 0/2] clk: en7523: full clk_hw + set_rate for en7581
-Date: Thu,  5 Nov 2026 16:02:04 +0100
-Message-ID: <20261105150207.23023-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3f015KA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3151F00919;
+	Thu,  5 Nov 2026 15:02:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793890952;
+	bh=3u/QstQSJV0UAJtzHBVB+ScC/OFteWXsBLmgkvMVYeg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I3f015KAlphpMgxVJXHJjEj6LUkRUNl0e35EHpz7Bf+r0lLG5tpJ0rhDUpJmC2vUh
+	 OgoFNWSQ23Zp3jChLiM9ItZ4AYJvFqDuPvOCQyZVIQJMi907dQsjOwuHxs6blN/ujZ
+	 kKSUx+5KOd7BRdPiKZsYPXbsy25uLTdXsYxBz4OJqQbnzT28Uh7PsFMG4EoZzVyGFx
+	 1T6CUjcRXNk/HshtQymxX/A5RgvQ+TMYsFplJO70khw5+qgx/7OmLUq50tTAhBXMuJ
+	 Il+hnBRlB0G1Viyx2soDl9tb15sFDxcjbasPKLv/XSVlKf3ABMDet0FOdhfMmHQSsU
+	 J8ttzRttzxbWA==
+Date: Thu, 5 Nov 2026 15:02:30 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hao Li <hao.li@linux.dev>, 
+	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Conor Dooley <conor@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v3 04/10] mm, slab: introduce slab_debug=N
+Message-ID: <auyVRU5abrWHVfgM@thinkstation>
+References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
+ <20261105-slub_tiny_rework-v3-4-0484ce59eabb@kernel.org>
+ <auyFYsbsMm8qGThW@thinkstation>
+ <7ac409a1-fe3e-4b37-8130-4d49ecb6106a@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,33 +64,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7ac409a1-fe3e-4b37-8130-4d49ecb6106a@kernel.org>
 
-This simple patch convert the en7523 clk for EN7581
-to full clk and adds the .set_rate OPs.
+On Thu, Nov 05, 2026 at 03:36:25PM +0100, Vlastimil Babka (SUSE) wrote:
+> On 11/5/26 15:30, Harry Yoo wrote:
+> > On Thu, Nov 05, 2026 at 09:43:53AM +0100, Vlastimil Babka (SUSE) wrote:
+> >> Enabling slab_debug has the side-effect of disabling all percpu caching
+> >> of objects (now via sheaves), which can be sometimes useful for saving
+> >> memory for e.g. kdump kernels. To make this possible without the
+> >> overhead (CPU or memory) of actual debugging options such as poisoning,
+> >> introduce a No-op debug option that only forces the debugging slow paths
+> >> and zero sheaf capacity. The new corresponding slab flag is
+> >> SLAB_DEBUG_NOOP.
+> >> 
+> >> This will also allow reimplementing CONFIG_SLUB_TINY as a boot-time
+> >> option.
+> >> 
+> >> Two details have to be considered, as suggested by Harry Yoo [1].
+> >> 
+> >> - While SLAB_DEBUG_NOOP is part of SLAB_DEBUG_FLAGS, it should not
+> >>   prevent cache merging as it doesn't affect object metadata, and lack
+> >>   of merging would go against the memory footprint reduction. Thus
+> >>   exclude the flag from SLAB_NEVER_MERGE.
+> >> 
+> >>   - However add the flag to SLAB_MERGE_SAME, per sashiko.
+> >> 
+> >> - SLAB_DEBUG_NOOP alone should not request disabling printk pointer
+> >>   hashing. Thus rework the call to hash_pointers_finalize() to not rely
+> >>   on the slub_debug static key state. Instead determine whether the
+> >>   global or per-cache slab_debug options include any flags that are not
+> >>   SLAB_DEBUG_NOOP. This does not change the fact that caches created
+> >>   with explicit debug flags (i.e. slub_kunit tests) later in boot have
+> >>   no effect on pointer hashing, which is determined in
+> >>   kmem_cache_init().
+> >> 
+> >> While documenting the new N option, remove obsolete SLAB references from
+> >> the F option description.
+> >> 
+> >> [1] https://lore.kernel.org/all/arUx56ee_nkxYP_f@thinkstation/
+> >> [2] https://sashiko.dev/#/patchset/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org?part=2
+> >> 
+> >> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> >> ---
+> > 
+> > With the sashiko report to this patch fixed, this looks good to me.
+> > Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> > 
+> > One nit comment:
+> > 
+> > specifying SLAB_DEBUG_FLAGS depends on CONFIG_SLUB_DEBUG, and with this
+> > patchset there is no way to minimize slab memory usage w/o SLUB_DEBUG.
+> 
+> Maybe not at this point, but unless I made some mistake, later slab_tiny=1
+> stops depending on SLUB_DEBUG.
 
-Needed mostly to configure MDC clk rate.
+Ah, I see. Right.
 
-This will be also implemented by AN7583 since they share the
-same exact implementation.
+> slab_debug=N itself does depend on it but I
+> think that's acceptable
 
-Changes v3:
-- Rework to clock divisor API
-- Return error instead of -EINVAL
-- Use dev_err where possible
-- Use devm_kzalloc_obj
-- Revert to not fail on clk registration failure
+Yeah.
 
-Changes v2:
-- Fix recalc_rate return value on error
+> > Sounds like it's time to make SLUB_DEBUG unconditional. It's enabled on
+> > all distros listed in kconfigs [1].
+> 
+> Yes it's my plan to do that next, I did even discuss it with Christoph at LPC :)
 
-Christian Marangi (2):
-  clk: en7523: convert to full clk_hw implementation for en7581
-  clk: en7523: add support for .set_rate for en7581
+Sounds good!
 
- drivers/clk/clk-en7523.c | 280 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 260 insertions(+), 20 deletions(-)
+> > I built kernels w/o SLUB_DEBUG and the difference in the kernel
+> > binary was about 40 KiB.
+> > 
+> > [1] https://oracle.github.io/kconfigs/?config=UTS_RELEASE&config=SLUB_DEBUG
 
 -- 
-2.55.0
-
+Cheers,
+Harry / Hyeonggon
