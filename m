@@ -1,47 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793847444;
-	b=BGWuQQl2AL+Zyu06oinGWlIQImPdi7ocv/VUalzSqckAc9cYHA1WvDnnJy8Sk9b+/Em2
-	 VSD8HJSICnO2MTC+BmgFgGk2mg3+0x+ooXxROQ9vR62Y2FGg0kPoo8SyyCXmG40Ky/gBs
-	 m4K+VF0q82G05ZBcVwifNjxy8IwxHd2dUtfizF00N2LL8hWnTCBtPtcMAINZFhWzGrw1Z
-	 EOrsbTpqSgooluNKrqRQmrV+k7hgn5Sy+HqipTAUrOy5kthztgsqKLsGvizmRlN1oxDQT
-	 wgts2qWE2iLuOeexW9gAz8iRdkZ/fXtutl3eHzjkqAs26okhAXcQvI1xjsRW1z5C0RA==
+	b=tNZchD039zYjNVFNvExmLWAgfv0wiJZbiHyyk5dUIr7bE+I1Kv77QE3DeY9d+wGI3Au+
+	 g5OPwVWPF/nlIK5j0aXYm0CEQMqajrYKXfEOUJ1nFbO152qa0gJuAVbRgRrRbbmw59VsG
+	 3g4Lq/saERhmMOEJK3PeHjr1t03L+Rszs4QfsGrG0VzJ/Ycws9whKcPp9tD0y9o6UWGpw
+	 kfZZ8/vhPiRuNGfOlwPmIfUnmV4BMVBTN79gfqIuR3JALuYhXrrAIRcZ2DBbT8sCtPezS
+	 nCvLSOI+CvcECut1LLbkcNYxxMbHALr0OZB86ktlOjVtWjTRoJmW7AQSbsdGWYPvHng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793847444;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yi5pnfb5AXE+YjDZddXWKzl9WSyDPIx6cK+vPTAPQ50=;
-	b=SQAq0TDUuyzSzhFZcElQj47fwnmO5IC59f1bTjVuQjk1+b4T7ubwFJdGx8eK09ewfCdf
-	 Q+uE1CnsO9BGDhawTy7pKM8EfpSNVUDPDiAHiLEvkZNk7/iTaipy9thQncJLEhdPp7RaJ
-	 sq1hU33jYfcmjOG39aBNmo2YHJCqSN+v619aPG183qyodSo4avEJzHXZCo4wnrMfILIUg
-	 y3Ge7tD4dLj1kLVAdUrVEmp23HkNme/uTZ5fA2bqY4UNc18fJ+ZYjirwRvq+ELbL6v4uw
-	 OOLX3o+cE6qxJSZvzWJ9zO0mgJvDVMThpT3Ae3H21lWOqXFBCS5Lae2pS2tuUwRaoPg==
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KU++cqpk1/gvfox3WB9yLvTVWcxc/JeXC76YevdQC7s=;
+	b=NK7CBxBj2rdLYr8+4MEf5Paf+YCsgsrqXm+EQxR7qHMNsYvPNCpXaHp/KwHLHGz7Hy+g
+	 sk4VhhJ3npHmUc7pyhWBK1wGOwMSIpfNLQBq27IGwRmdN7Qo49Rp4A/9WZ55gsXOVB2+A
+	 ywXV27O5hYc5e0FVxYYrqG7IqzjkccEhhLF+2bvBrWKli5U1/7QPkum6Z4NvUtItEZu9V
+	 GyStig19MUX4Yk5iPy9kogWhOSgDNXzw27XLUW3C2E83/e10XuPCaeergxC6/w/FNIag1
+	 tRaNXdB/ZBJog7AimibYt0Nnz1pIA89d2Xka/z/zRCo+SB/7YwbokNPld7WvATU8UbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ght8HFf+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFEF606A330
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:57:23 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rSKHiUh0;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BED75606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:57:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED75606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ght8HFf+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65AEC1F00A16;
-	Thu,  5 Nov 2026 02:57:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793847443;
-	bh=yi5pnfb5AXE+YjDZddXWKzl9WSyDPIx6cK+vPTAPQ50=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ght8HFf+vpPTxaO/GvNStRwQJNNYnccd84qhTyXWGJiUSFkBEERF8RST3pAGebzSt
-	 Rp4j10CTKlvkTPHydzZcKSyOwmDXJkuMWW9eY69EdTUfpf/i235A9jcQ3fzIT5Uf8w
-	 R1SAKZvvIdLMBHiGoVGLVBze5O2j0FLj3phaYND4HEAKogqlGkTW1xJQIP9D/OrgH5
-	 XnYAYts3vstbs4lSQZ8vW7JEdj/m/zVB4D3MhCLtrkklFeFiHa5FC023flq3jYYYIY
-	 krn8du0DML9Sk8cnxQFl0N+SYr7HX3ZiyH0Hqrk2Wm/Uvwz4+493HSyfgGkeoP0FaB
-	 dN73d83ax0MWQ==
-Message-ID: <41b9058f-ce78-425a-a6ef-cba02bda76d3@kernel.org>
-Date: Wed, 4 Nov 2026 18:57:22 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rSKHiUh0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=rSKHiUh0vMEtaKJSA3ZiM5JOB5uF0CUZMAZhMLi0TF+a/uMj3qNC1NVwgiDG6MedDO+BMt0SSqnI0
+	 2d6hyKelC3K6/yk1DDEi5KbS3JS6sOJ4L7XmBa52xETdfcyHUFdJ9zq3FW5KW6kbEFvDJWeP4Ih/K7
+	 iJPTJRMhUGwaN+S0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56aebf08f50c-9f79d;
+	Thu, 05 Nov 2026 10:57:21 +0800 (CST)
+X-RM-TRANSID:2ee56aebf08f50c-9f79d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHB-W5100256 (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26aebf08f787-37b5f;
+	Thu, 05 Nov 2026 10:57:20 +0800 (CST)
+X-RM-TRANSID:2ee26aebf08f787-37b5f
+From: xujiahao <xujiahao@cmss.chinamobile.com>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	xujiahao <xujiahao@cmss.chinamobile.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] clocksource/drivers/sh_mtu2: size the irq name buffer
+Date: Thu,  5 Nov 2026 10:57:18 +0800
+Message-ID: <20261105025718.524-1-xujiahao@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,116 +69,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ARC: io: use asm-generic MMIO accessors
-To: Arnd Bergmann <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>,
- linux-snps-arc@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-References: <20261104043535.2039948-1-vgupta@kernel.org>
- <20261104043535.2039948-3-vgupta@kernel.org>
- <6534a171-9e74-4e69-bee2-3a499798cffa@app.fastmail.com>
-From: Vineet Gupta <vgupta@kernel.org>
-Content-Language: en-US
-In-Reply-To: <6534a171-9e74-4e69-bee2-3a499798cffa@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/3/26 23:40, Arnd Bergmann wrote:
-> On Wed, Nov 4, 2026, at 05:35, Vineet Gupta wrote:
->> ARC MMIO accessors use inline asm, which isn't really needed. It was
->> introduced with the original port back in 2013.
->>
->> As the previous patch showed, inline asm can be error-prone. Letting the
->> compiler emit the accesses also allows 16-bit encodings, scaled-index
->> loads and folding constant offsets (s9) into the access.
->>
->> Without the asm, ARC's __raw_{read,write}{b,w,l}(), *_relaxed(),
->> {read,write}{b,w,l}() and io{read,write}{16,32}be() are the same as the
->> asm-generic/io.h versions, so drop them and use the generic ones.
-> Hi Vineet,
->
-> In my experience, the generic helpers are also fragile, they just lead
-> to different problems when the compiler optimizes them in ways it
-> should not.
->
-> I would recommend keeping the __raw helpers with the workaround from
-> the first patch, possibly both variants depending on the compiler
-> version.
+sh_mtu2_setup_channel() formats the per-channel interrupt name into a
+6-byte buffer:
 
-OK.
+	char name[6];
+	sprintf(name, "tgi%ua", index);
 
-> Using the generic higher level interfaces is a very welcome change
-> though, I hope we can eventually get to the point where every
-> architecture just needs to provide the __raw_*() ones.
+which only has room for a single-digit index.  gcc reports with W=1:
 
-Yes that would be ideal but what we have today is not bad either. I was 
-trying to see if its possible to remove boilerplate.
+  sh_mtu2.c:348:27: warning: '%u' directive writing between 1 and 10
+  bytes into a region of size 3 [-Wformat-overflow=]
 
->> Two things stay ARC-specific:
->>
->> - The barriers, now hooked into the generic accessors through
->>    __io_ar()/__io_bw(). On ARCv2 they remain dmb (rmb()/wmb()).
->>    On ARCompact they were empty, relying on the asm "memory" clobber
->>    as a compiler barrier, so make them barrier() explicitly.
->>    The generic defaults would be mb(), i.e. the heavyweight SYNC.
->>    The *_relaxed() accessors only need ordering against other MMIO
->>    accesses, which volatile guarantees.
-> Sounds good.
->
->> - The {read,write}s{b,w,l}() string helpers, which, unlike the generic
->>    ones, cope with an unaligned memory buffer. They are defined before
->>    asm-generic/io.h is included, as it calls them (e.g. ioread8_rep()),
->>    so they do the volatile access directly rather than via __raw_*().
-> I don't think we want a custom version here. Do you know the reason this
-> tries to handle unaligned buffers? If there are drivers that require it,
-> we can change the generic implementation to be more like the arc version,
-> otherwise this likely just causes larger object code for all users that
-> don't ever need unaligned access.
+Callers pass indices below ARRAY_SIZE(sh_mtu2_channel_offsets), that is
+at most 2, so the overflow is not reachable today.  Still, the buffer
+size does not match what the format string allows, and the bound lives
+in the caller rather than in this function.
 
-Not specifically but one of my old notes mentions a driver calling 
-readsl as follows:
+Size the buffer for the widest possible unsigned int, which makes the
+sprintf() correct for any index.
 
-static void dw_i3c_master_read_rx_fifo(struct dw_i3c_master *master,
-       u8 *bytes, int nbytes)
-{
-   readsl(master->regs + RX_TX_DATA_PORT, bytes, nbytes / 4);
-   if (nbytes & 3) {
-    u32 tmp;
+No functional change.
 
-    readsl(master->regs + RX_TX_DATA_PORT, &tmp, 1);
-    memcpy(bytes + (nbytes & ~3), &tmp, nbytes & 3);
-   }
-}
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/all/202501080036.LH3XAQK1-lkp@intel.com/
+
+Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
+---
+ drivers/clocksource/sh_mtu2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/clocksource/sh_mtu2.c b/drivers/clocksource/sh_mtu2.c
+index 3aca86d6a..f94167bed 100644
+--- a/drivers/clocksource/sh_mtu2.c
++++ b/drivers/clocksource/sh_mtu2.c
+@@ -339,7 +339,7 @@ static const unsigned int sh_mtu2_channel_offsets[] = {
+ static int sh_mtu2_setup_channel(struct sh_mtu2_channel *ch, unsigned int index,
+ 				 struct sh_mtu2_device *mtu)
+ {
+-	char name[6];
++	char name[16];
+ 	int irq;
+ 	int ret;
+ 
+-- 
+2.43.0
 
 
-And with readsl at the time being as following was broken due to the 
-recast to int.
-
-static inline void readsl(const volatile void __iomem *addr, void *buffer,
-			  unsigned int count)
-{
-	if (count) {
-		u32 *buf = buffer;
-
-		do {
-			u32 x = __raw_readl(addr);
-			*buf++ = x;
-		} while (--count);
-	}
-}
-
-
-Thx,
--Vineet
-
-> I see that the sparc version does the same thing, other ones without
-> unaligned access (in particular armv5 and riscv) assume that the
-> memory buffer is aligned. On alpha and parisc, there is an alignment
-> check for insl()/outsl() but not readsl()/writesl(). I suspect this
-> is not intentional.
->
-> If they do run into this problem, they will fix it up with a slow
-> fault handler on the unaligned memory access.
->
->        Arnd
 
