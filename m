@@ -1,63 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877595;
-	b=BPyo8VRjA1XmY26lyg6W9sEW4C9Ln5970hK1YxKQ6fXYqyVOqlO2XBaQ6bVHCSO4BB55
-	 dUyuT7OSubz+fXGEazO6yz3lwjlk5clPdXblrjx+QrRs2DwbCPwDv1TXtMMUJmeBQ/zQ9
-	 f+T0fDfgF9JkgvWTFqlVewzL7FQETfAeEmHfTC/Ju3MbjEdiFFOcZ7EzqNWgza8hfwgkb
-	 FPhbnKMVy+yZCEOp9kB29qzHikFAhSm0kHPBu1RjoNmkwSOpo2kNVm/qZI5YhY2bgPNCs
-	 DlydKOvqs6+JGz0dJZuPWPFbi/9T5zsXVI5e6fZkzgeTXl8VRPI0czHJ6/MfVz1u1FQ==
+	t=1793877658;
+	b=oZ0qb/jpHB1Ml3MGGQBKRObDt6AJwKvLue2dvcPr2hbqBlzaiMOKrkyQ+KqJeFoTyRJc
+	 YoDY/cG9aH+auWZzuwqw3jDdTBWDqFzFU8m5UWXFPSVt7n0eT941BPcB2WLyOxzv6HvAU
+	 t05TOFHuuzmqIf6JDJKVino/OTVoAa+hrdv1l+HoH3uJn2/qmLRlSo+lyFSR3PYzsQnpy
+	 +MIE46yjR8SiO4+ggBczWDSpXHn0Hm71gud3TR7uWZzAZNgT3fdmzaAeyOkk91/GJVneX
+	 SSh+qs2cj0hcaTKcfGYPDKP/4lZidCp5ZSbIgSc1dxnuJnO2EOP8/wzK4/uoe6dqSxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877595;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=Xo2TeNYm3Y+NU4DLM/Wdmt98w6AupRWkAbW2xAINB7s=;
-	b=RFQJe+PTS2e93I5484XHWxHrLmqdbN0qfLU6nEEP4wm4kCVnVYJ9oW/FgqEARQCUjRBX
-	 u/3DG5CHgo4bSF8n3oJWsPVoQOTaIB1o/dt9QDD1X+RiubTL0MlCamGEjXb/jCz599+SY
-	 EXrG/avDIJAPeMzARJTIz5JEgQN/feNoPR4j/IRek32aeKRyWynvh1gRP9/vcniJI97FT
-	 KK+iVqmunCLMQXwYZbyzulXrVsmGwQHTvQ6cPyWaIn8Nho3U3Eyc8Bz9SPQ5rE4rKIgH4
-	 aqKXFrS5x8OD5/v8c3yuwRmjiYo+wB3/MDiSJ6GYRJjupfTfnKwqi/pZ02p0aPB5sEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877658;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=x3uqTwxZ5g9ojnEPYeDxNTWUyCZHe39qiak8K7+I6Lg=;
+	b=txQ2xtY1ebrzqyu92FntrjJaNbPkIqyzeY9mayXrdOa1XzNs3zwqZVZf1bf3oUx2YLfx
+	 n9ed6xcK/0hnNARNhveV9YG++9Oxq2Za5+K5fNqaGPM/f5z1BGmRYlPgKgkBJdf43g77M
+	 CHVnIDZZCgfGExrOtM7pK0dFITTKW1ZlxBy3WUoJTOIoyhsnwfvqrP8i/iLGGl6Lcxt+j
+	 8lkIqVUaK51oyg1g2SkSWl0jLtiIhX+xV7F4JjAAld/96ufehtvRi/MiRauaaEVjJfcIn
+	 gjo1uBXhXjbwWg33p+hkWb4F9b6XvKVoSZCC0DdONQxc233r+CgAGwWFVafZ+PQI0oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIz192A6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXuVV7bl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68CB606A32D;
-	Thu,  5 Nov 2026 11:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9980E606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIz192A6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A5641F00919;
-	Thu,  5 Nov 2026 11:19:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXuVV7bl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE371F000C1;
+	Thu,  5 Nov 2026 11:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793877594;
-	bh=Xo2TeNYm3Y+NU4DLM/Wdmt98w6AupRWkAbW2xAINB7s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ZIz192A6fQlHC/7KKwSUPIBtzVxXwVY3LMJ8un1ogis3DOElJiYACdBDHf9e5vgQj
-	 wOncDENcOuCCg1akE0rc6KI+dGG3jIM3ROAjSi4/3HzGoegq/FvSss7NyUQf2BSoQ+
-	 qoqDgEVNdNrvBi4Zje/2MhcOg1s38afsfDgsihl2vRV9o+n1s3jb2ApKpBQ8L9/M+U
-	 FiTzZYMrk+2zfColytZVPcmFrg20eLxDD1+2lXBSMW1zed9uZbaS9COEFayf2HFYmC
-	 kEpey+4bBY7onGEbYYRvYlBL6EgcwyBxSncPDimAFCM0npsM7+9Yv4OApS1LFTm/MC
-	 2mw32+ceHeVkQ==
-From: Lee Jones <lee@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>, 
- Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
- =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
- Florian Krischer <florian.krischer@fkr.dev>, 
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, mfd@lists.linux.dev, 
- linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
-In-Reply-To: <20261104122606.215629-1-clamor95@gmail.com>
-References: <20261104122606.215629-1-clamor95@gmail.com>
-Subject: Re: [PATCH v13 0/7] mfd: Add support for Asus Transformer embedded
- controller
-Message-Id: <179387759097.2453405.11589718445889906023.b4-ty@b4>
-Date: Thu, 05 Nov 2026 11:19:50 +0000
+	s=k20260515; t=1793877658;
+	bh=x3uqTwxZ5g9ojnEPYeDxNTWUyCZHe39qiak8K7+I6Lg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UXuVV7bl0Pl+WbhL6BYsVU0mw1wu13cZqrS+v8MauA7Joz76ixVS0POLNPqobxchh
+	 F5euOh8Ye4OoCWuHUgUFh/vn+8X2L/oEpMCxpIhrBhc6oQJevrVI4sAjS2grTBXzK5
+	 qpIUhXreIMVRoPl42onB/Ghyu/bYw3JpoIFIoXzFt7aZMZM/tigowAqwdugVCsdIJF
+	 Q79XaS+eKg8zT9SaBPVUUK20RtvCUXQBdB4kneGxNS0aNzAGMQ3jgkKcMl430WaqQk
+	 rflIGmIFxH0+qBmu7iNnl8K1eXo7nYHgOlCL6tcEwERCUjwDlbEQvWsPQMcAOHo7qQ
+	 l5bVSJ+XFJj4g==
+Date: Thu, 5 Nov 2026 11:20:54 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Yige Jiang <yigejiang86@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	WenTao Liang <vulab@iscas.ac.cn>
+Subject: Re: [PATCH v2] regulator: as3722: use the platform OF node setter
+Message-ID: <0961ddfe-189a-4a49-9438-3fcf5009a937@sirena.org.uk>
+References: <rc-review-20261103-19-ee1e37733b2e@gmail.com>
+ <brzyrqnyrayxdpnyginamtdewj6cp3odhndlstjp6kupnr4q3e@rt73ebxxvbms>
+ <20261105100342.34730-1-yigejiang86@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,31 +60,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wAJuCIcE2k8Wxsm6"
+Content-Disposition: inline
+In-Reply-To: <20261105100342.34730-1-yigejiang86@gmail.com>
+X-Cookie: Alex Haley was adopted!
 
-On Wed, 04 Nov 2026 14:25:59 +0200, Svyatoslav Ryhel wrote:
-> Add support for embedded controller used in Asus Transformers for
-> managing power and input functions.
 
-Applied, thanks!
+--wAJuCIcE2k8Wxsm6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-[1/7] dt-bindings: embedded-controller: document ASUS Transformer EC
-      commit: 2880926d48fe884042a1b7b64b431f9ee9531806
-[2/7] mfd: Add driver for ASUS Transformer embedded controller
-      commit: ccb21236e307ff60ce6b96d2f9925abf0274ce8e
-[3/7] input: serio: Add driver for ASUS Transformer dock keyboard and touchpad
-      commit: 3fefdd9a8931eb3b8cade87193c81293256031f0
-[4/7] input: keyboard: Add driver for ASUS Transformer dock multimedia keys
-      commit: 4ace8a63a1612f8142cfdf5d6d4b8e1be37cce3b
-[5/7] leds: Add driver for ASUS Transformer LEDs
-      commit: 04819cdb3912f31586516ef6fc007daa3d976234
-[6/7] power: supply: Add driver for ASUS Transformer battery
-      commit: cd72536270e725b4f1d56df6287c4c34efe953a8
-[7/7] power: supply: Add charger driver for Asus Transformers
-      commit: db6674a08304d03a194f5e09b7543323462b3516
+On Thu, Nov 05, 2026 at 06:03:41PM +0800, Yige Jiang wrote:
+> as3722_get_regulator_dt_data() gets the regulators child node and
+> assigns it only to dev.of_node. Platform device release now puts
+> dev.fwnode, leaving the acquired node reference unreleased.
 
---
-Lee Jones [李琼斯]
+Please don't send new patches in reply to old patches or serieses, this
+makes it harder for both people and tools to understand what is going
+on - it can bury things in mailboxes and make it difficult to keep track
+of what current patches are, both for the new patches and the old ones.
 
+--wAJuCIcE2k8Wxsm6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrsZpUACgkQJNaLcl1U
+h9C8sQf/ctLwcQNFN4ug6yFZKv+Fq2pTCMIni8F1e9FN3TgWM2wiacN87Gcv/gwq
+ilH7tsFWwdvkV3ghoPO2j+LIcbdMF+b/IP6rvVKXyzPJ+Z9z6N7pURRFwN1GmZMp
+yHWSn1Z5r1EyEFHXckpvEwd4WfGXdQR6nX8F1Xpup7wbv0Xdl6xOqKANCWimun1V
+CdjX0vv43+7/TboJm+4cbV39sDFqE6E/gZdDvUPV1ucekNKmyTvVIu2wTHuf4whS
+YqwAYC7FGtFheGy8YzWzJEycS4hQRrUrzHw4J4HMw7Yu6LXzFkHvTmCOkKt0tGRd
+fNt0MpKZhqwcRptuNbzHMyNvhSuK+A==
+=kE4L
+-----END PGP SIGNATURE-----
+
+--wAJuCIcE2k8Wxsm6--
