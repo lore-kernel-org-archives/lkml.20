@@ -1,95 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879757;
-	b=FPl2XRnQ5CW+ed9zYG1NJHEUwcyU3ZIyKjoAg3uCf+l8kJpHWUfSoqpeg/l4RgkpKhbs
-	 BW3j3O5p8unLS4OE4EfReAT69q6dzGe331s147WlhPCVukNna1J/z5M9jt7SgCI05hQti
-	 tU/ExRwadpWwVjsXAX74aTN4H9aJGsnKICnWHqP0RcJCRABqbTdcA8bS2IDImLu3J632c
-	 yksVgZ3IKDVV4fCBS02PD5SjMoMIMxU6NFyarn8I1rYqM0PeVXOaoQxtp7dzMaBD9H588
-	 1UCAYXTBBagvSfyaeTXrlKLuj2ppiGrLr78LqK+W/QM79bY+FgDwu5MV4BssjER+VDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879757;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=blv6O4bi3KniNZSZaBAb+qDrJFTIo2ZPaosrvloZpPk=;
-	b=Udrfn0c7ugxlXIbgz3Hl+rT30ESMqlRI8WGOTEzf3MmDb79DS/4BP88G6ar2uRDqOYNt
-	 w8S0WLjZ1n9wqeupXP4o+gK9EMBIBPO2zA3Ao7uQfnnfaVBa24ubU2/F80Tc8v6i5HCWO
-	 LoUW9ESdWPuiQqy/MOS7waTh6nAjc54nbis9nWvAtqDXagaM7uS82ikmxpVLfg/Egajrv
-	 Oyead/fJsIk4fA3PRupwObfy/lD/3kpL3NEhhTCaY2yiIQLGd2lIlFTyuujYQ7y70RAtc
-	 BsWGOJqeDt51aMFXLg8sdxma7duFdZqvk06GlrRLY4znqnYz5pVZqUFXUInu8mXv8WQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqzVMeGG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793879763;
+	b=vPmySAQbXEq144GPXx3jz7+91lg3g0lsMIHqF3ZBpUpmssxIdSVySrgEe8uCUBm0veqT
+	 YRHgsShl2nO29HUTASz1ZkxEDFKh0DQCWU4XXGXTUFDlJp4sLEOF2f8wG2M5zKfpT6It8
+	 dKAv9RzoWpbxdUpFM8HfznBXw87H+/D1lMY2muFltKrrjhUtpWNNQ3oirftSFATF+H4A8
+	 l+5jEULVT2dSVpB0NykrkbDNMKYFUQLc1XEmi2E83IjG4MkpyhBhKykVImTm8a0ZkHwmb
+	 l/EzyQM4QdjOp0EVjnKSDfySNB9tfocRlFzYRbqQVMjU0ePNLf7qhhs7e8L676d+GRg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879763;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+	b=Ybra/BhfFycPsqtljO8JAO05/nAj5fMGJV1ue3YZk3S+3QTKEhoCcDnqA0jVIvJKVA8D
+	 jI3ay73ZPNFRcKahWsvOphMVrec4m0/h2hSgeTf5qSUdvTqzk0hRaSWpmdjPYQjBhdrwP
+	 5ldOEfiriJqvdRuddHz/3dii4h7dOpbTQrVsIlzVhMK5w58nzikAeZVBpcY8T/g2g2/k6
+	 jj1f+5M4YQ9gMhnV9xEzrbD7oLlCzWqR5A9fgNIK15nUykgd92K5kHDMwrDeiWHyXoq7U
+	 3t4IMDEuwjJQ5g710Ph0FVbB1MaM25eABkHxIHBVmqKuJI8j1Jk1or1v1SD6gbh82LA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ZWNvpwl8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D00A606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:55:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457B8606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:56:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 457B8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqzVMeGG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304871F0093A;
-	Thu,  5 Nov 2026 11:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879757;
-	bh=blv6O4bi3KniNZSZaBAb+qDrJFTIo2ZPaosrvloZpPk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oqzVMeGGZirazQHJMc84rnQz1Gu2mB70FSCvJkBrLvweibXF4wsY/4M0Y2Lhx/JZs
-	 qw7Ea0EBOjtlGPPr4kmm6VzfQlHuIWQ/J7i2BbCEbBj2GWIO5bhR80r/ItPo7dpoBI
-	 cAgTXtoqj2rNzhKyfF+eQqEAuZRHuk65nwzyBCelmqsImIVl3mA7vc1IHMUj0VRtGV
-	 yPkd5BQstmItoEWVyOu6W3oTK7UX1g5q0tbVrJtv6GU3l3gJeLAdeIO5aE/nGJ/w5D
-	 2S/Oe0OK9deFRdtX1OKlotSAksqYunR+WoGkm5HO31ndK0dxXtbGl2XJa1jyZ3tPOL
-	 7apKaboUlQ19g==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 069A4198003A;
-	Thu,  5 Nov 2026 06:55:50 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 05 Nov 2026 06:55:54 -0500
-X-ME-Sender: <xms:xm7sarg6hkHAPeR6qNnjGTgOC0c3MwCRkcRyyDte-v2Nz4AuHE-Ysw>
-    <xme:xm7saphsT_LOQ5_t9aQEuRe60HCsp6dNKYCbhW7KxfWQC49PQymdRBbbUn-i5i9sH
-    QStLn2jAiEAJRwyCkhmX9Ae7rIOj7T8-vP480JX_RsiCJb1ukBSvOMf>
-X-ME-Received: <xmr:xm7sajtbmih0YyaDyMm21NI9mlZlJKu1ERf_jsafuT_wkmX2BV3b6DPUd6U>
-X-ME-Proxy-Cause: dmFkZTGlpGWVVjYxBjIq1GW6Bog5Gen4I6Dm00lal7CBkODI1PCEbTquXBXmwJLyHC/Pb0
-    hMLtvFsGD3zC1Q9ttsCzhqKULfkv9x8zovlqzN/hdkPtWOD8WUDm+Daf7wKsKNUXKXlpo1
-    bFIC6ERf0hO9ea/mtihFTDTyCipqWMJPUwRZGVRWX3+eBSgzzlFuXNMBzbbhxlm/Cl9kVf
-    qHHUJaywNb3F4K6tjLmbyevw8rCLxUMHWT/9Cg7vbj68E6lN6xft2IojKQVeQAEiLSZSKx
-    lZLMQWm4VlvPjllWVTTLhjTk/9OEr1u49yNsfSP/NsyNB352Y3dF2bwT4gQcnry4plValo
-    pLBIrxlGDfR+ywb7rTy1vTBYhNUtZgulKr8/JOC/EmfHBLyljCXxPcnuZybgIU3nR8ttxi
-    NiKVBEjcu+cD8pgA1PtU+/LtIQKKOkxMmEkK+2AN27LTuVqJRbL9HjNlKVqR6Vm29IM2Ss
-    bW1D/tqn1Qh7RsiFzCWJnWmIGuFgJB8hm5YY9wNsUwbACh+M1Ai8sD5/j0rhKczYofrL27
-    aXPtMu+wOfFCKeUYjR/MrD3CrT+5sz59Rxv/1Tg0Q+eOY2Mg2KwKNNAUJXxVMCWR0OVfE1
-    bQ7XT+vKIldd2Uz1zKn8/hce34bPrDJtxKm7F4XRZxYtmRPCZ3bkrcCgt+vQ
-X-ME-Proxy: <xmx:xm7saqTsbIEzTlIIyfCI0NvMcGCThm014x3v0iWjB-FDRz8L8axO1w>
-    <xmx:xm7sasFTrJ6-LeqVH8QtOdfuMUwbHSbYmm9ap3kQlN9bZZLnAFIoIQ>
-    <xmx:xm7sashUZrl5LGKDtq38sKALGMetuWkB1zjzVd-gCh8VJKBe5TmQMw>
-    <xmx:xm7saqi_fCFvdSbiD3UGPjXEJwWp0mtld2wkwhPL8zMrxF3P2PETsA>
-    <xmx:xm7samz0sM-HdoJmBgpTBx5he-nOGHlSFJzl8pION3Xtidy7Mpg2tcSf>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 06:55:49 -0500 (EST)
-Date: Thu, 5 Nov 2026 11:55:48 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "Hansen, Dave" <dave.hansen@intel.com>, 
-	"andrew+kernel@donnellan.id.au" <andrew+kernel@donnellan.id.au>, "luto@kernel.org" <luto@kernel.org>, 
-	"pasha.tatashin@soleen.com" <pasha.tatashin@soleen.com>, "rppt@kernel.org" <rppt@kernel.org>, 
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kernel-team@meta.com" <kernel-team@meta.com>, 
-	"david@kernel.org" <david@kernel.org>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
-	"mingo@redhat.com" <mingo@redhat.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"peterx@redhat.com" <peterx@redhat.com>, "tj@kernel.org" <tj@kernel.org>, 
-	"azpijr@gmail.com" <azpijr@gmail.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>, 
-	"peterz@infradead.org" <peterz@infradead.org>, "rmclure@linux.ibm.com" <rmclure@linux.ibm.com>, 
-	"bp@alien8.de" <bp@alien8.de>, "baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>, 
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH] x86/mm: Define the zapped-entry checks only with
- CONFIG_DEBUG_VM
-Message-ID: <auxuOzjRJPqsTvfm@thinkstation>
-References: <20261102144001.342837-1-kas@kernel.org>
- <b04316eb-a2f8-4587-9392-e673c7bd2fc8@intel.com>
- <aumzjHyJsshPJBUI@thinkstation>
- <b45fe4c2a730a23845a36b5beba4f434c7be7477.camel@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ZWNvpwl8
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdaefe02d5dso1078400a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:56:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793879763; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LWFc0irtcM8Pt6ipmoyjMyMeMJpVLz2lsffCrzMumZH4lwshsfJz7iMQS2PZpm1M5b
+         sW89dRkmcwpdpkGZ+KZaVf2E2JQhmKoa1lLpW/t2sTaklauv8Gwm29wr9eg8BlgJx2f2
+         ae795SJyXf2NV3MefEzmMK/aihh+eWiRckP+cmRVLKCA/0AjDLguhhoFsZBxG3Wv2JK2
+         BPha68dSVy0Vm9hvqoFJJHDudPPsyFgswCaUS9+nuJQhNGp7n5eOwosCfvybeL6kbGz2
+         hjaXUu72GHjukPj+epdLUwcfhDSRl6yOHr+XuL6YNNKui0Gc83S2JT5st+o/8dwL97Tj
+         6ZyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+        fh=i8xAlaKOAHGMyDJnqg99XuTheGgs3zgvgRR7FvzfB7U=;
+        b=Ass9BQK+T8F8BC24fVPw/zHXQ08MmRhDNjWYk5n7oykD1B1z+cIzZ9JV6ACxrUsOeU
+         DPSvLkSFrkKaoy57NyXAYpuUVZVoaLXqgnVJGcq1PW9NkbWiCLen9Biy8yKGmwHuUz5g
+         evMWBCgn0EE9YDjGMGxgG30kuq7cNsciZdxursfPMb65A4g3HLzUXh9jqMQ1jeKcl7w2
+         ZmRZE4D6uOqd/u4rKhj+kV8OJogQS2aUq1I+ynVzKTPfj/BUxUB/UaJfo/mu7PI9QUIo
+         8Z01SZjDAW9oZoLGmyxAo64H12+2PaZmd61fplXIacWLeT6c/eTea1q1D/wKNGkn1uyV
+         JGbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793879763; x=1794484563; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+        b=ZWNvpwl8JhILyTVSbTkRTaBTLVZ7JjOfhCR2xdaoogR5HQKIXSEFWL/ay0ob5rHOnQ
+         bbAS2bOh2TibflBHMrpCUztkxHaOB8TTeHumBu57vauYSY6tFgzb/Q8bKhHb71Ys/FJR
+         vd0s1LsZWJcl2zpxO62xN/r/Xww/z/D4zBh01Ob2rzHx4TnqmyGcaudlKg5DYmlHi8F4
+         MB7dPe6YX9aN/f+0uZKhvZa1+fFYQKDS+oIx3ZZEWjrCn4tEgSU7EC8ncuA1rFBEcXD6
+         zcrhHxCvR+tRxuUMQG6+basHl/gvPyoJgySuKOngpo0XRUP8rj1A1QbkU/y9U1BrLWpY
+         RL5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793879763; x=1794484563;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+        b=VYYw0+Q1WiajdxzArH6MEskxMDEfQToQ/lg/85HF4bnkM2cbM7P5meU161iFeb4ais
+         mUigLuAf0LiYxk6hhU3JljJCQzJA9G2UeaHBPe8uF+HI+/+Wb/2toAD11kEv4pnouTM0
+         QMkLyGJ30hrZSi03OW6bVQx/bKyzqmfHZKwQDq7NWsHAXPmK8Gapo19Ap70kIDOu9dPc
+         U7TmdKr4sDAW+rl+aLlpq3BiVX58aJ0324acVhdyTQbyk9gdXPx76b+Hon4HmoJ/y3pJ
+         h7bOpslLny2zJs0Jw3bCuU8U4lpxqn46Rpb6vmOeaaxJKQvy9r0FYb46nwu0rEpm2vXa
+         Hz/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByAVuPTngpiyYFpdIdaIlNXfYDlIWwlJBOEANxH2/DNlc7JdpvSAPXLTiwYKjbq9H3X6wFaeoUFy6I2DJE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++FvphLmPJjZhFLs2A4kEwWEAZpbaeINWxqbFr6thn6UZMGWpg
+	8JfKcRHqlacwzF1HjRRT4Gz7B8t+C05N6jlz1VjxvwyciGn2+PnEVUOuPZE6ibuZoT3X5MXOb+i
+	+PCZUX1FSR+4JUgBF9YOlL7SVK51D5cOtrJdHiubWckB7slqAFZjhXcFwMA==
+X-Gm-Gg: AYBFou0+ke9GblM6vNXIz2rSHSnlaYrupC26Mmjb7OzjrKlgB7aGK2fBMltsQP168Ce
+	6bHC1FYYlVGfVJXBlQWpzfiUtkT9Rc8wMmDPu5d4HeDvtB2lkIcLtX4Zk6AKvmahaop22UpN2JV
+	xoTJ9imi0+zZSJtEFyRtNLVSYPGd+WapjISykTeyWYOjqoin1OAOCaFj2B/2l2IsVVubg29djAi
+	AjOG/tXu9vhqAvIv8tq4QJvEcuhK0J6yAVM9nCq4qZSurMD+Uh8d5XzrP7rdvFstGO+2E6poh9F
+	LhRk0KAQvWRr6dUF4v4omoYX3dykNtvguMUHS5eoG0YRR+olGTeaTZnqwD0YpXm4CmUzXaHhZI4
+	s+aF4+Ec1mfm+Cr2kHj5/E4IXg9UhbCNS6vDn
+X-Received: by 2002:a17:90b:3b83:b0:3a8:5d1f:59ad with SMTP id
+ 98e67ed59e1d1-3ae89819ff5mr17083778a91.43.1793879762611; Thu, 05 Nov 2026
+ 03:56:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,31 +103,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b45fe4c2a730a23845a36b5beba4f434c7be7477.camel@intel.com>
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com> <20261105-dw-hdmi-qp-yuv-v6-12-1bb63ef5766e@collabora.com>
+In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-12-1bb63ef5766e@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 5 Nov 2026 11:55:50 +0000
+X-Gm-Features: AclHuK8Jj7G6el-i8_82b6TJ0oa9AUPdN0owTnb0JTIANqcEHa0Ic8C9cFJ1sYI
+Message-ID: <CAPj87rOAjcLZeKsKCMr84NoN89VzRDLV7Z8LySHK-DVyRW=u2Q@mail.gmail.com>
+Subject: Re: [PATCH v6 12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code
+ in atomic_check()
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Nov 03, 2026 at 03:50:04PM +0000, Edgecombe, Rick P wrote:
-> On Tue, 2026-11-03 at 10:13 +0000, Kiryl Shutsemau wrote:
-> > On Mon, Nov 02, 2026 at 01:12:47PM -0800, Dave Hansen wrote:
-> > > Or, heck, I'm not that attached to these checks. Let's just kill them.
-> > 
-> > Works for me. x86 is the only architecture with them, although arm64 and
-> > riscv have shadow stacks too, and the x86 helpers already keep
-> > Write=0,Dirty=1 out of other VMAs. Patch below, without the Fixes: tag.
-> > 
-> > Rick, any objection?
-> 
-> Eh, I guess I'm lukewarm on it. These checks only catch the case at zap time, so
-> it's not a huge protection that is being pulled out. I thought they were useful.
-> At the same time, they have never triggered.
+On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> dw_hdmi_qp_rockchip_get_vop_format() calls
+> drm_atomic_get_bridge_state(), which takes the bridge private object
+> lock through the atomic state's ww acquire context and may therefore
+> fail with -EDEADLK when the lock is contended.
+>
+> The DRM core expects -EDEADLK to be propagated up from atomic_check()
+> so it can drop all held locks and restart the commit.  Replacing it
+> with a hardcoded -EINVAL defeats this backoff mechanism, making
+> otherwise valid commits fail spuriously when multiple threads perform
+> atomic commits concurrently.
+>
+> Propagate the error code returned by the helper instead of
+> unnecessarily overriding it.
 
-Yeah, I have not find any reports.
-
-So, we can claim that the check served its purpose to stabilize shadow
-stack and can be retired now :P
-
-I will post the patch separately.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Reviewed-by: Daniel Stone <daniels@collabora.com>
