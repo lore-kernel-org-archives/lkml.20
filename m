@@ -1,67 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903298;
-	b=qvIIFCvSoTaCrzF3lXfyNFdduxuL1W4JBYcQf0qeEjmiOwtPi7dVHSTJtwdMaSnOpHE+
-	 HhHjmpSCF+Nti/uiBrKJ5hCQ5xBSucPX9kROiFaHxGcqsfIv2OlYrh86p7tdGswPYGLBH
-	 NdSkY7Dx1erDvnBrNl6VO5D3u7q8iAJvUBExCW5rXOw0s55rjWboG2YPQ0sruNWL80Bvn
-	 Q7oz0I2Lj/iNZ57howjilebKpaHmYfUt94Dy8emBxq3mwP7IrwcVk5hsFz8JoeE5ojuD+
-	 IoOiylbRx2xt2yUHKpRdlxaBEqhOW/kmGp7qej0o25+dV+t1SvczLpN3aAGE5SOYnyw==
+	t=1793903339;
+	b=wWORK3PGoN4DalemYDo9k/722UB+ruY5ia0mt2JUHkMWBzjIQbE4fzPomcDc21YulfDE
+	 HWb1QflNufqZkrDvhthTQSsMoppGhfBGYbutT+wbPhKytEJkk3q3/2WaCb8HW8hCQn4sT
+	 DPownEDX8ygsIq3fm1KjS088m5XW7rqZpy3v6lLw7PO42BWH7qKaBd65rPIc3F+NmYtgu
+	 b1TuyCvJqyuuQhiOuN2BmhYPyi35+K3RgCOQpt2tbArYRppnMuVhJ7uURw9A1BP/3E+kF
+	 j1d22Hb2HIrmYvBlxVBTGT73nj8rURFiFtzqqZnXpWchgEaYV1JYjJ2Ih8qFP5JmjqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903298;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903339;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gT9TJ0AroGbdxZ4bmFkZaRdEQ2S7wKcPpVq8sxpoWPo=;
-	b=JVzZlXyIKwQh3POJamr6gmnqKQ4cMNF60Ec0V1pODm13oTMX6rcTnAorN/NSSSJgIpag
-	 x2nIEF3f6LBKQJz0esbTKkomY9RN9NqcEUSJh9TJCJ5yxAgaGQkvNdQ9Vg+BryXLgec3k
-	 qa5nMDe0ile7yEEgOjH7h+h1+Bn7vR+pk5QQ0LkwTnpHiyELXxQVMCHaioHRDWcfCfw6i
-	 ZqQHvmIUIRpSya7FKJTVmG4tudePIFbdD7kr4Z9VM3zIukdvO2LXmUGYP6gNos48qudJT
-	 qvDKp4T4QFlkVoeb00EPCQErmKBBo3yeWucKC3hkVPxP+V8ypniCSxyZAT9QsE7A9Bw==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=NJRIBxDa0PBI1ayFa5wZ+sVeSyV4S6VsRvVyFVIG9Yc=;
+	b=c2o5KkRYOqSR7kLy5nrppeoss6B2EoHAsTCiyb+V3qhn6yK/ZZKMP3/Ik7k7o+vCqZcR
+	 n3azvH4/h17ZAZ+OntDIEQf9VC9aPCTWLApoRpvIt1pdpTq9HELEDiC28OJYrrewRYWdr
+	 XALZDvXbKKM8faCRixjgFmvzllxkIusCyLqPaKQhtCHzrGkTsiCJfC5MMtqGNejDJymu5
+	 BMOOB6ggHHvn3eBwX7+5TeFfesdKkGbDAfh+4FHBg5UpVvr6BjCYb5QZCyjPzB+6148Iz
+	 HbygTCqs966Pu2jZ8tWrJo+vl26ur6kpnDqMnarIyiSQGJHXgjVKcqPA8j+0q99uAqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="IX9/1ZIJ";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6E5CB606A32F;
-	Thu,  5 Nov 2026 18:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E5CB606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M3YCKE4Z;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0862606A326;
+	Thu,  5 Nov 2026 18:28:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0862606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=IX9/1ZIJ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3C1CB168F;
-	Thu,  5 Nov 2026 10:28:12 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F15963F632;
-	Thu,  5 Nov 2026 10:28:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793903295; bh=Rrkg8DlYAdb9o/4arm7DveLAh4LnWcq3U2R3LPjPA54=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IX9/1ZIJKn3cK3ohxV9U4xGE9+NOHDnlMbuM9Y2d3akzE15HCuiAghZqr0swE2jJy
-	 JZTdCiRq5woVotgOX1SiqumUsf4iSf9fMPgbKSEysjCUh2Uz7o/Bo8sR5ATlElg+xM
-	 QLDcSX+88bMCUYEUS9W230Ely0gArIrFVhW8Q8/g=
-Date: Thu, 5 Nov 2026 18:28:07 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-	philip.radford@arm.com, david@kernel.org,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v14 01/32] firmware: arm_scmi: Add new SCMIv4.0 error
- codes definitions
-Message-ID: <auzKt0tDdn2Kt-vb@pluto>
-References: <20261016185553.2794459-1-cristian.marussi@arm.com>
- <20261016185553.2794459-2-cristian.marussi@arm.com>
- <20261019133436.000035ae@oss.qualcomm.com>
- <auy0ar-fio9m7EbV@pluto>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M3YCKE4Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793903340; x=1825439340;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lLP7D2diFf8GVGCCXQtzmey6vFHHS3ImWJ64xyTbLbo=;
+  b=M3YCKE4Zv3A0hVUJzxcsy6q/9NBd6xM4UQdaM+fC5JzeolkjdKU1eDX0
+   IyNf8ZWQ04P4Tx6sETJFH2ltiDa9FuT8EfVoRFKXUAKnFfu4tOJb2213c
+   BqtWXrMUN3l5ZeeIgOuIydRrNCD8fFisX+cz8tSHpEO4n+bL2kJ96T+tj
+   iHqxL7xiE9PSUmxCg2Xns+szTe6Fjfsq2SH62sRuEZ4YM3Qtdwo2pZEAt
+   W0prtsKDnKnAdUgNDu3AHFY+pEGv01TBZSoDJ9rQpdDNvaQGTVYQwWLy9
+   pa59W9PemF1tiUO3jE0NC/NoDdkbALT6A2d43K98QIX0i78V2eXBpHSIa
+   Q==;
+X-CSE-ConnectionGUID: ogkXQnY7SG+16gnbEeKHnQ==
+X-CSE-MsgGUID: Y6qEAL6mTn2kj/iymx2rvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2577154"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2577154"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 10:28:59 -0800
+X-CSE-ConnectionGUID: 8AkguHEkRvWFOmYHarRzCA==
+X-CSE-MsgGUID: 8hM0xRPvQjSF0gw/H+gG4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7204397"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 10:28:55 -0800
+Date: Thu, 5 Nov 2026 20:28:52 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v3 07/14] i2c: core: implement i2c_transfer_v2() -
+ transfer with detailed reporting
+Message-ID: <auzK5F7uOEpGpUBe@ashevche-desk.local>
+References: <20261105-i2c-fault-reporting-v3-0-515ad74ac4c9@mobileye.com>
+ <20261105-i2c-fault-reporting-v3-7-515ad74ac4c9@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,51 +89,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auy0ar-fio9m7EbV@pluto>
+In-Reply-To: <20261105-i2c-fault-reporting-v3-7-515ad74ac4c9@mobileye.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Nov 05, 2026 at 04:52:58PM +0000, Cristian Marussi wrote:
-> On Mon, Oct 19, 2026 at 01:34:36PM -0700, Jonathan Cameron wrote:
-> > On Fri, 16 Oct 2026 19:55:22 +0100
-> > Cristian Marussi <cristian.marussi@arm.com> wrote:
-> > 
+On Thu, Nov 05, 2026 at 07:15:28PM +0200, Dmitry Guzman wrote:
+> In __i2c_transfer() and i2c_transfer(), add one more parameter - pointer
+> to transfer report. In __i2c_transfer(), if the pointer is not NULL,
+> use algo->xfer_v2() callback instead of algo->xfer() in order to get the
+> detailed transfer report. If the adapter does not have xfer_v2(), return
+> -EOPNOTSUPP.
 > 
-> Hi,
+> If the adapter has any quirks that make impossible to transfer requested
+> message or messages, put the index of the first such message to the
+> transfer report structure.
 > 
-> thanks for your feedback, sorry for my generally delayed replies but I
-> am drowning in Sashiko reports :P
+> If the report is not NULL, algo->xfer_v2() returned an error and there
+> are any read messages, trace the read data using `trace_i2c_reply(). If
+> the last read message is incomplete (transfer was interrupted in the
+> middle of a read message), trace the read portion of data also.
 > 
-> > > SCMIv4.0 introduces a couple of new possible protocol error codes: add the
-> > > needed definitions and mappings to Linux error values.
-> > > 
-> > > Note that SCMI_PARTIAL_ERROR has to be handled specially, so it needs to be
-> > > distinguishable.
-> > > 
-> > > Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> > > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-> > 
-> > > ---
-> > > v12 --> v13
-> > >  - use EBADMSG to map SCMI_PARTIAL_ERROR
-> > That's a stretch given definition but I looked back at: 
-> > 
-> > https://lore.kernel.org/all/arK7kLlrg491EsMf@pluto/
-> > and appreciate the problem of running out of error codes..
-> > 
+> Rename __i2c_transfer() to __i2c_transfer_v2() and i2c_transfer() to
+> i2c_transfer_v2().
 > 
-> Yes indeed it is not ideal BUT I crawled back and forth through errno.h
-> and I could not find anything better.
+> For backward compatibility, add __i2c_transfer() and i2c_transfer() that
+> call __i2c_transfer_v2() and i2c_transfer_v2() respectively with null
+> report pointer.
 > 
-> > Guess it is the best we can do,
-> > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > 
-> > If you do a v15, maybe capture some reasoning in the change
-> > log or the patch description itself.
-> 
-> Yes I will...soon there will be a v15.
+> Remove comment "REVISIT the fault reporting model here is weak".
 
-...btw...forgot to say that all the SCMI errors definitions and machinery
-above will be split next into a dedicated internal header in the next v15
-because needs to be accessible by protocols and common.h is huge..
+...
 
-Thanks,
-Cristian
+>  	if (static_branch_unlikely(&i2c_trace_msg_key)) {
+> -		int i;
+> -		for (i = 0; i < ret; i++)
+> +		int i, n;
+> +
+> +		if (report)
+> +			n = report->msgs_cplt;
+> +		else
+> +			n = ret;
+
+> +		for (i = 0; i < n; i++)
+>  			if (msgs[i].flags & I2C_M_RD)
+>  				trace_i2c_reply(adap, &msgs[i], msgs[i].len, i);
+
+Besides missing {}. the iterator is local to the loop, hence
+
+		for (int i = 0; i < n; i++) {
+			if (msgs[i].flags & I2C_M_RD)
+				trace_i2c_reply(adap, &msgs[i], msgs[i].len, i);
+		}
+
+> +		if (report && report->bytes_cplt > 0 && msgs[n].flags & I2C_M_RD)
+> +			trace_i2c_reply(adap, &msgs[n], report->bytes_cplt, n);
+>  		trace_i2c_result(adap, num, ret);
+>  	}
+
+...
+
+> +/**
+> + * __i2c_transfer - unlocked flavor of i2c_transfer
+> + * @adap: Handle to I2C bus
+> + * @msgs: One or more messages to execute before STOP is issued to
+> + *	terminate the operation; each message begins with a START.
+> + * @num: Number of messages to be executed.
+
+> + * Returns negative errno, else the number of messages executed.
+
+Return section must be last in the kernel-doc (it's documented) and actually be
+a such. Always validate with kernel-doc script.
+
+> + * Adapter lock must be held when calling this function. No debug logging
+> + * takes place.
+
+This is Context section in kernel-doc for.
+And more effectively is to add a lockdep annotation.
+
+> + */
+> +int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
+> +{
+> +	return __i2c_transfer_v2(adap, msgs, num, NULL);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
