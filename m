@@ -1,55 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880420;
-	b=gaTyhtKfZud+45vmmTHhoVgoV8agAf6sWJO3CycHDsDtIcSQr8jyDiHjt+f56wyVUsQm
-	 v68Wb34mGc4l0CzwXBZAB53Cv8SpIxy65kVusgSbBCK2a0zH6O0Il7prWHGeKh5ejGWaU
-	 Ur/C7hZOptyBGLjVPsVv43HIo2//bu2EFGTxAeH/LChusSeOa0iWK+pd6cb9Y+UegfdpB
-	 SU9Aag5dt+zt6bENxG0E/087VX7L8W9EwUJhfrBIQB3Cf/Xj8BjE9Hf3htmb24IVhLpyQ
-	 zHP7eZF+U6IhQ4XSdR+AeU/N8AzyTiieSF0vxE558wyfmkrpGWN7i45IXo5TonPi9TA==
+	t=1793880435;
+	b=2Gk3PXXmiIu9soIBg9bJbrIxrqrldKbbhSmqaXkO+8fR9kHE0zwAysN/tmccSkIp4kPA
+	 6wQy13wkf0iNibmOTRjW+PZltzUDA2kZEaedKT2aX10k9elpjsqSwdeX/QGcB9vWAMlhF
+	 pAC96wEyazrx8347Aiq8pdYlbJrIddaNktncmfnGGVbrVObgWRpyLmD9+durr4kSKMhpn
+	 UzFViUsdjaD7UhzszFue9leuqmYJvg+5plpsxadVIF401UobVVgi96u6WNwC6BjiOinT3
+	 dmPphYFB+vJb79aFWuj5YzYUpBovpoAiKQGGYUmeatvcxxpXVvo01YcC5KcrukDClgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880420;
-	h=DMARC-Filter:DKIM-Signature:From:Date:References:X-Mailer:Cc:Subject:
-	 Mime-Version:X-Lms-Return-Path:In-Reply-To:To:Message-Id:
-	 Content-Transfer-Encoding:X-Original-From:Content-Type;
-	bh=k7v8g50swJ0fV1u98xcgR1RwEaj2esaG3qBT6bQvvME=;
-	b=B62PcXQ/b0295k8VCDp2EUVu9PVhJYfOLoCUkFVIf7nSJGAbxBEAzzQS++QvdZLZZ+sL
-	 2RNsTKBJwy8Qt6sG+4qZ1pVMAP4G3W6fwe4YWwyPeFAIPpsgpK6RTadp1qA4iGMOCi+IU
-	 C1/I5MSDf1rKVFKXRN6U0tFY9HYNAysYzmUv+M4VWnMYGKGmejg6LXSWWYcH3VGqTDBty
-	 NWj0UlE8NRRk7ejFdcu91OYpET5c9fw1tMqvB2Ba0SgqSZyhrPwJF4a99nJlOynSBXM4Y
-	 3EF3t0wqYHXjU+JiNXzTk6lQjyJJ0JBQtHxmEvYW1yfiV/s7P3C5+CIUqZe3ese/skw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880435;
+	h=DMARC-Filter:DKIM-Signature:Subject:Message-Id:Mime-Version:
+	 In-Reply-To:Content-Transfer-Encoding:To:X-Mailer:Content-Type:
+	 X-Original-From:X-Lms-Return-Path:References:Cc:From:Date;
+	bh=8OcxAA2gqpojmN7yaA8Tg1JRGUaJg5iMD5QS2qC5vIs=;
+	b=BiFbjTncSCiTlPgGFI3xPk//XTcfyJUBqZg08Hrw5RQ9LpkvuOxgaMmS/4GdxRo0x59t
+	 kdV+bsKshnBeHyQDWQsgIBiUyUz9r+AcQXwt06ysb9EzPzRiKlWyfQ0flzPtYBj+p95Db
+	 N5GXrlk4TJo/ShHmfmWef3Ll4N/JmYzogtwNSYllMe7pXKqKluG2uIbR/4bSfvQf451v8
+	 dSVuYV2CGCLBNjHDjF6ENfOpGE5F/Pgzqnb8H85JBobZoBf05iHrrn7gKq9kFDcb5nZA1
+	 YAv/sKz905inizGCfhtGs++BEH3kc5Ib+QlcXbP4rbbJmXMaO4hhFvxNrmSUCKBVFDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=V9eUbce+;
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dQVhstQr;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71ABB606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:06:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71ABB606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EC4606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:07:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23EC4606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=V9eUbce+
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=dQVhstQr
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793880413; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1793880429; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=k7v8g50swJ0fV1u98xcgR1RwEaj2esaG3qBT6bQvvME=;
- b=V9eUbce+GWGPfi9KzFFqtw7/Rb4BLPXSRNxdHLC8SCpF42DTmLIyW3Zydiys8C7oQ+/XOw
- fUO0kDC4jB4vOSRCMphDamIvC2Eujq1rYZDVrzgCWv6hJ+Ar9zCJpzCZkmwCPVrq0t8RUw
- cHLIinZQSdEKUJW1RSZtRCkpKRbvTyBBCHEdLDqfM50gXPv5ebOaRrdwwKdVvp+NyL8QDI
- Ms4+PUDenNlE2h3LERu3WA5DQSU5GiSxO4ylGVvRtL7PpFgNLargTUuwXHXrjtFSy2VnQW
- rzmLzO6bX3H3P3fgwutyS9hN5XgPT+r0zxWwTsDNGpK3PHRqeIDVMJ7bEl4BmQ==
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Date: Thu,  5 Nov 2026 20:06:14 +0800
-References: <20261105120615.16817-1-lizhe.67@bytedance.com>
-X-Mailer: git-send-email 2.45.2
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
-	"Li Zhe" <lizhe.67@bytedance.com>
-Subject: [PATCH 1/2] mm/mm_init: factor out memmap_init_page_from_template()
+ bh=8OcxAA2gqpojmN7yaA8Tg1JRGUaJg5iMD5QS2qC5vIs=;
+ b=dQVhstQrH6+R7Hmp0eL3aP3DaXtQuISR9AODPOh0t7ay6bG+q5ypos2RnWkZ++a2ufyx7T
+ L/+MLidCEGE2nwGPlxy9SR1F9DkeDLpxRKugDKJ9Q/1WSO3f/8bT5xdqWAty3lGogao+jU
+ rhcXhWJsnAeSHBG408noSVXdrhm1Hfmti/Sb9I3djGShNUWkIAJTskg7LijmzZfR+J5xLa
+ 0IPYY72NOCstBWbooJUZEm/JbMHa1cBGztmG7gZoxYCb3FKU7QFFgErnEjunQ0u/o4C7gt
+ wfFxYifZEnWE/Rvr9EsXBoQuKVaLDmNIZ7JC6Vwrwy2SPk7965QwDKiAjcGNtw==
+Subject: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap init
+Message-Id: <20261105120615.16817-3-lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,105 +54,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aec715b+8a276a+vger.kernel.org+lizhe.67@bytedance.com>
 In-Reply-To: <20261105120615.16817-1-lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
 To: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>, 
 	<akpm@linux-foundation.org>, <rppt@kernel.org>, <apopple@nvidia.com>, 
 	<balbirs@nvidia.com>
-Message-Id: <20261105120615.16817-2-lizhe.67@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
 Content-Type: text/plain; charset=UTF-8
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26aec716b+5a7cd9+vger.kernel.org+lizhe.67@bytedance.com>
+References: <20261105120615.16817-1-lizhe.67@bytedance.com>
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Zhe" <lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Date: Thu,  5 Nov 2026 20:06:15 +0800
 
-ZONE_DEVICE memmap initialization already uses a reusable struct page
-template when initializing compound tail pages.  The template mostly
-contains invariant state, but a few fields still depend on the target
-PFN and must be refreshed before copying the template into each
-destination struct page.
+Boot-time HugeTLB allocation has to initialize tail struct pages itself
+when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
+gigantic pages, this can cover a large number of tail pages.  Most state
+installed by __init_single_page() and prep_compound_tail() is identical
+for every tail page in the same huge page; only PFN-dependent fields
+need refreshing.
 
-Factor that operation into memmap_init_page_from_template() so other
-boot-time memmap initialization paths can reuse the same helper.
+Initialize the first tail page normally, copy it into a local template,
+then initialize the remaining tails from that template with
+memmap_init_page_from_template().  This avoids repeatedly doing the full
+__init_single_page() and prep_compound_tail() sequence for state that is
+identical across tail pages in the same huge page.
 
-No functional change intended.
+On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
+(HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
+initialization time improved by 36.43%, measured with a temporary
+jiffies-based printk modeled after the existing timing in
+memmap_init_zone_device():
+
+  base:             318.4 ms
+  with this patch:  202.4 ms
 
 Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
 ---
- mm/mm_init.c | 29 +++++++++++++++--------------
- mm/mm_init.h |  2 ++
- 2 files changed, 17 insertions(+), 14 deletions(-)
+ mm/hugetlb.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 2a0e782a151d..495e20fbdec0 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -625,6 +625,17 @@ void __meminit __init_single_page(struct page *page, unsigned long pfn,
- 	vmemmap_optimization_verify_zone(page);
- }
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index da5d04edf7c1..987f16a5ea27 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -3219,19 +3219,32 @@ static void __init hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+ 	enum zone_type zone = folio_zonenum(folio);
+ 	int nid = folio_nid(folio);
+ 	struct page *page = folio_page(folio, start_page_number);
++	struct page template;
+ 	unsigned long head_pfn = folio_pfn(folio);
+ 	unsigned long pfn, end_pfn = head_pfn + end_page_number;
+ 	unsigned int order = huge_page_order(h);
  
-+void __meminit memmap_init_page_from_template(struct page *page,
-+		unsigned long pfn, unsigned long zone, struct page *template)
-+{
-+	set_page_section_from_pfn(template, pfn);
-+#ifdef WANT_PAGE_VIRTUAL
-+	if (!is_highmem_idx(zone))
-+		set_page_address(template, __va(pfn << PAGE_SHIFT));
-+#endif
-+	memcpy_nontemporal(page, template, sizeof(*page));
-+}
++	if (start_page_number >= end_page_number)
++		return;
 +
- #ifdef CONFIG_NUMA
- /*
-  * During memory init memblocks map pfns to nids. The search is expensive and
-@@ -1073,17 +1084,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
- 	}
- }
- 
--static void zone_device_page_init_from_template(struct page *page,
--		unsigned long pfn, struct page *template)
--{
--	set_page_section_from_pfn(template, pfn);
--#ifdef WANT_PAGE_VIRTUAL
--	if (!is_highmem_idx(ZONE_DEVICE))
--		set_page_address(template, __va(pfn << PAGE_SHIFT));
--#endif
--	memcpy_nontemporal(page, template, sizeof(*page));
--}
--
- /*
-  * With compound page geometry and when struct pages are stored in ram most
-  * tail pages are reused. Consequently, the amount of unique struct pages to
-@@ -1136,8 +1136,8 @@ static void __ref memmap_init_compound(struct page *head,
- 
- 	/* Initialize the remaining tail pages from template. */
- 	for (pfn = head_pfn + 2; pfn < end_pfn; pfn++)
--		zone_device_page_init_from_template(pfn_to_page(pfn), pfn,
--						    &template);
-+		memmap_init_page_from_template(pfn_to_page(pfn), pfn,
-+					       ZONE_DEVICE, &template);
- 	prep_compound_head(head, order);
- }
- 
-@@ -1192,7 +1192,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 	for (; pfn < end_pfn; pfn += pfns_per_compound) {
- 		page = pfn_to_page(pfn);
- 
--		zone_device_page_init_from_template(page, pfn, &template);
-+		memmap_init_page_from_template(page, pfn, ZONE_DEVICE,
+ 	/*
+ 	 * As we marked all tail pages with memblock_reserved_mark_noinit(),
+ 	 * we must initialize them ourselves here.
+ 	 */
+-	for (pfn = head_pfn + start_page_number; pfn < end_pfn; page++, pfn++) {
+-		__init_single_page(page, pfn, zone, nid);
+-		prep_compound_tail(page, &folio->page, order);
+-		set_page_count(page, 0);
+-	}
++	pfn = head_pfn + start_page_number;
++
++	/*
++	 * Seed a template from the first real tail page and refresh only
++	 * PFN-dependent fields before copying it.
++	 */
++	__init_single_page(page, pfn, zone, nid);
++	prep_compound_tail(page, &folio->page, order);
++	set_page_count(page, 0);
++	memcpy(&template, page, sizeof(template));
++
++	for (pfn++; pfn < end_pfn; pfn++)
++		memmap_init_page_from_template(pfn_to_page(pfn), pfn, zone,
 +					       &template);
+ }
  
- 		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
- 			cond_resched();
-diff --git a/mm/mm_init.h b/mm/mm_init.h
-index 0034e37dbabd..22c465122b47 100644
---- a/mm/mm_init.h
-+++ b/mm/mm_init.h
-@@ -111,5 +111,7 @@ void memblock_free_all(void);
- 
- void __meminit __init_single_page(struct page *page, unsigned long pfn,
- 				unsigned long zone, int nid);
-+void __meminit memmap_init_page_from_template(struct page *page,
-+		unsigned long pfn, unsigned long zone, struct page *template);
- 
- #endif /* __MM_MM_INIT_H */
+ static void __init hugetlb_folio_init_vmemmap(struct folio *folio,
 -- 
 2.20.1
