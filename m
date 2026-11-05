@@ -1,67 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793842400;
-	b=sFjbEQ3AV6nWwEPx6svsPD3RRI+jDuOH9Hqdorm/lblX2cgcvpXQwgKKH7IyhCFlACHc
-	 MVz6reL/x6o9xTi9/vwC9w8RBbnmC4a0Zh2js/0V1SMe9e3ny+49Cg38gncVlfQk0bY8t
-	 UaIE3TKWAfSMOran1KCXdUj4CL09vXvsn50qP9UUJAtU+ZpAB4B2zlyVlhK16pxY2QWPq
-	 cUPeIdp+wPbfFEvgJvvh5EqyELv/HzTOG4FySUgzhDXj3k58b56r+zd/Fx7yAgj/A1Cr3
-	 0jAI/cwdsv0l34j7AI7vO6ICxd+vR+zzyok3KNOZMMd5R+gExkubarc//1pKMeut1lQ==
+	t=1793842515;
+	b=ugNxwLQS7DXVsnlGBoxMJ+hBmWRdl0maFO55qdxYcYzu1RpArrNzLmQpyhAuMA/Wo2pt
+	 rd7Iwo57M4LYHjny12pgpGzVKCsqS9BJodiv8uXGp0Vo7mJfTc9EUFyghUosj9CO+PLH3
+	 mGag9frmV32zB8vZy0M21TD/qIjIHcQ2Hm5jYZBQ3zuUGiZi87Pj79EbY8cV0WgcyKJ7x
+	 pZ2hLmqiueIh5rsItE5zImp0Rze5qZwhTYQuLFxYisdbZ7Nq/uAoHoX9VPepG7YwoDHPQ
+	 1yZTN043WQKO0NZAnuC4iE0JRgXjVe7WRfvkYEzzK+DCe0G7BCZs2biSJwAjpE/PEAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793842400;
-	h=DMARC-Filter:DKIM-Signature:In-Reply-To:X-Lms-Return-Path:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:Cc:Subject:
-	 References:Date:To:From:Mime-Version;
-	bh=/d8AjzMR8Kwx0Lf9prj+CTkH5Cp2jbRHWYUWf3O5Nro=;
-	b=PxrdLhLdbQtFpgJycukFYGgQFxgR2Xd5OxYkPN2CEr8+vCM7iv3xYFmzH4WiESNZR/Fv
-	 3F6HzQDvxr2h0ZliEx0E3Lzg0y+SJrMl2Fu0yC0DyIfpgjRAHuegOiEi5jjcXykvE1y7L
-	 +GUNHHT72YKht7nDkx+enj9TW0ZL9kSJA3UdQD4zl5bZ1ryKyaVHW8ioqZtn20Xm4M7+y
-	 laN7/C8b4/aN3WrTQZpeRFT04V7i8nvNOR/0EFOMuYaNLjcEcj4W77eCrgVuyTn47Jel8
-	 glkYe47Kn2DKxbyVZbso+rfMGHGElTNjA++rbotuPkyHbW+m9uENVI4hgND11jKhmaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793842515;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7j7eXtopd4fTD7IchJ7gP/TCQqzhKRsM6gf3nsjMSD8=;
+	b=ST8TRkSsJckftA69z+50pPL70ffgkvEsZwF9l/2e4YZn0savqA1dV6i93l6tS+Qb/mFe
+	 Fc3DCndCGJN6w9UO3Is7OWKQ706l/JCgUwCotYldsCEtXk7Sa0lVYzYlQtBFdXM9ZFhZF
+	 Kb/v+hGBZ+AB1Cfnb2LB5hdrgULWCxQWXzoh7rSMO8mKDDZmZKWcXYzEFHYNCe7CdtTXb
+	 efQcF2GidwMKCvXmjR+Yv0OwjmR/q9j5/HJ2K0GeD2wfE45QKoC5N6wG+Ow8f3TX7VxRD
+	 CfbT4ZpgudPHrkEXtWaXO+sxss+Hrv/i4jYLFB0MTZO7MObqtsJgKWpE7aXLGt4XRrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b="NW6/6Jnh";
-	arc=none smtp.remote-ip=209.127.231.29
-Received: from va-2-29.ptr.blmpb.com (va-2-29.ptr.blmpb.com [209.127.231.29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=niuOK5sV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E40E606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:33:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E40E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D12606A328;
+	Thu,  5 Nov 2026 01:35:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=NW6/6Jnh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1793842388;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=/d8AjzMR8Kwx0Lf9prj+CTkH5Cp2jbRHWYUWf3O5Nro=;
- b=NW6/6JnhJJ7Wt9dub9t9fuM1m8qckHGHDpKh3GXjqjz0Vr+TdtP1ra00SWhU3x8wRj7PW2
- 9pXuWHG/Kr194TjEzZ9CmRZavFFjUK1PV+c6B2bBc2o0gxW7wpuVqEH8gy3cGgRrljADYB
- oov5K/UdoXQpTHYN6NJHGuZYWPA2OjY1tOVf5QLVhkJer8CWfu57Znyof5woiFWcHkEuks
- pl+xOIIIPyjEVQnRcTTIEmICcoAx7A8EUyp6SOwibG0XwGE2V7YkZnj469DhudYX/eqMo7
- g3fKh6lmbN5DC9khyprdt9uJyxHWhW8zV9M18bCuXqRZziUtObI9nJrQYhhzug==
-In-Reply-To: <DMMVRQOY5TBN.J0PHJAAZSC2F@linux.spacemit.com>
-X-Lms-Return-Path: <lba+16aebdcd2+5d3c37+vger.kernel.org+sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.569e40bc.e0a4.4c5f.856e.9977de981adb@feishu.cn>
-Cc: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
-References: <20261102060012.100623-1-sandie.cao@deepcomputing.io> <20261102060155.100679-1-sandie.cao@deepcomputing.io>
-	<DMMVRQOY5TBN.J0PHJAAZSC2F@linux.spacemit.com>
-Date: Thu, 05 Nov 2026 09:33:05 +0800
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=niuOK5sV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3F01F000C1;
+	Thu,  5 Nov 2026 01:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793842514;
+	bh=7j7eXtopd4fTD7IchJ7gP/TCQqzhKRsM6gf3nsjMSD8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=niuOK5sV+9k1gCANUWNzpVd33MI5Gc7tJimE9ETdvSZ7oFtZJJgNrMlABed+Vdipb
+	 7mEMq37CYPy3cJrkuwI3e2skxUEFfLbWCcI9H5FWwTbd0uJ24mVlRPJtnx7xTpzJv4
+	 Osp0hGyv6Kk2NT3n+2+u98GqJ8CO2TxMCDhrdBElXVrizE0ZQ6idysI8mdSpdMl+XR
+	 m38uVv2DFogmF+WKJHHXmt9WB4xyY/tvFLQCNiw3YnCFWGemnbHp4qYhrXcRNEOtCz
+	 ylM5RhJUndQIfC4l9inmGoPt2zrMN3hFClABVFQkSzAVAxCYkypNcgtlDdNblXsOvk
+	 l0IemSRZlTT1w==
+Date: Thu, 5 Nov 2026 01:35:10 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
+Message-ID: <20261105-cilantro-neglector-a4cdaf9bfb2d@spud>
+References: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
+ <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev>
+ <20261104-geiger-handler-f6688647819c@spud>
+ <CAPY4CJ5pBrypa1PKaKRPxb9uvaJBor+FzUXY0+gxLHOUy7W-Ow@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,55 +62,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EkAQC/Rj2HIGh6Qb"
+Content-Disposition: inline
+In-Reply-To: <CAPY4CJ5pBrypa1PKaKRPxb9uvaJBor+FzUXY0+gxLHOUy7W-Ow@mail.gmail.com>
 
-Hi, Troy:
+--EkAQC/Rj2HIGh6Qb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
-> Date:=C2=A0 Thu, Nov 5, 2026, 09:20
-> On Mon Nov 2, 2026 at 6:01 AM GMT, Sandie Cao wrote:
-> > Add the device tree node SDHCI-0 controller for onboard Micro SD card s=
-lot.
-> >
-> > Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
-> > ---
-> > =C2=A0.../spacemit/k3-deepcomputing-fml13v05.dts =C2=A0 =C2=A0| 22 ++++=
-+++++++++++++++
-> > =C2=A01 file changed, 22 insertions(+)
-> >
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts=
- b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > index 84f66dd8f962..4471338a9774 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > @@ -184,6 +184,28 @@ &combophy {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
-> > =C2=A0};
-> > =C2=A0
-> > +/*
-> > + * Onboard SD card slot:
-> > + * Plugin/Plugout the SD card before power-on the board for secure.
-> How about: "Please insert or remove the SD card while the device is power=
-ed off."
+On Wed, Nov 04, 2026 at 07:54:25PM -0500, Joseph Telaak wrote:
+> > Can you just use pinctrl_generic_pins_function_dt_node_to_map here and
+> > dynamically create the groups at runtime (and also make use of the
+> > generic get_groups_* implementations)?
+>=20
+> Yes, I'll switch to them in v2. One consequence first: the helper reads
+> "pins" as pin numbers, so the binding's pins would change from names
+> like "UART_TX" to numbers, as in microchip,mpfs-pinctrl-mssio. The
+> function names stay as they are. Is that change fine with you?
 
-Ok. I will fix in next version.
+huh, I totally forgot about that. I guess you don't have to do this if
+you don't want to so. I think all the generic stuff expects pins to be
+numeric.
 
-Best Regards
-Sandie
+--EkAQC/Rj2HIGh6Qb
+Content-Type: application/pgp-signature; name=signature.asc
 
-> > + * It works as a boot media. so set it to non-removable.
-> > + */
-> > +&sdhci0 {
-> [...]
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0non-removable;
-> [...]
-> > +};
-> > +
-> > =C2=A0&uart0 {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-names =3D "default";
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D <&uart0_0_cfg>;
->=C2=A0
->=C2=A0
-> --=C2=A0
-> Troy Mitchell
->=C2=A0
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvdTgAKCRB4tDGHoIJi
+0pE6AP4jmJngtSTCIU0/3v6BYr1kgsvbbHNxhv7BSqH/43Dv0wD/bh3KH4G5a7q5
+zaY97qJaSGTDUx7CRWthBVk0w0O4Pw8=
+=LcHE
+-----END PGP SIGNATURE-----
+
+--EkAQC/Rj2HIGh6Qb--
