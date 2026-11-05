@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915806;
-	b=FinF/YzaH6YKRKtlzXMp2uaFt8YqtwEM+zZtAQRLcYd4l6yc07Ed/y0NE7TQfoO5m6Ht
-	 i2lul99FrIYzoIjeezvNUtv5MgldiWn7bIPwLN/I6AsoB4Wk5QkrfkXuPQP1GPf/ZUdcB
-	 cuB/PNqrfAQe1N0Jd6sH7GDFDku876c0xn9y9Wfk7JaadDXa8Dlg3Dtv+DF4NobDdt8aW
-	 Xixa41FWFNXfsk9EyCZKJ0qj/Z0WELL5F7Ai3DXMQ4f3bOa880t1RXfsdST4s/oLsy8Y8
-	 6BsYlmH3w3lMXlY02TxKZc2Ok/RzwCqu8PAcPvovb07gOQK2j8SDJCYcRicUFOLqwvw==
+	t=1793915809;
+	b=m8GUzmgtFspwH6ZPO+JSRYPZkXk8R8f81Y5a8Ykjk7nbGaEAn6mSVeYvuxdAGh/MacdI
+	 hZvul6bZpPesFKElE+s00Xnc1ykldfP/0EPwd8f39W1gCzUC5SEitPGFGlC7j0BG/qOC8
+	 d1KxQwpUUrlN2yF2xsgJYaBliVvdXxzoU6tBWZYaWWVGoCsYN8BbsptvKu4/4fRcAkkut
+	 iza7SF6EC9aAaONv3DyGqwCKJDmyRwu05RXira0uepDj+Td6dRzayon7FLvsAjrwhEP9W
+	 QKWR/ZB0PSttodBRcJyq/5DjuEti9HhxvkpYQMQvOnC3C4YpjcAcNZy84hEnmKKYD7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915806;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=PCg+rr2vd7JHnauc9eR8fQNH2TzRs1epF2+HugzfQAg=;
-	b=0VBAIqU6fnKcmB2us1I2GksO7satGwP7DO2gewRc6d19LYU4dt9b0SKPuoq1sP23MIG4
-	 0i1G5GMKzBtWaTgnlvflh898vdIyVXjiF7SI844sC9hmemUPydi+m5R4goxFcYWvJiPn2
-	 jLa0//nUlz1BsHd/v7Ti+0eCs7gxRozgOc/onA2UnyeXMDsYsCto/9g1MrXvMlwrcvof/
-	 bJAiywoqRDHKPBTOqtiMlbCI0Lrx06M+jBa9i8H9abv/4/cxlDrzu1x25+XgEycPsq5eq
-	 N7yU25fKF0OsjHBKsDpLO/euCECLTPcVqSFjerIQuRuiQAbNerDkPjZm0lfWygyjZKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915809;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CPyUJuu2yeOSTelLItaNsxminWyw+/YBw1HOW8wGPck=;
+	b=wN5+CqLXYkgFexEULdY72RidR7UkXPtuXTTU+abPKVC3pQqmS9dBv2XBmxLZ1Pc42V84
+	 JsZX3qiJeybVZ5uc9cmghk+maL/wDSpx4R0P89CqzIIdub64uv5xHAjdAdhnJKNYeHQDz
+	 6BaIWqwlZ9PsqFhodq9tvVi4iksWAoVVaY9DH2LPbarAGN2iQBUhOmNLehF3dvlrUlmQW
+	 60u/mBZw3jBJLKGD6RYYEfMs5Inj76a20JUXpBK2BjCUPhXzUQzEVpW8lq6QrAF5jEzlO
+	 rL+lg4Ux8Gy500xopSKWfz66+ctK6kbow/ctFzCVyxyxE3xqxWTJxVKgtjpP7W3M38w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="czLYYJe/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8zcnrW6;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A987606A336;
-	Thu,  5 Nov 2026 21:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48221606D80D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48221606D80D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czLYYJe/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97B001F008A4;
-	Thu,  5 Nov 2026 21:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793915805;
-	bh=PCg+rr2vd7JHnauc9eR8fQNH2TzRs1epF2+HugzfQAg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=czLYYJe/SlNOt4H2OO/6GlMshrCJIJSwtKLbaFrATGMvH++1A4wYbHUTdKhkowCFv
-	 IO1X+3TyJfx1ptrVJ10xfUVem9LK/3jkgJjmyiOfn9R+Ko6yJ7D4NqtC6KGU4mixNF
-	 HBD6o+88W0ydxblJSdBXRM8JZvD36cidKG4z4AHo7BrkeyZbAGLEenWS92dqxV+aVO
-	 l0hb5KfHXvoXG7D1FoMo/No4nM6/lTOrskKsqouBkUljtq0u4rC2Mvi9m4ammJbrm5
-	 Zg53CZ2hfTRs90e9I9uEhgCGJNhzUL3UosKSlDJ7iDhvcTBEf33tsQM1xOZUeIXswD
-	 Pkeo2vVajNq4w==
-From: Christian Brauner <brauner@kernel.org>
-To: Seth Forshee <sforshee@kernel.org>, Sasha Levin <sashal@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, linux-fsdevel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103163924.641377-1-sashal@kernel.org>
-References: <20261103163924.641377-1-sashal@kernel.org>
-Subject: Re: [PATCH] selftests/mount_setattr: build with a 64-bit off_t
-Message-Id: <20261105-beurteilen-derzeit-auszog-9c0e0ea59233@brauner>
-Date: Thu, 05 Nov 2026 22:56:42 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8zcnrW6
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso78850eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:56:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793915808; x=1794520608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CPyUJuu2yeOSTelLItaNsxminWyw+/YBw1HOW8wGPck=;
+        b=P8zcnrW6mWnaxoyc6Z4odI5ZW3ufC1DKRm0R3fv2ovHISY6QKwLK7MTWWElGe14nsy
+         +VZiDBWbTvnjoQZ0yJ2n8NfO59f97nM4m0CZhNQiYuDOLrJd95NFQPgRmAq+JFKgFrIX
+         R7iqRL2PiDuZ2qmKBNfo+2YC6qHRPDZMLP8QBn1g9ENbwqS/j6/DLlz2SFiyJEPFF7kj
+         N1/Q5EciLtgaP9RvPIyIr+ZLc4CR5VaMBavsGqglPGln6+u9qyLE7ohzSf9bXtWdzHM0
+         iUP2oI/ycLvmhj7Scz2AsfDGsUKlWMqy4LQnhNFBlAhPXNXbz3MxkgdisG9HVYQ5EtdM
+         odIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793915808; x=1794520608;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CPyUJuu2yeOSTelLItaNsxminWyw+/YBw1HOW8wGPck=;
+        b=0B+F5OQDuYXRLSA9SN8UQp0FpUyaYa6FjOTbXs86htg8J+CTNWdvOq7VT9rS+eWN4c
+         66VJ/Wvl8cyo84ijgt35+iQEtDtcTV7rZ8C1CHJEHR7AMSsEX+IgNULmPhhrJAOcxOgT
+         mLz+RMCdxP4b4tNxBPgvam6/h+EE6GHf++gAoM0Ezy8yXWF9TpKIgnX8oYUdAfBlf5gK
+         oIsMKnvMYHDd7b2HhBXsCtbLUJYT3+e7D6eGa7sHFlbK1ZKYBbLed6D5sJ0hgToe0Q7V
+         msKHUZK1D9/+Vl3weuvDhoJyFQ+3Izp+NJejpdDplza99ITCSlLZw2qs09yr5pfZ0dkp
+         FhFA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9TIn4/4vVPSgGlSLxI7AuOFk1JSUXM7upq5wj/jPwjyrmLtYIc0x7drpqtY70Hq1CXDri11qlgJQxYYE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lipivBAPhzPF6J1MPFAoj8yzzrhoNCKyNVPBKlwkv+Q02INnB
+	cu4DwZkhStqwnf9ZSTT6jbdGu3MwwT/M9nryqlhQYRvYEFLE2pP61L3S
+X-Gm-Gg: AYBFou3XkEekF/lrSZnNAeyUp3YwW9U0cKGGOaGmeh7GBFP9c2ZUaPw2xKQlZpwN+wM
+	QX7SUr9qpLu5d42N3iDIIUploE8dqDNNZlG8dvIksK8hDyciT/EUJwI39R7ysgAmVvDOkJXwKoc
+	vSj1UbqheQhxk+fSk/NKp9bF+0SsaU0mbYrjj/CtfPjuguUAIUDyH000JArNlHOOYTM3k2jpmDc
+	hpBdZxNSfqEvsFsXZK04nTf/qkpXfLuAgRbrA8+Tg27SjTIiUkaN7O24odlCEZ9jSbgcoVXj2hK
+	bZYUs1AO5pgIRFPdtOEezP5GFIdt8WnOzHIE4c75Zc922yh32kt9e0+xGLnkToupq46DSWJU4TI
+	hVy8cqqNoJBChOhkI00wNKsK0eTb7wi6WH11pq/X8+Za9xSf1nnREowKJR6Du/lrahwsFOfUaoq
+	W8esKnuMeZAhuKEfgJ6d1KSXtVG7d6m/ZSjsFWEPCnZ7Q8ieK7zQDWh+QCW3znyTicgVuZyrb7G
+	E7WRiVj2buyovQd/N6sSqgB/CVZnZOg6rO/3eEucnqXE2h+rj/X/eklr2oX+FLWWsRzvlBFGiwt
+	wHF/LO8sm2BqmhBYvS2rRM6I/rt7RDnsyLSgsp2DF6rvh3jJZ/JkRJD/fHgQzn1kRtaPe3gMghN
+	p
+X-Received: by 2002:a05:693c:40c3:b0:36d:a465:b38e with SMTP id 5a478bee46e88-36f72cc18cfmr774374eec.5.1793915808199;
+        Thu, 05 Nov 2026 13:56:48 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f736a1da4sm1053048eec.7.2026.11.05.13.56.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 13:56:47 -0800 (PST)
+Message-ID: <99b56b59-a1f9-49cb-96b8-6bc844a878f3@gmail.com>
+Date: Thu, 5 Nov 2026 13:56:45 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,36 +93,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261104211038.406938024@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-ce4c1
 
-On Tue, 03 Nov 2026 11:39:23 -0500, Sasha Levin wrote:
-> With glibc on 32-bit architectures, off_t is 32 bits unless
-> _FILE_OFFSET_BITS=64 is defined, so the 2 GB ftruncate() of the ext4
-> image gets a negative length and the test fails:
+On 11/4/26 13:03, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
->   mount_setattr_test.c:1048:30: warning: implicit conversion from 'long long' to '__off_t' (aka 'long') changes value from 2147483648 to -2147483648 [-Wconstant-conversion]
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
 > 
-> Build the test with -D_FILE_OFFSET_BITS=64.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
 > 
-> [...]
+> thanks,
+> 
+> greg k-h
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] selftests/mount_setattr: build with a 64-bit off_t
-      https://git.kernel.org/vfs/vfs/c/8fa19db00bf3
-
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
