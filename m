@@ -1,53 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870583;
-	b=Er3CqRH1J59PrWbjcbtMsdvKmoREqrAKInNiculuOZDyAS/tH9wEkUK68J6nCUpX4tkr
-	 hjdnYZEdkFaDIizhSXRex9GFGCOxN0l/hEkga5IYdQRZMRL4gqYpO/+466L4Cc7m7Yj2v
-	 b/viQdIUmXBy1NMuIgwfIzp8/anwXYpLqGFMD6ItKAhBEVBPdkVpqd10cuV5cpseaEO+8
-	 XVWq+LJrCEwat7J6pSJO61KdlGj7SCFs+EtNVQVefGS5rYEd2GYlSEUvBBjspZukEkG+A
-	 forqmEsMF40ZFq8/TVJIHVKDD0hHFzRQAxlqB/kxhaDvMJPX9BT9xvM7QZ3eqpe4iQw==
+	t=1793870578;
+	b=hfBAtwXwXltMmTODO3Au9jYlSTpCzfPrq/Y24KOnZdBacS9lmkEeJtEStWjUBXLxBAGH
+	 TgUfukmji5fOVhjyGWGYUxVaQuD7iRNQ6V56N2FzS4a4AaL+8IvaGH5ojBYGMx+WlclN1
+	 jm3T+qTPFNKykYHDBHKZezeapRx6UuM6MqN/y3ZjgwD5oZPIo3v2ScFmOiKaHBZtVAzs5
+	 HegLGBE1buzvAVTH7q8ZSi0W6ZzNdqWLeH6MVutvfMllei7n321RFzagcDkUYiUnoKACr
+	 zgKEEesCTAnwni9EW7SziWS2PIg130k122e4eluJDcLhkYaHqNZBRPkL9CP52pZXzLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870583;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=e6iQLmGUPP/5Q9jpHSc+xQTgG6RXLcsQ0m5VazqI7JQ=;
-	b=q8E2eumZN4SPTs6/ib+eVbSXXUu2PF9xIMUvj6230qat2vmW0rcB+kj8p+0Ijrka1trV
-	 jYFe2gOBSoX34q0taSsjbAdNcG2M7YPluuFE0G73ZEDfufllJgzDvaaWft2m0b/4/+5Ue
-	 dXn23dI/0jLcR2RZ4oX/uz4mxd8Nzh1gerCeA2lNYH9rVQYPOqptunmXA28oTB8U+uX3T
-	 XwX+7sf/vKxbcoMwlRA4Et/b7QW2hoWb0b24QXPRmcILprxHyatGbOfuITqy7hJWW6v8B
-	 8lHui5zwHjM1nxdJSud6dwNHjP3BgY6PiHtJUZSOd5QC7kd6Au8VndqRGalmFYn0eyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870578;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3ADmQIxAo8HDM9v3jLMAtpR5tdAcgtAcz2GrlhHdH0M=;
+	b=EgvkeljpdyPqftFrV0EJs+Q9gs8P9KmjRETc74hY+JhJ2dQ3OKteOYucSFj2WsvxWlc+
+	 DfLvTFXl67/jzH8cnLwHY1u5zgBUtFXHoIi9YFMVn/zFlGSFC8QGpoETsjUdWbTBhwRTv
+	 IjB9Vd57fIXeJrQIbCTkABrdCi2pzWWiYuTmw3w9ezEriSzDfoXMWai9NEtZxyMv3CtcA
+	 kpGJp1jF2s3cF/2YNbm1sOGG0E/cSksbs3BBxIVjHiFJ5Q2sUpKt4tqUVBi+m+1wyjpl/
+	 sGjSzN8vGqy+kxgCejXuj9UCoQmqiOSo/U7V4kg2E0Nls0d/C2PAIgPuy7cxk6m9zsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ1s94Hu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1E714606A32F;
-	Thu,  5 Nov 2026 09:23:02 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WjVvJR2t;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7EB8606D813;
+	Thu,  5 Nov 2026 09:22:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7EB8606D813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ1s94Hu
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B6E361F00A02;
-	Thu,  5 Nov 2026 09:23:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870582;
-	bh=e6iQLmGUPP/5Q9jpHSc+xQTgG6RXLcsQ0m5VazqI7JQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BJ1s94HuPxIxZZ4x0whnQvPrM9sRjHGeRF5it6PhMUOz6ed+mimneaLKyt+FTIE2m
-	 PMouGjDVeJa63LmzNPk3iSxmA401KRpPVohxgKnddgv7URtp5XafI/gtiaNLISV05C
-	 EtkverieSR0Ly1uGSMHADKUQXxBR2Z0tv7guAmmgpovXQBMpdkexJClLFoLHj1Xg4S
-	 rzRDkvQGF64iivJNcuVRL9MDnVJtJ/Zooj3/Pq10+n6slCxWzcu/p6syiHVtM6dnLW
-	 mkAiTHjuB1yI1ycXkYib13pDqoU2xizEZRUugkIzlzWWTh83QnHF83r3p9WaXgPfMC
-	 VsLoloY+TI0BQ==
-Date: Thu, 5 Nov 2026 10:22:58 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, vkoul@kernel.org, Frank.Li@kernel.org, 
-	bartosz.golaszewski@oss.qualcomm.com, pramod.gurav@linaro.org, andy.gross@linaro.org
-Subject: Re: [PATCH 0/2] dmaengine: qcom: bam_dma: Fixes for unbind
-Message-ID: <zg3bcwwn6nfr6423tfpgshevfxnf2p62lirmdb3v4cozwopul2@leudxnhl56ki>
-References: <20261020180804.140766-1-smostafa@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WjVvJR2t
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C866E19F6;
+	Thu,  5 Nov 2026 01:22:52 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7D05D3F628;
+	Thu,  5 Nov 2026 01:22:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793870575; bh=3ADmQIxAo8HDM9v3jLMAtpR5tdAcgtAcz2GrlhHdH0M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WjVvJR2tAoFJSufvpND4tfqyE+S7lXAB15rdV43IYRwoa05K89GDHf2rs4DM15kCe
+	 eK6nxhLWcUYRKamtKzGFDQHr8ywB/C86Ioujk6V61bYHa93TFkNhVnnrL6U+V9o6h9
+	 00JeJ1XMwFX1sgh7mCiAKJNbQSmjj95+kxrw+MR0=
+Date: Thu, 5 Nov 2026 09:22:53 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>, Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-doc@vger.kernel.org, John Garry <john.garry@linux.dev>
+Subject: Re: [PATCH v3 15/18] perf auxtrace: cs-etm: Capture wrapped snapshots
+Message-ID: <20261105092253.GO9176@e132581.arm.com>
+References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
+ <20261102-james-cs-unformatted-per-thread-fix-v3-15-dbcb0c281b9b@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,31 +78,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020180804.140766-1-smostafa@google.com>
+In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-15-dbcb0c281b9b@linaro.org>
 
-On Tue, Oct 20, 2026 at 06:08:01PM +0000, Mostafa Saleh wrote:
-> On Lenovo Mini-x Gen 10 (X1P42100 based) I am using VFIO-platform
-> to assing the QCE/BAM to VMs.
-> 
-> During unbind:
-> echo 1dc4000.dma-controller > /sys/bus/platform/drivers/bam-dma-engine/unbind
-> echo 1dfa000.crypto > /sys/bus/platform/drivers/qcrypto/unbind
-> 
-> I see a system reset quite often, looking more into this,
-> that seems to be related to runtime PM, with those fixes I don't
-> see that anymore.
-> 
-> This patches apply on linux-next.
-> 
-> Mostafa Saleh (2):
->   dmaengine: qcom: bam_dma: Take a PM ref at remove()
->   dmaengine: qcom: bam_dma: Do not touch remote BAM in remove()
-> 
->  drivers/dma/qcom/bam_dma.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
-> 
-> -- 
-> 2.56.0.212.g129ede20d9-goog
->
+On Mon, Nov 02, 2026 at 12:15:29PM +0000, James Clark wrote:
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Add auxtrace_record__monotonic_find_snapshot() and use it for Coresight.
+> A monotonic head can't be auto-detected in the default find_snapshot()
+> by checking if head > buffer size, because before the first wrap a
+> monotonic head looks the same as a wrapped one. The search would then
+> falsely detect a wrap when head is near the end of the buffer, and the
+> wrapped pointer fixup moves 'old' and 'head' a whole buffer ahead of the
+> driver's head. With a wrapped head that doesn't matter because only the
+> offset within the buffer is used, but with a monotonic head the next
+> snapshot would either save already saved data again or drop up to a
+> buffer's worth of new data.
+
+As mentioned, the default find_snapshot() can falsely report a wrap,
+which now prevents us from using it for the monotonic-head case.
+However, I don't think this block consolidation; I see the decision
+not to consolidate as a design preference.
+
+If an AUX driver transitions from an arbitrary head to a monotonic head
+in the future, we might still need to consolidate the find_snapshot()
+implementations.
+
+Reviewed-by: Leo Yan <leo.yan@arm.com>
