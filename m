@@ -1,48 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873863;
-	b=AtqLCJ56hckpVvcgu2PuK4KAqkQewGMMUtMi+lCMumGXNVVfbKf9bwgM3dA84lZK2ssN
-	 jqme2xPzEG38xGvuBAqKW9+HIUFimSlSlNr08+9CstANvYmpYMA5XxhEDi5Sih6cY4mlN
-	 gfzTiCC20GuyFcF4K8L6P7m/EKzwm03Cy6XUjifs5xl/3KUjUXHLO/uosmqMQ0gJnMyid
-	 8hmDKI47x4Jo3l4MTALeSXosppfKw8DvFbEnNcsQPXIAIJ/WnvqZoqTg5nIAaA1d8V8lH
-	 +HbpJAHjvxGLtmu/9jWf4VnKuWIiJQf0QuXa1jP/mkaD2tTzPwC6bXwJbAg2spAUxLw==
+	t=1793873879;
+	b=K9HWOwEit1vGtaDROkaA9+ncy0rzVrvmfaTFp/5Jqwmr4XGTOgnxnHwZqwwvau2IsO0t
+	 +ZBNT/Z9BaoNv8T6Jb9eGJT2G6CMK0ARUmCwzRljixmnCeeRU/f77IxzCq7bVUG7Zt9Na
+	 sShF+AQDgRvlD051OnElWsp3vmFXFvMmvjZmzekgGQxWbs7xoS+cO7rvjDQ1xXIjBDoOG
+	 9L4RpEQjw2WMtHp7DLPT9KKYOKHW9mJ0f/dPv28TsUuLm1Gg63U52s0PjbrRjXpMIZZ5r
+	 WA5AzDTyP1IUEpKfzmYWzThg54SkMQtl2vy69S7iNGGLRcR0N2SMANScWE3Nzu+oNWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873863;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=qT+iA0IP0AUfTRAETm5fn1PIqIMYsa9Gwl7ouRFxHmM=;
-	b=5RLBFzgvp3yyNwjxi8pvgTkCmzKDI+kGMERz5RYUhP1YY1+uTgJmD4ShnbLDucX/H0ph
-	 ZZi9ZkmtEjuQPM3GXbtuf9ZeKOI2UoaoChcz2DqjbMwD6whKgsp6a+2aRTZMHyRit59Nt
-	 sSUHbEDli3w4A7s4ix8reorTTJt/jGJy4Ja/7ELAv9LQCHqF/iEsCwJ54B237vFMrlGbL
-	 J3hArFckpDYquXsOe6A9Fu3mIFeW+1wtSK3WGMcvTIJPBb1WofdQoWIpG37umL2mud5qt
-	 pF1KS8iaG59Mfd3b48cpD/2ikOQy0vI1K8GtP3mzMbEeFzXetALxaQxzEP/iOB8SniA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873879;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ge0csq01UDr23GRywGYDdJfNDf0j4kn1jvr1l1h6C8s=;
+	b=4H33Qd8AjwAh5sPPV67TWDqQplGvsgnFAxFQjRFYaCZGFOhFztprdaVerfpjf8zDzbFA
+	 ZZAz8OJfx54K5eoEMKSqToOfaawaWVtdOwNz37L0k/EZqZ0YRNtFeaiGXR4NUB9lhwcK+
+	 vMVT6lcjlgf5TgiHI9sFlCbBaQ2fpAVkQ56GmvEWR5hLDZATSkB5kN1IWJRpT7UhmgF0J
+	 fm7GYNzOP1r4twzbI6idzVRU2cj96LIAdiGrLRjjt7TnQLuUeLGc8x8dxbkBs6bvM6KnK
+	 mn6x1oji8fxyI329fvlut2jZyYFxx9rRJMXPldBNolO/baBNC/6Z/j8fTTpyDJZexFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXnsSH5J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjpWMhIm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6E3606A31B;
-	Thu,  5 Nov 2026 10:17:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EA5606A31B;
+	Thu,  5 Nov 2026 10:17:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXnsSH5J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841161F000C1;
-	Thu,  5 Nov 2026 10:17:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JjpWMhIm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9701F00919;
+	Thu,  5 Nov 2026 10:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793873862;
-	bh=qT+iA0IP0AUfTRAETm5fn1PIqIMYsa9Gwl7ouRFxHmM=;
-	h=From:Date:Subject:To:Cc;
-	b=AXnsSH5J8LTmP2YNIMTbN4p/XZP86YnX5TRhfPpAYFwdeleZIsBbdBuqH8/O5agth
-	 3g1nK5RCzkxyC/139FaqSBovZkAtxKZRhX/xhvtw8G894RmYy/ZO9pgJA79DQnc/XE
-	 55rVDOmU2x7PbeQEBPiBUTxh+kEIxGPJ/HbTQfc7gruRMgJThqy/o1mLUyr9BQwOYc
-	 QudTHwYGshYwXTs0D/bVkDhcZgcqZ7Fk2jWZ5x0ML39kq2iyAuxnOkWf2ZOcXrvz6t
-	 sRqAOBNwEMxCUzq+pRmTGoLJ/gmmE9CSHSFJKAS15d2mmHhNg3GxwdwC6SwfBRXAEb
-	 VjQby6IUQhr/g==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Thu, 05 Nov 2026 11:17:24 +0100
-Subject: [PATCH v3] rust: hrtimer: add active() method to query timer state
+	s=k20260515; t=1793873879;
+	bh=ge0csq01UDr23GRywGYDdJfNDf0j4kn1jvr1l1h6C8s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JjpWMhImRu+LAmbhcVmFv2rI+GeyzSZNvjXT0r8xfZLpg331rjnt55cx0ggPww50w
+	 VXDPTlps85VpjVB00uZULQZcEnh2cw4udDrqGKTfeDTF4YLWeROIoWjdXEkimWk4Tn
+	 yTFjodeEJzt15GfJbm6XgFo3K6QcdTD9Ra2rJ7AOiUYNer7+yE8dSM5Fs+8SD2tmXw
+	 kBnJBuXCOriKvzR15xIJkefyO9T8d+PxLBK94+JuZsnNWKJGfBzp6thjdLmBqkh1pM
+	 3BnJxbvHoP5FebNWl+CUmyjdhMGN0sDhYBj/hZARkU7onHM1zCZ1BjrkFH9Sk15uLe
+	 8XnrcyvfAgAqQ==
+Message-ID: <e58309a5-1a5c-4c34-9c28-d1794400616f@kernel.org>
+Date: Thu, 5 Nov 2026 11:17:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,185 +51,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] Revert "mm/khugepaged: remove definition of struct
+ khugepaged_mm_slot"
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Waiman Long <longman@redhat.com>, Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Yonghong Song <yonghong.song@linux.dev>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
+ <20261103-khugepaged-latency-fix-v1-1-a07ab16ac860@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261103-khugepaged-latency-fix-v1-1-a07ab16ac860@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-hrtimer-active-v3-1-52636808ccda@kernel.org>
-X-B4-Tracking: v=1; b=H4sIALNX7GoC/3XMQQrCMBCF4atI1kYyadNUV95DXNRk0g5qK5MSl
- NK7m3YjIi7fg++fREQmjOKwmQRjokhDn0ex3QjXNX2LknzeQitdKQ1GdjzSHVk2bqSEMkBdlAA
- BTXURGT0YAz3X4Omcd0dxHPi19hMs799UAgmysab0oMq9dvp4Re7xthu4FUsr6Y+v1K/X2Vvrr
- TGuhuDtl5/n+Q1qrMYW7QAAAA==
-X-Change-ID: 20260215-hrtimer-active-f183411fe56b
-To: Boqun Feng <boqun@kernel.org>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Anna-Maria Behnsen <anna-maria@linutronix.de>, 
- John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Andreas Hindborg <a.hindborg@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5253; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=bxB46qnf7umeeRQ+C/sszos5ZUVByr6zfEV4QDjqcQE=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBq7Fe1ZB+/sS+D+I5ZnUpBngxp6Mya08SOal7tO
- uIMIOa6JRqJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCauxXtQAKCRD6UCkIqsW9
- 0LZwD/90tWDQ9CzUTC4NFMHnzFk0q7O/k98zNNSxt3qCBFVYPEWyY87zCF7bnUM3jl8kM5ClDkh
- e+4qb4UEHs5LxDc+RRS7lof+ZivWNYT7MOAQDq/nj4K1mDQxtoshczPKB02QavvGcFIO43Pk0HR
- gxVgmsm2wZbFjHQ293r4gD6jh+gF5I3FGSQ9JHPUqBptElmaAOaqTTh6m7sg1f8nsS+AVuo7Lk9
- iD6LhgededqsfWMBaNJp/CNaCZc24NDb/D1+oeHKlkqhKxZIVPfLWRhEyhcvR8DZLJNKTmAUtem
- AdM6BaYGHvGJEvD0hgdt39oINEGSBT5S+U8EiDs3q6fctSJ9kFw4D6KuLOdTl0hkzf3ihNuhccb
- HhsCOtmKPZWQ1HzdUNbhM0845BM/NNim89SvGGP/yz3K7E5oa4c+0XKaF9TnVEFcULZjZuLHYvp
- EfybRFm1cKe07aqKZtrC53punhcSoWe0SPvPM+b77232lf/0eX4M0SE/epP8dxECnOpnTbEzpHT
- lzupznrAt5WEdKAzoH5mG/cU0ccOJf9Loz2kbfWIUVrqSlfAgWQTlvHeIFUvKScZMMqK3AjxLFX
- 8apClycsQQ+3bqmtGttSDoLjuOmQ+UkJvq7WBbPsAy3tAYXhUK7jugLISjL3/8hBK1dZWJi2pJU
- x2FwGuY+0j/y+KA==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-Add an `active()` method to HrTimer that returns true if the timer is in
-the started or running states. This wraps the kernel's hrtimer_active()
-function.
+On 11/3/26 09:27, Lorenzo Stoakes (ARM) wrote:
+> This partially reverts commit b4c9ffb54b32 ("mm/khugepaged: remove
+> definition of struct khugepaged_mm_slot"), as a subsequent commit needs to
+> resurrect this type to store additional data alongside the mm_slot.
+> 
+> The stated intent of the commit was to address a NULL check in
+> __khugepaged_exit():
+> 
+> 	mm_slot = mm_slot_entry(slot, struct khugepaged_mm_slot, slot);
+> 
+> slot can be NULL and mm_slot_entry() is an alias for container_of(), so
+> this is container_of() a NULL value.
+> 
+> This was benign as there was only 1 field in khugepaged_mm_slot (offsetting
+> NULL at 0 results in NULL), however it was right to fix this, so retain the
+> fix.
+> 
+> It also unwrapped KMEM_CACHE() in khugepaged_init(). This was a mistake,
+> and was itself reverted in commit c14bdcc9f274 ("mm/khugepaged: use
+> KMEM_CACHE()"). Therefore, retain the KMEM_CACHE() form in this revert.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-Unlike a direct read of `node.expires`, this does not race with a
-concurrent start operation. hrtimer_active() reads the timer state inside a
-seqcount retry loop and re-reads `timer->base` with READ_ONCE(), and the
-core documents that it must not return a false negative. No exclusive
-access to the timer is therefore required, and the SAFETY comment reflects
-that.
+LGTM
 
-The returned value is still only a snapshot: a concurrent start or an
-expiry can change the state right after the call. Callers that need a
-stable answer have to serialize against those operations themselves,
-exactly as C callers of hrtimer_active() do. This is documented on the
-method.
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Also add documentation clarifying the definition of an active timer.
+-- 
+Cheers,
 
-Introduce the term `active` as a set of timer states composed of `started`
-and `running`.
-
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
----
-Changes in v3:
-- Rebase on v7.4-rc1.
-- Improve documentation.
-- Move the note about not requiring exclusive access above the example.
-- Name the user of the API below the cut.
-- Link to v2: https://msgid.link/20260605-hrtimer-active-v2-1-77d755c81fd7@kernel.org
-
-Changes in v2:
-- Mark `active()` `#[inline]` (Gary).
-- Use the `[`true`]` intra-doc link in the rustdoc (Miguel).
-- Document that `active()` does not require exclusive access to the timer,
-  and reflect this in the SAFETY comment (Gary).
-- Add a doctest example that initializes a timer and asserts it is not
-  active (Miguel).
-- Link to v1: https://msgid.link/20260215-hrtimer-active-v1-1-a754d10492c2@kernel.org
----
-The bandwidth throttling timer in the Rust null block driver will call this
-function. It is used to arm the timer on request submission if it is not
-already armed.
----
- rust/kernel/time/hrtimer.rs | 64 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
-
-diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
-index a53f7f1341be..45bbe3530f8c 100644
---- a/rust/kernel/time/hrtimer.rs
-+++ b/rust/kernel/time/hrtimer.rs
-@@ -71,6 +71,8 @@
- //! issue the `start` operation while the timer is in the **started** state. In
- //! this case the `start` operation is equivalent to the `restart` operation.
- //!
-+//! A timer is **active** if it is either in the **started** or **running** states.
-+//!
- //! # Examples
- //!
- //! ## Using an intrusive timer living in a [`Box`]
-@@ -593,6 +595,68 @@ pub fn expires(&self) -> HrTimerInstant<T>
-             )
-         }
-     }
-+
-+    /// Query the state of the timer.
-+    ///
-+    /// Returns [`true`] if the timer is in the started or running states.
-+    ///
-+    /// This method synchronizes internally and does not require exclusive access to the timer.
-+    ///
-+    /// The returned value is a snapshot. A concurrent start or expiry can change the state of the
-+    /// timer right after this method returns, so callers that need the state to be stable must
-+    /// serialize against those operations by other means.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// # use kernel::{
-+    /// #     impl_has_hr_timer,
-+    /// #     prelude::*,
-+    /// #     time::{
-+    /// #         hrtimer::{
-+    /// #             HasHrTimer, HrTimer, HrTimerCallback, HrTimerCallbackContext,
-+    /// #             HrTimerRestart, RelativeMode,
-+    /// #         },
-+    /// #         Monotonic,
-+    /// #     },
-+    /// # };
-+    /// # use pin_init::stack_pin_init;
-+    /// #[pin_data]
-+    /// struct ExampleTimer {
-+    ///     #[pin]
-+    ///     timer: HrTimer<Self>,
-+    /// }
-+    ///
-+    /// impl ExampleTimer {
-+    ///     fn new() -> impl PinInit<Self> {
-+    ///         pin_init!(Self { timer <- HrTimer::new() })
-+    ///     }
-+    /// }
-+    ///
-+    /// impl HrTimerCallback for ExampleTimer {
-+    ///     type Pointer<'a> = Pin<&'a Self>;
-+    ///     fn run(_this: Pin<&Self>, _ctx: HrTimerCallbackContext<'_, Self>) -> HrTimerRestart {
-+    ///         HrTimerRestart::NoRestart
-+    ///     }
-+    /// }
-+    ///
-+    /// impl_has_hr_timer! {
-+    ///     impl HasHrTimer<Self> for ExampleTimer {
-+    ///         mode: RelativeMode<Monotonic>, field: self.timer
-+    ///     }
-+    /// }
-+    ///
-+    /// stack_pin_init!(let has_timer = ExampleTimer::new());
-+    /// assert!(!has_timer.timer.active());
-+    /// # Ok::<(), kernel::error::Error>(())
-+    /// ```
-+    #[inline]
-+    pub fn active(&self) -> bool {
-+        // SAFETY: By type invariant, `self.timer` is valid. `hrtimer_active`
-+        // synchronizes internally and is safe to call without exclusive
-+        // access to the timer.
-+        unsafe { bindings::hrtimer_active(self.timer.get()) }
-+    }
- }
- 
- /// Implemented by pointer types that point to structs that contain a [`HrTimer`].
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20260215-hrtimer-active-f183411fe56b
-
-Best regards,
---  
-Andreas Hindborg <a.hindborg@kernel.org>
-
-
+David
