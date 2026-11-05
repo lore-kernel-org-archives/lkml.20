@@ -1,64 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793902281;
-	b=PGlFh6ApKlrSEY4UI3bUpSLiEqj+BiP4VRWlLrdIazY1AEZe4CnjZyiG9gn9Bqg9ochW
-	 CytNuiFxCVZWSCNIMqa9NmM9hLYt6jOQ3yiH7X4tUW1DSnJ8AvZE0TlZ6o7iCnqRcw1CX
-	 J3yfEUfJ/9crsu16vYUepaGjvsJ8QZuBcCasZLXaXEG4+a1WOpJXqDDZXn3Zj/lY5dmcN
-	 xvXswFKWPw8aq7ZEGVQOmARlWh9bdnRMrjaKFhkGRLsbWWdyNA2qmvX40qouma0bArEc3
-	 XNbmvYG2CItMFtNfEEYtUcf4+CX4znSn+OqDrATm1vhWCPB6+qt6BZpwZkQHWO2zbcA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793902281;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=lTcSxcs+5eTD8VFpP4O8gvw+pPjNGJqWFzcoInTDXz4=;
-	b=PtGOJVX85KqxNE1NO7d4QbY3aQSHrbBZBmqHs/mXZQrdVcrfxM1gtsV+Kgm2NtVKTXfE
-	 /cGpkBZ2CKjTuW2hhhZOtXbdKs3AssVNdhBiytr9I2QefDkks0wQdldR4vbdMr5sQSgYZ
-	 sWwIpo0NCBV29ez4YXugBKp1+IWA6ltIgm/iAqs6UXZrO995qDMI6E7iir8FamBCuTEni
-	 pGUHiQ6+y0lnmar9ysJlFLmNgl1aHDNHzrQ6Tkbego7GeSWPWVpTzqHUuMKHp0DjIdtgV
-	 bxsHLeEVvPYeIZZQpdTvy7aR/Xa+PDOGSJLKbdtNJFROgER+A+ss6du4DxWjXkmuj8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJX9A6To;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793902301;
+	b=v/QkN+O1t63H8nN2auxnjLv6ppyTmworIfDNEirOsZDBy7do4VNHW7+2p3Po/qejxPaG
+	 VBTCCz5PDFtSeuXwJmBuz7OdxFP1GYNkFI9Z685lVBAKwNCIzYkHHM5GjAL+g+czAFJSO
+	 jwps2Vm+1haNnxOYXrPXj6eN9eZ7C5AfA9lDN/OjIf/lL2xLqQSFMkM1w55Vv6DeV0edl
+	 6AAMg8Ac+YZoSLRKkTtvYCC4FOJKZzv+4nN3640vv/vvO0Y26Ulxs8DKLtFyQfNyVgba2
+	 fBEO1ioWHR1/rvc0BHUMVTcyoG+TamEnKCDllzWoEyVP13SxqO+KfRL2z/SeqTzJKfg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793902301;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=h8r1VGcPDNnPxIY04XIKG5IMdGlTDl1N3L8FqBps7F4=;
+	b=Efcl2JVoTSLiWtPLKD6UY8QLdBotKsccRgJWdnR4lpu2PQVHhd2bJeGn+iq8PEOeJu0A
+	 v5htGe0yCAIROtOWKTj6mcTLBiURl+zKrLBwnlPQWGCn4i/VHDxLD7Giy8zRg6lEIE/kg
+	 xCGki27NUxI84hkAPg0ZsQq9QRZ5QtjsZQwRt09GyNhi761zVtdD03xSrQZRJhK/lR57e
+	 GtYKkYSKDF7VKHyywA0Grr2UWwFL4nNeySK9XIxwQQesXvXM1JBViZhQOiD1eDzVC4mIz
+	 beL27p5l1MCocK1f9IFpcF/jbB8MZZY55NbbV7ikBLvp2w8PSuFYkK2et0cg9UHqsAw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Uvsj/Kzd";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B57606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:11:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E12606A328;
+	Thu,  5 Nov 2026 18:11:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJX9A6To
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 694071F000C1;
-	Thu,  5 Nov 2026 18:11:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uvsj/Kzd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793902301;
+	b=YTiMvr/pkIpMzNIF3iPhfW3zs2v2YHIgzomcwe/WAsHz/fPgbXN204H6LYufhenTUR5p
+	 6QsBW60nmF+KP4lfe3S6QiFx061k5Bk0EtO8D5ebTcfE//elvsbAdfig7NIl+OD29QfE5
+	 buIIANXbLCGMLHtja9r4Szh9QcP3cwW4593Y1dgXtk9vWo+Wum6f7VCLwLUZSWqbDxfeC
+	 gy95l+oerH3P6+ftDg4gPzfbkLH9rUoc4I3Ax+CvkQ5OO//6kISUZoekTYZFRyi1rhs3i
+	 plxCfqRIZXFf7N/rFgBPS1pFSXNLY8wV37XbJVtqOWDS+i5cWyDYjZUiwDFKyppBztg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793902301;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=h8r1VGcPDNnPxIY04XIKG5IMdGlTDl1N3L8FqBps7F4=;
+	b=mHgf+EbL7hAjt8lFSq2/DkT1sX3lpzWmOE7NjTQQ+iUOAJy6GeW/bi+rjxA4IqEu/tLv
+	 2lgr385g9a71TISxmBlXqWo4XNWOx+w7FKDkYegqUJoEXA0a4kJDxXTfIN5Uwh/gXBZyZ
+	 173hAhdtbqxWCfYurTfIDFMev3NWn1G9EWJ4hW78C43M2UrpH7Hm9bI4h+MeyXn/f5DII
+	 ue+Mr58cQmbOIM7DLJK0sR/lWU/IjpWm3bG5fc/MNhx/lVoCs5h2TD6E5C029z6MusLG0
+	 NxfbtV/vWNWw2Uw+qXL932qfW+DQWZLkJS1CmwX+VhLwPUkyX0PhjKTQRqOsdeFX0dQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8C47C1F000C1;
+	Thu,  5 Nov 2026 18:11:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793902280;
-	bh=lTcSxcs+5eTD8VFpP4O8gvw+pPjNGJqWFzcoInTDXz4=;
-	h=From:To:Cc:Subject:Date;
-	b=dJX9A6TopAoxPaPA/cpvPP9QhB0Fw8FN7bN0PBBK6guxEEvgEmoJ61YKIyvQg7gnG
-	 sFNPYm4DIOjC0w7a9xuU3W41QvtP9t/rGOzD9NH9ENhCS2BVIIwWAfBWiyI8AMKIyk
-	 wiqOZSO2iqruO8Ml0+r7zJkIFdx3HoOWp0QgfvB4IKRmQN8IyMwXdk/d6PbBhU2/m3
-	 p/z6rSV348VHN5gtqj7KNwjg5O7cG+QZ2xdi+WJQtXYeExyPiUKoBbGdmmFbmbowYN
-	 cLPt6JphdNKCx3y8vnE/LYbKo7gs6drbOmDLcR46NwQLyPyactcsOLBul3dsl3CJ/6
-	 A/LvT1SPriPLw==
-From: Thorsten Blum <blum@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	Yunhong Jiang <yunhong.jiang@linux.intel.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	Ricardo Neri <ricardo.neri-calderon@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/realmode: Use const and u32 for embedded real-mode data
-Date: Thu,  5 Nov 2026 19:10:05 +0100
-Message-ID: <20261105181008.366331-2-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793902301;
+	bh=h8r1VGcPDNnPxIY04XIKG5IMdGlTDl1N3L8FqBps7F4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Uvsj/Kzdo1x0SW5964/3jHesWe+iIPd3iLlKc5n7cgq4rRCYXPzz63TgfGjpq+SwW
+	 CEXfjkx+B0b/ky/enmhSXg3GQKZ+scRVdw1tD9LCQAEvLsQgTtGdGboNc6UEtNXFMo
+	 1T7uN8mnpDw9Lroqq1MyjEdD3HngIgvfuCQMVODMmfzG4gJCG0lwDoWfbQrZuYv0vX
+	 /W0r5E0/0CUe8X2Q+u0evSRQp88ZNdZsf0gPOdvG6faDdsZAdUH1sjH2OFv8TQQ22u
+	 lIjL4XlS34JZy9ba4r/NAnTeqJNzcAJFHg4eNoOigiAY6yICFEr9ySgQU8EfYFwjCQ
+	 h/fCAjJVPWOaw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 107FE473B9;
+	Thu,  5 Nov 2026 18:11:40 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 12:11:37 -0600
+Subject: [PATCH 2/3] wifi: ath11k: don't arm the scan timeout for a scan
+ that did not start
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,58 +83,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1677; i=blum@kernel.org; h=from:subject; bh=LsE+varfQlFYvBtBGGeA2DnWMuv04gMNGaPUVi+Bkpg=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlvjjVU+R49G/3R7G8HgzXfprkXFipr3lVwinqSVSVx5 w1bg7l9RykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAExE6hzDP/3jh8JFXk/1cNxf PiNXXi2hydxfvVjL7fPvi5sbvs/lCmBkOFXMq/9O4vVhseD5reHzBTscS5vcT9YLOTxP4T38KOg 7LwA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-ath-recovery-scan-timeout-v1-2-99a70d89e114@gmail.com>
+References: <20261105-ath-recovery-scan-timeout-v1-0-99a70d89e114@gmail.com>
+In-Reply-To: <20261105-ath-recovery-scan-timeout-v1-0-99a70d89e114@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>, Kalle Valo <kvalo@kernel.org>, 
+ Hari Chandrakanthan <quic_haric@quicinc.com>, 
+ Venkateswara Naralasetty <quic_vnaralas@quicinc.com>, 
+ Pradeep Kumar Chitrapu <quic_pradeepc@quicinc.com>, 
+ Anilkumar Kolli <quic_akolli@quicinc.com>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Maharaja Kennadyrajan <quic_mkenna@quicinc.com>, 
+ John Crispin <john@phrozen.org>, 
+ Govindaraj Saminathan <quic_gsamin@quicinc.com>, ath10k@lists.infradead.org, 
+ Wen Gong <quic_wgong@quicinc.com>, 
+ Christopher Griffin <christophergriffin05@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793902298; l=1793;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=BE7ZZiDwoQohf3HNv1LT97zdlpVPS1QyfAViwcyIEvw=;
+ b=4AlrQNqA3KWa7YCP1sXjptaRVGnoAzA5IAx2wXQGw1d0U8pJn0rz7yoO1o0HcMCcSHAIBt146
+ 5szc68Ym6OzDfsmxpQFIzXVq0IwLJFtMi5uuaZ3c2HvXsATbt0BpG5/
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Declare the embedded real-mode blob and relocation table as const since
-they are not modified.
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-Also declare the relocation table as a u32 array since it contains
-32-bit entries, and remove the cast in setup_real_mode().
+When ath11k_start_scan() fails, ath11k_mac_op_hw_scan() sets the scan
+state back to idle and returns the error to mac80211, but first still
+queues ar->scan.timeout. The timeout then stays pending for the full
+scan time (20 s by default) although no scan is running. A scan started
+within that time gets no timeout of its own, as the work is already
+pending, and the stale one aborts it early.
 
-No functional change.
+The stale timeout can also outlive the radio. On a QCN9074 whose
+firmware crashed during a scan, recovery failed and the driver was
+unbound and bound again; the failed scan's timeout then fired from the
+freed ath11k:
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+  [  145.937344] ath11k_pci 0001:01:00.0: failed to start hw scan: -110
+  [  166.251148] workqueue: cannot queue ath11k_scan_timeout_work [ath11k] on wq D@\x7f\xff \x05\xb6...
+  [  166.254814] WARNING: CPU: 2 PID: 0 at kernel/workqueue.c:2292 __queue_work+0x3c4/0x4d8
+
+Don't queue the timeout when the scan did not start, as
+ath11k_mac_op_remain_on_channel() and ath12k already do.
+
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
 ---
- arch/x86/include/asm/realmode.h | 6 +++---
- arch/x86/realmode/init.c        | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/wireless/ath/ath11k/mac.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/include/asm/realmode.h b/arch/x86/include/asm/realmode.h
-index e406a1e92c63..e48259f2e503 100644
---- a/arch/x86/include/asm/realmode.h
-+++ b/arch/x86/include/asm/realmode.h
-@@ -57,7 +57,7 @@ struct trampoline_header {
- };
+diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
+index 5e4bb0ad057dd..291077c551476 100644
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -4335,6 +4335,7 @@ static int ath11k_mac_op_hw_scan(struct ieee80211_hw *hw,
+ 		spin_lock_bh(&ar->data_lock);
+ 		ar->scan.state = ATH11K_SCAN_IDLE;
+ 		spin_unlock_bh(&ar->data_lock);
++		goto exit;
+ 	}
  
- extern struct real_mode_header *real_mode_header;
--extern unsigned char real_mode_blob_end[];
-+extern const unsigned char real_mode_blob_end[];
- 
- extern unsigned long initial_code;
- extern unsigned long initial_stack;
-@@ -67,8 +67,8 @@ extern unsigned long initial_vc_handler;
- 
- extern u32 *trampoline_lock;
- 
--extern unsigned char real_mode_blob[];
--extern unsigned char real_mode_relocs[];
-+extern const unsigned char real_mode_blob[];
-+extern const u32 real_mode_relocs[];
- 
- #ifdef CONFIG_X86_32
- extern unsigned char startup_32_smp[];
-diff --git a/arch/x86/realmode/init.c b/arch/x86/realmode/init.c
-index 65110b2ee1a1..5430314d549d 100644
---- a/arch/x86/realmode/init.c
-+++ b/arch/x86/realmode/init.c
-@@ -118,7 +118,7 @@ static void __init setup_real_mode(void)
- 	phys_base = __pa(base);
- 	real_mode_seg = phys_base >> 4;
- 
--	rel = (u32 *) real_mode_relocs;
-+	rel = real_mode_relocs;
- 
- 	/* 16-bit segment relocations. */
- 	count = *rel++;
+ 	ieee80211_queue_delayed_work(ar->hw, &ar->scan.timeout,
+
+-- 
+2.43.0
+
+
