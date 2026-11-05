@@ -1,86 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872670;
-	b=3bRtGm9RcvSJg1ahxRHSrz17yYjr3DNXbMN9y2i3EbdPShq/2lrYEeiHlYdZLfBdnO3e
-	 nVsT1QKdNOwYuVSQ2LALGiTlcy3Pm6tnD3Wy9Wk91Wca8c5Eeuav2He067it2OUS6p8bV
-	 xtjAgk6OMdvxLHD0A2pna4XvmFLBMqfU4quFcQQgG9aVnBmUGOlqIxKenpuirtyqBmLPS
-	 NxxlaHGe7tSYmNanKVxVvsQsWW/Js5AdHJL1x/3hAVwEhvokdSyiGjb8uk1iolW8AAM6p
-	 e/eQvKpLmINKRD0QWgsLIe1OHHsIe+3h6KyUBjkbRjgK9aq4NsedDZgWg8ZesCfnMfQ==
+	t=1793872686;
+	b=3Tqr15hnPRsTa5HhpjVA1yaL12G9cXipXhjBUcQx7qJL9QFR2j0di0DOugVaQ6Lt7gqo
+	 LhblANr6n0c1gXo4zCZpLKb8F6kynRo9o1kEc1sj8VibAGykuIwajk/QWwDtsJw5Vp8F0
+	 vsK1odGmPf41mCsBU1JJMsXGgZHBLs9Zy6s+H2L7c+oP6ac+jy/In+oB+SCG+wyLNB6QY
+	 b+CLeXNBMSROaHx+bSq/ADg7QJfm+Defun/4QTwoLIWl+AGrBFoarkwCQ7pbVhEtmNEMm
+	 y9qayT8+sw4wqswEVxHy0uFznePa5eb17Jg/Jn1PwhvWvXjrM3yhCPWDfaYtzejGuZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872670;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=hTUCOSNrg5qxLH3FnfcYfQ51wYo8dyBSWxreUtwDliQ=;
-	b=DR+aTGiW/KjeunSc/W9vTlilodeR+UHgQbiHg7ZaL8VtYXZBhy0YA3ZoqS1BAaLAcjD1
-	 RYCsGrB92a6XVabcDpttHMO22zVHof9Rk+PxX/dpij3pj31oMu3H/JTJR8RGD1q0JcGFx
-	 1k4MooQk3PdudJ2iPFPlJF+x5t3h+kILcT5Zyr4sH9lMRB0bdrUDlHGhdsAGAVKefQoOh
-	 6b2Llrdfzr0ntPXQJvIMtF/Q2yKhSsZ/qHSgawAKR8Re+EkpeHieJVYP/6TdWHL8CAIml
-	 S9To1YQ3WaNu+Ijv3XAys1LnV6aQxcGDTgRG/zVzHUnsOsDXVRbIwCg3599CqdqAzOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872686;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
+	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=GGwd10+UV7oF3yQFv28KX3rG/BdRDcdmvcHFRYR63Gw=;
+	b=iX9SaYFc6fcndNpG7g7Y5TPRIi/FKiglxEesJs1oMvOg66itRh1f8mcemuPoobm7fARB
+	 9r5vW1Pg0/UM8tc38f7UNfYcyFtHDZFoTts6C5Ua20sXvnTLaU7hXQoN8C54qfvKkHPQB
+	 IwmVmIZEDjLQsLeQHV4RXvkAIsoiDNuYly/FEAWUtApwBlzAeVtJ0ZkEsCFR6tMuRh/oZ
+	 OVMCJ8mDmtr5iX53PfrWecEoG6ivhr8Q4IEgv0kYzRSi2MCnEs2bp4+OyqpiwSD8zYevm
+	 sa0HDtSgDhHLENokAW2RJMajZgpqnFME8IwVYOfkRMduGS8gheews+0sQJIo0YtmRTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oDxVwy4Q;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k2lqRhYQ;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF95606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:57:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEF95606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15B5606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:58:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C15B5606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oDxVwy4Q
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso14618585e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:57:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793872668; x=1794477468; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hTUCOSNrg5qxLH3FnfcYfQ51wYo8dyBSWxreUtwDliQ=;
-        b=oDxVwy4QjautS5UcbeppFUfZvhwy5qT5Jv1UH4ghJVU/8virZccbyxZ4fjXAJNCGLS
-         esvAzFkveT02dJ2kpQOpbE0amiqcPFMSdi8ynCoZOHwVo8gOOvlbUSHRbi2fmWty+hmz
-         SF/qPukCL3iwBiS47562s4lLr5ovhjElVybA4VQuy5zC1jNUg1/4IJHEVTR35ZLvtEkb
-         VOcKToXIEgN+pARuf43SKAEh1ygFy3fmRuZq81JESr80ic+c/6Tz9seths4MLJfP1ec+
-         VjBmDYILLJ6RZ2wc++GgtqHXVqPtrLbf49LkOTiHY7cXw2h9UNYfyiVuAPQIPlGQ7lFE
-         kHyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793872668; x=1794477468;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hTUCOSNrg5qxLH3FnfcYfQ51wYo8dyBSWxreUtwDliQ=;
-        b=yDXjqzTSW8eWytOeIOzW27M5VVEuUD89NPdDshg+KHVrWIfBnynmVN2WuyPp05ZAG9
-         dqzgPjpGmrPpeHHbE9YdKmpvZR10gJORjnUNtlViX65vngRx6y5w5KdavI+rjhpIwYbM
-         begnq74VGhmOLKobpL5sxa4wCzCDfNh0ILKmngvwf3xDuVxuTB4GCSFBRroar5V8QXeW
-         hcqmzS521hFila3O4Cz/t9AMHZwiVLTygKsn1wgnuFWSezjkUfYAPDqRkhBPpTecmQ5a
-         QzVVO2zP9wF7k/ekMr+S4sjGTVxxIp45499W9XGHR6ypia4RfnMd+vSBPKh3LRA1z01A
-         HbPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfNQC9GdPrhJnDNi5+CSEXiHcKAL19qoUWLnNGTVLlczDH90lxOtnvzbdAViqKVWilK6EkkAMRTNK7DkU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jr5y3PPn4RM5DFr3HoB12AbnMQjx2KAqborHNwPtF9/8S75my
-	T0RhImCRYLVlyOteoCpQupN/ypX/GbN542frkEy6YlNZAvtjMlPbuLam2YW3zMBhiyI=
-X-Gm-Gg: AYBFou0lqgmtmkFBhnbDsefhjpF0QUoWNppsh3x9izNOzr3x002CrvQMKilxOmxgIH3
-	iwialCR5GKH3zdGai2AM6HdzWwxRLCBkBezSI3V6Qz2xgQ7iGNJ3886cYhj/YfUfvbPn3ptuNa3
-	PjFE/5Z5/13+MT347tDJo9Gz6oAK0pTgAH+SP9q90o3o4ZWPl5W4egZMlUD6GuGgyxC5szG3n1a
-	JK916AAWqtHopvwZ0zrQ3q6xlOCWU8r2dOYnSPJlng+RzZajvSQ5a6JE20uYOaPFm00ej4Q9BW3
-	n+aZbPDZijDFx1qxtdD7WrcH597+VVy7AHhyC1GuLphRnXLzjSGhAO5IdKdc1MjWmFDZpLqA0Rt
-	vwTC51Mh2nrSipllhCPhwLI4BChCNQA8/B0HyH29smY6lOEuFWAJt6G78Ll9oJ/sCsSAyRoBo+4
-	ANsv3JrCr3tapWVWkLsA1VDBzcjTKGWisUuJgvwz/qDRzowGARzfEGPmtBqn3FvcBwvFj0w5tkH
-	QLxpd9DHeZqGJ9Z92EtYv3ilLWrNN4Zbjj9jJMVu+m6cLT455WloFzfs1Fdk/Pj/k/cCo2cGXHc
-	v3ggACgoQjctmxFFZJHO06EwQBtDW/k1iQsADqt2
-X-Received: by 2002:a05:600c:848c:b0:4a1:f99e:f22d with SMTP id 5b1f17b1804b1-4ac17471091mr428132765e9.6.1793872668197;
-        Thu, 05 Nov 2026 01:57:48 -0800 (PST)
-Received: from [192.168.0.167] ([51.37.126.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba207sm49867725e9.10.2026.11.05.01.57.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:57:47 -0800 (PST)
-Message-ID: <8824d3fd-4b39-4355-a4ab-5f7e711aceb9@linaro.org>
-Date: Thu, 5 Nov 2026 09:57:46 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k2lqRhYQ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E87C74E40774;
+	Thu,  5 Nov 2026 09:58:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B759D5FF85;
+	Thu,  5 Nov 2026 09:58:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E876103291FD;
+	Thu,  5 Nov 2026 10:57:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793872682; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=GGwd10+UV7oF3yQFv28KX3rG/BdRDcdmvcHFRYR63Gw=;
+	b=k2lqRhYQYGiir1oyFjpLl2b0S8lmp9L62kTX7RsYNETHPu0Rf4mZM6EjLHqe+9kAMFNqnB
+	6WwpR5/iAZtbP3Iovf/lp1cBufy0K9OHNw9MN9eXiITUKm4gViBsbT0t9skOrOZDZxitpR
+	sVXEnTlOVz8qosxjU2hZ50UKMzarXH/kTT6ti23csYW4UMvperkeM00LHf9uI20HxbqB9n
+	S1HFZh+MyP5cQvt9rThxXVONSrwYMBp6jh0wpG8s6QbK8vc6VhD+dWNOuvE/YcddORBEXK
+	g2HGtqEKWoeQS9Vpoge20gnbb56aHVaYIDFm2OeZHGDV9/UG4TmSqac+9Z9SHg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,59 +58,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] media: qcom: camss: use contiguous buffers when there
- is no IOMMU
-To: Allan Siriani <allan@fatecpompeia.edu.br>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
- <20261104202313.72494-2-allan@fatecpompeia.edu.br>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261104202313.72494-2-allan@fatecpompeia.edu.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 05 Nov 2026 10:57:56 +0100
+Message-Id: <DMN6SIQLWFK7.2O38VBNNDP1RX@bootlin.com>
+Cc: "Paul Cercueil" <paul.cercueil@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Maxime Ripard" <mripard@kernel.org>, "Dave
+ Stevenson" <dave.stevenson@raspberrypi.com>, "Raspberry Pi Kernel
+ Maintenance" <kernel-list@raspberrypi.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
+ <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v3 3/3] drm/vc4: dpi: inline vc4_dpi_init_bridge() into
+ vc4_dpi_bind()
+X-Mailer: aerc 0.22.0
+References: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com> <20261013-drm-fix-of_get_bridge-build-regression-v3-3-0b4c0b65be82@bootlin.com> <1202bdc6-afde-45e1-8a32-c64f9424a65d@igalia.com>
+In-Reply-To: <1202bdc6-afde-45e1-8a32-c64f9424a65d@igalia.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 04/11/2026 20:23, Allan Siriani wrote:
-> +static int video_buf_plane_addr(struct camss_video *video,
-> +				struct vb2_buffer *vb, unsigned int plane,
-> +				dma_addr_t *addr)
-> +{
-> +	struct scatterlist *sg;
-> +	struct sg_table *sgt;
-> +	dma_addr_t next;
-> +	unsigned int i;
-> +
-> +	if (video->vb2_q.mem_ops == &vb2_dma_contig_memops) {
-> +		*addr = vb2_dma_contig_plane_dma_addr(vb, plane);
-> +		return 0;
-> +	}
-> +
-> +	sgt = vb2_dma_sg_plane_desc(vb, plane);
-> +	if (!sgt || !sgt->nents)
-> +		return -EFAULT;
-> +
-> +	next = sg_dma_address(sgt->sgl);
-> +	for_each_sgtable_dma_sg(sgt, sg, i) {
-> +		if (sg_dma_address(sg) != next) {
-> +			dev_err(video->camss->dev,
-> +				"Plane %u is not contiguous in DMA space\n",
-> +				plane);
-> +			return -EINVAL;
-> +		}
-> +		next += sg_dma_len(sg);
-> +	}
-> +
-> +	*addr = sg_dma_address(sgt->sgl);
-> +
-> +	return 0;
-> +}
+Hi Ma=C3=ADra,
 
-STOP SENDING THIS SLOP !
+On Sat Oct 24, 2026 at 3:03 PM CEST, Ma=C3=ADra Canal wrote:
+> Hi Luca,
+>
+> If you go ahead with this patch, could you merge it with [1/3]
+> Personally, I prefer to keep it as a separate function. vc4_dpi_bind()
+> is already a big function, with several initializations. I have the
+> impression that vc4_dpi_init_bridge() makes the error handling more
+> clear.
 
----
-bod
+I agree, and that's why this inlining was not in my initial work. It was
+suggested by Paul, but since there are other opinions against it I'll just
+drop this patch.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
