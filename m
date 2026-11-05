@@ -1,47 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866675;
-	b=JhVPRGvZ56O2m7t+5YswlBZEHYX0HMFwLLuT/uJqiFzs25lXBgtm5XfQGYjJbXP5bV0d
-	 tHH/EtkLMGKt7Ssq8+aPH9118Kq9U4EROePqYsIVr58sVmNPC0kbPgZc4dG9XtdxXm85U
-	 n0gV+bOS0jbN0VQacEWPwDTv2tdH4kBv5teg3bVbyQg9QVSuvXDM2W41bcmENH3+PJDMF
-	 pI3uHCXns5zJzm4dK0V4GdBtclQQzcgeSTpz/f5iVltzlKL4aRF/IV+tDOPFYWyxHWSij
-	 YhTrOgsJ46D+dCQbCqoRPkWvsG53ouI0X4eUIOkgJWzdj+lKrv/THklyusZo82iE/kg==
+	t=1793866687;
+	b=lfKygGGLo/XQxyxlgdQ2O5MlilhaVdfmfYqlVBruqyWgAfLr9inD8hftE9bq9CjvOe4D
+	 gflzrHGipVW9x67hPZS6sYxZTsBe9Wq/uFrAm5GpKifV7vek5YTdeYRj0aYkSj5AQEnDi
+	 L8NN1/Em4fJed5t9iZAi+9M5pi1PAUMRqdfr5WAWRk1W7xigt4MfBmOD4sxd2j6LLN8eJ
+	 IjCfuk/1v2AAZMCVnn48oZaaje1GHjBqNgS7BNlQ4jp5kVuVG8Tnlhfxju8O/zcY0jLyC
+	 gH97W3FAGLeZLosrqvpUp0Cz9As5vO2bk7LZZbhptrFdGSBzbxWZ2ZNTttcPYMV/lSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866675;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0JhM2gKSuMdzmX27u5VspaNgfhvoOewOCNbgNlKO2bE=;
-	b=UOsXsik/Z485HuJV0YHpL85EaM3v+19Ko5xlicaLQOdmI+uuOVs70Wou1xuMbi/wJWNF
-	 b0xL0kJrAiaJfKAvETTVtdBZ+9vYWGBSVhxG10mV3FmBSD0Byq6w24hnD+AlMYzyCIUQc
-	 xWXeOlj7n2K5JLpuGETg1aP20AxcEwdZA072zPlQF9Hnuy8dRdo3Pg1nFePdPlvwub8hi
-	 4MN6rPKkiqk4kMg5yoo0I9yelx+FkgZqAHQk7OhmOZ7eQRj6eUeA4cMji27Humu25VzMu
-	 kvRALtdqfr11cF9y0lDeVOIt4xUfCVyoHYuvRDdsp6Oz8Ds7lKSuvI4cYj3MlEzdiXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866687;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mkeKijkZJAb32Xidxy1cWIRtF5ltLYzkBnezIwTR2i8=;
+	b=whfJB1T+0rtUoMEdSptWKU3nT1df/vJUA4ies7y1kb0clE9IgtSIir9FSKnmCb8ccGVD
+	 IQA0KdPBiatyBAOAIILx3cvD454kv8ovv81huyWf7W9gQ8BuJoYB/F5e0H8KjU8cnuW41
+	 qq8/BqQUPTsB2hbeZSSb8EQYBzh3fECjd7mECRZEG8UNTKVsMkSSEyFWF7ga1c3g2htms
+	 9EVfGNxvVI7kGbQ9iqHL1jb13eGVWcaoWu0VHqseRWIT6oRnMXOkh6QhHkTcyCdIPqZUQ
+	 SXya2sdk3pKF/mKvbGrbO4BcUA5O5vHzgFOz8UWbOyZYkrFvsRUS8Mb8ABEFPswe3hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhFxYGZ8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fMfgocFw;
+	arc=none smtp.remote-ip=95.215.58.162
+Received: from mta1.migadu.com (out-162.mta1.migadu.com [95.215.58.162])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D01F606A31B;
-	Thu,  5 Nov 2026 08:17:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5145B606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:18:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5145B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhFxYGZ8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3090B1F00A02;
-	Thu,  5 Nov 2026 08:17:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793866675;
-	bh=0JhM2gKSuMdzmX27u5VspaNgfhvoOewOCNbgNlKO2bE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dhFxYGZ8WNNmIhpmukagi66w0huKNGHliWqlqucR2aJ0x/Zy1SMAKrLvFowtzZh90
-	 mS7lDWbCCvft2iZxkh11xUSpfiPyBDCdNaAvA2rpkkKYLTRY5RR6eI3zo6NmyxKdsA
-	 zWAXsOFuoog35oJVdh3AB2YN3jPHkq0hg885hvLJZsY/S9FuIwUjJwj1FKCYl0kR+y
-	 nX0x1sOUUfp+Z8apxh6jsH7KXZPcySM05VaKEnpYz18fcCCVBjLAEFYIDZkVkbteUZ
-	 fcbYBe63WVXz/Si992zB5466lprxLLF9BAyWcRSFmVdmCmZBhhmKpvkOG1jGe3A1Dm
-	 fCbpxlIvITmfg==
-Message-ID: <b81b8404-572b-4ea4-91ab-6e201f0352b9@kernel.org>
-Date: Thu, 5 Nov 2026 09:17:48 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fMfgocFw
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qwrMdxVPnM+5ZppQDh0ezd2BTYb3+ptUjf9aMMr/HGQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793866684; v=1; x=1794471484;
+ b=fMfgocFwzY6akGVpgl5ADZEuP5nOW+JyLD/ib5wT6AvwmFalE4CDGtIN+ydzyFu/pHtqGvLG
+ Sf4PAjnLLSPgElJVT0yBoh5UpnX/nmU4ZeQ4BE1uw38V+L/E8F69KYPRinqn/u4mMWEba3zopnu
+ /LvtkxJ2uXW7tq3iQ/rCErsQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 292388bdccba3920;
+	Thu, 05 Nov 2026 08:18:04 +0000
+X-Mizu-Trace-ID: 292388bdccba3920
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 5 Nov 2026 16:17:46 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Ahmed Abdelsalam <ahabdels@cisco.com>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>,
+	andrea@common-net.org
+Subject: Re: [PATCH net-next v2 5/5] selftests: seg6: add tests for PSP with
+ a consumed SRH
+Message-ID: <auw7qq8vayCbOWMM@fedora>
+References: <20261105015715.57-1-andrea.mayer@uniroma2.it>
+ <20261105015715.57-6-andrea.mayer@uniroma2.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,103 +74,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] dt-bindings: arm: stm32: allow TAMP nvram child
- node for syscon
-To: Patrice CHOTARD <patrice.chotard@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Simeon Marijon <simeon.marijon@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261016-upstream_nvram_reworked-v3-0-f65908490cf7@foss.st.com>
- <20261016-upstream_nvram_reworked-v3-2-f65908490cf7@foss.st.com>
- <20261017-valiant-exotic-heron-c0b6e8@quoll>
- <ef5bfb63-4e57-49e0-a1aa-81b5de14a36f@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ef5bfb63-4e57-49e0-a1aa-81b5de14a36f@foss.st.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105015715.57-6-andrea.mayer@uniroma2.it>
 
-On 04/11/2026 14:43, Patrice CHOTARD wrote:
+On Thu, Nov 05, 2026 at 02:57:15AM +0100, Andrea Mayer wrote:
+> Extend srv6_end_flavors_test.sh with tests for the SRv6 End behavior
+> with the PSP flavor, alone and together with NEXT-C-SID, on packets that
+> carry a consumed SRH in front of the SRH to process.
 > 
+> Each test sends a ping along an existing SRv6 Policy, and a router on
+> the path inserts an extra SRH in front of the Policy's SRH. An End
+> behavior on another router consumes the extra SRH, and the router
+> connected to the host must then remove only the Policy's SRH.
 > 
-> On 10/17/26 19:52, Krzysztof Kozlowski wrote:
->> On Fri, Oct 16, 2026 at 05:26:04PM +0200, Patrice Chotard wrote:
->>> The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mfd")
->>> exposes its backup registers through an nvram child node described by
->>> nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
->>> "#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
->>>
->>> st,stm32-syscon.yaml uses "additionalProperties: false" and only allowed
->>> reg/clocks/#clock-cells, so wiring the nvram provider into the DTSI made
->>> "make dtbs_check" fail on every STM32MP TAMP node:
->>>
->>>   tamp@5c00a000 (st,stm32-tamp): '#address-cells', '#size-cells',
->>>   'nvram@5c00a100', 'ranges' do not match any of the regexes:
->>>   '^pinctrl-[0-9]+$'
->>
->> There are no children of tamp@5c00a000 in
->> arch/arm/boot/dts/st/stm32mp151.dtsi. How is it possible to reproduce
->> this warning?
->>
->> Are you using some other patches bugs as a reason of change in bindings?
+> These tests set seg6_enabled to 1 on the hosts, which must accept the
+> extra SRH, and set it back to 0 at the end. With seg6_enabled set to 1,
+> a host also accepts the packet when the Policy's SRH is not removed, or
+> when the extra SRH is removed in its place. For this reason, the
+> receiving host accepts the echo request only when its first SRH is the
+> extra SRH, with Segments Left 0 and followed by the ICMPv6 header. Any
+> other echo request is dropped, including one without any SRH. The extra
+> SRH is recognized by its last segment, which is the SID that triggered
+> its insertion.
 > 
-> Hi Krzysztof
+> The check on the receiving host uses the ip6tables srh match. Without
+> it, these tests are skipped. A test fails if the route that inserts the
+> extra SRH, or the rules on the receiving host, cannot be added.
 > 
-> yes, in this patch [1] arch/arm/boot/dts/st/stm32mp151.dtsi is updated
-> that's why bindings need this change.
+> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+> ---
+>  tools/testing/selftests/net/config            |   1 +
+>  .../selftests/net/srv6_end_flavors_test.sh    | 280 +++++++++++++++++-
+>  2 files changed, 279 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
+> index 7a89e2618d4c..d5d2382b0b01 100644
+> --- a/tools/testing/selftests/net/config
+> +++ b/tools/testing/selftests/net/config
+> @@ -27,6 +27,7 @@ CONFIG_IP6_NF_IPTABLES=m
+>  CONFIG_IP6_NF_IPTABLES_LEGACY=m
+>  CONFIG_IP6_NF_MANGLE=m
+>  CONFIG_IP6_NF_MATCH_RPFILTER=m
+> +CONFIG_IP6_NF_MATCH_SRH=m
+>  CONFIG_IP6_NF_NAT=m
+>  CONFIG_IP6_NF_RAW=m
+>  CONFIG_IP6_NF_TARGET_REJECT=m
+> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> index 0355149bb7d6..157baa8ecb0b 100755
+> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
+> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
 
-You cannot use future code as a bug being fixed.
+[...]
 
+> +# In a network namespace, accept the echo requests whose first SRH has the given
+> +# SID as last segment (Segment List[0]), SL=0 and the ICMPv6 header after it,
+> +# and drop any other echo request, including one without any SRH.
+> +# args:
+> +#  $1 - network namespace in which the rules are added
+> +#  $2 - expected last segment of the first SRH
+> +add_srh_check_rules()
+> +{
+> +	local nsname="$1"
+> +	local sid="$2"
+> +
+> +	ip netns exec "${nsname}" ip6tables -A INPUT \
+> +		-p ipv6-icmp --icmpv6-type echo-request \
+> +		-m srh --srh-lsid "${sid}" --srh-segs-left-eq 0 \
+> +		--srh-next-hdr 58 -j ACCEPT &&
+> +	ip netns exec "${nsname}" ip6tables -A INPUT \
+> +		-p ipv6-icmp --icmpv6-type echo-request -j DROP
+> +}
+> +
+> +# On a host, check that the echo requests carry the extra SRH alone.
+> +# args:
+> +#  $1 - host on which the rules are added
+> +#  $2 - expected last segment of the first SRH
+> +setup_hs_srh_check()
+> +{
+> +	local hs="$1"
+> +	local sid="$2"
+> +	local hsname
+> +
+> +	hsname="$(get_hsname "${hs}")"
+> +
+> +	add_srh_check_rules "${hsname}" "${sid}"
+> +}
+> +
+> +cleanup_hs_srh_check()
+> +{
+> +	local hs="$1"
+> +	local hsname
+> +
+> +	hsname="$(get_hsname "${hs}")"
+> +
+> +	ip netns exec "${hsname}" ip6tables -F INPUT
+> +}
+> +
+> +# Test a Policy with a consumed SRH: a router inserts the extra SRH on the
+> +# packets towards a SID, and another router consumes it. The destination host
+> +# accepts only the echo requests that carry the extra SRH alone.
+> +# args:
+> +#  $1 - router that inserts the extra SRH
+> +#  $2 - SID that triggers the insertion
+> +#  $3 - router with the SRv6 End behavior that consumes the extra SRH
+> +#  $4 - source host
+> +#  $5 - destination host
+> +#  $6 - suffix of the address on the loopback of the destination host
+> +#       (i.e. cafe::<host>:<suffix>), if any
+> +check_and_log_consumed_srh()
+> +{
+> +	local rt="$1"
+> +	local sid="$2"
+> +	local end_rt="$3"
+> +	local hssrc="$4"
+> +	local hsdst="$5"
+> +	local suffix="$6"
+> +	local msg
+> +
+> +	if ! ${HAS_SRH_MATCH}; then
+> +		msg="IPv6 Hosts connectivity: hs-${hssrc} -> hs-${hsdst}"
+> +		if [ -n "${suffix}" ]; then
+> +			msg="${msg} (${IPv6_HS_NETWORK}::${hsdst}:${suffix})"
+> +		fi
+> +		log_test_skipped "${msg}"
+> +		return
+> +	fi
+> +
+> +	if ! setup_rt_consumed_srh "${rt}" "${sid}" "${end_rt}"; then
+> +		log_test 1 0 "Extra SRH on rt-${rt} for ${sid}"
+> +		return
+> +	fi
+> +
+> +	if ! setup_hs_srh_check "${hsdst}" "${sid}"; then
+> +		log_test 1 0 "SRH check on hs-${hsdst} for ${sid}"
+> +	elif [ -n "${suffix}" ]; then
+> +		check_and_log_hs_lo_addr_connectivity "${hssrc}" "${hsdst}" \
+> +			"${suffix}"
+> +	else
+> +		check_and_log_hs_connectivity "${hssrc}" "${hsdst}"
+> +	fi
+> +
+> +	cleanup_hs_srh_check "${hsdst}"
+> +	cleanup_rt_consumed_srh "${rt}" "${sid}"
+> +}
+> +
+> +host_srv6_end_flv_consumed_srh_tests()
+> +{
+> +	local sid
+> +
+> +	log_section \
+> +		"SRv6 connectivity test hosts (h1 <-> h2, PSP with a consumed SRH)"
+> +
+> +	if ! ${HAS_SRH_MATCH}; then
+> +		echo "SKIP: ip6tables srh match not available"
+> +	fi
+> +
+> +	set_hs_seg6_enabled 1
+> +
+> +	# Policy (i.a): rt-4 inserts the extra SRH consumed by rt-3
+> +	sid="${LOCATOR_SERVICE}:2::${END_PSP_FUNC}"
+> +	check_and_log_consumed_srh 4 "${sid}" 3 1 2
+> +
+> +	# Policy (i.b): rt-2 inserts the extra SRH consumed by rt-3
+> +	sid="${LOCATOR_SERVICE}:1::${END_PSP_FUNC}"
+> +	check_and_log_consumed_srh 2 "${sid}" 3 2 1
+> +
+> +	# Policy (i.c): rt-4 inserts the extra SRH consumed by rt-3
+> +	sid="$(build_csid_container 2 "${END_CSID_PSP_FUNC}")"
+> +	check_and_log_consumed_srh 4 "${sid}" 3 1 2 "${END_CSID_PSP_FUNC}"
+> +
+> +	# Policy (i.d): rt-3 inserts the extra SRH consumed by rt-4
+> +	sid="$(build_csid_container 1 "${END_CSID_PSP_FUNC}")"
+> +	check_and_log_consumed_srh 3 "${sid}" 4 2 1 "${END_CSID_PSP_FUNC}"
+> +
+> +	set_hs_seg6_enabled 0
+> +}
+> +
+>  test_iproute2_supp_or_ksft_skip()
+>  {
+>  	local flavor="$1"
+> @@ -1102,6 +1354,28 @@ test_kernel_supp_or_ksft_skip()
+>  	ip netns del "${test_netns}"
+>  }
+>  
+> +# Before enabling the tests with a consumed SRH, make sure that the rules they
+> +# use can be added.
+> +check_srh_match_support()
+> +{
+> +	local srhm_ns
+> +
+> +	if [ ! -x "$(command -v ip6tables)" ]; then
+> +		return
+> +	fi
+> +
+> +	if ! setup_ns srhm_ns; then
+> +		return
+> +	fi
+> +
+> +	if add_srh_check_rules "${srhm_ns}" "${IPv6_TESTS_ADDR}" \
+> +		&>/dev/null; then
+> +		HAS_SRH_MATCH=true
+> +	fi
+> +
+> +	cleanup_ns "${srhm_ns}"
+> +}
+> +
+>  test_dummy_dev_or_ksft_skip()
+>  {
+>  	local test_netns
+> @@ -1145,6 +1419,7 @@ test_dummy_dev_or_ksft_skip
+>  # supports PSP also supports NEXT-C-SID.
+>  test_iproute2_supp_or_ksft_skip psp
+>  test_kernel_supp_or_ksft_skip psp
+> +check_srh_match_support
+>  
+>  set -e
+>  trap cleanup EXIT
+> @@ -1156,5 +1431,6 @@ router_tests
+>  host2gateway_tests
+>  host_srv6_end_flv_psp_tests
+>  host_srv6_end_flv_next_csid_psp_tests
+> +host_srv6_end_flv_consumed_srh_tests
+>  
+>  print_log_test_results
+> -- 
+> 2.43.0
+> 
 
-Best regards,
-Krzysztof
+Tested-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
