@@ -1,113 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914848;
-	b=n8X0RW1nyWnl+EBAgSLaZdjdZfxOWD7vh05eC+RrZaG5Zoae/o/RhGmtCFUQsMy66p9w
-	 OQaliulproXJb+RzU0vH++iGkkgrOgPcaKD0DPQdA2oN4/6OgZTzeOubXpk/q+1AbmVGY
-	 gxpvulnR/HOG8KoxnGez9fvMD2KPg7UqOLsyXrjl4S0pwBCK4DDIjZGLIzLYNpsjyxnw6
-	 dGXIjRzMXQjBpikJcQLLYHC5aNdqReL3suJE6wxOB85rXtistqmQmv5g75zOilOCxfpUw
-	 8Y0quyqL0JkZCA6FRnHnnjzsgXRXsKSJuwanYIqywrYnluthVQyVIJlANU9CpDMyHCg==
+	t=1793914974;
+	b=EkiIMOEwMhwQARY4/RSw3B5r11YFdaq4eDgLc4QxOOlh6QSFzAPyrwZAXLELljbtkmNW
+	 EZPSPITtw2oCwSUqEkN0nOAx2SVVowSI7lEGpGP+5Ij0rBuri/k83yqWsmJH5Ftqulq1K
+	 yi+TbIKzb6OewNp7L1EvM5CX9oUqGzuyAsdQtzFUczS6IENvkrtl9q+/N0oQTtqGdoEHu
+	 tTJpj2a/JITqI1hCdOI5h66lBUoIuFg3spX+8Eq/hdxjcHke3Sn06SckaaNxR24UsM3fn
+	 O+oL3W9z4RDG2s7S4VtdHc3HBY0dDQdHG7yooMOczeaFJWCwE8bGScyiRhaUBmMVsJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914848;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=TiL2IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=;
-	b=CAurTXhEuQWGDF5mF2d+V3+8l9VrvIq5OP9hRmq4ykJqJ/8KINOpCJtp61LWopi+6sVM
-	 Jm4jVVrOoCMlChIJHyGtuGaoK5vx6XNYqcBkSBd9+c/Z/Y9kRLPvEvypcwI+DlnKo+XFP
-	 SUyr5X0vsdgGeuyPtSI33BeeU4hbTwiv8K4J1SDm/p8jefQeCdNRnBbCLYwUDQVT5K2ur
-	 LJdxyDjhj7w3WlDE7m373UUE0CgfG1W0dtEOvM/XZll+xfIgib2Fpb8SBirHxA/ErOXsN
-	 c3s2R2V9Ye10Q0m/mGHz2R52fjNwIvHK99a1eoHkM07cnFAMue2tXu7nF2tOtFa8ihg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914974;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=GA54y8x2BTg+d6MyDylKpNDR5NpP0XULvhnGi2Kmvgk=;
+	b=rFkkREu97vTt4ip0DesI8UX8ik/DilBZlrS27gfZ1gTG+kATW8rVYxBd32138E0AdNzp
+	 n1oyW0rN2+xtp+SzBoZAy66I4jwCmQU+zdOKJL79h/BPWZklKkC+DOeYGFE5bOdNE3kwr
+	 4kmgbgzFlaUiZZKEdnJhC1/3NwFM67xQuzaly43nbY1n0Ko/sZ3cCZ8s22lfORMK7fXYG
+	 qWwpvyJkU+YpLszcm1X7G50YxA6M4DVz1ffv5td15MP68TRUdF3z60N7zsmIfozDa2O+U
+	 rxjAeZaYQCdFYot8ADIfQ5t7RxIK4Ja4v2tFwjHfMQzkhCdrEx47TsihBDWI5MoMwkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=gSEe04W0;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ixdOxXeu;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7E2MjRH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A84606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3A84606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A5F606A31B;
+	Thu,  5 Nov 2026 21:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=gSEe04W0;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ixdOxXeu
-Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5LY7UK314382
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 16:40:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=TiL2
-	IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=; b=gSEe04W09Z+Nh8ZHcttV
-	bnd4AF4WkzrRlwZafrX5JoEzr5CxThBeF3xKEZOIBcZf19OnJMHqvzml/CUUpRp7
-	hIctJ0EZsgo+t93Nfw/HGZ7RF6zupDHhTHC7r7lBTWanUitvkGm/v6aK5dPekwsV
-	8g4hY5qW70hw3BqJb+UcrTZIkWQfrbdqFYu0SgROjPeKsQKMlzvhzPn3pw3aCFS6
-	qH+ubESFeDDgm5P8F1wFuYtYRe7NKtOchPSI/8U8xHRLTOwgr/bZ/tdVpFpQueX8
-	Mmemd7/RyEzyyUvD7mLL4SXRSAq11zfPe0tCuhterVH5lvwXtNwemmeYxToFA+if
-	ow==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hrw6ek2pf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:40:45 -0500 (EST)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9440b27c1feso495080685a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:40:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793914845; x=1794519645; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TiL2IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=;
-        b=ixdOxXeuQ6bjUfzLRCLvJWlLpU0w6m+xj6I4VCuvdLxTkTF1Jf09PtGGgxU006mWFg
-         Fi/aIMVS8sEwnPoRnT9cJbuyb+3FzijAceFvzpexP6ikZllK81NbYC5JFeEEQrU3zkCb
-         V5VcOmMDn9NRMGN/yVCtte7ASePnpZbRs9VtClQ21jDkDZ7qe0aRtFmwOEpmGqVfi9CI
-         bp04iUjc4qxOt9FJA/N2QO9fbwxoZAm4EwEz076r1dG1NeGMHR9I2i0QLlTgFW90qhbz
-         0cY9cWaFjuSedMDSuvXnpPVEmLxnQQHUUlRHND7522mfiR4P/gQPr+FnqWrU5jn1IqN1
-         F+Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793914845; x=1794519645;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TiL2IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=;
-        b=z6Pq5JVQeLk6fEeiz4FHgqVz5h2bpVOFouWN9RMrbASrhRot9gWShzZrihDHV5cCyy
-         NTa7x/9UH3sJV1Z07DlJ+ossw2HfHIIOCRRK/itvtuw9H//+wlhnfT/bgUEaqgDIgNgQ
-         9QbpSq0z0Ag0aAzXfv9OliKKU2VHAQTaTRBOV4u9S3LH0ju5ncs5E7GBv82DJoWYK84P
-         pzAE5Dfby6iQtOZBFWt+Lm3YCXbxDJw//Jx2bUEagrzsbiLFBeSaVAs+4qbo9msrblPY
-         CreELBiUbcBkiZixacRJ2c/t8I8xvuYkgjBXwp3bPzL7MWQD1e2xOD8FoWeG6c1OFMWp
-         MoSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkJTfCaE6WByHd/JBzPF3HlX63caMDFFAE74YQCq6zfcCx8ythMMm9DJwLHxl4I5irB7tXXDFjl43Nip4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81ytoztkeS8P7fnnapJT+DJgMRTGkTL/uLYk0oE/FXXMEdzPEl
-	hYUTNUlcrXjhx+r74yPmw17TR9qIK7nEVU1dm58sIRVoeq5vwxo5yvELR00qc4S2Rv/Q7YjMQdk
-	6GxRGThLYVK70/9Zxpl3R9QMBlcyRDYp3Fq21j73RNM8GYcFvVBzWBk0PRJ9BlQ==
-X-Gm-Gg: AYBFou17qPExumw1E1/MdPVWMbbmdPWRwv+na+qnoPINKg4yqDJ/AlWbs/odnIZvQc2
-	myg1ykHiFF1UZG3zreh6TbIxBI3mHtqqz+xCe4qiUnK5GbdGYeg6UX12ztvIxrku8v+LIMohKbT
-	kwevEdGi4RN3hfrh4COYCuBsPBmmDGy92gGDTip9FOESaKmIX3QFmgAT5GnJDyGmCyOUVARITk6
-	bP+0Ev09xy+Phpwtom+tBlDtxr1hkDp6Z6/uHgnNMVfZsEnWSnrT+eRgmi198WKcnqaFggQcJce
-	dMfk0LFPx+zecUiWZBanc3PLaUfw6LLud/HqDChUEznr8T5+zzegXODxLoNwgxWuHkHAKVzDzLR
-	r6ZZT4cJybwUiPIdDtqMIfA34caFiHblxhAMTO/RwXgeK0qc1q0FandJ/MYQq81omiywWdh8wgr
-	C3tyuOjfPw/+wHZ+8gTJ3gj5VU9D8nOBessDYwvC6DElRrJ5ej7OOspc6meOq6gVoewvWpBvdsX
-	24XDaG/Vk3jrTHo8t9SBbjdxIlLZGnRjrsFQd5bL6dY/LSKHpn4Zesp6c2kxyDv
-X-Received: by 2002:a05:620a:1d05:b0:93f:3f86:c4e9 with SMTP id af79cd13be357-945f3632eb7mr58662285a.79.1793914845061;
-        Thu, 05 Nov 2026 13:40:45 -0800 (PST)
-X-Received: by 2002:a05:620a:1d05:b0:93f:3f86:c4e9 with SMTP id af79cd13be357-945f3632eb7mr58658785a.79.1793914844728;
-        Thu, 05 Nov 2026 13:40:44 -0800 (PST)
-Received: from [10.206.221.57] ([129.236.229.247])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d48577ebsm547093585a.33.2026.11.05.13.40.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 13:40:44 -0800 (PST)
-Message-ID: <74882357-55f7-4569-8aae-789a464748da@columbia.edu>
-Date: Thu, 5 Nov 2026 16:40:43 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7E2MjRH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37441F0089F;
+	Thu,  5 Nov 2026 21:42:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793914974;
+	bh=GA54y8x2BTg+d6MyDylKpNDR5NpP0XULvhnGi2Kmvgk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h7E2MjRHzsJZkvGDDESAY+UXeh0G4esVLHqk/S+8HNlz9r1WdhHmkvveupL4YV5JH
+	 aZ8D0zeTyG1GO2et1ZZ6u7fu2qJO4okJQ2QMOVK75OvR9p1BoNEzK8Wmpt/AF0tYmj
+	 YK30XZ8ubTL66486WYg/p8UzNANqefwYaeH+iacd/cjTzlXxNtiUR+abV845fCkbAK
+	 D0s3JGwezFQH5M7cEetJOMov/9oI8fwAOmqaCsYRcBEYzrj/X+MqJQDbQs3KpiZBMJ
+	 5aVlgGWf2oLFChdGfljLcpKvpYfjhMzvJ2Xk7yrtTFqJtynD7VQ+jV6lUfRGqf2KWt
+	 GjVHcorcI2aVQ==
+Date: Thu, 5 Nov 2026 22:42:45 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Chen Linxuan <me@black-desk.cn>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	John Johansen <john.johansen@canonical.com>, Georgia Garcia <georgia.garcia@canonical.com>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] pidfd: Add task path ioctls
+Message-ID: <20261105-gefolge-rosten-neueinstellung-6223a18aae90@brauner>
+References: <20261027-pidfd-get-paths-v4-0-e2a6a47e3c95@black-desk.cn>
+ <20261027-pidfd-get-paths-v4-3-e2a6a47e3c95@black-desk.cn>
+ <20261105-fotokopien-essen-inbegriff-be31e4f3c8a6@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,74 +71,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: cancel napi->timer after the grace period in
- netif_napi_del()
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        Martin Karsten <mkarsten@uwaterloo.ca>, Joe Damato <joe@dama.to>,
-        Dragos Tatulea <dtatulea@nvidia.com>,
-        Kuniyuki Iwashima <kuniyu@google.com>,
-        Stanislav Fomichev <sdf.kernel@gmail.com>,
-        Sridhar Samudrala <sridhar.samudrala@intel.com>,
-        Cosmin Ratiu <cratiu@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
-        Wang Zhan <wang.zhan@smartx.com>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu
-References: <20261103-napi-timer-cancel-v1-1-55c631ad5286@columbia.edu>
- <CAL4WiioJuY1L5ji7tVXggp=FDm3eidwekpxqAMdnxWUyiTR3fg@mail.gmail.com>
-Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <CAL4WiioJuY1L5ji7tVXggp=FDm3eidwekpxqAMdnxWUyiTR3fg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA4NSBTYWx0ZWRfX/F6x6sV1PnNG
- eFPS5XMDth7MLNwzZ6O21Bt2Xp2FI5m898ImYCBThadqqPPFtrWlkOP4Nw7Z6jHBx0l73/mXH7e
- 7FdYqBTjEjagb1to8uQIu3qn4G1QIBHgE3BIXJpaQ4+yEDLawLibvdVTu8Bz1Var+93VvAcks2L
- 7MEDdBlfT9UXydbhn8ZNydv//V7IYArGmKUt8BVKN97r/5UBnqSDW1GeDLCsEfle4Rqjn1ku0w5
- 5Gf5IX1xModQzKJZ3V32RceZaWFKSKTEsJVb9DFQO8bzMpmTN7dRbVmmPu1sygX3KAJ4or2WkAX
- oMOl/wUzRaHzUcbbDpBp0jtz7sTNdFrMkQq8s3rJkskUsxJ7IELt9OWwQX0B0+OuSsvzlslf8zg
- t6pFkYfDKzGXJ0jfwI3qHNZSWvPwY3+Kt7l59ldTCIAVl2PHLUtq04BR8hT9dO10HgU3z3TTAU3
- M19g566R5OXQV15LXUw==
-X-Proofpoint-GUID: tES70heNpvEDfvyiZQKjLblaYJgPBWoW
-X-Proofpoint-ORIG-GUID: tES70heNpvEDfvyiZQKjLblaYJgPBWoW
-X-Authority-Analysis: v=2.4 cv=epdKXYpX c=1 sm=1 tr=0 ts=6aecf7dd cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=JerxfvFqMz+qeRdZ4jtV1Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
- a=0-2_M6cSbhsvEd0Ws-sA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA4NSBTYWx0ZWRfX2tuFUPEVGMcl
- lkRPeqDist0mvIdLGeIIjoB2diyaiF2ZosVdtA4uggKqZM75dhvczIhdvqFE+5rrAX0Hs0V9HiO
- H4ijFw5O+KmxTgKF8vN6/LppAQifn1ZiM2wmV8wK9Hna+1cmS72C
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=10 bulkscore=10 adultscore=0 impostorscore=10 clxscore=1015
- spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050085
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105-fotokopien-essen-inbegriff-be31e4f3c8a6@brauner>
 
-On 11/3/26 1:37 PM, Eric Dumazet wrote:
->                  hrtimer_try_to_cancel(&n->timer);
-
-
-One case I'm not sure about.  If napi_watchdog() is running when
-hrtimer_start() is called, the timer is queued again and
-hrtimer_try_to_cancel() returns -1 without dequeuing it.  With
-preemptible RCU two napi_suspend_irqs() callers could both end up there
-after the delete.  None of the callers run in hard irq or from
-napi_watchdog() so would hrtimer_cancel() be ok there?
-
-> Can you give this a try with your reproducer ?
+On Thu, Nov 05, 2026 at 10:16:44PM +0100, Christian Brauner wrote:
+> On Tue, Oct 27, 2026 at 04:46:09PM +0800, Chen Linxuan via B4 Relay wrote:
+> > +	case PIDFD_GET_EXE:
+> > +	case PIDFD_GET_CWD:
+> > +	case PIDFD_GET_ROOT:
+> > +		error = pidfd_get_task_path(pidfd_pid(file), cmd, arg, &path);
+> > +		if (error)
+> > +			return error;
+> > +
+> > +		return FD_ADD(O_CLOEXEC,
+> > +			      dentry_open(&path, O_PATH, current_cred()));
 > 
+> So the path we take from the task is a jump target, just like
+> /proc/<pid>/cwd and /proc/<pid>/root are. So complete_walk() runs
+> ->d_weak_revalidate() on them. Without that a stale dentry on nfs or
+> overlayfs turns into a valid O_PATH fd.
+> 
+> And failfs relies on ->d_weak_revalidate() to refuse pinning its root. A
+> task that fchdir()ed into the failfs root can now hand it out through
+> PIDFD_GET_CWD. Which would be breaking a guarantee we give. So we need
+> the same check here. I'm just not yet sure how we best do this.
 
+Ok, just saw that Sashiko also reported that. Hm, so I think we need a
+dedicated "task open" helper. Something like:
 
-Yes, it works.
+From 59f9a5be6615604ddfbbd6a80f2872ad0c818ae0 Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Thu, 5 Nov 2026 22:25:55 +0100
+Subject: [PATCH] pidfd: revalidate task paths before handing them out
 
-I'll send v2 with your approach.
+PIDFD_GET_EXE, PIDFD_GET_CWD and PIDFD_GET_ROOT sample the task's path
+and open it right away. The path isn't found by a lookup in its parent,
+it's jumped to, exactly like /proc/<pid>/{exe,cwd,root} jump to it. But
+there complete_walk() runs ->d_weak_revalidate() on the jumped dentry
+before the O_PATH open happens and the ioctls don't.
 
+So on nfs, 9p and overlayfs the ioctls hand out a path that
+/proc/<pid>/cwd would have refused with ESTALE. And they hand out the
+failfs root. The failfs root is only unpinnable because its
+->d_weak_revalidate() refuses every jump to it. After
+fchdir(FD_FAILFS_ROOT) a task can now simply do
 
-Thanks!
-Mani
+  ioctl(pidfd_open(getpid(), 0), PIDFD_GET_CWD, 0)
+
+and gets an O_PATH file descriptor to it which no path lookup allows,
+not even with O_PATH.
+
+So add task_path_open() for opening paths handed out by a task. It
+gives the filesystem the same chance to refuse the path that
+complete_walk() gives it and then does the O_PATH open. It's called
+after the target's exec_update_lock has been dropped so a filesystem
+that needs to go on the wire doesn't block the target's exec. There's
+no lookup so there are no lookup flags to pass.
+
+Fixes: d53dc95eb961 ("pidfd: Add task path ioctls")
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/internal.h |  1 +
+ fs/open.c     | 30 ++++++++++++++++++++++++++++++
+ fs/pidfs.c    |  3 +--
+ 3 files changed, 32 insertions(+), 2 deletions(-)
+
+diff --git a/fs/internal.h b/fs/internal.h
+index 3f2fbac40f8e..e43ebcfd9846 100644
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -205,6 +205,7 @@ int do_fchownat(int dfd, const char __user *filename, uid_t user, gid_t group,
+ int chown_common(const struct path *path, uid_t user, gid_t group);
+ extern int vfs_open(const struct path *, struct file *);
+ int vfs_open_consume(struct path *, struct file *);
++struct file *task_path_open(const struct path *path);
+ 
+ /*
+  * inode.c
+diff --git a/fs/open.c b/fs/open.c
+index e43f02ff64ac..55441ff0525c 100644
+--- a/fs/open.c
++++ b/fs/open.c
+@@ -1156,6 +1156,36 @@ struct file *dentry_open(const struct path *path, int flags,
+ }
+ EXPORT_SYMBOL(dentry_open);
+ 
++/**
++ * task_path_open - open a path handed out by a task
++ * @path: the task's path
++ *
++ * Open a task's exe, cwd or root for the caller. The path wasn't found by
++ * a lookup, it's handed out directly, the same way a /proc/<pid>/{exe,cwd,root}
++ * jump lands on it. So give the filesystem the chance to refuse it that
++ * complete_walk() gives it for a jumped dentry.
++ *
++ * Only O_PATH opens are supported. Anything else would need the permission
++ * checks a lookup performs before the open.
++ *
++ * Return: An O_PATH file on success, an error pointer on failure.
++ */
++struct file *task_path_open(const struct path *path)
++{
++	struct dentry *dentry = path->dentry;
++
++	if (unlikely(dentry->d_flags & DCACHE_OP_WEAK_REVALIDATE)) {
++		int status = dentry->d_op->d_weak_revalidate(dentry, 0);
++
++		if (status < 0)
++			return ERR_PTR(status);
++		if (!status)
++			return ERR_PTR(-ESTALE);
++	}
++
++	return dentry_open(path, O_PATH, current_cred());
++}
++
+ struct file *dentry_open_nonotify(const struct path *path, int flags,
+ 				  const struct cred *cred)
+ {
+diff --git a/fs/pidfs.c b/fs/pidfs.c
+index f2a113006552..a2a0691cf131 100644
+--- a/fs/pidfs.c
++++ b/fs/pidfs.c
+@@ -775,8 +775,7 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 		if (error)
+ 			return error;
+ 
+-		return FD_ADD(O_CLOEXEC,
+-			      dentry_open(&path, O_PATH, current_cred()));
++		return FD_ADD(O_CLOEXEC, task_path_open(&path));
+ 	}
+ 
+ 	ns_common = pidfd_get_namespace(pidfd_pid(file), cmd, arg);
+-- 
+2.53.0
+
