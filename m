@@ -1,49 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889134;
-	b=fzMq5XpdjOpTKqvSFspZDdlbOIHGv0dd6dGwd1a64x+jxbr4dPTJHF06ICeOD3s9Vvc6
-	 6YN8bBlkWBrh+DEAzXwZ8JM32tCC63PdymAjaC9bBAD3uoXRzTWuX5SmgJrLWQNMIVyEH
-	 9nMf2uB4VKocbWv4yqdRO+fcVb3datIIqTKvB3I6pPkArD0Glwe1IfFKEUoT9h8gAIwyD
-	 KlAp3Gx9GfXf5lYx3AdXoN4RzPGCe2iofggI0TCjSQFpgPd7QRc4vKL5cAGQPmolkzYnF
-	 qkaznv7nd37yLDDq7DmTJQI89alOB+GKti7CVfDXVBnLGQUX7D1opwIVLcQcYzjYf6w==
+	t=1793889173;
+	b=GIoeDDxhHtElqCeMqe8eCVzn5iLK6eyZHORcBpajMDE9zQ9MCtaHQQzaW0wyjGGTUFan
+	 gUzLOrwLeW4pS+tB8vUFoT5ZkZS6JWJw5wweAZI5drmx5nlYD4ikC3i2/L5ijqv9TcXid
+	 z6bvOu+4DwwkfZqZ7HXNsIOuMhkFfOcPgxi9cwSLgCP85oeXHfHKTll3PsaUlEFSDU+PA
+	 IgE4aSvZ4EpvabOez8YEC0w5OBw84XirMD4dslvhzuys8k/BwwFNhGf131Jns6pHlrE7t
+	 AT+bUNMVS0QGw3YtytBoqMsWuzdRkR7cy9W8Hn2o/ZIpYUhS+Q3YylkZpFscGtI+2Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889134;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=aMbPFbhM0NGfaTpsyfc09N2QKzH+fJPg2tPLJvKIlQs=;
-	b=02R85S3QXurR+/97sBwovucnabyEC6SmUZJG7Mpry8PzWpSXYQqaLiwoUOxi4MwsQvQD
-	 3/pba8HPS+IQ9miVOH6o75TY1l9v59gXeUDKvnH8Y5c7tGW8uCL+qWRTD6g4Ho57k0d8a
-	 NWaB7g2Lv8g029Kx97ZsLLQkV8HTO8rySfF/EpEk2u5M0hqPShl5zG/j+cu1M9u43OGgJ
-	 StNzpb1qSXRPmHNXhf5P8zP+X3MElTKprZ9tT3Ril7guJtW9NlQ0gNiA5BX+x/dnpkpr1
-	 vyNBU3lOxo1Uj9qvx33ig1gy9oxKGvXw9g1Xs0Cf/UxtYtKSDM/QozxhXCsxyg0OH+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889173;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=N57O/pymgahy2d1f5FroPzkC5Sl+/LdrVI6cHMQuJ3Y=;
+	b=5ZhprM4gcgoHh0JLKDThtJ+tTtw1jpJcoegKLdtsmDVIOnaaMB6dddwHisCiLy/sqDGa
+	 XiAODJhV0TvdOwxihj7hWrkjvJVTBSbkWpTcBnW2dNx5qezkQ+XYFYLtmK3UEOM8Aygc0
+	 kFT2I9tlEVcr4qc+DR2InhWAFO7+KgQA04b1eJM0WrbtB1TrJFpoxdRErgXXYeAB5ARBe
+	 rL6McGQlRlOPPyYkjw1rM0/KUCU4sqNc2+ToIt/JRGwgw1OHvLuU0FIsVMG1Pe9ynNNFc
+	 ChstquGLwvMGokk2Nj3ZLc/Lddi2o+RPIQ0r4YANNsYJVe93Z6fN7Iap0tj/3UTRK7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZPTH2rmt;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75490606A329;
-	Thu,  5 Nov 2026 14:32:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75490606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bNA+j2GK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD47606A326;
+	Thu,  5 Nov 2026 14:32:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZPTH2rmt
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AB9AC168F;
-	Thu,  5 Nov 2026 06:32:08 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 95D4C3F673;
-	Thu,  5 Nov 2026 06:32:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793889131; bh=57jqKN7YeDWabQXBzWNtR7fWKF/1HqcWUWZ6tAgNGJ0=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=ZPTH2rmtS6mwvYND5oNgIMjrGKwroFa6A+v6YjEVh6dYgT3QgjDjgLwb/GuPUp+5b
-	 LOn13CSfGE7jXgGZmsAFeqSSeMlcAY9Ksfla1O9LsdUGnQWlvXXbZ1TFpQ3H0fAZl2
-	 6P2+yN97IwrXsSv2XlBwlFh5pVFcwbgaccK5ARo8=
-Message-ID: <75364e56-62d3-4d3f-bf79-03ddeaee1121@arm.com>
-Date: Thu, 5 Nov 2026 14:32:07 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bNA+j2GK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1D201F00919;
+	Thu,  5 Nov 2026 14:32:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793889173;
+	bh=N57O/pymgahy2d1f5FroPzkC5Sl+/LdrVI6cHMQuJ3Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bNA+j2GK3N6zSE3aTGGssivmU7TfGzCfE09L4qPQVZBB5vtGOIk67ctP6G4y++eWY
+	 LTxsBVSfUlACqDIWaT8wRcilvnWkUEirRKrEAwYn8at/pDKeWYF4pLf7kjlnu8ZWax
+	 NhLmYReu+LrLaEaO531ZfuPe3huzx264KW/pk38XqSo/0EB2Q8CcwhgXbGUzXXiLhU
+	 Pl/BpbaCINW0/NMtRpSdBazyofbkpgTtDrK3ATT+WFx/rCuoNBvKRm1BDsgLnXVmW1
+	 5e6T+/ysXXWOqw8VF0Z7UsTqX4q0fHZq2+mOGEGnTnJDYJQgjFSV7Z/PLcxXWasw0g
+	 9+W/S1LpukMaA==
+From: SJ Park <sj@kernel.org>
+To: Aveline Noir <jm5905938@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Randy Dunlap <rdunlap@infradead.org>,
+	sashiko-bot@kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [RFC PATCH v2 0/4] mm/damon: introduce age_ms damos core filter type
+Date: Thu,  5 Nov 2026 06:32:45 -0800
+Message-ID: <20261105143246.91656-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <179388191315.401969.13923237674993632654.b4-reply@b4>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,140 +67,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 3/7] qcom-tgu: Add signal priority support
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
- alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
- konrad.dybcio@oss.qualcomm.com, james.clark@arm.com, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
- Jie Gan <jie.gan@oss.qualcomm.com>
-References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
- <20260730080704.2903540-4-songwei.chai@oss.qualcomm.com>
- <9d450f18-2300-4ead-981b-94bd9eea9126@arm.com>
- <f1e4f462-2aba-470d-84e4-87a12c2a13d3@arm.com>
-Content-Language: en-US
-In-Reply-To: <f1e4f462-2aba-470d-84e4-87a12c2a13d3@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+On Thu, 05 Nov 2026 23:31:53 +1100 Aveline Noir <jm5905938@gmail.com> wrote:
 
-
-On 05/11/2026 14:14, Suzuki K Poulose wrote:
+> Hi SJ,
 > 
-> On 05/11/2026 13:01, Suzuki K Poulose wrote:
->> On 30/07/2026 09:07, Songwei Chai wrote:
->>> Like circuit of a Logic analyzer, in TGU, the requirement could be
->>> configured in each step and the trigger will be created once the
->>> requirements are met. Add priority functionality here to sort the
->>> signals into different priorities. The signal which is wanted could
->>> be configured in each step's priority node, the larger number means
->>> the higher priority and the signal with higher priority will be sensed
->>> more preferentially.
->>>
->>> Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
->>> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
->>> ---
->>>   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   7 +
->>>   drivers/hwtracing/qcom/tgu.c                  | 189 +++++++++++++++++-
->>>   drivers/hwtracing/qcom/tgu.h                  | 133 ++++++++++++
->>>   3 files changed, 328 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/ 
->>> Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->>> index 36ab64f1e301..7dd24314592d 100644
->>> --- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->>> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->>> @@ -7,3 +7,10 @@ Description:
->>>           Accepts only one of the 2 values -  0 or 1.
->>>           0 : disable TGU.
->>>           1 : enable TGU.
->>> +
->>> +What:        /sys/bus/amba/devices/<tgu-name>/ 
->>> step[0:7]_priority[0:3]/reg[0:17]
->>> +Date:        August 2026
->>> +KernelVersion:    7.2
->>> +Contact:    Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai 
->>> <songwei.chai@oss.qualcomm.com>
->>> +Description:
->>> +        (RW) Set/Get the sensed signal with specific step and 
->>> priority for TGU.
->>> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
->>> index 9c7dd4a09f02..0e88b437f191 100644
->>> --- a/drivers/hwtracing/qcom/tgu.c
->>> +++ b/drivers/hwtracing/qcom/tgu.c
->>> @@ -15,14 +15,144 @@
->>>   #include "tgu.h"
->>> +static int calculate_array_location(struct tgu_drvdata *drvdata,
->>> +                    int step_index, int operation_index,
->>> +                    int reg_index)
->>> +{
-
->>> +    return operation_index * (drvdata->num_step) * (drvdata->num_reg) +
->>> +        step_index * (drvdata->num_reg) + reg_index;
-
-I am confused by this, probably amplified by the bad naming of num_step,
-num_reg ?
-
-I perceive num_step => numbe of steps in the hardware
-
-num_reg => number of registers (or controls) in a given priority field ?
-
-If that is the case, shouldn't the index be :
-
-step_index *  (drvdata->num_step) * (drvdata->num_reg) +
-op_index * (drvdata->num_reg) + reg_index ?
-
-...
-
->>> +
->>> +struct value_table {
->>> +    unsigned int *priority;
->>> +};
->>>   static inline void TGU_LOCK(void __iomem *addr)
->>>   {
->>> @@ -36,6 +163,9 @@ static inline void TGU_UNLOCK(void __iomem *addr)
->>>    * @lock: Mutex serialising enable/disable and the associated PM 
->>> runtime
->>>    *        reference counting against concurrent sysfs access
->>>    * @enabled: Flag indicating whether the TGU device is enabled
->>> + * @value_table: Store given value based on relevant parameters
->>> + * @num_reg: Maximum number of registers
-
-Where ? in a priority ? in a step ? Why is this maximum ? Isn't it the
-number of "registers implemented on this hardware"
-
->>> + * @num_step: Maximum step size
-
-Number of steps ? not step size ?
-
-Suzuki
->>>    *
->>>    * This structure defines the data associated with a TGU device,
->>>    * including its base address, device pointer, the lock serialising
->>> @@ -46,6 +176,9 @@ struct tgu_drvdata {
->>>       struct device *dev;
->>>       struct mutex lock;
->>>       bool enabled;
->>> +    struct value_table *value_table;
->>
->> Why this ? why not
->>
->>      struct value_table value_table ?
->>
->> Surely, we seem to be dynamically allocating the priorities etc from 
->> there. But do we need dynamic allocation for value_table field as
->> such ?
->>
->> Suzuki
->>
->>> +    int num_reg;
->>> +    int num_step;
->>>   };
->>>   #endif
->>
+> On Wed, 04 Nov 2026 20:44:20 -0800 SJ Park wrote:
 > 
+> > One straightforward solution is extending the DAMOS access pattern for
+> > specific deterministic time based age specification.  However, DAMOS
+> > core filter is a better option.  It is playing a similar role in a more
+> > flexible way.
+> 
+> Makes sense.
+> 
+> Reviewed-by: Aveline Noir <jm5905938@gmail.com>
 
+Thank you for reviewing, Aveline!
+
+
+Thanks,
+SJ
+
+[...]
