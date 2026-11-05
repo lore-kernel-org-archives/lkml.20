@@ -1,52 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793857837;
-	b=V9iIhExzyHbeaiQP3/dWIi+bkeRgXQXYUPe0UFs8Nxf+BgiAckUSmvC5diGLO4xn0iA2
-	 NZ/jIrszAy2yummtM/U6LrJMMbi+ZSvb8xanMO2hhp8CLBmyKDojJEOnZGfT6XuN3kVsq
-	 3pTW0MeDnbWlD5bbdB2XeymqVdMSWSIhI72HweZ2/dN2BgHP9l+oCiSfsHgc5VPrxtkdn
-	 Af626MLI1bzj7bBPvhVfKvFOhBxytx7ZeyJEYOxFviyAC+QZRS/5bM5mJo6hhmIJg4iGM
-	 A+hf/4MFqV0i2ORpEE/PEg8PYnsb1MgyW9U0l+Re5mXPrGC6JBHEBFEoY1XhjpxEJkQ==
+	t=1793858035;
+	b=WIjOO668kU0Y+1E2hoRgtx4P5TkcHw1nk3NXx212GkhUVhNlAaMRQoh96wkEuNOu+PBT
+	 H3LQ1N/iRbDzIm9cI871Y0yLsIXf4Dj230WD+a8GriTdu6bS+WC8h3RQOUog852ojdejP
+	 OmlQclJlZA9H8D/E0MD6aY2IgemJwMX0xxK7ENH5vODd04j5XXp/hF4KnFB/xIy/8WJSY
+	 heRIVFXaFn5evxOkqxnkBBEi4r7OqC9ih2ppLZNqAPdS5u0xJhrriD9f/Hx0h1SRXN99a
+	 VD5BmaGJOvlSmKPE6oGTS2cOkXKdjbM0eyTyc+waZ0ENrnLfy1/QJhuSbI7ALdfmJqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793857837;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Date:From:To:Cc:Reply-To:
-	 Message-ID:Subject:X-Mailer:MIME-Version:x-aliyun-im-through:
-	 References:x-aliyun-mail-creator:In-Reply-To:x-aliyun-mailtrack:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+nIQo6SJcvZDib3A+NhZjHGX96S244Rb7zbwdwutnkg=;
-	b=ftDMGn2+FDaE91iAMWBakWDzchZMqDy+464hOEE2LdocjJknftIEB2If9DQ3m7+Sq+X5
-	 hwx41KfnnFiZhTXQdYDF26InEtAv7ukiexpoleTh9rTzLRS35ZUmB7UPGvAkN9ygqBW8L
-	 DPqOqk5UiE35a5rKokDez6eCyqT0Pm3rAiiZN9TirF4SxGS7dVnCxD4FS0v0sNF5L4tKt
-	 pAbCNpMIFbONPkXpIYpum6bFP62acGpBzt5MBsGEg0BTRajbxWAbZJiIwbWcCsufrYUxQ
-	 nplfEMcFcxTkOYI1nR4VdogDexmDBI7JBnvgoSGnBJjNk9DyetahuD8BnjVfuCnUzRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858035;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=igsohCGD/my9F05BJ5ZdAf3sM/HA3G6ndburhp8TXQ4=;
+	b=uFYIFj9lAwJAYBYJstrE9i+1JqYos5NBQbrP2/zzMBkeZphNebX3eDwN4qYMbySn154r
+	 1nq8P/ScrtxFNcbQ8+uE1o8cwXfHltYrHA+ayMaUWWWFwwGbj+MUw83uBAALj3zdTGB3u
+	 gUojv98oVPoC3n5nd8Jote6ERnSuzfF1izDlQReP4Rb9ShRdd8Ks3hRZQJvIR0IpEtyG2
+	 pGiubBDx/at/57CeTV807A/IvJX5uwWaPaPxvSOA0h/IX+zm9DkTnfKkDxLwRKfiQimjQ
+	 sahCEr9OFHy2qS/ibf5vn8DBHOYcJcp7yj/hhovccZIvTSrwOfNHGvU6WbXJznD12cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.170
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWtEO7kP;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F580606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:50:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F580606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.7356054|0.6548271;CH=green;DM=|SPAM|false|;DS=CONTINUE|ham_social|0.00726536-0.000343484-0.992391;FP=5296112782220841970|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032065030;MF=liaoxuan@open-hieco.net;NM=1;PH=DW;RN=7;RT=7;SR=0;TI=W4_0.2.3_v5ForWebDing_21251644_1793857779938_o7001c47r;
-Received: from WS-web (liaoxuan@open-hieco.net[W4_0.2.3_v5ForWebDing_21251644_1793857779938_o7001c47r] cluster:ay29) at Thu, 05 Nov 2026 13:50:21 +0800
-Date: Thu, 05 Nov 2026 13:50:21 +0800
-From: "=?UTF-8?B?5buW54WK?=" <liaoxuan@open-hieco.net>
-To: "Keith Busch" <kbusch@kernel.org>
-Cc: "axboe" <axboe@kernel.dk>,
-  "hch" <hch@lst.de>,
-  "sagi" <sagi@grimberg.me>,
-  "linux-nvme" <linux-nvme@lists.infradead.org>,
-  "linux-kernel" <linux-kernel@vger.kernel.org>,
-  "default avatarZheng Tan" <tanzheng@kylinos.cn>
-Reply-To: "=?UTF-8?B?5buW54WK?=" <liaoxuan@open-hieco.net>
-Message-ID: <34801e0a-5d66-47c4-9844-7844363072fe.liaoxuan@open-hieco.net>
-Subject: =?UTF-8?B?5Zue5aSN77yaW1BBVENIIDEvM10gbnZtZTogQWRkIGFkYXB0aXZlIFBDSWUgbGluayByYXRl?=
-  =?UTF-8?B?IHN3aXRjaGluZyBmdW5jdGlvbg==?=
-X-Mailer: [Alimail-Mailagent][W4_0.2.3][v5ForWebDing][Chrome]
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E6E606A334
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:53:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E6E606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uWtEO7kP
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b08cf16decso1044503a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:53:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793858034; x=1794462834; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=igsohCGD/my9F05BJ5ZdAf3sM/HA3G6ndburhp8TXQ4=;
+        b=uWtEO7kPbQwyLbeKx3WLFl/Pb+ogG4nPrB4bl7Ex5y0v3lZAgUnyRii+1xiSyFGLIf
+         wa5nEo2rQf0TC/A2rsToWG8msA+dWD449sNcAPENrxLbbcuuiSc9y1n1e4Kjm/8zBUVb
+         gxcJqidzZp6FzQNdePsgcU/udo+1YyDvocc1lluwY4p6b5Tm74mPMw/C/zrxBTanMy3B
+         mhTwMnEw0d81nCSrBwxFUK2KlDr1VUk7ylaQEBskClVlSDY05eqxhdPTDPtu2uxd2lhr
+         whRDWrGvqk16DM+0YjJldmrK3TRxxRlg1alNLmD5zTo4AQ98ppxgPXLpCZmtHK7yQOQ7
+         S5jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793858034; x=1794462834;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=igsohCGD/my9F05BJ5ZdAf3sM/HA3G6ndburhp8TXQ4=;
+        b=MoKjPBsQ6tRXH0OuqQfm5LJJvc8SRGbpZDEFItoGUZkwGAcWZufC+q2VGaj4EdqlZ+
+         T6xPR4p8bVjBIyG5qGvalLY3PN22lORKpjeiroMDY1ro5e8D6StJJW08nKitM5AaOsY7
+         4iH6mUFmnO+1c0HDmJh4iddMlOj7iYmJbSdr2rdrXL6249+dUJ7A2xNveFkgeIsBjMWR
+         numqSK7eGTjTHC+3k325IbMSJNK7vsr/2H0Ru4DlQJUjwuuViarBymDmUsz37GErZfzI
+         +5dzPj4vDKVxUnAa+NU+JaJwVMULPLGWcPYvuaFNWpzTPPxT8xtZd6CoYg31txCYGpqJ
+         JuXA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfEtfbhYF2JRwjMogdpSNCi+V0EGSsawzvrlzXFHSGDzUC54hdNnMmAr97Sx8TJvJ83gF50TJW2E2Lmac=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6e9YxDxn6vc5/AZXGVP1diWXuXedpaGKWixoUGKRmy9LXPI8p
+	ZXFXYeYl+vuJXO1StI674TGcqnJnKKzwQ/PAc6J1wIrgh9WBicSJO606
+X-Gm-Gg: AYBFou2ED9b6VIT+0YlWe79vR8OWhGfeXMOSpz2DWD3mo7HtaVeAiclpTiW8D4AzBFb
+	uJO0BjQoDLmOBWg86qNf89FXY65l0sHjMRO3tOEaM/m4I0Kxcu2428JrdS54T67Cfu7nRtyB5O5
+	X/D/sHaysNsr4LcXb0DpyM2HIIWKfYj9ADshdo7MN1a8nf2eSPJrq2G4ajsfjK122AS0HaNPixw
+	X35lhYnyH0rJf+8wq829B8p0ShOAvns9qgMmds0NLlz/C2/EfRVJ0yvwjvPsjqBqN7szM3ujhXn
+	AAhvivJ3wTR6NvwJi68211DlyCI4P+zF/KCz4RYCJWmsoCY/LoFq/ZVSTOWN2MP5nyA+0kx5B2G
+	kO58PFY2ot2wzrT4g5Mx1h+X1pr2eSVB0EMRGWFUZXaBh05X8RnBtdYJxh+n9Dex90kMzwa1sov
+	2mAIzPn/6zcelPziXSDy5yWAkCu8glRuKgi7UcQYz/W4oWYo0BXlr5O7ZSkXZuspMTAkuWyPcHS
+	cGmwBIRudHLovZRSYuZe1upfI9iFrMIrvrSQ/oUafERayXJbgKtyygWajW7iGoSWKdplJkuikLq
+	shFEJ4WQ5/EcwcoEdv4OARc5bbQZu+75S02zl7jyi0vD3Wq3QeEVR9A=
+X-Received: by 2002:a17:90b:1b11:b0:3ad:4bfc:1e77 with SMTP id 98e67ed59e1d1-3ae897dd40fmr15148293a91.66.1793858033891;
+        Wed, 04 Nov 2026 21:53:53 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b312cc44sm2293530a91.1.2026.11.04.21.53.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 21:53:53 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: yin.li@oss.qualcomm.com
+Cc: robh@kernel.org,
+	james.morse@arm.com,
+	ben.horgan@arm.com,
+	sdonthineni@nvidia.com,
+	andre.przywara@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: Re: [PATCH v4 0/6] arm-mpam: Add basic device tree support for resctrl
+Date: Thu,  5 Nov 2026 13:53:47 +0800
+Message-Id: <20261105055347.947416-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <9d370f12-9e4c-4b80-9d28-ff8085ce3aee@oss.qualcomm.com>
+References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com> <20261104081302.304667-1-leeonion.muyu@gmail.com> <9d370f12-9e4c-4b80-9d28-ff8085ce3aee@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,43 +104,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-x-aliyun-im-through: {"version":"v1.0"}
-References: <cover.1790134954.git.liaoxuan@open-hieco.net> <85a11a4085d04a2823c04059702630cf34abf6d4.1790134954.git.liaoxuan@open-hieco.net>,<auoxH197kQfUJGaE@kbusch-mbp>
-x-aliyun-mail-creator: W4_0.2.3_v5ForWebDing_SFRTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE1Ni4wLjAuMCBTYWZhcmkvNTM3LjM2IEVkZy8xNTYuMC4wLjA=Ch
-In-Reply-To: <auoxH197kQfUJGaE@kbusch-mbp>
-x-aliyun-mailtrack: {"foreign-track":"0"}
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-SGksS2VpdGgKClRoYW5rIHlvdSBmb3IgdGhlIHJldmlldyBhbmQgZm9yIHJhaXNpbmcgdGhlIEFT
-UE0gTDEgcG9pbnQuIEkgYWdyZWUgdGhhdCBBU1BNIEwxIGlzIHZlcnkgZWZmZWN0aXZlIGZvciBw
-b3dlciBzYXZpbmcuCkhvd2V2ZXIsIEwxIGlzIGVudGVyZWQgb25seSB3aGVuIHRoZSBsaW5rIGlz
-IGNvbXBsZXRlbHkgaWRsZSAobm8gcGVuZGluZyB0cmFuc2FjdGlvbnMpLiBEdXJpbmcgYWN0aXZl
-IGJ1dCBsb3ctdXRpbGl6YXRpb24gSS9PLCB0aGUgbGluayBjYW5ub3QgZW50ZXIgTDEgYW5kIHR5
-cGljYWxseSBzdGF5cyB0cmFpbmVkIGF0IGl0cyBtYXhpbXVtIHJhdGUuIFRoaXMgcGF0Y2ggdGFy
-Z2V0cyBleGFjdGx5IHRoYXQgd2luZG93OiBpdCBkeW5hbWljYWxseSBkb3duZ3JhZGVzIHRoZSBs
-aW5rIHJhdGUgdG8gdGhlIG1pbmltdW0gc3VmZmljaWVudCBmb3IgdGhlIGN1cnJlbnQgdHJhZmZp
-YywgYW5kIHVwZ3JhZGVzIGJhY2sgdG8gbWF4aW11bSB3aGVuIGxvYWQgcmlzZXMuClNvIHRoZSB0
-d28gbWVjaGFuaXNtcyBjb3ZlciBkaWZmZXJlbnQgbGluayBjb25kaXRpb25zIGFuZCBhcmUgY29t
-cGxlbWVudGFyeSByYXRoZXIgdGhhbiBjb25mbGljdGluZzogQVNQTSBMMSBoYW5kbGVzIHRoZSBp
-ZGxlIGxpbmssIHdoaWxlIHRoaXMgcGF0Y2ggaGFuZGxlcyB0aGUgYWN0aXZlLWJ1dC11bmRlcnV0
-aWxpemVkIGxpbmsuCgpCZXN0IHJlZ2FyZHMsCkxpYW8gWHVhbgoKLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCuWPkeS7tuS6
-uu+8mktlaXRoIEJ1c2NoIDxrYnVzY2hAa2VybmVsLm9yZz4K5Y+R6YCB5pe26Ze077yaMjAyNuW5
-tDEx5pyINOaXpSjlkajkuIkpIDAzOjA4CuaUtuS7tuS6uu+8miLlu5bnhYoiPGxpYW94dWFuQG9w
-ZW4taGllY28ubmV0PgrmioTjgIDpgIHvvJpheGJvZTxheGJvZUBrZXJuZWwuZGs+OyBoY2g8aGNo
-QGxzdC5kZT47IHNhZ2k8c2FnaUBncmltYmVyZy5tZT47ICJsaW51eC1udm1lIjxsaW51eC1udm1l
-QGxpc3RzLmluZnJhZGVhZC5vcmc+OyAibGludXgta2VybmVsIjxsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnPjsgZGVmYXVsdCBhdmF0YXJaaGVuZyBUYW48dGFuemhlbmdAa3lsaW5vcy5jbj4K
-5Li744CA6aKY77yaUmU6IFtQQVRDSCAxLzNdIG52bWU6IEFkZCBhZGFwdGl2ZSBQQ0llIGxpbmsg
-cmF0ZSBzd2l0Y2hpbmcgZnVuY3Rpb24KCgpPbiBUdWUsIE5vdiAwMywgMjAyNiBhdCAwMjoyNTo0
-M1BNICswODAwLCBMaWFvIFh1YW4gd3JvdGU6Cj4gQWRkIHN1cHBvcnQgZm9yIGR5bmFtaWNhbGx5
-IGFkanVzdGluZyB0aGUgUENJZSBsaW5rIHJhdGUgb2YgTlZNZQo+IGRldmljZXMgYmFzZWQgb24g
-SS9PIGFjdGl2aXR5LiBUaGUgbGluayBpcyBkb3duZ3JhZGVkIHRvIGEKPiBjb25maWd1cmFibGUg
-bWluaW11bSByYXRlIGR1cmluZyBwZXJpb2RzIG9mIGxvdyBhY3Rpdml0eSB0byBzYXZlCj4gcG93
-ZXIsIGFuZCB1cGdyYWRlZCB0byB0aGUgbWF4aW11bSBzdXBwb3J0ZWQgcmF0ZSBhcyBzb29uIGFz
-IHRoZQo+IHdvcmtsb2FkIGV4Y2VlZHMgYSBjb21wdXRlZCB0aHJlc2hvbGQsIHNvIHRoYXQgcGVh
-ayBwZXJmb3JtYW5jZSBpcwo+IG1haW50YWluZWQgdW5kZXIgbG9hZC4KClByZXR0eSBzdXJlIFBD
-SWUgQVNQTSBMMSBzdGF0ZXMgd291bGQgc2F2ZSBtb3JlIHBvd2VyIHRoYW4gZG93bmdyYWRpbmcK
-dGhlIGxpbmsgcmF0ZSwgYXMgd2VsbCBhcyBoYXZlIGJldHRlciBlbnRyeS9leGl0IGxhdGVuY3kg
-dGhhbiBhIHNvZnR3YXJlCmRyaXZlbiBtb25pdG9yIGFuZCBsaW5rIHJldHJhaW4uCg==
+Hi Yin,
+
+Sure. Our memory controller MSC is described as a top-level node.
+The MPAM register window is mapped independently in the SoC (the
+component sits on the DDR egress path rather than being a sub-block
+of a memory-controller DT node), so the node is a direct child of
+the root:
+
+	ddr_msc: msc@2238000 {
+		compatible = "<vendor>,<soc>-ddr-qos",
+			     "arm,mpam-memory-controller-msc",
+			     "arm,mpam-msc";
+		reg = <0x0 0x02238000 0x0 0x1000>;
+		arm,not-ready-us = <10>;
+	};
+
+The first compatible in the list is for our platform glue; I have
+replaced it with a placeholder here since it is not relevant to the
+binding discussion.
+
+Notes on the properties, in case they matter for the binding:
+
+- reg: the MPAM register window. Only a subset of the architectural
+  register space is implemented, so the size is the truncated window.
+- single RIS: the component reports HAS_RIS=0, so there are no
+  ris@N child nodes.
+- no interrupts: the component has no MPAM ESR block, so there is
+  no interrupts property.
+- arm,not-ready-us: 10.
+
+The verified probe path: the node matches via "arm,mpam-msc", and
+patch 6/8 in v3 classifies it as MPAM_CLASS_MEMORY and treats it as
+accessible from all CPUs, which is exactly the behavior we need.
+
+One question in return: with the node being a direct child of the
+root rather than a child of a memory-controller node, is that a
+form the binding should cover? If the binding expects the MSC to
+always be a sub-node of a memory controller, we would need the
+top-level form to be allowed as well.
+
+Thanks,
+Ping Li
