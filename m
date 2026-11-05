@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840469;
-	b=cIqwCLuWIJZK8NQCPUcy0R4NcSfvQsf7ZHxMq99TThLWQbAJM1H02B1xpXSXkBW1t5Dc
-	 +/UjSaAZ7N28EP5VsAuDUOLPOHpUjQXLCeI8hVr5xGIwpa3MiuvRwqcCdxZGJKQdS9ePA
-	 PhRm+ZFUsMqyFkM9sIqZjgF5nwKT8sxf2S26m/Qjr1ENVLfmHPeq5yWoTKm7V3+ZIWR8z
-	 9MMXGz/1T8vVeGyhuieSpm/7bpG4/VoAakq/Nyt6aplhJDxVdPqhnBGlJdQ/QqeposFvx
-	 Ey1isarOLnzqeaPQSKfCv7bwvvqRwiaBqdwV2KBBI1d3virLxjPbO35bLz5qA2IcvDg==
+	t=1793840474;
+	b=2cP4R8VKpoT73mxHQlKdZpe9cXSiNyxf0//197SnCyIyQPnywSL2EV6/s4gLCYTl+IMl
+	 9eY3CHBtXwgGYk5VFM9zl9w9jxZXymJ0VQZZ3s4djBGXrAcQjxbAN8NvUa+z9Sso+AO3p
+	 Ctj19/++Rif3xBMmAl4eedmCkQPpjY41e7ztoB9A/ix7eMDShuE9cT0ZgTabPMLmnFQ/z
+	 xkfwjvm3CMLWlPDVGmCxjwtA5NmrUvR+4KqTzYf6MUlTRY8IhyqPy2XgjvgWMcXssHgWB
+	 bdEwnZ/PwjvFce0PxE2Jk13YOJklQuBTU04TDsGYF28pbKPRqo5x2LUPd5tvwO21Twg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840474;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=uoBTdifLpvxmmcyonv/Pm5zpeptfc89qcxTcSRIHC1o=;
-	b=ex4wuxMI50tfDbOjgqJr20W6dRTnlmZ4WSmE32rKfB8WzLC0ly1SVvvPQsz2LNyFE+8M
-	 clO/viNzoji3fLY7h1NU+go/xfqcWuXI5qWkAZO99ZOYymWyB1UvQnhoWKJRxCPzgwZXo
-	 9oAgGJWICN5kyN+sREHCG8Vz+Q8d2xBBYhqHK8fIjr9qpHuYi9uTXA7nTzBaMc0uqAoo9
-	 ZyG8uIyMiM/WIcsUkCtuPgxyip+x85eTAdODI5RQMZpIAZX2Oxy+9K5OKgsvEnqUsjBSK
-	 duIISmpylJpCCgLLh3SdAkIJQIWxfELWoe4adFUezMyLegD32IS04nv1zKGb9YLeA7A==
+	bh=QIq0rQCDyZ1HUILqWdzswTceAmoKhJFBIk2NC1hgA7M=;
+	b=CT2hvHLK0onmJL6473MkuKpEIabmc7OoAPm6PIhf6LK2K4+JEmfJWUossLHauDFt90nx
+	 ery8iXjvWdgH2dDJ15ZnhEO6tvBlYazuGPWSSubvKyQwAhFD4jLpZGElpPSjV7zcZZq9v
+	 Jl63h8TUerwmej0EK7/2glt3sxHiY2lDGEFtRKBE8kfu91ECWcCCkZtpAmxjLIVY7Fc8+
+	 DuAHl3vXh/sd+qSkorhNiwy3E4AdaJS2Us7UKU5Qf5ojymjE946NjjijFQdYIG/RgBUzD
+	 vtRpMG3NU5QeiYf5Pc8d03M2G/9+f4o7HVY+qL7NwKmDEPlp8swMpMxBt7zl6k9Is4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=d0faX+pE;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DeROcM54;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38BF606A32C;
-	Thu,  5 Nov 2026 01:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E38BF606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2C1606EE88;
+	Thu,  5 Nov 2026 01:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F2C1606EE88
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=d0faX+pE
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=DeROcM54
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840466;
-	bh=nePb0kyyjWqyo41M5uZpRKK5NGs/j1qWip36phnEELk=;
+	s=mail; t=1793840472;
+	bh=9ArlfghBrJdwW0nP4zg0k3Av6BQeQyflO3wXjVsY0As=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=d0faX+pEzYv3EKcFMAdxI9LWlYNLSeCWO4ZQ7jPGBLoqWkyPfW+4enbqGiscicO80
-	 IG0DlGOCuhC2/dbLEr4E6vzkVZY5pzox26QLSYNwqjtVU6HWyrrg9I2kfAjHgdUT2w
-	 BXKmEPd1IVChDxTTDCeWbM7SAzwDmT1ffFvfYOqjsTgru6haKhZ7aPkxpjpj96K5Mo
-	 wo8tW1SBmfAa76bhmi0U7EFE2dBFKjr/qdz5fP4v8QFPO54q4Pma4xe7DJOCH1X/SF
-	 OFI0QNANPmktsl93k+o1SfvjX4uw+6I50LFcas9wSRH5bkX30fDJs1QSMhntE167lc
-	 JaT7EhNCQkKTg==
+	b=DeROcM54jjDIyHjvbYu4F7UIzTzJTZFRckMugNbacLFlEjKtWgRfQdnjv9YINRl5Q
+	 q82qV2vGy57/LleuqjBLrMCZ6V3FUgZuw56hVyj9d5drP9lGL8mlTvGoYRhtGpBoun
+	 NckatM3ZmD8wKnGiTGBp1bT/44t3ut3yRL5Vq9nrzwciVjfRVWvxubz2wK4uGUu1Rr
+	 jULTePNFjgashxm77dFh/Kf+FaHFNzQBtj2SSIssvzRQhRFzV1GCa1F5ezs2yqtK3q
+	 g/jyZX9NIoK8BiGjpYJks7ED23KisvWlsM7sLB3nKVP19A6IV1+1TrTpdCyMOkGpzs
+	 nCIT1uAMLAynA==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AFE1D17E0CE8;
-	Thu, 05 Nov 2026 02:01:06 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EA80917E0D5D;
+	Thu, 05 Nov 2026 02:01:11 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:35 +0200
-Subject: [PATCH v6 01/15] dt-bindings: display: vop2: Add missing reset
- properties
+Date: Thu, 05 Nov 2026 03:00:42 +0200
+Subject: [PATCH v6 08/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL
+ clock parent switch
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-1-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-8-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -88,108 +88,95 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
-clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
-provided only on RK3588.
+The DCLK parent switch logic for HDMI0 and HDMI1 PHY PLLs was
+duplicated, with each endpoint repeating the same clk_get_parent(),
+clk_set_parent() and error handling calls.
 
-While at it, move 'iommus' in the example up into the expected position
-to keep the properties in alphabetical order.
+Refactor this by first selecting the appropriate PHY PLL clock handle
+based on the active HDMI endpoint, then performing the parent switch in
+a single shared code path.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+While at it, retrieve the original DCLK parent at init time, along with
+the rest of the clocks, instead of lazily on the first switch to a PHY
+PLL.
+
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- .../bindings/display/rockchip/rockchip-vop2.yaml   | 46 +++++++++++++++++++++-
- 1 file changed, 44 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 +++++++++++-----------------
+ 1 file changed, 13 insertions(+), 22 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-index 93da1fb9adc4..f993cef0323b 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-@@ -82,6 +82,20 @@ properties:
-       - {}
-       - {}
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 98430587a7ab..ab6ced49ae40 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1956,42 +1956,31 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
+ 		unsigned int bpc = vcstate->output_bpc ?: 8;
+ 		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
++		struct clk *pll_hdmiphy = NULL;
  
-+  resets:
-+    minItems: 5
-+    maxItems: 6
-+
-+  reset-names:
-+    minItems: 5
-+    items:
-+      - const: axi
-+      - const: ahb
-+      - const: dclk_vp0
-+      - const: dclk_vp1
-+      - const: dclk_vp2
-+      - const: dclk_vp3
-+
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
-@@ -148,6 +162,12 @@ allOf:
-         clock-names:
-           maxItems: 5
+ 		if (clock <= max_dclk) {
+ 			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
+ 				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
  
-+        resets:
-+          maxItems: 5
-+
-+        reset-names:
-+          maxItems: 5
-+
-         interrupts:
-           maxItems: 1
+ 				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI0) {
+-					if (!vop2->pll_hdmiphy0)
+-						break;
+-
+-					if (!vp->dclk_src)
+-						vp->dclk_src = clk_get_parent(vp->dclk);
+-
+-					ret = clk_set_parent(vp->dclk, vop2->pll_hdmiphy0);
+-					if (ret < 0)
+-						drm_warn(vop2->drm,
+-							 "Could not switch to HDMI0 PHY PLL: %d\n",
+-							 ret);
++					pll_hdmiphy = vop2->pll_hdmiphy0;
+ 					break;
+ 				}
  
-@@ -194,6 +214,12 @@ allOf:
-             - {}
-             - const: pll_hdmiphy0
- 
-+        resets:
-+          maxItems: 5
+ 				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI1) {
+-					if (!vop2->pll_hdmiphy1)
+-						break;
+-
+-					if (!vp->dclk_src)
+-						vp->dclk_src = clk_get_parent(vp->dclk);
+-
+-					ret = clk_set_parent(vp->dclk, vop2->pll_hdmiphy1);
+-					if (ret < 0)
+-						drm_warn(vop2->drm,
+-							 "Could not switch to HDMI1 PHY PLL: %d\n",
+-							 ret);
++					pll_hdmiphy = vop2->pll_hdmiphy1;
+ 					break;
+ 				}
+ 			}
+ 		}
 +
-+        reset-names:
-+          maxItems: 5
-+
-         interrupts:
-           minItems: 4
++		if (pll_hdmiphy) {
++			ret = clk_set_parent(vp->dclk, pll_hdmiphy);
++			if (ret < 0)
++				drm_warn(vop2->drm,
++					 "Failed to switch DCLK to HDMI PHY PLL: %d\n",
++					 ret);
++		}
+ 	}
  
-@@ -246,6 +272,12 @@ allOf:
-             - const: pll_hdmiphy0
-             - const: pll_hdmiphy1
+ 	clk_set_rate(vp->dclk, clock);
+@@ -2610,6 +2599,8 @@ static int vop2_create_crtcs(struct vop2 *vop2)
+ 			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
+ 					     "failed to get %s\n", dclk_name);
  
-+        resets:
-+          minItems: 6
++		vp->dclk_src = clk_get_parent(vp->dclk);
 +
-+        reset-names:
-+          minItems: 6
-+
-         interrupts:
-           maxItems: 1
- 
-@@ -289,9 +321,19 @@ examples:
-                               "dclk_vp0",
-                               "dclk_vp1",
-                               "dclk_vp2";
--                power-domains = <&power RK3568_PD_VO>;
--                rockchip,grf = <&grf>;
-                 iommus = <&vop_mmu>;
-+                power-domains = <&power RK3568_PD_VO>;
-+                resets = <&cru SRST_A_VOP>,
-+                         <&cru SRST_H_VOP>,
-+                         <&cru SRST_VOP0>,
-+                         <&cru SRST_VOP1>,
-+                         <&cru SRST_VOP2>;
-+                reset-names = "axi",
-+                              "ahb",
-+                              "dclk_vp0",
-+                              "dclk_vp1",
-+                              "dclk_vp2";
-+                rockchip,grf = <&grf>;
-                 vop_out: ports {
-                     #address-cells = <1>;
-                     #size-cells = <0>;
+ 		vp->dclk_rst = devm_reset_control_get_optional_exclusive(vop2->dev,
+ 									 dclk_name);
+ 		if (IS_ERR(vp->dclk_rst))
 
 -- 
 2.55.0
