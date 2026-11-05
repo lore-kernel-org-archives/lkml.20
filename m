@@ -1,45 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851286;
-	b=4OMJ0ZJHNFZjvPypCUDL/KRkth2YkBWHrP+CyLpHeS5VJeE9GQwr9ZltXFtVEppSDxar
-	 BEr0W1YtLsRWhy8Kc9JNfeAEvxXjxEOzi4JHRBVMc0Cegq7jK0AGFIzgx43dEZMWoy4f0
-	 CXVQAcvsISTqq1GefCEJrqplO3EFBlvabl4PT1rWzc0b3VD5P4JJ1X4m7aLB7kbdgdEod
-	 QAgqYKVdYhxPQumP85XWQsxOJmmzNfLemO8k36+hllvXLd/LP7fd9QyOaJ+MUK/gtdRYE
-	 6rkuKjdsLnic2JYWDbVLooM8TIpcGsK4KlbNUeugW1579HkqBcUFGFcoMYffIbTVMiA==
+	t=1793851312;
+	b=tdUZ3c3cylaN8vFRu/JGwH6Zn1I8Pc1ocsVdp9eZlGcHyE7cSGGR+qK6QEEbi2zu6AOJ
+	 2C5fOoS57+Qx2dDDk2RE0GMmVoxknpPeBS3R3CJYYIs20dAPf8b0Z0twPiXtd6KYE5Ldv
+	 sXwK3hcjLwolETRJNIUoX2xo/r/BfHz4GUZmnmk80lvwnADtb/qY1NUoYYqiBYqoyVyqQ
+	 m7JCL6ERdvolWWME7wXV6D/gskuoaDLpgRE6g3NvYCc17V/JEH/I1RBuoS8lFH/CyGl4S
+	 821smvyEqcgwR9AKnKf01PkMM1VRcTg+bp5aVnOAS8FpECE/OLvBB88+mma8dTVcV6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851286;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=SUrp0/rauUAD8Fy1TIhBCL3jjtkn44nBvu8hj89xu+c=;
-	b=WBVz5YvTXFFK5cYQr5S9p3jWE/3tZpb19/KEjn+uJTuLpTTjUYzDc61SlqnuAMHbhH0B
-	 DSNJq2VDD4K2pxu/3D+BgyVjTP63lSlpD6r6kbFx4j0rzzyYEeyAWSLgQHyedrNJuN5Sx
-	 PuXm+Gi2zynluURr4syQS2Hi0aCbv8JphoQTo+8858p84z9K+TDpBoGrVEMtUidNqBh9j
-	 4O36zUMvHyuj8EMQHiOyK3FXJM5tKPecqWNauSkMJShFbRUcH1U+uBmNsHD0+lD8DbbOu
-	 0zz3BMnaChhKDP1d7vOZqNfR5lF/AQ5uqmnr7kCn0+dpFbAuAJeEFei+aeJz4/HzM/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793851312;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=G+1XhpDMLS3N8b4rxkcQ6ba1FdRhZrMu8bFDnS6EmY0=;
+	b=zmkGsTRrvMx6xUTDhMDLmk1/bqIZ9AnR7tlK6rouLzlX4nv2g4799Q2QEl6/D9u42VRl
+	 MOXgsRk2yv5vHJciMo0RqM2e4fgvnDGa3eL1CnzuqIbhD7tjSTZuJA9o2JXNn6CvxlHON
+	 mhjnyktDq1ju/xjhU4VLf1SS1zvEfWpkG82mVDgi4Y0y/4tyx7u4n7XRcy+i3h4mUAjEY
+	 hwNJAJjazTBLcv3KmKXfxqrvI2JbrZuoVMLgjYVrSzl6ll+jmP4LxMATD7oB8UgncmgXg
+	 opyj5i6NCWhmeeA7e8gOdSZ+blaiMDiGX0oiqYfKjEYIaO80YGQl86WDcAr/zrogo4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nuIi02Z4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=FZcfmIsH;
+	arc=none smtp.remote-ip=115.124.28.196
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FDE606A32C;
-	Thu,  5 Nov 2026 04:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83383606A326;
+	Thu,  5 Nov 2026 04:01:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83383606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nuIi02Z4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4A11F000C1;
-	Thu,  5 Nov 2026 04:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793851285;
-	bh=SUrp0/rauUAD8Fy1TIhBCL3jjtkn44nBvu8hj89xu+c=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=nuIi02Z48znFEH+HLyULohBTNIlOaoHsLPUcYZ7z63b6NYqOA/Bnf0OgOwJZjD9YE
-	 CA7ymw3aV3zUSMMn/LLtCloqMjVqgEjNxSmeUKElMpkd8mvhTn4P2NeQX7mnGrwpxE
-	 EFE6YbUNl30aHtmmL5RmGPN7/L+BSEWPgC0AbdD12Rmyn1n/a9Xc5o+reJsvqlrkrz
-	 AACl6cS+mucTDC57TMdLaf7khIjD+5LlnUcNE+yDCEowJnvIDFrZJ3i8TjSi8L8ZYw
-	 rJe7+1fwMdCW1EIsNE2NpnYbWDQ69pmVhCxrIiyM3S+gEzuP8UAPDwtStKB8NK33Sw
-	 PYwz+/h88DzFw==
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=FZcfmIsH
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793851301; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=G+1XhpDMLS3N8b4rxkcQ6ba1FdRhZrMu8bFDnS6EmY0=;
+	b=FZcfmIsHWVcYiS7W3YOaaq4pBuRc2IsMOeDa/PRdVd4vb0mL24BeyOszH6AcroAkwGMBcj7zkOaSHdcFENlvel8xqQirzQxAisdQIgBlG/j7O5lz0IrR8pkQfnUeQYOH5T3iZ+9PxFLlKCnhE9sja984YfZuwSqBz28aNnMCn+o=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08232305|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0173496-0.00129538-0.981355;FP=13138174583549466298|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jxHFe1Q_1793851300;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jxHFe1Q_1793851300 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 12:01:41 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: Maximilian Luz <luzmaximilian@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhugl3@xiaopeng.com,
+	Weibin Liu <liuwb@xiaopeng.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] firmware: qcom: uefisecapp: Fix GetNextVariableName overflow
+Date: Thu,  5 Nov 2026 12:01:40 +0800
+Message-ID: <20261105040140.66496-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,61 +64,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] kconfig: fix use-after-free when a variable refers
- to itself
-From: Nathan Chancellor <nathan@kernel.org>
-To: Leizhen Zhang <lzsx618@gmail.com>
-Cc: nathan@kernel.org, nsc@kernel.org, julianbraha@gmail.com, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261008164504.3683811-1-lzsx618@gmail.com>
-References: <20261008164504.3683811-1-lzsx618@gmail.com>
-Date: Wed, 04 Nov 2026 21:01:14 -0700
-Message-Id: <179385127413.826739.15688072837646047543.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1297; i=nathan@kernel.org;
- h=from:subject:message-id; bh=FzUC3YXWBmCl/LGM0tLnwj+mlFG1qIwcw2mlKON8I4s=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFmv//c8FExZGpCbs2fNy6YXjcfXrdqstOTILDabQ5uV+
- 89bfjj1v6OUhUGMi0FWTJGl+rHqcUPDOWcZb5yaBDOHlQlkCAMXpwBM5PADhn8aHEcl9s/wvVD6
- 6Z72Hok9J/Qe1FSULmh8d/BJidr94ueLGBnmftg/a2mqRYhpvZ3LTNdjP8SUGHZ4CVxwMQ8UqGG
- 4Is8FAA==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-> For a simply expanded variable, variable_add() frees the old value of an
-> existing variable (or allocates a new variable with an uninitialized
-> value) before expanding the right-hand side. If the right-hand side
-> refers to the variable itself, which is a common idiom in Makefiles,
-> e.g.
-> 
->   X := 1
->   X := $(X) 2
-> 
-> the expansion reads the freed (or uninitialized) value. With ASan this
-> is reported as a heap-use-after-free, or a SEGV if X was undefined.
-> Without ASan, X silently ends up as " 2" instead of "1 2".
-> 
-> Expand the right-hand side before updating the variable, initialize the
-> value of a newly created variable, and only free the old value when it
-> is actually replaced. Add a test case for this.
-> 
-> Found by fuzzing Kconfig input with ASan/UBSan.
-> 
-> Fixes: 1175c02506ff ("kconfig: support simply expanded variable")
-> Assisted-by: Claude:claude-opus-5-5 ASan UBSan libFuzzer
-> Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
+From: Weibin Liu <liuwb@xiaopeng.com>
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+qsee_uefi_get_next_variable() checks both variable-sized parameters of
+the response before using them:
 
-Just for the future, you can omit Assisted-by per
+	if (rsp_data->name_offset + rsp_data->name_size > rsp_data->length)
+		return EFI_DEVICE_ERROR;
 
-  1e035297ffda ("docs: remove Assisted-by references")
+	if (rsp_data->guid_offset + rsp_data->guid_size > rsp_data->length)
+		return EFI_DEVICE_ERROR;
 
-although I would still like to see how AI was used in the creation of a
-patch below the fold '---' like the v2 text.
+Every operand is a u32 taken from the response buffer, so both sums are
+computed modulo 2^32.  A response with name_offset = 0xFFFFF000 and
+name_size = 0x2000 wraps around to zero and passes the check; the same
+holds for guid_offset and guid_size.  The name then reaches
+ucs2_strscpy() as a source pointer far outside the response buffer,
+which reads until it finds a NUL or exhausts the count, and the GUID is
+copied from such a pointer as well.
 
+Because wrapping around requires the offset itself to be huge, the read
+lands in unmapped memory and faults, taking the kernel down; if the
+address happens to be mapped, kernel memory ends up in the caller's
+name or GUID buffer.
+
+Rewrite both checks without an addition: reject the offset first when
+it is larger than length, then compare the size against the room that
+is left, which cannot overflow.
+
+Fixes: 759e7a2b62eb ("firmware: Add support for Qualcomm UEFI Secure Application")
+Cc: stable@vger.kernel.org
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+---
+
+Verified the wraparound with a userspace replica of the response
+parsing: name_offset = 0xfffff000 with name_size = 0x1100 passes
+the old check (the sum wraps to 0x100 == length) and faults in
+ucs2_strscpy(); with the offset landing on mapped memory instead,
+the content of a page roughly 3 GiB past the response buffer ends
+up in the caller's name buffer.
+
+ drivers/firmware/qcom/qcom_qseecom_uefisecapp.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c b/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
+index 0dda09ad156a..2c8f6dfc23b6 100644
+--- a/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
++++ b/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
+@@ -605,10 +605,12 @@ static efi_status_t qsee_uefi_get_next_variable(struct qcuefi_client *qcuefi,
+ 	if (rsp_data->length > rsp_size)
+ 		return EFI_DEVICE_ERROR;
+ 
+-	if (rsp_data->name_offset + rsp_data->name_size > rsp_data->length)
++	if (rsp_data->name_offset > rsp_data->length ||
++	    rsp_data->name_size > rsp_data->length - rsp_data->name_offset)
+ 		return EFI_DEVICE_ERROR;
+ 
+-	if (rsp_data->guid_offset + rsp_data->guid_size > rsp_data->length)
++	if (rsp_data->guid_offset > rsp_data->length ||
++	    rsp_data->guid_size > rsp_data->length - rsp_data->guid_offset)
+ 		return EFI_DEVICE_ERROR;
+ 
+ 	if (rsp_data->name_size > *name_size) {
 -- 
-Cheers,
-Nathan
+2.50.1
 
