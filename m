@@ -1,110 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885032;
-	b=Qwio0e5RDtNKJiRYlq5KM/nivzIuyMTzNX9t5BzfCLB5ylWKMUO8F0OLmVYvoWYgZbQL
-	 G+5ijxldd6d/SNtR2ZRSUtjgirDGL+pnhEnRW48vIaOo4gBUCpTawCmfA/Bppmmj0+Ktp
-	 WZGh4+Hs4vzL0BWuFeIoeTpFg+DpBr6VA04oi+n72ejEceYw+q7vbb6jbWXqWA5ni9HZu
-	 basg5coW7Ozz4mvjP8lEQqO7XYqtlEm0chiaBocEmwqGL2Nke2IAG7WwG1fwQ4vPKgJet
-	 agmpbByRwEtB3YceXIQIWu1DLZDnA9IxQ+jDACcYK03G8rpjWDec5mPvjUqSCLgbWIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885032;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793885021;
+	b=FU4Y0yq8yvZv11BHLSeiyGatLLYNRdclq7l+cut59EXQNNkSkd48Avp4BYv3nLDRWvWE
+	 XJVDSE3KpI/zkMC2heAp2I4UqVhVkGT49e5IoB1gXxzWRqhGYzNE7AR2hQ4GCxDw81XaB
+	 hyG/03nZt6dL6xUWWJPlVcrw3EDyopr5ermHcIIFWAquTzIIPCP2FBquJo2UJW5zEk7vB
+	 fHNHMpv7oITUqq3tRx4LCyDmcvIWKP6+mn34w/F26ifFxBbKH0E9WTiP1MUbyvypGVjah
+	 +er7CirCKKqULWof7XA6DWU/MmXJLcmZ78D2R2jYPd3Pfltb16U9AnhmbW6eGmopbOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885021;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2ua7Bl/SxFvqtBTFEESa8UN4vML+ZCDbnn4HUs1QQKc=;
+	b=NQHQqA6YYDJDuDG3mkMIhI97rkseZX4HzcWb3elnmeDhihrC6N6rwD/sKS4r8rRiBSN8
+	 UEdAGirCxzgUfmgqnv5GORtYFlXhG8wvcmNKyvDKV5Aqm6CUCM7E/8uy2PiR3ta3kVLmD
+	 O52RBgRxlRbz8zlcmpeMEbqMwylD0zOIPCv0pn0qaZ6nUhyxyElTT46Ll0fEPGIqQKwoW
+	 fahUzVWmsYHm2gIKpDy7T8WIO9O38cmfhh83gknJJtK2Ja7a5zTvelJUynUVgagT++icm
+	 qRJWI3fzmA8hdDoENoBICQMtWlssCoo7WyUmqyPaO7C8S/KL1LGzG1dfnZd/Ncki75Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jNw5jfof;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0922F606A32F;
+	Thu,  5 Nov 2026 13:23:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jNw5jfof
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793885020;
+	b=K8s5VNqSsyqljpKwYaikGDm3WwkSV3NCi7cNAN/Dxv7Z/aY1lk2gifn0EgHlu20zkQz3
+	 0g7UJcWeWXR9JDRCHgf9wf7e4B2Bu4y2oDMWS6hLGN4ZRrZE6jKYFsg9hRbLMALeDvm7Z
+	 lnKm2odaOVVMEoKReb1zO0vzAlaiHJymceWvqcOzh41xttyHu2mnpV8NgtWCFho9OaBGj
+	 7AIWw/8iHfreVlkh1TnjlIq2ExkKJQwQPYlQ8fgLehxovjJH8omLQgTiTchMStOfrpop+
+	 WHdildjQ3Psix7ZlHMFoGrVYUiUWEEOlecSFamJoOJtVdfoRWOMZnaQOS5kY9Re39Pg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793885020;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=TRdxMZNVjHvNy5Du8W+cgRIYuVrbLC7KA1TotGIZa8I=;
-	b=0LFAulTBt7RbG5ArA4iJJ1Up9u/bAoq5zi+2d1QToORt+jGcp377cCM4CSdMr+rt8PPG
-	 he2YpjngM7O51Cts1gnqZNMo0La4V0m9SOiNftO6JJkaQcHBMhg4LLlmKzmh15ge5peII
-	 o7DXotPybEROmp8zsjnDnQ3bW5kCvhNQUJslm4UWNWbYHqYahFvkZN/542J6PHxmqqhd0
-	 Z8BSNbqvk2NRoi/MuI5ZoGZaVaAN1pZEJj1MTwN0Y0654a/u8NUwaui66+B6rslP/LpBL
-	 Gm2qlmNL7WQZuA1bQSNYqDuevzED0k9D+hV2KM5dJte1TAaEMZPEcwfwsFm38YSYefw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VFgFUCiQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYXYWVLr;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=2ua7Bl/SxFvqtBTFEESa8UN4vML+ZCDbnn4HUs1QQKc=;
+	b=cVYojnZVzv0nnVZn/KNZomCLXv8JTwt1n5Batlhb0/p22LwONSYNwtiNjrgkob/fZPLy
+	 pv27Z/91UYajyNQ+2/X8QmbjfOnmSRiREBLwnzu6y7necI22FAIjGJokHwd1te7veXG+X
+	 oMwpqhF7l4ZWVZLRknCcHWUUVAS0O0YRJsOg6h6QJWZyJuWBOcopSxiYxKNO3xm0PoO5T
+	 O6XcWooEGbARzNA5is7Jd80MhoVrAedJwPrti7OF811X7zx/hTU7yRZZGhRtqsth+Z5lS
+	 NBzhy/3nXgu9ZKi3Dghw64s+/Fh5KeNcd8GBgFXTFDIW/c0Rdy3NyXwWqCktVS/EhkA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A546606D83E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:23:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A546606D83E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VFgFUCiQ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYXYWVLr
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tDf1444466
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 13:23:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=TRdxMZNVjHvNy5Du8W+cgR
-	IYuVrbLC7KA1TotGIZa8I=; b=VFgFUCiQj1DACVLVZoF5SJI2CqdXt6wFCTtkmX
-	A+td797+6XNXi9fmnsEOE0sm3n4K+Cz5A4nKtgK2/VTCTpqsIvZA0upmCpO/dcj/
-	AMaKHE7mxFk8nbDHIYIqtY90vji7q9jtroiJtwtf4TjybHLCEfSryKre0O0Vgyco
-	1tosd/c8VCHrZadjEuH277v/Uc6liwTLTM4uc1qCToM+SuMvdWSXkY57FRXqKRC2
-	v9P89rG1dXliOSc6NFezCR3pAEzVfeeijTnZsssumB0e+A1RmXhSiUPSMCchtrM9
-	yj3N1NJQD7UKLkXbNfB9+OsmvvrNuGBE5zDphSbNl3U8d+pQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrpaah6yx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:23:50 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc0a64ad59so503309137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:23:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793885030; x=1794489830; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TRdxMZNVjHvNy5Du8W+cgRIYuVrbLC7KA1TotGIZa8I=;
-        b=FYXYWVLrCWH+QW/3bYsrKYe5Rs/CIO2vkbNwDamT7243Ypkbq0vdrhu5r425nzcaNq
-         Xgrnc8AeBpAtF5wI75iyERjaADdbrNouTyWJSo25Ob4uwbkeyxnIR28CXwoC6+zfv6iJ
-         6p7FcqJ6ckPSZOy89U+P1z93l3Xzwoy4TA+aQ1aNil5srJZjNBA60boTSqmLjM4rBt31
-         X9A3S1wyvgBXVbfbnCEA3gZzvRBQaobjzyYWaWPMjLhVbV9b4QP8LXnaWGGH2OS2v5Td
-         nsam7ynCpZI6z6rv67AkGDyy+m0LDwkIgXvSkkbQWWQG5j4N7OL2fj4GKF9hyx7LyGy+
-         BNFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793885030; x=1794489830;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=TRdxMZNVjHvNy5Du8W+cgRIYuVrbLC7KA1TotGIZa8I=;
-        b=hkJ7v62hLoG7KxbvLNlhhe3OAwlg13UZDM1rTi+nQ76O86kX5OulJNuMpouiNCvItv
-         +NMyQndW/lv6KQ8Ydau5qP4Exjhd1QXXcn4ka7gKRG9zH4UhXNqlVhjwHyaqFmrf7PD9
-         u1Sjnjs70KkewXsb+XDihbwYBVOb6ME6wDPj3EUhuxXYlRy8dLrTcUE+Y7aXMBmVLwbj
-         8+M5QdalvKtL7qeDXdXR38hJ9rOi6zpoX/H+5ZZNVO4e7TEUMaecfA0B3mXkEoLfh0jL
-         Hq/ulF7CfhU1VMLEeEqxtsPoWokb+m3tomFmLfja1rQAdQtW1MsOO54Is9cZPWwyHVIK
-         ZaZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwYspb/ZtsicuZfX9xizjKmi5C2pNHJFz2wRVLDM5QPAO5ncfU0mYTaWTTI7Q25CI8RmiSx0VJNxME57UM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LM7jjmI1Q15C2YBRWJnUL1nuwKV51VuawRmfPiua13C05tBqc
-	4IkVmmjGmYsuw/NuzaQuFoANgttSez8HcMPRVDSJSKWh/Nx09NTlTtVpZ7JN/tXV7iuDQBnYUt6
-	SIRsY7jx/Wn+xR2ipQcXWH35PweBu/hjuY93lCd+H++UWmmcj4NmhLE4l714pzP0gXcI=
-X-Gm-Gg: AYBFou1ueNB0bkaonEDoKe6uTNECsAO+YiPCFZcELx4PEcLS6dmOBGdS4iHJjthFENY
-	KQ85YeT95/C/mWU4Q0qTMFV5/xbDNuFg+jDjVeG4RzY4Tz9NbrSUKd4LcaERK5e/fHRnFoho0Ew
-	fDNFtXW+Orj+UrvRkCzfSWF/QASVYmMvIagzjp/pKOqm7tQ4Q8tZalJKZXc1So2ywhBLBRgHzhb
-	cadc/DHoGVt3fIg3xRXuOAcRT34t4Tob/s4/5RdXIXSmY4xrPzckEHCfuVyOHGyM1YGIQaVKBVE
-	KIz9FMDtOza9D3zaTXHjOPzAV4qH21sJoqzb90Pe834aQ+nNR0tX7RRBO1Jb/PFQlfSJa0gPNfa
-	yXqKpAvhbhG/XUsDQqb7Bsdsz1GQ2SBanm9I/jlLXh0aoMXouzYPkC3Mgr01Mj7fk/wvhHXQxjp
-	M8Ag==
-X-Received: by 2002:a05:6102:3910:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7d0728e5ca0mr6759293137.37.1793885029830;
-        Thu, 05 Nov 2026 05:23:49 -0800 (PST)
-X-Received: by 2002:a05:6102:3910:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7d0728e5ca0mr6759267137.37.1793885029286;
-        Thu, 05 Nov 2026 05:23:49 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20521sm10347207f8f.53.2026.11.05.05.23.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 05:23:48 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 14:23:45 +0100
-Subject: [PATCH] gpiolib: synchronize updates of descriptor labels
+	by smtp.kernel.org (Postfix) with ESMTPS id 12F651F00919;
+	Thu,  5 Nov 2026 13:23:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793885020;
+	bh=2ua7Bl/SxFvqtBTFEESa8UN4vML+ZCDbnn4HUs1QQKc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=jNw5jfofkzqdUgPFA73++VYVdZ9jAy2xCA1UH6JAHEPoUgto/u67v5zs+S1d80wpN
+	 B+vu8dlDa6awjx/J8EtXxHWC9F4n44f57uhh1rrrtdNCXTINV1X1H/f5pcV5nPlp3e
+	 aUCngYNh6S6Rpyg+yiOp/yXqBNi1awruNP1sMNgmz6LLuEW1e1VFah5hI2TGIUHs5x
+	 P7c2/rs3Bz4z+8uAwWrI9e3b9kZdjIJqyEutRCv0o/Y7DJKDTNfWzXbj7skTLKRFAS
+	 8Jj7Kdb2kI6xE7bWLTNGYaFftZ30hbZF31QMWaFObcT4xrX5Q5A34KU6JV6wz4D1Vq
+	 /U5JduPW3iqng==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9026547262;
+	Thu,  5 Nov 2026 13:23:39 +0000 (UTC)
+From: =?utf-8?q?Orkun_Emin_Sar=C4=B1_via_B4_Relay?= <devnull+sariorkunemin.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 16:23:39 +0300
+Subject: [PATCH bpf] bpf: lwt: Don't let bpf_lwt_push_encap() wrap gso_size
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,138 +83,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-gpiolib-set-desc-label-corruption-v1-1-fa84726ceac0@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAGCD7GoC/x2NywqDMBAAf0X23IUkxIL+Sukhj61dCCbsWhHEf
- zf0OIeZOUFJmBTm4QShnZXr2sE+BkjfsC6EnDuDM+5prRlxaVwLR1TaMJMmLCFSwVRFfm3rNmb
- jfMzWh8mP0DtN6MPH//F6X9cNDZyeQ3MAAAA=
-X-Change-ID: 20261105-gpiolib-set-desc-label-corruption-d024bd14a945
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3084;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=S9dGRxbbLvzUONk3VoDctp97Hfpf//G89PtLXYijNqM=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq7INj5nfHiFIa+0yq4PcA0EtllMol9ctLKBAt8
- guB6XpYl26JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCauyDYwAKCRAFnS7L/zaE
- wwMREACcQVzemlc3w+9MfHvBXrli9QMVPeW/sAJjjUMW/Ki0E7bc1BapWc45DRPZWMpYE1sYicC
- Ige4xacg3nhq5ckbbNkMu/7j9GXCX72fZ8T0/o4qN4GdbS2/wATcuj+SRKtRnJI13c7lglrAu05
- D5BKrhI/Ut6laKyKfmgKPoJnEijlyvE2SoaX2vQbx2TPiLXQkoshwtOMXEIBQVb7+lyTGfypTEs
- 7gKk+SE8SShuw98O6vtZBsBVCdu7UIio4NrfeKqdE5BmpGFol9w6WWuffOssVnof1yevfYgytV8
- pZD4jqL/onveJJPzwr/mhPfkW/s4L+qb9pyL6HyVHqQKVvHxp1oquCtJxX+bQamjpOl7KdSJok8
- OiqQYInokNVdOxh0+3DkoFS6MAXMch7DdWTDcOHTlKmWyBjT1lVu/fzxxe+lUKEF8pQdq9Wpt8g
- BA93cplfCjCRtiqi9ezqlEPOSkn85c7XfNUhKk0EXpeFbWn1onV+hbouG8wjE/FuFrN5TQZptFm
- lqQKHF1rqF44OKgqEvljL49lS8/Z/4bMDtpQU2E/bHvpmDTjRFXJFAZxhg3Vd/LEKAIEbFbUFST
- 3kNkJt0c9xeF7dqrqGCSajrRiinMdekmNTwBZcoTR19QLGkVDcH0oROUXzon9KXMs0sjlCTU5BA
- LFFZeip8Sy5pDiQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MyBTYWx0ZWRfX3vL/VwsPgIw5
- pTSHKmwp2wVpm7FoyFuY+UgJ7VaAz54N6eXOEJ0p1kaFA6kshfle00rt+bJg53qVr3ZuV4q2x76
- 85I1swgbVEspzRJMEduz4608vS6gSPg08sy2MI96NDGugN+qNhV00BmfmJ4zogROtdmjWzfv4iK
- QqBDfRdKleV7ilEX3EWEXn+ptQNZPEVsKv/idiCzVD4ivzhv4JQYA2FVTvx4V0PvClqupySM1WO
- SwM4HmadlItU9tlTLGOLxXbgRl9QdpOiVkCcn9wHGmjgEvEAmwZl94yLbOMxXuEaUVZIfBKVZm8
- fu2Nb98LNrC6Cgk4gToXdWOaZlG9esgSEtZByC57CAaqT9Zjcvj2V+Paw46lhHcriACRLh7JzIC
- SqC0E6R87L2qfc6WL1JaWtyyNQSOV91ZexQm4XVZ1DozUM6os/3l9c3sYxETBGTj+QrS3OKzfde
- MEO6O1AgpdECMqdaz0Q==
-X-Proofpoint-GUID: 7XbFxTIzYqZu-eiz2Vtb9mYGHZNGlUjn
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MyBTYWx0ZWRfX5prqG4CgMaet
- vJxzyeAH9UVuPMKHGBau0uORpnCYR2ZjAhtfTekrLChmAoAXLMRm2x8hiin0Hn1GyhpXH84jP5Q
- fzoQHPc3TZRsCqTxkiAWQGokVx3aOFY=
-X-Proofpoint-ORIG-GUID: 7XbFxTIzYqZu-eiz2Vtb9mYGHZNGlUjn
-X-Authority-Analysis: v=2.4 cv=WOXqzXsR c=1 sm=1 tr=0 ts=6aec8366 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JaOSqjnWr-vPQE8BqLIA:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 phishscore=0 suspectscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050053
+Message-Id: <20261105-bpf-lwt-gso-v1-1-cda5e19d321a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywqDMBBFf0Xu2oFE8IG/Ii5MOtEpRSWjbUH8d
+ 2O7PJd7zgHlKKxoswOR36KyzAlsnsFPwzwyySMxClNU1pqS3Bro9dlo1IXqUBrHjfU+NEjGGjn
+ I91frkI7o/6Pu7sl+uzs4zws8SA9ndAAAAA==
+X-Change-ID: 20261105-bpf-lwt-gso-7f50be81ccf8
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Martin KaFai Lau <martin.lau@linux.dev>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, bpf@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Orkun_Emin_Sar=C4=B1?= <sariorkunemin@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793885019; l=2284;
+ i=sariorkunemin@gmail.com; s=20261103; h=from:subject:message-id;
+ bh=OabHy4jnG0JqeGBm2zFBbMq6JrHCZ6mnFb/ssUZq31s=;
+ b=K2qToYY0e5rmJnMHod+0n8EB4eoKafi6TKBoscUn3C31d2HEhO1ZE/pBsMB1wPy7F6BOte3nQ
+ YYMEJq5s6NiBkjZ4bIH0qOlhvacrby6haOzjeA/5z0oGKjvi3PtL6s6
+X-Developer-Key: i=sariorkunemin@gmail.com; a=ed25519;
+ pk=MJ3Y3somkGDQVAXOSR189QAqWOcfzYCRkL1cSQgJXnE=
+X-Endpoint-Received: by B4 Relay for sariorkunemin@gmail.com/20261103 with
+ auth_id=1408
+X-Original-From: =?utf-8?q?Orkun_Emin_Sar=C4=B1?= <sariorkunemin@gmail.com>
+Reply-To: sariorkunemin@gmail.com
+Content-Transfer-Encoding: 8bit
 
-desc_set_label() swaps desc->label with rcu_replace_pointer() but
-without any synchronization of concurrent updates. The swap is a plain
-read + write: two threads can observe the same old label and then call
-call_scru() on the same SRCU head corrupting the state of the chain.
+From: Orkun Emin Sarı <sariorkunemin@gmail.com>
 
-Add a spinlock to struct gpio_device - we're using a single spinlock for
-all descriptors as using a per-descriptor lock would unnecessarily bloat
-the size of the desc array with very little chance and no consequences of
-contention - and use it to serialize the pointer update.
+When bpf_lwt_push_encap() adds an IP header to a TCP GSO skb in
+BPF_LWT_ENCAP_IP mode, handle_gso_type() lowers gso_size by the length
+of the header. Nothing checks the result. gso_size has 16 bits, so a
+gso_size smaller than the header wraps, and one less than the header
+length gives GSO_BY_FRAGS. skb_segment() then takes the segment lengths
+from a frag_list that the skb does not have.
 
-Cc: stable@vger.kernel.org
-Fixes: 1f2bcb8c8ccd ("gpio: protect the descriptor label with SRCU")
-Closes: https://sashiko.dev/#/bug/linux-2f7ac8b6-5034-4ff1-9afa-5700ff44e3e9
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+This is the problem that commit 12d07c38e1b0 ("bpf: Don't let
+bpf_skb_adjust_room() use up the MSS") fixed for bpf_skb_adjust_room().
+As there, gso_size comes from the peer if GRO built the skb, or from the
+virtio header if it came from a tun device or a packet socket, so it can
+be as small as TCP_MIN_GSO_SIZE.
+
+Refuse the encap if less than TCP_MIN_GSO_SIZE would be left, before the
+skb is changed. Return -ENOTSUPP, as handle_gso_encap() does for GSO
+skbs it cannot handle.
+
+Found with AI-assisted code review (Claude Code).
+
+Fixes: ca78801a81e0 ("bpf: handle GSO in bpf_lwt_push_encap")
+Signed-off-by: Orkun Emin Sarı <sariorkunemin@gmail.com>
 ---
- drivers/gpio/gpiolib.c | 11 ++++++++---
- drivers/gpio/gpiolib.h |  2 ++
- 2 files changed, 10 insertions(+), 3 deletions(-)
+No reproducer was run and the fix is not runtime-tested. Build-tested
+with LLVM=1 W=1 and CONFIG_LWTUNNEL_BPF=y. checkpatch prefers
+EOPNOTSUPP; ENOTSUPP is kept to match the other errors of this helper.
+---
+ net/core/lwt_bpf.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index fbdeda2f278713a47c2e3d2a6640f387f6d92227..574f1b161d22c41e5f9248fe59efe25d7fcf5032 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -154,9 +154,12 @@ static int desc_set_label(struct gpio_desc *desc, const char *label)
- 		memcpy(new->str, label, len);
+diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
+index da49364ec6..c151a013a8 100644
+--- a/net/core/lwt_bpf.c
++++ b/net/core/lwt_bpf.c
+@@ -13,6 +13,7 @@
+ #include <net/gre.h>
+ #include <net/ip.h>
+ #include <net/ip6_route.h>
++#include <net/tcp.h>
+ 
+ struct bpf_lwt_prog {
+ 	struct bpf_prog *prog;
+@@ -632,6 +633,14 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
+ 		return -EINVAL;
  	}
  
--	old = rcu_replace_pointer(desc->label, new, 1);
--	if (old)
--		call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
-+	scoped_guard(spinlock, &desc->gdev->desc_lock) {
-+		old = rcu_replace_pointer(desc->label, new,
-+					  lockdep_is_held(&desc->gdev->desc_lock));
-+		if (old)
-+			call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
-+	}
- 
- 	return 0;
- }
-@@ -1201,6 +1204,8 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
- 		goto err_free_ida;
- 	rcu_assign_pointer(gdev->chip, gc);
- 
-+	spin_lock_init(&gdev->desc_lock);
++	/*
++	 * The MSS is lowered by len. Leave the least that the stack lets a
++	 * TCP GSO packet have, or gso_size can wrap.
++	 */
++	if (skb_is_gso(skb) &&
++	    skb_shinfo(skb)->gso_size < len + TCP_MIN_GSO_SIZE)
++		return -ENOTSUPP;
 +
- 	ret = init_srcu_struct(&gdev->desc_srcu);
- 	if (ret)
- 		goto err_cleanup_gdev_srcu;
-diff --git a/drivers/gpio/gpiolib.h b/drivers/gpio/gpiolib.h
-index 650a702741dfb938fbdf11db65a46ac85b6af512..8dd8ea747f8a907664ca334b29b6602661c3767d 100644
---- a/drivers/gpio/gpiolib.h
-+++ b/drivers/gpio/gpiolib.h
-@@ -37,6 +37,7 @@ struct fwnode_handle;
-  * @valid_mask: If not %NULL, holds bitmask of GPIOs which are valid to be
-  * used from the chip.
-  * @desc_srcu: ensures consistent state of GPIO descriptors exposed to users
-+ * @desc_lock: synchronizes the updates to descriptor labels
-  * @ngpio: the number of GPIO lines on this GPIO device, equal to the size
-  * of the @descs array.
-  * @can_sleep: indicate whether the GPIO chip driver's callbacks can sleep
-@@ -71,6 +72,7 @@ struct gpio_device {
- 	struct gpio_desc	*descs;
- 	unsigned long		*valid_mask;
- 	struct srcu_struct	desc_srcu;
-+	spinlock_t		desc_lock;
- 	unsigned int		base;
- 	u16			ngpio;
- 	bool			can_sleep;
+ 	if (ingress)
+ 		err = skb_cow_head(skb, len + skb->mac_len);
+ 	else
 
 ---
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-change-id: 20261105-gpiolib-set-desc-label-corruption-d024bd14a945
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261105-bpf-lwt-gso-7f50be81ccf8
 
 Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--  
+Orkun Emin Sarı <sariorkunemin@gmail.com>
+
 
