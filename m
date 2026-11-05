@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886168;
-	b=ur51AVUyuE9gBab6aTcF8G1+RaTzy7XZYokcJLzZ6HuaKdNURopBSNbCV2agBkIfBokn
-	 mTkuSZ37UfaEDgBAK4gn5qS5zr57QhFaEd+s2kgJTPfyUbunwuwpNDqwy5l6tecuu78Xo
-	 HxYUp0LCtfML9533fwU5doosSRar+WZtPSKerwp2GJu82cFukyVoCppCxJ1TE0cusAJb8
-	 EKKj0a+puIOA/SpEbb3lWNnBsNnGLvKIV620jWHZE6iOroXQ7ZoA7PlMnywVUq0gEPtpQ
-	 M/4yTGrOp6WL64Ek0iNWX52C1v1OsSOC2KbVCJqGp0Lk05t0DcYtN3eBPMriTNslrUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886168;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=5JtIMbH8bYb+/uBp8MYmywFxXn4OxXIrKJE7bqVu5FQ=;
-	b=Q//rn5YYaHE8WA63BPxwEOGwitmnhHmGFb5PW5emndUq5kLipj3e6zqeahjEYKE8U7oW
-	 e/mfK0WhRMZnwfA0nHlIyJwWGI1wKwHRqb2cj62Xzf4RnbvlItWwY3awr3zvbfti69d7E
-	 RYPItrLnBkWZkuG8x9Az5h7oNmqnvJK2vKOmCStZhOEssIRW6BuLXUNcCvK3YtBURQSgN
-	 7OO6/xmZ4r2JGoU1Q7uDjYsVqUTChs+gWQAFwxQcEQ/aiKKupn01gkUe3Bf1BpRoFs15M
-	 IW0YqNJcBq93DGGGOyWn8auHt6o5ZvD4zFSpwREMVBBXUjmJY4a62j/rAidgacGZMfw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KNWXrjUt;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4EEF2606A328;
-	Thu,  5 Nov 2026 13:42:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EEF2606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793886203;
+	b=nwNA4u2WD6AVoJZjrXfr1MZaB5Sw1z7dYXNGT9d582HQaDcV982To2JnUyaC4KEdRQNV
+	 1XPUkTJcBjNcLBQINl5xjNq6xkzE1xSEGHZuCmC6VJXXE+cgtAkAylDAgIshGTjzS6l8j
+	 zKqNigk6cFdMzqmDbiFoqsN7dAE405dIIb6H087la7/3oGXb3eH6YclxPVoKEc99dtllq
+	 hhbcC3dxKAC0VpMZUemqB6M60iBK+cbZC1ff9WYqR9eq9IavEdsKX2TpV5CEi5eGz/yq9
+	 3faRs8OjFiUYU9/6QZ5T3fPDtNLt+EiW5aMEsjt9ior9VhEzRxs+vpvKkyf2YMzUZaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886203;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5InNLlTBW1+FHMMXtqNCm652eEhZdNBTTArid9tphss=;
+	b=Asbdwhu6TdZTU3isBHy+1rPvFgbrFbNcs1XQz+WwivNJeBtAZISZAd3stMUe//FmnFqd
+	 l5J4ldbfc1kT84hW8RZZhAep+CKMYDKJrAsp2exgu7UZjXAmTe3oeUyaCCStA887UdDx4
+	 HKtL7g6KdkCtznPvJOVBj4sBOw8WuSeNRsDeE8nLn63SQXR50oegQEvxrn+lX5v3vJm1M
+	 EsZJXwoWMMmQ+V+N1VS26wQZbGeMUw+WLBtY8O6Cxeb8gOB0FgeFc32r9aELFHinDFBBc
+	 E5+e75bQX0NyV5YywG4M4QZb+M7Fx4v2f3UlCTnLX//8qfBG/DLHS23u+gzolvMetaw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmurvqvT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0E1606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:43:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D0E1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KNWXrjUt
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 380F41650;
-	Thu,  5 Nov 2026 05:42:43 -0800 (PST)
-Received: from [10.57.91.118] (unknown [10.57.91.118])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 60A813F628;
-	Thu,  5 Nov 2026 05:42:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793886166; bh=LveRI2qxSsupfhBJHDyhXy7DoKCO1CvAkdTDvg906zs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KNWXrjUtNKtutWMxTDb6oou+QYOV4dLBHiS5rUJsEnDvfiDU1x3OfmQand0VegEod
-	 UOK5Sv9i74jXcnRzH9HeBpwpKOepeebwy93Qohp+Tnba+eYsw0g6ifDRMYL5b7ZtFG
-	 0+0UWxjwJlwl05oorBvOj1xVVcR9Kgdz1hgMMXEs=
-Message-ID: <9b43db9e-4eaf-4cac-a203-4b444202160b@arm.com>
-Date: Thu, 5 Nov 2026 13:42:37 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmurvqvT
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso16907005e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:43:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793886201; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L4TjTNu1t0mKYuaOMIwb8J4VQWGRJnwIMoTQV/ayWGHGuvhZ7/SDEv/hWen9EysDHl
+         9EsLjswVhmCSpZODtzbmnRC6y0ZkSp7TAUrk1VxicL1SkZ99MItGQe2V9BG3CVCz5o6l
+         It9Qgw4qCw0/Jc4uK9WtsH0hwRCJZ68abqul9lvrY0bY2t0G5a7TwR8p7bp3+JAMb2/B
+         pMts4vOag5zJmusQjc98qPbEYjcJp2vX8Ywmomk91+6pqmcpiHze23S3xdN6X6Rt7NFk
+         IAZU5boCTpOW0nhBkc+tzDTQt8SNzzuhcK/YMeS58hp3fIkjIZAv6dK3I2jw9Vh9a4bn
+         22eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5InNLlTBW1+FHMMXtqNCm652eEhZdNBTTArid9tphss=;
+        fh=wzkIQh4NMkZK96ZF30v3oiaXlh+be3hVQamk7+rT4u8=;
+        b=VlwB4qhI5DWxpqc8kQ2KD5t/IZg5i8pLzwG28YdOiOMbCJZgjjcU7mgjrGNHKTKjiA
+         2QXZrYY1FIZ0OF1z2gY3HNpbt2jDD/A4XxLBgnBLG9bXGOQ3+vX5EtoJS+Wf+KAAVd0b
+         u3ZylOr71FUlNLLvVq83Itwc1m3bjMVfguqhI+oXXx+udbcWmbiF9D/Dg/O/z1tJRNks
+         yOuuMka7c1wvYrfvt4Eu5eJz5hujHErssbbKNixtWECdmGJMWaOfGgqAHE80kXndq9Ko
+         VA9aanOoSgvq24f3hODblq0mISRUUWFM4ckypu8ckcUZLrKV7RYMcrbIp9CYA2b17D3w
+         Xv3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793886201; x=1794491001; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5InNLlTBW1+FHMMXtqNCm652eEhZdNBTTArid9tphss=;
+        b=mmurvqvT+z3WqxIrFi6mIwXiICJd076DFKfZ9ie+T9w7n+pCZ6rvIwh7bplFf3ytGe
+         +NawPJ/F4zbKYPTahV/wRXW2lQCTq8P/Omu2hRB15SavqkKWNxPtxTdwgfUiMLwSN8Ay
+         ClkO17wxr2uYAqnLmC5k+hfbdq0fyUVVSxuRCd8zwZqWrdoG3xg2lzG2OOdHvZXc/3HT
+         W7U/Ue7LRBeuV4gLSiHju4akKZStC6q2uAnKHD88lbWrE50csXiL3JRC8NaL7W0Ap75H
+         A9gSDo8S1ywxIfdHde0Ojb/RXbwWkhYNJ2z1H/H+Ky7XvnzfmwQtrGs+RbYufT0hJodT
+         ASCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793886201; x=1794491001;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5InNLlTBW1+FHMMXtqNCm652eEhZdNBTTArid9tphss=;
+        b=HaxyxPyY22M1wNdmpk2O5Eg32B0WiWvItGMB1ibeyqHKRAEYeYVF0F/M0C38NOI8df
+         DQPHqLRBdqatASXBXtGAA9CQg3565jRcmtnuRgFFbxKqXkhzuI+4z7DgsPhQo8RyKGhj
+         142iJLHg/Pt7T4CyP4GQE3kbQh9OPusGPnMs6NGsXcCsn0UAQOPXvRlakUcMcpSb9g0C
+         68Z2v3NORZHciBeZIaSwMPL7RQEVY8aIIHnBpp34olTHli7ogpw79J+U0Qzxvh6ZkMnT
+         dnBpl0KMz+i1TzZq9w3FvkZTtquQl3Q01ugmFYqOmKvT5NteJ7LsspwlyPrwZtG4jV0V
+         i7fw==
+X-Forwarded-Encrypted: i=1; AKwUvBzPYtgNeo9/KSNCZGFEKxZSmgRxOBd3HCtQFysei3u221rD4RIfzKKZGZxFVLro3Rv5N3EZIzY+3Pruz1s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Sn3DAqkFI8ArnxDneGTUfjsXZx0SdEr61vD5tlX5IoHTYukzb
+	QsB7MR5TZfSkR+w9SEGLUO/wtatpE2JaJdClR5YKX9luluZsZ2ya48fYwspxfUFhbzlgek0i0oN
+	X3o7t+Nls5OBuNSAhC60UHsBThrnYAZ4=
+X-Gm-Gg: AYBFou2oms/iFMUq13JjZVN4a91Fe0+6WwU8ZE8TmP2vrACzTzM5l9hg/ZOrdW9tQ0+
+	jP1w2CI/BsWzELykI0wEyhvn+4Ajh3rUhLkG371qWmwdVLFhcvZhPWXQd2Vcr2yNIvzYvX+wnH4
+	OyfHRqfJ10z5MmujG7xP0/Y+a8BLM/LoZYFFoDDfsJHLs01PO+K2Fd8C5FRg9BIzY8m2eVObHJZ
+	NhDjrothqpUzH1BZ3xW7vrm06H9tAanFppcip0NLkCzZbouZ12LcmNa+nWSpuOub6D9jBfUoBCq
+	mCsy4wNzBrcbqIMeWt27+HANaBIWVjNXoScZigbvYNxcf7ArON5KmsHZM9jArMxArhkvb3UVibl
+	KHNMMASk+I+3taOX6AOyaFPcwjZ/6n25olnuK7SFoQ5yDUGPWh7tZ+umBnVdNXcphKro+Jlelsc
+	kNI0p7CKDTc+o9asHpP3ins2Lu
+X-Received: by 2002:a05:600c:3554:b0:4a4:7a8d:c436 with SMTP id
+ 5b1f17b1804b1-4ac17470fdbmr428347465e9.11.1793886201331; Thu, 05 Nov 2026
+ 05:43:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,147 +105,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/17] driver core: Expose device trust authorization
- through sysfs
-To: Leon Romanovsky <leon@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Johannes Berg <johannes@sipsolutions.net>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Bjorn Helgaas <bhelgaas@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
- Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- linux-input@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, iommu@lists.linux.dev,
- Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
- <20261105-device-trust-core-v1-10-1e536825b4eb@nvidia.com>
- <2026110514-bunkhouse-handset-6a3a@gregkh> <20261105132729.GB8298@unreal>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261105132729.GB8298@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260929113921.119489-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929113921.119489-2-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdV5Sn9FaMNEaxQKF7_rm5hvM-pfC2-KU14=96DFGp85jg@mail.gmail.com>
+In-Reply-To: <CAMuHMdV5Sn9FaMNEaxQKF7_rm5hvM-pfC2-KU14=96DFGp85jg@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 5 Nov 2026 13:42:55 +0000
+X-Gm-Features: AclHuK_NJQNESWK0guGnOVGqynMZyFihFGeP8KPEUxdd-p_NokaiWz_ftQoKZDo
+Message-ID: <CA+V-a8u=W+74U-+=k6MdhQsS8wZYkbuvueun15M3AiiA1=T58Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] clk: renesas: r9a09g057: Add ADC clocks and reset
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-11-05 1:27 pm, Leon Romanovsky wrote:
-> On Thu, Nov 05, 2026 at 08:10:14AM -0500, Greg Kroah-Hartman wrote:
->> On Thu, Nov 05, 2026 at 01:42:23PM +0200, Leon Romanovsky wrote:
->>> From: Leon Romanovsky <leonro@nvidia.com>
->>>
->>> An initrd must authorize a disabled device after attestation even if a
->>> built-in driver already attempted to probe it.
->>>
->>> Expose requested trust_policy and read-only active trust. Allow explicit
->>> disabled policy to advance once to adversary or full, fixing that decision
->>> immediately. Reject later policy changes, including for a device claimed
->>> before registration, while allowing same-value writes on live devices.
->>> Keep initial unrestricted selection separate from explicit authorization
->>> and bind-time commitment. Serialize writes with probing under the device
->>> lock. Include the attributes in device ownership changes.
->>>
->>> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
->>> ---
->>>   Documentation/ABI/testing/sysfs-devices-trust |  51 +++++++++++++
->>>   MAINTAINERS                                   |   1 +
->>>   drivers/base/base.h                           |   6 ++
->>>   drivers/base/core.c                           |  15 +++-
->>>   drivers/base/trust.c                          | 102 ++++++++++++++++++++++++++
->>>   5 files changed, 174 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/ABI/testing/sysfs-devices-trust b/Documentation/ABI/testing/sysfs-devices-trust
->>> new file mode 100644
->>> index 0000000000000..97e07a174769c
->>> --- /dev/null
->>> +++ b/Documentation/ABI/testing/sysfs-devices-trust
->>> @@ -0,0 +1,51 @@
->>> +What:		/sys/devices/.../trust
->>> +Date:		September 2026
->>> +Contact:	driver-core@lists.linux.dev
->>> +Description:
->>> +		(RO) The active trust level for the device. The values are
->>> +		"disabled", "adversary", and "full". Driver core resolves
->>> +		the level before DMA configuration and probe, and retains it
->>> +		through removal and DMA cleanup. Outside a bind transaction
->>> +		the level is "disabled". This does not imply that policy is
->>> +		writable or that the device has never operated.
->>> +
->>> +What:		/sys/devices/.../trust_policy
->>> +Date:		September 2026
->>> +Contact:	driver-core@lists.linux.dev
->>> +Description:
->>> +		(RW) The requested trust policy for the device. The initial
->>> +		value may be selected by the bus before the device is
->>> +		registered; otherwise it is "default". The policy is resolved
->>> +		to an active trust level before the device is probed.
->>> +
->>> +		The values are "default", "disabled", "adversary", and
->>> +		"full". "default" lets the bus select the active trust level.
->>> +		"disabled" prevents a functional driver from binding.
->>> +		"adversary" requests operation with the restrictions that the
->>> +		bus and DMA layers can enforce for a potentially malicious
->>> +		device; it does not isolate DMA by itself. "full" requests
->>> +		normal operation.
->>> +
->>> +		Before an operating level is committed, policy may change
->>> +		freely until "disabled" is selected. Explicit "disabled"
->>> +		blocks binding while allowing a later write of "adversary" or
->>> +		"full". Repeated rejected probes preserve this opportunity.
->>> +		Authorization immediately fixes the requested policy.
->>> +		Returning to "default" or "disabled", or selecting another
->>> +		mode, fails.
->>> +
->>> +		Successful resolution to an allowed level commits policy
->>> +		and operating level before driver or DMA setup. Both remain
->>> +		fixed for the device object's lifetime, including through
->>> +		failed or deferred probes, unbind, reset, and driver reload.
->>> +		Later binds must resolve to the same level, including when
->>> +		the policy is "default". A resolver error or disabled result
->>> +		before commitment leaves the policy's writability unchanged.
->>
->> I understand you are aproaching this from a PCI point-of-view, but many
->> busses do not care or have DMA at all, and need to actually talk to the
->> device before being able to even "add" it to the kernel.  So you are
->> making a driver core-specific policy based on mentioning DMA here, when
->> really that should only be a bus-specific thing, right?  Some busses
->> might require DMA to happen (i.e. USB needs their host controllers to
->> use DMA to even talk to the device at all).
->>
->> So can this be written to be more vague and generic and then put the
->> specifics in the bus-specific portion?
-> 
-> Yes, of course. The main point is that drivers must not communicate with
-> or configure hardware before attestation is approved. DMA is the PCI
-> way to communicate with hardware.
+Hi Geert,
 
-Indeed the principle of "I trust that this device is what it claims to 
-be" should be universal, and that's really the thing we should represent 
-here, it's just that most existing buses (especially simpler lower-level 
-ones like I2C/SPI/etc.) are unlikely to ever have any kind of mechanism 
-to be able to usefully attest that.
+Thank you for the review.
 
-DMA is simply the biggest and most prominent attack surface for 
-malicious devices, as it gives them the means to attempt to access 
-arbitrary addresses; however even a non-DMA-capable device is still 
-potentially capable of maliciously doing the "wrong" thing with data 
-that a kernel driver explicitly gives it - imagine something pretending 
-to be a USB network adapter that's actually clever enough to MITM your 
-data at the packet level...
+On Wed, Nov 4, 2026 at 4:42=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
+.org> wrote:
+>
+> Hi Prabhakar,
+>
+> On Tue, 29 Sept 2026 at 13:39, Prabhakar <prabhakar.csengg@gmail.com> wro=
+te:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Add clocks and reset entries for the ADC controller.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Thanks for your patch!
+>
+> > --- a/drivers/clk/renesas/r9a09g057-cpg.c
+> > +++ b/drivers/clk/renesas/r9a09g057-cpg.c
+>
+> > @@ -173,11 +183,18 @@ static const struct cpg_core_clk r9a09g057_core_c=
+lks[] __initconst =3D {
+> >         DEF_PLL(".pllgpu", CLK_PLLGPU, CLK_QEXTAL, PLLGPU),
+> >
+> >         /* Internal Core Clocks */
+> > +       DEF_FIXED(".pllcm33_div2", CLK_PLLCM33_DIV2, CLK_PLLCM33, 1, 2)=
+,
+> >         DEF_FIXED(".pllcm33_div3", CLK_PLLCM33_DIV3, CLK_PLLCM33, 1, 3)=
+,
+> >         DEF_FIXED(".pllcm33_div4", CLK_PLLCM33_DIV4, CLK_PLLCM33, 1, 4)=
+,
+> >         DEF_FIXED(".pllcm33_div5", CLK_PLLCM33_DIV5, CLK_PLLCM33, 1, 5)=
+,
+> >         DEF_FIXED(".pllcm33_div16", CLK_PLLCM33_DIV16, CLK_PLLCM33, 1, =
+16),
+> >         DEF_DDIV(".pllcm33_gear", CLK_PLLCM33_GEAR, CLK_PLLCM33_DIV4, C=
+DDIV0_DIVCTL1, dtable_2_64),
+> > +       DEF_CSDIV(".adc_pclk_gear", CLK_PLLCM33_ADC_PCLK_GEAR, CLK_PLLC=
+M33_DIV2,
+>
+> ".pllcm33_adc_pclk_gear"?
+>
+> > +                 CSDIV1_DIVCTL0, dtable_8_10),
+> > +       DEF_FIXED(".adc_pclk_gear_div2", CLK_PLLCM33_ADC_PCLK_DIV2,
+>
+> ".pllcm33_adc_pclk_gear_div2"?
+>
+> > +                 CLK_PLLCM33_ADC_PCLK_GEAR, 1, 2),
+> > +       DEF_CSDIV(".adc_adclk_gear", CLK_PLLCM33_ADC_ADCLK_GEAR, CLK_PL=
+LCM33_ADC_PCLK_GEAR,
+>
+> ".pllcm33_adc_adclk_gear"?
+>
+> > +                 CSDIV1_DIVCTL1, dtable_2_16),
+>
+> >         DEF_SMUX(".smux2_xspi_clk0", CLK_SMUX2_XSPI_CLK0, SSEL1_SELCTL2=
+, smux2_xspi_clk0),
+> >         DEF_SMUX(".smux2_xspi_clk1", CLK_SMUX2_XSPI_CLK1, SSEL1_SELCTL3=
+, smux2_xspi_clk1),
+> >         DEF_CSDIV(".pllcm33_xspi", CLK_PLLCM33_XSPI, CLK_SMUX2_XSPI_CLK=
+1, CSDIV0_DIVCTL3,
+>
+> > @@ -669,6 +690,7 @@ static const struct rzv2h_reset r9a09g057_resets[] =
+__initconst =3D {
+> >         DEF_RST(13, 13, 6, 14),         /* GPU_0_RESETN */
+> >         DEF_RST(13, 14, 6, 15),         /* GPU_0_AXI_RESETN */
+> >         DEF_RST(13, 15, 6, 16),         /* GPU_0_ACE_RESETN */
+> > +       DEF_RST(15, 6, 7, 7),           /* ADC_ADRST_N */
+>
+> ADC_0_ADRST_N?
+>
+Ok, I'll rename this (and all the above).
 
-Thanks,
-Robin.
+Cheers,
+Prabhakar
+
+> >         DEF_RST(15, 7, 7, 8),           /* TSU_0_PRESETN */
+> >         DEF_RST(15, 8, 7, 9),           /* TSU_1_PRESETN */
+> >  };
+>
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
