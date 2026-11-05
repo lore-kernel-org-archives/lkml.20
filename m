@@ -1,87 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879136;
-	b=sn07rddiXwROdEMf7k6p/O9JXZiC0XdYXYrlYVp9u6/y+GuBR/GOAopbdG9DNlhycqx4
-	 cxNk29GtqW9FsOcYRiXdPTG1d6rUMTQWIV8QRuxAnkiej7bMOXX/xTmSmuWRjwtrOd4Ly
-	 PGMg7ATjMrbWrWEfUy/4uB07efv4Bk2uoX1UgERdZm2PYjDau7PWUa8QalzXAY6eT89X6
-	 UnUyQBpjhydxUNrLV1H0tPJkgMfsIkQRIc/FmvGBeQnfoEkciMllUberk3gu7IoCN90Fn
-	 9khFNANBMxn2FUfCSZ/+cU2D44gL0rlq9RMzEWLlpdssUE601OHymPo7vvu6IHqAmYg==
+	t=1793879131;
+	b=ikOLiq053ju+A+VWe7fSCGLI30K+DRFgNd+4Y/tiCyUFhMJ30ocEjBNGs6hqWiolhHDo
+	 iSReOv08oqQX37MjgEGlI+8KMtdb3Qqachwo3rBhN0VOsoN1Dfvq3H6tOJ7krwZdw/thw
+	 mcuyxno0OsicLBOKLgyq+zsmSCxlHyEcVDeLM4Q8aJOCpfX2RYTlkb3xWZTq6zoxJrYtB
+	 S8N4/S2nxGVRwHHHwEq9k+UfP1XSonxiqKPfGXmNt79g7uoCcNT+Jv74btr2RKkbN2FQR
+	 k0ofBpgNbTGPXLXr1IBnwh+ypNpVI1P06raFLbUVLur7R+3qmxDpep1IDUDedSLqyhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879131;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=0h6WPoIHtebuZtai11cK1SScVPN57oWYqBqF0QVqU/0=;
-	b=P3j4zWsCvyOAGYEzGYLQybUXqE9ThCx11IWBpmNPahDXPBkJAC1zF6ho7isYxsU1yg9V
-	 7rgu3LTuuYGY29R0YTMCefZCS9SK7g/fdQi43jezQpfui/3eQ9zOtCeQi4BOULHPUi4gY
-	 rEUJ3Skoe45jNCwlMyUjUGDsOT2KggxctlsVo0+AL5C3QiHpdSGxkuQyNKGaYoO4mGbDr
-	 Gw6p0gJvGyZOlvkFmMvQornvtvKlCSylEgC8V52VkhkenIgNCKRy1oqbmXaycPd68cgFP
-	 cR9rvJZsOPu7jngPADGBhxunTsljfyDNRkCEpKBzHxcoWxxwmYgZuYPF6FU9Y07v0+A==
+	bh=hQ2y5T12ktAE5iaKWCwzlas8CkbZmdyxwRbpbd+A6KQ=;
+	b=G8GExHhjc/ezKILnOH47mpgqjl4LfdTm1bUFn0MSEuT4idWL5LEbM7IzxBzxLRz8Dlcw
+	 a6WsMfyOvFlN4fBxQ0COGwmqQVikOXKLa8TGXRSqxwrstS534KYY19tya8NXnlpx0gROB
+	 GZ0QcStsk/BQ1a0oyuIz5TksaX5OqSCMEEgKsOi/N//qw3l9uCrWT/PDLU1zbAvlAv9sv
+	 I9fGSH+hHge8BEHCvvQuLWBpPaDmO1NW35ShLbPDiIGRpPLO50sF+XUOZTYnK/96hbpe3
+	 FgsmpjbKyP6dNgbLRxDR6gFw3KiF07lE61iXXDVfrX/bx4xZThOnSzGW6DgjgqcsiQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=h9MR7kCI;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a0iLDWSp;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5737360A6F46
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5737360A6F46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F55D60A3811
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F55D60A3811
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=h9MR7kCI
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so13737585e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:35 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a0iLDWSp
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so5932335e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793879134; x=1794483934; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793879128; x=1794483928; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0h6WPoIHtebuZtai11cK1SScVPN57oWYqBqF0QVqU/0=;
-        b=h9MR7kCItMgjRuYRH4dI0FbxJgPnXYrpBMCzkR8o4gxzFFAwnxcHVjnAHsy9kds3Ro
-         EMRbKSgGRDJTI36GvX/FWf6W+kGGNOm/rqOK1hKCe5UaZOaCX8YiSmDKynYrCE8wZWvP
-         oBdJWXUGEvxRhq5+f1WUVRIzz9K1oxSwg1aynBgn7RnqLSwH5cUWAmnZi1Pwv9kX/uCl
-         2OL8RXs+cBUQCtUP+Khx4ZVzr7WA3yE9SDZXCRKtZBOLgA6JeGjDf2dY6zxOuZOJRmLL
-         XrRKMkQBSamqX850sEP4oV9tHdGl7AR1PQ14NWkezJy2DQdz18KPXKnZ84/GzqnFY2mx
-         ZYgg==
+        bh=hQ2y5T12ktAE5iaKWCwzlas8CkbZmdyxwRbpbd+A6KQ=;
+        b=a0iLDWSpLDPHcpGFKmm8lzHC0sFutNhJXYUgiG7HVQgwCSFhJlwlsvCW08Oc2ikCUy
+         ssDFylEyRiQa4+YyibCAfFvUTDb1nSeFv0gLFV2VBqSO2MQhJT6S4uJDdUu3etiYLAxi
+         455GCYHxWCEbRa1jDdMeJcb4EvDX5HjVVWUub7S5JMStHjnEKeUozb2rTORjCnfBC53r
+         5pR+lpU2ZkYZBPZBgDJguKY2Xkhyw07H6fJLgYL4GmOJoIaT17MLuC8PbxSPaOB1wGFM
+         IT0I0a4AhrH0OtDnyGoSNxeBMN+NO6LuSNEYOS/AV58DP+id57CQYbtT7MBqFKUkDH2C
+         vgOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793879134; x=1794483934;
+        d=1e100.net; s=20260707; t=1793879128; x=1794483928;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0h6WPoIHtebuZtai11cK1SScVPN57oWYqBqF0QVqU/0=;
-        b=rrzx/REyXdDluwCAQ1f4wtZln8jfSXd1W8i7KqgIdxs7y63DM+xSoOsH7GfmoATmnk
-         OCOdB70LksAbWhHdL/jKwxTJ3sQsutJpdazXNJ2BRW1IQ88kEewpLYJEf9Z6U7Ggcgwx
-         KoaFkgH4AbWUntE+UAaNYR4q+UbWlBWAbk32iB8IU/57GG2/pANaZXpd3KWVax1RuvMh
-         NV08SkZnFMf5PWKYE1c8CfRwTzEoP3PfITEFnptKQZBG2vaCv7NabfM/ndkWxiOQp3Gz
-         8wNdQnuqvbeASpDKXIunSOuJJA+EXSOpFoG/BSj9CrqOdkNSVU0G2ToPu1lh6LxBHU+F
-         xITg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwnbLS+JM1bXOXGpIkwko9epgAR7qd2PGSG1JrWtC8EWeJVwIs9sWeHb+DrovsXWgTIU0CyzA/usZjMCw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zVSuZErKJMGDnU+l3zts5PaE0W6vs8LSHOpCoFxdZx0ZacJ50
-	SUwu6K8yHsGS3gb35waoDtOCCY2OYr465ssdoAroScntdzqj2Li7bNJPOdhJCNfAFR8=
-X-Gm-Gg: AYBFou1zaQf93FRW7rFrThT0ss3OwRMEqO81gC7tUFybzqpTeWTcsbnWBIWiRqBx3U/
-	2C+IEBPcUQ48Za0ROw0iiQEVa4F6HBYdE3aZPqkYxrblUVvPKYMXPz9zNqAuvKxeVsWs8E9/pcM
-	m0XfhBxLzojGTTvrtxEaKJFS9rPwieOJ3IM5PbIrOI8Gl7YGsETBUCf/AlIeR2eYP65QJatmTHv
-	lGBgSz2v+R7j/OZIsyxF0hq1jr1ZAW/WE8lmth4Nz26fStgcc+eWzv/yNjERTw/aVOGNli3Zx3W
-	qg2rA3SjnJziR4/G/dxYxjn4hIgBvVCNla4uTQWkto9vfn0MkrUsiZCDEXH256ITcCSF/Ldmcth
-	BAGqUwzq0DTRkVxY1Gju/sjGvO+wMKkKriqy6pnIYqWu3h5pzCn66zyL9LyFAH6BFHDm39awKVp
-	a4feOCWt2azzUVbDmnwE2n2L5FF+h62iZiK0CfRHFl31hX+A9CNRAq4m/hWT13zLlPfkbt2cRyw
-	b+spaAmVvSnHPC640gmjE2k/vi+FBkH7Ts8YTPXp1OI6GYA7mSe4mKgFilGEq8/OvMBfOOKZuWK
-	czTE8sjyL78MOd+W02GXSp66KEljXI3W
-X-Received: by 2002:a05:600c:46d1:b0:4ab:cc03:7f60 with SMTP id 5b1f17b1804b1-4ac18993780mr414154955e9.18.1793879133683;
-        Thu, 05 Nov 2026 03:45:33 -0800 (PST)
+        bh=hQ2y5T12ktAE5iaKWCwzlas8CkbZmdyxwRbpbd+A6KQ=;
+        b=qsL2lb48Lackux7LPd9qjWTY8DjbrFe8VPQmfCw4WhTG8RnSFLRZLL4IutvIw8BcUd
+         jHcQHBazqV6L9DIotZfgSc4DKFrlJ6k6VJI4436a/XLAGAxVlr1zKGeXfDcGPes5GptJ
+         uFRySiBTXT9gJ4df/uctqsPT02ojAoOYhqopsXvOjbUH8cgyQpn6lHxyAjrrOEKVMJo9
+         VKX+R9MtiZwA+cgmjmjspY0vK3gsAylVecMQkUW3sKYNtBR5IvJlIhdTCevzTeMri0xd
+         9T46hSXLY9zZSWtm6jbQ665N5WmqVDtrL9SbRotEdSp+mF5ltm4w8TmjdZcmZ5ZbyDXM
+         KPIw==
+X-Forwarded-Encrypted: i=1; AKwUvBw2S4WsHZq50u6Jc53LcFqxVtyj7F8K5hv2XJdHD/xQiu5d5S45tLtdoz8yMNp3ObsBHNne7tHA/zJbIJU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5Pyctgj0feIihQu0ZZc0MxoSRByrEk005O6gIIbr/pZ2ImM2o
+	uEZbLicrvEACNQFEXEx9fOwwrZBIZBvsSmL6jJswRGlHZzTgaNMk9LnqHBupnkSpH/s=
+X-Gm-Gg: AYBFou0zj0aqxFaenTZ9OteeI9iSrhaotseLF1Bqht4vlZt4hWo1nFA1UsxOzNSWXw+
+	QLehU/1a9gATWveO+kEjZDAjF3xhJ/4oXKcNdxzv6VSYwfZeUIOx/zHwKxe+5ppOz5jzRDvU2Cl
+	PecDKcfvoSX1b5L1o0ysAy2BZtxwtyg3dAh87C10FOON+gXJaXezbQasb5BWca40C22l2Yh6zO/
+	cEgK6OfHAibJipk+qleECJ5QeYVVgVOZa5GLfHMSZ8ZiWoIL9Ypd/mIeX3kznIJ9RZSMJKhmEv2
+	EsUm1RnGixscAN6+7sOHl2wZIzzquqN9RIi3trwA7XWX9Oodi75dPtOEPc0iNlZMDrljthRmM9J
+	pISuOnNFM36tDAWrRl/YhXGM4sRgBOTRQWsEoW4tkr4S0nRR1e4vE5EAx27h1cLltZfiSGn/vi5
+	M7c4R8jYyM4RR+Pqj92WT311sH3wHBiBz/ZWcB0lpDsUMrCbGvlgRFE3eqm9bPE/9K7ty5kaUZ8
+	KmUyL2qDAEiZAnV4LWX+jMEP+12PKfEQzGyK8hdF8NEERQ70mkE2kQw+2LL2LHDyDzzOP95xzET
+	l495PhhWIjlQJdCpiHtzaktD57MyBVSK
+X-Received: by 2002:a05:600c:3e8c:b0:4a2:180a:3417 with SMTP id 5b1f17b1804b1-4b55c8743a7mr39562485e9.1.1793879128464;
+        Thu, 05 Nov 2026 03:45:28 -0800 (PST)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:45:33 -0800 (PST)
+        Thu, 05 Nov 2026 03:45:28 -0800 (PST)
 From: James Clark <james.clark@linaro.org>
-Date: Thu, 05 Nov 2026 11:44:59 +0000
-Subject: [PATCH v4 11/19] perf arm-spe: Use generic snapshot search
+Date: Thu, 05 Nov 2026 11:44:55 +0000
+Subject: [PATCH v4 07/19] perf python: Expose sample instruction length
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +93,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-11-7759e0ce2449@linaro.org>
+Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-7-7759e0ce2449@linaro.org>
 References: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
 In-Reply-To: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
 To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
@@ -113,235 +113,44 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
 X-Mailer: b4 0.15.2
 
-The new generic snapshot search gives a similar result as the
-reimplemented version of it here. One slight difference is in the
-pointer fixup. SPE has:
+Expose perf_sample::insn_len as a read-only insn_len attribute.
 
-  *head += mm->len;
-  *old = *head - mm->len;
-
-Which gives exactly the same result but written in reverse order to the
-generic one:
-
-  *old = *head;
-  *head += mm->len;
-
-SPE also had a special fixup cases (if (head >= buffer_size)):
-
- * head > isn't needed because the SPE driver always wraps them, and
-   __auxtrace_mmap__read() handles that anyway.
- * head == buffer_size isn't wrapped by the driver, but it just
-   indicates 'full' which doesn't mean wrapped any more or less than any
-   other index in the buffer.
-
-Both of these cases are covered by the 512 byte search.
-
-It also didn't have the special case for old > head for when the wrap
-heuristic fails but the pointers showed a wrap had happened.
-
-The other feature lost is that this search only looked from head to the
-end of the buffer, rather than always at the last 512 bytes. This was
-flawed because once head is close to the end, it's likely it could
-contain zero padding from actual SPE data and a wrap would be missed.
-It's better to err on the side of caution and mark as a wrap, rather
-than trying to optimize by limiting the search from head onwards. This
-can mistake old data as evidence of a wrap, but for false positives
-[head..mm->len] contains zero data. This should be fine, as zero data
-are treated as PAD packets and discarded during decoding.
+Trace decoders supply instruction lengths on synthesized samples to
+indicate whether an instruction was executed or not during a call or
+exception. Let scripts read this value directly.
 
 Reviewed-by: Leo Yan <leo.yan@arm.com>
 Tested-by: Leo Yan <leo.yan@arm.com>
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/arch/arm64/util/arm-spe.c | 147 +----------------------------------
- 1 file changed, 2 insertions(+), 145 deletions(-)
+ tools/perf/python/perf.pyi | 1 +
+ tools/perf/util/python.c   | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/tools/perf/arch/arm64/util/arm-spe.c b/tools/perf/arch/arm64/util/arm-spe.c
-index 1ba803a8d9b4..8d6a2bde2892 100644
---- a/tools/perf/arch/arm64/util/arm-spe.c
-+++ b/tools/perf/arch/arm64/util/arm-spe.c
-@@ -26,7 +26,6 @@
- #include "../../../util/record.h"
- #include "../../../util/header.h"
- #include "../../../util/arm-spe.h"
--#include <tools/libc_compat.h> // reallocarray
- 
- #define ARM_SPE_CPU_MAGIC		0x1010101010101010ULL
- 
-@@ -37,8 +36,6 @@ struct arm_spe_recording {
- 	struct auxtrace_record		itr;
- 	struct perf_pmu			*arm_spe_pmu;
- 	struct evlist		*evlist;
--	int			wrapped_cnt;
--	bool			*wrapped;
- };
- 
- /* Iterate config list to detect if the "freq" parameter is set */
-@@ -497,146 +494,6 @@ static int arm_spe_snapshot_finish(struct auxtrace_record *itr)
- 	return ret;
- }
- 
--static int arm_spe_alloc_wrapped_array(struct arm_spe_recording *ptr, int idx)
--{
--	bool *wrapped;
--	int cnt = ptr->wrapped_cnt, new_cnt, i;
--
--	/*
--	 * No need to allocate, so return early.
--	 */
--	if (idx < cnt)
--		return 0;
--
--	/*
--	 * Make ptr->wrapped as big as idx.
--	 */
--	new_cnt = idx + 1;
--
--	/*
--	 * Free'ed in arm_spe_recording_free().
--	 */
--	wrapped = reallocarray(ptr->wrapped, new_cnt, sizeof(bool));
--	if (!wrapped)
--		return -ENOMEM;
--
--	/*
--	 * init new allocated values.
--	 */
--	for (i = cnt; i < new_cnt; i++)
--		wrapped[i] = false;
--
--	ptr->wrapped_cnt = new_cnt;
--	ptr->wrapped = wrapped;
--
--	return 0;
--}
--
--static bool arm_spe_buffer_has_wrapped(unsigned char *buffer,
--				      size_t buffer_size, u64 head)
--{
--	u64 i, watermark;
--	u64 *buf = (u64 *)buffer;
--	size_t buf_size = buffer_size;
--
--	/*
--	 * Defensively handle the case where head might be continually increasing - if its value is
--	 * equal or greater than the size of the ring buffer, then we can safely determine it has
--	 * wrapped around. Otherwise, continue to detect if head might have wrapped.
--	 */
--	if (head >= buffer_size)
--		return true;
--
--	/*
--	 * We want to look the very last 512 byte (chosen arbitrarily) in the ring buffer.
--	 */
--	watermark = buf_size - 512;
--
--	/*
--	 * The value of head is somewhere within the size of the ring buffer. This can be that there
--	 * hasn't been enough data to fill the ring buffer yet or the trace time was so long that
--	 * head has numerically wrapped around.  To find we need to check if we have data at the
--	 * very end of the ring buffer.  We can reliably do this because mmap'ed pages are zeroed
--	 * out and there is a fresh mapping with every new session.
--	 */
--
--	/*
--	 * head is less than 512 byte from the end of the ring buffer.
--	 */
--	if (head > watermark)
--		watermark = head;
--
--	/*
--	 * Speed things up by using 64 bit transactions (see "u64 *buf" above)
--	 */
--	watermark /= sizeof(u64);
--	buf_size /= sizeof(u64);
--
--	/*
--	 * If we find trace data at the end of the ring buffer, head has been there and has
--	 * numerically wrapped around at least once.
--	 */
--	for (i = watermark; i < buf_size; i++)
--		if (buf[i])
--			return true;
--
--	return false;
--}
--
--static int arm_spe_find_snapshot(struct auxtrace_record *itr, int idx,
--				  struct auxtrace_mmap *mm, unsigned char *data,
--				  u64 *head, u64 *old)
--{
--	int err;
--	bool wrapped;
--	struct arm_spe_recording *ptr =
--			container_of(itr, struct arm_spe_recording, itr);
--
--	/*
--	 * Allocate memory to keep track of wrapping if this is the first
--	 * time we deal with this *mm.
--	 */
--	if (idx >= ptr->wrapped_cnt) {
--		err = arm_spe_alloc_wrapped_array(ptr, idx);
--		if (err)
--			return err;
--	}
--
--	/*
--	 * Check to see if *head has wrapped around.  If it hasn't only the
--	 * amount of data between *head and *old is snapshot'ed to avoid
--	 * bloating the perf.data file with zeros.  But as soon as *head has
--	 * wrapped around the entire size of the AUX ring buffer it taken.
--	 */
--	wrapped = ptr->wrapped[idx];
--	if (!wrapped && arm_spe_buffer_has_wrapped(data, mm->len, *head)) {
--		wrapped = true;
--		ptr->wrapped[idx] = true;
--	}
--
--	pr_debug3("%s: mmap index %d old head %zu new head %zu size %zu\n",
--		  __func__, idx, (size_t)*old, (size_t)*head, mm->len);
--
--	/*
--	 * No wrap has occurred, we can just use *head and *old.
--	 */
--	if (!wrapped)
--		return 0;
--
--	/*
--	 * *head has wrapped around - adjust *head and *old to pickup the
--	 * entire content of the AUX buffer.
--	 */
--	if (*head >= mm->len) {
--		*old = *head - mm->len;
--	} else {
--		*head += mm->len;
--		*old = *head - mm->len;
--	}
--
--	return 0;
--}
--
- static u64 arm_spe_reference(struct auxtrace_record *itr __maybe_unused)
- {
- 	struct timespec ts;
-@@ -651,7 +508,6 @@ static void arm_spe_recording_free(struct auxtrace_record *itr)
- 	struct arm_spe_recording *sper =
- 			container_of(itr, struct arm_spe_recording, itr);
- 
--	zfree(&sper->wrapped);
- 	free(sper);
- }
- 
-@@ -674,7 +530,8 @@ struct auxtrace_record *arm_spe_recording_init(int *err,
- 	sper->arm_spe_pmu = arm_spe_pmu;
- 	sper->itr.snapshot_start = arm_spe_snapshot_start;
- 	sper->itr.snapshot_finish = arm_spe_snapshot_finish;
--	sper->itr.find_snapshot = arm_spe_find_snapshot;
-+	sper->itr.find_snapshot = auxtrace_record__default_find_snapshot;
-+	sper->itr.snapshot_search_bytes = 512;
- 	sper->itr.parse_snapshot_options = arm_spe_parse_snapshot_options;
- 	sper->itr.recording_options = arm_spe_recording_options;
- 	sper->itr.info_priv_size = arm_spe_info_priv_size;
+diff --git a/tools/perf/python/perf.pyi b/tools/perf/python/perf.pyi
+index 087da00728fd..525d34ed08dc 100644
+--- a/tools/perf/python/perf.pyi
++++ b/tools/perf/python/perf.pyi
+@@ -215,6 +215,7 @@ class sample_event(_sample_members):
+     sample_data_src: int
+     sample_insn_count: int
+     sample_cyc_count: int
++    insn_len: int
+     type: int
+     raw_buf: bytes
+     dso: Optional[str]
+diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
+index 42c587cd54a5..a4f1e316e5b8 100644
+--- a/tools/perf/util/python.c
++++ b/tools/perf/util/python.c
+@@ -1380,6 +1380,7 @@ static PyGetSetDef pyrf_sample_event__getset[] = {
+ 	sample_member_def(sample_data_src, data_src, T_ULONGLONG, "event data source"),
+ 	sample_member_def(sample_insn_count, insn_cnt, T_ULONGLONG, "event instruction count"),
+ 	sample_member_def(sample_cyc_count, cyc_cnt, T_ULONGLONG, "event cycle count"),
++	sample_member_def(insn_len, insn_len, T_USHORT, "event instruction length"),
+ 	sample_member_def(flags, flags, T_UINT, "event flags"),
+ 	member_def(perf_event_header, type, T_UINT, "event type"),
+ 	{
 
 -- 
 2.43.0
