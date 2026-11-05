@@ -1,47 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896845;
-	b=n+Pjm8VpfV/AK+BCndId6Mor62/kE81AP+bAHAYA/GhFBgb6efoAttX2v4MHRxG+bVp1
-	 U7e5M4p1L9ArZ7eYkFpdIxRMPi2W/juaZhp1X7mKq61h/vbn2wKqshZbYB8sY7m9MwmXt
-	 xh/iaWo/0DZUqpFBAgHo7kJkgJDMBpUujmhUoBhajtM1ZGYYvBs0y3oLbsGhKpin6R5EI
-	 X9NTzCCQFEW0D/qN+duUk1dWtmJS4N8dO09yjvLlj6cKvJy3/0W4nm7AaCJji0Z1gJHWx
-	 noze5JQijfemGnj9cn5Nhf0pWsVDg6MPiO9hR0aBbP9na+iTMVO1NyH46rvy1mUp1Hw==
+	t=1793896891;
+	b=OPuHuQ1j04Hg5B9+OUcqkud4n3YshW4F3vjYFLlnTVQwIXQdwUiK0LEcuWxfNYB7rK/2
+	 cmrSWtXZpdoyXYXOaamIL1ZvD3dyjxs/3O+WZ7DwVdJ1gVJ3BaMzNPgtmN1UrnfH53jxC
+	 LS6Lok264LIrNbeO7PotlKvgW4tBj5uAXxJ/VzzAJ0d7cL2ZF+mamu0bnBQbU5A2Uj6Ot
+	 7LsqZ26KB+sA+I1VJlOCJ8dSWVSJxYj86jb8Ny+ztgEpNOEDRr4PZD3ZzDS1U7rpdefYk
+	 g66EauB91FDP0EIt0sR2twgAWb2oTTzW8nu3MVbzu4aR73DeJrzeIW68Q3MeHjlW1Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896845;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jMfT6NnqJNQ4fwmo+zlAfszpntP7F4+aKhwQgsQvMfU=;
-	b=D4+PNwhAvYWV9Ti4ueoKxTISS5XMvs+NfgPhE2+xRSucDMgoQ9K+g6tWAPeFljJP0wvp
-	 F9CHP6yn2ItPFDX3czWRGsSo+31hQvOAeri30xvgqiC6RmtjK7eqScmFMuqQkKwZ0ZhLS
-	 ysU3xoEHfV555gAYx30CLms9LIVVlzkp9s3M5SvhIciRKPljqjgX6ooC8xX1UAEObJ2Sd
-	 qOc2Qx3l76xpSIlUk2IG/MyfEYk+z8FtSiyVUOhb3rrg7Xj2Emv0CyLjubpCk5iDv4oFl
-	 7daFFJGB+8rwDK0DcInF+RcvwEoutrIHrIdFdUMSI7xXxd4DFx/RGiuHyryK+NBKoog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896891;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=mo9/kbJjTwu6T592HSiTjl0ncf1cTmsjgggsVDDpS3M=;
+	b=dGQU7O02aQijBLzg0y5GsMUEbTPWD/1edpXykyoJCwvRPBTjxbweRtYRT3gPUAm42UML
+	 n0oEBaFlMmW7xgyO7J6uWpbEWGWYGjHQOFesga1DhmZglFEF8B1md3RsfB2bN6VAFx3W1
+	 Z/QiWAeNnllLqvGnh2H4q7Q7WxAijY2Hz5f8BDg47uG6G51fQSgSe8S0kM1lXd3TsmU9H
+	 7AICdTuWOhG/8YO3tn5aXd1ssgZk5UCYl3B0dZ9HGYe1GYnvYZorVpVH7sW8XQqsFKpgC
+	 9FAJLENYkGc8XDmBviFRVFYODXcFGT5rS98tuPf1wKCXQiU1igCr7VWMWqnSLMue1dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRTmDFF2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=stNHw46o;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25809606A33B;
-	Thu,  5 Nov 2026 16:40:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A761606A331;
+	Thu,  5 Nov 2026 16:41:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A761606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRTmDFF2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE99E1F000C1;
-	Thu,  5 Nov 2026 16:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896844;
-	bh=jMfT6NnqJNQ4fwmo+zlAfszpntP7F4+aKhwQgsQvMfU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eRTmDFF21AokwEeLbpwgXPGufwdoan/3wTSHEhhcxjntte+tq/knqfW+SQtBcfKIX
-	 oDKY1eSAyS2RmFB+kVayVtrMrjXegac0cFwPwntDKHf+VWHV5AH97rP9Fk5PP7e6+z
-	 aGLlouWS7XmXh9xJWrJuL/CeImXsADQQnhRGK5eKGks5/XstygPJqB19ZJyF+C7Pur
-	 Ne9m0o5gMuet9ljDF9tNmp9It4Jhh8zosFfhaiOHcDuFpWREsdnmJZ0Pu6LKkINTyI
-	 KPkeU/fyQLg//pjEkhF3IsdOQ7czbi1Ck5RocPrgMLHf2QkxiJq7XuUUZJu3w6ZyTS
-	 kKZA4N/B/9eHA==
-Message-ID: <c13cdd25-7d7b-4059-a22d-af0a48fabaac@kernel.org>
-Date: Thu, 5 Nov 2026 17:40:39 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=stNHw46o
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiGix3734725;
+	Thu, 5 Nov 2026 16:41:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=mo9/kbJjTwu6T592HSiTjl0ncf1cTm
+	sjgggsVDDpS3M=; b=stNHw46oT2ch8dMhmih1NDKgGU36zWSjGeArGivz6zOaAX
+	QWDvkbyZT2H3ja6IPqF9kzT4idoNYhhZghBFO8RbeyTlySrE4uzTkc0f6T/gSFrk
+	7S3rmtoIJJ6gUzL2Evg9j0nX8OE0I15OpzEaXNg6pqY4hG3LPPRqFcni8UrzatAE
+	o4oNsnjaSNUwdSt4s1AIxM1rmH6w0uQFTYuc9EoYsNONS0mQQFsxGhtD+t1VTMAx
+	Ulu28c16DXtAR5xbphDKL5GGPEQiCWYH83n2xUTbCbIpcpIImGp1GitpGkUOj8iA
+	JIrlDIBe2OibV22PhnMF8FdsuQmkOszbQBvhv/Eg==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rj3jey-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 16:41:03 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EZ3oW1796739;
+	Thu, 5 Nov 2026 16:41:03 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka6u7yu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 16:41:02 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5Gex6T30867852
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 16:40:59 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 46F722004E;
+	Thu,  5 Nov 2026 16:40:59 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C4832004D;
+	Thu,  5 Nov 2026 16:40:59 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.68.17.117])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu,  5 Nov 2026 16:40:59 +0000 (GMT)
+Date: Thu, 5 Nov 2026 17:40:57 +0100
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Oleg Nesterov <oleg@redhat.com>,
+        Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
+        "Dmitry V . Levin" <ldv@strace.io>, Renzo Davoli <renzo@cs.unibo.it>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Subject: Re: [PATCH] s390/syscall: Set -ENOSYS return value before calling
+ syscall_enter_from_user_mode_work()
+Message-ID: <890e50e0-77f7-43f3-b1b9-f8e7302aa3db-agordeev@linux.ibm.com>
+References: <20261021085643.2442949-1-hca@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,174 +97,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/khugepaged: free unused page table when setting a huge
- PMD fails
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
- Hugh Dickins <hughd@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261105-khugepaged_set_pmd-v1-1-cb79ab117199@kernel.org>
- <aux9liPvdZgpKCpa@thinkstation> <aux-ZdKu97JHLY96@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aux-ZdKu97JHLY96@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021085643.2442949-1-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: e_BmLWN-MUIaJPUAT-5hZOBcii3TOwEz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2NCBTYWx0ZWRfX44wxq1k7A5E9
+ sF7Hp3jzY4WHiMKrP1Jv5KRhHKpr1KBHgvKSAQlM/x1iom0euqsuiReAYcamk36MNfZuDi5XX0w
+ UgG2LeBNTOwCQIqkXUNz+Ra7sw66kZo=
+X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6aecb19f cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=NXJrL_N0o-OufKNRWLEA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2NCBTYWx0ZWRfX/12AJ3TIJjUO
+ fMaQRdKgfyMoHaKcVZRjMXmKdZC+oY6uaLaYqGa/YV5ksD8H0p/h1nfVFiw2oSGC5r83jRmtOJe
+ gjfmGQh0EuhUytdb2aUnBrhsjjFWkTfm+KejO0nvUfKJYvmOMyB7jofzVcP9YfDAneM+a32gsWi
+ 2pjdvb4hqzMiFjPnc0dYNd2IiDSmujX/gbyBTp19SCRkcEszhB4x/hhZek35Nh6Rk/agfCO1eJK
+ gwlsR04ooMFj05zJ/udKaPSLquYIDpkI0SNjCEVQKOXw3q+t6K/jh2frb9SUyvXDiFaVX4L9iiH
+ Af6Plg9hC6c7aH4sPNJbIP8izY7dht6riGUtxkuqu04uhYIU8CnD+NZqrGp/9o4oI6n9lky6lvx
+ 19ZwZUmoHBGyqU090m4fEP862GHkxjTg60hRj3A3Dn1wlc7/LJzwkrrTYRCuDQLn3uJsKz6dt/k
+ OyQITjXSVOoCyEJb/oA==
+X-Proofpoint-GUID: e_BmLWN-MUIaJPUAT-5hZOBcii3TOwEz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050064
 
-On 11/5/26 14:04, Kiryl Shutsemau wrote:
-> On Thu, Nov 05, 2026 at 01:02:08PM +0000, Kiryl Shutsemau wrote:
->> On Thu, Nov 05, 2026 at 01:16:05PM +0100, David Hildenbrand (Arm) wrote:
->>> do_set_pmd() can allocate vmf.prealloc_pte on architectures that need a
->>> deposited page table, such as PowerPC with the hash MMU. If the PMD is
->>> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
->>> without consuming that table.
->>>
->>> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
->>> userfaultfd operation can install a PTE table before taking the folio
->>> lock. If that races with set_huge_pmd(), the unused preallocated table
->>> is lost when its local vm_fault goes out of scope.
->>>
->>> Free vmf.prealloc_pte on failure, as do_fault() already does. Successful
->>> PMD installation consumes the table and clears the pointer.
->>>
->>> Having to do this cleanup outside of do_set_pmd() is rather nasty, but
->>> other callers depend on it already having been allocated. This needs a
->>> cleanup at some point.
->>
->> I hate this being outside of do_set_pmd().
->>
->> What about making do_set_pmd() freeing ->prealloc_pte if it was
->> allocated inside? Nothing changes for caller.
->  
-> Or if we want to keep in set_huge_pmd() then set_huge_pmd() has to
-> allocate it too. At least, it makes some sense.
+On Wed, Oct 21, 2026 at 10:56:43AM +0200, Heiko Carstens wrote:
+> On s390 gpr2 contains both the system call return value and the system call
+> number. With [1] it is expected to set gpr2 to -ENOSYS before calling
+> syscall_enter_from_user_mode_work(), so that a skipped system call has a
+> defined default return value, and not the system call number like today.
+> 
+> To make that work and stay compatible with existing ptrace users, replace
+> PIF_SYSCALL_RET_SET with PIF_SYSCALL_ENTRY. PIF_SYSCALL_ENTRY is set before
+> syscall_enter_from_user_mode_work() is called and indicates that reads and
+> writes to gpr2 via PTRACE_PEEKUSR, PTRACE_POKEUSR, PTRACE_GETREGSET, and
+> PTRACE_SETREGSET are redirected to regs->int_code, which contains the
+> system call number. gpr2, which contains the system call return value, can
+> only be changed via syscall_set_return_value() (e.g. seccomp).
+> 
+> After syscall_enter_from_user_mode_work() returns, PIF_SYSCALL_ENTRY is
+> cleared and the code behaves as before.
+> 
+> PIF_SYSCALL_RET_SET was introduced with [2]. The flag was set by
+> syscall_set_return_value() and allowed seccomp to skip syscalls
+> and inject a return value despite the gpr2 aliasing.
+> 
+> Kernel seccomp and ptrace selftests, as well as strace selftests, show no
+> difference with and without this change.
+> 
+> [1] 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
+> [2] 56e62a737028 ("s390: convert to generic entry")
+> 
+> Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>  arch/s390/include/asm/ptrace.h  |  4 ++--
+>  arch/s390/include/asm/syscall.h |  1 -
+>  arch/s390/kernel/ptrace.c       | 28 +++++++++++++++++++++++-----
+>  arch/s390/kernel/syscall.c      | 19 +++++++++----------
+>  4 files changed, 34 insertions(+), 18 deletions(-)
 
-It's all rather nasty.
-
-I thought the callers depend on it, but if we just free in the function
-it will behave the same way independent of arch_needs_pgtable_deposit(),
-so that makes sense.
-
-From 4e8d0a928f0b21e0583dac9234fb1821f3c973b2 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 4 Nov 2026 20:56:37 +0100
-Subject: [PATCH] mm: free unused page table allocated by do_set_pmd()
-
-do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-deposited page table, such as PowerPC with the hash MMU. If the PMD is
-no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-without consuming that table.
-
-Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-userfaultfd operation can install a PTE table before taking the folio
-lock. If that races with set_huge_pmd(), the unused preallocated table
-is lost when its local vm_fault goes out of scope.
-
-Track whether do_set_pmd() allocated the table and free it after dropping
-the PMD lock if it was not consumed. Preserve any preallocated table
-supplied by the caller for PTE fallback. Successful PMD installation
-consumes the table and clears the pointer.
-
-Returning without a preallocated table matches the existing behavior on
-architectures that do not need a deposited table. All callers
-already handle that case.
-
-Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/memory.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index becf53a2a0944..421064aef3cf0 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 	struct vm_area_struct *vma = vmf->vma;
- 	bool write = vmf->flags & FAULT_FLAG_WRITE;
- 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-+	bool pgtable_allocated = false;
- 	pmd_t entry;
- 	vm_fault_t ret = VM_FAULT_FALLBACK;
- 
-@@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
- 		if (!vmf->prealloc_pte)
- 			return VM_FAULT_OOM;
-+		pgtable_allocated = true;
- 	}
- 
- 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
-@@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 	count_vm_event(THP_FILE_MAPPED);
- out:
- 	spin_unlock(vmf->ptl);
-+	if (pgtable_allocated && vmf->prealloc_pte) {
-+		pte_free(vma->vm_mm, vmf->prealloc_pte);
-+		vmf->prealloc_pte = NULL;
-+	}
- 	return ret;
- }
- #else
--- 
-2.43.0
-
-
-Apparently we might be allocating in do_set_pmd() from a RCU critical section ... maybe I'll find the
-time to look into that.
-
--- 
-Cheers,
-
-David
+Acked-by: Alexander Gordeev <agordeev@linux.ibm.com>
