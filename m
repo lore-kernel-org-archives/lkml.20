@@ -1,56 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897733;
-	b=HbYhKMbOAvpOFcHZ+uc8kepK17HBIQxaYy3V5lso1mePYGXZQ+hpg7AQHZWKM9m3cCGH
-	 2ivJ4QxZ92U3jHWnJTIc6pBjhlRVJHXlqkvFxm8z0XzBtm6c5qHOIJOhPc9ofPED9wdaK
-	 rlFOuUAOqTkxmZIDEJqHmH+prJl8gxYeZcMgoyWRzeY2nzdS7avc3w2HUNheGQCpWH2kY
-	 3EovtJ/A+7ogA5JomaBXP380NHTEqMH6pa75N6D6y3yynCIMhYVd97o0UQ1ETUqO0pGPy
-	 G/NFBiNdDblHzJEQ1yVyFHlJeKzQXDMvtt1AIEeD6/iZrZMtl+THuQbqAZZUfv7glqg==
+	t=1793897783;
+	b=C8LA56oByYJCvERd+ieZWpVdTKqCi+pi+DMiGxyRxPIhO3XzoCr0+zxDVJL9/Vfgc9Do
+	 S/+0e0aaioXQyoRJc8tARfW8386s4Bbyo5K90xOy9ORoQnAnbk3Yves5G347gwiQhXx3s
+	 DCOwcpJ9LTRCTYxcNu2EYhiNEM1ExJA4oRBvi6iR7ZCZfQLvGiWaqZKLk2fZSgwRKCFki
+	 dZbIOV3MiSDb4fg9JDnLMwhXpmmHe9i6ivacnC0KOPp4y7qsRM62ViQWiKAzBxB+jykjF
+	 QBhQJXjfaDBr4yxMbUouXHZ1irexmma3V9qgfAkXLMaE5skr1IN12V/WkOTmeMeYSFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897733;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=SUDVvYxorptkD2PveS8qsN2gsLXR/qsNmAPJe5jYSL4=;
-	b=HpxhKEoQ9cNHMe21SafNuMBh0rty9ZzTEJBPQmOAnAUwEXdyfWFrZ3sWTGvH3U0qheBc
-	 2lM4UvAw/ItQB8aua++b+1r76wmVIUZln3I2zWTACbjJbJO1mUoUbajttFzbZk8MxC0LS
-	 fbniLT42f+b/8PpVOhwRDgRMZysAQlEJxbmn2dNIwFFdeeMPvrIdMapXgbP0nnXXIfBC1
-	 1d9P5DGWY4ASDbfwcWAEIQ74k8GhoxSSihndq1wgnajrvgUqWihuiDj2fHm8zObe1uX0g
-	 dxTE/+KLrKV76T4jsU1Zyc8SxQHlBGizM3wgdZ8YVTf6gKOp/48lla0BwFS/0R/xSfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897783;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=sXd2orHtvS28hhtBKOplUBavOCjio3xkwlj67EhnJWU=;
+	b=b7biQjNt9CDgfl4Koq9XrVpbKVGI51bN2w9Hzsk/dAjJXYiqGpv+D3JVaW80yDOMJg8f
+	 SjEIMv20twAqOn0iO4tfigpiL6OUszruRcSlDAmJQjjZ0Rd18XSoacWQntl6E/uKc+K1O
+	 eiWPRpaSIfrx7Kk3bhxQ1msOfsIzzn+1+g7FjyK7g4Me00sHWM55s3f55WbShiAb+5ZEQ
+	 hfUUY1om42p2eG8zcLSwlaX5goRg5+trE94beRqm6jC9EVknI68x8S05VciBs9U/rhYiG
+	 JKW68JlUu6ZNv72pWrRWLBEIfg/aL5HvbyX5JjR5Pgs+BuEhG96sbWL+pQeFtfMW8Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxV8wp6J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Ogmv7BG4;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 835A9606A328;
-	Thu,  5 Nov 2026 16:55:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37D9606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:56:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C37D9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxV8wp6J
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 424731F0093A;
-	Thu,  5 Nov 2026 16:55:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793897732;
-	bh=SUDVvYxorptkD2PveS8qsN2gsLXR/qsNmAPJe5jYSL4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cxV8wp6JmeU3XWHmE5oAaVkY2V4Rqt6nyU8p8GiSo8lpCeBi8wwSW0uN2r/wA2j/3
-	 gvdI8B/vCXv+fQdrx5n51lzEHn2dzBiG6yjw4+idd78hzMNPmFOHLaDhU2Vr8/Sgg0
-	 DkDg6YjRVhaesDv8tTlSZN9dh1FHnN1i9eI5YOzRuExnynkjJqmOJqLCvK97+0kWTd
-	 hFUn26tOrndBfS0BKadmxCgs285JIWHYQSAGyhlV1gOp6qJBxwUJVfnNyKt9M/4Vgk
-	 colZctUdJS684O+sad3StKzy/a62KGhcue2R5f1mo73Ryu5tRyyxbwJn9c6bXASmQa
-	 oVexu1tWR43Cg==
-Date: Thu, 5 Nov 2026 18:55:28 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Yuansheng Yang <0xbeac@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Ogmv7BG4
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ed408b0d9dso418255ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:56:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793897782; x=1794502582; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sXd2orHtvS28hhtBKOplUBavOCjio3xkwlj67EhnJWU=;
+        b=Ogmv7BG4r7uuYCYpQN4niqDJbGkvLKQFENVq0R4ZDqv8WEJDpk9oXeQLiFTF0VDwVh
+         ZW3dRsM8vxcktUqR8BLPtebX//inW1Bfn+BdikoT2ufnSbeXAlawBDAqYnbaT3ve01DM
+         3G8UuPv4JjwWiGSABW/YQ7BK3i6IWEMQ9LScK6uM0QnBbM5NUX9L6hePyG/VFQGhGVwp
+         yrutnEdo+lMbKqhRElOL/guTxtCUcJSmflLE54qW0EGDnf7gaUt6sZCWETWxTFMS2xBC
+         qsOyvOrwd2F/C+7CAIc8Ue3hnsor2FaZUI+4GfsKHJuF0Q/sB7GfEwgbcbMAkxaqgHXu
+         eEJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793897782; x=1794502582;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sXd2orHtvS28hhtBKOplUBavOCjio3xkwlj67EhnJWU=;
+        b=2RIpFPJpFa2zep2QPe+aQksBZi+zUPOqSNHQH0XIXGEd6HgWjQgwo8uwpKrISp+PXz
+         6JcoUfujprRcX3gZUHliGiAMD5CMOKO00oMKZgvt2rNJcOEepptHMRM1Oj3yDh3U7/ox
+         LdWN5U8aCT8dSbmcC3/JuNidEC9W3ivveu7WTfWlGrsHj5SbfGMlLDSSXD1+KRVHzzSI
+         xDAEs/eXWw+DZ8vcGIEfuXxpkiV7BUyoFe/ZbkyK/K4Q9Wxijqms7gNduC8fQI63ncm4
+         B5ybYlAumLnrtwjEo7FwcV75QX7mdt+WIiYekEoBnDyLlNTcdcZFjlq+iUJVGbvsNXFD
+         e3ow==
+X-Forwarded-Encrypted: i=1; AKwUvByAqU7RIgH8F+8UV1lwBRcxL7k7qR3iOLpWKdMzh5thZ1f1VmLMgGuWU5BIVX5exThfaG06gWZvSBxCd6o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/N1HBSDbV5QyGbPqY71ZMo6Ylwh/2sPqgQGFV/Wzrzxs+AJ8bK
+	7K3XJ2+7Vd4QJlHdyJSb/JEhR3tB5xwyhfcZUTS368CjA2VwOPnEyUs+uGMjm7BNzy8=
+X-Gm-Gg: AYBFou0DIEsPcEtL6YYw4UgInoSJPvWEULbS4ZWMdIHwOJ9sYkDhUWfQI8Dn1j4gir6
+	iMFOvzdpsoEzsq/AKK29ZkBR6rd7i/EL8WqhMsZHftoghEID9BA8nj72T+3Wtikpbo1KhAK+tnU
+	1HZ3wJk04GIlAOu07DDa/Dvkn6a1X/gnRCx70+o1cC1pFenYccFe4fPeSUEY0kTub4dYJvaC/Vl
+	nVxW53RW11m5Zx6ifO1sBsjbGPR/vs+i6FIw4g8fa+174zXM2SncryIPiRJ3qkaq7pdug/HpFvC
+	JfunxZx3ZetSeGWSycwTNNr4DanY5L4bAmcHulsBbrytWcnR/LT3FCzRabzgrbUQhvPEoNSYPXK
+	xUh/mKSCRl0x+u214wsnDt+CZnKmDlhmf+QMB9cEIRm576Ql0GnlKZqEb3F54YDThD7PBV7ZVgU
+	AcxBn8yQBnBjRHLDJ/mPWSUcrA21R/ti/Z76gavYtShqtZo38lpKVxYK24WAURbxZ1f4n5pHaW2
+	PWwoBgzdR0ue4EnNbSmgkgC1VoTo1vvezA4GQs0NaeLQxeRU2ml5vNd2VQbuE4eSDlgIVYTC9Sl
+	C07lflw48sieks6WiuHlVgwpphh40T0=
+X-Received: by 2002:a17:903:2290:b0:2e8:3d48:4d8d with SMTP id d9443c01a7336-2ed40ee5387mr1933055ad.0.1793897781997;
+        Thu, 05 Nov 2026 08:56:21 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:c7a9:fa1d:b267:7419])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed09127905sm20286145ad.48.2026.11.05.08.56.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:56:21 -0800 (PST)
+Date: Thu, 5 Nov 2026 10:56:19 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3] KEYS: Protect pkey method checks against type removal
-Message-ID: <auy1ANMSKTXZb8GE@kernel.org>
-References: <auv35Ljgz1OA1zUZ@kernel.org>
- <9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com>
+Subject: Re: [PATCH v2] rpmsg: char: take ept_lock in the
+ SET_INCOMING_FLOWCONTROL ioctl
+Message-ID: <auy1M1b4-ymv0OyD@p14s>
+References: <20261026100306.68019-1-yuz08559@gmail.com>
+ <20261031090650.23701-1-yuz08559@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,224 +101,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com>
+In-Reply-To: <20261031090650.23701-1-yuz08559@gmail.com>
 
-On Thu, Nov 05, 2026 at 12:38:21PM +0800, Yuansheng Yang wrote:
-> keyctl_pkey_params_get() looks up the key, and keyctl_pkey_query(),
-> keyctl_pkey_e_d_s() and keyctl_pkey_verify() then dereference
-> key->type->asym_* outside key->sem.  A reference keeps the key alive, but
-> does not pin the module providing its type.
+On Sat, Oct 31, 2026 at 07:06:50PM +1000, Yu Zhang wrote:
+> rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
+> rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
+> and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
+> dereferences ept->ops, so this is the only eptdev->ept user that does not
+> honour the ept_lock discipline.
 > 
-> unregister_key_type() calls key_gc_keytype(), which retypes every
-> remaining key of the type to key_type_dead under key->sem for writing.
-> The pkey paths read key->type again after their checks, so a concurrent
-> module unload can turn the checked callback into the NULL key_type_dead
-> member and call through a NULL function pointer, e.g.:
+> eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
+> (reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
+> device is removed) and rpmsg_eptdev_release() both do
 > 
->   KEYCTL_PKEY_SIGN task              Module unload and key GC
->   ------------------------           ------------------------
->   keyctl_pkey_e_d_s()
->     if (!key->type->asym_eds_op)     unregister_key_type()
->                                        GC: down_write(&key->sem)
->                                        GC: retype to key_type_dead
->                                        GC: up_write(&key->sem)
->                                      free_module()
->     in = memdup_user(...)
->     key->type->asym_eds_op(...)      -> NULL call
+> 	mutex_lock(&eptdev->ept_lock);
+> 	rpmsg_destroy_ept(eptdev->ept);
+> 	eptdev->ept = NULL;
+> 	mutex_unlock(&eptdev->ept_lock);
 > 
-> In-tree, turris-signing-key provides such methods.
+> and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
+> A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
+> eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
+> (or a NULL dereference once ept has been cleared).
 > 
-
-Look at this:
-
-> Hold key->sem for reading around the method check and the matching call,
-> so that the type cannot be retired in between.  Each keyctl handler takes
-> and releases the lock itself; the semaphore is not passed out through the
-> parameter block.  User buffers are copied outside the critical section.
-> 
-> This is the same type-removal problem recently fixed for the read
-> (925c84e3cc21) and update (aef3a8a4f988) methods.
-
-I don't think we should be making up random English words for
-well-defined objects.
-
-The first paragraph in this should be replaced with the description how
-keyctl_pkey_params_get and other functions gets modified. I.e., how and
-why they get modified.
-
-Also "user buffers", "the semaphore" etc. are hallucinated words with no
-actual meaning. Maybe it is just me but I do personally think that
-key->sem is a better description of key->sem than "the semaphore".
-
-In the second paragraph I would instead:
-
-	This problem was recently fixed for 925c84e3cc21 ("keys: Protect the
-	read method check against type removal") and ...
-
-The commit message should be useful after the patch has been applied. I.e.
-when a bug is bisected it is useful to check from the commit message what was
-done.
-
-The commit message is as import as the code change itself. With a random code
-change you are 50% done.
-
-> 
-> Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
+> Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 > ---
-> Changes in v3:
-> - Keep the switch, allocations and existing error handling in place.
-> - Use one unlock point per method check/call pair.
-> - Set -EOPNOTSUPP inside the failed checks; add blank lines before labels.
-> - Use my real name in the author and sign-off fields.
-> 
-> v2: https://lore.kernel.org/all/20261104021414.50696-1-0xbeac@gmail.com/
+> v2:
+>  - Drop the paragraph about the other ept_lock users from the commit
+>    message (Mathieu).
+>  - Bail out early when the endpoint is already gone instead of an
+>    if/else around the call (Mathieu).
+> v1: https://lore.kernel.org/all/20261026100306.68019-1-yuz08559@gmail.com/
+> ---
+>  drivers/rpmsg/rpmsg_char.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+>
 
-This makes much more sense than the previous version.
+Applied.
 
-> 
->  security/keys/keyctl_pkey.c | 47 ++++++++++++++++++++++++++++---------
->  1 file changed, 36 insertions(+), 11 deletions(-)
-> 
-> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-> index 15b6bf6399..40475817dd 100644
-> --- a/security/keys/keyctl_pkey.c
-> +++ b/security/keys/keyctl_pkey.c
-> @@ -100,9 +100,6 @@ static int keyctl_pkey_params_get(key_serial_t id,
->  		return PTR_ERR(key_ref);
->  	params->key = key_ref_to_ptr(key_ref);
->  
-> -	if (!params->key->type->asym_query)
-> -		return -EOPNOTSUPP;
-> -
->  	return 0;
->  }
->  
-> @@ -129,7 +126,16 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
->  	if (ret < 0)
->  		return ret;
->  
-> +	down_read(&params->key->sem);
-> +	if (!params->key->type->asym_query) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_unlock;
-> +	}
+Thanks,
+Mathieu
+ 
+> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> index 550fda2..d8868fa 100644
+> --- a/drivers/rpmsg/rpmsg_char.c
+> +++ b/drivers/rpmsg/rpmsg_char.c
+> @@ -343,7 +343,20 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
+>  			break;
+>  		}
+>  		set = !!arg;
+> -		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
 > +
->  	ret = params->key->type->asym_query(params, &info);
+> +		ret = mutex_lock_interruptible(&eptdev->ept_lock);
+> +		if (ret)
+> +			break;
 > +
-> +out_unlock:
-
-out_up_key_sem:
-
-> +	up_read(&params->key->sem);
->  	if (ret < 0)
->  		return ret;
->  
-> @@ -185,7 +191,16 @@ long keyctl_pkey_query(key_serial_t id,
->  	if (ret < 0)
->  		goto error;
->  
-> +	down_read(&params.key->sem);
-> +	if (!params.key->type->asym_query) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_unlock;
-> +	}
+> +		if (!eptdev->ept) {
+> +			mutex_unlock(&eptdev->ept_lock);
+> +			ret = -EPIPE;
+> +			break;
+> +		}
 > +
->  	ret = params.key->type->asym_query(&params, &res);
-> +
-> +out_unlock:
-
-out_up_key_sem:
-
-> +	up_read(&params.key->sem);
->  	if (ret < 0)
->  		goto error;
->  
-> @@ -230,10 +245,6 @@ long keyctl_pkey_e_d_s(int op,
->  	if (ret < 0)
->  		goto error_params;
->  
-> -	ret = -EOPNOTSUPP;
-> -	if (!params.key->type->asym_eds_op)
-> -		goto error_params;
-> -
->  	switch (op) {
->  	case KEYCTL_PKEY_ENCRYPT:
->  		params.op = kernel_pkey_encrypt;
-> @@ -260,7 +271,16 @@ long keyctl_pkey_e_d_s(int op,
->  	if (!out)
->  		goto error_in;
->  
-> +	down_read(&params.key->sem);
-> +	if (!params.key->type->asym_eds_op) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_unlock;
-> +	}
-> +
->  	ret = params.key->type->asym_eds_op(&params, in, out);
-> +
-> +out_unlock:
-
-out_up_key_sem:
-
-> +	up_read(&params.key->sem);
->  	if (ret < 0)
->  		goto error_out;
->  
-> @@ -307,10 +327,6 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
->  	if (ret < 0)
->  		goto error_params;
->  
-> -	ret = -EOPNOTSUPP;
-> -	if (!params.key->type->asym_verify_signature)
-> -		goto error_params;
-> -
->  	in = memdup_user(_in, params.in_len);
->  	if (IS_ERR(in)) {
->  		ret = PTR_ERR(in);
-> @@ -324,8 +340,17 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
->  	}
->  
->  	params.op = kernel_pkey_verify;
-> +	down_read(&params.key->sem);
-> +	if (!params.key->type->asym_verify_signature) {
-> +		ret = -EOPNOTSUPP;
-> +		goto out_unlock;
-> +	}
-> +
->  	ret = params.key->type->asym_verify_signature(&params, in, in2);
->  
-> +out_unlock:
-
-out_up_key_sem:
-
-> +	up_read(&params.key->sem);
-> +
->  	kfree(in2);
->  error_in:
->  	kfree(in);
-
-Exactly at this site I would do just little bit more hygiene work:
-
-	out_up_key_sem
-		/* ... */
-
-	out_free_in:
-		/* ... */
-
-	out_free_params:
-		/* ... */
-
-	/* ... */
-
-This adheres with the  https://docs.kernel.org/process/coding-style.html
-section conventions.
-
-At sites having already out_-labels I would not do extra renaming.
-
+> +		ret = rpmsg_set_flow_control(eptdev->ept, set,
+> +					     eptdev->chinfo.dst);
+> +		mutex_unlock(&eptdev->ept_lock);
+>  		break;
+>  	case RPMSG_DESTROY_EPT_IOCTL:
+>  		/* Don't allow to destroy a default endpoint. */
 > -- 
 > 2.43.0
 > 
-
-Br, Jarkko
