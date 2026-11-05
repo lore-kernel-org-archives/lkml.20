@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888866;
-	b=A03x0v2ya40lTb+KKYff/jmctFUjsiy1dfMOzgG1epsDsiQJrRzpMC+Rp55uI7TRPIbr
-	 W92LfkWmfvnwiRuxfm9Yis5h7NQo0FZptESSLui51Mis5Agjv/llUVxsgmvMo55s1g0/S
-	 ZT2rklRgXklmkEO1E+TO3+ra7y6W2hFb7YBgCutlnksutnIbJV5AJCSqnGuSbHKgXZ5pq
-	 j1HTKNaVMfPXWcdiseKhAGB4g8cYRcKhAnMTdwjDgbBatoIPnWnO4W98WjDBm+r6Zoxtw
-	 BoZVgJAEqMlw9Nn8Y/BuiLAx1q1s8VNnaxERjQegGEKwquPZHeB98f6BthzsavmJE0w==
+	t=1793888896;
+	b=4hSlyITP+/YzOgzx498oTZAwftGkJwoupjwxU2Kb+9Hjmszt4D+7+wHz+T355P+QruRw
+	 b0YuNFfyaY0VdOCIbd/zXOpednGhxNmeaHkY1PUzVHxNXPjiuExE3P782yIsu1a4Oxwmo
+	 7MT4sBjmN+Dp5ogbCmlDzvOapb5OwnkV0/ktuS/udwdo5JEcrPwcIUaFKBS7vzzTsYf/x
+	 35IhqlUPKE13QGcWQ5uqlBrGnD+nE1I/7MlilHJQTxP4HTSftieg6M1P8z6IczAnG9Isq
+	 xMSqMKfJYF/zyhmwdIig/3mDByX0neIXKkqhjBfL+LymGKOtzs7CmyfmWOU1YKxERjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888866;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rYHcTddsMGFJxoooXt9bGT/cprdRwsLwfNyq5sklZCs=;
-	b=b4POG9yel+IWuUVkQxhW7V4POdri/m0Md5jYsoeSJ8bHh/ssYKBzotxqbe3KNi0iCnaB
-	 yw5RyGkNn1HKSMiK5DWkaKNLdhIS/sqUFRIEH0tzpRZNP+k5JC7UQd3BnQ1JrWcCcxi3D
-	 EQi1LQ8C7bU9vUDgmoxfNOiDOhwT3Pj9DHhVGWTlgUu7EhFOeILdeSRbDo4mnjTKg/f9C
-	 wyCZjww2DQyQL+jj/LRCU6Tu/pqK8ZuxTh3SfRmQdNUuW1gkl+R0ivWJX1HrqPDtywxo+
-	 K3V9HJUnH1nnVfNLcY8QkcUuVNZjSoo/2Xl7jjgo4SaCsyNotksr8DWmh+xQtQkA7ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888896;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=95WxaNJo3zmGTXZd+gdzfT31Rv8uiLPoGQxEyB+r8Gk=;
+	b=s4chMGpoA6h+WppDXa0U6RpMJtwY8t76t9YyOvxJClZzdRayV/Fth6u6XJsajmQQd8sJ
+	 a2myQiOxNQosmi1rRSWZIz/uamhrYi06CQxwRgWvpskrcJ7ycY10edow6j8AoEfkVWbfr
+	 2kHKCzVM6ua8pRqm8DGdicL4o3oX58YAbRxgjgDHqfjOhuNdWnY2bU5vmmg4PpmXxkP/S
+	 GRcUmc7+Wg8FCgQpmjOWbjUWt+kRYFhvTDUSuFWZ4vHRA51yiHhN7e/Teu3MTb4qghskp
+	 KQ83YkrXsgiftkwqnaK9dw0jluILSukaW0zUiK1yF1n/zw34Jj8QdsXSZUCjicwR6Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rk5o+f1O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gNT1QnqJ;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66EA606A32E;
-	Thu,  5 Nov 2026 14:27:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E287A606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E287A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rk5o+f1O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 305201F000C1;
-	Thu,  5 Nov 2026 14:27:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888865;
-	bh=rYHcTddsMGFJxoooXt9bGT/cprdRwsLwfNyq5sklZCs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rk5o+f1O6peQxQ9MqrF1F0MAgBXS1+MgHM1NL5rXIJ26rX2a7K/cTEaoepPELDyrj
-	 eqj6eQtTFCOr6fANT/YDv7PBY8qUn+sqP87GUD6Xa73W4qRHUy4vbGr0Ltycf8T8jg
-	 vEsW3D83z0t7XuVMbr/tGJ1QgCBxjDRSaCzNFZzs9CYyvmZBAk8BarpROmU+k1U1bs
-	 4xxI3zTbSNdX1BNJMAq2u0FF8p8pDQDkDo0kHZnAcoZBUs8F0u4eirZmnzteFm0Rr2
-	 lchBU6uFjD3odeJIkkNYZt3sUGSuaX479mgI4BRJt+YqJ1++38R9a9SHY4wIp8B2OP
-	 XiMELJIEKt/zw==
-Date: Thu, 5 Nov 2026 14:27:42 +0000
-From: Simon Horman <horms@kernel.org>
-To: Sandeep Haemoon <sandeeph@loljews.com>
-Cc: netdev@vger.kernel.org, Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] net: ethernet: mtk_eth_soc: skip page_pool
- for
-Message-ID: <20261105142742.GU865646@horms.kernel.org>
-References: <patch-4f863a941889f0bceca1c082f2d79624@loljews.com>
- <patch-f1b04513b0fe3fb0a35ac744799fb0f3@loljews.com>
- <patch-fdfc120d5c46c3e5d484cbff30f63316@loljews.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gNT1QnqJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793888895; x=1825424895;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=7XBPAVgF7jXa9u0u8XGa62/I7XNKU0bOZC3A0FdkxAI=;
+  b=gNT1QnqJMFDKCRcUaneDhJIC7+dPUgWyW2VJVjgz5YYrBHo/opXd+rIo
+   mtPV5qTIIYEYIVWVPrJ/0m7rrtdV6kYHATR+3zYEou85nTkGLoZfOSr30
+   TAeTt1GSsmBsu/SqgpZhefxj2obaeR9DZqKFFnU8tI2AEbKo4iMAdZmKd
+   xmybFP9bK7MDkdD/5Vy6RQuRKz++YZjNey5+5TD8L+BtXeb1GzdxDgcqj
+   Brds7CWZ78siXZmXyXJ358GQpTn76eVLbWYhYGcgeNCC+diFelMyro9HT
+   x9Jvlgwn+Nt3R6cI1YgIyt53oa+SxkIpv9yC4kvpBF+ZJ7PpWd+ElmNHO
+   w==;
+X-CSE-ConnectionGUID: lK9IsNe0TWeos7sd09AOhg==
+X-CSE-MsgGUID: jpesz0XwQw+FJDz3ibtIew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2671842"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2671842"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:28:15 -0800
+X-CSE-ConnectionGUID: AdR6HPinR0GlWZFKyouJ4A==
+X-CSE-MsgGUID: 6gs6K+U2SQK3Nif5Fx6alA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7444130"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:28:13 -0800
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Thu, 05 Nov 2026 16:28:03 +0200
+Subject: [PATCH char-misc-next] mei: mei_lb: add info prints in flow
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,30 +74,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <patch-fdfc120d5c46c3e5d484cbff30f63316@loljews.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-mei_lb_add_info-v1-1-2668d32c7e05@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3M0QqEIBBA0V+JeW5ADTfqVyLEdNwGykIjgujf1
+ /bxPNx7Q6bElKGvbkh0cuYtFsi6Ajfb+CVkXwxKqI+UQuNKbJbJWO8Nx7ChCNpNqtWhayyUak8
+ U+Pofh3eRcOXsMNJ1wPg8P7/sXXpxAAAA
+X-Change-ID: 20261105-mei_lb_add_info-0f5cb275f93a
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Menachem Adin <menachem.adin@intel.com>, linux-kernel@vger.kernel.org, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793888892; l=2111;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=7XBPAVgF7jXa9u0u8XGa62/I7XNKU0bOZC3A0FdkxAI=;
+ b=bZ0wor1Kj7VXOk9K2B176DvIRXHcQx4Bl+R7LawJhqvOyRkpZvx7Phnfzm2O5T/TtnSWhEFgx
+ ree653dWcq0Ahztu+0BkXPtl+4YlFyZOzbkJRmT3TEGKaYysmo/w67Z
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-On Mon, Nov 02, 2026 at 12:48:46AM +0200, Sandeep Haemoon wrote:
-> page_pool allocates order-0 pages and the pool is created with
-> MTK_PP_MAX_BUF_SIZE.  Rings that need larger buffers (9K jumbo or the
-> HW-LRO rings) cannot use it.  Only create/use a page_pool when
-> ring->frag_size fits in a page; the large-buffer path already uses
-> mtk_max_buf_alloc().
-> 
-> This is required by the 9K support in the previous patch; the
-> large-buffer path it relies on comes from the MediaTek downstream
-> series.
-> 
-> Link: https://github.com/mediatek/mtk-openwrt-feeds
-> Signed-off-by: Sandeep Haemoon <sandeeph@loljews.com>
+Add info prints for late bind flow start and successful completion.
+We already have error prints, new info prints will add ability
+to trace successful flow and confirm that late bind firmware
+loaded to the card.
 
-It may not be particularly important, but I do wonder
-if the order of the patches in this patch-set should
-be reversed: as it is 9k support seems to be added by 1/2
-and fixed in 2/2.
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+ drivers/misc/mei/mei_lb.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-That notwithstanding:
+diff --git a/drivers/misc/mei/mei_lb.c b/drivers/misc/mei/mei_lb.c
+index 9fa69acf28d5..51794ff994fa 100644
+--- a/drivers/misc/mei/mei_lb.c
++++ b/drivers/misc/mei/mei_lb.c
+@@ -214,6 +214,8 @@ static int mei_lb_push_payload_v1(struct device *dev, struct mei_cl_device *clde
+ 	ssize_t bytes;
+ 	int ret;
+ 
++	dev_info(dev, "Sending %zu bytes of type %u\n", payload_size, type);
++
+ 	req_size = struct_size(req, payload, payload_size);
+ 	if (req_size > mei_cldev_mtu(cldev)) {
+ 		dev_err(dev, "Payload is too big: %zu\n", payload_size);
+@@ -260,8 +262,12 @@ static int mei_lb_push_payload_v1(struct device *dev, struct mei_cl_device *clde
+ 		goto end;
+ 	}
+ 
+-	dev_dbg(dev, "status = %u\n", le32_to_cpu(rsp.status));
+ 	ret = (int)le32_to_cpu(rsp.status);
++
++	if (ret)
++		dev_err(dev, "Error in status: %d\n", ret);
++	else
++		dev_info(dev, "Sent %zu bytes of type %u successfully\n", payload_size, type);
+ end:
+ 	kfree(req);
+ 	return ret;
+@@ -314,6 +320,8 @@ static int mei_lb_push_payload_v2(struct device *dev, struct mei_cl_device *clde
+ 	ssize_t bytes;
+ 	int ret;
+ 
++	dev_info(dev, "Sending %zu bytes of type %u\n", payload_size, type);
++
+ 	struct mei_lb2_req *req __free(kfree) = kzalloc(mei_cldev_mtu(cldev), GFP_KERNEL);
+ 	if (!req)
+ 		return -ENOMEM;
+@@ -363,6 +371,8 @@ static int mei_lb_push_payload_v2(struct device *dev, struct mei_cl_device *clde
+ 		first_chunk = 0;
+ 	} while (!last_chunk);
+ 
++	dev_info(dev, "Sent %zu bytes of type %u successfully\n", payload_size, type);
++
+ 	return 0;
+ }
+ 
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261105-mei_lb_add_info-0f5cb275f93a
+
+Best regards,
+-- 
+Alexander Usyskin <alexander.usyskin@intel.com>
 
