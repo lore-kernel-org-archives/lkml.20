@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793866873;
-	b=ZgoSXJx923CzZKloQP7k7yVkcTHHDOeAdOm75riJCdb/Hwft/+L/NiIsH5NHaP37t9xc
-	 24eaPA9mzudK0zI/siV5kgkvJG98Ge0ANAMS6VEyBdiBRnQBgruPgUgjOi060ZDZKfVw9
-	 +l23tofmIPJNg91OxVhrfgyh/qkrC2qkVBACin5M1+ION5vLH0cDkondnjNN6Tn4Da/fZ
-	 NzSANg40psxQsVR6d5YrDBjWAXU6ZtsJPU1C5620r1RTHOuZCUmHcwH4Str7rWb0t66Fs
-	 q0XhvMMtrBNZegDfgCiquStafDSq4ZEYltObkbJDu53JbvVtj/qO/Rg7BZNJkGTiR+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866873;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
-	 X-ZohoMailClient;
-	bh=MhqTaeYg8C0cA2ARimiJcpcf7M5ITCUmL70CiSxA+7I=;
-	b=xzoCPp/1yoQW2j80W+nwfz5A0C0cgObltCTL7HuGhfZhNkBelCI9fXhuH7J9ymHOsG5q
-	 QYjuWzWmaBqQwponjIclzYKVCaF/SKc67RMteH+AVw2FDhx8EyNdsI/WM+sV5q7BSD9QB
-	 tQ87jEx7JPcNh2jFiBn2hJ1LvbQT2HcAZpcpUNxAK3XHiZwyumm+jBG/vXIr5OIu4OFoL
-	 1eMZRKB0j/8n1gjdlxMUd2+OVVUYuMpkrEjGGUrICfrOszU1jr3h4X7eyHBjctNWBrqt5
-	 P9ewL/+CaVGTpl9E0nn/43hbt+S1PKZMqOZgnAhRC7wbuVpv+P2YmK4FOPXQtcvXwfw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.com;
-	spf=pass smtp.mailfrom=zohomail.com;
-	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=VsEfUwTV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
-Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793866940;
+	b=y5Ip+tkffk+fxqI6qOhu15WQ5/qqw1ZkdNikICtQBgBDVAzaro7NTmhHif3kYmtdT10r
+	 bSt/SZUcdOYc8LiwqbvwCIRLYs+N/v4oHgHZk7+cm2DWnwRuWPdqEL2t2qUVA/25iV+O+
+	 zgtfWdQiWRN+z8yZ/gtfji+OI0KigFgtGEjawaEYLJH80yEewFSA7iYt9ie6tsIIlD07a
+	 OGELMNe+EIE0ycvRkjKzizdjqsVu3AA9MAXfRqmP1EyCkZ/qDi7peI+QFWxhGqrsoacoX
+	 O9ybLNH//srIw3xmXrQXiL/bq5+7+TQL8Tntz7J+OCKia7+9k1P/v9UpInNn2xEGbxA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866940;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=FE6flEcS2K/7KWRh4Kaf757dnWLpMHfHAJ2OdiuX5FU=;
+	b=QoxtqvV0781PEUt+LlwoZgUxuY3iV3AyPsmnf34n+9PBo2Ou4TMcCRkb4DkAtVld5Ziu
+	 kUxvXzJFcMWMEv6QnnojB4JVDhXh5r6wo3dJrCGg4gMwK48frXlKXpsHomShwkEd/UP6m
+	 c82x6Rvu4XXbOwg4e7CoyyeyuIxviHmXM6lKNNWdzqdAM86b8Vnt9rIjTxxrrCpjvFmaW
+	 Y13YZkjQEOCzK44ntvHzl66oYDqbPBrjSL5/kdXDX3E50kRkF22+F3lWpz8DJOV2mZOEB
+	 z6ZzrMEHwQapPPSXoa9toeLaCTfQvLlkbtwxeJaXymLlGG15FMYtHlJYr+vg1EVDuJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TspYA1oJ;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC945606A31B;
-	Thu,  5 Nov 2026 08:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC945606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60AB7606A31B;
+	Thu,  5 Nov 2026 08:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60AB7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=VsEfUwTV
-ARC-Seal: i=1; a=rsa-sha256; t=1793866864; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eETmFpCRCWoRk1ooHqCzu0HoTfYD4SEtwaNU3JzCqInnu6AuV7ynOSblFWiX6sewRIL2iw+FtigYb1EMJ5E7Nu2WdbRIzHlWeVNumA5C5RdcJKrXc+Oyoz44bJqaEKQouWjyEyobSdhdBwF2Jehwla0tiapA7o86hO4hAC6JRVU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793866864; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=MhqTaeYg8C0cA2ARimiJcpcf7M5ITCUmL70CiSxA+7I=; 
-	b=OtCT+TRFsgfon0WIyWOKMZu9cfMa9OVfk6ZmxwjHCSV5bklMJBPVKXnYktYSq2lGYi3v8dBQ/C8IE7t1hOiMeR+B2iqkjVEnv5gDoisnRnlX0F541aXFrrtZdfEw0yzPz8Et9bgAnk3UvKr+AATHPLzBUxX6nWvL5M5OOVjYMRo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: a=rsa-sha256; b=VsEfUwTVea0kiINsjl2vk0cEm3agjhR3bCuzZ3bYWQsm1EuCa2Q2mWOhkkMQo+bfCn1QdqQQ/bm84tQFSX5hx2Ukr70Zv2Z98GfbQvFtKAwBnvsaBZx5UjijRVa1SSUs4RjkJaW3jdvaY66gCuotIzEFXd+UT96+cu6lyrrVC2U=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=MhqTaeYg8C0cA2ARimiJcpcf7M5ITCUmL70CiSxA+7I=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793866863229960.8149995318363;
-	Thu, 5 Nov 2026 00:21:03 -0800 (PST)
-Message-ID: <f4be9108-e5ea-4e6d-bd6d-0af14f28951d@zohomail.com>
-Date: Thu, 5 Nov 2026 16:20:57 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TspYA1oJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793866939; x=1825402939;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DEatSBoF3t2AIO2viBbGfJoI7pyTQ+39KdF/ZrSmhQ8=;
+  b=TspYA1oJ370XczcWgja3fDx1qdpkTgKYCGAIVZwTGsSw2NCPHVonbzZl
+   SwYUEeYpBn9K/OMd10t8haKLp5HltjD7ucHT6zGWl+jJHwwmPM9rriN/t
+   cH9sx340S7SFasgRVQhCX3QQu/4ZI+zpFAp1rrnSkb7NqcQEfZj2S9ife
+   KIYqYUxM4/VH8Iek5YUklXsR1+/dZWafehtzRPYUxvq//6nGFVQSTpchA
+   eYhQ8mCSBtx6mFtVXST3fslNL+OLTKhNCLYRqR9OzHGgun6ywoLXurGDY
+   AbrV3rOmr7MPUiXEi76XJrBwXYI3UgK9qdv/L1isg/Udl3SWnbLnM0Rjg
+   w==;
+X-CSE-ConnectionGUID: Rv3xYSmaQ/GelGpzXiPAdg==
+X-CSE-MsgGUID: PtlXw5G9ShmL3m42J5meSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2544917"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2544917"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 00:22:16 -0800
+X-CSE-ConnectionGUID: AkKOJ/V8RoqUF1HxSP1VPw==
+X-CSE-MsgGUID: tubbTcFTRhyaJ5DltBVd3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7285527"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 00:22:10 -0800
+Date: Thu, 5 Nov 2026 10:22:08 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, khtsai@google.com,
+	fangxy@xiaopeng.com, Randy Dunlap <rdunlap@infradead.org>,
+	dbrownell@users.sourceforge.net, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] usb: gadget: u_ether: fix out-of-bounds read in
+ get_ether_addr
+Message-ID: <auw8sAYE-nkZ-qIT@ashevche-desk.local>
+References: <20261104025058.2650911-1-liuc63@xiaopeng.com>
+ <20261104025058.2650911-3-liuc63@xiaopeng.com>
+ <ausGsH4Q6IDMMtin@ashevche-desk.local>
+ <20261105072144.3382964-1-liuc63@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,150 +89,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] cxl/edac: Mask DPA flags in the event record cache
- key
-To: Jongwon Lee <ai@linux.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
-Cc: Ira Weiny <iweiny@kernel.org>, Richard Cheng <icheng@nvidia.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261102123233.74598-1-ai@linux.com>
- <20261102123233.74598-3-ai@linux.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261102123233.74598-3-ai@linux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu0801122706e1e922292410484dd909d50000064883799090bb172ba4cbe04a354fc87666834b4b216388b1:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105072144.3382964-1-liuc63@xiaopeng.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Thu, Nov 05, 2026 at 03:21:44PM +0800, Liu Chao wrote:
+> On Wed, Nov 04, 2026 at 12:19:28PM +0200, Andy Shevchenko wrote:
+> > Hmm... indeed. Perhaps we want to continue supporting those.
+> 
+> Agreed for the raw notation. v3 restores it with a hex2bin() fallback.
+> 
+> >   bool valid;
+> >
+> >   /* Try standard format of MAC address */
+> >   valid = parse_mac_pton(str, dev_addr, ".:");
+> >   if (valid && is_valid_ether_addr(dev_addr))
+> >                         return 0;
+> >
+> >   /* Fallback to raw format */
+> >  // check, if it correctly handles the case you want to fix here
+> >  // I believe it does handle it correctly
+> >   if (bin2hex(...) && is_valid_ether_addr(dev_addr))
+> >                         return 0;
+> 
+> It does handle it correctly, and I checked why rather than assuming it:
+> hex2bin() validates every character and returns as soon as it sees one
+> that is not a hex digit, and the NUL terminator is not a hex digit, so it
+> cannot read past the end of the string. If it does manage to read
+> 2 * ETH_ALEN characters then the buffer holds at least that many. So no
+> strnlen() guard is needed in front of it.
+> 
+> Confirmed on a KASAN build of exactly what v3 contains: dev_addr=ab,
+> dev_addr=aazz:cc:dd:ee:ff and dev_addr=aabb.ccdd.eeff all come through
+> with no report and fall back to a random address, dev_addr=aabbccddeeff
+> now gives aa:bb:cc:dd:ee:ff, and dev_addr=aa:bb:cc:dd:ee:ff still gives
+> aa:bb:cc:dd:ee:ff.
+
+Cisco should not work, the index is going over 3 characters on each iteration.
+
+> Two details about the helper itself. The direction we need is hex2bin(),
+> not bin2hex(), which turns binary into hex text. And hex2bin() returns 0
+> on success and -EINVAL on the first character that is not a hex digit,
+> whereas bin2hex() returns a char * that is never NULL. v3 therefore uses
+> 
+> 	valid = hex2bin(dev_addr, str, ETH_ALEN) == 0;
+> 
+> > The function itself was introduced in 331a2d82bcaf ("[PATCH] USB:
+> > ethernet/rndis gadget address params"), and not in the USB network
+> > core split as your Fixes points to.
+> 
+> You are right that commit 2b3d942c4878 ("usb ethernet gadget: split out
+> network core") does not introduce it; it copies get_ether_addr() into the
+> new u_ether.c, and the function is already at
+> drivers/usb/gadget/ether.c:2240 in its parent.
+> 
+> 331a2d82bcaf does not resolve for me, though. It is not among the 104530
+> ancestors of 2b3d942c4878, and that range reaches all the way down to
+> the git root, and cgit returns 404 for it. The loop is already present
+> verbatim at drivers/usb/gadget/ether.c:2236 in commit 1da177e4c3f4
+> ("Linux-2.6.12-rc2"), so it looks pre-git to me, presumably a BitKeeper
+> sha.
+
+You need to add history.git from history group and tglx
+https://git.kernel.org/pub/scm/linux/kernel/git/history/history.git
+https://git.kernel.org/pub/scm/linux/kernel/git/tglx/history.git
+If you want to have smooth link between all three, add grafts.
+$ git replace
+1da177e4c3f41524e886b7f1b8a0c1fc7321cac2
+7a2deb32924142696b8174cdf9b38cd72a11fc96
+
+With that being done you will have the full history from Linux 0.10
+till these days.
+
+The above mentioned commit is from v2.6.10-rc1.
+
+> Nothing in mainline history uses 1da177e4c3f4 as a Fixes target, so v3
+> drops the tag and records the provenance in the log instead. Say the
+> word if you know a tree where 331a2d82bcaf resolves and I will put it
+> back.
+
+It depends on the Linux Next checks and USB maintainers, not everybody does
+have a full history (as possible). Better just to refer to it [1] in a free
+form, like
+
+[1]: 331a2d82bcaf ("[PATCH] USB: ethernet/rndis gadget address params")
+     from v2.6.10-rc1 (check out history.git tree)
+
+> On the Cisco notation, agreed: keeping "aabb.ccdd.eeff" would need a
+> parser of its own for a grouping that nothing else in the kernel uses.
+> v3 spells out in the log that it and irregular groupings such as
+> "123456:789abc" stop being accepted, so the narrowing is on the record
+> rather than implicit.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-在 2026/11/2 20:32, Jongwon Lee 写道:
-> The low bits of the DPA in a General Media or DRAM event record are
-> flags: bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace events
-> report the DPA with CXL_DPA_MASK applied, but cxl_store_rec_gen_media()
-> and cxl_store_rec_dram() use the raw value as the xarray key.
->
-> User space reads the DPA from the trace event and writes it to the
-> mem_repair dpa attribute. If the record had any flag set, xa_load()
-> misses it and the repair fails with -EINVAL. The raw key also lets a
-> repair go through for a record the device marked NOT_REPAIRABLE, if the
-> DPA is written with bit 1 set.
->
-> Key the records by the masked DPA and skip records marked
-> NOT_REPAIRABLE. cxl_find_rec_gen_media() now reads the record, so do
-> the lookup under the xarray lock as cxl_find_rec_dram() does, and
-> return a bool since its only caller tests the result.
->
-> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-> Signed-off-by: Jongwon Lee <ai@linux.com>
-> ---
->   drivers/cxl/core/edac.c | 43 ++++++++++++++++++++++++++---------------
->   1 file changed, 27 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-> index c5c8dda20e..a5f198b561 100644
-> --- a/drivers/cxl/core/edac.c
-> +++ b/drivers/cxl/core/edac.c
-> @@ -918,24 +918,37 @@ struct cxl_mem_repair_attrbs {
->   	enum cxl_mem_repair_type repair_type;
->   };
->   
-> -static struct cxl_event_gen_media *
-> -cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> -		       struct cxl_mem_repair_attrbs *attrbs)
-> +/*
-> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
-> + * Records are looked up by the DPA user space writes back, which comes from
-> + * the trace event and has the flags masked off, so key them the same way.
-> + */
-> +static inline unsigned long cxl_rec_key(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
-> +}
-
-This function actually returns the real DPA of the event record, I think 
-the name should be cxl_rec_dpa()? xa_load() uses attrbs->dpa as the 
-index, but xa_store() uses cxl_rec_key() as the index, that could make 
-readers confused.
-
-
-> +
-> +static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
-> +{
-> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-> +}
-> +
-> +static bool cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-> +				   struct cxl_mem_repair_attrbs *attrbs)
->   {
->   	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
->   	struct cxl_event_gen_media *rec;
-> +	bool found;
->   
-> -	if (!array_rec)
-> -		return NULL;
-> +	if (!array_rec || attrbs->repair_type != CXL_PPR)
-> +		return false;
->   
-> +	xa_lock(&array_rec->rec_gen_media);
->   	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
-> -	if (!rec)
-> -		return NULL;
-> +	found = rec && !cxl_rec_not_repairable(&rec->media_hdr);
-> +	xa_unlock(&array_rec->rec_gen_media);
->   
-> -	if (attrbs->repair_type == CXL_PPR)
-> -		return rec;
-> -
-> -	return NULL;
-> +	return found;
->   }
-
-I think the implementation of skipping unrepairable records should be 
-moved into a separate patch, and this patch focuses on using real DPA as 
-the index parameter of the xarray.
-
-My first feeling is that we should not simply ignore unrepairable 
-records without any logs. But I am not very familiar with this area, not 
-sure if we should report this repairable bit in trace log or output a 
-kernel log while finding an unrepairable record.
-
-Let us see if maintainers have more comments on that.
-
-
-Ming
-
->   
->   /* Caller holds the xarray lock. The record may be freed once it is dropped. */
-> @@ -949,7 +962,7 @@ __cxl_find_rec_dram(struct xarray *rec_xarray,
->   	lockdep_assert_held(&rec_xarray->xa_lock);
->   
->   	rec = xa_load(rec_xarray, attrbs->dpa);
-> -	if (!rec)
-> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
->   		return NULL;
->   
->   	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
-> @@ -1130,8 +1143,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
->   		return -ENOMEM;
->   
->   	old_rec = xa_store(&array_rec->rec_gen_media,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
->   	if (xa_is_err(old_rec)) {
->   		kfree(rec);
->   		return xa_err(old_rec);
-> @@ -1160,8 +1172,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
->   		return -ENOMEM;
->   
->   	old_rec = xa_store(&array_rec->rec_dram,
-> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
-> -			   GFP_KERNEL);
-> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
->   	if (xa_is_err(old_rec)) {
->   		kfree(rec);
->   		return xa_err(old_rec);
