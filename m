@@ -1,74 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864313;
-	b=O+CdD/e9mnvuVYs7f9ad1XopD3yIqUL5llNB8Onh8SNxtfitTUZx81vijoJx5Spjrhr2
-	 vxbOMrBXYkcxRf8UPrjPMa5mzQF0+z1VOggc0PqXYjnhGRhEnuXFXIP2dwWxxM4jRcqBv
-	 KwfrSu0qO93Q8zcySZ/yqD8n1lIuHsyobUfQzs8AC4tUl+zx4pp63Ap3VQXZX02o1D0Nu
-	 6w7J3owzFqG9q7haEd+d+hZ0KgTZuhFW37152IGrX6JFAivVIv0s3s0jTffHqPt9tTvAf
-	 Xl5cBP88uRgTYvD5US88zPIM7tQdzdw4uT1W31bS7vETvsvQ7jAsqJnHtoExM2n9ETw==
+	t=1793864339;
+	b=IbWqaU71qtALKWYJXGWIN7i8RvI4ymIvdd02f9VdSyH6HfZh7KzMgluPcrJrvjLlFKq/
+	 4xzuIfkEyD3jvNlizdtn5L4zZjHzFWr2Zrn5/GKJYTtqHzjfN+xL1on6HgSRTGVqNoUFB
+	 y6ztVo0/ayWxvxXwrt5RIlUzuUIHtkXcA3igVLTTXCRHw4mjS/uCpvpyvjYhstVp5y8jM
+	 H1O+s8aRT2kBWQERR3W2BY7KcshbddlkpZS6ZAFj31gSpRNrUfyz5FbLUE1Yi9MDd0BWq
+	 6DHSavzlNqSiOdhIazpAz7m0EkVBN9t4+dyKmUxJHpWEInZovyiCgUnH0pjMcM05xaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864313;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WtxZIHT7OSRlVekSLEKMKnbDe94Yb+d+zJ7oVfsal88=;
-	b=pixJ7/G5TrSu1IemALZHNMwTtI7G8Yy+gTx4AA5wmhr947AX+PR0d6HM/rhtyRhcQsXI
-	 N8lkTklvCF3sjVn+KgTgB/pL/ts1/ytBY/9Pvsht4rBpTTqtDJJd5Li1Bh/qJBIJ1/vHc
-	 HM5/rJ3nty/PAullbRWRT0uRLIWRmP+majy9E7rbM6tAtrOm1ibrreUgGOTFBGMiBc8RP
-	 LWS2MwUHb8WFus4yPHRl1z5nL6tC7oasyP3bm/XuRZIDx4tlt/IOYf9X/OIcLua2IoYyA
-	 rc6j22BlB85q4514OTVwmOC1hyUA8z4sPqeUwbOEpNm4oZh0ToJ7Hxh7rlrWKcs5yxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CnrMMQppxmI6EGSsQCvw1P8oldla87L6eez+yQ0O3fk=;
+	b=DAdHLb3clvqIdtJl5asu5iRjqWqhzn5AzoMjuQquzR0MHva/rDJX3D+KO0xOuoopk68R
+	 xxHTJGpXjlkEM3gUBiUgWlai2I3bGPFdEztWwkbwgv5GeCBhpbxEoq5vGDiwRRzHS2YFY
+	 lw6VTX6fUsxX8lQU0cKyLofgR7l43gU5sEhmyZL5425ksV3+2OC9FBweXKUQ5wSxmIf/Z
+	 nCAY+6498CUZjYG7744R40g1xolndSt3HVGdGKynYamfJAiKMqH3hOz0SOxXyo+uVyQ7/
+	 59yf8vm6L0esF/1dZnjLF8E5CyQqt37RmpxpY1Ldw+nHsF9xjU+oxpXomcE+b7ukK6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STk28X0f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jGxcuEN8;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3A2606A31B;
-	Thu,  5 Nov 2026 07:38:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95012606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:38:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95012606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STk28X0f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9173B1F000C1;
-	Thu,  5 Nov 2026 07:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793864312;
-	bh=WtxZIHT7OSRlVekSLEKMKnbDe94Yb+d+zJ7oVfsal88=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=STk28X0fF6Y909TJuiOHUWcubijSHv9nAkp7aeBbfatLxW3q3DdEJaPDaTpMInw4h
-	 e1snbhiu48GpKc00lTPFIrmHdv8Bw6prdaZHWXbjYw2qUTAQ+Bf8rJCxuVyol7DAnU
-	 pij1fHUfR5rzYK2AKZZiP79iXkCz8iNyjbC2rCrpPCy+PrrfiKdWlJJrHl99RBG5dc
-	 uTFcrvw93TpcQEFs1pEg04FlYOSngrezMHDSlvY1c1vdM67z4BfSOA4Ir6DD1LGM0v
-	 uZO5MWs11lVV6DMHl8g/0fOApbMcLt7wvE4Il7iKqSrOEih5hDnYiYvhXI1XrIwrOv
-	 nPHmRmaMwxNpA==
-Date: Thu, 5 Nov 2026 09:38:19 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Rik van Riel <riel@surriel.com>,
-	Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>,
-	Lance Yang <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-cxl@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm: split out memory-failure declarations from internal.h
-Message-ID: <auwya6Y_jAkTmt79@kernel.org>
-References: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jGxcuEN8
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e3b22e971so767548f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:38:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1793864337; x=1794469137; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CnrMMQppxmI6EGSsQCvw1P8oldla87L6eez+yQ0O3fk=;
+        b=jGxcuEN81wio3/XEklGBGKGH3fDIeW54XUe+UScH6HCEvSGrlDprVDTVLlS469A+VE
+         Ib4nYVR1aiEr2JZINbYzc0Km08M4kMmqG/rAp9UjuSoS5TB+jHYJWyh8tIX1nD8SeGPo
+         GtFz7iwxtD7/grmghvPlamKV0dzeNizNd02w4Pc2+STzodOOUmYIjg19lOdilHorJCaE
+         AwP4dMkndzRXK3nw/zqvqgjkWJFfey9CFb9SO6f3fSnNOHAabAkLSQq8MAq6gNTP1CpZ
+         dBe98U5gCom/dCK0E8/FwFzX32g6z6lMvoWYKnyIZSfqNdfZ243uU6J+yijR4B/Aim82
+         S2jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793864337; x=1794469137;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CnrMMQppxmI6EGSsQCvw1P8oldla87L6eez+yQ0O3fk=;
+        b=jdEZmlk4pTOP5mPkmqPsOJY457HB8jrpqVIyWRnNtLf6wK2hCvEUD/uSx21oxd8hBv
+         ZAh+pBTKmagsN3segeueUOGcWA2imtaGpvBoVHxSPKWSc1IPj/UlqzPo6VrQWdBSANAs
+         f9Vnt1vSpNV7I632oY5SQrPgKKwGwbGUCOZT+m1AyrIYF0ZJWjA/DnIHHJg4uT9JHlRk
+         WwNxwlCMKptnHx8FbDnlqYXeHkyVRReTV2oOSCpiQSQTy9HMTAwRBxqh1cnLhCnJKdmP
+         9ds/Cu1g+1i7N/+UWpMasnVqLaosnh8dihqb3WEzmF8K5JqQNSdnbaHLftoTlNGyBvbr
+         +vDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzErwGp7cTVOR0olZJMmFBO5GP56WrJ5NMEX2VyD64zeGwZs968bIzJAGM6H4iLuo5xlM2wSq/YZAJpEPU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JaFjTIJkq5Z66uYbBWsRxdMMtNPdSIzU7N5yC23a631lnUaSy
+	eGac3HqFIYGnbggM/n3wpKBy3GPuahFyNYevgULM2VgjJX53AkGjtR4=
+X-Gm-Gg: AYBFou2dm27a81NYnBh4+KOHUQhHfJ6Gziu/NFipsoCTc+Oq1TnUuM/SMp3fs2vLcvw
+	IQePK/S8ZiCTKflnaPiokUgiuJnAtOr9ijOBaT00fnnuiPyJ++HN3zp4rxCoT8pLAx4vcyJLPWs
+	ZqKKKRZjiZorApHDMul83Aa2HlQPKaQh+hweudTUP53peImbibjNVrwZCX6hzQz5LTGqNy+iN+0
+	fZvCujh8w0hjlrPszDSNO9QGiaGziCk2QmzfXWY/jCf1eEwF7IflrR/8FB1Mi9dB2/MVHPd2jUP
+	giIt0xCbgBMPSkYEayQWamroEgbhEkq0YbzZ7n2ymMERAvdBKbfF/pv4NJqS4n+2Z+5R9/mSMuz
+	u68gN+Wr27NGzlFdhLYr7CqVjubrTvrofER4qrKzva+L4QW1EJXOxl1Lm3fypk4vwprDC9kVzAR
+	YbTV/J8NH8JMBCAvL4gzhTYiKPtF6aRuI/b10YvMdDredJYafx1+vmB6xg1Bvbj2nxQQLHIroSC
+	it4tVlbyQvx0zW2u6FzNm/B7GPfNUK3s+lYo/kbmkNjImwMbB2vL1ECj8wUdxlmRPzv0X/DPYoy
+	9S6toraYCdhk1e04hR3krCNh2v+16caC7gVSLH82oY3MT45B4VbG8pwjO3Mtc+LStSAme8v2zs2
+	I8A==
+X-Received: by 2002:a5d:5f07:0:b0:48d:ef7d:4b4c with SMTP id ffacd0b85a97d-48e6e4f8c4dmr38866485f8f.44.1793864336714;
+        Wed, 04 Nov 2026 23:38:56 -0800 (PST)
+Received: from [192.168.1.3] (p5b2b4618.dip0.t-ipconnect.de. [91.43.70.24])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda1f100sm8472216f8f.46.2026.11.04.23.38.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 23:38:56 -0800 (PST)
+Message-ID: <5588d6e7-8507-46c6-a872-20c536901f1d@googlemail.com>
+Date: Thu, 5 Nov 2026 08:38:55 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,45 +93,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-memory-failure-split-v1-1-3b0a85f0b7e7@debian.org>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 0000/1005] 6.18.61-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261104211043.516122098@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 08:45:34AM -0800, Breno Leitao wrote:
-> mm/internal.h carries the memory failure declarations, but only seven
-> of the 81 .c files that include it use them.
-> 
-> Move memory failure declarations to a new mm/memory-failure.h and
-> include that from those seven files that need them.
-> 
-> Move the block as is, including take_page_off_buddy(),
-> put_page_back_buddy() and page_mapped_in_vma(): they live in
-> page_alloc.c and page_vma_mapped.c, but are built only for
-> CONFIG_MEMORY_FAILURE and called only from memory-failure.c.
-> 
-> Keep the declarations private to mm/.
-> 
-> No functional change.
-> 
-> Suggested-by: Mike Rapoport <rppt@kernel.org>
-> Link: https://lore.kernel.org/all/aumt-4kfGGtoXuh-@kernel.org/
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+Am 04.11.2026 um 21:55 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.61 release.
+> There are 1005 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-> ---
->  MAINTAINERS          |  1 +
->  mm/hwpoison-inject.c |  1 +
->  mm/internal.h        | 29 -----------------------------
->  mm/ksm.c             |  1 +
->  mm/memory-failure.c  |  1 +
->  mm/memory-failure.h  | 36 ++++++++++++++++++++++++++++++++++++
->  mm/memory_hotplug.c  |  1 +
->  mm/page_alloc.c      |  1 +
->  mm/page_vma_mapped.c |  1 +
->  mm/vmscan.c          |  1 +
->  10 files changed, 44 insertions(+), 29 deletions(-)
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
 
 -- 
-Sincerely yours,
-Mike.
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
