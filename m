@@ -1,59 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883808;
-	b=XvZ4hPVpIdV7xkzbQCxzeLLVhAh6uSSMomwBjF1rd2cDK9LRS+/SrZzjy6QeuE9H8U5F
-	 FFQ9pQ8kLPhfJs8TR+XGrAfJcwvGnHKjOQQlfoCAmmjLWfGGlsa3agQ16/xE2IlSQOCDi
-	 PvVZjVBwaCCTWf477+1ARlvy4BlX76HxedMLvnn2NXMzqjzI7q9C/SFrfhMxwRfe8bAze
-	 cfGEhb0/RKYQYPba1k3gKWnmHFyI43bTZjeWEEwHuFhlV1pH/3HeitOnbig8xgo8Xtu+r
-	 vESjGWMy3oAa9j+ff1Jplvybc/azfwbe0z4zNieU1tBnxSfZyn8RLaQii0kCF9WLT2Q==
+	t=1793883840;
+	b=n5vwWvliuNHOck5bqb0yIt019tABCozgPpHtk7vFj//tqVZs3rVzqerpWTMYU7/IccPU
+	 2uuy/UQLRTLa0bm2bRptLT/wG+z3vsIfp5Y4WUmXY0RLnw9nsCZ58+YwIlXd2E2hBtIaK
+	 5NTV9XR+YWQavPtQHVJ2Ma4IDbrpLyikefpI3GomlQ5BpiRTd4HK3Jh2MD9EwC6K5vElQ
+	 WTtort69U6jUKrwcqOnxAkR933/j+9CheaUEhfpZ6FhZur/Bp4iqR5PFm4Q/k/ldudF+0
+	 ywX7bU2G1SNZVNzVJJPf1YNwrVL76d0/W/65/U/zscCFXiA2XQwUDo8iyQIw3fznhhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883808;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kNXx8S4y6VN9U7HOm9Ke4cFt+Qb/QdLtRtSH9O/lE0U=;
-	b=RQOh96SghSM2WnihfmQ6fzgh3jn0APteIn2bV8/jqa8UdMF8pSGayyjNHb754sohs5Ui
-	 aO8skw9y1AEaHxURMW/5QeRMdsiCMODzxNjuWb1N1P3C9atRBEmZEzB6BTmsQY6cKoE7S
-	 JBBkDUkqBllUT2SZbkF4zTspszWsBwW26gZWIqlMQClDJTHmZbyhsrE5rT6pfGqbBFpWz
-	 Jqc0eNKBI6oYwhO1WCU03iz2+RWHDeAfJQpjb4WHF0SyBbg4mhaR5vpX0Lp+itnnaiK0n
-	 rU85UCEQIqi6rhn41G6Wbdv8kvTTPhf1vR0DDCRoSH62JwXR70jc1Ym6c6kBVN15vdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883840;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Ow3hYsokloz6dGsTIFWuZiX4Z7MaaZQBVMCHUvEpQcs=;
+	b=1NMrQPUYx/RxujbjqlDxxXQQc5Lub2nsSTlpvKf6NqsNExwpvcTyGGnf8DODiGwzOC3r
+	 IJCRiiFXNlke2fy04mjq0ShikEwjfMfg6BF/621DlVDNh3Xo7+XUBncL5SKEBIRlkWezx
+	 cob58VxPpGeYbuDx7bB2oJb60jaG/sijTknNOnKEDjSGZneyUyapyiKks9k1obPCkpsJS
+	 gcDT16ge8TWviVzp+pFan3+/CTxFiAoCXOBndIjmYRCx1BF+cBj7/nbbV4vcuQdfVTtqh
+	 7l11ThRtR9LSFIpPDe/oMyUjz/ADbA+At78AQ0YYPaa5M+DJ6jWaYzUGANmbgcTMypA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExQo3HzN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LjU3DOYK;
+	arc=none smtp.remote-ip=95.215.58.22
+Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1366606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:03:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9BC606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:03:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A9BC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExQo3HzN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ABB61F00919;
-	Thu,  5 Nov 2026 13:03:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883807;
-	bh=kNXx8S4y6VN9U7HOm9Ke4cFt+Qb/QdLtRtSH9O/lE0U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ExQo3HzNLjxDCE92I8tmckWktjbnm4JOIWhThBMgpqdJ1IPaROCC6x0wiCQ5AD1U+
-	 dsGCfi5GW98YeS2Wb2zNIBC2BUhIotnN6ckC68vZpyAPCkMz6/DaLOkmG5cZmto8JZ
-	 yPt1EzTEnytIhkDaAU2sSsMJEx2VqVVMCu88vX8/zhqBx/2tbiVAV9YCv1fFrJQYXa
-	 Dia9T4lLSV9M15ZwV79R6vMcMfQzW6YRd/veUPh13xyuQ0mazmuWclPU5CZgdkE02W
-	 QsVM7HYv2Lt3/XR7PyAGrUMmCGFZQclICdvmzG6t/q5573AD5KTJVt41aLz5/fxxpd
-	 G0GswnDFfaGhw==
-Date: Thu, 5 Nov 2026 13:03:25 +0000
-From: Harry Yoo <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hao Li <hao.li@linux.dev>, 
-	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Conor Dooley <conor@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
-	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
-Subject: Re: [PATCH v3 02/10] kasan, kunit: pin test slabs by an extra
- allocation
-Message-ID: <aux-POg69ZJ_4keC@thinkstation>
-References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
- <20261105-slub_tiny_rework-v3-2-0484ce59eabb@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LjU3DOYK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yjmLzbvOob+0DqNmhGg+eJW8ryTKkW21nhtP6VxEd2c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793883837; v=1; x=1794488637;
+ b=LjU3DOYKC0o+GDgMmYz2VEdORFRrDkDHtGQ5qKHrKI1imh0QpPPrX6T6cntRUCPA6CdSDaEt
+ +nZ+2eNKmaObL+p/SOlYM9LEJdf6kCj5KjTARWWkvmmfBqzrdmcPnLsSXMOaa/MyS/NSJENSvmD
+ PUao0lD4ZTBJxqP3mDJT4Eao=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id aadead35cd8216c4;
+	Thu, 05 Nov 2026 13:03:57 +0000
+X-Mizu-Trace-ID: aadead35cd8216c4
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: longman@redhat.com,
+	tj@kernel.org,
+	ridong.chen@linux.dev
+Cc: guopeng.zhang@linux.dev,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v2 0/3] cgroup/cpuset: Keep the top scheduling domain populated
+Date: Thu,  5 Nov 2026 21:03:41 +0800
+Message-ID: <20261105130344.664336-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,79 +71,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-slub_tiny_rework-v3-2-0484ce59eabb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 09:43:51AM +0100, Vlastimil Babka (SUSE) wrote:
-> The tests kmem_cache_double_free() and kmem_cache_rcu_reuse() create a
-> scenario where a slab becomes empty, but rely on the implementation not
-> immediately freeing it.
-> 
-> This subtly relies on non-zero s->min_partial. It currently compile-time
-> defaults to a non-zero value, but in theory a sysfs write racing with
-> the kunit test could change it. More importantly, the upcoming
-> CONFIG_SLUB_TINY changes will make it possible to run the kunit tests
-> with s->min_partial being a compile-time zero, which means the tests can
-> cause a NULL pointer dereference, or fail, respectively, as flagged by
-> sashiko [1].
-> 
-> To prevent this in a robust way, add an extra object allocation to the
-> tests, that will prevent the slab being freed. Use migrate_disable() to
-> prevent migration to a different NUMA node, which would place the
-> allocation to a different slab. kmem_cache_rcu_reuse() already uses
-> that.
-> 
-> [1] https://sashiko.dev/#/patchset/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org?part=8
-> 
-> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> ---
->  mm/kasan/kasan_test_c.c | 24 +++++++++++++++++++++---
->  1 file changed, 21 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/kasan/kasan_test_c.c b/mm/kasan/kasan_test_c.c
-> index b9e167ed5be3..580a9bf007ec 100644
-> --- a/mm/kasan/kasan_test_c.c
-> +++ b/mm/kasan/kasan_test_c.c
-> @@ -1152,7 +1160,7 @@ static void kmem_cache_rcu_uaf(struct kunit *test)
->   */
->  static void kmem_cache_rcu_reuse(struct kunit *test)
->  {
-> -	char *p, *p2;
-> +	char *p, *p2, *pin;
->  	struct kmem_cache *cache;
->  
->  	KASAN_TEST_NEEDS_CONFIG_OFF(test, CONFIG_SLUB_RCU_DEBUG);
-> @@ -1162,6 +1170,12 @@ static void kmem_cache_rcu_reuse(struct kunit *test)
->  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cache);
->  
->  	migrate_disable();
-> +	pin = kmem_cache_alloc(cache, GFP_KERNEL);
-> +	if (!pin) {
-> +		kunit_err(test, "Allocation failed: %s\n", __func__);
-> +		goto destroy;
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-destroy path doesn't re-enable migration?
-otherwise LGTM.
+Boot-isolated CPUs stay in top_cpuset.effective_cpus, but are excluded
+from its scheduling domain. Allocating all boot domain housekeeping CPUs
+to partitions can therefore leave the top scheduling domain empty even
+though effective_cpus is nonempty, leading to warnings and an OOPS in
+build_perf_domains(). CPU hotplug can reach the same state.
 
-> +	}
-> +
->  	p = kmem_cache_alloc(cache, GFP_KERNEL);
->  	if (!p) {
->  		kunit_err(test, "Allocation failed: %s\n", __func__);
-> @@ -1178,8 +1192,12 @@ static void kmem_cache_rcu_reuse(struct kunit *test)
->  
->  	kmem_cache_free(cache, p2);
->  
-> +
->  out:
->  	migrate_enable();
-> +	kmem_cache_free(cache, pin);
-> +
-> +destroy:
->  	kmem_cache_destroy(cache);
->  }
+The patches are ordered as follows:
+
+  1. Check local and remote partition creation and CPU mask updates.
+  2. Check the hotplug paths without crediting CPUs that remain allocated
+     to child partitions, and invalidate local or remote partitions as
+     needed to restore an active boot domain housekeeping CPU.
+  3. Release an isolated child's CPUs when its parent is already invalid.
+
+Changes since v1:
+  Rework the fix following Ridong's suggestion and add test cases.
+  Add patch 2 for CPU hotplug and patch 3 for isolated CPU cleanup
+  when the parent partition becomes invalid.
+
+  v1: https://lore.kernel.org/all/20261104071600.474587-1-guopeng.zhang@linux.dev/
+
+Guopeng Zhang (3):
+  cgroup/cpuset: Reject updates that empty the top sched domain
+  cgroup/cpuset: Keep the top sched domain non-empty on CPU hotplug
+  cgroup/cpuset: Release isolated CPUs when the parent is invalid
+
+ kernel/cgroup/cpuset.c                        | 59 ++++++++++++++++++-
+ .../selftests/cgroup/test_cpuset_prs.sh       | 55 +++++++++++++++++
+ 2 files changed, 111 insertions(+), 3 deletions(-)
 
 -- 
-Cheers,
-Harry / Hyeonggon
+2.43.0
+
