@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896335;
-	b=UZEm37w+6JZmHHRgfGM90MGFvlEsGGormvJGKYQ655i8KTFgblAy9frvVg245SHnC8XW
-	 JWGPdMgSS7hprab3O6rppK9rGZTuLIgdZyfkAXT2C2bdnsx3t0tq9Bnj32hxYbrIXn9vq
-	 Pe6X/jIbWYeLNtE5Al0Y2fmWeq4m6WOeR3cbjXhAeV+ozmDNdpZIywBGBc/OSrumh1KUR
-	 +Nev9MkUU4BQRkfW04bHgbPGZIc7pP2uiSCpKHfUqNFhShSV4i0dn8Z1GNz7T9yzyO26O
-	 5OJdZ8FegLXYaBEwU61S6CdXJMn0SVvYlZjgxdNGUzPUzsJZcaItnjr0ZSoRvbapung==
+	t=1793896340;
+	b=WCAS/V1coDiF6Jt62kknAwhfrdTh76cA46hk2RgX0DblkQ9torYpWt2o/Bp8hd8E7zZI
+	 Kgbsu6TjM+ckF7OBH1mxBSrZ38wEaKrUD/AQ6koPo1aoAxSnTTsKpNOkb9Hun8n2oYl9b
+	 1yxU696DY6d5eRor4DuDPuh4M3VFftk20j6tUvtuHwxFaKF+8DME7nrlwyPECbSDiOTcO
+	 X86GwZwrs81uX31FUEX4ZKZZ4nFNv+YSJdfy6I5xopgF+mKAQyAFGOg1xoFZxCjVQdGMh
+	 U00R6w57/xvnjkoNCIkbjOjPs3Qy7693eM/0BUx2qrWdZxYsCjdw7ZatxUITuNA1JPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896340;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=x9LP6CXivlT650CDHPY2LNyMQwhkNHnjZr4UOIbAV+Y=;
-	b=MxfVJSyCOQ0OtuV8jA9WPSmYmDun8ziZ+cqDbsX96QbSXC6xL1FuqCRIv0FC7ZMEkZUh
-	 7iLCDiptJF80KbZdgjkqixQ9MNfTe7T1sZJY2Lebj5zVmf0PGezwe7Szn4FOhGkL27a+A
-	 PG2doErT08fMYH+gbaEQK15uyjcQ6spo86BwVVw+AyNq5YEnoy1fHgpwRFuuxMeRD+21h
-	 4t9VB6ue5A98bldapiIFeQaEoErnjXQjsmCMKNGrIdtlDdj4DPyYgI4AHnGpj72oYkNTg
-	 7R/BTmtiZ9WmjjKQs/CUin/few8RE77OHbit5drkaKwL+FEF/EYi3Jb+2dgeE80v/0w==
+	bh=b460Q3cwnl04EHCg8MutI2uS9sgGHru84RfF/i2AAKA=;
+	b=1jlp+iy+2E14TIAm2Pn7/QnbfYXY2/eNCHyIMhj6BFhQQ9KmgNq50JU0wyGZ9DBMIYHz
+	 km18Y/5j2vOYwQflPe3lc8vsd566UZNB2AyW1I+rXW/DG/Ayqd2KIGZrmNThK8YihxfLm
+	 NicvgEgu800YNp3Smxj/6953w9Kl3loI/C5YLclBX8qsEJ/AvgrE1hTuOGl/5XLHq0Ivd
+	 Rvx6l3SqHhc3r+L4bF04KQx128sSD2ulkRCvLSNAVVBsViVjGAgF78027OciqY3sfGkYv
+	 uIPQ+OQ67HC1NBP5CyEHfGqVkuv0gnokV7sBPe5FXIwrxH2xY2v4ojIRET/owgrAD6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUxR6E4v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UyZtP/2i";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050E7606A92F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:32:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A7D60A6F72
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUxR6E4v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830281F00A02;
-	Thu,  5 Nov 2026 16:32:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyZtP/2i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41981F00919;
+	Thu,  5 Nov 2026 16:32:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896334;
-	bh=x9LP6CXivlT650CDHPY2LNyMQwhkNHnjZr4UOIbAV+Y=;
+	s=k20260515; t=1793896339;
+	bh=b460Q3cwnl04EHCg8MutI2uS9sgGHru84RfF/i2AAKA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BUxR6E4vRBW3eyixM5PsFYHh4FFjOkAAnNJSfvyEKvilcdL21r0IBYDrzS4JHHpmA
-	 OLxI7wmY0YztOB6kMK0fiojVtGzbcBeKPZdV0AjUo+265Xt0gEKsyAFnr1ZzGuIFPF
-	 QUigmCyDd9Py6lHXbrGHaJdGNx3Gr4Z3zEyCGXeMcyEDRSv+mMcMwUatVn5Z/sLvEj
-	 Vg3jH/53ZS7xf7O91QTNlOM98SmNTGiQ0peKWKcUJstesJ1LuyJ7MlDNzRbHD572MI
-	 RkWOV8GoEP9USzQofJ1OPbOIGYKvgkf/0W6MUl0Ylb7YEhho7N7uwdWzkbphzl2R6U
-	 6yZU7m9Qkqfgg==
+	b=UyZtP/2if2EtBCr0hvwUtvmhrbOiwo50jhs1QAMhe0u0drleGnIFma1sgbIeTwunH
+	 +EUDfuSgPv89WmLqSRnXcN6YTFfMqVSOTmZjuJFsFEDFGyZCMOGr7B/g5T2BRtd+Qg
+	 16yB78OWIe4qreWQQIl/F2nlPBgQ05eqBeOMAtFWqeUYPdLfqyHrC3GVCH7bGxOib/
+	 ILLCCJ7zf819IAGUWDACxaDoDSk7lDflp7TN8OE3aeYqySGQqLnH1aIg3XY8X4QOKn
+	 BKpugwQBduNmMD8lJi/2RR8x3B6mlhc5q/pQAqXataEAYI6SaOMuxR/Rsseyy+xpKM
+	 4s5698hNaTHIg==
 From: Frederic Weisbecker <frederic@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
 	Marco Crivellari <marco.crivellari@suse.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Phil Auld <pauld@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Waiman Long <longman@redhat.com>,
 	linux-arm-kernel@lists.infradead.org,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 25/47] clocksource/drivers/arm_global_timer: Move CPUHP_AP_ARM_GLOBAL_TIMER_STARTING post stop_machine()
-Date: Thu,  5 Nov 2026 17:30:23 +0100
-Message-ID: <20261105163045.38862-26-frederic@kernel.org>
+Subject: [PATCH 27/47] ARM: smp_twd: Move CPUHP_AP_ARM_TWD_STARTING post stop_machine()
+Date: Thu,  5 Nov 2026 17:30:25 +0100
+Message-ID: <20261105163045.38862-28-frederic@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105163045.38862-1-frederic@kernel.org>
 References: <20261105163045.38862-1-frederic@kernel.org>
@@ -89,15 +88,15 @@ Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 6f4c609163e5..d980d11abf27 100644
+index 38d60ddc166a..d7a6dcb14885 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
 @@ -1275,7 +1275,7 @@ void clear_tasks_mm_cpumask(int cpu)
  static int take_cpu_down(void *_param)
  {
  	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
--	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARM_ARCH_TIMER_EVTSTRM_STARTING);
-+	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARM_GLOBAL_TIMER_STARTING);
+-	enum cpuhp_state target = max((int)st->target, CPUHP_AP_JCORE_TIMER_STARTING);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARM_TWD_STARTING);
  	int err, cpu = smp_processor_id();
  
  	/* Ensure this CPU doesn't handle any more interrupts. */
@@ -105,8 +104,8 @@ index 6f4c609163e5..d980d11abf27 100644
  	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
  	int cpu = smp_processor_id();
  
--	WARN_ON(st->state != CPUHP_AP_ARM_ARCH_TIMER_EVTSTRM_STARTING);
-+	WARN_ON(st->state != CPUHP_AP_ARM_GLOBAL_TIMER_STARTING);
+-	WARN_ON(st->state != CPUHP_AP_JCORE_TIMER_STARTING);
++	WARN_ON(st->state != CPUHP_AP_ARM_TWD_STARTING);
  	/*
  	 * Invoke the former CPU_DYING callbacks. DYING must not fail!
  	 */
