@@ -1,64 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883983;
-	b=x4AtBW9T59j2nOtFBtSmUOegOMw0steP21gNzzJJ6ZSkc4GwGw7iGcY+YiJzMOghKZQ7
-	 LNxZ8Le0ZgRwK5tEhKXk9riQhFbCyf0TMANg1qScQCmsQuD1tQKOLZ+AyMsvYaI4QXkhu
-	 cJnBSXaCVuy6+vwzoAwjFrnT2gBoAoYdBIoIYHX2xlVw/WeDWmrUuzTIxBsob1tRO8VzM
-	 6gq5P+GNu6mwmPs47Dfu6HcS8LCafqYD3pf3WcyiIbCRzTZVnq6Chh9crMVyW42U24iMU
-	 VzckuvZtXHtoFzsX2qHMZohifwnfvKZZZhRgvXsnMjLCEbsHRd6+XLrdzpwtNO1N4rg==
+	t=1793884027;
+	b=3zUANucqoZ7m3LIRF3aV/X+lHs7WHb1Swgzn8jkrw1dcLa4l/2x+wQ8JMsum91ECJ+e5
+	 vpgB/ULCwkzzOaaZUds+za38KnLwRMorIdkzgb4x93Fvl5qxZbPK+2FLBqhuNRmEW0dYB
+	 VsRilCwaD0zdGTmURYkGKmXZbq8WBd/j1GldCaG1hlK/2owD7V4GGX10BYS7ZFgOMMv5W
+	 IjPp033K3ZKP6Hh1wrHJKJ5tDRw8iSh8XtTH4QCcFAFcGwRGBQoZMR/VUj3vu7bbdg70S
+	 cuOt2u77GeeKzr0VqDWmuAP1pKcYGuBV2/55AnTY1HdNPmAP568fnxn/bxjvMUShYjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883983;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=RhwkgWcMfTSbblcb5EByJLqZmOdOM+7mGzL2NSdO9CM=;
-	b=f2iZSGme5z/+QjorGG1IFbNPPbXlkaD33F4Dvtu4DCX7ijEr2nkLxmsTcVLMTZTjG0UQ
-	 SbJTRM2IWiXBJWUbB/fc8dW/X/mmhnVrq8IltjyBcqVNnCQtv05y7BULT6rZq4fiaYWQC
-	 cfUefQ9QoJOVHPLM2FJGw2hXZ4PY2wyuSJiyIdLQ+vXJusKkO1GyMt48yA4ldXIfayXxt
-	 +0Su+0YDy3ZbZP3X3d2KR859+NS7lWe8vlta4aL5RFMdQHGO7kNbSm7owS2Yl9p2zE8lo
-	 /xTZxTHeK3oWztuWpIfj5Q4x3E7vzLT+8svMLAh95YPyFSXZlZC7IADSqUhKpD8vTKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884027;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1jOK42kEV/R7k8n51sIGLXDORmkNj62Y+kfJMXSo5Mc=;
+	b=NLq/773ctLnGZrxinzXZ1zM2DVSCONdcJIAiNVYvTwzC8RGgLF2MbW6ZO8WbUziQDjVV
+	 L3On/++q2c24d45gCUYQvG6Sy4qX2mORRGxlcawh/ggq799nXRzlegNu7f7ANrTLjwGDL
+	 YQTLMIIFlyaWvnZAcoaPpgKRB53valGN5IuOWbExUrsoHqdd8udo0yV+Qvz80mdiTsLqu
+	 DnvuPzi8wFAuPWSaZEOQ6OuxB9sHOVyxbtakvzPyZh18zacT/orcKu3oqnlIjVmWasxxn
+	 /rXPITIEE+bozo3w6YEtbaEDFTU3bHY4I9DMK7fH4++Q9a40wUF7FhxMJcfaBd1dyzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MbmIKvHu;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFuaSYbA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB78606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FB78606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDD0606A328;
+	Thu,  5 Nov 2026 13:07:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MbmIKvHu
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=RhwkgWcMfTSbblcb5EByJLqZmOdOM+7mGzL2NSdO9CM=; b=MbmIKvHunezOQS9VvH67/Bp7zZ
-	YuG3l6uCnJc+dP4tYMw24gT0BU9d+op/tMICK+xRI1qTvXo2Xx9Rgeh0iYNbidSGO0fHU5gkwDSOO
-	cwCu2U8VgbB13fJlkbDYo2/L420geXqTpYMF4Sg7DT8FXgOk0tWXQ78aGxkf+No8Hnu8pjnbGGt4f
-	RvWaMg+YkqUjwxKMYWyVRAhGM0kCATiihk+3BGtPR09XUMEDPfnu9vni3bSGWxK7Xj3M5GWU3YQle
-	0MpwK5YpmjHQKTOLL88RaYMyI7s76v11I12yHebXmxg1AdsFafi71O1KZo2dgVFy/5xPeecUl4R2v
-	S07KHeOA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOxAV-008WBI-2B;
-	Thu, 05 Nov 2026 13:06:15 +0000
-Date: Thu, 5 Nov 2026 05:06:11 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Edward Adam Davis <eadavis@sina.com>
-Cc: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, a.hindborg@kernel.org
-Subject: Re: [PATCH] configfs: Delay the fop setting to prevent noise
- generated by open
-Message-ID: <aux-0Xxpcp7UFCs6@gmail.com>
-References: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
- <20261021062535.55494-1-eadavis@sina.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFuaSYbA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805411F000C1;
+	Thu,  5 Nov 2026 13:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793884027;
+	bh=1jOK42kEV/R7k8n51sIGLXDORmkNj62Y+kfJMXSo5Mc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XFuaSYbAn6Wzfg2xYzR2T2rOKC0XDbDYhBWedM5J/RUQvjbBWRjzNw4K4Dn/iQ0pF
+	 dSQ+7RvtRYpBTa099A8orQ6Eoq0V5fe9WiOoUXLjtRgOgAQfU0xXOlZ0vTQXkEkXgu
+	 KhEdHwOq6KB2VVmaJviQHb2UVnhjNnwRasKvHuuLi/RCLBovWXTXG2Kzg30H2E/hBR
+	 jaktqUPHCfXxQqnxAnd3VasCNIvl5thBnv+GSakC2ip8kbNsnxNBgqP9PzvcDFP+aR
+	 ocLUpRelVHZhyx0N/goW4szRfWco2GGXiVwl+gLHV7g/U/TuyWb0AGwAN3fy0m7uJe
+	 vaUjtb8+88F9Q==
+Date: Thu, 5 Nov 2026 15:07:00 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Chen Pei <cp0613@linux.alibaba.com>
+Cc: pjw@kernel.org, palmer@dabbelt.com, alex@ghiti.fr,
+	pasha.tatashin@soleen.com, pratyush@kernel.org, graf@amazon.com,
+	shuah@kernel.org, guoren@kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+	kexec@lists.infradead.org
+Subject: Re: [PATCH v2 1/5] kho: Do not translate the handover FDT address in
+ is_kho_boot()
+Message-ID: <aux_dPnvXk3LYDxs@kernel.org>
+References: <20261103080926.2079-1-cp0613@linux.alibaba.com>
+ <20261103080926.2079-2-cp0613@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,50 +64,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021062535.55494-1-eadavis@sina.com>
-X-Debian-User: leitao
+In-Reply-To: <20261103080926.2079-2-cp0613@linux.alibaba.com>
 
+Hi Chen,
 
-Hello Edward,
+On Tue, Nov 03, 2026 at 04:09:22PM +0800, Chen Pei wrote:
+> is_kho_boot() only has to say whether a handover FDT was recorded, but
+> it asks kho_get_fdt() for one and so converts kho_in.fdt_phys with
+> phys_to_virt() just to throw the pointer away. Both callers use it as a
+> boolean and never dereference the result.
+> 
+> On riscv64 that conversion is not valid yet when efi_init() reaches it:
+> setup_vm() leaves kernel_map.va_pa_offset at 0 and setup_bootmem()
+> assigns it later, so a handover boot that came through UEFI panics in
+> linear_mapping_pa_to_va(). Only debug builds fail -- without
+> CONFIG_DEBUG_VIRTUAL __va() degenerates to "phys + 0" and the boolean
+> stays correct -- but the panic also goes unnoticed without an earlycon.
+> 
+> Check the physical address instead. Nothing needs the translation, and
+> architectures stay free to bring their linear mapping up whenever they
+> like.
+> 
+> Fixes: d6d511639185 ("kexec: introduce is_kho_boot()")
+> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+> ---
 
-> The root cause is a race condition between open and mkdir. Add a revalidate
-> for cached dentries to prevent open from accessing directories that are not
-> yet ready.
+There was very similar patch: 
 
-Thanks for chasing this one. The analysis matches what I see: a lookup
-holds the dentry of the half-built group, d_delete() can only unhash it,
-and the BUG_ON() in create_default_group() fires.
+https://lore.kernel.org/all/20261023054518.3258350-1-gthelen@google.com
 
-The fix has a side effect, though:
+and while both Greg's and your patch are correct they both have that wall
+of text with too many details commit messages that I don't like.
+ 
+> Tested on qemu-system-riscv64 (virt, -cpu max, TCG): edk2
+> RISCV_VIRT_CODE.fd/VARS.fd on pflash with OpenSBI fw_dynamic.bin below
+> it, and a GPT disk holding an ESP with grub plus the kernel and an ext4
+> partition as rootfs.  Kernel config is riscv defconfig plus
+> DEBUG_KERNEL, DEBUG_VIRTUAL, KEXEC_FILE, KEXEC_HANDOVER and the kho
+> selftest fragment; the outgoing kernel gets "kho=on" and the kho
+> selftest init does kexec_file_load() followed by reboot(RB_KEXEC).
+> 
+> Before, the first handover panics.  earlycon= is needed to see it: the
+> BUG precedes console registration, so without an earlycon the machine
+> goes silent right after kexec.
+> 
+>   KHO: found kexec handover data.
+>   efi: EFI v2.7 by EDK II
+>   kernel BUG at arch/riscv/mm/physaddr.c:47!
+>   epc : linear_mapping_pa_to_va+0x1c/0x1e
+>    ra : is_kho_boot+0x18/0x28
+> 
+> After, the same setup keeps handing over until the window closes, 29
+> consecutive boots and no BUG.
+> 
+>   KHO: found kexec handover data.
+>   KHO: exec from: 7.4.0-rc1-next-20261102-00005-gfca49e548231 (count 29)
+> 
+>  kernel/liveupdate/kexec_handover.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 6f1f55fe3181..6ab181de345c 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -1643,7 +1643,7 @@ EXPORT_SYMBOL_GPL(kho_restore_free);
+>   */
+>  bool is_kho_boot(void)
+>  {
+> -	return !!kho_get_fdt();
+> +	return kho_in.fdt_phys != 0;
+>  }
+>  EXPORT_SYMBOL_GPL(is_kho_boot);
+>  
+> -- 
+> 2.50.1
+> 
 
-> +	if (flags & LOOKUP_RCU)
-> +		return -ECHILD;
-> +
-> +	if (!inode)
-> +		return -ECHILD;
-> +
-> +	if (!configfs_dirent_is_ready(parent_sd))
-> +		return -ECHILD;
-
--ECHILD only means "retry in ref-walk" when LOOKUP_RCU is set. In
-ref-walk, lookup_fast() and lookup_dcache() hand it back as is, so it
-reaches userspace, and mkdir() and open() now fail with ECHILD when they
-race with a lookup.
-
-With the syzbot setup (threads opening ports/1, ports/1/subsystems and
-ports/1/ana_groups while mkdir(ports/1) runs under fail-nth), mkdir()
-returned ECHILD in 2 to 11 of ~220 attempts per run, over 11 runs. The
-hook also takes every configfs lookup out of RCU-walk.
-
-Returning 0 instead would not help. The VFS would d_invalidate() the
-dentry of a default group, and configfs_lookup() cannot recreate pinned
-dentries.
-
-I think the BUG_ON() itself is the bug. It assumes nobody else holds the
-dentry of a default group while it is built, but a lookup can find it in
-the dcache. The error path already copes with that: d_delete() unhashes
-the busy dentry, the inode is S_DEAD, and lookup, open, mkdir and
-symlink all refuse a group that is not ready. 
-
-Thanks,
---breno
+-- 
+Sincerely yours,
+Mike.
