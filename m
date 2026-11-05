@@ -1,77 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868464;
-	b=Bzx+2Qw32ndqIq96lPWZEyvC6yfLbEep8P2mk4KO3qg3vSMUUxJvfGY60qpvndkk3qJC
-	 JxQCttZ3TajfI+EL3iGgBnzJWhxJA0hWMdz/uYQ8/n8Gs7YwSxXaO110rrk0M7+lNKZ8e
-	 iUAGeOYeH6CEuB3D68Mqxkjfr2Hlq/WEkdanrIFjSWNCQvEPaFdentBzVgk/RWK8ue+Hp
-	 81b6UddAWTxdwc0ZZL04169laHF1CnDtJOLvbG9aJY5isKElHDlbuOuoZXuUsXmtpXZra
-	 A3CWN5LZ1VqzvXxCpsUgl+iiloJf0/agCgvlcO8bthskucRDyeUJL9u5o2+txtDG1cQ==
+	t=1793868591;
+	b=4w3zi8IuEyh2IWdn0/o2bICfLd/M+XRRgGyfGcfVrGIb5WMUxXNr2e02c2+P7Lp7jwdh
+	 /7gzPgnjfV7i430R1917P3LanHLWUrPOtCYwbp/3qZevx3Z/UlJgL094abHjDZh/GCDEH
+	 fOj/FDkJ9KoSplJHZ0g8jTmdQ6bXy4heMEI9IKy4HR9RtSIHga8YV1h6QDU/t/qW/5jp1
+	 TpfMYtHUhbtG3WSb6mKM3DaZg0LWh1f3YLsAwR4MYNFfLovEXXikPe/eYHZ/puGlrz84o
+	 08X5WlsLaPtTxMvBsv7KVk8y8KwXCj5KplJF9lVYvMiMbSQ2r7Gls0yOHFuFhg8xing==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868464;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=7Cao3FJR5MdJH+ZnumyAVfl5Aw5BXwagSddECWxWGQ8=;
-	b=UzmlBWGeLZOsqz8tZAQA/TtM5XESy8udzUKoMFCZPgxu23Qk0AvfGINOzTOZy0XfHztN
-	 ySOQhfqz8GwnvMVtQmqzU5EUAgNt8FWmzqFWtm757hj/V43tBz1hmatjwdReh5jnUHD4U
-	 Kg3fKUtWhiFu1525aKWSJWoyv6VUDCkz97UOYn1nJuhS+9q5oLrtBOmUZ3lYRoDkVnQfs
-	 EhJx1uIrpswKSClDcANLtvD/xtP2LFbRgBqUZq6GITRIwPhVdDvizaXlKbaUWrlJAEg29
-	 N8mAJqeUVUDMQ32FOnIdwWdQSLdFD6bR9UXEESQvoEaTQiJdgtMVnMBjqmsHptOWXwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868591;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iXIfKUGJGkEnqn9QRpsp+DcwEv6yTAPnOh0Ju3Orv/4=;
+	b=eNbm/KWkpfllyuU6/R9GQ9AfuLtdh+jKn4EBsU4fuASCBoeQa4olBdLyPfEroIXMpjfp
+	 B2uMSO5ssDFzwxk4wBfB9adVKFkI9wxOCG7twaBGSBBXKH6RHsK17NU7QBe8f+Ffyxlqe
+	 O3p6sxWwPNS6Rbm0rzZEc4PeSZRJEAgkKmDAXqQB1z5g14/W+wGF9pqfzSwydpTuxjS+z
+	 B3WaRN/5En/CzA1Ct/DIGE4PJMVW1slICliqaFe2V9eR9dlhDCxqM/qsiBPucBEEXX8tC
+	 VKeJvXzKQ0Lr6DfGvswZ2WEJzoIKZguRgLb81masN7slWky8yePW5DhALb7wjCjsLrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Brt8unw4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ReL2UJWm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E6A95606A31B;
-	Thu,  5 Nov 2026 08:47:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3989606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:49:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Brt8unw4
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 55AA61F000C1;
-	Thu,  5 Nov 2026 08:47:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ReL2UJWm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 602481F00A18
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:49:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793868463;
-	bh=7Cao3FJR5MdJH+ZnumyAVfl5Aw5BXwagSddECWxWGQ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Brt8unw4v4IBCfyHYflx+ovCkQpkF9kkBD7yN+mFMxqgVSqmmhdZimNjzgT7NPi+C
-	 6NNsZPKGCHXdcQBhPCvJx353LOvvo6XmlR8HWZXl25vlftL8nkaXSy4KfV5eFM1jU7
-	 4i7HkeRO5gXorGVfhbzQf8zGQNQeRkemG2dnSKynmoJhgkxwdW7EiopLWKaptRntXT
-	 db40KHNFd2TH12noKLi71Q2L/eJUaUmHUohTYTgf0hg2ZiZLF3t9tOVTsopBowQKDv
-	 gnWZPINPDIGqs9hd1bi1EzxYGRl1mp/tX5fL2mYXbQT+XTW0yGu6+Dcz43I5W1uquX
-	 a/c9gAKcLS92A==
-Date: Thu, 5 Nov 2026 09:47:39 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, Lixu Zhang <lixu.zhang@intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Imre Kaloz <kaloz@kernel.org>, 
-	Conor Dooley <conor.dooley@microchip.com>, Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
-	Daire McNamara <daire.mcnamara@microchip.com>, Daniel Palmer <daniel@thingy.jp>, 
-	Romain Perier <romain.perier@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	Hoan Tran <hoan@os.amperecomputing.com>, Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, 
-	Mika Westerberg <westeri@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, linux-hwmon@vger.kernel.org, 
-	Matti Vaittinen <mazziesaccount@gmail.com>, "Enrico Weigelt, metux IT consult" <info@metux.net>, 
-	Viresh Kumar <vireshk@kernel.org>, virtualization@lists.linux.dev, Yinbo Zhu <zhuyinbo@loongson.cn>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-tegra@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Srinivas Neeli <srinivas.neeli@amd.com>, 
-	Michal Simek <michal.simek@amd.com>, linux-aspeed@lists.ozlabs.org, asahi@lists.linux.dev, 
-	linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org, linux-omap@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-unisoc@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	Michael Buesch <m@bues.ch>, William Breathitt Gray <wbg@kernel.org>, 
-	Robert Richter <rric@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-Message-ID: <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+	s=k20260515; t=1793868591;
+	bh=iXIfKUGJGkEnqn9QRpsp+DcwEv6yTAPnOh0Ju3Orv/4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ReL2UJWmNZ5TxcrGIpbnhGyNp15nEgfXjZNsOeS5W6sHxs5USw7+ZVbdKsZy09F1z
+	 pRSB/TuMSFPtsXMNDG1SsTLvPYkJZ0TsGP4FO5x1zVQgyB2mNOZu7nHyRKg0r2l9TI
+	 tWfYU/iKpxdFgbSDSfiBjvDXCoGYUKXe3cLUsYxx61v/U6cVmrY6/2l4dA2FZIfWZA
+	 0sjsdkJ/VvgkEU84ZRXCtJkq2gbT7exadCn5Pv9/lT9A3S8Hxv+7GKSMPeOLtyqz+z
+	 uJWk4bJnyJP7sadqT0trgPRv3UduGH/blDEYxmEGmQwQ9nqXW/rBCNws/cuGIrKTyi
+	 7URlnRPbQGTVQ==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso1283323e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:49:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxJ3S8S+EK/9rAyztdkocJNdzufl5/p5fu0rzN83385OyCDzLV9G7cXMbZxf/pfSQdgCetw4JuShMkb0dc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Va+sImKqdWSCAGJ/JwJhtLarYFdblhwd+oDIA5a65DmoWjMQb
+	S870tYFchzPBPCeRh36BUQjrol/2mFU5z7YiDGzNNDaKKnkZNaRxTePDF6ZEQIcquUZs3mALqhz
+	W3cSPc4Ii9z2OqztkfiuE3u/AZPI36Bo=
+X-Received: by 2002:a05:6512:688b:20b0:5bf:e4e6:7f78 with SMTP id
+ 2adb3069b0e04-5bfe4e68c03mr2745563e87.39.1793868590127; Thu, 05 Nov 2026
+ 00:49:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,24 +59,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+References: <20261103104242.1373883-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104242.1373883-1-vulab@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 09:49:38 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=YuYS85WFBv-dHJLqMW1VMgoTo3YSnDU8Yqg1Tp3Vd=g@mail.gmail.com>
+X-Gm-Features: AclHuK-DqpeWMThWze48WguFPTy5w3muiNn0JsxnoY0aN27dGfjAgVQWa0g9Prk
+Message-ID: <CAD++jL=YuYS85WFBv-dHJLqMW1VMgoTo3YSnDU8Yqg1Tp3Vd=g@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: bcm: release the NS2 pinmux controller on detach
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 11:48:37AM +0100, Uwe Kleine-König (The Capable Hub) wrote:
-> Hello,
-> 
-> the original motivation for this series are the patches that convert the
-> arrays to use named initializers, see
-> https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-> for the idea behind it. Looking left and right a bit while implementing
-> that, the series grew a bit.
-> 
+Hi Wentao,
 
-Hi Uwe!
+On Tue, Nov 3, 2026 at 11:42=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
 
-This no longer applies, can you rebase it on top of gpio/for-next and
-resend? I'll apply it right away before any additional conflicts.
+> ns2_pinmux_probe() registers the pin controller with pinctrl_register()
+> and stores the returned pinctrl_dev in the driver data, but the driver
+> has no remove callback and never calls pinctrl_unregister().  The
+> controller is therefore never unregistered and its memory is leaked
+> when the platform device is unbound.
+>
+> Use devm_pinctrl_register() instead so that the controller is released
+> automatically when the device is detached.
+>
+> Fixes: b5aa1006e4a9 ("pinctrl: ns2: add pinmux driver support for Broadco=
+m NS2 SoC")
+> Cc: stable@vger.kernel.org
 
-Bart
+??????
+
+What is regressing due to this?
+
+Don't add stable-tags like you add sugar to cereals.
+
+Yours,
+Linus Walleij
