@@ -1,88 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899006;
-	b=3KlGfpt/QOArMasURk/s+gpv+VMKkFJF8XpkIvmzQxkjk9SMcSYe7Fvs2wy6bdGRUl6f
-	 HKX8Z9Q+/dzApYg7z5FhFWTjmJxYbulyzhrScZBbntFxvvCzDDtD3UOVFJ0wBGBafKFiv
-	 l40O/RmLD87hUxe91jZbHaRBQOgN/F7ISHy5alcXQfAw4VUd/uWHgHm2JldXrWosZ7WPY
-	 quPMKWORSJ0oYEwqjNZIWmImNleCsAt/hJoZBN1z6uHuTHP32h+4JM/WAsizCtPQFei5x
-	 Dq4Uiej8FXN7fL/hyd6N3QVzV/6WSGO6J7QxvFM5dhjypSKs/Gai45vi5wBtnigsF2A==
+	t=1793899003;
+	b=1pMuf7kz769SbpFKHnj07v+sCy29aCqcGW5BDyBwSr76Kzp1wxR2ctI2CoF81HvNXE45
+	 aZkaaL02QJVEFg+GN/HkVACV/xatbGGiHAj6VYmExTkn/errMsP2RsUdHdUWfWGYSZxxl
+	 BVXYVKhwEhiutw9ug+ShpSeiZccWnMVjoUGdu4V6yjeoSTO1xiNbY4ye1SSCEepXOH/1Q
+	 1ER7l8jsUDsTfr/p1PGGqucnkw2JiN4+JFFTgB/E+hebrRw21j8kVAvTLew7dFXo50PHA
+	 uoexHHjY1lwy/SSwPIYCuRiW94sh4ZSsoA+cEwtjeG5XL6VBmtgjsq752IlvJlBUHsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899006;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8TTgnEslfhmARTzLvGf2WXLm6wVd1Tp4w50+BJAZBOw=;
-	b=RamC3Mne94JpvGgYTRaBBTh5DQDl1nLWOtwAeTqeOl2fuBhqNfuMHsIODWJ3qz2+LA+n
-	 uRuQp/FfNsIp5HY7lAY5KekPC2/EZ1HyYYCE/PeWMJLgTDXtFS+GE7IiTTzwF4NEoZvw4
-	 so51jKana3+56iIxkr5yo8M999ZENn54IxAujJ4HmKj1TVjk0BHx+5s2gh5fGdBD/ja0Z
-	 4qHHgGeUobtgX/bHTbXBc2ZkjVkTFtRXZEhzkwUUlDWX2jb+KlHlJWY2Mh6cgbYY2CTpL
-	 JR3LWoGEcKHL1kTTqWcWXbOvkiqavNYCqEPhTof0n6IszNoGFb8LxxeboUZLs6QJydA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899003;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=G8OEW2oMhJH1UyxWk63Qgz4BWFzIqv2porLIH+T4v+Y=;
+	b=4Erfgx5k1lgjJyZoLjcvAP/k1u5hb5R60AfV+EDXBaq2O7Un057379rW2RVA2MTr+Gjg
+	 k34A9KHukLETzpsACRa42uz3kp8NmhXbKK0iW09G0CwXC8YIHgICFrr5nFeWnXDTWwAl7
+	 LraxtpoO6cLHjKk8UAilCbNOr52pulxL4sLn8ONU0N8ERHe5Q/9vuvOeXbmBrjHh3l2W6
+	 fUVIKBUkbqouDy66vlxpSjO9dx5bfxeE+ElOFL23/1CNFR+PCx3+tmzX0mI+MVawxYgM2
+	 5ttqOlV4fOjNJE1bEU1/9ZRU+LpRWezbiA/3y3Er9vaUFYwmRqaFRILTJDvM692wO/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wgl02OB7;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0636082BF3
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E0636082BF3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wgl02OB7
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3531574eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:16:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793899005; x=1794503805; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8TTgnEslfhmARTzLvGf2WXLm6wVd1Tp4w50+BJAZBOw=;
-        b=Wgl02OB7DEB2aqh4WoP3ufq9IDXvCofH/DMsCDWp1WDM0rdOnmn3824ZqMlg/EqUQu
-         yeE44JmA3wk7cCyKNW1hteK5g+IIPU4vj/+k5nCK7zySs/0T327QSf+PLhcpfZYeEX8t
-         TQRwRone9aanZ333rHcWPYHvLh6Feqa/a+P/7439n7mMiAOqoT6gmSrGCcsbz5tk0r8H
-         au9MlKszGg4Yr+oTK94ASBKqxphjXbWn4L1s3DPH12NXkfrOKgfMWrzuh6h/Nnbf9Ri4
-         5DXkOW0jwrHSx0t94eTi236hzFRPDsJo7lCPblPjrCPe0YKDy6gcQyGkuBxYj9HWPNkS
-         ihTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793899005; x=1794503805;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8TTgnEslfhmARTzLvGf2WXLm6wVd1Tp4w50+BJAZBOw=;
-        b=QepbuugQc71LeiuM+Gc09FmJh/h8vbyGVY3VfkrTvv10u2457tAX2NZhEH/3gwTESe
-         KB8GHkx5/+yyo3VDib+8f30pzxsZf5lkpU1NSwnDqrIcTXWUMpTNuynvrFcUJfW4Dtw3
-         oBkTCPZ0vAOLs5gp3u74T+YmXFDGZxgE4W+yyWDSbhbqxAfM7rRVbILBqs/y2theCl/q
-         eIDAOqic0KvbDVu8+DPxnZLFSraWrRaKN+J0O9XgihH/r2TrgIJC+c7kVp1NDqQri4GW
-         SrUtYY+Z68N4N0FToxousBJ0XCkcXsUYZLc/P9TaymwYJp8PpfuIGur0NCXwke7xsNjJ
-         nDJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxyYWxtDGTirqDHyXxANq9JY8zZGsvWQjGVzq1nWOQQacBNdqNUZWKCBf8WY1CPJHxYLzJjTeT1sgCBBg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93cYNfureYkg4MC+wMzX3yj2rLHjpblKCKJ7p6CkwbThYAa4tM
-	BlsjY/B+sm7F09saJ02iu9LsKN8q72Ww+a3aJk3+huWW1g3pZL7HUp+G
-X-Gm-Gg: AYBFou34IyPIWbRR0k1zuh8zWhCJWlG4j6klclJ4jEc8NQT+Ugrs2k3FZZifk445/If
-	qKQ8rwifxOgxXiGvxtdCUdNvGgP53Cknjz8yM1AvkXR0jqfoO8231btsNE5ZsMNidf1CI6Ji719
-	KrjlL1cCKJgxaACdXLAnEgI7gx/rNVVsN/sJcCuilGtfIbEngELgJIF2t4itKMeb3BtccTzerbS
-	hIYItxE4Z22iJiZo25tkU7HWjMavxcqt0GqGK7f1DLqORkJdCf/KTI+MBAAl0eDTUBSrpkS7/D+
-	V7jLbd9fw/xRT6lATDKV5bDiNJX291xXSnHsckvcrua0pLWT7cwjpxhMun1uDA/zbgT+NUzmJwr
-	q3DEU1sxfvn4Dz3tX9PorxZL8TTsqlsHr0eqGWL3AxXO8DeBg/fXp55j45sI+S3Y9pj2G9UNWZk
-	eLbstHVk7CMtZpnt8Qzb5Kj8mx2duF6OuwtD0KaLn/CMWb2artIb09H+EhDz3Ce+YEHCB5LtCfB
-	uz2tbUYZKP7ftH6rs8vbjTmzk60WFCSrere2DksWl+RKA6APQEGb7Hrr/1EM0oy/javpVr4LEfb
-	2/oNbXFGissY4Q8kPIAx2xBB/iTXSSfPVkRr/wNugjjCSrIxjdZ0xRu6BNYQHTx+ZA==
-X-Received: by 2002:a05:7300:cc96:b0:36e:b3e6:ebe7 with SMTP id 5a478bee46e88-36eb3f677e5mr2158998eec.26.1793899005312;
-        Thu, 05 Nov 2026 09:16:45 -0800 (PST)
-Received: from ?IPV6:2620:10d:c085:21c8::1368? ([2620:10d:c090:400::5:f848])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm24181600eec.27.2026.11.05.09.16.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 09:16:44 -0800 (PST)
-Message-ID: <2376d06b-80b4-46d9-8540-8baf065b0326@gmail.com>
-Date: Thu, 5 Nov 2026 09:16:43 -0800
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=23.90.104.144
+Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0772A6082BC1;
+	Thu,  5 Nov 2026 17:16:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0772A6082BC1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1793899001; x=1825435001;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=u8JZnmjS3IQKnZG0ImyZQfEmDzkCLtrT3qM2bwJYsBQ=;
+  b=PVR83fMgoXOR+SXesoUARdtTGCyEmppTxkc2B56NlbClJ36F3ygxm8Ax
+   MRGeQpMcjJ0O6sx359Z6J5SaZ5UpMCUo6qmPCd+GW08/ANSH44bv8t+aF
+   xsig4cJNNp4SOt/aUsxNE9Tv6FBlBGJ1NidX+TpUVIDjLdada8l5Vktlx
+   LHikfKGmw2L0l8XDHhy9xPntnT4lzXef+/3yrT62h9VSOusnjdzcPWC/h
+   Ru0Ru0TSpYLGDLKacnft0biAzaFaeFobiG+C6jP6ReiRDZviLy05YcVNn
+   Vta/KNvH69zQodrmNpOkLSOlpYHbQJJJ+duGjXsDBTFD4xyUvaZIzcILy
+   w==;
+X-CSE-ConnectionGUID: NYIjUvP0Q8q5IfoXBCRtyA==
+X-CSE-MsgGUID: BOgUS6YiRmCiGnIsAUOqFQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
+  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:16:34 +0200
+X-CSE-ConnectionGUID: TjAjZrnoQMiuCLkkx3d0oA==
+X-CSE-MsgGUID: T6XPbA59Q6WGnPYNrnP5Iw==
+Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.2])
+  by ces02_data.me-corp.lan with SMTP; 05 Nov 2026 19:24:32 +0200
+Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Thu, 05 Nov 2026 19:16:33 +0200
+From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Date: Thu, 05 Nov 2026 19:15:28 +0200
+Subject: [PATCH RFC v3 07/14] i2c: core: implement i2c_transfer_v2() -
+ transfer with detailed reporting
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,86 +66,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 1/5] net: sparx5: Drop redundant POL_ prefix
- from POL_UPD_INT_CFG
-To: Daniel Machon <daniel.machon@microchip.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Steen Hegelund <Steen.Hegelund@microchip.com>, UNGLinuxDriver@microchip.com
-Cc: robert.marko@sartura.hr, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261105-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v3-0-b45a3a26bed5@microchip.com>
- <20261105-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v3-1-b45a3a26bed5@microchip.com>
-Content-Language: en-US
-From: Mohsin Bashir <mohsin.bashr@gmail.com>
-In-Reply-To: <20261105-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v3-1-b45a3a26bed5@microchip.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-i2c-fault-reporting-v3-7-515ad74ac4c9@mobileye.com>
+References: <20261105-i2c-fault-reporting-v3-0-515ad74ac4c9@mobileye.com>
+In-Reply-To: <20261105-i2c-fault-reporting-v3-0-515ad74ac4c9@mobileye.com>
+To: Andi Shyti <andi.shyti@kernel.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Dmitry Guzman <Dmitry.Guzman@mobileye.com>, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.16.0
 
+In __i2c_transfer() and i2c_transfer(), add one more parameter - pointer
+to transfer report. In __i2c_transfer(), if the pointer is not NULL,
+use algo->xfer_v2() callback instead of algo->xfer() in order to get the
+detailed transfer report. If the adapter does not have xfer_v2(), return
+-EOPNOTSUPP.
 
+If the adapter has any quirks that make impossible to transfer requested
+message or messages, put the index of the first such message to the
+transfer report structure.
 
-On 11/5/26 5:19 AM, Daniel Machon wrote:
-> The macros for the ANA_AC_POL:POL_UPD_INT_CFG register are named
-> ANA_AC_POL_POL_UPD_INT_CFG*, repeating the POL_ prefix that is already
-> part of the target name.
-> 
-> Rename them to ANA_AC_POL_UPD_INT_CFG*, so that the port policer
-> registers added in the next patch can use the same short form.
-> 
-> No functional change.
-> 
-> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
-> ---
->   drivers/net/ethernet/microchip/sparx5/sparx5_main.c      |  6 +++---
->   drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h | 12 ++++++------
->   2 files changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c b/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-> index e039f5369b95e..68c80c63f9087 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.c
-> @@ -616,10 +616,10 @@ static int sparx5_init_coreclock(struct sparx5 *sparx5)
->   		 sparx5,
->   		 HSCH_TAS_STATEMACHINE_CFG);
->   
-> -	spx5_rmw(ANA_AC_POL_POL_UPD_INT_CFG_POL_UPD_INT_SET(pol_upd_int),
-> -		 ANA_AC_POL_POL_UPD_INT_CFG_POL_UPD_INT,
-> +	spx5_rmw(ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT_SET(pol_upd_int),
-> +		 ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT,
->   		 sparx5,
-> -		 ANA_AC_POL_POL_UPD_INT_CFG);
-> +		 ANA_AC_POL_UPD_INT_CFG);
->   
->   	return 0;
->   }
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
-> index 1464fd1a1d447..219c7f0e516e9 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
-> @@ -939,15 +939,15 @@ extern const struct sparx5_regs *regs;
->   	FIELD_GET(ANA_ACL_SEC_LOOKUP_STICKY_SEC_TYPE_MAC_ETYPE_STICKY, x)
->   
->   /* ANA_AC_POL:POL_ALL_CFG:POL_UPD_INT_CFG */
-> -#define ANA_AC_POL_POL_UPD_INT_CFG                                             \
-> +#define ANA_AC_POL_UPD_INT_CFG                                                 \
->   	__REG(TARGET_ANA_AC_POL, 0, 1, regs->gaddr[GA_ANA_AC_POL_POL_ALL_CFG], \
->   	      0, 1, 1160, 1148, 0, 1, 4)
->   
-> -#define ANA_AC_POL_POL_UPD_INT_CFG_POL_UPD_INT   GENMASK(9, 0)
-> -#define ANA_AC_POL_POL_UPD_INT_CFG_POL_UPD_INT_SET(x)\
-> -	FIELD_PREP(ANA_AC_POL_POL_UPD_INT_CFG_POL_UPD_INT, x)
-> -#define ANA_AC_POL_POL_UPD_INT_CFG_POL_UPD_INT_GET(x)\
-> -	FIELD_GET(ANA_AC_POL_POL_UPD_INT_CFG_POL_UPD_INT, x)
-> +#define ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT       GENMASK(9, 0)
-> +#define ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT_SET(x)\
-> +	FIELD_PREP(ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT, x)
-> +#define ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT_GET(x)\
-> +	FIELD_GET(ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT, x)
->   
->   /* ANA_AC_POL:COMMON_BDLB:DLB_CTRL */
->   #define ANA_AC_POL_BDLB_DLB_CTRL                                               \
-> 
+If the report is not NULL, algo->xfer_v2() returned an error and there
+are any read messages, trace the read data using `trace_i2c_reply(). If
+the last read message is incomplete (transfer was interrupted in the
+middle of a read message), trace the read portion of data also.
 
-Reviewed-by: Mohsin Bashir <hmohsin@meta.com>
+Rename __i2c_transfer() to __i2c_transfer_v2() and i2c_transfer() to
+i2c_transfer_v2().
+
+For backward compatibility, add __i2c_transfer() and i2c_transfer() that
+call __i2c_transfer_v2() and i2c_transfer_v2() respectively with null
+report pointer.
+
+Remove comment "REVISIT the fault reporting model here is weak".
+
+Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+---
+ drivers/i2c/i2c-core-base.c | 115 ++++++++++++++++++++++++++++++++------------
+ include/linux/i2c.h         |   8 +++
+ 2 files changed, 93 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index 23ff02a1e532..e8449f55f045 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -2288,22 +2288,37 @@ static struct i2c_msg *i2c_check_for_quirks(struct i2c_adapter *adap,
+ }
+ 
+ /**
+- * __i2c_transfer - unlocked flavor of i2c_transfer
++ * __i2c_transfer_v2 - unlocked flavor of i2c_transfer_v2
+  * @adap: Handle to I2C bus
+  * @msgs: One or more messages to execute before STOP is issued to
+  *	terminate the operation; each message begins with a START.
+  * @num: Number of messages to be executed.
++ * @report: The buffer for detailed transfer report (may be NULL).
+  *
+  * Returns negative errno, else the number of messages executed.
++ * Writes the detailed transfer report to the structure pointed by @report.
+  *
+  * Adapter lock must be held when calling this function. No debug logging
+  * takes place.
+  */
+-int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
++int __i2c_transfer_v2(struct i2c_adapter *adap, struct i2c_msg *msgs, int num,
++		      struct i2c_transfer_report *report)
+ {
+ 	unsigned long orig_jiffies;
+ 	int ret, try;
+ 
++	if (report) {
++		/* Initialize the report structure with -EOPNOTSUPP in all fields.
++		 * This differentiates from the case when the adapter supports
++		 * fault reporting and returns -EOPNOTSUPP because it cannot transfer
++		 * a certain message.
++		 */
++		i2c_transfer_report_init(report);
++
++		if (!adap->algo->xfer_v2)
++			return -EOPNOTSUPP;
++	}
++
+ 	if (!adap->algo->master_xfer) {
+ 		dev_dbg(&adap->dev, "I2C level transfers not supported\n");
+ 		return -EOPNOTSUPP;
+@@ -2316,8 +2331,16 @@ int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (adap->quirks && i2c_check_for_quirks(adap, msgs, num))
+-		return -EOPNOTSUPP;
++	if (adap->quirks) {
++		struct i2c_msg *bad_msg;
++
++		bad_msg = i2c_check_for_quirks(adap, msgs, num);
++		if (bad_msg) {
++			if (report)
++				i2c_transfer_report_bad_msg(report, bad_msg - msgs);
++			return -EOPNOTSUPP;
++		}
++	}
+ 
+ 	/*
+ 	 * i2c_trace_msg_key gets enabled when tracepoint i2c_transfer gets
+@@ -2336,10 +2359,14 @@ int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
+ 	/* Retry automatically on arbitration loss */
+ 	orig_jiffies = jiffies;
+ 	for (ret = 0, try = 0; try <= adap->retries; try++) {
+-		if (i2c_in_atomic_xfer_mode() && adap->algo->master_xfer_atomic)
++		if (i2c_in_atomic_xfer_mode() && adap->algo->master_xfer_atomic) {
+ 			ret = adap->algo->master_xfer_atomic(adap, msgs, num);
+-		else
+-			ret = adap->algo->master_xfer(adap, msgs, num);
++		} else {
++			if (report)
++				ret = adap->algo->xfer_v2(adap, msgs, num, report);
++			else
++				ret = adap->algo->master_xfer(adap, msgs, num);
++		}
+ 
+ 		if (ret != -EAGAIN)
+ 			break;
+@@ -2348,58 +2375,86 @@ int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
+ 	}
+ 
+ 	if (static_branch_unlikely(&i2c_trace_msg_key)) {
+-		int i;
+-		for (i = 0; i < ret; i++)
++		int i, n;
++
++		if (report)
++			n = report->msgs_cplt;
++		else
++			n = ret;
++		for (i = 0; i < n; i++)
+ 			if (msgs[i].flags & I2C_M_RD)
+ 				trace_i2c_reply(adap, &msgs[i], msgs[i].len, i);
++		if (report && report->bytes_cplt > 0 && msgs[n].flags & I2C_M_RD)
++			trace_i2c_reply(adap, &msgs[n], report->bytes_cplt, n);
+ 		trace_i2c_result(adap, num, ret);
+ 	}
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL(__i2c_transfer_v2);
++
++/**
++ * __i2c_transfer - unlocked flavor of i2c_transfer
++ * @adap: Handle to I2C bus
++ * @msgs: One or more messages to execute before STOP is issued to
++ *	terminate the operation; each message begins with a START.
++ * @num: Number of messages to be executed.
++ *
++ * Returns negative errno, else the number of messages executed.
++ *
++ * Adapter lock must be held when calling this function. No debug logging
++ * takes place.
++ */
++int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
++{
++	return __i2c_transfer_v2(adap, msgs, num, NULL);
++}
+ EXPORT_SYMBOL(__i2c_transfer);
+ 
+ /**
+- * i2c_transfer - execute a single or combined I2C message
++ * i2c_transfer_v2 - execute combined I2C message with detailed report
+  * @adap: Handle to I2C bus
+  * @msgs: One or more messages to execute before STOP is issued to
+  *	terminate the operation; each message begins with a START.
+  * @num: Number of messages to be executed.
++ * @report: The buffer for detailed transfer report (may be NULL).
+  *
+  * Returns negative errno, else the number of messages executed.
++ * Writes the detailed transfer report to the structure pointed by @report.
+  *
+- * Note that there is no requirement that each message be sent to
+- * the same slave address, although that is the most common model.
+  */
+-int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
++int i2c_transfer_v2(struct i2c_adapter *adap, struct i2c_msg *msgs, int num,
++		    struct i2c_transfer_report *report)
+ {
+ 	int ret;
+ 
+-	/* REVISIT the fault reporting model here is weak:
+-	 *
+-	 *  - When we get an error after receiving N bytes from a slave,
+-	 *    there is no way to report "N".
+-	 *
+-	 *  - When we get a NAK after transmitting N bytes to a slave,
+-	 *    there is no way to report "N" ... or to let the master
+-	 *    continue executing the rest of this combined message, if
+-	 *    that's the appropriate response.
+-	 *
+-	 *  - When for example "num" is two and we successfully complete
+-	 *    the first message but get an error part way through the
+-	 *    second, it's unclear whether that should be reported as
+-	 *    one (discarding status on the second message) or errno
+-	 *    (discarding status on the first one).
+-	 */
+ 	ret = __i2c_lock_bus_helper(adap);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = __i2c_transfer(adap, msgs, num);
++	ret = __i2c_transfer_v2(adap, msgs, num, report);
+ 	i2c_unlock_bus(adap, I2C_LOCK_SEGMENT);
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL(i2c_transfer_v2);
++
++/**
++ * i2c_transfer_v2 - execute a single or combined I2C message
++ * @adap: Handle to I2C bus
++ * @msgs: One or more messages to execute before STOP is issued to
++ *	terminate the operation; each message begins with a START.
++ * @num: Number of messages to be executed.
++ *
++ * Returns negative errno, else the number of messages executed.
++ *
++ * Note that there is no requirement that each message be sent to
++ * the same slave address, although that is the most common model.
++ */
++int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
++{
++	return i2c_transfer_v2(adap, msgs, num, NULL);
++}
+ EXPORT_SYMBOL(i2c_transfer);
+ 
+ int i2c_xfer_to_xfer_v2(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
+diff --git a/include/linux/i2c.h b/include/linux/i2c.h
+index 6a4df8562ab4..ec5f5d6792a8 100644
+--- a/include/linux/i2c.h
++++ b/include/linux/i2c.h
+@@ -131,6 +131,14 @@ int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num);
+ /* Unlocked flavor */
+ int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num);
+ 
++/* Transfer with detailed transfer reporting.
++ */
++int i2c_transfer_v2(struct i2c_adapter *adap, struct i2c_msg *msgs, int num,
++		    struct i2c_transfer_report *report);
++/* Unlocked flavor */
++int __i2c_transfer_v2(struct i2c_adapter *adap, struct i2c_msg *msgs, int num,
++		      struct i2c_transfer_report *report);
++
+ /* This is the very generalized SMBus access routine. You probably do not
+    want to use this, though; one of the functions below may be much easier,
+    and probably just as fast.
+
+-- 
+2.43.0
+
