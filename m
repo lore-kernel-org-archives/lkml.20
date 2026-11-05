@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866090;
-	b=07yHXXYjqgjkNdUIyUi+sahYlZKeOihH0AWLxur3s3GSRURY9vgz56CUfDU60xZxKAok
-	 f2IvINX/GRMR1Cy0Sh9xw5iQJT8qrQdUe6wtXTj54a61ZYpn+jCuQ5VJEzxbLr0UBanYU
-	 8jEmPz19SyN8h8CqNzsN2HTQN+UAnVq0nL5m4cFM++W+esNvoiKpvQu8Kc8ITVDIyIma2
-	 DTMT9O/D/Dmupc3DuaP9F5tvWe5GXHKqR5r6frkAPtTCY92Rbd4pak7tiA5yQq8lnprOf
-	 fVaSz+aYTTkMWCuA7dRlnMVH1UyNyj+gLLJBHZFM1mosnaUpIypMP3kmWHHd6INx20A==
+	t=1793866170;
+	b=HO1doPNY+DRn1X4N3rGi3dKW4uXs3rQl0/cL0gDpZsOd1JZ7alzR+3X8Hwkb/7l7MKtU
+	 7KM3lHCdH24hJJlOgwiaB4BpFwV0+QQMOua9DLO/Emuugs82PCGxOlWAq+KW/EZZ6nSll
+	 dYeYdqeZtdufLnbw7BOTxAUKdSZWxSCT3uWRLFxqp2VycqmRgHh//MXreQ4KZjzs/MN0b
+	 ZMEou6NysFHiK1p06bP7L5RQUzY25F1XhXHuVlewb/D+/GMTro6bIcrLc/G4yhXtk4Ft3
+	 fANB0KrwBXRjfFCE+iO/SLCHQVGztyHTvkZ/pkJwlR/hy55Z8E4gQTkF4JlTt+9iskg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866090;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=slAjwWQDYVO39KamLXHsue/lfUEBTiuulu/3jpX05gc=;
-	b=LI5PzSUBkfwC3cPRAbXKQUhMFiTalJs5O/v2XGqLzcJXtHdfeRdQvda9UTraiZIO5xVe
-	 KLKJ0/ouH5MMF0Nbh75KFYTHaub8kbsqFFKG+GqvjuEhVpysBbxoXBYFemSJ8PbkWkOhy
-	 3PnaWKOkkHCUtOQoKrjXjAxiUjJJOGNcaMxqbQ0ol8cH+0rO1mYJvxTX5dsZ/bM+1qigx
-	 C3zFul8+YgT38FbD+bO0iIB9koCfFVQ+rIRqdTVlmm4oBtLnPXtk9L/LLMUmaW+a8Olrc
-	 kBkdVH3z7+Q0tIoRB1iWAi8YTDe+jHc1/OqmliXR3yrBkVTf9TJUpFDvjjdhfa7Fh0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866170;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OU8JGvzxBnbV05ggLnCmMcYCO6Z2MxDyZV8tzsNxJBg=;
+	b=RTcc9Lb50aBfS6M7TtEyLmh2Qv+AiN6kfKVyK6PiSTrgTbBa/XELHn7vvY1vIskCY5rV
+	 9d8IpanUAFZiaZ3uh0KSz0sNIA9t5/XLTrWOS0GDfKBCMwUlaZNspGZ1X2GJwydHlRZ7z
+	 ph88bVhwQ0B3L5GRxrGcD5Sbu0RcpR/3+uCOiREDCMo5dYUpIMDiNBYeaLxlP+GrVEc8Q
+	 O1om+NZFD8wuV6MURWX6Dg6huySijz9441ADYiG/hqAhqor8ULarDCleVD0uu3aKUI5CK
+	 c+pEW24yfsB+Da+NUsOI9+G6uo15N9xpd5/na6BaLlTXBaUZA0IQ3N3j3YYeccndUHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="QR/ysJBv";
-	arc=none smtp.remote-ip=95.215.58.56
-Received: from mta1.migadu.com (out-56.mta1.migadu.com [95.215.58.56])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4EB606A335
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D4EB606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KiaXIk8N;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5005606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5005606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QR/ysJBv
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5dNzhcTaPSPAHoNbodXyj+zv2hdRrCEJXr1Y2dhrWX8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793866086; v=1; x=1794470886;
- b=QR/ysJBvl+GJUPglNTkM/A6Z59ex+vCXeglEdffePj1QVKtsCiB1QoXap51GWfQ59mC3JGVk
- efi0mTPVzaLQU/qpgA1PGp79vKCvudR4xl+jVA+j7qLIrYqVcwuJAYwRBwDgEDvoVn4dVM0aGwH
- 7lx6AfxZbzVT09HtZOTl5UWA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2df445156f7ab0bc;
-	Thu, 05 Nov 2026 08:08:05 +0000
-X-Mizu-Trace-ID: 2df445156f7ab0bc
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be3b2f17c1so3780e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:08:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxTv70cJ3hM4ZV1iWHctAzxPXdG1X/YJm0LDvWeDVCmihnWu/0lCmQ3onagqbllTKfhpD+ecyXm1PP871o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92bPPGm6ycSx78++0spypScTGQhgoqu4Q923emTTK8yVMzibkB
-	/N5PnSBx4c9jmJlFTVIqn+VfsccdNDCwn1hh+0ZnrBjurV+hoTXc8b2ERhcShoQFuiGWMIzfOX/
-	wfHEsy8bxV30H3c9qKZzCmdIezVeF7go444HvuOe0
-X-Received: by 2002:a05:6512:3e02:b0:5bf:f0fb:2c9c with SMTP id
- 2adb3069b0e04-5bffb1dc195mr77268e87.5.1793866080846; Thu, 05 Nov 2026
- 00:08:00 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KiaXIk8N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=KiaXIk8Ni5aA0gpLPgmURgHMdIBa4XKucxtM6DItM6DUFPylkM5MYBYOEAElrSKAA0oZtXkqsDiRd
+	 9QxQ20RjIiKQToyJwCx07yYKp1w5xu+rKVMTcLu9BVtQdn5fIVVU/Nlvj1ha/Dpm7FeC3S7pF4basc
+	 t2klJKXAaBUr/2NM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56aec39b4834-a2ae0;
+	Thu, 05 Nov 2026 16:09:26 +0800 (CST)
+X-RM-TRANSID:2ee56aec39b4834-a2ae0
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHB-W5100250 (unknown[36.137.216.21])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aec39afd88-413ea;
+	Thu, 05 Nov 2026 16:09:26 +0800 (CST)
+X-RM-TRANSID:2ee86aec39afd88-413ea
+From: Gu Bin <gubin@cmss.chinamobile.com>
+To: gregkh@suse.de,
+	m.nazarewicz@samsung.com
+Cc: linux-kernel@vger.kernel.org,
+	gubin@cmss.chinamobile.com
+Subject: [PATCH] tools/usb/testusb: reject bLength == 0 before computing read size
+Date: Thu,  5 Nov 2026 16:09:16 +0800
+Message-ID: <20261105080918.2198-1-gubin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,40 +68,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104124451.2148724-1-fuad.tabba@linux.dev>
- <20261104124451.2148724-2-fuad.tabba@linux.dev> <aut5t605onnuBWfk@kernel.org>
-In-Reply-To: <aut5t605onnuBWfk@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 5 Nov 2026 08:07:24 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTzEa-VZZ7TffdR0dY=92-iqX68yWkPR1zz7uzEX+c+f3A@mail.gmail.com>
-X-Gm-Features: AclHuK__AB0z6apl_Wv0YuqPm4x2AvnN93O1z8V4Fr2KgOylyOBS-uUCz6gu5jo
-Message-ID: <CA+EHjTzEa-VZZ7TffdR0dY=92-iqX68yWkPR1zz7uzEX+c+f3A@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] KVM: arm64: Resume stage-2 teardown where the walk stopped
-To: Oliver Upton <oupton@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>, 
-	Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 4 Nov 2026 at 18:30, Oliver Upton <oupton@kernel.org> wrote:
->
-> Hi Fuad,
->
-> On Wed, Nov 04, 2026 at 12:44:50PM +0000, Fuad Tabba wrote:
-> > +u64 kvm_pgtable_stage2_destroy_range(struct kvm_pgtable *pgt,
-> > +                                  u64 addr, u64 size)
->
-> Returning a signed value here would be a good idea so you can percolate
-> walk failures back up to the caller. Since that WARN_ON() below may as
-> well be a BUG_ON() in hyp code.
+testdev_ffs_ifnum() reads a USB interface descriptor from a file: one byte
+for bLength, then bLength-1 more bytes into u.buf (a 255-byte stack
+buffer). When bLength == 0, (unsigned char)u.buf[0] - 1 is integer-promoted
+to the size_t SIZE_MAX, so fread(u.buf + 1, SIZE_MAX, 1, fd) writes as
+many bytes as the stream supplies past the end of u.buf, overflowing
+the stack. A corrupted or crafted descriptor file triggers this.
 
-Ack.
+Reject bLength < 2 (the smallest valid descriptor length) before the
+second fread. Cast to unsigned char so descriptor lengths of 128-255 are
+not misread as negative by the signed char comparison.
 
-> Otherwise, rest looks good.
+Fixes: 5bc9661cba04 ("USB: testusb: testusb compatibility with FunctionFS gadget")
+Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
+---
+ tools/usb/testusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks Oliver!
-/fuad
+diff --git a/tools/usb/testusb.c b/tools/usb/testusb.c
+index cbaa1b9fdeac..7014c04fa73e 100644
+--- a/tools/usb/testusb.c
++++ b/tools/usb/testusb.c
+@@ -141,6 +141,8 @@ static int testdev_ffs_ifnum(FILE *fd)
+ 	for (;;) {
+ 		if (fread(u.buf, 1, 1, fd) != 1)
+ 			return -1;
++		if ((unsigned char)u.buf[0] < 2)
++			return -1;
+ 		if (fread(u.buf + 1, (unsigned char)u.buf[0] - 1, 1, fd) != 1)
+ 			return -1;
+ 
+-- 
+2.55.0.windows.3
+
+
+
