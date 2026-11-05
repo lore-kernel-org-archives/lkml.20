@@ -1,129 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890146;
-	b=0g3DkrgdmF9570AOTCDQ4bRQXEtKyPVv9aXvnzhrExkfSPlPOIqdbSbLgD0BLzfE1k+4
-	 a5j3W1Y9p4EWYn/Q27LsljGhogD7sm+i/h5MXkrr9jmUgvv0oR/ie43OjPjPchYavwOcO
-	 8401mISADliN8q4x3ko6ErRFR/Tv35zACaC9hWDcMb0oVLDbKMJr0cTEfEZ7EdhTdQlCF
-	 mu3goyVfR71zFLPxC5Ed11t/ksmj9HE0Q7qhJg0TIyTBgP8aVETZQaFto3azeCawCzwH6
-	 3jUDEwZtCbp/RZ1PwzFSU3IY65NO1Iae1+bvxGkRNdQg/w+89FI5y0Swptn19kZbj+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890146;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0oZXaqilvDmJS1hNMgdeAwWlpvrdojNG02VoZz9o0R0=;
-	b=4rox5PSZ3HYJQtaVbpIsoBtw1MTfl7fYpJplFzsk6oaE+24sbkziK8w09Iyl0Kh55+JG
-	 P6OLY4H2WLGgVh6VqBzIIJ7JtieMH8+b6Cgxg3bDsMahSZTqjYBkzUKYtmtZNgfn85Taz
-	 e2ISQeIWtXPXRz6eGkFAjePU7TwYd3O4hy4uLG15GGshr3OMHdX4Zu/VFDmO5ycj/BZG7
-	 8MYbJwOHBusBDsEF1NOvd2SrsXD03GtxaQpgMXw37kIBHbP24Dz0iAjF9rmAX8DVPsbJA
-	 PQhqtCGKAtlCMw+yD4yrkWtCujx78a9gcCNdQEYVwytSTgOE+xHjreG8T1HzIKXAbtw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dkq0QiMr;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pcORwHkx;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793890137;
+	b=AoZo0Xo2bhFrw+pwDMmsRPSts1wAefm2pQvzgCDgdTfsp1D1uJnLlaQUv9igFsQ4KkMj
+	 ScYDnKyHE9UslUkWDB9AHFaki8q3D3ZoTodYjw8u9LoPjwGX46rFnVZuXVrW2zDaTkCod
+	 1gjlBo+TQSNuAT3lpNI+quYTpaN5b9M+hrfHpgfpjfDaHR2S2hcLLbWXxJxPtNQ8BBEnJ
+	 CeTJfaDBfmejk4PnIVocoE095pYhryZovXaXuL38JjAW8DZ0qEt1GHuujaxHvXFXDEMPm
+	 FHblUko2P5F03GHE65T9WcDFVr1ABYitre/nPPEvoY2W2fHzEQFpWFTahpvn8N2nJ3w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890137;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=59mzC/SUaq+dWNv6foVeZK1IWurnNKFJ5YtzJpKMSIA=;
+	b=nBml1aDG8HtjLIACXAQhSrvHIPJ8gBE0JrSFZd59UQ/4fMP6+opKVQTlQ6Jin6usM32m
+	 kkPcEvi6FaCfBpAZW4GZSnsDTmu63h/vsH+AzIpKLwEcffN8sl3fkWsXwMnwIFXZF3OqD
+	 lsrJU57O+dtQuw1Foow0bGCDLQiY7r2SzevCdQCbeQjDpKvUDtB3luwba2h53L5YzeDGN
+	 fublhogzFINFL6XCS5afX3eSEVJxFYiUFtIZQbCX2TtmhOl2ZwhbO5uJRVVNiD6wPMSyp
+	 DvCNjG/HdeL1i0DOjhZj+ckMyUMB/bXFSET55bplNJZA15O+sSrEECrLvuVxhS5jeTA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n8OC4dpU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.37
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011037.outbound.protection.outlook.com [52.101.57.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88266606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:49:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88266606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7DD606A31B;
+	Thu,  5 Nov 2026 14:48:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E7DD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dkq0QiMr;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pcORwHkx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793890144;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0oZXaqilvDmJS1hNMgdeAwWlpvrdojNG02VoZz9o0R0=;
-	b=dkq0QiMrECsJKdQe3voh/qleY5HlHBx8Y1/14T65hTY2mJbfv+OFnfQWSpjsIRWz/Y/4pT
-	UPqyS/hoXTF+dX7Bt+N9Lj7jjs3Ar++C4EvB27O5s0kkehaNo4MADSETY1Eotz8rJeulsz
-	efzOBABpXj4ROEd4SCHHsVuQDFdCo3Y=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-220-QOlirHtpNNGDrUp84CeE-w-1; Thu, 05 Nov 2026 09:49:03 -0500
-X-MC-Unique: QOlirHtpNNGDrUp84CeE-w-1
-X-Mimecast-MFC-AGG-ID: QOlirHtpNNGDrUp84CeE-w_1793890142
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e29c25101so1075240f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:49:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793890142; x=1794494942; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0oZXaqilvDmJS1hNMgdeAwWlpvrdojNG02VoZz9o0R0=;
-        b=pcORwHkx8ESY7disZ1BO7voLsR2k6eWKMwao+wjRO9/6DnGPJKl0JPlhiMY7WQusKb
-         6cP5KAqeH71olbmhp86RYTkMfGZAyks5eyjntU8ODRLuHJ4RlH/J1VsCbrMNf4mqME/a
-         D0QK5VIQTr/CSeN23lyN85om9W91nAVOyJPDY6ePxh0nfB1BTu9FEGVv6n265R4Qrr7x
-         0Egh5xeXqjjxsFm3vUoF4Q/+TO+u//625zxy3SGkuN3zWK8SN/PKGdzFcW0rcOSvHx+j
-         ZEhLoNqCVZiG6f15q/iujZZVXwZkMrdgoxH+HjZB9MENSVUWUMgniHG5IPeHCyGhcp5w
-         jLXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890142; x=1794494942;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0oZXaqilvDmJS1hNMgdeAwWlpvrdojNG02VoZz9o0R0=;
-        b=wKAJEg7TjKiYtL7C8Zp5S1AL1N65CwxnOfCL6cJwDoAEDap0gNhZsW70JNBOAWGLYB
-         H0XzYk/CAs+aLMBZRtrDkUiItC0SwSzmUJVOx8fkX2dfMHKrdn/Fiid9D6fU2N4rsixS
-         FdhyQKxVZtPUrcZMn2hifyElAZW0fyXApkEFQx3LLzRbzLXj7jMQkYzybqXkrkTFoQyH
-         NGbJE5Pc3u2zmh+PntZm3B/CYVwyYsh6yl2km2vmkGtmBgspsiRlw/hb3S8KMCHnRlms
-         AbzCGqfgT1bS8xNkodA3Pinc6UXuj3IcsQkD7SUNmDzrrNbMB3yLBJqi3c983ji9CDB+
-         DuQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcraEM2GvyUvsl5U2FAP/WkMEwtWTmB67wgpXs2KMAFT6JQ4L3qYIzNmJGtdxoKySdJDk1g2nLYS+jNMY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91bg7JiO1aNZNLF33iobrZ44YVDFpjTOGE/tuHSG22Hax9s9jv
-	BIOVb4A6hOHZHg3CvIfHUkoXMa/mz34n2LY/BB0ZHjBijjhKUg7NEFOr6z7VBsFeD+YHim1zHmn
-	QlURfqwp0dA8nie+opeDFctornYHqP63JjZwJTt0TERkTFQVGKuzGvsB5zO7Yqc9BaQ==
-X-Gm-Gg: AYBFou3zHU8lWB/nsETtd7g0xoqG/o5JyH6IVCmXd4RPzStmNrfkUmtxX5t93iBAmXI
-	CJf1pDO9U1JUpnXakr+m+eZJVExevGUQvNMRDfHchR/8LpuU+B6rCixeQG/opB1av2Y4aIp9KxN
-	kAau7LH8g6qAtB8WdnrafHNqItyc+HwVDy/ZJNl7gTbbgEutNG97vX3X//dfLQZfGLgQbP3Izjr
-	Mf0FeQAh5PqXwJgUt2R/8PkXeEezrop63GwwwV5LoPGIrKjtVrLdCFE/eQrQOrktDJP+DUIqAwe
-	av/0Yv5H7xTDdQ7ulF/1IQogRvwbjFh4hNfIBd7uuDcavlYiZBNVRTMyjcNSukQP37P1KkGlZJx
-	cKyR8CGhxxGi+nQ3q1l8v1nydFd4UlBULMSrAbhp1dihhoBWQbSmubfCLjEmfOF1W2U5DlP7dGf
-	bx+Q==
-X-Received: by 2002:a05:600c:1f93:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4ac180f2fd3mr448854025e9.30.1793890141833;
-        Thu, 05 Nov 2026 06:49:01 -0800 (PST)
-X-Received: by 2002:a05:600c:1f93:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4ac180f2fd3mr448853555e9.30.1793890141421;
-        Thu, 05 Nov 2026 06:49:01 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e65b0sm79732955e9.11.2026.11.05.06.48.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 06:49:00 -0800 (PST)
-Date: Thu, 5 Nov 2026 15:48:57 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n8OC4dpU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CC6F5NH3N/QeoiegI7vRnP4i2O2Ms6ZBwDTwacN/LTfZJbwo9yUZdtKeBxVBSKiLom2wOWkELLBX5WNcGX3nHWyb/eoj9YiO8gZog/HEYSUxqXwINWxRwC4B9tz76CWngXMWqGt5b0sy7q5W7r/6dHc2QfbtIkQ+7Z5htCVJtIgWt792wFtAIpi1+t81LqjJZ/9bB6KCIQt1/NX61u4bfL7cly/VOvKLPgZjkjm6ofsvZHXSkU0avctKhXp9kb/QCG5ScuU//XL3AG285Ql5zrN+RXxfE5SbZnDfcuGUqIO+ckaBTzz3FgmsZTRDCODjwsPbo67v2WS8UCGnVXPBrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=59mzC/SUaq+dWNv6foVeZK1IWurnNKFJ5YtzJpKMSIA=;
+ b=YpZbA91zcdFBcq2r4ib8KtIxx4PP6+K2wZd8/a9mnoizYGQDLwRb/SFDtNpli+M/DfTfcEX5Cd9BDmOoFqRc9V1ImReG9x+1HvmkYhhWC/0bUjIYKbLpiEqJtT4TNb7H628D+GxzKtwYRlpYFFydDqK7hz7DT8ILNgqYDFXYpMnFS6Dp3AvwoYHv8cENqF4Q3RFCarVN2VzfK1afTYghrl1QLx1LXPobyBYjFcEaYqRt476E7IaL9hr4Zf+af/LoWveeo8sH8G2jwueShiERtfxOuZaNx8Z/uQ5YO64jrvo8vAeVlO4xYUfJjQvanLVaMNIbetaSd3/mpSjJF10L+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=59mzC/SUaq+dWNv6foVeZK1IWurnNKFJ5YtzJpKMSIA=;
+ b=n8OC4dpUQBQP2A2Abrk7dpwZvURS/8b1fWx5gi7P384OUwk8CAgGgd4sOox0cj/fti3MdwJoIT/Fuu7KDvpwdlO6xq7sCp3u75WtXgmryi7RHCuTpvmNKzcDEKp9AcAQrUqGPc9wjm4w+d1cBORti9wA03Arx7wn1GLn5P1DCcvHjH0rLCqJgywoJI4BrLq7QyXF4JL/yRg9g/TMTqhOhWb+nxW3vvdE9eSTkrnd4rZCR+uFJK7x11Ex+Uk+D9kAIUwebuU/xI47jmMb7GA7ZloTUio7hUmDopEyBDweRDeIk6Djgx+5uERJWylLzNZ49pE1YYcq0ym8cmkKkeVjiw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB6393.namprd12.prod.outlook.com (2603:10b6:510:1ff::15)
+ by IA1PR12MB6482.namprd12.prod.outlook.com (2603:10b6:208:3a9::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 14:48:45 +0000
+Received: from PH7PR12MB6393.namprd12.prod.outlook.com
+ ([fe80::6562:4ede:3d29:f036]) by PH7PR12MB6393.namprd12.prod.outlook.com
+ ([fe80::6562:4ede:3d29:f036%2]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 14:48:45 +0000
+From: Wojtek Wasko <wwasko@nvidia.com>
+To: netdev@vger.kernel.org
+Cc: richardcochran@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mtosatti@redhat.com,
+	pbonzini@redhat.com,
+	cjubran@nvidia.com,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v2 06/21] sched/deadline: Do not lose a throttled task
- switched out and back
-Message-ID: <auyXWR01Lqb_yam3@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-7-mathieu.desnoyers@efficios.com>
+	Wojtek Wasko <wwasko@nvidia.com>
+Subject: [PATCH net] ptp: kvm: report paired cycles for the active clocksource
+Date: Thu,  5 Nov 2026 15:48:21 +0100
+Message-ID: <20261105144821.5299-1-wwasko@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZR0P278CA0127.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:40::6) To PH7PR12MB6393.namprd12.prod.outlook.com
+ (2603:10b6:510:1ff::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,101 +104,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104211207.1392343-7-mathieu.desnoyers@efficios.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6393:EE_|IA1PR12MB6482:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f8ca964-2895-4780-b73b-08df3b4be48b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261022105027099003|261028144727099003|10067099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261102123227099003|11063799006|56012099006|18002099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	j7MAiWhLGuumf3n8kV0WW3z1tM+wGVJcvVgjfs1PZT1hnPolp7SE6C2x92y7vAulsTVlFAxV743JfeopvXXJCBRiT/r4hSuOkDkAjey0YOsH+NX/UKl/0yc770JnvWTmXz12AJy1oCLmMtPxBYpTQKw7pyrXbRj5Fx2WivTsX/Jan22b9DRsy1Jid5u+MubvByoiwi/7UFTR+kF4qMIGAUGsWYwrIkqzu3UhQBgKFl0WiOQc8lXMmQxsAFAditfcbXvc2pRmbbL3iwu0lXSqEMZgZ//K0G/aJp5bhrVcYXNrEaIQlWy7Gta/BD3hbR+AOaFZb9OVZhTY1ztsxSJ90tcvVyy0J8VaIV3PVK/hThsxJnN1yrDGm8v03RggjEMOwf2vm0nih7AGEiMrKTS+igx/Elj0nqOgPlOSd6E8sEoWwycd8lHC2CglKJiJLGbktj0CLHfM2IuFe4hjGXk7Z9an/F3NHsWHRsgTaah/QpaVZefXr0ulJ62J6j1X2kLBhX4pDwXxVnSyX/0/4APxMh39V5oTvCdB11kg3F2FWqIhc1VOeQuf9E5MBU3sBkz3sWpgTkrCLv+hV8/beZRrk5Vae8QWtxU8JEPikxbM8BCueB/aRSKD6Z91I6kOs4n4aqq5AHKAnhQPuTwrDF1/ZE9L3wfGwygcyA+23mJ1lRc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6393.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261022105027099003)(261028144727099003)(10067099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261102123227099003)(11063799006)(56012099006)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+bz2yPW7sa4ZIok9DZNZW4VRqsXfdZ3CFezY2rMDL5QMDQCm/HDbZGs8E8ro?=
+ =?us-ascii?Q?WZkjKynxNIVRAg1BFsw98I48/1GAe5WqWAMRtv/z40wTJn0/4dzK+jLFsn/I?=
+ =?us-ascii?Q?VRiYarSQ6Y9zWOFCQLeg0vBQvDbCWSGSxmhTeTksC7Ro3ONXTt8L1b0pOmO6?=
+ =?us-ascii?Q?on2noRibkIEb+wrmHTz3139Lnee/qG++LY5UDrlHPub4GUqm5BWsMmpmEkhy?=
+ =?us-ascii?Q?XP/H2Bsx1jXQ6v8j+c6lLOEU92D6ypHuULqE5y89/CgS0YWl3UplONGpavdl?=
+ =?us-ascii?Q?Vyrh8L+ia0yxXBfe8T7H/hDGhV0pujbSxbraDN/zQt8+bjioo68gkiuLCEBO?=
+ =?us-ascii?Q?9ZiOzN+H5qH8LesXNq+rNVU7XSla5GkKYHlXXTyXMpOrNRtqPqmHR5R8/gCy?=
+ =?us-ascii?Q?7hMlpoLEiGy23SbSbFOVN1Cf6lsB3uZWQPfHUv2lG5vz9GVLbsWUCSDwIP0R?=
+ =?us-ascii?Q?a39hPfoxxHst91IulrMEiUQDtwKVcNArW4QSpC/dng61GhcBTfAQvQE3ftfH?=
+ =?us-ascii?Q?U04W1NW3urMU6p8loR04Bf9+rQnzBogtPf9Du5y7ZjCfDyZk1DBZaQITvKJe?=
+ =?us-ascii?Q?GvROxb+d9R6ziFVdPKtqgnkiD7xJBLuV3KgertYe5snUKklkYxYaySj4zeW1?=
+ =?us-ascii?Q?0enWo2NgnXTutgUnvzb7opd3dPGp5Aign41n9dcGVJSQjp+hOHMHcJV2ldXG?=
+ =?us-ascii?Q?MPX+WYNdsuC5c51LbKSmx2K5KlpzVZKM0C6VXhy5/LidfmkkyHmOGNgp5ITF?=
+ =?us-ascii?Q?mwRV/fuZYLnGXWsvM0myMqdUr2gvbQQa+eE/66IyXC7fS3I0req3hjFDSpKY?=
+ =?us-ascii?Q?o+G7DmOCBwXpos8LBrlZUqk8J34qRSPeEhg0ayRIVskR9hwgB9H4uO/unum8?=
+ =?us-ascii?Q?aWDHnRIpFVYPfmAc69cT1uWbyZfJI6Wq88LwEfhIhBguxnX++tM1vI6e1kIw?=
+ =?us-ascii?Q?D6fsdnZuWzuPj+UpeTvYznp/JpoLhWwyu6azraAA8uM/OLCfp8rULxAbwoRG?=
+ =?us-ascii?Q?RJ+uPcEqU9p63ACWr6puPxYzzpEACeRPtIiK62odjT4uZk5Xl3o2JgDl0M9F?=
+ =?us-ascii?Q?BBzT8wBFGVWBO4CTj8/dzOax8/rzNw9sp51l9tdM6j5cRHKpRfNlTawi2BUD?=
+ =?us-ascii?Q?ZtxRyJx8j6wZ6aFtyJ/YTdmpbup94QWb3oOqxNEV5Wy4Nxel5EJP0q5qCje9?=
+ =?us-ascii?Q?/LBJxK2BufaL9aXf5xChn4iCqka5KYMafRaim549+/J0P6UTQd3AoSsVm3XO?=
+ =?us-ascii?Q?OIrm3vK2JeK13OlsaY8iBj88zw+qnnotXiOAygaXtMhadgeAMey8wV7LLrMc?=
+ =?us-ascii?Q?OPaatt3WzTSlTy6ZPUWxRyyhWGKgHVG7adF4IqalT9Uxg016ykBC54RcxXkS?=
+ =?us-ascii?Q?2tYWnuUIFh8l6IZovteL3gOL8/KgJ4YweNOzYXN4omX4+8j5YzZQH1yjwwwG?=
+ =?us-ascii?Q?X03fNrKxP1AuBN8mXzNSQXoSaGuTcfhpj/3RUiGnhGnDBS4CIzkKU+GTkodp?=
+ =?us-ascii?Q?1t3qGzM60A0NHQDsjQL0S/lKZUU9rdCBLIfjG52UP+YfNVFmWYpHSBfQm9T4?=
+ =?us-ascii?Q?dLQvGfgH3dmvYXP8CSCn/Ea3r72cWzE/Qoq0/KfRrOQx5ISluoXgttmBbA9r?=
+ =?us-ascii?Q?dRf6thIYnwgIgvO6AwVXSgsSXlMSawqyGdkVOanXS5gmUSqHUdLRYG6rTayR?=
+ =?us-ascii?Q?UuWYJBw9LuVTzzgl7aaKYe2vnv7wkrrTuENkkLjGzim08gpr9W2A/ModlBft?=
+ =?us-ascii?Q?Jdk/y2Z8MQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f8ca964-2895-4780-b73b-08df3b4be48b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6393.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 14:48:45.5360
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T5TIA4Wwo6UCiJwe99Udf8JpQAQYnmTNLebZzrQ1E2370ZEX2bMudYXue/dx3ZyP46NSQyUBvo/5GtvNzfwvrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6482
 
-Hello,
+The KVM clock-pairing hypercall returns host wall time paired with a
+guest TSC value. Cross-timestamping needs that counter expressed in the
+guest's active clocksource domain.
 
-On 04/11/26 16:11, Mathieu Desnoyers wrote:
-> A SCHED_DEADLINE task that is throttled, switched to another policy and
-> switched back before its 0-lag time can be left throttled with nothing
-> to replenish it: runnable, queued as far as the core is concerned, but
-> on no dl_rq and with no timer pending. It never runs again, and a fatal
-> signal cannot make it run; only another switch out of SCHED_DEADLINE
-> requeues it.
-> 
->  1. the task exhausts its runtime: dl_throttled is set, and the
->     replenishment timer armed for the start of its next period;
->  2. sched_setscheduler() switches it to SCHED_OTHER: switched_from_dl()
->     calls task_non_contending(), which arms the inactive timer for the
->     0-lag time; the parameters are kept until then, so that leaving and
->     reentering SCHED_DEADLINE gains no bandwidth;
->  3. the replenishment timer fires: dl_task_timer() finds a task that is
->     not a deadline task and returns, dl_throttled still set;
->  4. sched_setattr() switches it back before the 0-lag time:
->     switched_to_dl() cancels the inactive timer, and enqueue_dl_entity()
->     leaves a throttled task to its replenishment timer, which has fired
->     already.
-> 
-> The window between the deadline and the 0-lag time is the overrun
-> scaled by period/runtime: about 100us for an overrun of 20us at 20%
-> bandwidth. The replenishment timer cleared the parameters, dl_throttled
-> included, of a task it found out of SCHED_DEADLINE until
-> commit 209a0cbda7a0 ("sched/deadline: Improve the tracking of active
-> utilization") moved that reset to the inactive timer, at the 0-lag
-> time.
-> 
-> Give the task the replenishment the timer owes it, as the timer already
-> does for one that is throttled and not queued: the overrun comes off the
-> periods that follow, the deadline moves past it, and dl_throttled and
-> dl_yielded are cleared. A return before the 0-lag time then finds an
-> entity it can run on, and a return after it finds the parameters reset
-> by the inactive timer, as before.
-> 
-> Clearing dl_throttled alone would leave the overrun in the runtime, for
-> the new period of the enqueue to forgive, the deadline behind, for
-> dl_check_constrained_dl() to throttle the task on again, and a yield of
-> that period set, for update_curr_dl_se() to throttle it at once. The
-> first version of this patch did, and the Sashiko AI review of the first
-> posting of this series pointed the three out.
-> 
-> The selftest added two patches later fails its throttled_round_trip
-> case 8 times out of 8, on v7.3 as on v7.4-rc1 with the four deadline
-> fixes of sched/urgent, and passes it 8 times out of 8 with this change.
-> It was found by a cgroup selftest under development,
-> test_concurrency_deadline, which hung about once in 1350 runs.
-> 
-> Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
->  kernel/sched/deadline.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 30a52e42c26d..b646063a7b0d 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -1232,10 +1232,23 @@ static enum hrtimer_restart dl_task_timer(struct hrtimer *timer)
->  
->  	/*
->  	 * The task might have changed its scheduling policy to something
-> -	 * different than SCHED_DEADLINE (through switched_from_dl()).
-> +	 * different than SCHED_DEADLINE (through switched_from_dl()). It
-> +	 * keeps its parameters until its 0-lag time and may come back to
-> +	 * SCHED_DEADLINE before then, switched_to_dl() cancelling the
-> +	 * inactive timer: give it the replenishment this timer owes it, as
-> +	 * the !queued case below does, and leave the enqueue to its return.
-> +	 * A throttle left behind would never be lifted; an overrun left in
-> +	 * its runtime would be forgiven by the new period its enqueue
-> +	 * starts; and a yield left set would throttle it again at once.
->  	 */
-> -	if (!dl_task(p))
-> +	if (!dl_task(p)) {
-> +		if (dl_se->dl_throttled && !is_dl_boosted(dl_se)) {
-> +			sched_clock_tick();
-> +			update_rq_clock(rq);
-> +			replenish_dl_entity(dl_se);
-> +		}
->  		goto unlock;
-> +	}
+ptp_kvm always converts the paired TSC value to kvm-clock units and
+reports it as CSID_X86_KVM_CLK, so precise cross-timestamping
+(PTP_SYS_OFFSET_PRECISE) fails on guests with TSC clocksource.
 
-This should fix the subject issue. Sashiko points out a follow-up
-re-entry case that looks problematic (and I think I'm now seeing more),
-but that should all only concern limited bandwidth overruns. This change
-fix an actual hang, so we might want to take it and work on the
-remaining issues separately.
+Return the paired TSC value directly when TSC cycles are requested and
+convert it to kvm-clock units otherwise. If get_device_system_crosststamp()
+rejects the counter with -ENODEV and the active clocksource differs from
+the requested one, retry once using the active clocksource.
 
-Thanks,
-Juri
+Fixes: a0e136d436de ("PTP: add kvm PTP driver")
+Signed-off-by: Wojtek Wasko <wwasko@nvidia.com>
+Reviewed-by: Carolina Jubran <cjubran@nvidia.com>
+---
+ drivers/ptp/ptp_kvm_common.c | 28 +++++++++++++++++++++++++---
+ drivers/ptp/ptp_kvm_x86.c    | 13 +++++++++++++
+ 2 files changed, 38 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/ptp/ptp_kvm_common.c b/drivers/ptp/ptp_kvm_common.c
+index 15ccb7dd2ed0..e11fcf961758 100644
+--- a/drivers/ptp/ptp_kvm_common.c
++++ b/drivers/ptp/ptp_kvm_common.c
+@@ -23,12 +23,13 @@ struct kvm_ptp_clock {
+ };
+ 
+ static DEFINE_SPINLOCK(kvm_ptp_lock);
++static enum clocksource_ids kvm_ptp_cs_id = CSID_GENERIC;
+ 
+ static int ptp_kvm_get_time_fn(ktime_t *device_time,
+ 			       struct system_counterval_t *system_counter,
+ 			       void *ctx)
+ {
+-	enum clocksource_ids cs_id;
++	enum clocksource_ids cs_id = *(enum clocksource_ids *)ctx;
+ 	struct timespec64 tspec;
+ 	u64 cycle;
+ 	int ret;
+@@ -58,8 +59,29 @@ static int ptp_kvm_get_time_fn(ktime_t *device_time,
+ static int ptp_kvm_getcrosststamp(struct ptp_clock_info *ptp,
+ 				  struct system_device_crosststamp *xtstamp)
+ {
+-	return get_device_system_crosststamp(ptp_kvm_get_time_fn, NULL,
+-					     NULL, xtstamp);
++	enum clocksource_ids cs_id = READ_ONCE(kvm_ptp_cs_id);
++	struct system_time_snapshot snapshot;
++	int ret;
++
++	ret = get_device_system_crosststamp(ptp_kvm_get_time_fn, &cs_id, NULL,
++					    xtstamp);
++	/*
++	 * The paired counter value is not in the units of the current
++	 * clocksource. If the clocksource differs from the one this request
++	 * asked for, ask for the counter in the new units and retry once.
++	 */
++	if (ret == -ENODEV) {
++		ktime_get_snapshot_id(CLOCK_REALTIME, &snapshot);
++		if (snapshot.valid && snapshot.cs_id != cs_id) {
++			cs_id = snapshot.cs_id;
++			WRITE_ONCE(kvm_ptp_cs_id, cs_id);
++			ret = get_device_system_crosststamp(ptp_kvm_get_time_fn,
++							    &cs_id, NULL,
++							    xtstamp);
++		}
++	}
++
++	return ret;
+ }
+ 
+ /*
+diff --git a/drivers/ptp/ptp_kvm_x86.c b/drivers/ptp/ptp_kvm_x86.c
+index 6cea4fe39bcf..4dd55c60d2ce 100644
+--- a/drivers/ptp/ptp_kvm_x86.c
++++ b/drivers/ptp/ptp_kvm_x86.c
+@@ -92,6 +92,11 @@ int kvm_arch_ptp_get_clock(struct timespec64 *ts)
+ 	return 0;
+ }
+ 
++/*
++ * *cs_id selects the clocksource @cycle is reported in: CSID_X86_TSC returns
++ * the paired TSC value as is, anything else converts it to kvm-clock units.
++ * On return, *cs_id holds the clocksource actually used.
++ */
+ int kvm_arch_ptp_get_crosststamp(u64 *cycle, struct timespec64 *tspec,
+ 			      enum clocksource_ids *cs_id)
+ {
+@@ -99,6 +104,14 @@ int kvm_arch_ptp_get_crosststamp(u64 *cycle, struct timespec64 *tspec,
+ 	unsigned int version;
+ 	long ret;
+ 
++	if (*cs_id == CSID_X86_TSC) {
++		ret = kvm_arch_ptp_get_clock(tspec);
++		if (ret)
++			return ret;
++		*cycle = clock_pair->tsc;
++		return 0;
++	}
++
+ 	src = this_cpu_pvti();
+ 
+ 	do {
+
+base-commit: 57889a8f6d49fc153aa0017d13086ab736567f8a
+-- 
+2.43.0
 
