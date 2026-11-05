@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793837167;
-	b=Z2OXAk4Xx2BxkzbLDiTWaGgAariV84U8mnPpxdCJKU1Quri3SIgIudLg4j1mUmtPA1y1
-	 mLYZyZPfEICYOYcFHud0iM24O7RK+bGY3AeuNEJM0WUpiUInHTVkyoslxKNneGXJI67cX
-	 e8NwnQXqXbw4eyapH1vqgAUAwxLdklbHkWypoeaP/UoUAwuI7+vSrm1h2HmuQ9g9x3czI
-	 M0c9Ub7TgP8r2rUesXp34prHUfEw8kwHZ0VA6TLZ/9mfDG7523ROon/MPtRJyVMufZZPk
-	 MmMKWaJTZhtfw7eKtd7Z4tRoUVN16uqxqzW92JmwTe4q2vVrRAxkiqscKgpxlxcit+w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837167;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
-	b=wxb0tSoKUmGvO7Fc4uvYlEwU4qHTt9W3goYWOPWto47yg12GMsUKV5mscakWBZs2fuF/
-	 xb9JVsus1PzonqlT9vVgjGD7xa8FjJNcTIQ+uqk1PVOAWEdUI84RZZIq9uO7et9ekGzn2
-	 c8Qr1Jve6Cjmzwnq53Z4xVbYccMQTuPPeEY2hpaAoqSZ4UNbrDn0Tl5pLuUl7OoM4KY97
-	 xqsZkkf75xtrGMqsXpaGUAPa8hcEjc4lZbCuKDIDbgXpigVnH7Wakqb9IanVBC+UDlWxq
-	 PfqL+ALv9BTqrWb8NJenk1AcX4l+cbD429mfLchbRT2k/FAXmDMurmw6HCkQ0It68IA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UW7+Lg7r;
-	arc=fail smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793837173;
+	b=QbrySy6Zb23Q54hsvx7B0u3sosnBA7vEyKvQ8fXQQs7CNiC1hKJDtm4YXQrERY+3twR6
+	 Zzjj6StTvn+Dl+0xvJlCaoCn9IvRZCg82TDRoHzTVFPuaOYxLp1yRp62vHosmOrbhxk3c
+	 ys9d9SCYvKbbGklrpL5G5W0r/gC1A1hzhjvoUjnUQcpnC0IRWJ1+Rmd0TdJQEcu+UMpQy
+	 6+U/b823L5UjREICtEqV1kD9/KxuqD1G1Xx+BdgtA8dUT6EWriyBqRTKXqMGlSk6zN+0i
+	 o4V5dfdE7UM0b/B3GKnQOmvVgJC9+aGDbwnDI6jNKP6pOblfBbJWKFziPlu2CGvGplw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837173;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Sm1UYOlJDXjrnDJMbAYJXnk6qTnnerBF2ARlGYuVjkk=;
+	b=TPZjZDDvHpQoNoWLqp9J7VZJO2qoRNIUbSeFtzRCZCATX86hAnBurznWmrIeQQl83HLR
+	 b4CtIKnG3sOdWP95yS3mk2j7RZVbYeRoRZbYm/RT66/wziPLqFagwpxeBuKkl68ujjhT2
+	 GRPanOvWGcDAuov8HPEcsjl9g5FiY+4yKpTcE+e+wAqJySc3m8ddMRQpfGbEJDPUhEBI4
+	 JwA9CsTYz+UDN9MZ9/ZP5ktYTTCF51D111W1asmh+3ztzcPOEkR/3uSB9xiFaboRaGNI2
+	 K01PsIQ8nwNCrHhf4sZn4dtnhDCxx4VRVdeD4xmhyH3LueTFyJR6ji/ia3BszUZJ2Iw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOSivrJB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F159C606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:06:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F159C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C439606A334;
+	Thu,  5 Nov 2026 00:06:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UW7+Lg7r
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso218045866b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:06:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793837165; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Xk9grSowyyNc8qya03rxBcgre6uN8MKHJPl2sXt38PPLls/sL4aOBzgqMPjWLmIovb
-         rdyg9F+3MnLJ71/zdoBcmN+GgLsnWnBRok9numjaCvs5y2yecHGh6ASHiG/eVlsU3Zr4
-         wCkuM/vZoq45UegZSplgrA48je0bUYNDvhusyzhxzmkW3q6lAmmQX7dAciAlE91bQKwm
-         IZQKOKQqtIhMxUvpnjvPLdOplzPWDTblkyh+y6LMC23k7HsdakEVED7Hm9xbasEEfYW2
-         Llfr3V3vDLao5zfoWvZFP7D9HDdO4rpixUS1992Acl5MMHpiimTFHkWIK7Z8TeI4uAXO
-         W4Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
-        fh=heA63wkfMLbTNmVBLg636f7U0IFFjK/JKlajoYn+foE=;
-        b=OIZCNo4U9SjLsvkYoRS17aagWSbsDekv/vV1M7uuYxiVIYzXYA3e0F33zI7lNZkPZG
-         kYRSFyKTQJ1nxtKL0690VkUwPw1YbspzxxsGYay5kplcNBguvdzCs8UNCECsrQm8UQ2h
-         9kYtHdI3M+N6NuDVtrcBfIb0HPxwBRjCHIccr7rGPON/Qjxvxc7GRfv6u8NKIcASSc/p
-         yd/G4rY7pzO/0eiBFFij5A1BlEWIQL36f/rbz+VQcZy/aGxgqhEuBHs29RzOs64Emx0f
-         ApDTePjUqlFZTp1G8psirjWG1ufIc1Tz+yLxtAm/fuEbhZwrgM8SeCSbnx2KB1mg8bkJ
-         Pzjg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793837165; x=1794441965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
-        b=UW7+Lg7rFdK2cPOSHdibyhfqd0mNfE52oRphbaahRpCOHjIZJidko9tTbllyzCryjy
-         siNubT2yNT8UsddMzx39cRlaaf4u9pnE+6dIm/dTOyiVwyDFMyx/T503O/SAkgV4IgXs
-         efUG5InyQPdPjXkVj3FyrgQw8Tp3Uwud4aaLkD2TGlBzm2pE66Yo0XieOJu07M7lI+DV
-         gUkNX9hygDXotIY7g19Ob5YY4jcsnCTMlsFTY/Azp5LW+ukD9CKA5AAnTO8zpTJXxWqx
-         5Vgp8TB7FfNb2pRMsONUAcd0wfnBxqAeiMrEDvVnn/35z4BZWsrn2RkRHETiQqHGP/C3
-         KXdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793837165; x=1794441965;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rBao9fgm6zvnqMZ/xw9mMi296PqW8mAwycCLa5M4/yo=;
-        b=iNXaJSwnUYiw46lIqVLadOqE3dvc2bK0jCNWphaU//6ifDOfyiFrWVJJrz8/OxzZ5I
-         3JUBEwxRkC2G5gTBqdxvhZ+zOkDyoDG0z7oVZaSVvAiEL8Meiy5YTCD4tnblRg7pcVd3
-         0ngKwU4TCQHHWExvMmLv8l6iS5jvNm1u0PxGvR9XRqLDqKxmV2Q0VXDxch7sYWMHVXWE
-         YbMtYGvgUuOERj6lSW7F4e93gOWVSw9n9vXfvgYW3TrMOvcSZyH+gDNzZgS9PivbGj7G
-         j17vhVGpnbRedXpvSKhR3QGPa8rda0avFnJPzZ17K+IqZ3du5Ne7ThlcCuySHh+7rXj4
-         gfIw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOToO1OMoiMuZsLJXCLaXOH7KIrg8CVlH72t69Oczt8NddHvaJVQK+ISvC5fVnxdsqjFrBbBdExgTg248=@vger.kernel.org
-X-Gm-Message-State: APuU4Z801OxyQBGYf+ptnGti6ZWjP15kDOuDBh6GKtjTceLGs6jzu6DJ
-	LWcv2ubLBPwHcXX8pOMIEcI43b/l7mSSKr5jzb9U4arZIr3qbrkzNEwT+IkGSrr76PC4riPylub
-	YVMVoFj62EYO6asu/HVfzEUkS/tEcmsyduVMwMFrN
-X-Gm-Gg: AYBFou3QOvw9rVdrZ5UpsUZbjiYUXAwGi6r4pzcvg2IC/YJDTwSeL+LdysJdVXC30Up
-	2ofg5ICfOXvP1DkvMpNSG0LW33C7pZ74wYLMmvSM4YfulKjIrlRhSpVPZ+hw+N8rHv+3kkhbTmj
-	Cl2j63agHlSaYBsCz2r9e/0q4L96bQ/jDcFbJYWKhCAb4HYton1oAEs84mHIf7wXpzwerPTtcJy
-	5gPjwnYriAPjnOB1a8khAPrD1DvFx2BxIEdWmhWt6MgyecnLE/+z7HDc6OXqCPCcslfQk3FpTDS
-	H8PrLbO9Kp0oEkypjVyVbASW70xBQEzdDczgNAPDaoliB0p6uwy2sKyIMpUsBH10TBwhWmMiS/2
-	PkNe0x2CBcJGk90fwgq9229wnD92twrPnTJF8LDxvz2TERFW/2Pc7+Q9XAOUvuPOfOypuf70=
-X-Received: by 2002:a17:907:3351:b0:c4c:b560:2a71 with SMTP id
- a640c23a62f3a-c4cb5603d9emr979541566b.36.1793837164883; Wed, 04 Nov 2026
- 16:06:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOSivrJB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3EA71F000C1;
+	Thu,  5 Nov 2026 00:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793837171;
+	bh=Sm1UYOlJDXjrnDJMbAYJXnk6qTnnerBF2ARlGYuVjkk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HOSivrJBXlcD+LXoVaEuQaLRZ1FizgC2rH66MANdfazV1YEkr1IQuqPWJGZPGOIAj
+	 8v77Nxbxyi1hMiT3DJYIjvEUQyw1TKPViKhMH/RZ+lBzkol5UBqAhGdOQxkgt45FUF
+	 IQdRNE7kvZJ4J+i+3CqhW4J07B4p7PgcPkZj/4hVMNcxRiSCJ8MSo+SlSN5rDN7miM
+	 5/+jnKCHxcd5GMe4pNR6NIw7Ef5ihGlCJuhCKJ/iUU2XP8BV7lfHgCiTzOsPy1tSgE
+	 y9kT3oJAJYtroFLMqzzTEhvEz2p1REwANTbRQzylEF9WuCgX8hVPsrqYLA8CylxSsF
+	 FL6Oy8DA2cJ+w==
+Date: Thu, 5 Nov 2026 00:06:07 +0000
+From: Conor Dooley <conor@kernel.org>
+To: joseph@telaak.dev
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Burton <paulburton@kernel.org>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: mips: Add Siflower SF19A2890 based
+ boards
+Message-ID: <20261105-stellar-viselike-e56010ed5fb6@spud>
+References: <20261104-sf19a2890-mips-v1-0-eae80820af68@telaak.dev>
+ <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,80 +64,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
- <20261028134012.01d52e94@pumpkin> <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
- <20261030100215.6f8e0d4f@pumpkin> <CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
- <20261104142307.431fc12f@pumpkin>
-In-Reply-To: <20261104142307.431fc12f@pumpkin>
-From: Samuel Wu <wusamuel@google.com>
-Date: Wed, 4 Nov 2026 16:05:52 -0800
-X-Gm-Features: AclHuK8Z7yNuvzdyvQXTyXXmXbvszi-XVmOSWc_IPj379xX-z3zgWWYR8Kt4UgU
-Message-ID: <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vV6FrpfUh31uFgYk"
+Content-Disposition: inline
+In-Reply-To: <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev>
+
+--vV6FrpfUh31uFgYk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 4, 2026 at 6:23=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Tue, 3 Nov 2026 17:14:26 -0800
-> Samuel Wu <wusamuel@google.com> wrote:
->
-> > On Fri, Oct 30, 2026 at 3:02=E2=80=AFAM David Laight
-> > <david.laight.linux@gmail.com> wrote:
-> > >
-> > > On Thu, 29 Oct 2026 15:05:45 -0700
-> > > Samuel Wu <wusamuel@google.com> wrote:
-> > [...]
-> > > > BY_NAME matches names exactly, like kallsyms_lookup_name(), so they
-> > > > would be different symbols at different addresses. Please correct m=
-e
-> > > > if I'm missing something here!
-> > >
-> > > Only that the user might really want one of the copies.
-> > > Sometimes there is only the copy.
-> >
-> > Good point. I'll have v3 add KALLSYMS_F_PREFIX + pos/next_pos
-> > pagination to cover these. A prefix query for "foo." also finds the
-> > copies when plain foo does not exist (expanded on this in my reply to
-> > Andrii's Oct 30 mail in this thread).
->
-> I'm busy rebasing my patches - they got stamped all over :-(
-> I should get a v3 that applies by the end of the week.
->
-> I will add a 'prefix' variant for you.
-> The 'next symbol matches' flag is exactly that (actually it is a
-> this symbol is a duplicate to avoid issues at the start of the array).
-> So in this case that application would always need to read
-> the next symbol (by name).
+On Wed, Nov 04, 2026 at 02:16:53AM -0500, Joseph Telaak via B4 Relay wrote:
+> From: Joseph Telaak <joseph@telaak.dev>
+>=20
+> The SF19A2890 is a MIPS interAptiv SoC from Siflower (two cores, two
+> VPEs each) for home routers. Document its compatible and the first
+> board using it, the GL.iNet GL-SFT1200 ("Opal") travel router.
+>=20
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  .../devicetree/bindings/mips/siflower.yaml         | 26 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  8 +++++++
+>  2 files changed, 34 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/mips/siflower.yaml b/Docum=
+entation/devicetree/bindings/mips/siflower.yaml
+> new file mode 100644
+> index 000000000..33110f742
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mips/siflower.yaml
+> @@ -0,0 +1,26 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mips/siflower.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Siflower MIPS SoCs
+> +
+> +maintainers:
+> +  - Joseph Telaak <joseph@telaak.dev>
+> +
+> +properties:
+> +  $nodename:
+> +    const: '/'
+> +
+> +  compatible:
+> +    oneOf:
+> +      - description: Boards with the Siflower SF19A2890 SoC
+> +        items:
+> +          - enum:
+> +              - glinet,gl-sft1200
+> +          - const: siflower,sf19a2890
+> +
+> +additionalProperties: true
+> +
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315..2a7a083f2 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25698,6 +25698,14 @@ N:	sifive
+>  K:	fu[57]40
+>  K:	[^@]sifive
+> =20
+> +SIFLOWER SF19A2890 SOC SUPPORT
+> +M:	Joseph Telaak <joseph@telaak.dev>
+> +L:	linux-mips@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/mips/siflower.yaml
+> +F:	drivers/gpio/gpio-siflower.c
 
-Thanks, that would be helpful. For my v3, I'll keep the lower_bound()
-approach so the two series stay independent, but I can switch over
-once your series lands, so there is only one search over the name
-table.
+Based on this gpio thing being here:
+pw-bot: changes-requested
+The dt part of this is fine.
 
-> I think it might be more sensible (less pitfalls later on) to return
-> the symbol number - not that of the next one.
+> +N:	sf19a2890
+> +
+>  SILEAD TOUCHSCREEN DRIVER
+>  M:	Hans de Goede <hansg@kernel.org>
+>  L:	linux-input@vger.kernel.org
+>=20
+> --=20
+> Git-155)
+>=20
+>=20
 
-What pitfalls were you anticipating? If the current symbol's position
-is returned, userspace needs another ioctl() call and an -ENOENT
-check, to learn that there are no more matches. Alternatively,
-returning the next position means every call pays for a look-ahead,
-which for an unfiltered query walks the module symbols even when
-userspace only wants the first match.
+--vV6FrpfUh31uFgYk
+Content-Type: application/pgp-signature; name=signature.asc
 
-Andrii, do you have a preference between the two?
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvIbwAKCRB4tDGHoIJi
+0sHtAP96aCJIMSr8FW5MfP7soZ97j+TTomOKmetjJfMmXSi/3wEAsulPWBT5tOiw
+cU/rix+fncnB97TJC2o9k1dJ+hspBAY=
+=MNyj
+-----END PGP SIGNATURE-----
+
+--vV6FrpfUh31uFgYk--
