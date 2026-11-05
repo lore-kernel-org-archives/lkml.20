@@ -1,77 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870563;
-	b=VImR0nLZjmrULyV1NipgviKTMg73yrpOaCgi5TAQ/RLrUFi4tfyu/6lKWhEu0MwBn9EA
-	 sKVCdq4ziH1UrEYVIgfApBZOLb0ivYLs/NNeMWq7mdefNohaOn4cQcuyLJDLGIIYaYqKa
-	 I3ZfYqqMJ4Q09fL7I8JSys3cA5M8yv3KdWYJdmy3BnXtGPcaubBxoDA6nfcBD0H2JLWR7
-	 mXhWhIdHNGOT9/HM+rmoIoYuHdaGHlvCfTgWM46UxOo2zfmFiyXUN79JLwvmH0B2UbBdf
-	 tpHhvhOWGTKSJJI9tuBAtwtHhtq3ALBIp4cdB5wALOwpAgeVFdaoZ04szKEzAaorYgQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870563;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Vi8x8kQIttn/cG7icAjrqsgg9Nfk4NMWqLP7ng53iWA=;
-	b=M+xFSOn7CNHpl7SOlCOeoGWZ1dIzaMv2WBiJEel2mkxBwSw7Q1tujqheo7DtUQcfw/En
-	 WUL0/03k466JPU5Vdt6wM+tgRm/xrOGCyCEfAuODhBcUjX0C5k4u/+BcDPSDuq3qo5YiK
-	 LIxGrH3dfu+jQusWqKtg4AXB5HcLlV1QHWbETVrp6+KCTXRBU/b8wTC+lUWvyGNe/ZrtA
-	 AdPI7k95EJXLGo0b/suoiwGqP38NUEoVCiWdX75WIzcCJFJQaoVdr9cyOIwIBUt84RzBS
-	 GY5kRB5udoh1GIJ9Zt9JAX2O4+zQMSxX8CqVBPEv48L37+N9GCltLCarkV2THkcN82w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=a10xIw1i;
-	arc=none smtp.remote-ip=115.124.30.111
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793870573;
+	b=sNb8rcHJG9v29EgX8/NwqR4NbkeTwEdyV6P9Biz6unjFAmtUdrkDKwCmotB6kCyx0OyF
+	 NrQ4XEarDacR55nPo/u1diycbWEd4MHnS2BnHLxLkvmBQkMwVGsPxNiFwL/4BVSO//SGx
+	 OvS0jCa2iC81OH1W+9/oXRrTAmJtTpCTrxN6iUeHDcmv3Vv6pWp0KC1o41KWG0hRb02vf
+	 Uu6XGw9kPVADh5K0vx2VrlWr9NvGhUZgudZ+2zxBZaSOVQirqhIQEhelINqYf0Boiza0W
+	 FrhmL6jXoYptGBDbAy+R1YGjP9Mm9G26BDdKuoPxi3Wnd1FCFQTr07HDGwY9Hx8SUlA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870573;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RCWp2oqsjRYU839M9c3cuiFu7yFqoLICc5eryJaSjgI=;
+	b=XzEW46TEuXmMyJWhtnWJGBLnScPz5SXPEts9NTQhqOZnm1jIRCyofBHz1tjeqpzzmMLp
+	 XpSrRMT4CMLu6k/k+PISRfRZZcZbvpbzWIHSqqtku9UUpZSk+pgO17kifYMkmNnQnrEfc
+	 zWM9lOVXnL0wXU7A1pcU3OsOx7tnnx3ttEIXNyouDZGSkfeZdSJ7uUYf3N9ai4gI2C3Fl
+	 bULYIdMN0XDEdcSNGcMwgmsvGrUaI+mBcKbFP/MbwrCsa3WS6dYSmTnbSqjMdpjQZw+y2
+	 y3vMGXc+oCFse5BxN/mPR4RDiReQlyXhHc6goLJ4X2FQdzYB6BFlNEiBAudKiFEOHDw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dP/NtWxw";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30B2606D81E;
+	Thu,  5 Nov 2026 09:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dP/NtWxw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793870572;
+	b=CN6obbhSVqJptQ2mCnSVZiKN5UkauVyQVCj4/myg8FZOKFV8ffabeH+D5CLXfLbVBWb7
+	 D5o2G7lMZh+rLcbpmxNo22OH0B4VlfCM90I7CF6KhzfzgijklBvA00NCluBsvgVhrB+gA
+	 6AD7ILQEe6MZlquMCNhdTpdMZPGXyg69VbQ1WH8O4aZ0CA+RwzyFNrfJFamXlc/HOtEZv
+	 bm0loVjSdc/VV53mIRBubRxBBTKeAgWsvAcXZ38roQ5+wt0iX12s7uxmtFITcpRk6WPYX
+	 kcweTvjTFaRdN8o92/O2rD1grXIdLyevGVCTKnQTmwmztw/7La/Fr+wagWbQ5e+Vgbg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793870572;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RCWp2oqsjRYU839M9c3cuiFu7yFqoLICc5eryJaSjgI=;
+	b=FAdB0B7Coj1nfhEUtcvpLhDeEB6rFVa7qfouDoWaWtzn+UOplIXjwcnnZU0f0YlKdPYj
+	 AOgtnk8/yOG4R4CrnCTzbT1i/16W3sSjtrcHNopb7GDfUOWvBnqrU3AgGDRsxjFHVXl/N
+	 SoOZlJ0B6uFJM7M5RlYzM7uqUN4082YNVNC95rJxtbdl0K1l3KwnpC2XVe17jtHhROyi0
+	 RELLXHx2MTQVqsO94nBOS7QvkXAtip5YvLov4XI00pvGNgsQ0WAeZ3yo/nME4AggSQhM7
+	 wCaEfPeOhWtXvsLOaT039Idl6eRyQMv2bexv1gW8c8AzUcd60nO7B9yNC9jIivEcW+A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3065E606A326;
-	Thu,  5 Nov 2026 09:22:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3065E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=a10xIw1i
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793870560; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Vi8x8kQIttn/cG7icAjrqsgg9Nfk4NMWqLP7ng53iWA=;
-	b=a10xIw1i9YsxkQ6DTRCNnBYX9Nb4UIFkIlAdW5Cksa/ZBOURb/jLBIkVazxvB/0uIfDoKScGhHyb6N4/74hQ1kbf6jEiaqPOGj7zrOLsuZNYdo+BlQZa7MUL3FXDC5tKjC9OPPvLuvzXtOx2oDlk2V07PiPMjo1maqsc/TBl0e8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XE8K-0S_1793870558;
-Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XE8K-0S_1793870558 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 17:22:38 +0800
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-To: akpm@linux-foundation.org
-Cc: hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	muchun.song@linux.dev,
-	mkoutny@suse.com,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	usama.arif@linux.dev,
-	david@fromorbit.com,
-	qi.zheng@linux.dev,
-	yosry@kernel.org,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	xlpang@linux.alibaba.com,
-	ryncsn@gmail.com,
-	gourry@gourry.net,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Qinyun Tan <qinyuntan@linux.alibaba.com>
-Subject: [PATCH v4 RESEND 2/5] mm: memcontrol: drop kmemcg_id and use mem_cgroup_id() for list_lru indexing
-Date: Thu,  5 Nov 2026 17:22:30 +0800
-Message-ID: <20261105092233.3558950-3-qinyuntan@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261105092233.3558950-1-qinyuntan@linux.alibaba.com>
-References: <20261105092233.3558950-1-qinyuntan@linux.alibaba.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 8108F1F00A15;
+	Thu,  5 Nov 2026 09:22:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793870572;
+	bh=RCWp2oqsjRYU839M9c3cuiFu7yFqoLICc5eryJaSjgI=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=dP/NtWxwcRcwGYdTwuwMTbbGzTOhmkorY+bYNWx/DMwnFIKj3tOhRAZKXuT5RZwnC
+	 PsgoxoRRlh6jKfLZjboJMZ8GfAquidE7J6RCfPxGLpggiXPmCHgnHU6wziQbE36u+O
+	 6KHlwZgq/PPaiL5lBPX5DZhiS/zySHAWmdbqMDJeoTTlvy19XjbVgPr0NEjkIpjXdU
+	 73SjBUM9G2Opxw+4HfWmj0guNoEBIz9AKVUSoTcBbKxui0rep9Lfntf7UUsKfQjN9g
+	 6LjhA7db8JXSaAwJ7i8dXbAnabSMPCdSo9dfZqwWqyVar94yEnOLPnDNPalluda2kT
+	 DQX0wjZUhvVpw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CB3D9471A7;
+	Thu,  5 Nov 2026 09:22:50 +0000 (UTC)
+From: Rafael Gago via B4 Relay <devnull+rafael.gago.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 10:22:50 +0100
+Subject: [PATCH v2] ALSA: hdsp: allow sample rate changes from hw_params
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,233 +82,287 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-hdsp-sound-v2-1-458a3cfafbcd@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAOlK7GoC/22Nyw6CMBBFf4XM2poOD4Ou/A/DosAUxgglHSAa0
+ n+34NblSc49dwMhzyRwSzbwtLKwGyOkpwSa3owdKW4jQ6rTC6JG1bcyKXHL2Cq0how2uS0zC3E
+ webL8PmKP6sey1E9q5r2wGz3L7PzneFtx9/6GV1SobHa1WBa51nVx7wbDr3PjBqhCCF9r3eRBt
+ gAAAA==
+X-Change-ID: 20261101-hdsp-sound-1faea0a4f83f
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rafael Gago <rafael.gago@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793870570; l=10489;
+ i=rafael.gago@gmail.com; s=20261101; h=from:subject:message-id;
+ bh=OOWPJ/eSblWXsSIk6JfbzjefJM/GPmbbYxIxkfdiAtg=;
+ b=710SdVIHK9D8Y1UsQ45/F0EQTANQvfEB2gJ0XIpd3XvP8Xn25vOFrVXWHqFkwQ8SNL9Xhvalq
+ kXQiN6VCLlhBktBWFGs4qG7yUrbYj97o/wQ5DXPdJfxjao5zZjMLhUx
+X-Developer-Key: i=rafael.gago@gmail.com; a=ed25519;
+ pk=1shUAtvt9i3ykuhyO1aVre9o4Lqma7slUO2FA0HsOmE=
+X-Endpoint-Received: by B4 Relay for rafael.gago@gmail.com/20261101 with
+ auth_id=1375
+X-Original-From: Rafael Gago <rafael.gago@gmail.com>
+Reply-To: rafael.gago@gmail.com
+Content-Transfer-Encoding: 7bit
 
-kmemcg_id is a copy of the private memcg ID and serves no purpose
-other than indexing the per-memcg list_lru xarray.  It is assigned
-when kmem accounting goes online, which never happens with
-cgroup.memory=nokmem, and the memcgs then all resolve to the
-per-node lists.  The next patch needs the index to work under nokmem
-as well.
+From: Rafael Gago <rafael.gago@gmail.com>
 
-Index the lists with mem_cgroup_id().  The cgroup ID is unique per
-memcg and is only recycled once the cgroup is destroyed, long after
-offlining has erased the xarray entries, so a recycled ID cannot
-resurrect a stale entry.
+hdsp_set_rate() refuses to switch between single, double and quad
+speed whenever capture_pid or playback_pid is set. Both are set in the
+PCM open callbacks, so the substream that asks for the new rate in
+hw_params always blocks itself:
 
-Also drop the nokmem early return from the offline path, so that the
-reparenting covers lrus that stay memcg aware without kmem
-accounting.  memcg_online_kmem() and memcg_offline_kmem() are each
-down to a single statement now; inline them into the css online and
-offline hooks, dropping the root check, as css_offline() is never
-called for the root and a memcg that failed css_online() cannot have
-list_lru entries.
+  cannot change speed mode (capture PID = -1, playback PID = 4242)
 
-Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+As a result no application can move an HDSP from 48 kHz to 96 kHz (or
+to 192 kHz on the H9632) through the normal ALSA API. Rate changes
+within one speed mode work, and a speed mode change only works through
+the "Sample Clock Source" control while no PCM is open, which is what
+users have to script around today.
+
+The restriction exists because a speed mode change moves the channels
+to other DMA buffer slots (hdsp->channel_map) and changes the channel
+count, which must not happen under a substream that was already set up
+with the old layout. The substream calling hw_params is about to be set
+up anyway, so it is not such a substream.
+
+Pass the requesting substream to hdsp_set_rate() in place of the
+called_internally flag, and from hw_params only refuse the speed mode
+change if the other direction has hw_params of its own. A substream of
+another process is still turned away by the existing check in
+snd_hdsp_hw_params(), and requests from the controls and from card
+initialization (substream == NULL) keep the old rule of no open
+substreams at all.
+
+A duplex client therefore opens both directions, sets hw_params on the
+first one (which may change the speed mode) and then on the second one
+at the same rate. To change the speed mode later it has to hw_free or
+close the other direction first.
+
+Which directions have hw_params is tracked in a new setup_streams mask
+under hdsp->lock: hw_params sets the bit, and a new hw_free callback
+and close clear it. The other substream's runtime state cannot be used
+for this, because the PCM core only moves it to SETUP after the driver's
+hw_params has returned and dropped hdsp->lock. Two threads calling
+hw_params on the two directions at once could then both change the
+speed mode.
+
+Tested on an HDSP 9632 (v7.0 based kernel, same hdsp.c as v7.0) with
+aplay/arecord -M on hw:DSP: one stream moves the clock between 44.1k,
+48k, 88.2k, 96k and 192k in both directions; alsaloop runs duplex in one
+process at 48k/12ch, 96k/8ch and 192k/4ch; while another process plays
+at 96k, a capture at 96k works and one at 48k or 192k is still refused;
+the "Sample Clock Source" control is still refused while a stream is
+open. REAPER on raw ALSA now changes the project rate between speed
+modes without presetting the clock first. Also built with W=1 on
+current mainline without warnings.
+
+Only the HDSP 9632 was available for testing; the Digiface, Multiface,
+RPM and 9652 were not. The change is not model specific: the speed
+mode switch itself is the same code the "Sample Clock Source" control
+already runs on every model, and it still only happens while no stream
+is transferring data. The per-model channel counts and channel maps
+come from the driver's existing tables.
+
+A Claude AI coding assistant (Claude Code) read the driver, wrote this
+change, the changelog and the tests at the request of the submitter,
+who reviewed them.
+
+Signed-off-by: Rafael Gago <rafael.gago@gmail.com>
 ---
- include/linux/memcontrol.h | 16 --------------
- mm/list_lru.c              | 16 ++++++++------
- mm/memcontrol.c            | 45 +++++++-------------------------------
- 3 files changed, 17 insertions(+), 60 deletions(-)
+Changes in v2:
+- Track which directions have hw_params in a setup_streams mask under
+  hdsp->lock, set in hw_params and cleared in a new hw_free callback and
+  in close, instead of reading the other substream's runtime state. The
+  PCM core only sets that to SETUP after hw_params returns, so two
+  threads could both change the speed mode (reported by Sashiko).
+- Link to v1: https://patch.msgid.link/20261101-hdsp-sound-v1-1-f39f185400b5@gmail.com
+---
+ sound/pci/rme9652/hdsp.c | 65 ++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 57 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 74110a324f9e..dc89d46e3d77 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -328,8 +328,6 @@ struct mem_cgroup {
- 	/* Private memcg ID. Used to ID objects that outlive the cgroup */
- 	int private_id;
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index 7dce548b9..c6ddad82d 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -478,6 +478,7 @@ struct hdsp {
  
--	int kmemcg_id;
--
- 	/*
- 	 * Should the OOM killer kill all belonging tasks, had it kill one?
- 	 */
-@@ -1820,15 +1818,6 @@ static inline void memcg_kmem_uncharge_page(struct page *page, int order)
- 		__memcg_kmem_uncharge_page(page, order);
+ 	pid_t                 capture_pid;
+ 	pid_t                 playback_pid;
++	unsigned int          setup_streams;  /* 1 << stream after hw_params */
+ 	int                   running;
+ 	int                   system_sample_rate;
+ 	const signed char    *channel_map;
+@@ -1095,7 +1096,40 @@ static void hdsp_set_dds_value(struct hdsp *hdsp, int rate)
+ 	hdsp_write(hdsp, HDSP_freqReg, hdsp->dds_value);
  }
  
--/*
-- * A helper for accessing memcg's kmem_id, used for getting
-- * corresponding LRU lists.
-- */
--static inline int memcg_kmem_id(const struct mem_cgroup *memcg)
--{
--	return memcg ? memcg->kmemcg_id : -1;
--}
--
- struct mem_cgroup *mem_cgroup_from_virt(void *p);
- 
- static inline void count_objcg_events(struct obj_cgroup *objcg,
-@@ -1896,11 +1885,6 @@ static inline bool memcg_kmem_online(void)
- 	return false;
- }
- 
--static inline int memcg_kmem_id(const struct mem_cgroup *memcg)
--{
--	return -1;
--}
--
- static inline struct mem_cgroup *mem_cgroup_from_virt(void *p)
+-static int hdsp_set_rate(struct hdsp *hdsp, int rate, int called_internally)
++/*
++ * A speed mode change moves the channels to different DMA buffer slots
++ * (hdsp->channel_map) and changes the channel count. It is only safe if
++ * no substream other than the one asking for it (if any) was set up with
++ * the old layout. A substream of another process is already turned away
++ * by snd_hdsp_hw_params().
++ *
++ * hdsp->setup_streams is used rather than the other substream's runtime
++ * state, because the PCM core only moves a substream to SETUP after
++ * snd_hdsp_hw_params() has returned and dropped hdsp->lock. It is read
++ * and updated under hdsp->lock.
++ */
++static bool hdsp_speed_change_blocked(struct hdsp *hdsp,
++				      struct snd_pcm_substream *substream)
++{
++	int other;
++
++	if (!substream)
++		return hdsp->capture_pid >= 0 || hdsp->playback_pid >= 0;
++
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++		other = SNDRV_PCM_STREAM_CAPTURE;
++	else
++		other = SNDRV_PCM_STREAM_PLAYBACK;
++
++	return hdsp->setup_streams & (1 << other);
++}
++
++/*
++ * substream is the stream asking for the rate in hw_params, or NULL for a
++ * request from a control or from card initialization.
++ */
++static int hdsp_set_rate(struct hdsp *hdsp, int rate,
++			 struct snd_pcm_substream *substream)
  {
- 	return NULL;
-diff --git a/mm/list_lru.c b/mm/list_lru.c
-index 61248b88441c..8e9577c5cb19 100644
---- a/mm/list_lru.c
-+++ b/mm/list_lru.c
-@@ -39,9 +39,10 @@ static inline void unlock_list_lru(struct list_lru_one *l, bool irq_off,
+ 	int reject_if_open = 0;
+ 	int current_rate;
+@@ -1107,7 +1141,7 @@ static int hdsp_set_rate(struct hdsp *hdsp, int rate, int called_internally)
+ 	*/
  
- static inline unsigned long list_lru_memcg_idx(const struct mem_cgroup *memcg)
- {
--	int idx = memcg_kmem_id(memcg);
-+	if (!memcg || mem_cgroup_is_root(memcg))
-+		return 0;
+ 	if (!(hdsp->control_register & HDSP_ClockModeMaster)) {
+-		if (called_internally) {
++		if (!substream) {
+ 			/* request from ctl or card initialization */
+ 			dev_err(hdsp->card->dev,
+ 				"device is not running as a clock master: cannot set sample rate.\n");
+@@ -1134,7 +1168,7 @@ static int hdsp_set_rate(struct hdsp *hdsp, int rate, int called_internally)
+ 	current_rate = hdsp->system_sample_rate;
  
--	return idx < 0 ? 0 : idx;
-+	return mem_cgroup_id(memcg);
- }
- 
- #ifdef CONFIG_MEMCG
-@@ -548,7 +549,7 @@ void memcg_reparent_list_lrus(struct mem_cgroup *memcg, struct mem_cgroup *paren
- 		 * allocating a new mlru since CSS_DYING is already set for this
- 		 * memcg a rcu grace period ago.
- 		 */
--		mlru = xa_load(&lru->xa, memcg->kmemcg_id);
-+		mlru = xa_load(&lru->xa, list_lru_memcg_idx(memcg));
- 		if (!mlru)
- 			continue;
- 
-@@ -563,7 +564,7 @@ void memcg_reparent_list_lrus(struct mem_cgroup *memcg, struct mem_cgroup *paren
- 		for_each_node(i)
- 			memcg_reparent_list_lru_one(lru, i, &mlru->node[i], parent);
- 
--		xa_erase_irq(&lru->xa, memcg->kmemcg_id);
-+		xa_erase_irq(&lru->xa, list_lru_memcg_idx(memcg));
- 
- 		/*
- 		 * Here all list_lrus corresponding to the cgroup are guaranteed
-@@ -578,9 +579,10 @@ void memcg_reparent_list_lrus(struct mem_cgroup *memcg, struct mem_cgroup *paren
- static inline bool memcg_list_lru_allocated(struct mem_cgroup *memcg,
- 					    struct list_lru *lru)
- {
--	int idx = memcg->kmemcg_id;
-+	if (!memcg || mem_cgroup_is_root(memcg))
-+		return true;
- 
--	return idx < 0 || xa_load(&lru->xa, idx);
-+	return xa_load(&lru->xa, list_lru_memcg_idx(memcg));
- }
- 
- static int __memcg_list_lru_alloc(struct mem_cgroup *memcg,
-@@ -614,7 +616,7 @@ static int __memcg_list_lru_alloc(struct mem_cgroup *memcg,
- 			if (!mlru)
- 				return -ENOMEM;
- 		}
--		xas_set(&xas, pos->kmemcg_id);
-+		xas_set(&xas, list_lru_memcg_idx(pos));
- 		do {
- 			xas_lock_irqsave(&xas, flags);
- 			if (!xas_load(&xas) && !css_is_dying(&pos->css)) {
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index aad0498a7bd6..fcba9eb55659 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -3807,33 +3807,6 @@ void folio_split_memcg_refs(struct folio *folio, unsigned old_order,
- 	obj_cgroup_get_many(folio_objcg(folio), new_refs);
- }
- 
--static void memcg_online_kmem(struct mem_cgroup *memcg)
--{
--	if (mem_cgroup_kmem_disabled())
--		return;
--
--	if (unlikely(mem_cgroup_is_root(memcg)))
--		return;
--
--	static_branch_enable(&memcg_kmem_online_key);
--
--	memcg->kmemcg_id = memcg->private_id;
--}
--
--static void memcg_offline_kmem(struct mem_cgroup *memcg)
--{
--	struct mem_cgroup *parent;
--
--	if (mem_cgroup_kmem_disabled())
--		return;
--
--	if (unlikely(mem_cgroup_is_root(memcg)))
--		return;
--
--	parent = parent_mem_cgroup(memcg);
--	memcg_reparent_list_lrus(memcg, parent);
--}
--
- #ifdef CONFIG_CGROUP_WRITEBACK
- 
- #include <trace/events/writeback.h>
-@@ -4309,7 +4282,6 @@ static struct mem_cgroup *mem_cgroup_alloc(struct mem_cgroup *parent)
- 	seqlock_init(&memcg->socket_pressure_seqlock);
- #endif
- 	memcg1_memcg_init(memcg);
--	memcg->kmemcg_id = -1;
- #ifdef CONFIG_CGROUP_WRITEBACK
- 	INIT_LIST_HEAD(&memcg->cgwb_list);
- 	for (i = 0; i < MEMCG_CGWB_FRN_CNT; i++)
-@@ -4383,7 +4355,8 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
- 	struct obj_cgroup *objcg;
- 	int nid;
- 
--	memcg_online_kmem(memcg);
-+	if (!mem_cgroup_kmem_disabled() && likely(!mem_cgroup_is_root(memcg)))
-+		static_branch_enable(&memcg_kmem_online_key);
- 
- 	/*
- 	 * A memcg must be visible for expand_shrinker_info()
-@@ -4391,7 +4364,7 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
- 	 * here, when mem_cgroup_iter() can't skip it.
- 	 */
- 	if (alloc_shrinker_info(memcg))
--		goto offline_kmem;
-+		goto reparent_lrus;
- 
- 	for_each_node(nid) {
- 		objcg = obj_cgroup_alloc();
-@@ -4449,8 +4422,8 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
- 		}
+ 	/* Changing from a "single speed" to a "double speed" rate is
+-	   not allowed if any substreams are open. This is because
++	   not allowed while another substream is set up. This is because
+ 	   such a change causes a shift in the location of
+ 	   the DMA buffers and a reduction in the number of available
+ 	   buffers.
+@@ -1196,7 +1230,7 @@ static int hdsp_set_rate(struct hdsp *hdsp, int rate, int called_internally)
+ 		return -EINVAL;
  	}
- 	free_shrinker_info(memcg);
--offline_kmem:
--	memcg_offline_kmem(memcg);
-+reparent_lrus:
-+	memcg_reparent_list_lrus(memcg, parent_mem_cgroup(memcg));
- 	mem_cgroup_private_id_remove(memcg);
- 	return -ENOMEM;
+ 
+-	if (reject_if_open && (hdsp->capture_pid >= 0 || hdsp->playback_pid >= 0)) {
++	if (reject_if_open && hdsp_speed_change_blocked(hdsp, substream)) {
+ 		dev_warn(hdsp->card->dev,
+ 			 "cannot change speed mode (capture PID = %d, playback PID = %d)\n",
+ 			    hdsp->capture_pid,
+@@ -1939,7 +1973,7 @@ static int hdsp_set_clock_source(struct hdsp *hdsp, int mode)
+ 	switch (mode) {
+ 	case HDSP_CLOCK_SOURCE_AUTOSYNC:
+ 		if (hdsp_external_sample_rate(hdsp) != 0) {
+-		    if (!hdsp_set_rate(hdsp, hdsp_external_sample_rate(hdsp), 1)) {
++		    if (!hdsp_set_rate(hdsp, hdsp_external_sample_rate(hdsp), NULL)) {
+ 			hdsp->control_register &= ~HDSP_ClockModeMaster;
+ 			hdsp_write(hdsp, HDSP_controlRegister, hdsp->control_register);
+ 			return 0;
+@@ -1978,7 +2012,7 @@ static int hdsp_set_clock_source(struct hdsp *hdsp, int mode)
+ 	}
+ 	hdsp->control_register |= HDSP_ClockModeMaster;
+ 	hdsp_write(hdsp, HDSP_controlRegister, hdsp->control_register);
+-	hdsp_set_rate(hdsp, rate, 1);
++	hdsp_set_rate(hdsp, rate, NULL);
+ 	return 0;
  }
-@@ -4466,11 +4439,11 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
  
- 	zswap_memcg_offline_cleanup(memcg);
- 
--	memcg_offline_kmem(memcg);
-+	memcg_reparent_list_lrus(memcg, parent_mem_cgroup(memcg));
- 	/*
- 	 * The reparenting of objcg must be after the reparenting of
--	 * the list_lru in memcg_offline_kmem(), which ensures that
--	 * they will not mistakenly get the parent list_lru.
-+	 * the list_lru above, which ensures that they will not
-+	 * mistakenly get the parent list_lru.
+@@ -3815,7 +3849,7 @@ static int snd_hdsp_set_defaults(struct hdsp *hdsp)
+ 	/* set a default rate so that the channel map is set up.
  	 */
- 	memcg_reparent_objcgs(memcg);
- 	reparent_shrinker_deferred(memcg);
-@@ -5913,8 +5886,6 @@ static void __init memcg_struct_check(void)
- 				      private_id_objcg);
- 	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
- 				      private_id);
--	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
--				      kmemcg_id);
- 	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
- 				      oom_group);
  
--- 
-2.43.7
+-	hdsp_set_rate(hdsp, 48000, 1);
++	hdsp_set_rate(hdsp, 48000, NULL);
+ 
+ 	return 0;
+ }
+@@ -4040,6 +4074,7 @@ static int snd_hdsp_hw_params(struct snd_pcm_substream *substream,
+ 
+ 		/* We're fine. */
+ 
++		hdsp->setup_streams |= 1 << substream->stream;
+  		return 0;
+ 
+ 	}
+@@ -4048,7 +4083,7 @@ static int snd_hdsp_hw_params(struct snd_pcm_substream *substream,
+ 	 */
+ 
+ 	if (! hdsp->clock_source_locked) {
+-		err = hdsp_set_rate(hdsp, params_rate(params), 0);
++		err = hdsp_set_rate(hdsp, params_rate(params), substream);
+ 		if (err < 0) {
+ 			_snd_pcm_hw_param_setempty(params, SNDRV_PCM_HW_PARAM_RATE);
+ 			return err;
+@@ -4061,6 +4096,16 @@ static int snd_hdsp_hw_params(struct snd_pcm_substream *substream,
+ 		return err;
+ 	}
+ 
++	hdsp->setup_streams |= 1 << substream->stream;
++	return 0;
++}
++
++static int snd_hdsp_hw_free(struct snd_pcm_substream *substream)
++{
++	struct hdsp *hdsp = snd_pcm_substream_chip(substream);
++
++	guard(spinlock_irq)(&hdsp->lock);
++	hdsp->setup_streams &= ~(1 << substream->stream);
+ 	return 0;
+ }
+ 
+@@ -4471,6 +4516,7 @@ static int snd_hdsp_playback_release(struct snd_pcm_substream *substream)
+ 	scoped_guard(spinlock_irq, &hdsp->lock) {
+ 		hdsp->playback_pid = -1;
+ 		hdsp->playback_substream = NULL;
++		hdsp->setup_streams &= ~(1 << SNDRV_PCM_STREAM_PLAYBACK);
+ 	}
+ 
+ 	if (RPM != hdsp->io_type) {
+@@ -4533,6 +4579,7 @@ static int snd_hdsp_capture_release(struct snd_pcm_substream *substream)
+ 
+ 	hdsp->capture_pid = -1;
+ 	hdsp->capture_substream = NULL;
++	hdsp->setup_streams &= ~(1 << SNDRV_PCM_STREAM_CAPTURE);
+ 
+ 	return 0;
+ }
+@@ -4854,6 +4901,7 @@ static const struct snd_pcm_ops snd_hdsp_playback_ops = {
+ 	.close =	snd_hdsp_playback_release,
+ 	.ioctl =	snd_hdsp_ioctl,
+ 	.hw_params =	snd_hdsp_hw_params,
++	.hw_free =	snd_hdsp_hw_free,
+ 	.prepare =	snd_hdsp_prepare,
+ 	.trigger =	snd_hdsp_trigger,
+ 	.pointer =	snd_hdsp_hw_pointer,
+@@ -4866,6 +4914,7 @@ static const struct snd_pcm_ops snd_hdsp_capture_ops = {
+ 	.close =	snd_hdsp_capture_release,
+ 	.ioctl =	snd_hdsp_ioctl,
+ 	.hw_params =	snd_hdsp_hw_params,
++	.hw_free =	snd_hdsp_hw_free,
+ 	.prepare =	snd_hdsp_prepare,
+ 	.trigger =	snd_hdsp_trigger,
+ 	.pointer =	snd_hdsp_hw_pointer,
+
+---
+base-commit: 231efd8f68c950ad3b774ff51c6d15fdd0443a5b
+change-id: 20261101-hdsp-sound-1faea0a4f83f
+
+Best regards,
+--  
+Rafael Gago <rafael.gago@gmail.com>
+
 
