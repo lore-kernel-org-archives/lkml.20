@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887092;
-	b=3P3BGjqUbX0I54ip+ZJfIhgFdrKGRTutJNuLehvgNFyzbverRArXbS8henUkOizkk9q6
-	 Io3M/5HRvequJ1dciKMFzq5AG/HS80mDydPe3S+yi82AUfywni6fb3dGq7vf1mWCqT0sx
-	 UrNTGaSAn+e7o2AZz9e+U6Pqj6PC17ZmhJc6ZtVrNmVBeP1vixUd8LUJC61+nRnWVCfFC
-	 7KnOwh42+QZgY95UsqtaeM+tQlPe5L8+hwHf4EmT5CofaK1ed+LsvPgeC8mW8h7gDVax/
-	 Hp5XT0xr9wW8t6Pk1+eFD1slBIZX06LwhWHJnC7LgL5cWD5WdsuVtvq8jzXdDcXxbVg==
+	t=1793887097;
+	b=LjGgAHlUDlJjgwpLG0ycZGoUxtqFcP8zyh33ncfyhIJii0Tx59TMmQoDh4xd0g/ej6+L
+	 ttsSnlEHnGRcbltEkdSTgjMqAtMOavRKtK00x7BonBPNP3rMJNNbz8f3oDBus+YXduw85
+	 wcvzeBMheQC2Eu8Dsvb6UTU5imF5cdjL0RPnLPZhLjQv451Icu7D2MMcnsblAsYKxrHnm
+	 jeEiIzDCqFvmwDrflSH9WOp9JESCPjGgJPrdnPjBU4+n1mjhIuHcHwEa4KFe2F6hy/bIw
+	 Uc+fTmiFKmeaHkL7N92xN538p0CsLybClzuZLuD6RwVMzPWSoZcvycxUWJFTTrMfssg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887092;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4LXZbxqzq4LIk7WyW1SeSNbJHlBvjgXgeoFuHhkgJ6E=;
-	b=RA99N3ye3YaEWwJ4APty5QF4HR76ZHDae3YwUKucpkMtiwfFc/toI2orbWpTiij4/u7z
-	 IJzSS8qMIkA9qsF5NFnRwg0SMWAAvNXFojVvZpAQaOXlTBK+mRUodyXikmaePvXBv04Qi
-	 CBFwIgZsy8OJLZxCxqtp+5U4+1Yd3tr1WOZo2LpVrv3Gv1Xf6adO5c0MHW4QClseDosdK
-	 Yoq12kU5BYq/phQ2IwY79xgoZgQtxClGaO1AiIEgq3o+0tMWbiEymS+0HE+NocpYqQ6HD
-	 YCYM1HvtUaNXdMrJBh+GKYZ63/IOhpxfdkC3IvQSAdof91BO0Wf3xBklznkl6CXQPZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887097;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=roeOiANIDFUwCk1N8kNAgvb2U58m5KoSZCuD7m0gbng=;
+	b=nkj+G0FjeeeudPhuZa+ujETbamHMs7TTR2Epk7bZMXQzl7uAQXspitk5W0wHh6yNqBIh
+	 oZmQt1XiuvVLBgvzBP+rrbRj9ok2iQvYgs/EtFRwwihSqD5boWyhhG+msxDFlMX6zC5qc
+	 Y7rxkqhRlxRye2HikVICovzY85EVyFPIMULtnVD/QDRzkQ74t3UQs4m8l+uJQyX0zkm3X
+	 bXYHIHFzYnLwb9W8rXcraYRdz+o9qRyZ0AHE7T9bZ12DmMtw//FysLOoYihEqgv6ARIDA
+	 ngBQMkZXpSX+1y8SLU4G8KKENmjP8JopGm58lZ71E4lxKo2CApbjjDzq7jA0gbUAqQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9kYmCTr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222FC606A32D;
-	Thu,  5 Nov 2026 13:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9kYmCTr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B321F000C1;
-	Thu,  5 Nov 2026 13:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793887092;
-	bh=4LXZbxqzq4LIk7WyW1SeSNbJHlBvjgXgeoFuHhkgJ6E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z9kYmCTrQnnY+UT/aEMKUdjk9MYHLJ1VXtv3P6vKMzrySojtn9nW3bcMW0YRI3rTc
-	 D+Nxhn3sutcb2SW5UlGF1ylXi3gG10NmRFILINIk/7oSNqf6hzMC27Rw5sKfca9B2A
-	 Jg6iLQKVAA4I63hUsFsTisRvl3QD5YH0r40NTcTUGjsfFeYEk2NE8jT1gUEg8sTQfv
-	 mzt4Y2IzwqIfiQHg+aavNl7QJxZOzwPrJK59z6XJDT6NUqChiEV0yHEB60BUBNpJS+
-	 Qi3R2sZIbx0W960jcM37z2Fe3Tip6A1QF2mOKGNLuYAWjTDuKXL7+yTGpKZKanlZnC
-	 K9WUEq6pRyafA==
-Date: Thu, 5 Nov 2026 13:58:08 +0000
-From: Simon Horman <horms@kernel.org>
-To: Davidlohr Bueso <dave@stgolabs.net>
-Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, kuba@kernel.org,
-	pabeni@redhat.com, anisa.su@samsung.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mctp: accept MSG_CMSG_COMPAT in recvmsg
-Message-ID: <20261105135808.GS865646@horms.kernel.org>
-References: <20261101200331.1956836-1-dave@stgolabs.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A25606D819;
+	Thu,  5 Nov 2026 13:58:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7A25606D819
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jL3ml3HNbz8Xrnt;
+	Thu, 05 Nov 2026 21:58:15 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A5Dw6So060372;
+	Thu, 5 Nov 2026 21:58:06 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 5 Nov 2026 21:58:07 +0800 (CST)
+X-Zmail-TransId: 2afb6aec8b6fdec-d453e
+X-Mailer: Zmail v1.0
+Message-ID: <20261105215807526OqR0Bg86VChvwhCEz5xGr@zte.com.cn>
+Date: Thu, 5 Nov 2026 21:58:07 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,64 +56,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101200331.1956836-1-dave@stgolabs.net>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBudm1lOiByZWplY3QgaW52YWxpZCByZWNvbm5lY3RfZGVsYXkgc3lzZnMgdmFsdWVz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A5Dw6So060372
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 05 Nov 2026 21:58:15 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEC8B77.000/4jL3ml3HNbz8Xrnt
 
-On Sun, Nov 01, 2026 at 12:03:31PM -0800, Davidlohr Bueso wrote:
-> 32-bit userspace running on a 64-bit kernel is unable to receive MCTP
-> messages on an AF_MCTP socket, even though sending succeeds. There is
-> nothing for MCTP to do with it beyond not rejecting it, as af_packet,
-> af_key and can/isotp already do, for example.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Hi Davidlohr,
+nvme_ctrl_reconnect_delay_store() stores whatever kstrtou32() accepted
+into opts->reconnect_delay without validating it.  The nvme-fabrics
+option parser refuses reconnect_delay values that are zero or negative,
+and the rest of the driver relies on that: nvme_ctrl_loss_tmo_store()
+computes
 
-Thanks for your patch.
+	opts->max_reconnects = DIV_ROUND_UP(ctrl_loss_tmo,
+					    opts->reconnect_delay);
 
-As prompted elsewhere by a bot, it would be good if the patch description
-included some information about how this was found. And also to what
-extent the fix has been tested. I know you answered that already but
-I'm going to ask for a v2 for other reasons. And it would be good
-to include that detail there.
+Writing 0 to reconnect_delay and then a positive value to ctrl_loss_tmo
+therefore divides by zero in the kernel.  In addition, a value larger
+than INT_MAX is truncated to a negative int in the assignment and
+silently bypasses the checks done by the fabrics parser.
 
-> 
-> Fixes: 833ef3b91de6 ("mctp: Populate socket implementation")
-> Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+Reject zero and values that do not fit into the signed int field.
 
-This seems to be a fix that effects users. Which I believe you have
-reproduced. As such I'd lean towards this being for net, CCed to stable.
+Fixes: 764075fdcb2f ("nvme: expose reconnect_delay and ctrl_loss_tmo via sysfs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the loop transport.
 
-Subject: [PATCH net v2] ...
+Writing 0 to reconnect_delay and then a positive value to ctrl_loss_tmo
+divides by zero in nvme_ctrl_loss_tmo_store():
 
-Otherwise, it should be for net-next.
+  unpatched                            patched
+  reconnect_delay=0 accepted           write rejected (-EINVAL)
+  divide error, kernel panic
 
-Subject: [PATCH net-next v2] ...
-
-> ---
->  net/mctp/af_mctp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/mctp/af_mctp.c b/net/mctp/af_mctp.c
-> index 8af5e2b3c8d1..aa22c0860712 100644
-> --- a/net/mctp/af_mctp.c
-> +++ b/net/mctp/af_mctp.c
-> @@ -292,8 +292,7 @@ static int mctp_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
-
-Strangely this patch has been mangled - the original code is 7 rather than
-8 lines long. (s/,8/,7). Because of this it could not be applied by our
-CI which then did not run the usual tests.
-
-I'd like to ask you to fix that and send a v2.
-
->  	u8 type;
->  	int rc;
->  
-> -	if (flags & ~(MSG_DONTWAIT | MSG_TRUNC | MSG_PEEK))
-> +	if (flags & ~(MSG_DONTWAIT | MSG_TRUNC | MSG_PEEK | MSG_CMSG_COMPAT))
->  		return -EOPNOTSUPP;
->  
->  	skb = skb_recv_datagram(sk, flags, &rc);
-
--- 
-pw-bot: changes-requested
+diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
+index 10018c6356b6..d7309a55aa8a 100644
+--- a/drivers/nvme/host/sysfs.c
++++ b/drivers/nvme/host/sysfs.c
+@@ -634,6 +634,14 @@ static ssize_t nvme_ctrl_reconnect_delay_store(struct device *dev,
+ 	if (err)
+ 		return err;
+ 
++	/*
++	 * reconnect_delay is used as a divisor by nvme_ctrl_loss_tmo_store()
++	 * and the reconnect logic expects a positive value, just like the
++	 * nvme-fabrics option parser does.
++	 */
++	if (!v || v > INT_MAX)
++		return -EINVAL;
++
+ 	ctrl->opts->reconnect_delay = v;
+ 	return count;
+ }
