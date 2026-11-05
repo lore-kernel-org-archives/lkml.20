@@ -1,124 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899479;
-	b=Icw2P+HNRHAGXMGbJ9Rua7cjpKYDsl7qGm9TWXCz9ZkVTdZzCCM8wfF2VciyKmDyzto4
-	 6Q8EkTfo/ekCkPGaJrtUuoBw7a9pFpvC0vbduTXXwT2bQkKR7IGjoXF8fFK0tTU+kje7Y
-	 yni3sYbjnBhXDVCZmc1p0y1Z/FPX1RLIgLZ5z2tl5MD1XRWIn6qfBRsc0Ab/b1rydAF1x
-	 o+dbyw1EQnelZ4iHThXjhyFMJjOKb95OyIBESo9joMs1I5c8eRKZgZE4GCyWk2VJ8Vu3x
-	 rVL70wGGw6QyE61Oj/FEMVq7F9ImXH4T2sCfgvpPtH5UEHefiU8DlnPi6mZQFyWxC3w==
+	t=1793899524;
+	b=m8biYUzjW/aksh5Y2FnA8gR+LLvtDqjUu2hANfKaEKVT91je1hh0OfyNcdnJ+KuaP6v0
+	 8luxNsbTYSqNYXuZCss1zeW4gbmyYUUtrrMIpNKzrbkwxUcNfs+FdMwHKf3LOq1zJccfM
+	 iBB0htt07kPKr7BIiUsEXaAiZ4nX6sVYsaS+fEu99W+a/BTjZU3rD9ZZKNLb/kLFtpRsU
+	 3Y6cTXNb4I5lQSadDNojqaiqi1bq2mLGt3tRHE5Az5Bdgxt7FhTSe3OT5LfuTxWNajkvL
+	 oQdnwVSwxI2vgHTYRFJQipeKYSI3U4nsNymUMj3w15faCxh7aZR5uKq9vHX1dI0aWNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899479;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=+Sc9yPGaNTmoDAc39XzEsbXpXvtl7Fk3dFBI/g/ZPmw=;
-	b=KBCjjB4sxeBIoBt8iUNCMvVl9Ozdaj/D2jj8dT4gcNbatijUjpM41jKojqk/syuMkGGx
-	 cEEVCOa9eiMKH2VH2lb5cepZkuevVHIEGYdB+aMFgod/Tq61CM4Cr2aMk282Za3K3ABry
-	 8/sACgWpJK1/bU+FzRFv1fQ7CGWKLlMhWfDAMlwVd3C7OUpHf0dqdDEzBrKm0ma1wa1XM
-	 zdV6x6PHKERDWW8G5htGbtvacrGxzB7qdg8TysRC0a6hRU1L6e9Ki7Yjj3iOPoBVNehgj
-	 oTG8oJVrqOyDk1jmBlFX90z/4A3n6/zQUmyKxmKHU+io4/32JdEHVxfvWx1vSKoe9ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899524;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=f9nNFMOzW2cZ2+4niYK+/UnL/n3aASeuAKJSmbepMR8=;
+	b=VeMF+U2v5ZzAf62hIidFNj6bYiM6nGl1G+HnDSIRCJ8Bl9UJ787zqSPtZfrqHZZTExQP
+	 LZ006LmArR1DVvxpwxXDunr2/IAOD0c9kdg2LOfjjZfM1DC48dCSYy1OF2S7MYyL2siLv
+	 gjkDRfeRh9mdOtGzJB9pLcVEMmpHmaFo5hwJiOhQSBO6lPKN604SWVXYnMUL2457Qwwcx
+	 8gC6QvQhtAjN+2xxFGoHvizblmUB0K2JTSvBdTR1VHv2RZ9EBaX3xcTIykyvwIuFO1GNu
+	 mDybPDg5lHcIhk80WXoxXgdksbSfEi3fx3erEGzl6ZYZPNOShQbp7X1ull90ebqKavg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OXXcUxth;
-	arc=none smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=DRAr9SGa;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=lkBWjydl;
+	arc=none smtp.remote-ip=202.12.124.159
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E8C606D83F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83E8C606D83F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0156606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:25:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0156606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OXXcUxth
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53653e30353so27927631cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:24:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793899478; x=1794504278; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+Sc9yPGaNTmoDAc39XzEsbXpXvtl7Fk3dFBI/g/ZPmw=;
-        b=OXXcUxthtyymPU3fwfbcr40/daOdZ4UuV0IOhK3r7k3BfuoZd0x2qWahN2YNfUretu
-         Tvwnl0KFWoKOeZb7Eb3uBsqzIqq8J25exR7V5CgkLuEPZfnZT4ED35Z0b9rlaw575Jgj
-         FQy6EYxV5onXU0wpKN8YyESt8CkDTpTTkNBn9V25Xj56jakQJCIeQ+jbdgqM3xEfnuQB
-         l6A1FG/uOsFRxdidxCtIsyNflhv6dRW8a6chHrMU0u2dgaNP3KFe01+lBZywKoRsUbeP
-         mAwXyFk8XjT9tW3AtUvUEUaho7CfMrUWwbB5j2cn7aptAgB87xrCSo1TqcjbSZYZh8xc
-         JpZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793899478; x=1794504278;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Sc9yPGaNTmoDAc39XzEsbXpXvtl7Fk3dFBI/g/ZPmw=;
-        b=YAEAy/uaeUGw4JPlHcEJ8ZcPhlTvT1innJwiKBsy4HeniWK5jCDzsawaXqO+0S5UL5
-         P1TcwYn/YaI8cH6zKFPYhVlSi7qHzEBjFbTTuFUlFjJzdgFSyGOV4QTJvkskdns3xhbV
-         orQ+wELLmhigpwwFeNX4UGNbqC+pbaDifJuUAB7Q6PrSBgiWkDkZG7ehZBqcCOm/9ebO
-         19+H0v3SVeovW0S/5RGIWuxQ0pl1E/qALI/Ipz4HZQ/gwmX5k58ome+41VkOTDxElxAF
-         RZkVPh3HXIUUWwzzshfx4HZVWsvLiIq6HBOfbB1zAf7hCd0kUbBWwUfbnDN653k59gyG
-         gvlA==
-X-Forwarded-Encrypted: i=1; AKwUvBx10wyxyiBMK3tV6PRr9kad0yRu8FppuXX/bm2qGSxf/jW01by+5zfIUSP4jo5LLR/mGtDw+fTL07ApPE8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vb3MaKMU454cf2Ki0reFnnN2tmJML62gSh1e3aFi/6p3FylIW
-	S4ZKUHlgmzwxLkDOX22OMV4bI+gykSrHpJT3+KS23a4foxRdNVXCGV4gEhM56yqwbQ==
-X-Gm-Gg: AYBFou1eBXm5eU93TpY6Ftop5Jh3vU2zOi0L1GYD4bs9tLbryCk6iyfQNuoum+Om1/r
-	RrBMylP+sX+hhxubx5mK8FErY31VgBQNaxoPhaUZFxPUohjmWBy8CxtMl0+RPWAE/49i3Onoaco
-	zy8wXo4MPNH4oCVj6vEW5ExP+aNaearUwupd974DkWPoi8p2zfbQiuv3Nvw34VHi+a8SsZ1Xabm
-	Iow6soRssk8/rr/tav/Dz9Wdx09X7rbKbkc+hrQHbVqgfQJt51AAvLmZfvIGZIpN4LBT09a5Gz+
-	tBZQ9qPlvBfBfSodqF8Ye2AlDt1fKcCCjjDTifgbIGwPPe2Dw4AHg0KG/vTG/jcdYJ0PCr+5eeL
-	zgYzUEPKSE17uQVA/KBi47tCHLCBQjZ9UNbyrVv9XiJx2qSE/3Ts6uf9nl/r4xaJX/ESEQ5kwQd
-	5cMJMyr5160ZNyf6c/qL3X6QUAXyJk6iJUeDlwXzg41/3ax5STcOSspdI6H4T8D3lHtUs7ITY0+
-	vgKaYe8eoSWLkeTxkma9JQ/2Bc/FtmREj9XZMVtA/y6paxfjBZMpxTpiXHfRaFho71VFuLSc+5x
-	RnT16LgQpGRSPcxCVul77Ts3bbBk
-X-Received: by 2002:a05:622a:2515:b0:536:52ae:d92c with SMTP id d75a77b69052e-542b6e55bebmr328898701cf.35.1793899478212;
-        Thu, 05 Nov 2026 09:24:38 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10a6ca24sm57130131cf.14.2026.11.05.09.24.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:24:37 -0800 (PST)
-Date: Thu, 5 Nov 2026 12:24:33 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH 05/17] USB: Lock registered interfaces during manual
- driver binding
-Message-ID: <bb83fe3c-cebb-4bc8-bfc9-24df1cf72b0b@rowland.harvard.edu>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
- <20261105-device-trust-core-v1-5-1e536825b4eb@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=DRAr9SGa;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=lkBWjydl
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E5AE07A01DA
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:25:22 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 05 Nov 2026 12:25:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793899514;
+	 x=1793985914; bh=f9nNFMOzW2cZ2+4niYK+/UnL/n3aASeuAKJSmbepMR8=; b=
+	DRAr9SGaR9mi4e+DUMbG/bFWPkRfz+aamV91TbeVE/idxDvnN1iDBUaplFrMYNCk
+	IlOP/N9FgL/xvlvdzhdsUJ2GK9DjzG4sUC8EuH5SwHvl2NnIBsKXGoFGB/PghJhh
+	ofg2Yv2+5liSiSY4eKWO0JRR8HROaf07WtsA9UdKBD7BskdHZc5oVNvU0bTD2e2K
+	raLchSGCdBhMUeP9/0uqudmVzDrBOiScI7cEkuLfhKHYLhTLazwq/hbbCtK0FSkg
+	0MSlb0CmLe5pVTanSIEVPQS8TVtClyZIIRkQzqNGCOGpENOas2iA4/VtDBlS63es
+	nI/BtsO6ZLHUUjjeLd00fQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793899514; x=
+	1793985914; bh=f9nNFMOzW2cZ2+4niYK+/UnL/n3aASeuAKJSmbepMR8=; b=l
+	kBWjydlECLXK47xrFOlx3DvDLw20bcqu7VPOM5TvJZvALkShOyIevlyTiplpBiT7
+	BOjYif4qCJ2bRA0oEYtdF/FvYX60G5rAXVtojlLgGQZHXS65jKIAKa58OY6sQIyi
+	eiH9mgyqHXsWDID+CbketRycGJTJ8PH9p81htKybjdj+9F+DUCOYgMUpqdPGczdc
+	wkU6wzqna+5AXMnQCIV4NYNjbigOaCwZJ10xdSWWK9JJsQKjArXF1wRSOhYiKhGo
+	gnapPO6XGqwsw+g7qZzLtJIPVBggtm0FfxfdUzKuamTjFAFnV/ly4BESt2soYuPt
+	CdcGpmpOGRxrpv+Dci3KA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793899514; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:LUxxf2Q7yLhxkK/l+A5HP7N32vzPKDR4EQ+VjEO1gj2zWbt
+	naGpcF2nReAoB3thKMKfs5Vpqci2TgW13hX+UkdSruGSrUUO7lNh/DzLj1T4aD4J
+	TT6X9Lm3jVraGWUCiVJ/7M2K160vqByXM8k1vDffEp/342N83bvhusOYE9/UNdCK
+	siR/hLtLiuTKNTj1UTVsJfbHoeqUvzDUcQEQYRgR3MEGr0iMxVZXa9lbqXHwBRdi
+	Hxbeqa5RkODLa6HSuzWquOH5TEQFXpADKMbvQiFEJ5NR9EPc07u8m2Ke5jT/6+xd
+	1eK1nYjidhiwUwc+0TQ2NezqZvYHnond/t3qYZg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:aZVfFFxNmZzY/z4P03p4LUnIWVoXUeYBCryrkJ/5Sik=:zp6nrIcl86nIfpRQGtTtcOAPe405701jGc7Yv6n+Bgc=;
+X-ME-Sender: <xms:9LvsanVVBHlb6ATcQxJ5X34ud62tpbWowNdoj-SpRCnPrgdnunCFLg>
+    <xme:9LvsaqZUCoWzIWatmCzY8csrLtyQVOqVPIUVX0XBFLvzrmIesmyqEkluWD_l2wyKO
+    fe-Fx2WiWq3UzbSod5JodOI8ChMd4dqoojK2yTHEuYPXCoZmsg90HVd>
+X-ME-Proxy-Cause: dmFkZTGcLElrDLHMCTXanqvG5BARs6Rbztojvo7fGA7PusxL1nQ4KJ1nU0k03WSbaf7pNz
+    EYYMA4mY5+oKfINwmtoclDgACOYCZcrtwyFYemyDjIPnMxCiPHguTl2DpNG6upv/3dWutw
+    8jALM33LOtOZ3LIjupYZ8fvhj14eljel+42riAYvLxF95ygWSd19goy4BCtPOpu8jMGAo7
+    gr6kRW9UP7pZycHaxKgDGjvvoXa3VPNaK66ow5cmbNCSy4CpPB8sU8Tq8zqykT4g6nbEQS
+    7OAgwxRnOrnQjafuXwBanOY1lzdCBjGA8UQGasUBVn5k61cUaLKPyQuS/HcsNhACBmxpJm
+    iTE77hCoGtPhirdph9WEbY7T9hJkNnnebXQnNtX/hRIzw4QGiNvtvl6I2HIJnHpDt1qkHD
+    8zJaR+gD0ay9BWZXb7IQntaA5qoB3uUPLAnpgaP1tcu8ZWSV14/M6qMsYo2tjqlNpC3Oi+
+    p0/uHvGddacecQvzeQ2ptYuhAGloK7gNCjY+Lki+MlOvk+R+WRNWnklkk6LKEmPDRLv5Rd
+    ZA3tnyuwpnP8WHZNT0PxZr8O5PJG4ADkxylD7BXyRc417hLLzcEc8eWoRa6mSmSXOpHSw+
+    PAT2f7O/ONzu4AdsITY5bBnxHa9En5mXi0Q8zd0NrTSBva/b0y6XXK0oDybQ
+X-ME-Proxy: <xmx:97vsapbYa28kwXLag7bdvrYpGfjpFzQ0otF50vdkho-5xKtam1CrwQ>
+    <xmx:97vsapxHMOXF9Zj2HCtZ5wswPnjmTZThOjANg2PoUm5i614ExRq2gQ>
+    <xmx:97vsakfjsxEpZYc3QElNCrnoSmDSosXnjThqA_oua2I7rTwcyFFFqg>
+    <xmx:97vsanINdnt1stjYkAeyzV0IFj1u-TBQXfzku6b33yjabUC2ZZJRUQ>
+    <xmx:-rvsalItevP5cJfM3jxsoc0Guq141usE2oBMNoCtmKQh3CZBdAG8giYB>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 76FF532A0097; Thu,  5 Nov 2026 12:25:08 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,91 +115,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-device-trust-core-v1-5-1e536825b4eb@nvidia.com>
+X-ThreadId: A58_iQTPKAxw
+Date: Thu, 05 Nov 2026 18:24:48 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
+Cc: "Lee Jones" <lee@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Peter Griffin" <peter.griffin@linaro.org>,
+ "Alim Akhtar" <alim.akhtar@samsung.com>,
+ "Russell King" <linux@armlinux.org.uk>, "Mark Brown" <broonie@kernel.org>,
+ "Charles Keepax" <ckeepax@opensource.cirrus.com>,
+ "Linus Walleij" <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@bgdev.pl>,
+ mfd@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+Message-Id: <9fa9add9-6bba-4cd9-9f15-d6ca222a1a23@app.fastmail.com>
+In-Reply-To: <auy4Qbxg-pW_X37E@google.com>
+References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
+ <20261024-samsung-kp-v4-1-e21253295e68@gmail.com>
+ <20261104181429.GE1650678@google.com>
+ <ad02069b0cdede7ae191e4a3df57f33a@gmail.com>
+ <20261105085321.GG1650678@google.com>
+ <85817548-28f8-45ed-987d-a4996c2bc4ce@app.fastmail.com>
+ <auy4Qbxg-pW_X37E@google.com>
+Subject: Re: [PATCH v4 1/4] mfd: wm831x: Support software nodes for DCDC regulators
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 01:42:18PM +0200, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Interface claims hold the USB device lock, but device_bind_driver()
-> requires the target interface lock. Without it, trust-policy writes can
-> race admission.
+On Thu, Nov 5, 2026, at 18:12, Dmitry Torokhov wrote:
+> On Thu, Nov 05, 2026 at 02:43:17PM +0100, Arnd Bergmann wrote:
+>> 
+>> As far as I understand the situation, wm831x was used on the
+>> reference board (Samsung smdk6410, removed in 2019) in addition
+>> to crag6410 but never anywhere else upstream. The question
+>> then is whether we'll ever see a DT conversion of crag6410.
+>> This would require finding someone willing to actually do
+>> the work, and coming up with a way to handle the autodetection
+>> in mach-crag6410-module.c so the correct spi/i2c codec
+>> child devices are probed.
+>
+> So I guess the question then: do we need to keep this board at all? Or
+> it is time for it to go the way of the dodo? And then we could drop some
+> more drivers as well.
+>
+> My goal for the series was to move along legacy gpio API conversions, as
+> well as move away from the GPIO lookup tables (ideally I want them gone
+> now that we have software nodes supporting describing GPIOs).
 
-This says nothing about usb_driver_release_refused_claim() and the code 
-related to it.  It is an incomplete description of the patch.
+Mark Brown is using the board for testing eight Cirrus/Wolfson
+audio codecs:
 
-Note that nothing prevents drivers from using an interface they claim 
-before that interface is registered.  For your scheme to work properly, 
-you should make sure the claim is authorized when 
-usb_driver_claim_interface() is called, not when the interface is 
-registered.
+ - arizona and wm8994 have actual users with DT, but this is
+   the board he has for testing with platform_data
 
-Alan Stern
+ - wm0010, wm1250-ev1, wm5100, wm8996 and wm9081 have no other
+   upstream users besides this board and no DT support, so arguably
+   these are probably obsolete and could also be removed.
 
-> +/*
-> + * The driver core refused to bind an interface that a sibling claimed before
-> + * it was registered, and dropped the claim. Let the claimant release the
-> + * interface instead of operating it with a bound interface but no driver.
-> + */
-> +void usb_driver_release_refused_claim(struct usb_interface *iface,
-> +				      struct device_driver *claimant)
-> +{
-> +	struct device *dev = &iface->dev;
-> +
-> +	device_lock(dev);
-> +	if (!dev->driver && iface->condition == USB_INTERFACE_BOUND) {
-> +		dev->driver = claimant;
-> +		usb_unbind_interface(dev);
-> +		dev_set_drvdata(dev, NULL);
-> +		dev->driver = NULL;
-> +	}
-> +	device_unlock(dev);
-> +}
-> +
->  /* returns 0 if no match, 1 if match */
->  int usb_match_device(struct usb_device *dev, const struct usb_device_id *id)
->  {
-> diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-> index a738d03c23eac..d35a7710c8ef4 100644
-> --- a/drivers/usb/core/message.c
-> +++ b/drivers/usb/core/message.c
-> @@ -2264,6 +2264,7 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
->  	 */
->  	for (i = 0; i < nintf; ++i) {
->  		struct usb_interface *intf = cp->interface[i];
-> +		struct device_driver *claimant;
->  
->  		if (intf->dev.of_node &&
->  		    !of_device_is_available(intf->dev.of_node)) {
-> @@ -2277,7 +2278,14 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
->  			dev_name(&intf->dev), configuration,
->  			intf->cur_altsetting->desc.bInterfaceNumber);
->  		device_enable_async_suspend(&intf->dev);
-> +		claimant = intf->dev.driver;
-> +		if (claimant && !try_module_get(claimant->owner))
-> +			claimant = NULL;
->  		ret = device_add(&intf->dev);
-> +		if (!ret && claimant && !intf->dev.driver)
-> +			usb_driver_release_refused_claim(intf, claimant);
-> +		if (claimant)
-> +			module_put(claimant->owner);
->  		if (ret != 0) {
->  			dev_err(&dev->dev, "device_add(%s) --> %d\n",
->  				dev_name(&intf->dev), ret);
-> diff --git a/drivers/usb/core/usb.h b/drivers/usb/core/usb.h
-> index a9b37aeb515be..293340a48b6c5 100644
-> --- a/drivers/usb/core/usb.h
-> +++ b/drivers/usb/core/usb.h
-> @@ -49,6 +49,8 @@ extern int usb_set_isoch_delay(struct usb_device *dev);
->  extern int usb_get_bos_descriptor(struct usb_device *dev);
->  extern void usb_release_bos_descriptor(struct usb_device *dev);
->  extern int usb_set_configuration(struct usb_device *dev, int configuration);
-> +void usb_driver_release_refused_claim(struct usb_interface *iface,
-> +				      struct device_driver *claimant);
->  extern int usb_choose_configuration(struct usb_device *udev);
->  extern int usb_generic_driver_probe(struct usb_device *udev);
->  extern void usb_generic_driver_disconnect(struct usb_device *udev);
-> 
-> -- 
-> 2.56.0
+I assume Charles can comment on how important the testing still
+is for the codec above, or if there is other hardware that could
+be used for testing the arizona and wm8994 drivers in case the
+other ones are in fact as obsolete as they appear.
+
+       Arnd
