@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840471;
-	b=e2hPZqvZmz7GEgTpumfbBOKUkI5Of58fWZvoEIiCWtp/LpSDC/eM3vbfs+MOgiMqUpw6
-	 ywa0I9oY+hx/Gvywwfaj82e7zspI7QC1fviDUugvIb5lhls2xAqeVTYjpGkEk+70yQbu5
-	 aTHzoDw4/CD23fd0BIE7EbT2mAyDKCFyzlrjDYho3WmWDnZUpA/Vyqe9HYBGXoOgMMI/y
-	 mmicPx0vqYrU3XA3YBod+RyAtYOdOMxH1Ns+rHf01VBG0cVvIruTYA/lnf81FAd0PE6zT
-	 OvP7SirGZitaQfhE9S/yMlGziW8H0ijoODF+XfOFXaO6hlhpnqjGFhBWf9L4qOR0sLw==
+	t=1793840477;
+	b=dN6sFSOxS7enJus86dBQGHiQHr/J18p+6xLISbkKQYjsyltgP47nsvI8XN4xCUXzgDAZ
+	 nuFberrekJLEcbNTOYrm7dIxo4Z2XuBYdfWjGsIKmZdLW+BZ0S9jV9ll68j/PSjMCRRVz
+	 JG2dvR1VkYI9PH9XFMy+gju+junUBFhFZBvGqLV0RQHnWyDTAOKr3qg4aQzltU2P2IpgA
+	 dYp9ftk9UEJH6MpIa7jru17y8O1eHZiSisY7FRZS4QfGOzFH2g2MUUwOqh4bfiBOCvIFR
+	 l+wN7kuyV33U65nlo74fRwHp4wqgVVDJzDbpYeiYSrdnZmXKuQuwuHYYN8YooV/gVAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840471;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840477;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=ZpcXpaaFdIS2BdTK8lo+4wKARLFbWTh69FfI88xetkM=;
-	b=u/hD1DEzGpOGXz6WJzVHAW6AN1R8R0QSej7XT7IlVkBQTeCE7VpvLn+Xmpj67iSW/rPQ
-	 1YV70ewnldPHFj/S7GnUOHLAp/jUAfQ9M4LZnO01Du0UdQ0EvbVQsG6L3u+Jamh8hzIdE
-	 Q1T4Mx3CQdx2hxR5vSC5bUcyUSpzzTP7NPSQsYXcN6VrGgzkDm081RSONO3Ioo8yuCFSA
-	 KVJwN3SZlaEMaoskPcOqI/hwG8YAlSj+6O7BGongf3QUEXk0YsfCWwq6b/QshDmZeHKeB
-	 LiuhT+8CzFqX7x1vpULlPfmBHXrI7kLF28KxjrxJHwTlCV9+91bcDB2ie65GHL6hp0A==
+	bh=SYtilPzqPXCnIDuAgNHfH0KQUIcCbca4y5FMXD8c9rs=;
+	b=5WFsHR2P91zYW1b/NxDp4Em2dhNyXcb0v5SgRNCItP/1nwMmatzSIbVU5VrNUHZPui4m
+	 ZuelfGg/deRpW9/LiMrmr3J+0XIJgkRYUn5BO3jWSuAlA2k1eyB68R344q44WjGJ5Ecfp
+	 mWraHdipJNePZvrR0S4AjnUScnfT/xbP8oM6M0T4ERXRXWpkF+gxtTSyO5CmHNK4anjgp
+	 JC+ihZ+98c5/kd70gnVFq8xWDkEFiHoHg1qQxAiXYvoOCs1JfGw0178YGCO4+35NXbSwm
+	 1NYZQDsEhJQ5CatRPUNLIka8UfQE//ixMxLZ0Z7EPwd9lrK5UqVAoNa7zcFrwjChp8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=plyM2tsA;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KUfR5Obr;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428CC606D822;
-	Thu,  5 Nov 2026 01:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 428CC606D822
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57AA606EEBF;
+	Thu,  5 Nov 2026 01:01:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57AA606EEBF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=plyM2tsA
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KUfR5Obr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840469;
-	bh=/wjUVkZ0UVn5JWfHTL5GTR3M8dVKzu8q87aZTn3tFGo=;
+	s=mail; t=1793840475;
+	bh=t4xm3scI4l7rWR2iBzxLstmE0RTUxpACdTblDz3oXNQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=plyM2tsA16i6IUWFhvJbbUn7AF79nYO5J/CU9cGy2NMhnay1QrYyiaUHpp7qwHjIj
-	 eYC2BUNTL9/v5DDumGerhx3c/qpuChNccxgAJag1OT+fO/JXRhIydvr5BJ25S1Lq+O
-	 w8rcHO77z3QU2fQj3lQKo6WgGWEg/T5AG1BZbWihSnzGq89BkTG2PV+Ozu7kPZeigo
-	 Sny+Ylyt5KieEmZmALjt/WZn/UxQkcnjDW5BvyVdeqIV1YHunDm23ZaLIEEegt2vBB
-	 o5YvBQTia9FAKbaaTtXTTwkADVkNcYHrwgCmXr6fw8JmwRdHP3l2EiX9sSLKJtSLGF
-	 NcNwPzbD6UrOA==
+	b=KUfR5ObrP8jFka/2UPUUWjo5o+FDtK93b3osH2OAYgNva3uJp9kGslkH1OJPda5Zf
+	 15X8CZOFNP1JNd9dCYuNZEnWFFVWRV3JrpqciB3HKcITk1exygNn1GPePk2JiLZIqy
+	 6LiQEhNSQKDr4q5w8frc2zPmaLmytXKMtIYys4O7CaqzfsjbFZfi+PKeGal9ZXjTR8
+	 2aOHtllwVzPI6ymja4nt2se6eWSmqQrg96a6lqDvy0zSfwfzPdLW84D9dTz2l55iyb
+	 As6jY4tda6vDPVLhwlAfVOQybrhbMNzJC/cveKrTF6i433O+G7wby2GR2vUOTHaOmq
+	 KvkFfAhG1aXCw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B0E0317E0D49;
-	Thu, 05 Nov 2026 02:01:09 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 038DD17E0CE8;
+	Thu, 05 Nov 2026 02:01:15 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:39 +0200
-Subject: [PATCH v6 05/15] drm/rockchip: vop2: Avoid division by zero when
- computing max_dclk
+Date: Thu, 05 Nov 2026 03:00:46 +0200
+Subject: [PATCH v6 12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code
+ in atomic_check()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-5-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-12-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -88,52 +88,44 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 
-The DCLK reparenting logic in vop2_crtc_atomic_enable() is gated only on
-the presence of an HDMI PHY PLL on the SoC.
+dw_hdmi_qp_rockchip_get_vop_format() calls
+drm_atomic_get_bridge_state(), which takes the bridge private object
+lock through the atomic state's ww acquire context and may therefore
+fail with -EDEADLK when the lock is contended.
 
-This condition is true on any board that wires up an HDMI PHY, even when
-the CRTC is currently driving a non-HDMI output such as DSI or LVDS.
-Those encoders do not set vcstate->output_bpc, so it stays 0, hence the
-subsequent DIV_ROUND_CLOSEST_ULL() then divides by zero.
+The DRM core expects -EDEADLK to be propagated up from atomic_check()
+so it can drop all held locks and restart the commit.  Replacing it
+with a hardcoded -EINVAL defeats this backoff mechanism, making
+otherwise valid commits fail spuriously when multiple threads perform
+atomic commits concurrently.
 
-Note this division happens before the drm_for_each_encoder_mask() loop
-that would establish whether the pipe is actually driven by HDMI, so the
-loop provides no protection.
+Propagate the error code returned by the helper instead of
+unnecessarily overriding it.
 
-Default bpc to 8 when it would otherwise be 0.  The resulting max_dclk
-value is a don't-care on the non-HDMI paths that trigger this, since the
-encoder loop will not select the PHY PLL as the DCLK source there.
-
-Fixes: b0362c45c401 ("drm/rockchip: vop2: Check bpc before switching DCLK source")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.org/
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+Closes: https://lore.kernel.org/all/20260902230603.AF5C61F000E9@smtp.kernel.org/
+Fixes: a18aa0dd7a0b ("drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 8d5613531acb..d1329941d9f6 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1931,8 +1931,9 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
- 	 */
- 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
--		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8,
--							       vcstate->output_bpc);
-+		unsigned int bpc = vcstate->output_bpc ?: 8;
-+		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
-+
- 		if (clock <= max_dclk) {
- 			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
- 				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index f2a1ea8dfefa..db1933d75ced 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -203,7 +203,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+ 
+ 	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
+ 	if (ingest_fmt < 0)
+-		return -EINVAL;
++		return ingest_fmt;
+ 
+ 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
+ 	    s->output_bpc == conn_state->hdmi.output_bpc &&
 
 -- 
 2.55.0
