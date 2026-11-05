@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910592;
-	b=bf1oAlQDVWEctE/SFAuDSniZWKOI5y5ZeZIRBik4msAsGKaGsFyJaCKc2K4DEfXjuxls
-	 5hQmiOoxApec0GHCMrdbuEGzPkK7Fmusqt+wThMvxkhZw5Zn1Q6rFcyoqlo0QCj3B13gF
-	 YshIauFIvPATlvzqV1mr4vjZzEXP3fuQwF6gXUa2tgNioMiosVMqDfBg3sWrqb20Ql+6t
-	 +78sEiXj6rpEyAqYBU5ivcML0blsVqTTjFBb5yKk+pZoW7wzL3SMDZyJMYTK8dyyT9w40
-	 EHQ9VBr6CHKcFzrdF2UeEYO3zbUxm2j0rUpgn3YLq4BT6aqtsyqJfb58ucrb9nptpNg==
+	t=1793910628;
+	b=M+GmnwbHaN0hpsfmJ7jy5ypWvEhNirPmC7n7px3Rg77LuuGrXFL7h7zcpAZpCsIWmcD0
+	 ep3WpyVW8mURBqOB5/oE5TIuCPmOEwlTxCu35Bj7Mj/iqqmurEHiYwjYSkSlHBmduFj6q
+	 +ojCMJMY8au2WGeiKYzaH1xcx0yMmOTsC37F25BiNzx0roChUTYBSLEj23i2QHyLG1Mh6
+	 cqSx8ykL7aGVLyDxeuyQHqljFkE66AW4unbvTMpWlzXbZODHFtibeHl2BwxTeYTDF+x2Y
+	 pWNrp+kRjsT1WHggAQNbSOoqltTsGAisUdzWAC6Sn4Bzv/0EF0gjcXfnD+5R9h39+CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910628;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/nZzov8N+zyyuqAcE43h/bSIm3E1Cc1jzIpE1+g+dck=;
-	b=EM7rJTPXjDaTaEJAs6UAnR+8fZIEuJFx4SAx5Jd6c7NNIqLGJr+o/hTglz9WsSUsBl+w
-	 1FqkVP7eW2P8iRtXxWoH7F3xlmf1/YcSdRNa70vxWoTJSftiAgHDHLbTx6YpR0UtPRZxT
-	 41R3x6wpU1UyQ9ARcGG++bNtg/rLO/Ajo2T8gaDvQNE41JjFSftzAomOmhAQDDhzRB4W9
-	 45OytZwrw/dvmKeXTVuLb3rvcIejiHlot9OMjRfvvYu/7XdHwykRFsmQYITwUvNvcPBJd
-	 4la7xwoiCWHVP9PF0tu2W37c0um+ecc31mgizvh3VMHyDUnWYRPnfqJqeTlRbbZt++A==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8iFcpvnEbr8OqpJfN5Lh96ASE9g3Jpc4XYATrN5TARs=;
+	b=EFILbxQKT1wNbm6Z/RD/rzxFJfZzZVxOvLOtaoFJNcG1WVaa/uasI9f5iqmiCtm0Ohs5
+	 UfOD7cQflmODmp1NwO85RchCr1pSBCo3eM5TzrGtg5AmC8emdbPxWEiItFm1Qz8YeO/V3
+	 5kKUpiRP4kxyUvLhvLn/+sUVXZBTX3rwDYWQfVQNp2tHKpFyhFxRo6x6bcegdF4X7HSPg
+	 i9QfRmvKyZmiMdlzuE4jCkIrtogPIEpA1KO1uJWLpF4JdnKn7okFXyj+7xzG/0C+g685n
+	 atBPkZJqvumM6o7HDQii//yq54BYkrhaKIl7VOsbQnT1ZM3mc2zgI9XzEOm6abWmUQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F4nAnTX+;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nnP5JxbZ;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2EC606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB2EC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE7B606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:30:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEE7B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F4nAnTX+
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-536717a4d83so19908511cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:29:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nnP5JxbZ
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5361e313e63so23206141cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:30:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793910591; x=1794515391; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/nZzov8N+zyyuqAcE43h/bSIm3E1Cc1jzIpE1+g+dck=;
-        b=F4nAnTX+kii+PCwyyE0+1CUq6xJegQw9Tm8KNoyuKGVdIP/Ko9Ng/U+c58ziik5Se9
-         UUtqGZLNGD8+LVfbRtp/Nn6er98UzOlv0qPoeWxv9Nh3I8THKjTFfKaGjrpsCtTh+Qjv
-         CqXTFPgAldeBlYd5Mxeh18m2WjlHgzjpBApFxVcnIDFh8CYhePDyr6YHwW4IaDbezSpg
-         t2oJyRQHZliPfEgufGXaXggD561cfP6iBPdqU1zssg+TF8PA8b7TjDHVEMUvYtao4waB
-         GmvCcEivjyLLWU7WVoX2mNB6pbbzQG+NpdAhScovptkBDsEEZmt5ct4uu6kSHh5hYg2w
-         a8ZQ==
+        d=rowland.harvard.edu; s=google; t=1793910627; x=1794515427; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8iFcpvnEbr8OqpJfN5Lh96ASE9g3Jpc4XYATrN5TARs=;
+        b=nnP5JxbZfeb8fykuTsu7lOgLI/QEFjRVc+fu1CYYF7N69sOiXDjrrCF6BHJfgpwcaL
+         lEgvTmREkxcrtOZ4P8RIF3pTSLmhWQZb0J6DpuwAtLLTSNvKJnG0f4N7DpigRBO0w10/
+         jnXWhSCUllEDxGd23xNXeJ90IIwwMXsh2ZZrTTMpleuZfIQ/2/YoYOnyLU+jdOktjhZK
+         D6yZ3PFZBa09Jg2E2q2tFJ9dY64JNxtKAPkRezE/XXLt7YJQASLBnbdTsc6XqpZ8XqEo
+         1p8iEvylpaNMSnujQyNYTblqNW60mVS0/K/5Nai7YLiJvG1GTl0xXFP/Skp78N2suhG4
+         1OPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793910591; x=1794515391;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/nZzov8N+zyyuqAcE43h/bSIm3E1Cc1jzIpE1+g+dck=;
-        b=JUnRiqPlfXTHUVjixoVH5wME3oMNi6/5aBBkUmnOrI+ye5Omcfn0iHrirzuarbrlFO
-         LR/JtQ/nP8HNM5zjUitBy6cAE7HEQ1pjwrZ4nDU9QXfRXRlMV1+Pwvd9VRH466QX+km0
-         LSdZytZn+8xOOLxI5TSb3CD/1KabxYLOLPnNYW1/hmJPwgZ4g/8uMovOy+QnDWi0oPrq
-         d7TZ9HqV6JCLs78DDzirvEt2nYxFAgZjNQSaSoGlbuCPB4Fk7N9a4tNkftvy47bwVKyL
-         LwMzVuAtCj9wCwY3tVisQyXZr3Wj3nHhdoKq5mYrfoFe8sKfZgSD6fOcV2YYEV5YWUFx
-         fjXA==
-X-Forwarded-Encrypted: i=1; AKwUvBx9HKgSxxU1ALHEKi2Xzr+74Qlxs5dywYUXFLcJkIAm3Ix4DKbiiiBPeqwdPV5Py7j1NXefAINMU6dmd0k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81QcXrH59v4QnEeBojEWP8degOQzdvaxHz+pQeu5YNytmXLp5V
-	RfMTBr85CrEW8k2eKTUcEhKEV3o2EA1SIF24DIK0kTSPgFIGi3X+y8kf
-X-Gm-Gg: AYBFou2fLmql7ADk73r2Pztak83+kAhlFfW2wudBEqf/6ar8+pA/tWJfiQhwAzeuruO
-	I+2JTBlMs9nsguUyI4SSteBmrw5mIfGI+kHjKoJEG+igD+WC3yLRD4R7haasvfh5lQl+ZHn7Z7Q
-	2cAi/oTVjQ9Mng4HiiH1bv6nvYalIO7ZA6pgcH+3ibrjBghB/WwH47CPEOZzZyh6jZm6GfoWAqR
-	O46TYLhea3R9zJVZzMwb1+nl8S9dEl+/gVnus1aF+ukcFpTsfNdAljpj3uwOB4FNznZ0UrwJNjW
-	Be2wugecRE2bk7mNdcaGhif60yAHJqF3GmMJot3A8I1CrVnMmvSZHXLiYJ39hS53t9MHuTsnO+v
-	gdKQorbE/VKEypK6aJlaw8awIDpknygeSnvHtPKdvsEFIBh9iOl4CHjhJNxzvAb9yY5C+jcHGLt
-	QKOEeD+cYNfEtWqkfV86k5apPUc62JiN57CYmcYmXGqrBqh39ExU26+EZRNQlGrPIigiXziLJLG
-	iXCXUClv2N+CvuWbsbb3UBaUOhE3G3MDjJCqCU+ucTDbct/rd73H7u/n8WehdDKcohzMMhcXj5U
-	aDlIGNJqhdxIaECxH/T6VJGoURRO8gzF9vrpdeDMfEO61pKyXly9Vxkeuj4=
-X-Received: by 2002:ac8:5ad6:0:b0:536:6488:e7e4 with SMTP id d75a77b69052e-54e12fa003emr7137181cf.13.1793910590737;
-        Thu, 05 Nov 2026 12:29:50 -0800 (PST)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e27502132sm1987361cf.28.2026.11.05.12.29.50
+        d=1e100.net; s=20260707; t=1793910627; x=1794515427;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8iFcpvnEbr8OqpJfN5Lh96ASE9g3Jpc4XYATrN5TARs=;
+        b=pNrwaLO4icOBhEcPDe6RthZCv9UTrvpegi3I8V9ecJKwe0XSnKvwxJduCDd7ZQaA8w
+         pTKkIHwTcilgkK99YrHIjEtLqXlZncRRxhP3eG6eoT9PRrtI/Ef6rdbNsqnr3bDDzpBZ
+         3ys0sHkwK9EJZoHmI6qjzYEGGEGFxqMnN0zKmnrUB80FlhEMBOxSsuGEFx8iT80+1M8K
+         kDbMGx5kElny78rzhzJmgTyx2Jqawy4EmlWUVuqTwgKR2a07WjROu/nf/myYfqjcoDQ9
+         gBFsjdxYih466bHOX5ilRd7dXNq3oUjEkkEDjc/kgRNUQt+HoljRsBdorZsAE8q5alAp
+         MNsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhbDeDp/ZHA//7MqXAitZUNn3Pn4SfzeIDwERr7u3C23t8+GlI/6UrBSfYQHP+W6z38Rc2Rw6zE6WbOwU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92P8opcjdjtf/M2RQ8YPyOStYfWbpw/fQlKVVkg4EFDr534K7J
+	V6ksJE1Iu/m7wBI7Tr/6Uex2DMlkr5TY/SEHU9Twil9wr+pZqQyLBfq1j5JxHMUkpg==
+X-Gm-Gg: AYBFou1WgXPglQddxMfEwn8GehHAN5Cib/0ql2Raf2XaFpR6tLm1JofgAb58zkPzy+h
+	ZcWzP9IGOJncqjbmyZDIR7YPcgNez7KNM6GANhuBC97LaaKo9LDC4XaLQgXVfQ1kMYcfAhM6ku9
+	9RMld87Z0DOhxy9+p/t/mLpj/+nAymHTyKqwQU3PtAXGEtRvbWPhCBTfcjCe8IUXy6JQakxYeVc
+	uRDbR/OV/1qwR00I/yCHi+8OphdtTNieUlSx5fz/n/ehXYkKJY9Ue0jXdNgH67sCUmens3QLh1L
+	bMAoD90sHnrU0Cj9zXLvF8klWP4X2ToQ256iYY0RGasM7/EgBokWJwfyIGhGpNbH+qiV1A/LlCL
+	L8jqloG1We/ggAb10Rn5aN6JwWDfSIBiw441ZMuoNW0t3W6H+zmjv+kY2H6KZHSzTrDN41OjxBM
+	UzferuL2YTRbO3cJ2epFaNg4qttW3XIIehYpZ0fM4/wmQPQJUU2xVN3btRr/v12mRUfo6I9rfyI
+	ZZ14iZv8yikKkEBVNOS4dfJlE8PzbOTFy4Pkoiyqd8OI8ah5+khH3Nklsz2XNsEnUU7Qb6meS2g
+	1+6WnktwNwvvVGnG3elR+GAoNlTv
+X-Received: by 2002:a05:622a:2308:b0:532:cad2:539f with SMTP id d75a77b69052e-54e1576ccbamr6840201cf.53.1793910626495;
+        Thu, 05 Nov 2026 12:30:26 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e25d65a9csm2142601cf.11.2026.11.05.12.30.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:29:50 -0800 (PST)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Jack Wang <jinpu.wang@ionos.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org
-Subject: [BUG] RDMA/rtrs-clt: KASAN use-after-free in rtrs_clt_query
-Date: Thu,  5 Nov 2026 15:28:43 -0500
-Message-ID: <20261105202939.3104321-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 05 Nov 2026 12:30:25 -0800 (PST)
+Date: Thu, 5 Nov 2026 15:30:23 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: James Clark <jjc@jclark.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Johan Hovold <johan@kernel.org>, Bastien Nocera <hadess@hadess.net>,
+	Matthias Kaehlcke <mka@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Robert Nelson <robertcnelson@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH v3 1/2] usb: core: clean up before handing a device to
+ the generic driver
+Message-ID: <9372664c-a8d4-4098-ade2-b73ec214960c@rowland.harvard.edu>
+References: <cover.1793669297.git.jjc@jclark.com>
+ <74b3f919f214a8ece24161a2c904d8a5744b703e.1793669297.git.jjc@jclark.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,103 +104,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <74b3f919f214a8ece24161a2c904d8a5744b703e.1793669297.git.jjc@jclark.com>
 
-Hi Kernel Maintainers,
+On Tue, Nov 03, 2026 at 10:34:12AM +0700, James Clark wrote:
+> When a USB device driver's probe returns -ENODEV, usb_probe_device()
+> hands the device to the generic driver. It does not first undo what it
+> did before calling the probe. This causes two problems.
+> 
+> First, if the driver sets generic_subclass, the generic probe has
+> already run. It configured the device and sent a USB_DEVICE_ADD
+> notification. The generic driver then does both again. Notifier users
+> such as the usbport LED trigger see two USB_DEVICE_ADDs with no
+> USB_DEVICE_REMOVE in between.
+> 
+> Second, if the driver does not set supports_autosuspend, a runtime PM
+> reference was taken before the probe. Nothing drops it, so the device
+> can never be runtime suspended.
+> 
+> Clean up before handing the device over, in the same way as
+> usb_unbind_device() does when a driver is unbound: first, for a driver
+> that sets generic_subclass, call usb_generic_driver_disconnect();
+> second, for a driver that does not set supports_autosuspend, drop the
+> runtime PM reference with usb_autosuspend_device().
+> 
+> This leaves one limitation. Until the generic driver binds, the device
+> has no driver. If it is runtime suspended in that time, it can't be
+> resumed. This is transient: the generic driver resumes the device when
+> it binds.
+> 
+> This change does not alter what happens when the probe fails with any
+> other error. The device stays configured, so its interfaces keep
+> working. It keeps the runtime PM reference, because a device without a
+> driver can't be resumed. Its USB_DEVICE_ADD stays unpaired, because
+> sending USB_DEVICE_REMOVE would mean unconfiguring the device.
+> 
+> Fixes: 88b7381a939d ("USB: Select better matching USB drivers when available")
+> Signed-off-by: James Clark <jjc@jclark.com>
+> ---
+>  drivers/usb/core/driver.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+> index d3a61ebc6afb..9b8cd0e4219e 100644
+> --- a/drivers/usb/core/driver.c
+> +++ b/drivers/usb/core/driver.c
+> @@ -295,6 +295,10 @@ static int usb_probe_device(struct device *dev)
+>  		error = -EINVAL;
+>  	if (error == -ENODEV && udriver != &usb_generic_driver &&
+>  	    (udriver->id_table || udriver->match)) {
+> +		if (udriver->generic_subclass)
+> +			usb_generic_driver_disconnect(udev);
+> +		if (!udriver->supports_autosuspend)
+> +			usb_autosuspend_device(udev);
+>  		udev->use_generic_driver = 1;
+>  		return -EPROBE_DEFER;
+>  	}
 
-I hit the following report while testing current upstream kernel:
+I was talking about more than just this part.  What happens if 
+usb_generic_driver_probe() (near the start of the function) returns an 
+error?  (And shouldn't the lines that test the return value and do the 
+early return be part of the same conditional block as the function 
+call?)
 
-KASAN: slab-use-after-free in rtrs_clt_query
-
-on commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d (2026-11-03)
-
-The reproducer triggers this report. It uses the supported RTRS path disconnect
-and RNBD force unmap_device sysfs interfaces.
-
-To help trigger the bug more reliably, we applied a minimal diagnostic patch
-that only adds delays and print statements.
-
-The reproducer and .config files are here.
-https://gist.github.com/shuangpengbai/5409f0d93ab7414fcb6d97ac799fe28f
-
-For context, I previously reported a related but distinct RTRS client
-use-after-free in the same subsystem:
-Link: https://lore.kernel.org/linux-rdma/20260921033339.1320291-1-shuangpeng.kernel@gmail.com/
-
-I'm happy to test debug patches or provide additional information.
-
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-
-==================================================================
-BUG: KASAN: slab-use-after-free in rtrs_clt_query (drivers/infiniband/ulp/rtrs/rtrs-clt.c:59 drivers/infiniband/ulp/rtrs/rtrs-clt.c:3140)
-Read of size 4 at addr ffff88810228d2f8 by task kworker/1:0/24
-
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: rtrs_client_wq rtrs_clt_reconnect_work
-Call Trace:
-<TASK>
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-rtrs_clt_query (drivers/infiniband/ulp/rtrs/rtrs-clt.c:59 drivers/infiniband/ulp/rtrs/rtrs-clt.c:3140)
-rnbd_clt_link_ev (drivers/block/rnbd/rnbd-clt.c:691 drivers/block/rnbd/rnbd-clt.c:731)
-init_path (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2161 drivers/infiniband/ulp/rtrs/rtrs-clt.c:2677)
-rtrs_clt_reconnect_work (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2709)
-process_scheduled_works (kernel/workqueue.c:3495 kernel/workqueue.c:3578)
-worker_thread (kernel/workqueue.c:3659)
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:158)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-</TASK>
-
-Allocated by task 306 on cpu 1 at 11.590323s:
-kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
-__kasan_kmalloc (mm/kasan/common.c:409 mm/kasan/common.c:426)
-alloc_path (include/linux/slab.h:991 include/linux/slab.h:1312 drivers/infiniband/ulp/rtrs/rtrs-clt.c:1540)
-rtrs_clt_open (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2871)
-rnbd_clt_map_device (drivers/block/rnbd/rnbd-clt.c:1288 drivers/block/rnbd/rnbd-clt.c:1571)
-rnbd_clt_map_device_store (drivers/block/rnbd/rnbd-clt-sysfs.c:612)
-kernfs_fop_write_iter (fs/kernfs/file.c:345)
-vfs_write (fs/read_write.c:595 fs/read_write.c:687)
-ksys_write (fs/read_write.c:739)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-
-Freed by task 306 on cpu 1 at 47.089348s:
-kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
-kasan_save_free_info (mm/kasan/generic.c:584)
-__kasan_slab_free (mm/kasan/common.c:264 mm/kasan/common.c:296)
-kfree (include/linux/kasan.h:235 mm/slub.c:2780 mm/slub.c:6630 mm/slub.c:6923)
-kobject_put (lib/kobject.c:689 lib/kobject.c:720 include/linux/kref.h:65 lib/kobject.c:737)
-rtrs_clt_close (drivers/infiniband/ulp/rtrs/rtrs-clt.c:2940)
-free_sess (drivers/block/rnbd/rnbd-clt.c:770 drivers/block/rnbd/rnbd-clt.c:786)
-rnbd_clt_put_dev (drivers/block/rnbd/rnbd-clt.c:49 drivers/block/rnbd/rnbd-clt.c:62)
-rnbd_clt_unmap_device (drivers/block/rnbd/rnbd-clt.c:1723)
-rnbd_clt_unmap_dev_store (drivers/block/rnbd/rnbd-clt-sysfs.c:334)
-kernfs_fop_write_iter (fs/kernfs/file.c:345)
-vfs_write (fs/read_write.c:595 fs/read_write.c:687)
-ksys_write (fs/read_write.c:739)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-
-Last potentially related work creation:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_record_aux_stack (mm/kasan/generic.c:556)
-insert_work (kernel/workqueue.c:2356)
-__queue_work (kernel/workqueue.c:2546)
-queue_work_on (kernel/workqueue.c:2599)
-rtrs_clt_close_conns (include/linux/workqueue.h:700 drivers/infiniband/ulp/rtrs/rtrs-clt.c:1963)
-rtrs_clt_disconnect_store (drivers/infiniband/ulp/rtrs/rtrs-clt-sysfs.c:259)
-kernfs_fop_write_iter (fs/kernfs/file.c:345)
-vfs_write (fs/read_write.c:595 fs/read_write.c:687)
-ksys_write (fs/read_write.c:739)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-
-The buggy address belongs to the object at ffff88810228d000
-which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 760 bytes inside of
-freed 2048-byte region [ffff88810228d000, ffff88810228d800)
-
-Best,
-Shuangpeng
+Alan Stern
