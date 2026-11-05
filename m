@@ -1,59 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885803;
-	b=PWioBtQ/J8fSCdWmVxoT426Wgv5YBsImos4sbB4dkrLUGWwIVVvxSFSFvfmTSlLxVSer
-	 sIeWi5MCbtbjJK7aKz4gS4AadXSvtAN9r9qGnTdyL8J3X0EWE7xkJBtyhW2SJVVGylq7G
-	 uOuafeuA9yXIKUio06VGr3EAAmlawu+flqP5crbq6QbHsKYwpQW80G8oOL9bLSC/6EK6H
-	 67v735vz5dock/LFxF9cQmobJrLzrPZ5ReTckRg/EdvNUHzQSitZ9Y64K37r6y4DDnEcq
-	 Jk+IY83RyDiDTn8PoAr5B3ilfAXDjEiGuYkRYfaPboWHSwasvi5PRAIQ0HYEWk2P7bw==
+	t=1793885819;
+	b=soIfuWb6K3U7Het8PW2zDvrLD9UbNGsONyS84WY9aqmthYYiubQWP2Gkng8mU9khofn8
+	 6asuj9y6mvXU8sla1l1ux8hD8zuuEtmm2WxAhZpG9AxtxOxaXAtr4vSWMV3opiROjXZJr
+	 LxQcz/EA0qAVrAL+W4IikbO2FZeuR8n+JMiugAqgWoz9XGBbeBpwEnWbtBvBMIM4K6OY9
+	 ptJ/eZUq0LTCp9s1sQG/3FaDxeoTih9L7I7cDRFhojFR+rep4+Stxf4Dv8G+MZUg5T5zj
+	 LhbaB1dPdFHsh2k2uhtXtLCyOvG07ZlBp6i6qipV/x5A5/AqShN0k4ZnfHs45ERz7DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885803;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=f4wyFW7t2aluUkTE2UORbmYOG8oR4+EQhw49iv+SBDM=;
-	b=hrPCuPvECqve8ioc3cR+Uuzrf8eDroaPKQYuM00C1vzAcKopWmdLL1XBphMHQt/rDd7M
-	 Uy30sY/52dT5YzIkJB4qo4H3IDSUW18Q5xkA4dKgw8gieKqDWbytW0WxjbrT5KqQEst4E
-	 18iJgJoSG/LX8L7lln3fwAwwZOUDbXdQ8GXaD/HzpV8sMHOSoY4fJCUwF7bCJ5gg3gW2m
-	 tU0TWP6wge1QkNbM94NyhrVKM76OGV4jT9ulyrElVM39rJYKZYj63f1dFXXhgKqryW3pt
-	 v2nrYDeVBYx3dqXf/8wwRVA2Bpmds3oKEI8CkmOx7jzAp7gyTMT45yrv5J60r63BDnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885819;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=WBQ4YMiVBBvbebUf4Eh89Rb7fq5fgRCv2V9oWSzYxO8=;
+	b=BnC2BVpL9R93zb/Pg2+oyXpQQaJ4mUYFaD5P7t7j9uJvVO32ZdNDL3vR03iJW357EneS
+	 +ZHApiFB5hxb+mQ0x0JlymdbZurh5SrGHvg/Odbb7Oc/e/UXm/VeckQTQ0XE3sAUo/Ilt
+	 8FQ6A3usBLiCTLGCpzlWjwg0QdiFubBZaTltc4JTEXvIto7q+INX18qmDkWafqf7eT+XP
+	 BUI/9D2upQVk/nFnhs8r1Y47RysYcENoAcCkO93meGgM100kfLOkqkDy0AikEUO/Z5eAW
+	 K4xoGDhOGEg1j7YudjYmw/KchO5w51M/b3z7+0pw8bOKSdVn7ohv/F/R41vjesW4GkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBXiAoUR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h7OvB6cb;
+	arc=none smtp.remote-ip=74.125.82.71
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB640606A31B;
-	Thu,  5 Nov 2026 13:36:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7996F606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:36:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7996F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBXiAoUR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93BE01F000C1;
-	Thu,  5 Nov 2026 13:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793885802;
-	bh=f4wyFW7t2aluUkTE2UORbmYOG8oR4+EQhw49iv+SBDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aBXiAoURz9wrjN+sO5w/i+LRLrkno2jeTwjbzYnflUMDCoP/Vxp1K9GtrnKiKB8hr
-	 JXl3HhbCG8hMiSjj5PtVaAq0/ZQOrBfm1KqAf969MY2QDDGuKFKHb9IODcUedxao3O
-	 2aq3xxeI6oeeBrDFKX/HRhDFgMUmeiTAtbW1HvEKAd8OW6F0EKLvfHGBRIORso2ub2
-	 EOXswqcO7n9brI8XxmJQu4xzDwGDU/WOB51wGATC6ZP/2oRujiQO9ET4NIgLsFzhfQ
-	 Ln/TubLvueo+g//1AUVkWR2rTKHdITzCbxH/5PatuStKIXi1eob2vNq79+HIAvVzUZ
-	 utLOOAqWF6sSA==
-Date: Thu, 5 Nov 2026 14:36:39 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Kumar Patro <bibek.patro@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] dt-bindings: remoteproc: qcom,shikra-pas: Add
- iommus constraints
-Message-ID: <20261105-bold-seahorse-of-reputation-8db98f@quoll>
-References: <20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com>
- <20261104-shikra-el2-v4-2-97e7019debff@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h7OvB6cb
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso3280923c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:36:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793885818; x=1794490618; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WBQ4YMiVBBvbebUf4Eh89Rb7fq5fgRCv2V9oWSzYxO8=;
+        b=h7OvB6cbdwWpUtNAzInh7lFfuc5uorsA9FZKRZiOPz3lRCB/Qt0tGv2s9RiWDwtjIm
+         lW2njz/y/dEBfep6J17Y1jBp2gnnWz6P9K5Bln7XWHR6rN40i+cu9VKUqZEHx7tBrWU5
+         +yiOUhcZ9PAoTHrNJTYwLZihvG268p/9T+UyJJkDxfdF1IyxZir2sisNp/rAjAyVbWiH
+         D4R5G82m8PJqhvfK6irr4wy3LLY9tAnxZZMObJNBqiGpo65dwZtFOTh2avKivHB0wcs8
+         sGaNyPbKHH8TPKM6uredKgw/LYK2/6pNXvfjYqVCcdQMbOmW3i0c3nGI88kiTZVKUFk/
+         NiqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793885818; x=1794490618;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WBQ4YMiVBBvbebUf4Eh89Rb7fq5fgRCv2V9oWSzYxO8=;
+        b=j2T74AUJwFK+8Tr22M4aGXMmc/pWnM1N94bpYt+lPwoMJGiQCxz1hP7CHTKb4d0OMr
+         tbCCVgsHgyzDnVc30F2/Tzkuqys3GGJ59Zh/peuVKuVwenRE/oGdascpaE9bpxV5FWDh
+         Virg/fxeF3VPETFkrXtfdThxro6vCx8JUawyVhBfImoIJGj0oFpmzjPpLal+rYPC2Fyd
+         y9NfmdUVD7qjljxTNqfUDkVFXF2QbXPGf8aSL/WEhBS/X1L1LUP/F5NPH/+H3zp3eiKO
+         zdlA/3O8AADR11zQxocM1PozF+Lf8rMxd3WO5Wz46XOSpXiRxzO0hpkzfV18MAq3Fcsr
+         dueg==
+X-Forwarded-Encrypted: i=1; AKwUvBzA7NV/BSwPxPaegzDRviyM920aezYkfhHIogIkuEXtxJDpw+BNa4cMeF/5FQWd5UeYRmyJ2pIk41+qhaQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85lnWRaRhlVtfdxoHX+ftBMpc8jwoeuLF7bMtarDmkj3q9YRnq
+	Ym4MIVTNDYlvKMMxdkdomFLDoEnIGD85bhNSBEk5GFbycxezVPdNq6yhpRxZos5wokcXz03Thaz
+	GVF14Y23vNS4H/GusDBfaT8b99DiVUg==
+X-Received: from dlbvv4.prod.google.com ([2002:a05:7022:5f04:b0:1b2:41fa:646b])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:455a:10b0:1b2:42ae:94fb with SMTP id a92af1059eb24-1b242ae963dmr9575010c88.37.1793885818098;
+ Thu, 05 Nov 2026 05:36:58 -0800 (PST)
+Date: Thu, 05 Nov 2026 13:36:57 GMT
+In-Reply-To: <auwOBaRtM9p_Wxfx@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,50 +77,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-shikra-el2-v4-2-97e7019debff@oss.qualcomm.com>
+Mime-Version: 1.0
+References: <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
+ <anXJ-5_vO7-toSe1@google.com> <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
+ <auKqt6b4AxCLziIH@google.com> <aufPMirl4cD7tz0X@google.com>
+ <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
+ <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
+ <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
+ <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
+ <179384102494.19062.12740032892044628762.b4-reply@b4> <auwOBaRtM9p_Wxfx@google.com>
+Message-ID: <18e529a5ab0738f7.3137322e32332e3235332e313736.873cb.0000sendgmr@google.com>
+Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction budget-aware
+From: Chris Wiseman <chriswiseman@google.com>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Xueyuan Chen <xueyuan.chen@vivo.com>, Barry Song <baohua@kernel.org>, 
+	Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 04, 2026 at 07:33:31PM +0530, Komal Bajaj wrote:
-> Add iommus constraints for Shikra PAS compatible:
-> - qcom,shikra-cdsp-pas: maxItems: 1
-> - qcom,shikra-lpaicp-pas: minItems: 3, maxItems: 3
-> 
-> CDSP uses single IOMMU stream, while LPAICP firmware uses three.
-> These are needed to describe the firmware streams when Linux boots
-> at EL2 without the hypervisor.
-> 
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-> index 34a2f15e9361..8c8a7616d478 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-> @@ -112,6 +112,8 @@ allOf:
->            maxItems: 1
->          firmware-name:
->            maxItems: 1
-> +        iommus:
-> +          maxItems: 1
->          power-domains:
->            items:
->              - description: CX power domain
-> @@ -134,6 +136,9 @@ allOf:
->            minItems: 2
->          firmware-name:
->            minItems: 2
-> +        iommus:
-> +          minItems: 3
-> +          maxItems: 3
+On Wed, Nov 4, 2026 at 9:05 PM Sergey Senozhatsky <senozhatsky@chromium.org> wrote:
+>
+> On (26/11/05 09:10), Xueyuan Chen wrote:
+> [..]
+> > > SGTM, but I'll let Sergey chime in!
+> >
+> > Thanks, Nhat and Chris, for the discussion.
+> >
+> > If Sergey has no objections, I'd be happy to send a follow-up series
+> > to make the shrinker configurable and add the unlocked pre-check as
+> > Nhat suggested.
+>
+> Thanks.  Sounds like you and Chris will to have "Rock-Paper-Scissors"
+> to determine who sends a oatch ;)  Just joking, let's first figure
+> out how exactly we want that zsmalloc-shrinker thing to behave wrt
+> zswap expectations.
 
-You need to list the items.
+Haha, Xueyuan is welcome to send the patches!
 
-Why maxItems? What is the limit defined by top-level?
-
-Best regards,
-Krzysztof
-
+Dumb question on the zswap side - aren't the zswap shrinker and the
+zsmalloc shrinker independent?  Even if zswap's shrinker is turned off
+at runtime, normal swap-ins still free slots and leave fragmentation
+behind, and unlike zram, zswap doesn't have a manual sysfs compact knob.
+Would it be simpler to just keep CONFIG_ZSMALLOC_SHRINKER as its own
+standalone config rather than tying it to zswap's runtime knob?
