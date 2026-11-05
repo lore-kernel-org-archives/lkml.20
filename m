@@ -1,66 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899294;
-	b=fqA6NGxvoUqUKyXanGQns7vQSjepyQskVjQr8cIy8JyEAk5j97SoWGBE5zSPZWa1l97k
-	 qHVjd52Ee49cxTdGEzoOfzNEHKP4pPOwaNT8f4XMcSoSKPGdRbLBFBNWzkPJzu6MUBwVM
-	 5zhxMEhOSJ6r6j3nVU6oWxAii0Qme4STeYj+LcjIQgEV80G7MYsftcFl5TqPbvliJ4T1T
-	 d/bZH1W1yranf3rnaiWAuF2QCspAy5yaswobddJrKfuBSTcQYSm4of7FmrqD5gSa4XshQ
-	 1FXoXeYZBi/aM33MEiU5WAZeyyjBLEBFzpGnLn2Z/u5yYyvG19IOFirE3eIr5iqqrag==
+	t=1793899303;
+	b=NE5zOh4ypCR+sBrk+mbpYYAqyv3F4jXyKMevqKIw1xNgicNi2Os1btkT1Gm32ujPnJHH
+	 V9JZaY+FhH4G0gFDUvmA9YESXGkTIPTKtq3Y/ZTg/T2x5+a49nFmZmUUztB0oCEi51KVF
+	 eWQeD/zUvFIzMqh/KKLHUwIuEgkLREcWzhK5+depsRwBdrCAboTyZhkMKzMAw8jzgH+mZ
+	 bk/6l+fiQ8AMOzPHy50lBZ5AmI5sbbpfPiM9Prb9ap7aK00GEIY4IU5SKqAo6Lu17U1tv
+	 D7On30PZgLsPLhECRc6348/VbO8NJxxJjcK9jxXeEHhi+7Xj3QMi/Qy6g0hB3rrsu2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899294;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zKlFUggbgpz57BcogDH6FdEtlO/O/2Fkqy9tqTUC6qE=;
-	b=P/wRW5XW9jD7WzV+hoVoVwUsg//B1ApwjsRZqgPmYd2+CnFwcz4i4wT8j6X00U90IQEY
-	 +ZIYgF3iK89EjQ9IqDzYtp3huxCOYGu9MFQwINcru5r4w5hwCEHRSeYKntkidV0yU5TiM
-	 LsSFHO4n5dsd0uBKBpHBT5NRSCFQestc//W0OgKxS15V+/7kyL7tmPqC/tGQbPdVftNMy
-	 ggAu+BLhI+hoch4BZsVF1smBgejbApUpfk4cPxT1zwR458mQcWN7K5w8+1WhYGkU7PNdD
-	 9vnybsKjmQd7m6pW93LJG8jc6CXwqryTlaTGcyj/9eYwe61ULGDnoOeaJt1xJWGRfwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899303;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=J29j2FTF2kZyY8FR+vqT+YtHMECplwfMHUOlXHohMLQ=;
+	b=svUSOByJlO48zbucXZF9kr1RhtXOhQu2nrikoEUCpC0dqP3KV8hFS8zoUhjMkXiJYVSg
+	 lpg6B2MgGdRIPJs0AuTdWIPJQyH+GP5ktux4qJ6ksKmSaQ2W8xsZhTxjJ0R9P0gEI4B90
+	 DOVTfDppas+C+O3MhYnvvXuxVprjDjthiHR2AnEhzmyr8R2b5/XonFoAw5rs2GkYzTTBT
+	 E+yDnu6ea/BHyIZiWpTFcYxFwoYJ6nRqZkdgxo4tv5KK+I09Yb7qrpKBl+y31WN1cZMof
+	 L8qYg3EvyYK5E0eap3PPC46LaBI++pI6LX0TJUkY9r5py27MsPQLle/GsupN5hRPARg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ER3S79DE;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hozC474n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C063606D80C;
-	Thu,  5 Nov 2026 17:21:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C063606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6265B606D81D;
+	Thu,  5 Nov 2026 17:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=ER3S79DE
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jL8HK5cylzlgyGk;
-	Thu,  5 Nov 2026 17:21:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793899291; x=1796491292; bh=zKlFUggbgpz57BcogDH6FdEt
-	lO/O/2Fkqy9tqTUC6qE=; b=ER3S79DExG72Ta7oeflVOJ3QDwzi7LsntNyfqJIh
-	QV0DJDEaKpONiaCkYVJz3SpVmARQ/7QFkN7kfxM+Z/uNkkZSxq1jeXjc1fqPNku5
-	uJ8OXj17CYgOoXYtB9ge0K2r+APBwOKDxGlMRCNt6FHaw/huhflH4il6FF29TncS
-	6ld/zhAZ7Eq0jwvmjxYBSaSkTJb3Ek7isc5enQdzdjy/agyGwC0R/oYzH04ISLRe
-	bozp1mjECax0k1Xr+35/3+xfzcaJIOxXZV9vSJRP+csBpQS6FT9loKI48XTWkYKY
-	9OsnpbHhSLebs3hnHmdDp36lWxxI3LAUqZ3fCi+DtCvp5A==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id aBJHk-bDqkCM; Thu,  5 Nov 2026 17:21:31 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jL8HG51Ylzlfl7w;
-	Thu,  5 Nov 2026 17:21:30 +0000 (UTC)
-Message-ID: <1023acf9-999f-4e42-8dff-e84a69c7e259@acm.org>
-Date: Thu, 5 Nov 2026 09:21:30 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hozC474n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD2F1F00A15;
+	Thu,  5 Nov 2026 17:21:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793899303;
+	bh=J29j2FTF2kZyY8FR+vqT+YtHMECplwfMHUOlXHohMLQ=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=hozC474nQcThmslZgShDckSTgkqAWA3LVbuIi/4tD8mnomn1ttPIJXIIt748ilLjD
+	 fUCgZWlNGPXy2VX5xyDBQNZSKk8EjDjD+/54mqnyCL0pycJrHwZLHgLrswmBSr6wCf
+	 7XAQjLEC7zdDy3YLuOxSWQf0O86xDogFb84szA9EruBDPU+ToZzmgJOkE+bvIoLWR2
+	 nFaIowqK2yuUerXr5hSUVc1CbJ8Z31cW6bxsh8wx1ymp76WP4gUV9hc4Hvwu/nqePH
+	 Yk5wejGwIfHoAErYIZKvFR+Gh2g6BakM7ojfD+jXgor61EsPOMn8mhRRayaubyx4Nf
+	 m7rmwg5OIjXcg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 58482279ADC6;
+	Thu, 05 Nov 2026 17:21:37 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,36 +52,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] scsi: st: factor out the end-of-medium completion
- test
-To: shao.mingyin@zte.com.cn, mkp@kernel.org, linux-scsi@vger.kernel.org
-Cc: James.Bottomley@HansenPartnership.com, alim.akhtar@samsung.com,
- beanhuo@micron.com, stanleyjhu@google.com, loberman@redhat.com,
- jmeneghi@redhat.com, linux-kernel@vger.kernel.org
-References: <20261105193339565ydLHLai73bbBko0TtjrtV@zte.com.cn>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261105193339565ydLHLai73bbBko0TtjrtV@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 5/7] spi: cadence-xspi: Add irq-less support
+From: Mark Brown <broonie@kernel.org>
+To: Paul Cercueil <paul.cercueil@bootlin.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Mark Brown <broonie@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G . Piccoli" <gpiccoli@igalia.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-spi@vger.kernel.org, Bharat Bhushan <bbhushan2@marvell.com>, 
+ Sunil Kovvuri Goutham <sgoutham@marvell.com>, 
+ Tanmay Jagdale <tanmay@marvell.com>
+In-Reply-To: <20261016102917.171095-6-paul.cercueil@bootlin.com>
+References: <20261016102917.171095-1-paul.cercueil@bootlin.com>
+ <20261016102917.171095-6-paul.cercueil@bootlin.com>
+Date: Thu, 05 Nov 2026 17:21:36 +0000
+Message-Id: <179389929639.3073895.14736746474148064109.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=542; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=lrq+vyqDhx2mj8qUXuuQDj+Q3aMe1F9V7cwQ55je/aY=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe7FY0DLdPfx1xemJUkqBHd1lo3pVZAhkLNX5Gynl7K
+ 7BfPLCjo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOZ9JLhf/H5ko1bS7Y+OXyA
+ rbKleFVS9YWYcubO40e/i0Tk+kaKzGNk+MuSI/VcLevugQkcN07tfxaqF7T0fqDCH4PACTO3T1A
+ 5yAwA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 11/5/26 3:33 AM, shao.mingyin@zte.com.cn wrote:
- > The same six-condition EOM test appears twice, once when deciding that
- > a write-behind finished early and once for the WRITE FILEMARKS path.
+> Make the interrupt line optional. If not provided, the driver will
+> instead resort to polling registers.
+> 
+> This can be useful in itself, but will be used later to support write on
+> kernel panic.
+> 
+> Note the cdns_xspi_is_{sdma,stig}_ready() seem to have moved for no
+> reason; they were actually moved out of a conditional compilation block
+> (#ifdef CONFIG_64BIT), as they are needed in conf-independent paths now.
 
-The first occurrence is in st_flush_write_buffer(). That function
-submits a synchronous WRITE(6) command and has nothing to do with
-write-behind. Additionally, I count five conditions instead of six.
-Please fix the patch description.
+This doesn't apply against current code, please check and resend.
 
- > +static bool st_eom_ok(struct st_cmdstatus *cmdstatp)
-
-Please declare the argument const and please choose a more descriptive
-name, e.g. st_all_written_at_eom(). The "All written at EOM early
-warning" comment from st_flush_write_buffer() could be moved above this
-function.
-
-Thanks,
-
-Bart.
+-- 
+Mark Brown <broonie@kernel.org>
