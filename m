@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876851;
-	b=2LZhvHh9c0gCshM9MjrNBSIfJRjj3PNTTYmLUcYa4cXwzdc1xVdT917rqZcwIpIt2kLy
-	 ufGvv/+A5QSHLuHy5x6nra6IgGCnmqAS6JHLosdEx3voklxwzPnRVv1n1OmA5wUCcOx//
-	 DxrnLwprb8mT7X449fEzhWco3KaXhINZBbHpNnvJj7LeX+Eit76Sld646juiu/W+LfDDu
-	 mspn+JMgZyZuDq9TXn983WJY+77908r7FE/xwkVMaCdz0KVjy7DD9hX7HUvuaO8iIlIfs
-	 rng7QX6nJ1wgYlcXrehzFEPXSjgbwJh+3APgv8ii0hm4CWcVbN6cFWXAnzHFXFnevMA==
+	t=1793876855;
+	b=cnszQAoJNBYIoyhOOteVU22ecA5faKj9nDG8p4kSS3OL/MaciiwUS4en0JQKTYVbu2aQ
+	 Gbwg4oLm+VAEuZl935o7v/YmkiQqSGeyfG0TkzMTOXgQ1aV8LvlpSGI1WlP+P0xWRVTwF
+	 mwAcYWNRKZd6OJwHK5rLym1NShkkT+dhJFrXv3msSgLIGkc8n5WpsUEENWXNX5GQsIWMT
+	 MrX/ixktLnv0GkoN7wwtwF9esnN4WxoIXsecVANF+y6c6VoRhkI/Tvl70quJZhvm2KP86
+	 boguNGKaMDDoFA8zLluhP6rscxpx/97nIq6Rxux6ovG2TV5VIeAVdzMDn3sbekZkHnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876851;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=1cjL0JCpaDIHIZFe4xaYZge0ytMZ6yU98tvuRPdMz+g=;
-	b=yexX1jkFfRBJRQ1Bm2LW1N8d60J9gKxgxEaQYTZWOB9PZcfBPkqgBE399oUzzela1VhD
-	 nqTeK4zXoPY9fsmQHmcyCq5TB8T+ArCzJFTZ2JC+3W3oL636fyYT7LjELlSdlpiUjjVIJ
-	 KJsk1UskQj6L1N2IVyU49VkAV3zxY1GpY8pYvo0ql5k1q8Jy6KOdbpvpNQJTbMNUVy6UY
-	 rJpFJaP0CtSghl0DkiPHLrBy54ntmZ59KK1xvQ1qwdxdB+vXaGlnR2/Wd+hUp4k2Ipgb5
-	 wDPImtbwdcuMYb4hewSpr1SYOuSi41pf5myFAMHi3mSp6tLTtGoaYcZ5uSKGaS7sWVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876855;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=65Yh0STFpLyAg9Zs0iCagOebJs1u9d/lfGQNo4tHSio=;
+	b=rX56UqHv2rlJO2BzNbGN8fO16c6DBJm0slcc74gJA/wjc0qLIQFyWeNinqicVkOwNgZJ
+	 Ma+ii3Pr6JS7YAXWGWhHEn4hZDK9hcTC/OnKJ+I98inhx+gpSMs+D+0kLLw5QxoxqVNya
+	 vlM2TSXnmu7IZsv57iHVuuRITyI7ei3R7u0u8dcWw8G/tJCbfeox+M+1stS5h24t8zO2L
+	 pRkaV999CTImIVaO0WLp5HmeU2hysRo66Uev57j7yAk9VWcRnaScAwK5al6gKTo6aj8MC
+	 mh/glpCnQxPoATA/EZ0sX8aYqclloJPqBWyNC7b0jb+Tb/oFNonT4f29Kwlku4fwHQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=knrI72jy;
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F775606D81D;
-	Thu,  5 Nov 2026 11:07:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F775606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="s/eDR5GH";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9343E6082BC0
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:07:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9343E6082BC0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=knrI72jy
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0F95F1496635;
-	Thu, 05 Nov 2026 12:07:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793876873; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1cjL0JCpaDIHIZFe4xaYZge0ytMZ6yU98tvuRPdMz+g=;
-	b=knrI72jy2XsW8GAfy6cErSlBfoXL3yRP4sNgRDtKypmi2sI4ke8VGz9ZCyNjhg+Nzr1L7G
-	hHaEFS4O2UTNnYeqA7VG8hXE7oDO4xMHIBM6YBe4hTsfdF3Bb2rGMe2sjDSd1j9QpzP1cd
-	9WUsOemv7EEVN7eTkRZ6EwJLjcsbT793H4Itl6zMt06UZiRKESvHdTeGnjTUhLHlWh37Cd
-	3VhD6nywiogQvtrb3Uvb62AVWrmGGy1WfbUR7RkkF7GF1LHwnklMkk385baTbb/I6sz0vL
-	4VeWBRlisK+u3bgbcjwWETijl8xaoinS8u8z7j0sF9EAFrNgtJY+F22tvrz8Uw==
-From: Alexander Dahl <ada@thorsis.com>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v4 01/16] MAINTAINERS: Add sam9/sama to (AT91) SoC support
-Date: Thu,  5 Nov 2026 12:06:37 +0100
-Message-ID: <20261105110715.2486432-2-ada@thorsis.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
-References: <20261105110715.2486432-1-ada@thorsis.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s/eDR5GH
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B14B219F6;
+	Thu,  5 Nov 2026 03:07:30 -0800 (PST)
+Received: from [10.0.128.216] (Suzukis-MBP.cambridge.arm.com [10.0.128.216])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 61A953F628;
+	Thu,  5 Nov 2026 03:07:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793876853; bh=6vL6Hj9BVQ3Cd5slOfB844llVYPZr5KiY8zuKWjv6CI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=s/eDR5GH2EXKtUZQxWAIJW0pNTIUzYp1nwESLI3Tbh7DdCBi4I4IXSZvUtxiDpHtM
+	 ZGwUJUZFSBQoxl9MZlfPr8BVYx7mrcMKBXJdsCFU77HxR9VXOFwKaAl8AWi+SsCHOf
+	 MgFNETUGvNpRq3F/Q/xKTPxo5wCGzvCY0tGRTWCY=
+Message-ID: <d496e730-dea3-4772-bfe9-5e51e67d170b@arm.com>
+Date: Thu, 5 Nov 2026 11:07:29 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,36 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] KVM: arm64: Resume stage-2 teardown where the walk
+ stopped
+Content-Language: en-GB
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>
+Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
+ Steffen Eiden <seiden@linux.ibm.com>, Zenghui Yu <yuzenghui@huawei.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Raghavendra Rao Ananta <rananta@google.com>,
+ Vincent Donnefort <vdonnefort@google.com>, Fuad Tabba <tabba@google.com>
+References: <20261104124451.2148724-1-fuad.tabba@linux.dev>
+ <20261104124451.2148724-2-fuad.tabba@linux.dev>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261104124451.2148724-2-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Will catch previously unmatched files in include/dt-bindings/*
+On 04/11/2026 12:44, Fuad Tabba wrote:
+> Since commit 4ddfab5436b6 ("KVM: arm64: Reschedule as needed when
+> destroying the stage-2 page-tables"), kvm_stage2_destroy() walks the
+> IPA space one block-sized chunk at a time. The walker steps over an
+> invalid entry in one go, but the next walk starts at the following
+> chunk, so an invalid entry larger than a chunk is visited once for every
+> chunk it covers. Destroying a VM with a 52-bit IPA then takes 2^27 walks
+> with 16K pages (2^22 with 4K), however little it maps.
+> 
+> Have kvm_pgtable_stage2_destroy_range() return the address its walk
+> reached, which kvm_pgtable_walk() doesn't expose, and resume from there.
+> pkvm_pgtable_stage2_destroy_range() returns the end of its range, and
+> EL2's kvm_pgtable_stage2_destroy() ignores the value.
+> 
+> Suggested-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Suggested-by: Oliver Upton <oupton@kernel.org>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Signed-off-by: Alexander Dahl <ada@thorsis.com>
----
 
-Notes:
-    v4:
-    - no changes
-    
-    v3:
-    - new patch, not present in v2
+Thanks Fuad for this, looks good to me with Oliver's suggestion.
 
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065d..3ca145c68e0e1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3283,6 +3283,7 @@ F:	include/soc/at91/
- X:	drivers/input/touchscreen/atmel_mxt_ts.c
- N:	at91
- N:	atmel
-+N:	sam[9a]
- 
- ARM/Microchip Sparx5 SoC support
- M:	Steen Hegelund <Steen.Hegelund@microchip.com>
--- 
-2.47.3
+Cheers
+Suzuki
 
