@@ -1,111 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869049;
-	b=E64sqe/+Ro4yinVLAk93BiPFBgtkVZZCw9Nyufl/5eC7rB4HWltXDfY3E8YjOeUsCX4F
-	 uJBi1dISJVT0ZSU2uiXjqot0NPzTA7rTPL4WopZuE8/9+TvubFCnvQJLju2eU0Ucme0vR
-	 Glam0FMfRk+2CAqjEJ4ndM3IODPIwluX0RCDNJGGJnMBsVGFTygwuP1mHINa6m7Xe5j7W
-	 cpjAn/pebmXi4eWkROdEAnK7/E9LF0uh4Tx48NBB39N5gTM+YI+XYlXu2LrqWoeIqk5rr
-	 Gvx2QIy7AKr4tkIArz89giuZHR35YqiCrnRpSwkkNnauZPGVyNFrFyleoJ8xxhOHb8A==
+	t=1793869053;
+	b=OmpAoeUij+cLrWx4mQ5hxkp24/rk9+PseYERBuz2q0lhcOiUWVMFFGAlbjl2LgaNcdZQ
+	 SyPm6KKb/ThzLmMvnzPX8ZPvprNxhL1HIq2tBhUYSO4adt+QkHLV/X8ukW9aaSuAXjY6l
+	 jUfyeAyKyWkior3n9aG3oAFxre3nKxP4kdfmYIUiMof58ZOETNrruIpgwTB0NHU0tDFY8
+	 cZknihjb4mPwH2MNywxUjycc6rlyJ8DWgtVzJTlg3xdMv+pNki8XNzwsqLAIvn82Nb3g4
+	 usEr6BdkrC45hLPKlIgfEhjyqyq0F9dZBqNlKrROPNKk2g/4YYnX0TFDq/SARKhgkIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869049;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Gn8Oew3AHih7mVIt4H5TB3wQOxpvcVD8ncYOYQaKKug=;
-	b=dsCaQsQJyGQQPW7JtN8geOrve5vmpHEyUFi2Y+OB4zKqV9Nu2+m76sfxi6oaedd2Ka2T
-	 ZDa7l3jPMtaBBdqI7kUrrULVtVB8XWEW9CP98rlTLt2CLv4CCxkE3ib0rA8N73Oe4dXOe
-	 lW9DJyON7fGjXib5K721M+pe9r3EHBT6HJGqFr6fUTOMxCjJb68MAI5jaijsDRJ2XJGky
-	 YdV95q8+fJLZw+e6vGG8+cPaqsWae1xkDp/4TGWFInZw6r4yQxe5lI6vPaEWofFxWGVwY
-	 De1cp4sSBuRzSHqMNg6YhueGZzV6QvlXzKNABWUKV3K2kE0ygYSsjhfaUoU1wnG9yRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869053;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IBmbzTXF6cFSRl3S48ClKmFsXUP/ozRPwaaP8s1XxGI=;
+	b=1ml1eYUczccUTjg26SvXH6EnQ9iklLspkNN5PEbpn1WIL+2YbRO2yFBz79Pt2KQEJt1G
+	 Sqp0obP45C26xNA1S4fqGdCMXuWcrmJHPdS4dXr80H+h78Vh4dxQY9fiy7gRQQWcZEZqF
+	 WRzuqOQlq2qVf6DJWQk3fpZl/YbY5AUU7hp+BlCETiYPgi7nE8D5W0FBVepu1d3Y5yWcG
+	 yU6frg8Lx4+9LTOHoryhvjyaqqTCBBF3sD1xVl2gVVGEk8J2kS625l3ay3ZyemeF2wWAR
+	 +DocXfMochNBss8Op7J9CIeiHm/mG3+NPjUynuz9L3ryTJthJ1KZc7TwHsSbSUEds6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kOPmgVes;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ke0TpmVH;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IBGVEqo2;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IkxuynxZ;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D93606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3D93606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E934606A334
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:57:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E934606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kOPmgVes;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ke0TpmVH
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56UL641018119
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:57:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Gn8Oew3AHih7mVIt4H5TB3wQOxpvcVD8ncYOYQaKKug=; b=kOPmgVes0FT/yCNK
-	yULt2a4HiisTgKDYXq1pulg7qM3DKg/K2//R9VSgyLj+lbdCMeiqb0NIWAqCXJ8B
-	4bwxYXaAQMbJwqLCb5iRw2q8nB/D6Ffp9LlI4/rB5LhFD/PTeKZ27UR04Q+Y2nW7
-	7zIzlNGw1/7DDt9lkmvR7lE9HL4XPbIbHnMBjDVpYcJy6ACBOl2cyKyAe3wFX9xm
-	51o+ywJQ2PAJ+T4TI3sqOJJKQfYKdxPQrx4NsqV+wquI4P2/wvbPb2w8IZBlrtk3
-	eQX9eENIoLcWPFekGm1HO+EjsCZAL11jwJXPU0oxlzRBSgyJcyWQX7jBbuyEwvrR
-	q0RNtQ==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bnm63p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:57:28 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-99062be02ddso419343241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:57:27 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IBGVEqo2;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=IkxuynxZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793869051;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBmbzTXF6cFSRl3S48ClKmFsXUP/ozRPwaaP8s1XxGI=;
+	b=IBGVEqo2oYzGLFJWX2CCfYYNIvCosv+9+GGpwBscJ/5fkx3PDxNLycNEdnVcubDKQScjbp
+	8QRWimaLVJ5xz7/zhb5gPZwMo4yAAUqFkKYJqnu3AMEqRsxfDgz7voG1mZbWKkfpcslIsj
+	0jcYAVf3fJhQRNJD3YEFszw+9Jzhgvg=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-356-5tpUFRZyNgKeI0VcgtytJw-1; Thu, 05 Nov 2026 03:57:30 -0500
+X-MC-Unique: 5tpUFRZyNgKeI0VcgtytJw-1
+X-Mimecast-MFC-AGG-ID: 5tpUFRZyNgKeI0VcgtytJw_1793869049
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-490a0e72578so978177f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:57:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793869047; x=1794473847; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gn8Oew3AHih7mVIt4H5TB3wQOxpvcVD8ncYOYQaKKug=;
-        b=ke0TpmVH4hxD2jxfrrW7rZpPvszl7dTRCWMJppYEdZHMTo7+DoKCRi3nf9Je58ydM8
-         oMeGN78ttVjP1Yg2EU5HW51pcZQSrRm3aIcCzbBWWX3Mwn9FFzyMngP1Ntp4gsixaW3K
-         yvIV9NybT8ENcaJm4tJNE6QNSC1cx3KHtgW82q/4ynvSG3fuy3+DUkIUySpIY5UKdwhk
-         oSIYORD6KHWAvfRNVQVVGrkBIn2Ov0gVRtFydv2uHDPLmoiP7GAmXyg1IKnoBtB/wAuw
-         vwqFtMRmmZRM91U0pBrKpaIeduPahxWXTaCjlYT4xcrTrFWu33Xp6Z2Z+PDvnh04Gh16
-         SC3A==
+        d=redhat.com; s=google; t=1793869049; x=1794473849; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IBmbzTXF6cFSRl3S48ClKmFsXUP/ozRPwaaP8s1XxGI=;
+        b=IkxuynxZDIA4mNuqZxwgq6Z7UEVteEtSL8hI5wUlWGCxzsbd3cZvkAlmrM1P18mBql
+         xYuJY9NgHRfdFiAv/6u6r+SHKCFlvO58XG6ahhfYyyPhqCTDPhwPjQlIZYaP/H/+2P0m
+         LLLXE81cXQgOVuWKXy2lhCnICWZ1czbhtdq/4uLBVX88dDAE2wGixXRbSqEFrYqXZJU1
+         mfo7M9b4M3PaM03BNg45kMeVQXELl4Vg2+Hm7UYTKa1ghBwnquMOZOHzQo5RdXEaq6tZ
+         HggkAUcWlzkzAOqD9Mohuc8QSze4EiGofujnYFFNfVtqUwZQM4NNnt2cwC+fTA57Ox0g
+         MmUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793869047; x=1794473847;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gn8Oew3AHih7mVIt4H5TB3wQOxpvcVD8ncYOYQaKKug=;
-        b=ohbNwZJbNZUXvpJjOr3PyLwGL8ttGv20hf3wlOXLfSpjn64Vp8NYObaejI1Becs3Qf
-         91/fSZENzBJiDepkbkvCBPri+qwlJQ+t0tJVUXgTeiE9xZ3XBtj6yrIxrAPgvqu5DSTg
-         8ALg3isMPOgAPH1zV496TLMA2zBzrSBqvQUzISyJ+YfI3x5E+UPituRyO5zNvewP+zdc
-         GRSrmEoQ14/uPiKDvmLlbh+uAjGOeIEzyeW/MF79UPmsrTl5TTj88EfTh1om35TWrj41
-         gWBOb+GntpxWVbDIK/U/ZuguWIkZHauhyd2u84Oj3H2Hh6uE/HTCTDDjtByouCiCvCEP
-         NntQ==
-X-Forwarded-Encrypted: i=1; AKwUvByRnu4m2HLOAkfZEtKBaPk5adtVVp2hoMQ5RpJW34TNGalZcE+0nmJp3t9kD2vOhTNiy6xJADnJIFZHRwg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VFhbxWtAOjNw3OSGMmoEeSR23ReF4FVDQ5h/BBuNUU953gqOm
-	+pyQml7oCJ2Nm5ZC3OqENFfvTDD92pzjlvuBG7fnb+8KDI5XfrCnmZRARQKYRYBBc+CXEt2TZIh
-	0V/DdkzU+qWZwRNjCP0+PGE98uDUahRginozWyw4QVL4VqpEdffPdLBsAv5fNpHOMG7v/3uk8kt
-	E=
-X-Gm-Gg: AYBFou3Zu4eGZnABfPvL4lXPKuyhNyE4knJ+NIeir6m/+C1CbHvMkfyLZW2IUwqq2CT
-	IN13Oms0aMwYH0ic5yttVZ/8ekfRNVpCzzpBY2azZdIR57WLWlCBaD5By4dC07bwmaJMTsu8FAK
-	Vi9W1pYjyqCp7kZVAkNAdZ0TDb9nUjxEgLduOvqlBWnKTNXZJ04csx5b3wRz7MCm7uygHNeWLrc
-	Uo5QZ1xQ+VatsywRg84kCKEJvbR6jgOCVWDtm4OFv1/+iFN4CNSW/rpdvZbHFI6IMUua6g6FdHN
-	Ai28/JQbIqDoFlSeH1/KImI9b18gtzL3pVbSLUSWgQ1012yjG1Fw7wFAHqi2gboc7J2j0qaaNjN
-	HYj/nrg0nBYjktSA4JPOfjGc5n+xdfXUbvSaHxTG+9zV+0CtQ2m3QJHZRNCM4ubC35kAPnEMW5w
-	==
-X-Received: by 2002:a05:6102:148c:b0:7c3:9464:efaa with SMTP id ada2fe7eead31-7d07223f482mr8900180137.2.1793869046753;
+        d=1e100.net; s=20260707; t=1793869049; x=1794473849;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IBmbzTXF6cFSRl3S48ClKmFsXUP/ozRPwaaP8s1XxGI=;
+        b=VMZXGi8t7KcE/+T9Hz1w/7cNvX3unOGZfhEpBg/LPd8/YRbJJQ5l7yDhutqi0EnYpk
+         xdTqs+DoLSkr9ZR5lcd8v5HnlspAG+rsjxi2OmhMy1rHK4KPsf45JaDtyMFhMda9q2jF
+         mIwah8AdDBkBuLmgESz8IRR6TDjzDKt/4w53JxinJSDzPgEF1LlMiUsHoKfdLzAwa1P2
+         +q8ftIbIfszfIrmmzyCa3sFDsHcNarns3hKaYqhwaM3MYKXCyRHXvgsuVQowqz5+c30j
+         8PRsOb7+CYfoduUPWOGvfsjsRqM3Od5zrEs2m8eKTS/om8IkPDBhOOubNLsGF5OCRNgf
+         /3Fw==
+X-Forwarded-Encrypted: i=1; AKwUvBywMZ0xkQrguNVp09wzy8AwhAkF11e84rgrBNOSTBqXeTuS7ypR+A4+bFMI/0AglZvqB3rR2WP4dwzrgYc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nyPM1ZNMgD4avA6W8JW+hsIxc+fTPzGL+LO2bllgbd/wzUbiQ
+	7GoPednl/bUbbxBSEoxDOiE+xjuCdXmXeUgim29vvCdP4Nhq/wuRl1Oz2R6J+MtXH/zgwRN4Kty
+	LQ5yj5gh3l7HOsAL8mFHhBnh3KefYJ5RqJuRud0UplJHFn7jOO+vy0TIlJeTyWAeFhw==
+X-Gm-Gg: AYBFou0FdHHa2BH0JIsUuqfz2B1X6e9aujLZlFljr+jLSdchRJQNukJl/6dPV4tQo/n
+	IikfAm6Y9H5WI3DFsCDQW9jjepc19HC39yHeTkmJQgBJetQq/b1/tc94r0KPbgcv+zZSUGo2t9Z
+	lCOnmH3RPcmaCbqxE8ECZ9UB+WdeqJ7iSo44BQbF0qpXsPsmUO9DFzQlrNKxlWI3e1tpDlpLteG
+	9CQqJv/6+XIpFEBrt53TCliscjt0h0MdrtTF1tO8RWxR0eAFH22BZiMuDkbNitkhq8DLZukrscs
+	bgJBWbjvXiPGaR8zRQtPapH7SWkANktrkrwE4hDn4++TCWzLoE+oyNSO8ORM/O5pZk2mSVKt13P
+	E7HVvWiHWvTC/OsjYD121bqzVLBD2Ll099Q08uRAHyEMHGttt2f3x
+X-Received: by 2002:a05:6000:240a:b0:490:ef5a:bf39 with SMTP id ffacd0b85a97d-490ef5abfc9mr4406363f8f.6.1793869048599;
+        Thu, 05 Nov 2026 00:57:28 -0800 (PST)
+X-Received: by 2002:a05:6000:240a:b0:490:ef5a:bf39 with SMTP id ffacd0b85a97d-490ef5abfc9mr4406314f8f.6.1793869048098;
+        Thu, 05 Nov 2026 00:57:28 -0800 (PST)
+Received: from sgarzare-redhat ([80.116.143.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea180e7csm8809554f8f.5.2026.11.05.00.57.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 05 Nov 2026 00:57:26 -0800 (PST)
-X-Received: by 2002:a05:6102:148c:b0:7c3:9464:efaa with SMTP id ada2fe7eead31-7d07223f482mr8900171137.2.1793869046198;
-        Thu, 05 Nov 2026 00:57:26 -0800 (PST)
-Received: from [192.168.1.110] ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea181079sm9185094f8f.8.2026.11.05.00.57.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 00:57:25 -0800 (PST)
-Message-ID: <35983c5a-7deb-4b0e-9bd4-981754343200@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 09:57:23 +0100
+Date: Thu, 5 Nov 2026 09:57:18 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: netdev@vger.kernel.org, stefanha@redhat.com, bobbyeshleman@gmail.com, 
+	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
+	xuanzhuo@linux.alibaba.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, kvm@vger.kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 3/5] vsock/virtio: amortize RX socket locking
+ for stream packets
+Message-ID: <auxDWISLHB8Ln1x7@sgarzare-redhat>
+References: <20261103041134.33310-1-physicalmtea@gmail.com>
+ <20261103041134.33310-4-physicalmtea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,93 +119,284 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
- tags
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
- <auxDTdfMVS3yazCk@shikoro>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <auxDTdfMVS3yazCk@shikoro>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX5Cj2mFXZEv1P
- +pj+2hmPFrq7R26gvshA5jZqTRDS/TGf1+pKeNlO3grC0Ni6tSy6j4biVyhcwa/nxIkmnMfyTxQ
- dyDtna3xAfREu/MeChF7HoVc1/q3hg/jYvM6Tnh6fsBQEFx3sZFpK7tVfEAzyPfAqqQWK4i/NMl
- qrw6sXhZ4PfVzNmES7TXad0c25hhs18MoRT3q4Ilth9c0Eve7agK7uNxbTCcxeAtRfmBlX0aWcu
- YfG5z7tPxBWoRVrx9r7zTooCYYlZqWys6f/nnsCL4HYwQ1yEA6yy5X6phOJcOt5CYQamu4BvY0M
- Tyz4oPvTJyUpZUweXwzIhElDRiJo06sfNZ7mCOb2AR7r10icRvQdfCQGQ4VoHO3A++D/WxtjoCV
- 8j4f+jUGq9ljArfr+Ik75PtV1KObh6d6uuLGrAjDlMUIq1AiEHqfmiO10EK2squNKv02FsNJGuF
- AXCWROGWxh3q1qaTAjA==
-X-Authority-Analysis: v=2.4 cv=KLLPn1Fo c=1 sm=1 tr=0 ts=6aec44f8 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=QIhr-27iAAAA:8 a=6PtPwRdlQZAe1Mv8CAcA:9 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22 a=cgaYBWEFosGJW4rWv5Lf:22
-X-Proofpoint-ORIG-GUID: LNV_KuXasFjQ_E_C_fl1LxGIDD7P3_QO
-X-Proofpoint-GUID: LNV_KuXasFjQ_E_C_fl1LxGIDD7P3_QO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX5aVYHO6GMUmv
- dB+jBFWspjZw6QxdOMYEcuXFd0BDcc7JFBBTjsWxIKgkf5YJY3Pug4QPfuCFuTUU5eeoDc+CWDF
- Itk1xFXPRFY3962u9hm9VUedYIzSwIQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 clxscore=1015 phishscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050035
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261103041134.33310-4-physicalmtea@gmail.com>
 
-On 05/11/2026 09:50, Wolfram Sang wrote:
-> 
->> +If the reviewer checks only a piece of the patch, leaving the rest unreviewed,
->> +then more appropriate is Acked-by tag or adding a "# subpart-name" marker
-> 
-> "... is an Acked-by ..."?
+On Tue, Nov 03, 2026 at 12:11:32PM +0800, Jia Jia wrote:
+>The virtio-vsock RX worker looks up a socket and takes its lock for every
+>packet. Retain the connected lookup reference and socket lock across a
+>bounded run of STREAM/RW packets for one established native socket.
+>
+>Reuse the locked socket while packets match the same flow. Finish the
+>batch on a malformed packet, flow change, non-RW traffic, or a change to
+>the socket state, transport, protocol, sockmap state, or receive buffer
+>limits. A connected lookup miss falls back to the existing receive path,
+>which can still find a bound socket.
+>
+>Limit an uninterrupted socket-lock ownership interval to 64 packets and
+>64 KiB of payload. The payload limit is one
+>VIRTIO_VSOCK_MAX_PKT_BUF_SIZE. Small or zero-length packets still incur
+>per-packet work, so an independent packet limit is needed. The 64-packet
+>limit uses VHOST_NET_BATCH as a reference; it is a policy choice rather
+>than a protocol limit.
+>
+>Beyond these limits, a larger batch would only further amortize socket
+>lookup and lock/unlock operations, while virtqueue work, validation,
+>tracing, skb ownership, credit update, and queueing remain per-packet. I
+>therefore expect diminishing returns while the uninterrupted socket-lock
+>interval continues to grow, but I have not measured larger limits yet.
+>
+>Only the guest virtio RX worker is changed. The benchmark exercises the
+>host-sender-to-guest-receiver direction, where this worker is on the
+>receive path. I have not measured the corresponding worker and socket-lock
+>overhead in vhost-vsock or vsock_loopback, and they use different worker
+>and locking models. Leave those paths unchanged pending separate policy
+>and validation. I plan to evaluate vhost-vsock separately as follow-up
+>work.
+>
+>Performance:
+>
+>These results cover P1-P3, before the notification changes in P4 and P5.
+>
+>Tested on a single-stream vsock connection (one Guest receiver thread on
+>CPU0, virtio-vsock IRQ on Guest CPU1, fresh QEMU Guest per state). The host
+>uses vhost-vsock.
+>
+>For throughput, vsock_perf runs on the host as the
+>sender, with a custom single-threaded Guest receiver pinned to Guest CPU0
+>using blocking recv(). The fixed-64K table uses a 64K buffer; the matched
+>table uses the sender's request size. The virtio-vsock IRQ/RX worker is
+>pinned to Guest CPU1. To normalize run times across payloads into a
+>bounded, deterministic window and avoid long runs being skewed by host
+>background noise or virtualization scheduling jitter, transfer sizes scale
+>proportionally with the request size (64B/64M, 256B/256M, etc.), capped at
+>2G for 4K-64K. The custom receiver keeps the recv() size and count
+>explicit; vsock_perf's receiver uses poll()+read().
+>
+>End-to-end RX throughput (fixed-64K receiver; Gbit/s):
+>
+>  payload  baseline RX  PATCH RX  throughput change (95% CI)
+>           (Gbit/s)      (Gbit/s)
+>  64B        0.1285       0.2462    +91.59% [+79.74%, +104.22%]
+>  256B       0.5909       0.9666    +63.59% [+61.03%, +66.19%]
+>  512B       1.1817       1.8350    +55.29% [+46.76%, +64.32%]
+>  1K         2.3252       3.3600    +44.50% [+38.93%, +50.30%]
+>  4K         3.8436       5.5661    +44.82% [+40.30%, +49.47%]
+>  8K         4.6609       5.4115    +16.10% [ +8.91%, +23.77%]
+>  16K        5.1196       5.6399    +10.16% [ +4.07%, +16.61%]
+>  64K        5.6095       5.7062     +1.72% [-3.19%, +6.89%]
+>
+>Fixed-syscall stress test (receiver recv() size = sender write size;
+>no perf; Gbit/s):
+>
+>  payload  baseline RX  PATCH RX  throughput change (95% CI)
+>  64B        0.1446       0.2540   +75.71% [+63.67%, +88.62%]
+>       recv() calls (baseline/PATCH): 1048577/1048577
+>  256B       0.4211       0.9061  +115.18% [+72.13%, +169.00%]
+>       recv() calls (baseline/PATCH): 1048577/1048577
+>  512B       0.7980       1.6112  +101.90% [+95.30%, +108.72%]
+>       recv() calls (baseline/PATCH): 1048577/1048577
+>  1K         1.4965       2.6986   +80.33% [+68.93%, +92.49%]
+>       recv() calls (baseline/PATCH): 1048577/1048577
+>  4K         2.9384       4.8590   +65.36% [+60.17%, +70.72%]
+>       recv() calls (baseline/PATCH): 539544/524982
+>  8K         3.8170       5.1887   +35.94% [+27.66%, +44.75%]
+>       recv() calls (baseline/PATCH): 274857/262991
+>  16K        4.6856       5.5996   +19.51% [+15.36%, +23.81%]
+>       recv() calls (baseline/PATCH): 147518/131351
+>  64K        5.5182       5.8800    +6.56% [-0.83%, +14.49%]
+>       recv() calls (baseline/PATCH): 48492/32910
+>
+>Guest CPU1 aggregate cycles per received byte
+>(fixed 64K receiver, with perf):
+>
+>  Buffer size  baseline cycles/B  PATCH cycles/B  cycles change (95% CI)
+>  64B        66.728    61.220  -8.25% [-18.99%, +3.91%]
+>  256B       14.363    14.515  +1.06% [ -4.22%, +6.64%]
+>  512B        7.792     7.578  -2.74% [ -6.55%, +1.23%]
+>  1K          3.988     4.032  +1.09% [ -1.64%, +3.88%]
+>  4K          2.063     1.973  -4.38% [ -8.23%, -0.37%]
+>  8K          1.702     1.667  -2.06% [ -7.99%, +4.25%]
+>  16K         1.473     1.475  +0.17% [ -5.06%, +5.68%]
+>  64K         1.385     1.358  -1.96% [-10.61%, +7.53%]
+>
+>Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+>---
+> include/linux/virtio_vsock.h            |  23 ++
+> net/vmw_vsock/virtio_transport.c        |   7 +-
+> net/vmw_vsock/virtio_transport_common.c | 303 ++++++++++++++++++++++--
+> 3 files changed, 318 insertions(+), 15 deletions(-)
+>
+>diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+>index f91704731057e..748633aa0cc81 100644
+>--- a/include/linux/virtio_vsock.h
+>+++ b/include/linux/virtio_vsock.h
+>@@ -282,6 +282,29 @@ void virtio_transport_destruct(struct vsock_sock *vsk);
+>
+> void virtio_transport_recv_pkt(struct virtio_transport *t,
+> 			       struct sk_buff *skb, struct net *net);
+>+
+>+/*
+>+ * Initialize a batch to zero before use. A non-empty batch owns @sk's socket
+>+ * lock and the reference returned by vsock_find_connected_socket_net(). The
+>+ * caller retains both until it calls virtio_transport_rx_batch_finish(). An
+>+ * empty batch owns neither.
+>+ */
+>+struct virtio_transport_rx_batch {
+>+	struct sock *sk;
+>+	unsigned int pkts;
+>+	size_t bytes;
+>+};
+>+
+>+static inline bool
+>+virtio_transport_rx_batch_empty(const struct virtio_transport_rx_batch *batch)
+>+{
+>+	return !batch->sk;
+>+}
+>+
+>+void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
+>+				     struct sk_buff *skb, struct net *net,
+>+				     struct virtio_transport_rx_batch *batch);
+>+void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch);
+> void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *skb);
+> u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
+> void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
+>diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+>index 4f9aa9c4c3aa5..9af85712bd387 100644
+>--- a/net/vmw_vsock/virtio_transport.c
+>+++ b/net/vmw_vsock/virtio_transport.c
+>@@ -631,6 +631,7 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
+>
+> static void virtio_transport_rx_work(struct work_struct *work)
+> {
+> 	struct virtio_vsock *vsock =
+> 		container_of(work, struct virtio_vsock, rx_work);
+>+	struct virtio_transport_rx_batch batch = {};
+> 	struct virtqueue *vq;
+>@@ -666,6 +667,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> 			/* Drop short/long packets */
+> 			if (unlikely(len < sizeof(*hdr) ||
+> 				     len > virtio_vsock_skb_len(skb))) {
+>+				virtio_transport_rx_batch_finish(&batch);
+> 				kfree_skb(skb);
+> 				continue;
+> 			}
+>@@ -673,6 +675,7 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> 			hdr = virtio_vsock_hdr(skb);
+> 			payload_len = le32_to_cpu(hdr->len);
+> 			if (unlikely(payload_len > len - sizeof(*hdr))) {
+>+				virtio_transport_rx_batch_finish(&batch);
+> 				kfree_skb(skb);
+> 				continue;
+> 			}
+>@@ -685,11 +688,13 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> 			/* Force virtio-transport into global mode since it
+> 			 * does not yet support local-mode namespacing.
+> 			 */
+>-			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
+>+			virtio_transport_recv_pkt_batch(&virtio_transport, skb,
+>+							NULL, &batch);
+> 		}
+> 	} while (!virtqueue_enable_cb(vq));
+>
+> out:
+>+	virtio_transport_rx_batch_finish(&batch);
+> 	if (vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
+> 		virtio_vsock_rx_fill(vsock);
+> out_nofill:
+>diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+>index 2a9cfed085515..f83e5b2edce35 100644
+>--- a/net/vmw_vsock/virtio_transport_common.c
+>+++ b/net/vmw_vsock/virtio_transport_common.c
+>@@ -33,6 +33,15 @@
+> #define MAX_COLLAPSE_LEN \
+> 	SKB_MAX_ORDER(VIRTIO_VSOCK_SKB_HEADROOM, PAGE_ALLOC_COSTLY_ORDER)
+>
+>+/*
+>+ * Bound the interval that an RX worker owns a socket lock. One maximum packet
+>+ * buffer (64 KiB) bounds payload in one uninterrupted ownership interval.
+>+ * Small and zero-length packets need a packet limit to bound per-packet work;
+>+ * the 64-packet policy uses VHOST_NET_BATCH as a reference.
+>+ */
+>+#define VIRTIO_TRANSPORT_RX_BATCH_MAX_PKTS	64
+>+#define VIRTIO_TRANSPORT_RX_BATCH_MAX_BYTES	VIRTIO_VSOCK_MAX_PKT_BUF_SIZE
+>+
+> static void virtio_transport_cancel_close_work(struct vsock_sock *vsk,
+> 					       bool cancel_timeout);
+> static s64 virtio_transport_has_space(struct virtio_vsock_sock *vvs);
+>@@ -1793,13 +1802,94 @@ virtio_transport_find_socket(struct sockaddr_vm *src,
+> 	return sk;
+> }
+>
+>+static void
+>+virtio_transport_trace_recv_pkt(const struct virtio_vsock_hdr *hdr,
+>+				const struct sockaddr_vm *src,
+>+				const struct sockaddr_vm *dst)
+>+{
+>+	trace_virtio_transport_recv_pkt(src->svm_cid, src->svm_port,
+>+					dst->svm_cid, dst->svm_port,
+>+					le32_to_cpu(hdr->len),
+>+					le16_to_cpu(hdr->type),
+>+					le16_to_cpu(hdr->op),
+>+					le32_to_cpu(hdr->flags),
+>+					le32_to_cpu(hdr->buf_alloc),
+>+					le32_to_cpu(hdr->fwd_cnt));
+>+}
+>+
+>+static bool
+>+virtio_transport_recv_pkt_set_owner(struct sk_buff *skb, struct sock *sk)
+>+{
+>+	if (skb_set_owner_sk_safe(skb, sk))
+>+		return true;
+>+
+>+	WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+>+	return false;
+>+}
+>+
+>+static bool
+>+virtio_transport_sock_has_psock(const struct sock *sk)
+>+{
+>+	return (uintptr_t)rcu_access_pointer(__sk_user_data(sk)) &
+>+	       SK_USER_DATA_PSOCK;
+>+}
+>+
+>+/* The caller holds sk's socket lock. */
+>+static bool
+>+virtio_transport_rx_batch_can_continue(struct virtio_transport *t,
+>+				       struct sock *sk, u32 len)
+>+{
+>+	struct virtio_vsock_sock *vvs;
+>+	struct vsock_sock *vsk;
+>+
+>+	vsk = vsock_sk(sk);
+>+	vvs = vsk->trans;
+>+
+>+	/*
+>+	 * Keep a connected lookup reference only for the native, established
+>+	 * STREAM path. Sockets outside ESTABLISHED can change table membership;
+>+	 * a completed or reassigned socket must resume the per-packet path.
+>+	 */
+>+	if (sk->sk_state != TCP_ESTABLISHED ||
+>+	    sk->sk_type != SOCK_STREAM ||
+>+	    sock_flag(sk, SOCK_DONE) ||
+>+	    vsk->transport != &t->transport || !vvs)
+>+		return false;
+>+
+>+	/*
+>+	 * Do not admit a packet that would hit an existing RX limit while the
+>+	 * worker owns the socket lock. The caller holds that lock, so no reader can
+>+	 * dequeue until the batch is released.
+>+	 */
+>+	return (u64)vvs->buf_used + len <= vvs->buf_alloc &&
+>+	       !virtio_transport_rx_buf_full(vvs);
 
-ack
+I don't understand this. We recently introduce the collapse, so when we 
+will call virtio_transport_recv_enqueue(), all the queue will be 
+collapsed, including packets in the batch.
 
-> 
->> +after the Reviewed-by tag:
->> +
->> +	Reviewed-by: I Did Not Read Everything <foo@example.org> # bar, baz
-> 
-> How about being more specific?
-> 
->  +	Reviewed-by: Driver X author <foo@example.org> # for Driver X
-> 
+Or am I missing something?
 
-ack
+Thanks,
+Stefano
 
-> TBH, I think the above is even better than a generic "Acked-by" which is
-> basically "Yeah, I didn't look in detail but the general approach looks
-> fine". Which is not what the above says. The above says: "I didn't check
-> the general approach, but assuming it is okay, the changes to my driver
-> are correct". If I get a couple of those, then I know which parts have
-> been reviewed and which have not. A list of generic Acked-bys will not
-> provide that information. So, actually, I think even the Acked-by should
-> have the "# subpart name" once only a part of the patch has been looked
-> at. Ack/Rev is then describing the thoroughness of that look.
-> 
-> Do you get what I mean?
-
-Yes. Part of the Acked-by tag is actually unspecified Acknowledgment and
-many maintainers do not trail it with "# subpart" name. It's well
-accepted and known in our community that Acked-by can be for everything
-or for Maintainer's responsible area, implied by MAINTAINERS file.
-
-Reviewed-by even with the "# subpart" still appears in person's credits
-and reviewing entire patch of 700 lines of diff code (like Frank's SPI
-patch) is not the same as 10 diff codes for one driver.
-
-I'll send later v3 with the changes from above.
-
-Best regards,
-Krzysztof
