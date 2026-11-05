@@ -1,159 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793892323;
-	b=fLtFLSJpQHPn726yNwc9R4bVEnRr6JS+vvr2S8sK4kWBa74XxWzwU/C0cBhkdI9R9LgW
-	 81aCcq2SlS7mwRQMRMDfYWn86aSYrbrfdIOzzKrxm10k6wlh8otwwIqeU/5hYsd8rjjAa
-	 TTHoCRYXTyLZ76sL+HvthKdDNY5rdCqErdlS5nm/ksnZP+kQOCKAUBRvHQwLmrWNDkFmg
-	 Z4QfQVElDvjaBoNS7x8aqxjTuMR6R0m5l4wItrNYNSGaJnopFMxjeoY67m4YlexxBkQJ1
-	 1rrqFQ78+5wWw9y5kAaUlYzaEA4JAWXrzBJmtOusVIK+b87F+S3fRM375AXUtD3y70w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892323;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=chjfJQZa4Uo3UU2FoBTraFnHNUmZRP0LNaNiqz59ONA=;
-	b=EVETwdkam+GxdlN2QctMg3YgUbkN/x6GfAmmoO24BP3dX7hxTa02RHS+kzGjgQp0zXdA
-	 5N8Y58ECVF/hV3UUcAiIIWPKjcAQ0Tv8hKxE5pyWEWFFXEDVqreprYQ4F64sCucUYIH32
-	 h8D0zmbOtEkjis4gRw5kqhaPleoHC3HXcLYDVJ13wloY/JuKaGxYtoZ2n5iGKz/VkEsj9
-	 VuvEeGxNIcpVyFTK1YwZ3IvcCneFDsC9ft92v9iLgG8HDuuaaRBactar/A9NDahr9SVEc
-	 KIHMlbz02bHDZgh/nOp4Fy+LziO0d0rb4Wj1eSFY6yPJB2lhs/5nfCflNtEsTOf+wLA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0t4Pg01f;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.20
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012020.outbound.protection.outlook.com [52.101.53.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793892327;
+	b=Lytv3viWJVHmwMCiCp/PmppKguSylvh2GRfPRh8uGSYS/Pdg8g7s/BmwtygVw8qeO1gC
+	 XDRkwX29FkTq1wPaTVzvXyzlsCzIENG2gvofNXfW8q7dc5MCSkuGeyPt1dXmBgCP4mxPB
+	 Rwy3JryDQ6X26Z1Bl2bIzT/F8kp4OAiciGgxnRLZ4tyxzrVz2/Fhb9nKd7i1qVcIXg/ah
+	 WaGdIri+VMxkesNxkMiqkpyUumf6KByBKTwFdCU7IOUc8wAMBmFeio2KRFvvLVj8rQcRO
+	 mXRx4KBuIRbnIUN7kdvviNxz5wbp5O0n4zdny1gUfG7tO0VmvMaqE+gXkmnGuGGhc2g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892327;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=71wub0L05hM3JJpdorB68VmX5twzKf91AJhaOYI0rhg=;
+	b=oZg0H67CoUUNx00JetSLm+zrpxWTptzKNFVsMIU2eBxMuEauoUjqYOBu9LJ19MNlviaQ
+	 FgVryBLSak8lB7k9m3atV+/kkF6Pk203gsaEcP3IG94/t42tksWDgQ7Cqb13ayeB4s5+Y
+	 szE9rFz+FBK0gEFYI/CQl1a8xrJ9+5v0boX+2FTpbkw6bxUQZxD2Wc+4uH1rEyCQSpE59
+	 FYCtDj3/RIUe7rOVCvsP3is2g1+fskuDBzq3vXohBEkhOPh6L1N+Gslr9i/UTuscrHA2O
+	 qE49ZIbT28p0mQ7vZqLQBn9oLVTSatuqdV8xD/36Q1Fp+LoLv+XOkqMa5pnQNOCrHVw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=KKuLKpTz;
+	arc=none smtp.remote-ip=209.85.222.176
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD19606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:25:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DD19606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FB6606D824
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:25:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52FB6606D824
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0t4Pg01f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oavxZ7Ftjr7KcqqX47OrRcSs4vwDfTR76722Khy8YE4UU7yJUD/Ub3qrbzSn57iPXV9AxwcWGdMMZZ702kjK910rSUT2RZTDxU3L0zeEB1Iw3Ca/kBbujqHfPA+11JFWtRHLY7JHekfqscYOhVbjo1iUtoEo0VtzxkXvOvLB3S29pU4CZtx5L9qgEKyRM/zpgqboH3x+uxOvlaqIXMRsA0rmJFlcVaxAEa4xzvHNfZig9eredxYRrcefXePRuwSlYyrBYgqbWYUmTmWA2x/wgZ7jfdccfYQKjLU//MZg4UAMvFUYF6v5r/jgOLxdoe71zH8H7pfCMITwaQjN/Zx53g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=chjfJQZa4Uo3UU2FoBTraFnHNUmZRP0LNaNiqz59ONA=;
- b=KdN7HstQljBoW6y2kPgMwS8sBzWubm3bWi1iFRQ3283KwzR2K9wCfMjunKztDffB0BG9XRrNQg+JmAgqdoDZ2hJJx9aKeNqFp1sArU5UvcJK4fswnOSGYYvx5kSk3CjIe70RykOBkURWCpmJsM+zB4HHNRUXKTMjA0CN9PdkpHk9jI6BhBFD9vN4kLROWNcLnkDXNLStSj4g8FfAqZEl1+RtAtttgKPe8/2iiuJbj4ejhbdcebe5Q+1SFvXZ51+JrL+MRFNDMSH5nnaziI6r149MVegiG7/QILoL3khtJlh5aX7cQC9M8f8XSVOBGlBWqOrslZt5QIA+Le6Y8J8uLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=chjfJQZa4Uo3UU2FoBTraFnHNUmZRP0LNaNiqz59ONA=;
- b=0t4Pg01fCON84C5VbOl2mktyMfRpP4LNsGXvT7Ugeg/J+vxkwpO3diTPl2zSnMdksSXFtwZx/uNtBvBR7Oal2Vo9NE3kKBosCR6T0CJ1bS5LMYilAcEiR6tYcfx9g6DqIr/jOx97ofAwoOaGZGaH38t6psdqznH8GP/JVFSRHTM=
-Received: from PH7PR12MB6812.namprd12.prod.outlook.com (2603:10b6:510:1b6::15)
- by PH7PR12MB6657.namprd12.prod.outlook.com (2603:10b6:510:1fe::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 15:25:18 +0000
-Received: from PH7PR12MB6812.namprd12.prod.outlook.com
- ([fe80::a6a8:1bde:c3fb:1069]) by PH7PR12MB6812.namprd12.prod.outlook.com
- ([fe80::a6a8:1bde:c3fb:1069%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 15:25:18 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Hegde, Vasant" <Vasant.Hegde@amd.com>, "Mario Limonciello (AMD)"
-	<superm1@kernel.org>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
-	"Suthikulpanit, Suravee" <Suravee.Suthikulpanit@amd.com>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
-Subject: RE: [PATCH v5] iommu/amd: Enable PerfOpt automatically for integrated
- GPUs
-Thread-Topic: [PATCH v5] iommu/amd: Enable PerfOpt automatically for
- integrated GPUs
-Thread-Index: AQHdYmZ/b1aiF5PGn0eipOlHvFviBLca7+4AgARrLICAAFO0UA==
-Date: Thu, 5 Nov 2026 15:25:18 +0000
-Message-ID:
- <PH7PR12MB68124D930415CDD469C4F56EF7772@PH7PR12MB6812.namprd12.prod.outlook.com>
-References: <20261022-superm1-perf-opt-next-v5-1-dfef0b78b7b9@kernel.org>
- <4206ec86-c6aa-447a-a5d1-4d2e89a31b5c@amd.com>
- <efd2a9cc-dcbb-4f45-8dd7-7fcd713830ec@amd.com>
-In-Reply-To: <efd2a9cc-dcbb-4f45-8dd7-7fcd713830ec@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-11-05T15:24:58.0000000Z;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
- Public
- v26;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB6812:EE_|PH7PR12MB6657:EE_
-x-ms-office365-filtering-correlation-id: e6b2f040-3e74-4047-c19e-08df3b50ff9f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|18002099003|22082099003|6133799003|10067099003|38070700021|4143699003|11063799006|261026121527099003|261026140227099003|261102123227099003|261028144727099003|261022075727099003|261021123027099003|56012099006|261021121427099003|261102130727099003|261022105027099003;
-x-microsoft-antispam-message-info:
- 68IJMo/bMJGnHMz511aDJAWHIdB901L+Eg5FW6NZku8qsv7Ut/GaQvCNZrU0/6WtgvARUeFUD/zalFkyeIvPOeU0+vUTsGzXvjqfw+Pw9FCMxWAJmtxzcQ+KeYHcb36Wgwkz7Y88D93tzUBv1ErSfnvN3QOszjS/vpVt57Zc8Ya4Vyx++YE7/Nh5hZcD6yhm4gftHMrw/GgXsYr7+wededNPdx2zkQTZiTmyOgCBCab3r2vqIJi6wPHZDnaw9gtymVcV46GFHmLlFp71hROEVR//rr8E74YRlklU86eJ8xM5B4K5bgTfz021J5IvXT+xIDrY28ClVZXaVY26p90FhMw3ub07T6tQuv2vqUfc17KotSE91jkKgUmBy8fXdYeMBc+OUIXeqgBYXTsjy4+FIcYSnOV3mHZtCRrkv6S4YGJvyaAZAlazwawRsYVorFbfQcNc5mC+hTc9d7Ak2xvSB6wq3NnmSRkbziFUQX6kxEq1jWFgYlb8T6kIt4QlQHjwEKXYwz9s7ccFFhppRXd9unGFbAbiJRigfbR15BeI0K3Nh2ciFq/IlktunvFjBb204Vzl4Eh5wPlvyMhWPnK4M0R+R4p8O0sUk6QRqMmUqSlim8QCyr/rCvfmRgzrLaG6Lwmaw3st0bjJ8JiGzRK/o6RjjlIS3f87zSqdgDeKn2g1zfyBzr36J8WaxlKjIZ7fuARshGODmTXFJRauTCzbrWesG5LJixFIff7o8V3Jwrg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6812.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(38070700021)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(261022075727099003)(261021123027099003)(56012099006)(261021121427099003)(261102130727099003)(261022105027099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?aGthOVNHTFovcXkwc0NXV3VYU01iZ05CWjJlYlpJejlwUlh6SnZkbTl1R1ZP?=
- =?utf-8?B?ekhyelZWd1VrQndLMlZIdTNEdmZDL1pTOXhNYzRvZjhVd2JSeEhpUG1uNDQ3?=
- =?utf-8?B?ME5YYkRZNnpCenhyNHhZS1ZVMDJ0NXpKdWdBWHdEUzdsMDYreHdQMjlxekh2?=
- =?utf-8?B?bzNMK1BuWUxBQkZWZmp6eGRGc2xrWkxhRlhlY2t4cGJmK1dOWWhoWTNmY3dz?=
- =?utf-8?B?ekhGMkgzSWJucjkyMzV0V01SZmcrOHNydkZOUkRodmhlQWViWlVKQUY0LzVj?=
- =?utf-8?B?QUh3RzRVRm91cDliUjVlYndBSllEOFFQZW5qbEtGQXBCYjlPTW9vZXc4eTZV?=
- =?utf-8?B?WkVQb1BRVUN0UXpxcFZha2dVVXpMazBuMzRGQWdiazZOUEY1aStaRmdFRmVO?=
- =?utf-8?B?N2QvcGhKd3dNNFM0SlpVR0VrR0tpRmJRcEh6cnJkTnJ2T3Fia2hzamdVYmt5?=
- =?utf-8?B?RkgvOEFtVUpDZXJHaElyZ2IveXJUTG9ybytPNGxCSFp3aGlhUDgva0UrMXhk?=
- =?utf-8?B?RkQrc2VIdy8vMkRvQzZ3QmVnbHpnRWlPQUNCUmMybXBPSEJhRnZraWs0WEM0?=
- =?utf-8?B?L1o2d3ZFQitMdUIzMUNINDFoK0hpL3lNR0NFYkMvVDA1QUdLcmQ0WFFTb1ZH?=
- =?utf-8?B?L2NXQ3hXWlVEYUNHWng5LzRSQjlVME81NFhXZFlmTnhJa0hQRFVZZjFqdlUx?=
- =?utf-8?B?TDlqamY1K2xrR3FvTXpWbXBmWERUQzc2NGZna0VjTEZFcXRiZ3VmVFVKdVZB?=
- =?utf-8?B?Tk96RVpzYVdSQUx5VFVjK24zc083Uk9VQUI0a1pyYVI3WGthRFltUGxSVG5N?=
- =?utf-8?B?RkFzTEF5YXR2bDNnd0pNcEVQNjNNWFVUTXFsVzkzMExpRWlGSSt0ZDhGNGdy?=
- =?utf-8?B?QjFsNnpqbTJKRUZQTVlQRnVVT3hVRm5mbVl5UGU0ZCtpNU9LU3hZa1dLVVFP?=
- =?utf-8?B?L0xPc0JWRytsZmJqTUZqUm9NaU40TklxU2x5TXhVcUU0L0t2T3laMURCdVYr?=
- =?utf-8?B?YlJHL0IyNDhYUk9ZdFl5ZUhOTVlpMmdhNldlc2wwbHc3bG9Ea0JyOU9CSVNq?=
- =?utf-8?B?MHRNek1Zc0ppL2lPMFJQWjl3RElxS2NxdndZNm4xeklheGtDTXhZWTduR2VG?=
- =?utf-8?B?WFI4QS8yTkdwL2RRRUhlcXNXWlFtclRRYWNXT3VXUjVaT2ZKc2ttdlpkTGVS?=
- =?utf-8?B?NTZWeUorVWkzV01JQldTNVAvQ2lqeEFzRDFuM2daT2NpclozdzlUOSsrTmFm?=
- =?utf-8?B?Z2U5WURhSnl4aUxzeGFzcW5xK1Y0ZVB0cHNiVTR5d3MvZ2JPbVBNd2hCaWxv?=
- =?utf-8?B?VzNZazNHZFlFRnp0dm1DeVVIRzU2c2hVRm9YdlJGLytmSGlxNExPa3dxeS8z?=
- =?utf-8?B?SDNpMHJDVEp2aVpIc1p5YjUrbld4NWhDdmNJczh5Z1cva1pvSmxKaUNWS0hD?=
- =?utf-8?B?aVhTZStzQkdiNS9Nc3RKc0hUTzUwWVFkZk1EOE9ERzdXZHFycFF6VG4xTWlu?=
- =?utf-8?B?RUVVTlg3VlliZ3lxTUpZZHpnbXc3bHVuK3plZXNqS3NNdXB4cktPM1puNXBF?=
- =?utf-8?B?Qks0OVRaUGxNdWlEUm1tWHp3WXg0RUdaS2VmcTBpeFBRK2xUaFZGRldQdjlE?=
- =?utf-8?B?c3BLc0lZSGRnbzR0MkFJYlh5QTRkcjc5Q1ZpMEFPUW5lbnFOYVYxVk9rVDFI?=
- =?utf-8?B?eTdLTWZqcDhvY3RKdnFtTWpDSnA2MDNPWUc4VjhrNnNXWlo5a00wVjZFWFZM?=
- =?utf-8?B?dTEyK0d4cGNuR0JpWmxGTzFDaXdHWnA5RHF5Nm8rVlZ5YUUvd1FmSldpeVAv?=
- =?utf-8?B?bUtkR1JFeG9FYVJtK283YTFxLzJDekpHVi9zK000dnRvSHJ0Szd6aXlPU051?=
- =?utf-8?B?RG43RkcxREFjN3dDbkF3bmJnMENKVFVES0dNREV4M1FhVitZa2Y0SElDNkZt?=
- =?utf-8?B?bmZZck03TkxtRTZQOXZzRXB2ak5lVmVLTEhMYTA2ZloxeTBCR3J3VzRyQmdZ?=
- =?utf-8?B?RmgrUTBnNkZVUWJ6eWZENlYvQlhCZVJsSEY1WktldlMvYVhQOTNUdlJYcFBO?=
- =?utf-8?B?Z2FlVkpLZGg1QzhJWC9jbEdlUmNiMVdVY0szblVBOEliZEl6MVI0M0ZWc0dz?=
- =?utf-8?B?T2luclFqTGJyYWJoOGQwd2xIWElGemNWRzZkUE9oWnZscWtjS2tOQXR0TUdB?=
- =?utf-8?B?enZ1TWxJclQ4d3lQNVJ5MHkxcVVwanBjaEhnTm1xK2NEdXFGZFFZZ2U0OXlV?=
- =?utf-8?B?VWg2Qkpuanl3ZTFrU3RzRFY1eU1PTThVc2UzWmZXck9XS1ZBMEVoeE02cnJa?=
- =?utf-8?Q?TPrT3vay/jpdEGicN2?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=KKuLKpTz
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-945ae2daa66so195961585a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:25:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793892325; x=1794497125; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=71wub0L05hM3JJpdorB68VmX5twzKf91AJhaOYI0rhg=;
+        b=KKuLKpTzsitUYmLTDEd+Ap3fUkQ85mL3rOZwfff5NWbZWMx97AURL69JnbEqjt4Ma0
+         TGCPMyx3RMQR8raXetCsDIGs1Us1yCEYnXbfF3TSNC71qZFRBEQzwjpyZ4If3CJ1lj5s
+         5pZEpT0sbZ2bHTForcdlvlhXYti8N0f+wMm74cz3fDoee2Q3SVKtpmvIjoukI/MZl6yU
+         BGQYRHuQfWnDstBf6emXbWChO8+xOB9ZThXEh0f+6duzXs85lywDz6PNz9aCPDEbf4Fx
+         NKiE4Vu081KpG3nu888uiIqaUTcG8pkJBRc2w/gO1RnjqyBIoggEVScuyZDVrtL9UFe1
+         Ajug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892325; x=1794497125;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=71wub0L05hM3JJpdorB68VmX5twzKf91AJhaOYI0rhg=;
+        b=u6hw5r7pxGVayMyOsSZFe/6ygP7BAW0CAUAC7bHifGdXu4uKnLB32Q1chh9/ZNHITe
+         rzdH++F+Kp4xOHqYVSlfn0v8WkE4UKp24GFDr/597ZoRtiObuq7JJWa/WCgXFLhC4CI5
+         loMf84LH2OQxajMxxAD6oXtX4OUmHQBg8AEgi5xEEXRdtChi6FLdS7tqv3dOBKrmiz4w
+         ANR5LCMXLhVOmZ+RWvQJZj6XFjdBfp/ahjHXUqyn4RDhIe9gVFVB49Gcgm5pwavY+8G9
+         vbIefzfsCHfMmUUvUlq7WHKVJKLogJ5ifvS2MmMYI+IflAv3pQfMQNYTd4KbjpALfBKN
+         K5Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBytpAWTOkj4dJUxZGUoop2PoWAebpuE5NbsrTPF9QkcTVw4qUd8bP+XnykWgFplxG+ftSk+VXoqeEtoLDY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CXaT3L+P0yXdSIlouMGu05j6rk3o2+ybPHMjzr4n2LgY9kEu7
+	I3LqeujqlZgA4sn/zBNZqT+IdT9tUutdCz9BIENuF+nMvu8YaoSqYEOv2Cye7G402qU=
+X-Gm-Gg: AYBFou070/brMFBQiI8QsAiVvkReBzznp85ZDbjKvZljfnWhcuDWlBjNGZDA+LHAySC
+	/KHpzGg9cAkKIabmyR1ekm663baNx0Ws3NPHhDBOSqIjBShQqkn7sHHW00nY+6yOl0ydBiq/lZj
+	UHtJ+WV4zQgwr49cHLZTsDdbdD5honvqUh2Jmr8rT4RKfrAfBUkFBozAfH0uZEyAceZX/74LnRh
+	ENAm8iRIK8giHQ1B3cpHep28/+YT2QpSMTrnFqzcgMJdBVHxRwRYHlRtAhFszzJBo2WDX5BnQnM
+	d12O/av5+RLx6dD5eYr5V/UlxmRvRPXuFVbpu7/pXtx6ElEaV7QPi/CmvEoPWr03gwD1ZJ881ao
+	u8YCCdp8K4HeEM4dFlc63BizxniYOh+zdcMX4bAXVWrYxq3gODy85AOsDDdRmkhXkzIfb2ZCXnD
+	ZNH73RhTDM7DPDbg0icBOAM/B+HxRFNr76iJKd6nu8IDtOJVdpCW7zKoxhHkGi16bREr7tA/Oru
+	oqLWQCe06zfyVPSVL5qnK0ykDTnYiJBWMDXJYbty7QNDBnofLPfTZkfl1O3lRcdqkXoLWIHmbf1
+	oqgMR4ouhTDAPBVHYTSzJLla26ZUWzxpuiMuMVaLyO7d+Q==
+X-Received: by 2002:a05:620a:254a:b0:93a:10b0:aee7 with SMTP id af79cd13be357-9442175ae3cmr3373311285a.44.1793892325147;
+        Thu, 05 Nov 2026 07:25:25 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d48316f4sm482776185a.25.2026.11.05.07.25.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:25:24 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:03:00 +0000
+Subject: [PATCH RFC v3 68/90] af_unix: tell a sender that control data will
+ not cross
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -163,60 +93,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6812.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6b2f040-3e74-4047-c19e-08df3b50ff9f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 15:25:18.1431
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: n824AFzTJyDlESGpR+1w2EZA+mzJ0n75Qs5CrjW+9HZlLbhP3EAGmnOSB94bfJJ2La0HpP58HdteiNBl/q7QjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6657
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-68-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890935; l=6412;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=e0ueTuD4wsozKi3dIGbcQXO+SHMXvxKJN71+NrWZ6h4=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QAGenU2zm8o4+Ld+iWj14Ou3J8f5y+s2bIElOsfcRzi5ZUdSX7OPF+O2bzpq4kZ4OZ5oXHY8LeH
+ RDOr3mLnuEw0=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-UHVibGljDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSGVnZGUsIFZh
-c2FudCA8VmFzYW50LkhlZ2RlQGFtZC5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJlciA1
-LCAyMDI2IDU6MjUgQU0NCj4gVG86IE1hcmlvIExpbW9uY2llbGxvIChBTUQpIDxzdXBlcm0xQGtl
-cm5lbC5vcmc+OyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5j
-b20+DQo+IENjOiBKYXNvbiBHdW50aG9ycGUgPGpnZ0B6aWVwZS5jYT47IERldWNoZXIsIEFsZXhh
-bmRlcg0KPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEpvZXJnIFJvZWRlbCA8am9yb0A4
-Ynl0ZXMub3JnPjsNCj4gU3V0aGlrdWxwYW5pdCwgU3VyYXZlZSA8U3VyYXZlZS5TdXRoaWt1bHBh
-bml0QGFtZC5jb20+OyBhbWQtDQo+IGdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWtl
-cm5lbEB2Z2VyLmtlcm5lbC5vcmc7IGlvbW11QGxpc3RzLmxpbnV4LmRldg0KPiBTdWJqZWN0OiBS
-ZTogW1BBVENIIHY1XSBpb21tdS9hbWQ6IEVuYWJsZSBQZXJmT3B0IGF1dG9tYXRpY2FsbHkgZm9y
-DQo+IGludGVncmF0ZWQgR1BVcw0KPg0KPiBBbGV4LA0KPg0KPg0KPiBPbiAxMS8yLzIwMjYgODoy
-NiBQTSwgVmFzYW50IEhlZ2RlIHdyb3RlOg0KPiA+DQo+ID4NCj4gPiBPbiAxMC8yMy8yMDI2IDI6
-MTYgQU0sIE1hcmlvIExpbW9uY2llbGxvIChBTUQpIHdyb3RlOg0KPiA+PiBQZXJmT3B0IGlzIHVz
-YWJsZSBieSBpbnRlZ3JhdGVkIEdQVXMgaW4gaWRlbnRpdHkgbW9kZS4gRW5hYmxlIGl0IGZyb20N
-Cj4gPj4gdGhlIElPTU1VIGRyaXZlcidzIGRvbWFpbiBhdHRhY2htZW50IHBhdGhzIGluc3RlYWQg
-b2YgcmVxdWlyaW5nIGFuDQo+ID4+IGFtZGdwdSBwb2xpY3kga25vYiBhbmQgZXhwb3J0ZWQgZW5h
-YmxlL2Rpc2FibGUgaW50ZXJmYWNlcy4NCj4gPj4NCj4gPj4gTWFyayBzdXBwb3J0ZWQgaW50ZWdy
-YXRlZCBHUFVzIGFzIFBlcmZPcHQtZWxpZ2libGUgd2hlbiBzZWxlY3RpbmcNCj4gPj4gdGhlaXIg
-ZGVmYXVsdCBpZGVudGl0eSBkb21haW4uIFNraXAgR0NSMyBzZXR1cCBhbmQgQVRTL1BSSS9QQVNJ
-RA0KPiA+PiBlbmFibGVtZW50IGZvciB0aGVzZSBpZGVudGl0eSBhdHRhY2htZW50cywgdGhlbiBl
-bmFibGUgUGVyZk9wdCBhZnRlcg0KPiBpbnN0YWxsaW5nIHRoZSBEVEUuDQo+ID4+IENsZWFyIFBl
-cmZPcHQgYmVmb3JlIGF0dGFjaGluZyBhbiBlbGlnaWJsZSBHUFUgdG8gYSB0cmFuc2xhdGVkIG9y
-DQo+ID4+IGJsb2NrZWQgZG9tYWluLCBpbmNsdWRpbmcgdW5tYW5hZ2VkIGRvbWFpbnMgdXNlZCBi
-eSBWRklPLiBQcm9wYWdhdGUNCj4gPj4gZmFpbHVyZXMgdG8gY2xlYXIgYnlwYXNzLCBidXQga2Vl
-cCBhIGNvbXBsZXRlZCBpZGVudGl0eSBhdHRhY2htZW50DQo+ID4+IHN1Y2Nlc3NmdWwgaWYgdGhl
-IG9wdGlvbmFsIFBlcmZPcHQgZW5hYmxlIGZhaWxzLg0KPiA+Pg0KPiA+PiBDbGVhciBpbmhlcml0
-ZWQgUGVyZk9wdCBzdGF0ZSBkdXJpbmcgaW5pdGlhbGl6YXRpb24sIGluY2x1ZGluZyB3aGVuIGEN
-Cj4gPj4gY3Jhc2gga2VybmVsIHJldXNlcyBkZXZpY2UgdGFibGVzLiBSZWFkIGZlYXR1cmUgc3Vw
-cG9ydCBkaXJlY3RseSBmcm9tDQo+ID4+IGhhcmR3YXJlIGJlY2F1c2UgY2FjaGVkIGZlYXR1cmVz
-IG1heSBub3QgYmUgYXZhaWxhYmxlIHlldCwgYW5kIHN0b3ANCj4gPj4gaW5pdGlhbGl6YXRpb24g
-aWYgdGhlIGluaXRpYWwgY2xlYXIgZmFpbHMuDQo+ID4+DQo+ID4+IEVhY2ggSU9NTVUgaGFzIGF0
-IG1vc3Qgb25lIFBlcmZPcHQtZWxpZ2libGUgR1BVLCBzbyB0cmFjayBhY3RpdmF0aW9uDQo+ID4+
-IHdpdGggYSBib29sZWFuIHVuZGVyIHRoZSBJT01NVSBsb2NrLiBQcmVzZXJ2ZSB0aGlzIHN0YXRl
-IHdoaWxlDQo+ID4+IGNsZWFyaW5nIGhhcmR3YXJlIGF0IHN1c3BlbmQgYW5kIHNodXRkb3duLCBh
-bmQgcmVzdG9yZSB0aGUgYml0IG9uDQo+ID4+IHJlc3VtZSBvbmx5IHdoZXJlIGl0IHdhcyBhY3Rp
-dmUuIERvIG5vdCBlbmFibGUgUGVyZk9wdA0KPiA+PiB1bmNvbmRpdGlvbmFsbHkgZHVyaW5nIGVh
-cmx5IElPTU1VIGluaXRpYWxpemF0aW9uLg0KPiA+Pg0KPiA+PiBSZW1vdmUgdGhlIGFtZGdwdSBw
-YXJhbWV0ZXIsIGRyaXZlciBjYWxsYmFja3MsIGFuZCBleHBvcnRlZCBpbnRlcmZhY2VzLg0KPiA+
-PiBUcmFuc2xhdGVkIGF0dGFjaG1lbnRzIHJldGFpbiB0aGVpciBub3JtYWwgZGV2aWNlIGNhcGFi
-aWxpdHkgc2V0dXAuDQo+ID4+DQo+ID4+IFN1Z2dlc3RlZC1ieTogSmFzb24gR3VudGhvcnBlIDxq
-Z2dAemllcGUuY2E+DQo+ID4+IFNpZ25lZC1vZmYtYnk6IE1hcmlvIExpbW9uY2llbGxvIChBTUQp
-IDxzdXBlcm0xQGtlcm5lbC5vcmc+DQo+ID4NCj4gPiBMb29rcyBnb29kLiBRdWV1ZWQgZm9yIHJj
-Lg0KPg0KPiBDYW4geW91IGFjayB0aGlzIHBhdGNoIHNvIHRoYXQgd2UgY2FuIHBpY2sgaXQgdGhy
-b3VnaCBJT01NVSB0cmVlPw0KDQpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
-Y2hlckBhbWQuY29tPg0KDQo+DQo+IC1WYXNhbnQNCg0K
+Control data that is sent to another cell is dropped on the receiving
+side. It is better for the sender to find out.
+
+Record in each socket the cell that holds it:
+
+  - For a new socket, the cell of its creator.
+  - For an accepted socket, the cell of the listener.
+  - For a socket that pidfd_configure() gives to a new task, the cell of
+    that task, once its exec has succeeded. If the task never starts, the
+    socket stays with its current holder.
+
+Sending control data to a socket that is held by another cell fails with
+EPERM.
+
+This is only a convenience for the sender. What is delivered is still
+decided on the receiving side.
+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ include/net/af_unix.h |  4 ++++
+ kernel/embryo.c       | 17 ++++++++++++++++
+ net/unix/af_unix.c    | 56 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 77 insertions(+)
+
+diff --git a/include/net/af_unix.h b/include/net/af_unix.h
+index bb1b3dee02e8..10c1613b4d42 100644
+--- a/include/net/af_unix.h
++++ b/include/net/af_unix.h
+@@ -14,6 +14,7 @@
+ 
+ #if IS_ENABLED(CONFIG_UNIX)
+ struct unix_sock *unix_get_socket(struct file *filp);
++void unix_file_cross_cell(struct file *file, u64 cell_id);
+ #else
+ static inline struct unix_sock *unix_get_socket(struct file *filp)
+ {
+@@ -50,6 +51,9 @@ struct unix_sock {
+ 	int			inq_len;
+ 	bool			recvmsg_inq;
+ 	bool			scm_rights_notrunc;
++#ifdef CONFIG_CELLS
++	u64			cell_id;	/* of the cell that holds it */
++#endif
+ #if IS_ENABLED(CONFIG_AF_UNIX_OOB)
+ 	struct sk_buff		*oob_skb;
+ #endif
+diff --git a/kernel/embryo.c b/kernel/embryo.c
+index 657ce07441e0..1f8d0b14e6a4 100644
+--- a/kernel/embryo.c
++++ b/kernel/embryo.c
+@@ -78,6 +78,7 @@ struct embryo {
+ 
+ 	struct pid		*pid;		/* the reference alloc_pid_struct() returned */
+ 	struct cell		*cell;		/* where the task is going to be */
++	u64			cell_id;	/* of that cell */
+ 	struct user_namespace	*user_ns;	/* likewise */
+ 
+ 	int			result;
+@@ -126,6 +127,19 @@ static int embryo_install_fds(struct embryo *e)
+ 	return 0;
+ }
+ 
++/*
++ * The exec went through, so these ends are the cell's from here on. Not any
++ * earlier: a socket that was to go to a task which never started stays with
++ * whoever has it.
++ */
++static void embryo_fds_crossed(struct embryo *e)
++{
++	unsigned int i;
++
++	for (i = 0; i < e->nr_fds; i++)
++		unix_file_cross_cell(e->fds[i].file, e->cell_id);
++}
++
+ /*
+  * What was configured has been used, or never will be. The pidfd may be around
+  * for long, and must not keep the other end of a pipe from seeing the last
+@@ -241,6 +255,8 @@ static int embryo_main(void *arg)
+ 
+ 	/* @started is set, so nobody changes anything any more. */
+ 	ret = embryo_exec(e);
++	if (!ret)
++		embryo_fds_crossed(e);
+ 	embryo_drop_config(e);
+ 	/*
+ 	 * A signal to the embryo is no signal to whoever started it. Whatever
+@@ -356,6 +372,7 @@ int embryo_pidfd_open(int cfd, unsigned int flags)
+ 	}
+ 	e->pid = alloc_pid_struct(cell_nsproxy(cell)->pid_ns_for_children);
+ 	e->cell = cell_get(cell);
++	e->cell_id = cell_id(cell);
+ 	e->user_ns = get_user_ns(cell_user_ns(cell));
+ 	cell_fork_finish(cell);
+ 
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 58fef56c0f7e..198898b86c1c 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -829,6 +829,49 @@ static inline u64 unix_skb_cell(const struct sk_buff *skb) { return 0; }
+ static inline bool unix_skb_foreign(const struct sk_buff *skb) { return false; }
+ #endif
+ 
++/*
++ * A sender is told right away that control data will not arrive, where that can
++ * be known: each socket records the cell that holds it. That is a courtesy. The
++ * rule above is what counts.
++ */
++#ifdef CONFIG_CELLS
++static inline bool unix_sk_foreign(const struct sock *other)
++{
++	return READ_ONCE(unix_sk(other)->cell_id) != current_cell_id();
++}
++
++static inline void unix_sk_set_cell(struct sock *sk, u64 cell_id)
++{
++	WRITE_ONCE(unix_sk(sk)->cell_id, cell_id);
++}
++
++static inline u64 unix_sk_cell(const struct sock *sk)
++{
++	return READ_ONCE(unix_sk(sk)->cell_id);
++}
++
++/**
++ * unix_file_cross_cell - a file is being given to a task of another cell
++ * @file:    any file
++ * @cell_id: the id of that cell
++ *
++ * If @file is a unix socket, it is held by that cell from here on. This only
++ * serves to tell a sender early that control data will not arrive. Whether it
++ * does is decided where it is received.
++ */
++void unix_file_cross_cell(struct file *file, u64 cell_id)
++{
++	struct unix_sock *u = unix_get_socket(file);
++
++	if (u)
++		unix_sk_set_cell(&u->sk, cell_id);
++}
++#else
++static inline bool unix_sk_foreign(const struct sock *other) { return false; }
++static inline void unix_sk_set_cell(struct sock *sk, u64 cell_id) { }
++static inline u64 unix_sk_cell(const struct sock *sk) { return 0; }
++#endif
++
+ static bool unix_may_passcred(const struct sock *sk)
+ {
+ 	return sk->sk_scm_credentials || sk->sk_scm_pidfd ||
+@@ -1146,6 +1189,7 @@ static struct sock *unix_create1(struct net *net, struct socket *sock, int kern,
+ 	sock_init_data(sock, sk);
+ 
+ 	sk->sk_scm_rights	= 1;
++	unix_sk_set_cell(sk, current_cell_id());
+ 	sk->sk_hash		= unix_unbound_hash(sk);
+ 	sk->sk_allocation	= GFP_KERNEL_ACCOUNT;
+ 	sk->sk_write_space	= unix_write_space;
+@@ -1777,6 +1821,8 @@ static int unix_stream_connect(struct socket *sock, struct sockaddr_unsized *uad
+ 	newsk->sk_state = TCP_ESTABLISHED;
+ 	newsk->sk_type = sk->sk_type;
+ 	newsk->sk_scm_recv_flags = other->sk_scm_recv_flags;
++	/* It is the listener's end, whoever made it. */
++	unix_sk_set_cell(newsk, unix_sk_cell(other));
+ 	init_peercred(newsk, &peercred);
+ 
+ 	newu = unix_sk(newsk);
+@@ -2284,6 +2330,11 @@ static int unix_dgram_sendmsg(struct socket *sock, struct msghdr *msg,
+ 		goto out_unlock;
+ 	}
+ 
++	if (msg->msg_controllen && unix_sk_foreign(other)) {
++		err = -EPERM;
++		goto out_unlock;
++	}
++
+ 	if (sk->sk_type != SOCK_SEQPACKET) {
+ 		err = security_unix_may_send(sk->sk_socket, other->sk_socket);
+ 		if (err)
+@@ -2456,6 +2507,11 @@ static int unix_stream_sendmsg(struct socket *sock, struct msghdr *msg,
+ 
+ 	otheru = unix_sk(other);
+ 
++	if (msg->msg_controllen && unix_sk_foreign(other)) {
++		err = -EPERM;
++		goto out_err;
++	}
++
+ 	if (READ_ONCE(sk->sk_shutdown) & SEND_SHUTDOWN)
+ 		goto out_pipe;
+ 
+
+-- 
+2.55.0
+
