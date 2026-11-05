@@ -1,115 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867836;
-	b=p6k8QO3oLfzDoucPuXx0BC7gd70TN5ncQL33Fq4uUqJKZ5tviLCCZDk9UbwhFbs2yM80
-	 9kw3GNfwFLCwe3UTXE+41LeBb7x5PvbiUxfeMOSeXwzsv2pfd0dIunULeIa+zE/KtU76/
-	 8f3c8UY1N75YwUezHWsFyuSLrduYE8nubhyY3mTXPW4jhrrg9i+Q781DqJ+zCcINSLW0O
-	 zeLKVKQN6fE6gcEzXUT2XDM2vruF5l4Ce9jHPV43f5bojR+Fb7jRqtDlbMBY7J3ml5upW
-	 MxKThtEjIZAgVOtzBK8Lq2itU8jAzBCfTQDKzFDaw9DESpSH1ph23jcdI8n/MKUojqA==
+	t=1793867873;
+	b=ENJhry7eij4ebwVS2FdUkTpFazXr44RVZiVyG7076pY/8ccQDFre/CnjuIuw1ZQac+IM
+	 vqkEEJ5D/sfeW6cDgM7lMDcd94JLVtUPlWwlBNm2+5s5QWFMAUbXlHr1h1+JIn2uQfOMo
+	 cUedIHdf505dCtNCvKftb8ceh3Hy5nrKApXjr1y4nCXFuT6G9ZzLEsyp/9IKNMMrMoPPk
+	 WfK+zZaSiUgZLx6cqQgE9fqRquAVGtqGifBxP3xNGXagDlAEgNWBdq4A/J+IjXw84ZuY/
+	 OAtcwgwxjFbNSxVtdwpJhgcyi6lZgGrUqDj8iZ9tO4gRxEN2nqhe3AZKj960HkPP3Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867836;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3NU/G0xlaqrO1C6pRG/U/VFMHzB1bgOCQipgiOlTFyw=;
-	b=r+0InK9YRIyCxNpUf9AOmDXJP2HBqA4qASLsKAWv8wUm8f0O6zf0Kqr65JAbnDnQywMN
-	 qYqto++K6RHHn3ush4C+KYUldrIhBCV0tHISLK3zWzBJ7ZkzeKcpSTYbd7aGHnADKEmzA
-	 VVTAO5ceA3SqdPftxj4uSfkpvxzSmccACmBC2YHgWiPC2xjCjVb+W342m8v1+agcXFKn1
-	 jl78t5WdAFTXQPx+tdb9XQFRTi1gkqjKwWT4VN04V8OVK6nhAOaAoVt+ge5tJtDHQy0kH
-	 djMg1eU8hhInR1eRQVfZkv3fxytVlg0CZmWplCgcDVESIhAF0YQNguRyBtYfKw7siKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867873;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=BWzLU+LOzznZtDltvMa3C2hyFrgMmxrFCRNwmZcDI1w=;
+	b=JaViUUN+IOudiAoq64Q1JI6BrSC4sFeK/NCkZ3vWplv5aQYnNTHSyMpWXJE/l1A3zhsk
+	 9fh7xmaWMqn0DJAoBuNAo1Fki1QFChoM0Me0OTI8rB7JgvTC6q3YXJ5fwGaPLPTeuiA7/
+	 y3vcJ1FRvqzUAq0ZseOXpd7sK/5H820jRgT9ZAVjmiF8B7o9YyAsP+N9HGZlf8Vt0RzeU
+	 lirHY+ksYNM7R67yppYAQV8ksW2RMrRJYLHd8Jl+O9J/nrWwdNmpyKggKNXGAfTVl5Ri3
+	 S1OzDLHGY4WYRFY7xn1VsivVggxha4MmBeFGHhuYxxsxH5eCf2i4XlRw7rQwSMfxHCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TCd7OApu;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=O0aUQenC;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA98606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:37:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CA98606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0489E606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:37:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0489E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TCd7OApu
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so18366935e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:37:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793867834; x=1794472634; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3NU/G0xlaqrO1C6pRG/U/VFMHzB1bgOCQipgiOlTFyw=;
-        b=TCd7OApuoL5e3stS7D1Cly3qhe5s15objHkahbF02Otwe/HfYG0Lej3tHT+vvUg9fX
-         wM7/rDK0ZKfkmIKirGxQ4lCbjDhxdGdeY3tFpTNzaQ77gZIvgCQbEVQnLYSoAtRd/F0B
-         B3P1GQCvO1Ey7jnj2cNDru7e/V3p7HMD+mzycRvyeaEFiOSwlimL84H/o+T+Sa7HeYX2
-         947109hybPJgL421as69RaLomQaFhr95brhMHrb/jbGJdfW/+OsFTyr4iOavfSJAjTq1
-         /9RC8ylZyagig84Z8nnznPCc2Fzl/McnQn0vWxi72uOtuqDts7dZxdxnDXtW9AxgOA1e
-         XQpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793867834; x=1794472634;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3NU/G0xlaqrO1C6pRG/U/VFMHzB1bgOCQipgiOlTFyw=;
-        b=BCmngb+w9iZk/AXa6GgE733BhM/EUC7qSq/+pDzMc/sVK1FAnV5UAPh1UWBjMwfdu9
-         r9nfsUjirKdlh/SrxRlDQBrvL8rDtcrfWlWeImlkI3dRPqgyDqG9i6XFGnSbu5NFejat
-         LNbQDdWHa0pG0QdFFrdoEVZ4cZTPKWOIeBtn0Z8jFGFha1Cv2JDgAXEW7MzSz/CRg6GF
-         Vsd4PYLmuIm8Hq6jcAJgwIJ4f1LjY/cR0XqGyOMZKdddvQ/iF4BPyt2QIOPltEI8JwWb
-         9HhQ327X3f2KilwLcLC2hPmOwm4Z0/GfDqlZWKZP0mUK6AdYF0tHgSJ/2BN5UD1b75S4
-         y4wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ8puGvor2TRLYlrZjSgFz0Q2gvyR9UeNKfFmxJ4kAxWd3lMe8hML9RE0suC9nlrZh6P09ySK8i+lCz9c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++sypaCLe94HyQs/BSG651m0ONuemBpbEHILy8KV5SwKYeSiAD
-	FR/6fD8IpvIHMNH8sQSLFr3yxUZGL1RZE3Mc9P/KeWkhW8m8oXGLJCfn
-X-Gm-Gg: AYBFou05rYa8t1edO4RNcYFw48ljZu239Aaw5Ciy1FFS58GxYgzgefWeU/VTLET5h33
-	Q6Ehhq9qeMWPJdzLRMPEPhJQiLb+NuQtqedgJBYW7wvPlaquX2XYDD2m3SzRRYHqhyPAtLUkJ/Q
-	sPRUQQyHWlippnjuvrfxkz6ZHgJ/uhnzFPU1yS3w+XlfOuO6uci6rHLEoVz2duJl1jIUAgqarN5
-	ozQrj8WKm5EnyhW+A8CJ4T8/pmhxqM3EJG+Ur2k8T5gFoO740wlv9S8qZBaks2JUmaGVPeXD4Ao
-	PdNXCRa7MiJ54A3bG2iw5xdjs9bK0KunGNMkcTogNgzyAqSycisnygWbGasLSZHNv9su8xOF+RW
-	lWk0g3zSH1/5UbHT+gghr7RDWZQ4L3KO17SnFXluKrs8SMueYKMf8zxd/dv2anLtoRRN2cxvrDf
-	lHbgf7hT3M9x67pKFq4+Uxvf56X9zUE+n69int5TJ2yq+XC7qINLc4gf4SFzZs/WUNUo0+yXH3O
-	YOzWq5fKmr1krg3z5cJiNZdCSAyQVTn0N25OknalpEXuDZsSTVS56pV1/JrlCoRZvCZKp7iKV+G
-	Ggb/3uxWmixvtSaA+pJliuvCIOq02YSC1XdohLFS7KjgmshhZsTo8qebU7ykXDza
-X-Received: by 2002:a05:600c:4e88:b0:4a3:59c7:f226 with SMTP id 5b1f17b1804b1-4ac16bc4713mr417554995e9.6.1793867834333;
-        Thu, 05 Nov 2026 00:37:14 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cae5sm75471835e9.12.2026.11.05.00.37.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 00:37:13 -0800 (PST)
-Date: Thu, 5 Nov 2026 08:37:12 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Samuel Wu <wusamuel@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
- <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi
- <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu
- <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
- <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Nathan
- Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- kernel-team@android.com, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to
- /proc/kallsyms
-Message-ID: <20261105083712.14847dcf@pumpkin>
-In-Reply-To: <CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
-References: <20261023001603.560210-8-wusamuel@google.com>
-	<20261023001603.560210-9-wusamuel@google.com>
-	<20261028134012.01d52e94@pumpkin>
-	<CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
-	<20261030100215.6f8e0d4f@pumpkin>
-	<CAG2KctqdPq6NmK6rB13s2bgM7kP2w4OMMy2hdp_OFMVYYhTnZA@mail.gmail.com>
-	<20261104142307.431fc12f@pumpkin>
-	<CAG2KctrY6GmVqsKP+fXYCsL6wDR4zp1kdRd7a7uOdCgg_JcMdQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=O0aUQenC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=BWzLU+LOzznZtDltvMa3C2hyFrgMmxrFCRNwmZcDI1w=; b=O0aUQenCjm8GtmD9zpn9l7dNw2
+	KcpfkLAJi8UBmvvdfG+YYmjzqDJJhi8Dz2IGRC840fgNaj1vtC3Qb2CYiFapuos7Xw31TNeVvrCS6
+	389pIu2KfSxH8oVkizZlWXLrZ1qB1n34NkFexdnMhSas4qx7wXZEHnA+cUGTHVXIQvQnn+1kbp8WE
+	CtgBMJr0hh0JNNEEkFFKRqnr3YpP6xbX68uMY/XUjeN7ErYsv31khGW/lss3r9dRjUykTuUPGMata
+	JqtEvM/fdjC6p4StumE11vPNN3LGoSxI4jf0HqpWa818k3JHlumDlQaiWsAudr1yJSu+kJHDsdUsZ
+	FQ5KGvRg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOsyi-00000006JZy-0xik;
+	Thu, 05 Nov 2026 08:37:48 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id DC2DB30057E; Thu, 05 Nov 2026 09:37:46 +0100 (CET)
+Date: Thu, 5 Nov 2026 09:37:46 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
+	linux-kernel@vger.kernel.org, Marco Elver <elver@google.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH 08/14] lockdep: Introduce lockdep_assume_ctx_held()
+Message-ID: <20261105083746.GP2668804@noisy.programming.kicks-ass.net>
+References: <cover.1793654853.git.bvanassche@acm.org>
+ <71bc2361d8676f1eea3c945cbf21a0c2542d5b92.1793654853.git.bvanassche@acm.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,43 +71,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <71bc2361d8676f1eea3c945cbf21a0c2542d5b92.1793654853.git.bvanassche@acm.org>
 
-On Wed, 4 Nov 2026 16:05:52 -0800
-Samuel Wu <wusamuel@google.com> wrote:
-
-> > I think it might be more sensible (less pitfalls later on) to return
-> > the symbol number - not that of the next one.  
+On Mon, Nov 02, 2026 at 01:34:38PM -0800, Bart Van Assche wrote:
+> Introduce lockdep_assume_ctx_held() and lockdep_assume_shared_ctx_held()
+> for code that needs to inform Clang's context analysis that a lock is
+> held in code paths where lock ownership cannot be proven at compile
+> time, e.g. because the lock is accessed through a pointer alias that
+> the analysis cannot resolve. These macros call respectively
+> __assume_ctx_lock() and __assume_shared_ctx_lock() and also verify at
+> runtime with lockdep that the lock is held. Store the macro argument in
+> a local variable with a unique name such that it is evaluated only once
+> and such that nested use of these macros does not cause shadowing. Rely
+> on Clang's context analysis resolving that local variable to the
+> expression it has been initialized with. Document both macros with
+> kernel-doc comments, including that __assume_ctx_lock() and
+> __assume_shared_ctx_lock() must be used for context locks without
+> lockdep support, e.g. bit spinlocks and the RCU context tokens.
 > 
-> What pitfalls were you anticipating? If the current symbol's position
-> is returned, userspace needs another ioctl() call and an -ENOENT
-> check, to learn that there are no more matches. Alternatively,
-> returning the next position means every call pays for a look-ahead,
-> which for an unfiltered query walks the module symbols even when
-> userspace only wants the first match.
-
-I was thinking more of the kernel api.
-The 'position' is just an array index.
-So a 'read by symbol name' would return the array index of that symbol.
-A 'read by symbol name index' would return the name (uncompressed) and
-do the lookup (binary search and linear scan) to find the value.
-
-I've used a bit in the 'sorted by name array' to indicate that the
-symbol is a duplicate of the previous one.
-So checking an 'exact match' for being a duplicate is cheap.
-But for a partial match you start needing the name buffer to be in-out
-on the read-by position request.
-So you start needing 'read by position' and 'read by position with
-name compare'.
-It is likely that the caller will need to validate the name anyway. 
-
-An 'interesting' idea would be an ioctl that returned the value of
-the nth symbol along with the name of the n+1th.
-That might get confusing though.
-
-David
-
-
+> Convert the lockdep_assert_held() tests in lib/test_context-analysis.c
+> into lockdep_assume_ctx_held() tests and add tests for
+> lockdep_assume_shared_ctx_held().
 > 
-> Andrii, do you have a preference between the two?
+> This patch prepares for removing the context assumptions from
+> lockdep_assert_held*().
+
+So the only convincing rationale from 0/n for doing this was that the
+current annotation can hide the need, and thus cause a lacking of
+__must_hold() on the function.
+
+I'm not sure I understand how this alternative form of the same avoids
+that same problem, and the above doesn't seem to mention the whole
+problem -- either that, or I just can't read this morning.
+
+
+> +#define _lockdep_assume_shared_ctx_held(var, uniq)			\
+> +	do {								\
+> +		__auto_type uniq = (var);				\
+> +									\
+> +		__assume_shared_ctx_lock(uniq);				\
+> +		lockdep_assert_held(uniq);				\
+> +	} while (0)
+> +
+> +/**
+> + * lockdep_assume_shared_ctx_held() - assume and verify shared lock ownership
+> + * @var: context lock instance pointer
+> + *
+> + * Instruct the compiler's context analysis to assume that @var is held with
+> + * shared access from this point on and verify at runtime with
+> + * lockdep_assert_held() that @var is held. Use this macro for reader-writer
+> + * locks, e.g. rwlock_t and struct rw_semaphore, in code paths where shared
+> + * lock ownership cannot be proven at compile time. @var is evaluated only
+> + * once.
+> + *
+> + * Since lockdep_assert_held() is used, no lockdep warning is reported if
+> + * @var is held for writing instead of for reading. Holding a lock
+> + * exclusively implies that shared access is allowed. Use
+> + * lockdep_assume_ctx_held() if exclusive access is required.
+
+We do have lockdep_assert_held_read(), which then requires a shared
+access.
+
+> + * @var must point at a lock object that is tracked by lockdep, i.e. that
+> + * has a dep_map member. For context locks that are not tracked by lockdep,
+> + * e.g. the RCU context tokens, use __assume_shared_ctx_lock() instead.
+> + */
+> +#define lockdep_assume_shared_ctx_held(var)				\
+> +	_lockdep_assume_shared_ctx_held(var, __UNIQUE_ID(ctx_lock))
+> +
+>  #ifdef CONFIG_PROVE_LOCKING
+>  void lockdep_set_lock_cmp_fn(struct lockdep_map *, lock_cmp_fn, lock_print_fn);
