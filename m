@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849649;
-	b=3gK9V3UC7QKeQ3pOSbKHteFov80ZvOyxvxrcXJsQD4dCZyYZh1BcdYr5slcigUjdah5z
-	 lAifl/xVHLWv4u0QgY4vUQjsMd5HxvY4mhdYq/A1pF6f7Z/dEK1j0BBMXLl0GroSAfVhm
-	 xnrrwscdyuvh8Mzz9+VcpilmBCJCl61krTkmf8ggRouAuwXRibEkxbkhYTyXRSDow0ZC3
-	 2vkPXBDIVKFjKd/k59YddXZZ3R8ZyJaV4ApPhULFPWRvcy1rQMUPF+aFMaGT9q4Ll8f49
-	 8N/cr72YgSCEUZYRUK6ITRNV42plo+RdRav6MEMmxceAFC/ievQo3N7JYKj0yVVR32w==
+	t=1793849671;
+	b=dZQFGFQ8N2TALjBUsRWjzQ6xhMET+HhRHAbHfGG0IHNsEePxihe8YFLfT7L6UpBYOLH0
+	 nk+Y3gfzJEwpzJ/7JVMyE953zr+HCz3N2QsmjO/EFinECfPMrmmu5/MPuCD9PyxQ+/I0u
+	 VBMuAuouD5Rm2/dgaRALF+AalJMtHCZxKpzxRedMO8lPVth7lQ4EpigBm+0kdN0fowPZ+
+	 S0njQV5trF3126Kvit/Xw6SeN/7Jw+/Bn6aLII/R7qCYD/xDH1gYgIY8OVWjtWBHHqZU+
+	 DddYo0PhTI74ETXSZTSMfQZQ+pawgqWcYjb4q5x+0Rf0KxQCm1w1EiopUehU8tO7n0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849649;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kGtjkl+otQ69V077Z4O6I2ySUfE+CZb9D47hhkLq9X4=;
-	b=KVs0uJbZacRRfptdryLyQXmgNeln/1SvM3oFiazlPChLf5+e2VRKjXUSRS/C/Zxp0a2/
-	 8Pluo8pvPfAErUf48R+NOb8XyujZOX6W/8y1Q2BpWECbl6g4Ri4zL3HmdagTdZk5q5Gbo
-	 5xSqhTqV7PD1Gw4N5PDPQsIjMZXIkIzHq208RZupwA+xB1MznW80A4FrpL0Xvp/gZvM+9
-	 rvbKIvzp2/hi/+RAv0H/6EZCQrMkt13GZffEyKFjCAzH0mS2S4ajsam70Y/ALnWUq9O2v
-	 JFhqQlP79JdF39W90WTUIZQcGTTdtUH54twGOYh7H9ZVApfkAhZMOZugDrv//hgIMIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849671;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=wqQeqShnEFAGPe29OtG3KFou809AHeH9DP4h7PajO7A=;
+	b=lMdkgiw+xLEbqTKDH7xKf2VVx7OJiJ8b9j0+qkHDaJo5Hpj+keBz7LfGx03FOGVWQKoi
+	 2Y+k0Zn3upwyzAzhEo99RWlsI0mnn9HrI8s2RsI4InbhOPL3CngW+7gI+Wq1yUiCZrV7C
+	 x6wPJ6f4dmYvDYU71uF0rfQLCWjnUfSBbWjZF9kWL5axJaZcOztZbxwVaAcsGKqlWqtlv
+	 vQWmEON0M+nsHwkFZjFVk/93GAgZc8du/r++fQggCs/s2aZpRACCGm99ixE12EN7UwXeA
+	 QnQ26bih1VvUwLwvvxpdYEzHIQ4aO2iaIn5gZDPQqVKp6JoaBR8cK7psKtiSy44OFTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ox+qqM5w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cKaGZeuH;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17B0606A31B;
-	Thu,  5 Nov 2026 03:34:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9B1606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:34:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB9B1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ox+qqM5w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFA391F00A02;
-	Thu,  5 Nov 2026 03:34:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793849648;
-	bh=kGtjkl+otQ69V077Z4O6I2ySUfE+CZb9D47hhkLq9X4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ox+qqM5wSZt8EO1+i/7coQBdaf6CKsy7zKndW/gX2mxDx0NvGx2a7kJRhzxjLG4qB
-	 7CsP0capYqMz3zRIUUoJ0CzvcZT4gY0KSvXWDvhtCujNl1xY8fid7bZmDxWXBz4JOj
-	 vObeWYqyuJIWeRhput5hvGZLK6TFDPoADkWULnpoO49Y9vTerv5Fpjhy9W52aDr8Xn
-	 IS5t/zUj7qnwaQw2lKVV822xq/3CNY/AMQ64izgvYD19tKRQKjShpol3UTa4T7Zn1k
-	 +Ph/YKEOHRk/5AxLg9YrSW1AJ+cqkJ2qtSJ8QG8aWEQfYW0iACVaka06Z0jZ6QC/Ui
-	 lgKqqYO5T5sOg==
-Date: Thu, 5 Nov 2026 09:04:04 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Allen Pais <allen.lkml@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 00/34] dmaengine: migrate channel tasklets to WQ_BH
-Message-ID: <auv5LFaju515uVLM@parshuram>
-References: <cover.1785183549.git.allen.lkml@gmail.com>
- <cover.1786384168.git.allen.lkml@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cKaGZeuH
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261105033427epoutp025802955f19fec283a6d5e0249f04bc26~lCMS8AX6V0408804088epoutp02g
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:34:27 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261105033427epoutp025802955f19fec283a6d5e0249f04bc26~lCMS8AX6V0408804088epoutp02g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793849667;
+	bh=wqQeqShnEFAGPe29OtG3KFou809AHeH9DP4h7PajO7A=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=cKaGZeuH++WTRTs78MzlTCZrEoKIqK4UQN8KS7Sa/0IQqWDbRw1DM1IaOymQtYTiz
+	 LBaImINUP3R7KhV3AF42HdoZiGx4ZvIsRurJ3WOPbu29Fnizwd8RA8lymqLxOnZIWB
+	 0bLNjyWcWGJFvjdMWD7/IvMDsCRyOlWHryCBHkKo=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105033426epcas2p1d2160ff091330c7e6922ab88a2ff03ed~lCMSINNn13146231462epcas2p1r;
+	Thu,  5 Nov 2026 03:34:26 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.200]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKnwy2wmfz6B9mB; Thu,  5 Nov
+	2026 03:34:26 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261105033425epcas2p48e03f124a57ef06e37671dcdafa2cfeb~lCMRN5V-Z3116631166epcas2p4B;
+	Thu,  5 Nov 2026 03:34:25 +0000 (GMT)
+Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261105033425epsmtip1076a61c25b744bbe3c6462f4fca4508b~lCMRHBO1x3255132551epsmtip1J;
+	Thu,  5 Nov 2026 03:34:25 +0000 (GMT)
+From: "Kiwoong Kim" <kwmad.kim@samsung.com>
+To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <alim.akhtar@samsung.com>,
+	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+	<kwangwon.min@samsung.com>, <hy50.seo@samsung.com>, <cpgs@samsung.com>,
+	<h10.kim@samsung.com>
+Cc: <stable@vger.kernel.org>, <stanleyjhu@google.com>, "'Bean Huo'"
+	<beanhuo@micron.com>
+In-Reply-To: <8446dc27-9518-4b0c-b9e9-116458210616@acm.org>
+Subject: RE: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device management
+ commands
+Date: Thu, 5 Nov 2026 12:34:25 +0900
+Message-ID: <002101dd6cd6$8e510b20$aaf32160$@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,20 +83,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1786384168.git.allen.lkml@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQH4JEezrlrww6xOutvb1msxx9OBXQK0O2N1AUyogGgCjTU/mba088Fg
+Content-Language: ko
+X-CMS-MailID: 20261105033425epcas2p48e03f124a57ef06e37671dcdafa2cfeb
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105004352epcas2p307ea40aadb636015545cee6e79470a03
+References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
+	<CGME20261105004352epcas2p307ea40aadb636015545cee6e79470a03@epcas2p3.samsung.com>
+	<20261105004333.1097899-2-kwmad.kim@samsung.com>
+	<8446dc27-9518-4b0c-b9e9-116458210616@acm.org>
 
-On 10-08-26, 11:09, Allen Pais wrote:
-> Hi Arnd, Vinod and Frank,
+
+
+
+Kiwoong Kim
+BRs.
+
+> -----Original Message-----
+> From: Bart Van Assche <bvanassche@acm.org>
+> Sent: Thursday, November 5, 2026 10:28 AM
+> To: Kiwoong Kim <kwmad.kim@samsung.com>; linux-scsi@vger.kernel.org;
+> linux-kernel@vger.kernel.org; alim.akhtar@samsung.com; jejb@linux.ibm.com;
+> martin.petersen@oracle.com; kwangwon.min@samsung.com; hy50.seo@samsung.com;
+> cpgs@samsung.com; h10.kim@samsung.com
+> Cc: stable@vger.kernel.org; stanleyjhu@google.com; Bean Huo
+> <beanhuo@micron.com>
+> Subject: Re: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device
+> management commands
 > 
-> This series moves DMAengine client completion bottom halves from private
-> tasklets to a common per-channel API backed by WQ_BH.
+> On 11/4/26 4:43 PM, Kiwoong Kim wrote:
+>  > @@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba,
+> int tag)  >
+>  >  	lrbp = scsi_cmd_priv(cmd);
+>  >
+>  > +	if (!ufshcd_is_scsi_cmd(cmd))
+>  > +		goto clear_cmd;
+>  > +
+> 
+> ufshcd_abort() already has the following code for the SDB path:
+> 
+> 	if (blk_mq_is_reserved_rq(rq))
+> 		err = ufshcd_clear_cmd(hba, tag);
+> 	else
+> 		err = ufshcd_try_to_abort_task(hba, tag);
+> 
+> and ufshcd_abort_one() skips reserved requests. Hence, ufshcd_mcq_abort()
+> is the only caller that can pass a device management command to
+> ufshcd_try_to_abort_task(). Please handle this the same way for both paths.
+> Either add the check in ufshcd_mcq_abort(), similar to the SDB path, or
+> keep it in ufshcd_try_to_abort_task() and remove the now redundant check
+> from ufshcd_abort().
+> 
+> If the check stays in ufshcd_try_to_abort_task(), please also update its
+> kernel-doc header. That header says that UFS_QUERY_TASK and UFS_ABORT_TASK
+> are sent unconditionally.
+> 
+>  > Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to
+> scsi_get_internal_cmd()")
+>  > Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>  > Reviewed-by: Bean
+> Huo <beanhuo@micron.com>  > Reported-by: Bart Van Assche
+> <bvanassche@acm.org>
+> 
+> Please move the Reported-by: tag above the Signed-off-by: tag.
+> checkpatch also expects a Closes: tag after Reported-by:.
+> 
+> Thanks,
+> 
+> Bart.
 
-Hey Allen,
 
-Any update, I am looking to pick updated patchset for this. Can you post
-v4?
-
--- 
-~Vinod
