@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904127;
-	b=fkUxJZRMuku+ZIZChxUdz1zN0Id+YjF+reWph0brHzzH2i6kKoi8sc5lN1LKnhR6vLA4
-	 54/nEGps3V4oN0Uj9MRQXz/H6OwaCZSYr/pQIQ8VD78MBacfCbTBoN6Z2+q4MUYslABq9
-	 lGuhmYFSRYIXi2jssfI2WqbZixrRPKSmb6p33dRtgbtuiU0cseB4O99IQ/tRLpDwmuS6O
-	 QB8LdlDWdy8fcwajiisJM7T/NrB0IxUB0CtVb22jGj6/vtIGhcn21a+tz8ra0PmFGEMQs
-	 AU/9aH0JJHszwToChe5fBtPg/tD+ddfQIwcxLpVp3L8hwrzPbwhQ2QZs2rky67JzXhw==
+	t=1793904129;
+	b=0OBGKC0U6qQJIq7qFbM3nUvzfNyfGTde9CfQn8kawIAd+pvmpCtkqTeccNkvnZqhwCRs
+	 GyV1be3LBDt6FfnioM2MVinC+jH2tbzWru2axNL6uDnYYAFhwXM4UNriQ+htWOTZocJSa
+	 JOg+xtAKvq7DiQiLFaozCjROHyxQU5VqyBtGBhtek8BYpB+CenHgbJTYCRpAHPLtWxam5
+	 csXFRTm7KdU6OArh9vnaVMORnYU7OJsnY6xZg9ks4Zwpr76ghBhdL1sZnHCx/sMkRHXTM
+	 OkoEPIoWYtY8q9LaV94wtq9VyRdhsxe9qapWiCmJ1P0wCYbmTy4nxY/NpwPBICbRZbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904129;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Z0fJm4CjdrCfT5IXpHPP6Zmi1Pfjwt/oCSIBuUnP62M=;
-	b=T0cRioQRY0BjoG5jIbVGkbq7PmCoazInFF0IIISqsEgAQxuRhFNv5j2GKZD8WMjXpCyd
-	 dPHS0rpkR5inbrnDHh6Amb/AJZiCH8wgRMvx+oYZ6kJZlNAUz4le1VZ/oNPtSzqomiThp
-	 ZL8x+Ub58G7gBIMeFGIc34tjCXoJsnwxL2tFX3hxYjgexqaWoQuzIIin3zmLtNukBxLLB
-	 YCKHK1tR+bCB32XSwYw9fZ6YAPA1+qoSvK3ni5R/KzoqX/Bx0Ps2AzwGlCnd11ECumfYh
-	 8Xqy0VHbawu8vBWXLr3rECNOx+a7+Sqoo0iUgecV/4FmtKgeXNWKokfF20stlD83lqA==
+	bh=64IaiU1Jn8/to2KlNcEKMRMIAfHn34Xc+y2Zc/87onE=;
+	b=luDmHZzrcxghQRstEFJq+UnZlki3g5G1niMHQu/z+jBpDgGCEIH0rtzrU9cGc0HHjlAf
+	 JKyWJpYiZJBNOAdXsVVBwlxXjplzXte9KHharwZK0q0FGQ3lp1dI9jW4+A5gkOAj0mPZy
+	 xU9vzOx0w1DFw6oQlUWcS2KTTufNfp1QaaUyEWQiIGipIlTVgsuzmZ7sjh2BiJzyfYsmJ
+	 p6Mdy6hddoFAVAOvuLtkOWpyoNiq+J7yttwuOc+ehZOKHAXSZyxyMg/B2wQk69k5cS/Wl
+	 G1j+dT9NcWdvMurS65OdnHDhXG1JPhDcmhJuQCKEy4x4m+zX+N4enWwlDz1KRxWpPQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L6jwir4L;
-	arc=none smtp.remote-ip=91.218.175.22
-Received: from mta0.migadu.com (out-22.mta0.migadu.com [91.218.175.22])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VczYSozw;
+	arc=none smtp.remote-ip=95.215.58.107
+Received: from mta1.migadu.com (out-107.mta1.migadu.com [95.215.58.107])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130BC606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:42:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130BC606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448EC606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:42:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 448EC606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L6jwir4L
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VczYSozw
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4MFauMfvLoZ0FPm6jb4sWsILjkooRhf2DKKgeqRebo8=;
+DKIM-Signature: a=rsa-sha256; bh=53KC29oKTGdq1sHS30FhbmUhH+DwEHBLzotfAuJMBTQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904125; v=1; x=1794508925;
- b=L6jwir4LMQEAZ22XcDmNgjUpAJKU1ky/Q6gVZb3mmTm5P9C0Elzoh0g7VQ/+oBUI5z7cxeFN
- 8anikLSWjGeRSMpePBqmDgoLirtXghAi4D7TG15qBMQEYl8rEn4fjvMWT+m+3uK8c1XnW/SQ+HX
- XDoVeJfEN5FnTSOPh6ytR/3o=
+ t=1793904127; v=1; x=1794508927;
+ b=VczYSozwZEpf3GQl0f+OdB/qMZ/Kg6H9n0kzZNL2pWhn6e6B+eMKDhmQSlhXd4as1LTLdeP+
+ pNFyZgk/twuKr44bq1nozMOOt6GIexFThn4EuD8kaZOZOli7tCvmV6VXKWaN163tgpOXLgbWPWq
+ mMyoBpaEHpBR6w+pF8PDer1I=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 6e1d522fd8af9a39;
-	Thu, 05 Nov 2026 18:42:04 +0000
-X-Mizu-Trace-ID: 6e1d522fd8af9a39
+Received: by mta12.migadu.com with ESMTPS id c2998befc35801a0;
+	Thu, 05 Nov 2026 18:42:07 +0000
+X-Mizu-Trace-ID: c2998befc35801a0
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -81,9 +81,9 @@ Cc: chenhuacai@kernel.org,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v9 24/32] mm/madvise: keep PMD swap entries whole for MADV_GUARD_INSTALL/REMOVE
-Date: Thu,  5 Nov 2026 10:39:08 -0800
-Message-ID: <20261105183940.2236717-25-usama.arif@linux.dev>
+Subject: [PATCH v9 25/32] mm/mincore: report PMD swap-cache residency
+Date: Thu,  5 Nov 2026 10:39:09 -0800
+Message-ID: <20261105183940.2236717-26-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
 References: <20261105183940.2236717-1-usama.arif@linux.dev>
@@ -98,54 +98,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both callbacks test bare pmd_trans_huge(), which is false for a PMD swap
-entry, so they return without consuming the PMD and walk_pmd_range() splits
-it - only for the PTE callbacks to find the range populated and abort, or
-to find no guard markers and do nothing.
+mincore_pte_range() reports every page under a huge PMD as resident. That
+is wrong for a swapped-out one: mincore() would tell userspace that memory
+it will have to fault in is already in core.
 
-Both already short-circuit at PMD level for a present THP. Do the same for
-a swapped-out one: it is just as populated, and just as free of guard
-markers.
+A PMD swap entry is only a compact encoding for HPAGE_PMD_NR slots, so
+answer from the swap cache instead. One PMD-sized folio covering the range
+makes every page resident exactly when that folio is uptodate; an empty
+cache makes none of them; and if the folio was split while the entry stayed
+in place, fall back to looking up each covered slot as mincore_swap() does
+for a PTE swap entry.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- mm/madvise.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ mm/mincore.c | 47 ++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 576707e303cf2..f7f17efdd926d 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1109,8 +1109,12 @@ static int guard_install_pmd_entry(pmd_t *pmd, unsigned long addr,
- {
- 	pmd_t pmdval = pmdp_get(pmd);
- 
--	/* If huge return >0 so we abort the operation + zap. */
--	return pmd_trans_huge(pmdval);
-+	/*
-+	 * If huge return >0 so we abort the operation + zap. A PMD swap entry
-+	 * is a swapped-out THP: also populated, and splitting it here would
-+	 * only demote it before the zap.
-+	 */
-+	return pmd_trans_huge(pmdval) || pmd_is_swap_entry(pmdval);
+diff --git a/mm/mincore.c b/mm/mincore.c
+index 0fe50f8a7e629..bc144118e039e 100644
+--- a/mm/mincore.c
++++ b/mm/mincore.c
+@@ -85,6 +85,48 @@ static unsigned char mincore_swap(swp_entry_t entry, bool shmem)
+ 	return present;
  }
  
- static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
-@@ -1249,8 +1253,12 @@ static int guard_remove_pmd_entry(pmd_t *pmd, unsigned long addr,
- {
- 	pmd_t pmdval = pmdp_get(pmd);
- 
--	/* If huge, cannot have guard pages present, so no-op - skip. */
--	if (pmd_trans_huge(pmdval))
++#ifdef CONFIG_THP_SWAP
++static void mincore_pmd_swap(swp_entry_t entry, unsigned long addr,
++			     unsigned long end, unsigned char *vec)
++{
++	unsigned long haddr = addr & HPAGE_PMD_MASK;
++	unsigned long start = (addr - haddr) >> PAGE_SHIFT;
++	unsigned long nr = (end - addr) >> PAGE_SHIFT;
++	struct folio *folio;
++	enum swap_pmd_cache state;
++	int i;
++
++	state = swap_pmd_cache_lookup(entry, &folio);
++	if (state == SWAP_PMD_CACHE_HUGE) {
++		memset(vec, folio_test_uptodate(folio), nr);
++		folio_put(folio);
++		return;
++	}
++
++	if (state == SWAP_PMD_CACHE_EMPTY) {
++		memset(vec, 0, nr);
++		return;
++	}
++
 +	/*
-+	 * If huge, cannot have guard pages present, so no-op - skip. The same
-+	 * is true of a PMD swap entry, which must not be split just to discover
-+	 * there is nothing to remove.
++	 * The PMD swap entry is only a compact encoding for consecutive swap
++	 * slots. If the PMD-sized swapcache folio was split, report residency
++	 * from the individual slots covered by this mincore() range.
 +	 */
-+	if (pmd_trans_huge(pmdval) || pmd_is_swap_entry(pmdval))
- 		walk->action = ACTION_CONTINUE;
++	for (i = 0; i < nr; i++)
++		vec[i] = mincore_swap(swp_entry(swp_type(entry),
++						swp_offset(entry) + start + i),
++				      false);
++}
++#else	/* !CONFIG_THP_SWAP */
++static void mincore_pmd_swap(swp_entry_t entry, unsigned long addr,
++			     unsigned long end, unsigned char *vec)
++{
++	/* Nothing produces PMD swap entries without CONFIG_THP_SWAP. */
++	memset(vec, 0, (end - addr) >> PAGE_SHIFT);
++}
++#endif	/* CONFIG_THP_SWAP */
++
+ /*
+  * Later we can get more picky about what "in core" means precisely.
+  * For now, simply check to see if the page is in the page cache,
+@@ -171,7 +213,10 @@ static int mincore_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
  
- 	return 0;
+ 	ptl = pmd_trans_huge_lock(pmd, vma);
+ 	if (ptl) {
+-		memset(vec, 1, nr);
++		if (pmd_is_swap_entry(*pmd))
++			mincore_pmd_swap(softleaf_from_pmd(*pmd), addr, end, vec);
++		else
++			memset(vec, 1, nr);
+ 		spin_unlock(ptl);
+ 		goto out;
+ 	}
 -- 
 2.53.0-Meta
 
