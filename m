@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901785;
-	b=ZrWK4Pe9t96CZAOiv2f1RbKpVXZMD+hZTS6+RKGwKGOaOYTjEYDlAU/OGk31qQ7XVqKu
-	 wvoiV7nI4m2IAlRUdNqPsT4Kb2plKVYRXw5hrnCzLIKGoZ/Kg/69XFw1xE8LV/yBkhDCz
-	 RLjNW1L+nMXw8dp8cgSm0xD9/0c7+Fqeq1v7+RUPKHzo9C23yViisehzUpjnnBLOijjEe
-	 DpRoui9pGWwxwOGOyYhJAhBwXktGwHqJoCDScM2B2y0YK6yynHAfmGbjZsf9d1pTMgy5v
-	 PUWAKvzQ1Nql8ibtAgKrfXbbkDtuKoIcgMLQAfVBLL1hZ86UP6HX/mo3h53bnCgKKLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901785;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GwPyrlnKq19yfZdgGX9E8p1iXEWilgeEUNe3oswQZM0=;
-	b=5p+yxwWY2EheRhCcgIfZTvHmwbH7Wz4A4TWnYwt6hGrQ1P6FjQReKLHOfdXbGjbdqV1x
-	 UnQ8DbJ9cwHDB9OPXtbvXKBsDv7d6bDt54Xtb14uj0xVmPRlemNKD5o/aL2CGRjtDWuQu
-	 PTuz09e4sB3KiakhcyNg0txc8JIsJidh7r8CFxIHr4TGCRPrC88bWdYQYijLCp0zcuRAy
-	 YBPCsQeVQ7KqBJEvBRLq7O55P6GPzAdawijgVA4cOQ/s5R5TAPVF8b2OiOiBKhtWmMMVj
-	 6anba8IngTMYD+7v5ThyYmdZ++z1xPvc6lscW5X1HZXHPymBMs4RlNR2uib+TuLhszA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfH1qlY8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793901808;
+	b=Gxc1YSo0oYJ6q8e4USQmNcRrpUI4cP/Dm8R4WkXt35ACepIm1nz7aMg5gxbILN3m5XKF
+	 0M6o0/xipXw7L20oTro3ju8S07Hn43rGv84X7rGDYhIZCqxSm1TSV7kEzUMxS8pvg4R2k
+	 +rGsRiCC7pdu7W4KTN2aic52QyOAxbCq7J83kLIGG8BjHs6xe9MNBJSD/uWQayB5MLNbB
+	 e+SVKUI7tDhjAXcF6YuPUtsqYs6w+L8I8gqauo+twcanxU6yTr6K1R+ep3L65LlM1H0lC
+	 QtqGF92yp+ztN5unUvQ0NoHA2rbAWRsNmX3ha+HS91+HagQA7w7QXE4t3CFC/5lNczQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901808;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qDc7DXHL5O9CQ+ekpIUK5nGMzM9mpnwpQAg4QUsM0cE=;
+	b=BW3pFkP55tFSSrmhqnoeun9tvJpyl8B2D6By5R0/EE2OnJmQ5pczKTnxv4akxHcRa4hN
+	 2sLwxXvGMyO7LW+O569totBq4Bus1i7wKyMCdZ042SXE2Jqja7xDLJ/iWfXEstpky8QX9
+	 aieiZkSdhXL+1Tn0C1sRuyZZqJkfeNc3N8Selki0xxhNuGUYUOv1D1jin0nvQF/DZWmef
+	 V30l7YzGqKlrZploaXLKtVjNabfKCkcwNig/xtUI3lTS3XALUahjrxNE0ZcDXobtUlk11
+	 acnYztXTYF9mUYbsmVWJhPRHsQVfwHocz6GtPPds1ssi0hyXEKq9uD7xfejOhDGBzBw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QAncIksR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE98606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80550606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80550606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfH1qlY8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93BAD1F000C1
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:03:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793901784;
-	bh=GwPyrlnKq19yfZdgGX9E8p1iXEWilgeEUNe3oswQZM0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OfH1qlY8/KFyZe7mgeo2KMOouXCzNGpJBnbtOg6zuQ48dV0Eys8hcfILTMUD2q2Fz
-	 TSgKQesJ1DACDI9t9POfID7qsAvZoCwg9mfRZf5uSIogrOxF/CuN4/+br2yk26HowO
-	 avZf+9NBhAoQPd4wtLebvMV4R7AAER6GNnE2jI4oUILuFhhv8frZL9MThghkOcaEYh
-	 S3fnSuoZGoJdxPoFnEbPKy7WxRieOl8wQQ+AilqkezquW3cs06zAuNnuEqihKRdpeX
-	 HeIxr255i5KkDUkjdszEc6dww/zAC1NJfWrPO2CyquEAaNRX4md9+VwzY+UUvQ8Kiy
-	 JbUHt0PTJ9LNQ==
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7ce78f9d6baso679223137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:03:04 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx/PkPnUiFJvJmyxg7NvD6Eje4amTA7zpMIf/MgO5BAX9tviwSz4pGpjzLuYPEAzo+f3IYQLf+1BamQfdQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qZ19heVOFENXYR/BEGiy5wPXpTl49ZYuPd8qe/ozTkgpUcdQ8
-	cDp4XAkhA1n1eozcDrkRmajXyp99orn7wq1EFbmmgMDuPMkqo/DQuMRPvle70QPb0/rkAnqUM6h
-	6qMFZXYMuJhmZr2Yt3cEYCUtn/UtSZ8U=
-X-Received: by 2002:a05:6102:570b:b0:7c2:e5bb:d20c with SMTP id
- ada2fe7eead31-7d286b5b47fmr2069338137.34.1793901783690; Thu, 05 Nov 2026
- 10:03:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QAncIksR
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so26277015e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:03:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793901806; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FJwszK3o2UOPkfcDszM0e5/zhTpouGFUVSO0mgPnd5lA3P7W6WA+Sm2lAWufBGOIuP
+         lm6YQdSHr2s4N1tIIkWAxhQbTqdCWcHzCkzTiOn+cdKIXSUCECi4JT3+wtLYE1yOpwPe
+         fSZdRu5AXHy97kH4pz21d3Eko4MY/68UBIAMJRoUL3PnfQxotQ0RlGbk/TPzOH0vTIDC
+         6fol3iY24Pf02i1PqrvfhiOAk21gLCESuoE7sHbC6TFS5lHkz+N2D+ROTYK5ZHC4snzm
+         T/5uhr8lOQGitgriyvSNUjOcG8D/0DI5WHv/Y8PF0W4IhbNSRuXdL1gckK+eklT9mgJF
+         3VkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qDc7DXHL5O9CQ+ekpIUK5nGMzM9mpnwpQAg4QUsM0cE=;
+        fh=bupzv78FnxKzlOlurTyyf8Gzz2SZrOqa0xtUlYYlJXM=;
+        b=aKNQeJFUw2TLsAuaJ1/gPm44oO7b9z/9uiSq0zeQLi3IDFbkJ1jeElUY+IGBYRNlHl
+         cYyJOaIODk7yHxqhc2Viz4elLv7GQI9v2Qegse1+HkS+CXVZjvX22Z4eD7ZLGFRK6d0p
+         jRlvuL8SPI5WVbfu1Tzihzo3FFGziJJNidy1J9SxSF3leaXRPAznCOLMXYX5Cvc7FuDY
+         uepdyMGx4yjyxWZpfstIGKgMCfRHG9PNPSd78mymriyunDYgeyCuD9SOTHVYGQJ/EV43
+         zhOpddWU8oA/wV7ROWGNh8woAWamieYB6UZGJLa+Di46Y8SrcAcHWNytn5b1LHBE84VC
+         2QgQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793901806; x=1794506606; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qDc7DXHL5O9CQ+ekpIUK5nGMzM9mpnwpQAg4QUsM0cE=;
+        b=QAncIksR2vXXpHGSwp7bjc2MZCXx7lACZXYR3qgMBTiBVW9C3H0WxAQEkqEgmgTqjt
+         o6T5+jdsKyRYC1NUBBYhDORQg8F4qY13FWe5RJeVpkUIBisGcChkyja+Q01su18yserf
+         7Ee58NIaAKXbHUuFvUtiNbQ98IEwtlXdmbn6AV0IJlLiMKBjeuKmLN+bzEzDQqg5HD1C
+         E7qCCkR2GoEdeGJMw756pGx3z4FSac7/GpYaahTF4imYJTUuG/6uqtRg6kpQGiaDGzD4
+         N7hfou/hKVQQyX878YI5Ar4W17V/bYzMLviR3vBfj/DY6H3L6sNaRwtF221e6lgGylUe
+         u11A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793901806; x=1794506606;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qDc7DXHL5O9CQ+ekpIUK5nGMzM9mpnwpQAg4QUsM0cE=;
+        b=HUhjErENfyo1QCuc1yO98/skD3c7LMlviu8zB1EIAanYiF8Bukt6pHv9G64PpdI/Kv
+         JOoUQoO4heQTex+2W7f6d4HI2QVcQ1ohfOOpPh5ahltLt2hOg48w+y7DEUg8qKZ7DVfA
+         n86CEL6vKEjikRjr93LHYdhrrWU+Hy8hoFa2okm5sBkVeqtFXbb7Zm9gNrp6tYdUOTmd
+         rAvz+hNe5xLtDvRDbTH07tHr567mNMDdScsNKhhps6lVmvUxvcOwMRLZFWc4i7En39ym
+         GanQbibPlOiWbUdVZ9icSxkRRROzKlDaIFkxqj9nTWwvzkQrlDC/kF+eCgWOrrBK8RCC
+         cGdA==
+X-Forwarded-Encrypted: i=1; AKwUvBwi2N3lmZU4Y3IVGULSwuF590VHJ5IyBA0lJXxzlZM/vO79jQyD0tYMuM7ShvfX5kNxGGAvzi9cSa70eS4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dkhf+ebbpCZYg/ckJublPH7M7IS6KYi+Kg2/sZoJJbQ6tOxFU
+	HpHBTbjgCasGE9BlUxvbYVabHKE7dF61TVcFn3ryEAeMaLDoaVWIIs0zTJE0eBg2Ob1pAMHnbia
+	XXG6GOTw1DXHXJgTDzApSv2qs2LADqEkMhizqFLBG
+X-Gm-Gg: AYBFou3DoyXETfoYqMbNlSckhQB3XiwLNA0cD/SJFP2IWW3Zqfyx20HscsjN3gdake1
+	LzZX7InKDET+upSY8hCLYHR6flaVodnKVyAiDPXOK5UWC8A3bMNrE2R1+fSLA/yzPR4xHpA3Kqw
+	eIzUip4K5JV/itGsxBWXvxkiYuePuZBdR/nwpZV9kXD9eH8tdlQt7/jd+f5gQO5+zr0q66lsgfu
+	cgAH2M80FZ/4MmqgC0oefafZN8UuPKzUvhMgzaURf/rJ4zZC/UJO25Coo0i+V937KmjV6thSzhU
+	SSrkmA/XEumn5q2z7ZgfEwxi9mQxdJ99wqwFqnL9rNqpMK47CUyUbYbdBhfdCcxkrONfLWb52xt
+	lGgb1sA2rF0HxqoWQdpixG4y8C57YZu8EZg/kO499A8YIx67R8xKPO8FawbJQDicpIIrxbpdnVA
+	4v5uHBuIqg8Tv2JbN37q9E4xpoZhMb2sulER8uA07NlhOhOLC8YFjYyGqt7Kxich7LG75sB5PMl
+	Oee3t6mgXiClvrFr+xLPQgYRO5BctxaMVBGpATolgaw/V03Kpt5MBUwGw==
+X-Received: by 2002:a05:600c:354a:b0:4a3:5aee:2c25 with SMTP id
+ 5b1f17b1804b1-4ac181e759dmr461771285e9.31.1793901804993; Thu, 05 Nov 2026
+ 10:03:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,246 +106,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAL3q7H6w1sY5R_+Ajg-uHYx_=KjeUwyt5Aw=Zj+qViLXKcB+_A@mail.gmail.com>
- <20261105104453.2151-1-shishunbo@cmss.chinamobile.com>
-In-Reply-To: <20261105104453.2151-1-shishunbo@cmss.chinamobile.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Thu, 5 Nov 2026 18:02:25 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H7sKbmDocpBjBT3GkqaZwGYCR-A4iyW0TAcNj=sgsDTgg@mail.gmail.com>
-X-Gm-Features: AclHuK8sRFV15saRcot9eG0yBZPruX7Vv5MUiW8IZyaLB5vrU7JdT_lIOUX-OJs
-Message-ID: <CAL3q7H7sKbmDocpBjBT3GkqaZwGYCR-A4iyW0TAcNj=sgsDTgg@mail.gmail.com>
-Subject: Re: [PATCH v2] btrfs: fix delayed_refs_rsv leak when realloc shrinks
- an extent
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-Cc: dsterba@suse.com, mason@kernel.org, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+7ec60f4482abeecb0fd8@syzkaller.appspotmail.com
+References: <20261105175748.3057520-1-vineet.gupta@linux.dev>
+In-Reply-To: <20261105175748.3057520-1-vineet.gupta@linux.dev>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Thu, 5 Nov 2026 10:03:13 -0800
+X-Gm-Features: AclHuK8C3o2kc44T55unuXB9fXbsGmvBzidv-Ub4iWxmKhGyxfDi4rGo075tswQ
+Message-ID: <CAKwvOd=J8bYO6kzFO=mOfWi0NiHq9Y7u6JwV2WfZiS0VOoMpYg@mail.gmail.com>
+Subject: Re: [PATCH v2] kbuild: move gcc's -Wconstant-logical-operand to W=2
+To: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	Peter Zijlstra <peterz@infradead.org>, Jakub Jelinek <jakub@redhat.com>, 
+	Julian Braha <julianbraha@gmail.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 5, 2026 at 10:45=E2=80=AFAM Shunbo Shi
-<shishunbo@cmss.chinamobile.com> wrote:
+On Thu, Nov 5, 2026 at 9:58=E2=80=AFAM Vineet Gupta <vineet.gupta@linux.dev=
+> wrote:
 >
-> When a data extent is freed and reallocated (with a different size)
-> before its delayed refs are processed,
-> btrfs_alloc_reserved_file_extent() reuses the existing delayed ref
-> head and update_existing_head_ref() updates existing->num_bytes to
-> the new size, but neither adjusts the space used for checksums nor
-> releases excess space from the delayed refs block reserve.
->
-> The csum space for deleting the checksums was reserved for the
-> original size in add_delayed_ref_head():
->
->         pending_csums +=3D head_ref->num_bytes;
->         trans->delayed_ref_csum_deletions +=3D csum_leaves(num_bytes);
->
-> but when total_ref_mod later turns non-negative,
-> update_existing_head_ref() releases the reservation based on the
-> new num_bytes:
->
->         pending_csums -=3D existing->num_bytes;
->         btrfs_delayed_refs_rsv_release(fs_info, 0, csum_leaves);
->
-> For a smaller new size the difference between the old and the new
-> size is never released, so delayed_refs_rsv.size (and .reserved)
-> stay above zero forever.  At unmount this triggers
->
->         WARNING: fs_info->delayed_refs_rsv.reserved > 0
->         at btrfs_release_global_block_rsv
->
-> and at runtime the leaked reservation keeps inflating
-> space_info->bytes_may_use, which can lead to premature ENOSPC.
->
-> For a larger new size the release subtracts more than what was
-> reserved for the head: if the rsv does not hold reservations of
-> other delayed refs, delayed_refs_rsv.size underflows and leaks
-> reserved bytes; otherwise the rsv prematurely releases reservations
-> belonging to other delayed refs.
->
-> Fix this by adjusting the csum accounting to the new size at the
-> time existing->num_bytes is updated, while the head is still in the
-> reservation state (total_ref_mod < 0): release the difference in
-> csum leaves for a smaller size, and grow the rsv size by the
-> difference for a larger size.  The grow direction must take effect
-> immediately (btrfs_delayed_refs_rsv_add()) rather than via
-> trans->delayed_ref_csum_deletions, because the total_ref_mod
-> transition below may release the new size in the same call, while
-> the trans counter is only folded into the rsv afterwards by
-> btrfs_update_delayed_refs_rsv().
->
-> Fixes: ba2c4d4e3bda ("btrfs: introduce delayed_refs_rsv")
-> Reported-by: syzbot+7ec60f4482abeecb0fd8@syzkaller.appspotmail.com
-> Link: https://lore.kernel.org/linux-btrfs/6ae88b9e.64e51036.15cf6a.0027.G=
-AE@google.com/
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-> ---
->  fs/btrfs/delayed-ref.c | 61 ++++++++++++++++++++++++++++++++++++++++++
->  fs/btrfs/delayed-ref.h |  4 ++-
->  2 files changed, 64 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/btrfs/delayed-ref.c b/fs/btrfs/delayed-ref.c
-> index 8bc1929237f7..45e269670068 100644
-> --- a/fs/btrfs/delayed-ref.c
-> +++ b/fs/btrfs/delayed-ref.c
-> @@ -63,6 +63,31 @@ bool btrfs_check_space_for_delayed_refs(struct btrfs_f=
-s_info *fs_info)
->   * Drops the delayed ref head's count from the delayed refs rsv and free=
- any
->   * excess reservation we had.
->   */
-> +/*
-> + * Grow the delayed refs rsv size for csum items to be deleted.
-> + *
-> + * Unlike trans->delayed_ref_csum_deletions, which is folded into the
-> + * delayed refs rsv by  at a later point,
-> + * this adjusts the size immediately.  It is needed when a ref head's
-> + * num_bytes is updated to a larger size and the head's reservation is
-> + * released in the same call to update_existing_head_ref(): the release
-> + * path subtracts from the rsv right away, so the size must cover the
-> + * new csum leaves before that happens, otherwise the rsv would
-> + * over-release reservations of other delayed refs.
-> + */
-> +void btrfs_delayed_refs_rsv_add(struct btrfs_fs_info *fs_info, int nr_cs=
-ums)
-> +{
-> +       struct btrfs_block_rsv *block_rsv =3D &fs_info->delayed_refs_rsv;
-> +       u64 num_bytes;
-> +
-> +       num_bytes =3D btrfs_calc_delayed_ref_csum_bytes(fs_info, nr_csums=
-);
-> +
-> +       spin_lock(&block_rsv->lock);
-> +       block_rsv->size +=3D num_bytes;
-> +       block_rsv->full =3D (block_rsv->reserved >=3D block_rsv->size);
-> +       spin_unlock(&block_rsv->lock);
-> +}
-
-First thing:
-
-You are adding a new function, and its comment, between an existing
-function and its comment.
-This is messy. Also the limit for comments is 80 characters per line,
-and this comment uses significantly less - the lines can be widened
-for better readability.
-
-Second:
-
-Why export the function? Since it's only used in this file, it should be st=
-atic.
-
-Third:
-
-Why exactly do we need it?
-We should update trans->delayed_ref_csum_deletions and then let the
-call to btrfs_update_delayed_refs_rsv() done up the callchain (at
-add_delayed_ref()) do the updates to the global delayed refs reserve.
-It's not clear to me why we can't simply do that.
-
-
-> +
->  void btrfs_delayed_refs_rsv_release(struct btrfs_fs_info *fs_info, int n=
-r_refs, int nr_csums)
->  {
->         struct btrfs_block_rsv *block_rsv =3D &fs_info->delayed_refs_rsv;
-> @@ -694,6 +719,42 @@ static noinline void update_existing_head_ref(struct=
- btrfs_trans_handle *trans,
->                 existing->must_insert_reserved =3D update->must_insert_re=
-served;
->                 existing->owning_root =3D update->owning_root;
->
-> +               /*
-> +                * The extent may have been reallocated with a different
-> +                * size before its delayed refs were processed.  The csum
-> +                * reservation was made for the old size (see
-> +                * add_delayed_ref_head()), so adjust the accounting to t=
-he
-> +                * new size here; otherwise the release done when
-> +                * total_ref_mod turns non-negative below is based on the
-> +                * new size while only the old size was reserved: for a
-> +                * smaller size the difference is leaked, for a larger si=
-ze
-> +                * the rsv over-releases reservations of other delayed re=
-fs.
-> +                *
-> +                * Both adjustments must take effect immediately: the
-> +                * total_ref_mod transition below may release new_leaves =
-in
-> +                * this same call, while trans->delayed_ref_csum_deletion=
-s
-> +                * is only folded into the rsv by
-> +                * btrfs_update_delayed_refs_rsv() after we return.
-> +                */
-> +               if (existing->is_data && existing->total_ref_mod < 0 &&
-> +                   existing->num_bytes !=3D update->num_bytes) {
-> +                       u64 old_leaves =3D btrfs_csum_bytes_to_leaves(fs_=
-info,
-> +                                                          existing->num_=
-bytes);
-> +                       u64 new_leaves =3D btrfs_csum_bytes_to_leaves(fs_=
-info,
-> +                                                           update->num_b=
-ytes);
-> +
-> +                       if (new_leaves < old_leaves) {
-> +                               btrfs_delayed_refs_rsv_release(fs_info, 0=
+> GCC 17 adds -Wconstant-logical-operand to -Wall. It warns when an operand
+> of && or || folds to a constant other than 0 or 1. Unlike clang's version=
 ,
-> +                                              (int)(old_leaves - new_lea=
-ves));
-> +                       } else if (new_leaves > old_leaves) {
-> +                               btrfs_delayed_refs_rsv_add(fs_info,
-> +                                              (int)(new_leaves - old_lea=
-ves));
-> +                       }
-
-For if statements, we only use { } when there's more than one
-statement in a branch. Since in both cases it's a single statement,
-please remove the  { }.
-
-> +
-> +                       delayed_refs->pending_csums +=3D update->num_byte=
-s;
-> +                       delayed_refs->pending_csums -=3D existing->num_by=
-tes;
-> +               }
-> +
->                 /*
->                  * update the num_bytes so we make sure the accounting
->                  * is done correctly
-> diff --git a/fs/btrfs/delayed-ref.h b/fs/btrfs/delayed-ref.h
-> index 5ce940532144..f8434347b80b 100644
-> --- a/fs/btrfs/delayed-ref.h
-> +++ b/fs/btrfs/delayed-ref.h
-> @@ -408,7 +408,9 @@ struct btrfs_delayed_ref_node *btrfs_select_delayed_r=
-ef(struct btrfs_delayed_ref
+> it also checks constant left operands and operators that come from a
+> macro expansion. With CONFIG_WERROR=3Dy, an x86 defconfig build fails in
+> prepare0:
 >
->  int btrfs_check_delayed_seq(struct btrfs_fs_info *fs_info, u64 seq);
+>   arch/x86/include/asm/cpufeature.h:72:36: error: use of logical '&&' wit=
+h constant operand '4194304' [-Werror=3Dconstant-logical-operand]
 >
-> -void btrfs_delayed_refs_rsv_release(struct btrfs_fs_info *fs_info, int n=
-r_refs, int nr_csums);
-> +void btrfs_delayed_refs_rsv_release(struct btrfs_fs_info *fs_info, int n=
-r_refs,
-> +                                    int nr_csums);
+> The warning is meant to catch && written for &. Kernel history has no
+> such catch. Of the 13 earlier kernel fixes for clang's version, only
+> commit dd7fe5d9fd6a ("rtc: max31335: Fix comparison in
+> max31335_volatile_reg()") fixed a bug that the warning found. Commit
+> 394b52462020 ("drm/i915/gem: fix bitwise and logical AND mixup") fixed a
+> & written for &&, which the warning cannot see. The other fixes rewrote
+> correct code. In GCC's own tree, the warning found two sites since it
+> was added, and both were false positives.
+>
+> Disable the warning for GCC unless W=3D2 is given. Keep clang's version,
+> which skips macros and constant left operands.
 
-We don't mix formatting changes without functional changes.
-Leave it as it was. It's a 94 characters line, and that's fine for
-today's standards.
+Acked-by: Nick Desaulniers <ndesaulniers@google.com>
 
-Finally, sashiko is still complaining about the same issues as in v1:
-
-https://sashiko.dev/#/patchset/20261105104453.2151-1-shishunbo%40cmss.china=
-mobile.com
-
-Thanks.
-
-> +void btrfs_delayed_refs_rsv_add(struct btrfs_fs_info *fs_info, int nr_cs=
-ums);
->  void btrfs_update_delayed_refs_rsv(struct btrfs_trans_handle *trans);
->  void btrfs_inc_delayed_refs_rsv_bg_inserts(struct btrfs_fs_info *fs_info=
-);
->  void btrfs_dec_delayed_refs_rsv_bg_inserts(struct btrfs_fs_info *fs_info=
-);
+>
+> Suggested-by: Borislav Petkov <bp@alien8.de>
+> Link: https://lore.kernel.org/all/20261104160722.1637541-1-vineet.gupta@l=
+inux.dev/
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> ---
+> v1 -> v2:
+>  - Replace the four per-site fixes with this one change (Borislav, Peter)
+>  - Link to v1: https://lore.kernel.org/all/20261104160722.1637541-1-vinee=
+t.gupta@linux.dev/
+>
+>  scripts/Kconfig.toolchain | 3 +++
+>  scripts/Makefile.warn     | 1 +
+>  2 files changed, 4 insertions(+)
+>
+> diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+> index 2acbd40a38f1..1d68075f0469 100644
+> --- a/scripts/Kconfig.toolchain
+> +++ b/scripts/Kconfig.toolchain
+> @@ -233,6 +233,9 @@ config CC_OPT_WNO_FORMAT_OVERFLOW
+>  config CC_OPT_WNO_STRINGOP_TRUNCATION
+>         def_string "$(cc-option-str,-Wno-stringop-truncation)"
+>
+> +config CC_OPT_WNO_CONSTANT_LOGICAL_OPERAND
+> +       def_string "$(cc-option-str,-Wno-constant-logical-operand)"
+> +
+>  config CC_HAS_COUNTED_BY
+>         bool
+>         # clang needs to be at least 20.1.0 to avoid potential crashes
+> diff --git a/scripts/Makefile.warn b/scripts/Makefile.warn
+> index 556fa249ca07..03b677bdbb0a 100644
+> --- a/scripts/Makefile.warn
+> +++ b/scripts/Makefile.warn
+> @@ -167,6 +167,7 @@ endif
+>
+>  ifdef CONFIG_CC_IS_GCC
+>  KBUILD_CFLAGS +=3D -Wno-maybe-uninitialized
+> +KBUILD_CFLAGS +=3D $(CONFIG_CC_OPT_WNO_CONSTANT_LOGICAL_OPERAND)
+>  endif
+>
+>  endif
 > --
-> 2.53.0
+> 2.53.0-Meta
 >
->
->
+
+
+--=20
+Thanks,
+~Nick Desaulniers
