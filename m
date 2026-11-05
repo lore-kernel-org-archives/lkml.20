@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793906061;
-	b=noA9bM0dY/iaVvpwFYt7xrcC1+JuBAHFTyL9bNB00X5OF+GPNPKYOrFQ6kWK8Z2e6TBR
-	 qtYKvvttsrgw6r9Ibcpmy2y8duSuE/8J2Jm89jrWenXIDIrn8rceeuIPOWRr0uGwznChJ
-	 aVaW45+GOxrpv6f0K1uh1EkNG1Zju0LRPrRv6NnOPsKH/eht6DAY+TlzEe8J7n3H9xWm3
-	 UTxlCEfjzDrg+QfADnZpfkk3k8miMu47r3JGSWn+/9PneaCNZJIrGr3TwTmsd+b8+NSai
-	 UiZ/rKCHSyEzLTwbZm+5VEsed7XX3jWsEjh3HUg2RHS3haIDm3st44QPRbKuVur5UXg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906061;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LzkxII8lAiBQbIMBPyJuv54STnicmUncYENK25TQp/k=;
-	b=WgjcSEAj0ZZbPsgeXwfW+pdThfbImB+vs3fn0zyVroKo0r3zTarKabrzWSHlxwyEz4Cr
-	 o1dDLVwibw46udsAQ7s6q5gzZOkpm4/cCzNJTtGOZEC2fLn3uWyH1JBEyUdwivgOsmA/F
-	 Zqe0mKbx5SaZ3yhm4nv/tF0ws7SfMio+03z+MxaE6SG245OLsIVrcsLZfaQ6r52yQMQ0v
-	 XQuprXXifH9jpZydH/mfy0Bh38ZNe0Zp4m09WrecqicQd1loowkz+Oi7XZLb1b/ressoz
-	 WoVIlTHlybzwu4HXg0QRcDH0RwXlBa/lpSPGgFfBxR00xZNnp4WGnzysxL28FNMjWpg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KfgWkv9z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793906081;
+	b=l6QI+RLYuy7uytXI6rr8Reg2gpE8orjO0ikHZqDeI509ZSAmowS4V+2jQuqOz21msozU
+	 Ef2qv147WQfwNknkNReDgFFkNxvHFOMAgsLIEXpUhFnah0mTaXeItZu3doOenTDGjWTaw
+	 ZQXs37uP9yJnaZvBvjl91aRjJghr+UJFriSJgi+BBw1JjdDCcO1lPOZW2fKgAyIsUbZXt
+	 IJUQWsDtlzIaOT8pRXudtXLd1WFvJN3WDVLOmCwIAjlNPwDx1TvnwPnMiZfLXZsfNdM3t
+	 sWza8vo8i0yrQh4ClACkv2AdZB9NX4gt70ECSFTlKeW+HbBJZ1WLa4XF/YemI1LtpUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906081;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NAUY23P/8t0bmNcA3J0QS9bQ/pAXdYpwFgDeuwmYbKk=;
+	b=nDbqL6nH1E/sa7r1/D0HYDEtU5tHAtB2x6XbOHyLs2PhdNbJtHz5/fTToyH1P6AmKNfx
+	 /Oyegjf0xNzGMVyA0XQPsQjr4yVZRjFNRUrlG/xYiRoHyCnYZLq4+YyfD6r93Mutf/zGK
+	 bcQcAgQDRihpCjHLqkXlIBDQ8GWfZ9aEk8uGhv7Ep01vK5c+HtZlyFrCWX+xb9/6B2orZ
+	 womkBMON763iBXymbxRqgrsT/2/Lt6oNFA2e4hdmslz6kEFNCuJus1k66qFqmzwpFaAQc
+	 2okqxvSEi+0UUcxp44lqBj384hL6Ac0WUl5L/ybt5R0bmRISwO2uplUGvScGCWRG1vA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/o0NOAD";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC46E606A32C;
-	Thu,  5 Nov 2026 19:14:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C23606A31B;
+	Thu,  5 Nov 2026 19:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KfgWkv9z
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793906060;
-	b=eReEQwdP01SYFCeBQtyn+NZcGsjSvhCjEg5mw2/8TjEYSNdBGqoInrX5LC7reriUroZg
-	 vEe7jBC8zUojbLDaDYGPCnAZGugWJqSegRQzqtfYLj+qeERQmr1Zd2C9+P2ddAzZY0bek
-	 UahVTtTrPyhPG5uUS6EUu3AzMfNks+j8q5qmGwL9kJUE1VFc+33UmrtaK9AeQLmtwHM/i
-	 E0cDWeaeqMP20CrKp8aPVqlfKwQyULd+8mkp2cD/r85nrZwjUjRR9MT8ciFzplms+RsC8
-	 LMLREv7Khr63rzfLqCgpOOyFPIs/f4LCeysmIYnZPFPmD5hZnllGfvQic0t6DgX0pXg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793906060;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LzkxII8lAiBQbIMBPyJuv54STnicmUncYENK25TQp/k=;
-	b=pVXqXC7kHMRZIWPjtCxb6k89ZBwZJWLdLGXRlFsknfGLfDqGlIIgfG0NBbwRtvpueURc
-	 aY5A1KLxOj3bgBXHwIw5ftdKN5lamwxQDA7k0wi7KoLLxvwvWTWN3KItZEvr5rsPYnIbp
-	 kJy7njQ+th8m0sERKwZASzAT5p8mUnEF+B174Nr5dcsqxa6GM2SEloyllzuXln0w3DMhf
-	 MUqa7L40q0KRBbPtKsw18eIHDwAQ3ukd68QaW14lcj2v1dpgTGSz+ZiWqQL1xqNQuEY2C
-	 0lKA+MTo6CjqiGLjaVYEIdeAPNEMOs2E1GvhYwH2KM5I5qLxikPDHMqOYMCzrNyq1jA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DAF401F0093A;
-	Thu,  5 Nov 2026 19:14:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/o0NOAD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDFF1F000C1;
+	Thu,  5 Nov 2026 19:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793906060;
-	bh=LzkxII8lAiBQbIMBPyJuv54STnicmUncYENK25TQp/k=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=KfgWkv9zDU/KRv8ddBjGXcA1g1pZL2YGElH+Mq056F8yr2L1P3AwusHlqajXELXFq
-	 PhAXUOSRFg7LKZG5hrlwDeF43yBLMv/rkTvaYVKI+08QThn5lboSGeWz263TGi+1uC
-	 +/Zms82ZgFPgNgmZLzLDgT0g3KPRKJiLuBGXJmeFouF1I3zUyntfFJCQBY2aIotyGr
-	 sPz8FLB2C0O3uiEyI9emQ+7U3oet12hIpozW1JZxHE+eBXjzbpUL6pUUx6UXszReI+
-	 DBdVJWxMYZLrCMANsq0m2p8mjEuBqQVxEhkix+wE8RbWWd5yKTZypsHZj5Xgi/ONTQ
-	 Ql7/WVpYCYCbw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3619D4735C;
-	Thu,  5 Nov 2026 19:14:19 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 13:14:05 -0600
-Subject: [PATCH v4] doc: process: clarify scope of applying-patches as
- legacy reference
+	s=k20260515; t=1793906080;
+	bh=NAUY23P/8t0bmNcA3J0QS9bQ/pAXdYpwFgDeuwmYbKk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M/o0NOAD+2JcYZv8V+PJNEuXzZjfOOSY0bugLJGMeXYYx+nDnfn3RfBI0nD91BsI4
+	 FBEImlxS29cy26PiqRYqxOkgFIHMK5xu0kFetm+uSuuVt+EK3HpvaysBucIZHWpJ9P
+	 mERTZZidFVUYctgNcK7PDHr/JPu3lKk0hfY1auGeZUvi9koXO55P6HAhgzprxxCfzM
+	 LeBTjnTkTyC5tPkYwCn6pbZb7TKYIIO7Wxe1CLbo7K6a0XVDsOlGDr6tbIF9ucESgs
+	 AlWNJhxY20k+R1H9M+FuWe1q9H2QhbhD6fROu/+UTAiibapX350t7U8e054V7HUevV
+	 YSCeUfj95nXrw==
+Date: Thu, 5 Nov 2026 19:14:34 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Lachlan Michael <Lachlan.Michael@sony.com>
+Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
+	hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+	Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com,
+	Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+Message-ID: <20261105-disposal-robust-9556e8357778@spud>
+References: <20261029050002.3880-1-lachlan.michael@sony.com>
+ <20261029050002.3880-2-lachlan.michael@sony.com>
+ <20261029-distress-stimulant-cd5bb18f5ae8@spud>
+ <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,85 +65,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-doc-patch-fix-v4-1-3eb49e363f64@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33MSwqDMBSF4a1Ixk3JzUNrR91H6UBvbjRQjaiEF
- nHvjY5KoQ7Pge9f2ESjp4lds4WNFP3kQ5+GPmUM26pviHubNpNC5gBCcxuQD9WMLXf+xYXUQDV
- RKY1myQwjpXvv3R9pt36aw/je8xG2918pAgeeQ4F16TRaXdyarvLPM4aObaUoD7VMWuUCHCqDR
- phfrQ61StoVgHixZAtbfut1XT+8xyF6JgEAAA==
-X-Change-ID: 20261104-doc-patch-fix-0241ebee9254
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, aleszlucero@gmail.com
-Cc: workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793906058; l=2347;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=uXAeXMYJHBZaq18If5t37B8wZb2wghKi5aFBALJmnDg=;
- b=khlWhtgm3JIArww2rBqs4kYMf3N+eC2YdcxDXdzbYFWUnNfeTTQyzy1t2hsgJBvRo1GCKxf/v
- dsCfLkNF+lxBh4wxMs4RfXEp8j7W1aFBbPcZfL18pwyTeNb48bsR6Ia
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="x4lACau3DeBapw/v"
+Content-Disposition: inline
+In-Reply-To: <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+--x4lACau3DeBapw/v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The applying-patches.rst document describes the manual manipulation of
-source trees using the traditional 'patch' and 'diff' utilities. While
-technically accurate for non-Git or constrained environments, it can
-create friction for new contributors seeking the primary Git-based
-workflows.
+On Thu, Nov 05, 2026 at 01:40:45PM +0900, Lachlan Michael wrote:
+> On 10/30/2026 3:41 AM, Conor Dooley wrote:
+> > On Thu, Oct 29, 2026 at 02:00:01PM +0900, Lachlan Michael wrote:
+> > > The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+> > > with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
+> > > over 2 or 4 data lanes.
+> > >=20
+> > > Add device tree bindings for the sensor.
+> > >=20
+> > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > Acked-by: Conor Dooley <conor@kernel.org>
+> >=20
+> > This is not the tag I provided, I never provide tags using this email
+> > address. Tags must be used without modification.
+> > https://lore.kernel.org/all/20260828-hedging-olive-eaea0b4027a0@spud/
+> Conor, my bad. I honestly missed that the mail address was different.
+> I understand that it is important that review work is attributed to the
+> correct person and organization.
 
-Update the opening note to explicitly state that this document serves
-as a reference for legacy or constrained workflows. Provide a direct
-cross-reference to howto.rst to steer contributors toward the standard
-Git infrastructure.
+Just either copy-paste tags or use a tool to insert them (e.g. b4).
+Don't type them yourself based on what you thought someone used, it's
+probably slower and mistake prone..
 
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
----
-Update the applying-patches.rst document to clarify that it serves as a
-reference for legacy or constrained workflows where Git infrastructure
-is unavailable, redirecting new contributors to standard Git-based tools.
----
-Changes in v4:
-- Restored missing blank line, cleaned template markers, dropped duplicated alias, and updated links across versions v1 to v4.
----
- Documentation/process/applying-patches.rst | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+>=20
+> Sakari,do you have further comments on the current v6 IMX908 driver?
+> If so, I will fix this issue in a v7.
+> If not, can you attribute to Conor correctly when picking up the patches?
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>=20
+> Best Regards,
+>=20
+> Lachlan
 
-diff --git a/Documentation/process/applying-patches.rst b/Documentation/process/applying-patches.rst
-index c269f5e1a0a3..70142c8ec9a3 100644
---- a/Documentation/process/applying-patches.rst
-+++ b/Documentation/process/applying-patches.rst
-@@ -8,8 +8,14 @@ Original by:
- 
- .. note::
- 
--   This document is obsolete.  In most cases, rather than using ``patch``
--   manually, you'll almost certainly want to look at using Git instead.
-+   This document focuses on the legacy method of manually manipulating source 
-+   trees using the traditional ``patch`` and ``diff`` utilities. 
-+
-+   For the standard Git-based workflow used to clone the repository and work 
-+   with kernel patches, please refer to Documentation/process/howto.rst.
-+
-+   The information below is maintained as a reference for constrained 
-+   environments or legacy workflows where Git infrastructure is unavailable.
- 
- A frequently asked question on the Linux Kernel Mailing List is how to apply
- a patch to the kernel or, more specifically, what base kernel a patch for
+--x4lACau3DeBapw/v
+Content-Type: application/pgp-signature; name=signature.asc
 
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261104-doc-patch-fix-0241ebee9254
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
--- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauzVmgAKCRB4tDGHoIJi
+0io7AQDEzJEH/ZPLPlERnC6DwqZLWKDEb/6D5JRaT6TQIT0MkAD+JQd6JrcdRvE9
+TU60duI89Lg/6UyqWcAj7vKRW/2xngU=
+=Ri3s
+-----END PGP SIGNATURE-----
 
-
+--x4lACau3DeBapw/v--
