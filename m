@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867924;
-	b=grp5WNRGQnjbA88liO4LNq/2xruhOXUXK0NfANWGys4Je4Lob0NNOXOXcDDBUIsiAxZE
-	 tdPrIdXhelsoheLImrZUfCEuGfzgP9AtRQYDXUQjPdKLJ9w+C7wrHdgr7sIFT90zhAESV
-	 o+yxU3iK6tZVojMQvqf3LjPsDFnSI0IaUkIVOvpK45Ip8A0jtuD7WczWcJTb6AZ1Un1+U
-	 jrfWaN7rZVaTm+Ao5PNANQ4rfA36DE8BFkEZf9IiOGNTK1HuGXl3hH6/DmKCMXZftiCW9
-	 /bZmzisQNBogeA6/ozx1KClghSrfyK+iGUkvD9BlTiqzTsg7euss8t5x6khOtBxZ1FQ==
+	t=1793868040;
+	b=t0ByqpKodhKuJ4zHpEGqWW6EcZ0kWLMt1oIC8SzXVbDLnHQDj+AeUB9JFGf+AVRVmJrL
+	 8PKZi8W7VwA7Wy6SVtYs98do0o7YrU/wCCk46FiWJEexV2QWHko2sbeZTgkO/wsjECAed
+	 pH73Yee9aEFRz0ncFRSCz1Lp4KnYHUNapYPZpUxgTDQtuM24TCEtACaXkvF8hGO7oUc7x
+	 yfUtZs2M1rQnpnfRORcJNkFGJCwfm+Xx7xgsgNabGh4V5QWTTeYRFPnSSXJbI9igWbRRE
+	 w5qRNHnY31yMN4uF4gEYX2Yphdp+/5xA42VrkVqw7N8DqCw6BPo0XX9GyaTfFEiC49Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867924;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=0uDYlxqiv0mSLq/hIWs5/UPyDpAbAUOWaGdtWRXlapg=;
-	b=nAzgGaZyVv0Q/Ea9X8smf/64548PFZQZLrutzjCSjMOv+RO+lwreEv+yUz4bJx0pnDk8
-	 wxcbYBDLmuAMP17V3QqzS/AJcgUCSAbJ41rxg95j1CiCps4lgjOmlkkBFSObnA2wumTnq
-	 6FOuXXklc9njKqb360I4RXBo9UvOBNpBAyxP+6yj5KyUS7SzFWFexR647fBEUm9ZfaCUn
-	 r4uEzbvr6W4BdUqgOawxfCvhPh4fexh6zJzQvZ+mtSnvMIOMjTq9PiWzUpn9BVquxpmwk
-	 jcyG5CLhKt8cFkZNigEu20YIU/XaJRZsUxMEYBtGgmhIJNRYO0+i9m/SPJEae3kvMGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868040;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=J5gXWu5vrhC9QDJv+VoLu5Rd6y7WbcJ3q2qRfmo4/U4=;
+	b=WbT8jftwBndDUfXo6OhogwmJQZJNP2eqxU4+ZNK0TrgUrt9jDufa7H93QF0Y1QskEMaM
+	 1K2URD2Sn3hAt6CjkDRp5gL0PJPBYolrHOC5tm+770h68cZ9giTsc1/O0uRON6T9pDN91
+	 LvKPnqdutnByJ1NJoVmJTFJHAjbHZZFsRoe4uw6Lhqob912QUmIgxqATwRlOTnCbGlZ8R
+	 RmghmkEzqKYfEsveN0T9XNS2PubcDxVnGnpResFo6UFqdZsPwXZQgq1INFs63rmE7sFFy
+	 gGLhLcJbPW0eUbQh1zgnX0Ra46nsynEeO2qU/dksur+AKoHfW6HgOGMyVdLJrQa05gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FWVVgyVK;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpSPsDb0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2B1606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F2B1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E657606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:40:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FWVVgyVK
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso715012a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:38:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793867924; x=1794472724; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0uDYlxqiv0mSLq/hIWs5/UPyDpAbAUOWaGdtWRXlapg=;
-        b=FWVVgyVKmbpq3jqC7wnZ7iUai+Zd8NmolPxVCvTqr/tCwGrje986AVfcmmjuHx5kY9
-         BYpmN6pjKCpnw4Tk6mmnXciTqDymgiYizuynW+9u/PORW+WioUvuMmxVf5fZV//6C1X9
-         cOT9dLhj926lES0dSAy+SzUq9DpmZW6MF4K9RMc8YHmwCj2LdU8R0f5dqRK5VhlM5SU3
-         4Ry2+4g/eqWu+WFMtsH91dHegXX6Hu08Hj4gjX6saWWNRkIhhGkWbGUTYJQ3g+M41mR6
-         ObNhYzgHEHAE6L7Itx7fDzMNLk1ES+KzeMWztLlSF5lGAodehQUB2PQKRmtCb5S+N/Si
-         FFyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793867924; x=1794472724;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0uDYlxqiv0mSLq/hIWs5/UPyDpAbAUOWaGdtWRXlapg=;
-        b=HijWaUhKFEWC7aYF8gCR6EcNfs6cbHQLHukwC4Sdy95w2cKVeEHPTrE21t3qtNIp+u
-         SuILTUtZGvynA2UQ+rGmG0CgeuTtNEAcjRIjqbokZF6QnOX9AxK/1cnn4yllpHRt5pWR
-         uhccGmXxw2IMnSTTEQ3mZpaiVmAqqZgV+WKW3MqIsoiGDk4tNu4uQo6QC8vgmgy5w6N/
-         n//aaid1FgaCuOnKJ0DnxKsXWZsPy5KkV4fopJQlxU7GdEPYIVxWCLxoWqY9stmYV4Hr
-         rGHINpSt2ZvfZXMpY0+GiQzusfY3VzYfh1wdmC1nZs0eUbfmADVottesC6yUXCwhv6jd
-         Ll6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwoAVS5Sqz1QHIIllulK+cDTbJ8lN2p3e74jDKl8l5C3K1pKA9e/ZB4ve25e36PFZ5L4jshe4OjnsSw7oE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z98iIzZsCab6QRipzf67CnGIrTswDGboBqY9lHv0IT6G+vsNp/0
-	8S0OO+0yJppHMAAsZEDJ/GKBgsQeCdm1gQvVJTqXgJMB9FNUTYF8gYOL
-X-Gm-Gg: AYBFou1xGYZuBLsDH36emaCGBYGew6KNncaVv9vu6i1tVRoakh3OjyzAFP+Dj4599du
-	MCfHW1mc7ZA8xR+km6Cd46O+NUcL/07ubEUsO5JyfyxbYLxKXlguRYARBC8yQhPEoprOwIi+INZ
-	ON783SSh5TOwoFPUH0y1EQ4zOJIGR3lzo9ZbJ4BEmqE7CFhlXf4zRu8rUQG/EALAz8cOJLvi+CE
-	eBsQ6nzReqeybh5DEBaW68x7p5auqWc8D8K8XZRaQiyBpCdOohUReW8Q4FVjDyOTgrBW0Kl/saE
-	ABfV/l3RjuEV//Gp3itCAWCY55DmOA1NpKSEL7NFD145+lijvEmZqOZWqDZqbPzPlrlTDLpBWfF
-	YenGnV+u9TDdmo1Uyj8B+tFoiNDAOvPEpzVjyqkf3o5WW/2amatcnAqJnxCSNBBuo9z/XvwF19C
-	IjPnlAXeT6cQfoSGJX6AJY47j+OJyEEqY0uSpseEgFEiUgqQjgo97Jcnz9UwhRmrGHt23dTNPST
-	cP9NmqltYBo46+1n8ugbyhRn2jmv0rvO9OEB9NiZ78mJ73ahf+IyWbWBOhMcc45wTCPccQDkyyg
-	4b0+ksB6nB+fa6M7U3obzIr5zTep9dLljg==
-X-Received: by 2002:a17:90b:4c52:b0:3ab:1481:69e5 with SMTP id 98e67ed59e1d1-3ae897ccbfdmr15940958a91.11.1793867923599;
-        Thu, 05 Nov 2026 00:38:43 -0800 (PST)
-Received: from localhost ([2400:2650:24e0:bf00:cc77:213f:afc3:65e2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31d2b5esm2812294a91.15.2026.11.05.00.38.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 00:38:43 -0800 (PST)
-Date: Thu, 5 Nov 2026 17:38:41 +0900
-From: Zhenyu Wang <zhenyuw.linux@gmail.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: zhi.wang.linux@gmail.com, jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
-	tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gvt: Release GGTT MM if scratch page setup fails
-Message-ID: <auxAkaQM1Rri52K9@dell-wzy>
-References: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpSPsDb0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D070D1F00A18
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793868039;
+	bh=J5gXWu5vrhC9QDJv+VoLu5Rd6y7WbcJ3q2qRfmo4/U4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kpSPsDb0yPQzspx+pqXsOCUHH+PRE6+AJ0v+Slnebfzq6r6tdzfzzHoYsr5YsL5dH
+	 e6Ow5CnNiAsuUEYZnq1+XUDNFXZuN7lKEoIoiAp3mXjJF5sIlRy5ARHl3LFYs1NVzz
+	 SvJ5wEm/2nD4A2mG5+XvFKYG3KzUdbW+OjZ5TvnRrOhch6tab3o4uDz1URd+clau5/
+	 LAtJlmietwPFF0Q6o7oE2+m3++OMc/iFdLqWBZai6FPcjRToNXZPC6NjBQOOaikJMT
+	 tTVw7wloZkwDxq45GG8x8B88azC3zj7gqG5IyaC376xYKKH4PKnnJrFHI4IeoyLFUS
+	 xBk+E5aNQPgMQ==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bfbc67991cso1008347e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:40:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzfB2NpWTmy+G1h3gmkSWPJhMXoEyGfl0aJMXW/z8OSpjW54bUQjmg/2MRI7dS5DNauRvMtWy77qjWkZ7M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9d7BLZDGc1DEjpqbGSUCdMjjtJm3O2hm98UebLu7vRIWYr2+RE
+	NS3K5h1s4Os0GAciPVH90O0p1NCHOOUxeQGrEtWId5HfL5sPrsuy4zq/Eg1nhPMh6ZXDyW3sVVg
+	Hxw2NBQG4LDmjbc2tNaRrGeZcsEOSTos=
+X-Received: by 2002:a05:6512:3b2c:b0:5bf:fbe4:4b2 with SMTP id
+ 2adb3069b0e04-5bffbe406admr445427e87.30.1793868038566; Thu, 05 Nov 2026
+ 00:40:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,61 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com> <20261103-i2c-nomadik-fixes-v1-5-655c6af2cb70@mobileye.com>
+In-Reply-To: <20261103-i2c-nomadik-fixes-v1-5-655c6af2cb70@mobileye.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 09:40:27 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=9tVg=mAr=hcJuSKwFdCoRfrH792VUQ7m21avp_-ei4Q@mail.gmail.com>
+X-Gm-Features: AclHuK_dYZjPrUpcWVPYkjWE1wavAEhVwWZvTK26ps86c6G9B9jsBZbaCvbMhQI
+Message-ID: <CAD++jL=9tVg=mAr=hcJuSKwFdCoRfrH792VUQ7m21avp_-ei4Q@mail.gmail.com>
+Subject: Re: [PATCH 5/8] i2c: nomadik: add quirks max_len=2047 and no_zero_len_read
+To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, 
+	srinidhi kasagar <srinidhi.kasagar@stericsson.com>, Ben Dooks <ben-linux@fluff.org>, 
+	Andrea Gallo <andrea.gallo@stericsson.com>, linux-i2c@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 06:54:07AM +0000, Wentao Liang wrote:
-> intel_vgpu_init_gtt() creates the GGTT MM before allocating the scratch
-> page table tree. If scratch page allocation or DMA mapping fails,
-> create_scratch_page_tree() releases its own pages, but the GGTT MM and
-> its virtual GGTT and host GGTT buffers remain allocated. The caller
-> skips intel_vgpu_clean_gtt() when intel_vgpu_init_gtt() fails.
-> 
-> Drop the GGTT MM reference and clear its pointer before returning the
-> scratch page initialization error.
+On Tue, Nov 3, 2026 at 9:29=E2=80=AFAM Dmitry Guzman <Dmitry.Guzman@mobiley=
+e.com> wrote:
+
+> In Nomadik I2c controller, register I2C_MCR has 11-bit wide LENGTH
+> field. Its maximum value is 2047, so this is the maximum length of a
+> single message. It is less than the common maximum I2C message length in
+> I2C subsystem (8192), so define a quirk in order to report the
+> unsupported message without any attempt to transfer it.
 >
-> Fixes: 3b6411c2c205 ("drm/i915/gvt: implement scratch page table tree for shadow PPGTT")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/i915/gvt/gtt.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-> index 5056a5887b31..17d61548ec05 100644
-> --- a/drivers/gpu/drm/i915/gvt/gtt.c
-> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
-> @@ -2403,6 +2403,7 @@ static int create_scratch_page_tree(struct intel_vgpu *vgpu)
->  int intel_vgpu_init_gtt(struct intel_vgpu *vgpu)
->  {
->  	struct intel_vgpu_gtt *gtt = &vgpu->gtt;
-> +	int ret;
->  
->  	INIT_RADIX_TREE(&gtt->spt_tree, GFP_KERNEL);
->  
-> @@ -2420,7 +2421,13 @@ int intel_vgpu_init_gtt(struct intel_vgpu *vgpu)
->  
->  	INIT_LIST_HEAD(&gtt->ggtt_mm->ggtt_mm.partial_pte_list);
->  
-> -	return create_scratch_page_tree(vgpu);
-> +	ret = create_scratch_page_tree(vgpu);
-> +	if (ret) {
-> +		intel_vgpu_destroy_mm(gtt->ggtt_mm);
-> +		gtt->ggtt_mm = NULL;
-> +	}
+> Zero length reading doesn't work properly on this controller, so add
+> `I2C_AQ_NO_ZERO_LEN_READ` quirk flag.
+>
+> Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
 
-Better to just call intel_vgpu_destroy_ggtt_mm(vgpu) which is more
-aligned as for ggtt mm handling.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-The issue you identified with AI tool might make sense, but pls learn
-how to work with kernel community first.
-
-> +
-> +	return ret;
->  }
->  
->  void intel_vgpu_destroy_all_ppgtt_mm(struct intel_vgpu *vgpu)
-> -- 
-> 2.34.1
+Yours,
+Linus Walleij
