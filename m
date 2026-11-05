@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.154.54.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874716;
-	b=rRQDuCsy5UU+NJ49A5OWy3D5qLhrDU1G6ZdZZ7kZl2xtECDYby471LTtvpAeO84J4NJs
-	 927uJUVzohK7z+Zj5VFmYjsoSR9dKTmKkXrZ6CO3coPnS5KwiiiqSuqmSlhS/dMHOvV6y
-	 a5WNdUiWQFE1QtzyS9GZL6ugIUporjzEu/laciSymMWQ6hWsLpJCBivBMOWAmAjjuHlx9
-	 nYqStd4oha6E2W7TGlhYAyr5QTzFpuEyTRZBEc644APRRZHxqED2Y/TJzqCCOJyntBvve
-	 L0BGQk87igSje4a5YssOn0oe20IknTXaoSVbJoed2trBBtj4WDzZw0enSQX5uk8RbWg==
+	t=1793874733;
+	b=mXnrTv+TA5FortsJtwtCcvbljuWS/4sPi8q70QzK01/v9o0FpuUxul40wAoCCyNZNeYc
+	 eqcwZJ6sehkwekLad32ucFLFAxr0p2ViVlvOFJ5dq3niZX8RuAydFlbAZn2am1ut0LNZ8
+	 mLPrEnTwNM3zRxzy7dpHHVuEpCQyqvtcsT6LrkqeMWTD7wkbfnWaj0KCN1KW6ExV6YHbM
+	 I/d4iDTpsamxRmO9nRxbbv3jb9ddfNN4Qwax/OhJHLaxElV9kJtpXPb/pZlj47MBB/LMU
+	 WzsaaVB9MpYxKcjIVWSBOrlz6F3J8y2PTm/jIxUIhhbkowtu027aKHBIza8+P/WLYAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874716;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-SPAM:X-QQ-RECHKSPAM;
-	bh=QpryRELSGG80FrBTzrLF4Ebl/cDHIgqfhVdJfsX/2Ck=;
-	b=gmNjFEbcMtG7DC3eTnRf5dKA2d9y7+qqiwHUeb+DxGiz/HbbVaY1DVsL4+IqlU+8EfHd
-	 tStoZ9PI9WlrI/SEIPerYCPyWKJTtaiEviPbVvQIY4GVNqs+zSY/TxUBXebWYUKGwBdnD
-	 K4nKIQi9vnRWitVC/mGy0LZ7hCRERTEz8EzliKyBc4pZ8i/Xj+pezb+AEJ/jMenT6aQFa
-	 uESVx4szonUv6uyp6eMxxpJDAyK9PcReUqyyKV101m2XypycGkSyOkKw83v4zymJKNl9x
-	 /UGC2Qjh1xmEgKnX6+AmdxdI7GCBwwoL+L+pVNC8eJurfNEev+u9rtawxr2bsH3RcCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874733;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Lrnsp6197nXbKfz7bzeAhyKJ69gwaEJNrVqWiF67Y5k=;
+	b=R9sT2NFJemBJRJqn1HCka2ptw5J3nN1epOqA1zjykPKp0fEyIbOexvvAWNOPC5tJHot4
+	 RwEsKeT1HjG0hzQZmxaRxi1AAKhTfVduZ5XwyZjKyjiw+5Nl3vMmagayV1i2RQBAX64nO
+	 /inDMA0XSt6BUCBN3AFuqRO+5gxlp2XBE41xsDpw8U3tWYjC57NVlys8KjumJbN/ZHHCS
+	 ELxL8qCxePj0TI5zB8K4iPLr6nAQuECmow4kICj4o9ZAu0U9wGJSlgw2+V3jAST46WaFp
+	 YWgJH0GxjJCXRvwAkQsjz38uheWAcbAfgjrdvRKbW8ELbk91jYrZ192gH7722ROWZPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Mcj63AoA;
-	arc=none smtp.remote-ip=43.154.54.12
-Received: from bg4.exmail.qq.com (bg4.exmail.qq.com [43.154.54.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9zNBmkH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05979606A31B;
-	Thu,  5 Nov 2026 10:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05979606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768DC606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:32:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Mcj63AoA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793874696;
-	bh=QpryRELSGG80FrBTzrLF4Ebl/cDHIgqfhVdJfsX/2Ck=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Mcj63AoALgifsDYgU9vBGy4J90Hp2sv2lyMKh/3DvDG/34+xGnOugdnR9jgDnH+g/
-	 kWVb9758lfeKO7nbcTeTpkO/ezCAgLyC+g4DBp9a75fSieeyoS4JMipM8uHTrVyFmX
-	 Jc14fF2SpNJa+2LxClMLzPjEs9u1OdFGxADRcJI4=
-X-QQ-mid: esmtpsz11t1793874693t02fac1d7
-X-QQ-Originating-IP: 4eTnkOOCAXSXOIckUgJdTR9LbDF8/V9x8+qSR90OPrc=
-Received: from snode5.. ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 18:31:30 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 313034118725653772
-EX-QQ-RecipientCnt: 14
-From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: spacemit@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH V2] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
-Date: Thu,  5 Nov 2026 18:31:25 +0800
-Message-Id: <20261105103125.2727341-1-chunyan.zhang@linux.spacemit.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9zNBmkH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCA91F00A1A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:32:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793874732;
+	bh=Lrnsp6197nXbKfz7bzeAhyKJ69gwaEJNrVqWiF67Y5k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=f9zNBmkHXUDiM2i79TBUhngAJT/offW9uUYj7IT+ay84jKVv+24MqoxOIEqQ6AMRR
+	 SWNwxvFW6yWgHhGLXyjZVMGxvy75ZtGcEfKqcisBvOrr3Jhv84zK355MGnsfx7DgzM
+	 GcV3i/+acM8IEYqtLbs3IEY7/GNq/7h8vmDVZvM+xH0cDbgDF55i74kmNVoNhYyfgl
+	 PgBc4oQ1XPHtaEXCozt90UoSz8PU54zFAO4YNbMj+OwxMZX4C0FJhZp8b8AgBoRNpo
+	 +5S/srbbWH3rHda8ianAjjPMiFJxQoJtzdkuVe0U7iS2Chtkkxil7XFVKE3PTqKTMm
+	 FwmwY4nf37uHQ==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4697404c2bso232990866b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:32:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByf+pdyepyfCBE0w1mTwQxaSplrjKNtVOfXf0NhHscVzO9xxDAbAldj8aKSE5jsM60CYxV6AbaaUxrgOkg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8bkPJPmERMl8AwygSVFRm5OyCfEwWGENh2DOPlujsjbwLY8JPC
+	w7vyfklg7v+0x8cVkaL2UN8GVuRNKTtRlj5GEFxWiNpZt7GQ1xM9gGMS8QidrzjP6DUWJf+CjP6
+	ZHZDTfGQXr4GgW2kv/0rQ/eK4443QDW4=
+X-Received: by 2002:a17:907:9446:b0:c49:a571:c4f9 with SMTP id
+ a640c23a62f3a-c4ca7a4205emr1647597366b.13.1793874730739; Thu, 05 Nov 2026
+ 02:32:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,118 +59,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MIGuSZJZg3QGnuivF94uB/SQtZveRJWXwr9qj/ZN4VKL3ddLulf9HXVL
-	ev86CQAYYGkpNjg01/hPA/9CVdsd35q8rH9Nh0M7Lp9G44pCmcUy9UuPcgumLME7tEfj+ko
-	snuvJ0Yi5zp/pcCsW66hKaLbXtHuvg27RLRGBbQhgsirbXr9kEOwDzDXRqm28aDCJRWbPrk
-	45WH5hZAsW06jtDYQg84euE+L5kqSMBT4f2/0OSQ99fGHT6/jaqgzh9jBgNto7P+2b7n6uC
-	zNrUWkqOtPkG5Jy3dFE42TfW11Iim81iS614o3V+D38YNbCXCyBRlrLzg+fC3HSN1SIZUF2
-	/roy0ULTecSQLVur5tYoQsgviPnaPRqPTgkHn+oDyPplbL2i0lM/YuIgBsjnKMOaXdWlJCx
-	1C/HVW6Kdceq9kt+XcHEyq2h+YES8G7uprvbdeHHGtg0WXeDRiFM7XPBNbL/d+8CBwxRYcn
-	6dsaA1HwR0vlDRm/Ptbk8J5xJLHfJZhJyNMhy/MSGbLRxUsR+Ad8e/Jtn2Bm/nPD0tqP9g8
-	qHqClFgf+6jiBL2AukhklwVqNyJl68jjxycKgLjsyvyRxTIyVylz2icwjVmM0kORB5jro8K
-	RUeZToMOz6WDCHQNYpeBVA1wyoNYZnY/K8rGB/s6llKAM+ftYa5vHDFTv9zwiXSnGMPPZqX
-	zGRuStyVcKGujVREmszCynQCy95dz0KGeyL/82B6pNvG/zjIBZnUF6Mr0nYwWLZqYsQilKl
-	46caKi4jAJ7NPlCcg9wdcKJXAVDuvhQMJXFiw9FIux1LzizYz/HnAbzTSvGJmu9CMkc7fbd
-	KEjc4zDljnXif1aptdNcHDN1C5auhQ6x20wFNto8Gl0NeMovZQ/jM/3nZ5+hl5PhSMyFFdy
-	2S8CpGp+bzPLx7E1mgQwUrEFgkjna6PFS2ycMe44suVHQer9X4nDFk4hYGRRwUkidiAnlqf
-	l0CbgXWITpcqBXJNnuFFUgyPw6Rzx6De2K3JpRCbqIc/FBc9rZts1hFH6FoN/Jw0+S48sXU
-	jgmvFxeX10DOznwsAHG7M91kUVJY2ytjDU3mKzjTuKU3J6sGZlqbvyGOX6auYNkALRgzWPe
-	w==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-SPAM: true
-X-QQ-RECHKSPAM: 3
+References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
+ <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
+ <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn> <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
+ <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn>
+In-Reply-To: <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 5 Nov 2026 18:31:57 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
+X-Gm-Features: AclHuK80sIQTIxtcfwQ99SF2CCbdvpwZDrcVmzv31AZq50iDlL8vqX3SPfF4FJ4
+Message-ID: <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
+ field in the IOVT IOMMU structure
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
+	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
+	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
-of the K3 SoC.
+On Thu, Nov 5, 2026 at 5:49=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> wrote=
+:
+>
+>
+>
+> On 2026/11/5 =E4=B8=8B=E5=8D=885:31, Huacai Chen wrote:
+> > On Thu, Nov 5, 2026 at 5:14=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> w=
+rote:
+> >>
+> >>
+> >>
+> >> On 2026/10/23 =E4=B8=8B=E5=8D=883:59, Huacai Chen wrote:
+> >>> Bibo,
+> >>>
+> >>> Now I have applied this series but with some modifications, please
+> >>> double check and test the code.
+> >>>
+> >>> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loon=
+gson.git/log/?h=3Dloongarch-next
+> >> In my v4 submit, it is:
+> >> +               case ACPI_IOVT_DEVICE_ENTRY_START:
+> >> +                       is_start =3D true;
+> >> +                       start_devid =3D ep->device_id;
+> >> +                       break;
+> >> however in rc1, it is modified as:
+> >>                   case ACPI_IOVT_DEVICE_ENTRY_START:
+> >>                           is_start =3D true;
+> >>                           entry->start_devid =3D ep->device_id;
+> >>                           break;
+> >> Here entry is not allocated and NULL pointer, it is allocated in
+> >> ACPI_IOVT_DEVICE_ENTRY_END switch case.
+> >>
+> >> I really do not know what is aid to modify it and let others to test.
+> > Sorry, it's my fault.
+> >
+> > In theory I should point out the modification (eliminating the local
+> > variable start_devid) and refresh a new version. But we have no time
+> > to do this because when the first patch is merged into the ACPI repo
+> > it is near the merge window.
+> Maybe our work style is different, I do not care much for the coding styl=
+e.
+> >
+> > If you agree, I will submit such modifications to fix it.
+> fix is welcome.
+> >
+> > diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iov=
+t.c
+> > index 87cee4f0fc80..4cdac28a1fd0 100644
+> > --- a/drivers/acpi/loongarch/iovt.c
+> > +++ b/drivers/acpi/loongarch/iovt.c
+> > @@ -115,6 +115,10 @@ static int __init iovt_add_iommu(struct
+> > acpi_iovt_iommu *iommu)
+> >          for (i =3D 0; i < iommu->device_entry_num; i++) {
+> >                  switch (ep->type) {
+> >                  case ACPI_IOVT_DEVICE_ENTRY_START:
+> > +                       entry =3D kzalloc_obj(struct iovt_device_entry,
+> > GFP_ATOMIC);
+> There will be memory leak problem if there are START/START/END in the tab=
+le.
+That means a broken table? I think we don't need to consider broken
+tables, because there may be kinds of broken pattern rather than just
+a START/START/END.
 
-Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
-yet, so the port runs at high-speed (maximum-speed = "high-speed").
+Huacai
 
-On the K3 Pico-ITX, Port A is a Type-C connector behind a FUSB301 CC
-controller, which is not described yet. Nothing configures the
-FUSB301, so the port relies on its power-on CC mode. Enable Port A
-with dr_mode = "peripheral"; it is device-only until the CC
-controller is described.
-
-Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
----
-Changes in v2:
-- Rebase onto v7.4-rc1.
-- Move phys/phy-names to the board dts, matching usb3b/c/d.
-- Add snps,dis_u3_susphy_quirk and snps,parkmode-disable-ss-quirk.
-- Note in the commit message that Port A is a Type-C port behind a
-  FUSB301 and is device-only until the CC controller is described.
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 12 ++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 29 ++++++++++++++++++++
- 2 files changed, 41 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index dda420900aa2..d0fbed23ccca 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -337,6 +337,18 @@ &usb2_phy {
- 	status = "okay";
- };
- 
-+&usb3a {
-+	phys = <&usb3a_u2phy>;
-+	phy-names = "usb2-phy";
-+	maximum-speed = "high-speed";
-+	dr_mode = "peripheral";
-+	status = "okay";
-+};
-+
-+&usb3a_u2phy {
-+	status = "okay";
-+};
-+
- &usb3b {
- 	phys = <&usb3b_u2phy>;
- 	phy-names = "usb2-phy";
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index e89d2cc5ca8c..2d2569cfe676 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -687,6 +687,35 @@ gmac2_axi_setup: stmmac-axi-config {
- 			};
- 		};
- 
-+		usb3a: usb@cad00000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0xcad00000 0x0 0x10000>;
-+			interrupts = <118 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB3_A_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB3_A_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB3_A_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			snps,parkmode-disable-ss-quirk;
-+			status = "disabled";
-+		};
-+
-+		usb3a_u2phy: phy@cad20000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0xcad20000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		pdma: dma-controller@d4000000 {
- 			compatible = "spacemit,k3-pdma";
- 			reg = <0x0 0xd4000000 0x0 0x4000>;
--- 
-2.34.1
-
+>
+> Regards
+> Bibo Mao
+> > +                       if (!entry)
+> > +                               return -ENOMEM;
+> > +
+> >                          is_start =3D true;
+> >                          entry->start_devid =3D ep->device_id;
+> >                          break;
+> > @@ -122,10 +126,6 @@ static int __init iovt_add_iommu(struct
+> > acpi_iovt_iommu *iommu)
+> >                          if (!is_start)
+> >                                  break;
+> >
+> > -                       entry =3D kzalloc_obj(struct iovt_device_entry,
+> > GFP_ATOMIC);
+> > -                       if (!entry)
+> > -                               return -ENOMEM;
+> > -
+> >                          is_start =3D false;
+> >                          entry->end_devid =3D ep->device_id;
+> >                          list_add_tail(&entry->list, &np->ep_list);
+> >
+> > Huacai
+> >
+> >>
+> >>>
+> >>> Huacai
+> >>>
+> >>> On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongson.cn=
+> wrote:
+> >>>>
+> >>>> This change is already merged in acpica tree.
+> >>>>
+> >>>> slightly ping.
+> >>>>
+> >>>> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
+> >>>>    > According to the IOVT specification, define macros for each bit=
+ of the
+> >>>>    > Flags field in the IOVT IOMMU structure.
+> >>>>    >
+> >>>>    > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
+> >>>>    > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+> >>>>    > ---
+> >>>>    >  include/acpi/actbl2.h | 7 +++++++
+> >>>>    >  1 file changed, 7 insertions(+)
+> >>>>    >
+> >>>>    > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
+> >>>>    > index baef525367b5..76e4a5bc79b4 100644
+> >>>>    > --- a/include/acpi/actbl2.h
+> >>>>    > +++ b/include/acpi/actbl2.h
+> >>>>    > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
+> >>>>    >       u32 device_entry_offset;
+> >>>>    >  };
+> >>>>    >
+> >>>>    > +/* Masks for Flags field above */
+> >>>>    > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
+> >>>>    > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
+> >>>>    > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
+> >>>>    > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
+> >>>>    > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
+> >>>>    > +
+> >>>>    >  struct acpi_iovt_device_entry {
+> >>>>    >       u8 type;
+> >>>>    >       u8 length;
+> >>>>    > --
+> >>>>    > 2.39.3
+> >>>>    >
+> >>>>
+> >>
+> >>
+>
