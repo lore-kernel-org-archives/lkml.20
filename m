@@ -1,70 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887027;
-	b=2Lhscuyv8QM5OhrFYG6hOyDPzqo9zQXKGmBRP8ebmDDE05tn+WJ24nNM0xdetFnBXbfs
-	 skEZEdeQ3EtPi4KZT5fhXei1a8Lw8PKvoRrnKHSXdPFKd2rOI56bO8KYChwNzPI1bSYp4
-	 1ACKJt8I9n7UrxVRA5ytyNyfVJz0xJ+EdPia73WhBdRcuwjlQ9wc0R4JeYeFtWKEnTSSe
-	 8lqGl0Xwd1V9SGIEQXSTjq9ibzPQa+A6fOpFxrjhwCfZDRMVcznDJGLnI4qZjYOWv12U4
-	 5Ufan1wIW51AhplQ8WZJjJA5n3A3ETbPL5QUHu/ffn9LZp0wNSNbhuLRS+M1B1mdkgw==
+	t=1793887029;
+	b=LOSt30m7/CsNSwOBTS94TYx07dzVHSMeAy+hp0BIVC4Apvco82C+Lfz1peWipwry+n5p
+	 sh1FN9PsqRJryt7asRE+nR+gqxDuEjKm97uGXttBp7i7LOSFoQh1HqQm/DG8AFS6XkJg8
+	 txQ3QIjs9TJHI28BNaVa0TyafjD2k3WvHNDBXT6H8V0KSJXRwsjRERxnxcIfPGxB0FDgz
+	 5oGd4dN/A9Olo9eadQiX2ZdwVUluKcAz10NjtmSNG3Jwp/nEz9CFNSiv5gjcOkZXhmxpj
+	 relSXAs/3ScbAvBDtTYF096BLkZ9aeU7GTIkmo9l4OJZVds5tLqOJnaUiJnL1ju1LMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887027;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887029;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
-	bh=hdB7q81mTRiafyTU90+Nru1Z7mdwITDPN9ZjuiDmuj4=;
-	b=I6z62xfVgxJIZ0q/fVF836X2rS/i8a7OVlxr70suGfs6HCkDtU+K9JrV1ZGrmgf3/LjG
-	 ezwCGnpgEsjmLISeoZMd1+vIoCeGWluXd+0kvevhTCD9Id0FOp09N/sQcQaneEzTGxc5n
-	 tjz7/lTTybvD4YBdxN5ckPNRmV+yntr+2PJ+JAc5W7IUBu4ukqHEpf7F0dhZSIYu7l3ve
-	 hbeLlh+0J5CDtJIa21Skzb7zm0WDhkU5sE4kBP4NUkaRC8J0tvUYgIvO2MifVjqzVA1Sv
-	 kBVA8AMxzAPVGn3dKhOLB529KYrGiB9Fh/yLL4rrQ+HnqodOab9xpburrQtYaPNqNKg==
+	bh=1hD9UnFUoPw7mpXyEiUYUOLSoqgMlHjlWfYdwenzm8Y=;
+	b=uhfQPelgbzvRP9MWA2nP3B/EkLs19ZhN3oQoWlpDKWw1RshdJFg2uo81t8w8THxpwoYe
+	 aAh7LAINfs+WXOChf+XWl2BUwVAnQYyZ3/CGWcKaOjs2LNLDna5TsJ1LaFbyDIYpfvOY5
+	 HwuYSe3ZQXvEXUErVwgEQiUlVdOrmA9apps4mcKWUohtkNBdrg/UWCCld6plaRSMaFZol
+	 7TZBZNQ9H+3rLQdOz46nGMEXFiZBVtFM8iJA5MT4aPza9+S/dyvtcV+pQJczYVg/HolUS
+	 IPrIPidC6oU6Y8EIQ5Eh6oqNxeqmY8BXHOYZ2ODG94pDq/7jQ+jdFsaRRSLR7Nvaguw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=microchip.com;
 	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=HI69DD1v;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=NXYq0Ryc;
 	arc=none smtp.remote-ip=68.232.154.123
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4984F606A339;
-	Thu,  5 Nov 2026 13:57:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4984F606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128B2606D813;
+	Thu,  5 Nov 2026 13:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 128B2606D813
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=HI69DD1v
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=NXYq0Ryc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793887027; x=1825423027;
+  t=1793887028; x=1825423028;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=YyUtvcvn5oJhn+gogAh9fUM8vO0gq8//Wrd0z2MWH+g=;
-  b=HI69DD1vg/XFHFeP9Hopl2laOfkUYkpL+eEE7RfjWvC9+Hjh+wghmjQT
-   oiTcUlWFKnildcSZplcGoi56YrUYuLYyUwQUu13H7YXudOat3RpQpGwJA
-   hlf4IG4Rzw1C+sFbUBluVKYq94JONAHNorkvsKd90j3xo0AArvHaGFynt
-   5D1wYAx17J0ybPMmi02obvh5s51T8ASFXZhNtUzfFZ/2RtxESJqGw1gdp
-   NkExdoGRaHEIOBN/Ni9Ypqh1C0Pxe6cOqHxYbIhQsk6Z/o3GSSC5AycGF
-   O71Nh74/xnxQrTpiW2gpBCgYlT8juTj3OEFdEPbzIDchIL6ToP3tPwpJ7
-   A==;
-X-CSE-ConnectionGUID: I8o+1O/kTI+TII5nkTt4LQ==
-X-CSE-MsgGUID: uGUqt2EvTC2hBa8NXhFNyw==
+  bh=SW1hK4buuMn4e9UpYlOurWbuC9mLjcKJ06uapBXeTkg=;
+  b=NXYq0RycqGgGWflev0Rkg5jnhoZXnBJ3XQ7JM4HnGvRu9iDieRicwb6K
+   PkHd+SDY8GecaSP2XBOoMjhjJrLSSpqmmbh4a3rVKkYZh6ZR2hC4k2qrv
+   F+At/nHOZAA+Os8Kf7fLjNGXzYe/4tNWdPVOFo3afg9QI236lBDfD3D3f
+   YlKbf9UWiOo/3jvf//YNz3U9/djBTg4RmOxXCDDl14MYqthVxT/3StrKm
+   oA3GZ6UbMNntaMvhtg66fYU30usQrvYrtcIWgaMnM+yqyGj0miq5F+EDP
+   iZo18SwwRdR/XjH0bJx70mYLI/vBifwbSaW2K72Mh4ERcaIQesVJ0ZHcG
+   Q==;
+X-CSE-ConnectionGUID: 0nJl97RPQFy7j+Nvup0nTA==
+X-CSE-MsgGUID: GRpItnt3R5SJZMFKdcrW1g==
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="65112457"
+   d="scan'208";a="233136492"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 05 Nov 2026 06:57:06 -0700
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 05 Nov 2026 06:57:08 -0700
 Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 5 Nov 2026 06:57:05 -0700
+ 15.1.2507.58; Thu, 5 Nov 2026 06:57:08 -0700
 Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
  chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 5 Nov 2026 06:57:03 -0700
+ 15.1.2507.58 via Frontend Transport; Thu, 5 Nov 2026 06:57:05 -0700
 From: Daniel Machon <daniel.machon@microchip.com>
-Date: Thu, 5 Nov 2026 14:56:37 +0100
-Subject: [PATCH net-next 2/9] net: sparx5/lan969x: free the FDMA buffers on
- init errors and deinit
+Date: Thu, 5 Nov 2026 14:56:38 +0100
+Subject: [PATCH net-next 3/9] net: sparx5/lan969x: add a helper for setting
+ the MAC max frame length
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,7 +76,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261105-sparx5-mtu-change-v1-2-f27bab580463@microchip.com>
+Message-ID: <20261105-sparx5-mtu-change-v1-3-f27bab580463@microchip.com>
 References: <20261105-sparx5-mtu-change-v1-0-f27bab580463@microchip.com>
 In-Reply-To: <20261105-sparx5-mtu-change-v1-0-f27bab580463@microchip.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
@@ -88,216 +88,179 @@ CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, Robert Marko <robert.marko@sartura.hr>
 X-Mailer: b4 0.14.3
 
-The FDMA RX buffers are skbs on Sparx5, and pages from a page_pool on
-lan969x, which are handed to the FDMA through the RX DCBs. On lan969x,
-the TX DCBs also have an array holding the state of the TX buffers.
+The maximum frame length accepted by a port is set in the MAC_MAXLEN_CFG
+register of its MAC. All ports have a 2G5 device, the 5G, 10G and 25G
+ports also have a high speed device, and the lan969x RGMII ports have an
+RGMII device instead. The register is currently written open-coded in
+sparx5_port_init(), with a fixed length of 1518 bytes.
 
-These are not all freed. On Sparx5, the RX skbs are never freed, and
-if the TX buffers cannot be allocated, the RX DCBs are not freed. On
-lan969x, if the RX DCBs cannot be allocated, the page_pool is not
-destroyed, if the TX buffers cannot be allocated, only the RX DCBs are
-freed, and lan969x_fdma_deinit() never frees the TX buffer state. On
-both, the return value of fdma_dcbs_init() is also ignored for RX, so
-if a buffer cannot be allocated while filling the RX ring, the FDMA is
-started with a partly filled ring, and on lan969x,
-lan969x_fdma_free_pages() later puts the pages that were never
-allocated.
+Add sparx5_port_max_len_set(), which sets the maximum frame length in the
+devices of a port, and use it in sparx5_port_init(). To support the
+RGMII devices, add the DEVRGMII_MAC_MAXLEN_CFG register, and make
+lan969x_port_dev_mapping() return the RGMII device index for the RGMII
+ports.
 
-In preparation for MTU support, add sparx5_fdma_rx_free(), which frees
-the RX skbs and DCBs, lan969x_fdma_rx_free(), which returns the pages to
-the page_pool and frees the page_pool and the RX DCBs, and
-lan969x_fdma_tx_free(), which frees the TX buffer state and the TX
-DCBs, and use them on the error paths and on deinit. Check the return
-value of fdma_dcbs_init() for RX. To know which RX buffers are still
-owned by the driver, clear the RX buffer slot once the buffer has been
-passed to the stack on Sparx5, and make lan969x_fdma_free_pages() skip
-and clear the empty slots of the ring.
+The helper is used to change the maximum frame length with the MTU, later
+in this series.
+
+No functional change intended.
 
 Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 ---
- .../microchip/sparx5/lan969x/lan969x_fdma.c        | 54 ++++++++++++++++------
- .../net/ethernet/microchip/sparx5/sparx5_fdma.c    | 30 ++++++++++--
- 2 files changed, 65 insertions(+), 19 deletions(-)
+ .../ethernet/microchip/sparx5/lan969x/lan969x.c    |  9 ++++
+ .../ethernet/microchip/sparx5/sparx5_main_regs.h   | 11 +++++
+ .../net/ethernet/microchip/sparx5/sparx5_port.c    | 50 ++++++++++++++++------
+ .../net/ethernet/microchip/sparx5/sparx5_port.h    |  4 ++
+ 4 files changed, 61 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-index 053d125eda658..d162bea02cbfb 100644
---- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-+++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-@@ -90,12 +90,29 @@ static void lan969x_fdma_free_pages(struct sparx5_rx *rx)
- 	struct fdma *fdma = &rx->fdma;
- 
- 	for (int i = 0; i < fdma->n_dcbs; ++i) {
--		for (int j = 0; j < fdma->n_dbs; ++j)
-+		for (int j = 0; j < fdma->n_dbs; ++j) {
-+			if (!rx->page[i][j])
-+				continue;
-+
- 			page_pool_put_full_page(rx->page_pool,
- 						rx->page[i][j], false);
-+			rx->page[i][j] = NULL;
-+		}
+diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+index c02499d1b297a..e8c30049b54cf 100644
+--- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
++++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x.c
+@@ -180,6 +180,15 @@ static u32 lan969x_port_dev_mapping(struct sparx5 *sparx5, int port)
+ 		}
  	}
- }
  
-+/* Return the pages in the RX ring to the page_pool, and free the page_pool
-+ * and the RX DCBs.
-+ */
-+static void lan969x_fdma_rx_free(struct sparx5 *sparx5)
-+{
-+	struct sparx5_rx *rx = &sparx5->rx;
-+
-+	lan969x_fdma_free_pages(rx);
-+	fdma_free_coherent(sparx5->dev, &rx->fdma);
-+	page_pool_destroy(rx->page_pool);
-+}
-+
- static struct sk_buff *lan969x_fdma_rx_get_frame(struct sparx5 *sparx5,
- 						 struct sparx5_rx *rx)
- {
-@@ -169,14 +186,18 @@ static int lan969x_fdma_rx_alloc(struct sparx5 *sparx5)
- 		return PTR_ERR(rx->page_pool);
- 
- 	err = fdma_alloc_coherent(sparx5->dev, fdma);
--	if (err)
-+	if (err) {
-+		page_pool_destroy(rx->page_pool);
- 		return err;
++	if (lan969x_port_is_rgmii(port)) {
++		switch (port) {
++		case 28:
++			return 0;
++		case 29:
++			return 1;
++		}
 +	}
- 
--	fdma_dcbs_init(fdma,
--		       FDMA_DCB_INFO_DATAL(fdma->db_size),
--		       FDMA_DCB_STATUS_INTR);
-+	err = fdma_dcbs_init(fdma,
-+			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-+			     FDMA_DCB_STATUS_INTR);
-+	if (err)
-+		lan969x_fdma_rx_free(sparx5);
- 
--	return 0;
-+	return err;
++
+ 	/* 2g5 port */
+ 	return port;
  }
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+index df438be0ec552..5302c7686e207 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+@@ -8430,6 +8430,17 @@ extern const struct sparx5_regs *regs;
+ #define DEVRGMII_MAC_ENA_CFG_TX_ENA_GET(x)\
+ 	FIELD_GET(DEVRGMII_MAC_ENA_CFG_TX_ENA, x)
  
- static int lan969x_fdma_tx_alloc(struct sparx5 *sparx5)
-@@ -202,6 +223,15 @@ static int lan969x_fdma_tx_alloc(struct sparx5 *sparx5)
++/* LAN969X ONLY */
++/* DEV1G:MAC_CFG_STATUS:MAC_MAXLEN_CFG */
++#define DEVRGMII_MAC_MAXLEN_CFG(t)                                             \
++	__REG(TARGET_DEVRGMII, t, 2, 36, 0, 1, 36, 8, 0, 1, 4)
++
++#define DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN          GENMASK(15, 0)
++#define DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN_SET(x)\
++	FIELD_PREP(DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN, x)
++#define DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN_GET(x)\
++	FIELD_GET(DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN, x)
++
+ /* LAN969X ONLY */
+ /* DEV1G:MAC_CFG_STATUS:MAC_TAGS_CFG */
+ #define DEVRGMII_MAC_TAGS_CFG(t)                                               \
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_port.c b/drivers/net/ethernet/microchip/sparx5/sparx5_port.c
+index ef06bed3a9cc4..701d310df0ba6 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_port.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_port.c
+@@ -613,6 +613,42 @@ static int sparx5_port_max_tags_set(struct sparx5 *sparx5,
  	return 0;
  }
  
-+/* Free the TX buffer state and the TX DCBs */
-+static void lan969x_fdma_tx_free(struct sparx5 *sparx5)
++/* Set the maximum frame length accepted by the MAC of a port */
++void sparx5_port_max_len_set(struct sparx5 *sparx5,
++			     struct sparx5_port *port,
++			     u32 len)
 +{
-+	struct sparx5_tx *tx = &sparx5->tx;
++	u32 pix = sparx5_port_dev_index(sparx5, port->portno);
++	const struct sparx5_ops *ops = sparx5->data->ops;
++	void __iomem *devinst;
 +
-+	fdma_free_coherent(sparx5->dev, &tx->fdma);
-+	kfree(tx->dbs);
++	if (ops->is_port_rgmii(port->portno)) {
++		spx5_rmw(DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN_SET(len),
++			 DEVRGMII_MAC_MAXLEN_CFG_MAX_LEN,
++			 sparx5,
++			 DEVRGMII_MAC_MAXLEN_CFG(pix));
++		return;
++	}
++
++	/* All other ports have a 2G5 (shadow) device */
++	spx5_rmw(DEV2G5_MAC_MAXLEN_CFG_MAX_LEN_SET(len),
++		 DEV2G5_MAC_MAXLEN_CFG_MAX_LEN,
++		 sparx5,
++		 DEV2G5_MAC_MAXLEN_CFG(port->portno));
++
++	if (ops->is_port_2g5(port->portno))
++		return;
++
++	/* The MAXLEN_CFG register layout is shared by the high speed devices */
++	devinst = spx5_inst_get(sparx5,
++				sparx5_to_high_dev(sparx5, port->portno), pix);
++
++	spx5_inst_rmw(DEV10G_MAC_MAXLEN_CFG_MAX_LEN_SET(len),
++		      DEV10G_MAC_MAXLEN_CFG_MAX_LEN,
++		      devinst,
++		      DEV10G_MAC_MAXLEN_CFG(0));
 +}
 +
- static void lan969x_fdma_rx_init(struct sparx5 *sparx5)
+ int sparx5_port_fwd_urg(struct sparx5 *sparx5, u32 speed)
  {
- 	struct fdma *fdma = &sparx5->rx.fdma;
-@@ -353,7 +383,6 @@ int lan969x_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
- 
- int lan969x_fdma_init(struct sparx5 *sparx5)
- {
--	struct sparx5_rx *rx = &sparx5->rx;
+ 	u32 clk_period_ps = 1600; /* 625Mhz for now */
+@@ -1068,18 +1104,15 @@ int sparx5_port_init(struct sparx5 *sparx5,
+ 	u32 pause_start = sparx5_wm_enc(6  * (ETH_MAXLEN / SPX5_BUFFER_CELL_SZ));
+ 	u32 atop = sparx5_wm_enc(20 * (ETH_MAXLEN / SPX5_BUFFER_CELL_SZ));
+ 	const struct sparx5_ops *ops = sparx5->data->ops;
+-	u32 devhigh = sparx5_to_high_dev(sparx5, port->portno);
+ 	u32 pix = sparx5_port_dev_index(sparx5, port->portno);
+ 	u32 pcs = sparx5_to_pcs_dev(sparx5, port->portno);
+ 	bool sd_pol = port->signd_active_high;
+ 	bool sd_sel = !port->signd_internal;
+ 	bool sd_ena = port->signd_enable;
+ 	u32 pause_stop = 0xFFF - 1; /* FC generate disabled */
+-	void __iomem *devinst;
+ 	void __iomem *pcsinst;
  	int err;
  
- 	lan969x_fdma_rx_init(sparx5);
-@@ -375,7 +404,7 @@ int lan969x_fdma_init(struct sparx5 *sparx5)
+-	devinst = spx5_inst_get(sparx5, devhigh, pix);
+ 	pcsinst = spx5_inst_get(sparx5, pcs, pix);
  
- 	err = lan969x_fdma_tx_alloc(sparx5);
- 	if (err) {
--		fdma_free_coherent(sparx5->dev, &rx->fdma);
-+		lan969x_fdma_rx_free(sparx5);
- 		dev_err(sparx5->dev, "Failed to allocate TX buffers: %d\n",
- 			err);
+ 	/* Set the mux port mode  */
+@@ -1119,10 +1152,7 @@ int sparx5_port_init(struct sparx5 *sparx5,
  		return err;
-@@ -390,14 +419,9 @@ int lan969x_fdma_init(struct sparx5 *sparx5)
  
- int lan969x_fdma_deinit(struct sparx5 *sparx5)
- {
--	struct sparx5_rx *rx = &sparx5->rx;
--	struct sparx5_tx *tx = &sparx5->tx;
+ 	/* Set Max Length */
+-	spx5_rmw(DEV2G5_MAC_MAXLEN_CFG_MAX_LEN_SET(ETH_MAXLEN),
+-		 DEV2G5_MAC_MAXLEN_CFG_MAX_LEN,
+-		 sparx5,
+-		 DEV2G5_MAC_MAXLEN_CFG(port->portno));
++	sparx5_port_max_len_set(sparx5, port, ETH_MAXLEN);
+ 
+ 	/* 1G/2G5: Signal Detect configuration */
+ 	spx5_wr(DEV2G5_PCS1G_SD_CFG_SD_POL_SET(sd_pol) |
+@@ -1171,12 +1201,6 @@ int sparx5_port_init(struct sparx5 *sparx5,
+ 	if (sparx5_is_baser(conf->portmode))
+ 		sparx5_dev_switch(sparx5, port->portno, true);
+ 
+-	/* Set Max Length */
+-	spx5_inst_rmw(DEV10G_MAC_MAXLEN_CFG_MAX_LEN_SET(ETH_MAXLEN),
+-		      DEV10G_MAC_MAXLEN_CFG_MAX_LEN,
+-		      devinst,
+-		      DEV10G_MAC_MAXLEN_CFG(0));
 -
- 	sparx5_fdma_stop(sparx5);
--	fdma_free_coherent(sparx5->dev, &tx->fdma);
--	fdma_free_coherent(sparx5->dev, &rx->fdma);
--	lan969x_fdma_free_pages(rx);
--	page_pool_destroy(rx->page_pool);
-+	lan969x_fdma_tx_free(sparx5);
-+	lan969x_fdma_rx_free(sparx5);
+ 	/* Handle Signal Detect in 10G PCS */
+ 	spx5_inst_wr(PCS10G_BR_PCS_SD_CFG_SD_POL_SET(sd_pol) |
+ 		     PCS10G_BR_PCS_SD_CFG_SD_SEL_SET(sd_sel) |
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_port.h b/drivers/net/ethernet/microchip/sparx5/sparx5_port.h
+index c8a37468a3d1d..912f97a506768 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_port.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_port.h
+@@ -88,6 +88,10 @@ int sparx5_port_init(struct sparx5 *sparx5,
+ 		     struct sparx5_port *spx5_port,
+ 		     struct sparx5_port_config *conf);
  
- 	return 0;
- }
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-index bcae0bbd5e44e..f4e8ac00dbe2f 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-@@ -174,6 +174,10 @@ static bool sparx5_fdma_rx_get_frame(struct sparx5 *sparx5, struct sparx5_rx *rx
- 	skb->dev->stats.rx_bytes += skb->len;
- 	skb->dev->stats.rx_packets++;
- 	rx->packets++;
-+	/* The skb is passed to the stack, so clear its slot in the ring, so
-+	 * that sparx5_fdma_rx_free() does not free it.
-+	 */
-+	rx->skb[fdma->dcb_index][fdma->db_index] = NULL;
- 	netif_receive_skb(skb);
- 	return true;
- }
-@@ -239,6 +243,21 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
- 	return NETDEV_TX_OK;
- }
- 
-+/* Free the RX skbs owned by the driver, and the RX DCBs */
-+static void sparx5_fdma_rx_free(struct sparx5_rx *rx)
-+{
-+	struct fdma *fdma = &rx->fdma;
++void sparx5_port_max_len_set(struct sparx5 *sparx5,
++			     struct sparx5_port *port,
++			     u32 len);
 +
-+	for (int i = 0; i < fdma->n_dcbs; i++) {
-+		for (int j = 0; j < fdma->n_dbs; j++) {
-+			consume_skb(rx->skb[i][j]);
-+			rx->skb[i][j] = NULL;
-+		}
-+	}
-+
-+	fdma_free_phys(fdma);
-+}
-+
- static int sparx5_fdma_rx_alloc(struct sparx5 *sparx5)
- {
- 	struct sparx5_rx *rx = &sparx5->rx;
-@@ -249,10 +268,12 @@ static int sparx5_fdma_rx_alloc(struct sparx5 *sparx5)
- 	if (err)
- 		return err;
- 
--	fdma_dcbs_init(fdma, FDMA_DCB_INFO_DATAL(fdma->db_size),
--		       FDMA_DCB_STATUS_INTR);
-+	err = fdma_dcbs_init(fdma, FDMA_DCB_INFO_DATAL(fdma->db_size),
-+			     FDMA_DCB_STATUS_INTR);
-+	if (err)
-+		sparx5_fdma_rx_free(rx);
- 
--	return 0;
-+	return err;
- }
- 
- static int sparx5_fdma_tx_alloc(struct sparx5 *sparx5)
-@@ -425,6 +446,7 @@ int sparx5_fdma_init(struct sparx5 *sparx5)
- 	}
- 	err = sparx5_fdma_tx_alloc(sparx5);
- 	if (err) {
-+		sparx5_fdma_rx_free(&sparx5->rx);
- 		dev_err(sparx5->dev, "Could not allocate TX buffers: %d\n", err);
- 		return err;
- 	}
-@@ -434,7 +456,7 @@ int sparx5_fdma_init(struct sparx5 *sparx5)
- int sparx5_fdma_deinit(struct sparx5 *sparx5)
- {
- 	sparx5_fdma_stop(sparx5);
--	fdma_free_phys(&sparx5->rx.fdma);
-+	sparx5_fdma_rx_free(&sparx5->rx);
- 	fdma_free_phys(&sparx5->tx.fdma);
- 
- 	return 0;
+ int sparx5_port_config(struct sparx5 *sparx5,
+ 		       struct sparx5_port *spx5_port,
+ 		       struct sparx5_port_config *conf);
 
 -- 
 2.34.1
