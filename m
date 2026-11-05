@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881978;
-	b=Cixv5bX0R2MkwD/XWF3RoCK023dD0WoyZBkXy7onS19ad4UwK5lwrzg6c+tW82D3xTBY
-	 F3IqhQ2uffDegGOL0CeohdUcdGDxYUHyYNyEuO3t5FO3QY2yb1sJOcwNqXBb2Pa1aPbtO
-	 nNJf+WmhgVRIXHFWw0rKyB0owoo/yyt5rCojR13kbsYhIo10ziDEM18PFTlM30MTkGpwK
-	 mIVOH3kJm0nJpLMeKEoCs+xTfXlVeDijSe9U/lwIxDqudyprSsNuLcpS5mb6tMHe3XLXQ
-	 nw0vcz8RyLaBkvlAVTPFaNQE2NgtbXE+TmvZk27/b2OAxOaY5nTE6EHYHUJTCboM/Xw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881978;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=RcJPtti5GFvFEoOYZYt06D/AhFo3icPnTOuzdt+NBsE=;
-	b=DEM2arsVGZmhqjkYcJq/RFRiIbf3RfrGUoRbdW8XCX7Cijw+Odqf5tRa6XMKpfmF35UA
-	 lwSe3iwWQFn8z59aRO38X9k+I6NXrDMuQu699yfCiAYOzbwuXnMRgDxRxaQYFVJdSzt1M
-	 GxsvftEupFnKx71cEc2fee72sRDc2+K6QoXIAl6TTi88OcOuDQsniiLBiB3oJC84cKVEH
-	 kuNSQmnwgZEGTa3Z3MuyaUMrCj7oYRkndAXT8CynGK8YTBuzF+5F12vWiNa06s7rVunsP
-	 W2Nu1ZPrlg82sPhG+RK/rI84yAqo4jamm7RzoU+ZkVuhz5UW9DdBSihPJrO735YfjNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=cCtFJSjX;
-	arc=none smtp.remote-ip=209.85.167.54
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793881993;
+	b=ZixjYLjUQBU4vk/8iHKUNurDH9UIxl2qYRy7hexkGCFzlIT722GaMLs4YBG8Faq6Jy2/
+	 K6fr6qL5MWov1Tsl5X0cQ1WYLDDcLGjXBWbnh+3QpFDPZmJtNOnroA8IjImBgSm/evZ2j
+	 jKtf+tMh1lm6F+b1g73SgE3c+OiYakrLm5/C28EIZq7xKajil0f+al8i9dOURWR0nxBZi
+	 +DwDIHy+ZUtbQ4rq9N0kXN7IDS1amcigC/jmrD5/N2ANWO5vryFk5qBtH+VPW/+xI4MV2
+	 VD3zCX2bx1Zuo3D0wYW7s9vhGZP8nK0WZLr+TPBqTFg1hZlZu6AG3pj1q7MJPeQ+sAg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881993;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
+	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QteImdn9gQpltcHT+UEJHJpMBNG9Tc5bVE9nFyAop/A=;
+	b=XmHjDjI25qjKHBUWUdr501DSqu0Rn/RgPPoWtwD6jU0oMQXm+x4MMhagTsufLjhTbuJb
+	 oisCnAI4mVgT0SDnMZSHw7Un+ySsG+uSOXdW/s3Pt1iiSQcR0XxmZvqtza/o5UlWB8+XI
+	 83rcYeE7AHb9RFFd/I8e7TAjB8nK9j5IRgzrBs4sIVd5wOE/XIAS6BLaNTtr21uVVpq0K
+	 PxrTGlHrhpz3nW+diAukn3MUQ+JENwyV1E19Y4FlTmk9NVTywXt+mYPjUMTdd6jR3o/Tc
+	 mAUFz9ptyzCeNNJZAjTq0TJOmX5KqBpoaCV98UViwxV6M1nw5a4egALcgF/gysqp0sA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n19CJGmM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.23
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012023.outbound.protection.outlook.com [52.101.48.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D7F606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:32:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54D7F606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C678606A328;
+	Thu,  5 Nov 2026 12:33:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C678606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=cCtFJSjX
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfc9154ceaso1402924e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:32:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793881975; x=1794486775; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RcJPtti5GFvFEoOYZYt06D/AhFo3icPnTOuzdt+NBsE=;
-        b=cCtFJSjXtpRSezyNE06wb3mNCryoz4ZPMqTXXg9EyTCJZDz7c1Wwg43Xnz2iDZHF9h
-         uoCWVLQ8jvnyNWaRYluSpDmCHcdouiOJqpYN9KBvHh7ma3RwL36T1cBdawdpqOMfO/a1
-         D1maF55YHx7FUilZtWynmISNmN56ev+z3BACC8vviL7dY4cTVG/suNv+f41imfxIare+
-         C+bWcbedtAvtUrVKoW0m4EHeVcV77/6F/wIkQEtfvtcI0MozKYY2HozTWAUqXlxvcYfr
-         NNTPhbfo1Y4AwQsaGifksj17DoQg1AoaBDPOa/kjNoLrOyT0vE5GD0k95/0RPFy4NjWV
-         +K1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793881975; x=1794486775;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RcJPtti5GFvFEoOYZYt06D/AhFo3icPnTOuzdt+NBsE=;
-        b=yrVyhYJ1/8NI//q1F466sIlO0ZeUCQ0BfzBHwlJ3bSIowFuoOyc/HkWB+dyb/JS/eB
-         z+fHAwjbimh/upcghARSHR3yrHn+tVt0kp3Vu3XdEVK6+c6nD2QrAyfyvdosyJoKNlDn
-         DsvciMKBWhEAgEu6D5CyUBRkoDFFi+WoGi0jnujTmUc+2DWI+7rweMaDW5zmhfTgymph
-         4+FjZETCoYf86SYVdLqiDYbxzbNJ/JwrWzNrlDG4y08ga6AFsctg4JGRLMeX+/VSVrkw
-         lXTR8ZMyo++e0KXePW/yI78a3ggs7IFQsLJYot5xs4UkTXAsDjg15dUWSCHFp3fqosM1
-         gRQg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2yc1xU9DJVWBLWEkFaEnjE5ZP5qOY59+BR3Sb1NHmjljPCoD7EiNw7nmyCTYl+hSfItvYFiF/jPlTu1U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3DobaeCECtG0gMnRJ0uZVXsphrIrbduwLYYOwmd8+yy3NKSKj
-	OPVjDGQyFWwI/A1rMInB8eOccohNiyC2VRhkrNYIhxV/vXV9Mjat9wkVHqaiU4+UNYs=
-X-Gm-Gg: AYBFou3onmKsYfgc3uOgbj67IWi85m1HSwg67kqe1zTbNGzaoZSlCYzNF1OeczBVXhI
-	/RmpxsxjVqOUFPNkKHc032oGqL9TXjfD+WQYBh3Dxw21Nq+gNAMuBhMZej0WhN3N3flPsbTzaCG
-	2HQDw/5GUDML6ibp0DGyTW+Jjwg2O/Zu3CJvyl+Cksla5WSkNd6tDeQpHSckOJSvVDv7iod+YxA
-	EmQkDCY5k//gdNg3eJRk0H3wveqzDIceJwilyOfjP5Teslcc1lxbBjTSBVVl2dT2l1rRsuQ7J0O
-	+pDcYEEIZgkck8vpWXUXhd1aI4lQzwjgN0qCibix1ebH4oRce1QoVKv0pM/SyLrzm8TvFVoTfl+
-	DUkPM9VY5QTPfMgG3Lpu1BZ92qKUawJtgSri+YU6gZC52QLoQZZHelpJON4OZCnTPvTU8ynkJOd
-	IUm5ZbaWnOaXiU45rXCMicv6cwuJ64CQv63MDC4wmJ/P5B1bTuiAJg6MABI2u+hg+UT2VwdvsmS
-	6EoXqm3c+TvZzkc41S8lb1ZC5r3njDt2RhNLkQwD75WQpSv9MDDmyI5D97T6ySLdo/LDmBDn2nf
-	e6O7KvniTDplEl7DKILFgAGz0vdFcou/ew+1Tm8=
-X-Received: by 2002:a05:6512:3056:b0:5bf:b96b:2c75 with SMTP id 2adb3069b0e04-5bfd957c416mr7135190e87.37.1793881975197;
-        Thu, 05 Nov 2026 04:32:55 -0800 (PST)
-Received: from localhost ([140.209.217.211])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bff38ab170sm875824e87.16.2026.11.05.04.32.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:32:54 -0800 (PST)
-Date: Thu, 5 Nov 2026 13:32:49 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <aux01NUd85PabtZu@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-18-jiri@resnulli.us>
- <auuDcABX27EeTApl@e129823.arm.com>
- <20261104194622.GC3889730@ziepe.ca>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n19CJGmM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KSVQrAX4DS2koTSXQ9Ck/+ncqeiGW8GjCbcXZYzDufNf9c7bLHuzzUgCOlHLSOJfFtyDyqQvPXWvi+B3S112RBL9wWBELt+WySlEBDSVhSnqLSrpRu9WzfhY91NpwCoV/vT0OxFbghohUBWarmq5OYeRikDVvoiCjeZCEhrX7ebeP34f+Bc6eYw32Gs9OauUzk0Xqz0Gsx8CUwxk3VD6dxtaeBwIgOio1lFPkcoL/yVB/ALdZ45r0Ekn92pwjcsxMDtfRaOLWbmOvk+X+qllIsFRvIjdfinlIS3F0rD9RcTV6M/ujc0RJFm1cp1VeJ6leONCTR+AyTwQoo81A3Ggzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QteImdn9gQpltcHT+UEJHJpMBNG9Tc5bVE9nFyAop/A=;
+ b=CcJsdsw6f5lxbwSuxbkegG5RcXw73IMAEXwO1JJp5cAkXli2VNODlqtH7xDDCibG14pT0okwek3jkdq8iHiyiEA+5dVTnCpnVdd7I0WEKSP1coOZA51LA2eGz9e9D/Mm6qFlsWNtYB9sfHEPS2Vt8bpO85lRwomNuyXPo2lwv3yPmyMk8RMyAVZbUhFRuacX0iae+XjuJKEZV8dnX2jvgaUPB+bgUirQzuw7wVpZjoGPOJD6GzGndSUeL7PezXaC2QPV5Ji/Whgv8t0wn00WGZrU9m74N2v53XEUWpu5cxgqN1q1x6pEf4tOBIdF9ELR1C/09oK1jaRxYSHlmSWzxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QteImdn9gQpltcHT+UEJHJpMBNG9Tc5bVE9nFyAop/A=;
+ b=n19CJGmM2/aITbRqn90a/G3azItUWQy/nHrGfHR7trWUWNlIib7L+jw/K5wnSONFDE+kFxKXq9gEm3Ldw7vvXnvz19Qk/ioQ1G5MNnJyTagn2ZzjpMH62G+0FtqFt7nxkQz863E2jpryN319kG9fYvVqh7Vn+h1FQfGMfIiHIH5RahUA1pgJZxwXrbPhPJA14xVf+Zj1aHKIEB8HUBJtImAZcx5SipifTO/at5pI2Q44m6GErykx3nUAh9occdGluEZI4dHPAyEd77lhJGbP6KmVjTDFxqr59Rmwx+J0AFenQCAViLTkilUA2faJdffY69NMcadpeaP1/GxVZBhlbg==
+Received: from PH5P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::14)
+ by BL1PR12MB5993.namprd12.prod.outlook.com (2603:10b6:208:399::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
+ 2026 12:33:07 +0000
+Received: from PH4PEPF0000B60A.namprd21.prod.outlook.com
+ (2603:10b6:510:34a:cafe::15) by PH5P220CA0009.outlook.office365.com
+ (2603:10b6:510:34a::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
+ Nov 2026 12:33:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ PH4PEPF0000B60A.mail.protection.outlook.com (10.167.243.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.0 via Frontend Transport; Thu, 5 Nov 2026 12:33:07 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
+ 2026 04:32:52 -0800
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 04:32:51 -0800
+Received: from sumitg-l4t.nvidia.com (10.127.8.14) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
+ Transport; Thu, 5 Nov 2026 04:32:47 -0800
+From: Sumit Gupta <sumitg@nvidia.com>
+To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <zhanjie9@hisilicon.com>,
+	<zhenglifeng1@huawei.com>, <christian.loehle@arm.com>, <benc@redhat.com>,
+	<linux-pm@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <treding@nvidia.com>, <jonathanh@nvidia.com>, <vsethi@nvidia.com>,
+	<ksitaraman@nvidia.com>, <sanjayc@nvidia.com>, <mochs@nvidia.com>,
+	<bbasu@nvidia.com>, <sumitg@nvidia.com>, <stable@vger.kernel.org>
+Subject: [PATCH] cpufreq: CPPC: Set CPPC Enable register in cpu_init
+Date: Thu, 5 Nov 2026 18:02:44 +0530
+Message-ID: <20261105123244.3132560-1-sumitg@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,77 +116,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104194622.GC3889730@ziepe.ca>
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60A:EE_|BL1PR12MB5993:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43e603ef-3b23-4e3e-4676-08df3b38f202
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|261026140227099003|11063799006|56012099006|261028144727099003|261009223027099003|261021121427099003|261022105027099003|10067099003|18002099003|261102123227099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	BhCY0TmN6oraw0tcu+8Z2YpZx2yQrv/h4u9OLMTq+kRWK367z08dl8lUcUQg65Y3Fji+JcSbm6jVhb2yBkS0JqXHPIgyUaMWqm/OL5DL9mSbIa+bu7uBit+MdANy+NREIgO9IM+yMqXbbfRURL+2LT0HW1rrWWgaANXmBZWODm1TeQ36sV6pifCry/KXkqDbpOTRdyagtPvgDIa3JjP4Za39CzMVaP8UvYuK9c+BZOgJNo5QQoLRlYr4A9848Tpap/3PYah7dT0j+N5F7eaUqR2cis69PEJZstGfQRQjaViOTCp0hcXjdojokgx66BPUjKy4m5Y7IY8ihgVEf07XjkbGw57di9YPWvpk3pw63k/FSsjRY0GmBIdD4Gp5bnSZiPZeBeq6tPN6Zl3eIQLA/8ITzGdzbOoEbn+96UrNIw0SVEjTLcWCfQpRFXtuNX5aQ9o+Z+iUJKv8SPvDlolAbNy/3SIyRrfxqpXeE0vlVlDTU08N8IgaN+Ebho6fqXWP7sjBVOyV5GLHvgWEqTDsqTG4QA00QUgBAKpUxLslKRPj0kMXWpCUQce886/Smqdtlr3KZgRUc/DSM+vfxPf8FeBe78ocY9jJxIoDCzlwalmUGQq14ElBRtuDQdwmzTYF/puwdXqNPN7EXv0QymeBLwLHMgiE2Y3XhaFUT7hAVI0NC7cbHRKjlpfYLz5/duVuhEtkvhkWcic8Du/rjIf5og==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(261026140227099003)(11063799006)(56012099006)(261028144727099003)(261009223027099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(261102123227099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	orti8AEFVg1gX7ZvbBoZ84256WTLmvuX0iCzT4jMzI8yvkvJl5OoitYWcN3FNwJUKDl9wPGZ4ZWcjF6sVN2ROXBF8okWb0NzxjZQShPljlq5f/uYB1g5amVoJkh/EZWzX4Jqg/CU75UwhGu0GwaniY40WYRhB+LRMGPwf1r0WCkZAO/Whm3199hVXRVY5noSubMIYmApZ6xehu6qTmYL9TT2jpfo1j8ulR/8AvjcDniYjvxflNXoazMrPlU3l7Yk70eOOY7fTPqd6f3q0g6S8x4rjM3Wn9QtfU7yC0CxbhnfcV/K/qExnMzVXCrFAB9/H2rf0Wf4qSC5MXC82ysr30K0Ad1VZnkddS/IEAI//cuS2tJ3XY1c66Azro9v4YhmkONGyob3XJV1fZpc5Tk7Qvjo/mnpNtUBGl/pFHPOUmz7jAakbvbH6V+h5TW2p98S
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 12:33:07.3455
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43e603ef-3b23-4e3e-4676-08df3b38f202
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH4PEPF0000B60A.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5993
 
-Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
->On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
->> [..snip..]
->> 
->> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
->> > +					       const struct ctlv_cursor *request,
->> > +					       struct attestation_evidence_request *decoded,
->> > +					       struct attestation_evidence_object_request **objects)
->> > +{
->> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
->> > +	u32 challenge_length;
->> > +
->> > +	decoded->challenge =
->> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
->> > +	decoded->challenge_length = challenge_length;
->> > +	if (challenge_length < caps->min_challenge_length ||
->> > +	    challenge_length > caps->max_challenge_length)
->> 
->> Hmm, I'm not sure whether this check is required for
->> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
->> 
->> for example, if the provider provides two evidence:
->>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
->>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
->> 
->> might challenge is reuiqred for generating the token
->> and this would be marked at min/max_challenge_size in evidence_cap.
->> 
->> However, in case of eventlog, it wouldn't require challenge.
->> for example, TPM event log or CCEL event log.
->
->Right
->
->> Do we need some field on attestation_evidence_supported_object whether
->> it requires challenge or not and applies this sanity check per the object?
->> 
->> Otherwise, to get eventlog, it would need to send *dummy* challenge
->> always.
->
->I wonder if we should have two interfaces here for signed and unsigned
->evidence? It would be clearer for userspace then when it needs to
->provide a challenge or not.
+As per ACPI 6.x s8.4.6.1.4 (CPPC Enable register):
+  "If supported by the platform, OSPM writes a one to this register
+   to enable CPPC on this processor. If not implemented, OSPM assumes
+   the platform always has CPPC enabled."
 
-Isn't the challenge field provided/not-provided enough?
+The driver never writes this register. Call cppc_set_enable() at the
+start of cppc_cpufreq_cpu_init(). Errors are logged but not fatal, as
+the register is optional.
 
-Currently on the introspection side, device-get op would provide
-challenge-lengths array:
+Fixes: 5477fb3bd1e8 ("ACPI / CPPC: Add a CPUFreq driver for use with CPPC")
+Cc: stable@vger.kernel.org # v6.16+
+Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
+---
+Sending this separately from the autonomous mode boot parameter series
+where it was patch 1/2, as it is an independent bug fix.
+v5 of the series:
+ https://lore.kernel.org/lkml/20260623080652.3353386-1-sumitg@nvidia.com/
 
-        evidence?:
-          challenge-lengths[8]:
-            length?: uint(..4096)
-            min-length?: uint(..4096)
-            max-length?: uint(..4096)
- 	  objects[16]:
-            blob-class: evidence-blob-class
-            max-length: uint
-            blob-instance?: uint(..u32-max)
+ drivers/cpufreq/cppc_cpufreq.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-I think it would make sense to have challenge-lengths array per object:
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 957fa7775260..b8f4399b6e0b 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -679,6 +679,14 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+ 	caps = &cpu_data->perf_caps;
+ 	policy->driver_data = cpu_data;
+ 
++	/*
++	 * Enable CPPC. The Enable register is optional - some platforms
++	 * may not support it.
++	 */
++	ret = cppc_set_enable(cpu, true);
++	if (ret && ret != -EOPNOTSUPP)
++		pr_warn("Failed to enable CPPC for CPU%u (%d)\n", cpu, ret);
++
+ 	/*
+ 	 * Set min to lowest nonlinear perf to avoid any efficiency penalty (see
+ 	 * Section 8.4.7.1.1.5 of ACPI 6.1 spec)
+-- 
+2.34.1
 
- 	  objects[16]:
-            blob-class: evidence-blob-class
-            max-length: uint
-            blob-instance?: uint(..u32-max)
-            challenge-lengths[8]:
-              length?: uint(..4096)
-              min-length?: uint(..4096)
-              max-length?: uint(..4096)
-
-Then the unsigned object would just simply have challenge-lengths empty?
