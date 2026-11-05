@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793905803;
-	b=VwFLSm5RdTK6uS9j+IKNszG86Z3TkvxFbUvrVWniSmHom+OfJZRqKCcV+t5ZOb48/o4H
-	 S/yC050h0BGwqyodkrxRKh9l4WI+oVov1KqPGEjm2UX65MoZo1C0ypj3K3SZoFcQBC2KX
-	 MyhoWI4oaAzK7o8lhrjeyilMMuCYehiPUflJKhSXV/bxVCx7ryv4gC/0BOcL/NpFZi6Uv
-	 s14QluHy0fnOXc2N+kUf6BbKrIgRAXqJu+0zVBlQXs/b0CGIAGYqa9snhsPaqcPwM8iRj
-	 KZvGlC/icSQJgeVnqZUqSLHnikOGxPBRfq+vrh7ceMMK0KJxmbW0wcsslBjrlB5T0ZQ==
+	t=1793905846;
+	b=kiHkwMHiccQzse3QMHIfHJS4LwcitYlGZLTFpZ6lsi7nBh5MwUnr7M0ntBSFhGYVsu2R
+	 cALLgD8Sn2uJ9IxozAs9yWvhn0KA8uPzrTRPTB2npp0yCqQrFn4CeBk0tU2v817lRpoq/
+	 KIhqkMuCyPydoes02fAkfh2TRfw7XTiA8U5Jkv/9sGkynKdrtZCrRH8Uzgrqp3m6fE9H8
+	 r3VVXy5k0K2YeDci/7YCL7OAy854cFx34ff/Muen4M7gO49wCWfMyq1BJu1kWYvN7p5Ta
+	 kRRSBovH0BsOikVBJjsPd8N/9nMIyOZuL6PKQmSgbLDs9+cNh6A7ckcdr9ejtQR4FjA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905803;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mlUQcdgEOnuS03PHM+i9afbfgVK8KHwDLKSkYINMR3g=;
-	b=Zvd2U75BIQpubacEaSypnEzruinQsVIiAeTAB+KPsjZto+T1LHBbLqNY3ZTKCJQtRyJF
-	 wMmchiY37OFdBD5rmwrXgYcIBcSSLSISualepHmmVdwMGL5oB1BvSbI4+3iHaWT79kLde
-	 LmxRinJPnSYvqf3U4SsR19nZFhoDylcJ70ukQ93HOxWoWdElHf1h5hCPyncD3CFkb1Qf8
-	 HiJwx57QCbmTZDKdzHLz1rhFOSLsnWsgBrij6GsOhMWmS3Un8o9zREZQ5ZtbDz3IKfwQ2
-	 S31Pjd2HNhoMXqlgx1KIzvNfRDlNuE1SSXiGn9lfQrzL67JuBGn54dLmc1HTdmtIU3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905846;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
+	b=czqx6XKPSQX7z3CUXW8xJ29ureo6FncE1oyTIFeffAtQ3pjBTCcLgCsZy+nUbVKCH6Nh
+	 dj6rRaNaEVwaUIldXbVwx0lT6NTQ2dVondeUnh6qbEbAnQCHl9PI//vnWlA/MX9IAWCRi
+	 NMU9aeJBxCMdMLSPKpaMMZFTljet2uLCaiCYW5Alca6OhFZ914W9Ta/2a03jVS8YMoNSV
+	 P6K3hh10G69bflkQP/KvqJDeVzHdRNXDODo0C22p09nN33J9jvcjKrQ7B/OiLPQb8fQ/a
+	 +Wn8Uqq6rwpT1ytbo/hTaPSRKFBw7F30Xc0ZC8ZpJ/zejTSjDt3FLMp1GKLXVupcN0A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="n/0n6LTG";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.52
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011052.outbound.protection.outlook.com [52.101.52.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KKce5+QX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA18606A31B;
-	Thu,  5 Nov 2026 19:10:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FA18606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B861606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:10:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B861606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=n/0n6LTG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mesvWRFLdgJjXGkmBI8FdhWURSzX7bETbgmAZRg45//NScJXjQpHzNupVWVCzCQRUHk8WSL1opxZjrqO5/1BJumaq8nzurmXkNHzo+xoF4LFM6KHaVV+3SuwU2X4GS3ktHBvq4hkrbGOJbT/VIGuF3F0MQMeLEDr9Jf1DPWrbkVJrlyRgfjqf3UeXmVSyCKuWM8Ra1EIwds0VAlkI69iPkhAwA5Nqm62TCxXnhQHc7xCBhoxz+X+dnQ7pE1PUn6JCtpIgtmlNFt2RLtc/d0CVhRyu22suhK4XspyrMiCe2JdLEEFQwSps2UV4MZjnQ3kIZ4Mq7nb93587qxHIfYLZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mlUQcdgEOnuS03PHM+i9afbfgVK8KHwDLKSkYINMR3g=;
- b=S6VnJjaRbjeDn2Sa5Yr3NrEhRDBYQ0CayMKLeLo2A4DcSkF9kjhjPurtLzyHAcnkVE7MfxcPVT8ie2gMcnElFewt57RcNBvW0QOh3D7Qr+7+B9d35byLfNNIMUqFChg/raZF+UbbXHtSlRLQiAvNhKsucfWwy/c4627ibLc3hxjWQrhDe2vhf87nTr5nafQUk/nSKo8gDJnm3K3T2J565ClFxiup9SQGryE1cbjmMAxtWBJMukpcQNLfrBiZSXa8SO9lJl4a4qh+icN4eF2QV0eBlupD7eDv0xAaeXoeKP4dYbvBsZZrucDRvpS4h/M2y3nRRRwdR4OXwHyclIcQxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mlUQcdgEOnuS03PHM+i9afbfgVK8KHwDLKSkYINMR3g=;
- b=n/0n6LTGc4lNZyovnjB8fhofCaCUrtTYZnaQCN4zUBmiuiiAddVhI5Y9IQNy47M187zarUuJAFcLnORRB3iPH8jqQeFlx9dy1F1GA9AF2+hdEIUkJzMOEPk5Nd6UBnFwbpsK6nkgeu8n6dukIYSzET/nlgG+oKRUBei/u2crTFlcq76xtcmY8nOSt/tG7p54hOoTI9xV0Am6dvrEBKLoMa3clZ/8ldgTVVgKNd0BHejVIr0iNM86igoDbgj5TXADnFf0QrB4kJ7YF2T0oFUH5oTgH7siYxQ1HpKy6scen5FKdj4ocYP1q2Rqh+j+GWlohVVukzxy84sGeEQKVeP2cw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5) by SN7PR12MB7884.namprd12.prod.outlook.com
- (2603:10b6:806:343::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 19:09:49 +0000
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 19:09:49 +0000
-Message-ID: <e05d04f4-a5d5-426b-b6e2-59eef53c277b@nvidia.com>
-Date: Thu, 5 Nov 2026 11:09:45 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 00/18] PCI/CXL: Add CXL reset support for Type 2
- devices
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- Li Ming <ming.li@zohomail.com>, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261029145703.2185231-1-smadhavan@nvidia.com>
- <auOXW3BTb8CYIh4m@aschofie-mobl2.lan>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <auOXW3BTb8CYIh4m@aschofie-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0188.namprd13.prod.outlook.com
- (2603:10b6:a03:2c3::13) To LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KKce5+QX
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2878878a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:10:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793905844; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gecf1R7/62UGcfOnqBqofmergPgRYHPrSkifMGYkR5S2LAi42KG6YQ3LCpA/AazMpk
+         gqbRHinEFqTWvhYULtmW6O3rVU1IQuLP74ko7beHnFbVnDkdORKskHFwvEwuMFsjEYl0
+         CHYpTIv570zJ6UHSkKkY3u9RNhedssZXUQNtNdVKYDjZ0RZ6Q8Sd+pMnD9VjpRP9wZIL
+         ivwJSj/uQ0LwdAzHm1Y8EBxZAThG3S2vuQhNjFmBlh1jvV5KiL0GR8Af6mBxYdZ/+Zai
+         BzzR61CpePouRONrZ2RQP9jz0mrD7gWBv5PqUioHcp1ZyVo7hEYosUJsvN1X+gwj9WUT
+         1vTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
+        fh=FmS4A+zl1kR3WWByGOS7qiC2drReRFvZPmV6Y7OJgj0=;
+        b=hcr1SwQXqNlOpWhtc1s1uJgXCggHB/cOcjdjUChX161twWe8n0WnUOyhCWjbI6ZKQO
+         GHHsEp66TkwVy3gwY4w1T2w/jfhcFRvwC4Dme3tkE/aAjFmEPLeeF9U2/a765VuSQoZf
+         VPebwF2BwXo4xdflS6ErKgMYjiuca+eZJGVQInt3c7W89KoP4nxWO/QOTtoGOAL+4xXz
+         7Wr8xhptNkElJ5kN8Aq2MooiAJyN2hzQ/2ZDEUCQ/AyOhCDsJct9SjyePyJxkzDsVbDx
+         I5WTLtF9VZmun6oDqPCqKhBrnBD+QaZJA0DH6e9/Y/8W+ta/PWjMXi/Q1j/XZdx2EJR0
+         0+Ww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793905844; x=1794510644; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
+        b=KKce5+QXwWV53MZswELq0HZDzvaKXn87EMbyDcqdDb26jZW6Bpc6ff16G7VxMNtgeC
+         oytKJ2fJ30+slKtIpLUNaVNRVK8XuY3EfTEfM2UCDqKztHTu2iBZ2hxkgtSOjmjZH+91
+         MdbBs/+gOs/udGy0Xm9x9lJXwWS3P5U4ccoPGqLuH9XEsz5oviSw/O9lq/gWG/dL/xyL
+         9rtg3+2lcwTf3A5kW40X0bP/E8mXXlbfYA5p2txNhYHTvxGj+fShbNkgGeTRRt3Qq1Ht
+         FstQni5jjx7BkZheD6YOATmjdg7XxaJYD9TU2LfkSBOyLrwDJzAcUl1IcurEXwZsvVAt
+         Touw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793905844; x=1794510644;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+AM8lcqsy+CxgzlQagVQC8tY9g7kqqsxFRFS2BKb6pM=;
+        b=ylKSJRGERgoM3VPC6WPo93RHJSzzgTXj770QfbspUlR7M0KeUNdRSIAeNFHUA4DRnO
+         IK4VGgaNl1dMsZHsCFbn5BgAFQ7SlVXvjWp4yuSAGsYZ7jr0D/yFig7jPtkiIBCRZdKx
+         Pdl7+r93tvwwqQRHloCBePltxv1uMggFKPQQAu/T7l9xhywsMleVbTg6zCDijo2mapff
+         WVkrp6P1Pabyc+eBs9Z1PHX8trTAVBuPaYYg42icwZBBCTIVBflRXBIrQAgLgz+2Zuys
+         V6YKMrUu7OPRLLgvKjVpmxqftegq4U+jXqqHarP3MSKty+blPo2pfZP1RSHG27PrLbIX
+         qzIg==
+X-Forwarded-Encrypted: i=1; AKwUvBwaukPtd8SXsDLxMdp4XpnR5d/h83B1+sr+rPjVbCoeZAfCXK3n8qUtLjfEcnZlsLd3ARe2bIkoUwDMee4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89LA8BW6AndF76B9KPTEEkzMxHCvQpNj+LbOdjhT6k10pKXEsc
+	lLnfhX3TWC+tuDczpNZK3daJD3ZMDY/PNxHazH8cmXbGMdO+zF5K1AXpAxxzO5OTEnYOVvMJHGq
+	5y25fP8VF37r44Dku1tRS1zXmVrT9Gt0=
+X-Gm-Gg: AYBFou1Q7QmlsJIgLB/1HEFxwzMofycWSWJAiuU+nURuhl1bzNj6gjzesNKai0gj4yX
+	pknJvkaRjSuVyUW33XSFCjQKZjkiZncf3mG+eJ277oEzRbqEXbJIysyeKO+OntjP944chv6TSox
+	9tONs/BOWWyP4vvuNGzAq1F9Y3ts45oqOlZq2ufN4UWPBinCtVgWBK/lQpZXdw8DG4Io7k+roEc
+	mzD12frtPx+9urXne9FHcwzITlnpnTTFZANZePNDKa6mUiPMtxGkHiKDdldTINh5OSrSj44mSoC
+	4nodY4JBKhPinis6wBzynuicW0LgV8l8JIbOkfdNrDZ6ulRJiRiZDlqi7lmBNIQYo1ZCvMh9IjN
+	t4ycxmkIEDE9bViivOJiWEZjXk2yXa7lNgqW8cemv7K+SwlHruVaPlbsdehet5FI0OrTu2W6DUO
+	1slD77m0kkP79GpOVCM6exIEc=
+X-Received: by 2002:a05:6402:1ed5:b0:6b5:7037:eacf with SMTP id
+ 4fb4d7f45d1cf-6b59783040dmr129797a12.42.1793905844112; Thu, 05 Nov 2026
+ 11:10:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,112 +105,238 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|SN7PR12MB7884:EE_
-X-MS-Office365-Filtering-Correlation-Id: dea930d2-ecb4-428f-ed49-08df3b705cfe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|6133799003|10067099003|18002099003|22082099003|56012099006|5023799004|4143699003|11063799006|261028144727099003|261009223027099003|261022105027099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	jv4h0/ZFoYuUY/TzYaNxDyCOijr6M1X+uue3RssI0uHY89Ic8ED6tGjRSRz+WiXqe1dW+cstZ+dNM49sRE5Rr3z7+R25T4zTX/G7QK6aB30/J32Aq7ps6PdNrFQqIHRNJvZO5pMEPZm8lukEA4IvL7G9WbyO55OZzO8eAQA93UgaYdmXC5IPz1MkP5UmqNqDlPh55kfxGCVyVjM9PXAaqNgl2/UDWknF7fROcWTZB5XrATrvWJuh4dpJH/Wx2jyWlC+LbIhewS3/dVnZ6JLAtpfO8JUDhOz8aga67n/B92WENF0q7b34TGl3D0z7rJuV956ICvYrY219YEUsTNOa89x2U3aJxupzCJESV9RLy3U0WXnywednO7G3kjDhYhm6l6GqTo5J/5O6ZvsIzwANXJwvNZIkszqyW18p0PS1fqzak6JA2VrWBTcOuAN8hWsOW+1h8A8282F7FqI/ZccFGPaFfga9JT4SG+WEJoiFidW0C/vDPMpMS187i+TSoXNDMIVMRMSjH33Ti4e8BDUweRvxuqKbbXjNmgbOeCB+pBJQns6VSBfl/45JQviTJ6+uVGdvnlYEEIA+4aNQPotg2Hmm8fPjHZpx0iwAsLSOWufrg9effl4FnHLni+HED35ECPppLrjf3MSREl3Jw7niobO29/Xa1Rp1Gl1c+U+kWXY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(5023799004)(4143699003)(11063799006)(261028144727099003)(261009223027099003)(261022105027099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aTUwa0RwODV2NzJnUlpubHdCejdQTEJyUStST1dhODhxaCtyQm5SVkJwMXlv?=
- =?utf-8?B?ODNsYWNCNTNpMUJRcjh3SUliWkJkUk10WmdGK0FGQWMzeXJ2UFBKZHFKcUNC?=
- =?utf-8?B?TjU5STkxNnZlOHgzQ1FmQ3ZHUVhMYUNCbncrUlpEUVVReFV5Q2JlUUdNdXNH?=
- =?utf-8?B?RVdZOHdrZ2N0U0hKaW5VdWZhQk5lWDlBV0FJdHFZVjRwQ0dadlA0TjNVWHRT?=
- =?utf-8?B?YkQ3b0RpLzVpNVQ2QkhzMys4bGR5V0duSEY3VUpvaVovYWVoK3RzbSs3WUMx?=
- =?utf-8?B?Nnp2UkRZaTF2K1ZiN29vZk5oUFlkeXkzb2NvTlErK2NKbC95SW1BY3Z3V3FY?=
- =?utf-8?B?dmpDNkVrSEM5WmtGaFZWSzMwNEpsdVMrSXVBNlVkU2g4NG1ra2t4cDJYSVZh?=
- =?utf-8?B?djM3YWhkZG80VG1SU0FlSlF5KzhHblhkK1VqbEtMQ2dCakFIQm1LS2R3SjNX?=
- =?utf-8?B?bWw3Ulo0ZWtOcE1MOGFBTHV1MG1pZ1M0VnFtZkl5anJBVjVzK3lXdGIzWkwz?=
- =?utf-8?B?cktSSXpYY2xqdHlGaTlsMGxRUUFMYUg1VjNMOUluRmduV3lhcmVoVjRXeHlJ?=
- =?utf-8?B?SjljVytvVG1vWVV6UE93OW1ZbHhvdmRKeVB0MU1ZdC8yVFpDZU9jODYySW80?=
- =?utf-8?B?dkNYcXJnaGF2Wkg1YjJnZnR2NzM4VjJsandaVmY0ekN5VWJTaTBTaTU2Yld2?=
- =?utf-8?B?VHV5Z09SZTRUUUJ1dFZsaUVqY0pSTVpCdzZXeTJqbkJBNzNZeHAvS044SHlJ?=
- =?utf-8?B?cXJLK0JjUXFxZHhHaVFBUklxcmxKVjRpbmM5cDlHY3p1Q3NvbWN6QThCVFNw?=
- =?utf-8?B?cWdhbHRMNTNZdUtVVDNnd0FFNUpWUkR3SzNIbnBBbUQ5aFRxV3hheFJmUFpr?=
- =?utf-8?B?VGNMNVZzelBGcC9sWFYxaStiWE1uWkZuaTBhd0NqN01YQ1RJOFl1U1dDNXNw?=
- =?utf-8?B?QVZXUDVzOHQ2SkUyZnp4TzZoWDBURnVybDFveHVtRlQ3azNVTGxKNm9qb2Iz?=
- =?utf-8?B?NklFR0tvcjJYZ2FYU3l4RkhWOXhwdnQyd0ZrbGpVZWVhOUlIVXpRS0F0MkVY?=
- =?utf-8?B?VDVlWVBhTkUzTll5WWlJZmNndjc2MldnT0JRUHZQaHBGZDdTQjROMEYxa3Fn?=
- =?utf-8?B?SU53RFRiejhOUHpTN21JVkkva3Z5SW5FZlVySHJseWxnV2VYUnlEQTdKTkx5?=
- =?utf-8?B?MUt0ZVlaNktobVF4V0xiMlJjZlBqWVpTZW5uTlhiRUVLRVBzM0JWSkx6dGZO?=
- =?utf-8?B?V0ZaU0J4ZkpWdG84cXh5SnBXdzg5a1FFMDIwUTZ4OG1ObkM2Z2VpQU9SbWph?=
- =?utf-8?B?RURoQkxXaU0vTHJjNzd6TnFMOFRIUmIwR2tYejBGM0t6MnVjanE3NStJellu?=
- =?utf-8?B?NGVNVml5bHJLb0VtWEZrMmR1V09Kb3VQUFZRcisrWXJjclFmdU9DaFVqODFj?=
- =?utf-8?B?UjU5T0h0aHVQcUZqQ2dDWmc2SS9IQWI3SEVYU1R3Y0k5UkQ2WTk3TDZnbi90?=
- =?utf-8?B?RmFVeFBKQjZGeVJBWWNhS2R5aEFMYVhiU0M0bFFQVThtYWRaQ1EvMmlVRS83?=
- =?utf-8?B?dW9MQ2IycXpGR0NBNTR3bmFsNXo0UTJoRm5HMmxmRDZHN2V1OWs5SUFGak9Q?=
- =?utf-8?B?cTVwS3U0dUhLTXN1WTZ4a29Va2ZBbWRWb1RscDBiNzVURm8wQ1ZlN0xhN2Ny?=
- =?utf-8?B?dHZHbllwV0c3cms4V0ZjcHFEbzF0d0xiQWx1bjUydXFmRXJPajF0MGtSNCtS?=
- =?utf-8?B?WUhuM203bWhmUmc4QXhsSVV2ZVJZUXFmWXFpMTl1TytibG00bGxYVFhoYXp6?=
- =?utf-8?B?bVdmMENIMVhiM05vZEpPU1ZZazdYa0QxQVBLaHZyZS9Dc3ROcjBaYXhNY0FG?=
- =?utf-8?B?M2Y5RjNRSHZ4RXptdTFpTiszQS9ySzB4dDBNcVQ1UzVFSmNuMVZYb2w0MTJj?=
- =?utf-8?B?b2JaVDVOWHE1ckVOSDlzYVJzcmRXV0R0RTMxcXA0aC9ERUlKUEExMi9VTlpB?=
- =?utf-8?B?OE9DZVZXTWQ3ZEVpL2xEODh5NFliWHA2TWVOL0dINDFlSUZQd1JOMUtkWTVY?=
- =?utf-8?B?SlRkNFRRRFBNVjkrQ1RqSWdVN216V043bDNSbmJ3dW5JSjZoaTRMcGpSQTVy?=
- =?utf-8?B?TWtvNlgyM3lqdTYvTGo4V1NnV0t5V1pXallISlpDNTZ4RzZHUEZkMVY1eU4x?=
- =?utf-8?B?WDNrRHZmU1NqMzZZMXBzSzl2TS92N1YvSGZGWmlvdFhOdFJQYjFuaDBXM2Rl?=
- =?utf-8?B?aXVFWStLSjNsRW8yMXNnKzBYbUxVb3JHMnV3TVpGdGVJT0JYbzNpZGRoYyts?=
- =?utf-8?B?a2tZQUNVNWtobm43REVsbkZYSHQvaUFLRG1LS3g3azZ6NWhYZFNzZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dea930d2-ecb4-428f-ed49-08df3b705cfe
-X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:09:49.3294
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K60D3F3cHJ/c6CaECvT++Od7mNwY7etAf129dxWeXuTAZY3wam8DJzD/iaZpdluqqHOYtS95jKUnCZhC3TVtVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7884
+References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com> <20261104-alpha-profileme-v6-11-63362e9290a3@gmail.com>
+In-Reply-To: <20261104-alpha-profileme-v6-11-63362e9290a3@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Thu, 5 Nov 2026 20:10:31 +0100
+X-Gm-Features: AclHuK_UxhQhB1NzkasFpqvaIZPPz7RAAyZyknERGPMDjzr9Els24kIr9QOsaUQ
+Message-ID: <CA+=Fv5RNbPkRZjdcWGO6U3LV5A=WifOGZYFiEf=M0QVx9b8M9w@mail.gmail.com>
+Subject: Re: [PATCH v6 11/13] alpha/perf: add ProfileMe sample filters
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/29/26 11:58 AM, Alison Schofield wrote:
->> Userspace selects "cxl_reset" in reset_method and triggers the reset
->> through reset. Following Dan's v6 feedback, this uses the PCI interface
->> instead of adding a memdev-specific sysfs ABI.
->>
->> For sysfs reset, the generic PCI path invokes the driver's reset_prepare()
->> callback when provided and disables PCI I/O, memory decoding, and bus
->> mastering. The CXL path reserves affected HDM ranges exclusively and
->> blocks IOMMU translations where applicable. It does not offline memory
->> or revoke mappings; it relies on CXL.mem users retaining conflicting
->> iomem resources while access remains active.
->>
->> Changes from v15 [1]:
-> 
-> Srirangan,
-> 
-> I notice you posted this v16 without responding to review feedback on v15.
-> 
-> I've already compared v15 and v16 to see which review comments were addressed.
-> However, that exercise is no substitute for responding to reviewers and
-> resolving the discussions they initiate. Rather than me repeating the
-> outstanding comments from v15, in v16, can you go back and respond to the v15
-> reviews before we proceed?
-> 
-> Reference is the guidance in Documentation/process/submitting-patches.rst,
-> under "Respond to review comments". CXL subsystem contributors also often
-> append the reviewer's name to the end of each changelog item to identify
-> whose feedback prompted the change.
-> 
-> Thanks,
-> Alison
+Hi Matt,
 
-Hi Alison,
+On Wed, Nov 4, 2026 at 7:49=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> ProfileMe samples any fetched instruction, including those killed on a
+> wrong path, and what happened to it is only in the PERF_SAMPLE_RAW data.
+>
+> Add three config1 bits that keep only the samples of instructions that:
+>
+>   retired     retired. VAL says so for an instruction that did not trap,
+>               and the trap type for one that did.
+>   mispredict  were mispredicted conditional branches.
+>   trapped     trapped, mispredicts included, or caused an ITB miss,
+>               Istream access violation or interrupt redirect.
+>
+> A sample must match every bit that is set, as with Arm SPE's
+> event_filter. The driver drops the samples that do not, and they still
+> count as interrupts for throttling and frequency mode.
+>
+> Suggested-by: Ian Rogers <irogers@google.com>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/include/asm/wrperfmon.h | 10 +++++
+>  arch/alpha/kernel/perf_event.c     | 83 ++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 93 insertions(+)
+>
+> diff --git a/arch/alpha/include/asm/wrperfmon.h b/arch/alpha/include/asm/=
+wrperfmon.h
+> index dc24c7cb45db..6526438e73ee 100644
+> --- a/arch/alpha/include/asm/wrperfmon.h
+> +++ b/arch/alpha/include/asm/wrperfmon.h
+> @@ -106,9 +106,14 @@
+>  #define EV67_I_STAT_MIS (1UL<<40)
+>
+>  /* I_STAT[TRAP_TYPE] values */
+> +#define EV67_TRAP_REPLAY 0
+>  #define EV67_TRAP_DTB_DOUBLE_3 2
+>  #define EV67_TRAP_DTB_DOUBLE_4 3
+> +#define EV67_TRAP_FEN 4
+> +#define EV67_TRAP_UNALIGNED 5
+>  #define EV67_TRAP_DTB_SINGLE 6
+> +#define EV67_TRAP_DFAULT 7
+> +#define EV67_TRAP_OPCDEC 8
+>
+>  #define EV67_PCTR_VAL (1UL<<1)
+>  #define EV67_PCTR_PM_KILLED_BM (1UL<<26)
+> @@ -116,5 +121,10 @@
+>  /* PMPC bits 63:2 hold the profiled PC. Bit 0 set means a PALmode addres=
+s. */
+>  #define EV67_PMPC_PAL (1UL<<0)
+>  #define EV67_PMPC_PC_MASK (~3UL)
+> +/* PMPC[14:0] of the redirect traps, which do not set I_STAT[TRP] */
+> +#define EV67_PMPC_PAL_OFFSET_MASK 0x7fffUL
+> +#define EV67_PMPC_IACV 0x0481
+> +#define EV67_PMPC_ITB_MISS 0x0581
+> +#define EV67_PMPC_INTERRUPT 0x0681
+>
+>  #endif
+> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
+t.c
+> index 0723e1042145..32a8b5c98381 100644
+> --- a/arch/alpha/kernel/perf_event.c
+> +++ b/arch/alpha/kernel/perf_event.c
+> @@ -39,6 +39,13 @@
+>  #define ALPHA_PERF_CONFIG_EVENT                0xffULL
+>  #define ALPHA_PERF_CONFIG_PROFILEME    BIT_ULL(8)
+>  #define ALPHA_PERF_CONFIG_RANDOMIZE    BIT_ULL(9)
+> +/* attr.config1 of a ProfileMe event: keep only samples of these insns. =
+*/
+> +#define ALPHA_PERF_CONFIG1_RETIRED     BIT_ULL(0)
+> +#define ALPHA_PERF_CONFIG1_MISPREDICT  BIT_ULL(1)
+> +#define ALPHA_PERF_CONFIG1_TRAPPED     BIT_ULL(2)
+> +#define ALPHA_PERF_CONFIG1_FILTERS     (ALPHA_PERF_CONFIG1_RETIRED | \
+> +                                        ALPHA_PERF_CONFIG1_MISPREDICT | =
+\
+> +                                        ALPHA_PERF_CONFIG1_TRAPPED)
+>
+>  /* hw_perf_event.flags */
+>  #define ALPHA_PERF_FLAG_WRAPPED                0x1
+> @@ -258,11 +265,17 @@ static int ev67_raw_event_valid(u64 config)
+>  PMU_FORMAT_ATTR(event, "config:0-7");
+>  PMU_FORMAT_ATTR(profileme, "config:8");
+>  PMU_FORMAT_ATTR(randomize, "config:9");
+> +PMU_FORMAT_ATTR(retired, "config1:0");
+> +PMU_FORMAT_ATTR(mispredict, "config1:1");
+> +PMU_FORMAT_ATTR(trapped, "config1:2");
+>
+>  static struct attribute *ev67_format_attrs[] =3D {
+>         &format_attr_event.attr,
+>         &format_attr_profileme.attr,
+>         &format_attr_randomize.attr,
+> +       &format_attr_retired.attr,
+> +       &format_attr_mispredict.attr,
+> +       &format_attr_trapped.attr,
+>         NULL,
+>  };
+>
+> @@ -819,6 +832,12 @@ static int __hw_perf_event_init(struct perf_event *e=
+vent)
+>                 return -EINVAL;
+>         hwc->flags =3D profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
+>
+> +       if (attr->config1 & ~ALPHA_PERF_CONFIG1_FILTERS)
+> +               return -EINVAL;
+> +       if (attr->config1 && !profileme)
+> +               return -EINVAL;
+> +       hwc->config =3D attr->config1;
+> +
+>         if (attr->type =3D=3D PERF_TYPE_RAW &&
+>             (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
+>                 if (!profileme)
+> @@ -1060,6 +1079,62 @@ static bool alpha_profileme_trp(unsigned long i_st=
+at, unsigned long pctr_ctl)
+>         return !(pctr_ctl & EV67_PCTR_PM_KILLED_BM) && (i_stat & EV67_I_S=
+TAT_TRP);
+>  }
+>
+> +/*
+> + * VAL says whether an instruction that did not trap retired. For one th=
+at
+> + * did, the trap type decides: these faults abort it, to be replayed,
+> + * refetched after a fill, or emulated. Other traps, mispredicts among
+> + * them, are counted as retired.
+> + */
+> +static bool alpha_profileme_retired(unsigned long i_stat,
+> +                                   unsigned long pctr_ctl)
+> +{
+> +       if (pctr_ctl & EV67_PCTR_PM_KILLED_BM)
+> +               return false;
+> +       if (!(i_stat & EV67_I_STAT_TRP))
+> +               return pctr_ctl & EV67_PCTR_VAL;
+> +       if (i_stat & EV67_I_STAT_MIS)
+> +               return true;
+> +
+> +       switch ((i_stat >> EV67_I_STAT_TRAP_TYPE_SHIFT) &
+> +               EV67_I_STAT_TRAP_TYPE_MASK) {
+> +       case EV67_TRAP_REPLAY:
+> +       case EV67_TRAP_DTB_DOUBLE_3:
+> +       case EV67_TRAP_DTB_DOUBLE_4:
+> +       case EV67_TRAP_FEN:
+> +       case EV67_TRAP_UNALIGNED:
+> +       case EV67_TRAP_DTB_SINGLE:
+> +       case EV67_TRAP_DFAULT:
+> +       case EV67_TRAP_OPCDEC:
+> +               rTested on all three CPUs of my ES40. I checked the trapp=
+ed and
+mispredict recordings against the raw ProfileMe status. Every
+sample matched the requested filter.
 
-Following up now that I sent v17 out. I replied to the v15 comments, and 
-each v17 changelog item ends with the name of the reviewer whose 
-feedback prompted it, with links to the comments in the per-patch notes.
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>eturn false;
+> +       default:
+> +               return true;
+> +       }
+> +}
+> +
+> +/* What the profiled instruction did, as config1 filter bits. */
+> +static u64 alpha_profileme_status(unsigned long i_stat,
+> +                                 unsigned long pctr_ctl, unsigned long p=
+mpc)
+> +{
+> +       u64 status =3D 0;
+> +
+> +       if (alpha_profileme_retired(i_stat, pctr_ctl))
+> +               status |=3D ALPHA_PERF_CONFIG1_RETIRED;
+> +       if (alpha_profileme_trp(i_stat, pctr_ctl)) {
+> +               status |=3D ALPHA_PERF_CONFIG1_TRAPPED;
+> +               if (i_stat & EV67_I_STAT_MIS)
+> +                       status |=3D ALPHA_PERF_CONFIG1_MISPREDICT;
+> +       } else if (pmpc & EV67_PMPC_PAL) {
+> +               switch (pmpc & EV67_PMPC_PAL_OFFSET_MASK) {
+> +               case EV67_PMPC_IACV:
+> +               case EV67_PMPC_ITB_MISS:
+> +               case EV67_PMPC_INTERRUPT:
+> +                       status |=3D ALPHA_PERF_CONFIG1_TRAPPED;
+> +                       break;
+> +               }
+> +       }
+> +       return status;
+> +}
+> +
+>  /* What the memory instruction at pc does, or PERF_MEM_OP_NA. */
+>  static u64 alpha_profileme_mem_op(unsigned long pc)
+>  {
+> @@ -1170,6 +1245,14 @@ static void alpha_perf_event_profileme(struct perf=
+_event *event,
+>                 local64_add(ovr, &hwc->period_left);
+>         }
+>
+> +       /* A dropped sample still counts, for throttling and frequency mo=
+de. */
+> +       if ((alpha_profileme_status(i_stat, pctr_ctl, pmpc) & hwc->config=
+) !=3D
+> +           hwc->config) {
+> +               if (alpha_perf_event_set_period(event, hwc, 0))
+> +                       perf_event_account_interrupt(event);
+> +               return;
+> +       }
+> +
+>         /*
+>          * Attribute the sample to the profiled instruction rather than t=
+o
+>          * wherever the interrupt landed. perf takes the sample's mode,
+>
+> --
+> 2.55.0
+>
 
-Two v15 discussions are still open and are noted in the cover letter: 
-the scope of the region lock, and the attribution for Dave's reference 
-branch. Please let me know if anything is missing.
+Tested on all three CPUs of my ES40. I checked the trapped and
+mispredict recordings against the raw ProfileMe status. Every
+sample matched the requested filter.
 
--- 
-Regards,
-Srirangan
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
