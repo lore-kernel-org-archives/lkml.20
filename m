@@ -1,100 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898452;
-	b=vHjNGQE1jqndDwI0L3wIb7kivj2+OEr8RYrpkKP4djIPh5ZeHDxoE3+opClBWyMPDuuw
-	 P3moxxwnryfQjM6VFpwZ9xBaEtVylJKyq5cNgQdLQ6i7wKkTNCL/bM/hV2eslsAzUQzoC
-	 KBwhUfpJHJr4gvQPjpxkOqPB5Juq15Vlvj0n7Piozq1ymoPKJ86l3AdwhzWKP1bLfTSEo
-	 siEHGQ2+ar5JJo073Qi2vVPcryv7viG+mjphC6qMrvm2FoeyH8ro6h+/yoMGTbpD7u9rp
-	 FD7l0stLuSQ3NhZhtk5FPDzYj/GC6r6neyD3H+JSDa6GaBPZXxbmvp52ZvQxYfuJg1w==
+	t=1793898496;
+	b=hY35vPT4Y7f6xoPfp2J9rCg8viyn5bqFfh9hkPiM4RVIpTzJGrSLJ68kbKdlmXlgBsb6
+	 lmXJ9u9CXp+bygOXRKqFQDXhenBTFbnVmFb58xOKHoOsRgipgmCerI55ROi7WhhUmnpuN
+	 bbjpfQRSvh5rmltKV0x2JJZ6N2XEiWeOfEzpj1jWG4sUrFC/HaZPqVmTnYIhFttRyaSUC
+	 UQNa1KgW6UIe5TLljEHWT74qqZpxmeP5fB3SfPGXhhVQOTeStjqmJoSpiy0Rwd8RpPr7c
+	 r7q8VeBeq28tK08PyFYA0sJyMfZST2JGdkCIh6XeiWynnDsKH9RSvtl7mSS6BEGcWBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898452;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RDOVG3cpKCfgE6B6tnKo2t7K+1619D3zF9SRV6224FU=;
-	b=0Tg5NJyfDK4dPS92HRur2yFR7DLmNZsGVMs/CkBV+yqMiWZSqgpMkywzPNuSa5cRA3cV
-	 YXteRyrzZs+Jt766g9D0Q6xQaCyhzPOAlQIXbgj4sgg9p4l4rOjieNb27qOqKVJg64MMz
-	 JiPuQf6KpOTeAnbpl/WSm9Up3yITNZ9ysRe8W+W0UBIhkNqIX2a52dJhBaKhA++tkbLVl
-	 Upe8iCFUtHKIwm6DfP3k39i5bKIe7WRMu01uJEodk2g8l6O89yCURF4hkl9JxpYeupAwY
-	 2Puk/zWRJUcbYqw18kcSotzUm7QfInyYfbZcDWSS2KHmDKlAtY6FM1qKCR8KJcXxIzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898496;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Patchwork-Hint:Organization;
+	bh=7AoGRv98QAGYix/8Uqtqep6mkgC01+p5woiezEKkDZw=;
+	b=zzbBxtOo8MIS1PL+Xi+mM4McthHqr7AexAjAGjt5y/Rs89Mdl2qZUP8pL0D5nQ2JzsAQ
+	 0ztolMsWmNvp61P2FhXhwfoGDSIjAWARZB0BpVSAXBPAFRWiVoktAXeqBt4zmjviLazgw
+	 EeWzK6SUFl0UquCumyfzJBUeCQB9DmxeH5IDTlBAMQP/YU8cb4pmAYEXdr9+SfMi+ZeM1
+	 6zJm3Xcpk9JZd422x7cM1BD9vx4hmgJQhEITHemvj5SJZ3l69y9h6vLZDvPdEGKBnF4Tu
+	 Wx0AyQU9azL3vdVYhTSEKaYfBlDy+6KW0nIB5AAp1sfuqHSRpZ4VORcWyE4IzGq1O2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=everpuredata.com;
-	arc=none smtp.remote-ip=209.85.222.226
-Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EOV9Cepp;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AAF1606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:07:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AAF1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
-Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-93f259cdc86so204917285a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:07:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1793898445; x=1794503245; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RDOVG3cpKCfgE6B6tnKo2t7K+1619D3zF9SRV6224FU=;
-        b=R0jQ0Mv6Tt2wdQgfQpY4Zah4vKPlzSzNJeN9VLU3IwbWi6Tcfu5CXaOZEoxhGURNKF
-         GwBiFgy5HZ0UDyGkFGiV0uExMbWDeQ6kRLLM9opqnAJN/v6+isOSn+Cpz50n7j0Zv79D
-         goEZ6DW0JlEZtSH4X5UjsXPlyNvtrpQxqQ6HdqposZjEAumTpcyWQEtjaM2E3HW2I3n9
-         ZP7OySFjoFhIZtP4uclXe7kEosPYpdbI/+H+ih/1WXRzFnSZYipuXtPZeV+hC5nHcFYr
-         9bdSfIQZrxVwpZXlwWF5iGbVc6cbDQXE7WUQG/TKAuIkgganFCp4/+40SckGG0/fD6at
-         3Qmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793898445; x=1794503245;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RDOVG3cpKCfgE6B6tnKo2t7K+1619D3zF9SRV6224FU=;
-        b=MtUMNDw19Ahjz6EH/878M1pI3FXYv0Vwo4Lb7esa5cdFVOKAXsvg9XAqUtukveAMj/
-         lqBF6wVapbrhQ8bdfeVc3+lERqAXcrtYjcwzYp6ymwzoAlggskQc3axObtK3GnqHDBJ4
-         4IoT72LZrxzRcRBlN4+3E7BP/VntNK7mYI+9XV+jyzsUyyKcwzBGC80SI8otgwpTc9QY
-         Rc8/k2CzupnUGG6tTGn56dUb2LNbAKI+ATsaCgHNK+KqQsug2W4oCuqmDUN+tuA2Q3vx
-         Xf8Du6gpR8YvQn2T6pKWywBOmGL7GhKWOQrsPrjWYWI8gZ5VOVbHcCskkwXewX+EqCj4
-         0Mxg==
-X-Forwarded-Encrypted: i=1; AKwUvBwstIjSH4v0hGA/83j2Jh9CI2n42iZlvCTZO4133eRbo7KBXGROuGYPoQE/mQO3M1ZOr+g8hZM4EYsJplo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pQWRnuD6Vt1eWoLT1/J0xcBE5RA1O9e2pQ3Gv5u74e65wGdOX
-	fT3h0VZyD8UTk+iYbOVJ7lC6xq3TNjOpsVguc3IpU0NDoh5LgFk6DSpf9XN4suotqkro1SicOks
-	0svLJdiwiw6OoBdRXs+NC5ismSOS8p7wPG362
-X-Gm-Gg: AYBFou1mLvHfsPDW5EJ0FRknrQ0Q1Ww5wOmLfB7TNYyVQpvEe49k2NQIUrimj+kHhj2
-	3OlCXAStEEJF7WnK9ZSbMezmbuwQlu4ttJdG76lFtJY47YSWNd3g02ThQZm4PFvgp1m9JBt/Xyq
-	EOBTIsLzvZTIbhnLUdu3F9GYUcOCGVocjJTeYa9vMxUljMQISybNwct+VOwdVuIERt/sqZm3BD4
-	oHn5+ebGmWIuth9+HX1Gqv+Gg8+DG71OwEFbZ6fYi2+jCOScSami4ntLFsW7NLR4ucKoOC183Hl
-	YGHNwn0GjC2sOJUHxf9d9mxdByEFU0rj6DU8ZHywSN+z5algRY7Ti01xQpWqxWxphtRK+hlt1Xv
-	W2wvJpPmRFKHqmgo3F5utYT9EWFImyNjx4hiIG1E=
-X-Received: by 2002:a05:620a:2987:b0:93e:623d:99ec with SMTP id af79cd13be357-94421744cc9mr3322483085a.13.1793898444949;
-        Thu, 05 Nov 2026 09:07:24 -0800 (PST)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-945d47853ddsm65531985a.8.2026.11.05.09.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:07:24 -0800 (PST)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 41BC634039C;
-	Thu,  5 Nov 2026 09:06:53 -0800 (PST)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: trondmy@kernel.org
-Cc: anna@kernel.org,
-	cel@kernel.org,
-	ebadger@everpuredata.com,
-	jcurley@everpuredata.com,
-	jlayton@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	slingappa@everpuredata.com
-Subject: Re: [PATCH v2 1/2] SUNRPC: add request-scoped disconnects when cancelling tasks
-Date: Thu,  5 Nov 2026 17:06:53 +0000
-Message-ID: <20261105170653.3200815-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <b9ed2a8b5f687d7f581d4867a7867c5c012bb2cc.camel@kernel.org>
-References: <b9ed2a8b5f687d7f581d4867a7867c5c012bb2cc.camel@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E96F606A326;
+	Thu,  5 Nov 2026 17:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E96F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EOV9Cepp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793898495; x=1825434495;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=5SWCj7u+AZVyRuqaD0dvIIMKCEG7YeyHF+pdDOeuanA=;
+  b=EOV9CeppdioIM14C2V6ILn+z+5iSzWV4uB7fJNgLX2nzMjlEgiCl4KbK
+   OlQRoYP4E6bHHBYOAbCcF56xSw/k3xmlQXa6gC5ufPLqEBBdEXXx5DDNG
+   gEweypddOBhZr7yRqmLWrwJqa0yOVAfbeXIfNnHGjNdoIdJiFFevbxJoU
+   TuceF8hhDxrhPQLSITIdglr/Y17nh3zyWH3e6ASWaBjf1ed6zRYNslLPI
+   KSPqts0OKSO1s9NbmUiDpY0JUU5fNTADzciItoaxCHa+W2z7tDfDBUG09
+   fqnrZKUUHMlcme3DEe8Ve+q14FS3QokdKiFgM5nDAfLLMkRKEi6fu51i+
+   w==;
+X-CSE-ConnectionGUID: DBgCyt/dQU2oCH4zuAxmbQ==
+X-CSE-MsgGUID: eVTK1kB3QYSRp/l/SO9puw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2610066"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2610066"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:08:14 -0800
+X-CSE-ConnectionGUID: AeNGSIuSRayL8fMkqkYhOw==
+X-CSE-MsgGUID: xpCkq7RMRQ2x9GCfaAtyzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7397912"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.198])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:08:07 -0800
+Date: Thu, 5 Nov 2026 19:08:04 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	amd-gfx@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	=?utf-8?B?VG9tw6HFoQ==?= Hnyk <tomashnyk@gmail.com>,
+	Wim Taymans <wtaymans@redhat.com>, nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/eld: Add drm_eld_set_port_id() helper
+Message-ID: <auy39DQZEc3SpqYo@intel.com>
+References: <20261105160240.2850042-1-kai.vehmanen@linux.intel.com>
+ <20261105160240.2850042-2-kai.vehmanen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,38 +98,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261105160240.2850042-2-kai.vehmanen@linux.intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-> I'm all for optimising where it makes sense, however this is adding
-> another spinlock protected section in xprt_release() for something that
-> is clearly a rare corner case.
+On Thu, Nov 05, 2026 at 06:02:39PM +0200, Kai Vehmanen wrote:
+> The ELD baseline block reserves bytes 8..15 for a 64-bit Port_ID that
+> identifies the source port of the audio endpoint. drm_edid_to_eld()
+> leaves the field zero, and no driver fills it in, so it carries no
+> information.
+> 
+> When two identical monitors are connected, their ELDs are then
+> byte-identical, and userspace has no passive way to tell which HDMI/DP
+> PCM belongs to which DRM connector. The only workaround is to toggle
+> the connector audio property and watch which ELD goes away, which
+> disrupts the endpoint.
+> 
+> Add a helper that drivers can use to fill in Port_ID with a common
+> layout:
+> 
+>   bits 63:48 - PCI domain of the DRM device
+>   bits 47:32 - PCI bus/device/function of the DRM device
+>   bits 31:0  - DRM connector object ID
+> 
+> Userspace can read the connector object ID directly from KMS, and the
+> PCI address tells GPUs apart in multi-GPU systems. For non-PCI devices
+> the upper half is left zero.
+> 
+> The split between a 16-bit PCI BDF in the upper half and a per-device
+> display identifier in the lower half follows the Port_ID layout
+> documented for the AMD Azalia sink info registers in dce_audio.c.
+> 
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> ---
+>  drivers/gpu/drm/drm_eld.c | 42 +++++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_eld.h     |  3 +++
+>  2 files changed, 45 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_eld.c b/drivers/gpu/drm/drm_eld.c
+> index c0428d07de53..baebece7b4ed 100644
+> --- a/drivers/gpu/drm/drm_eld.c
+> +++ b/drivers/gpu/drm/drm_eld.c
+> @@ -4,7 +4,11 @@
+>   */
+>  
+>  #include <linux/export.h>
+> +#include <linux/pci.h>
+> +#include <linux/unaligned.h>
+>  
+> +#include <drm/drm_connector.h>
+> +#include <drm/drm_device.h>
+>  #include <drm/drm_edid.h>
+>  #include <drm/drm_eld.h>
+>  
+> @@ -55,3 +59,41 @@ int drm_eld_sad_set(u8 *eld, int sad_index, const struct cea_sad *cta_sad)
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL(drm_eld_sad_set);
+> +
+> +/**
+> + * drm_eld_set_port_id - set the ELD Port_ID for a connector
+> + * @eld: ELD buffer
+> + * @connector: connector the ELD belongs to
+> + *
+> + * drm_edid_to_eld() leaves the 64-bit Port_ID field of the ELD baseline
+> + * block zero. Drivers can use this helper to fill it in with a value
+> + * that identifies the audio endpoint, so that userspace can associate an
+> + * ELD, and the PCM device it belongs to, with a DRM connector, even when
+> + * identical sinks are connected to multiple outputs.
+> + *
+> + * The Port_ID is stored in little-endian byte order, with the layout:
+> + *
+> + * - bits 63:48 - PCI domain of the DRM device, truncated to 16 bits
+> + * - bits 47:32 - PCI bus/device/function of the DRM device
+> + * - bits 31:0  - DRM connector object ID
+> + *
+> + * For non-PCI devices bits 63:32 are zero.
+> + *
+> + * The connector object ID is only stable for the lifetime of the
+> + * connector, so userspace must look it up at runtime, and not store it.
+> + */
+> +void drm_eld_set_port_id(u8 *eld, const struct drm_connector *connector)
+> +{
+> +	struct device *dev = connector->dev->dev;
+> +	u64 port_id = connector->base.id;
+> +
+> +	if (dev && dev_is_pci(dev)) {
+> +		struct pci_dev *pdev = to_pci_dev(dev);
+> +
+> +		port_id |= (u64)(pci_domain_nr(pdev->bus) & 0xffff) << 48 |
+> +			   (u64)pci_dev_id(pdev) << 32;
 
-I agree about avoiding the additional lock acquisition in
-xprt_release(). I should rework that part.
+The numbers look correct.
 
-> So how about something like the following change instead?
+> +	}
+> +
+> +	put_unaligned_le64(port_id, &eld[DRM_ELD_PORT_ID]);
 
-I tested it with the same reproducer, but I still see the reconnect
-behavior, without a noticeable improvement.
+Endianness agrees with the HDA spec.
 
-I think there are two separate issues here. Counting only successful
-cancellations avoids triggering another disconnect merely because an
-already-cancelled task still matches. Cancelling untransmitted tasks
-separately also avoids disconnecting solely because of those tasks.
+The implementation looks good
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-However, when cancellation of a transmitted task succeeds, we still call
-rpc_clnt_disconnect(), which disconnects every connected transport on
-that client. That can affect another transport which carried no matching
-requests, or a replacement connection generation established since the
-cancelled request was transmitted. Neither RPC_WAS_SENT() nor a
-successful cancellation status update tells us whether those connections
-carried the affected request.
+But I'll leave it to someone else to judge the actual
+usefulness of the provided information.
 
-What I'm trying to do is limit that blast radius. For a request with
-rq_xprt == X and rq_connect_cookie == C, cancellation should not
-disconnect X if its current cookie no longer matches C, nor disconnect
-an unrelated transport Y on the same client.
+> +}
+> +EXPORT_SYMBOL(drm_eld_set_port_id);
+> diff --git a/include/drm/drm_eld.h b/include/drm/drm_eld.h
+> index 0a88d10b28b0..de0478720721 100644
+> --- a/include/drm/drm_eld.h
+> +++ b/include/drm/drm_eld.h
+> @@ -9,6 +9,7 @@
+>  #include <linux/types.h>
+>  
+>  struct cea_sad;
+> +struct drm_connector;
+>  
+>  /* ELD Header Block */
+>  #define DRM_ELD_HEADER_BLOCK_SIZE	4
+> @@ -80,6 +81,8 @@ static inline int drm_eld_mnl(const u8 *eld)
+>  int drm_eld_sad_get(const u8 *eld, int sad_index, struct cea_sad *cta_sad);
+>  int drm_eld_sad_set(u8 *eld, int sad_index, const struct cea_sad *cta_sad);
+>  
+> +void drm_eld_set_port_id(u8 *eld, const struct drm_connector *connector);
+> +
+>  /**
+>   * drm_eld_sad - Get ELD SAD structures.
+>   * @eld: pointer to an eld memory structure with sad_count set
+> -- 
+> 2.43.0
 
-Would retaining the request/connection-generation scope, while removing
-the additional unconditional lock acquisition from xprt_release(), be a
-reasonable direction?
+-- 
+Ville Syrjälä
+Intel
