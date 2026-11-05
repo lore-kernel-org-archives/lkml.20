@@ -1,88 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888271;
-	b=npGDzC6VwR4KLJCZZKzLnUXL4QhXjC9MNrJo/DiQ9bq0/pwHSYrR0kHYcLp3lfewdSwq
-	 guPHSurcXVaUL6BCr+wy+DJFAT1iahp1LFg+aX0Z63bglEh8lV61aM9r8P+7ZjXhD7DF2
-	 rg2SKSe2Z8NO5OjOHm5C9puv0m7uBOKiNKIQRxj3/BjfrTlAaZ2ngE/J5Xe8rVzPOTv+8
-	 JIYCN6tYQZZC3iZsj0UvVyy16WQRQ7V8lcWiwUElLLAAs6ol01yPmXVGbgwP1v5xmayYB
-	 /3IdtaOiPQf32GlsGcwlGTOpEOXNRTJRQMtgATcKP6MJERMQkgF26KMk+ODSbKDFrOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888271;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gvM1R1K1vgZdd2EhIwN1BXqGTokY3Vxv0k5QNEea6f4=;
-	b=xOrjUcT2WhnHV+/x72e+wXAFetvYJiLKs9bCsjDYqoBr+pD/j0CYlLIjXkf0inmnRYYi
-	 Gddk/GZ57l4ge64mevUJP2xgWLBUnm2aH9P53TBHHnKYQ3jqSX2j93lcdh4Gyj0PGNo/W
-	 pccWr547uz4YwzHQsbohGtxkw9Ac5VXxHPRqnCJtFo5UQhOhJjS0VsgySkHEcgXOGJyok
-	 c8m/yqUCdLXrEUQ3aSYZBZ+PsmgCo5qBYopzm/dw4saqKQwideoiMXAWThay+KvPg2gkY
-	 nSTS4wyTtPzeO6WQKRltg96yjbCafENBimSfNI1P9V1rTApyNO6tkpc8dBYMHRv9CSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFvsmJLv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793888397;
+	b=lQo5ll5081c1CzCNhpfDkYr1DEIp+aheonIRW0/rcmxVwWeySB0HBcv5Y/9QvNTN86Db
+	 dUzKlUTeV7E7QkMAZksOYYI2Y6OBYxIwWxkP970E24iCTHgr0KktcVl4jNW8OhZKeqA4H
+	 J639D9SwvvpWmLTXA3VjtgVpcfz8NKc0mUjQ2zzsKfv7B0DyQIhvRVErm01KBb96GuCNa
+	 65I82ATpoCDlmAYBU5H7RTOWTF66cj6p+XWHuAbEEFP/8kN+MGpXpN+PqhvT8/VcsNAIs
+	 Q3HK3A4jViiJvykpYTTZaiFVTDXFYnQrXd9utR0lZnB8OUQUTHasFOF7rBBF8nYnISg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888397;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=fVkiMhZqi2ixyREqRhA5BibXFDzbOUI516cKpXA0jJ8=;
+	b=nfKkbfHXP6Q1fs5s2T2YTf3N1C8iJBW+rsu7Zj9Sci73fvpdy6UGq8OvKfqO8HbNOStY
+	 OAQD7xpH3IO2FhCVegMr4rOSlJ/Ou87h17pqa4IvYAZkPsSwd6EauqBmyZKcuLmwYQr2T
+	 tEPV/TN7To8sDkeVRR4dJanmQHqlsQy7J47UWyUZWzTYZYM9zrhXK7iFdtFrqX9kvKt8k
+	 iovMuwbA4PIuz5e/RuSIJvwkDn4WXkuly1sFpBL2TBZuJDlvutilxvrhuXeAhWGJZ5RiM
+	 QwbFRA9QPBLKnyUA+8flEkbsT/3lqPi00z4urNGX6AkZzlB4cW0SC/tdIR9Hc1UyOVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="blxoTW8/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.177
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314DF606D82D;
-	Thu,  5 Nov 2026 14:17:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5F8606A335
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:19:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF5F8606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFvsmJLv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12F041F00A22;
-	Thu,  5 Nov 2026 14:17:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888271;
-	bh=gvM1R1K1vgZdd2EhIwN1BXqGTokY3Vxv0k5QNEea6f4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CFvsmJLvYo35yuLbThg4qZzP8PD1MiCgEDcGJstZaudD0pyb+FGm7JMwj3Q16JbDp
-	 ppTwaYpU4L0kytSv62b21+DNNlYBxv3LNb6xf2808MXja9oqVepD6aQhv9WEJMEJec
-	 OoomRVzl5PjdT+2wzggcIu2MeZaFUsSyQyuKnr10seRPLWPSi+V7FPlSufvBmcI+VS
-	 jwW9SqC5mEWvn8tXoMNivdcv5cRHrV7/ltV5ycXSnXRmXq8zyDoy9/vUh7LuD3H06f
-	 2h5Y5ENe01WGRmAnYynbhOgkLmuN6Lsw7kxY9wYjTpBkBOm3/HYet1v2qYFLplUoh6
-	 /k8YN/GqYn9OQ==
-Date: Thu, 5 Nov 2026 16:17:47 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH 10/17] driver core: Expose device trust authorization
- through sysfs
-Message-ID: <20261105141747.GC8298@unreal>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
- <20261105-device-trust-core-v1-10-1e536825b4eb@nvidia.com>
- <2026110514-bunkhouse-handset-6a3a@gregkh>
- <20261105132729.GB8298@unreal>
- <2026110535-engulf-precut-cf10@gregkh>
- <9d896ebb-6892-4cac-a7c5-41def47f0be0@arm.com>
- <2026110556-sculpture-immovable-ca8b@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=blxoTW8/
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-563a0462094so1007402b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:19:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793888396; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E7Z4NmA8vHtxOkEP15WW8tmkBD1+DM0C9tffgZLP/GnuGR+OaV3vKQtSC2SRP8XRBA
+         Qj2VX1GS1eDq65Gxs1ZgyV/q6/R/Y1Te41Z73VadF+sEdcWI2pBmzuNbxqtvSISekzpd
+         2ZoGnC5gxyMjWmZRquque8I8Zom15dNeSE6j8mmNyC2VrogaNszLcjvHpPfSu1X8igSA
+         VhZb2moWlJ7cz0mXHXUeWDAD9fzK69sCMap/4TggnJSkGlIVKvrNfOpr1tDhy4HO8e3R
+         PDjz5VqfnLhFeSJN833xd680d8B76Ba++o5vAjSdZFU9srCG5mNSLmXpBWCzP2Wt5DKL
+         rPKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=fVkiMhZqi2ixyREqRhA5BibXFDzbOUI516cKpXA0jJ8=;
+        fh=oWCgEgx79dkB8abVXAXrAPwd3atmEJUPvJpuf4n//yw=;
+        b=QT4853izTOHQgHQ9y40qNmSgG2F4nJ+gR5xQg8J/ydxF+dkvS7v8cfZ1M624cIlUiI
+         R1a7ZO/iYyp7EbhU2WDq+z83pLgXz4OoZf/qNql72DBktcNOufNLo0sOuHTI46mrcJQX
+         O9uu2kRFbwJyEtJNYrcq77yQgb5GT/+DgBmsGEVChgY/jG0LM3wDap46WliKZ3IAiYeq
+         ZplUti+HWX/CJzPTsUAlaGHDGjZKNVDeQzK0pMps9DZhxp8o2uf1XJEeK0WaxtXQDrfC
+         Rjb74i+0komb7bsP3slpv7I0IIy7iRxZUKhP88fgab+3wZZBh6vg84hcoND6g5YhJQ3a
+         laeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793888396; x=1794493196; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fVkiMhZqi2ixyREqRhA5BibXFDzbOUI516cKpXA0jJ8=;
+        b=blxoTW8/aNM/CWg4jHCUAhzGaosYGE2A2gzS8dwn4fw5gebO7g7UUURqaC8tK2F1XX
+         ThI2g+MmlI7owPyZ/mBvX1jfaqJbecTO4KX84Jtr1jIdulsLy3kIw8/+bVhZIE/YeOov
+         56jUiX26Xlcm1dFvcbeu41ltmDgvjntYvFnzKeJscT78KghaiN1xRinaeYj063m/fhV1
+         kdmlM52Qz1Fga7LkCeltUP0ZrUzKP4ZVgypq2rc0Uvr0ji1joGaChCzwuL49pGeYP0kG
+         GFpthhELINSBOt5Q5RTAcZVr3QOy9Z+MLYdJm93lp0trm8o5ZvGuAqF59OSAQXucZasG
+         somQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793888396; x=1794493196;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fVkiMhZqi2ixyREqRhA5BibXFDzbOUI516cKpXA0jJ8=;
+        b=CM5vBo9f5vzu+F8tG7ZGHmTJv6DaIJ7ymFiOxlZRRpNKa6DNmLjiTLVtw3jv0q67o9
+         Yz09ZIAYzRWU+cFhPLKpJy3lpyVqafaHCZ93HnyWtnmCf8vFV6mS9O1fQxgjz8KeT2wv
+         geUljJm5r7zNMyniFowrE9SdBhovHhakiSdz+5URiVMsZurgGDQQMe0lzhXGbtIdZiLX
+         hYGH+hoxAfiJzicU8HK2qR+zK8FhCOFcsSyxOUn9Q0tb3G/5jNH1SoVcA0FyzQe02E46
+         IFyb3VVzRiAF3npdFBZMsSDnCcYbjuXBH4ySlE2basXjK7CkekN12chxIa68cOzTXm30
+         0I2g==
+X-Forwarded-Encrypted: i=1; AKwUvBz8XhtGv1JZbz1QwnomWbGAjHt4xOtV4CZf7N1mLu+8Hwg59x86yMofnSVaQliF5zV+UmF9GxcHYcot+Ws=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9efg3eJEukXiBSjHUguojpIT4GnBgEA57DAdkdXHCYzSDZRm7+
+	DHFfrwPLvPHMyXv42ZGS7cno+kaTjYeD4H13UXdMKiA8GkrTjxPshvwymVs5L1SDHyf/PEVRRMa
+	MdU6g/htiHsG2bwfT6tMzFlAzrhh6qfw=
+X-Gm-Gg: AYBFou0nJ8Tq3VcSjdRwoLP8vlr/Hb9YWmtoe6HoFBRAo6/l5rGeaaPOXx6vg/dQNRT
+	fJTJNR1PZZ0RrXAlGN0EBdtXKoo6LDwVZdd7D8qIWLULGvpPTB8gaLkqV6PwzvcTX0CGYEkplBJ
+	5DMvxZrnZQLPndFGMM5+FwiByRUd5k8i9/P+vIDBA1QH/snA8mBxCEgokBCPf2IHeRYoyIvEWvf
+	WkrLjFo3k8BxCECxkcKqb/osHs1UMX2m97B3wKRdD6mJOCXNMhmg+Z2pRPPRfN2cygNA4bxFBYn
+	JBPMelsNiu+hRO1PcfK9LDCp0BntUY99GwRdDErnYnZN9OAOEhBGZS8sS0a2kEl8M7z8nTJRL9x
+	WYMoBsSL/UIMOnsEXVVQeDWD8b2gPcbGvBiW5E85NLdbCt/Pfj9kaqGFqw5vSnrL1lrUt1+E=
+X-Received: by 2002:a05:6808:11cb:b0:53e:42e4:47c with SMTP id
+ 5614622812f47-5640ddafe6fmr14880307b6e.34.1793888395737; Thu, 05 Nov 2026
+ 06:19:55 -0800 (PST)
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
+ Thu, 5 Nov 2026 06:19:54 -0800
+Received: from 41474967715 named unknown by gmailapi.google.com with HTTPREST;
+ Thu, 5 Nov 2026 06:19:54 -0800
+From: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+In-Reply-To: <CADZg-m0FeLntAS6XxE-kc74vwH-jAh+jXT68qnVwXuHZNUHzfA@mail.gmail.com>
+References: <CADZg-m04iG5kCZ5-yh=Vz_ysYjVDGSYn3je4_-8AzWWfiC-bXQ@mail.gmail.com>
+ <CADZg-m0FeLntAS6XxE-kc74vwH-jAh+jXT68qnVwXuHZNUHzfA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,137 +111,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026110556-sculpture-immovable-ca8b@gregkh>
+Date: Thu, 5 Nov 2026 06:19:54 -0800
+X-Gm-Features: AclHuK82Jb2KHgfgK5OPYnhW4ayXf8IsS89Dhx7joTBVnTmxHxJXKHLc-7hkZ_k
+Message-ID: <CADZg-m3Wxkze0t9u1+dvn3Rrart54_eyi5XDcOSE+9W94s983Q@mail.gmail.com>
+Subject: [PATCH v3] ring-buffer: Skip time delta validation for the counter clock
+To: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 05, 2026 at 09:03:11AM -0500, Greg Kroah-Hartman wrote:
-> On Thu, Nov 05, 2026 at 01:59:20PM +0000, Robin Murphy wrote:
-> > On 2026-11-05 1:40 pm, Greg Kroah-Hartman wrote:
-> > > On Thu, Nov 05, 2026 at 03:27:29PM +0200, Leon Romanovsky wrote:
-> > > > On Thu, Nov 05, 2026 at 08:10:14AM -0500, Greg Kroah-Hartman wrote:
-> > > > > On Thu, Nov 05, 2026 at 01:42:23PM +0200, Leon Romanovsky wrote:
-> > > > > > From: Leon Romanovsky <leonro@nvidia.com>
-> > > > > > 
-> > > > > > An initrd must authorize a disabled device after attestation even if a
-> > > > > > built-in driver already attempted to probe it.
-> > > > > > 
-> > > > > > Expose requested trust_policy and read-only active trust. Allow explicit
-> > > > > > disabled policy to advance once to adversary or full, fixing that decision
-> > > > > > immediately. Reject later policy changes, including for a device claimed
-> > > > > > before registration, while allowing same-value writes on live devices.
-> > > > > > Keep initial unrestricted selection separate from explicit authorization
-> > > > > > and bind-time commitment. Serialize writes with probing under the device
-> > > > > > lock. Include the attributes in device ownership changes.
-> > > > > > 
-> > > > > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > > > > > ---
-> > > > > >   Documentation/ABI/testing/sysfs-devices-trust |  51 +++++++++++++
-> > > > > >   MAINTAINERS                                   |   1 +
-> > > > > >   drivers/base/base.h                           |   6 ++
-> > > > > >   drivers/base/core.c                           |  15 +++-
-> > > > > >   drivers/base/trust.c                          | 102 ++++++++++++++++++++++++++
-> > > > > >   5 files changed, 174 insertions(+), 1 deletion(-)
-> > > > > > 
-> > > > > > diff --git a/Documentation/ABI/testing/sysfs-devices-trust b/Documentation/ABI/testing/sysfs-devices-trust
-> > > > > > new file mode 100644
-> > > > > > index 0000000000000..97e07a174769c
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/ABI/testing/sysfs-devices-trust
-> > > > > > @@ -0,0 +1,51 @@
-> > > > > > +What:		/sys/devices/.../trust
-> > > > > > +Date:		September 2026
-> > > > > > +Contact:	driver-core@lists.linux.dev
-> > > > > > +Description:
-> > > > > > +		(RO) The active trust level for the device. The values are
-> > > > > > +		"disabled", "adversary", and "full". Driver core resolves
-> > > > > > +		the level before DMA configuration and probe, and retains it
-> > > > > > +		through removal and DMA cleanup. Outside a bind transaction
-> > > > > > +		the level is "disabled". This does not imply that policy is
-> > > > > > +		writable or that the device has never operated.
-> > > > > > +
-> > > > > > +What:		/sys/devices/.../trust_policy
-> > > > > > +Date:		September 2026
-> > > > > > +Contact:	driver-core@lists.linux.dev
-> > > > > > +Description:
-> > > > > > +		(RW) The requested trust policy for the device. The initial
-> > > > > > +		value may be selected by the bus before the device is
-> > > > > > +		registered; otherwise it is "default". The policy is resolved
-> > > > > > +		to an active trust level before the device is probed.
-> > > > > > +
-> > > > > > +		The values are "default", "disabled", "adversary", and
-> > > > > > +		"full". "default" lets the bus select the active trust level.
-> > > > > > +		"disabled" prevents a functional driver from binding.
-> > > > > > +		"adversary" requests operation with the restrictions that the
-> > > > > > +		bus and DMA layers can enforce for a potentially malicious
-> > > > > > +		device; it does not isolate DMA by itself. "full" requests
-> > > > > > +		normal operation.
-> > > > > > +
-> > > > > > +		Before an operating level is committed, policy may change
-> > > > > > +		freely until "disabled" is selected. Explicit "disabled"
-> > > > > > +		blocks binding while allowing a later write of "adversary" or
-> > > > > > +		"full". Repeated rejected probes preserve this opportunity.
-> > > > > > +		Authorization immediately fixes the requested policy.
-> > > > > > +		Returning to "default" or "disabled", or selecting another
-> > > > > > +		mode, fails.
-> > > > > > +
-> > > > > > +		Successful resolution to an allowed level commits policy
-> > > > > > +		and operating level before driver or DMA setup. Both remain
-> > > > > > +		fixed for the device object's lifetime, including through
-> > > > > > +		failed or deferred probes, unbind, reset, and driver reload.
-> > > > > > +		Later binds must resolve to the same level, including when
-> > > > > > +		the policy is "default". A resolver error or disabled result
-> > > > > > +		before commitment leaves the policy's writability unchanged.
-> > > > > 
-> > > > > I understand you are aproaching this from a PCI point-of-view, but many
-> > > > > busses do not care or have DMA at all, and need to actually talk to the
-> > > > > device before being able to even "add" it to the kernel.  So you are
-> > > > > making a driver core-specific policy based on mentioning DMA here, when
-> > > > > really that should only be a bus-specific thing, right?  Some busses
-> > > > > might require DMA to happen (i.e. USB needs their host controllers to
-> > > > > use DMA to even talk to the device at all).
-> > > > > 
-> > > > > So can this be written to be more vague and generic and then put the
-> > > > > specifics in the bus-specific portion?
-> > > > 
-> > > > Yes, of course. The main point is that drivers must not communicate with
-> > > > or configure hardware before attestation is approved. DMA is the PCI
-> > > > way to communicate with hardware.
-> > > 
-> > > That's a very vague statement of "must not communicate with".  Busses
-> > > HAVE to talk to the device to determine what the device even is before
-> > > it can add it to its internal bus list.  That's just how the hardware
-> > > works, you can't say "no talking at all" otherwise that means that you
-> > > never even know if a device is there (and for some busses, you'll miss
-> > > the device entirely as they can only be found when the "host controller"
-> > > tells the kernel that a device showed up, not later by manually
-> > > scanning.)
-> > > 
-> > > Think about reading PCI device ids, or USB configuration information,
-> > > that's a bus-core thing.  Are you really thinking that non of this can
-> > > be read from a device under this "policy"?
-> > 
-> > Yup, and that's true even in the PCI TDISP case - there's a major amount of
-> > "communication" and "configuration" involved in that. The principle which
-> > should (hopefully) generalise is that a bus/host controller driver can
-> > always interrogate its child device to perform whatever attestation and
-> > general configuration is appropriate, but we won't hand off any _control_ of
-> > that device to a specific device driver (nor enable potentially-impactful
-> > bus-level features like DMA, interrupts, etc. if relevant) without the
-> > requisite agreement between the bus code and the user.
-> 
-> I agree, that's fine, the bus core should always be able to talk to the
-> device, the "barrier" is where the device is handed to a driver for that
-> bus.  That's what I'm trying to say here, DMA is often needed before
-> that can ever happen, so no claims of "no dma is happening" should be
-> here.
+The counter trace clock increments on every read. Time delta validation
+assumes that the clock values read while reserving and checking an event
+can be reconciled with the deltas stored in the page. With the counter
+clock, this assumption can fail for an intact ring buffer and report a
+spurious TIME DOES NOT MATCH warning.
 
-You wanted vague terminology, I was vague :)
-Anyway, Robin perfectly described the trust model we are trying to implement here.
+Skip time delta validation while the buffer uses trace_clock_counter().
+Clock selection already resets the buffer, so events recorded under a
+previous clock are not retained for this check. Recording and reading
+counter-clock events are unchanged.
 
-Thanks
+Link: https://lore.kernel.org/all/20260920161648.7d9fda60@fedora/
+Reported-by: syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=eb74dca0d1eb3ec227a7
+Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
+---
+Changes in v3:
+- Replace the Openwall archive URL with the corresponding lore link.
 
-> 
-> thanks,
-> 
-> greg k-h
+Changes in v2:
+- Resend as plain text after the previous mail client reformatted the diff.
+
+ kernel/trace/ring_buffer.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1fd28a7..c860d5b 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -4747,6 +4747,10 @@ static void check_buffer(struct
+ring_buffer_per_cpu *cpu_buffer,
+ 	bool full = false;
+ 	int ret;
+
++	/* The counter clock advances on every read, invalidating this check. */
++	if (cpu_buffer->buffer->clock == trace_clock_counter)
++		return;
++
+ 	dpage = info->tail_page->page;
+
+ 	if (tail == CHECK_FULL_PAGE) {
+
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
