@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793910734;
-	b=rGHdiuNhz8tZ8PLNbJ795jIXMyxwmDo5mbp1YflfZGUwtBcc0sfdmi8glwc3RHc9OJci
-	 AYmNrIrti42spnGZG3TGwzfIHuxphq8sbqfI/3Fhvk9925H58SqwpbIuSggbdwZ3ava7n
-	 rO3nVdXfAk6Jcorvl76JMsrTP/cse0fQx0aocCJs/HuAoyMQNzRjUGyrThaiAT8N0qvvv
-	 GWDbHp+0e/ea08avXkVOcjZp/7HkGeGTzCzVKEs5/DZKN0SAr5BMZ8n63F7JHIUEdQm7I
-	 kEu3GMxM1rfKO9vuQcOorkyTTjT7+maYcxue5HQooCZbpOtXtNm0Lx5b8VSLpw0YPVQ==
+	t=1793910735;
+	b=btIZ+sWgNLOqEoD+3lJX9x8JfemKvrcyHkdbxD8ajLrFwEFMny5H4dxJzE1rSn1bwAIb
+	 tHToZZp0BdFX44yhO3yGv++vvWke0QauS5/di1yK3F+bswAtENuG6TDzAOHfW2BGPPp6/
+	 xokfMNmYdqNd62fqSMS/0wgQvrT8ncoGa6lRnfTxBDW3eOHr0V1ym/JySgCC7dcbLCGYd
+	 qjzPjQE+Nndjw3KWYnsX71y0CyuMyrUJjE1Axuc+cwUOrwmiJ25tjf/pQvFcpZskW4Viy
+	 GLbH4iY5wiBtX95X3mZa2N3sMtOAPjYOBIJCJ32YpvB4wd8X195tfJMY/ApbbVfPomQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910734;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=/Om29JukjjZSVfBlDLA5oQz7EwPvW6Jr8YPY0sVbqO8=;
-	b=xb6Iyb4l2e6xg3q/ILDMEl3FcBcknks1VVNqujM+1CjM8ffA3vrPPU/B3X+/2ibnrdNK
-	 wNVcQNZ9yD2W97nNCH4PxukpjXX3rVSsXO3dsk5DOmspy7DZT9Y6zIhgoSLGJoS09WXAB
-	 JI3W7LwCEYwA+89gf2s+XzW7/QwCAQmWu0WkL5CmOPelvvEz9GxBX0YHTGNQxhDZnmPCG
-	 Tct0HsMKLWvF+ElqyL+gScDcfFUs9Z2MGuIlcy/Me7AgbqKb+XczBcjjcUv7TYNW4ecBc
-	 nupYIDGJYiUOwica1gpd1uqOJ9x0BRSkQleVIt2qeqAqJXCOkGcTteDRedwWGLVSB/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910735;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yUaEVVaQzerp4T67xGTyfw9ywiUJggEuAQr5aSJmpu4=;
+	b=lk3Qf9ydy6O/tuTfEd5dqL2eRkuVCVYnUvvrlBAZqwUX00ZIDct30WzHZmBpCVIx/YRa
+	 j/m//IjfnfAyPH4cvqSLb+Ys40RapsH5VcVTFia6k8EySGsygFHFbAqy6vkpaWquktcvh
+	 vLgXk7iyyWqauO3O0pseOWRpIyEePVu0pKaHAMEGqR0zPSLPe1t/v6QQ8CmSUxs6+cY1Y
+	 RFjvQMDrMxlnox8AIztam9xcZc/K/s2est2LofHeOQahT3AF9ddpys6Aop70WRBg49ok1
+	 syuhuThoSTurXYUp5wr/n/1dfMFlrtLlDHdtsxGCRu+H0fFYPjM+00umP8BoNSAvFzw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcCY1U5z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXV7w7wA;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0EA606A338;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABA9606A339;
 	Thu,  5 Nov 2026 20:32:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcCY1U5z
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXV7w7wA
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793910734;
-	b=kecb9e5HtF+BU/N2dJFHDfVZRgOoym0MfTOJfhwLO1Tpk6OrQamqTOOSdLAj9EfV0wkq
-	 6PGkBM1IxkjwD51CH/dnVICj6vPSab41GtDcy/Boe6ZuoAVe4iwWrWXVS8Vakz3adoC4Y
-	 kUt7YM4UlBG3/TefQgI0FX51C84jnYU9XeaVuqLNiyHS8HTSPmhcKS0QpKSs6xjgee2Hl
-	 Ah1Dpfovo2XVWBkxZc9CQqjUKslC/pE3lF2Z5uVJpVspn1wTl6NJqxmCqXySUQsKnTFe2
-	 CvjXicUcBbvxWEWc1FFJ4EqgTICRprOHNpR+ZjcJ/IZvUF9UgvawkEROT+DjdNBVPoQ==
+	b=K+Bqv8jQKY1ecj90hxlBrTSHpepnff+RRSu54UJHAs+2cZPfUMra7uoRBlPPtXNpOnF2
+	 fEdFsz4g/KLiq3TuwLJlZ2+Fr+nWcRzT0pxpox/NNiuetlYA7YwEkKgG47Mwxsx6ImuX+
+	 Wlq/9MXYxO4yrpOLj3HgSUB54MH9cRWO+Sn9GdWSWfIRwUrZTZr+kNipyNBlIysQmPYPg
+	 YR1NKBaFrx7JOwyI+U6TD7yXVkUkJONcvn1VeniGU3wSkwVdgA6kRoH2oHp4ApQoa2+gp
+	 wynBym87sFyywkxyOcMuZyiCFWtmt7WPV33vHk7TA7pAoTn0gl+6VW9Q7oD2eGDEDhQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793910734;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=/Om29JukjjZSVfBlDLA5oQz7EwPvW6Jr8YPY0sVbqO8=;
-	b=2T2majY6BogxaSrNz7EFgUNOgUdcqdYMslKaALkG1b7dMlzzEjLoen5iLy5XYyiOM/6Z
-	 6ng0PCOEMFuWVE5k1OVo+BWhbu/8MtPeDANkothJk4oj3mWfe1FeZMPgx9teKwPfc29Xm
-	 ycz+POfK9eRFwZLW9rGRz3QJOmvN3guGTcCtJTlTKm0Z33sAGqUQsQhfR6dxiEl0zaKPQ
-	 sGuLxPtHNBxvO9cf+Mdcuk30BWkRzaqRH4zsxABDqFpA8c8Gsd6AAv+lKzScpxcMRYPtU
-	 +HNUTqtnKrGRC87Z9qmZABIDiS/vdBpe3KTATxyjmBqu3ORxtn2b9g5NQh6vmO2a7hQ==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=yUaEVVaQzerp4T67xGTyfw9ywiUJggEuAQr5aSJmpu4=;
+	b=JyzGvpV8nrjBXS8RzBnCkmLs47IjxLzRPIDXiVOAZHKMNUxBgcTiwKN+pO3ltVFUyX12
+	 Z2f3xrrMhdPPsblK+HzeKJzjrUMvzOHO7Rn0r26L76dTskzxPX04d//j7BJIAL9ATXMeH
+	 dznJ3PLf89zBwuCXpH/emAW8pk43AcFGrQuC4sYEx5Y8xCnHTISJHu7r4haXjKM6aWh4S
+	 ZDG5zHDyJEMcuo0D77ag2nD18ir4w+/sbPQrFxqnJZeYjDXxwJzgCspn0tewu20kB4qiB
+	 NhYWU4eb498RZJY1HOkk/0DghLarf/uBj4nBhsHFPqpqI1T+3FcpyCNMC3iWXXq0umA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1AA231F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id 2B5871F008A2;
 	Thu,  5 Nov 2026 20:32:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793910734;
-	bh=/Om29JukjjZSVfBlDLA5oQz7EwPvW6Jr8YPY0sVbqO8=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=OcCY1U5z8KeYHuerBqIDC0UfMUp+FhhbpFVBBVx/iVsqEu5g42Rhvddd9onc16bR8
-	 eerT/IWbQLV8GDpv6aGF/hZfUke7yGRH6E2GT/AwcWGphplxwjlsVb4sTX3CQzT0Sb
-	 dgoVhq4rcfv3Hk8ufIAgyvo/U0QhYm51pah4sFg1I2n+LEOKuYdqpDZcdivl/HAO6k
-	 +8UOlIHH+Djvvk24d/oybiNRYyyqr3MucLEU74xV55+bdICdZ9VYtS7vvYPcnZhXGg
-	 Oquux2NXv582a5haAig6erb4JAjx6tV3j/gBTmTnFxu2q+sFunrXtWQvCEDvlFneSi
-	 pJADy38bjpn1Q==
+	bh=yUaEVVaQzerp4T67xGTyfw9ywiUJggEuAQr5aSJmpu4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=DXV7w7wA4oep3MKkDRFX6FA6arzbiMgMOpotfbxlXeYC8L798UyPXOlDVDeZYhoEi
+	 TdU7X41HTTjFpf/nLYTX5ojzf2hZM4YQ0FcrImvtfNaRhDV7/CRPNARdpFDHqI839a
+	 janDX1dpht4SjgEOHJQJX7VZViSeL1x+eCrYFka4JpTKcZim6QYExLXBPKaEPLjutn
+	 eSMmYPNy0DQKu4SZJK4bKUY39ya0Q/dF/tE4Lo6zttmeuRSZVqAWjO9dzkIZTYVaqc
+	 xM/p0JN2KSRdGVSZo66deNwV76ayZxHI4DRvP2bm04sFljueKV1J5gEowaIVJuzcSj
+	 fHfx0KcFblgzw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6AC4D40759;
+	by lkml.kernel.org (Postfix) with ESMTP id A6F7A41DE1;
 	Thu,  5 Nov 2026 20:32:12 +0000 (UTC)
 From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Subject: [PATCH v2 0/3] kprobes: Fix optprobe state after forced
- unoptimization
-Date: Thu, 05 Nov 2026 15:32:11 -0500
-Message-Id: <20261105-kprobes-optprobe-state-v2-0-7a2f5290baa0@columbia.edu>
+Date: Thu, 05 Nov 2026 15:32:13 -0500
+Subject: [PATCH v2 2/3] kprobes: Do not disarm unhashed optprobe on
+ dispatch
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,12 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBCFr0Jm7Zi2ShNdeQ/DYloGGX8oaQvRE
- O4u4AHcvS95730TJI7CCc7FBJFHSRK6BcyuAN9Sd2OUemEwylit1QEffQyOE4Y+bwlTpsx4UrV
- rytKZo/WwjPvIjby342v14zS4O/u8vq2NVlIO8bOZR732/kpGjQotEXmrDTm2Fx+ew8sJ7bkeo
- Jrn+QsB++2H0QAAAA==
-X-Change-ID: 20261103-kprobes-optprobe-state-90dbf55b246c
+Message-Id: <20261105-kprobes-optprobe-state-v2-2-7a2f5290baa0@columbia.edu>
+References: <20261105-kprobes-optprobe-state-v2-0-7a2f5290baa0@columbia.edu>
+In-Reply-To: <20261105-kprobes-optprobe-state-v2-0-7a2f5290baa0@columbia.edu>
 To: Masami Hiramatsu <mhiramat@kernel.org>, 
  Naveen N Rao <naveen@kernel.org>
 Cc: Steven Rostedt <rostedt@goodmis.org>, 
@@ -98,51 +94,58 @@ Cc: Steven Rostedt <rostedt@goodmis.org>,
  linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
  Mani Tofigh <mt4022@columbia.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793910731; l=1406;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793910731; l=1584;
  i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=hnUymYaUl8Tfgtc5VBb7tf8wxHH8l5HhxgLGwo09e/c=;
- b=D7gyGRXlx/bvfd1JO0VtXlp8l4pqdAQ6/8weat8FY9Y5dR04iMLjmYs8ARYgpq7GdWTP8eQii
- nNCmeVwHqQgDha2DlEoJNut20u8xxLAeJA1MUfbQY7jY6p72SACVYRK
+ bh=q2MgFbRgliZtJJNKFCxRw6QZHPAxcNxpRFt4YgkzeAU=;
+ b=FpcUHoZjaTuoeSpXflU6m3me0/LGnND0ixaLOJpFN0TIH2/fx20O/cTZ8tlp+nl8jBXxdmF+7
+ vhFuzXo6m7KCXdlMqqKCfX9PFzvwSDluBD2O6g3IZn7vEUxFAgd84hO
 X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
  pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
 X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
  auth_id=1322
 X-Original-From: Mani Tofigh <mt4022@columbia.edu>
 Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-Since commit 06e0d3b89da1 ("kprobes: Make optprobe optimizer
-multi-generational and asynchronous") a forced unoptimization can leave
-a probe's int3 in the wrong state.  A disabled probe can be freed with
-its int3 still in the text, an unhashed probe gets disarmed twice and a
-reused probe never gets armed.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Patch 2 relies on patch 1 since it assumes every disabled probe on a
-cooling list is already disarmed.
+A new probe at the address of a force-unoptimized probe can stop
+firing.  When unoptimize_kprobe() force-unoptimizes an unused probe it
+disarms and unhashes it, but the next dispatch disarms it again.  If a
+new probe was registered at the same address in the meantime, the
+second disarm clears the new probe's int3.  For a module address the
+same disarm would write to freed module text after rmmod.
 
-Changes in v2:
-- Patch 1: disarm a disabled probe before choosing the freeing or cooling
-  list (Masami)
-- Patch 3: keep a reused cooling probe disabled so register_aggr_kprobe()
-  arms it only for an enabled new probe (Masami, Sashiko)
-- Patch 3: skip the forced unoptimization in add_new_kprobe() for a
-  cooling probe, which would otherwise unhash it when the new probe has a
-  post_handler
-- Link to v1: https://lore.kernel.org/all/20261103-kprobes-optprobe-state-v1-0-6aaac612abe6@columbia.edu/
+Skip the disarm for unhashed probes since they're always disarmed before
+they're unhashed.  With the fix, the new probe fires.
 
+Fixes: 06e0d3b89da1 ("kprobes: Make optprobe optimizer multi-generational and asynchronous")
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
-Mani Tofigh (3):
-      kprobes: Disarm disabled optprobe on forced unoptimization
-      kprobes: Do not disarm unhashed optprobe on dispatch
-      kprobes: Arm reused optprobe on cooling list
+ kernel/kprobes.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
- kernel/kprobes.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
----
-base-commit: d4d028a7ae6401ce70825a3eb663f0a2dfc49db6
-change-id: 20261103-kprobes-optprobe-state-90dbf55b246c
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 809ed63d6dd8..099a38ca146a 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -631,8 +631,12 @@ static void do_unoptimize_kprobes(struct list_head *unopt_list,
+ 	list_for_each_entry_safe(op, tmp, free_list, list) {
+ 		/* Switching from detour code to origin */
+ 		op->kp.flags &= ~KPROBE_FLAG_OPTIMIZED;
+-		/* Disarm probes if marked disabled and not gone */
+-		if (kprobe_disabled(&op->kp) && !kprobe_gone(&op->kp))
++		/*
++		 * Disarm probes if marked disabled and not gone. Unhashed probes
++		 * were disarmed before they were unhashed.
++		 */
++		if (kprobe_disabled(&op->kp) && !kprobe_gone(&op->kp) &&
++		    !hlist_unhashed(&op->kp.hlist))
+ 			arch_disarm_kprobe(&op->kp);
+ 		if (kprobe_unused(&op->kp)) {
+ 			/*
 
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
+-- 
+2.53.0
 
 
