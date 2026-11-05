@@ -1,47 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895779;
-	b=VBrWnz1GiWWYq7ldSXsvdJimPenAxhwL4SSCmk5+h36U33zBFUrXOWyjdjOQMr/pbQQB
-	 oB0OpaL5wzfJz7pDQsVvUB4gg4h+/iO7BK6fI10+ov6Pz+56np3NyuvE9u4fIF2LD5yhE
-	 ZF459jGKLXkh6XutifxlzaySM3ur5XckAmcBp6kGE4x4xPsOUORUQKexNDA6ZGH7dtlI2
-	 ixiaNo/kMrafcl4jv9dDRL9irVbbjTJjQg0OU2bUlI2LAoHAC4jJPoOoEbw8sVQ7g74ai
-	 q2Jaew6EIWFGDqVXV4leyjIlTL6W4FEcC9McvLyqdrgSxrZ6F6Gazq9LfHgG++x9gpQ==
+	t=1793895796;
+	b=uMhrVS6o7oHcTTuucM/oDPHLR0vqSxa7ndjKNra4q1Des7CiJPqnMsYSyDDvS64dRVUl
+	 uDPJNEZabqB9tq9f1bZxZXxvSaoc6VstaSlAAR3SZR1B09vMGjzagPaFvo1YPj0qedY4O
+	 2i00S76tSIkGn7HiMucg8GoCCrehHTVR/ID/InPqJlhmVKxRhNFHw13pym3fSwkidKazS
+	 OD/Thne1getOVLwwBEHIHZJ3W8RZeBxCpFjQKGHBbQAQvIKMXSU26WWcj15Zc4VdyHYRS
+	 xATMbpbNL/eBJWlsfe9CesUyDxVXuxiAKpI93q3WUIbSm9AIyEfHLMuc6xXN1/2qiWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895779;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xMDJFgFKzazRN3fNKaGMf9eLHRyozGcCxfZ52PEAG88=;
-	b=wOdCxc9FQMu4++XrhmrP9/D0UzJ/Zc7lZ1fUPj4cWETYSywmeYQ/N6H4jBxQjNWKbdfe
-	 myOKXCVDbAjvmMUrHFZwPPSOpU0qjubq7keOYPwi5hpt8IYxUWLO8tEW6zOo1wAs8gDD2
-	 V4lRirQZnGHfup4M22RbKmvYnSJk96zeJwxnQDusnznFowfd60hVlJILsx0Bs3LuJ5AzM
-	 D/U8upiKAkP+92qmnYh0pE1dciIbgTBVfQh9MrcGgJXGUkdEV/szZ7++wKB+Ot7x4Leks
-	 OScLL4OjmwuvD1Bza3lIqjJMYsN7mkzTrvQHaVBITcUoQoGfvIoxyU9FYarjipBZHeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895796;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
+	b=RGYz+c631jHaOOZxWDrWwxB5YA2csJxVnF1h/todNsJHajrAb3LxyDSsPdz12bZsJyWd
+	 nNutEPtKSj+dMLcUKCM9op19EsDRYKGQwh/Tlhz3iQ7x4/Ui8dx6cUeS7LoqMi6C4S1Ft
+	 KqGzn5A+suC8h6fOfR3jGPK+Ntji0QolqXbjTArBFqSqE2Rh6qn/MhVS9QlyYNECtKluf
+	 A0OVZu/MYzGz6VfLx2OYmoa8TrpQk6cXJ+7+Acy30b0NIwIbo5bNZJxPKv7txMU28TgAY
+	 h+6VzZkXNOp5/7VVdnYPpSNaQcf84UXmk3Ck9FqMG39yih6utyLPmjR4RYcepW3w2mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZuqqyZqY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=XVtulKYA;
+	arc=none smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC64606A31B;
-	Thu,  5 Nov 2026 16:22:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE97606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:23:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECE97606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZuqqyZqY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C0021F000C1;
-	Thu,  5 Nov 2026 16:22:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793895778;
-	bh=xMDJFgFKzazRN3fNKaGMf9eLHRyozGcCxfZ52PEAG88=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZuqqyZqYufBnJTrLk9I13o76dGxrA9q8K0wkvEyjlIoPmbK0279ig7A92ZtWH1zVb
-	 HypMbsWxOelezgFjEXSsewOTXFoXy7sA3d753Ho0GUIZAfpkuiD9y8JQKFEbMrzjxo
-	 SGoEgVogDt1ZZ78ex8rsx1oqUR2KeLYE4BnYd8RhToncO11cP0B4cA95lZmyCLLClS
-	 gCBpbPnd9Po6Tz7jh0ZXfSpZz3FIf5JH8WloZEPn01O4vUZa2Rbc+I5spYA/UvMuwj
-	 TYrDRimvObpg/zXi+6ao+JBS80hxSoxXOv6rjTlLODOnU9a9+nQLI9pLmpfHeRPP+p
-	 0Xm7YtxwII7pQ==
-Message-ID: <3d535c77-eca2-4774-a327-e301a4f6c34d@kernel.org>
-Date: Thu, 5 Nov 2026 17:22:53 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=XVtulKYA
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso2244136a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:23:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793895793; x=1794500593; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
+        b=XVtulKYA+d2lnkmNdJQPF+3Clphkg793QbmwzgnueMRJxFmHuAGqBTrvq1dDNSXEcT
+         DfU92+Djmg3iL41qbtBM16KqdGI0fAdtr2VrmTU29t76XWf7QW86dZgosRpC9WjLV0qR
+         I9GrRf42uBZj5iZZ2R1AbfZ4vLro4tQe32Lcs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793895793; x=1794500593;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
+        b=HDNoIjTyMutlbXBR+XS1Mf0mVADCFvvHu4aMuRPUPLWiKuv4Mda94BXrrm4+seuftq
+         6cMybvF5/PIFoFZTKTgUdxlK/WZW8C7hkKKYn5VJ0DjQwnsJ5Ey45fqmMOY67W/Pc/24
+         dqk7jPL2BXob1GiLfQn6poklLy6e6rrOVFzBrbWLYljcPkgxa0He4pV8tX4Z8Bwl8qTC
+         3ARcJM4vEmiIHEmtsutqzY7q7fgbXc0oyiOGep8OYTgLsennt4mRFZcN+2m5x757QeIV
+         80gGJfxe4Od6eyC3hH4Msx7oS4gF/7VW5fq7b/LD50eoduhSBTbSXOi8ITU5G+fY4rGE
+         PKNw==
+X-Forwarded-Encrypted: i=1; AKwUvByGo1y53ueTnuIwx+qVT8qNDpKbfKWgoAeRXtMbPxtgXy9c4CSsb94FuZJ2SoAIjVjHVZKtvdJVveaQHJs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/a6SFgulBxtzCr0KKgWpby3NvcRg9fMKedZHjY8jz8RJudwpO
+	W39+LDSE2TWudIe7oIz/kv83ae9+tf+EF8fRt33o7qM/ZdKvQDD00JT6fLxKPP2hTaBSGZqKbkx
+	KkBJSydI=
+X-Gm-Gg: AYBFou2HTscjcgNnqQOLAz99Ev+sjhgKrxVG59UVooL51wfbA3ctG7koPESrLCATkRQ
+	0eqVLI/ql6NBg2hyyyfFngP1uY39dVTm5+GfGuvsTebATEcBYy645qNsxyf8OL6Kom4ktNzmLlx
+	PdcW0TZVdKAoOhYOrlQE3QIpRbGmwuiq/ajKN54kpWl6VWtzCVx+6aQPgSJXW5uVZ7O/ZC1b+cn
+	dtwr0qvfTSWq6nB2HK4TRMoFbrEO152oTLTXgp4XPbJkELDWoIAP5Slbu1kJ7jfAOB4naSnYsn5
+	6ATuQhUUQiz7TiXLxZlBNZDEtNTyiXNAFYZFn0wNv7kj4I+p3u9EtLTx7qgFkY4W7Z00YqtNIa/
+	JRMJUJncuNSMAiy0raNcPTHRPZI/58LJovyt3bD8rrgHnbKR3gIz+AKPWs4IM75gz3OoF9xUuwG
+	9UAwFjxyPnVclti+0QKCrNZl3TvkscuUwialIJy2/WdoHngtK46cC9zzdJnLk35AS/cIQS6rlMZ
+	vpGfOZcIcgfpoXS6iiRrVBoSb7njcK3TzZVB0VVJgKdQQx3fX1zpGRgWE0FTW5MQkNOtmPbOEo0
+	cOsdkSBpAWRYIHY7lzDcQQ4iFkBqQ7Ed0BhXoW59txImBDkgaYeLpQoh/oLmdp12JjnF2Ra9Cr6
+	G6A==
+X-Received: by 2002:a05:6402:2417:b0:6b5:8247:7bc7 with SMTP id 4fb4d7f45d1cf-6b582477d18mr1582367a12.44.1793895792817;
+        Thu, 05 Nov 2026 08:23:12 -0800 (PST)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac6f120sm1868875a12.26.2026.11.05.08.23.08
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 08:23:10 -0800 (PST)
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b5766b2986so1481913a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:23:08 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByQjkvfzu+5onsAhpzphUUaJj1hXvUaVYAUWFy+SmTP9URRCoiBb+gGQQztmA+Tq/qlmMJVEsaPXAKOHlo=@vger.kernel.org
+X-Received: by 2002:a05:6402:3899:b0:6b5:76b9:5040 with SMTP id
+ 4fb4d7f45d1cf-6b576b95165mr2666079a12.41.1793895788549; Thu, 05 Nov 2026
+ 08:23:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +94,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
- tags
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
- <auxKHF7U1x_Ozwpm@ashevche-desk.local>
- <37ae7a7d-5d1d-4571-b5aa-a793f058407c@suse.com>
- <a470cb65-4301-4b19-88fc-3555dff68b4c@kernel.org>
- <f5ac5472-da79-4ac5-82de-36b2f5978f45@suse.com>
- <76b98471-ae9b-4ff3-8337-b50d75c4b7de@kernel.org>
- <128f8491-d7d6-4b8d-85e5-20ce9ac506d6@suse.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <128f8491-d7d6-4b8d-85e5-20ce9ac506d6@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+ <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
+ <auaFhOa5EBz4gJwK@gondor.apana.org.au> <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
+ <auqtTjXhD8is-y9f@gondor.apana.org.au> <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+ <aurAxRpCwzeyXeVj@gondor.apana.org.au> <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+ <aurJZ81qnbiHH_P1@gondor.apana.org.au> <ausS3LQNkdc6lBy3@milan> <auxDm_YO4oACA_d2@gondor.apana.org.au>
+In-Reply-To: <auxDm_YO4oACA_d2@gondor.apana.org.au>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 5 Nov 2026 08:22:52 -0800
+X-Gmail-Original-Message-ID: <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
+X-Gm-Features: AclHuK_lYzOySVnPMTXkh-HXGHC850mf9gNJxZLEPPhkqoVD1gRX0QozBFysw7g
+Message-ID: <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Uladzislau Rezki <urezki@gmail.com>, "Liam R. Howlett (Google)" <liam@infradead.org>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>, 
+	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, 
+	Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org, 
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 05/11/2026 16:59, Jürgen Groß wrote:
-> On 05.11.26 16:53, Krzysztof Kozlowski wrote:
->> Reviewing pieces of the patch while ignoring the main part of it, is
->> much closer to Acknowledgment, thus Ack, and "Reviewed-by" credit should
->> not be applicable.
-> 
-> I disagree with:
-> 
->  >> Reviewing pieces of the patch while ignoring the main part of it, is
->  >> much closer to Acknowledgment, thus Ack, and "Reviewed-by" credit should
->  >> not be applicable.
-> 
-> And I agree with Andy's statement:
-> 
->  >> TL;DR: As a reviewer for the piece in question I have done my part fully. It's
->  >> not my issue that the piece is bundled into a single patch. We have options:
->  >> 1) ask to split (and review as standalone piece);
->  >> 2) add (partial) Rb with the pointers of what exactly has been reviewed;
->  >> 3) ignore (silent agreement with the respective subsystem maintainer's opinion);
->  >> 4) ...something I forgot?..
->  >>
->  >> (even partial) Rb != Ack.
+On Thu, 5 Nov 2026 at 00:51, Herbert Xu <herbert@gondor.apana.org.au> wrote:
+>
+> On Wed, Nov 04, 2026 at 12:11:24PM +0100, Uladzislau Rezki wrote:
+> >
+> > There are users in kernel. For example:
+>
+> Thanks for the list.
+>
+> > drivers/GPU
+> >     /* Allocate the file in vmalloc memory, it's likely to be big */
+> >     iter.start = __vmalloc(file_size, GFP_NOWAIT);
+> >
+> > AMD-GPU:
+> >     kvzalloc(size, GFP_NOWAIT);
+> >     kvzalloc_objs(struct amdgpu_coredump_ring, GFP_NOWAIT);
+> >     kvzalloc(ring->ring_size, GFP_NOWAIT);
+>
+> These appear to be executing out of process context without spin
+> locks so they're not really GFP_ATOMIC.
 
-So the patch contents is fine, but commit msg is not? OK, thank you.
+Historically, GFP_ATOMIC and GFP_NOWAIT have been largely the same
+except for GFP_ATOMIC eating into reserves.
 
-Best regards,
-Krzysztof
+But I wonder if we might be able to soften that a bit, or add a new
+form, because it looks like the AMD-GPU case at least doesn't really
+care about any kind of "don't sleep", what it really just wants is an
+"optimistic allocation" - try to get the memory, but don't spend
+effort on freeing things if there is not enough memort.
+
+The AMD code in question literally has a comment that says
+
+        /* Dump ring content if memory allocation succeeds. */
+
+so while it's possible that it has some atomicity requirements, it
+doesn't look that way to me from a very quick look.
+
+The etnaviv case looks to be the exact same thing: it is definitely
+called in normal process context (that code takes a mutex lock around
+it all).
+
+So those two cases really don't looke like they are about "atomicity" at all.
+
+> > net/ipv4/udp.c:
+> >     err = bpf_iter_udp_realloc_batch(iter, batch_sks, GFP_NOWAIT);
+>
+> This looks buggy in exactly the same way as rhashtable.  It's
+> called under spin_lock_bh, and the same lock can be taken on
+> the softirq path on another CPU.
+
+Yeah, that case is definitely actually atomic and holds a lock. Not great.
+
+Is there any way to limit the vmalloc() case to the actuall atomic one
+and just fail when it needs to busy-wait?
+
+               Linus
