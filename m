@@ -1,57 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889263;
-	b=XZGcIVkO5qaLZo3QgytA7czsATuL/M3M/7zEysATM2Noz/NT8u0mWL4DWoP0ZAdVWapM
-	 XBETqDg+FwNzlGUogVyJ3CZ2Kmi+G7YUPS4RK4NpiLa3Z6sRFIWN8POTAjpmirSVKInqE
-	 7sDVqYf+h4BXoAHpNBEAL8hckdfEfEZBfRxrnOsMJg60g4jzjJk5WXqCMXFwFpWIBhcKP
-	 RyILu/d7y++DB17xfMr1SQxBFhKTr+2ZgzhNJgkKZrVA59LQNp+I+SEkiJkmUiuuwXYh3
-	 lJGHrez3JNqTsKATLgKQ2S5MKU24SnF28IFD3o2YJJS6EZ+8vhj6QXX15oGZjfLYlqA==
+	t=1793889277;
+	b=HDSN5c8Z693aCjOsYS2K79inwhZb6/1VtFZ5XcUc8J/ujhc6nAVnk9mfkR4guGDPDv/S
+	 WtHv6bwIbrz1IoqDZ6J6SJdwSUihb7wb2ckbO1u+Fmwgab/oUzjvawh5ypepNwzUJRVCN
+	 hJAyAX1yf5wwefbD1nkZZA8tS+ll80NjZdEPFdIN+RcCBS2LZ4qaDhZVLrKZOtPvCymEo
+	 85f4RjYAJQ3dkCplw2grYC89dHcCPSZRFqoJ8lc9ZkDU/pO+yckUChG6pB/ihY2oeKyPV
+	 g6v1DKXbgrbWUyScI1Y5MognTVWwVBLDZe7GtCCzFQcwTu6kSfenwdCEb+knFV7X5uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889263;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=w67WbtLwCDT6cPYNGAsC5XzoRVxETDpsQAGG+PvMA2o=;
-	b=luFRriyTHkmfHn/OhDhaSte5KsR+2qbyXENTpvNYKiR+Wl8WkSDuVO8JDCyCmOlh9Em+
-	 uK90dIVPO2J+Sp7FHUiKX0ZUSmKJakulFvhVAhWgMwMvB3FJh8CKgWzFRT8VVV/GzCKZa
-	 +XXoiB7vTkdjRaK/hgVkxFH4ie03E8Zywg5wxeJ3AWXwivSdvXFNeYl5h0W4dZy4WEtj+
-	 2691Sx/DOV9vnmc9ztM+QsCRpz/KEyLIu6ovs5bImjLRpXqkX0EV/GpnrMLJzezRiAicV
-	 BxvK/192WxawSREjjTCLDmrCp07+Cr35wrc4M6YzW67fNjDV17nog/Bx8cifIDfHmRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889277;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
+	b=fUdg7eNJQlPoL37C/4MI5Y5zr2FQ2FILc291hY6mCa+zpKglzads1gEYHRl4byBY1QN1
+	 Kspsvu8xnqHGV+tip+EZe6AELNF/vyCxag4P8mVlmOGpLweRYcIsT5RRDFKRcw2WnG1bU
+	 Y+vq5WgvDY0KCALIxegqSB9anWy3Rmd7WqM48H7DBGFoBUH2RIigWYXWcctbOQwd7lsLX
+	 tKBdC6I4LViaadyRWPFLAOGysp5TtNbUkAToQVinkHIZYG5w319zYYuTWxLBpoVgI5c03
+	 ShmQSwDbSrolwiMg0bnINT83JR8FcMiUST9exedcAqqBLqMh2F4EC6HZWaz116wIxtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oHRC5L44;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A717A606A33C;
-	Thu,  5 Nov 2026 14:34:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7BB606A338;
+	Thu,  5 Nov 2026 14:34:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C7BB606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oHRC5L44
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82FF1F00919;
-	Thu,  5 Nov 2026 14:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793889262;
-	bh=w67WbtLwCDT6cPYNGAsC5XzoRVxETDpsQAGG+PvMA2o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oHRC5L44g9h8qK8SBDbqXCISMpG6T9DX8T7BE1e6vunXA3QSe12GzH4rZ8Y1GVZ9y
-	 nD1N97inxY5gVNYIhm4dFwPeHD1YqNoh0pl6T6Rf0pSPnaCUBkwFa0rWc0ZFzu+jhK
-	 qG4kS8u0pXktsYlTf1va+TxUP440Nkn3/7pGvCYv90ZTvykpuxzLF2XfdKLQR6zVzV
-	 1US7Ct6sGBKlaPvgJd8I+OTdjwdLctOWjwViwtG6Eq9xBfk0mkXHb4HYFY9vwuJ3hq
-	 GXXDoqKSR00efTaZXcFjdPd54cgCB5Vxmbl3rS6WI6a0KzlenQxCU6CugEKVb0x4px
-	 Gvmxy+tl1euxg==
-Date: Thu, 5 Nov 2026 20:04:19 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	konrad.dybcio@oss.qualcomm.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v7 0/3] PCI: qcom: Implement shutdown() to avoid SMMU/NoC
- errors on reboot
-Message-ID: <auyT1HkNYFF9ro-p@debian>
-References: <20261029-shutdown-v7-0-3fd7a76a6991@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793889273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
+	b=y8kPvgpBm6pcjhdgIt6MKI76n7YcCOMGFSUhP56keDoTBkv1upezh7+RoupfxlbIzWo9MY
+	Unw2CSO8NPpzqepNUn0jsjs9WcYUBaapCiLMxl2kobyF4M4282CnrnaGAHQF1r7h101McP
+	yDAQ6N/qmHvCX7eBTW2RiMzX42wyfp9q+53te74H1Xgl4QYfI2cRt2G6rzCAGbIBmrG3/z
+	dHujzGKFRQP4pZqPhy6gcCRcXQAtU0IOtxVxrtN2Wm9wxgxBDxSsPwOvtYc/9ZCLmPRaML
+	bOMJc2Y5DPMNiFz/2GHR8CQ8XGoPRluEQEVAZdVOUEH3ZcedwchkzPfxkFLTkw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793889273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
+	b=ubYMg+wDtIygfUyemhGW8eaVqxZ9fn6Uuvfta99Fo2lhXCI58yM9flSvWKtHzOodlNSpBE
+	fSGJHxVrI1fE/5BQ==
+To: Breno Leitao <leitao@debian.org>, Petr Mladek <pmladek@suse.com>, Kiryl
+ Shutsemau <kas@kernel.org>
+Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev,
+ gustavold@gmail.com, samuelcrossley@gmail.com, ryan.roberts@arm.com,
+ brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>,
+ kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] printk: nbcon: Flush unsafe consoles from printk()
+ in panic
+In-Reply-To: <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
+References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
+ <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
+Date: Thu, 05 Nov 2026 15:40:33 +0106
+Message-ID: <87v76bz6rq.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,38 +76,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261029-shutdown-v7-0-3fd7a76a6991@oss.qualcomm.com>
+Content-Type: text/plain
 
-On Thu, Oct 29, 2026 at 09:49:26AM +0530, Krishna Chaitanya Chundru wrote:
-> During system shutdown/reboot, power/clocks to the PCIe controller get
-> removed regardless of link state. If the link is still up when that
-> happens, it can trigger SMMU or NoC errors.
-> 
-> This series adds a shutdown() callback to the Qualcomm PCIe host driver
-> that forces the link into L2/D3cold before shutdown proceeds, reusing
-> the existing suspend_noirq() path.
-> 
-> Patch 1 fixes pci_host_common_d3cold_possible()'s underlying bus walk,
-> which aborts as soon as it finds a device outside D3hot and can
-> therefore miss a later PME-capable device -- something that becomes
-> common once patch 3 starts forcing D3cold entry during shutdown while
-> endpoints may still be in D0.
-> 
-> Patch 2 adds a force parameter to  dw_pcie_suspend_noirq() so that callers can
-> set to make dw_pcie_suspend_noirq() force L2 entry during shutdown/
-> reboot, skipping the D3cold capability check that can otherwise leave
-> the link up if any endpoint hasn't suspended yet.
-> 
-> Patch 3 adds qcom_pcie_shutdown() and wires it up as .shutdown.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+On 2026-11-02, Breno Leitao <leitao@debian.org> wrote:
+> --- a/kernel/printk/nbcon.c
+> +++ b/kernel/printk/nbcon.c
+> @@ -1688,7 +1692,15 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
+>   */
+>  void nbcon_atomic_flush_pending(void)
+>  {
+> -	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
+> +	u64 stop_seq = prb_next_reserve_seq(prb);
+> +
+> +	__nbcon_atomic_flush_pending(stop_seq, false);
+> +
+> +	if (panic_on_this_cpu() && oops_in_progress) {
+> +		panic_nbcon_allow_unsafe_takeover = true;
+> +		__nbcon_atomic_flush_pending(stop_seq, true);
+> +		panic_nbcon_allow_unsafe_takeover = false;
+> +	}
+>  }
+>  
+>  /**
 
-Please fix the build issue reported by kbot.
+This part of the patch gave me some ideas. First, I like the idea of
+putting the policy handling code inside
+nbcon_atomic_flush_pending(). This keeps the code outside of
+kernel/printk fairly simple:
 
-- Mani
+1. In emergency sections, printk() is calling
+nbcon_atomic_flush_pending(), which always skips
+CON_NBCON_ATOMIC_UNSAFE.
 
--- 
-மணிவண்ணன் சதாசிவம்
+2. During panic, printk() is calling nbcon_atomic_flush_pending(), which
+via policy could include CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal
+loop, after all safe atomic consoles are attempted).
+
+3. After kthreads are shutdown, printk() is calling
+nbcon_atomic_flush_pending(), which via policy could include
+CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal loop, after all safe atomic
+consoles are attempted).
+
+For the above situations, no new flushing calls are needed. But there is
+another scenario for CON_NBCON_ATOMIC_UNSAFE (and unsafe printing in
+general):
+
+4. If the kernel ends in a way other than the final panic() loop, (for
+example kexec, sysrq-r, panic+reboot), the above scenarios do not allow
+unsafe printing. For the related code points we could call
+nbcon_atomic_flush_unsafe() and it could handle the policy of unsafe
+flushing depending on the context, which would allow
+CON_NBCON_ATOMIC_UNSAFE to flush here as well.
+
+The unsafe policy flags could be something like:
+
+PANIC_PRINTK
+- panic: all printk() calls during panic
+- checked in nbcon_atomic_flush_pending() of #2
+- if ((policy & PANIC_PRINTK) && panic_in_progress())
+
+NORMAL_FLUSH
+- non-panic: atomic flush calls: shutdown, reboot, kexec
+- checked in nbcon_atomic_flush_pending() of #3
+- checked in nbcon_atomic_flush_unsafe() of #4
+- if ((policy & NORMAL_FLUSH) && !panic_in_progress())
+
+PANIC_FLUSH
+- panic: unsafe atomic flush calls: reboot, kexec
+- checked in nbcon_atomic_flush_unsafe() of #4
+- if ((policy & PANIC_FLUSH) && panic_in_progress())
+
+Netconsole originally wanted by default:
+
+    .policy = NORMAL_FLUSH | PANIC_FLUSH,
+
+But this last series shows that netconsole actually wants:
+
+    .policy = NORMAL_FLUSH | PANIC_FLUSH | PANIC_PRINTK,
+
+These are slightly different policies. But as long as printk supports
+all 3 policy flags, we do not care which policies are chosen.
+
+I am happy to code up a full implementation if you think this has merit
+or you want to see the patch to decide.
+
+John
