@@ -1,71 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906397;
-	b=SXWZ+cGNsdMy5PXEhnrQD5xwQlNRWzbIdLdzgCcsDT/giDuqpplIeHf+9128bBWMAQyx
-	 nLhhE4W4pWSRhWNfsEpmE/+nFF1hT+B7bMmvUl+kJxV8lQmsejnp+kRV7gH0/hlHl1mis
-	 ZljzQO3FN0qioqit0w/4qHauWIsM4XPAJ82f+sq7be8YnoY3HWxylozmOvMejdacQGAfc
-	 t7McMFYTJUpyp0smm66lLIQG5uIsb/aXM4LxS4uF/0UlSsggV2e0a72pw3cDUS4hkLd3u
-	 A64zomFaoHdQnnPS8kjl3ycG1rPJGqBpgWPqxSSEwzonU96QtxDseWCCfwkbytiyPnw==
+	t=1793906405;
+	b=CIGqLlmv4ERq+Atik2M9RSY1SgotyCXGhTPmMbLEMxnbjmfAnj3CVjBCyFeOiGVGJUvw
+	 3yiHbqPzBGaX/hYJIKdc2rVIYRRjipXccwkWAiHgipdSsPrAnszzoxpHhnMbYfaKzV+K4
+	 M0yYolumH1KX4li2GwzujSl8lnKBt6Us4VptDm6wwJs2LBrDo1fd1362lslg8stlgSWt/
+	 MDzH4IpDWi2l2JQp6BrQIEfXSnXHTxbgHm/CeFLtv7biRDc0QjTKczb4e25NFiy9fzaX+
+	 9mkJmUx5tYazYnHs3hvaU9v06Jr1otJYd8C+Ahfn1D4cjPLhJCAOOE3FhL5KF4zbYRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906397;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
-	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
-	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=vB0d6DmohhVJAem08KYrjHoymUOj9sWWuweWNR1UKLI=;
-	b=2joSUbU0NDQQqoVT1lTh6tKr2VPp24GtvE0qc+QDSJF4wkUn88DAs6McDvqhBowyFvDf
-	 M8cNTUquBNSUJnrf4dnPsGttkSU5hNnhGJy8eyXx/nn2pVKoctBEprutvscVOBevQ8A5z
-	 km9+3HOWohCZfxISh1w6lLUUurCz1y0yPzKfjzVaPxDOLYfRFQ8VBXLhDpzXJK5bhnfov
-	 wa9Pzft2PkINZvfiLKAc4L4EGuQ++52qMJJ8IYd/mXNogrvnNq8gzOFsy2whnY4v5Jk9D
-	 DcvWowIXoY9gQINFs1L2okAbw4GF7zBNyxAV6hJYIzm6mg6s30Bqsj8fIVzC7tdq1WQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906405;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=HB7eLNeB4olwGleSkQVJgSv/fqV2FHdO5bMIeP58zwM=;
+	b=vipcPdapXL3Z7NIVTk3RfA+oGyH+ARYf2o9F/lXxXcn0QbGerJYry993rx/3sYTYEW49
+	 SS2mYUNjTifAoQmyICqtam1yryl6AZg/4KUv/fdK70QLcENBEvdFbpO014PU8BsM7xrUb
+	 Dgl2h1ADKoIoKNiD2EhXHSX6GicpFtFJc+V+OqNshqMRQyJaf4lyc7hSxvP+n3Fs+bukL
+	 tFid3idLqn+AIth8pO+qd9T4xFmvluB9ANHOW8X3U59oiNCTDcjgzDQG0ucs6RkWabYOE
+	 ZIbPc1HBw5YAyleaCTDafEXFT+5GtfIYWxD7DWdrTQC0VQXb34x6Hon0cvJCoCNvnqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fqwqf.xyz;
-	spf=pass smtp.mailfrom=send.fqwqf.xyz;
-	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b="qGfmCv8/";
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=hH5ybj0K;
-	arc=none smtp.remote-ip=23.251.234.56
-Received: from e234-56.smtp-out.ap-northeast-1.amazonses.com (e234-56.smtp-out.ap-northeast-1.amazonses.com [23.251.234.56])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ryjFp/MP";
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DE5606A32E;
-	Thu,  5 Nov 2026 19:19:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37DE5606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48341606D803
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:20:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48341606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=qGfmCv8/;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=hH5ybj0K
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1793906396;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=yjQSNr6bjN4bHRD2IZ60o3J6FxseY+q4irgzvY4ZTwU=;
-	b=qGfmCv8/vET87ssChBFNsDidGVWbBHOwae0BOQ9aLz9uE/+Uetz+onKk0AoU7029
-	ZrqIuaS5pbqviQ0TwnCYhUjQbm5xGo8yX4IcAAc/+bj0WlORYVJiliuvaozly5FXK/d
-	zAKHSIEKCY8CtQDFb9aVudluG1C2PAyRkZP7zvaY=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906396;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=yjQSNr6bjN4bHRD2IZ60o3J6FxseY+q4irgzvY4ZTwU=;
-	b=hH5ybj0K95yVSoOibYhSRDuaZwoUb4PqjsP56It0m5ChJcw4LyN9UZkHMEjk8zXf
-	NPHXvvhOlD2ZArjjAsk6qESp0zAgVCrkqhLDYHY1iN24eBdlp6+oVl9g0A1eUIeQ3cT
-	gcZMoHSiel6Z4sdyHrO36KTcBpN4d4ZSySkD9aOc=
-In-Reply-To:
- <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
-References:
- <010601a1334094a9-1f793e14-c414-4780-98ff-f5acdac353a2-000000@ap-northeast-1.amazonses.com>
-X-Mailer: git-send-email 2.53.0
-From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: Jingyuan Liang <jingyliang@chromium.org>
-Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: [RFC PATCH v3 0/5] HID: spi-hid: add quad-SPI support for
- Romulus13
-Message-ID: <010601a1ad274a9c-ca2fc8f5-d3fb-435d-8572-c0d3eb701649-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 5 Nov 2026 19:19:55 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ryjFp/MP
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a599e9110eso7918345e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:20:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793906403; x=1794511203; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HB7eLNeB4olwGleSkQVJgSv/fqV2FHdO5bMIeP58zwM=;
+        b=ryjFp/MP8yoCegX77FoIlmXtbwF00NrgA2iKbYyio6q8HlsNeVCE7esRwFlmEvPysV
+         WINAerjFBQ7VWs52yTt2cQYrRl8Gholz2hSV69c7np+f45Ei4O9wvqh0CrRTB8gHNVJE
+         6tXr/XgkPRHOtc62HxADGMOReizpv9afHJpYEqAnjfMlkTScw8Knyz2PKKQNhtUGh2Q8
+         SzuzUolNEjn7FbtMgX/L0pDA4o0LO6iyfy6Umck85zJr18POZLKDJc1RLCGs09G1coKv
+         Gn+ARdIIWlHrLezc/ew959uoIbp7gdhCWbJwLSyOAyuohUbPlT0HB6InKIx/CPb5fSX+
+         B00g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793906403; x=1794511203;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HB7eLNeB4olwGleSkQVJgSv/fqV2FHdO5bMIeP58zwM=;
+        b=KswgyukwX4IjPAjTAwH7rygS29RLnwolN6IoEJ98yR1XjFMRgh28MgcwHqC6V0Xita
+         SvgsQlfp+NzeZicYsUtoS4cmQtiXL3tenLwugs5fTE+doPNMdNJg/doX1ALNL+IaZKjT
+         UnjXOwnw5pQbbQ4Gvl8nMxUiqmuYhHHRr4xgH4j6orcWWp4s8aNb+rc2tUJhHT15AJ3x
+         E2NOoVhpfKs4kkFATTOcQHzazsu5Kz6lWZDsmtKPSXTdWv/XwqV37l5GyfsdMYarUQof
+         ggAwqP4kMBtARotMW3DUxNToRcunnKOS9waS4U+t5/oTzGb2o55yrQUn8clZIeDqCixs
+         K1iw==
+X-Forwarded-Encrypted: i=1; AKwUvByaPpo3lhba/g5yiurBd7x6Qnc/soNWZPR2VwBRCSLCr6oh7Uq8l+4tHr2EzPn0nwKqp1HYtL6Jk5iCz3E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CBluil8EHpunUUyx8CiTWsJnW6IOWcTm+C526m2EcFA1ZTKv1
+	aK+wsCMhCw7ZEISKPlC8LTFO9u0Ud2UtfNBVC3MdWgGVmjn46z4sXCAc
+X-Gm-Gg: AYBFou05Ql+rgac84Ar4HvCFDV3fgjq/B8D/Q4IHYbLBhjIvxGPdkC2cFOmXcM7l0od
+	zQPn958dSuJGpwEH3GFMoQA6haLOkYNPYckWrgHOhXvr0tiR6iuLwsEN8qVRRsYRLaxP/B52xyM
+	Tb/JQg0rv+Xr2m07FgiOUv6pbTbfRDIGe9CQdBu/MolpUupcWNQtppbk4MvdRwcD5nU0Oj0n++T
+	o9pMk953AltFTUjcFa21mNIKI2oM/FvFyzC+b7teB0TEuqd4RBCHlSFYsc44UlmCJz21MsM2HDI
+	N5mJ+lHc0czjftCB0n1+TZepa94hgEvWZ4argkn++E4+ILpg4GCWCmuhRax/3Lo9wqt0AvFvzs5
+	Z8SsmwT0Ik5z1mfg5I6jemU/jA08CNldNeQnmmMneJfC8jABmNkHED1o6+M1jzkZFFkLp7l7+gw
+	EW7nd+UAcYQjasEcF/bm5l9TFEkBoqLwNv6QGOHzcnAkYsHwpxcJywKfY6EKjC71F4ypC0knkgt
+	U2bEOypvkqRDG4CbbtdFhiYBVGtUrVGDDH0/SMipSRhQ+6INVzxk1XI9DAKM27pJYT9zlPC0KSK
+	AIEZis/AKoOFrXLuCl/68Ycpv2vbdNZw0DokvaK4eT0TuPLPxg==
+X-Received: by 2002:a05:600c:c111:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4b6d8a63e17mr2048925e9.0.1793906403295;
+        Thu, 05 Nov 2026 11:20:03 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcb8sm81401105e9.1.2026.11.05.11.20.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:20:02 -0800 (PST)
+Date: Thu, 5 Nov 2026 22:20:00 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@kernel.org, linux-kernel@vger.kernel.org, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	joshdon@google.com, tj@kernel.org, jakub@okonski.org
+Subject: Re: [PATCH 2/3] sched/fair: Make cfs_rq::idle the sum of ancestor
+ tg::idle
+Message-ID: <auzB7x4lVcFmTVMs@scheduler.schedules>
+References: <20261105165525.011876858@infradead.org>
+ <20261105170157.616859418@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,97 +101,179 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.11.05-23.251.234.56
+Content-Disposition: inline
+In-Reply-To: <20261105170157.616859418@infradead.org>
 
-Hi Jingyuan, Dale,
+On Thu, Nov 05, 2026 at 05:55:27PM +0100, Peter Zijlstra wrote:
+> Rather than keeping cfs_rq::idle as a copy of tg::idle, make it the sum of
+> all ancestor tg::idle. This makes it trivial to tell if the current cgroup
+> is marked idle somewhere along its ancestral path.
+> 
+> This makes se_id_idle() behave differently. Notably is will now be true
+> when there is a idle cgroup anywhere in the ancestor path. This
+> addresses an issue where preemption of cgroup::idle was overlooked when
+> flattening the runqueue.
 
-This RFC adds quad-SPI support for the Surface Laptop 7=
- 13.8-inch
-(Romulus13) touchpad to Jingyuan's v7 driver [1], on top of the =
-two reset
-GPIO error fixes sent separately.
+How? The diff doesn't touches se_is_idle(). se_is_idle() just looks to
+the policy for tasks:
 
-It adds aligned transport =
-buffers, spi-mem 1-4-4 transfers, bounded input
-fragment assembly, and =
-Romulus match data. After a device reset, Romulus
-recreates the HID device =
-so iptsd reapplies the touchpad mode without
-restarting iptsd. Single-lane =
-devices retain their ordinary SPI transfers.
+static int se_is_idle(struct sched_entity *se)
+{
+	if (entity_is_task(se))
+		return task_has_idle_policy(task_of(se));
+	return cfs_rq_is_idle(group_cfs_rq(se));
+}
 
-Following Conor's review [2],=
- the compatible and quad-width constraints
-now extend hid-over-spi.yaml. =
-There is no separate Romulus binding or
-redundant declaration of the =
-globally allowed pinctrl properties.
+And the issue in the preemption path is in the entity_is_task() path.
 
-The final driver source matches the =
-SPI-HID source in my tested downstream
-SL7 kernel. Touchpad input and =
-suspend/resume work there with the downstream
-Qualcomm GENI/GPI QSPI =
-controller and board changes. Those dependencies
-are being prepared =
-separately from this HID transport RFC.
+	cse_is_idle = se_is_idle(se);
+	pse_is_idle = se_is_idle(pse);
 
-The core, ACPI and OF modules =
-build with W=3D1 against the prepared SL7
-kernel build. Software tests =
-cover header and fragment bounds, DMA buffer
-alignment and allocation =
-failures, SPI/QSPI transfer phases, reset errors,
-and resume/re-probe =
-ordering. The common binding passes schema validation
-and compiled positive/negative examples, including both IRQ spellings.
+	nse = se;
+	/*
+	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
+	 * in the inverse case).
+	 */
+	if (cse_is_idle && !pse_is_idle)
+		goto preempt;
 
-Changes since v2:
-- Rebase onto v7's compatible data, descriptor and PM =
-handling.
-- Drop the readiness/error-counter ABI; keep v7's removal of =
-counters.
-- Extend the common binding and remove redundant pinctrl =
-declarations.
-- Keep quad-only output framing checks out of the single-lane=
- path.
+	update_curr_fair(rq);
 
-[1] https://lore.kernel.org/all/20261024-send-upstream-v7-0-abad131=
-74b43@chromium.org/
-[2] https://lore.kernel.org/all/20261028-punctured-flag=
-pole-c7ec4cfc4609@spud/
-
-Jizhou Tong (5):
-  HID: spi-hid: isolate DMA =
-transfers from protocol buffers
-  HID: spi-hid: add spi-mem quad-SPI =
-transfers
-  HID: spi-hid: assemble bounded fragmented input reports
-  dt-bindings: input: hid-over-spi: add the Surface Laptop 7 touchpad
-  HID: spi-hid: support the Romulus13 QSPI touchpad
-
- .../bindings/input/hid-over-spi.yaml          |  40 ++++
- drivers/hid/spi-hid/Kconfig                   |   2 +-
- drivers/hid/spi-hid/spi-hid-acpi.c            |  26 +--
- drivers/hid/spi-hid/spi-hid-core.c            | 183 +++++++++++++++---
- drivers/hid/spi-hid/spi-hid-core.h            |   8 +
- drivers/hid/spi-hid/spi-hid-of.c              |  44 +++--
- drivers/hid/spi-hid/spi-hid.h                 |   8 +-
- 7 files changed, 249 insertions(+), 62 deletions(-)
+	if (cse_is_idle != pse_is_idle)
+		goto update;
 
 
-base-commit: ee9c669f9bf5fd2c24206746ded9382fe810df89
-prerequisite-patch-id: b401890d766019f0677a572f18bb389cd8827721
-prerequisite-patch-id: beaf91cb29f3a735559a3251092ac0ac17810b10
-prerequisite-patch-id: e7eba48cebafeee52eae204c950d7c4f8386f0bd
-prerequisite-patch-id: 41ca1ba441d0246d5bf6a4befb26b1c65a596b95
-prerequisite-patch-id: 84023dc857708fbb763a889ac060acc7d4387264
-prerequisite-patch-id: f9b381e783ceb6b608c27e3b6299c591ac9be769
-prerequisite-patch-id: ae5c9959b2923b37a5a650f04e93c662b9e10592
-prerequisite-patch-id: 44a8965a58c0bfb0d5cf758790f407d136451956
-prerequisite-patch-id: 207558a5e93c1074b4dc1b568d70d62a9ffe542b
-prerequisite-patch-id: 59919db0f4e3fbaa1908a0b311fcd53837c5aac3
-prerequisite-patch-id: b3706d31329e8a5829627fd0eb795c24aeb389cd
-prerequisite-patch-id: 24df0c559e4b401af9acd4bc7bad99dd4b4724d4
-prerequisite-patch-id: 3163173e775b674a9f6b8b5f683e0a522e2ea4a0
+
+Or am I getting something wrong?
+
+
+> 
+> Fixes: 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> ---
+>  kernel/sched/core.c  |    2 -
+>  kernel/sched/debug.c |    1 
+>  kernel/sched/fair.c  |   73 ++++++++++++++++++++++++++++++++-------------------
+>  kernel/sched/sched.h |    4 +-
+>  4 files changed, 50 insertions(+), 30 deletions(-)
+> 
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -8970,7 +8970,7 @@ void __init sched_init(void)
+>  		rq->nr_running = 0;
+>  		rq->calc_load_active = 0;
+>  		rq->calc_load_update = jiffies + LOAD_FREQ;
+> -		init_cfs_rq(&rq->cfs);
+> +		init_cfs_rq(&rq->cfs, NULL);
+>  		init_rt_rq(&rq->rt);
+>  		init_dl_rq(&rq->dl);
+>  #ifdef CONFIG_FAIR_GROUP_SCHED
+> --- a/kernel/sched/debug.c
+> +++ b/kernel/sched/debug.c
+> @@ -1090,6 +1090,7 @@ void print_cfs_rq(struct seq_file *m, in
+>  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_runnable", cfs_rq->h_nr_runnable);
+>  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_queued", cfs_rq->h_nr_queued);
+>  	SEQ_printf(m, "  .%-30s: %d\n", "h_nr_idle", cfs_rq->h_nr_idle);
+> +	SEQ_printf(m, "  .%-30s: %d\n", "idle", cfs_rq->idle);
+>  	SEQ_printf(m, "  .%-30s: %ld\n", "load", cfs_rq->load.weight);
+>  	SEQ_printf(m, "  .%-30s: %lu\n", "load_avg",
+>  			cfs_rq->avg.load_avg);
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -15594,8 +15594,10 @@ static void set_next_task_fair(struct rq
+>  		hrtick_start_fair(rq, p);
+>  }
+>  
+> -void init_cfs_rq(struct cfs_rq *cfs_rq)
+> +void init_cfs_rq(struct cfs_rq *cfs_rq, struct cfs_rq *parent)
+>  {
+> +	if (parent)
+> +		cfs_rq->idle = parent->idle;
+
+AFAICT this creates a race:
+
+Let's say we are creating a group under GA named GB.
+
+We first call sched_create_group(), that calls alloc_fair_sched_group()
+and that calls init_cfs_rq(). If the parent groups idle state changes
+before GB gets into place in something like this:
+
+
+* GA is not idle GB idle = 0
+
+* GA gets idle in the window
+
+* GB setells in
+
+* GA then gets idle = 0 again
+
+
+Now this happens:
+
+GB idle = -1 and GA idle = 0.
+
+So below, in tg_set_idle_up() the code things something changed and
+h_nr_idle starts to corrupt.
+
+
+Or am I missing something?
+
+
+>  	cfs_rq->tasks_timeline = RB_ROOT_CACHED;
+>  	cfs_rq->zero_vruntime = (u64)(-(1LL << 20));
+>  	raw_spin_lock_init(&cfs_rq->removed.lock);
+> @@ -15646,7 +15648,7 @@ int alloc_fair_sched_group(struct task_g
+>  			goto err;
+>  
+>  		se = tg_se(tg, i);
+> -		init_cfs_rq(cfs_rq);
+> +		init_cfs_rq(cfs_rq, tg_cfs_rq(parent, i));
+>  		init_tg_cfs_entry(tg, cfs_rq, se, i, tg_se(parent, i));
+>  		init_entity_runnable_average(se);
+>  	}
+> @@ -15780,6 +15782,43 @@ int sched_group_set_shares(struct task_g
+>  	return ret;
+>  }
+>  
+> +struct tg_set_idle_struct {
+> +	long idle;
+> +	int cpu;
+> +};
+> +
+> +static int tg_set_idle_up(struct task_group *tg, void *data)
+> +{
+> +	struct tg_set_idle_struct *tsi = data;
+> +	struct cfs_rq *grp_cfs_rq = tg_cfs_rq(tg, tsi->cpu);
+> +	struct sched_entity *se = tg_se(tg, tsi->cpu);
+> +	int old_idle = grp_cfs_rq->idle;
+> +	int task_delta;
+> +
+> +	grp_cfs_rq->idle += tsi->idle;
+> +
+> +	if (!!old_idle == !!grp_cfs_rq->idle)
+> +		return 0;
+> +
+> +	task_delta = grp_cfs_rq->h_nr_queued - grp_cfs_rq->h_nr_idle;
+> +	if (!task_delta)
+> +		return 0;
+> +
+> +	task_delta *= tsi->idle;
+> +	for_each_sched_entity(se) {
+> +		struct cfs_rq *cfs_rq = cfs_rq_of(se);
+> +
+> +		if (!se->on_rq)
+> +			break;
+> +
+> +		cfs_rq->h_nr_idle += task_delta;
+> +
+> +		if (cfs_rq_is_idle(cfs_rq))
+> +			break;
+> +	}
+> +	return 0;
+> +}
+
+
+Cheers,
+
+
+Kayra :-)
