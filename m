@@ -1,101 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793905894;
-	b=4RZcTFYHXP1rw/XTpDoebLMPEndq/AUELa5jf048gQCR/ACA+5YIPFgUFBUMQLVre5Ca
-	 TNPpmNyrPRXBMzyEEcJAVKHR/4H56zACHlCeJMB5c+NIt+ZuBPmwG47c9YJaFbw05DkWy
-	 oWD4Ln23zmSC9mIbvlBEeTo6yEsmQz68+yAegyOofYFKDCXi/MX2yZ978RFzZsn39z8Gm
-	 pLHr7+Dptdsyo3k0Rjz6TAOY8gtqrYc/hkyYZAKsjsLK2eN2biT7r2o2QFzKy880NJBrN
-	 SZuEsDQNkbpwzp/3KOD70nQKXP3UwUIDwOBmMkNQqgVYUiyA+t9jLtJuOwJS9C5rzAQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905894;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793905943;
+	b=Lj9ecbddgjOA9u4G3D9B33Vd3RP1BG0ySMu77cjOUzWmHSDTfdA6tAvHlrI/WhCGMJPV
+	 61l4blRc6EPyPjmcXxikj9SBxzMXEyQ5emrh79gnPR3OMu/AYMmW+9zbJtF91950cB8Qj
+	 ybIHq2jvsKKHE3/cOSLDn6QtMaQhpW+DZYPAYg7T0aupttefwJWcJSkUqyGOtQpA78dDr
+	 4REa60FKMXHxaiTTJHiwGDd4awA2+tXq2mZqVk4XGVWX9Iyjoltmzca6syqvdC4SFc8mb
+	 CULQXbjcQi4D1h3KFV1ad0lN3RZjKLk6vYDjDS4N7uzkuou9GFzrxI8+7XdSgHM9zGQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905943;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5xfLNd70a9iJW7TLASfq9ztkIr5MXc8aGM+GIXNOZK0=;
-	b=b74Y4O10YNdsFXPsJ7X6vNTuEwZy7vxv+jwQnQ/B71Z56hWqto4qNNMn63MBo7XdiR+p
-	 BSD+RBD/zAy3BBWYpgWn7VWipz2HjJmF4ouZNdpR6OOIzQQ/m65WGFWY5VxrIzjkJ4yyG
-	 UVdWVeupb80NgnDcMwDa1i94B7u3oQvZ3Jq6ne3mpVepXPUfiyZOuLOzhgj618/q2mONu
-	 CJqhj4mlYYmJ+Mle+LILYucfE0Q0PZfFWsmirilBBhc8gd4l2VYCQgo9XOXKnkqy3emt3
-	 gMmeoJOoBNSkxaLNbDY5cc6oplhsF2bm2PL2Zs0FRif5vIDscO8f/gzjuL9KvkXjUHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gguh5mw1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QH8EWm3WpJvKmm+3SH11RyockHxBeCCGhqou8vP+rPk=;
+	b=iilJ4z8dkuYWj+Y0omXQdCF279l4YrvFZuV/DLS7Bbu0gSUFBxjMaRPuK5byd6+2AqPt
+	 eGCxa/eAKEmZbi5DWBcWPw/mrakZKPKzW/9neQDhlG9ADtQ6bbSIbeOGHkPfXobgELvzC
+	 obnKBaGypTZ9pYEHqGamye4TOD18TbhlSXwQdYyM2NyTMrgfpv0rqe0fE1HIjk2zF0X/J
+	 cq+E6N2VTtGclOs3NLH7t9R+ecBceIFQXJcyIXdRBB1sxSaFYBRizqE7r1py9BVhLJDdr
+	 G0a+V+lR7qIknf+znfzmDTf5l1yfNMZPuW11vyp4LleFaMhtAULu8SH3tN1Gs1TGioQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B0MNLtWQ;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C1A606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:11:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C1A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF356606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:12:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF356606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gguh5mw1
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so3699367a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:11:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793905892; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PuthNLpe3HFfZRbldVIaaYTuPt7gTqFVMCs8BfgYdTcDLZz5UqBJ6w990XsY1tmQEB
-         jxMrlB/IKAyHbqNaiNLKyHMPE7T6lkElCzOVSLC8dUqh7SFRDcExw5d0Yv/RQR3hpNo2
-         rcUCrxQHjCkO2niaCjEemiekDvEjJaGjca1AckDTq6SjVJI3kY0r7h36K4ZEpX3hM1Qb
-         pv/pLtCNAx7FNvbhO39CHOs3EEWKSalq5GuTu8jqS7VZPleAQprxmEH02stkYXee3Cmb
-         MX4QY/MF0YahtK65J8eqy7iup4/NoMJtURxhyQSdFelF4o35Dh3ZuhnEGfFHH6pxjHKb
-         dg0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5xfLNd70a9iJW7TLASfq9ztkIr5MXc8aGM+GIXNOZK0=;
-        fh=8kiRg7P6IhD+OI7mOKK4rEuonq7CsfyK+rdspbS3R4Q=;
-        b=RdAgNg+oObV7kBouYLKJQO+3iwfBdHqUCHAGrUORurXatAdt3hmHii/l2oHO1eMx5p
-         LBecUSobLgFC3NnSXmrl8vAgnR2/MquZlYJreCTG6DrytY40Id3qihK1LI1DCGvum4ox
-         73qTHy9rpFnFGlm25ONMWOeUSRHkXsYnpdl4eMso+FrQGb1CzRKwfwhvuwWaAZorVK2c
-         fZDkQgKGMwQ3Le7Fcz2KaBKVFAhaPVgKL3TK+z/1Mm9ISy1yM/+7N1joCZU44zlAHOOz
-         L42FkHI3Ina1M+AyX5rGCHFyc4T6zM7WkRQXJLUt5xeFIePUbZEKbOqjkWS2i1/L2Llr
-         AQjw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B0MNLtWQ
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdb681de50eso234844a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:12:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793905892; x=1794510692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=google.com; s=20260707; t=1793905942; x=1794510742; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5xfLNd70a9iJW7TLASfq9ztkIr5MXc8aGM+GIXNOZK0=;
-        b=Gguh5mw1KI6YBUsJFzC/Hk6S/1l0z07HBEw6ry59/x0/EYnGs0ARcmd8QeRIpPl7+l
-         8+GtqlOVfnZgPU6qCcvm8TS/TrSF6HRjkRlfyeZ7DP9t/gFx/5AsNGKrUqcLLELImjMk
-         jQF7OfOFBkOosjPUTcKF5dK/nqlYU/vlWYcWCQanUHsQJc2iFmjI/X5lXxs4Plx44UpS
-         DD11gjLzF2dIHd/VA95jSZPWRigF7VX8NUE/7tS9Cx4gCnUUfxKUnWPHFmRRxeBK1lf5
-         7wrdOP/98n3ig7v0ix0WPpWzGT94G1alpMDOGNjw66uBhuX7kHTfM1iPmbYkIUhDTKhj
-         11sQ==
+        bh=QH8EWm3WpJvKmm+3SH11RyockHxBeCCGhqou8vP+rPk=;
+        b=B0MNLtWQGjDmicRxY8nTu69DmYdME/D2jJN8rX+nGAlTMa5/iKX0Zivd7mhh+flPfs
+         xy3ZoNN4HgIKW4K4+mbAoNWhsSmDgb1P3WgIZCjZvecSakD2rB4XrTL8WwonQtbvNgZ8
+         h8p2WNu5k95YFljALG1jMJJ03s4qGmEUPwOwManEDxZ+GcL/xuiqjJVeLqmp+5UyzAW6
+         9EH7p2MmwcpUJDnOC5R25PxQkZi+0TuqQnMBjToaTQ/j5/LnlqaqNQd3J93XCaF2MN6H
+         E7WHw7qCt48+ehLyUoviWDEPPA7ju+e/24ge/Nj8T6fML4Ui3s4IgQMHHYqUJVnOXFuq
+         B5Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793905892; x=1794510692;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793905942; x=1794510742;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5xfLNd70a9iJW7TLASfq9ztkIr5MXc8aGM+GIXNOZK0=;
-        b=UIOwTR0yLlq0V0PehNdPDUbrkRGpvwDeJmF1ctInSUW1i8Meda7Wzl/E8PQrdaFNxQ
-         RWLolHMPIjqH2ZPtJElWXhGsetJGQdOhAKVsZMfvbuzI85XCMf+ot/UPVG69iG5Hs+r8
-         MASOAAe5jCkLFx6EK5aoRsTHmjyGEr/yaKuWFWujEEmLUzY87gF+TYjcBMZNz6ZT8t4s
-         pmpwLCSlCNVwflCKYKcZQP9efxu9DbKWw4M6XaR0JTF1fahfSVS6LSdgL5u1D6VyWEUn
-         0WskegIrclD0OSO2l2ZhJZztB5uQSg2ugxXwOMEwLNTTR4/QI3GF7KsM97zQOo3BpbHW
-         F1kA==
-X-Forwarded-Encrypted: i=1; AKwUvByeHXDYPUu3F2rm4guSnOEwAM4wrpd9L/8bbqbIRL7DvsCTKJgQg6jNwXHDvSqUDu2T/bKAMhFke1+4yu0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SzomUBha3a7GegXQktTu8UUDaUM5inVppyt7IGnYQqF8bR1hf
-	b6/2WCcpy6ytHuBMFowC6FSpQF6HIT7GO81SK6n5Vet5NS9ULY8yo72Zkb6X58eE/M93mK+jcsN
-	ElMXKWlCUyJQ4w56FVwgISU3FCNu6IUQ=
-X-Gm-Gg: AYBFou0Dj/FjxwNBUsaQGAJht9XJQdeVGwgdiK8N28/zBIrNPytoxNvfJitBHn4QeP/
-	ZbI7qf8KYmRF77SasB7ydUPYG6FCwe/Ed+aMXkspgX5YI5xlsd82poa6dwtzXsIBeCCsyAW6VYf
-	lMk8BsyzzJ731SeqHMKr5G+Q+RARZhNfOP8MUEDlG3Hb/lhmmR5RoFTaxfxskfkvpN5Au5sKM+N
-	F6Ps40jMk09ovAQrbv7vKihwHFdEb3hCJG8rodijKBheqgDAd41x8e0Mm7adp4s5jK90mtevbJL
-	4mJ/RFVCf9++Sd61s7iXjZaYCkTQDBusVCWgrbbXTXCrGmZvOTGkAYc8tOOIUb4M5TJ4e8Bf73N
-	rwHeM4CxMLn9nqF86W2tRHw7bq79iTBUJd1WrBx3kmDSOtN4oFb018birLM+CPTDnT/Fw7RjAqC
-	XYk+ACwEThk03ddkuf8tgILQ==
-X-Received: by 2002:a05:6402:2742:b0:6b5:76be:62e0 with SMTP id
- 4fb4d7f45d1cf-6b5977ef792mr143941a12.35.1793905892223; Thu, 05 Nov 2026
- 11:11:32 -0800 (PST)
+        bh=QH8EWm3WpJvKmm+3SH11RyockHxBeCCGhqou8vP+rPk=;
+        b=u7V453IRAub6IXlQ1ZuJAxe1IWS3Nna6w0NCRcfg2OvK8hGGl3SfrnLwWzZ7PEGvw2
+         TPwJi/SBNkSNIw0J2iWdEnjE3J92xLjYV2XzWdh+ULQZ2usjC5eoChDLH6joTpZCXKOb
+         7C1O5giku4hhr0nWRMUBucuYo+qqiPQ8lsG46jeAIfc+c+AjvX4d3Wf7TUv/FQ2lMxTg
+         Dd2W3gWK0v2D2rVN1TCB9KsIVqgei+LAwpKzFww0867SkRNj+D7RHq/NcD9KrtCU4VK7
+         z4yzbw4Vfrm520rsoYxFNBqjM4wCBLnCbgFaIcX3w8JzYCJFrAt+an3ZliZ0v24+asG7
+         3Eig==
+X-Forwarded-Encrypted: i=1; AKwUvBzhFCPz4CwBSRh5Xeh0k2SZpPlq5MZAcZuU3GCvz6jBTCpHloySWZMVS8qiJA12wu9btXeZplcfgJa69H0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9T4xlxVPq7/Z4ccpJcEBexFLesfgHnDyBLKe3Wf5aXSyO9kuwb
+	NdC9uWbJb6Z2PH3/HxzL7Oh7CqpIdd6/Xmqge/6qXxhjZFM+ZOtw9twoqp5BYGGIDA==
+X-Gm-Gg: AYBFou3gAyOf2A/plFGwyy0l5T4s7/x5bHbwZYtNauJvEZyuRDBBYxQBhy44zLy8G6n
+	aHGts95FOx64zzF8nFkJzhwsAF4DujqyEV7HURVvGUcU3ZLJ6kRhnx1joqOZ055+ceL7K3Y6Ccm
+	xKj0Ae4LLpNR0aUSuj9C7CYfktQ98Mbl9eW/Zd8BhewkNSIwfO7itKblUtMf4sdfk9SOay4OA91
+	urrll5gdvzlbKzkXipZDmfddzvd27PcU7El9Amqx8Jf6ZTcGbx7NZX8DvUgSCbR+D2azx/UKxjd
+	NPN8jLhxQJ6udGAQCQb7EKiwsDkPZmIUWC03l2tkTDzHbp8p0djsZo++rW4qppanSQ4YOeNJm2G
+	5S6itv9iiE4FCYVfKVdn65EFliT2Gd8JlQpsloIwOlUX5npbzScvp45dn2HG5BZs3bseJ9bjB23
+	ny+BlGM4uCkn9bErL5che65OMPTjnk508jQWv+e9atDXFxY60bUoOUDFFBFI8LeOLeVXanO86i5
+	xDORjsSnUhY9DH+k95HOZ+wtzhDndv37mjV4Tv/QzLYK7/j+889Ed1SKNO3MDZ9K0QQx0SfWpt+
+	u1gAYR56PElvUparGy64tyF1y6J6JbjgpURlr9yi94nihAKZVaqUCHeAB8CoELhr
+X-Received: by 2002:a17:90b:268a:b0:3ac:7c52:faeb with SMTP id 98e67ed59e1d1-3ae89769d66mr17879218a91.41.1793905941532;
+        Thu, 05 Nov 2026 11:12:21 -0800 (PST)
+Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944eb1d1sm5401592a91.0.2026.11.05.11.12.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:12:20 -0800 (PST)
+Date: Thu, 5 Nov 2026 19:12:17 +0000
+From: David Matlack <dmatlack@google.com>
+To: Vipin Sharma <vipinsh@google.com>
+Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-pci@vger.kernel.org,
+	ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com,
+	ankita@nvidia.com, apopple@nvidia.com, bhelgaas@google.com,
+	chrisl@kernel.org, christian.koenig@amd.com, corbet@lwn.net,
+	graf@amazon.com, jacob.pan@linux.microsoft.com, jgg@nvidia.com,
+	jgg@ziepe.ca, jrhilke@google.com, julianr@linux.ibm.com,
+	kees@kernel.org, kevin.tian@intel.com, leon@kernel.org,
+	leonro@nvidia.com, lukas@wunner.de, mattev@meta.com,
+	michal.winiarski@intel.com, parav@nvidia.com,
+	pasha.tatashin@soleen.com, praan@google.com, pratyush@kernel.org,
+	rananta@google.com, rdunlap@infradead.org, rientjes@google.com,
+	rodrigo.vivi@intel.com, rppt@kernel.org, saeedm@nvidia.com,
+	schnelle@linux.ibm.com, skhan@linuxfoundation.org,
+	skhawaja@google.com, vivek.kasireddy@intel.com, witu@nvidia.com,
+	yanjun.zhu@linux.dev, yi.l.liu@intel.com
+Subject: Re: [PATCH v6 07/27] vfio/pci: Preserve vfio-pci device files across
+ Live Update
+Message-ID: <auzVEUpFEoWltpVg@google.com>
+References: <20261102153656.1431701-1-vipinsh@google.com>
+ <20261102153656.1431701-8-vipinsh@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,81 +113,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-alpha-profileme-v6-0-63362e9290a3@gmail.com> <20261104-alpha-profileme-v6-12-63362e9290a3@gmail.com>
-In-Reply-To: <20261104-alpha-profileme-v6-12-63362e9290a3@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 5 Nov 2026 20:11:20 +0100
-X-Gm-Features: AclHuK_C_Cie3ArOrjKqlHZt7jfTNl-4Nhbo7AW6B15vErDFBBi4J5x1cuUYTes
-Message-ID: <CA+=Fv5SxHnUTDzV0R_E8KdiASOUijsSSgWFwmy=WmAdvUi3iOQ@mail.gmail.com>
-Subject: Re: [PATCH v6 12/13] alpha/perf: sample only retired instructions for
- precise events
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102153656.1431701-8-vipinsh@google.com>
 
-Hi Matt,
+On 2026-11-02 07:36 AM, Vipin Sharma wrote:
+>  * TOCTOU synchronization: vfio_pci_dev_is_frozen() is checked locklessly
+>    on entry to the ioctl, read/write and mmap paths, and re-checked under
+>    a lock that freeze() holds before any operation that could change the
+>    device or vconfig: under vdev->igate in vfio_pci_ioctl_set_irqs() and
+>    around every config-space write in vfio_pci_config_rw_single(), under
+>    vdev->memory_lock in vfio_pci_runtime_pm_entry(),
+>    vfio_pci_ioctl_reset() and the SR-IOV enable path of
+>    vfio_pci_core_sriov_configure(), and under dev_set->lock in
+>    vfio_pci_dev_set_hot_reset(). A racing operation thus either completes
+>    before freeze() takes its snapshot or fails, while existing BAR mmaps,
+>    ioeventfds and dma-bufs keep working. Serializing config writes on
+>    igate covers the PCI_COMMAND, INTx disable emulation, power state and
+>    FLR paths at one point (the INTx disable emulation now uses the
+>    igate-held __vfio_pci_intx_mask() and __vfio_pci_intx_unmask()
+>    helpers), and also serializes the irq_type and virq_disabled accesses
+>    of config writes with VFIO_DEVICE_SET_IRQS.
 
-On Wed, Nov 4, 2026 at 7:49=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> ProfileMe samples include instructions killed on a wrong path, which
-> show up as hot spots in perf report although they did no work. On an
-> EV7 loop with a randomly mispredicted branch, 19% of the samples were
-> killed before being mapped and another 48% later.
->
-> PEBS and AMD IBS op samples are of retired instructions only, so make
-> precise_ip imply the retired filter, unless filters are given. The
-> profileme bit still selects every sample. With cycles:p, both kinds of
-> killed sample went to 0%.
->
-> DTB miss samples, whose instruction is aborted, are then dropped too:
-> cycles:p reports DTB hits only, and the misses need cpu/cycles,trapped/p.
->
-> The kept samples carry the full period, as do those AMD IBS keeps when
-> its swfilt discards others. So in frequency mode the sample rate, and
-> the event count perf report estimates from the periods, fall by the
-> share of killed instructions: to about a third on that loop.
->
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/kernel/perf_event.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index 32a8b5c98381..7e34eac0ea47 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -837,6 +837,11 @@ static int __hw_perf_event_init(struct perf_event *e=
-vent)
->         if (attr->config1 && !profileme)
->                 return -EINVAL;
->         hwc->config =3D attr->config1;
-> +       /* As with PEBS, precise samples are of retired instructions. */
-> +       if (attr->precise_ip && !attr->config1 &&
-> +           !(attr->type =3D=3D PERF_TYPE_RAW &&
-> +             (attr->config & ALPHA_PERF_CONFIG_PROFILEME)))
-> +               hwc->config =3D ALPHA_PERF_CONFIG1_RETIRED;
->
->         if (attr->type =3D=3D PERF_TYPE_RAW &&
->             (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
->
-> --
-> 2.55.0
->
+I think there's a simpler way to do this. Checking the frozen flag
+locklessly and then re-checking it under whichever lock covers each
+path spreads the synchronization across igate, memory_lock and
+dev_set->lock. That makes it hard to convince yourself every path that
+can change the device is covered. It also makes every config space
+write take igate, for all vfio-pci users, even when
+CONFIG_VFIO_PCI_LIVEUPDATE=n.
 
-All 77717 instructions:p samples I checked on my ES40 matched the
-retired predicate. Using cpu/event=3D2,profileme=3D1/ gave me the
-unfiltered view, including the DTB miss samples.
+Instead, I suggest adding a per-device rw_semaphore to struct
+vfio_device in the VFIO core, e.g. liveupdate_rwsem, that protects a
+liveupdate_frozen flag:
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+ - vfio_device_fops_unl_ioctl(), vfio_device_fops_read() and
+   vfio_device_fops_write() take liveupdate_rwsem for read and fail
+   with -EIO if the device is frozen. That covers every device ioctl in
+   one place, including the ones handled by the VFIO core
+   (VFIO_DEVICE_FEATURE, VFIO_DEVICE_GET_REGION_INFO and
+   VFIO_DEVICE_{ATTACH,DETACH}_IOMMUFD_PT). This patch doesn't block
+   the last two at all today.
+
+ - freeze() and unfreeze() take liveupdate_rwsem for write, before any
+   other lock, and flip the flag. preserve() doesn't need it since it
+   only serializes state that doesn't change after the device is
+   opened.
+
+Putting this in the VFIO core also means other VFIO drivers can reuse
+it if they add Live Update support in the future.
+
+The lock order then becomes:
+
+  liveupdate_rwsem -> dev_set->lock -> igate -> memory_lock
+
+freeze() can still take igate and memory_lock to check irq_type,
+pm_runtime_engaged and sriov_active. But the ioctl, read and write
+paths no longer need to re-check anything under those locks. So you
+can drop the igate change in vfio_pci_config_rw_single(), the
+open-coded vfio_pci_zap_and_down_write_memory_lock() in
+vfio_pci_runtime_pm_entry() and vfio_pci_ioctl_reset(), and the
+smp_load_acquire()/smp_store_release() pair.
+
+Two paths still need their own handling because they don't go through
+the device's file:
+
+ - vfio_pci_core_sriov_configure() is reached through sysfs. Take
+   liveupdate_rwsem for read around the frozen check and the
+   sriov_active update.
+
+ - VFIO_DEVICE_PCI_HOT_RESET issued on one device also resets the other
+   devices in its dev_set. Keep the check in
+   vfio_pci_dev_set_hot_reset() under dev_set->lock. freeze() sets the
+   flag while holding both liveupdate_rwsem and dev_set->lock, so
+   holding either one is enough to read it. Please don't take the other
+   devices' liveupdate_rwsem there, since that would invert the lock
+   order relative to freeze().
+
+I don't think mmap needs to be blocked at all. Creating a new mapping
+doesn't change the device or any of the state that gets preserved, and
+existing mappings already keep working while the device is frozen.
+Leaving mmap alone also avoids taking liveupdate_rwsem under mmap_lock,
+which could deadlock: the ioctl, read and write paths can fault on user
+memory (taking mmap_lock) while holding liveupdate_rwsem for read, and
+freeze() may be waiting for the write lock. Please update the comment
+in freeze() and the DOC section to match.
+
+> diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
+> index 9914f3ac69ae..1f1ac7a798aa 100644
+> --- a/drivers/vfio/pci/vfio_pci_config.c
+> +++ b/drivers/vfio/pci/vfio_pci_config.c
+> @@ -644,10 +644,10 @@ static int vfio_basic_config_write(struct vfio_pci_core_device *vdev, int pos,
+>  
+>  		if (virt_intx_disable && !vdev->virq_disabled) {
+>  			vdev->virq_disabled = true;
+> -			vfio_pci_intx_mask(vdev);
+> +			__vfio_pci_intx_mask(vdev);
+>  		} else if (!virt_intx_disable && vdev->virq_disabled) {
+>  			vdev->virq_disabled = false;
+> -			vfio_pci_intx_unmask(vdev);
+> +			__vfio_pci_intx_unmask(vdev);
+>  		}
+>  	}
+
+With the rwsem, config writes no longer need igate, so this change
+isn't needed. If config writes and VFIO_DEVICE_SET_IRQS really do race
+on irq_type and virq_disabled today, that's unrelated to Live Update.
+Please send it as a separate fix.
+
+Lastly, please add the freeze infrastructure and the checks in their
+own commit ahead of this one, e.g. "vfio: Add infrastructure to freeze
+devices for Live Update". Then this patch only has to implement
+freeze() and unfreeze() on top of it, which will make both easier to
+review.
