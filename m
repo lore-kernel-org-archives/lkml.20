@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793911011;
-	b=NINFLyD4kIAExEocEq6T2y4efoMtD9Aa7z1Dd/O0FFtHqmULC9/D/Uk1wES5rtycBD/l
-	 J8kMd6W4XbdjxLBiu2ranjNIj7qYJ91YPBoLq6qAtZ+F1jrbKV7P/9PyI4ei8vIcn/TGk
-	 IflU4EocvTUNbY8L56ZrOilcqvQnCsULs9L7r4SPkZn8UoVrFFPQjR4EwGyeLQq3jer7r
-	 7Xr3G2Ez1xM0+ogaf71bj5KfbziULhUBLvoWj4iOa2XagVaUD2haLQCsAxYgxtK6ettNm
-	 ccZ2yz3/+wJ9cUgubl47z3h0iSk9CRWgevN7HrpHU2KJUUXrzVKb2XdI2N37MsoYsAA==
+	t=1793911080;
+	b=nwpDtfYQY2Kpv3T79hfpcbkGmPbKfQ+dnqVnSMqjjc4Fd7+oEF0RqrLMmFZCLz/1vfCw
+	 9JAEe0OClT1JxqUQw6jbpRjkz/UIPNPwMu4DYYxvNGRO8BFRADFEKF4F/gzJMds9K4J1v
+	 rYnxrqrsvC4Rxm4crWohz3LMCIogw/RMK6yDC6VpRjJpKh6d9uMBtHefLF9U+0S8YKvtS
+	 NKirPl+JBUfkfFafPDwh6xXOaoQqYQJNrhKKbmJ6fz3c/VXaomIA11075t9A2/B+qGUC4
+	 jd7NFIM/FfndJyKAFrajN2n+hF3mZtaCEt5jcB0N976k3/GWatYWb44PD2Qa+5x/lYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911011;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Aksn1xaVgHle35uS+1fBiwvzomWYK3pQA4w7I7bCnB0=;
-	b=xBWaPYduWJF8D0Kd6TBdY/WPX9HOBddfjI64lmCslI+foNwnS/8i7sF9JOnb9vGZVXXl
-	 JcMAj5q7UP5HMVCJDhDmqqLfg2uBz78cNJAoe1XNY6jbhiuRPOYz9lmYnk5yikja49vYx
-	 XFNzSamPpWMG/kkZ/xKdzCdD06dt0ewVJtQuNUlysOB3N9b7s6R4JbHX6skg0AbzEbOcv
-	 ggDs7Arn9odEXj6mEHCyaR6jZTdPvFkPd18GJ85Lz9h5edHmYU4YozaIMUIRnwZ2N7hh+
-	 SPQnNGOG04WtJnKOFMqQ7eSRK9fGVoN02ywPWxsPcOe64yE64dse/OYuK0WPwWfcIFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911080;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kFERB1YnJZQ7J8N8Vjl6e8gBTQxfUW162xiJH7KJiMc=;
+	b=v0+Bas3f6G768kboArpjR6h+dnXxqCNC2iT7S0Y4fLt2p0mqWzz7+uM8W5cqe73sckfg
+	 4JVU6lMOCx/plw27AJ5m7cGql8V3x4qDDdwISiYb+TuP2Wtp+EsxvtQLvxu2sst7jIDA8
+	 sWvcu/qpXqgrPtayQt8GRQEH/rSeyhQnxninZXOQUkxynAKN9C8W4IdAR5kWw1IprV875
+	 PJnFYmeRUZYgeWo5YNVus6BZ7YDcNVgO6W0qyeTiIRP3RZlYp5h38MS3824aMivcB8Oa/
+	 /+5ZtnDMIaswDpWc6vV7E0c9Zt0J5uX71wKLEnJl6ifB2ZZl1zVQIC1xuQZm/H95nHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=LohdS9Pu;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dbEfWOqF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4317606D801;
-	Thu,  5 Nov 2026 20:36:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4317606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54B3606A32F;
+	Thu,  5 Nov 2026 20:37:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=LohdS9Pu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1793911008;
-	bh=Aksn1xaVgHle35uS+1fBiwvzomWYK3pQA4w7I7bCnB0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LohdS9Pu3jJnWKSs1batg9FmWx//06UG+D5K53D1BHyPRTSddCMjcKFYORnmwXYg5
-	 wb/j+Yx8pqMvevUIPnaBTdJIOD2Hw66ZWWgJbeMnhYwTUzAjqo61fRv/1LIZoKrDWE
-	 XuzTIQxA1BDtjIGhUw9kZfy7NvVV/24Tvhg8U+/DiG8oqxSzuAPkdEZxIOBjBVmOeU
-	 S2t29DDEvbxp1gwu6Aw+/d5gUx5cBePq3JapbjO/TmKUZfJyBraX2V0zb0xi2J5YMJ
-	 pNl0+v4YuMysMn5rCzEsvh/6vG1/0tX+Khrw/9nxxwkYOK4YnPj1PKrhpH3DAQfqu+
-	 ggaTqcipL2ETQ==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLDcc4zKfzLrP;
-	Thu, 05 Nov 2026 15:36:48 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: David Hildenbrand <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Martin Liu <liumartin@google.com>,
-	David Rientjes <rientjes@google.com>,
-	christian.koenig@amd.com,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	SeongJae Park <sj@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Yu Zhao <yuzhao@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Aboorva Devarajan <aboorvad@linux.ibm.com>,
-	David Carlier <devnexen@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-trace-kernel@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Oleg Nesterov <oleg@redhat.com>
-Subject: [RFC PATCH v24 07/10] mm: keep the RSS counters of single-threaded processes exact
-Date: Thu,  5 Nov 2026 15:36:36 -0500
-Message-Id: <20261105203639.1459524-8-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
-References: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dbEfWOqF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1EF1F0089F;
+	Thu,  5 Nov 2026 20:37:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793911079;
+	bh=kFERB1YnJZQ7J8N8Vjl6e8gBTQxfUW162xiJH7KJiMc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dbEfWOqF0nWBxai9vV12XaRkr44G6/iPt+1zOArNFr0MrunrJJ/lPqXPZVPT1Cocu
+	 HFOSUAQBJZhMxbfw4qlS9MYOmgsVzPYCPKBmSTM6LUjiVlItsHVRxuzD8L8eC9kz1K
+	 dh9QXfyrUO9/jw2rf0X8v2+rfI82HU6ytKwZypzygqtNqm/zad2U268KoihY3zXaCf
+	 YFpFYAoCV7ChoSdpQA9FYxGqFfl7KfvZbQ4Q6dByQRDU9SQlNeJM28yWZnuAQFUfsn
+	 X7+HLtWy/r/LRn8QEB8OIsw8hR5M20tlFLwVqOol2I73CX+to8jxXEeaSTsPYE5QO4
+	 d2CPJowac60Ng==
+Message-ID: <ecad7b3c-7244-425a-9413-04d49f221057@kernel.org>
+Date: Thu, 5 Nov 2026 21:37:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,327 +51,406 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 01/18] mm: free PG_rcu_free folios only after an
+ RCU grace period
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Jan Kara <jack@suse.cz>,
+ Hugh Dickins <hughd@google.com>, Christian Brauner <brauner@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Harry Yoo <harry@kernel.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Oscar Salvador
+ <osalvador@suse.de>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Pedro Falcato <pfalcato@suse.de>,
+ Luis Chamberlain <mcgrof@kernel.org>,
+ Ilya Gladyshev <ilya.gladyshev@linux.dev>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ kernel-team@meta.com
+References: <20261104130118.2507513-1-kas@kernel.org>
+ <20261104130118.2507513-2-kas@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261104130118.2507513-2-kas@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Until a second thread shares the mm, initialize the RSS counters lazily,
-without their counter tree: the task owning the mm adds to a plain
-counter, and other tasks, such as reclaim, khugepaged, the OOM reaper or
-remote GUP, add atomically.  The RSS counters of single-threaded
-processes are therefore exact, their precise sums for /proc/PID/status,
-/proc/PID/statm and the OOM killer take O(1), and they use no per-cpu
-memory.  The readers of the approximation, such as /proc/PID/stat, the
-RSS high watermark and the rss_stat tracepoint, get the exact value for
-these processes.
+On 11/4/26 14:00, Kiryl Shutsemau (Meta) wrote:
+> From: Linus Torvalds <torvalds@linux-foundation.org>
+> 
+> Reading a page cache folio without taking a reference would keep CPUs
+> that read the same file from bouncing its refcount.  But without a
+> reference the folio can be freed, and its memory reused, while the
+> reader copies from it.
+> 
+> Add PG_rcu_free: the free of a folio with the flag waits for an RCU
+> grace period.  A reader that saw the flag under rcu_read_lock(), and
+> then still found the folio where it looked, can read it until
+> rcu_read_unlock().  A split copies the flag, as such a reader may still
+> be reading the new folios.
+> 
+> The folios wait on per-CPU lists, one grace period in flight per CPU:
+> call_rcu() per folio would queue a callback for every folio of a
+> truncated file.  A work, which can reschedule, frees each batch.
+> Reclaim depends on these frees, so the workqueue is WQ_MEM_RECLAIM.
+> 
+> The flag is 64-bit only (CONFIG_PAGE_RCU_FREE): page flags are scarce
+> on 32-bit, and the contention this avoids is a problem of large
+> machines.  It is off on PREEMPT_RT, where expedited grace periods are
+> normal ones, so the waiting pages cannot be freed quickly when memory
+> runs short.
+> 
+> pgfree_rcu in /proc/vmstat counts the deferred pages.  Nothing sets the
+> flag yet.
+> 
+> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+> [kas: rework for flagging at read time, 64-bit only and not PREEMPT_RT,
+>  shorter comments and changelog]
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  include/linux/page-flags.h     |  21 +++++++
+>  include/linux/vm_event_item.h  |   1 +
+>  include/trace/events/mmflags.h |   7 +++
+>  mm/Kconfig                     |  15 +++++
+>  mm/huge_memory.c               |   1 +
+>  mm/memory-failure.c            |   4 ++
+>  mm/page_alloc.c                | 105 +++++++++++++++++++++++++++++++++
+>  mm/vmstat.c                    |   1 +
+>  8 files changed, 155 insertions(+)
+> 
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index 7a863572adce..a1e52a1f8a52 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -111,6 +111,9 @@ enum pageflags {
+>  	PG_swapbacked,		/* Page is backed by RAM/swap */
+>  	PG_unevictable,		/* Page is "unevictable"  */
+>  	PG_dropbehind,		/* drop pages on IO completion */
+> +#ifdef CONFIG_PAGE_RCU_FREE
+> +	PG_rcu_free,		/* free only after an RCU grace period */
+> +#endif
+>  #ifdef CONFIG_MMU
+>  	PG_mlocked,		/* Page is vma mlocked */
+>  #endif
+> @@ -602,6 +605,24 @@ FOLIO_FLAG(dropbehind, FOLIO_HEAD_PAGE)
+>  	FOLIO_TEST_CLEAR_FLAG(dropbehind, FOLIO_HEAD_PAGE)
+>  	__FOLIO_SET_FLAG(dropbehind, FOLIO_HEAD_PAGE)
+>  
+> +/*
+> + * A lockless lookup that sees PG_rcu_free and then still finds the folio
+> + * where it looked may read it until rcu_read_unlock().  Set under a
+> + * reference, cleared only by the free.  Not for hugetlb or
+> + * free_pages_nolock().
+> + */
+> +#ifdef CONFIG_PAGE_RCU_FREE
+> +FOLIO_TEST_FLAG(rcu_free, FOLIO_HEAD_PAGE)
+> +	FOLIO_TEST_SET_FLAG(rcu_free, FOLIO_HEAD_PAGE)
+> +	__FOLIO_CLEAR_FLAG(rcu_free, FOLIO_HEAD_PAGE)
+> +#define __PG_RCU_FREE (1UL << PG_rcu_free)
+> +#else
+> +FOLIO_TEST_FLAG_FALSE(rcu_free)
+> +	FOLIO_TEST_SET_FLAG_FALSE(rcu_free)
+> +	__FOLIO_CLEAR_FLAG_NOOP(rcu_free)
+> +#define __PG_RCU_FREE 0
+> +#endif
+> +
+>  #ifdef CONFIG_HIGHMEM
+>  /*
+>   * Must use a macro here due to header dependency issues. page_zone() is not
+> diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
+> index 2628ccda076a..cbe849701653 100644
+> --- a/include/linux/vm_event_item.h
+> +++ b/include/linux/vm_event_item.h
+> @@ -36,6 +36,7 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
+>  		FOR_ALL_ZONES(ALLOCSTALL)
+>  		FOR_ALL_ZONES(PGSCAN_SKIP)
+>  		PGFREE, PGACTIVATE, PGDEACTIVATE, PGLAZYFREE,
+> +		PGFREE_RCU,
+>  		PGFAULT, PGMAJFAULT,
+>  		PGLAZYFREED,
+>  		PGREUSE,
+> diff --git a/include/trace/events/mmflags.h b/include/trace/events/mmflags.h
+> index 935893e5ea53..47c3411a75e8 100644
+> --- a/include/trace/events/mmflags.h
+> +++ b/include/trace/events/mmflags.h
+> @@ -117,6 +117,12 @@ TRACE_DEFINE_ENUM(___GFP_LAST_BIT);
+>  #define IF_HAVE_PG_IDLE(_name)
+>  #endif
+>  
+> +#ifdef CONFIG_PAGE_RCU_FREE
+> +#define IF_HAVE_PG_RCU_FREE(_name) ,{1UL << PG_##_name, __stringify(_name)}
+> +#else
+> +#define IF_HAVE_PG_RCU_FREE(_name)
+> +#endif
+> +
+>  #ifdef CONFIG_ARCH_USES_PG_ARCH_2
+>  #define IF_HAVE_PG_ARCH_2(_name) ,{1UL << PG_##_name, __stringify(_name)}
+>  #else
+> @@ -152,6 +158,7 @@ TRACE_DEFINE_ENUM(___GFP_LAST_BIT);
+>  	DEF_PAGEFLAG_NAME(swapbacked),					\
+>  	DEF_PAGEFLAG_NAME(unevictable),					\
+>  	DEF_PAGEFLAG_NAME(dropbehind)					\
+> +IF_HAVE_PG_RCU_FREE(rcu_free)						\
+>  IF_HAVE_PG_MLOCK(mlocked)						\
+>  IF_HAVE_PG_HWPOISON(hwpoison)						\
+>  IF_HAVE_PG_IDLE(idle)							\
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index 604c58199acb..6e5341b0bf64 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -718,6 +718,21 @@ config PCP_BATCH_SCALE_MAX
+>  	  latency.  This option sets the upper limit of scale factor to limit
+>  	  the maximum latency.
+>  
+> +config PAGE_RCU_FREE
 
-The owner, mm->rss_owner, is the task running on the mm: the child in
-dup_mm(), or the task in exec_mmap(), which also clears it from the mm
-it leaves, as exit_mm() does.  It stays NULL, which matches no task, in
-the mm of exec() until exec_mmap() and in those of the other users of
-mm_alloc(): all their updates are atomic.  It is only compared with
-current, never dereferenced, so a single task writes the plain counter,
-including while a vfork() child shares the mm.  mm->owner (CONFIG_MEMCG)
-is not used, because mm_update_next_owner() hands it over to another
-task while a vfork() child may still update the counters.
+I think we really want to focus this only on folios (like the current code does).
 
-copy_mm() activates the counter tree when a thread is created with
-CLONE_VM, except for vfork(), whose parent waits while the child shares
-the mm.  mm->rss_stat_mutex serializes the activations, as
-mm->mm_cid.mutex serializes the mode changes of mm_cid at fork and exit,
-without relying on which tasks can create threads.  Once the tree is
-active, thread creation no longer takes the mutex.  This moves the
-allocation of the per-cpu counters and tree items of the RSS counters
-from fork() to the creation of the second thread of a process, which
-returns -ENOMEM if it fails, as fork() could before.  The tasks the
-kernel creates with CLONE_VM for a process, such as the io_uring workers
-and the vhost tasks, also share its mm: a single-threaded process using
-them gets the counter tree.  The updates made before the activation stay
-in the single counters, which the sums keep reading, so updates racing
-with the activation are not lost.  Once the tree is active,
-__add_mm_counter() no longer reads rss_owner, so the updates of the
-threads of a process do not pull in its cache line, which other
-mm_struct fields share.
+FOLIO_RCU_FREE ?
 
-The tree stays active when the process returns to a single thread:
-going back to the single counters would need a grace period for the
-remote updaters, and a process alternating between one and two threads
-would pay for each switch.
+> +	def_bool y
+> +	depends on 64BIT
+> +	depends on !PREEMPT_RT
+> +	help
+> +	  Reads from the page cache can copy from folios that are read
+> +	  again and again without taking a reference on them, so small
+> +	  reads of one file from many CPUs do not contend on the folio's
+> +	  reference count.  The cost is that memory freed from such
+> +	  folios becomes reusable only after an RCU grace period.
 
-Before the activation, the updates of tasks other than the owner are
-atomic additions to one word per counter: concurrent remote updates
-of the same single-threaded process from many CPUs, such as direct
-reclaim unmapping its pages, contend on it.
+While that description is helpful, that's not really what this patch, or rather
+the basic infrastructure in page_alloc, does.
 
-* Testing results:
+I'd suggest to have a dedicated FOLIO_RCU_FREE config and maybe another one
+(that selects/depends on) FOLIO_RCU_FREE that actually enables the pagecache use
+and documents the details.
 
-Test hardware: 2 sockets AMD EPYC 9654 96-Core Processor (384 logical
-CPUs).
+> +
+> +	  64-bit only: it takes a page flag, and those are scarce on
+> +	  32-bit.  Not on PREEMPT_RT, where expedited grace periods are
+> +	  normal ones, so freeing the waiting pages on demand would stall.
+> +
+>  config PHYS_ADDR_T_64BIT
+>  	def_bool 64BIT
+>  
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 1e5d68acf62a..25082949a4ca 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3743,6 +3743,7 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+>  #endif
+>  				 (1L << PG_dirty) |
+>  				 (1L << PG_dropbehind) |
+> +				 __PG_RCU_FREE |
 
-With the test program and the instrumentation described in the patch
-switching the RSS counters to hierarchical counters, in a KVM guest with
-384 vCPUs, each pinned to its own CPU of the host, with the NUMA topology
-of the host, the approximation of the RSS counters of the single-threaded
-program is exact, compared to an 841MB delta for the upstream counters.
-With an idle second thread, which activates the counter tree, the
-hierarchical counters reach a 96MB delta, compared to 845MB for the
-upstream counters.
+That looks a bit odd at first, as it's very different to the other once. But no
+easy way around assuming that the flag is not always around.
 
-On bare metal, with 1000 to 16000 single-threaded processes alive, a
-read of /proc/PID/statm, which computes 3 precise sums, takes 5.3 to
-6.5us, compared to 16.5 to 19.0us with the upstream counters, and a read
-of /proc/PID/status, which computes 4 precise sums, takes 11.4 to
-13.1us, compared to 26.6 to 28.6us.  A fork + exit of a child touching
-no pages takes 116us, compared to 139us (219us compared to 247us when it
-touches 64 pages): its counters are destroyed without 4 precise sums
-over 384 logical CPUs in check_mm(), and neither per-cpu memory nor tree
-items are allocated or freed.
+Maybe we should just have this be a const mask constructed somewhere using BIT()
+and __PG_RCU_FREE etc, instead of having this growing list in this user here.
 
-On bare metal with SMT disabled at runtime, where the upstream batch
-size is 384, will-it-scale page_fault2 with one process is 5.1% faster
-than with the upstream counters, and page_fault3 1.3% faster (one boot
-each, the upstream one on the previous day; the boot-to-boot spread
-reaches 3%, so neither is claimed as a gain).
+>  				 LRU_GEN_MASK | LRU_REFS_MASK));
+>  
+>  		new_folio->mapping = folio->mapping;
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index a8b03e2920ba..7dde7c3c9a0c 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -211,6 +211,10 @@ static bool page_handle_poison(struct page *page, bool hugepage_or_freepage, boo
+>  			return false;
+>  	}
+>  
+> +	/* The free of a hwpoisoned page is not deferred: wait for readers */
+> +	if (release && folio_test_rcu_free(page_folio(page)))
+> +		synchronize_rcu();
+> +
+>  	SetPageHWPoison(page);
+>  	if (release)
+>  		put_page(page);
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 12fac9084c48..a371e92da273 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -1313,6 +1313,96 @@ static inline void pgalloc_tag_sub_pages(struct alloc_tag *tag, unsigned int nr)
+>  
+>  #endif /* CONFIG_MEM_ALLOC_PROFILING */
+>  
+> +/*
+> + * Each CPU has at most one grace period in flight (@queued), covering
+> + * @batch.  Folios freed meanwhile wait on @pending for the next one.
+> + */
+> +struct rcu_free_pcpu {
+> +	spinlock_t lock;
+> +	bool queued;
+> +	struct list_head pending;
+> +	struct list_head batch;
+> +	struct rcu_work rwork;
+> +};
+> +
+> +static DEFINE_PER_CPU(struct rcu_free_pcpu, rcu_free_pcpu);
+> +
+> +static struct workqueue_struct *rcu_free_wq __ro_after_init;
+> +
+> +static void rcu_free_start(struct rcu_free_pcpu *r)
+> +{
+> +	lockdep_assert_held(&r->lock);
+> +
+> +	if (r->queued || list_empty(&r->pending))
+> +		return;
+> +
+> +	list_splice_init(&r->pending, &r->batch);
+> +	r->queued = true;
+> +	WARN_ON_ONCE(!queue_rcu_work(rcu_free_wq, &r->rwork));
+> +}
+> +
+> +static void rcu_free_pages(struct list_head *list)
+> +{
+> +	struct folio_batch fbatch;
+> +	struct folio *folio, *next;
+> +
+> +	folio_batch_init(&fbatch);
+> +	list_for_each_entry_safe(folio, next, list, lru) {
+> +		if (!folio_batch_add(&fbatch, folio)) {
+> +			free_unref_folios(&fbatch);
+> +			cond_resched_tasks_rcu_qs();
+> +		}
+> +	}
+> +	if (folio_batch_count(&fbatch))
+> +		free_unref_folios(&fbatch);
+> +}
+> +
+> +static void rcu_free_workfn(struct work_struct *work)
+> +{
+> +	struct rcu_free_pcpu *r = container_of(to_rcu_work(work),
+> +					       struct rcu_free_pcpu, rwork);
+> +	LIST_HEAD(done);
+> +
+> +	spin_lock_irq(&r->lock);
+> +	list_splice_init(&r->batch, &done);
+> +	r->queued = false;
+> +	rcu_free_start(r);
+> +	spin_unlock_irq(&r->lock);
+> +
+> +	rcu_free_pages(&done);
+> +}
+> +
+> +static void rcu_free_defer(struct folio *folio)
+> +{
+> +	struct rcu_free_pcpu *r = raw_cpu_ptr(&rcu_free_pcpu);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&r->lock, flags);
+> +	list_add_tail(&folio->lru, &r->pending);
+> +	rcu_free_start(r);
+> +	spin_unlock_irqrestore(&r->lock, flags);
+> +}
+> +
+> +static void __init rcu_free_init(void)
+> +{
+> +	int cpu;
+> +
+> +	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE))
+> +		return;
+> +
+> +	rcu_free_wq = alloc_workqueue("rcu_free",
+> +				      WQ_MEM_RECLAIM | WQ_PERCPU, 0);
+> +
+> +	for_each_possible_cpu(cpu) {
+> +		struct rcu_free_pcpu *r = per_cpu_ptr(&rcu_free_pcpu, cpu);
+> +
+> +		spin_lock_init(&r->lock);
+> +		INIT_LIST_HEAD(&r->pending);
+> +		INIT_LIST_HEAD(&r->batch);
+> +		INIT_RCU_WORK(&r->rwork, rcu_free_workfn);
+> +	}
+> +}
+> +
+>  static __always_inline bool __free_pages_prepare(struct page *page,
+>  		unsigned int order, fpi_t fpi_flags)
+>  {
+> @@ -1327,6 +1417,19 @@ static __always_inline bool __free_pages_prepare(struct page *page,
+>  
+>  	VM_BUG_ON_PAGE(PageTail(page), page);
+>  
+> +	/*
+> +	 * Not for a hwpoisoned order-0 page: it never reaches the allocator,
+> +	 * and page_handle_poison() takes a reference right after this free.
+> +	 */
+> +	if (unlikely(folio_test_rcu_free(folio)) &&
+> +	    !(PageHWPoison(page) && !order)) {
+> +		VM_WARN_ON_ONCE(fpi_flags & FPI_NOLOCK);
+> +		__folio_clear_rcu_free(folio);
+> +		count_vm_events(PGFREE_RCU, 1 << order);
+> +		rcu_free_defer(folio);
+> +		return false;
+> +	}
+I'm wondering whether we want to intercept on the folio freeing path instead?
+That would be __folio_put(), before we go into free_frozen_pages() used by other
+machinery that does not apply (slab etc).
 
-* Memory Use
+So maybe this handling could be placed into mm/folio.c instead, just a quick
+thought ... reading about folio batches above I think that might be the right
+direction, we are mixing too much page vs. folio things here.
 
-Per mm, on a 64-bit arch with 64-byte cache lines, including the
-rss_owner pointer and the 24-byte activation mutex, for a
-single-threaded and a multi-threaded process, compared to the upstream
-percpu counters:
-
-                    Bytes per mm
-  nr_cpus fan-out  1 thread  threads  upstream
-        2 2             192      264       192
-       16 16            192      320       416
-       64 16,4          192      768      1184
-      384 8,8,8         192     6400      6304
-     1024 8,8,16        192    13568     16544
-
-A single-threaded process uses 192 bytes for its RSS counters whatever
-the number of CPUs: the 4 counter structures, rss_owner and the mutex in
-mm_struct, compared to the 4 upstream counter structures (160 bytes) and
-their per-cpu memory.  On x86_64 with 16, 384 and 1024 possible CPUs,
-the mm_struct slab object keeps its upstream size (1752, 1872 and 2112
-bytes in /proc/slabinfo).  A multi-threaded process adds nr_cpus bytes
-of per-cpu memory per counter (1536 per mm at 384 logical CPUs),
-compared to 4 * nr_cpus bytes per counter (6144 per mm) for the upstream
-counters, and the tree items, without the rounding of their slab cache.
-fork() no longer allocates memory for the RSS counters.
-
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
----
- .../core-api/percpu-counter-tree.rst          |  7 ++++
- fs/exec.c                                     |  5 +++
- include/linux/mm.h                            | 24 +++++++++++--
- include/linux/mm_types.h                      | 16 +++++++++
- kernel/exit.c                                 |  3 ++
- kernel/fork.c                                 | 35 +++++++++++++++++--
- 6 files changed, 85 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/core-api/percpu-counter-tree.rst b/Documentation/core-api/percpu-counter-tree.rst
-index 138e9b74b0c8..87babe2276c4 100644
---- a/Documentation/core-api/percpu-counter-tree.rst
-+++ b/Documentation/core-api/percpu-counter-tree.rst
-@@ -102,6 +102,13 @@ The activations of the same counters must be serialized by the caller:
- a concurrent activation would publish a second tree and lose the
- updates made to the first.
- 
-+The RSS counters of an mm use this: the task owning the mm updates the
-+plain counter, and other tasks, such as reclaim, update the atomic
-+counter. The tree is activated when a second thread shares the mm,
-+under mm->rss_stat_mutex, which serializes the activations.
-+A single-threaded process therefore has exact RSS counters, cheap
-+precise sums, and neither per-cpu memory nor tree items for them.
-+
- Use Cases
- =========
- 
-diff --git a/fs/exec.c b/fs/exec.c
-index 8d2b14e1d455..7a6f07a6d482 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -875,6 +875,8 @@ static int exec_mmap(struct linux_binprm *bprm)
- 		}
- 	}
- 
-+	/* This task owns the RSS counters of the new mm, see __add_mm_counter(). */
-+	WRITE_ONCE(mm->rss_owner, tsk);
- 	task_lock(tsk);
- 	membarrier_exec_mmap(mm);
- 
-@@ -903,6 +905,9 @@ static int exec_mmap(struct linux_binprm *bprm)
- 	if (old_mm) {
- 		mmap_read_unlock(old_mm);
- 		BUG_ON(active_mm != old_mm);
-+		/* Updates of the old mm by this task are now atomic. */
-+		if (READ_ONCE(old_mm->rss_owner) == tsk)
-+			WRITE_ONCE(old_mm->rss_owner, NULL);
- 		/* Defer teardown to setup_new_exec(), outside the exec locks. */
- 		bprm->old_mm = old_mm;
- 	} else {
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 36242c7ff84f..4d740c0c5f54 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3617,23 +3617,41 @@ static inline unsigned long get_mm_counter_sum(struct mm_struct *mm, int member)
- 
- void mm_trace_rss_stat(struct mm_struct *mm, int member);
- 
-+/*
-+ * Until a second thread shares the mm, the RSS counters are exact single
-+ * counters: the task which owns the mm updates a plain counter, and other
-+ * tasks (reclaim, khugepaged, the OOM reaper, remote GUP, ...) an atomic
-+ * one. See copy_mm(). Once the tree is active, all updates go to it:
-+ * rss_owner is not read, so the updates of the threads of a process do not
-+ * touch its cache line.
-+ */
-+static inline void __add_mm_counter(struct mm_struct *mm, int member, long value)
-+{
-+	struct percpu_counter_tree *counter = &mm->rss_stat[member];
-+
-+	if (!percpu_counter_tree_active(counter) && current == READ_ONCE(mm->rss_owner))
-+		percpu_counter_tree_add_owner(counter, value);
-+	else
-+		percpu_counter_tree_add(counter, value);
-+}
-+
- static inline void add_mm_counter(struct mm_struct *mm, int member, long value)
- {
--	percpu_counter_tree_add(&mm->rss_stat[member], value);
-+	__add_mm_counter(mm, member, value);
- 
- 	mm_trace_rss_stat(mm, member);
- }
- 
- static inline void inc_mm_counter(struct mm_struct *mm, int member)
- {
--	percpu_counter_tree_add(&mm->rss_stat[member], 1);
-+	__add_mm_counter(mm, member, 1);
- 
- 	mm_trace_rss_stat(mm, member);
- }
- 
- static inline void dec_mm_counter(struct mm_struct *mm, int member)
- {
--	percpu_counter_tree_add(&mm->rss_stat[member], -1);
-+	__add_mm_counter(mm, member, -1);
- 
- 	mm_trace_rss_stat(mm, member);
- }
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 20b4517b7329..f0d315d72adb 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -1352,6 +1352,22 @@ struct mm_struct {
- #endif
- 
- 		struct percpu_counter_tree rss_stat[NR_MM_COUNTERS];
-+		/*
-+		 * Task updating rss_stat with percpu_counter_tree_add_owner()
-+		 * until the counter tree is activated by a second thread: the
-+		 * task running on this mm, set by dup_mm() and exec_mmap(),
-+		 * cleared when that task exits or execs, NULL for the other
-+		 * users of mm_alloc(). Only compared with current, never
-+		 * dereferenced. Not mm->owner, which depends on CONFIG_MEMCG
-+		 * and which mm_update_next_owner() hands over to another task
-+		 * while a vfork() child may still update the counters.
-+		 */
-+		struct task_struct *rss_owner;
-+		/*
-+		 * Serializes the activations of the rss_stat counter tree,
-+		 * until the tree is active. See mm_activate_rss_stat().
-+		 */
-+		struct mutex rss_stat_mutex;
- 
- 		struct linux_binfmt *binfmt;
- 
-diff --git a/kernel/exit.c b/kernel/exit.c
-index d5e7bc2af804..c153cd064987 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -582,6 +582,9 @@ static void exit_mm(void)
- 	local_irq_enable();
- 	task_unlock(current);
- 	mmap_read_unlock(mm);
-+	/* From now on, this task updates the RSS counters of @mm atomically. */
-+	if (READ_ONCE(mm->rss_owner) == current)
-+		WRITE_ONCE(mm->rss_owner, NULL);
- 	mm_update_next_owner(mm);
- 	mmput(mm);
- 	if (test_thread_flag(TIF_MEMDIE))
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 02e25115ff85..ac4eb1370e62 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1108,6 +1108,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p)
- 	memset(&mm->rss_stat, 0, sizeof(mm->rss_stat));
- 	spin_lock_init(&mm->page_table_lock);
- 	spin_lock_init(&mm->arg_lock);
-+	mutex_init(&mm->rss_stat_mutex);
- 	mm_init_cpumask(mm);
- 	mm_init_aio(mm);
- 	mm_init_owner(mm, p);
-@@ -1148,8 +1149,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p)
- 	if (mm_alloc_sched(mm))
- 		goto fail_sched;
- 
--	if (percpu_counter_tree_init_many(mm->rss_stat, NR_MM_COUNTERS, RSS_STAT_BATCH_SIZE,
--					  GFP_KERNEL_ACCOUNT))
-+	if (percpu_counter_tree_init_many_lazy(mm->rss_stat, NR_MM_COUNTERS, RSS_STAT_BATCH_SIZE))
- 		goto fail_pcpu;
- 
- 	lru_gen_init_mm(mm);
-@@ -1542,6 +1542,8 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 
- 	if (!mm_init(mm, tsk))
- 		goto fail_nomem;
-+	/* The child owns its RSS counters, see __add_mm_counter(). */
-+	mm->rss_owner = tsk;
- 
- 	uprobe_start_dup_mmap();
- 	err = dup_mmap(mm, oldmm);
-@@ -1569,6 +1571,23 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	return NULL;
- }
- 
-+/*
-+ * Serialize the activations of the RSS counter tree, whichever tasks create
-+ * threads. Once the last counter is active, the activation is complete and
-+ * thread creation skips the mutex. That check needs no acquire: the updates
-+ * and the sums of the counters order their own accesses to the tree. Not
-+ * observing the other counters active yet only delays their updates going
-+ * to the tree.
-+ */
-+static int mm_activate_rss_stat(struct mm_struct *mm)
-+{
-+	if (percpu_counter_tree_active(&mm->rss_stat[NR_MM_COUNTERS - 1]))
-+		return 0;
-+	guard(mutex)(&mm->rss_stat_mutex);
-+	return percpu_counter_tree_activate_many(mm->rss_stat, NR_MM_COUNTERS,
-+						 GFP_KERNEL_ACCOUNT);
-+}
-+
- static int copy_mm(u64 clone_flags, struct task_struct *tsk)
- {
- 	struct mm_struct *mm, *oldmm;
-@@ -1593,6 +1612,18 @@ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
- 		return 0;
- 
- 	if (clone_flags & CLONE_VM) {
-+		int err = 0;
-+
-+		/*
-+		 * A second thread shares the mm: activate the RSS counter
-+		 * tree. A vfork child shares the mm while the parent waits,
-+		 * so the single counters still fit. The tree stays active if
-+		 * the clone fails later, which is harmless.
-+		 */
-+		if (!(clone_flags & CLONE_VFORK))
-+			err = mm_activate_rss_stat(oldmm);
-+		if (err)
-+			return err;
- 		mmget(oldmm);
- 		mm = oldmm;
- 	} else {
 -- 
-2.47.3
+Cheers,
 
+David
