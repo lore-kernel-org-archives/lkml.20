@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851439;
-	b=XRtQ81Crs1xuWtHbucd9JX6/+OfHX19yvhQbnwZcU1UL6WHv36pDO0LKWWtqrMV66qtE
-	 3Xv5IOBAKjpA3QTPEsb1Sybvn4oSpCSqQqjXqObAdGn8vzJuKrHSHhLR3vS/Q50YOn+Fc
-	 hj1KlDuofLbqNx5s/kk78nq0yGj+YIFPILJqRQqPZLlsVBN6tQGoXKDbLWjoTa/DoBpwU
-	 IhugFDBh+Nn1osYRkgq7veTYkJbKUSsDTEJEBczfbPWzxo1zsx3aHihsY8bAen7pIqNrK
-	 QiT+9gsiGIII2me1MdyEGHHG4ZQuEVCu/jWQ7+0Ki/NKGuH7HsZJ3C/OLCTUB0BROhw==
+	t=1793851454;
+	b=WfMqZGFOuvXYdwUN3HRcWwWn0mjZKZpunhlWBBTU2+P1CAI8C5yzSbVzCaw4WzgF1gyQ
+	 64Rj/Q54DG7Gcc342vJFh/XxlNMlgZqqK1Is0K05ySCST+tOtrqYimdfMPX5Gq2DXi1e9
+	 8VMlW64M08we6WR/zh2xvlwUblrXGsp9txVD8pWFs1pMqYyUZQ6gwx7LcoaSh4cO0VJ6m
+	 QGK10H5gFJPgJk5Z8a9aFktIWjFsDC0aKJlWpEt5pKKUQPhX3QRdff+kYFfDjL/aebY/k
+	 BGRXjcJa1P9/W3/nNzR+YmTeWGPZ4ZW9UJXDJETX7p/jW8TWZGQBtu+JLDAoPXXFdoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851439;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=AouVsEJi67JgAtqfY1MqGUWfrdWF3xPqbsbhWzfoN5g=;
-	b=wal3xS1JLfc1F/UJqWdt3vceFcU4yP5WVeiDt97xo20XcdG91ZUJU2ji/2HW3C5j7L5o
-	 EL7HZlwR7CsdD0Do5rdBlbeyBr1FkR81MwIahSDALb8BxDpe8k92VtfFRBE+jpsDFpwTT
-	 DeXGMjbeD2uhmshOEVET6AnMUCM/dgtA5AKtGQ4tQ4F/9MAv3S+OUOz7KB6ssw1/1n/Av
-	 5yyNTBE6qQ+Qg0VmJQp9/ZRnB7w2e0s8PhLn2gsiFBW9N012E7hormmOl0/xKLYmNUAxi
-	 fOr2Mi8L35HoF1jftnyvPfsjFG3DU5opmWh4DOY7SbsIWa6QZWZJt0dTEIlwE+rEUHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793851454;
+	h=DMARC-Filter:DKIM-Signature:Date:Mime-Version:References:
+	 X-Lms-Return-Path:Content-Transfer-Encoding:To:Cc:From:In-Reply-To:
+	 Subject:Message-Id:User-Agent:X-Original-From:Content-Type;
+	bh=ZYu4vf+Y1xQk0GWAYhYxqZeXAZ+RYHgD2MH4lwu/i9M=;
+	b=zOrang+xBHsOq5GAQNMxz8eeAbqVQhStZ6yEk5Cr20zZKdtiboROUsxO0WsWEisac0mY
+	 U7Qw0RKdAz8dUaVt+AN6sCvqc77LkRK20LyH+wtLY1osOo+rZ7mTEg9vKfITp40MOmLkc
+	 DurWHMXHfgX56E3mGPHkMW9NwGVu+WTEJNETLV2/NkU0cCS4GL3JrTroDGQnmEdkbmgeh
+	 ATfXPls73GA1wwDSmmJx47ywEuRpxcI9XljqGO5DRA9H2XyPv/ItN3et0AYNrwOiBdQT+
+	 0FI/LlWLK6v+AlhvwZSmreSM+yfbBc19wyRc2ZZ+KIxYZp8z22yqdZcIRbJ11dgAdvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QMPkghEB;
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=fPFwJ55z;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A01E606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:03:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A01E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4263606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:04:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4263606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QMPkghEB
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-703be215729so643256eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:03:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793851438; x=1794456238; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AouVsEJi67JgAtqfY1MqGUWfrdWF3xPqbsbhWzfoN5g=;
-        b=QMPkghEBpkt8Ldmg6JQG6mf3EWelpLNaZiMfRPQmB1OmTdTwzKEwWrgEpPw1EK5V1Q
-         lALkIlDp3yiEx2Zr5w2T6vNWiloqic/+yE9gB9h0jhKIagPbIaQNOcroxwWKfyE31Kzq
-         l15Edr2y/vaPBY3/hHJDhLuuI3yFD3oVqEsnVQ5h0LvW2DmxUbT9KCBLSw6HOO+T8N/H
-         5u7ghGm7pG9OaskIazdDFqv4xQUTzig2Ei3o3jsHf1VGrAuIuk8qsVXWou1Ulx7XdbKV
-         kSuqdceAoYxQQ9kZs6iIUFBpCD5BxNz6KqYhGt7FUO7w4GFJUGWueKai4IT5WKXeeA9t
-         ATdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793851438; x=1794456238;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=AouVsEJi67JgAtqfY1MqGUWfrdWF3xPqbsbhWzfoN5g=;
-        b=Y9ykgr42ym+4rlqIgTZDvLFRxwporF5TnErzhQKUyIRTkcwQ3ex6F9qg5EVkbvNArj
-         73iwww/xRkka26WeoPlQpZetUv9DY1EJcgW5wMuhnNTMo35rmssdHB6HDsE8eaJG9Yzt
-         nPq+1Mw3L3kYfH1g5AsiE/h8OtASwPtJ0GUwKqbikgazN61Ia/nlPfx8+Gm/uLdhBXAu
-         tkLAc17QIqwvDMJpZPNkfjBpbhtW0uuVLuXVlHoxrePiZBsUm81jAo1NoZptsuVqMaHa
-         WJktAT1o7etsA+G5UGwe9bP7dYqnnDjqf0i9zG4/BFiyvsRFsyQjcG86x1Xr7fqEYI3y
-         nPiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGaVSjjket7qgYngXfnCI9j4AV+PNc8LcWOlzixrU9JEV+/j+XiLiOudP2Zs3Fn2b4lxKRmWFC4nWTD9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DJpHr2wE2oQvPUFasJekNet4goMxKq3s9NAUBzPn1pE97NMtJ
-	lnhrjjfTrAKiPXXf4HjLPpau4w22dnKc3Ke3dBgLhyHvr1kRQ2qcXv+N
-X-Gm-Gg: AYBFou1hfzUtyo76zHtJ0FK3iFBJvPXNAKxe1FUDg2LX7CszK1UfV9oOkcQwpxcrMmZ
-	eBzdOzZBGjVSmJ9bB9/L5eDr2re5jiYdUTpL9LkDKI7uIv5fk2j4yL/YK6asL1qqCpnhz2aRFgX
-	0VYk1LzbiZD7RzhnVhnHU/k6t/Vj1t8aQrOzYNmdbMcFlJj79OhMgm5C2Y3HvuvPrhN6b1KRHEg
-	ldjTZ82NHUNEbRVrbD5Ka2UT2BKWImUjkAKy6ozt0u6U2sA/oO3LJi5yR2eoHUk/22Qwco9TVhW
-	yw6gsaGMjjfiDv4dZiIoUawy+m6k5lBzcMFxSfd9rRuFQGMIaL/3UyPnYYqUOcNYh6nzaHjOZO9
-	LKUn2z6OIH8BBeUg/qrqPfCDYc0BRi9VQSrC6TRioz7wUWX3RSdQkqTMSCVJ8G6aGXyCcQ4sWIT
-	P6pc1o971hd+kxQQE8tBu3EBBuDwqnygAN5EvbeRzYWQLvVsg0rJsxF7MLZWZzRzrG/l6fT/Ocb
-	wUf3/uzM4E64MLyKD8vegBx2szjLqYTsExQQaT509ZxuoGlYzZ0Z+gLpXYiaxQh0UzRd8xvNFRY
-	UNTA6rdhDVe6uC3fM9nPp+CEot4rAmAR4OsHaCd96omiiEy76ouK16IYKHYbEFu83rVdC19stbH
-	3ISpJRJY3YEHsQAknxIt6/68xggblZRmCU06xZEHTNwD/j0kovmeVWcbOhp05hTYiWOh2ayKdq6
-	exWk1Fid508cplbYJYiU8jgxPcfkEJoRH2P7+tH+2JXWCTaPd7MaWCFxYReISGNWOXgRuXVXzv
-X-Received: by 2002:a05:6820:560b:b0:700:dac:ba85 with SMTP id 006d021491bc7-714f295ac1cmr6702854eaf.14.1793851438261;
-        Wed, 04 Nov 2026 20:03:58 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c12d1f36sm3018997eaf.8.2026.11.04.20.03.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:03:57 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 04 Nov 2026 21:03:55 -0700
-Subject: [PATCH] mtd: core: avoid overflow when checking data bounds
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=fPFwJ55z
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793851448; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ZYu4vf+Y1xQk0GWAYhYxqZeXAZ+RYHgD2MH4lwu/i9M=;
+ b=fPFwJ55ztN6xnQ8J5bfVkdvSYtJ34KITPGNICbCHajpoK+N+mKdNsnnBhKwx5cgAn9JaUX
+ Jx8eBwZZtB3WNCp+pC3lyVAzToRVQXo5ICo8+BrGZU6N95KXLHO3E8g4kyRc/psrd7JWd0
+ a+y+zAZy5SS+oTMTqt60Q65LBJHQmRAvIvcO5sbBak82mnPgAhTfhOnkp9qVe3Yw91wQFP
+ ZOMjTFKVQyldfzQsLBLFgN/8RJQNq9bzfv0dTorXlz7iLFmqhJkp2xStqNMnF3KDY3x5b+
+ pxeT1l2EqW3tkOwL4g6G4HstHS/YY8hjKOd08tC9vRQK+w8XR/n7Bcw/QKiXSg==
+Date: Thu, 5 Nov 2026 12:03:43 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,57 +52,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+References: <20261028041253.74839-1-lizhe.67@bytedance.com> <20261028041253.74839-2-lizhe.67@bytedance.com> <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com> <010b2b6c-8f1b-4c3b-913f-cc2e8b957759@bytedance.com> <a6bcd771-fcf7-4fe4-8c21-5e65bd579de7@amd.com> <1bab234e-8914-4694-b0aa-f265fa49c6d3@bytedance.com> <c9cf96bf-f3b1-47da-b22a-9600b5fb01be@amd.com> <3318a7f7-4dec-431b-9284-ec7c2807151c@bytedance.com> <aurO98PC4TTweJs0@gourry-fedora-PF4VCD3F>
+X-Lms-Return-Path: <lba+26aec0036+70eca5+vger.kernel.org+lizhe.67@bytedance.com>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-submit-mtd-oob-bounds-v1-v1-1-05209fce5a3e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB0wQ6ulVykuTDJpp2BSMlEK4
- t2b6vIt/t9AOQsr3JsNMq+ikmKFaRtwryk+GcVXA3XUG9NdUBc7S8G5eEzJok1L9IqrQXJXF24
- UaOgHqPknc5DvsX6Mp2v7Zlf+P9j3HzneXbd8AAAA
-X-Change-ID: 20261104-submit-mtd-oob-bounds-v1-2c5cf82f2767
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+To: "Gregory Price" <gourry@gourry.net>
+Cc: "Bharata B Rao" <bharata@amd.com>, <akpm@linux-foundation.org>, 
+	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>, 
+	<joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>, 
+	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>, 
+	<mingo@redhat.com>, <peterz@infradead.org>, <rostedt@goodmis.org>, 
+	<vincent.guittot@linaro.org>, <vschneid@redhat.com>, <ziy@nvidia.com>, 
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+In-Reply-To: <aurO98PC4TTweJs0@gourry-fedora-PF4VCD3F>
+Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion bypass configurable
+Message-Id: <519e6126-e4c3-4267-91a8-ff81174aaa5a@bytedance.com>
+User-Agent: Mozilla Thunderbird
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 
-mtd_check_oob_ops() adds the starting offset to the data length before
-comparing the result with the device size. On 64-bit systems, a request
-with offs == 1 and ops->len == SIZE_MAX wraps that sum to zero and passes
-the range check. The public read and write wrappers can then pass an
-out-of-range request to the driver.
+On 11/4/26 2:21 PM, Gregory Price wrote:
+> On Mon, Nov 02, 2026 at 10:56:27AM +0800, Li Zhe wrote:
+>> On 10/30/26 11:44 AM, Bharata B Rao wrote:
+>> Thanks, Bharata.
+>>
+>> I would appreciate further maintainer feedback on whether this series
+>> looks acceptable.
+>>
+> I will give it some additional time when I get back to normal next week.
 
-Validate the starting offset first, then compare the data length with
-the remaining capacity. Preserve NULL-buffer length normalization and
-empty requests at the end of the device.
 
-Fixes: 5cdd929da53d ("mtd: Add sanity checks in mtd_write/read_oob()")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/mtdcore.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks, Gregory.
 
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 491a27d0315f..dda976ef52c9 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -1670,7 +1670,7 @@ static int mtd_check_oob_ops(struct mtd_info *mtd, loff_t offs,
- 	if (!ops->oobbuf)
- 		ops->ooblen = 0;
- 
--	if (offs < 0 || offs + ops->len > mtd->size)
-+	if (offs < 0 || offs > mtd->size || ops->len > mtd->size - offs)
- 		return -EINVAL;
- 
- 	if (ops->ooblen) {
+Thanks,
+Zhe
 
----
-base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261104-submit-mtd-oob-bounds-v1-2c5cf82f2767
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+>
+> ~Gregory
