@@ -1,56 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868220;
-	b=N133EYYz7Q7Kl8uMVKmj64GXvEhEsofvAHpPvAfyoNOISk7GP+Ip3O8/NquFUwmK4MbZ
-	 FtjBZTWGpLj3raP/A3uahsnrws3wB+Vgy00omDkQ6ElVviC1cXaTC6XOEf3qzvYOMq2HD
-	 stum84Apcs/5TRfRvGYbqurbQtgT9zJb6fKlakKohnERfFju4DHtqfLD68HfN+5AA3mVD
-	 W7IcEVxolc+xARN4EDZBfkoFuk3td4qkDdOfa6da04hGlyT4ifs7R6Ul2rF2Q/2w6PYXg
-	 n/MFA0+XDs7hpx/VW9H19Nm8x4CiaiLLm98uWjO3/TSPU+mKegwUFMuYJZTCzdJIpnQ==
+	t=1793868236;
+	b=MR9ySIXqjiRQonJnpicP8Y699y5lXvtg4mCmrgTdmgC4OhAOaeJSPZDQnzZ/1HpFfItI
+	 pyHqOzVmVTpk/er4+wS8dhUh2kl7bJnLHXVvDeDdJIzoGMue8QtubjexbApEiMQywVKa5
+	 Ksx86E+/OTJ7bjAjFk+ix8Qk3BLOq5JlqxXSfMWXNa4jBJBZxAFBb+v1p4ZLo7clNM99g
+	 Y8SoeoHCjj9AkRRmU6K7SfpE8F4z+VkOJd4neffle7Ex3P5uTvp+r0u/2R7nuUxBzxjlf
+	 H6mdo4Hjl/S13GR21jLbZ3De7yGy9SheVUWkwQ4TILdyPVZ7k8TEhdjTlZxmgtOZDyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868220;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xWnyYpFT7Bt2vRXs3GHe7hfE5MPlPmLDrw7MPpPpCg0=;
-	b=o3BznYqwp3ruVjgbt6Pqm1eHD1ULzaNAc1k4tZzQUJuwhX/rxpUL6RlHZ66ixhsjlhBu
-	 hhsLOXpwLLPNrUrrbhSFMiMHYmBJNNxkxHYWDCupUa9Km/fqFhv4+mZbBiJmJV/ITIg54
-	 C0iPVpCVJIp3mv6bvkXdlzYNm4WpHcpPffJ918BUGi190AnEekJTVbGJuS71TgR7LnzI1
-	 gPyuepCSvhTKSRafXsouiys6iaPZ3h6UBwqLfeUy2+LM38eKnwIlASaI0yf7Kt3kkVwJi
-	 +KMQRcOydozMPrWHqeWrwdSCJYmR7rf6//fbB/TdwcaNUYuZwUIEzNVFz88++nZE9yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868236;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=xthhCC/mcTYZS02cMzlH9pIKp/bPBWf9wsEzlDqqUYg=;
+	b=WI5YJiBvdGmmI+tVAn2uZjU6N60qArwBveSjB/eGVqhZpsU3a+LoBlX+TdYiNnTSW4cu
+	 tJ+MChLU2Qfloz3Pcs/4xjbN3rkInJ+8IRdcJszuOhY8W7z6i4f0bO6ernq7Om4IB4KOO
+	 AcBdVyPPv0NWcFFtZ/chaxWvKNP6oMRQwQuy7rGsqXzz8iVEQ/tfkB9i2/lHMLtWY6wNj
+	 Z6eqjhFvI7fFL3N01J658bEHJ/PTYzWFoJ7Wh7G8xC5uVHOWY7NLZzMLNCdXfT010aZCR
+	 AmaX2JF9RuS2Wr842et+SA0wj10OTpD2l0eMG5eIoEZF61lzIIAjc6GVxQLsUgf1BxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c78s14ly;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EkxVW+Vx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D35606A31B;
-	Thu,  5 Nov 2026 08:43:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DB6606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c78s14ly
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020201F000C1;
-	Thu,  5 Nov 2026 08:43:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EkxVW+Vx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF041F00A02;
+	Thu,  5 Nov 2026 08:43:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793868219;
-	bh=xWnyYpFT7Bt2vRXs3GHe7hfE5MPlPmLDrw7MPpPpCg0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c78s14lyh/2KA/ZR+ROW9j+lhtL9TK/sW/DGZGAOW3EkLU/0MoWHjI54jQZ0SqEq1
-	 YshYj72q4DFMVZv/Lwfu03FDjwgZ3wL9S7VRFiQUVrzrInCgoYg1JfAIJiiyNAORpg
-	 4IZ5/JOWtM0cVQPxkLrsv2jTTJfb8zce0lWnAk7ix6e6IHiu0iT5L8XefOM2O9I+wI
-	 m7riPX4x+vCLquJlFZzgwzC8W0BUdrdgGovF2Y0pFIf9z7dqCgShdQIMPuSqpWNJnp
-	 jV95L/L/vPR7Q9YQbtS8YfwqARC1KLSroRc0BrQJMh4mPy/JGx+8h1w0DmLlfN9Ayj
-	 dH2nMJZzp+1gQ==
-Date: Thu, 5 Nov 2026 09:43:35 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Kees Cook <kees@kernel.org>, 
-	Joel Granados <joel.granados@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 44/51] proc: sysctl: resume readdir after the
- last name it returned
-Message-ID: <20261105-unteilbar-entnommen-urzeiten-0d501a3aa396@brauner>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
- <20261104-work-procfs-bugfixes-v2-44-021c84d852e0@kernel.org>
- <CAG48ez3=6q6hqMcN-=q6qNrghHjbpXr+i-Su_s0siw25reBkWA@mail.gmail.com>
+	s=k20260515; t=1793868235;
+	bh=xthhCC/mcTYZS02cMzlH9pIKp/bPBWf9wsEzlDqqUYg=;
+	h=From:Subject:Date:To:Cc;
+	b=EkxVW+VxdxJn899uQCPstrsAk6REcE49Bzn9WNu/in8yFo8SoEJ/+rF3nPZaWtKOT
+	 xsJ9Or8PWQwa5hGiPvo5IJmQoRpRxIDVTtErQjNxn5EpCo9MAUI4X2qDtQNawHHbth
+	 zv2l3eijl50D+380ZMSxq9ktSpr/2jLpdrYU7Wp3+19zlYSJSVI2WAs/1cKdYi2T9t
+	 VtowUeXw7/TirphtlGJfM/AiKtGvtQzBWhgNJ44q3KiS49KkyeHtApPLt3C8fQQHRq
+	 pN/9jZPFLrEiIRFAe+2/bFamUgk0ZLmB6gbIMCbV/nTlr0H1h9yZkO9C/2qf6Daa2E
+	 edJlIz2YKPCIA==
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Subject: [PATCH v3 00/10] replace CONFIG_SLUB_TINY with a slab_tiny boot
+ parameter
+Date: Thu, 05 Nov 2026 09:43:49 +0100
+Message-Id: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,27 +54,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAG48ez3=6q6hqMcN-=q6qNrghHjbpXr+i-Su_s0siw25reBkWA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMVB7GoC/23N0Q6CIBTG8VdxXEcDVMyueo/WHMhBSacNlHLOd
+ 0+stbW6/G/f+Z0ZObAGHDpGM7LgjTN9t0a8i1BZi64CbNTaiBHGSU4pdu0oi8F0U2Hh3tsGHzT
+ jcaIUzUSG1rObBW0eG3m+vNqN8grlEJywqI0bejttPz0NuzfP4l/eU0ywIMC5SmMOMj01YDto9
+ 72tUPA9+wiUsOSPwFZBaprQXMhUa/UlLMvyBAM62cIFAQAA
+X-Change-ID: 20260911-slub_tiny_rework-8f2634dd17a7
+To: Harry Yoo <harry@kernel.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+ David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
+ Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com, 
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Thu, 5 Nov 2026 01:08:36 +0100, Jann Horn wrote:
-> sysctl_cursor_set() is called here, when the output buffer is too
-> small; but not if the proc_sys_readdir() loop ends because the end of
-> the table was reached and "h" is NULL?
+CONFIG_SLUB_TINY was introduced to help tiny systems migrate away from
+the SLOB implementation so it could be removed. Its main purpose has
+been to disable all forms of percpu object caching (cpu slabs back then,
+now sheaves), and being a compile-time config option, some extra minor
+saving were achieved by code elimination or more agressive merging of
+caches with reclaimable and non-reclaimable objects (keeping those
+separate helps reduce high-order page fragmentation but not memory
+footprint.
 
-It's the other way around. res is true when the entry went into the
-buffer. The cursor moves with every entry that was emitted. That
-includes the last entry of the table.
+However being a config option brings issues such as incompatibility with
+other options that has caused troubles in the past and Linus argued for
+removing it [1]. Moreover, there is a use case for having full-blown
+scalable implementation enabled and being able to disable it with a
+boot-time rather than compile-time decision. That ise base is the kdump
+kernel which shares the same vmlinux but wants to minimize the memory
+overhead (which has to be pre-reserved from the production kernel) and
+does not mind reduced scalability.
 
-When the buffer is full, res is false, we stop, and the cursor leads us
-to the last entry that we sent.
+Thus this series reworks the CONFIG_SLUB_TINY to be controlled by a
+variable set by a boot-time parameter. The config option itself is
+deprecated and only sets the default value of the variable, and all its
+interactions with other config options are removed.
 
-> Doesn't that mean that another getdents() after reaching end of the
-> file would observe the last entries again?
+The conversion builds mainly on the fact that most SLUB_TINY specific
+paths to avoiding percpu object caching are shared with slab_debug
+handling, except doing any actual debugging checks.
 
-No. After the last entry, cursor->pos == ctx->pos. So the next getdents
-does entry_after(last_name). That doens't find anything. So h is NULL,
-the loop doesn't run and it returns zero.
+Thus introduce slab_debug=N (for No-op) option to allow using the
+slab_debug checks directly, and extract the underlying static key
+handling from CONFIG_SLUB_DEBUG only scope. The decision to create
+separate kmalloc-rcl caches is also made to be boot-time.
 
-If an entry registered behind the name it would show up.
+The parts of CONFIG_SLUB_TINY that can't be transformed to a boot-time
+decision are related to dead code elimination and fast path inlining,
+merging of non-kmalloc reclaimable and unreclaimable caches, and
+ignoring SLAB_NO_MERGE for performance purposes (currently used in
+networking). Those lost memory saving should be all relatively minor
+compared to the savings from avoiding percpu caching.
+
+To sum up, after this series:
+
+- CONFIG_SLUB_TINY is a deprecated option that has no interaction with
+  other options and only controls the default behavior.
+
+- New slab_tiny boot parameter controls the functionality (and can
+  override CONFIG_SLUB_TINY in both directions).
+
+- slab_debug=N can effectively achieve most of slab_tiny and on a
+  per-cache basic
+
+- the implementation is simpler with many ifdefs removed
+
+[1] https://lore.kernel.org/all/CAHk-=wh-k04MsoEC0SGKff2Snm6bBF_e+0pHOKwaWv4umZ_SnQ@mail.gmail.com/
+
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+---
+Changes in v3:
+- Rebase to v7.4-rc1
+- Add SLAB_DEBUG_NOOP to SLAB_MERGE_SAME (sashiko)
+- Prevent premature slab free in slab and kasan kunit tests by new
+  patches 1 and 2 (sashiko)
+- Link to v2: https://patch.msgid.link/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org
+
+Changes in v2:
+- Rebase to current mainline (with slab/for-7.4 merged)
+- Stop triggering nohash pointers due to slab_debug=N (Harry)
+- Stop preventing slab merging dues to SLAB_DEBUG_NOOP (Harry)
+- Link to v1: https://patch.msgid.link/20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org
+
+---
+Vlastimil Babka (SUSE) (10):
+      slab, kunit: pin test slabs by an extra allocation
+      kasan, kunit: pin test slabs by an extra allocation
+      mm, slab: refactor slab_min/max_order handling
+      mm, slab: introduce slab_debug=N
+      mm, slab: rework KMALLOC_RECLAIM handling of SLUB_TINY
+      mm, slab: make SLUB_TINY handling dynamic for sizing decisions
+      mm, slab: convert CONFIG_SLUB_TINY checks to kmem_cache_debug()
+      mm, slab: remove remaining compile-time checks for CONFIG_SLUB_TINY
+      mm, slab: add slab_tiny boot param
+      mm, slab: deprecate CONFIG_SLUB_TINY and reduce its Kconfig effects
+
+ Documentation/admin-guide/kernel-parameters.txt |   4 +
+ Documentation/admin-guide/mm/slab.rst           |  18 ++-
+ include/linux/slab.h                            |  17 +--
+ lib/Kconfig.kasan                               |   2 +-
+ lib/tests/slub_kunit.c                          |  36 ++++-
+ mm/Kconfig                                      |  16 +--
+ mm/Kconfig.debug                                |   2 +-
+ mm/kasan/kasan_test_c.c                         |  24 +++-
+ mm/slab.h                                       |  32 ++---
+ mm/slab_common.c                                |  21 +--
+ mm/slub.c                                       | 167 ++++++++++++------------
+ 11 files changed, 195 insertions(+), 144 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260911-slub_tiny_rework-8f2634dd17a7
+
