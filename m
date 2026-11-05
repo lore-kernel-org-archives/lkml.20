@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.198.212.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866228;
-	b=kw0MxdJLpPRwTjhAkXYMopXeooDTZn1mEP1vCQq4NIUR8U7Queo1VJni8J2o3G0ggGr8
-	 3mwysc5UgJ5H9YmqCGMmakdCASj6eLSEoGU2BVEuYtoYd4QueOa6D/JsSvESkrPcsEYiv
-	 AgXA05QYHmcFbczf9C2xpS1knuBbioMMC6OxdcFID3/Mv6cNN/L/5qI8wA2p8D+k4bZjO
-	 idTfn/qORE6LyaNxZQDbplsaQgiIgyIsN+KvXUNp0cF/HhL7C0PckyY4yjGnCqG2LqbFV
-	 /qjx5K/e3mlt+E5mALynYfpkttWP6Een/lrX6mucG6Qz0G2P1cUID/5CD5LGwSZjRwQ==
+	t=1793866256;
+	b=RCz1NfU8srsepxmWNGeWUp0slXwebZRqV6echsfEqnNpbFdvnia+JtLM5pxXBcEjqpWv
+	 k8BgknKjfEny5WmVABxKjEQdxLNtQPdFDTuYdWnjYLGWJzs+09AGK6x/mDRHxZyPROqfE
+	 Jj4c7gb3GNkxwT6VHFmkCT14gSRrGGuYyNvpR/mLoCq2NQrHJ7PziFG+GwO4Cj+quqVRy
+	 EaVWztuiswxbM21nx2oBJCyYHTXGwuYJwI55AD8NIjXF4+btoKrbQmgl9Kuyg6r3QD8UJ
+	 Ectzaokupe/BVjr7sE4YB99lEDiZTPhFFAieAxkLCLYVe8ZodWDtb0te287Lkg8k2jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866228;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uXh0iha/4VP9dzuigCmM9TrRRukz7g4ClrVx0LThZLY=;
-	b=FJ4cVKkAzyP991+RdpVCRsDC7UnDN+w6KnlcMcRNzH/3AviyNeHLgxF6wbwJKKbcsdO8
-	 fXWdoYiA8hL1XbDk9ykRjNHC6Hx1z5hsusmHBxGDh7ZZvBy//e0l9WQedaua3IgPLfgQ4
-	 UosVI+NU7740zCBmUuZ4DKUThI2CXhj+NsQeLJSndT/NuO/BTIhaiyx8neOhtZTPRk0vM
-	 aCircObDBUTirgd+f5vrreeBYalh8Jbr+U1kFfhWh0qSzgZ1U3XBoV3H/8X/bUmQhZ6aq
-	 ykZ12j3ScSeA7hL7+A586L9SlIcjAEcMm9aBCUBXRsVM1Rtwt9wWeRzSyQrwyeyC2YQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866256;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:MIME-Version:Content-Type:Content-Disposition:Sender:
+	 X-SA-Exim-Connect-IP;
+	bh=zKBUSJdtNbuk/fkR4ic+AJ+yrZrj+7qr4UCMMPbUWy4=;
+	b=ZckAc9OFwNDc6IrvRFwsDO/T7NMYdMKM+QLL4cJ0B/VqAqvIC4W+KLwu5ILTwXHbUMox
+	 xNoTMeUG+VjLLzjCpBEgxOQYtpObzYVDoWjb3N7eGShS+4lfEMyUvyrHX17/Sd62Y2kFc
+	 cnCkfyN0NSSDmRXxC5A2W2zQ8WbYNgWqQtOfrnhN3UMUh2Pg9D0jTy5+UnGIZwZBiNt2E
+	 TOsl6BzjOl+WFt/ATSnTTEjzbi4Gvd/1HD4wkuGVg9tckRZ3T9Nt2RtA42nmzSbHEadmX
+	 z0gYwl6Wa5rncFYBWRzVO/CF3lcEK6fzYIgQ+h5/NdwFz1e3kvlCe6nr/tOawrBnyzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="N/Qx1IS5";
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.hr;
+	spf=pass smtp.mailfrom=griffin.linux.hr;
+	dkim=pass header.d=griffin.linux.hr header.i=@griffin.linux.hr header.a=rsa-sha256 header.s=20261029 header.b=NgECczP4;
+	arc=none smtp.remote-ip=193.198.212.57
+Received: from griffin.linux.hr (griffin.linux.hr [193.198.212.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D51606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:10:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5D51606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1D3606A32D;
+	Thu,  5 Nov 2026 08:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A1D3606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=griffin.linux.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N/Qx1IS5
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso1260672f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:10:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793866226; x=1794471026; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uXh0iha/4VP9dzuigCmM9TrRRukz7g4ClrVx0LThZLY=;
-        b=N/Qx1IS5dy7gvkOcK1TXZaqscveNhbL+KnTmQ99w4X1HCotJLcRwDWMzag0WTqQb0X
-         GZKEZattQNx1zbUfXihhqRVerpQrKSNS+ITsYDTA4p7l7kRnzuFeXqMkzCHJ1OXa3Kc0
-         eKvTRT79PMQYAr1JM643c8Pfr4z5bjrsM6M2kQdYVE2jUV5trR2EVYG0537Rwa5nKg3n
-         9xRP7QBTPvKtNAjucPKwmCnleiCh3lULvU0ncKy0lKmxpjgEvybvxqjRqJCAZXafW4Jx
-         oZKtfTyg/fIri8wIZ0CxinlaYybANYnYzm02JfHMaOPM0+yQS1hIEVisEjsyhnlTAPQJ
-         r5Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866226; x=1794471026;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uXh0iha/4VP9dzuigCmM9TrRRukz7g4ClrVx0LThZLY=;
-        b=yHP5bws43tKG8FmQHtyhIH7q836JhLnK8yehEAINU635mstJg9N/LOAiC+cpPqGXX5
-         JWwi8K5yZ2CMdW81UVojs0Q+mHKxEJuVG5p4FWLPOlNhFAYDQ+T9xzIYf+BJl8CNvsh+
-         d4jgCiMWA/YhseOvuaAPiM5H3p4IIDno2L4aQDQ42OSKoptFrwoxqLW9Xem4i3h6r4jT
-         Wg5TCiQ+5UraEIWvh6LB/wRS1bUsi84C9oRIy9JqYI7c3ANitJVGmPtzOSod7WMbXn4o
-         L/whJzVtoPRN4IZwZm2xzOcfVFY0rPmP2lCHeTuIV6amztFtn5OWMbGAKSS+Xjnq96Rs
-         F5Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiuJYKLjLluZohQmQeXfkKjVvqyTkBrqwO4OCcxc5JdMbwoO/kLpibzVZteEDOnyDKmG3kPNln4DDbyx4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nQo0NnIXoDwaUJyV9tRgJ+e4BC28aFv3eP4Ov8uqS3pUZfXHa
-	watdqQlynjB2hq3MH8ysbFJO1CSwxdx0MbHJ33pjoV/wlBNR+lt9Nt2d
-X-Gm-Gg: AYBFou2nCfr6zARs8AJPsfeQIbDzInUAcc3d5p6MDL5aUUQZLOivKKrcv1qmBYl33KM
-	83R3EPpIBk+NeUch1IP6zlrXrnyl5PcT/ZevEoOEaHgjI1ush5+z9XIPSUcxG1XoKOiCdhdkJ/e
-	J4LIUNEW6uf9xopF0akZ9Bstsbuk1JjeT224GFxtjOJAx7q7F0fbFrHfSBdS+1DCMBLjsfVzSz9
-	t53IwlTzXAcKOMy5xz6zpoH1ekZZi3j7JhWc+5AyYHbAfdV2f1MaATX6OPV0x8R56WBRQD69d7c
-	Fp2RGh/G4SMZOG6+8wbFBHqh6tnvMUVcmUrvJf8cwKcbqEcE+vn7lr4EwCCK+k8iEmwjE2SGlVI
-	TOohpjH3RUozqnL67bAlYF8+sPp8+sLo/enJ93NdxXY6JZNABBCcQTYanF3qhprwLXjILrMF2d0
-	ksAiJAJzFnMTAoHoVmjJcOLRVEuzbRdYQn45Aqa+5ToW/V5sUAiN5XbpqlI+sLuLIDfkfIazYsg
-	8mI19uL5sUpecphQPADEz59I9ActmLHNBKh6WCQmAWYlfAf7SnRL+f+wV3zh0t5tXTdiORbDScs
-	v7dSlR/mfFId5Fd06b/vUtzNAFw+0HNIJqml4WbChkAsiQ==
-X-Received: by 2002:a05:6000:2201:b0:48a:f36d:fb57 with SMTP id ffacd0b85a97d-48e6e303ca8mr40111334f8f.18.1793866225864;
-        Thu, 05 Nov 2026 00:10:25 -0800 (PST)
-Received: from localhost.localdomain ([2a06:c701:4763:5b00:bfea:518b:8c4e:2d27])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8e29sm9029351f8f.19.2026.11.05.00.10.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 00:10:25 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Christoph Hellwig <hch@infradead.org>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>
-Subject: [PATCH v2] block: avoid repeated notifications for dead disks
-Date: Thu,  5 Nov 2026 10:10:07 +0200
-Message-ID: <20261105081007.816058-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261031171325.4073830-2-thnkslprpt@gmail.com>
-References: <20261031171325.4073830-2-thnkslprpt@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=griffin.linux.hr header.i=@griffin.linux.hr header.a=rsa-sha256 header.s=20261029 header.b=NgECczP4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=griffin.linux.hr; s=20261029; h=Sender:Content-Type:MIME-Version:Message-ID
+	:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=zKBUSJdtNbuk/fkR4ic+AJ+yrZrj+7qr4UCMMPbUWy4=; b=NgECczP4bOjq/hwfXD0q/9iWwW
+	H20o+Ib0pd4FhmVr3pvQoGG9deRR4k5ncsC89L5vA0XrbYg8Z+EGQoHzLMgPRMekVPpeNYqeTSEVA
+	hmzF8nOkV/3CuA6Y+ExXa9blcvnjPbWhWdHwXLyg/Ec+XA8uGSaopqyGRnhJv5u9MDzYoReCf/qJC
+	YtvykfeE+BidMYUSpIfmgyvezSyLL3IOoyWti+sY1hLTvoS9EUVc/BUxunlgrmhS2tAqM4746CNdS
+	e/qRkMclxPSZu8XRMEw9WWuZho1VJ/2CU6BpzRz4GtD3AYiQA+bFJDmW0waqvgIJFgRYwswk21Z5W
+	hkcdFYhw==;
+Received: from vkosturj by griffin.linux.hr with local (Exim 4.96)
+	(envelope-from <vkosturj@griffin.linux.hr>)
+	id 1xOsYQ-0006rQ-31;
+	Thu, 05 Nov 2026 09:10:38 +0100
+Date: Thu, 5 Nov 2026 09:10:38 +0100
+From: Vlatko Kosturjak <kost@linux.hr>
+To: Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Hongren Zheng <i@zenithal.me>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] usbip: vhci: do not give back URBs with an unchecked
+ actual_length
+Message-ID: <auw5_lMRbGU97IKx@griffin.linux.hr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,85 +68,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Sender: Vlatko Kosturjak <vkosturj@griffin.linux.hr>
+X-SA-Exim-Connect-IP: <locally generated>
 
-blk_mark_disk_dead() reports disk death even when GD_DEAD is already
-set. For example, NVMe reset failure and subsequent namespace removal
-can call it twice, repeating holder mark_dead callbacks.
+vhci_recv_ret_submit() copies actual_length from the RET_SUBMIT header
+into the URB, and only usbip_recv_xbuff() looks at it. That check is not
+enough:
 
-Move the GD_DEAD test-and-set into the callers of
-__blk_mark_disk_dead() so blk_mark_disk_dead() reports holder death
-only on the first transition. Preserve the helper's queue-drain
-return value for __del_gendisk().
+ - an IN reply longer than transfer_buffer_length is rejected and the
+   connection shut down, but the URB is still given back with the
+   oversized actual_length (and status -EPROTO);
+ - a negative actual_length (urb->actual_length is a u32) is not
+   "> 0", so usbip_recv_xbuff() returns 0 without checking it and the
+   URB is given back with status 0;
+ - for OUT URBs usbip_recv_xbuff() returns 0 straight away, so any
+   actual_length is given back.
 
-Fixes: d8530de5a6e8 ("block: call into the file system for bdev_mark_dead")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Completion handlers trust actual_length. usbfs copies that many bytes
+from the transfer buffer to user space in copy_urb_data_to_user(),
+whatever the URB status, so the kernel reads past the kmalloc()ed
+buffer. With CONFIG_HARDENED_USERCOPY this is a BUG in the context of
+the process reaping the URB, here for a 22 byte reply to a 16 byte
+URB:
+
+  usb 1-1: recv xbuf, 0
+  usercopy: Kernel memory exposure attempt detected from SLUB object 'kmalloc-rnd-05-16' (offset 0, size 22)!
+  kernel BUG at mm/usercopy.c:102!
+  RIP: 0010:usercopy_abort+0x6c/0x80
+  Call Trace:
+   copy_urb_data_to_user+0x122/0x160
+   processcompl+0xe3/0x160
+   usbdev_do_ioctl+0x14d/0x1900
+
+Without it, the adjacent heap contents are copied to user space. A
+negative actual_length does the same on a URB that usbfs splits into
+scatterlist chunks: the last, shorter chunk is over-read by up to 16 KiB.
+
+This was hit with a buggy user-space USB/IP device implementation (it
+answered an IN URB with more data than requested) while pcscd read from
+the device; any server, buggy or malicious, can trigger it.
+
+Check actual_length against transfer_buffer_length right after
+unpacking the header, for IN and OUT URBs: the u32 comparison also
+catches negative values. On failure give the URB back with
+actual_length 0 and status -EPROTO and shut the connection down, as
+usbip_recv_xbuff() does, since any payload was not read. Also give the
+URB back with actual_length 0 when receiving the transfer buffer fails
+(a short read), as the buffer was not filled.
+
+Fixes: b348d7dddb6c ("USB: usbip: fix potential out-of-bounds write")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vlatko Kosturjak <kost@linux.hr>
 ---
-Updated in v2:
-- move the atomic GD_DEAD check into both callers, as suggested by
-  Christoph Hellwig
-- keep the helper signature and queue-drain return semantics unchanged
+Changes in v2:
+ - Check actual_length before usbip_recv_xbuff() instead of only zeroing
+   it when usbip_recv_xbuff() fails. v1 missed a negative actual_length
+   (usbip_recv_xbuff() skips it, so the URB was given back with status 0)
+   and OUT URBs (never checked). Pointed out by the Sashiko AI review.
+ - Shut the connection down on that error, as usbip_recv_xbuff() does.
+ - Tested on mainline 7.4-rc1 as well.
 
- block/genhd.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+v1: https://lore.kernel.org/linux-usb/aurLXADfuLjs-dm-@griffin.linux.hr/
 
-diff --git a/block/genhd.c b/block/genhd.c
-index 10ca8b4d6eea..7e4570f9cea7 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -659,12 +659,6 @@ static void blk_report_disk_dead(struct gendisk *disk, bool surprise)
+Tested in QEMU on mainline 7.4-rc1 (05441d697f7f, x86_64 defconfig +
+kvm_guest.config + USBIP_VHCI_HCD=m, HARDENED_USERCOPY=y) and on 7.0
+(Ubuntu 7.0.0-34-generic), with the same results on both. The reproducer
+is a user-space program that attaches a fake device to vhci_hcd through
+a Unix socketpair (no network or usbip tools needed), answers a bulk URB
+with a bad actual_length, and reaps the URB through usbfs:
+
+  reply                         unpatched / v1              v2
+  IN 16 bytes, length 22        BUG (v1: -EPROTO, length 0) -EPROTO, length 0
+  IN 16 bytes, length -22       WARN in check_copy_size(),  -EPROTO, length 0
+                                REAPURB fails with EFAULT
+  IN 16400 bytes, length -22    BUG; with hardened_usercopy -EPROTO, length 0
+  (two usbfs sg chunks)         =off status 0 and 16 KiB
+                                of heap reach user space
+  OUT 16 bytes, length 22       status 0, length 22         -EPROTO, length 0
+
+With hardened_usercopy=off the leaked heap bytes include kernel
+pointers. Legitimate replies are unaffected: device enumeration over the
+same connection works as before.
+
+Happy to send the reproducer (about 350 lines of C plus a QEMU script)
+if useful.
+
+The 2026 hardening of RET_SUBMIT (number_of_packets, iso frame lengths)
+does not cover this path; it is the non-isochronous actual_length.
+
+ drivers/usb/usbip/vhci_rx.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/usb/usbip/vhci_rx.c b/drivers/usb/usbip/vhci_rx.c
+index a678e7c898..3180dc3018 100644
+--- a/drivers/usb/usbip/vhci_rx.c
++++ b/drivers/usb/usbip/vhci_rx.c
+@@ -76,8 +76,27 @@ static void vhci_recv_ret_submit(struct vhci_device *vdev,
+ 	/* unpack the pdu to a urb */
+ 	usbip_pack_pdu(pdu, urb, USBIP_RET_SUBMIT, 0);
  
- static bool __blk_mark_disk_dead(struct gendisk *disk)
- {
--	/*
--	 * Fail any new I/O.
--	 */
--	if (test_and_set_bit(GD_DEAD, &disk->state))
--		return false;
--
- 	if (test_bit(GD_OWNS_QUEUE, &disk->state))
- 		blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
- 
-@@ -689,17 +683,19 @@ static bool __blk_mark_disk_dead(struct gendisk *disk)
- void blk_mark_disk_dead(struct gendisk *disk)
- {
- 	blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
--	__blk_mark_disk_dead(disk);
--	blk_report_disk_dead(disk, true);
-+	if (!test_and_set_bit(GD_DEAD, &disk->state)) {
-+		__blk_mark_disk_dead(disk);
-+		blk_report_disk_dead(disk, true);
++	/*
++	 * actual_length comes from the server, and completion handlers
++	 * trust it: usbfs copies actual_length bytes out of transfer_buffer.
++	 * Reject a negative one (it is a u32 in the URB) or one larger than
++	 * the buffer, for IN and OUT URBs alike. Any payload was not read,
++	 * so the stream is out of sync: drop the connection.
++	 */
++	if (urb->actual_length > urb->transfer_buffer_length) {
++		dev_err(&urb->dev->dev, "ret_submit: actual_length %d exceeds buffer %u\n",
++			pdu->u.ret_submit.actual_length,
++			urb->transfer_buffer_length);
++		urb->actual_length = 0;
++		urb->status = -EPROTO;
++		usbip_event_add(ud, VDEV_EVENT_ERROR_TCP);
++		goto error;
 +	}
- }
- EXPORT_SYMBOL_GPL(blk_mark_disk_dead);
- 
- static void __del_gendisk(struct gendisk *disk)
- {
- 	struct request_queue *q = disk->queue;
-+	bool start_drain = false;
- 	struct block_device *part;
- 	unsigned long idx;
--	bool start_drain;
- 
- 	might_sleep();
- 
-@@ -727,9 +723,11 @@ static void __del_gendisk(struct gendisk *disk)
- 	 * Drop all partitions now that the disk is marked dead.
- 	 */
- 	mutex_lock(&disk->open_mutex);
--	start_drain = __blk_mark_disk_dead(disk);
--	if (start_drain)
--		blk_freeze_acquire_lock(q);
-+	if (!test_and_set_bit(GD_DEAD, &disk->state)) {
-+		start_drain = __blk_mark_disk_dead(disk);
-+		if (start_drain)
-+			blk_freeze_acquire_lock(q);
-+	}
- 	xa_for_each_start(&disk->part_tbl, idx, part, 1)
- 		drop_partition(part);
- 	mutex_unlock(&disk->open_mutex);
++
+ 	/* recv transfer buffer */
+ 	if (usbip_recv_xbuff(ud, urb) < 0) {
++		/* short read: the buffer was not filled */
++		urb->actual_length = 0;
+ 		urb->status = -EPROTO;
+ 		goto error;
+ 	}
 
-base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
--- 
-2.43.0
-
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
