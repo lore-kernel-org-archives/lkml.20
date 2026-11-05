@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915555;
-	b=lOBt6lPYX9r97YSiFTvkfi4SNGNQOJowiMslzxqs2R3UhkgaXzUDmt3t5dC2pBV5BEWb
-	 jA30p9+DBdiXSY99VwwbLHWCHB8FWMloFcmna8pe0KHNIPSzhike99WyX8TvsRDP33ctp
-	 o+sWPjmKOZ4sj1kvGPRxdhtHBrO3AGntSOKK812yqcgzKuur5huqt/lNoZahDmJWuwSI9
-	 GQP9ydI7c0LDEqeLKYcfCNiouzxF0b1pkAsK1TOC01mCDQZILsCyteAQ8z6ZcYU8CZ6Mp
-	 BI8rZUeTp/zqsIwBgPIGKfRm/qBngn0+/NY5BWy6Xg7G4rTNebyhOASaUolEuWAC63w==
+	t=1793915558;
+	b=F9q1utd6zrqDz4XNEC2atjiw9gmtRwso5WI494+462X2GujF59TWn522q50MOPeL4HTp
+	 QzeclSa+rlethS0U6x9ei9GZ4akG8fvdzZKUF5hSDESJ/e+KH1J7JgcmqcVF4wMArOoTg
+	 DEN/Y8Yks3u8SfAl8ANQcDcnhPkIyxDpmLycfpMufC3tjKDmPt7EgyfANVEd8H4xZPG5m
+	 PpZHtYsmwlfXQpIeMkbVoBqLyRwELptcghv0/h+rZN58UlBm/z85zkCA9C+G6TxKWP/Z/
+	 +rMHspuahJtCjttqZHlaE5ksFJYukQuE/sXk37iaq6t6oz+51RX+M2sBSG1tZ/25vzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915555;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915558;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=6P+wWOmKlr+oIyieYhkfjl7LlKmI7J74vtJVogz0eZA=;
-	b=msuZvj2Dw3wfxFpuYM3Qtb4t7cPkQA7xDoy1GN4XBSkbTQJGhYWw+RMaJTKjh8GQvGao
-	 7/t5H9CKteHlD0q9i2vfWBpAn1u8Y3BdY2lSjo6ML5zWTiiIXNOUQUlH/RgzTuY3Fft47
-	 0g+Y73AFC+xAlS+oG3cey/pO16i3uBmBy1CcSoV9CHO199EUj3ZNRVaMETTeTErvSdo4h
-	 9G/VlmCJq6SJ40VXQS4PpoNSUXoNXjNcOH5pxn2/UeHBe4RfyCkp/pLZyNaMtj4KrV/Fi
-	 O6ZRfXb6wap6UiT+bKnvBFXQxbOx4CNSCSgmFOkUI4VKYIp4620+coX61+NFerW6ong==
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=htQKH5NrsDBxjh7VK2KlfJWOln+BxMMMQ3kuy7brT0Y=;
+	b=oKfUEEZ0yFwPPhxDmYaL4LP2znk7hGncRM/Zb5rraY+FEhGvubcpiUxKAGcpVm1IIPRn
+	 0GFqAHXiYZtEzvEdRe4R76aFLHW2iI2LRPgE+9zzCFBH7zqp/1DDaiK/DKmReVa47D0Om
+	 20tqG1FbmtGgl+jdVMCrXUZg1r/m8yQIKNfZS1waKKrxoknAJd4q1MViPO4uSAEsOVVgI
+	 WBzkOg3CcbFFkCqby+oPSY9HnQPb22Up3XH4nMCVqBW+eeUXge/F44qBniuIZgswbal1N
+	 9vwwfoLx/vT5oxMIZIkYs/1zr38YJ7TBUiV35lpMWfL5hBzf9k6Fjq872TBYfZk8AoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gCjRcRtg;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="ZEnPAw/5";
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 482D1606A31B;
-	Thu,  5 Nov 2026 21:52:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 482D1606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1970606A332;
+	Thu,  5 Nov 2026 21:52:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1970606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gCjRcRtg
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZEnPAw/5
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9197E1576;
-	Thu,  5 Nov 2026 13:52:28 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 279DD168F;
+	Thu,  5 Nov 2026 13:52:34 -0800 (PST)
 Received: from e127648.arm.com (unknown [10.57.14.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C2D5A3F628;
-	Thu,  5 Nov 2026 13:52:29 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C2B953F959;
+	Thu,  5 Nov 2026 13:52:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793915551; bh=wO7ECq165LD4SmwwVgDNX15ME+FSdbOHIyJ7IZf7NQI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gCjRcRtgkUNvCQMOxriP7fvyXC37IN4UCUulBvYzsCi2M0Pd6S0lWspJe8EPPgC1/
-	 aHOWijul21tH7NYFqJlCSHIx++F7nLy6MNvqk0bNExmRlIBp7X23A+PUaHejjy8cll
-	 7bY1LhAj/q8zsalIuiG88FR/p2lObqcs8tJA0CA4=
+	t=1793915557; bh=zGFb03FlNjOPjHZ5poQPrpkZh2R07016fhZpR6N0NhI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ZEnPAw/5G9bpq3KqaeSIZXVyd1YAkgRFiA8ZC3kwCzy96xlvLHGDdC0mZInF/r7bY
+	 9hejwNxKWTLCwvbb3DX0x+KxRAra8NWv/RzNcJnTmeElaWixLBChXrob9QkoBVipGL
+	 ZsBvMBZV6Z0h0uYfUuf51XIiQK7/DS4YvNdzRsoY=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	viresh.kumar@linaro.org
@@ -49,11 +50,15 @@ Cc: linux-pm@vger.kernel.org,
 	sumitg@nvidia.com,
 	zhanjie9@hisilicon.com,
 	superm1@kernel.org,
-	zhangpengjie2@huawei.com
-Subject: [PATCH v3 0/2] cpufreq: Fix global boost state updates
-Date: Thu,  5 Nov 2026 21:52:21 +0000
-Message-Id: <20261105215223.1263415-1-christian.loehle@arm.com>
+	zhangpengjie2@huawei.com,
+	Christian Loehle <christian.loehle@arm.com>,
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Subject: [PATCH v3 2/2] cpufreq: Serialize global boost updates
+Date: Thu,  5 Nov 2026 21:52:23 +0000
+Message-Id: <20261105215223.1263415-3-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261105215223.1263415-1-christian.loehle@arm.com>
+References: <20261105215223.1263415-1-christian.loehle@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,23 +70,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Preserve the global boost state on failure and serialize concurrent
-global boost writes.
+Concurrent global boost sysfs writes can interleave their global flag
+and per-policy updates. An enabling write can set the global flag, then
+a disabling write can clear it and finish before the enabling write
+updates the policies. Both writes succeed, leaving boost enabled on
+the policies while the global flag is disabled.
 
-Changes in v3:
-- Explain the concurrent-writer race in patch 2 (Zhongqiu Han, Rafael).
-- Add Reviewed-by tags from Zhongqiu Han and Sumit Gupta.
-- No code changes.
+Serialize the complete global boost update, including rollback on
+failure, with a mutex.
 
-Changes in v2:
-- Split rollback and serialization into separate patches, with the
-  corresponding Fixes tags (Zhongqiu Han)
-- Carry Pengjie Zhang's Reviewed-by onto both patches since code
-  is unchanged.
+Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Reviewed-by: Pengjie Zhang <zhangpengjie2@huawei.com>
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Reviewed-by: Sumit Gupta <sumitg@nvidia.com>
+---
+ drivers/cpufreq/cpufreq.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-v2: https://lore.kernel.org/r/20261105090311.1026648-1-christian.loehle@arm.com
-v1: https://lore.kernel.org/r/20261104161657.546370-1-christian.loehle@arm.com
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 23a77f5524df..d95c849f79c5 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -2810,6 +2810,8 @@ int cpufreq_boost_set_sw(struct cpufreq_policy *policy, int state)
+ }
+ EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
+ 
++static DEFINE_MUTEX(cpufreq_boost_mutex);
++
+ static int cpufreq_boost_trigger_state(int state)
+ {
+ 	struct cpufreq_policy *policy;
+@@ -2817,6 +2819,8 @@ static int cpufreq_boost_trigger_state(int state)
+ 	bool boost_enabled;
+ 	int ret = -EOPNOTSUPP;
+ 
++	guard(mutex)(&cpufreq_boost_mutex);
++
+ 	/*
+ 	 * Don't compare 'cpufreq_driver->boost_enabled' with 'state' here to
+ 	 * make sure all policies are in sync with global boost flag.
+-- 
+2.34.1
 
-Christian Loehle (2):
-  cpufreq: Preserve global boost state on failed updates
-  cpufreq: Serialize global boost updates
