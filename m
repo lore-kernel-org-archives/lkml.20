@@ -1,49 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852049;
-	b=czL0U/v0lRPouLxd7s3hM1qx12PBLqnTg36xBDHrz2S0NmrIQ07GS4+3lKfWMnjzNPj1
-	 kl3SKOehzi0r/1exKFSdVdxyQ5uotQblHcm0nMXxnOv/uIYF9L/UQ7kdB9ukBGamEPshN
-	 0S2YzXoo4IGBC9DFcKb74BE1eP1ifqsHfAMRYfiS/F3YkipMab7w0FlgBe3b+IzpVZq+k
-	 DubzmMWQg9APYbQshqHxC8924rJXwB+poRw54fJaTogsaXHkvGwKU8Sz9tGshfqf2FnhO
-	 saFYGB8mgf+GxqWHRNDLFWer27kNGQmc/9SN5Fdru2lD/YrnWGWKSE4dySvn+nhnoLg==
+	t=1793852108;
+	b=Xw7rKrdV5k+OhZE9T++7BwNc/AfZIF07VWOVyXYZPdp7CHaYXkuU9GwDxzNQSYEDZ9NR
+	 5jPjY26yKSOKo1BHD2XDRgzzyF35xjPiYvA0mjri5k2ZbymAZ1caHF0LU9fPSA6+sGnst
+	 K2yw9Hb1UuuWdXWMvZUvw3ref42JO4fLtpfD+a7iLPgZdvZ1ADRsNyp2f+rtzyuK+Mb4Q
+	 hG2gDEu+VKAT1IaTNkobQmYCXyi4rh9JVoHi55MyfMqK68QxQ2GgqX9Z/7ubEnDps4KrU
+	 AcwxslRdYc1BZQvx299sehgQtdQVxgl9SLxas+6HwxMnarHoi3gZgdGXBPakoIM1BBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852049;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:X-Mailer:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=82C0pMCYwMzWMRl19g9H4sTrB8Sq3TP728Ks6dqFnPk=;
-	b=jv5dEbnQUbPdmD8OiJ8Yi48Gh3ZdH75jjF63XEW0wjAYH4o7D279bq4e+eR9+u6uD93K
-	 +Mh9fM0GSrSQBTJEH81R3nitM1gqQIasteGYHudrE31RrOPfnekTqgK76QJLtVvzZXm5U
-	 KsfS9TSOYWUGvzymNRBSiej3nEtr41ADFKkzI8tEwfV2dFA33u0g3hZ41xev+bfkstC9i
-	 RevupEYW7xrIwwm8V6rvAVp35ptjkBWp4BCH/aXbjW/TwMQymif6xrjrZeLkSACakqsmW
-	 oQnxXvzY3eH7r9DF0uB/6iJ2yL7XM5dbR306Rm538ESUKszj4cqltINEMj/nd9Qj45g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852108;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=I70JP2SqokASsJErmH/yPweM9if0dk4HKlTSDOwI09E=;
+	b=aCDgGS+0MUJwXbkhaMBZGCwTDjRAt9+v+ZmY62wqOWipSv/Tn3lWnR3kaZdzwGvnGpkP
+	 Wlm94Pd011ljVl7kSwI+keg/CTlWI9XrsFi+uU+Jz+UCq6AU8VQfMdh/Bo9JveJRMmxjU
+	 PIwy+sVvcgipadMnkbg093f38/6NuyEUyNGc5wgNGA2R5KvvJaQRTXmWQ7MiSKTfuWtBn
+	 kMEd4hUoQcp7+t4XpW2t8LEwQFko5lNmauqPVUajBiMfK7pEiu9M6KStcM2eJ2kvNR8p3
+	 6dpMD321MzxULageN4V68Bl8dHhaEnijx6+PFQHis0WBFwb+d1Ik5PTP9RcH+Ks2SfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fMuRMBBc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dd+wWpym;
+	arc=none smtp.remote-ip=202.108.3.164
+Received: from mail3-164.sinamail.sina.com.cn (mail3-164.sinamail.sina.com.cn [202.108.3.164])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C8D606A326;
-	Thu,  5 Nov 2026 04:14:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53598606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:15:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53598606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fMuRMBBc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9221F1F000C1;
-	Thu,  5 Nov 2026 04:14:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793852048;
-	bh=82C0pMCYwMzWMRl19g9H4sTrB8Sq3TP728Ks6dqFnPk=;
-	h=Date:From:To:Cc:Subject;
-	b=fMuRMBBcxjfVKX72ikgs6rV4/6aNZ4lGc7ylD5catLudQ3gRPolVBNa1TYvP8Kh5p
-	 xmgALlpu5IepSZJmD52pmSWeNujLKlM38z42YeFpDDfl9ML2kORZdw6VX+agi+tco/
-	 01G5Dhderx4jxQoXw1QrJmcB653YTZDsg0NpaslQ=
-Date: Wed, 4 Nov 2026 20:14:08 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- mm-commits@vger.kernel.org, David Hildenbrand <david@kernel.org>
-Subject: [GIT PULL] MM hotfixes for 7.4-rc2
-Message-Id: <20261104201408.90579e9988fe725faf3ad859@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dd+wWpym
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793852105;
+	bh=I70JP2SqokASsJErmH/yPweM9if0dk4HKlTSDOwI09E=;
+	h=From:Subject:Date:Message-ID;
+	b=dd+wWpymyVzAKs5EMjriS7Jh5yDuTr7q4O0W4UF+OQjv396SfE/ydTdq52cSCWyh+
+	 HSLA6ocKfsWPVzuI8HlmZWj4+QyfnfE5ePYgVKoLxcgJHX828MdTK1NdVqLstLbiCl
+	 3vnfZrrfVso/9sV2nlJZZW3hoZa7dQ+QLqdpO/Vo=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.231.89])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AEC02B6000003F6; Thu, 5 Nov 2026 12:14:48 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 6194074457038
+X-SMAIL-UIID: 9A5FDA986C1D4943BA931602A231C7D6-20261105-121448-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	phasta@kernel.org,
+	robin.clark@oss.qualcomm.com
+Subject: [PATCH] dma-buf/sw_sync: Optimize the retrieval of fence reference counts
+Date: Thu,  5 Nov 2026 12:14:46 +0800
+Message-ID: <20261105041446.51979-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
+References: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,240 +74,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+There is a race condition between closing a sync file and the SW_SYNC_IOC_INC
+operation on a sync obj. When a fence is created via SW_SYNC_IOC_CREATE_FENCE,
+its reference count is initialized to 1. When the sync file is closed, the
+fence's reference count drops to 0. A race occurs if SW_SYNC_IOC_INC accesses
+the fence whose ref count has already reached 0 before dma_fence_release()
+calls timeline_fence_release() to erase the corresponding pt_tree node from
+the sync object, potentially hitting:
 
-Linus, please merge this batch of hotfixes, thanks.
+refcount_t: addition on 0; use-after-free.
+------------[ cut here ]------------
+kernel BUG at lib/refcount.c:34!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ kref_get include/linux/kref.h:45 [inline]
+ dma_fence_get include/linux/dma-fence.h:323 [inline]
+ sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
+ sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
+ sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
 
+Use kref_get_unless_zero() to optimize dma_get_fence(), in order to avoid
+acquiring an object with a reference count of 0.
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
+Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+ drivers/dma-buf/sw_sync.c | 3 ++-
+ include/linux/dma-fence.h | 5 +++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-hotfixes-stable-2026-11-04-20-02
-
-for you to fetch changes up to 19eab4cf787c917bfb7615460933e4ae894af65b:
-
-  MAINTAINERS: move SLAB ALLOCATOR under MEMORY MANAGEMENT (2026-11-02 18:14:50 -0800)
-
-----------------------------------------------------------------
-mm.git review status for linus..mm-hotfixes-stable
-
-Everything:
-
-Total patches:       43
-Fixes: tags:         42
-cc:stable patches:   30
-Reviews/patch:       3.67
-Reviewed rate:       88%
-
-Excluding DAMON:
-
-Total patches:       40
-Fixes: tags:         39
-cc:stable patches:   27
-Reviews/patch:       3.95
-Reviewed rate:       95%
-
-Summary of patch series in this merge:
-
-- "mm: avoid losing atomic VMA flags" (Lorenzo Stoakes):
-
-  Preserve guard-page and soft-dirty state across VMA changes. Prevent
-  fork and THP collapse from losing guard markers, and keep changes
-  visible to applications which track modified memory.
-
-- "MAINTAINERS: MM updates" (David Hildenbrand):
-
-  Start routing more MM components through mm/core.git and add Zi Yan
-  as a THP co-maintainer. Update component coverage and integration
-  branches as part of the transition to separate MM component trees.
-
-- "mm/hugetlb: fix mremap bugs" (Li Zhe):
-
-  Fix hugetlb mremap deadlocks and truncated move lengths. Prevent
-  userfaultfd poison markers from affecting other processes through
-  shared hugetlb page tables.
-
-- "MAINTAINERS updates for page and slab allocators" (Vlastimil Babka):
-
-  Add Johannes Weiner as a page allocator co-maintainer and update
-  page and slab allocator entries for their component trees and
-  integration through mm/linux.
-
-- "mm/damon: fix three race bugs in sysfs and core" (SJ Park):
-
-  Serialize DAMOS tuning updates and stop monitoring contexts from
-  sharing mutable state. Avoid interference between concurrent DAMON
-  instances and incorrect auto-tuning.
-
-- "mm: page_alloc: fix reserve access for non-blocking requests"
-  (Johannes Weiner):
-
-  Stop ordinary non-blocking allocations from consuming reserves or
-  bypassing watermarks. Avoid severe allocation stalls under memory
-  pressure and preserve reserves for requests entitled to use them.
-
-- "mm/cma: accept memory of CMA areas reserved with memblock_reserve()"
-  (Mike Rapoport):
-
-  Accept memory in fixed-address and multi-range CMA reservations.
-  Prevent fatal accesses to these pages in TDX and SEV-SNP guests.
-
-Summary of the 20 singletons in this merge:
-
-Several fixes address crashes and unsafe memory access. Failed THP
-collapse now flushes stale translations before releasing pages which
-another collapse can free. A truncation race with MADV_DONTNEED could
-remove still-mapped shmem pages and hit a kernel BUG. Large-folio
-page-table scans no longer wrap addresses and crash near address-space
-boundaries. Hugetlb vmemmap optimization no longer causes write faults
-from racing reference-count operations. Memory-cgroup teardown is
-also protected against reclaim work accessing released state.
-
-KSM now preserves userfaultfd protection during merging and unmerging,
-and retains soft-dirty information needed by incremental memory
-dumpers. Reads of /proc/PID/maps and related files no longer omit
-continuously mapped ranges during concurrent VMA changes. There are
-also fixes for expanding mixed mappings with mremap() and querying
-NUMA placement with tagged addresses. Swapoff checks for signals while
-processing large address spaces and shmem files, so it can be
-interrupted without holding up suspend until the whole object is read.
-
-Costly allocations with cheap smaller-order fallbacks avoid direct
-reclaim and compaction. Reported arm64 PostgreSQL tests improved from
-58,602 to 157,246 transactions per second with defrag_mode disabled;
-this addresses a buffered-write regression under fragmentation.
-Background reclaim can recover on the highest-numbered memory node
-after it has given up, and 32-bit writeback threshold calculations
-no longer overflow and assign incorrect dirty-memory limits.
-
-----------------------------------------------------------------
-Baolin Wang (1):
-      mm: memory: fix truncation removing mapped folios
-
-Chris Down (1):
-      mm: make swapoff interruptible when unusing mms/shmem
-
-Danish Khateeb (1):
-      selftests/mm: merge: keep the far mremap() targets in the carveout
-
-David Hildenbrand (Arm) (11):
-      mm: fix address wraparound when scanning large folio PTEs
-      mm/hugetlb: disable PMD sharing for UFFD missing mode
-      mm/vma: write lock source VMA before duplicating it in __split_vma()
-      mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names
-      MAINTAINERS: mention for-next branch in MEMORY MANAGEMENT - MEMORY MAP
-      MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
-      MAINTAINERS: add Zi Yan as co-maintainer for MEMORY MANAGEMENT - THP
-      MAINTAINERS: sort entries in MM sections
-      MAINTAINERS: add missing files to MM component sections
-      MAINTAINERS: rename and move MEMORY HOT(UN)PLUG
-      MAINTAINERS: route more MM changes through mm/core.git
-
-Gregory Price (Meta) (1):
-      mm/page_alloc: let the highest memory node recover from hopeless state
-
-Hengyu Liang (1):
-      fs/proc/task_mmu: return -ENOTTY for unknown pagemap ioctls
-
-Hungyu Lin (2):
-      mm/page-writeback: avoid 32-bit overflow in dirty threshold shares
-      mm/migrate: untag addresses when querying page nodes
-
-Johannes Weiner (2):
-      mm: page_alloc: do not give all non-blocking requests reserve access
-      mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
-
-Kiryl Shutsemau (Meta) (1):
-      mm/hugetlb_vmemmap: map the shared tail page writable
-
-Kyle Zeng (1):
-      mm/khugepaged: flush deferred unmaps before dropping a failed folio
-
-Lance Yang (1):
-      mm/ksm: fix userfaultfd protection during merge and unmerge
-
-Li Zhe (2):
-      mm/hugetlb: fix mremap move length truncation
-      mm/hugetlb: fix mremap deadlock when PMD sharing is possible
-
-Lorenzo Stoakes (ARM) (5):
-      mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
-      mm: do not unintentionally overwrite atomic VMA flags
-      mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags
-      mm/vma: update VMA iterator state on error in new VMA merge
-      fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps and friends
-
-Mike Rapoport (Microsoft) (2):
-      mm/cma: accept memory of multi-range CMA areas
-      mm/cma: accept memory of CMA areas reserved at a fixed address
-
-SJ Park (3):
-      mm/damon/sysfs-schemes: hold damon_sysfs_lock in target_metric_store()
-      mm/damon/core: move static variable last_nr_regions to damon_ctx
-      mm/damon/core: move static variable rotation to damon_ctx
-
-Salvatore Dipietro (1):
-      mm/page_alloc: avoid direct reclaim and compaction for costly __GFP_NORETRY allocations
-
-Samarth Narang (1):
-      mm/ksm: keep soft-dirty when merging a page
-
-T.J. Mercier (1):
-      mm: memcontrol: fix NULL pointer deref and UAF from high_work_func() on dying memcg
-
-Vlastimil Babka (SUSE) (2):
-      MAINTAINERS: add Johannes as the page allocator co-maintainer
-      MAINTAINERS: move SLAB ALLOCATOR under MEMORY MANAGEMENT
-
-Yafang Shao (1):
-      mm/migrate: snapshot the source nid before the misplaced migration
-
-Zenghui Yu (Huawei) (2):
-      mm/page_alloc: mark pages freed by __free_pages_core() as not tagged
-      selftests/mm: fix khugepaged_race build with older glibc
-
- Documentation/mm/vmemmap_dedup.rst           |  15 +-
- MAINTAINERS                                  | 224 ++++++++++++++++-----------
- fs/proc/internal.h                           |   1 +
- fs/proc/task_mmu.c                           |  15 +-
- include/linux/damon.h                        |  10 ++
- include/linux/hugetlb.h                      |  15 +-
- include/linux/mm.h                           | 166 ++++++++++----------
- include/linux/mmap_lock.h                    |  22 ++-
- include/linux/userfaultfd_k.h                |  16 +-
- mm/cma.c                                     |   4 +
- mm/damon/core.c                              |  10 +-
- mm/damon/sysfs-schemes.c                     |   3 +
- mm/hugetlb.c                                 |  55 +++++--
- mm/hugetlb_vmemmap.c                         |   8 +-
- mm/internal.h                                |  10 +-
- mm/khugepaged.c                              |  10 +-
- mm/ksm.c                                     |  10 ++
- mm/madvise.c                                 |  10 +-
- mm/memcontrol.c                              |   5 +
- mm/memory.c                                  |  99 ++++++++----
- mm/migrate.c                                 |   5 +-
- mm/mlock.c                                   |   6 +-
- mm/mm_init.c                                 |   2 -
- mm/mmap_lock.c                               |  61 ++++++--
- mm/mprotect.c                                |   2 +-
- mm/page-writeback.c                          |   8 +-
- mm/page_alloc.c                              |  30 +++-
- mm/page_alloc.h                              |  14 +-
- mm/shmem.c                                   |   4 +
- mm/swapfile.c                                |   4 +-
- mm/vma.c                                     | 104 ++++++++-----
- mm/vma_init.c                                |   3 +
- tools/testing/selftests/mm/khugepaged_race.c |   1 +
- tools/testing/selftests/mm/merge.c           |  33 ++--
- tools/testing/vma/include/dup.h              |  83 ++++++----
- tools/testing/vma/include/stubs.h            |   2 +-
- tools/testing/vma/shared.h                   |  16 +-
- 37 files changed, 682 insertions(+), 404 deletions(-)
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b0218a9..ad60ad5e5cd9 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -221,7 +221,8 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
+ 		if (!timeline_fence_signaled(&pt->base))
+ 			break;
+ 
+-		dma_fence_get(&pt->base);
++		if (!dma_fence_get(&pt->base))
++			continue;
+ 
+ 		list_move_tail(&pt->link, &signalled);
+ 		rb_erase(&pt->node, &obj->pt_tree);
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..4d885c8e1d4f 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -320,8 +320,9 @@ static inline void dma_fence_put(struct dma_fence *fence)
+ static inline struct dma_fence *dma_fence_get(struct dma_fence *fence)
+ {
+ 	if (fence)
+-		kref_get(&fence->refcount);
+-	return fence;
++		if (kref_get_unless_zero(&fence->refcount))
++			return fence;
++	return NULL;
+ }
+ 
+ /**
+-- 
+2.43.0
 
