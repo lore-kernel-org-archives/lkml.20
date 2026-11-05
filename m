@@ -1,140 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793858684;
-	b=K0wredIq4Z+eXaBwhfNJJFFtRPwuWjOjF4wIc9+ALa0NQD7JHS47Y9uw0lpqTM2h8jNG
-	 JzR/IpE2Om4ohTsP8CleSCft+Z3zMqQRXr+JbCfRvy+ULTDGgsSI2pm9LPA2M54GK52Z4
-	 5ifw75UHPhpjT3bce9YcQhV+n/KtsnjVz/i9tZcr6zDJm7dBNUZJ1qH39IoGObAo34LLZ
-	 9T3gG9ASkIID53JM6tZsJZ0WKiCVGMx+IU54DLnLCJQEpuCUIZOiH3aloL6VnHn5vYXIa
-	 vssQ9ovAlyTC0WEJ0o3lPxSTHXhwBWB0lzpdJ5O7o36qTKYz4HfbuhADfi5dat0NgZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858684;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793858796;
+	b=wtesFwpuQ0NxhXRBHz5U+bAJHSGm05A+V+MpL9AvI5jYJtjGmIK+cuAlnWPZHWbjB9/6
+	 a22E0892f9je6jsS3POgmWHIb6kAn9oQLWGmbnYazuL0fkB8nVTchNJe2vNY9ryXR6B2S
+	 whidF/Zdls4bCbx8ZgLMSWIPXvJi4ik/2GN6IjLwtcZbu2yHwp5ID/ex+qdpSSnlS3D9Y
+	 WiPHiATE1vFKkg9rfEhSdOjc2unJ/fg1BtCpSWLdX4FU6LXlFFb4eJysSLVXCPTCn2Np/
+	 8kuZvpf225ouvpTFVTiKiv2KDs4kL+Hr5cSBOQPS69jpvQgHdxgoWqGuEaz7jqjq7rQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858796;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=is1tbQQ7c7hkK9s2rj1CIXvpaYKGLPpYElqPYsurweU=;
-	b=muePJpXb0YY+IpOdVMtlL75VnK2yurudMMoNHrZhwtiHf66RDo2gqVhgg3DMYJ+NIsAT
-	 zUhMGwpgS/KupZGCDVET04YxndxlFYqQ7bCMp2q6aHZnwo1Qur3ecb8ZFpIksASqOU685
-	 KW67q3uhwOVK7L9BtwTDt25mvG/anE87aZRrFUHv3d+tejLxz1nkKhTlPFUoN5reNwWKQ
-	 pNUq2bDtndc7ZutSgg293p3Gb0db1+RughhEE/hpogTPobCJstwPCzdtx6iwbAWx7R1DP
-	 a+f4RPC9QkT2RxMb69zvWCtCMxR2sAFgGGft4UCARj0urSwZKoA1UjmhO+9nJrUlYtg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gODpJwpn;
-	arc=fail smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=hlm+rn+oysNQEGjSF8tAU2VzC9EojVXk66lwsMDmr7U=;
+	b=NWfd1HrCEfyHIQk2pgDaq4pAWU6EVdC+PwMJgxpXSn+bgKPBd4AQsBzEDfcrJO+LC9UB
+	 JBO+KSO8SBPm+bcE+ulDdH8FEllg7yoCVMAOdoTFWD1JnxedRMhKZ7kG/htaKDs34xdHr
+	 sxYB++y4zutDL18XigqjbbY5XDyXyNPOZiRHh3QMF45x3Iam2t4/p1sUoEeR9mHeaEMEl
+	 vTXAevNsbWlVipRlkIc4IPufxAeMzipGHoqjW3Yz/VrtkbO9GLGC2ElKPpdTm3AZ0EVXg
+	 yafEuj4L3JxEAubtqmfqpdNGQg5Y1TyY1V9LJxf98lXExrOI1j5XjCXegZFl/4DZrhg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sqj84r+D;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD20A606A31B;
-	Thu,  5 Nov 2026 06:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD20A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF35606A326;
+	Thu,  5 Nov 2026 06:06:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAF35606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gODpJwpn
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sqj84r+D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793858680; x=1825394680;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=ra/HP0wh0djEYFBwf1MNdX/BtLLS2nHK0s9k+GgesGs=;
-  b=gODpJwpnvFfgRsnCQ8TB5t4N6hJDzl7kjZyOu2jih86MBftMyMVKZKZI
-   0asfQWR0S7uqp9WiyPMRe8OPKd5cu1gxxW49ULjtPvGI81AstDLECsCoT
-   X+exhXjGiyLupWq3RVJQwIGdUH/mWFYORPDp3GngUGwEZdlM4x1QtIQa2
-   my1szjuoZbGOcXrXs67v1g9H8FyA1bXRD9DXrHCXLlk4EGVAY5jz14khN
-   UnlTNOfNk/jNb9qeVMXrZyicfUE9Yu6c0+mtQd0E7nF/vOKKMsKwIx6GI
-   JOBtDz0D0yM+Og0XcvysrPfSp8XlfLzHKhzduXfu2XTwY8c6sYP5JxZpn
-   A==;
-X-CSE-ConnectionGUID: JIf8wnlxSxiCNSlamTF/Cw==
-X-CSE-MsgGUID: fns6d/8ZRuarqAK1xUd3KA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2533439"
+  t=1793858795; x=1825394795;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=e1Atk2ZmfPf0LeQVA4o58INUz/taOCt0EIF6/hjQxu8=;
+  b=Sqj84r+DxXe7/Nj4F6lVzK7c5MN1epEYaNy/+g1RU63ncMonWVW/er2G
+   wHmgMNCjXAGJHY4w4GDqRd6HU9dnjcX16lXWESyKzB2DQKgsRhUCr72t8
+   Wb8GLSInCQyGmm1h97e1VjTIluG/HCl0S0B0vt6RK9nMhbUq+IeAtz/yN
+   30NNLXgGyRaD4ETteHni5pjSNUpaTs9KKyLX/jAu42r08/zh/vaWV1XLe
+   VqoZT93wTXLrpg/ZHqw/8zQcLQEpWVx+0gRrB7u02ZrPao8S+7oZIlo7Z
+   yWpqM4lj2udWkug58b6BUq2avSXLk0UE6ASvQ5fbiMh/tJiIb8P+4Ngon
+   g==;
+X-CSE-ConnectionGUID: n7wZXhPbRR+W9xGrLSDlHA==
+X-CSE-MsgGUID: Sq+B1ZhBQqGh7vUgRBz0qQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2628740"
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2533439"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:04:39 -0800
-X-CSE-ConnectionGUID: 8r26UNpJSgaqdkV1y+/Kig==
-X-CSE-MsgGUID: YIFAYCX/SaKtEhYNfdx00Q==
+   d="scan'208";a="2628740"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:06:35 -0800
+X-CSE-ConnectionGUID: cl2az8UQR/ar1xXQbOTzxA==
+X-CSE-MsgGUID: biV5YcuiTEaTHjQdSSRgUg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6943037"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:04:37 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 22:04:37 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 22:04:37 -0800
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.21) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 22:04:36 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UGWuxD00uQawazrt4yr2H0aq+lk6gr1R4oerMgJErQ7uPpT4bKJ3yXPkTdt/gUSesc3qHoB42kmihAek/15wd+mfx/dWS0r7LZdpb8E6HJcHluviUJuG1i3yPOFfmAIzQqy+4GaEeCQEqKagUcu3cK8fCYkWF5Fzb8KGppDIMxeDnO671nfkqP5lk+DORjKbzf09JRuwgQ0VRoud5djZ5pBYnQ4wJjjhhCJe2bSuxti43mT2Aufjb2MpGcO6t4TqS0r2pnOxdsly2vW3NYNwvB1PfDJz7beNtqnhIZhQE29JQwkhGUBQvZrmv6et62J7GpgHIh5YBFEa8Sbma2M5Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=is1tbQQ7c7hkK9s2rj1CIXvpaYKGLPpYElqPYsurweU=;
- b=IDnnh5GeJI57kjf+Qk4b+Gmnk81FAc+Rr/jlCBF5tuU6HoJ5J2ADp+vFvvDGuw6kkhKd5bxp/wcxXEX18IF2hob87BNJSQ4FUBRR2YzlIGC8gOvS27CTadt6GzrcRXhjUBFdfEnxSa9kb4EVmfrNsfQdep+TT4QU/5PrMycggZtfQZ9hwir+xZu/jiy9D4X/kypLkm1V3RLA4YZoUtFMb1Ac1yg2NtEDeorHgM9AA5kJL/nlqBaZhvKKz/wDANauu8aiN3qejOUtQBg37+I15fqAdpCRUau9OGFvR/q5tG5rbVGAfuJIYD4fKpUNoOCxNm5kd5ipzhME6zHY9x9MyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
- by DSWPR11MB9558.namprd11.prod.outlook.com (2603:10b6:8:36c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 06:04:29 +0000
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 06:04:29 +0000
-Message-ID: <c6080d32-49d0-413b-8c37-74709dadd6f6@intel.com>
-Date: Thu, 5 Nov 2026 08:04:24 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] Genesys GL9750 (17a0:9750) does not respond after its PCIe
- slot is powered back on from D3cold, on s2idle resume and at runtime (ASUS
- Vivobook 14 Flip TP3407SA, kernel 7.3.1)
-To: Ben Chuang <ben.chuang@genesyslogic.com.tw>
-CC: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>, "rafael@kernel.org"
-	<rafael@kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Kyle Baedke
-	<kylebaedke@protonmail.com>, =?UTF-8?B?VmljdG9yU2hpaFvmlr3li53mlodd?=
-	<victor.shih@genesyslogic.com.tw>
-References: <x4G_0cgWnHWJtmgP4iX3hFfwwbWDyVuO9Ps8Pv_Rnq4VguufBRLzZex1IxGuTtaYfU7tS7U8RbKjB2I54HxfEmPk3gzKWvYDAyuZXrtWbDU=@protonmail.com>
- <vqOfI4cXijz1Ft480-_mX3XkrTT_-oQ78Xy6CPrXD_r5R06i7H03y3szJFA7JAVs9YsW93_hUQ0hz5bTYItb7RUml3cGwxPmW9gPFIcNY-8=@protonmail.com>
-Content-Language: en-US
-From: Adrian Hunter <adrian.hunter@intel.com>
-Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
- 4, Domiciled in Helsinki
-In-Reply-To: <vqOfI4cXijz1Ft480-_mX3XkrTT_-oQ78Xy6CPrXD_r5R06i7H03y3szJFA7JAVs9YsW93_hUQ0hz5bTYItb7RUml3cGwxPmW9gPFIcNY-8=@protonmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DU2PR04CA0061.eurprd04.prod.outlook.com
- (2603:10a6:10:232::6) To IA1PR11MB7198.namprd11.prod.outlook.com
- (2603:10b6:208:419::15)
+   d="scan'208";a="8688050"
+Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:06:31 -0800
+Message-ID: <d52dba58-5f8a-4980-b9d0-0b1e0df48f82@linux.intel.com>
+Date: Thu, 5 Nov 2026 14:06:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -144,200 +72,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|DSWPR11MB9558:EE_
-X-MS-Office365-Filtering-Correlation-Id: acb14df5-c328-4ad3-2797-08df3b02a70c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|56012099006|11063799006|4143699003|261026121527099003|261022105027099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|261022075727099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info: BR+jCh3n5lRWwToM01Wgh5c7xBbbxd0SiyXBGIeoHMkVF3W3mRWDRuk8lneBuBJKt4PRBROW0lQtkGSfum6rxHlH2DuScMubq9/n99UW08g49g7MH7tPQDibfi3VvCfvlqrDNMVTQUlUMtliQEuTzwelTkffonMFvMg1L0yG57hnD8XVE8TGeAs23djsqQpWfHEZmIhK0yHwxRnDms5QnuYh59W8F9jpZYijkcb4QVA5PxyZ5MnXbcN6sRoEHcmgLsKA/TBVRrRlBq5ZMEqJnnWijnmopuC80hwls1d1FHzzqPbC3Lkk3lqydx7zQIz7v89d1RXimZtlFSqYD1RBU0n8iKquEUddNnCMnB2e6G4+islJhOC/qOj13q9amZSCasOVr681b1G/K6SE+9QmBQdtu5/1irveNNzMdLan+Dcw9nr09Ae/QApPs890EEZ4pixwKvvZ8R0yfwyCHAPNCsvuUyrX/nSKkwU3p8yUCySQKDD+ozjT1eMTng/8+qg5S18Kr76aEG2MrYxaaqsWZXfsYXqXONlP0TPeBtas9movVZHf7JgXEJ67V7dpsuEQ/twxnNAgSUB18/XrSTu3FSlPUmP+EQi53KsWHiVxmKSHQ6pjRoRlgL77+rXfp+lu8mMDfDbSTcFkT0IDUJGL9ILKVEmQGA/ltUHaXiN0DDI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(4143699003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(261022075727099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjFvKzhxZy9IV1RteG8zc2lCY2NRaGsyOUI3TkYxdGUxUjZnSnRndStUZGk4?=
- =?utf-8?B?SDE1RW0zRVNqZlJJVlBSVktSRmY0SE0vaXQ2SVdlOGdMMVJvNzF3VEpJR1V3?=
- =?utf-8?B?b0JsSklwTTBKbGJZN0VpVExZbHFleTkyMGQzWFZvOFFIVTZQeC80bkFTWFU0?=
- =?utf-8?B?bXpVOFNSZ2JRdWZkTUtXaWxIRVpiSkdPSWZ4ZUVnUTVHYm1uTEJEWXNYRHAx?=
- =?utf-8?B?bXVLbU1Obkp5b3dJRHZCdk9ReW13SkhNZjhoeEhjY0NIb3k3WWpaR2UwM3h3?=
- =?utf-8?B?cVhLU3lxbTYybm5EMzdQM2cwQWZLSzFZYnJaSFFFUUVyY2Ric09CZGJIcUpy?=
- =?utf-8?B?SDZoSTBIS04yWHdrUCt1L01CSC9RWUFJd28vODd3V3RIVnk5K1NkdE1pdXRp?=
- =?utf-8?B?UU90Rk4zRUlkMkFpL3IxU2ZPMzJJOER3aWlTdWJ6RnlQOGpRaVJ4RXpQOU1X?=
- =?utf-8?B?STFIcXhmUDZGWVVqUXJzT21nMHVjeVR6OWIwcTVteGY1WU1hb01vRmJWMjBS?=
- =?utf-8?B?ZWpaMXhPbGoxT2VBWDU0clgxT1piSFd5b2UrOHkzRXBUMlFqd2lrSVJ6cjln?=
- =?utf-8?B?OHZkalhLck9LTGFUaGN0Mmh4eE4xSHNPQTZIdS92dzV2S1Zad3F0aWtDY0d1?=
- =?utf-8?B?TU1CKytMMndYbE0yUEp2em1WU0ZXN1VnQW5TYVNoMGdhNVQvRWg0bzlySGFp?=
- =?utf-8?B?VEdkdUdzOFNjOU55dEc5MWdueDBtNUM0WkgvU3ZmaVkyM0dab0gySXRrT0Rt?=
- =?utf-8?B?N1ZjYndrNjJ6TG1xUS9rVnlWRUMzejBlWTRGUVRmTUUwUGZaUWdxNDZqRzRk?=
- =?utf-8?B?cEVhc2hyM3FESjhvbzRsNkw5WVZsRUtPd0dpMlZCeE0weTB4aGlVTzdJRGUw?=
- =?utf-8?B?b2s2TWMxMnhXWFJNVkxnZU52ek1CaVprWWFPT3NaVXc1eWxRTUpjV2J1TE4r?=
- =?utf-8?B?MzlMakY5dnBUSlRQTHlCenpzcVY5ejJYTWhVTzhTMVEzUU9OWDh5OGRsQk9Q?=
- =?utf-8?B?RFpRWCtXak9wM1BDYW5ycm54SkNRbmh1MlllTmNXZUZtcjZJZXh3N3A4R1Nv?=
- =?utf-8?B?NG8wWDBndkN3VzNnV2JwbVpjcHFDOThBMjF3Q3pKbHBpV2cwSHRjZytDWWdz?=
- =?utf-8?B?aUF2QXRzcGp2Y1dSak5VSHpZWnJXSEpERXVEdkRNMmpDTkNUbEZVR29GMkN1?=
- =?utf-8?B?S1lIVnp0Skw4d2c5WGlwRUw1bTVpRjExa3FuU1lFclR0Tmo4SndQZHpwSzE0?=
- =?utf-8?B?RTljNDloQWd2S3N3WkpRYjJxeWlOK0xSS3hUbG9KQmJSL1JvZEVKYVI2angy?=
- =?utf-8?B?SWxZYm1UZUl1dmlCZysvN2ZrcVRNOVFaVHdVU0pXS3hzUkhIOUJBU0krNi9y?=
- =?utf-8?B?SlBlWHVRVEZNM0tLM285MzI3NVhkRTlMZ2toRlRicCtBd1BZYW9oS0cvNjRY?=
- =?utf-8?B?djBmdGJBR3h3MTdycTk5bmtCSDVteC9SN3YvL3ViSlpXUEt3N0xiK3duekZH?=
- =?utf-8?B?RUdTNEY3WFU1c0FMUUdCVGdHQ1NQdHJILzI0c3VTQ1lIS09JeVlmaVZURERv?=
- =?utf-8?B?ODlQazU3V05iS3o2dEprZ29wTzlKTU9YM2VWenYrUjVKZk9pOEd4dkY1bit0?=
- =?utf-8?B?ZncrVGk1cUViTlI5dTZCNjRJdFVjQzR3bkNWck5IVnE2ZERhdW5UTzhFMHAv?=
- =?utf-8?B?WkVSempwQUQ1THJoNWtPMGhJTW5peTNROHVSMHJNanZUcEhZaGNsdkFqRHcy?=
- =?utf-8?B?d1BJMlorL1htSVUrZjRsSWI5MDZ0YWl1QzlodW5wYjdmSkdxYS95S1lCQnlT?=
- =?utf-8?B?Uks3Q29SSjFOQm5DSGNnQXJqV25OMmVyZUtSVnZNWUUwUDg5MUFnUjBnMHZR?=
- =?utf-8?B?Uk1CZkpLMS8xbGdwK0JjY0xHMEtOeGVnRDdJZFdYMGg3RHlvNCtWakkvSmZC?=
- =?utf-8?B?Yk0xNWo2VURUeDNGcUpGd2FZcG1aOWxCTGpERTdKTVc3R3RTK1lKWWdnMkEz?=
- =?utf-8?B?NlhhZlRHWmU1N2ZLK3RCNzNSaVRlYys3aHZmTWZpdWFjSkF4WnRyN3VkNnpJ?=
- =?utf-8?B?UWxRSTJuNS9rSXFUTStLYW9GSFZIb2QycytCdnJHdHQ4T1NiVVZTcXNlenJx?=
- =?utf-8?B?ZDNYZUNXRVpTb0J4YlJpdHpDWXROMWJZWlZ5TEZ0OE80d3pDL2tSVVd5V1lj?=
- =?utf-8?B?RmlpOVFIQUxBTG9aOUN3MmNUQUp1TkpMRzJDTFI5UEZxV0RVMlZoUTVqWW1Z?=
- =?utf-8?B?SDJ4alhrRW00c203WnFMMExLQ3FJRngxL1FOSTl2VEd5Q3E1NVNSREw3T3Aw?=
- =?utf-8?B?RWVqd3AxT0MyV0pRN3NDVFUwRkpzRGtZYlNOdkVDRXdCbmxrY0lmNE5qWXVN?=
- =?utf-8?Q?taty2+Et4mpaVeeY=3D?=
-X-Exchange-RoutingPolicyChecked: lysHfC4lhpxmWfKY1VjVJ6FaFsiVVbEEa3Kda2UGL4mJCiol4wh6TBovCIZ4fyj5CWWR/DLunG3TZk2r8Un9sLdBsksq6oxTK5axPOPHp94Hfi7N3FNKHkxxWvOXKKp1eVh1pZ+XAugi9aIAhKdMGyx7lvc0D3Oc1mkLZfZ+2n9vscivZzxlMQ8WwfzLNzbicsFY9RWh11FMb+g92fdxH9UMM+KEP2kuf3/SBJfOKWMwgxbaxVTk4SdLhpUQsiWaGKYHu+BQwdPK1vty/SYUTomMUOBX+Jg9sRAGhEqws9p3m5aZ1wElqJ8ZGpoYv5eE3NtLrTOUNCBIOsP5k90TKQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: acb14df5-c328-4ad3-2797-08df3b02a70c
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:04:29.1015
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ESORVAlHXlsd908iw3Wn189BYPJg1+sqjt9Kz7fKxsYs7HAXCXALRbi+S7RnedZ1GLRiiyS1PMPx2Z6O7oXwuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9558
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, iommu@lists.linux.dev, x86@kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, xiaoyao.li@intel.com,
+ Chao Gao <chao.gao@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] x86/virt/tdx: Add SEAMCALL wrappers for IOMMU
+ setup/clear
+To: Xu Yilun <yilun.xu@linux.intel.com>
+References: <20261015010705.1973284-1-baolu.lu@linux.intel.com>
+ <20261015010705.1973284-2-baolu.lu@linux.intel.com>
+ <atBz5cj0wQZv/fLN@yilunxu-OptiPlex-7050>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <atBz5cj0wQZv/fLN@yilunxu-OptiPlex-7050>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-+ Ben Chuang
-
-On 05/11/2026 05:32, Kyle Baedke wrote:
+On 10/15/2026 2:34 PM, Xu Yilun wrote:
+> On Thu, Oct 15, 2026 at 09:07:02AM +0800, Lu Baolu wrote:
+>> Add SEAMCALL wrappers for TDH.IOMMU.SETUP and TDH.IOMMU.CLEAR.
 > 
+> We need this patch been reviewed by x86 reviewers. x86 convention
+> doesn't start with the implementation, so remove it.
 > 
-> On Wednesday, November 4th, 2026 at 2:52 PM, Kyle Baedke <kylebaedke@protonmail.com> wrote:
-> First copy was in html mode this should be in plaintext
->> The GL9750 SD host controller in my laptop is dead after its PCIe slot has
->> been powered off and back on through the root port's ACPI power resource.
->> This happens on resume from s2idle, and I can also reproduce it at runtime
->> with no sleep involved. In both cases the link below the root port never
->> comes up, so the device reads as all-ones. The sdhci errors are a
->> consequence of that. I'm writing to the sdhci maintainers because the
->> device is driven by sdhci-pci-gli, but the failure occurs before the
->> driver can talk to the device.
->>
->> == System ==
->>
->>   Laptop:    ASUS Vivobook 14 Flip TP3407SA
->>   BIOS:      TP3407SA.308, 03/05/2026 (the latest available)
->>   Kernel:    7.3.1 (NixOS 26.11), x86_64
->>   Device:    0000:2c:00.0  Genesys Logic GL9750 [17a0:9750] rev 1,
->>              subsystem 1043:202f
->>   Upstream:  root port 0000:00:1c.4 (ACPI \_SB.PC00.RP05), link 2.5GT/s x1
->>   Cmdline:   intel_iommu=on iommu=pt pcie_aspm.policy=powersave
->>              (the relevant parameters)
->>   Sleep:     /sys/power/mem_sleep = [s2idle] deep. Selecting "deep" (S3)
->>              hangs the machine and needs power to be cut to recover, so
->>              s2idle is the only usable sleep mode.
->>
->> The root port's ACPI node has power resources (power_resources_D0 and
->> power_resources_D3hot in sysfs). The endpoint's ACPI node has none.
->>
->> Other firmware/kernel messages seen at boot:
->>
->>   ACPI: \_SB_.PEPD: Duplicate LPS0 _DSM functions (mask: 0x1)
->>   pci 0000:00:1c.4: mask Replay Timer Timeout Correctable Errors due to
->>       0000:2c:00.0 hardware defect
->>
->> == Symptom ==
->>
->> After the slot is powered back on, config space reads of the device return
->> ffff, the port's Link Status stays 0x1011 (Data Link Layer Link Active = 0,
->> not training), and sdhci reports:
->>
->>   mmc0: sdhci: Version: 0x0000ffff   (register dump is all 0xff)
->>   mmc0: enable PCI MSI failed, error=-22
->>   mmc0: Reset 0x1 never completed.
->>   mmc0: 3.3V regulator output did not become stable
->>   mmc0: Controller never released inhibit bit(s).
->>
->> On a healthy boot the port's Link Status is 0x3011.
->>
->> == Resume trace ==
->>
->> Captured with rtcwake -m mem -s 15 (s2idle), pm_debug_messages=1 and
->> dynamic debug enabled for drivers/pci/*, drivers/acpi/power.c and
->> drivers/acpi/device_pm.c:
->>
->>   [  145.370215] sdhci-pci 0000:2c:00.0: PCI PM: Suspend power state: D3hot
->>   [  145.406917] ACPI: \_SB_.PC00.RP05.PXP_: ACPI: PM: Power resource turned off
->>   [  145.406948] pcieport 0000:00:1c.4: PCI PM: Suspend power state: D3cold
->>   ...
->>   [  159.865842] ACPI: \_SB_.PC00.RP05: PM: Power state change: D3cold -> D0
->>   [  160.263869] ACPI: \_SB_.PC00.RP05.PXP_: ACPI: PM: Power resource turned on
->>   [  160.264234] ACPI: \_SB_.PC00.RP05: PM: Power state changed to D0
->>   [  160.264241] pcieport 0000:00:1c.4: power state changed by ACPI to D0
->>   [  160.276459] pcieport 0000:00:1c.4: ready 0ms after power up D3hot->D0uninitialized
->>   [  160.276866] pcieport 0000:00:1c.4: waiting 100 ms for downstream link, after activation
->>   [  161.297053] pcieport 0000:00:1c.4: Data Link Layer Link Active not set in 100 msec
->>   [  161.303943] sdhci-pci 0000:2c:00.0: restore config 0x3c: 0xffffffff -> 0x000001ff
->>   [  161.321478] mmc0: enable PCI MSI failed, error=-22
->>   [  161.421611] mmc0: Reset 0x1 never completed.
->>   [  161.741170] mmc0: 3.3V regulator output did not become stable
->>
->> The slot was off for about 15 s (145.407 to 160.264), so this is not a
->> short-off-time problem.
->>
->> == Reproduction without suspend ==
->>
->> From a healthy boot (device alive, no SD card inserted):
->>
->>   echo 1    > /sys/bus/pci/devices/0000:2c:00.0/remove
->>   echo 1    > /sys/bus/pci/devices/0000:00:1c.4/d3cold_allowed
->>   echo auto > /sys/bus/pci/devices/0000:00:1c.4/power/control
->>   # the root port's power_state reached D3cold after about 2 s
->>   sleep 1
->>   echo on   > /sys/bus/pci/devices/0000:00:1c.4/power/control
->>   # port is D0 again, but its Link Status is 0x1011 (DLActive = 0)
->>   echo 1    > /sys/bus/pci/rescan     # repeated once per second for 15 s
->>
->> The device never reappears, and Link Status stays 0x1011 for the whole
->> 15 s. This uses only a 1 s off time.
->>
->> == What I tried ==
->>
->> Suspend variants, each run with rtcwake -m mem -s 15 (s2idle), no SD card
->> inserted. All of these failed on the first cycle:
->>
->>   - no changes
->>   - endpoint power/control=on
->>   - root port power/control=on
->>   - endpoint link/l1_2_aspm and link/l1_2_pcipm set to 0
->>   - endpoint link/l1_aspm, l1_1_aspm, l1_2_aspm, l1_1_pcipm, l1_2_pcipm
->>     all set to 0
->>   - endpoint removed before suspend, rescanned after resume
->>
->> This one passed 10/10 cycles (device alive 2 s and 8 s after resume, port
->> Link Status 0x3011 each time):
->>
->>   - d3cold_allowed=0 on both the endpoint and the root port, set just
->>     before suspend and restored to 1 right after resume
->>
->> Recovery attempted after a failed resume, with the root port held in D0
->> (power/control=on) and the rescan polled for 15 s per stage. None brought
->> the device back, and Link Status stayed 0x1011 throughout:
->>
->>   - remove + rescan
->>   - secondary bus reset on the root port, then rescan
->>   - Link Disable / enable on the root port, then rescan
->>
->> == Questions ==
->>
->> 1. Is this a known issue with this device or this platform's slot power-on
->>    method?
->> 2. What additional tracing would help (ACPI AML debugging, GPIO/pinctrl
->>    state before and after the power resource turns on, anything else)?
->>
->> I can build and test patches on this machine.
->>
->> Thanks,
->> Kyle
->>
->> Sent with Proton Mail secure email.
+> We can start with a generic description of what the 2 SEAMCALLs are
+> doing in general and why. Maybe move some of your description in next
+> paragraph ahead.
 
+Agreed.
+
+> 
+>>
+>> TDH.IOMMU.SETUP transitions an IOMMU and related I/O stack into Secure
+>> TDX Mode. During this transition, the TDX module validates and protects
+>> relevant I/O resources from further untrusted host access, providing the
+>> trusted foundation required before enabling TEE-IO security protocols
+>> (e.g. SPDM/IDE).
+>>
+>> TDH.IOMMU.CLEAR performs the reverse operation and tears down the Secure
+>> TDX Mode state for the target IOMMU.
+>>
+>> The caller is responsible for allocating the required pages and
+>> populating the parameter page in the ABI-defined format.
+>>
+>> See Intel TDX Connect ABI Specification [1], Section 3.2 (TDX Connect
+>> Host-Side (SEAMCALL) Interface Functions).
+>>
+>> Thanks to Xu Yilun for the initial draft.
+> 
+> Feel free to drop it. Not that important.
+
+Dropped.
+
+> 
+>>
+>> [1] https://cdrdv2.intel.com/v1/dl/getContent/858625
+>>
+>> Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+>> ---
+>>   arch/x86/include/asm/tdx.h  |  2 ++
+>>   arch/x86/virt/vmx/tdx/tdx.h |  2 ++
+>>   arch/x86/virt/vmx/tdx/tdx.c | 56 +++++++++++++++++++++++++++++++++++++
+>>   3 files changed, 60 insertions(+)
+>>
+>> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+>> index 89e97d5761d8..8b5411d3eb67 100644
+>> --- a/arch/x86/include/asm/tdx.h
+>> +++ b/arch/x86/include/asm/tdx.h
+>> @@ -176,6 +176,8 @@ u64 tdh_mem_page_remove(struct tdx_td *td, u64 gpa, enum pg_level level, u64 *ex
+>>   u64 tdh_phymem_cache_wb(bool resume);
+>>   u64 tdh_phymem_page_wbinvd_tdr(struct tdx_td *td);
+>>   u64 tdh_phymem_page_wbinvd_hkid(u64 hkid, kvm_pfn_t pfn);
+>> +u64 tdh_iommu_setup(u64 reg_base, void *root, u64 *tdx_iommu_id);
+>> +u64 tdh_iommu_clear(u64 tdx_iommu_id);
+>>   #else
+>>   static inline void tdx_init(void) { }
+>>   static inline u32 tdx_get_nr_guest_keyids(void) { return 0; }
+>> diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
+>> index bdfd0e1e337a..d7beb42cf972 100644
+>> --- a/arch/x86/virt/vmx/tdx/tdx.h
+>> +++ b/arch/x86/virt/vmx/tdx/tdx.h
+>> @@ -49,6 +49,8 @@
+>>   #define TDH_SYS_SHUTDOWN		52
+>>   #define TDH_SYS_UPDATE			53
+>>   #define TDH_SYS_DISABLE			69
+>> +#define TDH_IOMMU_SETUP			128
+>> +#define TDH_IOMMU_CLEAR			129
+>>   
+>>   /*
+>>    * SEAMCALL leaf:
+>> diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+>> index 1b9ff749dd8e..5d31c1b0890a 100644
+>> --- a/arch/x86/virt/vmx/tdx/tdx.c
+>> +++ b/arch/x86/virt/vmx/tdx/tdx.c
+>> @@ -2034,3 +2034,59 @@ void tdx_sys_disable(void)
+>>   	if (ret && (ret & TDX_SW_ERROR) != TDX_SW_ERROR)
+>>   		pr_err("TDH.SYS.DISABLE failed: 0x%016llx\n", ret);
+>>   }
+>> +
+>> +/*
+>> + * Wrapper for TDH.IOMMU.SETUP leaf, which transitions the IOMMU and related
+>> + * I/O stack into Secure TDX Mode.
+> 
+> Other tdh_*() wrappers don't have the general descriptions. We all know
+> these are wrappers for some SEAMCALL leafs.
+> 
+> So if there is no special thing to note, remove it.
+
+Removed for both wrappers.
+
+> 
+>> + *
+>> + * The @root page format is defined by the TDX Connect ABI spec (Table 3.35,
+>> + * Structure of IOMMU_MT Parameter): the first two entries describe the size
+>> + * and HPA (Host Physical Address) of the two contiguous buffers for the
+>> + * invalidation queue; the remaining entries provide HPAs of
+>> + * IOMMU_MT_PAGES_COUNT metadata pages. IOMMU_MT_PAGES_COUNT is obtained from
+>> + * trusted IOMMU global metadata.
+>> + */
+>> +u64 tdh_iommu_setup(u64 reg_base, void *root, u64 *tdx_iommu_id)
+> 
+> IIUC, the void *root is a vague type, no type safty. Is it better we
+> define an explicit structure that mirrors the in-memory ABI? Something
+> like:
+> 
+>    struct tdx_iommu_metadata {
+> 	u64 iq1_pa;
+> 	u64 iq2_pa;
+> 	DECLARE_FLEX_ARRAY(u64, mt_pa);
+>    };
+> 
+> Or,
+> 
+>    struct tdx_iommu_metadata {
+> 	u64 iq1_pa;
+> 	u64 iq2_pa;
+> 	u64 mt_pa[510];
+>    };
+> 
+>    static_assert(sizeof(struct tdx_iommu_metadata) == 4096);
+
+Good point. I updated the code with the following:
+
+   #define TDX_IOMMU_MT_IQ_NR	2
+   #define TDX_IOMMU_MT_MAX_PAGES	(PAGE_SIZE / sizeof(u64) - 
+TDX_IOMMU_MT_IQ_NR)
+
+   /* IOMMU_MT parameter page for TDH.IOMMU.SETUP (ABI spec Table 3.35). */
+   struct tdx_iommu_mt_param {
+       u64 iq[TDX_IOMMU_MT_IQ_NR];	/* HPA | number of 4K pages */
+       u64 mt[TDX_IOMMU_MT_MAX_PAGES];	/* HPA of each metadata page */
+   };
+   static_assert(sizeof(struct tdx_iommu_mt_param) == PAGE_SIZE);
+
+   u64 tdh_iommu_setup(u64 reg_base, struct tdx_iommu_mt_param *param,
+               u64 *tdx_iommu_id);
+
+> 
+>> +{
+>> +	struct tdx_module_args args = {
+>> +		.rcx = reg_base,
+>> +		.rdx = __pa(root),
+>> +	};
+>> +	u64 ret;
+>> +
+>> +	/*
+>> +	 * Don't loop forever:
+>> +	 *
+>> +	 *  - TDX_INTERRUPTED_RESUMABLE guarantees forward progress between
+>> +	 *    calls.
+>> +	 *  - On TDX_INTERRUPTED_RESUMABLE, all registers except RAX remain
+>> +	 *    unchanged.
+>> +	 */
+>> +	do {
+>> +		ret = seamcall_ret(TDH_IOMMU_SETUP, &args);
+>> +	} while (ret == TDX_INTERRUPTED_RESUMABLE);
+>> +
+>> +	*tdx_iommu_id = args.rcx;
+>> +
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL_FOR_MODULES(tdh_iommu_setup, "tdx-host");
+>> +
+>> +/*
+>> + * Wrapper for TDH.IOMMU.CLEAR leaf, which terminates Secure TDX Mode for the
+>> + * target IOMMU and restores control of related hardware resources to the host.
+>> + */
+>> +u64 tdh_iommu_clear(u64 tdx_iommu_id)
+>> +{
+>> +	struct tdx_module_args args = {
+>> +		.rcx = tdx_iommu_id,
+>> +	};
+>> +	u64 ret;
+>> +
+>> +	do {
+>> +		ret = seamcall(TDH_IOMMU_CLEAR, &args);
+>> +	} while (ret == TDX_INTERRUPTED_RESUMABLE);
+>> +
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL_FOR_MODULES(tdh_iommu_clear, "tdx-host");
+>> -- 
+>> 2.43.0
+>>
+
+Thanks,
+baolu
