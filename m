@@ -1,105 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793894797;
-	b=wX0Aq+PqVDvRcT/lApMOvS54OdWuZRagSYrju3qPnsELaWBwQQcROXftGpLWXibjYMvs
-	 bagbxcMAZpziOAJn0CtLXy0DVft0UM2sqLncNQpEe9RDmcnYszVj0RbrO0ODeX2JC2QVm
-	 JZ+mI/YnQhXLSLbd90AkRjBuBlehEeEGqsnnlKqSdBc8g8ULLw3t3oZf/ZXxtc5sO9Bcd
-	 u4doxaSs0BKFOysRHLrroIf+yP9EEetIRBQ8B5E6Vh/NcJQBSw5uSy2zaXV/X+U9smMrl
-	 qP6b8bcNaaVIp6Ts3PVrDZLAWD0n5T5oGdcVTaDoOLomML9xpJCI3IavqKzlHyRfptA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894797;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=V0Ab4n8PjvQEM5sVg9OGcUM3HvzhpkL56+/kJYxM7SI=;
-	b=qMSMeHAh+419kS/52w8C434EWe2rliRGRjmX1OzZk49m6+OvBbVzKRikoqzoHN5bvyb0
-	 lKRdxOYEQNpOxYXiGSHoUoB3pf6DUo/M5rboA2E8fYoHHDJsPoCzDL+NxPsaJysLylTqO
-	 xvXAKzjAxaG7bbQCu/97QQWAgP8qn78ckZxv3vpsKTogh4TU8wlSsNt/wxiaaiA4dYfFU
-	 CJbCRRD19HcPVK9dr98fckeGQiJrqaSR7A+rvY+7PAdHilzoIPFH7ReD88iGzkZXSJrc5
-	 9hR5r3lYrPoGi9BRcjRJp5aWLWAxknpgLs0pBAabG013tYxGamwgNR+Oqk4tFcetxyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="I/8YOR2B";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.29
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011029.outbound.protection.outlook.com [52.101.57.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793894803;
+	b=4/9PtnUb8GNV3SiL1ndvJv+Dj25Iv5cS6S+bYVIso0ahl/Xpk4AI0cUmSyRZ1i5zDwGX
+	 Yro2my9NmDRmrDOgTEXhOFpyShIVpal753v69yT/Y9q3wMRQpagOSTDKUXFYcHMFyUsfU
+	 ipCQerC7+DA0HbKv3vK4WAiupEeoNk7jw0Kt/U8kYNIOxzeMQsGIfCJq80LPKL/6bFwHX
+	 XeXJjw1/9tHpjHyCNe/btckapkAPcKwnJbXHMY3ukajDdzCNqSD9CE1M6J1fNjxBnpmP3
+	 XSWKii3s+xbN4p/nM2t8cEFmD/nBr6c8YYZ9MGcU3okjp/9xQQ6rbDhVzGNaxasbztQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894803;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
+	b=M9Zo37+dEa9fO9VP14OvXrx9WDBMfDPDIWkq1Stx66eoDYKGPl4Q6naGc6lNDPTf9HUj
+	 yqxKxe9Nu5kzPcGQVJCwjbW6tegPX1COsNcgNmQb8qMxNzYyVFaDSEz2Jp/rIq07SZ8lU
+	 B5KTNKUVPW0YdBatywakE6SK/i1URl2OnqdKLeV3gRCLNW+3Bzb/ChMGYWhYLDogiK9Gb
+	 DfIPf8uprDoAYkVa2/zj1qgUWHFCjNQaiNse70Ir3gJB6s4pxQvj7XboHCS+RJIEvX9Bu
+	 28hcVJttQBew5cJxvY94CwqPph/ldU6l0Oy9BnLBpLYM1yUCBsoVJJlvQFm47xZNIcA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="bZN/dLgT";
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081D7606A339;
-	Thu,  5 Nov 2026 16:06:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 081D7606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F9F606BEAA
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F9F606BEAA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=I/8YOR2B
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X9rlVhO8/lWDa6Br4wQLS44NktvuPLqwelcSPtWtWSt1VfZUghdepDTnjNtQgaH1BlyF7j6U7qe274xpdvq0+5fJwS50sOvVSNtpUvDFzRXJLGTRQXkK1FZkW7Fg5Ins8vXLQ4zXQ0O3StQi89QyCHjcVh+ZafD31ZUULGSIOf+7jvGaBZ2xe9UVm4lFAzJfs9nLQqAxeUb2oEzjm9dcM6HhrzkV8z0jLTXx5an52YJK+vOAcPOYFz4R6Z6BF2WYPFxCa+Y5HymrGQ3Zrqk0PFisXm3LkEQ3oe0IgUnsy55LnUkVz6+uBv0ncmLmZIF2Wbws2DZuh/xLz8G0f5SOSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V0Ab4n8PjvQEM5sVg9OGcUM3HvzhpkL56+/kJYxM7SI=;
- b=fCZWZXjp254l/FABdrU3+RSai+KocJSiMmhcXy843fBkNc4RzgQy9UK5eNS1LmJn6CNgo5wBG4maumBsI7luUvm77mTvCc7zx9CnCFWZDUhemKcVnck/ii9CdW9sxrgVtdaKziUkmFD01EZopT1Q0TgrNe0Ki6bFR9gn5ZeaX+zZ2fQvzLx9328Z6IiR1sLjjttn1qDkMyhY7FJ7NOgtJOohJaMfc9uW5TLZgoX/19BHekJ1Ne8gJMBxUPD9IaHVhr1V37JE33KzLfjylpBzDGMVUVdN8w3D5ILblu8DBqXrlR5T9ig1ZPFlrtz2UN5vwos4/+ti2c1gcWli6BTbwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V0Ab4n8PjvQEM5sVg9OGcUM3HvzhpkL56+/kJYxM7SI=;
- b=I/8YOR2BcN6JmeUIAWmHMR5/3BmzGOUWiRWZD4/q/RHDujHitBzXk9b9fYdB5eZOxZzKBy2pO5QY/Kk6JFEZSdLPkPBMM1sIsUQ3wiyjvzJFOPHPXQPGQ44nswrgNLj7FDu9m9m0VETL0GTwqql0KDplXquAYKaM20z+l+criiID4oblpTncPu8+4XQi1+2dvIgGu2WVLprbqN5YzimTKMQ57Bw3xDwwwpSNY0Vj+179LVXketVLbTkWOMYw1xZzWc/Nx0+sPxUyJnUNRqo8eTpWUODDwdaD/aWOpeBwWBrQ/THE2+ppoPPGLf7Mk6dH/N7EWbaT2GsF43IVXjJx9Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5) by CH8PR12MB425199.namprd12.prod.outlook.com
- (2603:10b6:610:32d::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 16:06:32 +0000
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 16:06:32 +0000
-Message-ID: <45e3d778-d484-4359-8d7b-edd1de303a2a@nvidia.com>
-Date: Thu, 5 Nov 2026 08:06:28 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 11/18] PCI/CXL: Cache endpoint HDM state during PCI
- enumeration
-To: Richard Cheng <icheng@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- Li Ming <ming.li@zohomail.com>, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, linux-tegra@vger.kernel.org
-References: <20261029145703.2185231-1-smadhavan@nvidia.com>
- <20261029145703.2185231-12-smadhavan@nvidia.com>
- <auRQN6a3QVtqjd5a@MWDK4CY14F>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <auRQN6a3QVtqjd5a@MWDK4CY14F>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH5P220CA0007.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::12) To LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bZN/dLgT
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a215e64962so19690725e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:06:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793894801; x=1794499601; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
+        b=bZN/dLgTnwp3fVVxvRKU30Fx8i1rNQrjZjCQICPIYUDtFBMcNfXrz13yJLAP/Lag7D
+         sM0fRylYUGUx9byUV6VmGokaPZhUs1RL/o8x9cHERoSkp8m9dTLG9eFqZ3F8ua3kIZyA
+         TqnkIpYWzGYjtTVpFhrd+2emTG9VOHrEHirJ0Yho04oZsBkZ/DTQCOn7Lszf9NUQwu6H
+         K/FxM9ySoLX8UhIFXx0oegPlstft3EhkIbYx82ggNtGeybiohK0FmIIhOtDrx4ugzrvw
+         g1854rsGGOmmgAbre2IlSyJOs4ShUKOOsyUcBB5YaTwIv1sShYNju1wnbnu+h6QcV0rf
+         56XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793894801; x=1794499601;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
+        b=VAdFRwCdUpV1xwxfwn00YTeJq1AMG6rtn7D7/JbRh+5vAU48sr2O/pDsTV/p8sIOzi
+         AdyvLSMfuozeivxvdHL0uBN2gmhErVNOI8yp3ucjshRgrVIp46nL6sCAXwC29DP2Bi1+
+         27H7VxqeB1dYRCDmAmw8BMerX7MvmuQ5Rhw+aIMjRT3WbLVqFtAfzw82buCukynZczvk
+         8V/Y124mccr7SAFWzQGaayL+akbLZeOPIvT6LficLlrpiFeyyc8GDLAvoORpCRqcgu36
+         WpmSrgdOghJQKei1Ufr7/nOqQkbnCJKRwPWYWUfN/HGF1GedLsPAYYeK9gdVpTvznIdC
+         H7zQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxYEty6PPJQ/gLe7NCjjYdcA/RE9YewYciZi/fPWiDqopx2H44pfqniOjnApUNU1Bz9qgWLHczKGtXwFSc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9d7z6NSbijx87CoRy3rrdyhmQHZah44L8mlMf+pn12QtGiQSsi
+	iYj4xpQj1rq0A4Mu8Ky1jvsrGZk+qc7f3gxEh2o1UEk+uinkJ/UNtkz9/UDSkW5G+V4=
+X-Gm-Gg: AYBFou0gEGHGnpIEuId08SWRbQIMPYPGjwnyV1Q+8qwLkJfEMwuFha9V2fGfGuAYFsC
+	3lxL1teOAfJH+fcsU4aGv+NIEUqavNm/DHm20rodCtRGFR/u3iSRmrSWhYB8//QIg3J9lFjzUJo
+	vqst7CaysIzsJaq/Gc2nPc61RCdCCBb/1RhOJHmyrJXukErdCrJx6cThNZiWH21NuS+F+AqZdKI
+	DdUSqCjTqxVNsq36dzx9XwUyDtWq354545euSkmPWH8l97uskgY03pYgx3YqfsbfrOMrH9QddYL
+	T3cfWEeEa/+1Syo7xD9p5c8YnYDqf1AVKyJqpHD01OHhnerktIwGRqTqdzRiZ62ZGze3ET4omHW
+	hlqK6OlhW66yNWJSW8yBBkqxLDCJxKl3E6mIts9sozxyjvkgB5E8Cf2WGE4JBseBMURMBhQXuFE
+	Wp4qbbkGaWjptfGW2IiiBtvuFNj52kdJ2Xhu5hO/e1y1bq9vTVG/ewyffJ64oBCcKDS/24sLUhm
+	W0isZu069XRZCaQWdyBNXrdi7KhlI/A7JJUgolnCnM0o0Ig8z6elV75YUwo8r87Jyq1hJgHfmG8
+	dVmNBuEbuQwlZRYZx0BabsbVH5muRAfoz2s1XCKt
+X-Received: by 2002:a05:600c:c088:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4acda922e24mr314506055e9.1.1793894800616;
+        Thu, 05 Nov 2026 08:06:40 -0800 (PST)
+Received: from [192.168.0.167] ([51.37.126.136])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f0237aesm77536955e9.9.2026.11.05.08.06.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 08:06:39 -0800 (PST)
+Message-ID: <770ddb46-2f4a-4eab-9ce0-fa537860c310@linaro.org>
+Date: Thu, 5 Nov 2026 16:06:38 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,90 +90,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|CH8PR12MB425199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 465f602d-ae3a-4e29-aaac-08df3b56c255
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|261026121527099003|4143699003|11063799006|261009223027099003|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Q0vfVIhKP6hCta55nzPvJPoagIZpqSwZsIVGgQQSH36XdDBSlpuZvNOYdDXM3+uW3xikOoUF19pZJYhx2y8h7Vg/sKThWEZHDFoFqQ5HYSkpEQmz5J7/1+2dbUfcMnXjbDRLcfVr7ehEcT2pFddD28VpZoSHKnU18JjxpTUyWfSANpQ0NHWKAjbJflZ4UoQIMBoWghvlrImvbluqEbmTJ/Q7EBVFMvPPkc1Qo1YfqSfLk4mjAkOfj/Gyef4jgtsZm6lA0zWcJcw9KHBJVFUuXn9ZAYVAPLKXRR01iOmDaZKw6/JbQJ7tDNrATy3GCpRQDSJUgOh8oU/uzy9D1sW3l3Az5HhVvn2ZHAz9nXLt9Cl6Rl6ctDI/GX6CcI16A58yq3brB5+VLohhQHrxy/y1FuC+CMtkxC8H7kIyUCpk2gjZQs04NmTT5t3RTyjCcOQjdV7F5ZJs77PMl9IIvpEw/ajFpFFMrCctI+GmxpRD3bxZ4842g9cdn9chdFxfidNvjoraVQ9PlyxFsMiLkqgO0f3G/SKZf3NcW/0+yE2txcS53zUAn9cLhzGd2kocm6h9+oLhfZutj0Y4uscvG+PJCmz1dNjNeKTJZRpLCmg0mYMPv7XFauilukBrSxdMi/1YhOXi6vdHY01FvayxePD3l8CNfbmwL5JiySnBDyHD73c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(261026121527099003)(4143699003)(11063799006)(261009223027099003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y2UwYTdtSCt6NkdVR2VQeWFOM0REVUxUamYyUXhSb3JtYVdWNVhrUUMrNnA4?=
- =?utf-8?B?S0hkN0xveHFzNFdOZ2xPKzVLQ1pBenJreHNCTVJVOHpTSkFvajBoL01vSmZL?=
- =?utf-8?B?M1poSHRDa2RqM3Q2VE4vNjVob3JJR1E0UzUzZUdHdDU4YTNZUWJlYUpUR0ly?=
- =?utf-8?B?V1c1b2VuN2F4SWFRbTViVk9nT2dGR3h3KzRabnZnNjZlckVEcXVhS0E4RUd3?=
- =?utf-8?B?Z2tlc0JObXV1dkVkaUFzTkdkeTBpcURFWVlueXZWN2hoMnBFaXNuOFJuUkI0?=
- =?utf-8?B?ZzQ0TUoxdG8vTVM2MW1STjBsRWc5RXRLMkVUWXhsd1c0V3h4REM2enFXOWFa?=
- =?utf-8?B?SW5SaXU0SklFMmpCOWNVdERlSTluR3F2SlllbW9wTUs0YU53a0VlRFQwME5a?=
- =?utf-8?B?Qi9MZ1p1QmpUbHViU1lIQ1RkR2NPS0dnN0p4WSszS3pmZlZDeHRTT2t6Tnlx?=
- =?utf-8?B?OEVrc0VQd3A4RzJxdVRZeEZqR2ZTU0kybWhjQ21tdXZlSVAyeEZBMkFueEVG?=
- =?utf-8?B?aVhjM2ZMblFVeG5ocDFWU3VLN05rM21Sa1E1M3pzZ1J0NDRrdk9JWThqL2dL?=
- =?utf-8?B?RXhxUnowMGxWTUtJdzRudXl0SjRtZjZyOWZaVmxUaHoycFRVMlJKKytRY21n?=
- =?utf-8?B?cklPcjI4L2M2NGZybEg5QisyaEQwekM0Zk1kRWE0S3JHRmVPRmtvWUd2dDFO?=
- =?utf-8?B?OW1oOTBHakQ0emZKQWFHYTcxbFc2S0hQazlveGJZd2x0L2VXMlBkalN4UWUz?=
- =?utf-8?B?enJ1VkFDWXpsZnp0aWJ1aWFKV1FKZHJ2MGtYMCttc2VUb1hXMnU4bGVUL3NL?=
- =?utf-8?B?NXhWNmdOZmt0YUM3SmpaR1RKUlk0SUExdGpjU081emtrVlh1Q2xaeHRtS2Ft?=
- =?utf-8?B?YjZxRDdMblIrMENIK3NkamlMekdSbnFhWlZscXZ2dkdNckgrN3RyNmpHOS9h?=
- =?utf-8?B?SlFZenFNdFNhdVZNQ1dLb2t5T2p1UG4zcys0clRYVm16cjQ0N3g1aHVmUDMz?=
- =?utf-8?B?c1JvbklhNE5nTW0rTTRLQ1VCYnl0anowTHhmQnI5WHJ6d2tTQXN4WHVWNWNO?=
- =?utf-8?B?Z1JLTEtGMHErWXFjTzc5dmFvd1JHMHhKaXFWK1I0U2JKSCthdkhlZEJkbUNw?=
- =?utf-8?B?VFM0dXFPQWU4VnB5YXJ2SkZXQjJOKzFrUjZjYlVkOTAxRS84NENFb1YyZ0Z4?=
- =?utf-8?B?RG03TFcwUHBpU3hhRWNkSjhET3FUL0tqaEo2TDdrZ01jT3FnN2ZzMGFkU0U1?=
- =?utf-8?B?VHhta2Y1d2pmRzI0dVNYQ0xneHZabllxSkMrbEFKQ1B6NmxRdDZya1VMRG9W?=
- =?utf-8?B?K3FJVjRIQVAycE9iekczaTUzdzF5TFNpcitucnBKMzRrMFNKdVFPb0ovVXpu?=
- =?utf-8?B?bXcramtoL016Q0FLODdtWVYrOUFaeFF4U3lFOUZKT0VkazJWZ3NRcFpnM0xL?=
- =?utf-8?B?dHhUN1RRUGtPTm1vbDNRcWtmUWw0eE1uWXFxb25tOWRjdmRBK0VxTXZNejNM?=
- =?utf-8?B?Rmx4MThwZUVrT2Jabzh5cHNFUVFHUFNZTi9TWGRPL21mVEhyZnJlMktOWVVw?=
- =?utf-8?B?VFRyRWtVOHRTM1BrVDVUbkUzTC94eEFsYkVYSy9DVTBPd0U3eXJ4c0FnK2Ft?=
- =?utf-8?B?Sjl2YlRnRFozMG4wNGFDYnI2VTZFRFFtMjY5WlgydFZEQk5DREhFaStxdmJP?=
- =?utf-8?B?N3c5UW54ZHlJRTJ2amRaY3h1YmhlWk1sYkhOZjFxaXczSUlGOW45YnhjYk9r?=
- =?utf-8?B?K3NQcG1BZVlFN0pjb1AwcDUvRFpxZ01RSlp4UzBrRTlLTjlwd1lnRHhkRTMw?=
- =?utf-8?B?eTJUNXBFRzRJcE9hQm1hT0R1TlVXSlIrK2pwYmhaS3lWRzFBdnMwalV5bWYv?=
- =?utf-8?B?SzhLRXcwcjMvMDhNaVpxbEdNTFUvZFd0WW8ySGZIMFhsMGd5dFhCbTB3cmZD?=
- =?utf-8?B?eDRGU2kxeXMrc0xwV0pCdzFmck51dWE5ay9CZEt0UndvR1RLR1h4NG41UzdF?=
- =?utf-8?B?RzcwWjA1M2JSclVGQmdKWHpLOUh5OGV5WmRiYUVSZUVYY0RRUVkwaFlRdUR0?=
- =?utf-8?B?SFZvWmsrdE11R2FuMnNVeFgrYnBpMGlmTHpKTU9Zc1IzOGs1TkVTUDloVEFC?=
- =?utf-8?B?Uy9IejIwdmJpcjU0VEZ1RFRMWXVTREZHYkgyV3ZJelV1VGhpWHUzelFhMCsy?=
- =?utf-8?B?eUs3SE5YTmhDTlBOaVJhT3VNTjFqZEhoNDV1WjlUL2Erc1lSSDdZNUp0bURZ?=
- =?utf-8?B?eFJyMnV2TUlYTXdJUkJ4TlYyZm05K1MyRmRrT1BXN0ZyQ0dxYUU1YnE0NFIw?=
- =?utf-8?B?ZmV0NVUraVJmSUNZV2xkblBLV0FqdlZmZ3p2eGEvWUdnKzZJTUZkUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 465f602d-ae3a-4e29-aaac-08df3b56c255
-X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 16:06:32.4516
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xaQ6tF7GJwC9Wa8x4z6NpCxHwg2febEt31XXUNzNcKjjR4rZUooEk7A9rqGS9RrT7uFpCsZ6/6nbJiISl9hgZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB425199
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: qcom: camss: Use contiguous DMA buffers
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Todor Tomov
+ <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Allan Siriani <allan@fatecpompeia.edu.br>
+References: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 10/30/26 1:22 AM, Richard Cheng wrote:
->> -	return 0;
->> +	cxl_hdm_cache_set_dvsec_ctrl(pdev, ctrl);
->> +	return ret;
->>   }
-> Hmmm this change the old behavior that when "ctrl & PCI_DVSEC_CXL_MEM_ENABLE == val",
-> just return 1, it does cxl_hdm_cache_set_dvsec_ctrl() now, I wonder the reason ?
+On 05/11/2026 15:08, Loic Poulain wrote:
+> The VFE write masters are programmed with a single base address per
+> plane and then write the whole plane from there. video_buf_init() took
+> that address from sg_dma_address() of the first scatterlist entry of a
+> vb2_dma_sg buffer, which is only correct when the whole plane is mapped
+> as one contiguous range in the device address space.
 > 
-> Update software snapshot for the new design ?
+> Neither the driver nor the hardware can handle a plane split across
+> several DMA segments, so scatter-gather buffers were never really
+> supported here. The issue stayed dormant because vb2_dma_sg gives no
+> IOVA contiguity guarantee but still tries hard to keep the number of
+> segments low, and with an IOMMU dma_map_sgtable() usually maps the
+> whole table into a single IOVA range. The mapping therefore almost
+> always came back contiguous in the device address space, so reading
+> only the first entry happened to work.
+> 
+> Where that does not hold, the write master runs past the first segment
+> and writes the rest of the frame into memory belonging to someone else.
+> 
+> This recently surfaced as patch proposals enforcing contiguity in
+> camss itself, walking the scatterlist to verify that the DMA segments
+> follow each other, which amounts to re-implementing what the dma-contig
+> framework already provides.
+> 
+> Use vb2_dma_contig instead. It guarantees that each plane is mapped as
+> a single contiguous range in the device address space, one IOVA range
+> when an IOMMU is present, physically contiguous memory when there is
+> none.
+> 
+> Fixes: 0ac2586c410f ("media: camss: Add files which handle the video device nodes")
+> Reported-by: Allan Siriani <allan@fatecpompeia.edu.br>
+> Link: https://lore.kernel.org/all/20261104202313.72494-2-allan@fatecpompeia.edu.br/
+> ---
 
-Hi Richard,
+I'll fix this
 
-Yes, it updates the software snapshot for the new design. A reset 
-restores the cached DVSEC control value, so the cache has to match the 
-live register even when MEM_ENABLE already matched. I added a comment 
-saying so in v17.
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/camss/Kconfig       |  2 +-
+>   drivers/media/platform/qcom/camss/camss-video.c | 14 ++++----------
+>   2 files changed, 5 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
+> index b51745c942c9fd71a95d09993213bde4b7e877e2..e1967bc20cf03ea1b0b159c5175294eeb40fe1c1 100644
+> --- a/drivers/media/platform/qcom/camss/Kconfig
+> +++ b/drivers/media/platform/qcom/camss/Kconfig
+> @@ -5,7 +5,7 @@ config VIDEO_QCOM_CAMSS
+>   	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
+>   	select MEDIA_CONTROLLER
+>   	select VIDEO_V4L2_SUBDEV_API
+> -	select VIDEOBUF2_DMA_SG
+> +	select VIDEOBUF2_DMA_CONTIG
+>   	select V4L2_FWNODE
+>   	select GENERIC_PHY
+>   	imply PHY_QCOM_MIPI_CSI2
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+> index 0852eb6f13154cfae7147ce39d22de64d14a5cba..5de6ff5ecc76a2863e536fca1c40ae6b2de6dc0c 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -13,7 +13,7 @@
+>   #include <media/v4l2-device.h>
+>   #include <media/v4l2-ioctl.h>
+>   #include <media/v4l2-mc.h>
+> -#include <media/videobuf2-dma-sg.h>
+> +#include <media/videobuf2-dma-contig.h>
+>   
+>   #include "camss-video.h"
+>   #include "camss.h"
+> @@ -154,16 +154,10 @@ static int video_buf_init(struct vb2_buffer *vb)
+>   						   vb);
+>   	const struct v4l2_pix_format_mplane *format =
+>   						&video->active_fmt.fmt.pix_mp;
+> -	struct sg_table *sgt;
+>   	unsigned int i;
+>   
+> -	for (i = 0; i < format->num_planes; i++) {
+> -		sgt = vb2_dma_sg_plane_desc(vb, i);
+> -		if (!sgt)
+> -			return -EFAULT;
+> -
+> -		buffer->addr[i] = sg_dma_address(sgt->sgl);
+> -	}
 
-I also made cxl_set_mem_enable() return -ENODEV on an all-ones read, so
-that value is neither written back nor cached.
+I hadn't even realised this existed, ick.
 
--- 
-Regards,
-Srirangan
+> +	for (i = 0; i < format->num_planes; i++)
+> +		buffer->addr[i] = vb2_dma_contig_plane_dma_addr(vb, i);
+>   
+>   	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
+>   			format->pixelformat == V4L2_PIX_FMT_NV21 ||
+> @@ -699,7 +693,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+>   
+>   	q = &video->vb2_q;
+>   	q->drv_priv = video;
+> -	q->mem_ops = &vb2_dma_sg_memops;
+> +	q->mem_ops = &vb2_dma_contig_memops;
+>   	q->ops = &msm_video_vb2_q_ops;
+>   	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+>   	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
+> 
+> ---
+> base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+> change-id: 20261105-camss-fix-dma-c32288664dd2
+> 
+> Best regards,
+
+LGTM
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
