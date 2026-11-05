@@ -1,80 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880578;
-	b=DleiVMgQb/KoFS1NuYlHO7zLlZ3bDLur+vx126n6+GlaPNzsEsrbOAj75K7h7NWgPKRM
-	 Af6MPqEsfgwNitiDiKsxrEOU6OYnoNXAyZwE3fVkPMhoXQbDbdUR3YovvfuoGYGBh+6D3
-	 StMCAkrWnlDEd25yUMORHgldGO3ZufoLFdwmkeqx8bTpfFLPh8KwetbAXPC4BmMDt1KXf
-	 +Lx5+yhluMcj5G8xx42ABaBnV2D8I3ABaQe/Uofw5pSmPq/XKanL43+ATABSMcdfJjvTI
-	 oPyq7Xvh5Q13PMTH91QNnp8Xw9+uh4wUVqvMDVb04b2lGkItX7F2nD8Sr6gO6Xv86dw==
+	t=1793880576;
+	b=uh1KhTo6mBfMhbthgU+cZF2SL1RBvWFg3R4fFxm2Pzu6QlkyRpKJ1Opok3yFG2M1q9XF
+	 9cp1yi+3YnfXIkJlosLS7ZpKDxPk0cbbOx0dbh7GbswYF0XOOAPk87Cqkv2KPxE/0xE9o
+	 pna9tL32wVlZ6T+ycL3rUyNNfn3KqJ7fCr+O2QWqO38EshdzzGckezhV2rquhn9pf62J+
+	 B0JqXkG/91lTVdvlWMkzuBlIr/TsMRMc6QP3UhAlWEGUx4bXsFsq1Ji6rpvewG6ix31Qp
+	 GxlMguwa0jwoYA4iPcF2jUmMnO9FcRUCL3urYwbZa6t1E4yCZfqgIkj5iFke/VCilTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880578;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=VLI3tsLjWgFo/M+ht55Dzc93Zh+oSgKyrWv+ds6AzTE=;
-	b=aPaYf8n4PWRPjhOZ8D75SdRgCT7/Rz7vYvlPXXpgDZYzy8Qlh+9VTVd7BagQ4SYlBVPY
-	 MG2kYWfZZQJepxHOjsevXFNFnOJnOBsf3KftQj18667uhEO857BQrGdkZFgy4OAd5MRpI
-	 t9+PuY0q6we72kDynTftV4TUFE5elzDu4Na5DreHDsFLfdsTvb5htHtehSZ73UROlq/k/
-	 Yzv5LIZxY7PybIhwQtCTWzvJwQeZA0qmucdmjZurc91fraD1gkyBXuoekPVQHpVpjBavL
-	 +81NIIOdJi54nGQCak7P9Kk8cacHfqdq8+jBXp8uznh5mX2yPeccBR1oZn0xqNRdLYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880576;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=L+eDSiHoLUW5kbF6XazVmwGSSMqijnyueqwHSwCo6BQ=;
+	b=gx11cU+pghaautQtNv/D/czFAvO1KMW4ZLKwb3nx/DITG5ydjqecDoTnJaffJUUjca6Z
+	 FlOj5StEPwpqbNX0pUNLYbDI+S7eaF03kQZS0Vd5pUow307ZfO7oR2VtGq/23n60mtPyi
+	 HZKb3cxIk3wCAib462kqGgLuJlHYd97GjyaTMcd/z462LlsAN1f802GBNqQTtiy4++1eO
+	 j07I8bZIDcQa+kMaatH80vuiMlI0mWO1r9jxHqLWDhx+wJLL3fxui2wSDH21b1nwkKvb3
+	 +UGOAQvWRAxjjqblQxZIHp4X5krc0Zh5p43rzJsc3X7hGcTqXd+fbned20ViXQcdOhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=H8eEqMlz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=yRTd4ZoV;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f03AMJoN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673ED606A336;
-	Thu,  5 Nov 2026 12:09:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 673ED606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6147F606A32F;
+	Thu,  5 Nov 2026 12:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=H8eEqMlz;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=yRTd4ZoV
-Date: Thu, 5 Nov 2026 13:09:32 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793880574;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VLI3tsLjWgFo/M+ht55Dzc93Zh+oSgKyrWv+ds6AzTE=;
-	b=H8eEqMlzcdzd898GU7zTXYGjslyeROH/zk5iNNfAxJvqkuiCVMx6T5f57A1xkNeKVwD86d
-	ifZku4DiICEaldOxgdpNHm1fiDo60m3NP9LZzbhef46u3hUsjGM8oqQiZMFn0ZcZFFvFLo
-	OnwMhS3FZKkaTmVakcVewkEzMsyUP79BOGmxWRSzTVYGmk1j1pBXPEikeof6JaghZ08jzS
-	ZAKcas2pn5mLYHldeFjMhNhwPeX+yxnk6NzuXH30Gldj1ersbJtAsgfhRB9Fhl6R/5/Aj4
-	lNshfVMKNkzUrjfl80rqBSIv30FertsWiaYWWEyhR/gMyVHhrprZvFOIjEbuNA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793880574;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VLI3tsLjWgFo/M+ht55Dzc93Zh+oSgKyrWv+ds6AzTE=;
-	b=yRTd4ZoVKPen8uZuQO4i3zPiyG+f/HGwwIBXFtWW80/LwERbrOwLbSzuEwT32cSgRpA+HE
-	yJgOHF5Lhsy35KAQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Juri Lelli <juri.lelli@redhat.com>
-Cc: linux-rt-devel@lists.linux.dev, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>
-Subject: Re: [RFC] RT throttling, DL/ fair server, RT_GROUP_SCHED and
- everything
-Message-ID: <20261105120932.lSBBenqn@linutronix.de>
-References: <20261023161348.t3lpPLQZ@linutronix.de>
- <at8J1mimeQ2oPZDE@jlelli-thinkpadt14gen4.remote.csb>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f03AMJoN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A971F000C1;
+	Thu,  5 Nov 2026 12:09:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793880575;
+	bh=L+eDSiHoLUW5kbF6XazVmwGSSMqijnyueqwHSwCo6BQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f03AMJoN513tmNiUuReJOdW33YtbH5qCNn/9ufkRfZSFQHc82fWUoafoqz6Xm8Szu
+	 vpUmUzLQ6oihshNS4dUZSXloQBPbwdWv29DkBL3Njkl0eiuL91JrclU25WYW0ATk8K
+	 L8GBwwfHnMANHiAk3D5nd7hPCXjr/qWTHi8ERZMcRnBzhr03sbIj8YDvOZ5ebq47xn
+	 PCMaNgFIHv4qhpGHpYN/zjkVf6+rUbeOl8w+3xLmd1wNdf8pTely2gX6fGGBWUbTpu
+	 tjszEf2Ctv1DWCz2EmMSyjlReN7D1ApTI5xYWtBqaSc6Vw18YgKFIdCA+eW9qaUlTH
+	 LCNi5qXszqycQ==
+Message-ID: <b2a906ae-6744-4778-a897-f690f111416a@kernel.org>
+Date: Thu, 5 Nov 2026 13:09:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,244 +51,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <at8J1mimeQ2oPZDE@jlelli-thinkpadt14gen4.remote.csb>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/10] media: videobuf2-core: Move type check out of
+ vb2_core_expbuf()
+To: Jai Luthra <jai.luthra@ideasonboard.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Tomasz Figa <tfiga@chromium.org>, Marek Szyprowski
+ <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>,
+ Paul Elder <paul.elder@ideasonboard.com>, linux-media@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
+ <20260917-b4-vchiq-isp-v5-1-2d8870add2c0@ideasonboard.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260917-b4-vchiq-isp-v5-1-2d8870add2c0@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-26 09:05:42 [+0100], Juri Lelli wrote:
-> Hi Sebastian,
-Hi Juri,
+On 9/17/26 10:23, Jai Luthra wrote:
+> vb2_core_expbuf() takes the type of the exportbuffer as an argument and
+> checks if it matches the type of the vb2 queue. Move that check to the
+> caller (vb2_expbuf).
+> 
+> There is only one other user of this, which is dvb-core, where the check
+> was anyway redundant as it passed the vb2 queue type instead. So update
+> it too.
+> 
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Link: https://lore.kernel.org/all/20260910150454.GP1892234%40killaraus.ideasonboard.com
 
-> On 23/10/26 18:13, Sebastian Andrzej Siewior wrote:
-> > Hi,
-> >=20
-> > this is about the old RT throttling mechanism, the DL/fair server around
-> > the RT tasks, the /proc/sys/kernel/sched_rt_* mechanism to control the
-> > former and CONFIG_RT_GROUP_SCHED which never worked as it supposed to.
-> > The current status looks like a mess and I'm not sure if there is a bug
-> > somewhere leading to my headaches or if this is just not meant to be
-> > working together. If so out with it.
-> >=20
-> > tl;dr /proc/=E2=80=A6/sched_rt_*, sched_rt_runtime_exceeded() probably
-> > CONFIG_RT_GROUP_SCHED should be removed. A bit of docs should be added
-> > for the fair server (or the right place).
->=20
-> Thanks for putting this recap together!
->=20
-> > Now. Details.
->=20
-> ...
->=20
-> > Without enabled RT_GROUP_SCHED the files can be set. Are they useful?
-> > According to Documentation/scheduler/sched-deadline.rst it used for
-> > "admission control" whatever that means. Anyway the fair server still
-> > kicks if it is disabled. So I *think* this is just something else and
-> > not part for the docs there.
->=20
-> Right, confusing, but for a root_domain comprising M CPUs, -deadline task=
-s can
-> be created while the sum of their bandwidths stays below
->=20
->   M * (sched_rt_runtime_us / sched_rt_period_us)
 
-My understanding is that this is the runtime available to a DL task and
-the length of a DL period (after the accounted runtime is reset). The
-left over runtime (of runtime is less than period) is either buffer
-(idle) or SCHED_OTHER runtime.
-This defines how much runtime a DL task gets from the system, correct?
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-> and writing -1 disables the check altogether. That's the "admission contr=
-ol"
-> the docs hand-wave about, and it's also why the knobs can't simply be del=
-eted.
-> As you noticed already, the servers are completely independent of these k=
-nobs:
-> writing -1 does not disable the fair server, it only lifts the DL admissi=
-on
-> cap. In principle we could move this to a different interface that reads =
-closer
-> to the underlying purpose, but I'm not sure how much breakage it could ca=
-use.
+Regards,
 
-That is my point. The rt_ runtime/ period is about DL properties and not
-RT as in SCHED_FIFO/ RR as it once was. Both are set to one second as of
-today and can not be changed with enabled CONFIG_RT_GROUP_SCHED.
+	Hans
 
-Could we please move it to /sys/kernel/sched/ and rename it as dl
-something? Is there any reason to keep as-is? There is
-	Documentation/scheduler/sched-deadline.rst
-	Documentation/arch/arm64/asymmetric-32bit.rst
+> ---
+> Changes in v4:
+> - New patch in v4
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 9 ++-------
+>  drivers/media/common/videobuf2/videobuf2-v4l2.c | 8 ++++++--
+>  drivers/media/dvb-core/dvb_vb2.c                | 3 +--
+>  include/media/videobuf2-core.h                  | 5 ++---
+>  4 files changed, 11 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..5e318165659f 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -2419,8 +2419,8 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
+>  	return 0;
+>  }
+>  
+> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> -		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags)
+> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
+> +		    unsigned int plane, unsigned int flags)
+>  {
+>  	struct vb2_plane *vb_plane;
+>  	int ret;
+> @@ -2441,11 +2441,6 @@ int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+>  		return -EINVAL;
+>  	}
+>  
+> -	if (type != q->type) {
+> -		dprintk(q, 1, "invalid buffer type\n");
+> -		return -EINVAL;
+> -	}
+> -
+>  	if (plane >= vb->num_planes) {
+>  		dprintk(q, 1, "buffer plane out of range\n");
+>  		return -EINVAL;
+> diff --git a/drivers/media/common/videobuf2/videobuf2-v4l2.c b/drivers/media/common/videobuf2/videobuf2-v4l2.c
+> index 5a1ee5eb9c0f..aee1a9244a7b 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-v4l2.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-v4l2.c
+> @@ -877,14 +877,18 @@ int vb2_expbuf(struct vb2_queue *q, struct v4l2_exportbuffer *eb)
+>  {
+>  	struct vb2_buffer *vb;
+>  
+> +	if (eb->type != q->type) {
+> +		dprintk(q, 1, "invalid buffer type\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	vb = vb2_get_buffer(q, eb->index);
+>  	if (!vb) {
+>  		dprintk(q, 1, "can't find the requested buffer %u\n", eb->index);
+>  		return -EINVAL;
+>  	}
+>  
+> -	return vb2_core_expbuf(q, &eb->fd, eb->type, vb,
+> -				eb->plane, eb->flags);
+> +	return vb2_core_expbuf(q, &eb->fd, vb, eb->plane, eb->flags);
+>  }
+>  EXPORT_SYMBOL_GPL(vb2_expbuf);
+>  
+> diff --git a/drivers/media/dvb-core/dvb_vb2.c b/drivers/media/dvb-core/dvb_vb2.c
+> index 672b0efdca21..fe7a6554b30e 100644
+> --- a/drivers/media/dvb-core/dvb_vb2.c
+> +++ b/drivers/media/dvb-core/dvb_vb2.c
+> @@ -357,8 +357,7 @@ int dvb_vb2_expbuf(struct dvb_vb2_ctx *ctx, struct dmx_exportbuffer *exp)
+>  		return -EINVAL;
+>  	}
+>  
+> -	ret = vb2_core_expbuf(&ctx->vb_q, &exp->fd, q->type, vb2,
+> -			      0, exp->flags);
+> +	ret = vb2_core_expbuf(&ctx->vb_q, &exp->fd, vb2, 0, exp->flags);
+>  	if (ret) {
+>  		dprintk(1, "[%s] index=%d errno=%d\n", ctx->name,
+>  			exp->index, ret);
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4b4f4c15c53a..feda638d0064 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -959,7 +959,6 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
+>   * @q:		pointer to &struct vb2_queue with videobuf2 queue.
+>   * @fd:		pointer to the file descriptor associated with DMABUF
+>   *		(set by driver).
+> - * @type:	buffer type.
+>   * @vb:		pointer to struct &vb2_buffer.
+>   * @plane:	index of the plane to be exported, 0 for single plane queues
+>   * @flags:	file flags for newly created file, as defined at
+> @@ -973,8 +972,8 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
+>   *
+>   * Return: returns zero on success; an error code otherwise.
+>   */
+> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
+> -		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags);
+> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
+> +		    unsigned int plane, unsigned int flags);
+>  
+>  /**
+>   * vb2_core_queue_init() - initialize a videobuf2 queue
+> 
 
-referring to it in DL context. There is "ftracetest" writing
-unconditionally -1 as a workaround, see commit 57c4cfd4a2eef
-("ftrace/selftests: workaround cgroup RT scheduling issues").
-
-If the runtime/ period arguments are fine then we could keep
-it and make them only apply for the DL period.
-
-Two files have been repurposed and if your intention as to disable the
-RT throttler then you will be surprised.
-
-> ...
->=20
-> > Anyway. Could this interface be moved to /sys/kernel/sched/fair_server
-> > away from the debugfs part? debugfs is not for stable kernels/ ABI. Is
-> > there a reason why this might be considered debugging and not final or
-> > restricted from productive?
->=20
-> I think this was raised already in the past, but at the time maybe it
-> was still to early to say if dl-servers will stick around. They now have
-> got more users (sched-ext), so it might be a time we discuss a stable
-> (non-debug) interface for it. Your suggestion doesn't look bad to me.
-
-Thank you.
-
-> > Just to summarize:
-> > - Remove /proc/sys/kernel/sched_rt_*
-> >   [ ] Yes [ ] No, because
-> >               _____________________
->=20
-> Yes and no :). We need an interface to tweak admission control, but we
-> could find a better/different one.
-
-Okay.
-
-> > - Remove CONFIG_RT_GROUP_SCHED
-> >   [ ] Yes [ ] No, because
-> >               _____________________
->=20
-> Luca already commented on this. I believe the plan is still to come up
-> with a DEADLINE backed RT_GROUP_SCHED for Cgroups v2. If cleaner, an
-> approach could be to first merge the removal of RT_GROUP_SCHED and then
-> reimplement the whole lot as Yuri and Luca are proposing to do. The
-> series is already somewhat doing that, but it could be made more
-> explicit/clean I guess.
-
-okay, then let me prepare a removal of this then.
-
-> > - An additional trace sched event for fair server preemption
-> >   [ ] Yes   [ ] No, it is silly to have
->=20
-> With 820725b0eb59f ("sched: Add deadline tracepoints") we already have
-> some of that: sched_dl_{throttle,replenish,update,server_start,server_sto=
-p},
-> which fire for fair/ext servers too (there's a type field, DL_SERVER_FAIR
-> and friends). They of course require something like this [1] to be
-> activated. We could add more if they are still not enough to get a clear
-> picture about what's going on.
-
-Hmm. You may want to merge Qais's current master to get it compiled
-again ;) But then nothing hooks it up, so I just replaced with with
-trace_printk() just to see what happens and got:
-
-|       loop-time-1612    [000] d.h1.   154.121809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D3999981 [ns]
-|       loop-time-1612    [000] d.h1.   154.123812: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D2003097 [ns]
-|       loop-time-1612    [000] d.h1.   154.123812: replenish_dl_entity: tr=
-ace_sched_dl_replenish_tp
-^
-|       loop-time-1612    [000] dN.2.   154.123814: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D1783 [ns]
-|       loop-time-1612    [000] d..2.   154.123815: sched_switch: prev_comm=
-=3Dloop-time prev_pid=3D1612 prev_prio=3D9 prev_state=3DR =3D=3D> next_comm=
-=3Dksoftirqd/0 next_pid=3D14 next_prio=3D120
-|     ksoftirqd/0-14      [000] d..2.   154.123817: sched_stat_runtime: com=
-m=3Dksoftirqd/0 pid=3D14 runtime=3D3036 [ns]
-|     ksoftirqd/0-14      [000] d..2.   154.123817: update_curr_dl_se: trac=
-e_sched_dl_update_tp
-|     ksoftirqd/0-14      [000] d..2.   154.123818: dl_server_stop.part.0: =
-trace_sched_dl_server_stop_tp
-|     ksoftirqd/0-14      [000] d..2.   154.123819: sched_switch: prev_comm=
-=3Dksoftirqd/0 prev_pid=3D14 prev_prio=3D120 prev_state=3DS =3D=3D> next_co=
-mm=3Dloop-time next_pid=3D1612 next_prio=3D9
-|       loop-time-1612    [000] d.h1.   154.125809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D1992016 [ns]
-|       loop-time-1612    [000] d.h1.   154.129809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D4000522 [ns]
-|       loop-time-1612    [000] d.h1.   154.133809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D3999631 [ns]
-|       loop-time-1612    [000] d.h2.   154.133810: sched_waking: comm=3Dks=
-oftirqd/0 pid=3D14 prio=3D120 target_cpu=3D000
-|       loop-time-1612    [000] d.h3.   154.133811: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D1463 [ns]
-|       loop-time-1612    [000] d.h3.   154.133811: dl_server_start: trace_=
-sched_dl_server_start_tp
-|       loop-time-1612    [000] dNh3.   154.133811: sched_wakeup: comm=3Dks=
-oftirqd/0 pid=3D14 prio=3D120 target_cpu=3D000
-|       loop-time-1612    [000] d..2.   154.133812: sched_switch: prev_comm=
-=3Dloop-time prev_pid=3D1612 prev_prio=3D9 prev_state=3DR =3D=3D> next_comm=
-=3Dksoftirqd/0 next_pid=3D14 next_prio=3D120
-^
-|     ksoftirqd/0-14      [000] d..2.   154.133812: sched_stat_runtime: com=
-m=3Dksoftirqd/0 pid=3D14 runtime=3D2054 [ns]
-|     ksoftirqd/0-14      [000] d..2.   154.133812: update_curr_dl_se: trac=
-e_sched_dl_update_tp
-|     ksoftirqd/0-14      [000] d..2.   154.133813: dl_server_stop.part.0: =
-trace_sched_dl_server_stop_tp
-|     ksoftirqd/0-14      [000] d..2.   154.133814: sched_switch: prev_comm=
-=3Dksoftirqd/0 prev_pid=3D14 prev_prio=3D120 prev_state=3DS =3D=3D> next_co=
-mm=3Dloop-time next_pid=3D1612 next_prio=3D9
-|       loop-time-1612    [000] d.h1.   154.137809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D3996495 [ns]
-|       loop-time-1612    [000] d.h2.   154.137810: sched_waking: comm=3Dks=
-oftirqd/0 pid=3D14 prio=3D120 target_cpu=3D000
-
-Comparing the first and the second preemption point, it is different.
-The first looks like a direct consequence of the fair_server and second
-probably because of the left over budget. This reflects the
-implementation and I understand if you don't want to expose this
-directly as-is. There is also this where the N flag just vanishes:
-|       loop-time-1612    [000] d.h1.   159.029809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D3997426 [ns]
-|       loop-time-1612    [000] d.h2.   159.029811: sched_waking: comm=3Dks=
-oftirqd/0 pid=3D14 prio=3D120 target_cpu=3D000
-|       loop-time-1612    [000] d.h3.   159.029811: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D1543 [ns]
-|       loop-time-1612    [000] d.h3.   159.029811: dl_server_start: trace_=
-sched_dl_server_start_tp
-|       loop-time-1612    [000] d.h3.   159.029811: enqueue_dl_entity: trac=
-e_sched_dl_replenish_tp
-|       loop-time-1612    [000] dNh3.   159.029811: sched_wakeup: comm=3Dks=
-oftirqd/0 pid=3D14 prio=3D120 target_cpu=3D000
-|       loop-time-1612    [000] d.h1.   159.033809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D3998449 [ns]
-|       loop-time-1612    [000] d.h1.   159.037809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D4000072 [ns]
-|       loop-time-1612    [000] d.h1.   159.041809: sched_stat_runtime: com=
-m=3Dloop-time pid=3D1612 runtime=3D3999901 [ns]
-
-I assume the bandwidth was replenished and then loop-time could remain
-on the CPU. It would probably help if I would weld have dump some DL
-details along=E2=80=A6
-I'm not sure if it would be better to add some DL details along or
-extend sched_switch with a scheduling reason.
-
-There are also no trace events for DL tasks if they exceed their
-requested runtime, right? I *think* there is a signal (or can be) sent
-if the DL task runs for too long.=20
-The sched_pelt* events didn't contain any bandwidth information as far
-as I can tell (you just pointed me there as an example how those trace
-points could be utilized I suppose).
-
-> > - Fair server documentation needs to go to
-> >   [ ] It is fine where it is
-> >   [ ] To ____________________
->=20
-> Not fine where it is: the servers (fair & ext) work independently of
-> RT_GROUP_SCHED and deserve their own description (defaults 50ms/1s per
-> CPU, what they guarantee for fair tasks under RT pressure, how to tune
-> or disable them). Either a new section in sched-deadline.rst (they are
-> DL servers after all) or a small standalone file works for me.
-
-Okay. Let me look into this.
-
-> Thanks!
-> Juri
->=20
-> 1 - https://github.com/jlelli/sched_tp/commits/deadline-tp/
->     from Qais' https://github.com/qais-yousef/sched_tp
->=20
-
-Sebastian
