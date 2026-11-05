@@ -1,118 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888580;
-	b=s8+ZRCvWDxp+KKLYKlrDMQDJh2LCJtyewGt2vQEeKP23F3MF15SKoKJsU7ZXoIF9NIIV
-	 8ZUqmKevQV7j07wCE+PXpFCDtAxFswjovZucVsRfm74p+OzJ2n+TqCbepb4KJrhfVCVUX
-	 ap/nlhVcyKDGV3ywrQas4Igy2s8RMa3Q/E+l96H8FAdsT2Rv0Z2owltCrphJIP4trFsBU
-	 MpeJq7Z+hOwK1PPwdxVEViJ8a6qKcl0vnk75s4r7hfmjDaT4hsl9q0p8FmhQ+WUEdJpN9
-	 2YF4pX1Hw5zgqU1RCSG6Z35p7qNcraj/moIg7uZgF7pqIClwjsf59YNEn+88WzI1C2g==
+	t=1793888641;
+	b=nf8Dq/4sA4p9/Y+5798SJudJhnMH8cR4Dj8PAY0/liACnrLjzB+USGRfILT8N4JL+eRZ
+	 jahCyPwj3DRHTBzWTm0Q5IdXxTimLuF35CAH4iWs6hG3KffHtE+4lT53h3Ts0p88DVP4Y
+	 2ETRYaqhNEoeL5W62Ybaw73vWDfrWuk+wtpwXpXSSoJJ5UygCkLQ/azRftdKcAuT5GGLw
+	 ct5G6NpzrT03J1eA80VlzQKsmfkLtNpWwFYSuDZCPuhg9XPYGOFE7bRymmc96FlDnmVaA
+	 zq+j20N19ftT8a430H0wKj7rKtfhoQexq+6SSe72GDopwZtBraJpaA6Do0rw9NB02FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888580;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=fr/sToHFkpF9BPihxA953uG8doO1fE0lFSHPRxWhDoE=;
-	b=U7Dh5zbJaSE4+k8E3AAl7dpNXC+IqrGNusY7aXFwOLic5YlfeCYwpH/fJAQNEiwfcims
-	 Mhwo/uYdR48Anp3oqCgUfIQ/YpcSHP3pGNAc9rSYOya8NjZKi/pCkCQ3f57ivDGQzr4Ab
-	 RiyZqq2287FUKRD0lboHVBk4lTlmwOg3elQesYxsNPc0tfadcb3Djtj6i3a/InDPZQVeg
-	 BzLfPP/cQgOJv1NPlirf6m1erZZrKiZTafImpiYsle1PHSNfQcjWd8ZGGkgE8Z8pTSDZu
-	 HOnmYN+ZghZFfa6Xp7fRhWigDsO6idZBBgSvGES/7IasXIHNQ5/Da6+962OOoZXmvOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888641;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=8MyGH8Kh4awTUE2hmAlMJcE8YKJdI0+ELv+HH2AM0mY=;
+	b=Tv6wfVdQvHOSlxViAQOT2x2zjv4nhQX+3tNrgD/CjYzaTuTVThR5JUhQH70L01MXI010
+	 FVOufLFLUz+7x8x/zXZTxgLBkvclLnINYJslozuYYlXJaP3/yNrPJbcfBM/nrT3SXQlMO
+	 EBwXtrwFz39K8xWobTYQnDEzoJqLSqcmkHoH0GUnYFNaN2n9l602UkuilCS+7O/aBnQ/L
+	 JZ/msO2JObI4kOxDkPo7UTNC0M+AjhkWjSiyofA7PeLx4B8gk/kOQCSxLhtJDz1vged9C
+	 Y6ptOmRhDrtu8XqAVgm0C7AP0JL3pe11g9Lry26RH+dBPIhqB/dAaCLu4mAxUMX7eXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqUQNpzO;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y04u5yar;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C548606A326;
-	Thu,  5 Nov 2026 14:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C548606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED25606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:24:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ED25606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqUQNpzO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793888580; x=1825424580;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=8aE99+VJcMQQ2lFtFNMEVuo+WAHaGpOaIlVw0wUkjj8=;
-  b=kqUQNpzOAFCaYDSHcp8Wj4WmpoX3nJS4a+Kgf73h8jtx535iIXYYaWOe
-   K0Ea57swpZPo5j8bLuVT7bTDYB4F+f0tuwUQH4ZC99CXKTnfsFDX5TXY/
-   i6xUcn5URrVaHkYLilXDyz909mDABgqMSPSqwyt9RxltWwqH0JvaREGZX
-   Ofz5IGRm296N/vS+3rBNBIhX/rQ4IfGN4Uy7pR6YI8GSgrLaksPFXeES8
-   KU9Dr+YOg76ZZmPaFzwIFGav1dnKbeabAUU7RzNkIgXYEpEPxT85n/Ebe
-   bct31QF/JCTlCuG/1Mod9N6tbDgiVUZCYJf6T/+vjf7AaH8uVllOkmbT5
-   g==;
-X-CSE-ConnectionGUID: 1l10Jx00QbyIWqho+oNmdA==
-X-CSE-MsgGUID: dc6UTu26R/qspd0UlFgWQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2703073"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2703073"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:22:59 -0800
-X-CSE-ConnectionGUID: /K275MsMS2iu65atWdhLvw==
-X-CSE-MsgGUID: RsKg5am+RfCPmB5pvRDPCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7192371"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:22:47 -0800
-Date: Thu, 5 Nov 2026 16:22:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Lixu Zhang <lixu.zhang@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Imre Kaloz <kaloz@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Daniel Palmer <daniel@thingy.jp>,
-	Romain Perier <romain.perier@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	Hoan Tran <hoan@os.amperecomputing.com>,
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-hwmon@vger.kernel.org,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	"Enrico Weigelt, metux IT consult" <info@metux.net>,
-	Viresh Kumar <vireshk@kernel.org>, virtualization@lists.linux.dev,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Srinivas Neeli <srinivas.neeli@amd.com>,
-	Michal Simek <michal.simek@amd.com>, linux-aspeed@lists.ozlabs.org,
-	asahi@lists.linux.dev, linux-mediatek@lists.infradead.org,
-	openbmc@lists.ozlabs.org, linux-omap@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-unisoc@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Michael Buesch <m@bues.ch>, William Breathitt Gray <wbg@kernel.org>,
-	Robert Richter <rric@kernel.org>, linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-Message-ID: <auyRNagFOmxf_3nW@ashevche-desk.local>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
- <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
- <auxh9PxpJScFO3i2@monoceros>
- <le5gbua6s2mhhv32di4j77qr2we5z5ngzyzmiemhodmblvjiji@q4wf5tdgrbtv>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y04u5yar
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1b1ce85287aso1689308c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:24:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793888640; x=1794493440; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8MyGH8Kh4awTUE2hmAlMJcE8YKJdI0+ELv+HH2AM0mY=;
+        b=y04u5yar+ota9q8u5eNlPttlns6OnFMRw1W5d6Vv5vcJIs7lArjDZIxxvflGcbsLCU
+         d4EYFzzR1zTkec9q1Nc0gtR08+VdSxlB3Obapafg46lFbzC8eymdFCzPD8B9e+WDIkZy
+         O+u6Hsc4aV7tyXs6rvd0tZ0vi6HaoKoS5D1UkTmxSZoR500AsKJ8IB6lcbe7DXZ1LDz4
+         hTzjHU2eAIJOor1hYDb5KRS8mBd5FQFQi6VylEyJWU8dOyyEtluM19MI4i8VCsTXfVEk
+         +y5hdeOAsYDR4lpYCwUavYc/PlMr011Ng1i3RJ1HcSAI640+mVY7T5sfeyWOjxHfkL6j
+         mRFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793888640; x=1794493440;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8MyGH8Kh4awTUE2hmAlMJcE8YKJdI0+ELv+HH2AM0mY=;
+        b=164skjjwqYVpZBrz27BLCQsDtBKlbMw1NU3hBb8KenvIZXVRZhXR+vTLQKKhOj2snr
+         UJSMbK1S+tBCHJTWZAB/nheoHkW0yOoqnNaJjC46Ib1oEIjEpTEVJiHflpBuRDNru1Si
+         H1mU0Wm1jY4gbEH/xP+XA5vfw+lpPtFUkUxa9IG75wDm8KdNw+0QCeZTMfzb6v7n1tcr
+         huoDs47j9tpXBID5dalEWjgT7IVCAvPO4I9ynoF+XH62+cQ8NFyKw1p3jRM9hVYIXvdA
+         6F2G1cbR0K+xeJlQ+cuiV7uAiQgOzV6dRY4mdLoz8hCphQgoUl3Q2TlSetGlW8w+jgWb
+         j/kA==
+X-Gm-Message-State: APuU4Z8NCA3onJrgNTPAHWv/yLC73PAwjrd675AJM1SIphUraoX14q+s
+	bmvxRlOOuzqgR8vavO6ToqNgFOrWImTkA9b96pZI8QVx+shCuaPdun01
+X-Gm-Gg: AYBFou26lUrSWmkwyRGi6RWOsuQIX+69MjLviM/hFcRlJ1ghXp12YKkp2aTMCREBoEK
+	6dKvDjWrge3RYyAKEdzkHgNLrwxKe8EQ1tAwlZRKWs84UDtbX514jNMPArDuuF+RNiewXmU0XsB
+	gX2LyZVEzjh8UmmXw3EPQuxAH9VnXZGiS0k7fLQ2rb5EuGkWiI0xFNNOgGhT5yZs7Ro5uwLmn/M
+	+CTtnUphS5pSOYaqsSbNdNqv0Sz8IjymB3+uNlgb7jeLU3UvvUWo+7XPWP/DcuWRBweRXPxNLlj
+	BaKjQjPYnNMviT0Ib1hKYHQbFEj/Ot7bmTwbzARrnS2FktsxDV9Zt6DT6hqdS0SorJR6CbEm4hy
+	IZhf79/ZW5dxW2ihQqdCJOJsfT9OcuTaAAtym48JHZkysD2wx71W9kj41wLHwHfcADV/G694AeT
+	F5g9pTmjTwCtLtDxmP5dt/vLMIfgJDinuVlSGCa1uDI475H//IqvEZXQ8VwvWE3VgeNuh3TagM+
+	KYro6TpxNSF212DVO1b+d7CFNkZdoLoT+dgRhJ5Zec+6pwq4INr5nXCQWS0RUT2oTT2m3NRDzml
+	PB8+J2nuhDd4zA+beN03zv82fshvNdnOKouzpUzA7J2IHno12cQ=
+X-Received: by 2002:a05:7022:f50c:b0:143:297c:276c with SMTP id a92af1059eb24-1aed79b3c1emr21779081c88.33.1793888628767;
+        Thu, 05 Nov 2026 06:23:48 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.85])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c748eesm16467801c88.23.2026.11.05.06.23.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 06:23:48 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v2] ALSA: linear: Check frame count for all channels
+Date: Thu,  5 Nov 2026 14:22:26 +0000
+Message-ID: <20261105142226.3079-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,30 +95,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <le5gbua6s2mhhv32di4j77qr2we5z5ngzyzmiemhodmblvjiji@q4wf5tdgrbtv>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Nov 05, 2026 at 01:25:34PM +0100, Bartosz Golaszewski wrote:
-> On Thu, Nov 05, 2026 at 12:06:33PM +0100, Uwe Kleine-König (The Capable Hub) wrote:
-> > 
-> > Maybe you just need to add `-3` to your workflow? ISTR this should be
-> > the default for b4, but it seems if failed to mention the -3 in the git
-> > am cmdline.
-> > 
-> > Should I still resend?
-> 
-> No, it's alright. I would have preferred a clean b4 shazam but that
-> works too, thanks.
+linear_transfer() checks the available frame count only for
+the first destination channel.
 
-To make that one should really have a unbiased base with the gpio/for-next,
-say v7.4-rc1. Then with --base present `b4 shazam` should follow that.
+Check the available frame count of all source and destination
+channels before converting samples.
 
+Use the smallest available frame count to make sure that
+conversion does not read or write beyond the channel buffers.
+
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+v2:
+  Add missing mailing-list recipients
+
+ sound/core/oss/linear.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/sound/core/oss/linear.c b/sound/core/oss/linear.c
+index 6e51cfdca238..7765ac0ec400 100644
+--- a/sound/core/oss/linear.c
++++ b/sound/core/oss/linear.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/time.h>
++#include <linux/minmax.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include "pcm_plugin.h"
+@@ -75,6 +76,8 @@ static snd_pcm_sframes_t linear_transfer(struct snd_pcm_plugin *plugin,
+ 			       struct snd_pcm_plugin_channel *dst_channels,
+ 			       snd_pcm_uframes_t frames)
+ {
++	unsigned int channel;
++
+ 	if (snd_BUG_ON(!plugin || !src_channels || !dst_channels))
+ 		return -ENXIO;
+ 	if (frames == 0)
+@@ -92,8 +95,12 @@ static snd_pcm_sframes_t linear_transfer(struct snd_pcm_plugin *plugin,
+ 		}
+ 	}
+ #endif
+-	if (frames > dst_channels[0].frames)
+-		frames = dst_channels[0].frames;
++	for (channel = 0; channel < plugin->src_format.channels; channel++) {
++		frames = min(frames, src_channels[channel].frames);
++
++		frames = min(frames, dst_channels[channel].frames);
++	}
++
+ 	convert(plugin, src_channels, dst_channels, frames);
+ 	return frames;
+ }
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
