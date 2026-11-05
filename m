@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.83
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793872727;
-	b=pPMx8wcREH02fTMMxgqmBTB9DH3VFO/YaT8FsD9YkwLP4NhxGhKyOTGSJ1GTOkRjA7jW
-	 DADpOE7lSOfxQP//GbigkEDeuLwZTvZOFj6rDUL3YEJj0l3ac+X8VzEygKRSY9tdHGSqA
-	 0uRvdwJ8Qs26Ed/14CvT9+kWfELtB6DK3Iae6NPzF2t17a3JTWJGH7zqJxxdoHHrK7skf
-	 WX14h2pvOwzun2+GftDAUH1h2bzfVEj8kgxhcrcEspiB/FScJj8+pI1R0OEtEd1ElG7qW
-	 eioogIqactd7+IgMYo2gSDHBkUrsHB0PtZCyQZGB5UyFNuJZIBJtnhSyUXHrU3v/tqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872727;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-	b=gKIzWPgcjAzj/l+sKeyLrbt6qe6+UcQLLVS0oEuTJRaTodtNhODSQBAgv3qBx39CbRyJ
-	 HTOxm7qNukExMa9LoZkzOhpnbhT8VuncO++lFH2ImYAj2B6SjGo2/zI0rurH+i7bW/w61
-	 J+0F0pnQhnMvEFQVTI6xcLBgPgi29KmyKNJg5uh07cHcl804PBPl4kFpb4yu9bT6X9nzf
-	 uMqg4fAV5BvSf84Yg1J+Ca8l5rb8CaCdlNbAtTgORmjH+mDiiCPzZ5ZbuvSD6xMc8vLzD
-	 LkCwwaunVQhDfa2qXWlfo2Rdx4k5edu/NXEDPlF6HlLwehUg1MzoJhn8Jo7b+g5Og3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=MuwPLE0E;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2C0YJTtJ;
-	arc=fail smtp.remote-ip=85.215.255.83
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.83])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793872733;
+	b=TDZK9ZrPB6BOXveEUdkV9cgTSuwLQw3n/wybId76k09kV0tIAaO3MBpQ7h02DUog5Shp
+	 VNf3xmVOXaCWwZ415S1cgnP1RopVSZ0lM3MHZ8j8WKUc/XGO9XQvlHUBVO23ARS79qb1N
+	 H5NGe+99LinEqGGg+Aq4dIuTIhSTetGXyR3EAzfEUL2EasIIIz7aoE9R0IWq061mbIbak
+	 czr5fEw/BVwWqXU09XIpBhI3QN1TT7A7RwJAOff7n+ZIZX97Ex8WLMc1/jPdv49hO6OGr
+	 bMkO1iyMQ914eLvXZ+lNAaGi009zYO89YaGR2OOyD9pWR1uVxuijuBTQwuHsf/jG8rg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872733;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=q/X+C1Y8TceHHEUuqIf1Y7YzjYQg0qCuJDWINnus5m0=;
+	b=uBzRur8ehmlQAWHVvl6StS8WcYCciJVMGxphDfAqKk5nEn/YtLnZsVz1/IawZ3hy8vx2
+	 Uu8PSXvpXI7moFmnwjGNhcxVsCGm+jvFLPFjVu9IVc8TzpDGMOds5ySS+4JjgaZOpIvzx
+	 rGZIWUeMIXxrdUTRgd1ACIZj8pZnSFxkV8t3+PoEaf+QbxbcuQ2AeaNOtVyI+8Lbw5ni2
+	 t7Fx8vIWCcT6oMvqKRlDxgH3p2D75cihPsyJxVBXRAlbUleBkwbb7/F0yw5KZHAdjnNJ0
+	 N+jSFJOiE4ONZ3/LiK4P8FS9mMJtFDJjrgKBnRs2f22jugso/bSadqmux8wabsyWUyw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7BZOv6y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0652E606A31B;
-	Thu,  5 Nov 2026 09:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0652E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861F5606A32C;
+	Thu,  5 Nov 2026 09:58:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=MuwPLE0E;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2C0YJTtJ
-ARC-Seal: i=1; a=rsa-sha256; t=1793872709; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=UAU7tFL6ASXSY5WfQoE+EY69DFAylUSfjkk6FFe9/YueQKCpKq/39gu1XrB5rHzij+
-    08joy3O1CPyI3+LkEO8nba02voBPS5BufTkj+wEJBIHmNfcdILnrAo3A8t2Pa/rmNHpR
-    6ncPrFH0RwQ2mTNcJiPoGuYXtEzaatAfizzbRWNOxMwIy1KL+MWbihquB05Qdgn8uRAT
-    p2HNMa7cgWBVpO+U0BQ+tYRho9AhIk5cAYlyOqUHf8ougnGWJ+5VieW5JSVk9DqLy34I
-    F+929gQIsvIZrDISCuQWSTf9UWQNAKNjdqwXUhzWEvUqrNUeIOo6I48UCNuwNIuXGqR+
-    FkIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872709;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-    b=IyjgxLGHzWWsmhCtwfV0KSOWsqLb+VSKBTqivf7eXIpIyqH9NePtH/ciY79w8cPuuN
-    L9PgtkLcwlNqHuAdTlE2gE0kcJFuvXg/ZfGcBwlHd+mxZ9Qdvrrn8qYc7ZMpDcbwRGKZ
-    KV3iwZUT1TRtJz4fykc/Rxnv6q8T80sPn7gsl3M2/NW6G+sLh+xCIQD6NWPCiuhAjxR/
-    k6qz4kGKDB0gLDwq8RnEmyDoUSfmYrMuqcqOAMxtQ7/HokbVqpFrP4u+Q5TZMKPoABWC
-    CDXOhzmwEXmSEh9DL83GTRqNOyAZLIMJwHq7qqFca9NeRdkrAafukCkg0qxNJQ2U9LZp
-    ngKA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872709;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-    b=MuwPLE0EP7Q+7BN6r8irxnxS+h8RNDUOmjqEy2bWkl5ebfyFrpO6PSLLZN4xruoShZ
-    Z9uZmrGWCk2Lh1z4xsv0UubYeucolyNWk6QABsM9DspFfcnFprbDH1QL4JJfzwEW7+74
-    qhffCfjCcbV+dJASNNDvBMN39PbINcxkQWQkAUfL4rxjtqdS+YzZsmHU4Z0Gr8cFOuyr
-    0dpVkxdrXNWLyT9tXj/iuG41ufCxTDQnWRVdcky/zpzrH6zPGczLrqWvtiTr2D86HKOd
-    zKc9lpDQ9s0vhTDv0ce+G0sktilgPJiGrwHlZ3bHq9SUm79ie6BZPtOX0rImsiCyMGE9
-    /YuQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793872709;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-    b=2C0YJTtJ/OA1gU/RHPMXBtj7uxP9l+gu9vAVdXPPxKeDcMj02c3xpiqN9+Uf5S0nDA
-    RYCFZvcmV6xuVwnWHVBQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV25oGlMiNUOZNJoYXSTSpu/Ae46f1NE9YxyvD"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A59wSi3s
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 5 Nov 2026 10:58:28 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7BZOv6y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7802A1F000C1;
+	Thu,  5 Nov 2026 09:58:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793872733;
+	bh=q/X+C1Y8TceHHEUuqIf1Y7YzjYQg0qCuJDWINnus5m0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=d7BZOv6y47/RQ2Ml9iy4bi7L5V1/nD//V4d6VP/9soB5stou23M4Km74Szg3Nrm3p
+	 wCdMVRys8gcsqkPoyJyNnyL1U0/e2hdmDU2HkeQ3y++ZKgCL6NIKS2g+Xn1qVYUCIg
+	 /JOTkot7nWIHdNJmFwZ4NZYbrxBMA0spOxrsxhXtH4/7hCzWTyA9FMG0FQNRAqRlDC
+	 S8+JrNV0DEVmot9dYaua6ajAf7G92UMTuXxCX6VowkUJYKFOPGS0mBCz7JpMALgdFe
+	 ComZLv0SAKpc6/Opp4e7FLf0nsKozgFIVdJJK+EDJLejPETCTHHNJclf5I4qzf7mOg
+	 xnE9UCMW3swNA==
+Message-ID: <6c5f3ef1-188f-4a5d-8775-578dc2c84c59@kernel.org>
+Date: Thu, 5 Nov 2026 10:58:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,172 +50,139 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261102-salute-cylinder-22c9a8896ca9@spud>
-Date: Thu, 5 Nov 2026 10:57:58 +0100
-Cc: Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Joshua Crofts <joshua.crofts1@gmail.com>,
- linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C0C6F46A-45B7-4B1E-9398-71CD8A26FBD5@goldelico.com>
-References: <20261102201155.10948-1-olivier@mgcrea.io>
- <20261102201155.10948-2-olivier@mgcrea.io>
- <20261102-salute-cylinder-22c9a8896ca9@spud>
-To: Olivier Louvignes <olivier@mgcrea.io>,
- Conor Dooley <conor@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/12] mm/page_alloc: keep the pagesets of an empty
+ zone
+Content-Language: en-US
+To: Zi Yan <ziy@nvidia.com>, "Gregory Price (Meta)" <gourry@gourry.net>,
+ linux-mm@kvack.org
+Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel-team@meta.com, akpm@linux-foundation.org, david@kernel.org,
+ ljs@kernel.org, liam@infradead.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, kasong@tencent.com, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ baolin.wang@linux.alibaba.com, rientjes@google.com, rostedt@goodmis.org,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com, muchun.song@linux.dev,
+ osalvador@suse.de, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ ying.huang@linux.alibaba.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, nathan@kernel.org,
+ ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
+ Bessel.Wang@huawei.com, jiang.liu@huawei.com, mgorman@techsingularity.net,
+ anshuman.khandual@arm.com, Josef Bacik <josef@toxicpanda.com>,
+ stable@vger.kernel.org
+References: <20261101021340.2251928-1-gourry@gourry.net>
+ <20261101021340.2251928-3-gourry@gourry.net>
+ <DMK59DO8M3AP.3OTG2YR62D9WO@nvidia.com>
+ <489b668a-033c-4161-93e8-15d6b9b28b51@kernel.org>
+ <DMLPC0D7EWRW.EVYWUONVO18A@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <DMLPC0D7EWRW.EVYWUONVO18A@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Olivier, Conor,
+On 11/3/26 17:04, Zi Yan wrote:
+> On Tue Nov 3, 2026 at 9:57 AM EST, Vlastimil Babka (SUSE) wrote:
+>>>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>>>> index f1048168c90c..1850a41f24f7 100644
+>>>> --- a/mm/page_alloc.c
+>>>> +++ b/mm/page_alloc.c
+>>>> @@ -6308,6 +6308,10 @@ void __meminit setup_zone_pageset(struct zone *zone)
+>>>>  {
+>>>>  	int cpu;
+>>>>  
+>>>> +	/* The zone has been populated before, see zone_pcp_reset(). */
+>>>> +	if (zone->per_cpu_pageset != &boot_pageset)
+>>>> +		return;
+>>>> +
+>>>>  	/* Size may be 0 on !SMP && !NUMA */
+>>>>  	if (sizeof(struct per_cpu_zonestat) > 0)
+>>>>  		zone->per_cpu_zonestats = alloc_percpu(struct per_cpu_zonestat);
+>>>> @@ -6400,6 +6404,10 @@ void __init setup_per_cpu_pageset(void)
+>>>>  
+>>>>  __meminit void zone_pcp_init(struct zone *zone)
+>>>>  {
+>>>> +	/* A node which is added again, see zone_pcp_reset(). */
+>>> 
+>>> it might be better to explain zone->per_cpu_pageset can only be NULL at
+>>> boot time and it needs an initialization.
+>>
+>> Hmm.
+>>
+>>>> +	if (zone->per_cpu_pageset && zone->per_cpu_pageset != &boot_pageset)
+>>>> +		return;
+>>
+>> Shouldn't then the check be just:
+>>
+>> if (zone->per_cpu_pageset)
+>> 	return;
+>>
+>> Because if it's == &boot_pageset, we are just setting the same values that
+>> area already there?
+>>
+> 
+> Right. And zone_pcp_init(), called by zone_init_internals(), becomes a nop for
+> free_area_init_core_hotplug(). Then I wonder if zone_init_internals() is
+> needed for hotplug, but that belongs to a later cleanup.
 
-> Am 02.11.2026 um 21:48 schrieb Conor Dooley <conor@kernel.org>:
->=20
-> On Mon, Nov 02, 2026 at 09:11:54PM +0100, Olivier Louvignes wrote:
->> The X1600's SAR ADC has four auxiliary channels and none of the
->> touchscreen or battery engines of the JZ47xx ADCs in =
-ingenic,adc.yaml,
->> so it gets a binding of its own.
->>=20
->> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
->> ---
->> .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 53 =
-+++++++++++++++++++
->> MAINTAINERS                                   |  5 ++
->> 2 files changed, 58 insertions(+)
->> create mode 100644 =
-Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->>=20
->> diff --git =
-a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml =
-b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->> new file mode 100644
->> index 000000000000..f6356ea97980
->> --- /dev/null
->> +++ =
-b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->> @@ -0,0 +1,53 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Ingenic X1600 ADC
->> +
->> +maintainers:
->> +  - Olivier Louvignes <olivier@mgcrea.io>
->> +
->> +description:
->> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
-channels
->> +  measured against a 3.3 V reference.
->=20
-> The wording here makes me wonder if a 3v3 supply is missing here? Or =
-is
-> this some internal supply on the soc?
+Yep, that's for later cleanup. Right now the minimum that's correct and not
+unnecessarily misleading is enough. So I've done this:
 
-It is an external SADC_VREFP input pin (ball P12) which is usually =
-connected to
-the 3v3 supply. But it is specified to be min=3D0V .. typical=3D3.3V ... =
-max=3DVADC
-voltage levels.
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 1850a41f24f7..20bfd11c5851 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -6404,8 +6404,8 @@ void __init setup_per_cpu_pageset(void)
 
-VADC is indeed the power supply for the SADC on a separate ball. It must
-be in the range of 2.97V .. 3.3V .. 3.63V so that it is extremely likely =
-to be
-connected to the system 3.3V rail.
+ __meminit void zone_pcp_init(struct zone *zone)
+ {
+-       /* A node which is added again, see zone_pcp_reset(). */
+-       if (zone->per_cpu_pageset && zone->per_cpu_pageset != &boot_pageset)
++       /* This initialization only needs to be done once */
++       if (zone->per_cpu_pageset)
+                return;
 
-Therefore I do not see a necessity to require a separate regulator =
-reference here.
+        /*
 
-I would suggest:
-
-  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
-channels
-  measured against an external SADC_VREFP reference (typically 3.3 V).
-
->=20
-> Otherwise, this looks fine really.
->=20
->> +
->> +properties:
->> +  compatible:
->> +    const: ingenic,x1600-adc
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  '#io-channel-cells':
->> +    const: 1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - interrupts
->> +  - '#io-channel-cells'
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    adc@10070000 {
->> +        compatible =3D "ingenic,x1600-adc";
->> +        reg =3D <0x10070000 0x30>;
->=20
-> That said, the 0x30 looks suspiciously small - but the region is =
-aligned
-> neatly so I suppose it's probably not problematic..
->=20
-> Cheers,
-> Conor.
->=20
->> +
->> +        clocks =3D <&cgu 28>;
->> +
->> +        interrupt-parent =3D <&intc>;
->> +        interrupts =3D <11>;
->> +
->> +        #io-channel-cells =3D <1>;
->> +    };
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index ecc22d1149d1..fd4bb5c6bf16 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -12925,6 +12925,11 @@ F: include/linux/mfd/ingenic-tcu.h
->> F: sound/soc/codecs/jz47*
->> F: sound/soc/jz4740/
->>=20
->> +INGENIC X1600 ADC DRIVER
->> +M: Olivier Louvignes <olivier@mgcrea.io>
->> +S: Maintained
->> +F: Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->> +
->> INJOINIC IP5xxx POWER BANK IC DRIVER
->> M: Samuel Holland <samuel@sholland.org>
->> S: Maintained
->> --=20
->> 2.54.0
->>=20
-
-BR and thanks,
-Nikolaus
 
 
