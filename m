@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840475;
-	b=drqk4dMNk6YRALl75L8ziKu9etESuEuhs48bBKtpeW/rGK+tTHJwdgvzQL2kxI0hv/3U
-	 NstSi/RJ4YavHVSD0bLPepbNTcX7ra8B6LN8syY7rrEwtO9TkTpVU61dNO4F5pKLgH2GG
-	 Pad5lNw/IX5S2L47J6GEBBh5KAXUrnmVw/7z5DRHNJGHG7dfZY2GjS4v0EUa/uHuIsFNf
-	 dZ/ToTS/HkIGOKr6t6P6idb0IkdJGKvY4XCn5PZLQ9xWEguAtZB0tRmKNn4WUIfDLD49i
-	 XhgCupuQ/GrwkLz40zPYclvKc5dozgGvCCsq2KvB9cXo72VIzGDTs0vqPy9L51lPQaw==
+	t=1793840525;
+	b=lRTv6DfY5dj/sriFMTqkDs7oXLWlNP5iJr5jowxG9GZOyZ+nlan5JFXHmbUX5ZwcLuYt
+	 vX+06kIozTpUnlw+bE7XfPtVT/Rnku5rxfjkawp+L5xLCeEv+J9JKTlouTwmUC6nbaJqq
+	 Geas1lTlcAK7rq8/Zvxh1HMqltcz5PEMa52b0NzEy13fwugyuCyRvF9/x32IZZGr+BTBy
+	 jt4PlgNxdwdPLdfcAOsMQCPTCC82OSqvSC6MOb8Ae1COFBrmudRSHUyHoubsg5/aTILVh
+	 uRGFGfzSvng8BjY64xrUDlOgqjUMY92NrxEyJSjuz5TN4GxMjPRPtzS4nnXxJKrvMeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840475;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=p+Zgk07gNIjShvh7sz985dtFB/kPI5vroXB9emzMRms=;
-	b=SG44cm02OTyBAuDQkgjWiWX8FTYZQ11fI6we8vH3BQEDMIITGKcqYQ9/eYlLjASJwEfs
-	 +lPj3ZIV0WzvIuxLveN3oKXHhHHdlH7bHORI0OZ9tLZ3L8Cvc2xSBf0tp3irKxiYDRZXN
-	 X/7Rv1X99/DCZ5pv062Bf1E0pOcMFUZOw5oeFy8TF81vWpryiYRmAK19N1G4eh5feaLdQ
-	 Jlr5XeFnR92hZW+ZuC7psZiPuKz/PPnpFFJd0z0rl8de6WCoKMQh4vVZR0Wp+pMYCnFGv
-	 RO15ljL4iqxVys1niLMGP0NDUKk92M3uoJY1IYIj0D0OsOL9C7GuxDmbXWvhti5s4ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840525;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iddlibwHylbcGjyxMtI74PmgfcTkrOFQcKT+J34fn3A=;
+	b=CCElyRA4fRgSOX0atjshmCC32WIh5JUAxnyTOxMT3bKcYjr+eDe28BW9b/3sjuVdGyQY
+	 XnHKIt3Znj1DAljgbMPbuHAtnnqWZLNTg4lxkyqHFzo+R1T4VsDIQCCRFgloC5XQUsmXi
+	 x/9uemM4QQsIo92JeTCIfHkT3aDz6edJZynpfg8vgcHwE+yZw8dQjLWeT0QUUPQ959oTG
+	 tPw3JpYpC5BMk/89bZfO/cmddiV785pxrbjGqLkIT3jM2Y8QVYPpKU1at2td1oo0xP/MP
+	 TUAlV7g02eGdztl34lrzgHecF3yKi/S9HKNKLsyCHPaXj1kh6FSP7ayc61itZQZY6+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ms4BtTYS;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=menIgw4h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22304606EE9E;
-	Thu,  5 Nov 2026 01:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22304606EE9E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92F3606A32F;
+	Thu,  5 Nov 2026 01:02:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ms4BtTYS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840473;
-	bh=vuS3FEAJj1P3xuszyaL29cGUlOJnhPtoW5/yXO1sV3E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ms4BtTYSMLPvuiY3i37yMpFnOH9p55vAwpxQi4ct3/CI780qUurtW9/lbfEPoBiz5
-	 cmo7dy+/BcVyCfHVjWMgBYxwAXPSGPFI42RFHafzUcV1tVN2G5CJAdLtIojR6yKWfp
-	 w7xr91sTfYz84F/Uy3k8r9c24a9dNhqOpLVkNjgQooHSJrpxJKt882gTZEb9sgY2D5
-	 B9ri0smz2XoSs3IZVFSbxKK52MF/VUaW43FKTnlE6EgWM2Yc8qLOg7cS8NBhqIEvcR
-	 N1SwmgXp+dbpCgaYhng9zvajJNg8kCXT0mZVGjFqk2uYMUQUTIoH4hzM1NDMFz1RCV
-	 a1JhCspPmPlDA==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7AB4A17E0D7E;
-	Thu, 05 Nov 2026 02:01:13 +0100 (CET)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:44 +0200
-Subject: [PATCH v6 10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=menIgw4h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A271F000C1;
+	Thu,  5 Nov 2026 01:02:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793840524;
+	bh=iddlibwHylbcGjyxMtI74PmgfcTkrOFQcKT+J34fn3A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=menIgw4hLQFv34khikyvkP39JYjUXXeDwg8lKE7JsbiAZURLv7mvQtahpFyMZ3kbm
+	 J1cq5WLONDd9gZKNRrKmSti7PpdHa/9TXLnX0dXbNJCQlrf4x//y9Z5G3lXjY10OW8
+	 SVatb2aL2sHnuHZ7RRFF82KsQY5joTOmWTQwj80W2tqzmqxVAnDtKGdcTuXJfICySw
+	 P/eD4ChhKYtZbgmMAnSlZqWP/B8Q1EIOLFwHHpFAtqWWvzq0YHBKFSBbFkZQyP6Rol
+	 CaeY/nDRcDVbBDZiFMBDYLWaqTMkG8I6BKqACQyCWDpi3DUxrkDkZhep9youxKRSJD
+	 iQ7T9Z9y/W0MA==
+Date: Wed, 4 Nov 2026 17:02:02 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Thomas Huth <thuth@redhat.com>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crypto: Add a sentence about zeroizing raw key
+ structures
+Message-ID: <20261105010202.GB2084@sol>
+References: <20261104105352.135540-1-thuth@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,82 +58,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-10-1bb63ef5766e@collabora.com>
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
-In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Daniel Stone <daniel@fooishbar.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104105352.135540-1-thuth@redhat.com>
 
-Improve code readability in vop2_setup_csc_mode() by using enum
-vop_csc_format for the csc_mode variable, as well as for the return type
-of the vop2_convert_csc_mode() helper, which already returns CSC_*
-enumerators.
+On Wed, Nov 04, 2026 at 11:53:52AM +0100, Thomas Huth wrote:
+> Let's make it clear that raw key material has to be zeroized, too.
+> 
+> Suggested-by: Eric Biggers <ebiggers@kernel.org>
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> ---
+>  Suggested here:
+>  https://lore.kernel.org/linux-crypto/20260930201434.GA61218@google.com/
+> 
+>  Documentation/crypto/libcrypto-zeroization.rst | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/crypto/libcrypto-zeroization.rst b/Documentation/crypto/libcrypto-zeroization.rst
+> index 76b6506711634..fe9f94413d1f2 100644
+> --- a/Documentation/crypto/libcrypto-zeroization.rst
+> +++ b/Documentation/crypto/libcrypto-zeroization.rst
+> @@ -47,7 +47,9 @@ The following types of structures hold sensitive material and should be
+>  zeroized after use:
+>  
+>  - **Key structures** (e.g. ``struct aes_key``, ``struct hmac_sha256_key``):
+> -  contain expanded round keys or prepared key material.
+> +  contain expanded round keys or prepared key material. Note: Arrays and
+> +  structures that contain raw key material (e.g. raw AES keys) of course
+> +  need to be zeroized as well as soon as the data is not required anymore.
 
-While at it, replace the nonsensical 'csc_mode = false' assignment in
-the no-conversion branch with the equivalent CSC_BT601L, which carries
-the same value (0) but is type-correct.
+It's better than nothing, but it reads kind of like an afterthought.
+Might be worth its own paragraph before the one beginning with "The
+following types of structures".
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 7c35d73c82cb..76d151b8bc52 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -647,7 +647,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
- 	}
- }
- 
--static int vop2_convert_csc_mode(int csc_mode)
-+static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
- {
- 	switch (csc_mode) {
- 	case V4L2_COLORSPACE_SMPTE170M:
-@@ -710,7 +710,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	int input_csc = V4L2_COLORSPACE_DEFAULT;
- 	int output_csc = vcstate->color_space;
- 	bool r2y_en, y2r_en;
--	int csc_mode;
-+	enum vop_csc_format csc_mode;
- 
- 	if (is_input_yuv && !is_output_yuv) {
- 		y2r_en = true;
-@@ -723,7 +723,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	} else {
- 		y2r_en = false;
- 		r2y_en = false;
--		csc_mode = false;
-+		csc_mode = CSC_BT601L;
- 	}
- 
- 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
-
--- 
-2.55.0
-
+- Eric
