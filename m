@@ -1,101 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793922190;
-	b=b10HLY8IkDu4pTMHZi9Bw9Y7lSmyhPbkj4VTf5W2upaXC8xjZfd/Nws+8BNVAlinAJ/O
-	 UVC7cigQ+Yi1yE1DjEvEUSBy26+AbblWJEQ+Ojhap3qZx6vxOSQOuvIxOgqtGTmOC0OB5
-	 lCO+kEzyiQSbHvZqi4YVGqCNlB5i6nuUsdK6zjXVuDX8Z/rJiClx4+LfdmGaqf1xIlL43
-	 evdAiWfnNnupWWSc9LYADPx4hdmFR3HQcO7XabkrYiKITp+0eCp0OO3SeDN7tis1xaFTO
-	 /+OSnj/bX1AbkbS7JJ9NpDZceSWtLks5fg8QbzvalaWi7FWC/k60B5cRtoBoTBho6tQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793922190;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dc90RyiGFoLb3JGpztvQfjTlSJkJ9NTlT+pR5m6yETA=;
-	b=B+EqTgvpSkEsVJ3QmysKvgDYAI3XbfuVc8uAhyudb3DELbE2J8/ggUcwgxKETqgho3z9
-	 HsWKfxm95UpXRhGD2+EZ0y6Nftlg87TRirzrByp1CdSeSUtbFG+AjfmrRPwvZPIGsnPEc
-	 r7W48DS2Ko+Dpikv55Ey/oAGvAfAypxFfjVT7Govg9PJCPz5U+my0wPjLJC08njU693Pq
-	 Kso9D+V/Bt5m3YgfnnY6WH10cfhGiaQWv4VWgc2HmWeHwjCCJcyZtJK5jaIGKhMf1XZFU
-	 oziuJGz3VbKqN0VzVRW+bczhd2WfGAlW6z3+OJIr/8m0SNGLm75ZSjzTHCYwfAveZ/Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fr4F7V4N;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793922390;
+	b=X4C+cHOeygvsGyuBKnMQ2sNI2Fwp8xUxocNsPR/wnsK3YGeT1cro420dxh9NFPG4lcE8
+	 eKD3jC2PsxPjD+/i2TFlZyCtYQ0cRsGnFhZnJTRWFxLZA0CsEn+AE5fLNgmn2topmegzH
+	 NnaJ6/kjB4NG3Gl1vVpaXj4yFk59X/REDFZr2HcRPjp5awIngmBayVv6dVVbZpexfLK67
+	 t4fF9X7+VFyGoqLSx9OOe6TwJ3kBcPcHSOeB9I7H7F2BrDghWPme5dXL8bZp8JuAuDNOi
+	 u1gI2AXYeXPWfPbvnIB3VRQRKjZxGiB4RHyp4QyKmp8uNLS7ihB938YF/jZvD/grSaQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793922390;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=x2dyM7YPg9X82mHGO35QN78CKwYix99R7vjyLHrtwD0=;
+	b=ewornltsx+N009e4UsyqhkR3uqx7XdvG7IwP5Soxi7l+4gOlQvQrtFVsRKXTkQWbMA17
+	 OWezmFdWhvgETqs9peiR08BC1QiTnQIDkorplmXaSUqwYdIa8QOdNd/CEsGlvNO7egKOB
+	 i9VWN4kGU02fu40a+f3h1Bh3TVsHcBophGIIoOOUd7rsiuZ+GNwTd/y+5UaGV8kP5XSov
+	 5EAL6Vc4EYg4SC1P1dIWUukGl1N808IgEYkT859pd9OSmz+Y/Me6FzBG71wwYPl3Zir+6
+	 8cOq6awM+BPrJ/gRO/MeHRPShsTU/TTbnvFMECHxw5eoZFn0oTbOTvqSj8+ifhODW8Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSYx4jRR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE24606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:43:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BE24606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3533B606A31B;
+	Thu,  5 Nov 2026 23:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fr4F7V4N
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso2a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:43:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793922188; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ItuwVuHwcR8nsuVKXlOWssAyFLniABnUR29XBvqJ5M04J8vSSaczfCaiFYta+aXwyu
-         ZFIBjuKA0vtJui9drhrCzjb/q53C3U3+KikplkTZj7mQ8MHhfY1490XxD7WvRQirriL5
-         BnU7yoR9UCsK37Xv1dACDRydXSNJiPW8OhDgh57aiDmkIvhtWYpsh4Ff/9ymYUBEAwl9
-         lSxAIb5zr5Ntxd65C8q9uydDM/KO1X69d80b4b8C6ACmWHpf/RPrFW4lJtvcxxjdnzSj
-         obsK2GWDYfS/4QRzdq4a/goNKbffXImnn1Zu+UN2k5dduMCIWJIi3oG8+wEyOotWmgy0
-         o5VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dc90RyiGFoLb3JGpztvQfjTlSJkJ9NTlT+pR5m6yETA=;
-        fh=XiDOIkp8SSrCpyxvvp+YyW763cfxhcHAr7lGDpWkpLI=;
-        b=oMRAeEXSJ7/fRg/9M8GFLBN3LIzGFtrpDbeIR8PFx0g6Udo9QfTWfjJBbnCrOUdQkN
-         ws6cmmLfXmUnOKP7TeQkgSpJO0Q9G/mF5CTZXbNmRvdIYo9Qg7wFk6qczFJm8VaYbaZw
-         sZnxjCMl6CHnU9MwPlFUQCcb5j81kV/DycUlZZ6bXY9gD03LFd177cSpokLOaYY2cQYg
-         2WQFqfnDi/AUjPWiiYpyAa1Y3XTkHzYF0tXh54gEmgzLoWaAKBjc9UNJye2ulCAHABVt
-         JbaxkvM0l54gg8IWvrhdE/1vs6TiGB/0jVJ0KM6ejr6OjcZOQjqLFOLlqpcH0KTWOYWQ
-         iu5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793922188; x=1794526988; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dc90RyiGFoLb3JGpztvQfjTlSJkJ9NTlT+pR5m6yETA=;
-        b=Fr4F7V4Nzu0gtdS5tvD30yZSxz0N0QpCe6iAKFnAj5sFX3tvTkTGDthDTe0rGrx+z7
-         7PdXeJp3Upq1Oy0f1jJQLwsW9UrW6l7ktO/28+uBkb/ABb7afdVfe1T8+x1It61y75pB
-         EfGliBmUxA+srFpcSr9hwMgitM6KpFigNvIrSMFqmFXf3ZmURX0ucVgJtq9QBZp8yqgE
-         1OCSD3zyMkVPMZH9urKgMaBoUYG1P+gcGo4SxHcasLVQzz0wpSqW5e99aEqxgxNo+/63
-         3qI/oKVxfRQvP/pBhZ77QJ7oVsVxwy9NRIFaaTWAUO19tWCqWEdTYvBDtQIAwmu8yjjf
-         StGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793922188; x=1794526988;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dc90RyiGFoLb3JGpztvQfjTlSJkJ9NTlT+pR5m6yETA=;
-        b=K+lJKV5mXokg6KiHlXoVeMpgl6q5hI+5jQQQOUpTQanFSZ9RVqDl9OGuUMfFG3upRI
-         2hsYuJQzGPwyQyw8I+bne25jxSJi9o2zbihansAHLUSl3aG3o7X6Q1b6yuUUN21X/YSB
-         4qyBIdDIE67mawmBcQxbLjN1ZzfrpBdPrftUeKL7G+b4yruTnGFV+r9E8UTo/MDqqfFv
-         dNNMAFAuaHS0kb9EMZXK67gj81BaVJy23N99G8cp6aqTlsIomQjNRyNRvr9rGAN5xfpy
-         GwzQhUePTgpnPmYi3nsTk5XcKDK953BuvVNHP62/WyxeCmwSJL5awJjkUI4H3U+AUCEu
-         MljQ==
-X-Forwarded-Encrypted: i=1; AKwUvByDpfBiM6R/yWesyZVExwtUZBKgiDDzb1UPHRecwMcIUV/095sWIJCN8mQiRRrecbezAEZRC4N38tLPqJA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BM52DgxzdTsSSTZHZEWJcYiwKB6wL2+OS6n+pi1yStFX+2g/v
-	JfQpS33x53iA5gYQ7fc3YPx8ZxaZdOjuLiGDD7FYMYBnemz+mUgXSDZVp64jUCfH5zfDgJ/2eoY
-	2z6BFyPc90gwZ6lp1S8CHsTeLxfG+eEEwMojIoMEO
-X-Gm-Gg: AYBFou374vUm7FURkfr2bf+72oAfmWcR+NLtYH0r6gh4lXEV7gQKxKpHQVhS2YpRmLu
-	loLC8vyTPytPvEE6wqriF09LaWeNbCKwErvTrXf18AfDdzTOtyPr/OD/NDNsJvd6Py6/5hFI+AD
-	gWyJtMVou6Gl67QZCGQXn9eggpMICPu2cyykpR8MyNWHt65coTg69FhG/K95PCjH5/x7UfkLlmm
-	IrPEN16FTc86WY8MC6RBH1TbgWg6cO648YZ8Dg45eIFlXQlRy43djB/KerCAKLI3eLFwpatTf3V
-	3MKJFBiRKjKYOSoxcs8POAMrFy1F43ZpU5iiP5/KQ50pXRjxvRZu+EJ9aA96rQV1i8IFTCKFVOq
-	JSHLyC5kuZVyBrMR0IHtJ52dpzUssXqmymYHz0OM5ZxAYa66/ImIF6KRfMUM8evDB96CHtaT74U
-	3EgFFQfMRAPIzEBaDFJcnmUbbOcQ==
-X-Received: by 2002:aa7:d29a:0:b0:6b3:b648:314d with SMTP id
- 4fb4d7f45d1cf-6b597a39693mr33716a12.6.1793922187317; Thu, 05 Nov 2026
- 15:43:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSYx4jRR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5C31F0089F;
+	Thu,  5 Nov 2026 23:46:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793922389;
+	bh=x2dyM7YPg9X82mHGO35QN78CKwYix99R7vjyLHrtwD0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=mSYx4jRRjrkeiS7dQtSIOFO8rz7cUj15q/amOhkjUpjTR6pYfsmDNuSk+5cLdkgDK
+	 J4PPnPpS6obHquWGzVYKp32nIlRywl8HQkCCituI9216Wqaf+756v0WLcm1+45qBXu
+	 T+FWkR5iJLFVdtZnRawyVxOxevERwr/DpTTEsmDKMOGyeESKXCKGa3XHKWGj4BC8Gh
+	 C8W6uAU5vaHxN3u1zAY6o+3Rz8Mk0X6WSTWXf6c8b8Cq/2zLeunESE8pqtcGZDy6sg
+	 c6stw06/AXbPEnvhOP1ZQP2ikjqQLIwZryMUML9nIO+8WKvNOm7iSEu253yLdJpBdc
+	 kXUI82WxK1BWg==
+Date: Thu, 5 Nov 2026 17:46:28 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Poulin, Louis" <poulin.louis@student.oaklandcc.edu>
+Cc: linux-pci@vger.kernel.org, ZhaoJinming <zhaojinming@uniontech.com>,
+	Lukas Wunner <lukas@wunner.de>, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Dragan Simic <dsimic@manjaro.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>, Kees Cook <kees@kernel.org>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: Re: [PATCH] PCI/ASPM: Add missing NULL check for link in sysfs
+ show/store callbacks
+Message-ID: <20261105234628.GA1576767@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,81 +60,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930210750.1487547-1-chang.seok.bae@intel.com> <20260930210750.1487547-2-chang.seok.bae@intel.com>
-In-Reply-To: <20260930210750.1487547-2-chang.seok.bae@intel.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Thu, 5 Nov 2026 15:42:53 -0800
-X-Gm-Features: AclHuK-q1n7ef8QSRUSWuBCekJOMlqyDXP_oWN6zqFV0sPGgMvXhDoC5_Nz1imA
-Message-ID: <CALMp9eTMteQ7WpPv++Ds_LZY_1MydqtwHy=7zsUEgrfRempbeA@mail.gmail.com>
-Subject: Re: [PATCH v8 01/20] KVM: x86: Extend VCPU registers for EGPRs
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: pbonzini@redhat.com, seanjc@google.com, kvm@vger.kernel.org, 
-	x86@kernel.org, linux-kernel@vger.kernel.org, zhao1.liu@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGQButtv-1k9DzOLEBwjoKQP+=-u4obM5bBHZZs=Mw2vd1cBnQ@mail.gmail.com>
 
-On Wed, Sep 30, 2026 at 2:35=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel.=
-com> wrote:
->
-> Extend the storage to include extended general-purpose registers (EGPRs:
-> R16-R31) when CONFIG_KVM_APX=3Dy. This option is for VMX only.
->
-> Although EGPR state is XSAVE-managed, and thus could be stored in the
-> guest fpstate, VCPU storage provides a more convenient and efficient
-> access path for KVM.
->
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-> Link: https://lore.kernel.org/abL8SW5JS1aV5goa@google.com
-> ---
->  arch/x86/include/asm/kvm_host.h | 18 ++++++++++++++++++
->  arch/x86/kvm/Kconfig            |  4 ++++
->  2 files changed, 22 insertions(+)
->
-> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_h=
-ost.h
-> index 3af7395c2430..690de9606d6d 100644
-> --- a/arch/x86/include/asm/kvm_host.h
-> +++ b/arch/x86/include/asm/kvm_host.h
-> @@ -163,6 +163,24 @@ enum kvm_reg {
->         VCPU_REGS_R13,
->         VCPU_REGS_R14,
->         VCPU_REGS_R15,
-> +#endif
-> +#ifdef CONFIG_KVM_APX
-> +       VCPU_REGS_R16,
-> +       VCPU_REGS_R17,
-> +       VCPU_REGS_R18,
-> +       VCPU_REGS_R19,
-> +       VCPU_REGS_R20,
-> +       VCPU_REGS_R21,
-> +       VCPU_REGS_R22,
-> +       VCPU_REGS_R23,
-> +       VCPU_REGS_R24,
-> +       VCPU_REGS_R25,
-> +       VCPU_REGS_R26,
-> +       VCPU_REGS_R27,
-> +       VCPU_REGS_R28,
-> +       VCPU_REGS_R29,
-> +       VCPU_REGS_R30,
-> +       VCPU_REGS_R31,
->  #endif
->         NR_VCPU_GENERAL_PURPOSE_REGS,
+[+cc other members of conversation at
+https://lore.kernel.org/all/20260727072915.3954329-1-zhaojinming@uniontech.com]
 
-In kvm_vcpu_reset(), KVM unconditionally zeroes the entire vcpu->arch.regs
-array on both RESET and INIT:
+On Wed, Nov 04, 2026 at 03:22:51PM -0800, Poulin, Louis wrote:
+> Hi,
+> 
+> We observed a cold-boot crash in l0s_aspm_show() that appears to
+> contradict the assumption in this thread that the visibility check
+> always keeps readers out when the ASPM link is unavailable.
+> 
+> This was on an ASUS TUF GAMING X870-PLUS WIFI, BIOS 1805, running
+> Bazzite's 7.2.15-ogc1.1.fc45.x86_64 kernel with InputPlumber 0.83.1.
+> The fault occurred about 10 seconds into a cold boot. An earlier boot
+> on the same system had the same fault address and symbol offset on
+> 7.2.9-ogc3.1.fc44.x86_64 with InputPlumber 0.83.0. Both observations
+> were on downstream kernels. The captured 7.2.15 kernel was tainted
+> O/E (out-of-tree and unsigned module).
+> 
+> Relevant excerpt from 7.2.15:
+> 
+>   BUG: kernel NULL pointer dereference, address: 0000000000000030
+>   Comm: inputplumber
+>   RIP: 0010:l0s_aspm_show+0x47/0x80
+>   RAX: 0000000000000000
+>   CR2: 0000000000000030
+>   Call Trace:
+>     dev_attr_show+0x1f/0x50
+>     sysfs_kf_seq_show+0xa8/0x110
+>     seq_read_iter+0x132/0x4c0
+>     vfs_read+0x34d/0x490
+> 
+> The faulting instruction accesses offset 0x30 from the NULL register.
+> In the corresponding source, aspm_attr_show_common() dereferences the
+> result of pcie_aspm_get_link(). The read reached the callback even
+> though that lookup had no link to return. The kernel killed the
+> InputPlumber main thread and the service stopped answering
+> ObjectManager.GetManagedObjects. This blocked the boot-time controller
+> setup.
+> 
+> We are building a diagnostic kernel that returns -ENODEV in that
+> specific read callback when the link is absent and logs the PCI device
+> and upstream bridge. The device and the reason its link state was
+> missing are still unknown. We have not reproduced the fault on an
+> unmodified upstream kernel.
+> 
+> Would this trace justify a guard in the read callback, or is there a
+> preferred way to instrument link-state teardown and sysfs visibility
+> on this hardware? We can follow up with the device and bridge once
+> captured.
 
-    /* All GPRs except RDX (handled below) are zeroed on RESET/INIT. */
-    memset(vcpu->arch.regs, 0, sizeof(vcpu->arch.regs));
+I don't think we should add a guard in addition to
+aspm_ctrl_attrs_are_visible().
 
-However, according to the Intel APX Architecture Specification (rev. 9.0),
-section 3.1.4.1.1 and Table 3.7, R16-R31 are unchanged on INIT:
+pcie_aspm_get_link() must have returned non-NULL in
+aspm_ctrl_attrs_are_visible() for the sysfs file to be visible.
 
-  The main difference between EGPRs and legacy GPRs, is that EGPRs are not
-  enabled by default (specifically XCR0-enabled) in 64-bit mode, and their
-  INIT behavior is XMM-like; in that EGPRs and many other XSAVE-enabled
-  register states are un-changed on INIT events as shown in Table 3.7.
+If it later returned NULL in aspm_attr_show_common(), we must have a
+bug, like a lifetime issue or some kind of corruption.  Adding a guard
+would just hide the bug.
 
-By extending NR_VCPU_GENERAL_PURPOSE_REGS to include VCPU_REGS_R16 through
-VCPU_REGS_R31 without updating kvm_vcpu_reset(), KVM will erroneously zero
-R16-R31 when init_event is true.
+Your next message suggests that the device and upstream bridge are
+valid, so possibly bridge->link_state was NULL.  I would instrument
+pcie_aspm_get_link() to verify that and add a dump_stack() in
+free_link_state().
+
+> Kernel source for the captured build
+> https://github.com/OpenGamingCollective/linux/blob/f6857d4bfd614b90302903490796ef376be0a67d/drivers/pci/pcie/aspm.c
+> 
+> Thanks,
+> Louis
