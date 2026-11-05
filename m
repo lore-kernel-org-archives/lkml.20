@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889794;
-	b=gcF+gWWRLT88ODYwY2NUaRk/kYNxrHVn1kVBamXOnsjynsuuIRnLFSw9gW78XrgBJZp0
-	 eFoVhqTZ/oOn0k8nGwRyjGOgrhNAfGSjc0IQ0Nu2UW//3n/4XG+EaWo31g4S3FSbKgzQq
-	 V5xamYUL5jrZC+MpuTUIIVHXYdf4+GOlo3h66j55Z29zAdF7Pqf7uL5ujeAM4aaY3HM/8
-	 riYT+xm/Scf8r0kG8KJNTehwcfQ0SfrlMbM2HZmjY5ameF8M4riWkY/C0IFQZW4gYTJE+
-	 m7577TwIQxIbX1kOz8wFQYq3N0J7B/zodCZnK7Q1NNiPVm69RNW0oKpZEnRbiYiA/eQ==
+	t=1793889796;
+	b=o5Lzpi0rjaWUCtqOJn0MLsq9qypYp6XwngmoUOoC09C61KXPtBIaJHewqzTXu9SMTPUO
+	 zwgOISfBfyNfpbMp2h6GYEzqDBVkXBveSsxkwIDDsHQEDKnbNsZKMzELIQD6HRIuZqmLh
+	 2oWPMVcvza6mjjMBGle8DEX9Y/FqDp6kgS910rJaaueZPIBc1+7jpOr6eTlWOuhx+uYkQ
+	 TXUhG0nwqSka7K7Ue+zYK73jPH6NOL1GzHqp3DMzoCp4zYO/zpiPNlSI1MK1aYdLSDAM5
+	 fRK77TOIiOxBsgbcrlzj36IrWbpVD+t37y4GLPQf8h9xsaAOLP2i6Goz9APEypb9XMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889794;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889796;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=wk/So20xr62QzWata5h+JuMn7QiKllnw4EsB0QPRdZA=;
-	b=4f4WDlxRLeuWQ3MvULlgO8Z8g7Zb10VRDjXBe9aKGqSdDDXMzKRcBCsGhe10vp2yL3b2
-	 ass6ZESMUvhEgXhfM1UXFeMSSqi4/HpG4BW6P+bWzDo7po0sKe+e2ZfNrzMiROriQ5dqB
-	 l6Hs4paCMj1ehvRN/MGbv5EdU9HS4fzTJXp8dSTaUJg5A2cXKHb1ZQnUuVvl1wCYnEIzU
-	 iwmf5cvNRIVwkPkq32WKc+Mp2TKKsHTNxxAyiHwaXVy5M3WgLr6pSimAXAlnTziX5Q3iM
-	 uRLEL4Kdl5xGctiBGGb+u0IS+n3RskuRB08qj9AVZuco2Ix+u9jVEBjvEmOz+krAnAA==
+	bh=MnyLKUfg5ufAqKiT0oKE83kexAXeCPTLKjrnMiWI+IU=;
+	b=WYbA2Jnf/g3MF16GCGSMmSmp2y2mBUSFhtTEX1kUxN4U7Pp/Ao+VnE6S68mFPMWAmupa
+	 rEt3sVc8MqY2+Z0fAj/gzzZiDSh/kCldrp8BLbzgPd2ReR50vTLIL4y3v/4dF1fQ2RmT+
+	 ceGpBN8Ar53xp7kAJ+fQuz5+qqf7iKv5SKhLtp363wxV5zEHdCD+5VnVcYq8QOzJPMPOT
+	 3wTpq8GCE/Y6n1bKsajWgURlYf82Nq5t0HySM+5G9LK58G9vmkJBKL7I+raAebeHUBbIN
+	 faZLIltEpo4zpvpdHBF+0o4XXiVUWditDx8DNhu/HvMz3pZgNjBZ9WWu6vW3pFJNO0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NiU6VXsz;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y9rOLmAK;
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068E2606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 068E2606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7CE606A334
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7CE606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NiU6VXsz
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36f26e6abe9so91481eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:43:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y9rOLmAK
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so4374119c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:43:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793889793; x=1794494593; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793889796; x=1794494596; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wk/So20xr62QzWata5h+JuMn7QiKllnw4EsB0QPRdZA=;
-        b=NiU6VXszwSfPXrvc0ev7LGdQIIoSNzyClwMenodgW9tHkL7rHggh1SXl0iWN7QHbyR
-         T7wqatl/b7ghNIDvQjtQP2wfCu/Z5qTCeLEOJ4b9a2zOkEljQsMQ3velrPbzt9xPQD+D
-         YuHJm/G+1LGKZY4T6ymn2AFQMNrzJLyhH22hDELC5IAIlodZ8vw7JspNG9VR0s6h9ip/
-         lCPlLIjXqPfDHI4Cr7ZW4z0d+dw+u13ff5R/laSywid6YhxqMGrG1liqG9CkOqhGFcfb
-         IBABQDwHDmm1eSNB/msmmRVJmLsfBGD1V2pfRpPkrdmAkT0vFlJ8hrPWmaRaEhulaY2E
-         zkgg==
+        bh=MnyLKUfg5ufAqKiT0oKE83kexAXeCPTLKjrnMiWI+IU=;
+        b=Y9rOLmAKjBVdrCp02W76hV9kicaJEHdhvzHUIzJyOlft0uebcy41X9U7JkYqpM3u8q
+         VL8urorwkYTTjsajE8Q6hWl4PKlKi/MwLuZMh2e93cdqV9O5Dui0f8lpZCWuGV3JtFU+
+         OXO3WQxJrY287dJdKczTEy56tpb6KictYEZk6C4AJoTrrtLGm/9OrLX9uh0J12MP8vD6
+         JPkOq6r5Kzb0gH2oU3QWpT/ZzUrQNc6jk+Ip3V75fCGmdeFuMvhM30+erX7Hg/Ma/R+a
+         w3JnHwr7WopHxD0f39mTIe3FivrSHbA8Jem3SBEYdWC6CP3qi6A+aN7FqrC1A7ZjfCSV
+         EZnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793889793; x=1794494593;
+        d=1e100.net; s=20260707; t=1793889796; x=1794494596;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wk/So20xr62QzWata5h+JuMn7QiKllnw4EsB0QPRdZA=;
-        b=zwhh1eWydThZpBH/43Z/ziYG3p3dIpj4xB+6RB4nb0dg8+H5wlT6taKW9FfMCijFfO
-         QXcXc04oy8MBTlXeXJzHOsEFTRljES/076CahHYce5K5yKoos+9I5ySnlbSxpuvqRXWl
-         9l35j9NBe0KCTGJ+yRasYJgiIC6CJnxI8wLGY2JUrLxNSgpE2bpHsyFJAa26uM0mXr1N
-         h6GiqQ7HTXqrqEXFUG3mpo0L17FKVyqNU9PyEDRKKbvvBTdDmO8p26Eh/m3cP9K6Asq/
-         yqdT4YUSIiaKMicLDu+t1WwrweC7LIzk3AB3ArYg9lp292t+WW1mRcxSXDLDJkf1iQUZ
-         EO9g==
-X-Forwarded-Encrypted: i=1; AKwUvBz9y+KHZrlr0Fsj+4+MveLpqCTIZMzbLeJSnuzzfZe8Rrln5hWWtJU1qmXq+ayEGNG6It5swgDXfS7PYzc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mB9M5yeaudEWW+LZWoWYPYQn1ZyjVT9CFCh20l6aOUacvczzu
-	p+l8bNWYBCr50mRhUXga8OTRIwUrfDi4Vkk1un3ipIELmBrWWreHr7JZTW9bdv3TPgPEXRHqkbi
-	4tsSRlgj0ZISEnem0tmBzXw==
-X-Received: from dyu28.prod.google.com ([2002:a05:693c:811c:b0:36a:15cf:f589])
+        bh=MnyLKUfg5ufAqKiT0oKE83kexAXeCPTLKjrnMiWI+IU=;
+        b=ClWkmomx3D17u0DS6uYWXlCsiED/SWj9U3FccWrFBXPY8KPhxNjJ5JpLm94oq+vNtD
+         MD71r3FYaoKVJZOnfgLfV5DPBg8O/KTzIzP59Bz0uapqJDZl4xXobAfvCwals+mn26Il
+         kZn5JrRgjOd6jzGrKKWJxW6U1iJQAB2Q+Fp9vPj7RGqqla5rZZXBEdtPIuWjJ4LMrc3j
+         TVdvFSIPwPkoxgyj4wEArt6F/wqaFGsS4hciVaOo/QnuH1AJMSGZRW6lsznwJZy5+zi5
+         1WjW6XnNt3KRCN/PVIzWLO39ij6+arMgjzdUxo9NDJgRRdSjaZz0IgK63FXNUABfuVwq
+         Te6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByCxaAtZ1pTu+Uq1K5pejnDAKvRGMGPcX5dmV0Ygj9PysCAnGLveJBeqB6EiXbDOOZwm49JH9JC6WdtkS0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VFN/qvg0NEqo+V+wF+2Lxz9AweXEVCvRpq0y1JNX6Iv5RuE5S
+	n/Y5Etpkxxo8HxM4+P0EirC6667ylkrzgZu1s8FwJmcqMUEO4SsHehBvGju+wvv3p2YNHeFgTX9
+	L6ZGxPLiVtBqCWiHqOqag9g==
+X-Received: from dldz11-n1.prod.google.com ([2002:a05:701b:418b:10b0:1a1:3ce6:560b])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:618b:20b0:35f:2858:aa4b with SMTP id 5a478bee46e88-36a4241b070mr26273635eec.30.1793889792660;
- Thu, 05 Nov 2026 06:43:12 -0800 (PST)
-Date: Thu,  5 Nov 2026 22:43:10 +0800
-In-Reply-To: <sashiko-outbox-198692@kernel.org>
+ 2002:a05:7022:b047:20b0:1a3:bfb6:44ad with SMTP id a92af1059eb24-1ac5da797d4mr31199827c88.32.1793889795206;
+ Thu, 05 Nov 2026 06:43:15 -0800 (PST)
+Date: Thu,  5 Nov 2026 22:43:13 +0800
+In-Reply-To: <sashiko-outbox-198693@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,11 +80,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 References: <20261105071518.1458428-1-stanleyjhu@google.com>
- <20261105071518.1458428-2-stanleyjhu@google.com> <sashiko-outbox-198692@kernel.org>
+ <20261105071518.1458428-3-stanleyjhu@google.com> <sashiko-outbox-198693@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261105144310.2626473-1-stanleyjhu@google.com>
-Subject: Re: [PATCH 1/2] scsi: ufs: core: Skip redundant variant resume after
- error recovery power-up
+Message-ID: <20261105144313.2627198-1-stanleyjhu@google.com>
+Subject: Re: [PATCH 2/2] scsi: ufs: core: Wake consumer queues on suspended
+ W-LUN recovery
 From: Stanley Jhu <stanleyjhu@google.com>
 To: sashiko-reviews@lists.linux.dev
 Cc: "Martin K . Petersen" <mkp@kernel.org>, 
@@ -98,20 +98,13 @@ Cc: "Martin K . Petersen" <mkp@kernel.org>,
 	stable@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 05, 2026 at 07:42:29AM +0000, sashiko-bot@kernel.org wrote:
-> If a subsequent __ufshcd_wl_resume()
-> fails (for example, in ufshcd_set_dev_pwr_mode()), it rolls back to
-> vendor_suspend: and exits through out:, which clears is_suspended and drops
-> the clock-gating hold without a matching ufshcd_hold(hba) on future resume
-> attempts:
-
-This review was run without the prerequisite listed in the cover
-letter, "scsi: ufs: core: Keep clock-gating hold on failed W-LUN
-runtime resume". With it applied, a failed runtime resume keeps
-is_suspended and the hold, so active_reqs does not underflow.
-
-> However,
-> ufshcd_recover_pm_error() only marks ufs_device_wlun active if
-> power.runtime_error is set:
+On Thu, Nov 05, 2026 at 07:43:05AM +0000, sashiko-bot@kernel.org wrote:
+> Can leaving ufs_device_wlun in RPM_SUSPENDED here cause hba->dev to
+> prematurely runtime-suspend before the asynchronous consumer resume work runs?
 
 Agreed. This will be fixed in v2.
+
+> Wouldn't that leave resume_sdev_queues false and
+> leave the consumer queue stuck in __bio_queue_enter()?
+
+Agreed. This will also be fixed in v2.
