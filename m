@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840473;
-	b=qRUFc8wL9vOfxiJhAEOHiA2FzIH1kCmLLyjnwDcIeFMTp3IFmShc/WKWvLBKTCnPbY3u
-	 hfoDDaNjuU+Rug86BGvG0xtVhfjY4WRE/ew7cZbaOlqfGup/Uerno48gsQ1ThFBQAZJyG
-	 k7cOqt/1Glfl/cvT8foJs/pLk7FSnjyTYcsAmGAq9soXWqERI8udyrB///1blqrCScqL5
-	 ON7pMTpB1vxHRtgHubsyTL1VWpFyP7VBZuLL5t7shl3qS+FEvPr7gQABlTDQAKn1S+143
-	 WDft5XVq0QufgVS72kFVurGuy9Tr57b+AsKKTEP6jBCZyH9j/95pEjZtfi3ZXkuNp0Q==
+	t=1793840470;
+	b=qkPUoN9K8s0kCB7hwZwhX4NJksjaoP6v4WhyNm6NONkrQRhaMnG9ERqPLPGi6fSt0N0w
+	 iTEDtJn25t9tuFF2mFWNYZfrHXlIw29VljyEEUQgypYhPJMWiGaE+4KwuLIhpTScdGx6C
+	 dFXb0gKeIaTbMHqbPEO0PGjOoXm1hk9RaQVAk9hASb16iGfEyvIqLb/lvBUUeD/31+FMl
+	 7V0Uq2jmBqKlP4pb1Zn3JwP2bX4Cl4NGTZuva1a7QPPRtp7CQBxBJhnHYfXhMQaSZbMks
+	 7ydmzi9a+w5idY0uDz9aoi1RLCs4Xfy4qx0bvmD++v8rebTtEJEB7efsFGKyuUVGpPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840470;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=Jl57ArNY5xpZt489uBviEUJfW7XRQCxuzKTIa7lbRc4=;
-	b=3VOGHMn1Bem+Yj7vs5s3ymNvTd8NGnuuTExpJxP5k3WQW+CfNV9TmqXtEnK3/2ar0ZBa
-	 tMrSmHvFRzpeoRueYkCfQu6UHtboqU2TzxF+ZbMrUSv0EsEvVsbsE2LbtiN92YXyaFDbE
-	 8U0UWeBVI/dYkS6mJtcytDPeqXrfcNuJrr+FCDZ9NL/h0MkZw1OHWg/VPH4he6BYiby68
-	 zdYtdT4D1zcBlsX8HTakefxBd61XWIsH9axhTMYY9G8YWCRAZmFMan5t6q842daq7ZHdm
-	 vV0gScMPmwAXioNdtZq5k89En39+DKYmOmwG+rWTOLEZxZytK2hp901M7NdQbTZ60RA==
+	bh=JaCz2pjwdhmbPvoQWJsq8h33NIOafU4tbDW1Meto1jk=;
+	b=kIFdxgqKtPGawtW9DG3HlMbFVhcV2AYNRBYx31yxmBcFzPl6pZkf4Ugzo5xr+2kLzmrv
+	 OImSHB7oi5OiWuO2N/CIoW5D8boyp82Wa6tKLMhzrbAv81iTSsa6pGbHf5Wu0E2cM6dFT
+	 dlXPfroTeWsgyhpQNMsKa+El0hv1Ug1pX8Cgx8scv7qcfD7MQjZ6iN6CyilNGrjxrZAoU
+	 F59ROG9R6VHUud2c51R1XRSa3kHw+5XmvJoKj+2nKEuhFnDXHe+crPRE/IeLV+x+mrIAC
+	 vE/7pWY/1UkVKpUhFVs3bA0gps4m2by3TXoifs2buT5oW9mZAmVadm/pzDgMBPBgqJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gO49w1ev;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Yh5Hi3oc;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE999606D83F;
-	Thu,  5 Nov 2026 01:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE999606D83F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C18606D801;
+	Thu,  5 Nov 2026 01:01:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4C18606D801
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gO49w1ev
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Yh5Hi3oc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840471;
-	bh=iaNpfOnhFYyNwBNNGCDSCauJoe4k1Gg6kWuk/4H67pM=;
+	s=mail; t=1793840468;
+	bh=mWgrnwl5Shcis6cfVvrP/tZHq/7rzXTp7ZFtzMbA1Qo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=gO49w1evwkPKn9yyB5XrxnlI/Yt6WtOYLMhrSrZd2xKFt6QROMiH2ExQZWkVGI1Mo
-	 vY1oEK0FN84QaV0y1J7iiZM5+Zt2R2V4b04fnUWbDegD7V1bu0ckBFA8cmkAPAjSm9
-	 ySVSUWNEiFvT9/YsAyqaGXLs9oVWfPWJa3lWw3w4T0FZlefgj6E078VDGo2jpH5n6z
-	 4p5DYi93TJc5Z9bXPn3My9wHtFC9jCNhD41Mo94Q9cwyK1Is7lF3VyXYW05x7jjmin
-	 g1+Tj6R+q5DM7A8FF84RfwkDno/jVPyfSu1d8WEoqkyxvN+tx2GHsxdlBISJ+r9+Nb
-	 Xd5FucnY8XrsQ==
+	b=Yh5Hi3octqZQeb54H/wJxy+ZaxzNe+0Q8+YgonE3u4ml94QUEZjxVtoKc7wKa7l8i
+	 GzEC/u39Nv+e8YdxeHxYTTeycSdicS9eukHEX5cpAvh0pPLObG+r/1LNxLsEfEs/Mc
+	 UpjmIsQFubALnX3r3pZ5E/URoeXbPyRoLZ22ts+BrfBZ1czKqpGdcW2JV3xmd8uTUX
+	 7+ovWhnaauRSsT6HCZw7NnvK/5qQh1uUYwRMMRlZeh9KBcVir0y3ZNj+RRVe3dsVEu
+	 CESmKJhMW7xfRX0MiVs5WCN+6OLfzmL2QFAawCQTmhAfEe8YDbl0jd45hfxV8VjJsp
+	 vNPRNWowguBoQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3170F17E0D58;
-	Thu, 05 Nov 2026 02:01:11 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 37C6817E0D13;
+	Thu, 05 Nov 2026 02:01:08 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:41 +0200
-Subject: [PATCH v6 07/15] drm/rockchip: vop2: Reset AXI and DCLK to improve
- robustness
+Date: Thu, 05 Nov 2026 03:00:37 +0200
+Subject: [PATCH v6 03/15] drm/rockchip: vop2: Disable core clocks before
+ dropping runtime PM reference
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-7-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-3-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -88,147 +88,43 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Igor Paunovic <royalnet026@gmail.com>, Andy Yan <andyshrk@163.com>
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 
-Assert the AXI reset in the bind and CRTC disable paths, and the VP DCLK
-reset in the enable path.
+vop2_enable() acquires the runtime PM reference before enabling the core
+clocks, and its error path releases them in the reverse order.  However,
+vop2_disable() drops the runtime PM reference first, potentially
+powering off the VOP power domain while the core clocks are still
+running.
 
-These resets are intended to leave the hardware in a clean state for the
-next use, helping recover from exceptions such as IOMMU page faults, as
-well as to prevent random display output glitches, such as a blank
-image, observed when switching modes that also change the color format,
-e.g. from RGB to YUV420 and vice versa.  Moreover, this is also expected
-to fix the DSI panel support on RK3588 EVB1.
+Make the teardown mirror the bring-up sequence by disabling the core
+clocks before calling pm_runtime_put_sync().
 
-For now this seems to affect only the RK3588, hence the resets are
-optional and will be provided in the device tree for this SoC only.
-
-Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
-Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
-Co-developed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-170627@kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 38 ++++++++++++++++++++++++++++
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 +++
- 2 files changed, 42 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index b85cd94d1e9d..98430587a7ab 100644
+index e0caea93a896..bc14ca9d598d 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -17,6 +17,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-+#include <linux/reset.h>
- #include <linux/swab.h>
- 
- #include <drm/drm.h>
-@@ -867,6 +868,26 @@ static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
- 	clk_disable_unprepare(vop2->hclk);
- }
- 
-+static void vop2_reset_assert_deassert(struct vop2 *vop2, struct reset_control *rstc)
-+{
-+	int ret;
-+
-+	if (!rstc)
-+		return;
-+
-+	ret = reset_control_assert(rstc);
-+	if (ret < 0) {
-+		drm_warn(vop2->drm, "failed to assert reset: %d\n", ret);
-+		return;
-+	}
-+
-+	udelay(10);
-+
-+	ret = reset_control_deassert(rstc);
-+	if (ret < 0)
-+		drm_err(vop2->drm, "failed to deassert reset: %d\n", ret);
-+}
-+
- static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+@@ -955,11 +955,11 @@ static void vop2_disable(struct vop2 *vop2)
  {
- 	u32 pd;
-@@ -953,6 +974,8 @@ static int vop2_enable(struct vop2 *vop2)
- 
- static void vop2_disable(struct vop2 *vop2)
- {
-+	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-+
  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
  
+-	pm_runtime_put_sync(vop2->dev);
+-
  	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
-@@ -1981,6 +2004,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
  
- 	vop2_crtc_atomic_try_set_gamma(vop2, vp, crtc, crtc_state);
- 
-+	vop2_reset_assert_deassert(vop2, vp->dclk_rst);
+ 	vop2_core_clks_disable_unprepare(vop2);
 +
- 	drm_crtc_vblank_on(crtc);
++	pm_runtime_put_sync(vop2->dev);
+ }
  
- 	vp->enabled = true;
-@@ -2585,6 +2610,12 @@ static int vop2_create_crtcs(struct vop2 *vop2)
- 			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
- 					     "failed to get %s\n", dclk_name);
- 
-+		vp->dclk_rst = devm_reset_control_get_optional_exclusive(vop2->dev,
-+									 dclk_name);
-+		if (IS_ERR(vp->dclk_rst))
-+			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk_rst),
-+					     "failed to get %s reset\n", dclk_name);
-+
- 		np = of_graph_get_remote_node(dev->of_node, i, -1);
- 		if (!np) {
- 			drm_dbg(vop2->drm, "%s: No remote for vp%d\n", __func__, i);
-@@ -2944,6 +2975,13 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
- 		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
- 				     "failed to get pll_hdmiphy1\n");
- 
-+	vop2->axi_rst = devm_reset_control_get_optional_exclusive(vop2->dev, "axi");
-+	if (IS_ERR(vop2->axi_rst))
-+		return dev_err_probe(drm->dev, PTR_ERR(vop2->axi_rst),
-+				     "failed to get axi reset\n");
-+
-+	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-+
- 	vop2->irq = platform_get_irq(pdev, 0);
- 	if (vop2->irq < 0)
- 		return dev_err_probe(drm->dev, vop2->irq, "cannot find irq for vop2\n");
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index b209b2d5b96d..1c2d7d97a6c2 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -165,6 +165,8 @@ enum vop2_win_regs {
- 	VOP2_WIN_MAX_REG,
- };
- 
-+struct reset_control;
-+
- struct vop2_regs_dump {
- 	const char *name;
- 	u32 base;
-@@ -238,6 +240,7 @@ struct vop2_video_port {
- 	struct vop2 *vop2;
- 	struct clk *dclk;
- 	struct clk *dclk_src;
-+	struct reset_control *dclk_rst;
- 	unsigned int id;
- 	const struct vop2_video_port_data *data;
- 
-@@ -335,6 +338,7 @@ struct vop2 {
- 	struct clk *pclk;
- 	struct clk *pll_hdmiphy0;
- 	struct clk *pll_hdmiphy1;
-+	struct reset_control *axi_rst;
- 
- 	/* optional internal rgb encoder */
- 	struct rockchip_rgb *rgb;
+ static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
 
 -- 
 2.55.0
