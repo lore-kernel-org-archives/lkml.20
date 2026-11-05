@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793855561;
-	b=of+q2251YrTsJ5cAz1OLuo4sVdkoBYhN1s9Z49dALmcdCC1Y1uJjayNRr3Jqad/ayYuf
-	 VB9+Llq0baMEUkdPZxDFzWPEfL+BI8RyfrMbCMoT939RlIKweZj6XNYhu7l7bGmu8i3SS
-	 hT6Grag5kHDUgcHaSLvkfhJWCS0TrharGsb78IcudjOB6/hRXqe7wtjbMT5QjSSSZ2CIJ
-	 0uPcKu4CYEOBDQXACqBl7sLgBUWSo9SZUS6FuT8KU5eLlm9HekPKMot8RuiYPzqlusebx
-	 13QVTpczx/zGi9y6O8ZqaOBYwL2VbnsfTBe/3VeL83A79js+VHjMi3y3x6bJXahXpqw==
+	t=1793855656;
+	b=TSWlyQANP8JWLoMcLTanpBjj9ffBNwvar3lZUArj0cRjv764fu5EnAcin5/ABSNVPg57
+	 2rVA1pwZVwAtQEC/jnZ6/gf8KocbpEzNzGc14IPRxUVIP1l4FaoG28aBWlGWmyfNHXp9O
+	 YyJ9wd2wBnom5fDIK0KCGUh07i4ViZxEk65+lKxmm2xM9Nb9HRg/socBfF/6yxNyHddnW
+	 nuwBj44TD5pDkvnfHCH4Xewx9iYeeZqAV1aaJAyhVmNh5CJdSQN+K1ecfNfBUr1Ced8xR
+	 pIBf5cEfcTus+Y44OUmHGm8yUUqqYcUXQPtr+/RhRrdYZjRpIDXpamTdXdmJ1ic41BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793855561;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zBipnjUh+a03qSX7TJO5K5pogIYLCb0BKkuRilRGRYs=;
-	b=NGCvRzz1Y6sXfV/VZgX/V9wm0fRoUZgJ6gvMEcCBtJSWSv8FDGYT4dEiGnzP3eIFiZMS
-	 lU9k5WXLBJGcZ1p22FYtFkfjNMoOZrfBVd6Cr9oC/cHPYcT2PG0wWoHNN7AIac5xnYBKS
-	 VhFOnsPZgqT79P7hj3CzeVYDFMRV+D5+q3I4AtqcErlUqvYoeao+jopRbyATmbo5ijlET
-	 4HUkXEBoaxjWSbpWHhAFK2tf9Sz41Jfi9KoU1y6x2OkZxBqVd98x/5wmhxNlGpQCB6HNP
-	 Q/ann75zA2fz28DX4g4/uiupNBjNYV8yTO1px65BBWKX1Afkyq8iqG7M7Pmzyad27Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793855656;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=XEqA3W+i3V3yHQk0EklCgzFHb8brEsF0K0ZpN1y8TEQ=;
+	b=ojDoNKqwZUGWpx7M3J/uhuIV3drn9gQeXOwBHhRJ7A7byRfEuUCJ2fbEZxYJmmAGQlrV
+	 wtGIN6z9Wlt6qNh6eqb1XcasbKwA/nBx4MnaIf1UxVl2iEIKL5Oz8ovfPlVJEk8n/Lw0E
+	 I4CqgYBwNv1zOpE6fgHgn3AY9hNzBx0P+RofGf1BkoaAY0MvDS2QREJWk61jVSzvJ2Uqv
+	 tNKxf0YF5Ch6b6gQYPpVrjOTMNXm2vj2sCn0qxG/fdD3piwoKbbGaPUPxOTQTmAWSN4pu
+	 x+bAf6zhr1hj2cKGpy6n2TQrzkzNniLdG8enXyRrXA8rhv2lpQJpBzNEN03IcoL7j6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Smne0HCg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KsgrMB7D;
+	arc=none smtp.remote-ip=91.218.175.195
+Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94EB606A326;
-	Thu,  5 Nov 2026 05:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F75606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:14:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F75606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Smne0HCg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0EF91F00A16;
-	Thu,  5 Nov 2026 05:12:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793855560;
-	bh=zBipnjUh+a03qSX7TJO5K5pogIYLCb0BKkuRilRGRYs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Smne0HCgAqesY+t/84icmhLBt777b+deNKzsSVpzA60bZV9qobodiiv/0aEVbIYAc
-	 uHXTlcR05C3MYopEFR3rXZt3d428/98iCto7vd3+X1RFdGLpnu1cvqH8H2kFfvYZaz
-	 gX1xtpjqujCh6HCUSfWXVK38sSix0WdZbrJnElVS8dEvHb2qx40xQYa3LlAGEiRbSv
-	 6RfSUChJY5Kk6vIVBxtP9Je7nRP8Ono665gkhOzMnV8fZ9HkNaANej0W9JC6J+jhj/
-	 NMMvUkeqmNf9cbH81Xv2zq5ESwuRhLKL3Jv3DMw95+YwqRn4cX66lSgnz2VXlsLRkw
-	 wETgGAEotUlOA==
-Date: Wed, 4 Nov 2026 21:12:38 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: Ivan Shapovalov <intelfx@intelfx.name>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] perf: support zstd-compressed kernel modules
-Message-ID: <auwQRrlxzuTg4dDN@z2>
-References: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KsgrMB7D
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xnhL49rU8Si9Gh8RiV1Fb+XbOATfd6SeIOCBPYd10uQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793855651; v=1; x=1794460451;
+ b=KsgrMB7D694W1cgfK/EHFM15yvG2BkZuFR+mdBgVSYckjw+DLCkwUBirfoAeHft8XIOcGH2G
+ d3ci3wu5k/7KAiH/GtgmsUSAa1/Y78ZgoRSXyRS5PdkGfplIjDNWaLDsq1hYitBEVrqpLyg1OvE
+ YAqzvdZsZhJmOFHobEYJnAp4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id f77242cba51ecc71;
+	Thu, 05 Nov 2026 05:14:10 +0000
+X-Mizu-Trace-ID: f77242cba51ecc71
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,44 +57,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014-perf-zstd-v1-0-9652727886fa@intelfx.name>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2 2/4] mm: gup: allow long-term pins of CMA-allocated
+ HugeTLB folios
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
+Date: Thu, 5 Nov 2026 13:13:57 +0800
+Cc: osalvador@suse.de,
+ David Hildenbrand <david@kernel.org>,
+ akpm@linux-foundation.org,
+ azpijr@gmail.com,
+ Lance Yang <lance.yang@linux.dev>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <8F5F930D-A05E-4255-8E70-2567921A92A0@linux.dev>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-Hello,
 
-On Wed, Oct 14, 2026 at 08:34:06PM +0300, Ivan Shapovalov wrote:
-> This extends in-perf zstd code to add an interface for streaming
-> decompression of an entire file, and uses that interface in dso.c to
-> support handling of zstd-compressed DSOs (e.g., zstd-compressed kernel
-> modules, as shipped by various distros including Arch).
 
-Can you please address comments from Sashiko and the bot?
+> On Nov 5, 2026, at 12:07, Qi Zheng <qi.zheng@linux.dev> wrote:
+>=20
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>=20
+> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+> unpinnable, causing unnecessary migration or pinning failures.
+>=20
+> These folios already own their CMA bitmap ranges, and memory blocks
+> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+>=20
+> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic =
+hugepages using cma")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Thanks,
-Namhyung
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-> 
-> Signed-off-by: Ivan Shapovalov <intelfx@intelfx.name>
+But a nit bellow.
+
 > ---
-> Ivan Shapovalov (4):
->       perf: zstd: zstd_decompress_stream -> zstd_decompress_buffer
->       perf: zstd: factor out zstd_init_{c,d}stream()
->       perf: zstd: add streaming decompression and format probe functions
->       perf: support zstd-compressed kernel modules
-> 
->  tools/perf/Makefile.config |   2 +-
->  tools/perf/util/compress.h |  22 +++++-
->  tools/perf/util/dso.c      |   5 +-
->  tools/perf/util/tool.c     |   2 +-
->  tools/perf/util/zstd.c     | 188 +++++++++++++++++++++++++++++++++++++--------
->  5 files changed, 183 insertions(+), 36 deletions(-)
-> ---
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-> change-id: 20261014-perf-zstd-279017105eb3
-> 
-> Best regards,
-> --  
-> Ivan Shapovalov <intelfx@intelfx.name>
-> 
+> include/linux/mm.h | 29 +----------------------------
+> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+> 2 files changed, 32 insertions(+), 28 deletions(-)
+>=20
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 2d0b8a4c9974f..75dd40265d3f4 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct =
+folio *folio)
+> 	return is_zero_page(&folio->page);
+> }
+>=20
+> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+> #ifdef CONFIG_MIGRATION
+> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+> -{
+> -#ifdef CONFIG_CMA
+> -	int mt =3D folio_migratetype(folio);
+> -
+> -	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
+> -		return false;
+> -#endif
+> -	/* The zero page can be "pinned" but gets special handling. */
+> -	if (is_zero_folio(folio))
+> -		return true;
+> -
+> -	/* Coherent device memory must always allow eviction. */
+> -	if (folio_is_device_coherent(folio))
+> -		return false;
+> -
+> -	/*
+> -	 * Filesystems can only tolerate transient delays to truncate =
+and
+> -	 * hole-punch operations
+> -	 */
+> -	if (folio_is_fsdax(folio))
+> -		return false;
+> -
+> -	/* Otherwise, non-movable zone folios can be pinned. */
+> -	return !folio_is_zone_movable(folio);
+> -
+> -}
+> +bool folio_is_longterm_pinnable(struct folio *folio);
+> #else
+> static inline bool folio_is_longterm_pinnable(struct folio *folio)
+> {
+> diff --git a/mm/gup.c b/mm/gup.c
+> index 2b405cce2ca5c..e8503141bb275 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, =
+int *locked)
+>=20
+> #ifdef CONFIG_MIGRATION
+>=20
+> +bool folio_is_longterm_pinnable(struct folio *folio)
+> +{
+> +#ifdef CONFIG_CMA
+> +	int mt =3D folio_migratetype(folio);
+> +
+> +	/* Explicit HugeTLB CMA allocations own their bitmap ranges. */
+
+The description of "bitmap ranges" is weird, making me think what's the =
+meaning of
+bitmap. Please use more generic description here.
+
+> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+> +		return true;
+> +
+> +	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
+> +		return false;
+> +#endif
+> +	/* The zero page can be "pinned" but gets special handling. */
+> +	if (is_zero_folio(folio))
+> +		return true;
+> +
+> +	/* Coherent device memory must always allow eviction. */
+> +	if (folio_is_device_coherent(folio))
+> +		return false;
+> +
+> +	/*
+> +	 * Filesystems can only tolerate transient delays to truncate =
+and
+> +	 * hole-punch operations
+> +	 */
+> +	if (folio_is_fsdax(folio))
+> +		return false;
+> +
+> +	/* Otherwise, non-movable zone folios can be pinned. */
+> +	return !folio_is_zone_movable(folio);
+> +}
+> +
+> /*
+>  * An array of either pages or folios ("pofs"). Although it may seem =
+tempting to
+>  * avoid this complication, by simply interpreting a list of folios as =
+a list of
+> --=20
+> 2.54.0
+>=20
+
