@@ -1,82 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884993;
-	b=X023whDrj069+MSdYxWKUHQYC6pHWNi9Ce/IbEq1vnjCIWUnEhfModTOZ0Pz3AkcyC53
-	 pG2Vzai+Rmy3uE6e3LZEoiJbxEvNikKwYs7PckZjf7DiVKq5ZsgH2nlwMgVlfPZ7zeqpA
-	 XR1+byrRbmXjY7trOhyf9Fna/Zl17gxuNt0FVcQa1hKohXbTX8aawI48wVk6S3bR1tGvW
-	 QxEqZckvQOI07HAx4OlCwibPiHlnfSBKc2kKiAkxA7FJRbwTD0Cx/jbIaQgBEi0zuWFBX
-	 Ejd82IJ3AHPx/hOA0LvZaSA4lFnDS0qZwk28sr25aBWlp92VNKbz5r6xish8ohLbHKQ==
+	t=1793885002;
+	b=Td0CWAWp2yQ4Gdjy6ka1wuZ8TKLfAfWQWaAGGPCvZPl4qlrzNAlfHOmkfApGCIITXrBZ
+	 ZzWBJMsILiN+LvK3hbJMNqxjxYiUbSInLpIdA99iOB5baJH7taEROEAlcihMYh5f0Hosk
+	 fznBZ6S5E9dR8uGiuCn1wNnAQ0NNgZ+OcDhZoEGMZq+HjKzrrjWLEKbUJjtE3xeVcxkMn
+	 mUFOwmyBXSriMOAXtKw4h0GOg7DraHQt/W2/ObygNc39Bguc4ZkW/4wSw0HpLGfQ+D49k
+	 af/7Ao0F1ZdtoHubvlWowrRCnGNx6mV8286Vgt77Y2+fBrv/s7ShJGpyXVFUGZq1zkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884993;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gYV+yJGTziGTRc1MN/3N3LeRV8A5wid4qIJ9qlqLvKQ=;
-	b=mmC2o7KTk9SKc/6yW9J5zwRCKgt6yY+2WS8YSgpGxgXQtZd+HllK9c0kZE3RWAkuQJtc
-	 7TRXz6sUIzN2sn+mDdf9Lcp1Ycds6mn7SzZD2rvN7qBORCOEwnPfx3kEQX7krVqrDrBXL
-	 u8VCwjxSQ2Q6HixYFowDa/7KDvq59JIMkp5OLhE0f0aQsvlV70jYZ8StJAYI7sxCm4tei
-	 StjL0eHio5vVBxdggjHIFIFDzXeF2P+9LICvcGgzkJn8hoD+gH7SBG1SPYTgaNSjcW+Du
-	 9zpzOnpiMjpoyPWPgIFDpJrKiomakujQprj2oPHBUkyh7IK73AVPXQwHk7yZzqhFu2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885002;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=94WhvBOvLikVnBdkqmMS0BP1DzIOS0lU6UoyFCQ9OjM=;
+	b=zUtpI1oAiYmKZ58jIu3PdHk3l1HNSSQT91KPxykBLljow+AEbhukh0NYqskIzI4TRP+X
+	 IW2JhFVqT0aRJ9+F3DNgx0N8tmxMnmqprp5cv92OxuoWqPISRLya+ZXkonSmtZ4VSRm1d
+	 FKYk/PgiMnpVaKUhhARTaYN7z/J7kw5Dkvz1UPINHPyjgUClBVahfESqlZNeDqeS8SlbP
+	 mtqsMepFXjhOQcgtPSQaFOvfnAFPCQzElWIwAdNOJhaCRwgBL2X2aRYiuK4YsPYoVxFpq
+	 hHV3QQqkmW/vI4rcW5+TFe4ABf4ky3OrPJL34GS9atAR6nr9N9SMh8SxFkHFIK2OEgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pNEbpqKE;
-	arc=none smtp.remote-ip=91.218.175.16
-Received: from mta0.migadu.com (out-16.mta0.migadu.com [91.218.175.16])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=oxUxuzKw;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3130C606A336
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:23:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3130C606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D359606A33E;
+	Thu,  5 Nov 2026 13:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D359606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pNEbpqKE
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kHs8Y+dHA0ewLCbf5W9kyEteQjnWZcV5rBSJAmaEPvY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793884991; v=1; x=1794489791;
- b=pNEbpqKEsgclgowUTesDhTY0wunJFrkLzHRD1yKj3xJHYknfKvR6shR0K+toHbtesw5uXexN
- nDe+QHXipMBmUwoZusfnal6KLUW5a/dyTCA0TghtaQqOOKgjw0iMpH+7GekEi7foH9vseZfj9Ih
- YaUa+tIQ+T6lgT6vTkQ4802Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 878a88923bad5b48;
-	Thu, 05 Nov 2026 13:23:11 +0000
-X-Mizu-Trace-ID: 878a88923bad5b48
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [RFC PATCH 3/3] mm/mglru: move lrugen atomic stats off the read-mostly lines
-Date: Thu,  5 Nov 2026 21:22:20 +0800
-Message-Id: <20261105132220.2233677-4-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261105132220.2233677-1-ridong.chen@linux.dev>
-References: <20261105132220.2233677-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=oxUxuzKw
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=94WhvBOvLikVnBdkqmMS0BP1DzIOS0lU6UoyFCQ9OjM=; b=oxUxuzKwg9gT4g2DKyoFBl/WI5
+	AbuiwNJlmwsdPRj3bXD9gfgwsoZ/KN16pH4zRlWrtXehOIZVACMvZY4vYYNpwOyJXTy/i7QPukr+8
+	qlCNmtGYnlptdTzVZ+P6ag2rARROCx4HYiFeLDeDMolD+x+TNVJJZcQ2y2kTPwEhtJWfwmeT+U7x1
+	sIfgCZdmvz47620kQNc+znutAi4gJOakEtEurl3RH+kJTyVnIeC9NpAxAt7iEo6DHEqghkVUn+5pn
+	tEFLvsojd+1WSFwo8f0emOSYx9Y3khSJbYOIfZYsHejpiuAXM2FvaBEn0WYypGP18xmPsmsxFxDum
+	22wo2MHw==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Daniel Stone <daniel@fooishbar.org>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andyshrk@163.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Daniel Stone <daniels@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject:
+ Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color format
+ on DW HDMI QP
+Date: Thu, 05 Nov 2026 14:22:44 +0100
+Message-ID: <34506010.aRNtrjHk3s@diego>
+In-Reply-To: <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
+References:
+ <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
+ <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
+ <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,93 +83,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Am Donnerstag, 5. November 2026, 14:04:25 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Cristian Ciocaltea:
+> Hi Daniel,
+>=20
+> On 11/5/26 2:25 PM, Daniel Stone wrote:
+> > Hi Cristi,
+> >=20
+> > On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
+> > <cristian.ciocaltea@collabora.com> wrote:
+> >> Changes in v6:
+> >> - Added new vop2 patch "Disable core clocks before dropping runtime PM
+> >>   reference" (Sashiko)
+> >>
+> >> Changes in v5:
+> >> - Added new patch "drm/rockchip: dw_hdmi_qp: Do not mask error code in
+> >>   atomic_check()" to fix a pre-existing issue reported by Sashiko
+> >>
+> >> Changes in v3:
+> >> - Updated patch 3 to skip any hardware programming in the callbacks
+> >>   gated by drm_atomic_helper_commit_planes() after powering down VOP2 =
+on
+> >>   an atomic_enable() error (Sashiko)
+> >> - Ensured VBLANK events are sent immediately when atomic_enable() fail=
+s,
+> >>   hence preventing userspace processes waiting for the page flip
+> >>   completion to hang indefinitely (new patch 4, Sashiko)
+> >>
+> >> Changes in v2:
+> >> - Addressed several issues reported by Sashiko
+> >>   * Reset AXI before detaching the IOMMU domain, to close a theoretical
+> >>     window where stale or in-flight DMA transactions could fault or
+> >>     access memory untranslated after the domain is detached (patch 6)
+> >>   * Fixed resource leak on vop2_enable() error path (new patch 2)
+> >>   * Balance state on atomic_enable error paths (new patch 3)
+> >>   * Avoided division by zero when computing max_dclk (new path 4)
+> >>   * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
+> >=20
+> > I think everything in here should now be solidly reviewed.=20
+>=20
+> Thanks a lot for checking this out!
 
-lru_gen_eviction() and lru_gen_refault() update lrugen->evicted[] and
-lrugen->refaulted[] locklessly with atomic_long_add(). The arrays sit at
-the tail of struct lru_gen_folio, right before enabled/gen/seg/list:
-with LRU_GEN_STATS=n the file type counters share a cacheline with them.
+except patch 9 of 15, or mail hasn't turned up yet :-)
 
-Those fields are read far more often than they are written:
-lru_gen_add_folio() reads ->enabled on every LRU add, and shrink_many()
-walks ->list and reads ->gen/->seg under RCU. With frequent file refaults
-from several CPUs, every refault invalidates that line on the CPUs doing
-LRU adds.
+It does look fine to me, but if someone has an eye to spare ...
 
-Move enabled/gen/seg/list next to max_seq/min_seq/timestamps, which are
-also mostly read, and put evicted[]/refaulted[] in their own cacheline
-group at the end of the struct. This grows struct lru_gen_folio from
-1360 to 1408 bytes and struct mem_cgroup_per_node from 2176 to 2240
-bytes on x86_64 (one more cacheline per memcg per node).
 
-Tested on an i7-13700HX (24 threads) with turbo disabled and the
-performance governor. 24 files of 128MiB on ext4 on brd, read with
-fio (psync, randread, bs=4k, fadvise_hint=random, buffered), all jobs
-in one memcg with memory.max=1G, so nearly every read refaults.
-IOPS, median of 5 runs:
+Heiko
 
-  jobs      base   patched
-     1    270537    274303   +1.4%  (sd 3.7%)
-     8   1461025   1466293   +0.4%
-    16   2455629   2508001   +2.1%
-    24   2707720   2823776   +4.3%
-
-A custom random pread() test of the same setup, with this patch alone
-against base over two boots of each kernel, shows +2.4% at 16 threads
-and +5.9% at 24 threads, and no change at 8 threads or fewer. With
-anonymous memory on zram, the refaults mostly hit the tier 0 counters
-on a different line, and there is no measurable change.
-
-The gain grows with the number of CPUs refaulting into the same lruvec
-and needs a fast backing store; with real IO it is likely to be lost in
-the noise. The patch is mostly meant to keep the lockless counters away
-from the read-mostly fields regardless of where they end up.
-
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- include/linux/mmzone.h | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
-
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 6442e662aa4f..eb84af674e23 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -551,6 +551,14 @@ struct lru_gen_folio {
- 	unsigned long min_seq[ANON_AND_FILE];
- 	/* the birth time of each generation in jiffies */
- 	unsigned long timestamps[MAX_NR_GENS];
-+	/* whether the multi-gen LRU is enabled */
-+	bool enabled;
-+	/* the memcg generation this lru_gen_folio belongs to */
-+	u8 gen;
-+	/* the list segment this lru_gen_folio belongs to */
-+	u8 seg;
-+	/* per-node lru_gen_folio list for global reclaim */
-+	struct hlist_nulls_node list;
- 	/* the multi-gen LRU lists, lazily sorted on eviction */
- 	struct list_head folios[MAX_NR_GENS][ANON_AND_FILE][MAX_NR_ZONES];
- 	/* the multi-gen LRU sizes, eventually consistent */
-@@ -562,16 +570,10 @@ struct lru_gen_folio {
- 	/* can only be modified under the LRU lock */
- 	unsigned long protected[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
- 	/* can be modified without holding the LRU lock */
-+	__cacheline_group_begin_aligned(lrugen_stats);
- 	atomic_long_t evicted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
- 	atomic_long_t refaulted[NR_HIST_GENS][ANON_AND_FILE][MAX_NR_TIERS];
--	/* whether the multi-gen LRU is enabled */
--	bool enabled;
--	/* the memcg generation this lru_gen_folio belongs to */
--	u8 gen;
--	/* the list segment this lru_gen_folio belongs to */
--	u8 seg;
--	/* per-node lru_gen_folio list for global reclaim */
--	struct hlist_nulls_node list;
-+	__cacheline_group_end_aligned(lrugen_stats);
- };
- 
- enum {
--- 
-2.34.1
 
