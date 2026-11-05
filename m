@@ -1,69 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.185.58.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887819;
-	b=hekcH/UgnHnygep1H+1mEGKKxVB6H1+GpoILzHkH4XKGtwgsSaafHF4Q6CKcBRneM12C
-	 +hldtscLANjosqYZUuBWZjh0Jrf+ZK0s6IyjsnuGJdyrjoGE6MIEeNx9munBu/uJm+Ahj
-	 cdA2sR/e80r/zGRwbntF+K7M63HBSJzHO6HNu8UrVh8lvCmP9Encmg2SzN2DnqrARwMiR
-	 b/sPFu6R4bKvxqNUquvb+pwzFg2P6KL8P83adbyluoT0PLl1IDouiBX03KJGPRcJl9LNz
-	 PD8NhwyXz0t2UoUvZ7gxCXP98EzJ+IUkMjg7UyvXaNBm450AFiFvsdys8ZwK7RCGhcg==
+	t=1793887847;
+	b=weCSye8S6iwHoJqhsdwFIG7tOdPyik7b6B1+y3CGUR8cG4hfaQNQn+F5Vw0u+fy9DLSp
+	 dxyQi2Bf51hNYd2Dt7ug/jf6TqnTmeRrf3v3hDx1p2ghxzOgwg6chXC5Y9Ty/3ErF/YP+
+	 Za+5u41hULPBr2XMrmaM0erApkG60qHKaj07P0s5ZFQ6WerUZ6+eX+AmUmfjtUw0FmuP/
+	 4LRO7g53/JXbmj3Kjldyvrj1LVMNxojr+UF9KES0esbNsAKjUJplYbtILdxM7Hjr1W542
+	 rUm2nEHbBrKUkUkUiDCdn16lwSzSOQX+yqARZOfbnTYXtBObccgkPUNREktxw6EdzEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887819;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-Spamd-Bar;
-	bh=7K1EA9md3lO2uzD1+1lDPBcZKKiPZ6B98DYU6Y9hvcY=;
-	b=QTfsmtPz0h590tXMMwtklU6Ak4hIXkfOc1uVMFV8ySfYy+1w5nNWVvJqxEvNUFuk0SO1
-	 xJix/etSbSBVWwq2tzIKnkt+OXg1a83Q5JNI4tNpo4N6MnmMTOpoE6HtRwFwLaxVkXnvf
-	 d0qapV/Oa2ynXrhSlnRUs30oLXNgGUI/YjtY4b4Cv4iRZKRKMjy3CLs+d864e0oUiVhUq
-	 1xTbYUE8RcUlMsrNd49fBa06bHOXAo3iIiI1NRi5riD40C6hwR20PQ0SMGApYT33b192F
-	 k8wSxthhDeyVF/G4bJQF+yYaje/XZoW8CT1qkse14zxShyC5/ObxjPKY+BcQb04tCxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887847;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=CibUYVH+7OYY+APiKvZin4in4hp417rNXMuqELO13JY=;
+	b=HrJK+nUxbshogO9+QNKfK7hDsnSkcYjA7OumDEDA7OM2A27pljlRd65TvSpydYQZVkBE
+	 8XzhlMxTz2Td4QH1ixug0+xqnYhlFOXujW51sWSHDDC974+kY1f537OsaPRxckU4Po5xL
+	 Uihxxu8yJsHqDg4stZRogD4bfVSQ6iPo9S4dQdND7cbpP46Nv2TldECjBJzbI6lWI7H0r
+	 k7LRxizLjsbX67ztPjOoE2JPc0hIKfGkFgQ/YIaaoSxh+Qg4eY3vyM+/wkgMhzniQKJhL
+	 DFfKQR8OFIFsYwy/kUvzdpqq8Mcuvknsmz2wCRgtbF6yTx4sDmmuqR12NIbKvIHUI6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=badcode.im;
-	spf=pass smtp.mailfrom=badcode.im;
-	dkim=pass header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=qPa5nXrQ;
-	arc=none smtp.remote-ip=185.185.58.180
-Received: from badcode.im (badcode.im [185.185.58.180])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F5B606A329;
-	Thu,  5 Nov 2026 14:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01F5B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=badcode.im
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=badcode.im
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=qPa5nXrQ
-From: Alexander Ildiyarov <alex@badcode.im>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=badcode.im; s=dkim;
-	t=1793887816;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7K1EA9md3lO2uzD1+1lDPBcZKKiPZ6B98DYU6Y9hvcY=;
-	b=qPa5nXrQdBtCE3ZbBqpeKXWTis3/ceb67Z0mAcp18PAfO3brNX4P2DDjmvGH/5g13+7Ao9
-	aH7mNPmh0iDlpsMH9M2D3xEUzPnvMPZaxZ653o+1ojRk932rBoajykOEYZ9SjijFHS8fVG
-	Ngw26zch5Ct+pMP28jrrMS+QrpvulIY3XXa8XkuQAisBcQ85VjLMBHq3E8jxRwLN3IfCss
-	edZPV88BRFedFPAaf3dFD8MidwZQZCatY2rmaXeBm4TXeM6EQ0pzZv6moU43SNRhjRBHNK
-	Jmoq3YmQE3i4Fn1y/0cp1UyA0ccHTHuK2EqmDSBHy3xvl6cn0phU1fDSzFqoWQ==
-Authentication-Results: badcode.im;
-	auth=pass smtp.mailfrom=alex@badcode.im
-To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
-	wireguard@lists.zx2c4.com,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Alexander Ildiyarov <alex@badcode.im>,
-	stable@vger.kernel.org
-Subject: [PATCH net 1/2] wireguard: account peer and allowedips allocations to memcg
-Date: Thu,  5 Nov 2026 17:10:05 +0300
-Message-ID: <20261105141006.95083-2-alex@badcode.im>
-In-Reply-To: <20261105141006.95083-1-alex@badcode.im>
-References: <20261105141006.95083-1-alex@badcode.im>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86080606A336;
+	Thu,  5 Nov 2026 14:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86080606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jL43320wKz4yjjB;
+	Thu, 05 Nov 2026 22:10:39 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A5EAUA6074069;
+	Thu, 5 Nov 2026 22:10:30 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 5 Nov 2026 22:10:32 +0800 (CST)
+X-Zmail-TransId: 2afa6aec8e58bcc-eb307
+X-Mailer: Zmail v1.0
+Message-ID: <20261105221032737LKGdHz8FE-EFnNwJuw0N9@zte.com.cn>
+Date: Thu, 5 Nov 2026 22:10:32 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,100 +56,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Bar: -
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
+        <linux-fsdevel@vger.kernel.org>
+Cc: <jack@suse.cz>, <josef@toxicpanda.com>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBtb3VudDogZml4IHN0YXRtb3VudCgpIGFuZCBsaXN0bW91bnQoKSBvbiBlbXB0eSBtb3VudCBuYW1lc3BhY2Vz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A5EAUA6074069
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 05 Nov 2026 22:10:39 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEC8E5F.000/4jL43320wKz4yjjB
 
-Peers, allowed IP trie nodes, the per-peer dst_cache and the per-device
-hashtables are all allocated in the context of the process that
-configures the device over netlink, but none of these allocations are
-charged to that process's memory cgroup: the wg_peer and allowedips_node
-caches are created without SLAB_ACCOUNT, and the hashtables and
-dst_cache use plain GFP_KERNEL.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-The amount of memory is bounded only by MAX_PEERS_PER_DEVICE (2^20) per
-device, with no limit on the number of devices or on the number of
-allowed IPs per peer. Since WG_CMD_SET_DEVICE uses GENL_UNS_ADMIN_PERM,
-any user who can create a user and network namespace can do this, and
-thereby escape the memory limits of the cgroup it runs in.
+statmount() and listmount() on a foreign mount namespace fail with
+-ENOENT when nothing is mounted on top of the namespace root.  That is
+the case for an empty mount namespace created by
+unshare(UNSHARE_EMPTY_MNTNS) or clone3(CLONE_EMPTY_MNTNS): its only
+mount is the namespace root, a nullfs mount, and no rootfs is mounted
+on it.
 
-For example, a process in a cgroup with memory.max=64M that adds 100000
-peers with 20 /128 allowed IPs each grows Slab by ~790 MiB, yet the
-cgroup's memory.current stays below 1 MiB and its memory limit is never
-hit.
+Both syscalls resolve the path anchor for a foreign namespace in
+grab_requested_root().  It starts at ns->root and looks for a mount
+whose parent is that root, i.e. the mount covering the namespace root:
 
-Fix this by creating the two caches with SLAB_ACCOUNT and using
-GFP_KERNEL_ACCOUNT for the hashtables and the dst_cache. The keypair
-allocations are left alone, as they happen from the handshake worker and
-are bounded to three per peer.
+	for (child = node_to_mount(ns->mnt_first_node); child;
+	     child = listmnt_next(child, false)) {
+		if (child != first && child->mnt_parent == first)
+			break;
+	}
+	if (!child)
+		return -ENOENT;
 
-Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Alexander Ildiyarov <alex@badcode.im>
+When nothing is mounted on the root the loop finds no candidate, so the
+whole syscall fails although the mount id the caller asks about exists
+in that namespace.  statmount() issued from inside the same namespace
+succeeds, which shows that the mount is fine.
+
+Fall back to the namespace root itself in that case.  Inside such a
+namespace the root mount is what the members' root and cwd point at,
+so it is the correct anchor; paths below it are resolved relative to
+"/".
+
+The same condition also occurs for an anonymous namespace created by
+fsmount() or open_tree(OPEN_TREE_CLONE): it contains only the root
+mount itself, and statmount(STATMOUNT_BY_FD) on such a mount fd failed
+with -ENOENT for the same reason.
+
+Fixes: 71aacb4c8c3d ("fs: Allow statmount() in foreign mount namespace")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
- drivers/net/wireguard/allowedips.c | 2 +-
- drivers/net/wireguard/peer.c       | 4 ++--
- drivers/net/wireguard/peerlookup.c | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+Tested on 7.3.0-next-20261030 (x86_64 QEMU/TCG guest, defconfig
+plus KASAN, no extra hardware).
 
-diff --git a/drivers/net/wireguard/allowedips.c b/drivers/net/wireguard/allowedips.c
-index 5ece9acad64d..2f2b8a94c8a7 100644
---- a/drivers/net/wireguard/allowedips.c
-+++ b/drivers/net/wireguard/allowedips.c
-@@ -411,7 +411,7 @@ struct wg_peer *wg_allowedips_lookup_src(struct allowedips *table,
- 
- int __init wg_allowedips_slab_init(void)
- {
--	node_cache = KMEM_CACHE(allowedips_node, 0);
-+	node_cache = KMEM_CACHE(allowedips_node, SLAB_ACCOUNT);
- 	return node_cache ? 0 : -ENOMEM;
- }
- 
-diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
-index 1cb502a932e0..05b80521c706 100644
---- a/drivers/net/wireguard/peer.c
-+++ b/drivers/net/wireguard/peer.c
-@@ -33,7 +33,7 @@ struct wg_peer *wg_peer_create(struct wg_device *wg,
- 	peer = kmem_cache_zalloc(peer_cache, GFP_KERNEL);
- 	if (unlikely(!peer))
- 		return ERR_PTR(ret);
--	if (unlikely(dst_cache_init(&peer->endpoint_cache, GFP_KERNEL)))
-+	if (unlikely(dst_cache_init(&peer->endpoint_cache, GFP_KERNEL_ACCOUNT)))
- 		goto err;
- 
- 	peer->device = wg;
-@@ -229,7 +229,7 @@ void wg_peer_put(struct wg_peer *peer)
- 
- int __init wg_peer_init(void)
- {
--	peer_cache = KMEM_CACHE(wg_peer, 0);
-+	peer_cache = KMEM_CACHE(wg_peer, SLAB_ACCOUNT);
- 	return peer_cache ? 0 : -ENOMEM;
- }
- 
-diff --git a/drivers/net/wireguard/peerlookup.c b/drivers/net/wireguard/peerlookup.c
-index 99651a86ac95..f333e906014a 100644
---- a/drivers/net/wireguard/peerlookup.c
-+++ b/drivers/net/wireguard/peerlookup.c
-@@ -21,7 +21,7 @@ static struct hlist_head *pubkey_bucket(struct pubkey_hashtable *table,
- 
- struct pubkey_hashtable *wg_pubkey_hashtable_alloc(void)
- {
--	struct pubkey_hashtable *table = kvmalloc_obj(*table);
-+	struct pubkey_hashtable *table = kvmalloc_obj(*table, GFP_KERNEL_ACCOUNT);
- 
- 	if (!table)
- 		return NULL;
-@@ -82,7 +82,7 @@ static struct hlist_head *index_bucket(struct index_hashtable *table,
- 
- struct index_hashtable *wg_index_hashtable_alloc(void)
- {
--	struct index_hashtable *table = kvmalloc_obj(*table);
-+	struct index_hashtable *table = kvmalloc_obj(*table, GFP_KERNEL_ACCOUNT);
- 
- 	if (!table)
- 		return NULL;
--- 
-2.43.0
+A child process unshares into an empty mount namespace
+(unshare(UNSHARE_EMPTY_MNTNS)), reads the unique mount ID of its root
+with statx("/", STATX_MNT_ID_UNIQUE) and then blocks.  The parent opens
+/proc/<pid>/ns/mnt and queries that namespace by mount ID.  The mount
+ID is valid: statmount() from inside the child's own namespace returns
+fs_type=nullfs on both kernels.
 
+  unpatched                            patched
+  statmount() ret=-1 errno=2 (ENOENT)  statmount() ret=0,
+                                       mask=STATMOUNT_MNT_BASIC|
+                                       STATMOUNT_FS_TYPE
+  listmount() ret=-1 errno=2 (ENOENT)  listmount() ret=1,
+                                       id=<root mount>
+
+The patched kernel also still returns the mount for
+statmount(STATMOUNT_BY_FD) on a mount fd obtained with
+open_tree(OPEN_TREE_CLONE), i.e. for the anonymous namespace case.
+
+Both kernels are otherwise clean: no KASAN report, no Oops, no WARN.
+---
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 25e196c05126..8a101a8c48f7 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -5888,8 +5888,14 @@ static int grab_requested_root(struct mnt_namespace *ns, struct path *root)
+ 		if (child != first && child->mnt_parent == first)
+ 			break;
+ 	}
++	/*
++	 * Nothing mounted on the root of the namespace: an empty mount
++	 * namespace (CLONE_EMPTY_MNTNS) or an anonymous namespace from
++	 * fsmount()/open_tree(OPEN_TREE_CLONE).  Use the namespace root
++	 * itself as the anchor then; there is no child covering it.
++	 */
+ 	if (!child)
+-		return -ENOENT;
++		child = first;
+ 
+ 	root->mnt = mntget(&child->mnt);
+ 	root->dentry = dget(root->mnt->mnt_root);
