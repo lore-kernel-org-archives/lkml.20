@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900682;
-	b=dszq2lAVIR+w2wLWA0YR2jYIkOtGg/33zHgRzjgyEPdx490ijWYnq1dTJhK7VkxVZkid
-	 vaCZQnVNPF0XrPKeNCnLvsEQ75Yeju9ip75mhntxSzWoMKLfBl6MvBJye+MxrV0K1m13w
-	 nU06xNDB1wTnp9Sc1FIKwDR3enUCVLQ2ciq7ZZN5r6PyEmcL2t7jL4J1ZDgaHhEQAbd8s
-	 75/w/6bTD1wZKphcyvJlsU0PWCFJXGb/OSx4qb/50GqITYnfIP3igmBx8dUSn7kV1Tlte
-	 OquYWKu9DbbdGPJLjV3FYxraClQ9Zlg6QoyM7PSi6lmUZWZwayc05G5nwZci2uaEUMQ==
+	t=1793900684;
+	b=jPF33ntTWS1DVn+52uaMS92RdoUJN/PFNgUvvKKW38V4aVaCn1OkAMi11p1FsBJyJpAZ
+	 eQ8gALMhTd3hVhf0sXUA8Ac8kS+vNHdHRkdrZkDCiJ2lfQMEXDS1Qs+Pc4dNZygxhiAYA
+	 NKob1v51y8X9zN6mvKTBXMjeRjZJjBNSgd7Eta5eWXh7k8MDQlaMpLk8dQsVq7oQWdgVx
+	 yTOitGFUvVgDDaZE/Dn6jJHsaZ0V6oSpmuVgwLU0ldFA1w3oOszGUnsCNN1kZ6yzAikM8
+	 /vNh+hhn6yIbEqCSypj065iJK+tvInjhucev79f7kUNd1LLD6en0JOcqmiupi56NHIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900684;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=nZAOGAjOf6sEpVtM8pdi7ewS7F4GJROoGs03Q8/6ak4=;
-	b=x35jwn6mTrdLHTZqxMsNBaFrUF6cJNrv6yQdFlTNitEwWdWi2UdnFB7hE3tHg7C9aIwM
-	 vq0K+a9u7FiWGfmuzo2XlW4TIiXjjGLl/pS8y3Nrwb4xByoQR0VtjXN5UrER1Vp2XuTne
-	 0D6lLO2dV+0wCHjJpQDiMuVkf77qIgn/fKQnBhzzWm2/q2KPsSSCgK8ave/e3qHdOyF2j
-	 +3I9cGx3rg5TJ1INs2i5tjK3Ass15VOK89npTVkcQP7JuAAMP/St9y5FJ3hL4pvg/ty9/
-	 cUGm+CBoNkaTytdMsL2eap97jDUD9iJ42/vZV5of4fWXrf6IYeNN24GDrIHh+4r/8UA==
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=U90OTq4pj/0GvT/BUYUlBl9XzS2MommQVkNoZ4ZcGPU=;
+	b=u1ykyqObKPgQu0OB48ofrBEWdjd/Iiz+c5qB9GP515QHrIeMb83U7wNDf+d5Ek3fh5of
+	 CztBFgPhWzjhDKiyCQiLZMvY6dVgPvpJAxiLMVFsweLD/Lf9WQ9g/zJ7f1OydZsSUFCHA
+	 GGIVZN9gfQ+Ea6zxZm/xmNM9s5jIT8fJ4WICIYF/RxehTGHdKY69RXR8GWebDKpgoiJ1+
+	 a1vBJ+NOrbRupFqHi2/Z8USw3yCP+6CtOVBgRt6Bg7qLH9brx1DW+pI+pMED1Y+CYk4vk
+	 mMXOw5OKIVDB0dE8mZHzOjuVrRJu8LrOUutwfQ4jLLrhblwPefGQy1iHlPOIo+Cx6jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nM4HyT51;
-	arc=none smtp.remote-ip=209.85.222.181
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MQdyTsJo;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACC8606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BACC8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477E8606D802
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:44:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 477E8606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nM4HyT51
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-945ae2daa66so209557485a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:44:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MQdyTsJo
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso20561445e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:44:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793900681; x=1794505481; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nZAOGAjOf6sEpVtM8pdi7ewS7F4GJROoGs03Q8/6ak4=;
-        b=nM4HyT51BzNzQEZm0VzMIBTMyd4jC8paorZJ1Eklr1/wIQSP2AbQWGWTQ3QRqIlvDK
-         MYz9O3rXsd8B96sXmIO0m8PnXeQvMeyzxnyVX4vi3CNVtCU2mXgzQXrf7Wfm11fnmW8s
-         2oIjtAXP4KEPMLzjhgw+bXM7Yy/oZ+tqxpZIlnuryuWD7ZevRwG+JyENVz/2mqmm5uSg
-         ETJQSF9/8ijH+KEzTcenCEpwH4gD2B6Fl+fdv8BKhgnZeCQnK0Z4iM+hZhjg3awhLDB4
-         kEYOGrql67xj2rbYPY7GuL59Fm2N8y7Bj6HfcBUBI5BbospXsv3I8FyH0+iSgBAE2uK2
-         P3lw==
+        d=gmail.com; s=20260707; t=1793900683; x=1794505483; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U90OTq4pj/0GvT/BUYUlBl9XzS2MommQVkNoZ4ZcGPU=;
+        b=MQdyTsJo6HXeHxH9BNw28+SuNcBKayOk3Uhzn/A9OEQpdXM5NOgZRm+YICTxfaKljl
+         1sw0x8YU9eQXFQF6esHGD04Fege4rdmZ8qd+67Tb+Bf0FpUUOI12q1klb8g3yiIufx6k
+         E9Sx5dpO/8LLHc3lDh/lQ0KyYjY7r/JfI9ztPR+Ro7yaR/tMeRHiAVGBYACNGB4EKzWK
+         NIWXqWSJW3fuCv7KqQ08FOm+n04U7R/JfnXJVydCddFvt9ePOWIb6HmYV67gpEbNM/nM
+         WOoyPyJLLaJtNokFTs8Ib7o39eMQJcoDNDYLxq4/0ut85lJBIaMf9sJQvKeafOZfr6Ra
+         tKhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793900681; x=1794505481;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nZAOGAjOf6sEpVtM8pdi7ewS7F4GJROoGs03Q8/6ak4=;
-        b=bmN5jOY6JAweY7KrIcrWZpltojmpMDgSpaBkVUkbYkELchuF0wTZsk06Gns9I+jrw4
-         cRyh629pVx6foZYIRdNUxKRexlaU3sl8dzqeAmosc6bLopFYLhIsvihCNvV5hmne/xA6
-         OdtEIh7bfqcBD0nvhZF/mOsIf9e9OiqYUxWR439P2WS57ig3baYjM4Z/6oIozti4Etvx
-         dDZRyxVF9EpA9PDFfumPNTA/xmZe+V41kQIAhEq8aDu45mmYj+Bl4UwyxvYHW/qnFMNa
-         sfIbBM1ivZgBss7xeZU9LDKrqhvJjU6qgc7e5OGU6q1yUFe9rBnBVjmZOc7tCoVEBdhZ
-         51Fg==
-X-Forwarded-Encrypted: i=1; AKwUvBzeYXtM3FlMdmE5iLPq1IUVvU55rpncwyXEsMz1qRa7XF8GoPoPQ7TCwvCc5ykyHpfokw9OAvqj3BwwkcQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LVbWGh+h48WwCJ/TrQt0FcPYRwWcwmLSAqXwH/600WM8w+S0M
-	z6OAE+fZAkS7lnwkIW2eXzDvlZpLhmgIZCGIqzoeVWtjm3Al65fE7ovjTJBxN4aZT8KG6mLVHVW
-	JduIYubm4
-X-Gm-Gg: AYBFou1ltFNyENDfoIAHukJFyqDQ3wuOUj4U6Sy2OkgC3mJYNGgGscW/x/GYPYQ67oG
-	FZMs1rSqfZw7bbjgzVA9F4eODeVhtEVARS/2CPFOAqYM/EL2+kVbN1osiJ1jjAuXry8lkzScYCq
-	lyNdgPn3ce9CpFv3IUXtYSC+oEIwL0oJ9Z8XOMKO6Utt2fGVdV3gqvP1JLYkSXgban3VnqDGCJW
-	/J+YvQFFfCyLVkgOPeprz65J916sQi9Kch6eObiVgicMVDxqVFVigIFpoc1Dk1yTZBNLFyaDOQJ
-	hXgXQrLA4zKZrfyv+RcgBysYJhzP8EMA48nGFYdVwNHacglXOzg5rL2nZ/FKhQd7ec7QJLPyZgr
-	KH/64FFyPsSuqfeeM4Zqq8/Olgkbbqflvq1a/1BECIicvi7PfXZckHdSG9FhXqvxGjMVqbcJMB5
-	Adc3QjfrO/eXJR4N8veuq43sPXde4nuSynaY+59nkjF/OZqgWLGzoOdgqdQbf9V/dvWBXyweCMf
-	2uO6G3GusVZww9mYFjuHeJSEj5Z0Ged0auIsXwy/22HL8E/EcqW+Z3Dijm6bxtT1dTbVUgJHQ6Z
-	kE201oicyDAS9olQOwtNMlIFm8AU5RKv8OfMjzh6TDwH2Q/V4g==
-X-Received: by 2002:a05:620a:4409:b0:93e:f97f:f245 with SMTP id af79cd13be357-9442173e65fmr3211975785a.30.1793900680581;
-        Thu, 05 Nov 2026 09:44:40 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea68fa5e2sm1219756d6.1.2026.11.05.09.44.39
+        d=1e100.net; s=20260707; t=1793900683; x=1794505483;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=U90OTq4pj/0GvT/BUYUlBl9XzS2MommQVkNoZ4ZcGPU=;
+        b=nmyxkDuUQwIYAEWSxxwL9wccpDJP+JGWqLbp/Dce9kO5MitG9lNScxnfXp8mVwqNRj
+         ufTsfU+buS3vJLpxy8eoXcY5nlGBEWX9DD0C9vmLqxxC/+RiUSa5UQ3pBJfvjQ+M/W9Q
+         OQYg62FPxMwFFyB7Vov3/vAxYnlyXd51EPi+JO+UxbGLF56p9A3ilO2nUfzbHt2l+8q8
+         RqgCQ9KGtMAY1ZVnR+5DFgeseK1RmZHBeFh/0eXUbDMdV+toc57xLbMWD3Rb/1PxOptU
+         IDtMTbM8qOW1KhL7GHdXLm7lga92Zy0BAMfor6i1BMUwCO88lQFncRMt0O9ARM4+1rOd
+         rBRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxyWzkwhfWcuLq5Yfd+w27H4sxgk6pX5Xr1+5RbfCN/EOUoKW+oQBZomX95VHnO4g1o3Rwozz1jfTv13dw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3nSxXPqOVF0tmpRumHbceiLUiUCSnFurSLle6lEepHOMdBXDM
+	er7ctg3+lyW3CPqrCGk7g+MKwLqssESiAwdTCwsUOGz1eSGcTcE2JO83
+X-Gm-Gg: AYBFou23W4UeGOKy1UraG60XPTD3W1x35BfB+mcI3XGWNn8jWiE8obQbZFCdobzDNIF
+	DNsa1zdY5v3qjYc8K60HXUwIeKqwkGCFh5+BHjO4eHPWRgaiVE8iliUorlVM5hAnBjrP/eFW6sr
+	xjfrjVW42cOgI8HoCQj4k3OD38nfv8LmElfgPn3tGLdOZc3JLOx8qS/vZVwRyMCBUKqQIIQYzuh
+	kOXQajQKvWTvELTTiwMw0G2pe6+LeJbuNpYbizDsTOJa4UfWQa3P5J0pvdHGa3QOpj+K9XqXaGA
+	48+rhYPvkDTWecIMkEKnytWCyESJv9foy/Aj2AoNAhPcTKFZQFf9cXfYBzBvkAPexTM43naZSA+
+	Bb575MwjgOm3SHHj1EvmQZ8rjb1dEIs4Sx0+doigZ7siSik/wPUjOs1e7IPD9jMpb/vZJG6uT1p
+	5Dvu/Y+yD+RabWx8j6R4Aoa6fTHrfyuEo9+1g91oSxkJqi1OsaHrdQL4GlWjcCuru8BhAooE8p7
+	Y7eHaZg/XAD8PkfpJ4ZuhavY3PYnfx/qlBGCq3DGfzFkD5XL90UDkCh2aRKtCGnyE0hDAQaI9e4
+	Bu4HpZEzJDve33w9+5WiWXSVCWhR41c880svw/rUNt3dkl/7dtwySEU8PFLPRPus3FQmpaj7w33
+	M98HWQFYJxxZAUyk4n69TLDU/vz+mJQyaMyOso/jRlbccePxQNJJk8it/Pw==
+X-Received: by 2002:a05:600c:8b66:b0:4a3:5a91:5f61 with SMTP id 5b1f17b1804b1-4ac1793f8ddmr454773675e9.14.1793900682397;
+        Thu, 05 Nov 2026 09:44:42 -0800 (PST)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ba6bc36sm86889775e9.0.2026.11.05.09.44.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:44:40 -0800 (PST)
-Date: Thu, 5 Nov 2026 12:44:37 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Michal Pecio <michal.pecio@gmail.com>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] usb: usbfs: Require claiming a hub interface for hub
- class requests
-Message-ID: <0aa5c25e-465f-4168-8833-387acced222f@rowland.harvard.edu>
-References: <20261105065627.5626-1-25031212351@stu.xidian.edu.cn>
- <20261105172336.26307-1-25031212351@stu.xidian.edu.cn>
+        Thu, 05 Nov 2026 09:44:41 -0800 (PST)
+Date: Thu, 5 Nov 2026 18:44:39 +0100
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	Nate.D@variscite.com, Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [PATCH v1 1/1] arm64: dts: freescale: Move Variscite Ethernet
+ LEDs to carrier boards
+Message-ID: <auzAh7404GAsY-U0@Lord-Beerus.station>
+References: <20261105101739.10614-1-stefano.r@variscite.com>
+ <auy-OW_td7N8oHK_@SMW015318>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,100 +108,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261105172336.26307-1-25031212351@stu.xidian.edu.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <auy-OW_td7N8oHK_@SMW015318>
 
-On Fri, Nov 06, 2026 at 01:23:36AM +0800, YuanZhe Liu wrote:
-> Hi Alan,
+On Thu, Nov 05, 2026 at 11:34:49AM -0600, Frank Li wrote:
+> On Thu, Nov 05, 2026 at 11:17:39AM +0100, Stefano Radaelli wrote:
+> > From: Stefano Radaelli <stefano.r@variscite.com>
+> >
+> > The Ethernet LEDs are physically on the carrier boards, but the
+> > VAR-SOM-MX8MP, DART-MX91, VAR-SOM-MX93 and DART-MX95 module descriptions
+> > include their LED nodes. Other carriers therefore inherit LED definitions
+> > that may not match their wiring.
 > 
-> v4 drops the port owner exception.  You are right that
-> USBDEVFS_CLAIM_PORT hands over the device behind the port, not the port
-> itself: the device is driven and suspended through its own fd, so
-> letting a request poke port state on behalf of a claimed port does not
-> buy anything.  With the exception gone the helper in hub.c and the
-> declaration in usb.h go away too, and this is a single file patch again.
+> what's impact?
 > 
-> I kept the interface class test.  I agree it should not matter for a
-> device that follows the spec, but it costs nothing and it keeps the
-> check in line with the two entries in hub_id_table.
-> 
-> Then the -EBUSY for tools that switch port power without unbinding the
-> hub driver is intended, as you said.
-> 
-> No Fixes: tag and no Cc: stable, following your recommendation.
-> 
-> You mentioned that usb_hub_release_port() and usb_hub_release_all_ports()
-> should synchronize with outstanding URBs sent to the device on the port:
-> kill the current ones and keep new ones from being submitted.  I would
-> like to write that as a separate patch.  Should I send it now, on top of
-> this one, or wait until this one is settled?
 
-I'd wait.  Also, don't be so quick to send new versions of patches.  One 
-or two per day is plenty; you want to leave time for non-AI people to go 
-over the current version and comment on it before sending a new one.
+Hi Frank,
 
-> YuanZhe
-> 
->  drivers/usb/core/devio.c | 29 +++++++++++++++++++++++++++++
->  1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
-> index 486ced74405e..d39ef9a80ec2 100644
-> --- a/drivers/usb/core/devio.c
-> +++ b/drivers/usb/core/devio.c
-> @@ -878,6 +878,23 @@ static int findintfep(struct usb_device *dev, unsigned int ep)
->  	return -ENOENT;
->  }
->  
-> +/*
-> + * Return true if @dev is a hub.  The hub driver matches devices by device
-> + * class or by interface class, and a hub has a single interface either way.
-> + */
-> +static bool is_hub(struct usb_device *dev)
-> +{
-> +	struct usb_host_config *config = dev->actconfig;
-> +
-> +	if (dev->descriptor.bDeviceClass == USB_CLASS_HUB)
-> +		return true;
-> +	if (!config || config->desc.bNumInterfaces < 1)
-> +		return false;
-> +	return config->interface[0] && config->interface[0]->cur_altsetting &&
-> +	       config->interface[0]->cur_altsetting->desc.bInterfaceClass ==
-> +			USB_CLASS_HUB;
-> +}
+There are two main points:
 
-More than is really needed, but okay.
+1. The SOM dtsi is intended to be reused with different carriers.
+   Defining the LEDs there forces every carrier to inherit the reference
+   board’s LED configuration. Customers then have to override those
+   definitions or explicitly delete the LED nodes if their carrier has no LEDs.
+   Keeping the definitions in the carrier DTS avoids requiring customers
+   to undo configuration for hardware that is not part of the SoM.
 
-> +
->  static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
->  			   unsigned int request, unsigned int index)
->  {
-> @@ -891,6 +908,18 @@ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
->  	if (USB_TYPE_VENDOR == (USB_TYPE_MASK & requesttype))
->  		return 0;
->  
-> +	/*
-> +	 * A hub driver owns the ports and the devices behind them.  Letting
-> +	 * userspace change hub or port state behind its back, for example
-> +	 * with a SET_FEATURE(PORT_SUSPEND) request while the hub interface is
-> +	 * being released, is not safe: the request is passed down to the HCD,
-> +	 * which may walk per-device state that is being torn down at the same
-> +	 * time.  Port requests use USB_RECIP_OTHER and hub-wide ones use
-> +	 * USB_RECIP_DEVICE; the hub driver owns both.
+2. The Ethernet connectors, LEDs and their wiring are on the carrier.
+   Their definitions therefore belong in the carrier DTS, while the SOM dtsi
+   should describe the hardware on the module.
+   This change makes that separation consistent across our boards.
 
-That last sentence is odd, given that the code you're adding doesn't 
-check the recipient.  It should instead say that IN requests are safe 
-since they don't affect the hub, but OUT requests aren't allowed unless 
-the caller has claimed the hub interface.
+There is no functional change for the existing Symphony and Sonata boards:
+their final device trees retain the same LED configuration.
 
-> +	 */
-> +	if ((requesttype & USB_DIR_IN) == 0 && is_hub(ps->dev))
-> +		return checkintf(ps, 0);
-
-I'd do the is_hub() test first, since that's what this special case is 
-all about.
-
-Aside from those minor points, this looks good.
-
-Alan Stern
+Thank you Frank,
+Best Regards,
+Stefano
