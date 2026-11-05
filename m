@@ -1,64 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901063;
-	b=z7wxu0CkyD5aKyUs93sQBlF52ITytUXSVa4akhFkmcQH+W0iVVFkjaT2DUCgzj445L5a
-	 A3wWaHzKhJzi2ffF6QrYLTEiRP+Z5wnpwH7w9yGnZM5euGpJWrmvHnHWclFkOWZPBCI2I
-	 nZHOZ2xiCKblj22/QyCu72MwISPWreedVAKd0bMJYsw0isduMGsV/Epq2tqBDTt+lJD4r
-	 pgIJonlw+oYc6wupyJ1OR3I+PF/2JUvQt4Buy9i8TXT40MEG7HRvAjfAxxIutYATe6cI6
-	 kAwLhGrRPnwPPJir25PluMOaNpyVvl2ob4SBKfo+LfCw480zlTiz0THU3RTDSFQRhiA==
+	t=1793901095;
+	b=l4Bt5Oa1vICW+yKJ9TD/KH6dY9WZDrfWylwD9zt7L8460/y5BbgKkHsTVTzoodtBzXT7
+	 WPKnmB5FIhPB3+6HK0uX+FD4I4l25TtgfANdIVYLq/sspYnwK2fn239e0TQMQ0B5o7LuG
+	 jw/Uhbnl/qjxGm/ATA5/ECtFF9yIjvq2yW7GzyrkZqF+EnQXaYunPu3yWviWlW0qipk+G
+	 lzitCNCQqkwHwLZ5CDRm1bXXhM43vCLjtuY3RCuOzZoBuWH8Y7ERowC+tHBmfWYaJ59j+
+	 u55TJV7isY3cZmfRHSbogDUmc9o1tTXb3wnc0lGFa1tDIXGw3Orv6DJJ40/A3r1A9vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901063;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901095;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=en2JGcUszSNZbTFqRkGnK2dq4el0SJJ/0+ZPrU1sl4I=;
-	b=jpHfnsPoVXvZYI09nHv/VQAjYS2G2nuHuGqZICalsUo2CEQp+UY/ZVPI2BCyLeUuc9sR
-	 QhJgw5y49ZtZbj5jw5hIsr1wnmDH8C8uNa+LaviKgvDFne1LcCgCIxOhz/UmGi/AUX1Tj
-	 5O0rTCtZJ30K470Hkm7bd0j50227we7GjW2eSE1rhoXQ3qTg0tG4npXAo8vp+RLvPiPOy
-	 KAZTyBDDGeO6r19GUHPWSzqDeYVBmM2Qg7WSqFi8IuX+51YS4RvTu2+CBOzZ8HHynf8Ej
-	 c6Mtv9Ytyic+36n5as3bZfSHcBQqR4wfOcelXdmeNsa/X7Jk/KswSr7/tPLacxblt6w==
+	bh=kzCCSxGqIOflYF/5kOzEFXx9NL4cCf/soNclBud8pGk=;
+	b=DEMbEcG3jYdEchR9pDsqwjNsuPG4EjR/Rrah2NugKz2fDLNOFsdRAF1YCBiG0lT9HJgC
+	 41rJWiH2MeXhu+BIvd9TiO/vYu+uwU0djw7N+PrzXMElOZh9H9TYFQ1FaEXmp7ItKwJlM
+	 mfElJTbApwVzDtmLvmd7IsrcjGWzlndn51F/R5zPRCCZjwGmILN9sZh7pwM0sDwL/1TQU
+	 s3nhQ3vgyqxuAsJfVxfLEWUsQ3QjrMm5vDmXdM7YZ1SkZs9iXSoyM/vkEGi+4F8U2OIWz
+	 tG/UHyBjxuTuDkaZC7bQ525FRX9xCnktD4kCG8ZIVIokiXjmYXUjlXkwXiNUpdQaHLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nV20PNax;
-	arc=none smtp.remote-ip=95.215.58.3
-Received: from mta1.migadu.com (out-3.mta1.migadu.com [95.215.58.3])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EAfvvjR7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB669606D831
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB669606D831
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961EF606A337;
+	Thu,  5 Nov 2026 17:51:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nV20PNax
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RBBjF1dVk/Xf0gpPRhtzgJM9UIRcoO6DnxxofY0h9rM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793901061; v=1; x=1794505861;
- b=nV20PNax4o1HwVcAWTIcJn47hCczkL2rqMBS2kAURgYzxGh4F73ZFeWmVK64zV1skiQCwE4H
- mPMVMLH/dPbkKL8GkBwMYgMhRW9vwJ2Ao10bcrBlQ7XjXC6C2pt3PuVxVIhH2lY7yWSX5j5lZ5K
- gxAXIXkdNqL3qV7W1/teAZAE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 09ccaa29a133fca4;
-	Thu, 05 Nov 2026 17:51:00 +0000
-X-Mizu-Trace-ID: 09ccaa29a133fca4
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: Nam Cao <namcao@linutronix.de>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v8 14/14] selftests/ftrace: Walk up parent dirs to find test.d/functions
-Date: Fri,  6 Nov 2026 01:49:14 +0800
-Message-Id: <3af4874e15a978a15e2d6853b8782ed9357a4334.1793900349.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1793900349.git.wen.yang@linux.dev>
-References: <cover.1793900349.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EAfvvjR7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9331F000C1;
+	Thu,  5 Nov 2026 17:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793901095;
+	bh=kzCCSxGqIOflYF/5kOzEFXx9NL4cCf/soNclBud8pGk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EAfvvjR7sSPososetuksw6AjvxYXD5zK7S+XBvG3F8xIcSSIp16RPrVvl2PoUsYvQ
+	 YTRtejsQqABntCbRGdIljX+/WS7gECT7qVOFwKq3KpnMHf0TqYdnCNqcGoUxyClCEo
+	 vMEV6RJiIDBQz5ePshQtGl83isWxoaT+WicNXJ6abv7OWlmTFmcIB0Fs3hAZwWSZPF
+	 p9l6tNw2OPa0b/B5E8sHEoDmIwm9skSOenbOY+3tZGgnT+mOjgVcOsp+UilATEtnSQ
+	 dM+vQzDKaop3TR7nNLDuzWOeC3SVGG95B8RGrJvrFxgL50QcAJJGG+jSGdcbIxyjno
+	 usBJuyEzwzYgA==
+Date: Thu, 05 Nov 2026 07:51:34 -1000
+Message-ID: <4f5f54504fb1221d07ffb6d66b9f449d@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Kuba Piecuch <jpiecuch@google.com>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, Cheng-Yang Chou <yphbchou0911@gmail.com>, Richard Cheng <icheng@nvidia.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.4-fixes] sched_ext: Read exit_kind before flushing in scx_flush_disable_work()
+In-Reply-To: <20261104111449.3984318-1-jpiecuch@google.com>
+References: <20261104111449.3984318-1-jpiecuch@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,58 +57,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-From: Wen Yang <wen.yang@linux.dev>
+Applied to sched_ext/for-7.4-fixes with the following tags added:
 
-When a subdirectory is passed (e.g. an RV monitor's test directory),
-ftracetest fell back to its own functions file, losing the RV-specific
-check_requires handling for ':monitor' and ':reactor' requirements.
+  Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-Walk up from OPT_TEST_DIR until a directory containing test.d/functions
-is found, stopping after five levels so a stray argument cannot reach an
-unrelated functions file further up the tree.  When no such directory is
-found the previous default is kept.
+Thanks.
 
-Note that TOP_DIR also feeds LOG_TOP_DIR, so logs now follow the
-directory the tests were found in: an RV run writes to
-verification/logs rather than ftrace/logs.
-
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- tools/testing/selftests/ftrace/ftracetest | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/tools/testing/selftests/ftrace/ftracetest b/tools/testing/selftests/ftrace/ftracetest
-index 0a56bf209f6c..3d3c3a4dfa34 100755
---- a/tools/testing/selftests/ftrace/ftracetest
-+++ b/tools/testing/selftests/ftrace/ftracetest
-@@ -159,9 +159,22 @@ parse_opts() { # opts
-   if [ -n "$OPT_TEST_CASES" ]; then
-     TEST_CASES=$OPT_TEST_CASES
-   fi
--  if [ -n "$OPT_TEST_DIR" -a -f "$OPT_TEST_DIR"/test.d/functions ]; then
--    TOP_DIR=$OPT_TEST_DIR
--    TEST_DIR=$TOP_DIR/test.d
-+  if [ -n "$OPT_TEST_DIR" ]; then
-+    # A subdirectory of test.d can be given; walk up to the directory
-+    # holding test.d/functions.  The bound keeps a stray directory from
-+    # reaching an unrelated functions file further up the tree.
-+    local dir=$OPT_TEST_DIR
-+    local depth=0
-+    while [ "$depth" -lt 5 ]; do
-+      if [ -f "$dir/test.d/functions" ]; then
-+        TOP_DIR=$dir
-+        TEST_DIR=$TOP_DIR/test.d
-+        break
-+      fi
-+      case "$dir" in /|//|.) break;; esac
-+      dir=$(dirname "$dir")
-+      depth=$((depth + 1))
-+    done
-   fi
- }
- 
--- 
-2.25.1
-
+--
+tejun
