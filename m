@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898781;
-	b=HjVZNPkgx6SFWT+oyJ75Zzh6fuUsdfLMM5liuZRDkjGx0fAMQfkW8fUJfAAbsvvLTK81
-	 NMkp6ZRBF2CryXUH/PDKcZ7JWcU4dMFXvwwnwhoJffno2xQzsa8KiAkZq2OGEWXFjQOGV
-	 YnJWznBAVncCOH3rAp5YXxNGBSmlxo1y8wBORDIwV+2h4Gw0rB7pDgfRxdPjordn02XA2
-	 w59ZBTJBohvRnmvSahmVHeAvab+DOpqVCbYlIMhPiG4iBiRQen2KxxRSpZayIHMjuGMfq
-	 DfRfumY4rx+B8ruGVQKBsJFymhADyAOP/gqLbnaL8/2e2Dw70Hj6X1jQ5vXeerHYN3Q==
+	t=1793898784;
+	b=TxV/QJesJDoVbuz4E3vYzxK9RayJt1PScU0i/3ngDrH1YBqXO4I4Z758dXs9btqYmwWC
+	 7ZF9RMTlYjn/qlrE0EWT6KJgjirIAXPzHipYTYPJdrua0mPTv8iphsFuEKA0ZzSFBbsIc
+	 Saa3wWJ9YCHIPia6EqijN/H6Tax+cYQfYpsdFFsRUbb+TgK8U+CNvjGU5qs0i8g8ohFmj
+	 C0ZPpsJ3yroI8XPjlwTQTA/DoeMcYPpR2J+lqHSTDPiXnlCFm6f+0YaETK8Gtt7Kk8Jxn
+	 U2/CQuff728HPA7yl1t6RHt09BrlypyopDq7bKLTg5xJBfRc2aK7Orf6ynpBiUNKH9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898784;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=EMExV65ZcIsZykQBDtBRoQToWRb7jCYng9HkBlA05ok=;
-	b=SU4lbB/CCrRYGvMN3z6lEWCoroaMLdoMXSt+Grzl1KU3mXTMbu3pMfrDHKp6llP26z3Q
-	 s7vWjo+Lt7vmPUKUR+Fvn5KOuOhIe6WD97bePMMWz+hI8bRv9MbPrlswyukbNhn9V21vX
-	 gUS8O/KaN2uGHi2CmziCi2/HWlFylqRzjLB+xi86IAj9Ci8wHd5sI4Ao9NG0xiNMfwEuF
-	 jRHO9o/dR9dY7GH68y9e49D89vu00dyva2/LUqN09Lkt1CBCqic/P1HMw5lcJqhn6/tYo
-	 o1d9ezDviQDVA5SK3I4u/d/gA2lT9YMeKy5pGhZsqIFnd6LJlzj5vSV/FJHjcQeyyXg==
+	bh=sqZkBteTE5w8IlEa32XJONCoO4n7XmDtTxjaXaNNFJw=;
+	b=yUKu8E0Qpe7WDfJlAI/EopSGlDLuxieh3TuRgt+73dNNYO18TurXHSukXbgT4anhzAnR
+	 63jjCfX1f1xh+UjKwdOL2CnNhHookot+MdJA9C7DTqtd+DLJ9cJBX5DW3HLOl7gjoXnvL
+	 WDqYXvias0dT80+0+oMjr9NezfRCHgPXXT6IkQ9j+C6CmyU0XqFJm4kSahblcXMPgSpJd
+	 LoLXkG8LrQqneM6qwwSAam6v0LazMJFYbKYjWr3iYqF0ouPcBYkvpDHfSwbVn6Qtp2MRi
+	 AEDn5Er4CeBondV6sK7+jwR2I45tnnsNmt7TADTxKnC5/LN9M1isT/UZT2fJDN8aFXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oD69Pc5g;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AFnZ7bxE;
 	arc=none smtp.remote-ip=185.246.84.56
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAD76082BD8
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:13:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFAD76082BD8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E546082BFA
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15E546082BFA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=oD69Pc5g
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AFnZ7bxE
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D0F281A0D96
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:12:59 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C906F1A0D96;
+	Thu,  5 Nov 2026 17:13:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A059F5FF43;
-	Thu,  5 Nov 2026 17:12:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 63A49103292A4;
-	Thu,  5 Nov 2026 18:12:58 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F7E25FF43;
+	Thu,  5 Nov 2026 17:13:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 582BB10329289;
+	Thu,  5 Nov 2026 18:13:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793898779; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1793898782; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=EMExV65ZcIsZykQBDtBRoQToWRb7jCYng9HkBlA05ok=;
-	b=oD69Pc5gzE17OwKPSp6eXxMTrEZYoS36gFroRX0ztRiLiJalonYJk2K+sAgZj4KgIRXRhT
-	pwcO8fcyiR3Jrg81zDNqIwfy3xwAtpgAm3+foleDY9cJUa+6IsfKrkZc39fgRbFAWJE4y5
-	Ao9lWRw3iw+u+Qy38AzkWL+0UJMWeCOvolCAFCitLtQLU8C7boUMHWG9pNHomMflt/fnPw
-	2rnOmPGeSZgjk7tk9AXvJYTk5IZa72uEDS3d7lXETvhqH1RmBod/qGbYegbBdAWFA2bRwU
-	vPOCcflEO1eDJdEEETllJlL54SfeipRK4WtiaNDs+UfBWXhii6E+UV++SlizzA==
+	bh=sqZkBteTE5w8IlEa32XJONCoO4n7XmDtTxjaXaNNFJw=;
+	b=AFnZ7bxEtVvPPwlZt048bhc0UIxYMjkZd560LrNFT6az0LKDYkIiX+wQPF88weh2FvjCzC
+	+EFA+dTZibbRIOS68sTMWNHiHbC0wJD/RQP/HOrXsdKlnnCegbEwMSBT1uW3xPbnG4s4xG
+	AHdFcAntYWG55SSqqs8GbuXkNuMkE2mJcNAfEABeK/d4H6G/JQk4+dGqKw0KDfac+0ILrH
+	dO127DDi12WKRYsM07GVmveqRQhz3++pmAH2lM9NEkkPf7XEw6EeazdiuknGxHwd3oT2zX
+	iL6+GIxROuxIKMrPidJdtgX+9L2xo6qF8/kC8fpxCNk9GEnqAbzdL9A7Nfte6A==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -58,9 +58,9 @@ Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH 08/12] mtd: rawnand: hisi504: Remove #ifdef guards for PM related functions
-Date: Thu,  5 Nov 2026 18:11:54 +0100
-Message-ID: <20261105171158.399247-9-paul.cercueil@bootlin.com>
+Subject: [PATCH 10/12] mtd: rawnand: omap_elm: Remove #ifdef guards for PM related functions
+Date: Thu,  5 Nov 2026 18:11:56 +0100
+Message-ID: <20261105171158.399247-11-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261105171158.399247-1-paul.cercueil@bootlin.com>
 References: <20261105171158.399247-1-paul.cercueil@bootlin.com>
@@ -86,41 +86,41 @@ regressions are subsequently easier to catch.
 
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
- drivers/mtd/nand/raw/hisi504_nand.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/mtd/nand/raw/omap_elm.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/hisi504_nand.c b/drivers/mtd/nand/raw/hisi504_nand.c
-index d97270ec1185..511d133ea936 100644
---- a/drivers/mtd/nand/raw/hisi504_nand.c
-+++ b/drivers/mtd/nand/raw/hisi504_nand.c
-@@ -809,7 +809,6 @@ static void hisi_nfc_remove(struct platform_device *pdev)
- 	nand_cleanup(chip);
+diff --git a/drivers/mtd/nand/raw/omap_elm.c b/drivers/mtd/nand/raw/omap_elm.c
+index c1d19b8e6715..2e8ab20d8edb 100644
+--- a/drivers/mtd/nand/raw/omap_elm.c
++++ b/drivers/mtd/nand/raw/omap_elm.c
+@@ -428,7 +428,6 @@ static void elm_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
  }
  
 -#ifdef CONFIG_PM_SLEEP
- static int hisi_nfc_suspend(struct device *dev)
- {
- 	struct hinfc_host *host = dev_get_drvdata(dev);
-@@ -842,8 +841,8 @@ static int hisi_nfc_resume(struct device *dev)
- 
+ /*
+  * elm_context_save
+  * saves ELM configurations to preserve them across Hardware powered-down
+@@ -540,9 +539,8 @@ static int elm_resume(struct device *dev)
+ 	elm_context_restore(info);
  	return 0;
  }
 -#endif
--static SIMPLE_DEV_PM_OPS(hisi_nfc_pm_ops, hisi_nfc_suspend, hisi_nfc_resume);
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(hisi_nfc_pm_ops, hisi_nfc_suspend, hisi_nfc_resume);
  
- static const struct of_device_id nfc_id_table[] = {
- 	{ .compatible = "hisilicon,504-nfc" },
-@@ -855,7 +854,7 @@ static struct platform_driver hisi_nfc_driver = {
- 	.driver = {
- 		.name  = "hisi_nand",
- 		.of_match_table = nfc_id_table,
--		.pm = &hisi_nfc_pm_ops,
-+		.pm = pm_sleep_ptr(&hisi_nfc_pm_ops),
+-static SIMPLE_DEV_PM_OPS(elm_pm_ops, elm_suspend, elm_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(elm_pm_ops, elm_suspend, elm_resume);
+ 
+ #ifdef CONFIG_OF
+ static const struct of_device_id elm_of_match[] = {
+@@ -557,7 +555,7 @@ static struct platform_driver elm_driver = {
+ 	.driver	= {
+ 		.name	= DRIVER_NAME,
+ 		.of_match_table = of_match_ptr(elm_of_match),
+-		.pm	= &elm_pm_ops,
++		.pm	= pm_sleep_ptr(&elm_pm_ops),
  	},
- 	.probe		= hisi_nfc_probe,
- 	.remove		= hisi_nfc_remove,
+ 	.probe	= elm_probe,
+ 	.remove = elm_remove,
 -- 
 2.47.3
 
