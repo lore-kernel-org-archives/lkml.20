@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879288;
-	b=i++pyaJLp3jsZKBWB7yEM5HmK5nNriJ63Fuoi2jXgT/4ZuwRlGq1TERcGSgeQ2mcXOi5
-	 Z+lpvmHpTxoZGnOBjRNE7v8i96uxwD4AxKKlH2q4/zugs5+WcLxTm22EfSyfqxHt5ApVr
-	 foz925jugfOPLhXPb4oz3T171lV4M73Q8Rx1o+vBbmuW4Tr0eWONVR1oYifb8ae8/8ghY
-	 GEuxKUoQZYxO/0NmOuSpn/IWrkyb7/Jv5DVbyJX4AX++vZF8/JrdLsu81rUdJNuLXaghq
-	 euEymoLgk7Xiay2Uujo+w4xQM9H23013hw2bL/aia3iHCIv/YN0JRUG0Bcj9FwemfKQ==
+	t=1793879293;
+	b=GCtsNB/Fv1r9OkG07rwolwsgVbE8voLDBUV3KNquwovnzHKvfvM47cm+W/jakDp84LH6
+	 Oy189XXmJXy9q8AxpZAVOW1IgxQUCa1u7psdJOx3vGz6LrkZeLLs47jHo9BgB2/6X1x6t
+	 BZSFbNAUhQeDuEVWx/YrHXb65BQ7X0XmN3ASiqadx/klY6hOr9WWTcuphn3nk5jJXfuAn
+	 9uVpjI3gixdzeMVSMLxqBFf7mz7d6271sfqX6Job+wkjQ+SPxIlh+GJTbUMFNnFJeE3AM
+	 v+rQx/8FdIeBs4lkd+TrKcsqr84M/3BbUBbprBpWzK0ZwPYx8vTz6lCrsiNhkaqwsUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879288;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:User-Agent;
-	bh=UHz6AMzM93tCKEmiVWYUGJVjJ6331bl28dTuRqH9PMY=;
-	b=e0hFz7hZCHzj9cveTYHQ8YDjpgCFJhNeGjzG953TsYCjs4XVWLkuB5Qa6+HYwUmo3MNJ
-	 ts1Ij2yms+/6LJDQR4aD2mnF462F4nvA2SvRWSXU7rxMYIkQeucZHf8uzoeWjBHBxIbgx
-	 J7Pflls5wyv1TA/Okzvctkuz3j5Yf4JU9MNVgsknlOOgIeax8t47ljZYrf3kOunhlpa8B
-	 BlBcgXz4gSduE0bU0xc/K0sgDoTR2fER6KK7rLeCAWZqTYC1F3xpgXx2kTz1Lo97npppx
-	 9Ap2tWYjYcVqUmBjU/bLbiV0GoKsBngKWK8i7d2LGezVJdo4WKhPjLOs5Vfv3jwkVFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879293;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=tMawwfcXVfKsNftH6bqv4dBoqVRkNbGwmeCn0YU/mBE=;
+	b=SyA8XgtvLzFjmKd8tMV0qe+NEZnpa5jZG+Nxhl0jmh+efpqLYC7Cs9Z/AyzYWBzbpPxA
+	 X9Tj2zTHZhaI6iy2MbU5v2fpax5rOa39UqZ0hTyaN+0zORqzePi+COiNjr+EIWNkmyeK8
+	 9C38dtq7Djblax23MYOo3jTl3b0LuhUKUJdQIiDf2zpbwOIlF0DOboc0R257l9HQYv6OT
+	 0Ug1x913UGifkoW+b9ZV5wTuG6B3djqTMhl5OQEPmLLruo5HUGTmk0iS1bpoC2AktIlIz
+	 kDpd8ggIUzYK2vpKWxRwF2VBtrI+jsoN/90zA+j14XKNGB00w3PmN+5cjl9KVKp8u/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkWQKk1e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c0T08sAS;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28471606B57E;
-	Thu,  5 Nov 2026 11:48:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0C2606B55E;
+	Thu,  5 Nov 2026 11:48:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF0C2606B55E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkWQKk1e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5716A1F000C1;
-	Thu,  5 Nov 2026 11:48:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879287;
-	bh=UHz6AMzM93tCKEmiVWYUGJVjJ6331bl28dTuRqH9PMY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NkWQKk1eDpVDkTkyffjFSgbMXS+MdiyDL50DVuWxPq0DemLDhz0ZsBZ/5BwyCQqus
-	 ZIdDPCKXSc306r51dm+OY4sL8Gyg9rxw4lXbCPnoSo0tepGZ6wlv+MrNgXsfJGEb38
-	 I0xRjasgDrh2ZLnmLFkOh/i4i4boDSftiF3BCO26Ne4oXh1h7qYaAl1wYH4QLPXx3t
-	 BkKF3tMk4ivdXIHveFTZlr27cip4Bcqd6W5G0d1TRIl7s4FWuNqda9/OYMF8+W01qA
-	 AIPN0CGX14EUKPhbBzoUZUQk/RlWmvgdrd2UmHjhoki4kSPl+nCrQWpzuEEccoGKFi
-	 jApbyZYMiK/YQ==
-Received: by pali.im (Postfix)
-	id E1D10524; Thu,  5 Nov 2026 12:48:04 +0100 (CET)
-Date: Thu, 5 Nov 2026 12:48:04 +0100
-From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To: Bramwel Barack <bramwelbarack89@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] tty: serial: mvebu-uart: use device_get_match_data()
-Message-ID: <20261105114804.vqbs6ooleagwutal@pali>
-References: <20261103201305.18963-1-bramwelbarack89@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c0T08sAS
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 8211DC69157;
+	Thu,  5 Nov 2026 11:48:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 65D805FF85;
+	Thu,  5 Nov 2026 11:48:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 484CE10328CE3;
+	Thu,  5 Nov 2026 12:47:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793879282; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=tMawwfcXVfKsNftH6bqv4dBoqVRkNbGwmeCn0YU/mBE=;
+	b=c0T08sASg4VFEZudJtpXn/e328R0EmQMBk+ce82r7kWoFFtodwOrcHrRLH+DcG8StuYIAQ
+	GJ8O24dba+nDh/nRe2LNJBdJ03KoMrmnsHqhEjzsVHKyLOz1xzddgyXmU1JLwE2gji3VVC
+	re2QFrwOI0H8HaJLaTNo7t75wZu2xzF4JhcevuPYeI5ahlFS8M/VWG3uOm22fefal4SbHj
+	vSJY/PGMCR4vKy7KooO97HhIOaERX0ZtDmbuygGZ3tLXG4/RKllaK7+CZj2rHfQXe9BsoE
+	aIPzTyIAGw7SNd1jyAUyrgxW4Wvu83aBsObAA3gi6I9olu4IshmToL46xhVZiA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,99 +59,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103201305.18963-1-bramwelbarack89@gmail.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v8 3/9] drm/bridge: pass down IRQ_HPD to the drivers
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Francesco Dolcini <francesco@dolcini.it>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+In-Reply-To: <20261024-hpd-irq-events-v8-3-6ee949e7a384@oss.qualcomm.com>
+References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
+ <20261024-hpd-irq-events-v8-3-6ee949e7a384@oss.qualcomm.com>
+Date: Thu, 05 Nov 2026 12:47:24 +0100
+Message-Id: <179387924493.1025980.5050079385728779717.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tuesday 03 November 2026 23:13:05 Bramwel Barack wrote:
-> Modernize the driver by replacing the legacy of_match_device() call
-> with the modern device_get_match_data() helper API. This cleans up
-> the boilerplate code by extracting the match driver data configuration
-> directly.
-> 
-> Consequently, drop the explicit inclusions of <linux/of_device.h> and
-> <linux/of_platform.h> as they are no longer required by the driver.
-> This allows us to also remove a now-redundant forward declaration and
->  drop the problematic of_match_ptr() macro wrapper.
-> 
-> Signed-off-by: Bramwel Barack <bramwelbarack89@gmail.com>
+On Sat, 24 Oct 2026 03:35:19 +0300, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> The DisplayPort standard defines a special kind of HPD events called
+> IRQ_HPD. These events are used to notify DP Source about the events on
+> the Sink side. Pass down the extra status to the bridge drivers via the
+> hpd_notify() callback, letting DP bridges to act accordingly.
 
-Looks good,
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Acked-by: Pali Rohár <pali@kernel.org>
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-> ---
-> Changes in v3:
->   - Removed the redundant type cast from device_get_match_data() assignment as suggested by Jiri Slaby.
->   - Marked the data pointer in struct mvebu_uart as const to match the return type of device_get_match_data() and prevent build errors.
-> 
-> Changes in v2:
->   - Dropped the redundant forward declaration of mvebu_uart_of_match.
->   - Removed the of_match_ptr() macro wrapper from the platform driver structure
->     to prevent build warnings when compiling with CONFIG_OF disabled.
-> ---
->  drivers/tty/serial/mvebu-uart.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/mvebu-uart.c b/drivers/tty/serial/mvebu-uart.c
-> index 33ea496c93b2..fcb8f3d52df8 100644
-> --- a/drivers/tty/serial/mvebu-uart.c
-> +++ b/drivers/tty/serial/mvebu-uart.c
-> @@ -18,9 +18,7 @@
->  #include <linux/math64.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_irq.h>
-> -#include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->  #include <linux/serial.h>
->  #include <linux/serial_core.h>
-> @@ -154,7 +152,7 @@ struct mvebu_uart {
->  	struct uart_port *port;
->  	struct clk *clk;
->  	int irq[UART_IRQ_COUNT];
-> -	struct mvebu_uart_driver_data *data;
-> +	const struct mvebu_uart_driver_data *data;
->  #if defined(CONFIG_PM)
->  	struct mvebu_uart_pm_regs pm_regs;
->  #endif /* CONFIG_PM */
-> @@ -859,15 +857,12 @@ static const struct dev_pm_ops mvebu_uart_pm_ops = {
->  };
->  #endif /* CONFIG_PM */
->  
-> -static const struct of_device_id mvebu_uart_of_match[];
->  
->  /* Counter to keep track of each UART port id when not using CONFIG_OF */
->  static int uart_num_counter;
->  
->  static int mvebu_uart_probe(struct platform_device *pdev)
->  {
-> -	const struct of_device_id *match = of_match_device(mvebu_uart_of_match,
-> -							   &pdev->dev);
->  	struct uart_port *port;
->  	struct mvebu_uart *mvuart;
->  	struct resource *reg;
-> @@ -919,7 +914,7 @@ static int mvebu_uart_probe(struct platform_device *pdev)
->  		return -ENOMEM;
->  
->  	/* Get controller data depending on the compatible string */
-> -	mvuart->data = (struct mvebu_uart_driver_data *)match->data;
-> +	mvuart->data = device_get_match_data(&pdev->dev);
->  	mvuart->port = port;
->  
->  	port->private_data = mvuart;
-> @@ -1016,7 +1011,7 @@ static struct platform_driver mvebu_uart_platform_driver = {
->  	.probe	= mvebu_uart_probe,
->  	.driver	= {
->  		.name  = "mvebu-uart",
-> -		.of_match_table = of_match_ptr(mvebu_uart_of_match),
-> +		.of_match_table = mvebu_uart_of_match,
->  		.suppress_bind_attrs = true,
->  #if defined(CONFIG_PM)
->  		.pm	= &mvebu_uart_pm_ops,
-> -- 
-> 2.56.0
-> 
