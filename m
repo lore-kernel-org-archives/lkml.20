@@ -1,49 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885010;
-	b=3H35E0XzCOcXv+r1hmPq5NbvIrgQ47+k79KdDU8sqWi2rFWWcFYAWlRLELWGiupuCH0+
-	 1REKf/xWP+yX+niX3o4VhBOo6OqBFSFaGcP1E21gCMPQWGNyY8VJg63Bx1qWxE9aVKuPB
-	 PgptaezYRZHYx+cAio9A9Y3w1endXAXsHM92l3xaIVS443S9aP4w36Z9KRAQRnoPQyic1
-	 2peQT0tsM4rirJ5zyRFOdlLRaBCOMKdyMIJajTbgOFRGbBueW3fy2+eiiVwrnYUkczYit
-	 J3g4Eqha7wfagX2eBuBrH5q7dMcQE7GMd8xpU8shorE5+ZapqFz6HrSD6q8KEHAslIg==
+	t=1793885015;
+	b=h0VYNAAVxeglJA59YUccLD07r11a+7uB3IptHwv60UgUW2FW9hqf1Zgk+/MspJ84Ze7z
+	 t/jfogRLFAeun/QwxTQ63n7fUeoHFNAt7FzvMNFpvn2dEdsjdMrX7ZN7bJzb5W+AWqnn7
+	 g8yi6uz9EQuYq1xEjEAkMMjtdHKR1aYHzFjC9mCw0LEzbx5oCRfT4KgnXwWLnM9CB8FMX
+	 58P9gmgGC7Vi3Yb7aaBwKzw2uxwzfwNSPCT2IV240UZFRsL0S6f44jJ2q6hNfTJbr4bIO
+	 7nNNw2P60wTDvwW0hJPVw/FR2DiQoF7RH0Pfz4ZVSA1DQ0rmkZwYwLDt3StZdwhxBzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885010;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ZxTT9i+ILNul39ARG4FLn5WWls600D2oa0wlIsH0HPc=;
-	b=hGGIvV/ctvV1em/pAtCmhhSa+TE37K7hZHNgN//1ZBCwcM4p3VUttkFC+xCsNgvhsCjd
-	 Lx4JPG4EqEVm5TkI9ZxOh8H7FJ2ut7+WzmGgognmP2Hmd82FezSvPS6sbuKIBlqtqO3PT
-	 PxGktT9nCDSKnGbKB2lgI9SVEhby+2Tp483gMK0wX7AuaYclIDOmTGWNjstJ0iO1CTdSR
-	 znD1HxcgW+J8hVpdOjHcDgvtBprhrYEqN2vUBLJ+Wsc+5EL218o8PDgOcU9yLHWibBtDI
-	 XsxuuFwGfCsrWvmDTNhSAmqjPEJLZS7IshznBa0CiudQSJ9Yanq9xUd68kPF4BSe5QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885015;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2Rg54/UgthSrrGMQdksoyYG0Dil1YdHkzpnilCgBW5E=;
+	b=pGKMb20+8j7t+RpTto6+Ua47z0u5ZYsTSX2dJ8x9zKWb/G+cLXrdtGwg6PZuFrM1v7KH
+	 egJjTnTEnshIIcSV94yIzv4ryoySgFC7admYmHrSJj06a1x1p1WoArKKXEQMiFh1IYjsC
+	 qz75hJqWyab+zsnAKguVdo664p3VjX67RNKVTg5NoUFoYtuy5sRyPEnkJGAg4z5P5wk8i
+	 LERc1aRzKmVcRVbH9QkZkyMuASG5IGqoAGmTkX/GcC176cGFSLJ+KS7XF6dp5T10VrOeL
+	 7JubUkKKzLsRRoxNLf5QZeNz2rTXvxLpwuxOvF4WKzH9iVXCJr0zU4Nek3cp1B2ybkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QBbdhMpE;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB619606D803;
-	Thu,  5 Nov 2026 13:23:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB619606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T2rPD2F/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293F1606A333;
+	Thu,  5 Nov 2026 13:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QBbdhMpE
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ECB281596;
-	Thu,  5 Nov 2026 05:23:25 -0800 (PST)
-Received: from [10.57.10.82] (unknown [10.57.10.82])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2FAFE3F628;
-	Thu,  5 Nov 2026 05:23:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793885009; bh=fmSAFaLie0xOSVQMYENoCEVnhmqkanh9g3dnKuhD5yI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QBbdhMpEhWjk73nrmCV4dkYGyL7SFavUIbyopSiikN6z/lS9wTr6KYm5K9+6WP0qK
-	 PqmgU2i0I2zsd+1Y76OavT4w3JcfwKSAebeymTGvJyY+rQbwq+bIwC/bhLDJZzMH1G
-	 CIwJIbiWplcUJc28pgQUDBfcRVpzJnblxC8eO1T0=
-Message-ID: <cbec4a5b-b5c8-4db0-95cd-09c73bd3976f@arm.com>
-Date: Thu, 5 Nov 2026 13:23:58 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2rPD2F/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7CA1F00919;
+	Thu,  5 Nov 2026 13:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793885014;
+	bh=2Rg54/UgthSrrGMQdksoyYG0Dil1YdHkzpnilCgBW5E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T2rPD2F/8wB/Id9kJGmahcqSsoxr/veB4/lmXtIYfHDLOA2gm/gWqlPvURULID7vQ
+	 LtacLEo7B1C69FdrJKvPQd9K78YzTlKRNJzUfxZVafVk1YTK8KERGpRvIds6+PuxbU
+	 mHvHYmQnYLQU7juP4XZ7p+4W68tg3G1cSpC0Dyr50TfMAKZo4IOarRT1wY6NJG1Rc0
+	 LJBoXc75+1vtJIq6aLAzSjKybc6xBxDLJh/2yj1oEQav9g003hQjHrd+OCgg4bpmSJ
+	 mDy0ySDl+yndoqVDuctfygFAERhYrbv+qFh/KXpd9EekUVsHlmm9NTMPPlD2TeO7yR
+	 08No/SVeu6Rig==
+Date: Thu, 5 Nov 2026 13:23:27 +0000
+From: Simon Horman <horms@kernel.org>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Wang Zhan <wang.zhan@smartx.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Toshiaki Makita <makita.toshiaki@lab.ntt.co.jp>,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Subject: Re: [PATCH net 1/2] net: pass the XDP action to generic_xdp_tx() for
+ tracing
+Message-ID: <20261105132327.GQ865646@horms.kernel.org>
+References: <20261030114753.185281-1-vladimir.oltean@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,156 +83,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
- ranking
-To: Guo Chen <guo.chen@oss.qualcomm.com>
-Cc: Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
- "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org,
- Viresh Kumar <viresh.kumar@linaro.org>, Matthias Kaehlcke
- <mka@chromium.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
- tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
- "Rafael J . Wysocki" <rafael@kernel.org>
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030114753.185281-1-vladimir.oltean@nxp.com>
 
+On Fri, Oct 30, 2026 at 01:47:52PM +0200, Vladimir Oltean wrote:
+> When generic_xdp_tx() fails to transmit an skb, it reports the drop
+> through trace_xdp_exception() with the action hardcoded to XDP_TX.
+> That was right when generic XDP was added, and XDP_TX was the only
+> caller. Since then, two XDP_REDIRECT paths have started to transmit
+> through generic_xdp_tx() as well:
+> 
+> - xdp_do_generic_redirect(), for a redirect to an ifindex
+> - dev_map_generic_redirect(), for DEVMAP and DEVMAP_HASH redirects,
+>   including broadcast
+> 
+> Drops on those paths are reported as XDP_TX, an action which the
+> program never returned. Tools which count xdp:xdp_exception events per
+> action, such as the samples/bpf programs built on xdp_sample, therefore
+> attribute generic XDP redirect drops to the wrong action. Drivers with
+> native XDP already report XDP_TX and XDP_REDIRECT drops separately.
+> 
+> Add an "act" argument to generic_xdp_tx(), and have each caller pass
+> the action that led to the transmission: XDP_TX from do_xdp_generic(),
+> XDP_REDIRECT from the two redirect paths. generic_xdp_tx() is not
+> exported, so these are all of its users.
+> 
+> Fixes: 6103aa96ec07 ("net: implement XDP_REDIRECT for xdp generic")
+> Fixes: 6d5fc1957989 ("xdp: Fix handling of devmap in generic XDP")
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-
-On 11/3/26 11:21, Guo Chen wrote:
-> em_compute_costs() ranks all the frequencies of the table, boost ones
-> included. A non-boost frequency can be marked inefficient only because
-> a faster boost frequency has a lower or equal cost, e.g.
-> 
->    3.9 GHz  4.0 GHz (cost C)  4.1 GHz (boost, cost C)
-> 
-> With boost disabled 4.1 GHz cannot be selected, but 4.0 GHz is still
-> skipped by governors rounding down to efficient frequencies (e.g.
-> ondemand with CPUFREQ_RELATION_HE), which land on 3.9 GHz instead of
-> the best selectable frequency. Several frequencies can be affected.
-> 
-> Exclude the boost frequencies from the ranking in em_compute_costs() and
-> keep them all efficient, using the highest non-boost frequency of the
-> CPUFreq table, returned by the new helper
-> cpufreq_table_max_nonboost_freq(), as the boundary.
-> 
-> Fixes: c8ed99533dbc ("PM: EM: Mark inefficient states")
-> Signed-off-by: Guo Chen <guo.chen@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Drop prev_boost and keep all boost states efficient by resetting
->    prev_cost for them, as suggested by Lukasz. Boost states are no
->    longer ranked against each other.
-> - Retitle the patch to match the new behaviour (was "Rank boost and
->    non-boost frequencies separately") and reword the commit message.
-> 
-> Link to v1: https://lore.kernel.org/all/20261030-em-rank-boost-separately-v1-1-238a6b2bb888@oss.qualcomm.com/
-> ---
->   include/linux/cpufreq.h     | 24 ++++++++++++++++++++++++
->   kernel/power/energy_model.c | 16 ++++++++++++++++
->   2 files changed, 40 insertions(+)
-> 
-> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> index d3d0d9d02aa4..c93316141a11 100644
-> --- a/include/linux/cpufreq.h
-> +++ b/include/linux/cpufreq.h
-> @@ -1155,6 +1155,24 @@ cpufreq_table_set_inefficient(struct cpufreq_policy *policy,
->   	return -EINVAL;
->   }
->   
-> +static inline unsigned int
-> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
-> +{
-> +	struct cpufreq_frequency_table *pos;
-> +	unsigned int max = 0;
-> +
-> +	if (!policy->freq_table)
-> +		return 0;
-> +
-> +	/* The table may be unsorted, scan all of it for the highest one. */
-> +	cpufreq_for_each_valid_entry(pos, policy->freq_table) {
-> +		if (!(pos->flags & CPUFREQ_BOOST_FREQ) && pos->frequency > max)
-> +			max = pos->frequency;
-> +	}
-> +
-> +	return max;
-> +}
-> +
->   static inline int parse_perf_domain(int cpu, const char *list_name,
->   				    const char *cell_name,
->   				    struct of_phandle_args *args)
-> @@ -1219,6 +1237,12 @@ cpufreq_table_set_inefficient(struct cpufreq_policy *policy,
->   	return -EINVAL;
->   }
->   
-> +static inline unsigned int
-> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
-> +{
-> +	return 0;
-> +}
-> +
->   static inline int of_perf_domain_get_sharing_cpumask(int pcpu, const char *list_name,
->   						     const char *cell_name, struct cpumask *cpumask,
->   						     struct of_phandle_args *pargs)
-> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
-> index d19a65461ae8..5b1d095fd376 100644
-> --- a/kernel/power/energy_model.c
-> +++ b/kernel/power/energy_model.c
-> @@ -255,15 +255,24 @@ static int em_compute_costs(struct device *dev, struct em_perf_state *table,
->   			    unsigned long flags)
->   {
->   	unsigned long prev_cost = ULONG_MAX;
-> +	struct cpufreq_policy *policy;
-> +	unsigned int max_nonboost = 0;
->   	int i, ret;
->   
->   	/* This is needed only for CPUs and EAS skip other devices */
->   	if (!_is_cpu_device(dev))
->   		return 0;
->   
-> +	policy = cpufreq_cpu_get(dev->id);
-> +	if (policy) {
-> +		max_nonboost = cpufreq_table_max_nonboost_freq(policy);
-> +		cpufreq_cpu_put(policy);
-> +	}
-> +
->   	/* Compute the cost of each performance state. */
->   	for (i = nr_states - 1; i >= 0; i--) {
->   		unsigned long power_res, cost;
-> +		bool boost = max_nonboost && table[i].frequency > max_nonboost;
->   
->   		if ((flags & EM_PERF_DOMAIN_ARTIFICIAL) && cb->get_cost) {
->   			ret = cb->get_cost(dev, table[i].frequency, &cost);
-> @@ -284,6 +293,13 @@ static int em_compute_costs(struct device *dev, struct em_perf_state *table,
->   			table[i].flags = EM_PERF_STATE_INEFFICIENT;
->   			dev_dbg(dev, "EM: OPP:%lu is inefficient\n",
->   				table[i].frequency);
-> +		} else if (boost) {
-> +			/*
-> +			 * Keep all boost states efficient. Resetting prev_cost
-> +			 * also keeps the highest non-boost state efficient,
-> +			 * then rank the rest on their own.
-> +			 */
-> +			prev_cost = ULONG_MAX;
->   		} else {
->   			prev_cost = table[i].cost;
->   		}
-> 
-> ---
-> base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
-> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-> change-id: 20261029-em-rank-boost-separately-a7e7c7d78058
-> 
-> Best regards,
-> --
-> Guo Chen <guo.chen@oss.qualcomm.com>
-
-
-LGTM,
-
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
 
