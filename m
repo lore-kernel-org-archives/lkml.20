@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840696;
-	b=kRZOrBMW9JMIAd5IZdjEpQHbEAtCS6EU0Ee84ljwSOeGIA5/ilieJ018NVpb/0ZfUAsT
-	 GUzReFzRoGLAG/IRfcdNo8c796iIya4FxXtq8jFh9WP0pwFT/mOBq2b0GGw9nPyGfLHTv
-	 VKCIE14Qo525+We32A5jib5gpQDFwJl/mSJGk3zPjNnV6jgIP1xwp6YLod77uDTab0IAG
-	 /kckm81mzN7z0WWKf0zQrG5VECM6nsu5otj/NOlKTtTPOPmlDmIjBgkiST8chyQ+kpFPS
-	 vOGbeHMwHlV39aC970acA50g9in6ow72QK4s93v+t0339OeppQwUZl8wfn9Gu8JL2aw==
+	t=1793840778;
+	b=oyJI7/8j6IuTGn0h2wD1AxlHS+xIzikk4L2GCrF/cU9GfuHsCGQirlXsm7WGcqPcdYWc
+	 JLj+PsnDJMhc/ytFOLT+R8TO0cDkTsn+AQ1avwpMjWy/l/zeND8CUOcE14TGQQduPnzzx
+	 CrjthWlci3g3Txn9jwqwvUIUCd4M4S/in5rAk9TQiLka3+ZGw2cCXJCuYWXk/CP+nHet9
+	 5SzMP3GRsotTQaQjFLEQBJsKtmvtOiq+VS42MVPI4a2FgU918DrUuPtV62OkJYbGU3QF4
+	 v2FLvH0vPCLPfgSBuD/VsMiIHtqfuAjsP96EgEjVYYt/pDYgwk0mFWpxGaYk21CEymw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840696;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vbOSiDhOXUNUobJKPavDdEMcKzCZkS+5o8EgPhWPvSM=;
-	b=J6lEkPz2XIaZaMQKpmsLgkaQK8BkUIWoHoXfGt1soINL9st1zxJ2feIXFWzC1yRnzQ6s
-	 b5JjqH7icHXrZ9lMwhLpfS57ofPq2gLG3lABbtjmxbPY4WNPeS2FBlJ8oAIF39RuTbfyR
-	 NWF+DAFW9xSA67Ch00mYpYxmKxRW4BFUgimVpWIvDSBR/qTe+m5opVmUYvq+brK2XMzcl
-	 sr8aXRg45R0wAI/BUYdWDCsWHYXRbdonZGGvYaVJp3ZgJG+yujlCf31Y7sD/tpADdWA03
-	 4AkZAgI9KwVb2q0C1Hc9xJ0u6Vq8yI1g3EYqILPXfBvWQ13JoPlUxWF9Gq6cv6v8LiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840778;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
+	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
+	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
+	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
+	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
+	b=RBJupuCVZfXhRplVETP21pXqj0hnJrn4tYHSowYNSXethinhF4LSEmRTC5mLgbnkNzp9
+	 95RZZIZreBn0Mq4xVVoiaigfyiEvWTyE/ru86gyj0v0TClAaMavW7AUey4XUFrEd38Eru
+	 nN/boxj9SDyQ5/omv63DiaiHgnUC6sR5PJ2sidflZmOBPwfwPpA0VN1Qe0oGj06jutSKU
+	 jem/TCZ0wrf+wdm2GTc/Tq8ZvNNG/cq6SjftvMxjqgkjpNgXX9PNYGDVjL7BfGO4uacKX
+	 bTs3ww93dk/8JLZWuvsgtTGFdUVbdM48YhHEbrKXuEnTuilnZ+3A3zBGjil40uYpXpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0HcvLYM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6;
+	arc=none smtp.remote-ip=203.254.224.24
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A83A2606A333;
-	Thu,  5 Nov 2026 01:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C8B606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:06:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C8B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0HcvLYM
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9CBFF1F0093A;
-	Thu,  5 Nov 2026 01:04:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793840695;
-	bh=vbOSiDhOXUNUobJKPavDdEMcKzCZkS+5o8EgPhWPvSM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m0HcvLYMYkaoJF/gyIeviUk7vKDG8LTeM8GuuNUPrh2+PwPwMJg+KMAmLfie04lgC
-	 uWiY1m196LFoEPr4UN4ILRCQTYO2qpihIQA73wRtKJP8bFtmoCsmNsC1vPneuxMySZ
-	 Ydury5Fz95YrhAwGRTsW9IaxkAyYp0+eCGdLrKyYlb0kLOIfNmyUFV2qUWZ0rhXkPe
-	 0lrkYKGcQE6OgI2K9JypGhcV9aAwBy6qS3gU7t0+e+TarrhTm4FBRyHwvM1/KlS8YK
-	 WqqFgSJMDgdhOLXDZOYkDvGyJFfth79kqcDkB0Cg7V9N3Ac8qewmwBukARuOwjjYyP
-	 a65Ed+F9uQSLg==
-Date: Thu, 5 Nov 2026 03:04:51 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org, linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-security-module@vger.kernel.org,
-	netdev@vger.kernel.org, samba-technical@lists.samba.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Anna Schumaker <anna@kernel.org>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	James Morris <jmorris@namei.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Simon Horman <horms@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-	Sven Schnelle <svens@linux.ibm.com>, Tom Talpey <tom@talpey.com>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Subject: Re: [RFC PATCH v3 00/11] KEYS: Sanitize the garbage collector
-Message-ID: <auvWM6zn1MSP5C5b@kernel.org>
-References: <20261105005311.804098-1-jarkko@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261105010614epoutp0195490238851374d683e5e56840898b41~lAK45PQ5O1785417854epoutp01P
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:06:14 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261105010614epoutp0195490238851374d683e5e56840898b41~lAK45PQ5O1785417854epoutp01P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793840774;
+	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=RA3zsBB6URHMzGwoGYVTZtDnG4Z/RSmoifO152SpBUu+BE87rLi3SQfpeaFgcWXKA
+	 E+4yTCLFFv47LIa+83OerP4m0YunVhraHGUkgn7/KS74QvP4afwSZiLvwjZk0B7/2N
+	 WJFaNH6P/Rtf+gXJ4fF4CmO1KriIpBYMuSjlBT9c=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105010613epcas2p104a21c4f3ac935d60d726cc0c56fbdee~lAK4A-fKR0052700527epcas2p1G;
+	Thu,  5 Nov 2026 01:06:13 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.212]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKkdx2v9gz6B9m7; Thu,  5 Nov
+	2026 01:06:13 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,44 +62,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105005311.804098-1-jarkko@kernel.org>
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH 1/2] mm/huge_memory: set memcg_data before a split
+ page leaves the folio
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>
+CC: Tao Yi <escape@deepseek.com>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett"
+	<liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, Ryan Roberts
+	<ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+	<baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+	<usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka
+	<vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Brendan Jackman
+	<brendan.jackman@linux.dev>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
+	<daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a@epcms2p6>
+Date: Thu, 05 Nov 2026 10:06:12 +0900
+X-CMS-MailID: 20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74
+References: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
+	<20261104-kpagecgroup-split-v1-0-f70e947fec85@samsung.com>
+	<20261104-kpagecgroup-split-v1-1-f70e947fec85@samsung.com>
+	<CGME20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74@epcms2p6>
 
-On Thu, Nov 05, 2026 at 02:52:59AM +0200, Jarkko Sakkinen wrote:
-> 1. Replace key_type_dead retyping with module reference pinning so live
->    keys and restrictions keep their backing key_type module loaded until
->    key_gc_unused_keys() or keyring_destroy() completes.
-> 2. Process serial-tree scans and graveyard destruction in fixed 64-key
->    chunks to a bound workqueue execution latency without hurting overall
->    throughput for a significant amount.
-> 
-> The first part has a user-space visible effect: rmmod returns -EBUSY while
-> keys or keyring restrictions still pin the backing module.
-> 
-> Internal key caches or transport state bottlenecks are addressed by either
-> clearing their private caches on last-client teardown or splitting key
-> types into dedicated provider modules.
+On Wed Nov 4, 2026 at 11:33 AM EST, Zi Yan wrote:
+> Assign memcg data before clear_compound_head(), so lockless,
+> reference-free readers get the right value instead of bogus data from
+> the overlaid ->_nr_pages in the first tail page.
 
-<samba-technical@lists.samba.org>: host
-    lists-mx.samba.org[2a01:4f8:192:486::1:0] said: 550-Please subscribe the
-    address jarkko@kernel.org to the samba-technical 550-mailing list before
-    posting. See <https://lists.samba.org/mailman/listinfo/samba-technical>.
-    550-You can also write a mail to samba-technical-owner@lists.samba.org and
-    ask 550 to get on the list of accepted non-members to be able to send mail
-    here. (in reply to end of DATA command)
+Thanks, agreed. Your wording says why the assignment has to come before
+clear_compound_head(), which my comment left implicit.
 
-This was accidentally pulled by:
-
-	./scripts/get_maintainer.pl \
-		--nogit \
-		--nogit-fallback \
-		--norolestats v3-00?[1-9]-*.patch | \
-		awk '{print "Cc: " $0}' | \
-		sed -i '/^Subject:/r /dev/stdin' v3-0000-cover-letter.patch
-
-I'll address this in the next version but perhaps that email should be
-removed from MAINTAINERS? 
-
-Br, Jarkko
+Thanks,
+Daejun
