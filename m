@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900635;
-	b=Sh4wlEXsxiHYO2Aa8l6a/1Do1IWzxlrIEVQyvDdlYwN6E4yz2eR8017KwA3MSt7gHlqX
-	 FjmoxDPvVziZ0CpBqhsnCuJUu80O8QP5tA4Kc0DqJpCW2CwD0Uo1s8yy+ePAEfHnnIdbb
-	 V7pNWDXJ1Iqf9WuFnUeDPwE6XGenSQfohAiZhR+zcHsCkuC1+EiqLwlE5+qlIvE4VL5f9
-	 sKlBbdp8gUdwSqQDjv8cvVq6NfNkM9yHG9Vu/K7MGhoeLeF1zPRlSLxX+SqmVlUvQ2ATb
-	 Gqv9jNXfUO3r/CZJN90ENToxL9Ytic+v5Xvz6gxlYqFYEXxPuq0N3H7kKjc2r01wzow==
+	t=1793900682;
+	b=dszq2lAVIR+w2wLWA0YR2jYIkOtGg/33zHgRzjgyEPdx490ijWYnq1dTJhK7VkxVZkid
+	 vaCZQnVNPF0XrPKeNCnLvsEQ75Yeju9ip75mhntxSzWoMKLfBl6MvBJye+MxrV0K1m13w
+	 nU06xNDB1wTnp9Sc1FIKwDR3enUCVLQ2ciq7ZZN5r6PyEmcL2t7jL4J1ZDgaHhEQAbd8s
+	 75/w/6bTD1wZKphcyvJlsU0PWCFJXGb/OSx4qb/50GqITYnfIP3igmBx8dUSn7kV1Tlte
+	 OquYWKu9DbbdGPJLjV3FYxraClQ9Zlg6QoyM7PSi6lmUZWZwayc05G5nwZci2uaEUMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900635;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fcKtE5mi/DkT/9oquvk96D/YRPpfegFucC/9AF3cJEs=;
-	b=meCgiuffIWAbMiLD2wW3MXRl8JWO7sawnz5lPE0qlvQYc+uJKjBsCi8ozoSiwDuCIIVk
-	 d22LEPk4qGiT+RngvQ4s+MzTgWZnNXZCDgTUzuk+P2lgc78tuDJaZ4nmASwAyR7NyUnoZ
-	 qMgMmxQyWn1Mm1hHK39F/BjtRVhVToYSB4IdIUSF5e0KbIp0v27taHFMgEI3qK9Gbj2iN
-	 3geAJqVz+ZMRWfi+0uOkAaXc7kjYR4Gz9YrV2D3zlqkZOmDtC8Ya62vix3N2ereh3fQBx
-	 1uX3JXKJdxiDTNPX5cjZjHKbEZQVOBhbmlwr5tZAMdZVppKM7UJuinCLiowPTp8R/cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900682;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=nZAOGAjOf6sEpVtM8pdi7ewS7F4GJROoGs03Q8/6ak4=;
+	b=x35jwn6mTrdLHTZqxMsNBaFrUF6cJNrv6yQdFlTNitEwWdWi2UdnFB7hE3tHg7C9aIwM
+	 vq0K+a9u7FiWGfmuzo2XlW4TIiXjjGLl/pS8y3Nrwb4xByoQR0VtjXN5UrER1Vp2XuTne
+	 0D6lLO2dV+0wCHjJpQDiMuVkf77qIgn/fKQnBhzzWm2/q2KPsSSCgK8ave/e3qHdOyF2j
+	 +3I9cGx3rg5TJ1INs2i5tjK3Ass15VOK89npTVkcQP7JuAAMP/St9y5FJ3hL4pvg/ty9/
+	 cUGm+CBoNkaTytdMsL2eap97jDUD9iJ42/vZV5of4fWXrf6IYeNN24GDrIHh+4r/8UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="PJ44/Zek";
-	arc=none smtp.remote-ip=95.215.58.4
-Received: from mta1.migadu.com (out-4.mta1.migadu.com [95.215.58.4])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nM4HyT51;
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCB9606A33D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:43:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CCB9606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACC8606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:44:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BACC8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PJ44/Zek
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EserxKsK5joxX4GOV87r5mAx7jTanLSX8A4BZQ+O3fg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793900632; v=1; x=1794505432;
- b=PJ44/ZekeoaOlTkJj7uAcqWxM/vK37VNydM225/YUFcTKSkRr609br60rOn/smBTV7zOZfJl
- 8SVH3b/z0rlFCrGN32uF+qdh+RYbphGxA4HjgUov9sn6nvMI3nq+xB+7EITdJH8o/S+GELesW0g
- tiHsQwrlzWpAyN3ceTDPE7Gk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dd7cf416248d2106;
-	Thu, 05 Nov 2026 17:43:52 +0000
-X-Mizu-Trace-ID: dd7cf416248d2106
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4cb71e7d-8cf9-4584-8c97-e30bfaa4211c@linux.dev>
-Date: Thu, 5 Nov 2026 09:43:41 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nM4HyT51
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-945ae2daa66so209557485a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:44:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1793900681; x=1794505481; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nZAOGAjOf6sEpVtM8pdi7ewS7F4GJROoGs03Q8/6ak4=;
+        b=nM4HyT51BzNzQEZm0VzMIBTMyd4jC8paorZJ1Eklr1/wIQSP2AbQWGWTQ3QRqIlvDK
+         MYz9O3rXsd8B96sXmIO0m8PnXeQvMeyzxnyVX4vi3CNVtCU2mXgzQXrf7Wfm11fnmW8s
+         2oIjtAXP4KEPMLzjhgw+bXM7Yy/oZ+tqxpZIlnuryuWD7ZevRwG+JyENVz/2mqmm5uSg
+         ETJQSF9/8ijH+KEzTcenCEpwH4gD2B6Fl+fdv8BKhgnZeCQnK0Z4iM+hZhjg3awhLDB4
+         kEYOGrql67xj2rbYPY7GuL59Fm2N8y7Bj6HfcBUBI5BbospXsv3I8FyH0+iSgBAE2uK2
+         P3lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793900681; x=1794505481;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nZAOGAjOf6sEpVtM8pdi7ewS7F4GJROoGs03Q8/6ak4=;
+        b=bmN5jOY6JAweY7KrIcrWZpltojmpMDgSpaBkVUkbYkELchuF0wTZsk06Gns9I+jrw4
+         cRyh629pVx6foZYIRdNUxKRexlaU3sl8dzqeAmosc6bLopFYLhIsvihCNvV5hmne/xA6
+         OdtEIh7bfqcBD0nvhZF/mOsIf9e9OiqYUxWR439P2WS57ig3baYjM4Z/6oIozti4Etvx
+         dDZRyxVF9EpA9PDFfumPNTA/xmZe+V41kQIAhEq8aDu45mmYj+Bl4UwyxvYHW/qnFMNa
+         sfIbBM1ivZgBss7xeZU9LDKrqhvJjU6qgc7e5OGU6q1yUFe9rBnBVjmZOc7tCoVEBdhZ
+         51Fg==
+X-Forwarded-Encrypted: i=1; AKwUvBzeYXtM3FlMdmE5iLPq1IUVvU55rpncwyXEsMz1qRa7XF8GoPoPQ7TCwvCc5ykyHpfokw9OAvqj3BwwkcQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/LVbWGh+h48WwCJ/TrQt0FcPYRwWcwmLSAqXwH/600WM8w+S0M
+	z6OAE+fZAkS7lnwkIW2eXzDvlZpLhmgIZCGIqzoeVWtjm3Al65fE7ovjTJBxN4aZT8KG6mLVHVW
+	JduIYubm4
+X-Gm-Gg: AYBFou1ltFNyENDfoIAHukJFyqDQ3wuOUj4U6Sy2OkgC3mJYNGgGscW/x/GYPYQ67oG
+	FZMs1rSqfZw7bbjgzVA9F4eODeVhtEVARS/2CPFOAqYM/EL2+kVbN1osiJ1jjAuXry8lkzScYCq
+	lyNdgPn3ce9CpFv3IUXtYSC+oEIwL0oJ9Z8XOMKO6Utt2fGVdV3gqvP1JLYkSXgban3VnqDGCJW
+	/J+YvQFFfCyLVkgOPeprz65J916sQi9Kch6eObiVgicMVDxqVFVigIFpoc1Dk1yTZBNLFyaDOQJ
+	hXgXQrLA4zKZrfyv+RcgBysYJhzP8EMA48nGFYdVwNHacglXOzg5rL2nZ/FKhQd7ec7QJLPyZgr
+	KH/64FFyPsSuqfeeM4Zqq8/Olgkbbqflvq1a/1BECIicvi7PfXZckHdSG9FhXqvxGjMVqbcJMB5
+	Adc3QjfrO/eXJR4N8veuq43sPXde4nuSynaY+59nkjF/OZqgWLGzoOdgqdQbf9V/dvWBXyweCMf
+	2uO6G3GusVZww9mYFjuHeJSEj5Z0Ged0auIsXwy/22HL8E/EcqW+Z3Dijm6bxtT1dTbVUgJHQ6Z
+	kE201oicyDAS9olQOwtNMlIFm8AU5RKv8OfMjzh6TDwH2Q/V4g==
+X-Received: by 2002:a05:620a:4409:b0:93e:f97f:f245 with SMTP id af79cd13be357-9442173e65fmr3211975785a.30.1793900680581;
+        Thu, 05 Nov 2026 09:44:40 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea68fa5e2sm1219756d6.1.2026.11.05.09.44.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:44:40 -0800 (PST)
+Date: Thu, 5 Nov 2026 12:44:37 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] usb: usbfs: Require claiming a hub interface for hub
+ class requests
+Message-ID: <0aa5c25e-465f-4168-8833-387acced222f@rowland.harvard.edu>
+References: <20261105065627.5626-1-25031212351@stu.xidian.edu.cn>
+ <20261105172336.26307-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,75 +101,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] wait: Make ___wait_is_interruptible() return 0 or 1
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
-References: <20261104160722.1637541-1-vineet.gupta@linux.dev>
- <20261104160722.1637541-3-vineet.gupta@linux.dev>
- <20261105090342.GS2668804@noisy.programming.kicks-ass.net>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20261105090342.GS2668804@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105172336.26307-1-25031212351@stu.xidian.edu.cn>
 
-On 11/5/26 1:03 AM, Peter Zijlstra wrote:
-> On Wed, Nov 04, 2026 at 08:07:19AM -0800, Vineet Gupta wrote:
->> GCC 17 adds -Wconstant-logical-operand to -Wall. It warns when an operand
->> of && or || folds to a constant other than 0 or 1. With a constant state
->> such as TASK_KILLABLE, ___wait_is_interruptible() breaks the build with
->> CONFIG_WERROR=y:
->>
->>    include/linux/wait.h:285:39: error: use of logical '||' with constant operand '256' [-Werror=constant-logical-operand]
->>
->> clang has the same warning, but it does not check an operator that comes
->> from a macro expansion.
->>
->> Compare the masked state against 0. All callers test the result as a
->> truth value, so the behaviour does not change.
->>
->> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
->> ---
->>   include/linux/wait.h | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/include/linux/wait.h b/include/linux/wait.h
->> index c2af98b0074d..ebabdfb5b30c 100644
->> --- a/include/linux/wait.h
->> +++ b/include/linux/wait.h
->> @@ -283,7 +283,7 @@ static inline void wake_up_pollfree(struct wait_queue_head *wq_head)
->>   
->>   #define ___wait_is_interruptible(state)						\
->>   	(!__builtin_constant_p(state) ||					\
->> -	 (state & (TASK_INTERRUPTIBLE | TASK_WAKEKILL)))
->> +	 (state & (TASK_INTERRUPTIBLE | TASK_WAKEKILL)) != 0)
->>   
->>   extern void init_wait_entry(struct wait_queue_entry *wq_entry, int flags);
-> What is the actual purpose of this warning? This doesn't seem to serve
-> any value. Any non-zero value is a true, why is this a problem?
+On Fri, Nov 06, 2026 at 01:23:36AM +0800, YuanZhe Liu wrote:
+> Hi Alan,
+> 
+> v4 drops the port owner exception.  You are right that
+> USBDEVFS_CLAIM_PORT hands over the device behind the port, not the port
+> itself: the device is driven and suspended through its own fd, so
+> letting a request poke port state on behalf of a claimed port does not
+> buy anything.  With the exception gone the helper in hub.c and the
+> declaration in usb.h go away too, and this is a single file patch again.
+> 
+> I kept the interface class test.  I agree it should not matter for a
+> device that follows the spec, but it costs nothing and it keeps the
+> check in line with the two entries in hub_id_table.
+> 
+> Then the -EBUSY for tools that switch port power without unbinding the
+> hub driver is intended, as you said.
+> 
+> No Fixes: tag and no Cc: stable, following your recommendation.
+> 
+> You mentioned that usb_hub_release_port() and usb_hub_release_all_ports()
+> should synchronize with outstanding URBs sent to the device on the port:
+> kill the current ones and keep new ones from being submitted.  I would
+> like to write that as a separate patch.  Should I send it now, on top of
+> this one, or wait until this one is settled?
 
-I think the intent of the toggle was to catch && vs. & mixups in source 
-(and it only catches that in 1 direction). Clearly that is not 
-applicable here and it seems it has never caught this in the kernel anyway.
+I'd wait.  Also, don't be so quick to send new versions of patches.  One 
+or two per day is plenty; you want to leave time for non-AI people to go 
+over the current version and comment on it before sending a new one.
 
-> GCC doing this, don't mean we can't turn if off again.
+> YuanZhe
+> 
+>  drivers/usb/core/devio.c | 29 +++++++++++++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+> 
+> diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
+> index 486ced74405e..d39ef9a80ec2 100644
+> --- a/drivers/usb/core/devio.c
+> +++ b/drivers/usb/core/devio.c
+> @@ -878,6 +878,23 @@ static int findintfep(struct usb_device *dev, unsigned int ep)
+>  	return -ENOENT;
+>  }
+>  
+> +/*
+> + * Return true if @dev is a hub.  The hub driver matches devices by device
+> + * class or by interface class, and a hub has a single interface either way.
+> + */
+> +static bool is_hub(struct usb_device *dev)
+> +{
+> +	struct usb_host_config *config = dev->actconfig;
+> +
+> +	if (dev->descriptor.bDeviceClass == USB_CLASS_HUB)
+> +		return true;
+> +	if (!config || config->desc.bNumInterfaces < 1)
+> +		return false;
+> +	return config->interface[0] && config->interface[0]->cur_altsetting &&
+> +	       config->interface[0]->cur_altsetting->desc.bInterfaceClass ==
+> +			USB_CLASS_HUB;
+> +}
 
-I will send a v2 which turns the GCC version off.
+More than is really needed, but okay.
 
-Thx,
--Vineet
+> +
+>  static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
+>  			   unsigned int request, unsigned int index)
+>  {
+> @@ -891,6 +908,18 @@ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
+>  	if (USB_TYPE_VENDOR == (USB_TYPE_MASK & requesttype))
+>  		return 0;
+>  
+> +	/*
+> +	 * A hub driver owns the ports and the devices behind them.  Letting
+> +	 * userspace change hub or port state behind its back, for example
+> +	 * with a SET_FEATURE(PORT_SUSPEND) request while the hub interface is
+> +	 * being released, is not safe: the request is passed down to the HCD,
+> +	 * which may walk per-device state that is being torn down at the same
+> +	 * time.  Port requests use USB_RECIP_OTHER and hub-wide ones use
+> +	 * USB_RECIP_DEVICE; the hub driver owns both.
+
+That last sentence is odd, given that the code you're adding doesn't 
+check the recipient.  It should instead say that IN requests are safe 
+since they don't affect the hub, but OUT requests aren't allowed unless 
+the caller has claimed the hub interface.
+
+> +	 */
+> +	if ((requesttype & USB_DIR_IN) == 0 && is_hub(ps->dev))
+> +		return checkintf(ps, 0);
+
+I'd do the is_hub() test first, since that's what this special case is 
+all about.
+
+Aside from those minor points, this looks good.
+
+Alan Stern
