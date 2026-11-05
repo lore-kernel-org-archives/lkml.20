@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907743;
-	b=xR7AKwUWLucHe+hOFXr3Qz5vslA52ipl58fbiofF+hw30jWSuvxe7beO9H3xZ4iDmFz0
-	 zLLzf7emNryZMPhx95x9hjcQg9ib2excV+mTzF2OOfzSfINghP6yDtJ2D00c10HxNTTdE
-	 AOeNVOMueQ0OpwS1LZKHdGc8pkPa34T7siOMDyjZfRjz/byIBImIjYqw7iCUGU31IRALQ
-	 JU2v7ghq44LPGwvw/2RU/amP4RH11XggFPiv6V4jApe6t+Ep5KamPb5hx9zo/3jyKkRSi
-	 N/S7YYQntQU/rs97PsslBmH44n7hVgJ0twn2qtcOk2xUcz1DvozkNtpMspJY2I6j7Qg==
+	t=1793907746;
+	b=KpoGFEB3cQVVyHOQ5r0s9gS5gEvKLEccsvdXj9/1R2qAUh+QJdbjLDcHBVLkRiO8wJy9
+	 RLD2pKCxiBHK6ccN5My+0gb8axk6mSf+BVzktYC1V8CZkuLlgfUxggLfYDZYA/sgm4tR4
+	 KKtJnRtMT5gRhhQ2y+ct5hRCB3iPip7lTtt62f5B/i6e4On/LsXgSvq6PnWAR4B+/osso
+	 h98POBf0mHCumhKf161Wy96Rc+M14AyDVnkAWa9Efqj9dLJcTJiOO+wRBdcy7rT1K6XZr
+	 ADio/RTBib+yXrLAlKSj4pVHMqvc/s6Vi4428kv+93L8GwLps0l8SI2XSA+uClMusCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907743;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907746;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/ASifYxMvbZYAJqQ9CETs0I1+qbM48qcyKYo9L5msDM=;
-	b=bJo9qXQqERPueGQ16d+TbJ6qhjdcKD3BGS8naxDt2UM9PKeA6963dCsBz7YCY4pclNPA
-	 5vCt8+jqym+ODAImBsKBPnWSD4rdpSlF3s/b+TppQ5x8+DeOFmn2KKsnnRsIpTpfWYxDV
-	 mM3AWXCKa2cgMxR0xytaKr6Fstwq78+080fzzrRdieJNqmdcG1h84sActlbQ5op9cJLqy
-	 3R+iXEj+ufP9TQ40x8FVO/moArEAIKwvrA1R8nlfUXjT/eh21L5lCE1DksNoqWujh9L2F
-	 g7e7Ut0sC+V8QF0If7SyC5nZYybH+FsE9FChNxZhkJYY+16SK1/oO+aQy8iiZiu8csw==
+	bh=tR4ZH+49+GgpNjxJOnPSsYcJ5AarpFhMwtHoXGS1JVw=;
+	b=zk9wzvfi+vaF6yH9pOOXrPgoXrOsF5hRv0RPW8CIWjhgeG5KH9Z8tLSsb9lx/ekGaHNe
+	 9KhOSmS8Bfd8szw7XVcDrSK23RizOH9cQaDDnKDMVSTrMvnNhq/H17LBPOOD1TncmmD4d
+	 Apf7qshlkWSwerZ8SDmk81Rh8lxi1xo6pEE+h7LuwYqBQ9qSLgs2I1uPKXxflkBSN1Rf1
+	 FCG7XltT6oW+QPIzgAKoJOf22F5oeqGBdS5GCpQG2IiVWoPHY+4jnh4rrYUHheQnRbSd9
+	 2x8bLzsDrjunfq6/m7PQE//HZMXAt3X+YJ9yfDj/vNt9kgrQGGrC2LLFWy87m4Mgtkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsLFFzyx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLmDV+27;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31FA606B9D1;
-	Thu,  5 Nov 2026 19:42:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B4B606B9D1;
+	Thu,  5 Nov 2026 19:42:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsLFFzyx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C211F0089F;
-	Thu,  5 Nov 2026 19:42:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLmDV+27
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8901F0089F;
+	Thu,  5 Nov 2026 19:42:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907742;
-	bh=/ASifYxMvbZYAJqQ9CETs0I1+qbM48qcyKYo9L5msDM=;
+	s=k20260515; t=1793907746;
+	bh=tR4ZH+49+GgpNjxJOnPSsYcJ5AarpFhMwtHoXGS1JVw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IsLFFzyxBeJkjVkWlr1ZbIZEua5S3YCf8nC47IraXq2xcyjsSed6uQ82wtVPz/Y3n
-	 BI8b4LWQ3nNynA2WMtO/v/duDzS7s93Xkpmqi9a6KW3rD1mqmWZ8pQOvCuCY/hpJIJ
-	 y5DMQc7rHvL2lYddjbSvUaVOKe+EqHk04kMpmVXhGB0kcqycQG7OslfXeAVbzvOZ/6
-	 8qPwTp9eNLqCmptajkEyFh6CZB4OJCySdK4WUvc+v2W+TXJDsy/ebi6EYh4XQYlB+L
-	 RRgDiBq/nYlfBBuLKaKzrCXz0ejc/AG2y59zLoHX65WW73KEWKdLPV9XlwlqS2gDdB
-	 3psIb17z0Mf7Q==
-Date: Thu, 5 Nov 2026 19:42:20 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Emanuele Rocca <emanuele.rocca@arm.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] lib/crc: arm64: use .arch_extension to enable CRC and
- crypto
-Message-ID: <20261105194220.GC3266627@google.com>
-References: <20261105154145.557042-1-emanuele.rocca@arm.com>
+	b=DLmDV+27heT5E9aA8Frbx9qu+8/0ZB14veFSnjYJJ9fWGgU+NbFv8z8q+RwDpbXjY
+	 BUI/qP5ZhrORLcxxg6FrFRIvIRjYh0Y/lON+FfEzGnLPw0D/bmBHpkTpkHD2J2y//i
+	 0ohVpU5S/p3NLXT0+6BY1g2DLDDeFurdhgUWQ706uO3NEg5YIt8GUQbhXPKv/Dhkl0
+	 Eyszm/mwzSsIozOFC7TDexq27f9Y+Yw/m+NvHiSqqACzhhf3folEbYjty22Dk91kZH
+	 WhE05H4UPJ5IfrZPxoxOJmmO3BMaAtqjBBB9hIbgx+TjSIETe/9B7VV8a5377ZbeBE
+	 /6a9JSp+DTfnQ==
+Date: Thu, 5 Nov 2026 21:42:22 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Edward Srouji <edwards@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
+	Haggai Eran <haggaie@mellanox.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Maher Sanalla <msanalla@nvidia.com>
+Subject: Re: [PATCH rdma-next] RDMA/mlx5: Free software WCs left on wc_list
+ at CQ destroy
+Message-ID: <20261105194222.GK8298@unreal>
+References: <20261103-free-sw-wcs-v1-1-3885ce449012@nvidia.com>
+ <20261104140106.GE478286@unreal>
+ <4b02dc55-7362-438c-9595-19818a60cbf4@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,31 +62,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105154145.557042-1-emanuele.rocca@arm.com>
+In-Reply-To: <4b02dc55-7362-438c-9595-19818a60cbf4@nvidia.com>
 
-On Thu, Nov 05, 2026 at 03:41:45PM +0000, Emanuele Rocca wrote:
-> Instead of using ".cpu generic+crc+crypto", use ".arch_extension crc" and
-> ".arch_extension crypto" to enable the required instructions.
+On Thu, Nov 05, 2026 at 12:05:47PM +0200, Edward Srouji wrote:
 > 
-> The ".cpu generic+crc+crypto" directive replaces the assembler's current
-> feature set with generic+crc+crypto, dropping any other features that were
-> previously enabled, for example by -march or by a toolchain configured with
-> --with-arch=armv9-a. In contrast, ".arch_extension" enables the requested
-> extensions while preserving the current feature set.
 > 
-> This is not a functional change: crc32-core.S only uses base A64
-> instructions plus CRC32 and PMULL, which remain available, and BTI landing
-> pads are emitted as HINT instructions. However, using .arch_extension
-> avoids the pitfall of silently disabling features. See commit 9142c2f8f84b
-> ("octeontx2: use arch_extension to enable LSE").
+> On 11/4/2026 4:01 PM, Leon Romanovsky wrote:
+> > External email: Use caution opening links or attachments
+> > 
+> > 
+> > On Tue, Nov 03, 2026 at 06:55:19PM +0200, Edward Srouji wrote:
+> > > Software WCs generated by mlx5_ib_generate_wc() are allocated one at a
+> > > time and linked onto cq->wc_list. The only thing that ever frees them is
+> > > poll_soft_wc(), i.e. a consumer actually reaping them. If the CQ is
+> > > destroyed while entries are still linked, those allocations are leaked.
+> > 
+> > Is this real issue? Just put WARN_ON(!list_empty(...)) instead.
+> > 
+> > Thanks
 > 
-> Signed-off-by: Emanuele Rocca <emanuele.rocca@arm.com>
+> Yes, it's a real issue reachable on a normal device removal.
+> E.g. ib_mad destroys the GSI QP and frees the CQ without polling it (while
+> it may have unpolled completions).
 
-Thanks.  Just to confirm, all supported versions of binutils and clang
-support this?  (As per Documentation/process/changes.rst, the kernel
-currently supports binutils 2.30 and later, and clang 17.0.1 and later.)
+"may"? Does it have unpolled completions or not?
 
-A lot of the arm64 crypto code uses ".arch armv8-a+crypto".  Should
-those be replaced with ".arch_extension	crypto" for the same reason?
+> I'd say that this is a complementary fix to
+> https://patch.msgid.link/20261008141209.6923-1-prathameshdeshpande7@gmail.com
+> Before it, a pending notify_work still ran and polled from freed memory,
+> which was the UAF it fixed.
 
-- Eric
+Do you have dmesg stack trace?
+
+Thanks
+
+> 
+> > 
+> > > 
+> > > Drain the list in destroy_cq_kernel(). Nothing can be walking wc_list by
+> > > then: the poll context is the only walker, notify_work the only thing
+> > > that can re-arm it, and both are stopped before post_destroy_cq() runs.
+> > > 
+> > > destroy_cq_kernel() is also the error unwind for mlx5_ib_create_cq(), so
+> > > move the INIT_LIST_HEAD() of wc_list up next to the other list
+> > > initialisations, ahead of anything that can jump to err_cqb.  The driver
+> > > object is zero-allocated, and list_for_each_entry_safe() evaluates the
+> > > next linkage before testing the loop condition, so draining a wc_list
+> > > that is still all zeroes would oops.
+> > > 
+> > > Fixes: 25361e02c448 ("IB/mlx5: Generate completions in software")
+> > > Reviewed-by: Maher Sanalla <msanalla@nvidia.com>
+> > > Signed-off-by: Edward Srouji <edwards@nvidia.com>
+> > > ---
+> > >   drivers/infiniband/hw/mlx5/cq.c | 13 ++++++++++++-
+> > >   1 file changed, 12 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/infiniband/hw/mlx5/cq.c b/drivers/infiniband/hw/mlx5/cq.c
+> > > index 55ffd7d4de517e6ce3f04c98b4edcd94b12e43b3..2f7ac350c3d8f179ad1d4d8c1181b93f3151c7ce 100644
+> > > --- a/drivers/infiniband/hw/mlx5/cq.c
+> > > +++ b/drivers/infiniband/hw/mlx5/cq.c
+> > > @@ -933,8 +933,19 @@ static int create_cq_kernel(struct mlx5_ib_dev *dev, struct mlx5_ib_cq *cq,
+> > >        return err;
+> > >   }
+> > > 
+> > > +static void drain_soft_wc(struct mlx5_ib_cq *cq)
+> > > +{
+> > > +     struct mlx5_ib_wc *soft_wc, *next;
+> > > +
+> > > +     list_for_each_entry_safe(soft_wc, next, &cq->wc_list, list) {
+> > > +             list_del(&soft_wc->list);
+> > > +             kfree(soft_wc);
+> > > +     }
+> > > +}
+> > > +
+> > >   static void destroy_cq_kernel(struct mlx5_ib_dev *dev, struct mlx5_ib_cq *cq)
+> > >   {
+> > > +     drain_soft_wc(cq);
+> > >        free_cq_buf(dev, &cq->buf);
+> > >        mlx5_db_free(dev->mdev, &cq->db);
+> > >   }
+> > > @@ -1067,6 +1078,7 @@ int mlx5_ib_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
+> > >        spin_lock_init(&cq->lock);
+> > >        INIT_LIST_HEAD(&cq->list_send_qp);
+> > >        INIT_LIST_HEAD(&cq->list_recv_qp);
+> > > +     INIT_LIST_HEAD(&cq->wc_list);
+> > > 
+> > >        cqe_size = cache_line_size() == 128 ? 128 : 64;
+> > >        err = create_cq_kernel(dev, cq, entries, cqe_size, &cqb, &index,
+> > > @@ -1102,7 +1114,6 @@ int mlx5_ib_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
+> > >        mlx5_ib_dbg(dev, "cqn 0x%x\n", cq->mcq.cqn);
+> > >        cq->mcq.event = mlx5_ib_cq_event;
+> > > 
+> > > -     INIT_LIST_HEAD(&cq->wc_list);
+> > >        kvfree(cqb);
+> > >        return 0;
+> > > 
+> > > 
+> > > ---
+> > > base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> > > change-id: 20261103-free-sw-wcs-8cf40aa66fd8
+> > > 
+> > > Best regards,
+> > > --
+> > > Edward Srouji <edwards@nvidia.com>
+> > > 
+> 
