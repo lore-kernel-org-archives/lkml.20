@@ -1,99 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793886667;
-	b=JCrzCuttdvkjd00cDVUwrEUNZnSg481uRDFsYqUuh6xIynnaYDG+myPOVxWInNkFZ048
-	 2PdOCm9mpDunJ7duluqHksHvehg81pkzbFyEFlvel2LZJ2zJlx3FIBqWdCD+So7d628E1
-	 v6AGc8cTfMrcp5dN64bNmigHIOVgl9+KGP+hJcfSouq+TAihWv9x3ID7B/P3ob7x+6fC8
-	 WclazDBRee6H/k0t12lc5LzWWA5v8gsJ/Ms92n9RtZ6EAyLcK/MbsJ/9B+ZP9IIkePVOa
-	 bvn1iYgPD3raZJpZX3u+TNYxVYQ4BP3SY1Ario5WNUEeqxFWdA8EKB/1VptbxPoUgKQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886667;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cK+pfNJgfzQoHcRNKWj0eQQhYht4DqPPClq7lJ76WvE=;
-	b=1wB6ugVLaRpgySKPr6uVz+JxqUcWpsh5KpoIJ9SuHnXhuvI4PmVL2BiRdoMzbhryrDLf
-	 Bs1eD/UA0S9XAeWC9u0r925pVgoAOeGFONGgNXRPX5grzfeDFbW4b+7De7pTDLnJipr5V
-	 NuMoSKoHhky8Gjfo+Oci5jjZBsOssrYkIledUtdpdO4xktmvDRtV1qrCvgNAWVt4BO/ZG
-	 HGMNVMwHfjBPkvlYy1SogDxhpJyJeo7FWeTpnNmQDLspyw0idZe2CeyXL0+OWu4OX0iwW
-	 gNr3twFDH+KkMzHHD7cN9Z97MO7CA9q9ljzsrkSTnS0xiJo1GLhkORMgPcGAaZNuFbw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UeNS4xcs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.21
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012021.outbound.protection.outlook.com [40.93.195.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965D9606A326;
-	Thu,  5 Nov 2026 13:51:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 965D9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793886713;
+	b=maxHZFrfDhG1MBOOXB148VP2K/7zpxy+zr8L1iyKOo50ln1KDLlSUTnJEDYponpROSIz
+	 GlgYi8JhElCXWLmGTVeYJbM+7Rgw/HEyGppaKpjBOCPlURyLxBcnfMX6VUUTzXwvGoeI2
+	 rAHwKqUcOm7tLA9mYzB09v/xZ/C4k0uW0DuT6kUJoVJxb2d5wgcW2pFlcWnBQwZhqo717
+	 fEtXFpbva7OWQbcAwDx8Sjpt3E4PZ3Seq57CDP6iv+ixO/zpysMXewB/LkpNPLQthDJH5
+	 pJd2ikWT5gsUH2rp3VIvPCopYd8MLgCjAzO11gaPTfvHpqty9YENq3a3+W9NZdPfSAQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886713;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jeG3y12HtFa7m8IvIKhqM9ur3tVT1kjPhMNf8HVLxi8=;
+	b=dgmGv/OATO9RIva/1jEtgpyhR6OkLDbNrV+gnpFWKeXI4vAgT4fzr62Nv7uNli6wjjrc
+	 C3hHFUPEQuLQtTrtnzS8OYmCK1jQtt8MiQlQhhbfdhhFpfzdcgR5qT82kqahHsI3aTES8
+	 DvTVwR2WAnXJpfel2b4K6Klhc21d3qNp3WFtAVQIW8s0eKxPvo34Y5CAfAmKOCBt8D3GQ
+	 0FmIqr0ryvlzNncRjmH1ZqA/4NyBloaeR5DKQUjlb/gwncEXKa3/p3PrS1J5G5B35ItnP
+	 UMEYHDe1ULQozX2Ouy3vZUOcdPMt15BXx2okzxV0O27hG+xctRPcOQ50PfKbnXOcM7w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m+09lacs;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7C0E6606A328;
+	Thu,  5 Nov 2026 13:51:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C0E6606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UeNS4xcs
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b14nOBdhUb7OaAirOfIhQkqM7yPh1a0PAitnd48GingvEWvjGMVtcLi9VIMszbwd2fkYQTm+C5LuWBZZn21KpE5yu34qOuF0vIuISZgvXlW6m/AAUriEmUwG02155aydx6TaZw40uWUUrS8jBTBSxgB9EcdU7XoyzTi60Z0GBp1OE7qgUIhFZ4g3ColBqgL7uUAAu3lu6PNWMwufIEvDybbqqO60AUPSfXmoRVRu76TlRI+TiCuQmnUNq+96gY4FLsESYiuAVtrcI4or27VFwj9udkwjS0zNcU39L5e1XuE7LS3BQvh3K1j5l4kBipVWlMUM+2K74FglQpbaTlfCXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cK+pfNJgfzQoHcRNKWj0eQQhYht4DqPPClq7lJ76WvE=;
- b=xF+fLGx11MVBLUGV0s9nk2QH3evMKGHzq07CjCreQxkpCKvd3gex/MuSxjuEsnchlzfD3viqmU8RXoXZRb5+ZuNer+dJDC6Wyq3oL8XhtaP8QmxaNAvzNdL2PMfPwtiUnPT96o8qB5AW8oeCoJSswN1rzon6ASXEmawrAR189k10kCZVOcrm6YPYshORc/moaLzyvjYoiT2/4QoFNgxcDHQY5kE7rJ3OkWBNbBTV/qExIINwezPw3/6PdvWfdjUHekN8qKSyC0vSXEoaLSySitlEJCRVlA450K75RsR8B3SoWcBXR7s5BIehGoIaYBW+Edh9UVkR30F/uTGk7ETmcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cK+pfNJgfzQoHcRNKWj0eQQhYht4DqPPClq7lJ76WvE=;
- b=UeNS4xcsAz4dwpCLZTElMZpLKLZx+EyMbRuzRYSduXesN1JOUbNdQec/AhG0WIZi1vw+wdzqgCfl1DMfcB+cW96AtT4ufOT3gUj7XrS6NtsVjAtqzXAa61iJMoQiw6tFEOGgyJoci45sJoWByHIiOvP/6I+ahvbSBSLfjGskdtwSWnnaeGUiq2GiksFeUij9XO8dnxa4neFOH0+mYkNRMDt+ooT9yA99qw2gN+fJAGhOXj8YkC9DFdRyyn1qX7K9K6bxW/ao4R1dA4WrnJsWpNhYP3/Tj7TRHC/20QSQsRLZ/v25GfD1V+A19Bky3gjQIQbacvngO4Jvam31goMPug==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MW3PR12MB4346.namprd12.prod.outlook.com (2603:10b6:303:58::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.8; Thu, 5 Nov 2026 13:51:03 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 13:51:02 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 22:50:59 +0900
-Message-Id: <DMNBQYC8KTD1.31I6CHXMYL2NS@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 5/7] gpu: nova-core: falcon: allow DMEM DMA transfers to
- request tagging
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261103-r000-fw-v1-0-e3d38fc130e3@nvidia.com>
- <20261103-r000-fw-v1-5-e3d38fc130e3@nvidia.com>
-In-Reply-To: <20261103-r000-fw-v1-5-e3d38fc130e3@nvidia.com>
-X-ClientProxiedBy: TYCPR01CA0133.jpnprd01.prod.outlook.com
- (2603:1096:400:26d::14) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=m+09lacs
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 975371650;
+	Thu,  5 Nov 2026 05:51:48 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 532CF3F628;
+	Thu,  5 Nov 2026 05:51:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793886711; bh=h84UlwUJYAiqDq33RX39Hh2D1oEYdS7iW7dNb129dXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=m+09lacsvQH6RHUHtbjlvSu27zPjooCxuMs6qDiflGnjn4Td/TYYUafIL8k4EYAXF
+	 6ediJxrSXelxhGk1YIPGggBvbGC0ixvbbQaewIy+pOtbmJ19guvhIRcQFuracVXXk/
+	 OZeo6y15VTgJCsrdOWjJ0R7OhFPrIqPJRjYl1Eq8=
+Date: Thu, 5 Nov 2026 13:51:44 +0000
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Yeoreum Yun <yeoreum.yun@arm.com>,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+	sameo@meta.com, drdeeglaze@gmail.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
+Message-ID: <auyJ8Nuvn0t2qj5w@e129823.arm.com>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-3-jiri@resnulli.us>
+ <at-iEMxN98nie1Qr@e129823.arm.com>
+ <auBaROC0XdWpILEI@FV6GYCPJ69>
+ <20261027141524.GF1685504@ziepe.ca>
+ <auC5sw9YMC9NO4wl@e129823.arm.com>
+ <20261027151729.GG1685504@ziepe.ca>
+ <auyAJ8OMWHUTCFKs@FV6GYCPJ69>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,139 +76,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MW3PR12MB4346:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bf980ab-8a48-4b79-630f-08df3b43d48f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|366016|23010399003|376014|18002099003|22082099003|6133799003|10067099003|3023799007|4143699003|11063799006|261026140227099003|261102123227099003|261028144727099003|261022105027099003|261022075727099003|261021135927099003|261022115727099003|56012099006|261009223027099003|261021123027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	YK3/Ko77JABonty+vAP4LmChc2vmyNwn6yec6TmMjHTQ6zWPUgr1k1KTBdfPH6oEG9Qulc/oXxj+ocQt2H88L92AMH+SMzUHCoMbWouTx0GOnAgBrgb7EI/kFca0oglLcdhBGCzTcAe/IaLdhE5lhhP33IO7SDHK7XQ60n2mFXkCujrwnnld5DoBfkWY1nJn/MAxkF3ijz+eOPp0nIy1M6sGVnS8lhoDV7R7R7C6Pcrb1CFx7puC6ANT0R0fCsM565IV8xcbfuB6yA4yTLsLTveLEF4Y8vttMMmhQDfWtkd8h51V0YjtbVbrLkhkMiakX1K/Xp17bkOePnKqOPMuKu3kMMVK05R0z6Kcc4jd8zc1larChaKYP8ZlDRaF3Xmhs7dHGqf2qhSQSgQTA8XaLvABNV+5BMFv5B3LGmBHTJMxWKPvLW4NBEx2rSIMWv4IC1KjAWYIQo7hbXN3QsuLmDsD9j5KS8k6kcvuQk94nEVvU+K5d1WT6z8byL8JrB08sq+DSoPSoW1/17QnPUq0y2qmkLw6VXEjTkP8R7hJPZgncmRg0secda6sb0KgXbrlnpMd1t84bASWzYNCZkSbyL9+cdpKJHueCcOCHZN7gX3PIrjg6DlixCnYdkGtY//qFe1JJHCvDqGFEKm3YiMg3ZejJgoIHgxt5AqVT8e8zH0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(6133799003)(10067099003)(3023799007)(4143699003)(11063799006)(261026140227099003)(261102123227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021135927099003)(261022115727099003)(56012099006)(261009223027099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cTRwYWxnUW9DT3hURlR1Sk41MitudWg2OEptVDJmYlRNTktyZ3JOUER6M2Rx?=
- =?utf-8?B?UFJ5cVNXU3MxOWlkcnhoVU5pbGxqTGlKTlVrYmM1OFBwZllmQXlPUTU0Q1VY?=
- =?utf-8?B?RnRWNUFud1gwcFNQYm52Nmt6Z215OWRUdytRZW9RbU5ScWRTNGI4b1ZSU3JL?=
- =?utf-8?B?dmxBejhQOUg0Z0llWmJpVStIT2g2S0RGQ1lmbGpTNjgyRWJqcmZHbllDYkt0?=
- =?utf-8?B?cHNZMXM3dUdzQmdnU3p0MTZ6UCszK1lYTUlRN3J2VnphUmFSQ1htaTFjTEkr?=
- =?utf-8?B?NkJySkVVRUVYc2E0WWx3UDlLNTRYU3p1VHhyY3VnYkVGUHNOQ2E4d2FJblpx?=
- =?utf-8?B?QXZmdUFIQVNEZUlxSFQzR1V6Q2lrbURPQllTMGF3Rjh6aVFxMGM0MWxqczBx?=
- =?utf-8?B?RC93UG91a21FQU1KTlBZdytsa1dMN1VXa1FaazRjeW8xQUVSaEZKOWZ5RDlk?=
- =?utf-8?B?Vlhnb0FHVTJOYit1ZXB0dzJrbHpUQXlLbnpjcEV4RkNpdmoyQ2pLVThnT1VO?=
- =?utf-8?B?SnhhQlZpL2FoVSt1OHNzY1lhZjRzU2FqQjErSUhXM0pubnY2TzNUT2dNQzMx?=
- =?utf-8?B?S2l6QzUrOVBrenNRQWJLOWZwVUwzUEdPbSs0Qldqc0xReFNsb1IvODBnNFVS?=
- =?utf-8?B?cVRKcE45c3A2SXhZQzNmM0ZROHFUMzFWb1FVdms1Nkk3K0NVNitZcHM4cCtu?=
- =?utf-8?B?Y1dXRlhTc0JPRWY4eGtIaHlwVG9lKzczSm5neHJIaE92U0Fsa2pjNVNocG52?=
- =?utf-8?B?VDBhd1NScEFDN0x0RE1IWTJXQnRzY3QyaGhQcldQVVFsdnNxRTZ3dVRqbEhK?=
- =?utf-8?B?UVdKREtIVHk2ckxZZ0FkTG95M2swdTFEQUNtWC9UOFNjR1ZEZHozWWpyVFJy?=
- =?utf-8?B?UEl3bjVUaHBaT2xuelhRNWdIR2x0Qmw1dlhOdEFpTkRKaFpmK2lRVmRDNXhv?=
- =?utf-8?B?bEcwV0pkSFUrV3FWUHAzWklWUEtCVzQ1ZDB2OXBab0hKNitmN3grN1hROCsv?=
- =?utf-8?B?YXRES2NkVHBvRzlTU2ZrN3lNY1FUcHU2R2FSbGJzejNwZDRLYTNyUVpWOFFQ?=
- =?utf-8?B?MzFjSW8xbHAwWDd5dHE2U1Fwem1nOWpOSDhnWEhOMzZscnNSUVdld04rZXV5?=
- =?utf-8?B?Y1hRaFZodUJSTVQ5S2xWdlh5ZFFqbzZwb3JEQ2hPb0RMWDREdzdIM3grNmZO?=
- =?utf-8?B?aEZHNnhSQ01rNlZGREhncXlST0pkT0ZFZTk0R0lrV3hJcGVyY0dvbzJMVW1I?=
- =?utf-8?B?T1d4elN4dzR3aWxPa054UnRGYkNUUHhXbFRXdmMva2RQMkJ5QVV6dTY0QTdp?=
- =?utf-8?B?bWFlQzN0THN2ZlRxTTVCUnFsSFJ3ZHdXV2dwU256RG5kZlRwdUQrcC91ODNF?=
- =?utf-8?B?U0p5Z1lvMWtHYis2aUdON0JOYWdwenhDU1o5TTB2dGRKeDNqWXlwRHhjc2dK?=
- =?utf-8?B?Wkp2QVVDaHJaNWFVcHJrNXRiTzlZdjFLbDFBMFFJN0xlMGdCd21KMUpST2tJ?=
- =?utf-8?B?ZFV2ejZzSGtvNmxqdE1aaElORytWZHduQitiY2puYmE3bGRURzBtb3VyUVRo?=
- =?utf-8?B?MVdBNkxFUFZxYTNWeW55ZHh6b3FURGVlQVNWZEl6NjY0TVVSaWNUVmJCeWFL?=
- =?utf-8?B?UGhEVlkreStaUThyTWZXSFoydzB6UHFvTjJlMmdTTk1lcitjODVwdWFvamRC?=
- =?utf-8?B?NnV5VE5GaEpVQ21XYWZwUG1yY1Y1c0p6RmZmaVpWREpweVZ5eDF6TEViUGoz?=
- =?utf-8?B?cHN3S01kZDNIaDd1NnVVaDlDUGxKUkN0L3NNNzFqUDBOQmtsd0kvUkhFYS9u?=
- =?utf-8?B?MkxjdWxaZlpzWUYyQU1HdWhnU1B5WnZ2dEVPOGljMUZnaDQwdDhTUkM2Um1Q?=
- =?utf-8?B?UE0xVXNkMGpKaGdmSzNvMkZteVYzZEJKNTJUa2xxSEtxSHJVY2pud0hYclB6?=
- =?utf-8?B?cTVsT2VWbUo1T0ZTWjNMNXByT2xuVUJVQ0pPNTM3dlVNUTBoam1WWjBqR1ow?=
- =?utf-8?B?SjNOWUdKaDlBcjRCWXhWUGtOcHArMHZabWp4VUlXK2pXa3lJa2cwb3ZZbm9T?=
- =?utf-8?B?TGtLTDdLakptT20wR0l6TDdCSkV6L0twL3diVDZKZjNxZWJkajM4cWt3OUtM?=
- =?utf-8?B?b0JmbWcyVk0vYko4NWJHdG8xdW9uL1lHY0FGWjE4RU5oTGJMaVREWGg3N2lm?=
- =?utf-8?B?MWM1RE9kd2p1ZWIzbXBxTmczREovN21hTzhtOU9SdGYybVR0dGpiYzgrWkVV?=
- =?utf-8?B?M0RvS0tOWm1iMExlbFJMT0FwQ1BYVGhwcEVnQ1h5RWxOQzZXRytnNkhnMUR1?=
- =?utf-8?B?ajU2QmZuTUxkeGc2REVrQTVMVmZQeHZlbmNSckFEalF2aEJDYmRwOEE0Q1RM?=
- =?utf-8?Q?n076WOjnH7BjBcrIBFYBfwp6CYh5WzFjooY9w7DUeKXtt?=
-X-MS-Exchange-AntiSpam-MessageData-1: n5PSMEVIch9Avg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bf980ab-8a48-4b79-630f-08df3b43d48f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 13:51:02.6481
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oMzr/IUP0I2I34Ruh7hAfuKxx6pJYx/nwR2d1bwjQGCke0GnGqE/9KLvG5jhtkCGa1bu9n4JIAnt95GopYGoow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4346
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auyAJ8OMWHUTCFKs@FV6GYCPJ69>
 
-On Tue Nov 3, 2026 at 7:22 PM JST, Alexandre Courbot wrote:
-> Add a tag flag to FalconMem::Dmem and set DMATRFCMD's DMTAG bit from it.
->
-> This is needed for the r000 load-and-execute event which specifies
-> whether DMEM should be tagged or not.
->
-> No functional change intended.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> Tue, Oct 27, 2026 at 04:17:29PM +0100, jgg@ziepe.ca wrote:
+> >On Tue, Oct 27, 2026 at 02:48:19PM +0000, Yeoreum Yun wrote:
+> >> > On Tue, Oct 27, 2026 at 09:02:14AM +0100, Jiri Pirko wrote:
+> >> > > Mon, Oct 26, 2026 at 07:55:12PM +0100, yeoreum.yun@arm.com wrote:
+> >> > > >[    3.856919]  ctlv_schema_check_attr+0x3dc/0x538
+> >> > > >[    3.857105]  ctlv_schema_check_indexed_nest+0x788/0x958
+> >> > > >[    3.857301]  ctlv_schema_validate+0x88/0x180
+> >> > > >[    3.857482]  ctlv_msg_test_as_deep_as_the_core_allows+0x11c/0x1e8
+> >> > > >[    3.857698]  kunit_try_run_case+0x64/0x188
+> >> > > >[    3.857878]  kunit_generic_run_threadfn_adapter+0x30/0x68
+> >> > > >[    3.858086]  kthread+0x10c/0x140
+> >> > > >[    3.858245]  ret_from_fork+0x10/0x20
+> >> > > >[    3.858398] SMP: stopping secondary CPUs
+> >> > > >[    3.858630] Kernel Offset: disabled
+> >> > > >[    3.858720] CPU features: 0x0,00000000,00b0802e,9f190bc3,2affe72f
+> >> > > >[    3.858872] Memory Limit: none
+> >> > > >[    3.858976] ---[ end Kernel panic - not syncing: kernel stack overflow ]---
+> >> > > >
+> >> > > >[...]
+> >> > > >
+> >> > > >I think it might be good to configurable according to architecture
+> >> > > >unless it's not good to reduce the CTLV_MAX_NEST_DEPTH number
+> >> > > >otherwise, increasing stack size when CTLV is enabled seems unresonable...
+> >> > > 
+> >> > > Agreed, will lower it down. I think we should be okay with 8 for start.
+> >> > 
+> >> > I'm surprised this ran out of stack though with even as few as
+> >> > 32 levels.. Is there accidently something large on the stack?
+> >> >
+> >> 
+> >> Nope.
+> >> 
+> >> When I see the each functions stack allocation:
+> >> - ctlv_schema_check_indexed_nest():
+> >> 	sub	sp, sp, #0xf0 // 240 bytes
+> >> 
+> >> - ctlv_schema_check_attr():
+> >> 	sub	sp, sp, #0xb0 // 176 bytes
+> >> 
+> >> Roughly (240 + 176) * CTLV_MAX_NEST_DEPTH = 13,952 (around 14KB)
+> >> consumed.
+> >
+> >400 bytes per nest seems pretty big to me...
+> >
+> >Do you have debug options enabled or something that increases stack usage?
+> 
+> KASAN is such an option. On arm64 with GCC 15, the stack protector and
+> zero-initialized stack variables, ctlv_schema_check_indexed_nest() takes
+> 208 bytes and ctlv_schema_check_attr() 144 without KASAN. With generic
+> KASAN, which instruments the stack with GCC, they take 432 and 304: the
+> redzones around every local whose address is taken more than double both
+> frames. Your numbers are in between, I guess a different compiler or
+> KASAN mode.
+> 
+> Otherwise there is nothing large on the stack. 96 of the 208 bytes hold
+> the callee-saved registers, the rest are small locals and spills. It is
+> just two frames per nesting level.
+> With the limit lowered to 8, validation at the maximum depth takes about
+> 3KB, about 6KB with generic KASAN.
 
-It would be nice if this explained what the tagging was.
+TBH, I'm bit of surprised since I'm not using GENERIC option but with HW
+(MTE). Do you mean this with KASAN HW_TAG?
+might the GENERIC and SW_TAG would be, but I don't expected with HW_TAG.
 
-> ---
->  drivers/gpu/nova-core/falcon.rs | 20 +++++++++++++-------
->  drivers/gpu/nova-core/regs.rs   |  2 +-
->  2 files changed, 14 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falc=
-on.rs
-> index 1bceb38c33c6..f48f2eabab0f 100644
-> --- a/drivers/gpu/nova-core/falcon.rs
-> +++ b/drivers/gpu/nova-core/falcon.rs
-> @@ -131,8 +131,9 @@ pub(crate) enum FalconMem {
->      /// Non-Secure Instruction Memory.
->      #[expect(unused)]
->      ImemNonSecure,
-> -    /// Data Memory.
-> -    Dmem,
-> +    /// Data Memory. If `tag` is set, a transfer into DMEM also tags eac=
-h block with its source
-> +    /// offset, which is then the DMEM virtual address of the image.
-> +    Dmem { tag: bool },
->  }
-> =20
->  bounded_enum! {
-> @@ -529,9 +530,9 @@ fn dma_wr(
->          // code addresses in the firmware (and the boot vector) are virt=
-ual.
->          //
->          // For DMEM, the start offset is folded into the DMA address.
-> -        let (src_start, dma_start) =3D match target_mem {
-> -            FalconMem::ImemSecure | FalconMem::ImemNonSecure =3D> (load_=
-offsets.src_start, 0),
-> -            FalconMem::Dmem =3D> (0, usize::from_safe_cast(load_offsets.=
-src_start)),
-> +        let (src_start, dma_start, tag_dmem) =3D match target_mem {
-> +            FalconMem::ImemSecure | FalconMem::ImemNonSecure =3D> (load_=
-offsets.src_start, 0, false),
-> +            FalconMem::Dmem { tag } =3D> (0, usize::from_safe_cast(load_=
-offsets.src_start), tag),
 
-I am not sure, but is it correct to have `src_start` as zero for
-tag=3D=3Dtrue here? Surely something should change based on the value of ta=
-g
-w.r.t. the addressing.
-
->          };
-> =20
->          let dma_address =3D {
-> @@ -568,7 +569,8 @@ fn dma_wr(
-> =20
->          let cmd =3D regs::NV_PFALCON_FALCON_DMATRFCMD::zeroed()
->              .with_size(DmaTrfCmdSize::Size256B)
-> -            .with_falcon_mem(target_mem);
-> +            .with_falcon_mem(target_mem)
-> +            .with_set_dmtag(tag_dmem);
-
-Instead of taking tag_dmem out of FalconMem and using
-.with_set_dmtag(tag_dmem), let `with_falcon_mem` set it? It looks like
-it's always just passed through.
+-- 
+Sincerely,
+Yeoreum Yun
