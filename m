@@ -1,16 +1,16 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.118
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793873486;
-	b=dKV8L/dP+b8TdJYjL9OGx8+8CPhwhd/r0BWJ3uxY4kdSfwOluWUdvC87JzhD+OC/V5kU
-	 f2ex9Um0MpMjbEpSUnZOJjO3hK6lpTkbMxjEkRN8ToV2eONRfeFyE9rvQsA0W4pFJTLfh
-	 6wGUSJ55AE+/8uDk4384HoV9hRHmv0H66+EdH3EUDXc0/1N08Qh/QiIXPVq/UcY9/m0B/
-	 vudS0kUo0RWRr8tdpaogdq7Jvhu9p5zdgpokTWILsM1g84RKdGNrS0PiXYep1tkjI6gku
-	 6avaaM4bUZ3k2CoC9xEjOfc12K3R9aY27em0y4K9vNFU7j8xI/dNCW4qcWAaNOwKDTw==
+	t=1793873483;
+	b=zmGxTuyO+30qXHhVvrG+usgBlPx5bP6JH2AGF/lGqSS/StyBem41AgPMWuz121MOhjrG
+	 +Jih7Wqs9KJAYYI5J+3uzW+OwNNsKMuwqYItVu1uTzUkKH//7WGIOTZoBUwcMyGdZwqt0
+	 1qhMF31MRlPXgUfCHX+jH8ucIMZWBXXkzuJp0mzJ8a0sUHmr1saVZxA9eHAMFG3hGv/Vq
+	 QpDGijIhrs6RkMiSMrFrskp1nS9IZFRuw0f2x/kqwj0WvW/7VBxMJyXCahkGhav1efks0
+	 OjPw7Fpqxw4oBzaRr5dN6TL9SxptAsKvoPnz5AmmFAEhdh8D/dovAPrLlS0IhLNpYZA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873486;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873483;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -25,62 +25,66 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
-	b=KwbYxM+28VnpoVAHgW0l+I+zQNvVkvOBII6IXaMXlWIhwl9E+Vv3F1Erea6J+jY128PP
-	 U1jPMoacNnvfDDAy97bVutDUHJxt1o+pLHQ/wesPZ28Tfdy9S8cHfL8XCkBLIRaM9cPGL
-	 uARgmTleh9tfdeTD4THfNr7f/MbZCD8h+oO5j8PHcVNpRg3qb0BnWEhaVMchzj9i+bcyo
-	 1bbG9Tqarz5/G7C8N+h7gwnYcUgCwsrjrlYqRQuJSCvEO/F/KL5jFwyPK3T1BgQl/xaVh
-	 hbdeqb2JbVCtZxkQbB0eUEZUF5ga1u+skD/rcwVLsmcXtdCHr1IkJU2nUDEQda+y38w==
+	bh=Rjiz+yqAFToCoUkmNBmOXK8VHeL9iEJEOqGs+BcxrIY=;
+	b=QXmvjMv9rUrGkp2CT1KvUhhqUZKDFEGI/MGG8cYaEeDaOG7svF7KcDIDJhZ217vGPOoP
+	 XreYGddFVw0BQAKqu8lGcvNi0nGV5vJ6PNhAQwiKkzRbhKC8Df3xJxxHNzFfypDkAAnyb
+	 RNO4njSima4LImt23bzr527rA/upTcTE5nl+EzBzP3B0uAZ+A+P49Z4OEGTYsMt1LDN8N
+	 vYXuNWn03Wrrg8E0vDhL1rcwRU5rZ4vFVra1JhJJYfSo7grnbLUi3Sr7/GnbE8sYlrKBn
+	 Ugo3FdmktS4kIGECAIBzrYRnZHT9QdJyWwDZ86z2GxEgoTg8y9TyyzVZcDTNF3Rb1LQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=vaisala.com;
 	spf=pass smtp.mailfrom=vaisala.com;
-	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b="iKyS//Ik";
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=L88io99F;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.118
 Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023118.outbound.protection.outlook.com [40.107.162.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E49B606A329;
-	Thu,  5 Nov 2026 10:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E49B606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AA2606AA44;
+	Thu,  5 Nov 2026 10:11:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1AA2606AA44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=iKyS//Ik
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=L88io99F
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fdZPyxt+hhKXZ1V5iOFpEwhb7P3l/OVuU7dRGKa9GHxXA8TfNucQmFSPkL8Rm/dq2domEGk4veOjS3S2ErI5kVIXx9M0LoFMB32EjqXiH1OSzrOHW8xmCnvOR0Pe65r/tqsaB/NJXvo3HFgnrSb7ySXKpfstketSJoX8CcbTmdBQ2ck8Sts2lcgn5YIdZiGjqkOyGKYVcnqrP49mCArp9pf86fI3yrSWCu4Vi139vYVW0uPnvGwQaQDHCtkrUI6TvDUw6U1VvdAh/aJyCtBAcO6n1FFklsVrDqwE94aHHIYpXtBJcYhZOoMa7KKuBGrTVCtnc1H19YPCT/k0fcTioA==
+ b=iPBEoBnc/yIS0SitL18DgqUyr/xklRhnMTcpVuzSiGvYHyznbtz/DvVS3AGht+qoWKUTqkJjWb0egLt8wZotxq5qLoqbJEkwrEB+lyXba6uX74MaJCGF4IBb0bUvJmdS9BRPZW2N8A1s7XFJQyr4/7Ri7SKyAHPZgo+u4fmFgjtosrBn89qwDEmXY54j2wrjRtH5uClhzh4YMqKfWlgrPtiLHVscy/Oi0qJ4/DtON1mMQNueXCn6k7+SRtXxThIANaWLr+yA8kwfNwQmm23YBducGNFNxVS/UruFcWXqbB4FLtEZm3N3ei5IL05t/oV3NuGfApfezEmyuNO0bllFkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
- b=JXV/MTaxWo32ZPjURbTv0D5LPjocNn/nQSbplT57Qu9CPBO47WajwwuzWcI/DzAWDcMNJlOvkc9BNQVFezMj/rn6FGdpvazP1Z3aYMu99WlpC4GHr94ZralClkh/X06c6TFPBbcBLSzHuQjZm+7eI9Ylyo5IoX6XO7HQtiTBaQdDYfcUUT4LHAp40CT0oCd63LSDuoKg28Kw/jFJlVX+wFYVaWxnEHgui8cyzDGBIImukSJI9Jk3JQboiB/YagfdLFjqfcBRgJRNNRdT69vqYIua4IzQoy01Ul6rcWkPe4vRIFB+DLb613FUTlNkumBWOWEfarC2CUh9FPdUbmvHQw==
+ bh=Rjiz+yqAFToCoUkmNBmOXK8VHeL9iEJEOqGs+BcxrIY=;
+ b=NXDkFgdGDLM1HKAtATKAsPEYMRwXQPYDwaw3YEcFnmxOwX5G89P1ze90byLw+U8k9dU+jtLuDFXfrJNN802F8Q/GGlRIhQU7LJ2tVti2iIMmPTNdKDycB+276aDDQQ90ALWxi2XS3z5Aj7DJUOeZ1/nCvmZCvaJRT5Iir5eiiCkfew/IsJclML0MUq0XsdFGxFUXO3hCzYFc65D5o2/OV7tiYWp02y9cIlcY30aRbVb5blU4pvsS3VUr7P0Q7u/zLcpCx4xCspsFysaOit40AgJnsqxp4YsLqN+OktHYE9owNOWFDYes4IxtKMIYxtE/iB/ezAx2ESfPDRSpbMvPow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
  dkim=pass header.d=vaisala.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
- b=iKyS//Ikhek1HHejc6JESh3FvNvshNXw3nJHRG2I0wQek40pyabWkW/svSxX/1Ul3+WFwgQIX5TUAuaLdb45S1OHFGvLF2prZVZoZ8G9Acg+yZ+Ee0ekdCgOrLR+vCCxfvW1IR1UW9umZ/pMEe7JWfJX8VUfp3bb0K8or0pKp/90G48jbkWg4h+qCh38Ldvsv3lOtCfHvvbARXoU5iYjM4120Oe6h3HqhwsZmUMeCMPXsb51DcvDhGzr8U50GM/uNoxodVz5VAPbyZAqz7CnL/B8ucWTeIWKGax2JlV6AJUqeIRIDFbt0UlrsKCHAiF9JbaygKhna9FdYV9a/Q6dWQ==
+ bh=Rjiz+yqAFToCoUkmNBmOXK8VHeL9iEJEOqGs+BcxrIY=;
+ b=L88io99F8L5FKppwPm39briwJFiLottRxUdAh7B6pnHn991scadrcX+t6B8EotJ49j326MsoXpHT2WLEB2tReiRjCMTHLUdaVx58pDe0ExR49gPMIe5OaafLgTYPBP2XnYxJfBItZ59YZ/QJepz98FCKM3SMZTe5jgqCtOpMfhoMCEfTGKamzzplmOgCqf4f/4oe1W/3a5VE6zgTFyN13R1EXAmpNEevyxl/0aJeLZ67VXQmttkRznQzZivX+YUWu9TsdU09VXS/h544DwL9YDYc2S64R0CRErbShUMyNg52f2q7YRfVi5/ra26fXFDA0v47f8Z5BJ52WTyOA9HrfA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vaisala.com;
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
  by PA4PR06MB7197.eurprd06.prod.outlook.com (2603:10a6:102:f8::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 10:11:12 +0000
+ 2026 10:11:11 +0000
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 10:11:12 +0000
+ 10:11:11 +0000
 From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Date: Thu, 05 Nov 2026 10:11:04 +0000
-Subject: [PATCH v5 1/2] dt-bindings: mux: gpio-mux: Add enable-gpios
+Subject: [PATCH v5 0/2] mux: gpio: Add optional enable gpio
+Date: Thu, 05 Nov 2026 10:11:03 +0000
+Message-Id: <20261105-add-external-mux-enable-gpio-v5-0-96c5b62c86ea@vaisala.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-add-external-mux-enable-gpio-v5-1-96c5b62c86ea@vaisala.com>
-References: <20261105-add-external-mux-enable-gpio-v5-0-96c5b62c86ea@vaisala.com>
-In-Reply-To: <20261105-add-external-mux-enable-gpio-v5-0-96c5b62c86ea@vaisala.com>
+X-B4-Tracking: v=1; b=H4sIADdW7GoC/4XOTW7CMBCG4asgrzuV/xOz4h5VF+N4ApZCgmywU
+ qHcvSZSBRWLLN9ZPN/cWaYUKbP97s4SlZjjNNYwHzvWnXA8EsRQm0kuDXfSAIYANF8pjTjA+TY
+ DjegHguMlTtA5j8ZTCEE7VolLoj7OK//1XfsU83VKP+taEY/rCgvBN+AigAMZ13m0vSPdHArGj
+ AN+dtOZPegi/zjLWyU2OFm53nLZoMaerHjn1JNzXG9wqnLCt7Yla+t36p3Tr5zb4HTllBcSG9t
+ 47/R/blmWX567E2K3AQAA
+X-Change-ID: 20250925-add-external-mux-enable-gpio-c9ba5beddd49
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Peter Rosin <peda@lysator.liu.se>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -89,11 +93,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Tapio Reijonen <tapio.reijonen@vaisala.com>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793873471; l=2577;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793873471; l=5559;
  i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
- bh=Gr1YAJALi3AouD4e5XuzJ0v8KAWvpwPWlcL6zTI5+54=;
- b=aFMROVSEXhKjOL04VZLkeCFAqeqVgU6o264o+KYgkOxzPfSz1Wisu+MeINRhPw8XaIO7VHjK1
- C4Y2HuFz/L3CdTnF9iRk8b/1ipdCnj1XhEgf9JyFYWAUt7exKk2OGFD
+ bh=GYRCojSTRSVdg9ksx1hVQarDXZUfB5ySlk5gXnTAUUY=;
+ b=61iTNsJGq/U6aCO04bh5AoBU4vwZZ4qb7Xvp9wsxZ82aHfZT0Yw+roRMiOmDGvuBcTKR+MTLu
+ T/s3CUdo+aJAK6yB6ariYV3TF6Cd1cwI7pFpYgQWOyMMIyEFuVxqnsk
 X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
  pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
 X-ClientProxiedBy: GV2PEPF00046794.SWEP280.PROD.OUTLOOK.COM
@@ -110,143 +114,174 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|PA4PR06MB7197:EE_
-X-MS-Office365-Filtering-Correlation-Id: e230fb35-97eb-4f68-3a0e-08df3b251ec1
+X-MS-Office365-Filtering-Correlation-Id: e22b5734-ac20-4dfc-e608-08df3b251e4e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|23010399003|10067099003|18002099003|22082099003|56012099006|11063799006|261026140227099003|261102123227099003|261028144727099003|261021121427099003|38350700014|261009223027099003|261022105027099003|261026121527099003;
+	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|23010399003|3023799007|10067099003|18002099003|56012099006|11063799006|261026140227099003|261102123227099003|261028144727099003|261021121427099003|38350700014|261009223027099003|261022105027099003|260925021311599003|260925021911599003|261026121527099003|260925022911599003|261021123027099003;
 X-Microsoft-Antispam-Message-Info:
-	Jf80YcPGLlqVoMlUpMq+AIRIcS315Ubz+zxOaYgC0sKndm+YCZ5oTWcck/52D28vt+j0zf8AP6C266DuVwY1eF/E1Hhvxv5K3ioTkFcHcD4+f6X50okrKRKFtwQD+Gskl/Co6EuZEbYj+dY7Cr/kx7dQiYcOrElvZdlUatQ3SRTqsbWqZqCsnH5e+LkGE1Xz0rovt3nTCn5tkIQ0uTHgiSQ45ifNAtPTvFvkIqfts9JwgG8wEs2j2jj96SK0jsrhj4UbcdEnK+TnBx/DuatiJXJuZRT+EvAEuwl+FmgYHykxshyDyMbaLGPRuiFmhZnScmF0SOWlMQKc0fMXkfNPswuLb6YcRP4hNZ7kVTMygCNPARmVeNBA9GlyrwJPpP5JrMMTZb/sUO7FMTyaY6wZU4kjor9RvxBHFAYn6Nwh3vRi4vmN+lPGvL0YvsZDG09opz/JHMXlRq/rce0eLHqlz12gdne7JfaRmkODOGT+S5ymC0UFNOnDEMP0UVSmvKGK7JrTpDTZEXfTjwBq5ukWwos07J5nAk1ojAlKr2knCO+w2CSYr/n80JQ8TgLG6ZOR8VRZDI5fhe/5HODLiYy20PSunAdRI3TpRa9kfKPZ/FnPGJZg1WlCqFQEulfqbwbWmdrb7E6mSb38gLjjhLsQgNHOUvBpX6sE9wq2PahiuUq3VEbIpu5bC6VT2mQZlo6hJRXx/clGUYdU/Te1AMr1eA==
+	bwyLHHHGCCvkw2plTgF9B9gWIY7B8IUqGT+wvmk318wVqOce4ninMJfhFdC3jg/w3CBx7a9+wP3sWCxYiEo/ChnI84Z2zKyq6dCDnvUEAHdHjeN+9OMsp60gAQMAQRDFETjSEv6GRCl0J1vABNCR6hyqrIBlXm+UDtBQfxw8b3JnOjz0wRCsaNOWsOWFZsNJjXBRVdLHm/ALtTho/VKIak7MwcUrUTxkNAk1Ryl3SYJto5TZcqDiWwNjVM1J/jywjDjeV677UMLMH+aL7jHIoJqrXzUvblnbCeVLN0WKNu9QBSqX+A6A4SEjhekVr/yMfaPRe/duZj0xDNBh9FgbmlSH0KAzq5eiFK5HqFLpdNLPzSDzLl0q5Au/fKM5nWRzPZnBFtx+nX1gsJUEhsz/I3D1JGqOKnoBevF5qQgk72O8+IJjuMYsyWEoCKYhpKrHRYTf3E8vMjvHxPm+tG9dPapbh6XMJXhhuKP7O5fzWUrZd7cSz802LHYsjl27gGqE6vnQ6NUAnkidwplTBl2pbDKuvXR0wItoGN2miEeiv32EPin+9DlWjORY+2chwRhWsTjtpH/Ehnny5w8vpei+PivUZo1JWFeg5p9Xk+E79OSMnH7HKzS8mveBBT/kzm70EVQNdych01UzKigwf7HwNBDNb1TLJVROwA49Cf5zo40=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(38350700014)(261009223027099003)(261022105027099003)(261026121527099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(23010399003)(3023799007)(10067099003)(18002099003)(56012099006)(11063799006)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(38350700014)(261009223027099003)(261022105027099003)(260925021311599003)(260925021911599003)(261026121527099003)(260925022911599003)(261021123027099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?djJBamgzY2M0NVp6VkhLWG9IRjRHdm1IaWdJYlVjUmo1TXpJQXVRRG9BM0Vs?=
- =?utf-8?B?RkZJblE2dHVhUVh5TERtcTBDY3RkZ2duVEllS093Z3JTMUJyWkhocFdQa3JN?=
- =?utf-8?B?Qis4eHc3ajEvcFlhZDEydERqYVhBQ3pPWUdWdHNzdm5lbW8zY3hNUlI5YmR6?=
- =?utf-8?B?TWwrR1ovS2c2OHNxVmRIRDFmU2UwbGFwNHpSMnEzbEh5OE9NbWFoZzdndEtk?=
- =?utf-8?B?RTdRRlhsY2pOMXRCRFFWSGhOYm1UQU1hSm8yd3c2ODJBK2dSR2Y3MHVYNjVV?=
- =?utf-8?B?Sk96Yi9iRkxMVzhHbXlidjJrd3pzS2xxSGV4M09UQXZaVjhkbUpKQUxjdDl1?=
- =?utf-8?B?S0FuQzNPUzVISFBJRGprd3gzT0pzS0J2cGRsNmN3WVowR3AzR1pLVkdmQmY0?=
- =?utf-8?B?NDZkUklUYmNYSllRZU0vWWY1OWw0V0RnckFSbThsQzRjTnMxRzAvb3RCdHpY?=
- =?utf-8?B?ckVBYVBLMmIrbmwyS2NTVTdIZ2RXVVBub3kxWWdPWHd2Y2VhR0wyOEl0aU14?=
- =?utf-8?B?Q3NkZ3dIbEdNemo4alBQdnBYNDhNb1pWdFF2MzJvazF4ZGhzS3hqUWV1VHZV?=
- =?utf-8?B?Q2M0NThyTllaR1dKRHErYndNN2xIby8vT3NFZWhiTnBoay9KOWpCd2RiZEda?=
- =?utf-8?B?YlZpUXNrRzZ1TWVqaFB3c0RWUi9MSmNpd0dVN3h3bTZHbTU4T1ozZFVOOWFH?=
- =?utf-8?B?cDAvSlZZbjZKaXZha1QzdFNDSjdhRWNWTU80MHlDYXljY2JwMDRZODhTUHBI?=
- =?utf-8?B?UER6VlNEcnZLZE5QNmZ1UW5xK08wMkN3MHIvL3p1Q2xpWllVc2k4cm42c241?=
- =?utf-8?B?R1pDblMzZ2Z0OUJzOG55VGlzQWtFQkJ0Qk5sMDgwaGxiMWRLOStpYUlad2ZT?=
- =?utf-8?B?dTNZTG9iV0NNbTlIRFA1V0VZMDZtS3dyckJZZkcwSmxyZzVKTjBmMmdmVzFv?=
- =?utf-8?B?bUM4NW5PU1ZHQ0ZKWE9zcTBOZ3IvVjB0SWxzemo3dGluQVlpNzg3cG1ZeEJl?=
- =?utf-8?B?T2hicHJ1VytvOXQwNE1nc2c4dFQzem40WTBkVGhUeGEzQ05iWTVYQW5XbVRj?=
- =?utf-8?B?OWloWTNNNGI2RTF4THhtWHM1NHdhTUlmV0xYTHoydkpzdlVUWUpTbVF5alRo?=
- =?utf-8?B?ZFpkcUNBN3BQbDdMRldYYzFDYkZ1b01TWkFyanZCUFNYUFlhbkEzNHdPRjJR?=
- =?utf-8?B?UHovUnhvdlJuZ3BYbXJDcHRESzdtbG01V0VWMWxqZWJtR0dqamlvcUM4QkEr?=
- =?utf-8?B?SGYwYXBlSXI1bnFHQTR4aGNNaHZpUDIrdDliYmdZWFBxTllrYUsvRFFTYVBz?=
- =?utf-8?B?aC9uKzc2RnFkZFUvMHkzbDVFWUFXTnBhdk0zVnErSjNnUjNtcXluOEpFWEVO?=
- =?utf-8?B?WjhteFoxVHNiakZxUXFwYzVqbFdwNi9na3lEb1hCeDdpbFd6NXYwK2hvNVVL?=
- =?utf-8?B?UVlrYXBWWlJxb0liS3dPQnprZ0xYak1Kd2VYMEJEZmUzTDFvdko0eE1mSEJy?=
- =?utf-8?B?cWR3NnBRMDE2RUMvQWFITFo0ZkIrVmtlWHlaRjFwZ1ZGWUIyR0J4VG1Nd21z?=
- =?utf-8?B?VkJjbmU3NzlJRjZ0ZHNyWjJTUTVkd0hmdTFGVVp4R3NGWGIzOW8xQy9ob01a?=
- =?utf-8?B?aU5ZNjJTNnoyZGNCbUlQSTcvUWt3T3djQ21rSUxwZTFpZlZTOWRHOVpnVDBi?=
- =?utf-8?B?cHNaRVpzcEdWZERiK1U4Y3UzYnh5WTZRelVzZllabFVTNEVBVmltUFlKenMx?=
- =?utf-8?B?VUtoMlBYUDR5YTNIMlJqbE5TQmFoWGlaekV3TGxEQlFqRVVUNE9DWWVLcEgz?=
- =?utf-8?B?M2ZsZWphYks0TzhTTlYrSGVnWG9KalRtenFXNTlOME9IR1JIUytjbW9ZSXZm?=
- =?utf-8?B?Q2hKcVdMcVlRK1B6bEowNXNzSnhjcVJRYytERXI3bGI5RFQySkpjSytVeDE0?=
- =?utf-8?B?NlZZbEJkOGdYUWt5ZGovUjF0T0xMVHNTbFdzOStOVFNUVDhsTVo4cGhaOXhr?=
- =?utf-8?B?am8xT1BRZ052eTUxR3dXeEU3MUppZVFWK2JvUmQzMHltTHVRRUJsZC9CMXJa?=
- =?utf-8?B?dDAwNnJrdGtuRkwrLzNpT0dDdVB4Z2pCV2lPQUNjaklpWHVmbEs3VkEvOEJG?=
- =?utf-8?B?a1QvaVJNZWhKbk1JNXdBYnRuR3I5OUNILzZTa2RuSmFTMlUydUJ1ZVhIMlhY?=
- =?utf-8?B?ZFd2a3hJbi9JSUdDRnlPNVdPcTZnZnc4NFNzODZvNkU5Z05JVG1LZzRPYjJo?=
- =?utf-8?B?aWNmVjVtRFE1a2ZVbXQ0bVF0Ui9YblhpM2VHWkxVTUVsaVdRWE5BOXhyeC9y?=
- =?utf-8?B?eXJzamZDRHh5MmcvSU9kM1lVNDMvMWxuVzNSZGpMQXJtVHUxWWIzRzZ4Ynl2?=
- =?utf-8?Q?yhysX4kW/qHwR9dw=3D?=
+	=?utf-8?B?NG04ZE9yc2xzY0lyalNEUHRxdit2MUt2dEZtdmhpRzRPY3piTlFleG5ZVUxu?=
+ =?utf-8?B?bTZYRnljNWsvTEl6TVZoQnJjNmtwS1BBR0tyU0FjTXFBSG0zWkpLUXVOOFR2?=
+ =?utf-8?B?RHJ2TTlROExuaDhLdFliSTdyemlaZWJNWWQweXJscktOM1V3RllERHVIYzhl?=
+ =?utf-8?B?YXppZ010bFB3N2dWQ3g4Nnl1eGEvVEFUU2tVRHovYURDZmkxaXJQcHd3NCtq?=
+ =?utf-8?B?aUhVK3RiQmpEdmlFS2ZOUCtVZW92d2pSaEdHcjlKUUhSKzdlNWJ1QjVtaHhK?=
+ =?utf-8?B?SGtDMHlVbGx1UnBIa2d4OS9FRnhaS0tKbDNLNjIvaHg4RHFIUW5ucjY5TEht?=
+ =?utf-8?B?Z1ZtbWhnY1lSK29JV284dk95SGh1djMwNnBONSt0bTZFUTllQkJEMU1SdGE1?=
+ =?utf-8?B?WmloTmswRkNReE9Qdlp6ME9QdWFNV3dkUG1udk9mdGVkaFNTNGFRYys2eDJ5?=
+ =?utf-8?B?NXEybkU5V3VOZktYSmtQbk1GeFZpcFpiZlNJK28xcElBQks3RHZJZEJpMjRh?=
+ =?utf-8?B?R0hzTXN3Rm0zbWZCL0sxQVA5MUZKcnZuTUg3TUl0NVFwaVRzWDNwK04zeGpk?=
+ =?utf-8?B?YXlhejF4cEh3ZXZjc1lpNEMwYWsxQlB1MDV3aUdFL3BkWmt0M3dGazJyaTZM?=
+ =?utf-8?B?MkRHeXUyck9NS0YzN2taalRPTkpwN0ZLbUJnZFovSUk1YXBqSDU1TFhVNGVC?=
+ =?utf-8?B?ZVp3aXk1ZlhFdjkxdTRNQUp3djdCSXRpNkNoMVEyV3puQWhOaktIM0NwR05P?=
+ =?utf-8?B?U3RWeUI1NmNqc1F2UHFlMDZyTWxnekNkOTk2K2NWYTFGQnN1cGx4VXIveEsy?=
+ =?utf-8?B?NTUrR00vR3A3d01BVkVEaktCSWxvSk91V3pmZHBvaE9UbE9pbERBVkx4SzFz?=
+ =?utf-8?B?TGVjUTIrVlNDbTdTWk5oV3RTNXJaUUcxQ0dqUHNGdUFYYkZ3RHFJWmsxS0Jx?=
+ =?utf-8?B?QVVZUE53L2JJcm5HenlOS1JPQmNnM1VHYS9XZFZyUExuT3lPR2s4U0o0dHln?=
+ =?utf-8?B?R0lWZERXenVLc1RpeFdLL3h3cjc2RjZkSkxzalZzblcwVDNQRG9ha1k0Qm5r?=
+ =?utf-8?B?UmFxbjU5ampZWHNGT0xiYjNRdGJjUExCeWVsbEowZ085ZjdLQlNKd0swMFJP?=
+ =?utf-8?B?MXZaUjJhZmxJZ3JlU1FWdnl2bTlXU1hPeHNRMzU4eUJ3cXhqRmRYN3JqaUFN?=
+ =?utf-8?B?L1MzWlljeE1OZEtIdXNOT2tuZGh0TnlJWWxVOEVjUlkweEExRHNISnYyL25l?=
+ =?utf-8?B?Ykt2K3hyUHVCVGlxNUp1TSt6RmFZbHpQcUxaZU12eDc4VEQrNVE1bm5tVkky?=
+ =?utf-8?B?T25SZnJQWk45aGNBUXU0NktoOWlxQ3I1ajdib2hEVDJyb09QT3NSRWczK2hw?=
+ =?utf-8?B?NVZtaHU5QkU5MVEwSThrZVM2VWo2ZkJ0TWdPa25LOUJpaVk4NGdyRGptKzQ2?=
+ =?utf-8?B?REtiZHlOalVpKzhjLzN1dVdrcHJXK3NZeHJhamRWWkx4SE90eGN0N1N2aXNZ?=
+ =?utf-8?B?SXJyRzQzT3lSQWpKSi9HeWZOVDRHa0l4QU9mMDU3RHJUbjhtaENoU2M0WnNU?=
+ =?utf-8?B?R0VYcXl1N1RwdkJhVjErMERlR0tLaVFGeXBhMGNRQmhxRHFhYzVVYktHNG56?=
+ =?utf-8?B?Slk2Q1JjM2pPRENkWlhYTVN6cy9teUQ0cDNGZWw2dEd0ZFY5OG9nS0c4Y3Zx?=
+ =?utf-8?B?eTFKcTBvb1k5ZXBTUEluRDZYR1JxemdsdGRtUUF2MTRueVR6a1lwVkpoclRy?=
+ =?utf-8?B?QjRCUkZ5QVpKR3NhSTlpWjU0bkRLcmRWWlJoRGlrbmhGVEs5Vm5MUHM0MWlM?=
+ =?utf-8?B?NnY2U3RNeTZxRmZBNFZYb1hNaTUxNW94QkZWem9KTVNLUzBOWmhEeTdCakky?=
+ =?utf-8?B?ZTQydzE3U0FhbzFIb1IvWHdhUmRkSExLeW1pd2wyM0ZyaGdrR0VaSDVtZEJl?=
+ =?utf-8?B?ZjVMaFhNWTg3ZCswUitJa1c5WEp5OFZNUXIya3Nkd2tFdWxRNVkvNWd3bzRz?=
+ =?utf-8?B?VGJYbnoydXFRUkJmSDJJOG5MNEVPK0Z1bUtlVmg4Tis2ZzQyV0ZXYnUwS3JD?=
+ =?utf-8?B?VmtDUWMveE5ScnZhY2wwajNadjZ3MEFGRTV2YmdUTS9BR2dLblZLalJkWU1m?=
+ =?utf-8?B?MzhLOWNOVDZKQWYwSlYvNkRwVUVveDB1dTl1cEdFcHZhdkJwNmRKU2FJZkFH?=
+ =?utf-8?B?WEQwQWJoc2FjeHpiUVhtMzBwcmxGeWtXYTdqdFQ3TFBhSEN6WFJLMzVJQmlK?=
+ =?utf-8?B?NGVPcjNJV0VLUkpuWWtneVZSeHV4eVdQT1g1aVdkRWEvWWp1bEVJVDlXYjJl?=
+ =?utf-8?B?Zjd5bFBQNnZPdlBrY2FqMU9NYlFVZXVTcU9MV05tQ2JEd0V5cFplTFFXYXlG?=
+ =?utf-8?Q?qIsyCDfo44tn36mQ=3D?=
 X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e230fb35-97eb-4f68-3a0e-08df3b251ec1
+X-MS-Exchange-CrossTenant-Network-Message-Id: e22b5734-ac20-4dfc-e608-08df3b251e4e
 X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:11:12.6980
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:11:11.9283
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G+qLq430s8onIcXpP+EN4YqyRCVYygIcov1mEL0kCxAlAxS3y2Ubhbvif2bmhWmf3MP+g2+5Ohw5V7Am60aePz9a0x1spw5RpdSwyOdjjT8=
+X-MS-Exchange-CrossTenant-UserPrincipalName: pjLE2EM9RI6+3DwTfseOWY6jzs6d9LIKPsMAuGnUYEiUzgl44Se0J3RgZumGmKj/EbMn5H/eYbUR/yzxF1bPgc/Gc7hjv4f4AwnDjBh4QFk=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR06MB7197
 
-Analog multiplexers have an enable input besides the address inputs. On a
-74HC4051 it is the E input: with E high, all eight switches are in the
-high-impedance off state, independent of S0 to S2. A 74HC4067 works the
-same way with four address inputs.
+Analog multiplexers have an enable input that puts all channels in the
+high-impedance off state independent of the address inputs - the E input
+of a 74HC4051, for example. gpio-mux has no way to describe it, so it can
+neither reach the idle state of disconnect that the mux-controller
+binding defines, nor keep the mux disabled while the address gpios are
+updated one gpio controller at a time.
 
-Two things need that input. The mux-controller binding describes an idle
-state of disconnect, which a gpio-mux cannot reach today because the
-address inputs always select a channel. And the address inputs are plain
-gpios that may live on different gpio controllers, so they are not
-updated in one go and the mux passes through the intermediate addresses
-on every channel change unless it is disabled meanwhile.
+Add enable-gpios for that input, and use it in the driver.
 
-Add enable-gpios to describe the enable input, and require it for an idle
-state of disconnect.
+Without it the driver rejects MUX_IDLE_DISCONNECT outright.
+mux-controller.yaml allows it - idle-state is an int32 with a minimum of
+-2 - but mux_gpio_probe() treats every negative value other than
+MUX_IDLE_AS_IS as invalid, so a device tree asking for the disconnect
+idle state does not probe at all. On the board below that takes out the
+i2c-mux behind the mux controller, both SFP i2c buses and both sfp
+devices with it:
+
+  gpio-mux muxes:mux-controller-slot@0: invalid idle-state 4294967294
+  gpio-mux muxes:mux-controller-slot@0: probe with driver gpio-mux failed with error -22
+
+4294967294 is MUX_IDLE_DISCONNECT, -2, printed through %u.
+
+Tested on an i.MX6SX board where two SFP cages share one SMBus behind
+DG9411 analog switches: the address input selects the cage and the
+enable input gates the bus, both driven by a PCA9501 I2C gpio expander.
+With enable-gpios and an idle state of disconnect, the parent bus scans
+empty between transfers while each cage stays reachable through its own
+child bus. A logic analyser on the enable, address and bus lines over a
+full boot shows 97 enable windows and 82 address changes, with no bus
+activity outside a window and no address change inside one. Dropping
+enable-gpios while keeping the disconnect idle state makes the driver
+refuse to probe, as intended.
+
+Greg, there has been no reply from the mux maintainer since the v2
+review in September, and v4 and its resend went unanswered. The binding
+carries Conor's Acked-by. Could you take this through char-misc?
+
+Tool use: Claude Code (Anthropic) helped draft the patches and messages
+and reviewed the series; I made the design decisions, reviewed every
+change and ran the hardware tests.
 
 Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../devicetree/bindings/mux/gpio-mux.yaml          | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+Changes in v5:
+- Request the enable gpio before the mux gpios, so that probe does not
+  pass through intermediate addresses while the mux is enabled.
+- Rebased onto v7.4-rc1.
+- RESEND of v4: https://lore.kernel.org/r/20261004-add-external-mux-enable-gpio-v4-0-e9393660feed@vaisala.com
+- Link to v4: https://lore.kernel.org/r/20260909-add-external-mux-enable-gpio-v4-0-3b12a767bb94@vaisala.com
 
-diff --git a/Documentation/devicetree/bindings/mux/gpio-mux.yaml b/Documentation/devicetree/bindings/mux/gpio-mux.yaml
-index ef7e33ec85d479ce57c5fe4a780f81a08a6ab6ba..2dd94704fd7bde238af4e84af87c2ad8e955eb14 100644
---- a/Documentation/devicetree/bindings/mux/gpio-mux.yaml
-+++ b/Documentation/devicetree/bindings/mux/gpio-mux.yaml
-@@ -29,6 +29,14 @@ properties:
-     description:
-       Regulator to power on the multiplexer.
- 
-+  enable-gpios:
-+    maxItems: 1
-+    description:
-+      Enable input of the multiplexer, which disconnects all channels when
-+      deasserted, independent of mux-gpios. Deasserted while the mux-gpios
-+      are updated and for an idle state of disconnect, which cannot be
-+      reached with the mux-gpios alone and thus requires this gpio.
-+
-   '#mux-control-cells':
-     enum: [ 0, 1 ]
- 
-@@ -47,11 +55,23 @@ anyOf:
-   - required:
-       - "#mux-state-cells"
- 
-+allOf:
-+  - if:
-+      properties:
-+        idle-state:
-+          const: -2
-+      required:
-+        - idle-state
-+    then:
-+      required:
-+        - enable-gpios
-+
- additionalProperties: false
- 
- examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/mux/mux.h>
- 
-     mux: mux-controller {
-         compatible = "gpio-mux";
-@@ -59,6 +79,8 @@ examples:
- 
-         mux-gpios = <&pioA 0 GPIO_ACTIVE_HIGH>,
-               <&pioA 1 GPIO_ACTIVE_HIGH>;
-+        enable-gpios = <&pioA 2 GPIO_ACTIVE_LOW>;
-+        idle-state = <MUX_IDLE_DISCONNECT>;
-     };
- 
-     adc-mux {
+Changes in v4:
+- Pick up Conor Dooley's Acked-by on 1/2. It arrived on the v2 thread
+  after v3 had been sent, as Rob Herring noted.
+- No other changes.
+- Link to v3: https://lore.kernel.org/r/20260904-add-external-mux-enable-gpio-v3-0-1b868e669e43@vaisala.com
 
+Changes in v3:
+- Address Peter Rosin's review of 2/2. Cosmetic, except for the last
+  item below.
+- Say "Some analog multiplexers", not all of them, and note that the mux
+  gpios are not guaranteed to be updated atomically and that only
+  controllers implementing set_multiple() can possibly update theirs in
+  a single write.
+- Drop the _gpio suffix from the struct member: enable_gpio -> enable.
+- Reflow the comment in mux_gpio_set() and soften it to "might not be
+  updated atomically".
+- Flatten the idle-state handling in probe, read the property into the
+  existing default when it is absent, and assign mux->idle_state once at
+  the end. Use dev_err() and return -EINVAL rather than dev_err_probe(),
+  as suggested. Written without the empty if branches of the suggested
+  snippet, but with the same behaviour.
+- Beyond the review: return the status of the gpio writes from
+  mux_gpio_set() instead of zero. The other mux drivers pass the write
+  status back, and mux_control_set() only invalidates the cached state
+  when set() reports an error, so a failed write reported as success is
+  not retried. Happy to drop this hunk if it should be a separate patch.
+- Link to v2: https://lore.kernel.org/r/20260831-add-external-mux-enable-gpio-v2-0-f6027a4afe61@vaisala.com
+
+Changes in v2:
+- Describe the enable input in terms of real multiplexers (the E input of
+  a 74HC4051) instead of repeating the binding text, and say what needs
+  it, as requested by Krzysztof.
+- Add the missing gpio-mux: prefix to the binding patch subject.
+- Limit enable-gpios to one entry, and require it for an idle state of
+  disconnect in both the schema and the driver: without an enable gpio
+  mux_gpio_set() drove the address gpios to the bit pattern of
+  MUX_IDLE_DISCONNECT instead of disconnecting.
+- Deassert the enable gpio while the mux gpios are updated, not only for
+  the disconnect idle state, since they are not updated atomically.
+- Show enable-gpios in the binding example.
+- Link to v1: https://lore.kernel.org/r/20251105-add-external-mux-enable-gpio-v1-0-e59cba6f9e47@vaisala.com
+
+---
+Tapio Reijonen (2):
+      dt-bindings: mux: gpio-mux: Add enable-gpios
+      mux: gpio: Add optional enable gpio
+
+ .../devicetree/bindings/mux/gpio-mux.yaml          | 22 +++++++++++
+ drivers/mux/gpio.c                                 | 43 ++++++++++++++++++----
+ 2 files changed, 57 insertions(+), 8 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20250925-add-external-mux-enable-gpio-c9ba5beddd49
+
+Best regards,
 -- 
-2.47.3
+Tapio Reijonen <tapio.reijonen@vaisala.com>
 
