@@ -1,121 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874040;
-	b=4D5YDGSXiXRS5i3A6vJjjFPmHxd3zO43a62WpaEIKlLmqvPgKcLOIjGWP12gAvCsHPf7
-	 YVoD+SaMp5LYRwoDkly1OIF8kZ0sEc4AxhFimn04eCbHOiagv6Z38Ypd/9gJAvTfwPXCT
-	 cHpGyHDrm/EA89G9NkB6rYUrDuR9gVw8vQChdw0FLvJD8+R765DE5Zun19CcSU762oAT9
-	 Eqh1igwJP1jIDuEe3MsBQmnlhwGFbPAiP0VCA/3k2JlvJxQyMnnx2BC+wG1MxvfmmuesT
-	 x3nfFInNwHGGqg6wpEjRNPAmCPjSKyxisbSJ0hEJLzcfnTk7NNBFzk7hi+p3PlxGJBw==
+	t=1793874037;
+	b=D1SwuobvV6h3yJeci31zGD6mKK5kkA8OfZ9c03c7nHGGpOdbJOn5c9uSBZ87I7nxeadn
+	 vyBm195d4Pk4akoFFKh1Bpto0KzXZ9Wr7hzE4soykp1B1aRKuBv2d2frlKEorPFVWQDrc
+	 UKvuY6v0GJpBCkhq1HR/P5nUHB/uteOrFWGJ+FoLjSM4VmF6jEDpL5+hmYT1xFYNQqQmb
+	 H0Aygm0Q7Uxn/lAZLc95pfL/hCZ61Yan4FEisVPEwUE+Kn3i3M4YPM2NjFD7xu5ycyR3V
+	 QjWzNTefK6BBhjddyCbXLPxb7JutE/7VPQyLXt2DyBIFYBpuqziMjFmnpAff8orUzIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874040;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=j3MiXUY5DliQEu2W104SSlUFqiy4PGY7JahO+C2gJ4E=;
-	b=b/6hmXRh43OoqsRUQbw4fbhzmm5O6NiLk3+qso0t9D/txbzx1cIrEVR3hEuvOjZLgKWH
-	 gvgRaBvtF16hQwpbTQ+z9s8ORikw16GiU6mwph/BuNkO78vXMienM8HzQpfxppEcZ76B8
-	 KzIChXynFe6Y8O9jWB+gqI8CStBya3ex2ISClAUd9bzJEpmU+TbPX56bhVg215HqqybLv
-	 HbsZncirGsLF/83yey12E+k2a4E0oiZXzM4RDotuIjBuPzQsz8eqglAfWf3cSqb6emaQW
-	 E3LkaQVh6Qdwdyawlvb4oJIY+k1RfKRk8aiwIOZWSYDsZPJku9+aQjFXHYS2RqwYllw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874037;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+U6EH1rlvi0t4HoQvvfP6wZczlURMSZ7tCXOR+hp3Lw=;
+	b=zQCum9hxI/NQqJXfIKIbwrwozugitbRVhv6t13m82wb2qKroIR/65pSDmXDTEdcDQaxi
+	 ECSHuiScRRWrv5MwH9+/1ZPPuoZjTnygCjYVvZHgCuS12uNocdmqqV01JVLQ+9GiUjTOR
+	 LGGXjNdlZuDEYdjsPnSm8SVYby76DCRnfBmlZTDismkfaDpKa9QB2RVaLgcNoeT4SamHD
+	 wusrJFZuIumzWUpHC5q3J1arsrLur9obHzk7uIIuvZG0Dt1MMftPwm3xDTlx3hAfz5PeL
+	 /SGGN7hF7maQiSIsYyHCxuVd32iB2idqCFoAM/VANRarMzC94WzrZNK1LhB3vuDAWyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BIoYRXa2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gVnnB7Ks;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=THYrjr5g;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91EB6606EE80
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:20:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91EB6606EE80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E2B606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:20:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E2B606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BIoYRXa2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gVnnB7Ks
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5A1Rv61416479
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 10:20:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=j3MiXUY5Dli
-	QEu2W104SSlUFqiy4PGY7JahO+C2gJ4E=; b=BIoYRXa2x8aYOAwTsLZfTmGF8Y6
-	XpAWstodhWEybFqn3hxiZnEnsuXocduhyZMBCkAEDcALVBS1fq0XMFmboTVpgjvb
-	fFjSDzzsFtGeOqUtCjWTjeFPH+Z3WC+A9k3qK5Q0oNZBgMIELDhFXkCBTO0+p+Sr
-	RSG8a+6LqhZV4MgAG9cRDJoPV11NSznKG7YCX4NVbL8NGX64e9AvU7Q2CHwKcvqn
-	AbQEZ3r5CqCuGiQi1xJffhfUGt5tWU2ZDpcju4WYd5dhvBxequlL9AdIcSKKDSHY
-	5PXiFco8rou2Mpm0OwnsOhqf/Andm9+pq6xR0OPB/5nlNWJJvvJ49hC6aeA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrqpd02j6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:20:38 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-359b81ad4e8so2173043eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:20:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793874038; x=1794478838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j3MiXUY5DliQEu2W104SSlUFqiy4PGY7JahO+C2gJ4E=;
-        b=gVnnB7KstJLVITcQ8YTexJyRr5zD/nTonevvAbVz4q/WOl1yvx/L1sricwba6fdOCE
-         vROHQHjvt4muJhMZvfbD8mCQF3Dt4IlpU0+uS/UpZWqgdd8MLoNNcKnKb/mkUkSXmsHv
-         goNSHEOte+i1pJr5jTHhYWkgPdimfAhEudTzcBjgrdidM19+RvFAkwBJbsuIJu+27PoZ
-         jSliQusn4hcH0qPnSgy2/dt3m+YQuEbNFtb4DbLbrSitC/xlquQftOspl1R/IKSSWRpX
-         afWUaPmKDAGWf8b4qnp0hfIugndvO9flGcP5bRBfTjL9UVrQjGT7f4nkpESAw0NVzmsK
-         RE+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793874038; x=1794478838;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j3MiXUY5DliQEu2W104SSlUFqiy4PGY7JahO+C2gJ4E=;
-        b=kiEDP8gCX6gxRwPB3wpwxn2mmn9nEVuGAAGLbh/Kpc8fGxfks6/OtBZUe23GsP+xqu
-         i809T4ssz1hmp7g8i/C4Ut7AN9BApYKCVp13gW/sCQTjD0ZaNz9R1JIuzU1I8yebrSrI
-         ZAbI08GKtMxYpSSS7adxYTzRfUjgKHxPLQqV4kL2CEoEXMKdnc/n9BBGMF6ODFP4Otm5
-         P+9vWeb9uoj02p62xnBj3o1ff8BfDw69HONH9qbbq1T8pz/JZoEYo+y3l/dzJXH1Mfku
-         N6JYyd6y9K5NPGNgTBlFVIUDYBWk4Ew2AgMvtPkNBEqBDfF6E62tad+Zo1H8y4qz8IMx
-         tOVQ==
-X-Forwarded-Encrypted: i=1; AKwUvByc5Ca0r+X+BORek7aqFyVB7+OdM9c9zQNqPbRf/Vi6bGWY77gEuXEIg6QfsuGjoSRMAClGuCPmnp2UTrQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8xf+X6feqeDXUauJTBWzzvvJXOoP7TgSoIAkvSTFx34c+YXgf
-	zkt7+w6FaFRbCTQ+/7r0jZym443IBgTgm6Q+ymJahfCorbVymmaf8lMZJHxN3+grV2Jvk0VXyMI
-	2p8DX37AEZa6sB03Bipv31FlWVWpVl2kYr4On0E4X4v0UePJCXlUyhW7nfiH2jh5tJKw=
-X-Gm-Gg: AYBFou2sn5MIvIMsbby//2/bcmUPRrQn/hgmgAStFGWtaRiz//wgVobCFglrv2jCTVl
-	asFn8cfER154qmKHs8qHtjWaUqZw97xpcIlnhHh0JloyB8NSf8I5eB2c3Dtgp/kjXAyrWua/GQl
-	3KdoRGo3L/TMU5Ox/7Ud91Q/Hq1BbZ/eIa2aXoktr2tfVkyPyzxECJ5VzEBct9RisYdyPOGEhb3
-	Cixk26Q9aJI7G0+eySSHMcbUkC0qWSzaQqfBL3/S4FXW78BhssgGGdEO7M1T3YMv4OHBTAddF2G
-	wSuSdaOEzfwhBZTl3joUEGdrLaD23IJayKQ95JuL9nKPMa76NBD2RDCVrPTaMtq2W58BPFZjaZq
-	dR1Ie2NWkFWs/O4NxE9m1uBVfYypJnqKNy1jHmuKXInUeAYMyPUrLxR4dDmgVjXPcarBj97EIwa
-	Hruw8CYyFp
-X-Received: by 2002:a05:693c:6087:b0:369:f420:8679 with SMTP id 5a478bee46e88-36a42440304mr30656491eec.38.1793874037746;
-        Thu, 05 Nov 2026 02:20:37 -0800 (PST)
-X-Received: by 2002:a05:693c:6087:b0:369:f420:8679 with SMTP id 5a478bee46e88-36a42440304mr30656446eec.38.1793874037091;
-        Thu, 05 Nov 2026 02:20:37 -0800 (PST)
-Received: from hu-mchunara-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm14115330eec.9.2026.11.05.02.20.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:20:33 -0800 (PST)
-From: Monish Chunara <monish.chunara@oss.qualcomm.com>
-To: andersson@kernel.org, dmitry.baryshkov@oss.qualcomm.com,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, mani@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, sarthak.garg@oss.qualcomm.com,
-        pradeep.pragallapati@oss.qualcomm.com, nitin.rawat@oss.qualcomm.com,
-        shiraz.hashim@oss.qualcomm.com, monish.chunara@oss.qualcomm.com,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH V6 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay
-Date: Thu,  5 Nov 2026 15:49:55 +0530
-Message-Id: <20261105101955.3732723-4-monish.chunara@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261105101955.3732723-1-monish.chunara@oss.qualcomm.com>
-References: <20261105101955.3732723-1-monish.chunara@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=THYrjr5g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793874037; x=1825410037;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=WsTbnVsREBZtJQQftPT0RbfA0FMnJmdjFfVg3z/OG2Q=;
+  b=THYrjr5g2GweFCC4ipSu7VZRUrrFZKMjHbjr/PrX6tIhG1g+9YI9DmNQ
+   Kt5bwkRamABc9lPxW1XyOXd6RAFBt174m6DTRRN3Vakj/ZRnRSdmwV5GP
+   slVX2lxof6u+HcUIsZ0FfBEPSD5WJqjEl0BoOL2aOpodEM6yZ5xMx91tS
+   dfpC5octoaPRBlr5W/J+0/V5oq952D3J9MROcO+l530At7KQcyBjhotrQ
+   wfD7qFg0onORrWy71Wn6WZmW+7bpL/H7YRlSi9kmtbTjTqqueqKoZLV6w
+   vO5YbDUGe0ihQhKnBliFzXG40EpFlCa72/MSEWYHkMTmO4IS4KtIhgNPz
+   A==;
+X-CSE-ConnectionGUID: T4Km0eMETNie/6/Zgat+7Q==
+X-CSE-MsgGUID: 88OlI8wiT3OJvota0bOlVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2530307"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2530307"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:20:37 -0800
+X-CSE-ConnectionGUID: i8zxYnm1RQqzoBaFUvBRyw==
+X-CSE-MsgGUID: ug0LvQHcR3Gi1wwq6uqJ7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7143727"
+Received: from chenyu-dev.sh.intel.com ([10.239.62.184])
+  by fmviesa003.fm.intel.com with ESMTP; 05 Nov 2026 02:20:32 -0800
+From: Chen Yu <yu.c.chen@intel.com>
+To: tony.luck@intel.com,
+	reinette.chatre@intel.com
+Cc: tglx@kernel.org,
+	bp@alien8.de,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	fenghuay@nvidia.com,
+	babu.moger@amd.com,
+	hongyu.ning@intel.com,
+	chen.yu@linux.dev,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v10 09/12] fs/resctrl: Do not invoke smp_processor_id() in preemptible context
+Date: Thu,  5 Nov 2026 18:09:33 +0800
+Message-Id: <cd73a928b588171354c96b873fa192ee80c60173.1793864720.git.yu.c.chen@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1793864720.git.yu.c.chen@intel.com>
+References: <cover.1793864720.git.yu.c.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,92 +91,118 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0MSBTYWx0ZWRfX5h/3q0runScD
- m3W54NLUQH4ihOD0fGr/bB8o0UcAVL9lwfLPbn6ysFkA3yQtriV7yPsRnq7wNBFig1CeORTMsq4
- v944l523rt7JR5NNlxqX8aS+N7lAn7s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0MSBTYWx0ZWRfX8+qcuUwEMgpk
- cezFb+rkd3JzolzDqNCjxZrXVLENoD82y4FmM6aTXWAItcVOcgbX5G8oUhXwMIWajSCI20hfmB0
- QFpil++h6/QP7XtV9bnL/nrTGXeu/rdeovz1n2dTBLB4vVMHhQFrhkMAKQBj65uVsm3b24TA61a
- pwTvxlrCnHHXI2ODqi8CB1/7fxsJLArRHFC+ppUDVcsjs3vV5i8/l1eBw5pQztj9OQ8MzbGwaLI
- t0sEvZ+828XAAmQhPq+uug9jPBuF7eIo03PTGvt4dZnI5BKo2PbsiBpjfbXUPOpLIctD0bQRDHx
- DumVnUmI+ev8PBOkNXO5x9/4WOg9oDP4xkSbP61T56VzbZtPF1V6hgSrUH6MQvSpiOYjVxmyZMQ
- SK8NwuXw5bqRIQT7LdDrQCNx1SJSCNGHQQcCScoEhcvVZ9DGBapoECE8HfSpC8ln2FoORnic1a2
- pej0I2V+Zd5NR6u2RMQ==
-X-Proofpoint-ORIG-GUID: P97pxS6jAFKk7ZJdvP2l2SP7AgZKfGVE
-X-Proofpoint-GUID: P97pxS6jAFKk7ZJdvP2l2SP7AgZKfGVE
-X-Authority-Analysis: v=2.4 cv=Y5JtIReN c=1 sm=1 tr=0 ts=6aec5876 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=eWlXABRqF5iA9XQ1jREA:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050041
 
-Enable the SDHCI controller for eMMC functionality on the Monaco EVK
-using a device tree overlay.
+From: Tony Luck <tony.luck@intel.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
+An event flagged with mon_evt::any_cpu is read directly in preemptible task
+context instead of being dispatched to a CPU of the monitoring domain. Only
+Intel AET events set this flag, so __mon_event_count() rejects an any_cpu L3
+event with WARN_ON_ONCE(). The L3 read paths can therefore call
+smp_processor_id() unconditionally to check that the current CPU belongs to the
+domain being read.
+
+MMIO-based LLC occupancy counters can be read from any CPU, so the L3 read paths
+have to tolerate an any_cpu event. Move that check into a helper which returns
+early for any_cpu events, avoiding smp_processor_id() in preemptible context.
+
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile             |  4 +++
- arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso | 27 +++++++++++++++++++
- 2 files changed, 31 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso
+Changes since v9:
+- No code change.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c5b2e95cb9d..3563ccbe771d 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -80,6 +80,10 @@ monaco-ac-evk-ifp-mezzanine-dtbs	:= monaco-ac-evk.dtb monaco-evk-ifp-mezzanine.d
- dtb-$(CONFIG_ARCH_QCOM)	+= monaco-ac-evk-ifp-mezzanine.dtb
+ fs/resctrl/monitor.c | 47 +++++++++++++++++++++++++++++++-------------
+ 1 file changed, 33 insertions(+), 14 deletions(-)
+
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 04e4ea612b7c..be43eb36611f 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -422,9 +422,36 @@ static void mbm_cntr_free(struct rdt_l3_mon_domain *d, int cntr_id)
+ 	memset(&d->cntr_cfg[cntr_id], 0, sizeof(*d->cntr_cfg));
+ }
  
- dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-el2.dtb
-+
-+monaco-evk-emmc-dtbs := monaco-evk.dtb monaco-evk-emmc.dtbo
-+dtb-$(CONFIG_ARCH_QCOM) += monaco-evk-emmc.dtb
-+
- monaco-evk-ifp-mezzanine-dtbs	:= monaco-evk.dtb monaco-evk-ifp-mezzanine.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-ifp-mezzanine.dtb
- 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso b/arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso
-new file mode 100644
-index 000000000000..6454efc03ddb
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso
-@@ -0,0 +1,27 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++/**
++ * cpu_can_read_event() - Check if the current CPU can read the event.
++ * @rr: The rmid_read structure containing event and domain information.
++ *
++ * Context: Preemptible process context when @rr->evt->any_cpu is set.
++ *          Non-migratable process context (via smp_call_on_cpu()) or
++ *          non-preemptible context (via smp_call_function_any()) when
++ *          the event must be read on a specific CPU.
++ * Return: true if the current CPU can read this event, false otherwise.
 + */
++static bool cpu_can_read_event(struct rmid_read *rr)
++{
++	int cpu;
 +
-+/dts-v1/;
-+/plugin/;
++	/* Any CPU is OK for this event */
++	if (rr->evt->any_cpu)
++		return true;
 +
-+&sdhc_1 {
-+	vmmc-supply = <&vreg_l8a>;
-+	vqmmc-supply = <&vreg_s2s>;
++	cpu = smp_processor_id();
 +
-+	supports-cqe;
++	/* Single domain. Must be on a CPU in that domain. */
++	if (rr->hdr)
++		return cpumask_test_cpu(cpu, &rr->hdr->cpu_mask);
 +
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
++	/* Summing domains that share a cache, must be on a CPU for that cache. */
++	return cpumask_test_cpu(cpu, &rr->ci->shared_cpu_map);
++}
 +
-+	pinctrl-names = "default", "sleep";
+ static int __l3_mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ {
+-	int cpu = smp_processor_id();
+ 	u32 closid = rdtgrp->closid;
+ 	u32 rmid = rdtgrp->mon.rmid;
+ 	struct rdt_l3_mon_domain *d;
+@@ -457,11 +484,6 @@ static int __l3_mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ 		return 0;
+ 	}
+ 
+-	/* Reading a single domain, must be on a CPU in that domain. */
+-	if (!cpumask_test_cpu(cpu, &d->hdr.cpu_mask)) {
+-		rr->err = -EIO;
+-		return -EINVAL;
+-	}
+ 	if (rr->is_mbm_cntr)
+ 		rr->err = resctrl_arch_cntr_read(rr->r, d, closid, rmid, cntr_id,
+ 						 rr->evt->evtid, &tval);
+@@ -479,7 +501,6 @@ static int __l3_mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ 
+ static int __l3_mon_event_count_sum(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ {
+-	int cpu = smp_processor_id();
+ 	u32 closid = rdtgrp->closid;
+ 	u32 rmid = rdtgrp->mon.rmid;
+ 	struct rdt_l3_mon_domain *d;
+@@ -497,12 +518,6 @@ static int __l3_mon_event_count_sum(struct rdtgroup *rdtgrp, struct rmid_read *r
+ 		return -EINVAL;
+ 	}
+ 
+-	/* Summing domains that share a cache, must be on a CPU for that cache. */
+-	if (!cpumask_test_cpu(cpu, &rr->ci->shared_cpu_map)) {
+-		rr->err = -EIO;
+-		return -EINVAL;
+-	}
+-
+ 	/*
+ 	 * Legacy files must report the sum of an event across all
+ 	 * domains that share the same L3 cache instance.
+@@ -538,7 +553,11 @@ static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ {
+ 	switch (rr->r->rid) {
+ 	case RDT_RESOURCE_L3:
+-		WARN_ON_ONCE(rr->evt->any_cpu);
++		if (!cpu_can_read_event(rr)) {
++			rr->err = -EIO;
++			return -EINVAL;
++		}
 +
-+	non-removable;
-+
-+	bus-width = <8>;
-+	no-sd;
-+	no-sdio;
-+
-+	status = "okay";
-+};
+ 		if (rr->hdr)
+ 			return __l3_mon_event_count(rdtgrp, rr);
+ 		else
 -- 
-2.34.1
+2.25.1
 
