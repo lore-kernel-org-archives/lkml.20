@@ -1,72 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884860;
-	b=mdWDmoXtbZ5Iz45NrVDQIHElz7TrgAy0R7uHfMTnQR6UA+XYhxEYrp4yDH5TfTE6b9Es
-	 FR8zYWuUkjHKVh9Ff0haVLOPeBJs4vOYEZNE/evzTTNVnfKnkgNPpd2kEGT9q92X6RExX
-	 cQ59aqrZGcudO5X11PusPKdDLi2nzpjM5ajTqkaxkkiAtiwNAGp5lLOCIGwKRJLrFC1dD
-	 icXdeHghEuDI8D70KwnOgM81vdrDl+QKCyOTjhiBBTlSNtlomChI9EoIrWHq35xOKbOAo
-	 yPpaGLgLgLYdscgEyHprR6dI2VCe4A+d9AjoGvSqfy0NId1rrEzhuFRbONUQgKYGD5Q==
+	t=1793884902;
+	b=BOGsuQMZsl/O+C4yCjPuXZZ2wXTcG8J51SnIrxBdlKzztTaD+0Zjvy7V6cZHrRl3leTD
+	 r7/liULIQuei4DpIxaOhn/Mdh4NTXqo8T+qV18Lpnt6HvS2nONAnGU/Zk7Rf62TTPqLKU
+	 tUCAJ/6uEnwpVlbhrJETP5tk1fJmhcIzinw//ij8hVbLSTTAXKNTA4o4ZlIDjiLt9FVzS
+	 n5aNmagFLXaYBp+hd1RzuW0cZ/7mh86INgdDyvffGVAMYM8ku7hexWeLqRhZxT8Wqlj3T
+	 RSdD2T+dd7Kw7RLvlCXyc1ltIXhxGMOn8oGZUCd/gdqijPvE2oWiBsJSErzPgzNOZwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884860;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=1hWitpRXSGa3f1x2WsNsj66oTlqZG1AdJZX2odfdwlE=;
-	b=Z0FPxo3APRjiUJWtdr9Xx5wYhPMeDObfhxGXGV8e23/RfxMD0vuhCUa52DwI6uCTkJeN
-	 RTK/GbSmDScc1w3FnEbv2WD46V97xDdwnG1ZMRE91wnxaImqka+dR/QnC80odalQ0A2f8
-	 7hMMXVutdHxsoBz2vHUcd5cq4am2/49zb/J7PK+WniuRMe7lEy2R3aLMWTXuJaFdN04rn
-	 aIZCy9RkPTYGmfd7l++jPnJnskYtrz3SdWuwKf7xxybMWtpDp9S/XOJFIfInhDTQZ3t5w
-	 DiAr/kaQnU0nI0ySgpDRygCl9apOxAdLrNsdu+0P1yEDiXeu5zLColOIVrVUpawGyHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884902;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=G1vXgpVqmyJuwZhE11W0WG7vmVcVTIDLtLjcGetTdWs=;
+	b=b8eEn+tvhX3kGBuBQaYI7mzmC8e50cjjZozKGqtq9pNh/suxSeHJgiIrwYAiNpWSOBmF
+	 szWDlxkR4e/EGoMiqKqnTJT7SySUaRAHtfuIYdLVkI/EX2cyVpImmmlHd6rKvUWaZiUj+
+	 iIZC5Z/rFr+Paw1EJpIhQ0u1ikeok0cll/fxJsZR+rOIR6lqlHALph9HWWhpSxdb8NuRP
+	 XU5p5g93/6KIiEJXPywiMYU19azaHmJT8yE2LnFN4ucGZcMt3SWtWnaZt0FJ1He3gKgXo
+	 /7NscXVMYz0iBhUvpuckIEDNG7tBxFbgKGoOtq29FKaSddzUkVBFX5DSuV4BUq99Csg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="b/D3EHPA";
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPYageCw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21311606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:20:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21311606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FCA606A31B;
+	Thu,  5 Nov 2026 13:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b/D3EHPA
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0589ff620so1477957b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:20:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793884859; x=1794489659; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1hWitpRXSGa3f1x2WsNsj66oTlqZG1AdJZX2odfdwlE=;
-        b=b/D3EHPAAjWjhusoL98yh5jWlwzCV43CXQwazJ5Pa52pgCXMWNzAAkNx/5miqaRUZq
-         76mDiTCXPQm+aYELtiVYGDyP65PIftPnb4Z1i785N5GK04Txu9/bsgfMakj+eJL+I4fw
-         C84K+zt/C9drRRKqgjq/y7paN31Y8DpMCU3LN0NZd8Y8vCMFYAL1cs+F3M58+ZhXqy5M
-         uESRtcQAAMoo1exUSa3etS7o8HzuHx3av2vQWK6op4zvYJV7l65tG6zuoQYYQdCIvTw6
-         UKYQtCEtJd0LTgZ32N7YBlgvcEi0Dg3GN0EcFafSizj7XKqu67NmWcW5hFtVp4+yQzxA
-         Wq/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793884859; x=1794489659;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1hWitpRXSGa3f1x2WsNsj66oTlqZG1AdJZX2odfdwlE=;
-        b=p2NW22q8Gmz829xyepoJDHv8LZ77SaJy+IO1PF1HFJCP7HKWBLeH0wOApENxhps5bv
-         PySAAtC70peaJLsSpyiJjqEoyY9gcRZUYmXaiKFUNbD4ottIHh7bnHDP09gVLrno2953
-         zrpotRc4yE4UHimRF5/3dBOQc9YQPeczRX81w04hx4fv83By7z43N4ILUacWeY70E2kS
-         qlbvyjn7R39C2MciIlxhnHVuDnFCNEnyI+EFCWYukAoS6LWggS5QqyxsKQ88hujKCbZ9
-         cAAgSsZG3oHuT7RkeHesu1aL1milb7Rjzu/V6C1lh9dogLOH2Cb7k0lQIcoHLl93iQLe
-         4t9w==
-X-Forwarded-Encrypted: i=1; AKwUvByHXsUwuVQ0bgPny0W4sTMBX7nUO8QAWA1PMHJ1jfpqU1aWK1AJvZabhNlJpj2PW/j4BNK0/kyOr6jqj/0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/AJLHioLu12OxYeJ3s2GuGZt1JVup1s4H2zmdsuWkqYGVk9Aqc
-	+5WueAcE1O3yWSV13b20Ulz/4jPLp8dVutxSv2iJdklaR65qYByG7cTkfe+KZMpjMVRX6cYv0tA
-	Dz3X0Qp6jmOeafg==
-X-Received: from pgme25-n2.prod.google.com ([2002:a05:6a02:6c99:20b0:cd8:c5f8:e73d])
- (user=sgsatyam job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6300:68cb:20b0:3eb:818f:619a with SMTP id adf61e73a8af0-3eb818f7477mr3915541637.33.1793884859215;
- Thu, 05 Nov 2026 05:20:59 -0800 (PST)
-Date: Thu,  5 Nov 2026 13:20:57 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPYageCw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D44B1F000C1;
+	Thu,  5 Nov 2026 13:21:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793884902;
+	bh=G1vXgpVqmyJuwZhE11W0WG7vmVcVTIDLtLjcGetTdWs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hPYageCwvFnU9dbNnG0TrgoUzIZyl863gMxPAGz08ia+Bae4V6Ijiwsq7MLi3aGQE
+	 ls/XLvMp1RtnbdWZIPdcbcxButjfVC/3tLaagRC7U5nLPWEwR5qGCWeAxaEcQs3dkv
+	 nWGxSOChk3O5AFvqedRXoueL6qb19WmP3USie9ouew1CEZXDinzTMvjkwgH43sStmW
+	 Hy9aZkF93rD/0Sm4fuGH9kYNDzO9Oae2GMT3jUzrR5xwc2ruu/Am38Bit0ozEgRN+h
+	 Vw5vY8vfHKNGgE/Nq+JCdxH81xueUEGi0iYd54DSpWx8hTfkkZ+PY57i2fSGoOlZzy
+	 LcGJ1n5KXWcOA==
+Message-ID: <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org>
+Date: Thu, 5 Nov 2026 14:21:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,90 +50,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261105132057.2429385-1-sgsatyam@google.com>
-Subject: [PATCH v2] iio: cros_ec: Use platform sensor_num to unregister FIFO callback
-From: Satyam Gupta <sgsatyam@google.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, "=?UTF-8?q?Nuno=20S=C3=A1?=" <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
-	Tzung-Bi Shih <tzungbi@kernel.org>, Enric Balletbo i Serra <eballetbo@kernel.org>, linux-iio@vger.kernel.org, 
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+ <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+ <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
+ <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
+ <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+ <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
+ <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-cros_ec_sensors_core_register() registers the FIFO callback for the
-sensor number found in the platform data. The matching cleanup action,
-cros_ec_sensors_core_clean(), reads the number back from
-st->param.info.sensor_num instead.
+On 05/11/2026 13:04, Loic Poulain wrote:
+> On Thu, Nov 5, 2026 at 11:45 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 05/11/2026 10:53, Loic Poulain wrote:
+>>> So some chipsets share the same IP blocks, with some block/phy
+>>> instances disabled. As a result, we need to decide whether we're
+>>> numbering based on active instances or on the actual hardware instance
+>>> index/offset. If we use active-instance numbering, then yes, it should
+>>> be @2 (CSIPHY4 being the third active instance). Alternatively, if the
+>>> port numbering is intended to reflect the hardware instance offset,
+>>> matching the register prop, then @4 would be more appropriate. It also
+>>> has the advantage of directly identifying the underlying hardware
+>>> instance, without requiring any additional driver-side mapping. In any
+>>> case, @3 is incorrect.
+>>>
+>>> That said, since the bindings have already been merged in its current
+>>> form, we'll need to preserve backward compatibility when addressing
+>>> this.
+>>
+>> This is the input port to camss, so how is it called in camss, not the
+>> csi phy?
+> 
+> The CSIPHYs are connected to the CAMSS input ports, which can then be
+> multiplexed and routed to different CSIDs. The mux identifies its PHY
+> inputs using the hardware PHY IDs, so the CSIPHY4 is identified as the
+> CAMSS PHY4 input. In this configuration, PHY2 and PHY3 inputs are not
+> connected.
 
-st->param is the EC host command buffer. Drivers fill it in under
-cmd_lock before each command, while the cleanup action reads it without
-that lock. It is also set only for physical sensors. If the field holds
-another value when the device is unbound, the cleanup clears the wrong
-slot and leaves the callback in place, still pointing to the iio_dev
-that is about to be freed.
+I could not find that information in Glymur HPG, but maybe I looked
+wrong. CSID Wrapper lists CSID 0-2, not 0, 1 and 4, but again maybe I am
+looking at wrong device description/interface...
 
-No in-tree driver changes the field after probe, so mainline is not
-known to hit this. The ChromeOS RGB light sensor support does: it
-changes the field while a command is in flight, and unbinding the
-device then leaves a stale callback. Found by an AI code review agent.
-
-Use the platform data in the cleanup action too, so it always
-unregisters the slot that cros_ec_sensors_core_register() registered.
-
-Fixes: aa984f1ba4a4 ("iio: cros_ec: Register to cros_ec_sensorhub when EC supports FIFO")
-Signed-off-by: Satyam Gupta <sgsatyam@google.com>
----
-Changes in v2:
-- Add a Fixes tag (Andy).
-- Use a local struct device pointer and name the platform data pdata,
-  so the unregister call fits on one line (Andy).
-- Say what triggers the problem and how it was found.
-
-v1: https://lore.kernel.org/r/20261105073107.172121-1-sgsatyam@google.com
-
-The patch was drafted with an LLM-based coding assistant (Gemini); I
-reviewed and tested it.
-
-Tested on downstream kernels, together with fixes to the out-of-tree
-RGB light sensor support: ChromeOS 6.6 (Intel) and Android desktop 6.12
-(MediaTek) and 6.18 (Intel). Unbinding and binding the light sensor
-while its RGB channel is read in a loop failed within 1 to 46 cycles
-without the fixes (the stale callback slot makes the next probe fail
-with -EINVAL) and passed 200 cycles with them on all three. On the 6.12
-device the accelerometer and gyroscope were also unbound and bound
-repeatedly and still streamed FIFO samples. Mainline itself was only
-build-tested (W=1 and sparse, x86_64 and arm64).
-
- .../iio/common/cros_ec_sensors/cros_ec_sensors_core.c  | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-index d03e40c91582..632036eea4f3 100644
---- a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-+++ b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-@@ -214,13 +214,11 @@ EXPORT_SYMBOL_GPL(cros_ec_sensors_push_data);
- static void cros_ec_sensors_core_clean(void *arg)
- {
- 	struct platform_device *pdev = (struct platform_device *)arg;
--	struct cros_ec_sensorhub *sensor_hub =
--		dev_get_drvdata(pdev->dev.parent);
--	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
--	struct cros_ec_sensors_core_state *st = iio_priv(indio_dev);
--	u8 sensor_num = st->param.info.sensor_num;
-+	struct device *dev = &pdev->dev;
-+	struct cros_ec_sensorhub *sensor_hub = dev_get_drvdata(dev->parent);
-+	struct cros_ec_sensor_platform *pdata = dev_get_platdata(dev);
- 
--	cros_ec_sensorhub_unregister_push_data(sensor_hub, sensor_num);
-+	cros_ec_sensorhub_unregister_push_data(sensor_hub, pdata->sensor_num);
- }
- 
- /**
-
-base-commit: 1390ca4953a7400ca932cb49635f02c727f885a6
--- 
-2.56.0.398.g882cbad275-goog
-
+Best regards,
+Krzysztof
