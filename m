@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907014;
-	b=Ro0qCVcpXVd9WCyD9GMQJzua9hw75gHre+VM32jOAuVNXJchJodWFUDD8EvNmtbgu4rO
-	 W+dWYpIXISvKSJL9h1R2KU2cHqu+m4OQiKNFQacgb/9GrTe7kyoZyqF3QjlIPA0y5AGT6
-	 dMs80Dhr06Akd9gEUo8poZEK/667wqRGrYdTgvw6bl8Fm0VpUQgHuI6IMIrf4J+RlxeoG
-	 9hbBllHADULa8dOfHMy03L3CYTY5Mt7xVcq6+QnQUO8LHuvHHYpa+bN/a46yDZGjUuLro
-	 DM+paSZILxauB1R9cYuRQti9A43xIwky3huNFBQvPGlHPKcANprDRtIR0qQypN6l5mw==
+	t=1793907024;
+	b=CJanC/dCV0HHzEGLPF2Y/r5iksRLEGT+UsXcqysVWsDGqC51GH0u5iRNh0VRwuK/KkhU
+	 ibF7gq96VXW980v8+YjwdcoAaJe5orBL9seEi1uHygs3MAreYNaSrsfwP7EjRz0mVJtMR
+	 iH/ETpT0Nr/wSazTtMcqO7+/XxIEDRh6AVlS3Gvcbj0Jr5R+liuVH6X5ZZNFQ3BDSpZ+s
+	 62OwlwqixviYgTY4LV9SEG9tI3jm9WZ3SdKN2utd3/5YZhpUE06SJqhOErfY7BjT3q5fN
+	 vLZZNVVZ7ZRdDGHSCwDAm4fJMOIgkD6Uic477MC/CjpXOS6ao8WAYJ+h5f54fT6sJRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907014;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=hBiMPC/mSRFQIthZJMHQ6VsuWvW84Hflt7MDyKrRRhE=;
-	b=A2wnZQ93neSM2VcuVvn4ze8ftQ/fghJcQ0B4ygxAdH6GFP8Xt658XtbBU1GVsWslMJu/
-	 /SKiHYYr3ptTRiW/vVyqGkoaPlCbrFUsKlIEsG3k1lQbs2GChtxBbPmcWaq3fdaUDTj2y
-	 Yo0yoFTpUB1SNwmb6CJBARJUzoYTT/OrrCSbRCWgQ+emqwdzpIKhGW1rEfsWuPJ/XemMl
-	 PJChJ2uHGbjMjsv4ZuSEVjRgo98VlQIfT+t24WbMXL9V7DaJUP/Ko78v7ckwuk/0WLrGm
-	 mDhA1WY1CraztKx/vIQgDWZjFlmeR8D1S2u22Nq1CkK/y1lyxe375aNYfpc/8SrEGhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907024;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=pMEMtxyuK3+HRaY44/pvazcCGljjnGE2tNKvXpoZ/u4=;
+	b=RLk190eVNrGcBVxzuOlFdM8551/Xie4LPWTAKYmOhheiOMi2DbqZfo3ZY2wFIwtDUj+R
+	 14jlX6alAjcRGqPQOmgPsgbA9afn14K7nnpfi9OrxHWrUGsvoyzI7m8+JapBTAFAkVd4c
+	 1cbieWf0XgJ1cnnrOYJUJYPCsrx1JortMY1mp7Gyk6MYS2UCTkaqybJFMcg8lfgiAHXOv
+	 ltR+XIfSbDpJMD7k2x4KzEtt0XMnGGL90wwLppqCxneEunMQ9bDb71P4bzCQfjrY/X1I5
+	 cPB1/8WLnPm3BBMi3YC4/xeHmiWX+hllZau/etGwb3/bimfV27PbYjOzivfVGo9bJ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ONzyxZ09;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="q/7HWdtA";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Adkt0KqD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FAC606A6EE;
-	Thu,  5 Nov 2026 19:30:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53FAC606A6EE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE39606B07A;
+	Thu,  5 Nov 2026 19:30:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ONzyxZ09;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=q/7HWdtA
-Date: Thu, 5 Nov 2026 20:30:10 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793907012;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hBiMPC/mSRFQIthZJMHQ6VsuWvW84Hflt7MDyKrRRhE=;
-	b=ONzyxZ09QiqxpgqKgkhY8CcKeGquIrSofRjgsorpQfVlVsIu+2bx4JA9aPix/aklhiwYNI
-	NtrpnYDNDMoc3g79qGlohNhpS7TtZdw8bFDmSDkjDEj58o2dJA43aES2tdctXdDvGueGwN
-	14q4oarYSEWkYznum0vCnKhzyc14yI2Y2LNRwtp/J2Jj7RsDjrVIsundKyVDEKPl6zlcT/
-	uzc1UXtj7/31BZBx/3fZyhizPNl0tANNetAxsiR8JQhvmHCc4g5BCdti2RObgCvgq8db+X
-	9s2wGtXUWd1F17oUB7fg+Ix10AvHZm/FiqjL7JmOt7Q5nz6BJi533VUBQaUgRQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793907012;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hBiMPC/mSRFQIthZJMHQ6VsuWvW84Hflt7MDyKrRRhE=;
-	b=q/7HWdtAJhzMMCC8FYyQrmjg3F9P1Q8m/5sbtDH5MXzrNIYZB76HbsTvd7nfWL9xxJKrM8
-	ueNzLPNDTkTmw/Cg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Tejun Heo <tj@kernel.org>
-Cc: linux-rt-devel@lists.linux.dev, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	luca abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yurand2000@gmail.com>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: Re: [PATCH] sched: Remove CONFIG_RT_GROUP_SCHED
-Message-ID: <20261105193010.tXUDDu2w@linutronix.de>
-References: <20261105164724.yxONBd03@linutronix.de>
- <auy6nyTUuHBlgrV_@slm.duckdns.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Adkt0KqD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2061E1F00A1D;
+	Thu,  5 Nov 2026 19:30:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793907023;
+	bh=pMEMtxyuK3+HRaY44/pvazcCGljjnGE2tNKvXpoZ/u4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Adkt0KqDWgMzrDm8+MPoQhdBeLqzCa/8ErQx/Oxjx65v/35NY5l0/5ulmnxqV72Fd
+	 Xa/B3zhIfRrsvSfKsLWCTSEfScD1XuM6kVVVsrT6XFvRqCKWtxZo2+IWY4NoGYud6D
+	 HJSykQQUFRruviEsG8ktW8tekyIm58QnGGsPx7wyRziLak3Tf5va/xArvKAl3ph20G
+	 TcV3Hv/piOHGWdWsm2RWo8/DXQbSXDt/MfuiNaq1SAp1I7crOiW0JVnlCJC14Q5lyp
+	 euXvV+XAKGGVD96GEgfMTn7CuIoojQ8meM1yyijDmSHlu0WUsUSFtLKgzZHt/iqe8J
+	 E21ysAXKmTdew==
+From: Leon Romanovsky <leon@kernel.org>
+To: jgg@ziepe.ca, 0z5a <dezhen.lu@student.uni-tuebingen.de>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
+References: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
+Subject: Re: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation
+ for pages >= 4G
+Message-Id: <179390702044.98181.15076173312140750474.b4-ty@kernel.org>
+Date: Thu, 05 Nov 2026 14:30:20 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,37 +59,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <auy6nyTUuHBlgrV_@slm.duckdns.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On 2026-11-05 07:19:27 [-1000], Tejun Heo wrote:
-> Hello, Sebastian.
-Hi Tejun,
 
+On Tue, 03 Nov 2026 15:28:04 +0100, 0z5a wrote:
+> devx_umem_find_best_pgsize() computes the page size in an unsigned long
+> but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
+> in an unsigned int. When the DMA mapping of the umem is contiguous and
+> aligned to 4 GiB or more, and the umem length is a multiple of that
+> size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
+> value is a power of two, the truncation turns it into 0 and the
+> registration fails with -EINVAL.
 > 
-> I'm not against it but wonder whether it'd be useful to do it more gradually
-> so that people can pipe up if they depend on it. ie. Mark it deprecated and
-> put it behind EXPORT for a bit and then BROKEN before actual removal.
+> [...]
 
-I would be surprised if this is actually used especially since it is
-cg-v1 and v2 is the default/ used by everyone (?). 
+Applied, thanks!
 
-This depended on !PREEMPT_RT in the RT queue. People asked if this can
-be enabled because it looked useful/ for their use case. I researched
-why it was like this and dropped that restriction. People then asked if
-it is broken on RT because it is now working properly. I have never been
-told _what_ is broken or *why* because nobody came back.
-Later I've been told (there was an attempt to explain it to me, it was
-late in the morning) and if I piece it properly together then, it could
-work in UP environment but on SMP the accounting is wrong and therefore
-the runtime/ preemption is not working as it should.
+[1/1] RDMA/mlx5: Fix DevX umem page size truncation for pages >= 4G
+      https://git.kernel.org/rdma/rdma/c/b5c11bf9759834
 
-I didn't add this to the commit description because I would classify
-this as hearsay and we do facts here. PeterZ might know more.
-From what I know, people who asked for it either have a different
-solution or eyeball HCBS.
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
-> Thanks.
-
-Sebastian
