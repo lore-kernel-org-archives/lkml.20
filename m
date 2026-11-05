@@ -1,99 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898819;
-	b=klkSMGEJ9PdKkERLQzxdG3Tk05lBW0wWci7vq9LfDyTI8LLyAeHS1pjRQcuq0nQIgvde
-	 0qwpFkNwUaLzfbirSmi6PnrXvshHkXtG4xV7xkhkV5AJi0JNjij6FNw0LK3s12xtdrBT6
-	 F1KezKyOhNWvWnJvJA6rDuKkP967ij10XqUISIqqgXlvvVQ0ogxaFKdvEkjcYYH8XOp42
-	 mDyNFHPDug3/UVnNEAHACyha/aDAbdPOMcIcxjiV3qBgXYRWp98wRCA0cCTI8SVy+3q61
-	 /QfzZ81y+VF7rnLPm7VW2wMPlmy5+wRVRs7N4ZeLdekUWnKnFfP3d0q5u42DUSvRxIA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898819;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=zsxocCVV3Gc3V5qXvM+QGHSs1tq0tqhTMtVdXbFE274=;
-	b=cTimwOdoty75CtbePA7HU5FP+b6rVNIjBjzFYyI4V0qp5yDqH1+tP4jlVqhiRRlzV5lL
-	 TDOjs/amQJkvq+khHA0/iGGb4XWM0haaRCUo7NExyOrifCMsGMn9fZJSz6sS8wPu3csCc
-	 HUkENUavnjNRRahe3IPM9JJ8Ui29SemqG5B9pcV9XR/4y82/xHGcYWMMZiRKTzOHbJuqR
-	 HnfWmiS0UlZ3iScRKAwd9Jie+HTJtfz0c7b6q8OYNJW8iY1Qwo1QHOWRB1e8Hn9tdH3RX
-	 0Fes5+VEjN9g79px0LCVFVw35JSRUs+e7dO409v49lvIRbeQEGFYhKsx8nJ7uE9WcBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I3A49Vq7;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793898978;
+	b=OGgozxUN9EeVTsKXJuKVvUsrUtfkE8oTTw7y514Vxoh9bOS9GUp1MfM7VwU6CPBYE0lY
+	 19y9OKV94F291zawiqUGZ7gQXUs8l6sdSw3qBH2oGQ3AJUKAK9CQvRp3IEVopBVnEtppC
+	 k0d+9gs13nTYyf5FdHZOreRMNedV8j67Yt1Y34LjAJ8ARc59Vmjjjp7wx9Xd1VS6r6kg/
+	 upOPcibyUzlVPqRO9KKU9Zk33IokCt3wBPDoVwbX0fd6wn293xCZAWuB2kmSsX6BSrsM9
+	 0/TblXT5gM29lE5rooMM64hRSUTqKhz4rQcneC4fV+bpoBpUFNdRQaIQqLoKVLSiV4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898978;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=c1oaV50r0BSd667/ZSOu25B4lQvIuX/athwm5rSTjpo=;
+	b=J2EQ8Wjx9oDKNW2WmzSpDCaaql9T1W4uG5zz1hoW/yfUfaPlREvvyOXLlZ61F4JoXASa
+	 Y/hm3lQVG+v/+6ezFJTAV27CQdOEpClS6Fif4f0VSv118/mqVNKGrxbp/SOpEojfG2rk1
+	 hk/8KP2O0ANOCLZoZ4knXh2FIMu5SBl3pcc8YgxNZjxOw4K/gEZGouhZjG/PEo156A5mq
+	 cnxc8wSsFPpuwhlG006JKyQR4FVfYYH6QkY8FiejqoBqANSMjx/VNTtST19TyjGNR7EfG
+	 yvZ22AIoNQPbSZH+hnr46ER6+Tif/t4F85mQBVxBxh70SchShdjca8PqJ4fbfgO5zCA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="fH42CU/x";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.1
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011001.outbound.protection.outlook.com [52.101.70.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9869606A33B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:13:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9869606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0675606A326;
+	Thu,  5 Nov 2026 17:16:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0675606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I3A49Vq7
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4918c2d727fso596647f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:13:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793898817; x=1794503617; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zsxocCVV3Gc3V5qXvM+QGHSs1tq0tqhTMtVdXbFE274=;
-        b=I3A49Vq7ta7dBxo9Cnz9j2TSAF54Zpd3Is/WHbVCOeVq31c5jhlWJKHyv1irMY0WJ0
-         EkXoA9WH10K+xFvhzn6JG5VRyeJ1ICc2sbZGhk5MkMWi+kDs+b0hVVS3jJ9+SbMjXZtn
-         iYH3N3279I7UobfpnB+BJYaDQdZdPhn3+5fjFlIZIo/4GMTOmjgjE7np9QTnxEqqvqKl
-         TLHZOG+nA/x+5h2i/z7CdACqbA//7yKjRy9/ezohF5ALZL9SonUgWavrq6NkKVeqpawO
-         4/iTzZb7ZSp3gAIzv5jm8lgoQMLTxYWukIt5vyZB0wkGr9GlreeYZBA6R15OLaNKLVDh
-         +cXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793898817; x=1794503617;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zsxocCVV3Gc3V5qXvM+QGHSs1tq0tqhTMtVdXbFE274=;
-        b=tFQjTtV3LGvoRNflMDLH4/yK3NdcjThg8WH/O803F7MVd49tI3WEBbq+D3+3teaenk
-         0kzDZhEaGkgBCCCvySQPiryHzhWHkyP7g80O0U/yM0N7dDvPps9U2kOIVlUqSjQrno8f
-         YBJStDWwNqL5xGncwCLV2CHggzHrKEDRd7C3T3++VbQ2BALZOeb2jIqwyXoSy0oXSKdf
-         Xjkn5NJWTBFZ5jqeUPrQ1DqS742asLzvMOIlUDvotTWtIKzOnuCUgV7XgbunUVYcIc28
-         FzF7vwZxGleAJ7s85rc5KpidedZnrARCA67wI2o2J3KaaBUE4HkEtsTJ50YSN52Twb+8
-         UOVw==
-X-Forwarded-Encrypted: i=1; AKwUvByR8sCu1wGiVM7FBQYcSGrFcwuhKcubcVRTiqAIKYF+rnaFWrhnfvCrIQADoVUqjkHQAxWuRWXhEkFtkUE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6rv4JHvPvZ780+XE4u0eKxc3lSgacPK7EfqbDyERrTtQY6nkD
-	bNCAyhEnKjwszpJUsDCHgIFeZLC3cgaSRlr/BkIzJBPnqPxqYZLCsOYRH1HoHx+qSUk=
-X-Gm-Gg: AYBFou3Ev2Jrcd9Rr5ZOI/wk058kntCG0I98Q4h40BcKN0/MPacF5s7zS5uG3oD335t
-	toYL7GJfaKqXtnAFE5yZDF6vg630/SD9dQ3mWPdTzNUQU/Lg7oYq3GBk9d5vMM5xD+TjzkPA2V8
-	kYl/BoIFjzjzoTjBlXYZMmxGYgRpCLIU+COzulooN859LwjC9B0liKMe/72Oce/58dUp9Vm4Gsr
-	kCEIfTAatnLpR4grOOZd2LnQ0K0WX3Tpeev6vtc/YfQxk+BgUscYoxrGLhwvQR9QESSBITNdZY0
-	4yEEhqmBQNWbAWLshBlF9U6vGps8/NbDAjFoNdIMNaKLmP7tdk3A5vmpDZjtFv48Qu+yoLlJF+3
-	/cyAX6aCNNFz9cvOgnIhXYaUxCoc+ziC35lIJI/cAPDJoH/UtRkiIJs0CrmbjwNFUhkkhV77jiv
-	kTK7mrmrzA3vwqMfiHmo4YYR9q5neA+3QSoDp1s7R1QGG/Mjrg9I3aFfUFKk04kobHXEIiKjt2b
-	9fGHCOPJMljwK8HbqGciN3ISWZ3MJKbdh3fd8duAmdK32khHgn6pzvSwQY2xOEyrdLLaqr+5l/A
-	thyK4mpZCEilGmgR77kHC/z9eKAqlA==
-X-Received: by 2002:a05:6000:2405:b0:48e:20ed:d5e7 with SMTP id ffacd0b85a97d-49275a2671bmr503064f8f.34.1793898817202;
-        Thu, 05 Nov 2026 09:13:37 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed551dbasm10705073f8f.37.2026.11.05.09.13.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:13:36 -0800 (PST)
-Date: Thu, 5 Nov 2026 18:13:34 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Chris Down <chris@chrisdown.name>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 13/16] printk: Try to register each console as Braille
- first
-Message-ID: <auy5PhQ1eCdg8Ndw@pathway.suse.cz>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-14-pmladek@suse.com>
- <auLzFtLAUEYKvXIO@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fH42CU/x
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pfqKPtJoRsQM26bi+UGzJ6iD6ouz0X7iMJPv76VXI4J9bCOwlitHqcOuAdD7XVYPWEhBrfpT8u7/Cg8lmVoyfpUStBppj1Iq1uN++xpJwLWVZDKAKzGTCR7YJbbbaZlG404TONv4FitQv+nW6DP5uaqYHBobD1gtVfSt+lS0xjqBwYcgmj8iI6e40UyzPa0NRB1yxvWcFKIDN6N/nJB9vUoSbOJTpciO1K/dBn41Gq6zUi97tDstyAOSyL1caJc18HyNyerhVgmi08+GY3k/8bcMBP81MkIsg2PQ0acFv0e07TWtnUvslKEs9XmlQMStF7hQhce9wnzMmZppWRDjZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c1oaV50r0BSd667/ZSOu25B4lQvIuX/athwm5rSTjpo=;
+ b=Drd6h5XVddY+nWRKf0rtX66B646N1h+RAAJaYI/aBS+K/828LTziiw3M6sG1TWIIdMwaHMWBhqutTJ2U/7UH+DEV2getMIjKR0xbp8bcWnUNo0yYUOxnVt5HFZXryzjItNzggXLnaJFq1oD3A3+8aBLUyapfl0VBO8M+mD630EMvq//d4sne5MXLzmTZ0x3lrQQeEuln8TqlzrRWdJs0pKU1nW0aCO/wBjKf62o/t9ccjtQjrdC3PtOLV7faxSSR389Ks8T8BNouZd7XT7z17T5BEbwC9EDrljwgLZhuW+86aYsQeGazhSDngnfBXLZwZF2nYER4FIYYtD2Q1chEnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c1oaV50r0BSd667/ZSOu25B4lQvIuX/athwm5rSTjpo=;
+ b=fH42CU/x7yOmEzARlSDY0HY8SGpTG/8glc1i+IqKCdywr6hVwHKSQAQ17+33pcuirXxO9cH6Mjt7jTgp3cFzKa3wH5pDh+StHS9Hg0P5O5a7KVn9PdCAMRmP7NRzBnb89JIRkly7brCy81RG+00Ej1hJCNlLc648UoNwtkiYYOmpYqn7Zpt0oK71jtaRQFTurbLaBs5fAh6vN7LnevJw1PtdRCHfi5lPMbkykOw+jeI/kDG9uXyIO8US8fjlEfLLt2NX1sqNQAiNQhcFVi9Xnu9G7gQQfiPScjv6tIk66SGw8mVhLI3dfHjmYrbY7zF0DG7iYA4XqclZjzQrhGLauA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI1PR04MB6926.eurprd04.prod.outlook.com (2603:10a6:803:133::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
+ 17:16:14 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 17:16:14 +0000
+Date: Thu, 5 Nov 2026 11:16:04 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Sergey Matsievskiy <matsievskiysv@gmail.com>
+Cc: dmaengine@vger.kernel.org, lars@metafoo.de, vkoul@kernel.org,
+	Frank.Li@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: axi-dmac: fix incorrect segment size
+ calculation
+Message-ID: <auy51OzXH3VKZk8a@SMW015318>
+References: <20261105131547.305510-1-matsievskiysv@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105131547.305510-1-matsievskiysv@gmail.com>
+X-ClientProxiedBy: SA1P222CA0107.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c5::28) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,105 +96,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auLzFtLAUEYKvXIO@chrisdown.name>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB6926:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ff9f2a7-1fbc-40f4-cec2-08df3b607ec1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|19092799006|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261026121527099003|261102123227099003|261009223027099003|261026140227099003|261028144727099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	c5Rc3PX2cSbxhbuBLyInS2xnvpPvU5fh5fk7rUzp1f+D70xIfx3wZ5+9kZsLHYsYkn+m2urVhSHwE92bwyM/R7qE5RIBO2yjlCWU6kfgOB21q8Kc0ujLnNk723ASb2FT5mDhwLYFKdSf5JGrCXKhfpx3x5RokhIJufZTM1HAqZoksN1gqSMlN6n/UApU4VBFu3gkXE1n7NVuQNPhth1uGmPMdkkRF77yqKb96hh9zkibrQj5frTTSA+Hrp/XSb4h8c/KLxlWhXyOABMI5az7gojtiwARA07juI7XAbSV3GqcS/EeoNfFP28ZgNctd6a9gXMjcBIw7iHR52JizZAbWlqctv4BmucEI69ez+9JIyQDbTJjAPAyWVJJXA95RGp7Myl9+k+pigyhgJ40rvRA9fnnzTVNN2T3EALZ6CC0qz21hUXYf2PuqMKePovKxtTj3IvFGY7G1enGVrXeC9xoEszPT0dPpDH/yiSgiM8so5OdQf1utm/H027GOtTbcJZ4rPkiw6EH3RaR7NKzI3GOb+bIY7Cc0Rqw2MKNMli0iWGwPKhEoPzUFY27pdsPbk3qBP+XD+U+Osl+QavCOQuFGBsyFO5nMBIsgY/kydQOUgKFdILxkx3nYxPbUl3NZdKHRZAG2ZpTk89bGG1PbSORWVAvxwGEy1ci0rmwlSP0Z/0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(19092799006)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261102123227099003)(261009223027099003)(261026140227099003)(261028144727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?I/RLKXPqVHXXak7NlZABzfEkoyyqSMOX7Tnfg3F86tHm9hqJpx+ZUwWOL1Z2?=
+ =?us-ascii?Q?MA00utwQlC7KyoapcCZ3b4jk3LhF7+33QcL9CvvTGd3XUYOzF/gLAH5dRcSB?=
+ =?us-ascii?Q?l6ypJltUe4NYozRAmBUPELlnRW95DLAVrl5Ya/4rWxrsISl/Z86T0yv4rTdL?=
+ =?us-ascii?Q?42FNVzsLBa89SD4nO8bnwRWWuf18RTlwx2W5GADL+prOleUprsD23+f1x8m9?=
+ =?us-ascii?Q?aljTteqmDaDGcjgbL83qh8VECHFO2CFokvAggEm0X4W/rRZ32B0OqKhg+TGP?=
+ =?us-ascii?Q?9h1naYv04FdzZ6A3scG3ufeTOTRhGilN4AoV2H8zP0ddCYkasQVqBsJBsf+H?=
+ =?us-ascii?Q?vyeT2tHIL5Fayywcs7y14xkdEwk/fY8jo0QvzXqF6jOOz8xuo6y1I9R0ufHV?=
+ =?us-ascii?Q?on61XPNmwSo+IBH1dX1CLK+tk/lz2PxjzWvsmqeBe/JNKGcx7BghAoJcbrHQ?=
+ =?us-ascii?Q?Dq1o7mBexPXwzx5u7NM2D94gRe5rCf95sInnzhkz5NBZkaJnmA7X40hMHrur?=
+ =?us-ascii?Q?MgUB+HHCf7a/P5/UEcQcx09W3QRyuv1vneyeFF/A3VwjJYqqiazPD4ZU5s6E?=
+ =?us-ascii?Q?KZFNiLLzQ4oZiobkWY4+gmmJsZLr2O04s5oNtWJPKXPcJtUkAltZ+wSczbOu?=
+ =?us-ascii?Q?87fTzW+W5TnpxZBD9ah/nJvbWkd+0Eug9jfdW8D170z28R4A5OYeHif8OhPT?=
+ =?us-ascii?Q?XmSOa16Ca5qNkwX0IQ7RPfkXpoCABgVU4+2GUeHJ4EXHSctAmaeEUIJaNVQ6?=
+ =?us-ascii?Q?GUmi6z741XtUF03W/OT9HnPASBldwfElYuE3dyKzf7ZDGa0GJzFetpI1Lilo?=
+ =?us-ascii?Q?zwqIA+Q3sd31xs9sQAb2QD4K9Fmvuq4BIvRtbFZAKnE4zh/HNxEtKQArPe9k?=
+ =?us-ascii?Q?l8gcwrBhUT3vV5d624YCyxbBpcmzlRgADaqKHa/Clpup7wATLNLGYO5QJAlt?=
+ =?us-ascii?Q?mH4i5uxJA9G5NgmZ2h56Sg1+RcWGRn5KMGrrke1+JG6RSV8kueCC21eU20xT?=
+ =?us-ascii?Q?cFlN6/TDC9HtfUC8vMDFOvh4xQGBRL4bPThNEr/6f09KK1p4NbWDDKnkwuPd?=
+ =?us-ascii?Q?apOF9NHcbc/XEvSGwpeAztew63/IsSIWlO+CadiDDCvpv/7oMXaOvuyPlewB?=
+ =?us-ascii?Q?rHv4QaV0iglHVwSw1qVAUhr5EYVbJSz5yWeGdgCP9R9Cy8yXB3vUDAD3f6wG?=
+ =?us-ascii?Q?477TE4/HMSQjgSrVHN7KCnIiImMmkc7a+sLfaoifEhc3boSWetFauhzBdn/T?=
+ =?us-ascii?Q?6W89VJZ4CzZDlZ+QtBDjLf5c+n9vfE8fVRLid5wjyJdFJuL6h15tmnO7Hoku?=
+ =?us-ascii?Q?zftglmbdstZmwKxx63eSEowLx+H4FNuNR11jBU43Ji+VkY8kGWmLqV6gPRcV?=
+ =?us-ascii?Q?S+YashvOiziKEWSP8A4wEwkhIEqxnP79vPXYNvKLDrfL4/yXXqxO/O7tnpiG?=
+ =?us-ascii?Q?cWS3ZnRVtjjUw/7x0nUFKUK/bRsirbrfGkPEEeJ5bUx7a7FgdMORl97m6fgI?=
+ =?us-ascii?Q?Sc8YKgfd6Vx8VdtghyTXSEt6KAw+la53DSogc/OC5vcy0fbmpEEmR8Vq8ptm?=
+ =?us-ascii?Q?CAEgXi8nomqyBXIQu+UsJ69aWKYHWp5RCykAoyoKK05vj9YXT6U1vNs3KqeJ?=
+ =?us-ascii?Q?8rfeKFO2Iyyiz665kxActLqIToTEd2PbcDqKkVS/LhxO2+bGbsDfGs2oqri4?=
+ =?us-ascii?Q?DvAoVLFc6AUThgesXjk2XZdjGbc/JPbrkEhIZQEq54xkMqj4eHAJj+l7C0Y3?=
+ =?us-ascii?Q?Hx3gRu6jh9SQI5YqmhmVCKMFgEN1sF1w3LIMlq/VZEq/bfado1PM?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ff9f2a7-1fbc-40f4-cec2-08df3b607ec1
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:16:14.1364
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qr4bhaakRIv4NCN0721IPfbx2CbWUqbSdls+2/337wc/Iq/koa7sAiqBJNjXB6zL2AuyPmCmXN0Qw2ozQJR6OLKilXCE/9VYFblVHfcI4RbzhJLDc3iYVof4JEMfeQLu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6926
 
-On Thu 2026-10-29 15:17:42, Chris Down wrote:
-> Petr Mladek writes:
-> >Braille consoles are unique: they can only be enabled via the command
-> >line and use the preferred console framework for initialization, yet
-> >they are never added to the console_list or associated with
-> >/dev/console. Because of this, the preferred_console variable remains
-> >unset when only a Braille console is requested.
-> 
-> This also changes what happens when the same driver is wanted both ways, which 
-> might be worth a sentence in the commit message.
-> 
-> For example:
-> 
->     console=ttyS1 console=brl,ttyS0
-> 
-> Here we used to end up with ttyS1 as a normal console and the Braille request 
-> was silently ignored. Now ttyS0 becomes the Braille console, and every later 
-> register_console() from serial core goes to the Braille round and gets -ENODEV 
-> from braille_register_console(), so there is no serial console at all.
+On Thu, Nov 05, 2026 at 04:15:47PM +0300, Sergey Matsievskiy wrote:
+> [You don't often get email from matsievskiysv@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> When chan->max_length has a value of 0xffffffff (which is a possible IP
+> configuration), DIV_ROUND_UP returns 0, resulting in incorrect number of
+> segments calculation. Fix this by using DIV_ROUND_UP_ULL division
+> function.
+>
+> Signed-off-by: Sergey Matsievskiy <matsievskiysv@gmail.com>
+> ---
 
-Great catch! I actually was not aware of this particular variant.
-I am going to replace the "The refactoring even fixes two subtle bugs:"
-section with the following:
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-<paste>
-Behavior change:
-
-1. The Braille console driver is newly always preferred even when different
-   serial ports are preferred. For example, let's have the following
-   command lines:
-
-     a) console=ttyS1,115200     console=brl,ttyS0,115200
-     b) console=00:00:0.0,115200 console=brl,ttyS0,115200
-     c) console=brl,ttyS0,115200 console=ttyS1,115200
-
-   They all create two entries in preferred_consoles[] because:
-
-     a) and c) differ in @index (0 vs. 1).
-     b) defines either @name or @devname.
-
-   But the original code registers:
-
-     a) ttyS1 as normal console because it is the 1st entry in
-	preferred_consoles[].
-
-     b) ttyS0 are Braille console because the generic "ttyS" driver
-	is registered early in univ8250_console_init(). The @devname
-	entry is resolved too late when serial8250_init()
-	registers all found devices, it assigns "tty0" for
-	the given "00:00:0.0" but it is already in use.
-
-      c) ttyS0 as Braille console because it is the 1st entry in
-	 preferred_consoles[].
-
-    The new code would register ttyS0 as the Braille console in
-    all three variants because try_enable_braille_console() is
-    called 1st.
-
-2. When only the Braille console is defined on the command line,
-   the original code might attempt to enable the same console twice.
-   One as a default and once as a Braille console. This results in calling
-   the setup() callback twice and incorrectly setting the CON_CONSDEV flag.
-
-The 1st change makes the behavior more consistent and understandable.
-The 2nd change is an obvious bug fix.
-</paste>
-
-> I think this is probably fine, but just needs clarifying in the commit message.
-> 
-> >+		 * @try_only_braille and @user_specifified define which
-> 
-> -> @user_specified
-
-Done.
-
-> >@@ -4033,6 +4061,24 @@ static int try_enable_console(struct console *newcon)
-> > {
-> > 	int err;
-> > 
-> >+	/*
-> >+	 * First, try to enable the console driver as a Braille console.
-> >+	 * It would have metadata in the preferred_consoles[] array.
-> >+	 * But it won't be counted as @preferred_console because
-> 
-> "@preferred_console" is preferred_dev_console now, and it is a variable rather 
-> than a parameter, so no "@".
-> 
-> With those:
-> 
-> Acked-by: Chris Down <chris@chrisdown.name>
-
-I am going to add this "Acked-by" even when the change in the commit
-message is a bit bigger. But I believe that it is more correct now
-and it is "just a commit message". I do not want to force you to
-review the patch thoughtfully again.
-
-Best Regards,
-Petr
+>  drivers/dma/dma-axi-dmac.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/dma/dma-axi-dmac.c b/drivers/dma/dma-axi-dmac.c
+> index 02acde918117..0a308630e542 100644
+> --- a/drivers/dma/dma-axi-dmac.c
+> +++ b/drivers/dma/dma-axi-dmac.c
+> @@ -707,7 +707,7 @@ static struct axi_dmac_sg *axi_dmac_fill_linear_sg(struct axi_dmac_chan *chan,
+>         unsigned int len;
+>
+>         /* Split into multiple equally sized segments if necessary */
+> -       num_segments = DIV_ROUND_UP(period_len, chan->max_length);
+> +       num_segments = DIV_ROUND_UP_ULL(period_len, chan->max_length);
+>         segment_size = DIV_ROUND_UP(period_len, num_segments);
+>         /* Take care of alignment */
+>         segment_size = ((segment_size - 1) | chan->length_align_mask) + 1;
+> @@ -753,7 +753,7 @@ axi_dmac_prep_peripheral_dma_vec(struct dma_chan *c, const struct dma_vec *vecs,
+>                 return NULL;
+>
+>         for (i = 0; i < nb; i++)
+> -               num_sgs += DIV_ROUND_UP(vecs[i].len, chan->max_length);
+> +               num_sgs += DIV_ROUND_UP_ULL(vecs[i].len, chan->max_length);
+>
+>         desc = axi_dmac_alloc_desc(chan, num_sgs);
+>         if (!desc)
+> @@ -840,7 +840,7 @@ static struct dma_async_tx_descriptor *axi_dmac_prep_dma_cyclic(
+>                 return NULL;
+>
+>         num_periods = buf_len / period_len;
+> -       num_segments = DIV_ROUND_UP(period_len, chan->max_length);
+> +       num_segments = DIV_ROUND_UP_ULL(period_len, chan->max_length);
+>         num_sgs = num_periods * num_segments;
+>
+>         desc = axi_dmac_alloc_desc(chan, num_sgs);
+> --
+> 2.47.3
+>
