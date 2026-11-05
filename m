@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837630;
-	b=vlTDzUBw1LFWmy88U7zaWFFyjrf4g63AsGGbXtdPW2058V7MY2uoWNYBxZqRPMBUYkNB
-	 DRZSYszagvOj0QThZv3Gi2RPU1sv2HFvtcUY8MKZtP6dJ+uFJJXKrAd68z9yGBRJ1YO8Z
-	 237OJ5rBoWXtXC/oKwLk0LiJZeMlr93LDu9MyM9kr/onFWtuXR8c82phcIdwYHRVmWDL1
-	 3vpWkL3DgI+eeWF7AZLQZn3H9L9FMmm23MGEGbQKn2aKQ2ltmHbfFgedMznFgbV/tjeWi
-	 ewGglQ636IUmDIXXmZGTngRBDF6YFvDKdVFx3fsksURF51mnpzHTRdGltmAfFVF4nLA==
+	t=1793837631;
+	b=JeNWVk9bfxXCFmz4tfGss5wWpRRbEzvXMy1I8yFRpXZaUZWNMZV3vF966KHdWGvk4gXr
+	 8h3dL4iNC0Q8vGoSN6rKEgjpIpZhd7svYLiDUidrFHjmk71fXh3QGhbdYMSaLOV7WLtUA
+	 ZRcJCE8DZ3U/vexNLFH4pXcnUqL9xPPpVEtyQKu0oNTaQg0pOz1m18DNKwytPcux+mUlR
+	 YhS57lq3gQaCgB1rKnzFtgj43ytpvIslsmg7fb8tYjq1Y4XEaZTCHcQpDH4ihfN5wXkLp
+	 shky3dPoZ0mbN7K5MkGlg7kjwCoakQ3MOZD/+lQQFCQ2H08LcX54+1Tn6MGzhj9HzzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837630;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837631;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bets71Z4qg/3bCcSmNWt/iqYs1Ln3QYefkAdCD745uE=;
-	b=ktuv4VeNyhNHgoRE0/dTMLFtQMW03gFdRULqufx55qbtmqD/3AXBs3qlUDkCwGDwXMyF
-	 4849f38s478CJrPybY0wAhlIl5SWtd+3uW2KrW5AWDjh9Lk9wU9VHKQ/3UCcEHB3oqgv+
-	 HYRv5Nr5LX3ifIoBGtNC5a/tqgmGl9xHMTrQueL690Y/pHxmxfmFBGXEWVnxT0ygOf7eK
-	 F9kYDHR3PJp/9pWifwhbZgU+PrkI+8ntWw6UAwGvNoWN6hG5Uwq0FSoYJVp+gGKvbmD4O
-	 SThu/U1Cc9MdjiFvWZvdcGT+u9/3X5gz65sI68hQetxtFAVuLVH8v/bSqfpvmlwcVrA==
+	bh=1mo23AzDeQt7AuLMqEQSWvRHD3CTdPe2exkzVKMjzms=;
+	b=K7C9trv3dEtK9ET3a/yUy8JQQbsgP7ojZTOA80gwM753s91Ra90UsHSItywBwYH56mJF
+	 lZVGAfJkSMTClp9nvpeGvMI+vL1SNog2BsrcJUStXcp05+g4dMSb4gurDAB8kL3fk7Rn0
+	 MLxx4CdkP0IqfehuS2mdZ/mpCMaeUKPcaN9jFc7NVN+Z5mtc3HMqT5elzXMIxDhMyM3sQ
+	 8+sFkwS2vayxrKupcSf25fOKdQ840nrU8zRqJOC1zkmuBoFDd8V5kIiZHve4X2Ga9vKL6
+	 3Igi5/BZnCWgdKhmSwzTAGC5sJO0xcTnrOghzNuxgUaK+aBT5KgFOrKyhe+cC4QzxiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IgfdxaAU;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WFnXJ0nh;
 	arc=none smtp.remote-ip=192.198.163.10
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53ED606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBA1606A331
 	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:13:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A53ED606A339
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DBA1606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IgfdxaAU
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WFnXJ0nh
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1793837629; x=1825373629;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=wbVVW42RyZpXl+ZlnD8pyMLPdDkEzmUisjycwcA4chA=;
-  b=IgfdxaAUoMNAb8qnTUgt1cN+kjHRlXvgSUSu5jxLEw18CGwKmrHSsIqO
-   mHnb5qbHYr6xYbR0/G86BCim9YSdns61c6aee81TTiJNVvIdjhi8W2Tia
-   fwnEloRy3l2IDuSNAjig1rpma81OBfpTUv6oa1hDXVCxLNYxAnsReMtie
-   zFa1K11+JnwEJIgMMMRoU3uYjjMKd8UOzgRk5h8/5EF8/Zw4i6sLnRuom
-   ZWTLHLwmkNbTyupmTklc7Ahu50OG5I4AEzEikXIH4oGJgjwSsmWRPXbzU
-   VzihZMse3wjdhiFD74qglGbkHYB2G34NZhP0+88VdtVFqXBD+1q5rApQI
-   w==;
-X-CSE-ConnectionGUID: wpEivisMQ+aLUvq4hi6rXw==
-X-CSE-MsgGUID: 70bQYv3VSNKDLw/My8A0uA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2512756"
+  bh=2wWILsu7y+ptge+HJaqCOHpDots9zge0TIhiYsJH79s=;
+  b=WFnXJ0nhlqqgAUEhrmNDC11lGzL8CCMNnmwwTiaSN8jhh5EslsIE6pTf
+   zqWSNwpjNiG7k8QMmGivUgIrt8Oo8Cj4bps6ovL07m8nN7hGmjAlswa5x
+   +m8cOu+y3Q8Jbjy9oYb1XBDpMryIuHuMPo+0ZrWUf907LuSwb5xUwfgSI
+   boRhyqpEPJqsV2nYBDGtdGnk85Zd3W0qEF6CmTJduRuMYs/66ZjMV3H8G
+   7zsv/Xb7PWngGCP4NXo7EOhDNEN10GOz/UMp/KwN0dPYcm7PY+an6TN3g
+   PqMQZ6vGPOCIYVRpffwN57IAukzF4zILEAwfQESFO2HaJrHAXphIt9Y4v
+   A==;
+X-CSE-ConnectionGUID: vNp5wH8dQZG3h0Y7QUNeJw==
+X-CSE-MsgGUID: sR2WUlSWRo+tsCi6zUhnfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2512743"
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2512756"
+   d="scan'208";a="2512743"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 16:13:48 -0800
-X-CSE-ConnectionGUID: L6xrllTySrSO+icxeDz+Yw==
-X-CSE-MsgGUID: 0ytzkm6+R5qKjQio+byNcQ==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 16:13:47 -0800
+X-CSE-ConnectionGUID: 5oFdrrUIRtuS4DozwDVpew==
+X-CSE-MsgGUID: ZehaHuOcRmywCH9aV1WUNA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="7168843"
+   d="scan'208";a="7168840"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 16:13:48 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 16:13:47 -0800
 From: Reinette Chatre <reinette.chatre@intel.com>
 To: tony.luck@intel.com,
 	ben.horgan@arm.com,
@@ -79,9 +79,9 @@ Cc: x86@kernel.org,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [PATCH v3 2/5] x86,fs/resctrl: Remove unnecessary non-linear MBA configuration check
-Date: Wed,  4 Nov 2026 16:13:30 -0800
-Message-ID: <7e1aeee81a38a33ca889db68e4c645f935e4e6cd.1793834224.git.reinette.chatre@intel.com>
+Subject: [PATCH v3 1/5] x86,fs/resctrl: Remove unused non-linear bandwidth delay mapping
+Date: Wed,  4 Nov 2026 16:13:29 -0800
+Message-ID: <1ea0fed164eaa321a4eb151b14704134024dde88.1793834224.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793834224.git.reinette.chatre@intel.com>
 References: <cover.1793834224.git.reinette.chatre@intel.com>
@@ -96,162 +96,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Writing a bandwidth value from user space is rejected if the MBA resource
-has non-linear delay values while the architecture indicates (via
-resctrl_membw::arch_needs_linear) it can only configure resources with
-linear delay values. Intel indicates this for MBA while AMD and MPAM do not.
+Intel MBA throttles memory bandwidth with delay values, while resctrl
+exposes memory bandwidth to user space as a percentage. When delay values
+are linear there is a direct mapping between the two. Support for
+non-linear delay values would need a pre-calibrated table mapping
+percentages to delay values.
 
-This check can never fail. No Intel SKU supports non-linear delay values,
-and the placeholder for such support, rdt_get_mb_table(), is only called
-during enumeration and always fails. A non-linear Intel MBA resource is
-thus never marked as capable of allocation, and resctrl never exposes it
-to user space or attempts to configure it. Every Intel MBA resource capable
-of allocation has linear delay values, and AMD and MPAM never indicate a
-need for them.
+Commit
 
-Fail enumeration of a non-linear Intel MBA resource directly to make clear
-that it is not supported, and remove the check together with the
-resctrl_membw::arch_needs_linear property it relies on.
+  05b93417ce5b ("x86/intel_rdt/mba: Add primary support for Memory Bandwidth Allocation (MBA)")
 
-Keep the informational message printed when such a system is encountered.
-While moving it, reword it to no longer refer to the removed mapping table,
-add the missing newline, and label the printed family value "family" instead
-of "cpu".
+added a placeholder for such a table to the resctrl_membw structure, but
+the table was never populated and never read. rdt_get_mb_table(), which
+would provide it, always fails. As a result, an Intel MBA resource with
+non-linear delay values is never marked as capable of allocation, and its
+control values are never written to hardware.
+
+Remove the unused mapping table and fold the linear percentage-to-delay
+conversion into the function that writes the control values to hardware.
+
+Keep the check that delay values are linear as a defensive measure in
+preparation for supporting multiple controls, which turns the memory
+bandwidth control into a generic scalar control that indicates whether it
+requires linear values.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Reviewed-by: Tony Luck <tony.luck@intel.com>
-Acked-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
 Changes since RFC v1:
-- Fix typo in changelog
+- Also drop separate delay_bw_map() and instead integrate the only
+  mapping to when control value is written.
 
 Changes since RFC v2:
 - Rework changelog.
-- Group all r->membw assignments together.
 
 Changes since v1:
-- Keep (and fix) existing pr_info() message if a non-linear platform
-  appears. (Chenyu)
-- Rework changelog.
-- Group rdt_resource::membw assignments together.
+- Rewrite changelog, fix subject prefix.
+- Match error message about linear support with similar message during
+  enumeration added in next patch.
+- Add Chenyu's Reviewed-by tag
 
 Changes since v2:
-- Add tags from Chenyu, Jinjie, and Tony.
+- Add Jinjie and Tony's Reviewed-by tags.
 ---
- arch/x86/kernel/cpu/resctrl/core.c | 42 +++++++-----------------------
- fs/resctrl/ctrlmondata.c           |  8 ------
+ arch/x86/kernel/cpu/resctrl/core.c | 23 +++++++----------------
  include/linux/resctrl.h            |  2 --
- 3 files changed, 10 insertions(+), 42 deletions(-)
+ 2 files changed, 7 insertions(+), 18 deletions(-)
 
 diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index f9677e52790e..f96f7cf255d0 100644
+index 55214d6fdc49..f9677e52790e 100644
 --- a/arch/x86/kernel/cpu/resctrl/core.c
 +++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -181,27 +181,6 @@ static inline void cache_alloc_hsw_probe(void)
- 	rdt_alloc_capable = true;
+@@ -323,29 +323,20 @@ static void mba_wrmsr_amd(struct msr_param *m)
+ 		wrmsrq(hw_res->msr_base + i, hw_dom->ctrl_val[i]);
  }
  
 -/*
-- * rdt_get_mb_table() - get a mapping of bandwidth(b/w) percentage values
-- * exposed to user interface and the h/w understandable delay values.
-- *
-- * The non-linear delay values have the granularity of power of two
-- * and also the h/w does not guarantee a curve for configured delay
-- * values vs. actual b/w enforced.
-- * Hence we need a mapping that is pre calibrated so the user can
-- * express the memory b/w as a percentage value.
+- * Map the memory b/w percentage value to delay values
+- * that can be written to QOS_MSRs.
+- * There are currently no SKUs which support non linear delay values.
 - */
--static inline bool rdt_get_mb_table(struct rdt_resource *r)
+-static u32 delay_bw_map(unsigned long bw, struct rdt_resource *r)
 -{
--	/*
--	 * There are no Intel SKUs as of now to support non-linear delay.
--	 */
--	pr_info("MBA b/w map not implemented for cpu:%d, model:%d",
--		boot_cpu_data.x86, boot_cpu_data.x86_model);
+-	if (r->membw.delay_linear)
+-		return MAX_MBA_BW - bw;
 -
--	return false;
+-	pr_warn_once("Non Linear delay-bw map not supported but queried\n");
+-	return MAX_MBA_BW;
 -}
 -
- static __init bool __get_mem_config_intel(struct rdt_resource *r)
+ static void mba_wrmsr_intel(struct msr_param *m)
  {
- 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
-@@ -212,18 +191,18 @@ static __init bool __get_mem_config_intel(struct rdt_resource *r)
- 	cpuid_count(0x00000010, 3, &eax.full, &ebx, &ecx, &edx.full);
- 	hw_res->num_closid = edx.split.cos_max + 1;
- 	max_delay = eax.split.max_delay + 1;
--	r->membw.max_bw = MAX_MBA_BW;
--	r->membw.arch_needs_linear = true;
--	if (ecx & MBA_IS_LINEAR) {
--		r->membw.delay_linear = true;
--		r->membw.min_bw = MAX_MBA_BW - max_delay;
--		r->membw.bw_gran = MAX_MBA_BW - max_delay;
--	} else {
--		if (!rdt_get_mb_table(r))
--			return false;
--		r->membw.arch_needs_linear = false;
+ 	struct rdt_hw_ctrl_domain *hw_dom = resctrl_to_arch_ctrl_dom(m->dom);
+ 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(m->res);
+ 	unsigned int i;
+ 
+-	/*  Write the delay values for mba. */
++	if (!m->res->membw.delay_linear) {
++		pr_warn_once("Non-linear MBA delay values not supported\n");
++		return;
++	}
 +
-+	if (!(ecx & MBA_IS_LINEAR)) {
-+		pr_info("Non-linear MBA delay values not supported for family:%d, model:%d\n",
-+			boot_cpu_data.x86, boot_cpu_data.x86_model);
-+		return false;
- 	}
++	/* Program bandwidth percentage mapped to linear delay value. */
+ 	for (i = m->low; i < m->high; i++)
+-		wrmsrq(hw_res->msr_base + i, delay_bw_map(hw_dom->ctrl_val[i], m->res));
++		wrmsrq(hw_res->msr_base + i, MAX_MBA_BW - hw_dom->ctrl_val[i]);
+ }
  
-+	r->membw.delay_linear = true;
-+	r->membw.max_bw = MAX_MBA_BW;
-+	r->membw.min_bw = MAX_MBA_BW - max_delay;
-+	r->membw.bw_gran = MAX_MBA_BW - max_delay;
-+
- 	if (boot_cpu_has(X86_FEATURE_PER_THREAD_MBA))
- 		r->membw.throttle_mode = THREAD_THROTTLE_PER_THREAD;
- 	else
-@@ -255,7 +234,6 @@ static __init bool __rdt_get_mem_config_amd(struct rdt_resource *r)
- 
- 	/* AMD does not use delay */
- 	r->membw.delay_linear = false;
--	r->membw.arch_needs_linear = false;
- 
- 	/*
- 	 * AMD does not use memory delay throttle model to control
-diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
-index cafebdff70dc..4562072b8ba6 100644
---- a/fs/resctrl/ctrlmondata.c
-+++ b/fs/resctrl/ctrlmondata.c
-@@ -45,14 +45,6 @@ static bool bw_validate(char *buf, u32 *data, struct rdt_resource *r)
- 	int ret;
- 	u32 bw;
- 
--	/*
--	 * Only linear delay values is supported for current Intel SKUs.
--	 */
--	if (!r->membw.delay_linear && r->membw.arch_needs_linear) {
--		rdt_last_cmd_puts("No support for non-linear MB domains\n");
--		return false;
--	}
--
- 	ret = kstrtou32(buf, 10, &bw);
- 	if (ret) {
- 		rdt_last_cmd_printf("Invalid MB value %s\n", buf);
+ static void cat_wrmsr(struct msr_param *m)
 diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index b63dc62690ca..66dc9813c888 100644
+index 10dfdca7f4bf..b63dc62690ca 100644
 --- a/include/linux/resctrl.h
 +++ b/include/linux/resctrl.h
-@@ -249,7 +249,6 @@ enum membw_throttle_mode {
-  * @max_bw:		Maximum memory bandwidth value, used as the reset value
-  * @bw_gran:		Granularity at which the memory bandwidth is allocated
-  * @delay_linear:	True if memory B/W delay is in linear scale
-- * @arch_needs_linear:	True if we can't configure non-linear resources
+@@ -253,7 +253,6 @@ enum membw_throttle_mode {
   * @throttle_mode:	Bandwidth throttling mode when threads request
   *			different memory bandwidths
   * @mba_sc:		True if MBA software controller(mba_sc) is enabled
-@@ -259,7 +258,6 @@ struct resctrl_membw {
- 	u32				max_bw;
- 	u32				bw_gran;
- 	u32				delay_linear;
--	bool				arch_needs_linear;
+- * @mb_map:		Mapping of memory B/W percentage to memory B/W delay
+  */
+ struct resctrl_membw {
+ 	u32				min_bw;
+@@ -263,7 +262,6 @@ struct resctrl_membw {
+ 	bool				arch_needs_linear;
  	enum membw_throttle_mode	throttle_mode;
  	bool				mba_sc;
+-	u32				*mb_map;
  };
+ 
+ struct resctrl_schema;
 -- 
 2.56.0
 
