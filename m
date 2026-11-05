@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873324;
-	b=o0DRN+fx4PtiTaXy4ICOGV7Uy7k14wGarrNzwZejUsAo7wL+NAFAT+StUlm9OEoI4jrQ
-	 G1VQ7dKwo6fW+BPtVBhbBrp/MklB+DU7k20mL9aJ0EsfhSG1e29rxIrB3hoxbrP3ev4fe
-	 zXUZsczd9SV/xSf32D6w47Nz/bYwNXa8HQ44OzRCaMu7saics1CHWnEr1yY5ti/YFC/Mh
-	 7DFQE3fo+fp1lhE0ckDA6MeRNKyJHbnkozpRwy2tS9TpnKmzFRlw4WU3ZDWbFT4Ws9Qts
-	 3uiigu9UuTXeWp5NlLRYfgejhlzODU2m/UI6RPqTe3S77og+US7iy7FAl7/sXFN5shA==
+	t=1793873317;
+	b=rKgVIK89U33dbwWP/lu6V4yzOQUvEMT7VCoYWzyLfJXiFSIDhD1QSWmx1dqrDIpxBkNO
+	 1LAaLuulfg7vopEnlJFMF1Kr0ZeHnZ94F5Z/WYcD6UW3LJ5CNJuDFH7Smcjewyetu+76j
+	 oQR9YsX7uHyFfuuR4ZHDbieZcIEJwo67u/1T8TW03svbIqKj7V4HL3j6HUe8gM/bxjKU1
+	 y9VgMGZRFnCQiTdkRNhPtI1xaMvQ2i0X8WB5N3a/tR+MAHHoymXxry8n82wuCs5/Ky8VC
+	 4YXyZ2mC30o0OlqjvY3L6af36tIDtpchvvq4dnujHm/XbKypEbMySiPypONQqgFlmuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873317;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=9ljaJUV/TRI3RGVt/rJLh+4MvxHbKlzUwSPpPMcnbiI=;
-	b=x4wKSPQvBqdRmgiGwpZq8ZuBiFhaldqO70I4B8nnrzmWpQ+/1gAQ9kkFATmPYkM323Bg
-	 rmyEYr3vUtTUT7sk5adHZ44AqGABAXbkU7O4XtFschFqK56VM9154vg4TBtXjoyugnZMY
-	 FbvImnl67JadzppxHOdLgZq1fVZsDJX/x2IAB8Lv2vgLBlynq1+1l7TNtOvdSwUAoKm1n
-	 sE5aVrhiI7NCukq97gcsFv2iMBalQTYGD7F5KzpD90g71KBlzkaUn0fSGpPUpf4CVhE5i
-	 rV8bjoP/jezskKJqiY/c5Jzuu10LHxDviva9QF4Tcv/rQ4EOKPuhnDuJpDdMM5nZErw==
+	bh=N6AE4P7gJc5QCWHdSGV8OXNHdYwxH3AcE81yYUGoqK0=;
+	b=qTXFp/A6zcc+s2PYm3LH06NFm+b/1xzoP6HOHqA0qTSdNBLZV0NqDs3OMtyaBKWKeGIK
+	 zWBQW+m0EIfE+Pi+Rcf5Ui9z2Tqr/hVhzWuhDNSLgE/dXF+cmTLwCI5If4PATkkaxs4yw
+	 Hjw2eHJ1o5vnZvOqXeyfcxlx/lgzftRTOQcJ/CY/hnxaLEfZSpBPUpuH1yYFxkY1CMQLT
+	 u5ACDci48njKlhjEGsBsHDRpnxZJDRe/NyVG0rdzdXOf1UqQ3Ox/TldCQVYxiRU7c5s2e
+	 KPOItRh/Smv/c8M8LFNrWE5mfGC9yws6rbIc657/RrYzZiTkluhUqVgaakgbIMM47AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kfh5lukI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OQ+pAV/5";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D3360A5BCD;
-	Thu,  5 Nov 2026 10:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A77608362C;
+	Thu,  5 Nov 2026 10:08:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kfh5lukI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840021F000C1;
-	Thu,  5 Nov 2026 10:08:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQ+pAV/5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7B31F000C1;
+	Thu,  5 Nov 2026 10:08:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793873324;
-	bh=9ljaJUV/TRI3RGVt/rJLh+4MvxHbKlzUwSPpPMcnbiI=;
+	s=k20260515; t=1793873317;
+	bh=N6AE4P7gJc5QCWHdSGV8OXNHdYwxH3AcE81yYUGoqK0=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Kfh5lukIX7pVtv1xSFtvpTVcpEoqZsZgwQsy2Tru1YL6WykZorV+WeEYAklBQSgfZ
-	 n3vpbj6/maJRSXTTJ4TyPIzzI2KbB6fpG4v/aEBp3dQlUCYhrjFcgM3VYNeBYzhdp2
-	 +GyfKtcNrQsO01IfZysFLpbtp8RUl3ZCOxUPyeBGdz6e3nF8/5J3gvbOsvo0X7pJml
-	 NJikJt3f3XHlm+uLnhaNYVkc9LsgmXVs6z8Xl4sWm/+fHZe1/uZh3iNLRdj8jzodAO
-	 QuKhO8ZQxq5d1MdJEH2lboCSWtXgjfjGdexF3+8LRyevRGw4o8JELix19Yx0fAOj67
-	 34+CZOAiP+VIQ==
-Subject:
- Re: [PATCH net] net: stmmac: ptp: fix support for PTP_EXTTS_REQUEST2 ioctl
+	b=OQ+pAV/5YXN/zn0H23OPLUQodmXHXDzbfWmosc0j8sSJMXLjM3GSjGUVnRqS6dIkv
+	 gm6akoUHbpcj/iih6S7yrSymd0dsRnPu/ieH5ehSXsHNFHE0NvFGGW4l44XpXegmgX
+	 oA6unzJUntQ3WE7QcL6GA3BuyBTEpGBUtntqtKpdeEBav+3diXVdEygDrRIrLNQfgl
+	 OgVq20krqxXzfLBUNjG+Qo6Lrcvtvn/9i2vooG33vXqMqWn+Mrrmgx3uZ0EmT8fpVN
+	 0PwNE/qoyryhUsGcazja8U1oPuu5LjMhWvM7+X4mV/wT7QpnhD1IAfnEBiYLMBi/Fo
+	 1+P/mFwcvHZ0w==
+Subject: Re: [PATCH net v3 08/14] net: pse-pd: stop async event sources before
+ freeing PI data in unregister
 From: netdev-bot+sashiko@kernel.org
-To: jjc@jclark.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- richardcochran@gmail.com, jacob.e.keller@intel.com, kory.maincent@bootlin.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 05 Nov 2026 10:08:43 +0000
-Message-ID: <179387332308.488856.2315265262072517836@kernel.org>
-In-Reply-To: <20261104052504.1886335-1-jjc@jclark.com>
-References: <20261104052504.1886335-1-jjc@jclark.com>
+To: github@szelinsky.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, broonie@kernel.org, lgirdwood@gmail.com,
+ maxime.chevallier@bootlin.com, kyle.swenson@est.tech, ross@r-sc.ca,
+ netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 05 Nov 2026 10:08:35 +0000
+Message-ID: <179387331572.488856.14138423432886028016@kernel.org>
+In-Reply-To: <20261103220217.1131971-9-github@szelinsky.de>
+References: <20261103220217.1131971-9-github@szelinsky.de>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -78,88 +78,58 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch adds PTP_STRICT_FLAGS to .supported_extts_flags in
-  stmmac_ptp_clock_ops and dwmac1000_ptp_clock_ops…
+- [Medium] net: pse-pd: spurious error event in pse_isr() on -ENODEV
+  during unregister
 
 --
 
-net: stmmac: ptp: fix support for PTP_EXTTS_REQUEST2 ioctl
-
-This patch sets .supported_extts_flags to PTP_RISING_EDGE | PTP_STRICT_FLAGS
-in stmmac_ptp_clock_ops and dwmac1000_ptp_clock_ops. The goal is to make
-PTP_EXTTS_REQUEST2 work again for the rising edge, after the core started
-validating extts flags.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> index a37405534bebf..31a66e855d6b1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> @@ -277,6 +277,7 @@ const struct ptp_clock_info stmmac_ptp_clock_ops = {
->  	.n_per_out = 0, /* will be overwritten in stmmac_ptp_register */
->  	.n_pins = 0,
->  	.pps = 0,
-> +	.supported_extts_flags = PTP_RISING_EDGE | PTP_STRICT_FLAGS,
+> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
+> --- a/drivers/net/pse-pd/pse_core.c
+> +++ b/drivers/net/pse-pd/pse_core.c
+> @@ -612,6 +612,13 @@ static int _pse_pi_delivery_power_sw_pw_ctrl(struct pse_controller_dev *pcdev,
+>  	struct pse_pi *pi = &pcdev->pi[id];
+>  	int ret, pw_req;
+>  
+> +	/* pse_isr(), a priority change and the retry after a disable all
+> +	 * power a PI through here, so stop them here once unregistering
+> +	 * has started.
+> +	 */
+> +	if (pcdev->unregistering)
+> +		return -ENODEV;
+> +
+>  	if (!ops->pi_get_pw_req) {
+>  		/* No power allocation management */
+>  		ret = ops->pi_enable(pcdev, id);
 
 [Severity: Medium]
-Does setting PTP_STRICT_FLAGS here also change how the legacy
-PTP_EXTTS_REQUEST (v1) ioctl behaves on stmmac? The same applies to the
-identical line added to dwmac1000_ptp_clock_ops.
+pse_isr() can report a false power control error during unregister.
 
-For v1, ptp_extts_request() in drivers/ptp/ptp_chardev.c masks the flags
-to PTP_EXTTS_V1_VALID_FLAGS, which still includes PTP_FALLING_EDGE. It
-only treats the edge bits as hints when the driver does not set
-PTP_STRICT_FLAGS:
+Say the threaded pse_isr() is already blocked on pcdev->lock when
+pse_controller_unregister() sets pcdev->unregistering and drops the
+lock. It then takes the lock while disable_irq() is still waiting for
+it to finish.
 
-drivers/ptp/ptp_chardev.c:ptp_extts_request() {
-    ...
-	} else {
-		req.extts.flags &= PTP_EXTTS_V1_VALID_FLAGS;
-		memset(req.extts.rsv, 0, sizeof(req.extts.rsv));
-	}
-    ...
-	if (!(supported_extts_flags & PTP_STRICT_FLAGS))
-		supported_extts_flags |= PTP_EXTTS_EDGES;
-	/* Reject unsupported flags */
-	if (req.extts.flags & ~supported_extts_flags)
-		return -EOPNOTSUPP;
-    ...
-}
+For a classification event on a PI with admin_state_enabled set,
+pse_set_config_isr() calls _pse_pi_delivery_power_sw_pw_ctrl(). That
+now returns -ENODEV at this new check.
 
-Before this patch, supported_extts_flags was 0. Every v1 edge combination
-therefore reached stmmac_enable() or dwmac1000_ptp_enable(), and both of
-them ignore the edge bits.
+pse_set_config_isr() only clears -ERANGE, so -ENODEV goes back to
+pse_isr(). pse_isr() treats any non-zero return as a failure and sets
+ETHTOOL_PSE_EVENT_SW_PW_CONTROL_ERROR for that PI. It pushes the event
+into pcdev->ntf_fifo and schedules ntf_work before cancel_work_sync()
+runs.
 
-After this patch, a v1 request with PTP_FALLING_EDGE set returns
--EOPNOTSUPP. That covers falling only and rising plus falling. It also
-covers a v1 disable request that carries edge bits, because the check
-runs whether or not PTP_ENABLE_FEATURE is set.
+If pse_send_ntf_worker() is already running at that point, it can
+pick up the entry and send it through ethnl_pse_send_ntf(). Userspace
+then sees a power control error for a PI that did not fail; the
+controller is only going away.
 
-The in-tree tools/testing/selftests/ptp/testptp.c sends exactly these
-requests for -E 2 and -E 3:
+This is not a memory safety problem, since disable_irq() orders the
+queueing before the drain, but the event is misleading.
 
-	extts_request.flags = PTP_ENABLE_FEATURE | edge;
-	if (ioctl(fd, PTP_EXTTS_REQUEST, &extts_request)) {
-
-Those calls appear to succeed today on stmmac and fail after this patch.
-
-The commit message says:
-
-    Only the PTP_EXTTS_REQUEST ioctl still works.
-
-That suggests v1 behaviour is unchanged. Could the commit message
-describe the v1 change explicitly, since the patch is tagged for stable?
-
-This does seem to be an unavoidable side effect of making
-PTP_EXTTS_REQUEST2 work. The kernel-doc for supported_extts_flags in
-include/linux/ptp_clock_kernel.h requires PTP_STRICT_FLAGS for
-PTP_EXTTS_REQUEST2. Several other drivers already use PTP_RISING_EDGE |
-PTP_STRICT_FLAGS, including ptp_qoriq, enetc, dpaa2, bnxt and am65-cpts.
-
->  	.adjfine = stmmac_adjust_freq,
->  	.adjtime = stmmac_adjust_time,
->  	.gettimex64 = stmmac_get_timex,
-
-[ ... ]
+Should pse_set_config_isr() filter the -ENODEV from the unregistering
+check the same way it filters -ERANGE? Or would you rather have
+pse_isr() skip the PIs once pcdev->unregistering is set?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104052504.1886335-1-jjc%40jclark.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103220217.1131971-1-github%40szelinsky.de
