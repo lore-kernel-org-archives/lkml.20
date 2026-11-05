@@ -1,158 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881494;
-	b=roACKu0T71ILL00GAT7hU1767jGN3CDXWwqCMz7LHGtmWNpth351JVfjvegkKqa9jyqR
-	 AAlvaufeoyjX7aUbsQ/LworRO/sz8dhQupgu52cqSk+ovKOamiAdDWGUe7RUvTmF2W4TQ
-	 cpLtjZiHnWWGVmqHcJE5UC+SH+XJfGsE7svOdUp6s7cnz4vLcMn0uTE/oHxGDsd+6U3rs
-	 Msj4uhKM9/OUBDdUaQP5CLJR/AcmiTsWA0XSAFzVmVeNtUoxSabeJ3sB+9Q/fNogghfPk
-	 00EWYNDvyr+QnX0rff0AmVwrPRjUdVnsy69z2qswQsSnsj5BA3Pe/ZEq999n9jS7Tpg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881494;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=662NwdLNBtUdGCmzgsMnPMmCnx3lvo2FazCLn8DNyc4=;
-	b=Tqn2mRzBHpMDIm8a8fzsvs8ZkjnUO/cZvdvPNppzAFxjPmpe0JXZi1jmH3NxPBJCUea9
-	 qTMCvFyqvj16Sp4BnsmWguCZC5We1NJZrHm1dqIWGI9iDJzjziOhdicLjjZWqbO2tcbL9
-	 Z/tMS7cGQ4nY45J/gFSqRHH+aF5UNKxBASRXlWsvhlW7aEl5X4eWTugluyUYu1KFCRfEL
-	 Jl1cBCs2y5VvNFTkcttydaykIgOhYFRFFTAPOm4JvAVh7dlf5eEbSlwgVeoQWd5NbTDoG
-	 LzTdOy6e9I9PzIlLXdWUXiXONMHR0nCoKETXP7xQFO8y9njSEPumpQofIi3328UG7KQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Sj48FKi9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cxUi+XdJ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.55
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793881511;
+	b=UR5PJs+UY706qDAZ5ZEYHOV7edeJnM/EBoiYz+azOI5TacTnlXsxQht/ebyA2v8KXruk
+	 +NelZjjR3wKIcVlUzaKxbm+lJutpJmbtvtCYTbafufx4+kJlSxXeH5Vk+g68VE/AsdliR
+	 AIe6FCMaJIEKxSJEx/xec5p03LMnomaz9YdzqtwpdNcusQPxwkCjLNTKOX/01vjFFDQd9
+	 51zfWPQhsfBncyyyhRAnVKwVzq0PXTf/N5BhFivpdQzNp9clkpLxvXsztNl5KvWkfJxpW
+	 DnLjP4YXzATImz9WkrsibEZfSMSR9M65AO9p1fO+hJYhJItLOCy8h/uJh2jA2rwmykQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881511;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6I0a9hAJPTnpUKx/dgbfBVJSbgdJISGfDfRvHfkKFjU=;
+	b=uyHBaF3cYN8Tr/XFuNLI/BW5WqGdb8pVESlvfEd3VfFrsvuAjfyt9Af5t06Lv810T0FM
+	 9UGpaV9ejVMxxAdhNLJMM9J/PtmBUjIXL9gjtTam7pygU9q6G5zod+27Amte9ZZSWKGLo
+	 aA9cGJF7SSJcIpUNic+/dPdStKEdr5+JwE/nEV1qK9Se2DVLpXvWR5mUiGb4qxZ8G1rBW
+	 3L6gLrp/69TIILBphwgSL2dZ8QmzZWzEZcHKQy6STZrl1qTxrpdFetx91GubJSn7TP0ug
+	 MWpzqHyCTatSPULwLoJSO+3qszNPRDrMKtCF2kkLCxHrngOrKr/ldLF8Dh4aR7xLm1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1YwZjkbL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.55
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010055.outbound.protection.outlook.com [52.101.56.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A64606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:24:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A64606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FECD606A332
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FECD606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Sj48FKi9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cxUi+XdJ
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tDW0444466
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 12:24:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	662NwdLNBtUdGCmzgsMnPMmCnx3lvo2FazCLn8DNyc4=; b=Sj48FKi9APQlwcOq
-	GDAZNmLT3CXSYY9O+PaU3TtvVQysmkBy1nFGyuUMO4SfoWoJlZtUpXCJkjnuYpzY
-	XhLBH0rApGtho+uA+IAj5i07YLstmB9uL4i1XBq2Fn4pAjyqtB4XhAj1DTYr86gX
-	5h0QIcNnJeXfVZBVW2XVKnFiBhtzA0BEg55NXJZTELlnDMVuiU85I18Gm8uTrsjx
-	Bm4Xmm9nnEkThsG1fvHwBfQqWaknlaKGAGhtveTyrF84F1glilfOAmggfSRVvvEd
-	rbtpKEm24aw9iEU5HrfbsTHWAsez6HxgkStnDOX7IuVgh3p0wZQ2I3uPsLJI53R4
-	TL6jqw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrpaagy6g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:24:52 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f568dee56so341174685a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:24:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793881492; x=1794486292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=662NwdLNBtUdGCmzgsMnPMmCnx3lvo2FazCLn8DNyc4=;
-        b=cxUi+XdJManixpnNswIk32rty6flc21gszVy7jJKUrdujPJk+nu6CEuzqJEnXYfvVc
-         ByhlDpF2Fzh6igNnmqXMCdIRODVNWOav9NauRm9GZP9DhDxMDYcKDrJTej52hIUXIziA
-         pp5B3MBCRihuRX8vqProgQe4RawDW2ud5zBlUOwVIy5AluL7VRN1zopajQAzoh7UHRe9
-         /j+tSYsICDRJlz9JMMkWUxOKVjGVu7ULvNvWS7BkcTIfeRX+0Yr1KE+/ZuL9tD3KY7vf
-         7MgZBTUt8kS3kmw6UQZYdV2kXe61TAIpLIDoW2QfIuAmyfJEqBChPXAPzBphOKvCfMZJ
-         H+zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793881492; x=1794486292;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=662NwdLNBtUdGCmzgsMnPMmCnx3lvo2FazCLn8DNyc4=;
-        b=B+41Q2S8KNlUnwSnbEOBB9LQe/uxPd83sqAAUTvx8kQgaoD2ke8bILH08tjvIWNHRf
-         vI6ici525rsYAARDPw6AckCLtvsMshAk20oiL2/5O72qNseF0Wtb5/C9ME/fUieYrcZd
-         gxpXk/Xg5bzdEu4PotsfmGbsPboBSS58doqrUcsIPyQ+8RzYKeYHbftbffVT0QWgQCjl
-         LyuiT3qXBOQ+P2BtE8N/2aUNOx8t0NN6ycsquW9LF7693+jCBexTklhn13BjEvAs5cdf
-         oM4pKFSeeOkujTkfTgEX+amNosWYDpCoEY+oa/tTwzkouZik3KL2oLS0cRD739cw9Hi/
-         mA5w==
-X-Forwarded-Encrypted: i=1; AKwUvByX6kDJAIpOkaQxW92Yc9wNLRMNDdrZvBiyYJSXwDQFg70lPDBV3fTGeGNvol6RUnESsD4nhIh0CcPAWfI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8okU5RzF8qCyQf+k4Ksm5oYf0KTdV3xyZ1PCXKfCLZUecgMkoj
-	ZYdGp9HaZS4VTvCsCd8ums9idNat14kPgAjU85ywMiy/fC7XgufDN+69z/7GirmyHhdeDX9G1N9
-	JsPY5jeVvLty35c9voRoWLHcHM5mqPD0JiOjDqk9uY9fCeeMstvjB8hPrRW1nFxaaQQc=
-X-Gm-Gg: AYBFou0npuop4aUvWChkrNcIJc/o2cT5bybcbenr+uUGHaHwoVXKIhH4Ez7uFx/3coc
-	etwaKGAc2+KYXMi3q2heu1JvL8Njtts4uPlA4xARwvNMzi/czSs6FRNGgEnVWtf9qQA3k1Gm0+X
-	OaBzXnfvxgJLaiJfOndO2lGkAhzHMehQa8Lo/WXrXRLAiFBB9trQg4WvC03/l6mmxXDE3UwbVX+
-	pm2oLVj3wV+HhH9jKdgk4XvFeUuOTpMHAYAqHM7elQaD4Mc0c8t7zdte8OuNyVxnkDXDZTlqZGR
-	DhBJk7v7SX+qsp1WvKa1UmfUtbY0W4x8bug5aVyar+m1ODHa5imUEQJxZfZ985ku1o/BzZKxQ8T
-	P0IhL0/BvcXxOAieYkdZSmQyiQZ2X3kLhq1XtPZzHLXKAy8Se2teDRQLlG+OZ8in5AWRO1Lv/6c
-	Ft
-X-Received: by 2002:a05:620a:1a0e:b0:93f:2ab9:72a0 with SMTP id af79cd13be357-9442172e3a8mr3096715185a.70.1793881492165;
-        Thu, 05 Nov 2026 04:24:52 -0800 (PST)
-X-Received: by 2002:a05:620a:1a0e:b0:93f:2ab9:72a0 with SMTP id af79cd13be357-9442172e3a8mr3096707785a.70.1793881491600;
-        Thu, 05 Nov 2026 04:24:51 -0800 (PST)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b5725fb0d1sm61320965e9.8.2026.11.05.04.24.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:24:50 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Andy Shevchenko <andy@kernel.org>, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Lixu Zhang <lixu.zhang@intel.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-        Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Imre Kaloz <kaloz@kernel.org>,
-        Conor Dooley <conor.dooley@microchip.com>,
-        Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
-        Daire McNamara <daire.mcnamara@microchip.com>,
-        Daniel Palmer <daniel@thingy.jp>,
-        Romain Perier <romain.perier@gmail.com>,
-        Robert Jarzmik <robert.jarzmik@free.fr>, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
-        Hoan Tran <hoan@os.amperecomputing.com>,
-        Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
-        Mika Westerberg <westeri@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        linux-hwmon@vger.kernel.org,
-        Matti Vaittinen <mazziesaccount@gmail.com>,
-        "Enrico Weigelt, metux IT consult" <info@metux.net>,
-        Viresh Kumar <vireshk@kernel.org>, virtualization@lists.linux.dev,
-        Yinbo Zhu <zhuyinbo@loongson.cn>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Srinivas Neeli <srinivas.neeli@amd.com>,
-        Michal Simek <michal.simek@amd.com>, linux-aspeed@lists.ozlabs.org,
-        asahi@lists.linux.dev, linux-mediatek@lists.infradead.org,
-        openbmc@lists.ozlabs.org, linux-omap@vger.kernel.org,
-        linux-renesas-soc@vger.kernel.org, linux-unisoc@lists.infradead.org,
-        linux-rockchip@lists.infradead.org,
-        linux-stm32@st-md-mailman.stormreply.com, Michael Buesch <m@bues.ch>,
-        William Breathitt Gray <wbg@kernel.org>,
-        Robert Richter <rric@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-Date: Thu,  5 Nov 2026 13:24:47 +0100
-Message-ID: <179388146665.22103.2916811858448928630.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1YwZjkbL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zgw6yzrxtP8JyTAa2mz84ZJkUDPlPUpDUSvcQfkk2N2P/xDXElN6uOtRv4kgtdcT/uR9fZZEQRL5CvYJiWS9As6AqBYNgCHrFU5uVctGqYIlzj4UrQVqbbGagA7Qn+2CaHvNr5FWkDt2iegKnOJicFuVH8XtJrqxIUNyMxlQrzzpIUsxXgAz7+gO2Rw3Oewptf+MtpdIlS7F3vlbss9dNApsQNFNADtnDI1OGT2BS497lZpvN8VC604MXYJ/Viub5Cegj2LAm12xoLVCacuoa6CplCaWx0/HsDe3sD3Tp+TlbtwAUKhZ3TB8GS7v2RCNjNgcrf+Up1R1Aj4CfVkidQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6I0a9hAJPTnpUKx/dgbfBVJSbgdJISGfDfRvHfkKFjU=;
+ b=WErZFxNvN9PHd/wD7Es/60MCPx7ZUW/uLsND12QMwpSbWCYas1ljYhe9rvtdAvV1/TMVidWI5jJU4kRDbbKdAkEgt5sd9c+u8FA9WEHCjeuQ74LOtIAhxrTHpc0bCibn8GDLdyOz+ZKxCICQjagG2slbc1psOu3TF3xiZ0SpmgOXhU8HInfhN6TpXCZqM2Hrag8LlUTnIcdmAQ4z6LfmBqKnPz/AMx4C+RkiJYEtim/2YdEHdXMAGMYFAMfPDwgKd2BilG2ntt0Y8Oj61gSvCZbwwFW52Ci0DUlpWk6z59faZZfkCX8ZcX/ZJX/6fxHBCZBEvBoMHaKyYELmbMTGaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6I0a9hAJPTnpUKx/dgbfBVJSbgdJISGfDfRvHfkKFjU=;
+ b=1YwZjkbLIUHcozd6No4GTPC8j5AxhS0ldXQjaOobzLmgAx1Nb2jXtEyauA1Dqpsl8lBY+hzcgHrf3qjFZm95AFGkea8wdSTlatsVvgya0Re0x7XJOYNMvtguCVdHxiEWvwFei6UaXjP5sSBTMdMIQjWuX8msiJOl2fm7Zs8FbvQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV2PR12MB5751.namprd12.prod.outlook.com (2603:10b6:408:17d::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 12:25:07 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 12:25:07 +0000
+Message-ID: <a6a2ca76-94dc-4616-8160-d756713e22b9@amd.com>
+Date: Thu, 5 Nov 2026 13:25:00 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use
+ kvmalloc for user-sized arrays
+To: Tvrtko Ursulin <tursulin@ursulin.net>, "Yu, Fei" <fei.yu@intel.com>
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+ madhurkumar004@gmail.com, mripard@kernel.org, simona@ffwll.ch,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com, tzimmermann@suse.de
+References: <39be711e-cd56-4a04-87ee-6aa2a0b69779@ursulin.net>
+ <20261105081845.1230910-1-fei.yu@intel.com>
+ <9c1805b5-06ae-426f-b286-9bbd43538afb@ursulin.net>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <9c1805b5-06ae-426f-b286-9bbd43538afb@ursulin.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR05CA0042.namprd05.prod.outlook.com
+ (2603:10b6:208:335::22) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -162,99 +101,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0OSBTYWx0ZWRfX9ZSGA1bPX0Yl
- VeLI6Ul+hvLdKTpjzL3ny3epW8YLTnAMwBZAyg9hnZNCaL8ct+o51zmn9YAJUWkqdkgyd8H4mH0
- IDhKR3pHUmNNKVvG+SWwhfDQb7L6VJExV7xB4/OFM2G2GQq8mzl7NaYdlq+j8kSZ+fv9lFV+5aC
- 57ckrc+C7IBclOsLZfTY2LZ3ixXZsvhYLvKqZLEEY4oXijcnZZYtzUXbIAgfmSIjhLHh+mkKV+C
- UGrmoq/U3UEwtNkrcU1BmsnoI7hikM+1cNmuLtucDtuZ1xA9b7pAuS22bMVAMNFZFPQB8AznS84
- x2KkUlHFTngk+RLPu2wcHfz9XqkFWNHwyGtkROFaF+McZJMAxxZkgg8bjfR6jo+kGQx5RrB3yZA
- 7/RY/00RwQaCkxqEZtTaTCXibj0TCBxgZJDjAqTwWpeViC+iKdWBci7hHaLYCRlLFLjyc4dSpQl
- emWkWZ5WFzX9p320i3A==
-X-Proofpoint-GUID: 0NljZwhGzP3qn16So401zcU4q4T4N1D7
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0OSBTYWx0ZWRfXxSIs31TMGk77
- eJHXCgyvWO4B76zonw0k4J96v5FvrHHzlKoHqBIiJlLD1igYa7iflNFeSosUE+k5UqXy7ehPTR4
- gxY7OkbWrmiF6nfGDMgSKIo3UrN65Us=
-X-Proofpoint-ORIG-GUID: 0NljZwhGzP3qn16So401zcU4q4T4N1D7
-X-Authority-Analysis: v=2.4 cv=WOXqzXsR c=1 sm=1 tr=0 ts=6aec7594 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=IpJZQVW2AAAA:8 a=EUspDBNiAAAA:8 a=k4E0auTuH4aaYxdkK-0A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 phishscore=0 suspectscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050049
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB5751:EE_
+X-MS-Office365-Filtering-Correlation-Id: e46d8255-35db-45dd-65c9-08df3b37d3bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|261026121527099003|11063799006|4143699003|56012099006|261021121427099003|261022105027099003|261009223027099003|261022075727099003|261026140227099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	UN2/GRaUP0FVNZq09Lzcl8KZPSSycYEBwGGnsZ/3bvGnIs0lPkhNPS7kCGyYYxDFq/3qcT8/DhFcE87hwC1jPkfgWI7gUXSFHPf+D8Xm5LR/5k/IWj2I2CH7A9Jq5XqaUdBUf0dAvug/dvmF/Zf5UakL/q70DLmw4wOT4fjlNOVxKXWYEqyNWksT5OmdMlt97jPPkX1y+bC2vyWklDvQxJp3/KJ71IITcDyrQVvxO1Qm86QQpDhtDOspOK0iiJXnTLAZMd21ilbH4AeEidEvz962w6nR8E/DhXRLTVokiw9PWGk1FbMArb48xXEeryBRh1Lef+GD+HPTBig4aXd0LM92gtawfWrzud+XWh16meSQRhkwhkaCESnwjRslyF7xCLfv9R27mT6JbtbPVlx37oAcszdBkUOCc+YrMa+eh7ChwqeZd6VixTIs39tezStqVAboH1rowifDcjL1Imi04jqGw8spRnWIoxsN4KpseoP68qWECZfnNr7IeS9UnAIRTqdR6/MAVqQavBQ3KyrYKOkJlZuEEgqL5vEeCJY83bZhhN4mnRX7wUG89QKX1phZa+7BkTZ8WhLpgPgwChu4hBQPQN4NICTNy1xSks5EuIFdyo4uwh6IcPJdDpIOfDjk
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(261026121527099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VDNQUHFqR3A4dmpSNW0vaTVWNXQ3TTZiRWZwOEVHOGRLN0ZhVUtTZFRBWWhq?=
+ =?utf-8?B?T3l0VGhWMzVXS05JbitKZjdSMXEvSGo1ZFlFVTlOWEg3ZFJpaTZzM3dQQ0pw?=
+ =?utf-8?B?N1RZRXR6L1lRZmk1d09hczRTczNiOG1pWE5heGRBdUVhME1BalF0c3Z1b1g2?=
+ =?utf-8?B?MC9SMHNFcGpZOGJPZm9pNWxXRWxGYjNFQ0swMjJsV3NSYXBWcms0K1NkMG9y?=
+ =?utf-8?B?Q1kvOEpYT0lIaXAxSWpCZnIyQWZUeG9zRzBxNSt5OU0zMnZoT2V3YWFEeEI3?=
+ =?utf-8?B?REhRcnlkejJTQWp5MEEwNEgwbEJwRjZQVGUvUmdqbGM2OThvRWRXbEhBQlVh?=
+ =?utf-8?B?VEkwSjNOdnRiZ1YzSjRXV3IrbVlsUDExTUFsclB5cytSaVRmUVFIRWllWWhJ?=
+ =?utf-8?B?VG81bzZzM2MvWC85OG5JWlhGelZjZFlsL0wyQTdUTDhyWTV0emFhQURpWEVI?=
+ =?utf-8?B?UGNTYlBTWjE4NGxTSU52NUpvMCtBMUVCamxjZ1ArUVRyZzBGQ1RabnhhVi8v?=
+ =?utf-8?B?dXJKMTBDMyt4Rll3Y2RFdWhyRFJTbHJ5QWZNcXh6YU1jdHZXSnFwbGxFckJO?=
+ =?utf-8?B?MlpkUVNjOFZWdXRrSkgraUpraXAwS0tQT2JIQ3RQc3dsT3BaZWhoUW9SZ0NF?=
+ =?utf-8?B?VE1FUmtNZGV4VUZYTlFvSlFQQWRzbVErWTMxT0krVDZBaWE4TU9MdGNJcXRT?=
+ =?utf-8?B?M2RHank0WTd1NzBPZnp2K09DL2RhYmpHc0RxdUlqU0J1VnYwMExDL21uOVJx?=
+ =?utf-8?B?ZXByTzRybXJPdUtKZVcyUld4RE14ODFCVGhIS2lNNTMwVXh5UWs1S0crZHJw?=
+ =?utf-8?B?TmJYdzhFd2hYemhOZmdQcjg4RklUNlpRSGczWlQ0K0o5ZEJlS09DUmROMTk4?=
+ =?utf-8?B?L2RYMDNieHdHMEVSMEdXQ3MvYVIxVS9tMHVKbHh5dnZ2MmFtMG8yTzhVb0M0?=
+ =?utf-8?B?MlVqWTNhOVlPM3Q2SjUxT0pVVWIvUUlNaXM4ZjhzZGg3c0VSOU13c3NiSko0?=
+ =?utf-8?B?WTdqdkdUMnZ4TmJJQlkxQTZzbllka1pMdXNqcy9zY0hnUWZVR0JuYzQ3TjlH?=
+ =?utf-8?B?MGNRUCtzUGN6S0dGQzd5bmdtMzBqQWFjYnFRTFhRTlhEdFNpYUd1L1czdkgw?=
+ =?utf-8?B?WGh0eTFBeVdoV0libVpudUQzSTRXaHQ3UHpGNzNPWFdCdnJURWFuaVladUY0?=
+ =?utf-8?B?SVg5K0VmdEx2UzVTTzExOU9zU0Q4OXVFVENGK2pzK0RZSWdUZVY1azNSRjFL?=
+ =?utf-8?B?Y2Z5emh0aThucHBoNmRLR25odm5UbzlSMUt2MkVnU0plVWVTYjR5RXRsRVBk?=
+ =?utf-8?B?ZzlkeXFBZC8vcEljalJYMStLdzNWcE4rNDFoelk3bUI0MStlMDZSZFE5Nnhk?=
+ =?utf-8?B?TTBpT0Z0NHpySWNtZWpSYUpVcHRTU1hZNktka3lGaHRMUjNGRzNiWVI0bE0v?=
+ =?utf-8?B?NjVaS2ZHaTFEZHZPVk9xcnFOWFZwUkdHcjY2K0dmUlBzcEliTWJBdkxkOHlD?=
+ =?utf-8?B?MXBkTVZMemVEYVJOVjRBL0x5TDFRdmNLd1pvcXU2WFlDMVpILzBuQUVCOGhI?=
+ =?utf-8?B?SWNpNnNhY293VllIaHpmZ3B4bzhFUW9HaThuZjJIYkhTd0VORnVqNnVVUmtU?=
+ =?utf-8?B?NmdTd0ZDUVZEK1Y0cnZmMERweDhTRXNTZEhuR2h6MEFOdEpVSll1VVZ4Uzh0?=
+ =?utf-8?B?VXZGT0h0enFDWnhNNTJXVm90QmxpcUxqeitsQllPbVQ5M1RQQ3pQOEkvTmUr?=
+ =?utf-8?B?M2tNcjNWSVpMQWNFa0dlK0dVMjNLT1hrQSttdTZiZjFpcS9ldFRqUHJhWFlF?=
+ =?utf-8?B?RXZWem5NSit6N3ZVVDhFRCtaaktBM3g1clhENUVVN28xZVZaV09aZnhvZk05?=
+ =?utf-8?B?eXY3MzR4L2Q1SERJVlVTVVJFdklESFdFM1BseXJsY1NpbWc5MFg2N1RFNzhs?=
+ =?utf-8?B?YUd2NXl4bmZ3QWdKUlJlNm1Ydm1uNHVBeHJDeEZZbmt1UXhuMEZCY2xJb2Ix?=
+ =?utf-8?B?bHNMTDVxak9EMU5mYWcwVjRjeDVncnZtaUJmWjdTTkpscDZsRlo4NXAwUHNS?=
+ =?utf-8?B?bU5MTGN5RTVydmg0Y0VNQlJRU3BTZmVjakpxYUJ2OVhsRVh0Uy94Kzh5YzFk?=
+ =?utf-8?B?Z3RtMUw2YTczWEpGM2F3TWtzbjVaNWpWYmF4MG1rWFpXSWdFZHZwM3pmOFV2?=
+ =?utf-8?B?Sm1scjlqNXVVZUkzU0NHQ0FUQ1FIL0RaSmhIaEJlTGgwUHdhZURHSEUzYXNY?=
+ =?utf-8?B?c3VROFJPbnc4ZnVTRCtSRkJtMms4MU4xbkdsR2NKLzhzY1ZIMm52Y1lnWnVz?=
+ =?utf-8?Q?7c3hPY6sTEXfHvW94y?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e46d8255-35db-45dd-65c9-08df3b37d3bf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 12:25:07.3146
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lSZQSuaycYJOKUr3vTofgcYAxts0pC3E1vXlmZPxnocwzAlitZ9CodITb0FEgJSz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5751
 
+On 11/5/26 10:12, Tvrtko Ursulin wrote:
+> On 05/11/2026 08:18, Yu, Fei wrote:
+>> From: Fei Yu <fei.yu@intel.com>
+>> On 04/11/2026 10:27, Tvrtko Ursulin wrote:
+>>> On 04/11/2026 09:44, Christian König wrote:
+>>>> On 11/4/26 04:09, Yu, Fei wrote:
+>>>>> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
+>>>>
+>>>> I really wonder if we should put that into the uAPI files?
+>>>>
+>>>> Not that userspace is potentially using it, but this is part of the uAPI
+>>>> and makes sense for documentation purposes.
+>>
+>> I thought about that, but I'd prefer to keep it kernel internal, at
+>> least for this fix:
+>>
+>>   - The value is derived from the size of a kernel internal struct and
+>>     from the kvmalloc() size limit, so it is not the same on 32-bit and
+>>     64-bit.
 
-On Tue, 27 Oct 2026 11:48:37 +0100, Uwe Kleine-König (The Capable Hub) wrote:
-> the original motivation for this series are the patches that convert the
-> arrays to use named initializers, see
-> https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-> for the idea behind it. Looking left and right a bit while implementing
-> that, the series grew a bit.
+Oh that is a really good point, but most certainly a bad idea.
+
+This means that code working on 32bit then suddenly fails on 64bit, not something we should do.
+
+>>     To put it in drm.h I would have to replace it with a fixed
+>>     number, and that number becomes ABI. We could not easily raise or
+>>     lower it later.
+
+I think I prefer a fixed number here. Something reasonable large enough, like 64k or similar, should do for backporting.
+
+>>
+>>   - Tvrtko's series below avoids most of these allocations. Once that
+>>     lands, the right limit may be different, and an internal define is
+>>     easier to change.
+>>
+>>   - The patch has a Fixes tag, and keeping it out of the uAPI header
+>>     keeps the stable backport small.
+>>
+>> For documentation, I could send a follow-up that adds a sentence to the
+>> uAPI struct comments, saying that count_handles above an implementation
+>> defined limit is rejected with -EINVAL. That documents the behavior
+>> without fixing a number. Would that work for you?
+
+With Tvrko's patch to avoid most of the allocations in the future that approach sounds reasonable.
+
+But I would still use a fixed number and maybe a static assert that we don't hit the kvmalloc limit when we allocate that fixed number of structures.
+
+>>
+>>>> That kvmalloc_array() + the following copy_from_user should probably be
+>>>> replaced by using vmemdup_array_user(). But that should of course be a
+>>>> separate patch.
+>>>
+>>> Btw I tried to do that some time ago:
+>>>
+>>> https://lore.kernel.org/dri-devel/20251106132645.28208-1-tvrtko.ursulin@igalia.com/#t
+>>>
+>>> I have as local, more recent version which applies, but apparently never
+>>> sent it.
+>>>
+>>> Interesting part should also be the other patches from the above linked
+>>> series which avoid allocations altogether for the vast majority of cases.
+>>>
+>>> If there is interest I can re-base and re-send after this is merged.
+>>
+>> Thanks, I wasn't aware of that series. I'll leave the
+>> vmemdup_array_user() and points array cleanups to it, so we don't
+>> duplicate work. Happy to test it once this fix is in.
 > 
-> Changes since v3 (available at
-> https://lore.kernel.org/all/cover.1793030820.git.u.kleine-koenig@baylibre.com):
+> Thanks - just to clarify though - I understand I wait for your patch to land and then rebase my series, right?
+
+Right. This here is for -fixes, cleanups are for -next.
+
+Christian.
+
+
 > 
-> [...]
+> Regards,
+> 
+> Tvrtko
+> 
 
-Applied, thanks!
-
-[01/23] gpio: Remove __maybe_unused annotations from acpi_device_id arrays
-        https://git.kernel.org/brgl/c/c563f9a7ebdb8de36042b685c89b29a56bb4a2d8
-[02/23] gpio: fxl6408: Remove __maybe_unused annotations from of_device_id array
-        https://git.kernel.org/brgl/c/9ae231ac040cbdd9e24dda8a76e5b0a52195fca3
-[03/23] gpio: Drop unused assignment of acpi_device_id driver data
-        https://git.kernel.org/brgl/c/7a2dac6de054da359a0f986dc9b8fe7a1c2a97e4
-[04/23] gpio: max7301: Drop unused assignment of spi_device_id driver data
-        https://git.kernel.org/brgl/c/9d6f21a8154ebcf777d9836f2c804f65c4173b02
-[05/23] gpio: mmio: Drop unused assignment of platform_device_id driver data
-        https://git.kernel.org/brgl/c/9d14e246391f0caafcffa7fe5211b32d246fb327
-[06/23] gpio: ljca: Drop unused assignment of auxiliary_device_id driver data
-        https://git.kernel.org/brgl/c/526fd5a299da4e954a66124464fc272b9d6ec529
-[07/23] gpio: xgene: Add missing ACPI module annotation
-        https://git.kernel.org/brgl/c/c7b4f8ea5725363bb7209be26cd57428e534eb4c
-[08/23] gpio: sodaville: Add missing PCI module annotations
-        https://git.kernel.org/brgl/c/77e387153e2a871d1bd84fa170d1e0c2ba2cf78d
-[09/23] gpio: Add missing OF module annotations
-        https://git.kernel.org/brgl/c/93ff9d3beb2a20c7cc5a5d60e81de8ba8e770338
-[10/23] gpio: pxa: Add missing platform module annotations
-        https://git.kernel.org/brgl/c/1a93b8060780bc50b9348d28224986a3552f5d87
-[11/23] gpio: pl061: Use empty initializer for amba_id terminator
-        https://git.kernel.org/brgl/c/501a0376a582abee825d25fba42ab6f9f80433be
-[12/23] gpio: Use named initializers for acpi_device_id array
-        https://git.kernel.org/brgl/c/91f7e7fb10592850a7d9075e16aee5fbe83f1e9a
-[13/23] gpio: Use named initializers for auxiliary_device_id arrays
-        https://git.kernel.org/brgl/c/b3ef6bfd0e14450debf728225894b70a3379f514
-[14/23] gpio: pcf857x: Use named initializers for of_device_id array
-        https://git.kernel.org/brgl/c/5b2dcd61c2105f5b17591c3c44b10630d68001f7
-[15/23] gpio: bd73800: Use named initializers for platform_device_id array
-        https://git.kernel.org/brgl/c/92aa1d97bd10195df229851f4e008914a0e8445f
-[16/23] gpio: Use named initializers for spi_device_id array
-        https://git.kernel.org/brgl/c/7b86d1e3c33b95a85a5a3e6f72afdcc2ff717e0d
-[17/23] gpio: virtio: Use a named initializer for virtio_device_id array
-        https://git.kernel.org/brgl/c/7c01eb6861833cfb9d00673fbf8aef0b3e330dbe
-[18/23] gpio: Unify style of acpi_device_id arrays
-        https://git.kernel.org/brgl/c/6588211f4fe51a881ca56648dcc5a8fa1479d4e2
-[19/23] gpio: Unify style of of_device_id arrays
-        https://git.kernel.org/brgl/c/aee4187b00011bb65ee1aef578b1fceafae76fba
-[20/23] gpio: max77620: Unify style of platform_device_id array
-        https://git.kernel.org/brgl/c/1b454163287b3839bdfd219e3520456ce251bbe5
-[21/23] gpio: Unify style of spi_device_id arrays
-        https://git.kernel.org/brgl/c/17d6308e7d5a4d4f317c7f92cbca330bffcfc391
-[22/23] gpio: Unify style of pci_device_id arrays
-        https://git.kernel.org/brgl/c/aff8eccdb976f43298117b52a7bae6d13ca62554
-[23/23] gpio: Unify style of various *_device_id arrays
-        https://git.kernel.org/brgl/c/0fa38ba784896f2fc32c9dacd33822f844b21906
-
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
