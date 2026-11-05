@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880576;
-	b=uh1KhTo6mBfMhbthgU+cZF2SL1RBvWFg3R4fFxm2Pzu6QlkyRpKJ1Opok3yFG2M1q9XF
-	 9cp1yi+3YnfXIkJlosLS7ZpKDxPk0cbbOx0dbh7GbswYF0XOOAPk87Cqkv2KPxE/0xE9o
-	 pna9tL32wVlZ6T+ycL3rUyNNfn3KqJ7fCr+O2QWqO38EshdzzGckezhV2rquhn9pf62J+
-	 B0JqXkG/91lTVdvlWMkzuBlIr/TsMRMc6QP3UhAlWEGUx4bXsFsq1Ji6rpvewG6ix31Qp
-	 GxlMguwa0jwoYA4iPcF2jUmMnO9FcRUCL3urYwbZa6t1E4yCZfqgIkj5iFke/VCilTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880576;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=L+eDSiHoLUW5kbF6XazVmwGSSMqijnyueqwHSwCo6BQ=;
-	b=gx11cU+pghaautQtNv/D/czFAvO1KMW4ZLKwb3nx/DITG5ydjqecDoTnJaffJUUjca6Z
-	 FlOj5StEPwpqbNX0pUNLYbDI+S7eaF03kQZS0Vd5pUow307ZfO7oR2VtGq/23n60mtPyi
-	 HZKb3cxIk3wCAib462kqGgLuJlHYd97GjyaTMcd/z462LlsAN1f802GBNqQTtiy4++1eO
-	 j07I8bZIDcQa+kMaatH80vuiMlI0mWO1r9jxHqLWDhx+wJLL3fxui2wSDH21b1nwkKvb3
-	 +UGOAQvWRAxjjqblQxZIHp4X5krc0Zh5p43rzJsc3X7hGcTqXd+fbned20ViXQcdOhQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f03AMJoN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793880590;
+	b=4a9NbuP0FIJ7XvDcfLg28ZVlXHIAkizo1cQqpTXJgpq02M9nbQE5WAB8053XVQ2jxlQA
+	 tXqOueV1t56RHiY/LkYhslZtln47aEoF9GvYZniZbaaD4ml3wDySpCxINTV+FLxdageHx
+	 NsxwukbvNmRv9uaDqvENuZ0rVUcNvi85CwGs6KLCCsIAbm/y5kYYSlqtpVcRWttqNbzrq
+	 vyzn7RCyY+Gxxj21p/X3P8JTuemJc8XoVb/Q3swyPMQGOGt810wV+XetY9AK61k4dq5Ea
+	 ndjGEl/ga5EUYu08VFiTuPidJPVHQD2I8rJ/cWVuogT7+5iiDsKm6Ufaa32t7lY8sQw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880590;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=4fvBY9zhAaIiPkSg9Hq87qAnpt7MuwN0ORLvoKho5YI=;
+	b=zsBQedL3EPvwRcdnjwS3g+ARkYjf5wJIs+ugEekl9K+O3EGz4V15/f9VIGdOGoEeIVVd
+	 CIFgYAw5b1Hg+RVgDVlBETCxfy1d/eV2FEPedGiTlBAJowdH6B0R76JsOy+LC4u2dyJpz
+	 XYV3ligRCWV5Bi1FXLW7z3/LgQG0bkeLNFxMmeUuwrKpxAyR3Mzy3Cpw+y8zvuCU1ps9h
+	 YQ4ezuWeaPQ5CFFz0vcuLmcNMrNGqZ0JZqifrqFKiLFAFwhdDPztx2RTZAlTspjlxIdd8
+	 /mqj1M1TSNKesEtv/fNNe5VNTbva8ZYjrr+i97FAchIZLmXc38m3VqkFmMXkf3XNRPg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=Q+WxMlJf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6147F606A32F;
-	Thu,  5 Nov 2026 12:09:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491B6606D829
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:09:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 491B6606D829
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f03AMJoN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A971F000C1;
-	Thu,  5 Nov 2026 12:09:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793880575;
-	bh=L+eDSiHoLUW5kbF6XazVmwGSSMqijnyueqwHSwCo6BQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f03AMJoN513tmNiUuReJOdW33YtbH5qCNn/9ufkRfZSFQHc82fWUoafoqz6Xm8Szu
-	 vpUmUzLQ6oihshNS4dUZSXloQBPbwdWv29DkBL3Njkl0eiuL91JrclU25WYW0ATk8K
-	 L8GBwwfHnMANHiAk3D5nd7hPCXjr/qWTHi8ERZMcRnBzhr03sbIj8YDvOZ5ebq47xn
-	 PCMaNgFIHv4qhpGHpYN/zjkVf6+rUbeOl8w+3xLmd1wNdf8pTely2gX6fGGBWUbTpu
-	 tjszEf2Ctv1DWCz2EmMSyjlReN7D1ApTI5xYWtBqaSc6Vw18YgKFIdCA+eW9qaUlTH
-	 LCNi5qXszqycQ==
-Message-ID: <b2a906ae-6744-4778-a897-f690f111416a@kernel.org>
-Date: Thu, 5 Nov 2026 13:09:31 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=Q+WxMlJf
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0d09df973so3515a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:09:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793880588; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kMtc9NGXrORglFElPnIdIzM1EpdCKlbt0TKdzs0VpVinlvZJCjLPjFTmvFxALjdC0D
+         MwJtarBHj79Ll2mNdPneNgP6u4b3j2G6wxkqfB8XS+yXB5aPGVx5BK5mkcY7xlywtw6r
+         ts/nt7JioRs4vnyu/8NlNwa9wgzbdEtI+brWJdpGFWnHFmcWP7ko9aFziQksgZ9i+a4a
+         tywqNtAblAKNab5jmupK4mLQqWlO6hkX4se3ruxQxq6ihSEyaESV9epdJGLLf+F0rV1E
+         t9QJZGgMFIHLmCgb3ssvNs69jaD0VgjkWupwf9w+58Ix2SShq5jClvx4oXdQiBMiO/56
+         3fBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4fvBY9zhAaIiPkSg9Hq87qAnpt7MuwN0ORLvoKho5YI=;
+        fh=2fh4qaJL/Q3hi/Ta5pyMA+eE7sCwMZVOAhZDKeIdvPQ=;
+        b=KUq7XrQF8hqc+ed6HttHjUD/T5wO/Lhy3ENcyQEW3b1CtfrxwcTMdppEdsFg9NuPeM
+         MZga/1UmdWeg9cqkg651X0buJ74CmxBRGCk7L7Wp3hRwy5FA0qdVSPAqt4jadsu8SYAA
+         ihlhofGKEcB3YwKf9Yi0i05+nwlxMs13TddRX12YsLqkcigU0znCaqUwdZYKzyaxDYWh
+         ib36fDKD4vZ9L/PBshs2h8ldLAXbpeRswJUY3qiBkGijm+VjFEqbLxo3rlbs98+yaD3L
+         Oj5OicLSc3fsD9jR4xip0+u0WrupHUh+Bv9HUgUG+Wwa9KOqEem/NrUff8WnV+9Nr3K5
+         Dd3A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793880588; x=1794485388; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4fvBY9zhAaIiPkSg9Hq87qAnpt7MuwN0ORLvoKho5YI=;
+        b=Q+WxMlJfY7MViaU6RLvN7dpZUozphjLESBEG2broJDvOwYJAvRWCePoSVYZS0ayrT2
+         yDPeKobp0ymw6o0GmblbfC4Q4XpXjHwETjYN8qOZ+7LIAGdXwRxgFNxx2R/jU99w9CRx
+         C4E9xFsAmOh9/8YZaYPyDChinvKxfAxj/aDcldSCDR3UUP6JPc4RgEbL3iQry7cHWlyK
+         a+rj6L0fgiNySzT0SzMHdI9iA7jrUdVxbhaDTTtCk7GpvoSXfTTKuY3Nv5/4+2TI4Qkh
+         OcGPtSb+I5CxNAg75wEatcEV6sQphoKgiOn3L7Cb3SpJ5uHIAvghzWrl6bJx0E45NSny
+         FnIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793880588; x=1794485388;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4fvBY9zhAaIiPkSg9Hq87qAnpt7MuwN0ORLvoKho5YI=;
+        b=wts/xZ1X2V8nK9VtsImSXQI+v3oVYVbsSnMRJYAQ2ahiKyPAD/v7fzCJ5oSgx+b/8q
+         vDH3n0ggXeVZCDEAIHnqu4bISVHb2XG/GR5DkE1IJGguHfvvPkNIcMVTYitXAjuYIy3V
+         3LYNRYZOlI3sOW/xKyfX4exEOv+xJt9NR29AxYC1kQrb1bOLK6+C6YowK7enTdO7gKGW
+         mLqr/vOS6FcJGbwk/FrAUZBh+x62DTjLOB65SMWW+uhqIvPnnx328j+2tCfPaWC0uFbZ
+         7JN080I7W0grMr2S2h7lMOCztSrM4TH5UcGjyer/XlX4L+CmT+h4MxtYVex8AKbm4Cr0
+         loBg==
+X-Forwarded-Encrypted: i=1; AKwUvBx/M5STfMCP5AGMNWVx3/CdgiEZVMvwGom7TQXMYOB/EFs+2PsbzTzz29zhmkPZ3YNnu5rpbgZGYNbQW94=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89j7+tGjGGOokL6tpq3bIICbktgFZ2RxM52AHWP8FIYhV2Zf+E
+	mAoMbCyGMSajqqBT514pE3Z0A46JQLZrEdHB8rcPsJIvUyZbW9TGEU7bDuQtE2Luz/oUk3Tq4eC
+	5LJGuHoPRTim9s7hwM9jD500f90R1xcbFz/RHdhY7Aw==
+X-Gm-Gg: AYBFou2D4TQJlRa2riST4VIbqf1FJy7Z0q8z+I60UolwOGM7Eiw1XpzVrMeTXtjxIbR
+	Wc3KfYvDmviKOlxBVgr36i/cf7xtz59U8wGnP3BlWlavcpXzsUE1Cvd82pUVacY1oSeBuakMdRv
+	XKEXOF92IeKcSbZx3m+bjIRAxJqUh18ddNejPRXB++9N7aYpF2bS2z70RVkgYw6fz8we/gUEPby
+	MBAFl7TdavLRCPcQl/mvxxjO9OFFoWCp5Ka+HoJ9HSMMXGAKOWz3liISHOYj6e1TUeTzpEicLQJ
+	GgYXSxoW8aTcnWCYTXmU9Y5LzREqczglf1kOt0x9yOTjTa5CpmeIRg+mfGTSvxDYOEOSMC2gce/
+	Nub6ycXoSuFk36D8SST6QDE+g6/wFhwMyuygWdLNeYu8Mph47zIYZuBEPLPo=
+X-Received: by 2002:a17:90a:e7cc:b0:3ab:2737:3395 with SMTP id
+ 98e67ed59e1d1-3ae8979d3c7mr16512224a91.42.1793880588558; Thu, 05 Nov 2026
+ 04:09:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,146 +103,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/10] media: videobuf2-core: Move type check out of
- vb2_core_expbuf()
-To: Jai Luthra <jai.luthra@ideasonboard.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Tomasz Figa <tfiga@chromium.org>, Marek Szyprowski
- <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>,
- Paul Elder <paul.elder@ideasonboard.com>, linux-media@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
- <20260917-b4-vchiq-isp-v5-1-2d8870add2c0@ideasonboard.com>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260917-b4-vchiq-isp-v5-1-2d8870add2c0@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com> <20261105-dw-hdmi-qp-yuv-v6-14-1bb63ef5766e@collabora.com>
+In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-14-1bb63ef5766e@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 5 Nov 2026 12:09:36 +0000
+X-Gm-Features: AclHuK_MHMThyHgJMV5RxoSYYJYLTJBQMatbDWcZrO2pg9eAtUGM46fm6kw3Mdw
+Message-ID: <CAPj87rNp=Qen3CpxdBWHrKqmpDq=w=3fhbuJFM2uVLrwizWQRQ@mail.gmail.com>
+Subject: Re: [PATCH v6 14/15] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/17/26 10:23, Jai Luthra wrote:
-> vb2_core_expbuf() takes the type of the exportbuffer as an argument and
-> checks if it matches the type of the vb2 queue. Move that check to the
-> caller (vb2_expbuf).
-> 
-> There is only one other user of this, which is dvb-core, where the check
-> was anyway redundant as it passed the vb2 queue type instead. So update
-> it too.
-> 
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Link: https://lore.kernel.org/all/20260910150454.GP1892234%40killaraus.ideasonboard.com
+On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
+> color format, and the required bus-format handling and VOP2 support are
+> already in place.  Advertise it via the platform supported formats so
+> the HDMI core can select it.
+>
+> YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
+> high-resolution modes such as 4K@60Hz on links that cannot otherwise
+> carry the full-bandwidth signal.
 
-
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-
-Regards,
-
-	Hans
-
-> ---
-> Changes in v4:
-> - New patch in v4
-> ---
->  drivers/media/common/videobuf2/videobuf2-core.c | 9 ++-------
->  drivers/media/common/videobuf2/videobuf2-v4l2.c | 8 ++++++--
->  drivers/media/dvb-core/dvb_vb2.c                | 3 +--
->  include/media/videobuf2-core.h                  | 5 ++---
->  4 files changed, 11 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-> index b0a6084f1757..5e318165659f 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> @@ -2419,8 +2419,8 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
->  	return 0;
->  }
->  
-> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
-> -		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags)
-> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-> +		    unsigned int plane, unsigned int flags)
->  {
->  	struct vb2_plane *vb_plane;
->  	int ret;
-> @@ -2441,11 +2441,6 @@ int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
->  		return -EINVAL;
->  	}
->  
-> -	if (type != q->type) {
-> -		dprintk(q, 1, "invalid buffer type\n");
-> -		return -EINVAL;
-> -	}
-> -
->  	if (plane >= vb->num_planes) {
->  		dprintk(q, 1, "buffer plane out of range\n");
->  		return -EINVAL;
-> diff --git a/drivers/media/common/videobuf2/videobuf2-v4l2.c b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> index 5a1ee5eb9c0f..aee1a9244a7b 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> @@ -877,14 +877,18 @@ int vb2_expbuf(struct vb2_queue *q, struct v4l2_exportbuffer *eb)
->  {
->  	struct vb2_buffer *vb;
->  
-> +	if (eb->type != q->type) {
-> +		dprintk(q, 1, "invalid buffer type\n");
-> +		return -EINVAL;
-> +	}
-> +
->  	vb = vb2_get_buffer(q, eb->index);
->  	if (!vb) {
->  		dprintk(q, 1, "can't find the requested buffer %u\n", eb->index);
->  		return -EINVAL;
->  	}
->  
-> -	return vb2_core_expbuf(q, &eb->fd, eb->type, vb,
-> -				eb->plane, eb->flags);
-> +	return vb2_core_expbuf(q, &eb->fd, vb, eb->plane, eb->flags);
->  }
->  EXPORT_SYMBOL_GPL(vb2_expbuf);
->  
-> diff --git a/drivers/media/dvb-core/dvb_vb2.c b/drivers/media/dvb-core/dvb_vb2.c
-> index 672b0efdca21..fe7a6554b30e 100644
-> --- a/drivers/media/dvb-core/dvb_vb2.c
-> +++ b/drivers/media/dvb-core/dvb_vb2.c
-> @@ -357,8 +357,7 @@ int dvb_vb2_expbuf(struct dvb_vb2_ctx *ctx, struct dmx_exportbuffer *exp)
->  		return -EINVAL;
->  	}
->  
-> -	ret = vb2_core_expbuf(&ctx->vb_q, &exp->fd, q->type, vb2,
-> -			      0, exp->flags);
-> +	ret = vb2_core_expbuf(&ctx->vb_q, &exp->fd, vb2, 0, exp->flags);
->  	if (ret) {
->  		dprintk(1, "[%s] index=%d errno=%d\n", ctx->name,
->  			exp->index, ret);
-> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-> index 4b4f4c15c53a..feda638d0064 100644
-> --- a/include/media/videobuf2-core.h
-> +++ b/include/media/videobuf2-core.h
-> @@ -959,7 +959,6 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
->   * @q:		pointer to &struct vb2_queue with videobuf2 queue.
->   * @fd:		pointer to the file descriptor associated with DMABUF
->   *		(set by driver).
-> - * @type:	buffer type.
->   * @vb:		pointer to struct &vb2_buffer.
->   * @plane:	index of the plane to be exported, 0 for single plane queues
->   * @flags:	file flags for newly created file, as defined at
-> @@ -973,8 +972,8 @@ int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
->   *
->   * Return: returns zero on success; an error code otherwise.
->   */
-> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, unsigned int type,
-> -		    struct vb2_buffer *vb, unsigned int plane, unsigned int flags);
-> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-> +		    unsigned int plane, unsigned int flags);
->  
->  /**
->   * vb2_core_queue_init() - initialize a videobuf2 queue
-> 
-
+Reviewed-by: Daniel Stone <daniels@collabora.com>
