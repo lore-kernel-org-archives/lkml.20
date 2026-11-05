@@ -1,68 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793857459;
-	b=cjywq50Ug2iiOtCZ3KkpiDfQXWyTveXI0I5YHGp3RlSbC7zDJyOkqBtS/GERYvNCQ+E1
-	 PA5z13mZCLj+ezeE00qNr201a01kLRpYScMS0aHvWxAlp2HMD5Ju0lkx8vIgdetF/v3oQ
-	 F1W9xLTSSqPQnv+tXlZEXBwoaW3oOAhi0NeVHhUqePiuRL1NxkTKkOXIIDMW4HhWJ7R4O
-	 UkHORVX7kg8b1/88ljURTG/+f943ZWxUbhBc5lLN3mSp7YlzKiAql8NdUdwcNg6Ka58Oc
-	 XCn4tyBDzLn9AS/8n8xFD1S9SUfByiFWTLa5Qri82D3y+AagW+gRdIliEG+7a0dcUGA==
+	t=1793857583;
+	b=GJCkhquAb5ddNPG5L4o7xIt8INNfXC6DNCMdtu6nTgJwwR0VV9hXMxfHK7/vtPgDGajy
+	 YX+A5azFAHibP9eLkK6yQGgXEC8vVTv2m0Hdr6pQhRmlo06C5pXDslSTFBRXmRZmB5RQS
+	 3Csv8chGePqe86oZjBkJllGAKYviPgGtOfcYfKVlUEo9yvE0EvFqr+CTJJ3QjY6XuCzEA
+	 5edGNwACSyBE1wR3kFi9NddAP2w82uQqYJipXIzlhGR/srcfpGGtlx/dFblnnpUFF+Cug
+	 a2vD2bWkuUQUa9Muvzq0EIzlQsWu5zRhFGG9VEePmP++9kLFikZtq/buss5edhAbQyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793857459;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=OeDkQPQERL1IHJch5/LqOTn8ma8MQ8l46JedvJ/kKt3pWfQqItrqoV/AcuK7/I6CvZNO
-	 0BE/kbjFzOgvELwFDgFP2rsrF88ibvEP9nqL9rwEWU077CfcWUnnG/k9tPoPIQnYQzj5+
-	 J+OsdSXnPNb6o2yl3bAhSJ+0Apy5ZKZSqMm8g5IcQ/NSSONWY1oNOlTg6260mX0xH90q2
-	 QcGd/KWI0jOnJsApPWyyTcu0Pki9igu/FMX8/oLuL7yjfAv+gIE7THiiCvy8eiWPMoDHT
-	 E6s/2jq8Nz8mJpUY8O+Hoy5FCAUyJe5Up6meUPzixI+yc626KMv1WeO/p71BxXRpIeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793857583;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2shg/YMi6akEFOyYGyHnGFQBSOWevhHvo+heT6+0RCs=;
+	b=Fu2nm68NN4tnWQChR/PDJwSEysa8iUpG+W+6GwksQMx5D5OZjzcjgNSlFYybfvYe6ihA
+	 SGuyFVFGBorIhYWRI1tb36cmG5Tn6cVf8/i20uqlDGyjrOdEi7oSPxBeJNOuGKM6wcAF1
+	 EQVymmRSowxaGcpttSGqvKL6sVK4zQtWvpEcRSK/PQgU+pwrMaMHIcYMN8ADFtUhnHo1Y
+	 FUiwdSybSVNNPKd+wnNTFNNuxjn7MhVOti7ZDl2/8P89rpeF7TR1m3NNKQMQTDNju9QLB
+	 rLqOxwEbM584L3MBY3T7reL3ygfxSWPK3BxyUOfaPb+DtLvm7BMrGRChS2FLh2sGbvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ssgp8SBv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NLC4Gi4U;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9FB606A31B;
-	Thu,  5 Nov 2026 05:44:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EDD606A31B;
+	Thu,  5 Nov 2026 05:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61EDD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ssgp8SBv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6581F000C1;
-	Thu,  5 Nov 2026 05:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793857458;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ssgp8SBvXBQddBD2jD9EpGEOfPT1JS9gifrz8qeuurJw3+MdiE3RzGB3jCQJACkf4
-	 s3+v9ZRC7T1g1VjrcBcCHg9pYWZJRMMk+nmHqhr/SIpSvtkZt5G7aU72sqHWF0k9bX
-	 MPAKLtGhY6AY+Ev0Okb88CtKbuGCxRturKr6o6vwvN6WChnp5BN/OoxGZT8W7gJBQz
-	 Xu8sMv5D4rsaTaUNBiA/cRSOMNDlwA05+f9T7AplIrhw6XX4Th6d0aZR2uUs1CFIBm
-	 lwwNcaYpuGaVzxsSAAVO/8iafCU8gDCm2OpMsOqx6Fs/B8JuRJOyuPzHZATG51RXE8
-	 qzQVgV/FhMJUw==
-From: netdev-bot+sinfo@kernel.org
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: netdev@vger.kernel.org, kuba@kernel.org, maxime.chevallier@bootlin.com,
- ansuelsmth@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, ast@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- faizal.abdul.rahim@intel.com, noor.azura.ahmad.tarmizi@intel.com,
- yoong.siang.song@intel.com, rohan.g.thomas@altera.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Subject: Re: [PATCH net v2] net: stmmac: Disable queues before
- netif_tx_disable in xdp_release
-Date: Thu, 05 Nov 2026 05:44:16 +0000
-Message-ID: <179385745676.488859.15047270659834143749@kernel.org>
-In-Reply-To:
- <20261105053916.22353-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References:
- <20261105053916.22353-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NLC4Gi4U
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793857578; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=2shg/YMi6akEFOyYGyHnGFQBSOWevhHvo+heT6+0RCs=;
+	b=NLC4Gi4UMwdtBjm48mmA/eJlVTi21Zh9uBtDieX+RycJhGAq8WUnbiPm/9oWcV6C12dRrnCjMLGSDGwyz/wuswxq9wwsmvgAJdElyDQwHqpvSan+4hJ3XZNwcIeIQgdrZ4URoI6SHNhxQp+dWzN+V4OKOwB3U1qZIeNe+iaWbFY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R361e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XE7dCa2_1793857577;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE7dCa2_1793857577 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 13:46:18 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] gfs2: release the statfs glock when gfs2_clear_beyond_eof() fails
+Date: Thu,  5 Nov 2026 13:46:08 +0800
+Message-Id: <20261105054609.2759418-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,29 +61,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+gfs2_file_buffered_write() acquires the master statfs glock before
+writing to the rindex and releases it once the write is done.  The only
+error path in between used to be the failure of that acquisition, which
+gfs2_glock_nq_init() unwinds by itself, so the cleanup code at the end of
+the function never had to deal with a held statfs glock.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Commit 4982e58669b1 ("gfs2: page poisoning fix") added a call to
+gfs2_clear_beyond_eof() right after the acquisition and made it jump to
+out_unlock on failure.  That path only drops the inode glock and then
+frees statfs_gh, so a failed write to the rindex leaves the master
+statfs glock held exclusively and frees a holder that is still linked
+into the glock's holder list.  The GL_NOCACHE demote is requested by
+__gfs2_glock_dq(), which is never reached, so the glock stays locked for
+the rest of the mount, and the glock and pid references taken by
+__gfs2_holder_init() leak as well.  Walking the stale list entry later
+on, for instance from do_promote() or from a demote callback, is a
+use-after-free.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+gfs2_clear_beyond_eof() zeroes the space beyond eof, which for the
+rindex ends up in adjust_fs_space(), so the call cannot be moved out
+from under the statfs glock.  Release the holder in the error path
+instead, guarded by gfs2_holder_initialized() so that the paths which
+never acquired it and the one which already released it are unaffected.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Fixes: 4982e58669b1 ("gfs2: page poisoning fix")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/gfs2/file.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+diff --git a/fs/gfs2/file.c b/fs/gfs2/file.c
+index 1efd0679badd9..2452d3ecf09c7 100644
+--- a/fs/gfs2/file.c
++++ b/fs/gfs2/file.c
+@@ -1087,6 +1087,8 @@ static ssize_t gfs2_file_buffered_write(struct kiocb *iocb,
+ 		goto retry;
+ 	}
+ out_unlock:
++	if (inode == sdp->sd_rindex && gfs2_holder_initialized(statfs_gh))
++		gfs2_glock_dq_uninit(statfs_gh);
+ 	if (gfs2_holder_queued(gh))
+ 		gfs2_glock_dq(gh);
+ out_uninit:
+-- 
+2.39.3
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
