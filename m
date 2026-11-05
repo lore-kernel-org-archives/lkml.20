@@ -1,66 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793859411;
-	b=UQF5gWRAWhv7vjHuuZOVVQwVDkAe1R39MOYHP8LhmvWlMHAedo0qPm78uQF1Q3amupn8
-	 7FjI3Xrij8PB47lTgSqw/cPgjyyWnDjp24pB9rSAnBQcjOv9j0lSYuP9lQEMrszEZ/RRo
-	 GfpWiv1h6HVcZVVr9c+qAVfD3YevS55pvLB4rzGOYmrl1+gHrWBln1js/o7NfhWOJ++HE
-	 puJ0UvvEx2QIBwuMs6XltvMKlc1GxswNi+1RbUbGV8OA2khjis674L6R/6uMpMMwfJb2s
-	 C5OXP5BqMYP0N3qjgjcYrlpexw69s/7FwyvhoY9zm+iS2LNSYhfPgRBcjZvQgIGec8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793859411;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=oamRUV5Tzl45yO4Nrq85G79i+IntLzWp4w5J3i/wSbk=;
-	b=YW/+FO+C9VQDf1L/FllY3uLS/ZvYEK1LSDmH7ZXdyYBcor2MlgLS/BTlnHBhMtUg7WHC
-	 hUd6TRPVYm3+Owl9idw1eqcNDJYuZEflXADq9e9nz6TSrqjUbprEV/60qxdBxeYdNV4kH
-	 06jfw4Ni5MggV2JNLZw+VdKrLgRP+tRZU3Z7aZFaVh/fVbz4RGBqo1oXRqAsjRBC7ERBD
-	 SVLTpvnkzazGWJ6iYaA6TAnTMIYp0khRyKDPOZViTHRxFlJoYw633j0tkOmm5LCzsA+1u
-	 Ng5lMkbbBkGAr91SprnKbPAY1q+t/cBtWSzfPPDR6ev9h9A61ehX6EwUFybo3cJH+3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SfzUU3eT;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793859443;
+	b=Oj/1I0hQo8a/f2wwaXALCsDwy88iNxwXjGJD4LYb6f83oY1H8m5Msc8VMlvp4okQBVJn
+	 9tejTg1NDHAOmEoqEDwxQg+2lDheLQ7EQw80GYgANBpQVvRJZk8bU2L+1Kn1yYXbQARlF
+	 kSlz9LrCbtU3UZpme17ScnPUjv8P5yurvWYamZ+tiVjFtzWKAToJH2UjQERH0+PksuHAj
+	 hmC74k9EcxWM/Wf2wzPzgH/I6t1fOSMGj7kILOgMlECKtlB6Oyc/ho1/PVe7NLKAAzCcs
+	 2t+a9DVMLPORuGEEZDfclzkemt+MbhzO+IRudh9MViFJbfl8jRRc0HXxsemaljY0bEQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793859443;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=t+JJRMydHxdPqDIQ0OjJ6/jxtXOmSjWuwdxpd5R6SPQ=;
+	b=1Kp995wiN6hfMRbZb6pQ3XJXn43gdjF0zDwF54ibuFxZSr7IwikTEOM1HPovTep4aDWE
+	 IgLAwg3u8WqBzhXTlQlE32buzqnN5asfp9fMFERkiAZQ7mxiEoR/uSczbrdPFUL7jJq2s
+	 86omFaiueTOMvu3XVnKcdpE1MGaArTiBEnFczEwFTrtzcsNpzDcNqrkVP+ZejBRGVIcMy
+	 hsVn+f913q42Yb7OhJmKHT7CxdBLvkBHRB6YGLE7PVuZCe7yIjW8zaHGnSAhFiCI4UTYb
+	 sF3ckSumMVD5w/n6pB1hs8W1i9dS2cvOOpflKCWNzQD5tPz0LrqvEDblTqgtfn43t4w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pO1h3vNo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.28
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012028.outbound.protection.outlook.com [52.101.48.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5589F606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:16:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5589F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E291B606A31B;
+	Thu,  5 Nov 2026 06:17:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E291B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=SfzUU3eT
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=oamRUV5Tzl45yO4Nrq85G79i+IntLzWp4w5J3i/wSbk=;
-	b=SfzUU3eTeKaFchkHZZ6rlCQH9y2BuZcfyG60w1LhFxr19JX3f+aflevkG4yTGickl9fO0O2jz
-	K8wAbkrVOTL9GVBuNuK+Ez/CiSaCJzqBxlumchNqXMYiEWiwQEoMQXe9ucqRBSPpscbQaaGYJ8A
-	Uct9aYJ3LcKcxXOopUutT1A=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jKsX02ymXz1cyVM;
-	Thu,  5 Nov 2026 14:16:32 +0800 (CST)
-Received: from kwepemk300016.china.huawei.com (unknown [7.202.195.98])
-	by mail.maildlp.com (Postfix) with ESMTPS id 197B14056C;
-	Thu,  5 Nov 2026 14:16:44 +0800 (CST)
-Received: from huawei.com (10.67.174.191) by kwepemk300016.china.huawei.com
- (7.202.195.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
- 2026 14:16:43 +0800
-From: Zhang Qiao <zhangqiao22@huawei.com>
-To: <sched-ext@lists.linux.dev>
-CC: <linux-kernel@vger.kernel.org>, <tj@kernel.org>, <void@manifault.com>,
-	<arighi@nvidia.com>, <changwoo@igalia.com>, <tanghui22@huawei.com>,
-	<zhangqiao22@huawei.com>
-Subject: [PATCH 2/4] sched_ext: Collect CID construction state in a private builder
-Date: Thu, 5 Nov 2026 14:50:11 +0800
-Message-ID: <20261105065013.784398-3-zhangqiao22@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20261105065013.784398-1-zhangqiao22@huawei.com>
-References: <20261105065013.784398-1-zhangqiao22@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pO1h3vNo
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iRppKhIZDe96P/qOjfMpRCR9WTXK3qttEtBy92qtE7vVDEZ1vvAOPgZSlFa32WpUz3PMdhervXupuakr7a9gPgw6Rt2ffqTwCd+neiKnQOxQBw7W+lOZZb0wV/1LIZMGxX2fl9qCt61o+mj718hj6+Ws1yDG+f1bI/7uZULcDzXKi1RDh4+X5joJe4a72+1OifvwFFAMsN7N2TucW+kMdSpSuVxjuBZRvVupJvkYDBYCvWAI4g67ktotgpRB5qYtwoVhHHt41lqb+ZXkDyzPwCJlQr+oPtogegzu+zgZl+WLIIAXybEKO9IbCw8p8PQbPsJEkj9tRudOEA14wr+pzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t+JJRMydHxdPqDIQ0OjJ6/jxtXOmSjWuwdxpd5R6SPQ=;
+ b=ShiIk0paVkPPNvFeO2rqCf0Uqn/pD65kGrSTso467lqHjf1qQk0fo6HU/0PuZZu6BO3KIg9bqW5LtU8U7kd+wldNk3+bcD8oVNpL67gVNOVX56+7uHSVrNcA16GgGxNM4lPgwiTHHSltTIo0MMSq44dtafPGllwAHialb3pPHmwyE1Jsu2/P/HBMb90EoPEiqy5i682d+LDWzGknCiBBdhhRTMVpWzywJu5qQthsDAfqCiSfOu1/JfJNR/YlBaIeYzrnz30OltkBNJqNOsqPT4QO1u3b9E/UvnNuLJut3P+d8Es7t9tzHWlkgj3s4UvPWehMgAfG6DkZX1h5sU322Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t+JJRMydHxdPqDIQ0OjJ6/jxtXOmSjWuwdxpd5R6SPQ=;
+ b=pO1h3vNoym/mIoV89cxzcRtmBHFmifay3A86K1t/WwKSxO5Va5yxqKAdKFeuciX952ZSaTodtWGyJldZzc+Yyu5ukoBRD0EirAhVO9gL2zfgo5PL8tfyVDEJGi4Fml6A33CignCKnYhLPZOkzvZ5bwUyDnmZix0ZplkelfaluT2eK29FU6ykOUnlpx3L79Vf7JrxWfV0Bp/4v1cMuKi+Tkro1ZzPa62mQj2KeA8oR8Vvn8nFnV9RsQjbjfKPKGDllKSa+4vM6ajv6rSPY2jDq38MsMcEjy1lzLwRpeW3+YYmrchavbJiKitc1CALX2eD7U/c59o2tD4XEF7868xEKA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
+ by DM4PR12MB6496.namprd12.prod.outlook.com (2603:10b6:8:bd::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 06:17:17 +0000
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:17:17 +0000
+Date: Thu, 5 Nov 2026 17:17:10 +1100
+From: Balbir Singh <balbirs@nvidia.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Michal Hocko <mhocko@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>, Harry Yoo <harry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v8 0/7] mm/page_counter: move stock from mem_cgroup to
+ page_counter
+Message-ID: <auwfZj6QTwQqFIZb@parvat>
+References: <20261104233029.3282438-1-joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104233029.3282438-1-joshua.hahnjy@gmail.com>
+X-ClientProxiedBy: ME3PR01CA0066.ausprd01.prod.outlook.com
+ (2603:10c6:220:1c2::19) To CH3PR12MB9730.namprd12.prod.outlook.com
+ (2603:10b6:610:253::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,358 +115,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk300016.china.huawei.com (7.202.195.98)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|DM4PR12MB6496:EE_
+X-MS-Office365-Filtering-Correlation-Id: a88e690a-3473-4e0d-6d75-08df3b047102
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|10070799003|366016|1800799024|261022105027099003|261021121427099003|11063799006|10067099003|56012099006|261009223027099003|261021123027099003|261028144727099003|261026121527099003|261022075727099003|261102123227099003|261026140227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	afxhITMZyoRsh+NYbEt4uHRpbfZq6JiENx3E5mQiuktCRWe3UZ0i40dlRH0f3L3v2hE/+Kw33yOaCvZPxho/W46HNfdO9zPVwZ0WP47+eCeIgB9untxO0aAPccvd2J6oxFxui7K6Cy2jIFxGR5MLXd2jrvT5TNw8IOwiGa50c5fvJ7tC3gwxY7y3wS2I+DBeLQPIWuLE2Od6av+P3PpWbD2E8HBwolZF807ExVimQ0Mpw74WTpQWuOHcAimQ+c0rdDDkiXNtisSq5Kjt1AXzBRWDw4hR1qX3iSgrP7k2E7TbrqtTwqr4iSv5YYCCMaAdT+UF4kRgMaE3zio4a7XCxiBZwn4e5e3378R/8XENmS1H4dHqbfhe1Fz/1xFNQlxxjNgcwCEcvKeoyRqywSrq2wsCbETP9+WQ+UdJOkvYv+AmeZREHCLme/wz79xh+jKHZp3J+0jEy1elljchNGFIc34+WrA33E0Me0tbuf7ZX6kKvzVdwY5t+lByhbGdyUdn4LZpd43sfZ/rB+Cmuy5E0eluCc/7ucvwcF17yQ5DiOOyBJ3Py0PEyK4ipCpSDC3wGOBxdeeSG4wJk/LwB9HQ/mLRf7eah3cJKtMXpdEeAgz8Ry5qg03csD7Y6vvTdX5znvaZQCkSeD+pmufuevi2X71Zq0EfjwqItqMy3zG30ME=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(10070799003)(366016)(1800799024)(261022105027099003)(261021121427099003)(11063799006)(10067099003)(56012099006)(261009223027099003)(261021123027099003)(261028144727099003)(261026121527099003)(261022075727099003)(261102123227099003)(261026140227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wAtB9xsJlmbAQuYUCPjdkQm441ZDK1ibWGhKmgY7LJv9K0WRXWRE9ObsHiQ2?=
+ =?us-ascii?Q?0urb6aAj0aUxwdAR1SaD9ae8wklAv1fM6DQrYndKHvSx5j/ayZ+e2SFn3PUA?=
+ =?us-ascii?Q?E1hq1CJtZLPhE6rp3y5fCjBJwlZOFkY5ehZU+AQcN41wBm1OioRdIFPJKGdW?=
+ =?us-ascii?Q?zQfUo/+XuErPf+KfQzfTd2oL90nSjJ0Y0bo15+IMYVqTCJji9fSdZ1N35502?=
+ =?us-ascii?Q?411eBZX93vvuQyuX2vawJIDeQYBwn8lq93CfWqI0/jXYq4jArjIgBZ9w2gxm?=
+ =?us-ascii?Q?Ide0UQcWJz5sepUho8MAo7H3F/hCMYtockbtM6QpiHxXqw65DGhbPQUdo8mi?=
+ =?us-ascii?Q?hgK1veAvYy9bovDwPrW7hhDru2zRTFr3ZTQOqm+P/EWR+wMfiN9ynpMl3w+A?=
+ =?us-ascii?Q?2B3+WPSv+G2+t3lUMat2C9Enzu4K1/XCy5+TubknSKSEUURWh/zkefPuIPx5?=
+ =?us-ascii?Q?t8rIhEWHZF0ybP/M6xcDHJkGD1Tyz1N/lCKVSnHczT0DRIT8nYS2vpnQw167?=
+ =?us-ascii?Q?rkhHft854kbiuUxezj5YSFRGelhhevLsSEgOOKoa8WXyJ/X0F3SrKh7NH9E3?=
+ =?us-ascii?Q?Okrgq/tW4Ks4zQZ3EvJlIbNc7EK+dSCsK48N1sJSnzlH/K1/LCvoi2nEXW0k?=
+ =?us-ascii?Q?eWObhzbON95zHH/fEepgqDCeCwCnIaSVqRjx+Ch90exEHA4JSe5jKKWdRfO+?=
+ =?us-ascii?Q?hOFyvMe9Q87XcnWW3qQ6GtPUmdCwC/1bIcSPLApOgccFBMF2OM8XfDtzGuVc?=
+ =?us-ascii?Q?i10jhcX5T0AFo3FxMAaHzeup7biCmftMIN9LrJLSf/pEU1+Uu95MXITmr+EE?=
+ =?us-ascii?Q?A82CqibwhRAx1BAzAjORkR9HKkpoP9T/GLvLimmXwKBvqwCW4eeU36HPHD4m?=
+ =?us-ascii?Q?Jn0TDjtoJlfUblD8zy5vpDIcNW0csdxI9f9sOzCcy5TGJRcNnKfGyeOSf0vP?=
+ =?us-ascii?Q?09VGmwZUh1PGMplk2sQzXdUO1CpKYKLRBu9Lk+t/k3Nhyo8dyN2zDGHbO/nZ?=
+ =?us-ascii?Q?KPY96bDbAKJmHDx+nVMyiIedbd6A2epuCXRNpQ4kUFJUIN/HNajwwsiHl+ki?=
+ =?us-ascii?Q?8aaAckZFxKjhE2CtVw/ZzF1h5xlYm5QyQ3lzzVoojj9AuxfJmfbgC3yhhqJv?=
+ =?us-ascii?Q?sd4QlxblIzffbRpyPWQ9nyQMQSbHj9U9LThOlB9Zbrf1f8Bv8O/zcOUa4HJJ?=
+ =?us-ascii?Q?T2sUGhwhVptK0gLgEmbWLjYQq/n2kC0TMMyOiwUJMPxRxIq0xKPvvT45diOG?=
+ =?us-ascii?Q?dx1K80XJh+es+O/987kympm3yL2eaHbWs03BG3ZdnFISobOmPYo8TccdYXDS?=
+ =?us-ascii?Q?nCJwHUIDlVZmqPr+GGv222SoHSgOEUjWZEveSWEcQRdHWuCMTwID3kLJAeW+?=
+ =?us-ascii?Q?vOnArwVrLYSVzi9IGd6AbbpA6lRfJcCUGEoopicetokZCtsz5cc8Tnff+87t?=
+ =?us-ascii?Q?fLBQ+e9UCs7w6cTpipyBDxQ1UE0llyPW96LVl12v4NZsP8SrWGb8uBwIRcC/?=
+ =?us-ascii?Q?sz4esGKZpvBKEGBGFV+DBhYWRn8fwAQr3cDDDQKPak9H1wU+c1hqAOlJ6NNR?=
+ =?us-ascii?Q?CXLkun5sm41MgV0h6wgE8A2KsXk6h3Hhx4/NhUSUDYURSAxj6ZVJcyEWZlgw?=
+ =?us-ascii?Q?PFqKGWSuLA7nSB/IPIALin+UppVoJk08Ytijt/WpgCJCz9ZPiU20rESD64AB?=
+ =?us-ascii?Q?QDUAEphbuSnQKCU2omGW9rpF/2tcsHry+Lpb/8savBkAcL7UEk25sWplxdF/?=
+ =?us-ascii?Q?LzRxkTS8s8Mt6EPzvDRJN1lAbxPa3RozHWEtpgzfLmdv0SCvKSyHzbJA5gYP?=
+X-MS-Exchange-AntiSpam-MessageData-1: QenJdrpH/zE/yg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a88e690a-3473-4e0d-6d75-08df3b047102
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:17:17.4500
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5WGuv/XSnK/8pWy/MGNB26iIgQFkH6qJdjK5HcS1pZ0ibEAG7Qs7n7wkwrbbOxVPU/ddD/n8Vf8+JcVz0+/7BA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6496
 
-The running counters and scratch masks are about to cross function
-boundaries in both directions, which would grow the parameter lists of
-every subsequent extraction step. Collect the build-only state instead
-- the under-construction tables, the seven scratch masks borrowed from
-scx_cid_init() and the running cid and index counters - in a
-file-private scx_cid_builder and thread it through the stages
-extracted so far.
+On Wed, Nov 04, 2026 at 03:30:21PM -0800, Joshua Hahn wrote:
+> v7 --> v8
+> =========
+> - Rebase onto mm-new as of 11/03/2026. This picks up two memcg series
+>   that required some rework:
+>   - Kuniyuki Iwashima's memcg stock cleanups were worked into the
+>     series, so the changes now live in page_counter code instead.
+>   - Shakeel Butt's memory.high rework. Commit 4/7 folds in his
+>     PF_MEMALLOC change into the page_counter checks. This change was
+>     suggested by Shakeel.
+> - Commit 7/7 is new. It brings back an optimization from an earlier
+>   version of the series to let stock charge only accumulate on leaf
+>   cgroups.
+>   - To accommodate this change, sprinkle in READ_ONCE() for
+>     counter->stock reads since the pointer can change at runtime now.
+> - Cover letter rework as suggested by Michal Hocko.
+> 
+> INTRODUCTION
+> ============
+> Memcg keeps a per-CPU stock of precharged pages so that small and
+> frequent allocations do not walk the page_counter hierarchy every time.
+> Today, the stock implementation lives in memcontrol code, even though
+> the operation it caches is a page_counter charge. This makes it
+> difficult to add new page_counters to a memcg and preserve the fast path
+> behavior.
+> 
+> This series moves the stock into the page_counter layer.
+> page_counter_try_charge() consumes the stock, charges a batch to the
+> hierarchy on a miss, and refills the stock with the surplus. Memcg no
+> longer manages the stock in try_charge_memcg.
+> 
+> So the stock keeps the existing layout, which is still a per-CPU bank
+> of 7 slots, each holding a count of precharged pages that it hands out.
+> It maintains exclusion using local locks on each CPU, and for remote
+> drains we schedule on the memcg workqueue.
+> 
+> This change gives us the following benefits:
+> - Separate charge caching (page_counter) from charge policy (memcg).
+> - Makes it simple to keep stock out of interior cgroups on cgroup v2.
+> - Prepares for future work for stock improvement, which can now be
+>   isolated from memcg changes.
+> 
+> With this change, make sure to preserve:
+> - All locking behavior is unchanged from before.
+> - Non-leaf cgroups do not hold stock. Specifically, their stock is
+>   drained when they become a parent, and remaining stock (isolated CPUs,
+>   concurrent refills, etc.) gets drained lazily on future stock misses.
+> - Exact charging for non-spinning callers.
+> - Stocks only exist for the memory and memsw page_counters as before.
+>   Other page_counters (swap, v1 kmem, v1 tcpmem, hugetlb_cgroup, dmem)
+>   don't stock as before.
+> 
+> EFFECT ON CGROUP V2 USERS
+> =========================
+> Currently when a cgroup becomes a parent, it doesn't drain the stock.
+> Rather, it just prevents new charges from accumulating by nature of
+> parent cgroups not having processes. Here, we can do a little better.
+> When a cgroup becomes a parent, schedule drains right away, in addition
+> to making sure parents don't accumulate new charges.
+> 
+> Everything else is preserved. We preserve all draining, refilling,
+> and (un)charging behavior, including the uncharge path's refills
+> and direct uncharges.
+> 
+> EFFECT ON CGROUP V1 USERS
+> =========================
+> The memory and memsw counters now have separate stocks, which can hit,
+> evict, and drain independently. Their raw values can therefore drift
+> apart by the stocked amounts, even though every charge is applied to
+> both.
+> 
+> To preserve the user-visible property that
+> memory.usage_in_bytes <= memory.memsw.usage_in_bytes, the memory
+> value reports the smaller of the two values. Both raw values are already
+> upper bounds on real usage, so this stays within the fuzz that
+> usage_in_bytes always had (and this is also already documented, see
+> section 5.5 usage_in_bytes in Documentation/admin-guide/cgroup-v1/
+> memory.rst).
+> 
+> TESTING
+> =======
+> This series should not have big changes to performance, so I ran some
+> benchmarks to verify that. I did testing on a 16-CPU, 32G machine VM.
+> I ran repeated anonymous memory faults and MADV_DONTNEED to measure the
+> CPU time spent per page. So + number is worse. I ran each experiment
+> 5 times, with 4 workers.
+> 
+> +-----------+-----------+--------------+-------+
+> |           | base (ns) | patched (ns) | delta |
+> +-----------+-----------+--------------+-------+
+> | cgroup v1 |     890.6 |        901.8 | +1.2% |
+> | cgroup v2 |     893.5 |        902.2 | +1.0% |
+> +-----------+-----------+--------------+-------+
+> 
+> Based on mm-new as of 11/03/26:
+> 74d73ffcffe03 "riscv: mm: fix concurrency in mark_new_valid_map()"
+> 
+> Joshua Hahn (7):
+>   mm/memcontrol: flatten try_charge_memcg control flow
+>   mm/page_counter: introduce per-CPU stock
+>   mm/page_counter: make page_counter_try_charge() stock-aware
+>   mm/memcontrol: check PF_MEMALLOC after trying the limits
+>   mm/memcontrol: move memory stock to page counters
+>   mm/memcontrol: add stock to the memsw page counter
+>   mm/memcontrol: restrict memory stock to leaf cgroups on v2
+> 
+>  include/linux/page_counter.h |  35 ++-
+>  kernel/cgroup/dmem.c         |   2 +-
+>  mm/hugetlb_cgroup.c          |   2 +-
+>  mm/memcontrol-v1.c           |  17 +-
+>  mm/memcontrol.c              | 430 +++++++++++++----------------------
+>  mm/page_counter.c            | 233 ++++++++++++++++++-
+>  6 files changed, 430 insertions(+), 289 deletions(-)
+>
 
-No behavior change.
+Is the main motivation ease of addition of page_counters to a memcg?
+What would those counters be, why not add them here?
 
-Signed-off-by: Zhang Qiao <zhangqiao22@huawei.com>
----
- kernel/sched/ext/cid.c | 188 ++++++++++++++++++++++-------------------
- 1 file changed, 103 insertions(+), 85 deletions(-)
-
-diff --git a/kernel/sched/ext/cid.c b/kernel/sched/ext/cid.c
-index b6be8806a7d5..ee55f101e5c5 100644
---- a/kernel/sched/ext/cid.c
-+++ b/kernel/sched/ext/cid.c
-@@ -165,9 +165,22 @@ void scx_cid_retire_tables(void)
- 	call_rcu(&tbls->rcu, scx_cid_tables_free_rcufn);
- }
- 
--static void scx_cid_build_notopo(struct scx_cid_tables *tbls, u32 shard_size,
--				 u32 *next_cid, s32 *next_shard_idx,
--				 struct cpumask *online_no_topo)
-+struct scx_cid_builder {
-+	struct scx_cid_tables *tbls;
-+	struct cpumask *to_walk;
-+	struct cpumask *node_scratch;
-+	struct cpumask *llc_scratch;
-+	struct cpumask *cluster_scratch;
-+	struct cpumask *core_scratch;
-+	struct cpumask *llc_fallback;
-+	struct cpumask *online_no_topo;
-+	u32 next_cid;
-+	s32 next_node_idx, next_llc_idx, next_core_idx;
-+	s32 next_cluster_idx, next_shard_idx;
-+	u32 shard_size, max_cids;
-+};
-+
-+static void scx_cid_build_notopo(struct scx_cid_builder *b)
- {
- 	u32 notopo_in_shard;
- 	s32 notopo_shard_cid, notopo_shard_idx;
-@@ -175,42 +188,41 @@ static void scx_cid_build_notopo(struct scx_cid_tables *tbls, u32 shard_size,
- 
- 	/*
- 	 * No-topo section: any possible cpu without a cid - normally just the
--	 * not-online ones. Pack into shards of up to min(@shard_size,
-+	 * not-online ones. Pack into shards of up to min(@b->shard_size,
- 	 * SCX_CID_SHARD_MAX_CPUS) cids so that every cid has a valid shard
--	 * assignment and the hard cap holds even with a large @shard_size.
--	 * Collect any currently-online cpus that land here in @online_no_topo
-+	 * assignment and the hard cap holds even with a large @b->shard_size.
-+	 * Collect any currently-online cpus that land here in @b->online_no_topo
- 	 * so we can warn about them at the end.
- 	 */
--	notopo_in_shard = min_t(u32, shard_size, SCX_CID_SHARD_MAX_CPUS);
-+	notopo_in_shard = min_t(u32, b->shard_size, SCX_CID_SHARD_MAX_CPUS);
- 	notopo_shard_cid = -1;
- 	notopo_shard_idx = -1;
- 
- 	for_each_cpu(cpu, cpu_possible_mask) {
--		if (tbls->cpu_to_cid[cpu] != -1)
-+		if (b->tbls->cpu_to_cid[cpu] != -1)
- 			continue;
- 		if (cpu_online(cpu))
--			cpumask_set_cpu(cpu, online_no_topo);
-+			cpumask_set_cpu(cpu, b->online_no_topo);
- 
--		cid = (*next_cid)++;
--		tbls->cid_to_cpu[cid] = cpu;
--		tbls->cpu_to_cid[cpu] = cid;
-+		cid = b->next_cid++;
-+		b->tbls->cid_to_cpu[cid] = cpu;
-+		b->tbls->cpu_to_cid[cpu] = cid;
- 
--		if (notopo_in_shard >= min_t(u32, shard_size, SCX_CID_SHARD_MAX_CPUS)) {
-+		if (notopo_in_shard >= min_t(u32, b->shard_size, SCX_CID_SHARD_MAX_CPUS)) {
- 			notopo_shard_cid = cid;
--			notopo_shard_idx = (*next_shard_idx)++;
-+			notopo_shard_idx = b->next_shard_idx++;
- 			notopo_in_shard = 0;
- 		}
- 		notopo_in_shard++;
- 
--		tbls->cid_to_shard[cid] = notopo_shard_idx;
--		tbls->topo[cid] = SCX_CID_TOPO_NEG;
--		tbls->topo[cid].shard_cid = notopo_shard_cid;
--		tbls->topo[cid].shard_idx = notopo_shard_idx;
-+		b->tbls->cid_to_shard[cid] = notopo_shard_idx;
-+		b->tbls->topo[cid] = SCX_CID_TOPO_NEG;
-+		b->tbls->topo[cid].shard_cid = notopo_shard_cid;
-+		b->tbls->topo[cid].shard_idx = notopo_shard_idx;
- 	}
- }
- 
--static void scx_cid_finalize_tables(struct scx_cid_tables *tbls, u32 next_cid,
--				    s32 next_shard_idx)
-+static void scx_cid_finalize_tables(struct scx_cid_builder *b)
- {
- 	s32 cid;
- 
-@@ -219,15 +231,15 @@ static void scx_cid_finalize_tables(struct scx_cid_tables *tbls, u32 next_cid,
- 	 * cid ranges by construction: base_cid is the first cid landing in a
- 	 * shard, nr_cids is the count.
- 	 */
--	for (cid = 0; cid < next_cid; cid++) {
--		s32 sidx = tbls->cid_to_shard[cid];
-+	for (cid = 0; cid < b->next_cid; cid++) {
-+		s32 sidx = b->tbls->cid_to_shard[cid];
- 
--		if (tbls->shard_ranges[sidx].nr_cids == 0)
--			tbls->shard_ranges[sidx].base_cid = cid;
--		tbls->shard_ranges[sidx].nr_cids++;
-+		if (b->tbls->shard_ranges[sidx].nr_cids == 0)
-+			b->tbls->shard_ranges[sidx].base_cid = cid;
-+		b->tbls->shard_ranges[sidx].nr_cids++;
- 	}
- 
--	tbls->nr_shards = next_shard_idx;
-+	b->tbls->nr_shards = b->next_shard_idx;
- }
- 
- /**
-@@ -253,11 +265,7 @@ s32 scx_cid_init(struct scx_sched *sch)
- 	cpumask_var_t llc_fallback __free(free_cpumask_var) = CPUMASK_VAR_NULL;
- 	cpumask_var_t online_no_topo __free(free_cpumask_var) = CPUMASK_VAR_NULL;
- 	struct scx_cid_tables *tbls;
--	u32 next_cid = 0;
--	s32 next_node_idx = 0, next_llc_idx = 0, next_core_idx = 0;
--	s32 next_cluster_idx = 0;
--	s32 next_shard_idx = 0;
--	u32 shard_size, max_cids;
-+	struct scx_cid_builder b = {};
- 	s32 cpu, si;
- 
- 	/* CMASK_MAX_WORDS in cid.bpf.h covers NR_CPUS up to 8192 */
-@@ -266,8 +274,8 @@ s32 scx_cid_init(struct scx_sched *sch)
- 	lockdep_assert_cpus_held();
- 	lockdep_assert_held(&scx_enable_mutex);
- 
--	shard_size = sch->ops.cid_shard_size ?: SCX_CID_SHARD_SIZE_DFL;
--	max_cids = min_t(u32, shard_size, SCX_CID_SHARD_MAX_CPUS);
-+	b.shard_size = sch->ops.cid_shard_size ?: SCX_CID_SHARD_SIZE_DFL;
-+	b.max_cids = min_t(u32, b.shard_size, SCX_CID_SHARD_MAX_CPUS);
- 
- 	tbls = scx_cid_alloc_tables();
- 	if (!tbls)
-@@ -287,16 +295,25 @@ s32 scx_cid_init(struct scx_sched *sch)
- 	    !zalloc_cpumask_var(&online_no_topo, GFP_KERNEL))
- 		return -ENOMEM;
- 
-+	b.tbls = tbls;
-+	b.to_walk = to_walk;
-+	b.node_scratch = node_scratch;
-+	b.llc_scratch = llc_scratch;
-+	b.cluster_scratch = cluster_scratch;
-+	b.core_scratch = core_scratch;
-+	b.llc_fallback = llc_fallback;
-+	b.online_no_topo = online_no_topo;
-+
- 	/* -1 sentinels for sparse-possible cpu id holes (0 is a valid cid) */
- 	for (cpu = 0; cpu < nr_cpu_ids; cpu++)
- 		tbls->cpu_to_cid[cpu] = -1;
- 
--	cpumask_copy(to_walk, cpu_online_mask);
-+	cpumask_copy(b.to_walk, cpu_online_mask);
- 
--	while (!cpumask_empty(to_walk)) {
--		s32 next_cpu = cpumask_first(to_walk);
-+	while (!cpumask_empty(b.to_walk)) {
-+		s32 next_cpu = cpumask_first(b.to_walk);
- 		s32 nid = cpu_to_node(next_cpu);
--		s32 node_cid = next_cid;
-+		s32 node_cid = b.next_cid;
- 		s32 node_idx;
- 
- 		/*
-@@ -304,38 +321,38 @@ s32 scx_cid_init(struct scx_sched *sch)
- 		 * cid. cpumask_of_node(-1) is undefined.
- 		 */
- 		if (nid < 0) {
--			cpumask_clear_cpu(next_cpu, to_walk);
-+			cpumask_clear_cpu(next_cpu, b.to_walk);
- 			continue;
- 		}
- 
--		node_idx = next_node_idx++;
-+		node_idx = b.next_node_idx++;
- 
--		/* node_scratch = to_walk & this node */
--		cpumask_and(node_scratch, to_walk, cpumask_of_node(nid));
--		if (WARN_ON_ONCE(!cpumask_test_cpu(next_cpu, node_scratch)))
-+		/* b.node_scratch = b.to_walk & this node */
-+		cpumask_and(b.node_scratch, b.to_walk, cpumask_of_node(nid));
-+		if (WARN_ON_ONCE(!cpumask_test_cpu(next_cpu, b.node_scratch)))
- 			return -EINVAL;
- 
--		while (!cpumask_empty(node_scratch)) {
--			s32 ncpu = cpumask_first(node_scratch);
--			const struct cpumask *llc_mask = cpu_llc_mask(ncpu, llc_fallback);
--			s32 llc_cid = next_cid;
--			s32 llc_idx = next_llc_idx++;
-+		while (!cpumask_empty(b.node_scratch)) {
-+			s32 ncpu = cpumask_first(b.node_scratch);
-+			const struct cpumask *llc_mask = cpu_llc_mask(ncpu, b.llc_fallback);
-+			s32 llc_cid = b.next_cid;
-+			s32 llc_idx = b.next_llc_idx++;
- 			u32 cores_per_shard, nr_large;
- 			u32 shard_local = 0, cores_in_shard = 0, cids_in_shard = 0;
- 			s32 shard_cid, shard_idx;
- 			s32 cluster_cid = -1, cluster_idx = -1;
- 
--			/* llc_scratch = node_scratch & this llc */
--			cpumask_and(llc_scratch, node_scratch, llc_mask);
--			if (WARN_ON_ONCE(!cpumask_test_cpu(ncpu, llc_scratch)))
-+			/* b.llc_scratch = b.node_scratch & this llc */
-+			cpumask_and(b.llc_scratch, b.node_scratch, llc_mask);
-+			if (WARN_ON_ONCE(!cpumask_test_cpu(ncpu, b.llc_scratch)))
- 				return -EINVAL;
- 
--			calc_shard_layout(llc_scratch, shard_size, &cores_per_shard, &nr_large);
--			shard_cid = next_cid;
--			shard_idx = next_shard_idx++;
--			tbls->shard_node[shard_idx] = nid;
-+			calc_shard_layout(b.llc_scratch, b.shard_size, &cores_per_shard, &nr_large);
-+			shard_cid = b.next_cid;
-+			shard_idx = b.next_shard_idx++;
-+			b.tbls->shard_node[shard_idx] = nid;
- 
--			while (!cpumask_empty(llc_scratch)) {
-+			while (!cpumask_empty(b.llc_scratch)) {
- 				const struct cpumask *sib;
- 				s32 core_cid, core_idx, lcpu, ccpu;
- 				u32 max_cores, cids_in_core;
-@@ -345,24 +362,26 @@ s32 scx_cid_init(struct scx_sched *sch)
- 				 * on, so that a cluster is a contiguous cid
- 				 * range like the core, LLC and node levels.
- 				 */
--				if (cpumask_empty(cluster_scratch)) {
--					s32 xcpu = cpumask_first(llc_scratch);
-+				if (cpumask_empty(b.cluster_scratch)) {
-+					s32 xcpu = cpumask_first(b.llc_scratch);
- 
--					cpumask_or(cluster_scratch, topology_cluster_cpumask(xcpu),
-+					cpumask_or(b.cluster_scratch,
-+						   topology_cluster_cpumask(xcpu),
- 						   topology_sibling_cpumask(xcpu));
--					cpumask_and(cluster_scratch, cluster_scratch, llc_scratch);
--					cluster_cid = next_cid;
--					cluster_idx = next_cluster_idx++;
-+					cpumask_and(b.cluster_scratch, b.cluster_scratch,
-+						    b.llc_scratch);
-+					cluster_cid = b.next_cid;
-+					cluster_idx = b.next_cluster_idx++;
- 				}
- 
--				lcpu = cpumask_first(cluster_scratch);
-+				lcpu = cpumask_first(b.cluster_scratch);
- 				sib = topology_sibling_cpumask(lcpu);
--				core_cid = next_cid;
--				core_idx = next_core_idx++;
-+				core_cid = b.next_cid;
-+				core_idx = b.next_core_idx++;
- 
--				/* core_scratch = cluster_scratch & this core */
--				cpumask_and(core_scratch, cluster_scratch, sib);
--				if (WARN_ON_ONCE(!cpumask_test_cpu(lcpu, core_scratch)))
-+				/* b.core_scratch = b.cluster_scratch & this core */
-+				cpumask_and(b.core_scratch, b.cluster_scratch, sib);
-+				if (WARN_ON_ONCE(!cpumask_test_cpu(lcpu, b.core_scratch)))
- 					return -EINVAL;
- 
- 				/*
-@@ -371,28 +390,28 @@ s32 scx_cid_init(struct scx_sched *sch)
- 				 * shard sizes under uneven SMT. Never start an
- 				 * empty shard.
- 				 */
--				cids_in_core = cpumask_weight(core_scratch);
-+				cids_in_core = cpumask_weight(b.core_scratch);
- 				max_cores = cores_per_shard + (shard_local < nr_large ? 1 : 0);
- 				if (cores_in_shard &&
- 				    (cores_in_shard >= max_cores ||
--				     cids_in_shard + cids_in_core > max_cids)) {
-+				     cids_in_shard + cids_in_core > b.max_cids)) {
- 					shard_local++;
- 					cores_in_shard = 0;
- 					cids_in_shard = 0;
--					shard_cid = next_cid;
--					shard_idx = next_shard_idx++;
--					tbls->shard_node[shard_idx] = nid;
-+					shard_cid = b.next_cid;
-+					shard_idx = b.next_shard_idx++;
-+					b.tbls->shard_node[shard_idx] = nid;
- 				}
- 				cores_in_shard++;
- 				cids_in_shard += cids_in_core;
- 
--				for_each_cpu(ccpu, core_scratch) {
--					s32 cid = next_cid++;
-+				for_each_cpu(ccpu, b.core_scratch) {
-+					s32 cid = b.next_cid++;
- 
--					tbls->cid_to_cpu[cid] = ccpu;
--					tbls->cpu_to_cid[ccpu] = cid;
--					tbls->cid_to_shard[cid] = shard_idx;
--					tbls->topo[cid] = (struct scx_cid_topo){
-+					b.tbls->cid_to_cpu[cid] = ccpu;
-+					b.tbls->cpu_to_cid[ccpu] = cid;
-+					b.tbls->cid_to_shard[cid] = shard_idx;
-+					b.tbls->topo[cid] = (struct scx_cid_topo){
- 						.core_cid = core_cid,
- 						.core_idx = core_idx,
- 						.llc_cid = llc_cid,
-@@ -405,17 +424,16 @@ s32 scx_cid_init(struct scx_sched *sch)
- 						.cluster_idx = cluster_idx,
- 					};
- 
--					cpumask_clear_cpu(ccpu, cluster_scratch);
--					cpumask_clear_cpu(ccpu, llc_scratch);
--					cpumask_clear_cpu(ccpu, node_scratch);
--					cpumask_clear_cpu(ccpu, to_walk);
-+					cpumask_clear_cpu(ccpu, b.cluster_scratch);
-+					cpumask_clear_cpu(ccpu, b.llc_scratch);
-+					cpumask_clear_cpu(ccpu, b.node_scratch);
-+					cpumask_clear_cpu(ccpu, b.to_walk);
- 				}
- 			}
- 		}
- 	}
- 
--	scx_cid_build_notopo(tbls, shard_size, &next_cid, &next_shard_idx,
--			     online_no_topo);
-+	scx_cid_build_notopo(&b);
- 
- 	if (!cpumask_empty(llc_fallback))
- 		pr_warn("scx_cid: cpus without cacheinfo, using node mask as llc: %*pbl\n",
-@@ -424,7 +442,7 @@ s32 scx_cid_init(struct scx_sched *sch)
- 		pr_warn("scx_cid: online cpus with no usable topology: %*pbl\n",
- 			cpumask_pr_args(online_no_topo));
- 
--	scx_cid_finalize_tables(tbls, next_cid, next_shard_idx);
-+	scx_cid_finalize_tables(&b);
- 	return 0;
- }
- 
--- 
-2.43.0
-
+Balbir
