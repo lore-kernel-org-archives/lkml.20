@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866267;
-	b=Nqihqm/qYQLfPXLrxlzv9M/bbpo4V6TEFSgicZgIubDLTBvhFsh72hlZ9ZPoJKhCgwGy
-	 7McgLI6xmOGXi/Tj+GC1KfIfSODkpAeja+RWAoUatIQctRpye6UtqV0fGHyvSlpNHnoMO
-	 +WhUa/gcnhoIDmgAFRYGEL8u53v4m5KLK/I+3njXPfjNefSWJYVLsWn9ChAZDwifAkE7N
-	 HNx4TKjsqmAWl/6d8KxttO9a9JUojdMnXkOrOItcskdWV1wZydl7ViKQmi/RHWuHwE3eo
-	 SGlEkDIvcNX2nT5vVuciTYjboOd4m7unmOYNKe/hDX048lNrQJY6JlNLhzC25L+QWdQ==
+	t=1793866274;
+	b=ETyLohEECPjQTfVMm7BV40OOg82SnkQO1GFwqF0vZ4T7mXPSRNefKBwDpr07+dkXH+yq
+	 QyWZZJqbFq10CQDQoCWlxP/ovHXUxezInPm8KypjKGcnw1/8pCiwlQ5Zx4MgKf4hXtFbL
+	 GnvhcsUbFpwuaIG2cjHRvwOwl51aq1Bl+CBbS9x8b+PO2fZ67l2PtfIEz87+pFLVKaBWa
+	 eXh504/E4VgbSjdvATeaNPM//6mpwMCB/tmp6L0onNGaPlLh0Rb6WjcFZmFg4Bc0JfVgh
+	 kwdWlQk1p1zPcXvHS8H6cyB3fD7XR6tFN7jtAjl0llF7WOGed9IX1GZMlimxGYJOFAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866267;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=k2kV++0KkLBH5brlnSSDfSfy6EkjMYv+IqlDHzr/Zis=;
-	b=x5WXpiKxo+NgRqobKBESoKiDwbG9tUo0SypnZin2uIo9GyxbpIIaGungJjKSQZjcT0fc
-	 fyexrZAZeSgq0xe+wPWQ7sGUSScnMEfEOppcfkS0bNWJSv547oIPu7kA9zqpDhXtgSlGE
-	 LrWk3k+lQqUBUNTuPamX1nWCzZu/kDcC87dCYUQ//L0JfuB46nGwp6EP/ZwaZNrfaVrZJ
-	 ANHjaP1h/ayKMOLrmmKv1goA6M5I1yiws/B+5HyEuDymnpHguNTMc7JxhFEQ+bjR2pt4m
-	 kSlpPgUZZKAD5o+RKi3Ag+mxPaorz8jWcgpLrRLoiJ7sR208PMEYpUlspV7yIy7MD6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866274;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3k0TlYcqzV7mPVkptjvVxsR+HaSBcK1pGyBNv8k5DuQ=;
+	b=wujjnTwtuFuXeK00ije1l/rTMc/3nyT1kWo4BdwdNaxgeHl+SnSpZhDUu4NbxWwKZ9ju
+	 MwNmbwqzS6eD50m6D9Y41D2SLGim+djVQwQNSm/gU1FX1+HsqQljn0F73AVTW/i/PHs+4
+	 sueye4HUrOcUCKXMGHB1seqoqL+C6uwrhARp23Q3f2MsDfDJuwUjLih91lllayN/3662+
+	 02vqwOzWBo5XKlXL7hLTIq0OpW7bHNrDjxC0BdKzwps4wRRtMwtFXb83sRjYJ9dZPJl1o
+	 qkd9GySlFn/x/9jw65eFM04VhhWsljWxt00Bl8cQ2AgCUVj+ZN9KPIy/18eNuCorgLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XnEQ10Fp;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C758606A326;
-	Thu,  5 Nov 2026 08:11:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C758606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTgbbLIY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAEB606A339
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:11:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XnEQ10Fp
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5188D152B;
-	Thu,  5 Nov 2026 00:11:01 -0800 (PST)
-Received: from [10.57.17.2] (unknown [10.57.17.2])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E8123F673;
-	Thu,  5 Nov 2026 00:11:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793866264; bh=guG2LxtQjqQSAz+GSbDIH/DgynW4RmuQ4u309BCNpTY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XnEQ10Fp716oYvC3kMcPoqBk4TfdLNY3AuYHhNtItluOg2z+D1JSu09JdSm/um7XU
-	 2ZSzsM8/XOG7pBy7p7vHwQ10/3ojbBQYu+VB1NgV/KuY3Xe/spJi7JGAInEH71Y+QP
-	 sGb2lQg39/w9Tf6f5T/1XJ1r89mlhQuJgpT9Bv9M=
-Message-ID: <be158e9a-a4f8-4ce4-8183-85c747af2129@arm.com>
-Date: Thu, 5 Nov 2026 08:11:01 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTgbbLIY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F011F00A16
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:11:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793866273;
+	bh=3k0TlYcqzV7mPVkptjvVxsR+HaSBcK1pGyBNv8k5DuQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jTgbbLIYx0AnEDYBjH5tCg1RJCrEGCLqNEN5ZhzT9oifFd4Azor5PKL/CeNzJK5tC
+	 vHa0+q8+EMQJ7MnUCDS77VHnB0uCpvX5Eg70srV1JfhfdRH0cAjnYprOnAZ9Pj6pkW
+	 Hq2OtPL6ClpS8m8kpgWf6W9fVANo358EM5Ht50Adxm2OEMoxiT1a4SyGPB746f2mwP
+	 ZDluvNpUcouAK9IP8OxLadg83pjqOjfloLrgA5R+mblAAgpr8kAkLX1kbJIxku6LeY
+	 dflrIv9V1Uc5KzEqSApxsfoJZ9Ap8SnxUPACA8JQ7tmRbz34lQdFDHh9/xuGkP+Sqt
+	 4FYO2wEfJdaww==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso484353e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:11:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxJaJS7Tc57lErF4w5dZL5ULk8wrzJzd8A2E7N7mMoyW+1g8UVp1TAPIUaRq8ZFcFz+WVd4F1nSJjOMZn4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GIKflscyIC4V1zjjYMUCQ6fY0BCIBiB7T2AOj01hBM1ilY7XI
+	t7sNF4fkbpvj/am9lf9bT8w7uZYFYd0WQbR+wDjxy+NxHGQqmL65vcyDp3jiaIcFaSiUK5pWknr
+	Tl5+7yMHC4chLSEpgdHjQeFsIuq2pueM=
+X-Received: by 2002:ac2:4e98:0:b0:5bf:faba:373a with SMTP id
+ 2adb3069b0e04-5bffaba3853mr277123e87.3.1793866272701; Thu, 05 Nov 2026
+ 00:11:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,48 +59,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] cpuidle: idle_miss accounting fixes
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030083633.1699270-1-christian.loehle@arm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261030083633.1699270-1-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261104150013.32879-1-sinha.aryan03@gmail.com>
+In-Reply-To: <20261104150013.32879-1-sinha.aryan03@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 09:11:00 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkygr1hdLU3njWx6V0KpMdLAhrUkfDu88La6=fUKDKMVQ@mail.gmail.com>
+X-Gm-Features: AclHuK-I9aBVLakE6JYacknndMqjpPK5ZRSL0PyrvLGNqISRkoulYx-ojyMrIVA
+Message-ID: <CAD++jLkygr1hdLU3njWx6V0KpMdLAhrUkfDu88La6=fUKDKMVQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: starfive: jhb100: use str_enable_disable()
+To: Aryan Sinha <sinha.aryan03@gmail.com>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>, 
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/30/26 08:36, Christian Loehle wrote:
-> These two fixes exclude timer-broadcast fallbacks from governor miss
-> accounting and respect the entry-time latency constraint when looking for
-> a better deeper state.
-> No functional change outside of sysfs above/below and tracing.
-> 
-> Patch 1: Exclude timer-broadcast fallbacks
-> 
-> When tick_broadcast_enter() fails, the core forces a shallower state.
-> Exclude these entries from governor miss accounting while retaining
-> residency, usage and governor feedback.
-> 
-> On Orion O6, traces with menu and TEO running schbench, tbench and hackbench
-> recorded 6930 cpu_idle_miss events on 8172 broadcast fallbacks before the
-> fix, and none on 7763 fallbacks with patch 1. All matched fallbacks entered
-> WFI.
-> 
-> Patch 2: Respect latency constraints for below misses
-> 
-> An enabled deeper state may violate the latency QoS constraint, causing a
-> false below miss. Save the governor latency limit at entry and exclude
-> states exceeding it, without an additional state-table walk. Disable flags
-> continue to be checked at exit as they are expected to change less frequently.
-> 
-> Christian Loehle (2):
->   cpuidle: Skip miss accounting for timer broadcast fallbacks
->   cpuidle: Respect latency constraints when accounting below misses
-> 
->  drivers/cpuidle/cpuidle.c | 16 +++++++++++++++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
-> 
+On Wed, Nov 4, 2026 at 4:00=E2=80=AFPM Aryan Sinha <sinha.aryan03@gmail.com=
+> wrote:
 
-Rafael, any opinions?
+> Replace the open coded ternary in the jhb100_irq_set_wake() function with=
+ the helper
+> from string_choices.h. Gives same output.
+>
+> Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+
+Patch applied!
+
+Yours,
+Linus Walleij
