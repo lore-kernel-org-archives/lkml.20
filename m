@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874781;
-	b=ROEfma97xkwwJM3GukU9Q7dqLy9MkC22+fkfvQR05F21XPSzZoFZQ8g/QfyXTjEudUod
-	 DCIdb7ZFa5UOdMjkPRGu23/DvpC7DiHBUtL/crhTA9PPTEbM4pmx5N4Q/L4RleFCkFD42
-	 F7FnNFvJYB4qo8ddLf72nM7HEXR9RuxQkz+Hmteoxf8CMWVG7QRhGwGriHtFi6I56x4in
-	 yM8C4KZfcvn6biTBfQS+v/Lly3tr+yedbhz6PzGk9uk9e/+grmkv7zVXbBBUuf2FUBAqk
-	 cAV3HHqXgyS3dw+mswTjZvL0rHOUIoY7SvtLF80Gm7XCrdlkEQxAld2Xro8wAxTh6Yw==
+	t=1793874794;
+	b=x+kPDPe1MUkNpa+ZyX0U9RDgrlMMGy3UYf/wkRseOrT8NGx4dNcLvUwpsMlJVS/+BQ+x
+	 KeWyGpGJN61vdDqD//JYgAU5XR+ViSiroLqgbpXm3Ye/3ai2iTmZoKJ6cPIDPnJzj5qpN
+	 Q2i9D/oM/SUmtoYXAc9eXwxzxOoMcMw3/aezlYWveZAJuvAfcnP5p9gCeZqjDXa1TKJP/
+	 oZgfFC2qxwNi5w3oUNFeV2Xiv4pJaf+CWbXngq2+VMzXt3vwGraBLlazrfHQh+jjaTTNA
+	 wFZvL6UhK/quNAo3u6asVmaGcOmxhdlqng6XK4OIk8yYOYed764M5BpQoDHpZO05nBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874781;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
-	b=hzzeO86bwzgZKLkmdrinCcKRtxaKvts1VnSgomuSAnfkxqDahCffF+uTUEcF0uZGgv3A
-	 STpkLh2hWXjJ9NaTJ5LE2pgt74/sNR9jl9/85TYwz6xOoy+MkekgjQMEoR4oib1tMjRqb
-	 5vzAL5NSMLGtxebYKH7iCvRuQAvyY8LUJIRJU7MrpxPuif9XPtb6Bfl0sGm9Z/6GR5Cx+
-	 M/3jjpe9w6bXc1hKfwlphWAhk5LcwRlfp884XXHQ6m3I1Wol5iNi451B6gSsSyH/NO99o
-	 rnLT/YIuyK6RRwJd3iqgXFgZiP3jt3zplPi+5ZLBG7vxEYknxdQ1xG7nNjqN1W5au2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874794;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rW1nil3E5bYjTHxZT0jjYetDQyPmr3fpWazFoftmXjc=;
+	b=akyronwwwVes2r22gwf0J9VBfRi/fTJEHM5ugQjVc6mma6SYkEHwVVPzOv/2OKAwrv6B
+	 B0AdIya0xyZA50EA9CalKxYzYsnhXEQATprP4fHU3IxSpFXAU53ZTdla9HqKvttmD5wAz
+	 aHNFmlM3Sl2Rlr7dwEmpWg5n1ZTQUCEbDHn39VzWbykCg7G9meL2v8gBgVXMn6Wv8iVn5
+	 dlRAUJGSFIo6ex+rUXIz0xEPWlNcrSlf7FGcQNLuOeHMo7gmnaMJAmp/jwKkN2fneyhS6
+	 R77Cn5aDCrKfeuCKCRYEr/hQ31RZHUQMQ/MlVuyepOv8Fw66EoemBskpA7oxUGB2cKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PiyCf7pv;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOEZw52v;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D636606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D636606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1553606A326;
+	Thu,  5 Nov 2026 10:33:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PiyCf7pv
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b29b83fdf1so129935b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:33:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793874780; x=1794479580; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
-        b=PiyCf7pvWgT8fxkMzrWLrIH3dgWUniFK7soH84AMstFJO8rYlWAtORcQBiHnBLeWPs
-         NNiNzOZ90aMMgi1JGENjNURKZuSo7+lErbIWOjc5muIfBSs844BTQkHcWxt2sjSVemLv
-         b3jJ5uCjGu0G2T/wb9Wa+QFDYelGltdYmY5h4VRnuOMkrCPEzjrBCAm6MIBGdkmt19UQ
-         LvVCLVo9liYpYgh+TQc2q0TU6SDfDG1kqIqXyyJCrWt+Btx9S/nfuS5iOpyT3aungVc7
-         6GLIY8/kha3rjXXouZf+UbCmMRwFLQVjIb12RlcJnnxROwl0eYmuG9QNAQBaNeHrjgzR
-         tYKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793874780; x=1794479580;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
-        b=reTt74zpm5L3ptuuzvVP1AHMnJg8w3N8DYJxGqVn1tlXLV1Wox+InVDfvKgxviy1AM
-         X3Pk5kBu1tld1OBWrWwbglXCWfK6sJvXLf1K10jVHQ8Yidv2L2CzWgP4xlQx/bz0rdD1
-         BqfEBGKcNa7MdzGe33mat16Svb2Vzq3yacFHRowduYKDi9lxBVZbT4Mfbh8/F9OzSBFC
-         qKzGNI++5EEQRdV4CrO79P2QyqBGvir3X3l4maPABo5DXD8b4vhqCAfeR8lBYrDyZmPp
-         FXvpWkXhdsBaiBuMvHrUnW/Q0meDAqYqI7nALVZKcCpHgdEObW9UWfB6uQbEK6ykAcl/
-         z6sQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTBvDfvF3jDaocjwjt0oGS7ASNZg0B+YAu87K7RpDd4xbuE/atdpXVo+iwfzL/BLzowfIRlKO8WI/lWQs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GTNR3hg6Xq+iCDPTt192tWx4ZT/CISJ17yr+zrrXr+RVqcvkF
-	ScVu0Q9oCEZo+8DTSkGU3u2+T/jhVW5V0KQyheXI6rve6Vcy1vVltEI4
-X-Gm-Gg: AYBFou1QM9QSJBQFnEYoLg8fUtLkaIK2UzfIiRQHv64CHHYeqyh03aQ34T0PN8C42zw
-	mU75Jn01RbC7aobsRHu9Sk6UFuRh1jfMswF1L5OrDdTty59m2BDBGUBHMQetEN6vlij76+338/L
-	rxbBgRYok9dYg3bQLLV86XpwTpSHqYjkKJdsT32whxQuEY95duAnyPUFeCDm3aShz6UdGj55swf
-	c46aV6FFIaKc2jtNgx297JKWUGEc/pQWuMSRZzbpbt1MJuIQ+0Snpw9fg0TtndLN1mo5TvBANDg
-	HlP4UKkXM9p210wuu++Xy+66VDW7yo34WeX7nFUR9wKDkLvF0th4Outq9BUzVgKIXB4mqhDWLhA
-	s5ki0VhFsCxmJ7GckD22HDQ5Ylc015XclXXoy3b7JCsh7mnoLFfr7CTbjAMDUzU6FFufVH7Mbr1
-	+UNurgLXPd3bxvMVJ0APcskoQLxIEbPYew7g6pNAAaMw79qMJpwV42EK800CWd8/KxdbMfWmPYd
-	lvt6bff3gWd5rjWbv/dGf+yYkVIka4vM+YdM7UZxEMPTygpo+LjjrAXqF7IPxTUtDDOJ51YHnxq
-	XNrPtrYnb0EHlggDL42g4fedTGqDJ6DkbDeGU0BPwSx1qOkL
-X-Received: by 2002:a05:6a21:3b49:b0:3e2:aaf9:3a17 with SMTP id adf61e73a8af0-3e92895901fmr13076159637.25.1793874780263;
-        Thu, 05 Nov 2026 02:33:00 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb5d66a91csm450865a12.3.2026.11.05.02.32.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:32:59 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] media: gspca: etoms: bound device-provided length in sd_pkt_scan
-Date: Thu,  5 Nov 2026 19:32:45 +0900
-Message-ID: <20261105103245.1436719-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105065728.1351098-1-hj351016@gmail.com>
-References: <20261105065728.1351098-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOEZw52v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7B2B1F000C1;
+	Thu,  5 Nov 2026 10:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793874793;
+	bh=rW1nil3E5bYjTHxZT0jjYetDQyPmr3fpWazFoftmXjc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mOEZw52vLFxK3rc/1pzuqdBC+HQCXx9mY2v9zCS7MB1PkcO28hR8mmYR7mquhduqx
+	 nKCn9g7Qvm3pg2oAHDiffpJ2cDU2GqwF4uICQfDiPX4l5/O9J0qmW85ilAgvbRkP0U
+	 1FSFR+Ow6AcRdFnndQOPSSu8RyMQ6V5tSfmrn4gdTkXN58WdIUPJ9XvCdUZ4NB8bgh
+	 6pugwhg/dQzmCTa3DNeZNaV3LEU+nCDMPPQyPQivmSGt6TfuLL0FL0WkFPUM/3vgbU
+	 A738imanAEwUusrWHcmT2mo/y2jRAKtqB2LSP30ROQRnYP8nrNE4QqaXB4uR9PXbRN
+	 KZJLF4jYWfzXA==
+Message-ID: <0851db25-fef3-4f96-8d37-81ad5c51d6c8@kernel.org>
+Date: Thu, 5 Nov 2026 11:33:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,107 +51,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] mm: Enforce read-only shared vmemmap tail mappings
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
+ <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Muchun Song <muchun.song@linux.dev>, Lance Yang <lance.yang@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani
+ <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, linux-mm@kvack.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261019090830.1917657-1-songmuchun@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261019090830.1917657-1-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On 10/19/26 11:08, Muchun Song wrote:
+> This series is split out from the earlier, larger series "mm: Generalize
+> HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+> vmemmap optimization across HugeTLB and device DAX, this subset addresses
+> a single, self-contained step: mapping shared vmemmap tail pages read-only
+> at population time.
+> 
+> After the previous HugeTLB and device DAX conversions, both can install
+> optimized shared-tail mappings during vmemmap population. These mappings
+> should be read-only because each shared tail vmemmap page backs metadata
+> for many tail pages. HugeTLB applies this protection in a later,
+> subsystem-specific pass, but device DAX currently lacks it.
+> 
+> This series moves the protection into the generic sparse-vmemmap and
+> powerpc radix population paths. This protects device DAX mappings and
+> makes the HugeTLB-specific vmemmap_wrprotect_hvo() pass redundant. With
+> that pass gone, the bootmem-only optimization wrapper has no distinct
+> work and is removed as well.
+> 
+> This is intended to be the fifth smaller step toward the broader HVO
+> generalization. The remaining HVO naming and enablement consolidation is
+> left for follow-up series.
 
-etoms sd_pkt_scan() is the gspca pkt_scan callback, invoked from the isoc
-URB completion (fill_frame() in gspca.c) with (gspca_dev, data, len) where
-data points into the URB coherent transfer buffer at this packet's slot and
-len is iso_frame_desc[i].actual_length, i.e. the number of bytes the device
-actually sent in that isoc packet.
+I assume this patch series is no longer applicable after we remove the RO
+protection for HVO.
 
-The subdriver overwrites the real packet length with a value taken straight
-from the first two device-supplied header bytes:
+Or am I missing something? :)
 
-	len = (int)(((data[0] & 0xc0) << 2) | data[1]);	/* 0 .. 1023 */
+-- 
+Cheers,
 
-and then hands that count to gspca_frame_add() for a header packet
-(data += 30) or an inter packet (data += 8):
-
-	gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
-	...
-	gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
-
-gspca_frame_add() only bounds the *destination* frame (image_len + len >
-PAGE_ALIGN(sizeimage) -> discard); it applies no bound to the *source*,
-doing memcpy(image + image_len, data, len) directly. Nothing clamps the
-device-declared length against the bytes actually present in the packet
-slot.
-
-The isoc transfer buffer is usb_alloc_coherent(psize * npkt) where psize is
-the device's reported wMaxPacketSize and npkt defaults to 32; this driver
-sets neither cam.npkt nor pkt_size, so both derive from the device. A
-malicious camera can declare a small wMaxPacketSize and send a short packet
-in the last slot while setting the header bytes to request len up to 1023.
-gspca_frame_add() then reads up to ~1023 bytes starting at data+8 (or
-data+30) -- past actual_length, past the packet slot, and past the end of
-the transfer-buffer allocation -- and copies that adjacent kernel memory
-into the vb2 video frame, which is handed to userspace: an out-of-bounds
-read / kernel information leak reachable by plugging in a crafted USB
-webcam.
-
-A 1-byte over-read of data[1] also occurs when a 1-byte packet is delivered
-(fill_frame() only drops zero-length packets).
-
-Keep the real packet length, reject runt packets, and clamp the
-device-declared length to the bytes remaining after the header offset
-before passing it to gspca_frame_add().
-
-Found by code review; not reproduced (no device/USB-redir setup on hand).
-
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-v2: wrap a commit-log line to <=75 cols and drop the space after the
-    (int) cast, per the media-ci checkpatch report. No functional change.
-
- drivers/media/usb/gspca/etoms.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/etoms.c b/drivers/media/usb/gspca/etoms.c
---- a/drivers/media/usb/gspca/etoms.c
-+++ b/drivers/media/usb/gspca/etoms.c
-@@ -659,24 +659,37 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
- 			u8 *data,			/* isoc packet */
- 			int len)			/* iso packet length */
- {
- 	int seqframe;
-+	int datalen;
-
-+	if (len < 2)			/* need the 2-byte packet header */
-+		return;
- 	seqframe = data[0] & 0x3f;
--	len = (int) (((data[0] & 0xc0) << 2) | data[1]);
-+	datalen = (int)(((data[0] & 0xc0) << 2) | data[1]);
- 	if (seqframe == 0x3f) {
- 		gspca_dbg(gspca_dev, D_FRAM,
--			  "header packet found datalength %d !!\n", len);
-+			  "header packet found datalength %d !!\n", datalen);
-+		if (len < 30)
-+			return;
- 		gspca_dbg(gspca_dev, D_FRAM, "G %d R %d G %d B %d",
- 			  data[2], data[3], data[4], data[5]);
- 		data += 30;
--		/* don't change datalength as the chips provided it */
-+		len -= 30;
-+		/* the chip-provided length must not exceed the packet */
-+		if (datalen > len)
-+			datalen = len;
- 		gspca_frame_add(gspca_dev, LAST_PACKET, NULL, 0);
--		gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
-+		gspca_frame_add(gspca_dev, FIRST_PACKET, data, datalen);
- 		return;
- 	}
--	if (len) {
-+	if (datalen) {
-+		if (len < 8)
-+			return;
- 		data += 8;
--		gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
-+		len -= 8;
-+		if (datalen > len)
-+			datalen = len;
-+		gspca_frame_add(gspca_dev, INTER_PACKET, data, datalen);
- 	} else {			/* Drop Packet */
- 		gspca_dev->last_packet_type = DISCARD_PACKET;
- 	}
+David
