@@ -1,127 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793872939;
-	b=czK4O9h7KSI7j0svuPAjFC7YsloCJmPWDNLjx8H+/NkxPzWqV0Ef/bOFxvy7AmaNi1SE
-	 VKoEQlLruiFa8r+eVNelgYNv640gCzpbpZ01tNaOSuHAfp7zZxMSUMngZRR3nLHzh+ize
-	 QHedqH/oxPRrIbzOn9etZ+brPK25jDayHgwMSBMGO0PQj9unUAKUNo3S6BHaKv4GLyyKh
-	 jPS0WFX5GJqiKm46UJ/PuZajsVv2NBAeet6ekFHZwxsluUpe+aqXNeFC/eOOTg5c7SNkF
-	 ygeszRTDNO19xNCEIfb0lA1HPorto07axHesfBpR2oDTHi4ltFJWeYwAixTAAiNgf5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872939;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Reason;
-	bh=4p1VTP4LXSBbwiS7NM8jlUWoGCMymMKt+l3V2vFusMg=;
-	b=3lUgWozCSusEywC/kJbmaSFDYHoJI037O43424nnXqnPWBM0DiBoUjLR9U8Bg2v7tss0
-	 BBTIU6KT3V0kTo4EBMy5pkP7+B6oIMa5xPpSKZrv31IDqUxXvEcrDcS6NSYYWN3EH4Gj/
-	 yf9GZf3scs5YGBp3eGJ7Io1CjfgVVQK7qX8WnXLEjpjN/XfPwBtTEKReU59da1HAAqpgG
-	 V3g/C8AdP/CplxEx8xkINr/Ay9lZn5i8Kvqi/DgVAbWned4b/6q8ZEdC8c9wqxOx175v8
-	 B917piytb/7AUlJIdWs9FCsnprBvE14kDhoPoktaW1kF76/VTfbu5QoKb6LzkwsTrJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=P9Hl7vK1;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=F+tbFnSH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793872990;
+	b=SwbTPwv1lO7ww0Pa3lFansi3ThIBjwgwpQGtdY6SDfmCIOEDVmTh5X3et4Fv1ARL3mIN
+	 YMnt80XBbE4vWttprLsfJLYmG1IDMsbt+/BZpR5LwxzRm1Zr6Gkdnnjt35pUi4HVciYKx
+	 LcF85m0zuxsV1MhHsfWkfYqJ7E4vcn3FhRUa7pX2M6YiotewmKEz5PlzJ0tJgPDvMzW3r
+	 AemVv6R87LUeb2+Wqz4Mn+PmOOW0TdbZjedpO8YCgpJG1p4YXaGIe/vHN8JmiWa9wCg24
+	 5v8IUGktPb5jFu/RXjmkFk/oxC4fozCkFU7s3bn05DIZ4plaIPDNEWV4LtGWfkMI5xw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872990;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YGxMLGOpmO21KJ2mjD9khBg9SC63tjkRy41YsLQwOKA=;
+	b=mzI8+UFvPD7ATnEnk/SbrJOkjzc7HXb7DfD/WGEaz4tfNiMtttRzw/3kK2vGrL+9SEdY
+	 O4YQrVCgdm0fzuE9dEtIPjSRyOCJM47COFT+k3DcYz0PjyMIddEe4k/p8Yy43QIwBolBj
+	 BkCbUoGezJmmeYZ9oomQZ+s7qi7UcnsIXurdvfLnvX8ENsK58M/Q2bxBMM4cryP3V3Fh6
+	 vyvA8Uz7gDTbAXUkPPW0xqK4bNj42rIW6aW33BOnYxJ4i/jgQ2RvJALkVWgVWzch/Wjsz
+	 JdVDYD7ykhgrpclP6kreLLmyujyoYEcrYk0w6sIxeN4rxiELS6Z9ORlTwQlSbuFW3nw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X23c9kWV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0634F606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:02:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0634F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5138F606A31B;
+	Thu,  5 Nov 2026 10:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=P9Hl7vK1;
-	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=F+tbFnSH
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A58nwcO1123136;
-	Thu, 5 Nov 2026 04:02:13 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=4p1VTP4LXSBbwiS7NM
-	8jlUWoGCMymMKt+l3V2vFusMg=; b=P9Hl7vK1EMii5rF8jFXQonwBQOusLOLeKY
-	LRZZwOpyj4CYkn0gw9qlkY6x85HDlap2LMK31x56VqsoUQvAStU5/DZIdbWNzDTh
-	j46w9k4V8vLfot7/VOPt15LhWkV6B/kfV+6pRCZ2c/zDyGJvMKnbyiulULvvZOb/
-	AgcgRwDNW0X4JIwP+lK6SwnarSIBy9rZ7dqQQUUITYxqpwSIxW6c6VTH4tHWl+Rz
-	Av+OUA4XfbgozUnhtDYPlwuqGsT/e9TyuWxHxsB/1x4ujomVBKzSuRik3fR/7DuJ
-	uEQIdrYweg+nUDPwgt1H6027hFmtgrrESPTRUUCoZFbgi6JJ2WCg==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11022101.outbound.protection.outlook.com [52.101.48.101])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hr7c79d6r-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 04:02:13 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hR9GCYYQJj/oxTi+sH72Xkbt3fVpSf5RejYJK2Sf0E9rI4B0LFN60Ig0DXgdJ7WJqG0pJsFIyMZWTcIP0gPKCGo2OMF/VPiLEgdgYIGZwdmMH0c6gvDPTyIJ40K7HZNpJQ8bNKgr9h1SeBK5xZovksmuy30RoYQ+Eekr+zX+j/PHUk+3C1jrcQsxJOU0E+EpB+HHuUItIf+T+elp7a5O3pDDhRGGu9XS53ez8cnAAYqQIF44QrD6lmYqSL+f/ZD902IGmVWL43x/hzbC3cCkOfhHSLsncm2ZqTMDZ68wJHdc59xP4uKJuwiz/aFCjr+KxkRef+/Qixulws/xKz2UtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4p1VTP4LXSBbwiS7NM8jlUWoGCMymMKt+l3V2vFusMg=;
- b=KYgnrxeHrZBUU+ObEuGITnFDYCVRjg5nP2jYkzjlzJoZo16UCTw3t1zK9s5qRZRObHqVEuy4hRMYCLBVvkLihHu3Z28W8vLPhi6PZanpiLQr7epRdYRu+Sb1EzhjfSl/H0vGE6VKZ2x5e0nHyOz/lv5JtqmI7fR0QI133ByhonKg3QKl6e92KfwRY93Yf1KcxYrNn0LE7DJVn86j7QcCta3+gdjnTChvcLdQ5A3ZVtPHON+xwuujI+iltkwwc+jEApdpq68Ew47T2ANerchnZHda0TOcVAXFGYc/6obBB5/SrrYmJ58pGv9YP90BzKujzGluSg60jvbN1bk5tUCDbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4p1VTP4LXSBbwiS7NM8jlUWoGCMymMKt+l3V2vFusMg=;
- b=F+tbFnSHTQ8sxVcgBNukoihAewEvqP7qPWptpsu6hwAfIfy5Q7ahCi6cEwOgyN0ZXcGAcBseDWJUlkv11PBdkVJDrvK2OZruYPBaeiVVcwIVqKGwaZWGBbdTp4YDXWHrm08zcx199QCQ2ExltPMenxXH278K61EkdAcHZqEbqL0=
-Received: from BN9PR03CA0484.namprd03.prod.outlook.com (2603:10b6:408:130::9)
- by CY5PR19MB6412.namprd19.prod.outlook.com (2603:10b6:930:f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 10:02:04 +0000
-Received: from BN2PEPF0000A895.namprd04.prod.outlook.com
- (2603:10b6:408:130:cafe::92) by BN9PR03CA0484.outlook.office365.com
- (2603:10b6:408:130::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 10:02:04 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN2PEPF0000A895.mail.protection.outlook.com (10.167.248.187) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Thu, 5 Nov 2026 10:02:02 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 70599406544;
-	Thu,  5 Nov 2026 10:02:01 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 4B51F820273;
-	Thu,  5 Nov 2026 10:02:01 +0000 (UTC)
-Date: Thu, 5 Nov 2026 10:02:00 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
-        Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH] regulator: arizona-ldo1: Fix double gpiod_put() on
- enable GPIO
-Message-ID: <auxUGE+zPcnAR49k@opensource.cirrus.com>
-References: <20261104-arizona-ldo1-gpiod-fix-v1-1-5b3c02d8a4d0@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X23c9kWV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8C11F000C1;
+	Thu,  5 Nov 2026 10:03:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793872989;
+	bh=YGxMLGOpmO21KJ2mjD9khBg9SC63tjkRy41YsLQwOKA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=X23c9kWVkPgMqf9QyBhUBCMJnR9wXAEOhBgM4zA+aaLN25UZaS72McMQVN0/qvLUj
+	 gyk5MOm29CmrgYJH9yay9R0doiqzvqabiwazIkyDlhKcCIJ8plw01qp3O1I61UTMb2
+	 4sDnNnTwzudp4tadLZyxoi3npf+TTtP02nBBVgnX6ZEX+80DAIf/GFQwwsOf2R8b+Z
+	 hlvrM8pjyLZtfwgzHKBPb+KT/mu5ORHSRwxL/NWD+/twyME/sINzijVNN8QeVMy0SY
+	 SkJJrq4ukXNq1AAh4nbKw54nZ/nmzNeR2PTlSjc9shb0e57kDG9CxL0ftVLrYYgdTM
+	 MLp33ObuR7rRg==
+Message-ID: <e6be27d9-6cf1-476e-9d8c-8e91664b95e2@kernel.org>
+Date: Thu, 5 Nov 2026 11:03:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,75 +51,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-arizona-ldo1-gpiod-fix-v1-1-5b3c02d8a4d0@gmail.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A895:EE_|CY5PR19MB6412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 903815ed-6ad0-4861-04fb-08df3b23d731
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|61400799027|10067099003|16102099003|22082099003|18002099003|11063799006|261022105027099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	HllBjnTDxf6UMMcRx1Z0Z4q3JKxQjn5R3RHpduSbNwEpDxrwksW8KZX3bJW0ZWn/nVNP4WZ7S0y+WSZ893D0ljTiu9Hs2eQaZ5HACTILfBc6XfWqzlKO+L9zwveh23N6EBD9mdpweKThlvviqExMu/BXqW/xU7nJ5MD0ChQi+oGURrY5GGtwtCpsqwlWu4VuHy8FGfiPjOiDcjsKsdaNSY0TAIJMH5aBWQR4twIrySZf0uCwg1CrlBIROXMQOYf2itUI/xY5rpJv7z+KXD73DFjTgFizLpcZ5ZxqVjnaMuUfCSoTVByAnU+IBem5ZCwuahz1t9l0kO4L7wuVnvRajFRY5PWrqoh6lseOgjZ3EGvqt7OchPU8TNnUdv0rjwcxU6PHsNRyUPA9xIhh5XFFstPPdrwCsLzAKFYJQOaTtvrjrmSLgTRwEpgEA0/Gn0haIzlCmdShMnAq2hyq5sbj9TdLVD8lzX95bjhmqEmLZFfbFmMBtT/Ghmzt3gAvIOJ6VD7oboRMmNauq8JNbp0QVdPHcVgF2pqT/QtJcG0tRJhkg5vd1upUHeAVaqBLBnOBYenKnbVZv/lxCDD5HCHOFA5EO9kYquSEn1Nd7AMqSSHwKKszRRMdCDGzd/Bd7xTpC0/+tQOl7zoxeeQpOzcpVWALEzgXNn4h0n4ilEE7d7iXKtf6lpuz5BFrHPFJ4/i/oaWXFTLTJLL3b8uXb5f0BA==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(61400799027)(10067099003)(16102099003)(22082099003)(18002099003)(11063799006)(261022105027099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	a8642jTIq6PylJvOoS99w0LQC86OTZnn1RX8j024yZTe1PfY7WdY6tU7gyFW69r2t4WXNFJcI8Zg/vgX1vRNo4b2UMEcY1x/JqVci4rDlihzfNiusuSjwcVNO+3bsaA6tcZYAiC2QlKV0oz7iSnLIX0zBbAjLCShR+MiEd5P5B2REVjePMcF73cJk66hkJ8ls2nlq4cSzVNsFyIMwY9ryGawIishrWFOltVlaOGz6FIbA3Qaq28N7czZZByb++6SL3MKQR7nS6/ZxXjxap0DJ2kbxZwXVzZBCPj2Vaqun4l6cqUjwEfCkMJcSgXw+6Ggq59JfYS7KIweZJ46ddaG/5pgzP+/3pmus1c62NZlPVoMglnYgupM1Mordkf1ABQFlZw/UeZGUSyEf37gEy7f0cod4umNMIQLilKyEi78FawsVy+KZse9nW6bNP6Jmpor
-X-Exchange-RoutingPolicyChecked:
-	JZRLAOsYb7oJLnt5POvzwFusaR+6vE+SG/1+73rB7QC6wOvvAeITHNQRCYZQzg8vNoTzaiJUhFSSYiLqLi274JNWLbdTXaFxwbXlqZ1cDbHASCLyETtwD/11ia4CH6agLkF1emAl0I47HvZQPpzcjcnClmnacDVmqS5QRiRHszLn4jJnZ4PMIq5gJKYRsUYq0KGJFRau7sD8InRmrYkgukVSoOVbLFo4cZMA17byHhhKFv89gcjAoBcMaW2MTDvTquauzXLcounYQMEggBsU6aK0UvFHdILFfC38iDXN7OTL0yVoLj/wd8Em3RMEPSxIen0XeB2KKb9p3dTi0zseZw==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:02:02.7974
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 903815ed-6ad0-4861-04fb-08df3b23d731
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN2PEPF0000A895.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR19MB6412
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzOSBTYWx0ZWRfXx/bAyEsPRlkA
- mWGYhoAH0sb+ohRu2JWSfmkM2T5PLaATgiE1ISugyF8irp/L5ixk3MlJRJK0qcuNF1du5RbiYg0
- JGA8ryM3Zz+/F5cmG1G32BA5jB/5aTIoZafaOfCnM2cCDKosZkeuDd8wunNLHosXuitEkXXGYkA
- jey489SMbDSMU5HrFYim2fyvzc2DNCXI9GBebkfnRSSdWE/25uXD7feMtTiXQcM3H2gdp2XNakS
- kuo2KkIRY+jMMVjKATl7FQMU/cw/M6SUiSQzR52VDe6/bRRQs4g3ggohTWM0oP/NZsP9Dy4wcYk
- hWQBpAIQ/KQ+NkzS2nMtrT5lXL9oU5cTdyHPcQCyWNuAt6UvnL4d/Qu1C7Y39xqT2gbHhuIU2Zg
- kHVa6ZLANh9qOsrepF8Dudk/tbKDopObav7uvAXJzfRiXunqyzenXcHPFJU7GxgHvGpsdqnNIsx
- LmYMobkPX91fdtOqKvQ==
-X-Authority-Analysis: v=2.4 cv=Vr62kO2n c=1 sm=1 tr=0 ts=6aec5425 cx=c_pps
- a=RIagabVaACGLwgNc4eEF4A==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=pGLkceISAAAA:8 a=w1d2syhTAAAA:8 a=4WHG91N4W5Y8spwWpi8A:9 a=CjuIK1q_8ugA:10
- a=zZCYzV9kfG8A:10
-X-Proofpoint-ORIG-GUID: Ze2UxlF5IXUoTCETqBlZkwhmga9YKx36
-X-Proofpoint-GUID: Ze2UxlF5IXUoTCETqBlZkwhmga9YKx36
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzOSBTYWx0ZWRfXx+luVxPBk0LN
- QaFPfHbVqAc83u/t47OuXglT0Jx7T6mGXU87CE2P1fmhXXm+fvEfd3U+s/ttyce6ec0JDushABj
- yHHAMdFDYpEQHVRvDHWIxkrXNYw7O+M=
-X-Proofpoint-Spam-Reason: safe
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] selftests/mm: cover merging KSM pages aged by
+ smart scan
+To: Qiliang Yuan <odys.yuan@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
+ <20261105-bug-mm-ksm-smart-scan-align-skips-v2-2-8a9780b6844e@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-2-8a9780b6844e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 10:38:32PM -0800, Dmitry Torokhov wrote:
-> When arizona-ldo1 registers the regulator, the regulator core takes
-> ownership of the GPIO descriptor passed in regulator_config.ena_gpiod.
-> The core frees this enable GPIO descriptor both on registration error
-> and when the regulator device is unregistered.
+On 11/5/26 10:36, Qiliang Yuan wrote:
+> ksm_functional_tests checks merging and unmerging with ksmd's default
+> settings, but nothing there exercises smart scan, which skips pages KSM
+> has failed to merge for a while.
 > 
-> Because the driver also tracked the descriptor and called gpiod_put()
-> in its driver remove callback, unbinding the driver causes a duplicate
-> gpiod_put(). Remove the driver remove callback and stop storing the
-> enable GPIO descriptor in driver private data to avoid the double
-> free.
+> Smart scan used to time those skips per page, so two identical pages
+> that became mergeable some scans apart could end up never being looked
+> at in the same scan, and were never merged. "mm/ksm: align smart scan
+> skips with the scan number" fixed that.
 > 
-> Fixes: a9191579ba10 ("regulator: arizona-ldo1: Use correct device to get enable GPIO")
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Add a case that lets sixteen unique pages age for a dozen scans, then
+> makes a duplicate of each mergeable one scan apart, and expects every
+> pair to be merged 32 scans later:
+> 
+>   kernel               failures, two boots
+>   before the fix       20/20, 20/20
+>   with the fix          0/20,  0/20
+> 
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 > ---
+>  tools/testing/selftests/mm/ksm_functional_tests.c | 108 +++++++++++++++++++++-
+>  1 file changed, 107 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
+> index 31c06c72203fd..71d9b3cbdb8c1 100644
+> --- a/tools/testing/selftests/mm/ksm_functional_tests.c
+> +++ b/tools/testing/selftests/mm/ksm_functional_tests.c
+> @@ -695,6 +695,111 @@ static void test_fork_ksm_merging_page_count(void)
+>  	munmap(map, size);
+>  }
+>  
+> +static int ksm_wait_full_scans(long nr)
+> +{
+> +	long start, cur;
+> +
+> +	start = ksm_get_full_scans();
+> +	if (start < 0)
+> +		return start;
+> +	do {
+> +		cur = ksm_get_full_scans();
+> +		if (cur < 0)
+> +			return cur;
+> +	} while (cur < start + nr);
+> +
+> +	return 0;
+> +}
+> +
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+This looks a lot like the logic we have in ksm_start().
 
-Thanks,
-Charles
+Likely that logic there should be factored out into a common helper.
+
+> +static void test_merge_aged_pairs(void)
+> +{
+> +	const unsigned int pairs = 16;
+> +	const unsigned long size = 2 * pairs * pagesize;
+> +	char *map, old_smart_scan = '1';
+> +	int smart_scan_fd;
+> +	unsigned int i;
+> +
+> +	ksft_print_msg("[RUN] %s\n", __func__);
+> +
+> +	smart_scan_fd = open("/sys/kernel/mm/ksm/smart_scan", O_RDWR);
+> +	if (smart_scan_fd < 0) {
+> +		ksft_test_result_skip("smart_scan not supported\n");
+> +		return;
+> +	}
+> +	if (pread(smart_scan_fd, &old_smart_scan, 1, 0) != 1 ||
+> +	    pwrite(smart_scan_fd, "1", 1, 0) != 1) {
+> +		ksft_test_result_fail("Enabling smart_scan failed\n");
+> +		goto close_fd;
+> +	}
+
+Can we have a helper to enable/disable smart scan? Likely belongs into utils as
+well.
+
+
+-- 
+Cheers,
+
+David
