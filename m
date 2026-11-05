@@ -1,72 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863870;
-	b=Zu9jalMAt0HXjMHIyihT1hxOcfTB4VaeTuHQYQCaAuCAFY8Qo3p34+Qu/5YhGhcuNiE6
-	 AqfeivbJ0JCD8VRECOkp9J7svC7PfS6z9qMshmZA2BFV5xYEd36eFqdDQo2ZQs33cjps2
-	 Hmf/5DuTTRhajjglaZlY0CyLc2PO6rc12gC4VCHyAjFz8f/zHpM4THeWUKYD7koaUuBgj
-	 LU1wQRneBKMOpZIE3FxspXHVJ0JfgFVc4br5nR2T+xDs+MkxUlJLG3+komi+H4s0AxiLC
-	 qKAG6hViJnRNKt+VPc0hHdSnXQcEjJ55RQkfGNYp0TdMWP6+v4CUjnItWjOS/oD6vmA==
+	t=1793863914;
+	b=Y+P06K+LTitwqeZ2Roiy6Zd04mQX2O/h4WrM0lhKV4FJg36pPq/NYSgU6wsv5Zt8PxbY
+	 79MsLFHR1+ADU5kxYmaInl9b/LLeS6yOQfYDxQNHyiyW0HZ2SKAgj5rwFdE1ekfVWHpgO
+	 xLTyYy83rV8hkTxhOIZGefJKce4CsKyAeaquKHrymvyKGBEgV5ErExHyq4jCnZEaEGPzw
+	 fpoxdnemU6HV23SCHawAjwAzw83+yQRP6HLc4JRUh3gLvupY27zs9XsoOz7G9P41sqAEB
+	 3uTzkmjpR8/pRglLEBBO6si0xblSmFOrrbFQS+8W9PFjRK33cqBlnr/APLRQKr1onBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863870;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=2KTLKxxRm/mTERWifE6NdSkq/id0fx4CDjmOeHHWEQI=;
-	b=GQOAHIpxQOhQ8t2L/AXO85xrtXzXZuGrF4eidYX7btGM2ke8Ps1XL71hb+WhP5F10g1N
-	 o5alaPyGbYEwz5fkpd1wdURKbFLf9LmXvGq7TiMBU/MFa+vZ4Rp4rMQUl8uRl4IqSlcne
-	 LYrk+6htFQaVv7YPTiG9vs/leCS+ufIcZUA2Sk3fkRP0lFgN0Jh+QdKylVRjyGJoUiVYV
-	 uCws42DR43u31tSHMFfTMYvN51bi7Z9iVKmu1LBHkjjpTaF8N4af0w/vRHI7hp/yxjclA
-	 irebaYh2dFy8falFDmSKy5j+PJEE6CTA7V7/JFFiw6E/OLOYp3uEbTdp/4SRCFrC3NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863914;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UUK0k7ftIBU6S8/ZmsdUGZl/pEe+AnTYPxOxq06IjAE=;
+	b=tAJcn2NkBkHrZlj6xjuLfAnV+dxuLP7q05SJQSYi8Ylw995l4e482oPPsi3dn7tmOP1c
+	 f2MZuJOPK3TrThn6+5hOZV4jCOCpAzgZ0RlvfU3kYTJQAlYDRpaUKte+o4EuSNmYDVlfh
+	 24LGvxUX3hAqTn1b9izK6Gkg+3SiD2Txmf9qpaKgoJsB5/J+LJU+c+NR+6MkhTNk8xZ6v
+	 Z2trvQFdmCnt6CqXirH/NGUyOPmC5QM5W09uqf6a2AxIT78s9EDUhq8czhPIIbuSvpBj/
+	 8Wyf2olxR2T8lwjol/FCd+q5hapdbAI68rObvvqm7q6UGnD6B1/hw0vje+GaHBKk/tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zvod0mn1;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+TlFwlu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29A3606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D29A3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC3C606A31B;
+	Thu,  5 Nov 2026 07:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zvod0mn1
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc7e92f36f9so1289520a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:31:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793863869; x=1794468669; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2KTLKxxRm/mTERWifE6NdSkq/id0fx4CDjmOeHHWEQI=;
-        b=Zvod0mn1IZAlM3wRbo+lioh8nSp6PG7DU8Oy1C15e/nIWL91IVZY4G1ggBOOxOrZYO
-         ROrpsb4YgSH+74/eMHI+YrFqa46PYlrPNknPwWjVkxd7pTkkUngGObPrEHzr8JeOIMT2
-         v0piVBh8DrXXH94x2ZOlquMyoRW5yYJa5/QofrUlne1K/hExnfKli1862iUYBUgS5jfw
-         BBXEInDrsBMDiAK0mUsjw69jf6G2aRPGOqDDdc2oMp0e6L2D5pJcLQz8Bh1J9PuhbtNk
-         jlW5Zr9oycBf8x1RhEMeCFnxhswyLdH3d4M0XTgD0leKSpEuezb3YDUFgNBCi8TyrjxN
-         /ZcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793863869; x=1794468669;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2KTLKxxRm/mTERWifE6NdSkq/id0fx4CDjmOeHHWEQI=;
-        b=pdlo5otUvz0a0Zvn11ad6h1CwRAVB0L3BmDKY15a/OZMqkgBcEtEZ3uOW0nA8qQjw8
-         2MqelAtC7hNyRfIaC7obqOudD4sOkbdeg2FHx0bz9AlIOGGuW80taeVh83odPvSnQ/hm
-         U79BFj66SJywyN52zpr38ozLXYKyhfrqYDzGPvv3o4m3Bqm9k8iHynTgp789HIhzA4TR
-         Di6zPTC4ir/RA7Nywn6x2Oaq9kobiMG5k3OocylvLZHvbkziOH7BEbwPm4OSGaT2pTWY
-         2UWaAPx6V9a1bkfl//jqRdLoz+T2XHvYvzUIUpjUfe9AdQwBDUHQ1ciWrkjCDD0wsPpN
-         cL0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzultALf84pVT+YLzt721DLnyrySvDFTDB3WXBV55GNcjy/y62o21YWfpXAV7/FkxrQs+K2TpDptz/gGKc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8Mxq6LAuo3BHHzaoiUxguxPL7i8cOg04f1F2Ga+B0+lZDZpcX
-	gwdnYR0y3ZCUCKu4LB39FNQsxqQkwjbwBHaATOyN3w3yVRnwc9laDjXfgDKBYVzkL8hahs39qVl
-	XyTCgScFow4kPIQ==
-X-Received: from pgdo3-n1.prod.google.com ([2002:a05:6a02:6203:10b0:cca:c02e:bfd6])
- (user=sgsatyam job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:8901:b0:3e2:99ef:ae90 with SMTP id adf61e73a8af0-3e928a0b2a1mr12244927637.53.1793863869003;
- Wed, 04 Nov 2026 23:31:09 -0800 (PST)
-Date: Thu,  5 Nov 2026 07:31:07 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+TlFwlu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7561F000C1;
+	Thu,  5 Nov 2026 07:31:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793863913;
+	bh=UUK0k7ftIBU6S8/ZmsdUGZl/pEe+AnTYPxOxq06IjAE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=H+TlFwlucj3qrnsQ8Bn0qopX8prNV+klVQvJbcR8jQfmXWPYIHC6hbMWQlBGqy2UY
+	 SVd82my+vYN4BATnWDVZ9pgAU6w3sPwLemBYkVY/tpq21XwkTHzk10eLldAiXeWr+G
+	 A/qO7h8+fCxPelSQPwIm1QY1SAJ/rggrP8kGdBVAsIjQb0MqAPWGDB99p4wHfpFVyT
+	 ucCCRNBHeVdRlpzFTwc3la0SPuXe35bd3SUTKwDVvsqzG4ptfqwxi4WdPfBdI3XNIP
+	 vep0CYymSpRDrhrXVB29A7dz6QKfRvPVn+hK4gOKvgTfwb6XKwOrd9uIL3x4g3kfNY
+	 V+GNICqnTlWWw==
+From: Nicolas Schier <nsc@kernel.org>
+To: nathan@kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Cc: Nicolas Schier <nsc@kernel.org>,
+	n.schier@fritz.com,
+	grahamr@qti.qualcomm.com,
+	rdunlap@infradead.org,
+	nico@fluxnic.net,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] kconfig: error on reverse range
+Date: Thu,  5 Nov 2026 08:31:39 +0100
+Message-ID: <179386358247.407677.15073107092140658288.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014134017.2310819-1-julianbraha@gmail.com>
+References: <20261014134017.2310819-1-julianbraha@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,65 +64,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261105073107.172121-1-sgsatyam@google.com>
-Subject: [PATCH] iio: cros_ec: Use platform sensor_num to unregister FIFO callback
-From: Satyam Gupta <sgsatyam@google.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, "=?UTF-8?q?Nuno=20S=C3=A1?=" <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Benson Leung <bleung@chromium.org>, 
-	Guenter Roeck <groeck@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
-	Gwendal Grignou <gwendal@chromium.org>, linux-iio@vger.kernel.org, 
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-cros_ec_sensors_core_register() registers the FIFO callback for the
-sensor number found in the platform data. The matching cleanup action,
-cros_ec_sensors_core_clean(), reads the number back from
-st->param.info.sensor_num instead.
+On Wed, 14 Oct 2026 14:40:15 +0100, Julian Braha wrote:
+> This series adds more input validation to Kconfig, specifically checking
+> that ranges for numeric options are properly ordered. This check was
+> originally introduced as part of kconfirm [1], but there are no findings
+> for this across the tree, so the check can be added directly into Kconfig.
+> 
+> Patch 1/2 adds a prop_err() function to match the existing prop_warn(),
+> which is then used in patch 2/2 where the check is introduced.
+> 
+> [...]
 
-st->param is the EC host command buffer. Drivers fill it in under
-cmd_lock before each command, while the cleanup action reads it without
-that lock. It is also set only for physical sensors. If the field holds
-another value when the device is unbound, the cleanup clears the wrong
-slot and leaves the callback in place, still pointing to the iio_dev
-that is about to be freed.
+Applied to kbuild/linux.git (kbuild-next-unstable), thanks!
 
-Use the platform data in the cleanup action too, so it always
-unregisters the slot that cros_ec_sensors_core_register() registered.
+[1/2] kconfig: add prop_err function to simplify property error handling
+      https://git.kernel.org/kbuild/c/cff21174
+[2/2] kconfig: error on reverse range
+      https://git.kernel.org/kbuild/c/fa68f88e
 
-Signed-off-by: Satyam Gupta <sgsatyam@google.com>
----
-Tested on an Android desktop device (6.18, Intel) with two
-accelerometers and a lid angle sensor: each sensor was unbound and
-bound 20 times while a reader kept EC commands in flight, then FIFO
-samples were streamed. Also tested on a ChromeOS device (6.6) with an
-RGB light sensor, together with downstream changes to that driver.
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped,
+reverted or modified (e.g. trailers).
 
- drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Patches applied to the kbuild-next-unstable branch are accepted pending
+wider testing in linux-next and any post-commit review; they will
+generally be moved to the kbuild-next branch in about a week if no
+issues are found.
 
-diff --git a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-index d03e40c91582..4d019132cd78 100644
---- a/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-+++ b/drivers/iio/common/cros_ec_sensors/cros_ec_sensors_core.c
-@@ -216,11 +216,11 @@ static void cros_ec_sensors_core_clean(void *arg)
- 	struct platform_device *pdev = (struct platform_device *)arg;
- 	struct cros_ec_sensorhub *sensor_hub =
- 		dev_get_drvdata(pdev->dev.parent);
--	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
--	struct cros_ec_sensors_core_state *st = iio_priv(indio_dev);
--	u8 sensor_num = st->param.info.sensor_num;
-+	struct cros_ec_sensor_platform *sensor_platform =
-+		dev_get_platdata(&pdev->dev);
- 
--	cros_ec_sensorhub_unregister_push_data(sensor_hub, sensor_num);
-+	cros_ec_sensorhub_unregister_push_data(sensor_hub,
-+					       sensor_platform->sensor_num);
- }
- 
- /**
+Best regards,
 -- 
-2.56.0.398.g882cbad275-goog
+Nicolas
 
