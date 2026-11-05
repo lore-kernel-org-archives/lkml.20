@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867062;
-	b=dHPaBV9sy4o1gXe4uafeeT10r6R7fp3NjNmjrgwTRz5Pb/OV6rgs4EyUAhJspWcuLmpt
-	 wf55SXl6Llg4BPOl0z1j9Pp6qdsNZtp16wCkcudGXOktY/6szH+Sm+YDgQYfZE6rnoCN1
-	 FuSD2a9kTPx3zY5d/G1UvwcdDshPTeLfmX7KXNwAoim5qQgHH60H7JocRo57rSwc4oV/V
-	 8L3TBaAOTATmcPMFFhGQ90zpHX7vP2DTrnTojegV3OXt0M1je3Trb2ppbW50wCCRvAGXd
-	 4YpwK3+GYNdfGVk6Pj7uYH2hFYHO1gqlaeEblUmM+rc13J2UzVU0gt8VRZmqzlHMVvw==
+	t=1793867048;
+	b=4TBL73qaGzJCttrSlHfW3qr9m91+Vz+YT/qjaGHCTVbY4dBQBvYs6pV8Bg07hNYsQNA8
+	 ZenLwdSAKXbmr/smZYz2NTiqwATcdx5L8iD+O4VMj7Ypx9IG4FcVFQRjekGn681YxIrN2
+	 Ohf+FDJHeVd2/zbek3jmRaRKSRrm5yQjmfCUqhULTTUOp8USHgW+hlgLcnYpe4YBEBpsI
+	 9loA5ToY4i8zXOGw/r+tcRN01+jB0Oo+97h7wU5+X+CEZAuhhuoiqAJMvrGcAD7DVlLU0
+	 webBqU7PIegpoN30O+ZkVIkuQZPH39Bmf4S8/fNctd8CSvRWrYOy6y1XXZwldK6EVzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867062;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=ZJ249AtmwSuCZsIIsSDb7ydrGHQ516oqgxihKKAwghE=;
-	b=R6BR4ybwhKZiSc4NNtEFS6b81w+7iLaSDXqkahc+DiWl9BdUUxnUj6Lrqmrz1yh0VYMw
-	 JeYQDOTZ7vtg0LYg2K2kjXgCm4CzO6uMeC5AVW8jZZXenK3271BxLyhdwyikdXHnPfXzJ
-	 jPVrXM1wnChBbBTW/EV2+I2vNnYBo4qRJCU+eb7E1FdOX0InFWJ7WtrhS8aaFFC8z4exF
-	 Ua2Ul+pq8VccsmFi/2wESuIIGp4s2dcy1CUeOQGKKuVka52OaV5dp+0o0j+I32i0n1sTq
-	 asNPdya8SSMiXLwCHvaaJUbnz08oqeKiSnPRbc2A1j2ZkUeMHK1sYCRRrf7zgorTJzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867048;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6+ADUqVtFDrfgQJ3OhV70TKxA4b9WrHMTSHdV9mWIWc=;
+	b=h72c1VEBHWej04vUn9SXfOBNZiHKY0/olE/gghGBQTbfecUXzm7HiM8q4OU7p2qr6Zit
+	 04MVwMAod+ctR3+56sby4BxU0GhI6hw2XjkTUesM773o06zcwDEQM3C/EJG+8JZkfLnWJ
+	 EdgIBxLL61BHDcjIF7RfmR2jB9RxxVXUri457uE2ShbcQMP5DXt0mg6aJmQEXAqgqwzPe
+	 88+MxDLiuPNmH4lFsFUwy/bOgrFFyvwe48DAsd24KQC+/Qh15RAHIg3VOp03Pj2KM2h9i
+	 szNIdb5aqqGIFWoZEw2gzbuIpRza7XywJKizxvLlbRqcYk4ai/0wjaM4xWYQHLiq2jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Ejh5VaEX;
-	arc=none smtp.remote-ip=54.254.200.92
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nDz7CJiN;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F210606D805;
-	Thu,  5 Nov 2026 08:24:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F210606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0AE606A32D;
+	Thu,  5 Nov 2026 08:24:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D0AE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Ejh5VaEX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793867049;
-	bh=ZJ249AtmwSuCZsIIsSDb7ydrGHQ516oqgxihKKAwghE=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=Ejh5VaEXKo5X4pSwhBx9obfWqL9P31aPI11Z8vPwOdWDgIiPSdsj3O838TVlycE5B
-	 XmRRJtlJdAtKa6BKmya+EloOym8zhBTupABRfpjIpzD90kKp096C2c0/OHvMEp0z0l
-	 1UolzRd2jDfeRZ450u+TtKE8e2f3ptcHHdH/36aA=
-X-QQ-mid: zesmtpgz4t1793867048tf3e3ee76
-X-QQ-Originating-IP: iZG4yoHhf8J3fsBiHX52Fhia9VgMbLyclOKJK/7Bw84=
-Received: from = ( [58.254.68.27])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 16:24:05 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 18264579372122570667
-EX-QQ-RecipientCnt: 13
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Thu, 05 Nov 2026 08:23:49 +0000
-Subject: [PATCH 4/5] riscv: defconfig: Enable AT24 EEPROM and ONIE TLV
- layout
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nDz7CJiN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793867046;
+	bh=RctHusTE/ZE8d6je51Pq4bj7K1e6qmeDSw38M5NLaVQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nDz7CJiNR0D0Np06ekAx7PhNA/r85Mx7xWEW0Vj82tl82q4NpdUkm+E1cC1TzEiTY
+	 93noRkqJ1HAppXU0XlTsMeRtHa/iia3BMl3YFhHf8GEVPbDbDyRdEWn3MISziq76qf
+	 k8Vs7TtY1samutFJh8KJSaYUpHrI+cD+9fkijoBaU12GP9AVdKC80YCrwrKoXKJad+
+	 gQVO+PbK+agADkozFxSuUB0Wxu4kcnKrYfhxNZfufoFFsLff5INcMGTgcq7qRzr2Nm
+	 etW85kcIC25PvpXZcXI/kFraVgNtnYg+zQXi/tVU6koxKeav7gHgsbxXAQAvr5YEU/
+	 Lxjrw/9LW6tfw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B90AE17E0048;
+	Thu, 05 Nov 2026 09:24:05 +0100 (CET)
+Message-ID: <b627d513-d587-43dd-b555-584b05e7d043@collabora.com>
+Date: Thu, 5 Nov 2026 09:24:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,80 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-k3-com260-module-sd-nor-mac-v1-4-138b39d74602@linux.spacemit.com>
-References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
-In-Reply-To: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1163;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=8xFU6VvJImZA2MbPgp1OYJlmNmjSbxKEyOFL+rbF1NI=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlvbEVuXHzh/eF4jYeN3aEbZnN2z9+6e9PPOymRP2vaG
- PT2uMTP7ihlYRDjYpAVU2TpfsCzrcAnyrZAoNAXZg4rE8gQBi5OAZiI4haG/05XCvXD2T1Ul5Q9
- ZPI917/yvnvX3r+HIwzj7vE837fK/BDD/9wTnzqnVZ+9/0n551w3g9eL7l/r4elw/z+lwnNfgdX
- /CG4A
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NafyJWIkf4MPGBhqAbi6cTpkeIcvBusEH0OWwBEx3TLNmMowmkiJy/WY
-	uZf+vpQHjkkc8rYDVzufdUaZKzBFfqZCViVYOhGRzQP0X/bRy2jDVVlcEddjLkZSEAml+dl
-	FDZ3gMCL0rrfHi3mzhppnKksn+cW5+63UIMj72BjoLDnRtb10s8mu8/aJQHTcZvZxGimlle
-	fnb8CppLqYad/daQgEwdVr30Ji+h20P2dBDta3TKV7hFIJtOy89Llq2CIKwHuzRllniWW9j
-	B/dYEoo+tOv6XumiXSoPNjQOhgFWZ/nxPDAvCjGescVPYKE0Q5ElQq1AOKOxLz4HReW1//H
-	8q+7PY70ljL9/RcSX7h43HgVyEDa2EuRTMzlqx0rfakptGZmxtmjPvtOg+kzY1b9BxYZCNE
-	K96to3y0z3grYAGROu0igr7M4uJQ6pYrVUbPsrAIvvYttACyU3ElvhSulXGsYKwdMF/9JkJ
-	BqDeI+Y+ih2IkD4ez1lSNIkGCQryjHiCQ/K0oebzFiizml0xXz1+NSaByLfP7VjO2BSEviz
-	RD6nu/z7W3v4A29DjT9jkZKkfglVGs8tpYztWbCrao/y0FmcmOJMzG4FdEWGStYF5sXWzAC
-	iZHIXa1xpcskKDImsHOX0GJwy/HaQxyStGqClF0cNZoU/Fmoban2eNvAkwihz/pmCWrBZVl
-	TLCr6vpTPXpMn6uU1Sm2gTYsgijSdbeogMLvt3hG3vvyuhd5cIM2U0Qo9S434xwYImT9xZS
-	9NDZd5jbEDaLEdWf7j7u//YtAe4NE7w0XNzK1Z18Rjb+a9tPkrItko3I2C4pPeieGihaZGE
-	Zz3Ctw+5309IZNLqRNnYUa6lajuw2tv6ZvMwHczYlo+Y/jS4aaKQajqB2/1ArCVON92t69p
-	Nrb/wYzDZgHZwmWCTABjy1nmeiDed04a4e/wIoyooQlnhOhR8e/jnl7HXuMO7y/9TWQjfIG
-	7ldUDGDtXmfl3swbsQbGco490GCrCPSGjn+ZvfqHWZ2cbRLi0Ja1slpqmwrQdlph8WIBbk1
-	rjkx6bkHjbi8m16bOy5Cjb/gaTaTmH5uEJ6KzLepW0rSjivTwDHnh0ynopKB/BWnQgUVqzS
-	jWq7f80P/dyC7Ow2NoxkOBCzX18mjo2T0FG1k7rGbtQ7zrO9KsNN7zYAZnW/N34gFiyu3tI
-	AYvt
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8188: Use
+ access-controllers in the power controller
+To: =?UTF-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>, ulfh@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261011184755.2058017-1-michal@nozomi.space>
+ <20261011184755.2058017-5-michal@nozomi.space>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261011184755.2058017-5-michal@nozomi.space>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The OrangePi RV2 and R2S device trees take the Ethernet MAC address from
-the ONIE TLV data in an AT24 EEPROM, and the K3 CoM260 module stores its
-MAC address the same way. Without the EEPROM driver and the ONIE TLV
-layout, the MAC address lookup keeps returning -EPROBE_DEFER and the
-Ethernet controller never probes unless the bootloader passes a MAC
-address in the device tree.
+On 10/11/26 20:47, Michał Kopeć wrote:
+> List the blocks that the power controller accesses in access-controllers
+> instead of the deprecated per-domain mediatek,infracfg phandles, and add
+> MFGCFG, which the power controller needs to enable the GPU timestamp
+> counter whenever it powers MFG1 on.
+> 
+> Signed-off-by: Michał Kopeć <michal@nozomi.space>
 
-Enable both drivers as built-in so the MAC address is available as soon
-as the Ethernet driver probes, including for network root file systems.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- arch/riscv/configs/defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+....did you instead mean to send
 
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index 04ae305d5511..a76f801d8eed 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -276,6 +276,8 @@ CONFIG_PHY_STARFIVE_JH7110_DPHY_RX=m
- CONFIG_PHY_STARFIVE_JH7110_PCIE=m
- CONFIG_PHY_STARFIVE_JH7110_USB=m
- CONFIG_LIBNVDIMM=y
-+CONFIG_NVMEM_LAYOUT_ONIE_TLV=y
-+CONFIG_EEPROM_AT24=y
- CONFIG_NVMEM_SUNXI_SID=y
- CONFIG_EXT4_FS=y
- CONFIG_EXT4_FS_POSIX_ACL=y
+https://gitlab.collabora.com/mediatek/aiot/linux/-/commit/01c35e0524c8adffb4c19f1005c5d71a347acb3b
 
--- 
-2.56.0
+this commit that I forgot to send for a year?
 
+Regards,
+Angelo
