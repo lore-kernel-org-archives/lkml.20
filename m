@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892849;
-	b=xBbIj35YH4GZxFj02vfjZnSqaiaW4nNnIsNfctHzHsXPzns+2hiGwOiMp7IKxC0GT2Pg
-	 m+w1PcuxV/XpKci/sCPlsShVBD6smZvu6WOmDHcmh8guDWEL7mAH8yJfISwytaYUPc10B
-	 pkTNVNbWh+3QhtRRn/F3QeVXMpdL16HfT8IBIX9oAkSMkO9omjXqzX+NvS253pIT+aeBA
-	 RRhI4etGSBRXwXq0bZfDD4FjG4jLB94tXMTyl78q4RqAbs1Y0NF6D2PHHEGLwcgNunOq8
-	 vVa1UZkUsRnpvVsxt5I9pua0DjNycZegS5xjd5LZbxO8sEDjl/Qoicxl5x3AwMqUQEg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892849;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ijr6F/dBUmRJj97spvBPIS7/tlKqEqMqai/iwQdyRCo=;
-	b=EHqnnUZyMXl3w+Rb+YlP/xVlM8+ume0w251Avpb+OrsRqwpdKKlN4AJiD3iVNrGkWmp8
-	 5lcoz8cFO+OXkIMxUk0zY7qqNNn+V/A+NUhhktfyRa5wveIM5L2A+SmHYXuOy/H6au6u8
-	 ksW4oyt924NNeWoVyoJkKvViOaE3iIxyD6OlrVvagqFcXIHP7AccBiV6HT67uhWPlbqAA
-	 clBqxxFkA/RuC9tNrZZbw/QswEZBpr1d8U6jFw9njPCvAW831l0DXkUoOJe2bfgQ0Kge3
-	 ACloQ+PQKFI1l+szvOIRoHZ07OiG6Uw8iKvuomVUEN1NZ62YGIqOEkkgUa2SaQFktjQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=XYxmIrQw;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793892919;
+	b=LovSomIhEptpo7qsZZJyfsPmspVBKIb/B2Gx2vRkucfNAbFikoK8D3a9yUoux2SvABjU
+	 uVDc5jotCoQZHTGSyE9rTXU5bo6ODe6w3tXZhG8XMWe6vKAU5ksic4sD8K7FhPdCVT3zg
+	 813iFTzayuziPOo7Cs/0G7X//UyvI6imb7EN64CjXV4kagchtQRWrvE0JFLKZutVLf0Ew
+	 eWAVYRZZp7xP0/fzTpA17OthlA1xtxKxDar1VhshaRBsgMGhlg3KR8YCQbk6FgfDw1N02
+	 Z6oyxjkygMtgAArK8ymOgO6SqQqbccq0zJecb9qO8SAvnBsBq4KpiHvY7b4pAs8a6SA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892919;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
+	b=KdoRq9CyHo1CiEcdB2SnhMxJUrWIkSUgGdCKzwOHmjKkVk3jWphOTsF/3P6sKNOlk8/M
+	 /7gmU2fKNp5WBgRt+Xv4hljw5gifN6GV3vLQQULfFdRNV1DgW0ST+k6WaiOGkyKx+wi28
+	 tFpk07NnbyOUbcUrmGArOx0M1dOLTMlMPF9UGo+K4Cvwn3vIOBZjP9v4QEoQEgJXz4wiw
+	 BWZIutoreto/5bAl9srAf0ciYJgTt/h3bivviPe2OYyXGzIZDczdiJRLFIGk1v2PaHm28
+	 ARLV1aYKOwdeiJFcBmmxJqfoUwoTF0SIPXrig98mbjv3YNenk4k0PKsvXfSz5dvAjog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XmDVUKYp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADF9606A330;
-	Thu,  5 Nov 2026 15:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ADF9606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAACE606A31B;
+	Thu,  5 Nov 2026 15:35:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAACE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=XYxmIrQw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ijr6F/dBUmRJj97spvBPIS7/tlKqEqMqai/iwQdyRCo=; b=XYxmIrQwIPbNsfXiPYIXrfExh8
-	TUhoJNxex2yRRB1kXGbvIw7N+P+eaAOVQ56Zf9TUgqVKiPiyGZxgFyj4/X7cz2isAYd/krAZzgfq1
-	dNENDmEZNwaZ4VXIAxHt4t15FKb+RFGgDvKNtgfPhvs4SpOoxBMeYyn81TpqE/fzj9UU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOzTI-00Eb0G-OQ; Thu, 05 Nov 2026 16:33:48 +0100
-Date: Thu, 5 Nov 2026 16:33:48 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH 03/17] net: phy: Attach generic PHY drivers through the
- driver core
-Message-ID: <ce4a9030-be44-42b6-ab5b-b830bce3502b@lunn.ch>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
- <20261105-device-trust-core-v1-3-1e536825b4eb@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XmDVUKYp
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 029092001A4;
+	Thu, 05 Nov 2026 16:35:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793892912;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
+	b=XmDVUKYpjZcwC7b8SlEXCovgkE/JBQsHmhhVyAYs5zigkZ87oowPnVy5aj3Q89rUMSTsoa
+	FyNTbgM8GQKFolXErydMGzN0GKnXaLpIdxrYMOi5gcc4D28kiyjAKJlW/MkVsr/K3Pzpgw
+	gbQLZZWgVLw2PQSM3mtoxdFLCx4jHsTpgbAzi/CPiKqRe7dq3qyNyoHKCKpT3aOmUSOJul
+	nFyTSSq74Qb/hvmcL3oJU/CAF17hnBUFTuSlIWwAcBXqhVP7UmIJnQq2rFmIW8RY2ZVmBY
+	OA/ksBPvOrQFjNg8basVTflOnG0YdJ+Sy9WsCc6X1Ztmzhg14xF5ZTUbbuVRGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793892912;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
+	b=eIGmtle9gor9BJZPw2wpF6K1snehL6cGfp1+oFlwj4LMLugIgm+6bVtFxVR/Fqs3vYi77n
+	Myyq3rQHLsZUKYkGi9RRBC7pRfuiocb4N9YYTI6jIDXTywq4uSVz1bfJA5Rrqlr5bVyFn6
+	DpGsmL/8WH64BdR1VKUILhlamHop5oRDTDv07wULbTPerVF/leaAWdI2uLZnIBj+BtSu4m
+	6pXFLNmFw1moZScD4X4RudOcDTVU2K/h2ea7e/uryswPVNkq0XN7lJDofhrH5Kdua7X8zV
+	PHHVieSnhX2VCtfWfr6o+f0+lXoocJR/xf40S76c8qNFQUZpFUClmKQ2uUCy2w==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=mfe@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793892912; a=rsa-sha256;
+	cv=none;
+	b=YBq/iClsbsm9V9sGw6to7W9CKWhSSAgQsh08spGFJmdt+gYRlYpVIzyvVsukUOe0/LuIW3
+	S7m7obN/ZnmCBrd+YIHVcraz4vGWal/gt6muIEGSepK3ZhDGU7Rftr2+4iUWUikAAv2VBa
+	ugWMDzIY2AoCv+Sjl2RAtG8Wm5qen+TpwJ6Ag/2D1gWoU9bmF5hTjajKxo0tZ7rVJ2nFP8
+	GIYLLO0G9BBQCPwI5XsM/SrW/8ViJY06U0hqB3uSAM05/JvPhaUBNADsdYQDmck5B9a7fw
+	xsGql6365IhC/14rsm0EobVq+6iq02Ybi1/bX8peEE0fdXjPY/GhkggSZQASEA==
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1064)
+	id E15511BF56B; Thu, 05 Nov 2026 16:35:11 +0100 (CET)
+Date: Thu, 5 Nov 2026 16:35:11 +0100
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+	imx@lists.linux.dev, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
+Message-ID: <vvsd6rchs6wff2n7zxtcarxcvbnuxd7fx632xogm6hrcxxxqsl@dp5dvof3qa7c>
+References: <20261105144920.2796623-2-robh@kernel.org>
+ <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
+ <CAL_JsqLETyrx7ew0zirS9r6+3=GEFaRE0g96OZHYwqjxMCZKcQ@mail.gmail.com>
+ <hvrfbvmyzsa6npzh6wpa6o3xxygslqc7g5ukt7ph7ty4povogh@wge2z4rejnf7>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,19 +96,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261105-device-trust-core-v1-3-1e536825b4eb@nvidia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <hvrfbvmyzsa6npzh6wpa6o3xxygslqc7g5ukt7ph7ty4povogh@wge2z4rejnf7>
 
-> +		if (err == -EBUSY) {
-> +			/* Another bind owns the PHY, so nothing was probed here. */
-> +			irq = phydev->irq;
-> +			err = -EPROBE_DEFER;
-> +		} else if (err == -EAGAIN) {
-> +			err = -EPROBE_DEFER;
+On 26-11-05 16:09, Marco Felsch wrote:
+> On 26-11-05 09:06, Rob Herring wrote:
+> > On Thu, Nov 5, 2026 at 9:00 AM Marco Felsch <m.felsch@pengutronix.de> wrote:
+> > >
+> > > On 26-11-05 08:49, Rob Herring (Arm) wrote:
+> > > > These .dtsi files are not included anywhere in the tree and can't be
+> > > > tested.
+> > > >
+> > > > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > > > ---
+> > > > v2:
+> > > >  - Rebased
+> > > >
+> > > > It's been nearly a year and these are still orphans. There was a promise
+> > > > to upstream something for the kontron ones, but that hasn't happened.
+> > >
+> > > That's unfortunate, but these includes are used at least by the barebox
+> > > bootloader [1,2], dropping these would cause a DT regresssion.
+> > >
+> > > Would it help to upstream [1,2]?
+> > 
+> > You said you were going to do that on v1:
+> 
+> Unfortunate no Kontron dev was chiming in. Will do it now!
 
-You cannot return -EPROBE_DEFER here. You are not guaranteed to be in
-the context of a probe. Very likely, you are in the middle of the
-ethernet drives open() call. Both probes happened a long time ago.
+Okay, after checking the current linux source tree I noticed that
+Kontron did upstream the carrier board .dts files but in a different
+manner:
 
-	Andrew
+ * arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i-ads2.dts
+ * arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i-ads2.dts
+
+This means that barebox would need to adapt the includes. Can you please
+mention that the .dtsi are not used by linux mainline and instead a
+different approach was used?
+
+Regards,
+  Marco
+
+
+> 
+> Regards,
+>   Marco
+> 
+> > 
+> > >> I will add the som.dts, please don't remove the kontron dtsi files yet.
+> 
+> 
