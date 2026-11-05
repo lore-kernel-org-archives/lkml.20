@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873308;
-	b=WeMachhU0kYT8d/Iq3Px5D+nJOx1Pt1aGcH/hwiG8z6OqJH2rnKcDs0+B20Zsdymhns2
-	 9mYE/21ybGlmcJrDgnqrVSn0kX5pjlvfnBsUi6VmkTxddMDP+46glSIwdZK1aD4L8cKe+
-	 6p3+laFVxEf/gnGdOFF8qLm74uwbZTNZtV3JuGCm5JsptiF3EKuYXNBFrPGvcAHr6/+PG
-	 XzUu/QiZqkQd8WZu1BAztrHOPgz0jnxWzCO4rNwCmjvYYnzZEzYhXn047M+olpa+Ubnd4
-	 tobV60oFhiVZkrmpZ3BCbxKIIIm0Mk75Gp/BURXUFwYlPTwXkUrWlveHHYkNTN5l+Xw==
+	t=1793873319;
+	b=PdmLJcgcfHVIa2EyCGipfGTEe81pk6fln4syTQsOLAK2M5G3pLb3sYt57KvM2pK6TbUC
+	 sKJ7aocBI4cR1YBGQdbVSbHnByIKOoxEZKr2Fe38KSaN1jbcEnMS5tqs5nTPOp60yfG9U
+	 RmNK2d/h5IsUFPZCFX1RfpNzgCZ0qtny+5tHtPl9ctYDyIh/q7Vmhxxfp+ggSr1niu6Tn
+	 DwAXXxjZCzx9ZO8jNXxbDrtC51i38SIOPV3SKaJNXpbIbygIP0KapnTnQYDYqpEmu2LS6
+	 W1L3LgWr9vxwg3DJo8X3Ra7ez42Lc3ZXA7phsNCAwv+Ue37M2Z2GRgty2dL97Uyjtwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873319;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=0+bSVnye4AoypsNrx6qUnH37BwoJnOF78GglImy6ss8=;
-	b=d8N3PTneSYVKxh7N/Cxacck+8zon1AZETvmsxwhn3JStQTKuYyHl2J71gcaOX7MzyDOP
-	 P5ANEw0xaa1YmbvZNz/7WTkvM78S9Tr2AfQvURgRbD9i/ji4w+azD0VGFvdvRqafG0PS5
-	 tA0sGZkal+qeV16Ou132LpMpxbg6LvBfHhtmqjnqRAjilSsWePCZ7NbqhpdU7gNzxWwIy
-	 RqL/pTKu9SBD+oZ7Gj1ulWHZ1o1b2JrfBVZLHvTFJ9W8A0SABlHAiqx3q708SCdp9ssKQ
-	 Z+oWE5ooQiEGwdw7VnCP6ETtOm/COox+tWmzbfzyscqjsJXdCbnak/0k49hNQpBMZ8g==
+	bh=OdwrZcbYsRV+5ZTU+xWngMpTg+lnAb5qG+LNLsQLWls=;
+	b=ebh/W0iZj4kNtjnvPv2o3//yvQliLqZvezIvyLYeqFzyt5gXPinybfGH10oZR5m4nnji
+	 e8PNqtYOYoVfneKEpBN9saxS2w5X0g68oCsM2usQXWAPqJ3vJKq2fLL9TaGwIu1JOkpTW
+	 Z3OZyzQ6bG+cVjXCENTQxlaTcD62Ps0PIH/NNewChrzLrpMthixAAJB95gBEidNTBlg7H
+	 +wQjiqzheapJLm7Dtxd86b19pgFPe7H4/Fwfsg3CpBGez5ivcKbzneKi2PqNGE8jLddU9
+	 f8t8k/ojMzpT4dQmOtdK0K7qv0yalyVfNDVhoaChZP83g60Uju+AJ0N9DZ7BMoeX46g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqUuHBUC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Puam2CQm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD85C606EE83;
-	Thu,  5 Nov 2026 10:08:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247B16083638;
+	Thu,  5 Nov 2026 10:08:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqUuHBUC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CAE01F00A27;
-	Thu,  5 Nov 2026 10:08:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Puam2CQm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABA01F00919;
+	Thu,  5 Nov 2026 10:08:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793873307;
-	bh=0+bSVnye4AoypsNrx6qUnH37BwoJnOF78GglImy6ss8=;
+	s=k20260515; t=1793873318;
+	bh=OdwrZcbYsRV+5ZTU+xWngMpTg+lnAb5qG+LNLsQLWls=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MqUuHBUCKTlByTkVzwsdawugv0c+T9VpornOia5XgXH2VvTdw749N5AKsfzIZ3Iw1
-	 vAuBZvNNNBJlTtYxDQ039bhj90K4Z0tsZiwom+26ivKnLoe989eMw6952vLxqhnIxB
-	 XLE6aKRonh0i1iUi4ilyMbOHlPTIvEOOyKvRLzZ+NST7QUFSFIEE5s6+1CUb2I95Ke
-	 lmkedZT4DyqLJfsuCx41jfnHkXgUHsEyA551iEf2cHZd3dFP9DdFNUZgreAw5FCdtC
-	 dvuRP2NNZdv/Pz0xGlrEGzoYRD91aaI0YUrNdf6Zsy/zuxfoF6an+hBHPFNvGsHeR7
-	 mADhTr2KN32WA==
-Subject: Re: [PATCH net v2] selftests: drv-net: pause: Avoid cleanup failures
- for unsupported link settings
+	b=Puam2CQmtzryM1xU82tRqOD1E1mcOY3rTPDXuSj8qPWbbkJyU5uMsTnPToxZqBSlW
+	 slJX+9JS0SlYtuMfwbeZTNkPwrOEsrO3VGkNEupST7gsDHxOEZ+JeW52XZGbIUiEXK
+	 6ZRJGD0P7xXWR4DTqpvRyBgRYoC86CWYklBviNodkKBa+9zXGCXnl4i1OoPXc/F1RJ
+	 I+BBHuzI3apMazWYa4LqaIifo+ON3ETggmGmriRGb7B9dF0lkbKHrzCO34eXCGYQlj
+	 vqtaekfBz+sZdGa7kyjjhjgRnoHwJMmMyPOZOH4Wfm3qwM8fr2UPrP6HMjQ7hiWtoP
+	 jJLjX8BVz/5Ug==
+Subject: Re: [PATCH net v3 10/14] net: pse-pd: keep the PI data until the PI
+ regulators are gone
 From: netdev-bot+sashiko@kernel.org
-To: mohsin.bashr@gmail.com
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
- maxime.chevallier@bootlin.com
-Date: Thu, 05 Nov 2026 10:08:26 +0000
-Message-ID: <179387330655.488856.2246156256257342362@kernel.org>
-In-Reply-To: <20261103190622.3981970-1-mohsin.bashr@gmail.com>
-References: <20261103190622.3981970-1-mohsin.bashr@gmail.com>
+To: github@szelinsky.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, broonie@kernel.org, lgirdwood@gmail.com,
+ maxime.chevallier@bootlin.com, kyle.swenson@est.tech, ross@r-sc.ca,
+ netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 05 Nov 2026 10:08:37 +0000
+Message-ID: <179387331728.488856.8945406807366704385@kernel.org>
+In-Reply-To: <20261103220217.1131971-11-github@szelinsky.de>
+References: <20261103220217.1131971-11-github@szelinsky.de>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -76,97 +78,130 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The fix is incomplete: the same cleanup failure still happens on
-  the link-autoneg-on branch of pause_setup() in…
-- [Low] In pause_setup()
-  (tools/testing/selftests/drivers/net/hw/pause.py, local lines 410-414,…
+- [High] This patch frees pcdev->pi from a devm action.
+- [Low] The commit message has only 'Fixes: d83e13761d5b' and does not
+  mention that the fix depends on two earlier patches in the series:…
 
 --
 
-selftests: drv-net: pause: Avoid cleanup failures for unsupported link settings
+net: pse-pd: keep the PI data until the PI regulators are gone
 
-This patch changes pause_setup() so that the forced-link restore is queued
-only after setup has successfully enabled link autonegotiation. The goal is
-to avoid EOPNOTSUPP cleanup failures on devices such as fbnic. It also makes
-pause_test_support() fall back to checking forced MAC pause on the current
-link when no link configuration change is accepted.
+This patch stops freeing the PSE PI array in pse_controller_unregister().
+The array is now freed from a devm action that is registered before the
+PI regulators, so devres frees it after the regulators are unregistered.
+This also fixes a leak of the PI array when registration fails.
 
-> diff --git a/tools/testing/selftests/drivers/net/hw/pause.py b/tools/testing/selftests/drivers/net/hw/pause.py
-> index ca4a55e59c30f..99ce6a59dfcd6 100755
-> --- a/tools/testing/selftests/drivers/net/hw/pause.py
-> +++ b/tools/testing/selftests/drivers/net/hw/pause.py
-> @@ -404,14 +404,14 @@ def pause_setup(cfg):
->  
->      if link["auto-negotiation"]:
->          defer(cmd, f"ethtool -s {cfg.ifname} autoneg on")
-
-[Severity: High]
-Can the same cleanup failure still happen on this branch?
-
-This restore is still queued whenever the device reports link autoneg on,
-even when setup never changes the link. The remote interface has the same
-unconditional defer further down in pause_setup().
-
-When the driver has no set_link_ksettings, ethnl_set_linkmodes_validate()
-rejects every LINKMODES_SET before it checks for a no-op:
-
-net/ethtool/linkmodes.c:ethnl_set_linkmodes_validate() {
-    ...
-	if (!ops->get_link_ksettings || !ops->set_link_ksettings)
-		return -EOPNOTSUPP;
-    ...
-}
-
-That means a restore to the same autoneg on value also fails with
-EOPNOTSUPP.
-
-Some in-tree drivers report autoneg on and provide only get_link_ksettings.
-nicvf_get_link_ksettings() sets cmd->base.autoneg = AUTONEG_ENABLE.
-be_get_link_ksettings() does the same when auto speeds are supported.
-fbnic also has get_link_ksettings and no set_link_ksettings.
-
-On these devices pause_test_support() takes the new "current link"
-fallback. The deferred "ethtool -s <if> autoneg on" then fails in
-ksft_flush_defer() and the test ends in a cleanup failure. The subject
-line says the patch avoids exactly this.
-
-Every other test that calls pause_setup() would hit it too, because the
-defer is flushed even when the test skips.
-
-Dropping the autoneg on restore isn't an option, since pause_test_support()
-and pause_autoneg_link_autoneg() force the link and rely on it. Would it
-work to queue the restore only where a link change is accepted? One place
-is after a successful "autoneg off {forced}" in pause_test_support().
-Another option is to let the restore tolerate EOPNOTSUPP.
-
->  
->      # Local interface admin up, link aneg on
->      ip(f"link set {cfg.ifname} up")
->      if link["supports-auto-negotiation"] and not link["auto-negotiation"]:
->          ethtool(f"-s {cfg.ifname} autoneg on")
-> +        if "speed" in link and "duplex" in link:
-> +            defer(cmd, f"ethtool -s {cfg.ifname} autoneg off speed {link['speed']} "
-> +                       f"duplex {link['duplex'].lower()}")
+> Fixes: d83e13761d5b ("net: pse-pd: Use regulator framework within PSE framework")
 
 [Severity: Low]
-Could this leave a forced link in autoneg state if the ethtool call fails
-partway through?
 
-ethtool() raises on a non-zero exit. With the defer now registered after
-the call, nothing restores the original forced speed/duplex if the driver
-commits part of the change and then returns an error.
+Should the commit message say that this patch depends on two earlier
+patches in the series?
 
-bnxt_set_link_ksettings() is one example. It sets
-link_info->autoneg |= BNXT_AUTONEG_SPEED before calling
-bnxt_hwrm_set_link_setting(), and returns that call's error without
-rolling back.
+  "net: pse-pd: do not tie a shared power domain to its creator's devres"
+  "net: pse-pd: stop async event sources before freeing PI data in
+  unregister"
 
-This branch only runs when the device supports autoneg. Would queuing the
-restore just before the ethtool call still avoid the fbnic cleanup
-failure? The same ordering applies to the remote interface later in
-pause_setup().
+On the baseline, pse_flush_pw_ds() does not clear pcdev->pi[i].pw_d. The
+domain is allocated with devm_kzalloc() in pse_register_pw_ds(), and that
+runs after the PI regulators are registered. So devres frees the domain
+before it unregisters the regulators.
+
+Suppose this patch is backported without the power domain patch. The
+reproducer in the message would then still go through:
+
+pse_pi_is_enabled()
+  pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d)
+
+It would read pw_d->budget_eval_strategy from freed devm memory, so the
+use-after-free would just move from pi[] to pi[].pw_d.
+
+The unregistering gate has the same kind of dependency. Without it, a
+consumer enable after unregister would get past the pi[] access and into
+pse_disable_pi_pol(). That function uses the kfifo and the work item,
+and unregister has already torn both down.
+
+Both prerequisites have their own Fixes tags (50f8b341d268 and
+ffef61d6d273), so this only matters for a partial stable backport.
+
+> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
+> index 43f6e304fe5e6..eccbdb3acbee8 100644
+> --- a/drivers/net/pse-pd/pse_core.c
+> +++ b/drivers/net/pse-pd/pse_core.c
 
 [ ... ]
 
+> @@ -1123,6 +1128,13 @@ int pse_controller_register(struct pse_controller_dev *pcdev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	/* The PI regulator ops use pcdev->pi until devres unregisters the
+> +	 * regulators, so free it from devres too, after them.
+> +	 */
+> +	ret = devm_add_action_or_reset(pcdev->dev, devm_pse_release_pis, pcdev);
+> +	if (ret)
+> +		return ret;
+> +
+
+[Severity: High]
+
+Does this devres ordering cover the case where a consumer enables or
+disables the PI, which the commit message also mentions?
+
+regulator_unregister() does not take the rdev lock and does not wait for
+consumer calls that are already running. If consumers still hold handles,
+it only does WARN_ON(rdev->open_count).
+
+pse_control_get_internal() takes the PSE consumer handle with the
+non-devm regulator_get_exclusive():
+
+    psec->ps = regulator_get_exclusive(pcdev->dev,
+                       rdev_get_name(pcdev->pi[index].rdev));
+
+The PHY only drops that handle in phy_device_remove()->pse_control_put().
+pse_controller_unregister() never walks pcdev->pse_control_head, so these
+handles survive the controller unbind.
+
+I can see two ways to hit this. The first is a consumer disable racing
+with the unbind:
+
+CPU0 (for example ethtool PSE admin-disable)
+pse_ethtool_set_config()
+  regulator_disable(psec->ps)
+    pse_pi_disable()
+      pi = &pcdev->pi[id];
+      mutex_lock(&pcdev->lock);
+      _pse_pi_disable()
+        ops->pi_disable()   /* sleeps on I2C */
+
+CPU1 (unbind)
+devres release
+  regulator_unregister()
+  devm_pse_release_pis()
+    kfree(pcdev->pi)        /* without pcdev->lock */
+  frees the driver priv that embeds pcdev
+
+When CPU0 returns from ops->pi_disable(), it runs:
+
+      pi->admin_state_enabled = 0;
+      mutex_unlock(&pcdev->lock);
+
+Would that write into freed memory? pse_pi_disable() has no
+pcdev->unregistering check.
+
+The second needs no race. If the PHY is removed after the controller has
+unbound, __pse_control_release() runs:
+
+    if (psec->pcdev->pi[psec->id].admin_state_enabled)
+        regulator_disable(psec->ps);
+
+That reads the freed pi array through the freed pcdev. regulator_disable()
+then reaches pse_pi_disable(), which uses the same freed data.
+
+pcdev itself is freed in the same teardown. Can any ordering of the PI
+array free close these paths? Would the existing pse_control objects have
+to be revoked in pse_controller_unregister(), or pcdev refcounted, before
+the consumer case is fixed?
+
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103190622.3981970-1-mohsin.bashr%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103220217.1131971-1-github%40szelinsky.de
