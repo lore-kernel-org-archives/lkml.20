@@ -1,50 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878070;
-	b=4blXumgHy6rDHl0nNptL0YUpi/PglIaW/2FsNzPX+BQqWNbWge5tWAMBps10IX3dQEAn
-	 ufwkIP7muJDeZ9TwEM3PSfBw3Sk9f+hxeOaSwu8csUOxpveAP8/i8oeo+kd68eGCjwtla
-	 M+eUvMYPFRxoHRUJfkVeAaW2jd5p3QHsC+dFj87xHWLLzEiuvY04Nu9PLV5yAa5yuksar
-	 Pqvi1O0cSxPihRFoCdYPSfUL87mRIOj4pJm+fF0CagqIh9hWBSDErgl+WxnEtdy90avs9
-	 14hpB3PPeukFsi6B6kDgNA2BK+PhVHXu3hDbHZULWXBbpTiOiiC+X3nMCiibvxc4zyQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878070;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1PSWLnrlODBcIUuy+o4iDuUbA3x5EaV0n7/q768U0ug=;
-	b=pfHy7gs+WV69+79JXIN4TFQRtn01BnQXkNwUKbe0Pfps1FfDLVtJZEFR5jyEiBXC3idt
-	 kd24/C8S+yZPPwDsrY7Z7xkaHVHcom3A3tN9w4qYeM1q9x9EpdWullir85X9eL54EpEei
-	 7MKUYOI9wZ5NbzT7ImrBAkpYo3Y/NpRTzKhigUcYCJV8Uw9w8pfZylf6sxWWJ0g1L82LZ
-	 YSCTU5Uoqj3oNRRZiyaeQsXhDcbVNQ5RKGRKiiU1kXMD4Jxd7k6NJrPG/M1yzqpihNRG+
-	 z2klpeNtTVGT5DrE9gqtCJOY5b0GiUlS6iJFy9h4DhkBF5T5bhIftH3zFKLoKwDMMEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUePNzRi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793878075;
+	b=00EFqCjfK1AQMOohlSetoiHyapWA3d9j+jE+nS+MXhYgOZz3a6tPHud+g/U8u3W+QKZ4
+	 NmPTRC8WVl27L2OgW22TBfcUtCFEhq/iSCftS47GrFZwBb/BsI2w2Z04qepJDPeyw9eWT
+	 81KcdrKMZ3wVRFgBEzrjwXj2XSI7ckmAzVYqUM8UoubecxkZcN4Dzukg+R0Y0nduj5lvh
+	 Fzh4+RQXAGCLpAFFFWhfpLdcZ3+hQaoD5Y+P0z4S6MuQeqmWObX54zdGCSi57xZCymLjN
+	 lCmPXoTtoPl4rkoPkrILBcWaC4FGJy8B63yK2MryBYofaZ+mFz8RUPEgLPMa30pXyfg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878075;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=UgymWUGDvRFV30kELqGcA8Yq/kp5tSw6vqhDEg+/UkU=;
+	b=c5wOr9flQsMAfI8KL7yJPjfF4N0EmlQo6AkS7l+4ZRXogAP+AQrSkc9BVdcCfPnfoS9X
+	 /mm3l7VEnuS/mwq8jlGawHSFedWBrBkNxu9etZqZGtUlH9U62YM3BqhNLWz/yxGizM+v8
+	 fm4nFPptHbqms2+PBIm+gdAi46Gm7VO58iyX/CriQ7NA/VcQz6N3uIKqAC+Cnfj4SdCUS
+	 tBgNNVASJz7Qhs3byHmn5U0ueagHwfxI8yHtujST9JjWfACZD3URvr4zl06yRMMpFkpfB
+	 gALVhg3L4nQUv3ghbrC2c0iwyaEn198AN50J8CQ2wDOD5S6OcStD0itOsRGsZg0aRqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=skgm5fm6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C036C606A32D;
-	Thu,  5 Nov 2026 11:27:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994FF606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 994FF606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zUePNzRi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9DA1F00919;
-	Thu,  5 Nov 2026 11:27:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793878069;
-	bh=1PSWLnrlODBcIUuy+o4iDuUbA3x5EaV0n7/q768U0ug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=zUePNzRih/ByPAQaBlvqqMHHDBx8v/1NjVVgqBreCnVcQBvYLgKVXSbBkMqgPn87Z
-	 gkc7jgtHQTE+4cEO8AzeN6NA0Sa1IN6PFNNFbQ/pOu44E8V9I80gZ55Vl9BnnDgDUM
-	 YWB5Jn51/VZjwP1jRGmhiFsB5zzF9t2Wy617USdA=
-Date: Thu, 5 Nov 2026 06:27:48 -0500
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Tian Xuechen <202300460064@mail.sdu.edu.cn>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	prashantrahul23@gmail.com
-Subject: Re: [PATCH] staging: octeon: unwind receive initialization on IRQ
- failure
-Message-ID: <2026110532-succulent-chug-b9d5@gregkh>
-References: <20261105083628.4043124-1-202300460064@mail.sdu.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=skgm5fm6
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4ced671398so270330366b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:27:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793878073; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aF4pMQWmlClijwwK/D+e/vaZL5QrwJOl5Z7VXB16vq3P2eGPafHnnJiq9QXbuGJPtd
+         UODbXOjkZXVfFdqzSEfHsbeA9quhOT1jPxuQ5p4dy2gmYV6XHxaog8GefAM4lGOg1826
+         eKhVhuYo83x86ySdrgVXscyLgf/JfJrTnDbW9hmEV3haTE2xXPY2DHSc9QOq3YkfrBlo
+         N3jxcxy5TDc7l6xKtYsg27nvaoipVl85lJG2vMIi09Nbz9IRCSJh6wgAlBHwRzb0p4Y9
+         JuajyI4QfNFXSXbzAIX7i/Z1xbXcMumfwQbEXbCuiXcDsVcvgjuZxTF59c0MET5PFXbS
+         K8kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UgymWUGDvRFV30kELqGcA8Yq/kp5tSw6vqhDEg+/UkU=;
+        fh=yBi9ei88mV9/uq3xLfTT0DvPfryK2qUO0i8oa3tQRSw=;
+        b=kfBB5APClgxF8d7Vt44QIEONnCqisG2l0jKdAXoJk87AwTcIDFrkC3BSdqudtBC+ow
+         GltowX33JAp14WbINVoM+6u0x9jA3JcjNLr+NQQn09j0ioMTsQkWkM/5l/Bug0UFXiM2
+         yaKmGhDUY/B7aK5vvH71rJh3XgYT8kqAWoAWnVwoDPyMJ0Q+d2z8IRbkNbWLlI4pfzEr
+         u5yftwuvo1fZU4ftIO7L2gH1u9u6Etj4cZbFBD5mW7+dXraquplOL3LvgcF/rOPXaj+e
+         kw5RraRxKYuHJE0ywqdUJy4jX5mi5NV0oG7y5v1l9+2WB0LfOqTkd3Dst/dkbdrG06c+
+         xuQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793878073; x=1794482873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UgymWUGDvRFV30kELqGcA8Yq/kp5tSw6vqhDEg+/UkU=;
+        b=skgm5fm6oAWAgv/QVCq1EFm/mHk6ogMQEriq5kNbbrdxCpxscJsl+DVbnoxhuFlxLd
+         vpOEAXk4t8Us8lYbydo4Lkh/rrArrqli9+hvlvKBU8YfaDLyI9GZGKoooB/b0vdPaMYV
+         JuKkZi4KuhaladOnnC30rn5+5auFXjI7odgfwe3bCKV6tngTAW6ACSoUfVCWKJqsXKIX
+         jxEtLNpajovzg1ZAn6mqM9CQndl7qv0vcjhh+A3vKBUj/zkiqZVv5xWyOSeziy9qx4zd
+         Srk8GDlwmg/wA20VyrcEYyztNba9JvovUh1RMB2E2C1KTO6V0On70HG6wXIEyNfWKBLP
+         SN9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793878073; x=1794482873;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UgymWUGDvRFV30kELqGcA8Yq/kp5tSw6vqhDEg+/UkU=;
+        b=vv3Ebs1yMYeiZhWrBv6GVtQPQEyEJd1oktHoozu88jXZU2DBxx8SKHCYDq2ATPTn4E
+         S014ClwibzayCs8W+ryPoEegO//sZNPZGWLaiXFlVxFtyu8XkSnUQGd6as4vJc/uTgZm
+         ja/GvgcJbqHRJeroFjAQACA6HCauHfyhxtuQDgE9Xet6YKpOAVW3t+8fSk4SACn2BuLx
+         JthktBy8wj+5MrCabWlyFlTeda2i1j+r6NEFaJFoWmtQzRciyHQPIR67PBZJzhckZDgL
+         Otp7F3r7Ibkc3y0ICtZ5pHFONT3qz5MGXEkJxTFo2gyPmlgvXYZNIWTGKkiidsljcJhJ
+         RAwA==
+X-Forwarded-Encrypted: i=1; AKwUvBwyXsGGAhDdUudeWUBsq+ZXys3MESI4aQM+fvz/2ukIHoVhlZerARpdctwoLu3U16XLZtRqDBSMf4I1toQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bvWckVW/B5z9+bh4YZqdJIyR5MoMZPaUdCgKOmIs44nXYO0MZ
+	QXigTub1TjMtXdKzs1IU/2NpGT/1ZIIcy3N78X3P5rZYlmVGui5Zdk0fMskz/ouoRrs9i65QCmD
+	/wwj0pI5Z0fahKTfmbcJTIyLixVnAPAQ=
+X-Gm-Gg: AYBFou01e34g1l3fqzkzz/WLfcWgty7G2PACodlPvrRqJyTlfsZGRyTA2wwAJIfwpOu
+	3wMmbHbUFBUGAs0u/9h46dLS0k0j0yHOp1MPQ4e9N/hMvQRCFZLCF3RKVTiaDzyaf2K7YTLwEO2
+	RcgJwpgm8Tp+RcldcviB/gHEd+VJUFlu4LvHm8zlx/ctxD2qZy3esog1dHf15wJ3FR9Ds/gliY4
+	a5ioi3fq7Dp7JTK236gJEg6yLecteyjlMBHAIwO7d+TzzRY4ktj4zzsumKiixNHvDZ2uz/kYSqW
+	pJXGVZF0CeNDuQ/G+h//d99xOTEAFWkSkhymCsql7g9f2GTjVm6dRW6c63puimp++8WO85Rojtd
+	xyqMtdIppZOMY2oanDH7V85dMzgG/4QogIEyvzmHEd8QIVdPCcKKultKk/EuF89QZhIsPmh6/LJ
+	oE64D/kHbfHYttQHYnUfzLpNW82vWb5aPyfwHQT7Lny1Pw+FeLoy3qEIEfVBlLYRpH7fcfYLWio
+	iFCJOl7qgrF6b2uCmEFcHZ1NJS4lL9/VVvKazlWutnh8bYUaSiuo10Jb41Nrg==
+X-Received: by 2002:a17:907:2d8e:b0:c42:102f:15df with SMTP id
+ a640c23a62f3a-c4ca7a0dc8cmr1782618666b.8.1793878072888; Thu, 05 Nov 2026
+ 03:27:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,32 +106,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105083628.4043124-1-202300460064@mail.sdu.edu.cn>
+References: <cover.1793876837.git.alx@kernel.org> <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+In-Reply-To: <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 5 Nov 2026 13:27:15 +0200
+X-Gm-Features: AclHuK9RJR52OSPl8iPokfz3apA8SScdKPa_SxHmGln1p0LZpPbZ_VJGI1ROrO0
+Message-ID: <CAHp75Veb=TsXJcjqQeD3ciNGRvLebGr8t8TnZju6FX5ANeVNTA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate str_has_prefix()
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-hardening@vger.kernel.org, alx+linux-hardening@kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, 
+	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 05, 2026 at 04:36:28PM +0800, Tian Xuechen wrote:
-> cvm_oct_rx_initialize() returns immediately when request_irq() fails.
-> The failing receive group has already had its NAPI instance added and
-> enabled, and earlier selected groups can still have registered IRQ
-> handlers and active NAPI instances.
-> 
-> When RX initialization fails, cvm_oct_probe() unwinds and returns an
-> error. The driver core then releases the managed platform data, even
-> though earlier RX IRQ actions still reference NAPI instances embedded
-> in that data.
-> 
-> Disable and delete NAPI for the failing group, then unwind the previously
-> initialized groups in reverse order. Mask their POW interrupts, disable
-> and delete their NAPI instances, and free their IRQs before returning the
-> original error.
-> 
-> Fixes: ae4350364008 ("staging: octeon: Propagate rx initialization failures")
-> Signed-off-by: Tian Xuechen <202300460064@mail.sdu.edu.cn>
-> ---
-> An AI coding assistant helped analyze the RX error path, draft the
-> unwind, and edit the changelog.
+On Thu, Nov 5, 2026 at 1:13=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
+rote:
+>
+> As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
+> between an empty prefix matching an empty string from a non-matching
+> prefix.  This is a fundamental design flaw in this API, and not
+> something that can be fixed.
+>
+> As always, this is a consequence of choosing sizes instead of pointers.
+> Sizes are often the wrong choice.  In this specific case, pointers are
+> more capable of differentiating these cases, as NULL is a special
+> sentinel value that doesn't need to overload a valid value.
+>
+> Let's implement strprefix(), a function that returns a pointer
+> right after the prefix if found, and a null pointer if not found.
+>
+> We'll slowly migrate existing code from str_has_prefix() to strprefix().
+>
+> Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Please read: https://lore.kernel.org/r/2026080354-skater-urgent-31b2@gregkh
+Ouch!
 
+> Cc: Andreas Schwab <schwab@linux-m68k.org>
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Andy Shevchenko <andy@kernel.org>
+> Cc: Bartosz Golaszewski <brgl@kernel.org>
+> Cc: Daniel Scally <djrscally@gmail.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Cc: Joe Perches <joe@perches.com>
+> Cc: Johan Hovold <johan@kernel.org>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Len Brown <lenb@kernel.org>
+> Cc: Linus Torvalds <torvalds@linux-foundation.org>
+> Cc: Linus Walleij <linusw@kernel.org>
+> Cc: Namhyung Kim <namhyung@kernel.org>
+> Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Cc: Saravana Kannan <saravanak@kernel.org>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Tom Zanussi <zanussi@kernel.org
+> Cc: linux-acpi@vger.kernel.org
+> Cc: driver-core@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-hardening@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-gpio@vger.kernel.org
 
+This list is twice as long as the commit message! That's why I highly
+recommend moving it under the '---' line below. The email headers will
+get all the listed Cc and git history will be clean from this rather
+noisy list.
+
+--=20
+With Best Regards,
+Andy Shevchenko
