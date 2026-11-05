@@ -1,130 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793897331;
-	b=40j0b+D7pfr99qVXM5eBWlF0q8tz670UNvSlwSLpq7K9E5I+2g2+JKD012F4nttHfi4W
-	 7oQNk+72i5r1M2ULMyagDn7CMRyChoqa1C2cI80QmU1ORjWtc7j5rnaKuZpzdOEX3WPlH
-	 LOCBsBo2+cISrj0QooXsb9SjA1UEQrQWH0HtztiwcF1/kHz4EPKDxOEl0YWLYH1u7y7Sc
-	 CY+oQ8cA/f5qViXobGeC1JedXsjBnMpdRsWNnGqxBX8Qy134J4gjusDF8C7PvrvB1j4Qc
-	 /TtaCCJsqkh6KbA9QMUPGnY2O/LIvAoZUZ7hdHNjnA4/UGmhSYhze6LYFVkIX2lvWfQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897331;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info;
-	bh=Es5TNEi2aSp5OhhvFZ7RQ4rETmyJ+9dSxDDw307UkaY=;
-	b=MSuji2Eulf3KxwodLD/K4MhXHjPrewETJMCAOYGlcAquih8gD3hkkejucg55qLgdYGzd
-	 o7rHkNxGPeMEFxhLCy3e1iYlU0EjB3+tL/yWN0i6sBeiUc+u57GVYs8DEqp2Mvdyhxz0t
-	 heaEEPcARBTMHcb5V1YKedYhenQde7QEAsg9a6cx8LE+elBgUVrk11J3dtU+wi6fdaLXI
-	 JD6yeZcITJmL9ByR/zTt6Xhp8pQQ0qIt0qoVAsHlRcdtFotmkzUbC1GWzN1MITMSvqVDN
-	 SPBfjgJX3cAFdKf/xF8GlVRUfAZXhgyPvmdrWaFtb58zKagbw98iLAPpuBbxwZ5cqoQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b="mJ+/Y4+s";
-	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=O7vlfz7j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793897354;
+	b=qZV9JE1S3pmmINTgPoiU06DJROfPLbdEY6bPrUF20+5UkmN3y6CXSJuZZOMfSn089P/v
+	 wQbFlyZft689oROxm3JlZ1PPJeDGsEmu30xoAKmPVWCdpvr8Y9xPv8fFl8uYbuWzSP4JE
+	 KcjkSu6oXmjAv1wvdqvvTdhFDrYWUOkWaX5b5dcx/fPvDqr09XRmiv/EmMP5yTavP0V6Q
+	 XOW2WiJGw3kEs8rFFvgZhStSRvNqH84caW/J0KQTfa2mH6Lbu/NHh7ZAPhYKpYGLxZ66p
+	 qKVT09yREA54x7AWt0ODL1BkjLzp8WZXiBmiGrRTPrrgBcXP/Vzj5H4WCxoEccUHV5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897354;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+PH6pM0KO0GfjHgex8RdBS5eSN0Pih4B4kcJL+AwLBk=;
+	b=yjeKbOA2PW3gaQeyIB44wgJLNnAoAXsM/sWnv4+u4b0dpvXDA1IjSl4OJcHyU8+G6gYX
+	 FaU/lbb4DFQSzNcRF/p1/IAqdvX1JK/a8JFPkfVHFddcmBI3gVGHUIsI2heHI93xOYGHg
+	 o9OUft2e0s6oricq7Ge0lieDWxsr8plGm/TwBWBIjQsFBcOBIRlzr0dXHvhZTkQKCeQ7S
+	 1W5S7lk8k308WOiv+hLBeI6DUE8GskdaT/VMuG+3al+5QpxyRI95bC9DLDXTd4Rc39dmR
+	 H/mUryB2DJE++IrLTsTIrRAN90lQ/AyjjwG+awgVtrYUv/PO1zFcmp0B9NxRUxYHA2Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SU07bGIr;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D587606A329;
-	Thu,  5 Nov 2026 16:48:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D587606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AA3606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:49:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1AA3606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=mJ+/Y4+s;
-	dkim=pass (1024-bit key, unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=O7vlfz7j
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5DKQEr1473209;
-	Thu, 5 Nov 2026 16:48:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=Es5TNEi2aSp5OhhvFZ7RQ4rETmyJ+9dSxDDw307UkaY=; b=
-	mJ+/Y4+sh78hAyi3FBoRKmsc2ylKQ8bVhQeNONXD1gFsLsZ5yTB18gFPgr/A69Nn
-	AB6LYnufV83vEXJQct+uGqz+fvuQxIIeFS8lTJczJlGLIEnrczdz8DBEyYJWRkdl
-	utS8D4dX2gv7+KlvWbSe+XUME5EfIO8YtiHb0vleCNoqHQe1WC/X4iabq2C7Ejfb
-	BXtezwwoyEHDUQqMjMWDlGJ6yvC8VOxjedAH83ExjW2xFc0iVdSjP6a06Mu/GLfR
-	bdmrN2nAEsUJ8VQ6fuW2CB/Ip3JjobYrIkadaSUjodhD4TVsR/4Fv2vd90FxaOf+
-	YxZEeFA5ryJvWEJGb+M9hw==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn876rpsx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Thu, 05 Nov 2026 16:48:31 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Gfa6V1440714;
-	Thu, 5 Nov 2026 16:48:31 GMT
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010059.outbound.protection.outlook.com [52.101.56.59])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4hrv6auxaf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
-	Thu, 05 Nov 2026 16:48:31 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hiZ6po8h5vkpFnBh9riNp/dSRev1iziymc/04uB40A7GbSbB+FC17hCIvixH5dIea6Zl4k/7lv9KMSAFMEsEXffePOn+97aA8QRrXQ1KVNoJkTolkPGrd12T37CEvFkCSiViVEx5BMxZGJT500bLkF9rKoJgZcT3RmtF6UFg2Zi3pUBizDNpO+09z9j4c6BHq+IM2wa2tALYCRDUjxYUThcjvhGe6dhyDexsUIylPeRAHt+1khkI7ea5KjgdT4KeBWLAiJ3ozq185j4UuZ2IKcFCPXHpTBoeZ2JAd15XFo3CkeyD4gbsq4GRu86P6J6m6gakR6AISzebIwre5I23kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Es5TNEi2aSp5OhhvFZ7RQ4rETmyJ+9dSxDDw307UkaY=;
- b=prrJ0GmE81FKudt0lJWpiQmR3xk5cw/x3RZurS+BMpODWyuwYuuFnwKhxzC1XCBgx5lwQWhSjLrwAj/iD7k/iJS9Al3VRrxhOsSkGQFOTXhmnLDvkg0KmW4WR2gdJ8z4Mg/0PHcqmfNSfDp9g+VyCs3eALir+6olXK9XjZFSr6e7gQesoXTkbyurR3VYq5YlwK/JuhLMBUQCG1oyL0RyfeFNjuA0ihumfugVsodulobEzKA2b/EIk0gVqSj4/H3v3PW7yYHbdWVu1niIpByc8r0Py/DIsLLimDh+JEhg9m+P9D2ir252k2cI7LPAXl+6XN/KC2XCawgiGOgt2AaUdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SU07bGIr
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48fd2e38825so1488899f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:49:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Es5TNEi2aSp5OhhvFZ7RQ4rETmyJ+9dSxDDw307UkaY=;
- b=O7vlfz7jtL5niX540rUL32xaLunytLBICtUJHuJhCNQRwkvz7m96FV5js6GYZyFsdXsn9Blfhu0B8xhs/lPwzoC+xKN3jyjRE+XeCo3CgrqbLhkcx5y8V2M6tYTL8h/fI0K0Wp+utVgxVr9bW7U1suTtEqYmtXSy7g2CEPaF71c=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from DM6PR10MB2555.namprd10.prod.outlook.com (2603:10b6:5:b7::13) by
- IA1PR10MB6687.namprd10.prod.outlook.com (2603:10b6:208:419::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.10; Thu, 5 Nov 2026 16:48:29 +0000
-Received: from DM6PR10MB2555.namprd10.prod.outlook.com
- ([fe80::4aae:bf10:529c:9275]) by DM6PR10MB2555.namprd10.prod.outlook.com
- ([fe80::4aae:bf10:529c:9275%7]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 16:48:27 +0000
-Message-ID: <b4777494-c583-4a4b-a397-6e1cd3a8d72e@oracle.com>
-Date: Thu, 5 Nov 2026 08:48:22 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools: perf: allow opt-in "no-dso." files in /dev/shm
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org,
-        Ian Rogers <irogers@google.com>, Mark Rutland <mark.rutland@arm.com>,
-        linux-kernel@vger.kernel.org,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>
-References: <20261013213842.1870582-1-stephen.s.brennan@oracle.com>
- <auuckurvVVn0YXSg@google.com>
-Content-Language: en-US
-From: Stephen Brennan <stephen.s.brennan@oracle.com>
-In-Reply-To: <auuckurvVVn0YXSg@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH0PR07CA0083.namprd07.prod.outlook.com
- (2603:10b6:510:f::28) To DM6PR10MB2555.namprd10.prod.outlook.com
- (2603:10b6:5:b7::13)
+        d=gmail.com; s=20260707; t=1793897352; x=1794502152; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+PH6pM0KO0GfjHgex8RdBS5eSN0Pih4B4kcJL+AwLBk=;
+        b=SU07bGIr181BGLdwpS94UsFdGNZdBxv9/DspaegA7O5wwCn3kHI9KisZX6znicUkVb
+         0gwUD0MAEzvsvHxFhRr7ZkYsMQC8QM+T0cd7o621rLqzLJi/1w4/4ff30WeUrRENBS+j
+         Xz6gTsbc/dabNQ2mJaD3mLJhnKYdekVZwqbdIGfAXvfeMYexfB08fAHG5CbtXlu71o2H
+         r5f5ySnAvLwDoUPLOhT4lyzHd0ajlxIi+/xgadgew4frskGQEmv2FAOR5cSEkZ/UD+EW
+         Skr4YpagLFXRoz2IMp0vy+ACymrSBdu4NufzZfyJqlhrAcVPZ+sEiNbGtvY2C7tdNs7u
+         mxkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793897352; x=1794502152;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+PH6pM0KO0GfjHgex8RdBS5eSN0Pih4B4kcJL+AwLBk=;
+        b=cthF8mQ0gEmfv5sWzc9VqIxAJw2kMI2LfdzrDa02vbp7HTjRMARxMw/olgYubhKWRe
+         HS04Vhsy/mA97JHAbJI/Z7HwRxg4AUzLuhZBkJ7s/MtML+84hHT+2J82OpgMoXK/6An9
+         Rg6OKsLS8BnSTATaxJmtDQAwq+UCc057udf7REWNIg1JFxZRhlNWYTeKiphwqqM0MftR
+         mIY2hKkkMC5jfNAch7k73AUtX+cOIHi/SEUXFwJqN9t36o427wMY9gNxbgv94vgSiFbv
+         rYGnWElJXNFDB5g9EIBVTaWwBtv12mYZbfOHn3u94tfcgpZRzCmssV/fQrialgHAgxDw
+         MgJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwCe9psEWv805ofrHi5cAeXjPe0R/ZL/KSn6ygifIb6X06fhX+RVuN6Ap5YAs/9q5PrDZ97qWzwyUkUGA4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ubyNMubMqX5Vri3b1yZ7TYbh9kzYi+A6x1R+5yEqNDqQs77fg
+	rnQVEA2GVJr0ZUCOuBGdU3JFcdSMMj6BoMtkN/cry2+h5fJVYq0I4RFD
+X-Gm-Gg: AYBFou0uetNiCIXqTabaskU6J9pE09HIP1fzc39tu6KFHjbZxcRI7dUUp3lczqptQeU
+	RJOu0rCZ3NoVX5/fiwS1WsER14jvCBGn8tBNHyzMBWestyKjE3IvUtKsFIk4ZlinVGNOcJ3TL/a
+	lfRX0eW7Y0GjAHei0Tp5kBf/MKM+mCsIY9OpgbEmh9SOsvYRLUlKdzd2nQlItpzGBP1uMsstNi5
+	OMP/759/YFw5UCA9a0pnJ+cq04wl5FezQT7Fn2Nk7mlEqZbdF8kxvd8osU+GIf7IUqsAMfzAAen
+	akpROtaxOXeSpWZ2qM4OQBahkMWcw5w7sM2Zg+DYt0cjlLzKGt6hSvVEnAIpCY/MZNqBIXbE/z4
+	ioeaxCOF8VVTU61htIzjXavDqj1YjuqNc8kZQ5c9Nlg2gA09wj7LrRRNZedmUDassO3RSf2IsxU
+	D0R8CBPvO5V14D7+WZ29TTEFX6gPbnifj/kfcItLexraxOP4YuguIWAzXMLQXQ+Q6MeW3qsqHck
+	yeMC6JbsnleGwOPGR137BoOCdksFaXE6YGZfmXA7kUQ9dNYwbEwPBGMp/h/u9PcMfOo2lhUbkph
+	7l8FS+ArDB+Yw3JxpgRYF/Fx4BQvxd+LfHLbqZGCx8O3VksGZqnBotiIWwWKh22ZHjv7ZAdtZtL
+	7RDTVoPU=
+X-Received: by 2002:a05:6000:604:b0:48e:679a:4aeb with SMTP id ffacd0b85a97d-49272a3a85cmr451564f8f.3.1793897351596;
+        Thu, 05 Nov 2026 08:49:11 -0800 (PST)
+Received: from andreayoga.localdomain ([151.43.242.194])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20935sm10478746f8f.54.2026.11.05.08.49.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:49:11 -0800 (PST)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Dario Faggioli <raistlin@linux.it>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev
+Subject: [PATCH] sched/deadline: Check SCHED_DEADLINE affinity under the rq lock
+Date: Thu,  5 Nov 2026 17:48:43 +0100
+Message-ID: <20261105164856.29698-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,135 +109,573 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR10MB2555:EE_|IA1PR10MB6687:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62f8f1e9-4ed3-4753-ae63-08df3b5c9d73
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|4143699003|56012099006|261102123227099003|261022105027099003|261021121427099003|261026121527099003|261028144727099003|261026140227099003|261022075727099003|18002099003|22082099003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	VUmwinF8Uv51ogo5dgLbOX5jHYgZ+AKdOLxHtBEA2NQwHjXaWZf5/e41YvWgetT5IE0uM48o98juJfGZgM11HlwEMJhYzMsDSV2mZ8zG8mTXvDXy6GCb5eC0Q2SbinNkJW4LBseiWpkFAtQzUXjehZBC0GgZzFBMdiIevWgZWvdYVqOuXrCM7TiJHQFyY0UUFFHw21eaW5SXXL/dAnNV4qqPvnsgmmRi7T7OE/Dlsbk5Rqrs7dklCe7mk5tYYs73XqvmDB5DqCLvodmfcF5D9EWsGn17+H1eUKJGzxHcuc6BisqqHGPe9xdhKKXBd0r/y1VPVLhTeKSv2R4RbWPltD8nZivjpzCLH1Mjj0rdQRuMFOeYrLi/Uf4Dvq+0UQEsKOXpuoEpwT4PU6fZqCXSsHq2X8o9BW3e35soR0TRZAOwBSWmUzXztKe+GV/sCixwqv8nWU7zAUsJ2RGZwo5c/9r9eCn4gwADYA7jgyzE+p24tm3BiWD5/J3V4EQieGxTEdPeVyLuYuh/9/+mtvoytK2THNsHWqWRlFdyu1Ji6od/OkYaJABS90YgOwaLkPqyU34YqjUtOTC6K3SYVTx5q75I/h59gwcLaBDmOzxN6/wZ4/Kl2zQG+XenVkINBmtmog/wgxosciPx6/XZyR02I/soLcQtAvqx/rJJCcfgPLg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR10MB2555.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(4143699003)(56012099006)(261102123227099003)(261022105027099003)(261021121427099003)(261026121527099003)(261028144727099003)(261026140227099003)(261022075727099003)(18002099003)(22082099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bnlrNHlkanc1QWh2VCs5Y3IvQ1Rjbjh3TDJoTnVCdGxFMUZWMkg5WWtsOVFj?=
- =?utf-8?B?S0s1MXBBWk10K2phQ1JmUU5DUkZnbURmS1pSZjJZWFRSbXZ2REJCUUJYOUxQ?=
- =?utf-8?B?NGNySXh2ZDNMallZWXN1WXV2TVVqbkMyUi9HaUZkaXRJb3pRQmdLNmhYZWlX?=
- =?utf-8?B?MzQ1TWVOZlY3blpzTC8yZlozaGlVYzFzMUlha200eC8xSGZyQldYZEk2elpj?=
- =?utf-8?B?cUJwd2NuYm1XbmE1UFRPNXF4aXp4RURlcnZWN1RiMDZqSFExM1c0RzllMzUr?=
- =?utf-8?B?eGptOWlPTzIvSHFQbExzS3paVi9DUE5Jck51dlM3ZHdPQ2R3RTI5cEwrZzd5?=
- =?utf-8?B?b1M1Q1o5VndlNmpqbVlpZG1vTzBIYXBPaG1QazY0SkZwNkhsU2RKYjhTNkIx?=
- =?utf-8?B?YnBYZTlaakJHOXE0dkpWSWdSalNNK25vQU9rdHJ1d2c0Nk5YY1AyTWh1UkU1?=
- =?utf-8?B?VDBrUTRJYUhaTlE5TXRCN2ZCZ3JHZ3pybEhlcStTanJsV0xwdnEwU3dEdXAw?=
- =?utf-8?B?L2s5eDN2a0RwOUNpTmpSM0tmbnY5OG5xM29uU0tEZ0hZUTVyaVFDVVlVTC82?=
- =?utf-8?B?aHVwWC9oU280ZjZ2b3I4QjdTcVVPaXRVZDY0Z2IzaGg2dW1DZU1xMlV6MWxr?=
- =?utf-8?B?V2Vncmk3WnJBWHFIMTRnV25tRVN4eU10a3hzTWVnRWViN0NveVpja3VaV1Rv?=
- =?utf-8?B?T0Q3SFk1Q1Fuc0N5UFkzN01PQURHcU90WmMwbUI0ZWx1bUo4bzZ6cEFCdG8y?=
- =?utf-8?B?ckI5UHBWU1dwN2lrQmV2L0s4bHFYRHErRmJoSlp5T210L3BaOVY3T3VNN3hV?=
- =?utf-8?B?NkNpc2Y3RDF0ZVY3STgzQ2dRcVRaWjY4K0Zxd1VKTHRZZWFXeEN1d2I0SThz?=
- =?utf-8?B?cHBvdTdyZm1qR3c4Q3NtM0FCRE9JZ2VXRWxQRjNvTVZsbUlmTm9WL2VERGtz?=
- =?utf-8?B?S2psZE95S3VLdW9VUFJFS2xGUDRTNVpIaEcxRVF2MmFBUHd3NG5XaHMzeS8r?=
- =?utf-8?B?TXdCNGFHY3NyRE1WYUVSTU9UR1QyZGFDMVBiSEVkZTFyNlhDamFZT0pGOW96?=
- =?utf-8?B?cmxna2dQc3VreXErVFVLRE83U01TQWJpcWt6WllOb1BFeEh2NEtpSk93Rmxz?=
- =?utf-8?B?TjFkeWg3WTlZeDBpYTFibG9nL3d0dzhpSHNjZ0ltZitNT0ljQWR4bzhsTmtu?=
- =?utf-8?B?ZURUOE1takp4djNlUlFSUkFmRi9hbmRDTnJjKzFiREk5Nm9pc3Iwa0dOelFQ?=
- =?utf-8?B?SWJKM3pyeGZCRng1V1NUeW5BZEQvbG1ZZnJJem1ncnNBT1QvR0UrWGFQaHVs?=
- =?utf-8?B?b3NqSUsrWnY4ZjduRlFJRkNyMTlWMVY5Qmx2VGZVTkcyVUVqUjhyR0lqRTNx?=
- =?utf-8?B?V0pBMlJHdG90V05hYVpRZHRSbVIyTVJwK0V6bmV6cFlQcGVtb0E1ZlhZNnR0?=
- =?utf-8?B?eXRZU3U0SkR1VWhtTkpVR1VOZ2ViZzRuQ1dHKzd1WUpUUVZtNnpOTVExejJZ?=
- =?utf-8?B?ZWprWEMyZDBkTExqWm4rajFvZHRBcXN3RHdQY0hicE81dmd3R1hzMnlPeitX?=
- =?utf-8?B?TmZ4cUlCN0NmQ1FPU0c5c21lMEt2WDFqS3l6YWk0bXd1bTEzaEZoV0NhdjNR?=
- =?utf-8?B?WkRwRU5hN1RPMHo4VDBhc1BOaG5NZG9Jazg4OGpsOE12bTN5NWdVc1dOdVNJ?=
- =?utf-8?B?ZVpBR25TTkV2TlBiTjM3eDhBdU16eHRtMjhaMWpmNWI0TXhuZXJtb2pjc3Uy?=
- =?utf-8?B?c2g5bmFuYnVxdWJ5T2J6bkZpTStGV3FJZVR1S2RYa2IyWmdBODNudnVpdzVE?=
- =?utf-8?B?OUZRaU5mazZuZkR3RHIxTWkyYzNmcE5ySkxENGM2YWlJVkxOWTZjUkY3VDZT?=
- =?utf-8?B?TEF2TVVncDZUZWNnM3Fma2ZidGxHdXVXNENMemRYYUw5Unc2MldwUXdkSU1r?=
- =?utf-8?B?WFBmc2Zxczh3R1o2QjlnU1FhckV0ZlpDOTF4QndsZnl3U1hGNVBQSlowVjhs?=
- =?utf-8?B?d3VQRVorTzI3MkdLbWZrUnpsK2VuaDdDdzdqL2FUSHViRHRZQnExMTlHODBG?=
- =?utf-8?B?OGlkZTIxT1dlWWFMWTJOeXV6cEUxT1ZyR0NmYjl3TlcrKzd0TWhzQTdDWXRo?=
- =?utf-8?B?UkNnaWlRZXV3QVJIUnJwS0lVRkZFeWtlSlpUbFNsbytqK3ROTk9jREJQTURQ?=
- =?utf-8?B?NENGSUJiaWRXaUgvbDcrTTZtVjhmRVhtRUNtQ0d0alV3MVoxUEtOQ2JnTE9R?=
- =?utf-8?B?K3lhZ3NTVzlLTXkwNjBrajFMSHVWK2Y3aFlBOEZyMkRFUGtnWEdIdjkvOGF6?=
- =?utf-8?B?N1VDcFlRMlhWUStHNTBNaUt5T2VWVEJwSkNWamNESDlmdGVPQ2pzZzVWMHRE?=
- =?utf-8?Q?2hLRT3CJsG0VkxAY=3D?=
-X-Exchange-RoutingPolicyChecked:
-	lg0tM8/dPJNrbshoyyya9VVMJ0TsjmqVn53I6XFBX2TyXW2oHibOdu3MUcenU6HtjL5NMLXLjkNAeCaZslX2F3eGxZG/RTpdH9+FlKHzkvFTLKXjfWMKK9LZP5PW4hibgE2aoMbIiLBB9XucLVPUwK3z3RLATca0oSVQ1D6a2tqwQu67qlV1cUUnIyMjxl+QOfRgArCWzKaVuEjeub5Q3pJfEYnHxUjqesIzmptL3dswmRAyf9AqoFeyCrvNUhoBGL+VYxOVjauFNhGNDf4F0ot3R/pg2XDdP37QD5K5cgmsY3cHJINNr5qrprCFKxUViIDDgcp1rwl2jo6uOkx3sg==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	e1fFe4E5h2HcCgoE6fbRGAZbuUW3T3E4PE/8ChQ3t6KK2HJgBlAznVWZde2etyogPQLKr2RpLMnoTmrayUBBdgpJxzG7hQdQrWdJNHHrygU3nKzXp4ailuejFhvE36C8tX/g5gRj3vDVGFqu6i9wDvq218YnaEI1GmcmfcWySGAEtKlwYSlj01S0/06rGUOqTdxExX5X7Jq6ikh15mLahy0dPE5Ylfz2wT7cG2Mcj9725wJO0UPETtxXPPKJvipNq10mXh4C4wkVFyR2QBSRnFFswySL7hecchYsVhnR8MOW4Lwhk/ltcRhxsS+5S1yuGX6Q2L7RN+3COOhAnPBC/3FnYCfM9NvkNqPjmBWjoJ6fEDoByO6zwO0mmJMh53w+0FkCXTntQMPehNYOF1sOpgAofmmYp+jhFJDRVH6kUsDgGvjOowFt2ukhSBtnJsB/EESfD03s2zDFBLLupCQruFPJNmOxRk6eE8fy+B3UvWjBdI8b7OCaNjrgY3mI+PKFJWOhmH1t2vWFRrp7K8GIU8gyHEOYumeLXXTxl3a4cYOgr3McA6606gdap3RZB6K2emiUf19P+y8NeHNSsB5em3yHk1nF3+72Jm2pQ6QDzU4=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62f8f1e9-4ed3-4753-ae63-08df3b5c9d73
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR10MB2555.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 16:48:27.7456
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7m3+NYeVUa4+Ypw65pQBg6YjGRa7CEc/DgWdvpryTgm5xTiQ3I1wU2Gx8ntmXsdA4kM6TEO9DZA5Zv+I4OjWex5/cDWbtAD7lx5PO6ohumE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB6687
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
- mlxscore=0 mlxlogscore=999 spamscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.22.0-2610300000 definitions=main-2611050066
-X-Proofpoint-GUID: 4tdEdr4JwJp-uHV-RG7FeehzPVvse8YA
-X-Proofpoint-ORIG-GUID: 4tdEdr4JwJp-uHV-RG7FeehzPVvse8YA
-X-Authority-Analysis: v=2.4 cv=JJauIMKb c=1 sm=1 tr=0 ts=6aecb35f b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=EIcjfB9IiI4px24ztqRk:22 a=yPCof4ZbAAAA:8
- a=HnaOQimmWgcX9jMELl0A:9 a=QEXdDO2ut3YA:10 a=5yU3S35YU4bGjq-dph-N:22
- a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13532
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2NiBTYWx0ZWRfX47v/BoZ+6rBo
- gudbBq39ATqyG9/0EofEQkPnB4fYDg1WyXp0OntdrWEax4ju/ittlSdDKvoPbHhXsaD+b6YfuZq
- 9gtlXH8xcYfodYqmupf4KJgVo11wDaR+ftn69uApACS9dRLNjl9jBWSCahMWrfxEZhHe16Pz5Ty
- ig9ZgNo6oDqVRwFg7Dr7Fw4zi8IQ+pXEuEh6NGTFqh7xlPYxuC6daf2SvyWIEdlcsMueZCAsGLE
- 31h1qWylOSqi7q05YGL6skkToM+cXJv3I1I3RUbP+Oc/sdRUXPTxt/kOxxpTjzNEg4kdk5Ym4K/
- QPkX4JAUdGLLoNBtvX2eZvEUovTfVRCIstk9UtzhZt7+W7EpEjRDsCxULutsMMaTE63Ypd/jy9N
- ZHA1XS95/Hmo3UFcFCE0/zsNdLBuXcbyTUiFiePzWktcQLZQ+tO4YmIJ62mHI4ikabnhPWN/kDd
- kr1cE6s7mOB4rYuIQ9gDYOaMWk1ejYf9A0r4d4TY=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2NiBTYWx0ZWRfX4Ok+Eid1TgTl
- PMcra2lCFa1TjWA3Vflj851tPlJn5BiGQfT8jMyRPCLGFzcdfpnwMZj7WkUWWqxgEWiVs8E54h7
- uY1Xvi+XqOoNYvh13qrdFo+wcyAKCUO07cXdIfA54z4v6G7qAks/
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 12:58 PM, Namhyung Kim wrote:
-> On Tue, Oct 13, 2026 at 02:38:41PM -0700, Stephen Brennan wrote:
->> Applications can place JIT-compiled code in POSIX shared memory so that
->> multiple processes can execute the same code. On Linux, these shared
->> memory objects appear as file mappings under /dev/shm.
->>
->> Perf uses /tmp/perf-$pid.map to resolve symbols for executable SysV
->> shared memory mappings, but it treats /dev/shm mappings as ordinary
->> DSOs. As a result, applications which provide perf-map symbols for JIT
->> code in POSIX shared memory don't get those symbols resolved, while they
->> do with SysV shared memory.
->>
->> It would be incorrect to classify every /dev/shm mapping as no-DSO
->> memory though, because /dev/shm is just a tmpfs mount, and it can
->> contain ELF files.
->>
->> Add a filename prefix "/dev/shm/no-dso." which is recognized by
->> is_no_dso_memory(). Applications can opt-in by naming their shared
->> memory objects "no-dso.<name>". Executable mappings with this prefix
->> will use the perf-map file, while other /dev/shm mappings will keep the
->> existing behavior. This allows applications that already emit perf maps
->> to use POSIX shared memory for JIT code, without needing to implement
->> jitdump support.
->>
->> Signed-off-by: Stephen Brennan <stephen.s.brennan@oracle.com>
-> 
-> Applied to perf-tools-next, thanks!
+A task can end up SCHED_DEADLINE with an affinity narrower than its root
+domain when sched_setaffinity() and sched_setattr() race on it. Both
+calls succeed, although each fails when made after the other:
+sched_setattr() with -EPERM, sched_setaffinity() with -EBUSY.
 
-Thank you!
-Stephen
+__sched_setaffinity() calls dl_task_check_affinity() before
+__set_cpus_allowed_ptr() takes task_rq_lock(), whereas
+__sched_setscheduler() runs its admission test and switches the policy
+under a single task_rq_lock(). So both calls can pass their checks:
 
-> Best regards
-> Namhyung
+  CPU 1: sched_setaffinity(p, cpu0)    CPU 2: sched_setattr(p, DEADLINE)
+
+  dl_task_check_affinity()
+    !task_has_dl_policy(p): return 0
+                                       task_rq_lock()
+                                       admission test passes
+                                       p->policy = SCHED_DEADLINE
+                                       task_rq_unlock()
+  __set_cpus_allowed_ptr()
+    task_rq_lock()
+    p->cpus_mask = cpu0
+
+The window includes CPU 1 spinning on task_rq_lock() while CPU 2 holds
+it. With one thread narrowing a sleeping task to CPU 0 while another
+makes it SCHED_DEADLINE, 923514, 959547 and 983997 of 1000000 rounds
+ended with both calls succeeding on three boots of a 4-CPU guest.
+
+Move the check into __set_cpus_allowed_ptr_locked(), next to the
+PF_NO_SETAFFINITY re-check, under the same lock as the admission test.
+Whichever call takes task_rq_lock() second then sees the other's
+result: sched_setaffinity() fails with -EBUSY if p is already
+SCHED_DEADLINE, and sched_setattr() fails with -EPERM if p's affinity
+is already cpu0.
+
+A new SCA_DL_CHECK flag selects the check, and only
+__sched_setaffinity() sets it, so sched_setaffinity() and
+relax_compatible_cpus_allowed_ptr() keep the check and other callers
+stay unchecked. restrict_cpus_allowed_ptr() already does its deadline
+check this way.
+
+__sched_setaffinity() clears SCA_DL_CHECK before the second
+__set_cpus_allowed_ptr() call it makes after racing with a cpuset
+update, so the cpuset mask still wins there, as it does when
+cpuset_update_tasks_cpumask() narrows a deadline task. SCA_CHECK stays
+set for the PF_NO_SETAFFINITY re-check.
+
+With this applied, the same test ends with both calls succeeding in 0
+of 1000000 rounds on each of three boots, and sched_setaffinity()
+fails with -EBUSY whenever it loses.
+
+The race was reported by Sebastian. The fix was written with the help
+of an LLM.
+
+Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Closes: https://lore.kernel.org/20261103081149.DuyWNhVe@linutronix.de
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Cc: stable@vger.kernel.org
+---
+Sebastian reported this while reviewing [1]. The two patches are
+independent and apply in either order.
+
+This conflicts with patch 16 of [2], which also adds an SCA_ flag as
+0x10 after SCA_USER. Whichever goes in second needs the next free bit,
+not only a textual merge.
+
+Tested on v7.4-rc1, on a 4-CPU x86_64 guest, with the program below,
+which narrows a sleeping task to CPU 0 from one thread while another
+makes it SCHED_DEADLINE, 1000000 rounds per boot.
+
+It uses a 2us/1s reservation and one run per boot because tasks leaving
+SCHED_DEADLINE while asleep leak total_bw [3]. A run raises total_bw
+from 209712 to about 2.2M, still under the admission cap.
+
+  // SPDX-License-Identifier: GPL-2.0
+  // Race sched_setaffinity(one CPU) against sched_setattr(SCHED_DEADLINE)
+  // on the same task. At most one of them should succeed: either the task
+  // becomes DL first and the narrowing is refused with -EBUSY, or it is
+  // narrowed first and admission is refused with -EPERM.
+  //
+  // Build: gcc -O2 -Wall -static -pthread -o repro repro.c
+  // Run as root: ./repro [rounds]   (default 1000000)
+  // Exit: 0 race not seen, 1 a round ended with both succeeding,
+  //       2 setup failed or results unreliable.
+  //
+  // Run it from a task allowed on its whole root domain, and keep it to one
+  // run of <= 1000000 rounds per boot: switching the sleeping victim back
+  // to SCHED_OTHER leaks its total_bw each round (lore
+  // 2b5fb3f22bca6aa383be8f4781923392@kernel.org), and once bandwidth runs
+  // out sched_setattr() fails with -EBUSY, which this reports as exit 2.
+  #define _GNU_SOURCE
+  #include <errno.h>
+  #include <pthread.h>
+  #include <sched.h>
+  #include <stdatomic.h>
+  #include <stdint.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <sys/syscall.h>
+  #include <unistd.h>
+
+  struct attr {
+  	uint32_t size, policy;
+  	uint64_t flags;
+  	int32_t nice;
+  	uint32_t prio;
+  	uint64_t runtime, deadline, period;
+  };
+
+  static atomic_int go, done;
+  static volatile pid_t target;
+  static int ret_aff;
+  static cpu_set_t one, all;
+
+  static int setattr(uint32_t policy)
+  {
+  	struct attr a = { .size = sizeof(a), .policy = policy };
+
+  	if (policy == 6) {	/* SCHED_DEADLINE, 2us every 1s */
+  		a.runtime = 2000;
+  		a.deadline = a.period = 1000000000;
+  	}
+  	return syscall(SYS_sched_setattr, target, &a, 0) ? errno : 0;
+  }
+
+  static void *victim(void *arg)
+  {
+  	target = syscall(SYS_gettid);
+  	for (;;)
+  		pause();
+  	return arg;
+  }
+
+  static void *affiner(void *arg)
+  {
+  	for (int round = 1; ; round++) {
+  		while (atomic_load(&go) < round)
+  			;
+  		ret_aff = sched_setaffinity(target, sizeof(one), &one) ? errno : 0;
+  		atomic_fetch_add(&done, 1);
+  	}
+  	return arg;
+  }
+
+  int main(int argc, char **argv)
+  {
+  	long rounds = argc > 1 ? atol(argv[1]) : 1000000;
+  	long both = 0, aff = 0, dl = 0, neither = 0;
+  	long dl_eperm = 0, aff_ebusy = 0, dl_ebusy = 0;
+  	pthread_t tv, ta;
+  	int ret_dl;
+
+  	if (rounds <= 0) {
+  		fprintf(stderr, "rounds must be positive\n");
+  		return 2;
+  	}
+
+  	/* Narrow to the first CPU we may run on, reset to all of them */
+  	if (sched_getaffinity(0, sizeof(all), &all)) {
+  		perror("sched_getaffinity");
+  		return 2;
+  	}
+  	CPU_ZERO(&one);
+  	for (int cpu = 0; cpu < CPU_SETSIZE; cpu++) {
+  		if (CPU_ISSET(cpu, &all)) {
+  			CPU_SET(cpu, &one);
+  			break;
+  		}
+  	}
+
+  	pthread_create(&tv, NULL, victim, NULL);
+  	while (!target)
+  		usleep(100);
+
+  	ret_dl = setattr(6);
+  	if (ret_dl) {
+  		fprintf(stderr, "sched_setattr(SCHED_DEADLINE): %s (not root, affinity narrower than the root domain, or no DL bandwidth left?)\n",
+  			strerror(ret_dl));
+  		return 2;
+  	}
+  	ret_dl = setattr(0);
+  	if (ret_dl) {
+  		fprintf(stderr, "sched_setattr(SCHED_OTHER): %s\n", strerror(ret_dl));
+  		return 2;
+  	}
+
+  	pthread_create(&ta, NULL, affiner, NULL);
+
+  	for (long i = 1; i <= rounds; i++) {
+  		if (setattr(0) || sched_setaffinity(target, sizeof(all), &all)) {
+  			perror("reset");
+  			return 2;
+  		}
+  		atomic_store(&go, i);
+  		ret_dl = setattr(6);
+  		while (atomic_load(&done) < i)
+  			;
+  		dl_ebusy += ret_dl == EBUSY;
+  		if (!ret_aff && !ret_dl) {
+  			cpu_set_t cur;
+
+  			sched_getaffinity(target, sizeof(cur), &cur);
+  			if (both++ < 5)
+  				printf("round %ld: both succeeded, policy %d, %d CPU(s) allowed\n",
+  				       i, sched_getscheduler(target), CPU_COUNT(&cur));
+  		} else if (!ret_aff) {
+  			aff++;
+  			dl_eperm += ret_dl == EPERM;
+  		} else if (!ret_dl) {
+  			dl++;
+  			aff_ebusy += ret_aff == EBUSY;
+  		} else {
+  			neither++;
+  		}
+  	}
+  	/* A throttled 2us/1s deadline task would take ages to exit */
+  	setattr(0);
+
+  	printf("%ld rounds: %ld setaffinity won (setattr -EPERM %ld), %ld setattr won (setaffinity -EBUSY %ld), %ld neither, %ld both succeeded\n",
+  	       rounds, aff, dl_eperm, dl, aff_ebusy, neither, both);
+  	if (dl_ebusy) {
+  		fprintf(stderr, "sched_setattr() failed with -EBUSY in %ld rounds: DL bandwidth exhausted, results unreliable\n",
+  			dl_ebusy);
+  		return 2;
+  	}
+  	return both ? 1 : 0;
+  }
+
+Also tested the cpuset retry in __sched_setaffinity() with the program
+below, which shrinks a cpuset from 0-3 to 0-2 while
+sched_setaffinity(0-3) runs on a deadline task in that cpuset. The task
+never ended up allowed on CPU 3 (0 of 100000 rounds on each of 10 boots,
+with the retry path taken 299 times in all). Without the SCA_DL_CHECK
+clear before the retry, it was left on CPU 3 in 8 of 10 boots (27
+rounds out of 275 retries): the retry only decides the outcome when
+cpuset_update_tasks_cpumask() narrows the task before
+sched_setaffinity() widens it again.
+
+  // SPDX-License-Identifier: GPL-2.0
+  // Race sched_setaffinity(all CPUs) on a SCHED_DEADLINE task against a
+  // shrink of its cpuset that drops the highest CPU. The shrunk cpuset
+  // should win: count rounds where the task is still allowed on the
+  // dropped CPU after both have returned.
+  //
+  // Build: gcc -O2 -Wall -static -pthread -o cpuset-race cpuset-race.c
+  // Run as root: ./cpuset-race [rounds]   (default 100000)
+  // Exit: 0 task never left outside its cpuset, 1 it was in some round,
+  //       2 setup failed, or no round reached the cpuset retry in
+  //       __sched_setaffinity() (seen as -EINVAL).
+  //
+  // Needs cgroup2 at /sys/fs/cgroup with the cpuset controller available,
+  // at least 2 CPUs, and a task allowed on its whole root domain. If the
+  // root cgroup does not have cpuset enabled, it is enabled for the run
+  // and disabled again afterwards.
+  #define _GNU_SOURCE
+  #include <errno.h>
+  #include <fcntl.h>
+  #include <pthread.h>
+  #include <sched.h>
+  #include <signal.h>
+  #include <stdatomic.h>
+  #include <stdint.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <sys/stat.h>
+  #include <sys/syscall.h>
+  #include <sys/wait.h>
+  #include <unistd.h>
+
+  #define SUBTREE "/sys/fs/cgroup/cgroup.subtree_control"
+  #define CG "/sys/fs/cgroup/dltest"
+
+  struct attr {
+  	uint32_t size, policy;
+  	uint64_t flags;
+  	int32_t nice;
+  	uint32_t prio;
+  	uint64_t runtime, deadline, period;
+  };
+
+  static atomic_int go, done;
+  static pid_t victim;
+  static int ret_aff;
+  static cpu_set_t all;
+
+  static int setattr(uint32_t policy)
+  {
+  	struct attr a = { .size = sizeof(a), .policy = policy };
+
+  	if (policy == 6) {	/* SCHED_DEADLINE, 2us every 1s */
+  		a.runtime = 2000;
+  		a.deadline = a.period = 1000000000;
+  	}
+  	return syscall(SYS_sched_setattr, victim, &a, 0) ? errno : 0;
+  }
+
+  static int put(const char *path, const char *val)
+  {
+  	int fd = open(path, O_WRONLY);
+  	int ret = 0;
+
+  	if (fd < 0 || write(fd, val, strlen(val)) < 0) {
+  		fprintf(stderr, "write %s=%s: %s\n", path, val, strerror(errno));
+  		ret = -1;
+  	}
+  	if (fd >= 0)
+  		close(fd);
+  	return ret;
+  }
+
+  /* Is cpuset already in the root cgroup's subtree_control? */
+  static int cpuset_enabled(void)
+  {
+  	char buf[256], *tok, *save;
+  	FILE *f = fopen(SUBTREE, "r");
+  	int found = 0;
+
+  	if (!f)
+  		return 0;
+  	if (fgets(buf, sizeof(buf), f)) {
+  		for (tok = strtok_r(buf, " \n", &save); tok;
+  		     tok = strtok_r(NULL, " \n", &save))
+  			found |= !strcmp(tok, "cpuset");
+  	}
+  	fclose(f);
+  	return found;
+  }
+
+  /* Format @set as a comma-separated cpuset.cpus list */
+  static void cpulist(const cpu_set_t *set, char *buf, size_t len)
+  {
+  	size_t n = 0;
+
+  	buf[0] = '\0';
+  	for (int cpu = 0; cpu < CPU_SETSIZE && n < len; cpu++)
+  		if (CPU_ISSET(cpu, set))
+  			n += snprintf(buf + n, len - n, "%s%d", n ? "," : "", cpu);
+  }
+
+  static void *affiner(void *arg)
+  {
+  	for (int round = 1; ; round++) {
+  		while (atomic_load(&go) < round)
+  			;
+  		ret_aff = sched_setaffinity(victim, sizeof(all), &all) ? errno : 0;
+  		atomic_fetch_add(&done, 1);
+  	}
+  	return arg;
+  }
+
+  int main(int argc, char **argv)
+  {
+  	long rounds = argc > 1 ? atol(argv[1]) : 100000;
+  	long bad = 0, ok = 0, einval = 0, ebusy = 0, other = 0;
+  	char full[4096], shrunk[4096], buf[32];
+  	cpu_set_t less;
+  	int drop = -1, ret = 2, added = 0, err;
+  	pthread_t t;
+
+  	if (rounds <= 0) {
+  		fprintf(stderr, "rounds must be positive\n");
+  		return 2;
+  	}
+
+  	/* The cpuset starts on all CPUs we may run on and drops the highest */
+  	if (sched_getaffinity(0, sizeof(all), &all)) {
+  		perror("sched_getaffinity");
+  		return 2;
+  	}
+  	if (CPU_COUNT(&all) < 2) {
+  		fprintf(stderr, "need at least 2 CPUs\n");
+  		return 2;
+  	}
+  	less = all;
+  	for (int cpu = 0; cpu < CPU_SETSIZE; cpu++)
+  		if (CPU_ISSET(cpu, &all))
+  			drop = cpu;
+  	CPU_CLR(drop, &less);
+  	cpulist(&all, full, sizeof(full));
+  	cpulist(&less, shrunk, sizeof(shrunk));
+
+  	if (!cpuset_enabled()) {
+  		if (put(SUBTREE, "+cpuset"))
+  			return 2;
+  		added = 1;
+  	}
+  	if (mkdir(CG, 0755) && errno != EEXIST) {
+  		perror("mkdir " CG);
+  		goto out_controller;
+  	}
+  	if (put(CG "/cpuset.cpus", full))
+  		goto out_rmdir;
+
+  	victim = fork();
+  	if (victim < 0) {
+  		perror("fork");
+  		goto out_rmdir;
+  	}
+  	if (!victim) {
+  		for (;;)
+  			pause();
+  	}
+  	snprintf(buf, sizeof(buf), "%d", victim);
+  	if (put(CG "/cgroup.procs", buf))
+  		goto out_kill;
+  	err = setattr(6);
+  	if (err) {
+  		fprintf(stderr, "sched_setattr(SCHED_DEADLINE): %s (not root, affinity narrower than the root domain, or no DL bandwidth left?)\n",
+  			strerror(err));
+  		goto out_kill;
+  	}
+
+  	pthread_create(&t, NULL, affiner, NULL);
+
+  	for (long i = 1; i <= rounds; i++) {
+  		cpu_set_t cur;
+
+  		/* The cpuset puts the victim back on all CPUs */
+  		if (put(CG "/cpuset.cpus", full))
+  			goto out_kill;
+  		atomic_store(&go, i);
+  		/* Races with sched_setaffinity() */
+  		if (put(CG "/cpuset.cpus", shrunk))
+  			goto out_kill;
+  		while (atomic_load(&done) < i)
+  			;
+  		if (sched_getaffinity(victim, sizeof(cur), &cur)) {
+  			perror("sched_getaffinity(victim)");
+  			goto out_kill;
+  		}
+  		if (CPU_ISSET(drop, &cur) && bad++ < 3)
+  			printf("round %ld: cpuset %s but task allowed on CPU %d, setaffinity errno %d\n",
+  			       i, shrunk, drop, ret_aff);
+  		if (!ret_aff)
+  			ok++;
+  		else if (ret_aff == EINVAL)
+  			einval++;
+  		else if (ret_aff == EBUSY)
+  			ebusy++;
+  		else
+  			other++;
+  	}
+
+  	printf("%ld rounds: setaffinity ok %ld, -EINVAL %ld, -EBUSY %ld, other %ld; task outside cpuset in %ld\n",
+  	       rounds, ok, einval, ebusy, other, bad);
+  	if (bad) {
+  		ret = 1;
+  	} else if (!einval) {
+  		fprintf(stderr, "no sched_setaffinity() reached the cpuset retry (-EINVAL): race not exercised\n");
+  		ret = 2;
+  	} else {
+  		ret = 0;
+  	}
+
+  out_kill:
+  	/* A throttled 2us/1s deadline task would take ages to exit */
+  	setattr(0);
+  	kill(victim, SIGKILL);
+  	waitpid(victim, NULL, 0);
+  out_rmdir:
+  	rmdir(CG);
+  out_controller:
+  	if (added)
+  		put(SUBTREE, "-cpuset");
+  	return ret;
+  }
+
+I can add both programs to sched-deadline-tests [4] if that helps.
+
+Both programs also pass with lockdep (PROVE_LOCKING,
+PROVE_RAW_LOCK_NESTING, DEBUG_ATOMIC_SLEEP), and on PREEMPT_RT with the
+same options plus DEBUG_RT_MUTEXES, with no lockdep reports.
+
+On top of [1], with and without PREEMPT_RT, the first program ended
+with both calls succeeding in 0 of 1000000 rounds on each of three
+boots, and the second never left the task allowed on CPU 3 (0 of 100000
+rounds on each of five boots, with the retry path taken 90 times in all
+without PREEMPT_RT and 109 with it). Both also pass there with lockdep,
+plus DEBUG_RT_MUTEXES on PREEMPT_RT, with no lockdep reports.
+
+Not tested: the arm64 asymmetric 32-bit path through
+relax_compatible_cpus_allowed_ptr().
+
+The patch applies to v6.18 and later. Older stable trees need a manual
+backport: v6.12 has different context, before v6.11 the
+__sched_setaffinity() hunk belongs in kernel/sched/core.c, and trees
+older than v6.2 lack struct affinity_context, added by commit
+713a2e21a513 ("sched: Introduce affinity_context").
+
+[1] https://lore.kernel.org/20261102135420.244745-1-parri.andrea@gmail.com/
+[2] https://lore.kernel.org/20261104211207.1392343-1-mathieu.desnoyers@efficios.com/
+[3] https://lore.kernel.org/2b5fb3f22bca6aa383be8f4781923392@kernel.org/
+[4] https://github.com/jlelli/sched-deadline-tests
+
+ kernel/sched/core.c     | 11 +++++++++++
+ kernel/sched/sched.h    |  1 +
+ kernel/sched/syscalls.c | 12 +++++++-----
+ 3 files changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 04b62c16fa8ca..b12f46bf7c862 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -3195,6 +3195,17 @@ static int __set_cpus_allowed_ptr_locked(struct task_struct *p,
+ 		goto out;
+ 	}
+ 
++	/*
++	 * Check under the same lock that __sched_setscheduler() holds for
++	 * its admission test, so that p cannot become SCHED_DEADLINE
++	 * between this check and the mask update below.
++	 */
++	if (ctx->flags & SCA_DL_CHECK) {
++		ret = dl_task_check_affinity(p, ctx->new_mask);
++		if (ret)
++			goto out;
++	}
++
+ 	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
+ 		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
+ 			if (ctx->flags & SCA_USER)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 6c7c5633524a3..963b7cd6aa5cd 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2953,6 +2953,7 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
+ #define SCA_MIGRATE_DISABLE	0x02
+ #define SCA_MIGRATE_ENABLE	0x04
+ #define SCA_USER		0x08
++#define SCA_DL_CHECK		0x10
+ 
+ extern void update_group_capacity(struct sched_domain *sd, int cpu);
+ 
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 45a127deeadd9..0f4397d9b3370 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -1152,11 +1152,7 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 	cpumask_and(new_mask, ctx->new_mask, cpus_allowed);
+ 
+ 	ctx->new_mask = new_mask;
+-	ctx->flags |= SCA_CHECK;
+-
+-	retval = dl_task_check_affinity(p, new_mask);
+-	if (retval)
+-		goto out_free_new_mask;
++	ctx->flags |= SCA_CHECK | SCA_DL_CHECK;
+ 
+ 	retval = __set_cpus_allowed_ptr(p, ctx);
+ 	if (retval)
+@@ -1185,6 +1181,12 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 			if (empty)
+ 				cpumask_copy(new_mask, cpus_allowed);
+ 		}
++
++		/*
++		 * The cpuset mask must win here, as it does when
++		 * cpuset_update_tasks_cpumask() sets it on a deadline task.
++		 */
++		ctx->flags &= ~SCA_DL_CHECK;
+ 		__set_cpus_allowed_ptr(p, ctx);
+ 		retval = -EINVAL;
+ 	}
+-- 
+2.53.0
 
