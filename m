@@ -1,92 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793865947;
-	b=U0Wkl78+jJDCpaoJ+3Lim92gavuPj8IzcvjZGzL5Vy7e/RALgaSO8/bjeue8fkTD356u
-	 otiJ0if7NmNwSLc/8WYM83uNlEpb4umCIzjX+oQbalhgBVeW8BC72RCVGpOpdZTuFsK3a
-	 RoyJfE4z6V2qZjouUuSisRvN6gni2Fu2nLnFOoHL9M7xzragrxUIu2EwB+UGusixQto+Y
-	 1I5JHDdgZcg3RDZC2OjrG31SZCrnty+Ce29JDTl3W9vxs2zYy0eET1LcIkpp4dwPhouz6
-	 sTijpoVXwR4bPYWvuU5Xm6OwXifENLmCywGqf46R3LixwUEqaUhffqB/Y0bVFOAZ1XA==
+	t=1793865985;
+	b=TCafoc2zJ4CJ/xP2qJssoQ6BNzz02hgByans7N8zwF//VlVDHI+3ecEHzH5grCkRX/8M
+	 0g6YFjL9+1fzAJPouu2d5NYwvA7i8P5ppk5ceKs73p0fWuWMTTFW23MUpPXoFO2xnA1nr
+	 ErUhP/0txTHLLkoZsM42qXiBcwlqW48l+1Lrpu+kDJ/M4jeXFg/Ing8TsT89tk+9mxxgP
+	 y4uipM3d/BewQmHmXtuJNjI9gxtO6Y2KM3bMLgsz6F1WcpYcylXoKQqnO+qyScXsWxqzw
+	 pp4v1YSR8saUpZtZgMH2iFwWkTw0m4VpxPjtjX9P/RMeyyyIyXhcMuKiaMdyvig2Hig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793865947;
-	h=DMARC-Filter:DKIM-Signature:X-Original-From:Content-Type:To:Subject:
-	 Content-Transfer-Encoding:References:Received:From:Date:Message-Id:
-	 User-Agent:X-Lms-Return-Path:Cc:Mime-Version:In-Reply-To;
-	bh=TMVq1BdX8FUxH8J6/ZdpU/bSTGJU2bUVnTOmNO2snXM=;
-	b=K4nU1J7Dcu2a4xRBPdOVzagdndGQSU9MnZt0tbGIBgHe7fkDJObCT9elgohjEqudyxxe
-	 wMCBWKlOndkixmnnGdd9JWOVbr0a8io5ORE208lSW9bGPCvH9SOLHWDdrksv9/36G/l6z
-	 zYdhncZFivH5uOe4HxK0oX2fAUo9fffmeLiuPaiQM0AbuNIsEynf+O0342jCeSd/ojyzL
-	 3ZjPGmdHxGH1razptaTcOxsaQkz8m6leQRWzY4otYUMFjhVDfnnJ0aVw3qLmKDrfGbVLt
-	 h3MmBEqOa0LYv4gjUZxH8YOdo9id6/yGs7IC4QqqUzARgM/K2sAjOxMcobjL6oLGxfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793865985;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ngT2Zr1w4uRruIUqboDeGJXzhifvmqARymXgf1oU38U=;
+	b=Qq+d3PiesCSUxM0V1ridiNkklshYiJOURvh+0oFtcQimnLzzQQvDEtyfrtlCik7ao841
+	 IQz3fjMx+Ib3r+7sJ+3kceB8o7YXKTDOZEw9e2z/WT+b6CNGDc4sCjgnES5nGZtK02EwW
+	 noRYJJFbDywRTUmzHNtDCq8chIIeDqEv5HMK6qMpASaUe6mf+RawOjqEqsfYzBNBHhPSL
+	 2FW4Ls3UzuK3MXQUIQVEmDx60L9PbEpY4kJQFG6qxiF3Mm86SRYi0PUk7vYkCvqcAWHNC
+	 hYqbPZ6RUQsFi8v6hh6B2tFSkPQD2ZtaHsiBQtt0SeLaDyx44f9xmqRknuQ6I18QVVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=picoheart.com;
-	spf=pass smtp.mailfrom=picoheart.com;
-	dkim=pass header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=RDjGvLhX;
-	arc=none smtp.remote-ip=209.127.231.27
-Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hyCcL2bP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RSifANim;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC567606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC567606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7F4606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:06:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC7F4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=RDjGvLhX
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1793865937; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=TMVq1BdX8FUxH8J6/ZdpU/bSTGJU2bUVnTOmNO2snXM=;
- b=RDjGvLhXr5096VcIf1dKI76qOLL81RWglBqUx7Fc2txhOaQD4D44dUc9V9h03Y3JHY0AB/
- rdjcw8KYRTvj4gtmD7E8WV6eDIry4O3GS3e6iJo8FLCVAeeyp4MW0K6KkZbxjf1GxnR/kr
- z6pv55HEOKchqtWEVfQ/63RWzdtpIDjJST9GnZGr5yxP1XYgfQFXvxS24/oDmeFSIdzSb5
- e/0+WbqpLuvqxoabzdO77VX6iDp5TNb1+ELO9nKm/j3TA9Lft+F3JsP+qkVpo92Zgjb2sx
- txXiZOMx+OA1bo+mdjM+qHoV8ksUWpzpS1pXPHjVNFp9Ey8pCKFwLxvC2JJWIw==
-X-Original-From: Zeng Heng <zengheng@picoheart.com>
-Content-Type: text/plain; charset=UTF-8
-To: "Drew Fustini" <fustini@kernel.org>, 
-	"Adrien Ricciardi" <aricciardi@baylibre.com>, 
-	"Alexandre Ghiti" <alex@ghiti.fr>, "Albert Ou" <aou@eecs.berkeley.edu>, 
-	"Atish Patra" <atish.patra@linux.dev>, "Babu Moger" <babu.moger@amd.com>, 
-	"Ben Horgan" <ben.horgan@arm.com>, "Borislav Petkov" <bp@alien8.de>, 
-	"Chen Pei" <cp0613@linux.alibaba.com>, 
-	"Conor Dooley" <conor.dooley@microchip.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"Dave Martin" <Dave.Martin@arm.com>, "Fenghua Yu" <fenghuay@nvidia.com>, 
-	"Gong Shuai" <gong.shuai@sanechips.com.cn>, 
-	"Gong Shuai" <gsh517@gmail.com>, <guo.wenjia23@zte.com.cn>, 
-	"James Morse" <james.morse@arm.com>, 
-	=?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, <liu.qingtao2@zte.com.cn>, 
-	"Liu Zhiwei" <zhiwei_liu@linux.alibaba.com>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, "Paul Walmsley" <pjw@kernel.org>, 
-	"Peter Newman" <peternewman@google.com>, 
-	=?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>, 
-	"Reinette Chatre" <reinette.chatre@intel.com>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Samuel Holland" <samuel.holland@sifive.com>, 
-	"Sunil V L" <sunilvl@oss.qualcomm.com>, 
-	"Tony Luck" <tony.luck@intel.com>, "Weiwei Li" <liwei1518@gmail.com>, 
-	"yunhui cui" <cuiyunhui@bytedance.com>, 
-	"Zhanpeng Zhang" <zhangzhanpeng.jasper@bytedance.com>
-Subject: Re: [PATCH v10 2/6] riscv_cbqri: resctrl: Add cache allocation via capacity block mask
-Content-Transfer-Encoding: quoted-printable
-References: <20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org> <20261104-dfustini-atl-sc-cbqri-dt-v10-2-1636a003a3c0@kernel.org>
-Received: from [172.16.137.224] ([124.160.26.250]) by smtp.feishu.cn with ESMTPS; Thu, 05 Nov 2026 16:05:34 +0800
-From: "Zeng Heng" <zengheng@picoheart.com>
-Date: Thu, 5 Nov 2026 16:05:29 +0800
-Message-Id: <02cf71f0-09d5-4dde-a8cf-3739583cc7fa@picoheart.com>
-User-Agent: Mozilla Thunderbird
-X-Lms-Return-Path: <lba+26aec38cf+8555d4+vger.kernel.org+zengheng@picoheart.com>
-Cc: "Catalin Marinas" <catalin.marinas@arm.com>, 
-	"Jonathan Cameron" <jic23@kernel.org>, 
-	"Shaopeng Tan" <tan.shaopeng@jp.fujitsu.com>, 
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<x86@kernel.org>, <devicetree@vger.kernel.org>, 
-	<linux-doc@vger.kernel.org>, <yang.yicong@picoheart.com>, 
-	<geshijian@picoheart.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hyCcL2bP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RSifANim
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56UZ8g595357
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:06:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ngT2Zr1w4uRruIUqboDeGJXzhifvmqARymXgf1oU38U=; b=hyCcL2bPYYDkie56
+	xQ0ldzANVWAVN/WJmuSz0YvmE0YcO5OMBVmebfyZ/DtDdmY8P/5rSqGHwL9rrMwm
+	vJBbdkS34hwQhsloWQSJbEZ7SpSlgl3ipOskQZjimZcTZcsUulE6YGYuy/HlgRTO
+	8/F9fOiC6yTzUpOuMwLfkFkIih7HhxJzL43xRp7KHxvhQaasvDazgVDectHPO+Gn
+	jFCVRX3zAXgx+45ZsUW7WLR2Z2J/xzA5mu2moiv5W327u9DJoY9z7gD0LsVQRfBX
+	My7BaSCzdAWVr4yWeQphklmafcRjyN7/LQh/mrnXdfsYyaMUhqRHZGcFSK9mMZau
+	avNsNw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr8rv3cdn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:06:23 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5476f5bd009so4284901cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:06:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793865983; x=1794470783; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ngT2Zr1w4uRruIUqboDeGJXzhifvmqARymXgf1oU38U=;
+        b=RSifANimv0yEnp8K/iJ29ge6aNg8x4hP5I3RkFj2BpMAGzRjerLyBx0fj+QyoCOZuz
+         gSijooXQNO+1X9oQfT5EH04mHW82yfz94Wjbw0XtqoPnl8oOI0uib6phUCkFRenYC7NQ
+         xpQecf0sncWeGM716A2n7eFXNAql05e2hmZ8d6k3SXr03eDMoUDKgMvF4aHNgrgUTWpm
+         V93rkK0OipJz1OHR2aC0Ur11Qwg7oL+k25QDmN721cPz39JwzrEdmGq58HnbnvOVpwps
+         RdGRxuR3x63f0LAsAa+luLPGpl1NFATv06d79MwqYkpL5URMNeRaYrN4jtgfUewIj3Jt
+         c70A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793865983; x=1794470783;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ngT2Zr1w4uRruIUqboDeGJXzhifvmqARymXgf1oU38U=;
+        b=U+r9uqbyrNOocZCXaNzxsFjyv7ZbONKC2We9TjWC4Ya6itY051cKwqghAEyiBP9e0f
+         r5mnhtJZAXdy30B41lA5EkrWeVta6py24nPMNj+T1CKzPFVGaLQk1dTeY6VIVhpWbfIb
+         YK+IMhO0F3Itpz2AvYwMQpNpmm7vTe9/DpXuxgP4VtZRxNmdzfo6ifo2p6Xxq9jxoPBu
+         PKiVFBQKgdfJ1FLg/HVfmQ2wImG6lhoxG1yQJlHfkfnzPhMixar0F9QV26mCN1y62Gf1
+         DOatanrFifROeODJes6euI+gAgJT6jnkHxTMz5QEC2b5vGWKrIBhjXyJcKNBmObHRLwI
+         4n4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwXfz8yzLw8EZOfH+pjY/+yZc49LvBgOBp+j7i5MysIp8xxFFQ7K+wcLs2+0e2yg3Vni20hHpUgPzWnggE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+33h8rDHnf+20agfSA9j5fXuEm4PvEv2sogJncamLi9Ws7plHV
+	QJ3yDOH2Ch6vxZHZzzbFT3ujZkZ0iQ7OZYOWKMHqE1JW6y+rxtpT4ePwrEI0m6vB8gJ4Y4A2UNU
+	aEGJChTF7YiDBwzedcnO24OMBH0glGMmAJupXvlq4mawUdQMOuDI3AZ+cJubQqxktfVU=
+X-Gm-Gg: AYBFou04A80a0Rms55JdMx+hCHKo62QY+2+7bxFIuOHTUapHCKPXKvWezXGL4rMV9cE
+	qGwqXKKBeRhpw1rUeSLHTqTMTZyGBCPSL9gnS9lQgCmJzfT1Ve/b2QUEJSB/vlH4henMcUjVsGM
+	C2KjVNSB/m35J/h45Bj/isjikIrbNwVmu1PG7mEUBFisyZ4aCZn0rgv7YcI4wnXvlyvZJtB9Frh
+	7GYRKqhAJzNkZVjSzZ56Rj/JCVwk3V6tD0iAUHKiA8sdJhtCnZ2g4OXLCK9JP8uQrh3Lt+j9ocb
+	pc1dZ7uLBBBcyT4DDB8rojPGSiCvsB1rgXj0lTqBrI8hq+14IHINB+KzWXt6TyfyPuzBOrZdIQs
+	iLLXLN4ZXCEFRNMtzUiKLW8mZV8D2iiHavX6HYb0sKHFzu7EkeupRO/SVL2HlNxGLImiF
+X-Received: by 2002:a05:622a:e2c5:10b0:54a:a0ae:795b with SMTP id d75a77b69052e-54aa0ae7fd0mr101400551cf.3.1793865983105;
+        Thu, 05 Nov 2026 00:06:23 -0800 (PST)
+X-Received: by 2002:a05:622a:e2c5:10b0:54a:a0ae:795b with SMTP id d75a77b69052e-54aa0ae7fd0mr101400251cf.3.1793865982586;
+        Thu, 05 Nov 2026 00:06:22 -0800 (PST)
+Received: from [192.168.226.1] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e4a771bsm145751966b.85.2026.11.05.00.06.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 00:06:21 -0800 (PST)
+Message-ID: <2c31e18b-18a6-48f5-b892-b343f47907a7@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 09:06:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,71 +114,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <20261104-dfustini-atl-sc-cbqri-dt-v10-2-1636a003a3c0@kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] media: qcom: camss: fixes for SoCs without IOMMU, RDI
+ and CSID1 streaming
+To: Allan Siriani <allan@fatecpompeia.edu.br>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Vtm2kO2n c=1 sm=1 tr=0 ts=6aec38ff cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=sv9X2YDxvq9Wc_PriaYA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfX5rwgYyTF8jDX
+ qbc76qljqc8wDXWeUbOqf2Q7l2kyLXlbmODbeCKaoQB3AjLdQYXecI2kud7JaboGhNYRl3BNdQU
+ jwyIFPLXkRn5miznJWBqP0HYkhdkio8=
+X-Proofpoint-ORIG-GUID: fYbZ0q46BjXtgvxEp3PDx-heda8qStFt
+X-Proofpoint-GUID: fYbZ0q46BjXtgvxEp3PDx-heda8qStFt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfX1bb48WoJKFYV
+ 5nmb4Pa1KEgjeUj7Pi7r6FlbmnQj57ulhfWeVamkqDSG8MCqUbH24Aan7QigiIKOK8DdZC5fvdU
+ qP5SvyUEBh25fhP60Eh/EXlHTtYJmSxOI0ql7Q1fObraFxrruOmy9YE8eqE2gJhlezO9vR2r53z
+ 3R9lqw+gEtaDXTSkpwk4m6zBCha6mr8GV8FZgyYSlrIO1Xobqr9imO78EsoMdQwvz3xVilA8xrL
+ qPopDO7vjVYMNmvCN8DBAPajeDOzb6WzjWJx16h0HpddyYMvAsaFUQXXIBqg19mKGBl1n8PTrZ4
+ lLvyIEtBK7U5szW9rGIGneeK0xkqSddSDoI5gCtK4oXNXKMuxWet3s8QM2XrZACXdVALqaW/xFv
+ rHCDtilOo9E7wN4Jj9AiF2FG8/X6bgA0Pt8WO7RZwHjaiM6W6Z33YKJ1VIzBQ2ObCBTvLS/0zbv
+ BUuDFczyVbHxg74AWLQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050032
 
-Hi Drew,
+On 11/4/26 9:23 PM, Allan Siriani wrote:
+> These fixes came out of bringing up the CAMSS on MSM8226 (Moto G 2013,
+> "falcon", MT9M114 front camera on RDI), where the CAMSS is not behind an
+> IOMMU. The MSM8226 support itself will be sent separately; the problems
+> fixed here are generic.
 
+I believe that there is indeed a IOMMU in front of this, at the very
+least in front of the VFE and JPEG. I suppose this is "just" because
+upstream doesn't support iommu on that SoC?
 
-=E5=9C=A8 11/5/26 =E4=B8=8A=E5=8D=8812:35, Drew Fustini =E5=86=99=E9=81=93:
+You may want to take a look at
 
-...
+https://lore.kernel.org/linux-arm-msm/20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com/
 
-> +/*
-> + * Fill the rdt_resource fields for one picked rid. An rid with no picke=
-d
-> + * controller is left untouched so it stays out of resctrl_arch_get_reso=
-urce().
-> + */
-> +static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_r=
-es)
-> +{
-> +	struct rdt_resource *res =3D &cbqri_res->resctrl_res;
-> +	struct cbqri_controller *ctrl;
-> +
-> +	if (!cbqri_res->nr_ctrls)
-> +		return;
-> +	ctrl =3D cbqri_res->ctrls[0];
-> +
-> +	switch (res->rid) {
-> +	case RDT_RESOURCE_L2:
-> +	case RDT_RESOURCE_L3:
-> +		res->name =3D (res->rid =3D=3D RDT_RESOURCE_L2) ? "L2" : "L3";
-> +		res->schema_fmt =3D RESCTRL_SCHEMA_BITMAP;
-> +		res->ctrl_scope =3D (res->rid =3D=3D RDT_RESOURCE_L2) ?
-> +				    RESCTRL_L2_CACHE : RESCTRL_L3_CACHE;
-> +		res->cache.cbm_len =3D ctrl->cc.ncblks;
-> +		res->cache.shareable_bits =3D 0;
-> +		res->cache.min_cbm_bits =3D 1;
-> +		res->cache.arch_has_sparse_bitmasks =3D false;
++Cc Dmitry who poked at that topic
 
-Currently, the driver sets arch_has_sparse_bitmasks to false, causing
-resctrl to require a contiguous bits in cache allocation masks. For
-example, L3:0=3D3 is accepted, whereas L3:0=3D11 is rejected because its
-set bits are non-contiguous.
-
-The default should allow both contiguous and non-contiguous masks,
-provided they satisfy the other mask validity checks. A contiguity
-restriction should only be imposed when a specific hardware
-implementation can't support sparse masks explicitly.
-
-So I propose enabling sparse cache allocation bitmasks by default.
-Thanks.
-
-> +		res->cdp_capable =3D ctrl->cc.supports_alloc_at_code;
-> +		res->alloc_capable =3D ctrl->alloc_capable;
-> +		INIT_LIST_HEAD(&res->ctrl_domains);
-> +		INIT_LIST_HEAD(&res->mon_domains);
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-
-Apart from this,
-
-Reviewed-by: Zeng Heng <zengheng@picoheart.com>
-
-
-Best regards,
-Zeng Heng
+Konrad
