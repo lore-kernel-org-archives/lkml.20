@@ -1,108 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907276;
-	b=s/d8h3TSlFYAob/0tmgUqAQlQ1GIa2TTmK8pYp3zeWVSL1HCob0+gGCxrsK7N8HR4UpJ
-	 JUAml+JHc3anRLQ6pmHdiIGQJsWogYnwWFEgc3GhUTOvJ97+ZUBmd0vX/E+QFm2JYxueN
-	 SiNJ9wZVQHIKbxV59uXftiLYBbEGp2I07KJu25h8lGdydhXdPkV62l7xB+Fs1e0+rsTA4
-	 FraBQVd4iSCxd90fKR02P8Fz1Abu0fGiVTzFhWC7GMGURbC88XjrreJPEhPYgqArWZ0d3
-	 FKbYogGbvlK91IEjrSa8+Omq5AzgsNIRv8AX5wmfMEUI+tayTOaw0SUZUTus/cyxriw==
+	t=1793907259;
+	b=FpkOLp+nBQrHqQJ7v1dIXc9gwIZYMTJnZP7p/PMrU2h/ZWAm2129RxH04JRAKnLQHDYy
+	 wwNXDCz2BNNm9vcRfPe/iMvxxEMEgu96U8SYW0TwwpKI7OQk+9FWIrEM6jSS1nssHyopB
+	 HrnBggHdWZy4G/kNKg5i+DUlgbjVvmzZOFC3iJ185/Hq1FFcfB2OMrLq+9PY9/6INivIN
+	 LrAElxfZgcGS/HEvc8ABQXI8PpLkNEHFRoL4gUU5Hm3T7sXYOOg0SgNkSbhFQcTWMMvtp
+	 ohyy+AWt65FKiwYmN8tLKFl2Q0SXZXqHK4YBYhdPisdEwv/mBXmNFudixl9wyCs3ARA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907276;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907259;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=gCnltw4xBZg9rf91kbCMq2uc9N/TBEgzKyF8/A/W2/A=;
-	b=zR1684OL0awiHTHcXwrvtAy8Cfl5g18LUQ/mGxKnTqAKpW2KisUo4oGTI3bQd65qmcAu
-	 87WC42kBfuDJZ/riTVu9Kwzsl0cJXE6vzVHbXr1/FVXa4qNtqn9IT9yZXp3pq+5hNOcqR
-	 laoJzoXYr+tBfgWYJEsMKxS8Aqyud2qTO+V0ZQ8w7kmTUVg0X4c+q2SyoMw/I/wsxabfG
-	 v7VsUB+4brRpTdPq57HbsfUgfwQ4qWbiWC5wd++TXS84LEDl9d9N8zW4L7DftiN/gAX1B
-	 vLe+5IAZHjKofIpOV4N355nfozl9t/4cSwhD1ASDURllXqV7I4Tkg/xeXr3l2f7NSRA==
+	bh=hcWcaw255+86RvOkQcmXChxCoCdULwFdRdbuZXbjAkY=;
+	b=pPP97ePTk25Aq6IX4BZ3USug8TZckuzrtBTCk2e0umHmhc9BR/ixpcd1wgIQAygiqy7H
+	 4UgTB0IiEMaxYyKDlzlkA4LseLJzIF/ZPJZQRNoEoWxItlmb6akDOnNfzFgAMz291iArV
+	 JHen5t1xUks1dHd1hwwfMI0U7Br6gwh2zH/6rQcTcCWoMIJh5euhlExobQ0AxvnffFVCV
+	 cxsbUm6L7rreDaAyw9L+eohvIJ/92LISmKzF9nRUGNy49Dll2Kg0ejKUUW482UFRNn516
+	 44zCleYTn1gcHw2wudaRabicsWZKLPaecYfTC4PPJYd6Dd2MtJcot7v4B+CfYGZF4BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0eSebgop;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=CCnpu8bE;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1DA60705F1
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:34:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B1DA60705F1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59B3606EEB7;
+	Thu,  5 Nov 2026 19:34:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A59B3606EEB7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0eSebgop
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490c1d337d8so1245221f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:34:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793907275; x=1794512075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gCnltw4xBZg9rf91kbCMq2uc9N/TBEgzKyF8/A/W2/A=;
-        b=0eSebgopJbfvwGFwpkTBWKFxy2P8hra9DfVseWNcJrheNgo0V1fHi3IP66QKikans9
-         lU6e2quJM4cMs3ira4yk4pDtdlnShLb5KYkooDfqOALLqzYnj8dce4kuM/rSsw95Rp3l
-         e9ZpSnfnyY64zP8lgQV9f6gtE/zcvvte2ccuHIi0aRYFywk1oTyCJAvHqyy2a2JPTofV
-         gMidB2s+gddvQp+GO9qeUomeMxY6WYkPD9l2b/ZxYn+aoUnT+auviQ+NDnphAzMKFx9t
-         5hOEP4ht+GliWUvbvr9rtcHa9P2f/QpWpI4mMAjibkwkZUCll44j+7lcw4mlLynUduOY
-         KmiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793907275; x=1794512075;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gCnltw4xBZg9rf91kbCMq2uc9N/TBEgzKyF8/A/W2/A=;
-        b=Y4atOxWlI2MXbKLu7ijwDlqkRB2rZmPtCicUUhJmr81/jqrSg+TeuSgohWgdqIPMEC
-         bKzTfsquuGByA4bVXDjwoeAw1Ilq6KCfitiAPg3v28fZx2ujQ+gJ3WYcVlFCbP16bGqs
-         49w+MNa3fN5yfhAXyolG5wh9PWP6TsGZf4q9oW2Qsg4dfjiMeh4brjUc4IqLGqsCWNRO
-         iDg5YwYeQ3tUBgQP8HDUyavcQtSsyXxtNpl+ItTsTpoYVYIaKFYa7lyM8Gknw+k7jGnR
-         EMxnkIKHr3YckQ8R30EtdJjF45SW/nezwrLcqeABiiQKId03eCq4otlqJnOwXDgOZvO6
-         A5mw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIXsb2xpFsNp92wGlZyJfhlFfFA2+dyB35xNZeWyzE3qFbKZadV3F9/93hEJupwpUVNQL2nFKq/MTKt1c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/afooCWXHMkPk0oe+GfUQmvQO8k6ypyVsL6RuIab9maBPusMoZ
-	azvBnXRwM7y5DffrWsdmR6FUMAB52016c54HsFJtToPAGai1w3Yuo3wm
-X-Gm-Gg: AYBFou0kWklJZYqMWsO9pynsRsl1zGFvXY6VgIVzAQwrt2Ix+Y5X2JuOI5/aWKhFjKR
-	dO4vpIcIN8ZupSSBSRC6P5NjjO+OvA+uETyARDcxZnpOM2hYcUQ/u3K4QBE8yQ3ZcTHD/lWKdUi
-	Ko2UFV3kSbVK010df1nGqdamuH2l9OqppBGKnBht4Gkxj8VuMtE1tQJR004lYsp0iVbLDIr5p9I
-	lKNu73JXYd1dmQ95SlZg2C5bCoBrksXyuCEPQArgo+Wz6s8uV4BOizDsjqkBHjekBavY4BzFljo
-	oJ/kPcHdPsoVaLLcum2tuF3w+otym4JS6v1W2R3c/os+TuPw72rmycQJkb07gK0T+s6/JRZ1w7v
-	mFIP9Yo0GRYlTx6pEysWuNnsIlK0RQ/RqvigcDn4y0PfAhPLA2AEnxO7LUASm2EEEwINJypiR/Q
-	oqFk39vxX90AysflDBUJgLFmDZG7KO7v+gyc7mKr6cmS1qzRxqrBuAdIbXd6uPmuKJT36u8EEqo
-	Sd+YFLAIFn9BOsZ8+meIoQJw9gYqNFKDrZfAHZUrxBCcU8wS8jZPeywFMZb4xTxYz/EQJF1S3Xw
-	4kVMH8d3e5qS1JihlvW0uyQO22iHj+4vLwJUKFJAZ1dfL5z3RoGBzdeQ2sSbNY6tWbjOtBubmu1
-	c
-X-Received: by 2002:a05:6000:2f83:b0:48c:4553:790b with SMTP id ffacd0b85a97d-4927fb63ecfmr790286f8f.48.1793907274442;
-        Thu, 05 Nov 2026 11:34:34 -0800 (PST)
-Received: from stjepan-Aspire-F5-573G.tailc0f20e.ts.net ([2a00:1bb8:118:d39e:452b:db14:9bf:f8a8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea18104bsm12092866f8f.6.2026.11.05.11.34.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:34:33 -0800 (PST)
-From: Stjepan Poljak <stjepan.poljak@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Cornelia Huck <cohuck@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Alexander Graf <graf@amazon.com>,
-	virtualization@lists.linux.dev,
-	linux-um@lists.infradead.org,
-	linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] virtio_ring: return an error pointer from vring_create_virtqueue()
-Date: Thu,  5 Nov 2026 20:34:25 +0100
-Message-ID: <20261105193426.2999631-1-stjepan.poljak@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=CCnpu8bE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1793907249;
+	bh=hcWcaw255+86RvOkQcmXChxCoCdULwFdRdbuZXbjAkY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=CCnpu8bExKNJ9F/LVsbh6qsr92k68ZGSUGCpgJ30UNmaGRUNXxYTQS0ZbStvxRNsC
+	 qkXI4dcjtOZN7wsZNWOpp6XxlB+Wcg9s7WQBg+srpUMTSO9R4P0R/DrXl97SBQZ/Jp
+	 +5Ppcl0WLS+88r4pQVYrcUUjZKHpNYY4vn0Pdb9sT11OxhCIw6F/iQGRCDqkzFZ16g
+	 rrNZ1DP9lu45aU4DnlEXHDqa9Qihm2jhE7kmYuY/DlocO2yF+PAnyhsu/AhZ0EJGak
+	 LiD4/+Ssed+F4XubM8o9qb1OehjkbAiofvc3DjkP/jCTYQMJ2yqdFrOLTQSwnK3CGM
+	 8hyD2rubCR9Lw==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDK6GSWzLJq;
+	Thu, 05 Nov 2026 14:34:09 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v3 06/24] sched/deadline: Do not lose a throttled task switched out and back
+Date: Thu,  5 Nov 2026 14:33:41 -0500
+Message-Id: <20261105193359.1450487-7-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,210 +94,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vring_create_virtqueue() and vring_create_virtqueue_map() return NULL
-on any failure, so the error returned from vring_alloc_queue_split()
-is lost and turned into -ENOMEM. This is especially misleading if
-vring_alloc_queue_split() rejects a queue size with -EINVAL (i.e. if
-queue size is not a power of two):
+A SCHED_DEADLINE task that is throttled, switched to another policy and
+switched back before its 0-lag time can be left throttled with nothing
+to replenish it: runnable, queued as far as the core is concerned, but
+on no dl_rq and with no timer pending. It never runs again, and a fatal
+signal cannot make it run; only another switch out of SCHED_DEADLINE
+requeues it.
 
-  virtio_blk virtio0: Bad virtqueue length 100
-  virtio_blk virtio0: probe with driver virtio_blk failed with error -12
+ 1. the task exhausts its runtime: dl_throttled is set, and the
+    replenishment timer armed for the start of its next period;
+ 2. sched_setscheduler() switches it to SCHED_OTHER: switched_from_dl()
+    calls task_non_contending(), which arms the inactive timer for the
+    0-lag time; the parameters are kept until then, so that leaving and
+    reentering SCHED_DEADLINE gains no bandwidth;
+ 3. the replenishment timer fires: dl_task_timer() finds a task that is
+    not a deadline task and returns, dl_throttled still set;
+ 4. sched_setattr() switches it back before the 0-lag time:
+    switched_to_dl() cancels the inactive timer, and enqueue_dl_entity()
+    leaves a throttled task to its replenishment timer, which has fired
+    already.
 
-So the error points whoever debugs it at an allocation failure that
-never happened.
+The window between the deadline and the 0-lag time is the overrun
+scaled by period/runtime: about 100us for an overrun of 20us at 20%
+bandwidth. The replenishment timer cleared the parameters, dl_throttled
+included, of a task it found out of SCHED_DEADLINE until
+commit 209a0cbda7a0 ("sched/deadline: Improve the tracking of active
+utilization") moved that reset to the inactive timer, at the 0-lag
+time.
 
-Return an ERR_PTR() instead: the error from vring_alloc_queue_split()
-or vring_alloc_queue_packed(), or -ENOMEM when allocating the
-virtqueue itself fails. Make the callers, virtio_pci (modern and
-legacy), virtio_mmio, virtio_vdpa, virtio_ccw and virtio_uml, check
-with IS_ERR() and pass the error on. The error path in virtio_ccw
-deletes a non-NULL vq, so clear vq there before taking it.
+Give the task the replenishment the timer owes it, as the timer already
+does for one that is throttled and not queued: the overrun comes off the
+periods that follow, the deadline moves past it, and dl_throttled and
+dl_yielded are cleared. A return before the 0-lag time then finds an
+entity it can run on, and a return after it finds the parameters reset
+by the inactive timer, as before.
 
-Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Signed-off-by: Stjepan Poljak <stjepan.poljak@gmail.com>
+Clearing dl_throttled alone would leave the overrun in the runtime, for
+the new period of the enqueue to forgive, the deadline behind, for
+dl_check_constrained_dl() to throttle the task on again, and a yield of
+that period set, for update_curr_dl_se() to throttle it at once. The
+first version of this patch did, and the Sashiko AI review of the first
+posting of this series pointed the three out.
+
+The selftest added two patches later fails its throttled_round_trip
+case 8 times out of 8, on v7.3 as on v7.4-rc1, and passes it 8 times
+out of 8 with this change.
+It was found by a cgroup selftest under development,
+test_concurrency_deadline, which hung about once in 1350 runs.
+
+Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
-Tested on x86_64 with a virtio-mmio virtio-blk device offering a
-100-entry queue: the probe now fails with -22 instead of -12, and a
-128-entry queue probes as before. The other transports are only
-compile-tested (x86_64, ARCH=um, s390 with clang, W=1).
+ kernel/sched/deadline.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-No Fixes: tag, since the error has been -ENOMEM since 2010 and nothing
-regressed.
-
-This conflicts trivially with patch 07/12 of Alexander Graf's "virtio:
-support devices that own their virtqueue memory" v2:
-https://lore.kernel.org/virtualization/20260818211425.91009-1-graf@amazon.com/
----
- arch/um/drivers/virtio_uml.c       |  4 ++--
- drivers/s390/virtio/virtio_ccw.c   |  5 +++--
- drivers/virtio/virtio_mmio.c       |  4 ++--
- drivers/virtio/virtio_pci_legacy.c |  4 ++--
- drivers/virtio/virtio_pci_modern.c |  4 ++--
- drivers/virtio/virtio_ring.c       | 12 +++++++-----
- drivers/virtio/virtio_vdpa.c       |  4 ++--
- include/linux/virtio_ring.h        |  6 +++++-
- 8 files changed, 25 insertions(+), 18 deletions(-)
-
-diff --git a/arch/um/drivers/virtio_uml.c b/arch/um/drivers/virtio_uml.c
-index 881c34098a74..8b645523277f 100644
---- a/arch/um/drivers/virtio_uml.c
-+++ b/arch/um/drivers/virtio_uml.c
-@@ -984,8 +984,8 @@ static struct virtqueue *vu_setup_vq(struct virtio_device *vdev,
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 4650bed9cc3f..d376cb493a9f 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -1232,10 +1232,23 @@ static enum hrtimer_restart dl_task_timer(struct hrtimer *timer)
  
- 	vq = vring_create_virtqueue(index, num, PAGE_SIZE, vdev, true, true,
- 				    ctx, vu_notify, callback, info->name);
--	if (!vq) {
--		rc = -ENOMEM;
-+	if (IS_ERR(vq)) {
-+		rc = PTR_ERR(vq);
- 		goto error_create;
- 	}
- 	vq->priv = info;
-diff --git a/drivers/s390/virtio/virtio_ccw.c b/drivers/s390/virtio/virtio_ccw.c
-index 552d77998012..c5a30f0a2bc2 100644
---- a/drivers/s390/virtio/virtio_ccw.c
-+++ b/drivers/s390/virtio/virtio_ccw.c
-@@ -590,10 +590,11 @@ static struct virtqueue *virtio_ccw_setup_vq(struct virtio_device *vdev,
- 				    vdev, true, may_reduce, ctx,
- 				    notify, callback, name);
+ 	/*
+ 	 * The task might have changed its scheduling policy to something
+-	 * different than SCHED_DEADLINE (through switched_from_dl()).
++	 * different than SCHED_DEADLINE (through switched_from_dl()). It
++	 * keeps its parameters until its 0-lag time and may come back to
++	 * SCHED_DEADLINE before then, switched_to_dl() cancelling the
++	 * inactive timer: give it the replenishment this timer owes it, as
++	 * the !queued case below does, and leave the enqueue to its return.
++	 * A throttle left behind would never be lifted; an overrun left in
++	 * its runtime would be forgiven by the new period its enqueue
++	 * starts; and a yield left set would throttle it again at once.
+ 	 */
+-	if (!dl_task(p))
++	if (!dl_task(p)) {
++		if (dl_se->dl_throttled && !is_dl_boosted(dl_se)) {
++			sched_clock_tick();
++			update_rq_clock(rq);
++			replenish_dl_entity(dl_se);
++		}
+ 		goto unlock;
++	}
  
--	if (!vq) {
-+	if (IS_ERR(vq)) {
- 		/* For now, we fail if we can't get the requested size. */
- 		dev_warn(&vcdev->cdev->dev, "no vq\n");
--		err = -ENOMEM;
-+		err = PTR_ERR(vq);
-+		vq = NULL;
- 		goto out_err;
- 	}
- 
-diff --git a/drivers/virtio/virtio_mmio.c b/drivers/virtio/virtio_mmio.c
-index e2ec0ec01d67..c403a025006e 100644
---- a/drivers/virtio/virtio_mmio.c
-+++ b/drivers/virtio/virtio_mmio.c
-@@ -396,8 +396,8 @@ static struct virtqueue *vm_setup_vq(struct virtio_device *vdev, unsigned int in
- 	/* Create the vring */
- 	vq = vring_create_virtqueue(index, num, VIRTIO_MMIO_VRING_ALIGN, vdev,
- 				 true, true, ctx, notify, callback, name);
--	if (!vq) {
--		err = -ENOMEM;
-+	if (IS_ERR(vq)) {
-+		err = PTR_ERR(vq);
- 		goto error_new_virtqueue;
- 	}
- 
-diff --git a/drivers/virtio/virtio_pci_legacy.c b/drivers/virtio/virtio_pci_legacy.c
-index 8115aa39e01e..9d94fffff344 100644
---- a/drivers/virtio/virtio_pci_legacy.c
-+++ b/drivers/virtio/virtio_pci_legacy.c
-@@ -130,8 +130,8 @@ static struct virtqueue *setup_vq(struct virtio_pci_device *vp_dev,
- 				    VIRTIO_PCI_VRING_ALIGN, &vp_dev->vdev,
- 				    true, false, ctx,
- 				    vp_notify, callback, name);
--	if (!vq)
--		return ERR_PTR(-ENOMEM);
-+	if (IS_ERR(vq))
-+		return vq;
- 
- 	vq->num_max = num;
- 
-diff --git a/drivers/virtio/virtio_pci_modern.c b/drivers/virtio/virtio_pci_modern.c
-index 922e2df027de..28ccb2130e27 100644
---- a/drivers/virtio/virtio_pci_modern.c
-+++ b/drivers/virtio/virtio_pci_modern.c
-@@ -720,8 +720,8 @@ static struct virtqueue *setup_vq(struct virtio_pci_device *vp_dev,
- 				    SMP_CACHE_BYTES, &vp_dev->vdev,
- 				    true, true, ctx,
- 				    notify, callback, name);
--	if (!vq)
--		return ERR_PTR(-ENOMEM);
-+	if (IS_ERR(vq))
-+		return vq;
- 
- 	vq->num_max = num;
- 
-diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
-index f683a2d6a200..6dd4a7651bde 100644
---- a/drivers/virtio/virtio_ring.c
-+++ b/drivers/virtio/virtio_ring.c
-@@ -1421,13 +1421,13 @@ static struct virtqueue *vring_create_virtqueue_split(
- 	err = vring_alloc_queue_split(&vring_split, vdev, num, vring_align,
- 				      may_reduce_num, map);
- 	if (err)
--		return NULL;
-+		return ERR_PTR(err);
- 
- 	vq = __vring_new_virtqueue_split(index, &vring_split, vdev, weak_barriers,
- 				   context, notify, callback, name, map);
- 	if (!vq) {
- 		vring_free_split(&vring_split, vdev, map);
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	to_vvq(vq)->we_own_ring = true;
-@@ -2671,15 +2671,17 @@ static struct virtqueue *vring_create_virtqueue_packed(
- {
- 	struct vring_virtqueue_packed vring_packed = {};
- 	struct virtqueue *vq;
-+	int err;
- 
--	if (vring_alloc_queue_packed(&vring_packed, vdev, num, map))
--		return NULL;
-+	err = vring_alloc_queue_packed(&vring_packed, vdev, num, map);
-+	if (err)
-+		return ERR_PTR(err);
- 
- 	vq = __vring_new_virtqueue_packed(index, &vring_packed, vdev, weak_barriers,
- 					context, notify, callback, name, map);
- 	if (!vq) {
- 		vring_free_packed(&vring_packed, vdev, map);
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	to_vvq(vq)->we_own_ring = true;
-diff --git a/drivers/virtio/virtio_vdpa.c b/drivers/virtio/virtio_vdpa.c
-index f9559b6b2e0b..c1b6134b2267 100644
---- a/drivers/virtio/virtio_vdpa.c
-+++ b/drivers/virtio/virtio_vdpa.c
-@@ -208,8 +208,8 @@ virtio_vdpa_setup_vq(struct virtio_device *vdev, unsigned int index,
- 	vq = vring_create_virtqueue_map(index, max_num, align, vdev,
- 					true, may_reduce_num, ctx,
- 					notify, callback, name, map);
--	if (!vq) {
--		err = -ENOMEM;
-+	if (IS_ERR(vq)) {
-+		err = PTR_ERR(vq);
- 		goto error_new_virtqueue;
- 	}
- 
-diff --git a/include/linux/virtio_ring.h b/include/linux/virtio_ring.h
-index c97a12c1cda3..c808ca7e8d58 100644
---- a/include/linux/virtio_ring.h
-+++ b/include/linux/virtio_ring.h
-@@ -66,6 +66,9 @@ struct device;
-  * may_reduce_num is set, then this may allocate a smaller ring than
-  * expected.  The caller should query virtqueue_get_vring_size to learn
-  * the actual size of the ring.
-+ *
-+ * Returns the virtqueue or an ERR_PTR() on failure: -EINVAL if num is
-+ * not a valid ring size, -ENOMEM if the ring could not be allocated.
-  */
- struct virtqueue *vring_create_virtqueue(unsigned int index,
- 					 unsigned int num,
-@@ -80,7 +83,8 @@ struct virtqueue *vring_create_virtqueue(unsigned int index,
- 
- /*
-  * Creates a virtqueue and allocates the descriptor ring with per
-- * virtqueue mapping operations.
-+ * virtqueue mapping operations.  Returns the virtqueue or an ERR_PTR()
-+ * on failure, like vring_create_virtqueue().
-  */
- struct virtqueue *vring_create_virtqueue_map(unsigned int index,
- 					     unsigned int num,
-
-base-commit: 1a577f9402c1780cc1e663f48d5dd54c02051b09
+ 	/*
+ 	 * The task might have been boosted by someone else and might be in the
 -- 
-2.53.0
+2.47.3
 
