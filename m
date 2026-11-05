@@ -1,63 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877706;
-	b=lJ975fGEbJHQCQ0+Ad4o/asix81C/0Wji4fAP95rTaFF8GmAtiiuE++i3g3slZ4PABg+
-	 A3yalkp45JX+Q3KBWg1ZsJBxF5SDr12rElZ/ILY7G/x4uqRXAaoi8gIyIYpvmZMwLq6JB
-	 JnaO9v4CRXM3neZ+/4sJPy/Ua0R1Dih+BvC4cajI1lzKGN0QnB0bBy8/BaZhDf0RwBFJw
-	 apTFJe2nawfw/CK6xJFiJgQCjq+VmlEvI77tLo6jdhCyECqC4nhD9JtAXUeGEGli810R9
-	 /sKEqUF4ll74sor+Z4be1N5y9l5iuMQlzem3S0zlWsIDCAs1yfmSb0hA3zm7MGHmGzw==
+	t=1793877741;
+	b=sKqGxrhzFXQ+pHxwY4Uj0eM/Sr0Vwm3x4xXL9mWGvuTglPWUhuUL2lss8KvoNVyvBEWM
+	 DD9nKOZldWJ2/GOGM6kx/lHQrpmj3twYi6g11VY3HdQ/xNjcX2XEIEH8XEfbIZ7QGr6EH
+	 R1WsoZEfTaUqt2qhjrSgguF1IpFiMo2z039duE1QfUjPwmlXc9yLtvUpcB+66Ic9j6A/H
+	 whDbTp3z6z4eTDk+nQB6stmwpqbKdLku8ZqAI9hvSC8NdVN6OROrAB+cqwGsXaIKFMKLa
+	 6bKqbgxXZJeF9rneXfFj0SrCEPKbVmZaE8nzeCr1ITIT+qTvGDIgIePfrRuxGF9IXXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877741;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MHdqHAA/2dqHJJZoi1LltUcmTq5osveA5RSMvjFd9mQ=;
-	b=Mbb9vvle4GgiYkqho3q4jRvT7JCQrp7lWMrhxdTM/j8FRXOCYFZmjqAdx3/aE2RN22SA
-	 Jtqx1vsRQfIMDqZwN5iNpIkqSPiMHfIvsHelgLG4EN/DmG1got7Y2PkTr/IWVBKTQSTJl
-	 Va9GTHniCkl0hppE5OoYO91qicgTk+skbMaOgRLT3nv5f777rB7L1tn4NIDnBcXa6jRoL
-	 q5u5KL5wdho2OFqcfYY5ZvcRla8Vu7cZ3s+aL23yBs25wyWqK3Zv77WNUo97KJtLnHXCi
-	 NKgBqUzMZFcXexLZ7Lyts1qnwrIHLZVnpB5B5abcsgZTOL9NPHlh8ZXformzQ0c43hQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=zOws4qSg9XUwRk1s0vgXvIriiAie79NPEGixZkbOkAg=;
+	b=HzICuCctIPcUb5baOXGYoEs0ihIqW5qW1KovNDwVO9ciz81kXzNKtp2aKWYpFrtM/YWW
+	 z19C5Aq4+aZ/03kG6Dwz1nsJl11cJodPKWVooWvqjH14EEMlUMRLPER8K8AYA41fpLY9j
+	 vqvvaezmYgBHP580uGiitUQN1PLgKQaO9WuHT3BNR0BUqVGsYfTkJYyKevasOeMOdOm2s
+	 DcuuJTEE/gY/Mv9daGrg3KGQ02Bl81D8bDINnaQZrBsPuwD9VI7rF4I3Fc3ItK9LenGnR
+	 vmOhmatKsxnQDVpkbxY2WACWRBaBK/tP1VvJsxRZTXegh138Ah60SbhlFxPvLYDvpQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSfMXnBZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hx1WKsYF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98521606A31B;
-	Thu,  5 Nov 2026 11:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1AC606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:22:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSfMXnBZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AED81F000C1;
-	Thu,  5 Nov 2026 11:21:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hx1WKsYF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028ED1F000C1;
+	Thu,  5 Nov 2026 11:22:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793877706;
-	bh=MHdqHAA/2dqHJJZoi1LltUcmTq5osveA5RSMvjFd9mQ=;
+	s=k20260515; t=1793877741;
+	bh=zOws4qSg9XUwRk1s0vgXvIriiAie79NPEGixZkbOkAg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DSfMXnBZN6Z/mUHNWRm07w3iIh9jIOOmyNwdh7U2xlDX+dxtSg7Sh4IY4u5bMiOEU
-	 5YoSuShqYC/UqrdrgHY3r77kJIlx38ZhFWBjPFxZCdPyY7xzwN9OckNGv+BicYTGUh
-	 lkzxC41HtPbpUyGkLjf0yXpD7ObWI9V2USOSRsFfA3bOJ63XCiePk5tnGC83cjF+3h
-	 9cZa2va5GUTkcONiExKfUHdC5JyKuFkLEotkaukgGmhhZ/lWNJ8l3LK/W1hYZMYnbs
-	 4WNbbVzHCyn941YKKZsuQWbCeXzwOs5odV64Lum/Z5IAIlbe1aYZpzQMhPpxy0CC3x
-	 IrJLhhcxto5sg==
-Date: Thu, 5 Nov 2026 11:21:40 +0000
-From: Lee Jones <lee@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>,
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-	Florian Krischer <florian.krischer@fkr.dev>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org, mfd@lists.linux.dev,
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v13 0/7] mfd: Add support for Asus Transformer embedded
- controller
-Message-ID: <20261105112140.GI1650678@google.com>
-References: <20261104122606.215629-1-clamor95@gmail.com>
- <179387759097.2453405.11589718445889906023.b4-ty@b4>
+	b=hx1WKsYFQ6zeI85ZedyozrhBEmt61yIzl3cwCzckcW9/y1tJhrBw5gMH3bz1YVtjd
+	 Tga9LQTgh3psZmMN0WHuS7ogf+TkZHA06hJt973/3nhzcDAENqwgIypYtLdyFTFGFo
+	 NSsQA/7Lo3HFvM4jQJsJnGrtJRoN3G6e8OCNwiUCdpYCiDMgesmgMZjPNdFDEDT3kZ
+	 9VecZ6/evSgdx18yTNYcQJlrEuhMH4TRJlZ0CGQ33K6C68dT0mklSCCURGNMwL89M1
+	 IE6wKhrct2f9afILPi3MUtK2F+GtjBE8bMEy68RB9+GifkcmSTPnPhIESPkDROc8DC
+	 UyWSX1EGp6RWA==
+Date: Thu, 5 Nov 2026 12:22:15 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: Juri Lelli <juri.lelli@redhat.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Luca Abeni <luca.abeni@santannapisa.it>,
+	linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>,
+	Weiheng Qiu <weihengqiuu@gmail.com>
+Subject: Re: [PATCH 1/4] sched/deadline: Fix stale root domain in cpuset
+ bandwidth transfer
+Message-ID: <auxm5whgKM-uiSGe@gmail.com>
+References: <20261103-b4-sched-dl-bw-fixes-v1-0-dd761fe005b4@redhat.com>
+ <20261103-b4-sched-dl-bw-fixes-v1-1-dd761fe005b4@redhat.com>
+ <CGME20261105102052eucas1p2fa2d23d1c49cdadef3b1099e18ffb958@eucas1p2.samsung.com>
+ <eb0e386b-da07-4a2b-bff3-79441fd6be1f@samsung.com>
+ <auxcsYGC7Fqa44LM@jlelli-thinkpadt14gen4.remote.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,36 +72,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <179387759097.2453405.11589718445889906023.b4-ty@b4>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <auxcsYGC7Fqa44LM@jlelli-thinkpadt14gen4.remote.csb>
 
-On Thu, 05 Nov 2026, Lee Jones wrote:
 
-> On Wed, 04 Nov 2026 14:25:59 +0200, Svyatoslav Ryhel wrote:
-> > Add support for embedded controller used in Asus Transformers for
-> > managing power and input functions.
+* Juri Lelli <juri.lelli@redhat.com> wrote:
+
+> Hello,
 > 
-> Applied, thanks!
+> On 05/11/26 11:20, Marek Szyprowski wrote:
+> > On 03.11.2026 12:26, Juri Lelli wrote:
+> > > dl_task_needs_bw_move() and set_cpus_allowed_dl() use task_rq(p)->rd
+> > > to determine a task's current root domain. For a sleeping task, this
+> > > is stale: it points to the rq of the CPU the task last ran on, which
+> > > may belong to a different root domain after a cpuset move.
+> > >
+> > > This causes incorrect bandwidth accounting when a sleeping DL task is
+> > > moved between exclusive cpuset partitions and back:
+> > >
+> > >   1. Move root->partition: task_rq(p)->rd = root, destination in
+> > >      partition -> different -> bandwidth transferred correctly.
+> > >   2. Move partition->root: task_rq(p)->rd is still root (task never
+> > >      ran) -> looks like same domain -> no transfer. Partition keeps
+> > >      stale bandwidth, root domain is short.
+> > >
+> > > The root domain then over-admits, and when the task exits total_bw
+> > > underflows.
+> > >
+> > > Introduce dl_task_root_domain_cpu() helper that uses the task's
+> > > cpus_mask (which still reflects the old/source cpuset at call time)
+> > > to find the root domain where the bandwidth is actually accounted,
+> > > instead of relying on the potentially stale task_rq(p)->rd.
+> > >
+> > > Use cpus_mask rather than cpus_ptr, as the latter may be temporarily
+> > > narrowed to a single CPU by migrate_disable().
+> > >
+> > > Reported-by: Weiheng Qiu <weihengqiuu@gmail.com>
+> > > Closes: https://lore.kernel.org/all/14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com/
+> > > Signed-off-by: Juri Lelli <juri.lelli@redhat.com>
+> > This patch landed recently in linux-next as commit b4a61fdc19c5
+> > ("sched/deadline: Fix stale root domain in cpuset bandwidth transfer").
+> > I found that it triggers kernel BUG during CPU hot-plug tests on some
+> > of my tests boards. Reverting it on top of next-20261104 (together with
+> > dependent 41a7968022ca3) fixes the issue.
 > 
-> [1/7] dt-bindings: embedded-controller: document ASUS Transformer EC
->       commit: 2880926d48fe884042a1b7b64b431f9ee9531806
-> [2/7] mfd: Add driver for ASUS Transformer embedded controller
->       commit: ccb21236e307ff60ce6b96d2f9925abf0274ce8e
-> [3/7] input: serio: Add driver for ASUS Transformer dock keyboard and touchpad
->       commit: 3fefdd9a8931eb3b8cade87193c81293256031f0
-> [4/7] input: keyboard: Add driver for ASUS Transformer dock multimedia keys
->       commit: 4ace8a63a1612f8142cfdf5d6d4b8e1be37cce3b
-> [5/7] leds: Add driver for ASUS Transformer LEDs
->       commit: 04819cdb3912f31586516ef6fc007daa3d976234
-> [6/7] power: supply: Add driver for ASUS Transformer battery
->       commit: cd72536270e725b4f1d56df6287c4c34efe953a8
-> [7/7] power: supply: Add charger driver for Asus Transformers
->       commit: db6674a08304d03a194f5e09b7543323462b3516
+> Others have found issues with the set and we have been working on fixes.
+> 
+> Can you please check if the following addresses it
+> 
+> https://lore.kernel.org/lkml/20261104211207.1392343-1-mathieu.desnoyers@efficios.com/
 
-Now in soak.  If successful, I'll follow-up with a PR shortly.
+So given that the first patch triggers a crash, I've removed
+these fixes from sched/urgent for the time being, waiting
+for an updated series.
 
-Note to self: ib-mfd-input-leds-power-7.5
+Mind sending a series that is strictly -stable suitable fixes only?
 
--- 
-Lee Jones
+Thanks,
+
+	Ingo
+
