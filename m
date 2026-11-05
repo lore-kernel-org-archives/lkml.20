@@ -1,74 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793911778;
-	b=dhGTEQoHlK7AUCuHsQNcSDECv/HQePtHYl3AA+MlN8nN4BuMdOZ5J7My+RGsBtWrPSZO
-	 jN7nFfdzn+Bs4EwFKCk+k0Jz8kXzYI8j3nXJ6z+5quXXBPDE0657saA7QAv0j7LONeKfi
-	 1+zBS9ACDq2cCkhC4FaFdqTCbZqtDiNtmDX69BGKstv4TnfUSnrKED31q+BrsNeN3RW/3
-	 cGBHSwJ2UXL8EmGNDL3445NN9Vg7RQC5pG7H40l6LqLD6oT2BpSK4lntwQ2D7lvQf95PT
-	 5DHAB9bGv/En9yFeSAC53X0V3fIUVWLfKQSfHOmqTgWfl5Pihelc6cgra5QPMN3A/aQ==
+	t=1793911819;
+	b=Qm01BNQfZoXPA8VTmjt+mtv4N7qXP/yEHqIhFBDvpXyumwQb0KdfOU1x4egk3W/XXSDq
+	 YJrQYWVvhgpFqkK+wqbPeKSMqDkHvVZ9wAeP1U6lTWVciekrGIavDjvNL6ltrHHanmkBv
+	 EyDmOsghsdfbL7HxpZxU0ZnCoFZ8uAWEqPLH4MMI9xnz3FYURutE/eVJZs+QX7axyZnFc
+	 iNaiVtN0/sTpKA0l5o2KIUltTjk5kDN9D0Tp7gu6suLlrmt+XPsi7MU9FLJl7sHS6cM6P
+	 cdMrZClvKZ62q8Vu49aR3D9I5FS22KKVUBDnSj5LLgTt2jugE7elFLJQTVSA2a18BOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911778;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=tAx7/usNPVJ7CoJVtZ280YQTJvtxvHPmbZ0zROmpUTY=;
-	b=J/YaU3QhXL4TvsP5ZHN+lQfJvtW//NUaCxdMWspBdYI9WBPedWgcBFmAm84HVlPKIwyd
-	 VTfYX4WreaaYGeH+k8+03pKhTNWVS/3qGp9RioxPs7L1DQhxkNzigae6Hjo1wq8j2nPib
-	 pEvcmC2NA3lgXp7EYIuo8olhPvhZCwpWduUC3prKQ8fVx1AT7DZrBWJwdb+WUkAyd1aK3
-	 kc4MZN9E9StLxzuM6QPgF1+x0/MpG5fcPEAB4SIs97plluAmiTj4gsikd/ndmL51Tir+M
-	 X6LmEBgQHha5vgVOFwtVHIWNBAKpYzjjsIJ0NNCPaS2b02S53jacFNdp1nWnFi1ikFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911819;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-MBO-RS-ID:X-MBO-RS-META;
+	bh=iTnrAs7uLFcz1KJZktolxPVjQbg895xPmxpLJwZwM2I=;
+	b=djXaPbrfIZxwaAKS+g63Wy64x5RYS3luXFptoyvjKzluW+J1ZFD8zkysgYi2hWCigDBk
+	 WBLd1Ty0eOjren7yWN5poGz//uvmwXSP9Wjnuy2Vw2/PrbYHd5PC4z9idpnn2BLk93k6T
+	 6bz6ihVLyqF/gmBV/vk+2QKleo5F688uZ3bBoxs5x0M/ZfUqUAmiM1X2+W2BlRDbWtVjM
+	 04Z/0oZKl5vq8jGbBa3QyrfXySiZ7g8SXV9Fr8rFO6d7RABD9Bd+9HUA/pEdaYVjYIDlG
+	 w2N59MmRH96Q5vfmUB1CbbTxf2CStP++TTCaV5pezZHuw/e9hQKpANrvVv5WcqBW0wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dxBFD7eg;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=eIx1ZbVm;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD97D606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD97D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF82E606A31B;
+	Thu,  5 Nov 2026 20:50:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF82E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dxBFD7eg
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0522cdaf3so1965882b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:49:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793911777; x=1794516577; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tAx7/usNPVJ7CoJVtZ280YQTJvtxvHPmbZ0zROmpUTY=;
-        b=dxBFD7egkald1diEtbXOBXzH+9cQFK2KeCaFgwFJNeVqQ39GNskIoMvqgylgnntMH9
-         o6cgkIhz7VeqRWc76fFeuaZBrUrsO0KbXGQDOo8UnmsNxd5DuGBZMTkVsx2LFZXyCFih
-         xLmHM8Mx07KTStSbatLB7JBcE69i+TN4sfwyGum4R7QrkX6GMQsP7QDdZp7bkXe4WTSN
-         kjH+OioEJh4aowCsawhV76CFmgsNb84NAEAQfXPTtwRjk+/N+4OfpAi+RPh6ypf7I9Ji
-         LwRr227XUyaN5rK5df3trhjeaIYVx8XGIDVL5DDAgaeqxIBb9EXYuq3EuqROZW7d5HLq
-         L0wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793911777; x=1794516577;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tAx7/usNPVJ7CoJVtZ280YQTJvtxvHPmbZ0zROmpUTY=;
-        b=Jjh0frL4Dk0U4Y2jhIRb24iCfjWaI13smfXy3S2PRB9FbGGEU4s0L+IKSjhiCEiAI5
-         7a3bK5Gh5HXcIqxQnDmQDme9dT3gJ0sCMnMSKa0eKx2zS2aQdtbvfRsuu38YscsftHxA
-         mY6ozHWvfuyYy2aeVeVb0cSCbIHaJvSm/eGUufr43wyjOX15VGi+9ouPAcYqSiFlzIlL
-         PrbjLbXtyMfv/bW9MPXvKV8nDOYd0EbzOY9sT9TJzwGUPw4iNHxxRNErYMufg6AxbaSO
-         d9k5JXuaGpdP9Nlzwq6DgoqmTfoU9iX8XOYzva4YUK6SGp9v14yMTV5JeG/yOudIk4Du
-         hW0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx2jCdO9IIOFqCIkSVAXKIHzA9LRgfVtViF0O2OZKtGFYVLDrSUeX3EJWMB3zEEqX9eTA5s6Odo13se4h0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GuQ4WeI77yCmb6zQ80waRIpKu8l7vRgjUvIGu147KOgrUUY1N
-	120YOLr0JTVEzU6d2GvOTU1ZoX8xMvJKWxfT1ZtPZPugUndgYn9wVm2nMOhu024kxWOh3GhaH5W
-	MsvQSXQ==
-X-Received: from pfbkr9.prod.google.com ([2002:a05:6a00:4b49:b0:8a0:70d8:a2ef])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4f95:b0:89e:89f5:18eb
- with SMTP id d2e1a72fcca58-8b37aaa87f1mr220362b3a.15.1793911776710; Thu, 05
- Nov 2026 12:49:36 -0800 (PST)
-Date: Thu, 5 Nov 2026 20:49:36 +0000
-In-Reply-To: <20261102-halaney-scm-creds-thread-v1-1-0b4d75dbf35f@amutable.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=eIx1ZbVm
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jLDw64RNDzKn9r;
+	Thu, 05 Nov 2026 21:50:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793911814;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=iTnrAs7uLFcz1KJZktolxPVjQbg895xPmxpLJwZwM2I=;
+	b=eIx1ZbVmLLRujDapJD5UYMpy0azXIytr12lFictJcy862c+v4Ri6dmrow41/4F/0mlquaX
+	tIGR78E/jyR4MmM0j6sM9aAYnzqGX1J0V5Ijns5djOiZ92ypbqx5PcUh33qDtE8D6R5QnO
+	hmkMaStCFLg/5fkKVEel7ksM3Q/jGoF5RcZwv0PvKXBSat2E4le95gXniemXpkLIGunXdS
+	bUjb+sHd8+1YccIq+NWIz5lgxNN7Mrji2nD5EQJgp5cEN2PwSCBUGL5hOc5O3XRNutlPDd
+	15yBsC23jpIft/kwYt9hyzykzbp0yD1WKQxUHsLuVEDIIPeiAePpduBIIpEoeA==
+From: Markus Rathgeb <maggu2810@mailbox.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeffery Miller <jefferymiller@google.com>,
+	Markus Rathgeb <maggu2810@mailbox.org>
+Subject: [PATCH] Input: rmi_smbus - retry reading the SMBus version on -ENXIO
+Date: Thu,  5 Nov 2026 21:49:53 +0100
+Message-ID: <20261105204953.69572-1-maggu2810@mailbox.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,33 +68,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261102-halaney-scm-creds-thread-v1-0-0b4d75dbf35f@amutable.com> <20261102-halaney-scm-creds-thread-v1-1-0b4d75dbf35f@amutable.com>
-Message-ID: <auzr1F0HNh1mazaS@google.com>
-Subject: Re: [PATCH net-next 1/3] selftests/net: pass socket options to the
- scm_pidfd test flows
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Andrew Halaney <andrew@amutable.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Christian Brauner <brauner@kernel.org>, 
-	Richard Henderson <richard.henderson@linaro.org>, Matt Turner <mattst88@gmail.com>, 
-	Magnus Lindholm <linmag7@gmail.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Andreas Larsson <andreas@gaisler.com>, Willem de Bruijn <willemb@google.com>, Arnd Bergmann <arnd@arndb.de>, 
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-arch@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: f5d073e60f8487ea940
+X-MBO-RS-META: pezxg7i4bnhf9ynz85ssi3pd9wae97k3
 
-On Mon, 02 Nov 2026 17:12:34 -0600, Andrew Halaney wrote:
-> pidfd_flow() and leader_flow() take booleans that pick between
-> SO_PASSPIDFD and SO_PASSPIDFD_THREAD. Make them take a zero-terminated
-> list of socket options for the receiver to enable instead, so tests for
-> further SO_PASS* options can reuse the same flows rather than copying
-> them just to muck with options.
-> 
-> Signed-off-by: Andrew Halaney <andrew@amutable.com>
+On a Dell Precision M3800 (Synaptics touchpad, PNP DLL060d, InterTouch on
+i801 SMBus) the touchpad intermittently stays dead after resume from S3:
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+  rmi4_smbus 8-002c: failed to get SMBus version number!
+  rmi4_physical rmi4-00: rmi_driver_reset_handler: Failed to read current IRQ mask.
+  rmi4_f01 rmi4-00.fn01: Failed to restore normal operation: -6.
+  rmi4_f01 rmi4-00.fn01: Resume failed with code -6.
+  rmi4_physical rmi4-00: Failed to suspend functions: -6
+  rmi4_smbus 8-002c: Failed to resume device: -6
+
+This is not a recent regression. The system journal of this machine
+(available since May 2024) shows it on every kernel series from v6.9 up to
+v7.2, in about 18 of 377 S3 resumes (~5 %).
+
+The resume ordering is correct: the PS/2 port is resumed first due to the
+device link added by commit 7b1f781f2d24 ("Input: psmouse - set up
+dependency between PS/2 and SMBus companions"), psmouse_deactivate()
+succeeds, and rmi_smb_enable_smbus_mode() waits the 30 ms reset delay
+added by commit 5030b2fe6aab ("Input: synaptics-rmi4 - handle reset delay
+when using SMBus trsnsport"). Still, the device sometimes does not ACK the
+version read yet. The error is not retried and rmi_smb_resume() ignores
+it, so the touchpad remains unusable until the driver is re-bound.
+
+Re-binding the driver (unbind/bind of the I2C client, no PS/2 command
+involved) succeeds, and reading register 0xfd with i2cget before the
+re-bind already returns a valid version. So the device does switch to
+SMBus mode on its own, it just sometimes needs more than 30 ms.
+
+Instead of increasing the fixed delay for all devices, retry the version
+read on -ENXIO up to 10 times with 20 ms in between.
+
+With this change, in 56 S3 cycles one resume needed a single retry (the
+device answered after 30-50 ms) and none failed.
+
+Link: https://lore.kernel.org/all/20230726025256.81174-1-jefferymiller@google.com/
+Signed-off-by: Markus Rathgeb <maggu2810@mailbox.org>
+---
+ drivers/input/rmi4/rmi_smbus.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/input/rmi4/rmi_smbus.c b/drivers/input/rmi4/rmi_smbus.c
+index 8b61c2382297..93ecd6e14dee 100644
+--- a/drivers/input/rmi4/rmi_smbus.c
++++ b/drivers/input/rmi4/rmi_smbus.c
+@@ -22,6 +22,15 @@
+ #define RMI_SMB2_MAP_SIZE		8 /* 8 entry of 4 bytes each */
+ #define RMI_SMB2_MAP_FLAGS_WE		0x01
+ 
++/*
++ * After the PS/2 side (psmouse) has switched the device into SMBus mode it
++ * may take a while until the device ACKs on SMBus. On some devices (e.g. Dell
++ * Precision M3800) this sometimes takes longer than the reset delay after
++ * resume from S3, so retry the first access for a bounded amount of time.
++ */
++#define RMI_SMB_VERSION_RETRIES		10
++#define RMI_SMB_VERSION_RETRY_MS	20
++
+ struct mapping_table_entry {
+ 	__le16 rmiaddr;
+ 	u8 readcount;
+@@ -43,14 +52,27 @@ static int rmi_smb_get_version(struct rmi_smb_xport *rmi_smb)
+ {
+ 	struct i2c_client *client = rmi_smb->client;
+ 	int retval;
++	int i;
+ 
+ 	/* Check if for SMBus new version device by reading version byte. */
+-	retval = i2c_smbus_read_byte_data(client, SMB_PROTOCOL_VERSION_ADDRESS);
++	for (i = 0; ; i++) {
++		retval = i2c_smbus_read_byte_data(client,
++						  SMB_PROTOCOL_VERSION_ADDRESS);
++		if (retval != -ENXIO || i == RMI_SMB_VERSION_RETRIES)
++			break;
++		msleep(RMI_SMB_VERSION_RETRY_MS);
++	}
++
+ 	if (retval < 0) {
+ 		dev_err(&client->dev, "failed to get SMBus version number!\n");
+ 		return retval;
+ 	}
+ 
++	if (i)
++		dev_info(&client->dev,
++			 "got SMBus version after %d retries (%d ms)\n",
++			 i, i * RMI_SMB_VERSION_RETRY_MS);
++
+ 	return retval + 1;
+ }
+ 
+-- 
+2.56.0
+
