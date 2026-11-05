@@ -1,84 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862043;
-	b=nXfb00oM2gSXi9nzP/iMEzKzs2puUHH26zdGBPcK0JqbxUPi8rqXEy86Kh75U0qBuUy4
-	 QWtODojRdAMEAz8UTLIIzalQTH79jhm1jsEnsHvd/paX5D3jiW1Bv4ynDAexB1A0pcnDC
-	 KTSLQ/64sRubqJ9hdCwdkpMM67KlSPhdlfps83lSZlkaTrM4sutqTFJ8aLTUo+QpbDTrh
-	 pvpA3D26mgm7xY9WxPWDqHQCrW8p7ChY1K6os0xbERL2b+bRlEKZuAu9e/2r1sPu6iG11
-	 QC0UiQPkJyui12Cx6FkUvNudyVLPgjDNfsBKEi00o6sifCegvTsj+hPrzJp8peJ0PeA==
+	t=1793862048;
+	b=4pzyhG/s/jAXJb5qDBD/HIFBSZIVnsKUVXIyw9b8wuLM7ikxeOtB3wOUL5VooPS1xCdb
+	 lpkXxF5QJycR+TLLKkp7Xg9xgk4K6/hwL9tdrrjI7nakDYoha0JTZGVPdK+LtXCH1UMmt
+	 47FUXYslAZRBZAKHGg56mbTFqRD5shUtU8tYb5aNK4vDlYR9z2WImF9/xWFcBuLGuQsA7
+	 gIgXYDraBLuD5yetzKHfN+zteUbMcmi0NaZoM0Bs0GMXiZwYiZQvCninlJp0O3NLqH8A6
+	 +BGyUxnKF2lYnNfiVlMFGaVfmTVyzDYTXQ9Ik9Df5ZQqzHqIXwu6C04QYwb40DoEXsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862043;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xg8nXZtLp4oyb17OmIrfnuQowTn1P59jW3Dg4lobw/A=;
-	b=uR9fDZcxJp2552Kd2WFxRNtmwFMZ4m2xsZUq5fsp5jrwmNdNXAy9FyZLe5YAkKMEEAb/
-	 n2d1VI3j4LrnlU9y0tP/1zFq6ShLIH5e1omfoWo5zI4j7kdXXhKxUZ3qUiGBjyeWuQI7X
-	 owaqJMAOKvjRKfCC6fpqUqNVwSsgnYDKLf6/KV4Qv1iJsBhYHEhsU/aAAQEVqqtAmwGVh
-	 Zk0rciNR5zljNVgTbaUUpO2hSiH4kinVa2GWjFNPGHx3eOZ5J7BTlAn0DM521iVQLcX/6
-	 Z8I9vqQojdOSh9Bbjz2lE8Eu+y6OdNRdsDJqrTVaNMO2wYzUPlGc2RJpC8IEYD6Sgeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862048;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=MXIuh878KbS0qTfh1/i+lplkSClQwh04M6y9YYPiFcg=;
+	b=TMPpA+s5oFXhGCi+42SdivYrv+dg6fdZaPHRCfBCZj5l9BFEuHuQv2gDhTMB1/w6lsHf
+	 fj8e+ASyHdNFL1q6pEiODe05/5TAkWAxRRtU0YdDXcnKdbw+0WnLaiV4xCV3I+Cu4xxHT
+	 rPYfHLLUmm4OB9Wkoc1KCm/84cuLFelZqJm6M5j+UUIcypnadmo7Ywu5D6/oFcWpIWQEB
+	 hBC4nmcu4806VyS+YSDxUdMUbDdKaNPzPKmKeuMWelWR176kqi0lhBtvXQDFCdX7aYupM
+	 hM/DtHdMCgKfjPqksi7aLIye++svLqutywZp7xNIGa34mrCUkUv6x72POiaqAjXVZpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h23ZjTS+;
-	arc=none smtp.remote-ip=95.215.58.74
-Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="a772/hZy";
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85044606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85044606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18F0606A326;
+	Thu,  5 Nov 2026 07:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A18F0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h23ZjTS+
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wHNd6ESNgC5Ksw+CY79MAj+VAYD20bCYtUJOCQAgBeE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793862040; v=1; x=1794466840;
- b=h23ZjTS+sMfw/fSgET1a6EQQOq62+rKCyha5hbKDRHDq9JIDxlBEevp1LSefq3/YdiHFrwyZ
- xR7a54BddqN0taszXNsAuD0BDkoo48tsAlVr4BE2X3S6dKo62SRd4OC8n6kOn3foSXesFKwRw4H
- UwWJTUEoqiJBMHYdZJsTkre4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7a0aea14e9d952c6;
-	Thu, 05 Nov 2026 07:00:36 +0000
-X-Mizu-Trace-ID: 7a0aea14e9d952c6
-X-Migadu-Flow: FLOW_OUT
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	tytso@mit.edu,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	asml.silence@gmail.com,
-	hch@lst.de,
-	Anuj Gupta <anuj1072538@gmail.com>
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-ext4@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-mm@kvack.org,
-	Li Wang <liwang@kylinos.cn>
-Subject: [RFC 6/6] ext4: support dma-buf registered buffers for direct I/O
-Date: Thu,  5 Nov 2026 14:58:47 +0800
-Message-ID: <20261105065847.196540-7-mengmeng.zhao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105065847.196540-1-mengmeng.zhao@linux.dev>
-References: <20261105065847.196540-1-mengmeng.zhao@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=a772/hZy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793862019;
+	bh=MXIuh878KbS0qTfh1/i+lplkSClQwh04M6y9YYPiFcg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=a772/hZyqLmLqKXm/Qu3OK7mgnnR/OKG+hM7qfEnAu+Jb4zyM4lmTzEBJmFcCkIfi
+	 pqdnco1rIKWRX8fRRBxgxydrXqmKc3l8vkfU8TBfyOyVpAf1vd/XhMCIxYhv+RYJcV
+	 MrRgjtCHOexoHg2/Jgrz9HbyNZ8jhK5LuIYGx19M=
+X-QQ-mid: zesmtpsz6t1793862018t2516ac74
+X-QQ-Originating-IP: MTeUKjwypxYcnyqmTJBobIe+FEl3TfB5eQ4OtFO434A=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 05 Nov 2026 15:00:15 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 3473592725829115131
+Message-ID: <41B3F89514935AAF+5c08fd7d-1cfb-428c-9ef8-035fa3910bd6@linux.spacemit.com>
+Date: Thu, 5 Nov 2026 15:00:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,100 +60,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 09/14] gtrace: Add RISC-V Trace ramsink driver
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ian Rogers <irogers@google.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>,
+ Andrew Jones <andrew.jones@oss.qualcomm.com>,
+ Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Anup Patel <anup.patel@oss.qualcomm.com>
+References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
+ <20261001052243.3042627-10-mayuresh.chitale@oss.qualcomm.com>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <20261001052243.3042627-10-mayuresh.chitale@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OBUGnm9pFasA0Y95VdBqDLkfHFQ+Hd+x2d4AB0Ev0Dp/a54JZmZ8PMr/
+	BHThQC2vFvNTKHF/Krs1Rnatbn3C4KHHMAc5EPY/NknNj8qMron5fuusRp/RL48r1aNzAWk
+	BHTqDINPRqFLCg1S1MrTzN4JaPA+SSQy6hobimWF7OOsrmHuly70R66qAHHX6Bajy7moiZC
+	RZF7H0HyP4NlcoGnxxquUCExuTph8F+0Dqxza2SWdtJgzQSrR1Y3urGlo5eavwyEpVspyX0
+	q0Vhc0+bzoekC5Dj526ssXfnthCuAdgxvLOWzn1aqoyfr0mzk5D6tqu3wGEnNCUjIYc8D9R
+	2/Ld2ia2zmjH1kFO4JDubXGZ+XoGGU19GorSkRIZffXE/5waa0KA3vaumWp6whpGXvNP+CF
+	mFFzODmpgTqRXaopI9xF0mc8OPn96Uch9GTSEptfyM9oYjaAf15kJETJTUIgRsqUsJnfwKA
+	IauJp9dNpxXKmclOhR50BJR3R4qOd2kRUIhBTBL5mG/9ZOX6uu0HTPXap5FG24HBuzrxAjd
+	Do8dUobdWh8RIhd4O8Dz38kNQYt8gN2GgPHnO5SOyLtYRvxoLsiJCV3QNdE2D2lsG/FSMtl
+	yTK8blQMKWHEKdvJIf1MeTm9znUJloqJAsLNIBwYAgVMsx/gPtNrEBALAcvp5hW0DNb+zEC
+	fVsASd16UPNzct//0Hou9ipBucVyXdoGjN+k/mSaf8mQoLar2frX3nE4seQAP281V+yNlXo
+	FlWMAbaEKZjLBhqFeWz7Mjb2/5eL6jEr1g6qLQQfu2iYiL5Ez+dwrLV09qyZDpTZL0E5Tmb
+	GDqSD4Mkyzr4jrUbl6MZz9R2FC0+TB5vHszC7qVzq3Vv0OrJG6jgwqrTBZ+1L9iAZnsw3qy
+	jfcZFNy8o6nPEdUzOdR7FBVyadkVrZPJyIVsQk7fRxS+HDOKtJIjdCZNyeCaZnFVlAS4Vom
+	2n/PPmHj+bn4m9pvAqMo6Fp6KUvPZGDatRXikjAbg/GPK2H39EmaT34U+AuQBpc58OAgObp
+	qIwun8jSwQ/vP/zNfJF4YzUY3SiuzU0/Wdfq/tsw==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
 
-Add the init_dma_buf_io_ctx fop for ext4 files.  The data of every
-regular file lives on the block device of the mount, so the buffer is
-registered for that device and an ext4 file cannot move to another disk
-after the registration.
+On 10/1/2026 1:22 PM, Mayuresh Chitale wrote:
+> +/* Helper to access start, limit, wp pair registers */
+> +static u64 rvtrace_ramsink_read_pair(struct gtrace_platform_data *pdata, u32 low_off)
+> +{
+> +	u32 low, high;
+> +
+> +	low = gtrace_read32(pdata, low_off);
+> +	high = gtrace_read32(pdata, low_off + 4);
+> +
+> +	return (u64)high << 32 | low;
+> +}
+> +
+> +static void rvtrace_ramsink_write_pair(struct gtrace_platform_data *pdata, u64 val, u32 low_off)
+> +{
+> +	gtrace_write32(pdata, lower_32_bits(val), low_off);
+> +	gtrace_write32(pdata, upper_32_bits(val), low_off + 4);
+> +}
+> +
 
-A device mapping can only be read or written by a direct I/O bio.
-Add a fast check at ext4_file_read_iter/ext4_file_write_iter entry.
-Refuse the iterator for buffered I/O in the two dispatchers; the DAX
-methods are covered by dax_iomap_rw() and direct I/O by the iomap and
-block layer guards.
 
-A direct I/O write whose tail still needs the page cache reports the
-bytes the block layer already submitted instead of the error, as that
-part cannot be undone and the remainder can never be copied.
+Could you move these helpers into "include/linux/gtrace.h" and implement them as generic APIs
+(e.g., gtrace_read_pair, gtrace_relaxed_read_pair, gtrace_write_pair, and gtrace_relaxed_write_pair)?
+This would allow them to be easily reused by future components like Coresight.
 
-Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Signed-off-by: Li Wang <liwang@kylinos.cn>
----
- fs/ext4/file.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
 
-diff --git a/fs/ext4/file.c b/fs/ext4/file.c
-index 374b4bc25bd5..46629915fa84 100644
---- a/fs/ext4/file.c
-+++ b/fs/ext4/file.c
-@@ -139,6 +139,12 @@ static ssize_t ext4_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 	if (!iov_iter_count(to))
- 		return 0; /* skip atime */
- 
-+	/* a device mapping can only be read by a direct I/O bio */
-+	if (iov_iter_is_dmabuf_map(to) &&
-+	    (!(iocb->ki_flags & IOCB_DIRECT) ||
-+	     !ext4_should_use_dio(iocb, to)))
-+		return -EOPNOTSUPP;
-+
- #ifdef CONFIG_FS_DAX
- 	if (IS_DAX(inode))
- 		return ext4_dax_read_iter(iocb, to);
-@@ -670,6 +676,13 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ssize_t err;
- 		loff_t endbyte;
- 
-+		/*
-+		 * The page cache cannot copy from a device mapping.  What
-+		 * direct I/O already submitted stands on its own.
-+		 */
-+		if (iov_iter_is_dmabuf_map(from))
-+			return ret > 0 ? ret : -EAGAIN;
-+
- 		/*
- 		 * There is no support for atomic writes on buffered-io yet,
- 		 * we should never fallback to buffered-io for DIO atomic
-@@ -773,6 +786,12 @@ ext4_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	if (unlikely(ret))
- 		return ret;
- 
-+	/* a device mapping can only be written by a direct I/O bio */
-+	if (iov_iter_is_dmabuf_map(from) &&
-+	    (!(iocb->ki_flags & IOCB_DIRECT) ||
-+	     !ext4_should_use_dio(iocb, from)))
-+		return -EOPNOTSUPP;
-+
- #ifdef CONFIG_FS_DAX
- 	if (IS_DAX(inode))
- 		return ext4_dax_write_iter(iocb, from);
-@@ -1032,10 +1051,24 @@ loff_t ext4_llseek(struct file *file, loff_t offset, int whence)
- 	return vfs_setpos(file, offset, maxbytes);
- }
- 
-+/*
-+ * The data of every regular file lives on the block device of the
-+ * filesystem, so an ext4 file cannot move to another disk after the
-+ * buffer has been registered.
-+ */
-+static int ext4_file_init_dma_buf_io_ctx(struct file *file,
-+					 struct dma_buf_io_ctx *ctx)
-+{
-+	return iomap_file_init_dma_buf_io_ctx(file,
-+					      file_inode(file)->i_sb->s_bdev,
-+					      ctx);
-+}
-+
- const struct file_operations ext4_file_operations = {
- 	.llseek		= ext4_llseek,
- 	.read_iter	= ext4_file_read_iter,
- 	.write_iter	= ext4_file_write_iter,
-+	.init_dma_buf_io_ctx = ext4_file_init_dma_buf_io_ctx,
- 	.iopoll		= iocb_bio_iopoll,
- 	.unlocked_ioctl = ext4_ioctl,
- #ifdef CONFIG_COMPAT
--- 
-2.43.0
 
