@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839443;
-	b=C0T24crZktaf26dTdNfFBYbimP0UqSL9GLViMs1rdm83t3eefzjX1wmNju3cIf/w+LEv
-	 bGBELpR/nwNboIeiBanmeaE/rVuXlzTUoaDkWM4KuMEqdWDGk4pUsF/vbrnoHxZRPhLob
-	 HCfzloj4C39uoIKUSMVcbQknpYjX6YLitJZIURkREqF9EE6WlO59RmBBBFBWoPX/Ds09J
-	 6csRokCpQgHi16MjI70YXDegHPej+fH8BfnutQTAaAg6zKkVAwbicqMwNFTs0kmgU0Ybq
-	 W16j8rg9MYuf4Zpo9qCnSERh9QCF914Sg6m/cQ3anGKFCWBp8kEYi6vv9stH0jE9BJw==
+	t=1793839538;
+	b=BA+R67iCHh6Q0a3HQClqQ0zX0uFbOEjUbJOY/45/yaRqTbdZFLn2Ij1GZqKzTuggCKJA
+	 4yvSh7tC6fmDmYSAzQj8IRMRdvchFRlmVAt/NxIhrI//cUvYovks//SUMrS/0LTOV24CG
+	 jRe0VoyePyOEI7vmWMryQB2X2KaNWqJM882boCigTtsPpUgiSOLRcgN2kguj0NjlTnkyP
+	 pUT3FYbfhYHcUWEtMk4ZmRMPitk6LJTBDAoF7ZEOX5Y1A82hxoI+U8kzEh+MyMn55EfI3
+	 uN0wnh99lNAbSOTtX0L/Rp1nWPk0JsvHQPkZ6jTysVUqYSqOWOXQXRcKGJm1A9+nseg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839443;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=3DdLetrTV4u5cttIyzMBSRRtMnG/YzDqmUfbr2V0daU=;
-	b=sfcbiUwUD6hEEWAJDvRMIXdcWo3DuzTni3hei9SxM8Hq3epMweXxeHEiUbqWOxQObsyd
-	 6RA7eVDb7gDC8ZSW+c4IraDNmTZgX7b16GAgfq61qMWRUyiuOBGpW4CC4rOUQSF54BL6A
-	 rcpeXXNVKPeMZ8xRYpNYQLO9dJwTx/kIdDH8yFX9ILMe3YMwRlPi8nEQSvWmGRsUOE28S
-	 akAaDpmMXRPJlPzl8zIYUcpJil9cKJ7qosQ+ZG9ygKbOYC3zog0Apj0JbRXNd4rGPdYp2
-	 Ejbj84z8+Kar2+ZGzTJP00ChMFUhhDPKldHJodcGFY2i8qYgdaGPVwCLquPVf9FoLdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839538;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=zXokrLb7sK/T1oSsUCjK0AvMp+oDfMgAYTJvXTl1MyM=;
+	b=rTgj00Ocmb/jD7ly7mUuPUqF5C9eWqORh93q4AREM2mogtsIDE+4U01r65GqJFJEjrdF
+	 uUsnEIegJqDce+J2Nol9/SExRINUbdvcUxp/pgSk7MTapXdZf0miqbb9ZW8yt4KRn4aLs
+	 MpPv2oZtVm5kA5/RAzGqB2wLWv56NKKSD9w0Iy7XQ+DGA58gqsrJHiNVO7bHq2+yuBY2c
+	 Qha4HxFjpVtmB7yPlQQuiM9HC5BJJkInVMNaKoY7FS5y9/3ssHtRnc59186zmMBzZA7u6
+	 Q8gLkFSQvOuXPeSWMBpIk0XmdLivj4zn9yZ5aPdno7FbWlacGi5hmLwSoAa5pjc3Hvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E51A606A33F;
-	Thu,  5 Nov 2026 00:44:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E51A606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 2576992009E; Thu,  5 Nov 2026 01:43:54 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 1E3C692009C;
-	Thu,  5 Nov 2026 00:43:54 +0000 (GMT)
-Date: Thu, 5 Nov 2026 00:43:54 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Hugo Villeneuve <hugo@hugovil.com>, 
-    sashiko-reviews@lists.linux.dev
-cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-    =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Crescent Hsieh <crescentcy.hsieh@moxa.com>, 
-    Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
-    Johan Hovold <johan@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
-    Karl Mehltretter <kmehltretter@gmail.com>, linux-kernel@vger.kernel.org, 
-    linux-serial@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] serial: core: Unify uart_get_baud_rate() success
- return paths
-In-Reply-To: <sashiko-outbox-196103@kernel.org>
-Message-ID: <alpine.DEB.2.21.2611050021560.6502@angie.orcam.me.uk>
-References: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk> <alpine.DEB.2.21.2611032029130.15685@angie.orcam.me.uk> <sashiko-outbox-196103@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37ADC606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37ADC606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd6028ff33fso654094a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:45:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793839537; x=1794444337;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zXokrLb7sK/T1oSsUCjK0AvMp+oDfMgAYTJvXTl1MyM=;
+        b=a9gLcIy05xGzUD1dUjzoNAnKcnD4ANbDSogyG8zufKyrNNxRWl6N7SybB2WkCB077A
+         R3VQaruvX9Y0bwXyriWLaeTo3itwKHCx6pFmjXL4DV4GLXMoUjEpzpLMf3M8R5pHQi0A
+         U3fmeoLKQcRsW0oKTVoX3np6nFzAUj5ZkIrccS6a7Nl3VrEDnCdHkM+lESU/TT3krrhU
+         taArxngdTWcInoaCyoGIZfaXwsKhiTTt0CuCSP/lDSkL2IEO80zCFmKYNyUKvJsrtL9T
+         ddR43C8tRf8FfzLBA5Uq7cuD4l3sbnz1BbMNKRBEsid527naabKAv6qh0atr3hnyn/eQ
+         I9Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJpQ3rBg+6rctfKjjit3ANQgArrMMLhQ5eycHaWnalxQ455jdjUqEh6OCgxaUNlV36ygst0jpUhyu9VM8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9F40lCVIW4yBMMljjeyh4JMdPZstUncaLGuH4qfcf01YFucfLv
+	LpMNmra9JCx8GOMmo1mnaw4RoXl8ntILYmbUk2g6bODZgOKC7DJPYUzqMpMa/5SN
+X-Gm-Gg: AYBFou0a1Q+XS4k+WYFvBcF46q1IQrQTjjEhWOjVu2HG4lMSDC7E+RkV+s5Q/2iFVWN
+	KU1p5/4Il8M4yK1i/IJH7QKdJMO3czVeNdEJcqMaEmAAMOokUC7C3dKPuN6Qpm6LTwKa5DrUUhy
+	XYwe9a1vH5JP/XK7FEm3g3XUwttpEs1rSONyEUdx9zm8hunNZhGTDUoj5cJQHw0/5p2PwNUL7cB
+	a3ZH9zGT0a9aZ/KX4f4DNNjTy6/LUtrHkk5uNHuptntehxLaILxcRz9SvX1Y01DOYubLfKgIQtd
+	tT4hkUvPlvf3s8w4Z5XP1gUaT5K68FrgRDoNaGzCebj+KbXHVAjdj5Oq2IhdbnaG2ald6JXTlSR
+	ojnTYoLi8y6SwUa9pZAUBPRFP/NF04WEcBiVHi597mOG7sq0YWXxGBCQeCx7VUfY/sEBQZjXXlr
+	GYP9U4a15uj+DQs8uG/vVA4NOQfOC+MQXLDw6cU3nYEYCISnUJQLfaocmamXjuejIBrNhuoNlTx
+	5DqJonkazlBITYRnkle0xjaJawncoy1M5n70fRGZBEbD3QkK0HIl4d2EMUD250YivzGD2b2VfLg
+	cgOJX3AiFjjB8cgGL0Hi/Axuq5pzeEi2gaFXRNrkN9sZQ+O/8+rqXAg9/rAUccLoQ09H3Q347ur
+	x2qoI9s504ihBMY+2bVOlE+NNAlTt7hCgrBqoD0mWM20=
+X-Received: by 2002:a17:90b:1b0f:b0:3ac:a5ff:2cc3 with SMTP id 98e67ed59e1d1-3ae8957d4f8mr15507163a91.8.1793839537563;
+        Wed, 04 Nov 2026 16:45:37 -0800 (PST)
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com. [74.125.82.174])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3287a60sm1172190a91.13.2026.11.04.16.45.36
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 16:45:37 -0800 (PST)
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3219033eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:45:36 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByMz8BJh8KTiEDIWQgaVLzbG3U60Mk/EaA9kZD2SokqA30s/bfcVlNt/V/6OkDJkrIJ/pH7C25tuC/736E=@vger.kernel.org
+X-Received: by 2002:a05:7300:a945:b0:35d:d9a9:e455 with SMTP id
+ 5a478bee46e88-36a423b3556mr44653586eec.21.1793839536384; Wed, 04 Nov 2026
+ 16:45:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,49 +81,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
+ <20261104-sf19a2890-pinctrl-v1-1-4bb83afdbacf@telaak.dev> <20261104-enlighten-handling-a309345b229a@spud>
+In-Reply-To: <20261104-enlighten-handling-a309345b229a@spud>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 19:45:25 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6Hkd8sD=tz8_MTQ=OMvD8Evdhc6G6zYPF0tAZzOXL8fQ@mail.gmail.com>
+X-Gm-Features: AclHuK9jO8Qr2MXvkxwK5NuEISMbX4skXJyK2Kf-3m6ima855rFUsEPggdBlzRI
+Message-ID: <CAPY4CJ6Hkd8sD=tz8_MTQ=OMvD8Evdhc6G6zYPF0tAZzOXL8fQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: Add Siflower SF19A2890 pin controller
+To: Conor Dooley <conor@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 3 Nov 2026, sashiko-bot@kernel.org wrote:
+> > +        $ref: /schemas/pinctrl/pincfg-node.yaml#
+> > +        allOf:
+> > +          - $ref: /schemas/pinctrl/pinmux-node.yaml#
+>
+> Same format should be used for both of these.
 
-> [Severity: High]
-> Can this break B0 hangup and trigger a division by zero when max is less
-> than max(min, 9600)?
-> 
-> Commit 091ea8e5d34e ("serial: core: prevent division by zero by always
-> returning non-zero baud rate") removed the hung_up guard from the
-> out-of-range fallback path in uart_get_baud_rate() because baud == 0
-> returned max(min, 9600) immediately before reaching the range check. With
-> this change, B0 is subject to the baud <= max check, and if that fails it
-> falls through into the termios-mutating fallback path:
-
- I maintain that unifying the success return paths does have a value and 
-instead the failure path needs to be corrected as per 
-<https://lore.kernel.org/r/20261020184131.2893575-4-hugo@hugovil.com/> 
-outstanding (thanks, Hugo, for sending the ping for the series I've meant 
-to refer anyway, it made it easier for me to find it).
-
-> Several in-tree callers can pass max < max(min, 9600) to
-> uart_get_baud_rate():
-
- Well, if that is indeed the case (I thought 134.5bps times are long gone 
-and everyone does at least 9600bps nowadays), then shouldn't the (fallback 
-as from 2/2 in this series) B0 rate be min(max(min, 9600), max) instead?
-
- It's not in the hot path, so I think we ought to do this clipping anyway, 
-for safety.
-
-> Note that the follow-up commit "serial: core: Don't clobber the baud rate
-> on hangup via B0" changes the B0 assignment to:
-> 
-> 	baud = port->hup_speed ? port->hup_speed : max(min, 9600);
-> 
-> which still fails the baud <= max check whenever port->hup_speed is 0
-
- Well, this is obviously rubbish.
-
-> (such as before any valid speed has been saved, or when max == 0) or when
-> port->hup_speed exceeds a reduced max.
-
- See the discussion above.
-
-  Maciej
+Will do: v2 will put both under allOf.
