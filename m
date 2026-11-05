@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904105;
-	b=2xUdUFT/qDOrfPPSOjHxwHHNqz8aBJv2IeXdQuAoZ5jYcZ9aKAcxp/zd8H4Wj3E1w1xm
-	 mgMtjbzQsjru5QUwpqwK0nSWd0KrjsJUGPH8G/baQ1tNblkRjf1y3A4iwiwyTOj6iNANd
-	 OWzx/+effFqkIbstZ8LsxFtfwD58BM2zWJQ0W7HfOWvL/y8UaCHYiFVQ2d2NNyDBilMJg
-	 QTuFyd2p0+Puv4mj6XokMcKb5O4vMn5z854bCyAH8cmNyWc2c8SUXkF9JPRPbBiKkQkvD
-	 dNr9xrNCnl2jlK6s59a5PHhQYnMMLGQKbiJaEyWQCIY60X3nfv1SSpKcHx827ghuwwg==
+	t=1793904107;
+	b=LH7Z2c1jy3/Dt3cXRTkhXU9TyxKfe95+eX3vv2ZeEGRBcOnNLyqB9wVUXN3QsD3jmXov
+	 YS3pWDemetWDmKWxhN1Oiidng2oLTESX9EL8V4o54pU594t1f6yRYSykCXWMABWiVpIaj
+	 KL/wK8YxnD1WTRpuDd045TU0CWKbA480veoh9zE9xnu8WKeKS1ee55PhhLXBF2LK3YYxH
+	 ln1+61eqBrADYcsF6FQ7O+g85XmbRgc0z3503gZjkgsERadD1cKHFA3yvAE2rV8o6/WnY
+	 AXyQrXgvIvst5XxPWW5J4GMPLMp7xZYSMjuAaIWSK85jOk2j4DjRcILL0pPblZ9TC6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904107;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=2Fod23qsPbOM1tVlcHaZOrkXwIAkgiKw/W8BENTibQs=;
-	b=Kb0lkNXOf8OTIb1EVBvT2c7oL2ZLKsUx1W8DbhZ5N5aI4GX0deAfjL2ukfU76h/in/sU
-	 obXUHmkSff65bW/i8MbCryeb3vYSHOnMX7j7dkes/crzfAxp0dS7E+z1vYooxK+G3yHZG
-	 7WVtk+wFs1sTFcS2lYRBOD7aie8/rmwQsuAN+0pNQzZwDlb1xMM3xtosC5fflW2eUK1DQ
-	 +wDbR16Sr+iFgq/G15LvCuoZ26EQWKQAxTQZQMJeRcH4aOOFjOMVDEvNYUMbZbiQQ1HZz
-	 V4AkzxLLwer7CZG5HH8vd1aEn2p9fmYXOwLQb/EL6FJQEsUZFGTPPtykY/e8t4Q597g==
+	bh=huH6oSd7gTMk6bCw3wFvetQjWaUFvstahrkAvJSP3YA=;
+	b=3UkrMOePacIysdzbvnkUeT0XqTz6v5SXKRYX15xzDvpzma0ak3ExMOsVMs5mrLG+RhAC
+	 Tg12Ti/K10aYiil0QGUUdO97j+ltkIm4RgwijH9nLyntapl5ALOzH5rDlq5c/GLWaznkA
+	 zeQw8Ahqy1AqdDqn/3zP42QFkIP7jchFrOIAusay+DIsn2bIzvFQi9R0kZiKtc/X9cRTV
+	 7Ge0+VciTkRFnEil2qbKxB2fvF36ztFwevlDqRdVTOMvNDVu5l49IDcgJsUsbtIQLGvpk
+	 Y7wWE/a0Dy1Q/EWa2X58geFLbtsPg/Kl9dKIXxbJWJlsuSG3Nb4N8OVohs4yM41Z1aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ArdHY2EY;
-	arc=none smtp.remote-ip=91.218.175.229
-Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=a6ZeZZhV;
+	arc=none smtp.remote-ip=91.218.175.240
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966B5606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 966B5606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5021606A335
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:41:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5021606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ArdHY2EY
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=a6ZeZZhV
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RxoIa9gOc32/fyswBjJHft9MO4qoFCZyc3e19SH1Bt0=;
+DKIM-Signature: a=rsa-sha256; bh=EsV4QmuE2zIVMKtO/SOhRrFUuEtNtiAe7xebMuMrx54=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904102; v=1; x=1794508902;
- b=ArdHY2EYVcLwpt7Rr10Gljn0+6DlXYyf8zrv+f8BPPmal8hDs0b2rtabJm1165Mn7AA4GtkK
- ifOJStFvWLA5l7JgAae4X5ycAk5IYSdGfM4i9FXYVx+aO1YQE4Cz8OjDThhei0GY8JEu7Msnvbw
- nRx8vz5U/Sl0rvGc3Eg2DVCY=
+ t=1793904105; v=1; x=1794508905;
+ b=a6ZeZZhVfnUw9BiLrUPYYFOKY3jVjvTRzEN3Fqt6wF941H0xFzC+LdWAO/Ehg/OxS/YZ0icl
+ qGoNV28JUtPd4ygE5jZcq0rs0UwvPXWbGhQ9wHEk1cWibC7RYBi0O3i7PxHWyP9BtpGZhjJwOpe
+ Fqn1TVtlUrTQhGYBF+ziXBjs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 2423b80fe0ccb823;
-	Thu, 05 Nov 2026 18:41:42 +0000
-X-Mizu-Trace-ID: 2423b80fe0ccb823
+Received: by mta12.migadu.com with ESMTPS id 7b89403d16ddfb12;
+	Thu, 05 Nov 2026 18:41:44 +0000
+X-Mizu-Trace-ID: 7b89403d16ddfb12
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -81,9 +81,9 @@ Cc: chenhuacai@kernel.org,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v9 19/32] mm: handle soft-dirty and uffd-wp on PMD swap entries
-Date: Thu,  5 Nov 2026 10:39:03 -0800
-Message-ID: <20261105183940.2236717-20-usama.arif@linux.dev>
+Subject: [PATCH v9 20/32] mm/hmm: fault PMD swap entries on demand
+Date: Thu,  5 Nov 2026 10:39:04 -0800
+Message-ID: <20261105183940.2236717-21-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
 References: <20261105183940.2236717-1-usama.arif@linux.dev>
@@ -98,81 +98,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Soft-dirty and uffd-wp live in the PMD, not in the swap entry, so every
-path that manipulates them for a PMD migration entry has to do the same for
-a PMD swap entry. Otherwise clearing soft-dirty skips a swapped-out THP,
-UFFDIO_WRITEPROTECT does not arm it, and mremap does not mark the
-destination.
+hmm_vma_handle_absent_pmd() reports anything non-present that is not
+device-private as HMM_PFN_ERROR, so a swapped-out THP would look like a
+permanent failure rather than memory that needs paging in.
 
-change_huge_pmd() needs nothing beyond dropping its
-thp_migration_supported() gate: a PMD swap entry encodes no write
-permission, so it falls into the default arm of
-change_non_present_huge_pmd() and picks up only the uffd-wp update.
+Treat it like a PTE swap entry: record the fault when one was asked for,
+and otherwise report the range as non-resident with no flags, which is what
+hmm_vma_handle_pte() already does in snapshot mode.
 
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- fs/proc/task_mmu.c |  4 ++--
- mm/huge_memory.c   | 11 +++++++++--
- 2 files changed, 11 insertions(+), 4 deletions(-)
+ mm/hmm.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index bfe9d6af76d5a..aa0c8c1be9b0d 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1663,7 +1663,7 @@ static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
- 		pmd = pmd_clear_soft_dirty(pmd);
- 
- 		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
--	} else if (pmd_is_migration_entry(pmd)) {
-+	} else if (pmd_is_migration_entry(pmd) || pmd_is_swap_entry(pmd)) {
- 		pmd = pmd_swp_clear_soft_dirty(pmd);
- 		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 2f1e98c6b6440..95575ac378888 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -377,12 +377,21 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
+ 	required_fault = hmm_range_need_fault(hmm_vma_walk, hmm_pfns,
+ 					      npages, 0);
+ 	if (required_fault) {
+-		if (softleaf_is_device_private(entry))
++		if (softleaf_is_device_private(entry) ||
++		    softleaf_is_swap(entry))
+ 			return hmm_record_fault(addr, end, required_fault, walk);
+ 		else
+ 			return -EFAULT;
  	}
-@@ -2491,7 +2491,7 @@ static void make_uffd_wp_pmd(struct vm_area_struct *vma,
- 		old = pmdp_invalidate_ad(vma, addr, pmdp);
- 		pmd = pmd_mkuffd(old);
- 		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
--	} else if (pmd_is_migration_entry(pmd)) {
-+	} else if (pmd_is_migration_entry(pmd) || pmd_is_swap_entry(pmd)) {
- 		pmd = pmd_swp_mkuffd(pmd);
- 		set_pmd_at(vma->vm_mm, addr, pmdp, pmd);
- 	}
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index acb540235e5a9..101ec72944cbf 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2626,7 +2626,8 @@ static inline int pmd_move_must_withdraw(spinlock_t *new_pmd_ptl,
- static pmd_t move_soft_dirty_pmd(pmd_t pmd)
- {
- 	if (pgtable_supports_soft_dirty()) {
--		if (unlikely(pmd_is_migration_entry(pmd)))
-+		if (unlikely(pmd_is_migration_entry(pmd) ||
-+			     pmd_is_swap_entry(pmd)))
- 			pmd = pmd_swp_mksoft_dirty(pmd);
- 		else if (pmd_present(pmd))
- 			pmd = pmd_mksoft_dirty(pmd);
-@@ -2718,6 +2719,12 @@ static void change_non_present_huge_pmd(struct mm_struct *mm,
- 	pmd_t newpmd;
  
- 	VM_WARN_ON(!pmd_is_valid_softleaf(*pmd));
-+
 +	/*
-+	 * Note that a PMD swap entry falls into the default branch below: it
-+	 * does not encode write permission in the entry type, so only the
-+	 * uffd_wp flag update at the end applies to it.
++	 * A swapped-out THP is not resident. Report it as not-valid,
++	 * matching what hmm_vma_handle_pte() does for a PTE swap entry when
++	 * no fault was requested.
 +	 */
- 	if (softleaf_is_migration_write(entry)) {
- 		const struct folio *folio = softleaf_to_folio(entry);
- 
-@@ -2778,7 +2785,7 @@ int change_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 	if (!ptl)
- 		return 0;
- 
--	if (thp_migration_supported() && pmd_is_valid_softleaf(*pmd)) {
-+	if (pmd_is_valid_softleaf(*pmd)) {
- 		change_non_present_huge_pmd(mm, addr, pmd, uffd_prot,
- 					    uffd_prot_resolve);
- 		goto unlock;
++	if (softleaf_is_swap(entry))
++		return hmm_pfns_fill(start, end, range, 0);
++
+ 	return hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
+ }
+ #else
 -- 
 2.53.0-Meta
 
