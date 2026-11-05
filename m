@@ -1,58 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883928;
-	b=dM/B9MAyewfVfvDWIYygQC3b/N91Tjv5w7rwLKcU6a/3EEks9VkxHrQXamPETFmFbuXK
-	 JyVrGARDY3yyn+R5buYP/acogBc72xt2fHzi7UHTyc/8pNrV0gFPv/x0nrDTji1jF4n/4
-	 SDpH1zLs7OydsPyG+rnELBOt6BKEwchcjYxjnqsP0mxjdW0hoe1PXscgX2dks6gmCrUTl
-	 9BE5aJfeNz/utwIoIAq4ymPoP0vOEd2yBRkMs8PWYGHiFNpBjhx6HRX9KhrNxtVT2ZtfA
-	 zcmr1FncrMro6bRCSM1O7FPEuI9S1112OkmP4vCAnKWbB/idLkcTPLU3FB1mSyZ6oRg==
+	t=1793883983;
+	b=x4AtBW9T59j2nOtFBtSmUOegOMw0steP21gNzzJJ6ZSkc4GwGw7iGcY+YiJzMOghKZQ7
+	 LNxZ8Le0ZgRwK5tEhKXk9riQhFbCyf0TMANg1qScQCmsQuD1tQKOLZ+AyMsvYaI4QXkhu
+	 cJnBSXaCVuy6+vwzoAwjFrnT2gBoAoYdBIoIYHX2xlVw/WeDWmrUuzTIxBsob1tRO8VzM
+	 6gq5P+GNu6mwmPs47Dfu6HcS8LCafqYD3pf3WcyiIbCRzTZVnq6Chh9crMVyW42U24iMU
+	 VzckuvZtXHtoFzsX2qHMZohifwnfvKZZZhRgvXsnMjLCEbsHRd6+XLrdzpwtNO1N4rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883928;
-	h=Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ME3C+3I1moR9zuX6vPDKVLw16xDyzhIK7WbtwWzTCfE=;
-	b=K/Rxx1vdijiHPEqY/WWTKaHNNe5BCV4XMNE1uuYNVJ8kyaVhXW06d5ErUwqoivUUMKHd
-	 GvWKRKBIqABV472sExWlW7b959N1G1u0ZYp+GS6WMF0Q1VIWb7gK10CN6sUF+VDRoLVMQ
-	 e4lMB270gOZQdij2BoggBBophbhOkRa/jVJJ8toBHFEruBidRnoRmXFFrh0flaZsSiNZ7
-	 dLArs7Fcn+sjksb145mLaW9BUi3RzC2bW5flzhHBHlFPbthYy3mtuU9Q8wSJMb6HBz8jT
-	 d2v7hrkxs/m9L2BVesRS2H7+TlVF2hA2+qUyReNk+awzFKiwsoIGFa/MkSMEpcSML5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883983;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=RhwkgWcMfTSbblcb5EByJLqZmOdOM+7mGzL2NSdO9CM=;
+	b=f2iZSGme5z/+QjorGG1IFbNPPbXlkaD33F4Dvtu4DCX7ijEr2nkLxmsTcVLMTZTjG0UQ
+	 SbJTRM2IWiXBJWUbB/fc8dW/X/mmhnVrq8IltjyBcqVNnCQtv05y7BULT6rZq4fiaYWQC
+	 cfUefQ9QoJOVHPLM2FJGw2hXZ4PY2wyuSJiyIdLQ+vXJusKkO1GyMt48yA4ldXIfayXxt
+	 +0Su+0YDy3ZbZP3X3d2KR859+NS7lWe8vlta4aL5RFMdQHGO7kNbSm7owS2Yl9p2zE8lo
+	 /xTZxTHeK3oWztuWpIfj5Q4x3E7vzLT+8svMLAh95YPyFSXZlZC7IADSqUhKpD8vTKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MbmIKvHu;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD02606D830;
-	Thu,  5 Nov 2026 13:05:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002811F000C1;
-	Thu,  5 Nov 2026 13:05:23 +0000 (UTC)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: laurent.pinchart@ideasonboard.com
-Cc: bmasney+clk@redhat.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	geert+renesas@glider.be,
-	jbrunet+clk@baylibre.com,
-	kieran.bingham+renesas@ideasonboard.com,
-	krzk+dt@kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	magnus.damm@gmail.com,
-	mchehab@kernel.org,
-	p.zabel@pengutronix.de,
-	paul.elder+renesas@ideasonboard.com,
-	robh@kernel.org,
-	sboyd@kernel.org,
-	ulfh@kernel.org
-Subject: Re: [PATCH DNI v3 04/15] arm64: renesas: r8a78000: Add FCPV[BI] nodes
-Date: Thu,  5 Nov 2026 14:05:21 +0100
-Message-ID: <20261105130521.85109-1-geert@linux-m68k.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261030211225.GA3144851@killaraus.ideasonboard.com>
-References: <20261030211225.GA3144851@killaraus.ideasonboard.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB78606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:06:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FB78606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MbmIKvHu
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=RhwkgWcMfTSbblcb5EByJLqZmOdOM+7mGzL2NSdO9CM=; b=MbmIKvHunezOQS9VvH67/Bp7zZ
+	YuG3l6uCnJc+dP4tYMw24gT0BU9d+op/tMICK+xRI1qTvXo2Xx9Rgeh0iYNbidSGO0fHU5gkwDSOO
+	cwCu2U8VgbB13fJlkbDYo2/L420geXqTpYMF4Sg7DT8FXgOk0tWXQ78aGxkf+No8Hnu8pjnbGGt4f
+	RvWaMg+YkqUjwxKMYWyVRAhGM0kCATiihk+3BGtPR09XUMEDPfnu9vni3bSGWxK7Xj3M5GWU3YQle
+	0MpwK5YpmjHQKTOLL88RaYMyI7s76v11I12yHebXmxg1AdsFafi71O1KZo2dgVFy/5xPeecUl4R2v
+	S07KHeOA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOxAV-008WBI-2B;
+	Thu, 05 Nov 2026 13:06:15 +0000
+Date: Thu, 5 Nov 2026 05:06:11 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Edward Adam Davis <eadavis@sina.com>
+Cc: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, a.hindborg@kernel.org
+Subject: Re: [PATCH] configfs: Delay the fop setting to prevent noise
+ generated by open
+Message-ID: <aux-0Xxpcp7UFCs6@gmail.com>
+References: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
+ <20261021062535.55494-1-eadavis@sina.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,140 +68,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021062535.55494-1-eadavis@sina.com>
+X-Debian-User: leitao
 
-	Hi Laurent,
 
-On Fri, 30 Oct 2026 at 23:12:25 +0200, Laurent Pinchart wrote:
-> On Thu, Oct 15, 2026 at 04:51:44PM +0900, Paul Elder wrote:
-> > Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
-> > 
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> 
-> I need to reconsider this...
-> 
-> > Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> > ---
-> >  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 72 +++++++++++++++++++++++++++++++
-> >  1 file changed, 72 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> > index 9a07753b221541ed49a975e0c95f2f5d1fdc6ac2..2f8886f8b6545026397fd83969882f8c62afa9d3 100644
-> > --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> > +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> > @@ -1000,6 +1000,78 @@ mdlc_aon: system-controller@c1338000 {
-> >  			bootph-all;
-> >  		};
-> >  
-> > +		fcpvi0: fcp@c5030000 {
-> > +			compatible = "renesas,fcpv";
-> > +			reg = <0 0xc5030000 0 0x1000>;
-> > +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
-> 
-> ... as this may not be the correct clock.
-> 
-> The user manual lists the following SGD clocks for the media-related IP
-> cores:
-> 
-> - CSI[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ,
-> 			SGD4_VIO_CSI[0123]φ, SGD16_VIO_CSI[0123]φ
-> 
-> - VIN[012]:		SGD1_VIO_CSI0φ, SGD4_VIO_CSI0φ
-> - VIN[345]:		SGD1_VIO_CSI1φ, SGD4_VIO_CSI1φ
-> - VIN[678]:		SGD1_VIO_CSI2φ, SGD4_VIO_CSI2φ
-> - VIN{9,10,11}:		SGD1_VIO_CSI3φ, SGD4_VIO_CSI3φ
-> 
-> - ISP CS[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ
-> - ISP Core[0123]:	SGD1_VIO_ISP[0123]φ, SGD2_VIO_ISP[0123]φ
-> 
-> - FCPV[BI][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
-> - FCPVD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
-> - FCPVX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
-> 
-> - VSP[BI][0-9]:		SGD1_VIO_DP_OTHERφ, SGD4_VIO_DP_OTHERφ
-> - VSPD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
-> - VSPX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
-> 
-> - VCON[0123]:		SGD1_VIO_DP_OTHER0φ, SGD4_VIO_DP_OTHER0φ
-> - VCON[4567]:		SGD1_VIO_DP_OTHER1φ, SGD4_VIO_DP_OTHER2φ
-> - VCON[89]:		SGD1_VIO_DP_OTHER2φ, SGD4_VIO_DP_OTHER2φ
-> 
-> - DPTX[012]:		SGD2_VIO_DP_TXφ, SGD16_VIO_DP_TXφ
-> 
-> Those IP cores are connected in four types of pipelines:
-> 
-> - FCPV[BI] -> VSP[BI]
-> - FCPVD -> VSPD -> VCON -> DPTX
-> - FCPVX -> VSPX -> ISP Core
-> - CSI -> VIN -> ISP CS
-> 
-> It would be quite logical for all IP cores in the same pipeline to use
-> the same clock. This would be
-> 
-> - FCPV[BI] -> VSP[BI]:			SGD*_VIO_DP_OTHERφ
-> - FCPVD -> VSPD -> VCON -> DPTX:	SGD*_VIO_DP_TXφ
-> - FCPVX -> VSPX -> ISP Core:		SGD*_VIO_ISP[0123]φ
-> - CSI -> VIN -> ISP CS:			SGD*_VIO_CSI[0123]φ
-> 
-> This mostly matches the clocks listed in the user manual, except for
-> 
-> - FCPV[BI] that is listed as using SGD*_VIO_DP_TXφ
-> - VCON that is listed as using SGD*_VIO_DP_OTHER[012]φ
-> 
-> Now, note how in the clock diagram document the VIO "ISP" and "CSI"
-> hierarchies both show 4 groups of SGD clocks (respectively named
-> SGD*_VIO_ISP0 and SGD*_VIO_CSI0 in the first group), the VIO "DP"
-> hierarchies show 3 groups of SGD clocks (named SGD*_VIO_DP0 in the first
-> group) and the VIO "DP_OTHER" hierarchy shows a single group of SGD
-> clocks (named SGD*_VIO_DP_OTHER).
-> 
-> This makes me believe that, wherever the user manual lists
-> SGD*_VIO_DP_TXφ, it actually means SGD*_VIO_DP[012]φ. Similarly, where
-> the user manual lists SGD*_VIO_DP_OTHER[012]φ for VCON, I believe it
-> should be SGD*_VIO_DP[012]φ, both because there is a single
-> SGD*_VIO_DP_OTHERφ, and because the rest of the VCON pipelines (FCPVD,
-> VSPD and DPTX) all use SGD*_VIO_DP[012]φ.
+Hello Edward,
 
-The clock diagram has 3 VIO_DP[012] hierarchies and a single
-VIO_DP_OTHER, while the clock list has 3 VIO_DP_OTHER[012] hierarchies
-and a single VIO_DP_TX.
-The clock diagram has VIO_MAIN (system bus) clocks, while the clock list
-has VIO_OTHER and VIO_BUS clocks.
+> The root cause is a race condition between open and mkdir. Add a revalidate
+> for cached dentries to prevent open from accessing directories that are not
+> yet ready.
 
-> For full consistency, I also suppose that the FCPV[BI][0-9] instances
-> match the corresponding VSP[BI][0-9] and use the SGD*_VIO_DP_OTHERφ
-> clocks, not the listed SGD*_VIO_DP_TXφ clocks.
-> 
-> This being said, in practice this probably makes no difference, as all
-> those clocks derive from the same SGD1_VIO_MAIN clock and none of them
-> are programmable or gateable.
+Thanks for chasing this one. The analysis matches what I see: a lookup
+holds the dentry of the half-built group, d_delete() can only unhash it,
+and the BUG_ON() in create_default_group() fires.
 
-Probably, but it would be good to have that confirmed.
+The fix has a side effect, though:
 
-> If the above explanation makes sense to you (and to Geert), we can ask
-> Renesas to check if the issue I suspect are errors in the documentation.
+> +	if (flags & LOOKUP_RCU)
+> +		return -ECHILD;
+> +
+> +	if (!inode)
+> +		return -ECHILD;
+> +
+> +	if (!configfs_dirent_is_ready(parent_sd))
+> +		return -ECHILD;
 
-Agreed.
+-ECHILD only means "retry in ref-walk" when LOOKUP_RCU is set. In
+ref-walk, lookup_fast() and lookup_dcache() hand it back as is, so it
+reaches userspace, and mkdir() and open() now fail with ECHILD when they
+race with a lookup.
 
-Current SCMI firmware does not have the CSI3 group.  It does have
-VIO_IM[012], which was replaced by DP_OTHER{012] according to the
-"Differences" sheet in the clock list.
+With the syzbot setup (threads opening ports/1, ports/1/subsystems and
+ports/1/ana_groups while mkdir(ports/1) runs under fail-nth), mkdir()
+returned ECHILD in 2 to 11 of ~220 attempts per run, over 11 runs. The
+hook also takes every configfs lookup out of RCU-walk.
 
-I guess we really need to know if e.g. all these SGD* clocks are the
-same, and if they can be gated individually.  Same for the various DIV6
-clocks, as there is only a single register to control them (which
-probably controls the parent/singleton in reality).
+Returning 0 instead would not help. The VFS would d_invalidate() the
+dentry of a default group, and configfs_lookup() cannot recreate pinned
+dentries.
 
-Gr{oetje,eeting}s,
+I think the BUG_ON() itself is the bug. It assumes nobody else holds the
+dentry of a default group while it is built, but a lookup can find it in
+the dcache. The error path already copes with that: d_delete() unhashes
+the busy dentry, the inode is S_DEAD, and lookup, open, mkdir and
+symlink all refuse a group that is not ready. 
 
-						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-							    -- Linus Torvalds
+Thanks,
+--breno
