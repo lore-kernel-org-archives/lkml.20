@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.23
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793868895;
-	b=CcuaxNdnoB8Vu//BSwWnH1qe3/MNlOP4Yee3IeC4d6aMU9X7f02fxFAXbkIwkyGo4q2L
-	 RzYlp8Xgjh3s60sK8XyE25T9gIG4gSXLFjPZwAgGBj7saNUwsr672Di7DcTMMO27WioW2
-	 I3wWhATOpbi6PDcF/U6WRzytYGxD6drRh42br2di2WvvHAfYj9FQfvOwmqcDFR/uYj47x
-	 mxihNQg6Cicc9FbaD/HScj3rzQbBW5k+P0lVs95oLvGnwBhHZlDsfHeIpPoayDZznou0o
-	 EMPYcY2eBKSWpblkP+PwWx3n4o9J+Erd3ElZ04wBCQutf7HinV+q3p5qeEKT9MLWUpw==
+	t=1793868898;
+	b=AKIPg0OdtuTsGaMOxjBrUisYVaUNNP5n5OE2tMkLZCExLZFhnk1UgZFRfKz0ugFecDP3
+	 ETNLeniKI1U+c0gpJLVOxFlq90zcxEQhr3+Q3DQPMIeOPZky8HERayxLYi5gif4pecrrq
+	 6OQ+4vJ6bhk6suW4mZyJtmsP+GGXszSM1BYwiLmQt4+vvi+d3FTiicV0iP+NaFcfSH4Ab
+	 eP11Q0vvdXKtAFurm0gpjfx7G0gM0IzimroshBMN15KeQXBOcJGPa3Evil9g9LGkF8Hnu
+	 7SjYuKOc/tNsvFKw2Adkow1AnvpT57NHdr6UJZoD/ZNlp3AZkOfV1bj9kaj1U8v4Pkg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868895;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868898;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=++/D0Gom4IWiDmfhCChR+1k10XRXP+Q1IPkhaeDrwCY=;
-	b=Ssc0k5ryI/eFlruoG9QbznOYtbGW01gRAHkeHsO+AkRh9RM3JW8ULxU98qTVLKRDqoI/
-	 8er70ccVnHypujoJiH22zvQ+IiA4T087mFuUPNfVatuBR5jFtcx4d76W07OgZ7ukQfYfp
-	 XQlVyBPOVHOEEBa3Xog3GlkiT8HzKo+rkDC6bj6ogWuqA0bvJZG3ufkaDP9smc342WRDP
-	 9tlpRgA5DCsA5D752D4TswANQjblI0OQTWLz2ZMBf2LDO3SqmWrC4BGMqArnJzzcmkqrF
-	 /a/q6xMY6PS9WjV7lR06J3ZwpwH96+xuJfuLYzUtikWcW+3/Dv91F9OjOMejypzOXAw==
+	bh=asJewU2/b3egR9ubZFd7BqtOwqChh+1O3HRjSFkYFYE=;
+	b=tlGv7KvcQzIKO3q5+Lh9SkYxWglqs0x+Uu0hBE7EeJKQQx9LXU3mUsNrMqF0BlBtsIWU
+	 wLjGWm/K76cYHmk4BxTteYc2kKA8sCcFt70mVaIhmzQ9b84IBikzzm5NanuehluwVPv7U
+	 gtS6l6rLnjukyBFDnUCmSedFSaef4KJKQrV/Vzfw3SNWh6ggRXGPXEL/kc9u0axuWlbZE
+	 Z8uhAZGmidOYVAQPLWzhaV00QjkTNR4KGrOsYhSfa8DeHRBlg8OdeiBR5wAWE4EiPdpzY
+	 FOnpVvclF+x7RRBQzJEYWsQ8cgp+eaxuUx4i9NjXXuHEeBnwYa5u4qwfteTIotLUmGA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZetGqSg4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.18
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010018.outbound.protection.outlook.com [52.101.201.18])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TPoItz7u;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.23
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012023.outbound.protection.outlook.com [40.107.209.23])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A013E606A337;
-	Thu,  5 Nov 2026 08:54:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A013E606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52018606D839;
+	Thu,  5 Nov 2026 08:54:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52018606D839
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZetGqSg4
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TPoItz7u
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ytioRoVXbLGDPn/RH/8XDMLyfFbjAebXacOnKDBVL3nxmEMzgqNZlqkx5vjbO1Yp16NB5bxdpeOjwrpBZYssamUF2RZ/rKQmMaM1LNfWgldn9NlxDCenKf3LfLjr8SrKMRut9Dq2F2NdBjShtWAlwmDFxjrAyXP1/2SM1wmg+wjwh9QeJZsaRGYdSsZs9mQbpMkxGYxq3mCzAkQ95W1XnXsi0BKn8CDgxa6Erlf+eGn1CQ7vahV2bAYyzGfw9K1aiy87vSHdspuaseJXVA2Z3ndjza2Ijzwj64AFNVjhCOu2z9buSY6jpoqUtuGVGd8NXG8E+71HHWAxiFyL5fIYJw==
+ b=YrO6Bqv80VtX3pSCb5UluRey7oOBmQP2VHOio1F9UgI8EAEPGxd8Rdu9DqdH/yl+2NZ8cO7RTrtt/KolB81JJsCwcgyQ9EAEYzvgFqYYlP/1yFv75n05fjkamchc2zyASg+Q1ze1fqlT/hdhf+RVnegbWXo/QJ5gD5iavHbF5f8omnJyUWnx3DCkCD6GOixiMFs1Z+EIh4+p2QRcnsSBUNzZSndURb7ymAU0vnCj3wV3j/fkG9537z6MAJYE6guHqtIDSU1jf+/N6JOmyJV+EFOFlrQmEYIueA0MseRoi6n+KqgC3FOfk/OYBBJO9w1o0TNWPNMR766FYTRA6r4tZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=++/D0Gom4IWiDmfhCChR+1k10XRXP+Q1IPkhaeDrwCY=;
- b=na5LlQU3ZmHMyx+pDEu5CfxSHU2WQxlXwQnnWqIbejsKFGwlAQl6XLo/OvDDOEeqt/vgKedTj9JrLjq1Zd4KqgEgnmhsw9NfQhaypuUuKjtMbE7LOIuPixXsUaqDf3zKurM6198s4GBdWNa4Te34tYjT+c+X8ydG3FXoxjFpo6+tWneNZs5tYpU5bn3SCl6L1YmXcFo6hPTuTpATJK3zzVsoHKdbFJYdgguPid40/v5mYXHYtnG9P2P0lBsJmcb3/iJAzjxH0vLe3wYcRG6f/theCyK3rMcOlThsls9Udh2Wk4eNP4PMRAiWr5SpS6y9CUdvZqgixdbGHLohxBWClw==
+ bh=asJewU2/b3egR9ubZFd7BqtOwqChh+1O3HRjSFkYFYE=;
+ b=IyorEacC9W3GP2x6KXnKZA+BX83imaBWQjS/rNBBba0FU2CpJBfJqKvzbPzOCQBmf8kuVHVfNvDJT0YfYuvCtjVqi57cvvLOVmIXr55K9pCxYRiVVviasCF5UQXo6kc7e1fT5IsndRAAPnEloGIDo6uIWwhSKtFNnSl6qpBQ43oMW8TXsiQ3Q7oTnGfFd1y1NW/ZYq1inpW2eUcXc/kzlkg3dl3JSTBaeyKyu+nY8qB046YEx5CFsncmTUkoPp+BzJYPRLwnyycZKFkOGVZ/UWmNreKVWb/DWd+cM+RDqbcKMWXzUjqt+eDuHFn18q3s/FvuIc5B76t6cd/BaPAMlw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=++/D0Gom4IWiDmfhCChR+1k10XRXP+Q1IPkhaeDrwCY=;
- b=ZetGqSg49SPOuawfp5DsQ7+Kxq7W7KZ0fYV8zGkVkrBg2hgXtrgFPAqrDu1H9alqLhObqqxSQ9bcy7gjopDcSrZx4/K3TfS6tL3/XqBRKgS0uTZPNRyKiz5aQ8HKpr97om9HA/bm15ojqKLAAf7I9n8SASLYMHK6SxyMOXT22Jo=
-Received: from SJ0PR13CA0164.namprd13.prod.outlook.com (2603:10b6:a03:2c7::19)
- by CH3PR12MB9079.namprd12.prod.outlook.com (2603:10b6:610:1a1::9) with
+ bh=asJewU2/b3egR9ubZFd7BqtOwqChh+1O3HRjSFkYFYE=;
+ b=TPoItz7uhs0cVRuzQodgNDr5tmWLDZzSUOZcLZIRlXS2U/MPr8B4w5MBqNiSljPwgYuMWR7UX6kRAdhOc9/sYQO9siQBTiKhTRN4z8gYW+HWBkNM1imlqqoZx0fqVIwYLuYfW4nRO5ipgJ1rM1kpNLTkO37eBLHz/gVzfKAT5sc=
+Received: from MW4PR04CA0371.namprd04.prod.outlook.com (2603:10b6:303:81::16)
+ by SJ0PR12MB7066.namprd12.prod.outlook.com (2603:10b6:a03:4ae::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 08:54:49 +0000
-Received: from BY1PEPF000264B3.namprd02.prod.outlook.com
- (2603:10b6:a03:2c7:cafe::6a) by SJ0PR13CA0164.outlook.office365.com
- (2603:10b6:a03:2c7::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4 via Frontend Transport; Thu, 5
- Nov 2026 08:54:49 +0000
+ 2026 08:54:55 +0000
+Received: from BY1PEPF000264B2.namprd02.prod.outlook.com
+ (2603:10b6:303:81:cafe::2a) by MW4PR04CA0371.outlook.office365.com
+ (2603:10b6:303:81::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
+ Nov 2026 08:54:54 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,25 +80,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF000264B3.mail.protection.outlook.com (10.167.242.120) with Microsoft
+ BY1PEPF000264B2.mail.protection.outlook.com (10.167.242.118) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 08:54:48 +0000
+ 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 08:54:53 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 02:54:46 -0600
+ 2026 02:54:52 -0600
 Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 5 Nov 2026 02:54:44 -0600
+ Transport; Thu, 5 Nov 2026 02:54:50 -0600
 From: Shubham Patil <shubhamsanjay.patil@amd.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
 	<Frank.Li@nxp.com>
 CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <meaganlloyd@linux.microsoft.com>,
 	<git@amd.com>, Shubham Patil <shubhamsanjay.patil@amd.com>
-Subject: [PATCH v2 2/3] i3c: dw: Track the transmit and receive buffer depths separately
-Date: Thu, 5 Nov 2026 14:24:24 +0530
-Message-ID: <20261105085425.3418230-3-shubhamsanjay.patil@amd.com>
+Subject: [PATCH v2 3/3] mctp i3c: Clamp transfer lengths to the controller limits
+Date: Thu, 5 Nov 2026 14:24:25 +0530
+Message-ID: <20261105085425.3418230-4-shubhamsanjay.patil@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
 References: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
@@ -115,125 +115,77 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B3:EE_|CH3PR12MB9079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6371f795-852b-47a5-c87d-08df3b1a724a
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B2:EE_|SJ0PR12MB7066:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b1fcd0d-f770-4511-e7bf-08df3b1a75a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|261026140227099003|261026121527099003|261022105027099003|261102123227099003|261028144727099003|261021121427099003|261021123027099003|10067099003|11063799006|261009223327099003|261009221727099003|261009221227099003|261009220027099003|261009223027099003|3023799007|18002099003|22082099003|56012099006;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|5023799004|56012099006|261022105027099003|261021121427099003|261022113327099003|261022075727099003|261021123027099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	nnWi43r0cjy002Mk9VdW1gMfr8S/M1CT8non0TlBWDibgLEBYh/5ZwmrOBbYI49vHx2TnqLi7B0vxif12HwzZP+nHKNT4WCdxQVnzxi285DubHYzQVQ/bsjFLXLx4LwBUQkBE+x37GCsEiLVRsZ+6TbOsLdT/vsSod3bR3hcXmDte2paFo2RJ4eDDoQCCadlaxnDUeU4mrYIv4892YGXjRqjgNxeO8EWlsJ/KNpDnvMBoHr5e+W/+I5Rf/Qpg8Y9s4IS0dWf3XqxBTb8M6FwwC0/xO9bq0gggs6EigKM0APInsPw5SnXxYkmWPqnPnIBEtw5DAROozKEwY6cKVgZ2O4uu1IQP95qOh0pK5G/aAYpYdvr8KqOfM4TAf/dXIJ13ukOPFD8PZtMHlzy7c+U+3ebj7bvkwzR/bXXN5Tkrsi7Dg5z17KQ4IFZOEsLtmPikeNgvUistS5hh+WxUc04MXFCH/StZAavZbW3OEJw+N/dKh+J7HuZSXU2udC2ulfN8Fi79V21ALtxW6LdfNkMMJNx2m0gKTQrd6jSdwaSeWXi3xWEj7dhHaLfYlQRXNJdO7bKLdQmEqVDZ6MOAlEHQu3VmmMVGp1iBS3BjLEsY09BHcOWsRgnBbcVdRUJmrExEONJwu0uSWOgIVdhgK/Zwb2FIHaEjWMlwqizgFuFT5lZxsLu2QturahecVcsazxNrh5Y8MaTL/zh/b5aanyi2A==
+	VwDaPVvr+dAAR/1p3LgwrEBVhSMuGMb5nL0Qvklpb3E85eQPlCb5NQKMKdWnsZ+mhODWbt493/sxe+eZoWq9PLJM/QOZ2muh39CNHqeZUaiioRFnhBadwmSj+dK7Qib6meWFO8kNvkaRysiLZ1xaGwuqvMgyEQrIuiGKREfUphMBtXJGxpe4O2OlIp4zO1XafUBfoK9pchg6fQarsQi3MHshuWEjvREt/cIwfc605eadDUoW/CDxJqvl6jmBUqFe6XlrBG4+JI6G9tjQRa+kcQDPW7Rma9vBsZqOYj7653dc8xUa/1adnp4nbpwNb83xcBBi234HVY+pm30hs2iY2PHhuKmEk+KQ/oUSRIZzjyFqzyP+kal5qHi9aa2VqWEFa1fFZYSICnxAK722Xj+RMFwXIwOL071sS6B+RujVv4n247W4qbKtFNhIqjOXYTJN5b1vFr9o/f8iMCkIhH3Z8PpP7jsF/qW8D2Qevs0Amls22AwoLiET/JwpOsSeyp7ET019ZjKQXtFRXIIUcNWmfq19lj2z1+B7DdJXUB1NwZ654yKKa4Vg0/LK2UiSLpTm2dUjW2Z1NB5iY2Jvwk4GE9hwcES9oWMrtMPTIAgxmtFKBLWpJlsHVbJI5rxgfKnT/vW4JbZ45/MMGYa2CnUEVB4JVH5cLERAu6sSXTbIykBp3qbNHED0rbGl+k/YdrckTjzY/gYVz3kDh0k3RzPEKw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(261026140227099003)(261026121527099003)(261022105027099003)(261102123227099003)(261028144727099003)(261021121427099003)(261021123027099003)(10067099003)(11063799006)(261009223327099003)(261009221727099003)(261009221227099003)(261009220027099003)(261009223027099003)(3023799007)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(5023799004)(56012099006)(261022105027099003)(261021121427099003)(261022113327099003)(261022075727099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	9BSAmhIn2pJWPSg3MnmqgAEId94NivtcKfVUGmXW5uWoabbS9eofBakM81ytbQziHqxc73bllqNaXBKmO1wCY+bCoXtKVVPwXFEVqDitbNvEBcTCpPVFa518emZkJt77VhUO0lBHjyQD4s0bS5EZAUcE/vh83gBH7XVWSxwLkAjCfn4tx8ciIL0N/dv/faMrbAZY4UwIqeZxmwEflGz3ElG4VAtg6Ve+vR5MfyUB8cR56EMe8zzMUNCaoW9ZsqYWhfGsVmmNiBAt5t6wC83l5sYQJnIssyR/URtFqHyAHX5SPIS9fce06dV5ote8C/Yz+V1T4QGPLgANAWhZjjzPnbU2PMQDjwxDIfs+SZOM9ny/RZ2GFuZV1Tzx5eoP7zrSLcufX2fJy5HBdQZITZ2JaA+1kmEcgBRUlFB68GwT34j7ZNiX8H/3xFT8nBGP5L5R
+	8c1zGagK3BvsNt4jwZBG4/axuKc64DVkYLgJ9d5lKFglpT1LeA+GagEMsAPymA7FBBMPqVUcEfZoreSqp5UkkV60IcqGp2hhZyKH/8EZsc9yMxZH7RDWmGQ0Z9ENBCFqUiaS4k4f195aOM/xpWfS9sbgE8kOkkZSQSOeB2PVQtn/aywIsOAJVRw24cUZ2cgspqNUKAuJX/TefMyF1rGRibJjMQl3eJ1zaz26EPtlIDuS1VQ5brsoLjWkbhs9B+gg1nHuyjXsS0Zsn5gDYZXCkaOX+VcMLTUL88qxA0n0DMbpNaC2WyS52Cgc2CDRcbHDjFEdxilrWsJNxa5xb/R70dVX/qxszf/Pv9SoNmP5O6Gf5Q59Vklju/3lTpgE+2+3VrQqDtDFUUQKEsBOj541ImuAI18xtN7NMcOWs7d9ZUeYiGSphEy/2NLWXfPksDia
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 08:54:48.1334
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 08:54:53.7282
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6371f795-852b-47a5-c87d-08df3b1a724a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b1fcd0d-f770-4511-e7bf-08df3b1a75a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B3.namprd02.prod.outlook.com
+	BY1PEPF000264B2.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9079
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7066
 
-The driver currently uses the transmit buffer depth to validate both
-transmit and receive transfers. Since the transmit and receive buffers
-can have different capacities, receive transfers must instead be
-validated against the receive buffer depth.
+mctp_i3c_setup() takes the maximum read and write lengths straight from
+GETMRL and GETMWL. Those describe the endpoint alone, so on a controller
+with a smaller limit every read can be built too large and rejected.
+Transmit packets can similarly reach the controller even when they are
+larger than its transmit buffer. The receive path also allocates an skb
+for data the hardware can never deliver.
 
-QUEUE_SIZE_CAPABILITY reports the configured size of each buffer. Take
-the receive depth from there, leave the transmit and command depths on
-the status level registers they already use, and split
-caps.datafifodepth into caps.txfifodepth and caps.rxfifodepth so that
-each direction is checked against its own buffer.
+Use i3c_device_get_max_read_xfer_bytes() and
+i3c_device_get_max_write_xfer_bytes() instead, which return the smaller
+of the endpoint and controller limits.
 
-That register was already defined at the right offset, but under a name
-that does not appear in the databook and with no user at all. Rename
-EXTENDED_CAPABILITY to QUEUE_SIZE_CAPABILITY and add the field
-accessor.
-
-Publish both depths in bytes through base.tx_fifo_bytes and
-base.rx_fifo_bytes, so that device drivers can size a transfer this
-controller will accept.
+Behaviour is unchanged when neither reports a limit, as the helpers
+return 0 exactly as the GETMRL and GETMWL fields do today.
 
 Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
 ---
- drivers/i3c/master/dw-i3c-master.c | 22 ++++++++++++++++------
- drivers/i3c/master/dw-i3c-master.h |  3 ++-
- 2 files changed, 18 insertions(+), 7 deletions(-)
+ drivers/net/mctp/mctp-i3c.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-index d1119f203d1b..dd5462b12951 100644
---- a/drivers/i3c/master/dw-i3c-master.c
-+++ b/drivers/i3c/master/dw-i3c-master.c
-@@ -203,7 +203,10 @@
- #define BUS_IDLE_TIMING			0xd8
- #define I3C_VER_ID			0xe0
- #define I3C_VER_TYPE			0xe4
--#define EXTENDED_CAPABILITY		0xe8
-+#define QUEUE_SIZE_CAPABILITY		0xe8
-+#define QUEUE_SIZE_CAPABILITY_RX_BUF(x)	(((x) & GENMASK(7, 4)) >> 4)
-+/* Sizes are encoded, 0 meaning 2 DWORDs and every further step doubling it. */
-+#define QUEUE_SIZE_TO_DWORDS(x)		(2U << (x))
- #define SLAVE_CONFIG			0xec
+diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
+index 88d9e36cd4a2..6d08898e1d21 100644
+--- a/drivers/net/mctp/mctp-i3c.c
++++ b/drivers/net/mctp/mctp-i3c.c
+@@ -81,9 +81,9 @@ struct mctp_i3c_device {
+ 	bool have_mdb;
+ 	/* I3C dynamic address */
+ 	u8 addr;
+-	/* Maximum read length */
++	/* Maximum read length, limited by the device MRL and the controller */
+ 	u16 mrl;
+-	/* Maximum write length */
++	/* Maximum write length, limited by the device MWL and the controller */
+ 	u16 mwl;
+ 	/* Provisioned ID */
+ 	u64 pid;
+@@ -214,8 +214,8 @@ static int mctp_i3c_setup(struct mctp_i3c_device *mi)
+ 	i3c_device_get_info(mi->i3c, &info);
+ 	mi->have_mdb = info.bcr & BIT(2);
+ 	mi->addr = info.dyn_addr;
+-	mi->mwl = info.max_write_len;
+-	mi->mrl = info.max_read_len;
++	mi->mwl = i3c_device_get_max_write_xfer_bytes(mi->i3c);
++	mi->mrl = i3c_device_get_max_read_xfer_bytes(mi->i3c);
+ 	mi->pid = info.pid;
  
- #define DYN_ADDR_LO_MASK GENMASK(4, 0)
-@@ -978,8 +981,8 @@ static int dw_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
- 			ntxwords += DIV_ROUND_UP(i3c_xfers[i].len, 4);
- 	}
- 
--	if (ntxwords > master->caps.datafifodepth ||
--	    nrxwords > master->caps.datafifodepth)
-+	if (ntxwords > master->caps.txfifodepth ||
-+	    nrxwords > master->caps.rxfifodepth)
- 		return -EOPNOTSUPP;
- 
- 	struct dw_i3c_xfer *xfer __free(kfree) = dw_i3c_master_alloc_xfer(master, i3c_nxfers);
-@@ -1136,8 +1139,8 @@ static int dw_i3c_master_i2c_xfers(struct i2c_dev_desc *dev,
- 			ntxwords += DIV_ROUND_UP(i2c_xfers[i].len, 4);
- 	}
- 
--	if (ntxwords > master->caps.datafifodepth ||
--	    nrxwords > master->caps.datafifodepth)
-+	if (ntxwords > master->caps.txfifodepth ||
-+	    nrxwords > master->caps.rxfifodepth)
- 		return -EOPNOTSUPP;
- 
- 	struct dw_i3c_xfer *xfer __free(kfree) = dw_i3c_master_alloc_xfer(master, i2c_nxfers);
-@@ -1738,7 +1741,14 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
- 	master->caps.cmdfifodepth = QUEUE_STATUS_LEVEL_CMD(ret);
- 
- 	ret = readl(master->regs + DATA_BUFFER_STATUS_LEVEL);
--	master->caps.datafifodepth = DATA_BUFFER_STATUS_LEVEL_TX(ret);
-+	master->caps.txfifodepth = DATA_BUFFER_STATUS_LEVEL_TX(ret);
-+
-+	ret = readl(master->regs + QUEUE_SIZE_CAPABILITY);
-+	master->caps.rxfifodepth =
-+		QUEUE_SIZE_TO_DWORDS(QUEUE_SIZE_CAPABILITY_RX_BUF(ret));
-+
-+	master->base.tx_fifo_bytes = master->caps.txfifodepth * 4;
-+	master->base.rx_fifo_bytes = master->caps.rxfifodepth * 4;
- 
- 	ret = readl(master->regs + DEVICE_ADDR_TABLE_POINTER);
- 	master->datstartaddr = ret;
-diff --git a/drivers/i3c/master/dw-i3c-master.h b/drivers/i3c/master/dw-i3c-master.h
-index f5b4491b247a..e23554bfc5e4 100644
---- a/drivers/i3c/master/dw-i3c-master.h
-+++ b/drivers/i3c/master/dw-i3c-master.h
-@@ -14,7 +14,8 @@
- 
- struct dw_i3c_master_caps {
- 	u8 cmdfifodepth;
--	u8 datafifodepth;
-+	u8 txfifodepth;
-+	u8 rxfifodepth;
- };
- 
- struct dw_i3c_dat_entry {
+ 	rc = i3c_device_request_ibi(mi->i3c, &ibi);
 -- 
 2.34.1
 
