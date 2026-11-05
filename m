@@ -1,103 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862576;
-	b=34dHi3esbS9s9w4kgxyrJppZ4Y0TPzXqkrXIoAKpBQilPBVNHP9WWRbZ6kXj/dNi/B4E
-	 7sl8ImMeGqWx7Q2snxv0gVQu09kt8N+p7ASGdUnTALHw8NX0n3dVcmx0XFPMl4oYwkVVp
-	 YeWrlWIuM2bWx1YHChG0omX8/Q2CUbFO9vauCYpdMNU3sd6WtJHPADbXMgsC+ynzccf28
-	 WrkHdi/HAjdW6KdXoXa+8SJYkqKNWehgTbPSM+49bpa1Nmk1Pd4kyy+WJmhBHA7Bz5l3X
-	 O+iBCm5MjfbjGisaEc+y5HHHHPOVXEO5CAtN7hDBi9aaAeluinQlE/uK0a9t4d2ME8g==
+	t=1793862602;
+	b=aK67FU8F3diRPaOy6voM9YjXci8fdUc0TtBq9G/SCrpTmnYbUibbw1rO7EBJ/QhnKNYA
+	 OHxqjkXEw3pGvzrdmP/e73u66xoQE/7l4cfBIDQ9Pb41cdBM/EDKb1U4KQcZF8zQKh84O
+	 XFr9pyAtcgcE62sBQvJV7gaASfcDX24/JJqT+yCAObhz7kBIFo1C/TacDn5W8CXkfJYLc
+	 MxsT+Hm2HSNMVjWk5tbeTdUPdQFkPCCbWMLmbkvqZFX8K8qKo8RSWij4gqSlfT/W+cn/7
+	 JK5vOf2GSC0Yd8c+zVpan6SZ2Vpwam1O5JJzVN9g05ArMV6rJZn+rm4q2FgLcR6t9eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862576;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-	b=2ulipRLf3t4MA0lOUqc0Rsv0/X4jkCd1iFjxrWn1fcPcnFdjNEZo2VObIexgohHCrP37
-	 fqJK9O7DmZzd53zSEeo0vaLq9R3mviUUruHZa3PEvRMfNdY7w11rcD4uHIVN7VkXJ1VBt
-	 bvZoeeeajsiZphckDxZuhW1owLbxukWxK0t/dduQIGiejnPwSbFCiUb5g5lkUdsGPPyxX
-	 h31cyW524eusjf7ZZeZ3EXyyAFeS+N0N4kZGPl2hlwkHLfUA1CjXOoWBTdn6QkH+QAlbO
-	 FdO1ead65iOzxbYKrf0yQyeBfV8kZ/Au7mIMffwrrxcYMHDlJdn1i6YfH/+O75C3ijA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862602;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=W3bFR+OUCXuMRaMVIMQtSVJNUtZFw95ONNKlxIG9dQw=;
+	b=E4rDmJGAI1341PkRzlZ7FGW83HCVb8kVWh7SXWhduOU85mJ1B2w4sVdQTodgAwFg6YKk
+	 MYfZrDxFyxE4dFM4aEW9btiKrpX/5ouQsvKsPETHj/ZsNVaDnjogawW+aIqfRlNJFjZ/A
+	 H5Ped2/10ZeSy1jTJ3tgx5Fb3HSN9jdIsHPZ1qrtFn90H3oCrdtDXsvIPt68Ekayo21JI
+	 SJoXZCgnFEY4FImfZ5SWyWF/K1NxS4fb4BWaFoYoPfg5nZ14RvKmVdI2ZnxTI6WTboMYY
+	 DHMx/il71HQLFjx+1JEM9aV5itDK78T02wdWTLbh000BO37oiL8ERofLuCnJ74KloqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oiLL7rug;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="OMRqr/on";
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACEB606EE9B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:09:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ACEB606EE9B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AC1606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:09:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81AC1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oiLL7rug
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535a54bed9so2050103eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:09:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793862575; x=1794467375; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-        b=oiLL7rugBCu6/0+7veAcixdoVtJ8+dAaB0jZJzRuCWtcEAPPSjYnfxnEzQ8gsNHgmB
-         LPMSs3udVmjZERUq/VzByNWXLljwOB1vQrmh2xLniv9yIVdZAebzRizSfgRVUJ46XqYV
-         6aeo+d1hXqwCi0LruTYRGL32tLAoCQJqpZNv3jFPAsFXGjA7pJq9YFxfS3m0fk2yTRpx
-         hamAOQxmK5H8FaKrMjR06/FHvZbYyN3cZz2hd5XBSYHlwWRMxHOXiwoHzsNDa1AOP6Yr
-         xlPqMHdqcPnvohGQEhaqFr6YmBpEm50z+LOyYoPk080MbW9bhWbmnLSjG7hv4HHmWPXk
-         QvoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793862575; x=1794467375;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-        b=e/G4XzTRxJXVTeKWvu9Cz0W4hUin/tWbHvAyCFhGoCzT1DiNt+vc464cL7emskykG9
-         bNjZDWrMfN4KXoJQFCa1cD1rE9HcnRFYLP7YkjGgPdcX3rojSy4idsvGYG7ZSqIyfXDY
-         4YbP+MLYFZIu5cxwWOeYiu5giqXfmepumMPeR26dP2OigNejTGOAwJtBBZYzg2CWO+1E
-         hcqvpZ4/7BcgCM0+k29Ba04Y8VuJZmgFNUwP1F7nJW7FKcZH09uIo55EBUgBvWBC7g11
-         RyuDa93nV5fDGSnEzcscLJijRMuEYGP4r7Q6I/rnf+cjbmX6RfMNrupj7FBZ4pKgZQFV
-         gfUQ==
-X-Forwarded-Encrypted: i=1; AKwUvByekFQLZYPtevxEbEPkJCRRlO/ZwGAgoVNfU4B/UDt8C6e0bqpxQSeDQnCFnpbkZOwHRSSbZqFIRWZ1mhs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4qYjk2qVfFlTo8qZ2c8q15DcbNL+TvbO0wuDxt6C4pgk0o/gw
-	EwGV7wAwKGZ7uGFMvRsvnNT1Yh1fIqgxrdb3fI7ff9ntx+pyuXk79xH77/KjdQ==
-X-Gm-Gg: AYBFou2V1PtE4+6hqVTAZNs6yZDa9D4vBPiXaQImNP161FYdweqSZPj9YjDGaVZw9kC
-	4UofEg3Kv7g6MS4Q9DEbMGoJGwWdXsZkMs2ks4bRb7/DaScGVdIvfkPpEjdfj5e17peUgog6VRm
-	fMIvvevYgXU5OhFR6a3HZFQcSPUQxBu6GG/7DXXvHeqFBlhBrmz7l48XzNuZnq6pxYy+jt9jhYl
-	CNp07jPsxlgoS03A90ltx+YB0ou3frxWbOSgkLQvdnqf/zlzxL7blBb4CDRmBG07XsSFzwwd/wa
-	XZ0IzWebMmsnLtg5UxYT9HwIietOpi1KbEl3zsOJM0oVzlgg4yw1uPIVvfwHEjBt7myZkW2NOVv
-	N9reL7YPV5W5pcpx0nCwLGwykSwNW0e6QBfgK7fD2ZRiXGmq3JTw/81pcF8kZ3cXigfv2HtzBH4
-	jzCZwipCODnbX2kS4PcLPZ8MX6xQytIQuXjcL8N/PEL24u6SDM7eo8jlM/KopDpVCfVtkwWFrsx
-	TFcgiAMCBRmK3X4PRfc3nAkvLfgp78nGcSV0lwiBZzewhYm/9NRPfy9MZlRgFILO8eFteFBNf6M
-	3SqIi8G1RdT6dCc+YosIhb1lA79/CTUpWTN0xdL9fQkUfZzpQfZm0+UbBGsri7Fc1HcGKtF3e/w
-	b+sTTUHwfNwC+csxXBEol3lcLIGyaZr20zOr8dUC0+kdob8M=
-X-Received: by 2002:a05:7300:d80c:b0:36b:c491:93dd with SMTP id 5a478bee46e88-36bc491a788mr11101969eec.18.1793862574798;
-        Wed, 04 Nov 2026 23:09:34 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3981ff0sm16812286eec.24.2026.11.04.23.09.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 23:09:34 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v17 12/12] docs: describe virtio-sound capture options
-Date: Thu,  5 Nov 2026 16:08:45 +0900
-Message-ID: <20261105070845.6449-13-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261105070845.6449-1-mynameisjune111@gmail.com>
-References: <20261105070845.6449-1-mynameisjune111@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=OMRqr/on
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=W3bFR+OUCXuMRaMVIMQtSVJNUtZFw95ONNKlxIG9dQw=;
+	b=OMRqr/onJ4fN5f/qsW6iI8KkpcQ+NHinFMRSJA8lR9FT/cUFn/PZfFbTVIC2XgLiGYicWsdhM
+	YEwZP90BidhKs0Lybrtbd0SsaLTZb1s7p5S64+iaQF5p5D7eOmlP4klUiK2xhERAL5MNlFmG1Os
+	oNRWO+buC+dCq5C9nH/I4xE=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jKtjV6hGLzKmZp;
+	Thu,  5 Nov 2026 15:09:50 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 259BA4048B;
+	Thu,  5 Nov 2026 15:09:57 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 15:09:56 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>, <gshan@redhat.com>,
+	<jic23@kernel.org>, <ben.horgan@arm.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v4 1/3] fs/resctrl: Report a temporary RMID shortage per CLOSID
+Date: Thu, 5 Nov 2026 15:09:32 +0800
+Message-ID: <20261105070934.2258613-2-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261105070934.2258613-1-ruanjinjie@huawei.com>
+References: <20261105070934.2258613-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,53 +74,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Document the five opt-in virtio_snd capture module parameters. State
-that capture_allow_empty, capture_allow_short, capture_packed_status and
-capture_pause_restart require capture_staging, and use the ALSA kernel
-parameter restriction tag for each entry.
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+An RMID that is freed is held in limbo until its cache occupancy drops
+below the threshold, after which it returns to the free list. A request
+that fails because of limbo is thus temporary and worth retrying, which
+resctrl reports to userspace as -EBUSY. A request that fails because
+every RMID is in use is permanent and reported as -ENOSPC.
 
+Where an RMID is only meaningful together with a CLOSID, a request can
+only be satisfied by an RMID belonging to the requested CLOSID, so the
+distinction has to be drawn per CLOSID. Instead it is drawn system wide.
+-ENOSPC is reported when the free list holds no RMID for the requested
+CLOSID, even when that CLOSID has RMIDs in limbo. -EBUSY is reported
+when the free list is empty and another CLOSID has an RMID in limbo,
+even when the requested CLOSID has none. Userspace is thus told to give
+up on a shortage that may clear on its own, and to retry one that cannot
+clear until it removes a group itself.
+
+Architectures where the RMID is independent of the CLOSID always match
+the first entry on the free list, so neither case arises there and only
+MPAM systems are affected.
+
+Draw the distinction from the number of RMIDs the requested CLOSID has
+in limbo where the RMID depends on the CLOSID, and from the system wide
+count otherwise. Drop the separate test for an empty free list, which
+the search handles on its own.
+
+Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Babu Moger <babu.moger@amd.com>
+Cc: <stable@vger.kernel.org> # 7.1.x
 ---
-Documentation/admin-guide/kernel-parameters.txt |   29 +++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ fs/resctrl/monitor.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -8344,6 +8344,35 @@
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 04e4ea612b7c..b8f4e1ff4083 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -207,9 +207,6 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+ 	struct rmid_entry *itr;
+ 	u32 itr_idx, cmp_idx;
  
- 			Can be used multiple times for multiple devices.
+-	if (list_empty(&rmid_free_lru))
+-		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
+-
+ 	list_for_each_entry(itr, &rmid_free_lru, list) {
+ 		/*
+ 		 * Get the index of this free RMID, and the index it would need
+@@ -225,7 +222,17 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
+ 			return itr;
+ 	}
  
-+	virtio_snd.capture_allow_empty= [HW,ALSA]
-+			Retry a bounded number of empty startup capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
+-	return ERR_PTR(-ENOSPC);
++	/*
++	 * No free RMID matched. If this CLOSID has RMIDs in limbo, return
++	 * -EBUSY so userspace can retry. Otherwise, the CLOSID is genuinely
++	 * out of RMIDs. When RMIDs are not per-CLOSID, any RMID in limbo
++	 * delays the allocation.
++	 */
++	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
++		return closid_num_dirty_rmid[closid] ? ERR_PTR(-EBUSY) :
++						       ERR_PTR(-ENOSPC);
 +
-+	virtio_snd.capture_allow_short= [HW,ALSA]
-+			Accept non-empty, frame-aligned short capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_packed_status= [HW,ALSA]
-+			Read status immediately after the returned capture data
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_pause_restart= [HW,ALSA]
-+			Release and reprepare capture streams across pause when
-+			virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_staging= [HW,ALSA]
-+			Enable staged capture using request-owned buffers.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
- 	vga=		[BOOT,X86-32] Select a particular video mode
- 			See Documentation/arch/x86/boot.rst and
- 			Documentation/admin-guide/svga.rst.
++	return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
+ }
+ 
+ /**
+-- 
+2.34.1
+
