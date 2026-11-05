@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866170;
-	b=HO1doPNY+DRn1X4N3rGi3dKW4uXs3rQl0/cL0gDpZsOd1JZ7alzR+3X8Hwkb/7l7MKtU
-	 7KM3lHCdH24hJJlOgwiaB4BpFwV0+QQMOua9DLO/Emuugs82PCGxOlWAq+KW/EZZ6nSll
-	 dYeYdqeZtdufLnbw7BOTxAUKdSZWxSCT3uWRLFxqp2VycqmRgHh//MXreQ4KZjzs/MN0b
-	 ZMEou6NysFHiK1p06bP7L5RQUzY25F1XhXHuVlewb/D+/GMTro6bIcrLc/G4yhXtk4Ft3
-	 fANB0KrwBXRjfFCE+iO/SLCHQVGztyHTvkZ/pkJwlR/hy55Z8E4gQTkF4JlTt+9iskg==
+	t=1793866161;
+	b=Nc4XkpfoBjyptSgyPx5qqX6Fex6CXGJEPZVxuc02YzA//aQGn8e5ZJoWjIQZNxKROL5j
+	 lwrO7zAmKzWe8eMZhDK+oz+ePCZNoqkl6wPZzcvlE9/pNnWMaIkLXjCIiYza6BCQQixjZ
+	 pc8CvYnTuvzWtdN5PTQxaH6FoVr7IotmOXdLPQlzCHRJtsaaowG0LktcpECTbPCpJ6LkI
+	 9fp27KW1GujTz65s5WG4ZxLwcnhQY/d266CdYGH8IaALqSl/kdvLSUunVb2XvQIH9WB6+
+	 cY6vQKe6jU8QE7FlSIGAOID+FkVFoChgIFNcieDJGyAxe/uO8yZpOiFAzBF55G/jNMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866170;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OU8JGvzxBnbV05ggLnCmMcYCO6Z2MxDyZV8tzsNxJBg=;
-	b=RTcc9Lb50aBfS6M7TtEyLmh2Qv+AiN6kfKVyK6PiSTrgTbBa/XELHn7vvY1vIskCY5rV
-	 9d8IpanUAFZiaZ3uh0KSz0sNIA9t5/XLTrWOS0GDfKBCMwUlaZNspGZ1X2GJwydHlRZ7z
-	 ph88bVhwQ0B3L5GRxrGcD5Sbu0RcpR/3+uCOiREDCMo5dYUpIMDiNBYeaLxlP+GrVEc8Q
-	 O1om+NZFD8wuV6MURWX6Dg6huySijz9441ADYiG/hqAhqor8ULarDCleVD0uu3aKUI5CK
-	 c+pEW24yfsB+Da+NUsOI9+G6uo15N9xpd5/na6BaLlTXBaUZA0IQ3N3j3YYeccndUHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866161;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=bjETVxfVLMt2IiYKGkceVRGimWMB+LTEJ4OhF5ADDZA=;
+	b=34bGOrmwA86yFsxQRxxm4oDougnHqZoa8Lje5PId4m+tq2QNAZWKvxIFhBD8WrOdV2/o
+	 qEfqKZG6ZqDCPLAH8oingnYLv9mrIGDLbrMjqN1yaqSpPLLaxqgJWEmZNo9/Tsjfc9tBi
+	 7pTsPyWxF8K/0xXYIHZehA2JTyQf3ENGWWNVpS8HFCPsmjeyuIPXf0SWt++WR9Mouyr08
+	 VTzdttg4YhwNmpXowZ66ALL7BoznHNxOOJVijdZvEfCDNJpSaKhpVANZe0V8JdEi3p0Xz
+	 N/J/cWM77TBemNOARzKtJa5wu1q7mfu6iIy2GGtjr2vm2MGe0W8N1KfEHgP4xvi88Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KiaXIk8N;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5005606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:09:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5005606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="SPwF/kbq";
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E593606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:09:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E593606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KiaXIk8N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=KiaXIk8Ni5aA0gpLPgmURgHMdIBa4XKucxtM6DItM6DUFPylkM5MYBYOEAElrSKAA0oZtXkqsDiRd
-	 9QxQ20RjIiKQToyJwCx07yYKp1w5xu+rKVMTcLu9BVtQdn5fIVVU/Nlvj1ha/Dpm7FeC3S7pF4basc
-	 t2klJKXAaBUr/2NM=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56aec39b4834-a2ae0;
-	Thu, 05 Nov 2026 16:09:26 +0800 (CST)
-X-RM-TRANSID:2ee56aec39b4834-a2ae0
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100250 (unknown[36.137.216.21])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aec39afd88-413ea;
-	Thu, 05 Nov 2026 16:09:26 +0800 (CST)
-X-RM-TRANSID:2ee86aec39afd88-413ea
-From: Gu Bin <gubin@cmss.chinamobile.com>
-To: gregkh@suse.de,
-	m.nazarewicz@samsung.com
-Cc: linux-kernel@vger.kernel.org,
-	gubin@cmss.chinamobile.com
-Subject: [PATCH] tools/usb/testusb: reject bLength == 0 before computing read size
-Date: Thu,  5 Nov 2026 16:09:16 +0800
-Message-ID: <20261105080918.2198-1-gubin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=SPwF/kbq
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261105080918euoutp02eaedf267a4def4b674501a5fed777ace~lF8Q76umr0732607326euoutp02o
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:09:18 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261105080918euoutp02eaedf267a4def4b674501a5fed777ace~lF8Q76umr0732607326euoutp02o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793866158;
+	bh=bjETVxfVLMt2IiYKGkceVRGimWMB+LTEJ4OhF5ADDZA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=SPwF/kbqDZMLDzZP74/liMmXBJWtDVqjU0tziMDe2iU42wJ+8HmyWpcU0MUw71UaY
+	 5WbIOX7XRbIFjnhyiqDPulduYKEhdkyZxBjtlm0fxW/33RHopgZrMcFTPJtSKDd+cz
+	 4eifBu4PatwDNFO9hJeOwsDlU94AzDeKx+P3sCo0=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261105080917eucas1p2cceb741925f5b4810aa967fbc7d69736~lF8QpZTbj1672116721eucas1p2J;
+	Thu,  5 Nov 2026 08:09:17 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261105080916eusmtip29e6e775c57e338e67abb69f5e93d8525~lF8P0c5Yo1415414154eusmtip2b;
+	Thu,  5 Nov 2026 08:09:16 +0000 (GMT)
+Message-ID: <b32a78a0-f984-448a-aa9b-6d1469b2672b@samsung.com>
+Date: Thu, 5 Nov 2026 09:09:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +64,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma: swiotlb: Round restricted DMA pool size down to
+ IO_TLB_SEGSIZE
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: Robin Murphy <robin.murphy@arm.com>, Claire Chang
+	<tientzu@chromium.org>, Konrad Rzeszutek Wilk <konrad@kernel.org>, Giorgi
+	Kobakhia <gkobakhi@asu.edu>, Michael Kelley <mhklinux@outlook.com>,
+	stable@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261103155016.1107958-1-m.szyprowski@samsung.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261105080917eucas1p2cceb741925f5b4810aa967fbc7d69736
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
+X-EPHeader: CA
+X-CMS-RootMailID: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
+References: <CGME20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862@eucas1p1.samsung.com>
+	<20261103155016.1107958-1-m.szyprowski@samsung.com>
 
-testdev_ffs_ifnum() reads a USB interface descriptor from a file: one byte
-for bLength, then bLength-1 more bytes into u.buf (a 255-byte stack
-buffer). When bLength == 0, (unsigned char)u.buf[0] - 1 is integer-promoted
-to the size_t SIZE_MAX, so fread(u.buf + 1, SIZE_MAX, 1, fd) writes as
-many bytes as the stream supplies past the end of u.buf, overflowing
-the stack. A corrupted or crafted descriptor file triggers this.
+On 03.11.2026 16:50, Marek Szyprowski wrote:
+> All other paths creating a swiotlb pool ensure that nslabs is a multiple
+> of IO_TLB_SEGSIZE, and the swiotlb code relies on that. Since commit
+> 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization") a
+> restricted pool can have an arbitrary size taken from the device tree.
+>
+> If the pool size is not a multiple of IO_TLB_SEGSIZE, the last segment is
+> partial and swiotlb_release_slots() reads mem->slots[index + nslabs],
+> which is one past the end of the slots array when the freed buffer ends
+> at the end of the pool:
+>
+>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
+>  Read of size 2
+>
+> Round the pool size down to a multiple of IO_TLB_SEGSIZE, wasting a bit
+> of memory, and warn about it.
+>
+> Reported-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+> Closes: https://lore.kernel.org/all/20261026032007.1957949-1-gkobakhi@asu.edu/
+> Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
+> CC: stable@vger.kernel.org
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-Reject bLength < 2 (the smallest valid descriptor length) before the
-second fread. Cast to unsigned char so descriptor lengths of 128-255 are
-not misread as negative by the signed char comparison.
+Applied to dma-mapping-fixes.
 
-Fixes: 5bc9661cba04 ("USB: testusb: testusb compatibility with FunctionFS gadget")
-Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
----
- tools/usb/testusb.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/tools/usb/testusb.c b/tools/usb/testusb.c
-index cbaa1b9fdeac..7014c04fa73e 100644
---- a/tools/usb/testusb.c
-+++ b/tools/usb/testusb.c
-@@ -141,6 +141,8 @@ static int testdev_ffs_ifnum(FILE *fd)
- 	for (;;) {
- 		if (fread(u.buf, 1, 1, fd) != 1)
- 			return -1;
-+		if ((unsigned char)u.buf[0] < 2)
-+			return -1;
- 		if (fread(u.buf + 1, (unsigned char)u.buf[0] - 1, 1, fd) != 1)
- 			return -1;
- 
+> ---
+>  kernel/dma/swiotlb.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+>
+>
+Best regards
 -- 
-2.55.0.windows.3
-
-
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
