@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867394;
-	b=NoysLZ7Tv6YZ7OQOsfXcuoLegItWyyrqgT4Lz804Q6RqUIbPkbHq5TmuOA66F/COY4ci
-	 eK7c4T/dLpu2mZMDuhzcqfb4x5d3Vl4RwOSE0P/HMC0fosMK6IdeaU6bUXBv5EvM1qbSv
-	 qzPGTDFyXNQTwXZFfHHyvJWOQOd0qLZ6ayxxup5Z/5Cus/KJZYsvqKpJxr932nBMD9QxS
-	 fHRbsuxK9w56cEe0reEc0qDCR5LsCE4h+pW9sWI0g3qf/0trOA7WBl3ZfgSnKQYZLWaKe
-	 3NHLu9LwPOwbr0JNF4z5SK34dPA9m/zG1L35V5NjyzsoSkWmuiM4YZpe2mruTvgLT/A==
+	t=1793867498;
+	b=201KZtdmFRoIRzls82ij/VzCB08WHKEaK+Z/0TZIH3DQGSwf0Q5ddJbtX6Uumz6eGu3g
+	 fUSZxAZnLReoh18xM7XMoZMM6F3iEEKO0j9Uq61ZJBklaMM+H+xzN1NIxMl61J6rg7CdY
+	 p3yKQENB+ZoSp03l/Ops5goaUL6UhbzL9AGsFDRMTRMWCKZ5Qt4n6EQspA3NoUXi0g410
+	 pyTmZFdkDTl8KodX0ynrtKKKVGb2PxreyU2/gyOHTvt6ZFCIFr6gaWt+I4e2gH/bppbBT
+	 F0uK+x+yGos5USF1Jt3KMScqKGrFPlfz60e/hLMEIECb7N/t78F/uyO3rH5JCa0MX0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867394;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=CopvvqhWid9fiExsBsxW2G2T9Z5Dr++oJhDSpnNEa7E=;
-	b=UMgTV0uQoMCZtT4wzd9LZ3tpEEl4lOtfF+uzFtpclWVt5guGQMvCs3g/LNHOqaf92g4F
-	 40eHzQ3TUIVgvxnbsu+FMH5/rfdeUjSq4tUkJ1xTbzGWDVnirHx7u2MPcz64BqSFEweel
-	 tT47zOS1hY/IBadt0+ZiM8zmBjjRACyZlEAq63bwOWKZqyUFEj+SEwwOrTNAbLvn48efM
-	 BlG/agwLDOjtBgnNMlN7eztYwTuJEvI8O+yn6qbnlm7h39lSWsMSPCDcjr0ML/YytIVCg
-	 5siEPrd01KgSN9Ov7ZhyMRWaIE/JNlwDIAm4sP1SHZvezJ6Le07bjHV42D21WBRXjrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867498;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VTYeLaYKKNnR4GNV/TaYDsoMFc7kD+xhaqkactUd/3g=;
+	b=FBzJ6jhoC3eIKfprOwGRbiRJNbMurFMFAzsW0tFIElqoMyZXxmlAMP+V6Ni1phBj1dbJ
+	 8EdMvtwtoOB8cQFeI3FvJLP5QXkIxV3Jkxg+nN5VaPY5hKzSKK6mfYSzJgIEII2ByoUqi
+	 RBT5JluGDyGPUWwT3g9qosgIUuDQWgevo/ikKmb6JK5F63IXdprIjxoCJFsIQHsuMqVW0
+	 PpXe+ow/K+ePKJlMNxnCOc2xXYOszCVlcoXrgyLkEYEbNND6jsa9nfv+s+Y40nTXIh3e0
+	 OQf0dt7KXjptw2g9/xqF3fDMaRP/A0X5+2RnT7UyarospzEVYeER3iSi6Z2kHVqbI/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=tycrbvdT;
-	arc=none smtp.remote-ip=54.207.22.56
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UdpAjSX1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A16606A32C;
-	Thu,  5 Nov 2026 08:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A16606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70553606A31B;
+	Thu,  5 Nov 2026 08:31:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=tycrbvdT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793867375;
-	bh=CopvvqhWid9fiExsBsxW2G2T9Z5Dr++oJhDSpnNEa7E=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=tycrbvdT+RV7mYB1eAtRzCIy0Tou9MpJGN/4I9cjlGjGe8a4V2kSCIu2S2T1geQyn
-	 oRBAWpXB1cR2xMAYxX4PN5Bwu0hrsjxicAEjVu+GDPGHf3RY8OE1SrI73QnQKAV/3r
-	 ouixB63NCJ5P6g6B+Owfe0iYJq21xLGAVWl6kbKA=
-X-QQ-mid: esmtpgz15t1793867374t0c3a66c1
-X-QQ-Originating-IP: W/Ln7rBhQsWfKhGVkC9nM9jBRkjphOV2anfcWAXMPbU=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 16:29:31 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1637689771413805763
-EX-QQ-RecipientCnt: 15
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Thu, 05 Nov 2026 08:29:26 +0000
-Subject: [PATCH 1/2] dt-bindings: riscv: spacemit: Add K3 CoM260 IFX TQ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UdpAjSX1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB8D1F000C1;
+	Thu,  5 Nov 2026 08:31:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793867498;
+	bh=VTYeLaYKKNnR4GNV/TaYDsoMFc7kD+xhaqkactUd/3g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UdpAjSX1Ro0Jx1+rM9vTzFKPs+jUr4o3qyZkDKLIoulXlVpD2YPlJvVvDOWjHASuj
+	 +yLcDwbbQPABVdze7sA2RY2GN+t3teeLFEJcaSC5bmEF9fM7fbjoBsvCyqLsk8DA9F
+	 oqGyrhiP3CXAZdK9WEQhAlOhKvWrj8WMFcK70NhUkfMNODpoH7l30kifsigPUx5G4q
+	 lcNj2sBFDmdqf/qNvyEDHAmIKn+zvcpiE1VSDExndt3rZv5LIew1oIRX1dgqUvxZuo
+	 qjrmtbfPGHJJ9Pi708oRJOadeqNITHmJ39z7dBeJWrVb6u7Dbqpg93qCgBE+LAgLRN
+	 6JkFfr9Qa4PYA==
+Date: Thu, 5 Nov 2026 09:31:32 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 04/10] irqchip/gic-v5: Serialise ITS invalidation
+ commands
+Message-ID: <auw-5EyY_aifcv1N@red-moon>
+References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
+ <20261104-host_gicv5_fixes-v2-4-e47ad20ea3c8@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,73 +64,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-k3-tq-dts-based-on-com260-v1-1-aa0b7714aed0@linux.spacemit.com>
-References: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
-In-Reply-To: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
- Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=849;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=0cRTat3hlAAUdXn7s5TJaU5uAtb3Men7e3BzfMITEU0=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlv7NI6eq62H3GW8UhsPzyHfU2aSWLYY6Oe8FcFXzrLN
- K37Pp/sKGVhEONikBVTZOl+wLOtwCfKtkCg0BdmDisTyBAGLk4BmMjmRQz/887v9VF8tkttt956
- nqONJbfusJyTN6jbfj8rhd3DdIfWaYb/kUyWKdOfZJ+Kbe7eocEpXX/KxKlzM8PGzF4/Ma79zBc
- 4AQ==
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N3i14PjB5Od7hDrGQvkUvpN1bzhyBChT3MXt/eBolPzpUk/Tdqi6NRbe
-	r3V6SpcLYrLccqUPKyO4z6x37LF8+zJtkk4ZeB0c68bWfDAvvFIg0mf6UmqxUALwNPERhDS
-	Dv8/4UJ81mCVjz1LGRwsvyMdr2ELx0npXrVGN1XQUo74V1zl/p4VKbFSxhNCtwUdVOgIRAz
-	HwbMFICtElaTF2wRPnvtPqPwR0fQ/gEE/jEkr5nf2LY30qVLVTjK+IXRTZx6WLFnfeFv6yL
-	vhBx3miVbz/gzMshfUI1Pt3u03/XVj/xSk2qo3TYUYSRch4xIZPHrmW3jA7hhwgbqc0CnS9
-	Z3HIijyFpYTfmBuJiySlPiFoiZXUcy52ea1MVOtjikluNZpEiiUFuxl21DYRslRdt+qwJXg
-	gM+fJe46fbBPidzjClKQQFvt2xm0jHIqun1BypEwmeUC009Q3ReGLdCNQoIbHynMeU0pmT+
-	uyMumUjT6usAkjDSlVJOMtl38YgqPXNuqi/rXrla//++O1G1mN/7vbcx1Q3rCXwcZHoa8z8
-	HrRT7uZzmedLVsm3zqa15eOjfnsRq/EC3DqiyCmnN24OEWtsfJo3rIVparMJS0Y2d/6xuDC
-	1uIX4mI4ko+ErOdMDvezNxRdkzQqDNq4eBT2aG6qM8K9eFPwfXyM9Aez2AecFhX1ojvoieO
-	YTPnsVBmWOxZ5WPB13VJrtAg+r4LfCs9fmaZ4ubE9Kpxt4Qjfps1eSr/dYbursUhEJaB/YM
-	vV3wUwNSJjWD9uXF74PO+XAjXMKGRLsx+gbGGGByLNDa9t8PfY5aeNXXrfkJAjLLcHkDDJq
-	zym6MLzckdy0P+BSQALWm615Ukx3AQOfIh8DZmgox/1Qw/Etrh0fx7644rGKpThLZ8OXTll
-	vknCS7MWCKG7AchTw1j2Dg38S9v9Z8XyLszBFt5ceYaEbdBKm1UwtYxgEgxMff0nR7ucLjV
-	JF1SHafeustPYSu9fHgXSkD0NQtFCLnErujOrnTLWX/pLcOzCuUdUlDpmWhvzJ0aU8sCke2
-	a75lAztwCpj6lu1F2sEQI34X1B8D46HBN46lcJS3u5ziXQ00+EZr3UqcyzxbGtMp+r6mlBv
-	iqJDJ+D1tYLsZFVVhTFOZOdsEs3IPR4aA==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-host_gicv5_fixes-v2-4-e47ad20ea3c8@arm.com>
 
-The K3 CoM260 IFX TQ board combines a CoM260 module with an IFX TQ
-carrier. Add its board compatible with the CoM260 module and K3 SoC
-fallbacks.
+On Wed, Nov 04, 2026 at 05:47:58PM +0000, Sascha Bischoff wrote:
+> The ITS uses the shared DIDR and EIDR registers to select the DeviceID
+> and EventID whose translation is to be invalidated. Event
+> invalidations for different IRQs can overlap, as can an event
+> invalidation and a device invalidation. The per-IRQ descriptor lock
+> does not serialise these commands, so writes can interleave and cause
+> an invalidation to use the DeviceID or EventID of another IRQ being
+> invalidated concurrently on a different CPU.
+> 
+> Serialise the command register writes and STATUSR.IDLE polls for both
+> invalidation paths with a per-ITS raw spinlock. The KVM
+> gicv5_its_set_vcpu_affinity() callback calls the event invalidation
+> helper via irq_set_vcpu_affinity(), which holds the IRQ descriptor
+> lock. This path cannot sleep, so use atomic polling.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- Documentation/devicetree/bindings/riscv/spacemit.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Same comment here as IRS sync. This one though looks like a host
+driver bug that can happen regardless of KVM, so I'd just fix it
+and remove/rephrase this paragraph.
 
-diff --git a/Documentation/devicetree/bindings/riscv/spacemit.yaml b/Documentation/devicetree/bindings/riscv/spacemit.yaml
-index 4ee9c88984b4..9b115b4e4b9b 100644
---- a/Documentation/devicetree/bindings/riscv/spacemit.yaml
-+++ b/Documentation/devicetree/bindings/riscv/spacemit.yaml
-@@ -40,6 +40,7 @@ properties:
-       - items:
-           - enum:
-               - spacemit,k3-com260-ifx
-+              - spacemit,k3-com260-ifx-tq
-           - const: spacemit,k3-com260
-           - const: spacemit,k3
- 
+> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
 
--- 
-2.56.0
+Again, this is linking to a report on a series that wasn't merged
+yet but probably it makes sense to leave it there for context.
 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> ---
+>  drivers/irqchip/irq-gic-v5-its.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+
+Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+
+> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+> index 28e39b065de0e..6d98f3dbe34b6 100644
+> --- a/drivers/irqchip/irq-gic-v5-its.c
+> +++ b/drivers/irqchip/irq-gic-v5-its.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/of_address.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/slab.h>
+> +#include <linux/spinlock.h>
+>  
+>  #include <linux/irqchip.h>
+>  #include <linux/irqchip/arm-gic-v5.h>
+> @@ -28,6 +29,8 @@
+>  struct gicv5_its_chip_data {
+>  	struct	xarray			its_devices;
+>  	struct	mutex			dev_alloc_lock;
+> +	/* Event and device invalidation commands share DIDR. */
+> +	raw_spinlock_t			inv_lock;
+>  	struct	fwnode_handle		*fwnode;
+>  	struct gicv5_its_devtab_cfg	devtab_cfgr;
+>  	void	__iomem			*its_base;
+> @@ -129,6 +132,8 @@ static int gicv5_its_itt_cache_inv(struct gicv5_its_chip_data *its, u32 device_i
+>  	eidr = FIELD_PREP(GICV5_ITS_EIDR_EVENTID, event_id);
+>  	eventr = FIELD_PREP(GICV5_ITS_INV_EVENTR_I, 0x1);
+>  
+> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
+> +
+>  	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
+>  	its_writel_relaxed(its, eidr, GICV5_ITS_EIDR);
+>  	its_writel_relaxed(its, eventr, GICV5_ITS_INV_EVENTR);
+> @@ -371,6 +376,9 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
+>  		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
+>  			     its_dev->itt_cfg.event_id_bits)	|
+>  		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
+> +
+> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
+> +
+>  	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
+>  	its_writel_relaxed(its, devicer, GICV5_ITS_INV_DEVICER);
+>  
+> @@ -1112,6 +1120,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
+>  		return -ENOMEM;
+>  
+>  	mutex_init(&its_node->dev_alloc_lock);
+> +	raw_spin_lock_init(&its_node->inv_lock);
+>  	xa_init(&its_node->its_devices);
+>  	its_node->fwnode = handle;
+>  	its_node->its_base = its_base;
+> 
+> -- 
+> 2.34.1
+> 
