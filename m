@@ -1,87 +1,87 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793875227;
-	b=L2JB5Lg5td8n4bO6fV6WAWXZw8+Zcg5LM/Jndmo/ky+1Zyep6+7PTxPd6k+Z/rBIr/2p
-	 qLrYPg0s0HIdGPl850PArM5zxJvV06r/ajegeF3UFTZyo/gXkZxWxsdR4fVgEpXDQEkmy
-	 o2W1dJkCIuv8LE94qR/bNM9n9uGItW0nDvSm6byyuf7fV0KhlyKZLN34NJauC63F3qKkL
-	 KuP8RY/tDUjIg1kwk/UZKRXZXn1vQ81FA4K8Y3L6RyQf1BupWPo4QBgOT8mDqkuW73rp6
-	 nKEwGpQOOYdYXIXz2apZnQizKBByE+06cWADX5ZacS/D1HNO4M0QEZMFue5CFtYCfxA==
+	t=1793875254;
+	b=AMwUe5Mr8bg1ReNJYZOeQPRC8ccPoEmtSMT/EOPvuwSqaZAFRLXgY7w1NA7kW2oDoMKB
+	 uKSKVbnFN4fD5WmL92o1Sm/yE32sIrznJtfmltjp5VWyHgokOCBqe7ngaA9U3hGhDvm8u
+	 CBIjm66emvIhXZS2QdqTXFOxHS4oZUgZWH/ngCyNCctBVdVvrVIAxTlLzjeKfk1D7snsf
+	 TaBem+jeOK9XzMmgjgmmetjJ/A9xXI5GdIWljLayQdFzxxFp2nEoBG/uBtVXxZNZCD0cb
+	 NkYhLLmOQSuty2+yGy6NyE7PvnooeDrC71E0qOPQSTkN/qmvJ/eu9lYOyYXApLwv3Jw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875254;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
 	 User-Agent:MIME-Version;
-	bh=i5fXZcdYmGYVP1P0uy/xvb5fF2zzOJ4Rwymf4gl4jJo=;
-	b=0XKStbHoA/fL8pphfBC8iIhqaRlHrozSEsxkt7l50QQhvLPJg5GQBtVyCKXTTH0ZbeE3
-	 lUu+sIZx6ncPXfHTsDY4bsUl+nxy62ceWfciRaQH0aM3K94p6gksyf4UGZHZCKQ1+LpcV
-	 9ogU/3Y4LVH21Hg8n5DhOnQ6dSbALvjSk5+uAkNDebV6sBEff5J0Dhd7ZX0Yh2Y0tjb/3
-	 RSSAC3kT1szkECXexAn96jv1y5muEJ2oJGcTxDmw+4KQRiwJIpi7BVs751iQMbQutH8IA
-	 aKMY0/lASJM1ZtyMYhtOngDHp3eVp6zRPhwuRvVhZ16lwsNMzL7KJit+xbvMH24y1iw==
+	bh=g6eyY98qNh4jG6A7wQCkjm6t762hh/aar5NQBQzO22M=;
+	b=FgvAiLMoQN2EG2Mkf9DQyatdmzjRBWhJ7zowAtZJqXTJfa4lB5/lYiN25HEif18896uQ
+	 ZeUb4Q16vZuy0xmIY5wXLF+1nVdELTwvcbTn5UksmoyDpjTNIfu5Ts51OmF/Jeemo17qU
+	 z2l27tSlADrQnuhKfpaHZi3nSlBhzwC3yp0b5yJrZlDa/X/r5kPxgoOCRb7QeI5HBCGtg
+	 ZYg0KXQTEjamecwGqrZb4TxjUsHwDwB7UJnOos0UVp/+NcDT2bVEC2JkqqpYf6+wt4LZY
+	 +PniYJMmzZ6zxqFKtpTcBq+PlDy5Y/1SD0f/S0JI5b1c4x84/L6ht3aaBaJioKtXSKA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=INpu17mW;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=fur6M3NF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24878606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:40:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24878606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAF4606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:40:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAAF4606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=INpu17mW
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=fur6M3NF
 Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
 	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D8E112006C0;
-	Thu, 05 Nov 2026 11:40:16 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EE4D92006C0;
+	Thu, 05 Nov 2026 11:40:50 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793875216;
+	s=20260414; t=1793875250;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i5fXZcdYmGYVP1P0uy/xvb5fF2zzOJ4Rwymf4gl4jJo=;
-	b=INpu17mWiT9vQ9cPCGcFRrilTCFTnnUCwtge5G263ucwrkH8lLYHz/cAUxGVmU9Y4z0Qhr
-	aUgauW/No/V2wSw3dpAgzO//WNUK+ApeFnDX58uFjVOZxt/D104OB9Vgp8DbSL1NqSyC+Y
-	sNAfgdqk0Vuz6z986cZWYeoRwkzy0DBH4RhK6d5uO8FoCLzzE1awiAKMozeepg5nOvC6Ht
-	MioVL51mp80v8gNSdfy1ZPEPx53OGulOXXuG2tRmPPrOEOIHg9gir977kiHoly1cAR2K5w
-	NDICcEQFYJW106LcxSC7L7FiO1lSVeDdtsTCaF/8heyeB4dWgdve6yObhD1s6Q==
+	bh=g6eyY98qNh4jG6A7wQCkjm6t762hh/aar5NQBQzO22M=;
+	b=fur6M3NFB5civvt+TwiLxYoMfCdDeNwv4YOX105LHm009y++LwfRGapeJCyfd3XJGpGJRl
+	p5wO9YDb83O6ffP8V/8cYcBDL7+X/CvBJY9nZh7LwS+N5XB/5bmkM3rSUo744fh9RhMInB
+	U79lZz+T3WVYYUqZzo7+/OPzwXSNhk6pP2cyBjBbZYF6fv0dKlLa9praIXSDdtra1aNKQZ
+	3ogKq4mnsab2xkPnr9DaltWXRU6ZS18QmA2FKCRmti12wYNygVrQVv+1xmzCkbkSFN7n5J
+	K4p6sgvpD2awy1JTX9XZcq6yMQjBaNJ9KviGKOPNfshGAOyeRI85kzKj7+AIAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793875216;
+	s=20260414; t=1793875250;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i5fXZcdYmGYVP1P0uy/xvb5fF2zzOJ4Rwymf4gl4jJo=;
-	b=Vdi10IwON8VihvNyR2DERE4ZtyQEtZWVfU1JBtCaYbNJVkexNap7gCNEtG7/QSbw2qygMm
-	gpauzsTyPrebxieGfHRnO66PIWV1SjVbZ4KTHylvwL2jAqXxjzToQzIh8dnSiVG656nphe
-	ThJVXBvJmWTMN31k2bJzIBpf1QMr7geMc78P5TthP3iV5r0ny4yBe9U/btaRZJCDaTHYKS
-	+AT2jdn7rg3yYGkSgE7k2wQ2V7WJrxGfZVxnc4iYw5l5u+xtcCsZ9oyIrVvvF6TEsZ0uTc
-	do3ZoLZ3F41MG2NNnPEFr1xjLEdkAbByfa09RMxYcsa5E9O+g6rYWLdHWa3dcA==
+	bh=g6eyY98qNh4jG6A7wQCkjm6t762hh/aar5NQBQzO22M=;
+	b=N136686bEyKPmCmcMR5kAlo27b1ndWXpdRTgRyICSXoUZmI7Yr7YylgtVEuodLlthQXJhr
+	qmKA7a6kfARv3k7ZnvJpCJALkbZvTFYAsePuUW4PIRCC4ktjmsN+rl6GN23kfAX9hAe7cZ
+	779AI5VJyCcEF1H6t4m5CXORC+Eomoo55H3SsIDrXbW3TcqWmsGxbcbO6tT5X5NTWkyxqP
+	D3WHfEith74m9s+WJ2iu918bqZYJZ8jtXGbGcOorjDZX2LI45C7WZ8uqX0CJ0W59upAsYD
+	FFta6D/QDkxKESy+k/PNTbU7oT7AW2VC81HXg3nIsOXYEfEMpQ5MODNapmdgPA==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793875216; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793875250; a=rsa-sha256;
 	cv=none;
-	b=eAZiNIIn1yAQmzqt0JEr6Ub829z6QTj/5bj6RCdPIycVKVC5w/ON2rVZNNbBgXzMgxAb3Q
-	q1B27Y5su7jv8obNIjiNAjg0G9yWMjyxDUx4be41+Z+6IoserS4XswJj8qUYJa6Rk6Vpo1
-	Vcm3d0xbUJloNYSx/J9JyD/DhJsxlaUQKAuTOSHMIwHT0ObAOSU5kdLRQIKv4+xhSHCDfH
-	/yZ8zLUsD1pRo4icmAE7by+P2i7MCSR4R+vY2r5dy4W2Xd0S+19PZY0nXXLdzSqcZWYmkb
-	NDA9dj4Ix+gtTcb5KMpNZWrwuqrnJt6JcJJPzdbxBsGzieQLtXf8PkIMvZnbKA==
-Message-ID: <7fa397188daea5fcac036864534a4272cc2aef87.camel@pengutronix.de>
-Subject: Re: [PATCH v2 1/2] reset: Fix reset_control leak when put after
- controller unregister
+	b=O+4buIupM7BTIjjSz2gB/yIy0JAZCLomW0eVNcD2MYH95G1qghwccriaDNinXQOqsGNeCz
+	SUA5Z/84cERbS9cjJ1UQZqgwG2VFwYn6p9hmtl/ziSvmgrjvOhvojh+fN4QVGMnXUwQW2A
+	k0kvR7kiwg9mGDOLZs8Dh9cEV4TYIOZrP3A1aL2HaxzC3q1mlOgqVJCPlIvngA7lTuhPiM
+	ICs2mLU9MRH9h8zuOEbeEbgSMLGjYcqstNjUDvFxFELM4FGQeBVI2jdIeRW4xmfqh7PX47
+	+k872iUD6LBWZMHNip4nXyFap2UvOFiostOWry4Nc7thPBlWqFetGR+mgtz//A==
+Message-ID: <0c103dec7f28167eab0fc12f56f9920b5d4ead6e.camel@pengutronix.de>
+Subject: Re: [PATCH v2 2/2] reset: Fix circular locking dependency in
+ reset_controller_unregister()
 From: Philipp Zabel <p.zabel@pengutronix.de>
 To: Tzung-Bi Shih <tzungbi@kernel.org>
 Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
 	linux-kernel@vger.kernel.org
-Date: Thu, 05 Nov 2026 11:40:16 +0100
-In-Reply-To: <20261104162038.48622-2-tzungbi@kernel.org>
+Date: Thu, 05 Nov 2026 11:40:50 +0100
+In-Reply-To: <20261104162038.48622-3-tzungbi@kernel.org>
 References: <20261104162038.48622-1-tzungbi@kernel.org>
-	 <20261104162038.48622-2-tzungbi@kernel.org>
+	 <20261104162038.48622-3-tzungbi@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -96,20 +96,19 @@ Precedence: list
 MIME-Version: 1.0
 
 On Do, 2026-11-05 at 00:20 +0800, Tzung-Bi Shih wrote:
-> After commit 8c91302a29bc ("reset: protect struct reset_control with its
-> own mutex"), reset_control_put_internal() returns early if `rcdev` is
-> NULL.
+> reset_control_acquire() and reset_control_put_internal() acquire
+> `rcdev->lock` inside the `rstc->srcu` read-side critical section
+> (`rstc->srcu` -> `rcdev->lock`).
 >=20
-> When a reset controller is unregistered while consumers still hold
-> reset_control handles, reset_controller_unregister() sets `rstc->rcdev`
-> to NULL.  When consumers later release their handles via
-> reset_control_put(), the early return skips kref_put(), resulting in
-> leaking resources.
+> However, reset_controller_unregister() holds `rcdev->lock` while calling
+> synchronize_srcu(&rstc->srcu) (`rcdev->lock` -> `rstc->srcu`), causing a
+> lockdep circular locking dependency warning and a potential ABBA
+> deadlock.
 >=20
-> Call kref_put() in reset_control_put_internal() even if `rcdev` is NULL.
+> Run synchronize_srcu() outside `rcdev->lock`.
 >=20
-> Fixes: 8c91302a29bc ("reset: protect struct reset_control with its own mu=
-tex")
+> Fixes: 44a0acb2caca ("reset: protect struct reset_controller_dev with its=
+ own mutex")
 > Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
 Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
