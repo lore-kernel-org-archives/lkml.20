@@ -1,125 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875128;
-	b=zdjfClt/ERGSJmuC+2/jJvr9myjvRy/inb6azKH1qV/3jkgoTr3xUsrN8tHKiXR5G/lJ
-	 RDSQqDZLlF/FIzywjPPBsVzafWvLdW2Ncd+O8BJBRQ7CzSO24MDv5L+M5705F8IKUYK4Y
-	 0y6s1B7wU3tzvHGbNDh0H2XCfyNKh+iWPn5VVXj2B12dpYRDkZuSzQNFfgQrL93Gx4PyY
-	 4PnCNDdmR6cgmovTLdVtuen5CRYA1G6ExiodEFErcy/xke/fX02LS7npo1jyF7z5Iq0sz
-	 2lfkISgW+rxsUoPJ3Jgfp4IFw3WcEw8qCuRzyhENOypYFYvLvmfHlV5+iGmR1reK7ww==
+	t=1793875158;
+	b=DtJnPx/3WbftxgCG9GnlbLUi7gGryfGNWayA8rNZwolaPcrAldMWHgsZQq+xUxdnS99b
+	 kTUR1TXA47/9SfnA7MKIQpw0/6T2jKZnpNQINlhoNvgNPbH02oQZdr72UXOWvWXAlYhYW
+	 gSOdlcztYMa+9xIlH7dFdI1h4q0qG2I8viakXAibNvcSujM3P9DvbwAzNNcty/NLHbQtN
+	 Or6vusFfkVeJf9l9KOeAS1AC7jTyCIeYAem2BjyPE7fPQPDv05Pj168cfO4ZuI+rlUoup
+	 Y9NrueYJH58vO6D4jQ3EjAbGo7wjc1/GpgTTZrbx9GrxyhFzy0yMpdQG1xpf0xpQa5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875128;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=8MNOTi2RLMd4i6tMmuWiGfGs1n6K7KS/R0/JcFFI2Uc=;
-	b=BWw80rYI4xoaSoMAlRu4C73Wpv9oF84PKlKzbmwJrTHvJJYoiKbYZUMMSaZWzjYm3fta
-	 hjfnLRJBsP5FivQi2IKhWs8Q1qgu0DORcdTivh9YKXjvCe72YqxSV1vDCcIURylHQU6Pt
-	 T4qUV8O7lILrL6Y3ey5/c27giudvb81jJROCrRee0HEKDjXfxxgCD3dDsMcEFLdOhN8G8
-	 ssPijLkT72Ip6KeXBBTtQgF3iqlymJRMW0b0FWUO7y8aNhWM3+HvsK/nwbbmR9RbRCjOU
-	 WfVupMA4pgPZxy9OThFOAvJLqRM44Sy3ObAr2OtUL4T+8s7Erdh08J+wCY6PI7owvhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875158;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lNM3+b6l7cj+vrA9YlqTwqxAWDbif1TufQothTfjcdI=;
+	b=19PiflRuzkzXzESe5lcmXK/g9NRT3qH4ySN9e0q4DtYg85AWWQG6o5lvVCJ3WJP7LdIY
+	 X9qYqTLYrZkjt6I+OBRxNiIKSLizxi8dFxPbpglE7pw8LDjVKo9e1LIUH1iravac+nBD/
+	 i/MoDWwE/0UkO+VCn4YmHG4G7jvCascL8oNdLSaOyLnMXiuDtXC7e4iJoj4E6xgUn4Arx
+	 ms5Yj4OsEn5fEutSNlhn6O/ObtjkBUnnt5YDwqI9oKc3XO8GLxJ9zFe59GoBpA+vKKE9O
+	 4WttMjLSRGtYiVPsA+H1in7a/Ep0Lg1HsRMtlFqQRvVEfKrj/wsqbH9utK8Jt4n9ddg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H1XN58t5;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QAZIcYkh;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pjCh0fq0;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23D2606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:38:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E23D2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99EF1606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99EF1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H1XN58t5;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QAZIcYkh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793875126;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8MNOTi2RLMd4i6tMmuWiGfGs1n6K7KS/R0/JcFFI2Uc=;
-	b=H1XN58t5N8ePNahSdu53o5pTTHECMcg8aUpU6mwNEx4TgsSxeieiIfFjv0d6CUed6VMFHK
-	wj+5b9gNM1KObYLDROvbh/PLsL2wBCHGIFS2LclrjyajlpcpLwzx2yH5aywnrhcXMwkdA5
-	4sUUbixen18vAJBE7EzRSPTwaJmN174=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-169-hKFEpFaFMEGZl_4KbyfVFQ-1; Thu, 05 Nov 2026 05:38:45 -0500
-X-MC-Unique: hKFEpFaFMEGZl_4KbyfVFQ-1
-X-Mimecast-MFC-AGG-ID: hKFEpFaFMEGZl_4KbyfVFQ_1793875124
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48df02b91f9so316543f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:38:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pjCh0fq0
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so287423a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:39:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793875124; x=1794479924; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8MNOTi2RLMd4i6tMmuWiGfGs1n6K7KS/R0/JcFFI2Uc=;
-        b=QAZIcYkhciFUwNcp4j9XXWW4ACw5f23YIXHnKx+GAwMybWIt+19iz0QqfPtYqonjZh
-         L7W6Oz/j52O+K0dVkqwSky0Z3t4p9ATtqcxYQK2kEG4/ieqj97xg46f/LimKRFrT9Qnt
-         vLTsuuj6x0FMn08k78VW5OimtgjIqyBbmwnoV0g1gaWFHyt622sPhbBOZk/RqETbSk+1
-         k5Wls3uNuhca+WXeWEH7H1ri9j5kGDzZ5dSMrP43qmx/4okFDN3GVVufDbqGYaslXxrZ
-         AbJmid5xk2ho5VWIZsawHbO8d67ElDq/NIwf4V1AVIIGSAsYASEIdPFfmuzG1SNDBOWd
-         h5FQ==
+        d=gmail.com; s=20260707; t=1793875157; x=1794479957; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lNM3+b6l7cj+vrA9YlqTwqxAWDbif1TufQothTfjcdI=;
+        b=pjCh0fq0qx+RNgxteK0ZIrGAFkwaK45cQnfyhJnWe9tGbhkOh1qz4FAwd8ZB3Az4Wj
+         GNum45Q/Z6wdUou/T+LuctSFESp5JmHqKQwpdqhOSOvmFBt1QU4PDhvZyapHupyEP74+
+         /kH2qFPPlVrdL97cDxTh1BXqfJw2EgEv02fjjMT94KG+Bqke/ueUq0Cio+ohZgFlxe5n
+         UcO6uvd8wyhS4tZMCQhCyi4uYcy8NQxSkJs+Jpg8g9aplG7nRzykcOFycZX9lqCfeXkp
+         w3zbCh97UVSKQ/eOR0wnRX1ICDV6gnSsMXl1N8yO6qv5qXhvIKy2WwEeSupt5eNFlCWu
+         p96w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793875124; x=1794479924;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8MNOTi2RLMd4i6tMmuWiGfGs1n6K7KS/R0/JcFFI2Uc=;
-        b=jrOxCFX5C4gOvr5ROz8xfjnU1zmzZs21XkksuSG+iGyEwynpK6gldL6pHmqOkZkNIT
-         vprJ5tH0Ww/W2HlfFajLanS+tILGTespy01cC3vV+hoXVX0OnTjwJOR8KmbULQFw0bh3
-         mai2o+ULrk96191vYqzUfRnO1KxzFTbZ9gyieeYPhMSlxo8K45QFbltk1toK8EkBF4ay
-         Zxq348wR46dqgPvUMw6DcmLIc/KkYeHgvPgAkeiuDGyIe20Gli3ehtq3LbIWJGTgvB+n
-         lSiMVUEnvD3pip7CfDrGO3FC/v3VxrAbfvHr4yFnBHDzPqo9npp2Uu2s6LCtLa2HCcUr
-         dP2w==
-X-Forwarded-Encrypted: i=1; AKwUvBw6V+HIUs7/JOdJFGG554ge/K5g8kdT5xFI4LORgik4V+wNs07X4Cy1mJWWUelup5G/U/GBkU+fxCgMf/8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9swvcCKLTQkKDGiNombQ+vhSPGaYZ1GYJ8LVqH3k7Ad7z1HoIs
-	ThNIX8g38tDGmn9AyPIL9Y3xY7M0c47LFMUbPu9soXIu7JMtPmGQvs+TJzhtYYG9zDZladYFWQ7
-	5iw+fb/qkftSvEn3n7xAKoEQhAwoKZNktPE8HbhaVATypty3Lo3wKcU2lUFCEC5cglQ==
-X-Gm-Gg: AYBFou3SmzKZ72f2FpPYLHqhhOyeiflV/NjjsQ2EM+/eeFnV39hO4lwe48vFKiSNpf/
-	oufd02TMKY0I8WPkvKaZf60T07rdRqv13Q/I9YvdLzu+SLCC4cYTHJUistH4xfpSD1rJwSKJhkM
-	4bEY+g7/yWNC5zbUpra4F3XJI6qhY2t7Y96fDfgFjoz6Q4bVElsmzILE0Pv6yW3/n/P7JG50NB2
-	rcRQNT/8pPAahoUv8MXWSpmjv2dWsCT4m89dKF/nARSowG/RtcOGDJ7dHQoZpc8Q3Ke56duWwZF
-	kg5Pt3PLEgnBDntOPDxUvDGaYs0dVwCI5m+g4pXMIHKD5h/uN86SgDj6DNDpMDhjueF7GPV0CxX
-	aCQdt4uUhh6GUXDzH8qVx5VsnVNrtOofSp7xejgJ9anDZihZV2jjmdO/nHmv4OCLclvIPDXFyk5
-	dOHQ==
-X-Received: by 2002:a05:6000:1acb:b0:48e:6651:5956 with SMTP id ffacd0b85a97d-49112301e21mr3946516f8f.0.1793875124358;
-        Thu, 05 Nov 2026 02:38:44 -0800 (PST)
-X-Received: by 2002:a05:6000:1acb:b0:48e:6651:5956 with SMTP id ffacd0b85a97d-49112301e21mr3946483f8f.0.1793875123954;
-        Thu, 05 Nov 2026 02:38:43 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec9cd43bsm9080495f8f.14.2026.11.05.02.38.42
+        d=1e100.net; s=20260707; t=1793875157; x=1794479957;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lNM3+b6l7cj+vrA9YlqTwqxAWDbif1TufQothTfjcdI=;
+        b=MwIEv7Vpw4w9f2NnXgAy4g2aocZQXIVUHBPrNFiwKJV2HT69lEZ4rlayDJGfYoIBAn
+         5bz/ZAINmOjhm9pF84qpi3knYJdb4oak5DUj1UwJrqKOb4wFqhEqn9bFVDANzDv1yvlt
+         wvhnRrwmAOSta6vu7037RbdbJSpck1+s7PW3pX54sgKO8/LvwIVT8+sQzR77mkP0ml+w
+         /1e/axh9/wvpWdn31xW+pzcV5U9gJ2timCMOp53hpBVEdi77go5ldBYLKU0ZZExIp9Nr
+         tKhe2GlzHRfmiaTkJtOifhXxpIEDTDGoGy1R681xFLOhTi6Sve0fRUDEg6dwU8OdBV7e
+         tzrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvyiJrJ4tPtiPjFbZg9xkdkBJSAVoi6l/8A+90b94E9jzLG7PTpXdaNLsGHflD0FVotIZ8hYo+T+svv6Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ti/l6vGmypPnpgItKoMZWZO7HhncfLfUAUb5EO2nZUbhEZF/L
+	tNcI7KnX5D6Xmd5cYw5IfjBTvm2WHD95eSezQmrByD0Z+LocyF1KvJ2B
+X-Gm-Gg: AYBFou25lIo0LJtbA2gYQ/sdITQcu8MFwHVaXNL2Vcsftc9Tv6RrfmvXr+LvN6sZ5XU
+	kFz2vkA2ftPDm7Wu4GykrgJw/bUgkGtV5LbBShqB/5hiUuxSW+c/1w6iydtENNrN1xgfmkkK8lG
+	Bb+8Y+wzSrf7fpcBFyhSHtxdC6U0je/9LaRb/iO2fpxP9fQF+IW00BYQn57kCurgXfUiyno/K1E
+	9PpWKxozLm3E44Tl0i7Y9KaMXv3TjgzFzybqhzhnrD48VZ1rMlhESHAq3Dg0jmh6vvztojXm3I9
+	DeRYRSZPx1XP5RH+ESIvrYJuo1qN1+S9o53aT2q5MTwcSs8VSiIWoqFDTiQS5ac4SY0qm81SEJs
+	0dbJ6arhGGl00bZilnESvdrh3BemSgI+p0TufIAd4cPf5vwtjAhPC0EmSfPdGT3Qspb8W8fk9hv
+	yyZoOPfMF+7HnEYXMgi4puyLSrQQRkBd1e2lT2Utc4roN0lOyLQjRAcMQWROwbVEyAaZiDzaiUs
+	jHz3w9QYnBQsT+DiBeQRn4FoGJyYD0w+e9rzr8lOmkICjIcnc+6DkVB1XAuMJnH9yPQYD3bHG+d
+	y0xSKPkvJSH88O0eERkzwboRydVYvqWe541RMC6HVgtb0tqvs/eRQHjbMiifdse/6tXyXA==
+X-Received: by 2002:a17:90b:5590:b0:3ac:9098:f602 with SMTP id 98e67ed59e1d1-3b0afbedfe6mr1784736a91.6.1793875156797;
+        Thu, 05 Nov 2026 02:39:16 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb4694a0e0sm2150791a12.20.2026.11.05.02.39.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:38:43 -0800 (PST)
-Date: Thu, 5 Nov 2026 11:38:41 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>,
-	Weiheng Qiu <weihengqiuu@gmail.com>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [PATCH 1/4] sched/deadline: Fix stale root domain in cpuset
- bandwidth transfer
-Message-ID: <auxcsYGC7Fqa44LM@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261103-b4-sched-dl-bw-fixes-v1-0-dd761fe005b4@redhat.com>
- <20261103-b4-sched-dl-bw-fixes-v1-1-dd761fe005b4@redhat.com>
- <CGME20261105102052eucas1p2fa2d23d1c49cdadef3b1099e18ffb958@eucas1p2.samsung.com>
- <eb0e386b-da07-4a2b-bff3-79441fd6be1f@samsung.com>
+        Thu, 05 Nov 2026 02:39:16 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] nfc: pn533: validate response length before parsing DEP ATR_RES
+Date: Thu,  5 Nov 2026 19:39:03 +0900
+Message-ID: <20261105103903.1440114-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,55 +96,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <eb0e386b-da07-4a2b-bff3-79441fd6be1f@samsung.com>
 
-Hello,
+From: Hyunjung Ko <hj351016@gmail.com>
 
-On 05/11/26 11:20, Marek Szyprowski wrote:
-> On 03.11.2026 12:26, Juri Lelli wrote:
-> > dl_task_needs_bw_move() and set_cpus_allowed_dl() use task_rq(p)->rd
-> > to determine a task's current root domain. For a sleeping task, this
-> > is stale: it points to the rq of the CPU the task last ran on, which
-> > may belong to a different root domain after a cpuset move.
-> >
-> > This causes incorrect bandwidth accounting when a sleeping DL task is
-> > moved between exclusive cpuset partitions and back:
-> >
-> >   1. Move root->partition: task_rq(p)->rd = root, destination in
-> >      partition -> different -> bandwidth transferred correctly.
-> >   2. Move partition->root: task_rq(p)->rd is still root (task never
-> >      ran) -> looks like same domain -> no transfer. Partition keeps
-> >      stale bandwidth, root domain is short.
-> >
-> > The root domain then over-admits, and when the task exits total_bw
-> > underflows.
-> >
-> > Introduce dl_task_root_domain_cpu() helper that uses the task's
-> > cpus_mask (which still reflects the old/source cpuset at call time)
-> > to find the root domain where the bandwidth is actually accounted,
-> > instead of relying on the potentially stale task_rq(p)->rd.
-> >
-> > Use cpus_mask rather than cpus_ptr, as the latter may be temporarily
-> > narrowed to a single CPU by migrate_disable().
-> >
-> > Reported-by: Weiheng Qiu <weihengqiuu@gmail.com>
-> > Closes: https://lore.kernel.org/all/14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com/
-> > Signed-off-by: Juri Lelli <juri.lelli@redhat.com>
-> This patch landed recently in linux-next as commit b4a61fdc19c5
-> ("sched/deadline: Fix stale root domain in cpuset bandwidth transfer").
-> I found that it triggers kernel BUG during CPU hot-plug tests on some
-> of my tests boards. Reverting it on top of next-20261104 (together with
-> dependent 41a7968022ca3) fixes the issue.
+pn533_poll_dep_complete() and pn533_in_dep_link_up_complete() cast
+resp->data to a struct pn533_cmd_jump_dep_response and read its fixed
+17-byte header (status, tg, nfcid3t[10], didt, bst, brt, to, ppt)
+without first checking that resp->len covers that header.
 
-Others have found issues with the set and we have been working on fixes.
+On a short or truncated response the handlers read bytes beyond the
+received frame:
 
-Can you please check if the following addresses it
+  - rsp->status is dereferenced with no minimum-length check;
+  - for a success status, memcpy(nfc_target.nfcid1, rsp->nfcid3t, 10)
+    copies 10 bytes from offset 2, so for resp->len < 12 it reads past
+    the valid response data. Those bytes are then handed to userspace
+    via nfc_targets_found() (netlink), which can disclose stale buffer
+    contents.
 
-https://lore.kernel.org/lkml/20261104211207.1392343-1-mathieu.desnoyers@efficios.com/
+target_gt_len = resp->len - 17 additionally underflows (it is u8) when
+resp->len < 17. That path is mitigated downstream --
+nfc_set_remote_general_bytes() -> nfc_llcp_set_remote_gb() rejects the
+resulting out-of-range length -- so the subtraction does not by itself
+over-read rsp->gt[]; the fixed-field reads above are unguarded
+regardless.
 
-Thanks,
-Juri
+A valid ATR_RES always carries the full 17-byte fixed header (the
+general bytes, if present, start at offset 17), so reject any response
+shorter than sizeof(*rsp) before parsing it. pn533_rf_complete()-style
+handlers in this file already length-check resp->len before use (e.g.
+the ATR_REQ_GB_OFFSET check in pn533_init_target_complete()).
 
+Found by code review; not reproduced.
+
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/nfc/pn533/pn533.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
+--- a/drivers/nfc/pn533/pn533.c
++++ b/drivers/nfc/pn533/pn533.c
+@@ -1309,7 +1309,12 @@ static int pn533_poll_dep_complete(struct pn533 *dev, void *arg,
+ 	memset(&nfc_target, 0, sizeof(struct nfc_target));
+
+ 	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
+
++	if (resp->len < sizeof(*rsp)) {
++		rc = -EINVAL;
++		goto error;
++	}
++
+ 	rc = rsp->status & PN533_CMD_RET_MASK;
+ 	if (rc != PN533_CMD_RET_SUCCESS) {
+ 		/* Not target found, turn radio off */
+@@ -1929,7 +1929,12 @@ static int pn533_in_dep_link_up_complete(struct pn533 *dev, void *arg,
+ 	}
+
+ 	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
+
++	if (resp->len < sizeof(*rsp)) {
++		rc = -EINVAL;
++		goto error;
++	}
++
+ 	rc = rsp->status & PN533_CMD_RET_MASK;
+ 	if (rc != PN533_CMD_RET_SUCCESS) {
+ 		nfc_err(dev->dev,
