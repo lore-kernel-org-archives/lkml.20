@@ -1,100 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793868107;
-	b=NbjY3ZrPL1iuhqsUYRXyfe4WfOFDFV9VX4t77xufSqSyv5/pujkJrY1DOK5qDfjBDRjr
-	 +vtcMFnZlV7OdSEvQ81tFzDvyRvcWqTokz2W/l0cXyxkpQFppyoMLmgjTUOYMwA1cRChI
-	 CyQtdZ9bUzqsxqSJ+UcgWZQFV2Vs7JmU2Qfn48ukE5QzUXEW+bTbCySh4eGH25LT2Aa3f
-	 LPk+BzJfc4XPwGe6tcouG2kNvOIvomfq5d3dQNvmYvexbey/ZdG67jK6gFikoY0cNZN5p
-	 RkgwK8tc8LV+L4Hdn5emaIBzdagDsZ2GVr98+qvtxoixmCKkRZYVY8mTWKQVDRvEURQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868107;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=+LZ7gEkfFBWbsyE8LX9YD8wYeXwI3Z2u8xYCO3dSD/0=;
-	b=4MTGpnVWY/NLO8J1+2PRuaT8bZoPLF9lBRuSSxipJ6okcFk4NGvyEFHykXI7vP3kO7VT
-	 fTscRFfkeh7eTsFHezcEoLjIcnVHhpJE6YgNnPhKDL/xSJCK6h3tAgtgASXKVFrHLBlsC
-	 jgtjc8GIjP9IrTJImmcGT+lNOTQBUdF766vdTZWNXYWCIcCmiV14sJlVO5EjUzCrnaAQF
-	 lD7fFAKGDJ906At1nmdofWW+uJ889jWra/aNvGRSM+FZlL8RiHS3BSGEvC5oK8f2UwxwA
-	 QSqx8VRypwiOkR7IVK3zCDPfxzKMdijVcnwb2l+ILuMPYx+dgNwhy6w6Qsvzjm4eYzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NeW32GXY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793868109;
+	b=yLNGglULTGPWM5+PliFcVFAQ/aj2oNBv5c255ib5UDo5IumUs1G9/A3+mbwco5p4VdEZ
+	 WOlql0YzDod5v5a6qt+o3AhGQKlFKiO3NgNCHzd15UR+ZtxhnSVVdFnB5JNsY5PaJ2Rtr
+	 vOWN8hRdD5tvh605u1eZuAYjKtdxoz6FiEtyHEKi7hSdFzFqeXbpXh6OvwaCGb4V10pRu
+	 kx6U41Guu46Jbo/t803IZHPxG2hRYk3XVWP23PQAkxL3IdXySXGyosX9CjXea08M0GW+5
+	 TLFk8jjjENhSCp9E5jPJqIlIDeheHVbrRhDpdzeaIQVq6vtXxKuaV/v6E1oiVKqKBAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868109;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=;
+	b=ZueNE80Et/cRH6HhsZhRSK3r3GnlBcvFHFvwYYgmu1K90KAi7VzHac2dCucjagrgixoF
+	 7ZYWr3tVedJn6UiY1gzkv0nypZL7z10pzFhP/CWc+2+Bk4Sq4EITPWpO3HruBfvBqxUFp
+	 j3CtePyB8wk9h4EhsqpFlL6zajLrtAKL9bSfa9+wY97MOiJAnFS7x4hdsvB+d2Iy27JYm
+	 ZvBNUKdT1Fto3xeJQRJ9uK5a0Dg8EH0xy9VY0zPrhSQCYufYokDHie5rZG1E7h/1tdiZ7
+	 d27ylguoGDK8DiicE3L0BMpFVMbq4TjvG2/7NdOJ6AVw4TdLjn6GSUgp8jsHmtm4f0Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A5cEaOjk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="cbeBoS2/";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B93606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8B93606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57BE606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:41:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D57BE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NeW32GXY
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91c75267b0fso16954596d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:41:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793868106; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T4BZ+st7Xd+Ye8eTMHkvhEbEEOB0QSMNiI+J5MpIR0cHjQGpfHFSUY2sGTRjuBrLJv
-         lZiuKNEayR9TvfJLhCBnNhlY7zYmFznsjpa7VINvF/sNrf3Hag88i+oVzTtL1I9yrFlG
-         5uBN8z4vFfGK/1v9P8X80sEtBJn1JA3Nbaq0riYDtX6XhwC3F2j3Klc8NCqEM4i/UIPk
-         Odqq5U7EMaqzo7U5mEsnGqyZ0pdfaIQqkgk/u/vY+zzHpd+S6p7xXfXwHbsjnoics25z
-         wRfd1cw1+5qkS6GNlgRe+cM43HshR0PQYfXhoKl9P/Y3JmMNISL0VdMR9Ez9iOiclQwA
-         4p8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+LZ7gEkfFBWbsyE8LX9YD8wYeXwI3Z2u8xYCO3dSD/0=;
-        fh=0L26f41xcBxhjI300gomiIhShUCo6BAmLrZIYnHj7WQ=;
-        b=KhmuRONdtHyO8rwajowYjqvNuLhoLeeshCa9ZwW4+bjbCRpyX1MiF64elYWbatrYGh
-         PPKFcvLp3SZT8pKwYAMnwaP3gtOo3TUWG1nyNqU1uQ9IpkGBBh0X+w+dnYQPfIvLdgbj
-         +ykenw2jjh6J+v+x8AXI4SZ48K3XCnSqWgwJPUB17lJ/W0T3uNNZEkU222kezW6DTR1y
-         +oFsC/0Aqs4rSJJfxZa43MeHcKb1CwzysJoJfg0jUYMt0Z4vbPdiqxaAN6PdZF4BWctb
-         ldWEcxPEjVP+uDj4W0Y/GoKHDevQvpP6JMY39bj/PXU0KTQaBnoEOL7aynSaIez4HrZ5
-         Z7pQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A5cEaOjk;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cbeBoS2/
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56UDhw942036
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:41:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=; b=A5cEaOjkZG6jeKoW
+	iUiHCSTWhVprmAbUmI3yFaJ6LX38TxM9gQ/VzWGCt1sQgNvTvwvWoN7KG0kpwp/m
+	trV5+jGDk7X69utliI84CwAx6EJbSsNGZYjavXf+O5ssfGsr5+VslBzFYpaU2TVR
+	9DRxhVukkzqwB9CM2+qoH43D3Bu0JBgp5kZhxjFB3sh6fmoSZmD50iOYgtmEGgDT
+	aaHYPkog0C2GwpiKx/spI7TrQYX5Nqo70eT758t2DQva8jrcc6OXVac61AkIJq9E
+	QmSgDc8Q5c/zrJUBrbrdUoYuyo8CQPS57cmVnCTwR1zFsfxQFdomVdjxjN78M4Jv
+	BuiHmg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bj41tr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:41:47 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e942b1cc86so19401475ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:41:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793868106; x=1794472906; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793868107; x=1794472907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+LZ7gEkfFBWbsyE8LX9YD8wYeXwI3Z2u8xYCO3dSD/0=;
-        b=NeW32GXYI4IXHBLfdpquStVNNlDIljX9UgnssfdV5uurN8qpkuM0LdQRkz9lc3Wqwc
-         6B2VM+tOI24z8yfSj+PPDpwV7XEh7YrnZlmIqtbCBR6H/WEf8Q0HcjqltxF++232vK+K
-         v0aD+nkzj7iZ0m5VpQoV6TWRPLuaku57adUNHiDFvGIS4Cg2FghKmU+ZQJtbn4R/goQs
-         2XEX7G+VqviNgF5cnogVqTxQQLI6Fw2kSXAuD0bsWD2gJdTZZg0+yl9tX9ucNeF11sVk
-         lY2FXOinw4sGjtgu+CDWamCUiDb+qutzcO9vnyRw69hrNyJVdvvsYn5imqTLdyV9yYbG
-         mH7A==
+        bh=m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=;
+        b=cbeBoS2/yZ1g9JbmZFj98awnPr8UaNlHWXc9YXhamUt6ivka0u3MGmlInJjKZ10+eC
+         42LRaBqX0x/41ih33KFeS0RGAvB6pXhfVUme4CaUTerKJNPkMCMej4BGTaWWlbEuSfW0
+         lRXX+i6D8Gty7GiSGkHU7VRLrBUNLdyYWjHYqaIZmZrgPqdva33P0lumiuL1laNnIvj9
+         E22jCuHF5dqv26T/PSWdSMi+xTxnlO3TRODicOMznl0KFmspGQsBLv1EmfRWoMYppYjr
+         dwORHVwdlMRTRgT94RwyMPaCpjP4HPFgHD+Qr93d4ntGUwN+DgiYAb+j7PR6E4s09MA8
+         Fv9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793868106; x=1794472906;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+LZ7gEkfFBWbsyE8LX9YD8wYeXwI3Z2u8xYCO3dSD/0=;
-        b=puZIPfxaS6nFsnqWZ2W1D27LYDu4pvmk1X+N+b6iLV8I3+5mvWbx82xMKabtqX/S8z
-         LLjGqBJgMcfaPzg5yGT3XaknGRyagYwJJUmmgWRbn4FYnXKQlfMbvcpzxxETn2v4KFq6
-         BVS1Uk2LlZzHJJVDkpUrBEFufEJ6i4KnFAahypPEZz2U4+0qCLgv1yNB5kOTqBr8uM7N
-         yhvOgI3ucz64I40wFyE3nNUZmga247RymSS+4qpStOr+a4KdT4c1hOHyb8gVldH0haH3
-         67EeGjyz2j16C5/0Z/75oJ9rcLCtSIa7TiVgzC9Sy1s+2nyHGcVpRP14nxNiLhqSlfiw
-         kQcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/QFa2h2gRLmoM9cCI8JqFRRhxlcb06Pfr6SdtTfOvXHWGQXsJHn7bFNfLiN8An6oPfgfK1hMyl5uEG40=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sTMT9BAS2wUwuxoZpuQUSPN+2LXl8pmGQkRoSAjRWLrIrQN2m
-	In9X1S8ViNx4dnhIxgOaumpXI+0PY/13Q1dI8Sr+x7GiSkl9eFHMWdtrnFgV0fl2SBMMVgmxyy4
-	rJltrjNfWy7hK6m5y3tO49yb8RqiHKn8=
-X-Gm-Gg: AYBFou2gTUQAdI/4RnDrJXghZTYosaW5o+wS4i/sDTPvBxv7MC0IVTuZNhg/1or2qWa
-	WfMcDqDWgOGjA3FP8wbo21FfVD10UFRxa+TlSZndk6EDJ/A4YaEifQuFaHCxa17bRbFQuUrwP5I
-	wI3XusWRV9GMItc2OMbUb3MGQyEMf8zR6BiAqnS/j6vqNKROJqs63fPZbx5FJBpgEcF9oZWC91l
-	cs1/tNiHcamqseKUs2BQawRt4Xh2KsJQ8asqxPbZz1tm9rwL1jeP29yq1Mo4cAuW6tqdGu2k/mA
-	jJD71S+GOtQYB9xnKqGspIRFNhUCY4zrdY6kdNVxqA151QM0u/y4rU5wXUJ6jLKP4PKkuxF89Xa
-	N1Wm3J6aAzXRYDl1XpLv4wa7Q2Mg5ZAV6F5yO9aNVOnjpdwzW1cCyXnoIoXLOvLiBEAcBn7ItIC
-	2Muv8cUcJ54rw6I2GsEYx8eg==
-X-Received: by 2002:a05:6214:5d0a:b0:91e:8cb1:b856 with SMTP id
- 6a1803df08f44-91e8cb1bcb3mr50976416d6.41.1793868105578; Thu, 05 Nov 2026
- 00:41:45 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793868107; x=1794472907;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m3UKyFsZezrC0ZQ+2C1mCsyxnFD+fA2IDV8sxtO8Aik=;
+        b=xV6Hyhwr2MV0n3ZjefkZI6fvAO3iaSmMNxe0ABXqho2cwO8qyY/3+JGgtHaSMwemGk
+         pIyfSp4FQXMOmr1M2NhCaJDWnrUrdRV3HHYPbPHrcGPlz9pZuI3oMcsEhRFHSFpH+ZC+
+         YDpq+OsS9964+XwxRYEqDtnKwerM/0Ynn1f0h0XNlFIknR0Pay9iE2/zG1Ae0nBPw3ul
+         M/pNXJWSE3ITM20GyYCqMDzKqbmIbqIjjdlSN5L3FJhzgO3dexcTWv8wgO/F9/D4xeL3
+         WLxv0i0lWdCZkfugeR7yj0LJ4tg3BoPMH8WlNs2EI94dA9NguYsk8x67H/+4Zs0tCgEk
+         hl4A==
+X-Forwarded-Encrypted: i=1; AKwUvBynjEa2rHlLCZdMp+S76bv8OgaTSp0azJxnOQywrnzozUbCRl6ixC6jDi/ibv7GJD/NL5IUxxfKtz9Q3LM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CZFTf0euPKQ9lGNwMswkHOlHg7j39TeixoSVoH9toEdWw/UXi
+	Nka74+YOMQFKJLTF7zIS3BgVYD3qrndOmLZwO8bCglCHytUjHYtCH0G0FbwhhFNPHQEn6HTPEnb
+	f2zo5zsGrVbnY6rj3tJHYz/x6cJGFschdDC3HE0aTDi+kGPCLuYCs9a4e9SP9RqRUyDk=
+X-Gm-Gg: AYBFou2PjGafuA+ww8vaj/pdS1GyjjW3RCzZ618gnPL62eLpI4yzAFBCeBoVHfQ7HiH
+	1V3PzcBREA1MBWI+/cCKOEVYZV6f35jilQLBDlxvDLWPSua+0awv7Kiyf0plj8tka6vmbiZ7R27
+	wCFhCk9kSP60KglVONyrEiHzzsR+gDm1v1Ma+VL7JFGP4xSruM94bn1Zz27sO3AQM3jTPrlJNmQ
+	iS4x0ImhDg9DtvdVGRaTtYFN8z3INHEN+YCukN9nOLLh8pqnfTgFlE61UlKIkEPIU6LBnsN5Ko4
+	TcxN+x8VdaJgTXCObIGGgCz/nyjLFc5qwSpnxe5XX9r0oJB9dH7OQPJBzZSshjsVEFK93FnooIG
+	FUI2A3X7BB/Xp9set5N8wXX9MhrN36HDbOD32xZ/qCNyzcPAQPAl8NCF1qFG4xrP+gMXcPPZAm0
+	5I/NookKBynZ0nT00Jg7eERoLAYD1ZQh6ZexTMid5uEKFp
+X-Received: by 2002:a17:90b:1a85:b0:3a4:967c:6947 with SMTP id 98e67ed59e1d1-3ae89736172mr15307618a91.21.1793868107150;
+        Thu, 05 Nov 2026 00:41:47 -0800 (PST)
+X-Received: by 2002:a17:90b:1a85:b0:3a4:967c:6947 with SMTP id 98e67ed59e1d1-3ae89736172mr15307600a91.21.1793868106642;
+        Thu, 05 Nov 2026 00:41:46 -0800 (PST)
+Received: from [10.133.33.108] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b312e45dsm3486678a91.3.2026.11.05.00.41.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 00:41:46 -0800 (PST)
+Message-ID: <2291138c-0e2b-4625-b982-8d72a43c23be@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 16:41:41 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,55 +116,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101200428.16959-1-rosenp@gmail.com>
-In-Reply-To: <20261101200428.16959-1-rosenp@gmail.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Thu, 5 Nov 2026 18:41:33 +1000
-X-Gm-Features: AclHuK9RB4mLTs1goTvN9X54_7uH3Et6Jl_r8Cy2cfziD_nx9SDo27jgCkGyM08
-Message-ID: <CAPM=9tzacWJenKpU_-zbCOSupybgJjXFV7SZLvT+DNBs5fZNEQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau/nvkm: clear use.enabled when subdev init fails
-To: Rosen Penev <rosenp@gmail.com>
-Cc: nouveau@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>, 
-	"open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: Preserve global boost state on failed updates
+To: Christian Loehle <christian.loehle@arm.com>,
+        "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        sumit.gupta@nvidia.com, zhanjie9@hisilicon.com, superm1@kernel.org,
+        zhangpengjie2@huawei.com, zhongqiu.han@oss.qualcomm.com
+References: <20261104161657.546370-1-christian.loehle@arm.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261104161657.546370-1-christian.loehle@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzNCBTYWx0ZWRfX+gBkRDIW/J2w
+ yOVGJr6AzcRAjMfugt1HzkL9tWPqPM+JxB7XtRMMOBpGJ91BNBQSpHgcIp3ujg1zmu12kKIEI9a
+ l9YkJ92lCJe9ZCs9DTpkM6JylszVvT2oJUT2PPiGr0WP9R/guHWeJdgbW8Pwpnv8Mo7V9g2NIyQ
+ GsdQvhfOQLBgxB2thb1M3VSugo3GsdI9RmteFLh6k8wLj33Ko3DJKPD3WEE9HiayWncObnJNCvq
+ q2lgC9Phcm1YCnM17in9tTlb3Y9Tqe/XoXEWK8IzhS8b2Kllk3eL0PKHckO096A6Is+VSfAzeWD
+ ohkO9PkgCVWR/O/5KVSoocVebQBoASnQfViAAwMaKp8gh/MYbt6MjHHic6HoFNtZtECyVDRvy84
+ aLwovVIyChALSeNVNhWxcJCY+CLtBQ7k4BrPJ96dFGM4yEg9ElKy4mFwPL0QrvwrWhA6j3ixMsR
+ moA+8ZxievocYh92Vgg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzNCBTYWx0ZWRfXxcDTzVTGL55+
+ a4xeyPMX/fVyJA9MV9SIA9saATyTn6pDIeX09uKzx8ylaAoly22B4VpI45TvngEtK8Ek7ISHI1T
+ 45fovxPmz+J0FiGu1aJk9wNTGXWxnZk=
+X-Proofpoint-ORIG-GUID: 4iPQ2R1AF0mzvjkeYoBk0m0ymYXKRCIg
+X-Proofpoint-GUID: 4iPQ2R1AF0mzvjkeYoBk0m0ymYXKRCIg
+X-Authority-Analysis: v=2.4 cv=N/u8hG9B c=1 sm=1 tr=0 ts=6aec414b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=7CQSdrXTAAAA:8 a=pplq8beJeo5HEFBEY2cA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050034
 
-On Mon, 2 Nov 2026 at 06:04, Rosen Penev <rosenp@gmail.com> wrote:
->
-> On Kepler boards without the video decode falcon firmware installed
-> (msvld/mspdec/msppp), every other VA-API decode attempt binds to an
-> engine with no ucode loaded. The submitted work never completes, which
-> leads to a context switch timeout, a channel recovery that cannot reset
-> the engine, and eviction waits on fences that never signal. The process
-> ends up stuck in D state, or killed by SIGBUS when it touches a buffer
-> evicted after the wait times out:
->
->   msvld: unable to load firmware data
->   msvld: init failed, -19
->   fifo: SCHED_ERROR 0a [CTXSW_TIMEOUT]
->   vo[5444]: channel 14 killed!
->   WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:117 at nvkm_runl_rc+0x2a4/0x3b0 [nouveau]
->   [TTM] Buffer eviction failed
->   WARNING: drivers/gpu/drm/nouveau/nouveau_bo.c:1092 at nouveau_bo_move_ntfy.part.0+0x9b/0x100 [nouveau]
->
-> Tracing nvkm_subdev_ref() and nvkm_subdev_init_() shows the pattern:
-> a reference taken with enabled=0 runs nvkm_falcon_init(), which
-> returns -ENODEV; the next reference sees enabled=1 and succeeds
-> without running it.
->
-> Clear use.enabled when init() fails, so that every later reference
-> retries init and fails cleanly.  The other readers of use.enabled are
-> fini() handlers that use it to skip teardown, which they now also do
-> after a failed init().
->
-> On a GK107 (Quadro K1100M) without video firmware, playing H.264 with
-> mpv --hwdec=auto: without this patch the GPU channel is killed within a
-> minute and mpv hangs; with it, VA-API decoder creation fails, mpv falls
-> back to software decoding, and no faults are logged.
+On 11/5/2026 12:16 AM, Christian Loehle wrote:
+> cpufreq_boost_trigger_state() restores the opposite of the requested
+> state when updating policy boost state fails. For example, a failed
+> write of 0 when global boost is already disabled enables the global
+> flag without enabling any policies.
+> 
+> Save the original global boost state using a mutex and restore it on
+> failure.
+> 
+> Fixes: 121baab7b88e ("cpufreq: Force sync policy boost with global boost on sysfs update")
+> Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
 
-Appled to drm-misc-fixes.
+It seems the only appropriate Fixes tag here is 121baab7b88e ("cpufreq:
+Force sync policy boost with global boost on sysfs update"). Commit
+6f19efc0a1ca ("cpufreq: Add boost frequency support in core") did not
+have this issue, since it returned early when the state was unchanged:
 
-Thanks,
-Dave.
+     if (cpufreq_driver->boost_enabled == state)
+         return 0;
+
+so restoring "!state" on failure was equivalent to restoring the old
+value. 121baab7b88e removed that check, which is what introduced the
+bug.
+
+Also, is the new mutex meant to address a separate race between
+concurrent sysfs writers? If so, it would be good to mention that in the
+commit message or using separate patch?
+
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+> ---
+> On a platform without boost_supported the unfixed behaviour is:
+> # cat /sys/devices/system/cpu/cpufreq/boost
+> 0
+> # echo 1 > /sys/devices/system/cpu/cpufreq/boost
+> echo: write error: invalid argument
+> # cat /sys/devices/system/cpu/cpufreq/boost
+> 0
+> # echo 0 > /sys/devices/system/cpu/cpufreq/boost
+> echo: write error: invalid argument
+> # cat /sys/devices/system/cpu/cpufreq/boost
+> 1
+> 
+>   drivers/cpufreq/cpufreq.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+> index 54dde8419bdc..d95c849f79c5 100644
+> --- a/drivers/cpufreq/cpufreq.c
+> +++ b/drivers/cpufreq/cpufreq.c
+> @@ -2810,18 +2810,24 @@ int cpufreq_boost_set_sw(struct cpufreq_policy *policy, int state)
+>   }
+>   EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
+>   
+> +static DEFINE_MUTEX(cpufreq_boost_mutex);
+> +
+>   static int cpufreq_boost_trigger_state(int state)
+>   {
+>   	struct cpufreq_policy *policy;
+>   	unsigned long flags;
+> +	bool boost_enabled;
+>   	int ret = -EOPNOTSUPP;
+>   
+> +	guard(mutex)(&cpufreq_boost_mutex);
+> +
+>   	/*
+>   	 * Don't compare 'cpufreq_driver->boost_enabled' with 'state' here to
+>   	 * make sure all policies are in sync with global boost flag.
+>   	 */
+>   
+>   	write_lock_irqsave(&cpufreq_driver_lock, flags);
+> +	boost_enabled = cpufreq_driver->boost_enabled;
+>   	cpufreq_driver->boost_enabled = state;
+>   	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
+>   
+> @@ -2841,7 +2847,7 @@ static int cpufreq_boost_trigger_state(int state)
+>   		return 0;
+>   
+>   	write_lock_irqsave(&cpufreq_driver_lock, flags);
+> -	cpufreq_driver->boost_enabled = !state;
+> +	cpufreq_driver->boost_enabled = boost_enabled;
+>   	write_unlock_irqrestore(&cpufreq_driver_lock, flags);
+>   
+>   	pr_err("%s: Cannot %s BOOST\n",
+
+
+-- 
+Thx and BRs,
+Zhongqiu Han
