@@ -1,93 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879022;
-	b=rtuSBc4rZQIz6lT3TJ7xLWB34JJQvOXO/JrK4714KJgL3QTzbAjowWMSEY1X2AVcaz86
-	 Kr07HjP+buIArFnR2tbjgR/uZdQJvQrtV+JEaSZm7fEtomcR0I0ODhobCvdb3lYutnu5z
-	 LH3i5vVcAiF6Zb1sFfCKbuGrbKqwcIZPSDojARjXXQthrF76xESg6rpAuWIvYgZi0jJqu
-	 T54HTgHb2NJ807z4zoHPO4WUQdus7UUKqVFUsatPLp4KVDee5BQAyEneR9CNrk8u21tcN
-	 QKhkXQ/IT0BYNCywm11+/acT0X8CVOkxBVqVpp4miInes2LgY4zDagUdX1wk7NQ9Siw==
+	t=1793879103;
+	b=Faj74q/k4GNODhp6VSvU998QnSF9aIT65P5zkrUDbcikijiOu0pHHTcOB/3tB2+44hGZ
+	 A7yeDFxTzjHVMtFcNWflg2fLgIHZkLKneBQ6hswSjvSUefaU3qzQw5Z0jWaD3OTC1u4TX
+	 lcnmLEkNMHbxly9iun6ypEGFcb7GmFjYROnomLqr4/3tFEvu4FlyXIas64SkvONNyvkDo
+	 xHlPLPJieq8ZQKUqfP84BW8qyRRyXIwYlS9amjBB28cnqH1wEByhB4fTXImP3wF4ERiEV
+	 SKoZrAV6JsA9QLk83j9877Ez6w0OZ+AjSU5B1549gXtmb8SHUYk3JBTlGAv8pv4cs4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879022;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=5Va3/azQ9PXXXOpNK50WHCSI2ZU8QZjrq5XIuHyen10=;
-	b=APA/9zixFFE84qJ9Vb8ACLDjAxFVR4YRYLeBO7YP9MPadkl1f6kogVHhNqQ/H9WVvPQX
-	 nZbsMU+onDCt20LAIRNs5UxSwzopMxJ5KXweQ4y2mPy8ksuKb5ZLAGsvuBGSeWiJiIyFN
-	 hptUHjtJLsRui+qxUXXKo/oJJvkvir4EYITtY6hlrPviHob+rm8GrwqPpmqhacNqUbCJs
-	 CuqoRILJ8ZwI2BPN7ugr1WN2VNWjRsDQs9pqo/DjMe1qo3NCLauGQB2mt5uZU9bqbzMGh
-	 OU4r5oOqbBWEdh2aMYrN3DFSIML6YNp68NLv0wMsbZsd12HXKbrNdiGS8vMNOIVi9cQ==
+	bh=HUzBUAOyVMMNnWBATop3PHNYHsyg1DIgGmHpxUSzv7E=;
+	b=dyqerhkSvD/ERqJsCKqrjrVE/RSooXkuljsRwM+CUk0HPfHPcXS4RSB1+SLCtFHh9RPB
+	 WmgPt8TeQdh1UYbSXxooZ8trOoF8uLYGTaNRAmFp6bkbSm3cTDZjgwXoKWTYlHkJMoqus
+	 BtF3wwHbLkG1PBdcwJuNWcKiVNpL69YUOepBwCWUFAAhJ7zzHmtAp1XBKcCcENcIx6C1c
+	 Gk1GKBCGe2ryzB6h90+/8XsrcVxPuKSCokzEObIc0JMt4ACJ+uJ2faK8RUNM6hVwjrFwn
+	 wQnVKEzol5CEykzmH8dto/Uw4I7SkgPSwyd67vROOueywjj0oxsIAltWoCw4TH0hp5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRjSFJ1P;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J+JMGahA;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C2A606EA24;
-	Thu,  5 Nov 2026 11:43:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CF8606D80F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58CF8606D80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRjSFJ1P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4253A1F000C1;
-	Thu,  5 Nov 2026 11:43:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879021;
-	bh=5Va3/azQ9PXXXOpNK50WHCSI2ZU8QZjrq5XIuHyen10=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kRjSFJ1PS/XuTJRtI+OKVQrMj3Xga4CUaRtPDtQfr9Z3yJNwVOHUxqGTtNW99Hn5b
-	 bk2frKJKN7xihf6vFBnnJ8yCR60THHtxUEhz1N3Pp4ICefUv9vnaYu+fM7sVlMacvd
-	 sRiYqIZPdZOs1O+/Kv9B4x+ga9DvZIz/RdS0qh9yqTiLQongHGkpMttR07Y/C4OP14
-	 5wCfmLEvvPK+e0HmmoBCwx5SFmyz72XAoNMfwz91ZPs8jxyRyn5OrjjYaV1uGJUNKR
-	 bM+1y/m76yTMCZuVGzM2im026wlxKMlsCNTGFQJaE7BGbR4o/cMujhRr/cmitvUMyI
-	 e1GcCk5/cz+1A==
-From: Leon Romanovsky <leon@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH 17/17] PCI: Replace untrusted state with device trust
-Date: Thu,  5 Nov 2026 13:42:30 +0200
-Message-ID: <20261105-device-trust-core-v1-17-1e536825b4eb@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J+JMGahA
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a2af4c8d00so526157c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793879102; x=1794483902; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HUzBUAOyVMMNnWBATop3PHNYHsyg1DIgGmHpxUSzv7E=;
+        b=J+JMGahAN0kpCtU8BOpFVZOiphJHBbi4LTbwrWNz3R08QrZ6uEAhQMmm17g41uhZ+8
+         gYq0gt3Js8MMiPOnN99HbkGAi/k9E8FHgaW+Z1Ewjw0tobWJn3PY63j3pNfiv8UQlGu0
+         e0/6QR6QkPWxVDBu0XR+cWX4MWj0VhtjzkQUz/K1FhKdgx2WGN6kXWPLHrPY9KASQD8v
+         /w/PQ8n7pt/2oe8MHbtIQL3vAZbx+VEPreR4qL2sK8UwulcP2Ytx373NO5zZOD5dGd23
+         1b5rBGC8vOkpMlezwaG2Xx6i3VsZIHWbyGKpLab4XV3qoV06mDzYObVuMwMF8RwEXHub
+         OTBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793879102; x=1794483902;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HUzBUAOyVMMNnWBATop3PHNYHsyg1DIgGmHpxUSzv7E=;
+        b=0mlo7xRCllzlW8RJE3txBwaKX2aC69YFB/n69UF7+mwlIxdVoGiyfC0iRhGHDGroxx
+         iV8iUvQnu17PBtbf4I9isvCLi1AEt3zhgoeXqWWWEijID4w7a7QUirA5J9KudoSbb4fH
+         hw0wUkQMLbH0sNKB+LpGav++UiBuS7Rt+ONU6V3pGJI9fey4kozdL5QqZTSxITMfWm3y
+         usgfkvjF9IZTb/TgtGp4ugvnO/Svi8Vn+Xg+ZOzHXhTGukwfE4G28HIVhXpkNhSsfDDS
+         lZIZUQZuaf/uMy5xZ23tYVJOEDVMZDoVKXIzkUiaGHGLjhOsKVBDYXFTf2wMjmv0WvXv
+         ZC6w==
+X-Forwarded-Encrypted: i=1; AKwUvBw9jd4X5NE1lqBIkqW/4lzYXDZEPw+TUbLboeBp1ckcb95sEqyQI9pGBnjkZFE6Q8FRvHgodIeX2UVl/T4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9e2f3rBV40h0z6O7nH454WyWSKYd+zjT9/GOOUmSU7aViaKVcj
+	ZHqjiUOaVvH8ujoBOH8yIn3FeXMT0IvhyvVb1EsPa1G/Nf9m4yLUDDJL
+X-Gm-Gg: AYBFou2U1SV2iGnNBPvEoxmRvDAXn/DnFTA9QqEJQtdYJ+WkycQfsuhORR6F1XkVWAf
+	3hXIAJWOU9Juipv5YCN1iDfysM9ath0hE7b+4I2tmI2BLMuG108roskE3I41gwKev+hSqH3Wqla
+	NRwsksqOIxieGnRiKGX75ujsC5NgDZQkcdyTzzMVNMjkU3Nnbjx8SGFQXa8Ixuw+0sM+voNOqBR
+	BS937cm4Km6fXd8DBRd5ktj71zQXLqoqFcL3P5NO9hiLLTkMNwX2iIvo/S+YlaNzVNOCSBsUOx1
+	tH0N9OL3DMDb89O8+p/PISM7IW0uabVKxTN3m36DqaOLaycvcQc/ssokhDXaEY513WphyPmZpJg
+	Dqwcpk0S/tGVni9Stb6+rIohS79KjdSNrhfXYT/bUc354Dc7G1Fu0xN6bRKZf8TaqxO4tHp0/Au
+	/4a5hMDgYew0tOVVCd6itWAyikN1Yjj55krZAoOcoaEfZrUOg/NBwcWI1gaz8KlYV8UoNY2y1BO
+	s4Nbl/Qr6ujbiJb9X4MIh6y/V4nqN/G1eM3di6kUEZdO+HQRQiZ8cJTf1Qo5lKnel7GOZbK8jEa
+	Esn7ZzUSgZY7qWtUY4I5QMKYKSaaX+4yfiStlA8X5tqZ06cuWfcwov0hwICGq8chGaact0EBA0D
+	fd19CFF3dqA==
+X-Received: by 2002:a05:7022:120b:b0:151:5d01:9316 with SMTP id a92af1059eb24-1ac5ac4f406mr25397405c88.23.1793879102040;
+        Thu, 05 Nov 2026 03:45:02 -0800 (PST)
+Received: from lwq-System-Product-Name.. ([23.247.137.158])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245ac2f44sm16650061c88.0.2026.11.05.03.44.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 03:45:01 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+To: amit@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org
+Cc: rusty@rustcorp.com.au,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] virtio_console: defer HVC polling out of the virtqueue callback
+Date: Thu,  5 Nov 2026 19:44:50 +0800
+Message-Id: <20261105114450.971521-1-shunsheng1218@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,372 +98,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+The input virtqueue callback calls hvc_poll() on port->cons.hvc
+without any synchronization against HVC adapter removal.  A port
+removed via a VIRTIO_CONSOLE_PORT_REMOVE control message runs
+unplug_port() -> hvc_remove(), which drops the adapter's last
+tty_port reference and frees it, while the callback may still be
+about to dereference the freed adapter:
 
-Convert the PCI specific untrusted to use the common device trust
-level. Adversarial means the same thing untrusted does.
+    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
+    BUG: KASAN: slab-use-after-free in __hvc_poll
 
-PCI discovery keeps the logic that set untrusted: it looks for removable
-PCI devices with arch_pci_dev_is_removable() and defaults them to an
-adversarial policy. Treat a disabled policy the same way when choosing
-the IOMMU domain. Do not record the ATS capability of such a device, as
-pci_ats_supported() rejected untrusted ones. Let the Intel write-buffer
-quirk apply, as it only adds flushing.
+Both sides hold only the port kref; nothing protects
+struct hvc_struct between the callback's pointer read and its use.
 
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Do not touch the adapter from hard IRQ context at all.  Only wake
+the HVC worker with hvc_kick(): khvcd polls registered adapters
+while holding hvc_structs_mutex, which also serializes
+hvc_port_destruct() before it removes the adapter from the list
+and frees it, so the worker can never poll a removed adapter.  The
+callback now only reads the adapter pointer value (never
+dereferences it) to decide whether to kick; a stale value can cause
+at most a harmless extra kick.  The IS_ERR_OR_NULL() check also
+avoids waking the worker for a port whose hvc_alloc() failed.
+
+The price is one extra scheduling latency for console input
+delivery.  A 64-byte echo benchmark over a virtio console port
+shows no significant difference (RTT p50 0.089 ms vs 0.083 ms,
+855 vs 767 msg/s).
+
+The race and the fix were verified with an injection-assisted QEMU
+setup: stalling the callback between the waitqueue wakeup and the
+adapter access while a QMP device_del removes the port produces six
+slab-use-after-free reports per run on the unpatched kernel and
+zero reports with this change.
+
+This issue was investigated and the fix was developed with AI
+assistance (ZCode/GLM-4).
+
+Fixes: 203baab8ba319 ("virtio: console: Introduce function to hand off data from host to readers")
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 ---
- drivers/iommu/amd/iommu.c   |  3 +--
- drivers/iommu/dma-iommu.c   | 14 +++++---------
- drivers/iommu/intel/iommu.c | 17 +++++------------
- drivers/iommu/iommu.c       | 17 +++++++++--------
- drivers/pci/ats.c           |  4 ++--
- drivers/pci/pci.c           |  5 +++--
- drivers/pci/probe.c         | 25 ++++++++++++++-----------
- drivers/pci/quirks.c        |  7 ++++---
- include/linux/device.h      |  5 +++++
- include/linux/pci.h         | 30 ++++++++++++++++++++++--------
- 10 files changed, 70 insertions(+), 57 deletions(-)
 
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 960e1dc05ec69..e358bbb1f2baa 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3401,8 +3401,7 @@ static int amd_iommu_def_domain_type(struct device *dev)
- 	if (!dev_is_pci(dev))
- 		return 0;
- 
--	/* Always use DMA domain for untrusted device */
--	if (to_pci_dev(dev)->untrusted)
-+	if (pci_dev_default_is_restricted(to_pci_dev(dev)))
- 		return IOMMU_DOMAIN_DMA;
- 
- 	/* Apply device specific quirks */
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 78742aeba932d..a48fb511bfe6f 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -589,16 +589,11 @@ static int iova_reserve_iommu_regions(struct device *dev,
- 	return ret;
- }
- 
--static bool dev_is_untrusted(struct device *dev)
--{
--	return dev_is_pci(dev) && to_pci_dev(dev)->untrusted;
--}
--
- static bool dev_use_swiotlb(struct device *dev, size_t size,
- 			    enum dma_data_direction dir)
- {
- 	return IS_ENABLED(CONFIG_SWIOTLB) &&
--		(dev_is_untrusted(dev) ||
-+		(device_is_adversarial(dev) ||
- 		 dma_kmalloc_needs_bounce(dev, size, dir));
- }
- 
-@@ -611,7 +606,7 @@ static bool dev_use_sg_swiotlb(struct device *dev, struct scatterlist *sg,
- 	if (!IS_ENABLED(CONFIG_SWIOTLB))
- 		return false;
- 
--	if (dev_is_untrusted(dev))
-+	if (device_is_adversarial(dev))
- 		return true;
- 
- 	/*
-@@ -1189,7 +1184,8 @@ static phys_addr_t iommu_dma_map_swiotlb(struct device *dev, phys_addr_t phys,
- 	 * swiotlb_tbl_map_single() has initialized the bounce buffer proper to
- 	 * the contents of the original memory buffer.
- 	 */
--	if (phys != (phys_addr_t)DMA_MAPPING_ERROR && dev_is_untrusted(dev)) {
-+	if (phys != (phys_addr_t)DMA_MAPPING_ERROR &&
-+	    device_is_adversarial(dev)) {
- 		size_t start, virt = (size_t)phys_to_virt(phys);
- 
- 		/* Pre-padding */
-@@ -1790,7 +1786,7 @@ size_t iommu_dma_max_opt_mapping_size(void)
- 
- size_t iommu_dma_max_mapping_size(struct device *dev)
- {
--	if (dev_is_untrusted(dev))
-+	if (device_is_adversarial(dev))
- 		return swiotlb_max_mapping_size(dev);
- 
- 	return SIZE_MAX;
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 5a2e705a2f2e0..66942a91b992f 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2624,8 +2624,8 @@ static void __init platform_optin_force_iommu(void)
- 		return;
- 
- 	/*
--	 * If Intel-IOMMU is disabled by default, we will apply identity
--	 * map for all devices except those marked as being untrusted.
-+	 * If Intel-IOMMU is disabled by default, an external device could
-+	 * otherwise receive an identity map despite its adversarial policy.
- 	 */
- 	if (dmar_policy_off()) {
- 		pr_info("Intel-IOMMU force enabled due to platform opt in\n");
-@@ -3629,16 +3629,12 @@ static bool intel_iommu_is_attach_deferred(struct device *dev)
- 	return translation_pre_enabled(info->iommu) && !info->domain;
- }
- 
--/*
-- * Check that the device does not live on an external facing PCI port that is
-- * marked as untrusted. Such devices should not be able to apply quirks and
-- * thus not be able to bypass the IOMMU restrictions.
-- */
-+/* Bypass quirks must not prevent later adversarial operation. */
- static bool risky_device(struct pci_dev *pdev)
- {
--	if (pdev->untrusted) {
-+	if (pci_dev_default_is_restricted(pdev)) {
- 		pci_info(pdev,
--			 "Skipping IOMMU quirk for dev [%04X:%04X] on untrusted PCI link\n",
-+			 "Skipping IOMMU quirk due to trust policy [%04X:%04X]\n",
- 			 pdev->vendor, pdev->device);
- 		pci_info(pdev, "Please check with your BIOS/Platform vendor about this\n");
- 		return true;
-@@ -4124,9 +4120,6 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
- 
- static void quirk_iommu_rwbf(struct pci_dev *dev)
- {
--	if (risky_device(dev))
--		return;
--
- 	/*
- 	 * Mobile 4 Series Chipset neglects to set RWBF capability,
- 	 * but needs it. Same seems to hold for the desktop versions.
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fcd..8be2a246d4903 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -1879,7 +1879,7 @@ static int iommu_get_def_domain_type(struct iommu_group *group,
- static int iommu_get_default_domain_type(struct iommu_group *group,
- 					 int target_type)
- {
--	struct device *untrusted = NULL;
-+	struct device *restricted = NULL;
- 	struct group_device *gdev;
- 	int driver_type = 0;
- 
-@@ -1901,14 +1901,15 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
- 		driver_type = iommu_get_def_domain_type(group, gdev->dev,
- 							driver_type);
- 
--		if (dev_is_pci(gdev->dev) && to_pci_dev(gdev->dev)->untrusted) {
-+		if (dev_is_pci(gdev->dev) &&
-+		    pci_dev_default_is_restricted(to_pci_dev(gdev->dev))) {
- 			/*
--			 * No ARM32 using systems will set untrusted, it cannot
--			 * work.
-+			 * No ARM32 using systems select a restricted trust
-+			 * policy; it cannot work.
- 			 */
- 			if (WARN_ON(IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)))
- 				return -1;
--			untrusted = gdev->dev;
-+			restricted = gdev->dev;
- 		}
- 	}
- 
-@@ -1924,11 +1925,11 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
- 			driver_type = IOMMU_DOMAIN_IDENTITY;
- 	}
- 
--	if (untrusted) {
-+	if (restricted) {
- 		if (driver_type && driver_type != IOMMU_DOMAIN_DMA) {
- 			dev_err_ratelimited(
--				untrusted,
--				"Device is not trusted, but driver is overriding group %u to %s, refusing to probe.\n",
-+				restricted,
-+				"Device trust policy restricts DMA, but driver is overriding group %u to %s, refusing to probe.\n",
- 				group->id, iommu_domain_type_str(driver_type));
- 			return -1;
- 		}
-diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
-index 9cb23780093dd..c8c96acc26343 100644
---- a/drivers/pci/ats.c
-+++ b/drivers/pci/ats.c
-@@ -21,7 +21,7 @@ void pci_ats_init(struct pci_dev *dev)
- {
- 	int pos;
- 
--	if (pci_ats_disabled())
-+	if (pci_ats_disabled() || pci_dev_default_is_restricted(dev))
- 		return;
- 
- 	pos = pci_find_ext_capability(dev, PCI_EXT_CAP_ID_ATS);
-@@ -40,7 +40,7 @@ void pci_ats_init(struct pci_dev *dev)
-  */
- bool pci_ats_supported(struct pci_dev *dev)
- {
--	if (!dev->ats_cap || dev->untrusted)
-+	if (!dev->ats_cap)
- 		return false;
- 
- 	if (dev->is_virtfn)
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 7c6f2aba81443..b08adba03f96b 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -1016,8 +1016,9 @@ static void pci_std_enable_acs(struct pci_dev *dev, struct pci_acs *caps)
- 	/* Upstream Forwarding */
- 	caps->ctrl |= (dev->acs_capabilities & PCI_ACS_UF);
- 
--	/* Enable Translation Blocking for external devices and noats */
--	if (pci_ats_disabled() || dev->external_facing || dev->untrusted)
-+	/* Enable Translation Blocking when ATS is unavailable or restricted. */
-+	if (pci_ats_disabled() || dev->external_facing ||
-+	    !pci_dev_ats_permitted(dev))
- 		caps->ctrl |= (dev->acs_capabilities & PCI_ACS_TB);
- }
- 
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 5b6960bbb35bc..139e6f7b4e022 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -1738,24 +1738,27 @@ static void set_pcie_cxl(struct pci_dev *dev)
- 
- }
- 
--static void set_pcie_untrusted(struct pci_dev *dev)
-+static void pci_set_default_trust_policy(struct pci_dev *dev)
- {
--	struct pci_dev *parent = pci_upstream_bridge(dev);
-+	struct pci_dev *parent = pci_physfn(dev);
-+
-+	if (dev->dev.trust_policy != DEVICE_TRUST_POLICY_DEFAULT)
-+		return;
-+
-+	if (parent == dev)
-+		parent = pci_upstream_bridge(dev);
- 
- 	if (!parent)
- 		return;
--	/*
--	 * If the upstream bridge is untrusted we treat this device as
--	 * untrusted as well.
--	 */
--	if (parent->untrusted) {
--		dev->untrusted = true;
-+
-+	if (device_policy_is_adversarial(&parent->dev)) {
-+		dev->dev.trust_policy = DEVICE_TRUST_POLICY_ADVERSARY;
- 		return;
- 	}
- 
- 	if (arch_pci_dev_is_removable(dev)) {
--		pci_dbg(dev, "marking as untrusted\n");
--		dev->untrusted = true;
-+		pci_dbg(dev, "setting adversarial trust policy\n");
-+		dev->dev.trust_policy = DEVICE_TRUST_POLICY_ADVERSARY;
- 	}
- }
- 
-@@ -2082,7 +2085,7 @@ int pci_setup_device(struct pci_dev *dev)
- 
- 	set_pcie_cxl(dev);
- 
--	set_pcie_untrusted(dev);
-+	pci_set_default_trust_policy(dev);
- 	device_trust_init(&dev->dev);
- 
- 	/* "Unknown power state" */
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 7f1f47ea2ee41..9ed3e7660bab2 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -5525,8 +5525,8 @@ static void pci_quirk_enable_intel_rp_mpc_acs(struct pci_dev *dev)
-  * Currently this quirk does the equivalent of
-  * PCI_ACS_SV | PCI_ACS_RR | PCI_ACS_CR | PCI_ACS_UF
-  *
-- * TODO: This quirk also needs to do equivalent of PCI_ACS_TB,
-- * if dev->external_facing || dev->untrusted
-+ * TODO: This quirk also needs to do the equivalent of PCI_ACS_TB when the
-+ * device is external-facing or ATS is restricted by trust policy.
-  */
- static int pci_quirk_enable_intel_pch_acs(struct pci_dev *dev)
- {
-@@ -5567,7 +5567,8 @@ static int pci_quirk_enable_intel_spt_pch_acs(struct pci_dev *dev)
- 	ctrl |= (cap & PCI_ACS_CR);
- 	ctrl |= (cap & PCI_ACS_UF);
- 
--	if (pci_ats_disabled() || dev->external_facing || dev->untrusted)
-+	if (pci_ats_disabled() || dev->external_facing ||
-+	    !pci_dev_ats_permitted(dev))
- 		ctrl |= (cap & PCI_ACS_TB);
- 
- 	pci_write_config_dword(dev, pos + INTEL_SPT_ACS_CTRL, ctrl);
-diff --git a/include/linux/device.h b/include/linux/device.h
-index 65ea07c9ac35b..870ce14924905 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -934,6 +934,11 @@ static inline bool device_iommu_mapped(struct device *dev)
- 	return (dev->iommu_group != NULL);
- }
- 
-+static inline bool device_policy_is_adversarial(const struct device *dev)
-+{
-+	return READ_ONCE(dev->trust_policy) == DEVICE_TRUST_POLICY_ADVERSARY;
-+}
-+
- /* Get the wakeup routines, which depend on struct device */
- #include <linux/pm_wakeup.h>
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index aa3765a20a96c..087c63b177c85 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -490,14 +490,6 @@ struct pci_dev {
- 	unsigned int	shpc_managed:1;		/* SHPC owned by shpchp */
- 	unsigned int	is_thunderbolt:1;	/* Thunderbolt controller */
- 	unsigned int	is_cxl:1;               /* Compute Express Link (CXL) */
--	/*
--	 * Devices marked being untrusted are the ones that can potentially
--	 * execute DMA attacks and similar. They are typically connected
--	 * through external ports such as Thunderbolt but not limited to
--	 * that. When an IOMMU is enabled they should be getting full
--	 * mappings to make sure they cannot access arbitrary memory.
--	 */
--	unsigned int	untrusted:1;
- 	/*
- 	 * Info from the platform, e.g., ACPI or device tree, may mark a
- 	 * device as "external-facing".  An external-facing device is
-@@ -616,6 +608,28 @@ static inline struct pci_dev *to_pci_dev(const struct device *dev)
- {
- 	return container_of(dev, struct pci_dev, dev);
- }
-+
-+static inline bool
-+pci_dev_default_is_restricted(const struct pci_dev *pdev)
-+{
-+	enum device_trust_policy policy = READ_ONCE(pdev->dev.trust_policy);
-+
-+	return policy == DEVICE_TRUST_POLICY_DISABLED ||
-+	       policy == DEVICE_TRUST_POLICY_ADVERSARY;
-+}
-+
-+static inline bool pci_dev_ats_permitted(const struct pci_dev *pdev)
-+{
-+	enum device_trust_level level = device_get_trust_level(&pdev->dev);
-+	enum device_trust_policy policy = READ_ONCE(pdev->dev.trust_policy);
-+
-+	if (level == DEVICE_TRUST_DISABLED)
-+		return policy != DEVICE_TRUST_POLICY_ADVERSARY &&
-+		       policy != DEVICE_TRUST_POLICY_DISABLED;
-+
-+	return level == DEVICE_TRUST_FULL;
-+}
-+
- #define for_each_pci_dev(d) while ((d = pci_get_device(PCI_ANY_ID, PCI_ANY_ID, d)) != NULL)
- #define for_each_pci_dev_reverse(d) \
- 	while ((d = pci_get_device_reverse(PCI_ANY_ID, PCI_ANY_ID, d)) != NULL)
+Changes since v1:
+- v1 protected the in-flight hvc_poll() call with an RCU read-side
+  critical section and published a NULL adapter before removal.  This
+  version drops the RCU scheme entirely: the virtqueue callback no
+  longer touches the HVC adapter at all and only wakes the HVC worker,
+  which polls adapters under hvc_structs_mutex - the same mutex that
+  serializes adapter destruction - so it can never poll a removed
+  adapter, and the unplug side needs no change.
+- Verified with an injection-assisted A/B run at the same stall point
+  (in_intr+0x18b, between the waitqueue wakeup and the adapter
+  access): the unpatched kernel reports six slab-use-after-frees per
+  run, this patch reports none.  Round-trip latency and throughput on
+  a console port are unchanged (p50 0.089 ms vs 0.083 ms).
+- resize_console() and the control-message HVC accesses remain out of
+  scope, as in v1.
+v1: https://lore.kernel.org/r/179378553951.72222.12851179500568566393@gmail.com/
 
+ drivers/char/virtio_console.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
+index 019bcae81af5c..c5b3a6c0ff3d7 100644
+--- a/drivers/char/virtio_console.c
++++ b/drivers/char/virtio_console.c
+@@ -1820,7 +1820,14 @@ static void in_intr(struct virtqueue *vq)
+ 
+ 	wake_up_interruptible(&port->waitqueue);
+ 
+-	if (is_console_port(port) && hvc_poll(port->cons.hvc))
++	/*
++	 * Leave HVC polling to the khvcd thread: it walks its adapter list
++	 * under hvc_structs_mutex, which also serializes adapter
++	 * destruction, so it cannot poll a removed adapter.  Do not touch
++	 * the adapter here: hvc_remove() can free it concurrently during
++	 * port unplug and this callback holds no reference to it.
++	 */
++	if (!IS_ERR_OR_NULL(READ_ONCE(port->cons.hvc)))
+ 		hvc_kick();
+ 
+ 	kref_put(&port->kref, remove_port);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.0
+2.34.1
 
