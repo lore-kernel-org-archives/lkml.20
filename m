@@ -1,112 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894571;
-	b=f7fYNLTpYqjK1F4EQNQYMIQe+JajiB7uFB0YKETNGRfEbON3OfuFKsilyAXu13M7xLM1
-	 NrIOQCGCgjtoahygu4p/1xKCYqa6PQ7Hp0TQGRCfZLqWwgFM7K4IOOTBa1dMGwBfXWttB
-	 Uxblf4dkF7fK/Crs29i0/ZnfBsZGGK9JrlNeezWibPyLEfSvqZZbGejTNe8KGTppt+/hL
-	 4tmz+SClpFmGhDwpo9pCT75HFkH1BNBWkaK3rinZPZIVqBASbjRjIhuyHDUCE0iUaBBpA
-	 RBaqcVx1OyiC0jw7xfG7sUW7K4LtSf2l8FTeGftiDaBcXE00krpQ9j6aZ68hG9VNlew==
+	t=1793894567;
+	b=s7fdgPHhXBFGIn9QHF9r3sL23xd9c23PGJt/xFwsDAm9upgmwqOLvicIOy61xyWdG0sO
+	 /sKjOurrrjwOnca7KfJgRiyMwM4mkG730wji7U5NWNWOYDq2AwScbxdNdF/TGny3UsKAR
+	 X/brtr9F+4brzWnTn7OnyzVZ3GF13M5XiNBV1M635hHBdytUURreaTgQrMdnXlOWdgR6t
+	 g52OBtlAmyYbB5DEKY+BwX6qhzUyoQOzhB7GFNwCTnsiqlA8fsgnbwxxlKpzR/i3zaAPt
+	 uA8TyXzq3qGJWcfeCXfUGJ6CLU2J2nFvo6FxofGdgOogkcjBesBMOyzOINmgR8g1zAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894571;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894567;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=34g+gM68eFDTDCVBvHfun3apqlRNOTVBacuR7uGRASI=;
-	b=IOuvZWPxaK4rVm+LJB5/iPOGax3gD5uGK3a+i15C1XFpVx+eXbcJz/rYgam1pMz+iCDQ
-	 /A0CtURGECSK5Be6FR4OG+ZPSiFB3bbCnGNm2nDs7i8pWMtvVh+BjRctvh6+50ydQ5ldv
-	 1eQGYmrZ16sic+B2xFX9XcV9YSLL1ht+93AvYqBbaARspknj8ZKp1gyLRhgkqmIkSkT3n
-	 kSgmfT8fZCjI5NPXDqtOdESM6oMhD8ilOvBg5TKFaL5OHLSvnFMoczf3cZLIoSw0/Kiit
-	 HN6xSqGZGEFLAxEzuWFrqc0Bydlr1wW3miDuupVA96ge5OdfvgbpDdG4j2JKMl6fl3Q==
+	bh=UlwLNv5+tELfF8ZzeIxrYsemrkgdO9m/e3laajhv55c=;
+	b=xX31feceM6h50bQEEntFYRaRm3dTib2M5lTPl0/Gr1GQahXpMpb9rObKth2QJxqQ/unP
+	 pyAcqXJMqPlWRnwI+Fg/QAcl7dnHXHAiWn9U5bumpajD/JHbPTmgG5JydL7ySogWt2Y4y
+	 JEOM5PtI5vauHTKY16kJiH8kfeGsu3M4W6a6BnrrLiq5w1c1Uny/MO0XLkdCNdbS1eRaQ
+	 Nv1yX+3t9SNoYhoMUOBE+ZnzIDvxKAcYuH/5/y3WzaNVKjvzPwWAMz/W8dzmuQOpunoTx
+	 1WoRnRfaIHu2jV3FlfqcnFCqktSRoDVd7E6GFRPaQ90073OoqNLP7bpbKr736REWu3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZyJBQkxp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c2rEgnbs;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eYpfcGXc;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Yk8yUP5H;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC3D6083608
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:02:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCC3D6083608
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF397606F95F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:02:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF397606F95F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZyJBQkxp;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c2rEgnbs
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQGBw1049828
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 16:02:50 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eYpfcGXc;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Yk8yUP5H
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQ7ve4134029
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 16:02:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	34g+gM68eFDTDCVBvHfun3apqlRNOTVBacuR7uGRASI=; b=ZyJBQkxpsyP7gHjC
-	PFpey2bsuaOeurJClX9QcG/h7iR1XaIKYkeyA9e760ktwGPzGLlDENrMRd/3h6Ua
-	Oupo19XzwJ8OvAQugvaGDrTcWRukQJfkmywsws2Dtj0BxU+y7QCZmDmizTcD2pOW
-	CGSe308g7ZhpfAG5R6RSpEJnPSzqFxfMPxk703NA7cb727y4E/BzEc68ZPzD4anS
-	hC5SrTBpjN8LURnxEPfjZ92bq/0RQfugZRJ/2mqXq6Op0WfozuVTjQ+w/scKfVLP
-	KEyyAZLgXrOyR6vWKSWwmWM7d15CANx/tFZQYAK+ZWFAUCHqUWKxnMl3m0mwrxV9
-	Rs7pWQ==
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=UlwLNv5+tELfF8ZzeIxrYs
+	emrkgdO9m/e3laajhv55c=; b=eYpfcGXcvBjX9p/cQXrfl4/mW0jEmytl8D5tgh
+	cbeeYJDRwTcv0tIzGkGtJDSSsARjDphRl8nXcfJ/hLTwQnbfzt1pHx73hELelwlS
+	OttjidSVyy9OG0g6CrkQt1SJcrmV+Oq28BBOzToho6a3E3iEDQ365h3nvqFo5fyw
+	rc1aQMUeg5pcN8inDF4lCNyMTYTCV5aHzgO43Ayz5Wzu0Dn4FGiQ64Gq6Dar8nMM
+	Wf6X/D/7wjbva5HifO/A/9uQzNDCXmIRyWoJSjGUKhKJCaPL6/IonMiQYPhYwg8I
+	gnoXdOctM7jJaxeBlfA3GWEDJgwTTupkdN1C25lE3jQsBfRA==
 Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrpaahwfb-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrksqaj11-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:02:49 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eac1e41c2aso625895e0c.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:02:49 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:02:45 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5ec3e192929so613744e0c.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:02:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793894569; x=1794499369; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=34g+gM68eFDTDCVBvHfun3apqlRNOTVBacuR7uGRASI=;
-        b=c2rEgnbsltCVcdoOauiTp69I5Xf1+JIZq1nNcaWVLyI4agU7u06s7Z8AcL12JuQKLC
-         3VOBQtBPCOFc9cr3lRGow30CYVLvynTlpEhA+il4eGWdV11DbXteDxz3w9v5rLtPWnsV
-         j7FAm0UCftwAViA4O8KonbWycZpK8KQGOiUVWUPa/K7nt1LC7c08uCiY8Fvv/u4NGzu/
-         lh1aCKTp7/h4FpabxypigznrUvM5hxH9HP2XmAuo+E+GYJKMekHpSuwEFBLBr2oHeEC8
-         AmUZXjmlXBwL1JYJNuZ25Q4HgnE6Puo0nvePrhEnCmMmusZhfuXx8T54m3DVZOQGMFNz
-         n9Dw==
+        d=oss.qualcomm.com; s=google; t=1793894565; x=1794499365; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UlwLNv5+tELfF8ZzeIxrYsemrkgdO9m/e3laajhv55c=;
+        b=Yk8yUP5HJlAzO482gpzPywQNO0Et1+IKOa2C15hmM3YkeVXXxJAjOBTM6hEPsv3Zhz
+         etJjKwAFqjrIcB4r5Dxu2cQEwdr2ZWdMutuYbB3Vzu1p+axYaUXkTj0EbO0YFdlWaAkE
+         lfCO+MiQIzjn01odyS898PPlScclBTqJaSAE7Sy/kmCHoXHpWgshhR67BUO26Ck6aCuN
+         TiUzJzkJ5M6kUwHQXhTaW6fdHxDCBFdIZKEWRZjWtXUWFT0185S3yrTxKWKQtKQQvq0B
+         Rksf2/G7AUHY76JR/PYhgmbxIUhNB8YEJlfHyAL7y2FNcJMVhD4k91bjmiyIzTtWqQ3M
+         1z4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894569; x=1794499369;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=34g+gM68eFDTDCVBvHfun3apqlRNOTVBacuR7uGRASI=;
-        b=PqZxFUQfn+OonuY3Al6Q9TEsNOXC9ZFYqtOxSChpwyrYAXNEh/5Fk1lGr82k2llykg
-         yH8Kz+jE1raHbBN0RQWTZpndDqagWiDL1U5X7ovAg/N/KEiMIyjlsFyB98Zr46o2MW6h
-         mi3RxVe3ZBJoLrpJwJY3DRK8RGshql9HSBthLtovpuvtKtMl2pDaMLGtaS2fj3OJFoGA
-         tLiAN9CNf0SoTmjb7JgSUBkAmj5gc9b79yws07nnZc6lwW/VtMIhYjqP+At8ZPTezbDf
-         jeVpf5CKdCqb4VDzQ7hmqAj6fzFkZlldEky+sIR1wupsEfkJhxfRUMlEndeiNolr0Sfn
-         H8NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+lAEY45yX+tCDAFTu2CShKeJAd5V9IC6rEfGID+ANyg8pWQkkpixkNCj7+ef1lKHCVFNO7YbTdej9vQ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bwOSFSNF3XFSrtoSpr03fCnV7gtb9womSJqDoGA9qOtd4fqTa
-	3nUNyVuO5mE08uLNmUlrQNik1IF9D4kI/s23s48Fa7GpfVZWzIVoTt+t1lrM6QDaMFYUDyxVO/+
-	2Zp4ZXJ0XUkSHISIEzTBvSlXKuYB31RfjEGrIwqpfjs3GDdSyJoSmpsaIWuWK+npf0Ng=
-X-Gm-Gg: AYBFou3pmX96T6GpZU/0GMkzr/1l6tKaax2ylOI/jctFvAR4LUV8zY+K34oJAnZPEpo
-	6G+ASOERKQRh1NU47FF+syxR+wbprgPaB7D9UMFa6LJm/TnGF1HT1/7tDItYBum6BYLK+Zk36et
-	Ciu6rjB/0LAz6eNyElTZnwLDsWRBQqdRXQbZ3C3/vJY0gJWWDjVkhQoe2L+1l4FGto023ARkADv
-	pNUypv5sImolkxt3INEFcbBkkijDdiMTF8SZ07urbikDTR+SuNuB5efPMJT/KGI24z8dtOWIX0H
-	rSx9mltxjYBTeyFxmbgk/5S1zHN6MQMFQ9uO3I4Zq3pGfUtOYSFaEsZ7RXcMuvlSUNIaCsRW2Yt
-	vWowNHoFoogtX+ow0OBv62HlUSKuXQpLT+Gc6u0zDVibnewmgZoZLYN1JTw==
-X-Received: by 2002:a05:6122:3115:b0:5d4:1193:73d3 with SMTP id 71dfb90a1353d-5ec6894bf5emr9727480e0c.14.1793894568726;
-        Thu, 05 Nov 2026 08:02:48 -0800 (PST)
-X-Received: by 2002:a05:6122:3115:b0:5d4:1193:73d3 with SMTP id 71dfb90a1353d-5ec6894bf5emr9727404e0c.14.1793894568060;
-        Thu, 05 Nov 2026 08:02:48 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793894565; x=1794499365;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UlwLNv5+tELfF8ZzeIxrYsemrkgdO9m/e3laajhv55c=;
+        b=Z3cgA81vf9fFOOnI8ikQcJofXu6xkKcP5ISoYUd+bBCjtfabI75oROt5x9RmMIDj0f
+         EGNrUFHCqpwHqXRap0+25GOmPWHAlVbtdz5APGUYMvj/NcHB8Lz3rpQ4kHTHuoLhsiYo
+         0Z52zQ8k7374bfPUSNAP1vvdi7O1vgJi8RTwkzSo/1cfc7EVAuYOvkum9AKoSODerhzb
+         M7WE2SCngVD5coFufwXxrU69AQ9VJmW+/j6XSOUusrE8WyeXc5vBT9qbxaV9UuwAeXme
+         0PxAdlZrHp9ByMqaPeI94REh4ttNXlbOkwkvQ8OlbbXF5Vo/i3cp8zZTAEc/CdtD+4pR
+         qUYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWI+cKq7pws9iBUvwkW9XAArMxIFUaX4ZI4+eDZkNayCZZZ1/W0udakYVIf2qVqgamvJC4NixIfVhouk4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UqnvgFMtkaP4G4+cG48seYgD3Kvmnq28fzTM6IpbZd9sZzcgj
+	9HLfEhLuYHv3m9Koto6i4LP+BICv2UlynWl//131pjnXaEamXbyTs7Yw6SyE3og0FkTn12asIAm
+	oUfUN48dYOLGxFeeHxaD/my7Y5QFolHxVYV0JliWpwq6BNvfdNQ6v0jkqanHBNzghD5Y=
+X-Gm-Gg: AYBFou2g89Gw7uEMF1LP2lKZUiea4l/PdvT0Yn7ECtHjxjEqEO1xK4ZRBcIA8OtOkmL
+	IwWT84o0GYjUtfgm6efvdxYY5LlVksSqrTMhPqZzOaESmZLJjRjzV0okFZkU+WHEhZfTEAIzTQy
+	vaGEdj05Ww1vIDkBWxbkGwCKELgwt8HK5ZA5KLxgwLdSdkUDVYHGfBSXzRsfsqFGZgL4k/SVg78
+	gbFDRSHe2lL1WYuJ+LncuP+V97/VCfgGJcsFeNrPus8cwVrG0kmugwafnmLkIp5xh6OBZw+tNmI
+	6vq4g02fp7VzvsQVWqRsSkm6hC7LJWyBVxbMrUigBxYDF+mOJpJwk6oozcuS4ZGdeoB2ddDMGlz
+	M7oHWXuPbxsaIn0fFzx0ycvTlgsxrCVC/h3zXFUB/uhqFwNhaivO0AocHZQ==
+X-Received: by 2002:a05:6122:218b:b0:5ea:a0f0:192f with SMTP id 71dfb90a1353d-5ec6881c31bmr9347137e0c.10.1793894564775;
+        Thu, 05 Nov 2026 08:02:44 -0800 (PST)
+X-Received: by 2002:a05:6122:218b:b0:5ea:a0f0:192f with SMTP id 71dfb90a1353d-5ec6881c31bmr9347058e0c.10.1793894564046;
+        Thu, 05 Nov 2026 08:02:44 -0800 (PST)
 Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20521sm11065672f8f.53.2026.11.05.08.02.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20521sm11065672f8f.53.2026.11.05.08.02.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:02:47 -0800 (PST)
+        Thu, 05 Nov 2026 08:02:43 -0800 (PST)
 From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 18:02:02 +0200
-Subject: [PATCH v3 2/3] ASoC: qcom: common: Add SNDRV channel map to Q6
- slot helper
+Subject: [PATCH v3 0/3] ASoC: qcom: x1e80100: allow WSA channel map
+ override
+Date: Thu, 05 Nov 2026 18:02:00 +0200
+Message-Id: <20261105-b4-sound-qcom-x1e80100-allow-ucm-channel-map-v3-0-29e06613115f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,9 +117,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-sound-qcom-x1e80100-allow-ucm-channel-map-v3-2-29e06613115f@oss.qualcomm.com>
-References: <20261105-b4-sound-qcom-x1e80100-allow-ucm-channel-map-v3-0-29e06613115f@oss.qualcomm.com>
-In-Reply-To: <20261105-b4-sound-qcom-x1e80100-allow-ucm-channel-map-v3-0-29e06613115f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAHio7GoC/52Oyw6CMBBFf8V07ZChPHXlfxgWpYxS0wdQQAzh3
+ y34B24mOcm998zKPA2KPLueVjbQrLxyNkByPjHZCvskUE1gxpHnWPAU6hS8m2wDvXQGlphKjBF
+ BaO3eMEkDe82SBiM6yOoLyZoXsshzFia7gR5qOXT36sd+ql8kx92xJ1rlRzd8jn9mvuf+VM8cE
+ LgUiYx5hhiXN+d91E9Ch7KJwmHVtm1f+axXQwEBAAA=
+X-Change-ID: 20260724-b4-sound-qcom-x1e80100-allow-ucm-channel-map-5b9ecb27c766
 To: Srinivas Kandagatla <srini@kernel.org>,
         Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
         Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
@@ -128,126 +129,111 @@ Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
         linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2144;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2719;
  i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=PB2xbFqRgMUG4atgisB8EwU4caRe51qu9rLYrESsFBw=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq7KigaTg5w6SITfHlnkVrD4JBkEpgmgeUVldrv
- nmoTg+PxhqJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCauyooAAKCRAbX0TJAJUV
- VrBFD/40dYtqvjA7O4JctJu2A3E49/7nEjDc/syzyOkQrSTTDNFBY+mADWy/JsdHhaPO7VbRE7c
- oj4zJ6ashWlSVttfnWlMGUwwxTjOhoMhnXG3LgRLmdowYIhWLgMuaalv0IJMdW9jWHlSiYhSnuw
- YpLUQaJkVFYP1xMqgm4lLAUrRN6mLenoTNyAc4zLi7iHxYKhreVuwMa75awHszrSrsy9ri97peh
- JG7UexUHwtO+uBlyxoX7ZuES8XrDsM6I1Oy0Y//Hpg6VkO30a2I3kIdvsbWvjfJl2358+9Q33rk
- V/UJRsXi04LR+HjQ4q5wUOM7AMcDvs5b7vBDB5CxIdsWVc+f5RL5bXaJINGjES4uC9XKY6gTfIF
- RVC+zqS6e88F2fhqVo4MWloZ1K5tLK5A/FInoSkw2Im8m8FzLhOdhk0e5Xt+zMMr7dSFA6xGQ0U
- P56SZJMQx3YY4dyo650goEuhf+SrOLUIqmmVfCxfXat+Nm7Lsgx5aN6bLZyvxkV5qhFnv0CDU2+
- IRN8e7HdW6dNBHHIlFcKCXW5HqCMrJcw9KbarARv+KFhrmt+la6tCi2GhcLCSkitxSKS14ealHb
- gZTj/YTeyN72wOb0uvcrIdw/Kd2lT19P5yRKwbScKA/Uyo7fu8SusqRUpd2iWxN4uJHWcvGA5N2
- pdFcy6s5KE/ziKQ==
+ bh=U5piwvNZRG1cHLfWCFnEXueR124Qs/vWofw3DYDWQeA=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq7KieCQbWjnt7KCLcMKHEpza6c7UkOlMSDcyw/
+ TJiBbPkVsyJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCauyongAKCRAbX0TJAJUV
+ VoeMD/9C1oNm6MPOL8S3tCs6Ie9luZxX/08iHLm8pGJru8IdK+kZ7spOKxFO8WACfydGgjN7IZJ
+ P1HQiM9ZDaagFcXlTItq3JRxYXhx6z15rNcFllVuJbKxnj7AxUFIqWEioaWOXQWJx1e5cQlBKNN
+ 0HsnaZ7lDMoqp7V6D7m/y6zZe/2bEA6EY9P92ZmDpBuTWr/pKKYOGORngMB8fJBtrBH8L5vqyIe
+ RhKrjTUGAJkkGpm+SzIX7MSe0fTqcXkAFUKNjOJzetAeUIe/UHmN4g3E1iA7qrs1wg4LOUgBQdC
+ s7Y8sFNTo7HFcJ5q5t0JmV9KGn1LLBjPwqjvpkLBUEhPhPbluTg+y+alY96FW3dgGqPUpaaDhSW
+ a0JMeps6518Mz8p89doKIUELYNC2tOA4NSZPzXtbj8UCOE5U2D1nb3nmfA9OUO2+698bw1bN3Tt
+ o8bXUK1gA7XcgI6Ja/6l/1Yu/LgCixGME+wrx/POGubkIqdX+6uu3enDwznEMT9YpuHW+k5q2aJ
+ 5pEgwINWZCTcTqPKYKbsGFrCZy4XRaQvTyU8epZ7mX6WQDxoW3mieDZodbd1GghTVxb1ALm5QyN
+ 60kzTG6lYuAswdJDpaM32fiA+I370HmjAgu3OcKswmZQy/IDSNbQry+zteVicZQOOxK/3+zoH6m
+ E9TzwOnFMIrOUVA==
 X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
  fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MyBTYWx0ZWRfX65/MNutPFWV8
- U/PcCYgrcCMIiSs0DmjRanuRB2tKn9YubEHtJrERJQGoZOn03lNN2RWlpzU6FNfbt6z1ZC6fltH
- z4FlBs9Fs2I3AV4GHA1DBunrE+zhVNUWj6eejdndWHm4JH5/DlMIisgBvNm64T7Qg1agXdWi4Vv
- qSfXgi81Qdj9Fos3fzhYomaggN2BZGykUf86+Ufmj4ENNwGJBfq8f4O+eaKSEDnjAIhAnCvNiKD
- 4G/U0SjagWk7QK3hT73ENnl0MsWs0b5o6B4UFriZ76jHBDHv3xTylnlDtUZKthsTzRzdpM74Fmp
- DILRBICK4RpubjVyonCEf2U/VOBl+m9TKGUtatYE/MrX8AM4jkmrMJiAwyMHllebVPi6q1wJ6gP
- jXlmoShE/kmq/+Qr5c0U+FRZBqrzXdpjrpaZJOzgzDL7wXwOXVvTOk3lpamWCiUQTiAiCNF/tnO
- FNp3vUJd6Nqc91nMwuw==
-X-Proofpoint-GUID: 1uCk_39oxEGK7HOuas8LJbOmMrgdGRl-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MyBTYWx0ZWRfX4XXrk1uSlg4Y
- emfZpxi9fiqFnIAc3SXDt2U0vpb4FbGMIH5G4eusyKuolfJRA+8y3sABMsHhLU4ugd2AxUdT0vR
- yY5FutM+sYU0K0h76XNNvNTfZdpUzhY=
-X-Proofpoint-ORIG-GUID: 1uCk_39oxEGK7HOuas8LJbOmMrgdGRl-
-X-Authority-Analysis: v=2.4 cv=WOXqzXsR c=1 sm=1 tr=0 ts=6aeca8a9 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MyBTYWx0ZWRfX3U+A2z6x1RZy
+ 4le9PpxNpJ3eV1IgREMPBoXM/jiWRMyr4KCG6F7BKkz62r8BgGlUURhqB/0UjghX5aym3MMWF5P
+ wCzHZx8nPTIAANYVEaGW0lIe3OiNsnYst2UgoaBWPUMmiIp3HadCyZ9HbmthkfN/ZshKVh/ZqL9
+ XjBcviFYkS+sarMJole1deS/fhZVhLqqojn1frSzdZ3ibgQSutRTkJOZsQ2dH9HqqKGzMhEvgKW
+ yhRk0Msyv4HymqzmQz3JKgyaAdXjuP8CNaF5aZIspufX741CwVEVJMo3qTEkL9lz9KEkfMTasLu
+ zI6vQZuAkAyCJLUt1LrVJflXVC+gRekCjg+LCCwaT+SuRsVrKlLh+exw+UVHY/L1Mz3hblTax2c
+ mE/HHZVUFeHtMPgB/JreU7hVRCBHArbkcp/KjHjrTnKhJBqSh0bfrvxSTY5EafSazV+RDmwGAGi
+ lZIcU362yq8beMkok4g==
+X-Proofpoint-ORIG-GUID: jJGAmFKDBsDlt7TpCOgk0eGBJHUGZh0W
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MyBTYWx0ZWRfX5HoY+U1peVEd
+ bVlu1wcnAreOeQEanwWXVEAxYfXlrvFWtYrxIhioPUE2oCEgg+k11rKcd4nG6dRd3Q394ozsQIy
+ qTO6KPm32Oq+fe30Y6ddN+JRXrafy6U=
+X-Authority-Analysis: v=2.4 cv=CIe/zhrD c=1 sm=1 tr=0 ts=6aeca8a5 cx=c_pps
  a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=vP20N_l1vn5n2xwiar8A:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=SGIR3ObuRCJqBXPODGMA:9 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: jJGAmFKDBsDlt7TpCOgk0eGBJHUGZh0W
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 spamscore=0 phishscore=0 suspectscore=0
- impostorscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050063
+ spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050063
 
-Add a small helper that converts ALSA channel map positions to the Q6 PCM
-channel identifiers used by Qualcomm machine drivers.
+The x1e80100 machine driver currently derives the WSA RX slot map only
+from the runtime channel count and programs that map unconditionally in
+.prepare(). This means userspace cannot override the speaker channel map
+from UCM.
 
-The mapping is useful beyond a single machine driver when exposing
-writable channel-map controls.
+Add a small ALSA core helper to register channel map controls under a
+custom name (so the WSA maps are not confused with the DP/HDMI
+"Playback Channel Map" controls on the same card), a common helper to
+translate SNDRV_CHMAP_* positions into Q6 PCM_CHANNEL_* slots, and
+writable "WSA Playback Channel Map" / "WSA2 Playback Channel Map"
+controls on the WSA backend PCMs in the x1e80100 machine driver.
 
 Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
- sound/soc/qcom/common.c | 30 ++++++++++++++++++++++++++++++
- sound/soc/qcom/common.h |  1 +
- 2 files changed, 31 insertions(+)
+Prepared with help from an LLM-based assistant.
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index 83b745f617a8..29b2df21b765 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -6,7 +6,9 @@
- #include <linux/module.h>
- #include <sound/jack.h>
- #include <linux/input-event-codes.h>
-+#include <sound/pcm.h>
- #include "common.h"
-+#include "qdsp6/q6dsp-common.h"
- 
- #define NAME_SIZE	32
- 
-@@ -327,6 +329,34 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
- }
- EXPORT_SYMBOL_GPL(qcom_snd_parse_of);
- 
-+int qcom_snd_chmap_to_q6(unsigned int pos)
-+{
-+	switch (pos) {
-+	case SNDRV_CHMAP_FL:
-+		return PCM_CHANNEL_FL;
-+	case SNDRV_CHMAP_FR:
-+		return PCM_CHANNEL_FR;
-+	case SNDRV_CHMAP_MONO:
-+	case SNDRV_CHMAP_FC:
-+		return PCM_CHANNEL_FC;
-+	case SNDRV_CHMAP_LFE:
-+		return PCM_CHANNEL_LFE;
-+	case SNDRV_CHMAP_RL:
-+		return PCM_CHANNEL_LB;
-+	case SNDRV_CHMAP_RR:
-+		return PCM_CHANNEL_RB;
-+	case SNDRV_CHMAP_SL:
-+		return PCM_CHANNEL_LS;
-+	case SNDRV_CHMAP_SR:
-+		return PCM_CHANNEL_RS;
-+	case SNDRV_CHMAP_RC:
-+		return PCM_CHANNEL_CS;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+EXPORT_SYMBOL_GPL(qcom_snd_chmap_to_q6);
-+
- static struct snd_soc_jack_pin qcom_headset_jack_pins[] = {
- 	/* Headset */
- 	{
-diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
-index 37b185a4968f..2b1d30230d77 100644
---- a/sound/soc/qcom/common.h
-+++ b/sound/soc/qcom/common.h
-@@ -31,6 +31,7 @@ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 			    struct snd_soc_jack *jack, bool *jack_setup);
- int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
- 			   struct snd_soc_jack *dp_jack, int id);
-+int qcom_snd_chmap_to_q6(unsigned int pos);
- 
- 
- #endif
+Changes in v3:
+- Rebased on next-20261105.
+- Switch to the approach suggested by Srini on v1: add
+  snd_pcm_add_named_chmap_ctls() to the ALSA core and register the WSA
+  channel map controls on the backend PCMs from late_probe, instead of
+  card-level mixer controls with a hand-rolled TLV callback. The v2
+  claim that no_pcm backend links have no PCM instance was wrong; they
+  get an internal PCM from soc_new_pcm().
+- Use a per-WSA-port index for the stored channel map instead of
+  indexing by AFE port.
+- Link to v2: https://patch.msgid.link/20260724-b4-sound-qcom-x1e80100-allow-ucm-channel-map-v2-0-2ca3c1250018@oss.qualcomm.com
 
--- 
-2.54.0
+Changes in v2:
+- Rebased on next-20260723.
+- Return 1 from the control put callback when the map changes.
+- Allow up to six WSA channels for Glymur.
+- Use WSA-specific control names.
+- Expose standard ALSA channel maps through TLV data.
+- Move the SNDRV_CHMAP_* to Q6 PCM_CHANNEL_* conversion helper into
+  qcom common code.
+- Register card-level controls because the WSA backend links are no_pcm
+  and have no PCM instance available at card init.
+- Link to v1: https://patch.msgid.link/20260610-sound-qcom-x1e80100-allow-ucm-channel-map-v1-1-9339724994f5@oss.qualcomm.com
+
+---
+Abel Vesa (2):
+      ASoC: qcom: common: Add SNDRV channel map to Q6 slot helper
+      ASoC: qcom: x1e80100: Allow userspace WSA RX chmap override
+
+Srinivas Kandagatla (1):
+      ALSA: pcm: Add snd_pcm_add_named_chmap_ctls() for custom control names
+
+ include/sound/pcm.h       |   6 ++
+ sound/core/pcm_lib.c      |  48 +++++++++---
+ sound/soc/qcom/common.c   |  30 +++++++
+ sound/soc/qcom/common.h   |   1 +
+ sound/soc/qcom/x1e80100.c | 193 +++++++++++++++++++++++++++++++++++++++++++++-
+ 5 files changed, 264 insertions(+), 14 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20260724-b4-sound-qcom-x1e80100-allow-ucm-channel-map-5b9ecb27c766
+
+Best regards,
+--  
+
+Abel
 
