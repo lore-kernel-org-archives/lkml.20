@@ -1,55 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869831;
-	b=v8G9wH6OiGYVyceaOIhTqs9mJzBnXTupzRxZNrGu+NsygyTVKvPmiQ/+9fMIxjoahhPK
-	 mnmHl6zrEQNZnuc1Id6epBIY3JlOUsbcaeh1fyk+rrdM2HcVsneqKPb5tJCFsSmbkRvuY
-	 +OkSuzSmEN/GbeffG52kIAq85nmtw8h92D6wjcTo1PBfsompu/GsQU6XjZ0/a/a3OACdC
-	 VCt7jq2zkFDL5faG98HT45ltIktCaJya5CnYo6QSE/VKe8Y9CtZx/CrI2cfdi/6qsNg63
-	 Y8YzWAPzE81rR7t43ZR2bfMbB478PlYEDXaAlj0tjkT/E5Z92GtqUtwnDmS6Sdgkj+A==
+	t=1793869865;
+	b=Jbgpw4uDTr8riYgZy8qyUHNCR9PnRjhhdEY0vePzCuUqf7m3bG3Yq93ah0Jjp2A49ipS
+	 u1E8k3XuLdOir8T9BTBiKLnjnZfv1t40RiNb+IdoIEfJZ60OpR8QKXtmcWEsndIugzvfd
+	 OSblttHN5PckCFzKb7/TWJpvNDO3CBv4AYURdM3jrcVb9GdqE8yhXxa8zDlL6kgOw98kq
+	 vvb+imz826Sx0k6Rp4FLg10Zt9spp78Cansanhok878P0pSkh001aHkDhS4MUCbgznMSl
+	 jQRq/x26iFtPD+fZ6KlFTUhqRYERZKC0s2+lCM/Tm403g6e5PrYUImvWX0oZNMzvHzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869831;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=l8FVoARO3j3t6Swl/r4USV4n/IIP1DJGnmzvtDWkxwE=;
-	b=PO95Y4a4FZDior9e0RK/AbsnmcK2YLNNorMkpsOgmtooT8TkgS/BGn6B4L6BveKuwXli
-	 7uigtiS77SbPssiSkd8iOyKy3dr0tz2T6KZxJrGoKIp8Stq8ICY+QAWF3AX/pk6hdPZ40
-	 wdn8uW2gArYB+709j8hoUS/4Uu2m/sN4ZtzFRT+J7TywTSKDcDSeoiAQWVXyjOLBTJxmg
-	 OLDvKkddQvZtERlVOnOEwjJno3BvlzXYOldkvNmTUANP/P7Kd+3ECXgnVO4sqfP7ADkfi
-	 UoVT8WQlUmJ2sALpHc9Z7Nu1caa/7n3wOHKhQ6VBKFCDXeyRTeXAZq5CVcKpBWlqAPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869865;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=4+ZqNO1Uua075MEzu4+jAJNvV66dGvERxAz2lyx10y0=;
+	b=TVwdPflIwkDHEjfUyH+wir93XUlnQwxTcrjwhl5T2+UGmx4xhW4zfPz0xm8IsOXBA9Qy
+	 aPtkMaD6+Hk/7kKUOksCD3p9gitOG7zuiFzRy/a4KDGT5mpbDQ5KKf0pQxieDOnK46mu/
+	 R0knMyBU5ee5dvFVjnSq8iPC1AmhPXsYRQBd6rLgY/wahbprrawUWsLVA/dF1FCfVXkuz
+	 nBqmkCEJi2jSKiIebS6x/Uxc67pLw2omVIzphNKhYQ3RNUdBwd0KL79BsYk0x7uhuyqTi
+	 fJCt/rs9CMXrBKxC+vHMbUhFrWNjMwlevonXVZVtbtzq8rpWhzaSlBhGC6iiBNLUGlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DAR24fhg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UUyuMllB;
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42F3606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C32606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:11:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07C32606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DAR24fhg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C811F00A16
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:10:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793869830;
-	bh=l8FVoARO3j3t6Swl/r4USV4n/IIP1DJGnmzvtDWkxwE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DAR24fhg1o12QPYF8w+7b8HIwsxRutsHpEf4cTFEyfIe1ri9nazYsDIocFwx5ISJP
-	 /3zIPoK5gQ2uI+H1WEkOK0X8GhFfj+9hv4l19yz1q/DPecQzQz2d5wbU1n2ejd3hHg
-	 /zhtdfWlMuzov1tVk4nMgIA2qtMOnpO+yRJas9gvpgUs9txLGJr7ilihbpns5ihEDF
-	 4/2yV2xRNhSNdsLoCt6rVfexZqo5PI+2bh5Zb6srEz7QL1UDMhOmHpUYxCXABSTIqt
-	 wtkhqxb8Tr9xqccUmW68LmRoovBaE4sFySPUjEpNYZPRH5NW5iNUtVbG0K+6xqcnIW
-	 aiNZNsoA0p13Q==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be416e603cso1088762e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:10:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwBeqTRBBtBz3emgRAgsxMar6CbMgitqS8JM+CmAJJW9PrRFQeSI6ncvEec0pMl8kmuKHmtDQAvnbfHI38=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tod1HTxc0ySu/XdEe45TfFVTqOUMjXbOEf7v93S2WNIjDFUS8
-	Oc/F5XOjJLPiMaOUsJL5XoQTfNieJVGmtzGr2NHv2uJ6XV+pMtNEu6NFQzgloUQww/iWoCldI+6
-	2r5mprFtc+kw+ITyOaAtJPS4v969gsDc=
-X-Received: by 2002:a05:6512:31ce:b0:5bf:be3c:6599 with SMTP id
- 2adb3069b0e04-5bfd957cf17mr5726763e87.67.1793869829164; Thu, 05 Nov 2026
- 01:10:29 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UUyuMllB
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso1084523a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:11:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793869864; x=1794474664;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4+ZqNO1Uua075MEzu4+jAJNvV66dGvERxAz2lyx10y0=;
+        b=VKzXm0L4D5NahQn3+JWlPDArJJ6RC4c4jf/Gg4sxKLbtT5C9NkLjmAg30vMW1b+bE2
+         bZPXQmNTZczn3pU0PapzTLky6lUPNLWorUcNac6B8sV6TM+awEXuj2WWq+CJrCicQOWU
+         fHcODhiv1/jgrwAvvOP0SuINHWWC4oNqBxf5WpIcWt7cOw4nYuiTAWjsTqvcxBpQfxM/
+         wfLijPPKY9APOm6mUVKlBY/9P3HheS0a1bSNAgxdq1qxznYWWihgZvVQqWPxl0OmMElJ
+         XUa2K4Nb7Rvkzs3iy971l+P4UXmugpo/xQ+noDX/UWpExSavWdMlakWnm7TOzMij4MCb
+         lOBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxs5F/Mz/3SA414eniChAAu+5FQZKxx6DG0jtp1mqiw3AxtuJB2EZobctXuAExGDwnKcLpElN9hQ9AS+JU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XVeKGqLzhujb1cqGG5SUdGaiGGDIEkUOs2bBtujNqYaaAd//o
+	3uRcqEEuecLLymyF9BbUZpk16PqL5MQn4GprZw7nhg900AmR4Jzka31IPBbt3ZnkBaovmc41vxM
+	af8SJdj+D5wBPcqs6EKQqIgRVcgWsEfYAQxQDDF9aXVZPXrpoKh7DZcYVVgm0T/69Xn3Qnpif8u
+	AN4+voXRZ4HZIWcBISXnTRJPIzAKRhg9x4zWnZ39BKmd+ekfpd0D8qlYtTqA0hhR3wsxrIqP8vB
+	QmpwqLoeuSU8X9zcA==
+X-Gm-Gg: AYBFou1VKFY8EOkHnvTHYleTwQ/98DLCxSgqPfrW0Ek0t8y6B7UG2WQMh8/L3aJnZT3
+	+CJ7Y3rSRLYqgCTfjoXlFs0DyuCbHP6qryxH+kWdnXL+8FxDGwCJlwH9KOY5mKgeuxDixYqGfz/
+	4WHGZCfAwecucPkhuxby7niQNO3rdtWZj5MSsw1oyfgEackQtnuPHAIM8vSsVWeixlz+77+qacu
+	JTaLdASk/NmysJRloADe48+nMkuSIc3ArqxCjOXZZl3Kcl3Iiil3Mmtn8XUFtPcHFIhhnJEzGIV
+	gtd6AZOI45+babDM4Y8rodHCd+UJuE5pKFxqox6RRqsSWNWAZ5/honL9hQGoOcV6GnknT/EW+9j
+	dlQl6oScIPSGUj4lpMnU+bB5iQ3XcG4NsBeGlpkunebfKLVuAjtTkM25t7W2VfZd0+wKivS8QGQ
+	+MVfQG+bSUkUUKqAiKJME5PEuP7VyzY8+gjQ==
+X-Received: by 2002:a17:90b:3194:b0:3ae:a4fe:7ad4 with SMTP id 98e67ed59e1d1-3aea4fe7dd4mr9234770a91.2.1793869864325;
+        Thu, 05 Nov 2026 01:11:04 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b315a756sm1495542a91.2.2026.11.05.01.11.04
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 05 Nov 2026 01:11:04 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-535066512b0so46152641cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:11:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793869863; x=1794474663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4+ZqNO1Uua075MEzu4+jAJNvV66dGvERxAz2lyx10y0=;
+        b=UUyuMllBWNBMjTXRRyz6Qq4H52mR0Hs6nSMXb+lB8GRVNLKQMVBrig3wiG9HGZoBe3
+         Dq4PcCK4y39gG88HV2JIJ6BdIEqra5PL/gfz5nmgW5pzEQ5k4KFkjLlDUpFMgt9TcMyG
+         bQTdkTSUeB4ashXuB8cm5+i30COn54ZyzFqK0=
+X-Forwarded-Encrypted: i=1; AKwUvBzxlNVBG34Bu9CZhJ6n8mDZrMUORlZNo5j4757rZapBSINUAN39gIIB7FF3gxAp79Qctl6pbb2iQ57eJ/8=@vger.kernel.org
+X-Received: by 2002:a05:622a:1a97:b0:537:b9f5:e05 with SMTP id d75a77b69052e-542b82fa50fmr318543391cf.69.1793869863171;
+        Thu, 05 Nov 2026 01:11:03 -0800 (PST)
+X-Received: by 2002:a05:622a:1a97:b0:537:b9f5:e05 with SMTP id d75a77b69052e-542b82fa50fmr318543191cf.69.1793869862721;
+        Thu, 05 Nov 2026 01:11:02 -0800 (PST)
+Received: from mgmt5.dhcp.broadcom.net ([192.19.222.250])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b100af507sm47298591cf.6.2026.11.05.01.10.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 01:11:02 -0800 (PST)
+From: Siva Reddy Kallam <siva.kallam@broadcom.com>
+To: leonro@nvidia.com,
+	jgg@nvidia.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	vikas.gupta@broadcom.com,
+	ajit.khaparde@broadcom.com,
+	dharmender.garg@broadcom.com,
+	sachin.holla@broadcom.com,
+	Siva Reddy Kallam <siva.kallam@broadcom.com>
+Subject: [net-next v3 0/3] bnge changes for RoCE driver
+Date: Thu,  5 Nov 2026 01:01:51 -0800
+Message-ID: <20261105090154.1293846-1-siva.kallam@broadcom.com>
+X-Mailer: git-send-email 2.43.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,54 +121,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr>
- <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-4-3aad0860b984@free.fr>
-In-Reply-To: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-4-3aad0860b984@free.fr>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 10:10:16 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=Np+_+wTkuLCiqjNY5EBqn5qq8zKTJB6F-=1G0R+7=Ww@mail.gmail.com>
-X-Gm-Features: AclHuK_7g7nY-8H8wprNfNKV8lgILSoOexV2IGLiXfskv9qSmIolBJEeTn_Fqx4
-Message-ID: <CAD++jL=Np+_+wTkuLCiqjNY5EBqn5qq8zKTJB6F-=1G0R+7=Ww@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] pinctrl: freescale: add the LX2160A RCW pad-mux driver
-To: vjardin@free.fr
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Tue, Nov 3, 2026 at 7:12=E2=80=AFPM Vincent Jardin via B4 Relay
-<devnull+vjardin.free.fr@kernel.org> wrote:
+Add bnge specific changes needed for RoCE MPC channel
+support.
 
-> From: Vincent Jardin <vjardin@free.fr>
->
-> The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
-> fields of the RCW, read-only in RCWSR12..14 of DCFG and changed at
-> runtime through the same fields of the override registers in its DCSR
-> view, which read 0 until written.
->
-> Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
-> gpio to support bus recovery") Linux drives them with pinctrl-single on
-> the override registers, so its first pin state clears every other field
-> of the word: a board whose RCW programs a non-zero pad mux loses those
-> pads at the first I2C probe.
->
-> Add a driver for the pad mux as a child of the DCFG node: the fields
-> of RCWSR12..14 and their encoding.
-> Then pin states select them with the generic function and groups
-> properties, and every change goes through the RCW override
-> of fsl-guts, which reads the status register, writes the override and
-> waits for the status register to follow.
->
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+v2->v3:
+- Addressed Shasiko review comments
 
-Can this be applied separately once reviewed?
+v1->v2:
+- Created pull request for RoCE MPC channel changes
+  of bnge driver 
+- Addressed Shasiko review comments
 
-Yours,
-Linus Walleij
+The following are changes since
+commit 05441d697f7f ("Merge tag 'cocci-7.4-rc1' of
+git://git.kernel.org/pub/scm/linux/kernel/git/jlawall/linux")
+   Merge tag 'for_linus' in Linus's tree
+and are available in the git repository at:
+  https://github.com/siva-kallam/linux bnge-roce-v3
+for you to fetch changes up to
+commit d60317882851 ("bnge: Reserve ring resources for
+upcoming RoCE MPC support")
+
+Sachin Holla (1):
+  bnge: Reserve ring resources for upcoming RoCE MPC support
+
+Saswati Das (2):
+  bnge: Pass BAR1 doorbell mapping to RoCE auxiliary device
+  bnge: Update HSI
+
+ .../net/ethernet/broadcom/bnge/bnge_auxr.c    |   1 +
+ .../net/ethernet/broadcom/bnge/bnge_auxr.h    |   1 +
+ .../net/ethernet/broadcom/bnge/bnge_core.c    |   9 +
+ .../ethernet/broadcom/bnge/bnge_hwrm_lib.c    |   3 +-
+ .../net/ethernet/broadcom/bnge/bnge_resc.c    |  56 +++++-
+ include/linux/bnge/hsi.h                      | 161 ++++++++++++++++++
+ 6 files changed, 224 insertions(+), 7 deletions(-)
+
+-- 
+2.43.5
+
