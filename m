@@ -1,45 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793865848;
-	b=o7tyZHfwsRSy3R5CoOje6yu/rV/xts1yG6wMa51pe/8qHDzLerama0RpLnA8aoReVv6a
-	 wuAlzY93ZG69rbexcX1RARL/PeyNvzU4EAXlCWfm9lfpVHNGW2c0viCHtcXHOKpr5Exak
-	 0jw+13D2797ehXd1WLp10oh/lkLHkirM2ORUPAKIH66oJ6HfWIvo9KqopfchL7sZ1ErFp
-	 SVQsY6Cx8I1eCCQAZD0oOCJNA2WG6+7vTJWmhx1f7spiSzfxI8wL3wcMAShRLqP/KVZR6
-	 XJzz9ELcxT2lae4c023JDkmadec89dK0UEXNJkBJhIFMpcV3eVctjf3glfD2lQ4FZVQ==
+	t=1793865863;
+	b=oKCoSV3CMeYbNnhOLzl8ts80EDKvHshu6RLZETJYfCEJKx8WvSvfkDqfLb10KeS803j1
+	 GwXkRf57yWBa6GHaUI3XnWkjs7+y5EhLPhdtd66UxtRGEyHFqVaIaqXxywJp51H03uivM
+	 pPbtKkAJ1DVgTqx/6qbGmjQynWAGVRz550EHqfnWSNYG+lD+MvDvrOuEAzGrw+6dcDVPf
+	 27SGY2ffwDkyrUyE8PWWG6E/qIBDKcxumVfhkpHXpFrlcxIgz5Z2DgEmU2pkYDqZsRVTY
+	 kWg5YDyin/U8Ua6xw2BPQ+jipJw4TSTUfqXiWf/Il7sqIl/v5igWbDyBSUyN0il1V2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793865848;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=q/IVcg5Dvv6LOmALB64d6dD3OE6L0hYQ//UPgDGID20=;
-	b=24F/S4JjPHDpCxP9neyi0nyM8fwRBMMItkXY2nKIDO7/5tX7IY8d+TpoZ+MpLSKTntTJ
-	 Z15tTPoxoFySruRMo/9QhqSIbHiVyrEEDvSpgZ1u2KTpdTkZ5l4Cb6mdwWrH2j4fk7ezo
-	 +2iPupNIcbGV/AebxKXJROh35DAdSlx4hjpF3kNbVeYImhSyT0Vrp2dLug81T8Mhx03Bi
-	 lw4/SAjME9vtsh8dx1bBii/SmZWPbUVj31WDMofuGGJxvke2ph2NAGyNDcchCIj3qW5zs
-	 7+epiEeI0lL/L5omTSMHwgB7eS69Br7v6QttBISBRZi3a2zbyHwcGCSEyC3k7/0OOOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793865863;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yd94sB33j+7uHnUeucF6H8CRpAAVi5CgN1RGqzbz/fI=;
+	b=2jagyfDVPNE5aW/FSdO5KMfVBQM9BDeuQnkUGuvpwd6f4Bxe3M2bPRejCaC91JAcVRiD
+	 ZWAHhk8HV7bE20kcFb8YX9PRxr00/ToamHt0gLWAO3sWL3KkCE9p1CK6z1sZjQcRoZuSZ
+	 gYcg8Uw/BB1px46xC1Tpn2HOsko17r9+IFGw4BkuoVg0g6ESS3BBNDKDcHsDfUcRe1xzz
+	 oSdYpj6fXnr0L2whHLEUAcCSwGXvNhSKBLBC4HHTbsYN0V4YK54LlSB7vUH6usRS+uonN
+	 BtTg6DufFl15dTtI/RIXxegQ1aw33+CoNuQomWX6qCogsZhgcua+nIp8gf/6c3l7uYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i0s9R5+V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FvY5Z2JO;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42239606A328;
-	Thu,  5 Nov 2026 08:04:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CF4606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:04:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6CF4606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i0s9R5+V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C4C1F000C1;
-	Thu,  5 Nov 2026 08:04:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793865847;
-	bh=q/IVcg5Dvv6LOmALB64d6dD3OE6L0hYQ//UPgDGID20=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=i0s9R5+VoRkAyQcEkiiUSRvQre+yA4sOH9fDaHC0EOsXo37zcoE9Pu93SmqW5y6M9
-	 75jwKmAN9cwZB2AEDjBioMQU9MJ5tzC5d0tYeDbV565Fjhw8S3rZYG+MkzTgeorTT+
-	 4UMSo0iYWRRvbFNzsX3Vt9vWRu9PKes66PuVrqq79ybHVRb1WR8VgtrqTUM0cLNXrJ
-	 MoF9QMHIooi5VprLbqzXWN7/JlqNxYcejkoO9vpHEh4nA+2OXJ0GElPA1Ko3ZzMX9m
-	 JTIy/SvOw0ysGRZQyJxCgCAGeXiC1mDX545zFGFkBkHl3uzf+8CAlPBPGa/uvfengH
-	 nhP60WqCq3guQ==
-Content-Type: multipart/mixed; boundary="===============1261712251123050467=="
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FvY5Z2JO
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1269438a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:04:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793865862; x=1794470662; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yd94sB33j+7uHnUeucF6H8CRpAAVi5CgN1RGqzbz/fI=;
+        b=FvY5Z2JOJfI9T9J6ZSesxj8GI7f4wWMzejTie62Lf4wZnFSN3uh3Wk/vMPDyzzLh10
+         Tj91lO4C6mzhlRKcAIa/Gpred688L9Dm0/N6vrN8SRhYsOQuVxTZoVYcTygqCN98w6gl
+         efLOT29wgLrOlPifZ3P6x1ox8aiz7myKp3QhiFKZqL/HPOxI8xyZa+dlrsngK1ivL3ZH
+         ufX/BETgK/HGv0HU7xQLn8S7HHN8h1m52uWabWsFoPHXZuoG8eFmhUD6d2OO+gyA6k12
+         WqwmkNhu0J8DXj5+OZbly1+j5XBM2Ah2RCPWntGg0Hd+qD0lpns1iCbMrBkbhQGStXeZ
+         irzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793865862; x=1794470662;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yd94sB33j+7uHnUeucF6H8CRpAAVi5CgN1RGqzbz/fI=;
+        b=xlzQUJgCxqxAztjwZg6AwMBMocgeTm4GAcF/i+C/LVEqITAlginERjufw49DqIY4/O
+         CeoBBmuDIrtmUL0OCo6YfgT2+znzVQF1f7n08zZXkQkvtNOGIjVXXArxBnGgMfNmudpw
+         ogcadGSgkOiJgQsIt2jm2OZ+pVTbCJNVvrksdj9XizXJeAs8WL1QWqTXszCVwhPjsklN
+         qLpeIPrlWFULvtTI+jJmofAhMeLoiU2hoVy3TdG6Jun++ptNH1UBM2bpO919u7D/X/7j
+         YE2DPcmOXn+SPXCYc3CdEHUHLDXNRAe2DZ7DdLkvPw3rEDHsh359+YiWo8+qxHSqw5lM
+         w3yw==
+X-Forwarded-Encrypted: i=1; AKwUvBwa3l5drrajh7esujNLwICqMGuY/hPL8LiReuCVQWidHknpRu5732aTF+Iz4IFkFzD6T5LrdVZkljT6YQo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HWW4Z0OgmwmvWM+5qlkrskC+dG0PcAZddZxaBfpVLeZvaYU7i
+	S7JuY/51MVRBGla2f1fciq23IvQD6MJB6ykn31JDi6XqQVbdD3svg8k=
+X-Gm-Gg: AYBFou0NFb8Re3bvvTMEOhsE3LNrcBq+/SXpUzVTuGFlBmkLsjju7Uuien92O9OV9RG
+	h/F9K+wKsYkckWFxpqwurWvztw0qxzhDVspcOH+2eDF8l98Yb2mpmURPT77jb67SjIohDZi5GMT
+	rj0VtMvEF3o9k6pgNZYebTVNeuTYzZNu8RVkLi8T2DDK+E0RmjVSHPrhavh448GzGntjK7tIbEJ
+	IAcCRmK0LW2hMolsToiE6NbmuU9tngizf7D4QtwNpfyrHsMgf7Zr1sli2MO2pLPC/gC/6AJm0GX
+	h5IJZkHWw8AleI8Cedb0uBSpfC3KcLVcgstk1FhhADmcHcFo8ieauwT0vpf/fTImva8pIBn5tY5
+	826CSY/c1h8OR8VDWcvCxV+Pil6Nms4gVSOOhMiwAAA9bXtuJiTcTpYmcfcU5DARJPjov80KmSf
+	NeqXfjwCqwLbqq9JDnMPYpfo7W9a+sAVh2sO7qjtEj74p+JCbpZCONv6nS9xKhr3tIBIsfT3W6H
+	a4Mu0CAr6wS0CoZabejVhpEOLmG7v7jxwajULqCPhxthPZK9xNBSXYh+AhNsb0yBdt9tHP1S/41
+	AhSgdHve68pFIHMVgc2FJ6MWM2pd/fmxngFJ7HpuOG0qlLasdDmk
+X-Received: by 2002:a17:90b:2e52:b0:3ab:24b2:9016 with SMTP id 98e67ed59e1d1-3ae897ec759mr15992932a91.25.1793865862020;
+        Thu, 05 Nov 2026 00:04:22 -0800 (PST)
+Received: from localhost.localdomain ([202.51.247.22])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b328a04asm2617818a91.14.2026.11.05.00.04.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 05 Nov 2026 00:04:21 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: linux-fsi@lists.ozlabs.org
+Cc: Yige Jiang <yigejiang86@gmail.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Ninad Palsule <ninad@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH] fsi: aspeed: release the master device node with the device
+Date: Thu,  5 Nov 2026 16:04:14 +0800
+Message-ID: <rc-review-20261105-32-59f96c1fdaf1@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260913060242.1426845-1-lgs201920130244@gmail.com>
+References: <20260916093914.2005582-1-vulab@iscas.ac.cn> <20260913060242.1426845-1-lgs201920130244@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,69 +108,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <4c0a0855167cac39dcf8b1c103d0f98a8898a14866daf9b97a127698bb1ea0b9@mail.kernel.org>
-In-Reply-To: <20261105071706.7043-1-meng.ding@siemens.com>
-References: <20261105071706.7043-1-meng.ding@siemens.com>
-Subject: Re: [PATCH] net: mark skb NAPI IDs independently of busy polling
-From: bot+bpf-ci@kernel.org
-To: meng.ding@siemens.com,netdev@vger.kernel.org,willemdebruijn.kernel@gmail.com,davem@davemloft.net,edumazet@kernel.org,kuba@kernel.org,pabeni@redhat.com,corbet@lwn.net,andrew+netdev@lunn.ch,anthony.l.nguyen@intel.com,przemyslaw.kitszel@intel.com,rostedt@goodmis.org,mhiramat@kernel.org,daniel@iogearbox.net,ast@kernel.org,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,richardcochran@gmail.com
-Cc: florian.bezdeka@siemens.com,jan.kiszka@siemens.com,wq.wang@siemens.com,p@1g4.org,gerhard@engleder-embedded.com,meng.ding@siemens.com,kerneljasonxing@gmail.com,horms@kernel.org,skhan@linuxfoundation.org,rdunlap@infradead.org,mathieu.desnoyers@efficios.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,sdf@fomichev.me,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,intel-wired-lan@lists.osuosl.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu,  5 Nov 2026 08:04:07 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============1261712251123050467==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+fsi_master_aspeed_probe() takes a node reference for master.dev.
+The posted error-path fix releases it before directly freeing the
+allocation, but the successful registration path still retains it
+when the master device is finally released.
 
-> net: mark skb NAPI IDs independently of busy polling
+Put the node in aspeed_master_release() before freeing the containing
+object. With the posted remove-path device put, this keeps the node
+valid until the last master-device user is gone and balances the
+successful path without repeating the error-path put.
 
-TL;DR: Commit message only: it blames e68b6e50fa35 for gating skb NAPI IDs on
-busy polling, but that gating predates it; 97dc7cd92ac6 introduced the
-dependency. Suggests rewording.
-
->     net: mark skb NAPI IDs independently of busy polling
->
->     Commit 97dc7cd92ac6 ("ptp: Support late timestamp determination")
->     added support for deferring RX timestamp conversion to
->     ndo_get_tstamp(). When the timestamp is consumed, get_timestamp()
->     uses the skb's NAPI ID to find the device that owns the timestamp
->     cookie and invoke its callback.
->     Commit e68b6e50fa35 ("udp: enable busy polling for all sockets")
->     gated NAPI ID bookkeeping with CONFIG_NET_RX_BUSY_POLL. As a result,
->     when busy polling is disabled, the skb may not carry a usable NAPI ID.
->     The device lookup then fails, so the driver callback is not invoked.
->     get_timestamp() falls back to hwtstamp, which does not contain the
->     converted timestamp, resulting in an incorrect RX hardware timestamp.
->     Record skb NAPI IDs independently of busy-poll support to support
->     drivers that use deferred timestamp conversion and future driver
->     features that need to look up a device by its NAPI ID.
->     Signed-off-by: Ding Meng <meng.ding@siemens.com>
->     Reviewed-by: Florian Bezdeka <florian.bezdeka@siemens.com>
-
-This isn't a bug, but is e68b6e50fa35 the right commit to name here?
-
-Before that commit, __skb_mark_napi_id() / skb_mark_napi_id() was already
-inside '#ifdef CONFIG_NET_RX_BUSY_POLL' with an empty stub in the #else
-branch, and struct sk_buff already had napi_id under
-'#if defined(CONFIG_NET_RX_BUSY_POLL) || defined(CONFIG_XPS)'.  That gating
-goes back to 8b80cda536ea ("net: rename ll methods to busy-poll").
-
-e68b6e50fa35 only moved the socket-side sk_mark_napi_id() out of the ifdef
-block and added sk_mark_napi_id_once().  Both act on sk->sk_napi_id, not on
-the skb.
-
-It is also about six years older than 97dc7cd92ac6, so the message reads as
-if a later change broke the deferred-timestamp lookup.  In fact
-get_timestamp() has depended on a busy-poll-only skb field (skb_napi_id()
-returns 0 when CONFIG_NET_RX_BUSY_POLL=n) since 97dc7cd92ac6 added it.
-
-Could the message say that the skb NAPI ID was always busy-poll-only and
-that 97dc7cd92ac6 started depending on it?
-
-
+Fixes: 606397d67f41 ("fsi: Add ast2600 master driver")
+Link: https://patchwork.kernel.org/series/1166294/
+Link: https://patchwork.kernel.org/series/1163700/
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+Based on linux-next next-20261102 (2637bdec0535).
+Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
+COMPILE_TEST=y.
+Baseline and patched target objects built from this exact base.
+No full kernel/module-link, hardware or runtime test was performed.
+AI assistance was used for analysis and patch preparation.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41989099174
---===============1261712251123050467==--
+This is an incremental patch based on the following posted fixes:
+  [PATCH] fsi: master-aspeed: Fix of_node reference leak in fsi_master_aspeed_probe()
+  <20260916093914.2005582-1-vulab@iscas.ac.cn>
+  [PATCH] fsi: aspeed: fix memory leak on remove
+  <20260913060242.1426845-1-lgs201920130244@gmail.com>
+
+ drivers/fsi/fsi-master-aspeed.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
+index f0bd760fa78b..cac0a8c73043 100644
+--- a/drivers/fsi/fsi-master-aspeed.c
++++ b/drivers/fsi/fsi-master-aspeed.c
+@@ -378,6 +378,7 @@ static void aspeed_master_release(struct device *dev)
+ 	struct fsi_master_aspeed *aspeed =
+ 		to_fsi_master_aspeed(to_fsi_master(dev));
+ 
++	of_node_put(dev->of_node);
+ 	kfree(aspeed);
+ }
+ 
+
+base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+prerequisite-patch-id: 0d97a848987c2bd4195686f43f69a0d0c0f69608
+prerequisite-patch-id: 00d7444e3a96e93c967d233b9c7c3a79c54647e9
