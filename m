@@ -1,126 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852441;
-	b=WYIWBgBEHbcMblMAsAwoxOasyId+xSO+JGXlXsc1+LciyAkC8PQnk1hC+zwHEAsG70h2
-	 i0MRrDqacHQZHCGZWlEhkORyyATDrtB69Ra6KYHgLQtbnljZ5LnfBFG4F7PP/VD5GdaP4
-	 eBuqup0vsMNJXF1FJ3WCTYivyx7WijnJTERWYhVY7IWHrZ1ftqIkAcxNX9nRaj5VnEj3f
-	 IcNiuICyfoCB/IORvgkq4WTWpncxZyFI+B8mds+WbYhUGbbRdaRSSTjMEa6TUevdtnseq
-	 opl0/4dEvxwdh4mO154wEo+9ETr1/vqf8vIHnVHmciJOr2L13VHwMbFD5G94fn+SzvA==
+	t=1793852447;
+	b=40DYqiCDdTAEl8khnxjnnLr+XQd2eem8SbAASqvDPMyT4J5Wyu7Aqsxsa34atAT2vwP5
+	 byWrokW0Hu9pEa0aNvPUmbrosE+oHSGSoMSYyDqjRxl/iCIzj7fMeNLOITtfO6FcmXjXH
+	 LAZTTBl+kXl7SRJUJ9y5os8Rr9RmtW6ufBIzYHeClcvhMsqp01FuzM+rF6xtGGVW9lqUY
+	 3QtW6gIhNNdBRraW+QlQUcoNMYQJqDk9gtBTqjPBewcYBuL0MOktP8uzQy15OwloNCIOV
+	 hOyIyJNfY4wJ0fOMowDrnJ8PosEnAUWwwXf/O+0XwzSLR/rgzAKJT8nJXOEZ9qxHSHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852441;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HzGdVuKfaxoCHLs4sxabrmogQfwjrZQP3GXvj9V58n8=;
-	b=PuRE//EyCDY1LtNU/rQFcsY8RvWqyZRARVJyjIdfz0NSL13f2UZCf48S6X9xEvgPvzFd
-	 3WRhoZH22D8QDSmE/Zsokt5s/eVe4b4YgGUcfGWHx+mfaE5bZxYOjm0bOdcb+4hAckb7s
-	 mnF58oJteZARFzTd3hUHAJxlWZ8lOZYGPCTR1OSRjc94NvEVIhnkP+ZkP6iNk88InaaCj
-	 g3vmLdug7FD2zvk6VKd28eS33AqV//rtPw2e2bKq2Xxdtwq05itiu7PHlN1DoQlGwyIQV
-	 vFrBj9LvO2/1NkoDBYu0QT6u4Ev9ElmVbck0UeO713Y0wW1oRiY3nqhWkzbvUi8cudw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852447;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=slxoBHRYhaDWuQFRl3gCo2MDW72ELcaKt7lNPJR6Efk=;
+	b=wSNBpFm1VR9OApMc4M6Pbo3L8XLEHsVKzq8ixIyA0BrRPY8JC5fPnpeop1tzGghmpUjH
+	 1c7FPBeC604D57B9HbGhla4+UH7Y32+7MwC8lsb/ovwBj5gp0/Ei2fs46wllSOye5kD85
+	 zh/wWTuxWOyO2dh3y9TRbSMXmlsnKWcNNq3eio2tYZKXkugbSmf94fLEGu3VsAUc5klnb
+	 LsEpCYV/5WRqP5l4rA2oEvMPF4vojNZrBuCtW+mhKod2F24tk37IudD7IhvtQNHoWIbS/
+	 CIrb68Wif7v3pQD36aEDjE6okItsOoonimtry6ju8A2JVYNt5U/y5jBk4V7Hz4ZCX+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=TAruSG1G;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Q5Rrnnfk;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=MIDCucpN;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A92B606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:20:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A92B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391A0606D806
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 391A0606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=TAruSG1G;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Q5Rrnnfk
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id 6D121EC0239
-	for <linux-kernel@vger.kernel.org>; Wed,  4 Nov 2026 23:20:39 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Wed, 04 Nov 2026 23:20:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793852439;
-	 x=1793938839; bh=HzGdVuKfaxoCHLs4sxabrmogQfwjrZQP3GXvj9V58n8=; b=
-	TAruSG1GoneYyaCrWQmY5gmwrfprMOJTV7mgOcTyyKP3r6LzO/0AuiH8H1neCtrT
-	/UsrNsOLC5gXLZhxCETh4YWcghFChy4UQSLfmno2/LM1SjYsJUYJWYmtOtNROQ8t
-	Bk0B+6nPeG/u7SwTwxohc+XFee2L+eHjWpgVO+joT4anxMrWZ1ufzgSWugn/HTJZ
-	7gmccwWls/g37IubvYSUpRLKgcyKR0bdSQ5ASv0fSkQgIaSJRyesfwXnpe6jImbZ
-	wKmMW6RxA84hSYXoIF6+dNpiD2HJC1XAm4mz3WW2y4Hj/25Rv2mmHMlqiHOr0DNo
-	evacCNdu/mRhUnbAisKUgQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793852439; x=
-	1793938839; bh=HzGdVuKfaxoCHLs4sxabrmogQfwjrZQP3GXvj9V58n8=; b=Q
-	5RrnnfklqZ9h7iPMlP6uBaGtr8cUGezoC/nkpHnchw/LHGT0ovLKM9LWqOk3y5kX
-	iBFGcebznE9qzPsHt/ZFxE79Sbw/FKiYeJX985rP2v4r5V6pEGnEtqsGHVCKiWan
-	5XSFoVpYiipQMeYLnb74dkJqUS8qHJepFwW3UZvPoS8/+qatOpdIXKeRVIXQY3wI
-	OE4XXFfLlr+8Lgj1zRpLE+Jc2flUf0PQVCAae/mzyQX+mzKI2dQi5MYuxrBdFjqr
-	YbaktNjx3m1Bl+vZTAp9cUVAbQAbwybXz34TKhhSO7rTd00LjZ6TP/TQEOLPqCIk
-	JgYXqRUXqKTh4OkbpUO4w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793852439; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:DDU3bXIZ8BYJwySHtj3ZZFMEWE33GMHEXxwQUl7JKW59zUr
-	CuXN5LP8xuYkMFiNsX8Sa7wf+TjCO/x55RAMHofUD1papQeY05qLIOnI1RM5jv16
-	VCavKmL/okot3wH7gUhWORxdP3YYPVk+HR0Xl5LlDK+IRgPSB+GmU/70qEGkUyQv
-	qepLEl6nN2KpXIGCVSR/FhGh/ENbWYuHPV7Y8BSD9Z7/UGBbUrA0BBMwh541Ma30
-	aFa3gTWTZ63dQHIOy+YSkHHOo6yHMFZJVabpfC5H8FOxJrk/BwJjG7vkNA1mQgvi
-	ZfJ/2omtI56xFibLhZ1AhLNOUVvyBYHyTLwvYtg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:VCmNIkCxe3ud6Y66TW3ee92cqQj1wp4OBuBM/uJF/PY=:eThNjHzssFM7BnMUPb12DtxguAsdmbEMW+IUTJHsNXo=;
-X-ME-Sender: <xms:FgTsak7smipsnLsw6BOuoDxTnLtY0bMquV3zD54dnncen5ff6U-eGA>
-    <xme:FgTsakSbnyOllo7FLrTfVQtAZMOpDWyOCoornbnQj0VAWGRdVD0SZ7caLzB9HszM3
-    FjT3nEEP2QNl7c83bA5fA5dYj2UI2unDHC8_DIFsfplV3mxjnTB-Q>
-X-ME-Received: <xmr:FgTsavfsjyZTdE_PaT4hmZQ5bn_nbdYQcCwpxtdr3WgQK4GbcGxzmLZqtRb_iqjLBU1fGiibSHSHfUO3R0xqbjv5>
-X-ME-Proxy-Cause: dmFkZTE29mSY7vx5v8IH+e10ONWO6Z1HP+4WZmAAatZbaOoEqhBr1kviQBgR3/GVImrqMO
-    nsG1i1GAE47f8WaFWc7MNHX7kN7uuwmpqX2hNTtfwy641w1MBH3IzqKz7W7IuSqJC/UA7n
-    /hS1aB9eXzmpxVVT2ZLi+9RvMaAvpC2xHFSod3pQVOZIUKHK0a/rbbYFzCwCII74yaU3Gq
-    I85XZ3NHbX2dKvX5YV6uw2FSj1vXAy1DVBbsVTk7e3Yw/4pOoHRhKfDQWn/dAIXY2BPcx4
-    5Jxd8q67eUfueG+cQybkw4UPspiR/sk+7ZFZTo94DYqXRuMNk9R4HvU34KXNJPeKDvF9tW
-    kPo0MHpUWEYxnDndhPNXyzkVWHSXROoA1UcQT8TPAdpPngjBIKI+KqUbzizKSw53czhq3/
-    WQfA8FwqmTsNnssdbdHAkiuneMdFsclldU5HFnWwYEppb65DG9Q5H1m0OtvXWJ/IiZJ+Ut
-    h/f1gqPB5tRQ+lNC7bIogRZbUVa+h8GHmDUNKUsLgCQzgx60NuuaBcIypaP0lJvgxNi2ih
-    AK2OKKY4dxrjwekUib9HivzmWfAy0rfhVTmLXoYocjX71nix9YTxdPOYVorKZyXdqywUQS
-    yviYsijTUxAp96suGZAL9h1DfJR0ULFC0+MpW8XSvaCsokEw+51bNhTG6fHw
-X-ME-Proxy: <xmx:FgTsasRlPSCdsLp4W6YqJUT4dchOY0DjBodRGWNVqujZwf6-daHJVQ>
-    <xmx:FgTsagOODLYV6KtRMFFWlR2AfirsLrncKLaz0740odrVBri2I_llIA>
-    <xmx:FgTsanXdwRmXPVtQhy6sraEKgzc4YMDCxWLTIj5CLuyAn4nujtXbxg>
-    <xmx:FgTsaoZ2GEEgHcM1w7Wgm7CI0vUim_be3MVRdbc3VKfH1djP8IOI9A>
-    <xmx:FwTsany884P1nLxEf4wnW_lQQ5XbEBHnzCmvJchW1J4XhHQtwx7dPI1g>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 23:20:34 -0500 (EST)
-Date: Thu, 05 Nov 2026 13:20:31 +0900 (JST)
-Message-Id: <20261105.132031.1626373229852235546.tomo@flapping.org>
-To: dakr@kernel.org, boqun@kernel.org
-Cc: gary@garyguo.net, aliceryhl@google.com, lyude@redhat.com,
- daniel.almeida@collabora.com, work@onurozkan.dev, ojeda@kernel.org,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu, tamird@kernel.org, acourbot@nvidia.com,
- viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] rust: task: add safe schedule_timeout() wrapper
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20261105005951.756157-2-dakr@kernel.org>
-References: <20261105005951.756157-1-dakr@kernel.org>
-	<20261105005951.756157-2-dakr@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=MIDCucpN
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105042041epoutp0459a487e03137a8f5a00bd5e9dd260f32~lC0qo0_Nm2016220162epoutp04j
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:20:41 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105042041epoutp0459a487e03137a8f5a00bd5e9dd260f32~lC0qo0_Nm2016220162epoutp04j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793852441;
+	bh=slxoBHRYhaDWuQFRl3gCo2MDW72ELcaKt7lNPJR6Efk=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=MIDCucpNzUkm8I77dKAwN2XIuqEkOKNbiDVlzFu1ykhGhaaxso4GOwiq1Jbn+ejHA
+	 Q+jaO1osuwtxUbnYq0tbJx/TKiJ/uzTW81ol7+NDXIRr3gaHMJTfTM8a2/dbNRvUF1
+	 t0tXk6Wgu0kmBiDa1vvkzqzlmIKoRYG2zCnNPJJ0=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105042041epcas2p1d8577504c1d3e979743d325a4548ef3d~lC0qOsSII1238412384epcas2p1g;
+	Thu,  5 Nov 2026 04:20:41 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.203]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jKpyK0hN7z3hhTF; Thu,  5 Nov
+	2026 04:20:41 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261105042040epcas2p2af9610d36007ff1e247c8131aeb3edfc~lC0paTTrx2717227172epcas2p2P;
+	Thu,  5 Nov 2026 04:20:40 +0000 (GMT)
+Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105042040epsmtip1b7167f3bf268af48629fa3526988dc40~lC0pTSD5B2504825048epsmtip1b;
+	Thu,  5 Nov 2026 04:20:40 +0000 (GMT)
+From: HOYOUNG SEO <hy50.seo@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bvanassche@acm.org, mkp@kernel.org, martin.petersen@oracle.com,
+	stanleyjhu@google.com, alim.akhtar@samsung.com, kwangwon.min@samsung.com,
+	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
+Cc: HOYOUNG SEO <hy50.seo@samsung.com>
+Subject: [PATCH v4 0/2] scsi: ufs: core: Avoid redundant link recovery from
+ the error handler during PM
+Date: Thu,  5 Nov 2026 13:16:15 +0900
+Message-Id: <cover.1793851432.git.hy50.seo@samsung.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,36 +79,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261105042040epcas2p2af9610d36007ff1e247c8131aeb3edfc
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105042040epcas2p2af9610d36007ff1e247c8131aeb3edfc
+References: <CGME20261105042040epcas2p2af9610d36007ff1e247c8131aeb3edfc@epcas2p2.samsung.com>
 
-On Thu,  5 Nov 2026 01:59:38 +0100
-Danilo Krummrich <dakr@kernel.org> wrote:
+If a LINERESET is reported and the hibern8 exit fails during system
+resume, both ufshcd_err_handler() and __ufshcd_wl_resume() call
+ufshcd_link_recovery(), and the two recoveries are not serialized.
 
-> Add a safe wrapper around schedule_timeout() that takes and returns
-> Jiffies, handling the c_long conversion internally.
-> 
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Patch 1 makes ufshcd_link_recovery() clear the saved errors like
+ufshcd_reset_and_restore() does, so the error handler does not act on
+errors that have already been recovered.
 
-[...]
+Patch 2 restricts the early link recovery in ufshcd_err_handler(), which
+does not hold host_sem, to runtime PM. For system PM the error handler
+now waits for host_sem, and for shutdown it stops.
 
-> +/// Sleeps for the given timeout in [`Jiffies`], or until woken.
-> +///
-> +/// Returns the remaining time in [`Jiffies`], or zero if the timeout expired.  The task state
-> +/// should be set before calling this.
-> +///
-> +/// Timeouts at or above [`MAX_SCHEDULE_TIMEOUT`] mean an indefinite wait. In that case, the return
-> +/// value is `MAX_SCHEDULE_TIMEOUT` as [`Jiffies`].
-> +#[inline]
-> +pub fn schedule_timeout(timeout: Jiffies) -> Jiffies {
-> +    let timeout = timeout.try_into().unwrap_or(MAX_SCHEDULE_TIMEOUT);
+The early link recovery is kept for runtime suspend and runtime resume.
+During runtime resume it can still run concurrently with
+__ufshcd_wl_resume(). Removing it there needs a closer look at the
+deadlock that it avoids.
 
-The Jiffies alias will be removed, so could you use Delta<Jiffy> here
-instead? I think the code would be almost the same as in my patch that
-converts condvar [1].
+Changes in v4 (as suggested by Bart Van Assche):
+- Replace the is_sys_suspended check of v3 patch 2 with a check for
+  runtime PM, which also covers system suspend failure and shutdown.
+- Add Fixes: tags.
+- Do not serialize ufshcd_link_recovery() with a mutex: it calls
+  ufshcd_probe_hba(), and a device command timing out inside it ends up
+  in ufshcd_eh_timed_out(), which calls ufshcd_link_recovery() again.
 
-This series conflicts with that patch. Boqun, how would you like to
-merge them?
+Changes in v3:
+- Patch 2: reword the commit message only, no code change. The error
+  handler does not always run a full recovery after a failed system
+  resume; it stops according to ufshcd_err_handling_should_stop() (e.g.
+  in UFSHCD_STATE_ERROR). Describe this behavior and refer to the commit
+  that added the early link recovery (Sashiko review).
+- Patch 1: no change.
 
-[1] https://lore.kernel.org/rust-for-linux/20261104235929.1282640-1-tomo@flapping.org/
+Changes in v2:
+- Add patch 1. As pointed out by the Sashiko review, saved_err and
+  saved_uic_err are still set after the resume path recovered the link,
+  so with v1 alone ufshcd_err_handler() would run a redundant recovery
+  once host_sem is released.
+- Patch 2: describe the race and the system/runtime PM difference in
+  the commit message, and add a comment.
+
+v3: https://lore.kernel.org/linux-scsi/cover.1792989286.git.hy50.seo@samsung.com/
+v2: https://lore.kernel.org/linux-scsi/cover.1792755091.git.hy50.seo@samsung.com/
+
+HOYOUNG SEO (2):
+  scsi: ufs: core: Clear saved errors in ufshcd_link_recovery
+  scsi: ufs: core: Limit early link recovery in the error handler to
+    runtime PM
+
+ drivers/ufs/core/ufshcd.c | 29 +++++++++++++++++++++++++----
+ include/ufs/ufshcd.h      |  2 ++
+ 2 files changed, 27 insertions(+), 4 deletions(-)
+
+-- 
+2.34.1
+
