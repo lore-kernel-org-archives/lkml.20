@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.87.85
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837970;
-	b=B8MHpP1B5Tn+qrZjnPx/3vCWuwhpb18A0yyPuSnMAkBvxJ/RoIwBtDKwWTJe2zFR5+BQ
-	 DETsyJTL6f7WFDbI4q4uByRMt9miBLAb7iL+dttdS6HUgVlA4BjL56YEw7DxV+50xlkR9
-	 ToxI/vOOQjg3zItsOD9WPfvH6Tja3+Tmhg4QIi/qt2AF2b7U932c/vo4O17f/RtBF2our
-	 Qek0QomjPUp64y//hiLmi0NmBkvzcrXcPNI3boDtHxldjME4+epKtRY0x6Ipc/QVo1tDi
-	 VJRZnDFjBZ5OlRd3rFyIqYIyoEbNgrAzDzs+xgGFoWNp795IrunBgozGXYML8N5R1Kg==
+	t=1793838118;
+	b=jQYkEAahSea3Law99/2Ukiprj79S1xZpONvJA5txDuKRvv/bggy5GSVneAlBy67P/mV+
+	 AlVyCir38v9ixF8PIUq7ha/9yan53NhUzovg1sbmhu34ett9aH7u8bl0I9LZv0evP86kF
+	 IEqFv2m+kQCqDLTxF3NySQ6Lgebt0MWNC4xrNYk4JTBYJpdo4bP/7KAtwQMW7YdmsKzLQ
+	 o8boAgb9RKvOFAo0vkrrQz8pJOUN2gzrSszqFK/3Q3L8dF0Velye2ISRQGtZvwq2XU5k+
+	 O6YNlV/5KuoldmCDi+e7g8ZHP6bozmVPmjRLYdA4y9ew2A5fPYD+8/SordyrhPMMe3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837970;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-Spam-Status:X-Spam-Checker-Version;
-	bh=HN6TW/NKI9aCPvbwatGDME3QAnxBQ1uDv6eHyfYd4YM=;
-	b=EUIsLG5TJvn0UPTkU42O+SM3S8CoXtyth3g8z7/Glr33HewYz4wRD/ammedr7oKFBahz
-	 ubts3c2q68D9XoM1HkSMUUVzdEEniJsVGuuJU+j3MzwIfwivyGGgk70okPy4dv/dR3O8g
-	 UcwPpplgU/yxJ5O3BWlfiaqOu+hL1BqbBGL+VrTv2hEFbf7poC3cdXaeQItpLefGKzvMo
-	 FHvg0Iipzc3P2B3fsjxwXrk8YcPJbsOUxiO2DiZwsK6/0VlxzuNbmuZSBmckxjeiZl6vg
-	 v+STrHWNBRHcy4JrdM5o0sajm9TF25XkbE39mpmS/DhyMtwZQD4ZXM8Pc6UzCRIPHJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838118;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=KJ+EWn5f31K8LTsipMRwE67SY96qb24TRG/ZZUgor4E=;
+	b=WA6HU/iClVzU88Crqx6oYymbjPob2ZyCP07/4RigjLNn0pJDXq4LLBcBDNju7KxlwkTi
+	 SbdopUddWY3TFQqV7fQKu9gjei+W0daKyXxYcSSaccVcRlZW/H2S7EcINGfklG243d6be
+	 mMUcC82bg3JF5B3VG2PqrxQ9QuCoDG7BLbdSKYb+ItCht4ZMqHQr7oYkapOnOGtljX03z
+	 +Gw2fqNarkB1lf9G/KQczb7/fZ++nPD2JfWs5NoibPSYRDnDqlPuqxzR+CXEjbwwGp5uB
+	 WbRhBUizO8Y4l6N1ZHTM9l85V0XPVIAloBRBIn6Hs2tfSz1Bm4NCShBFJGrT29LvKUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linuxhacker.ru;
-	spf=none smtp.mailfrom=linuxhacker.ru;
-	arc=none smtp.remote-ip=159.69.87.85
-Received: from eagle.linuxhacker.ru (linuxhacker.ru [159.69.87.85])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFRjSZ3V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4CA606A338;
-	Thu,  5 Nov 2026 00:19:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E4CA606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linuxhacker.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linuxhacker.ru
-Received: from [10.137.0.31] (unknown [162.81.204.199])
-	by eagle.linuxhacker.ru (Postfix) with ESMTPSA id 35268BEE42;
-	Thu,  5 Nov 2026 00:19:25 +0000 (UTC)
-Message-ID: <b449646e2bc75923e846ee72bee7d72774c48275.camel@linuxhacker.ru>
-Subject: Re: [PATCH net 0/3] vsock/virtio: bound what a peer can make the
- host queue
-From: Oleg Drokin <green@linuxhacker.ru>
-To: netdev-bot+sinfo@kernel.org
-Cc: sgarzare@redhat.com, stefanha@redhat.com, mst@redhat.com, 
-	jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com, 
-	bobbyeshleman@meta.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, 	pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, 	virtualization@lists.linux.dev,
- kvm@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Wed, 04 Nov 2026 19:19:23 -0500
-In-Reply-To: <179383703519.488859.4429490517306926733@kernel.org>
-References: <20261105000141.3617241-1-green@linuxhacker.ru>
-	 <179383703519.488859.4429490517306926733@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F0E606A31B;
+	Thu,  5 Nov 2026 00:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFRjSZ3V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DA51F000C1;
+	Thu,  5 Nov 2026 00:21:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793838117;
+	bh=KJ+EWn5f31K8LTsipMRwE67SY96qb24TRG/ZZUgor4E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jFRjSZ3Vjg2/3aqnl3ftOlADfJwCoHEFZ89XEajUiiTXtFgUUus+uer+Ptdu3Ztuv
+	 lf4AgGKcAz1wf+1jPrFB4NwTgP+WFN+61Vok/HozH6p5F/KWFoHpAT3NlxM1cvSb2j
+	 C739jhTdTi0ZaI26Ajh1epVtVX/nxV5PbMJtrAlHD/4IARRMkmOIJNaH5wzYCHCFOD
+	 JshCoEPt0LG2qji65DxmVfd8SGBSTWIBAHPQsYg4nFSl/8Az77DBFilsC7adseC0rS
+	 53Np+hG5Y0J2o2lJcVU6zMCig0aY7vRVJVRxsqK8art1bQ/9lpfFSlNeFhnF3Y1gYf
+	 HY0LLms01dBgg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 514B1269328F; Thu, 05 Nov 2026 00:21:55 +0000 (GMT)
+Date: Thu, 5 Nov 2026 00:21:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Sheetal <sheetal@nvidia.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mohan Kumar <mkumard@nvidia.com>, Sameer Pujar <spujar@nvidia.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Anupama Kunkulagunta <akunkulagunt@nvidia.com>
+Subject: Re: [PATCH 1/2] dt-bindings: sound: Add Tegra268 AHUB support
+Message-ID: <eb487bb8-1d43-473b-8eac-c35f11aee6dd@sirena.org.uk>
+References: <20261104112055.1101243-1-sheetal@nvidia.com>
+ <20261104112055.1101243-2-sheetal@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,34 +68,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/o0u/gJGJlEXgU5E"
+Content-Disposition: inline
+In-Reply-To: <20261104112055.1101243-2-sheetal@nvidia.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-Hello!
 
-   This was discovered while working on porting a project from
-   xen to kvm hypervisor. One of the llm security reviews
-   demonstrated it as valid, so it's not purely a static analysis,
-   It was also discovered that a partial patch exists that already
-   was included yesterday, by Daehyeon Ko independently posted the same
-core fix - Commit: d5e912448cd9 "vhost/vsock: size receive SKBs from
-declared payload".
+--/o0u/gJGJlEXgU5E
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Nov 04, 2026 at 11:20:54AM +0000, Sheetal wrote:
+> From: Anupama Kunkulagunta <akunkulagunt@nvidia.com>
 >=20
-On Thu, 2026-11-05 at 00:03 +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
->=20
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->=20
-> =C2=A0- How the issue was discovered, e.g. hit in production, hit during
-> =C2=A0=C2=A0 development, syzbot report, manual code inspection, LLM or s=
-tatic
-> =C2=A0=C2=A0 analysis tool scan.
->=20
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->=20
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+> Tegra268 AHUB supports five RX and five TX ADMAIF interfaces, five
+> I2S instances, two MVC instances, and one instance each of AMX, ADX,
+> MIXER and ASRC.
+
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+--/o0u/gJGJlEXgU5E
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCauvMIwAKCRAv73Ows9A4
+ic7YAPoDZZC/AHN6uGF95k8G1Y4mgrZ5on6qIUN2NaWY5Ek0EgEA7zCSlgtDmyRM
+NRssu04HoncgGiLJN5vUVjhl1RC+rAo=
+=s/In
+-----END PGP SIGNATURE-----
+
+--/o0u/gJGJlEXgU5E--
