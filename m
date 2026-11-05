@@ -1,42 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893544;
-	b=uaimJ3SnxUCLtLbDQ35xYRZISnIAyaG5G1osu1UKcFAQfGFquu01uaEMmZRv4536/gp2
-	 cVHPH4bKJQGg5cLLAWWNtRucOXZQ9bahIJur/CrLIs3UCUveGhVHXALN1Zs2HThUpcaeG
-	 V4jb7zHDsVzOZOp9O25c/HCvfbkci7WAPLAWARriiIGCDHjYbhVHoUc6K/fskTcP+fM5w
-	 u6h5qYWzFUCRQuAMGZ5m4ocYPGLGUMn3r6WgOiRFnFymbauL0ujSLZxxHb3PCBkjed+dq
-	 DC46fXEbIdoDgNTr3tKkK0JRuJu3OWcDW1xBoqWqIagL4rqWgjOPU9Pju8+wXQtretA==
+	t=1793893543;
+	b=jpQ0IRVJeb1SzXRHMKtzYOVbrABcociLXowCGP7fyRdd47Qq+G5Wn2/ke08mj6obVncq
+	 5a/8hzkcewXSrLUv1eIMpFj2u2PgQHuklGfZDaq3C2Nhnwsj3PnmU/HKMEwOjpoeUAjNC
+	 RrO0vs88f4MgNTI4QjAaUUsKepO7nXIwyMSnoz8l2iXWVHR1JP4elI365YFK615xuTzxu
+	 84PNwvwvjQyQU1/C9V8M87DzzIKvYzRVQ3avgRofPOeEGwEeXLd4PwDteW8yzY2mN65IA
+	 Bphp8S5jGkm5Ve9ioIMv0fYHTgQBnFR9JmEhJsMhZmDxC1WIPAlXqES7rU5uxbE+QEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893544;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893543;
 	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fKKMZ1cRIJOjEVSTfu+ryep2x0XwX80JB3I/g7wFdCE=;
-	b=brQsHe06b9UO6c5hkf+ffvLVRxdAE4sFdAOHuZp4m6EdFSJECibcOnOTjZzkv0F9Ssfc
-	 Mc59KOL+90gFDuXx228/K0FA0D/v78cFauuh22hp1ZExq6lM/lw6xi2vSc1qqgctd4tN5
-	 mMWMoR2+Dn58qT/emUfvV4zD1VZEo3E12TzyrynWP2zqb0Eg0MAqrI458a8LMHB4wHJyp
-	 FNo0rRfyc9JLd9JXJVSsq24ZsLVnPBgBNpNyMCxry4yvYw+WFsgXEk4B1biEKGXSrfZuW
-	 o/yYz/wLfslJ2iWk37ijTyFIzT7mpMlptcrLFECovk2W4wU+Q6HB9tT9HNgjSsfLMJA==
+	bh=7SeedL6hQESLthQ7VnwGJ/wWVq56RBH0P2R4DH0oBMo=;
+	b=1W5mGQyl7WzHpCOBbPD5hr6q8zBtNyYiypZ8W+2bqqsQEkFttRCfsNkZ4SjpHamXsJMp
+	 AV6sKV/Zk5aP0lK8HnRlNrPxmaMIToqGdNJ7R/ULrRG1sC5PaXLWhuCiH64fNSsI6cP+M
+	 Xlnpm1PaE4i+eFFSNNXT1XP1Is78uQ5Iyc48fpquTAYrPkkrE0Y4rjf3nH3+Kqu2nTkO6
+	 W1wy9gxL19c5FjypRlibHUewhcRp+AGKFPVmfOsC6kF7h5eca64CRaaqtGXRp32bjLTNw
+	 tE5X2dBMOwDE/V7jdYGVgOFKncaJfm28DqJTm6/4vvyIjghBpHg67fKF2g27spFNQng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=alpha.franken.de;
 	spf=pass smtp.mailfrom=alpha.franken.de;
 	arc=none smtp.remote-ip=193.175.24.41
 Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C8FC606A32F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C9A9606A334;
 	Thu,  5 Nov 2026 15:45:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C8FC606A32F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C9A9606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
 Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xOzeg-00071G-00; Thu, 05 Nov 2026 16:45:34 +0100
+	id 1xOzeg-00071Z-00; Thu, 05 Nov 2026 16:45:34 +0100
 Received: by alpha.franken.de (Postfix, from userid 1000)
-	id 65CD5C055C; Thu,  5 Nov 2026 16:24:40 +0100 (CET)
-Date: Thu, 5 Nov 2026 16:24:40 +0100
+	id 4927FC05F8; Thu,  5 Nov 2026 16:25:29 +0100 (CET)
+Date: Thu, 5 Nov 2026 16:25:29 +0100
 From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-mips@vger.kernel.org, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] MIPS: boot: compressed: fix the vmlinuz link with ld.lld
-Message-ID: <auyfuLr4Vdc40uzt@alpha.franken.de>
-References: <20261009232923.655907-1-rosenp@gmail.com>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: linux-mips@vger.kernel.org, Paul Burton <paulburton@kernel.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] MIPS: mm: Fix the cache error vector jump for XKPHYS
+ kernels
+Message-ID: <auyf6aVT0_KuAm2r@alpha.franken.de>
+References: <20261021185709.22561-1-kaloz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,56 +50,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009232923.655907-1-rosenp@gmail.com>
+In-Reply-To: <20261021185709.22561-1-kaloz@kernel.org>
 
-On Fri, Oct 09, 2026 at 04:29:23PM -0700, Rosen Penev wrote:
-> ld.lld cannot link a 32-bit executable at a sign-extended address. With
-> a sign-extended ZBOOT_LOAD_ADDRESS, such as the BCM47XX default of
-> 0xffffffff80400000, the vmlinuz link fails:
+On Wed, Oct 21, 2026 at 08:57:09PM +0200, Imre Kaloz wrote:
+> except_vec2_generic jumps to cache_parity_error with a j, which cannot
+> leave the vector's 256MB region. An XKPHYS kernel such as IP30's, linked
+> at 512MB, is outside it, so the j targets an unbacked address and its
+> speculative fetch raises bus errors on unrelated fetches. Jump to the
+> handler's uncached XKPHYS address instead.
 > 
->   ld.lld: error: section .text at 0xffffffff80400000 of size 0x35a4
->   exceeds available address space
-> 
-> arch/mips/Makefile already avoids this for vmlinux by linking at
-> LINKER_LOAD_ADDRESS, which drops the upper 32 bits on 32-bit kernels.
-> Do the same for vmlinuz. The address computed by calc_vmlinuz_load_addr
-> is already derived from LINKER_LOAD_ADDRESS, which is why only an
-> explicit ZBOOT_LOAD_ADDRESS is affected.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> Fixes: 7505576d1c1a ("MIPS: add support for SGI Octane (IP30)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 > ---
->  arch/mips/boot/compressed/Makefile | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/mips/boot/compressed/Makefile b/arch/mips/boot/compressed/Makefile
-> index e0b8ec9a9516..ee554eaaa18f 100644
-> --- a/arch/mips/boot/compressed/Makefile
-> +++ b/arch/mips/boot/compressed/Makefile
-> @@ -96,12 +96,20 @@ VMLINUZ_LOAD_ADDRESS = $(shell $(obj)/calc_vmlinuz_load_addr \
->  endif
->  UIMAGE_LOADADDR = $(VMLINUZ_LOAD_ADDRESS)
->  
-> +# Like LINKER_LOAD_ADDRESS in arch/mips/Makefile: ld.lld cannot link a
-> +# 32-bit executable at a sign-extended address, so drop the upper 32 bits.
-> +ifdef CONFIG_64BIT
-> +VMLINUZ_LINK_ADDRESS = $(VMLINUZ_LOAD_ADDRESS)
-> +else
-> +VMLINUZ_LINK_ADDRESS = $(subst 0xffffffff,0x,$(VMLINUZ_LOAD_ADDRESS))
-> +endif
-> +
->  vmlinuzobjs-y += $(obj)/piggy.o
->  
->  targets += ../../../../vmlinuz
->  
->  quiet_cmd_zld = LD      $@
-> -      cmd_zld = $(LD) $(KBUILD_LDFLAGS) -Ttext $(VMLINUZ_LOAD_ADDRESS) -T $< $(vmlinuzobjs-y) -o $@
-> +      cmd_zld = $(LD) $(KBUILD_LDFLAGS) -Ttext $(VMLINUZ_LINK_ADDRESS) -T $< $(vmlinuzobjs-y) -o $@
->  quiet_cmd_strip = STRIP   $@
->        cmd_strip = $(STRIP) -s $@
->  
-> -- 
-> 2.56.0
+>  arch/mips/mm/cex-gen.S | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 
 applied to mips-fixes
 
