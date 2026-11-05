@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880566;
-	b=bMPwxG1ODLlj0yTNXbfJQvmewNs2BJnXxLaLT5PrzHPDQq0KNr2In4EYlXsn+iCCVz9X
-	 8wAY+KQEa7dESlTXYzvF2L+FgUfpfvvVjphlcBSZLa+FR2UaNmfJSdvS+9kG+9vsE6/51
-	 ys69uMfkp0fBhbc1Rk+JaZlW/jmh1CwWIE3KotCVJYUdqhVGhFgZrmKPtdxOsCjTF2Xy6
-	 OkD1TZ/FwpQNrMJYic3ja12Qxfk/dCEShUOcVy91zcnT9Ms1ENziucEB7me8ZLGergFDz
-	 X//+dcZqB0MAT7xy4BAadfFdEfBHInPiILebVsB96eFJwcyvggT/49ns4XU3vMz+d/A==
+	t=1793880590;
+	b=WHIplZsxk3wJ1jQsTd2Gk0XI20iEsmDjWYBeU9VL2JrHvLgwsZ6V0fJnQzC4egXSWAAX
+	 BMTfh3/qM9a+DhiipKw4J2A11+FP/b4nZsnw1T18Ruj3gP6olwm13DaHg62iceAFV1JuM
+	 CDid+gl7QyOYivaoSH6TGzd2vpAMlkNdsEJaGIDJy5u+6351u0eApC8jWf7NNoWyrIIYu
+	 xqn8o5QHmnk/Sw873loYzvvIAMDfD0mEScJY1i4B90Dw9A+4lBXg8EaJm9OZRQX9Ie0Ze
+	 MNptEN4r5Nii6bBOeqa+g2guW1d0VkvbbofUC1I7YLbbVT8GdA/BsE3MLUaMcbRTr3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880566;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=+zy6lijmScjxOAMWEF8MrPaSb7OpuW14nYg2KILAhV0=;
-	b=hhZEcaGfL2cAtY4hgg+2W2+qr0usCNzqBcmRNYKT+dwNN30xE1BJSAdynHZ4ib2dpuyL
-	 HoIRPApV8fI/0ou342DGatNMq3g/koQ89FcukiUAl1DJf/iH+485GyXZYJxamjdA+09gW
-	 S2a2efX+Wz6rTudhEEjUuuMPXpp5rzrzY8t4SCAZdG0eaTOLI2XUtRDtpDPRY6qm+7kaf
-	 0/i384iUePpFV9p5h4w5EtZArLqVeseyszUfjKtq0vFJm2A7wNwsU+vBQlmZjtoQl9wj/
-	 wf78iV1ZVto3E3m5QJYYR8SYnMQQQNBaapoVEhg3ghHRE/rV0XIvRWAxxvJwO9BZs1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880590;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gukOYmvYDHX2QKSOGio7z+vsfvmKRfuVGQNVt9yzjww=;
+	b=C715gJ7hkcqOw4X8J80Aa/lQ5vw7+LVBbayv93omZ40pjxcPiDh7k5qasCPjS38U9iW2
+	 OReDVxgoni00z6DTvEJgRx8x5XZzSUrc/NdO35BBO+C+aW60sVnMe2bhx9SQtyVSfJT40
+	 btsCqB5RMCivfBbmuC3G4M8EBp85RnjAshFWhGjBJc0dvpgfTsFnMI7E3ESSlQJU9lQKR
+	 MTIAaamkaiTOuOxRkgZL/rn3QaYJnbqS3VirfcAWVSrZo8zLgq2RS/vdqzUm7nl4Ki3SQ
+	 inmxok4H5FZ3eqn5M4CZEXk/9cQgRoNN78qTgx0SI7s4vPiTZ5gfnS5JlfytbrU/W0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=mgJMCC8V;
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aAAW3W8z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78FE606D804;
-	Thu,  5 Nov 2026 12:09:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E78FE606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BEA606EEBF;
+	Thu,  5 Nov 2026 12:09:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=mgJMCC8V
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5363814966AD;
-	Thu, 05 Nov 2026 13:09:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793880599; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+zy6lijmScjxOAMWEF8MrPaSb7OpuW14nYg2KILAhV0=;
-	b=mgJMCC8V1e0Z9bWdBiraqhChx35xPFncQMYtijgBslTztVMd0s5ByewH34RJeLOU4wmPFE
-	tXSk7mddxTl1U2Y0NKRWKnaVfHzMvJU2oYqa7TZNWmkphmVNTgmRGFjL1AVL2NilABf5Um
-	0m1tD1jgW8udbcA2twbwtWDvSIDuyE5SwyaTXV/tutL42h/p096C8WcF90771dkFJuv4/Q
-	hKDlRsZJ51Tbz4OIC5qPwPmI70wPrHpYdmctL25VNN+N8uwoQlJuZ9yqDl0DVGtJLyBbeS
-	YCk9Pv7fqJATWOQCvQPB1Tx4lUd45YJ5p5kVjqyKkTm9dAASbS8P/H4RlwcHOQ==
-From: Alexander Dahl <ada@thorsis.com>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	stable@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v4 08/16] nvmem: microchip-otpc: Avoid reading a write-only register
-Date: Thu,  5 Nov 2026 12:06:44 +0100
-Message-ID: <20261105110715.2486432-9-ada@thorsis.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
-References: <20261105110715.2486432-1-ada@thorsis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aAAW3W8z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38CE1F0093A;
+	Thu,  5 Nov 2026 12:09:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793880589;
+	bh=gukOYmvYDHX2QKSOGio7z+vsfvmKRfuVGQNVt9yzjww=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aAAW3W8zrqhI1GlZKqclxuzopsOsI5eRflWVb+u4vb5PXFTYkgJ0rp9Kj8p5k/PnJ
+	 dz9x5vflTBj+DeSq6KDVaKKWH4IO1ANMazHhA8U7XpsUFlwUQv3pPtBE5apiquXHF8
+	 VIijSfbzJWIZ0u8nFhus81QZCpCdrEIkdEEVT9qcVLTnlF9X7DDYJUpALeqULAdBUk
+	 gG3qH+UW1A7HkPJle0v+Ro9VJBDQIiBephkzM1sYS8P/gd5M72p1JtRoV4TPOtMTPm
+	 lTV9zl9RBf9VsgqSb5pKIdsUflUPUNRZjRUAYJW6CA56tI1pSDaFNGwOyrBwhQLiSh
+	 TJOgN9lfoSL8g==
+Date: Thu, 5 Nov 2026 12:09:47 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, kernel-team@meta.com, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH for-next-fixes v2 2/5] mm/slab: handle allow_spin in
+ slab_free_hook() instead of open coding
+Message-ID: <auxxnr3iVYNOOoci@thinkstation>
+References: <20261103-kmalloc-nolock-fixes-v2-0-19167cfe4779@kernel.org>
+ <20261103-kmalloc-nolock-fixes-v2-2-19167cfe4779@kernel.org>
+ <f31885cd-57c2-428d-9760-a76a0137f989@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,53 +65,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f31885cd-57c2-428d-9760-a76a0137f989@kernel.org>
 
-The OTPC Control Register (OTPC_CR) has just write-only members.
-Reading from that register leads to a warning in OTPC Write Protection
-Status Register (OTPC_WPSR) in field Software Error Type (SWETYP) of
-type READ_WO (A write-only register has been read (warning).)
+On Wed, Nov 04, 2026 at 02:54:13PM +0100, Vlastimil Babka (SUSE) wrote:
+> On 11/3/26 15:47, Harry Yoo (Meta) wrote:
+> > kfree_nolock() deliberately skips slab free hooks that should not be
+> > called in unknown context. However, there is one more place that
+> > needs the same thing: memcg_alloc_abort_single().
+> > 
+> > Instead of open coding slab_free_hook(), let it handle the allow_spin
+> > parameter. This is required to correctly handle allocation failures due
+> > to memcg charging.
+> > 
+> > There are two functional changes from this.
+> > 
+> > First, memcg_alloc_abort_single() -> slab_free_hook() path no longer
+> > calls free hooks that acquire spinlocks if !allow_spin.
+> 
+> Hm, since this is only changed by patch 4, I don't think it needs mentioning
+> here, as it's not any functional change yet.
 
-Just create the register write content from scratch is sufficient here.
+Good point, will adjust.
 
-Fixes: 98830350d3fc ("nvmem: microchip-otpc: add support")
-Cc: stable@vger.kernel.org
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Signed-off-by: Alexander Dahl <ada@thorsis.com>
----
+> > Second, kfree_nolock() now follows init_on_free which has been ignored.
+> > 
+> > Besides that, no functional change intended.
+> > 
+> > Closes: https://lore.kernel.org/asiSUpAYYU8Od4HM@gmail.com
+> > Fixes: af92793e52c3 ("slab: Introduce kmalloc_nolock() and kfree_nolock().")
+> > Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+> > ---
+> >  mm/slub.c | 104 +++++++++++++++++++++++++++++++++-----------------------------
+> >  1 file changed, 56 insertions(+), 48 deletions(-)
+> > 
+> > diff --git a/mm/slub.c b/mm/slub.c
+> > index 45e077c7526c..36e7bb93418a 100644
+> > --- a/mm/slub.c
+> > +++ b/mm/slub.c
+> > @@ -2686,41 +2686,54 @@ struct rcu_delayed_free {
+> >   * - memcg_slab_post_alloc_hook()
+> >   * - alloc_tagging_slab_alloc_hook()
+> >   *
+> > + * slab_free_hook() assumes that memcg_slab_free_hook() and
+> > + * alloc_tagging_slab_free_hook() are already invoked.
+> > + *
+> >   * Free hooks that must handle missing corresponding alloc hooks:
+> >   * - kmemleak_free_recursive()
+> >   * - kfence_free()
+> >   *
+> > - * Free hooks that have no alloc hook counterpart, and thus safe to call:
+> > + * Free hooks that have no alloc hook counterpart:
+> >   * - debug_check_no_locks_freed()
+> >   * - debug_check_no_obj_freed()
+> >   * - __kcsan_check_access()
+> >   */
+> >  static __always_inline
+> >  bool slab_free_hook(struct kmem_cache *s, void *x, bool init,
+> > -		    bool after_rcu_delay)
+> > +		    bool after_rcu_delay, bool allow_spin)
+> 
+> Hm 3 bools. Could we bite the bullet and try doing free_flags (extended to
+> cover init and after_rcu_delay) here already? :) Given it's not intended for
+> a stable backport.
 
-Notes:
-    v4:
-    - Add Reviewed-by tag (thanks Claudiu)
-    
-    v3:
-    - Reorder tags
-    - Add stable tag
-    
-    v2:
-    - Add Fixes tag
-    - Remove temporary variable usage
-    - Reword misleading subject (s/writing/reading/)
+Ack, will try to bite the bullet.
 
- drivers/nvmem/microchip-otpc.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+> > @@ -2776,8 +2790,11 @@ bool slab_free_hook(struct kmem_cache *s, void *x, bool init,
+> >  		set_orig_size(s, x, orig_size);
+> >  
+> >  	}
+> > -	/* KASAN might put x into memory quarantine, delaying its reuse. */
+> > -	return !kasan_slab_free(s, x, init, still_accessible, false);
+> > +	/*
+> > +	 * KASAN might put x into memory quarantine, delaying its reuse.
+> > +	 * Skip quarantine when spinning is not allowed as it uses a spinlock.
+> > +	 */
+> > +	return !kasan_slab_free(s, x, init, still_accessible, !allow_spin);
+> >  }
+> >  
+> >  static __fastpath_inline
+> > @@ -2789,9 +2806,10 @@ bool slab_free_freelist_hook(struct kmem_cache *s, void **head, void **tail,
+> >  	void *next = *head;
+> >  	void *old_tail = *tail;
+> >  	bool init;
+> > +	bool allow_spin = true;
+> 
+> Then we wouldn't need tricks like this I guess?
 
-diff --git a/drivers/nvmem/microchip-otpc.c b/drivers/nvmem/microchip-otpc.c
-index df979e8549fdb..e2851c63cc0b4 100644
---- a/drivers/nvmem/microchip-otpc.c
-+++ b/drivers/nvmem/microchip-otpc.c
-@@ -82,9 +82,7 @@ static int mchp_otpc_prepare_read(struct mchp_otpc *otpc,
- 	writel_relaxed(tmp, otpc->base + MCHP_OTPC_MR);
- 
- 	/* Set read. */
--	tmp = readl_relaxed(otpc->base + MCHP_OTPC_CR);
--	tmp |= MCHP_OTPC_CR_READ;
--	writel_relaxed(tmp, otpc->base + MCHP_OTPC_CR);
-+	writel_relaxed(MCHP_OTPC_CR_READ, otpc->base + MCHP_OTPC_CR);
- 
- 	/* Wait for packet to be transferred into temporary buffers. */
- 	return read_poll_timeout(readl_relaxed, tmp, !(tmp & MCHP_OTPC_SR_READ),
+Right.
+
 -- 
-2.47.3
-
+Cheers,
+Harry / Hyeonggon
