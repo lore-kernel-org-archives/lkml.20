@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893635;
-	b=Me39zY0iRVddeZa1uVdmQ4pHMg5F8WcpHFAglzm1s50pWO8GVDSjong0/i2C8rnPEbh/
-	 0S98Dcwrm/VtWVVwgYVD6MZosqKz3MC8iF8B9p7gsNLOb2aTkcJ889rPJFfmrS0ZmGOrK
-	 c3y5WbL+g+nGuVyl1+e1RF78ihW4bIzbQ4ngZaRD3++6jxRlqgexujZiknxmC1bbCo0hX
-	 JU2Y+SNEAi0udbDGmYnQB5cilvCg/Y9p3bR8QDGEjZc6nRCsUr6hzklktmNvunOWOMwc2
-	 YeSzn9PMAkvwDrASNr+sESEXMCUKaF9T2oTphMa3d1TPVfrlruagmfVaUkyieT5zQZg==
+	t=1793893641;
+	b=Ir/AWw9pfRdexeUh46e/lpjrZuRVGIZ9KTkK6UyNo/9icVGKS+EzRRKGnosTAkjwj3c1
+	 OvQkpBxHgKqZEVcZ8P9ZNoG033MmPCRV3Rc+Sl9i3SNKCF5ccKiysH1YwYIrCtRaCWncc
+	 qRlK2KKxzaauGy6gnBFOni2CbnR0xRAxmKYcGQfepzN01D/SiRusY68EQSbPwKkg/o1bq
+	 aKR4ovoI/qnM8yESw2VnghGiqRdnkUCBoBnhFhFvVU/BZWQk+sYccTdtSxqpwo9y3cQCn
+	 Cg95C5gRlm7GB92fHOChBniPwZNfLLNnLKfkrSf6VtltcNz221eXnnopDlwwrqDEnBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893635;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ofpeVWI3consGDzBWqgjB78mylADRIbQBjF1c/ZhASw=;
-	b=rmaQOimjHn1rr/cIrbYdfAN8soC6PsrKmsh9KLg4BAmI2E29xHMD7wQQcWBPSsDSoMGD
-	 /kH/fJ+e/FOmtZI/Ahhm/+K5gtVeqaMRDHBRkYOLlvqNgqo+06w8Ly/AacjwvXB5WLk3b
-	 lQTkvNBXQoj9q7uhFsz3F/OjjKAt80O36EX+yiKaDas6Ow4WTcAhWP5AZ7Vd7odDRd87R
-	 rSPRXbX8LOrFx5I075kkzr/9G+mRryYH3OiIVSeSjK3jpqOo7/HZCXzQxXl5NGbIt2Hu5
-	 SddUCtB4TYxzh4eCDQNw34Jymknw0iqeEut7Otr/b2ZDGS4bAlpODs9fOVQPRAscGuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893641;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jEFthDeOw857Vl1Txv+y9bOC3ebCcB7q3/QmLSqJflg=;
+	b=eJBpSvVWjbxF7NXkK2o9kA0fqJSvpLZYEE8kY/s31bYA2pY6UET3/QUQwfZxIDkfO1W/
+	 NF58SVHwvZNuacuis6chuIdhFx7/Qgn+qBNnMUoIIk1zY5wRVQiShiD0jRcb9JfSNatBz
+	 7kDDb65r/dGIlJJe1UHuBTbU58JpTB6mKJzL3P04WPr5p+vAR/lDkkJqMkX1c+rNdJsXl
+	 QTyCndR+jAVQmEfCeuH26hw+dUpDd21r8Eg06T/BXsxucjA1F/peg6rFonLtXcPjjUatj
+	 uMmizQ8bw0DJsnze7UxePsRGuylI28k7EowUgkd1O10LJB8pzGz4z3e4gKV1w7ig+9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h4FefPg/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=cL+U3pkt;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491CD606A326;
-	Thu,  5 Nov 2026 15:47:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F79C6082BE5
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F79C6082BE5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4FefPg/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5771F0093A;
-	Thu,  5 Nov 2026 15:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793893634;
-	bh=ofpeVWI3consGDzBWqgjB78mylADRIbQBjF1c/ZhASw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=h4FefPg/tCKfPxSNxbyzPRZaXt1/xvRCcjqzNiVIlnWnpX2M6KY8sfo+UcynUXX0f
-	 3UVQI7oIKdgTP9qeDN1bCi759hX4PmzikSt/fGtYGAxEQ8wYmneKz7WGwhgTa7gUQa
-	 BL3YjPD/sxdR1PLFV8U/ZzJLYQiong/qcZNQlxoSNUTB1E9qBUAt5585VTHKuYCsub
-	 MWBY+MKhM7NRdvusgjVsuB0A+5tAqcLYvvdzDwQlb0F7z9+eHmmKlX1stdNFqA4+L5
-	 GkFM1vM0bESYfsSH0wWbrRMLW6a41afoWRHCOeDnjepj2aAUzZq3GKvNtm0OZPXkNG
-	 dUElBpUJoIBsA==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: angelogioacchino.delregno@collabora.com, bhelgaas@google.com, 
- kwilczynski@kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, matthias.bgg@gmail.com, 
- robh@kernel.org, ryder.lee@mediatek.com
-In-Reply-To: <20261028113453.2599-1-sreekuttan2156239@gmail.com>
-References: <20261028113453.2599-1-sreekuttan2156239@gmail.com>
-Subject: Re: [PATCH v6] PCI: mediatek: Fix integer truncation and handle
- oversized resources
-Message-Id: <179389361906.20463.1092137538074974205.b4-ty@b4>
-Date: Thu, 05 Nov 2026 21:16:59 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=cL+U3pkt
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1115452f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:47:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793893639; x=1794498439; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jEFthDeOw857Vl1Txv+y9bOC3ebCcB7q3/QmLSqJflg=;
+        b=cL+U3pkthZnkb0v39QQQYejuiT/Dlmbw24zVnSYB6Ydp+9J1wUlpLGTpKUltjBbjUT
+         a0MAzKkT2nODy5QedoODzUsXOBpAOLdRB4pVrZZiniQNSNUBYBS2thCDntP/tf1nXF1k
+         mjAUJK+XT6qWx8mWv39Ev9Dye78M1n8bUwabr2/KfNgWbam7UKFy8RvKicZw5xEJij4g
+         bQ5dy3cP2MXCObKlPr0qX5cbn4u6agbh1DUg2MoiebfRnVVLsEdMN1uhBhzx0spFgwZN
+         kHyxaFHSHUvlk2uM8Bwd+ttbkzEPHa94+5Fr87zUKI+eA8GAg6zAJhCm6YtMdi6cd7k0
+         THVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793893639; x=1794498439;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jEFthDeOw857Vl1Txv+y9bOC3ebCcB7q3/QmLSqJflg=;
+        b=HkVtqGn3ZDRfrUfdB2AQi9FIB0+S1d2gzrxj+wdi6GRqTig1fpjDn05SgZVeMRzw2F
+         HOxkLfslRb8NQWzd6egoXoo/0qoe3y5KAcF8NPAfL5czn59RASz45syupcMetI6ujuA5
+         38RzXQr8TAG7U9eXLHKtUMqXHWm3Hi1To3kdAQw8be2yHQBKv62P1i92Eu8a+TInT2ab
+         wCFUMOnIL9EnnY4ZpeHfzh7bjo2j70KGBm5Ih8LNmBAf+0bcDHEVReIxQ8/echCnKCiI
+         JY8Bhj+tVmOsXSYD8I7pdr7nOE4wcJaoLifOUrW0dURXBTLaYq7EBOR5Fa84bApCN0kN
+         1uHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTTDxA49EKpVr0/je4RlHBvpNC34XduiLNxkP1xp44hZpcPSmx6wSr1PsGL2J8t9odIlcsTjzo87uslk4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9chNr4+JZdx9zXsXGf3lVkUptg2nq05YUBrDNj9mR5o9DwY7Lq
+	qtBKd+sOok0FTOM52ivbCAsCNhb57xYqyyaiqYa/me1nsvj8xty72pmB61Q6GvKosXU=
+X-Gm-Gg: AYBFou3TtAdZxp6MbpBVSnY4bnS6mbP5EYY9Q6kooKGlyZW0ubC374zkI7STrSqmdtD
+	sD4qTcZreo4wEQAtk2BUFpQ18kdn0AspVDLsVIXVOoDIwZe9KaiyXc0N2If0znzpAGUdisVGTJk
+	jrn/5Qa0FHGA2vSuFmTO3l43tZWkQ2FF4mDWK4C0WSAt6amAntqh5ckA28mVEevSgUQKsUaHUUo
+	Ux7ozzahkfVEJfAD8qk4h5fjnB+BUQgmWIYdAwB/EzeeRht5NfLma1DGjREZfKK4vr+3UZfTgMJ
+	+E7xm9HK8K3PZ8glRzg/p/l4Qn+4zb1kQFpd19mJCoDE5MPaqcz4ej/aLhv25lYKIa0NCRSLKil
+	V3qYIVTN1tdJEM3ro3sEsmD1IGqBTfMWnsVTIrJ/8Yx8RQpZm5rccrIb6RuttkmhNKjE4iYqTg0
+	rydYlAKug4Ebz0RSXgX03q0vdlYgHuL8Rf2fsZ36Dx4nVg39sgzr5NNmLhyGcstbyrRWH06zU2F
+	2lI4z5db+UKROzL4fjY+6cW0zah6oqxt+draX/8n6em/o2mWpNP7AJ5q+lQni7wfqM/Ayx5zB7a
+	qaDkQfWerFsTXRLFsOMsxr0jhd/30PIfnegC0S1gbp8XpPEKEN1DdWplQeLHxYMy7tgKqBhALAw
+	F5I3ZstAN
+X-Received: by 2002:a05:6000:41d1:b0:48d:f4ea:49c9 with SMTP id ffacd0b85a97d-48e6e5196ffmr44933021f8f.54.1793893638733;
+        Thu, 05 Nov 2026 07:47:18 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9899:e54b:a2f2:3695? ([2a01:e0a:106d:1080:9899:e54b:a2f2:3695])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea181085sm10757871f8f.1.2026.11.05.07.47.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 07:47:18 -0800 (PST)
+Message-ID: <62271e1c-7a4d-4fe2-a68e-41066e7849af@linaro.org>
+Date: Thu, 5 Nov 2026 16:47:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,33 +93,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=362;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=/1VoRA0E/iREIYQ2KlRfA9WVvI28uaBTMEbmFin8Rz4=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq7KUBL9pngpeeZERhCqQgGAZZWRNID/qto5z6U
- BAN9sYMiQeJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauylAQAKCRBVnxHm/pHO
- 9UIRB/0cfs+uBOQN+I4FfZQqp9Y9Zm1HUrlhmtZ4uf7IUrC53DnL/ef1ErkkHDfA9y1Tufx/8w0
- xXZpjOvnOKFIE2WNMa7Ugwsa7oMuB+4p7PbqLEj91JdPfngrBdrOvOSGG9G31tGnJMpL2vO+ejt
- dmQZANpReW00TBYvu8EAE1MHptSsgQdzXFYj0yvWi6hW9it5NedZkzvDgphvEYSi1z4PgJcVk7D
- 1C85TZQ3fYLZYFvCo8zj94mjWtNX4cVXwzS4q9nABWav0YWQRiuwPWhmPWAdR7BR023XV3Fpvk/
- 01AglaQHIMq1hCblhGcj6hHgY2ZBb+uALmbE4YV9WybYywF0
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/meson: plane: add pixel blend mode property
+To: Jose Nieto <jnieto.alaber@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org
+Cc: Kevin Hilman <khilman@baylibre.com>, Jerome Brunet
+ <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261104155119.284708-1-jnieto.alaber@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261104155119.284708-1-jnieto.alaber@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 11/4/26 16:51, Jose Nieto wrote:
+> The primary plane exposes ARGB8888, a format with alpha, but never set up
+> the pixel blend mode property. This makes the DRM core warn at boot:
+> 
+>    [PLANE:...:meson_primary_plane] pixel format with alpha exposed but
+>    blend mode not setup. Please fix.
+> 
+> Advertise PIXEL_NONE and COVERAGE and derive OSD_REPLACE_EN from the
+> requested blend mode. Formats without alpha (e.g. XRGB8888) keep the
+> previous opaque behaviour.
+> 
+> Signed-off-by: Jose Nieto <jnieto.alaber@gmail.com>
+> ---
+>   drivers/gpu/drm/meson/meson_plane.c | 20 ++++++++++----------
+>   1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/meson/meson_plane.c b/drivers/gpu/drm/meson/meson_plane.c
+> index cf8c90158fcf..115849a0b0c8 100644
+> --- a/drivers/gpu/drm/meson/meson_plane.c
+> +++ b/drivers/gpu/drm/meson/meson_plane.c
+> @@ -233,18 +233,13 @@ static void meson_plane_atomic_update(struct drm_plane *plane,
+>   		}
+>   	}
+>   
+> -	switch (fb->format->format) {
+> -	case DRM_FORMAT_XRGB8888:
+> -	case DRM_FORMAT_XBGR8888:
+> -		/* For XRGB, replace the pixel's alpha by 0xFF */
+> +	if (!fb->format->has_alpha ||
+> +	    new_state->pixel_blend_mode == DRM_MODE_BLEND_PIXEL_NONE)
+> +		/* Ignore the pixel's alpha */
+>   		priv->viu.osd1_ctrl_stat2 |= OSD_REPLACE_EN;
+> -		break;
+> -	case DRM_FORMAT_ARGB8888:
+> -	case DRM_FORMAT_ABGR8888:
+> -		/* For ARGB, use the pixel's alpha */
+> +	else
+> +		/* Use the pixel's alpha */
+>   		priv->viu.osd1_ctrl_stat2 &= ~OSD_REPLACE_EN;
+> -		break;
+> -	}
+>   
+>   	/* Default scaler parameters */
+>   	vsc_bot_rcv_num = 0;
+> @@ -536,6 +531,7 @@ int meson_plane_create(struct meson_drm *priv)
+>   	struct drm_plane *plane;
+>   	const uint64_t *format_modifiers = format_modifiers_default;
+>   	int ret;
+> +	unsigned int blend_modes = BIT(DRM_MODE_BLEND_PIXEL_NONE) | BIT(DRM_MODE_BLEND_COVERAGE);
+>   
+>   	meson_plane = devm_kzalloc(priv->drm->dev, sizeof(*meson_plane),
+>   				   GFP_KERNEL);
+> @@ -566,6 +562,10 @@ int meson_plane_create(struct meson_drm *priv)
+>   	/* For now, OSD Primary plane is always on the front */
+>   	drm_plane_create_zpos_immutable_property(plane, 1);
+>   
+> +	ret = drm_plane_create_blend_mode_property(plane, blend_modes);
+> +	if (ret)
+> +		return ret;
+> +
+>   	priv->primary_plane = plane;
+>   
+>   	return 0;
+
+Sounds good, thanks !
 
 
-On Wed, 28 Oct 2026 11:34:53 +0000, Sreeraj S Kurup wrote:
-> PCI: mediatek: Fix integer truncation and handle oversized resources
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Applied, thanks!
-
-[1/1] PCI: mediatek: Fix integer truncation and handle oversized resources
-      commit: 0abd664998828adc30df21c1ca052d3a5de910d9
-
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
-
-
+Thanks,
+Neil
