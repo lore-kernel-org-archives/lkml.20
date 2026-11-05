@@ -1,103 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912863;
-	b=wDdrv+6HV74Y34DMR59eR/1ezqFvIV8aSVvyGqgQyuAq7YGQkLySyp4Gud93xJW8gOLM
-	 PBWDcdQZ6L8u0IM+lLD+Oa2QmzuA9nd6cWk99sTz9KEVekJFW4TYhiGcFiR8D9iTx4TBM
-	 150SIMUssgGb/FmkmuafkguvK+sfq5ZAup43A1d9DpMwDi1EU0l6GcttLQXLheL91KeAK
-	 9FOk2uyrVk3LltGrx2Q477QYbG67acDJ3kVxbywGAQ3cKoY5GJE4o28VerrCWlaw7uaAE
-	 MSd2KZ2HnrfcQIPVZGrvILyudv1WftJoyVT2hXnS4f6Dub6z3B4kPGdjQxOzKlER75w==
+	t=1793912872;
+	b=aTjm+D5ITXPPq+saHW50AqGzGTUo3xDJZIHJBUwlUFQtFv/DIlvWuawxcNJ0Wj7Kh0FK
+	 wqVEuUPd9QFnb/dI2D+ARQwbM5bcOJa2wBHx0VURtOE9KjI5ua+FkKETPkDxAa838b+gx
+	 Jmad5SE+eKJBnlrIu2PG/XB58snDo8dZPZzkYQRj22hyNxPAZVSWG2trDXmYf8QWIhAxI
+	 Tjk1KPWniDRoR41CZBYo/NzA6XOeWfjF195swb2O4obfuNwt4ULjCH6UotkTnHv9szkFU
+	 NRvqaFvWYElrWLMWfVIoBSmI+FE4R4EIw5vklnA8wqpkA4d9i20rydIxvnnqF4dysJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912863;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RhSdthgY4lzWyxqScK60PBXNBhT02yTKoURJd/H/bvo=;
-	b=q2T/dCtR5m9Hbb5Snd+tDD8Bv3NmbInBMKPVg8GEp+0nApvmpBspI0TRi2pMpVU2mzPV
-	 9SM+72axWsNLu8yKUcBgq7T8lRJxYZbWQOIN9XqI0+qt0ogRZQg1lDGuIp7gXqe6auoug
-	 92nM6fkE5YaiUWXwpiXwIw+0Yh0VNmJK0liIAvUjop5cFg4shYm8JYv1Ke9174qYjmW27
-	 tAnEOs8i9bUhxyaqb1DTyvChudvREtw+FnCKroGBCLlMlmfm1zT5127iW1gc8I/nMTkAU
-	 HR2OvjLbNlKIkCYpDBF8Lo1AdW9TE4lJkcXLeicDcvpqVAqzMmYq5VIiVmnipj6EzEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912872;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=BSFlkiRcJ1vaWlX3XB1LPFKx8VblPahiv0oUIc71Mco=;
+	b=RkOgKLdkGVM/90OlWdIlRolFDm7GW9EuyY6WyMdHZvcNUPxwr48O+YlbMK6fGHhGPrqb
+	 OzeoiklDR1vlVNQ3XQ8NDFH5wqh2itGAtJQeRz33RlNSTJPkBCXTbsivERC5Y3/c7YJpo
+	 z6r+y2LZD3E0oEicjjsCZeKQsH5uY9mZ8PnAh8O/i34DkDoSN76kmikVCwjcpG2zwKPD1
+	 UISrFqFbzMM/qH7wyK8wg2KmTmJqra7NA3VKLK3d8va5BVEmQOLKE2blLwoOLSqVYPIl1
+	 UqtCUCZngMW0szj95TkpYNyCpJ7Qe3EJ2A99HaIaC2n7OTpU4n50nTVg0AIq9pv+jUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBLiPogx;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jatg/Hxe";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0649C606D819
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:07:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0649C606D819
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0D4606D82A;
+	Thu,  5 Nov 2026 21:07:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBLiPogx
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b547d6c07bso107560a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:07:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793912861; x=1794517661; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RhSdthgY4lzWyxqScK60PBXNBhT02yTKoURJd/H/bvo=;
-        b=lBLiPogx1HagL7iJ7wlCKBNbjtZOWQYJSYWopyI3EcLhp5+tDMsSb1VypBbCqJI7Es
-         FtGrSTadlBFXArfHaKP96K9I/OHUrjU6CjAUlpXwKmB1BPA0jy4H/1vNhQBJix866N82
-         z5TYyoTe2YCK0LYgFhqBDXXiwxi12kgntXz8rU3DKCvBn3khzFj1+OgPUD9lWMOlYVXI
-         o4XddsNk7LnJvCxTMiDSz41RW5AKxHIhjBjgW4sAGEhe2kPXWqIiWRONxdQk0eb/4NkU
-         iKVLVs3onVQgBhXFg2Mt2UikWLw3YzkyuBCvtJI/gPkWjEMTiJy+qDZMiLthBfI/pQAd
-         f8lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793912861; x=1794517661;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RhSdthgY4lzWyxqScK60PBXNBhT02yTKoURJd/H/bvo=;
-        b=JiWNbSRjPmBpbEpg2kDoUrcCCeJUzRULpUO6tTj5RIuu2JWvBW4y8RKS2S1ZpPmZE6
-         4i7NS59KQI0B8vKGtHQRHEHrSpo1BQpN4RvOooNr/LLyNKQsw1bzgStbwd3Z40xdk3Wx
-         h8Xr/66V9bQ9HyHgNeG9IcjZeQyTpmd7QXVwvk+fTIJMx5U+V4Y6fJgkU6JPEpYCIA/z
-         9fbxfGMphYnXUi43qmE9zIbXFWiMgQNHHKFgsl8jZY3UjKLQwmJn5XBvd3QCSBJrFgRe
-         1LbrT7tzl2RPj20DfYs7JIB0ke2T2NxgXBTivJxVaZQsFLGSVDTGFTlVWbRoDKDWbjnV
-         hovQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVmB10jF0fsblSlPRILtSqhJg+wZgOEUTKC9RTnhPmLZWArZBunHNzbGa6ZBsTeQUD/eRmuZwYEfUpwKU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UunHulhBnsJ16fAeoXVuNFfiQ5AxbV7c1S08t/wffwbMF3FXa
-	yv68oqLlJ8H4cVpYeuTer9rHLv3DCTUEgEgyJAgyseefIte+2DI9u1Z8
-X-Gm-Gg: AYBFou2mQwbFrZres6re3FPy2/QaB22cB/WxD2s5JhSZnzNJVOtVwfRONf5OvkowPIK
-	OQS/N8IwRH3vlDr/FGcY5kuiiVRx3bBR/MF3QPxy7BLdROavFKuKhgy5uODAgCPCoJbzvcrp+K5
-	e1rJGFJVaJ07qK097UYQa0ZmfkeTQcGDSYaAVQdHxucoVTYaSwABaz+nb2mBkBtaH333y7KXsxK
-	cFEDmDa06uuxMGvrNU6+rvTjUGgCuXsm6ryl3YNUctTTgUSMxzXessjUIbv9E+EFj0gB+2aWqV/
-	lAHvbMYp6ZgfkrmAEntXjACOmvwgcYMon7kxjKWs+Z8sBwFgHYuC3qtc3IBD9frUlOjSS2IdSsN
-	5WBjYm6PElqqEZN7K6ZxxGZc6pSbIFJeF49PciuZqOtXLJvGEQg6Rgllim2Na6Qiq3HdIMxcj3A
-	rCGoWWaVyNH1xWCBxL1ti9NR2hFfSXK/n13rwWMwl9ldRGl2ZH/OAyF+NCUBTVWJ5CL5EEYcvI3
-	VHPv9gQu2xGZlQLAQHj8BEPCbA5ha71oKMZ6Sliz3KvL1ee7hS8V1ffe3doretXhnyCqO62bfsB
-	zFle6+qNn5ERnAFNzEfVkzeL07rAhsOhClo8xFevR0hiMWbILw==
-X-Received: by 2002:a05:6402:1d55:b0:6b3:d0a0:3a2d with SMTP id 4fb4d7f45d1cf-6b5975296a1mr338144a12.1.1793912860655;
-        Thu, 05 Nov 2026 13:07:40 -0800 (PST)
-Received: from letov ([62.41.24.155])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac6d032sm1966949a12.25.2026.11.05.13.07.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 13:07:40 -0800 (PST)
-From: Alexander Letuchiy <asalde.le1@gmail.com>
-To: devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	Alexander Letuchiy <asalde.le1@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/5] dt-bindings: watchdog: mediatek,mtk-wdt: Add compatible for MT6895
-Date: Fri,  6 Nov 2026 00:06:01 +0300
-Message-ID: <20261105210622.523747-4-asalde.le1@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105210622.523747-1-asalde.le1@gmail.com>
-References: <20261105210622.523747-1-asalde.le1@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jatg/Hxe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C4A1F00903;
+	Thu,  5 Nov 2026 21:07:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793912871;
+	bh=BSFlkiRcJ1vaWlX3XB1LPFKx8VblPahiv0oUIc71Mco=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=jatg/Hxe4mTOnYc6cjv7XH6Qe+5v947GBo55sPEEMiM/wHMGub8rie+CrUhiiVCwx
+	 aVKuP6kJrOh4gmHX6cKlQwCOltZMaa6SIFACvSdK4QqBQG/CN/Uh2ouIoA163WeJWA
+	 aCFh4tV2gzd2PoHInFGnIOla9ytpFnr82eYrYNqA9GdHylI1ygQRjcwLTJNoIYvabk
+	 wBbG24axaby51HBE4+2pC16l0d4oiS4Wb9V73xW0CHWW9aTUBuPz4elz4OZdbVKD8e
+	 8OfrYLyC+4HvSiFHcBMWmBHPhMMi1Us1KhyMyvljrbaJ2Z12u3wgEMNNN5uAPkFQHQ
+	 m/wM/7T6OrtAQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 05 Nov 2026 21:05:40 +0000
+Subject: [PATCH 09/14] soc: aspeed: convert LPC and P2A control mmap hooks
+ to mmap_prepare
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,28 +53,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-late-2026-mmap_prepare-v1-9-c56aadfbab8a@kernel.org>
+References: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
+In-Reply-To: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
+To: Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, 
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Jan Kara <jack@suse.com>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>, 
+ Billy Tsai <billy_tsai@aspeedtech.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ Scott Branden <scott.branden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ David Woodhouse <dwmw2@infradead.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: ljs@kernel.org, xen-devel@lists.xenproject.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+ virtualization@lists.linux.dev, linux-sgx@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-arm-msm@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, netdev@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4041; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=b74s25V2apv18H+lPm+BPboDuVAgLBZbFTCGyriTgSw=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLevF8j/+Dg1ofBp3oCTIwOdz09F2xxdcKv2a/ld13+P
+ 93dcX7ctY5SFgYxLgZZMUWW51/E9weJhM3rvODvBjOHlQlkCAMXpwBMZNlFhv/RUsXqv5pnL30j
+ aSPYuu/cnqXuLvERO4qv57Zv4rpSwbKH4X/KRYbzO3Ys7TO94nRJeu7Oa9PY2m3rtTUMC/es4TE
+ q72AEAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Add a compatible string for the watchdog of the MediaTek MT6895
-(Dimensity 8100) SoC, which uses mediatek,mt6589-wdt as its fallback.
+Move from the deprecated mmap hook to the new mmap_prepare hook for both
+the LPC control and P2A control drivers.
 
-Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
+Both remap a range of their reserved memory region, so use the PFN remap
+mmap action to do so, retaining the -EAGAIN error on failure via the action
+error override.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/soc/aspeed/aspeed-lpc-ctrl.c | 20 +++++++++-----------
+ drivers/soc/aspeed/aspeed-p2a-ctrl.c | 22 ++++++++--------------
+ 2 files changed, 17 insertions(+), 25 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-index f9b725592c27..cac7d9ae98dd 100644
---- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-@@ -38,6 +38,7 @@ properties:
-               - mediatek,mt6572-wdt
-               - mediatek,mt6582-wdt
-               - mediatek,mt6797-wdt
-+              - mediatek,mt6895-wdt
-               - mediatek,mt7622-wdt
-               - mediatek,mt7623-wdt
-               - mediatek,mt7629-wdt
+diff --git a/drivers/soc/aspeed/aspeed-lpc-ctrl.c b/drivers/soc/aspeed/aspeed-lpc-ctrl.c
+index 4d8574cac703..9258762354cc 100644
+--- a/drivers/soc/aspeed/aspeed-lpc-ctrl.c
++++ b/drivers/soc/aspeed/aspeed-lpc-ctrl.c
+@@ -47,22 +47,20 @@ static struct aspeed_lpc_ctrl *file_aspeed_lpc_ctrl(struct file *file)
+ 			miscdev);
+ }
+ 
+-static int aspeed_lpc_ctrl_mmap(struct file *file, struct vm_area_struct *vma)
++static int aspeed_lpc_ctrl_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
+-	unsigned long vsize = vma->vm_end - vma->vm_start;
+-	pgprot_t prot = vma->vm_page_prot;
++	struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(desc->file);
+ 
+-	if (vma->vm_pgoff + vma_pages(vma) > lpc_ctrl->mem_size >> PAGE_SHIFT)
++	if (desc->pgoff + vma_desc_pages(desc) >
++	    lpc_ctrl->mem_size >> PAGE_SHIFT)
+ 		return -EINVAL;
+ 
+ 	/* ast2400/2500 AHB accesses are not cache coherent */
+-	prot = pgprot_noncached(prot);
++	desc->page_prot = pgprot_noncached(desc->page_prot);
+ 
+-	if (remap_pfn_range(vma, vma->vm_start,
+-		(lpc_ctrl->mem_base >> PAGE_SHIFT) + vma->vm_pgoff,
+-		vsize, prot))
+-		return -EAGAIN;
++	mmap_action_remap_full(desc,
++		(lpc_ctrl->mem_base >> PAGE_SHIFT) + desc->pgoff);
++	desc->action.error_override = -EAGAIN;
+ 
+ 	return 0;
+ }
+@@ -216,7 +214,7 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
+ 
+ static const struct file_operations aspeed_lpc_ctrl_fops = {
+ 	.owner		= THIS_MODULE,
+-	.mmap		= aspeed_lpc_ctrl_mmap,
++	.mmap_prepare	= aspeed_lpc_ctrl_mmap_prepare,
+ 	.unlocked_ioctl	= aspeed_lpc_ctrl_ioctl,
+ };
+ 
+diff --git a/drivers/soc/aspeed/aspeed-p2a-ctrl.c b/drivers/soc/aspeed/aspeed-p2a-ctrl.c
+index b6b7b80f842a..ad59ff28c013 100644
+--- a/drivers/soc/aspeed/aspeed-p2a-ctrl.c
++++ b/drivers/soc/aspeed/aspeed-p2a-ctrl.c
+@@ -97,29 +97,23 @@ static void aspeed_p2a_disable_bridge(struct aspeed_p2a_ctrl *p2a_ctrl)
+ 	regmap_update_bits(p2a_ctrl->regmap, SCU180, SCU180_ENP2A, 0);
+ }
+ 
+-static int aspeed_p2a_mmap(struct file *file, struct vm_area_struct *vma)
++static int aspeed_p2a_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	unsigned long vsize;
+-	pgprot_t prot;
+-	struct aspeed_p2a_user *priv = file->private_data;
++	struct aspeed_p2a_user *priv = desc->file->private_data;
+ 	struct aspeed_p2a_ctrl *ctrl = priv->parent;
+ 
+ 	if (ctrl->mem_base == 0 && ctrl->mem_size == 0)
+ 		return -EINVAL;
+ 
+-	vsize = vma->vm_end - vma->vm_start;
+-	prot = vma->vm_page_prot;
+-
+-	if (vma->vm_pgoff + vma_pages(vma) > ctrl->mem_size >> PAGE_SHIFT)
++	if (desc->pgoff + vma_desc_pages(desc) > ctrl->mem_size >> PAGE_SHIFT)
+ 		return -EINVAL;
+ 
+ 	/* ast2400/2500 AHB accesses are not cache coherent */
+-	prot = pgprot_noncached(prot);
++	desc->page_prot = pgprot_noncached(desc->page_prot);
+ 
+-	if (remap_pfn_range(vma, vma->vm_start,
+-		(ctrl->mem_base >> PAGE_SHIFT) + vma->vm_pgoff,
+-		vsize, prot))
+-		return -EAGAIN;
++	mmap_action_remap_full(desc,
++		(ctrl->mem_base >> PAGE_SHIFT) + desc->pgoff);
++	desc->action.error_override = -EAGAIN;
+ 
+ 	return 0;
+ }
+@@ -308,7 +302,7 @@ static int aspeed_p2a_release(struct inode *inode, struct file *file)
+ 
+ static const struct file_operations aspeed_p2a_ctrl_fops = {
+ 	.owner = THIS_MODULE,
+-	.mmap = aspeed_p2a_mmap,
++	.mmap_prepare = aspeed_p2a_mmap_prepare,
+ 	.unlocked_ioctl = aspeed_p2a_ioctl,
+ 	.open = aspeed_p2a_open,
+ 	.release = aspeed_p2a_release,
+
 -- 
 2.56.0
 
