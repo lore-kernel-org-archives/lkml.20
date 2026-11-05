@@ -1,80 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.190.148
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863126;
-	b=gL/RqfupTtVKZvGmOlDVORWbu05yLHxrSL+527zevAJN1lrO9p9jQ8pLjgyTBnhK7JdD
-	 vilsRkww0aMzkJSf9cj5bsoGRiqwJ77HRV2abPTQJI+glYCgEVZiHh/niPoGR0Tf7tHa/
-	 jVdRSiWx+U+BnIeYa3376Y9McuJhAbWn4iIzl90f66tmsvXnkbTGalzDyrfpQ01dVBZDV
-	 oCU8VlCEKCkyUQvxhaxMtlOyImxPlCYk0qlVupsaR3c/1+9NuO3RtEoHFP7gB+4O2OElQ
-	 1KpQeXEToKfe+zWSuNNroMoeI9BPcKbLfp1edyWPVjyAPeP1dmayZxodpIuxBePoxvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863126;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=hnJxFzFYiDjAGOC387QOo92SDHQnXIskf30SLHqsmrU=;
-	b=prKeaEoBR1Zriz7RKsLa7dBVLLRFXAzhHqZ8FSjWwEHyaRxVPwmMCQyZayzC+BRPsF6N
-	 SilsHHZUKKTfqB6WiJ02ZqhCOrw9BsRyveMpPu6g5JUZukGXcGd8/yU825GUzud4AAED5
-	 FaMfyQYbpyswV0P8FO6lV/R5jrDrIOwic9nzWPIbsj4Y8eg+rGXTshDcH9VRDPxCE9wac
-	 +DNfSjbfMpy05qSVgjlDXUuP3T4WcteZikMyrMWMz2qsYLfhmAl7/kfsTAXmS9eU3YdjQ
-	 rc0bGip+4u7o32xxswIK9tgWEJe1aPjEOdstTJDxxfflY4EABmjqsxFTG+Wq7ibBZlQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ksaD9OUc;
-	arc=none smtp.remote-ip=66.163.190.148
-Received: from sonic315-22.consmr.mail.ne1.yahoo.com (sonic315-22.consmr.mail.ne1.yahoo.com [66.163.190.148])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793863153;
+	b=t5ke4Y4mw3gPOs8JjErz17a4imAeg9z5gyZwVCC6z+r6xTvmr5vuW6V2jvcd97YW8Anj
+	 gVQNho6evSTOYxOmWwAfj2eXf08EZgPV2BQ56M/si8PdAeE5HVmDf9Lk6EwZmzYIA7bqV
+	 b2bIEY6WAB1w/Q1YrhYb3XCQTk9AaWvKToF7CgiylQjipH+tDApNfHUzYCSHumPv1/l+q
+	 kAdk03IGFXJd9aJd27xr2+ZS78LdPJZJrv4RNuKt3HxYI51ibWYZBojbGUtOfmzfjXgf7
+	 qfKU3CpvQlgzlhMyGBXkVX6557qu7nd+K71hbovOCFOTJ7uN0JZ1FnL+ex2JkcroIJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863153;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GnaLZPxbC7a/t0yUTKESoDh+CYxVLsmOBjx7EGuaz9I=;
+	b=KuAyP43Ri215jbl0TPuYxf4USc2xuu39k1TYorLrvI2t+XkRTUh9Leez8RuZxUbaGC/V
+	 qdgj3xOME1muuy+YTTZFqVKn26DcuF6/WzLZjK5B99OQu8fDB4FTUL/BvB5gZtIiK+N13
+	 Phgn0hnefMG16In+tlIHULRtrVf/M++YRQeJfDSp1qmlrgw2gq2R/MtV7ve/yUy/4BKxw
+	 0v/y8ISc3IBk1IQU+bOUlnZe6jFEalR87hgV6UI4A6bn1XCWnceOZUAWn+a10FGcfnM12
+	 2tqcvFmQeMRM2kn9/heyFogkui7/Gjq4gHpneVP/2nGg/4dzvBTSpIpkcWJuB/9o0yA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cimb6Gj2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48585606A336
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:18:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48585606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35CB606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F35CB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ksaD9OUc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793863125; bh=hnJxFzFYiDjAGOC387QOo92SDHQnXIskf30SLHqsmrU=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=ksaD9OUcdG0lWJm8bCp2eWisGOHKzLVHij1WV7UjPSAYfsSI1UKp8fh0cz0ABsNvfLLN9uKoQdVdcMUnldbhX36wIPrI0pbldlAnyFIMPZgH32dCAKjq4IO8kfmzo3auEJctC0VyHm5lKO9q7hx33D6fO0efGXBKdCJLJ5J6hDFh6vWhrl6mWH95Eyrg3T7nYgBXyfbPpAMEmKCnKqM8pFmK8EIunQlnVqRjxzIPGlzEWWQt/t/DyEdVMibKGQNdp8GhEZigVz3evVXHd3WPTvWOHmfifYfEBwrHJ1Jdd4s9DTTJts1QhWR0FUdFyFfaFDtF0xdutga15Hobc+zLmg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793863125; bh=uuzhrE+LisKRoMwi2riyVi/ZdCqeCxV8pXHwOI7Du8V=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=YYJGKiqk6stWemy0xb9vEgYiGmsnvZ+e6Hk05jSh41kd3ZN642QAA3c1h2LJm/d7H9Ja8qdR7VxS2n8N2EwroqxUXMtQH+Ilw3EmIUL3c5FIPI0+2GAKuQMbJAac7vItmLJORGc+P39/JX+b4ifwQusX4ieCCACyliqPumMtCaBFBQeGdqjBfTE2yTr+d2xQpYq1Jtnwf9ryGrxFD1bkQ3iAMO7Tpr/AyANXMxozo0ON5f17Jif+1zAvwEVyXHg1nwzGaeZZ8+2EPf4xooQX1bXeTSTzdferToxv9l95HovqOWZNPzCiqX07iSVRJJbMphaFHhxm8JzlT1hLqYn+fQ==
-X-YMail-OSG: VyEVz.AVM1lNsSidy9p9jP8cEUnLw4fwblh_UOX_1A2Pskkq_1N10GRx_GkmRtW
- kGcugBLWgOjFrSn3DSThr6me.wY_omboo.jJ3V4SAu6q30MV6A623Txk.lDdrDfz38PY7Ay23Y0f
- ESvOvYkSpR4oCwPLTwAYLVxQa6VKTRiKaZLRMUniAwL58Eu8ooKAAJ_6Ozc.tQkB6VT3BWwHJ0A.
- twwZd504QrC5CdDzMNx24uwNabon8VrrgrlAlsvHmao3Ub6MQf2NcZGaMhvF9sXlegD27fK5swB8
- vklvf_DAYuryfVUjHt6as5feXEYCGTyhKxgZCBluGoyKWqwbjOpXMgdxX9vxPkQCwBBmwLlCVHnP
- 40rOKjFB2peFZkg7ep490YMdhFK2hmK2pxPr0r_WM80Y31OxEp2TpA_qKs87JGQaGmHz78sk31Z4
- 5bTfXVriG.MfhcQ5W2lFGzXxMOfllmIT4U1lveM1G2uDlp_Q9jh4mFSVk4qIOiMkw5KcGWskUnzx
- nAhlvneRP74Z9YtulpQpEPwouq96Xql0FMAIKCh_pOKwMUB3kkkX.pTs_jPEyl9jdvjRNPly_.bn
- 8Nzh7v0lkKrawPZB6leQV6tXIQj9h9W5O6klF6NQLOTlU6lZjXS9S7CDEhNlJ6WYNmOAD2aqCn0H
- L_049rBJlKsL.5CuZZvZbjLn7LW6IxpA2vSoT6kiMNTJRnECWbhrL4wB6oxv.w0hukjcrLkW1O84
- 9Jy4eqfg6CO8S4LQEaHxVOKT4.ps5G2t.0ZSy9b9sTfk5aTQCeU94y7PjdHRs2YSO..PY8fJnMIt
- dCdkJJ1p0rYLadQgaNdPE3D5QBGB9n50OyVL_p4W7Qrcbj83ODAPT7GulOyNWTTzhqAqE5D9K7jZ
- 7xyhWPYx0v2Wx89mCAusbdrdsSTYRQmGFgXgaoVdqL0eXMw2EXRGMKv1sPqrWRtpi_dwptuuZkqp
- eMsLcUn7Uo9YlK_V6jKuMvFW7lDLqff4xbCivo5BexXU9MGSnpPr9RRT0dKVVIgUGuXwRTHiTMoL
- cMUPPgvi4H_7SuDKiOXVnJ_5x7uvtN_gft3mmeMZJqZAho7EakDG0UH54mPAmNFb4Lt1VMTXanKe
- nyA3HNTH8xZIc.VteGxDa1UZkXMyHUoxTu4.DeTLvUB1CFXQQWjUhsfRul9feX4rmPpyJ86vI.NI
- 0Y9L6nz_dg__cCGX5nuQikbEtX4Pch84TaBdSjDZElBZV5fVpGQ156A6j7ymEOSEUgRTtKz2NyVg
- Dk.FEGWPCji84hGrmnY6Zx_EmzZ02bS9tavTtT5WP7t.j6gS2y_cNakRhhQ1S8yLzb4z.2O6t5sW
- 51JvLW9n_typRmbFlbBbxNb3c30f8n20vMpZxaFcEITOh1e1jOxC_ZdGoCsOczD36GRFzb6Vnqvj
- abcpbWemndhTz.o5YY.qkNlCn01YNF8r.Xl9kqIVLV4zmKDdmi8SnAHyUhqZ4QtyZ7kRDZRrBALi
- jOMcDpF8YFHAnwiK74VhgWElOdUqUmD1vdAyFlIdN5QcC.yHW5khKUsnlioYChAQ0v4SKKL2uFxO
- kunu5LCPZ2vm84vDPW9zsW2U9efRAyrq38fzIBCnmt60X4KPNR49AHVbHVBMxVOPCOUVFnj79Mn.
- 2tdEE6Qe5VHkKXLTi4MbGRHTWhT557Wmy35sUMCzlDJVxJSUr6hfEeuhI3GqNnlnn6oP3ySkrzTY
- VzNu7cPe0iBMRqD1ABLMYW1BYJbs4k6K.r24N9sNUhKTYNiFsmKQVJtHZE5zC_EKl6RkcgKOF5Dh
- aEGsyOgLgS7Mu0ZZumyKu1CsHkAN5.SX1cKhD.Q40VRfAYMEbijIw0xeiA00BFmeT8lg4P1SJII6
- 8QDp1d0x8V86LX9FE1qVwiZHJHMheht7tHzesia6NRWuONi6UN5G1YRzOo6oBaC43Ihl.JVuI_fV
- bO2Luh3YWsklemYrVIWGAVX07GdYBx1vqld3f1UiUjbuhYSS06a0WfOgX6J4vji7UBYsQfFiiEGC
- _rezze4fMzBdZGDFTQVMv1eefUN8rfijQ0RsLlb9vrECfQUWV5E6h6GBRQAsjnLRLq7fLdzEKSCf
- 85wsERmU7HkYCyx8fa147iP8z8tkyqJsg45Jej036lPDmXaYiuNLWz6rHLYbDNZIG.p46Qml0LRu
- kJJ0EuaEgnblrVfmVL_AQOjUbuUNSHQ3o7NLuaRYBeDBYX66yyufzfskiE6NQVY7YjsKphTWrgOZ
- FhBx_YpZxaHO961KpxqwwI_hU6ZPYTspFwbfLtBqn1UtqAi7HMmuKg9IwZmOxHIi4tgYTO8WXHkQ
- LjHE16ja2SrLurfNFWQ--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 550448c0-81b8-40bb-a89c-e477e4cf44af
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic315.consmr.mail.ne1.yahoo.com with HTTP; Thu, 5 Nov 2026 07:18:45 +0000
-Received: by hermes--production-ir2-5dd9bf4598-c2rmk (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 305a53ff9b5e3c4878dba0797c3f1d13;
-          Thu, 05 Nov 2026 07:18:41 +0000 (UTC)
-Message-ID: <e3036c42-8c31-49e2-8ab5-cbc5b8771e51@yahoo.com>
-Date: Thu, 5 Nov 2026 08:18:49 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cimb6Gj2
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35159e0092aso157966eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:19:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793863152; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m+sGAZKwlS2LpYpkW8bF9sQfJ/hOaRh5dTElSO+czOsagPAnaxdXbSquebBI17cG4O
+         aeLKytOya0wDVCIxS97GpZAsJnHubDD/klQVltff/uFePqP9ZOoo+pais8rz/h5uh6z8
+         yJqfBJwygIh2czaCX7+Pa4inDlr05aqTTr8CCuC18PcCyP19s5fIP+AY8IN0AG/GwCOE
+         4Q0aserpxnuckbrgNRLeRsCgHI83oEMQsVerXL1CpOVwDqdvjDVEXcJUP6gqFVT1SLyx
+         o8sD2kKXYUAl/LeWiqfrHaoDPpDiUq03F8+f2arSWdU+9uakuXTOsZXweorvU053VfRG
+         CCUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GnaLZPxbC7a/t0yUTKESoDh+CYxVLsmOBjx7EGuaz9I=;
+        fh=hOqY7/y+faBkY3TEySEm0C31JpjBDo04oPh8YBPOkCs=;
+        b=fgyiHtGKcHuqZXDiLkr2FiLR0st4/ElQKTeHDoebe8qQmxaO9aJbyT7L62UAPNbh4k
+         Mitk7kkq2CMHMwO4w7YVuoDdHZGYD74+2yCFlInqfYivxbsy2r91iPpAW7otTrHHotMY
+         7Nv41fyG/+WF5UcB1zbwD481tY/K+a23A5R4qYW9y9oVYX5o805fittwTU/cITxmr06s
+         EEIfcBKoPuCmT4B7MrEtqVK6scVjX5FL/4FLKVkA6Ykr3ghJOWlr4ahnTNqlfXq8/hHV
+         Mv5VJZykQpC0IrorCllbKmVFA1dinOuwMH3JZARFn+C6cLaeLEZ3KK53dRvtWfGyYktX
+         +EqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793863152; x=1794467952; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GnaLZPxbC7a/t0yUTKESoDh+CYxVLsmOBjx7EGuaz9I=;
+        b=Cimb6Gj2EJi/FqZeNUHr67FC840JAx3NEYrKqqUZU6zv9WZIsd6BBNulSZslm6iLGC
+         86aRtsFr0yHkGYTN1gK9IQOaDVAQW4oDnJu2OCmhray06lZnKfvCr8rJsIC57Yk7KdeG
+         uRCAojvpOi7qvJJPI1vUiZ67sCYSNyWRf9HBMgKPPO6sQsA8B8UbXoPGTHFWfICmJuVg
+         wIGFf/Ah9tUGCsPruwfeiMJpuf7i9POvn9pEK0wPdw5A4+7Q0RlrvJrUmx7QyHOsOZpP
+         nX00kvipqA7Oeil0AKZJNpqS+dpFCpPNOUZdtt/j49WFI37ltQjFqtTuGx0bkPUK7Ssb
+         usgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793863152; x=1794467952;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GnaLZPxbC7a/t0yUTKESoDh+CYxVLsmOBjx7EGuaz9I=;
+        b=tF3sRHrXEhKGNE/UTAZ8XZSdVJCufwtqzXjXc417l6wMrjHx+pg9VyqvtcV+1zk9sC
+         szp/ePPybi98lf/yUko2nsCY+u16LbiW/50XmsnvqhTtgR64I9ZIwoHQ0uWU1Ms4Okpt
+         QVnMhFPuuLoICnw6Fy4mQfQdxuSSslGomJuKpjUye2mpWT7QhcJJ2QR7wtT9i8v5pnl3
+         clKlNmG+vwnwWiwxIa/HSgVgp3y3g9uNUYvWpvmXiw6E3wBUrwrB/+ih9DUxvGO8bvAG
+         COfQgH5m9AN46hYCNAr3OOhQ7N8iLni6BVkcX0HqQmoj0W0VUMaHOS0wTa96tK+Y5NVG
+         qU6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBysY4dvpLx5STEtJ5vnPpICVMwEopSrl1L9roPY8B+43V2zb3BqEJSFpa2h2Q6+/VQL/AfaLJZsuo4Pvus=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hOPImdrxZhqyGCX4O8KunE3wHgf1v2a/tbfxjE7ShT5Ni6Vsw
+	cyAuqvYY2ng3+s1Temqc7R8HF0Y4ue3tbBizIrJxW1b6jUczKZ2Zs2QmC9nG+MLACVV82P4Gvs7
+	90OcH/KFRXp1NZ0s+l7nrP+nV2xfskNw=
+X-Gm-Gg: AYBFou34PA57KmuUHYgvRYDyQJxQIlhQ5WUakm1Wb3PV/tqP3XVlrT/JxlkXFa7A2+N
+	N9jgnh3lgUHYoHZU2X0kqPC8VMq5S/paXl+rC2UBpuQNn+QPIT1AwkkDsyvp/M1d237+YJretom
+	ofzo7eNMrIRKzT+b9560bhUKCi6pacW7voWvjNYyLSX8zmYcqLKQHJ5g+EZp82W+xD+OcZF7Svn
+	hENLuYMXEovYTzr86hbIarYKNdFEOixWkTPAqZI1xXjWmFKUZO8eDke5e9+x2wf77iQJUvGI8YZ
+	8KZACFVtm2cIoqCTvHTaI8yfLmZUDXkmIlxfy09ZW9m84YEDTxF36X54th1SfjB2qcjVDxTbyx8
+	f2gQJbceSTUxwYnJsMvFZnd6Upj/UrPBl41vOACcMDhimy2XRYLYV3wqWCk7VXtewgV5AwZE1MW
+	40Y9UN9GJBnSrorgZzKDGnkMq5V7KNBSz0iLe5epE8Wca7b6Opl7/h1ECJ/KKsHkvI7kWsMbJP1
+	eFmQF7GfrQUxBo8QC+HSt7XW00VMp1dhF4K
+X-Received: by 2002:a05:693c:87c2:10b0:36c:a1bc:6114 with SMTP id
+ 5a478bee46e88-36ca1bc69bamr11080977eec.0.1793863152067; Wed, 04 Nov 2026
+ 23:19:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,54 +106,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 08/10] net: dsa: realtek: rtl8365mb: re-latch
- the family D SerDes
-To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
- <3ecac0ea-830b-47a0-931a-67fea637f0c3@yahoo.com>
- <ausrVrtHQHvac9bV@analog.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <ausrVrtHQHvac9bV@analog.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+References: <20261104020009.GA999555@ax162>
+In-Reply-To: <20261104020009.GA999555@ax162>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 5 Nov 2026 08:18:56 +0100
+X-Gm-Features: AclHuK-jaNt67HW6FfiVCm7PXBmxx7rZN9GM4g_TqRjcMsIJVs_M9vm1fKTDwXE
+Message-ID: <CANiq72=cB+J6AzxFJXpYgX113Ly1bCU1xbxuG094aP+FeZG_eQ@mail.gmail.com>
+Subject: Re: Prebuilt LLVM 23.1.5 uploaded
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: llvm@lists.linux.dev, linux-kernel@vger.kernel.org, ojeda@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Subject: Re: [PATCH net-next v7 08/10] net: dsa: realtek: rtl8365mb: 
-re-latch the family D SerDes
+On Wed, Nov 4, 2026 at 3:00=E2=80=AFAM Nathan Chancellor <nathan@kernel.org=
+> wrote:
+>
+> I have built and uploaded LLVM 23.1.5 to
+> https://mirrors.edge.kernel.org/pub/tools/llvm/.
+>
+> If there are any issues found, please let us know via email or
+> https://github.com/ClangBuiltLinux/linux/issues/new, so that we have an
+> opportunity to get them fixed in main and backported before the 23.x
+> series is no longer supported.
 
-On Wed, Nov 04, 2026 at 01:57:24PM +0100, Alvin Šipraga wrote:
- > On Mon, Nov 02, 2026 at 03:43:45PM +0100, Mieczyslaw Nalewaj wrote:
- > > +    struct rtl8365mb *mb = priv->chip_data;
- > >      int ret;
- > >
- > > +    mutex_lock(&mb->sds_lock);
- >
- > OK, I don't think I can give a particularly good review of this patch
- > since I didn't follow the previous work for SerDes support... But at
- > least, can you use guard(mutex)() here? ;-) And elsewhere it might
- > apply.
+Looks like it works for a couple Rust boot tests -- thanks, as usual!
 
-Sure, done. rtl8365mb_sds_write() and rtl8365mb_sds_read() now take
-sds_lock with guard(mutex)(&mb->sds_lock), so the goto out_unlock paths
-and the explicit mutex_unlock() are gone and every error path is a plain
-return.
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
- > > +    mutex_lock(&mb->sds_lock);
- >
- > Like here, etc.
-
-These two are the only users of sds_lock. The other locking in the patch
-(sds_cfg_lock in pcs_config(), pcs_disable(), conduit_state_change() and
-teardown()) already uses guard(mutex)().
-
-As you suggested, I will not post v9 yet and will wait until we have
-settled the remaining points in this thread.
-
-Best regards,
-Mieczyslaw
+Cheers,
+Miguel
