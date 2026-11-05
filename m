@@ -1,85 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883528;
-	b=2ShNYNUy2cHN1FSdgFeJqfYc9LDzP2HyatBSvOnCxeiRr9gTi7/ASKSrmdZGrS0wm2cs
-	 SK5eNmbXeaDpiDu+FKmRmUOeLt+0UaAo58b3IE0frnXzkt2j/CJkK/hfuZ8mnSe79TU1Q
-	 zhqKgBEwnH1vDK7ELLztJUWFdoggvfZg8Co2F0sx7eB33Gpsz1rUMXfmlaF/ZTCDwaJMD
-	 3w7BmQ+z/+HjPZsDwGpvkTTZReFzK2cycrz78iZYBTwDn5GxYlDMRyP9YwSx/DRnnuzAG
-	 G/evtoSRMKxaWsBIq7azolzsto6XCY3O/0o9dJu2jH0lRe9MP+3IFo632xfEXqDdA2g==
+	t=1793883572;
+	b=mL93WAaZNTc9/WRzLl9MgSF9AHWGBpF55zzAz8NguuatPIw+RNM+r+VwGd9Rd6qn1mox
+	 5pySwPVRsKyYrKqBrTj+ibzmEs1Ge9Tc/yJiGGei2M6rvpqeLas+Za6RKtxAdJTO5Z+PP
+	 CqCm4Z71aUwyVv9J9Qt2AN8QUjmzTXru4ghIDrSCC1KG3wEonSmWP0rIQlRRaAa6IKhDu
+	 TWkzMEfQtv0SB3kXGPx1ETDrFgBPzMFQsXCAzx3BLE0Fg7Lb3FyRpJrP/PiKkO5P0z6Om
+	 gkABPhYt0yihxE87OhnY/wela+sWocVmfD+fVIp6euLNknE0EUQkYf+cWJMAPNw05vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883528;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=30cvqab0GneMjzQY9b3Yhah4cXyfQoNJoQir3EuyP94=;
-	b=HWbmwZ8NIP9dgjrVadPNY+Z3G8V55idQ7ErB7SnxckXgXvRDg1eCpPXwh5sbfsrWBuBH
-	 qNdzAeZV1F7e5kapIyLFnXQPwhBdZxLb40IXV2uGwCeLDENEj3fkYTvlXeAbhA5K4zks4
-	 qF/mw/bnE9nFjrOHLVDgWIXCShIJuIuldqzweU/fAwKVjNfc2sxDDkz3BD0+LdoEJQ4Z7
-	 Mnf0MSUE95F9/wssmyiz0P9d/+6S5EyyNyHVtJsCsUPPmmpEtBPvYdfDFbhFuy/yeGIh/
-	 gNEKwXLyRNj+gG7gmMB0PCVjwzvnolDGEWCUS007I10Ay46PqPxPqfQqEbkCiLvi/XA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883572;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=+E22eGQ2MJjCILPPn9RP6s1QVwt1VQHo3HCnxy0O66A=;
+	b=qOtu5/UCvZiJI8xZT+GauUD7INTPAmJOd12bvpVpFqqZO0rvvR0ef51BhmoCEWR9MhLl
+	 D3fh+Gn8R6PWu0q5TyOIyRJMijqeid0Dy+99WZOZPRIAYswzaPWp4hgUpxfl3ZhJefH7R
+	 eoUSYEkbDP5I85t3Q6llSv/XtOwUH6r9MUzi24Qjwk6dA1OyeFcRh4avu5S8O8vvwJE4W
+	 +198qiLP1bxFtDfFZUlLb3psKhWoPHFzpkTXOcrekoVEcUU9Bech7knS9oP43Edd5NITV
+	 NvBL7PcZCdxpogwaFHOhM5/EeHETFdF2Ie/bu8Rs0WHQwlbiJtP95pyNfQVrNIjsHJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=cS7ul+wi;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2392606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2392606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso14472805e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:58:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793883525; x=1794488325; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=30cvqab0GneMjzQY9b3Yhah4cXyfQoNJoQir3EuyP94=;
-        b=L/wD4a/ylJXV0XF6/0PTSkMyL+0qSb6ZlhBosU4BX5Pj7KjRTFLwMBonjApHISxwI/
-         qFX7A4EodJjv05cV1+Pvp5a9CnM4jSs7QUtlDgey5lt5MO/bWOIyVehVkIb+rUQiO7nD
-         wKsQKIq2EEO0D6T13iNaiR4S2XmKG1xswSwlgamKifo8fMU5iRG2ESLyWyyF8njfzBKP
-         hDhjc74qZsFhiomidhtIFh7xPrwvp3uZEhfh88UPF81e9sb+yoKFGmm0d63HpJuTTThK
-         TwVr+c0za+UngVjYzur+ILK68hcWgncUpdmnjBRY0klqXtSxfQ7I1LRYEppK3SZNw9sl
-         qNWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793883525; x=1794488325;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=30cvqab0GneMjzQY9b3Yhah4cXyfQoNJoQir3EuyP94=;
-        b=ziyVPOShHtNwqiaU9vsHP45O3lNIkfjbhOjDPYxPgUEcNiL1QZ6UGCFmi+QQ1Y/zgv
-         /hyB0Hw58lNEDtds42xLLAL5j4SsFiZwokF9DD0p215HwF/XSziCjlLHuW2IgFN5qzgu
-         K1fW+MOWwF+DCOtH1mo0ILx4VpbXpAFjlX+7nRKX6zY5BRaWwF9Ult2o3CaKPy00g/hZ
-         GwXOYf/O5QwAh1yovk43wPjnER/++qQWgtRmUqw85bB2gC8raGnGicsCxjZ1tvsthNZC
-         43VINSbt19tiN2+Xw4gGFYlvW25OWMZ9m721mOBNH7haF+BHst8quf4ssQXBdufi9xFb
-         Qscw==
-X-Forwarded-Encrypted: i=1; AKwUvBxipCOp8W3YSisP06+gQ4bfNGGUOjK7e3KH6AM+0z3ZmLHIoT4hhY/uJj3g7GNn3hoPhvmrhMF2YdEvIg4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tVCUoA/ZNhcsqLj/99vuvK/IhKzBXlPK4dHjbkZZNhlynwt+A
-	u8pwOW5wbIOSzyw5wAkp9KNspS8DUDwySCXMPIDPDMPaPIw6d4ZunvTcAsiRZxiQrOY=
-X-Gm-Gg: AYBFou3lFpsRCvnfwToGUyYNqskjFu0I7s47AqCwVXBMClKIt6Uy3w7dIs/zAeVD85F
-	1j3Ij5ffplLnpZDazHyGTbObbvMqlD61vbtF56hp9Kx8kAALqrxQgbIoutqBWV9YYZTiW7f1eJN
-	h53m4LGvME2x1jg00w3Oa6JeBY1HkuJHJLRcgbTRnKm+pG8ALpwBTE3PFBx8+pQp5k6EvlGTDOJ
-	2+XzfPwX7KukZg7y6ndfWPgkOjss4IvWM2yk0oagRLAaTAaQ3GqWOZ6JXLPsSUotu3rvONCj5DU
-	vBgWmI6+pJnA5Rj34aZg3WByw+u5leEjaSOwCR4FVXgZAf5exZCxYCZoLJ1KuqquSROni1iyaTz
-	JoAjU7ggOP+lEOF35XNQVNWCzN/4oB/1QnbMtTbAJg8tDkCreI4PVbXSS3D6PEJMgxiL5Rg4i0z
-	5EHrey+oWGymwqB/hFr9xoWJd+4towr4xSYxzyTr5RLNrn7C1rMhnc9JVFf6UVubjW91DDRsFty
-	S++S9J0yfaH6txZNkBBQUNnBU89XYkgyliM8vy9CMQ+EKpNw3vyie5lrPDuLZ7xPk+rb8Ep5XiR
-	+m0LWlyG5WIYa4pzrfguB5xFEil64p4+xBCC2Ew9UTf7WawZfQHDOEp5
-X-Received: by 2002:a05:600c:6212:b0:4a4:de70:2ad4 with SMTP id 5b1f17b1804b1-4ac17ffa395mr401888755e9.22.1793883525271;
-        Thu, 05 Nov 2026 04:58:45 -0800 (PST)
-Received: from [192.168.1.62] (140.30.66.37.rev.sfr.net. [37.66.30.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b63863d490sm27861675e9.2.2026.11.05.04.58.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 04:58:44 -0800 (PST)
-Message-ID: <56932f47-2e35-4152-afc6-6cd41c8393cf@baylibre.com>
-Date: Thu, 5 Nov 2026 13:58:44 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB9C606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:59:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB9C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=cS7ul+wi
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+E22eGQ2MJjCILPPn9RP6s1QVwt1VQHo3HCnxy0O66A=;
+	b=cS7ul+wikj1KUf5rkKa9MyhHiH+s2IyoUyiP3zfHwGpPZvSjuxGmIlG1V83ZLRyMoquvSCW/Q
+	EBHGUFzgMAtkI1p3cogsaEq9/V4qlMyLiBOzbqv9LOoKDbF9fWMFWLKnOjz+nybHE7ms9vpcoZb
+	4mnnLjDnA+Tp+92Uc+YBlQ0=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jL2Sb68VbzmVBV;
+	Thu,  5 Nov 2026 20:59:11 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4BCF44057A;
+	Thu,  5 Nov 2026 20:59:23 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 20:59:22 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <chenhuacai@kernel.org>, <kernel@xen0n.name>, <rppt@kernel.org>,
+	<tangyouling@kylinos.cn>, <baoquan.he@linux.dev>,
+	<loongarch@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v8] LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+Date: Thu, 5 Nov 2026 20:59:06 +0800
+Message-ID: <20261105125906.2284169-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,62 +69,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/11] pinctrl: scmi: select the GPIO function on GPIO
- requests
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- Linus Walleij <linusw@kernel.org>, Peng Fan <peng.fan@nxp.com>,
- Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>,
- Bartosz Golaszewski <brgl@kernel.org>, arm-scmi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-11-52d92843ad97@baylibre.com>
- <aunIVW4JeM_P2WOa@ashevche-desk.local>
- <73888927-18ec-44b1-bb14-72e72860bfc2@baylibre.com>
- <ausPFWOj-usp084X@ashevche-desk.local>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Autocrypt: addr=clegoffic@baylibre.com; keydata=
- xjMEafx9bxYJKwYBBAHaRw8BAQdAtc85GIwDXLz0rh9thWXC80Lji0otVDVncXT4qaS4j1fN
- K0Nsw6ltZW50IExlIEdvZmZpYyA8Y2xlZ29mZmljQGJheWxpYnJlLmNvbT7ClgQTFgoAPhYh
- BJjMiHuM4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsDBQkJZgGABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEH6EW4KtCh6Tt+sA/jVC35rY1npFlOy7YnncTdrID8Qf855JA78IzXgvzpGp
- AP9FkuuT80m66PP3DvgYX9kVnG17mSDKO0+v2W18v6ZgCM44BGn8fW8SCisGAQQBl1UBBQEB
- B0DMwF4u//aQyzsFlO8rPJ/cqsAuPH80IeIA3HOEo5mlVgMBCAfCfgQYFgoAJhYhBJjMiHuM
- 4ZUwFqUPr36EW4KtCh6TBQJp/H1vAhsMBQkJZgGAAAoJEH6EW4KtCh6TdSgBAMDS0MiWCivt
- LjzZc9bs+P/xdXywUjDKq3lpQGJ6vZ0GAP9vI6DnN7vwVK6jt6/+0aBGkog5Ura9+WwRFEdM
- vLfPDQ==
-In-Reply-To: <ausPFWOj-usp084X@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 11/4/26 11:55 AM, Andy Shevchenko wrote:
-> On Wed, Nov 04, 2026 at 10:38:11AM +0100, Clément Le Goffic wrote:
->> On 11/3/26 12:41 PM, Andy Shevchenko wrote:
->>> On Fri, Oct 30, 2026 at 04:58:42PM +0100, Clément Le Goffic wrote:
-> 
-> ...
-> 
->>>> +	int nr_functions, func, ret;
->>>> +
->>>> +	nr_functions = pinctrl_ops->count_get(pmx->ph, FUNCTION_TYPE);
->>>
->>> Is nr_functions signed for a purpose? Can it hold an error code?
->>
->> No indeed, will fix in v2.
-> 
->>>> +	for (func = 0; func < nr_functions; func++) {
->>>
->>> 	for (int func = 0; func < nr_functions; func++) {
-> 
-> With the above in mind, the type of func has to be adjusted accordingly.
-> 
+A retry allocates new elf headers and overwrites image->elf_headers,
+leaking the previous buffer.
 
-Yes will do
+Free it before assigning.
 
-Best regards,
-Clément
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Youling Tang <tangyouling@kylinos.cn>
+Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
+Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+v7 -> v8:
+- Split out from the patch set as Mike suggested.
+- Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
+---
+ arch/loongarch/kernel/machine_kexec_file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
+index 5412aa9f3568..0fe60907b97f 100644
+--- a/arch/loongarch/kernel/machine_kexec_file.c
++++ b/arch/loongarch/kernel/machine_kexec_file.c
+@@ -166,6 +166,10 @@ int load_other_segments(struct kimage *image,
+ 			vfree(headers);
+ 			goto out_err;
+ 		}
++
++		if (unlikely(image->elf_headers))
++			vfree(image->elf_headers);
++
+ 		image->elf_headers = headers;
+ 		image->elf_load_addr = kbuf.mem;
+ 		image->elf_headers_sz = headers_sz;
+-- 
+2.34.1
+
