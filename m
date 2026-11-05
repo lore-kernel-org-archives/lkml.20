@@ -1,92 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.4
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793837465;
-	b=fEFQgoDJC4gtXLYKEC3lkbSTSo1AZFyOTRQORBK31cb5JcmwvuCC9NHhqkdG+JucczRb
-	 k80FDE4T6vIuNQWZ9q34dSN2NtdLypMLTNNcV6uwCchurWWOlTz8SY/M1c6UIQ1DCvjqz
-	 VMQpF4cNfuV2z9OPYVIRGZuo2fNavrSv3ZF8IKYjbARJoKW8dVkhu7wxyxJB8EXGdWKxF
-	 tUaQbf7gAu7p1MzfrQFJbLmuDdt7O9QPhbTFxaOAJS13oIIfQIzdyq0RxWWIRNFMAYGV1
-	 6pwkg5yUtakVlpG26WfDThuvF9TA3hXw/+kkhXZgNKPzcWghRhY8GeNBOBv5CIGeDsw==
+	t=1793837566;
+	b=zRK0ab9Lj8k3LWnofY6qdya/F5/Aj+uKE+dHy9P8iGaN/EbAwPMF/eKxCymuaVPAV2Mc
+	 093P2V2kaMxmhQqUVxvWQJG7LIlRN9AREzKx34r7pD+DbXAZmi+PBQPzb5a5wy2a1fdLq
+	 IR0F4PfIW0+7cXE4MtaVrmmwyWMeVURE9rj9NjkcEYZNQY/qkfY2TzU3wZg60MX5shv56
+	 OdPpq+37d9VUX6ugLAssaksrhy5VdkQN6ntcG5SuZBUDv6OxsK0x7FN4er1wUOe1SlXYZ
+	 onmP4UdEIUMg69dMBFL0jxb1aY5zeHRuvKdyx+QnP7eBe1RBYNRXNZlhwynLYhwOsag==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837465;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ISyMk9mkjTi7IVhW/C1yhj7IdXpJIy2cOPaXE3grZmE=;
-	b=uerhstiNoBnqFUFzr4y/nHbJUK6iJF1Ty/4T60ftpzzTxsanLql6c8II5pQmZgktjEii
-	 Qbjp/hSlv7PqD6WRS5VYQU+Tk+9KPBeu65LawUlvPzy4aY1vNuBIZBzi6LiTOrmipn72m
-	 YjEpcC09KTUYINNiRyut1hohSS4+iFnRmY9onLZwFAnu9IO24JrhRpcUA44SfMW58topW
-	 jIMmpTIIraygouyWwXxuwzhF1Dy2ZMMmb27clAgLSq/MMiZMsBgf6cxoEQHG/POK47lCA
-	 qO0gvZVe2H7DEjvPW2nHiQuhBj8F3+9e0SGWApICulu94lbUSM7TOQO/P1YL8iBhprg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=rwJhK3x7XVjm47244mpJl9P7sCIrVF4iHXLk2RT9ybs=;
+	b=iasymEKFbDfe0/Ynq5ruu6lGOzRZt/fp7aPT+ni4Ot1g6OLcE+vbDRddb4Ja/WR348oe
+	 dNC9EFQiz/lP3DEq2Zmn1Ep2HdkB6KXy9V8A4QUHpc1NZqT6vxMjM0f/h64ZsuSlwMcWR
+	 g3eL2Thdl3bThoaWGAoYcjSxDb613Ui4ojGOtkXXnHLKY7lxFTPFltKuPT724+8Do+xDP
+	 7deX7BpmmJU1ZoknDzUDJDbwLaRhxsDkn7xly19eWhwEPql6O2ezfbC01ihI1uvgDkfwM
+	 5zWuKaX1ihCQuGF7HGmKpL1PS8YyZq1Qd+VYWQJnQf7/RaPtXQMFIaQHXKvHe3dAQKw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=DwLP6ve4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.4
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azolkn19010004.outbound.protection.outlook.com [52.103.12.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sentinelone.com;
+	spf=pass smtp.mailfrom=sentinelone.com;
+	dkim=pass header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=AIPk4pu6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6780606A337
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:11:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6780606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40729606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:12:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40729606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sentinelone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sentinelone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=DwLP6ve4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FZAjECtFZrjLr/VxLBcU78Qz9zV40FZDy6ah3zIu9lthQht/AuzxuldKf1TVtaeMj7AZ60soTUhXzg8VubBtgAAOAe9Brrno04ZuYkBPK+m/RPCxUeCH+w52c6x7z2jxjfjXmdaV5nJ0Mgf0+Iqj4ZWGEdAHSdulRCkSa1TryL9nQEM2yZHlMbvq/RYj6qY6OPVAbvoO4bG6wxJNt+2pq9Ck9bsrV3tV8XTuquhgGbf3RayLPK8+ReMikx6Imknn4ZREQx1PrUe0rzsLiBni7ahV03QCoGsxu24fLS00BRM3d9pdrIPHW/AH36IqTfQgY6pP4EEzOZhunnGglC8Gmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ISyMk9mkjTi7IVhW/C1yhj7IdXpJIy2cOPaXE3grZmE=;
- b=o7TLQsHEZVCqRTtb5JqUa8MY1x/IA2teNwqVigkNNz40PGwsRl/6RpfvOANwzvCDWGwidlHzaMEKUJ9CLsaKkucDUzPHwIM8mJxssqtkmoNgxcBCQ0CmfdMbcGebdXS3uLqDjS93HdV0CYTmxhk26ffBH1UVsRGeFAHa47UM6OXfL+FMGDNpLtYeeL+ojG24t9vNuxQuAw1JvJEbTs1YMfp2meQgoZzDoOGmSdWXqXEg1LzaORvsmI2eoE3rcZuRnMplxcMoLntZPRNqUhXti3wH8c+XodrXhy0PAG3g3pvSgTAWupXmu9jmWWke/orBzZjU4r2YQoq1IwQCmrl5iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ISyMk9mkjTi7IVhW/C1yhj7IdXpJIy2cOPaXE3grZmE=;
- b=DwLP6ve4X0cKNJXdPpDqzeGUxwA9nQXBqMjg89mRdcP++2EqyK0shn6vLvn3bRFKFHvlkIO8U8HkhM5/sTtlIyLb8JleYUCoe8fessmxjaWdH7YG9OoZbt2pnShxm1R0n6vf26lOiE2fuEeMP/zgujMCR3P82njOAshd4uWv4Y0Op/JUyma33+Ur0NkJ3uwM3svAV55GwxZ6iqBGNDItDD1CwcHjDfe6GjmBHi2nFRcAeOiBKRp2qYmbRqUXZzgc8rM/vPdpyJLso42v/Xjtj3XLHJu2iRhTsPDVgs8nNQ/E9m8GXcIzsfbjY2pO5YNIQ9CnHP2Ib3woCAK19WwK8Q==
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
- by DS7PR12MB8202.namprd12.prod.outlook.com (2603:10b6:8:e1::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 00:11:02 +0000
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 00:11:00 +0000
-From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Subject: [RFC PATCH 1/2] regmap: add regmap_reg_field_* APIs
-Date: Wed,  4 Nov 2026 18:09:49 -0600
-Message-ID:
- <SN1PR12MB2528EA386B915EC96904EEB1A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <SN1PR12MB2528754CEF9D8E5103ECAE28A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
-References: <SN1PR12MB2528754CEF9D8E5103ECAE28A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH5P220CA0004.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:610:1ef::16) To SN1PR12MB2528.namprd12.prod.outlook.com
- (2603:10b6:802:28::33)
-X-Microsoft-Original-Message-ID:
- <20261105000957.695605-2-chernyakin.victor.j@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sentinelone.com header.i=@sentinelone.com header.a=rsa-sha256 header.s=google header.b=AIPk4pu6
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab7b8e6fc2so121048a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:12:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793837565; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VarPGrStDInUeAe5YF4kc0f+iP3EKdLUYoD69mZYs5N0d8apzgLqMKf4RkI0o83RFR
+         Ig2kgDlUyF36xgrzi4eVoVj7O39i+CZEg/wBGGPh0JI/4YOAh1lvQLuIhpRyBI+m/vPh
+         gpkRpFKlkq2ZR9ImJA9+6JJ9PN3O1V6AYVkja3k2R+7P7cwY5/vAdkV4BJ9X4DlkmZMh
+         aXuigrWBTZPF1azcExv2Gc0z1coH5RCC4krh06Vjk5qomVThFLp/Cij1bIK87Ss/q1l3
+         +Dzio0SxRDJjXQUgDzXUsu7w/2z3IIfPe0bTx4cjDoMX0B0WEaia7lkW0VcHrWieygER
+         iGSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=rwJhK3x7XVjm47244mpJl9P7sCIrVF4iHXLk2RT9ybs=;
+        fh=YaBHCrdq0Cght3rf2VbqITUURakqGX8Wxyg9Ml1aMwQ=;
+        b=L6bkZF6thGqy1Tae5i+gApsLUrRoJNRgyoBniLws+nnsKcYiXsMjDvmdAX81hhcHcg
+         OU6YtqLJY+FdcZ3lACCAbXt/QcNjtiKTR2mcDW+aS44A8eeispScuqIrtoFDsf958ydk
+         f+SYCp+KOjMTTSRIDD+798umFABeZ6NQGbjDxc5A1nOCNE5bKHuf6EHakhuV93iOzjff
+         cp5+dB3P7/3fRYiuMYBpeyhlyfkcjhusMGvTCapoDfOe8jbSeEWpt0YkPRyPi0FrSfLK
+         1j9uwkdUCJ5usHo2PpJo5VLPUl7Vtja7be0vo85dYjiq57DAZtbXhBAegZcoAorYoAxu
+         9GNw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sentinelone.com; s=google; t=1793837565; x=1794442365; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rwJhK3x7XVjm47244mpJl9P7sCIrVF4iHXLk2RT9ybs=;
+        b=AIPk4pu6kv59pyU6Yftzb6cZja53z0GgjNiVDI0dY1cJucbOX64fTB4HWQprJ6UX3X
+         bdYP63NgbU7hxKqGeS6fxjDJ+uk2aEAPmWo9GY9dDfVd2DNFHLu3aXzP9bFUF79PNSKy
+         1omu0Tuve/kzRnzrZdOSkaEX0//VbVnQpQOdySSg2rNpGHxQ03eOKXvYNgsaZv9ZP1nB
+         HKPe1ivDtl8WX++yckdqnXl45otViFSbIevYUhwZ3Ynn0HQ5Gz+5Ja5Gxk8Bjab7Kg9j
+         3/QNU4jkIzgYYJeZxCT/zKUf+spcR9Y37aGtXc+/kS7fg9w7ZXZDM9x072jSL7DhWi72
+         lMaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793837565; x=1794442365;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rwJhK3x7XVjm47244mpJl9P7sCIrVF4iHXLk2RT9ybs=;
+        b=2yEQQHAG/R11hpwVFV0pvs0rjwTKRtWjtdLaQBeMWWQTDWRmk25S8ayc5Gi4ZtEBJT
+         JDnzYRLi4Lo9X2s7i4lTo6dUfS4bxl8Lz9TTOnkESwGf7p+XfJ0u9kNgiKP5Os8c/KGK
+         wWsVunSnotXQHkjOzVGnA30+7XIKJ2/1V3XIgxoxO6L1CJLPqK49dDca4YGReHon6wwJ
+         NeuI/bah9VLXg2TyWz6DD5pX1YD3aZzGPBmBklTKZS3q1ZWoFZfz1E32zXIx54tOIIqb
+         b6FJYRt1CK4svIzLvuxJ751z5/4v3STTcXitlLfty0iV217ZIM0Atk2d5ECeXKs0zkJD
+         Y1Kw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvZFViOqhMfHqrukB6Po3xS+rU64HepYvt7vVegTF8tCQsT9z5ISaLQfVpUHMVT6KsM/UYmwrpzbNp0m8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/YA9AkpdpscSkj96FO3JozwjEsXAURP2g8BxcM5FQk4UgPmO9Y
+	D5MFwIOoTG6f6IefKSjSdLShxCAPoKgfgc1G4iTMw5w7n6z/MYKDOgQZpXrJsB3h8P9MlrNR6i7
+	Jd1mEFVVxKbSQLPH4zv6aaGm9U4sE2SuCR4J74M4Exw==
+X-Gm-Gg: AYBFou2NK0fPMd5v14s/ARifO7yz0SkPh0bVsoH9jKpgSzQ0C6BCovgglPr4bRIA8Fi
+	lWpCPvzieuLoQgLdHJKIQM3ejXfnVAK54KnfECjVjbcY8fWWFuvF/tMs1m4IERz+NWoqjpfSvMs
+	zwecJt/ULd1i8LPqwyB+ikjYG2V3sorgu8aNoaam2U92WYEJEfvRJNrTSaVWor1BRDwDduhk66q
+	6GkCXvwLFZMG5Xkm/cUpJNa8rqtB5CpyYz8qW0eg1/ZR49OobKRN1qichShohiL7jHfPE6GACQP
+	iGG7zMp9XG3W/mE/xBbqKZlcNRXH2RQNHjOLeTpurhAWoTpMqwKb5pxdN/Njmn17Mn/0h7bRRUU
+	eW45QkUAmeLd4YTZ8sO9/6vfUKFgD69LFHX4a
+X-Received: by 2002:a17:90b:2891:b0:3a8:1759:2217 with SMTP id
+ 98e67ed59e1d1-3ae8964f436mr24798413a91.2.1793837565532; Wed, 04 Nov 2026
+ 16:12:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,174 +103,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|DS7PR12MB8202:EE_
-X-MS-Office365-Filtering-Correlation-Id: e24237ac-d8d2-44d5-b390-08df3ad14543
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|8060799015|22091999003|260925184616899003|25010399006|19110799012|5072599009|15080799012|24121999003|23021999003|8022599003|24021099003|41001999006|3071699003|26121999007|3412199025|440099028|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?fX+qtjvWgGlAtm4wer63re+33Jdfo0rMdk26d+iOTRTHfzNiqjuymsJai18m?=
- =?us-ascii?Q?O5zqLsemBjwdJAUkiD+NkfCEVTKlth+vTriOucqoY2WwfgCFEsTRrA1KIh+i?=
- =?us-ascii?Q?nMDwaoGzgMw4dY0Ta+DtymPAEZmAlKxZlBoIxe4qz6X/C7lVOBUVEvXD3qQw?=
- =?us-ascii?Q?l6wGH9lr6iIwe+Lv4IQpbGNaRE63/W5aQPEQXLiIj3PmzKcWSXkShijQEmMY?=
- =?us-ascii?Q?TjK5yjcr979KoUnBgzzHc4FmnuW1VmLF8zvC7WJMfaRD1yY5hnRi1oBJbdkt?=
- =?us-ascii?Q?P08kXjLJjMfqGvWQDAWSm9yMDJ9Iml/VWpxTzOnQFuMYBiHgISMkHuNWH7vX?=
- =?us-ascii?Q?e/9w19QmSIHKyNwxpyewbhjDyUrMMlThkl02sviMWKA6MbYSrCQOtgD5IYyb?=
- =?us-ascii?Q?5vuy3A/YBxaNIid4iCbGjwaKAy1vZaozpq0DM0tfIoJg7uQZyCfFfv9MNdy/?=
- =?us-ascii?Q?jIu43M5FHNozIYXGgV+YMlwJdZ9tbhQyqghciF4bVUsupl0iPkG5LyOE5uqB?=
- =?us-ascii?Q?82aKTTBRye9rqfd44smFq/+xrw5PhCucnym6adPB1j9LSOTiXX2ZtRdf+uZM?=
- =?us-ascii?Q?OnJ4kpULYbFyd10Xz/8tI1asGVivDTJ5+7iOJcz7mMkqlR6tQQ3md17IKWex?=
- =?us-ascii?Q?94ph9Fnjr4vlc4E8ACU7dx2r900xwYa5UocxbpFtUHKzEot6CgbOYbU/DEUX?=
- =?us-ascii?Q?MRnHvmtE9HHkNfTtT33DFw7hfe6GAlrId2aWhuEzrIZJNdAj1UPhQNSwIB2t?=
- =?us-ascii?Q?UsAh+caRIDlGQt/IbX/g9bYLkUwVJ+eFypnjHcI4TKnx3GovIvUfGzzZx26C?=
- =?us-ascii?Q?LKZaO1VpUQU71rfXkz3kLXx1YFGHnXccvbFlH5/Q5H6Zbe2L8c5yybmWiiwQ?=
- =?us-ascii?Q?qN/T4asm2J/cOVkN9ntUjS0qKBQzkuo/rL4EOmEF7t7pfmSzDthcuovu6ReQ?=
- =?us-ascii?Q?lr6dfWU8thgTfTkYRpFkbUYc294nTAIAwvIj4afMz+KVIygQ2v2OBZiigkEA?=
- =?us-ascii?Q?NhCrtoDkDe8ewNH9tas4TN/2CjNkr9fr7efTwjPa1TGYElyqlUk1TIw4w/sT?=
- =?us-ascii?Q?E0k5prpce9z88quavrRPLJkYXzvINQ=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YzhF7eBUk7jNJFDarvU+6QWPqii31OzKYG1UOj5o5sj5IpAsNAx+Db4WFI+p?=
- =?us-ascii?Q?lnjgSC8jsHeKGa13E6/kg9QHCVUsIWx2WpM5TWKjDtKY7dsDHheV372P1+0c?=
- =?us-ascii?Q?p4JD4KfDBp0qtQWq9tONmScJ6az7UVGwJTGpeJPDqVbRT1WBUoC6X3H7r6G3?=
- =?us-ascii?Q?UB60OTTikepwSoqt/mG+MPKbA1BSWjqHaeOWInTacOj5LMzXl3+1yHfzo9+G?=
- =?us-ascii?Q?19TYRvH9bbnkFDk8xyWLkunGqXBUQA1IT+Ev9YT1J8zdMfUeXIC3Wwo85SIe?=
- =?us-ascii?Q?oJyGIxgq9pu8YRlIFvUfBDMPCIiY6qPhRg7SiOGl93xECDJSxVRyBi8KzSVp?=
- =?us-ascii?Q?UyhaahxWXHLit+O3Sv299CHj3iK5p2gQXL9aOyWre+k0+I2yHZGmdezYjT9l?=
- =?us-ascii?Q?qUQAB5whrigccosBPxqWZ4JTwcMox5M8xqlh56C60vx0mi+gNJez/PzLXRpU?=
- =?us-ascii?Q?TUwq+kSaoewb9BHXsXKY4ZslkVLqDFqSnWKdhBpq5Id57Yg0cMdw8AHhyUZ8?=
- =?us-ascii?Q?ILi2lGyBBPZUa9tdEyU9mR78Y5q5D+Ri22JjAeOB0AUtY+chVtisU/dVMwh0?=
- =?us-ascii?Q?7xNjzx4DiTwAqTuMzke3WLgtEdYQT4UabXloD7G3qa68mvqzv1iNT8qInbkA?=
- =?us-ascii?Q?GhtW74nqg/5FRNFV9krO3V8Ol6FG52KARX4gIB1qi6xc4pzhwzyyLlm82jL0?=
- =?us-ascii?Q?hhqdKDUO2KxL6/RJ/tJP+tIiD021qJ8fWW/G8qAK3R2aQ13b84cQyYt9hzOo?=
- =?us-ascii?Q?evNWe1BVCFzdYdH5JH+Ut/TreXrrGUQzNMB/PAWsr5uw0uje1LlQFgzBFi6C?=
- =?us-ascii?Q?Uq2kBJjq6KDN6mDncrA0g7LzNqNmi5RFIS2I2MEJJS1/aLrWx2HgIHAAeGXc?=
- =?us-ascii?Q?vFfd9osw1QcYL4b3V059Ug+bw0n3QWmLDBPPRFz+x6uZY6LTWyXUbXsYQA7H?=
- =?us-ascii?Q?SmFZJlqPKp+OJWqLB9AOQ+ku9ufDNErlaDEIeNgdH/TqwpQbjjkynSX8XaOo?=
- =?us-ascii?Q?Uz5gMbWXgdNAkfSgDM3TXH8Uw0AKYLJUpvKvHHCF4WuIvi/ufehBsBLEbGc4?=
- =?us-ascii?Q?ktpKHZUS84vHkcQutAQnv49CYwV0g6nzXzpSR6aIGKu0yVszqyCa2pnMR4KD?=
- =?us-ascii?Q?dRZQ8tf/Jc56jvrwvyzz47j6FGtvW93d8Ay4kppzaF5BKwtLM9kPDCoGg4sd?=
- =?us-ascii?Q?75CrRNEVY/XVvfZ4alN9yg22fUM3jo4RuoPZLA3Drd1GcmDH8B9ovqrt5WZI?=
- =?us-ascii?Q?fGtbmReY+DBDuqixEHHQa4Nx7yueZsH7A/zTIRGpk60/a4skMiYJIsjiPPd4?=
- =?us-ascii?Q?WBGlQvxeU3l8cLKOfUJmqelrQhzj9rte9TStvruvepxzbUqrIlpRDr+OBzQD?=
- =?us-ascii?Q?DrkvCldBB3UBstXzsYHf0UYa2M8Mb3A0Y7gRp6BQaTJCXWqBNA=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e24237ac-d8d2-44d5-b390-08df3ad14543
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 00:10:59.7856
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8202
+References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com>
+ <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com> <e3f63654-0f7c-462b-b58d-05f3164fe340@linux.dev>
+ <DMM2G9OX9ACV.231CHJEPK0OHU@gmail.com>
+In-Reply-To: <DMM2G9OX9ACV.231CHJEPK0OHU@gmail.com>
+From: Mike Bazov <mikeba@sentinelone.com>
+Date: Thu, 5 Nov 2026 02:12:51 +0200
+X-Gm-Features: AclHuK-Mv6D6Vzn9HGZ74QBGavLw0oS_88AhPwykn9JGIV4rU_H6TjzTRynM-M4
+Message-ID: <CAPnbwjpQBR-KHwOMG2bo1uhdp22ZW_O5sUj3=vjazVu=Rdnb7A@mail.gmail.com>
+Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let preemption
+ cause false recursion drops in trampoline progs
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: JP Kobryn <jp.kobryn@linux.dev>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-These functions are equivalent to their regmap_field_* counterparts,
-but allow working with reg_field directly, without having to
-allocate and manage regmap_fields.
+On Wed, Nov 04, 2026 at 02:20 AM Alexei Starovoitov
+<alexei.starovoitov@gmail.com> wrote:
+   > Add bpf_preempt_disable().
+   > Your test forces the preemption in the middle of the prog.
+   > Explicit bpf_preempt_disable() will fix it.
 
-Signed-off-by: Victor Chernyakin <chernyakin.victor.j@outlook.com>
----
- include/linux/regmap.h | 61 +++++++++++++++++++++++++++++++++++-------
- 1 file changed, 51 insertions(+), 10 deletions(-)
+   I tried it, and with the whole prog body wrapped in bpf_preempt_disable() /
+   bpf_preempt_enable(), Task B is still skipped in every round (on a 7.0
+   kernel, 20 rounds, fentry and fexit: runs_b=0, recursion_misses=20).
 
-diff --git a/include/linux/regmap.h b/include/linux/regmap.h
-index c8aebd148e08..b4131495d993 100644
---- a/include/linux/regmap.h
-+++ b/include/linux/regmap.h
-@@ -11,6 +11,7 @@
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/bug.h>
- #include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-@@ -1463,18 +1464,18 @@ struct reg_field {
- 	unsigned int id_offset;
- };
- 
--#define REG_FIELD(_reg, _lsb, _msb) {		\
--				.reg = _reg,	\
--				.lsb = _lsb,	\
--				.msb = _msb,	\
-+#define REG_FIELD(_reg, _lsb, _msb) (struct reg_field){	\
-+				.reg = _reg,		\
-+				.lsb = _lsb,		\
-+				.msb = _msb,		\
- 				}
- 
--#define REG_FIELD_ID(_reg, _lsb, _msb, _size, _offset) {	\
--				.reg = _reg,			\
--				.lsb = _lsb,			\
--				.msb = _msb,			\
--				.id_size = _size,		\
--				.id_offset = _offset,		\
-+#define REG_FIELD_ID(_reg, _lsb, _msb, _size, _offset) (struct reg_field){ \
-+				.reg = _reg,				   \
-+				.lsb = _lsb,				   \
-+				.msb = _msb,				   \
-+				.id_size = _size,			   \
-+				.id_offset = _offset,			   \
- 				}
- 
- struct regmap_field *regmap_field_alloc(struct regmap *regmap,
-@@ -1583,6 +1584,30 @@ regmap_fields_force_update_bits(struct regmap_field *field, unsigned int id,
- 					      NULL, false, true);
- }
- 
-+static inline int
-+regmap_reg_field_read(struct regmap *regmap, struct reg_field field,
-+		      unsigned int *val)
-+{
-+	int ret;
-+
-+	ret = regmap_read(regmap, field.reg, val);
-+	if (ret)
-+		return ret;
-+
-+	*val = field_get(GENMASK(field.msb, field.lsb), *val);
-+
-+	return ret;
-+}
-+
-+static inline int
-+regmap_reg_field_write(struct regmap *regmap, struct reg_field field,
-+		       unsigned int val)
-+{
-+	return regmap_update_bits(regmap, field.reg,
-+				  GENMASK(field.msb, field.lsb),
-+				  val << field.lsb);
-+}
-+
- /**
-  * struct regmap_irq_type - IRQ type definitions.
-  *
-@@ -2071,6 +2096,22 @@ regmap_fields_force_update_bits(struct regmap_field *field, unsigned int id,
- 	return -EINVAL;
- }
- 
-+static inline int
-+regmap_reg_field_read(struct regmap *regmap, struct reg_field field,
-+		      unsigned int *val)
-+{
-+	WARN_ONCE(1, "regmap API is disabled");
-+	return -EINVAL;
-+}
-+
-+static inline int
-+regmap_reg_field_write(struct regmap *regmap, struct reg_field field,
-+		       unsigned int val)
-+{
-+	WARN_ONCE(1, "regmap API is disabled");
-+	return -EINVAL;
-+}
-+
- static inline int regmap_get_val_bytes(struct regmap *map)
- {
- 	WARN_ONCE(1, "regmap API is disabled");
--- 
-2.53.0
+   perf record -e sched:sched_switch -g shows where Task A is switched out
+   now, 20 of 20 (Task A, SCHED_OTHER, preempted by Task B, SCHED_FIFO):
 
+     __schedule+0x48f
+     preempt_schedule+0x59
+     preempt_schedule_thunk+0x16
+     bpf_preempt_enable+0x1c
+     bpf_trampoline_6442539626+0x105
+     bpf_prog_7dd04eadc26e277d_on_fentry+0x11
+     bpf_trampoline_6442539626+0x192
+     __set_task_comm+0x5
+
+   That is still inside the prog, while prog->active is held.
+
+   > What are run_cnt and recursion_misses of your progs on inet_sendmsg()
+   > and inet_recvmsg() in production?
+
+   We hit this while testing new distros with 7.0 kernels, so we don't
+   have fleet numbers for these counters yet. For our inet_sendmsg/recvmsg
+   progs, in testing: fentry/fexit on inet[6]_{send,recv}msg, Ubuntu 24.04
+   with its stock 7.0 HWE kernel (7.0.0-38-generic, default lazy
+   preemption, 4 vCPUs), behind nginx -> gunicorn -> redis, with wrk from
+   another machine (128 keep-alive connections, ~1.07M requests over 10
+   minutes, ~62% CPU):
+
+     run_cnt 38040015, recursion_misses 4063
