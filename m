@@ -1,104 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894392;
-	b=Q4W3uYIXW88iOxkzyMGwILsJq4PoBjfpYGj++FaUAZVxukR7jAe8bQZgqPUfUtl5BK1+
-	 rc0HhhSj9r/pWd/ytsgLuXqrH1j+BZFlUZgkmREa+3VWPsGgd5EcWltlx3khWij0SGrRG
-	 v07c0+0hwu8rtYumiPtC9j5FA/8IASzOxLcc7qMScDPr4qj5SwMhfXck/Uil9yGmxH2xS
-	 gEAsZMh8f8JgCKwF3gH0K9/Hu/5300e9bC8axlo8iWa3opjACLFo/vkQD8Qt3gppsiOLE
-	 93uPMXwCa3m6qYCZE7xrkUTH/Y6iYlyX5vgz/+NtO2J2M+fDAoCVDH+Idm4eg0A9sMA==
+	t=1793894470;
+	b=43ctRybttwrgsfd7t+CLihSdtgPgqOLsNAxm9+EWKdb98edVgeHAe45L4wMeAgpzjfqY
+	 rUyUgNg0hzRHTYWPOGB+7GH2JUm/PKvMQKK39yQ14H1qWuZptvkYC1zmAUsJCl3zJrU37
+	 4r7lkX9rSDO2L7Ep87HyP9XBGmBNHT5fm3ac0PDdS7zq1iyDcICJLhIBJjJOVDr1jna+y
+	 6SpzDCDZtk0o8YKj2g8v+PqrNU9RyuXL5iG1KL0yeJnfO5voaJSxwkSrcOsrMNPhyU5pa
+	 eZCjizfUxWpqfYhCpbmNNMuT+ExF1pE/WEqpiKLcZL4oyaUzzn1fwZDoYMf8EPYquSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894392;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SyweY0UXz6hh0hI/nESUYL8IRVfask0csXM9VevHXJw=;
-	b=BUoTz4lOcqM/NEut2IY6qAUngyBwBnDojxfyJivlsOJK4d4nkTg7Keo9Ej7K8iJc7ZQX
-	 CEYJPfcBnZ3Jqmm8S3xDEGg/oN8PzM6Un6nXm6gmtw/9KjSAtFElrKovpXcAQIviBrKDY
-	 uvQ9M1JpY4Mvx4AE6QcSl0FyslIFGzaG1w8dS0eVn4G2cXpTDJx2sy7189m9bfT2nRqjE
-	 bBmuEIfV3n36FohQ3f/2OtzPEeGxpJmQGcAQ6YSRE1lVY8Qty44n9LOmg4iWrZhbwomPH
-	 0kWp2a8gIgjNeFcfN214go0Q6oCIuVoKQRDoUefnfOwpzHGWRFpiz63o0SLG+Y10mlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894470;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=CjrE996mbHD688Azk7xShmRqtjIV5ektDyk+Sc1o3vY=;
+	b=N/oM/Ia5leOyMhbeSBkq+OzNqK4/s2MCYX+RQvs1BNutlw8uOeHpqu5hYZCHrN1DEz4V
+	 8OolsFwcdEt+M4+BpPicbxgelTQYKphbk8rg+mW+BvyFpQ7gSZNYPZuCDTZl68T1DhHVA
+	 wwjG3fs1vPiCIvMsnpmUIulsEyqqlY65d5KM114hfLS1egJZrIvtRm40xegB8Oxcu+gKp
+	 fTnNNHdNNXUmDtmV0WdTcm9ogLjemZl64+bDs7miNkmZA9iTd8E8UIGqksjA72ghQs5sE
+	 VAjmdbWRiWDduTTlTvKSCtuTEBEk4ntXwv8CxDea86kU85Zdrs6SrmpZI0cTdMv7Ibg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=imh3HM7u;
-	arc=none smtp.remote-ip=209.85.222.46
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=P2tndkRF;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0592F606A60C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:59:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0592F606A60C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C335E606B445
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C335E606B445
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=imh3HM7u
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-9950a7530d9so1014227241.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:59:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793894386; x=1794499186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SyweY0UXz6hh0hI/nESUYL8IRVfask0csXM9VevHXJw=;
-        b=imh3HM7uPpU/TSgpgy9tuGDfsT3kYPBMMDlqwUxIWR9eni6++YnmIn/DFaEGnaw6Dr
-         +nWZ4e9BcKaqrBG0RmBswk3iRHUnqLWWrADqGFso0TxcbQ1KdBvxxUF+siqurSVI4Yrf
-         BSz7ljqX0zkXncPcJgaHGMZ+OJ23cm4EEtj9KPVq7qB4frJ36YWuBBHG0wdJnVCpfH/K
-         L9No9V1wjswYmImK37+33bhDghJ8Wn3pZ2G7zh0kVua0SzhC4xUUvFZLkX+l6ChWDRb5
-         GhHADEPHBC6EWB62YFZ2bRuOVzR7/gwYMGmrawc407G4qZgEI7be0Lq9nOnreJdYyw7o
-         TLgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894386; x=1794499186;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SyweY0UXz6hh0hI/nESUYL8IRVfask0csXM9VevHXJw=;
-        b=hSYJhKTr+5ZDQVGBDeT/1ghN8RQ+YI4JhKDeYZb5E0NdyNp6JRLrhzZZyK1PWOzQ5n
-         zDa1zA5lqF39uix49GVm45Ob5IfmjOVBCYruVxMEG+/8GCSfJrcUNl2m22tVQwzXpg8t
-         2UMG0w0JHLZgwVAMNIwqKWdbehME/xUYjQ8lpIVVFNcZPFb/JPakILHcray03zwbOqDq
-         F4UwWm6SQPgeTVeYGyCxFsn0Xqzi3JCAPgFrIEvyx4gNoJp17wOcqJJpRVSmsayjhkIq
-         Xzqpgs3Ddm+QbCiZNpPImbboSmB86PAcYw6Lk/qGDjDx5dCdAxTxh4vH3irjhlaTPUO5
-         N6bQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGbtsOYoQmJIBji1PhrNZH0+bb7l0sZba3/kRgCpusN29+Dg9K6dyc0yBXyeKi3qhCZolr0GVX3jRvqkU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lZhi351bE/TYgBrP61VMumqntxYl88ZDh6n/LPtR9b2sa1Yfe
-	a7JkhAtO2XEe7TE2jsXb53GTTC5o0crdJyWMmQ/puxrswOQNnzx+16POnj6qjfcwzA8=
-X-Gm-Gg: AYBFou2CYu6/akqXU5QMbhy69EOClPlZ/eDPzTYWJyVbPkp//YkEufxLiB/GIhkCpB2
-	k895GjV6zl0+j9dRsjc0XGcEIdzBgSXiuAetLRI+YP5qa/i/LurKUdxDjT2tNw4i8KHfYTsz2w7
-	UKDvwEgfPf9lCaub/4oSSBpadAaHaruzJlzri/Fc7kfjw8aY6zTvmZkMUbtc0gDfh7kSbyl3UGi
-	oTVTqjZUBNhJOfNCJoRS5aeVHh1Zf27hDXnfG5xJvgwF5/vv93cDJVX3AM2wGqFjJheGCRyoXCY
-	KTjRsVusCBYooEsgVh6GDyu4xOdjzpGf6xe4Fppxp+g/qT0EBdD3mGFs4Z9jPa/NPGyQ3PwzYzE
-	nP67NvDol2sBVKhW1LciUTRvL5UeCdspfXTcBZ6jBMNuMkxv9m6Z8ObunijkLBL0XU868c9x8lQ
-	tqpyQ7mbJpMnalCJhDdN3OvSmm7u49dJPAHFeYn1Ilw32MVHMkFjEA3G03OeJwM7Rdx0PpKKEXB
-	GT2wmEU8Nx0FmKEQnihjXXkKom0Uj8VPwind+uDyCE8S4J0KoeG6sugjZAFpehi/n5Bhx4Da42n
-	T+7GPY7uLNeY1eltQ/2HsflK89+54+I3T+A8oxln2fjm6EvUu4rYC9BnWwqwfAFi+A==
-X-Received: by 2002:a67:e11a:0:b0:7cc:2c52:47aa with SMTP id ada2fe7eead31-7d2a0f73864mr14699137.0.1793894385884;
-        Thu, 05 Nov 2026 07:59:45 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.254])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d296415719sm1096670137.8.2026.11.05.07.59.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:59:45 -0800 (PST)
-Date: Thu, 05 Nov 2026 15:59:44 +0000
-Message-ID: <499ba73b1a72a30c6118a4f693f8fc5b.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>,
- Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
- Christoph Hellwig <hch@lst.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
- Jan Kara <jack@suse.cz>, Takashi Iwai <tiwai@suse.de>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-raid@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 0/7] proc: move procfs to what kernfs does
-In-Reply-To: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
-References: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=P2tndkRF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=CjrE996mbHD688Azk7xShmRqtjIV5ektDyk+Sc1o3vY=; b=P2tndkRFhwKcq8ZimhgsKrV1Lw
+	h6GdmLJUUKcSMPmrQORVIEBBJLkQblIBEJY32pnDAIbbwug7LYROs3ZGm2iYYKV6EZM9nSFo7Pni2
+	A8ZgvmUM7c79ZILI7bnUlAu+ryReET77jpfa9zucImQqvmrZUvnWor3Uz5alC0osH3WUzIXsB4bJu
+	0A168ZF1MUWbBSy6rMQ9/Vvs7FTJCdu2Q4fU96662S15LCRc6uS1j8fbvEQFyIbafOFOU60WJ2q8w
+	+UxJC+0KnB66DRCnxkBkCdo2KVzBVqGasj7m4NauaM/skKUdMpLxo5xelNxuPtC/lPeIw4jMN136I
+	YA4JaiaQ==;
+Received: from [205.251.233.52] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOzte-00000009elU-1nc9;
+	Thu, 05 Nov 2026 16:01:02 +0000
+Message-ID: <28f6c9b14c7e83fc532ba61c95c366e732ab215a.camel@infradead.org>
+Subject: Re: [PATCH] timekeeping: Initialize TAI offset to 37 seconds
+From: David Woodhouse <dwmw2@infradead.org>
+To: Miroslav Lichvar <mlichvar@redhat.com>, John Stultz
+ <jstultz@google.com>,  Thomas Gleixner	 <tglx@kernel.org>, Stephen Boyd
+ <sboyd@kernel.org>
+Cc: Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org
+Date: Thu, 05 Nov 2026 08:00:59 -0800
+In-Reply-To: <20261105135316.2465369-1-mlichvar@redhat.com>
+References: <20261105135316.2465369-1-mlichvar@redhat.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-zcJ+H63dq4gnRHO0jvXH"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,178 +69,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Hey Christian,
 
-This is a summary of my Claude review of v2.  v2 went out before my mail
-on the RFC [1] did, so the first part is what's left of that one with
-the new patch numbers and the second part is what's new in v2.  What
-says "run" was run in a VM on top of v2, the rest is from reading the
-code.
+--=-zcJ+H63dq4gnRHO0jvXH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-3 (selftests Makefile), 4 (pde_seq_next()), 5 (sysctl readdir ending
-early) and the allocinfo deadlock from that mail are gone in v2.  These
-still apply:
+On Thu, 2026-11-05 at 14:53 +0100, Miroslav Lichvar wrote:
+> With Resolution 5 of the 28th CGPM (continuous UTC becoming effective on
+> 20 May 2027) [1] and no leap second announced for the last possible
+> date at the end of the year 2026 [2], no more leap seconds or other
+> leaps in UTC are expected for at least a few hundred years. The TAI-UTC
+> offset can be assumed now to be constant (37 seconds).
+>=20
+> Set the offset in the timekeeping initialization to the expected value
+> to not require it to be set in user space via ADJ_TAI. It can still be
+> changed, and leap seconds can still be set, but nothing should be
+> expected to do that anymore. Existing applications are expected to
+> either set the offset to the same value, or not touch it at all if they
+> see it is not zero.
+>=20
+> [1] https://www.bipm.org/en/cgpm-2026/resolution-5
+> [2] https://datacenter.iers.org/data/16/bulletinc-072.txt
 
-- 1 is bugfixes 32/51 ("proc: resume readdir after the last name it
-  returned") now and the patch is unchanged.  Run again, readdir(2)
-  still returns 1 without a dirent at the end of /proc/fs, bus, driver,
-  irq, tty, net and self/net, for all of the 100000 calls.
+For the kernel patch,
 
-- 2 is cleanup 5/6 ("proc: drop the _buf suffix from the new methods")
-  now.  Run again, the module with .proc_read = seq_read builds without
-  a warning with W=1, loads without a warning, and every read() fails
-  with -EFAULT.  There's still nothing in porting.rst.
+Acked-by: David Woodhouse <dwmw@amazon.co.uk>
 
-- 6 is bugfixes 47/51, 48/51 and 50/51 now.  47/51 has no Fixes: or
-  stable tag, 48/51 is tagged for stable and git apply takes it on top
-  of 46/51 with two hunks offset by 6 lines.  50/51 has the same Fixes:
-  7e0e953bb0cf.
+Although I don't want that to be taken as any kind of endorsement of
+the rampant horseshit that is this statement from your [1]:
 
-- All of the smaller stuff.  The cursor is allocated in one place since
-  core 03/23 and it's still GFP_KERNEL, copy_to_user_fromio() loses its
-  last caller in drivers 24/26, the sentence about ntfs_set_label() is
-  in fs 07/30, and snd_info_text_entry_write() still drops what was
-  written before it grows the buffer.
+|recognizing that
+|
+|    industrial users and the synchronization needs of national critical
+|    infrastructures, for example transportation, energy distribution,
+|    telecommunication, and space projects require UTC to be continuous
+|    without any future adjustment,=20
 
-New in v2:
+... or of the idea that doing a *larger* jump, much *less* frequently,
+is a better idea. They should have just inserted either a positive or
+negative leap second at *every* opportunity instead, to help make sure
+that bugs are caught.
 
-1) bugfixes 01/51 ("alloc_tag: don't remove /proc/allocinfo under the
-   codetag module lock")
+--=-zcJ+H63dq4gnRHO0jvXH
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-shutdown_mem_profiling_async() is defined outside of #ifdef
-CONFIG_MODULES and its three callers are inside of it.  Run with
-CONFIG_MODULES=n, CONFIG_MEM_ALLOC_PROFILING=y and CONFIG_WERROR=y,
-v7.4-rc1 builds mm/alloc_tag.o and with 01/51 it's
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+c19l1Bk3po5g8mBk53UjN6sAAAAAAAA=
 
-	mm/alloc_tag.c:620:13: error: 'shutdown_mem_profiling_async' defined but not used [-Werror=unused-function]
 
-This one is tagged for stable.
-
-2) drivers 07/26 ("md: let procfs own the wait queue of /proc/mdstat")
-
-md_exit() used to remove /proc/mdstat first, which waited for the
-readers.  It now does that after destroy_workqueue(md_misc_wq), so that
-nothing can reach proc_poll_notify() on a removed entry.  But a reader
-can be in here while md_exit() runs:
-
-	mddev = list_entry(v, struct mddev, all_mddevs);
-	if (!mddev_get(mddev))
-		return 0;
-
-	spin_unlock(&all_mddevs_lock);
-	...
-	spin_lock(&all_mddevs_lock);
-	...
-	mddev_put_locked(mddev);
-
-md_exit() clears the array, but its mddev_put_locked() isn't the last
-one anymore, so nothing gets queued and destroy_workqueue() has nothing
-to wait for.  The reader's put is the last one and ends up in
-
-	queue_work(md_misc_wq, &mddev->del_work);
-
-on the destroyed workqueue.  It takes an rmmod with an inactive array
-left over and somebody reading /proc/mdstat, and this wasn't run.
-
-The two orders each fix one side.  If proc_poll_notify() was safe to
-call on an entry that's been removed the removal could stay where it
-was.
-
-3) core 21/23 ("proc: let lockdep check the pin")
-
-The class is keyed on the proc_ops, and every ALSA text entry uses
-snd_info_text_entry_ops, so they're all one class.  Run with
-PROVE_LOCKING and snd-dummy built in, cat /proc/asound/pcm and then
-unbind snd_dummy.0:
-
-	WARNING: possible circular locking dependency detected
-	init/1 is trying to acquire lock:
-	 (pde->in_use){++++}-{0:0}, at: __remove_proc_subtree
-	but task is already holding lock:
-	 (register_mutex#3){+.+.}-{4:4}, at: snd_pcm_dev_disconnect
-
-	-> #1 (register_mutex#3){+.+.}-{4:4}:
-	       snd_pcm_proc_read
-	       snd_info_seq_show
-	       seq_read_iter
-
-	-> #0 (pde->in_use){++++}-{0:0}:
-	       proc_entry_rundown
-	       __remove_proc_subtree
-	       snd_info_disconnect_entry
-	       snd_pcm_dev_disconnect
-
-snd_pcm_proc_read() is the only proc callback that takes register_mutex
-and it only serves /proc/asound/pcm.  What snd_pcm_dev_disconnect()
-removes under the mutex is pcmNp and pcmNc, and nothing below those
-takes it.  So it's a false positive, and it turns lockdep off for
-whoever unplugs a sound card.  The removal under register_mutex is
-already there at your base, only the annotation is new.
-
-proc_create_single_data() gets a key per registration site, but there's
-no way for a proc_create_data() user that multiplexes callbacks behind
-one proc_ops to say so.  sysfs has the per attribute key and
-ignore_lockdep for this.
-
-4) core 20/23 ("selftests/proc: check that a mapped entry can be
-   removed")
-
-The core cover letter says this one "fails without the mmap patch and
-passes with it".  Run against a virtio-rng device, it passes on core
-18/23, which has no proc_vm_ops in System.map, and it passes on the
-whole series.  The test checks that the removal doesn't wait, that the
-entry is gone and that pread() fails with -EIO, and it doesn't touch the
-mapping after the removal, so none of the new wrappers run on a removed
-entry.  These kernels had neither KASAN nor lockdep, so if what fails
-for you is a splat then that's the difference, but the test itself
-doesn't notice.
-
-5) core 18/23 ("proc: let procfs copy ioctl arguments in and out")
-
-No Signed-off-by in the mail.  It's the only one of the 172, and the RFC
-version had it.
-
-Smaller stuff:
-
-- The 0/7 mail still says "the xt_recent deadlock fixed in (1) below".
-  The part 1 cover letter has it right, it goes through netfilter now.
-
-- cleanup 03/06 says mmap() and write() are all that changes for kcore,
-  kmsg and the kpage files.  proc_reg_poll() answered for every regular
-  file, and kcore_fops and the three kpage ones have no ->poll(), so
-  EPOLL_CTL_ADD on them goes from working to -EPERM.  I doubt anybody
-  cares, it's only the changelog.
-
-One more old one for part 1, and this is the lockdep patch doing its
-job.  devm_rtc_unregister_device() holds rtc->ops_lock over
-rtc_proc_del_device(), and rtc_proc_show() -> rtc_read_time() takes
-ops_lock while it's pinned.  Run with PROVE_LOCKING and rtc-test as
-rtc0, cat /proc/driver/rtc and then unbind rtc-test.0:
-
-	WARNING: possible circular locking dependency detected
-	init/1 is trying to acquire lock:
-	 (pde->in_use){++++}-{0:0}, at: remove_proc_entry
-	but task is already holding lock:
-	 (&rtc->ops_lock){+.+.}-{4:4}, at: devm_rtc_unregister_device
-
-	-> #1 (&rtc->ops_lock){+.+.}-{4:4}:
-	       rtc_read_time
-	       rtc_proc_show
-	       seq_read_iter
-
-That one is the same entry on both sides, so it's real.
-rtc_read_time() uses mutex_lock_interruptible(), so a signal to the
-reader gets both of them out of it.
-
-The end state still checks out.  Every proc_ops initializer matches the
-final struct, nothing copies to or from userspace while pinned, and it
-didn't find anything wrong with the new seq_file, open node, poll or
-vm_ops code itself.
-
-[1] https://lore.kernel.org/r/464ef986eab97abf226791c7e19ad111.josef@toxicpanda.com
-
-Thanks,
-Josef
+--=-zcJ+H63dq4gnRHO0jvXH--
