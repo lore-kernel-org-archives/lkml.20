@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793851662;
-	b=EleBb6/0N6OTBIILf8NOgMMXKiqLQ+KozvI9B8CXjhmsJwMhjdDuZozie5ruDtSr0rn4
-	 whARqL7hGRUXozrY8I0nrXJIf/L6FCHyyd6gNrpspiRl+sUQ7Boqc48DZPTxwxAouhHGS
-	 QnG/Wml6YaMI1xGswq0z3gnZyjIUuj2PKyPErYzEU3yNf6UvKGNet4j1LBxTnfKvfwJ8n
-	 m5ANkzkmT7RTrgs2KAITVUX7mnwX+RhzDYKjFnyyee2BWuEOUuij3hTHsPLJepx7+t/V/
-	 A3HOyokzmBR9zEeF7nI+R5tFGHA0NmhiiMc22AaeUfyB1yN13NULxbQh1JPXV8iet8A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851662;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cWiKbKgJwx/tU3tSKoTmJCpiwOyxJ2711fH4tsRrR6g=;
-	b=kV1QBKWz9LTI/mGN6VP47ZklxjDe+7JSpwaTZQF2/vAiBYiqTYQvZx1CGGW1a3aYKMKB
-	 z+rKT78nbURS5HARl7CIwKI2HNY1/9AWjnDcu3dh8KewH3e4D/lLTHtyWYxBG568j2NHg
-	 VGiMe8mvpqiXAxbqPeNAmSaMNY4X8z2cdQwBiGvRN0Vmo61dWKa5vv8Hl9ebQnMZRV1CK
-	 rRaU09g8WLRoPqZ0+9R3+uhbzj/SraaESMF45VV59cHY4Wz6ETLZDJXnlLgNMniD9Oxtx
-	 EyczhePo8ifeJK7iF/RYUat+nBHo2iLkj3LKGkexO57/FoQCr+5+SBZAJg2Q+tvmDaQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSMcCrKX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA30F606A326;
-	Thu,  5 Nov 2026 04:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSMcCrKX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793851661;
-	b=YekqO9cLddD5fJP6glKpQErHeu3HqktOtlHmjW/53pwwWuczqVxZVlTNWsu8dVGbaOri
-	 dPWUkbW0p/OTv+iq5z6VR34l1FuwzKSc+AvihPRImr7waoc0tqoSLiFzgewf5zd7N+Ov7
-	 4A0O+twy3iUyOy+LX6auSWPwia86W1qEtw2WpYPAfLfCaAPtOfrcghxYuecIqPqjo8uVO
-	 qbgeTTHxZ9UKXcErfI6lRJLZZe0mOV8bdeYOsSbUrbwuL4regeOZFxi1qwNhc53Z/UMl/
-	 Wm3AywffpyMnSfL6p1liGygBMYEA16gZAVkTzCBy/hX+9klOAG8jhUTnEk7aptxRTNA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793851661;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=cWiKbKgJwx/tU3tSKoTmJCpiwOyxJ2711fH4tsRrR6g=;
-	b=Oiqtjc4do4CHGHPFOFt0OBut8AziZuobgEjAvz4290lamkHAbNlxpWccmR0Lo7zzEorw
-	 Qd25LQMNqgx3hlIfM/KrsWkmENY761VuxxkRn2qPIA/eCWBzhXXnO1nfYHbQ2ivmJuA0c
-	 Fepn/VtFwz3ydTc3PDlxMDEq/P29oXD8qmgzgH87zuXafAMShRFrVBTXpL+JJCEcXpzjx
-	 DQeHjHttdsUo+MbbMQm38KdrVAgRtSJ8atxVrNbKN1OGSB9YRqhr6y+6NImU2Thr0CODV
-	 b4RPfzIcuEQUkowkYLjIA9ldBWiCBg4pM5S/mRXOXY4HkliHXa2JarjRyirLNi8OVOg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.207
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793851686;
+	b=kmMNyY6frVawAVh7VTuimKU6Eq+c5fdu0KwhOy3bPHmly9R+oxN4mQm/cOiCJeSWo5xY
+	 8jHiCuWx8nE441tgG3xLNwza0bDQOmqrNivbvvxGStkaSmSp2a+5h9dZJ/XLkYunkP75n
+	 f+rHieIjhdn35Mrr4vsYLighWOMZ2wYlNLp6O3+BQSA2NuSGoWa8hBNlJSSEn5ae7nd7X
+	 xfY5dskXh4a66LtvhWgGfRS5pCAuZ5tcIkyfKQnwsb0ek1tQcJT/gPlzpVRhRDftG8N+g
+	 /y2OFqa/Q2Xmnk7jza2SmjZpNZ76BEYHX3YZtMs2WzxlaJ+Irzvo34ulhODfkEoY7zg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793851686;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=NDjRE08wBO6pV06Ou8hAMmC9xnZwvIAddVeS9T1njfA=;
+	b=uP+bShLXIBarKwDgjpbBSELoId/GpbDsw4HdmPsPpDUIsXjJNYB9T3n8NQVv0wyF4cvR
+	 xljkceBsEd8rn4jQOsiRTkU6VTpw7PDmYbthe8vUnB434tN+8OE/aDyyZBnJfNvEUfV+e
+	 eYjwWYdZvh3/jffKfBhk+wxUvpSdv3N1NoFHws7LZVXmF20WTbtkAkDz5su4tSCOXWikM
+	 R3IeBu+/JHzYHe92AYsUsPXeQ4sEK8KfbIisY6xeRakRPTY/PbU+4pC1zurIQJJZj9lOm
+	 /aYVcnf4BqttBj0ddkUyts/uekP0ksuPITvLnKzuq3qaQfZ3YcRpKDGsfhbz2nPIrww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h6bzdrvm;
+	arc=none smtp.remote-ip=95.215.58.207
+Received: from mta1.migadu.com (out-207.mta1.migadu.com [95.215.58.207])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C27951F000C1;
-	Thu,  5 Nov 2026 04:07:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793851661;
-	bh=cWiKbKgJwx/tU3tSKoTmJCpiwOyxJ2711fH4tsRrR6g=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=mSMcCrKXRuQTgvFCCbTVjrPfB86fsS/aP5Jw5/LExmP9hniTIaeyrBlodTl/IY2+h
-	 46oXyVWxvlrEptvFyLtjQNgzMrKOX3S8CpaFcpOkaAEhKDRBF7K6gRvsC6PU7n9Nhm
-	 O/kVUQPg1OHlEX3158xtU7yryM2QmvQm07Loi0y4WJyi6EEMLrjCrJsawyHxcrj6c8
-	 sG3rk9fBjO9vS8sA4294eu8xxeAfRsqAx5KiqdLjJywofQ7HFwZzp+OmQ5s0p4gdAQ
-	 hfDGF46AZqW6Nd85bX2UYADrWlD5hKI8mL/Q9u92aFVVDSbmNsOVHRFuba/2yMWHac
-	 JM26kmSbHsqGA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2242C4707F;
-	Thu,  5 Nov 2026 04:07:40 +0000 (UTC)
-From: Rajan Yadav via B4 Relay <devnull+rajanyadav0307.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 22:07:40 -0600
-Subject: [PATCH] cpufreq: sun50i: Handle boards with the
- allwinner,sun50i-a133 compatible
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16F2606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F16F2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h6bzdrvm
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Dpp0QW6dxtIsgsNrKwbD1Rm5WJVVVno7NqsqAW1y3b8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793851681; v=1; x=1794456481;
+ b=h6bzdrvm/Ur0kv8vbffG2xS34Jim0MONoZAaiSfCMoP9t+dVQz4zUTEF54fwZ78dSJvhBncK
+ QIdn7FAGic2YhO2wZaXxdhx3ZqbPK0+wERxy7YPaxfOCfKjXiNeWsBIymcoOe4RTuTBlMSzNUrj
+ TTs6TD25LbuPBJmaBEcVVKBw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id aab9737a8e26880c;
+	Thu, 05 Nov 2026 04:08:01 +0000
+X-Mizu-Trace-ID: aab9737a8e26880c
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com,
+	lance.yang@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>
+Subject: [PATCH v2 0/4] mm: hugetlb: fix CMA-related issues
+Date: Thu,  5 Nov 2026 12:07:42 +0800
+Message-ID: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,101 +69,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-a133-fix-v1-1-d0b5ad3d4c5d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAsB7GoC/yXMwQ5AMBAE0F+RPWvSVVH8ijgUi3UoaRFJ498Vx
- zeZmQCeHJOHOgng6GTPq43ANIF+NnYiwUM0ZDIrEGUuDColRr4Eaa10KSscKIdY3xzF+Ltq2t/
- +6Bbq93cP9/0AbGKilWwAAAA=
-X-Change-ID: 20261104-a133-fix-e77378091de4
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Yangtao Li <tiny.windzz@gmail.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Rajan Yadav <rajanyadav0307@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793851659; l=2906;
- i=rajanyadav0307@gmail.com; s=20261103; h=from:subject:message-id;
- bh=4A7N9YN5wiX+ZykiP94lXzZf0+Fik83P+lyG8T8jS7g=;
- b=p+QFXeDZgAVLOudiBWC8+l6munkc1+dSGo/H5Tu3dx+asH/x36G4WB9M63AsGRKC1z7f6zyMW
- N8dAO+vX0x2DVlqSLbC9ZZhF5cHmo5aCniUjFwn45Ycc6tNyUp2rca1
-X-Developer-Key: i=rajanyadav0307@gmail.com; a=ed25519;
- pk=4ZPeiP5qrv2b44q/Obxi2koUS70Q6npbttJnpUoTlgg=
-X-Endpoint-Received: by B4 Relay for rajanyadav0307@gmail.com/20261103 with
- auth_id=1391
-X-Original-From: Rajan Yadav <rajanyadav0307@gmail.com>
-Reply-To: rajanyadav0307@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Rajan Yadav <rajanyadav0307@gmail.com>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-The Teclast P80 uses "allwinner,sun50i-a133" as its only SoC
-compatible, as documented in the arm/sunxi.yaml binding. Neither the
-sun50i cpufreq driver nor the cpufreq-dt-platdev blocklist lists it.
-cpufreq-dt then probes on its own, finds only opp-microvolt-speedN
-properties and fails:
+Hi all,
 
-  cpu cpu0: opp_parse_microvolt: opp-microvolt missing although OPP managing regulators
-  cpu cpu0: _of_add_opp_table_v2: Failed to add OPP, -22
-  cpu cpu0: OPP table can't be empty
+This series fixes four CMA-related issues in HugeTLB reservation,
+long-term pinning and allocation:
 
-so the board runs without CPU frequency scaling.
+ - Avoid ineffective CMA reservations on 32-bit x86 kernels running on
+   CPUs that advertise 1 GiB page support.
+ - Allow long-term pins of explicitly CMA-allocated HugeTLB folios,
+   which already own their CMA bitmap ranges.
+ - Preserve the caller's GFP mask when allocating from CMA.
+ - Enforce cpuset restrictions on gigantic surplus allocations while
+   preserving memory policy semantics.
 
-Add the compatible to both lists.
+Changes in v2:
+ - Replace the PF_MEMALLOC_PIN allocation restriction with a GUP exception
+   for HugeTLB folios marked HPG_cma. (suggested by Muchun Song)
+ - Pass the caller's GFP mask through cma_alloc_frozen_compound() instead
+   of skipping CMA when direct reclaim is disallowed.
+   (suggested by sashiko)
+ - Remove unnecessary revalidation of successfully allocated folios after
+   cpuset changes. Retry only failed allocations.
+   (pointed by Jose A. Perez de Azpillaga)
+ - collect Reviewed-by and Acked-by.
+ - Rebase onto next-20261104.
 
-Tested on a KickPi K5C (A133) with its root compatible changed to
-"allwinner,sun50i-a133" only: on v7.4-rc1 cpufreq fails as above, with
-this change the sun50i driver probes and the A100 speed1 OPPs are used.
-v6.18 fails the same way, also with "kickpi,k5c" listed first.
+Qi Zheng (4):
+  x86: hugetlb: disable default CMA reservations on 32-bit kernel
+  mm: gup: allow long-term pins of CMA-allocated HugeTLB folios
+  mm: hugetlb: fix GFP mask propagation to CMA
+  mm: hugetlb: fix cpuset violations in gigantic surplus allocations
 
-Claude Code (Anthropic) drafted this change and its message from my test
-logs; I reviewed and tested it.
+ arch/x86/mm/hugetlbpage.c |  2 +-
+ include/linux/cma.h       |  2 +-
+ include/linux/mm.h        | 29 +----------------------------
+ mm/cma.c                  |  4 ++--
+ mm/gup.c                  | 31 +++++++++++++++++++++++++++++++
+ mm/hugetlb.c              | 25 ++++++++++++++++++-------
+ mm/hugetlb_cma.c          |  4 ++--
+ 7 files changed, 56 insertions(+), 41 deletions(-)
 
-Fixes: 60b064eb82e6 ("arm64: dts: allwinner: A133: add basic support for Teclast P80 tablet")
-Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
----
-This fixes the Teclast P80 support added in v7.4-rc1, so I think it can
-go in as a fix for 7.4. I do not have a Teclast P80; I reproduced the
-failure on a KickPi K5C as described above. A series with A133 speed
-grade support, which Andre asked for, follows separately.
----
- drivers/cpufreq/cpufreq-dt-platdev.c   | 1 +
- drivers/cpufreq/sun50i-cpufreq-nvmem.c | 1 +
- 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
-index bce4c87573a..6bdeba47749 100644
---- a/drivers/cpufreq/cpufreq-dt-platdev.c
-+++ b/drivers/cpufreq/cpufreq-dt-platdev.c
-@@ -110,6 +110,7 @@ static const struct of_device_id blocklist[] __initconst = {
- 	{ .compatible = "airoha,en7581", },
- 
- 	{ .compatible = "allwinner,sun50i-a100" },
-+	{ .compatible = "allwinner,sun50i-a133", },
- 	{ .compatible = "allwinner,sun50i-h6", },
- 	{ .compatible = "allwinner,sun50i-h616", },
- 	{ .compatible = "allwinner,sun50i-h618", },
-diff --git a/drivers/cpufreq/sun50i-cpufreq-nvmem.c b/drivers/cpufreq/sun50i-cpufreq-nvmem.c
-index 9261d148a16..5d4ff192e99 100644
---- a/drivers/cpufreq/sun50i-cpufreq-nvmem.c
-+++ b/drivers/cpufreq/sun50i-cpufreq-nvmem.c
-@@ -324,6 +324,7 @@ static struct platform_driver sun50i_cpufreq_driver = {
- static const struct of_device_id sun50i_cpufreq_match_list[] = {
- 	{ .compatible = "allwinner,sun50i-h6" },
- 	{ .compatible = "allwinner,sun50i-a100" },
-+	{ .compatible = "allwinner,sun50i-a133" },
- 	{ .compatible = "allwinner,sun50i-h616" },
- 	{ .compatible = "allwinner,sun50i-h618" },
- 	{ .compatible = "allwinner,sun50i-h700" },
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261104-a133-fix-e77378091de4
-
-Best regards,
---  
-Rajan Yadav <rajanyadav0307@gmail.com>
-
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+-- 
+2.54.0
 
