@@ -1,56 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914783;
-	b=rgFbmHiGwksZUpn5RX0O+QCi/4jeXfltkTU6NXW2u/uvJdYh6RYplvdCWra1mawKOZZH
-	 7EiFSOkd1iflsswrGwLa2C+PB1GaYguzbMAfow0dIv/4zh0yTn1Yz2UHkrEWcSYS8bFY3
-	 FOMAg2IaeMzPPRjsQN8s8QByuGgZwOXac26lvIIyz8KJmdF2KViBr5kvlpqe40o6+YYZl
-	 YKlk7QYtl/QDwL7M3xIL3piPCVI9onUNkDor+FCBYnmDozmRkUAzkd+VlAtk3Z8AHKC8q
-	 WcdqnsLCjCrUCzt9HlHI/tTqipxiP2PmaNybL3unD6u3I7JFq6D0PlIbvWiTXcWuPuw==
+	t=1793914848;
+	b=n8X0RW1nyWnl+EBAgSLaZdjdZfxOWD7vh05eC+RrZaG5Zoae/o/RhGmtCFUQsMy66p9w
+	 OQaliulproXJb+RzU0vH++iGkkgrOgPcaKD0DPQdA2oN4/6OgZTzeOubXpk/q+1AbmVGY
+	 gxpvulnR/HOG8KoxnGez9fvMD2KPg7UqOLsyXrjl4S0pwBCK4DDIjZGLIzLYNpsjyxnw6
+	 dGXIjRzMXQjBpikJcQLLYHC5aNdqReL3suJE6wxOB85rXtistqmQmv5g75zOilOCxfpUw
+	 8Y0quyqL0JkZCA6FRnHnnjzsgXRXsKSJuwanYIqywrYnluthVQyVIJlANU9CpDMyHCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914783;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4uSDodCcgcYDH1ty4ZcJJW34BiY+PpPXgdxxUZKLRO8=;
-	b=TwuGkjeZW5hRd3RlIho9x3SV2joev07E4/8xziToxAAo6R8GfRSN/2cKgHg1Ajfj4GA7
-	 JOZXyDNf1A1xieqKp2Z/0IBnz6zhj7KIB51XDRGUT6DLj+DZsRo9bgqN0gly45U4hvW1B
-	 2LKH1yiL75bM3d5kVDyB7H/1b2Wp8GBFPuAKntS415ESfwOm5Q79WkY2jZfGje/qkzI/Z
-	 W7O1VSnqOCTCYSLYzJXu2np+2hsimraErstn2W8auADgZ3n0+CT7iSFvs++ta9xymBqst
-	 sCBcRRAMCnVk6vx/Nhav7GZ8w9N0T1IdzNBYNr6lzXKDhhsnIJfsP+tezZZjJ520yCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914848;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=TiL2IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=;
+	b=CAurTXhEuQWGDF5mF2d+V3+8l9VrvIq5OP9hRmq4ykJqJ/8KINOpCJtp61LWopi+6sVM
+	 Jm4jVVrOoCMlChIJHyGtuGaoK5vx6XNYqcBkSBd9+c/Z/Y9kRLPvEvypcwI+DlnKo+XFP
+	 SUyr5X0vsdgGeuyPtSI33BeeU4hbTwiv8K4J1SDm/p8jefQeCdNRnBbCLYwUDQVT5K2ur
+	 LJdxyDjhj7w3WlDE7m373UUE0CgfG1W0dtEOvM/XZll+xfIgib2Fpb8SBirHxA/ErOXsN
+	 c3s2R2V9Ye10Q0m/mGHz2R52fjNwIvHK99a1eoHkM07cnFAMue2tXu7nF2tOtFa8ihg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Z3poS2/d";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=gSEe04W0;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ixdOxXeu;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D4B606A32C;
-	Thu,  5 Nov 2026 21:39:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A84606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3A84606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3poS2/d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1CF1F0089F;
-	Thu,  5 Nov 2026 21:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793914782;
-	bh=4uSDodCcgcYDH1ty4ZcJJW34BiY+PpPXgdxxUZKLRO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z3poS2/dx8gpVGvc+K5PHUiHPBIB8w0BzSbY7tZVQX5egSFjZqhg+9O8rKZVAz0BY
-	 4oet+NrcYj83moN3He0+UmHjJVJFKaQ/t6kV+5NZhbJGwFzTmMGQH+13WPzgX/MbB4
-	 mW6DD0Zo5NTcWqnI6rfZL1wV3JfFHugvncx2PVOQZv5e6riQtrwOilE8RwEPfTx7ls
-	 kHWg8h+duxUUitlPglVEQl+3Up/MZ1EJItDaFbYsGFJrI1TgP7AGmXHqmub9kx+Kuj
-	 bUtwNzV3CUUJAk9Fm732smd7gGEpYFgTqce5Y/hemmxnN1MX+0H1zvfczKbLAKtL13
-	 5EsI/I6BWiNQw==
-Date: Thu, 5 Nov 2026 22:39:38 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, 
-	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
-Message-ID: <auz0ONYzkWIETv8T@devuan>
-References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
- <20261105112813.13210334@pumpkin>
- <auxrRmyg50gvP1HE@devuan>
- <20261105205321.7b303231@pumpkin>
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=gSEe04W0;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ixdOxXeu
+Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5LY7UK314382
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 16:40:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=TiL2
+	IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=; b=gSEe04W09Z+Nh8ZHcttV
+	bnd4AF4WkzrRlwZafrX5JoEzr5CxThBeF3xKEZOIBcZf19OnJMHqvzml/CUUpRp7
+	hIctJ0EZsgo+t93Nfw/HGZ7RF6zupDHhTHC7r7lBTWanUitvkGm/v6aK5dPekwsV
+	8g4hY5qW70hw3BqJb+UcrTZIkWQfrbdqFYu0SgROjPeKsQKMlzvhzPn3pw3aCFS6
+	qH+ubESFeDDgm5P8F1wFuYtYRe7NKtOchPSI/8U8xHRLTOwgr/bZ/tdVpFpQueX8
+	Mmemd7/RyEzyyUvD7mLL4SXRSAq11zfPe0tCuhterVH5lvwXtNwemmeYxToFA+if
+	ow==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hrw6ek2pf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 16:40:45 -0500 (EST)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9440b27c1feso495080685a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:40:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793914845; x=1794519645; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TiL2IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=;
+        b=ixdOxXeuQ6bjUfzLRCLvJWlLpU0w6m+xj6I4VCuvdLxTkTF1Jf09PtGGgxU006mWFg
+         Fi/aIMVS8sEwnPoRnT9cJbuyb+3FzijAceFvzpexP6ikZllK81NbYC5JFeEEQrU3zkCb
+         V5VcOmMDn9NRMGN/yVCtte7ASePnpZbRs9VtClQ21jDkDZ7qe0aRtFmwOEpmGqVfi9CI
+         bp04iUjc4qxOt9FJA/N2QO9fbwxoZAm4EwEz076r1dG1NeGMHR9I2i0QLlTgFW90qhbz
+         0cY9cWaFjuSedMDSuvXnpPVEmLxnQQHUUlRHND7522mfiR4P/gQPr+FnqWrU5jn1IqN1
+         F+Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793914845; x=1794519645;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TiL2IkZn0wEC7iD+jl10xXWMOQDsgAhBHuaMbQTkHAI=;
+        b=z6Pq5JVQeLk6fEeiz4FHgqVz5h2bpVOFouWN9RMrbASrhRot9gWShzZrihDHV5cCyy
+         NTa7x/9UH3sJV1Z07DlJ+ossw2HfHIIOCRRK/itvtuw9H//+wlhnfT/bgUEaqgDIgNgQ
+         9QbpSq0z0Ag0aAzXfv9OliKKU2VHAQTaTRBOV4u9S3LH0ju5ncs5E7GBv82DJoWYK84P
+         pzAE5Dfby6iQtOZBFWt+Lm3YCXbxDJw//Jx2bUEagrzsbiLFBeSaVAs+4qbo9msrblPY
+         CreELBiUbcBkiZixacRJ2c/t8I8xvuYkgjBXwp3bPzL7MWQD1e2xOD8FoWeG6c1OFMWp
+         MoSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxkJTfCaE6WByHd/JBzPF3HlX63caMDFFAE74YQCq6zfcCx8ythMMm9DJwLHxl4I5irB7tXXDFjl43Nip4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81ytoztkeS8P7fnnapJT+DJgMRTGkTL/uLYk0oE/FXXMEdzPEl
+	hYUTNUlcrXjhx+r74yPmw17TR9qIK7nEVU1dm58sIRVoeq5vwxo5yvELR00qc4S2Rv/Q7YjMQdk
+	6GxRGThLYVK70/9Zxpl3R9QMBlcyRDYp3Fq21j73RNM8GYcFvVBzWBk0PRJ9BlQ==
+X-Gm-Gg: AYBFou17qPExumw1E1/MdPVWMbbmdPWRwv+na+qnoPINKg4yqDJ/AlWbs/odnIZvQc2
+	myg1ykHiFF1UZG3zreh6TbIxBI3mHtqqz+xCe4qiUnK5GbdGYeg6UX12ztvIxrku8v+LIMohKbT
+	kwevEdGi4RN3hfrh4COYCuBsPBmmDGy92gGDTip9FOESaKmIX3QFmgAT5GnJDyGmCyOUVARITk6
+	bP+0Ev09xy+Phpwtom+tBlDtxr1hkDp6Z6/uHgnNMVfZsEnWSnrT+eRgmi198WKcnqaFggQcJce
+	dMfk0LFPx+zecUiWZBanc3PLaUfw6LLud/HqDChUEznr8T5+zzegXODxLoNwgxWuHkHAKVzDzLR
+	r6ZZT4cJybwUiPIdDtqMIfA34caFiHblxhAMTO/RwXgeK0qc1q0FandJ/MYQq81omiywWdh8wgr
+	C3tyuOjfPw/+wHZ+8gTJ3gj5VU9D8nOBessDYwvC6DElRrJ5ej7OOspc6meOq6gVoewvWpBvdsX
+	24XDaG/Vk3jrTHo8t9SBbjdxIlLZGnRjrsFQd5bL6dY/LSKHpn4Zesp6c2kxyDv
+X-Received: by 2002:a05:620a:1d05:b0:93f:3f86:c4e9 with SMTP id af79cd13be357-945f3632eb7mr58662285a.79.1793914845061;
+        Thu, 05 Nov 2026 13:40:45 -0800 (PST)
+X-Received: by 2002:a05:620a:1d05:b0:93f:3f86:c4e9 with SMTP id af79cd13be357-945f3632eb7mr58658785a.79.1793914844728;
+        Thu, 05 Nov 2026 13:40:44 -0800 (PST)
+Received: from [10.206.221.57] ([129.236.229.247])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d48577ebsm547093585a.33.2026.11.05.13.40.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 13:40:44 -0800 (PST)
+Message-ID: <74882357-55f7-4569-8aae-789a464748da@columbia.edu>
+Date: Thu, 5 Nov 2026 16:40:43 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,158 +117,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="texyoxswryydtnzk"
-Content-Disposition: inline
-In-Reply-To: <20261105205321.7b303231@pumpkin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: cancel napi->timer after the grace period in
+ netif_napi_del()
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
+ <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        Martin Karsten <mkarsten@uwaterloo.ca>, Joe Damato <joe@dama.to>,
+        Dragos Tatulea <dtatulea@nvidia.com>,
+        Kuniyuki Iwashima <kuniyu@google.com>,
+        Stanislav Fomichev <sdf.kernel@gmail.com>,
+        Sridhar Samudrala <sridhar.samudrala@intel.com>,
+        Cosmin Ratiu <cratiu@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+        Wang Zhan <wang.zhan@smartx.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, tz2294@columbia.edu
+References: <20261103-napi-timer-cancel-v1-1-55c631ad5286@columbia.edu>
+ <CAL4WiioJuY1L5ji7tVXggp=FDm3eidwekpxqAMdnxWUyiTR3fg@mail.gmail.com>
+Content-Language: en-US
+From: Mani Tofigh <mt4022@columbia.edu>
+In-Reply-To: <CAL4WiioJuY1L5ji7tVXggp=FDm3eidwekpxqAMdnxWUyiTR3fg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA4NSBTYWx0ZWRfX/F6x6sV1PnNG
+ eFPS5XMDth7MLNwzZ6O21Bt2Xp2FI5m898ImYCBThadqqPPFtrWlkOP4Nw7Z6jHBx0l73/mXH7e
+ 7FdYqBTjEjagb1to8uQIu3qn4G1QIBHgE3BIXJpaQ4+yEDLawLibvdVTu8Bz1Var+93VvAcks2L
+ 7MEDdBlfT9UXydbhn8ZNydv//V7IYArGmKUt8BVKN97r/5UBnqSDW1GeDLCsEfle4Rqjn1ku0w5
+ 5Gf5IX1xModQzKJZ3V32RceZaWFKSKTEsJVb9DFQO8bzMpmTN7dRbVmmPu1sygX3KAJ4or2WkAX
+ oMOl/wUzRaHzUcbbDpBp0jtz7sTNdFrMkQq8s3rJkskUsxJ7IELt9OWwQX0B0+OuSsvzlslf8zg
+ t6pFkYfDKzGXJ0jfwI3qHNZSWvPwY3+Kt7l59ldTCIAVl2PHLUtq04BR8hT9dO10HgU3z3TTAU3
+ M19g566R5OXQV15LXUw==
+X-Proofpoint-GUID: tES70heNpvEDfvyiZQKjLblaYJgPBWoW
+X-Proofpoint-ORIG-GUID: tES70heNpvEDfvyiZQKjLblaYJgPBWoW
+X-Authority-Analysis: v=2.4 cv=epdKXYpX c=1 sm=1 tr=0 ts=6aecf7dd cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=JerxfvFqMz+qeRdZ4jtV1Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
+ a=0-2_M6cSbhsvEd0Ws-sA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA4NSBTYWx0ZWRfX2tuFUPEVGMcl
+ lkRPeqDist0mvIdLGeIIjoB2diyaiF2ZosVdtA4uggKqZM75dhvczIhdvqFE+5rrAX0Hs0V9HiO
+ H4ijFw5O+KmxTgKF8vN6/LppAQifn1ZiM2wmV8wK9Hna+1cmS72C
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=10 bulkscore=10 adultscore=0 impostorscore=10 clxscore=1015
+ spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050085
+
+On 11/3/26 1:37 PM, Eric Dumazet wrote:
+>                  hrtimer_try_to_cancel(&n->timer);
 
 
---texyoxswryydtnzk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, 
-	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] Input: mouse: vsxxxaa: Replace strlcat() with strscpy()
-Message-ID: <auz0ONYzkWIETv8T@devuan>
-References: <20261104062319.288360-1-nikitash.mariiaw@gmail.com>
- <20261105112813.13210334@pumpkin>
- <auxrRmyg50gvP1HE@devuan>
- <20261105205321.7b303231@pumpkin>
-MIME-Version: 1.0
-In-Reply-To: <20261105205321.7b303231@pumpkin>
+One case I'm not sure about.  If napi_watchdog() is running when
+hrtimer_start() is called, the timer is queued again and
+hrtimer_try_to_cancel() returns -1 without dequeuing it.  With
+preemptible RCU two napi_suspend_irqs() callers could both end up there
+after the delete.  None of the callers run in hard irq or from
+napi_watchdog() so would hrtimer_cancel() be ok there?
 
-Hi David,
-
-> Date: 2026-11-05 20:53:21+0000
-> From: David Laight <david.laight.linux@gmail.com>
->
-> On Thu, 5 Nov 2026 12:49:59 +0100
-> Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
->=20
-> > > Personally I think that while there are issues with strlcat()
-> > > (mostly to do with its return value), and that there are often
-> > > much better (and faster - so sprintf is out) ways of getting
-> > > the same result, the deprecation really needs to propose a
-> > > sensible alternative (not inlined strlen() + strscpy()). =20
-> >=20
-> > One alternative would be to add strscat(), with the obvious internal
-> > strlen(3).  This would be a drop-in replacement, and wouldn't have the
-> > issues of strlcat(3) --mainly, the DoS vulnerability which is
-> > consequence of the return value, and also the more difficult error
-> > handling of doing '>=3Dsizeof(...)' than '<0'--.
->=20
-> I've had thoughts of a more general function - but I've not tried to
-> write it.
->=20
-> int str_append(char *dest, size_t dest_sz, size_t dest_off, const char *s=
-rc, size_t src_max_len);
->=20
-> Where dest_sz is usually sizeof(*dest) and the header can substitute that=
- for
->   a constant zero.
-> dest_off would similarly default to strlen(dest), if -ve the function wou=
-ld
->   return that value immediately.
-> src_max_len would be used for an effective strnlen(src, src_max_len).
->=20
-> The idea would be that calls like:
-> 	char tgt[100];
-> 	len =3D str_append(tgt, 0, strscpy(tgt, src_1), src_2, 0);
-> would append src_1 and src_2 in tgt returning -ve on overflow.
-> (Further chaining would then work.)
->=20
-> But, as I said, I've not tried to write it or see what it would look like=
- in use.
-
-I think it's too complex for what it does.  See how stpecpy() works:
-
-	char  tgt[100];
-	char  *p, *e;
-
-	e =3D tgt + _Countof(tgt);
-	p =3D tgt;
-	p =3D stpecpy(p, e, src_1);
-	p =3D stpecpy(p, e, src_2);
-	p =3D stpecpy(p, e, src_3);
-	p =3D stpecpy(p, e, src_4);
-	p =3D stpecpy(p, e, src_5);
-	...
-	p =3D stpecpy(p, e, src_9);
-	if (p =3D=3D NULL)
-		goto truncated;
-
-	// 'p - tgt' is the length of the string.
-	// In other words, 'p' points to the '\0'.
-
-It copies all the strings into tgt, with truncation.  If any of the 5
-calls resulted in truncation, it will be reported as a NULL.
-
-You can also do the chain in a single line:
-
-	p =3D stpecpy(stpecpy(stpecpy(p, e, src_1), e, src_2), e, src_3);
-
-But IMO it reads better one per line.
-
-Then, strscpy(9) is trivially implementable as:
-
-	ssize_t
-	strscpy(char *dst, const char *src, size_t dsize)
-	{
-		char  *p;
-
-		BUG_ON(dsize =3D=3D 0);
-		p =3D stpecpy(dst, dst + dsize, src);
-		return p ? p - dst : -E2BIG;
-	}
-
-And a hypothetical strscat() would be:
-
-	ssize_t
-	strscat(char *dst, const char *src, size_t dsize)
-	{
-		char  *p;
-
-		BUG_ON(dsize =3D=3D 0);
-		p =3D stpecpy(dst + strlen(dst), dst + dsize, src);
-		return p ? p - dst : -E2BIG;
-	}
-
-I have been working literally years on this API, and believe it has
-reached perfection.  It includes some feedback I got from Doug McIlroy
-about the design, which improved the usability and safety.
+> Can you give this a try with your reproducer ?
+> 
 
 
-Have a lovely night!
-Alex
+Yes, it works.
 
->=20
-> David
+I'll send v2 with your approach.
 
---=20
-<https://www.alejandro-colomar.es>
 
---texyoxswryydtnzk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrs95QACgkQ64mZXMKQ
-wqnt8hAArQKkrFf3cPneOOUukZQn7yuE1roHjBZJO4iCuSSkG1LCHJvvA8IwZtJo
-ZvFpo+MsKge+JhY0WSKaxZ+01uxMbxKwDJbMSVXwfGhcJe6p6jmI6pLyxa4ZgBPq
-ro9fgQFydaj2Ve0Tu048+JKiv4hDzW4/KSgVVPamlcqXn4uH4RMKHpuQ/D0xHggi
-E89XbZLSJiBqDk3s5vbxDLUsqnspEQlvWCEDlaoRfM7+EzdDyDQGWKK8QKmFODue
-HiUIXkcbyCOyOGL2q8X+LT8x1caEouMzRKGV/N2l8PBa9nNCYjwFwKduNXm1KLlj
-ZqBsmjAewEPdFvhP0S68VN9kczJqbPcg0kJzKoFaNhunEPYajJ5gJ81N5tIvCD/p
-KLHqZFG9PEu/Yas3GhfALtrTSqsK89Oa3c6w9b+gioRW1WZVtwNkzpFoF0ZbaA06
-SYdxXaMVzcrHXt1xot4UZ/YNx5ZOerX2teOxSUKI0a0Ly6TcTBqucOqtDg6Tb/SA
-Hnxxg5OTh7VAlfYi8WqFfMiteHmOkakt1Alc0z9icZbpV8h/C6TJu5w1+ttl//9K
-lAbJqNF3HtRJb0q+RJTv3sdx2jZa7RjTC5d625VRSDL7wQVagcf+AFilGsdRg6B+
-q3gTlVz7brjCf24YSdoiACniz1CobI1iNEvy/f9iipmdvNx6TD4=
-=NSFj
------END PGP SIGNATURE-----
-
---texyoxswryydtnzk--
+Thanks!
+Mani
