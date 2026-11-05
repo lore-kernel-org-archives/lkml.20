@@ -1,73 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.24
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885340;
-	b=t+0nZj0fS7ZqyssDzUNuYVkFUO8WIKMQ9JJYDQQbJ43xurprRltfMYIlr7tHd1NzXQ0m
-	 ZkQbEXZO9+wN3dklnA7hoLrE69ecat4SU/r+nuDskDWNdMTGgBJoC5YJX45/9KflPobh0
-	 zXLYQ3G3YbMOdqmcFJ74z8WBd1Yd7ZD4qvbf3V19veFC9+2QvHwZ9qKa7znIpSNi2b0EY
-	 wMRC5jpTWPXV5JrBwtrKrOsKduZc+6XVgLNWiHQNxoC4spr38TQIxKEMzzUuv6gqDo5Kv
-	 yEQl8wQUMREUeUiJcIDB8w3lGb3DlDsgm8lcM5HrayoYULafdnUF0IyL9dp8D7Cu9HA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885340;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version:X-Virus-Scanned:X-Virus-Status:X-Provags-ID:
-	 X-Spam-Flag:UI-OutboundReport;
-	bh=S7gTFWi0vVr5NLYp53sjQKqE4pWLhfHhEbWgZHbtI/c=;
-	b=WG6pTzUzSKltRcdAn+V+wzr+eyTthAbTEUGQsaBJoZFPW9v2x0Zp4b8tUYvbdTs3l4kZ
-	 iNx6GUtto8W5EA4MN7+4q+rpWu9ySInlzGOZuhSZ3qv7ngdxxYbb1loJ20czgkZQhIGrA
-	 EwYEysMdpSIjmqZnhlSOGGmEvLhMJKUtyPGkh3JD9sbswu+C59gOTQHEOPiDLafJVRgsh
-	 zsYmpGfKD3inUSWsz1R0kIXSCnEhP84VKCDiQ/54H5PCRsm4YqvyamSfU3t2FbCSZWhok
-	 F8rtoNkDbkR9M+GMuDUVT2rO7d7yJ4dnwJ7ZZsJ5M1TKtYOpRwuc0f5u8CidjabwOiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=morknet.de;
-	spf=pass smtp.mailfrom=morknet.de;
-	dkim=pass header.d=morknet.de header.i=linux-dev@morknet.de header.a=rsa-sha256 header.s=s1-ionos header.b=h6JcHTJ3;
-	arc=none smtp.remote-ip=212.227.17.24
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793885426;
+	b=fAti5TwXqpkfvKqxuxUWIwU/lAB32LUX3r2+hZcxtuopjYns95RqaDcWlWKUIZFrKy62
+	 hPchWpRmJavhG5ozBDqK30GgM9kXJai3ROJkNWYzwqhxjhzIgniLPXPadG5+9TV6BD7Za
+	 zp2+zuFwSalCiwmhH0tRf3JRiYj0SfFN5ailokTnw6qC9iMDAdqq/0cpP0iyJWPjBBro9
+	 So/CNuCbjEVzQ8RAp0/Fr8ng2aG9viFcPXs00gHfd7fVzRJpRSSUUT1Syxp+WDCVMBqD9
+	 MmiDe1jxaw1dldrHzxXiwWBdsLYxDGI13ncaJ2QJfpPUvppRDv6+0yEgObKLJxrUZpg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885426;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=A59kBhYhVh2cwcGIS0Bice4IBYZ7xgZ31BmecGfB75k=;
+	b=gIPego9SccWqGoZoxV95O0TtOETb68kVP4/2MKwytaWGWezDCvoWvnZz7y1DXoAgsVu2
+	 FC3MTZVnTWlxOmHoDu3lH8N9eooUS/hs2YHqOcz41pS+O3n71Iv/M1K//+UkRRYFSSDkk
+	 PIWlwFdL7vAFUzNGxHldYHure6MMX0PMsHfivMpsXZP1Joas5gBIkB9WR0Nbf467XEdTX
+	 5Hp0Yy4b3qJ9KDYXKl0ItMuy9v2JHA4wu1FwGMdcDWrmjDaG2gsgd03F2LZTh8uABGfeu
+	 5zo08RdakYx1SSRHqlPwfZjDTutL1SH2aGFgQkD1Ay7gkQKtA37ju/sfMAX061wP4mg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShLVjeZ8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D5A606A31B;
-	Thu,  5 Nov 2026 13:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D5A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morknet.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morknet.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5529C606D806;
+	Thu,  5 Nov 2026 13:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=morknet.de header.i=linux-dev@morknet.de header.a=rsa-sha256 header.s=s1-ionos header.b=h6JcHTJ3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=morknet.de;
-	s=s1-ionos; t=1793885331; x=1794490131; i=linux-dev@morknet.de;
-	bh=S7gTFWi0vVr5NLYp53sjQKqE4pWLhfHhEbWgZHbtI/c=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=h6JcHTJ3kcxANUEvlIYJMKBIAg5re/wb95CadZrdfmr/6pKT6bcLy44kCIlepBdO
-	 v75XFtEDA+q+ilguzdX8RsGScazFAjeM6Lx5NdQ9RvGNnl8KDqBlbg1Ra+ICdkVxP
-	 XJwfIi7zwBNFYaELQCa2g3ZeMXQuTpql1SjBcF40Q0tBwNq3VnqKyxFfeCdlF/JqN
-	 3LJq+IoXLN+h7w6lA81yV+Tes5b/ge7VqMKKz86VF9QOJErFRt4QE2c79OS8JITIR
-	 tVsAzpVp4zhQohuYhHm1Hhy9TP1H5nfCmo3RFkRk7bBPlbzEPrBjvH4u5+ogVgsdt
-	 huovL5xb2HfugmB2HQ==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
- [212.227.15.183]) with ESMTPSA (Nemesis) id 1MvbJw-1wXXcb267C-00xRJC; Thu, 05
- Nov 2026 14:28:51 +0100
-Received: from sagittarius.morknet.de (sagittarius.morknet.de [192.168.19.11])
-	by mail.morknet.de (8.18.1/8.18.1) with ESMTPS id 6A5DSooP2302739
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Thu, 5 Nov 2026 14:28:50 +0100
-Received: from sagittarius.morknet.de (localhost [127.0.0.1])
-	by sagittarius.morknet.de (8.18.1/8.18.1) with ESMTP id 6A5DSnwR1226355;
-	Thu, 5 Nov 2026 14:28:50 +0100
-From: "Steffen A. Mork" <linux-dev@morknet.de>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-m68k@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Thorsten Blum <blum@kernel.org>,
-        "Steffen A. Mork" <linux-dev@morknet.de>
-Subject: [PATCH] m68k: amiga: lower min_low_pfn to make RAM DMA-able
-Date: Thu,  5 Nov 2026 14:27:52 +0100
-Message-ID: <20261105132752.1226267-1-linux-dev@morknet.de>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShLVjeZ8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793885425;
+	b=UrLBskcGwNVCgQwxBvLuZF0N3ICqazELH4La0tV+ZvQjsJNQ7/yj8H+N3UujNNLG/Ara
+	 yRGSWEbi0WyDZ5TrGVkcS/BaZERNiklijZ8WC6pCdmKJULvOqZQ9JJR6dAl4+Rq8l48Dd
+	 RTFsMdYIMKURl0jkoVNtH0JW/Cx/lBdr1rLDkEciIitBTKELQ+4KCZgkY0RkQujQJttt3
+	 Y9RV6bJrTrjzW2BLJct8jgzKJwXoYVmRsYHylk5xYhPh3mp4r9SDKWIPeyGvJtkang+0J
+	 twgyXEvNhYcaSBEMdFwI+iCITE+x1wEhKp1mtXYXn5VXgr8S3YCoWaFXlRbs/aqZpfg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793885425;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=A59kBhYhVh2cwcGIS0Bice4IBYZ7xgZ31BmecGfB75k=;
+	b=J4kvCsq2jV7wtXGaM9e5qFrVALKfWnAxqjBRlxZ7tndsOK5lGLhIiHMmP0jEWMEXNSM2
+	 rOCnJnGKUHgjJ1Os9S644hi1fiz/NU5MkogfMyqjUlb9PzE+1Y9c5YqKEzOW8QKXThmO1
+	 Mf//Bl1qVIU6p9I9vxOv0qex+X6eAzu0DvZtTL8N1zWw/2HCeHAD5Fycfwn+b53Y+lkFu
+	 bdBZKyYRoEUx0MmF7ZReuwCZpEV5sRcPofidpIc+MSI8jji4/dj9Q5BCbOJn9jr0kDNCe
+	 DJ7FN9reuTddgatoUNUfTaudVUn9uJpThibxDeBOBBnME9IowQ2YPCImdA9gmQAP20g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 63B921F00A1C;
+	Thu,  5 Nov 2026 13:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793885425;
+	bh=A59kBhYhVh2cwcGIS0Bice4IBYZ7xgZ31BmecGfB75k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ShLVjeZ856HvQdF/PZZQP+Du+urtAQZ1fVs9zXThBLj+MfI+lNyuqs+2tjfhlakyq
+	 yWa8yErWMim4u3QJcfKgnUugYtKQ7N+YWmNHwIulY6k+3s2tbt1Flfkef7x7tWEqtv
+	 Gf0NLXzzdAxO8Oi7KyiOkEdGdQQMlfCnc5BwDIWDdzY3TppG0Ta/MMiKVfavQYiioM
+	 a2kiA3Asq227aDTlQwH30H2firUQTS5KuxwdWSSWbnzOxjxDnZ1/XzgjQtWLZ5NihW
+	 X8A99A7Ty0vi6XaCGz4ZuQXjuhnA8iMaXkVesY+lgTIZukCeWYiqO5rxpobsk15/wP
+	 PBgUZ8MvnCSOg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E2A2547293;
+	Thu,  5 Nov 2026 13:30:22 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Date: Thu, 05 Nov 2026 13:30:03 +0000
+Subject: [PATCH 4/5] drm/msm/adreno: Add speedbins for A660 GPU
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,135 +82,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Virus-Scanned: clamav-milter 1.5.4 at scorpius
-X-Virus-Status: Clean
-X-Provags-ID: V03:K1:J14B5c7YwR2N9gMsetXHm4+Wu1qhcawR18LP4f0jPAWhGlfdXPB
- n56wUoDVEHb6QxFy8KCE+wSyYO65Sxnc0dDo03FXFAA5upn61McKhxHlKTouCawkN/pC61v
- QTAGW505GJo0auskfqaYfvaIIEy3ZDmPQqy48DUNH9uAvwH2z5cTpFe8oZgOrkJPLa4NBbv
- pfpLRZcn8/ciBv21mKivw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:LL5QYpsPr1E=;ewhKAqIqk41VuZWR2+ezZ0IPfGE
- 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
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-b4-sm8350-gpu-v1-4-a7175cdd6512@fromdisposition.org>
+References: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
+In-Reply-To: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Demeter Barna <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793885419; l=1126;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=oTxpg/D+jgMPGwDowW4xu7/gXp7fpT5IY/GcQ0zhKx8=;
+ b=GtKovN95UpCfH5qWyBuGsZ9za1/hCqHtLIDArXBKbwZbdw5gl9dUiN/Oe/pd1G3Hp2tGiyp7a
+ 4AUL0ZNm6tVDmNcNu2ff4xE54HicFA9S81wb4KHBOoCJwJB8mrSFmQy
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
+Content-Transfer-Encoding: 7bit
 
-With reference to the patch by Denis Ahrens for the MVME16x platform, this
-patch works in the same way for the Amiga. Currently, all DMA-capable SCSI
-controllers have ceased to function due to the same underlying issue. Whil=
-e
-the wd33c93=3Dnodma parameter can be used as a workaround for the wd33c93
-driver on the Amiga 3000, other drivers =E2=80=94- such as the zorro_esp d=
-river
-(tested on a Blizzard 2060) -=E2=80=94 fail completely once memory has bee=
-n
-released by free_initmem().
+From: Demeter Barna <me@fromdisposition.org>
 
-Applying this patch restores proper functionality to both the Amiga 3000
-SCSI controller (without requiring the wd33c93=3Dnodma parameter) and the
-Blizzard 2060.
+The SM8350 GPU comes in speed bins, read from QFPROM 0x17b bits 7:5.
+Qualcomm's GPU tables for this SoC give:
 
-Link: https://lore.kernel.org/r/C718B642-57B9-48F3-8C0C-87DCB31A8495@h3q.c=
-om
-Tested-by: Steffen A. Mork <linux-dev@morknet.de> # native Amiga 2000 with=
- Blizzard 2060
-Tested-by: Steffen A. Mork <linux-dev@morknet.de> # FS-UAE virtual Amiga 3=
-000
-Signed-off-by: Steffen A. Mork <linux-dev@morknet.de>
-=2D--
- arch/m68k/amiga/config.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+  fuse 1, 3:     up to 900 MHz
+  fuse 0, 5, 7:  up to 840 MHz
+  fuse 4:        up to 738 MHz
 
-diff --git a/arch/m68k/amiga/config.c b/arch/m68k/amiga/config.c
-index 6e89e7f7e98b..c48aa3dbd837 100644
-=2D-- a/arch/m68k/amiga/config.c
-+++ b/arch/m68k/amiga/config.c
-@@ -24,6 +24,7 @@
- #include <linux/interrupt.h>
- #include <linux/zorro.h>
- #include <linux/module.h>
-+#include <linux/memblock.h>
- #include <linux/keyboard.h>
-=20
- #include <asm/bootinfo.h>
-@@ -854,3 +855,38 @@ static void amiga_get_hardware_list(struct seq_file *=
-m)
- #ifdef CONFIG_VT
- EXPORT_SYMBOL_GPL(key_maps);
- #endif
-+
-+/*
-+ * Make all system RAM available for DMA.
-+ *
-+ * paging_init() sets min_low_pfn to the first free page
-+ * after the kernel image. free_initmem() later releases
-+ * the init sections, but min_low_pfn remains unchanged.
-+ *
-+ * This prevents dma_capable() from mapping those pages.
-+ */
-+static int __init amiga_init_dma_pfn_limit(void)
-+{
-+	unsigned long pfn =3D ULONG_MAX;
-+	int i;
-+
-+	for (i =3D 0; i < m68k_num_memory; i++) {
-+		unsigned long mem_pfn;
-+
-+		mem_pfn =3D m68k_memory[i].addr >> PAGE_SHIFT;
-+
-+		if (mem_pfn < pfn)
-+			pfn =3D mem_pfn;
-+	}
-+
-+	if (pfn >=3D min_low_pfn)
-+		return 0;
-+
-+	pr_info("Amiga: lowering min_low_pfn 0x%lx -> 0x%lx\n",
-+		min_low_pfn, pfn);
-+
-+	min_low_pfn =3D pfn;
-+
-+	return 0;
-+}
-+arch_initcall(amiga_init_dma_pfn_limit);
-=2D-=20
-2.43.0
+The levels below are the same in every bin. Map these fuse values to
+speed bins 1, 0 and 2. An unknown fuse value falls back to speed bin 0.
+
+Signed-off-by: Demeter Barna <me@fromdisposition.org>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 4ef2bd6e7..f1ae9932d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1096,6 +1096,14 @@ static const struct adreno_info a6xx_gpus[] = {
+ 			.gmu_cgc_mode = 0x00020000,
+ 			.prim_fifo_threshold = 0x00300200,
+ 		},
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0, 0 },
++			{ 1, 1 },
++			{ 3, 1 },
++			{ 4, 2 },
++			{ 5, 0 },
++			{ 7, 0 },
++		),
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x06060300),
+ 		.family = ADRENO_6XX_GEN4,
+
+-- 
+2.53.0
+
 
