@@ -1,131 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871002;
-	b=IXSRMaLKvn2xs8N4X0jnGWxTR1EQeC3Vrpnx7mjiE8KKhENFZGo7TVG7Gsfl7uJGF444
-	 8jA+Mg81KC6FSbndKBcrjiQe7jdWzoWFj+MZsxTMAFeOXgYQsA30BtdFFAV8OXP3bClpF
-	 lu8VyYb03xhfKCx7LMhRQXLYIiH7Hm5P41ZqOgVJS3Dt88LoSPPHX93tWlI+kyDE/xxKi
-	 jEiCN94xs+CIINlNDHZnHmIWBE1M59CnuX1kw+oiucnnZdS8f+EQbSyjGBTyJ7RgmdZmB
-	 KCc2qIkQ06SmRbSgHIbHzdeZQ/DudsXQX9/uOe+WgnWCCkQv2CLr6zyKbKjk5gsWp4Q==
+	t=1793871053;
+	b=EdBPV3oAXljO7Lebmf5IYiThnHqc06vDltmdJYxvf/zdToA5Fso7RneyNSvNzb1s0eL2
+	 Pf1jB4yWcEq2GHbODJQi/h/+6CZMj2hhLSXK9TXRbazJp1N8YpshbdsHMOfY98PHLn5AK
+	 /8r1pmOgzC8g7sXX7JSOVXUp0U5GOD/gXVebdCE/TXMqE6NHoZYXdAefYqv25nAuUqj/e
+	 WGnKuBYE15LHVAhYrPCegAYnG0Nsy+iVHYO0J0JxfmuAjaI+r63C/cR6xewtkTicwp7ga
+	 ZbXt++SXxHoRW2UdEfp+8AXY5CQQdhK1N9UPmGO5mfngVKUGg+8t68yMa1arEh1qljg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871002;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=MzcP0ZVuar/2J0GdckfWIQkp5OrAXfjPJwzDsLW7Oeg=;
-	b=KoQgdG1jxWs9yG5J45+JgrnRHvQHnLvz8md0v2dXyKUYkRjuJ39shdsSlNIJKJpBapwu
-	 AUHGqdK9JtTZ5CYOqxfNSoY7DBXfcld5XwafO8lznwHZAR5OwCy6Y0NJ2WLDkWJb0qoKD
-	 EOMfVvFk1FO8ER9+NUAJgyrUxNTzx2WG7fmwtZ6/VZ9Jv+oIpECcXsRM4X9HQwFZPhgTa
-	 Alyu0tNcWqxJ0pk6AwpZo6mq0LzmVsZFgJisRSqLDjXJZzYY45KGyhCsokr1X8MTlgudW
-	 ksLutQVDOOjuzCPnDYQ/ugkOzcbCbtV+A7P72xheIOnWjklvp/p0Yfrg2Cx5gzt7oLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871053;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=37wtj/M3le9oyNnQ1tTCunMmuSqLkcRxzy3Nls/GfTI=;
+	b=yChtjVRIm1seJDapWUk4V8CAOarG/Y25enL/7RSTx3bVXf5VRxgPD6fzvuKGItmLJsPW
+	 QEEDGhdlw2AYKr0sckl6ONF7JG/o7kyT5+vy2/1pECHo3TeB16MlwJ7dCXOpaZo/iWlbY
+	 hCx5DyKSG0d6h7plRHAGDa08YGEqjPiKFShAgJXXp+TU/uhs8ZQuUvlQql+SsWdffNhIb
+	 CvCGBiSax3ihHplCW4KDstHU1TtKII9StUNspK03+xf/LSf899NBpBxJikMHBuXTqLeWF
+	 kmqd1qI/fG8adhirwzh399m/uiZdkxJ006bC80ZuzUnpDtRjnMpxy4nzlygGD5+RWaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eEFjrbpv;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197E1606A326;
-	Thu,  5 Nov 2026 09:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 197E1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Tiaujjsp;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2012606A326;
+	Thu,  5 Nov 2026 09:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2012606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eEFjrbpv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793871002; x=1825407002;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aVv8RvjToXdNBQ+AxPn75WGDPj4D3O1pHLFNRPhnfCQ=;
-  b=eEFjrbpvUsXeoeEy6uDeHX63okzZdJPDcpHnD0lJHQxucQ2UfxtVkbRf
-   DuAej4v1JiCKIF5Rl30OXvUPqyGu6L60ttgbEzPSLFHBcBmWwYoRzr7Cv
-   oXTGeA2eM/GL1z+V0fuPw5Lf9Jop/CvcAs8QmL2418DPr/X5kipxwuDca
-   Px5RTB0cTIPwIbq3vztkeKhBeSMB/5rDV7HnRo2C0gFdlO6/GUfC3/ghr
-   dVI1nubUGXTtQmshyUgnQf5iRvJIR2MYQKcXmtTHhX+UslKnP03a8xARZ
-   WjpZGvlLdN53973WMxny2XR9ToK6l9TQz/ahySSsAq8vONeN7wGWaabME
-   g==;
-X-CSE-ConnectionGUID: 7ITx+mjuQtWdcJ7r4lyUjw==
-X-CSE-MsgGUID: Wo2TClO/SaKV30K8uo/4jA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2683858"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2683858"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:30:01 -0800
-X-CSE-ConnectionGUID: VUQbl1y6Q3yfJ7t5HK8oRw==
-X-CSE-MsgGUID: SqY+yNktRvCMlE1VenPXPQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7269063"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:29:47 -0800
-Date: Thu, 5 Nov 2026 11:29:45 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Li@oss.nxp.com,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Cunhao Lu <1579567540@qq.com>, Raul E Rangel <rrangel@chromium.org>,
-	Yenchia Chen <yenchia.chen@mediatek.com>,
-	Zhiyong Tao <zhiyong.tao@mediatek.com>,
-	Carlo Caione <ccaione@baylibre.com>, Moteen Shah <m-shah@ti.com>,
-	Kendall Willis <k-willis@ti.com>,
-	Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,
-	Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
-	Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>,
-	Robin Gong <yibin.gong@nxp.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Stephan Gerhold <stephan.gerhold@linaro.org>,
-	Zhaoyang Yu <2426767509@qq.com>,
-	"Nikola Z. Ivanov" <zlatistiv@gmail.com>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
-	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	vkoul@kernel.org
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-Message-ID: <auxMiQ-DvmBc2vu2@ashevche-desk.local>
-References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
- <a2d5ea00-bfa1-4883-923d-0a6a7eaa556d@kernel.org>
- <CAMuHMdUHf14DpLfk16qZ6YWtJKm8VDWEFA0Wqk22ysqnUFHoHQ@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Tiaujjsp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Tiaujjsp/ZKmhtc29nwvRGQw07XNt+bd4zZ9A8XcyoZTEFiVMSlrZGGItTwYVKa3vM17kA0a8VYo3
+	 77ypBNL6vH75No7bueBKypssIgYkS/D2DUEU3Mk5Jl90F96yJvTg8gt1NzkczZuBzjNzXvj642Vr9W
+	 C5niU1w2wZXMgaqQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96aec4cc690b-ab8a8;
+	Thu, 05 Nov 2026 17:30:47 +0800 (CST)
+X-RM-TRANSID:2ee96aec4cc690b-ab8a8
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [25.255.2.225] (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76aec4cc6d57-444ad;
+	Thu, 05 Nov 2026 17:30:47 +0800 (CST)
+X-RM-TRANSID:2ee76aec4cc6d57-444ad
+From: xujiahao <xujiahao@cmss.chinamobile.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Shijith Thotton <sthotton@marvell.com>,
+	Vamsi Attunuru <vattunuru@marvell.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xujiahao <xujiahao@cmss.chinamobile.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] PCI: octep: size the interrupt name buffer for the full format range
+Date: Thu,  5 Nov 2026 17:27:04 +0800
+Message-ID: <20261105092705.3099201-1-xujiahao@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,32 +71,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdUHf14DpLfk16qZ6YWtJKm8VDWEFA0Wqk22ysqnUFHoHQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 10:06:06AM +0100, Geert Uytterhoeven wrote:
-> On Wed, 4 Nov 2026 at 18:41, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > On 02/11/2026 18:54, Frank.Li@oss.nxp.com wrote:
+octep_hp_request_irq() formats the interrupt name with "octep_hp_%d"
+into a 16-byte array.  The prefix is 9 bytes and a full-range %d
+argument can add up to 11 more, so the worst case needs 21 bytes
+including the terminator and 0-day reports:
 
-> > I did not look at this code at all...
+  drivers/pci/hotplug/octep_hp.c:312:53: warning: '%d' directive output
+  may be truncated writing between 1 and 10 bytes into a region of size 7
+  [-Wformat-truncation=]
+  note: 'snprintf' output between 11 and 20 bytes into a destination of
+  size 16
 
-[...]
+The values passed today are OCTEP_HP_INTR_ENA and OCTEP_HP_INTR_DIS, so
+no truncation actually happens, but the buffer carries no margin over
+the format's worst case.  Give it the room so the warning stops coming
+back from builds that cannot narrow the argument.
 
-> > Therefore:
-> >
-> > Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-> 
-> Then please add "# samsung", to make it clear and obvious.
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202507261457.SXXHOjUk-lkp@intel.com/
+Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
+---
+ drivers/pci/hotplug/octep_hp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-+1
-
-See also 20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com
-
+diff --git a/drivers/pci/hotplug/octep_hp.c b/drivers/pci/hotplug/octep_hp.c
+index a0a7f9ccb..801c080e6 100644
+--- a/drivers/pci/hotplug/octep_hp.c
++++ b/drivers/pci/hotplug/octep_hp.c
+@@ -52,7 +52,7 @@ struct octep_hp_slot {
+ struct octep_hp_intr_info {
+ 	enum octep_hp_intr_type type;
+ 	int number;
+-	char name[16];
++	char name[24];
+ };
+ 
+ struct octep_hp_controller {
 -- 
-With Best Regards,
-Andy Shevchenko
+2.43.0
+
 
 
