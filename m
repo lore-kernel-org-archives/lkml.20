@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869268;
-	b=d29dsDe9qL+978q7P+LYuQvsptUb00ysGRPolXr1pNtr/74bKQQNqjo+nvZlm5coZWR6
-	 IbjyEPB8QMhJ3vSNjEWNOuLkmxjTALXmFvFcIbIL6CW080lVepNC0OjIx+75UbxigYK2Z
-	 YycIZNn0Vpe2pIpPW1oku/wxQScKkOgXpY8/LUwkwyKIaeHtFbTqVcUOXNcIN4Tqj4P+c
-	 ArlDQqugk3ggM2x/vPXhXIKYZMFBuWO3o8WO8palA3LCCFhJ7HFeiJgw12Oi0HmQ4zU/I
-	 UyuMFpKOMCN7IAwR5XBHJwiEp5jUYmE91uBwaGjmvmQkK57CpOL+8zhJ6iMSt3TH69Q==
+	t=1793869286;
+	b=gQpqLYy/iSBkZo4BnjjM2ahpAc7siVrOBv1LEmw1aD15ptq1ZHbESNDNLwe33xZQHfK8
+	 Y+9Zf90LubgP6PcMwBysl9VBRJMrvqHzpi+16Y6PfHr+RkD2UY3MlDGxqFNb5WXjy0809
+	 q68bW94ItZcRTttKhXO36+pS/mVmSBuT+1yLgy1Q7PIE09JaM78WU7yTHZ7nqZKthT9TG
+	 ZSvPVA68FJncNYx+1gnivu5Ki4i3SGFZbqSEnP/EqoHl9RNA9zlR6Q686eBVbNhyTCxtB
+	 oQF5tMqY3CQ47esu9QGiyDRRNLmck6QZzA1S/VxFoWytX7px/5scDDvg/DrIKRJ+3pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869268;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=yNwBoOiPVSuVAb40aljh4NsiE9S7Gt88WLt0OKIP0Pg=;
-	b=KhF20K9uXLQiLYXg3dloYHVR0b0EygA4MqQydZXBQvqXnXYV993FZ58/+oClJc2b7KCW
-	 t4BtErndFvOziUmuhA6H3SP4Dcp2szQ0Yk88VFeoBSFZepiGbeUsiqdXuazvDNQRLheOR
-	 OIJUmdls2ghZJol0lnfdzfTdBfnWxQKaPbYCVlWYwUBu18vguJPFkeHJjH4W3aYFz/r4Z
-	 WuVdKv+ymN7+6J3NEW+ctaXRcqbGzmYTSQQvCZ5zZBHckhPE2uImweSOmH9A5jkSh/YBf
-	 O19gVDZ9iv9O1Ut5YIEUfLXtWK6ICXlCezv4sLm7K14jTPLHfBFeFOIrTughLQc87Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869286;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZhBHR54kEL9iXFFLculYwS1Y3YGdU3q4GAVnVZsSbSo=;
+	b=OoE15+zdNAFgdhgeBq5ibTsS28KWqDbM0vOUK3xuErSNmNmF6mcAbY7Jf6npLMp8C600
+	 IZMR94ugZUHo4DGqOyrYmHLEUox5U4L2FSarMTxsifN05sYONYrnPv0hLQGwoEfpa37KI
+	 ShyOgRpzY+QniU3Kwza4MK65fLzKPg3541RTmWd4gGgKGSqXdM6oOyNnlZBLaMb7a63mE
+	 OkBbw7wis95a1DDMoThcGH/mDjvwuCwcjnYkqtb2+aHabvAk5ocLMaPbWqP8Ns8SZwC1x
+	 yCc4ybH+rMM8PIojpOtmd7cFnoVl341dlQiFNzUAL4AXbUF7NhyXT62M4XD5A3hBl3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DMMArXbJ;
+	arc=none smtp.remote-ip=95.215.58.94
+Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4FA606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:01:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB4FA606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-85d502ea62cso2165996a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:01:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793869267; x=1794474067;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yNwBoOiPVSuVAb40aljh4NsiE9S7Gt88WLt0OKIP0Pg=;
-        b=qIkgsJj/Ch2d+RSDtYVoJEIui1dfqBkga0oHrhJdCKUTZLieXVRd8Roa0qCNliiXe8
-         32pIhppJdt/VXSsqO1pDXdF+dkUhZheZxH9ZA0iOTbiDKGExUrxizJy3rK65mSwjQNNh
-         34fc9hjbdSYv1W8QKY1L1Uam9AjiFURBa2nUmn8pPHumULKY0l23Dh+q+lDuWGDzi3qa
-         Zg9PvABw8AnU/wYqkGeLd8GtF5GvFOfb/ZIrQplOdZ9fJY5BykSi6IDsxkkr5vF2PRdT
-         r3oO8KD0eb8s6nqgvit1YMLthCXzku3nmEjjVF88OrjEU3UXLeo/ju3d444sH9LdQ9Yc
-         unIw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQS8T1MgjLVrS2cITequRalRXob69kmh4DZW9Sy87O2ESannLlbxSiKMGRD140z41MA6vfNU1YjBYrrKs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/adW2Bo4Jw/JLwhWW8hYpL6P26rbE8Q5AS79B5sWdhcUvrvy1F
-	/ME0+YcGkJzjbivR+ZAVmvP1nCRK6eyV7e+bsJVGHL6VNaxWw3c1BsTi0jIyfPBRlOTNWj6T+K4
-	zlAwl0caR2iVLiKl46CCxfdJsDBfBdTEkrFCjJ28V4z2V/NVF97BTPxjgjE0=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186E9606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 186E9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DMMArXbJ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EjAYAwEjxdMoSEuay9tHnlAFEwg1E9QXVI4FTt6mxzo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793869282; v=1; x=1794474082;
+ b=DMMArXbJX6uH4jhAwXMtWHBD6gM0kyXSmb19Dcv6OpvN6afNotBJwuRKbWKJefiMT+z1S0r+
+ 3gjhEiWk8ccfDMSM9czOGfE87dfIDKIY8apltrCP2KZJ/yq+SsvsSWqzEKP4MjOF/hN2lJsO3rW
+ FlamKKjroSuhWCTXYbUN7bpk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f9eee819d6736c7b;
+	Thu, 05 Nov 2026 09:01:22 +0000
+X-Mizu-Trace-ID: f9eee819d6736c7b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a5b6947e-4184-48f0-840a-ff2222be3f80@linux.dev>
+Date: Thu, 5 Nov 2026 10:01:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,68 +58,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6404:b0:4f2:4d2f:7ba with SMTP id
- 5614622812f47-5640d953debmr14206701b6e.8.1793869266894; Thu, 05 Nov 2026
- 01:01:06 -0800 (PST)
-Date: Thu, 05 Nov 2026 01:01:06 -0800
-In-Reply-To: <20261105090101.3210622-1-yanghaoming@kaihong.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aec45d2.21d05368.325ed5.0008.GAE@google.com>
-Subject: Re: [PATCH] io_uring/sqpoll: make io_sq_thread_stop() idempotent
-From: syzbot <syzbot+9f32706bfd7c4ff81434@syzkaller.appspotmail.com>
-To: yanghaoming@kaihong.com
-Cc: yanghaoming@kaihong.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] ASoC: Intel: avs: Soundwire support
+To: Cezary Rojewski <cezary.rojewski@intel.com>, Vinod Koul <vkoul@kernel.org>
+Cc: linux-sound@vger.kernel.org, broonie@kernel.org, tiwai@suse.com,
+ perex@perex.cz, amade@asmblr.net, linux-kernel@vger.kernel.org,
+ yung-chuan.liao@linux.intel.com
+References: <20261103134958.2089136-1-cezary.rojewski@intel.com>
+ <bcfe64de-359c-4f16-9014-5d6f8bf30c40@linux.dev>
+ <9da94716-4dde-4389-9574-12f90b52e05a@intel.com>
+ <d9672276-5616-4609-98c1-5b9bdd06cf05@linux.dev> <aus0GT3ht1oEY2mc@parshuram>
+ <746bae53-ed1d-4881-9268-968c25270bda@intel.com>
+ <259d0c79-2a36-4a36-8e7c-fa24137a02bd@linux.dev>
+ <54b9b19e-7513-49cb-8367-8ef7711ac918@intel.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <54b9b19e-7513-49cb-8367-8ef7711ac918@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> #syz test
 
-This crash does not have a reproducer. I cannot test it.
+>>> However, I find it easier to move from hardcodes to the basic allocation
+>>> approach (seen here, in this very patchset) than the other way around.
+>>> The change would consist of updating intel_hw_params() so the PDI
+>>> allocation is no longer done there.
+>>
+>> Change is risky, especially when this touches platforms all the way to
+>> CNL across at least 3 generations of Intel hardware since 2018, for no
+>> tangible benefit.
+> 
+> Well, that's why I don't want to mix the 2 patchsets. However, I'm of
+> those who is not afraid of editing code that touches older platform - my
+> intention wouldn't be to level the code, obviously. From functional
+> perspective it should reach status quo. And both teams have their CIs.
 
->
-> Please test this fix on upstream.
->
->  IO_SQ_THREAD_SHOULD_STOP may already be set when io_sq_thread() exits on its
->  own. The last ring still calls io_sq_thread_stop() from io_put_sq_data(),
->  which tripped WARN_ON_ONCE(). Reproduced on 7.4-rc1 with IORING_SETUP_SQPOLL
->  + close(ring_fd), which triggered WARNING at io_uring/sqpoll.c:88 before this
->  patch. With this patch applied, the same repro no longer warns (also verified
->  via QEMU initramfs repro). Fixes: 22d9db9fd64a ("io_uring/sqpoll: don't
->  attach to a thread that is canceling") Reported-by:
->  syzbot+9f32706bfd7c4ff81434@syzkaller.appspotmail.com Link:
->  https://syzbot.org/bug?extid=9f32706bfd7c4ff81434 Tested-by: yanghaoming
->  <yanghaoming@kaihong.com>
->
-> Signed-off-by: yanghaoming <yanghaoming@kaihong.com>
-> ---
->  io_uring/sqpoll.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-> index c833e776320d..f0c9e07c2d04 100644
-> --- a/io_uring/sqpoll.c
-> +++ b/io_uring/sqpoll.c
-> @@ -80,14 +80,17 @@ static void io_sq_data_release(struct io_sq_data *sqd)
->   * ctx_list by now and have no request left, so the thread can reach none of
->   * them. What it still uses is its own or counted: the sqd by free_refs, the
->   * hash of its io-wq by hash->refs.
-> + *
-> + * IO_SQ_THREAD_SHOULD_STOP may already be set if io_sq_thread() is exiting on
-> + * its own; only wake a thread that is still running.
->   */
->  void io_sq_thread_stop(struct io_sq_data *sqd)
->  {
->  	struct task_struct *tsk;
->  
-> -	WARN_ON_ONCE(test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state));
-> +	if (test_and_set_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state))
-> +		return;
->  
-> -	set_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state);
->  	mutex_lock(&sqd->lock);
->  	tsk = sqpoll_task_locked(sqd);
->  	if (tsk) {
-> -- 
-> 2.34.1
->
+CI resources are limited, lab space and maintenance costs result in
+older generation moved to 'community support', you'd be lucky if there
+is one device per generation...
+
+"If it ain't broke don't fix it" applies here.
+
+There are many other topics to work on with the on-going change from
+HDaudio to SoundWire in the PC space, Linux is way way behind Windows as
+measured by all the recent bug reports on configurations with new
+vendors/new chips - not to mention that there are very few reviewers for
+SoundWire...
+
+> Now, I assume most of the discussion touches on patch 2/7, the one with
+> sdw_cdns_assign_pdi()/release_pdi(). The main suspect:
+> 
+> intel_hw_params(dai)
+> 	alloc_pdi()
+> 	config_pdi()
+> 	params_hook()
+> 
+> is a DAI operation, represents dai->hw_params(). The params hook is
+> there to give SOF some location to send IPC from. If intel_hw_params()
+> is split, there is no need for hooks. Such hooks are certainly not elegant.
+
+The reason for those hooks is not technical, it's due to the split in
+the code between the Soundwire code in drivers/soundwire and the
+controller in sound/soc/sof/intel. There's no real other way to send an
+IPC from the SoundWire side, it is what it is now.
+
+> I believe the way forward is to convert DAI ops present in intel.c to
+> library-type functions. Let platform components call these. Frankly,
+> except for our friend, intel_hw_params(), one could say they already are
+> - perhaps the whole intel_pcm_dai_ops could be dropped.
+
+No, the intel_pcm_dai_ops was introduced to have intel-bus-common define
+a generic behavior for a stream and the ops hide hardware-specific
+implementations between CNL and LNL. This has nothing to do with the PDI
+really.
+
+There's a second level of indirection to send an IPC with the
+dai->hw_params, again the implementation is done differently depending
+on generations. Note that in theory on ACE2.x SoundWire could have been
+managed without any dependency on the DSP firmware and thus no IPC,
+unfortunately decisions made by firmware folks result in the need for
+this IPC. It is also what it is now.
