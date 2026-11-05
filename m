@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888046;
-	b=Bt7UE+n6WOi7tUgTooWo9XWA7LojuhvfTmWlMurrbZfdkK2+IDFn+c6BXi36Em2nUWsZ
-	 ISnAIwaDmH2db1mSw9IsaovLEpsBZGJmEtZk4RONeYsGrb6FVd9QNVge4un3ERVIiAMPv
-	 4xxIwveK8rgsxwVIeYdipqg2KT8x+W1QUWlT8vUaujeswqN5/znFlH0KduESLwLT3clE/
-	 cM1swhd5Ud2HM07GnCUW6pdpA9twkzyOLGKxoTLwx3zWsAOFQEHN7aMFvI+buSa70ox+2
-	 hZFZBNsZ/hyQC53K2dCOarlceR3to3YF+t3pRT00iR+z3D2nKr+d8VNiOfrXNoupSdg==
+	t=1793888053;
+	b=HOMrWPIzaZtI/iu/dAOYpDfgKRhR6DtBmd/KZSkNMkrohdneUSl2Zqt7OuUhHuZhN1h8
+	 SOGgFxHIiR889ZAHOXIZI07hkL5/FThYcb0Gc75DOrKIRQb81Dx2gvtpveT+DVfZY8HR8
+	 zNaYRz4Wq0Kp5i74RUAvFN9eQaRcPXSPkj+8GyFvgjn2dp3bwut9G1dgaS1uADjVuYzX7
+	 yoe/XVFIdGZqbEZZI5Q9ebveDZ4Cs/Ekj1UjS+gaB97x8uWmngdjmiFSekVqq9d/3Zttn
+	 O0BlxKOyimQ/VRtZ9QG+xZK1sUZZY7H3A9WwRfP8cnYSoTOQhFpPysB40yku4en3fGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888046;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=U7Elc9Ca9CCw10cEZQAP3d/XvP5VfP/2arZ71z5tLOA=;
-	b=MQC/joYsqsFA35isg1NLv59OPDSIz2a1PJNtKDHdlhaoSbS+LqiZFYqZwtefbpyozSk1
-	 RI6Nm7DK6BftDW/v1Buks+/7esGZNGi5FXAPAH4FOqpETkfUhxFTr9qjutq88dD1bsmPC
-	 gS8ZM7zKa5vobShRQfLZF/mzhRIbPsefj4heETSDjS4u72DpdLyD5fiLYRzOMmsjAX5pL
-	 MTbOXNqCwYYRffFslc4AxbxJeTNlvZPjvekDCLQ+ifPWoEmBlCfsN6BA6KQJeya37tqpQ
-	 Kd1DyHTRvA9xpNJ63h5iRBl4yyZVXTocVqeiIy5FT7H4I6vMeGQocyhaoidaM9GnHxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888053;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Zl4zcjQaew3f7yJ/IqqdyTpPy7p13iqyV5dL8PG0RfM=;
+	b=SJbqPdyvYkBUbbEo/XNYxSRx2arZaIeimeysCXYUA43gWyiDMFLrk5Zr9toIhKUNket+
+	 fHBDfqTlYIj6mnSarW35DfzHvJ4VG2MazCjOe1o37v2ZjXpcLjrSQHFVqJoyk4bkOFo03
+	 oxc+1rt0hdDeT4io+bYl1fP0Fq7FqTFZ1uVl4BGAIyIJdN6ezvzHD00861QXDsEddNMQz
+	 hzSvd/0e6SR2be0dri9GKPOMFYZ9UEDk0JF66NGOwew785oNmPo3E028xsqEW5VFSsznp
+	 am5jQq31itX3eDEvQ4Mnn9wCsyMq8zQKvM+93cS2rkYrAP8PD4rjmBoaDpuYmLypAIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJSt6zZL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DTH+wFxC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE7D606A31B;
-	Thu,  5 Nov 2026 14:14:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B89606D80D;
+	Thu,  5 Nov 2026 14:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJSt6zZL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3931E1F00A1B;
-	Thu,  5 Nov 2026 14:14:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DTH+wFxC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEBC1F000C1;
+	Thu,  5 Nov 2026 14:14:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888045;
-	bh=U7Elc9Ca9CCw10cEZQAP3d/XvP5VfP/2arZ71z5tLOA=;
-	h=From:Subject:Date:To:Cc;
-	b=WJSt6zZL/OAzzw/dcVXPixMrqtdaynBtkwFcqnO2e1KdBnJbfDOipFhTfftwfOa/4
-	 X8ryjUyKy/+IL6TnoDsZhnBjx4/grGrbQezmmujrXjMBQzkYCcOnhcLthp+Sjw0Zm0
-	 CsUCHIsyq0u8JM6nDlkUwwLeJHblMvkxa9cDIwv7+d50rN04T6TMgkyA95Tnc5ER1G
-	 sGl8hI++IbQVzEH6l1Hn42pyRIfgkBrBZKTLOjErxmf5IrFx6DsbM3uGmzmvr4ywkS
-	 5JRa/VbRaueKx1SqfHBJ31y12ii/6dgpu+Wk1ZaTqqnoksjeTkoH8nV4Gac9qbjz2Y
-	 4XQjD7Hhv8LaQ==
+	s=k20260515; t=1793888053;
+	bh=Zl4zcjQaew3f7yJ/IqqdyTpPy7p13iqyV5dL8PG0RfM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=DTH+wFxCisQmpU/QtATllxNBGmKPOrn9tDyRxMqJk7wjubdFS/4s1zpu1ls448R6F
+	 0L/XMPCKv8/UniiyrXXNACbTMdEtRtzKPf3Af2dILd96cFZUV2Tk6NUjBPHGwiAhR/
+	 ayHHR8DFLcW6eu3FwGDWf8DhPa41siQeb8ao/Czus1gSe2oaYX+Z3TIvo2hRNS3+hy
+	 pTlhh0HlNqsBLjH979xuaOFtxLbpMCAOZdLlLFJ/KJWATawBJxYPXrS2HaXD32KCju
+	 eOpHWfUERcWilDQjxS8ZBZempixDjGUQksXyg9MH1I3mzQY+OepXtnXIqgQ4RC35II
+	 CWG17TTmOtlXA==
 From: Mark Brown <broonie@kernel.org>
-Subject: [PATCH v2 00/11] kselftest/arm64: Add coverage of interactions
- with KVM to fp-stress
-Date: Thu, 05 Nov 2026 14:01:13 +0000
-Message-Id: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
+Date: Thu, 05 Nov 2026 14:01:16 +0000
+Subject: [PATCH v2 03/11] kselftest/arm64: Move exit calls out of fp-stress
+ loads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,11 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACuM7GoC/3WNQQqDMBBFryKz7pQkRiVd9R7FRdRRg9XIREKLe
- PdG912+B//9HQKxowCPbAem6ILzSwJ1y6Ad7TIQui4xKKEKoYVEy3OpsV8xbEwh4BRn1JUSrc1
- F1VkNabky9e5zVV914tGFzfP3OonytGevFOZPL0oUmMumJWOKRpvmOREv9L57HqA+juMHtmBcY
- 7cAAAA=
-X-Change-ID: 20250401-arm64-fp-stress-kvm-4720ca307da4
+Message-Id: <20261105-arm64-fp-stress-kvm-v2-3-81a5172468f0@kernel.org>
+References: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
+In-Reply-To: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
 To: Catalin Marinas <catalin.marinas@arm.com>, 
  Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>
 Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
@@ -69,95 +66,130 @@ Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-kselftest@vger.kernel.org, 
  Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4234; i=broonie@kernel.org;
- h=from:subject:message-id; bh=4uN4Ugc+doQyPxPQqbqNc6UtdGHQIH0dj2aTXPLzWDk=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe9GuIRvFuEU7zPX9RaduxV5ccdzMu/CZ+0H/LxL8Ln
- B15M5XPdZSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAivncY/mncZ/gyzT6VQ5pV
- hK80812sfP6jZ1yVn1Y1O15ZcMrjXzUjQ+cbpo9hJXVHLWLvWh39ECa9XUnA+/SNp2ZTj4nuDKj
- +zAMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3766; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=qjxu/5RIE28bIxXQDoZnPILxTHbpIszFwwnTqg6oCfI=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe9Guoc/VGnGX+uWjBqpvzlG/VCb36k2akrPiba9e/4
+ BUKJzpNOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRSFeG/wE83M82/Nc8EsHq
+ 6HUkO/Nsw7w98lp/4lUelVwvq/vSE8nI8PBvNNuWWYtv3Oe9eNqtavHihrvysa1fpc66b/7LFjO
+ RkwUA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Presently we don't have any automatic stress testing for the handling of
-floating point save and restore with KVM, nor it's interaction with the
-host's management of the floating point registers.  The majority of the
-focused stress testing has been done by running the existing fp-stress
-selftest on the host, starting a guest and then running fp-stress in
-there too but this has been a manual process rather than something done
-as a matter of routine by CI.
+When they detect corruption the fp-stress test loads print load specific
+diagnostics and exits with a failure status.  In preparation for
+building versions intended to run as simple bare metal KVM guests factor
+the exits into asm-utils-linux.S.
 
-Plug this gap by reworking the test loads so that they can be run as KVM
-guests, using a simple VMM that provides the interface that fp-stress
-expects from it's test loads.  We run the FPSIMD and SVE tests in KVM
-guests for half the CPUs, if EL2 is available then half the KVM tests
-will use it.  The tests run in a minimal environment with the VMM and
-test binaries tightly coupled to each other.
+In the process we fix the call to the exit syscall in many of the
+locations to pass an initialised value as the exit code in x0, rather
+than setting x1 and letting whatever random value happened to already be
+in x0 be the exit code.  This happened to work in context since
+fp-stress only checks for non-zero values and we always print a
+diagnostic before exiting, the return value of the write syscall doing
+the print would be either a non-zero length or a negative errno leaving
+the low 8 bits non-zero and in all cases nothing resets x0 before we exit.
 
-There's more coverage could be added, but this is an improvement over
-the current situation and can be built on in future.  Off the top of my
-head:
-
- - We only test nested guests running at EL2 with E2H set.
- - We only run the guests at the highest VL they support.
- - Enabling the MMU would avoid surprises due to the performance
-   differences.
- - We do not run any protected guests (this currently taints the kernel
-   so should wait until the pKVM support is less experimental).
- - It might be useful to have the VMM signal handler save and restore
-   the guest register state to exercise that path.
- - Possibly it would be useful to disable irrelevant features so less
-   time is spent context switching non-FP state?
-
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
-Changes in v2:
-- Rebase onto v7.4-rc1.
-- Use PHDRS in the linker script rather than suppressing RWX warnings.
-- Use SMC to invoke PSCI at EL2.
-- Commit mesage clarifications.
-- Rename ASM_UTILS to ASM_UTILS_LINUX in the first patch to reduce
-  churn.
-- Remove more commented out dead code.
-- Fix cross build of the guest code with LLVM, use llvm-objcopy.
-- Drop protected guest support, we were only working due to missing
-  permission checks.
-- Link to v1: https://patch.msgid.link/20260901-arm64-fp-stress-kvm-v1-0-31bce995b49b@kernel.org
+ tools/testing/selftests/arm64/fp/asm-utils-linux.S | 8 ++++++++
+ tools/testing/selftests/arm64/fp/fpsimd-test.S     | 4 +---
+ tools/testing/selftests/arm64/fp/sve-test.S        | 8 ++------
+ tools/testing/selftests/arm64/fp/za-test.S         | 8 ++------
+ tools/testing/selftests/arm64/fp/zt-test.S         | 4 +---
+ 5 files changed, 14 insertions(+), 18 deletions(-)
 
----
-Mark Brown (11):
-      kselftest/arm64: Factor Linux syscalls out of asm-utils.S
-      kselftest/arm64: Factor shared signal handlers out of fp-stress loads
-      kselftest/arm64: Move exit calls out of fp-stress loads
-      kselftest/arm64: Use exit_error() rather than SIGABRT in fp-stress
-      kselftest/arm64: Exit with an error code on data mismatches in fp-stress
-      kselftest/arm64: Factor startup code out of fp-stress load programs
-      kselftest/arm64: Remove the sched_yield()s from the fp-stress loads
-      kselftest/arm64: Add a very simple VMM for use in fp-stress
-      kselftest/arm64: Build KVM guest versions of the fp-stress loads
-      kselftest/arm64: Use execv() to start fp-stress test loads
-      kselftest/arm64: Run KVM guests from fp-stress
+diff --git a/tools/testing/selftests/arm64/fp/asm-utils-linux.S b/tools/testing/selftests/arm64/fp/asm-utils-linux.S
+index 3effeb1fbf50..9cd31dc47709 100644
+--- a/tools/testing/selftests/arm64/fp/asm-utils-linux.S
++++ b/tools/testing/selftests/arm64/fp/asm-utils-linux.S
+@@ -84,3 +84,11 @@ function tickle_handler
+ 	ret
+ endfunction
+ .globl	tickle_handler
++
++// Terminate the program, reporting failure.  Does not return.
++function exit_error
++	mov	x0, #1
++	mov	x8, #__NR_exit
++	svc	#0
++endfunction
++.globl	exit_error
+diff --git a/tools/testing/selftests/arm64/fp/fpsimd-test.S b/tools/testing/selftests/arm64/fp/fpsimd-test.S
+index 9db7b5419397..5ee8ef51ea4e 100644
+--- a/tools/testing/selftests/arm64/fp/fpsimd-test.S
++++ b/tools/testing/selftests/arm64/fp/fpsimd-test.S
+@@ -298,7 +298,5 @@ function barf
+ 	bl	dumphex
+ 	puts	"]\n"
+ 
+-	mov	x8, #__NR_exit
+-	mov	x1, #1
+-	svc	#0
++	b	exit_error
+ endfunction
+diff --git a/tools/testing/selftests/arm64/fp/sve-test.S b/tools/testing/selftests/arm64/fp/sve-test.S
+index 2aadb5c3c0f3..3447fe0e5554 100644
+--- a/tools/testing/selftests/arm64/fp/sve-test.S
++++ b/tools/testing/selftests/arm64/fp/sve-test.S
+@@ -543,9 +543,7 @@ function vl_barf
+ 	mov	x0, x10
+ 	bl	putdecn
+ 
+-	mov	x8, #__NR_exit
+-	mov	x1, #1
+-	svc	#0
++	b	exit_error
+ endfunction
+ 
+ function svcr_barf
+@@ -555,7 +553,5 @@ function svcr_barf
+ 	mov	x0, x10
+ 	bl	putdecn
+ 
+-	mov	x8, #__NR_exit
+-	mov	x1, #1
+-	svc	#0
++	b	exit_error
+ endfunction
+diff --git a/tools/testing/selftests/arm64/fp/za-test.S b/tools/testing/selftests/arm64/fp/za-test.S
+index 84e63e510f23..33dc4ce8bfa1 100644
+--- a/tools/testing/selftests/arm64/fp/za-test.S
++++ b/tools/testing/selftests/arm64/fp/za-test.S
+@@ -354,9 +354,7 @@ function vl_barf
+ 	mov	x0, x10
+ 	bl	putdecn
+ 
+-	mov	x8, #__NR_exit
+-	mov	x1, #1
+-	svc	#0
++	b	exit_error
+ endfunction
+ 
+ function svcr_barf
+@@ -366,7 +364,5 @@ function svcr_barf
+ 	mov	x0, x10
+ 	bl	putdecn
+ 
+-	mov	x8, #__NR_exit
+-	mov	x1, #1
+-	svc	#0
++	b	exit_error
+ endfunction
+diff --git a/tools/testing/selftests/arm64/fp/zt-test.S b/tools/testing/selftests/arm64/fp/zt-test.S
+index afcadb5aff23..c67242c2d5ab 100644
+--- a/tools/testing/selftests/arm64/fp/zt-test.S
++++ b/tools/testing/selftests/arm64/fp/zt-test.S
+@@ -284,7 +284,5 @@ function svcr_barf
+ 	mov	x0, x10
+ 	bl	putdecn
+ 
+-	mov	x8, #__NR_exit
+-	mov	x1, #1
+-	svc	#0
++	b	exit_error
+ endfunction
 
- tools/testing/selftests/arm64/fp/.gitignore        |   4 +
- tools/testing/selftests/arm64/fp/Makefile          |  66 ++-
- tools/testing/selftests/arm64/fp/asm-utils-kvm.S   |  93 ++++
- tools/testing/selftests/arm64/fp/asm-utils-linux.S | 181 +++++++
- tools/testing/selftests/arm64/fp/asm-utils.S       |  36 --
- tools/testing/selftests/arm64/fp/fp-pidbench.S     |   6 +-
- .../testing/selftests/arm64/fp/fp-stress-kvm.lds.S |  65 +++
- tools/testing/selftests/arm64/fp/fp-stress-vmm.c   | 586 +++++++++++++++++++++
- tools/testing/selftests/arm64/fp/fp-stress-vmm.h   |  17 +
- tools/testing/selftests/arm64/fp/fp-stress.c       | 230 +++++++-
- tools/testing/selftests/arm64/fp/fpsimd-test.S     | 121 +----
- tools/testing/selftests/arm64/fp/sve-test.S        | 144 +----
- tools/testing/selftests/arm64/fp/za-test.S         | 144 +----
- tools/testing/selftests/arm64/fp/zt-test.S         | 137 +----
- 14 files changed, 1250 insertions(+), 580 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm master
-change-id: 20250401-arm64-fp-stress-kvm-4720ca307da4
-
-Best regards,
---  
-Mark Brown <broonie@kernel.org>
+-- 
+2.47.3
 
