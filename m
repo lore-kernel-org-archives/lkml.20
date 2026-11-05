@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899592;
-	b=F1QmZoKj1HjhflE04ai37RT8VZA1pA3GhlN6a62nxTsxJUbOzReuQHvuAI/RbpTuT9iA
-	 VdFHhTMdPOoMH4s2JiaJSk8IvtUzbYCdyadfSDkL7haooSA5WXTa7xGfrmipYDyAumfeV
-	 it/nrHAeHnb+ppywkqA4BlGTHErV9qRIkMv/L5QnwUW5TsA9QA2dNBpPuHHoeu8ItV24V
-	 +yGDx58tAp57/f4KK7pVWFZTH2+cV9KmZtCZC7p3FQtScMtgbWmZjjvvFlsEI8IMnwYk0
-	 7P9NI5tnPLfxmZQBst1V5wPoZZbaerxFeADahkADCq11JXQbae/YmUMDYYMgoHbfeng==
+	t=1793899616;
+	b=Qq9ppBqESj0cMNyoaDTBfetwwXQM/1mMTZEamY1hjQJW/4LVFSDfu/jBjq12OPA4HCBU
+	 rXrs7eliaMJRbXJWEl7UhJYxGQhpJsxU0QXXmnjU2x9vAVDHyxUEOKQZWIyPZLLsI0wZn
+	 IH50xfIpLt1AUnoiYaEHMDxJYAjz8JMey6TM4ObtZJCgafnYH3aPgs23EsNkU8cvQPNyK
+	 YluvU++C9LZ5E21OfTInxIEBK/3EXXZNLUWIp/MHMsnXin4fyziptyXbgekWnoGWzXuqD
+	 MGDDTs3x54wLsljyuGt1IyhxkNic04LJB4SQ7zORRZhbj6GVjhn9jgtnWPA6S1yRJng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899592;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=Mu84mZSij/3CB+1sN5Dy04N9VPY/s4lXydtYOJyIYgY=;
-	b=J/0T/TwEWI3C9G5QvHOCvyowUHQPjC42tzD8uj8FIdKrQQ/RIRo1wkLFdkteeyKD/yN9
-	 np1tkb0+Xg7Cy2tMJAYQVUNgShnIFOxqlrj6duG/BFqoNn46DD+lwiz3qEOqL3XprYyO2
-	 tomxH6ogqRu3GZ9zt9UMsJMV/KmkGjEFdkMStLBxZ+FEMm0hjLdWvJ79ZZK/nZ4Z/chvr
-	 QY7wFEgaeTU4Z3E975XLPad4N4Wz+QaXBW9/tHUes78IGRkvDc6zjmEV0tD9/zfETQIpB
-	 3tmXfhoWjFViqYu95gtzb15xAEISunujPDyV7tuuxa6XFhu83JjJeyR+FfUO+sgb2jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899616;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=pv7MklMh40uZcAi4SKZfbl5EAYBB+uiXBzpLsbSe1GE=;
+	b=rzXrNDkV6dMQbZk0A8zpt/0r+OlHh71PwCC5rtSDeCpC4lBuFXaj1WyLSb+EJNPCmRSC
+	 eelYbd49Q17q+1qx/VQRRZqBKH/ewXY86NN6CqVasXy6bdM0mo+1fpcb+7It4Gu3H5UDd
+	 aRTKamkujP5XlHnbQdqEonjsQMxvdeyplCT520SY81de0xClbYFgynxobvv/7wFajvddq
+	 gu4OqcjknNMVJsWaStP0n+Y1s0mvV4nW0eA8qjawjXOVHn9udB2DA9pdpgYWhLRzpPUhN
+	 L3eDiENBBhC0PclT7RKNcI8vt1Z/XOMB8Kd2BmTrOvGc4kUsMTPdPzaTEtrmoA/4Guw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oREn7172;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RHfWCLgr;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40070606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:26:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40070606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC552606D803;
+	Thu,  5 Nov 2026 17:26:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC552606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oREn7172
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48afbd2c386so1496079f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:26:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793899590; x=1794504390; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Mu84mZSij/3CB+1sN5Dy04N9VPY/s4lXydtYOJyIYgY=;
-        b=oREn7172GxcGEutQiNpXYLOitC2IQcE2PoOF23DNwPzKpJMsaC2X+ATWyfB39FqGHa
-         hf1yPhOoHQYY7OTC51m/V6j/Okfk/+rY+/4XfRQV0JAuTLXjC74EwI9mHYfLltxbjrjW
-         nwx7OISdiDwwlJokTvyFgKyJyXN33630MmOGS64vJoenXFLp6aHJ9cXndj8IrZcdyKgg
-         eBOqhzz85vqVsd8AIZG1fExOpY4EfZk9bfLAvYZhSX4ZZoAtZXcqMrhYK/1BOmhg44mq
-         bzfPdNrwpBRPGgRizrJXtPLwkqxqbuWaVwFJ8At6uaYZMWArqJD7LIGgDFBQHCKiXvgm
-         TVMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793899590; x=1794504390;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mu84mZSij/3CB+1sN5Dy04N9VPY/s4lXydtYOJyIYgY=;
-        b=e/qxQAQSzyrXy2k+e2GCJvwZ89ScCO9oCkUGTzNCPT+UAJv3o/ay7CiBN0GCjyuAG9
-         84LA0naVL0J5w+KO+UR2jnJ5mxwoCykgXiIneaTIOr/yDjsO/Mmw9421U9vHFcMONx09
-         q4JtEBY+3xJLzdJ1H+vkO1jKOVkMhHxhVLCJvMcDKT6YINPJI2t/c6oGuvBl/zlSzI58
-         LXJRzRjMpuzMzlo1o6Pn5lB0DKwTVgdInT9Et8TzQ6zKbkWAN7W+ZZIsFMP7x/3BlLjl
-         de9qOSFI4yw5Xp2918fUqYajhVGdavwml8VlS/jNB0MZXEjOTUoe/R2zgnOUArdGzaQa
-         0cAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQnRPsrCB1z/7ooGY6HemveqWyH1Z42nwHo6/hBQOyIKjt5lQOWvoTlkAISChcOiw1vGE8484Zbgk98zU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nM83opW4zek/EAdjAusCzwM1o6RIQJpMgPjczaqTKOc6HYAST
-	24lCIKTzpbdloc+H/DiAYG8h0g+AsLvmG9lIdPd0Cm+jCdPZHr/EIEYsKjq6jy6ezhY=
-X-Gm-Gg: AYBFou3rmjgsLhcBG1mVlQEDbD1qNOuNKcOrAwXt7CND4zGOCLY2SO/UJUYvKvW8spO
-	vX87QDHM7nh/8/0Sfp2tH7Dd5qRzbOuHekYXKJqyL1pjshhvbFUwh/HGHmN9xpb0SVI1FjfAuuf
-	RFfEb4z/p82vHdnOq28sRPQbXpkhQ9mi3y3rElSbGEbMuB+nVU9nB7vTU28JuiD29Qz1lAcEasn
-	MjnQRzNww3R2QfRFVFbJXKSOID/oTJdPBqKQFpGUQvNJYqgXb0L8MonKlB90K1hdVzSbDyPWAMK
-	ZUQC96MyYiEleExEv7oLD/1gcxtZpFIcrdatN3LzU2Ecbp4A0m6XDVHRWMHglAUpz3sDWVGbhmh
-	p9Nfus6zMjyldBUW9SWtwRKxhcceR1+Ay4IAd0SWotfg+c3W/gp9lWL3Q5asxPR0YTOawgzdRtT
-	+3An6eM2kqy84bFby5RZYipfo4Z+OUTG41ssF98iwVkCpfV90q/ym83szwIVAXzPllhaGqjcwtQ
-	b1BB89zcOXETT9i7T5YWMnvHL1XDGD2q7AHLzI68rNbzFTwBz1kqRzn2ES/0uSkSOzoedAePpzW
-	IONnXaOaZ2nMs/4SBgEES/mfPn18xOhSzQ==
-X-Received: by 2002:a05:6000:260b:b0:48e:6f76:dea2 with SMTP id ffacd0b85a97d-49277d9c77cmr519333f8f.38.1793899590581;
-        Thu, 05 Nov 2026 09:26:30 -0800 (PST)
-Received: from draszik.lan ([109.255.181.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed5538basm10657579f8f.44.2026.11.05.09.26.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:26:30 -0800 (PST)
-Message-ID: <5f5613d5e9679307c992d613823b0325ed958234.camel@linaro.org>
-Subject: Re: [PATCH 05/10] regulator: core: Hold supply device reference
- until constraints are resolved in regulator_resolve_supply()
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark
- Brown	 <broonie@kernel.org>, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Date: Thu, 05 Nov 2026 17:28:55 +0000
-In-Reply-To: <20261104182148.1176116-6-lee@kernel.org>
-References: <20261104182148.1176116-1-lee@kernel.org>
-	 <20261104182148.1176116-6-lee@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9+build1 
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RHfWCLgr
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id B40781A0C0A;
+	Thu,  5 Nov 2026 17:26:52 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 5DDF36000F;
+	Thu,  5 Nov 2026 17:26:50 +0000 (UTC)
+Date: Thu, 5 Nov 2026 12:26:48 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: Peter Zijlstra <peterz@infradead.org>, mhiramat@kernel.org,
+ mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE
+ to 1024
+Message-ID: <20261105122648.67abbe1d@gandalf.local.home>
+In-Reply-To: <1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
+References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
+	<20260922225526.1554758-2-vineet.gupta@linux.dev>
+	<20260924100040.GD4121339@noisy.programming.kicks-ass.net>
+	<1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,64 +65,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 5DDF36000F
+X-Stat-Signature: 6d38fdaz4tpccretw3cu5fob64q9xee9
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18Y4DFtXkg4jsJZYBISd9ocbt9PHNYCMOA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=pv7MklMh40uZcAi4SKZfbl5EAYBB+uiXBzpLsbSe1GE=; b=RHfWCLgrnx4ZxBIH2r6VcZ24XDAK/69saLUX/jGVp0l69uyPFkkq0WeCWSkgL10OXYnAU1ucQ2OfghwEK7IsYCvppdeMyO/3GE5HBISOAeDYIuyzbGJdIvzG2CrCoQ0mBjHaeE8ETynP6wIhnMy2C+g8ErmBzNDkTUTMcwuxFEI=
+X-HE-Tag: 1793899610-320862
+X-HE-Meta: U2FsdGVkX196ApTKk9z3YfX9TVkdxyThCeVOey5oiGGnblNR0vtupo1sCnJeFXkpA+lsfg/nxOW0Ze/w06Jw5JgIcSOEolRbWv5tNNLDILUXjhqq6WNqFPREk+mBYz04qFk6NKvY5hCTgXUTrfFg3HSILOjh+bjTnNDhuJZgJCMZVxw33zouJ87ekKPUazr5bW/jS4b7ikPpuziO1Vdm56194XyDemAtffZiF1kGknFBvEluljcUQ0ERGV8DO9wzvExfgDg4NnSWmFd3jnBlKhMyvqZMjpJCNh1fJQr2bumme3is7qyL5cvl+r8uMc+JgZjuU6Jgz7HGasXAGR3Pbh37Hxmi9Wo4TO87NhmOhmWmnt2wQaDBXTBGJlSk6cRuBEL99hNd+b0ejQudiWHHmVNfGXL4VNJdz5Z4FT01x2YwYKyM0G30yDFh53dc3fjcUbZm1E5kVN7a1XiO4vEJoA==
 
-Hi Lee,
+On Fri, 25 Sep 2026 12:32:49 -0700
+Vineet Gupta <vineet.gupta@linux.dev> wrote:
 
-Overall looks good, thanks for catching this. A few small comments
-below:
+> For submission, would you take this up as reported-by me or do you 
+> prefer I send a v2 (your authorship and SoB etc) ? No big deal either 
+> ways just not sure what the std operating procedure is and nuances of 
+> all the tags etc.
 
-On Wed, 2026-11-04 at 18:20 +0000, Lee Jones wrote:
-> In regulator_resolve_supply(), set_supply() previously consumed the
-> caller's lookup reference on &r->dev without taking its own reference
-> for rdev->supply, while the concurrent path (when rdev->supply was
-> already set) dropped put_device(&r->dev) immediately after unlocking
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Please implement Peter's suggestion and send a v2 with the tags:
 
-I think
-"called put_device(&r->dev) immediately" or
-"dropped its reference immediately" reads a little bit better.
+Link: https://lore.kernel.org/all/20260924100040.GD4121339@noisy.programming.kicks-ass.net/
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
 
+Thanks,
 
-> diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-> index 935fee27f126..6d522731e4d9 100644
-> --- a/drivers/regulator/core.c
-> +++ b/drivers/regulator/core.c
-[...]
-> @@ -2290,22 +2291,20 @@ static int regulator_resolve_supply(struct regula=
-tor_dev *rdev)
-> =C2=A0		supply =3D rdev->supply;
-> =C2=A0
-> =C2=A0		regulator_unlock_two(rdev, r, &ww_ctx);
-> -		put_device(&r->dev);
-> =C2=A0
-> =C2=A0		/*
-> =C2=A0		 * Supply resolved by concurrent task, and constraints set as
-> =C2=A0		 * well (or not required): fast path.
-> =C2=A0		 */
-> =C2=A0		if (done)
-> -			goto out;
-> +			goto out_put;
-> =C2=A0
-> =C2=A0		do_final_setup =3D false;
-> =C2=A0	} else {
-> =C2=A0		ret =3D set_supply(rdev, r);
-> =C2=A0		if (ret < 0) {
-> =C2=A0			regulator_unlock_two(rdev, r, &ww_ctx);
-> -			put_device(&r->dev);
-> -			goto out;
-> +			goto out_put;
-> =C2=A0		}
-
-There are three locations in this file that still do
-'put_device(&r->dev); goto out;' in this function and could be updated
-as well:
-
-* the '!device_is_bound(r->dev.parent) exit' around line 2264
-* the exit after regulator_resolve_supply(r) fails around line 2275
-* the 'if (r =3D=3D rdev) {' branch around line 2242 (with a little massagi=
-ng)
-
-Then there'd be just one place that releases the lookup reference.
-
-Cheers,
-Andre'
+-- Steve
