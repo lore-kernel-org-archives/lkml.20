@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793861048;
-	b=FduN27b4al9gf+HsGfL0uXhj+h/MXYsGN3O0mNa/eKOsGiSZB2YYpDTU9W5+HSm85ziu
-	 z7nycx4WB7G6g+Chovr9Eysnq4Vh7V4ItQU3Ar5aUK/Adbcz+reMHI9ORZu7DEG5dn0m8
-	 siNejwGOXOqz8drYwcKHOhIoivqDt6T5qkvoWqcB83HkWp4XzCP+fAG96DDBkVEr1uWGU
-	 mPpDNAxtNlH+SHuR+Hgl0WiJFzZ1XATJnvgkKKHpgUH0w63zU0rysjqsadqVMiTFGEBjn
-	 pLX4yXzTdK9U/pPPH0601YcsjYG8xaVVcNXkZQUoCH6Tqjcre31SWq0ND77ZpmZmN4A==
+	t=1793861258;
+	b=sE7Zb9dTR0Z+HOgoPPvyT6WwZcry+KOetv7iMofUzWWaE6JjF7p+eDpz1bXhdWj18Yjm
+	 WIariOOldTbocGWNPTHcFYUXialyCjN8mC6Xnc9BzeQNHG5qPy+Xe4JlFJ2PAPT1pGkNG
+	 eZeeO/OVxgEzSas6+wAqfz/l9Y+DOsAYIRli0erdpiYjD1w04rFj1Oady0qIxv7s16N0k
+	 NAq+tS31Uk9JF7aezJZ+/dcfIOoGLx1pxQAtssIlSMKA1o0OEgySE56VrH73u1v9IZFYP
+	 QcM7HSvIOb3JDri8lguAgUFn8cU2W1WHlRzF5y04kX0OVb+EI+MnHYhglwzTtn8dxsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793861048;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CrKc9DfO0oB6G1+crXqAff0+L0ilSXeK3hIK0jKgHi8=;
-	b=WCY5PcjJ81/9HHTFwN63wIw4Y4anZOLennA3YQnwtzNw3eyjQwr5/BT+p4QKtxWGMqN0
-	 GJO+YW/iDlEiijinnEcWeoKq2NU0q0ENQ2bja+ryJAuX4cp9PEZFVbM5JBe4dGH8XlJyp
-	 nlslPVj8K6EVQTXY73jpmcEaDFg7gVY/CuCFPYMY5RlQWsEYy7Zt3s2r6Sq2FnZAYImUt
-	 PmAIe/zF4l5PPCvE5U63DXpLFtiRnEw/egXx+JYq3IhiJV47bXzkg+8U+xmQwzLJQOfYl
-	 eHD8zyuhH4YVBLS5/84O5UQ/asjvgKkQmPnd1/cXEWpQbq6Zh21W01fwkep3y5meRRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793861258;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=y8vL7kxoR7SzZztx/rZLqHDEEm7PeYDs33h2gMA1c9c=;
+	b=IEdttekGtFcGMxLmO27ycj+JNhgB5HIrzFLzrAIZldbwkMlxbtx3eq9INh5tjtRE+3NX
+	 RQpRGWMCpG0UCfL1nQYsIyoyFSOr1UdizZmWJxTbjCTinXC3C7Ydx7AE4by767LQucij4
+	 iCY+9lHIAuMMKz6mIDzg9rEaWqeMc/9hn2YavcsP9r9L7ympIcNsf32cIIXBWXhbyci+4
+	 pH1Q1Xej+WfGsqL5e+hE7LoJ6hq+Y5g+/7fOLd7eu6htxz7eq13BLbklWnZVhFgM9qfFw
+	 9QhD2/AtIY6qwKNECimxy5tzIHuLxbjwpB/sgqP3WnWfUhe5sXsOAcolQ/hde5+bU0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Goc8ax24;
-	arc=none smtp.remote-ip=91.218.175.148
-Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=xO0yIJpw;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4240606A33F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:44:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4240606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117EE606A31B;
+	Thu,  5 Nov 2026 06:47:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 117EE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Goc8ax24
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AJvSBmpuKsm2r9LIYiiIAUw+HB9piFiuKi7K/Txgm7k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793861046; v=1; x=1794465846;
- b=Goc8ax24DzAlEm4UpCekeKUuP4OOzaOIL9YdH29+fDwc8qJoueKg0gJd7yGd64jw2ni5Vvq0
- aMLci5SQK5ZN7KAIR7Q4LTSgy3P1I6kvr6Q96JYE99+2mFDyV9W6nJAaS6OKdYcmnbbTJpkConu
- FyMxfcNVB4/wi5nRkQQROTpM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 0b95db6ca7641e0f;
-	Thu, 05 Nov 2026 06:44:05 +0000
-X-Mizu-Trace-ID: 0b95db6ca7641e0f
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 5 Nov 2026 14:43:52 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Timur Stukan <timur.stukan.linux@gmail.com>
-Cc: netdev@vger.kernel.org, Nikolay Aleksandrov <razor@blackwall.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Jay Vosburgh <jv@jvosburgh.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] bonding: fix missing down path on speed/duplex
- failure after FAIL->UP
-Message-ID: <auwlqK01oV5jfwWW@fedora>
-References: <20261101150240.66292-1-timur.stukan.linux@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=xO0yIJpw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793861237;
+	bh=y8vL7kxoR7SzZztx/rZLqHDEEm7PeYDs33h2gMA1c9c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=xO0yIJpwSl31rfU+maDi4+Z7UWjq2wnsglLv84FL+/cT80gL+TKbbFCYi+pVLWv7I
+	 7w6J9UjLpq/SyAi6mrofOA39vhJJARbKOcz0U1EmggqGj/e83w06iSH5MHssVaExUx
+	 fZwNWNYOnQBNvVn+KCESRm6Uo3HiQpczRy2axeVU=
+X-QQ-mid: esmtpgz16t1793861235t37038cbf
+X-QQ-Originating-IP: InQ75TYjDrWjVR1HZK+vsqw7EkBc6FPy3QXlMoZVjZE=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 05 Nov 2026 14:47:12 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13246700401697265975
+Message-ID: <BC03A4A81DF1016A+99de9ff1-0e4e-45ad-a8c2-1a65a6d96afe@linux.spacemit.com>
+Date: Thu, 5 Nov 2026 14:47:11 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,193 +60,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101150240.66292-1-timur.stukan.linux@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 03/14] gtrace: Add RISC-V platform driver for the
+ gtrace framework
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ian Rogers <irogers@google.com>
+Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti
+ <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>,
+ Andrew Jones <andrew.jones@oss.qualcomm.com>,
+ Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
+ <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MsUXo4bJCvPOBDKLj6nEUzRfjbHe/qcpf2PTqlAtLYP9LIvM4bKHwZT5
+	ZQtc9Ya7eziGLadL9lBOcenzrXb7mtdhlXkAahSKAy9ba9P9Q836MhDarcQFosvu6qpZlG4
+	4+eaJgk8LqfJ9GBKrk+QNgtf8DMSxTdcC8bA1Vzo9G4NdVuL759N5w0nm47OTfsPLdZjGOI
+	Gj5rnvR4+ybhmgaRp4J07mroZXsLQk/VbDyDBxMdfViHxhUJUmftBfyhuNd1zIKSfbW62kj
+	HJlkHNiceJNsiPG79AlWEGM0vcC5OFVBN3vqOJ2C2MThYi3V6xCp7dgSUwM/1tGUZKenns3
+	5/Ni0q/DwmjcLA+8CpayZK0ASpbEhOeXSajf/gurGeGwA6biC1O2v1r+hNplyyeJwPouCtT
+	RYoaQva/NymWIDoaQZidvPVg+r6ksHN/HyZTx8Yu2C0umPfHyZPLRYkylXE8UeunUisyBOA
+	VYattvXPmOO1l005Gw+i1LReyAdGsfNm5AlOUR0PEEdnHj49oVXu4G3ZHAZN5fMj7JheTDW
+	xwd7JFIM5sN3efOaEr3BHnF2fswUwT5prK3DyAF8VYU0QYz15puvaVTpmbVmBwhUKxZW58N
+	55OWdx8LJ0jrMbVdSQ00RCHQU9Lq5xXzwqz91SnhXHMZTNU1WcJb/eSElzN47wqIuLG1AJZ
+	dzPhYIt1zIpWte2wDk3v81MA/INI7GPsCKfnWr7nP/V8TogyGuxOaXu4eJ031s31wIP6HWy
+	Rdh2VZWHDLxKbiDD566OR8iRg8PzYvjh6PaOnt0ePCwLO/Cb4sUWiXCaER8SFuZ2QiVib3a
+	7zFF087mRjYTf9SyJWXx76bocNe3zcbrQ8tWrdPRKecS41TMMhrZzt+LX5UBLDp9tIWq9TS
+	A4UdgCCs+Vl//xbdHqPK49fwBAX/kRRKNFi4Pzt/dF/rYMSr2Y9yvIUyeN8IqpKliz/wfcG
+	lyGy6riHBEjbp0++aMUNF86L3PH33Od9dCY+ZCUYlVv9wVsN32sxzXAsxVllOvgo4DSDfb+
+	QCK7IKB0pgrD6CoqknPSbG7iaTIu4=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On Sun, Nov 01, 2026 at 05:02:39PM +0200, Timur Stukan wrote:
-> In bond_miimon_commit(), when a slave is proposed as BOND_LINK_UP but
-> bond_update_speed_duplex() fails in bonding mode that needs speed/duplex
-> (802.3ad, tlb, alb), the slave is set to BOND_LINK_DOWN directly. This
-> bypasses bond_set_slave_link_state(), bond_miimon_link_change() and
-> failover.
-> 
-> This is fine for slave that coming from BOND_LINK_BACK, which was never
-> brought up and is not in use. But since commit 1899bb325149 ("bonding:
-> fix state transition issue in link monitoring") the commit phase also
-> handles BOND_LINK_FAIL -> BOND_LINK_UP which means a slave that is still
-> in use and may be curr_active_slave.
-> 
-> If the link recovers within downdelay and goes down again before the
-> commit phase reads speed/duplex, the slave is silently marked down while
-> remaining the active slave in worst cases. In alb/tlb the bond MAC stays
-> on the dead port, no failover happens and TLB/RLB state is not cleaned,
-> so the bond stops passing traffic until that link comes back even though
-> other slaves are up. A non-active slave is affected too, in alb, RLB
-> clients assigned to it are not reassigned and become unreachable.
-> 
-> Reproduced in tlb and alb mode with miimon=100 and downdelay=10000 by
-> flapping a slave within downdelay and dropping it again before commit
-> (a longer delay was added between inspect and commit to make window
-> wider and easier to test):
->   bond0: (slave enp0s3): link status down for interface, disabling it in 10000 ms
->   bond0: (slave enp0s3): link status up again after 3400 ms
->   bond0: (slave enp0s3): failed to get link speed/duplex
-> 
-> procfs then shows the active slave with "MII Status: down" and "Link
-> Failure Count: 0", and all traffic is lost.
-> 
-> Fix this by dropping the loop in bond_mii_monitor() that applied all
-> proposed link states before bond_miimon_commit(). bond_miimon_commit()
-> now applies each state itself: UP after the speed/duplex check, as it
-> already did, DOWN in the down path, and FAIL/BACK directly. So when the
-> speed/duplex check runs, slave->link still holds the previous state. If
-> the check fails for a slave that is FAIL or UP, take it through the
-> regular down path, including failover. DOWN and BACK slaves were
-> never brought up and are still just reverted to DOWN. The down path is
-> moved into bond_miimon_slave_down() so both callers share it.
-> 
-> After the fix:
->   bond0: (slave enp0s3): failed to get link speed/duplex
->   bond0: (slave enp0s3): link status definitely down, disabling slave
->   bond0: (slave enp0s4): making interface the new active one
-> 
-> Fixes: 1899bb325149 ("bonding: fix state transition issue in link monitoring")
-> Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
-> ---
-> 
-> Notes:
->     Changes in v3:
->     - Drop the loop in bond_mii_monitor() and apply FAIL/BACK in
->       bond_miimon_commit() with bond_commit_link_state() (Jay, Hangbin)
->     - Also take the full down path for a slave that is already UP when
->       the speed/duplex update fails (Sashiko)
->     - The 802.3ad notifier issue reported by Sashiko is fixed separately:
->       https://lore.kernel.org/netdev/20261101145653.63648-1-timur.stukan.linux@gmail.com/
->     - v2: https://lore.kernel.org/netdev/20261028104758.299129-1-timur.stukan.linux@gmail.com/
->     
->     Changes in v2:
->     - Drop link_prev_state. Instead, don't commit UP proposals in
->       bond_mii_monitor() and let bond_miimon_commit() commit them after
->       the speed/duplex check, so no extra state is needed (Jay)
->     - v1: https://lore.kernel.org/netdev/20261022103821.89552-1-timur.stukan.linux@gmail.com/
-> 
->  drivers/net/bonding/bond_main.c | 63 +++++++++++++++++++--------------
->  1 file changed, 37 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-> index 7019e5d8fdc8..d6b6c125470f 100644
-> --- a/drivers/net/bonding/bond_main.c
-> +++ b/drivers/net/bonding/bond_main.c
-> @@ -2779,6 +2779,27 @@ static void bond_miimon_link_change(struct bonding *bond,
->  	}
->  }
->  
-> +static bool bond_miimon_slave_down(struct bonding *bond,
-> +				   struct slave *slave)
-> +{
-> +	if (slave->link_failure_count < UINT_MAX)
-> +		slave->link_failure_count++;
-> +
-> +	bond_set_slave_link_state(slave, BOND_LINK_DOWN,
-> +				  BOND_SLAVE_NOTIFY_NOW);
-> +
-> +	if (BOND_MODE(bond) == BOND_MODE_ACTIVEBACKUP ||
-> +	    BOND_MODE(bond) == BOND_MODE_8023AD)
-> +		bond_set_slave_inactive_flags(slave,
-> +					      BOND_SLAVE_NOTIFY_NOW);
-> +
-> +	slave_info(bond->dev, slave->dev, "link status definitely down, disabling slave\n");
-> +
-> +	bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
-> +
-> +	return slave == rcu_access_pointer(bond->curr_active_slave);
-> +}
-> +
->  static void bond_miimon_commit(struct bonding *bond)
->  {
->  	struct slave *slave, *primary, *active;
-> @@ -2807,10 +2828,22 @@ static void bond_miimon_commit(struct bonding *bond)
->  			err = bond_update_speed_duplex(slave);
->  			netdev_unlock_ops(slave->dev);
->  			if (err && bond_needs_speed_duplex(bond)) {
-> -				slave->link = BOND_LINK_DOWN;
->  				if (net_ratelimit())
->  					slave_warn(bond->dev, slave->dev,
->  						   "failed to get link speed/duplex\n");
-> +				/* Coming from FAIL/UP, the slave may still be
-> +				 * in use and may be curr_active_slave, so take
-> +				 * it through the full down path. Coming from
-> +				 * DOWN/BACK, it was never brought up, so just
-> +				 * revert it to DOWN.
-> +				 */
-> +				if (slave->link == BOND_LINK_FAIL ||
-> +				    slave->link == BOND_LINK_UP) {
-> +					if (bond_miimon_slave_down(bond, slave))
-> +						do_failover = true;
-> +					continue;
-> +				}
-> +				slave->link = BOND_LINK_DOWN;
->  				continue;
->  			}
->  			bond_set_slave_link_state(slave, BOND_LINK_UP,
-> @@ -2839,28 +2872,13 @@ static void bond_miimon_commit(struct bonding *bond)
->  			continue;
->  
->  		case BOND_LINK_DOWN:
-> -			if (slave->link_failure_count < UINT_MAX)
-> -				slave->link_failure_count++;
-> -
-> -			bond_set_slave_link_state(slave, BOND_LINK_DOWN,
-> -						  BOND_SLAVE_NOTIFY_NOW);
-> -
-> -			if (BOND_MODE(bond) == BOND_MODE_ACTIVEBACKUP ||
-> -			    BOND_MODE(bond) == BOND_MODE_8023AD)
-> -				bond_set_slave_inactive_flags(slave,
-> -							      BOND_SLAVE_NOTIFY_NOW);
-> -
-> -			slave_info(bond->dev, slave->dev, "link status definitely down, disabling slave\n");
-> -
-> -			bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
-> -
-> -			if (slave == rcu_access_pointer(bond->curr_active_slave))
-> +			if (bond_miimon_slave_down(bond, slave))
->  				do_failover = true;
-> -
->  			continue;
->  
->  		case BOND_LINK_FAIL:
->  		case BOND_LINK_BACK:
-> +			bond_commit_link_state(slave, BOND_SLAVE_NOTIFY_LATER);
->  			slave_dbg(bond->dev, slave->dev, "link_new_state %d on slave\n",
->  				  slave->link_new_state);
->  			continue;
-> @@ -2894,8 +2912,6 @@ static void bond_mii_monitor(struct work_struct *work)
->  {
->  	struct bonding *bond = container_of(work, struct bonding,
->  					    mii_work.work);
-> -	struct list_head *iter;
-> -	struct slave *slave;
->  	unsigned long delay;
->  	bool commit;
->  
-> @@ -2917,13 +2933,8 @@ static void bond_mii_monitor(struct work_struct *work)
->  			goto re_arm;
->  		}
->  
-> -		if (commit) {
-> -			bond_for_each_slave(bond, slave, iter) {
-> -				bond_commit_link_state(slave,
-> -						       BOND_SLAVE_NOTIFY_LATER);
-> -			}
-> +		if (commit)
->  			bond_miimon_commit(bond);
-> -		}
->  
->  		if (bond->send_peer_notif)
->  			bond_peer_notify_may_events(bond, true);
-> -- 
-> 2.43.0
-> 
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+On 10/1/2026 1:22 PM, Mayuresh Chitale wrote:
+> +static const struct of_device_id rvtrace_platform_match[] = {
+> +	{ .compatible = "riscv,trace-component", .data = (void *)GTRACE_FORMAT_ETRACE },
+> +	{}
+> +};
+
+The current implementation with hardcoded .data = (void *)GTRACE_FORMAT_ETRACE prevents RISC-V N-trace
+from working properly without extending the of_device_id table in the future.
+This directly contradicts what you stated in the cover letter:
+"The RISC-V trace component drivers are designed to be agnostic to the underlying trace protocol hence both
+RISC-V E-trace and RISC-V N-trace should work fine. The discovery of trace protocol parameters are left to
+user-space trace decoder."
+Since the kernel driver is intended to be protocol-agnostic, and a specific in-kernel decoder is not yet implemented
+at this stage, deferring the trace protocol discovery seems to be a much better approach. Once the sysfs interface is
+introduced in future patches, the user-space trace decoder can naturally query and obtain the exact trace protocol
+from it. Therefore, I suggest removing this E-trace specific hardcoding from the match table to keep the driver truly
+protocol-agnostic as originally designed.
+
+
+
