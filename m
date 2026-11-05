@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793874329;
-	b=MOel1KPoD96Nf/FPrCqaDh+RTCPeMi9yjuACR+cQyty0OV3b5N8qeyeh1v8orIVe8Zun
-	 ZaDkHybsW+4fvPsNrQJzLyHMRWuB+wGsbQ1qstr+VtWMJ0wWKTwDwFi8KaoXZiPKXEgR1
-	 ZtHfG7G0Wf4NNSDMsIC3nGU7E0KwilzMGD/knRtoyRLcoU5InTyNlWVUi2l0mDAlhKpVS
-	 6MSPrmHiT5+lj8sUhmO8Dl9PS0sOfXDTHo6CTWpVHXOjTDfVqgWKObNdFcknJqXEkkjlo
-	 jud+UjLgKR9BtMRdqHXxBerpHGKI4WA7i+B/FvpqwbbgMoTlWP/GItnbgA6GJimjIDg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874329;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=7g4AnHz1b45ylnVeVQvuDBjdf3MBOm/p+0a96v3wy0I=;
-	b=RBd0P0oTkbGyE9Lj/c4c2FtupFfcPejpq2e5XBpIgNQFMkEfeXHU6kXiIlqOpOERxj4c
-	 V9egMEzvhcdkaD2p4RxuoRSpQPawOKCqU42XaaJl1lVuX4dV3hq0eelK2xVzs0j5ALHYZ
-	 mFSVePWuk/rXkDHSrIy+9nw2/12io/LN4W1h6chZgoix9Cwrjk1oa0tazSGk0ThX96sMo
-	 1jv+tMs+8cqyFc/Dnd2RfqtS8RjOrGN2PpTvE5R9NhOheDj7Z8+9sI2YiaOep95DEgAV4
-	 MLEjgPbjpPPaNI0JTKfHeHkVAMykNUwlgyieGJELHLtY0JPWdjTt9hNSIe5OHYruptw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zdS8i2c9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.18
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012018.outbound.protection.outlook.com [40.93.195.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793874335;
+	b=INE4QXp14So0JutxnEVxr5zApi4mv0jS9H0sBjPbrRrjfvkB1WMoZiMDZ2fwmmkQX8cS
+	 v+fvslum6jhOmG6STuGrNggZ/c1z7S67cH4JAbOfiu68dl/MrRBRDFRFlckh9ya3iAVFi
+	 T+dxL5+eEr7XmMb+ylhK0NBvWGagxZhdIJ3fuStIyMb6ZNl7GHw0v9BrJDW/Mzfhuq4WY
+	 v42v8l6iQd9paQYWsZqNXwX/4SeFm0deg7oRecTEopQvdX5GRNcb57lEz41aDPgPJ73k9
+	 woaVGcF7KRDF6udBtK7tBKaVPbu4U6MMwD55LBZMHE4ddN53VhMQotnlcC9Mfvx5gtw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874335;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=CTZjVvkIUqA1hYxbAMBN5D0S+bQTUaargjdOqGhgIgw=;
+	b=IZxeKe72Wyyov0LYs3JTcuSApXa4F6Jy03TO2TSlRCoEYmdu4R5J0Y6ZF9tEq1Th19Gb
+	 wycRTltCqw4jZFyt0xN9yIczmDi2fXz54Mdk27PfOeBcDNHd7vHWi/Mdf8Jm7uJgqt50O
+	 TFus/NkA98TOJyYJ95N6rKkrzo1cFmC1kBhtNjwmzcpQzFH4vNsylbQ95pZWbxIFgAnHl
+	 uJ09jw5yuATFlAZQyuytZJyg4cY0y6ajt3VuaaJOS54qdQh7akJdL191kgrZtnBV6A68H
+	 5LNEPta8t+LdeRQ6wiXmtAwmUQaU1CHwbf1P33D2xvf0hkBgpHfEEukL4YrsCK010Aw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWA5EUum;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3C1606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:25:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3C1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F1F606A31B;
+	Thu,  5 Nov 2026 10:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zdS8i2c9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fipkPoxhtyZGQIrjVJSQDKkNH+ueftCHeXfpefOg6blZIqWnV9Cl0Ngym6eoghOmnTVFRYMBGxKallbSS+VWcOHauYLyrTwcFV9VzTgdZrssYphfdXavAb4RqcgQmc7eDKsZwWqHHkPuXwSicLsZu2vRkr9NN+bJCzmB8hATP3s4m4hf8ciTwYjhdZ/JOkN5gTroJvEmbmHAUPUOR7Gomc9FoKGhCSlxgvF+RX+t/5ncjkAPETvm0pb1SfIeUKq7V2jqgoneHxVP5p9J3u1helXfkB0LA7OInce7sLkbgMU8VJWXoRsZqEAkW9y7YSte7EJ7JuES5f4KJiVNwa4K6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7g4AnHz1b45ylnVeVQvuDBjdf3MBOm/p+0a96v3wy0I=;
- b=S8j7/PYbyKAGDgtoUq3GVvCTXoW1EyYLU155qJCTNzX2Mj9jjTRM9WQ+N5YZNlbLUHzgv5t4aChoeacKtFJqyZ1lJWfvj5nzirMBeZ02698ubYPGT9SKwuf22WooOEYDqNiekQgQW4/rf82R6QmwTikR0EuzLAzxxpicFxpa+6lcPjPMt8krIc00bii1EGwNrK8FnasVE9UKtOe5nnOgBJFnZc8XOCfrSviacANoI27OhsJ73ZNvtXmeEOwSAzaFK09ERxxOtS5hDjT/Z2nX6tx/j/AsNYGh3ppWgthuqU0zdez37MDDPkTVuebURVWXMt/pPq4mga2PJuyYjX9DPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7g4AnHz1b45ylnVeVQvuDBjdf3MBOm/p+0a96v3wy0I=;
- b=zdS8i2c9aXaibUbKh6JF94HuczCrKn3IzXUePG3czhTPXtUFalHuDVpuu1jMZmkE+XsaQ89FHKE2XxpmG333FCtD20B+0NET8kty/e9Ki3FPRsHn9+TEwc6lMDhyVaiBuUygwyhmcqq/qCpl5KHtscs/dXHDB5XG2JmXywUeuYg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by DS5PPFA3734E4BA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65c) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 10:25:25 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 10:25:24 +0000
-Message-ID: <efd2a9cc-dcbb-4f45-8dd7-7fcd713830ec@amd.com>
-Date: Thu, 5 Nov 2026 15:55:17 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] iommu/amd: Enable PerfOpt automatically for integrated
- GPUs
-From: Vasant Hegde <vasant.hegde@amd.com>
-To: "Mario Limonciello (AMD)" <superm1@kernel.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Alex Deucher <alexander.deucher@amd.com>,
- Joerg Roedel <joro@8bytes.org>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev
-References: <20261022-superm1-perf-opt-next-v5-1-dfef0b78b7b9@kernel.org>
- <4206ec86-c6aa-447a-a5d1-4d2e89a31b5c@amd.com>
-Content-Language: en-US
-In-Reply-To: <4206ec86-c6aa-447a-a5d1-4d2e89a31b5c@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0069.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ad::10) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWA5EUum
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3DA1F000C1;
+	Thu,  5 Nov 2026 10:25:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793874335;
+	bh=CTZjVvkIUqA1hYxbAMBN5D0S+bQTUaargjdOqGhgIgw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AWA5EUumNdwSBWn4g6tCydb8yT3P9NIpU1AhnI/l68ypPPQQjsmlpmZcmjqP0LN7w
+	 N27be4rfuMZiWwBCq7her7lB+sc11HSH4D/It973/gw2n+J+yJdXPUKAwXRjqOXG6y
+	 +3pvrnmk/IkTbMiVT+f7swrdRCPqMW2Hvq2OBNpXeaZjFaLDXFyS2ZLfADRs+mUY4L
+	 zAGr34i+l3CSk3NcxiMWRysp3rMsXyT3OAyIDd0GQElcCJpX8c7qsNkVzOhFqRdS82
+	 7Ro2+vUiGHSoWSeJ0BfSs4RidofOfhFtdjMtqubRz5QJeJjYyTeuR/NxOeDYB3wbBP
+	 DHBSE9YQBSBJQ==
+Message-ID: <9c367177-1822-4b6d-8bee-d283eef7b895@kernel.org>
+Date: Thu, 5 Nov 2026 11:25:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,109 +51,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|DS5PPFA3734E4BA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20603a5d-4952-432a-fa1f-08df3b271a49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|261026140227099003|11063799006|4143699003|56012099006|261022075727099003|261021121427099003|261022105027099003|261102123227099003|261028144727099003|261026121527099003|261102130727099003|18002099003|22082099003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	9SYyg8p9VTVizQJashi0VhLb1+P6V2YX/r42htB87d8g4xpd0FIQd7j+Rqy22QVTGMdGtA66LBXn6jhlWUOQPzvxhPho/2hNosAv5QMofAG867czfAkutURsoZ0wOhiC92DVG3m99ih0PLEwrlFQTdBabFu8QtzbLG5xmQhKE6eM0141p60uxNVXaOs5tcM2Dmnag8b8zxgkBCKDnwisTKVKxgs7DlebsUfnsY1sXXsfSNBHOEQOFjK1t4F5+TAAcKMNiSbpyKACYGE/Zfj3v4Bw4OkwbSntFaq3+Vf/TV6XfXn1Y4ypEFA1JcQaAQTvCDqi7CiSmzG2zRCkX330uzt7Q3ixg7xTe0AxAHLyzi/yInV7XNXf7NNCK6XaSJR+yaz9f5Dqlq4doz6iITsGNqXQe+CURxCqZoUTh3V3M+HmOQeMAM+3oF7hmsMULiuY0PuoaU2bS0+VnMxVXosqok/cf8LsEPfFwHUVoDfAB14w80glck0lnS+zHRjSMUuaFJia0fIu2Larxs9YROvdxhdAU03D2SiAc8F56E7oWzXA4KNtir/n+tiYG7tyvbI9MpVB+ibHefZ1KA3wlcggmu9n1sVEGyovTrXYsbmtjVgpIKF442Gq2oI+1URPTLSBwCaW7w/GURWNlSAppcCd31K9JY/nBJ9qDTTlNvNtCFE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(261026140227099003)(11063799006)(4143699003)(56012099006)(261022075727099003)(261021121427099003)(261022105027099003)(261102123227099003)(261028144727099003)(261026121527099003)(261102130727099003)(18002099003)(22082099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VmVjMCtYQ3Jxa3VDM2FTeUp3SlV1clpTdmNxY25IY2tEdkI1L3VOY2ZHK3lN?=
- =?utf-8?B?MmcyOUxEbTR3SjgyQ3U3MWZmQTUrUEp5M1VyKzZhWHZjQmxmWDF6cllVQmZ4?=
- =?utf-8?B?TWUzRlg4czVGTHJ4MmF0QUorSzN1R0lZcEdXVUhuMlpwU2hLQTNiV0h6dDRH?=
- =?utf-8?B?OHFoQTNwdGZpcURYaXI5TEtmVjJ5VHlLdkF4RnR3QkhMVGJnY1pTbjZPWGp6?=
- =?utf-8?B?QStySXAzSTB1RTA3THNZa2Znc0ErTms0UWF1QmZrR0ptQWxMUGpnWEVvUGRh?=
- =?utf-8?B?YWk1RW9zZXBOYmNhMkhnSHN2ZEhCRmNWd2hWc2dLMEhMMUxZZXNCZkZYaGtl?=
- =?utf-8?B?OHVuTFJKT1Y2WmpycGtoOUlwZW9LZm1aWGpKUnFJNURJWFRpS1ZyQ2VMRTJW?=
- =?utf-8?B?VGlkT0tnUHZMMHBrRUU4dTZvcDl1NFU0VzMxZ3RqNXVWdFg0K3BXSkRUYXdQ?=
- =?utf-8?B?NnppOVZ3L2ZHL1NHWUNTUUsyWlVXVUZxQUZSQWhwQWczL3Z3ejV4VUxpcTli?=
- =?utf-8?B?ZmljU3NnaFp5cmp4UVZmYVJ0RXdrbFprdHdFMFl2bTFCbVAvWTVvbWViSzhW?=
- =?utf-8?B?YXhSa2svS251dk5wd2xZRWUzZFlLQkljTVlkdHIxV1UzS3FnMWFsK1A0R1d1?=
- =?utf-8?B?K0phNEliekRUY2tsZHVUVFgzSHEyMEkydnltaEdJWC9qMUtud2daSEFpdlAv?=
- =?utf-8?B?K3JZYXNYOE9Bc0pUa05kN0g3Y2RmcXIrQUFGY2RXeGJWUnBEak1xZmFUOGZZ?=
- =?utf-8?B?d0VUcXVpOHg5c1VhSDMvSUlCbGFZSUROSDllNmY4OC9maWZkVnZoZmw2M3I3?=
- =?utf-8?B?SUVjTkhwcWtwdDVXRDBhaUJYampFd2ZEK3c4ajF3NU5vamNaVU92dDRJSHNz?=
- =?utf-8?B?bDVGMnVXYVBFYUZjaXlnT1crZVZOeWFmOWM5NEdXWFUyY3M3a2F0bCt4bnlq?=
- =?utf-8?B?by8yeFQvVzMxKzdLUGJSRi9tdlFEVCtmUmVTKzhabnVvUGFFRE80UWZZRng0?=
- =?utf-8?B?SnpJRE9Td1dOVmZiaGNIOWxtWFdyYTNpR0lRZUNwcWMxQ1J1bkUvaUMwTjF5?=
- =?utf-8?B?MGlnU3hWV1RzNW92a2VyUjdMcTQ5VEU2T2lwdWhsRGNqM2ZsTi8rVVIrN3J6?=
- =?utf-8?B?akJpREdFZ3dMRG5oYTE3Z2FEaUtsZmw2cE9Ibk1odE1BREJrT2J3anovMlRI?=
- =?utf-8?B?UXQySi9nT0xjTCsxWGhOclBZWTlJSEpaVjVIRnZEWUs0ektDQ2JWMFRXT2Zq?=
- =?utf-8?B?YXB1WXk5a0hRUnNHNlNjZDR0L1YvbjVEcXpmc3NYL05qT3pZb2cvYnZLckJy?=
- =?utf-8?B?MFV1Tjg2M0dYeENWNGFjV2ZwQmxRTm5UWGFSOUhDQkxkTGZrRS9tMTJieENW?=
- =?utf-8?B?UklWZHd1ZWR4M05BV1lMQWcxVEVvVW1MZnFObFU1UGxFRmw2Q01TelZGdmNi?=
- =?utf-8?B?M0ZXME5yT2psaE9DYmVUOFpQWUdINXdoeER4VGltWGF4M0dXSGxIb3VyL1FR?=
- =?utf-8?B?MzNxUXlPZXVSV3l2RjRXNFB6czNQd0pQUDJOYjBrbk90bXlFMkJhT0x1YTRm?=
- =?utf-8?B?aHNaSEdTd0ZiOWZnay9OOC8zbmo3YTcyeXd5S285dVhsTUpadWZMdy9HajhU?=
- =?utf-8?B?T1FoQ0UwcHYzeDVCejgyN2c5V3ZvRlMyU1VhVEphWnNDS1lMUTZubjFzS2JE?=
- =?utf-8?B?a2JydFJicG15cEFROTd6dG9UZXlEVG9heVlQcmF3YmlaeDBIdmhkSGNVdmdS?=
- =?utf-8?B?YVN5cmdnUk1GMEc3eENoaWZPam1QSnowZU1paFBiUktwdFFjajJXZW9GRUt2?=
- =?utf-8?B?VU5CaE1pYjBhVDJtczYzNElRQlZVVDNnQVFLNHNsTnM3SU9lVHFZTmdWclN0?=
- =?utf-8?B?dVppWEkrVmhhNnU0dDhrYm13bUFJVHk0eFVSSi9UVVNtY1FxRllxNXRsVnpC?=
- =?utf-8?B?RnpiZFp0Q29aVTM0QlBDQ1RPZ3BwcHE3cVZJQ0h0bCt5RGdLK2kveVROZFkr?=
- =?utf-8?B?TWZ4SE1SWUJmTzdVOGZqZmtVSlpJZmRaL3J6eU5SeUFkSVlldjdhSjRTeWFQ?=
- =?utf-8?B?UFp5TkhFMUtub1VSbVlsZnpLeHV1ME5BN01udVZ6bW43WHJNOW5MVGxLSVZa?=
- =?utf-8?B?TjhWZXNKQmhkYVlwOEt0MWNtLzl0TmdYWWZlVHE3bzhNSUZWNVNydWNpOTRh?=
- =?utf-8?B?U0gyZ2d0YmNvbXhKc3h4N0lUTUZEVXVLalNnWXc3TCtDK2FCMU5yYVcyVGlP?=
- =?utf-8?B?VHRsRklKTXpRRXBWT0ZoZlMwZTBGeVloY1kwVWVhNjhPc1gxTHJIN05qKzF4?=
- =?utf-8?Q?lDSwQy+/3UAXhpInfR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20603a5d-4952-432a-fa1f-08df3b271a49
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:25:24.1711
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uTPXSwX9OiMofQgz3//TzuZC4FyKS6UKW/h/aKqbTSG2+88y94yvPmy3Y08BvJQ7M85guUnfLiaSpfntvAozsw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFA3734E4BA
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] locking/rwsem: add down_read[_killable]_nosteal()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Waiman Long <longman@redhat.com>, Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Yonghong Song <yonghong.song@linux.dev>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
+ <20261103-khugepaged-latency-fix-v1-3-a07ab16ac860@kernel.org>
+ <20261103115159.GK1813469@noisy.programming.kicks-ass.net>
+ <aunLcWto870swo38@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aunLcWto870swo38@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Alex,
-
-
-On 11/2/2026 8:26 PM, Vasant Hegde wrote:
+On 11/3/26 13:24, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Nov 03, 2026 at 12:51:59PM +0100, Peter Zijlstra wrote:
+>> On Tue, Nov 03, 2026 at 08:27:44AM +0000, Lorenzo Stoakes (ARM) wrote:
+>>> Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
+>>> stealing") a sleeping, queued writer whose handoff timeout hasn't expired
+>>> can have its lock stolen by a read lock issued before a woken queued writer
+>>> was able to acquire a lock.
+>>>
+>>> To avoid write lock starvation, this is only permitted if no other read
+>>> locks are held.
+>>>
+>>> However, this behaviour defeats the purpose of a reader periodically
+>>> dropping the lock to allow writers in, as doing so only works if the write
+>>> lock is acquired first, another read lock is held, or a queued writer's
+>>> handoff timeout has expired.
+>>>
+>>> Provide a means of indicating this intent via down_read_nosteal() and
+>>> down_read_killable_nosteal().
+>>>
+>>> Implement it by exposing a steal parameter to rwsem_down_read_slowpath(),
+>>> update the starvation logic to modify this parameter and modify the steal
+>>> branch to check it first.
+>>>
+>>> Also drop the duplicated RWSEM_WRITER_LOCKED check and remove the
+>>> goto as the steal condition makes this redundant.
+>>>
+>>> Exposing this function is safe as it only makes the lock more pessimistic,
+>>> so does not impact lock contention.
+>>
+>> Not generally a fan of this -- can't we tweak the steal thing to never
+>> steal if there are pending writers?
 > 
+> Oh, well, I had assumed I couldn't fiddle with that behaviour across
+> rwsem's in general, so if I can yeah that's preferable!
 > 
-> On 10/23/2026 2:16 AM, Mario Limonciello (AMD) wrote:
->> PerfOpt is usable by integrated GPUs in identity mode. Enable it from
->> the IOMMU driver's domain attachment paths instead of requiring an
->> amdgpu policy knob and exported enable/disable interfaces.
->>
->> Mark supported integrated GPUs as PerfOpt-eligible when selecting their
->> default identity domain. Skip GCR3 setup and ATS/PRI/PASID enablement for
->> these identity attachments, then enable PerfOpt after installing the DTE.
->> Clear PerfOpt before attaching an eligible GPU to a translated or blocked
->> domain, including unmanaged domains used by VFIO. Propagate failures to
->> clear bypass, but keep a completed identity attachment successful if the
->> optional PerfOpt enable fails.
->>
->> Clear inherited PerfOpt state during initialization, including when a crash
->> kernel reuses device tables. Read feature support directly from hardware
->> because cached features may not be available yet, and stop initialization
->> if the initial clear fails.
->>
->> Each IOMMU has at most one PerfOpt-eligible GPU, so track activation with a
->> boolean under the IOMMU lock. Preserve this state while clearing hardware
->> at suspend and shutdown, and restore the bit on resume only where it was
->> active. Do not enable PerfOpt unconditionally during early IOMMU
->> initialization.
->>
->> Remove the amdgpu parameter, driver callbacks, and exported interfaces.
->> Translated attachments retain their normal device capability setup.
->>
->> Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
->> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> 
-> Looks good. Queued for rc.
+> I could send that change separately then and drop it out of this series.
 
-Can you ack this patch so that we can pick it through IOMMU tree?
+Just so I understand correctly, this patch here would be gone entirely?
 
--Vasant
+But #4 depends on it, so now I'm confused :)
 
+-- 
+Cheers,
+
+David
