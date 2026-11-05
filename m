@@ -1,98 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793920519;
-	b=HwHnNq8rE4+1BRK/8Rr9uExWdtkKSrEXCLyN1R+v70f9xi6SX6K6UTjRs9hOoAtIGcLq
-	 12m3yh2yyQ+lVqbCYNpvGS+T7tecj12SiRCrdzFLw66C+He7XIj0Ey+ltiXxKmVdwWAsj
-	 YllZnP0OTYE4u1HFcR46BHYP2VBRRg6W26Qe9LOwZf5l6jzqoxqNj3GEs9cFw53IK+o3o
-	 ue1xxTbzLlPrUVtaDFkTUAKNY4SjwR/HrGWUQZa6f+ZFFGlFI3X1pUEHkt5L6LmDFXxAQ
-	 2Tf+b/PwnVyhe0h18yVNZ5BfF7w9yMAcvFSbLbHKvJsD3i/moDggiAuvMr+4JqRWs+w==
+	t=1793920556;
+	b=s6Fr+9GJEra5F3A6AjlHXCQ4UvDdRwmffmpn7YX5e7tWiZ1CVfvtVcjGXXmiN4Rw7ObL
+	 yM+mynWN9tB/MRDNLk/DqAOEoW30tQaSjfNevx4IgKuBDrjbyY48CdJjCmoBVd2WjdUCN
+	 XswpMP5BHUf0kpDgXlLqoK3NlHpF2hUuYptKuUDwNwgnP28MyVCtQiZOUWhAm+k4mHOu4
+	 +PrKXBMZTQLbNejoW6DvIOF656pHBvAGQlT3F9eZD8NQskAG4BAsCtwZgRrG3WwGIszZg
+	 9NJIUcUnEuV0/Hl+4ruRDMIZlTEuvH8LVMWg0POdpt73L9AIxf/4MwbML0IvXILcAHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793920519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793920556;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=GMxN5KAMb5liuMLzGoApFS7A/XMBgfd4eRZi5r3s3Fo=;
-	b=XFQDBiFlXv1eJUGE6oKflzgylhqXY5PZ1Uy1nwkL0fsmH6WKx4oTGex+qoHpcV02Ps50
-	 /bVrRnp/Rj5mH2sEh73viZPkkuvlPKaiJN78lxuDdBn9I/FHFfPojEeiMgUJx7FV+fA1W
-	 GTBp2WCkHyQMWGLCw0w3CGdxUXby09wlFiqXDUigiXh/ctlkXwXHtSzFOyLU+6Bru7AaJ
-	 f7UphaHL6kjTci4ckzq0Avn644qibPA7trL9k/m1R2U8GZZMJKKTf1/LpFWdTmdDAFzeH
-	 Bb2PP4zC/y1YGKM8ZvRUAl+HDl/LVIBCArPYPDnQvP0oQopIfGrTyvENmDuQvv5j2AA==
+	bh=ZIBbko/XwwoPcFK6nltO836d/lcp1X0dnZPX4hmz20s=;
+	b=0DKrmRv4gphAwHLvB1u6oZ77+i80JAbUG1gESFFxrmK+TmLcoewNYDZbYF5MLRFc+56f
+	 z8Qe+WpCaA2TCzMaWnE1wADpw+U7jSzzCgQFLYxMwHnfL3+qVLr0UO4s+G2n88vY6Clbx
+	 65XJQdFXR28L0WQVIIjybTLSnb5uLgGH41w4cGINLMGTIxyJ24eT5sUF+P5dlCUwiBdXL
+	 LbWWJqS5KgJ8kbJb7I20q0pEcN4BADBQzVbH0sXPZzAhV/oG91+mX1e3cwpU0wuP/34Gj
+	 CPhoZE3lXRLx94uC4Y3uJrsncZkKO/H1oLfS53xxkFDhRUMii39gtgB3f4mGykMuQ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DQfgo8Lp;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=UgrtqMxq;
+	arc=none smtp.remote-ip=209.85.210.51
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74474606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:15:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74474606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCE6606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:15:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CCE6606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DQfgo8Lp
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdb2dfcca94so18154a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:15:19 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=UgrtqMxq
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7f84a55cc06so82181a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:15:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793920519; x=1794525319; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GMxN5KAMb5liuMLzGoApFS7A/XMBgfd4eRZi5r3s3Fo=;
-        b=DQfgo8LpjtJ0DmzZazlGJfEkeSYgx5z6dIYiQC2tKD2mCrzoaANa9OCoP7oBoIh3iT
-         P9xXkWdxoHYBEd6HaFnF/00b24qhoOl+SsqEI6OCLvaLlroy7LnZ6GwelTmQgqi9oQ8i
-         Oa4slV6xDUuVv9Sr5WSjhhK4HE7aRNV7N+p8Hg7CTSBpv8O8SARlx6jUfj94J/sQaShL
-         rdmOEPZFfUl5mTzzfSugqm9V90vCtG+3VAv2HVgIwxyw0TTFvKtjlKm/3tjTzfQqj4vr
-         UXjOKpNjyEYPux0ob2mGr1OljwVNL7rg9BH8seXbIxtdMaFs1Cp9iqUMJaRMhy1nD0T/
-         Z2kg==
+        d=linuxfoundation.org; s=google; t=1793920554; x=1794525354; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZIBbko/XwwoPcFK6nltO836d/lcp1X0dnZPX4hmz20s=;
+        b=UgrtqMxq4FYJbPsZrHYg84R8HHaHSKqcodpKFFXdRinWdZ31huS3uNWI57BfltmgX6
+         xXWsmKNSsS1kFuevymyoBdDomfL6w8adDswsepy+rYMfmvZ0qo7KmOFc2z8lzKVWffPe
+         Npjmt5BPGtqUcGNcOZsHx7I77vGa4HkCfSJzg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793920519; x=1794525319;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793920554; x=1794525354;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GMxN5KAMb5liuMLzGoApFS7A/XMBgfd4eRZi5r3s3Fo=;
-        b=EHTsVs1tCNrLrTmFAIAb12sF/sw/rQti8s39Kvfx+SCHj8sB7SM23sZMXN0kuMORJq
-         nvSoyEhNFIZ9tR7bhN3KKhfJo6JKgWwo9qxWy+vVwh2qbDaGTIEMFQ7Tyu0r5FledOJD
-         yILT8rYfIlBUSouoxiBMARB1Ef2kmEH15Y1zqUZ5i/z/2POfwvvGNj2Y8lkzHKpOFL1h
-         IaSrrfcH/FkdKdTeitr2YDbCl1s20KLpdZb/WnemVLxHTNyy7FOQMmkC0GOe5lkyYQLs
-         uGn/g4dv7B+qs1TNzl0yyQ5u/rORPXfDRQw/1XY4nRwWNWBRSq3kUSb2Bm8EB5t0povX
-         1ISQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGRYg1hAmWTfH8ry6ovZej9VHv2ptqrTHW82YPt/gfhJ6Y0LDGKZ77p5NrVEYjyCBT7YTW3r87dym3pSw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KibOtHdzOIcuiJ+8bojkxiGOn0anHioA2cPGQo5Vf6wUzM4rG
-	iuwxK7nFlksl4d0Xmp4/lrU3OQeYmthpZnc8VKG3LuNipZv1k4Mh4MfE
-X-Gm-Gg: AYBFou2MANyrApc4M1rz+41ntTXB0he8cR63uIZq4DfXADvZil4iiWS1JJPZTAsv5A5
-	vwI1HbjPjPmfbdAJbCquMq4anPZx4jWoc1YW0jjgLJYDOt1bYTwINbbPhWwRj6qf+liUg6qpUbR
-	nchpIOOBbYKR9FcanEM1pFXkYGa7hVpxgV9CWiQpz6+UuCPISp3DBIjFc/ZFsVHks71pE/pjXiy
-	5lHDif5b4fvJubP02FrSoUY7SS3N5APlMFczpA6dIbAVq45oDczg9/1lNjp3dPmD3ueJns9p1iY
-	LUqZo44BYmtLRKPNWWbuB6t2Cflc2569tTJyXGiqUtRtJSXZ1FGMdzQXYr7rAysiipMhHDSH239
-	izHTo41kW5YvBTt01tcuxF2/i4sQeJFTrn9UyG73ojhjW7bYyeSBSrpiAe6fU/OBTPUJbbJWIZe
-	OJI7hbaTRy/rwEw0eCS/hDi0tG8RHcKBv7UNpa+UP1N6d+JrJoa+ORH/GGeIu8L+6JpJzCWn/6g
-	Fk+Hhoa09mtxOxoiMTKqVXMXQADtI+BvyXmPNxOP9YM9B+gAp8zg9fGhRBTcIhlqk5wx+mSrJEn
-	FNFvE7/HChgWs+epQHzE6/rwaZFAOJCrF3QL3mKe4y1BumintX6Vi6leCjEPDxEiPtVwlYPCuPI
-	YxmS8MnDEy9qi1UrrV9rl6ppgy8iUnPCbo1TezPqroFkqS2jZONs/d3Si3ZY292mthvGSdDhjNC
-	AteMc=
-X-Received: by 2002:a17:90b:254e:b0:3ad:d29c:5e64 with SMTP id 98e67ed59e1d1-3b0db701624mr483657a91.65.1793920518697;
-        Thu, 05 Nov 2026 15:15:18 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c8ff96sm851345a91.13.2026.11.05.15.15.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 15:15:18 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Jeff Garzik <jeff@garzik.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net] net: ibm: emac: fix TX skb double free in emac_full_tx_reset()
-Date: Thu,  5 Nov 2026 15:15:16 -0800
-Message-ID: <20261105231516.120321-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=ZIBbko/XwwoPcFK6nltO836d/lcp1X0dnZPX4hmz20s=;
+        b=Cl45ke84SYMPiNfcbX82lNu7TaagkWnXXcRNWTpR01A6Jd6Wp7iVWngUvIRVMq54eG
+         x1yKRRgAcwtX51Hg0whwLkRIL+/PDdx2a7FojaV9S0nnTNRk2wMYwpgU1LUUt1E/I3v+
+         KYplVM5BY56LpMkD3OHHFw69tNqEF2UBBSIRAD6sd/GpZi63q5Tp/rIkLp+xi4C1Z4Ca
+         VjjOFWaNIuRBs7I6+s8aMnWL1+PMdV+nKE7bMBn2UqkEgKnetKsy2/JRzTMVn8gFGbDb
+         mQSCfgKHQXojOCyKiRojdsuDJ1V8HxYpFhFKjrmP6g/EUC3DwTWNY1bLWcN4pL+5Bs0c
+         S/4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzgLiEVrcAldy/TwUUTdaAwCDS3FX92jn04lsJUS2elSET3WerYLHryvYEbKOMYwDlh7Fc7GQlJ3jSj/90=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+D19mbT4uetTP4Gvy5J1paLmXAPv0CSmGsci/F1oeumE83smF+
+	9zL4M4J/Q0iPNBtAe0d3sqdE3YzlseSVGsawnKJnBjBCPh40iVMGGkoegljEGL/ZD5w=
+X-Gm-Gg: AYBFou1gw8ukjtLjXEj+ez2+1owZJ9S2TlIxguz4WhDgy66+9DpN/Lqvy6O5Xl2lCJ2
+	kYOAOXhL5/JXriNVZFfxpq202S/AAewbeo+Vet0dxJGeB6uMFsjjECNW6R/avOQg+/T/Q/fab65
+	aJii4VmN6iB37YVFH5PCzn6Ow0uPx+Z529auHUwIvSotWcbuFOFG5kQ1tsONejVDwJ5HDAjoMMS
+	UzDB3LuyjlFGfba3Cqa0xTSapyn0mwszfWK/WcJEwpQK8F9pS7Ts6L7GZ8f0tqZ9dCdFVNPCj9D
+	fcc5RQmEyUejDFmeWpg93sDBXP3mez4VcEX8mGusI8y7KKxbBELN6G6HLD+CETQVdS4wnwpid6B
+	nXOP2eRx24mRFlgF7uuNT3XcekzB7OW3Gk95LOEaXIIga9IYDfVU8Cns9Qlu2tQbxSj5KqIBDgp
+	WT+M3p9fNHXbdqOHYan7l/k1JfDfDxoRpWj8YZAoE8NShESNe1Csbt5JH7oLis32ORsQ3afYOG9
+	SFLf1wl8610kjC8bsP0OMbx7jFW+4qcKTKJNpMXxNmhxXsw8/LzPmvX/kRQIPAnpbbgrHuRAkzT
+	/qjADCH5BXpKRYHBN8Wdqbk0h+3i9sliqSSjyF8=
+X-Received: by 2002:a05:6830:4127:b0:822:b35a:a2c3 with SMTP id 46e09a7af769-85f1ce07346mr993561a34.3.1793920554194;
+        Thu, 05 Nov 2026 15:15:54 -0800 (PST)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1dd234edsm541102a34.16.2026.11.05.15.15.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 15:15:53 -0800 (PST)
+Message-ID: <4c7e5229-04cc-4341-a495-0156dc3c39f5@linuxfoundation.org>
+Date: Thu, 5 Nov 2026 16:15:51 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,46 +89,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261104211038.406938024@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-emac_full_tx_reset() cleans the TX ring without the TX lock.
-emac_netif_stop() only keeps MAL NAPI from polling RX for this EMAC,
-mal_poll() still calls emac_poll_tx() for it. A descriptor cleaned by
-emac_clean_tx_ring() has MAL_TX_CTRL_READY clear and looks completed,
-so emac_poll_tx() can free the same skb a second time and both race on
-tx_cnt and ack_slot.
+On 11/4/26 14:03, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-On a Cisco Meraki MX60, each MTU change to or from a jumbo MTU does a full
-TX reset. Toggling the MTU while forwarding traffic corrupted skbs within
-minutes (list_del corruption in GRO). With the ring cleaned under the TX
-lock it survived 10 minutes of the same test.
+Compiled and booted on my test system. No dmesg regressions.
 
-Fixes: 1d3bb996481e ("Device tree aware EMAC driver")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/net/ethernet/ibm/emac/core.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
-index b676b286e339..75e51ace16f7 100644
---- a/drivers/net/ethernet/ibm/emac/core.c
-+++ b/drivers/net/ethernet/ibm/emac/core.c
-@@ -745,8 +745,15 @@ static void emac_full_tx_reset(struct emac_instance *dev)
- 
- 	emac_tx_disable(dev);
- 	mal_disable_tx_channel(dev->mal, dev->mal_tx_chan);
-+
-+	/* MAL NAPI runs emac_poll_tx() even while polling of this EMAC is
-+	 * disabled. A cleaned descriptor reads as completed, so clean the
-+	 * ring under the TX lock or emac_poll_tx() frees the skbs again.
-+	 */
-+	netif_tx_lock_bh(dev->ndev);
- 	emac_clean_tx_ring(dev);
- 	dev->tx_cnt = dev->tx_slot = dev->ack_slot = 0;
-+	netif_tx_unlock_bh(dev->ndev);
- 
- 	emac_configure(dev);
- 
--- 
-2.56.0
-
+thanks,
+-- Shuah
