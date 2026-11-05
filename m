@@ -1,81 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884320;
-	b=Yn/f8OyNPZMyVSmGGLoGPWo4XTDvAlIZww0lxH3xQOn6Y1OkachFvRNqr18VljXzazV5
-	 5UQhcQy6F9sHz4Zy5SjrE9xUIyQkApW4jgPwA4bjOB08RyXoPYbUvxDK2szpYIjal5nWR
-	 Prtf1D3PhjA6ATkLtDlBpnE6KJKUk+gdLV21oyef24Lkr21c5oUYoC3uGOdXsxDTrsh7/
-	 7R04AR37GCX8thqq+DIF54qki3TUg5znIya4dlVSXi6twtX9USzlv8FOIepCac5saZUmg
-	 vaQpd5NK8VqRhuRceThkqqMv+TqIouIEZZhJGSL0R/St9U7ZXdeU3FpWd1XiYu9a7+g==
+	t=1793884346;
+	b=c53YZYixzDiumB/+2v0K7Pk/3V3Q+1194+M6Lg0KlN5ZS+dZeXpu5VuOtLJnuY4i1qnL
+	 TCWglfwaiewRV+qlSI85hOGW6qm5+nyb9dCwKDc0rA7DFCbpbAKRdjGmR3kxMvYKH+PvC
+	 wA4mvi3/a075gpfIjrrxN0iNqCySni2kd9xVn1Yp/5U5ayrR6sGKokwF/fMhSdueLyCff
+	 UI7Icfd8G0YWDPGNtqkWhblgVt+ZHRmyIycSmnn/2EvYuOFSSuwhZtyqBEY+5EzjQXf29
+	 0ZUJgHk2HnKCN9XTDZ0GQGK0WPU22MN3uhEIh2fYerVwJIt6SngQWr4iAKaKRXUb4sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884320;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=lbxTrL6lDBphgT8CaA+APHWFBvsQxapEffwn41oJXas=;
-	b=ETNLLQajXsV2j3t9Jiqo7WGTk8hcF60o7nJBdwmRjfK0eTenJwgv60IqoCGVKs8bmwBF
-	 bXHKGmWHVFDr5UFxLZCX6fL7n+gnl9peEJABVcPllWS4NsPZ3kD6gTINAXo6pRjK2K1ex
-	 WMBbhcowo6rAewripA+INKb/3ZUHvM5Z2XuashbHCb7xcVfUUa1kRwaB1dmT/1JLr2/NX
-	 VMbWSGd+72s1ZZMP/zU5KsiGAnUN0fkCdNe8NJeWGfnalDTTN+oyjhqlJ4oEAIS8d3ahq
-	 X4++uf/9WwNVjieFMd84q0kNOCCowHkmPZkXG0+hECDduBhzbvljIEoHHFUb+2TckWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884346;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bOPqnwsFQYHBISIkk2pO8UlDsjZcYkTbh8+hSmmU5WE=;
+	b=bxuTmSz5rEZfRvKKxH6bs4SKQD4vOfntOfpGHWyykaykK3EPw3lvLl0w8OfbTxqkeDEA
+	 nLSXGdGRowRAcd3PFoeid8/tN2daLMujEETqFCi/658ihCP1DDNGParFvprVmhcUsofmv
+	 aSgSuQ7+Q3uKIj7pIgLD6OoJkdolOarTrmJC8MGadN6ZP2ZkeNp7mGvQ/ERh/3xCPlCcf
+	 z0UV8Y7nJeVKQ6VBO+iGsnM2bKAZLlwvFmi3MpQH93CNBrgJ4gHPN8RCHC1xLd6ZJtHLP
+	 ngoaDF9IkTEeaotBB+5VASIF9g20oKYu2Dg6eiFoTtydjWyLImpEZDfx6faApcgdpOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=W93f690L;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SETtaNlQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA52606D81D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:11:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BA52606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCC8606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=W93f690L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793884319;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lbxTrL6lDBphgT8CaA+APHWFBvsQxapEffwn41oJXas=;
-	b=W93f690LEfcJiSZZ899gmrzz3sOfIN11rhBSDTEMPJLBZSWw/1guIdtqOK6/R4tY+KQ6JS
-	Ft9lXma6FH7PYTdXlgAeb+HxhEqndQ28jW8i++mA66jkTncYQXXBPFOXu7JOkkghN/ppQk
-	WcnpencJtoQxC52d6Y2c84JkS5Rodv4=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-628-v41bgYcNOAan_TBZiidl7A-1; Thu,
- 05 Nov 2026 08:11:54 -0500
-X-MC-Unique: v41bgYcNOAan_TBZiidl7A-1
-X-Mimecast-MFC-AGG-ID: v41bgYcNOAan_TBZiidl7A_1793884313
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B5BAE1956069;
-	Thu,  5 Nov 2026 13:11:52 +0000 (UTC)
-Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D9EE73001DA5;
-	Thu,  5 Nov 2026 13:11:49 +0000 (UTC)
-From: Ivan Vecera <ivecera@redhat.com>
-To: netdev@vger.kernel.org
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Milena Olech <milena.olech@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Michal Michalik <michal.michalik@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 1/2] dpll: notify about a reference sync pair only if it was added
-Date: Thu,  5 Nov 2026 14:11:44 +0100
-Message-ID: <20261105131145.1010406-2-ivecera@redhat.com>
-In-Reply-To: <20261105131145.1010406-1-ivecera@redhat.com>
-References: <20261105131145.1010406-1-ivecera@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SETtaNlQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4584B1F000C1;
+	Thu,  5 Nov 2026 13:12:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793884345;
+	bh=bOPqnwsFQYHBISIkk2pO8UlDsjZcYkTbh8+hSmmU5WE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SETtaNlQ7OqsZkRg+4F2KmbHGav+xCxS/suET8Op3SQDNp6N3sLYa3YJsMTWYO6f/
+	 hMDLtHhnUNRMTE0I5Khqn8cm6ednL+pf58FJ85kw4j8BIcStIJNHpVhDAMPSxWuHi/
+	 fxPM6wqJo7EZlC3gdIdLI3DoJQzr6cU5PlGTprW9KJuRE5+ui1Mz9fJya2BoyJG6CY
+	 J6+JjLmTxOr361wRJFO8z19ZKI72DQm7lA57p5HhXFjpHiDWPXuezeD3J5ZfKaCFu2
+	 hpQqeGuoZv96PdCasfN/hK0iibtlzBPkCbzVpSUVzQ/M9rS9pbbJJuf9FS9jHtblBH
+	 640xeM4gu4FTw==
+Date: Thu, 5 Nov 2026 13:12:23 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hao Li <hao.li@linux.dev>, 
+	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Conor Dooley <conor@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v3 03/10] mm, slab: refactor slab_min/max_order handling
+Message-ID: <aux_UhaXFYy0ZXhm@thinkstation>
+References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
+ <20261105-slub_tiny_rework-v3-3-0484ce59eabb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,43 +62,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-slub_tiny_rework-v3-3-0484ce59eabb@kernel.org>
 
-dpll_pin_ref_sync_pair_add() sends a pin change notification even when
-xa_insert() fails and nothing has changed. zl3073x gets -EBUSY when
-another channel has already added the same pair and ignores it, so user
-space is notified about a change that did not happen.
+On Thu, Nov 05, 2026 at 09:43:52AM +0100, Vlastimil Babka (SUSE) wrote:
+> Setting slab_min_order and slab_max_order as boot-time parameters
+> currently has several not so great aspects:
+> 
+> - slab_min_order is not checked against MAX_PAGE_ORDER
+> - slab_min_order can raise slab_max_order
+> - processing requires custom callbacks, their execution order
+>   depends on the order of boot time parameters specified
+> - upcoming SLUB_TINY changes would be more complicated
+> 
+> Instead of custom callbacks, introduce __initdata variables that hold
+> the boot-time parameter values (if given). All inputs are then evaluated
+> deterministically in kmem_cache_init(). slab_min_order is always capped
+> at slab_max_order and cannot raise it.
+> 
+> debug_guardpage_minorder() still overrides any given boot time params,
+> but it could be changed if there's a use case.
+> 
+> While at it, rename the slub_min/max_order variables and
+> slub_min_objects to have a "slab_" prefix instead, as their values
+> determine the sizing of slabs, and the "slub_" prefix already became
+> deprecated also for the boot-time parameters.
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
 
-Send the notification only after a successful insert.
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
-Found by code review. Reproduced on a ZL30732A board with kprobes on
-dpll_pin_ref_sync_pair_add() and __dpll_pin_change_ntf(): loading the
-driver adds one pair twice and the add failing with -EBUSY sends a
-notification. With this patch it does not, and the successful add still
-does. A test module adding one pair twice shows the same on the monitor
-group.
-
-Fixes: 58256a26bfb3 ("dpll: add reference sync get/set")
-Signed-off-by: Ivan Vecera <ivecera@redhat.com>
----
- drivers/dpll/dpll_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dpll/dpll_core.c b/drivers/dpll/dpll_core.c
-index 8389983f425695..277692d12d3d1e 100644
---- a/drivers/dpll/dpll_core.c
-+++ b/drivers/dpll/dpll_core.c
-@@ -1081,7 +1081,8 @@ int dpll_pin_ref_sync_pair_add(struct dpll_pin *pin,
- 	mutex_lock(&dpll_lock);
- 	ret = xa_insert(&pin->ref_sync_pins, ref_sync_pin->id,
- 			ref_sync_pin, GFP_KERNEL);
--	__dpll_pin_change_ntf(pin);
-+	if (!ret)
-+		__dpll_pin_change_ntf(pin);
- 	mutex_unlock(&dpll_lock);
- 
- 	return ret;
 -- 
-2.56.0
-
+Cheers,
+Harry / Hyeonggon
