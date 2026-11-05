@@ -1,95 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886372;
-	b=quPXqF/WLRFKi+nBb3SCiiYC5yWM30hKZTNYgfLaRXNB/sZJ+yYoJhKmzT+nqDsqYdUV
-	 I8WSEfyzaBto4eEz/ZlTj+a7AiD162RPvtLAnJAI/TGZnwSi97npK2HS+ZfRCeF8wrxhr
-	 Tc/16AmM4cqnjRwAYFY1oVlQKABqm8Df5799CBbWNG8BucDA6wQABiYkXduihCvDTLQsY
-	 pdY1SdtyGG1Eu0fxida5jha9wBtX3o5oK3bDz+U5lw8js5fDZt37WMy5CYw9zrY8whRUB
-	 06Fjlw2M/pZ558x7CCFLP9JP3V+wWTX53OwALDwyiRX5Gsv1Cy6ymT+Jw6Ou12P7/xg==
+	t=1793886399;
+	b=c4qgnOWBpPkOwMGobnBpD3aox/gmKyk49DY6A0AzTIeTHhrOgcS8+6/jnJfZOQb2g2sN
+	 mpqJi0SycVfBu4ADj1Ltt43KJ8DOfmF0MHezUk5SAnuic4x5s1rekhIcvnlO4BmO/DYaH
+	 zPeXNrlDuubNZIDLGuaoxTa2ysmJQ8YrTp81s42x/0w5NxWKGXCZOWhTKXOO/YIWuMwkn
+	 FaQvYko38vdaTyuKw7H7RSBGsWyF5X+EDsRAxh+MBAz4bKTCmMLqFBPBKKzA7XhnXCbmV
+	 VkcaoveaUyhDGxHASSDU2leZiqpuJEzfkZM19UZMDMQhBvglnIuH2xzCchEl3lkZSlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886372;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4djbjbi1YPfL0yTh51RFEqcdY/dXJsBUTG3y/N5WRfE=;
-	b=f802AXTaJQzH30t+zgXn8V1IFdrij1Mnmb2HjXrIYWG9JagB8L7r+WmAaf4R3wynXmaq
-	 p72qq3FkSdn0ERzxLNCJWFLBOHMcMLXWwbXp9bSWoFM9kR9TRLOtC54XO/4O9wnxzEe1j
-	 enQ73NEENP5EHFgCchWoR7R4X9rq1fsS0XnCv0npW12br33x0BVuBRUw6z97cgLsUYwpy
-	 TCYANTwaFyUPhAS15xhmBwRuOiV55P2Ai+o5YHSkjyEjn0aXcT3yXE5XgtXmIGMbwOOBM
-	 +iCOpDG4WFUc2fUN8ohxKzoG6NvV7rGynHwxT6dlO5x+WZwlA3E2jyE7KVjrsHaYzYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886399;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NnmJA2c1IcbLXewnYcD2q5jSVIwApHa63jh2ihJdDN4=;
+	b=o+G/NXM8huUNOHSBsYKnW6Qg/bEnG9dJRs5Cjgty+W6IczjzpWpK6kyVHc2jRT1tSKKU
+	 KioTBOD4aMSI+wkSWCtCIxoYPK9ow/+2k54aCuxgq4Wx2EWc264ehNwh/LlcK0li5WgDA
+	 LbVzN2abUbWqLKGz4p+xdhnb44ef6qL1fgwWxUYIvvViViB8tqwt8RAT7maU8pVv9dF27
+	 qYDvJCABW64apfCTXBlyk6It24dNRhkd6pZFKkwb5FqoxgVoBffaIUM60010780dh2wRT
+	 CHYdMjgviea9kiK+2Nb7skTuxeTX3Vk8UcpIahDnpblq0PNTzGf5LJtlHw8FGlxYMHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jl3ekn82;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fg13T+yQ;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0CE3606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:46:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0CE3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF14606A31B;
+	Thu,  5 Nov 2026 13:46:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEF14606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jl3ekn82
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36661f953e4so2615239eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:46:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793886371; x=1794491171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4djbjbi1YPfL0yTh51RFEqcdY/dXJsBUTG3y/N5WRfE=;
-        b=jl3ekn82R/VWIVF8HSyd+ZCmz5n9lZAUAODBRyhdnoxHd6ujW+jC3NBXDSENyxjBC1
-         e4bv4gFgutFFHLnENKuYRfwd4NsDk+VClUwtzA0mRvl3PyWPAEkldb3ByQkg1dBaxLI3
-         Xepmb9ml3+D9JYGOXM5qFIqwMDYlGZkUPiQq/t7vKKX5jmLQqEs0Ll+Aj/TZ6jutnxyh
-         lUUBnH5fBc8bmv5MuOuBmY9sV+O3AzetWZKmxQVMR5YTC7/V14ocLbKkxlgA06FK37Bk
-         FFBEWsI6mJnd3AwCRo9O+aP4O+SOQEnJGBJTVHqL6GVTpIKmbezvvRrjnXLuowma9YST
-         p4TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793886371; x=1794491171;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4djbjbi1YPfL0yTh51RFEqcdY/dXJsBUTG3y/N5WRfE=;
-        b=IwMC0+sIcU+Oq3R2uQSvseo/S8gix17lfY2T7gFyfoYp3DRpMAz/1ziAVpPSERqL/5
-         2xDTFXCswLlypUEV5zJ4BoD90EqeMiTWJx4XSg5IWKnQ3kvY/+uzQgeC/8lrUmvc2X84
-         QuDkjambVbTCpKpqHmxApVAIku1heVNgu5bqgkD35RmAm0uaBM0wSrgbUwjenUzy4rxX
-         hHMCFNfjJVHTGVeO3PNIH2EBikmP+exiF1VY9QaJBkPqCDvzMFjj6LF9c1qOR3RuzgJA
-         Ixdnix5cpSBuczRZYV8LzED1IN4SFadSWmy6TaAUAKo7cMHYzBuXUUSni3+XWRVmzcEi
-         1EZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxk+dWJub2LIdxP6qF6YDOeHmFjp21iQkmnnjaNmr8+PHbe+XxC57pitTmcWCQmjeGA1ZmURfRR1yZSWKE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AjUqd2eC+LAVn7KGzHPXWnGWA4/nUwPoH3T6pfHflH3GZxfXi
-	3VPRGXzWAbD/MKmDnKWlvzckR2C6Piqxp5ZNgShIZBSS3zHcJMTBVMde
-X-Gm-Gg: AYBFou1iJkYb5ec1KUVjbexVVZuNESSJbS8SFeiWEqp7AJEJ0K2ERb7WsuGV0C+lG78
-	WQuPnFiYxegdN1Q3jrB+3ulpMpgIX6wZdye8Cj0V4RZNMZAUzNXwhBwLTXvgpfjTd2p5Kl4Hc0y
-	jntK8CzkpQ15LNVtBf7phhbyfzxJUQ8kbbVOdBPg4Wq5qUUxvldeUGYKJcbG0RN7HHu/pbTkpee
-	IKnkgxMOqfdxxKvPuk2Q8DS8dOg0oDr1eWV1kmbpYakbJMaU2TERVOk4xXwLimgzK/qV0NWWmjr
-	vcWNc5LeqK9wjzSxrLX7n57GM9cfPGus2yefrcFaJuYPi2Zj/Jvd1+qR6h8hFtp/e0xAUyI2gcf
-	XIrmbkgJ+sRnSk8DimG1DqGaUD+Q6WVZSnAV/XVFmSVqdI9Iq5d6yaLTBUdE7+jt3V6CaNks4R6
-	wwiGnV9FSj0RqZX3uSFPbEQiCrnI+3MWdXvqEPAFQ87mbix3CmRqC5xje3radK22w1zRUT+f5Gf
-	D4I0A32qc6RqEZ0YzVk7n5b8VEN4w5F4XHyhAJBvcn5MGF/q63IW+4/DulmkfgIMLqA8tURO7iq
-	x/nwM/3womHUUUY4KlM3biwkVnM8re7Kmsi2Ip3WIhLFtGI8sCzudZkshY6owuTrEZ4=
-X-Received: by 2002:a05:7300:1351:b0:36e:a321:5353 with SMTP id 5a478bee46e88-36ea3215cb4mr2389132eec.2.1793886370684;
-        Thu, 05 Nov 2026 05:46:10 -0800 (PST)
-Received: from ChanningdeMacBook-Pro ([240b:253:9800:600:bcd8:ac74:ffb9:55cd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3966daasm22454844eec.23.2026.11.05.05.46.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 05:46:10 -0800 (PST)
-From: Chengyuan He <channinghey@gmail.com>
-X-Google-Original-From: Chengyuan He <channing1ne@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	linux-kernel@vger.kernel.org,
-	Chengyuan He <channing1ne@gmail.com>
-Subject: [PATCH] nvme-pci: add NO_NS_DESC_LIST quirk for SSSTC CL1 SSDs
-Date: Thu,  5 Nov 2026 22:45:26 +0900
-Message-ID: <20261105134526.95382-1-channing1ne@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fg13T+yQ
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AE58r3219958;
+	Thu, 5 Nov 2026 13:46:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=NnmJA2c1IcbLXewnYcD2q5jSVIwA
+	pHa63jh2ihJdDN4=; b=fg13T+yQHBcQm3+3SQMVff0by7aAEYvVXs0B68jdQ0UO
+	AVIE8b7QjoanGNywXGvQHH+NHyrrxohtJKVNIkGDUpZ0/KVS0QY5oCd+vSVoxaSd
+	KUWfDT1EoYnHdaq1sbkiIxeX1HqJdwNKgj3yCLVLgbLVL/sKev+rRA7+vKUA+LyI
+	1xD3w7IdwCFwSy9BmrCtz15osw3U/s3TyE7Xm6bj71o9vkcf1O8XBeMUhFG1Ed7o
+	ZkNS0Mnr6DN8MsjLzjpQob5DZk444qcNbvCqek8du8XN2mpc37gTSxRSfmc+Uoft
+	6K8lEJfNhc7FqH1uR7qiINTfLtoxGauwoal36LbjQw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn8272fe4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 13:46:37 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5DcUSU1364994;
+	Thu, 5 Nov 2026 13:46:37 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrmrehstp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 13:46:36 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5DkWc841419010
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 13:46:32 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CE7142004B;
+	Thu,  5 Nov 2026 13:46:32 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A7A5920040;
+	Thu,  5 Nov 2026 13:46:32 +0000 (GMT)
+Received: from [127.0.1.1] (unknown [9.87.85.9])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 13:46:32 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+Date: Thu, 05 Nov 2026 14:46:14 +0100
+Subject: [PATCH v2] s390: Guard emitting assembler macros for
+ insn-common-asm.h
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,53 +86,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-insn-v2-1-ff27987aa212@linux.ibm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13MQQrCMBCF4auUWZsyE62IK+9RumiSiR2wqSQaK
+ iV3N3bp8n88vg0SR+EE12aDyFmSLKGGPjRgpzHcWYmrDRr1mQi1kpCC6o7OWoOWvHdQr8/IXta
+ d6Yfak6TXEj+7mum3/gGZFCnn8XQZ0TC67vaQ8F5bMXNrlxmGUsoXS2iD0pwAAAA=
+X-Change-ID: 20261102-insn-53dccb0c1ffd
+To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>
+X-Mailer: b4 0.14.3
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 1Ii3RI8vWK0buFMex16TED2BiV3hHHeC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfX6Ul2RZJFcTVV
+ XyhcUbjmpyZTzHsZhzKaqxqaVt45l1B9IIWmCtvyOWwsG8kM/NzTrmD2r7+V3H46jGutJdnB0Wi
+ 2eXx3mHdJPsrvFGe0sjod6Bqq7nQU+hHNSlAssLEomnBIBfsVirNRk5Nd04HsP235+x0t43gMIK
+ uNRdVewlWk7KYKtEYPx4onX/aAMJRW8gNRO+ewohtat3WiNQhJj4qemN6pLZs6apSZDowFzkJYE
+ oIiHD49U4RIVIRv2knPsn2yQPDFfKbO0J9+lf1XKaGvMkd+2aVudBZQcZY7/pxUVhy+fUYOrix4
+ 1zm52ekMblqgXMfJYHIxUlPI0YHsaBZOdP2LPWdx6YcNfWjb8e409bbWWESRyXdGowLTGlToEuc
+ FnJa48nS1/ov12/Y24u/4GVsv6M3BRQF1DTyfHZZorp+7QuF+LVXaK27SbJkBLlZvGg1+o8miXO
+ S+EzUpJv/CfX2dTdgAg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfX6xKeadhQgr0b
+ WIlOFltjW9P0pHK96+i3sSeYYvDQ7usMdTJpQcFE3MK+EMCCEIgbpJTLdzOPlKkmql2fMw94dHN
+ 435cydyCIGnb5OEQt17vPehsCUYbc1o=
+X-Proofpoint-GUID: 1Ii3RI8vWK0buFMex16TED2BiV3hHHeC
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aec88bd cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=Sq4U453bNoN16_hl0w0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050054
 
-The SSSTC CL1 series (PCI ID 1e95:9100, e.g. CL1-3D128-Q11, a Silicon
-Motion SM2263XT based OEM drive shipped in Dell laptops) reports NVMe
-version 1.3 but fails the Namespace Identification Descriptor list
-(CNS 03h) with Invalid Field in Command:
+The CPP include guard of insn-common-asm.h is ineffective when the file
+is read via a gas-level .include from inline asm. The assembler ignores
+all '#' lines, so every .include redefines GR_NUM/VX_NUM and fails with
+"Macro was already defined" if a translation unit emits more than one
+such include. This is not the case right now but may lead to future
+build issues.
 
-  nvme nvme1: Identify Descriptors failed (nsid=1, status=0x2)
+Add a header 'asm/insn-common-asm-emit.h' that can be used by C/H files
+which want to emit those macros. The header guards the GAS include to
+prevent multiple includes in one compilation unit.
 
-nvme_scan_ns() gives up on the namespace when nvme_identify_ns_descs()
-fails, so no block device is created even though the controller is live
-and namespace 1 is otherwise fully functional.
-
-The failure was reproduced with the latest vendor firmware 22301119
-(Dell package NJV53, A09) as well as with an older third-party firmware.
-The drive reports an all-zero NGUID and EUI64, so skipping the
-descriptor list loses no identifiers.
-
-The generic Silicon Motion SM2263 entry (126f:2263) already carries
-NVME_QUIRK_NO_NS_DESC_LIST. This drive reports 126f:2263 only as its
-subsystem ID, so that entry does not match it.
-
-Add NVME_QUIRK_NO_NS_DESC_LIST for 1e95:9100 as well.
-
-Tested on 7.0.14 by booting with nvme.quirks=1e95:9100:no_ns_desc_list,
-after which the namespace shows up and I/O works.
-
-Signed-off-by: Chengyuan He <channing1ne@gmail.com>
+Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
+Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 ---
- drivers/nvme/host/pci.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2:
+- Use a separate -emit header and CPP Guards to guard the asm .include.
+  (Andreas)
+- Link to v1: https://lore.kernel.org/r/20261102-insn-v1-1-df048a0be0d5@linux.ibm.com
+---
+ arch/s390/include/asm/fpu-insn.h             | 2 +-
+ arch/s390/include/asm/insn-common-asm-emit.h | 8 ++++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index eade0b1..af19c75 100644
---- a/drivers/nvme/host/pci.c
-+++ b/drivers/nvme/host/pci.c
-@@ -4282,6 +4282,8 @@ static const struct pci_device_id nvme_id_table[] = {
- 		.driver_data = NVME_QUIRK_BOGUS_NID, },
- 	{ PCI_DEVICE(0x10ec, 0x5765), /* TEAMGROUP MP33 2TB SSD */
- 		.driver_data = NVME_QUIRK_BOGUS_NID, },
-+	{ PCI_DEVICE(0x1e95, 0x9100), /* SSSTC CL1 series */
-+		.driver_data = NVME_QUIRK_NO_NS_DESC_LIST, },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMAZON, 0x0061),
- 		.driver_data = NVME_QUIRK_DMA_ADDRESS_BITS_48, },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMAZON, 0x0065),
+diff --git a/arch/s390/include/asm/fpu-insn.h b/arch/s390/include/asm/fpu-insn.h
+index eeb0a233d5c7..aaf1faeb3dc5 100644
+--- a/arch/s390/include/asm/fpu-insn.h
++++ b/arch/s390/include/asm/fpu-insn.h
+@@ -14,8 +14,8 @@
+ #include <linux/instrumented.h>
+ #include <linux/kmsan.h>
+ #include <asm/asm-extable.h>
++#include <asm/insn-common-asm-emit.h>
+ 
+-asm(".include \"asm/insn-common-asm.h\"\n");
+ asm(".include \"asm/fpu-insn-asm.h\"\n");
+ 
+ /*
+diff --git a/arch/s390/include/asm/insn-common-asm-emit.h b/arch/s390/include/asm/insn-common-asm-emit.h
+new file mode 100644
+index 000000000000..26a31e8439bf
+--- /dev/null
++++ b/arch/s390/include/asm/insn-common-asm-emit.h
+@@ -0,0 +1,8 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#ifndef __ASM_S390_INSN_COMMON_ASM_EMIT_H
++#define __ASM_S390_INSN_COMMON_ASM_EMIT_H
++
++asm(".include \"asm/insn-common-asm.h\"\n");
++
++#endif /* __ASM_S390_INSN_COMMON_ASM_EMIT_H */
 
-base-commit: c64d9b2c1f4fd1d8fa52dab37b48428a99c4d58d
---
-2.54.0
+
 
