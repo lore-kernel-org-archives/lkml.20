@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880842;
-	b=rJJsosfM5uVRUrg8MmFN7TNGjNLP6mqvva3jq5Kwx+z6ROgheVIP3heLSLdpbFk38Y0E
-	 kcW+XsHoDW46g/UncPexmwySeL6uCKCdUAVmLdFbSBcKKKRVAz5RbTUEYE0ZZFcB814rF
-	 QwkcA2XBH9pYNEV00Ee5MmVPhHYsP2OxnwFNzhz+wTPA1+MLxI/0L/RpBRaBKaGoJagq7
-	 jXgAvm1FUzcwkUcRf1x6zshYeW6UZQNfIk9aROFYY6lOBAKXxux0vPOw4foDqfdbC2g7p
-	 kGatBxEXYijSHyaosG0v1r9jtPN1RJEgffZiL64S97vmsPx0Up4EeGk/tUlXWV8Vsxg==
+	t=1793880844;
+	b=OnkGb7CymyljwLlrOy76UO8C5aEdzR5AWVyrZstw9Mlh04UajZPauTyD2rudc2K4okM1
+	 AiII3PfInvFcIFS8v/sxwkpkr8GtT8y76GKJDmbz+AScql2Q+CbRRpZIsl4mHrOmZArlr
+	 4qB/riIPDDiQVbVRUmt51o/IzaGKjx+vRFVWpUGXmk58aqHRyjG+J7WTx/3QQ6Re0VS52
+	 IkvZzcOXfL9odw/YcXlG6CsxlWOBKFpZLXNvQOIs1wntH6mWI9ebso5jJDBM5Q3C+rxU9
+	 q31TMASjDuYPAROfU9tQ8wiS8E+F0KCPCHT8pb6ODkzamiN9K0/rfuGQsz+fShpWwsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880842;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7tZFNYWjq0Tv4v1EOQ8aYiWXutcjoQ6qAUekOhoVqGE=;
-	b=sR784Ptcpw+ibKIQ5brRSl1BeIT1mGsVUB/RHmh5Lgfm91+B0+DsfdgPDT6hWDVWV5tu
-	 OUkOqwXL5p7IROzpmxoi2S1ZNkrrqOOEfcoQTeIaoz20Qiu6rAH5WE0nRJrrezkXT1J6O
-	 ql1eU8E67vGK1NaxEX6+DjFkohEst4GpZVDgpkIRcPRickJrpvjUpbOveICKWwS8OlkNU
-	 2sjOBefq2cVtScuu+Ms2WSVGrZQPxfZdbkE2xAMVlpFqPwYfYiOPIiP16KIekwcF4yCp7
-	 nnWsVDXmyn/6rKFRDXxORcGODKHVZpwVBZKlBqIDPqN16yXlCfR1xRlWtFy3Yng6u4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880844;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=ex+CdXqayYrBZYE53eR17mVuCKO3C3P8gwSxFpMRD3A=;
+	b=Ik0cPRGN+XqORMJU+d3g3UH24qA0+SfjiHJh2LVf2wuyFROmxtbLrGAgwq4eeTToFtoZ
+	 zUISUtIbJzPVNPTfq1s+qYGcCKC4XQPYp7k/Tf0rQvFSraCnJC+P8Qd2hrjRNEwszZ9jz
+	 FUyud9O2bv8axHVxR3O/u0mD40jHK73zdHgR5L42HWtG9BsVlEYlVqwocx9pWqPOqPkHD
+	 Gctb3ZBob51opSs7ippIled27j0Z4PL0KY3OUUVmcH4gbZKe3iiC6J+YMbkWRsywjTIH/
+	 IF0firtbezVUHjf5zNl+caTW9i/VkqYCqO1iYiCKgxsvox0yCirgsWRevz9qsgrb8RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SngBk4MZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5902606A333;
-	Thu,  5 Nov 2026 12:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SngBk4MZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81BAF1F00919;
-	Thu,  5 Nov 2026 12:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793880841;
-	bh=7tZFNYWjq0Tv4v1EOQ8aYiWXutcjoQ6qAUekOhoVqGE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SngBk4MZJ5p600WnEXGEN/FoivGWmVuar2svtJwxjWZXVTEmHxeOWdhKERsqo4TrU
-	 FKY3T8EZ/xv51PcJ7nf73xCfcdEanNMrn++Z2SgHZPOF/CInoafLmAjCIiPwHg5vM2
-	 V5wZjDEh0trDN10oMYEJbTzsbPU1xZCcBiMNweFaYwctn8zWSZ+c4WiOOmtLpd0zVs
-	 1puqrNIYMZieqIWcjYbNAHCJmOeyWGQsSdJl1z/iRXZwM/8uW3IRMIv0XWpIh9Hx07
-	 HIAfhpbahQXGrp3mEmeRvOkV7txzMemUHhi8ZiFT06i9k6Wu0zUbiImNjumGm84v3C
-	 PuHwAP8iDTb5g==
-Message-ID: <0923d843-b621-495e-8573-d55c65eb5e27@kernel.org>
-Date: Thu, 5 Nov 2026 13:13:57 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625D4606D816
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:14:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 625D4606D816
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5587351d419so1317344b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:14:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793880843; x=1794485643;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ex+CdXqayYrBZYE53eR17mVuCKO3C3P8gwSxFpMRD3A=;
+        b=MLEJNG3b1DpjuzSLxbJwUyt8jUsG/N3HmzHARu/UFTOuAaBSlcQcyEYc4ITcbVCNbI
+         PFTAOE/a1lRZRpVGce2du0I69RBECZDomiIIeAA/hNKR4PqaLJ7MP71XFPAEiLKxzXzb
+         PNFuDXOcw6LmSQGWDI0nKech9NRgJ6YsKxkVjQV4zJcSWXVe8/IyBpzZe2WM1VuNT6Fn
+         mRP6D5MzCrRxK6PY/DWJckdKPI2Qw4o33GIQCdCZzV3f7ULrsJZbK1Zzd9GeQ/QTNTe1
+         hZhQcXybRT/Gn8ESJyhSzP9Xt7ReF7pUUXPZdKCf1xfi/3gIeKcPkoVaJ+fsAOPAwYS2
+         xD9g==
+X-Forwarded-Encrypted: i=1; AKwUvBzeeLGWPSy8HbFzTrzSE2TYuMFCCt5IxuSpZT4vrcC0fMtUw80kD/q02QjTjYIH1cL+7ZfV+Dr9aeNl/qI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DZmw2EP8fDgkiOqVsNDRFrevqSVnY8BJx8+GlrD/4jnOy3e6M
+	GqNHGLQj2hdcHvJzoImUSANgy1IzkZuO4I4KTkIGMDjU8bTQCysVzvpVPXNKS9KOV+EAjZsvVJK
+	9BMU1eoViOiZUI4A70W4CQ1QWjvampbpJccivPtoS9Et5iVQOt0xLqm7bCqg=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,172 +58,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/10] media: videobuf2: Allow exporting of a struct
- dmabuf
-To: Jai Luthra <jai.luthra@ideasonboard.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Tomasz Figa <tfiga@chromium.org>, Marek Szyprowski
- <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>,
- Paul Elder <paul.elder@ideasonboard.com>, linux-media@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
- <20260917-b4-vchiq-isp-v5-7-2d8870add2c0@ideasonboard.com>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260917-b4-vchiq-isp-v5-7-2d8870add2c0@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:3099:b0:551:eea6:9397 with SMTP id
+ 5614622812f47-5640de26014mr15800476b6e.59.1793880843393; Thu, 05 Nov 2026
+ 04:14:03 -0800 (PST)
+Date: Thu, 05 Nov 2026 04:14:03 -0800
+In-Reply-To: <20261105113834.63912-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aec730b.aca85a03.3b899.0002.GAE@google.com>
+Subject: Re: [syzbot] [dm?] BUG: unable to handle kernel NULL pointer
+ dereference in dm_bufio_client_create
+From: syzbot <syzbot+41e0d7cdfb1ecfc4a007@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/17/26 10:23, Jai Luthra wrote:
-> From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> 
-> videobuf2 only allowed exporting a dmabuf as a file descriptor,
-> but there are instances where having the struct dma_buf is
-> useful within the kernel.
-> 
-> Split the current implementation into two, one step which
-> exports a struct dma_buf, and the second which converts that
-> into an fd.
-> 
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
-> Tested-by: Paul Elder <paul.elder@ideasonboard.com>
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+Hello,
 
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Regards,
+Reported-by: syzbot+41e0d7cdfb1ecfc4a007@syzkaller.appspotmail.com
+Tested-by: syzbot+41e0d7cdfb1ecfc4a007@syzkaller.appspotmail.com
 
-	Hans
+Tested on:
 
-> ---
-> Changes in v5:
-> - Update documentation of return type to only ERR_PTR and not NULL
-> Changes in v4:
-> - Return a pointer to struct dmabuf instead of passing it as a double
->   pointer argument and returning an int for errors (Laurent)
-> - Document the return type (Paul)
-> ---
->  drivers/media/common/videobuf2/videobuf2-core.c | 45 ++++++++++++++++---------
->  include/media/videobuf2-core.h                  | 16 +++++++++
->  2 files changed, 45 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-> index 5e318165659f..7b99d39d7cb1 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> @@ -2419,50 +2419,63 @@ static int __find_plane_by_offset(struct vb2_queue *q, unsigned long offset,
->  	return 0;
->  }
->  
-> -int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-> -		    unsigned int plane, unsigned int flags)
-> +struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
-> +				       struct vb2_buffer *vb,
-> +				       unsigned int plane, unsigned int flags)
->  {
->  	struct vb2_plane *vb_plane;
-> -	int ret;
-> -	struct dma_buf *dbuf;
-> +	struct dma_buf *dmabuf;
->  
->  	if (q->memory != VB2_MEMORY_MMAP) {
->  		dprintk(q, 1, "queue is not currently set up for mmap\n");
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->  	}
->  
->  	if (!q->mem_ops->get_dmabuf) {
->  		dprintk(q, 1, "queue does not support DMA buffer exporting\n");
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->  	}
->  
->  	if (flags & ~(O_CLOEXEC | O_ACCMODE)) {
-> -		dprintk(q, 1, "queue does support only O_CLOEXEC and access mode flags\n");
-> -		return -EINVAL;
-> +		dprintk(q, 1, "queue supports only O_CLOEXEC and access mode flags\n");
-> +		return ERR_PTR(-EINVAL);
->  	}
->  
->  	if (plane >= vb->num_planes) {
->  		dprintk(q, 1, "buffer plane out of range\n");
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->  	}
->  
->  	if (vb2_fileio_is_active(q)) {
->  		dprintk(q, 1, "expbuf: file io in progress\n");
-> -		return -EBUSY;
-> +		return ERR_PTR(-EBUSY);
->  	}
->  
->  	vb_plane = &vb->planes[plane];
->  
-> -	dbuf = call_ptr_memop(get_dmabuf,
-> -			      vb,
-> -			      vb_plane->mem_priv,
-> -			      flags & O_ACCMODE);
-> -	if (IS_ERR_OR_NULL(dbuf)) {
-> +	dmabuf = call_ptr_memop(get_dmabuf, vb, vb_plane->mem_priv,
-> +				flags & O_ACCMODE);
-> +	if (IS_ERR_OR_NULL(dmabuf)) {
->  		dprintk(q, 1, "failed to export buffer %d, plane %d\n",
->  			vb->index, plane);
-> -		return -EINVAL;
-> +		if (!dmabuf)
-> +			dmabuf = ERR_PTR(-EINVAL);
->  	}
->  
-> +	return dmabuf;
-> +}
-> +EXPORT_SYMBOL_GPL(vb2_core_expbuf_dmabuf);
-> +
-> +int vb2_core_expbuf(struct vb2_queue *q, int *fd, struct vb2_buffer *vb,
-> +		    unsigned int plane, unsigned int flags)
-> +{
-> +	struct dma_buf *dbuf;
-> +	int ret;
-> +
-> +	dbuf = vb2_core_expbuf_dmabuf(q, vb, plane, flags);
-> +	if (IS_ERR(dbuf))
-> +		return PTR_ERR(dbuf);
-> +
->  	ret = dma_buf_fd(dbuf, flags & ~O_ACCMODE);
->  	if (ret < 0) {
->  		dprintk(q, 3, "buffer %d, plane %d failed to export (%d)\n",
-> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-> index feda638d0064..45bfe8a2a12a 100644
-> --- a/include/media/videobuf2-core.h
-> +++ b/include/media/videobuf2-core.h
-> @@ -954,6 +954,22 @@ int vb2_core_streamon(struct vb2_queue *q, unsigned int type);
->   */
->  int vb2_core_streamoff(struct vb2_queue *q, unsigned int type);
->  
-> +/**
-> + * vb2_core_expbuf_dmabuf() - Export a buffer as a dma_buf structure
-> + * @q:		pointer to &struct vb2_queue with videobuf2 queue
-> + * @vb:		pointer to &struct vb2_buffer
-> + * @plane:	index of the plane to be exported, 0 for single plane queues
-> + * @flags:	file flags for newly created file, as defined at
-> + *		include/uapi/asm-generic/fcntl.h.
-> + *		Currently, the only used flag is %O_CLOEXEC.
-> + *		is supported, refer to manual of open syscall for more details.
-> + *
-> + * Return: returns a pointer to &struct dma_buf on success; an ERR_PTR otherwise.
-> + */
-> +struct dma_buf *vb2_core_expbuf_dmabuf(struct vb2_queue *q,
-> +				       struct vb2_buffer *vb,
-> +				       unsigned int plane, unsigned int flags);
-> +
->  /**
->   * vb2_core_expbuf() - Export a buffer as a file descriptor.
->   * @q:		pointer to &struct vb2_queue with videobuf2 queue.
-> 
+commit:         abf8c334 Merge tag 'spi-fix-v7.4-merge-window' of git:..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=106751ed580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b38f05ed2b645c41
+dashboard link: https://syzkaller.appspot.com/bug?extid=41e0d7cdfb1ecfc4a007
+compiler:       arm-linux-gnueabi-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: arm
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1228c98d580000
 
+Note: testing is done by a robot and is best-effort only.
