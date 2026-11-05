@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793894096;
-	b=31sWA4eV9NI3bDcyCUq8FTWlREgOad/kTGLeykmbxnFGNdXz5/ig7EcAJmu4xA8Qn3Km
-	 OQGTVUcnBl5LBuhdUCUjO3r8vURWpDy9DNIBTonX36ikwqztvwnK9Hcx1x2A/xJEFzt3O
-	 S+8s+A0awkA1F2KB1ZypDu7VA4dAY2MyAiEiHG/jMc5V13STfkQBLgjqragqBlyh5tZSA
-	 bDr3LBlLmK314HQ29uuzsjiwXeoABFZgYmkhLFz8n9wTOD2GG49vYRvexnay5wvIlLaEg
-	 Mi1sEkC5SoNxGIs+d1Q7tpRrnQB2rhRU/ZXmoxXY3ACp3bgVjSm2Hrkf8ae+z3Mbm7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894096;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=qLyaduhUBi+bpCuge3G1zOLHjhJzZY/OT6BcfFj29Qw=;
-	b=nr0zzM8RP8K0AB+AaLV8kbBhrGQgY/i1odCp0+4AyVoEesVYyq/7hSNjernA+xh+k5n+
-	 MvATlHGBE0tT3deDCuXBHFT0TRXLJ2TVAhOMvX8WzgVCqRe9LS6C1vrlcrYhNDooVVEBx
-	 oUmsqVkwbOq+FSoBeXFRfj18+HlDGKomyzXHHsN1NJkK9dr3FX3GtuAOt94q/WmHQGXiy
-	 s2xYSA7gdnN+S3y7dRiTrenFs/w2fivZa2o3xc4MISBXyJhSeHMzewDvgV32l5lM9SFE3
-	 6uh584TTrR5Ydutdb70Y9Q/jHDHU2JThIDuxH9sapaAXG7ORtpELUHvky+4KRI0y1WA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=VH4w9Z32;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793894087;
+	b=NuUQoEMI3enEG/zy3wiQt0EDcYODu+apL38vb2+d3W8gvX80trbwltZqjGXxSeBlOROK
+	 XfVcH32c5gxP3ZqLoJ5MNbD9bi3d7322sOH2LVdcC+qdHD0gEJ1menx+zbOOKmhk+KYdo
+	 PJqGrI07+goVVcunqsxEh0q4+srtM1UlePGenV6Rxjz38AyT5nV5wC/r2sGCmune6GXWC
+	 D9N2suaZNXtKtbtQRBCG7vvsVqvS3gfVURCp1w0CkFe0R0XOsxwhn18zv6zDk9iqK76i0
+	 tGIgeAJn3VDKwJ9xRTpIPJZu+T/P3Rwt/1BDps44Y76ltUpu3wp09V1FKvXYCpBKOkw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894087;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ylOj/sHLM/J8LsUi+7lfY/iGOYIA2kXtXExHrYGKdI0=;
+	b=4usUpCyKqBfAgv5BwqxCs0lJyBoym8smhbVBiu3/3vqscbHnjXiPsgT19zDXk0OjGHBj
+	 SkryZvC92OajvfHSABTx2fuf3WHlir36w9aNvo32Vo1wzr3bz2iI3ae7/zbPt9uM/yODp
+	 vRsSKjRYYsx9abkouXJNjs6EFL12jTeQVlci0wTcycxZ8UCERIOyT1jqgLLI2z09E2g+c
+	 vTrxEENAYWGuQCsdASOVjJSg9u0EcW+HhfJh3qPcQJkh7OESwVy3pagpo7zL2xOgLC0lr
+	 iT5JHRBTuo+PppXGwPgVeJ10nEcuupNqLVQ/pu7O2LFuvpLtZe7nY7iizaGskUzy+tw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuAc3Ioi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C2C606CFA8;
-	Thu,  5 Nov 2026 15:54:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98C2C606CFA8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADBD606BE8F;
+	Thu,  5 Nov 2026 15:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=VH4w9Z32
-ARC-Seal: i=1; a=rsa-sha256; t=1793893966; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NYhMI3Z0wr6Plj+9b9tIx4LFtoS6gJ2jQIbvxMRhfRVtq3bS4e58KPLLLTw9gzM+zonwbn+f7H+moEScq36ZpblmafvBi6V2QfkdjEejXbRBKY/kbl4GmWwUFop7gUYUlUwcfTZFdom3SUvaJGPoB7leWV6Y2SgTiFwXGtmPz9s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793893966; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qLyaduhUBi+bpCuge3G1zOLHjhJzZY/OT6BcfFj29Qw=; 
-	b=imVnztz1pp1JGC4wi2BNIGpD72DicacyXyt7+dBOMSLWwPsWMtUaaQttvneG+HtUFJij+C72UsW5dpyspdRr2H19aj/X+RD8OCUUUNZMeWpYlKSk3bMEZ3CUQAbf+pzlsOJYh9B1vWUFWDqxTibksAKkpubMyZbUJFyLOcUYsQ4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=VH4w9Z32gBwoCmVzbyZF7xO2Fh4mZKimSEs7GBpJNDSH6RJeztragkvwplJ8GPILzBNsVLckLkYKJBgkMvYQ9ipUzLMCSPGQu8GeaFLncjxF2AyTC+rFcmb/QMtxMfbEcekDCBDspl149T2xSN0wPWFvs/2UCGE4ViTVDO4Wvgg=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=qLyaduhUBi+bpCuge3G1zOLHjhJzZY/OT6BcfFj29Qw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179389396485396.56310927072991;
-	Thu, 5 Nov 2026 07:52:44 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:51:53 +0100
-Subject: [PATCH v2 02/27] drm/connector: add vrr_display_mode connector
- property
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuAc3Ioi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BE21F00A1A;
+	Thu,  5 Nov 2026 15:54:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793894087;
+	bh=ylOj/sHLM/J8LsUi+7lfY/iGOYIA2kXtXExHrYGKdI0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kuAc3Ioi/qwDnV15Z9C4aP62dVQFe+TuOpqiRxJnyC2rmCo8+4hvpGzigjEUGeqhk
+	 6Eh3nbCcJ7Emyc/isrygR+z6bKIlNdRis4XZL+B1xH+CDudtI85iXDi0oS3JNC4LHx
+	 IMAav9xQFTEPeAqSXBCDu2pYUOXk3lZNIhaMtTX85QMSn/exiSdUJqWmTXkMSFMJQK
+	 vBGT+NotVD+sufMIYZwu+fxhaUXXO8Y1+A6Q+JAANLI6boLtY9IYKV7kiliy8G3757
+	 ZZzfsyn1nJgUops01v1xFiARUCYU6dGtbAACrHrSrsjrS1EvgLgX5dQveajOdg9EZK
+	 w0M6+vFfb3/tQ==
+Message-ID: <bc91b6e5-ae31-4403-aee9-34b60ac83631@kernel.org>
+Date: Thu, 5 Nov 2026 16:54:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,254 +51,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/huge_memory: take a reference on a folio PUD
+ copied by fork
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
+Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-0-8bd88551f9be@virtuozzo.com>
+ <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-1-8bd88551f9be@virtuozzo.com>
+ <26862633-c3d1-4b82-8ca2-346cb78570d7@kernel.org>
+ <cfd786eb-4ae5-4dcc-a9f2-3eb4b7e7962c@virtuozzo.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <cfd786eb-4ae5-4dcc-a9f2-3eb4b7e7962c@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-2-55f4215be2c2@collabora.com>
-References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
-In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
-To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
- Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
- Derek Foreman <derek.foreman@collabora.com>, 
- wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
 
-It's common to want to keep a VRR-capable display in a specific VRR mode
-regardless of whether a CRTC uses VRR presentation, to avoid screen
-blanking during switching of the VRR mode. On the other hand, it's also
-not always desired to keep a display in VRR mode even when nothing does
-VRR presentation, for example in battery-powered systems.
+On 11/5/26 15:19, Konstantin Khorenko wrote:
+>> Introducing folio_dup_file_rmap_pud() is better. But please see how I move
+>> the comment and how passing mm+vma to the helper is not really reasonable.
+> 
+> Thanks, agreed on both. v2 will pass only the VMAs, with the mms taken
+> from them as in your patch, drop src_mm from copy_pud_range() and move
+> the TODO next to the rmap duplication. folio_dup_file_rmap_pud() stays.
+> 
+> Could v2 then replace your 01/36, so you can drop it from your series?
 
-To let userspace control this explicitly, instead of relying on implicit
-driver policy, introduce a new connector KMS property: vrr_display_mode.
-
-It defaults to "Game", which matches the behaviour of dGPU drivers,
-wherein a VRR-capable display will always be in Game mode. However, it
-also has an "Off" mode, with which userspace can explicitly request that
-VRR be disabled on the display sink.
-
-The associated connector state member uses an u8 rather than the enum
-type in order to fit into the existing 2 bytes of padding there. Once
-the kernel mandates compiler versions that have backported C23 features,
-the enum can be given an explicit small backing type and the member can
-be changed to use the enum type.
-
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/drm_atomic_uapi.c |  4 ++
- drivers/gpu/drm/drm_connector.c   | 77 +++++++++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h       | 29 +++++++++++++++
- 3 files changed, 110 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 1eebcf6f5e05..127bdd77802b 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -969,6 +969,8 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
- 		state->hdmi.broadcast_rgb = val;
- 	} else if (property == connector->color_format_property) {
- 		state->color_format = val;
-+	} else if (property == connector->vrr_display_mode_property) {
-+		state->vrr_display_mode = val;
- 	} else if (connector->funcs->atomic_set_property) {
- 		return connector->funcs->atomic_set_property(connector,
- 				state, property, val);
-@@ -1056,6 +1058,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
- 		*val = state->hdmi.broadcast_rgb;
- 	} else if (property == connector->color_format_property) {
- 		*val = state->color_format;
-+	} else if (property == connector->vrr_display_mode_property) {
-+		*val = state->vrr_display_mode;
- 	} else if (connector->funcs->atomic_get_property) {
- 		return connector->funcs->atomic_get_property(connector,
- 				state, property, val);
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 893716a9e489..65c14b6e47a6 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1434,6 +1434,12 @@ static const struct drm_prop_enum_list drm_tv_mode_enum_list[] = {
- };
- DRM_ENUM_NAME_FN(drm_get_tv_mode_name, drm_tv_mode_enum_list)
- 
-+static const struct drm_prop_enum_list drm_vrr_mode_enum_list[] = {
-+	{ VRR_DISPLAY_MODE_GAME,   "Game" },
-+	{ VRR_DISPLAY_MODE_OFF,    "Off" },
-+};
-+DRM_ENUM_NAME_FN(drm_get_vrr_mode_name, drm_vrr_mode_enum_list)
-+
- /**
-  * drm_get_tv_mode_from_name - Translates a TV mode name into its enum value
-  * @name: TV Mode name we want to convert
-@@ -2560,6 +2566,14 @@ EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
-  *
-  *	The driver may place further restrictions within these minimum
-  *	and maximum bounds.
-+ *
-+ * "vrr_display_mode":
-+ *	Optional &drm_connector enum property that controls which VRR mode, if
-+ *	any, a display is in. Possible values::
-+ *
-+ *	    - Game - set display to game mode if display supports it,
-+ *	      regardless of CRTC state
-+ *	    - Off - set display to VRR disabled mode, regardless of CRTC state
-  */
- 
- /**
-@@ -2593,6 +2607,69 @@ int drm_connector_attach_vrr_capable_property(
- }
- EXPORT_SYMBOL(drm_connector_attach_vrr_capable_property);
- 
-+/**
-+ * drm_connector_attach_vrr_display_mode_property - creates and attaches VRR
-+ * display mode property
-+ * @connector: pointer to the &struct drm_connector to attach the property to
-+ * @supported_vrr_modes: bitmask of VRR modes the connector supports regardless
-+ *			 of sink
-+ *
-+ * Creates and attaches the "vrr_display_mode" property to @connector. The
-+ * property must not already exist on it. @supported_vrr_modes is a bitmask
-+ * wherein BIT(VRR_DISPLAY_MODE_FOO) indicates VRR_DISPLAY_MODE_FOO is supported
-+ * by the connector.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_connector_attach_vrr_display_mode_property(struct drm_connector *connector,
-+						   unsigned int supported_vrr_modes)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_prop_enum_list enum_list[VRR_DISPLAY_MODE_COUNT];
-+	unsigned int num_enums = 0;
-+	struct drm_property *prop;
-+	int i;
-+
-+	if (supported_vrr_modes & ~(BIT(VRR_DISPLAY_MODE_COUNT) - 1)) {
-+		drm_err(dev, "Unknown VRR modes provided on [CONNECTOR:%d:%s]\n",
-+			connector->base.id, connector->name);
-+		return -EINVAL;
-+	}
-+
-+	if (connector->vrr_display_mode_property) {
-+		drm_err(dev, "[CONNECTOR:%d:%s] already has a 'vrr_display_mode' property\n",
-+			connector->base.id, connector->name);
-+		return -EEXIST;
-+	}
-+
-+	if (!(supported_vrr_modes & BIT(VRR_DISPLAY_MODE_GAME))) {
-+		drm_err(dev, "Missing default VRR mode on [CONNECTOR:%d:%s]\n",
-+			connector->base.id, connector->name);
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < VRR_DISPLAY_MODE_COUNT; i++) {
-+		if (BIT(i) & supported_vrr_modes) {
-+			enum_list[num_enums].name = drm_get_vrr_mode_name(i);
-+			enum_list[num_enums].type = i;
-+			num_enums++;
-+		}
-+	}
-+
-+	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ENUM, "vrr_display_mode",
-+					enum_list, num_enums);
-+
-+	if (!prop)
-+		return -ENOMEM;
-+
-+	connector->vrr_display_mode_property = prop;
-+	drm_object_attach_property(&connector->base, prop, VRR_DISPLAY_MODE_GAME);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_connector_attach_vrr_display_mode_property);
-+
- /**
-  * drm_connector_attach_scaling_mode_property - attach atomic scaling mode property
-  * @connector: connector to attach scaling mode property on.
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 2ee7c59329aa..8699f35cafcb 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -809,6 +809,15 @@ enum drm_bus_flags {
- 	DRM_BUS_FLAG_SHARP_SIGNALS = BIT(8),
- };
- 
-+enum vrr_display_mode {
-+	/** @VRR_DISPLAY_MODE_GAME: Set the display to VRR "Game" mode */
-+	VRR_DISPLAY_MODE_GAME = 0,
-+	/** @VRR_DISPLAY_MODE_OFF: Turn off VRR on the display */
-+	VRR_DISPLAY_MODE_OFF,
-+	/** @VRR_DISPLAY_MODE_COUNT: Sentinel, not a valid mode, keep last */
-+	VRR_DISPLAY_MODE_COUNT
-+};
-+
- /**
-  * struct drm_amd_vsdb_info - AMD-specific VSDB information
-  *
-@@ -1352,6 +1361,12 @@ struct drm_connector_state {
- 	 */
- 	u8 max_bpc;
- 
-+	/**
-+	 * @vrr_display_mode: One of &enum vrr_display_mode to indicate the VRR
-+	 * type to use on a VRR-capable display.
-+	 */
-+	u8 vrr_display_mode;
-+
- 	/**
- 	 * @privacy_screen_sw_state: See :ref:`Standard Connector
- 	 * Properties<standard_connector_properties>`
-@@ -2454,6 +2469,17 @@ struct drm_connector {
- 	 */
- 	struct drm_property *vrr_capable_property;
- 
-+	/**
-+	 * @vrr_display_mode_property: Optional property for userspace to set
-+	 * a connected display to a specific VRR mode, regardless of the
-+	 * connected CRTC's VRR_ENABLED property. Drivers can create and attach
-+	 * the property to a connector by calling
-+	 * drm_connector_attach_vrr_display_mode_property(). Implementations can
-+	 * then read the set display mode (&enum vrr_display_mode) from
-+	 * &drm_connector_state.vrr_display_mode.
-+	 */
-+	struct drm_property *vrr_display_mode_property;
-+
- 	/**
- 	 * @colorspace_property: Connector property to set the suitable
- 	 * colorspace supported by the sink.
-@@ -2859,6 +2885,7 @@ const char *drm_get_dpms_name(int val);
- const char *drm_get_dvi_i_subconnector_name(int val);
- const char *drm_get_dvi_i_select_name(int val);
- const char *drm_get_tv_mode_name(int val);
-+const char *drm_get_vrr_mode_name(int val);
- const char *drm_get_tv_subconnector_name(int val);
- const char *drm_get_tv_select_name(int val);
- const char *drm_get_dp_subconnector_name(int val);
-@@ -2883,6 +2910,8 @@ int drm_connector_attach_scaling_mode_property(struct drm_connector *connector,
- 					       u32 scaling_mode_mask);
- int drm_connector_attach_vrr_capable_property(
- 		struct drm_connector *connector);
-+int drm_connector_attach_vrr_display_mode_property(struct drm_connector *connector,
-+						   unsigned int supported_vrr_modes);
- void drm_connector_attach_panel_type_property(struct drm_connector *connector);
- int drm_connector_attach_broadcast_rgb_property(struct drm_connector *connector);
- int drm_connector_attach_colorspace_property(struct drm_connector *connector);
+I dropped my version already, so please resend and I'll queue that one.
 
 -- 
-2.56.0
+Cheers,
 
+David
