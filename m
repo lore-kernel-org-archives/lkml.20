@@ -1,47 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866813;
-	b=4FHs+QczLqsqmWpieQpGzW6uMm/itntLDO3sQ0PUg/HC5+NL7T+G7vkiigYvoLs2YqWu
-	 +rTAmD38lb7coh6k1SKsoPUeuXMjdjOgv4V50Wg7guNh5QI6HIMMWkw3ZRlIHF7d5QqUW
-	 I6t+uZ87MHqRTelBKb9y30Zg3UpqWaDwKd7GufkWLlAyh0WqdqznJNrjUhVzCyTG3qiE3
-	 MFP39ZqZBYAwJiQgk/lkTzXghgKHafcVICsPtThFFiBoivKOpI6D0IRIGB/ZhI3g5hoTc
-	 G0li9RHc/SlEjYcO38ucxZu9kT0jPR+1jGQyyQbW27+deqRLlvPZHL+pF5ktu2MaEPA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866813;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mh6oOK2ii42QwjsIU9ZeKAJtgrGwhUH6a9OBDlO2mH4=;
-	b=KF+HH+pe+IIhqGB/7NzNW6g61VK3LM4/RQi+XWpKT5O+um+O1P4eOzyz4SY+xsvVqtwu
-	 bcYpCh5k7ot6SFnK7UYElc6TTpURrLOERkLCjYHLZr5ZZIWm1wqROLxVdNBarbXxUi1CW
-	 l+Zc2/sxP+CTsrjdbjZGSbXGYkoYUT/25130pePLoEaXoWJeSqfgrqMOYPWRu0O/4D7Tm
-	 U/MeTTaC7cIg7EuJXAUQuM2ccuKkrsHtOXpT3vWcs9SmfpR2T/gsk9/T+kAzKoNbSbdye
-	 vJ+x5BXL92Qpp5tqjec4TCrlKFTztPAuRMwokoEqntbhXUSxmkau68MTR3I4uzWBYLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2JUtFzG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793866873;
+	b=ZgoSXJx923CzZKloQP7k7yVkcTHHDOeAdOm75riJCdb/Hwft/+L/NiIsH5NHaP37t9xc
+	 24eaPA9mzudK0zI/siV5kgkvJG98Ge0ANAMS6VEyBdiBRnQBgruPgUgjOi060ZDZKfVw9
+	 +l23tofmIPJNg91OxVhrfgyh/qkrC2qkVBACin5M1+ION5vLH0cDkondnjNN6Tn4Da/fZ
+	 NzSANg40psxQsVR6d5YrDBjWAXU6ZtsJPU1C5620r1RTHOuZCUmHcwH4Str7rWb0t66Fs
+	 q0XhvMMtrBNZegDfgCiquStafDSq4ZEYltObkbJDu53JbvVtj/qO/Rg7BZNJkGTiR+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866873;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
+	 X-ZohoMailClient;
+	bh=MhqTaeYg8C0cA2ARimiJcpcf7M5ITCUmL70CiSxA+7I=;
+	b=xzoCPp/1yoQW2j80W+nwfz5A0C0cgObltCTL7HuGhfZhNkBelCI9fXhuH7J9ymHOsG5q
+	 QYjuWzWmaBqQwponjIclzYKVCaF/SKc67RMteH+AVw2FDhx8EyNdsI/WM+sV5q7BSD9QB
+	 tQ87jEx7JPcNh2jFiBn2hJ1LvbQT2HcAZpcpUNxAK3XHiZwyumm+jBG/vXIr5OIu4OFoL
+	 1eMZRKB0j/8n1gjdlxMUd2+OVVUYuMpkrEjGGUrICfrOszU1jr3h4X7eyHBjctNWBrqt5
+	 P9ewL/+CaVGTpl9E0nn/43hbt+S1PKZMqOZgnAhRC7wbuVpv+P2YmK4FOPXQtcvXwfw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=VsEfUwTV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FDC606A31B;
-	Thu,  5 Nov 2026 08:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC945606A31B;
+	Thu,  5 Nov 2026 08:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC945606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2JUtFzG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119971F000C1;
-	Thu,  5 Nov 2026 08:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793866812;
-	bh=mh6oOK2ii42QwjsIU9ZeKAJtgrGwhUH6a9OBDlO2mH4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=T2JUtFzG20hMDWGi9f554jBo1RYMZLnpbhhERZuMLr9ODuow7iXAn+uISQYJ7aLHT
-	 +/oSzBSAMMYB8wri5Vy8k7NwLftF1t691Dk775DcZbpP8EzLnN62U7Sp4ty8tWuW2Z
-	 F0YXFQYpQ61ZKf3CHfxkJCUcC/KCSatpOj626rN95wwp7KLk9j6exHPS44voxj3cdU
-	 GYoSgVx9ZodiEHcm5xbcWxsPtLhjpm7BmNg/1bspbKo9BY6I5/7SeQLOlKnyET/x3o
-	 VokQJs3BPY3ZN2K/LIgY/LGjDgpd8fWV1S4Pw16ZHvcdZ3DhkhVhdJNcvjBKyz/LRU
-	 PVLUjPBRRfr1g==
-Message-ID: <c929b53f-9cea-4950-a64c-8a5251fbcaa9@kernel.org>
-Date: Thu, 5 Nov 2026 09:20:00 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=VsEfUwTV
+ARC-Seal: i=1; a=rsa-sha256; t=1793866864; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=eETmFpCRCWoRk1ooHqCzu0HoTfYD4SEtwaNU3JzCqInnu6AuV7ynOSblFWiX6sewRIL2iw+FtigYb1EMJ5E7Nu2WdbRIzHlWeVNumA5C5RdcJKrXc+Oyoz44bJqaEKQouWjyEyobSdhdBwF2Jehwla0tiapA7o86hO4hAC6JRVU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793866864; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=MhqTaeYg8C0cA2ARimiJcpcf7M5ITCUmL70CiSxA+7I=; 
+	b=OtCT+TRFsgfon0WIyWOKMZu9cfMa9OVfk6ZmxwjHCSV5bklMJBPVKXnYktYSq2lGYi3v8dBQ/C8IE7t1hOiMeR+B2iqkjVEnv5gDoisnRnlX0F541aXFrrtZdfEw0yzPz8Et9bgAnk3UvKr+AATHPLzBUxX6nWvL5M5OOVjYMRo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: a=rsa-sha256; b=VsEfUwTVea0kiINsjl2vk0cEm3agjhR3bCuzZ3bYWQsm1EuCa2Q2mWOhkkMQo+bfCn1QdqQQ/bm84tQFSX5hx2Ukr70Zv2Z98GfbQvFtKAwBnvsaBZx5UjijRVa1SSUs4RjkJaW3jdvaY66gCuotIzEFXd+UT96+cu6lyrrVC2U=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=MhqTaeYg8C0cA2ARimiJcpcf7M5ITCUmL70CiSxA+7I=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793866863229960.8149995318363;
+	Thu, 5 Nov 2026 00:21:03 -0800 (PST)
+Message-ID: <f4be9108-e5ea-4e6d-bd6d-0af14f28951d@zohomail.com>
+Date: Thu, 5 Nov 2026 16:20:57 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,97 +60,149 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: Convert to subsys_platform_driver()
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Andi Shyti <andi.shyti@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Frank Li
- <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Vignesh R <vigneshr@ti.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Janusz Krzysztofik <jmkrzyszt@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>,
- linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-omap@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261104113316.1634141-1-peng.fan@oss.nxp.com>
- <93534aaf-00f3-45f4-982e-7fd44ab3799c@kernel.org>
- <auuXnndiQOkEaOsj@ashevche-desk.local>
- <c6664dd8-871e-4b38-8017-d4c1a02fd36e@kernel.org> <auw7sUcbOOG8umVu@shikoro>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auw7sUcbOOG8umVu@shikoro>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/2] cxl/edac: Mask DPA flags in the event record cache
+ key
+To: Jongwon Lee <ai@linux.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
+Cc: Ira Weiny <iweiny@kernel.org>, Richard Cheng <icheng@nvidia.com>,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102123233.74598-1-ai@linux.com>
+ <20261102123233.74598-3-ai@linux.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <20261102123233.74598-3-ai@linux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu0801122706e1e922292410484dd909d50000064883799090bb172ba4cbe04a354fc87666834b4b216388b1:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-On 05/11/2026 09:17, Wolfram Sang wrote:
-> 
->> I'll send v2 of my patch for submitting patches mentioning this syntax.
-> 
-> Please CC me because I would like to ack it (or review? ;))
 
-Sure, but I also recommend senior maintainers to follow workflows
-mailing list, because most of process-related patches are posted there
-and traffic is not intense.
+在 2026/11/2 20:32, Jongwon Lee 写道:
+> The low bits of the DPA in a General Media or DRAM event record are
+> flags: bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace events
+> report the DPA with CXL_DPA_MASK applied, but cxl_store_rec_gen_media()
+> and cxl_store_rec_dram() use the raw value as the xarray key.
+>
+> User space reads the DPA from the trace event and writes it to the
+> mem_repair dpa attribute. If the record had any flag set, xa_load()
+> misses it and the repair fails with -EINVAL. The raw key also lets a
+> repair go through for a record the device marked NOT_REPAIRABLE, if the
+> DPA is written with bit 1 set.
+>
+> Key the records by the masked DPA and skip records marked
+> NOT_REPAIRABLE. cxl_find_rec_gen_media() now reads the record, so do
+> the lookup under the xarray lock as cxl_find_rec_dram() does, and
+> return a bool since its only caller tests the result.
+>
+> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
+> Signed-off-by: Jongwon Lee <ai@linux.com>
+> ---
+>   drivers/cxl/core/edac.c | 43 ++++++++++++++++++++++++++---------------
+>   1 file changed, 27 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index c5c8dda20e..a5f198b561 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+> @@ -918,24 +918,37 @@ struct cxl_mem_repair_attrbs {
+>   	enum cxl_mem_repair_type repair_type;
+>   };
+>   
+> -static struct cxl_event_gen_media *
+> -cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
+> -		       struct cxl_mem_repair_attrbs *attrbs)
+> +/*
+> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
+> + * Records are looked up by the DPA user space writes back, which comes from
+> + * the trace event and has the flags masked off, so key them the same way.
+> + */
+> +static inline unsigned long cxl_rec_key(const struct cxl_event_media_hdr *hdr)
+> +{
+> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
+> +}
 
-And a reminder (apologies if this is obvious): do not subscribe to
-mailing list, but use korgalore to get the updates. Works awesome.
+This function actually returns the real DPA of the event record, I think 
+the name should be cxl_rec_dpa()? xa_load() uses attrbs->dpa as the 
+index, but xa_store() uses cxl_rec_key() as the index, that could make 
+readers confused.
 
-Best regards,
-Krzysztof
+
+> +
+> +static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
+> +{
+> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
+> +}
+> +
+> +static bool cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
+> +				   struct cxl_mem_repair_attrbs *attrbs)
+>   {
+>   	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
+>   	struct cxl_event_gen_media *rec;
+> +	bool found;
+>   
+> -	if (!array_rec)
+> -		return NULL;
+> +	if (!array_rec || attrbs->repair_type != CXL_PPR)
+> +		return false;
+>   
+> +	xa_lock(&array_rec->rec_gen_media);
+>   	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
+> -	if (!rec)
+> -		return NULL;
+> +	found = rec && !cxl_rec_not_repairable(&rec->media_hdr);
+> +	xa_unlock(&array_rec->rec_gen_media);
+>   
+> -	if (attrbs->repair_type == CXL_PPR)
+> -		return rec;
+> -
+> -	return NULL;
+> +	return found;
+>   }
+
+I think the implementation of skipping unrepairable records should be 
+moved into a separate patch, and this patch focuses on using real DPA as 
+the index parameter of the xarray.
+
+My first feeling is that we should not simply ignore unrepairable 
+records without any logs. But I am not very familiar with this area, not 
+sure if we should report this repairable bit in trace log or output a 
+kernel log while finding an unrepairable record.
+
+Let us see if maintainers have more comments on that.
+
+
+Ming
+
+>   
+>   /* Caller holds the xarray lock. The record may be freed once it is dropped. */
+> @@ -949,7 +962,7 @@ __cxl_find_rec_dram(struct xarray *rec_xarray,
+>   	lockdep_assert_held(&rec_xarray->xa_lock);
+>   
+>   	rec = xa_load(rec_xarray, attrbs->dpa);
+> -	if (!rec)
+> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
+>   		return NULL;
+>   
+>   	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
+> @@ -1130,8 +1143,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>   		return -ENOMEM;
+>   
+>   	old_rec = xa_store(&array_rec->rec_gen_media,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
+>   	if (xa_is_err(old_rec)) {
+>   		kfree(rec);
+>   		return xa_err(old_rec);
+> @@ -1160,8 +1172,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>   		return -ENOMEM;
+>   
+>   	old_rec = xa_store(&array_rec->rec_dram,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
+>   	if (xa_is_err(old_rec)) {
+>   		kfree(rec);
+>   		return xa_err(old_rec);
