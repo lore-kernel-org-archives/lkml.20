@@ -1,52 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862602;
-	b=Ih3/Vet7etoIDNGgox648We/tjdn8lKKgeesfNMaxARAHCzk5hiJ3WmV4gPVLBGoCyQX
-	 Lx+891eygAGSOZfip4H41v5WSt5jwRnM6CCHhvbvG6wY+u3eMf2QB+RP0iD6t6/S2Kvp1
-	 PCHTN1a9wuSWzhjP3V+lsMjcLoeOhJ8M2OKMhUe204COc+b3CsW1Kim4KQiMql4ot1oIE
-	 R0Bq0wF+MjLxqHfGsQ++nuHgQ5XCmfiNgCKIwSchMbTPeTUYnTha4JYjFriU6DbA5Bp/U
-	 Qoj0VTNlB5z97jD70xIvVSq1sMfSf6OkVsTzuq8NQfnN5Yp/w5Wy7RGmQlGM04JfI5g==
+	t=1793862608;
+	b=M7fK0Ne4VuMSsHalNZhQXLhGlFPJR6Dj++r1Pd0Wvb4btrFMTLnXM+a+bydcSQwqgxIc
+	 5a5AKLA0+aIxFlY4Qu1xqn8ZTejSQk94wk+4eRGy8gPnqJryx8uumYAwzqfYYsvouv6Vo
+	 yArwojXncD2Cat+dpKYQutiDO2UVLg20xC3DkAXlq3szrEAH05xdfuxB+qqOv6C3ES+ZW
+	 WKLTKzHU3kn7Z9iunv52cdLG5Kq3XVZpPCXWu/dfDwO5wqTTjOabcVp+Xgq5+TW9HJoSi
+	 /cJYp/4XZDG5J8myGcQt1u8955tMa+vPEQO/+IteGD5lgD11YcAgj07WCnJW3bdvGTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862602;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862608;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=TFkSb1AmlhR7ma1WDvpIqz0vVLtG80NEeudpCHZwJiA=;
-	b=eb0Wfvz41J7dYIPv+3h1x8Nmsf/o5F2dNwePqCHgRX7bcmRauup2TniWUvTjn/hoRq46
-	 35xAhDfjv9FpiPir15S4yVi9H/5IQFAHJdtNfL2lKRmfArV+zP5NjfyDza2Pz6rjdhUDg
-	 9Zusxc4LGWwSKNh2J6IWL6LenR3gwuuSLZlhOv69GBkyLTve2RyxpZyPY7PqIX3IUL5dr
-	 nudcbNgWcvogYyWcyEViWC00J363Hi0NX+6WsnElfXk7E2BaaN71Q0+lDDUawWW546d9E
-	 vJE1v8MJGl70148N83vzKVzYZQnupJSsUPIthnUE1ifrIoxgPfSubyJQljXjYv6UnXQ==
+	bh=gcj4ww5+Gh3Q/hYHcF8rkzTUvXbvK8auYR9hthC0LJ0=;
+	b=XnFDfuUA99MW8saigabOY/+LY/UBnXnPP2f9IvgZ/pS2cxhOYyACFdrO8LD/b2cOW9Hq
+	 2UGx6XvBXQdOMn8+dV6Vx7lkh+AYIIg/BbvMjxsnA1/qlmVKKhn9hD2NzS7K/43LqMOxq
+	 qoxjEvdb7FZ/UfFu3SOTV4HP8tFsL1iGD3VU1oOe7Bqbtyc12RnCLJavQIlJV9D5lZLwB
+	 jY47lq2379Z7iCS7f1QsIPobXxrjHm8UF6+VagD685jikW1Za7uIv++QJ0A9ckW20YBB6
+	 Yd7agn/XfaqB2n9djlFkfhI9mImfQI2CsqXetHnqtcX5igR/Hy9GqjrjiMUi6E/hmPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QNK3DUWy;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h1TJK9Mw;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F29606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:09:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11F29606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED3A606D805
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:10:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED3A606D805
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QNK3DUWy
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h1TJK9Mw
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=TFkSb1AmlhR7ma1WDvpIqz0vVLtG80NEeudpCHZwJiA=;
-	b=QNK3DUWy/p18SIrYxBo9iKXifTK23w1i0OGIxiNFRYMeBCu7zHCoXpBi+1NVCWTUVLPHhxfXg
-	wDp9gpWy2wEIzIh4B63kBaFKmonAqC9w6napwsqw1Hfb+tdWBMmZcClmP8lrtzFbBRDG/9Yg0kF
-	YbFHk+hTHA86Ba6hmn+2ez0=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jKtjC50ndz1T4Fq;
-	Thu,  5 Nov 2026 15:09:35 +0800 (CST)
+	bh=gcj4ww5+Gh3Q/hYHcF8rkzTUvXbvK8auYR9hthC0LJ0=;
+	b=h1TJK9MwTc+QmhneImb7GAJTasaceoa4J5YecjZxGXxp80O+lGZWcxUne9kJvS/+j09DtQcQz
+	1MuCLkuBBEs8lhwDs8CFm5lqw/M+z8eHOEgjEEns/TtBjIlxKCDItChT7X5XiAGoLq3YLw+fhGM
+	vrKjXimsK+6iSDGb/+sbAuw=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jKtjX1Xswz1K9Cs;
+	Thu,  5 Nov 2026 15:09:52 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id AC6A940561;
-	Thu,  5 Nov 2026 15:09:56 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id ABC1A4055B;
+	Thu,  5 Nov 2026 15:09:57 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
@@ -58,10 +58,12 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<jic23@kernel.org>, <ben.horgan@arm.com>, <x86@kernel.org>,
 	<linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v4 0/3] fs/resctrl: Fix RMID limbo handling
-Date: Thu, 5 Nov 2026 15:09:31 +0800
-Message-ID: <20261105070934.2258613-1-ruanjinjie@huawei.com>
+Subject: [PATCH v4 2/3] fs/resctrl: Do not allocate a monitor context when releasing limbo RMIDs
+Date: Thu, 5 Nov 2026 15:09:33 +0800
+Message-ID: <20261105070934.2258613-3-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261105070934.2258613-1-ruanjinjie@huawei.com>
+References: <20261105070934.2258613-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,47 +78,180 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-Fix resctrl RMID allocation to report a retryable -EBUSY only when
-the target CLOSID actually has RMIDs in limbo.
+Busy RMIDs of a monitor domain are normally released by the limbo
+handler once their cache occupancy drops below the threshold. When a
+domain goes offline, its busy RMIDs are released without checking
+occupancy, since the domain is going away and the RMIDs would otherwise
+never return to the free list.
 
-Split the domain-offline path out so it releases busy RMIDs without
-allocating a monitor context it never uses.
+On the monitor domain offline path, __check_limbo() allocates the
+monitor context that an occupancy check needs before it scans the busy
+RMIDs, but without using it, and returns early when that allocation
+fails. Then the caller destroys the domain's monitoring state, including
+the bitmap that records which RMIDs are busy, so nothing can clear those
+bits afterwards and the busy counts never reach zero. Those RMIDs never
+return to the free list and, where the RMID depends on the CLOSID, the
+dirty count of their CLOSID never decreases. The allocation can also
+wait for a monitor to become free, which stalls the CPU offline path on
+a context that is not going to be used.
 
-Also unmount resctrl with the CDP state it was mounted with to fix
-another bug with mpam cdp.
+Only MPAM systems are affected. An architecture that can always read an
+RMID allocates nothing for the monitor context, so the allocation can
+neither fail nor wait there.
 
-These fixes are split out of the v10 Narrow-PARTID series below.
-        https://lore.kernel.org/all/20261020134239.3921377-1-ruanjinjie@huawei.com/
+Move the release of busy RMIDs into a separate function that does not
+take a monitor context and leave the occupancy check to __check_limbo().
 
-Changes in v4:
-- Fix the unmount resctrl bug as Reinette suggested.
-- Adjust the commit message.
-- Add Reviewed-bys.
-- Link to v3:
-  - https://lore.kernel.org/all/20261031063634.1678345-1-ruanjinjie@huawei.com/
-  - https://lore.kernel.org/all/20261031094616.1691026-1-ruanjinjie@huawei.com/
+Fixes: e557999f80a5 ("x86/resctrl: Allow arch to allocate memory needed in resctrl_arch_rmid_read()")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: <stable@vger.kernel.org> # 7.1.x
+---
+ fs/resctrl/internal.h |  2 +-
+ fs/resctrl/monitor.c  | 72 ++++++++++++++++++++++++++++---------------
+ fs/resctrl/rdtgroup.c |  2 +-
+ 3 files changed, 49 insertions(+), 27 deletions(-)
 
-Changes in v3:
-- Add Reviewed-by.
-- Local varibles uses reverse Christmas tree style.
-- Update the commit message as Reinette suggested.
-- Link to v2: https://lore.kernel.org/all/20261030092144.1233551-1-ruanjinjie@huawei.com/
-
-Changes in v2
-- Update the commit message as Reinette suggested.
-- Link to v1: https://lore.kernel.org/all/20261029081513.924019-1-ruanjinjie@huawei.com/
-
-Jinjie Ruan (3):
-  fs/resctrl: Report a temporary RMID shortage per CLOSID
-  fs/resctrl: Do not allocate a monitor context when releasing limbo
-    RMIDs
-  fs/resctrl: Unmount resctrl with the CDP state it was mounted with
-
- fs/resctrl/internal.h |   3 +-
- fs/resctrl/monitor.c  | 158 ++++++++++++++++++++++++++++++++----------
- fs/resctrl/rdtgroup.c |   9 ++-
- 3 files changed, 130 insertions(+), 40 deletions(-)
-
+diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+index e62a277dee85..1c85e06f09bf 100644
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -405,7 +405,7 @@ void cqm_handle_limbo(struct work_struct *work);
+ 
+ bool has_busy_rmid(struct rdt_l3_mon_domain *d);
+ 
+-void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free);
++void release_limbo_rmids(struct rdt_l3_mon_domain *d);
+ 
+ void resctrl_file_fflags_init(const char *config, unsigned long fflags);
+ 
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index b8f4e1ff4083..ae9ddd380515 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -124,21 +124,45 @@ static void limbo_release_entry(struct rmid_entry *entry)
+ 		closid_num_dirty_rmid[entry->closid]--;
+ }
+ 
++/*
++ * Release the RMIDs that are marked as busy for this domain without
++ * checking their LLC occupancy. Cache lines may still be tagged with
++ * these RMIDs and will be accounted to the next user of each RMID.
++ */
++void release_limbo_rmids(struct rdt_l3_mon_domain *d)
++{
++	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
++	struct rmid_entry *entry;
++	u32 idx, cur_idx = 1;
++
++	for (;;) {
++		idx = find_next_bit(d->rmid_busy_llc, idx_limit, cur_idx);
++		if (idx >= idx_limit)
++			break;
++
++		entry = __rmid_entry(idx);
++		clear_bit(idx, d->rmid_busy_llc);
++		if (!--entry->busy)
++			limbo_release_entry(entry);
++		cur_idx = idx + 1;
++	}
++}
++
+ /*
+  * Check the RMIDs that are marked as busy for this domain. If the
+  * reported LLC occupancy is below the threshold clear the busy bit and
+  * decrement the count. If the busy count gets to zero on an RMID, we
+  * free the RMID
+  */
+-void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
++static void __check_limbo(struct rdt_l3_mon_domain *d)
+ {
+ 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+ 	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+ 	struct rmid_entry *entry;
+-	bool rmid_dirty = true;
+ 	u32 idx, cur_idx = 1;
+ 	void *arch_mon_ctx;
+ 	void *arch_priv;
++	bool rmid_dirty;
+ 	u64 val = 0;
+ 
+ 	arch_priv = mon_event_all[QOS_L3_OCCUP_EVENT_ID].arch_priv;
+@@ -161,30 +185,28 @@ void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+ 			break;
+ 
+ 		entry = __rmid_entry(idx);
+-		if (!force_free) {
+-			if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
+-						   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
+-						   arch_priv, &val, arch_mon_ctx)) {
+-				rmid_dirty = true;
+-			} else {
+-				rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
+-
+-				/*
+-				 * x86's CLOSID and RMID are independent numbers,
+-				 * so the entry's CLOSID is an empty CLOSID
+-				 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
+-				 * (PMG) extends the CLOSID (PARTID) space with
+-				 * bits that aren't used to select the configuration.
+-				 * It is thus necessary to track both CLOSID and
+-				 * RMID because there may be dependencies between
+-				 * them on some architectures.
+-				 */
+-				trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
+-							      d->hdr.id, val);
+-			}
++		if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
++					   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
++					   arch_priv, &val, arch_mon_ctx)) {
++			rmid_dirty = true;
++		} else {
++			rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
++
++			/*
++			 * x86's CLOSID and RMID are independent numbers,
++			 * so the entry's CLOSID is an empty CLOSID
++			 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
++			 * (PMG) extends the CLOSID (PARTID) space with
++			 * bits that aren't used to select the configuration.
++			 * It is thus necessary to track both CLOSID and
++			 * RMID because there may be dependencies between
++			 * them on some architectures.
++			 */
++			trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
++						      d->hdr.id, val);
+ 		}
+ 
+-		if (force_free || !rmid_dirty) {
++		if (!rmid_dirty) {
+ 			clear_bit(idx, d->rmid_busy_llc);
+ 			if (!--entry->busy)
+ 				limbo_release_entry(entry);
+@@ -843,7 +865,7 @@ void cqm_handle_limbo(struct work_struct *work)
+ 	if (cpumask_empty(&d->hdr.cpu_mask))
+ 		goto out_unlock;
+ 
+-	__check_limbo(d, false);
++	__check_limbo(d);
+ 
+ 	if (has_busy_rmid(d)) {
+ 		d->cqm_work_cpu = cpumask_any_housekeeping(&d->hdr.cpu_mask,
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 57ab090072c2..5d0351453c2f 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -4590,7 +4590,7 @@ void resctrl_offline_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *h
+ 		 * the RMID as busy creates RMID leaks if the
+ 		 * package never comes back.
+ 		 */
+-		__check_limbo(d, true);
++		release_limbo_rmids(d);
+ 	}
+ 
+ 	domain_destroy_l3_mon_state(d);
 -- 
 2.34.1
 
