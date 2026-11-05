@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870081;
-	b=uVGM6OZDct9fX6qSdiSYGzbvf1Ci8z0b5HV76dtKI34EnKwvxJG47fM0LLVyuPl2tpVA
-	 P507G5phU4BABOmeAYSbOUUBqx+j8XQFlpMaahS3M7g3CmoGDtyhgzpR28Tj16VJQuaPW
-	 qJkP5E0uTP1rAUIDdY4933uTOHHrbGp9G/Vn/G49ftT3eO6b/yyiGIk3mibevU6iYTwgM
-	 6rQ+g5DzANXp3G+4tjDLP/dT6cqlUYwxA+aTsSMNmgwPc8avVXr8yAVQ8wjyPRR6bvMOV
-	 1Ywpq86h5WsoX3WXxSwTPoX0Pm5/kZEzB9sug03ldOl7uHnNOEJfc3Py3xIqRv36T8A==
+	t=1793870086;
+	b=b+Uev59NEtgf2b3HSLrDBlCBdmf3722TImqvZTzhxc9WaRDb8hQidt5kw0newmPkZ2YG
+	 aegwf2Oz9m0eEkohCWOthp0Ee7RQ0XCZqFiN3S6l2IeXUMFD3GqoGIgR+tcOd7dsrotYF
+	 VMI/crkwUcsl+W+Pdrl7q8eK187czFSuPXMeioU21LiQR84ttxgMAhJNIlo2ppJOp9+gI
+	 bjODWag6U/pd0fIDntWosmMVhMgIj0jT7z8D8pbOvSzOBr0X3oej4CtBxR4H3CRBKxIYy
+	 AfSBNe+4nYP2P/cVWpLi9xw52mgvUYJ8dN3oVWvk8wkZf+HVHFH+SiJTjbdogbYv1bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870081;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lsCgcr53NQK1TI/PBS9u5riMRtU/RtsanXhSp8ZqY6Q=;
-	b=HvKftTXo/8E7l9O/NdSY7/5+APR1/D9iHtX/GC6rAGz/LeYAf0Ui8fCNGXCOA004fJYu
-	 FcWgyXpfpCW4LtVNg49Vxn3tYwSpZJ4+EO7zGZeg4QuFrKUYhYtsKHPEaXDcGkEyYSDx0
-	 GV9/myZ/cS0Z0sowmjOQ6mZLObUVdz50F3AdUjdmI/lKIlB0WwVg5h/Ry/rqmQjeb/lSy
-	 u8bMU7jXEHKkFJDUBg6RTEfZnICEWC3t7Y3dQobHT1Nl95alevDAzauSazuyRUB/N/7S+
-	 BPGIuCwfRhUkmN4M6q8vgGGYvcdElpE/G8WPMgiWvw35k0epxjqH7eO+bEePu1GwHgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870086;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=i8wu4ldu0ctG+v5/R50fZxVjOYm5zkL0ZBbxTjniobI=;
+	b=W6Ge2o9OTmnJWRaHy0yehh+8a2ecEjeW65QGN38X3xa0x2pbVDZdiT88o9AdrCxFJbaD
+	 4w8V0sAIzyCqVHN5QMm2ynpMZtvgliZLTbAcHvbZdZN0hZ3M29fLH04C74emTVE9F7aCK
+	 MtAw55u57CB9j9owLkhoqJuGuXmDg7tVGqmNeJrVRfY8KR0fU5FE64uvF/FkqPFfz87oy
+	 2B7+ANbPXCvs/uX20UPkRx2OBHCz/HMVHovkPAR+6VyBQRqG3vxHHDBZj3yG/HehniT5Q
+	 mx/fVrGHhA915cGrAWgCpK2y/XtM9IeH3N8ZtSulFte/okQbU80kTPEuLmkEutFXqPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JDdcix/t";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471B3606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:14:40 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=D4Ltd34s;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3212E606A31B;
+	Thu,  5 Nov 2026 09:14:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3212E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDdcix/t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5347D1F0093A;
-	Thu,  5 Nov 2026 09:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870080;
-	bh=lsCgcr53NQK1TI/PBS9u5riMRtU/RtsanXhSp8ZqY6Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JDdcix/tUqlpTchn2SciM2OXiiuZWqFqnxio1Kvts/Xt1XtoRygf/KK+FaYQt4x4x
-	 5j41usriXI4wSCoXmTzrz1WurjTVQaI0ruqMCzHs9or5Gv/fgZDrFnd7IdNSsRiS46
-	 479v0DYYD2CClCwCJMEpDGrdwKS8jXUPPzN0HR/ULKKPv8BWi4y9vvnIH91lnItPm9
-	 IK/hHJP61vRPW+aHEBGVUAwijJFZqWqT1j4eIAtqJiJMyu0V4yb5WZK5WtQNtPjupr
-	 ahDNKnJqQ7IcbYxclDNcxDVjR/MOHoguvL/cw/1dq82Vh4M1SZXX4aGuS09dW85kzV
-	 qCPtx86/xBglA==
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Louis Chauvet <louis.chauvet@bootlin.com>,
-	Haneen Mohammed <hamohammed.sa@gmail.com>,
-	Melissa Wen <melissa.srw@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>
-Cc: Daniel Stone <daniels@collabora.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Jocelyn Falempe <jfalempe@redhat.com>,
-	=?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
-	=?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
-	Pekka Paalanen <pekka.paalanen@collabora.com>,
-	Sebastian Wick <sebastian.wick@redhat.com>,
-	Simon Ser <contact@emersion.fr>,
-	Victoria Brekenfeld <victoria@system76.com>,
-	Xaver Hugl <xaver.hugl@kde.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Daniel Stone <daniel@fooishbar.org>
-Subject: Re: (subset) [PATCH v7 00/16] drm: Add DRM_MODE_ATOMIC_RESET flag
-Date: Thu,  5 Nov 2026 10:14:29 +0100
-Message-ID: <179387004599.656088.394688521591326726.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=D4Ltd34s
+Received: from [192.168.1.14] (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 9AA5120B7166;
+	Thu,  5 Nov 2026 01:14:20 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9AA5120B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793870063;
+	bh=i8wu4ldu0ctG+v5/R50fZxVjOYm5zkL0ZBbxTjniobI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=D4Ltd34sEKHPD18nhlIWm5KNBTyTSdlyW+GsKEnAJBWG4wbIXpgA1crL6iRWcyp+z
+	 bYMTmEZO552Epal8dLsOC4Fp3/w3zekszksW0RsIar4Dhi9CKNhiYCFh0e/7LeLDAv
+	 To6I+maSI1WMGn+PRC0hJ+9ypm4uEw/sMTUUqvcc=
+Message-ID: <d3764ad4-9c95-470a-a3c2-474600657405@linux.microsoft.com>
+Date: Thu, 5 Nov 2026 14:44:32 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,41 +53,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Drivers: hv: util: Fix transport teardown on util_probe()
+ failure
+To: Andrey Misiurov <amisiurov@cloudlinux.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>
+Cc: Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261104203049.1031148-1-amisiurov@cloudlinux.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <20261104203049.1031148-1-amisiurov@cloudlinux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 30 Oct 2026 11:27:32 +0100, Maxime Ripard wrote:
-> Userspace currently has no atomic way to bring a display pipeline back
-> to a pristine state. A compositor that wants to start from a known
-> baseline must explicitly set every property on every KMS object to its
-> default value, which requires tracking which properties exist and what
-> their defaults are. This is fragile and must be updated every time a
-> new property is added to the kernel.
+
+
+On 11/5/2026 2:00 AM, Andrey Misiurov wrote:
+> Commit 07a756a49f4b ("Drivers: hv: util: Avoid accessing a ringbuffer
+> not initialized yet") moved the creation of the KVP and VSS transports
+> after vmbus_open(). util_probe() still calls srv->util_deinit() when
+> vmbus_open() or util_init_transport() fails, and hv_kvp_deinit() and
+> hv_vss_deinit() destroy hvt unconditionally.
 > 
-> [...]
+> On the first probe, or when hvutil_transport_init() has failed, hvt is
+> NULL and hvutil_transport_destroy() dereferences it.  After an unbind,
+> hvt still points to the transport freed by util_remove(), so a failed
+> re-probe frees it a second time.
+> 
+> Skip the destroy when there is no transport and clear hvt after it.
+> 
+> Found while reviewing a backport of commit 07a756a49f4b.
+> Not reproduced at runtime.
+> 
 
-Applied to misc/kernel.git (drm-misc-next)
+Ideally above 2 lines should go as comments in this patch here [1]. 
+Keeping that nit aside, this LGTM.
 
-[02/16] drm/solomon: ssd130x: Drop the init-only assumption in ssd130x_crtc_create_state()
-        commit: c257ee259841e264d13c049acea68e5bfa79b592
-[03/16] drm/atomic: Switch to krealloc_array() in drm_atomic_get_private_obj_state()
-        commit: 923cb729e1a5863fb64045fff1ebc25d2a0dae63
-[04/16] drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_private_obj_state()
-        commit: 1dc6799ff39ed7a10089a5ca01dd7b6ffdcea24a
-[05/16] drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_connector_state()
-        commit: b317ba7316be19063b867d8f23901f4698ea05f5
-[06/16] drm/atomic: Create function to insert CRTC state into a commit
-        commit: 99f828c16262084c2667fe8bfa3451e977be75f0
-[07/16] drm/atomic: Create function to insert plane state into a commit
-        commit: 40a13a109c961fc046b115b35ef1639ae81623d2
-[08/16] drm/atomic: Create function to insert colorop state into a commit
-        commit: b31e771eb1bdff618b3bf54e38bed0679c07f6b9
-[09/16] drm/atomic: Create function to insert private obj state into a commit
-        commit: 2eb56a0eee85c22fbab5e92fe66d14cfd4effbf6
-[10/16] drm/atomic: Create function to insert connector state into a commit
-        commit: 471e13ae24e4856ca5d762f3cc65580990a683e4
-[15/16] drm/vkms: Switch container_of helpers to container_of_const
-        commit: 1fd0897e3774e33a8ef7154c4048af12dee1ded2
+Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
 
-Thanks!
-Maxime
+
+> Fixes: 07a756a49f4b ("Drivers: hv: util: Avoid accessing a ringbuffer not initialized yet")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
+> ---
+
+[1].
+
+>   drivers/hv/hv_kvp.c      | 5 ++++-
+>   drivers/hv/hv_snapshot.c | 5 ++++-
+>   2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
+> index 336b278..813bec5 100644
+> --- a/drivers/hv/hv_kvp.c
+> +++ b/drivers/hv/hv_kvp.c
+> @@ -825,5 +825,8 @@ void hv_kvp_deinit(void)
+>   
+>   	hv_kvp_cancel_work();
+>   
+> -	hvutil_transport_destroy(hvt);
+> +	if (hvt) {
+> +		hvutil_transport_destroy(hvt);
+> +		hvt = NULL;
+> +	}
+>   }
+> diff --git a/drivers/hv/hv_snapshot.c b/drivers/hv/hv_snapshot.c
+> index 847dc69..a827cef 100644
+> --- a/drivers/hv/hv_snapshot.c
+> +++ b/drivers/hv/hv_snapshot.c
+> @@ -456,5 +456,8 @@ void hv_vss_deinit(void)
+>   
+>   	hv_vss_cancel_work();
+>   
+> -	hvutil_transport_destroy(hvt);
+> +	if (hvt) {
+> +		hvutil_transport_destroy(hvt);
+> +		hvt = NULL;
+> +	}
+>   }
+
+Regards,
+Naman
