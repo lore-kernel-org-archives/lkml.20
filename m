@@ -1,109 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839397;
-	b=qV42rQmJRxdvc3bf+i4bwKgQyVf0o00nttQdYCcWYhl1P9o49RyQ+ATwg4YhAqUHyyuQ
-	 TJf+3PeIgWmx5g+WzqXDmWlgRxrbIyUOSVMTJJO7sfGcmDJrkvrOlX6uRSptWE1/HSf0T
-	 xkGgzSVrOGxEQzbyWPwlCPCwWzWQ+Jw6NGgabDCcSw+VXb2FBpxKzQQhz86ISt7in4VL+
-	 qaGOvY1o/BVFeEl7COf0xaim7q0Uet+QloAqU/GBsQpU9JKiII5Mp1BDlFXoBkqOICsT3
-	 R38wftmJSzrJgunzK9GBiPUQKc2eyzlP5gaYv59JqjrhdhZfVcIwXf9N641Ai7g4hjQ==
+	t=1793839438;
+	b=1NJSUpb7K9kKXiTjjqK+tXiqOqrG9imGa4jDpUm9aN1SWl4eYx7Jcy2d5PWKyS/ahTjn
+	 wYlKv1dQ4Pk3ARESsxSQsFfMjUsUq963yYs/rKIdAjyANn0sQYRiz913Orz8XhAvrTuhN
+	 ZugbX21882VEeJpNKj8fAsB5490ZDkjslq+WIbgeuinKA8NFs+ouRq0X1qzYXGwsfGlAH
+	 u6UO2dzXtcahLF+xrhFFKXFT6mKhE7yv2XC0zrHo8s9lEYTUNwMMNdFjGlO1wGllTj0rH
+	 8W2nBcoMZe8ZSuERrSn1HbzDmQ1BWLq0c3Q66E55n3ZIswqVFmN8kGkPMPd/JHmbs5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839397;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
-	b=T3vJJ6QMfz5oODZevlgIXQtMcywKojdbTBhSi7Ndt5GRFugzqBThDy5psf0LcUQy+5oS
-	 1sIXh40LOM8cYXyuhbNJr4HNOs29cHX/a4YMcLKtwdEH+JVaNxHLhQu1t34abGLtIdUBi
-	 939Em8NbRoRFZRMN/SA/LwDlZpDzZcWVrBonPlbgb1kpL3DzCKz184dXPhoeyJ0i9VF0A
-	 GW+xeqk3q/IJl9jrEoLy/HOHXTXwjUPTy6IB4IXOk2+GVyxExXp5xY+c1aYXuTcw7S3Hs
-	 ypGAiuv6LB6m/U6Ug3BIdg8aBlxvqzb/z66g90l9N0HBwH4lYGYfdzxEuFYQnkmAR/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839438;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=TRvgzI3qXoA2HIsl7Zv36AwD/K99XeT08hxCxLH0B9A=;
+	b=oLBk8fJ8HlX7kB6v8uwlNek56MYIgHcyUOqgxk1J9I8CRKGA6Cfix9rsGtngZ+XV5zd9
+	 p9OQ9iDqiwSObNS5O0pW2khL1pzsDX/dSw/LgINzJzgxtzN762ZJsgObn7bBu4Yfl8SrF
+	 G5oJ5aBlPTWH2rNdb1yBhVvar/iwF7/YPDHl2pT3X/+Ky5OD6ME9Aw0i9/3ehzkp6ZnGD
+	 oPUyY3WFwSYADszcDevaV4PISM1dNb3OVTsCU3VAyzUBeM48vJzc9sWsKu/7S+4lt8qLZ
+	 gdXTtiLizlmcSClJ6JK7A5G6VihwgnRNI9sV8OuExVB0TNuu6TCvTRlt/0kGiu+iPkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHBe0KMV;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gEPGYb1k;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0415A606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0415A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A628606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:43:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A628606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHBe0KMV
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so14040845e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:43:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793839395; x=1794444195; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
-        b=VHBe0KMV+u5jMRSkLnXNHnK0mTosWLIroj2ejLHi5ZRnZUiscTEHSsspxPZulOp8Gn
-         twYUDF3uIMUTxDhmLF1w6238je3baH01ZhSyQDC6ZmRr4vyT+AB/GjGQg+akFB9mxQio
-         RD6blvWxlg260yKErdKEoqZXyXooOcTCGpAV1Fv2hYh0A1WlqsItwIv5OwI1pjC5B6jn
-         jfczZTroBf0+gHZxte1FnTzXjIiaDirC9Xx9ex0EFXvZVl2crZUSX1XJYZ2cWDaJWRaf
-         oYokvnvRrbkIY0Srp+Kxnsx5LrxlPvUbftXS6lyO4VevEQqFLnFlERvZozojCI3rvulY
-         fKWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839395; x=1794444195;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
-        b=HGHSdgLAbF7ux4jkdeF0z+eZ2zUKJ/WGISfvzB/IwY7dxVMBGWVmIHqNLLiN3cJKoX
-         OPMyCGBTaNeyaJHrcsfTI9s9QeMipLLBEBTf7mfHOWnJMVbi3PPZ3Zs8bXz1vo8UXe5f
-         RGQrUJAdrHtFEsWQAp+EANBf+Ee1077AlgvuIOviNOEs4r9/Z8/ZdrvfPK5Qb/rpPq/u
-         wmsGFOpOMoMePi0zWZjUkGQ03hjo3qOPM3D0lYhKVch6rbyGXSHYqyg6Zoe/mOR+aKtW
-         cQmYdubEmH9c0XDMf9z0ZdA8Bj2UoyK0gp38LJvkzAFp+S8DkisgXYhBJex5PIAQDydq
-         Zc6g==
-X-Forwarded-Encrypted: i=1; AKwUvBykCMyGWVNkhtS0tfLxyezolZuBBjCdOdHwnNNuaJ9LhhsctwAR6md/YnqSxT6KZNtZvvCH1cjrEGBre5g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/PLELPSNg9sov/NmRcTseGZHGYiFTATGiGfHqVqHdw5xKT+Qgw
-	jtvaIn3mJd4pAnKK4imDaNC24ZffnYEMMgVbuh8ksVNkrqPCu8StgZJH
-X-Gm-Gg: AYBFou1sxMohA7V1cJSdav1f25YLQcKMxznkg6X7drCN2DWNU2uEeiusYTEmqP5iIDC
-	7CyfVo73YtFlpT+LeGr1dnB9IHKSj7ZDJADdME1AujFlQdRoDKpAGCPh+a49eHPC2/8D5KrTHNA
-	My70Vxomb2bUJbb47sHIH0ipUEwzM3SvISpGeFgHq+14CjtydDPPQN4vx++pE3RJiQ/TOH5JL/i
-	JjUzO3uPdBXTfYaDHIsb1dIMyVIsA9u3kLT09Pklna+Z1P0Zza6sfyxCqhsRjeO63mwkpj9K3OT
-	bf9d+iRusFSfaPZqpPdPeRxXzaOx/z9GO03i1YsWQKcddsQIclbYTUWhsAE+ICnxQc3FFjZAbCf
-	aqzfsd+j6hs5BFyjaf0TiZZDFIMsulhHSO0Jj90/SAy5b4gqcbsNYXcNQWtVWbqRHHVZiT3cazL
-	ugrDaIHpRvwaOaaIfdNfLMD/wlCz+onX0dFbSJIupmbRNmAk5gGPD8Vh7MddVDFGlye5tcz7FS9
-	jfYnamZAQ4+JYWmn/5pSO+Ktkxi1DxiegHyMZLT6dEkpudj861eo7kuYfxpT4HuttGTbp+UQUFw
-	7TNe098zwaoaDPhfchoCbA2MYM9sza3cPRO0M4rU3pYJWjvLrFefxRqXySEJWmldPF5OQJQv1ml
-	i6ofT67HH
-X-Received: by 2002:a05:600c:8b2c:b0:4a2:5267:3cd4 with SMTP id 5b1f17b1804b1-4ac151a8c26mr415678795e9.3.1793839395161;
-        Wed, 04 Nov 2026 16:43:15 -0800 (PST)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b414b170d0sm62276595e9.1.2026.11.04.16.43.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 16:43:14 -0800 (PST)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	George Neacsu <geocausa@gmail.com>,
-	Hao Yao <hao.yao@intel.com>,
-	"D. Manresa" <dmanresa@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] media: Add the ST VD55G0 global shutter sensor
-Date: Thu,  5 Nov 2026 00:43:10 +0000
-Message-ID: <20261105004311.144035-1-fernandorimoli11@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gEPGYb1k
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105004354epoutp04b64a0b2a8a75ddcc3150152d0a988dbe~k-3YjM12h0507505075epoutp04B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:43:54 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105004354epoutp04b64a0b2a8a75ddcc3150152d0a988dbe~k-3YjM12h0507505075epoutp04B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793839434;
+	bh=TRvgzI3qXoA2HIsl7Zv36AwD/K99XeT08hxCxLH0B9A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=gEPGYb1ktlGAv1wBW5AoEU3AJgR69HF/eFfsSWPdvxR6xGNkRMaul/NKZHoZsGIvW
+	 aeD2GinMhCZZAF0MKXB26AyE7ACehry5fETjciwVdMnvtJq+VwGfDT1hnRnV5GX8iB
+	 G45IFo0HOkh9OrWOj2mLDmaSP1g5jVqivEXUf2bo=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261105004353epcas2p33c41ad53cd488389d79916ef07439117~k-3X813PC1259112591epcas2p3E;
+	Thu,  5 Nov 2026 00:43:53 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.206]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKk89329Lz6B9mF; Thu,  5 Nov
+	2026 00:43:53 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261105004352epcas2p307ea40aadb636015545cee6e79470a03~k-3WU95OM2408824088epcas2p3l;
+	Thu,  5 Nov 2026 00:43:52 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261105004351epsmtip209a25c3e4e97031d57f7fa4fb718bd32~k-3WOYWCl0761307613epsmtip2S;
+	Thu,  5 Nov 2026 00:43:51 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
+	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+	cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
+	<kwmad.kim@samsung.com>, Bean Huo <beanhuo@micron.com>
+Subject: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device management
+ commands
+Date: Thu,  5 Nov 2026 09:43:32 +0900
+Message-ID: <20261105004333.1097899-2-kwmad.kim@samsung.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
-References: <20261103103235.94397-1-lsa.uz@pm.me>
+In-Reply-To: <20261105004333.1097899-1-kwmad.kim@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,31 +83,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261105004352epcas2p307ea40aadb636015545cee6e79470a03
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105004352epcas2p307ea40aadb636015545cee6e79470a03
+References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
+	<CGME20261105004352epcas2p307ea40aadb636015545cee6e79470a03@epcas2p3.samsung.com>
 
-Hi Sergey,
+In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
+for all timed-out commands. However, device management commands (query, NOP)
+use reserved requests and are not SCSI I/O commands. The ABORT TASK task
+management function is designed for SCSI I/O UPIUs and is not applicable to
+device management UPIUs.
 
-On the Surface Pro 9 (Alder Lake, IPU6 8086:465d), on a 6.19-based
-kernel, with 3/4 and 4/4 in the bridge and 2/4 adapted only for 6.19 (no
-v4l2_subdev_client_info argument, and the "dvdd" supply name this tree's
-int3472 uses), plus an int3472 that passes 0 to the clock _DSM as on
-Hao's thread:
+This is only reachable since device management commands were converted to
+scsi_get_internal_cmd(); before that, a timed-out query was handled by
+ufshcd_wait_for_dev_cmd() -> ufshcd_clear_cmd() and never reached
+ufshcd_try_to_abort_task().
 
- - 4/4 gives the sensor st,leds: led_mode appears without the GPIO 1
-   fallback I used for v1, and at manual exposure 600 and analogue gain
-   8 the frame mean goes from 15.9 with it off to 32.7 with flash;
- - with the clock now at a real 24 MHz and the link at 396 MHz, R8, R10
-   and R10_CSI2P at all four sizes run at 59.14 fps, as the controls
-   give, except R8 at 320x240, which now delivers no frames rather than
-   the third it gave with v1: the IPU6 limit on narrow packed lines from
-   my v1 report;
- - v4l2-compliance 1.26.1 on the subdev passes 44 of 44 in both exposure
-   modes.
+Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
+the request is a reserved (device management) command, skip the TM path and
+call ufshcd_clear_cmd() directly instead.
 
-This covers 2/4 to 4/4. I did not test unloading ipu-bridge, since a
-warm reload of the IPU6 needs a cold boot to recover on this machine. If
-v3 changes 2/4 only as in your reply to Sashiko's review, feel free to
-keep the tag.
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reported-by: Bart Van Assche <bvanassche@acm.org>
+---
+ drivers/ufs/core/ufshcd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IPU6
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..7fc80926eeec 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 
+ 	lrbp = scsi_cmd_priv(cmd);
+ 
++	if (!ufshcd_is_scsi_cmd(cmd))
++		goto clear_cmd;
++
+ 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
+ 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
+ 					  &resp);
+@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 		return err;
+ 	}
+ 
++clear_cmd:
+ 	err = ufshcd_clear_cmd(hba, tag);
+ 	if (err)
+ 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
+-- 
+2.43.0
 
-Fernando
