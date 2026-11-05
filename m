@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793897460;
-	b=TNeUWL71G8H4pq5Vx3v+1VVVrsCBNKvBMqNcIQuX0crHO2s0xYVjwvJFNuwAqyl0l4QX
-	 3gJdLwqNqI7vgb2rqwXpw9BJ/lTYKrYJwRB0RbhJ6iXtZojTfzfkn4FANmRkNxc7hjmIU
-	 sBQQYhDrDhqejFu1x8nd8BDGHD+iE5TF5eBNHhPfNZnqENAYC6mu9BUVCNP7jzQ3GHzK2
-	 5WXRoJPS0aLuuUWhcFqI9VupahorOcZZCf9Yan0Nj0Ras1cJZwXZuP1RtiLt8ais/bUeR
-	 VbAuCgzMwfhPDk1Yki0ZbaLokIpeqHoC6H7Yw3RRVadPbLKUrJ45Ht3Ryl7YgH/iIzA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=PwJPXPHPlOn9jfUXXN61iSkHC0sx3Ztj1VLHd3vXOIogCxHDFnozC9Ga0GBbiK3+zfOI
+	 CRgTR4G4ZluGaN0VYuRLx1YIMNNLovu0FWR0sJvM1Owy3k3LRXC+6OAeKEP7S7lZoY+Oq
+	 Baj92bNd3Uazuw60InZ9832UUwToWJnXI7h9wcsgS0RokqwvczeOVeBcV6TZuzRqJQxMN
+	 +4TcKVUEY0PMMWODkdr6sWVt7RpjoKZqEOIShk7/Zo9dl728Sk2Zp6is/6xO6rjHoZtLc
+	 5vUgyazo1dLys2KpAO+BvrnaGOaSGGzgUi3jSuKY/XrZQAqIrXQh/hCirjM+utSwhtA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793897460;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Evd4zSRSoLM3wtvMWe5vBX2gWrgTZYiZmazmkRXzKvA=;
-	b=yrylOaO1qDp57kBXYo02VS1n27CtyJbcofx+YFmI0nvs0WxYEP9LjgCQogxd5NLmpt3D
-	 c8pLm7np4R276lZ5f9SyREowNifXcTUxxXIC9m+2nUg6CVmwdo4XB7PXgSZ4L13tWNKHH
-	 pOOeQWwDrCNes2bSggT2NAPIiQvZIgj1mUgHSoO+J6My0tE+bAGmwqh1Y/4dJ5W8Kis1k
-	 NVFsHiX1u9U2Tmd2tr/uxxLQoeBvIYT1pSuNSST3s8hUXGXrrO8JXXhGp0tbPP5AMUmxp
-	 d8ACpsqeRmUYDj6wcCRmzT+9rBHjpsyBQ6Ab3aOirQrEnLsSE42TcaNJgZNmH2mXl5w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ui93Puyw;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ewSR+KD4DJ90iUYVLxQT0f6UAWQ/IoojYctCXpQoeDU=;
+	b=L5izx7cbcdMCDW4eRggRzAbmxsmuXIV4yA8NK4SHnnfEHaam9uU40Ry1i+jY37I3unPc
+	 fNOjXoSLZKH1yB3VZWTEFmPxTrckcz32YPlBtXshHhfDYAxGyVuP4a9RZT4nj8TxbzLJw
+	 DiSaVaEE0P6chhspmpTpDMA3MkqmE1tJu/j4MFSNA74PE+yF1PVs1zbhZfY8AMgXH3QcZ
+	 GRreQ7YEmctx6aVN92J2o+ubKDRrbvkjnD2eBvSMe9mHLb6VhYK7cmG4jY37nxwFL/x1y
+	 0xs5EfwCoPJbrnWSI6bzrfCLbpsG/ui6HjwuQMdB0rab8lF6zcml+r+uSiqXsljsrSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bLsSRjr3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.18
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013018.outbound.protection.outlook.com [52.101.83.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79495606A33A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:51:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79495606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DFD606D815;
+	Thu,  5 Nov 2026 16:50:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16DFD606D815
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ui93Puyw
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1163573f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:51:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793897459; x=1794502259; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Evd4zSRSoLM3wtvMWe5vBX2gWrgTZYiZmazmkRXzKvA=;
-        b=ui93PuywXMJzjXgS5MOsop1GhFn5R0ZhBytPXAoAZ+Gw+9iNb9ASSqd7sw2b9TtCO9
-         Dpd7IxIcqU6COQrnQFNGktgjp/4R/79/ZU7kYRKa3YjsVepep/tb24YLgEaPtwe35NhD
-         LdJXyT9M1IjrGrn7q0RcFptc2ymFrtOVNyx9Ot++scaAGUyirSboPOmRW7S1vrmJ1QhB
-         Lt+hRhauFgNTB6ws/qU+4o8h2CFB359P5c9yg0OOHbBxRpUzQ7vPQSasLTrWAyYVyKRF
-         GbyufdOZOaDh7akHpW8mXXzUNuH7T9phnxaQW/ofDDX4IRb5NKWTmXQxEofQ1NZt6Y0q
-         D2Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897459; x=1794502259;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Evd4zSRSoLM3wtvMWe5vBX2gWrgTZYiZmazmkRXzKvA=;
-        b=hkZrJPlgrAnvk3ZlkNcp2NUfkC96qvMcDbkD1KN+6qSj+6OCxT7TWLNbvD1gIMuLq/
-         limxnRBUF/vvUzBSyxq0o5XZgFX9jzyVzG/1HHgoTcnREajfOTZ/EQNFDexRMso/hXi/
-         TVG9AfXMEysMRLR1YGFZClkjnTS/169g7EI3IHQBPH9F1DyOrw5tracbL6smwsKhP58S
-         DaQQZZ/BgfAsYQvuuKpFjBtE2h0ddx+8JYYO5Ms8fnD3bvtg3u9uLRPTctZ73NDlrvWC
-         GSNFvTGof70zV8gNxMjS2B6gQ6dY2NuffpRI5GOEqlUruNM01h6KN4asM71cUhVtzakm
-         9yOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdGakv64zUAaHqH7l3aH9rjdC12AghM62WBAb8dSDxrb4xXFy9EYe2Pv9wKz48n/O2AhgBEP5K7h/L1dc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2hewA04/0j/1LUfrLaJCTlTuCT6+S6X3sxPuzfRlwMXzmSBfs
-	iiKG3m5MmG7pJECgNa4dET10+06FbIbe8ECubyVSmwCU8U8jT2JsuJm0
-X-Gm-Gg: AYBFou0aEewUvhD1aRWUBmyjyJycnjVMAPyQB+djjmIPJOhGm8GRAuwAKHgu56+xzYH
-	cIfE2GHiu8BAY7Cb1x1NHskALycbKPgSJPCHjhV0dUHAwzucc15Sz++h/8m52YbnjtgoXW2JIIX
-	2ZDLc/g9/D/rfomxN6K/ciIOQtwHkKY0NaPK/Ec3KSGmNXXsCE85ZNnmT76nJ0DNsiQevm1qRHy
-	mApOj3yW7jLIp3HujoCA6KEAGcjUknwQpaEb6WQ0WK9Xic5It0CXerSEl3CbcSInql0kmpiIQgc
-	ctPTBmsZlQ1ya/5hu0pRLHvTqzB533Ahk/S/UqFDcwF3C3g2iw/yMHxZI/Ez1tFm++QSzdxHlcA
-	egxcP7r7rRmwPfCIHihkGpCwsxDETvGAuc7l8W2ZBlIFBP33ZHX4WHw1sSpyk+GaU8tZttfRDLU
-	6bQU1c4zuA1kx5UO1ptbvFWYfkmh8lPE//Magp6nunX266dfYmUSZviXC6WO6pO6QHvXAITbtwV
-	wjdkGBbk8LHIoLrtH7IuWNfQfn3zGr3dyXf6PfAQNwTrxPlcH/e6CosgvtcBN1c6ABar/4HRnKt
-	gGtSRpVEQ9EAPQhyIDzgHx2Ah6SFmlRgnvEiTesDpGEkOaDoONihYSPlxDbaeLLcixekWmPUtI5
-	LwWeUvxqvt9mH+RXfiJftOhbKsQpMSI9fGGMRO7MP4MTkWaJXRJqaRDb/2Q==
-X-Received: by 2002:a5d:4532:0:b0:48e:28bd:e1ad with SMTP id ffacd0b85a97d-492775efe4emr291774f8f.30.1793897458618;
-        Thu, 05 Nov 2026 08:50:58 -0800 (PST)
-Received: from DESKTOP-IR7J1S9.localdomain ([105.98.0.61])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda2007esm10825835f8f.47.2026.11.05.08.50.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:50:57 -0800 (PST)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: Breno Leitao <leitao@debian.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com,
-	Ran Hongyun <ranhongyun1@huawei.com>,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH v3] configfs: fix slab-UAF Write in config_item_put
-Date: Thu,  5 Nov 2026 17:50:54 +0100
-Message-ID: <20261105165055.362-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bLsSRjr3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pjrUuNgfVEXr7ppbVpXBI+aSHZDnoQL+rhKNsIovoAxD5l+zPhgks2Jvix5RU3M80ga/mSUIE3f/D+SLQsak8S7QpwFq+I4HTnBCJjVN+sH2A/43OIgvfp6oelXLYvxBnhNmbVYP6bOChCS6/M0HU2Nu8rgqPpsjxMXmAd47l7xT+rqvXf1aOjn2spbcCuMLLhVuMMn9v8bqkx8zDVw/6SPGweIHEU2c1vHm0q+gGe8qyYQCdUaqHphw81ilrgnU6y1NegwKHFoJPWT7VbrobMCHOTIpJIfRODQstFfKKhQXov7KRKWzy/KmCawDl9c+VLfy6wTp+105j1rMCBheiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ewSR+KD4DJ90iUYVLxQT0f6UAWQ/IoojYctCXpQoeDU=;
+ b=G1SptAf0QAhOSFxlng6VsHGOmsRPJcjVG+zx/4rBJjkiC2+TzXCClfOYtC59xeSidP7M25oMkrc4QsTlQP3qYVYFUb0jY822AR/fUOzrKBUW57S0OURhrzRw0Q2mfM9PAWwoBv1X2EM30f5EruN6p/QzCAlVWnZhIaQ+82zglxc3yaqQY5JrINKkS1zANTHp2C+8PvX+OPqJ1UFw8GF5tBHNhbDoP8DZ/A00hHcmP1+3SM3j3op6JTP82bVUIHQlInit6uzl2zwG5KZxehKi2joKHTM4i0tbyGSd4dfcgI4+8yCs4lXAihWNRzZqsFiBFZLdXGZ3JVF157yo0KbI0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ewSR+KD4DJ90iUYVLxQT0f6UAWQ/IoojYctCXpQoeDU=;
+ b=bLsSRjr3ZXRDk0uejE5Y9HhYLVvnIlEtEPhZukNkh/bMPAah2hQKwMzyddzNUrcFEZLebh9rPfOQrpnPwzG81YfZ/hkcbm+98Ge1h8VWZ3K+LTDVgFWEzWm8IymvJm+QWUVndF80bcQMV16hjpWIewKeUD8DGsU7UXrMHLemyBPkEBxnqDt1bp6+Ci0g+oW5Lrxr/7h7Xy+KtqKEj8SyE11rbckOC4zUEyPq16z73t9phOJtnYGaLll7tHfkptBw9e4ys+lL3AUs3RF5M6egDwLqW2A+vogmR/9iJmDEWHepljv2U5z/JRX5LuPzZj+1itrAYIYpHMZ4PBaFQ6zYFg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PA3PPFF84116FEE.eurprd04.prod.outlook.com (2603:10a6:108:1::b6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 16:50:57 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 16:50:57 +0000
+Date: Thu, 5 Nov 2026 10:50:45 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawn.guo@linaro.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	linux-pwm@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/8] pwm: mxs: Return early when disabling and fix
+ error-path clock leak
+Message-ID: <auyz5R3mMF1TI0Lc@SMW015318>
+References: <20261105143847.2559586-1-lee@kernel.org>
+ <20261105143847.2559586-3-lee@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105143847.2559586-3-lee@kernel.org>
+X-ClientProxiedBy: DS1PR06CA0013.namprd06.prod.outlook.com
+ (2603:10b6:8:458::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,108 +105,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA3PPFF84116FEE:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cb4b806-87c6-442d-22df-08df3b5cf678
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|7416014|376014|23010399003|366016|1800799024|22082099003|18002099003|10067099003|56012099006|4143699003|11063799006|261026121527099003|261009223027099003|261021123027099003|261022075727099003|261102123227099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	aMjX5skGw1fi5F78BauTi3S+i/cgjxpe9nsUSOcORdtAZVWR/2paw6Kj7JEkoBuy63+41aKK0FKp0CA7TjsaZTH72P7D59HXljR4E35zg+FGzLiCCxpPGPBGkameeuZSmlXxG0yMKCrm1cRP3i/kAsCdlqSniHdoVV0EezgCEkdL82lcuuoV6ZSENsh8sOyXsBSNr6MdX7nDH1wP/FeJtVVgNeST+ymoaMZDxDYQdXk9Z5f0Hv6MMzwbqmbLlvNvB6MUIcU8uhxfVpjfHePfOW8H0rGNL7NQJ7JSvA2/lD3oEsx9v1oJ4StcHu4ANlTfm6t9KN6wL25A42Cv1ysKWSUpfhltpXVAgHLxOq6azqnkZ60m9+1VGICg7qMjrYYD27ZjQ13Y7mZCToeWV6wRdUDP+zr4ttRTvMfS04WovX359Upx4kZsqy4QeH5ygNwjWKUShy2OzlmyCpDwgy9c1L0No9jgO5+J1tpLIVasP70TJ+1FhwZAjikbjHvgt+WxeMJqUhaibnc4UKpYXOCtloJXVAE1hrpOL7shynSgHOkI1d9HklsXvdbIirA9a7i5+RXaguGWkrnF4BQaD5TTBjjoIZzJg27Qc2GXLoeHjGk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006)(4143699003)(11063799006)(261026121527099003)(261009223027099003)(261021123027099003)(261022075727099003)(261102123227099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?JC+x+JqNLuaV+kAM5jYEuF0z60F/fUTGTgDE/nsNRSQuOWIIvohWA9g7FM/t?=
+ =?us-ascii?Q?2pqnHdo1DY0nBzzYlP33EyuWCGACkWt8XSyzraWp5+WVIu0jouwjo1vgLLi0?=
+ =?us-ascii?Q?paC0FdghkrfF7x8xKT10kP1NEKk3b5UEKyI+LQTZMKQcv39g66ZcNGJvhFCC?=
+ =?us-ascii?Q?HoT6pRtxXQWdKnRn0FkkZ5JnmpURrjaadivWgr0FaopkFIdFe+wOJpZpDsQ0?=
+ =?us-ascii?Q?W38SGR6vki1KDFb48JSKPvsAug2gta3Vj4kx4JLYb8InQ2RusyGs8DhMyc9A?=
+ =?us-ascii?Q?iMN/hHEPByxApC+Ra8Id77hpBXwGGgbyULiAq/Xb+Di+IvDkQwH3PHbstM/R?=
+ =?us-ascii?Q?AAJkRwuheUM1BA/Vt13meT26W+3ITlCoaw1U8AEHeb2IeJuZApj3xCEa+ZR2?=
+ =?us-ascii?Q?Z3fDtydXKL+4Y6tdC9KqRGNg3Nx+sccfFT0ygMXrXSUoRqd2jxwnE3J3nlmh?=
+ =?us-ascii?Q?TQUCeOLBAB/351n8qDQ1ItRav95D6t7m7wOIypu/L3B7RrVQWmX096luVeyR?=
+ =?us-ascii?Q?rX+LW9ABl2FF6LQ+Udbk6WZjAoDq0rDZIRVbR4Iy2x9E4jtGMPfmP2lJsYwM?=
+ =?us-ascii?Q?dYajYJRCiuOunQVziPJCnSyOX/qG8uO8Qu7Zm+XpWGvPJiNaFfyDrSEhMU9N?=
+ =?us-ascii?Q?WfHh4Kcl+vgkk9sBpkBoAw3m7sK5zUdPLDLfQSa8sh0CWQrdvBZIoaa931Y6?=
+ =?us-ascii?Q?irbIXUiQrIOvI+OPY8cesJac0G7itip9Nl8GjIo5QtOUtjZsxom6G4do7DWC?=
+ =?us-ascii?Q?ziUf6At3Jhk6SfJYiAKmfehT+TtOkPQvChNF1NWHjcWPnDWKnJPjEaxIjA9K?=
+ =?us-ascii?Q?7XD1BU6JK6ofkNM5y8mQ+8G8bLA0Ael0E2726FonetHxUjv7/twtXKxQTMk/?=
+ =?us-ascii?Q?0quTpR9PrQCDIpTMboltGKfh3DjjvpdcISrBAlNkx4e/L0qfNagOjR3sFpwj?=
+ =?us-ascii?Q?BiYBAX+FvFphgZlq8XW8ExSpWIqhaWnRyBAMDr/L9QANKzLBI/lOHVbSUCJQ?=
+ =?us-ascii?Q?rDhn1VF3o1QFne7LpKu/nWmmyCrUO+mZDgCID6XI0izWHQd3LZAo6FMI4SdQ?=
+ =?us-ascii?Q?DYG1cfYmzQfJopSbU6XJODgKljX3QLvBwc8EV28EAeiRAYo1T+LOu/A1w2qt?=
+ =?us-ascii?Q?goQ83PYJ+Q4esoh6XhJq7JK8iedP8k0KteEhzpvRWMi4LWtwD6IA3bbaijdF?=
+ =?us-ascii?Q?GIWPVsPkYoJtq5lI8SZowOROc1cNjlbEjA0deJZm41UqMcMmhR8F6l+PHpgE?=
+ =?us-ascii?Q?gPdNaO+H9yVh0Ddl2Aok8hFqlnii7eu/z29WbsnNmOL0mFRmuZk4xVaDJcDE?=
+ =?us-ascii?Q?QsXLlXbCbccivwTiIyaNA7f2dj7cN/gX7oTn4pZeJQWRlOoE4umlgQpY00oV?=
+ =?us-ascii?Q?q2YVDmcEDmpMwA31FKJpaWdM3gfyQ+vjLo+KA4rnYdX8DUM+bJNFhDnfrs4D?=
+ =?us-ascii?Q?cMC+J2AL4z+C3h+z1lyMW/9+ksnOMgPSN3nctUf1WQTSKTkKscYh32eZ4xh5?=
+ =?us-ascii?Q?2y5CP+FJBEN+rGBEcc+VmmfCYMbY2065pzIZ7rkJm17tcioc59e+VDDxNe5s?=
+ =?us-ascii?Q?BZrHYVprAXQC6kgLkXgF0iLmLUEPQ8ePi1R6RCVRterlcDZBjwXzI7nQU/tq?=
+ =?us-ascii?Q?2cbwkZ675p8DG0pA42CPVbh+A53aCZY+XjvUQoIVoygDRGTg+4GGhvGGOuEr?=
+ =?us-ascii?Q?BM5U2+xNpcw1g2mqkRp0oYfwHX2jeR18CETgZmYIk4a/d+Ub+Mi9HDdQyvg4?=
+ =?us-ascii?Q?3v/s6hW6CLKTIfUO4FrtRqK8EpieZz2GkJKrlvkKvaT0LWAnOmju?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cb4b806-87c6-442d-22df-08df3b5cf678
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 16:50:56.9869
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: unAJSCXQgEVDe+UgFcCPKX7AMRnUBwWncSbhQGnklUW9L8+05HNslgB8JLwhztao6VzMXmbg6qlbXyd4mmiE1aHn7tUJ0Oezyfd6PlNwnwFCnCCJjRXVW8li54Ei+4jW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA3PPFF84116FEE
 
-syzbot reported:
-BUG: KASAN: slab-use-after-free in config_item_put+0x26/0x90
-           fs/configfs/item.c:149
+On Thu, Nov 05, 2026 at 02:38:04PM +0000, Lee Jones wrote:
+> When disabling a PWM channel (!state->enabled), the PWM core permits
+> state->period to be zero.  mxs_pwm_apply() currently falls through into
+> the period and duty-cycle calculations even when !state->enabled,
+> causing do_div(c, state->period) to divide by zero when state->period is
+> zero.  In addition, if the requested period exceeds the maximum divider
+> (div >= PERIOD_CDIV_MAX) while the PWM channel is currently disabled,
+> mxs_pwm_apply() returns -EINVAL without disabling and unpreparing
+> mxs->clk.
+>
+> Handle the !state->enabled path upfront and return early, and balance
+> clk_prepare_enable() on the -EINVAL error path.
+>
+> Fixes: bf29c2ff82fd ("pwm: mxs: Implement ->apply()")
+> Closes: https://sashiko.dev/#/bug/linux-710f863f-6964-4e4f-990a-e5043dbc1a87
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> --
 
-Call Trace:
-...
- config_item_put+0x26/0x90 fs/configfs/item.c:149
- configfs_symlink+0x6be/0x11d0 fs/configfs/symlink.c:225
- vfs_symlink+0x18b/0x330 fs/namei.c:5823
- filename_symlinkat+0x1cd/0x420 fs/namei.c:5848
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Allocated by task 5712:
-...
- nvmet_ports_make+0xe6/0xf00 drivers/nvme/target/configfs.c:2054
- configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
- vfs_mkdir+0x408/0x620 fs/namei.c:5439
- filename_mkdirat+0x289/0x520 fs/namei.c:5472
 
-Freed by task 5712:
-...
- config_item_cleanup fs/configfs/item.c:128 [inline]
- config_item_release+0x13a/0x2d0 fs/configfs/item.c:137
- configfs_rmdir+0x885/0x950 fs/configfs/dir.c:1580
- vfs_rmdir+0x3e9/0x6b0 fs/namei.c:5544
- filename_rmdir+0x292/0x520 fs/namei.c:5601
-
-configfs_symlink() takes a reference on parent_item, drops the directory
-inode lock around get_target(), and puts the reference at the end. If a
-concurrent rmdir removes the group in that window, and parent_item is a
-default group embedded in a larger object (e.g. nvmet_port.subsys_group),
-the reference does not keep the containing object alive. The object is
-freed, and the final config_item_put(parent_item) hits freed memory.
-
-The syzbot reproducer hits this by racing symlinkat() into
-ports/1/subsystems against rmdir of ports/1.
-
-Fix this by not holding parent_item across the unlocked window: put it
-before inode_unlock(), and look it up again from dentry->d_parent after
-inode_lock(), returning -ENOENT if the lookup fails.
-
-That is not enough on its own. configfs_get_config_item() only fails if
-the parent dentry was unhashed, but if simple_rmdir() fails, rmdir skips
-d_drop() and the dentry stays hashed even though the directory is already
-detached. Default groups are detached through configfs_detach_group(),
-which marks children S_DEAD, so also check IS_DEADDIR(dir) after retaking
-the lock and return -ENOENT.
-
-Reported-by: syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=63336d70e1af377d7388
-Tested-by: syzbot+63336d70e1af377d7388@syzkaller.appspotmail.com
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
-v3:
-  - Removed redundant null assignment to parent_item
-  - Simplified commit body to not rely heavily on repro
-       explain bug and fix logic
-v2: https://lore.kernel.org/all/20261023162906.2938-1-drifabdelmalekmohamedsaid@gmail.com/T/
-v1: https://lore.kernel.org/all/20261017123748.4430-1-drifabdelmalekmohamedsaid@gmail.com/T/
- fs/configfs/symlink.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
-index 89178f5d371a..62d13ce5b46a 100644
---- a/fs/configfs/symlink.c
-+++ b/fs/configfs/symlink.c
-@@ -196,12 +196,26 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
- 	 *
- 	 *  AV, a thoroughly annoyed bastard.
- 	 */
-+
-+	/* Put the reference back, retake and check after relocking */
-+	config_item_put(parent_item);
- 	inode_unlock(dir);
- 	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
- 	inode_lock(dir);
- 	if (ret)
- 		goto out_put;
- 
-+	if (IS_DEADDIR(dir)) {
-+		ret = -ENOENT;
-+		goto out_put_target;
-+	}
-+
-+	parent_item = configfs_get_config_item(dentry->d_parent);
-+	if (!parent_item) {
-+		ret = -ENOENT;
-+		goto out_put_target;
-+	}
-+
- 	if (dentry->d_inode || d_unhashed(dentry))
- 		ret = -EEXIST;
- 	else
-@@ -218,6 +232,7 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
- 						     target_item);
- 	}
- 
-+out_put_target:
- 	configfs_put(target_sd);
- 	config_item_put(target_item);
- 
--- 
-2.43.0
-
+>  drivers/pwm/pwm-mxs.c | 32 ++++++++++++++++++--------------
+>  1 file changed, 18 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/pwm/pwm-mxs.c b/drivers/pwm/pwm-mxs.c
+> index e1a3df6549fc..16233764fd3c 100644
+> --- a/drivers/pwm/pwm-mxs.c
+> +++ b/drivers/pwm/pwm-mxs.c
+> @@ -56,6 +56,14 @@ static int mxs_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+>  	unsigned long long c;
+>  	unsigned int pol_bits;
+>
+> +	if (!state->enabled) {
+> +		if (pwm_is_enabled(pwm)) {
+> +			writel(1 << pwm->hwpwm, mxs->base + PWM_CTRL + CLR);
+> +			clk_disable_unprepare(mxs->clk);
+> +		}
+> +		return 0;
+> +	}
+> +
+>  	/*
+>  	 * If the PWM channel is disabled, make sure to turn on the
+>  	 * clock before calling clk_get_rate() and writing to the
+> @@ -67,9 +75,6 @@ static int mxs_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+>  			return ret;
+>  	}
+>
+> -	if (!state->enabled && pwm_is_enabled(pwm))
+> -		writel(1 << pwm->hwpwm, mxs->base + PWM_CTRL + CLR);
+> -
+>  	rate = clk_get_rate(mxs->clk);
+>  	while (1) {
+>  		c = rate >> cdiv_shift[div];
+> @@ -78,8 +83,11 @@ static int mxs_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+>  		if (c < PERIOD_PERIOD_MAX)
+>  			break;
+>  		div++;
+> -		if (div >= PERIOD_CDIV_MAX)
+> +		if (div >= PERIOD_CDIV_MAX) {
+> +			if (!pwm_is_enabled(pwm))
+> +				clk_disable_unprepare(mxs->clk);
+>  			return -EINVAL;
+> +		}
+>  	}
+>
+>  	period_cycles = c;
+> @@ -101,16 +109,12 @@ static int mxs_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+>  	writel(PERIOD_PERIOD(period_cycles) | pol_bits | PERIOD_CDIV(div),
+>  	       mxs->base + PWM_PERIOD0 + pwm->hwpwm * 0x20);
+>
+> -	if (state->enabled) {
+> -		if (!pwm_is_enabled(pwm)) {
+> -			/*
+> -			 * The clock was enabled above. Just enable
+> -			 * the channel in the control register.
+> -			 */
+> -			writel(1 << pwm->hwpwm, mxs->base + PWM_CTRL + SET);
+> -		}
+> -	} else {
+> -		clk_disable_unprepare(mxs->clk);
+> +	if (!pwm_is_enabled(pwm)) {
+> +		/*
+> +		 * The clock was enabled above. Just enable
+> +		 * the channel in the control register.
+> +		 */
+> +		writel(1 << pwm->hwpwm, mxs->base + PWM_CTRL + SET);
+>  	}
+>  	return 0;
+>  }
+> Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>
+> --
+> 2.56.0.398.g882cbad275-goog
+>
+>
