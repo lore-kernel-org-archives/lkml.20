@@ -1,98 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793895481;
-	b=2gxMFmoqKRNO9CqrWkFydkYM3axbxqXEF8ZhynGL1Tg7Rla09mX5/XZpBCFJ1QI1oF8R
-	 H/9q1BdtKlmYVCilWBkFDqootJdK0GJj3LCWdBfgrh71LzaxMhNGdZ5EP61bl/Ojf5ob5
-	 cz5VTVxG07cdAaifutVlkHvF/7PFWgAJ0aieEh4ur+udNlOzFqtVXFiQD8WZG6MWpOB7k
-	 oBKjyat7Mq7H6it1KUtRCcJFAVYvc+BXAqVtuYtOm6i5CWUVSVXRxd0NbjNm2pzexJqtj
-	 ZAxDNsKYJuNYykQ0ykWOAAfSEZMMbe5qtmUGuK1YU9wXUIpAxAhdeRi6LlJ0f3XwsjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895481;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/UDFzH51n7+Pom1JyEqoRuSUy4TtU81Lpvb5o1lCFtI=;
-	b=YoZvpM6ONIiKLTTcU2gkBNU3mpK7/wZFOezBd21+owcrW5nmm3zOgmS0TBZH6JWAIIkF
-	 H1mT0UZS4w3w0bKq3ettWkJt4EFDCSh1vCkUZK0viEJh09MscMCIaN+jwQWIL82mh4yVl
-	 9pM8QUJb1u2PqV4AAESEpG1pbzu5io/6lFew4YKCiIGN465XF3kQwnhf7twttWqGSbW5E
-	 bThJLrddovA2RIjbk6prxWBAxAsRcgRPR7N4MZuKN+pXroSqi22qKVb/gj7WD5wBuDFNn
-	 lL0TJUFt1pxGlPFeJpjXh/fQ9UwhIGcsSU4pjI3xT7ktKg49clhW0iWdFm7veT6FVOA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QbF6DP2o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.48
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012048.outbound.protection.outlook.com [52.101.53.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793895491;
+	b=AvRXTkWeS+PN8wRGHTA1W7vIpHx9ba4CdIGabUR9IEI4e88YpFNedLOFNJvx91D5hTRJ
+	 iKQW0BXcFGUq1OMSE359vYsQGnpMUYLaEhbkM4AgR0cKqtjZ8hXwI3UWcTTx3JgZk8a6K
+	 lzUGsnb4pDI5n2qHLbx7IDTXzEQpRiQJMxM3R5OTgldwaiHdHdavKwje325j7XKivKvbz
+	 64a+btkHUqZP4j/3HSXVBrbhND3IsxMjubF3x28SnwIURm1nTJ5Bj7gs9hrS+tQlWdrr8
+	 xL6ozYrwCKB6uHvd/bUzOxk5hQ8/Ha87Y10Ji5alubyr4NRVQTjTN3s/xj6OQGQ/8lQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895491;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=p6xbLk8s6rCDjjBqfhBuH/lvaFd3o0UZuWtoGiq0X/8=;
+	b=FolLoE9cfAO9xidb3yttqOSKy3xvyTKHJnnFjSiu19psDE9PDfM5RYarsWoxSHInC3CA
+	 aMdV0cTcf8VUUfut0VgbQEhcDomxgJMPZ13eyl9lFUzwHOa5F/ApqRf8FZYjo9QxwiSRJ
+	 fXCqpnKL/Sw4yP+uo6KYAhMzUSWcSyhoHZYOY+Jey/i4+NZ4feW15uVTq4B7a8611PedK
+	 qXpdoVmx3io7OWbUcMFNMuWwucjaCQKAMv2SZ92bWfOr/P4JM+R6ltNGTZPJIXRF/CgP0
+	 RDilQsBwe65iBXT7df2NLt1PZ4/CxezrSuH1RJQd8WNdhgfQkDIZZv/o7NRKzkfqt/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hMK5Ms68;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43551606A335;
-	Thu,  5 Nov 2026 16:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43551606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE7A606D81F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:18:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFE7A606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QbF6DP2o
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mnh0oMrTFb4cb8K3Iz0NmT9z/3TxmrluGayFo54A5MxC+A5ZvQyKTJ6ictEU/hrRCsYv76rlxM9uhphbXrkHSMQQZd+t1RxMVrb1rFNfMiGc9/t08cS0KRoG9ee8zZjYo8RsI5zSKFdasCSrb/UbGwlW3n1LcsNW+z3UzkFv1ctk1/S5MPJJi1NFvEIgyw00ueCt21hq4Zh7vMR1MXPIC727IM1/nAIUahpwxnfRQy7QvgmWP3+74bp2hh0MnPxiVnQaE8bC/0qX3PdDlPTMhlv+so833URD0r3FpZxB5b8yS1vB4Cmk3HFFf/ljeKMx8GE7XR7JpqdTEJdz5F6nJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/UDFzH51n7+Pom1JyEqoRuSUy4TtU81Lpvb5o1lCFtI=;
- b=QFul3VT+19ykPcY/3TBKzMiJeNL2DkZmF1Foxp14S7HNOTV3b9LFa1sppl4sMAMoVtNc4/dnP0y8jU+XljWVNbpO4cRyUh6I5LlcrXLY9G0EDuNuqmpqMchjGpWKqIfGMVtVlJ8mMaEyOTijMJ+xRkkGO8PHAIclK8VMKp5aBuoE3l9PYUiL+7Z8L90LVwC2O1QA5BkJb5NQCn10NJkPjEvvjxxQJLnqZ5t4SvcIJcKgazA7bCKhI0wb2mwGHNscttlHMejrCXR3pT2erd/+z8tX+T+meZsoQRGGtn2WVVjZtxjTwPUiev/dPT7XgnmedDEQVP8Q32mEeveyIdD+CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/UDFzH51n7+Pom1JyEqoRuSUy4TtU81Lpvb5o1lCFtI=;
- b=QbF6DP2oJtfo49xHAT7hGH/rjFtSwFQQIZOHMkW6WRV5Hk7/+cIj4XO4bYym5SnwET/+p33QIWMFrE6/PCkJpuWwZspLExgOJzE9BZ+QQrvugUGYskDUi0N7dNSDMy0BtOsqgwpi5YB8gWKlGwyzqNEJOiorrxBlCEmtDZC4ggEjRU/I2S1aY9UgElWNlKQaMoqQQwDBaU58U1e4oPQOku+eXRrqB1rtiRF3s0hAuEJWRPudBplbab3kH42I97wrX2+C2/FLmTkl9eMRd21IO4+j9NKqlNQt6i43Yj6up3tivq6ORM+CDYiR//CFOrQIr4A8iPbzmo5tDRzeBHCEyQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH4PR12MB720178.namprd12.prod.outlook.com
- (2603:10b6:610:50e::10) by PH7PR12MB6739.namprd12.prod.outlook.com
- (2603:10b6:510:1aa::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 16:17:52 +0000
-Received: from CH4PR12MB720178.namprd12.prod.outlook.com
- ([fe80::2a60:de1e:e60d:7052]) by CH4PR12MB720178.namprd12.prod.outlook.com
- ([fe80::2a60:de1e:e60d:7052%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 16:17:52 +0000
-Message-ID: <d9b2bb45-5997-4a5a-88c8-d99f56f0e969@nvidia.com>
-Date: Thu, 5 Nov 2026 21:47:44 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] cpufreq: Serialize global boost updates
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Christian Loehle <christian.loehle@arm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- zhanjie9@hisilicon.com, superm1@kernel.org, zhangpengjie2@huawei.com
-References: <20261105090311.1026648-1-christian.loehle@arm.com>
- <20261105090311.1026648-3-christian.loehle@arm.com>
- <fd2b81d0-df9c-4a07-bc47-a2a6460304f0@nvidia.com>
- <4606b154-e372-4d41-95ce-57b17f0f1d4a@oss.qualcomm.com>
-Content-Language: en-US
-From: Sumit Gupta <sumitg@nvidia.com>
-In-Reply-To: <4606b154-e372-4d41-95ce-57b17f0f1d4a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PNYPR01CA0074.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2b4::13) To CH4PR12MB720178.namprd12.prod.outlook.com
- (2603:10b6:610:50e::10)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hMK5Ms68
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae1d0caaedso1087233a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:18:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793895490; x=1794500290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p6xbLk8s6rCDjjBqfhBuH/lvaFd3o0UZuWtoGiq0X/8=;
+        b=hMK5Ms68B859MfZIrQ6WNWjNW10KBcK47iKeYZ11GWhxvxPZp2/1JfzltE6XofqDOW
+         h0ykBuPPPN+6Ma7KEvioTBWxW391zxNfOqUrtR/nBXvvYu/sNjm5+G5ylB0DB0lPkUM7
+         j2yluQkZcdyCM+q7AESxJdBkOJ5OJpJoNzzi8wkIKo3OBdUapI4VvL6j77UNrEwsu/0H
+         mgeiVDJaDSLoE8vARMPO0SYWZs5LTB0tyArDr4vw6zW7ApPcfRDVufoY8PWHiGfzYCxf
+         FH93rjHSIn9111o6MxMYwkLq1PPguyjilmRwY2Qb1o33VIYOlUvA463BcPEp8a++IoSN
+         2fjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793895490; x=1794500290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p6xbLk8s6rCDjjBqfhBuH/lvaFd3o0UZuWtoGiq0X/8=;
+        b=wGpQc0mfTIc28+3zAUjHmpovopUt/EFmVzzPbVD9MwM2flD8+CdrrCB/iclzQ132Tr
+         QkTROCwbSa86vr5vqj+q6DTYPuEOZIdq5qHAkqZKcbobTWX1Pb8Ve7T0diZODBXn0InO
+         pn1oq8U0CVlQE693j611QhB/BVvwF9+BsH2Tb3IpdbfTVsWahhuwC1diJbJUA/5hNlqS
+         Qd3BDjdcem08PP71tMZdGQNT2inOlnoMHR2HeVZ5wsd1k//5xVjwfMA/sLROOSGJ/++D
+         OvOUQIeyTcbF+ufVAQyM07p7CBchdSR7eZIyZIzzVVkBNHtJ+V1TFmBHcdNLhwAmCXjb
+         87jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwLaQD+V2SNyp1O9lsWEZNMXdRjJhgt2dFLtsEREKwvPnTi4Z2JVmeUpGBbQt0AwwGaqEqTqSxoq9fTqSY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9q1jq7ijncI4UfWNeCIwq8SH11Sv59P9y2ho7ayAeDITsloV/P
+	yZe0CW+ZI3KmyvKE+VFxvzMlbfajgop8ZSqH7jQk3LfkqHkdblna/26Y
+X-Gm-Gg: AYBFou1p3VMGSZivcpfauvgP3Rfkgt2YCP69aybnjQS9+FEvHF+2MTrRxHUmK0S1hQo
+	S9nD+CWeSs0EO/aa/ZX705t6AfZO8nTQo6s+a06rLVzbIscOLAr42J5uYy86o8vP3a6zBKnTPnJ
+	S9nkyDbodMm2VhlvjiRD8NvIr93djtObxXjn5aadclqnYAtRyf3FcXzB45EX8/omXG4g6SduA4U
+	s2BasJnT/a3/WiwXKmfOzpoyKseXMUpluA/Rju20Y4oHujSUUP1BrCWhfiehkEHshtQmH1KwjpC
+	pzP7oIQm86pEDf3TfIGg6XTqAy9NgCcaDQob4JmHUhqTH9Pfp1oZcpjs54533bAKqeuXbDb7uHp
+	g/WGUdhHVm2A1jllJfv48HKtFtogwI4Z7Lxa958wu0iDJvVDlYYqV0ogG5J5Gmeq/CfbB+xuKmr
+	NRmfGvTW7Pi3NRBO/nq3ZcDWPhYghzAxG1Gc9mOsAC+kpiDRjgYvgC7crnBJ1UrgngTyfKw7LpM
+	h2uhBN2UP38CTV6qH5jLPi6VvOGSKS+PYlFhrnpzWiygUjRV2CRgyM7Bc78oUWIdC/w3DgxnvIn
+	cnnajRqxrdb9Yc043xyj7b1BlxZFLWGyw3+D+0p7VIGiIvTXtTc5Er+L0cYxdGh1f6qJGQOwKyz
+	JQXu07B+2j42W67d/Ht8NzpE=
+X-Received: by 2002:a17:90b:3b46:b0:3ad:d4aa:8559 with SMTP id 98e67ed59e1d1-3ae896f8266mr15023561a91.17.1793895490199;
+        Thu, 05 Nov 2026 08:18:10 -0800 (PST)
+Received: from visitorckw-work01.c.googlers.com.com (55.11.81.34.bc.googleusercontent.com. [34.81.11.55])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3287a60sm4981556a91.13.2026.11.05.08.18.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:18:09 -0800 (PST)
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: daniel.lezcano@kernel.org,
+	tglx@kernel.org
+Cc: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	geert@linux-m68k.org,
+	laurent@vivier.eu,
+	marscheng@google.com,
+	eleanor15x@gmail.com,
+	jserv@ccns.ncku.edu.tw,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-m68k@lists.linux-m68k.org,
+	Kuan-Wei Chiu <visitorckw@gmail.com>
+Subject: [PATCH 7/8] clocksource/drivers/timer-goldfish: Add device tree probing support
+Date: Thu,  5 Nov 2026 16:17:01 +0000
+Message-ID: <20261105161702.3515900-8-visitorckw@gmail.com>
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+In-Reply-To: <20261105161702.3515900-1-visitorckw@gmail.com>
+References: <20261105161702.3515900-1-visitorckw@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,141 +110,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH4PR12MB720178:EE_|PH7PR12MB6739:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13019177-29bd-4365-def1-08df3b58574e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|6133799003|10067099003|56012099006|4143699003|11063799006|261026140227099003|261028144727099003|261022105027099003|261102130727099003|261102123227099003|261021121427099003|261009223027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	SzaduR3mvXTgM/JcmLMM8XNtURPYQ5VDAAq4mgG339ATTC+tBN5/MPRr7cUDdfATBPrUp1k9Yi0HWdeQc4MPMEXJN/fFWVjVuSC5kO8mZTYrT5M24YverzxTwNCKoI5E1Ho74MkcCsLQ+cyHEYqdzrG16hCUx9HiG0z8BI91MZKJyC7QsimDdD8bTuAPoFHgwXopBdD8bY9Hn9H65jp/7Mnxl8TqXLRSN3aAtlNSaaJJ18skdsIGt74H7Q/Mx4UxzrRWA4WnoFfy2SVFpwTw0vmc3CQiompe6bxyiL0E7kRHJ4EkK52xbo7gO+SjWJFv5UZ1hfZdWEYh/7KihFp7YNBY5VhPNdKGBIoSyN7BWAxa7ZPxZJqY7EA7qS9zUcOwcv+AYpBndZ6+TYxoB5jFzjF8hBuYF+hxelY+PoUKsmTfBf+wb9DkC6c/NsHxD+AEC56JG+eXWBWrSIcRKvkP0FC6MN+rdt598syl0GNqjEVGWhA0DYF69aBNVuCXnCe6fe89dtX7mDtAf1GrPxKpPuxaxHXAW8jTMyZYPzt1cHW+TnY+KpnQ0Oft084tu6LCKbmT/tIslnG2hzfxVxR4vRcxIVPWbLljzR21MpUILZkgbBdoVjs2V3dYv66sLPZEoXts8LWLCV/EYU8GGBnsZUwmnDTVNLJpbE8QQh1agrA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH4PR12MB720178.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(261026140227099003)(261028144727099003)(261022105027099003)(261102130727099003)(261102123227099003)(261021121427099003)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QktzWVRKVTVxLzhLbkZ6MysxL0pEZWkySjB0V255bm13azNzeGgvbWdkWjM1?=
- =?utf-8?B?M1FOWEFCdXMyUnlGS1JhVTQrZVJ1SHMwMHNUY1JzY3l2R2tyYzRIUWcwZDFJ?=
- =?utf-8?B?OUZVV3B6N2RZM0htUGo3eVAvc2dGR3ZnelJIS2Y2M0dFWWd6cWo2dnpqQkhz?=
- =?utf-8?B?SVg2TkNVcnRyVjh0UmJVWG9oUm9JMXAxcUNQc05iR0tFQ2VweFZhQ2FYTzBV?=
- =?utf-8?B?WmJ3UzFiWmthT1pHMStwbkVES2hTbnhnUDR5SmplMjlMWHRGcVhsaklJOHNl?=
- =?utf-8?B?WkNnTFlndkxJWitlTlk4eG9RRyt5eVFQd0J1N0xwc2pUSjMvekY0UVFFRmlo?=
- =?utf-8?B?VXoxVUdoS3V6SEl4ZmhiTGkxK2dEbmFFNTRyUkdnQStkNHZaTUx0cE5icGNx?=
- =?utf-8?B?bTNRWkdxckxueG5sdU5XR0o5UUMyc1o4WkRKcnByTVg5dkhzeW1kT2ptbmhk?=
- =?utf-8?B?M1k4NXNMYTdvTlVNU2xNcUtMZE50OGo3Q3BmbDRuR0FYUUNiMk5jaTgwUDVu?=
- =?utf-8?B?UC9lS21pMUhCNG5VbHE5cjJRK0RqZ0VBUGljQ0NUdjE4K2JsVW5FR0dLdWdn?=
- =?utf-8?B?NCt4RmJTMnd2Yzl5cS94NGdlWkJMVUJNWGhFT1hpTU1aQVZrYWhWU250OG9T?=
- =?utf-8?B?ODZUU2M2ZUJ4ZEZnV2txWTFjVHZyYXhiY245YVFnVkVmNGkvd3BoSllCQXg4?=
- =?utf-8?B?ZC9RUHpQWDlGdVc3Mmd2MDh2eFNuci9kZlFkZHlPdXFoUEs4enFXRnFOY0d6?=
- =?utf-8?B?L2Q5bTNQdk9sRmJYWlVTTzZiUEF6cDdFYkFxc0VkZW1hN1dmWGRpUm92ak5F?=
- =?utf-8?B?MmMwb2x2aGdGbEp6bkw4ZzlKOTVqVXZOcDk2dVlOWTA5ek9uWlduNFM2MlUr?=
- =?utf-8?B?cVhLSnN4c3NlaWYwSlo3Y0J5dEdkUGFkemdWaDRPVEVndWU1c200c1h4VExL?=
- =?utf-8?B?b3c0blR5bW1DUktpbTVTS1JwVjhmUEw1QlZjVmFzNjVtcHBwdUFQak9UK3Av?=
- =?utf-8?B?U05oOGMvMWFBa050VzhkOENNaGxtU2xlT24vc1h2SHF0VVZpWHhzM0hpQitx?=
- =?utf-8?B?Y0Q1S3BpVUJhVWxPREdXUk9abE0wVjJQdDZwTGROSFpOaHBOTkM4dmgyT3Bp?=
- =?utf-8?B?Umo4eVNPSnNlZ3BNVGlvUXBvWXRXTmZRYUxxclQvRW10RVJ1SURoTDFFMDli?=
- =?utf-8?B?ZG1FcWx0YTNPNGhZQjNVUHV5NkM5SHgrbHlyRmNBR2QrK2cxUkc1VllYcDdY?=
- =?utf-8?B?eUtjWVdudk5pZnFPQURsZVNJVzBLdm9qN3NxaTAzNkVGWHMrdSs5TW10WnA3?=
- =?utf-8?B?NTBFdHhBVm1RRnAwUnZlR3Mva1YzTnV4N0t1Smc1MU9NVm9keDRhdWNpWUZJ?=
- =?utf-8?B?RTVYaHAvUlk4dEN4Q0JMWVVhUTVNL1lrdmdEbnFIbGRIemxVb0puU3dvWDVO?=
- =?utf-8?B?dzlLZmcwYkYrYVhRajJYeWVTbVViT2RDQlByNEY4Qm13SSt2dWJBR01NYnFP?=
- =?utf-8?B?dC9BQkIrSnEyNVZsTUxqRC9FY05aS1BUVGQxMkpDaE1UZ1VSdUdQQk01M1FE?=
- =?utf-8?B?REZPMEo4TlpWVElSeU85SmtBZ3JiQkd2d2o1TEYyeWh5bkpZSE9ONVJyYlNL?=
- =?utf-8?B?aEp4c3lPWlQ3Zkh5WVhFaGFLWUZQa3Qwb1dFNUZzckdicmpZQUdtUEJ2bWVL?=
- =?utf-8?B?WG5KYkhCQkwzUWJIeUhqTktQT29GU21wTEZNcTlLSUlQc2JXYURaUUk3alVV?=
- =?utf-8?B?M0VNNzFMcUFTLzhCY3phQjU0c3BzM2RDRzNwU2EyZFZPeEdNeWlzYzVDd1Qr?=
- =?utf-8?B?WDJNbk8rU3RaTUVMZTY0Q1lzV2g3YUMzbnAyZldqRHkyWVY2encvOWE2SFpp?=
- =?utf-8?B?YzMyc1hxSjhpZ1FpR045eHFzWXVIT3V3M1ZXQnpZWVNjWWE2d2tDaG4xZXp2?=
- =?utf-8?B?V2tMWU5YaVdZTWxSSHlaRUJCV1dGNVR6VnRHQmo2YWM4MVRvTTZaU2E4ekls?=
- =?utf-8?B?SFJ2YW8rM1ZtWE0zd2JvVTZMV056MkdqOUtoemU3c2g4aCs3aVRLanhHR09F?=
- =?utf-8?B?RFdmWlFTRVZHRU5na2JnbnFXUlEvQ3drcU02SldPL1RWS1lXRnhHeWlwNHZE?=
- =?utf-8?B?b3BwcEphNXppMzdZTTJpRll1MS81RGFGZkJnNFFjU3dQaUh3RG5sczd6WDF4?=
- =?utf-8?B?ZjEyQTJmSDc2R2tGTUprK3dMTmJ5NjZDR3AvTWdZbWR1S1VHS1FxbzNxL0gz?=
- =?utf-8?B?bWh3RDlHZ2NibnhzbTBPZXgzMnM5bW5taytQaVB3TVRWeXRNbUJQb21vZHR5?=
- =?utf-8?Q?vV1vsrHMmuirevj3WR?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13019177-29bd-4365-def1-08df3b58574e
-X-MS-Exchange-CrossTenant-AuthSource: CH4PR12MB720178.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 16:17:52.0640
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5yldU2C1NoF0XhZ/VhtR7xFZreyMotfebL/tFnJ9hLQ0w1FP5sQsw/IWaohXwuFwvnUtRuvVrnAI5mTFmmQS+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6739
+Content-Transfer-Encoding: 8bit
 
+The driver currently only supports board-level initialization via
+goldfish_timer_init() on m68k virt.
 
+Register a platform driver matching "google,goldfish-rtc" so device
+tree platforms can also probe the timer. Since DT platforms typically
+expose a single goldfish-rtc device that cannot be bound by both
+drivers at once, depend on M68K || !RTC_DRV_GOLDFISH in Kconfig to
+avoid conflicting with rtc-goldfish.
 
-On 05/11/26 20:31, Zhongqiu Han wrote:
-> External email: Use caution opening links or attachments
-> 
-> 
-> On 11/5/2026 10:41 PM, Sumit Gupta wrote:
->>
->>
->> On 05/11/26 14:33, Christian Loehle wrote:
->>> External email: Use caution opening links or attachments
->>>
->>>
->>> Serialize concurrent global boost sysfs writes with a mutex.
->>>
->>> Fixes: 6f19efc0a1ca ("cpufreq: Add boost frequency support in core")
->>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->>> Reviewed-by: Pengjie Zhang <zhangpengjie2@huawei.com>
->>> ---
->>>   drivers/cpufreq/cpufreq.c | 4 ++++
->>>   1 file changed, 4 insertions(+)
->>>
->>> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
->>> index 23a77f5524df..d95c849f79c5 100644
->>> --- a/drivers/cpufreq/cpufreq.c
->>> +++ b/drivers/cpufreq/cpufreq.c
->>> @@ -2810,6 +2810,8 @@ int cpufreq_boost_set_sw(struct cpufreq_policy
->>> *policy, int state)
->>>   }
->>>   EXPORT_SYMBOL_GPL(cpufreq_boost_set_sw);
->>>
->>> +static DEFINE_MUTEX(cpufreq_boost_mutex);
->>> +
->>>   static int cpufreq_boost_trigger_state(int state)
->>>   {
->>>          struct cpufreq_policy *policy;
->>> @@ -2817,6 +2819,8 @@ static int cpufreq_boost_trigger_state(int state)
->>>          bool boost_enabled;
->>>          int ret = -EOPNOTSUPP;
->>>
->>> +       guard(mutex)(&cpufreq_boost_mutex);
->>> +
->>
->>
->> The policy->rwsem case from [1] seems to be still open. The per-policy
->> boost attribute calls policy_set_boost() with policy->rwsem held, but
->> cpufreq_boost_trigger_state() and cpufreq_online() don't, so they can
->> race with per-policy writers like ospm_nominal_freq in [1].
->>
->> Could cpufreq_boost_trigger_state() take the policy lock, as
->> cpufreq_suspend() does?
->>
->>    scoped_guard(cpufreq_policy_write, policy)
->>        ret = policy_set_boost(policy, state);
->>
->> [1] https://lore.kernel.org/lkml/20261030172745.2045743-4-
->> sumitg@nvidia.com/
->>
-> 
-> Hi Sumit,
-> 
-> Could you please check whether the following patch addresses the issue
-> you mentioned?
-> 
-> https://lore.kernel.org/all/be3739f8-e668-4711-912c-91459d77ed35@arm.com/
-> 
-> 
-Yes, that covers it. I missed that. Please ignore my comment.
+Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+---
+ drivers/clocksource/Kconfig          |  5 +-
+ drivers/clocksource/timer-goldfish.c | 93 +++++++++++++++++++++-------
+ 2 files changed, 74 insertions(+), 24 deletions(-)
 
-Reviewed-by: Sumit Gupta <sumitg@nvidia.com>
-
-Thanks,
-Sumit
+diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+index da83483296d5..3a94feb377a5 100644
+--- a/drivers/clocksource/Kconfig
++++ b/drivers/clocksource/Kconfig
+@@ -760,8 +760,9 @@ config MICROCHIP_PIT64B
+ 
+ config GOLDFISH_TIMER
+ 	bool "Clocksource using goldfish-rtc"
+-	depends on M68K || COMPILE_TEST
+-	depends on RTC_DRV_GOLDFISH
++	depends on M68K || OF || COMPILE_TEST
++	depends on M68K || !RTC_DRV_GOLDFISH
++	depends on HAS_IOMEM
+ 	help
+ 	  Support for the timer/counter of goldfish-rtc
+ 
+diff --git a/drivers/clocksource/timer-goldfish.c b/drivers/clocksource/timer-goldfish.c
+index 208b80c46193..563390012b89 100644
+--- a/drivers/clocksource/timer-goldfish.c
++++ b/drivers/clocksource/timer-goldfish.c
+@@ -5,6 +5,8 @@
+ #include <linux/clocksource.h>
+ #include <linux/clockchips.h>
+ #include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
+ #include <linux/goldfish.h>
+@@ -102,15 +104,11 @@ static irqreturn_t goldfish_timer_irq(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-int __init goldfish_timer_init(int irq, void __iomem *base)
++static int goldfish_timer_common_init(struct goldfish_timer *timerdrv,
++				      int irq, void __iomem *base)
+ {
+-	struct goldfish_timer *timerdrv;
+ 	int ret;
+ 
+-	timerdrv = kzalloc_obj(*timerdrv);
+-	if (!timerdrv)
+-		return -ENOMEM;
+-
+ 	timerdrv->base = base;
+ 	raw_spin_lock_init(&timerdrv->lock);
+ 
+@@ -123,18 +121,6 @@ int __init goldfish_timer_init(int irq, void __iomem *base)
+ 		.set_next_event		= goldfish_timer_next_event,
+ 	};
+ 
+-	timerdrv->res = (struct resource){
+-		.name  = "goldfish_timer",
+-		.start = (unsigned long)base,
+-		.end   = (unsigned long)base + 0xfff,
+-	};
+-
+-	ret = request_resource(&iomem_resource, &timerdrv->res);
+-	if (ret) {
+-		pr_err("Cannot allocate '%s' resource\n", timerdrv->res.name);
+-		goto err_free;
+-	}
+-
+ 	timerdrv->cs = (struct clocksource){
+ 		.name		= "goldfish_timer",
+ 		.rating		= 400,
+@@ -146,26 +132,89 @@ int __init goldfish_timer_init(int irq, void __iomem *base)
+ 	ret = clocksource_register_hz(&timerdrv->cs, NSEC_PER_SEC);
+ 	if (ret) {
+ 		pr_err("Couldn't register goldfish-timer clocksource\n");
+-		goto err_release_res;
++		return ret;
+ 	}
+ 
+ 	ret = request_irq(irq, goldfish_timer_irq, IRQF_TIMER,
+ 			  "goldfish_timer", timerdrv);
+ 	if (ret) {
+ 		pr_err("Couldn't register goldfish-timer interrupt\n");
+-		goto err_unregister_cs;
++		clocksource_unregister(&timerdrv->cs);
++		return ret;
+ 	}
+ 
+ 	clockevents_config_and_register(&timerdrv->ced, NSEC_PER_SEC,
+ 					1, 0xffffffff);
+ 
+ 	return 0;
++}
++
++int __init goldfish_timer_init(int irq, void __iomem *base)
++{
++	struct goldfish_timer *timerdrv;
++	int ret;
++
++	timerdrv = kzalloc_obj(*timerdrv);
++	if (!timerdrv)
++		return -ENOMEM;
++
++	timerdrv->res = (struct resource){
++		.name  = "goldfish_timer",
++		.start = (unsigned long)base,
++		.end   = (unsigned long)base + 0xfff,
++	};
++
++	ret = request_resource(&iomem_resource, &timerdrv->res);
++	if (ret) {
++		pr_err("Cannot allocate '%s' resource\n", timerdrv->res.name);
++		goto err_free;
++	}
++
++	ret = goldfish_timer_common_init(timerdrv, irq, base);
++	if (ret)
++		goto err_release_res;
++
++	return 0;
+ 
+-err_unregister_cs:
+-	clocksource_unregister(&timerdrv->cs);
+ err_release_res:
+ 	release_resource(&timerdrv->res);
+ err_free:
+ 	kfree(timerdrv);
+ 	return ret;
+ }
++
++static int goldfish_timer_probe(struct platform_device *pdev)
++{
++	struct goldfish_timer *timerdrv;
++	void __iomem *base;
++	int irq;
++
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	timerdrv = devm_kzalloc(&pdev->dev, sizeof(*timerdrv), GFP_KERNEL);
++	if (!timerdrv)
++		return -ENOMEM;
++
++	return goldfish_timer_common_init(timerdrv, irq, base);
++}
++
++static const struct of_device_id goldfish_timer_of_match[] = {
++	{ .compatible = "google,goldfish-rtc", },
++	{},
++};
++
++static struct platform_driver goldfish_timer_driver = {
++	.probe = goldfish_timer_probe,
++	.driver = {
++		.name = "goldfish_timer",
++		.of_match_table = goldfish_timer_of_match,
++		.suppress_bind_attrs = true,
++	},
++};
++builtin_platform_driver(goldfish_timer_driver);
+-- 
+2.56.0.398.g882cbad275-goog
 
