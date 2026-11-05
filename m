@@ -1,104 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882155;
-	b=G7c5sfE3C93Bj7D38RGUoLgSigqknSbhm1QskoROMibFJGVbKeXrQPvuUdYJltkpHRPD
-	 fyFgpFtiBvwFQ5EJ4xfQ4GrJUhZsihwvsI/SFs1Fy3VAe684a4WV3OUuDUZ0hokkF8xhX
-	 x8NzLFuf6xqAZs1oFyYHZNRnHeI1uJC+ZcrdOAI25GGQ7mRWXZGPpv/hlCjL0ciIQgFQs
-	 0+sY3NqE+8pJ8zNwpa0Lrm4Nos/cya9H6tkbmgDA3C8mHxK2uLJRFfNyJhskxIXL5I+ft
-	 UQy6aUNi1U8jp+IylxFwWymBQVcqBeEYgMLmLZ2+Ry0xJm1hwPOka+DEi/BxBlCnvqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882155;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=viyDdmvwD4U6PS8lafjWT8pU3blZXU6a4uhU+bJMb8s=;
-	b=eDuSQsxFh/LDQ43P7UJkdxXLrLgwg8G3h4hEJcLBQhb3hjuIKta+/5q27D9YEk2tp0bk
-	 Fz+2qOVUSjfXB2r33VzlMXQSkUE3nL0P0tbWQ4y1lARvrjmKx/jklxrksR1U+dd7VbaRt
-	 4D/o08eZIOHdDp4QuBntNEWEYCSH1cdSfPOGulMw04G2tDOtMiGzh3OFlG0QZ+Qh//Zvr
-	 sXbyVz8/0zbx9oWN/NxvHYLVXQ2uHfQEf8YmQHEiaNx9oYomk+9nCWYNR84I6dqs7xGvx
-	 V8Hm+AZLV9MIDhDpySlRzU0I0GcDqy11Or9MUkVCotNySK2CmmI4BVzh66pAEJw1rSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=khwmS6IO;
-	arc=none smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793882152;
+	b=scnOO2Jys6ScQLcsWkTT9TuY4Dz9fWe/Guhz7wa/8+JdCJyNDPA26rxZv+t3xB5NjBS3
+	 R7HErE1UH5wIEBhIlItjR/XYmBuYsjO+sNjy5Q7a/AH/CTodna2buxtMhpsOnAL3kP0uw
+	 Zb/nyehsbNnv04G0VA39acvjsYfLHKiNGDJDMENG+2+BgrFcxOtdNjmDOghQtoaxplWcA
+	 OwjW3CiJBkO8fi2+NLQfqy7RRpZJGTZuh8LnepQOpwMioujn9PrFjn0KkxnYaM7NA7G/f
+	 5rEO46DTHOtTE7SH+781xkQaq0tLq7Ns2Nes//4u5dfhUee4MhsOtmAhfQSH3mZu02g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882152;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=;
+	b=F9Vb17iU4ChWG0uYIk4WjeQQmLZsEtTYvaMSOR8dr/3VVg+QuHXJe4yJ7xos6kpssmpG
+	 DwDVdx46ZGgiPIJmOsQ5qU3NBwZeY6NmtbLQHsqb+QFMV98l9qwTobWXnqeohQCmHLaG3
+	 uDo8jmJ/fA7geP4TWmkwPflNKdT4Cm1jACeugUshoEGuLTp4RuJaC+VDtLQ/AMfOELxHo
+	 a52dvHBlIUvsfn5GD7h8Lu/cJKpHoD/uYiWK1BnZDviwqYZ5DeIEvv3kM+ta7QwyQidTo
+	 VI0rOA/TiHFQlTfpJKnDpdvCpKqGftwfSmgvtokaKX0WOR4STSSktT0txX1h2Fck1qw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DWG3eOkk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8C8606D803
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:35:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C8C8606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C31606A339;
+	Thu,  5 Nov 2026 12:35:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C31606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=khwmS6IO
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4fea434bso574099e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:35:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793882152; x=1794486952; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=viyDdmvwD4U6PS8lafjWT8pU3blZXU6a4uhU+bJMb8s=;
-        b=khwmS6IOV7BeOJk5vVOoYILP+8pKH+tWxdl1OMSJ1HVjmXymvCR1SMmwyMCayrilGQ
-         IkaDwmalX3igSVne7d0QxuHYEmsMWB9o58OQuOIW8Lle7U+0s7hL2mD97+iQyAkH9BYp
-         tN0eybs7YdFMJn8p9exyLKqur9hS/ju8pGGG1eatouTCJQDvUc4Q/VH0vvROLQUdD9Hg
-         Oe4z503BqA7YRx3a+Z25EfVok0cDuqAC6EFoA6Ye5xzHvUGaWr2t1fs6uWtO7uYHAb6T
-         WA5OTuxtVTyYZtf/7Ecvzco9bmsdxZowRUk88/RyY48V+FNfbBM7tq/8E/TH2g2jROpE
-         RgZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793882152; x=1794486952;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=viyDdmvwD4U6PS8lafjWT8pU3blZXU6a4uhU+bJMb8s=;
-        b=aoudvVAHwiC1BujL86DQMMe1VLUPjwdigXBy0hzTyhMA1YIv8scnkG1vk92qlm3B4Q
-         tB9sEJp7E/R5j/DJKR8JHj4WYfBDKqiChmosUksGESYU9v2lVm5FZR7TN6kxTovIoaHz
-         EEKcIPfTO9I3FCXoOuqGJp1M8pDdf3Q1f8po6fr+djjuX/83+UZsBNrPBkM25MPK9880
-         exhC2sS8XtYXmBs8yl/d+iAqLHrYVRwZxMyz4NJTpTOrbGalciNbxr3FialjLphdpIz3
-         0ifwTREBPZQC5Qm0IBg9wxDtOgP40skFJYOy2NQEoTP1WpSzpoQK3t9OojQjRQyljx8x
-         bMhw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZvCrvk4MthLKtWJ7zAWZmdIUDEZVcEr19KIcB5psAPwYVMwcgvl07YBKcAyz2VvGy48tuAaMJMHrN0rU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QbJ1SdBzpfZtlsoAyO+dboxJgOqsWQiTOQj/t9iYi+Ixw2Cb/
-	m/m6LPMEgPOGg7F4JwuNYSta9TcMh2qZeeozcdZ7apqbbI9G4hjfCnKYjIovlHjULbE=
-X-Gm-Gg: AYBFou1r6zumSKbOm/SeHpsBkTa4mHvLJpAQxQqFTWwqXUeSV6qUOgN/RFmN0CpozNS
-	ZQVk7x45xLJ6weXTnM3qk5zy/dWnLBjkBQq2g3jb5ErifbvOc67ZnNfAUhWCUwuqr/bzfQ8e5es
-	E/FENn174u+zK/JrQKxHxGBWHtNASI/+4wB9iUHYgnjEjABA7Mvu2HQRm0+o0bGH4ywtYowXs45
-	TV+erEBXeeUAjXS0+K/7Y947MYFZVbvnL0Ptj1IIDT1PARRXz9yYEll2JbPdbI0Olrd/vL6AR/o
-	8DN226RGGPo26VyepOpTs9VW9VTjrvJsJFB92aYr/uoHyyOGO4jjwmjEQM8JP0Mj8rMxkPwJFNL
-	3iMGPXAAK9NmhgtY/gCr+xPb8zIY2fSRIBk8EYIF2WgKGWV172emB3iP6mcvsydVPzT6wzgYdQb
-	c5Fv0x1xhcJtKYRLAXbvSvmLm8+3lyWTGynewZ71h5MuVRFJBlzB9BiQN/LX/yq2RFSFDawZ7TD
-	Q2LkfyoWELsH084kVSgEYEPufvxxRMKQxG7yzpXuREXF3D+cJcvGP0TYDl0QTHfjFDnoCYhqK+g
-	fWXuHwj7R2Ar58smpoDvI+aMzRjW9IiHHl7pXQ0=
-X-Received: by 2002:a05:6512:2342:b0:5bf:d738:a5a9 with SMTP id 2adb3069b0e04-5bffa1653b7mr666170e87.22.1793882152273;
-        Thu, 05 Nov 2026 04:35:52 -0800 (PST)
-Received: from localhost ([140.209.217.211])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bff38ab878sm806136e87.21.2026.11.05.04.35.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:35:50 -0800 (PST)
-Date: Thu, 5 Nov 2026 13:35:46 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
-	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 14/20] attestation: Add the base family specification
- and generated files
-Message-ID: <aux4F5Fj1VjSwUb-@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-15-jiri@resnulli.us>
- <179302367452.58760.3782556786585774917.b4-review@b4>
- <auSxxPM5z8BzgNm3@FV6GYCPJ69>
- <20261104175436.GZ3889730@ziepe.ca>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DWG3eOkk
+ARC-Seal: i=1; a=rsa-sha256; t=1793882120; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Uz72HdtyQIk/Jx/Kx8+D2p3/h8mj8zQG1p/ZQuEx9Ctu6YFaXmhXgaXvD47v/+AGyMuZ+RkOBb0E0AvGZaA2WygzN9avwB4BL1P5OioIxd7DOJ89ec+DFgnWaDaRj0NXgLWVoNDvqWYI2hycGqNTGDB7WrXm4dJDq6qflVkfFcw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793882120; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=; 
+	b=Al46/yeMX1achccMCKjlLVt9UmEm8U+GMthh3oAN/pCjATJZtUwKPzEFu4wYehVzHWTgea6wUaQYkG2HRT4aIMBffLRrOBZd2unFe7wFruujnLcH2c3e1i5Uhl//DhtBnT61p8OVKTWFTrImdel0o7NbJkuRJ/3311CnOrsMWRU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+	dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=DWG3eOkkBDYLa23q1FTMIv8iDNe2lcBQrIYi3DJlWMUK6rZMToWXUvzV6DDZmDFj4XbepNLaJuzRoZRs2fLxMLJpROXUNSPiw0A7a4GmA6TbD0nE+6poAsud1nqIH1mvJW1c/sFBLkKI/Ha6VcNAUzeq58X6WG+xosGKqmA+Yd8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793882118217571.0019856779174;
+	Thu, 5 Nov 2026 04:35:18 -0800 (PST)
+Message-ID: <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
+Date: Thu, 5 Nov 2026 13:35:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,52 +58,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104175436.GZ3889730@ziepe.ca>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: rob.clark@oss.qualcomm.com
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+ <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+ <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Wed, Nov 04, 2026 at 06:54:36PM +0100, jgg@ziepe.ca wrote:
->On Fri, Oct 30, 2026 at 04:05:13PM +0100, Jiri Pirko wrote:
->> Mon, Oct 26, 2026 at 03:07:54PM +0100, jgg@nvidia.com wrote:
->> 
->> [..]
->> 
->> >> +
->> >> +/* attrs of group cap */
->> >> +#define _CTLV_ATTESTATION_ATTR_CAP(_attr) \
->> >> +	_CTLV_ATTESTATION_ATTR(CTLV_ATTESTATION_GROUP_CAP, _CTLV_ATTESTATION_ATTR_CAP_##_attr)
->> >> +
->> >> +enum _ctlv_attestation_attr_cap {
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_EVIDENCE = 1,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_MR,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_MIN_CHALLENGE_LENGTH,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_MAX_CHALLENGE_LENGTH,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_MAX_TOTAL_OUTPUT_LENGTH,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_MR_FLAGS,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_OBJECT,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_BLOB_CLASS,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_FORMAT,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_REPRESENTATION,
->> >> +	_CTLV_ATTESTATION_ATTR_CAP_MAX_LENGTH,
->> >> +};
->> >> +
->> >> +#define CTLV_ATTESTATION_ATTR_CAP_EVIDENCE _CTLV_ATTESTATION_ATTR_CAP(EVIDENCE)
->> >
->> >I feel like there are too many layers here for a code generator..
->> >
->> >enum ctvl_attestation_attributes {
->> >   CTLV_ATTESTATION_ATTR_CAP_EVIDENCE = CTLV_ATTR(CTLV_FAMILY_ATTESTATION, 2, 1),
->> >}
->> >
->> >Do the intermediate constants add anything?
->> 
->> True. I originally had it like you suggest, I changed to enums to avoid
->> the explicit numbers. But you are right, does not add anything.
->> Changed back.
+On 04.11.26 23:11, Rob Clark wrote:
+> On Wed, Nov 4, 2026 at 11:00 AM Robert Mader <robert.mader@collabora.com> wrote:
+>> Nice, very happy to see the series!
+>>
+>> On 04.11.26 17:36, Dmitry Baryshkov wrote:
+>>> The comment describing the QC10C buffer layout calls it a compressed
+>>> P010. It is not:
+>> If I'm not mistaken the display engine / the DRM side (including Mesa)
+>> describes it as P010+QCOM_COMPRESSED as well, and so does my pending
+>> Gstreamer MR [1] . So if we can't pretend that QC10C ==
+>> P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that
+>> up everywhere etc. OTOH if we want to keep the DRM side as is, then the
+>> comment should reflect that, IMO.
+> IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
+> as distinct formats, both with and without UBWC.  I'm not sure if the
+> same is true on video side but P010+UBWC was never exposed, or if it
+> truely only supports linear P010 and UBWC TP10.
+
+Oh, do I understand you correctly that the P010+UBWC implementation is 
+not compatible with QC10C, meaning on the GPU side (Mesa and display) we 
+don't yet have any support for QC10C exposed to userspace? If that's so 
+then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
+
+On the plus side - this would allow us to make the format single plane, 
+matching what we get on the V4L2 side.
+
 >
->I was also thinking that having the explicit numbers makes it more
->robust if someone does backport. We should try to have everything
->explicitly numbered in these generated files to prevent subtle errors
->like that.
+> BR,
+> -R
+>
+>> Best regards,
+>>
+>> Robert
+>>
+>> 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
+>>
+>>> P010 stores each sample in 16 bits, QC10C packs three
+>>> 10-bit samples in each 32-bit word, which is what the stride computed
+>>> below (width * 4 / 3) assumes. Name the format correctly.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> ---
+>>>    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+>>> index eb8de60c1177..ec2bf2a2d953 100644
+>>> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+>>> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+>>> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
+>>>
+>>>    /*
+>>>     * QC10C:
+>>> - * UBWC-compressed format for P010.
+>>> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
+>>>     * Contains 4 planes in the following order -
+>>>     * (A) Y_Meta_Plane
+>>>     * (B) Y_UBWC_Plane
+>>>
+-- 
+Robert Mader
+Consultant Software Developer
 
-Okay.
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
