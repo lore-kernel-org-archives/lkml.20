@@ -1,107 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876094;
-	b=T0ZxDaaNXpS5RD8l5Yppq/f7ZSTOLS1yG+td6jBqNPLaQLK2msk751m/6SwrdT4Xk+YA
-	 DZLT5D/XF+lBcziolgY7Ul4BUZY1GXatDrTzvQ9+XEpmauxBNr4uayYGQBReZu+PUYOBW
-	 C39Uolq/x3gkkalMeMoEVyFt5d59uh/iREjSkDOd7akjhpiaUFt5+2RKHHUUgYY6AcBEc
-	 qEra2cWZle95wVeNytgmLk10TntSDN8pBfigCjd5rsx4wYd6ofaaKQLqy5ACEfGgVy84U
-	 VySDXJP0DnScxn918LWmcSVvhlkbvh/fwUhylJ4jkxsTs2ZGOripBloR2zkgfB389Fw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876094;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=pmrvnZ/EMvEeuZnlTBD+xVIwz9BGrfQBmhgJ0E/6Uns=;
-	b=nTpsssX5+pui9JLAETYzQae2ugHYVXktwcHJ3iVn7C5s3CwInXpPlTmOM2pOZSM5Hl6u
-	 PwJItwGvoxzOHQl9uXjwiyYbPmIOkqEBW6fpCfc7NStbAPrN5wOq8DqFU6/wTS20WTQNU
-	 0Ni/Ie+wcH8/cipqj9Ya/2zmCzcJELTMMlpFmt4JbfaQKghu/ImlH1TAsavLMecvL+dKn
-	 6JpOGNrRDApJ4/dovUwhVU4WaiwahVCa/LdukSaupLqJUjlCDkwuGE+wVF/NRJ+vh7bP/
-	 cpdjHYzLP8lFG+FKUuQpQr9PiVX9V9CxXl78Tjy5XpyZr402msK2KZACv4faugSkY5A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="f/GH5j6W";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wEysVB6j;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KToIDbJJ;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AiZtdrn0;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793876106;
+	b=kyOs+JIOmwkGCNP6usthZTurVkFSTTObKhoXCj0x8dS0ImgbH3pV8G7l569sxHinhOnN
+	 BuYBzoHL1HhS4gNqCjaLGDtMcG0N1/dUiKEE/jKixBsnqg1Wl2E2pRtrWmxPO4kiT66VO
+	 GN5j+/aUcRSOPmI87lIbevu01W2wViHgYKsBNo+hrfWWdBXgb5sxQ41b9Dti6WFne/7Kv
+	 rwa3xMoky5RWy15kZ4yiSHxpTXB4rnmi7pfs3ELW7IYcFbdQMNBJtcl9EG4I83YlgT/b7
+	 t0xs07PAQdeoAHFweztXzBjuinhob5lcHmavnyILlDCbEBFBE5HO7rGPUAN6U5Ro9hA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876106;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=mf3DmzKcqwpeAnx0872mpsmdtAH1W+pG/zhvLz+lRJo=;
+	b=Wns86v+2oVP6uiVjfIIo5x+fnCRWmJRVud/w4Dzrt5y7IE/hVjjYZsdjWeyZCx1xBwxp
+	 5C5xbrwxZX9ZPgXqwxXqxONCJe/YsN8+8xYFo150TIQ+TLBhrTVuqR9YMI/mFSIrN+LCc
+	 M0tdt0FZYoa6qUuJVsTS496R2uwTNyD3yVk3aE6MtGcZSta3l3yN3SpV8KabynfqTQxPY
+	 2fpJXrcKkwYcHHf1YyNrZ/dc3+v0c0EGeuVLGBfubITr2skMh+a1lrO0KYrYsJNmxExTs
+	 EpZKIpUEyWCjlNO4i1OuJ+CES6t0vbJRUcVkk12sLmakYVG7ulEJMmtzQtPmkMXPShQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SUD6K/hi";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605D7606A335;
+	Thu,  5 Nov 2026 10:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUD6K/hi
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793876106;
+	b=YAdJiYRy5lVASCh4aTUXzzGhodD2MSNxo+tQbNdqojcBrVm8NbPi6JiSGWzRYd12kkqn
+	 V3rCXx5Bp70PtZN6NnRNiFjQIanPv96IZYXYwZX91dalaU64e/Q225cZVWZtogtt2s4Zh
+	 BgDYCJQOOINtsFw/YqPFl1/lhnUJVEd5h1tPfQ3yexmRXM0W5c7xM3dkyOFkKs9veb4yp
+	 WCRhk+0LWG3gUyhDl6sPhhmePx3/+ucpnifVdXoAt6q1WvSc5XSq1XNCuAakVwaABg+Dc
+	 klFtMjCceix24FhyxI6WATlNE+LviwlSfnJ5D7OBLCWU/AE19hHCZUbNB3caUt14hVQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793876106;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=mf3DmzKcqwpeAnx0872mpsmdtAH1W+pG/zhvLz+lRJo=;
+	b=UaUfsNK+JZ1kd/1hIeIk8qcZIgviR/PQvRegbGXFM/U7e6yQlH3qlXUdmMJXVqH+mpAi
+	 nzUYklXnzP4YEDPDqgrG/vR/y8DWas7NilajFShwtiiQ4138n6NJO9zt+CzSk9HZzp30J
+	 vD4mSgjDKDokU5eW7cUTXNibUhGh9HEseuQQZGEtZ/mF+tN8XZ/5bfm8LQpsAfFrnBpXB
+	 jJsqxu+mXsYD1V283SzhSzwAhvRUu/NuL0uMSyjkM+n0OlcGP92C/JEKfUjqoaWHEbRvj
+	 Io7SNvnauz6z9D6gKlOZXkZEOnMtw8oOBf5bY5S/zMDnTsIuIPQoHacmwL8wGIl+OBg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C057C606A31B;
-	Thu,  5 Nov 2026 10:54:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C057C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=f/GH5j6W;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wEysVB6j;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KToIDbJJ;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AiZtdrn0
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B5F4021F8A;
-	Thu,  5 Nov 2026 10:54:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793876091; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pmrvnZ/EMvEeuZnlTBD+xVIwz9BGrfQBmhgJ0E/6Uns=;
-	b=f/GH5j6WLHXTIosA4Q9IKyULurUFpMv9+/BYPMq6Rxw8ueFWXCFeDTrfUzIUrNFgf4Nikw
-	zEznvo73bLV4awjLYpO5ViCgpog1U9OOxYxg/cgadjr80VvtftyGtFZxuXyPbpNx7wRnrF
-	4lkRWlALdbhXbjO0Y+WIwrmBHDbsIlY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793876091;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pmrvnZ/EMvEeuZnlTBD+xVIwz9BGrfQBmhgJ0E/6Uns=;
-	b=wEysVB6j2qa61Ws0d3fZhxFRmIXhbmGBCpLlV1PmVRLkJJMbfNnVDQiquBJS3mnGdehk7T
-	emuToUGERLyxupDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793876090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pmrvnZ/EMvEeuZnlTBD+xVIwz9BGrfQBmhgJ0E/6Uns=;
-	b=KToIDbJJpYXPRUTNGAM2BUdWs/VNL0vlpFaGyCPhhS9L76pGtBfIozD+Zt24m5s+0pmVy1
-	htASFuWBej54OhiKCG5b/84k2DxzdPdND7l17pd/K+LA8HnZKioAJB0qOZg6QW5PfqbDCh
-	KA4aGY8pIljZ+5C9+GS2ZjMuhEAFDNg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793876090;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pmrvnZ/EMvEeuZnlTBD+xVIwz9BGrfQBmhgJ0E/6Uns=;
-	b=AiZtdrn0oKOknRHwHN42UnOic78MCRHrzJCUS5U8LNVNY4/RdzEqzCcxDOD4GJd8UYJg5V
-	syK3fQ1BNdBXYOCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7FD2B133F6;
-	Thu,  5 Nov 2026 10:54:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lICiFHpg7GoWRQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 10:54:50 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id E6C96B696; Thu, 05 Nov 2026 11:54:49 +0100 (CET)
-Date: Thu, 5 Nov 2026 11:54:49 +0100
-From: Jan Kara <jack@suse.cz>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Andrew Morton <akpm@linux-foundation.org>, Joanne Koong <joannelkoong@gmail.com>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/page-writeback: avoid unnecessary strictlimit
- background wakeups
-Message-ID: <fojzqutv5x2umdn44xly7pkgkvesz7lwriah36sq2t3cuuw4ui@ywgowfpmaz34>
-References: <20261031070515.3042848-2-thnkslprpt@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 6C8911F00A22;
+	Thu,  5 Nov 2026 10:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793876106;
+	bh=mf3DmzKcqwpeAnx0872mpsmdtAH1W+pG/zhvLz+lRJo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=SUD6K/hirZTl+t0jdIx3RstJgeWxzfp8CHplQxGRAVjqC2QVeuRO+KaHlIiehAp93
+	 yliaFgTgAC2IE+ph9xeMQmwt2oOVAtRsbf/7a+KiGLRxG7He3XDlR0skhR8i78R9jY
+	 k5r70WW4kFAaerrTMldo7aZUshmcW2otdgbIj+JNn7bdZhCvOjB+ZAaOu7CILWDySD
+	 lF/S5q6KQYMmxKH8FTJa8UNOBHsBi9avHfR2a62ucVZAhb0wxFxjfR8vPW0r1U4Tpk
+	 WwMmBVyFaOt88KTQbGIyhGSQfCPU0I9BjrLUF3ZrNm26id99wf4pVPcaOM9u2j4gdh
+	 +TkeEPUTQs/Kw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8C26A471FC;
+	Thu,  5 Nov 2026 10:55:03 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Thu, 05 Nov 2026 13:54:14 +0300
+Subject: [PATCH v8 10/11] dt-bindings: input: touchscreen: goodix: Add
+ binding for GT970
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,95 +83,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031070515.3042848-2-thnkslprpt@gmail.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,gmail.com,kvack.org,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-msm8952-initial-support-v8-10-311ae8e8f14b@mainlining.org>
+References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
+In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Rajendra Nayak <quic_rjendra@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=1656;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=8T28pJ+j3T2BfrA/4V/vCpSnX+IH26SQiXSCeXTVAPA=;
+ b=g7KDlMPaWyh299ODCALGQrB2v5+x2XtJVpCgL8+3cwaIgFNZl2pjckMc9/QfI/jUd/dT0KCmO
+ X5ExalfRhKPBsQnEhfZZSxQy1Ri5XMv9oxYCfAUnse10OxM62KlGmon
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
+Content-Transfer-Encoding: 7bit
 
-On Sat 31-10-26 09:05:15, Avi Weiss wrote:
-> balance_dirty_pages() includes pages under writeback in
-> gdtc->wb_dirty when checking the per-wb background threshold for
-> strictlimit BDIs. However, wb_over_bg_thresh() only considers
-> reclaimable dirty pages when deciding whether to start more
-> background writeback.
-> 
-> This can repeatedly wake the background worker even when there are
-> too few dirty pages to write. In a 15-second FUSE writeback test,
-> background wakeup requests dropped from 2657 to 682 (74% drop),
-> while writeback_start events remained nearly unchanged at 99 and 98.
-> 
-> Check wb_over_bg_thresh() before starting background writeback through
-> the strictlimit condition. Leave the global background threshold
-> check and the wakeup required for dirty throttling unchanged.
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-I assume you've left the gdtc->wb_dirty > gdtc->wb_bg_thresh check in to
-reduce times when wb_over_bg_thresh() is called (because it is relatively
-costly and this condition is evaluated relatively often)? Maybe it would be
-good to add there a comment with explanation like:
+GT970 works with GT911 driver, document it to be
+used with GT911 compatible.
 
-/*
- * gdtc->wb_dirty includes pages under writeback so it serves only as a
- * quick check and we use wb_over_bg_thresh() for exact evaluation whether
- * a wakeup is needed
- */
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-> Fixes: 0437906841d0 ("mm: start background writeback based on per-wb threshold for strictlimit BDIs")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+index a26a54d63a1c..4be2c137abd7 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+@@ -14,21 +14,26 @@ allOf:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - goodix,gt1151
+-      - goodix,gt1158
+-      - goodix,gt5663
+-      - goodix,gt5688
+-      - goodix,gt911
+-      - goodix,gt9110
+-      - goodix,gt912
+-      - goodix,gt9147
+-      - goodix,gt917s
+-      - goodix,gt927
+-      - goodix,gt9271
+-      - goodix,gt928
+-      - goodix,gt9286
+-      - goodix,gt967
++    oneOf:
++      - enum:
++          - goodix,gt1151
++          - goodix,gt1158
++          - goodix,gt5663
++          - goodix,gt5688
++          - goodix,gt911
++          - goodix,gt9110
++          - goodix,gt912
++          - goodix,gt9147
++          - goodix,gt917s
++          - goodix,gt927
++          - goodix,gt9271
++          - goodix,gt928
++          - goodix,gt9286
++          - goodix,gt967
++      - items:
++          - enum:
++              - goodix,gt970
++          - const: goodix,gt911
+ 
+   reg:
+     enum: [ 0x5d, 0x14 ]
 
-Otherwise the patch looks good so feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  mm/page-writeback.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-> index 499a35473e4f..cb0c58715b93 100644
-> --- a/mm/page-writeback.c
-> +++ b/mm/page-writeback.c
-> @@ -1826,7 +1826,8 @@ static int balance_dirty_pages(struct bdi_writeback *wb,
->  
->  		if (!writeback_in_progress(wb) &&
->  		    (nr_dirty > gdtc->bg_thresh ||
-> -		     (strictlimit && gdtc->wb_dirty > gdtc->wb_bg_thresh)))
-> +		     (strictlimit && gdtc->wb_dirty > gdtc->wb_bg_thresh &&
-> +		      wb_over_bg_thresh(wb))))
->  			wb_start_background_writeback(wb);
->  
->  		/*
-> 
-> base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
-> -- 
-> 2.43.0
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.56.0
+
+
