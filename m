@@ -1,88 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892648;
-	b=r2PDk2ob+SOKjghkQSUS6URGCjxVmbvvebKUu4YDGjIFTiGYGvrE5gHtzmHN9F4MF6lX
-	 t5WlFxoobNTobM2Bk+hdciEOU+XqbkAPUI3r20ZoG+Mxzjx1XnLxSdf6As++HBbcjAnz4
-	 tGowy4q+Kq0DUtvSbek4FZNrcluOQGpXfUHd5HBkyqoCBnRKKVOQy/QBOPT7IGkd5YZZH
-	 BsKSClSSxGa5yeLDQ/Glxtr4To6R9UkrD7agN5nlJ89GBpAtsUzp5Jz3oq3CS8kq915SZ
-	 oqIsRMv84IsDQ/62hBf/mZbLrveDQqKxLM5F85bn2z5ja/PyR3kcmTr4gxLNwZVBqqg==
+	t=1793892649;
+	b=2m+PGQKFUeQDl0DQdWydn33OBA6QZdTZ8vE7HhV/k3Zrfm/p7a/XBTqJW1fFvK0rZQPC
+	 uhe6bSlj6LADyLBbyhVQ0SdqgbF4tDe/JM3i5yNskpmZkZ53UDbShvrf/wtsHO07YSgCi
+	 /U9jWnE5IMeMlhv6SOP6QfU+Ki0CWCwZq1P3HTcd/LytatjaQxCoV1JmzchOOWHwlkrlE
+	 NOtiq+Cup+nm96iu7Q+hX0D7kBDMzuuJbLaD0AeK/xjT20hOyuzhBvT/Lw7Wa93Sy0W4D
+	 YaH2KeRmF/dls6RAl22EofebgNzIOC+6Ooy4ZgRsH+RwrilurZhFYJyBzQezo4fMTmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=nVOLC1481GlgjMTkzK8f9vuBxCGSBwLfRkCkFzdoPWA=;
-	b=Gcon1zUdKHrdkItlk/UW/3WVL7JLmFL0og92YWScL8wCnSKWNf/vtEVycTOP7Zeinne1
-	 L6bG/b+GCRysJtXwCh7VbVogPJOz3HyGUYdjdxE09niS1gqGWORZIlgP031Mc99QgObDV
-	 kUVvtsvoBmNr2M3vBCFYX7ZAAtw6E60FXozqbe+yZ4jE1ZySSG7w13Z0BPExqtkyRgVkS
-	 MRcr7dWNFTyylumTD208XNxr8hyvPwSBZrVSKYRu8AEoTqp+GvJEabYFRNa35T9qCSKge
-	 1haFRu2XpDtPCdS9nscyPkLPiDJm2PD8v9JnkFhT2syeglpi4HnLXKaf+MiPgFBsiTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892649;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=f8xh5bzAH5XQe8z9ZVc8M1CWJpyKdDV4FlFi3SYW+4w=;
+	b=FSiX7cTY8D0fHAkmX5Ei/iqESHYMT3k2MeyAyCACLxnskIW1ifR0olAOELb3+h+5By4I
+	 oZZyUFwXDt9Inzpek3IMoURb5Sy8VFZHHJNPXRmv3gmU3jv97u0rN9EE77vRb/dbqHCwV
+	 dZxZUMHOcB2y+wqODty2yxwoi+2C/U6yypDkhiVX9/Tv3ildv8XxRbdagGi/G6WZ8gj8R
+	 H0aIswsz6f6KDqISdGOdTy4tCzd5//f9i4WbT8YRQWKJasCEgmWmN4mBFT9roQzAJGqpl
+	 xvXoD3UXl8bEQIW5/pkAM67AYUWzxBnQZoKivyIGvDwO460ptr1vXdvQsd6YvH7rTOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=gYy1L3ol;
-	arc=none smtp.remote-ip=209.85.160.51
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=RfZ5Wvdf;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA35606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:30:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA35606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA14606D813;
+	Thu,  5 Nov 2026 15:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DA14606D813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=gYy1L3ol
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4a822463a22so1246261fac.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:30:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892647; x=1794497447; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nVOLC1481GlgjMTkzK8f9vuBxCGSBwLfRkCkFzdoPWA=;
-        b=gYy1L3olEkVSBDVUFUntLn7+j+BlFkB6QjdST16Wz3CO3VtGW4Y5gzIrHizC6J2DLi
-         tg2GuvJ4PbMTlGLewaJ3n4iHNT1M56KOPs8gT0BlSh/s2sZDwm7R5slHdSoiRPk3YCWr
-         AzMyLDUgolfw9HbKHscZKhmue8ndT3wKIN5aycsZwFD7/TSyHHqR5ap/SG9nfR+jZDuI
-         +c1CD8xJjPeHu5QYRQVjcRuLGe4SuKVua+NBS7VnjGMu7JnN65DrEtJvN5Kg3fMurHVn
-         /kfPCXuf4r3h8unPNu0oPAVXNHS63WpcJd2KoTcwCJZJE++Dt9zZzTd0K4ar0zOwBoRf
-         o9bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892647; x=1794497447;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nVOLC1481GlgjMTkzK8f9vuBxCGSBwLfRkCkFzdoPWA=;
-        b=zvN08Zdx5pzEnV9KDD1WisJgEyeuGs6b9KJnyJTNDRl4ejdQsXPAHMy9ZY4bn5Q1Ld
-         rVf6lXngF2Auitgnm/kj6squfEHWXfyAjZ3vCi+5TUD4PT4cDtBNSCnBjebX3jGFDSc3
-         mr3GmXDIoSaPWgmF9Yopa2sC8vKTilG+h/9GrP75OMGEiODu3lRkx9zIHFDo+/hOQKF5
-         P8dRoguReBvv04ccx05uE89W+z2hjxyenx4c2d1mLt/mlyn0ITE1SDGQu+068/Twui5N
-         aSios/qRF39foRdvMeDxAWt9L3+1IitKabSyOnvBINSbjYDEEa6M0Ll+OdugNjURVQZH
-         OmBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzqcqygS05H3jB3s0qCAyzV5d2B+mOxL2LI4bqVfw6rz3N2X/Lj3pNHVWXX8riLAiO2H62Xbenu7N9kKj8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GY/f9UJSWKfyBX0C3vrQ/+Vl4wEb2IjTs+N7Wa5Pqvz3fXRSa
-	XMi/p5xAZPlXyRYrpcBv8O6h0hGYRWmrTgYfaUGXiX2/oxqes0UJw21bopS2rrxZfFw=
-X-Gm-Gg: AYBFou19YDWcbSOWJ5OVKs/BNevJr7YjdGqhyQY+BUuPuD2G+rLjWMPBLwVEqQFUPA6
-	lC8/FFCSWsKm09TQIxwzBg7qsGn4462U3PvXNIOfEaeXz7pjP8JHpnF5AsVs4on0UUYMiZ+WF9e
-	B+Y2ijqRd07WiKWKsHAhF/eHV9tK9nuNfkRbwyk1aIBuyxNGtsLfwdkgMLRUp6/ohuGlF1srRil
-	9dTXTRifsvXjswvhsaj+r+ixb5L36I6McY7nrrfaHz9yZOL+I38XAuEM6Q+fFQ9mfQn46grVN2W
-	qOVeeDNl84BkPlN9/wZgZFkGmDmaZ3xeEsBvHaL21KweSvhO18EfBSWXESCEPyZXvitRRn+LZ94
-	ph49S8y8X35KE+cxgh9KN/I7wVZVTlJ04t7vtTICNpPmNc932I9RrRjvYwukS3kEhR/mKckmB1U
-	dySc0ySApau4NshIZHwFuGan6LDdbZNpy7RRzClhEEL3SfLFbtCxejuNPrTN9pvCo8s7PWw9kwR
-	hdRrwOC/GLjLaHAj0VqvsQrEfVtcnrsF71C4XAkEhsnH2hEowUppm6qjNV/k5HXFwa8VxNFyX7Z
-	ud/X01FB2R7u4vBG8arVNfZlhyLpfNmW1HoSP4eTk0iy+A==
-X-Received: by 2002:a05:6871:2b17:b0:494:895e:c3e2 with SMTP id 586e51a60fabf-4a90764ca88mr13284805fac.20.1793892646658;
-        Thu, 05 Nov 2026 07:30:46 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.241])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea547bfasm5076176fac.7.2026.11.05.07.30.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:30:45 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:03:15 +0000
-Subject: [PATCH RFC v3 83/90] cells: add the "net-rights" slot
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=RfZ5Wvdf
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5611C109A73;
+	Thu, 05 Nov 2026 16:30:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793892643;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=f8xh5bzAH5XQe8z9ZVc8M1CWJpyKdDV4FlFi3SYW+4w=;
+	b=RfZ5WvdfgSXEeaS4JJxfdYOlTu0bETlMG+5AbMiQIPiFsZuMU9a0WU8oEmwLEJNwT4UFMD
+	xiVT8eOcgZSXkiRMrGvEjoS5SmGoPVDJI0p2Iz17DPcejDKVV1kzqU8aJCdwOwI2EsObIG
+	yP9zNE7qKOYYx5ISlI7iax8lJMQDGS0JlgUS/3mkGOsv3anS7BnEP5TYce6CeBrAw4Qi0T
+	5s/0pn1K9tl6hkz3EaFe7xQ4uvXWRafmxR71Rkv7zOGnlwS0BfWD3Vt88HLt5ttHGPsTXG
+	zPQ27baixfzCZ8PsV2e/0B1tkkX+6n1EnTv4V/ufoCn+niBah/9ddrgp1nWXZw==
+Date: Thu, 5 Nov 2026 16:30:41 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+Message-ID: <auyhIbZA7ZzTeI3J@duo.ucw.cz>
+References: <20261104211038.406938024@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,160 +67,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-83-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=5322;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=mxfNqe1Q4Agi5B9+WEE4ECRvr76+56ghqo3HPxPudx4=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QMjBvTwzaahX+4bZL+xD+NdT+JgCUyZb+3+pI5tuZjIdiZTOdDdZeOYSHYN8Bjvq18Wr9RNNucP
- dmUIUbFNTPwA=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="BVw6sPI2AcgAIiJV"
+Content-Disposition: inline
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-A cell never owns its network namespace. The capabilities of its tasks are
-over the user namespace of the cell, so they do not apply to the network
-namespace, and the tasks cannot change anything about their network.
 
-That is right for most workloads but not for all. Some need to add
-netfilter rules, run a VPN client, or create a tap device for a VM. A
-container gets CAP_NET_ADMIN for any of these, and with it everything else
-that the capability allows.
+--BVw6sPI2AcgAIiJV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Let the builder list what the tasks of the cell may do to the network
-namespace in the "net" slot. The new "net-rights" slot takes a __u64 with
-one bit for each enum net_right. An empty slot grants nothing, which is
-the behaviour so far.
+Hi!
 
-The caller can only grant what it could do itself. It must pass net_may()
-on that network namespace for every right it names. This is why the "net"
-slot has to be filled first. For a builder this means having the
-capability over the owner of the namespace. Once cells can nest, the same
-check will let a task of a cell pass on the rights of its own cell.
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-This patch only stores the rights. A later patch makes net_may() use them.
+CIP testing did not find any problems here:
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- include/uapi/linux/cell.h | 15 +++++++++++++++
- kernel/cell/internal.h    |  1 +
- kernel/cell/slots.c       | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 61 insertions(+)
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.3.y
 
-diff --git a/include/uapi/linux/cell.h b/include/uapi/linux/cell.h
-index 3c10c9179289..c0d17c890552 100644
---- a/include/uapi/linux/cell.h
-+++ b/include/uapi/linux/cell.h
-@@ -21,6 +21,21 @@ enum cell_configure_cmd {
- 	CELL_CMD_SEAL		= 4,	/* Validate everything and seal */
- };
- 
-+/*
-+ * The "net-rights" slot: what the tasks of a cell may do to the network of the cell.
-+ * What is not here they may not do.
-+ */
-+#define CELL_NET_LINK		(1ULL << 0)	/* change a device: up, down, mtu, name */
-+#define CELL_NET_LINK_NEW	(1ULL << 1)	/* make and remove devices */
-+#define CELL_NET_ADDR		(1ULL << 2)	/* addresses */
-+#define CELL_NET_ROUTE		(1ULL << 3)	/* routes, rules, neighbours */
-+#define CELL_NET_FILTER		(1ULL << 4)	/* netfilter */
-+#define CELL_NET_TC		(1ULL << 5)	/* queueing disciplines, classes, filters */
-+#define CELL_NET_TUN		(1ULL << 6)	/* make tun and tap devices */
-+#define CELL_NET_SYSCTL		(1ULL << 7)	/* /proc/sys/net */
-+#define CELL_NET_SOCKOPT	(1ULL << 8)	/* SO_MARK, IP_TRANSPARENT and the like */
-+#define CELL_NET_RAW		(1ULL << 9)	/* raw and packet sockets */
-+
- /* Life of a cell. It only ever moves down this list. */
- enum cell_state {
- 	CELL_BUILDING		= 0,	/* Slots may be filled */
-diff --git a/kernel/cell/internal.h b/kernel/cell/internal.h
-index 4eafa19daa25..469842ebee95 100644
---- a/kernel/cell/internal.h
-+++ b/kernel/cell/internal.h
-@@ -34,6 +34,7 @@ struct cell {
- 	struct pid_namespace	*pid_ns;
- 	struct net		*net;
- 	bool			no_net;		/* the slot was left empty */
-+	u64			net_rights;	/* what its tasks may do to @net */
- 	struct cgroup		*budget;
- 	u64			budget_id;
- 	kuid_t			budget_uid;	/* who owned it before */
-diff --git a/kernel/cell/slots.c b/kernel/cell/slots.c
-index 2273d9ce733f..5f5378ddfe15 100644
---- a/kernel/cell/slots.c
-+++ b/kernel/cell/slots.c
-@@ -157,6 +157,49 @@ static int cell_set_caps(struct cell *cell, const void __user *uvalue, size_t le
- 	return 0;
- }
- 
-+/*
-+ * What the tasks of the cell may do to its network. The network namespace is never
-+ * the cell's, so no capability of theirs counts for it, see net_may().
-+ *
-+ * Nobody hands out what is not theirs to do: whoever fills the slot has to be able
-+ * to do all of it to that network namespace itself.
-+ */
-+static int cell_set_net_rights(struct cell *cell, const void __user *uvalue, size_t len)
-+{
-+	unsigned long rights;
-+	unsigned int right;
-+	u64 val;
-+
-+	BUILD_BUG_ON(BIT_ULL(NET_RIGHT_LINK) != CELL_NET_LINK ||
-+		     BIT_ULL(NET_RIGHT_LINK_NEW) != CELL_NET_LINK_NEW ||
-+		     BIT_ULL(NET_RIGHT_ADDR) != CELL_NET_ADDR ||
-+		     BIT_ULL(NET_RIGHT_ROUTE) != CELL_NET_ROUTE ||
-+		     BIT_ULL(NET_RIGHT_FILTER) != CELL_NET_FILTER ||
-+		     BIT_ULL(NET_RIGHT_TC) != CELL_NET_TC ||
-+		     BIT_ULL(NET_RIGHT_TUN) != CELL_NET_TUN ||
-+		     BIT_ULL(NET_RIGHT_SYSCTL) != CELL_NET_SYSCTL ||
-+		     BIT_ULL(NET_RIGHT_SOCKOPT) != CELL_NET_SOCKOPT ||
-+		     BIT_ULL(NET_RIGHT_RAW) != CELL_NET_RAW ||
-+		     NET_RIGHT_NR > BITS_PER_LONG);
-+
-+	if (len != sizeof(val))
-+		return -EINVAL;
-+	if (copy_from_user(&val, uvalue, sizeof(val)))
-+		return -EFAULT;
-+	if (val & ~(BIT_ULL(NET_RIGHT_NR) - 1))
-+		return -EINVAL;
-+	/* Rights over what? */
-+	if (!cell->net)
-+		return -EINVAL;
-+	rights = val;
-+	for_each_set_bit(right, &rights, NET_RIGHT_NR) {
-+		if (!net_may(cell->net, right))
-+			return -EPERM;
-+	}
-+	cell->net_rights = val;
-+	return 0;
-+}
-+
- static int cell_set_string(struct cell *cell, const char *key, const char *val)
- {
- 	if (!strcmp(key, "hostname"))
-@@ -173,6 +216,8 @@ static int cell_set_binary(struct cell *cell, const char *key,
- 		return cell_set_ids_binary(cell, uvalue, len);
- 	if (!strcmp(key, "caps"))
- 		return cell_set_caps(cell, uvalue, len);
-+	if (!strcmp(key, "net-rights"))
-+		return cell_set_net_rights(cell, uvalue, len);
- 	return -EINVAL;
- }
- 
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
--- 
-2.55.0
+Best regards,
+                                                                Pavel
 
+--BVw6sPI2AcgAIiJV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauyhIQAKCRAw5/Bqldv6
+8noqAJ9cm/wjagTcTmDTJbp8LIwX236JYACgiM9KuK5EeN5fYeHj4L27qdkc/C4=
+=tqxo
+-----END PGP SIGNATURE-----
+
+--BVw6sPI2AcgAIiJV--
