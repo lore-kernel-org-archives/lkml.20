@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881051;
-	b=ipFqYQejOKEuqsi5KQi7RNgJMSjQVb3or8gTd+ZLxMjStx3HEhOsCKmuTTBU1WsWVFvc
-	 6ssLslObgdExif05aIJB1TSc/Ckvut5SC0HWe1yZqzFAry71zWvllN6HeU5smN97dc6uw
-	 X22hwwWxdyh2hx0JKxTA12u1YOtTxKaYRFiRJ7RIKGvbH/Blk0aWGG5bp12jCuJNJWtWp
-	 tQ7yjKgIGtVs2ri7PBaTFoDPJ0Bqrt7OPwm1zswo1RMDAL8Y4Y2XweVb8q91l5M+beaH8
-	 OlKy2d0dIwlDcLaxwiyD3IHPwhu041fbGqsUg4QRaIydBy1lHwjOJS7s0MbKCIV2x6Q==
+	t=1793881042;
+	b=ff0AfaThMHX1bK/ZodLgvw7901dFjMbjrwrkXtjzeN18LlWck930H354OPufvqjwmYIG
+	 WO5m02fUC/zmXJk02qYuBb6EPhl7hIswP/G579lagssd/odNL6ErD1CS07HZUh65WdX6J
+	 4i0Ssyf43myMNnETp4swdN2s95Tw7r6foW63F4B9x7PxLX1FlG6zZv//a/aaShce+EEzF
+	 JVAqNpWJsla+BZgpW0yYS1wU06eKSg4ZUVhjjximqYIZGbrZKXj7uFL+R/jsC1+EXhYfT
+	 ChHsTu3MlvQgHOWhPpP9WQ+iW3tXr8Hj3SSR6HmP7VW2z3ZZzKu3MofQSQb8U1OFagA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881042;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QUHMmcOW+XDbVYGagQbDFPA+A/AMi6QA2veHRlPHrFw=;
-	b=FdseBCw82pi8OamYke5EDqmZu6nfCY4x/bMx1awifz8WnRBGQTBux9e0MlWiLzTMbzvM
-	 brPyZY+bowpq5eeZJCai24wxnR+V8c45HxSpnvPYHiywmysiYbXmSvYck3RuRIkzkUn0A
-	 CF/SeNURrhkEZOTvxgSXxfGfoVBJJXEnazKaT3jVgooMc9WrsmJug0DWMTtg+MsZjp0f2
-	 8PbqnGpENr6cfPRHu4qQZ5MNy+RnV5qxDr8JDtsBU/0nzTTMtxjG/jYo7TE/viLsVfE05
-	 nkG5sPUtaZthehkgjRIikWsqCVckuT6T5OxqOJquOd6mU6Z1xqCaMpapueDwsciHqyA==
+	bh=NZ3CgzX5kCqEc5zzVuYtQMrEP9DNTdrTQOJmfrHXdUM=;
+	b=qB6pywNhppTqMTZ09Pr2iKHqaeRAL1kk0MW7rMNIag+s9QDwQygUkXQv5Zi3n9urZzUI
+	 ohW7OQe5DtAMy+I8nqD9YYWxZb7RGLuOsx/muuSt+G9f1cmS0QnUPlHEqd6WGMhepNjJQ
+	 p7A9zVClqbYJKN9w9Bd8AZblLTQHseyi8oNYgG3tRS3B9M/EuSYjbUlqdVyeW3agKP3P5
+	 gru3RrZ6UWD95zFJayttfggL9BNj6w5oMH8heZjhOKWZ/5sCJtTRsdy3oSqlHJk0Ey7L4
+	 QCQy2uSiptEb9tnB2XM7T5Jt25pFQS6XwCyNbj6d2n98AC5wT3r/4wWjnk6s2yMvHpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwHYYMQA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V64hvXG/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A656C606EE93;
-	Thu,  5 Nov 2026 12:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51569606D83E;
+	Thu,  5 Nov 2026 12:17:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwHYYMQA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AAD1F00A1B;
-	Thu,  5 Nov 2026 12:17:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V64hvXG/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877111F0093A;
+	Thu,  5 Nov 2026 12:17:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881051;
-	bh=QUHMmcOW+XDbVYGagQbDFPA+A/AMi6QA2veHRlPHrFw=;
+	s=k20260515; t=1793881042;
+	bh=NZ3CgzX5kCqEc5zzVuYtQMrEP9DNTdrTQOJmfrHXdUM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IwHYYMQAUcTz0BPOF9YL5ylp7tRiBQ8L2QBWhjH8B6Z8wvbhFgukxk2ghxPFhbpDw
-	 Wp15i9YaLCSBRaU4WGZy5xUFlUL4hnJoSU4N/2OPH84eQ1h58AXcL1mLtJPdwFYCRl
-	 aRKZ6lbbcXnsF2HUrBzXe3ae04kFs7Qzz+erHrmK+NWe5D2qflKw17GNh5eK5uaBgq
-	 fvBCXF0KFCmclAtOAC5ptxN5MfinwC7mHv1v7T7HnoMVDv+fBVaKwPJQ5mJn2+2/tj
-	 tokI2+Ah2o+OGIfE7U7Kr5lsMZeJmYJy5VbDXWL4Y0YKiatf6jWDWW7R1mxshyGkP2
-	 s58VwXVwx0XVA==
+	b=V64hvXG/6ati29xvEOwA+mKQa0d7FJScqk/4Vov27oAQ9RgN2TVHLfQY7TjZ6YRk9
+	 KfAftY8bbwNhFfUbwevB6z3w0l+tbCxNFkQMBOLGSJdZ/TWkYLs4jC39F0lC8Ivjvz
+	 JJhZhwfNodO4qfOxjx8modj8zfRT+sLG6l01SrikaTWYiJxv53wI2hx/XNqRDVGaXq
+	 kxR2nIjwAAUeExh/HM4R9cfmuZd9YxBV0Mj98yNoX1l79198Sa9BZC7RrwUdrUs0HZ
+	 run9S9EKxte8HsKtXpKdXvma8V73cMNl+tOQy4x105jjH41sz8DUoW3ZZs3UIZqZ0d
+	 CQ1r1xtOSHmwg==
 From: Joshua Crofts <crofts@kernel.org>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -57,9 +57,9 @@ Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	imx@lists.linux.dev
-Subject: [PATCH 10/10] iio: magnetometer: bmc150_magn: remove redundant pm_runtime_dont_use_autosuspend() call
-Date: Thu,  5 Nov 2026 12:16:35 +0000
-Message-ID: <20261105121635.1612-11-crofts@kernel.org>
+Subject: [PATCH 07/10] iio: gyro: bmg160: remove redundant pm_runtime_dont_use_autosuspend() call
+Date: Thu,  5 Nov 2026 12:16:32 +0000
+Message-ID: <20261105121635.1612-8-crofts@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261105121635.1612-1-crofts@kernel.org>
 References: <20261105121635.1612-1-crofts@kernel.org>
@@ -82,14 +82,14 @@ Remove the redundant function call.
 
 Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
- drivers/iio/magnetometer/bmc150_magn.c | 1 -
+ drivers/iio/gyro/bmg160_core.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/iio/magnetometer/bmc150_magn.c b/drivers/iio/magnetometer/bmc150_magn.c
-index 32dff9cdd0f7..16b5c2451728 100644
---- a/drivers/iio/magnetometer/bmc150_magn.c
-+++ b/drivers/iio/magnetometer/bmc150_magn.c
-@@ -934,7 +934,6 @@ int bmc150_magn_probe(struct device *dev, struct regmap *regmap,
+diff --git a/drivers/iio/gyro/bmg160_core.c b/drivers/iio/gyro/bmg160_core.c
+index b007f46d3fd6..f1e1d21e590f 100644
+--- a/drivers/iio/gyro/bmg160_core.c
++++ b/drivers/iio/gyro/bmg160_core.c
+@@ -1169,7 +1169,6 @@ int bmg160_core_probe(struct device *dev, struct regmap *regmap, int irq,
  	return 0;
  
  err_pm_cleanup:
