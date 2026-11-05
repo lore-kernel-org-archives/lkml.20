@@ -1,89 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891985;
-	b=DAJoH96bMMrEGWaCTXpvHzPDJlHqGDrFnuXOtNVffy/rRAHHN5sqyNtqXOyzJ1jPsP0b
-	 9yPVAvG1vp++iYU26j1u5IH2rfHB9AXIaUYJ/KM5cgHYxoiInpQgM+Oj6JvVKx971iVKo
-	 wqgJwZ6bVFIImguVCORxIQatGwUQk/CTpnGwcPrEM//OKNNd/tsf0zOZNEJCZTL1Jf9Ps
-	 EuoQqqNSfsRgb5yb7fGdiywVOTM052onAv+0Sf3OiPMUDug7NGmMkDzKi6TpA21axjp1i
-	 n385Ot5FtIb0qs4KgGQWNmcYtUOMWD9oyMup6NMv2Vlp0t1l4awE6BqeGYz0+1/yhXQ==
+	t=1793891989;
+	b=1PImNQxkscqcryFKLEuZYd26XRLO5aMh7eL0W29o7tLs8G1FseMABob2vR2G8cMF1Jg0
+	 nfhCSvsr6co37yFl3IurrWSockqoe1pa4oVfNcPAU6dZqfd5uQNeaqN6WGdJER3quPspD
+	 oMy3+/irOy81sWr33ZHseCk7dlUDJf++yDd0U062DZAslsbqTlWI0mDrlp2HEhZLCbC6t
+	 h7ruOf93ZUMaGYsY510wg5H+JvpBvU5pWqEHZTOPF+ZO/aC7bnsISSAL0hHif1B3on8yC
+	 ZEn4MoQmc3Y2zgc8r+yLtfAFtdIAILoEwonRy0nEtVHkT5BGEw3wMhAACLXosyulgNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891989;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=cRNMxxh4wEFVeDfxqY5yeMLBZP38uw3f4s9uomnABAA=;
-	b=qp9qbSGyA5PRBozaeebBchwoCaoCwG2ULufg+bv/2aU8tQuNry9gT03J6RHWno8nhfxQ
-	 hKVZFJpcR11DRk9DGYhjUwD1Ujty1V4Ql4/1smS/8OsAmG2UgTpMv1dpVsKDVCKiV7oPI
-	 MTIYeEuHB2ErY+22uPPqeL210bS/x0/AF+YdDAAYwHPvTRE2vTdD1NclCLOD8Wfh3Kcdu
-	 WR9JA7DRhY45MKDnQTI2Yxs2YQp/5NAz/YbodJlOaS1wDHvgF6+HHZsrO2wK2Atoc1rxb
-	 CJVvVhu73e87iqxd4FMVXo4xx4qj/Il8nSAkm6XHCVkicMwrnD+3y2xKR53jLLEoFWQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=iqKgCijpj9ab+BkBIEugALnlDmONm52bKTuzp4FLzzU=;
+	b=uoykL2IvZFfe51DKlUNwy9wLcslRTYAGQ9JBZABwGcxHaWBbDep5wFguxZg2ZGW1CEPG
+	 juGwxwt7XJOxtEI65FXlk4j8/cBiol4wH5m+1YKoZNabQlliEQXwNdOVm4rmlq3KO2LJq
+	 iWStVSDjvzBLUx8BAbptX1zM3khB+LEUmd9CAwC/5SRrGjR+WRaIHLZ2CIM+Lv4Bbdbsh
+	 tSpXlrkqFikF2MC4jVg6yee9qfpDq7gA0V/VyxOg4ML4Kd8/VrR5CKoOPCq5pkt9cb6fG
+	 DTuTD1w6829oS4o/LcNTI1IPS46uRnqiIus5by4srBpcrklSf+VVTh79W5bfeHpbWUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=scTABPmO;
-	arc=none smtp.remote-ip=209.85.222.174
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ms4pqF23;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E10606D817
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:19:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59E10606D817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7BD6082BE0
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:19:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC7BD6082BE0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=scTABPmO
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-945ae2daa3eso237343985a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:19:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ms4pqF23
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so15560945e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:19:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793891984; x=1794496784; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cRNMxxh4wEFVeDfxqY5yeMLBZP38uw3f4s9uomnABAA=;
-        b=scTABPmOCvWmAYDrRi6iogcfDSS2pnLPzZvzKZ6LGspi69Ftyf6HnFnle1fejtG3WZ
-         ggkJmYkUjvKrngBQ9d1xSavaJiHXgAqHRxVJwdLr9PTW6wa61YJ7eu5tpBnBpOBZID66
-         JY94QzzJ0Iq6Co8YBhMFdTFbEs6AV65RZ1VO71BJIv4WF/wACAQX8fKvRi+M1J3sCIis
-         iVeYmXhAFItaJ2yWb46n+YnXO7qQkpB+JEC3RmmhdzjhiB5B5jdsPzXEIoITGe2g+qnL
-         xWjQSyrRc95b8QJwkaULRFVIRprTmPYELZQRCOwcas9JNhhrjkyR0fddUgc1VyE6Gjrg
-         VabQ==
+        d=gmail.com; s=20260707; t=1793891987; x=1794496787; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iqKgCijpj9ab+BkBIEugALnlDmONm52bKTuzp4FLzzU=;
+        b=ms4pqF233nqWrjgmJEtwt+z25wy1UCKh9vFFfYLj/Si/kmHESiFTsNoOFZVmPsmEtD
+         F6L08K1a542ic++SLs/FeFcUKBoPCOczUrHqV/Gi2fa84dob9nCqyVm2OsZgmZncQs2U
+         VUawwXtqSdfVGnhpvLvWzEwOyDl1N6i2cMLZWqyZwCFhqzjhAi3PFMYEpzjLYFu4nCEB
+         HntE4C/ZsQGlfZ36PxfGMXWOq3XmFfrCliIHhEr/PpazuyDZ/3uTcRHsQwbbMmbMEY2i
+         /H4DoBREF35VxDIsMjQ2Eyn037A1olR6IFo4UlZKQrnDdhfBAz2O8lCadvPOswNi+K5p
+         bRkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891984; x=1794496784;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cRNMxxh4wEFVeDfxqY5yeMLBZP38uw3f4s9uomnABAA=;
-        b=whXN5+tbELn6YekCSo/Ls70GNh1gAHsxmYp6Q/chKSaEi6iMKav0eB+Tqh31plyNQL
-         rISWx96KwnICTIlspDcYMime3BLKFGwitxvG7yn1eSMF3SrwebHkmUUOz0zr6k5nvJBU
-         mva/UHe6cr6YMSji8tVneGVZI6t39AoEqeCIWXGdl+fW8fIciEX056VjluDSKFySH2HU
-         FllQx4i8mlAvfbIHg6O7RdahPzLMRqTjAEd7s/pY2411vv5gQO4wedwfpyVD5abkzuAz
-         tNgZ4OjDiZxmwS7HfMvm9an9tZCukT0TmSe8fSkzQFb8RzPQBw+p1EacjtH0qf4hK3wa
-         kh3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ76jd5dTxSZN5ZsiVBVmquO9rdVXfN7+LxLo3fwZJQ2tbRHB+hA0PC1lT/heG4SNF9CZKy0s/2XxhrF8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sOVI1YwfxcgoGjDQR7sdaZo07y2/GxvJbNQFWw/N+gMesbFzE
-	jSF+/W/zXV7GLYsFCn5iSkArnMU+npPG6d4oMBCzARY6Wv6ABlwt9qqkpZOngxVAS6U=
-X-Gm-Gg: AYBFou35nFBr7DLByl5EwrHz0SJV9rzOURSZHflpD9w8t8BR9cHmJXNCGR6b07UYyiE
-	A7J3SIotEkfS/Sny8GfArI//tK1Y5sfE2FZAa/n/ah3D/AsMX+KWhXKFoV7XeUVD/07E45vOT5E
-	7sv5riCDNw3K/4Pl6dFuv2ey7mlAM1bl577ObZcR1WPpICvj9hLcn7RH2JbWEf7+t01vlQXe9qy
-	i9TdgsvQd4iUSsJk2OUJQ4k1kiXKIXtDr0CtMmvyat/TCSm/vhw1rr5MnlKf+AANQvMY+NkJ7Xq
-	ltWXnp0/MlorBiCnn/IO+fmyr9E9Kbi5W4Gucs0Yb2yk0F2r60EU2V2XrYsaHuhCnjRz1QRVzxM
-	mENY5mojQm82NTMGyWyk4zWAy5UCXZcCyNSVqnYitVOr81VHZ/6ql10VEy4oK3UVbMQcxYk9y0U
-	UnKBhfwJmw32Sezzilh6ASAG+qB90AqzDhbgrS2StoSziEPFdXT6LynkosMH5Q6wLLJtS63XeyG
-	zsKRG/nVqw8GCshXYEmqDA+TowEZGysMcKMk5KgF8eLHp0RD25djOosmZNeY9lHyVtFZG709h03
-	awH/jQyJkweeALy2BDSbze94El0xRwVeLRF0VlPdCFEElg==
-X-Received: by 2002:a05:620a:29ca:b0:93e:c12c:f13e with SMTP id af79cd13be357-944217f9b72mr3087975785a.72.1793891984290;
-        Thu, 05 Nov 2026 07:19:44 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.254])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4898a06sm482230185a.42.2026.11.05.07.19.42
+        d=1e100.net; s=20260707; t=1793891987; x=1794496787;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iqKgCijpj9ab+BkBIEugALnlDmONm52bKTuzp4FLzzU=;
+        b=xjh1XI+Dr9GspHpijoV6yha7+hTM3PbzHMth3wXfLYUq3tnYHRB37r8RMLJvYeXLi4
+         js5WVEAk2dB1nS19I1iXOHi10YDivGnhdegne9e9lvAOhQdiTXPEeKchwiqcLHFXIqbn
+         PmKUFg5m72aU/+yfsxq8K0847BAow2rNqztYwb0Du8B4JPtUtQvYzQC/TFxkhBgG/IVq
+         UwJR++TBlWdcnC5kfCaC7LJrKIys9PDSniKDwuNearXjUM0szfVRpxMdgx5P06lDYNRW
+         xtwBsgjCiqTuFIVaMTtgOh4zZJ3ZbNNYbUlNmQQItMOPJVtlhNmmh0BNwkUjqZFPKMxj
+         AUbg==
+X-Forwarded-Encrypted: i=1; AKwUvBwRkLxGtt0Zlq0sknPu3jeECsvPY/8LnHcHpfkp1XVan2yhcERWkPXx97jfZ4Uc2If30pfNO5O6IUWMmy4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fN1L3CAyXspC3ad9WIYI/7AA/oFQTec4rvCToYUpa/HjHibI6
+	epa5L8wFR5PfMtzk0gHBFZpslOcNFKc/7GpBuElceXDi1qpO0XB6zR4X
+X-Gm-Gg: AYBFou3dcHsN6LLwcgWtF5LpL+MR1SrQY486Qkste+Mcy3evRqPPR/ONcq23JNt1aF/
+	84jYODFrrlRyAQfL3Uy53YjlIJOmewmrngyx3aKN6sY70ONmjqUn1qwatfmXT2J/tOm9W/74WLH
+	e4dTbn2e6G3tYRviIDmtiaQC+RVG3qoUByZsrPxJutW0fweMRbQygI+4Zs+jk//uAUH0UJYuLpH
+	aMX1FsppkC9IHJIEnVdZRaRdtA1q+a/PyQZvus7zhnBjEGY8rdxmzfKChPgLrQCDbVUq8iRG2UF
+	7KUIsm+kk87iTrqIqauTWk05agAmfruZRf12N0u9c/tkGlcjsTDRSi9ax17Jn5yNtkaNEsob1zp
+	LuPeKGQGOA37TLBrrjAwCSZBeA0WgrbpF7hZQz82FbepFjpc+90CvwKjDbhuG+UrSxDXAY+No7G
+	s657Pn1Cr/eKeSUk528Xlb9BZf+lq/XoG2gaJL2dvgDlGwGVx6xvsGQxmYxy2oQ4Mb9QiqadP31
+	ujr/EEgfApuNOO5DankS3zHSggTKjRv+vBdkgxV1/0Q5do7SmZk+0ar38e1qw0BH5qX36Mqs6CD
+	lDyA169fK8Gl81HwCg3gKuRIxuCg
+X-Received: by 2002:a05:600c:4ece:b0:4a3:5a42:b2a4 with SMTP id 5b1f17b1804b1-4ac185bca52mr419437475e9.12.1793891986984;
+        Thu, 05 Nov 2026 07:19:46 -0800 (PST)
+Received: from slavik-laptop.. ([2a12:26c0:3205:5301::1baa])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea180eaesm12372226f8f.2.2026.11.05.07.19.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:19:43 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:45 +0000
-Subject: [PATCH RFC v3 53/90] cgroup: let a cell change nothing outside its
- budget
+        Thu, 05 Nov 2026 07:19:46 -0800 (PST)
+From: Viacheslav-Illia Detsyk <detsykvyacheslav@gmail.com>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for Acer Nitro AN16-41
+Date: Thu,  5 Nov 2026 15:18:37 +0000
+Message-ID: <20261105151839.13524-1-detsykvyacheslav@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,179 +97,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-53-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890934; l=6158;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=Ji/ldMlHSXHBr6ItIHuNoiW1mq90yLNc9mjVK6j+aCM=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHjBgOVuk2qGlVl5Lz1Wo7U633KrRzQnTEOb6yjwlfPKLCjToiMBamHDPkqoUSo7MHzDoysyDKs
- qluC77auZmwg=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Transfer-Encoding: 8bit
 
-Whatever a task of a cell creates is owned by ids that are only lent to
-the cell, and must not outlive the cell. The filesystem helpers that
-decide whether an id can be stored take care of that, but not everything
-in cgroupfs goes through them. Enabling a controller in
-cgroup.subtree_control adds files to every child of the cgroup.
-cgroup_add_file() assigns those files to the writer, directly through
-kernfs.
+The built-in digital microphone on the Acer Nitro AN16-41 does not work
+with the stock driver on the tested system. Adding a DMI override enables
+the ACP6x microphone card and allows recording.
 
-Below the budget that is fine, because cgroup_cell_budget_put() removes
-everything there. Anywhere else the files remain, and would belong to the
-next cell that is lent the block. For that to happen, a builder has to
-expose more of cgroupfs than the budget, and there has to be a
-cgroup.subtree_control out there that the cell can write to. Neither
-should be the case. But the rule that a lent id is never left behind
-should not depend on nobody making a mistake.
+Add the board vendor and product name to yc_acp_quirk_table so the existing
+ACP6x driver can register the microphone card on this model.
 
-Modes and owners do not help with a cell that has a single id either. It
-runs with the id of the user who created it, so it owns every cgroup that
-was delegated to that user. It could rename cgroups of a legacy hierarchy,
-change their modes, and replace or exhaust the extended attributes that a
-service manager keeps on them.
-
-Implement may_change() for cgroupfs. Refuse every change by a task of a
-cell to a cgroup that is not within its budget, whatever the mode and the
-owner are. The check looks at the task that makes the change, not at the
-task that opened the file, because the file may have been passed to the
-cell.
-
-No cgroup of a legacy hierarchy is within a budget, so a task of a cell
-cannot change anything there.
-
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Viacheslav-Illia Detsyk <detsykvyacheslav@gmail.com>
 ---
- include/linux/cell.h            |  7 +++++++
- kernel/cell/boundary.c          | 26 ++++++++++++++++++++++++++
- kernel/cgroup/cgroup-internal.h |  1 +
- kernel/cgroup/cgroup-v1.c       |  1 +
- kernel/cgroup/cgroup.c          | 19 +++++++++++++++++++
- 5 files changed, 54 insertions(+)
+Tested on Acer Nitro AN16-41 using upstream machine-driver sources built
+against Ubuntu 7.0.0-38-generic headers, retaining Ubuntu PCI/DMA drivers.
+Without the entry, the card is absent; with it, the card registers and a
+ten-second PipeWire recording captures clear speech, verified by listening.
+Native x86-32 driver objects and minimal x86-64 vmlinux/modules also built
+with W=1 without compiler warnings or errors.
 
-diff --git a/include/linux/cell.h b/include/linux/cell.h
-index 0c3c65b93f2b..2107cd3c994b 100644
---- a/include/linux/cell.h
-+++ b/include/linux/cell.h
-@@ -242,4 +242,11 @@ bool cell_may_migrate(struct task_struct *task, struct cgroup *dst);
- static inline bool cell_may_migrate(struct task_struct *t, struct cgroup *d) { return true; }
- #endif
- 
-+/* A task of a cell changes nothing outside of the budget. */
-+#ifdef CONFIG_CELLS
-+bool cell_may_change_cgroup(struct cgroup *cgrp);
-+#else
-+static inline bool cell_may_change_cgroup(struct cgroup *cgrp) { return true; }
-+#endif
-+
- #endif /* _LINUX_CELL_H */
-diff --git a/kernel/cell/boundary.c b/kernel/cell/boundary.c
-index 251a8516e76a..3f5cc898dc48 100644
---- a/kernel/cell/boundary.c
-+++ b/kernel/cell/boundary.c
-@@ -34,3 +34,29 @@ bool cell_may_migrate(struct task_struct *task, struct cgroup *dst)
- 	budget = READ_ONCE(cell->budget);
- 	return budget && cgroup_is_descendant(dst, budget);
- }
-+
-+/**
-+ * cell_may_change_cgroup - may the caller change a cgroup?
-+ * @cgrp: the cgroup
-+ *
-+ * A task of a cell changes nothing outside of the budget of the cell, whatever
-+ * the modes say and whoever owns the cgroup, which a cell of one id does if its
-+ * maker does. It writes to no file, makes, removes and renames no cgroup, and
-+ * sets no mode, owner, time or extended attribute. See cgroup_may_change() for
-+ * where this is asked.
-+ *
-+ * What it makes is owned by ids that were only lent to the cell. Some of that is
-+ * made without the filesystem being asked whether it can store the id, such as
-+ * the files that enabling a controller adds to the children of a cgroup. So it
-+ * has to be where it goes with the cell, see cgroup_cell_budget_put().
-+ *
-+ * It goes by who is asking and not by who opened the file, which may have been
-+ * handed to the cell.
-+ *
-+ * Return: true if the caller is in no cell, or @cgrp is the budget of its cell or
-+ * lies below it.
-+ */
-+bool cell_may_change_cgroup(struct cgroup *cgrp)
-+{
-+	return cell_may_migrate(current, cgrp);
-+}
-diff --git a/kernel/cgroup/cgroup-internal.h b/kernel/cgroup/cgroup-internal.h
-index 233fb8b45d2c..71744b453df5 100644
---- a/kernel/cgroup/cgroup-internal.h
-+++ b/kernel/cgroup/cgroup-internal.h
-@@ -258,6 +258,7 @@ int cgroup_lock_and_drain_offline(struct cgroup *cgrp);
- 
- int cgroup_mkdir(struct kernfs_node *parent_kn, const char *name, umode_t mode);
- int cgroup_rmdir(struct kernfs_node *kn);
-+int cgroup_may_change(struct kernfs_node *kn, enum kernfs_change what);
- int cgroup_show_path(struct seq_file *sf, struct kernfs_node *kf_node,
- 		     struct kernfs_root *kf_root);
- 
-diff --git a/kernel/cgroup/cgroup-v1.c b/kernel/cgroup/cgroup-v1.c
-index 216a2dcdde86..4c27e63774e6 100644
---- a/kernel/cgroup/cgroup-v1.c
-+++ b/kernel/cgroup/cgroup-v1.c
-@@ -1145,6 +1145,7 @@ struct kernfs_syscall_ops cgroup1_kf_syscall_ops = {
- 	.mkdir			= cgroup_mkdir,
- 	.rmdir			= cgroup_rmdir,
- 	.show_path		= cgroup_show_path,
-+	.may_change		= cgroup_may_change,
- };
- 
- /*
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index 3fc1f9ac2268..accae30a901d 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -6488,11 +6488,30 @@ int cgroup_rmdir(struct kernfs_node *kn)
- 	return ret;
- }
- 
-+/* Whatever the modes say, and whoever owns it. */
-+int cgroup_may_change(struct kernfs_node *kn, enum kernfs_change what)
-+{
-+	struct cgroup *cgrp;
-+
-+	if (likely(!current_cell()))
-+		return 0;
-+
-+	/* @kn may have been removed, and the cgroup may be on its way out. */
-+	guard(rcu)();
-+	if (kernfs_type(kn) != KERNFS_DIR)
-+		kn = rcu_dereference(kn->__parent);
-+	cgrp = rcu_dereference(*(void __rcu __force **)&kn->priv);
-+	if (!cgrp || !cell_may_change_cgroup(cgrp))
-+		return -EPERM;
-+	return 0;
-+}
-+
- static struct kernfs_syscall_ops cgroup_kf_syscall_ops = {
- 	.show_options		= cgroup_show_options,
- 	.mkdir			= cgroup_mkdir,
- 	.rmdir			= cgroup_rmdir,
- 	.show_path		= cgroup_show_path,
-+	.may_change		= cgroup_may_change,
- };
- 
- static void __init cgroup_init_subsys(struct cgroup_subsys *ss, bool early)
+With the installed Ubuntu driver and the same quirk, recording passed after
+suspend/resume, and the microphone also worked after shutdown/startup.
+A full upstream kernel was not booted; boot and suspend/resume were not
+tested with the newly built module.
 
+AI assistance: Codex helped prepare the patch and message and validate the
+results. I performed the hardware tests and listening review.
+
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 4908f4cc1..c1fdda668 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -416,6 +416,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "RB"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro AN16-41"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+
+base-commit: 68e9934bd17af558b62cac8a444de28d4d5cdb9f
 -- 
-2.55.0
+2.43.0
 
