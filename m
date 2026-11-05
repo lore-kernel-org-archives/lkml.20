@@ -1,47 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870705;
-	b=DwHU8dpo6OAxFBcYWTU5390bWdtr2SLEcD4zVeTqfF7n1CsAuRODBMi8EJ+ceI/197Sv
-	 MNcBUg/+ZQrTUTq3ptHeSOtqSTTEbRBy5oVnmFdue8TwhJjTPrMr/QHw/+hwFgLQ0MrSW
-	 g0HfHAZVr6jiJ0dPMpzMj1XleuydmPN94LafM0gmidaBodP+ujPmZdBoeRftI7Nz1kRZM
-	 88ngzjWRr5542nKuJ+l5t7eEVks7UFl0Nvm7vEIOYrAxQ5bhF40QSC99d12IZzDhPiH7+
-	 5kngoliF9CAXDp/iZJcV6eqIqi/fYlqfeOtuLMwvEOsIy2M+0saHWl0CJVJyM6pQf+Q==
+	t=1793870777;
+	b=io8QFiGCkt6e6zS+cCgAE/qi8/DgQoRspjV1Oc3s0mfmCR91XHIeH31qRdu07He3PrO4
+	 XCkUxyPnqvfoYlW2N/+MhCE6NiRerUq4doziSctUmt+H7GMyFwkGBZqFlc7PBvHla+eWV
+	 YENhil08SBSyljpsZcucXiGCLBnd5ycjs/EZKH/m2SXGJ7HGLvOgIT8IMFBsSRVX0w4EB
+	 vTas3D6wd6uwuvgEAozFjnj87Py+CxD1QbucQVGWYociVYRUs5kExl5V4S3UMRvbSqd4V
+	 K6wM6RH9h8979YaFqJKneEf7a8UlOX83cPYFFwXhoavrqDgrGZHWVmXjiGyzcA4atCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870705;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8uQ6SCb9YW2uEE9Oq/uQtBzwc+espYExIr7FxRdBkG8=;
-	b=uQd08JksGcw4TnT50Kco62haOqUfftiacRJ3Y7d/uRxiXYYN0nEU8vkel8OKzQl7IVnm
-	 F5SEz4ROVXVIOek+OIn4MqiWJvVRCAQ5JnsTIHUHy426vackHvpuyB5QBGqO3+GXex5oV
-	 UeqOQ8nr65lmksQulJ52geJohZdsopJj5nw6Kpg2bMXB2I30jBfZdQoXtsUwteeD9ktSZ
-	 b41gaWN9YiptCJRmiLM+KC3fV9OThXWLEF4/GrH4g2YWJIniM+hTzDO3S/aeQtUvz3G2H
-	 6SGrtvFkQwfHQBQZmvKZhxynRK2E0DRV0qUtCGcYaPWSD4rhZd86NMirae0FB6P4jGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870777;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dPKDQBCBYQNiMfvrFyD8dFjYAwa7Jdg7sOpNKNrqofY=;
+	b=ny/dvmKhsPIHi3zRIqkovFRo/wAgrH83d72CPDBN5sAMFh7grMs1WOMhS9oHnznhxeyx
+	 IF6dtAdUprKpePjBOfthbOWUzcAAxllRNGcnZaCK7II2esWPoB+XQ2RZ+kKAdFoybljmt
+	 yIRu/Yc2WAa0rJqf4K1itdpF7c/TFEPF8glY+4nvvY2OiA/97HDgRipXD6DL2vJKHR7Wk
+	 H6ysKCIiMk7LqL/7rAAhQISv2tKFB9OJLTZSw8fr2b+0dw85epSuKTri7AxRW0KQRN6U4
+	 i6ePH5Ffw3RJF2iS1EH8zB71SWseR6QFTCxew9ilzyawUU52B0twZZItcl+sGZEv8cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqsolRNK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q80U/Jse";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17CE606A326;
-	Thu,  5 Nov 2026 09:25:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA55C606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqsolRNK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2981F00A17;
-	Thu,  5 Nov 2026 09:24:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q80U/Jse
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A621D1F00919;
+	Thu,  5 Nov 2026 09:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870704;
-	bh=8uQ6SCb9YW2uEE9Oq/uQtBzwc+espYExIr7FxRdBkG8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CqsolRNKa5T4bAbF8ehOhDWvGW3EozOdh14dVI12GIut9L97Z7/xtn6WrDU7S4pB6
-	 1F+iZrAVyi6nUicUegddg8uNGiv7EIGP0jhYGly70/e1khtVlWx9VeatVTAQ1bTkjw
-	 jUQcRNJ/c3LTfwcdKNKpvj6R3L+sH9TG5O8XUHYnZlEi2hL5UoW3UDZhAF++s1nD+9
-	 35wNGUthRBZziEeyVNmtRHcUFVHDvbq31cYiGe96GFkJnCZdkN0HQqeuiY8k6k1+i1
-	 kYN/sS7Jb4AVprHEZA6nvUa8YtT3lWa+votkmOc4giEQiGVjfcb/W748Fc+NFtnCSC
-	 5wqxasP2SZNoA==
-Message-ID: <399878cf-6a3e-49c0-8ed4-bd69e24c469d@kernel.org>
-Date: Thu, 5 Nov 2026 10:24:41 +0100
+	s=k20260515; t=1793870776;
+	bh=dPKDQBCBYQNiMfvrFyD8dFjYAwa7Jdg7sOpNKNrqofY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q80U/JsetB0EGKNlhWAcY1cZ1tYtokLqJ+h6xwcw+jOr5gyZcw9/4tQvSIhTM/KpN
+	 cZJ+dUR7XWwP74J1yWKuFgMMtpArg4ZXiWdUEayzYfx9+TXmQycQcdp4Wr9Fy6dqM/
+	 pY9+hmLZbu8HnyPDdkMOYKeOVI6BXNEFxrAoI57F26PUd2vqYsPwYAshjzx+DJtN6B
+	 yXX9uurlUAQOJgmMAZJ+G2fzglJR5LzaU1IVo7W7XaA84eAFhJSXvssj5DMShq1KGX
+	 AS/AyLlA5yRHvzbHPZdTB6YC6Q97/Igw54dI0RoGTag/do/m1n6nAX/4shIrbluaWj
+	 AVVyfXJ+30Wkw==
+Date: Thu, 5 Nov 2026 11:26:10 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	George Guo <guodongtai@kylinos.cn>, Kexin Liu <liukexin@kylinos.cn>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 3/3] kho: fix bootmem sizing
+Message-ID: <auxLssVxRqlgMFRt@kernel.org>
+References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
+ <20261104-kho-bootmem-sizing-v2-3-b0d1a834780f@kernel.org>
+ <179381862329.2089669.11972657670874869389.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,147 +62,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-To: Geert Uytterhoeven <geert@linux-m68k.org>, Frank.Li@oss.nxp.com
-Cc: Mark Brown <broonie@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
- Ryan Wanner <ryan.wanner@microchip.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
- <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
- Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
- <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Laxman Dewangan
- <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
- "moderated list:ARM/Microchip (AT91) SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-rpi-kernel@lists.infradead.org>,
- "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
- <linux-renesas-soc@vger.kernel.org>,
- "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
- "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
- "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Thierry Reding <treding@nvidia.com>
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
- <CAMuHMdUfYZmbf6ADFFoKSod6yhu7jQVt5CBNuQpmRUUWR3OZGw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAMuHMdUfYZmbf6ADFFoKSod6yhu7jQVt5CBNuQpmRUUWR3OZGw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179381862329.2089669.11972657670874869389.b4-review@b4>
 
-On 05/11/2026 10:20, Geert Uytterhoeven wrote:
-> Hi Frank,
+On Wed, Nov 04, 2026 at 01:57:03PM -0500, Pasha Tatashin wrote:
+> > -
+> > -	return round_up(size, BOOTMEM_ALIGNMENT_BYTES);
+> > +	for_each_node_state(nid, N_MEMORY)
+> > +		bootmem_size_node[nid] = round_up(bootmem_size_node[nid],
+> > +						  BOOTMEM_ALIGNMENT_BYTES);
 > 
-> On Wed, 4 Nov 2026 at 16:30, <Frank.Li@oss.nxp.com> wrote:
->> From: Frank Li <Frank.Li@nxp.com>
->>
->> Replace open-coded assignments to callback and callback_param fields
->> of struct dma_async_tx_descriptor with calls to the
->> dmaengine_desc_set_callback() helper across SPI bus drivers.
->>
->> No functional change intended. Prepare make to struct
->> dma_async_tx_descriptor private to the DMA engine.
->>
->> Reviewed-by: Linus Walleij <linusw@kernel.org>
->> Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
->> Acked-by: Alain Volmat <alain.volmat@foss.st.com>
->> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
->> Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
->> Reviewed-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
->> Acked-by: Thierry Reding <treding@nvidia.com>
->> Signed-off-by: Frank Li <Frank.Li@nxp.com>
->> ---
->> change in v2
->> - add missed set_callback in rspi_dma_transfer() (sashiko
->> - collect review by tags
->> - drop void *
+> Nit, but I prefer to avoid multi-line indented statements without 
+> braces. Just put a braces around the above.
+
+Yep, I'll fix it up while applying.
+ 
+> Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 > 
-> You have lost the "# Renesas related drivers" part from Wolfram's
-> review?
-> https://lore.kernel.org/all/auoQiuIm9FxdOrYl@shikoro/
+> -- 
+> Pasha
+> 
 
-Yep. Also all of the reviews were partial reviews, but without "#
-marker" part. Now entire commit is reviewed by five people! How great!
-
-Best regards,
-Krzysztof
+-- 
+Sincerely yours,
+Mike.
