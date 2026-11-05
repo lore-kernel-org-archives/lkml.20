@@ -1,91 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793869608;
-	b=wHOK/dihW24MwITnDbv/VK3e1FnDNlGZEUIRwk2t4/PRZyFXlpiM39pKBPOVz+pPudeS
-	 ioIS+eQ5euEVXgQ+os/8g46Vh0VRp2gCPB7db2RTBjY+SUB2stP9HkfxUig92v+MYINQ/
-	 qJg2EffB94CL/rF+EqBkf/YdlnTvE8COf4qmYP4P+IsLDtFtky0SkbFUkvx1owMFtFkZz
-	 pQ3Sf+5dKEo2Kp7DtJAFVFIOqUu4gzXf4G1MXLq2LoQWTTW1o0SBrvhv4inixLMHcXttp
-	 AfFVoT9PhihefpFp64P+UOcg7D9x3KVtks105CZlktf9E0CMVOzMbjG/7iGQkQjaLUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869608;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Content-Transfer-Encoding:From:Mime-Version:
-	 Subject:Date:Message-Id:References:Cc:In-Reply-To:To:X-Mailer;
-	bh=vdDDMtXuZcI5ST0g2B/YWhJgrol3S1EgLV5st/yxsdo=;
-	b=YLZ7fVB6ZBGcQOioLtbrs/PNYnJS+9Z+yzpFZ6KuBPzA2hJlPIcw1qpJ/1IWnXuSczj5
-	 zhdnqea1DA9vTH6SslOwSb4fEUhRdeoQsfkRdDRBUpJnuhfqD82HAYKWxlyj4szuRmq0T
-	 Q5dysTnsJjvPZ/MSG928W8vGDqWLoHTJfJjEa6ec203bUsi2jHQDG5lb/+PYrq+KSXaoM
-	 GCNg1SgGb/TzkFlixQIBB1zQ+hkIh2o26rH375wVcbLgSB0i5hQpXBY73xkjecXkKYpxU
-	 jU5vLYOUhPlf3qEbKwB3/R7oeYSynPoGEVb/LVy18sTSE5VucS44EfkzDLzuHZBkHdQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xenosoft.de;
-	spf=none smtp.mailfrom=xenosoft.de;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Dqhs6ux4;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b="en/3zAni";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.165
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793869660;
+	b=eLKNWI3PQn/Jewyb6BUdI0sqzbmNwUQuOmjKsrDFquntDYO7uWqcS0Rgq7d9Rozb+dne
+	 IwJZC2OBznZGB+e62SJfBkRvmj1k61nOXJKPD3oACwu2KRPDXQV9Kbbu+fMKadsicSbuz
+	 oThaVttBKQd6BiVD+NN3ScGw2582ssmlCsDuRw45UkZmQxj7BnN1bzCLtRXOsGf+eCKZx
+	 2uLLQ4OWxfZEt1vjp2fol6DOWhSEqxH89N4p4TsY7Wdv+4v2p78YwpulFmho/AZJdY7Wp
+	 sfEhyVbQ1GdRBlqAoa2MTGPTGlXIORsEGjRl3n4xmTbx7rg6SOyIKkSqhIEhER4y2CQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869660;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=n2xCmog64AGKMXZW1kunHj4ya5Tb7T8D0cVzpzhIyow=;
+	b=eBDnBe65nIL/RRqlUytWbO39D4rfKURIzhKqq/waQyLOH1A0qHPLZPOdhodeANenxm5m
+	 lyWEkuQyiDohG99X1Q66LDbPpHCn8tvmE4vIn2a/AfDlgYxnSm27FmMh0cz0ZbZkUPoii
+	 +fE0s/sUHjTt1XUAzpk3gJUNlUONSisnwwk0+3BrGsuIeaXFd0uoV0lOuqhPq0wZyeSGO
+	 /jtkaUw8/lybGNqt4GcV1nbkLS01Ragw9ZNlZzj8SbATzc1W0OIyY3+wtWk0iKimEzpGi
+	 2tv9tT5p8pAPY6kDEzJXAbOLSfHyRx2K1XjJAngn8aE/oDK27OEAnIdDCInfv8hEc7w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dcd4l0yI;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CF9606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:06:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7CF9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C497D606A31B;
+	Thu,  5 Nov 2026 09:07:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C497D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Dqhs6ux4;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=en/3zAni
-ARC-Seal: i=1; a=rsa-sha256; t=1793869599; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=KzuDdj62wMjg3lpF2BnQUkUEg1EDpjdGd8wCX/Z54rePmQDGGO0yZpIP1mEFj2KWWR
-    Y3WTNtgMGyRlWSYCB3ym67/wbNaHTDhHpSf5ZDf0xhVYZIwIVf6fOzuJPxtoClZcIA6C
-    rwQI5cfJKGEDUE989pFYU/Il2q+q9E2gimbXI1HO6TN4KqDLXNCL+SJ9fu8SvhPK2lw8
-    zF0hKhLdmNs0APN9byudg2Kb6dJGKhIUFmEPMliU3jDkcRwZO3ntn2eQdMyz8926C/Ol
-    PWr/c9s/RRn6QxNX75mA309WjN7j68cDfCQgq5VkvG4cHh0JUl3fY7dWJSqew2Mp808y
-    Q7sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793869599;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
-    From:Subject:Sender;
-    bh=vdDDMtXuZcI5ST0g2B/YWhJgrol3S1EgLV5st/yxsdo=;
-    b=tSKmBlWUo5x386RVHJPhsFS9UxyLnzItZyh9oywUKjJqVTO7sTy30wWsk+qmVsMIZi
-    T6rev5UshYXFzE8VLV/KWajr8p0WA8gTTdrjljr2/2rd6/RFn1k5GrXaBG5Lx2kiE5Ej
-    5LRcbiGW6GV6ODSBpzs70nxivHbGOsUFXiilerdRzNVCLJaHfZ+0daghLDcjqdtLqTCm
-    jglaqb95TBRGP7seEHmMH9WsFRtXOPL22ISAFz8c7zAJSCzkwywC0y9KoGsoeHhf9L9r
-    2fXc46pZa85BQnt3CdZHx6YwOc4ULZiXcJphUYQw1VtSeLPkAXg2W8XcQCJxnNSuLzse
-    RI/Q==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793869599;
-    s=strato-dkim-0002; d=xenosoft.de;
-    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
-    From:Subject:Sender;
-    bh=vdDDMtXuZcI5ST0g2B/YWhJgrol3S1EgLV5st/yxsdo=;
-    b=Dqhs6ux4Wg/WrHZDCrySI24vmjzQgGyBWTIQhn2UX9rWk8VPTb5UnUXBskjxUv6cuL
-    EkYBes3e+IhHOCJPYKstOHiB9F1aIGE4D+iBD8xKmnPxmCX/XPLZ7HOvL57SwSDLnIyB
-    7QOcpwIJOqvxZwrZ5oBsqvLHj4EiWiJ98tN7cDu5Y8ixt0wopRNKGh9NFTUy6sQBEFkC
-    aajNkfapDKXEft9rKz/YXnQNPO/GYXUGuNgbgKBLn33T8SF1nUXONdG1qDIR4qp9PYY8
-    mLuaKFxqa/6kzLrHefYR5KbnKV6DrOpW5a0Xu9Koz/mrCsB41c3zOsrSpR1rRSPxaFoB
-    GvmA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793869599;
-    s=strato-dkim-0003; d=xenosoft.de;
-    h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
-    From:Subject:Sender;
-    bh=vdDDMtXuZcI5ST0g2B/YWhJgrol3S1EgLV5st/yxsdo=;
-    b=en/3zAniDl/LRIYdJeFvnBVq9POSUfDTctQmwnz3zQuR6FUVZFgGH6l0EwGAS1Nuj8
-    VxlbZITG9NIuwm3RdpCw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5i1s3mVDnvabcnE8Xz5iRUIWLwPs9mBpLTTaXc="
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id e825d92A596cO07
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Thu, 5 Nov 2026 10:06:38 +0100 (CET)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dcd4l0yI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793869660; x=1825405660;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YJohrnn0X6YdnhzwUjJAKaTWxHJk2t2HvqKiuYmlRe0=;
+  b=Dcd4l0yIwvkWk4UlAwrOKlv4yacne6B9U8oK4AenNg768gAyTg96uKmX
+   5MX8m9xiQmmm69RRIv9RzPQBBanQIZBO9geEhuRSADMYap2otnqjaqwCw
+   MZ26yJgbKcoDH5Oo8V/qN4k3sQvlZZK92pyijhtVkecuHqBTNF1JI+zRF
+   TiwjIQbet1SVzbYsXluHAgpBJPYv0R2mXxiw0VtWF6Fw7cVkaN+Cx3PON
+   sHCriyAdM72ECQADjzWu/F6Tt869HCoi1lHNfAWKnNK+hCs6g3lgRdJ9Q
+   UDFn2S03VWD6hneoJ850fDzpfwT6b4crQBJ5PwoAyeFoWQVsKe37Pz1LA
+   Q==;
+X-CSE-ConnectionGUID: ho/RIa7qRtubM0r7f4mKRQ==
+X-CSE-MsgGUID: /Jslj6NlR8mPVdgVkF3Chg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2533361"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2533361"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:07:40 -0800
+X-CSE-ConnectionGUID: LhD/33EfRn6nz2oc2cFwKA==
+X-CSE-MsgGUID: Sg2CeagcTPu0Gp5Gx8AUbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7514404"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:07:37 -0800
+Date: Thu, 5 Nov 2026 11:07:34 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Frank.Li@oss.nxp.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Zhaoyang Yu <2426767509@qq.com>,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v2 1/2] tty: serial: pch_uart: replace chan->device->dev
+ with dmaengine_get_provider_device()
+Message-ID: <auxHVrXvITqUpjzg@ashevche-desk.local>
+References: <20261104145211.3209669-1-Frank.Li@oss.nxp.com>
+ <auuaYxoZm2T25cU5@ashevche-desk.local>
+ <3b390b39-c27b-4b62-aa49-5b1bb56c3cfb@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,76 +87,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH 1/2] KVM: PPC: BookE: Disable preemption before loading guest FP and Altivec
-Date: Thu, 5 Nov 2026 10:06:27 +0100
-Message-Id: <4FED0F6E-890F-4482-99F3-39D7520C48FE@xenosoft.de>
-References: <c485c31c-1330-4be2-bb95-447cefa82c1e@linux.ibm.com>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>,
- Narayana Murty N <nnmlinux@linux.ibm.com>, maddy@linux.ibm.com,
- linuxppc-dev@lists.ozlabs.org, mpe@ellerman.id.au, npiggin@gmail.com,
- christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org, msuchanek@suse.de,
- harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com,
- venkat88@linux.ibm.com, "R.T.Dickinson" <rtd2@xtra.co.nz>,
- mad skateman <madskateman@gmail.com>,
- Damien Stewart <hypexed@yahoo.com.au>,
- Christian Zigotzky <chzigotzky@xenosoft.de>
-In-Reply-To: <c485c31c-1330-4be2-bb95-447cefa82c1e@linux.ibm.com>
-To: Shrikanth Hegde <sshegde@linux.ibm.com>
-X-Mailer: iPhone Mail (24B119)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3b390b39-c27b-4b62-aa49-5b1bb56c3cfb@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 02 November 2026 at 2:07 pm, Shrikanth Hegde <sshegde@linux.ibm.com> wrot=
-e:
+On Thu, Nov 05, 2026 at 12:04:25AM +0100, Krzysztof Kozlowski wrote:
+> On 04/11/2026 21:49, Andy Shevchenko wrote:
+> > On Wed, Nov 04, 2026 at 09:52:06AM -0500, Frank.Li@oss.nxp.com wrote:
+> >>
+> >> Use the dmaengine_get_provider_device() API instead of directly
+> >> accessing chan->device->dev to get the DMA provider device.
+> >>
+> >> No functional change. Prepare make to struct dma_device private to the DMA
+> >> engine.
+> > 
+> > Krzysztof, this patch was a split from the bundle by a reviewer request (not me
+> > FWIW), and author obeyed. So, you can do the same in cases when you got something
+> > you want to review independently on other content which most likely is a noise
+> > (to you).
+> 
+> Do you propose that I read all patches and complain that partial reviews
+> should be split? How does this proposal solve my complain that:
+> 1. Incomplete/partial reviews will be marked as full review of the commit.
 
-=EF=BB=BFHi.
+You mean the problem of tooling? Why is it problem of the tag?
 
-On 11/1/26 1:58 PM, Christian Zigotzky wrote:
+> 2. People get same credit even if they intentionally did not read 95% of
+> the patch as the people who read 100% of the patch.
 
-Yes, I can help with testing.
+This doesn't stand the same case when patch is split. I will give a Rb for the
+full (but isolated) patch in comparison the same code being reviewed in the big
+bundle. From my perspective (as a reviewer) I have done almost the same work.
+So it's an equivalent.
 
-- - -
-
-Thanks Christian.
-
-
-- - -
-
-Hi all,
-
-Ever since we enabled PREEMPT on our Nemo boards [1], we have been experienc=
-ing occasional problems with the kernel stack.
-
-Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: s=
-rcu_gp_start_if_needed+0x534/0x538
-Rebooting in 180 seconds..
-
-We are using the following patches: [2] [3]
-
-We have disabled PREEMPT with a patch [4] again, and since then our Nemo boa=
-rds have been running perfectly once more.
-
-As the problem with the kernel stack only occurs sporadically, bisection is i=
-mpossible.
-
-I hope you can fix the kernel stack issue.
-
-Thanks,
-Christian
-
-[1] https://en.wikipedia.org/wiki/AmigaOne_X1000
-
-[2] https://raw.githubusercontent.com/chzigotzky/kernels/refs/heads/main/pat=
-ches/X1000/preempt_v1.patch
-
-[3] https://raw.githubusercontent.com/chzigotzky/kernels/refs/heads/main/pat=
-ches/X1000/kvm_powerpc.patch
-
-[4] https://raw.githubusercontent.com/chzigotzky/kernels/refs/heads/main/pat=
-ches/X1000/Kconfig.preempt.patch
-
-[5] Kernel config: https://raw.githubusercontent.com/chzigotzky/kernels/31c0=
-64092e3aab0875c47d44838443c9515b2970/configs/x1000_defconfig
-
-
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
