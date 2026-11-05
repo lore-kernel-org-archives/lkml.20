@@ -1,49 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875215;
-	b=SPMehFzmxRWtiejV7Z0dgE+YVq2h0g3AbepDAbv5wzA7TLgfRCjP4Wmrw3YzNiZnGpAa
-	 lQnBg1prFDeAdD+7W+CPUhM2IU7vHG1tjw7txjGx1n+mWR8sFShcMrju7ZthOT5OxE5aL
-	 U3k9hODFAdYvzCdjUS4XSbYMgRCJzbXaGMKw2ZKCrc0B4qodC/nJrGduxzBBsKIImFOqA
-	 qpZWsNGC3iF5XLXVPm6cAf4PDqP12bQlov34il3apTsLmFQA7P7Gma1owKiWeAubnZOEn
-	 Ti0nujzH+TTAbeRDNHzYZ7ivrNQF2REaUjJpq7mUeaWDetJhzaKOqKGTSPBb8cG4t9A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875215;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=Vc0UcibIUsQO1V+EAprSp8/th7aJCVVxiNeqHJlPYWg=;
-	b=q7HxmHsdqB2rlRnfZytpzHvaVUq2Ot+u4vjOTdNeF+WeCmiwyeDMPbn9dvC7RzkWYk0l
-	 waGNHmXjuJfbgY4UHN2DjeBBmpXUPVqG1ZvrgZ3VPEWhpQdR6kzkNH3vt1doZ5L362Yhx
-	 ZhlbKdLWScCC6qCNoYE6tdziKrxBBQAS1vakO7tIOqvzLt6Qv5wa7QX2jtADv2P1CBty+
-	 M5UTpNlufRvCcQgrwZ1BxpUScbN8UCuQhCa3uzm3C7GjpFM7AVCL/i7TqYt5nRCSVlugW
-	 VCSh8Lpu+EuVqqLkRx8I1ny2U8NUQdnhyOX7JCChQ6brdjz0FccaE3fhlytxKL7LuJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=q6ZUXX6N;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D191606A335;
-	Thu,  5 Nov 2026 10:40:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D191606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793875227;
+	b=L2JB5Lg5td8n4bO6fV6WAWXZw8+Zcg5LM/Jndmo/ky+1Zyep6+7PTxPd6k+Z/rBIr/2p
+	 qLrYPg0s0HIdGPl850PArM5zxJvV06r/ajegeF3UFTZyo/gXkZxWxsdR4fVgEpXDQEkmy
+	 o2W1dJkCIuv8LE94qR/bNM9n9uGItW0nDvSm6byyuf7fV0KhlyKZLN34NJauC63F3qKkL
+	 KuP8RY/tDUjIg1kwk/UZKRXZXn1vQ81FA4K8Y3L6RyQf1BupWPo4QBgOT8mDqkuW73rp6
+	 nKEwGpQOOYdYXIXz2apZnQizKBByE+06cWADX5ZacS/D1HNO4M0QEZMFue5CFtYCfxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875227;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=i5fXZcdYmGYVP1P0uy/xvb5fF2zzOJ4Rwymf4gl4jJo=;
+	b=0XKStbHoA/fL8pphfBC8iIhqaRlHrozSEsxkt7l50QQhvLPJg5GQBtVyCKXTTH0ZbeE3
+	 lUu+sIZx6ncPXfHTsDY4bsUl+nxy62ceWfciRaQH0aM3K94p6gksyf4UGZHZCKQ1+LpcV
+	 9ogU/3Y4LVH21Hg8n5DhOnQ6dSbALvjSk5+uAkNDebV6sBEff5J0Dhd7ZX0Yh2Y0tjb/3
+	 RSSAC3kT1szkECXexAn96jv1y5muEJ2oJGcTxDmw+4KQRiwJIpi7BVs751iQMbQutH8IA
+	 aKMY0/lASJM1ZtyMYhtOngDHp3eVp6zRPhwuRvVhZ16lwsNMzL7KJit+xbvMH24y1iw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=INpu17mW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24878606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24878606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=q6ZUXX6N
-Received: from [192.168.1.14] (unknown [4.194.122.136])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 0536C20B7166;
-	Thu,  5 Nov 2026 02:39:55 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0536C20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793875198;
-	bh=Vc0UcibIUsQO1V+EAprSp8/th7aJCVVxiNeqHJlPYWg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=q6ZUXX6NJiKddYYkOjy1xWv04f7z8awMY+Ma1d/A1x6kplUSv4qsuF5H6NsXpSOEm
-	 aq7mq0IVrz8OPsENzIY4CthsCiJGiUe96sAQXWh3JviH0pyFTJqAAd243Y9pUvPnfc
-	 FaMoIpZ8n6Fm9iRLRAbmdQ+uiPKfHlU7XTi6AGhs=
-Message-ID: <c1e732c1-fcc6-4437-8891-dbea5e59ed27@linux.microsoft.com>
-Date: Thu, 5 Nov 2026 16:10:08 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=INpu17mW
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D8E112006C0;
+	Thu, 05 Nov 2026 11:40:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793875216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i5fXZcdYmGYVP1P0uy/xvb5fF2zzOJ4Rwymf4gl4jJo=;
+	b=INpu17mWiT9vQ9cPCGcFRrilTCFTnnUCwtge5G263ucwrkH8lLYHz/cAUxGVmU9Y4z0Qhr
+	aUgauW/No/V2wSw3dpAgzO//WNUK+ApeFnDX58uFjVOZxt/D104OB9Vgp8DbSL1NqSyC+Y
+	sNAfgdqk0Vuz6z986cZWYeoRwkzy0DBH4RhK6d5uO8FoCLzzE1awiAKMozeepg5nOvC6Ht
+	MioVL51mp80v8gNSdfy1ZPEPx53OGulOXXuG2tRmPPrOEOIHg9gir977kiHoly1cAR2K5w
+	NDICcEQFYJW106LcxSC7L7FiO1lSVeDdtsTCaF/8heyeB4dWgdve6yObhD1s6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793875216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i5fXZcdYmGYVP1P0uy/xvb5fF2zzOJ4Rwymf4gl4jJo=;
+	b=Vdi10IwON8VihvNyR2DERE4ZtyQEtZWVfU1JBtCaYbNJVkexNap7gCNEtG7/QSbw2qygMm
+	gpauzsTyPrebxieGfHRnO66PIWV1SjVbZ4KTHylvwL2jAqXxjzToQzIh8dnSiVG656nphe
+	ThJVXBvJmWTMN31k2bJzIBpf1QMr7geMc78P5TthP3iV5r0ny4yBe9U/btaRZJCDaTHYKS
+	+AT2jdn7rg3yYGkSgE7k2wQ2V7WJrxGfZVxnc4iYw5l5u+xtcCsZ9oyIrVvvF6TEsZ0uTc
+	do3ZoLZ3F41MG2NNnPEFr1xjLEdkAbByfa09RMxYcsa5E9O+g6rYWLdHWa3dcA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793875216; a=rsa-sha256;
+	cv=none;
+	b=eAZiNIIn1yAQmzqt0JEr6Ub829z6QTj/5bj6RCdPIycVKVC5w/ON2rVZNNbBgXzMgxAb3Q
+	q1B27Y5su7jv8obNIjiNAjg0G9yWMjyxDUx4be41+Z+6IoserS4XswJj8qUYJa6Rk6Vpo1
+	Vcm3d0xbUJloNYSx/J9JyD/DhJsxlaUQKAuTOSHMIwHT0ObAOSU5kdLRQIKv4+xhSHCDfH
+	/yZ8zLUsD1pRo4icmAE7by+P2i7MCSR4R+vY2r5dy4W2Xd0S+19PZY0nXXLdzSqcZWYmkb
+	NDA9dj4Ix+gtTcb5KMpNZWrwuqrnJt6JcJJPzdbxBsGzieQLtXf8PkIMvZnbKA==
+Message-ID: <7fa397188daea5fcac036864534a4272cc2aef87.camel@pengutronix.de>
+Subject: Re: [PATCH v2 1/2] reset: Fix reset_control leak when put after
+ controller unregister
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 05 Nov 2026 11:40:16 +0100
+In-Reply-To: <20261104162038.48622-2-tzungbi@kernel.org>
+References: <20261104162038.48622-1-tzungbi@kernel.org>
+	 <20261104162038.48622-2-tzungbi@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,107 +94,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools: hv: Zero unused bytes in KVP pool records
-To: Shradha Gupta <shradhagupta@linux.microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>
-Cc: Shradha Gupta <shradhagupta@microsoft.com>, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, "K. Y. Srinivasan" <kys@microsoft.com>,
- Dan Carpenter <error27@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20261102102953.432924-1-shradhagupta@linux.microsoft.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261102102953.432924-1-shradhagupta@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+On Do, 2026-11-05 at 00:20 +0800, Tzung-Bi Shih wrote:
+> After commit 8c91302a29bc ("reset: protect struct reset_control with its
+> own mutex"), reset_control_put_internal() returns early if `rcdev` is
+> NULL.
+>=20
+> When a reset controller is unregistered while consumers still hold
+> reset_control handles, reset_controller_unregister() sets `rstc->rcdev`
+> to NULL.  When consumers later release their handles via
+> reset_control_put(), the early return skips kref_put(), resulting in
+> leaking resources.
+>=20
+> Call kref_put() in reset_control_put_internal() even if `rcdev` is NULL.
+>=20
+> Fixes: 8c91302a29bc ("reset: protect struct reset_control with its own mu=
+tex")
+> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-On 11/2/2026 3:59 PM, Shradha Gupta wrote:
-> From: Shradha Gupta <shradhagupta@microsoft.com>
-> 
-> KVP pool files store fixed-size key and value arrays. New records copy only
-> the supplied key and value lengths into uninitialized storage, but the
-> daemon writes each record in full. This can persist uninitialized heap
-> bytes in the unused array tails. Shorter value replacements and
-> string-based deletion compaction can also leave stale data in those tails.
-> 
-> Zero new records before populating them, clear values before replacement,
-> and copy complete records when compacting a pool after deletion.
-> 
-> Also clear unused tails when loading existing records so GET and
-> enumeration do not return legacy residual bytes. These sanitized records
-> reach disk on the next successful update to that pool; loading alone does
-> not rewrite the file.
-> 
-> The record layout and logical key/value strings are unchanged.
-> 
-> Fixes: db425334e5bb ("Tools: hv: Fully support the new KVP verbs in the user level daemon")
-> Signed-off-by: Shradha Gupta <shradhagupta@microsoft.com>
-> ---
->   tools/hv/hv_kvp_daemon.c | 15 +++++++++++++--
->   1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/hv/hv_kvp_daemon.c b/tools/hv/hv_kvp_daemon.c
-> index 1f64c680b..d57729f60 100644
-> --- a/tools/hv/hv_kvp_daemon.c
-> +++ b/tools/hv/hv_kvp_daemon.c
-> @@ -203,6 +203,7 @@ static void kvp_update_mem_state(int pool)
->   {
->   	FILE *filep;
->   	size_t records_read = 0;
-> +	size_t i, len;
->   	struct kvp_record *record = kvp_file_info[pool].records;
->   	struct kvp_record *readp;
->   	int num_blocks = kvp_file_info[pool].num_blocks;
-> @@ -248,6 +249,15 @@ static void kvp_update_mem_state(int pool)
->   		break;
->   	}
->   
-> +	/* Discard stale bytes after strings in existing pool records. */
-> +	for (i = 0; i < records_read; i++) {
-> +		len = strnlen(record[i].key, sizeof(record[i].key));
-> +		memset(record[i].key + len, 0, sizeof(record[i].key) - len);
-> +		len = strnlen(record[i].value, sizeof(record[i].value));
-> +		memset(record[i].value + len, 0,
-> +		       sizeof(record[i].value) - len);
-> +	}
-> +
->   	kvp_file_info[pool].num_blocks = num_blocks;
->   	kvp_file_info[pool].records = record;
->   	kvp_file_info[pool].num_records = records_read;
-> @@ -327,8 +337,7 @@ static int kvp_key_delete(int pool, const __u8 *key, int key_size)
->   		j = i;
->   		k = j + 1;
->   		for (; k < num_records; k++) {
-> -			strcpy(record[j].key, record[k].key);
-> -			strcpy(record[j].value, record[k].value);
-> +			memcpy(&record[j], &record[k], sizeof(record[j]));
->   			j++;
->   		}
->   
-> @@ -383,6 +392,7 @@ static int kvp_key_add_or_modify(int pool, const __u8 *key, int key_size,
->   		 * Found a match; just update the value -
->   		 * this is the modify case.
->   		 */
-> +		memset(record[i].value, 0, sizeof(record[i].value));
->   		memcpy(record[i].value, value, value_size);
->   		kvp_update_file(pool);
->   		if (debug)
-> @@ -406,6 +416,7 @@ static int kvp_key_add_or_modify(int pool, const __u8 *key, int key_size,
->   		kvp_file_info[pool].num_blocks++;
->   
->   	}
-> +	memset(&record[i], 0, sizeof(record[i]));
->   	memcpy(record[i].value, value, value_size);
->   	memcpy(record[i].key, key, key_size);
->   	kvp_file_info[pool].records = record;
-> 
-> base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
-
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
-
-Regards,
-Naman
+regards
+Philipp
