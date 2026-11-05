@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.26
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793908184;
-	b=yaUCwXbIzxNC+fUZtBybFOubx6zm9DevoxipwdAf02r87AmhAAgg1FMVNW6GHTVYgWhJ
-	 mkn3/DUPH5hSeE7xmvXCFBw5HYQ8MJ0B1PGwY7LdT7yR5N4BdPyG90UNpG/nVa6tny6S6
-	 XylpvNrZiU/Lcyp5GcgSyROoRXAQWbFv5pB3AUeu5ykm2j00i1DMW14zpktQVRte7ydLb
-	 3fgoEj7z9Jk4HTnOjEII7aCBsoRJY3uA/joh62AsMR5rRiTfgrbFON8yrp61OEwxjFxPx
-	 4UCH9KX+cSK4YVkqdpcfjdftlD4xhA1HwjaM+J738MSUCLZytrKFMFxnVAz3oKeUTKw==
+	t=1793908187;
+	b=maec6xNR1nRmFpNBangr5KUJ+EjvnDxowlCg5fHNKVTyC7+5z640uVuASJ5I2BweZ/C8
+	 CaKeohRbuxt8KxU0lieuzsrmCbhvCwbYEqYv2IUbKshFXEsa/uI1oFnL7B5U2n8QP42vA
+	 DQyo8YjRYPfqx/URsxMVnA32Zb2HBSMPGP8ArveKTnvVjOzv8dpwbh3dv0nYIc/zeDyvb
+	 W1AFdS4oWUb1M7HFlgRGDRXsqoJS8i2cy76Eq6oXPn/5Q8nxuMrJfpKVqkF8jIdFg3dCg
+	 I7pUypNNLOIIwZfR4pStg/fZGYbh+91UCcazV5SoRAP95KQvi3F3ngYdFtzcbhY3dGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793908184;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908187;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=Ohk8fjJcBK9UzrBV+dt2XFBrhhVb8zdE0nF0K/taFC8=;
-	b=SM9Stx85o8r8mJbfx8GLm+9pO4jD9NOggQcq/eFZNf2VjyXLJPDQsUrXsZNn/TyvHeOb
-	 9atb8u/tFrX9E2aRTgHWrOM1/xBhiO/jI2v2ylES7bMSEcYi1aDygrpoX3HEtbpBiW4pO
-	 LBKZMQVENuYoPtkzqfxBVycTSHAJ3YN4ANmbbjNchCInbmxB6gimZ9xMSMOyBFjxuI24R
-	 mVJ9DdwmvDoimXIq4O3znkebMFhrXXKZz/WJdPkm0lUeubXbHaECdDnTyr3PbGIUCIlu0
-	 NqvHexljwB6uIjAizHHw8wgtMsZ9QP2g8lp31xK5wK1N7JfyKaB+s1SwOraDo+x1ocw==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qScYQxrMhDNOEAGF/9rBfbZWicHpQDMbkGzOg5+rxBU=;
+	b=kEMCfQ8ILvsCRTHkiAVOyA6zEdQ+nL23ddQvGXwK2eZeL6hl8LnI7Lu2L6YB1xC6Hbow
+	 ixHbspdQaveSMYNvBUl04shIwldbGK+bZ3NSAaK5nXpKTBgVuRv3r3GYwz0xICXkPFGdI
+	 WZ3hrVF1gBaYQh5hH1j0hp6zdfyy158Ul0LDACdYhXBExodX5Ju3cGK/JaNFGCJpa6bm6
+	 5it/kYmxId6ijW3/oJ8TiUJ6UFOPO1SF5QcOudAtnyIJEcaZuP/KMSBkC0Vqqz1Pibfhd
+	 MAQanpi9RHyJq7WqH2tewORTklVr0qmqczQSAlrVZzfwYWz2oNnjk4Cit9hTgMtHvAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.26
-Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qemT7U8e;
+	arc=none smtp.remote-ip=91.218.175.32
+Received: from mta0.migadu.com (out-32.mta0.migadu.com [91.218.175.32])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F128E6075320
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F128E6075320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3618C60772AC
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3618C60772AC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qemT7U8e
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ohk8fjJcBK9UzrBV+dt2XFBrhhVb8zdE0nF0K/taFC8=;
+DKIM-Signature: a=rsa-sha256; bh=hllPb5qZ3MwACXrit8oyaRfVECBhdjxwmlbhGw/GJz4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793908179; v=1; x=1794512979;
- b=TLyqchkqOZt/DtlVYwdrSUXx/dQb2voUuzu/1DK0ROKF9lGdVixSHWdqSbho4P4ggx6CDdCK
- N1psN8/3tnUAlOBXHA8POiClwq8TTNpT7OaXx4ex9SQ6w96P2zcyob28/LC80FP1KwAMIBi2O8r
- aVnCkYn/uC7CQOhfUQxoKWA8=
+ t=1793908184; v=1; x=1794512984;
+ b=qemT7U8e/A/UCeZLneIPHTKmmFbWKXrkGzDdmXqSOk3qEsEYf2aCA/apehPcDL7L1fdnstnm
+ 9+eiKUGZ4gpRIfKWrmZejTVV+xMZaEXLID7MsPZgxfoHI/SoOV3wYCWKa2AXJTC1lQWfXdRmz8Q
+ hgrjvsO63w2NTGz8YtoiJ4dM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 791d4e604c55dbfc;
-	Thu, 05 Nov 2026 19:49:39 +0000
-X-Mizu-Trace-ID: 791d4e604c55dbfc
+Received: by smtp.migadu.com with ESMTPS id d639df3448ef7c08;
+	Thu, 05 Nov 2026 19:49:43 +0000
+X-Mizu-Trace-ID: d639df3448ef7c08
 X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bfca2a2af4so1445e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:49:35 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwfGQzrBos34QCcm3Sbxdb1FyRfypVsK2+xj0J7Loza4+xbDrOg1Oi9NSRI1i1WuOBqnvGa5zxUEx0izCA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QY/OVgXlf4ECIaXCQyt+pp0w4v0MDvwNp+9H5dB9PrKrBs7B+
-	0EB+9BjqTiPkZCthbpM0QOBq1tnN9ss8449N1AE0/A3A+il1JNMRo3l21gvt73WL+JkwPAuyOhh
-	7OCoA7F8nvafUQAYsIr7d6ky7IKAC8BRUnQKutmtc
-X-Received: by 2002:a05:6512:33ce:b0:5bf:c3e1:532b with SMTP id
- 2adb3069b0e04-5c0030a8446mr18363e87.5.1793908174490; Thu, 05 Nov 2026
- 11:49:34 -0800 (PST)
+Message-ID: <1cae1b17-4c49-4a10-922e-c552e90593c4@linux.dev>
+Date: Thu, 5 Nov 2026 20:49:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,50 +58,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104124451.2148724-1-fuad.tabba@linux.dev> <56rrmewwluy2iw52zmusrys3qfqcdhtsgzpqtskr6zt4xhmhfo@hzlwy5ol47kd>
-In-Reply-To: <56rrmewwluy2iw52zmusrys3qfqcdhtsgzpqtskr6zt4xhmhfo@hzlwy5ol47kd>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 5 Nov 2026 19:48:58 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTxms6TaXi1ghx=hPU3fG1EQUwQYeX+d0jjJ=AzhDv0u_Q@mail.gmail.com>
-X-Gm-Features: AclHuK8cooP5vM3_YGu4N0f2LHYPXd6jDq8nHFV8TmXlzVrLCE4RbmmBQjeYTg4
-Message-ID: <CA+EHjTxms6TaXi1ghx=hPU3fG1EQUwQYeX+d0jjJ=AzhDv0u_Q@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] KVM: arm64: Stop stage-2 teardown scaling with the
- IPA size
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>, 
-	Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] ASoC: SDCA: Add port constraints into
+ sdca_asoc_set_constraints()
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org
+Cc: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
+References: <20261105134952.1728147-1-ckeepax@opensource.cirrus.com>
+ <20261105134952.1728147-3-ckeepax@opensource.cirrus.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20261105134952.1728147-3-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Wei-Lin,
 
-On Thu, 05 Nov 2026 18:59:55 +0000, Wei-Lin Chang <weilin.chang@arm.com> wrote:
-[...]
-> I haven't looked very closely, but do functions that use
-> stage2_apply_range() suffer a similar problem?
->
-> If I'm not mistaken we previously realized unmapping a full IPA with
-> kvm_vm_stage2_unmap_range() is slow partly for the same reason.
+> +static int get_port_masks(struct sdw_slave *sdw, unsigned int port,
+> +			  struct snd_pcm_substream *substream,
+> +			  unsigned int *word_mask, unsigned int *ch_mask)
+> +{
+> +	struct sdw_dpn_prop *prop;
+> +	unsigned int nprop;
+> +	int i, j;
+> +
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		prop = sdw->prop.sink_dpn_prop;
+> +		nprop = hweight32(sdw->prop.sink_ports);
+> +	} else {
+> +		prop = sdw->prop.src_dpn_prop;
+> +		nprop = hweight32(sdw->prop.source_ports);
+> +	}
 
-Yes, when the range is the whole IPA, as you found on your reverse map
-series [1].
+The definition of those DisCo properties was done with separate masks
+for source and sinks, but it's allowed to have the same bit set for
+source and sink if the port supports bi-directional transfers.
 
-> I'm not sure whether optimizing stage2_destroy_range() and
-> stage2_apply_range() together in a single series is preferrable though.
+I don't think it impacts the way the constraints are added, since you
+use substream->stream direction to disambiguate, but I thought I'd ask
+the question.
 
-I think it should be a separate series. Returning where the walk
-stopped was a small change for teardown, which runs on an unlinked
-table with no lock held. The stage2_apply_range() callbacks are shared
-(kvm_pgtable_stage2_unmap() has EL2 callers that treat a non-zero
-return as an error), and the walks drop the mmu_lock between chunks,
-so it's a different change. Only NV passes stage2_apply_range() the
-whole IPA.
+> -	if (entity->type != SDCA_ENTITY_TYPE_IT)
+> -		return 0;
+> +	/* FIXME: Currently only a single unshared port is supported */
 
-Cheers,
-/fuad
+I must admit I have no idea how we'd handle ports that can be connected
+to multiple terminals. It's allowed in the spec, even between Functions
+which are then no longer independent, and I was told it was due to
+hardware restrictions, but still I hope we never have to deal with this...
 
-[1] https://lore.kernel.org/all/eylfcgxs2xzu57czyuhkpmum45lpxyccyu2yh3mipr67aq3xo6@xinygxzavoja/
+
