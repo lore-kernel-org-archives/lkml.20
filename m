@@ -1,49 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879739;
-	b=h9JEWQQ+n/mCRRW2irPIznmddope+xToKcOagUVIaINrbU70iJaXni1p1HMgudXP4fOC
-	 X8+mx8WgQaJxP6T9yPVaJxDApagMDBRi/WmT6GSBfnjZVo/jO+TsSPriadqbSRYCUm2h3
-	 z2OxTTjIBYQ66+M5kpI6HAEE2wQPfnDnEHsWVeXOPmG/YKi11gZOj6gk4hYkFsCM9ldUD
-	 6qCB3PnoTuXt3J2Vet53EvEucCAN0HeNuBu2t+btr+xaEaQtzdM5o8Cq9B2R7BMyL5wQl
-	 JIk6Uj6jQ/nuoZZMoC4O6jzqv8JEjkqA5rtZEq9Q1Sztd6Mk+nLhXSurmXenK3e5WTA==
+	t=1793879757;
+	b=FPl2XRnQ5CW+ed9zYG1NJHEUwcyU3ZIyKjoAg3uCf+l8kJpHWUfSoqpeg/l4RgkpKhbs
+	 BW3j3O5p8unLS4OE4EfReAT69q6dzGe331s147WlhPCVukNna1J/z5M9jt7SgCI05hQti
+	 tU/ExRwadpWwVjsXAX74aTN4H9aJGsnKICnWHqP0RcJCRABqbTdcA8bS2IDImLu3J632c
+	 yksVgZ3IKDVV4fCBS02PD5SjMoMIMxU6NFyarn8I1rYqM0PeVXOaoQxtp7dzMaBD9H588
+	 1UCAYXTBBagvSfyaeTXrlKLuj2ppiGrLr78LqK+W/QM79bY+FgDwu5MV4BssjER+VDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879739;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Tb+mV4jWLtJY9UnvG94XNsHaHfLl26BvvbsFa9fRAsg=;
-	b=OqUnN4oPgecPf0IUA4jfRWjGd93Xy36Z3kU3AnwIX+kUKhfMC2E6Koc+6/axlanTvrOf
-	 7kq21ETzxaPX/iYxKh2Y6Wxg8I3asWjMyDjdRIwzAFt00WSVIZkoWUn7PI29IU7TZ5vTT
-	 FvxJWgmthZ7FJ+WW88stlODJPQ8Nm1i9d7Q+4H9UGTriaOd2wAItoB0GWNhbKNIna05zN
-	 417amj3gj2EkNoJOIf6zJp8FuS29Wh2HCCVWwoyPhHc/pRDGINjaagiexB4ESPit9XAgg
-	 mRlu/zFnWL8NeLTlhkJMk82AVRnkRQvCMr8Jtx3lZieJmDtfoN4T0PRdpOnmpFt53Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879757;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=blv6O4bi3KniNZSZaBAb+qDrJFTIo2ZPaosrvloZpPk=;
+	b=Udrfn0c7ugxlXIbgz3Hl+rT30ESMqlRI8WGOTEzf3MmDb79DS/4BP88G6ar2uRDqOYNt
+	 w8S0WLjZ1n9wqeupXP4o+gK9EMBIBPO2zA3Ao7uQfnnfaVBa24ubU2/F80Tc8v6i5HCWO
+	 LoUW9ESdWPuiQqy/MOS7waTh6nAjc54nbis9nWvAtqDXagaM7uS82ikmxpVLfg/Egajrv
+	 Oyead/fJsIk4fA3PRupwObfy/lD/3kpL3NEhhTCaY2yiIQLGd2lIlFTyuujYQ7y70RAtc
+	 BsWGOJqeDt51aMFXLg8sdxma7duFdZqvk06GlrRLY4znqnYz5pVZqUFXUInu8mXv8WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=onNlfmTL;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqzVMeGG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236E1606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:55:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236E1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D00A606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=onNlfmTL
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793879733; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Tb+mV4jWLtJY9UnvG94XNsHaHfLl26BvvbsFa9fRAsg=;
-	b=onNlfmTLS7Tbmtsb+2jHyYym9pRr4PSjfPB27KDFuR0OuqloJS8RbUoBB4CqxUqRXm+9YJJuZO+RwgcwIRTA8dosVjvUk+J7N3NDvKYtfmTTM9vpvTKIz1he1Pf+8CqY3qBDkL9o1b79WoKw1b3tg8jMlCNNZoq4+UvI5x7s9eI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R351e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XE8c8qT_1793879731;
-Received: from 30.221.129.193(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE8c8qT_1793879731 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 19:55:32 +0800
-Message-ID: <8f122289-5a8b-4702-94e8-3ec5496ade2e@linux.alibaba.com>
-Date: Thu, 5 Nov 2026 19:55:31 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqzVMeGG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304871F0093A;
+	Thu,  5 Nov 2026 11:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793879757;
+	bh=blv6O4bi3KniNZSZaBAb+qDrJFTIo2ZPaosrvloZpPk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oqzVMeGGZirazQHJMc84rnQz1Gu2mB70FSCvJkBrLvweibXF4wsY/4M0Y2Lhx/JZs
+	 qw7Ea0EBOjtlGPPr4kmm6VzfQlHuIWQ/J7i2BbCEbBj2GWIO5bhR80r/ItPo7dpoBI
+	 cAgTXtoqj2rNzhKyfF+eQqEAuZRHuk65nwzyBCelmqsImIVl3mA7vc1IHMUj0VRtGV
+	 yPkd5BQstmItoEWVyOu6W3oTK7UX1g5q0tbVrJtv6GU3l3gJeLAdeIO5aE/nGJ/w5D
+	 2S/Oe0OK9deFRdtX1OKlotSAksqYunR+WoGkm5HO31ndK0dxXtbGl2XJa1jyZ3tPOL
+	 7apKaboUlQ19g==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 069A4198003A;
+	Thu,  5 Nov 2026 06:55:50 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 05 Nov 2026 06:55:54 -0500
+X-ME-Sender: <xms:xm7sarg6hkHAPeR6qNnjGTgOC0c3MwCRkcRyyDte-v2Nz4AuHE-Ysw>
+    <xme:xm7saphsT_LOQ5_t9aQEuRe60HCsp6dNKYCbhW7KxfWQC49PQymdRBbbUn-i5i9sH
+    QStLn2jAiEAJRwyCkhmX9Ae7rIOj7T8-vP480JX_RsiCJb1ukBSvOMf>
+X-ME-Received: <xmr:xm7sajtbmih0YyaDyMm21NI9mlZlJKu1ERf_jsafuT_wkmX2BV3b6DPUd6U>
+X-ME-Proxy-Cause: dmFkZTGlpGWVVjYxBjIq1GW6Bog5Gen4I6Dm00lal7CBkODI1PCEbTquXBXmwJLyHC/Pb0
+    hMLtvFsGD3zC1Q9ttsCzhqKULfkv9x8zovlqzN/hdkPtWOD8WUDm+Daf7wKsKNUXKXlpo1
+    bFIC6ERf0hO9ea/mtihFTDTyCipqWMJPUwRZGVRWX3+eBSgzzlFuXNMBzbbhxlm/Cl9kVf
+    qHHUJaywNb3F4K6tjLmbyevw8rCLxUMHWT/9Cg7vbj68E6lN6xft2IojKQVeQAEiLSZSKx
+    lZLMQWm4VlvPjllWVTTLhjTk/9OEr1u49yNsfSP/NsyNB352Y3dF2bwT4gQcnry4plValo
+    pLBIrxlGDfR+ywb7rTy1vTBYhNUtZgulKr8/JOC/EmfHBLyljCXxPcnuZybgIU3nR8ttxi
+    NiKVBEjcu+cD8pgA1PtU+/LtIQKKOkxMmEkK+2AN27LTuVqJRbL9HjNlKVqR6Vm29IM2Ss
+    bW1D/tqn1Qh7RsiFzCWJnWmIGuFgJB8hm5YY9wNsUwbACh+M1Ai8sD5/j0rhKczYofrL27
+    aXPtMu+wOfFCKeUYjR/MrD3CrT+5sz59Rxv/1Tg0Q+eOY2Mg2KwKNNAUJXxVMCWR0OVfE1
+    bQ7XT+vKIldd2Uz1zKn8/hce34bPrDJtxKm7F4XRZxYtmRPCZ3bkrcCgt+vQ
+X-ME-Proxy: <xmx:xm7saqTsbIEzTlIIyfCI0NvMcGCThm014x3v0iWjB-FDRz8L8axO1w>
+    <xmx:xm7sasFTrJ6-LeqVH8QtOdfuMUwbHSbYmm9ap3kQlN9bZZLnAFIoIQ>
+    <xmx:xm7sashUZrl5LGKDtq38sKALGMetuWkB1zjzVd-gCh8VJKBe5TmQMw>
+    <xmx:xm7saqi_fCFvdSbiD3UGPjXEJwWp0mtld2wkwhPL8zMrxF3P2PETsA>
+    <xmx:xm7samz0sM-HdoJmBgpTBx5he-nOGHlSFJzl8pION3Xtidy7Mpg2tcSf>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 06:55:49 -0500 (EST)
+Date: Thu, 5 Nov 2026 11:55:48 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "Hansen, Dave" <dave.hansen@intel.com>, 
+	"andrew+kernel@donnellan.id.au" <andrew+kernel@donnellan.id.au>, "luto@kernel.org" <luto@kernel.org>, 
+	"pasha.tatashin@soleen.com" <pasha.tatashin@soleen.com>, "rppt@kernel.org" <rppt@kernel.org>, 
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kernel-team@meta.com" <kernel-team@meta.com>, 
+	"david@kernel.org" <david@kernel.org>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	"mingo@redhat.com" <mingo@redhat.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"peterx@redhat.com" <peterx@redhat.com>, "tj@kernel.org" <tj@kernel.org>, 
+	"azpijr@gmail.com" <azpijr@gmail.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>, 
+	"peterz@infradead.org" <peterz@infradead.org>, "rmclure@linux.ibm.com" <rmclure@linux.ibm.com>, 
+	"bp@alien8.de" <bp@alien8.de>, "baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>, 
+	"x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH] x86/mm: Define the zapped-entry checks only with
+ CONFIG_DEBUG_VM
+Message-ID: <auxuOzjRJPqsTvfm@thinkstation>
+References: <20261102144001.342837-1-kas@kernel.org>
+ <b04316eb-a2f8-4587-9392-e673c7bd2fc8@intel.com>
+ <aumzjHyJsshPJBUI@thinkstation>
+ <b45fe4c2a730a23845a36b5beba4f434c7be7477.camel@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,171 +99,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/30] ocfs2: split dinode validation into shared
- predicates
-To: Andrew Morton <akpm@linux-foundation.org>,
- Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261105094926.3203416-1-joseph.qi@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b45fe4c2a730a23845a36b5beba4f434c7be7477.camel@intel.com>
 
-Sashiko has review comments on PATCH 05, 21, 22, 24 and 30.
-Will be addressed on v2.
+On Tue, Nov 03, 2026 at 03:50:04PM +0000, Edgecombe, Rick P wrote:
+> On Tue, 2026-11-03 at 10:13 +0000, Kiryl Shutsemau wrote:
+> > On Mon, Nov 02, 2026 at 01:12:47PM -0800, Dave Hansen wrote:
+> > > Or, heck, I'm not that attached to these checks. Let's just kill them.
+> > 
+> > Works for me. x86 is the only architecture with them, although arm64 and
+> > riscv have shadow stacks too, and the x86 helpers already keep
+> > Write=0,Dirty=1 out of other VMAs. Patch below, without the Fixes: tag.
+> > 
+> > Rick, any objection?
+> 
+> Eh, I guess I'm lukewarm on it. These checks only catch the case at zap time, so
+> it's not a huge protection that is being pulled out. I thought they were useful.
+> At the same time, they have never triggered.
 
-Thanks,
-Joseph
+Yeah, I have not find any reports.
 
-On 11/5/26 5:48 PM, Joseph Qi wrote:
-> ocfs2_validate_inode_block() is a flat sequence of about twenty open-coded
-> on-disk dinode checks.  ocfs2_filecheck_validate_inode_block() duplicates
-> eight of them, but reports differently: plain mlog() plus an
-> OCFS2_FILECHECK_ERR_* code instead of ocfs2_error(), because filecheck is
-> a diagnostic interface an administrator points at a suspect inode and it
-> must not escalate into ocfs2_handle_error(), which can force the
-> filesystem read-only or panic.
-> 
-> The duplicated conditions had already drifted apart -- the two
-> OCFS2_VALID_FL tests were spelled differently -- and filecheck silently
-> skipped the rest.
-> 
-> This series splits the conditions out and then brings filecheck up to
-> parity.
-> 
-> Patches 1-20: pure refactor.  Each condition becomes a static bool
-> ocfs2_dinode_has_*() predicate returning true on bad, following the four
-> helpers already in inode.c.  Return codes and log messages stay at the
-> call sites, so the two reporting paths remain distinct and no
-> ocfs2_error() call site moves.  One check per commit.  No functional
-> change intended.
-> 
-> Patch 21: a separable fix.  ocfs2_filecheck_repair_inode_block() proceeds
-> when validation fails but then returns 0 unconditionally, after repairing
-> only i_blkno, fs_generation and l_next_free_rec.  An inode failing any
-> other check is reported to userspace as SUCCESS while still corrupt.
-> This is already true today for the mode, i_rdev and size-without-clusters
-> checks.  Revalidate after the repairs and return the residual code.  Drop
-> this patch if you would rather keep the filecheck series purely additive,
-> but it then widens the set of masked failures considerably.
-> 
-> Patches 22-30: wire the remaining predicates into filecheck.  All reuse
-> OCFS2_FILECHECK_ERR_INVALIDINO, so no new error code is introduced and the
-> ocfs2_filecheck_errs[] table with its userspace-visible names is
-> unchanged.
-> 
-> Points worth a close look:
-> 
->  - The fast symlink NUL-termination predicate bounds its own strnlen()
->    against ocfs2_fast_symlink_chars().  The open-coded version was only
->    safe because the preceding i_size check had already bailed; i_size
->    comes from disk, so an unbounded strnlen() over i_size + 1 bytes can
->    run past the inode block.  A helper should not inherit that ordering
->    dependency implicitly, especially once filecheck calls it too.
-> 
->  - The inline id_count maximum stays a signed int.
->    ocfs2_max_inline_data_with_xattr() subtracts the unvalidated
->    i_xattr_inline_size and goes negative on small block sizes.  Caching it
->    unsigned would turn a negative maximum into a huge bound and silently
->    accept the oversized id_count.
-> 
->  - ocfs2_dinode_is_fast_symlink() is deliberately not shared with the
->    similar test inside ocfs2_dinode_has_extents(), which additionally
->    requires a non-zero i_size.  A zero-length, zero-cluster symlink
->    currently falls through to the extent list checks.
-> 
->  - The suballoc range predicate keeps its != OCFS2_INVALID_SLOT
->    exclusion.  OCFS2_INVALID_SLOT is 65535, so without it every system
->    inode mkfs.ocfs2 creates from the global allocator would be rejected.
-> 
->  - Look-alike tests in suballoc.c are left alone:
->    ocfs2_validate_group_descriptor() deliberately permits
->    OCFS2_INVALID_SLOT for all inodes, and ocfs2_claim_suballoc_bits() also
->    rejects cl_next_free_rec == 0.  Neither is equivalent to the new
->    predicates.
-> 
-> The inline xattr check is the one thing filecheck still does not share.
-> ocfs2_validate_inode_xattr() calls ocfs2_error() through its helpers in
-> xattr.c, so reusing it would mean threading a reporting flag down into
-> that file.  Left for a follow-up.
-> 
-> Testing, on top of linux-next 20261103:
-> 
-> Patches 1-20 were checked to be behaviour preserving.  All 27 log
-> messages, all return codes and all ocfs2_error()/mlog() call sites in
-> ocfs2_validate_inode_block() are unchanged, each new predicate body was
-> compared against the condition it replaced, and the disassembly of
-> ocfs2_filecheck_validate_inode_block() is instruction identical apart
-> from __LINE__ constants.  The normal validator's disassembly differs by
-> more than that -- basic blocks are rescheduled and registers reallocated
-> -- so equivalence there rests on the source level comparison rather than
-> on an instruction by instruction proof.  The deliberate rewrites are the
-> ocfs2_read_links_count() reuse in patch 1, the OCFS2_VALID_FL spelling
-> unification in patch 3, flattening the mutually exclusive suballoc
-> if/else-if into two tests in patch 5, and the redundant self-bounding
-> guard added in patch 13.
-> 
-> In a QEMU guest running this series, on 4K blocks with inline-data,
-> refcount, sparse, usrquota, grpquota, xattr and indexed-dirs enabled:
-> mount and I/O over seventeen inode types plus all the system inodes
-> produced no false positive, and filecheck reported SUCCESS for every one
-> of them.  A separate 512-byte block volume with inline-data, xattr,
-> sparse and refcount was checked the same way over five inode types, also
-> with no false positive.
-> 
-> The corruption tests used a third volume formatted with nometaecc, so
-> that a checksum failure would not mask the field being tested.  Seven
-> deliberately corrupted dinodes -- zero and oversized extent l_count,
-> oversized inline id_count, oversized fast symlink i_size, refcount flag
-> without i_refcount_loc, oversized suballoc bit and oversized
-> l_next_free_rec -- were each detected with the expected message, with no
-> ocfs2_error() escalation and the filesystem still read-write afterwards.
-> fix was then run on two of them: the zero l_count case, which repair
-> cannot fix, returned INVALIDINO, and the l_next_free_rec case, which it
-> does fix, returned SUCCESS.
-> 
-> Forcing i_xattr_inline_size up on the 512-byte block volume drove the
-> inline maximum negative and produced "inline data id_count 312 exceeds
-> max -88", confirming the signed comparison survived the extraction.
-> 
-> The ocfs2 testsuite and xfstests were not run.
-> 
-> Joseph Qi (30):
->   ocfs2: abstract the zero nlink or mode dinode check
->   ocfs2: abstract the dinode i_blkno mismatch check
->   ocfs2: abstract the dinode OCFS2_VALID_FL check
->   ocfs2: abstract the dinode fs_generation mismatch check
->   ocfs2: abstract the dinode suballoc slot checks
->   ocfs2: abstract the dinode suballoc bit check
->   ocfs2: abstract the dinode orphaned slot check
->   ocfs2: abstract the dinode DIO orphaned slot check
->   ocfs2: abstract the inline data dinode guard and cluster check
->   ocfs2: abstract the inline data id_count bound check
->   ocfs2: abstract the inline data i_size bound check
->   ocfs2: abstract the fast symlink dinode guard and size check
->   ocfs2: abstract the fast symlink NUL-termination check
->   ocfs2: abstract the chain list dinode guard and count check
->   ocfs2: abstract the chain list next free record check
->   ocfs2: abstract the chain list bits per cluster check
->   ocfs2: abstract the dinode refcount location check
->   ocfs2: abstract the zero extent list count check
->   ocfs2: abstract the oversized extent list count check
->   ocfs2: abstract the extent list next free record check
->   ocfs2: report unrepairable corruption from online filecheck fix
->   ocfs2: check dinode nlink and mode in online filecheck
->   ocfs2: check dinode suballoc slot in online filecheck
->   ocfs2: check dinode suballoc bit in online filecheck
->   ocfs2: check dinode orphaned slots in online filecheck
->   ocfs2: check inline data dinodes in online filecheck
->   ocfs2: check fast symlink dinodes in online filecheck
->   ocfs2: check chain list dinodes in online filecheck
->   ocfs2: check dinode refcount location in online filecheck
->   ocfs2: check extent list dinodes in online filecheck
-> 
->  fs/ocfs2/inode.c | 456 +++++++++++++++++++++++++++++++++++++++++------
->  1 file changed, 399 insertions(+), 57 deletions(-)
-> 
+So, we can claim that the check served its purpose to stabilize shadow
+stack and can be retired now :P
 
+I will post the patch separately.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
