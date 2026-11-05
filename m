@@ -1,77 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844079;
-	b=oLs6MuR/2OxNsjWjwpJNGFrRhN4X0DQpwJAs/AWrQ7NktV05u6KCFIgLRMxydholwN00
-	 m/qkHR7oMuVx8FacUzsUuXYya9FUeE5NSoulKGBBS+5BU2ePvDQjhxpd3+OuHlPhDGMKb
-	 695Ap3FePjL1DjxldzksAk29tU8060/5VNx9qQe0EmUIopBHWE8dsuZFDPctAL+Xr65Lk
-	 oxSk9fVH1P9VmZnlFo9Q/sDJF2OPaBXe0bmGUGSoyNIuRmF4iE9/g+X+7EOWUG7kPNWca
-	 TE2DK6lGiMH8cAKjN3a7+pbYvZ2PdWnn+rlb2UzOfwl/XViEPEib6ysqM7QIdnEg3pg==
+	t=1793844086;
+	b=MrtRX7z0CMx6V2VHv5/ep1IUVQpXF27GvdPoWZgUHyD7EGVUX8VJrkcenLAG2dXhRL2b
+	 gTe8ahSOdw/sp4qIkBpBF92x2EMt+Jros7DlvKJD2xrz6T1BizrWwdfVU2aBrQrVPTrwE
+	 5mLbbQD0clmY7XwA19zwjFcIdFofiw5JZuWc7yi+zaZD8xX5Sj8CTUt4b++v70pw8iXw4
+	 dhDM25zNBEBjOJ68GuVs0lEn5GyH7nax0oJBzk2JW8l47NnxRB3zGp1zez7A2FUHo+BWC
+	 2Cl9UGK6DJnhxJjsexNkuo//lR3fQanAp+llLplmVjEndq5w8EDV6AyOPhai767JzJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844079;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844086;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=lq/Kk5OeAuXHYB6wOIZIFiKrOrr7XjZr/0fAEOHzrvs=;
-	b=iIU0FPazy7C8f9eLs2YWZ/DI3kcKRuzxrKYET1OaaNXaVgJ3c5/d26oA8ws5dXC2HWDU
-	 boCwCR/SBLai97ox2n9Fp0Vbtxs58O89h23pYRl9YA60IN9tcgG7rRTB/AIS0ixGq0hur
-	 1ySaurl2AfsKOU1SdFLtbCidvU5etNKOqG12XOJGDOr77l6+MTQarGo510T5Yyp2dJQ2B
-	 YzgvkBvC4WYHZeMuE6Wu53qTi1IKDmwJJkq5WcIN0RkoSnT/9/0p/6qzSu+EsfWuCkT3N
-	 6lVY+LEPF2pBuYS0673GJUlARCwrz9gTmkf1RSxXhUzdMYoOiKYS2bvi6VoORhNM1QA==
+	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
+	bh=oYrzJfqmmqJFvNW03XOLg+PyRcH3A1ss8Lwc/jedsYM=;
+	b=wi33PGwYvvj2FkX77v48JFHPoFJJ64jPv3BOB8egst06VaMJ2erfOfPp5x8MVEzrRBh8
+	 CSDEFN1mMsxTY/hvIpHsEZIIyCI7+KFm221MUf0TEp2XcKBKiSJy2CsNa6xaHwRxH5QtK
+	 wep22j7l4hXMUJHEJeVxHOrBRA96czu7IWR2HfXPnXeNy2nZfEWh565/wNQa98kr5n4WY
+	 WXTdd0W9KHRfQha5NXLXQ4OyhxobIDRoe0bc5cC8lyeb8j6Ssk3CAzFOMaPI955sERaNg
+	 JvnlrVqFkdQ4w2qaNIyRgGIyduGT/pRAlCP1y+Kub/JwKhAPh9zrKwnB0JMo6p47MzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=O89uQik+;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8B2606EE98;
-	Thu,  5 Nov 2026 02:01:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F8B2606EE98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=niJMKsId;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3299D60A3801;
+	Thu,  5 Nov 2026 02:01:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3299D60A3801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=O89uQik+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=lq/Kk5OeAuXHYB6wOIZIFiKrOrr7XjZr/0fAEOHzrvs=; b=O89uQik+whhvPMgG8J+xQHJBrN
-	9XpIKGBPlO7HfZuA1emoSdJmLmCKTL39GTpJ59I8rMQSVOEDwpLFGVwSLaUkF1nZkXeCY+/s+SfcW
-	D2QFsFLR+6LAD+gEtcQzbAMjvp6xoPnXiqsdewFEIYWfoaWUr0ITVsH+yF47RTHzPvvn6ZvPjBDI3
-	TxJR5RIKorPu3jPB34BspRwIf3472huijbKnEFeHHcHZj4w5Z1IvOa1hpU8ox8i8v6W/FIab07JjH
-	ZPEVSyYSv03NTP8b9cZthlBIWMCkCAb1gcT93PNJEzlDBgBZrhZufqINdBP+r9/jtogu/TQdHzq8j
-	S1PAWfDg==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOmmn-00000002ROO-25Pd;
-	Thu, 05 Nov 2026 02:01:05 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xOmmm-0000000AWDm-2Fyj;
-	Thu, 05 Nov 2026 02:01:04 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paul Durrant <paul@xen.org>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Fred Griffoul <fgriffo@amazon.co.uk>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v2 12/20] KVM: nVMX: Use pinned pfncache for L1 APIC virtualization pages
-Date: Thu,  5 Nov 2026 02:00:54 +0000
-Message-ID: <20261105020104.2507083-13-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261105020104.2507083-1-dwmw2@infradead.org>
-References: <20261105020104.2507083-1-dwmw2@infradead.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=niJMKsId
+Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id E356320B716B;
+	Wed,  4 Nov 2026 18:01:08 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E356320B716B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793844069;
+	bh=oYrzJfqmmqJFvNW03XOLg+PyRcH3A1ss8Lwc/jedsYM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=niJMKsIdY+FYtuD916jdXRSTaSXFLUjzZp1p3GBQpSLSoaAfFAa0+rK7lDF6p5TIy
+	 fO869nqvMzqkAAP+6BwxO89Tp9rcu4Bik9wAzk7sPev7wPzLwyBGcAKmbCW9lYh9Yc
+	 /0cmKd96TWsJ3VWUNJppU+ydgpcnzWhx/8eh3hy8=
+From: Mukesh R <mrathor@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,
+	linux-arch@vger.kernel.org
+Cc: jgg@nvidia.com,
+	jacob.pan@linux.microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	arnd@arndb.de,
+	mrathor@linux.microsoft.com
+Subject: [PATCH V4 5/5] x86/hyperv: Implement root partition IOMMU kernel only driver
+Date: Wed,  4 Nov 2026 18:01:06 -0800
+Message-ID: <20261105020106.3496339-6-mrathor@linux.microsoft.com>
+X-Mailer: git-send-email 2.51.2.vfs.0.1
+In-Reply-To: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
+References: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,837 +77,727 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Fred Griffoul <fgriffo@amazon.co.uk>
+Add a new file to implement a kernel only virtual IOMMU that works
+on Microsoft Hyper-V hypervisor (aka MSHV) in privileged VMs aka
+root VMs. The hypervisor claims the IOMMU upon boot, and this driver
+communicates with it for creating and deleting paging domains, attaching
+of devices, mapping and unmapping of pages, etc. During boot, hypervisor
+automatically creates identity and blocked domains, so there is no need
+to do hypercalls to create them. This is a kernel only driver and only
+supported on baremetal root (and not L1VH root) without any guest passthru
+support. Support for guest device passthru will be added incrementally.
 
-Replace kvm_host_map usage with gfn_to_pfn_cache for the L1 pages whose
-physical addresses are handed to the CPU in vmcs02 for direct use while
-running L2: the APIC-access page, the virtual-APIC page, and the posted
-interrupt descriptor. This eliminates the map/unmap (with unmanaged
-memory: memremap/memunmap) cycle on every L2 VM-entry/exit.
-
-The caches are initialized once at vCPU creation with
-kvm_gpc_init_for_vcpu(), naming KVM_REQ_GET_NESTED_STATE_PAGES as the
-service request, and pinned when written into vmcs02 by
-nested_get_vmcs12_pages(). An invalidation of a pinned cache posts
-that request, forces the vCPU out of guest mode and waits; the
-handler re-runs nested_get_vmcs12_pages(). Pins are dropped at
-nested VM-exit (including the vmentry_fail_vmexit path, which does
-not pass through __nested_vmx_vmexit()).
-
-No validity check is added to the guest-entry path: a stale physical
-address latched in vmcs02 always implies a pending request. Every
-path which consumes a pin posts the request, and the handler cannot
-lose it: any failure of vmx_get_nested_state_pages() re-posts it
-before exiting to userspace, so a persistently failing configuration
-bounces to userspace rather than ever entering L2 stale. This closes
-the historical KVM_GUEST_USES_PFN gaps¹ without polling cache
-validity on every entry.
-
-Resolution failure distinguishes three cases. A slot mid-update (the
-pfncache reports -EFAULT; finding the KVM_MEMSLOT_INVALID placeholder
-still installed identifies the failure as transient) re-posts the
-request and continues, retrying until the update commits or reverts.
-At entry time (VMLAUNCH/VMRESUME, or resume from
-KVM_SET_NESTED_STATE, tracked in nested.resume_pending — which dies
-with the request at nested VM-exit, lest a later lazy request
-inherit entry-time semantics) a genuinely unbackable page is a
-misconfiguration: KVM_EXIT_INTERNAL_ERROR, as ever. On lazy
-revalidation it means userspace yanked the backing from under a
-running L2: for the APIC-access page and the posted interrupt
-descriptor, clear the corresponding vmcs02 control instead of
-killing the VM, so L2's accesses become ordinary EPT violations
-handled as MMIO; the successful re-resolution path sets the control
-back, so a later update re-backing the gfn heals the degradation
-without waiting for a nested VM-entry. The virtual-APIC page allows
-no such degradation (the TPR shadow is live, and the entry-time
-INVALID_GPA fallback would deliver a VMfailValid to an L1 whose
-VMLAUNCH retired long ago), and an unbacked gfn cannot be an error
-either: a routine DELETE-then-recreate reshuffle has a committed gap
-in which the gfn is genuinely absent, and the lazy revalidation runs
-inside that gap precisely because the DELETE's commit posted the
-request. So a vAPIC loss while L2 runs is ridden out like the
-in-flight window: the pending request keeps L2 un-enterable until a
-later update re-backs the gfn, and a userspace which never does
-leaves its vCPU retrying in KVM_RUN, as for RET_PF_RETRY. The PAE
-PDPTR reload runs only at
-entry-time resolution: PDPTRs latch at MOV CR3 and VM-entry, so a
-lazy revalidation must not re-derive them.
-
-Host-side (khva) readers do not need the pin.
-vmx_complete_nested_posted_interrupt() resolves both caches before
-entering either one's atomic read section, and
-vmx_has_nested_events(), which runs under set_current_state() in the
-block loop where a refresh must not sleep, uses a non-sleeping
-try-lock and reports "event pending" for an unusable cache, posting
-KVM_REQ_GET_NESTED_STATE_PAGES itself (a bare memslot-generation
-bump fails the check without anything else posting it): the bounce
-through vcpu_run re-establishes the cache and re-evaluates for real,
-and a failed activation deactivates the cache so an unbackable page
-cannot livelock that conservative answer. The try-lock takes
-kvm->srcu across its memslot-generation check; callers in the
-vcpu_block() loop run with the vCPU's srcu lock dropped.
-
-Dirty marking moves from the unmap path to gfn-based marking on
-every L2 exit (__vmx_handle_exit() already did that, making
-unmap-time marking redundant); the one software writer,
-__kvm_apic_update_irr(), marks at the write site.
-
-¹ https://lore.kernel.org/all/ZBEEQtmtNPaEqU1i@google.com
-
-Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
-Co-developed-by: David Woodhouse <dwmw@amazon.co.uk>
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
 ---
- arch/x86/kvm/vmx/nested.c | 483 ++++++++++++++++++++++++++++++++++----
- arch/x86/kvm/vmx/vmx.c    |  11 +-
- arch/x86/kvm/vmx/vmx.h    |  21 +-
- 3 files changed, 458 insertions(+), 57 deletions(-)
+ arch/x86/kernel/pci-dma.c            |   2 +
+ drivers/iommu/hyperv/Kconfig         |  13 +
+ drivers/iommu/hyperv/Makefile        |   1 +
+ drivers/iommu/hyperv/hv-iommu-root.c | 613 +++++++++++++++++++++++++++
+ include/asm-generic/mshyperv.h       |   3 +
+ include/linux/hyperv.h               |   6 +
+ 6 files changed, 638 insertions(+)
+ create mode 100644 drivers/iommu/hyperv/hv-iommu-root.c
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index bb0baa79c28c..23f1fff97917 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -320,14 +320,140 @@ static void vmx_switch_vmcs(struct kvm_vcpu *vcpu, struct loaded_vmcs *vmcs)
- 	kvm_reset_dirty_registers(vcpu);
+diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+index 75cf8f6ae8cd..560d8a4f6e1d 100644
+--- a/arch/x86/kernel/pci-dma.c
++++ b/arch/x86/kernel/pci-dma.c
+@@ -8,6 +8,7 @@
+ #include <linux/gfp.h>
+ #include <linux/pci.h>
+ #include <linux/amd-iommu.h>
++#include <linux/hyperv.h>
+ 
+ #include <asm/proto.h>
+ #include <asm/dma.h>
+@@ -103,6 +104,7 @@ void __init pci_iommu_alloc(void)
+ 	gart_iommu_hole_init();
+ 	amd_iommu_detect();
+ 	detect_intel_iommu();
++	hv_root_iommu_detect();
+ 	swiotlb_init(x86_swiotlb_enable, x86_swiotlb_flags);
  }
  
+diff --git a/drivers/iommu/hyperv/Kconfig b/drivers/iommu/hyperv/Kconfig
+index f2f993f647c3..6ba5125ed501 100644
+--- a/drivers/iommu/hyperv/Kconfig
++++ b/drivers/iommu/hyperv/Kconfig
+@@ -13,3 +13,16 @@ config HYPERV_PVIOMMU
+ 	  Microsoft Hyper-V. Provides DMA remapping and IOTLB
+ 	  flush support to enable DMA isolation for PCI devices
+ 	  assigned to the guest.
++
++config HYPERV_ROOT_IOMMU
++	bool "Hyper-V IOMMU Device in root partition"
++	depends on HYPERV && X86 && PCI_MSI && MSHV_ROOT
++	select IOMMU_API
++	default HYPERV
++	help
++	  This enables Hyper-V pseudo IOMMU device. When running as privileged
++	  VM aka root on Microsoft Hyper-V hypervisor, this must be enabled
++	  for doing any PCI passthru of devices to guest VMs. This applies to
++	  both PFs and VFs. When enabling this, it is best to disable amd/intel
++	  iommus via: intel_iommu=off amd_iommu=off as the hypervisor really
++	  owns the iommu.
+diff --git a/drivers/iommu/hyperv/Makefile b/drivers/iommu/hyperv/Makefile
+index d3b2a259439c..04c66b4409a3 100644
+--- a/drivers/iommu/hyperv/Makefile
++++ b/drivers/iommu/hyperv/Makefile
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0
+ obj-$(CONFIG_IRQ_REMAP) += hv-irq-remap-x86.o
+ obj-$(CONFIG_HYPERV_PVIOMMU) += hv-iommu-guest.o
++obj-$(CONFIG_HYPERV_ROOT_IOMMU) += hv-iommu-root.o
+diff --git a/drivers/iommu/hyperv/hv-iommu-root.c b/drivers/iommu/hyperv/hv-iommu-root.c
+new file mode 100644
+index 000000000000..e0e3e9d4385e
+--- /dev/null
++++ b/drivers/iommu/hyperv/hv-iommu-root.c
+@@ -0,0 +1,613 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Map a page of L1 memory, pin it for direct use by the guest (i.e. by
-+ * the CPU while running the L2 guest, via a physical address in vmcs02),
-+ * and return the host physical address to write into vmcs02. The pin
-+ * guarantees that if the mapping is invalidated, this vCPU is forced out
-+ * of guest mode and KVM_REQ_GET_NESTED_STATE_PAGES is posted so that the
-+ * address is re-established (or the vCPU exits to userspace) before the
-+ * next entry to guest mode.
++ * Hyper-V root vIOMMU driver.
++ * Copyright (C) 2026, Microsoft, Inc.
 + */
-+static int nested_gpc_hpa(struct gfn_to_pfn_cache *gpc, gpa_t gpa, hpa_t *hpa)
++#include <linux/pci.h>
++#include <linux/dma-map-ops.h>
++#include <linux/interval_tree.h>
++#include <linux/hyperv.h>
++#include <asm/iommu.h>
++#include <asm/mshyperv.h>
++#include "../dma-iommu.h"
++
++static dma_addr_t hv_iommu_max_iova;
++static struct iommu_domain_ops hv_paging_domain_ops;
++
++/* IOMMU device that we export to the world. MSHV supports max of one */
++static struct iommu_device hv_virt_iommu;
++
++struct hv_iommu_domain {
++	struct iommu_domain iommu_dom;
++	u32 domid_num;			      /* as opposed to domain_id.type */
++	spinlock_t mappings_lock;	      /* protects mappings_tree */
++	struct rb_root_cached mappings_tree;  /* iova to pa lookup tree */
++};
++
++#define to_hv_domain(d) container_of(d, struct hv_iommu_domain, iommu_dom)
++
++struct hv_iommu_mapping {
++	phys_addr_t paddr;
++	struct interval_tree_node iova;
++	u32 flags;
++};
++
++/*
++ * By default, during boot the hypervisor creates one Stage 2 (S2) default
++ * domain. It has two types:
++ *   S2 default: access to entire root partition memory. This for the host
++ *		 maps to IOMMU_DOMAIN_IDENTITY in the iommu subsystem, and
++ *		 is called HV_DEVICE_DOMAIN_ID_S2_DEFAULT in the hypervisor.
++ *		 (Linux renamed to : HV_DEVICE_DOMAIN_ID_DEFAULT)
++ *   S2 NULL: Blocks everything, ie, IOMMU_DOMAIN_BLOCKED in linux.
++ */
++
++/*
++ * Create dummy domains to correspond to hypervisor prebuilt default identity
++ * and null domains (dummy because we do not make hypercalls to create them).
++ */
++static struct hv_iommu_domain hv_def_identity_dom;
++static struct hv_iommu_domain hv_def_blocked_dom;
++
++/*
++ * The hypervisor owns the IOMMU. As such it will choose the best page size
++ * and whenever possible use larger page sizes automatically. The map gpa
++ * hypercall to map the iova however currently uses only 4K pfns as input.
++ * So we specify 4K as the IOMMU PAGE_SIZE.
++ */
++#define HV_IOMMU_PGSIZES SZ_4K
++
++static DEFINE_IDA(hv_iommu_domids);   /* unique numeric ids for new domains */
++
++static bool hv_iommu_capable(struct device *dev, enum iommu_cap cap)
 +{
-+	int idx;
++	switch (cap) {
++	case IOMMU_CAP_CACHE_COHERENCY:
++		return true;
++	default:
++		return false;
++	}
++}
 +
-+	do {
-+		idx = kvm_gpc_lock_page(gpc, gpa);
-+		if (idx == -EFAULT) {
-+			struct kvm_memory_slot *slot;
++static int hv_iommu_add_tree_mapping(struct hv_iommu_domain *hvdom, ulong iova,
++				     phys_addr_t paddr, size_t size, u32 flags,
++				     gfp_t gfp)
++{
++	ulong irqflags;
++	struct hv_iommu_mapping *mapping;
 +
-+			/*
-+			 * An unbackable gfn and a memslot mid-update (a
-+			 * DELETE or MOVE keeps a KVM_MEMSLOT_INVALID
-+			 * placeholder installed until it commits) both fail
-+			 * uHVA resolution with -EFAULT. Distinguish them:
-+			 * finding the placeholder in the active memslots
-+			 * (kvm->srcu is held by every caller) means the
-+			 * failure is transient, and the callers' -EAGAIN
-+			 * handling — re-post the request, don't enter L2 —
-+			 * is what must ride it out; only a truly absent
-+			 * slot means the page is unbacked.
-+			 */
-+			slot = gfn_to_memslot(gpc->kvm, gpa_to_gfn(gpa));
-+			if (slot && (slot->flags & KVM_MEMSLOT_INVALID))
-+				return -EAGAIN;
-+		}
-+		if (idx < 0)
-+			return idx;
++	mapping = kzalloc_obj(struct hv_iommu_mapping, gfp);
++	if (!mapping)
++		return -ENOMEM;
 +
-+		/*
-+		 * The pin can fail only if an invalidation cleared the
-+		 * valid bit after kvm_gpc_lock_page() checked it; go back
-+		 * around to refresh (which will not complete until the
-+		 * invalidation is over) and try again.
-+		 */
-+		if (kvm_gpc_pin_for_guest(gpc))
-+			break;
++	mapping->paddr = paddr;
++	mapping->iova.start = iova;
++	mapping->iova.last = iova + size - 1;
++	mapping->flags = flags;
 +
-+		kvm_gpc_unlock(gpc, idx);
-+	} while (1);
++	spin_lock_irqsave(&hvdom->mappings_lock, irqflags);
++	interval_tree_insert(&mapping->iova, &hvdom->mappings_tree);
++	spin_unlock_irqrestore(&hvdom->mappings_lock, irqflags);
 +
-+	*hpa = pfn_to_hpa(gpc->pfn);
-+	kvm_gpc_unlock(gpc, idx);
 +	return 0;
 +}
 +
-+/*
-+ * Try to lock an already-configured cache for host-side (khva) access,
-+ * without sleeping. Returns -ENOENT if the cache is not active (e.g.
-+ * posted interrupts not configured for this L2), -EWOULDBLOCK if it is
-+ * active but currently invalidated (only a sleeping refresh would make
-+ * it usable). Does not pin; the mapping is stable only until
-+ * kvm_gpc_unlock().
-+ */
-+static int nested_gpc_try_lock_if_active(struct gfn_to_pfn_cache *gpc)
++/* If both size and iova are 0, then last = ULONG_MAX will remove everything */
++static size_t hv_iommu_del_tree_mappings(struct hv_iommu_domain *hvdom,
++					 ulong iova, size_t size)
 +{
-+	int idx, srcu_idx;
-+	bool usable;
++	ulong flags;
++	size_t unmapped = 0;
++	ulong last = iova + size - 1;
++	struct hv_iommu_mapping *mapping = NULL;
++	struct interval_tree_node *node, *next;
 +
-+	/*
-+	 * The caches are initialized at vCPU creation, so gpc->kvm is
-+	 * always valid; !active covers a cache never activated (or since
-+	 * deactivated) for this L2. Deactivation only happens on this
-+	 * vCPU (under vcpu->mutex), so the check cannot race with the
-+	 * lock which follows it.
-+	 */
-+	if (!gpc->active)
-+		return -ENOENT;
++	spin_lock_irqsave(&hvdom->mappings_lock, flags);
++	next = interval_tree_iter_first(&hvdom->mappings_tree, iova, last);
++	while (next) {
++		node = next;
++		mapping = container_of(node, struct hv_iommu_mapping, iova);
++		next = interval_tree_iter_next(node, iova, last);
 +
-+	idx = srcu_read_lock_atomic(&gpc->kvm->gpc_srcu);
-+	if (!gpc->active) {
-+		srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
-+		return -ENOENT;
++		/* Splitting of a mapping is not supported at present */
++		if (mapping->iova.start < iova)
++			break;
++
++		unmapped += mapping->iova.last - mapping->iova.start + 1;
++
++		interval_tree_remove(node, &hvdom->mappings_tree);
++		kfree(mapping);
 +	}
++	spin_unlock_irqrestore(&hvdom->mappings_lock, flags);
 +
-+	/*
-+	 * kvm_gpc_check() consults kvm_memslots() (for the generation of
-+	 * a GPA-based cache), which is protected by kvm->srcu — and not
-+	 * every caller holds that: kvm_arch_vcpu_runnable() runs from the
-+	 * vcpu_block() loop with the vCPU's srcu lock deliberately
-+	 * dropped. Take it across the check; the khva the caller then
-+	 * reads is protected by gpc_srcu, not kvm->srcu.
-+	 */
-+	srcu_idx = srcu_read_lock(&gpc->kvm->srcu);
-+	usable = kvm_gpc_check(gpc, PAGE_SIZE);
-+	srcu_read_unlock(&gpc->kvm->srcu, srcu_idx);
++	return unmapped;
++}
 +
-+	if (!usable) {
-+		srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
-+		return -EWOULDBLOCK;
-+	}
++/* Create a new device domain in the hypervisor */
++static int hv_iommu_create_hyp_devdom(struct hv_iommu_domain *hvdom)
++{
++	u64 status;
++	struct hv_input_device_domain *ddp;
++	struct hv_input_create_device_domain *input;
++	ulong flags;
 +
-+	return idx;
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
++
++	ddp = &input->device_domain;
++	ddp->partition_id = HV_PARTITION_ID_SELF;
++	ddp->domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	ddp->domain_id.id = hvdom->domid_num;
++
++	input->create_device_domain_flags.forward_progress_required = 1;
++	input->create_device_domain_flags.inherit_owning_vtl = 0;
++
++	status = hv_do_hypercall(HVCALL_CREATE_DEVICE_DOMAIN, input, NULL);
++
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "\n");
++
++	return hv_result_to_errno(status);
++}
++
++static struct iommu_domain *hv_iommu_domain_alloc_paging(struct device *dev)
++{
++	struct hv_iommu_domain *hvdom;
++	int rc;
++
++	if (!dev_is_pci(dev))
++		return NULL;
++
++	hvdom = kzalloc_obj(struct hv_iommu_domain);
++	if (hvdom == NULL)
++		return ERR_PTR(-ENOMEM);
++
++	spin_lock_init(&hvdom->mappings_lock);
++	hvdom->mappings_tree = RB_ROOT_CACHED;
++
++	rc = ida_alloc_range(&hv_iommu_domids,
++			     HV_DEVICE_DOMAIN_ID_DEFAULT + 1,
++			     HV_DEVICE_DOMAIN_ID_NULL - 1, GFP_KERNEL);
++	if (rc < 0)
++		goto out_err;
++
++	hvdom->domid_num = rc;
++	hvdom->iommu_dom.pgsize_bitmap = HV_IOMMU_PGSIZES;
++	hvdom->iommu_dom.geometry.aperture_start = 0;
++	hvdom->iommu_dom.geometry.aperture_end = hv_iommu_max_iova;
++	hvdom->iommu_dom.geometry.force_aperture = true;
++	hvdom->iommu_dom.ops = &hv_paging_domain_ops;
++
++	rc = hv_iommu_create_hyp_devdom(hvdom);
++	if (rc)
++		goto out_err1;
++
++	return &hvdom->iommu_dom;
++
++out_err1:
++	ida_free(&hv_iommu_domids, hvdom->domid_num);
++out_err:
++	kfree(hvdom);
++	return ERR_PTR(rc);
++}
++
++static void hv_iommu_domain_free(struct iommu_domain *immdom)
++{
++	ulong flags;
++	u64 status;
++	struct hv_input_delete_device_domain *input;
++	struct hv_input_device_domain *ddp;
++	struct hv_iommu_domain *hvdom = to_hv_domain(immdom);
++
++	/* Cleanup any remaining. 0 for size results in ULONG_MAX as the last */
++	hv_iommu_del_tree_mappings(hvdom, 0, 0);
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	ddp = &input->device_domain;
++	memset(input, 0, sizeof(*input));
++
++	ddp->partition_id = HV_PARTITION_ID_SELF;
++	ddp->domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	ddp->domain_id.id = hvdom->domid_num;
++
++	status = hv_do_hypercall(HVCALL_DELETE_DEVICE_DOMAIN, input,
++				 NULL);
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "\n");
++
++	ida_free(&hv_iommu_domids, hvdom->domid_num);
++	kfree(hvdom);
 +}
 +
 +/*
-+ * As above, but refresh the cache if it has been invalidated. May sleep;
-+ * callers must be in a sleepable context (in particular, NOT under
-+ * set_current_state() in a block loop, and not in a VM-exit fastpath).
++ * Attach a device to the default domain, or the null domain, or to a domain
++ * previously created in the hypervisor.
 + */
-+static int nested_gpc_lock_if_active(struct gfn_to_pfn_cache *gpc)
++static int hv_iommu_att_dev2dom(struct hv_iommu_domain *hvdom,
++				struct pci_dev *pdev)
 +{
-+	int idx, err;
++	ulong flags;
++	u64 status;
++	struct hv_input_attach_device_domain *input;
 +
-+	while ((idx = nested_gpc_try_lock_if_active(gpc)) == -EWOULDBLOCK) {
-+		err = kvm_gpc_refresh(gpc, PAGE_SIZE);
-+		if (err)
-+			return err;
-+	}
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
 +
-+	return idx;
++	/* For null domain, hvdom->domid_num == HV_DEVICE_DOMAIN_ID_NULL */
++	input->device_domain.partition_id = HV_PARTITION_ID_SELF;
++	input->device_domain.domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	input->device_domain.domain_id.id = hvdom->domid_num;
++
++	input->device_id.as_uint64 = hv_build_devid_type_pci(pdev);
++
++	status = hv_do_hypercall(HVCALL_ATTACH_DEVICE_DOMAIN, input, NULL);
++	local_irq_restore(flags);
++
++	if (hv_result_success(status) ||
++	    hv_result(status) == HV_STATUS_DEVICE_ALREADY_IN_DOMAIN)
++		return 0;
++
++	hv_status_err(status, "\n");
++	return hv_result_to_errno(status);
 +}
 +
-+static struct pi_desc *nested_pi_desc(struct vcpu_vmx *vmx)
++static int hv_iommu_attach_dev(struct iommu_domain *immdom, struct device *dev,
++			       struct iommu_domain *old)
 +{
-+	return (struct pi_desc *)((u8 *)vmx->nested.pi_desc_cache.khva +
-+				  vmx->nested.pi_desc_offset);
++	struct pci_dev *pdev;
++	int rc;
++	struct hv_iommu_domain *hvdom = to_hv_domain(immdom);
++
++	pdev = to_pci_dev(dev);
++
++	rc = hv_iommu_att_dev2dom(hvdom, pdev);
++	if (rc)
++		WARN(1, "Failed to attach pdev:%s\n", pci_name(pdev));
++
++	return rc;
 +}
 +
- static void nested_put_vmcs12_pages(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
- 
--	kvm_vcpu_unmap(vcpu, &vmx->nested.apic_access_page_map);
--	kvm_vcpu_unmap(vcpu, &vmx->nested.virtual_apic_map);
--	kvm_vcpu_unmap(vcpu, &vmx->nested.pi_desc_map);
--	vmx->nested.pi_desc = NULL;
-+	kvm_gpc_unpin_for_guest(&vmx->nested.apic_access_page_cache);
-+	kvm_gpc_unpin_for_guest(&vmx->nested.virtual_apic_cache);
-+	kvm_gpc_unpin_for_guest(&vmx->nested.pi_desc_cache);
- }
- 
- /*
-@@ -346,6 +472,7 @@ static void free_nested(struct kvm_vcpu *vcpu)
- 		return;
- 
- 	kvm_clear_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
-+	vmx->nested.resume_pending = false;
- 
- 	vmx->nested.vmxon = false;
- 	vmx->nested.smm.vmxon = false;
-@@ -370,10 +497,13 @@ static void free_nested(struct kvm_vcpu *vcpu)
- 	kfree(vmx->nested.cached_shadow_vmcs12);
- 	vmx->nested.cached_shadow_vmcs12 = NULL;
- 
--	kvm_gpc_deactivate(&vmx->nested.msr_bitmap_cache);
--
- 	nested_put_vmcs12_pages(vcpu);
- 
-+	kvm_gpc_deactivate(&vmx->nested.pi_desc_cache);
-+	kvm_gpc_deactivate(&vmx->nested.virtual_apic_cache);
-+	kvm_gpc_deactivate(&vmx->nested.apic_access_page_cache);
-+	kvm_gpc_deactivate(&vmx->nested.msr_bitmap_cache);
++static u64 hv_iommu_unmap_batch(u32 domid_num, ulong iova, u16 count)
++{
++	ulong flags;
++	struct hv_input_unmap_device_gpa_pages *input;
++	u64 status;
 +
- 	kvm_mmu_free_roots(vcpu->kvm, &vcpu->arch.guest_mmu, KVM_MMU_ROOTS_ALL);
- 
- 	nested_release_evmcs(vcpu);
-@@ -408,6 +538,20 @@ void nested_vmx_init_caches(struct kvm_vcpu *vcpu)
- 	 * (which also means never marking it dirty).
- 	 */
- 	__kvm_gpc_init(&vmx->nested.msr_bitmap_cache, vcpu->kvm, false, true, NULL, 0);
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
 +
-+	/*
-+	 * The pfns of these three caches are handed to the CPU in vmcs02
-+	 * fields, for direct use while running the L2 guest. Pinning them
-+	 * for guest use makes an invalidation force this vCPU out of
-+	 * guest mode and post KVM_REQ_GET_NESTED_STATE_PAGES, whose
-+	 * handler re-establishes them before the next entry.
-+	 */
-+	kvm_gpc_init_for_vcpu(&vmx->nested.apic_access_page_cache, vcpu,
-+			      KVM_REQ_GET_NESTED_STATE_PAGES);
-+	kvm_gpc_init_for_vcpu(&vmx->nested.virtual_apic_cache, vcpu,
-+			      KVM_REQ_GET_NESTED_STATE_PAGES);
-+	kvm_gpc_init_for_vcpu(&vmx->nested.pi_desc_cache, vcpu,
-+			      KVM_REQ_GET_NESTED_STATE_PAGES);
- }
- 
- #define EPTP_PA_MASK   GENMASK_ULL(51, 12)
-@@ -3467,41 +3611,117 @@ static bool nested_get_evmcs_page(struct kvm_vcpu *vcpu)
- }
- #endif
- 
--static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
-+static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu, bool lazy)
- {
- 	struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
--	struct kvm_host_map *map;
-+	hpa_t hpa;
- 
--	if (!vcpu->arch.pdptrs_from_userspace &&
-+	if (!lazy && !vcpu->arch.pdptrs_from_userspace &&
- 	    !nested_cpu_has_ept(vmcs12) && is_pae_paging(vcpu)) {
- 		/*
- 		 * Reload the guest's PDPTRs since after a migration
- 		 * the guest CR3 might be restored prior to setting the nested
--		 * state which can lead to a load of wrong PDPTRs.
-+		 * state which can lead to a load of wrong PDPTRs. Only at
-+		 * entry-time resolution: PDPTRs latch at MOV CR3 and
-+		 * VM-entry, so a lazy revalidation (a memslot update while
-+		 * L2 runs) must not re-derive them at a moment the
-+		 * architecture does not allow.
- 		 */
--		if (CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
-+		if (CC(!load_pdptrs(vcpu, vcpu->arch.cr3))) {
-+			/*
-+			 * Report the unusable PDPT rather than return to
-+			 * userspace with a stale exit_reason.
-+			 */
-+			vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
-+			vcpu->run->internal.suberror =
-+				KVM_INTERNAL_ERROR_EMULATION;
-+			vcpu->run->internal.ndata = 0;
- 			return false;
-+		}
- 	}
- 
- 
- 	if (nested_cpu_has2(vmcs12, SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)) {
--		map = &vmx->nested.apic_access_page_map;
--
--		if (!kvm_vcpu_map(vcpu, gpa_to_gfn(vmcs12->apic_access_addr), map)) {
--			vmcs_write64(APIC_ACCESS_ADDR, pfn_to_hpa(map->pfn));
--		} else {
-+		int err = nested_gpc_hpa(&vmx->nested.apic_access_page_cache,
-+					 vmcs12->apic_access_addr, &hpa);
-+		if (!err) {
-+			vmcs_write64(APIC_ACCESS_ADDR, hpa);
-+			/*
-+			 * Undo any earlier lazy degradation: once the page
-+			 * is backed again the vmcs02 control must match
-+			 * vmcs12, and prepare_vmcs02_early() only runs at
-+			 * nested VM-entry, which a vCPU parked in L2 may
-+			 * not reach for a long time.
-+			 */
-+			secondary_exec_controls_setbit(vmx,
-+				SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES);
-+		} else if (err == -EAGAIN) {
-+			kvm_gpc_unpin_for_guest(&vmx->nested.apic_access_page_cache);
-+			kvm_gpc_deactivate(&vmx->nested.apic_access_page_cache);
-+			goto retry;
-+		} else if (!lazy) {
-+			/*
-+			 * Entry-time resolution (VMLAUNCH/VMRESUME, or resume
-+			 * from KVM_SET_NESTED_STATE): an unbackable
-+			 * APIC-access page is a misconfiguration to report,
-+			 * not a transient to ride out.
-+			 */
- 			pr_debug_ratelimited("%s: no backing for APIC-access address in vmcs12\n",
- 					     __func__);
-+			vcpu->run->exit_reason = KVM_EXIT_INTERNAL_ERROR;
-+			vcpu->run->internal.suberror =
-+				KVM_INTERNAL_ERROR_EMULATION;
-+			vcpu->run->internal.ndata = 0;
-+			kvm_gpc_unpin_for_guest(&vmx->nested.apic_access_page_cache);
-+			kvm_gpc_deactivate(&vmx->nested.apic_access_page_cache);
- 			return false;
-+		} else {
-+			/*
-+			 * Lazy revalidation (a memslot update or invalidation
-+			 * while L2 runs) found the gfn unbacked: userspace
-+			 * yanked the backing from under a running L2. Turn
-+			 * off the APIC-access match for vmcs02 instead of
-+			 * killing the VM; L2's accesses to the page then take
-+			 * ordinary EPT violations on an unbacked gfn and are
-+			 * handled (or reported) as MMIO, exactly as a
-+			 * non-nested guest touching the same gpa would be.
-+			 * prepare_vmcs02_early() recomputes the control from
-+			 * vmcs12 on the next nested entry, and a later
-+			 * memslot update which re-backs the gfn re-posts the
-+			 * request and re-latches the page, so the
-+			 * degradation heals itself.
-+			 */
-+			kvm_gpc_unpin_for_guest(&vmx->nested.apic_access_page_cache);
-+			kvm_gpc_deactivate(&vmx->nested.apic_access_page_cache);
-+			secondary_exec_controls_clearbit(vmx,
-+				SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES);
- 		}
- 	}
- 
- 	if (nested_cpu_has(vmcs12, CPU_BASED_TPR_SHADOW)) {
--		map = &vmx->nested.virtual_apic_map;
-+		int vapic_err = nested_gpc_hpa(&vmx->nested.virtual_apic_cache,
-+					       vmcs12->virtual_apic_page_addr, &hpa);
++	input->device_domain.partition_id = HV_PARTITION_ID_SELF;
++	input->device_domain.domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	input->device_domain.domain_id.id = domid_num;
++	input->target_device_va_base = iova;
 +
-+		/*
-+		 * On failure, deactivate the cache: an active-but-invalid
-+		 * cache would read as "might have an event" to the
-+		 * non-sleeping check in vmx_has_nested_events(), causing
-+		 * spurious wakeups for as long as the page remains
-+		 * unbackable.
-+		 */
-+		if (vapic_err) {
-+			kvm_gpc_unpin_for_guest(&vmx->nested.virtual_apic_cache);
-+			kvm_gpc_deactivate(&vmx->nested.virtual_apic_cache);
-+		}
- 
--		if (!kvm_vcpu_map(vcpu, gpa_to_gfn(vmcs12->virtual_apic_page_addr), map)) {
--			vmcs_write64(VIRTUAL_APIC_PAGE_ADDR, pfn_to_hpa(map->pfn));
-+		if (vapic_err == -EAGAIN)
-+			goto retry;
++	status = hv_do_rep_hypercall(HVCALL_UNMAP_DEVICE_GPA_PAGES, count,
++				     0, input, NULL);
++	local_irq_restore(flags);
 +
-+		if (!vapic_err) {
-+			vmcs_write64(VIRTUAL_APIC_PAGE_ADDR, hpa);
-+			/* As for the APIC-access page: undo a lazy degrade. */
-+			exec_controls_setbit(vmx, CPU_BASED_TPR_SHADOW);
- 		} else if (nested_cpu_has(vmcs12, CPU_BASED_CR8_LOAD_EXITING) &&
- 		           nested_cpu_has(vmcs12, CPU_BASED_CR8_STORE_EXITING) &&
- 			   !nested_cpu_has2(vmcs12, SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)) {
-@@ -3514,6 +3734,27 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 			 * only possibility we have.
- 			 */
- 			exec_controls_clearbit(vmx, CPU_BASED_TPR_SHADOW);
-+		} else if (lazy) {
-+			/*
-+			 * Unlike the two sibling pages, a vAPIC loss cannot
-+			 * be degraded around: the TPR shadow is live. Nor is
-+			 * the entry-time INVALID_GPA fallback usable here —
-+			 * the resulting hardware VM-entry failure would be
-+			 * delivered as VMfailValid to an L1 whose VMLAUNCH
-+			 * retired long ago, rewinding L2. Nor can an unbacked
-+			 * gfn be reported as an error: a routine userspace
-+			 * DELETE-then-recreate reshuffle has a committed gap
-+			 * in which the gfn is genuinely absent, and this
-+			 * revalidation runs inside it precisely because the
-+			 * DELETE's commit posted the request. Ride it out
-+			 * exactly like the in-flight window: keep the
-+			 * request pending so L2 cannot be entered, and let
-+			 * the recreate (whose commit posts again) supply the
-+			 * page. A userspace which never re-backs the gfn
-+			 * leaves the vCPU retrying in KVM_RUN indefinitely —
-+			 * as for RET_PF_RETRY, that is its own doing.
-+			 */
-+			goto retry;
- 		} else {
- 			/*
- 			 * Write an illegal value to VIRTUAL_APIC_PAGE_ADDR to
-@@ -3524,14 +3765,15 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 	}
- 
- 	if (nested_cpu_has_posted_intr(vmcs12)) {
--		map = &vmx->nested.pi_desc_map;
--
--		if (!kvm_vcpu_map(vcpu, gpa_to_gfn(vmcs12->posted_intr_desc_addr), map)) {
--			vmx->nested.pi_desc =
--				(struct pi_desc *)(((void *)map->hva) +
--				offset_in_page(vmcs12->posted_intr_desc_addr));
-+		int pi_err = nested_gpc_hpa(&vmx->nested.pi_desc_cache,
-+					    vmcs12->posted_intr_desc_addr & PAGE_MASK, &hpa);
-+		if (!pi_err) {
-+			vmx->nested.pi_desc_offset =
-+				offset_in_page(vmcs12->posted_intr_desc_addr);
- 			vmcs_write64(POSTED_INTR_DESC_ADDR,
--				     pfn_to_hpa(map->pfn) + offset_in_page(vmcs12->posted_intr_desc_addr));
-+				     hpa + offset_in_page(vmcs12->posted_intr_desc_addr));
-+			/* As for the APIC-access page: undo a lazy degrade. */
-+			pin_controls_setbit(vmx, PIN_BASED_POSTED_INTR);
- 		} else {
- 			/*
- 			 * Defer the KVM_INTERNAL_EXIT until KVM tries to
-@@ -3539,7 +3781,10 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 			 * descriptor. (Note that KVM may do this when it
- 			 * should not, per the architectural specification.)
- 			 */
--			vmx->nested.pi_desc = NULL;
-+			kvm_gpc_unpin_for_guest(&vmx->nested.pi_desc_cache);
-+			kvm_gpc_deactivate(&vmx->nested.pi_desc_cache);
-+			if (pi_err == -EAGAIN)
-+				goto retry;
- 			pin_controls_clearbit(vmx, PIN_BASED_POSTED_INTR);
- 		}
- 	}
-@@ -3549,9 +3794,27 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 		exec_controls_clearbit(vmx, CPU_BASED_USE_MSR_BITMAPS);
- 
- 	return true;
++	if (!hv_result_success(status))
++		hv_status_err(status, "iova:0x%lx count:0x%x\n", iova, count);
 +
-+retry:
-+	/*
-+	 * The gfn's memslot is being moved or deleted: present but
-+	 * flagged invalid, so the lookup failure is transient and the
-+	 * gfn must not (yet) be treated as unbacked. Re-post the
-+	 * request and report success: the pending request prevents
-+	 * any VM entry (vcpu_enter_guest() bails and reprocesses
-+	 * requests), so L2 cannot run with the partially-updated
-+	 * vmcs02, and the vCPU retries here until the memslot update
-+	 * completes or reverts. This mirrors RET_PF_RETRY for
-+	 * ordinary guest faults on an invalid slot; as there, a
-+	 * userspace which never completes the update leaves the vCPU
-+	 * retrying indefinitely, with signals and request processing
-+	 * still serviced.
-+	 */
-+	kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
-+	return true;
- }
- 
--static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
-+static bool __vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
- {
- #ifdef CONFIG_KVM_HYPERV
- 	/*
-@@ -3567,9 +3830,39 @@ static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
- 	}
- #endif
- 
--	if (is_guest_mode(vcpu) && !nested_get_vmcs12_pages(vcpu))
-+	if (is_guest_mode(vcpu) &&
-+	    !nested_get_vmcs12_pages(vcpu, !to_vmx(vcpu)->nested.resume_pending))
- 		return false;
- 
-+	/*
-+	 * Success consumes the resume classification (a -EAGAIN retry
-+	 * "succeeds" too: the resume did all it could against a memslot
-+	 * mid-update, and the re-posted request's consumption is a fresh
-+	 * revalidation like any other).
-+	 */
-+	to_vmx(vcpu)->nested.resume_pending = false;
-+	return true;
++	return status;
 +}
 +
-+static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
++static size_t hv_iommu_hyp_unmap_pages(struct iommu_domain *immdom, ulong iova,
++				       size_t size)
 +{
-+	if (!__vmx_get_nested_state_pages(vcpu)) {
-+		/*
-+		 * The caller (vcpu_enter_guest) consumed
-+		 * KVM_REQ_GET_NESTED_STATE_PAGES before calling in, and a
-+		 * failure here may leave a previously latched — and, after
-+		 * an invalidation, stale and unreferenced — physical
-+		 * address in vmcs02. Re-post the request so that no path
-+		 * can re-enter L2 without retrying this function: the
-+		 * invariant is that a stale latched address always implies
-+		 * a pending request. If the failure persists, the vCPU
-+		 * bounces to userspace on every KVM_RUN rather than ever
-+		 * entering L2, which is the invariant doing its job.
-+		 */
-+		kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
-+		return false;
++	u64 status;
++	struct hv_iommu_domain *hvdom = to_hv_domain(immdom);
++	size_t tot_done = 0;
++	ulong npages = size >> HV_HYP_PAGE_SHIFT;
++
++	while (npages) {
++		int done, count = min(npages, HV_REP_COUNT_MAX);
++
++		status = hv_iommu_unmap_batch(hvdom->domid_num, iova, count);
++
++		done = hv_repcomp(status);
++		tot_done += done;
++		npages -= done;
++		iova += done << HV_HYP_PAGE_SHIFT;
++
++		if (!hv_result_success(status))
++			break;
 +	}
 +
- 	return true;
- }
- 
-@@ -3698,7 +3991,7 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 	prepare_vmcs02_early(vmx, &vmx->vmcs01, vmcs12);
- 
- 	if (from_vmentry) {
--		if (unlikely(!nested_get_vmcs12_pages(vcpu))) {
-+		if (unlikely(!nested_get_vmcs12_pages(vcpu, false))) {
- 			vmx_switch_vmcs(vcpu, &vmx->vmcs01);
- 			return NVMX_VMENTRY_KVM_INTERNAL_ERROR;
- 		}
-@@ -3736,6 +4029,7 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 		 * to nested_get_vmcs12_pages before the next VM-entry.  The MSRs
- 		 * have already been set at vmentry time and should not be reset.
- 		 */
-+		vmx->nested.resume_pending = true;
- 		kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
- 	}
- 
-@@ -3792,13 +4086,19 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- vmentry_fail_vmexit:
- 	vmx_switch_vmcs(vcpu, &vmx->vmcs01);
- 
-+	/*
-+	 * Release any guest-mode pins taken by nested_get_vmcs12_pages()
-+	 * during this failed entry: this path returns to L1 without going
-+	 * through __nested_vmx_vmexit(), which is where they are normally
-+	 * dropped. (Idempotent if a later vmexit drops them again.)
-+	 */
-+	nested_put_vmcs12_pages(vcpu);
++	return tot_done << HV_HYP_PAGE_SHIFT;
++}
 +
- 	if (!from_vmentry) {
- 		nested_ept_uninit_mmu_context(vcpu);
- 		return NVMX_VMENTRY_VMEXIT;
- 	}
- 
--	nested_put_vmcs12_pages(vcpu);
--
- 	load_vmcs12_host_state(vcpu, vmcs12);
- 	vmcs12->vm_exit_reason = exit_reason.full;
- 	if (enable_shadow_vmcs || nested_vmx_is_evmptr12_valid(vmx))
-@@ -4054,6 +4354,8 @@ static void vmcs12_save_pending_event(struct kvm_vcpu *vcpu,
- static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
-+	int pi_idx, vapic_idx;
-+	struct pi_desc *pi_desc;
- 	int max_irr;
- 	void *vapic_page;
- 	u16 status;
-@@ -4061,22 +4363,58 @@ static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
- 	if (!vmx->nested.pi_pending)
- 		return 0;
- 
--	if (!vmx->nested.pi_desc)
-+	/*
-+	 * Resolve both caches before touching the descriptor: taking one
-+	 * cache's lock inside the other's would sleep in refresh (and
-+	 * wait a grace period on the gpc_srcu domain this task already
-+	 * reads) with preemption disabled. The vAPIC lock may go unused
-+	 * (no pending vector), and its absence only matters once a
-+	 * vector is found, so a failure is remembered, not acted on.
-+	 */
-+retry:
-+	vapic_idx = nested_gpc_lock_if_active(&vmx->nested.virtual_apic_cache);
++static size_t hv_iommu_unmap_pages(struct iommu_domain *immdom, ulong iova,
++				   size_t pgsize, size_t pgcount,
++				   struct iommu_iotlb_gather *gather)
++{
++	struct hv_iommu_domain *hvdom = to_hv_domain(immdom);
++	size_t unmap_sz, size = pgsize * pgcount;
 +
-+	pi_idx = nested_gpc_try_lock_if_active(&vmx->nested.pi_desc_cache);
-+	if (pi_idx == -EWOULDBLOCK) {
-+		if (vapic_idx >= 0)
-+			kvm_gpc_unlock(&vmx->nested.virtual_apic_cache,
-+				       vapic_idx);
-+		if (kvm_gpc_refresh(&vmx->nested.pi_desc_cache, PAGE_SIZE))
-+			goto mmio_needed;
-+		goto retry;
-+	}
-+	if (pi_idx < 0) {
-+		if (vapic_idx >= 0)
-+			kvm_gpc_unlock(&vmx->nested.virtual_apic_cache,
-+				       vapic_idx);
- 		goto mmio_needed;
-+	}
- 
-+	pi_desc = nested_pi_desc(vmx);
- 	vmx->nested.pi_pending = false;
- 
--	if (!pi_test_and_clear_on(vmx->nested.pi_desc))
-+	if (!pi_test_and_clear_on(pi_desc)) {
-+		kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
-+		if (vapic_idx >= 0)
-+			kvm_gpc_unlock(&vmx->nested.virtual_apic_cache,
-+				       vapic_idx);
- 		return 0;
-+	}
- 
--	max_irr = pi_find_highest_vector(vmx->nested.pi_desc);
-+	max_irr = pi_find_highest_vector(pi_desc);
- 	if (max_irr > 0) {
--		vapic_page = vmx->nested.virtual_apic_map.hva;
--		if (!vapic_page)
-+		if (vapic_idx < 0) {
-+			/* The ON bit is already cleared: mark the write. */
-+			kvm_gpc_mark_dirty_in_slot(&vmx->nested.pi_desc_cache);
-+			kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
- 			goto mmio_needed;
++	/* For valid input, the hypervisor guarantees unmap will succeed */
++	unmap_sz = hv_iommu_hyp_unmap_pages(immdom, iova, size);
++	if (unmap_sz != size)
++		WARN(1, "Failed to unmap device gpa(%lx/%lx)\n", unmap_sz,
++		     size);
++
++	if (unmap_sz == 0)
++		return 0;
++
++	size = hv_iommu_del_tree_mappings(hvdom, iova, unmap_sz);
++	if (size != unmap_sz)
++		pr_err("%s: could not delete tree mappings (%lx:%lx/%lx)\n",
++		       __func__, iova, unmap_sz, size);
++
++	return size;
++}
++
++/* Return: must return exact status from the hypercall without changes */
++static u64 hv_iommu_map_pgs(struct hv_iommu_domain *hvdom, ulong iova,
++			    phys_addr_t paddr, ulong npages, u32 map_flags)
++{
++	u64 status;
++	int i;
++	struct hv_input_map_device_gpa_pages *input;
++	unsigned long flags, pfn;
++
++	local_irq_save(flags);
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(input, 0, sizeof(*input));
++
++	input->device_domain.partition_id = HV_PARTITION_ID_SELF;
++	input->device_domain.domain_id.type = HV_DEVICE_DOMAIN_TYPE_S2;
++	input->device_domain.domain_id.id = hvdom->domid_num;
++	input->map_flags = map_flags;
++	input->target_device_va_base = iova;
++
++	pfn = paddr >> HV_HYP_PAGE_SHIFT;
++	for (i = 0; i < npages; i++, pfn++)
++		input->gpa_page_list[i] = pfn;
++
++	status = hv_do_rep_hypercall(HVCALL_MAP_DEVICE_GPA_PAGES, npages, 0,
++				     input, NULL);
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status) && !hv_result_needs_memory(status))
++		hv_status_err(status, "npgs:%lx paddr:%llx iova:%lx mf:0x%x\n",
++			      npages, paddr, iova, map_flags);
++	return status;
++}
++
++#define HV_MAP_DEVICE_GPA_BATCH_SIZE   \
++	((HV_HYP_PAGE_SIZE - sizeof(struct hv_input_map_device_gpa_pages)) \
++			/ sizeof(u64))
++
++/* NB: cond_resched() is in vfio_iommu_map() */
++static int hv_iommu_map_pages(struct iommu_domain *immdom, ulong iova,
++			      phys_addr_t paddr, size_t pgsize, size_t pgcount,
++			      int prot, gfp_t gfp, size_t *mapped)
++{
++	u32 map_flags;
++	int ret;
++	u64 status = 0;
++	ulong npages, sav_iova = iova, done = 0;
++	struct hv_iommu_domain *hvdom = to_hv_domain(immdom);
++	size_t size = pgsize * pgcount;
++
++	map_flags = HV_MAP_GPA_READABLE;	/* required */
++	map_flags |= prot & IOMMU_WRITE ? HV_MAP_GPA_WRITABLE : 0;
++
++	ret = hv_iommu_add_tree_mapping(hvdom, iova, paddr, size, map_flags,
++					gfp);
++	if (ret)
++		return ret;
++
++	npages = size >> HV_HYP_PAGE_SHIFT;
++	while (done < npages) {
++		ulong completed, remain = npages - done;
++
++		remain = min(remain, HV_MAP_DEVICE_GPA_BATCH_SIZE);
++
++		status = hv_iommu_map_pgs(hvdom, iova, paddr, remain,
++					  map_flags);
++
++		completed = hv_repcomp(status);
++		done = done + completed;
++		iova = iova + (completed << HV_HYP_PAGE_SHIFT);
++		paddr = paddr + (completed << HV_HYP_PAGE_SHIFT);
++
++		if (hv_result_needs_memory(status)) {
++			ret = hv_deposit_memory_gfp(hv_current_partition_id,
++						    status, gfp);
++			if (ret)
++				break;
++			continue;
 +		}
-+		vapic_page = vmx->nested.virtual_apic_cache.khva;
-+
-+		__kvm_apic_update_irr(pi_desc->pir, vapic_page, &max_irr);
-+
-+		kvm_gpc_mark_dirty_in_slot(&vmx->nested.virtual_apic_cache);
- 
--		__kvm_apic_update_irr(vmx->nested.pi_desc->pir,
--			vapic_page, &max_irr);
- 		status = vmcs_read16(GUEST_INTR_STATUS);
- 		if ((u8)max_irr > ((u8)status & 0xff)) {
- 			status &= ~0xff;
-@@ -4085,8 +4423,10 @@ static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
- 		}
- 	}
- 
--	kvm_vcpu_map_mark_dirty(vcpu, &vmx->nested.virtual_apic_map);
--	kvm_vcpu_map_mark_dirty(vcpu, &vmx->nested.pi_desc_map);
-+	if (vapic_idx >= 0)
-+		kvm_gpc_unlock(&vmx->nested.virtual_apic_cache, vapic_idx);
-+	kvm_gpc_mark_dirty_in_slot(&vmx->nested.pi_desc_cache);
-+	kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
- 	return 0;
- 
- mmio_needed:
-@@ -4205,8 +4545,9 @@ static bool nested_vmx_preemption_timer_pending(struct kvm_vcpu *vcpu)
- static bool vmx_has_nested_events(struct kvm_vcpu *vcpu, bool for_injection)
- {
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
--	void *vapic = vmx->nested.virtual_apic_map.hva;
--	int max_irr, vppr;
-+	int max_irr, vppr, idx;
-+	struct pi_desc *pi_desc;
-+	void *vapic;
- 
- 	if (nested_vmx_preemption_timer_pending(vcpu) ||
- 	    vmx->nested.mtf_pending)
-@@ -4225,20 +4566,57 @@ static bool vmx_has_nested_events(struct kvm_vcpu *vcpu, bool for_injection)
- 	    __vmx_interrupt_blocked(vcpu))
- 		return false;
- 
--	if (!vapic)
-+	/*
-+	 * This is called from non-sleeping contexts (notably the
-+	 * kvm_vcpu_block() loop, under set_current_state()), so it must
-+	 * not refresh an unusable cache. Claim a pending event instead,
-+	 * and post KVM_REQ_GET_NESTED_STATE_PAGES: the bounce through
-+	 * vcpu_run services the request in a sleepable context,
-+	 * re-establishing the cache, and re-evaluates events for real.
-+	 * The request must be posted here rather than assumed pending —
-+	 * an invalidation posts one, but a cache can also fail the check
-+	 * on a bare memslot-generation bump (e.g. a dirty-logging toggle,
-+	 * KVM_MR_FLAGS_ONLY), where nothing else does, and without it
-+	 * the woken vCPU would re-enter, HLT, and spin back here. A
-+	 * spurious wakeup is safe; sleeping here is not, and returning
-+	 * false could miss a wakeup.
-+	 */
-+	idx = nested_gpc_try_lock_if_active(&vmx->nested.virtual_apic_cache);
-+	if (idx == -EWOULDBLOCK) {
-+		kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
-+		return true;
++		if (!hv_result_success(status))
++			break;
 +	}
-+	if (idx < 0)
- 		return false;
- 
-+	vapic = vmx->nested.virtual_apic_cache.khva;
- 	vppr = *((u32 *)(vapic + APIC_PROCPRI));
- 
-+	kvm_gpc_unlock(&vmx->nested.virtual_apic_cache, idx);
 +
- 	max_irr = vmx_get_rvi();
- 	if ((max_irr & 0xf0) > (vppr & 0xf0))
- 		return true;
- 
--	if (vmx->nested.pi_pending && vmx->nested.pi_desc &&
--	    pi_test_on(vmx->nested.pi_desc)) {
--		max_irr = pi_find_highest_vector(vmx->nested.pi_desc);
--		if (max_irr > 0 && (max_irr & 0xf0) > (vppr & 0xf0))
-+	if (vmx->nested.pi_pending) {
-+		idx = nested_gpc_try_lock_if_active(&vmx->nested.pi_desc_cache);
-+		if (idx == -EWOULDBLOCK) {
-+			kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
- 			return true;
-+		}
-+		if (idx < 0)
-+			return false;
++	if (ret == 0)
++		ret = hv_result_to_errno(status);
 +
-+		pi_desc = nested_pi_desc(vmx);
-+		if (pi_test_on(pi_desc)) {
-+			max_irr = pi_find_highest_vector(pi_desc);
-+			if (max_irr > 0 && (max_irr & 0xf0) > (vppr & 0xf0)) {
-+				kvm_gpc_unlock(&vmx->nested.pi_desc_cache, idx);
-+				return true;
-+			}
-+		}
++	if (hv_result_success(status)) {
++		if (mapped)
++			*mapped = size;
++	} else {
++		size_t done_size = done << HV_HYP_PAGE_SHIFT;
 +
-+		kvm_gpc_unlock(&vmx->nested.pi_desc_cache, idx);
- 	}
- 
- 	return false;
-@@ -5121,6 +5499,15 @@ void __nested_vmx_vmexit(struct kvm_vcpu *vcpu, u32 vm_exit_reason,
- #endif
- 	}
- 
-+	/*
-+	 * The resume classification dies with the request: a stale
-+	 * resume_pending would give the next request (e.g. posted by an
-+	 * invalidation after L1 re-enters L2) entry-time semantics,
-+	 * re-deriving PDPTRs mid-L2 and treating a transiently
-+	 * unbackable page as a terminal error.
++		hv_status_err(status, "pgs:%lx/%lx iova:%lx\n", done, npages,
++			      sav_iova);
++
++		hv_iommu_del_tree_mappings(hvdom, sav_iova, size);
++
++		/* Hypervisor guarantees unmap will succeed here */
++		hv_iommu_hyp_unmap_pages(immdom, sav_iova, done_size);
++
++		if (mapped)
++			*mapped = 0;
++	}
++
++	return ret;
++}
++
++static phys_addr_t hv_iommu_iova_to_phys(struct iommu_domain *immdom,
++					 dma_addr_t iova)
++{
++	unsigned long flags;
++	struct hv_iommu_mapping *mapping;
++	struct interval_tree_node *node;
++	u64 paddr = 0;
++	struct hv_iommu_domain *hvdom = to_hv_domain(immdom);
++
++	spin_lock_irqsave(&hvdom->mappings_lock, flags);
++	node = interval_tree_iter_first(&hvdom->mappings_tree, iova, iova);
++	if (node) {
++		mapping = container_of(node, struct hv_iommu_mapping, iova);
++		paddr = mapping->paddr + (iova - mapping->iova.start);
++	}
++	spin_unlock_irqrestore(&hvdom->mappings_lock, flags);
++
++	return paddr;
++}
++
++static struct iommu_device *hv_iommu_probe_device(struct device *dev)
++{
++	if (!dev_is_pci(dev))
++		return ERR_PTR(-ENODEV);
++
++	return &hv_virt_iommu;
++}
++
++static void hv_iommu_get_resv_regions(struct device *dev,
++				      struct list_head *head)
++{
++	iommu_add_resv_x86_msi_region(head);
++}
++
++static struct iommu_domain_ops hv_paging_domain_ops = {
++	.attach_dev = hv_iommu_attach_dev,
++	.map_pages = hv_iommu_map_pages,
++	.unmap_pages = hv_iommu_unmap_pages,
++	.iova_to_phys = hv_iommu_iova_to_phys,
++	.free = hv_iommu_domain_free,
++};
++
++static struct iommu_ops hv_iommu_ops = {
++	.capable	    = hv_iommu_capable,
++	.domain_alloc_paging	= hv_iommu_domain_alloc_paging,
++	.probe_device	    = hv_iommu_probe_device,
++	.device_group	    = pci_device_group,
++	.get_resv_regions   = hv_iommu_get_resv_regions,
++	.owner		    = THIS_MODULE,
++	.identity_domain    = &hv_def_identity_dom.iommu_dom,
++	.blocked_domain     = &hv_def_blocked_dom.iommu_dom,
++	.release_domain     = &hv_def_blocked_dom.iommu_dom,
++};
++
++static const struct iommu_domain_ops hv_special_domain_ops = {
++	.attach_dev = hv_iommu_attach_dev,
++};
++
++static void __init hv_initialize_special_domains(void)
++{
++	hv_def_identity_dom.iommu_dom.type = IOMMU_DOMAIN_IDENTITY;
++	hv_def_identity_dom.iommu_dom.ops = &hv_special_domain_ops;
++	hv_def_identity_dom.iommu_dom.owner = &hv_iommu_ops;
++	hv_def_identity_dom.domid_num = HV_DEVICE_DOMAIN_ID_DEFAULT; /* 0 */
++
++	hv_def_blocked_dom.iommu_dom.type = IOMMU_DOMAIN_BLOCKED;
++	hv_def_blocked_dom.iommu_dom.ops = &hv_special_domain_ops;
++	hv_def_blocked_dom.iommu_dom.owner = &hv_iommu_ops;
++	hv_def_blocked_dom.domid_num = HV_DEVICE_DOMAIN_ID_NULL;    /* INTMAX */
++}
++
++/*
++ * In general, the hypervisor does not support the capabilities hypercall for
++ * root partitions, an exception was made for max_iova_width. For IOMMU cap,
++ * hv_root_iommu_detect() below checks for HV_DEVICE_DOMAIN_AVAILABLE which
++ * supersedes HV_IOMMU_CAP_PRESENT. As for the pgsize_bitmap cap, see comment
++ * above HV_IOMMU_PGSIZES.
++ */
++static int hv_iommu_get_caps(struct hv_output_get_iommu_capabilities *caps)
++{
++	u64 status;
++	unsigned long flags;
++	struct hv_input_get_iommu_capabilities *input;
++	struct hv_output_get_iommu_capabilities *output;
++
++	local_irq_save(flags);
++
++	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
++	memset(input, 0, sizeof(*input));
++	input->partition_id = HV_PARTITION_ID_SELF;
++	status = hv_do_hypercall(HVCALL_GET_IOMMU_CAPABILITIES, input, output);
++	*caps = *output;
++
++	local_irq_restore(flags);
++
++	if (!hv_result_success(status))
++		hv_status_err(status, "\n");
++
++	return hv_result_to_errno(status);
++}
++
++static int __init hv_root_iommu_init(void)
++{
++	int rc;
++	struct iommu_device *iommup = &hv_virt_iommu;
++	struct hv_output_get_iommu_capabilities caps;
++
++	if (!hv_is_hyperv_initialized())
++		return -ENODEV;
++
++	rc = hv_iommu_get_caps(&caps);
++	if (rc)
++		return rc;
++
++	hv_iommu_max_iova = DMA_BIT_MASK(caps.max_iova_width);
++
++	/* This must come before iommu_device_register() because the latter
++	 * calls into the hooks.
 +	 */
-+	vmx->nested.resume_pending = false;
++	hv_initialize_special_domains();
 +
- 	/* Service pending TLB flush requests for L2 before switching to L1. */
- 	kvm_service_local_tlb_flush_requests(vcpu);
++	rc = iommu_device_sysfs_add(iommup, NULL, NULL, "%s", "hyperv-iommu");
++	if (rc) {
++		pr_err("Hyper-V: iommu_device_sysfs_add failed: %d\n", rc);
++		return rc;
++	}
++
++	rc = iommu_device_register(iommup, &hv_iommu_ops, NULL);
++	if (rc) {
++		pr_err("Hyper-V: iommu_device_register failed: %d\n", rc);
++		goto err_sysfs_remove;
++	}
++
++	pr_info("Hyper-V IOMMU initialized\n");
++
++	return 0;
++
++err_sysfs_remove:
++	iommu_device_sysfs_remove(iommup);
++	return rc;
++}
++
++void __init hv_root_iommu_detect(void)
++{
++	if (no_iommu || iommu_detected || hv_l1vh_partition())
++		return;
++
++	/* This is set for root partitions only, it is never set for non-root */
++	if (!(ms_hyperv.misc_features & HV_DEVICE_DOMAIN_AVAILABLE))
++		return;
++
++	iommu_detected = 1;
++	x86_init.iommu.iommu_init = hv_root_iommu_init;
++
++	pci_request_acs();
++}
+diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+index 2584e693d7b3..ad02d6956ae3 100644
+--- a/include/asm-generic/mshyperv.h
++++ b/include/asm-generic/mshyperv.h
+@@ -28,6 +28,9 @@
  
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 590095bcb665..bb766380276e 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -6428,11 +6428,14 @@ static void vmx_flush_pml_buffer(struct kvm_vcpu *vcpu)
+ #define VTPM_BASE_ADDRESS 0xfed40000
  
- static void nested_vmx_mark_all_vmcs12_pages_dirty(struct kvm_vcpu *vcpu)
- {
--	struct vcpu_vmx *vmx = to_vmx(vcpu);
-+	struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
++#define HV_REP_COUNT_MAX        \
++	(HV_HYPERCALL_REP_COMP_MASK >> HV_HYPERCALL_REP_COMP_OFFSET)
++
+ enum hv_partition_type {
+ 	HV_PARTITION_TYPE_GUEST,
+ 	HV_PARTITION_TYPE_ROOT,
+diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+index e85a1a043eac..8aa752e8c4e1 100644
+--- a/include/linux/hyperv.h
++++ b/include/linux/hyperv.h
+@@ -1823,4 +1823,10 @@ static inline unsigned long virt_to_hvpfn(void *addr)
+ #define HVPFN_DOWN(x)	((x) >> HV_HYP_PAGE_SHIFT)
+ #define page_to_hvpfn(page)	(page_to_pfn(page) * NR_HV_HYP_PAGES_IN_PAGE)
  
--	kvm_vcpu_map_mark_dirty(vcpu, &vmx->nested.apic_access_page_map);
--	kvm_vcpu_map_mark_dirty(vcpu, &vmx->nested.virtual_apic_map);
--	kvm_vcpu_map_mark_dirty(vcpu, &vmx->nested.pi_desc_map);
-+	if (nested_cpu_has2(vmcs12, SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES))
-+		kvm_vcpu_mark_page_dirty(vcpu, gpa_to_gfn(vmcs12->apic_access_addr));
-+	if (nested_cpu_has(vmcs12, CPU_BASED_TPR_SHADOW))
-+		kvm_vcpu_mark_page_dirty(vcpu, gpa_to_gfn(vmcs12->virtual_apic_page_addr));
-+	if (nested_cpu_has_posted_intr(vmcs12))
-+		kvm_vcpu_mark_page_dirty(vcpu, gpa_to_gfn(vmcs12->posted_intr_desc_addr));
- }
- 
- static void vmx_dump_sel(char *name, uint32_t sel)
-diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
-index c6827368c84a..7d8bced38ca0 100644
---- a/arch/x86/kvm/vmx/vmx.h
-+++ b/arch/x86/kvm/vmx/vmx.h
-@@ -73,6 +73,12 @@ struct pt_desc {
- struct nested_vmx {
- 	/* Has the level1 guest done vmxon? */
- 	bool vmxon;
-+	/*
-+	 * The pending KVM_REQ_GET_NESTED_STATE_PAGES was posted by
-+	 * KVM_SET_NESTED_STATE: an unbackable page is then a userspace
-+	 * error to report, not a transient state to ride out.
-+	 */
-+	bool resume_pending;
- 	gpa_t vmxon_ptr;
- 	bool pml_full;
- 
-@@ -146,13 +152,18 @@ struct nested_vmx {
- 	 * Guest pages referred to in the vmcs02 with host-physical
- 	 * pointers, so we must keep them pinned while L2 runs.
- 	 */
--	struct gfn_to_pfn_cache msr_bitmap_cache;
-+	struct gfn_to_pfn_cache apic_access_page_cache;
-+	struct gfn_to_pfn_cache virtual_apic_cache;
-+	struct gfn_to_pfn_cache pi_desc_cache;
- 
--	struct kvm_host_map apic_access_page_map;
--	struct kvm_host_map virtual_apic_map;
--	struct kvm_host_map pi_desc_map;
-+	/*
-+	 * L1's MSR bitmap, read by KVM when merging into the bitmap the
-+	 * CPU actually uses (vmcs02 points at the merged copy). Never
-+	 * pinned, never written through.
-+	 */
-+	struct gfn_to_pfn_cache msr_bitmap_cache;
- 
--	struct pi_desc *pi_desc;
-+	u64 pi_desc_offset;
- 	bool pi_pending;
- 	u16 posted_intr_nv;
- 
++#ifdef CONFIG_HYPERV_ROOT_IOMMU
++void __init hv_root_iommu_detect(void);
++#else
++static inline void hv_root_iommu_detect(void) { }
++#endif /* CONFIG_HYPERV_ROOT_IOMMU */
++
+ #endif /* _HYPERV_H */
 -- 
-2.43.0
+2.51.2.vfs.0.1
 
