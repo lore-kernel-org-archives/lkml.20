@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907260;
-	b=sry6fpQQezU+h0EdYSRYGjkOmyz7NHUS/C/Q6TOIXjkbJqY3QWqKzw6cQ83WNm3XuCVG
-	 SLyR4hDDKMAK8vYab9WZO/VWvnCD8T8ylU5UHHmAwdeoR+WL5OlE70NDGenH5Vjijg8XU
-	 pDIR0c3eJwxU1oIkEj3qTC6WJQLj257EnW0nKndzVZ9uWOJWZs8Cqh5QYX4EnRXuMj+UY
-	 h7h1Jvxf0Cp14DSGAKATp5+VUqkmYy3hPtRQKhu9DAoI1NYNKlvuPLDZmoNyx0nSpYssk
-	 nsos5LVUfSyKeph0uK1dFDWigJ699uoVr6Zcr7tPzKGAjC32nuRI5+0EPB9pZObNNPw==
+	t=1793907304;
+	b=UDhhulUKguOjOJnjCw4KAnc0O6DmeKHIWYgKySaA99eqG9DNcOY0YH1iGaUcO01JBDaN
+	 KzHtcsOB4DvIEO4u9EZ6VSr7QtFXZ0xSKDrT8wyraaEjbMll9IN0zMKJIizH7+wF5ZnY9
+	 pUpE+F3RrPlUYTM7rJtm705vVEfewIANU1RBJ6iJVCerN1iv7mVOhyPWkGvCankcUAolR
+	 EJDtPHRrB6XTn9r8YNZ8fUIBDuRCuGc/qqopPWN1xqsn9IbFUszKdY/3NHQw1QqgFj+Hq
+	 CwEB0IP+s8+P0N2p3krwWuAyWul+L/iVEvZexS9eYIDF2eTZJx+YfxPBTODvzJqdNqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907260;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9xcKHMbn3SsYLrcgRVCN+uYKxdH8XYhCdsy+dXlYLgA=;
-	b=rVfOFRxcMpwKg8KDRuJ224qM3RpiTpGe5+F4E4NBv+CZ4tMUJ06NZoohrySvstRGPTlK
-	 6NOtDfv/yM8GKmG6Do0E5VstLD1uK8rYNcxShD2vHlmxnLDwdzbx9uWhJb2LZEguLbLzk
-	 7dHQeqN4jANpUUhzAwiY4hZ1hMr1LEZFzjLXlhTTVxOE9QTvUY/ac78zK1CUwxWh/sp77
-	 rwSH2houii2AcYNM30bc8Le25BJ70d1EzGGjTq7s9CegFUImCMH97ryR+JGFywwtro1Ae
-	 EF+FwntCSrDLjfUXmANJt4jlnJ/1w5KATI3mVD17YfCD0N1Sq87WKVg2O0uKOe1X3HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907304;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6waUMbBW3PMNNkalcsbpj+noxC1InsPmZ1SepMjhk0E=;
+	b=ouLfP7THnU1LXh04BioQkdcdxBKXVDlrrbtFO3bg3jps6aAu3mGiHlJ//axjx02OVtpS
+	 j9TyRpIaMy0mrAZFcbLMWV2qzRBKZnQqHBpqO+d1x+aofuXYAuOeQcYL8qTQymCHhjyBL
+	 uKedUgDKHZhCvNLI88i6nj7+Qzne0cyjDMAY9+KPMaIGu8pDNTTvRipTHvGWGzt4/eoyd
+	 /9aPEOkS81NrDYeFqswPRDZ9Np1LQ/sfg/hLKa8y/nY4p+Qn3mW/yqP02vrUWL4CTLMuc
+	 ExOy1YLFcfoF/DLXAdYzlCojaZreNa96v73Z0wNT0AkV/sWgRNywTN9E/FfU/wE7/pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=T3Y2FqCm;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gF2H0qML;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF58C60A2611;
-	Thu,  5 Nov 2026 19:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF58C60A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F273F6075327
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:35:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F273F6075327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=T3Y2FqCm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1793907252;
-	bh=9xcKHMbn3SsYLrcgRVCN+uYKxdH8XYhCdsy+dXlYLgA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=T3Y2FqCmR8Ff1NGspV0s2QL4Ofq2YBYPDEBhyEuWSZzWYspvomB1y2OD/y0AX/RoJ
-	 aQ8pxHH1F4/0Yn/8i0Zu2eFtKoInygXHy2MewI8XnmqtevneJg/o5AjmEVaF1Rh86i
-	 kpXV+S6rVdHfHB9rXYtfzwjBtlG1HPejMXUm8+TRZWADazBb9UZ5nLEXZ8IV2By8J6
-	 PMy3jD1RQl5xnwa9DzAcik9sCaLbpPdAUbTh7SPYP71xQQdQZ7OVk62Mq/gQvFYylt
-	 cUkzEO8hJvxOsbCL7pkT7sfEGwc/m8f01mVoHoLkoJnA8dpYM6SUI4UdKTrr3Gw8oq
-	 875HSx7K4kruQ==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDN2YBbzLkq;
-	Thu, 05 Nov 2026 14:34:12 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: juri.lelli@redhat.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	parri.andrea@gmail.com,
-	m.szyprowski@samsung.com,
-	kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: [PATCH v3 21/24] sched/debug: Show the deadline bandwidth of each runqueue
-Date: Thu,  5 Nov 2026 14:33:56 -0500
-Message-Id: <20261105193359.1450487-22-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
-References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gF2H0qML
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so3796520c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:35:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793907303; x=1794512103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6waUMbBW3PMNNkalcsbpj+noxC1InsPmZ1SepMjhk0E=;
+        b=gF2H0qMLqJEILl2WdYpdXO/kF4o/xA+zA11jGsk7q3DYsSiVSR4QAvQ4vNa8mrlh4T
+         2PViehKuLqppi/478eA40zl39pgH9MZIfHzlgQqNuwY9J9Vpn2rJbUAAW0OIOpsDag38
+         Cf2BEGqBCqhcr1Phfk9FSyg7cSv7ghsJX2sB4iF7m0JkqWJKYhadaDRqWeiJ6RCDfpV9
+         S0XrT0JWFCMmCZskgEcesX0AJUGVCJ0UX76I7jBWE4rjK0rAYZHICCCqPG9/mUQMcy6b
+         FZDlNrbQjfZimM3eqBJy7l9hijgjz0cseq5LkQyXt8hCmEqxuIDbJieVioSE0u9uAUfJ
+         XuDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793907303; x=1794512103;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6waUMbBW3PMNNkalcsbpj+noxC1InsPmZ1SepMjhk0E=;
+        b=GdA8VHIS/O1GW/ZZm7t7+JpoCTPb8pDFREbXiORXSCwXsktZHFGLV8bj+ituLcCgGr
+         z0LuEK+FYw+B1cliqmxk0l30K4zIkZmGAzdVIrMVSgbFXUdn+5pd6OszD0yFkOAFjJV3
+         CRPe15tyhMG8v2j8xvs5KDmM778cfUStZNfP2wysB5yaG5BMjk2LIpciq0Y15jvux5d+
+         tlPBP9aCtYgEa/K0ZFYlG9eZj0mOl+AozYiPBiaTo340d3vNwb+8EtffBiUtUhDRFEYt
+         YTVOT7lu51GAcSnmfkYJ293Tl4WjiQLuk4vhbLUf3s5ue8CSJjK4orOrlJ95CjZ9x0jx
+         RlwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzDaZ20m3FAoLf6fwf1QG6bFCNmZ2ungne3t6TjeOhVp3J5Zav0Z020Yv0oY64hlioBstyr69qb4+ixuY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DUicjpnnXrLAC9154wATDbvc45RBh2EAdn3NKu63c8spOl+7+
+	1zWVWTbNMVAIMsLTB3DZU+iQsPZlIBWnIRvMUX4qsvL4O+65BO2eispO
+X-Gm-Gg: AYBFou213kenS5kJKxhDH3TY47ZA4XGy94DD3mOvEw0qRXxOjbC/q77OufrivCjRLLn
+	ESnu6+oAh+aWH8jS8htbYa8NZi8OqvYb6pntlXFk5ZrsKQKK8UIp3FFnPluK+QZ1uuq5pNSKcZG
+	stySDz9aAEpNo5EA6Ejf4UofIym9hJSh+HDyiDd9Yk6tzpH5O5VLJlYd2jpPOEqWPJHBfxvSf2b
+	ItxKVUMQ7ZELnBvzTe9Tg0RrG/Uk+xsucd93UFEd6wAlsaZ+XAlWUwyG9D6NVy8odAmc8exHU9J
+	Xn3DS0exrgg8q28YknQTsJJ6lgwGGissfsw65/ZVPfJNd+d4yHNihguszm6WzRgyKIb061PdAZy
+	RPEbAonZWWHj5b5p5w7xMxW/DSiVuI/5F+8itl3Bd9YpeRCq0xCL3qmXT5P2I2y0FeTexVqalyv
+	2SAHmvYG6RMVR876ySYr6iyWKheDRL6H/9pBfxCFj978bzchhKkM99oObcrgFXWPryjbODxqIm4
+	f4AGx62LZH6pnT0fu4E4NGhBOPQJolRWCLopIh3TYzG8zLA+lXLm/TY//Q3zG3NWxIhaKzutk9D
+	fRVVAGwR+G03cbTr7+xDKfTXS35n7g==
+X-Received: by 2002:a05:701b:4513:10b0:1b2:490b:6fdd with SMTP id a92af1059eb24-1b2490b7174mr7487167c88.24.1793907303014;
+        Thu, 05 Nov 2026 11:35:03 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c127sm18023186c88.6.2026.11.05.11.34.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:34:58 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list),
+	macro@orcam.me.uk
+Subject: [PATCH net-next 3/3] net: sb1250-mac: Add ethtool autonegotiation restart support
+Date: Thu,  5 Nov 2026 11:34:35 -0800
+Message-ID: <20261105193435.2050321-4-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105193435.2050321-1-f.fainelli@gmail.com>
+References: <20261105193435.2050321-1-f.fainelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,37 +105,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sched_debug prints the bandwidth each root domain has handed out
-(dl_bw->total_bw), and nothing of the two sums each runqueue keeps:
-this_bw, the bandwidth of every deadline task of that CPU, and
-running_bw, the part of it whose tasks are active. GRUB drains the
-runtime of a reclaiming task at the rate the two give, the bandwidth of
-its CPU that is reserved and active (grub_reclaim(): max_bw - (this_bw -
-running_bw) - extra_bw): the less of its CPU is active, the slower its
-runtime drains, and the longer it runs on.
+Wire up the nway_reset callback to phy_ethtool_nway_reset() so that
+ethtool -r can restart PHY autonegotiation. The phylib helper handles
+PHY locking and returns -ENODEV when the interface has no attached PHY.
 
-Both sums have invariants a test can check, which the kernel itself
-warns about when they break: neither may wrap, and running_bw never
-exceeds this_bw. Print them.
-
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 ---
- kernel/sched/debug.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/broadcom/sb1250-mac.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index a4ae092e0a68..c8a2cf18fdd1 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -1171,6 +1171,8 @@ void print_dl_rq(struct seq_file *m, int cpu, struct dl_rq *dl_rq)
- 	SEQ_printf(m, "  .%-30s: %lu\n", #x, (unsigned long)(dl_rq->x))
+diff --git a/drivers/net/ethernet/broadcom/sb1250-mac.c b/drivers/net/ethernet/broadcom/sb1250-mac.c
+index 546415d3134c..433aa1e24439 100644
+--- a/drivers/net/ethernet/broadcom/sb1250-mac.c
++++ b/drivers/net/ethernet/broadcom/sb1250-mac.c
+@@ -2129,6 +2129,7 @@ static void sbmac_setmulti(struct sbmac_softc *sc)
+ }
  
- 	PU(dl_nr_running);
-+	PU(running_bw);
-+	PU(this_bw);
- 	dl_bw = &cpu_rq(cpu)->rd->dl_bw;
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->bw", dl_bw->bw);
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->total_bw", dl_bw->total_bw);
+ static const struct ethtool_ops sbmac_ethtool_ops = {
++	.nway_reset		= phy_ethtool_nway_reset,
+ 	.get_link		= ethtool_op_get_link,
+ 	.get_link_ksettings	= phy_ethtool_get_link_ksettings,
+ 	.set_link_ksettings	= phy_ethtool_set_link_ksettings,
 -- 
-2.47.3
+2.53.0
 
