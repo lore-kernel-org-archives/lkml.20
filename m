@@ -1,97 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906725;
-	b=0xgNt75mIJJrwSp3RqTTur9u1kjMrWrfNXLpX1iRZxXSDYIPUMcPdolTaoWE6nQC+Rer
-	 9C8vz9IukaT3KCFUVdCEsSOzgeINt9ORiE2E9I8b4p1bPMc3ouvT7G4B2brFzdQ/CgY5/
-	 qt8+mzplVrTNJQSpGw1yOvhgBhJVkz0E8HjN2APhl2Z0hV5VEE/J/M3g4K/KCR7qe45Ho
-	 eNFIipDCEIUrYsf3tWIVrJJN9wYRynTOmGB7NtUqfZP7XhPA4EA1K/KSE81l8Fno97730
-	 Bi3eMOmtFTXlYQq5SnWR0NRYTW3sowjoowsKuFsuArOpAboFeut2Vb55xrHwQ46lm5w==
+	t=1793906799;
+	b=P3nY7noievlWpv/HkvTKh/0SkXYygUj6fHws/2iegFhEkzaWMVmE7xnxCXfDzbqY4/Ti
+	 6GeawtLYYZDY97/mLGcYXHexR9RYuIk9DWu3eqLrjzV+onUcg+lTXC3yUhh3WNStQ975V
+	 OhBtnVKeoC4iLKrw5NEVbQZrxnQJE1BPVGlCVSbIL3lCR3utL8h4Lq03F75nw1gyZUKiE
+	 M1LQmNxG3SzyWYFWIexxPWVo5nqTVVa0blMQ6dt+rtudc88nNjpmYbolLQpLa7/HeBoSL
+	 mEDDwxuYdEl7P2Hf0FzoX0vK9VsJCcf+OTqGp/6S5ldNpCTs759GckWTLNeUDNdY3IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906725;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=s4FZg8DsfWmRP296oRW8/FWLLuk54fxztQ3Y/s+Qjl4=;
-	b=PRJgG2hELVmE9kUCj/oeCPniQvsa3wphibCWnSUnsRxFZhJqt+jI5DGPITSda0kcMpwf
-	 lp4NDXo9vOLdfSkLoljkxQeVNksPlRE7N5CDnc8S5l4fODxZLutTAsHwe2lEwayrMDRDb
-	 56VyNypNUN6KU5vYXXcd5hDbd2Oce+Y8Rh5FOF6Es5OOkCsCY6+rLtXYq5wXxE0Bk0Qe3
-	 truD6iNDemRXCibg3EZvd3iolNNXCFQaRWROSylhV7qZ0aSJV+KGtXIafgBNXF/sjOaRX
-	 R3ZyCNPythwj+blIdgUY4JrE67NTLetddnjvRx6Mx+9ks56f8wfKINYUXw+jsetAFCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906799;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TZphQxclz2gFW9ezkdnyrlJdzJISPtOa2u0+oLIYQtA=;
+	b=AyUS9zl8dcTKX8vMDACeCuPuMTCQzqxbXKAR6USz/RzL9OAP7zfcQNIbnHkE+SDdolto
+	 j7YPnMSorTZ86FCL5BxxZDJTJha+DoM9xa0VBTiCtUKMSg21i4hWFaNHc0x4+1wyXD+GR
+	 H5pjo01OkmKR4q62lTDY5nR7gr5wNcslqEZmO86d8lIMfg98W9cLbLy2q6TLrMMCzNmVV
+	 Gwobk1ewu8KXiavDDWo5Tahy43MeGT/sYRH4jndnNiX811pP2bZVs0GgE6j0efNtRRBQy
+	 +LI+gxjY5Qb9cWzrV1eKS7ZJPpnKLaw0glJp5MGWZNbx69oTeaYOm0rkxThxTfm9iiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=maryasin.name;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bLCqWOUa;
-	arc=none smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6975C606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:25:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6975C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18EF606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:26:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E18EF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=maryasin.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bLCqWOUa
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so2047451e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:25:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793906724; x=1794511524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s4FZg8DsfWmRP296oRW8/FWLLuk54fxztQ3Y/s+Qjl4=;
-        b=bLCqWOUaX0uq6AQj9rJdrFqH2vW/Qsze0/0lF8jRGMesKwa0bSZpycJVLKIcb/sZ8F
-         1RZ6Nz7ottsGm6HJGlbx8/fvf22sNQCDA1W3XnIFeFQKVgk4CJmIZWET0Td45RHDXHwa
-         3QUR8NmaWtgdE0Xxa4jz1R4qXQ/mhnc7UT1efxLctlYvq2/yzTrfFZJqhPaFFDsjjgK1
-         tXxafuDjQa0bLv7eth8kQBmoiAvWRA/AIo75VkO37SfPIK9Irqw+HaiEXysotEqTzbft
-         /KcsGjO+Ls3W5HUnFjviVg4EzuvJO1Xh3CQVJsYukwla890cgnRJtj071VhKmDsH54GQ
-         svTQ==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c34bff61551so93121966b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:26:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793906724; x=1794511524;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s4FZg8DsfWmRP296oRW8/FWLLuk54fxztQ3Y/s+Qjl4=;
-        b=FsG9QeVti1ETLr7bLVqp+7DmkIYJviXD1zrYYiWjHhcsMaMqFCA7MkuNb35hGddYvW
-         QEOA/kF3y2rUu3y/xu0sQO13lFYPfS/VKBfaQFLGviJ5I6CF5UgBgaKzcBPbc5qUYnP/
-         M1D3z65AG8ERRBV15Mct+4KWNQXT3liXgMfp9XC5/CaI3/LIxTGF4pa2VeeWqTs3EuT1
-         nhzs7iljhJUY8StSSP+rzpFwoxImdzHgyfTWe1+HaSI1rohfQdw4bHEGzhbxCjHv196S
-         xfGbTQNTWGfs/jJH6IzMjgOribkYnyXkbC8W/803EjNGK1fXa7vffxqMJE8fyvuDlFOI
-         ZsIA==
-X-Gm-Message-State: APuU4Z9VLNFttVp2gtFjL1e18mbsQWDpF3ukZlxxLYLkVwq2NEPbPZzO
-	VcxFZBHF2LP0Vpapce3q3qPeRQNodQhw1rVGStKp2fwVlW315/Mh3jqx
-X-Gm-Gg: AYBFou2oid32ajkc+mz81INN+ensMI+RLNYjDCb4Z/g1TX383DP6SieSICYqR6KAza4
-	MdLNJ5HHxr44nJnqBUYtqNuSkr1AdBNzBUzBI9yUdCf6gad9aFH19Sl8Yc2frl6ExkZRdDx+EQ2
-	bbGH9DLvvV6/Fg0jNO5dyKGWPpEHBkI08jbrloyfjl3vzIZ1dxbx2IqRW3/ACpW/4TpwHI17KAZ
-	0oq3bSciHkQe8A8R0hWAvP3XWCfR5Dfww0TvmNBKKWcMuy3BXBL4zUDZsepW2i/DcmT6BxjJmO5
-	iJx6m9TcantQZP30EjS+okKg5fiajRvfr3rXFuL8nqSNnl95f4P9rPc4Q40rWG1yBargrCpIjgv
-	vp62hdd4iAndIDT7AnJlUO1Il+AB260S15Qz1+AgIOWTIH3/naMiC75Bg0u4HRJ6V88Md/YYMTN
-	SJKnYxYqxYdBIv0fqEfFkFq7XojFdKPvAT9uUhyurguKqqwBhWEg725MMQGPviBpvLW1VhVFWwT
-	MsIczc1hXFDxS+LJ9xEBCpMWEdJNCyxbqsNxPUqGJZCM1L8QPZ42RsmhPvxlHgJBroKLq5X2VVy
-	zuGFeNk7YEzW+caaMCuJwEz7iEZB6tpTTNCA/3Z3KD4=
-X-Received: by 2002:a05:6512:104d:b0:5ba:356b:5a85 with SMTP id 2adb3069b0e04-5c003ae0858mr15497e87.43.1793906723445;
-        Thu, 05 Nov 2026 11:25:23 -0800 (PST)
-Received: from localhost.localdomain ([185.65.135.248])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c0030a3b50sm25897e87.79.2026.11.05.11.25.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:25:23 -0800 (PST)
-From: Trace <tracekotae@gmail.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	fujunjie <fujunjie1@qq.com>,
-	Jan Kara <jack@suse.cz>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [REGRESSION] mm/filemap: mmap read-around stays off for an open file after sparse faults, since 7.2
-Date: Thu,  5 Nov 2026 20:25:17 +0100
-Message-ID: <20261105192517.228523-1-tracekotae@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1793906797; x=1794511597;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TZphQxclz2gFW9ezkdnyrlJdzJISPtOa2u0+oLIYQtA=;
+        b=SZ7lb8UGNK7xNWKyKlcpTAuD6VjenSC5n6GTIGRuaH2bKJ1705xa11rJg9rJ8Cb8fF
+         2IYEJGaIJ3lS8XQ20fVN8AXf1JOO6kYW4qmfPMxcjBWD0ZpJJraylgnSual7gBo8KTOA
+         nLGQDPvU3W07OoXcCoURVh0cq+WW3Ez1Z6hL8kiMgc+B/jzf8Mm3VsaOt8d27sdG1SUM
+         wI7gQEEclHXP9Mvhf4VrujYJD3mKaNaB+WBOEzlzsHybqzQT1eJ6KU/ujyQGIgYAoT1K
+         tipipsyPCfAMZdaVjkwXzvYiTuhF7kkRXcTPWIaIlyEChgtEAPnFggScW5NTi6WLU8ob
+         gMiw==
+X-Forwarded-Encrypted: i=1; AKwUvBznzw7BW6Mu8BP17B41xrfpdTDAV0hOrEH7hV4f4p/O34sqwIbkRWdZRgAD5CfkgoIJmta9fNXOu9QMycg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FKSOvIhwPb4BDCsy/aKOiPPIR99ZaRpE9gvVAuDogP52rzRpH
+	blUAUynu1ogreb5D4c2p6Mi9minDXaJKSdkAjTHrXYCkPekuCn5+B0cZHA3E+X1Iuzv09g==
+X-Gm-Gg: AYBFou18EXebTscPCdBmF1S9xEVA8JFoxr8t4jEhj5C9VoXKHV1WiH0QhxYUDtLIsd9
+	psDOR02EQ/QJ7tWn44lBRBQdv29PsAZOhriq+CNoCADzv4+RlyGHX9MihU2vNGUw7BDExHicT/C
+	P+UkBWs9gJX01hbu07kJZgIE4fCXf0O44asZ92fQRYxXCsLHsEbi+sxeyD4CLb7dTg8ayg/VpEu
+	Rx9ZRNUpJfs0OgJs6TJDVAHJcNplYQlCSrQ0LCnrL7Rn1MH/ouJYK5FAGfcrnZicXRMhQKZYA8I
+	0loIqecYR4Lb82rq4hx4bdalFeYQD5S8aDhpYl4EPWXD4keGlHlI6zRWEmUVQQh3cTyGbGzv6l2
+	AW2vZLsBZQA06Lxx54QvGm7Vl7/AbCTyq9fGs2xr8h3pEkMzTtSF//7z/ffL9SgtdsnRbIPvKNL
+	5stgWitarcDQSHuxQSzBsmk3R/7Sq+o0khNEqbGUt15yOCp0S338sGg9IC0ivGby5wQEqyM+Gjz
+	j0sgiddWQkePbHmTMdg1YV+11AgB/RWFbPF9TIrPj4H1AYimYT8QMQ+rcTmvPOEI4PImkFQn9xX
+	v0RqH1gk+1mxS10v3ZSmslNDl6c8yby5hxaqH8M+FrAcYkJn7exDWCpyqZlnWqyTVU6PXzXInT5
+	5JLeWhoIv9AmXfuIvOIGiGC/tC+dOsGdUJirmnP7SCY/JaT0lKe/QD7HiWBRgpZsLlug=
+X-Received: by 2002:a17:907:ea87:b0:c2e:350b:7220 with SMTP id a640c23a62f3a-c4d34c5b8aamr45079666b.9.1793906797248;
+        Thu, 05 Nov 2026 11:26:37 -0800 (PST)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d354ac7c4sm12165266b.1.2026.11.05.11.26.36
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 11:26:36 -0800 (PST)
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b57182c4c6so2291803a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:26:36 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByqHEjs2yijZSj7vBNZ7Pb68jqb8AiDOcNal9HO9lt2peGVAARpg8hZi5kcoIZhFMgE5dzwnbf7yi5jzXo=@vger.kernel.org
+X-Received: by 2002:a05:6402:280f:b0:6b5:8674:c01d with SMTP id
+ 4fb4d7f45d1cf-6b5975277f0mr197220a12.5.1793906796627; Thu, 05 Nov 2026
+ 11:26:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,207 +82,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
+In-Reply-To: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
+From: =?UTF-8?B?0KHQtdC80ZHQvSDQnNCw0YDRjNGP0YHQuNC9?= <simeon@maryasin.name>
+Date: Thu, 5 Nov 2026 22:26:25 +0300
+X-Gmail-Original-Message-ID: <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
+X-Gm-Features: AclHuK9weJ0gP1AI6YK6eNmMlqgPCqXQEUZ4hk_XFsi6eDTrhg4oCQvVn1yYuq4
+Message-ID: <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
+Subject: Re: [PATCH v2] iio: hid-sensors: fix fractional part for unit
+ exponents -7 and -8
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: jikos@kernel.org, jic23@kernel.org, bentiss@kernel.org, 
+	linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Tested-by: Semyon Maryasin <simeon@maryasin.name>
 
-since 7.2, once an open file has taken more than MMAP_LOTSAMISS mmap
-misses, it gets no more mmap read-around, even if the access then turns
-sequential. For a reader that does not run into pages an earlier
-read-around brought in, it stays that way until the file is opened
-again. Each later page is a synchronous 4 KiB read, which on NFS is a
-round trip.
+Here is what I observe with this patch:
+1. Enable sensor and run xxd /dev/HID-SENSOR-2000e1.3.auto
+2. In the second terminal, do rmmod intel_ishtp_hid
+3. Observed result: xxd stops with "xxd: No such device"
+4. At the same time, in kernel logs I see the following:
 
-I think it comes from this series:
+=D0=BD=D0=BE=D1=8F 05 22:19:16 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+005:
+timeout waiting for response from ISHTP device
+=D0=BD=D0=BE=D1=8F 05 22:19:19 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+005:
+timeout waiting for response from ISHTP device
+=D0=BD=D0=BE=D1=8F 05 22:19:22 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+006:
+timeout waiting for response from ISHTP device
+=D0=BD=D0=BE=D1=8F 05 22:19:25 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+006:
+timeout waiting for response from ISHTP device
 
-  0b9c0aeba938 ("mm/filemap: count only the faulting address as a mmap hit")
-  9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED retries as mmap hits")
+No system crash, so I suppose this is okay?
 
-I have not bisected or built a revert. By reading mm/filemap.c, v7.1
-and the current 6.18.y have the old accounting and v7.2 onwards the new.
-I measured 7.3.1 and 6.18.60, and the program below also gives 16384
-on 7.2.14 (with the zen patches) on a SATA SSD. do_sync_mmap_readahead()
-and do_async_mmap_readahead() are unchanged from v7.3 in next-20261103
-and in mm-unstable, mm-hotfixes-unstable and mm-new of 2026-11-03.
+After subsequent modprobe the sensor initializes and works properly.
+No kernel crash with this patch.
 
-As I read it: above MMAP_LOTSAMISS, do_sync_mmap_readahead() returns
-without reading, and mmap_miss only goes down on a hit. With no
-read-around the next page is not in the cache, so the next fault is
-another miss, and nothing lowers the counter again. Before the series,
-the retry after each read-around counted the pages it had just brought
-in, so a sparse reader did not reach the limit. The series' tests run
-random, stride and sequential access each on its own, not one after
-another on the same open file.
+=D1=81=D1=80, 4 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3. =D0=B2 19:53=
+, Srinivas Pandruvada
+<srinivas.pandruvada@linux.intel.com>:
+>
+> split_micro_fraction() scales the remainder to micro units by
+> multiplying it by 10^(6 - exp). The unit exponent of a HID field goes
+> down to -8, so exp can be 7 or 8 here. Then the argument of int_pow()
+> is negative, which the unsigned parameter turns into a huge power of
+> ten: 0 modulo 2^64. As a result, the fractional part of a value read
+> from the hysteresis attributes is always reported as 0.
+>
+> Divide by 10^(exp - 6) in these two cases. This matches the reverse
+> conversion in convert_to_vtf_format().
+>
+> Fixes: 73c6768b710a ("iio: hid-sensors: Common attribute and trigger")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> ---
+> v2:
+> - Fix __udivdi3 link error on 32-bit by using a 32-bit divisor
+> - Address Andy's comment:
+> Keep no % divisor in a temporary variable next to no / divisor
+>
+>  drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c b/dri=
+vers/iio/common/hid-sensors/hid-sensor-attributes.c
+> index 9e7c26e37880..d44091faf122 100644
+> --- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> +++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> @@ -96,9 +96,14 @@ static void simple_div(int dividend, int divisor, int =
+*whole, int *micro_frac)
+>  static void split_micro_fraction(unsigned int no, int exp, int *val1, in=
+t *val2)
+>  {
+>         int divisor =3D int_pow(10, exp);
+> +       unsigned int rem;
+>
+>         *val1 =3D no / divisor;
+> -       *val2 =3D no % divisor * int_pow(10, 6 - exp);
+> +       rem =3D no % divisor;
+> +       if (exp > 6)
+> +               *val2 =3D rem / (unsigned int)int_pow(10, exp - 6);
+> +       else
+> +               *val2 =3D rem * int_pow(10, 6 - exp);
+>  }
+>
+>  /*
+> --
+> 2.56.0
+>
+>
 
-The program below writes a 2600 MiB file, drops it with
-POSIX_FADV_DONTNEED, touches 2000 pages 1 MiB apart through a private
-mapping, then reads 64 MiB sequentially and counts major faults. x86_64,
-4 KiB pages, read_ahead_kb 128, ext4, plenty of free memory (7.3.1 on
-NVMe, 6.18.60 on a SATA SSD):
 
-                                          7.3.1   6.18.60
-  sequential only                             1         1
-  sparse pass, then sequential            16384         1
-  sparse, MADV_SEQUENTIAL, sequential       512       512
-  sparse, close and reopen, sequential        1         1
-
-The same pattern in a Python version, on 7.3.1, on NFS v4.2 over 1 GbE
-through WireGuard: 80-90 MiB/s with no sparse pass, 5.7 MiB/s after it.
-
-How I met it: PyTorch loading a model from safetensors on NFS, on a
-Radeon AI PRO R9700 with ROCm, where the driver faults in the mapping:
-
-  folio_wait_bit_common
-  nfs_do_read_folio
-  nfs_read_folio
-  filemap_read_folio
-  filemap_fault
-  __do_fault
-  do_fault
-  __handle_mm_fault
-  handle_mm_fault
-  hmm_range_fault_locked
-  amdgpu_hmm_range_get_pages
-  svm_range_validate_and_map
-  svm_range_set_attr
-  kfd_ioctl
-
-safetensors maps the whole file (torch.UntypedStorage.from_file,
-MAP_PRIVATE) and builds one tensor view per entry, which takes one
-read fault per tensor, mostly on its last page. A model file holds
-hundreds of tensors spread over the file, so mmap_miss passes
-MMAP_LOTSAMISS within a few seconds of the mmap, before any weight is
-read (bpftrace on filemap_fault, reading file->f_ra.mmap_miss). The
-GPU driver then faults the weights in through the same mapping, every
-page a synchronous 4 KiB nfs_read_folio, about 1800 a second.
-Read-around came back only when the GPU's walk happened to continue
-through a window that one of the first hundred faults had read around:
-async readahead restarted there, and about 900 hits later mmap_miss was
-under the limit again. With the page cache cold, one model's first
-picture took 700 s on 7.3.1, 512 s of it below 10 MB/s, against 239 s
-on 6.18; a larger model's first run took 54 minutes against 13.
-
-Is read-around meant to stay off for the life of the open file once the
-limit is passed? I have no patch to offer.
-
-#regzbot introduced: v7.1..v7.2
-
-Thanks,
-Trace
-
----8<--- mmap-ra.c
-/*
- * mmap-ra.c: does a sparse first pass turn off mmap read-around for the
- * rest of an open file?
- *
- *   gcc -O2 -o mmap-ra mmap-ra.c && ./mmap-ra /path/on/a/disk/testfile
- *
- * Writes a 2600 MiB file (removed at the end), drops it from the page
- * cache with POSIX_FADV_DONTNEED, and counts major faults for a 64 MiB
- * sequential read through a private mapping.
- */
-#define _GNU_SOURCE
-#include <err.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <sys/resource.h>
-#include <unistd.h>
-
-#define MIB	(1UL << 20)
-#define SIZE	(2600 * MIB)
-#define SPARSE	2000		/* single pages, 1 MiB apart */
-#define SEQ_OFF	(2100 * MIB)
-#define SEQ_LEN	(64 * MIB)
-
-static long majflt(void)
-{
-	struct rusage ru;
-
-	getrusage(RUSAGE_SELF, &ru);
-	return ru.ru_majflt;
-}
-
-static char *open_map(const char *path, int *fd)
-{
-	char *m;
-
-	*fd = open(path, O_RDONLY);
-	if (*fd < 0)
-		err(1, "open");
-	m = mmap(NULL, SIZE, PROT_READ, MAP_PRIVATE, *fd, 0);
-	if (m == MAP_FAILED)
-		err(1, "mmap");
-	return m;
-}
-
-static void run(const char *path, const char *name, int sparse, int advice,
-		int reopen)
-{
-	long page = sysconf(_SC_PAGESIZE), before;
-	volatile char sink;
-	unsigned long off;
-	char *m;
-	int fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		err(1, "open");
-	if (posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED))
-		errx(1, "posix_fadvise");
-	close(fd);
-
-	m = open_map(path, &fd);
-	if (sparse)
-		for (off = 0; off < SPARSE; off++)
-			sink = m[off * MIB + 37 * page];
-	if (advice && madvise(m, SIZE, advice))
-		err(1, "madvise");
-	if (reopen) {
-		munmap(m, SIZE);
-		close(fd);
-		m = open_map(path, &fd);
-	}
-
-	before = majflt();
-	for (off = SEQ_OFF; off < SEQ_OFF + SEQ_LEN; off += page)
-		sink = m[off];
-	printf("%-40s %6ld major faults\n", name, majflt() - before);
-
-	(void)sink;
-	munmap(m, SIZE);
-	close(fd);
-}
-
-int main(int argc, char **argv)
-{
-	static char buf[MIB];
-	unsigned long i;
-	int fd;
-
-	if (argc != 2)
-		errx(2, "usage: %s FILE", argv[0]);
-
-	fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, 0600);
-	if (fd < 0)
-		err(1, "create");
-	memset(buf, 0x5a, sizeof(buf));
-	for (i = 0; i < SIZE / MIB; i++)
-		if (write(fd, buf, MIB) != (ssize_t)MIB)
-			err(1, "write");
-	if (fsync(fd))
-		err(1, "fsync");
-	close(fd);
-
-	setvbuf(stdout, NULL, _IOLBF, 0);
-	run(argv[1], "sequential only", 0, 0, 0);
-	run(argv[1], "sparse pass, then sequential", 1, 0, 0);
-	run(argv[1], "sparse, MADV_SEQUENTIAL, sequential", 1, MADV_SEQUENTIAL, 0);
-	run(argv[1], "sparse, close and reopen, sequential", 1, 0, 1);
-
-	unlink(argv[1]);
-	return 0;
-}
+--=20
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
+=D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=8F=D1=81=D0=B8=
+=D0=BD
