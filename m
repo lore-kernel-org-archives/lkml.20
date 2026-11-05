@@ -1,69 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874608;
-	b=IvXvUdBgQJIYEtJMNGq5KZ4FaiHHQK2piecTqo9e0r78w0kaIPwPXRTkFExXCHIr+N5G
-	 SGIEEV6BEMBckJPZULRd9aKRrILvJZfU4lQ/o+sQlmdjvmrs/hsDnhPh7uDAQckPbkfUE
-	 PiUzWMWN1dKtgkDuyYow6m7ztzDaouOiE9/PxUpzcwuKKilzhraTQfaCUhLWQuHOFfLmh
-	 ltWZN6rYsay0MXEB7MnbsnlKinY+mJxoOYWpMn6WjgyOuJCebezfYSsewKy5PCeoBO27m
-	 Tbd/Y0zfkYGk/Kc/+MEng1V6jhXTZvxXWec5XrRSh7dr8IweF0lv1G0oQrZHmFJcoew==
+	t=1793874617;
+	b=TfC1LDvXw0jFC6jWlXza9AGz6Iyndwsa+XNr9dTdIb2NPjxzOZzlSNJwISibdJ3WYxoQ
+	 rK6zFctXWFez+2SkYAmLD0a7ScO4IEHmxlJvgPbTD11eGcfce5rTOwNoUwPnz3YTLoWZs
+	 RR+YRLTKInRn4rGTDrtsXU4UGcTycmrPnFBMipYP6mv3E3gVoqin7uBFITq5CTeOfvOKr
+	 y37aUkyrFUo0FJs4tKDyuwVAaHUn75F5LxxOJbpj/KBVC4OiHSL8j7J0WEGVuELyRq3bs
+	 F+d7jZDdc9kJ8kaVBeyTE3FZbF3nA6Jy4Fb6XbQw5kyHseMDJPO6GNtjunocURjv1GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874608;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=n9zGelRzeR9jm80W8T8wv8FzP08CSeK9Ddixf5lP1vw=;
-	b=0J3Q0tMNb3btNd40nE0z2bJK8IIUaSRG5mYXXAiGRXmEqDxyfRhVGLzlhannKnjDeqnH
-	 4G/EvuoGwXonF/HULPQoIzSoMiPtEeY8HL0Od+lwS2mykShFQPXdB/HsUFAGc9goqD4jQ
-	 Mk7+pSPgoguyJoUFz4TbyR0U8J72ukOR+J4LM6RxEdYZmmojK2nq9D8IdB1pTfnkGDPC2
-	 h6tZIDGDUEr4Mtf5JOzq5cWxtDTjmVutrcGPggDMhKFVL4ZoxP0rPkK9o3EXUeYe79Qyg
-	 SX+ddRH+ik6AEyGTVHt+/VzB4IfE/7ynXr3dpLqDUSxchBhDcxxA2rptQODAAvT5m9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874617;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=aY4AUfbfJDpppsRiExRd+4IldJoEWi704rjSVmMKD7A=;
+	b=BQ8gccL4hP+D1VN7dKAtIS5QuzxvaFVoFizN5lEZg58OdHmwhhAdibpfsHpwoZkgO20o
+	 OIkehxRSoFzehD/Wnfp+JcxMkGqH/vDIMF327e3n7qUOxax/uadpTSF7y7YMRWQWfB7z/
+	 208g425QwK5mnkO0yrKMwwtG/TV/GM1t4cetduP9zcgEXjX0f38W//EWumDU31A2EnKuW
+	 JbVi9lDANH7QXo0z/LIZfWfVGmwTEikdrwvQ/ILVhivTRPYuwxhcbcpMBitw7w/yUVG5u
+	 YUvkVOBM+8VPbRlF4l66PZYQaGyu4dXhH6cAQieS1Q4auUTfNpFSnddYCKE7X24tF7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hqTmKQ/q";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HttCFaqY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47D5606A329;
-	Thu,  5 Nov 2026 10:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9DE606A329;
+	Thu,  5 Nov 2026 10:30:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqTmKQ/q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04DCE1F000C1;
-	Thu,  5 Nov 2026 10:30:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HttCFaqY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498F21F000C1;
+	Thu,  5 Nov 2026 10:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793874608;
-	bh=n9zGelRzeR9jm80W8T8wv8FzP08CSeK9Ddixf5lP1vw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hqTmKQ/qNd9AeJgNq91fZYaBkT1aP98v69T7CblGk1hbHSSV41l03zI/1/gLM3P39
-	 gr2TpxhJt9bX3ruuedNEVPDI3PC/uwQke8cG8mPbP4N1aS6QHl/CzhSema57b19cM0
-	 FcavNSTFKDWdhBUABl23/UCdpe7kfj64O5K3lAHwlxA85029NxyrZ8hKOPWx6HmMO3
-	 74/lcRV0iMzpQuYy95W6qJ2QC4F+kCiMDOwcAIa/BvYHSZYnL0kbfunbtWKVHZRZpp
-	 +nRyPjoeSUj1qwEc8FYLCLEGra3P9X0mm1jCPybRdUbf+Cq4XXo/GbUcnmsAao7Akl
-	 m89HXXZCO1PEg==
-Date: Thu, 5 Nov 2026 10:29:59 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 3/5] locking/rwsem: add down_read[_killable]_nosteal()
-Message-ID: <auxaRUi4h4a4tfUk@gremlin>
-References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
- <20261103-khugepaged-latency-fix-v1-3-a07ab16ac860@kernel.org>
- <20261103115159.GK1813469@noisy.programming.kicks-ass.net>
- <aunLcWto870swo38@gremlin>
- <9c367177-1822-4b6d-8bee-d283eef7b895@kernel.org>
+	s=k20260515; t=1793874616;
+	bh=aY4AUfbfJDpppsRiExRd+4IldJoEWi704rjSVmMKD7A=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=HttCFaqYkoYo+r4yowGWKstYxuZRqG4osY6wLCMgMjdb6cw1CBBX8vmv7kNfTkCzM
+	 lR1WNwl+8RWzxPbCxY65CzmOBP2y0BFhKb4irPF4z48XwFBtz+PVWqFrLPja/dEPZD
+	 JLE7jtAN+DGyf9rDaQw1LtPgeq7TDIj9+aQV74Tda18G4kWRhxvWJYgrn7XrAND0Zn
+	 mQjr/z4qNVyqu3icq+JJHZyQXlWCQxF9qaWiTnfIh8fNzzBseRgTKdOB8UA/qs8WgO
+	 iOQmdQI62IjMR2rwYOyA1dVX/7DZhg/kCIRMrtI70Pj/VKgX0MPYNCfF3mvNqlQ4JV
+	 7q25Gi6lf0rpA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4013D391AFB4;
+	Thu,  5 Nov 2026 10:30:16 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,56 +53,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9c367177-1822-4b6d-8bee-d283eef7b895@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: ethernet: ti: am65-cpsw-nuss: Enable
+ timestamping of
+ unicast PTP packets
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179387461505.3576987.13427871090312904727.git-patchwork-notify@kernel.org>
+Date: Thu, 05 Nov 2026 10:30:15 +0000
+References: <20261102135117.419539-1-jjc@jclark.com>
+In-Reply-To: <20261102135117.419539-1-jjc@jclark.com>
+To: James Clark <jjc@jclark.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, c-vankar@ti.com,
+ s-vadapalli@ti.com, horms@kernel.org, daniel.zahka@gmail.com,
+ bigeasy@linutronix.de, oss@vassilevski.com, nora.schiffer@ew.tq-group.com,
+ grygorii.strashko@ti.com, robertcnelson@gmail.com, mlichvar@redhat.com,
+ linux-kernel@vger.kernel.org
 
-On Thu, Nov 05, 2026 at 11:25:25AM +0100, David Hildenbrand (Arm) wrote:
-> On 11/3/26 13:24, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Nov 03, 2026 at 12:51:59PM +0100, Peter Zijlstra wrote:
-> >> On Tue, Nov 03, 2026 at 08:27:44AM +0000, Lorenzo Stoakes (ARM) wrote:
-> >>> Since commit 1a728dff855a ("locking/rwsem: Enable reader optimistic lock
-> >>> stealing") a sleeping, queued writer whose handoff timeout hasn't expired
-> >>> can have its lock stolen by a read lock issued before a woken queued writer
-> >>> was able to acquire a lock.
-> >>>
-> >>> To avoid write lock starvation, this is only permitted if no other read
-> >>> locks are held.
-> >>>
-> >>> However, this behaviour defeats the purpose of a reader periodically
-> >>> dropping the lock to allow writers in, as doing so only works if the write
-> >>> lock is acquired first, another read lock is held, or a queued writer's
-> >>> handoff timeout has expired.
-> >>>
-> >>> Provide a means of indicating this intent via down_read_nosteal() and
-> >>> down_read_killable_nosteal().
-> >>>
-> >>> Implement it by exposing a steal parameter to rwsem_down_read_slowpath(),
-> >>> update the starvation logic to modify this parameter and modify the steal
-> >>> branch to check it first.
-> >>>
-> >>> Also drop the duplicated RWSEM_WRITER_LOCKED check and remove the
-> >>> goto as the steal condition makes this redundant.
-> >>>
-> >>> Exposing this function is safe as it only makes the lock more pessimistic,
-> >>> so does not impact lock contention.
-> >>
-> >> Not generally a fan of this -- can't we tweak the steal thing to never
-> >> steal if there are pending writers?
-> >
-> > Oh, well, I had assumed I couldn't fiddle with that behaviour across
-> > rwsem's in general, so if I can yeah that's preferable!
-> >
-> > I could send that change separately then and drop it out of this series.
->
-> Just so I understand correctly, this patch here would be gone entirely?
->
-> But #4 depends on it, so now I'm confused :)
+Hello:
 
-#4 would go too :P see, making your life easier ;)
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-I'll try sending the rwsem separately, then respin this one.
+On Mon,  2 Nov 2026 20:51:17 +0700 you wrote:
+> On a BeagleY-AI (J722S), ptp4l as a unicast master (unicast_listen) logs
+> "received DELAY_REQ without timestamp" for each unicast Delay_Req, and
+> its port goes to FAULTY after "timed out while polling for tx timestamp"
+> for the first unicast Sync.
+> 
+> am65_cpsw_nuss_hwtstamp_set() does not set the TS_UNI_EN bit (bit 24) of
+> the port's TS_CTL_LTYPE2 register. According to the TRM (J722S TRM
+> SPRUJB3D, 12.2.1.4.7.13.5.1 Ethernet Port Receive Event and
+> 12.2.1.4.7.13.5.2 Ethernet Port Transmit Event), this bit must be set
+> for the port to timestamp PTP event messages over UDP sent to a unicast
+> address; without it, only messages sent to the PTP multicast addresses
+> selected by the TS_107 and TS_129 to TS_132 bits are timestamped. TI's
+> netcp_ethss driver for the Keystone 2 Ethernet switch, which has the
+> same timestamping registers, always sets TS_UNI_EN.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] net: ethernet: ti: am65-cpsw-nuss: Enable timestamping of unicast PTP packets
+    https://git.kernel.org/netdev/net/c/6887a8f98244
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
---
-Cheers, Lorenzo
