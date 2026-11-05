@@ -1,63 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793841582;
-	b=X2VxlW4b7N2QRhH9y0cXEJzSajB1qio9ZS82dr4a7QKrs4eJEuwblHA8lwl3VSC7BKuJ
-	 GLoKxz+a1mM1TjckVMJM0CAmSfi89zgCVZm6tD0rnSzo3tGSu9eQeilDmNEq7eNW/TJk7
-	 gRB+xeWwFi90XFdrdFE4cnKlbYBq9LHulxSd4Tf7dI0EPdTUG83IBFtfoyY/E4+WJIlz5
-	 nilUFG7naTMUkgBQllTwphnkjAmLjW6TO6rBJB+al/fxjq0Y51BHQXA+sFmDhKpF2SlKH
-	 IhEObkFv1qfkkjonx3Jiwkvyt5etHUpsqLxU9wFtjaGy7Rh6EGpKy5Mman34lJv9u/g==
+	t=1793841594;
+	b=Bsb8JbCPWbH4A2PJJLsfpE1giKmHL3DZVeQnlpCQReUnP2/6vNtQmPShFqEEVPcjFGiQ
+	 MOlAu0hHdXseU/T5YPsvm5TV/BQTVV3TREROnWCUn5QpLtLa6Lh+T3JxL4gU/X4YSytZD
+	 c1Fdf+d4bTY4AOprNv4rBCcWbKOtj69KV1t5dncNxQwn0VKIuVW9SESlBkV/UtbrvZ3Xv
+	 WbEidB0Ef23g47RamEcJKwP6tvx+trkxm817/ea+gxzVVrgnys/t4B/ywx3vIXcRSIqc3
+	 xAruI763wKZk1VgdGfhoVkeUskeil/soBsB/qHbSOoneCUqbV8j9UU+b8TO1VFfKRSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793841582;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ipE19vO735Vlv72+ZECb9RYfcfkbe37S23ffmmXmgcA=;
-	b=eczmByu6/YwMxloLMMSK0fdt0xj1fB/bUCTWKq/9PLAxa0N1oXRP8z/mgbS3Dogrxega
-	 88yecQtCbbJjYIYuR+3KbDECfxL+tLmHKsSX7PxfxoWAtCEOWct8J8hcbbezyRrkITPbb
-	 QAb1C9Sj6Vr9OVxpNsRqRd8+EW9oFhFBuX9C1oekUplgBJN9U8M3U9KRgK7XNxZIg6rKb
-	 35oDYWRYhbZQwMAMzsN6mVV97jK3KOulr53TXiFc/a0SYb7j5pOqIt5Djl32dbg8E7nzY
-	 iYpjiPrJgRqkYDi0MBQ/ozk92EinOaWn7g4Q97Gqe/WWvcaQf+/I790BOWRNf/PBUHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841594;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=qg2+dZF3TjKEHvPr7q+CoS4vmmGWQlhmYsqxlyiBRfw=;
+	b=UvIc2g+6vNyT38H4nc7i1lNvN5kRB3wFaTTlMAAtU3nd0nbYSlxuNSOOIGL4in0TADLl
+	 6Dg+pprwJBkahz1NbIeQU4Ct3yr/Euf3EasbVQbuIXuzef/ckSdJBBaggKc+7ks5kO1Iv
+	 kSKUz9sdyTtUh8o9ykJM+EcTNwUUArTVzMlQYCNfy7eGFwcITdnN8/r7vtiqc1EMGKQeu
+	 NF4/m12xkzCh7hIkVxoBu2ggfstQbMxcYyv8s/nW2BxyMfYak05qpJC+9hgxCmsIJFjH1
+	 bU7kGWgNmDQiBTrZV6hKeKKlznsif+T8MoCrH7kJxdQOxdyeKsskRCDnJSYVf0IMzTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDYzKvk7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62362606A329;
-	Thu,  5 Nov 2026 01:19:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDYzKvk7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A28D1F000C1;
-	Thu,  5 Nov 2026 01:19:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793841582;
-	bh=ipE19vO735Vlv72+ZECb9RYfcfkbe37S23ffmmXmgcA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aDYzKvk7o01uoSIQ/ewAQaE3leumH4vU0URqgMra4+yUfSJzVNwcGjP4BaAgx/BkA
-	 WfZK5JjJe9mCJWiHgH6Ys2KS2PsuggLY9lbiHLNlEUgAx55P5ObELyqYfUgKxwIaWI
-	 C5JxNAQIJgWr5knKVF1y3jBS+nuWU+3qY6P7qBTaSEwBEjG8tfZ2R3j3cN6Dnefp14
-	 jzD9CebeJXnEtDN6UyGnIZRPYrmIRo709KqPlWOGYzbBi1oOZWnDblLbhOiE4QNb5n
-	 m0I4BcX+pmfVs+X5ASYk3dcbYKmx/svhywTJXZT7xj/OJQ6je/g8JFJdlahLofVfHS
-	 slOKHHEowhPAA==
-Date: Thu, 5 Nov 2026 01:19:37 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>,
-	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: clock: Add Siflower SF19A2890
- peripheral clock/reset managers
-Message-ID: <20261105-dreamily-quicken-31e2b446a942@spud>
-References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
- <20261104-sf19a2890-sysm-v1-3-a4fac07df823@telaak.dev>
- <20261104-remote-festive-1e6d807ef014@spud>
- <CAPY4CJ5Q7BJuay6D0F6-yvjruHvOO4UQaP1wHKK9_exbH=hUxw@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6B8606A31B;
+	Thu,  5 Nov 2026 01:19:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC6B8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793841587;
+	bh=qg2+dZF3TjKEHvPr7q+CoS4vmmGWQlhmYsqxlyiBRfw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=VV2k4dof/jU3tpPXeLLcXc88l4hymqTtXWhpTdPHJT9VseTmTRzr2ohyTIg16NOot
+	 NzEjZ4hCm3xsTm8RVM5LSbJWmMWQEfEeRbAbkdbd8TqiGrr39bOlnZlneqXvr99pHI
+	 8Q82csGSDnW+R9I0q8INw0WeBpfeHWP64Rt49ycg=
+X-QQ-mid: esmtpgz13t1793841586tce477b9b
+X-QQ-Originating-IP: db7vP0PyT1iv0ktdaH831sO646d7fHC9DdZ5Je/YyqQ=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 05 Nov 2026 09:19:44 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 394686068405469888
+EX-QQ-RecipientCnt: 14
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,73 +55,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ynKIO3rf7ScFiTT8"
-Content-Disposition: inline
-In-Reply-To: <CAPY4CJ5Q7BJuay6D0F6-yvjruHvOO4UQaP1wHKK9_exbH=hUxw@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 05 Nov 2026 01:19:43 +0000
+Message-Id: <DMMVRQOY5TBN.J0PHJAAZSC2F@linux.spacemit.com>
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ Enable SD card support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Yixun Lan"
+ <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Paul Walmsley"
+ <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
+ <aou@eecs.berkeley.edu>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261102060012.100623-1-sandie.cao@deepcomputing.io>
+ <20261102060155.100679-1-sandie.cao@deepcomputing.io>
+In-Reply-To: <20261102060155.100679-1-sandie.cao@deepcomputing.io>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OZsapEVPoiO6CysBWbheExxOP4cCHLxJ34n2xqQixQ170frSEKKltw99
+	deW+mD8REj37AlVlFArSgblpns9yP8QVCChwffS+mz0Urjc4A2PZXKPR2cSgvKwiRky4OcQ
+	NM0PzM77/ay+nnlvchbKuTyj2ZJ4Z3qhNpJWr7oxxlHyl5Q6wujnKe59wMwhHq/WsVQzJn9
+	OdMr4IdxGaGDF67l7nGCP0AuNomJ5bg0IKcthLbXUQ33CjaSeI4JXWJ4dF4R8gm59xdykP6
+	qQxm1qnfkS9YryM84bPsy3XXm4oxCIDthtUwra8Qs6M3XAE0fi5UXFxZWWw58wxYGaWf0Lt
+	pR/3bi1Cbxpov9/FLj9VFMVOsDOaSTX/FtiMoqTPrK0wlE6zCCCRjQCdGj3oUlTejM1ynLe
+	WuWMNKmTnrqAenO/qOQpJky6yLfWTXr3+8UYiZoLhyXZsnxv9soOrao8Yv8jUOYPagVKbr1
+	j1QKxaJYdhYKJiLaucSZnUhtkIVWpE4XJfQR1D7Uyr+EbD37oghckBMtPZdekvRdnEacgpx
+	WhlG1STbDAY9US0Er4sdkg0ZRpR/bbq3iYbWBWUiLRwZOFhCZFvfr5PTSb9Z0/VV/jdBcjp
+	SmFtOJlHLw16ccYKb8n/sMgyLvlIdZvAjwFevnJ6M4WExRI8GH1XVAiHY9Vk69eSmFvtFNA
+	AwcxywLn09McHKGmWO62ojaPbQvEGsJSLoWPCGgLYBrSQRkk20hQWpHzbf/UnCk6+tyl+Qj
+	fbaHxJkLBD/Ioomnu+ZnlpgakGThs0tIMYN6NRK/G97YJbxPYyzWiAKfwKIRT+kCRwrAsGV
+	/mo7lBEevQEw10ZWoU2uqbuHCMnp3o6XSQMbvSYMThOZlP3CSsRXLXr+YnfSNck71wSDo1Y
+	h8SiCJCMsRRYmU4aWwf5bSWueg8okGshBAC8gniA3PVgXXuUewBA+jSEUiGBstBJizURiB5
+	R9idTsQfVENpaf7wRsW70RpwEArr1OhTtnLjneAMInVKk8OqsEuFDhM/A0/L1CY3I+VUxdZ
+	tiFGpVZ51GWuarRRzqKjtN2eDGjsF+qmFBSy8EnYoCuTlF+LEdNsewy05LEyJPdgxE3ixM/
+	AT6Be3fFWKS+Z4zSpXLyKtZSCCZmW+EDI7mzqMT4dVG
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
---ynKIO3rf7ScFiTT8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On Wed, Nov 04, 2026 at 08:08:57PM -0500, Joseph Telaak wrote:
-> > This binding looks like things that we often see that are actually
-> > incorrect models of the devices in question - things that should be a
-> > syscon but not implemented as one. I'd like to see what the actual dts
-> > for this device looks like before signing off (or really even reviewing
-> > this at all). Given how the clocks look, it is probably accurate but I
-> > wanna be sure.
->=20
-> The dts is a separate series I'm holding until the bindings settle. In
-> it, each manager is a node like this one:
-
-Just link me a tree somewhere with the dts, I;m sure one exists ;)
-
->=20
-> uart_crm: clock-controller@19e24c00 {
-> compatible =3D "siflower,sf19a2890-uart-crm";
-> reg =3D <0x19e24c00 0x10>;
-> clocks =3D <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_PBUS>,
-> <&clk CLK_MUXDIV_PBUS>, <&clk CLK_MUXDIV_UART>,
-> <&clk CLK_MUXDIV_UART>, <&clk CLK_MUXDIV_UART>;
-> #clock-cells =3D <1>;
-> #reset-cells =3D <1>;
-> };
->=20
-> with twelve of them, at 0x19e04400 (gmac), 0x19e08000 (wlan24),
-> 0x19e08800 (rf), 0x19e0c000 (usb), 0x19e0c400 (wlan5), 0x19e24400 (i2c),
-> 0x19e24800 (spi), 0x19e24c00 (uart), 0x19e25400 (pwm), 0x19e25800
-> (timer), 0x19e25c00 (wdt) and 0x19e2b400 (gpio).
->=20
-> You may well be right. I dumped the first 256 bytes of each block from
-> U-Boot: all twelve have the same four registers at 0x0-0xc (reset, clock
-> gate, one I have no documentation for, and bus output enable), and five
-> have more past that: the GMAC's interface and RGMII delay registers at
-> 0x40-0x4c, the USB PHY's at 0x40-0x8c, one register at 0x50 in each WLAN
-> block, and two at 0x48 in the SPI block. So each block looks like a
-> small system controller for its peripheral, with the clock and reset
-> manager at its start.
->=20
-> If that should be one syscon node per block, providing the clocks and
-
-No probably not.
-
-> resets and holding the peripheral's control registers, I'll restructure
-> the binding, the GMAC glue and the USB PHY that way. I can also post the
-> dts series now if that helps.
+On Mon Nov 2, 2026 at 6:01 AM GMT, Sandie Cao wrote:
+> Add the device tree node SDHCI-0 controller for onboard Micro SD card slo=
+t.
+>
+> Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+> ---
+>  .../spacemit/k3-deepcomputing-fml13v05.dts    | 22 +++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+>
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b=
+/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> index 84f66dd8f962..4471338a9774 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> @@ -184,6 +184,28 @@ &combophy {
+>  	status =3D "okay";
+>  };
+> =20
+> +/*
+> + * Onboard SD card slot:
+> + * Plugin/Plugout the SD card before power-on the board for secure.
+How about: "Please insert or remove the SD card while the device is powered=
+ off."
+> + * It works as a boot media. so set it to non-removable.
+> + */
+> +&sdhci0 {
+[...]
+> +	non-removable;
+[...]
+> +};
+> +
+>  &uart0 {
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&uart0_0_cfg>;
 
 
---ynKIO3rf7ScFiTT8
-Content-Type: application/pgp-signature; name=signature.asc
+--=20
+Troy Mitchell
+
+
+--2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvZqQAKCRB4tDGHoIJi
-0vJoAP48XzONgQM9jSTbYdH1mbu1z8mSDjtwafVehtu+TlEQ7AD/a4G3si1Ft8YU
-VV6kizbLXqaiAnYeBbtH7zk7GTlGDgk=
-=UKgd
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauvZryEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+r8QD9GxMgY37x8+t/
+65Zh+PW3tAkCJ3fBNtdrazmtjmZmGfkA/3z7vLcrPG1IZT0PxKH+NE7ixhomH0B5
+aWKFU6efMCcD
+=Xgv+
 -----END PGP SIGNATURE-----
 
---ynKIO3rf7ScFiTT8--
+--2980ced06dce2ce2ba54e857a1b9e298e4eb13b22897ac4ebe45f64efc24--
