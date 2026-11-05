@@ -1,107 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903144;
-	b=CZVP0Mh2Sv+2zzx6w0aNwVy5LshnZdGIOmmzEqlpAwR0binp1DxXBv3TsNhrQ7Y0f4/6
-	 k9Le3RM1ljL/R4cY+jjELIZ42QIvdRQy/84D5xcA4MnmeDgcTpxzjgW94x2NhygwiINzu
-	 v4eBadUU8umMAI8xW8DLf1gOLG16kBuk+2RVyAmer+Yj2bCx9/9OtJ+7lsjz0kfi+WCEU
-	 /SDtd30dV8bWdI/E60L50VVsWcvVx6/q/tsSylRxyFB0pQdVhhpAStJ1KtaRQbI+vdaaM
-	 Bhcp0pLUyuHH4erpM/vlxpDt06gXB1X5LJSmoIm/+RHZHe+4BWVXR0LJS6aP78lM01Q==
+	t=1793903188;
+	b=cFM0+pzysVFTp+ZQ5cSZTjmmpwFyMz3EpbFRkvFuDpyCin/F5No5Ml/nEDhIeer/MV6J
+	 po2TvQq+RHCW+nZEBYxCUfbbkyEF8xpaWCPnAV0MxID6+fBFZg6d6QnC5qDrPLg0vpLeX
+	 Mli8SmHCE66PPt1WLy/wBeAc+srP2oURiQBTYhS0pUeuqczi/V0IlhguDu2DE390Tl4DA
+	 XMcmHnKdBW8VvT6FJD0GbEEXs2jhBAmHlKpb+dhJ7bT6dv7X1JHpy9ZFgmhDM6+mrBZYO
+	 lQpYA6SifEHIy4IoCYtqCHDxq0mSEVzcadB7DYdPxkIuBKR1z5VkbuWyAuO2ZDOXhww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903144;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=fsQ6mSUj8J58sizxRKgAFmXPAAGpzg0QL1uwhWUDIDeZJYKVndaoagU11/H6j681Kwub
-	 Ou1b13hMnHuY5tE4ylickFjKCT0tqH+9W99l3CVqk61iGHq0ZyQAGVm1/6KEvd8XSt/EV
-	 LDLuD93fRl5QPnEebpoTWQyP9bj+k5Am1l6oXFUpFPdh8Pg9lraec8MiH8Pxcyeocp2zy
-	 qidF7o9FxB1E7uEm9+F4ZwLK0/fxbwdhZe5BS9zdhWSm5IJuHmW/LtVm5Si7yBAdmvDdV
-	 ooGPsMb7UyKYbNIGoUP8rZ1ZdXR8A3jZZi6qAD5bCPkKVkD6vVs2DT/SU49Jq8ZsnGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903188;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/R0hL4pC4E1+M4yPEUjAb9DEswCGIx3z9hc5cmLnrn8=;
+	b=RYbn3/hxRfDGlhYufbFPel9k+IJBb/WkzM6TuPi74pX12Y/kSUV5CDcdqK8c3kzBx71Z
+	 TYIrcpzOQpzdxPcOSpEHVq16URrYuDRVOGWqeSEv3NQEmKnzU9iTCqMmkzWkofnbCB/5+
+	 AJTrFn+5nOXPdEo1aenNb7O/W7T5Gt6MvndMHAZvsFBvVXta3q4sNDnNX2QyqSMCKpFwR
+	 dpPyPm6M7QaH6/RP/veODloWicMlvhHqzrJw9CIBj7UkrzxafIgFw4qoXaI4P6GT1rLbo
+	 aP0irO+QEPK2WP/WDHgYoGn308x6xFAFKODSynwujMSV+1Yr7vIzAXeoQQzL2lreKuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/Zr3qgE1";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WSADaA2/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230C1606A326;
-	Thu,  5 Nov 2026 18:25:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 230C1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D977D606A31B;
+	Thu,  5 Nov 2026 18:26:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/Zr3qgE1
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 680B41F806;
-	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793903142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=gpLik4NpZai2UCjBWJ/B95wrHx4MFifwTzLWTRBPuU4JR4/ciZjfkZNijMo/jVikJg/ygF
-	hXxQy95vm+/D72Fq30mAwhIbXoERwC3lkAK+lm6im+qEmXKSAMyCFceZGJneyxAC1IgVze
-	Jzdww+rCxUQNhEyS3mcIi9GyDQooxhA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793903142;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=IRCfsY0DDHNNDPM4eXi8rOYTYZ4Xoyq6uw0m4wt/msxYws1pV66lh10BLLtzBT9ELWY4ZG
-	CAAL25a7JaiBzFDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793903140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=qpZ4fh0QxEdi0FT26Cr+9xiUgjtuL0capIrgzL6ruIrFpfI80vQ6Zmkpoh/99Vql2oxws5
-	cD93of+Fqf+ld9B00RpMC/cOTXFB/rLYJlmvqYUYgtvJ7BMtW5S1qcVmbueCji3IDM2wff
-	LRazJdXXvLpumw9+JCsWwDGVSym4yKU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793903140;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=/Zr3qgE1TUmuiHY93oePEYHUzm7HO4+DFmlFo2o14oM23SU60+Tpdx+yUWXDjuHfGG8YcQ
-	Jd41VfGUr+OCttBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C052133F6;
-	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3Xl0BiTK7GqAHQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 18:25:40 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id B89CDB819; Thu, 05 Nov 2026 19:25:39 +0100 (CET)
-Date: Thu, 5 Nov 2026 19:25:39 +0100
-From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
-	shr@devkernel.io, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page-writeback: avoid overflow when reporting BDI
- byte limits
-Message-ID: <ijzndqxlfmivwaujc7nhtsa4p3hyd43g3aqud3vovajnd7jh7f@wcarf4xjxm5b>
-References: <20261103193627.71959-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WSADaA2/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59AEC1F000C1;
+	Thu,  5 Nov 2026 18:26:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793903187;
+	bh=/R0hL4pC4E1+M4yPEUjAb9DEswCGIx3z9hc5cmLnrn8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WSADaA2/B0njymg1oF8Zt+aQWjkjZp7YNB/CPyp9J98Lqyl4v6ZjN9fdw7/g/aDHs
+	 chIL9JCou1TsxyZomGHv2ZBjLQZ9Z1DMWTUjRpmHis5a1j1jVyAEUyc+4ePcQsFPhd
+	 OPBs016zO1yFXnt4RNHofu1Kp5EDvzii20mg9cT1xiXd9rLrrVGa/442/RYi2She4m
+	 EYJhTmYBt2Rvig1iLH8Imhje9jvJRWYRfaZbM8Jt178SF2ils406aYXkle+Zdk/FLn
+	 gDUCaggZAfj1BLbk+EODCjDPXj1SZjVg3T1elHfRmQ6s3AYErm9i4G5kIxtD/aXjgb
+	 Fehrul5E5Cuyg==
+Date: Thu, 5 Nov 2026 20:26:22 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, "Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH 17/17] PCI: Replace untrusted state with device trust
+Message-ID: <20261105182622.GD8298@unreal>
+References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+ <20261105-device-trust-core-v1-17-1e536825b4eb@nvidia.com>
+ <2026110526-aerobics-correct-4c06@gregkh>
+ <20261105131856.GA8298@unreal>
+ <20261105140352.GF3889730@ziepe.ca>
+ <2026110558-tartar-juicy-036a@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,76 +92,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103193627.71959-1-dennylin0707@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Score: -12.80
+In-Reply-To: <2026110558-tartar-juicy-036a@gregkh>
 
-On Tue 03-11-26 19:36:26, Hungyu Lin wrote:
-> bdi_get_bytes() multiplies unsigned long operands before assigning the
-> result to u64. On 32-bit kernels, the intermediate product wraps and
-> min_bytes and max_bytes report incorrect limits. For example, with
-> vm.dirty_bytes set to 104857600 and max_ratio set to 100, max_bytes
-> reports 268 instead of 104857600.
+On Thu, Nov 05, 2026 at 10:43:00AM -0500, Greg Kroah-Hartman wrote:
+> On Thu, Nov 05, 2026 at 10:03:52AM -0400, Jason Gunthorpe wrote:
+> > On Thu, Nov 05, 2026 at 03:18:56PM +0200, Leon Romanovsky wrote:
+> > > On Thu, Nov 05, 2026 at 08:12:51AM -0500, Greg Kroah-Hartman wrote:
+> > > > On Thu, Nov 05, 2026 at 01:42:30PM +0200, Leon Romanovsky wrote:
+> > > > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > > > 
+> > > > > Convert the PCI specific untrusted to use the common device trust
+> > > > > level. Adversarial means the same thing untrusted does.
+> > > > 
+> > > > What about for USB?  Will that "move" to use this common trust level?
+> > > > If not, I don't think it's very "common" :)
+> > > 
+> > > It supposed to work for all buses out-of-the box, at least this is the
+> > > intention.
+> > 
+> > You mean DISABLED/FULL should work with this patch series on USB
+> > right? Meaning the core code will not bind a USB driver when DISABLED?
+> > 
+> > I was wondering if some of the broader things we are doing on PCIe
+> > also apply to USB, like device authentication. I don't know alot about
+> > USB, but I got AI to help me find some relavent spec information.
+> > 
+> >  https://usb.org/authentication
+> > 
+> > This looks like the parallel to PCIe SPDM device authentication. I
+> > would expect it to work broadly the same way as PCIe if anyone wanted
+> > to implement it:
 > 
-> Convert the page count to bytes in u64 and use mul_u64_u32_div() to avoid
-> overflow in the subsequent multiplication. This also handles large dirty
-> limits on systems with larger pages. Combining the two divisions keeps
-> the existing rounding behavior.
+> No real need to as no one actually made a USB device with that spec :)
 > 
-> Fixes: 00df7d51263b ("mm: add bdi_get_max_bytes() function")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  mm/page-writeback.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> There was some patches on the linux-usb list 6 months or so ago to try
+> to implement it, but it stalled due to there not even be any devices to
+> test it for.
 > 
-> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-> index 499a35473e4f..ddebec79d8d9 100644
-> --- a/mm/page-writeback.c
-> +++ b/mm/page-writeback.c
-> @@ -665,7 +665,8 @@ static u64 bdi_get_bytes(unsigned int ratio)
->  	u64 bytes;
->  
->  	global_dirty_limits(&background_thresh, &dirty_thresh);
-> -	bytes = (dirty_thresh * PAGE_SIZE * ratio) / BDI_RATIO_SCALE / 100;
-> +	bytes = mul_u64_u32_div((u64)dirty_thresh << PAGE_SHIFT, ratio,
-> +				100 * BDI_RATIO_SCALE);
->  
->  	return bytes;
->  }
-> -- 
-> 2.43.0
+> > 1) USB discovery discovers authentication support and creates an
+> >    attestation subsystem device for it
+> > 2) The struct device starts up with trust = DISABLED
+> > 3) Userspace runs the crypto flow through attestation subsystem. This
+> >    is extremely similar looking to PCIe SPDM:
+> >     1. GET_DIGESTS -> device returns a hash for each certificate chain
+> >        slot it has.
+> >     2. GET_CERTIFICATE -> device returns its certificate chain, read
+> >        in pieces.
+> >     3. CHALLENGE (nonce) -> device returns CHALLENGE_AUTH: the chain
+> >        hash, a salt, a hash of its descriptors, and a signature over the
+> >        challenge and the response.
+> > 4) Userspace inspects the above and approves the device
+> > 5) trust = FULL, driver is probed.
+> > 
+> > But I supposed Greg is asking about /sys/bus/usb/devices/DEVICE/authorized ..
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Yes, that is exactly what I am asking about.
+
+I used AI assistance to create the conversion, which produced two patches.
+The first exports `device_trust_set_policy()` to support
+`/sys/,,,/authorized` and `/sys/.../interface_authorized_default`.
+The second adds calls to the `device_trust_*()` functions.
+
+https://git.kernel.org/pub/scm/linux/kernel/git/leon/linux-rdma.git/commit/?h=device-trust-core-v2&id=98f5d11580d736a7878323dfb7238cd08c6c76af
+https://git.kernel.org/pub/scm/linux/kernel/git/leon/linux-rdma.git/commit/?h=device-trust-core-v2&id=f10f8e448540982699438dce369fef6cbfabcba5
+
+Thanks
