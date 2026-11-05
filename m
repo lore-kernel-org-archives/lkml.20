@@ -1,124 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793892672;
-	b=ElkFPzlWkItUil6zDupsjrqw5Vl0dBBK3J3JesSwfxHcKGRdf7dSLHhkRRXpQ0vghRaT
-	 nh2xNZrxh28lRwy9o4NwusjyOvCeKxfSmMF/LyDDcyRHSPsgzTgVzKUiDnxpEAIuHzRnS
-	 6Ized52cLKEUaIg0nHIkYtV3R5flt4iY449XZksnlmyyysFZNo/K6Dqq2i/VgGtzwLs7a
-	 MsdFwKfxWrt+Wpwi4RyD1S96Q2qUob1XKDaS1huLIyrrQCABUQOf8UL0Ex4Utr4nGsIEu
-	 wStMq5mlhXJPnKWxdLMMAYmxLx9wB3KqIG07Oh+b4mo2kH0ti1WGK5z8XNXHfwJxTsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892672;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=UFkEAJQmmDemZrU/BtfBaBHBeF42rbbxl6o22oiQ2UU=;
-	b=3I+L7vOPP+iSYu4xVEVNLUpmgixjiWPcMHy+FOjJ+2M4ImLPoD0Ombhe8KdCWcGMonjV
-	 Iv0pG4Ci3zwkrsO0KriiA+4VqT3Fsj5J4+XKvg7ok2tGfVBEJYYOdiSHdLfWFjpcTJRHq
-	 v+DqFYBNeJtqFr2PqHYuO4YWHSJCEvtGoMHjdbZdl6dQOA0vLfdvH5w3p0/W43Zn3K+4q
-	 xc2711TVqNYxcrJRMYZNRYw/cXTP7sgulaYwlVefSfDSxa6uQeSaxbDA/ptRW7SQUDI1G
-	 ZjuSEcS2NcQ49VyCZFSJ2eZPh2eVBtNLQf0zz4FfjyqJybpRTyf6KRaTr1k1VOav2bg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YpCZaSlC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bZwvWvif;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793892690;
+	b=2IDtV18jG+G133OgI7oFaUIpGFjk/HklrpO56KGUVYJbYUrwJFOqrC6IBQXK4ibxigUL
+	 UsLEGQxmZ62fVDQcoyXl6pMF8Zd1fqaAJFgGFUDRapnPGMXTX0gXSWfi2Hsl7IBH+fegz
+	 lGH7WJhH/pngcRTBvI0GP2lwEE2wdpoHyzf1y2POBGAu2WC2kvtsZm2RfsoaVd9AhtNpG
+	 omTlYXNrDAfB7Ntk1/MDvuPZm7y6aXhGAzLHqLs7Bbrv276VSkg2SzuPvV7ARUqgSjrYV
+	 cX4dWWlHdwizGHK0nJBV+6I2dYd+H6GbWd4xd9S4hRKx8/dyQ7jXyLN63exy4okhFow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892690;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Lc1sKOCYSlHUV0fHl4eH9tFJeblOhHlw/u9aQiiKpG8=;
+	b=tyjgvWK24jxLWvHREKaaIUSts24/CS8JfrnJRnUyPONdWy5Z8mOOzpSCSXIu6PZNWkQP
+	 Nu+QW6IBUBbhtbURWLEbguPsmse/7lB82EPwENfZmCQEj0iLQeknkdx66i035Cc43fwPO
+	 GACPhMEwM20XFsPe5erTI2r0G6iYZcORCgSaCNrqFETnORCtjbuojQ+94d17VogYzIgxC
+	 P7Kjqd0QjhineVtElOiSMMnoHJPwe/4XUgzACfqE6L+/jGpOsA/bNBo0ihf9PxwUAaOE4
+	 5ISZBq3axhoojUpTosI2TDnIUnAJxp0S1HpxNfe7oiKwQH8MjVu+C/fv1cLfIgTxC2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Ow7Bn4jV;
+	arc=none smtp.remote-ip=209.85.217.51
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B625606EE83
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B625606EE83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7C3606A33E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:31:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F7C3606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YpCZaSlC;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bZwvWvif
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQRm43645462
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:31:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UFkEAJQmmDemZrU/BtfBaBHBeF42rbbxl6o22oiQ2UU=; b=YpCZaSlC/SvbpXoj
-	vaboNeLLY7SdEf4bOTRfvamRZuigFq3U+/Nxx1QeAIcAJThM2ZYkET5hrzc8pD1X
-	oBfhAh28sQUJJ2LQOD6VpslRnfNbeGX6OojCu+RNYCyhd1EaFq40FG6NEfiVVgZ2
-	I5C8epDQ31Mc4vFcAT2tPqpaiJIZoI8UO5mIR85e0Ww7BVILrWrQv4Kg/RXNrnTa
-	iB+K7OEROkw9wzkZ+f2p2vhp/YObYBbP/5IQwpe8xqBIxbZjE/guDyGA3NfERPKc
-	w72qhZ52W1j5muVx5ng9UqI6+qDwCOItEude4va0nyKepZ42K2Kht70wQUSWhpC5
-	9YOWuA==
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrrkds4vr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:31:10 +0000 (GMT)
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8b0f1c06332so27986097b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:31:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793892669; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hGHQureGjvMo/zKr+5FDlG6XgdnlKuj/ak2nRpAvAUJSjvHJzPcTzXUpGTTDF/L/wN
-         gaSnBG/15B1c+nnyRjxcEF8a/6VFH4/n+Y1mO1tyMocWUZg1atK6YgcmCr/BmF1QVq8s
-         cXwYIWwOsaM70efQ1EbH3NEFzY3sL7QteKJXRoaE8/cH80vgPuL+7FqE5ksvmwP86rkk
-         BW9l9NIKK2Jim2v4sodsCVaYYDDwhtdUczPLLpsb35qkNN8+B/TLdUbPoPwTYiBRMqGx
-         ATvC6AzVv2ObGLZ7Do6d/gwubjIEe7Oj7ieGc3hM/PKBVP5bAnK7nGy40KLrh8RIh6qN
-         c3fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UFkEAJQmmDemZrU/BtfBaBHBeF42rbbxl6o22oiQ2UU=;
-        fh=IrYGnvB7AiUO5fLRfQ8AH0Mozm9pHdUsrg8VbOM7Nqw=;
-        b=PtsqM3VwO+KwolTQHPz2JyHequ0GgwBitXfq7/Bu+fe1V5Rs5fd6qw/uhkQkJT+rX2
-         lGomiRNSFEJdm21YrwJlhAEg1cqn0cgdCebkM7pcWP84Qefu4bf8y3MfuJPTwUh1mdKL
-         fQp17cY55YENP7oftC13m9On4aFBVGzRHqXbeWaKKSErwSo+NjtdGiuQTZhRbIqSjAoA
-         DUb4Rhm9wj4gocWqCZu7QlTmVm6RGD4izmhSuIHGAoNxv9DgwEoolPYMBlmtEfLh4BjM
-         HOy7QLj4UUSPtHrzCO6mLdJ+r6XE5NPuhOg+0o4/Ldg5x2aMcd5z/WFjaQNLrd/9jWPg
-         BRNA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Ow7Bn4jV
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7ce6cb4c6faso918134137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:31:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793892669; x=1794497469; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UFkEAJQmmDemZrU/BtfBaBHBeF42rbbxl6o22oiQ2UU=;
-        b=bZwvWvifWrjOItBOf4C6MnUYBC/rGmogRk+8GLqk6k0Ua7XqNictgxXHHuhugIYSvm
-         mYpVi6dAeZ9FpsNLTiVpZLoQ0jRGZLfdLlLErmTrlZmlN3V5QkqQWO0v6AKuOSLihG1v
-         X9VpVyFr7xqNx8hELUnVa6djJbcZgn4dmxYZZifGfqyrOytWV9qfADofHtIi5SwSiIyW
-         QbLvIMrpVL1j3Zwqd25B+yImTyXYwnCYr2f4Up1hT7QAeAW0N87ejeKzw2IjsHtngaGs
-         q1aUHVfIDPJ0m5cGaPKdjpC2PJOT6QY0M7nFFUgMvfF9eh2Nrk4pltVQU6SJRBSaSk1Z
-         9nXg==
+        d=toxicpanda.com; s=google; t=1793892689; x=1794497489; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lc1sKOCYSlHUV0fHl4eH9tFJeblOhHlw/u9aQiiKpG8=;
+        b=Ow7Bn4jVMWNTW2BTiBf1oeu220zXvqX2/ixy6VJEzS7lT4YbYH49UvUCwNeJLvjGUs
+         zZC1gvlvCZlEsw/PgD2NjjS1bEPhr07eC/1OdSPjqOaNBYvbu79JZ0z5DwkpPkVGxrg6
+         PxCizCmixcKo091E1arV6nLRwfSah987kfDrP2FGx3ENiUAiOD3pzbsvVW4zhEd8xwJk
+         /IyM3XrrD2z67gY2DNDfuEh573tgIT8Z+QlFThqjpO6tROz7UX7ueDTLKje+6DyRMyWE
+         ce2NwC5VaxlQgn//CpxUCgGshsf91WPsuc6H6xIDCXwkEjLGOsOKRd8YqP0txXouqCGw
+         COwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892669; x=1794497469;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793892689; x=1794497489;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UFkEAJQmmDemZrU/BtfBaBHBeF42rbbxl6o22oiQ2UU=;
-        b=Y8KJybX/H7f/3649u4Mcl7702hsmLXko13Ce+2cQVAC010cMGuwSPaIF5fK14QpZXJ
-         z3vjGHbbw6PrPmjupzPb86sDYeJMkqZYHshE/TC10vWWbQG4GR8/aToCmEDRxL+Pw53s
-         TRtrB4rHpB9KzsrcH1tG+cwFjaAQwIL/8U5gS6T94J7VmV5xROd3zV6HTOX7lq5azEB/
-         MTmZXX0rUlauE6SORm8b4YZlL6IIrg5pHaPy56QPIGhpLolu3St+1Z9TlLqntX/dmudJ
-         +jKWLGFvBgZ64tlFE9jADUZKyXGE7LUvjPNJoPr8tN7b1Te7h+h6G12cqNgiLbUjUbU/
-         W4hA==
-X-Forwarded-Encrypted: i=1; AKwUvBxv6oXLqqzVb9z0aMbg4XQWT0r/4Sy7nKT7LSJsMgx3DA1R7HyuY/tomhCjjnsP9CEUTlgaNIHOTe3xWxU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TNk51CMLoLZtgB47hH+V2bwSJO0njfHErzeHrNMCarFm2Tdhu
-	g0k5KV7DjWjpBYAPdAur/NhQtFWKl/SM5MH5dOkFgs2W1HxNRlv1TRD8Ted6kZDSKWJMQXUoelz
-	0zTWliXk/6ZYm0HbrsWjcWN8vBFC0vnjYhk2yYN27zsD3lY03w7YqBaYpbT09Yc66JtGMbMf3EZ
-	fyeQXDxWsmnzpJjxhWSNfbZe+YMWbCQkGFkMMhlNWzqQ==
-X-Gm-Gg: AYBFou1pxL5cHfuGKlWrCZwNDIt3HNXAJ/HZoKVp7HYDABH9/ZygeCOa8gKjjyLXD75
-	EXDZFnPHtCQB2yrg/CaFMxuowAG4LvsGsJsSHEC9jNMCb6obX+Q3Xmx0w97Ogabl8nofwtIcH1y
-	oKDEXjRbhlgFfSGPMiB3En/KR/w/A8UIZcHl1xP4xTGzYc673xEYsoolvOYHbkryCzON20NWNFN
-	1SXFJ3J6MIaVxqSutSGX/y1QsEuKToxsGlb6B1C
-X-Received: by 2002:a05:690e:1207:b0:66d:112b:769 with SMTP id 956f58d0204a3-67ba4c87f73mr12304246d50.1.1793892668606;
-        Thu, 05 Nov 2026 07:31:08 -0800 (PST)
-X-Received: by 2002:a05:690e:1207:b0:66d:112b:769 with SMTP id
- 956f58d0204a3-67ba4c87f73mr12304223d50.1.1793892667556; Thu, 05 Nov 2026
- 07:31:07 -0800 (PST)
+        bh=Lc1sKOCYSlHUV0fHl4eH9tFJeblOhHlw/u9aQiiKpG8=;
+        b=oJRlSz5Kobib/OUl9hdZjO5yaud6Bryfjft3o//ImaTU4Ft/QI9tq/jWpX3PA+K738
+         fKNIzFx3ahw5pTFbS4mXf6P2/UTw7S4rGD6G4PJKyImclH8q8VcVcVqDikpxcEoyeWIP
+         SCOB+pkIeeb3eFslm3EedNx33mkKYJ5m54X8nAHIQifSLiru77c66Prv0GqA6PAnXEKJ
+         m7T4555F8PuKEl8HRNHm2LOSRHvMeSRLjAD3XiBYcRLf63qxUN6MO+2A93PNC8kVlIW+
+         SyO+cjUO2qBKA2WInfvBGdYN5oqE4xPTmQoinrx0nC/sgssLxy/Dt/pzXq/50iohdTx6
+         sTfQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTAdYjC8+gfPpNAaA4JjWmCdE4JTAAv3fSgrkKLJLeTOlZt2yKp7uzqirHa1zk5rKj89XMWprZayqr2X4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9k2Z0+/abg6mX/BDaf9oH6gsRWK5m3GFxo8KcYG1hbSURMy9R/
+	rfzdAuROfaCyMEp+OMbeAuSR2H0lNVDSi4tC0CRPbOqBktWYfgS21elfsLnoLixgIpU=
+X-Gm-Gg: AYBFou3HZJvxmozkvEIfIYzepgmUDs6PT5chRHTE7NDBpQoPrImezBCDFxpXQz02ei8
+	XKCH1//n1gNDuPLtzyUAyiiK2AjgJ/R6di9KFNnRK1DJRCuoQITnLIpw9+jhvaocyxOPTZl7Qb1
+	dePVjuh98IIu3m8lfzXIxDUa6Oepqo3wOGrm2gm27aoqb+08S8eMSaIz9lz02dcFnBrW/v2EkG8
+	Kxb4vvS6F+Vzs8v626vSfbdIC0vRsBGPsnD2fG6BewtK4Yor/DTodchwNLFNL7TY0cRsfRPJAMA
+	XsrgpepvdncLAGQ/5WJT7NR8WaRPdULz2zYuD2vNFiE2E4HplCJov+jrX+cj8R9gJOzQ2GVK6Nm
+	jhRdJi2laEKtJDjcHDxPR49S0s6meAZfR7CRX9oTJB1atzzjOF8tfDkYqrDvpMigYdfKDSvg9US
+	XxyPxeJRCgDIVdiYrf1r6zCFYReWm7xoTho8t+fwigQmHz7MtJfRbrYIZ66BIPLMus6rsuPkw62
+	A7TysBpgfqnWEpCm9o+xzsKXIYwcQ1eNzfWef/3As7PSTiBXaf58oI2bK9mMOUBsjuJsl1qKZ3c
+	hoVC7zoFApwnY2R/u7KBaavlQEdu1FMdj3mDxkj3ZuyB
+X-Received: by 2002:a05:6102:5811:b0:7bf:74c1:b607 with SMTP id ada2fe7eead31-7d0728adb49mr10421912137.34.1793892689092;
+        Thu, 05 Nov 2026 07:31:29 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.244])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d2770ffbb4sm3644329137.0.2026.11.05.07.31.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:31:28 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:03:17 +0000
+Subject: [PATCH RFC v3 85/90] tun: ignore an equal uid or gid across cells
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,108 +92,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260730062219.2836938-1-sammiee5311@gmail.com>
- <CAGgiveUc+TkGyGDxuuCLpHO=i22-4fn1CqjqnnmWLdWWYOZfPA@mail.gmail.com> <6f2f8357-59ef-491b-95f2-d58feb362ba7@oss.qualcomm.com>
-In-Reply-To: <6f2f8357-59ef-491b-95f2-d58feb362ba7@oss.qualcomm.com>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 16:30:55 +0100
-X-Gm-Features: AclHuK9ffumAB6FDO6iM-oNWXrLUTKEfi4aPTOqEms-G-2LHrNHJadYMbOC2DNQ
-Message-ID: <CAGgiveXBc55WKnKiZwPvxZqFe1uHh6dFwSPwMRbFhG9yEFHwbg@mail.gmail.com>
-Subject: Re: [PATCH] tee: qcomtee: user: check the parameter count from the supplicant
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Cc: HyeongJun An <sammiee5311@gmail.com>,
-        Jens Wiklander <jens.wiklander@linaro.org>,
-        Sumit Garg <sumit.garg@kernel.org>, linux-arm-msm@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=Xd4cX455 c=1 sm=1 tr=0 ts=6aeca13e cx=c_pps
- a=0mLRTIufkjop4KoA/9S1MA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=RNNYRmto68J4RoQH_uQA:9 a=QEXdDO2ut3YA:10 a=WgItmB6HBUc_1uVUp3mg:22
-X-Proofpoint-ORIG-GUID: jm94Vm4h2jb0scw-tO1uT-o6kFXf0uxc
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX3d+jGGEdmD6C
- 8p0MHRNrzKcyEs1LuQTP3qeGeyOaZe3o6jqNTh9XTEnfgwZASMp2KsL5reIJ1f3o88U/iWsbbAC
- 4irhilG+cQ+eo3N81+XuB2LK89opiNU=
-X-Proofpoint-GUID: jm94Vm4h2jb0scw-tO1uT-o6kFXf0uxc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX1ELmSdBOlHlr
- 6yBA0SxfobLJltaenBFUFf9un0FJtCmkUZOsEJknVTDyUPSSm+cXLS9QMpqOVBDSPHkpayMtkEz
- es0saDYPcpMQ8YWgzmbGrHZDrfLLh4J2xt6CbjODfg11etlXeyynMt/jE9WHSTqh2xydah44vDp
- hjMOLqXVi8GXDJ4wJwxvQ1N0CrqLfjvJkKYIkA6wnvHRYseCWoqgdG7ABRAVzdtNOWvzqIlosxY
- /RCccIKD9UEjaplgNTjDmdjgO/hbgEbypt1zXcNKqOvyfwJbQiz7k1sEtzuAeIJ/fnO0OvFbIlh
- rFbyHzjtWYFovo/b0Qojt0WjU4LrdxKNXgSlvgHwtEMi6w7rhcrdXDe0cV7A9O6p/ZEivaWMTEL
- oZLJn3IlIBgRcQSJGkB/SyixaFevyAKAhzWpRPt5my6eM4ytyPWkkOfZwght5Ynv1uz1mv+FnS7
- ETyVcyLYniPIWIWkRRw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050061
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-85-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=3435;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=vyjLLoQ/TDAckSS7Xa6CC+c0a1GTVBoLQwuVwjxlg80=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QNemlnyjEZ8c0KT6w9l885GJ0zr8f73y0iD7INQWVQ9lCbygUr5B4MKELt79MKPWVHgb/GQndZk
+ wSRPhYAj+WQs=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Wed, Nov 4, 2026 at 8:37=E2=80=AFPM Amirreza Zarrabi
-<amirreza.zarrabi@oss.qualcomm.com> wrote:
->
-> Hi Jens,
->
-> On 11/4/2026 4:58 AM, Jens Wiklander wrote:
-> > Hi,
-> >
-> > On Wed, Aug 5, 2026 at 11:23=E2=80=AFAM HyeongJun An <sammiee5311@gmail=
-.com> wrote:
-> >>
-> >> The qcomtee_cb_params_to_args() walks the argument array QTEE asked fo=
-r and
-> >> indexes the parameter array the supplicant supplied, but it never look=
-s at
-> >> num_params. A supplicant that answers TEE_IOC_SUPPL_SEND with fewer
-> >> parameters than the request needs makes that walk read past the end of=
- the
-> >> allocation.
-> >>
-> >> To fix this, reject a response that is too short, the way ureq_select(=
-)
-> >> already does for the receive direction.
-> >>
-> >> Fixes: d6e290837e50 ("tee: add Qualcomm TEE driver")
-> >> Assisted-by: Claude:claude-opus-5
-> >> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-> >> ---
-> >>  drivers/tee/qcomtee/user_obj.c | 4 ++++
-> >>  1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/drivers/tee/qcomtee/user_obj.c b/drivers/tee/qcomtee/user=
-_obj.c
-> >> index 10452fcc7ccb..2a594ae299da 100644
-> >> --- a/drivers/tee/qcomtee/user_obj.c
-> >> +++ b/drivers/tee/qcomtee/user_obj.c
-> >> @@ -507,6 +507,10 @@ static int qcomtee_cb_params_to_args(struct qcomt=
-ee_arg *u,
-> >>  {
-> >>         int i;
-> >>
-> >> +       /* Supplicant can not send fewer parameters than requested. */
-> >> +       if (num_params < qcomtee_args_len(u))
-> >> +               return -EINVAL;
-> >> +
-> >>         qcomtee_arg_for_each(i, u) {
-> >>                 switch (u[i].type) {
-> >>                 case QCOMTEE_ARG_TYPE_IB:
-> >> --
-> >> 2.43.0
-> >>
-> >
-> > Looks good. Amir, do you agree?
->
-> Yes. It's correct. The check is missing.
->
-> Reviewed-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+A tun device can have an owner and a group, set with TUNSETOWNER and
+TUNSETGROUP. tun_permitted() lets a task attach to the device without
+CAP_NET_ADMIN if its euid is the owner, or it is a member of the group, or
+both if both are set.
 
-I'm picking this up and dropping the Assisted-by tag since we don't
-use that anymore.
+That check does not know about cells. A one-id cell runs with the uid and
+gid of the user who built it. If the cell has /dev/net/tun in its tree and
+uses a network namespace in which that user owns tun devices, its tasks
+pass the check for all of them. They can attach, read the packets and
+inject their own, with no capability and no right over the network.
 
-Cheers,
-Jens
+A cell with a block of ids has a related problem. Blocks are reused, and a
+persistent tun device can outlive the cell that its owner belonged to. A
+later cell that is lent the same block would pass the check.
+
+Fix both the way it is done for keys. Record the id of the cell that the
+caller of TUNSETOWNER or TUNSETGROUP is in, and honour the owner and the
+group only for tasks of that cell. Cell ids are never reused. Any other
+task needs NET_RIGHT_TUN, as it does for a device that belongs to somebody
+else.
+
+As a consequence, an owner that a builder sets from outside of the cell no
+longer lets a task of the cell attach. The builder can hand the device to
+the task already open, or give the cell CELL_NET_TUN.
+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ drivers/net/tun.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index 0a2f864a253e..ef1cc5617812 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -47,6 +47,7 @@
+ #include <linux/miscdevice.h>
+ #include <linux/ethtool.h>
+ #include <linux/rtnetlink.h>
++#include <linux/cell.h>
+ #include <linux/compat.h>
+ #include <linux/if.h>
+ #include <linux/if_arp.h>
+@@ -185,6 +186,8 @@ struct tun_struct {
+ 	unsigned int 		flags;
+ 	kuid_t			owner;
+ 	kgid_t			group;
++	u64			owner_cell;	/* the cell that @owner is to be read in */
++	u64			group_cell;	/* and @group */
+ 
+ 	struct net_device	*dev;
+ 	netdev_features_t	set_features;
+@@ -518,6 +521,14 @@ static inline bool tun_permitted(struct tun_struct *tun)
+ 	const struct cred *cred = current_cred();
+ 	struct net *net = dev_net(tun->dev);
+ 
++	/*
++	 * Across cells an equal uid, or gid, means nothing: a cell of one id runs on
++	 * those of its maker, and a block of ids is lent to one cell after another.
++	 */
++	if ((uid_valid(tun->owner) && tun->owner_cell != cred_cell_id(cred)) ||
++	    (gid_valid(tun->group) && tun->group_cell != cred_cell_id(cred)))
++		return net_may(net, NET_RIGHT_TUN);
++
+ 	/* If both uid and gid are set, *both* must match */
+ 	if ((uid_valid(tun->owner) || gid_valid(tun->group)) &&
+ 	    (!uid_valid(tun->owner) || uid_eq(cred->euid, tun->owner)) &&
+@@ -3338,6 +3349,7 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
+ 			break;
+ 		}
+ 		WRITE_ONCE(tun->owner, owner);
++		tun->owner_cell = current_cell_id();
+ 		do_notify = true;
+ 		netif_info(tun, drv, tun->dev, "owner set to %u\n",
+ 			   from_kuid(&init_user_ns, owner));
+@@ -3351,6 +3363,7 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
+ 			break;
+ 		}
+ 		WRITE_ONCE(tun->group, group);
++		tun->group_cell = current_cell_id();
+ 		do_notify = true;
+ 		netif_info(tun, drv, tun->dev, "group set to %u\n",
+ 			   from_kgid(&init_user_ns, group));
+
+-- 
+2.55.0
+
