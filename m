@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876059;
-	b=5EeZcSoinUAPm0lTLKue9XoUfniGnc2bphS8u/ziB9+FfcMXukAQ+LsTLwcTVGtBDw7U
-	 riwelzc8djTJ4NHH6QVRlunfS7UjVFCYNhj/47kYHI3+FfDM6/f58Nh3PCyQrtiv8CDLO
-	 CQYKguhU6VW56ITU3jOGvtGlJJYkBokUhFlf9ODDqX+9uO2Vz5ok0Uck356oSltrT8mwl
-	 xcHk3NozBuFzjejDQovc8wGAjcyopJebnnWoqhnEVyX61oFH+e83EML+oh9si4wh2xA5F
-	 HmOlfop+F5u5n16M06W1fuGUKWwcCqaKfWW0Yli2J+3+z6jGCw1IeM2ACYIbgKgOtRQ==
+	t=1793876062;
+	b=YkvKKhsyJPDU1dZIj+ycx4DLIUslO7NiyMjH4kXo15FwFjnSu7nXu5HRchC/HGHmnw6J
+	 +uWZWZgNF+KQqvjSnoKw3dR+OAq0VhPO7us+9vcB4Ul+ld0ZGoWrXakf9/nGekD/gKh01
+	 hEINnJJpaz6+AcarUUBbtA0zG6tH9c8mKqzwkEbOhZVE9aEaz2GfLxP9e2W0XgtcOP63K
+	 H3zymUci15madrDENIiLAOtRX6FOyB9apsEnSU3ac5sxkiq55d2Wcf590hFh24HpMYwt+
+	 vwplBNqOrIUW2gARGG/Rc1tV2DYjxQeTEtUW2wYncRbGakOTFJCG/FYy76J+NLl2xEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876059;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=uuLCQ5vdJSCNf8EK2nOCyp7/0y68brkrYFtyf0bFFsc=;
-	b=h7JAxUB0KAakZQzAHpJlbWLk9LYOLXwNKksh9xYR/+MPcHjuZfeCsZBzUpc4+ygr2dEn
-	 gfDiYqqhJBNPjo4KHp0Jk/2VCSUO03jfgBjBqWNlWW1nEFkFNRtGPL3MVfjpt/+Fp1wBL
-	 hwE72VsQq3sezqIiG72eWoSAeskXxjEyfIdVMBqM61H45t+RTKswOdFD3sEcAakegH5hP
-	 4GCNJz5/UeZ8jMLmG3XInvN6/D1tt/INpUcHGf0Vbq9iGdwjJFBfnrzboEWLYNV1e20Dr
-	 qGmpRYspfonbciROEu0jgGpFzHFQ9Vgd3Nck1rv/qMvgX3ZLKAC2XGCr9n3PGq/iSdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876062;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=8U+WQmu8jFLJh5cbm79ZPqM5GeKacWcEkDyhOz912oU=;
+	b=SjMctE5ScClD6XNG0v+ugLEBfks/5vag7Vo03wZwkRpw+miep8HfVa7nT/8sGn35MjSQ
+	 moJun12bMy/DbfgfkY9I+N+qbRpqrB19FzToC5RgnbKB90h8bjrdW9u+eBaNTm8VIN0nS
+	 shGvMCruuK86MTJpL8gflXxJ6dHiVOGh2N1G2EbL5Espbdk103tI0afXcTNm1LOMCNaZp
+	 5ZjsBE3JgKKbFY5FdkK8tOpCs7V7HUBxm3WUZbxs6RqvOGKZ4KMSJ/ByHB+t909L40+Oq
+	 duROOfpsJfPpluu0shXj9uOr2KfiIpKPxDJrYYaQ5YQjwkvmMbA+kEOuffqFmgC7RNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OOYpymob;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDAAA606A326;
-	Thu,  5 Nov 2026 10:54:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDAAA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NcjEQpYM;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B594C606A332;
+	Thu,  5 Nov 2026 10:54:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B594C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OOYpymob
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0BB411516;
-	Thu,  5 Nov 2026 02:54:15 -0800 (PST)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 976C73F673;
-	Thu,  5 Nov 2026 02:54:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793876058; bh=sIBaP94YRtB79rtMZyrt9dVTqFG1JE1zf+vMbgJ9phU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OOYpymobwadPTFqvrgvEgaxVMzn4xZAL9tqSsDkcyJBBigjWGT1qJ7UJxmH+BPP/d
-	 OQHPaUqlAi2jkjp0Hk67m0pgS6q6DsuPy8elY/zkJkasFSWoE5tq1APhhM4r3fPREY
-	 NAi/HbgohI/9lUg6sX+7+n2SX27ex0lSOrfTEqFE=
-Date: Thu, 5 Nov 2026 10:54:15 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
-	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-doc@vger.kernel.org, John Garry <john.garry@linux.dev>
-Subject: Re: [PATCH v3 04/18] perf cs-etm: Use per-CPU queues for per-thread
- mode
-Message-ID: <20261105105415.GP9176@e132581.arm.com>
-References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
- <20261102-james-cs-unformatted-per-thread-fix-v3-4-dbcb0c281b9b@linaro.org>
- <20261104142412.GI9176@e132581.arm.com>
- <54182c51-8dfe-46fa-9369-5e4e31a63796@linaro.org>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NcjEQpYM
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C;
+	Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793876052;
+	bh=8U+WQmu8jFLJh5cbm79ZPqM5GeKacWcEkDyhOz912oU=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=NcjEQpYMRbxhXBgzKnZDjzO9LLwfDGOaaIfPmI2qnt8v3BjyjGfN95aIsbRJ5WcAe
+	 pMYGKFT8Id4k/8Q0czZ/74nGUvslfN7Kw9FJOU7LmEuNez+Hz47vdPfnIMzS747B6m
+	 sW7Jr++9LwO+aS1wGDZxc4S00WHnS1MZnDI6ngsg=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf~lIMPucvWX2329723297eucas1p12;
+	Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105105410eusmtip15133e9a84efd244fc2a8fcab25cfa49a~lIMOGw1ty2761527615eusmtip1a;
+	Thu,  5 Nov 2026 10:54:10 +0000 (GMT)
+Message-ID: <204d333a-6f09-4498-b776-b2daee8d94b8@samsung.com>
+Date: Thu, 5 Nov 2026 11:54:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,31 +64,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <54182c51-8dfe-46fa-9369-5e4e31a63796@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/18] drm/bridge: inno-hdmi: Don't dereference a
+ NULL drm_device on hotplug
+To: Heiko Stuebner <heiko@sntech.de>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
+	Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+	<hal.feng@starfivetech.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Andy Yan
+	<andyshrk@163.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>, Yakir Yang <kuankuan.y@gmail.com>, Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
+	William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+	<xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
+	Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <2261991.3Lj2Plt8kZ@phil>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
+X-EPHeader: CA
+X-CMS-RootMailID: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+	<20261029-jh7110-clean-send-v6-2-759594e43acf@samsung.com>
+	<1844578.vCJZsxu672@phil>
+	<CGME20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1@eucas1p2.samsung.com>
+	<2261991.3Lj2Plt8kZ@phil>
 
-On Wed, Nov 04, 2026 at 03:07:24PM +0000, James Clark wrote:
 
-[...]
 
-> > Why not use PERF_RECORD_AUX events as an opportunity to update threads,
-> > similar to how we handle PERF_RECORD_SWITCH_CPU_WIDE?
-> > 
+On 10/30/26 18:44, Heiko Stuebner wrote:
+> Am Freitag, 30. Oktober 2026, 18:43:47 Mitteleuropäische Normalzeit schrieb Heiko Stuebner:
+>> Am Donnerstag, 29. Oktober 2026, 08:53:36 Mitteleuropäische Normalzeit schrieb Michal Wilczynski:
+>>> inno_hdmi_irq() passes hdmi->bridge.dev to drm_helper_hpd_irq_event(),
+>>> which dereferences it in its first statement:
+>>>
+>>> 	if (!dev->mode_config.poll_enabled)
+>>>
+>>> bridge.dev is assigned only by drm_bridge_attach(), but inno_hdmi_bind()
+>>> unmutes the hotplug interrupt in inno_hdmi_init_hw() and installs the
+>>> handler well before it attaches the bridge:
+>>>
+>>> 	inno_hdmi_init_hw(hdmi);		/* unmutes hotplug */
+>>> 	devm_request_threaded_irq(...);		/* handler goes live */
+>>> 	...
+>>> 	hdmi->bridge.ddc = inno_hdmi_i2c_adapter(hdmi);
+>>> 	devm_drm_bridge_add(dev, &hdmi->bridge);
+>>> 	drm_bridge_attach(...);			/* bridge.dev set here */
+>>>
+>>> The bridge is allocated by devm_drm_bridge_alloc(), which kzalloc()s it,
+>>> so bridge.dev is NULL for all of that window, and a hotplug event
+>>> arriving in it enters drm_helper_hpd_irq_event(NULL).
+>>>
+>>> Before the conversion to a bridge the ordering was safe:
+>>> inno_hdmi_register() called drmm_connector_hdmi_init(), which set
+>>> connector.dev, before the interrupt was requested.
+>>>
+>>> Drop hotplug events that arrive before the bridge is attached.
+>>>
+>>> Fixes: 969325a2597e ("drm/rockchip: inno-hdmi: Convert to drm bridge")
+>>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>>> ---
+>>>  drivers/gpu/drm/bridge/inno-hdmi.c | 8 +++++++-
+>>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> index d7c33b92e2ddf4ced84d17304463f44be52270b8..d29832249b942dec84fb9d07a0b21ee751fc0486 100644
+>>> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> @@ -929,7 +929,13 @@ static irqreturn_t inno_hdmi_irq(int irq, void *dev_id)
+>>>  {
+>>>  	struct inno_hdmi *hdmi = dev_id;
+>>>  
+>>> -	drm_helper_hpd_irq_event(hdmi->bridge.dev);
+>>> +	/*
+>>> +	 * The interrupt is requested before the bridge is attached, and
+>>> +	 * bridge.dev is only set by drm_bridge_attach(). Drop hotplug events
+>>> +	 * that arrive before then rather than dereference a NULL drm_device.
+>>> +	 */
 > 
-> In cs_etm__queue_aux_fragment() we check if the TID from the AUX record is
-> the same as the one on the buffer, so it doesn't make a difference. They're
-> always the same:
-> 
-> 		if (auxtrace_event->tid != sample->tid)
-> 			return 1;
-> 
-> We can't use it directly in cs_etm__process_event() because we're not
-> decoding in order with Perf events yet. In my WIP JIT patches we do, but it
-> still makes sense to continue to use the TID from the buffer because you
-> don't always have timestamps available to update threads when the AUX event
-> comes.
+> nit: I don't think that huge comment is necessary for that
 
-Makes sense. Thanks for the explanation.
+Thanks, I'll trim the comment in v7
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+> 
+> 
+>>> +	if (hdmi->bridge.dev)
+>>> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
+>>
+>> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+>>
+>> Most other callers of drm_helper_hpd_irq_event() also do exactly this.
+>>
+>>
+>> Heiko
+>>
+> 
+> 
+> 
+> 
+> 
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
