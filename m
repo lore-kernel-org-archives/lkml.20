@@ -1,93 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878969;
-	b=arqXehG9kuumvEuSWkssmManquAdOgdbHdCbUSr7SeSNqaU2giyeJfo3IFqqaIkuAU5l
-	 2/uQemHYSTC1JguxWz5N71RRUUcnwfHUIJwzzBQD9rIOOQASqcLIn42xGzQAIrFmjpBX9
-	 z/Zp4TBlH2MrjFTIc/zGaKkF6e1wHq8SVFC4QotzYMFNmDLe4pxE/tctlYn3xgQ4w2wh5
-	 hITyBp82eMhsZgZcjZXIq0IYs52WBXglPBrrfl+VzmHR8TqTnipTmBm1wHOCqOZFJ6aib
-	 /IS7uMFHpyMFH8sFIaONgLEhNnZlE0Ic3b94FhWwq6kU8iHiLc7+l7P6qLlQncwGvoQ==
+	t=1793878985;
+	b=E5N44JyIhSMX10e8owXPltKxDxsV0sG+Tf5hRI88C0bHLdVkCwdmaDZa18sNhvmxtPPA
+	 G6jDE2KZM43dl6/8+zdTnb8uYutoBn0b7Nof0oYNL2Gu8IhCnvwgwUnALL4VikvvJbOEk
+	 dpaivGw37YYHMuzcuuClTA0s276yHvTGZIDTGRXdbKQ5DHhZR+hsDKUgmgWPhXwAnNnfr
+	 lhIQQNTvN8EhueqiY9hgxv/q4nTQBFHKbay2fvuGJwtkCF1FoA/M3t1h02lfhhm9qoy3f
+	 FVtClzdN9vHGsYPXYyzHD3s8cbMZzN9rCq1NBhZZ2iKJ27IEKAm25gsrGIrcyzFAzPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878969;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878985;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=cqZgEa3fWaSRKdNA/kRQddW5Yao1N6EqxQ4vC2mu8po=;
-	b=HeEu33g7EA9z56S4GtKarhnEDlHlBVebn2CQYGD4MzpFpk071/jCKVJUxFqlzY6ApIT1
-	 RucpZ3NYlKOOwfTs4ynjI2h3qX4oscIsmAXZrwwEKSVCg3hqQWQLlEi4aJc9eQNhrXulO
-	 iWUdzqwV8sGOK3fhYuEXMOO60NZeDDNsJfvEFfCvwUxsHE8d+weTmo8kDHX83O+Zqnv9Q
-	 8WncXsxNNCbGpfHKK/yEX/qFJmtCSq6Zzg9fgpC2JiQD35CtM59ehtTRYnYALu6zOa0XX
-	 thE6Lz1qel5t2tKz6Kl2Cb+2yuYmElXTMMWUnakf++g6pSXVd4mxVG0Wa7Ltk5uwgPw==
+	bh=E1YKZbg8+xkzFjxNfBYmTVfbfxOb/7eggQBZwag+I5A=;
+	b=hHJZUChRg+/4dRX/OP5WnknWV/HJT1TI7EB5f0NS5+yD/XDy04R0e7XnAuP0Lfd6GlZY
+	 BrOT3FbXJaF4HpnKBJZrsLU18jds6ZHL9OK90pvGFwGbB+PtQG1oOUox/w63uT/EC20jd
+	 HsK6QPGDxMAyGL6W12921rRoeYXxrt6mPzHlr8ubkWDid32Ud3BWa56gRL7jIH1vtyG31
+	 hWfhTwhKG+eCuTJVQo4ARZW7L/i0P4wv7U/fnBQNQWPTvwNH/PgpniOB/Pd4s6rbkM0Fq
+	 Voq1s+giQdK84uPJDjM0cq9dOQw98jWySR/C6cS4uRfH+0Qb1924yV4yYViXc1ykhdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZxrngzB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aBc3BdM0;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A454606A331;
-	Thu,  5 Nov 2026 11:42:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE096083601
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:43:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE096083601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TZxrngzB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0391C1F000C1;
-	Thu,  5 Nov 2026 11:42:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793878969;
-	bh=cqZgEa3fWaSRKdNA/kRQddW5Yao1N6EqxQ4vC2mu8po=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TZxrngzB1E1pJVoVqirsVSVSCKIBFFy5KNVKCWITnqq9FWXxij3jNeO5+uBfw04Mi
-	 XeFZuHTEbef0o4Uok2oqxq3VqybwlxxV0Q1WM7fIH9tOgso7ZseC1MRPoyc3Es6ars
-	 z9NVUJrMxvQqp9oK2LkUU97NMQgBne6M/R3uz/jyOgkI8vV6fUBAHINw5MKBlbJny6
-	 b+uIaiiQ/RjxORFhnIK+Oeu0Mh/IZNzd+Qm9Unntu/37ijV+fxI88ANdeBs0rKPw5C
-	 CDK6EOWnkt3tOsGxST/ud/ZCkwsblZBNYkYvVnT4TV2G+io4BNGfEm6huWIAp6Jg4m
-	 cI/+WIoTE/sew==
-From: Leon Romanovsky <leon@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH 01/17] Input: gameport - attach manual drivers through the driver core
-Date: Thu,  5 Nov 2026 13:42:14 +0200
-Message-ID: <20261105-device-trust-core-v1-1-1e536825b4eb@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
-References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aBc3BdM0
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so19279805e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:43:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793878983; x=1794483783; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E1YKZbg8+xkzFjxNfBYmTVfbfxOb/7eggQBZwag+I5A=;
+        b=aBc3BdM0/oSHwOm9vnct7+TPAzLUMTAlDJTrXlvcgWi5aVYyFJzoYzPA66PExBckH9
+         CZjLxfQARN29d3039/6cA4W/+yLHz+QoHvuGS5IYxouGFjewdtuetwHX8MXYHfuuUvq3
+         ZYTadV9aLomyj1gQgifddKqfOun1dePhx3270paAYG6cc/dzggj0fthq7eMqJRwj3apg
+         QKisVrBuiyXY143pdts7ExqCB1AwFLjoA70j7DnOGA/6+IV/q65BSB/Mg00SgI8UQzw2
+         h5zEr2Fm6Tjul49i+QUsxLmvrdu9d1ccP2OTU5LPwkK+DWiysGddLj2G6R8HTu+2TVio
+         h8uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793878983; x=1794483783;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E1YKZbg8+xkzFjxNfBYmTVfbfxOb/7eggQBZwag+I5A=;
+        b=rWrAph1zVz75ZO6MF8/WsHBifIAcPwF5hkRtmz5uv5++fbzGV9GlC+6LX/Mnwugklv
+         4w7bJxUFSYC0dX19r4gljMkt0v7PhikelHgfrsy7YW8dFmVnh5p196oZ1GMB7R8TNfiU
+         EteRMO7vx1ASnKZhXn7iWODBgSlCEbMIUvg/tXgJnt8pVVXKkCczfXLQ7CT5jaEbSvB6
+         Kb3rMVn9t7plJt5rDGB8Xb5YG5bvRS4aCs9Ml7sTCkeUDSboTpjYDq8nCjPnAtfEfWxk
+         jlmWPD/+9sir9nw3pipKGBpxxhHN2ZCXMHwIhhLvYV667Ycou4pzmBHWTj3Gqbo0snFJ
+         v0MA==
+X-Forwarded-Encrypted: i=1; AKwUvBxS3U6y3gVVaM823r8FnKFSEVHgORXKhdq00znprQ830mUI67N78isfVq3FGb3d6wS4kN4pUDtrGmYrX58=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87n9tZh2yIQ9eDlNLP2BBLGyvcx01r7RSVCMgt/0Op4/5Lycft
+	PVrGN7p4jlbNVNCX9aUkVEYHSMt7kn5IDdDIK8eUr/uVWAM+0ARHXF3o
+X-Gm-Gg: AYBFou0wCgtomo18zzlnlUtNucwZGDcRJAbBiNVgg6AHt3bvRhNZKxv/+pn/dtEiCZS
+	wJLTNW/w+Lwkelggy+Dq4hiD/pnEr11EQYOKwKzyMUddMuoBE8tevb8Q82ydGRTZN5nLH9E+DU7
+	+T76AjQuMqKOZq8aRDwJGH9SGKSicKFB0rOxVXpZgCGHQGYHAM2mlMVfoyJR20VVlL8tNOLirdF
+	aoCIMo1pk9Iw560+gLmvdZ9FpsVT/mmA/d/w/cPNMe1WzTHQbV+0eE81hWofgVbaJG9YwPZnjr2
+	iFuxaQKpmiSFeIyvjMX9sMOU8wYVk13UribOXj4wm5qvM069z+juTtQbn5NzxOVDB9PYScZp/Jq
+	xa4MDoB4QZ0dBDJ5DtD8EK7b4nbcXCUg4Soofy665TabW95dp78fjXgoJu+8goPFjOiP5AaacCG
+	R2E76ut4BymcpKqnr9v+QltAWE+ItU+Ry/VwE5F8tiRivvR1LkrqXmaXB1kQRfk8/ojDVDMu4WM
+	/h5wa6LlDKD4fmSfjsyOqYdqa5Uohtpa52R392imp6ixo6V4eoxGyRFbH/bLu6HVUX4IM5PHSHl
+	6DFUYe421zBDt6QFBGvixQw=
+X-Received: by 2002:a05:600c:46ce:b0:4a1:f625:2108 with SMTP id 5b1f17b1804b1-4ac18a88820mr418201725e9.33.1793878983138;
+        Thu, 05 Nov 2026 03:43:03 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b413312a4fsm60741345e9.1.2026.11.05.03.43.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 03:43:02 -0800 (PST)
+Message-ID: <e5865932-ccd9-4f7b-bb64-e05a6f7a60ce@gmail.com>
+Date: Thu, 5 Nov 2026 12:43:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,57 +92,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm, vmscan: make kswapd unreserve highatomic pageblocks
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, JP Kobryn
+ <jp.kobryn@linux.dev>, Frank van der Linden <fvdl@google.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261104-kswapd-highatomic-unreserve-v1-1-38be5106adf5@kernel.org>
+ <75540cfc-0577-4d91-9369-d1c4fe9c3096@gmail.com>
+ <76431b4e-27b4-4922-bc59-bf97516b40fc@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <76431b4e-27b4-4922-bc59-bf97516b40fc@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On 11/5/26 9:02 AM, Vlastimil Babka (SUSE) wrote:
+> On 11/4/26 22:56, Jose A. Perez de Azpillaga wrote:
+>> On 11/4/26 7:38 PM, Vlastimil Babka (SUSE) wrote:
+>>> Hook this highatomic unreserve to the moment we are increasing kswapd
+>>> reclaim priority, as that is when kswapd is struggling to make progress
+>>> and it should roughly match the case of direct reclaim failure.
+>>>
+>>
+>> isn't raise_priority true after almost every pass at DEF_PRIORITY, stuck
+>> or not?
+> 
+> Can you elaborate why? At least at first glance, kswapd_shrink_node() should
+> return true if it scans the requested amount of pages. So I would assume
+> that although balance_pgdat() will do multiple iterations to reach high
+> watermarks (because every round of kswapd_shrink_node() will limit itself to
+> SWAP_CLUSTER_MAX per zone for sc->nr_to_reclaim) this should not be raising
+> priority if the rounds are successful?
+> 
 
-Manual gameport binding calls connect before publishing the binding, so
-driver-core admission cannot reject a device before functional setup.
 
-Use device_driver_attach() to run the existing bus probe and removal
-callbacks under the device lock. This gives manual attachment the same
-admission, setup and failure cleanup as automatic probing.
-
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/input/gameport/gameport.c | 21 +--------------------
- 1 file changed, 1 insertion(+), 20 deletions(-)
-
-diff --git a/drivers/input/gameport/gameport.c b/drivers/input/gameport/gameport.c
-index 9707b155bc947..c9efec2dc55da 100644
---- a/drivers/input/gameport/gameport.c
-+++ b/drivers/input/gameport/gameport.c
-@@ -214,26 +214,7 @@ static void gameport_run_poll_handler(struct timer_list *t)
- 
- static int gameport_bind_driver(struct gameport *gameport, struct gameport_driver *drv)
- {
--	int error;
--
--	gameport->dev.driver = &drv->driver;
--	if (drv->connect(gameport, drv)) {
--		gameport->dev.driver = NULL;
--		return -ENODEV;
--	}
--
--	error = device_bind_driver(&gameport->dev);
--	if (error) {
--		dev_warn(&gameport->dev,
--			 "device_bind_driver() failed for %s (%s) and %s, error: %d\n",
--			gameport->phys, gameport->name,
--			drv->description, error);
--		drv->disconnect(gameport);
--		gameport->dev.driver = NULL;
--		return error;
--	}
--
--	return 0;
-+	return device_driver_attach(&drv->driver, &gameport->dev);
- }
- 
- static void gameport_find_driver(struct gameport *gameport)
+it's max(high_wmark_pages(zone), SWAP_CLUSTER_MAX) per zone, so the sum
+of the high watermarks. by default that's at least managed/500, while
+DEF_PRIORITY scans lru >> 12, so it can't return true above priority 8
+even when every round is successful. and sc.priority-- runs before
+pgdat_balanced() is rechecked, so a wakeup that balances the node in one
+pass still unreserves a pageblock per zone.
 
 -- 
-2.56.0
-
+cheers,
+jose a. p-a
