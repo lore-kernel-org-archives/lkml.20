@@ -1,95 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900564;
-	b=IRhfKnGLPArLKxIVEv60j5Tu6XPa3fpypcSAyokzGdH+m1arm5my2JkvZauNLR/N8rs4
-	 XbcO2YmwSunDemrJXIW5e+SpyYWSzkwlgXUIj9JziRgezySAHSLLp1ACp/b6B32e6P39y
-	 UjnThwxsqyZmx4E/y5FOSPal4TJlpvj2cRzPVuWplnFbyO0kpmWZ60qlXjf2yasmsRl8D
-	 Km+bEGCZsvwoyt1PxqeqQJeMKby5b/Qkrt3TtH/QsLqxx6nSgBXd+PXKx7OV10O7+mBHZ
-	 ZAzhhBxscbjtGQiWDA2suja1s3vkZFHZHaAXyPFMv9O1UWLX70z3eBeFwwhBkI4d2Zw==
+	t=1793900594;
+	b=Ab/hB8BnVwSB5DBl1/zzx+g+AfNpfqfTUZYuHPwG+meA2axdxEPyOYuxeBfEV6nO+YSb
+	 rzMfaWImW5c0Dlu4Gwenpp2F5ESL59OL6Vi80HQ1M6GoLn8YWDEyKmOJaCJipL16RGCdd
+	 LBvDu5RBQ/aBP2tn1IZzpaFRY+zw00POvrIQHJWEAh4lkIe8Jya2Bv8tenXKLBi4wVBm8
+	 PqKqxlymhDy0EpH6BXVCXCIuDeto1Sz60gwU7Mzak0TzmnzEjuJsR1+D31pqThS5+o65i
+	 jC2BDqXbwaa2aOy4UYlvK5QT7cIfHqR1Lc7a1aWvxCAU6pvyB39fgjfIn92XeEn+/bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900594;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lkKAejhpVXm9seL1ehybdpNol6UMeDxsIrY79fbHsys=;
-	b=ARjfpThFD79BIQCjkyQxWpqLy2TEz3wEdn6rYXkxYtdZ+vPXwxmgxEUVq6HtoYIh+VpA
-	 kBUUVXK4GwTaRSIV1Gq3GAfs/7OqDCXLJVPcPk/C2oSQdT+dhCQRfP5wop4wexuVxNmhS
-	 n77tEiv48RafOpL3+jx6+V/2vUjMpdbsp7KwFQyakzhS4l1Qob0otpViNxlZ2Ga3tN9Bc
-	 WF6n6/pO2CrqtZPo/I9X2M4f/sWnssV1B83bOFLViqJIw7I85/d4eL8hOao+aeN9ApwGA
-	 PwQ81lXIHfxT2jgErtpjqI5ce/zLkVJjejinOhR6yHGnlejxZSYRQ8kWEPYKI69+AiA==
+	bh=FXWweisIimkht5Pq5NCBqOipAtAwASQ/Tc1CwWiphJw=;
+	b=KYSqK0btT/6wGsmtSiifnG6l7+gph+T/VESE2H2jXHp6tzPXhFxxT1GJ+OUbaPcZ0/mq
+	 MiK+9+UouY6+LbbZP6lkszR7OUSgx/O/Ou9dWZIGWyGSmKsX1vaXH3SY80hWhtWDAo/WZ
+	 aPyJvF6BtuDvnHbejSBDF70iolp5taiqbGt5O5WsODmJG3pdZFG2BJf2wYkLhsfuovFU5
+	 rPQ1Pqti8gh6yysL8SOlSTLJdzM60T076xGa8lA12uK9V6FE1F9LNE7x9cfvb/BRSla7a
+	 WX/aUFlOeKB4S7z317UfFXahPSp4N7QEWwRTXs8HopfCvsXWuIYE3sZIKyTmaI9jPrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cCpBXcz;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i0NF8kYm;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF45A606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:42:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF45A606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65100606D802
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:43:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65100606D802
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cCpBXcz
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-14394530ec6so2984116c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:42:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i0NF8kYm
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so965070f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:43:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793900563; x=1794505363; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793900593; x=1794505393; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lkKAejhpVXm9seL1ehybdpNol6UMeDxsIrY79fbHsys=;
-        b=0cCpBXczFYatbN465cchPeAyHME4783rqVh3+kL78PzF4IlkhKFBfE5QUc6pCUThe+
-         p4WXpGfbMQ8mn8FpHx7MMTutgqAqvxPCVDJo9FwfTet0dJOYWpVxzkZX/UPxIsoCMuaW
-         7zUEND9WP7c+PNDLfyL0V5Zr8Va+nAaPgI5xke5C5zjT6zZmNZ5141TVUikpJlNXh+tm
-         e+A6AxIrh++VB6UJ2mgMHkfQUHhO4qPFtKv5ynToDcG+gYHr52aihGwah8BvrO40fgiz
-         Krhff2dntNB/rAgijFx/fP1Zdw0haDcXxuF/yP6Od5kjUsLelS/3tyPYexfEotJ7bIe9
-         KHJg==
+        bh=FXWweisIimkht5Pq5NCBqOipAtAwASQ/Tc1CwWiphJw=;
+        b=i0NF8kYmW+NC59nd7JBd2hvyXiK7YUHTymxBhFwVITBVi82siH751HKJQ63B9EMo2a
+         Vlufiopi83PN9Y88qA4VYJvwH8xVq+hI+f+gFytpAN+TCVzud5oV/P52bFAOsLf6GEQi
+         AcAzAG8DuaoB58/3eFs599caSDacHSgqsi2CVkkb1uqqHcX1TSNPrA0PYMGooaP1clwk
+         yUh6ziJpVsus3nTtnfpRYbLISSvS+pmu1YKqR8wniQNRu8wjaLjDiqDGWHuM1BDrqZgH
+         rOUeobOLLnOynx4fhLH1kmY1lTg2eWCjK9Awn/izbEaIuzvyFpNA+u36HDZzI+VP2hiP
+         gcnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793900563; x=1794505363;
+        d=1e100.net; s=20260707; t=1793900593; x=1794505393;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lkKAejhpVXm9seL1ehybdpNol6UMeDxsIrY79fbHsys=;
-        b=tDfHUwoKM6zTTQc8HPXmdLUW8ru4a+U1MgYlxSxy8tFZTKBwgh19W5BQJb+H1k39Ub
-         sN81DBOU0NivXCtTyULNpHubAyF+aDnMJf6UpBoos6VOsziQ69qrB/bQRZY6K3mM3Mh4
-         urDyUo940qhfp40SGfeP8wzefUFMkb84DCCi/80X/dsjaShqgSuuDOWpmL/NOSlpdgjy
-         5NIa0nn0iVi2Y9YNpL5eVcHRX/XaHtftFOSQ5Loc9xsfH1wNMZ7qQFhmrsmNurRybCir
-         fwUYMBUQ1Te7aRTvTcNI0rhQkkpxTUT23bvAiS/v8ZTbGvBtO3wg8d3ouC9v0Qu26wHp
-         1jcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzP8T/YnbR9oM5D79XzagJ7ICUZ7Pt97Ty5Z1oc5E+Ji038OZQ13N/w1uYng6P0U/za9C0Oy7ruYIqs/gE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3ZGaGCra9EZCzg2Gvb9i5T9VDUzAnPyPi3jQFaJBvTyLQyPcp
-	X+vhmu16kFXHJKBeC9vsueB9BoTh21iNVq7HCeelj7VJN0RqFYqrBEWD
-X-Gm-Gg: AYBFou1L8qwZt7LBp8KWy3cloWVKTGIE37vkIvAP2R/692V0DMecG3WHFTjPSYk/T50
-	iIjLxjGVzAGbQkHOACLSyyg/L3cxxRzx8u+GLVecD9tuRPqCtSG+x/arWlq7l/3FXJR+yPQb6YJ
-	kvwS2Pu5DLE99PDKbKOk+RMgdn/Iz9bl2Sw5tHdeaQR1hWjQWondjEH6q92w6lYyMWZlPlu31rO
-	VEanSFS2+A+TkNG9y3YVidH8tuA5lcTbOrm6bZwUDWOUDr5WQqM2QKCGLmd+6bYAH3uPcSqvpGp
-	TAFJPzggjWk0dGAnRluAtMHnXzfAMupxG2chxDJCi4HAluiGlN42wPqk/UekrUR6KEaoHqW4kEz
-	KWZkqReWcySedW+qOan00aRDfVkep/b85uHPwSvXeKQ+6Q3o8AGlcb8cbIkOiECuhlWwmLoMwyb
-	L2zMYB67BhYZNLhzddLIkV6pB3BFW8FQKlb4HyewCHyAzosTI70F687SFOT+U94OWsHZiJREZsw
-	VT6IAk4aRSWIw9e+/mq7RoPXddDNZNR0MD4zqFflhc1o3wg5NeNZKCiDPKLXCOvv9EDpwozvo7t
-	OchWlKJKiAqOwO1zQe/tFnM5O6Q57Phz/+sFmtGB0luxZJYVbXl4wo+jCaIiVkjyIg==
-X-Received: by 2002:a05:701b:4550:10b0:1b2:4da6:bccd with SMTP id a92af1059eb24-1b24da6bf63mr5381543c88.34.1793900562754;
-        Thu, 05 Nov 2026 09:42:42 -0800 (PST)
-Received: from anon-laptop ([103.187.196.159])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm24291014eec.27.2026.11.05.09.42.38
+        bh=FXWweisIimkht5Pq5NCBqOipAtAwASQ/Tc1CwWiphJw=;
+        b=IUPxECgAjx6su5yG5ZZ3ilvxQPATU2acEnwAiPaZ0gboKb9UYAgxvV64WyZXRYJvPU
+         qEkyMqAEiNMSyCEJFdaMmj11OeWIAGP45CjwK1ZCuEeooVLPStuaNYRw7jeiHo/2wrCi
+         HXvsRd8OihZxDfYkTmQFp6GSZYAViDGqKCQQ2vqJfESY2q5PhihHZ0Wa+19xQe1SaI34
+         dOhmsIMmcCG3Skr5NI5mJrv5M454ICw3cdBeqKaO3pqivTePAZu4OUJAflRXmYXSWiSY
+         FRwEpV47aBh/mtYE1J95bR1Ks42E1jsWTcjdm+jAMrXf8vqGvUK42xI//FzgVL1C7Wek
+         5t2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxvIfYr3PIE8kJiaYxQw56i+7vn3O2MHnncqd5Y1co50fUp2+kojEqHR1iOIakyRSyJlfLi2pwG5cwHSsU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qC1E2AC7sJ963MlPJnGGkq8CM++dToY+KX5L0FBkgNXZmhLnC
+	/1s07Nr7TOa2uJBmTJqoXP2Tq+6Fuv0hvL3/v6I3wVUhBH0AXxh6j5VO
+X-Gm-Gg: AYBFou0HyoUB8F6d9htz7N1NZ1xugjUw0ass8Ympdo5XupMxjK0XezERI2+XboDAPs7
+	tzhIOyt8ISyHtFDxmLJC3z9/jldhNwBwm7eQrwD6aeMa4/7tZjDE2txf3OvtCSiZjntW9aeVcjF
+	EUKMzMv4SlBQPpYcUoOHZ4L9QuEuykRhpvqu+Hp1myB6oypMYBaKU2Q9O4RVoa9O8pl75EpqGb1
+	Qb3YPD+xuesnel+OIT9+g8O3bYt2Vt0dTvR6mqoJc1tBbKPfWndPH6xrcsEZHYqzNp+a9npVnfi
+	CdUXwyAbo9LF5UwWhYuc/NOn3JlhhIknQavRNbcBz1+3mYntUZKvSDtJw/OwDzGQvKcUQ0EdCaO
+	w1r5N0ssP4tKbosDLJR2Ak2l6MsV/TexUWd7KvsCKl3PgvKTSuXcbAvS4p5sxnGZOAcGw0Etqd5
+	b3lhvhn8hurGKy/l3cIOFDrawkjN1+XZYabp7f28R2sNnEi9fF3LInSrt7iTycRVWcw6Ou3y/+a
+	837YjWgkrL3eCup7QPIZkUVty90cxeY9ojRDRcAaE0Bz433RxEJfFS1IMQZJL6ywh7+fj2i8iQX
+	PdjjKQ1LlUEK82amWNM9SciLEdVkGAFEsBvGqqUKG4ZGmQ==
+X-Received: by 2002:a05:6000:22ca:b0:48d:f3a5:4563 with SMTP id ffacd0b85a97d-49274bc839emr695784f8f.20.1793900592571;
+        Thu, 05 Nov 2026 09:43:12 -0800 (PST)
+Received: from cachyos-x8664.hgw.local ([2a00:1d34:861b:8500:1b0d:8ca0:906:12b1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed553441sm10182903f8f.43.2026.11.05.09.43.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 09:42:41 -0800 (PST)
-From: Wahid Khan <wahidzk0091@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Steve French <smfrench@gmail.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wahid Khan <wahidzk0091@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: refuse to read a handle that is not open for reading
-Date: Thu,  5 Nov 2026 23:08:38 +0530
-Message-ID: <20261105173838.1882328-1-wahidzk0091@gmail.com>
+        Thu, 05 Nov 2026 09:43:12 -0800 (PST)
+From: Muhammed Sariyildiz <asiyee994@gmail.com>
+To: jikos@kernel.org
+Cc: bentiss@kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] HID: multitouch: Preserve class quirks when inverting orientation
+Date: Thu,  5 Nov 2026 20:42:52 +0300
+Message-ID: <20261105174252.36714-1-asiyee994@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,48 +97,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb2_create_open_flags() picks the open mode from the read and write
-bits of the desired access. FILE_EXECUTE and FILE_READ_ATTRIBUTES select
-neither, so a request for FILE_WRITE_DATA | FILE_EXECUTE |
-FILE_READ_ATTRIBUTES opens the file O_WRONLY.
+When exactly one coordinate axis is inverted, mt_probe() replaces the
+device class quirks with MT_QUIRK_ORIENTATION_INVERT. This drops all
+quirks selected for the device class. Applications created later
+inherit the truncated quirk mask, which can break device-specific
+contact handling.
 
-smb2_read() accepts FILE_READ_ATTRIBUTES and ksmbd_vfs_read() accepts
-FILE_EXECUTE, so a later READ on that handle passes both checks and
-reaches __kernel_read() on a file that has no FMODE_READ:
+Add the orientation quirk instead of replacing the existing mask.
 
-  WARNING: fs/read_write.c:518 at __kernel_read
-   __kernel_read
-   ksmbd_vfs_read
-   smb2_read
-   handle_ksmbd_work
-
-Any client that can open a file with write access on a share, including
-a guest session, can trigger it; with panic_on_warn it takes the machine
-down.
-
-Return STATUS_ACCESS_DENIED when the file is not readable.
-
-Fixes: f44158485826 ("cifsd: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+Signed-off-by: Muhammed Sariyildiz <asiyee994@gmail.com>
 ---
- fs/smb/server/vfs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/hid/hid-multitouch.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 1f2bc76f0..cb3f4f5fe 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -367,6 +367,10 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- 	if (ksmbd_stream_fd(fp))
- 		return ksmbd_vfs_stream_read(fp, rbuf, pos, count);
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 4e19a0c..94e83fc 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -2155,7 +2155,7 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	if (hdev->quirks & (HID_QUIRK_X_INVERT | HID_QUIRK_Y_INVERT) &&
+ 	    !((hdev->quirks & HID_QUIRK_X_INVERT)
+ 	      && (hdev->quirks & HID_QUIRK_Y_INVERT)))
+-		td->mtclass.quirks = MT_QUIRK_ORIENTATION_INVERT;
++		td->mtclass.quirks |= MT_QUIRK_ORIENTATION_INVERT;
  
-+	/* The access granted on open can include FILE_EXECUTE for a write-only file */
-+	if (!(filp->f_mode & FMODE_READ))
-+		return -EACCES;
-+
- 	if (!fp->is_posix_ctxt) {
- 		int ret;
- 
+ 	/* This allows the driver to correctly support devices
+ 	 * that emit events over several HID messages.
 -- 
-2.53.0
+2.47.3
+
