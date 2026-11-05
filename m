@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.27
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793873237;
-	b=Y0EPiLOnvrzWTAZy4+D0+9fXCyMzm7RkNI820Br4TOQ7G1YAHk97ii3As7t5PqKJiDP7
-	 PRh5YxmJYFwIM89bnyc5/uSbNGTkrCJMRzKMFIPmm8jOYaXM1DYW5SmORGb/Awyan4Xkl
-	 eRm/reST7nxJWlX65pTUbb5dLfBZYPAMjk1D6g1arxFpP0XRb32p5qckNtleBesl91cFM
-	 AwUauaMNnaJiiNHtbmiNYRlxS5dz3shXbcO1D/YMyVzZiIJB5MHo5MvFwiwnLjrjLmCKS
-	 FSvJ+VFX6TYlGXqkGbRCUbKb9OlLkZ+zQZVX77/Lkg7+MPMzyLKPdgFM64rgdR0Eqyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873237;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+UL/2etCOwskJuW8f9sQMCSKPam0VrvJOQdi/TDH0f0=;
-	b=YDYyiNiRLQbzn9xPnKNFVh4wgmtd6S/bCmZN2JRaZK0yy9P/TVU0JpwcQNVJxUC3k5rH
-	 z3Dg6L9FpaH/Frz2ZUR3wNahuDWfnGpNzp6zNGZAA/2he9ozA8+DkHDsReZ+MYqfIsJmN
-	 9z2W+LkKZOtsXFgxt5Kz2/lOBuhGLS+exOFWTFtdPT9PZnC7xN4Hs+fGup6t5L0sE9pHf
-	 ZZxK72/arOM/kMEhcWPmOu7RzukIQkyxqwIiRNnb5VEZj+j1ntkl3HaPar0aYza7D5j6M
-	 R5FVV9aCL1vEvaYvERnN8oLpvE6HlSmWNRPx2fUX+lE+YYsJBn92ycaQqhgPUhwRanA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=Q6lLe8pn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.27
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011027.outbound.protection.outlook.com [40.107.130.27])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793873269;
+	b=Et9ypsMJNsEpnqobkM2yi0+JioI410LfcDOwKijcll0uxbMrkNIGeUVSOCelSZQP3Alp
+	 n9q0XKDD2zNNcWvvxfmNwtPBPAAPJS3W3L1/9NBIBNpz/DsVPF+qHWBlUiAM6sAedCJux
+	 qdo7SpBz8siu24n3/9T5dwqfo1Q6BJj4d4qVWjG9b7dnpgv+FoeQiKTsPQIZZs8Hc8nOX
+	 00Qd6GFynIQGbJQr33ewtGanXh+g9fVR4QBNYLvDKTnRJAo19QcxIremFAby4fgAAEbRe
+	 8xxaUdAwFaLI/QWVXeOnTAdoRyLMWtQdQHYO9fX2JK2GCbHg2A+VVMAyS51xLDdPQmg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873269;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GzdAvB2/oHNqGKeRfI1OIOpKJXPB5hmLnx90lxaP2zA=;
+	b=A1Q4e1BZ7wbm2XvtxO81ypA/+XBNyT68XExPiwcHns8fDT+QGEC5FFflkIfz2NU2XJjS
+	 QopOySfZdkXixARNAicLNGWYS4ye2drdMgaKXR8D3vbbv1f9xU2EbaTuspvK14Hr/buYU
+	 3F8v4pBH3wLe/vS7sedefdY7NRcaTJKIoUFlSindLRPAW4/2BEWVAA5MjPTUdLG0EFVtk
+	 lPFasGhTNVOYpIuXN2vFw8owQhWPznvMxFEb/ARtQf74+Ds/Uv02f0OQXc2d5TyHoBOun
+	 wK3H3f8HK4qp6UoPpg1jNp6Hl8lURlcthi8KjYjHb1bldG3viPTD4+L9uLEe/illupg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CEIDyS2d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD81F606D82F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD81F606D82F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAC3606EE93;
+	Thu,  5 Nov 2026 10:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=Q6lLe8pn
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gucy5ki7a6IWHV/7TLiLtWSmFEmBTU10GNTyEqa+GmMhQd7CigrqdXIEx5Nl2jE17xXh7S5ywYFop85kqHiPFYrm7Winn6IdfdcetGAT8INg48NOX3iKBoVyGmFJJ6vSfBM7FZ/8j7tRpX8945agfH7JYCOEsmjvfTtMrLMkChmm1HJC88C3/nq6OItkButS3zQhAKzUGTWE8XXeJ6aAWcDhO/J7UTxWLtjrKWUs59ukGYTkHIhKY7qHgiSDQAw3Pv4SNyNWBm0VOAc18ffW3T3wmGpuqOQo+TCqwD0lMJQjsIX+jyhkvl1HbjpIF5TeliY8AXf7on6oooBXkKxkLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+UL/2etCOwskJuW8f9sQMCSKPam0VrvJOQdi/TDH0f0=;
- b=ybMccfjeuAM29Gq1ppxRqg30IOiYK0cqA1FeyO+NOUdBL3uLfCpe1stAu8xAfc4TFtR3ambMUo8F9O49W6a37Jd7I93dy0wslRVOOvCAGAMnCiHg4nF3CsoJYtYXfM3SKF2G7loCJFxCNmysSBDAfWJvSW7Tf3FLo2eVG6sLsw93Yiq3w+j30wkxYsJtbYCSen1FAsHDaPwgo3lNgsL87MfJsCYtd52lpguY1PrnpA2GBB228bxhoccWg+aPRArCjWxB4kgtzTceE043QC9rKzYk0eFNxmTKucWLKSXkw17hyc4cVDAIA+DIuZ2Z4ogmwSxPDofBYFaXFo/FaS9KDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+UL/2etCOwskJuW8f9sQMCSKPam0VrvJOQdi/TDH0f0=;
- b=Q6lLe8pnEBaG8kajlHgUxkFR7ioF4fyBRAjP4ZpSuF+VY+i/apbM1VAFpk4nDNq5HNMzUfDWhOxDMiAX2Pui5DQTXfyhrwMaDBKc5uRJpdIe5AHv6piuvlt2AIe0Ttzmd1xj08KdOk6Su1Rb+HiExokYHHUWcbFaR5UBFOKqcQQJVLX1obcRLXtLoRnZrgrEYo1pSMEvdzBH8uHH855GfOL2ai4TSHJXMHGBBRULK4GglIeF80kcatgn9P+5D+CwzwKDrmHS9qpWE3xL7+kJcwSA69EhRrNUEr5mv+5hTtuEgVmEsuD+JnUQb4WIBoJNCrwHPmPG2SqIDz5ptve9qQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB7PR04MB4474.eurprd04.prod.outlook.com (2603:10a6:5:3c::17) by
- PAWPR04MB9986.eurprd04.prod.outlook.com (2603:10a6:102:380::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 10:07:11 +0000
-Received: from DB7PR04MB4474.eurprd04.prod.outlook.com
- ([fe80::c22a:1b5e:12e7:8b3e]) by DB7PR04MB4474.eurprd04.prod.outlook.com
- ([fe80::c22a:1b5e:12e7:8b3e%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 10:07:11 +0000
-From: Stefan Ghetu <stefan.ghetu@nxp.com>
-To: han.xu@nxp.com,
-	miquel.raynal@bootlin.com
-Cc: richard@nod.at,
-	daniel.baluta@nxp.com,
-	vigneshr@ti.com,
-	imx@lists.linux.dev,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Stefan Ghetu <stefan.ghetu@nxp.com>
-Subject: [PATCH] mtd: rawnand: gpmi: Fix unintentional integer overflow
-Date: Thu,  5 Nov 2026 11:59:35 +0200
-Message-Id: <20261105095935.159650-1-stefan.ghetu@nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR2P281CA0122.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::11) To DB7PR04MB4474.eurprd04.prod.outlook.com
- (2603:10a6:5:3c::17)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CEIDyS2d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F1D1F00A17;
+	Thu,  5 Nov 2026 10:07:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793873268;
+	bh=GzdAvB2/oHNqGKeRfI1OIOpKJXPB5hmLnx90lxaP2zA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CEIDyS2djknf3O5c/eBT+dmxNXdN/G/oUW1+HL7y7blsCddi9eA80g/V5XSEFEC5O
+	 GWzeYpQW/88FuFjd3od24xYlzw1Y8NFhRT9CRAKfOxPxHoEVcWcuhbBFbnYJe5uJ3x
+	 7znzB02zi5HOAp15fi78ez0zS7Xj27yJ7kQw7ICRyVUz6rAYf/2YbkbPXYFvZUG8WV
+	 LWvF2aht/cNIhoVT90q3Y2joyaxE/0lsIxm3UEWmJFmwQuHxu7g3uFWJfcB8187xQc
+	 XUdN+wa8na43x1Uw/a/neuqh2m6zrpJVGHLRYmer9FcDzhG671aBEzU5eMqcXSG2cb
+	 uBUJ5qlFBvWig==
+Message-ID: <c5210774-8c19-4110-8fb5-6273861b019c@kernel.org>
+Date: Thu, 5 Nov 2026 11:07:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,87 +51,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4474:EE_|PAWPR04MB9986:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa56c6e1-66ee-4afb-2761-08df3b248f11
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|366016|376014|23010399003|18002099003|10067099003|56012099006|11063799006|261026121527099003|261009223027099003|261102123227099003|261021123027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	fsJYPe+jnI5fJGsLoZONx3T1jNmcmwhYVUwqRcCfuQqM+QxdL373SJYh4+F3Ggfb+6NsJ2ryMBo7kWdMfsqddTt4DL6bam69tCOpJ13JiotZrTgSKp8/rOkdy4ENHKCZs8QNh+BQIgP1DtBcNiKjEX0/SOc9gQA9sRoIjFAse9p0+0OubRLW2gNHO0Pw5T0Lc/Ff4WYW1LNd6BGEg0mwhaiXIwlHTeJovALsf+LUBb1cf3HBn6p0l9c3QlqLJ+qSFSj9fk+dvVBXbbSzKueE0nX0N3n2lyL4BT1KYPbFiadxdK+EDWMp49G7aENTgTd8v2IDPBwL350VRD42CauN3W/ZlxtylTPp3CbY61PLM8ZQTfNDMM0l24WzRK5yPQzSFzug5n7OO8V7baAoTPZuZiKZalArDSV0eAhita/Bcf7qFFW+2DPbzGinqlmZsu6TvYTelSgZ331UybEgc5U6zlts71ugIEtW0WHmnfAVVvI6ESZg8rPaPapFDv3iuV41CmeGXaH4LLJP8a1Ic0z/1NEm5epbXlTp9Tx8caSYo50rg0f6kOvB5WdcJ2pWHOOmhKJZhtovhwf9DDjScf13Q+Eaul1qb8/33wWQ2wh4yYa2eeNstB2CpJipXZYDWnE+D0CwiYLoWliQxwkvSZ6EPP45ArhHn14RCnZwXx6YesY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR04MB4474.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(366016)(376014)(23010399003)(18002099003)(10067099003)(56012099006)(11063799006)(261026121527099003)(261009223027099003)(261102123227099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ukr6Kh/rs5SdggqMselky1jJo7R7Yh1eO/jVkucNq5aCbK8RNu5DoIOpIIoE?=
- =?us-ascii?Q?qklyTkG7uxwoXLdiqZvpABRDr4XiuIYUwnzDENXrq6oFTIoqje+jA1fCpB2r?=
- =?us-ascii?Q?wYftg4XfTHSCHaSUdAflMiCSDv9rWNIujHRmBeeV5ULEQRAHiiGTNtX0DyzD?=
- =?us-ascii?Q?JJe34QMqCiWS09Ow5PfYlYA2uaeTHIJqynzrfVoq5AM7xFY6B+LHMEv92Bib?=
- =?us-ascii?Q?lhbFCwN40Zyr9y+EXiOzE3Ylf5rrB+pgDBsAg4i21Kgvh3IYxotUzfx9baXP?=
- =?us-ascii?Q?7YWUZEP8WspTrfnpoeqRH8UIy5mVunbcOFR+jvdAoUN/ztVzArN/wwIxTEPH?=
- =?us-ascii?Q?AmWqt2O89ai7NKqwP2yyC3tE0cQG4F1jwNLcCwoYbb0eGXuNcuKZlbemP23O?=
- =?us-ascii?Q?Lh46wp95KTOAoCuKE2K4IFyvMhP4Bpq+sGRiVm58wnFaICX3+FgqJ4pGvcK7?=
- =?us-ascii?Q?GIzM0kcZ76XcbiKOWEDx7DTReh8J1lEYGhoo1/PMffQyILT6Isro85wparur?=
- =?us-ascii?Q?donRfVwad1o8l+3xMHLCPAkTYnwDi8MEYITXaX0CMH6t2NJgoYNYUhVkWTan?=
- =?us-ascii?Q?Aq8IibADPCr6PEpV9XYq3WGU0m0uU0T8X1NcMH9TEx7WWFP6gWk3GRD4Geyb?=
- =?us-ascii?Q?8xF/R0w3iRHw1D4+FFapjrxuhfaJAF65Sv9BjydEH8CKvPwgpJ3J906ct0zl?=
- =?us-ascii?Q?6aui1eMRtEe3jmbbuTTsMxOUHXHPBWnkjJS6gNavHjsLGWM90Hta/1Mv10x7?=
- =?us-ascii?Q?m7dmIYYacV2dR60BTbn1xThXl0wrPiibt7d9zLofnaqFBbvawV3JhcAtCLpA?=
- =?us-ascii?Q?+PnOvXahcFmo1bkQGhrng0GxOrJDF0PwQAaWhmFsucM6G3SPe5frqXNpb9KD?=
- =?us-ascii?Q?jNCl2cbf/26ymh5qHChObsW2UsqaiYz+H9/hQZcdeHoqjw4zd/xCCC8Mv33N?=
- =?us-ascii?Q?zDDjOKn07IhwcV0Eq+gEnly3uBwRgE5+cjGQdowuoN9hhal7IAznO/YhUpYZ?=
- =?us-ascii?Q?5eWb16j6FUdwLlNsA92sw/G5lHwO7QStFKr6gDg+8OtyeU9Vb3+2kIhHnEiZ?=
- =?us-ascii?Q?6dF4UUCV4Ww49SW6IV/L06p8QcYgCuNePCrVHpvo+C9FOIFtmkbhGfJfi3Eo?=
- =?us-ascii?Q?lKpxLELus+L3n1fqMsyFyVv6ILsnrsDdESG+Bgtr+DoDtSWHIO99oOVtvsa5?=
- =?us-ascii?Q?+t0E+kTJAZWmv3paXBaduo4CrqYtQmc//SjUg743KicLOp1hZ8SGxiprH6sc?=
- =?us-ascii?Q?8XeRNRIHtRMwisSu68rX9fTCweNksEzLgJ5nud+A/MIDlmViN26qjtat39zb?=
- =?us-ascii?Q?w3o35T27ywlzWZuP9W5k6KndnxsOx2De6MqxvBuTvWWKQcBq+ue6EFWImovY?=
- =?us-ascii?Q?Ih7TZcjwCY6WgjRMg2WbhWWCX91CldEs0txBNctJ2SynNWQWjPuAIsr7hUjV?=
- =?us-ascii?Q?O5r5W46tKun/SY0kd7dsk3jO8lLOtg3DAEwWignEtW8u2k6uGWWc062Xkyz6?=
- =?us-ascii?Q?lX3AIrtB345+OQLatEW21FqMUWcECpFGObOn/J3G7JtDHODDqv/+AqEPNVxn?=
- =?us-ascii?Q?qsH4xliPAMAX18lBxsQ2HxDkAlJZkLz+2uY8tFukkWsW1L+Yl0J37nRfBkAe?=
- =?us-ascii?Q?Kit0NqO/CN/AV1nFkvoi53pWT3/WWRR0Mna2WUyatzW8iPqkLBrQ1XvSf6lX?=
- =?us-ascii?Q?0KhSfNZNeneXP9oKMbP/1TxFuS2NevuM2l+LlXf9O6+VrdF3G3XIPsjSYVT0?=
- =?us-ascii?Q?GJ3SMlCc1A=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa56c6e1-66ee-4afb-2761-08df3b248f11
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4474.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:07:11.6587
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yKm2m0k0GK0qNetM27vWgfv04/oSmg4iyOb2a59DmE/Z7DJS+JMg0z8xQi5/gaoyqK4oFiULe52fC44Wh1IDBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9986
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
+To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Krystian Kaniewski <krystianmkaniewski@gmail.com>, stable@vger.kernel.org
+References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Han Xu <han.xu@nxp.com>
+On 10/31/26 05:33, Jose Fernandez (Anthropic) wrote:
+> filemap_map_pages() can dereference a PTE pointer outside the page table
+> it locked. KASAN has reported this as a use-after-free read [1]. The
+> same path can also write out of bounds. When the stray entry reads as
+> none, the fault-around loop maps a page there with set_pte_range().
+> 
+> Its fault-around loop walks the page cache and moves vmf->pte by the
+> change in index. A lower index moves it back. xas_find() can step back
+> to a lower index when a multi-index entry is split during the walk.
+> 
+> [1] fixes xas_find(), but the loop still relies on the walk never
+> stepping back. Stop the fault-around when the walk steps back. ->fault()
+> maps the faulting page if the loop did not.
+> 
+> Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com [1]
+> Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+> ---
+> Changes in v2:
+> - Add Fixes: and Cc: stable tags, and say in the message that the loop
+>   can also write out of bounds (David Hildenbrand).
+>   https://patch.msgid.link/0a1ad7d2-ff0e-4248-8f03-2a64a9134aae@kernel.org
+> - Link to v1: https://patch.msgid.link/20261028-jf-mm-filemap-map-pages-lower-bound-v1-1-0bf126e876d4@linux.dev
+> ---
+>  mm/filemap.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index b74bc1e5015c..1df776907140 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -3968,6 +3968,13 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
+>  		unsigned long end;
+>  		vm_fault_t map_ret;
+>  
+> +		/* A lower index could move vmf->pte out of its page table. */
+> +		if (unlikely(xas.xa_index < last_pgoff)) {
+> +			folio_unlock(folio);
+> +			folio_put(folio);
+> +			break;
+> +		}
+> +
+>  		addr += (xas.xa_index - last_pgoff) << PAGE_SHIFT;
+>  		vmf->pte += xas.xa_index - last_pgoff;
+>  		last_pgoff = xas.xa_index;
+> 
+> ---
+> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+> change-id: 20261028-jf-mm-filemap-map-pages-lower-bound-a623ed8a81c9
+> 
+> Best regards,
+> --  
+> Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+> 
 
-Cast block to loff_t before shifting, so that the shift is done in
-64-bit arithmetic and the potential integer overflow is avoided.
-Reported by Coverity.
+I'm trusting on Andrew to pick this up :)
 
-Fixes: 10a2bcae9926 ("mtd: add the common code for GPMI-NAND controller driver")
-Signed-off-by: Han Xu <han.xu@nxp.com>
-Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
----
- drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-index 0f1528710a6a..e21e407f86c0 100644
---- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-+++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-@@ -2236,7 +2236,7 @@ static int mx23_boot_init(struct gpmi_nand_data  *this)
- 		 */
- 		chipnr = block >> (chip->chip_shift - chip->phys_erase_shift);
- 		page = block << (chip->phys_erase_shift - chip->page_shift);
--		byte = block <<  chip->phys_erase_shift;
-+		byte = (loff_t)block <<  chip->phys_erase_shift;
- 
- 		/* Send the command to read the conventional block mark. */
- 		nand_select_target(chip, chipnr);
 -- 
-2.34.1
+Cheers,
 
+David
