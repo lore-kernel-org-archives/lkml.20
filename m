@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873319;
-	b=PdmLJcgcfHVIa2EyCGipfGTEe81pk6fln4syTQsOLAK2M5G3pLb3sYt57KvM2pK6TbUC
-	 sKJ7aocBI4cR1YBGQdbVSbHnByIKOoxEZKr2Fe38KSaN1jbcEnMS5tqs5nTPOp60yfG9U
-	 RmNK2d/h5IsUFPZCFX1RfpNzgCZ0qtny+5tHtPl9ctYDyIh/q7Vmhxxfp+ggSr1niu6Tn
-	 DwAXXxjZCzx9ZO8jNXxbDrtC51i38SIOPV3SKaJNXpbIbygIP0KapnTnQYDYqpEmu2LS6
-	 W1L3LgWr9vxwg3DJo8X3Ra7ez42Lc3ZXA7phsNCAwv+Ue37M2Z2GRgty2dL97Uyjtwg==
+	t=1793873314;
+	b=mfg7A3RpyaiEWOpYbI4vpoRH78d6ZRCnoqVdozkGmFg6KedHC3Y69yqrLaWQjkog71XZ
+	 cfEo3ZW7yT6m07Ux7cJOnpK3psYeBsgVvVKbBsVEWGG6vywbJ4jbaHZc0R/27NwQIrX14
+	 3bSV/59HU8QpI51gpKqwQ15t3NM5IcihnMnUcxhyk1HUStMZ41RThq98aar+kBHl3vvSA
+	 LJnp+icy4lSfLOm7Gvg3DPTtNZdjPDk4RK4bIrHmaCzWK2jjErFmVw2cH3SLo9wKWCdDt
+	 LdZzvKYfMk9YIPGKSlF8TR/SJsQTqipZdXLqVYfdDg4Sdar/LQqoxjvj7ZDCr/zkyVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873314;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=OdwrZcbYsRV+5ZTU+xWngMpTg+lnAb5qG+LNLsQLWls=;
-	b=ebh/W0iZj4kNtjnvPv2o3//yvQliLqZvezIvyLYeqFzyt5gXPinybfGH10oZR5m4nnji
-	 e8PNqtYOYoVfneKEpBN9saxS2w5X0g68oCsM2usQXWAPqJ3vJKq2fLL9TaGwIu1JOkpTW
-	 Z3OZyzQ6bG+cVjXCENTQxlaTcD62Ps0PIH/NNewChrzLrpMthixAAJB95gBEidNTBlg7H
-	 +wQjiqzheapJLm7Dtxd86b19pgFPe7H4/Fwfsg3CpBGez5ivcKbzneKi2PqNGE8jLddU9
-	 f8t8k/ojMzpT4dQmOtdK0K7qv0yalyVfNDVhoaChZP83g60Uju+AJ0N9DZ7BMoeX46g==
+	bh=TEM5oG0EbwSOS98Fx4qqr6WHxDPmtVe3raulzRfg0YI=;
+	b=tmtFIKM6AF/ZGVxGWhAeSrVbvzrE/G950IIITHgWSNBW63Txs9wbCX9j9yRdcLge57oi
+	 yHSWL+vKAhphh5NFRxWFbAxiJ4xwpj8zH//2kNk+VweVs7dVVFOO2DqhdA+zckey1rkKm
+	 LnT7jy++UGN3SUAuCSiVPuUSSgWXxtx1NUjHhFAQ8Tq2JuqBOgRrEYUjh8nvCgbbdfhva
+	 v4ZBFHDkkW9tdSWLiO2QmR6oGf1CDAXqryDC8VW6I7DwlKvjyHB2Ed/AEOQlCDQ1T4OBG
+	 jnQTZvsY0WQVBAfXn4zq8fjnZAigFNRWUJW0Fgw7wAlz8CTPfqvK7FfQx/ziDIY229A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Puam2CQm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVw1Ne30;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247B16083638;
-	Thu,  5 Nov 2026 10:08:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5B3606EE86;
+	Thu,  5 Nov 2026 10:08:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Puam2CQm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABA01F00919;
-	Thu,  5 Nov 2026 10:08:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVw1Ne30
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D9D1F00919;
+	Thu,  5 Nov 2026 10:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793873318;
-	bh=OdwrZcbYsRV+5ZTU+xWngMpTg+lnAb5qG+LNLsQLWls=;
+	s=k20260515; t=1793873313;
+	bh=TEM5oG0EbwSOS98Fx4qqr6WHxDPmtVe3raulzRfg0YI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Puam2CQmtzryM1xU82tRqOD1E1mcOY3rTPDXuSj8qPWbbkJyU5uMsTnPToxZqBSlW
-	 slJX+9JS0SlYtuMfwbeZTNkPwrOEsrO3VGkNEupST7gsDHxOEZ+JeW52XZGbIUiEXK
-	 6ZRJGD0P7xXWR4DTqpvRyBgRYoC86CWYklBviNodkKBa+9zXGCXnl4i1OoPXc/F1RJ
-	 I+BBHuzI3apMazWYa4LqaIifo+ON3ETggmGmriRGb7B9dF0lkbKHrzCO34eXCGYQlj
-	 vqtaekfBz+sZdGa7kyjjhjgRnoHwJMmMyPOZOH4Wfm3qwM8fr2UPrP6HMjQ7hiWtoP
-	 jJLjX8BVz/5Ug==
-Subject: Re: [PATCH net v3 10/14] net: pse-pd: keep the PI data until the PI
- regulators are gone
+	b=XVw1Ne30HCouQB1rwdBXS0bjIUenJoHnpLT80ZPc+Mc82gb3zxipikX7c7XaP8zTY
+	 Hdlthv/tBNDBl3pwdCGK3UCM1Jv6O/IXCuhmnAXDxp95tY2xz5RN3dgGbw5IDsnRIG
+	 0PGLpKaNEQpc7N9yYFCiHDR8ArS1Igmst9EZlJE3MekyXmkcFAP04HdP64RyZPq1AU
+	 XgI5mGV1LqHwBc6vdArl4jSbQICyS+xGzfWUc5sHbezomj1Q5bi1vy7Rbs/LqrpEY/
+	 748dFmw0C7esiu3ykmfoKH2bP8eq9fgxMAB5mpS1m1KRXNGveP1m0p82XKBTy+NTWG
+	 ftiw1w+ecs+pA==
+Subject: Re: [PATCH net v3 05/14] net: pse-pd: do not reach a freed PHY from
+ the notification worker
 From: netdev-bot+sashiko@kernel.org
 To: github@szelinsky.de
 Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
@@ -50,11 +50,11 @@ Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
  maxime.chevallier@bootlin.com, kyle.swenson@est.tech, ross@r-sc.ca,
  netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Thu, 05 Nov 2026 10:08:37 +0000
-Message-ID: <179387331728.488856.8945406807366704385@kernel.org>
-In-Reply-To: <20261103220217.1131971-11-github@szelinsky.de>
-References: <20261103220217.1131971-11-github@szelinsky.de>
-X-sashiko-severity: High
+Date: Thu, 05 Nov 2026 10:08:32 +0000
+Message-ID: <179387331238.488856.9819726671704590547@kernel.org>
+In-Reply-To: <20261103220217.1131971-6-github@szelinsky.de>
+References: <20261103220217.1131971-6-github@szelinsky.de>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,141 +67,137 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+- [Low] The patch changes what `pse_control::attached_phydev` means and
+  how it must be locked, but the kernel-doc was not updated to match.
 
-- [High] This patch frees pcdev->pi from a devm action.
-- [Low] The commit message has only 'Fixes: d83e13761d5b' and does not
-  mention that the fix depends on two earlier patches in the series:…
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  `pse_send_ntf_worker()` uses the net_device without holding a…
 
 --
 
-net: pse-pd: keep the PI data until the PI regulators are gone
+net: pse-pd: do not reach a freed PHY from the notification worker
 
-This patch stops freeing the PSE PI array in pse_controller_unregister().
-The array is now freed from a devm action that is registered before the
-PI regulators, so devres frees it after the regulators are unregistered.
-This also fixes a leak of the PI array when registration fails.
-
-> Fixes: d83e13761d5b ("net: pse-pd: Use regulator framework within PSE framework")
-
-[Severity: Low]
-
-Should the commit message say that this patch depends on two earlier
-patches in the series?
-
-  "net: pse-pd: do not tie a shared power domain to its creator's devres"
-  "net: pse-pd: stop async event sources before freeing PI data in
-  unregister"
-
-On the baseline, pse_flush_pw_ds() does not clear pcdev->pi[i].pw_d. The
-domain is allocated with devm_kzalloc() in pse_register_pw_ds(), and that
-runs after the PI regulators are registered. So devres frees the domain
-before it unregisters the regulators.
-
-Suppose this patch is backported without the power domain patch. The
-reproducer in the message would then still go through:
-
-pse_pi_is_enabled()
-  pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d)
-
-It would read pw_d->budget_eval_strategy from freed devm memory, so the
-use-after-free would just move from pi[] to pi[].pw_d.
-
-The unregistering gate has the same kind of dependency. Without it, a
-consumer enable after unregister would get past the pi[] access and into
-pse_disable_pi_pol(). That function uses the kfifo and the work item,
-and unregister has already torn both down.
-
-Both prerequisites have their own Fixes tags (50f8b341d268 and
-ffef61d6d273), so this only matters for a partial stable backport.
+With this patch, pse_send_ntf_worker() looks up the pse_control and reads
+attached_phydev under pse_list_mutex. It no longer relies on a reference
+to the pse_control, so a removed PHY can no longer be reached. It also
+clears attached_phydev and warns when a second PHY takes the same PI.
 
 > diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-> index 43f6e304fe5e6..eccbdb3acbee8 100644
+> index eab7e25f2039b..af9eb29792706 100644
 > --- a/drivers/net/pse-pd/pse_core.c
 > +++ b/drivers/net/pse-pd/pse_core.c
 
 [ ... ]
 
-> @@ -1123,6 +1128,13 @@ int pse_controller_register(struct pse_controller_dev *pcdev)
->  	if (ret)
->  		return ret;
+> @@ -268,6 +266,7 @@ pse_control_find_by_id(struct pse_controller_dev *pcdev, int id)
+>  static struct net_device *pse_control_get_netdev(struct pse_control *psec)
+>  {
+>  	ASSERT_RTNL();
+> +	lockdep_assert_held(&pse_list_mutex);
 >  
-> +	/* The PI regulator ops use pcdev->pi until devres unregisters the
-> +	 * regulators, so free it from devres too, after them.
-> +	 */
-> +	ret = devm_add_action_or_reset(pcdev->dev, devm_pse_release_pis, pcdev);
-> +	if (ret)
-> +		return ret;
-> +
+>  	if (!psec || !psec->attached_phydev)
+>  		return NULL;
+
+[Severity: Low]
+This isn't a bug, but should the kernel-doc be updated to match the new
+rules?
+
+pse_control_find_by_id() got a "Must be called with pse_list_mutex held"
+note. The kernel-doc of pse_control_get_netdev() still only says:
+
+ * Return: netdev pointer or NULL
+
+The struct pse_control doc in pse_core.c also still describes the field as:
+
+ * @attached_phydev: PHY device pointer attached by the PSE control
+
+After this patch, pse_control_get_internal() sets attached_phydev to NULL
+as soon as a second PHY shares the PI. It stays NULL while PHYs still hold
+the pse_control.
+
+The field can also now only be read under pse_list_mutex. That rule is
+written down only in the block comment inside pse_send_ntf_worker().
+
+Could the struct doc and the pse_control_get_netdev() doc mention the
+locking requirement and the shared-PI NULL case?
+
+[ ... ]
+
+> @@ -1015,13 +1014,23 @@ static void pse_send_ntf_worker(struct work_struct *work)
+>  		struct net_device *netdev;
+>  		struct pse_control *psec;
+>  
+> -		psec = pse_control_find_by_id(pcdev, ntf.id);
+> +		/* If attached_phydev is set, it names the only PHY that
+
+[ ... ]
+
+> +		 */
+>  		rtnl_lock();
+> +		mutex_lock(&pse_list_mutex);
+> +		psec = pse_control_find_by_id(pcdev, ntf.id);
+>  		netdev = pse_control_get_netdev(psec);
+>  		if (netdev)
+>  			ethnl_pse_send_ntf(netdev, ntf.notifs);
 
 [Severity: High]
+This is a pre-existing issue, but is the net_device itself still left
+unprotected here?
 
-Does this devres ordering cover the case where a consumer enables or
-disables the PI, which the commit message also mentions?
+The new locking keeps the phy_device alive. No reference is taken on
+psec->attached_phydev->attached_dev, though.
 
-regulator_unregister() does not take the rdev lock and does not wait for
-consumer calls that are already running. If consumers still hold handles,
-it only does WARN_ON(rdev->open_count).
+ethnl_pse_send_ntf() dereferences that pointer in ethnl_fill_reply_header()
+(dev->ifindex, dev->name) and in ethnl_multicast() (dev_net(dev)). Both
+calls come after genlmsg_new(GFP_KERNEL), which can sleep.
 
-pse_control_get_internal() takes the PSE consumer handle with the
-non-devm regulator_get_exclusive():
+Neither rtnl nor pse_list_mutex appears to keep the netdev alive. The
+comment in phy_detach_internal() says:
 
-    psec->ps = regulator_get_exclusive(pcdev->dev,
-                       rdev_get_name(pcdev->pi[index].rdev));
+		 * Drivers may detach without RTNL while dev is unregistered,
 
-The PHY only drops that handle in phy_device_remove()->pse_control_put().
-pse_controller_unregister() never walks pcdev->pse_control_head, so these
-handles survive the controller unbind.
+Also, free_netdev() asserts RTNL only while reg_state is
+NETREG_UNREGISTERING. For a device that is already NETREG_UNREGISTERED it
+goes straight to put_device().
 
-I can see two ways to hit this. The first is a consumer disable racing
-with the unbind:
+As an in-tree example, hisi_femac_drv_remove() does:
 
-CPU0 (for example ethtool PSE admin-disable)
-pse_ethtool_set_config()
-  regulator_disable(psec->ps)
-    pse_pi_disable()
-      pi = &pcdev->pi[id];
-      mutex_lock(&pcdev->lock);
-      _pse_pi_disable()
-        ops->pi_disable()   /* sleeps on I2C */
+	unregister_netdev(ndev);
 
-CPU1 (unbind)
-devres release
-  regulator_unregister()
-  devm_pse_release_pis()
-    kfree(pcdev->pi)        /* without pcdev->lock */
-  frees the driver priv that embeds pcdev
+	phy_disconnect(ndev->phydev);
+	clk_disable_unprepare(priv->clk);
+	free_netdev(ndev);
 
-When CPU0 returns from ops->pi_disable(), it runs:
+The last two calls there run without rtnl. Can this sequence happen?
 
-      pi->admin_state_enabled = 0;
-      mutex_unlock(&pcdev->lock);
+worker                                 hisi_femac_drv_remove()
+                                       unregister_netdev(ndev)
+                                         (rtnl released)
+rtnl_lock()
+mutex_lock(&pse_list_mutex)
+pse_control_get_netdev()
+  returns attached_dev (still set)
+ethnl_pse_send_ntf()
+  genlmsg_new(GFP_KERNEL) sleeps
+                                       phy_disconnect()
+                                       free_netdev()
+                                         put_device() frees the netdev
+  ethnl_fill_reply_header(skb, netdev, ...)
+    reads the freed netdev
 
-Would that write into freed memory? pse_pi_disable() has no
-pcdev->unregistering check.
+The old worker also passed a netdev it held no reference to into
+ethnl_pse_send_ntf(), so this predates the patch. The commit message only
+covers the phy_device, and the code is unchanged at the end of the series.
 
-The second needs no race. If the PHY is removed after the controller has
-unbound, __pse_control_release() runs:
-
-    if (psec->pcdev->pi[psec->id].admin_state_enabled)
-        regulator_disable(psec->ps);
-
-That reads the freed pi array through the freed pcdev. regulator_disable()
-then reaches pse_pi_disable(), which uses the same freed data.
-
-pcdev itself is freed in the same teardown. Can any ordering of the PI
-array free close these paths? Would the existing pse_control objects have
-to be revoked in pse_controller_unregister(), or pcdev refcounted, before
-the consumer case is fixed?
+Does the lifetime of the net_device need to be pinned here as well, in
+addition to the phy_device?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103220217.1131971-1-github%40szelinsky.de
