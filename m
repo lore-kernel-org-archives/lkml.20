@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793845978;
-	b=0btziPlti7scuO3K/ftWegy2IUI+ZMEgFiJs5DfwTHWt055Pd4yiOfeAeVPKv0UwcV1g
-	 LhED8T/jPvaDIS/genWDdMaOWhAZHbv0MkH74U6pfaIOgN3nllcbYTXtgUD2QGeB6S6Yy
-	 DAQmXltczmszRilM3sU3eQ0rHhddnA9t0vf990BJqvtPjzHFS2jSEf7sf9mduwv5/V6YY
-	 eE/Q3p+rGRZeEU37ZwAHPgaHLNSlHNUSvrSxlQedK659nC2Lpr0H9gE1aatPLSgxkaLOD
-	 FxfPwZZ6DqVSJwCypVf04VPND1vPBLwKnfvKzvgrmOsny/uO9BadWQXEZwPs68pcZOQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793845978;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=L6jNYr3+I2TRbJ6lO8eF3ELPRVGF41ECwcb9ijXpjdA=;
-	b=Zx5chhuUB+ciKDbdz40LdniIgKzbbxITlfbfjYtQFbJzf+ZDBcBUqtZfDL8f2XIOvGs0
-	 ztTyeRdcMO5QGFykfJdKFFD718Ojj3VvYzqOBBz5Q//4Ev1VbIOfPv/4OJ7l4Iugb7/7h
-	 kzmCS5M7sEVyyW8mP2gXE9FUE8sbA+GsPtA+URkR68nounT1ztDiKne3VJp5TdxTTgyu3
-	 defncEn0JQrRo+tUfd7H4aD5pgYxs3UQhMOpudhTqHzJk2F21EqeA5zqqFsv6vGudokXX
-	 CWvsXPEQCPiWOdMB39upFY/OuYVCF/OLkJSNeRBK2RAhLoGOYPrFJOdtuo+zV/f4mfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=altera.com;
-	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=NKgsFCog;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.8
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012008.outbound.protection.outlook.com [52.101.48.8])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793845988;
+	b=bv3ZlVmhqRAdyGrhD0Ueva9eeKXDwkMS3riy7Dh2RHpO+eLm/JG5IeulYCYjwCCoUrAt
+	 PjcKMyXzu4Vdb4S49B+dAtWc+/hfOrzVvrCkBxDRguKJevg2utZv8Jn+TpQciJ7ejypSP
+	 gM3mWiXVcwHMq7nPVrI45Kz/7x7Z9aAKORnG64VTWFNTOGyZ2mKkddLS7d4j9JZaU9Zh+
+	 4jt5i1CcNOPiOaaMsLsNh+4KRL/TmVvpTPZxNaRKoKDNxpI68t1HbAI0f/9wqLDcDnGr+
+	 lGBl8P6PLy/OGSMLE9y+9SYbzODBMZPA3UbbjWGGdz8UeUqjC8CqfSSvWG4PJk/iyJg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793845988;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=tinDBj+cvdQpvWX1kGaOHHmRbI9Dk0CoSS1KCLAvOdg=;
+	b=eRtpqCA53CKBg3MUUalMyX0R/Vtm9GqqS4uQwHp0cDoCJP/D899bxWcXb6IwVQpf7xhu
+	 lvUniIr/Y+aI1+E9jysPFMSNXnJCsStGFSlUotMDYrr/eiecyDsll6dVdc+WOFiTCzSbY
+	 h6mhlTJXRTLO1SbzdrDHdwocR6KSpiZNOccvGrj/izukLFYK4E1dqxs3cZGHOfDcz+C6C
+	 l64gh34RcXUdQcUMMCNqCy8aAC9aYGa3MnKx9LjCuye0CbfXpOtdZSiaBNMyKw/JscjE9
+	 htm5RCTcBxpIv2yY6feFPGEhTN2GV9HRUlD4VN/YU8PRe3Mox8sQutCxNSN3yNjemCA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cqXWLvw/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927AD606A326;
-	Thu,  5 Nov 2026 02:32:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 927AD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C620D606A326;
+	Thu,  5 Nov 2026 02:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=NKgsFCog
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KNA7S37PImboqzhqWXvcOEA8owOWS46LyYCZxmkqfi3eEfl+T0oyUlpmGSrJVvejX3yEIwE7jmEeVLFX9JQ+O4yU4h5vo/cTHljYWP/XSaV0w6wCfXycB4nNioHTwiVIrBqjDGpjrzlKsrI3BcDNVQ4mMmLwpzB6UYLboF7vmLGIpcj2PXavkw96Siaf21WcAoKaSdYtxhfaZsHCYZn5ebxnlo6oBXy2mWkMC5Q1xCm0KiN6+lrZXkCPtw73tkqL402yOKv9KzifyhWxJ8LnCVERTQAKGf720piQ86AfLuGhxVSaakritY5YGJe4+MF2YcRfHeaBX9vnUhCiH4oGYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L6jNYr3+I2TRbJ6lO8eF3ELPRVGF41ECwcb9ijXpjdA=;
- b=K7cZhjk1xwlGeLbmAbJuoQSmTLvWsKvbkvJHUCPrpaokvfuLRkvtSOBxBuPJELbNFJAo7ca1qnrjeocV8ZLUpidJWgXhyToFSiObI4w7lLZbhuCgvrif4BvUxu/YIGlYwLQNGm1Cx461oa3ShkzqllBJM5bnnKrIhYGrEpkudwZkEEA5RsoRZbiV54M3r/d1kuyCZXITQKV3BTz6UpjNIg0vAM/3GJqZfKGSScHS++cxQDC1pOPxuJLuTVPkCMvzxB1zrkkLSGxW9ZCElVQ5iY2alyBg8npVOwO97TyqvMsUECwrmEyIYs8eF/r5TzrOSzxI66uOwefrE8lHFfEd+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L6jNYr3+I2TRbJ6lO8eF3ELPRVGF41ECwcb9ijXpjdA=;
- b=NKgsFCogYCLsDKacAIyL4mcqDbk8tjFJwEAEW7ug4V0gj/2HCuLXiKKEDnG1q3JV9W4gg5HI9AX33FQBjUMkq8zyi5B8ei7H4FroF1ps/2mtgki7tVCSawww6YsLXjqNesKAJ0iFwjdnm0LE4lZ/8MEOxTJUKGOBkB85cXbhvQkZ8luo13FjJdZyIXROJeGhXdRrapvxtqGQ9tqimjfaAYLMBIZ8H0RyCeG1Jo6+bPjbqNoE50ApD1BGkBJ1TqgZRRkCyfHyGDX7s4YwF10RoP7FzjZGfG3y5cvz4ET5np9+NQ7QaVD+rqVOHMruHN1myxLMm4jLF5q9NH5PW1Jomg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by SN7PR03MB7274.namprd03.prod.outlook.com (2603:10b6:806:2de::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
- 02:32:54 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0569.010; Thu, 5 Nov 2026
- 02:32:47 +0000
-From: muhammad.nazim.amirul.nazle.asmade@altera.com
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: stmmac: dwmac-socfpga: Enable multi-IRQ when per-queue IRQs present
-Date: Wed,  4 Nov 2026 18:32:45 -0800
-Message-ID: <20261105023245.4683-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-Mailer: git-send-email 2.43.7
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0099.namprd03.prod.outlook.com
- (2603:10b6:a03:333::14) To SJ0PR03MB6964.namprd03.prod.outlook.com
- (2603:10b6:a03:432::18)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqXWLvw/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 217AE1F000C1;
+	Thu,  5 Nov 2026 02:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793845987;
+	bh=tinDBj+cvdQpvWX1kGaOHHmRbI9Dk0CoSS1KCLAvOdg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cqXWLvw/SK+G72I2O+RbdFJKiaPYVhE5HkorWYchOxIEDG34vyyN8PJBqFWwfxS9O
+	 35MSqujR5Bt9/heKjW3/SKPG2HQWV8nSrs5ASqb7mu76YGHX/y/6jKEI2S3ak8Au4Y
+	 F2R2aPmED74V+THnOg74f1EjxOwHXL0FgDTcT94hjU4DAnwfY8+fRbDOhWDO+4w++m
+	 75gmQKy4dFabpN/WJxAxXQp/5Mx3v37chJpUnjAAovSUUn/KXpRSZSytoW/r6Y4P6Y
+	 DoN44AUqESjUE60VohhvKYs6CjH70DOblzEjsShRyBP+r4G9gP+YxMcBaaz2rGRO2H
+	 2Wd+CJDgIuvoQ==
+Message-ID: <sashiko-outbox-198466@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 12/20] KVM: nVMX: Use pinned pfncache for L1 APIC
+ virtualization pages
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Woodhouse" <dwmw2@infradead.org>, kvm@vger.kernel.org
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105020104.2507083-13-dwmw2@infradead.org>
+References: <20261105020104.2507083-1-dwmw2@infradead.org>
+ <20261105020104.2507083-13-dwmw2@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 02:33:06 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,148 +60,510 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|SN7PR03MB7274:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc290210-3732-4bd2-43c2-08df3ae5141e
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|7416014|23010399003|18002099003|55112099003|261009223027099003|261021121427099003|261022105027099003|261026140227099003|261026121527099003|11063799006|56012099006|10067099003|261028144727099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	DjxHl8NuFTl/jKretbUrjFXZZygYn2SX/XQ97fwqD+2RuZtgvcQQTCXfsBAuAIfnV887Vz7HHf1cUY9X410LoCAL9md3+SlGiCIm0IamAs0Yr0KEEM9IYxAq7nZ1UKfZf5h3JjXTFKujj7ph2QfpHnbxPqJB833ageslvwvsKhXKRyuJ29TKl0NymiINcfF6ecx5CzOr1aSLOVOAHzqpGw7fYvJvSo/dhEqSnpdnQj5zFUNOy3LtgpCwWdrDx6A3o5Dg8jdFA1LzRKpC9vuxblRylUDkgtWG6lDjH8x/zikLNE6Wfs6AyVCR29PDF1WfYb10kGmu+b7in53L2STvpIwIx1Y0bWMPvwV8kslLSL0daiRTwzVXj85MdOLh8PuhTYB9/wV5tijA7C0XQHQy+qZdNbBEWaPXbKYqPBdPxmPTKHPkZwX7PzzM0tuPGE9jCAHD0qRBV9d1NH2Yq1oZv0dq6HwcJqHRttTyEqdbJw4uyolI9XbA3uCyGKzuNt1uk8BDh7ttQy/128Ed2JBb1LMulY2ZjP6cWrSYmkSsFp88m1LQu6KmswjNux9dPs/YtPgwrDVicEPjWj1R5Y1gQndBmS6Oe7cDgeX1hmDh6c6KsOPGZETC4Uy0L4mQCtSb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(18002099003)(55112099003)(261009223027099003)(261021121427099003)(261022105027099003)(261026140227099003)(261026121527099003)(11063799006)(56012099006)(10067099003)(261028144727099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CdAEVzen6R8FIcY1EDcei2WYmonyAHOA1GYRa8ecyrEz3F8tb4pETS7g/e3V?=
- =?us-ascii?Q?Dx5DuHsp9EC51YYqkxKDZ64352VtOSxw44fXh34VqS1aeSYyoMub4qOGL9Wi?=
- =?us-ascii?Q?glhvQv04ja4KVMQ/V80P71Z5sofCrWwYMmm1BMHfRfQqlF5WLNGZOVnh/Dxo?=
- =?us-ascii?Q?ozMedlq+C78y/xax1bgPWS1vIjLaczvB5SMPpkx1i+bPli976wW/W1ehrVOY?=
- =?us-ascii?Q?aSq7mTCjZVA1H0JxfmanAuaXzykXoBYwv8avUelDKZC5D8MmdKl4OfNk8Dp8?=
- =?us-ascii?Q?oer89iJjRhAG9/gpIM1x0FDKbYVz2+1j219cxZrgupAa37nrfkPMGSAH/JUJ?=
- =?us-ascii?Q?1j1QQAEm1gLcvtWf9g1iOP3Lyww/2uRYZn1H28qFFyTSoWk5NB2zghxHR2uG?=
- =?us-ascii?Q?AjE2O8tzSbEuutqaR22yx7F4B3cd/lgDKmj/0V7L1j9qDIWPS3bLa3CNVduf?=
- =?us-ascii?Q?0sUnSLzQ0IDTNx9UqN97KeU5weL2jxYeh1Q/xg8z2dCehXiNaOqvobtXw8VB?=
- =?us-ascii?Q?K2u2Lg/0T8G6PBBtaIV4p21mSiUREpWAO9mKbkhAVOi4s0fdmzP6TW5yBZ+B?=
- =?us-ascii?Q?dsuJMPqgmt3PrHxVtIVwMFOx7MHqfk1tnqgfdsG2UH99sBLsT3dTWZe5/4w8?=
- =?us-ascii?Q?fkOYRa3H9amzkyEAFmHerNSEtuRK993dqrv6qY9Wp6aNrWKbSLZVUdXuVJRs?=
- =?us-ascii?Q?FkkMAHqxUkRnbjd+eBKtCwbiIAVMbwYPWLlKnpGok6atl+mxMqLMXQpkjiBc?=
- =?us-ascii?Q?nk6jDGf3dQe7uCj6JYJI7QiXiBdQGyHUOHUHQgMQyfJGE5WpBpyggNdOKq8o?=
- =?us-ascii?Q?CvXBVs+fD5+wv39yStaKQ9kjOrBpb/vgaMGi9CRX31nQSa6+yWwlRRpXmZfI?=
- =?us-ascii?Q?AMaIclrI7FHwHBIwR6UoJ4xfq6XUnRgNKuj9h+xzp5kBPVDNKE9+m+3G7WBO?=
- =?us-ascii?Q?z2tqM3SPie+B9NUu+JZLXwywyTGQVRWae/OnrmChzgfFFaldsczk3zfIbFP8?=
- =?us-ascii?Q?mypibrpa8YWdsvn8QHeDFCjAqttQFkGwZ8IdLqBWtqE18ByX9pxhsKT3m5YC?=
- =?us-ascii?Q?zcHnOtYpK4PHGZGWzG0t7EtGs+FuKRHbCifsqSZvJeCPGrVq4y+3sEOqsqfD?=
- =?us-ascii?Q?Xkbic9jko4+dd7sEhcvm/HaicpQJzaSu2iJCu1jfBEUwmQ7ljU94yrHUW0vZ?=
- =?us-ascii?Q?lDbeakERZHsESVYOmfrcOMuWlnH8lPrhppjPKlGh8IExaa/5dwl6jRuIX+6L?=
- =?us-ascii?Q?d15TBby3ZuFoIGN66MjlGUNRnXPZwRcM/F51lZBrQ37J5mlW0abEk41PjLmJ?=
- =?us-ascii?Q?V0QzwcQHyHv9VmtM5OdhZSiT8t/HlER/AeQcE7zlOQYobTI6llEZbcJDxQ/A?=
- =?us-ascii?Q?4vlqNIXMg41LMetOjYslEP01YdokBRJlM0LxOQFuUMW7RwNJQSRXw7cYtJFN?=
- =?us-ascii?Q?j8/5nh5ruN43s0tSiFe7aGG6SR4sUrAxWpahsEj0iZSmTMm01YCXK7ZKi4Nv?=
- =?us-ascii?Q?HYCwuD4LlbjtkRQQoL6syuCARm6kfFytEXSmX+2dxL4HnH07G4tUeaI4cSpJ?=
- =?us-ascii?Q?6C6YdHLqJtMB/WGEGq5/94Zp7P8uiFvZbB1NKwlgx1ibDvlK+DrOpuy4pKIb?=
- =?us-ascii?Q?ArrNr4YIB2OJF6mPOyNVmJ2kE2Q5u9382Yq7yhOKw7KC3wlJYIM594A9QysF?=
- =?us-ascii?Q?uC4aATBmmoMjmzivL+HxIkQravfUIA3k78tpG7trdlnZz0bYspGDs/pm+fTj?=
- =?us-ascii?Q?nHFBABkSebfHKpkK9Zuxb7SLj0/qFY7/L1n/VO1ReN8dtny5+bWBfeCSObK3?=
-X-MS-Exchange-AntiSpam-MessageData-1: IcokuLT3z498Yg==
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc290210-3732-4bd2-43c2-08df3ae5141e
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:32:47.2752
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kpkm/bZnmGaCw2K+KZyQAYgFU+7rQwPnxf9BbJzHySVVSsAA9P8pxwZI3Fd49WsEG2Vd2lIbwLdLbrZ9ngx4jG/VdR36GkRLVNZwTWyPsuhVcDnTvBwo6wBJpBh8ywiSBr9VSi9PuOTNBsV64ZjGNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR03MB7274
 
-From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] KVM: nVMX: spurious L2 unhalt in vmx_has_nested_events() on invali=
+d cache
+- [High] KVM: nVMX: fatal exit and PI loss in vmx_complete_nested_posted_in=
+terrupt()
+- [Medium] KVM: nVMX: loss of entry-time semantics on retry in nested_get_v=
+mcs12_pages()
+- [Low] KVM: nVMX: redundant request repost in nested_gpc_hpa() when refres=
+hing pin
+--
 
-Agilex5 and other SoCFPGA platforms can wire per-DMA-channel TX/RX
-completion interrupts through the GIC as named platform IRQs. The common
-stmmac platform code already parses "tx-queue-N" / "rx-queue-N".
+commit 2e4c94957b2cebc2ce8ce9d33fd7500248768210
+Author: Fred Griffoul <fgriffo@amazon.co.uk>
 
-Follow the same approach as dwmac-s32: if all configured TX and RX queue
-IRQs are present, set STMMAC_FLAG_MULTI_MSI_EN so the existing multi-IRQ
-request path and INTM=1 programming are used. Otherwise keep the single
-macirq path.
+KVM: nVMX: Use pinned pfncache for L1 APIC virtualization pages
 
-Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
----
-Background:
+This commit replaces kvm_host_map with pinned gfn_to_pfn_cache instances for
+the L1 APIC-access page, virtual-APIC page, and posted interrupt descriptor
+in vmcs02. Caches are pinned for guest use on nested entry or state
+revalidation, and invalidated caches trigger KVM_REQ_GET_NESTED_STATE_PAGES
+to refresh or degrade the corresponding vmcs02 controls.
 
-Per DMA channel interrupt support was first merged in 2024 as part of
-Leong Ching Swee's series [1], and then reverted in commit e9ee910218ff
-because the devicetree binding had not been reviewed yet [2].
+> diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+> index bb0baa79c28cb..23f1fff97917a 100644
+> --- a/arch/x86/kvm/vmx/nested.c
+> +++ b/arch/x86/kvm/vmx/nested.c
+> @@ -320,14 +320,140 @@ static void vmx_switch_vmcs(struct kvm_vcpu *vcpu,=
+ struct loaded_vmcs *vmcs)
+>  	kvm_reset_dirty_registers(vcpu);
+>  }
+> =20
+> +/*
+> + * Map a page of L1 memory, pin it for direct use by the guest (i.e. by
+> + * the CPU while running the L2 guest, via a physical address in vmcs02),
+> + * and return the host physical address to write into vmcs02. The pin
+> + * guarantees that if the mapping is invalidated, this vCPU is forced out
+> + * of guest mode and KVM_REQ_GET_NESTED_STATE_PAGES is posted so that the
+> + * address is re-established (or the vCPU exits to userspace) before the
+> + * next entry to guest mode.
+> + */
+> +static int nested_gpc_hpa(struct gfn_to_pfn_cache *gpc, gpa_t gpa, hpa_t=
+ *hpa)
+> +{
+> +	int idx;
+> +
+> +	do {
+> +		idx =3D kvm_gpc_lock_page(gpc, gpa);
 
-Since then, the remaining pieces have landed upstream separately: the
-binding allows the "tx-queue-N"/"rx-queue-N" interrupts, the platform
-code parses them, and the DWMAC4 and XGMAC DMA code programs INTM for
-multi-MSI. The Agilex5 DTS also describes the per-queue interrupts.
+[Severity: Low]
+When KVM_REQ_GET_NESTED_STATE_PAGES runs to refresh an already-pinned cache
+after an mmu_notifier invalidation or a memslot generation change,
+GPC_GUEST_USING is still set in gpc->state because
+gfn_to_pfn_cache_invalidate_start() preserves GPC_GUEST_USING in the state
+word.
 
-The only missing part is enabling STMMAC_FLAG_MULTI_MSI_EN in
-dwmac-socfpga, which this patch adds. It was posted before [3], but was
-deferred because net-next was closed for the merge window.
+When nested_gpc_hpa() calls kvm_gpc_lock_page() -> kvm_gpc_activate() ->
+__kvm_gpc_refresh() without unpinning first, __kvm_gpc_refresh() executes:
 
-[1] https://lore.kernel.org/all/20240105070925.2948871-1-leong.ching.swee@intel.com/
-[2] https://lore.kernel.org/all/2df9fe3e-7971-4aa2-89a9-0e085b3b00d7@linaro.org/
-[3] https://lore.kernel.org/all/20260817074221.27459-2-muhammad.nazim.amirul.nazle.asmade@altera.com/
+virt/kvm/pfncache.c:__kvm_gpc_refresh() {
+    ...
+	old_state =3D atomic_xchg(&gpc->state, GPC_INVALIDATING);
+	gpc_kick_pinned_vcpu(gpc, old_state);
+    ...
+}
 
- .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
+Because GPC_GUEST_USING is still present in old_state, gpc_kick_pinned_vcpu=
+()
+unconditionally re-posts KVM_REQ_GET_NESTED_STATE_PAGES even though the
+request handler is already in the middle of servicing it. Once
+vmx_get_nested_state_pages() finishes, vcpu_enter_guest() sees the newly
+re-posted request at kvm_vcpu_exit_request() and aborts guest entry to run a
+redundant second pass.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 6d4bc1fe8f75..2ca45b3dfa90 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -596,6 +596,35 @@ static void socfpga_agilex5_setup_plat_dat(struct socfpga_dwmac *dwmac)
- 	plat_dat->crosststamp = smtg_crosststamp;
- }
- 
-+static void socfpga_dwmac_setup_multi_irq(struct device *dev,
-+					  struct plat_stmmacenet_data *plat,
-+					  struct stmmac_resources *res)
-+{
-+	int i;
-+
-+	for (i = 0; i < plat->rx_queues_to_use; i++) {
-+		if (res->rx_irq[i] <= 0) {
-+			dev_dbg(dev, "Missing RX queue %d interrupt\n", i);
-+			goto mac_irq_mode;
-+		}
-+	}
-+
-+	for (i = 0; i < plat->tx_queues_to_use; i++) {
-+		if (res->tx_irq[i] <= 0) {
-+			dev_dbg(dev, "Missing TX queue %d interrupt\n", i);
-+			goto mac_irq_mode;
-+		}
-+	}
-+
-+	plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
-+	dev_info(dev, "Multi-IRQ mode (per queue IRQs) selected\n");
-+	return;
-+
-+mac_irq_mode:
-+	plat->flags &= ~STMMAC_FLAG_MULTI_MSI_EN;
-+	dev_dbg(dev, "MAC IRQ mode selected\n");
-+}
-+
- static int socfpga_dwmac_probe(struct platform_device *pdev)
+Should nested_gpc_hpa() call kvm_gpc_unpin_for_guest(gpc) before
+kvm_gpc_lock_page()?
+
+[ ... ]
+
+> @@ -3467,41 +3611,117 @@ static bool nested_get_evmcs_page(struct kvm_vcp=
+u *vcpu)
+>  }
+>  #endif
+> =20
+> -static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
+> +static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu, bool lazy)
+>  {
+
+[ ... ]
+
+>  	if (nested_cpu_has(vmcs12, CPU_BASED_TPR_SHADOW)) {
+> -		map =3D &vmx->nested.virtual_apic_map;
+> +		int vapic_err =3D nested_gpc_hpa(&vmx->nested.virtual_apic_cache,
+> +					       vmcs12->virtual_apic_page_addr, &hpa);
+> +
+> +		/*
+> +		 * On failure, deactivate the cache: an active-but-invalid
+> +		 * cache would read as "might have an event" to the
+> +		 * non-sleeping check in vmx_has_nested_events(), causing
+> +		 * spurious wakeups for as long as the page remains
+> +		 * unbackable.
+> +		 */
+> +		if (vapic_err) {
+> +			kvm_gpc_unpin_for_guest(&vmx->nested.virtual_apic_cache);
+> +			kvm_gpc_deactivate(&vmx->nested.virtual_apic_cache);
+> +		}
+> =20
+> -		if (!kvm_vcpu_map(vcpu, gpa_to_gfn(vmcs12->virtual_apic_page_addr), ma=
+p)) {
+> -			vmcs_write64(VIRTUAL_APIC_PAGE_ADDR, pfn_to_hpa(map->pfn));
+> +		if (vapic_err =3D=3D -EAGAIN)
+> +			goto retry;
+> +
+> +		if (!vapic_err) {
+> +			vmcs_write64(VIRTUAL_APIC_PAGE_ADDR, hpa);
+> +			/* As for the APIC-access page: undo a lazy degrade. */
+> +			exec_controls_setbit(vmx, CPU_BASED_TPR_SHADOW);
+>  		} else if (nested_cpu_has(vmcs12, CPU_BASED_CR8_LOAD_EXITING) &&
+>  		           nested_cpu_has(vmcs12, CPU_BASED_CR8_STORE_EXITING) &&
+>  			   !nested_cpu_has2(vmcs12, SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES))=
  {
- 	struct plat_stmmacenet_data *plat_dat;
-@@ -655,6 +684,8 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 
- 	ops->setup_plat_dat(dwmac);
- 
-+	socfpga_dwmac_setup_multi_irq(dev, plat_dat, &stmmac_res);
-+
- 	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
- }
- 
--- 
-2.43.7
+> @@ -3514,6 +3734,27 @@ static bool nested_get_vmcs12_pages(struct kvm_vcp=
+u *vcpu)
+>  			 * only possibility we have.
+>  			 */
+>  			exec_controls_clearbit(vmx, CPU_BASED_TPR_SHADOW);
+> +		} else if (lazy) {
 
+[ ... ]
+
+> +			goto retry;
+> +		} else {
+>  			/*
+>  			 * Write an illegal value to VIRTUAL_APIC_PAGE_ADDR to
+>  			 * force VM-Entry to fail.
+>  			 */
+>  			vmcs_write64(VIRTUAL_APIC_PAGE_ADDR, INVALID_GPA);
+>  		}
+>  	}
+
+[ ... ]
+
+> +retry:
+> +	/*
+> +	 * The gfn's memslot is being moved or deleted: present but
+> +	 * flagged invalid, so the lookup failure is transient and the
+> +	 * gfn must not (yet) be treated as unbacked. Re-post the
+> +	 * request and report success: the pending request prevents
+> +	 * any VM entry (vcpu_enter_guest() bails and reprocesses
+> +	 * requests), so L2 cannot run with the partially-updated
+> +	 * vmcs02, and the vCPU retries here until the memslot update
+> +	 * completes or reverts. This mirrors RET_PF_RETRY for
+> +	 * ordinary guest faults on an invalid slot; as there, a
+> +	 * userspace which never completes the update leaves the vCPU
+> +	 * retrying indefinitely, with signals and request processing
+> +	 * still serviced.
+> +	 */
+> +	kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
+> +	return true;
+>  }
+> =20
+> -static bool vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
+> +static bool __vmx_get_nested_state_pages(struct kvm_vcpu *vcpu)
+>  {
+>  #ifdef CONFIG_KVM_HYPERV
+>  	/*
+> @@ -3567,9 +3830,39 @@ static bool vmx_get_nested_state_pages(struct kvm_=
+vcpu *vcpu)
+>  	}
+>  #endif
+> =20
+> -	if (is_guest_mode(vcpu) && !nested_get_vmcs12_pages(vcpu))
+> +	if (is_guest_mode(vcpu) &&
+> +	    !nested_get_vmcs12_pages(vcpu, !to_vmx(vcpu)->nested.resume_pending=
+))
+>  		return false;
+> =20
+> +	/*
+> +	 * Success consumes the resume classification (a -EAGAIN retry
+> +	 * "succeeds" too: the resume did all it could against a memslot
+> +	 * mid-update, and the re-posted request's consumption is a fresh
+> +	 * revalidation like any other).
+> +	 */
+> +	to_vmx(vcpu)->nested.resume_pending =3D false;
+> +	return true;
+> +}
+
+[Severity: Medium]
+Does taking the retry path on -EAGAIN during entry-time resolution lose
+entry-time (!lazy) semantics for the retry?
+
+There appear to be two ways this happens:
+
+1. During VMLAUNCH/VMRESUME, nested_vmx_enter_non_root_mode() calls
+nested_get_vmcs12_pages(vcpu, false) while vmx->nested.resume_pending is
+false. If nested_gpc_hpa() returns -EAGAIN because a memslot is mid-update,
+nested_get_vmcs12_pages() posts KVM_REQ_GET_NESTED_STATE_PAGES and returns
+true without setting resume_pending.
+
+2. During KVM_SET_NESTED_STATE resume, __vmx_get_nested_state_pages() calls
+nested_get_vmcs12_pages(vcpu, false) because resume_pending is true, but wh=
+en
+nested_get_vmcs12_pages() jumps to retry on -EAGAIN and returns true,
+__vmx_get_nested_state_pages() clears resume_pending =3D false.
+
+In both cases, the re-posted request runs nested_get_vmcs12_pages() with
+lazy =3D true. If the in-flight memslot operation was a deletion (or if a
+subsequent page in vmcs12 such as virtual_apic_page_addr had not been
+checked yet on the first pass and is unbacked), the retry applies lazy
+semantics: an unbacked apic_access_addr silently degrades
+SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES instead of exiting with
+KVM_EXIT_INTERNAL_ERROR, and an unbacked virtual_apic_page_addr spins
+forever in KVM_RUN via goto retry instead of writing INVALID_GPA to
+VIRTUAL_APIC_PAGE_ADDR to deliver VMfailValid to L1.
+
+Additionally, in nested_get_vmcs12_pages(), the CR8 load/store exiting chec=
+k:
+
+	} else if (nested_cpu_has(vmcs12, CPU_BASED_CR8_LOAD_EXITING) &&
+	           nested_cpu_has(vmcs12, CPU_BASED_CR8_STORE_EXITING) &&
+		   !nested_cpu_has2(vmcs12, SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES)) {
+		exec_controls_clearbit(vmx, CPU_BASED_TPR_SHADOW);
+	} else if (lazy) {
+
+is evaluated before checking lazy, and without checking whether other APICv
+controls that require CPU_BASED_TPR_SHADOW (such as
+SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE, SECONDARY_EXEC_APIC_REGISTER_VIRT,
+SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY, or PIN_BASED_POSTED_INTR) are enabled.
+If L2 is running with x2APIC virtualization and CR8 load/store exiting when=
+ a
+lazy vAPIC revalidation fails during a memslot delete-then-recreate, cleari=
+ng
+CPU_BASED_TPR_SHADOW while SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE remains set
+in vmcs02 will cause hardware VMRESUME to fail with
+VMXERR_ENTRY_INVALID_CONTROL_FIELD instead of riding out the gap via
+goto retry.
+
+Should entry-time resolution preserve !lazy across -EAGAIN retries, and
+should the lazy branch precede the CPU_BASED_TPR_SHADOW clearing fallback?
+
+[ ... ]
+
+> @@ -4054,6 +4354,8 @@ static void vmcs12_save_pending_event(struct kvm_vc=
+pu *vcpu,
+>  static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
+>  {
+>  	struct vcpu_vmx *vmx =3D to_vmx(vcpu);
+> +	int pi_idx, vapic_idx;
+> +	struct pi_desc *pi_desc;
+>  	int max_irr;
+>  	void *vapic_page;
+>  	u16 status;
+> =20
+>  	if (!vmx->nested.pi_pending)
+>  		return 0;
+> =20
+> -	if (!vmx->nested.pi_desc)
+> +	/*
+> +	 * Resolve both caches before touching the descriptor: taking one
+> +	 * cache's lock inside the other's would sleep in refresh (and
+> +	 * wait a grace period on the gpc_srcu domain this task already
+> +	 * reads) with preemption disabled. The vAPIC lock may go unused
+> +	 * (no pending vector), and its absence only matters once a
+> +	 * vector is found, so a failure is remembered, not acted on.
+> +	 */
+> +retry:
+> +	vapic_idx =3D nested_gpc_lock_if_active(&vmx->nested.virtual_apic_cache=
+);
+> +
+> +	pi_idx =3D nested_gpc_try_lock_if_active(&vmx->nested.pi_desc_cache);
+> +	if (pi_idx =3D=3D -EWOULDBLOCK) {
+> +		if (vapic_idx >=3D 0)
+> +			kvm_gpc_unlock(&vmx->nested.virtual_apic_cache,
+> +				       vapic_idx);
+> +		if (kvm_gpc_refresh(&vmx->nested.pi_desc_cache, PAGE_SIZE))
+> +			goto mmio_needed;
+> +		goto retry;
+> +	}
+> +	if (pi_idx < 0) {
+> +		if (vapic_idx >=3D 0)
+> +			kvm_gpc_unlock(&vmx->nested.virtual_apic_cache,
+> +				       vapic_idx);
+>  		goto mmio_needed;
+> +	}
+> =20
+> +	pi_desc =3D nested_pi_desc(vmx);
+>  	vmx->nested.pi_pending =3D false;
+> =20
+> -	if (!pi_test_and_clear_on(vmx->nested.pi_desc))
+> +	if (!pi_test_and_clear_on(pi_desc)) {
+> +		kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
+> +		if (vapic_idx >=3D 0)
+> +			kvm_gpc_unlock(&vmx->nested.virtual_apic_cache,
+> +				       vapic_idx);
+>  		return 0;
+> +	}
+> =20
+> -	max_irr =3D pi_find_highest_vector(vmx->nested.pi_desc);
+> +	max_irr =3D pi_find_highest_vector(pi_desc);
+>  	if (max_irr > 0) {
+> -		vapic_page =3D vmx->nested.virtual_apic_map.hva;
+> -		if (!vapic_page)
+> +		if (vapic_idx < 0) {
+> +			/* The ON bit is already cleared: mark the write. */
+> +			kvm_gpc_mark_dirty_in_slot(&vmx->nested.pi_desc_cache);
+> +			kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
+>  			goto mmio_needed;
+> +		}
+
+[Severity: High]
+What happens in vmx_complete_nested_posted_interrupt() when
+nested_get_vmcs12_pages() has deferred cache resolution via goto retry?
+
+In nested_get_vmcs12_pages(), when resolving apic_access_page_cache,
+virtual_apic_cache, or pi_desc_cache encounters an in-flight memslot update
+(-EAGAIN) or a lazy unbacked virtual_apic_cache, it deactivates that cache,
+re-posts KVM_REQ_GET_NESTED_STATE_PAGES, and returns true.
+
+In vcpu_enter_guest(), because vmx_get_nested_state_pages() returns true,
+execution continues to kvm_check_and_inject_events() ->
+vmx_check_nested_events() -> vmx_complete_nested_posted_interrupt() before
+kvm_vcpu_exit_request() is checked:
+
+arch/x86/kvm/x86.c:vcpu_enter_guest() {
+    ...
+	if (kvm_check_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu)) {
+		if (unlikely(!static_call(kvm_x86_get_nested_state_pages)(vcpu))) {
+			r =3D 0;
+			goto out;
+		}
+	}
+    ...
+	if (kvm_check_request(KVM_REQ_EVENT, vcpu) || req_int_win ||
+	    kvm_xen_has_interrupt(vcpu)) {
+		...
+		if (kvm_check_and_inject_events(vcpu, & Bool) < 0) {
+			r =3D 0;
+			goto out;
+		}
+	}
+    ...
+	if (kvm_vcpu_exit_request(vcpu)) {
+		vcpu->mode =3D OUTSIDE_GUEST_MODE;
+		smp_wmb();
+		local_irq_enable();
+		preempt_enable();
+		kvm_vcpu_srcu_read_lock(vcpu);
+		r =3D 1;
+		goto cancel_injection;
+	}
+}
+
+(Similarly, if L2 is restored in KVM_MP_STATE_HALTED via KVM_SET_NESTED_STA=
+TE,
+vcpu_block() calls kvm_check_nested_events() before vcpu_enter_guest() has
+ever run KVM_REQ_GET_NESTED_STATE_PAGES.)
+
+If vmx->nested.pi_pending is true when vmx_complete_nested_posted_interrupt=
+()
+is called while KVM_REQ_GET_NESTED_STATE_PAGES is still pending:
+
+1. If pi_desc_cache was deactivated (pi_idx =3D=3D -ENOENT) or its refresh =
+hits
+an in-flight KVM_MEMSLOT_INVALID slot, vmx_complete_nested_posted_interrupt=
+()
+jumps to mmio_needed and calls kvm_handle_memory_failure(), terminating the
+VM with KVM_EXIT_INTERNAL_ERROR instead of waiting for the pending retry.
+
+2. If pi_desc_cache is active and valid, but virtual_apic_cache was
+deactivated by nested_get_vmcs12_pages() (or its refresh failed during a
+memslot update, so vapic_idx < 0), vmx_complete_nested_posted_interrupt()
+clears vmx->nested.pi_pending =3D false and clears POSTED_INTR_ON in pi_desc
+before checking if (vapic_idx < 0) and jumping to mmio_needed, losing the
+posted interrupt notification and killing the VM.
+
+3. Because nested_put_vmcs12_pages() on nested VM-exit only unpins the cach=
+es
+without deactivating them, if apic_access_page_cache hits -EAGAIN at
+VMLAUNCH/VMRESUME of a new L2, nested_get_vmcs12_pages() jumps to retry
+before updating virtual_apic_cache and pi_desc_cache, leaving them active
+with the previous L2's GPAs and pi_desc_offset when
+vmx_complete_nested_posted_interrupt() runs.
+
+Should vmx_complete_nested_posted_interrupt() (or vmx_check_nested_events())
+defer processing while KVM_REQ_GET_NESTED_STATE_PAGES is pending, and avoid
+clearing pi_pending or POSTED_INTR_ON until both caches are locked?
+
+[ ... ]
+
+> @@ -4225,20 +4566,57 @@ static bool vmx_has_nested_events(struct kvm_vcpu=
+ *vcpu, bool for_injection)
+>  	    __vmx_interrupt_blocked(vcpu))
+>  		return false;
+> =20
+> -	if (!vapic)
+> +	/*
+> +	 * This is called from non-sleeping contexts (notably the
+> +	 * kvm_vcpu_block() loop, under set_current_state()), so it must
+> +	 * not refresh an unusable cache. Claim a pending event instead,
+> +	 * and post KVM_REQ_GET_NESTED_STATE_PAGES: the bounce through
+> +	 * vcpu_run services the request in a sleepable context,
+> +	 * re-establishing the cache, and re-evaluates events for real.
+> +	 * The request must be posted here rather than assumed pending =E2=80=94
+> +	 * an invalidation posts one, but a cache can also fail the check
+> +	 * on a bare memslot-generation bump (e.g. a dirty-logging toggle,
+> +	 * KVM_MR_FLAGS_ONLY), where nothing else does, and without it
+> +	 * the woken vCPU would re-enter, HLT, and spin back here. A
+> +	 * spurious wakeup is safe; sleeping here is not, and returning
+> +	 * false could miss a wakeup.
+> +	 */
+> +	idx =3D nested_gpc_try_lock_if_active(&vmx->nested.virtual_apic_cache);
+> +	if (idx =3D=3D -EWOULDBLOCK) {
+> +		kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
+> +		return true;
+> +	}
+> +	if (idx < 0)
+>  		return false;
+> =20
+> +	vapic =3D vmx->nested.virtual_apic_cache.khva;
+>  	vppr =3D *((u32 *)(vapic + APIC_PROCPRI));
+> =20
+> +	kvm_gpc_unlock(&vmx->nested.virtual_apic_cache, idx);
+> +
+>  	max_irr =3D vmx_get_rvi();
+>  	if ((max_irr & 0xf0) > (vppr & 0xf0))
+>  		return true;
+> =20
+> -	if (vmx->nested.pi_pending && vmx->nested.pi_desc &&
+> -	    pi_test_on(vmx->nested.pi_desc)) {
+> -		max_irr =3D pi_find_highest_vector(vmx->nested.pi_desc);
+> -		if (max_irr > 0 && (max_irr & 0xf0) > (vppr & 0xf0))
+> +	if (vmx->nested.pi_pending) {
+> +		idx =3D nested_gpc_try_lock_if_active(&vmx->nested.pi_desc_cache);
+> +		if (idx =3D=3D -EWOULDBLOCK) {
+> +			kvm_make_request(KVM_REQ_GET_NESTED_STATE_PAGES, vcpu);
+>  			return true;
+> +		}
+> +		if (idx < 0)
+> +			return false;
+
+[Severity: High]
+Won't returning true on -EWOULDBLOCK here permanently unhalt a halted L2
+vCPU instead of just bouncing through vcpu_run() to refresh the cache?
+
+When a halted L2 vCPU is blocked in kvm_vcpu_block() and an mmu_notifier
+invalidates virtual_apic_cache or a dirty-logging toggle bumps the memslot
+generation, kvm_vcpu_check_block() -> kvm_arch_vcpu_runnable() ->
+kvm_vcpu_has_events() -> vmx_has_nested_events() sees -EWOULDBLOCK, posts
+KVM_REQ_GET_NESTED_STATE_PAGES, and returns true.
+
+However, kvm_vcpu_block() returns to vcpu_block(), which immediately
+re-checks kvm_arch_vcpu_runnable(vcpu) before returning to vcpu_run():
+
+arch/x86/kvm/x86.c:vcpu_block() {
+	bool hv_timer;
+
+	if (!kvm_arch_vcpu_runnable(vcpu)) {
+		...
+		kvm_vcpu_halt(vcpu, &hv_timer);
+		...
+		if (!kvm_arch_vcpu_runnable(vcpu))
+			return 1;
+	}
+	...
+	switch(vcpu->arch.mp_state) {
+	case KVM_MP_STATE_HALTED:
+	case KVM_MP_STATE_AP_RESET_HOLD:
+		kvm_set_mp_state(vcpu, KVM_MP_STATE_RUNNABLE);
+	...
+}
+
+Because KVM_REQ_GET_NESTED_STATE_PAGES is only serviced in
+vcpu_enter_guest() (which only runs when mp_state =3D=3D KVM_MP_STATE_RUNNA=
+BLE),
+nothing refreshes virtual_apic_cache or pi_desc_cache between the two
+kvm_arch_vcpu_runnable() calls in vcpu_block(). The second call in
+vcpu_block() invokes vmx_has_nested_events() again, still gets -EWOULDBLOCK,
+and returns true again. vcpu_block() then transitions the vCPU from
+KVM_MP_STATE_HALTED to KVM_MP_STATE_RUNNABLE, resuming L2 execution past HLT
+without any architectural wake event.
+
+The same thing happens when L2 executes HLT while a cache is invalid:
+kvm_emulate_halt() advances RIP past HLT and calls __kvm_emulate_halt(),
+which checks kvm_vcpu_has_events(vcpu) and sets KVM_MP_STATE_RUNNABLE
+immediately instead of halting.
+
+Conversely, if a vCPU is restored in L2 with KVM_MP_STATE_HALTED via
+KVM_SET_NESTED_STATE (or enters L2 halted via RSM),
+nested_vmx_enter_non_root_mode(vcpu, false) defers activating the caches to
+KVM_REQ_GET_NESTED_STATE_PAGES. Because vcpu_run() calls vcpu_block()
+directly when mp_state !=3D KVM_MP_STATE_RUNNABLE, the caches remain inacti=
+ve
+(!gpc->active), so nested_gpc_try_lock_if_active() returns -ENOENT and
+vmx_has_nested_events() returns false, missing pending virtual or posted
+interrupts until something else wakes the vCPU.
+
+Should vmx_has_nested_events() refresh the cache when called from a
+sleepable TASK_RUNNING context (similar to __kvm_xen_has_interrupt() checki=
+ng
+task_is_running(current) && !in_atomic()), or should vcpu_block() service
+KVM_REQ_GET_NESTED_STATE_PAGES before re-evaluating kvm_arch_vcpu_runnable(=
+)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105020104.2507=
+083-1-dwmw2@infradead.org?part=3D12
