@@ -1,82 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900332;
-	b=5OvSHQeyqKrd80bLd5bx3nlGM7CQPnCqlhauqXagVu1hCDm3JWlWcZMYid5sIHxCSLgN
-	 xPaygklZSw3CraAaHnYIggXr2T6eI4aOZmnTrpgD3BcZtActmU29E31PXao1QYUX9y0W6
-	 bPpR1mvRpnS6cz7uYwjjiiSH2yKAxWE6PZEvUAFRIfiExYSDoTbj9qcYqFtKrws5ZOxW0
-	 Gqn+IuGZVX1KAO3aAMhSlCLqS84TWs5gC96QhY10g0/D7/77fKNnV2ibB0PDWRT8Rd5R7
-	 TMsy+/AWbqZYuG2MD60Fo8JQ6uwP8o+9LDPmDfsKTonSxgDyxQltgcAFWlC0d7QFZFw==
+	t=1793900354;
+	b=eZmaThGp5G2teLPGXPrE0LnmvkF/rHFNN9oxm0w6EWyAWrnPyKVe9PonsACFFDqha8qT
+	 4Xt1plMx+uTGttzyYWtewXv/KXQG1zeo/gVpk4z4j+lIcPadbVuel7Fi814oSfvl+ha8e
+	 KwdTq8FYFljKERxImGy0DpoaHcrvjuPD7pQK/E+aNWEzZGFuWIMDgOtNCdrIkjXXMEI3L
+	 297og2k0oIrY/s40QlG4p2Jp66glO8Q71qoU3gIoZGOcLE9a57JnRR9TBmsho8nvmtMz0
+	 6CdWNi3O7rZbnhjsoqKAXOayNsVymdVKAFK7fMxz5n8sypm3QL/Q28crjmksP7Qa7iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900332;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=rdzlIaUH6Hn5s4YN1L9yR2AveCxOlTSI0/zi9qQe1hE=;
-	b=zpLes47TzsOwZ7Jf3IP5oF4d/UvWAbckpkD1IgBYNRX5afwGTP4dnNfanLZvdv/Bgcxw
-	 t89WLg9cORk1d6uk89NFMVHsBVwX76W7RtDsK6mZgVSqaCFkZRU63S+xbnx4BJvF13Bs9
-	 saaAPSoaJNQ8pCl9Z5tMaybaUccUcgLXPWBj+Cp4jD3gnqoXJY/at6m1qWhbqnMrNiU18
-	 dRp/mPhK962dG7Igg+OAuYrMhBRTM8KFEjA3pSGAAnN6O1qRFvOgGapnRPfvuMAJIBvMJ
-	 yNgJuNATScGbVcLFFerUAhiogqsM1ti/nBxxjuakH0VpT6xpej/ENYpfO6u2gKbTpmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900354;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=HzBYPoNXExK3g6LJrj9PEcHUalu23GcWsA6GOIUdA38=;
+	b=IqrCcXp2f4sTutSySPUCcY70J8GM3YKbjy10OSk/lZlBsZlqi5GqKZYXHYaES/8z2MDu
+	 9hx//6bNSgUN/RvvL/E1nhctUuKHnafLJZfCqDstvz+obLPdrkffZD8gwu+Geq1vt885l
+	 kL0UdGup4+hddpp0a6qe7hy/TZFHQnmBgcmGav2Nuh9KFZEILFBv/hD8mkbpciEEibHnv
+	 TyliAGBjaPv7Kek/Udg5Av4mc8TlDRa22MVxOcG2aAI82apC7S1GiPqW8GyrOC7wgjpbW
+	 U0zr87bENutyWNvVtCba35UQbsJVya/2bluwGpdM00EGaMm79H7qlguy/LmTvtYiO0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pgxDCjP0;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WW40lgCb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A29606A31B;
-	Thu,  5 Nov 2026 17:38:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A29606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817E6606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:39:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pgxDCjP0
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiEQ73787730;
-	Thu, 5 Nov 2026 17:38:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=rdzlIa
-	UH6Hn5s4YN1L9yR2AveCxOlTSI0/zi9qQe1hE=; b=pgxDCjP0xdaLvbvLVASo69
-	nSYnte/UzO55UeAI/scwutSPLHdIEWwwGo43/tz9MEpJ4Rh2m2d6OGdqP9d4Kovz
-	RjBCPB3U/ehRY6z+OEJJHCnSRj62QsCFQ/6370u8Jp5lko+uRRGViRJVA4iZsgHv
-	3f27t9oXcDHDOS7QmF8/N13Fg2KUsCiemZQPrDv6jsiiqwbPs50W0QTiPD1Ho0Tc
-	ahcB908WbiJ2Yy3ki3guxWFLs/IJWp+ia2Onwcm7X51Di7zfOE/nXKg6v7vlr2uI
-	/c9w1GgbK7+ONoEHJ2BtqGBMT3Zrht+y7zgvjoW5cChakyydcTOMoTTR+3TitqtA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn82742pe-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 17:38:28 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5GuFld1746147;
-	Thu, 5 Nov 2026 17:38:27 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrk9mkgbr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 17:38:27 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5HcR4R31392354
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 17:38:27 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5AD6C58056;
-	Thu,  5 Nov 2026 17:38:27 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 67DA858052;
-	Thu,  5 Nov 2026 17:38:23 +0000 (GMT)
-Received: from [9.68.10.150] (unknown [9.68.10.150])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  5 Nov 2026 17:38:23 +0000 (GMT)
-Message-ID: <0bfde967-9b68-4edb-96d7-ee9580fa1358@linux.ibm.com>
-Date: Thu, 5 Nov 2026 18:38:10 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WW40lgCb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21FA11F00A17
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:39:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793900354;
+	bh=HzBYPoNXExK3g6LJrj9PEcHUalu23GcWsA6GOIUdA38=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WW40lgCbdr4WdQXjZnAc3Vqzr0TSw4tIFA35AjPj4QZdtnx+t/jy00hzJRRzBZgGN
+	 RXBPmTCYysFkIa85fy+rtwrP4pCnQRrt6uDlsqUbc0K6GGgFMRnbpi98NPD+b2t12/
+	 J95xHJnX5mHx05raho+02GfZDPrA7JXYO8XGkPZ2BLLIz8gkwZGzF8euAcfp0S19KJ
+	 vNq0acSNWWnda5VvkIerj4MrXChcoM5vHxYczFdYAJU9XviuIFqQZDjIUu38f3DRlO
+	 ltyQL1rTDWtMs5fkkGpRUJiL6cVsYvoZh+XRnRO0ZpwKyiYbF8EFYg34cdvUlHimkX
+	 hzn0WaMsCitSw==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so3253263a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:39:14 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByap/qmsaLE0SYW/Id8/yJa/Ebau+wr4hpEL+74Vj7qU/j5sy0OL34UOIPPAwqwPZfFYZK5AV6NyFJ2HBI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95ME3IEs1mqy7AJToyFr1Y/9lKUEcx/94PDseU5GJpuhcnK8DV
+	xiwsw3xiBJqiQgsVNNuW6tViskqg17cCpmxIc+Cpl3FHi1WQTCdilef66DGz9JDzei+Kq/s2BvU
+	8fPPy67M0xMuWKi5VCSYqut5aNIC+QF8=
+X-Received: by 2002:a17:907:868d:b0:c4c:b4fe:ca01 with SMTP id
+ a640c23a62f3a-c4d35574cb2mr11395466b.37.1793900353057; Thu, 05 Nov 2026
+ 09:39:13 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,92 +59,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/20] coverage: move gcov and kcov under
- kernel/coverage/
-To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org
-Cc: Alexander Potapenko <glider@google.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Andrey Konovalov <andreyknvl@gmail.com>,
-        Ben Segall <bsegall@google.com>, Bill Wendling <morbo@google.com>,
-        Chuck Wolber <chuck@wolber.net>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Dmitry Vyukov <dvyukov@google.com>, Ingo Molnar <mingo@redhat.com>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Justin Stitt <justinstitt@google.com>, kasan-dev@googlegroups.com,
-        K Prateek Nayak <kprateek.nayak@amd.com>, linux-doc@vger.kernel.org,
-        llvm@lists.linux.dev, Marco Elver <elver@google.com>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Mel Gorman <mgorman@suse.de>, Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Steven Rostedt <rostedt@goodmis.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Valentin Schneider <vschneid@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>
-References: <20261103015238.3780910-1-sashal@kernel.org>
- <20261103015238.3780910-2-sashal@kernel.org>
-From: Peter Oberparleiter <oberpar@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <20261103015238.3780910-2-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: rkdU5601SIlyTEcZImOEhpH2nM8SvIsv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2OCBTYWx0ZWRfX6NJgN8/MJS35
- pbK2PumL8jSiuQmWVCw5maGSbcS30Ek2XXkqSVWxt5CiIze/p2m8RSuSfrT1TocToRxb2dOkIWs
- CnlZzrH2Pzk62SVShoGHP7rYRw75T7L047aSenT+9ZCUBADK9xweoRN8gD5ligVMTacUUJykEor
- pEBu3irqghJrnWuCwO4aRVyVm7ufppv0WvZQ93q11ReemzEk4kVp2F7Ih54k6fv5uWU7UKMVq6t
- EIHEDBHyVEaQL3wQVbyF6J3tK7durH77k8zA8x3bq5OMK0CGPJ2LfjCvKtA4z7oeTF9vfLFTXCJ
- 95X3CcsvMvpMV6h/HZpUhqgCrISkahyAQkNXaEUV4vlOm0IF7CvPf9r3KRP4r8noW2GrN7un6eC
- gJVmiBHO3EmYhBYNhIHbqMWp1XoCGITD+pLuMa8m04DS9wzkwi8D9jat2fKMl5/g8OS2qi/7xwh
- nOE6C2meI2UzXHrJGRA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2OCBTYWx0ZWRfX4pCvlQhJn+tP
- fedwpzoYFglsAh62fLOLIf8wKvMnTmjUJpkkGVc8oXHoANVNG/zcdndiG0cLEI66MaCxoxvbBU6
- 4BSo6rbWEWa0bgu/4qqs1prGmifX1LM=
-X-Proofpoint-GUID: V_V2ysk_22Dp2O_arpjz6QdKTGBpjRLM
-X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aecbf15 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=uAUjUfugXiV6-CzwXu8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1011 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050068
+References: <20261105044752.1997895-1-senozhatsky@chromium.org>
+ <auy9UfB30AlYabV8@google.com> <CAKEwX=Nao4jWtY04FXEjxiHUNUhJU2A6nCZLqhRRm-dPBZTmcw@mail.gmail.com>
+In-Reply-To: <CAKEwX=Nao4jWtY04FXEjxiHUNUhJU2A6nCZLqhRRm-dPBZTmcw@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 5 Nov 2026 09:39:00 -0800
+X-Gmail-Original-Message-ID: <CAO9r8zP_K0NF0gt71Emh+2dXmUh+C27uiu5TsyBcGUdLbCus1Q@mail.gmail.com>
+X-Gm-Features: AclHuK_wc8Ng7_JQZLGDjWOKAsvWhdwYYyChi-Wc1-2WmNs0g0WKT4b-vjQSbM4
+Message-ID: <CAO9r8zP_K0NF0gt71Emh+2dXmUh+C27uiu5TsyBcGUdLbCus1Q@mail.gmail.com>
+Subject: Re: [PATCH 0/7] zsmalloc: redesign object alloc API
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 03.11.2026 02:52, Sasha Levin wrote:
-> The kernel carries more than one code coverage implementation, each
-> with its own directory, Kconfig menu, build plumbing and debugfs
-> interface. Start consolidating them by moving the existing
-> implementations next to each other:
-> 
->   kernel/gcov/  -> kernel/coverage/gcov/
->   kernel/kcov.c -> kernel/coverage/kcov.c
-> 
-> Both are configured from a new "Code coverage" menu in
-> kernel/coverage/Kconfig, which is sourced from "Kernel Testing and
-> Coverage" where the KCOV options used to live. The gcov options move
-> there from "General architecture-dependent options".
-> 
-> No functional change: the Kconfig symbols and their dependencies are
-> unchanged, and so are the per-object compiler flags of kcov.o, which
-> move to kernel/coverage/Makefile.
-> 
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+On Thu, Nov 5, 2026 at 9:37=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
+>
+> On Thu, Nov 5, 2026 at 10:31=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > On Thu, Nov 05, 2026 at 01:47:30PM +0900, Sergey Senozhatsky wrote:
+> > > Both zram and zswap already have per-entry structures that store zsma=
+lloc
+> > > handles, so allocating a separate handle_cachep object per stored pag=
+e is
+> > > redundant.  This series embeds struct zs_handle directly into zram an=
+d
+> > > zswap entries and drops handle_cachep, saving 8 bytes and a slab
+> > > alloc/free per stored object (2MB per 1GB of swapped out 4K pages).
+> >
+> > I always hated that extra layer of indirection, thanks for doing this!
+>
+> +1.
+>
+> The mental load saving excites me more than the memory saving :)
 
-For the gcov portion:
-
-Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
-
-
--- 
-Peter Oberparleiter
-Linux on IBM Z Development - IBM Germany R&D
+Oh I am 100% supporting this just for my own mental wellbeing, the
+memory saving is the icing on the cake.
