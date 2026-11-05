@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910628;
-	b=M+GmnwbHaN0hpsfmJ7jy5ypWvEhNirPmC7n7px3Rg77LuuGrXFL7h7zcpAZpCsIWmcD0
-	 ep3WpyVW8mURBqOB5/oE5TIuCPmOEwlTxCu35Bj7Mj/iqqmurEHiYwjYSkSlHBmduFj6q
-	 +ojCMJMY8au2WGeiKYzaH1xcx0yMmOTsC37F25BiNzx0roChUTYBSLEj23i2QHyLG1Mh6
-	 cqSx8ykL7aGVLyDxeuyQHqljFkE66AW4unbvTMpWlzXbZODHFtibeHl2BwxTeYTDF+x2Y
-	 pWNrp+kRjsT1WHggAQNbSOoqltTsGAisUdzWAC6Sn4Bzv/0EF0gjcXfnD+5R9h39+CA==
+	t=1793910637;
+	b=mbz/2twbxit4IC6ytNOMBWowHqPK+kNTRoNYVHxwF8C17iW8VW/zAKQiGQrB60YJeXzP
+	 uMGgCv1sPp/2gpMb05i7nKi8SETXl6DEgKPtxM6tysrFXVyMpiMBypCSp3VKdq3tDKpt0
+	 fo1hVcj79Lsr251ZabTpeMriEyiu0oWDzd+9Ly+R+L7MJo/CyXv+1r+WHRL53wU60uUFs
+	 mP3uxA0kTsU3o53IL8FihoqNXCtlLlLoFiM0Ee4KIal8gtM3JnbdLyniyzUtM8KUTk127
+	 e2oTAFju5mkLXUCC++hF7vnvtK+XCk2ZVdZY15q+agmNnSdpest+YdVxJnFYevTJbXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910628;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8iFcpvnEbr8OqpJfN5Lh96ASE9g3Jpc4XYATrN5TARs=;
-	b=EFILbxQKT1wNbm6Z/RD/rzxFJfZzZVxOvLOtaoFJNcG1WVaa/uasI9f5iqmiCtm0Ohs5
-	 UfOD7cQflmODmp1NwO85RchCr1pSBCo3eM5TzrGtg5AmC8emdbPxWEiItFm1Qz8YeO/V3
-	 5kKUpiRP4kxyUvLhvLn/+sUVXZBTX3rwDYWQfVQNp2tHKpFyhFxRo6x6bcegdF4X7HSPg
-	 i9QfRmvKyZmiMdlzuE4jCkIrtogPIEpA1KO1uJWLpF4JdnKn7okFXyj+7xzG/0C+g685n
-	 atBPkZJqvumM6o7HDQii//yq54BYkrhaKIl7VOsbQnT1ZM3mc2zgI9XzEOm6abWmUQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910637;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=mNZjGW7NapyvJkFyL5z4iu0y7IguVyyq1BhAX8ZA+Rs=;
+	b=0nla4IUgTDaUaF1C2vKR4pzgpm3Cyo/orjuU8mA8fbnbfDE+0JmF3BDykkdL5UXXoAMV
+	 9pVChFGvxSbc7pOZpk0MOUR5oK47q9wVVwb7V5E+WY/nSM0OP0HXNXjA/dwArAp8f1HjK
+	 GhyNmwDjPaYft+HfKjFL4+AB3v3ps2NA+1KFm7JbOnJ+uDGtJ+HW1sIVUjDN7W6LnX8DG
+	 t3Hj3sxopMsjLDfJLzp09MmWljmx8MwyH8GUw6gNRZiqmWqltMlDzTTAU78tEC1L3Ammw
+	 OIVjZRHRA4FzDE2FjpXM/ta4iFsWI8vTcb5OrvDY8bDgvtuQbuSaKYEE0i3ufBg2U0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nnP5JxbZ;
-	arc=none smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nQM419CO;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE7B606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:30:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEE7B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6550D606A326;
+	Thu,  5 Nov 2026 20:30:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6550D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nnP5JxbZ
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5361e313e63so23206141cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:30:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793910627; x=1794515427; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8iFcpvnEbr8OqpJfN5Lh96ASE9g3Jpc4XYATrN5TARs=;
-        b=nnP5JxbZfeb8fykuTsu7lOgLI/QEFjRVc+fu1CYYF7N69sOiXDjrrCF6BHJfgpwcaL
-         lEgvTmREkxcrtOZ4P8RIF3pTSLmhWQZb0J6DpuwAtLLTSNvKJnG0f4N7DpigRBO0w10/
-         jnXWhSCUllEDxGd23xNXeJ90IIwwMXsh2ZZrTTMpleuZfIQ/2/YoYOnyLU+jdOktjhZK
-         D6yZ3PFZBa09Jg2E2q2tFJ9dY64JNxtKAPkRezE/XXLt7YJQASLBnbdTsc6XqpZ8XqEo
-         1p8iEvylpaNMSnujQyNYTblqNW60mVS0/K/5Nai7YLiJvG1GTl0xXFP/Skp78N2suhG4
-         1OPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793910627; x=1794515427;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8iFcpvnEbr8OqpJfN5Lh96ASE9g3Jpc4XYATrN5TARs=;
-        b=pNrwaLO4icOBhEcPDe6RthZCv9UTrvpegi3I8V9ecJKwe0XSnKvwxJduCDd7ZQaA8w
-         pTKkIHwTcilgkK99YrHIjEtLqXlZncRRxhP3eG6eoT9PRrtI/Ef6rdbNsqnr3bDDzpBZ
-         3ys0sHkwK9EJZoHmI6qjzYEGGEGFxqMnN0zKmnrUB80FlhEMBOxSsuGEFx8iT80+1M8K
-         kDbMGx5kElny78rzhzJmgTyx2Jqawy4EmlWUVuqTwgKR2a07WjROu/nf/myYfqjcoDQ9
-         gBFsjdxYih466bHOX5ilRd7dXNq3oUjEkkEDjc/kgRNUQt+HoljRsBdorZsAE8q5alAp
-         MNsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhbDeDp/ZHA//7MqXAitZUNn3Pn4SfzeIDwERr7u3C23t8+GlI/6UrBSfYQHP+W6z38Rc2Rw6zE6WbOwU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92P8opcjdjtf/M2RQ8YPyOStYfWbpw/fQlKVVkg4EFDr534K7J
-	V6ksJE1Iu/m7wBI7Tr/6Uex2DMlkr5TY/SEHU9Twil9wr+pZqQyLBfq1j5JxHMUkpg==
-X-Gm-Gg: AYBFou1WgXPglQddxMfEwn8GehHAN5Cib/0ql2Raf2XaFpR6tLm1JofgAb58zkPzy+h
-	ZcWzP9IGOJncqjbmyZDIR7YPcgNez7KNM6GANhuBC97LaaKo9LDC4XaLQgXVfQ1kMYcfAhM6ku9
-	9RMld87Z0DOhxy9+p/t/mLpj/+nAymHTyKqwQU3PtAXGEtRvbWPhCBTfcjCe8IUXy6JQakxYeVc
-	uRDbR/OV/1qwR00I/yCHi+8OphdtTNieUlSx5fz/n/ehXYkKJY9Ue0jXdNgH67sCUmens3QLh1L
-	bMAoD90sHnrU0Cj9zXLvF8klWP4X2ToQ256iYY0RGasM7/EgBokWJwfyIGhGpNbH+qiV1A/LlCL
-	L8jqloG1We/ggAb10Rn5aN6JwWDfSIBiw441ZMuoNW0t3W6H+zmjv+kY2H6KZHSzTrDN41OjxBM
-	UzferuL2YTRbO3cJ2epFaNg4qttW3XIIehYpZ0fM4/wmQPQJUU2xVN3btRr/v12mRUfo6I9rfyI
-	ZZ14iZv8yikKkEBVNOS4dfJlE8PzbOTFy4Pkoiyqd8OI8ah5+khH3Nklsz2XNsEnUU7Qb6meS2g
-	1+6WnktwNwvvVGnG3elR+GAoNlTv
-X-Received: by 2002:a05:622a:2308:b0:532:cad2:539f with SMTP id d75a77b69052e-54e1576ccbamr6840201cf.53.1793910626495;
-        Thu, 05 Nov 2026 12:30:26 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e25d65a9csm2142601cf.11.2026.11.05.12.30.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:30:25 -0800 (PST)
-Date: Thu, 5 Nov 2026 15:30:23 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: James Clark <jjc@jclark.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>, Bastien Nocera <hadess@hadess.net>,
-	Matthias Kaehlcke <mka@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Robert Nelson <robertcnelson@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH v3 1/2] usb: core: clean up before handing a device to
- the generic driver
-Message-ID: <9372664c-a8d4-4098-ade2-b73ec214960c@rowland.harvard.edu>
-References: <cover.1793669297.git.jjc@jclark.com>
- <74b3f919f214a8ece24161a2c904d8a5744b703e.1793669297.git.jjc@jclark.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nQM419CO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793910628;
+	bh=z2B4+zk2KWIKAV/qyCewX7SUwHDfHJQcBF5+1YFub7E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=nQM419COec+J8gtI5buzf4zbDQvGTooRfJG3XFahE8T3H50Djxo3O2FVndG+aUnC4
+	 2a5+/SBEvpGMrxxdmM1ujYqYwjhW6H2q7DstzghjHdZxAVShULE9tom76gN26JqxRX
+	 hJhHEAS09KrIvlTSMv+Ud4Tacrc36mRlm1y+0p/Vqg88GhepkxTQDJjkt0nllpxfQl
+	 WJzS2Hcz63Fm4MMBjvMu+jfZi+yyP3mTzEDc14gfoRyHc1gEfLxdFsxtwhwCND+ipJ
+	 uns/Zpk59mOVHBnwOZ0SCgkSk0LXfos7TK0advJTjg5KX2msqzYps5geD17epCsL2/
+	 lBRTA32tHBSgw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D2F5817E078F;
+	Thu, 05 Nov 2026 21:30:25 +0100 (CET)
+Message-ID: <062fe7dca00f77dac05197552d22897b28dc2143.camel@collabora.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: rob.clark@oss.qualcomm.com, Robert Mader <robert.mader@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov	
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Bryan
+ O'Donoghue <bod@kernel.org>, Stanimir Varbanov	
+ <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>, 
+	linux-media@vger.kernel.org, Vikash Garodia
+ <vikash.garodia@oss.qualcomm.com>,  Dikshita Agarwal
+ <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Date: Thu, 05 Nov 2026 15:30:23 -0500
+In-Reply-To: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+	 <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+	 <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-NleRU42AqOYhgAgxJXBY"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,68 +101,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <74b3f919f214a8ece24161a2c904d8a5744b703e.1793669297.git.jjc@jclark.com>
 
-On Tue, Nov 03, 2026 at 10:34:12AM +0700, James Clark wrote:
-> When a USB device driver's probe returns -ENODEV, usb_probe_device()
-> hands the device to the generic driver. It does not first undo what it
-> did before calling the probe. This causes two problems.
-> 
-> First, if the driver sets generic_subclass, the generic probe has
-> already run. It configured the device and sent a USB_DEVICE_ADD
-> notification. The generic driver then does both again. Notifier users
-> such as the usbport LED trigger see two USB_DEVICE_ADDs with no
-> USB_DEVICE_REMOVE in between.
-> 
-> Second, if the driver does not set supports_autosuspend, a runtime PM
-> reference was taken before the probe. Nothing drops it, so the device
-> can never be runtime suspended.
-> 
-> Clean up before handing the device over, in the same way as
-> usb_unbind_device() does when a driver is unbound: first, for a driver
-> that sets generic_subclass, call usb_generic_driver_disconnect();
-> second, for a driver that does not set supports_autosuspend, drop the
-> runtime PM reference with usb_autosuspend_device().
-> 
-> This leaves one limitation. Until the generic driver binds, the device
-> has no driver. If it is runtime suspended in that time, it can't be
-> resumed. This is transient: the generic driver resumes the device when
-> it binds.
-> 
-> This change does not alter what happens when the probe fails with any
-> other error. The device stays configured, so its interfaces keep
-> working. It keeps the runtime PM reference, because a device without a
-> driver can't be resumed. Its USB_DEVICE_ADD stays unpaired, because
-> sending USB_DEVICE_REMOVE would mean unconfiguring the device.
-> 
-> Fixes: 88b7381a939d ("USB: Select better matching USB drivers when available")
-> Signed-off-by: James Clark <jjc@jclark.com>
-> ---
->  drivers/usb/core/driver.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-> index d3a61ebc6afb..9b8cd0e4219e 100644
-> --- a/drivers/usb/core/driver.c
-> +++ b/drivers/usb/core/driver.c
-> @@ -295,6 +295,10 @@ static int usb_probe_device(struct device *dev)
->  		error = -EINVAL;
->  	if (error == -ENODEV && udriver != &usb_generic_driver &&
->  	    (udriver->id_table || udriver->match)) {
-> +		if (udriver->generic_subclass)
-> +			usb_generic_driver_disconnect(udev);
-> +		if (!udriver->supports_autosuspend)
-> +			usb_autosuspend_device(udev);
->  		udev->use_generic_driver = 1;
->  		return -EPROBE_DEFER;
->  	}
 
-I was talking about more than just this part.  What happens if 
-usb_generic_driver_probe() (near the start of the function) returns an 
-error?  (And shouldn't the lines that test the return value and do the 
-early return be part of the same conditional block as the function 
-call?)
+--=-NleRU42AqOYhgAgxJXBY
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Alan Stern
+Le mercredi 04 novembre 2026 =C3=A0 14:11 -0800, Rob Clark a =C3=A9crit=C2=
+=A0:
+> On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@collab=
+ora.com> wrote:
+> >=20
+> > Nice, very happy to see the series!
+> >=20
+> > On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > > The comment describing the QC10C buffer layout calls it a compressed
+> > > P010. It is not:
+> >=20
+> > If I'm not mistaken the display engine / the DRM side (including Mesa)
+> > describes it as P010+QCOM_COMPRESSED as well, and so does my pending
+> > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire tha=
+t
+> > up everywhere etc. OTOH if we want to keep the DRM side as is, then the
+> > comment should reflect that, IMO.
+>=20
+> IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
+> as distinct formats, both with and without UBWC.  I'm not sure if the
+> same is true on video side but P010+UBWC was never exposed, or if it
+> truely only supports linear P010 and UBWC TP10.
+
+Xilinx ZynMP is all matching TP10 (they had GEY and YUV semi-planar variant=
+s),
+but they never upstreamed it, hence why we don't have it in V4L2. Just fyi,=
+ we
+named it creatively NV12_10LE32 in GStreamer, but careful, I cannot guarant=
+y the
+padding in on the same side.
+
+Though, how do we deal with backward compat here?
+
+>=20
+> BR,
+> -R
+>=20
+> > Best regards,
+> >=20
+> > Robert
+> >=20
+> > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/=
+8195
+> >=20
+> > > P010 stores each sample in 16 bits, QC10C packs three
+> > > 10-bit samples in each 32-bit word, which is what the stride computed
+> > > below (width * 4 / 3) assumes. Name the format correctly.
+> > >=20
+> > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > ---
+> > >   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> > >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers=
+/media/platform/qcom/iris/iris_buffer.c
+> > > index eb8de60c1177..ec2bf2a2d953 100644
+> > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris=
+_inst *inst)
+> > >=20
+> > >   /*
+> > >    * QC10C:
+> > > - * UBWC-compressed format for P010.
+> > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed =
+in 32 bits.
+> > >    * Contains 4 planes in the following order -
+> > >    * (A) Y_Meta_Plane
+> > >    * (B) Y_UBWC_Plane
+> > >=20
+
+--=-NleRU42AqOYhgAgxJXBY
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauznXwAKCRDZQZRRKWBy
+9EBNAQDtA/orEuTFMsZ9i5LtznNukMM+WqfXUnVsGG35kn1WfQEA+1VvAZJM1/M1
+fZ3cgYQs51+X7QU6N3O6tOz4JPeduQs=
+=+PFk
+-----END PGP SIGNATURE-----
+
+--=-NleRU42AqOYhgAgxJXBY--
