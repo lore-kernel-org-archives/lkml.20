@@ -1,94 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882929;
-	b=SmY2ByrDJi2SLZ4oxt2zTLpuhDQWKUlo1CjkIJBVgn+Zexrg7zT4AcgJnOFwWaLgMW/2
-	 3ofPIvyYvKV4PWKeh6gAcyEE77J6sfSd0TcififnDi796d71xWiCEcok39IR22fDNsxXb
-	 OncwjHYnfC1MpiJaqjimBToptU7BfzVSNT4j4iYy7IwS6jwoDX3zaeFYgZVPZ6AJwEETC
-	 yjBmBCyQ2qNanb/HdPnp/QnL5mSQOxCcUgSc/J3IMHBqVa4S6A0aB5nEQjzHc7YL6aSeL
-	 3Xckz5nGPqomcWbIXFwsOc0R8nbHFfxIdFo2hNKwAKudedUDuza0zQE3k2eAW6vH8Fw==
+	t=1793882941;
+	b=FrCqbYfkE3MIDxkSmSEkU89mdaRI4G3/8xHCq+81qKpjPWcDA7RWVhrvMBOGax3kgP8i
+	 AfaijNSVAbfMwh9wyk7+WLJIDqquEFsaHoOJGZ01DCCtJdekb2zZ4xJmIKqyTuRIZhOoK
+	 /TIgZsAUlg2ZCna1CPMut+Hqx70+KL3tXNwDbLmGVR8sk+PTY91tuapiEWACctaceh6lG
+	 ARQ4nA/nkoxlgA8X9GQzv8HRx0WqDjrfrhXUm9sQMGDX/ZMcNIX1D+plqitxPebZVPsIY
+	 5crzIz/HZyp3c3KYI67rJn5PL5c/mOB1YlIdmvtIapjIYDDhaDXSBsd2Iguq3SbHG1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882929;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=FpsCnQXulO1zACpv3lZ/XLdDu6HqgPswy6BO1ThvjQA=;
-	b=r1o+p7/nIqY64/Yb82miGbhvYOpxaMxka2GDeUCZj0xkuUnFeC/u1mdCga3muDK2xF2h
-	 i/GSGCjsl9ijY54IK3Ds1o+Iua5wu7c2S2Rz/NCAHZLYNKzoL6gSnpdWT5ISYUaSwirqu
-	 Us+5aNmUKhYp8BR8U9X8iIjAM3d3os0TPiABGoRaLdLOoDgIcuVt6cNSovfMl3LEOYFp2
-	 c84I4zzti75D4qj/OhtbA6vx8B4l1vFF4jMHn6QlcQZRMCx+vMeElAct/Kflf4CVWSApG
-	 LjA2dGedvLOuJNfA/5dXXINRE4PEo5GLS75MA+vDOmeo5FJDfDV/ciKXwU/xDaDy6zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882941;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8lNES7HOAcQtbypia4I77W3fBXnSYdPVadaze0MP+7o=;
+	b=ziUBQOmNjyH7WDv+ar5U85aq2DNnrXBPzK8VDyYjxX+Ul09avIi65R/9nH8o5pY4KyOe
+	 KZCRthd4Sqbtvu+Dd6AJEBLrfYwA7i+0kXIYLYVzGFh/J7Y2W0UDVnGxzbLgaKOmpAF+M
+	 cVZszpWTegBuFNOicVsZgxcJCeoxsbplRMnRoMbLrPkiYS+eyNHPuqFXPsvKF4IJ/K+MP
+	 CVvdnvIIKtUfV5+NeT7IjbXhqALS/BaHakM4tfnCV1N1c5MxuSuGX1iVlt94pWtGRNvC/
+	 1yYm2Rd/M6d0/G8V1RAza9mb05y9GgbdWA+Fso75LizqiNlU1ZrDAaZLQM0952jmjYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HA96C3Dr;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6CC606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:48:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC6CC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HA96C3Dr
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-490d59c3edaso438273f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:48:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793882927; x=1794487727; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FpsCnQXulO1zACpv3lZ/XLdDu6HqgPswy6BO1ThvjQA=;
-        b=HA96C3DrHLN/jyqIepgGp+YvWNWAcP74Bo3C5bFpShRZqhxLdK4Z6rSNcGXqcUkGXL
-         WHpTDpfC1e3ghpAjayvCaBXpjGaZTr5WfrOKl5HQ08Mrd04oTpJTbrM2nqZcLG1RbcH6
-         pE1KVs0SNXF+CKIt8JXdsZK+g5BDHLasMRGVpqIoaqLScK97qdYh+yQn85LpRwaZ0D88
-         38d/eBGJu8n5QinTAy8Eha7bFtHCLADDqY1rIOXS+k+UT5nv/SXGE7A0iP8+Nd8foD8J
-         tXhpQLLl2KXm8l4Jtn0kC67qJkCI0FcH1sWkev/oCY0iisHx24vfp5Gw2vlzlHlhwASA
-         F8AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793882927; x=1794487727;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FpsCnQXulO1zACpv3lZ/XLdDu6HqgPswy6BO1ThvjQA=;
-        b=W6P35LwZ6hTi3gSZHjrcy1fj0OtZwJgzDIUUlysFKIKYcmQ0kWrWsQ25xHkieuxZLm
-         XRwWYcdYzmgNpl6HAXcCB3lmdM0qUFEJB87GRUE6Pnvn2nQ0lR1Fhr2LUAH01hESzdTa
-         zdiRxqnsxrhXipAwZ+0UNwvbQd4kzd42svzpBgYTtwZiIH/21uXPE/FgCBIC5NxGQkRy
-         soxRPbmbXjzgNp78FXu+DWYOrXzeQQGgzcaCZUui6EBvFQrEUiZB7c+cbr/KBDYe4MRH
-         tEzkLJ0W9PtlVCEVOSkUbSaFivtSAzH2XXdQqWxaz2FVfKIKc3J23Obp/uqWjYeugmr7
-         Or1g==
-X-Forwarded-Encrypted: i=1; AKwUvBw0TyuUP2LEnmPCwLXlIIQBbctCxglYvCveYMAiAWbOvh6++gnOI/XU4D6v0rVNUtCs42WYrKcAI9zJUCA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wBvVGXYrnBDxmcnJkFOTNsjAJhKvF4hYSKrT9KcbXXNmurQm1
-	zv66b1QCrD+MsGnkPnQJ5YImG6nJ3/eKh8PPSDxFlVb/vaNWsoC7SkCE
-X-Gm-Gg: AYBFou21o//6XThD42u3xZYry8d0in4hNMVT2mm519X98SZkjGB5MOW+SCQdOoL7eFD
-	wQWwGq5nIdjPPI+2deG7mzR07jnbjQirH+XENIHx1DEA2vLVVzEWShmd9hFyElgvjj1TJ+G6EP6
-	Ozsnl8fJsMM2Q/c998FsSZc7Lm677ZylMGLKXiZ2XsIpfyeoZuwwnaOYh0pK1thBnQvekPKfPrL
-	LJTE6pCRhjNSRpUXfsZMptqjKleaDjb0RqcMWheQUAinKp9HTcg7/QPCRBgrxK6/hvBPcnHEtDI
-	zc4t/ae4S7x+0IEYp6PmFvRRBjtKfFLNU1UQeaUrKdblejb7gVyXRC+qczmPChhQ39fQTwBFckm
-	9rLbduppm/N8erd0z8kPyKk+oKB/wBk1zQCEIEy917EnbEsdMzlKTfbPirTVFATOGU6IZybuziv
-	KHiRtl2MbpxLVvSzTL2AMTfWMEFBMVi1G9xUliJQuLa1ZYbcAwQsMLpGoarSQMFNT3Mzn2jxDPw
-	fMzTWRDKSNIao+ZGe2P8r40ABa3mNrTCjw72lIMdsRThJxIBeTM292UvA2usByqojXXhD9tJiib
-	CT671JDj6y00YG4X8ae9p9/4Nj/sInKocpDSXhELSM9+3pKrXpAaZcMowIg/bTRi48Gq4bnxEjV
-	AiGcp4mQxGx17y2TfD7r8SfRmX+sEhVK2sCHheHfmRpgsUkGfxKyUckeKKxZbsajSgmc=
-X-Received: by 2002:a05:6000:1847:b0:491:e477:6820 with SMTP id ffacd0b85a97d-491e4776b1emr2280105f8f.20.1793882926933;
-        Thu, 05 Nov 2026 04:48:46 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed45d2bbsm10342778f8f.33.2026.11.05.04.48.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:48:46 -0800 (PST)
-Date: Thu, 5 Nov 2026 15:48:42 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
-Cc: outreachy@lists.linux.dev, parthiban.veerasooran@microchip.com,
-	christian.gromm@microchip.com, gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: most: video: document lock fields
-Message-ID: <aux7KmnRHloDL8dj@stanley.mountain>
-References: <20261105101222.5478-1-husainsitamuwala21@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E4606A328;
+	Thu,  5 Nov 2026 12:48:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A8E4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 3ed29f84d91711f19a56ed5b684f684d-20261105
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CHARSET
+	HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
+	HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
+	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_CHARSET
+	HR_TO_CHARSET_NUM, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:f03f5e37-40c5-467b-b83c-79ae097e5bc3,IP:10,
+	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:30
+X-CID-INFO: VERSION:1.3.19,REQID:f03f5e37-40c5-467b-b83c-79ae097e5bc3,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:30
+X-CID-META: VersionHash:7db8b62,CLOUDID:80bdff4df7e3f81b0ec11ec1ebd4f49a,BulkI
+	D:261105204853AFQH8L54,BulkQuantity:0,SF:10|38|66|78|102|127|153|865|898,T
+	C:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
+	,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3ed29f84d91711f19a56ed5b684f684d-20261105
+X-User: sunshaojie@kylinos.cn
+Received: from sunshaojie-pc [(114.244.3.119)] by mailgw.kylinos.cn
+	(envelope-from <sunshaojie@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1841114905; Thu, 05 Nov 2026 20:48:48 +0800
+From: Shaojie Sun <sunshaojie@kylinos.cn>
+To: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shaojie Sun <sunshaojie@kylinos.cn>
+Subject: [PATCH] cgroup: replace BUG_ON()s in compare_css_sets() with WARN_ON_ONCE()
+Date: Thu,  5 Nov 2026 20:48:13 +0800
+Message-ID: <20261105124813.862460-1-sunshaojie@kylinos.cn>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,38 +82,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105101222.5478-1-husainsitamuwala21@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 10:12:22AM +0000, Hussain Sitamouwala wrote:
-> Fix checkpatch.pl checks:
-> 
-> CHECK: spinlock_t definition without comment
-> CHECK: struct mutex definition without comment
-> 
-> Add a comment to each lock in struct most_video_dev describing what it
-> protects. No functional change.
-> 
-> Signed-off-by: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
-> ---
->  drivers/staging/most/video/video.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
-> index 3a0445ff62f4..d60be8a741ed 100644
-> --- a/drivers/staging/most/video/video.c
-> +++ b/drivers/staging/most/video/video.c
-> @@ -33,14 +33,14 @@ struct most_video_dev {
->  	bool mute;
->  
->  	struct list_head pending_mbos;
-> -	spinlock_t list_lock;
-> +	spinlock_t list_lock; /* protects pending_mbos */
+compare_css_sets() walks the cgrp_links lists of two css_sets in
+lockstep.  Both lists carry exactly one link per hierarchy root, so a
+length or ordering mismatch just means the two css_sets are not the same
+one, which is what the function already reports with "return false".
+The caller keeps walking the hash chain and allocates a new css_set if
+nothing matches.
 
-What I want here is an audit of the locking.  I imagine that the result
-of the audit will be more than a two word summary.
+None of these checks is a user-reachable error path; they are invariant
+checks on kernel-internal bookkeeping that are expected never to fire,
+and each one has a way out.
 
-regards,
-dan carpenter
+No functional change for a consistent state.
+
+Signed-off-by: Shaojie Sun <sunshaojie@kylinos.cn>
+---
+ kernel/cgroup/cgroup.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index a284225f8dc9..81c82d137fa2 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -1024,10 +1024,12 @@ static bool compare_css_sets(struct css_set *cset,
+ 		l2 = l2->next;
+ 		/* See if we reached the end - both lists are equal length. */
+ 		if (l1 == &cset->cgrp_links) {
+-			BUG_ON(l2 != &old_cset->cgrp_links);
++			if (WARN_ON_ONCE(l2 != &old_cset->cgrp_links))
++				return false;
+ 			break;
+ 		} else {
+-			BUG_ON(l2 == &old_cset->cgrp_links);
++			if (WARN_ON_ONCE(l2 == &old_cset->cgrp_links))
++				return false;
+ 		}
+ 		/* Locate the cgroups associated with these links. */
+ 		link1 = list_entry(l1, struct cgrp_cset_link, cgrp_link);
+@@ -1035,7 +1037,8 @@ static bool compare_css_sets(struct css_set *cset,
+ 		cgrp1 = link1->cgrp;
+ 		cgrp2 = link2->cgrp;
+ 		/* Hierarchies should be linked in the same order. */
+-		BUG_ON(cgrp1->root != cgrp2->root);
++		if (WARN_ON_ONCE(cgrp1->root != cgrp2->root))
++			return false;
+ 
+ 		/*
+ 		 * If this hierarchy is the hierarchy of the cgroup
+-- 
+2.50.1
 
