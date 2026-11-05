@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877757;
-	b=W5lGR7ScpZK7z8Fnii3paDa4YyIDiw6/zqowLHNNXpPQ3GVmgiTZBhKBjwEE8zSRpcCe
-	 UYX+kjKmsOIP0yFiCDRNsSQe7ER+c5lo0Q8Rp9mJkZZ3TVv2CkgS6ix23RF+wEJUO/MKz
-	 wwAQ5f9tEau4Z23gaEFsg3qUiUFf6knPl0YzsvDGayK7XGyfNPtiBdxCYbtCQmH0zStEg
-	 qTzNTyWejtnxPvcc59FWNJRze35BEOE2NwW85ixe0hznCZMzNdpFjVtUug+MiO3T0sBCA
-	 Za954Gsq7KzEls50piSiT/jsD0xabpz3sAhPnpUmmAg2T7OjMjYWQ+sqcgkwQtS1ORA==
+	t=1793877753;
+	b=YWg+IWjMQJuz0XhbtY5sErfH6WLJm1/E+XELwzT+wKEo8mb6eFXiMZDvCgRkFUnqQp70
+	 Dg/aj7+ta5vOkr4wh/wIrXToN7/hMEyvhn40Nzknh8LUd6LfN0gAH6hcAKDYPobumoa9L
+	 BinFJ7VOv3zfy5JllkdiXLD604483gmn+OdGiyuTEihQfaFMVzZozCDkiQrswVyla7Ejv
+	 rVtxZXfVr/UvZJknMxi46wwA6mQ3aU8+N6PGc/YG9qb1Aj/F4kBLzb9G0qjIURYwAfmxa
+	 KkE2ft4w5VV5OVoRrmukd8G4kjsGQa7E4jkwyhxGnQ/SOIDfr9ROG746vj6vmyzgukw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877757;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=0HDImICxJh3jNrQBVW5054s3CUghVutij9O/9PEuBwI=;
-	b=sccUDJQiPnSVLujuRQuk3E7miq1Txgp7DuG0uTXnjJKJ8DdAy86TR6OBvv2GgMh6J8hN
-	 iXYEt3ZMz1OFEDsREC/qqmo7pUJ7WqjHJ4Q5/z0tQiNHWPRZNGM5uQwbxDCwXLAakvLIB
-	 PJCAHFTcElq3C0kPjLCyQvfrIXM/qU/MSa9o6Kg/qwCtrcOejUSqN+mxe8RQLnZlpDvPu
-	 K18Wfef9tlXUUovYI+2WJgDg6qa9aebynX8l5XV6TLUtmMXKYlVc1f0r8N7H4CQnwh+LM
-	 szD1IwYW6WMyxu7QiKLM0q6Uk5qNKElmTdLTN8b6gCPIT7/5KV5fvR41tfSk9tNw2Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877753;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=7Jr2hfiqdkgzDhPN6ycxYTdw6NLZoNdrGltw7lFH7pA=;
+	b=r+P2UOOkuZfhZDvdfMSAcgdkS1AocMwxAnSePAuqqaGhzAcs9BH6MRaLGQWtPs1NDWMp
+	 g8WmGkpO6bp3MEF/eLnlVDzOt007Yfg7HizVSjseh/6aPaLCd5cmuAqGTLor5AGaewJ4H
+	 0H9KEo3c0W3lfGO5Olk13daXBhjQQbmV+9PKpXk7xpC04Wy+75qRIRzo/aA0hzf3jyFLi
+	 +9+9ahDs+/480/loof0MJAo9ocHNWkIijpKIu377+0xLWDAKIuF6aYNBTY0MXP5F2rArC
+	 4zAuuFQAitm4dQa8lQp7yaxDNotLfp1TsHmG1diXIIdRcLP2m2ayliFLM4oeTfhulNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fkaYZqhA;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E60606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:22:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18E60606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f9b643ae53so1274852b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:22:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793877756; x=1794482556;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0HDImICxJh3jNrQBVW5054s3CUghVutij9O/9PEuBwI=;
-        b=e5q+su4VARgfE8Gz5/vEP81NXKk0/znqjrnnPI9aVJhGtL0XtUwkHTiv0WFgbghnSR
-         EwjD+5EG5bxHtI8hotJVzECGp4B8l8F7/dHP3REhuBEtSCui7DeANL9lTF5sQ/M3zVxk
-         klIrQN6x7DNZfgn7HxUyXDywu6xDommu3ZRNL9pwL6iVcVFQVJS+HQiclnzrWI5TeD43
-         HtpTNT4NMFm0/RmMwlbJB+EMFigbchSlYL2Rciq3c68vthqbJijhTK5Icf4xQuFwMD5u
-         Jegz3oVK7W/O4r86nLhiWjV1kEus07zbUKNiCqxh4E1LoWjrywCdOU7OwHa0Fx3LYTXn
-         54SQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQNjtaVZcyWep4bWGK3xOpYU7hQ0ZcbSv5LGMyyD0420rwAoXQEyKUM4fmRSBVvcpKK5/7OrFxNthUjE0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+ftyhu7AjLd9oxzVESCLFjFzKzSD3LeSTOqEjOgizWaZ5m7+V
-	kdEnXNKZQKEdnOXWpobFmJGcGaz62TqBR/pGTTzEWU0cxkQL6B16xuIL5AOjFLwim+TVJ1x8DQ+
-	B4RxjxCJbLvPZFGV+klhADf8v4sIWP2GbrvJZB8nhKVJnbW9HpeSXIWvsdXY=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC6D606A31B;
+	Thu,  5 Nov 2026 11:22:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EC6D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fkaYZqhA
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AE4BG3219933;
+	Thu, 5 Nov 2026 11:22:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=7Jr2hfiqdkgzDhPN6ycxYTdw6NLZoN
+	drGltw7lFH7pA=; b=fkaYZqhALQd2+4ZjFcQQqeQcXgRJkoVHD570SqTVtD/RbA
+	Bz41DurgqyX3ErqnrKJsDDO1UJeaMaYpuAh+5iC/xVczQ2zoW2TUgnqsMK7335Ub
+	CRMqyp9Ty08xIp/xeAem53jwBNo7uhXKDGjpRPkejWePO3oipFkoe7yNmVMbGlFB
+	Kjk9OTP8x0oYBMS/57xnxBpXfE36A9hBClyKKtfwaEVHUQ3YnHF4nmP5Xj3d3YE6
+	7ENO0L+ORPIphuL1/R/CvYte4tcTBJoKluJHrpflLrl1vb4nhiqFYaLMWfAsVYXU
+	1fw2QFGOBD+cOMkq72S8AjTO81KKSTWCsndk14Ow==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn8271rgw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 11:22:31 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5A4tb91509427;
+	Thu, 5 Nov 2026 11:22:30 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrdd7k02s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 11:22:30 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5BMQbK42926584
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 11:22:26 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 87B4620049;
+	Thu,  5 Nov 2026 11:22:26 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6999D20040;
+	Thu,  5 Nov 2026 11:22:26 +0000 (GMT)
+Received: from localhost (unknown [9.111.35.118])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 11:22:26 +0000 (GMT)
+Date: Thu, 5 Nov 2026 12:22:26 +0100
+From: Andreas Grapentin <gra@linux.ibm.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] s390: Add assembler-level include guard to
+ insn-common-asm.h
+Message-ID: <auxlzfQe32jZHc_4@li-d8547bcc-2d90-11b2-a85c-a70f2a37009a.ibm.com>
+References: <20261102-insn-v1-1-df048a0be0d5@linux.ibm.com>
+ <9b3348d9-7510-48e4-8be8-31efabbf152c-agordeev@linux.ibm.com>
+ <20261104084033.8132-D-seiden@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,340 +96,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1b2c:b0:4e5:2f2e:45b4 with SMTP id
- 5614622812f47-5640dc2a7a3mr12521050b6e.21.1793877756067; Thu, 05 Nov 2026
- 03:22:36 -0800 (PST)
-Date: Thu, 05 Nov 2026 03:22:36 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aec66fc.059f5055.2712e4.0001.GAE@google.com>
-Subject: [syzbot] [fs?] [mm?] possible deadlock in hugetlbfs_file_mmap
-From: syzbot <syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com>
-To: david@kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev, 
-	netdev@vger.kernel.org, osalvador@suse.de, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104084033.8132-D-seiden@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: NvruZDrgTqvOn6LjyUrxahymfTspG9hG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0NCBTYWx0ZWRfX97QlyxzB3OG+
+ 94DUnmv17qTeiiz7EoQXRb+/ulNERP4Ae/7zfWexegYiPSGpn9gcMbn9PYA/RA9/F3Na/GNiLL3
+ hsiFKIysldDKhkLkTBj8+mE7jFPQv/CYjGs3G6Cgxq0smycIMEhwQLw9i8z/BYF7F0+6u7nUw2I
+ +H2MQ7e7uUWbxkM7Fe+pXs7rCWh5ViZ3K8OEAtGhC5MBMW+AOJugZYGqtallEXD89BcvoKSdcXm
+ Jb8FWDNZc4EDmtZsk3YjgeO19tnAA63eNa4z6A4/HzweoPsnPlmhTe3SinEWjETKufNeN+DK4pT
+ EHZtMQmrlPWevrN17SNW0COI6oi+57Ai7WXD+xM4F6QB2A5DNfsIqqbgd4ewqALBdhX60DV7DHG
+ 3yVV5aVZAVRQkl9KpLxnOgKbJOV/PR61ZrhGgxKO3ztL6d8VLHijMWt0Xe+XFUZqI++aAauPivH
+ TD79bgwlzouwd4AimeA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0NCBTYWx0ZWRfX2p86Z5JVerW4
+ mnIGkk0sBaXSKOVr4YX1nYPqJ4uFTpmVnV9vI+W3FUynGxIaTadQUYS7nC/Xm2YytYrzD5rY6NP
+ tqaiEWLV2jqi+R1KX813UwmQoP84dAU=
+X-Proofpoint-GUID: NvruZDrgTqvOn6LjyUrxahymfTspG9hG
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aec66f7 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=QxOGSBOOUP-tt7WAx3EA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050044
 
-Hello,
+On Nov 04 26, Steffen Eiden wrote:
+> On Tue, Nov 03, 2026 at 05:39:19PM +0100, Alexander Gordeev wrote:
+> > On Mon, Nov 02, 2026 at 05:51:03PM +0100, Steffen Eiden wrote:
+> > 
+> > Hi Steffen,
+> > 
+> > > The CPP include guard of insn-common-asm.h is ineffective when the file
+> > > is read via a gas-level .include from inline asm. The assembler ignores
+> > > all '#' lines, so every .include redefines GR_NUM/VX_NUM and fails with
+> > > "Macro was already defined" if a translation unit emits more than one
+> > > such include. This is not the case right now but may lead to future
+> > > build issues.
+> > > 
+> > > Add a .ifndef guard with an L-prefixed (local, non-emitted) symbol so
+> > > the file can be include multiple times per assembly unit.
+> > > 
+> > > Fixes: 495bc70aa3225 ("s390/fpu: Move GR_NUM / VX_NUM macros to separate header file")
+> > 
+> > Is there a real problem this patch fixes?
+> 
+> Yes. The second batch of arm-on-s390 patches use the GR_NUM macro as
+> well. I'll send an update for this series soon. And it happens that the
+> same compilation unit that uses the GR_NUM macro for creating a new
+> instruction format (not supported by binutils) also uses some FPU stuff.
+> So the asm marco will be defined twice. That's how I found this issue in
+> the first place.
 
-syzbot found the following issue on:
+I just tested this and can confirm the problem. the fpu and sae headers
+both asm(.include...) insn-common-asm.h which bypasses the cpp include
+guards and breaks GAS because the macros become doubly-defined.
 
-HEAD commit:    c3e67bd82b9b ipv6: reject wrapped temporary address prefer..
-git tree:       net
-console output: https://syzkaller.appspot.com/x/log.txt?x=15c1162d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d30e1495ee3ac817
-dashboard link: https://syzkaller.appspot.com/bug?extid=d7d72f3d467710442af0
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> > Do you happen to know why some other archs use .purgem in similar cases
+> > (aka though appears ugly, should not we use .purgem too)?
+> > 
+> 
+> .purgem can be used to undefine a macro for when you want to use it once.
+> That's how the other arch use it. Define a macro, use it once, purge it.
+> All in the same file.
+> 
+> We have a different use case here. We defined a reusable macro in a
+> separate header. So if we want to use .purgem instead the users of the
+> macro would need to purge it after they used it. This seems to britle
+> for me as purging it can be forgotten and the issue can manifest way
+> later in a complete separate patch.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+also, .purgem itself errors when the macro is not already defined, so
+won't help us here anyway.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e07bb7d41be1/disk-c3e67bd8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/d44a4b5bff57/vmlinux-c3e67bd8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a7ebe221505e/bzImage-c3e67bd8.xz
+However, if the include guards in insn-common-asm.h are too ugly, we
+could also guard the asm(.include...) itself:
 
-AI-generated root cause summary:
-In the Network Block Device (NBD) driver, sockets used for block transport must
-be reclassified to dedicated lockdep lock classes (sk_lock-AF_INET-NBD) to avoid
-false and real circular locking dependencies with userspace network sockets that
-acquire mm->mmap_lock on page faults. While nbd_add_socket() properly invokes
-nbd_reclassify_socket(), nbd_genl_reconnect_sock_cb() replaces dead sockets
-during reconnection via nbd_get_socket() without calling
-nbd_reclassify_socket(). As a result, the reconnected socket retains the generic
-sk_lock-AF_INET lock class, causing socket operations like
-kernel_sock_shutdown() executed under &nsock->tx_lock (e.g., in recv_work ->
-nbd_mark_nsock_dead) to register a dependency chain from fs_reclaim through
-blk-mq queue usage, elevator lock, &cmd->lock, and &nsock->tx_lock to
-sk_lock-AF_INET and mm->mmap_lock, producing a circular locking dependency
-warning.
++#ifndef __ASM_S390_INSN_COMMON_ASM_H
+ asm(".include \"asm/insn-common-asm.h\"\n");
++#endif
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=d7d72f3d467710442af0
+The same should also work if we wrap the asm(.include...) in another
+header.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d7d72f3d467710442af0@syzkaller.appspotmail.com
-
-netlink: 8 bytes leftover after parsing attributes in process `syz.2.139'.
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.2.139/6452 is trying to acquire lock:
-ffffffff90094cc0 (fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
-ffffffff90094cc0 (fs_reclaim){+.+.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4673 [inline]
-ffffffff90094cc0 (fs_reclaim){+.+.}-{0:0}, at: slab_alloc_node mm/slub.c:5011 [inline]
-ffffffff90094cc0 (fs_reclaim){+.+.}-{0:0}, at: __kmalloc_cache_noprof+0x61/0x600 mm/slub.c:5676
-
-but task is already holding lock:
-ffff88803e6af1b0 (&sb->s_type->i_mutex_key#24){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
-ffff88803e6af1b0 (&sb->s_type->i_mutex_key#24){+.+.}-{4:4}, at: hugetlbfs_file_mmap+0x2de/0x630 fs/hugetlbfs/inode.c:138
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #8 (&sb->s_type->i_mutex_key#24){+.+.}-{4:4}:
-       down_write+0x91/0x200 kernel/locking/rwsem.c:1631
-       inode_lock include/linux/fs.h:1024 [inline]
-       hugetlbfs_file_mmap+0x2de/0x630 fs/hugetlbfs/inode.c:138
-       vfs_mmap include/linux/fs.h:2068 [inline]
-       mmap_file mm/internal.h:256 [inline]
-       __mmap_new_file_vma mm/vma.c:2623 [inline]
-       __mmap_new_vma mm/vma.c:2720 [inline]
-       __mmap_region mm/vma.c:3054 [inline]
-       mmap_region+0x1d5e/0x2840 mm/vma.c:3136
-       do_mmap+0xe0a/0x1300 mm/mmap.c:573
-       vm_mmap_pgoff+0x27a/0x520 mm/util.c:581
-       ksys_mmap_pgoff+0x57d/0x760 mm/mmap.c:619
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #7 (&mm->mmap_lock){++++}-{4:4}:
-       __might_fault+0xcb/0x130 mm/memory.c:7530
-       _copy_from_iter+0x100/0x1680 lib/iov_iter.c:271
-       copy_from_iter include/linux/uio.h:236 [inline]
-       copy_from_iter_full include/linux/uio.h:253 [inline]
-       skb_do_copy_data_nocache include/net/sock.h:2333 [inline]
-       skb_copy_to_page_nocache include/net/sock.h:2359 [inline]
-       tcp_sendmsg_locked+0x214a/0x53c0 net/ipv4/tcp.c:1321
-       tcp_sendmsg+0x2f/0x50 net/ipv4/tcp.c:1462
-       sock_sendmsg_nosec+0x10f/0x190 net/socket.c:801
-       __sock_sendmsg net/socket.c:818 [inline]
-       sock_write_iter+0x2de/0x3e0 net/socket.c:1269
-       new_sync_write fs/read_write.c:595 [inline]
-       vfs_write+0x612/0xba0 fs/read_write.c:687
-       ksys_write+0x150/0x270 fs/read_write.c:739
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #6 (sk_lock-AF_INET){+.+.}-{0:0}:
-       lock_sock_nested+0x41/0x100 net/core/sock.c:3908
-       lock_sock include/net/sock.h:1717 [inline]
-       inet_shutdown+0x6a/0x390 net/ipv4/af_inet.c:911
-       nbd_mark_nsock_dead+0x2cb/0x550 drivers/block/nbd.c:319
-       recv_work+0x1d14/0x1e30 drivers/block/nbd.c:1030
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #5 (&nsock->tx_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
-       nbd_queue_rq+0x373/0xff0 drivers/block/nbd.c:1207
-       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2131
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2546
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #4 (&cmd->lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       nbd_queue_rq+0xc1/0xff0 drivers/block/nbd.c:1199
-       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2131
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2546
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #3 (set->srcu){.+.+}-{0:0}:
-       srcu_lock_sync include/linux/srcu.h:225 [inline]
-       __synchronize_srcu+0xca/0x2f0 kernel/rcu/srcutree.c:1662
-       elevator_switch+0x1e8/0x7b0 block/elevator.c:576
-       elevator_change+0x2fa/0x480 block/elevator.c:681
-       elevator_set_default+0x375/0x440 block/elevator.c:754
-       blk_register_queue+0x404/0x4f0 block/blk-sysfs.c:992
-       __add_disk+0x6b8/0xdb0 block/genhd.c:531
-       add_disk_fwnode+0x100/0x3a0 block/genhd.c:600
-       add_disk include/linux/blkdev.h:801 [inline]
-       nbd_dev_add+0x733/0xb60 drivers/block/nbd.c:2026
-       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
-       do_one_initcall+0x250/0x870 init/main.c:1419
-       do_initcall_level+0x10a/0x1a0 init/main.c:1481
-       do_initcalls+0x59/0xa0 init/main.c:1497
-       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
-       kernel_init+0x22/0x1d0 init/main.c:1622
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #2 (&q->elevator_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       elevator_change+0x1af/0x480 block/elevator.c:679
-       elevator_set_none+0xb5/0x140 block/elevator.c:769
-       blk_mq_elv_switch_none block/blk-mq.c:5114 [inline]
-       __blk_mq_update_nr_hw_queues block/blk-mq.c:5159 [inline]
-       blk_mq_update_nr_hw_queues+0x5ef/0x19e0 block/blk-mq.c:5224
-       nbd_start_device+0x189/0xb30 drivers/block/nbd.c:1530
-       nbd_genl_connect+0x167d/0x1cd0 drivers/block/nbd.c:2310
-       genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
-       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-       genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
-       netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2584
-       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-       netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
-       netlink_unicast+0x8ef/0xa80 net/netlink/af_netlink.c:1361
-       netlink_sendmsg+0x7f0/0xb20 net/netlink/af_netlink.c:1920
-       sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
-       __sock_sendmsg net/socket.c:818 [inline]
-       ____sys_sendmsg+0x54e/0x850 net/socket.c:2715
-       ___sys_sendmsg+0x2a5/0x360 net/socket.c:2769
-       __sys_sendmsg net/socket.c:2801 [inline]
-       __do_sys_sendmsg net/socket.c:2806 [inline]
-       __se_sys_sendmsg net/socket.c:2804 [inline]
-       __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2804
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (&q->q_usage_counter(io)#49){++++}-{0:0}:
-       blk_alloc_queue+0x544/0x690 block/blk-core.c:505
-       blk_mq_alloc_queue block/blk-mq.c:4439 [inline]
-       __blk_mq_alloc_disk+0x194/0x390 block/blk-mq.c:4486
-       nbd_dev_add+0x494/0xb60 drivers/block/nbd.c:1996
-       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
-       do_one_initcall+0x250/0x870 init/main.c:1419
-       do_initcall_level+0x10a/0x1a0 init/main.c:1481
-       do_initcalls+0x59/0xa0 init/main.c:1497
-       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
-       kernel_init+0x22/0x1d0 init/main.c:1622
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 (fs_reclaim){+.+.}-{0:0}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __fs_reclaim_acquire mm/page_alloc.c:4360 [inline]
-       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4374
-       might_alloc include/linux/sched/mm.h:316 [inline]
-       slab_pre_alloc_hook mm/slub.c:4673 [inline]
-       slab_alloc_node mm/slub.c:5011 [inline]
-       __kmalloc_cache_noprof+0x61/0x600 mm/slub.c:5676
-       _kmalloc_noprof include/linux/slab.h:991 [inline]
-       resv_map_alloc+0x51/0x2c0 mm/hugetlb.c:1096
-       hugetlb_reserve_pages+0x36d/0x1160 mm/hugetlb.c:6813
-       hugetlbfs_file_mmap+0x475/0x630 fs/hugetlbfs/inode.c:152
-       vfs_mmap include/linux/fs.h:2068 [inline]
-       mmap_file mm/internal.h:256 [inline]
-       __mmap_new_file_vma mm/vma.c:2623 [inline]
-       __mmap_new_vma mm/vma.c:2720 [inline]
-       __mmap_region mm/vma.c:3054 [inline]
-       mmap_region+0x1d5e/0x2840 mm/vma.c:3136
-       do_mmap+0xe0a/0x1300 mm/mmap.c:573
-       vm_mmap_pgoff+0x27a/0x520 mm/util.c:581
-       ksys_mmap_pgoff+0x57d/0x760 mm/mmap.c:619
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  fs_reclaim --> &mm->mmap_lock --> &sb->s_type->i_mutex_key#24
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&sb->s_type->i_mutex_key#24);
-                               lock(&mm->mmap_lock);
-                               lock(&sb->s_type->i_mutex_key#24);
-  lock(fs_reclaim);
-
- *** DEADLOCK ***
-
-locks held by syz.2.139/6452: 2, last CPU#1:
- #0: ffff8880375bccc0 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:550 [inline]
- #0: ffff8880375bccc0 (&mm->mmap_lock){++++}-{4:4}, at: vm_mmap_pgoff+0x1ed/0x520 mm/util.c:579
- #1: ffff88803e6af1b0 (&sb->s_type->i_mutex_key#24){+.+.}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
- #1: ffff88803e6af1b0 (&sb->s_type->i_mutex_key#24){+.+.}-{4:4}, at: hugetlbfs_file_mmap+0x2de/0x630 fs/hugetlbfs/inode.c:138
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 6452 Comm: syz.2.139 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __fs_reclaim_acquire mm/page_alloc.c:4360 [inline]
- fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4374
- might_alloc include/linux/sched/mm.h:316 [inline]
- slab_pre_alloc_hook mm/slub.c:4673 [inline]
- slab_alloc_node mm/slub.c:5011 [inline]
- __kmalloc_cache_noprof+0x61/0x600 mm/slub.c:5676
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- resv_map_alloc+0x51/0x2c0 mm/hugetlb.c:1096
- hugetlb_reserve_pages+0x36d/0x1160 mm/hugetlb.c:6813
- hugetlbfs_file_mmap+0x475/0x630 fs/hugetlbfs/inode.c:152
- vfs_mmap include/linux/fs.h:2068 [inline]
- mmap_file mm/internal.h:256 [inline]
- __mmap_new_file_vma mm/vma.c:2623 [inline]
- __mmap_new_vma mm/vma.c:2720 [inline]
- __mmap_region mm/vma.c:3054 [inline]
- mmap_region+0x1d5e/0x2840 mm/vma.c:3136
- do_mmap+0xe0a/0x1300 mm/mmap.c:573
- vm_mmap_pgoff+0x27a/0x520 mm/util.c:581
- ksys_mmap_pgoff+0x57d/0x760 mm/mmap.c:619
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f14e739fb19
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f14e8278028 EFLAGS: 00000246 ORIG_RAX: 0000000000000009
-RAX: ffffffffffffffda RBX: 00007f14e7625fa0 RCX: 00007f14e739fb19
-RDX: 0000000000000000 RSI: 0000000001400000 RDI: 0000200000000000
-RBP: 00007f14e7437b70 R08: ffffffffffffffff R09: 0000000000000000
-R10: 00000000000c3072 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f14e7626038 R14: 00007f14e7625fa0 R15: 00007ffebda95258
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best,
+-A
