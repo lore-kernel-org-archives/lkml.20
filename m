@@ -1,48 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893544;
-	b=dqzOLzu73Iy0kf9/k702rp8I0tZrOZpbZrxQtww76By45z2gFFMwjEpc2nGMxq/RuM+P
-	 pw6EnzkB66F+mVQBTmfEjQUQkPiOUL6Jr1L6V7hxLBmk3jk+JaGE32jtIKUJgWsgCKJLg
-	 HOgtkEQEXwcUzpL0qpv4cgfbnVD5TO9s3b5uayKNClp8/M16QyQjDybKBDNwBs3LiRph8
-	 B040eYJVD9tDFD3uuIgsk3erG/xOmvbbUT2Ea9WZpHBO6IcPWuEKz397qfj3oEGP+Uzur
-	 z0rXrm73bxOSV20kDq4JN35sDdmMNTpfIml26fcBlNLHH0SBUAXt+lJSJItBOxokbHw==
+	t=1793893564;
+	b=mKzWdag4HqI3WR+iFaqFWykdYajuDMmlwNbu4nYO44M375dPWmz4Ajn7TmMogO4IIQp3
+	 yAToeOETFlVcshRsAzJb8s3o+4MoT39QeJVrrOYWbiJZTFURqVLptgWAsUVOU9Espq4oP
+	 mffFep++DPxy5H07oBVlUtYwwSD4moaWT5M4yNBwoyHf5Mq/wdCU3tl+iysZSoU8JP2rz
+	 fEUgStQ4lkXiaPA6RoOsXdZuPC0KyfNcL3JH3xBMU2m0dcA6dwL0jMT11/6GUM5lzTgEf
+	 dtR1uJj4KpX/wsF+KHLXDHjAEbUEuD9r/mMWqSQHUJPUcK23rHDP9hUPOLUxRkEvoqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893544;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893564;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZazM5zRIs19FuXg6+9N/oRV7niuVghWSrIJJGlMBDDs=;
-	b=3oTc5UPWvmL5HIzCVg4AIEWAhorV8jenwgBBCWV0qjrvrnanDtXSFE9kKfH1GAMgRhsU
-	 3xXSNQlF13mAXEWgAFeZTi+NMsKMQy/oynBTN6KJogsd/4L6JRJ2VzmUuGjJEy5GYsPqS
-	 Evw9/ltQy9MdMcUajp0ycvf7oEFF54TEPr86Ov5sDJT2La4wE/B6fYtOVdodkxwZVf264
-	 COm6xOjgbLZ6pJP5WBwtDD6QYwwHyv02xhPKDH/JDg/R1EBWpjglYP2bSycWmd9nA2Jzl
-	 AKytckNEHasnf/56rTh/SXlqlSLgxW8znk2okRDWp0pZBLwvAH4dXB9PpFxXJtQd5Sw==
+	bh=TEExI0wyKCh5UrhCecRJ7HynlA0hRxBVTphCMFuZjBM=;
+	b=LgHDdG2OFfxTULNCnC9hKro0Wbaoslb7+0dAZW7UnngSYJKG7PYPC8h1cG3ioqH50e9K
+	 rYfZnH6WU5tiGf15cky3yhJICeXeHtqn0V1w/uVgB9tSTpbNMsdcUbWAMPq4IC6vx20J2
+	 U6dxzauleYlhlOeAYXa9PzRx4a3aL7Zh4ENNOACGbL0ddCDEnmiH0z0UN6bLcwq5sPGBc
+	 dkCqqATs6MZkvKh8yTMfzK89pvqd+gawzijoUrqsMSrHg8/Zqq2pkVAVx5cJCyy5sZwTl
+	 EQ5H2eH8fkwLgyrY8R47cQU4pDu0En0mYLpz5SkWyGgu++xAzaN3zkfZQRgma2KXI1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=alpha.franken.de;
-	spf=pass smtp.mailfrom=alpha.franken.de;
-	arc=none smtp.remote-ip=193.175.24.41
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF8A8606A33A;
-	Thu,  5 Nov 2026 15:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF8A8606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xOzeg-00071E-00; Thu, 05 Nov 2026 16:45:34 +0100
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id B10A4C0520; Thu,  5 Nov 2026 16:23:30 +0100 (CET)
-Date: Thu, 5 Nov 2026 16:23:30 +0100
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH v2] MIPS: SGI-IP27: print the NMI dump on an nbcon console
-Message-ID: <auyfcm7ml2fUmfUG@alpha.franken.de>
-References: <20261001191938.3256-1-kaloz@kernel.org>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifdAfxYL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7977E606D834;
+	Thu,  5 Nov 2026 15:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ifdAfxYL
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7876F1F000C1;
+	Thu,  5 Nov 2026 15:46:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793893564;
+	bh=TEExI0wyKCh5UrhCecRJ7HynlA0hRxBVTphCMFuZjBM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ifdAfxYLh+GoaGTXqEC0N5Mc1S6FzqY7oRvV92Sqpk8TeKMYsVG6WafXtr5AjcBJq
+	 DBgFHcvhnnkSM9mwN2MDAkMhLRy+q/MzKfSSu0Hfg1+OPWYGUlEZAIGRpAijE5pwKS
+	 GKtckZy/si3vrf4i4MGr/FUdNXbRBTmJlL/G+M1uo06PWLGLVF8EF48TDzGObepLD/
+	 R+eGMaXX23EqNY06AslovgPYTziSDewOH88X2Vm1bbyjB8PiNpKWf5Mt48ka2y/liA
+	 iG1NAkENvzvygZl9inlAsrRGNXz/GsqmEe2EDGOzl/z4/H5iDBsii7vKgnFIPnhVhH
+	 r3RrWIhUVqMeA==
+Date: Thu, 5 Nov 2026 16:46:01 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Sandipan Patra <spatra@nvidia.com>, linux-pwm@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/8] pwm: tegra: Prevent 32-bit period truncation and
+ division by zero
+Message-ID: <auykeNit2S4e7axg@monoceros>
+References: <20261105143847.2559586-1-lee@kernel.org>
+ <20261105143847.2559586-2-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,67 +60,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5nxrbirnwnmd4xu2"
 Content-Disposition: inline
-In-Reply-To: <20261001191938.3256-1-kaloz@kernel.org>
+In-Reply-To: <20261105143847.2559586-2-lee@kernel.org>
 
-On Thu, Oct 01, 2026 at 09:19:38PM +0200, Imre Kaloz wrote:
-> Since the 8250 console became nbcon, printk() in nmi_dump() only queues
-> records for a printer thread that never runs, as no CPU leaves the NMI
-> handler. Print from an emergency section and flush pending records
-> before the hub reset.
-> 
-> Fixes: d3539347022a ("serial: 8250: Switch to nbcon console, take 2")
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
-> v2: flush pending records before the hub reset (John Ogness)
-> v1: https://lore.kernel.org/all/20261001155013.1694-1-kaloz@kernel.org/
-> 
-> This conflicts by context with patch 14/38 of the IP35 series,
-> https://lore.kernel.org/all/76f2a9c32eba23de36817f0a186def01e009e1c7.1790857966.git.kaloz@kernel.org/
-> which rewrites the reset write. Whichever lands second places the
-> printk_trigger_flush() call above the system_is_ip35 branch.
-> 
->  arch/mips/sgi-ip27/ip27-nmi.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/arch/mips/sgi-ip27/ip27-nmi.c b/arch/mips/sgi-ip27/ip27-nmi.c
-> index fc2816398d0c..c502982621e6 100644
-> --- a/arch/mips/sgi-ip27/ip27-nmi.c
-> +++ b/arch/mips/sgi-ip27/ip27-nmi.c
-> @@ -1,4 +1,5 @@
->  // SPDX-License-Identifier: GPL-2.0
-> +#include <linux/console.h>
->  #include <linux/kernel.h>
->  #include <linux/mmzone.h>
->  #include <linux/nodemask.h>
-> @@ -183,6 +184,12 @@ static void nmi_dump(void)
->  	 */
->  	arch_spin_lock(&nmi_lock);
->  
-> +	/*
-> +	 * No CPU leaves the NMI handler before the hub reset below, so an
-> +	 * nbcon console's printer thread would never print the dump.
-> +	 */
-> +	nbcon_cpu_emergency_enter();
-> +
->  #ifdef REAL_NMI_SIGNAL
->  	/*
->  	 * Wait up to 15 seconds for the other cpus to respond to the NMI.
-> @@ -227,5 +234,6 @@ static void nmi_dump(void)
->  	 * Save the nmi cpu registers for all cpu in the eframe format.
->  	 */
->  	nmi_eframes_save();
-> +	printk_trigger_flush();
->  	LOCAL_HUB_S(NI_PORT_RESET, NPR_PORTRESET | NPR_LOCALRESET);
->  }
-> -- 
-> 2.47.3
 
-applied to mips-fixes
+--5nxrbirnwnmd4xu2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/8] pwm: tegra: Prevent 32-bit period truncation and
+ division by zero
+MIME-Version: 1.0
 
-Thomas.
+Hello Lee,
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+On Thu, Nov 05, 2026 at 02:38:03PM +0000, Lee Jones wrote:
+> tegra_pwm_apply() passes the 64-bit state->duty_cycle and state->period
+> values into tegra_pwm_config(), which accepts signed 32-bit int
+> parameters and performs DIV_ROUND_CLOSEST_ULL(c, period_ns) before
+> validating period_ns against pc->min_period_ns.  If a consumer requests
+> a period that is a non-zero multiple of 2^32 nanoseconds, period_ns
+> truncates to zero and triggers a divide-by-zero panic.
+>=20
+> Widen duty_ns and period_ns to u64 and validate that period_ns lies
+> within [pc->min_period_ns, U32_MAX] prior to dividing by period_ns.
+>=20
+> Fixes: 1d7796bdb63a ("pwm: tegra: Support dynamic clock frequency configu=
+ration")
+> Fixes: fd3ddd4355c0 ("pwm: tegra: Implement .apply() callback")
+> Closes: https://sashiko.dev/#/bug/linux-5c5b97d6-4da6-4d06-9dc7-957419dcd=
+832
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+
+This is already addressed in
+9ad5602d4943 ("pwm: tegra: Fix value discarding for duty and period")
+which is next-20261102 and later.
+
+Best regards
+Uwe
+
+--5nxrbirnwnmd4xu2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrspLcACgkQj4D7WH0S
+/k7IZAgAgTxBFVmi5VNODULNSO0AzIE/XByrLnv9QPXpoGtE3u0fxn0SqZ8wdLaO
+zboASSjsv6LW2VhdvVNNouW6XmjvAVtBXq073REQWGEEWjqbkZ805Hc9CRqgKbS8
+RimnYb03FQPAOnXbH3zgXI7WOxw5+4Q42FHW7MKWR/65rq8sPRfklO77fm7oSDn5
+jjSz5NN2ES6hvDHjGAdp4/dOC7X+7ZKFguO0eOYolk7E5mmPJ1MiIKBx3AgcDkh7
+YHw/xMpIWcaQk1mvbkPIcyUIDdW7jA+l9hpwq/6hnhBAuEpkOkxNcNlRQfq9XHOn
+DPYJUkv/NkCqUKrSSQg/yc07PydLug==
+=3cdS
+-----END PGP SIGNATURE-----
+
+--5nxrbirnwnmd4xu2--
