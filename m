@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838894;
-	b=L4DTfTphroH6x2mhVcvnDsj3LMun4S8Xuwpz3fybFuuRYQ3zXpS/9Jx59L8eNJCgI6nL
-	 gkjXsL4aja/5qP4OhB67vMWBxqIAJixMSEFl0QjLood0eGr53Ol/ZKYgIwCMRSHsPdwzL
-	 HQ+gFX0NhrN/rlU6RqYkUQ0J/9YUw5k0H/MLGydHT1vd4LMJeRA3GKRTwuTgu6pLZAa+9
-	 0pUka9IzjmjpNMYuAJJFeGvOHq8dpOOieVLvV0lGPKBPPNnupKH7W00gQgkMgTf3V/9Si
-	 j71BxCaMXDXCoNgDX/QyboiclCnIm1BN2BgyxcgWHGWeobpUF4MC3H6ciORSQRfZEAQ==
+	t=1793838991;
+	b=2w4FNCyiUdnObQ42Bjp6dAeYbwTwj1L4bdyh0b1wj8VWJiATRuevDJWQ13P8ybR+ogDC
+	 F908HO4/+1E+rUtsxkv5HrY06Fq45TyAgPwhSvb736dvsKpUjPYGPk1lrMjZmPmL9xmI5
+	 5BWexzTzQcrlFnyPdb24kAzQPxSBMsG718aqFH523mYkmUxqSgU/wPRu76gss8rgVBMaN
+	 yPhLkbZTM111565m+qlbY5PLSZgToVIcF7ugcCcNXL3RwgByY7CfoeeiQgAfM12Xsrub6
+	 RrcYj349kob3fpRTuAX3ZQBN5CHDWdYYrzHk0my9MLe/gYxnK0HfYjPTtPAjBP/WQpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838894;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=1hNeofC6CYWxQvsjGCSYjmci92xlsWhOuFkDA76tl0o=;
-	b=kc9k98u6gff2cRo9sxLur2QHtHYoTYL+1ZYV1xdnPlofazbtLGAoUlIh4GKO7lDPirpJ
-	 ktZBh2fWSKH1nN1u9+2dZmkLsoWRdkvmWroGMyeYFaNBl4AAmXDqxLgda1O6D6NAAmnCl
-	 6G4KzhN9v8MTDpmQcWLOIgxs68TZXcSXPUjihjn1m0Ywj96wBpKz9T5V68/mQUP//g3Eb
-	 1gdQ4Uba5Dz/W3AJ/jB+QOCJeik1HyRpKIGyZbehyvYzwEnGYtNHXGWYha2hLWK5jnFO3
-	 GD2kBc8U71qURXFhUKXrTSRzY6UhK7COVCRNIBwKVQONM2xti4RKg16dJZsb3N8cekQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838991;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=3iNCC6xLWWcFyrcMl4HD2CdXqo+pD0srI7x5T7EPMmM=;
+	b=EUO8k3x/lOAdUJPxC2x04mWw5u24XbrWVxjaIkNMbeVKuQFPrdwFfEzOBinvYC2V53j5
+	 ijcKos9RqM+PxrRtcrfHjBRikBK1xP/L5qubjb5nXPrLWlLUr7+KAYkrmG/BqlGHglysq
+	 IE06dudLP58NlDIBGcmQMePiXyj7Q77U/FLi3Dcj1cIgdd8HcjRaOal1qRyIQyFw+ciD/
+	 5hQE3EwZZMPOr01fSGBMyg6QzU/9E4/rK0BwJ4y2YjarWupNUPmdv1Zc7w21/YtkoXQ7B
+	 vrnG3/CSG4cndwE226EguGIkPViNZhhj/JecUXVHC9NYULLUQ/xqvqdlmuWYMS6JGkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnSmeitP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3cW24Lp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30342606A31B;
-	Thu,  5 Nov 2026 00:34:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A77606A326;
+	Thu,  5 Nov 2026 00:36:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnSmeitP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE2B91F000C1;
-	Thu,  5 Nov 2026 00:34:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3cW24Lp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2471F000C1;
+	Thu,  5 Nov 2026 00:36:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793838893;
-	bh=1hNeofC6CYWxQvsjGCSYjmci92xlsWhOuFkDA76tl0o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TnSmeitPUF6orFBe0OkfoNDbLhP/Yb3hlXS7e2ay/aKrnnJ0Xtb9WFiPwZ6tKatU6
-	 ox3qQpdXCn5minUg84P1/p8vx023x22sCTSUQdQ43iGl9MgKdW2DKqro0I6P2fUw16
-	 5SmrOhiV61Jzl0hrpF5NYFbkBb529gD0LCvaooKNu9tvLsbtbEM3xQ2roQCGo1wxwh
-	 T7zeAn49prnvxDP0754q6GyXF1z1z1ShoJi3/oyoQwzBg/3Czk6QUqCxKgIOLwzXOV
-	 snQbgyhXklwxBnR73bYwS5hwWL/ZCjGqdcjPwFH5uwxPl64gA7YnzlPACfUKcvmoLa
-	 S4ozk5GEewmvg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 9CEBA26DF5D8;
-	Thu, 05 Nov 2026 00:34:51 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- patches@opensource.cirrus.com
-In-Reply-To: <20261104133322.1085061-1-rf@opensource.cirrus.com>
-References: <20261104133322.1085061-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: wm_adsp: Prevent negative string length in
- wm_adsp_control_add()
-Message-Id: <179382078808.2456854.1438608478800868665.b4-ty@b4>
-Date: Wed, 04 Nov 2026 19:33:08 +0000
+	s=k20260515; t=1793838990;
+	bh=3iNCC6xLWWcFyrcMl4HD2CdXqo+pD0srI7x5T7EPMmM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=S3cW24LpB9eFkriChRv96sf3vIrUpsYPR/7H9wOuvsbckmAQk7cGqn0akDBVSQMrH
+	 t2AKHm1IKYi3fc2T+DLtlsA/0jxu6Ra2TOsF9mD4yKf0uBfyiGIndSJe8KIb5Uyhlv
+	 1btfYBJTLzxXnRGX4d+9uWIJ3lhw7h59/ZEOyLLMMrixD6WbimCZ3woXXlaGENgsVa
+	 z7GOZ2vlaKlXU3yQBC8XtS+AK4xqugwxCytcRVaCj1FTL1n0BPHM/uuGGzgpeRhW9c
+	 zN2IXPBWs+MPq81PN5IRFo5QZGKwp3bCZcwt6LVQXt5W+hMwi0ES+om1gi5OgKRpuq
+	 J85koQn80bt1Q==
+Message-ID: <sashiko-outbox-198366@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 21/21] sched/deadline: Count the bandwidth a boosted
+ task is given
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104211207.1392343-22-mathieu.desnoyers@efficios.com>
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-22-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 00:36:29 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,47 +60,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1164; i=broonie@kernel.org;
- h=from:subject:message-id; bh=6c5BgDfBvCzuLkMhi6liTwHOkvTKv2XER678wtE6eSY=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJen9d2arr7/tsXN1EJpelXApecubVZ85P4qkX2j8xkX
- nC7ztg9uaOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQAT6bzHyLDc6vgThRfT9J86
- z1+ZpG1/K1inPcI4orh2v25IaPqf/c8YGR4taLuV91RWsFGmLadq/o4VH56WLDr6aceeypjdiUV
- Z57kB
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 04 Nov 2026 13:33:22 +0000, Richard Fitzgerald wrote:
-> ASoC: wm_adsp: Prevent negative string length in wm_adsp_control_add()
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] sched/deadline: dl_change_utilization() checks old flags before =
+update
+--
 
-Applied to
+commit f342e630523d7367eb408895a6057749ace71951
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+sched/deadline: Count the bandwidth a boosted task is given
 
-Thanks!
+This commit moves the runqueue bandwidth accounting update from
+sched_dl_overflow() to __setparam_dl() so that tasks already in the deadline
+class due to priority inheritance have their new bandwidth added to the
+runqueue's this_bw when sched_setattr() sets SCHED_DEADLINE parameters.
 
-[1/1] ASoC: wm_adsp: Prevent negative string length in wm_adsp_control_add()
-      https://git.kernel.org/broonie/sound/c/4d07af76ca41
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index 15d224846ebad..a3b45bb4f35e1 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -442,22 +442,32 @@ void cancel_inactive_timer(struct sched_dl_entity *=
+dl_se)
+>  	cancel_dl_timer(dl_se, &dl_se->inactive_timer);
+>  }
+> =20
+> +/*
+> + * The runqueue a sleeping task is on counts the bandwidth the task has:
+> + * give it @new_bw in place of what it counts of the task's.
+> + */
+>  static void dl_change_utilization(struct task_struct *p, u64 new_bw)
+>  {
+> -	WARN_ON_ONCE(p->dl.flags & SCHED_FLAG_SUGOV);
+> +	struct sched_dl_entity *dl_se =3D &p->dl;
+> +	struct rq *rq =3D task_rq(p);
+> =20
+> -	if (task_on_rq_queued(p))
+> +	if (task_on_rq_queued(p) || dl_entity_is_special(dl_se))
+>  		return;
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[ ... ]
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> @@ -4266,6 +4275,18 @@ int sched_dl_overflow(struct task_struct *p, int p=
+olicy,
+>  void __setparam_dl(struct task_struct *p, const struct sched_attr *attr)
+>  {
+>  	struct sched_dl_entity *dl_se =3D &p->dl;
+> +	u64 period =3D attr->sched_period ?: attr->sched_deadline;
+> +
+> +	/*
+> +	 * The bandwidth of a special entity is counted on no runqueue.
+> +	 * The rest have theirs changed here, where their parameters are:
+> +	 * switched_to_dl() hands it to the runqueue of a task that enters
+> +	 * the class, and a task that priority inheritance boosted into the
+> +	 * class is in it already, so nothing dequeues it and enqueues it
+> +	 * back for that.
+> +	 */
+> +	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
+> +		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
+> =20
+>  	dl_se->dl_runtime =3D attr->sched_runtime;
+>  	dl_se->dl_deadline =3D attr->sched_deadline;
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+[Severity: Medium]
+Does dl_change_utilization() check the old dl_se->flags before __setparam_d=
+l()
+updates them?
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+In __setparam_dl(), dl_change_utilization() is called when attr->sched_flags
+does not have SCHED_FLAG_SUGOV set, before dl_se->flags is updated from
+attr->sched_flags:
 
-Thanks,
-Mark
+kernel/sched/deadline.c:__setparam_dl() {
+	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
+		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
 
+	dl_se->dl_runtime =3D attr->sched_runtime;
+	dl_se->dl_deadline =3D attr->sched_deadline;
+	dl_se->dl_period =3D attr->sched_period ?: dl_se->dl_deadline;
+	dl_se->flags =3D attr->sched_flags & SCHED_DL_FLAGS;
+}
+
+If a sleeping task that previously had SCHED_FLAG_SUGOV set in dl_se->flags=
+ is
+reconfigured via __sched_setscheduler() -> __setscheduler_params() ->
+__setparam_dl() without SCHED_FLAG_SUGOV, dl_entity_is_special(dl_se) in
+dl_change_utilization() still observes the old SCHED_FLAG_SUGOV flag and
+returns early without adding new_bw to rq->dl.this_bw or setting
+dl_se->dl_bw_oncpu =3D 1.
+
+Immediately afterward, __setparam_dl() clears SCHED_FLAG_SUGOV in dl_se->fl=
+ags,
+and switched_to_dl() does not run because the task is already in
+dl_sched_class. When the task later wakes up on the same CPU, task_contendi=
+ng()
+sees !dl_entity_is_special(dl_se) and adds dl_se->dl_bw to rq->dl.running_bw
+while rq->dl.this_bw does not include it, triggering:
+
+	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
+
+Since __setparam_dl() is the only caller of dl_change_utilization() and alr=
+eady
+checks !(attr->sched_flags & SCHED_FLAG_SUGOV), should the
+dl_entity_is_special(dl_se) check in dl_change_utilization() be dropped?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104211207.1392=
+343-1-mathieu.desnoyers@efficios.com?part=3D21
