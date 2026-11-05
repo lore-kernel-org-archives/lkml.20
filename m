@@ -1,105 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=40.93.194.19
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.14
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793859463;
-	b=L+G8sRPsKfnq2vbo6H5re+0jQaH6Y5y31jNrX0P3Js9DMLqjK/LxPNKOlF1W364j7g2o
-	 bXusapmiBazx8QMmD7kQ57aAqHIR+F3Jsfc9ap8sa4BVI2pTJ6OZEqk8mWUDtM8IwKj+P
-	 qk89yJtUNxPpv72XcI84/WWcWoP41QIjQvLxDo8Je5fL9wLmDXREjlp8X5mru24bt0+Jo
-	 TP/ZLqRIKyPpoJtZjPdjB9zlbavBRiMGWQ0T7Ptt6yqx5Bxe2rJW0S4ISN8+YHQQ+uOcL
-	 JBPKaMRrlPybHt+zG3LUc3LfUT0uszvqdMLxl22bZ++AKui+8VWxavJzcXOldkr+yww==
+	t=1793859522;
+	b=IYtmE7oTgBXjjY8V3h7lm+XQiaz1Bh5gc1sdLQEO94eooc5+Z4L8bdbmvmi88lFzffkx
+	 PAvmvoJov7jTU8XlE+uW9sz9L9IKr0SemeBcRYlGdLB7sDAexAS+YQ4sUVGXZHXjU+RF5
+	 dsQBQKyPZ8acQbEk/IV0x0ngI2F8ugzW23eDpwER8slQ6gsE4uPawfN8owIyyjsyh10zb
+	 VEQihVAiJK/IUOWDeACE1DH357PSDc/6xaUXnya9Vr1t1r12erO4gIV0plosvnN5KKADj
+	 N5PlKK76aC9EmxZfM1Fu2BW96T7b7zk2VhAPMtJWeE14wXQck5fWarPQTPMric6+Hrg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793859463;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793859522;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fc7yewoIQHvSxDCmRNjBIaH/a7iLhfNWH667MNUw5Wk=;
-	b=P/Pr/pzTbV6Hkc9sEH8Byi8WTl9wy3s4UohkNIPXlu1GRpVK1wDpSTWpARc3pktUrQPy
-	 89hBUKunk5Bb3nG5eV7nRqn6+jq8H1s4WW3SYaexx3KcYu/+5qfOTfNnk6H4qVpQDiZuE
-	 nOqMhAovD3hAU9e9VanqwutGxUGoFRf06qNbF8OVhDrJ5Qh2h7+XCF9beJFOPUNBrzHCx
-	 wVK+1hdjMfIGOBm+SgTMc8a42ASZ0oLAGm4TdxU1B9f7IdR0VPy9rj8rnnGi1pHANHZeU
-	 mzxlOz/TgGMXXnyHlxJwU2m+ICK/bcVUpcuyZTpMmGnKNhOjDxl+YdQsBeD2bd8I3RQ==
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=3eyNJ/AkOWzyl1nH1W2UxU+wVXiUi+JC0CGMG3ETNVU=;
+	b=DVUuml/z3iVz6puCDgsq8zV37p9K6UUufli3jr9ptWI7h8EW/tnhPQZfeutcDVJXZPQ7
+	 cAGqDnecshpLEPmbNX91G25b2FTy5722hk1FHs+3V/paQj6MoALCv1u1XYbD5YCxsNRzs
+	 RmrEkpJ5SCJLSxN8SkKMbM3g4nzDz1s9iTT2Dk0JyI3WbQpDKrldCzZt2L1ydRFlmQYce
+	 J54WNxFxdSyGyfckv7wpGhVyghEdWOeYP/p76zhM4Otx2UAYEEkoLR3hrPuiacJ8pr7N1
+	 yPsTDJqlVIaaC8SCA2x7R+yoMdXogDA9Ub/KLzQH8nX0Dvwyw9hlzl2HCRzoM69XwMg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=V97lmpHL;
-	arc=fail smtp.remote-ip=40.93.194.19
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011019.outbound.protection.outlook.com [40.93.194.19])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ALKsTji7;
+	arc=fail smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D01606A32F;
-	Thu,  5 Nov 2026 06:17:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1D01606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65298606A31B;
+	Thu,  5 Nov 2026 06:18:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65298606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=V97lmpHL
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ALKsTji7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793859522; x=1825395522;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=KaRt2+fPLwXhiF/d02efAoKSI9fpOSDOuep6LKTqWUg=;
+  b=ALKsTji7EladF5kaaVcsg6gOCC30N6yaFpTdmd3AYLsToOnMo12dC5cP
+   bvHMfErc6vAEeFQeDXpFI0uPgfgB21P79SzUgb4jhOtV1/BeS4y+hxfTC
+   NH+j0H7uPfgE3YKzzahQ648EY8HiQl3Nk3tsr9LkbviTnk7BYb4ZlKJq0
+   h3HgvUUOeootdsEZthLCDr6fdkydF4X+MfNMYVhkOg+4u3xHJ9nCbZ6W1
+   tMRVKjFeWAxvfWAaCWR67+pUvomx/9/L0tqxIWcCC6ypIQMLIhVlV26PW
+   /G7Z+88Bg203MND5d+h3CiOegPSV9EyBS+fBZlCBWbB8mg5c5Yzu5Vr8J
+   w==;
+X-CSE-ConnectionGUID: 1Na6fc46SDGgtSv0ITADjg==
+X-CSE-MsgGUID: 3NbV9uaEQZu5nLkJQhX3Gg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2523534"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2523534"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:18:41 -0800
+X-CSE-ConnectionGUID: 3NBMNaY8R5+MuNu40YNjSg==
+X-CSE-MsgGUID: Mn8jhSFFQHWI/1/1WZoFaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7252239"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:18:41 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 22:18:40 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 22:18:40 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.28) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 22:18:40 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u8iUSCZ1Xsr3XPua1iIyVjr8nfOREoW+PlQyWR6OmEcs0KDdGYx+oa2lODrhiyf0x4YPDquih5KTS81LKBA72SbqseJWysXz2kUdy2ciEaPDL32s+ryHIUL2gR0lCrYF5NMHbb1hqqSk3esIU7qdI4jCPuQMNoO7OpEzOroycMvJ0iruInUJIenz/OFdG9tmu8ZBdZIcpZyXaC3yO2j3LxtFfwWJ77oHhJsB67UM0EbBzaC8jVkaKWj3R6Oeg1f0WJygQzzlc+DVZtUYSlgcpCp382WPrPeN4ofd5hrff8CO8yHQJrlNr7HbIR0c0RDJWnazl3YRSavqF6x2VKPOow==
+ b=TmDGm7As3Gj9fbNOtsFsoeBmWRgx0l9c78aTqPwnZsY4wc5aNXbK6cIZX9BKIXT/Soe4JKKKFS8WxPdaJOUAJSGWgbC4WYLu+16bNIH+tCi559AUByvyFyAiVS2FlNa75y8N5pO1BASPHke8wmBUBf6wlU9pMSPR7rFuYAmCiYUrHB0xfJkiFvCjab9mywDhD8dC/4Oe4VLG57B6c0FxKJShe6jtYkpn5z1UOVarv0IPAd1mM4o/h97Ar968CPhLMMdH9KxkZCtNC4v40qf2bJMb6al4XQP4BzbVLCu3U6YXT6zfjAhK8KinC/1D/9YiBay0ZcaeFhuSNUEHzSMUFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fc7yewoIQHvSxDCmRNjBIaH/a7iLhfNWH667MNUw5Wk=;
- b=Z2MdqyS5tWBQF15GigAdZddbvqKCO+o4a4UnsThwsEKkPk+HiPquLGqJyeXFBXVN0ABu0gIjae3oHy4TgF4w3XKBvkMPrrZiXCgy5bCbc+UiVNMTHWsozalrcjKBAnCGLNXoVJUAQr5eLKH/HU5fLrwoVYuhMTdjnZXK3bSaKsOGjRuurz9j4R0X4sGc5KHAzo4i7roTfQ2H4oq5INvwT96eUhsIrKAkFNIK98tIk9+p8raSUyrMdvP/kM11nTcJIj2JhAppxJJVUdV2FUYWJb9IT0iou+AP9xWPskOsNZsXAWANLufUxBIfOB6OY2AMIPbswcRFKvekt9cAgbwIOA==
+ bh=3eyNJ/AkOWzyl1nH1W2UxU+wVXiUi+JC0CGMG3ETNVU=;
+ b=n1fqQFJvFl/EF1U18bcY+i+kAVWKJIri7t7AVPrH+jQtXS3e8WHeDTmwMHlZX7MZvI8diGaYr0TymoNbLiBLiNV6chAljh8H0iCsdvd0+2eMFHS8Uum8ajCGq0mFGdNZt0zKO/to2qWUJJqJdcqCvuhI8VQ7Mr10Dz+C4BSB9IutXVf5wsel85glYVoPrQL+3c9OdERshj3UY+7ehhIXYxdAHqKcuU6x92TPEqHUNB8yCgqVGpydWkSO1YngZVID54afTVXYbO2QarbU8r2lc5KUgNXLZvqp8NVrmMvurgrs3ctNGhON481tHfEwWwMDu3m5aqIH0Swlra2MpuFQfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fc7yewoIQHvSxDCmRNjBIaH/a7iLhfNWH667MNUw5Wk=;
- b=V97lmpHLRAk/E9XFlbn5GJOSaCs40M4v8myMHFBRIquYRUfCts0INEl1HsTfNRC43A+fP7HDvYU8hZbhRHL7vOdoGSUqqbiWUeH2driAaOcgNz4k7eA4Vap4zZKj0QIDBx+k9xClZdCSLM/YW7EjGFArTNys4j8uYPkdTU2jAsg=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB5713.namprd12.prod.outlook.com (2603:10b6:208:370::18)
- by CH3PR12MB8212.namprd12.prod.outlook.com (2603:10b6:610:120::19) with
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by PH7PR11MB7962.namprd11.prod.outlook.com (2603:10b6:510:245::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 06:17:39 +0000
-Received: from MN0PR12MB5713.namprd12.prod.outlook.com
- ([fe80::cab0:6260:dd96:3fd8]) by MN0PR12MB5713.namprd12.prod.outlook.com
- ([fe80::cab0:6260:dd96:3fd8%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 06:17:39 +0000
-Message-ID: <b7456dbb-16fd-45b4-8742-e9ea3f896317@amd.com>
-Date: Thu, 5 Nov 2026 11:47:30 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 06:18:37 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:18:37 +0000
+Message-ID: <9915e470-4a36-4ff4-8240-12308e7ac7b8@intel.com>
+Date: Thu, 5 Nov 2026 08:18:32 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf/x86/amd/lbr: Freeze LBR on PMI only when kernel
- branches are recorded
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Puranjay Mohan <puranjay@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Andrii Nakryiko <andrii@kernel.org>
-References: <20261023124157.75524-1-puranjay@kernel.org>
- <CAEf4Bzb2jEjqpZrmtTk_+YCW3_jU8fcVzk26CBZnxkpYJ8kCbQ@mail.gmail.com>
- <317a989b-c79a-41a3-8c0a-7e952bdae6d0@amd.com>
- <CAEf4BzY4FYFuT2iSU+fEApnKK4LjHe3i0Xpq_kd4rt4iDLK3XA@mail.gmail.com>
+Subject: Re: [PATCH] mmc: sdhci-pci-gli: Add Genesys Logic GL9768 support
+To: Ben Chuang <benchuanggli@gmail.com>, <ulfh@kernel.org>
+CC: <SeanHY.Chen@genesyslogic.com.tw>, <boris.chen@genesyslogic.com.tw>,
+	<HL.Liu@genesyslogic.com.tw>, <ben.chuang@genesyslogic.com.tw>,
+	<linux-mmc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261103101622.213425-1-benchuanggli@gmail.com>
 Content-Language: en-US
-From: Sandipan Das <sandipan.das@amd.com>
-In-Reply-To: <CAEf4BzY4FYFuT2iSU+fEApnKK4LjHe3i0Xpq_kd4rt4iDLK3XA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PNYP287CA0102.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b9::9) To MN0PR12MB5713.namprd12.prod.outlook.com
- (2603:10b6:208:370::18)
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <20261103101622.213425-1-benchuanggli@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DU7PR01CA0021.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:50f::9) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,190 +139,138 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5713:EE_|CH3PR12MB8212:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39315f5c-66c4-40b8-aad4-08df3b047dcf
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|PH7PR11MB7962:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35c3752a-0d5d-4968-ecd7-08df3b04a0b7
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|10067099003|18002099003|22082099003|4143699003|56012099006|11063799006|261022105027099003|261021123027099003|261026140227099003|261028144727099003|261021121427099003|261009223027099003|261026121527099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	Z7oIXu63N18USGhucKFMK6tJaj1Mv3czg0oAKLRU1E65NPlertwPqdLJcICkoc4hcoh3Qv9hBg0TnSqJVmWFQkI9PvknuDO9kD40Y5a/NpuOAieQLVGuaCSkKmb7ee6OgRZjxgrPYIiDRFSQgmTDU33KS1hFiM68uEX/DSoOuFnvZsQrL1L7kzUeZeE2av7c5k+VOlq93vFOsuuYfYE9uqERxVTX+sOfWhQW0lUYVmrS8nOn2l/JrgmbhNMGZAqECjkNq/z0DH+dgR4eCelggpaBfbdhSAL54rfWRp1vNPzFjzMN94JSKHCw+PPL0P/GaASeZ8+n5DxQ6fcly86vKYYHCXKDAlrHTw7AKfyLcmMVpRuyg0fnQ9GIrdbtsjuVpzihD+Uw9jrobC/xL9smtpU+/SV1iIAK8lBEQrYl1L2tKHLGPqBQVvuPpn2ayWd8V+qR896r4OX9tGJNaGubG/XzE/VclP8NIzOPOfQtg1RukorSqmt6tjTXAX3xO59TkvnwJd6dUyAH8dYLxUTabHQEDOaKngvzLbsY2l3TGNHSfxCsqjHmIDbrNaIvl7337mkuK68V/osG6eIR06Qo3TybTeCx2LTrc3TjNzigkPR3bKyV0n2/L1/qX0tFRiMBwf4xuFI2QlIPS+nMYdv78jWpaP0XFvL2hOWUe+a0bZA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(261022105027099003)(261021123027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261009223027099003)(261026121527099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|6133799003|22082099003|10067099003|18002099003|56012099006|11063799006|261009223027099003|261102123227099003|261021121427099003|261022075727099003|260925021911599003|260925021311599003|260925022911599003;
+X-Microsoft-Antispam-Message-Info: M0XkNzE3HKwWcFWzLKT9/wtm2gm4xUx57hwH8dzZHu6p5iBOuJRu/8F6bVMd6ROtedEBEOMFsmQdvAXe+QWMn83op4aYALvCIYdT6Yr04GeLHOW5u0sacUO7kP6KRn7NVh5qnsL31m24L/qO7tat6f+ajMnCaUlPO7gHUfqw3wgfFryyxaTNyd3q34KT44RTj+zGvlsjfpodT6Rpg6vjjQoEhrIu7MCb/Wks/aqJlPmpwSjMiEfKclqtAXDVFjuIFy409lowssZwZn92yOtpxBIAV9Z8FM+l5aV9hAj+CgAA8XTBGyGx/5OHzti3iaNl6CkkTwy/ScO7m98wdC37baoLM40e4b40ZmgeXdL7i8+DybTbTvU9ufJx0OqpZRh6BvtfeuUEHNAQoYG0h37ECK3SyFGrXN5d0MJ5COV/WDJCxGKE8GRlnrp9hKRaIFn/UXV4xqzA3GEnl8vKT/SCjpGBmSew1Bnzjp9m5TFiNnp85A9ZJpnxXnw/9rRWUfDBvEpQLizxlH2NyHj21/++GwSHB+Fjtl+0axo7aBSos1FwR4o2qwQaS2JJ+rXsyY4qpMtW/BDT9IweDbQ9jBJ+RRkLNMWWJlsMfSATQyBBatOIDk7e+U7Tm2EBgiFGaFXMdT9G3eYrvRrVkB38YULy/daw9rvCWj3os5LYbnQygwI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(22082099003)(10067099003)(18002099003)(56012099006)(11063799006)(261009223027099003)(261102123227099003)(261021121427099003)(261022075727099003)(260925021911599003)(260925021311599003)(260925022911599003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N0dYT283TGJ4RURRRkFkUENaTjBsaUt1UUExaE9KTytRdEtrQ0RwejVWK3F3?=
- =?utf-8?B?SkRBSWxiV0l5VEh0bWFWT3BlN0tvSDh1ZVVpU0NyeWhOWWQrd0U1RU5ZUFR0?=
- =?utf-8?B?ckRURzBMU21GSHhxekxiYU9nTzVyOHlxWjRDVEZGeC94SUNENS8zM2FzYUJ5?=
- =?utf-8?B?SWp2SlkvbktPM0xSSGpoSGFsODNQeDVXbGVIeUtBZWlyTGU0bG10d1F0Nnpq?=
- =?utf-8?B?SnNmdHloTnk3MWZSVnQ3SXU5Ykd4cm5ISEdIMEU2VjBVRlVRcUc3U2E5TGxu?=
- =?utf-8?B?QllyQzlsdkJsajZIYlQ1NnRNQnNOeER2NjkxeDBqbEZkaTRlOTdPdmlTRUNQ?=
- =?utf-8?B?TnUvRjZpSG15OXNLbEpGU20veG9GODNzeGFpWTZta1JDVzZtdmljTzZTUFQ5?=
- =?utf-8?B?YllnWXc5aGJhN3NvajNqOFpQd2RReWJROTlsOEZUNHBzNFRXTmIvb1BpUmRL?=
- =?utf-8?B?U1U5RXU3ekJQRGxBSGpMR3lGOUYvcHRhVFRxRnRqVHNYd2s0VDlqNm5hZFhJ?=
- =?utf-8?B?Z2g2ai9YNklRem5PbWovenZSK2tQWWY3YzN2T1BHRDd2Z2tTSWJXd2hkWktv?=
- =?utf-8?B?MU9CUHV4RXYyVnBwQW5xK3RVNEtVdVZ4UStZUWYwTWU4VE5pbEJXWCtPVzky?=
- =?utf-8?B?SkxoRlk5K09XUnM5SjRJTVZYbnVybFdmOXVCZGxPdXBPNGlmaHF2eUZMMUhs?=
- =?utf-8?B?Ujk2U3NWN3phL0Zvbi9ydHFZeUV5cDhSdmdNSHY1YVllYmR0dXJXbDRlNCtx?=
- =?utf-8?B?MFlaaHpseWhycnVlcXg0Y1JjUWhOWjRZOEdYM0tpb1VROVR2RnRYODgyTDQz?=
- =?utf-8?B?YWthaW1RK01YMHM1SFRXZ251RlcvaHl2aS9zWWpVSmVHT3d0MWsvTDBrbmZp?=
- =?utf-8?B?V3JUaDhzQW5TQjJSN0tyNkphbk1GamZESkxXZCtGTUdBMzdYV0lnaEJyeXJp?=
- =?utf-8?B?Y3dTTUpCQjg0VVZ6aTBIRmRpVytZdDVWa2R0WXRTL0EyR3ZFVnYyaTdIWHZW?=
- =?utf-8?B?Z2JibHAyaDJqUU1LZTlpbklRckNlZCtwTUdmRVVMS0kyb3NYcGNKaHpwV1JG?=
- =?utf-8?B?SXpvdUp5WXdVNzEyZ0xFdStFeDBmRVFra2hHa2Z3V2YxK3piVkRkN2ZXcXpO?=
- =?utf-8?B?bHE0Vm90NUYyOENFWVZOalNWa2xmenZjWjJIMXlFWlFNeGhuK3hDTXVNVDJK?=
- =?utf-8?B?TlVzQU5MVU02Uk44bXlZMFZZMUExQTJPdjdEY3FxeGVyVnpPN29hUHFBaFpr?=
- =?utf-8?B?UElQakxIWTJpby9HSW9QclZGT09WUTdkTWVEakppK3hEc2VMTFhTOU8xUWVI?=
- =?utf-8?B?MGo0U3ZMV0RSaGVZK3hxNHRuaXVYWFpRQUJkb0ZTRmttWk1QTWhxVnRIejk0?=
- =?utf-8?B?RlJ6a0wvOWhXRzFmM21CdnQzSUJ0UjNrTmRiMnl6aXQzOXlzdlFBVE8yVXlK?=
- =?utf-8?B?UWdpNlFuOEtMZkFPVHZDZm9MTC9FMUs1bWNabzhua3pXN3FHQXFudHI0RkVh?=
- =?utf-8?B?OHlKMWpoU0NEY200MmFwUVVCb1R4ZUgwa2Y1RkFnalRjcVZaRytFcGJKWVFl?=
- =?utf-8?B?Z2N3bHZPWWp3d1VYbHN0eGNoQnV5Um5iN0J0bElCbUtmRG9nZTBwUEhNclJo?=
- =?utf-8?B?aXZXZWtxMyt4QksrZkEvWmNFakNUbk5LZEVDRFNlNzk2RmhsbnBLcGUwcHBF?=
- =?utf-8?B?SjhzRE1ZeEZaZDN3WXdiSkRDRWxHV2VBTEw1eTYxOXJkKzRYVEpuUjNXMDNt?=
- =?utf-8?B?SWN6OGhqUzVmRzhqMUNqZ0V5K1VVV2I5dmNEWi9WOWIxdGF4R2RUYnprcG0r?=
- =?utf-8?B?aTRkYXkvdGx6Q1c4NkhTd1Z1eC9vZ1VtNGlJOUNES0wvWFh1NlBjVmx5MGVt?=
- =?utf-8?B?VU9tVHkyUVBCWHhOb0psSHdNRUpjNjgyQWIvcUFFVkxUV2puMFp1OThUNjd2?=
- =?utf-8?B?OVFEVG9nK0YzRTcrb2k3dEJoY1E2Y0YwMkFRRktZWnJIdW5ET1Q3QnpvRk1X?=
- =?utf-8?B?d3pTdEx4MyttWUYvRkF4VmdaQTJMWk1SeTBhY3B3dUZwaGZ1L0xHRitEYmNk?=
- =?utf-8?B?UUtLU2tvbGw5eEV2ay9jQzRhdTB1Tm5odjg1VnBRWVhYNUJrZDV0Q1NERlMv?=
- =?utf-8?B?MHdkclorWm5GUE0zNHB1Z2VRME5NN2lVbmg3WHliMjRHOGQwNGlUc3RHYXNx?=
- =?utf-8?B?WnJPTlN3cE04Q254NTlXdkpQSWg0alloM3BONHE1TUNiS3BKWlYrWFpGN0xV?=
- =?utf-8?B?WmtpYVR5MXJIMGhDQmZFMGNHcythTEZWQ3hSd1FtNXlTNm9NYUMwemZVbzN2?=
- =?utf-8?Q?NZKSN7kSnuhGjzGzNh?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39315f5c-66c4-40b8-aad4-08df3b047dcf
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5713.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Yms2K1g5NWpISVJzVHZ4RlRmWkxQWmt1WUZsOElMb1Vhb3ZkV3I3Q1l2Q3JM?=
+ =?utf-8?B?NjFML0sraUNZQUo1TGlMYlY0bVczVlJrZUpRbyt4cTUrQThPSllULys5aW1r?=
+ =?utf-8?B?VFVsY053U055UkNRTi9NaUFTTmI3MFc3aW1iNGdqZ2pYRGVBNStTZUJub3gx?=
+ =?utf-8?B?Z2Z3ejRxaTNQb1FVUHB4Y2dtbzJ2bVBDSjZ0WWhQRldhTCtIMjNFMjlSVkZH?=
+ =?utf-8?B?TVUzbjA2cUJEaWpzL001UTdkOGV1QVcwR2hHeGJFTU5jOUUwOUV1WmJlbHhO?=
+ =?utf-8?B?d25nOWZQN3RCRjFZSkpYaHNydDhYRGp2NmlYbm1MNDVxOXdRc3RBRkhIazlG?=
+ =?utf-8?B?ckdlVkxheklYWlZNRVNzNE5CdTB3WS9UejR0YmEvTk1JVTU0cEhxRzl1YXBS?=
+ =?utf-8?B?SGlrcU1NK29qaFJoNTFCYXNzNEFJbWRQNzRjUFlvSExxV0tqWlpENkk1UG9V?=
+ =?utf-8?B?Z2tWYk1KcEg5VjRQVU1XOVhBKzNmZTQ5UkZrdFd6dVZzdk8wQUcrVTBCcFMv?=
+ =?utf-8?B?cWFFcGxWYk9LRGV6QUx3QlNEUVcwWjNzZUtyZ0lUK0FDNFkxVi9JV296bXAx?=
+ =?utf-8?B?RDVuV3hCRW1jUDdhU25NYXB2Z29TK3VxK3FYdk51S091R2R0TENKcXlncEh3?=
+ =?utf-8?B?WkYwd1ptWkhRckE4cVI1bVhJbVd2UjdaMVhBc2NVb24vMjNzTEMwVjhPbnVh?=
+ =?utf-8?B?cDlKUWV6LzNLZVZhditvUll5RDluc0w3YklQSnJQbDZpODJPZkFXNUhRa1hu?=
+ =?utf-8?B?TEZ6NGhOTDRHeERaNk9YSXQ5OHZ0YUNDYzFXdlBFSmlMZWVxZ1lCZDlnM2Nz?=
+ =?utf-8?B?R0dVbDlUMTZxWksvRHpHek1DZzBZOTdtZ2hJekRuRHdHRmxhQVZLQlc3KzZC?=
+ =?utf-8?B?czRjR0t5RFlqYkh3andnQ3VLUVliWFNXU1N1eTYvT24wT0IzdmNDaS90Ymt3?=
+ =?utf-8?B?UXFIbk8vNVdqaXpEdUNwejZ5QkdaVkwwTDQ3ek83V1U0aXVWbVFZZ1l0U0t5?=
+ =?utf-8?B?cDByRTBPeUVZQytKZWJRMWNXdHNoSG9UUS9XZEtYcjl2dExVU1NTS1BTMEtF?=
+ =?utf-8?B?dTNiQUc3dzIrK2J6bTNvMWZIQ3pyT2lGTHFnckZFckVTVktXbEdhZ2FMNE9U?=
+ =?utf-8?B?UVJjNWZmaVQzZHNGK3NnSVpQUDVMWU9kUUdjRTdpUUFWUkJWSzRqZ1FNMXJK?=
+ =?utf-8?B?cURqYXR4VlNSOTNpQkRCNXMrR0M3V3VvOVhaeTVSZjVMWFN2MENGbjU5N2w3?=
+ =?utf-8?B?cmN3TThPNFZGdEVSS2lVTVNIdWNMWk52VU9PdnVyUzM5VGZ0RWpFN0o5aHdm?=
+ =?utf-8?B?eUdxT1cyRjhCNVdBZFk2cGxOY0k1UitWNjZUZGZuVkMyVXg5VlZOeFlhVDNl?=
+ =?utf-8?B?NDhmZ2ovSGl6aG5oZk1IZ1JMNStNTkcvZTlucjc5c2RUWCtoT1ZzSVJIbTJS?=
+ =?utf-8?B?TFNhdzJCN0oveUJramJXODNFTGNDWU9FSlBuUDJjR2oxSXRKVEdENmhseTV4?=
+ =?utf-8?B?VGdodW5zMmozWXl0WkRJZEpZemU2cER4VEtYRWwweWNXY1hOOXI4VnU3SkZZ?=
+ =?utf-8?B?M0xVMlk4bk9ESHdoSGJNZkdvbkQ4ZFh0b2VrUGNLbEFWdVExa29oWXVhSXFO?=
+ =?utf-8?B?MGNVVXJXMDk2SE5rN0EyUDFPYTg1dTkwTVpqUExkeVp1WmovTmFGanNjYnRx?=
+ =?utf-8?B?OElJL2d6TGxNUnlkM0xqNFRuTzhsWnV5QzdWcHl6SGJRUk13Mng0SFhIZWdV?=
+ =?utf-8?B?SFMyUjk4NExtRzhjb1ZaWjIrSHFsaVYxMEhGZjE3YnN5YjZqdUNyV3NRT3E1?=
+ =?utf-8?B?cVdMTU5MSHpYV1JBWEMyYXlxakhXUnpVZHNuQU1HS1kwTkJQUTFsUGlrd1NY?=
+ =?utf-8?B?cDZ5dzRLbFd4c0dYTGNSMHFlblc3MHpTUFVaR2hBeHRGWFJuMHVHbW5XSVZn?=
+ =?utf-8?B?MFNvNW9ibGppSVVRK1hrdGtXdFZBSVNoR3hhTkV3Wm5rcWZCejRIeHJwQ3hO?=
+ =?utf-8?B?YmJ1Z2p6VE5GUVMzRi9ubGQ1YUhjeVdMSllJZ2pqeElYeHhLb2Y0QjlIOEd5?=
+ =?utf-8?B?eUhqbjNlNG1mbGNBd1pXbHBDTFdrTVhKY0lhUmx2aGxIVitUaWdXd3RlYTVs?=
+ =?utf-8?B?emEzbGVWYWRoL1JxeGp0OEFDZTNvaVRXenhqWWUyOWRvRU13ZzB2dHNpYzVU?=
+ =?utf-8?B?eFJqemppWE56VGpCZ1lNRTN0SzJ0SzFZenNIbWVUYytCbmJhbFJuTHRmTDRP?=
+ =?utf-8?B?eWVEYys4M1QzMElaMEpXRGVTOFQyd0RSdkFWNjd1YlhLa3ZoZ0pjYUZnQTU2?=
+ =?utf-8?B?NVFUUGJWNlJWZGJEV3NXbEVFM0Z2QkdVSTc0U2lQZ25hUGo3SWFJT1V0NUVt?=
+ =?utf-8?Q?q5aCY/rIoRYVx7VI=3D?=
+X-Exchange-RoutingPolicyChecked: Uj4NtDKDZzcfG8lHo7MhGEHxUYy6gRrBGtRZR2MLifzqxK4BoavpDOGizBnVrH3WPzFbusVFOL6AG3L++t9C6p96Xy10zcKTLMyEiTUTDUlkGvaxzngFtQQE3OkLGlqKY+B3SmBBsHMP3Ng01+5bSUB8PPMuBuAJXo4HlsRnF0XI8OmV2SNq8f99EGVKBoZmgAWOBfX05Kej/duzvHI/qurOkGWA+jeWl3YMEkrLAViC0zTFMezpjt0tR74fVevw88MYVpg8UFXjeiyGd+B4e4tz9LlZeEsvAMR9tcqx505ZQDnrb7sFmQpTeNCz+IYGFtSdkwlH3oE+nSdSGxfjzQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35c3752a-0d5d-4968-ecd7-08df3b04a0b7
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:17:39.0022
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:18:37.4572
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Cq079Q0VK0t9wR3YZKlsjQbRplXotUtqX7bOP4V3tIqoVUfJNjfhMn7LR1d0O7e+eUpq4YFFZb7C9FqVGQMdVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8212
+X-MS-Exchange-CrossTenant-UserPrincipalName: SEokOFXEsZb10qfi5vZ8qPAJVoypbICCFyFOuY8Q7I9kAdSilqM1FPVZJevvQBHk6Y+SNaDbc6eAcwtJmGlCLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7962
+X-OriginatorOrg: intel.com
 
-On 04-11-2026 00:39, Andrii Nakryiko wrote:
-> On Mon, Nov 2, 2026 at 2:08 AM Sandipan Das <sandipan.das@amd.com> wrote:
->>
->> On 30-10-2026 01:42, Andrii Nakryiko wrote:
->>> On Fri, Oct 23, 2026 at 5:42 AM Puranjay Mohan <puranjay@kernel.org> wrote:
->>>>
->>>> On CPUs with X86_FEATURE_AMD_LBR_PMC_FREEZE the LBR is always frozen on
->>>> PMI, so the branch stack ends before the IP and callchain, which are
->>>> taken when the NMI is delivered. IBS rejects branch-stack events, so
->>>> there is no precise alternative.
->>>>
->>>> The freeze only keeps the PMI handler's branches out of the stack, which
->>>> matters only when branches into the kernel are recorded; without it the
->>>> stack fills with the handler's own branches. A user-only filter does not
->>>> record them, and parts without the feature are never frozen (see commit
->>>> 598c2fafc06f ("perf/x86/amd/lbr: Use freeze based on availability")).
->>>>
->>>> Freeze unless the value written to LBR_SELECT, which is shared by all
->>>> events on the CPU, suppresses branches into the kernel.
->>>>
->>>> With perf record -e ex_ret_brn_tkn:u -j any,u on a Zen 5 part running
->>>> CPython, the function of the sampled IP differs from the function of
->>>> LBR[0].to in 84.3% of samples with the freeze and in 0.1% without it.
->>>>
->>>> Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
->>>> ---
->>>>  arch/x86/events/amd/lbr.c | 9 +++++++--
->>>>  1 file changed, 7 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
->>>> index a55646fcb8465..7ec50380ac81d 100644
->>>> --- a/arch/x86/events/amd/lbr.c
->>>> +++ b/arch/x86/events/amd/lbr.c
->>>> @@ -392,7 +392,7 @@ void amd_pmu_lbr_sched_task(struct perf_event_pmu_context *pmu_ctx,
->>>>  void amd_pmu_lbr_enable_all(void)
->>>>  {
->>>>         struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
->>>> -       u64 lbr_select, dbg_ctl, dbg_extn_cfg;
->>>> +       u64 lbr_select = 0, dbg_ctl, dbg_extn_cfg;
->>>>
->>>>         if (!cpuc->lbr_users || !x86_pmu.lbr_nr)
->>>>                 return;
->>>> @@ -405,7 +405,12 @@ void amd_pmu_lbr_enable_all(void)
->>>>
->>>>         if (cpu_feature_enabled(X86_FEATURE_AMD_LBR_PMC_FREEZE)) {
->>>>                 rdmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
->>>> -               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl | DEBUGCTLMSR_FREEZE_LBRS_ON_PMI);
->>>> +               /* Freeze unless the filter suppresses branches into the kernel */
->>>> +               if (lbr_select & LBR_KERNEL)
->>>
->>> On Intel CPU side, we reset this FREEZE bit in
->>> __intel_pmu_lbr_enable() if is_lbr_call_stack_bit_set(), with the
->>> comment "LBR callstack does not work well with FREEZE_LBRS_ON_PMI.".
->>> So this is not *exactly* what Intel side of things is doing, and I'm
->>> not sure I fully understand the differences, so hopefully someone more
->>> knowledgeable can help.
->>>
->>> But what Puranjay is trying to do here is to at least make a
->>> user-mode-only LBR and IP + callstack to be coherent (for PGO data
->>> collection, which we then use for user space app compilation), by
->>> disabling freezing for LBR.
->>>
->>> It doesn't seem like there is anything we can do on AMD hardware for
->>> when we want kernel-side LBR and precise IP to be in sync,
->>> unfortunately, but at least for user-space only case it would allow us
->>> to not plain disable freezing altogether at kernel boot time.
->>>
->>> Does this approach make sense?
->>>
->>
->> Yes, the intent to keep the LBR and IP coherent is clear. However, my
->> concern is that this may end up dropping the branches preceding the
->> hotspots since a CPU might keep executing in userspace until the PMI
->> handler runs. I'm not sure about the effect that this is going to have
->> on PGO but what if we rely on a mechanism (UAPI + tool flags) to let
->> users explicitly request freeze?
->>
->> If there is an use-case where freeze helps, then the facility can be
->> explicitly requested.
+On 03/11/2026 12:16, Ben Chuang wrote:
+> From: Ben Chuang <ben.chuang@genesyslogic.com.tw>
 > 
-> heh, it's actually the other way, freezing **hurts** consistency
-> here... should API requested freeze *opt-out*? because freezing, if
-> supported by CPU, currently, is the default behavior not requiring
-> opt-in. Or are you proposing to not enable freeze (even if
-> cpu_feature_enabled(X86_FEATURE_AMD_LBR_PMC_FREEZE) is true), and then
-> make user space request freezing with the new UAPI config flag?
+> The GL9768 is the successor to the GL9767 and uses a compatible
+> register layout. Reuse the GL9767 driver for the GL9768 by adding
+> the GL9768 PCI device ID to the device ID table.
 > 
+> Clear bits 2 and 3 in the SD Express control register at offset
+> 0x940 when the driver initializes the device. This clears both
+> bits to zero, matching the GL9767 default configuration.
+> 
+> Signed-off-by: Ben Chuang <ben.chuang@genesyslogic.com.tw>
 
-The latter. The default will be freeze disabled irrespective of the
-CPUID feature bit.
+Acked-by: Adrian Hunter <adrian.hunter@intel.com>
 
-> I'm not against expanding UAPI, but it feels like a very quirky little
-> thing which also stems from AMD-only limitation of not supporting
-> precise IP capture with LBR enabled
+> ---
+>  drivers/mmc/host/sdhci-pci-core.c | 1 +
+>  drivers/mmc/host/sdhci-pci-gli.c  | 7 +++++++
+>  drivers/mmc/host/sdhci-pci.h      | 1 +
+>  3 files changed, 9 insertions(+)
 > 
-
-I agree but it can live as an AMD-only flag in perf_event_attr.config2
-or something similar and advertised through x86_pmu.format_attrs.
-
+> diff --git a/drivers/mmc/host/sdhci-pci-core.c b/drivers/mmc/host/sdhci-pci-core.c
+> index a9000f3bd419..db0417238131 100644
+> --- a/drivers/mmc/host/sdhci-pci-core.c
+> +++ b/drivers/mmc/host/sdhci-pci-core.c
+> @@ -1959,6 +1959,7 @@ static const struct pci_device_id pci_ids[] = {
+>  	SDHCI_PCI_DEVICE(GLI, 9755, gl9755),
+>  	SDHCI_PCI_DEVICE(GLI, 9763E, gl9763e),
+>  	SDHCI_PCI_DEVICE(GLI, 9767, gl9767),
+> +	SDHCI_PCI_DEVICE(GLI, 9768, gl9767),
+>  	SDHCI_PCI_DEVICE_CLASS(AMD, SYSTEM_SDHCI, PCI_CLASS_MASK, amd),
+>  	/* Generic SD host controller */
+>  	{PCI_DEVICE_CLASS(SYSTEM_SDHCI, PCI_CLASS_MASK)},
+> diff --git a/drivers/mmc/host/sdhci-pci-gli.c b/drivers/mmc/host/sdhci-pci-gli.c
+> index b55618566d65..66452ed8cd8a 100644
+> --- a/drivers/mmc/host/sdhci-pci-gli.c
+> +++ b/drivers/mmc/host/sdhci-pci-gli.c
+> @@ -245,6 +245,8 @@
+>  #define PCIE_GLI_9767_SD_EXPRESS_CTL			0x940
+>  #define   PCIE_GLI_9767_SD_EXPRESS_CTL_SDEI_EXE		  BIT(0)
+>  #define   PCIE_GLI_9767_SD_EXPRESS_CTL_SD_EXPRESS_MODE	  BIT(1)
+> +#define   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_1		  BIT(2)
+> +#define   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_2		  BIT(3)
+>  
+>  #define PCIE_GLI_9767_SD_DATA_MULTI_CTL				0x944
+>  #define   PCIE_GLI_9767_SD_DATA_MULTI_CTL_SELECT_UHS2		  BIT(5)
+> @@ -1354,6 +1356,11 @@ static void gl9767_hw_setting(struct sdhci_pci_slot *slot)
+>  		 PCIE_GLI_9767_SCR_CORE_PWR_D3_OFF;
+>  	pci_write_config_dword(pdev, PCIE_GLI_9767_SCR, value);
+>  
+> +	pci_read_config_dword(pdev, PCIE_GLI_9767_SD_EXPRESS_CTL, &value);
+> +	value &= ~(PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_1 |
+> +		   PCIE_GLI_9767_SD_EXPRESS_CTL_DETECT_2);
+> +	pci_write_config_dword(pdev, PCIE_GLI_9767_SD_EXPRESS_CTL, value);
+> +
+>  	gl9767_vhs_read(pdev);
+>  }
+>  
+> diff --git a/drivers/mmc/host/sdhci-pci.h b/drivers/mmc/host/sdhci-pci.h
+> index f38f0bd4165c..bcae29f8d8da 100644
+> --- a/drivers/mmc/host/sdhci-pci.h
+> +++ b/drivers/mmc/host/sdhci-pci.h
+> @@ -81,6 +81,7 @@
+>  #define PCI_DEVICE_ID_GLI_9750		0x9750
+>  #define PCI_DEVICE_ID_GLI_9763E		0xe763
+>  #define PCI_DEVICE_ID_GLI_9767		0x9767
+> +#define PCI_DEVICE_ID_GLI_9768		0x9768
+>  
+>  /*
+>   * PCI device class and mask
 > 
-> BTW, the alternative that internal customers actually requested
-> initially instead of this was to completely disable freezing at start
-> up through the kernel command line. Which seems like the worst
-> outcome.
-> 
-> Thoughts? This all seems unfortunately messy, but hopefully we can
-> figure out some non-intrusive but workable solution.
-> 
->>
->>>
->>>> +                       dbg_ctl &= ~DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
->>>> +               else
->>>> +                       dbg_ctl |= DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
->>>> +               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
->>>>         }
->>>>
->>>>         rdmsrq(MSR_AMD_DBG_EXTN_CFG, dbg_extn_cfg);
->>>>
->>>> base-commit: 0f443787a7f6ae907975742680aac2600483eaf1
->>>> --
->>>> 2.53.0-Meta
->>>>
->>
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
