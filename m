@@ -1,49 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891549;
-	b=hXNzOCt+8r+bHeRxvg5bl1uvO6yBfCAPJrU6qJwwqPp1zE7Jo637zV57lnwD80t9F4tb
-	 OVgZHRjAsJ05x6rRhsY0McAfDqCoGITQkpYNSLMln0/nnVc+bor7xrajFpXSWcZt6P+CN
-	 4rapDXNo3f23hrsJc/2bphn5X0ROqKHGLWZTb/Jt7r0KQv1ml1zfC/cYh1idsrFWllFUR
-	 KrxQXwnWWVlxRr9ZDVDWsRkJU3pZgf7WE0V8GicvT+E3wto/lgHmcKsBut585XzfsE2CZ
-	 3Xf7OUUn5/sOlVqZTGsLZowDSOk/3kiTfF4gq82xNcKUnYRxuTxHSfKy4feMvmb7vBw==
+	t=1793891564;
+	b=EStqeXpsr9yxDSd/E5bGlXIsrGucZDOyW/GrTJZIzeRmVG7VluBAlhZT0jMnc9MrU8n6
+	 6peLG6aecEwJZhocNwShzhTRJylS99EgqXxjtSwh/ZTud597SmjMPsreRQDqKUee11ECy
+	 gbxjc1+1pG+hUL/LcZuhxpE6lsh1lvgBCXyRhsajKMGd3vsp3Pud2e4soVXGXLoP223EG
+	 TOFKAGiRzIbGb0lwmMRe/oPeQy6DdRcVHA37ljXZZ2Oast2iyhNG1Ay/nK5i0VrXHeGyG
+	 rbwen1BnEYDcf+7gMvjJcbFnVhxnmAgqbY2WW0N1dzuKg5ZflHBcdGiSKdKEjU38ZyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891549;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IWJD0iHItHJ0ZLICudpIGPh2lKAzMkhjEJ2bZxXwT1g=;
-	b=wSxly+ykQuhoX8SBrgR0NY6BMzr8kLy4ScAgEfReCGbnuZ3xcVFvmgFtSyNeXl7M+03x
-	 ftybAtmvpI9mHxY/t2vuJxBZEFC8pUB78SgtAy9FgMlpKOHrWWcgbDISGmBt9ZkAWyJRN
-	 PEtl6nW7nh3PAwHhdwoCCbxzU8ebEz8F7P++sqvkzJ5L1MAaxZX7XeCpg2wkM/3oYNzLQ
-	 skDM8CMmAuK3ORHstP4vCynNfzR9zQ+WCNcukg2uGh2VYxbtk1V4M5IxOYjiNwRA7uawZ
-	 72kXFeghd8HDwbpC/BiQKOWlQXHANEZ9yIrtEggfZCsfVdLKa4nDXWWGHOvQrNmZ+7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891564;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=U/256XJFR1kvdw1JmGryzLrTO5NQ/CnryI746+heYMg=;
+	b=p0TuIUJssXTNwYKSvhBhH1BM45rQtbIZ8SgyMlQ0FlDLZiyz105wVsmP0F1kof3jVUC0
+	 7H/DOCVDNr6Y3h0aLn52xA78Dl0jcUdDymQbXtEBS5DsDeFAaAZs+9Y06JTDBYqGSSVSC
+	 qDhICE1YbbL+7kN1Dbx2kAAVEaa506T2bEs67PAzAjuCoRkici0PpDgUGF/zzfDi/xGCU
+	 O5Rjr8J1hW85dXhxipqln3tQZpGXMdh22MczWWf6jJy/aBF/6PlAFMtrME2jBCbPlH+5T
+	 jt4pYP748urCFGzEURsLe//HVTaMdd46wPLZTirgNTG8chQFG3qWg0s9HuGq41gU3mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=I9yJWYMO;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 679AF606D823;
-	Thu,  5 Nov 2026 15:12:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 679AF606D823
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=eOfSYhfZ;
+	arc=none smtp.remote-ip=209.85.222.177
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710A9606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:12:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 710A9606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=I9yJWYMO
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9E02B16F2;
-	Thu,  5 Nov 2026 07:12:24 -0800 (PST)
-Received: from [10.0.128.250] (e122027.cambridge.arm.com [10.0.128.250])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D24EC3F628;
-	Thu,  5 Nov 2026 07:12:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793891547; bh=K05vKtM+fPDTzjogjywixfTKzhfzKJwvrbfn/flAQKU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=I9yJWYMOEfAXqlqdwyFVq2M5GIwutk5K6psqq9Cpc7QM5j08Mcw18ktYr7AnqST3/
-	 GjFIAmD16GvgTjVNYKV0YLBzFCCAvPxZyKsBXJAoSEfd1Vp0+12u1UwKcGhCWb1cWp
-	 eDOuw2QPcrF8XLvPwDKHxwX3Bkyl6a8Ir0NoK4TQ=
-Message-ID: <e57e8cd0-79eb-4073-87ea-5b0c27122b71@arm.com>
-Date: Thu, 5 Nov 2026 15:12:23 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=eOfSYhfZ
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93e7ad9f78dso236346285a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:12:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793891563; x=1794496363; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U/256XJFR1kvdw1JmGryzLrTO5NQ/CnryI746+heYMg=;
+        b=eOfSYhfZnUVkocJpgPKJCXmZYN++oFaDc9qnTkB8VQnfFIrHcVix/90sHPkP0BRaRR
+         dqCc0aGcjnCtbey4cdJBGDdzJSx3Q3nTu3kL69W3YljpkehCgtqS1UWrHd5UPFfAHsAV
+         D2rmHs0zzJ/vUxVHCPU0LIUPV1sFEjiu/17fvG0JjIbikHcgM3JYdFWD8i9tvJc2Z8wm
+         O7TrOzzYG5T5K6zjP0hMCfzn6kOpAbrWr3pbVkx2p2xpPz19+IL2r2yVsCdRyPWH+2cK
+         phzr1UlXslR20eqqCfUGCTgFM9ywfgdGwhvvj1qDPGxhE17KK0PQS0IWuI5pu7XlDF0N
+         sQcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793891563; x=1794496363;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U/256XJFR1kvdw1JmGryzLrTO5NQ/CnryI746+heYMg=;
+        b=mANHoWd7kaSK+OBYcIm+K2oDmOf3otLrswGcFxOln3mdG99qUorgS2f2sj4BPc59xT
+         PJELca/qJHHxSssNSWiRScak+kzr9FW8b3/vQTk+Rn3hyWeMeevbng3vi34Hkw3ms4CO
+         u6a47ihzyhEtN0NCoDOqGUp8EJHLIX0N8m7eMFLRxzmWf3UjogOKr4Jeb5RbcO4vufzF
+         N8Ht5pU7SvEDlXdpRigNxyy8Bsj7QRBu8KobrIrl6yKhONf4kpaBosBtpfEoiaaUWkwH
+         4HBtrUWW4sRI+tJqOYJskc3TwOyFMERrfguvKX/x8A5+c2oqdw9l7geMOnx5/hYsCcJC
+         BkiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPurQJMf5RMZv0pvxwTOFjyJS2aRy1P/pkDZRKznDWh+5mDLWGzh9pmdth9+usvh3ogfxJQlaKfHSkF/0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rrs86EmWstEGnxHcBgERsJiS5uQKsYll+UYZhybOLBXG7agul
+	iny8zAz8RQnhpgk3GqAeRGdam5AikN/hiEsYz0x51QYj+Tf1f/57tFI1vlbaRufhn90=
+X-Gm-Gg: AYBFou17OI7o30ZZL4aZRKb0BHNcJx/GU4RivPz8zsPcylVfNa0h7yRx4bqcSqCYrRz
+	RJtWPp4yBwHNaBHyCVLlTLfneY7KJ64UudaSLKi2OgL4OyHmANW21yOemSvhJwkQl5OcREbCISO
+	z7wnnV8RSUqSpsrnKQTZ7FNITAnN67UKo54S1xrLwFp7OGGRz3abXVj+Nf+ExzpO2st0JQIIce+
+	EHoobxs//ZNNaGOeU892KDzfGLz+Vay1EFQF9qdw3Vu7KnznmSNr20+gazVkxM5TFPTm1KbkRcr
+	Y4jRjFn3++OBfAFFgNX085HtSUEsOsmGddnaDDznu86KGQcL5A+yyqRdffx8j8xx4dbrvry0RAS
+	38Sso5MXsCEAiGc38ELHfq6VC6fF45x5/X+K4rWNYFamnYtiz+u8Z/Kj58O3JBCAOZORt4PbK6c
+	oauQJavmoDSZJHrhhkX8a5lUmd5JpdqIBMiiUYeFZBxX0n049/xMuZk/jphg0KGkCHfFSHgY9Hz
+	SRhrzqNUQT9mjE4joAgrqrXletsmpkIxY+PbN2QG4a6tpgek5NlND+9V0aEtjGgTl6kp8Vmr+3V
+	F7SsQrYq4g919Vu0Dx1EYgnI4UGjThHCbkr9EauhJ0LoQxUbbH4VBAySsM138EIbQ8M=
+X-Received: by 2002:a05:620a:a788:20b0:945:f0ca:436a with SMTP id af79cd13be357-945f0ca48demr1247985a.2.1793891563443;
+        Thu, 05 Nov 2026 07:12:43 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.242])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d468f69asm482079385a.1.2026.11.05.07.12.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:12:41 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:02:26 +0000
+Subject: [PATCH RFC v3 34/90] pid: allocate a struct pid ahead of its
+ numbers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,119 +93,257 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] KVM: arm64: CCA: Check for LPA2 support and SHA-256
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20261102141304.126883-1-steven.price@arm.com>
- <20261102141304.126883-5-steven.price@arm.com>
- <f2cb2959-f56d-414c-b4a5-c0656a44f57d@arm.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <f2cb2959-f56d-414c-b4a5-c0656a44f57d@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-34-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890933; l=7400;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=VEEWcPfShIG+AbxmrBWfVb3lHZuCkN5vwM31ISrPZmg=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QPs+4y2UDDexVbhBorKCMrZMZ/Ns/VfaIL7TlOuRCjGxO64jcEMLAMDULM8QYey+2Lx7QCH0RgD
+ fyvBD+uCIVgM=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On 03/11/2026 11:47, Suzuki K Poulose wrote:
-> Hi Steven
-> 
-> On 02/11/2026 14:12, Steven Price wrote:
->> If KVM has enabled LPA2 support then check that the RMM also supports
->> it. If there is a mismatch then disable support for realm guests as the
->> VMM may attempt to create a guest which is incompatible with the RMM.
->>
->> Also check for SHA-256 support in the RMM as to begin with we only
->> support SHA-256 based measurements. This can be relaxed in the future.
-> 
-> 
-> This could be merged with the patch 3.
+alloc_pid() does two things. It allocates and initialises a struct pid,
+and it assigns the pid a number in its pid namespace and in every ancestor
+of that namespace.
 
-Makes sense.
+Make the first step available on its own:
 
-> 
->>
->> Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> Signed-off-by: Steven Price <steven.price@arm.com>
-> 
-> 
->> ---
->>   arch/arm64/kvm/rmi.c | 25 +++++++++++++++++++++++++
->>   1 file changed, 25 insertions(+)
->>
->> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
->> index 9d118768550d..5b07beff8bc9 100644
->> --- a/arch/arm64/kvm/rmi.c
->> +++ b/arch/arm64/kvm/rmi.c
->> @@ -6,8 +6,30 @@
->>   #include <linux/arm-rmi-cmds.h>
->>   #include <linux/kvm_host.h>
->>   +#include <asm/kvm_pgtable.h>
->>   #include <asm/virt.h>
->>   +static bool rmi_has_feature(int reg, unsigned long feature)
->> +{
->> +    return !!u64_get_bits(rmi_feat_reg(reg), feature);
->> +}
->> +
-> 
-> minor nit: Do we see this useful for others (e.g., DA) ? May be we could
-> move this to the include/linux/arm-rmi-cmds.h ?
-> 
-> May be we could even make the above a macro, something like
-> 
-> 
-> #define rmi_has_feature(reg, feat)
->     u64_get_bits(rmi_feat_reg(reg), RMI_FEATURE_REGISTER_#reg _#feat)
-> 
+  - alloc_pid_struct() returns a struct pid that can be referenced, waited
+    on and added to pidfs. It has no task and no numbers. So nothing can
+    find it, it uses up no pid, and zap_pid_ns_processes() does not count
+    it.
+  - alloc_pid() can take such a struct pid and assign its numbers.
+  - kernel_clone_args.pid passes one to copy_process().
+  - free_pid_struct() frees one that never got its numbers.
 
-Sashiko pointed out that my use of u64_get_bits() is problematic. So
-I'll fix that up and more it to the header file.
+This makes it possible to create a pidfd before there is a task.
 
-Thanks,
-Steve
+No functional change. Nothing passes a struct pid to alloc_pid() yet.
 
-> 
-> Cheers
-> Suzuki
-> 
->> +static int rmm_check_features(void)
->> +{
->> +    if (kvm_lpa2_is_enabled() &&
->> +        !rmi_has_feature(0, RMI_FEATURE_REGISTER_0_LPA2)) {
->> +        kvm_err("RMM doesn't support LPA2\n");
->> +        return -ENXIO;
->> +    }
->> +
->> +    if (!rmi_has_feature(1, RMI_FEATURE_REGISTER_1_HASH_SHA_256)) {
->> +        kvm_err("RMM doesn't support SHA-256 measurements\n");
->> +        return -ENXIO;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->>   void kvm_init_rmi(void)
->>   {
->>       if (kvm_get_mode() != KVM_MODE_RMM)
->> @@ -16,5 +38,8 @@ void kvm_init_rmi(void)
->>       if (!is_rmi_available())
->>           return;
->>   +    if (rmm_check_features())
->> +        return;
->> +
->>       /* Future patch will enable static branch kvm_rmi_is_available */
->>   }
-> 
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ include/linux/pid.h        | 13 ++++++-
+ include/linux/sched/task.h |  1 +
+ kernel/fork.c              |  2 +-
+ kernel/pid.c               | 93 ++++++++++++++++++++++++++++++++++++++--------
+ 4 files changed, 91 insertions(+), 18 deletions(-)
+
+diff --git a/include/linux/pid.h b/include/linux/pid.h
+index 185bf0cde2d1..d590baf155d7 100644
+--- a/include/linux/pid.h
++++ b/include/linux/pid.h
+@@ -183,8 +183,10 @@ extern struct pid *find_vpid(int nr);
+ extern struct pid *find_get_pid(int nr);
+ extern struct pid *find_ge_pid(int nr, struct pid_namespace *);
+ 
++struct pid *alloc_pid_struct(struct pid_namespace *ns);
++void free_pid_struct(struct pid *pid);
+ extern struct pid *alloc_pid(struct pid_namespace *ns, pid_t *set_tid,
+-			     size_t set_tid_size);
++			     size_t set_tid_size, struct pid *pid);
+ extern void free_pid(struct pid *pid);
+ void free_pids(struct pid **pids);
+ extern void disable_pid_allocation(struct pid_namespace *ns);
+@@ -207,6 +209,15 @@ static inline struct pid_namespace *ns_of_pid(struct pid *pid)
+ 	return ns;
+ }
+ 
++/*
++ * Has alloc_pid() given it its numbers? It keeps them for good, free_pid() only
++ * gives them back to the pid namespaces.
++ */
++static inline bool pid_has_numbers(const struct pid *pid)
++{
++	return pid->numbers[pid->level].nr;
++}
++
+ /*
+  * is_child_reaper returns true if the pid is the init process
+  * of the current namespace. As this one could be checked before
+diff --git a/include/linux/sched/task.h b/include/linux/sched/task.h
+index 90ed5bc3c7af..aca22f08c8f0 100644
+--- a/include/linux/sched/task.h
++++ b/include/linux/sched/task.h
+@@ -45,6 +45,7 @@ struct kernel_clone_args {
+ 	struct cgroup *cgrp;
+ 	struct css_set *cset;
+ 	unsigned int kill_seq;
++	struct pid *pid;
+ };
+ 
+ /*
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 8b108ed37152..7937052def66 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2334,7 +2334,7 @@ __latent_entropy struct task_struct *copy_process(
+ 
+ 	if (pid != &init_struct_pid) {
+ 		pid = alloc_pid(p->nsproxy->pid_ns_for_children, args->set_tid,
+-				args->set_tid_size);
++				args->set_tid_size, args->pid);
+ 		if (IS_ERR(pid)) {
+ 			retval = PTR_ERR(pid);
+ 			goto bad_fork_cleanup_thread;
+diff --git a/kernel/pid.c b/kernel/pid.c
+index adf721606768..0611406e9a9a 100644
+--- a/kernel/pid.c
++++ b/kernel/pid.c
+@@ -156,13 +156,75 @@ void free_pids(struct pid **pids)
+ 			free_pid(pids[tmp]);
+ }
+ 
++/**
++ * alloc_pid_struct - allocate a struct pid that has no numbers yet
++ * @ns: the pid namespace it is going to get its numbers in
++ *
++ * What comes back can be referred to, waited on and added to pidfs. It
++ * has no task and no number in any pid namespace, so nothing finds it and it
++ * keeps no pid namespace from dying. Pass it to alloc_pid() for the numbers.
++ *
++ * Return: the struct pid, to be passed to alloc_pid() or free_pid_struct(), or
++ * NULL.
++ */
++struct pid *alloc_pid_struct(struct pid_namespace *ns)
++{
++	struct pid_namespace *tmp;
++	enum pid_type type;
++	struct pid *pid;
++	int i;
++
++	pid = kmem_cache_alloc(ns->pid_cachep, GFP_KERNEL);
++	if (!pid)
++		return NULL;
++
++	get_pid_ns(ns);
++	pid->level = ns->level;
++	refcount_set(&pid->count, 1);
++	spin_lock_init(&pid->lock);
++	for (type = 0; type < PIDTYPE_MAX; ++type)
++		INIT_HLIST_HEAD(&pid->tasks[type]);
++	init_waitqueue_head(&pid->wait_pidfd);
++	INIT_HLIST_HEAD(&pid->inodes);
++	pidfs_prepare_pid(pid);
++	for (tmp = ns, i = ns->level; i >= 0; tmp = tmp->parent, i--) {
++		pid->numbers[i].nr = 0;
++		pid->numbers[i].ns = tmp;
++	}
++	return pid;
++}
++
++/**
++ * free_pid_struct - free a struct pid that never got its numbers
++ * @pid: what alloc_pid_struct() returned, and no alloc_pid() succeeded on
++ *
++ * Drops the reference that alloc_pid_struct() returned.
++ */
++void free_pid_struct(struct pid *pid)
++{
++	WARN_ON_ONCE(pid_has_numbers(pid));
++	pidfs_remove_pid(pid);
++	call_rcu(&pid->rcu, delayed_put_pid);
++}
++
++/**
++ * alloc_pid - allocate a struct pid with a number in @ns and all its ancestors
++ * @ns:               the pid namespace
++ * @arg_set_tid:      the numbers to use, the most nested pid namespace first
++ * @arg_set_tid_size: how many of them there are
++ * @pid:              what alloc_pid_struct() returned for @ns, or NULL
++ *
++ * A @pid that is passed in has been added to pidfs already. If this fails it is
++ * as it was and still the caller's.
++ *
++ * Return: the struct pid, to be passed to free_pid(), or an ERR_PTR().
++ */
+ struct pid *alloc_pid(struct pid_namespace *ns, pid_t *arg_set_tid,
+-		      size_t arg_set_tid_size)
++		      size_t arg_set_tid_size, struct pid *pid)
+ {
+ 	int set_tid[MAX_PID_NS_LEVEL + 1] = {};
+ 	int pid_max[MAX_PID_NS_LEVEL + 1] = {};
+-	struct pid *pid;
+-	enum pid_type type;
++	const bool prepared = pid;
+ 	int i, nr;
+ 	struct pid_namespace *tmp;
+ 	struct upid *upid;
+@@ -179,26 +241,19 @@ struct pid *alloc_pid(struct pid_namespace *ns, pid_t *arg_set_tid,
+ 	 */
+ 	if (arg_set_tid_size > ns->level + 1)
+ 		return ERR_PTR(-EINVAL);
++	if (prepared && (ns_of_pid(pid) != ns || pid_has_numbers(pid) || !pid->ino))
++		return ERR_PTR(-EINVAL);
+ 
+ 	/*
+ 	 * Prep before we take locks:
+ 	 *
+ 	 * 1. allocate and fill in pid struct
+ 	 */
+-	pid = kmem_cache_alloc(ns->pid_cachep, GFP_KERNEL);
++	if (!prepared)
++		pid = alloc_pid_struct(ns);
+ 	if (!pid)
+ 		return ERR_PTR(retval);
+ 
+-	get_pid_ns(ns);
+-	pid->level = ns->level;
+-	refcount_set(&pid->count, 1);
+-	spin_lock_init(&pid->lock);
+-	for (type = 0; type < PIDTYPE_MAX; ++type)
+-		INIT_HLIST_HEAD(&pid->tasks[type]);
+-	init_waitqueue_head(&pid->wait_pidfd);
+-	INIT_HLIST_HEAD(&pid->inodes);
+-	pidfs_prepare_pid(pid);
+-
+ 	/*
+ 	 * 2. perm check checkpoint_restore_ns_capable()
+ 	 *
+@@ -337,6 +392,9 @@ struct pid *alloc_pid(struct pid_namespace *ns, pid_t *arg_set_tid,
+ 	idr_preload_end();
+ 	ns_ref_active_get(ns);
+ 
++	if (prepared)
++		return pid;
++
+ 	retval = pidfs_add_pid(pid);
+ 	if (unlikely(retval)) {
+ 		free_pid(pid);
+@@ -349,14 +407,17 @@ struct pid *alloc_pid(struct pid_namespace *ns, pid_t *arg_set_tid,
+ 	while (++i <= ns->level) {
+ 		upid = pid->numbers + i;
+ 		idr_remove(&upid->ns->idr, upid->nr);
++		upid->nr = 0;
+ 	}
+ 
+ 	spin_unlock(&pidmap_lock);
+ 	idr_preload_end();
+ 
+ out_abort:
+-	put_pid_ns(ns);
+-	kmem_cache_free(ns->pid_cachep, pid);
++	if (!prepared) {
++		put_pid_ns(ns);
++		kmem_cache_free(ns->pid_cachep, pid);
++	}
+ 	return ERR_PTR(retval);
+ }
+ 
+
+-- 
+2.55.0
 
