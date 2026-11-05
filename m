@@ -1,94 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793860152;
-	b=FsBZ6QGaVMZAsZNSykvIe3N73OJ6Ll+YvBbL4Log/z7SG2xB+XLD1H+G5TpAKbKsS2wg
-	 QlhNBbgWADxoLFi171laGbvoTCLTOEFZ7kik3B2rz6BgwuJEVFiaScXmiJudbK7x1rWjG
-	 Um9/kXfaGJ66ir4r7pBNbulFTdFIGIdQEj5OI62pTMYGcXJS1VcbKv4jK9uzkYzkvl4GK
-	 69566OrCuMBc/S5tMhopcjIRxNwkaiRSW5lE0HvemNbLeW/pAPBQ4VsPvo2qMbu4bg+jF
-	 NjsKdhJ74OuKtRzgXttFE8QHYiNY2l3P596bXseqwA7b+iUzgQfuXipVClGFettPaTQ==
+	t=1793860151;
+	b=KdaOkzJ1aFqRyJ4z2oA+7IP39HEW5W+9lSUI/AaCabKkgN/5HX/CyHxYTV/rgX+iFAI8
+	 SQDAXlIXJeaQkZcvZawJaHdov9ZvGVxnr1X1bPvUlEPow7jPL2zdkiTo7ABdFT2BkVAh2
+	 qSoYWZcQ4+In6xI6pkg6aS/pN01hW3qdxt20LVIyJL6o+XVDTA+vpAF1kPkb5o7ZU+w/8
+	 bfUfJONUbnfAiQoZ7tIas/W5rXMo53mA3DaKW8sRYMB16FknKXz9YPBXY84VN/z7MHq74
+	 Ym5GwHCyRUtXHhlhfzJPciAd1bGhUv+GiIBmdd0K+qIqrUsp7TR8/79/M39QwlxtrWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793860152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793860151;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=fT7Px+NmjCAA9PKMV95Cz4j5aB+r3wMHBoWzLVXxYrg=;
-	b=ODibVNrNvFXy1nFfdI2OwfN4rA6YDycG4UPhDAdcjxZg6bZoirf/6SUzZhPc8E9Ev+OQ
-	 NDLe7sCqdfO+h0rJ0KnJMPyRykVFMYcArlmhZJm3F4323OCJIU1cCx4edBlphFKOCGBDf
-	 Gj/jwqp7s4GSlCPBqDlrRCNMEf9p1il7IAjngW9M+Je69fRP+zNbztf+ceowTv/6KLpt+
-	 YE51WyseKifAeBztCsEkYQMEVho3QwxUqUY6U9vDL6e21xjah0alV5Nbfuc9Ap7CdbKex
-	 A26FuL5pmggatpNSfNIM0SLga6PwmtEaDt3iU5dNyT7cAADgtWCHrp4MDvGV+hd/7jA==
+	bh=ymerU3qs+IE5SarRlTt1VKtK551vjj0c9kwV9TnzqGE=;
+	b=bz7nLFytQJIpwdlB6K+T0XZQzPVrRpkICgDr1l0QB6pAvWdMBon4TguQWFv6I/Ibf/1i
+	 U9n2gottvJczN6Oya8TC7oHm+sKZFweystnfQKjXcZ2cZTuEsjbKv6jknK6skWqXmw8DZ
+	 hBP6BvCpxxnqs5r//rWvpnQKzTh+R9/ZJNaqiQ7mGiUV7ssMhu3pFFRJ4a8RU6kEXzpL5
+	 uYNIUUBKnBjP+z472f6ywdeo3b/mQD0c+rDBNF9g6AJfg1+6YqX58s7IjVpv6IDrLBkyH
+	 ILWBvbH4Am2BtShufrVUoiGd77nAnZ8IztF51VORHWHyZ8CP6oSuVnmuL2wlLMRtHCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWBwTpyI;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DRwCC90U;
 	arc=none smtp.remote-ip=192.198.163.13
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EFF606A32D;
-	Thu,  5 Nov 2026 06:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15EFF606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B17606A326;
+	Thu,  5 Nov 2026 06:29:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9B17606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWBwTpyI
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DRwCC90U
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793860151; x=1825396151;
+  t=1793860150; x=1825396150;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=2ndfGt5xh6jwi3F6B4Ttw+51NBBwFube5hJI/DxpsGc=;
-  b=LWBwTpyIvovOZff8bZ+13snebEb0lsN58SCmiUaS5PpDGYcmaGwtlpZX
-   bMhMCApcVJLdl0h4qdMGlOk3OuKXLMYHzYIMM5YW06wtgOe1ARbE54p4M
-   4zZbPZOuT/8ExLWWZCk7DF+JovUjsDAfqRH0ZC2gmDWn8bkjKHtvat6XK
-   OujoTfH3Yg1qjaOoDdEeQqdUVBn1Pg4netJMXxpki/dg4eMNVyGSOzaZL
-   Pt0N7RaaBw0UEu0pfTOPVPf7WZ3WwQ/DVog4ymtRT3W0DBy3yn6O3x0A8
-   fhHLk4lrDyHmk69JWKMrMGA4qFUZBgnvk5fycXfoIBDADDJlw7cJRQOXG
-   g==;
-X-CSE-ConnectionGUID: Rbf6u3faT3Krg4nDwI3TEw==
-X-CSE-MsgGUID: tmQKDIqoTu+7SKFh0XdDAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2630136"
+  bh=t5hBDD13+lQVTKr4HGQoZraqtI76Sha+S89tCwE0n90=;
+  b=DRwCC90UNTDO268sIHg6yoqQsP2EWvx2vR/ZJYPV1SfkafMBBwg+8cPo
+   vYlpGOziR6SLA0j25MiSPPUJrXCIHpWNC0W04lhMZmVQcES4OS+gY1Drv
+   gy4NQy53WbXqGsP6Rzt9zTRlexAHY2+YlNkVSc9aYHr6MsBiAZJhsHVyv
+   Tqd/8jC9b+5idS0xfuFA6FTTA+BHxUiagrBecebR10P7u1lun96gBCLqN
+   Cn0IFtAzxRVLi0K2Wi9nFBQwS9JA3iOw50F8s5xLE3TVAGZsnYZUjWYOk
+   IgUYPHbNzEbl22boakqECvt4gUCQFNkfS116rgYjA/J2BNpxSogruPUDw
+   w==;
+X-CSE-ConnectionGUID: jt0Fx5h0Qf+ZF66+ADUpRQ==
+X-CSE-MsgGUID: wyql7UtPQI2/Bbni70sNIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2630127"
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2630136"
+   d="scan'208";a="2630127"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:29:10 -0800
-X-CSE-ConnectionGUID: +zSRKQ3YRb2fTMqeC7KvBg==
-X-CSE-MsgGUID: dyyLTA/KQk+AWAdppHgdqA==
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:29:09 -0800
+X-CSE-ConnectionGUID: 51cbibPgTa+oa4yEGFhgvw==
+X-CSE-MsgGUID: ZCdruSxMSvuEUaYY291XpQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6763798"
+   d="scan'208";a="6763797"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
   by orviesa007.jf.intel.com with ESMTP; 04 Nov 2026 22:29:03 -0800
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xOqy2-00000000lnL-2umG;
+	id 1xOqy2-00000000lnN-303Z;
 	Thu, 05 Nov 2026 06:28:58 +0000
-Date: Thu, 5 Nov 2026 14:28:15 +0800
+Date: Thu, 5 Nov 2026 14:28:14 +0800
 From: kernel test robot <lkp@intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+To: Yureka Lilian <yureka@cyberchaos.dev>,
 	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Len Brown <lenb@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
 Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 9/9] gpio: shared: generalize most code to firmware nodes
-Message-ID: <202611051423.Dk3ycCJc-lkp@intel.com>
-References: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
+Subject: Re: [PATCH v2 1/3] PCI/pwrctrl: Export per-device APIs
+Message-ID: <202611051425.vj4FPfnn-lkp@intel.com>
+References: <20261104-apple-pcie-pwren-v2-1-216a4066965f@cyberchaos.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,69 +95,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
+In-Reply-To: <20261104-apple-pcie-pwren-v2-1-216a4066965f@cyberchaos.dev>
 
-Hi Bartosz,
+Hi Yureka,
 
 kernel test robot noticed the following build warnings:
 
 [auto build test WARNING on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Bartosz-Golaszewski/device-property-fix-fwnode_name_eq-for-empty-node-names/20261104-150343
+url:    https://github.com/intel-lab-lkp/linux/commits/Yureka-Lilian/PCI-pwrctrl-Export-per-device-APIs/20261104-124029
 base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-patch link:    https://lore.kernel.org/r/20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4%40oss.qualcomm.com
-patch subject: [PATCH 9/9] gpio: shared: generalize most code to firmware nodes
-config: um-randconfig-1000-20261105 (https://download.01.org/0day-ci/archive/20261105/202611051423.Dk3ycCJc-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051423.Dk3ycCJc-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/20261104-apple-pcie-pwren-v2-1-216a4066965f%40cyberchaos.dev
+patch subject: [PATCH v2 1/3] PCI/pwrctrl: Export per-device APIs
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20261105/202611051425.vj4FPfnn-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 812626a41399a1d464a0d69627ab45c83b8ebfb9)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051425.vj4FPfnn-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611051423.Dk3ycCJc-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611051425.vj4FPfnn-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
-   In file included from drivers/gpio/gpiolib-shared.c:28:
-   In file included from drivers/gpio/gpiolib.h:16:
-   In file included from include/linux/gpio/driver.h:8:
-   In file included from include/linux/irqchip/chained_irq.h:10:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/gpio/gpiolib-shared.c:300:12: warning: function 'gpio_shared_fwnode_traverse' is not needed and will not be emitted [-Wunneeded-internal-declaration]
-     300 | static int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   2 warnings generated.
-
-
-vim +/gpio_shared_fwnode_traverse +300 drivers/gpio/gpiolib-shared.c
-
-   299	
- > 300	static int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
-   301	{
-   302		int ret;
-   303	
-   304		if (gpio_shared_fwnode_ignore(curr))
-   305			return 0;
-   306	
-   307		ret = gpio_shared_fwnode_scan_properties(curr);
-   308		if (ret)
-   309			return ret;
-   310	
-   311		fwnode_for_each_child_node_scoped(curr, child) {
-   312			ret = gpio_shared_fwnode_traverse(child);
-   313			if (ret)
-   314				return ret;
-   315		}
-   316	
-   317		return 0;
-   318	}
-   319	
+>> Warning: drivers/pci/pwrctrl/core.c:203 function parameter 'np' not described in 'pci_pwrctrl_power_off_device'
+>> Warning: drivers/pci/pwrctrl/core.c:203 Excess function parameter 'device_node' description in 'pci_pwrctrl_power_off_device'
+>> Warning: drivers/pci/pwrctrl/core.c:272 function parameter 'np' not described in 'pci_pwrctrl_power_on_device'
+>> Warning: drivers/pci/pwrctrl/core.c:272 Excess function parameter 'device_node' description in 'pci_pwrctrl_power_on_device'
+>> Warning: drivers/pci/pwrctrl/core.c:370 function parameter 'np' not described in 'pci_pwrctrl_create_device'
+>> Warning: drivers/pci/pwrctrl/core.c:370 function parameter 'parent' not described in 'pci_pwrctrl_create_device'
+>> Warning: drivers/pci/pwrctrl/core.c:370 Excess function parameter 'device_node' description in 'pci_pwrctrl_create_device'
+>> Warning: drivers/pci/pwrctrl/core.c:439 function parameter 'np' not described in 'pci_pwrctrl_destroy_device'
+>> Warning: drivers/pci/pwrctrl/core.c:439 Excess function parameter 'device_node' description in 'pci_pwrctrl_destroy_device'
+>> Warning: drivers/pci/pwrctrl/core.c:203 function parameter 'np' not described in 'pci_pwrctrl_power_off_device'
+>> Warning: drivers/pci/pwrctrl/core.c:203 Excess function parameter 'device_node' description in 'pci_pwrctrl_power_off_device'
+>> Warning: drivers/pci/pwrctrl/core.c:272 function parameter 'np' not described in 'pci_pwrctrl_power_on_device'
+>> Warning: drivers/pci/pwrctrl/core.c:272 Excess function parameter 'device_node' description in 'pci_pwrctrl_power_on_device'
+>> Warning: drivers/pci/pwrctrl/core.c:370 function parameter 'np' not described in 'pci_pwrctrl_create_device'
+>> Warning: drivers/pci/pwrctrl/core.c:370 function parameter 'parent' not described in 'pci_pwrctrl_create_device'
+>> Warning: drivers/pci/pwrctrl/core.c:370 Excess function parameter 'device_node' description in 'pci_pwrctrl_create_device'
+>> Warning: drivers/pci/pwrctrl/core.c:439 function parameter 'np' not described in 'pci_pwrctrl_destroy_device'
+>> Warning: drivers/pci/pwrctrl/core.c:439 Excess function parameter 'device_node' description in 'pci_pwrctrl_destroy_device'
 
 --
 0-DAY CI Kernel Test Service
