@@ -1,71 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793918868;
-	b=mM42AMyteuF9T3iZPofez0P2JSn/WyrxXBtDV2DB7AHFh/T4JqEqvTwj2nMZaAasBWXx
-	 jSc4+TuGQrRoZEQgKyHXckBz9KDbkqTqp65mD73Ox/CucshZr8ykKSnlhKr5WVyZ2dkAx
-	 ucxY1Gt2J78WG1zy//9TADAHqZlPJwGDyGooKJzfFyYmYo4mOtaDU7sOza64C8WiH5dPX
-	 PET26tu0hUvBcVSh1w4OizoNeDiDXKPAvODo7sDze0VN9Z52pvYYFStKouxDOC9kcSdXO
-	 RtpzHq1YN1ID2lcbNiIyP9vfcLgEdmFR/2DJH3fWOQjNBgkWuUXDOmuZ6KJEBh/bmYA==
+	t=1793919282;
+	b=L3wjFvcB/fXE1h+CICSJfgYzPHbT0jqfheX9W6D+IadJA6GsTkGSq8zFgkXz46ROainN
+	 pHJB8HzfM8IaicoWKD9wzD17J4WRuaLmpf96n8BC2TE/v3sKb1JE2BofN4nrGFYf9jaWc
+	 V2al6MBVuUMgkXOTW+ALmg0X+t+zuYNtVswodrj5m+B9wMtywY+QOluvOSm4bo3b0J3n0
+	 35U5cjxhIMYzx0gnSh+Na+VL8l8Svk1qcK866byWBMjYSwS2cOXLRb+IPWhfsfXnpJSUs
+	 UOEJ53+qWxdq2in49X2g08KGN1wJEdTtOvdHf6SQ9fUhKXjy2QVUyPqy+PMFq2zHIFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793918868;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=FFHWlej+HfzyWeLma4rwcxzLYA1cmN6XfZOTnHYl8RM=;
-	b=tZhet5TNEvvpVgoJ+II0nGnb8aTklKNsVPgdEpX7KhEZx1ncbC6w3DjLJv/zNYiMZITp
-	 0Oppc2Rh+JZYNE/vymtZaphSGlRxmKlZ72Um0W26LPSyaGK9ddH46iGPg6W1KTW6vA8SZ
-	 5K1cEgW4MeVrwCn7olb5qMzMIp/bLvXuvLct4ooERkdz4xV45PzNM/tqkNXjvYYogR6x4
-	 unwIVkLZcvLi1jtg4EME+vxugGiuBro67JZBMmS3GB7pG8NxBRpiH3SCIW7QqnkpcvSaI
-	 s6CUj2fZb0sltVWXwXTEZVv7BnIrfl96tp+8tp0PqAmlb/OUUMnIwtjVqSCQFKyQFww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793919282;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WotC0SC+byrPPXJl6m1kLGnVJbE6lPSdMSYkFBTw4wY=;
+	b=EKfqyn1PlKTesXzZ21dlRFnW/KaEXA6e0S96Jh2Frk2xvYN7FGxWfPPa0jfpUEsK9yf2
+	 by6Dd+UNiOB+0btzXIkfNKCm3WCGXaAqij8BtgHf6weJ/idpjSJV5QZT/fPkfJrurTkQ1
+	 SdVpGxSKz74tc0dJ0tTSYWKDguoSg51zSL5ysqMQYwTOCUNRFu6h1udYWCWnwV1GjdE8c
+	 m/AIcd0cqBGpxSPiqFHtyfYaCMwaDEd+ua8rOeN1HM977807lpKrWKav8f0RQMvKfSTtV
+	 7tCt4XnW31ctRMta541r7PQDTHSaJjYyy+Cjx5Ekspb5whzpzVske+JdGUaxf/zukig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=zTAUDSAR;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="V1kH/vFD";
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFCB606A31B;
-	Thu,  5 Nov 2026 22:47:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFCB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690F5606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:54:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 690F5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=zTAUDSAR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=FFHWlej+HfzyWeLma4rwcxzLYA1cmN6XfZOTnHYl8RM=; b=zTAUDSARYr3btC4ZHgGn1mHjlT
-	cEVE6q+Nc2TD5QALl1EMaP+i+rgEDEAT0BYENTpRd+22KPA3mkjCisCnQf2Ly04d4omi+gj1mtKjA
-	EqFjY2sz6njTbEcMm+ZtiTM5PsDQgZSNytRhSmJC6l3jS2PYVu8HUPsy3RvX0M1DpZNs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xP6Ew-00EeMF-Dt; Thu, 05 Nov 2026 23:47:26 +0100
-Date: Thu, 5 Nov 2026 23:47:26 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Qingfang Deng <dqfext@gmail.com>,
-	SkyLake Huang <SkyLake.Huang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Joris Vaisvila <joey@tinyisr.com>,
-	Ahmed Naseef <naseefkm@gmail.com>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net-next v4 5/6] net: phy: mediatek: add calibration
- logic for AN7581
-Message-ID: <028a75a3-b69c-4ae8-8f15-3ef855346a0f@lunn.ch>
-References: <20261103221439.30502-1-ansuelsmth@gmail.com>
- <20261103221439.30502-6-ansuelsmth@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V1kH/vFD
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so24463a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:54:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793919281; x=1794524081; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WotC0SC+byrPPXJl6m1kLGnVJbE6lPSdMSYkFBTw4wY=;
+        b=V1kH/vFDOC2roUjkX7MIVLPpZoB5GUWnzp2Vj7V7OythfErjlfX9K7qM8bMRIRPegj
+         8nGhPJfRKJig2WqKbnTot2PxSGirimEHYpZwLtYZPG4fdwtQsmQmmKM7v4y4sgo7VCxP
+         JAhVXrioRCnh+guW2nJupVxo91gjaDRvdLDuQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793919281; x=1794524081;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WotC0SC+byrPPXJl6m1kLGnVJbE6lPSdMSYkFBTw4wY=;
+        b=AXis+ZViJuXxLdS5tNxi2dvhTpuMEjliifPTGvyj8pqzp9B4Ta5cFbHSsk3uibZzA3
+         ZO08hhIm4laIq7x8fBuxR+dDXycvsbaudK97rmALO6gjCxYDGcYpr/CZRVr4o1mUDkEj
+         d4UGV9IKQraaazrWwCKpgN6sK92TgHYo9Pz3fTZIbmc+KdAjqokbFOsNP2rNzXpVkTm0
+         xgqk/dlwXt/AeMJV0fMaRWAjL/PgtXL8IecC+zNjtFFLQGItRmYYdYzhZu/yXqXhBtfs
+         NDsR+4sPQ+zq4ZrbUuhhycif2Y0vfSJ9fGqSNVCpsfqux6EL9efyEoyLS65aR0WFbbuM
+         5ebA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6SdC9+Mps2ZyRxsjwCTfxVwYFxhvVGIJUox+ftTahSnSmzyQ7K7SEjZhzrFwakGShCjX6juJy1k3paco=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wjyzdOaOpK8qkcjK81MYx54mua3S0L/wvHenD85kT5EvvtPRT
+	ihLQ++XXGDq8wbYSuDX43/9BAxYqKzdiEj8GYRcrO9asEXzreFuRJI9LJsiIci1tfviRkti1dQD
+	KyowiwYUx
+X-Gm-Gg: AYBFou2/aJaLPU07pCuXfeVyUKf+VEf1LAY3bXstcMOVRqcZI4XSNH3ftDG8XqWCxVY
+	XAzqASQsOmubNfPr3/HcMMAUzYoYKYjTXaQ6Hh+G830KhydJwlKpCa9/SqEeXXxc5mit2KbUtTS
+	iGNz9VD8unkoSYgRegtv4yuEELbai8L1fIX5IdJ1jIzvpgb1wQaykRyNN+E6p3uaoFcR27gT2q2
+	vsuNl+byenFVilbTW2r6mHLciTG7xMfHKoD/MtnpshsnMzm9GZYnukD+E/i1jET6eyj55z2cvqh
+	db2W9nNO4pSyF4CoLHQ553ubSzo1/lT6S/XDFS/Glj+fAx6dYcsaOJt0u4ZDPNONxjUn5mGcgY7
+	fMHJBqymAJ5eDkbOAHwp1Kbpm4MoWAoQ79IQgoIsLrrjgMx+CrSO7JRqkaIkUwTu/flmEd2K5+q
+	FZuZX1vNB+6b9GMkpu+886j+7/pS/C1nJWX7qYeCAnF9BAmoXPygTA37rsUJQI8hY41ht+s28xM
+	wT1LDEo5LK1CzFXLT7ueVPESn5Uk1MyPPXRwy70D/FbGE7JPLJ3sjVhH+Q9bC6YhuN07Nl0fsE0
+	dXmTQpEcqeMT46Q4Pfa1r7/bKAdcAbpXwB4aDfqUMi+dMZtdAEUqcAoLuY6W43LqQsc=
+X-Received: by 2002:a05:6402:3805:b0:6b1:cee3:9083 with SMTP id 4fb4d7f45d1cf-6b5977dc976mr478721a12.28.1793919280784;
+        Thu, 05 Nov 2026 14:54:40 -0800 (PST)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com. [209.85.128.47])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b5864a87c1sm765919a12.2.2026.11.05.14.54.39
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 14:54:39 -0800 (PST)
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so361455e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:54:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwg9TtDK0VbReGLVVZL89D0B6bjMaUxzGALYI9iwfgHTks8NTxKuZpQCa9MJMuk+/gj/178RGCSTyzFS+4=@vger.kernel.org
+X-Received: by 2002:a05:600c:c4a4:b0:4a1:f736:79f3 with SMTP id
+ 5b1f17b1804b1-4b6de4a7678mr7775055e9.5.1793919278293; Thu, 05 Nov 2026
+ 14:54:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,108 +94,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103221439.30502-6-ansuelsmth@gmail.com>
+References: <20261104174554.1.I8556199ea4f1335169ce16e97309aa63ae2e2310@changeid>
+ <20261105052401.GA862715@ax162> <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
+ <CAF1bQ=S52KWHopqxksctbBirFEr5Mz1dKKMAoWh-dqLHii3Nig@mail.gmail.com>
+ <CAD=FV=XE+KuTDCa3cLOsHPfQ9ngFOXrokFbxr=jDm_UFwKdQDQ@mail.gmail.com> <CAKwvOdkNvYz7mSmfQzWuFd7FZEUyZkH0L2tfPSbouE0J2w=b1g@mail.gmail.com>
+In-Reply-To: <CAKwvOdkNvYz7mSmfQzWuFd7FZEUyZkH0L2tfPSbouE0J2w=b1g@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 5 Nov 2026 14:54:25 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UW26c_28wcZeHkZbwwfV6-r6YTzi4BcBmJTJXzCvygBg@mail.gmail.com>
+X-Gm-Features: AclHuK_Ffzk__3YGh5Ruw9BKABV7G_tKL1f1gc3qp3lqSWqolrpj8eHeMy1suUo
+Message-ID: <CAD=FV=UW26c_28wcZeHkZbwwfV6-r6YTzi4BcBmJTJXzCvygBg@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Enable -salvage-stale-profile
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Rong Xu <xur@google.com>, Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev, 
+	linux-kbuild@vger.kernel.org, Han Shen <shenhan@google.com>, 
+	Nicolas Schier <nsc@kernel.org>, Han Wang <nesthanwang@google.com>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
+	Bill Wendling <morbo@google.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Justin Stitt <justinstitt@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +static int airoha_cal_cycle(struct phy_device *phydev, int devad,
-> +			    u32 regnum, u16 mask, u16 cal_val)
-> +{
-> +	struct airoha_socphy_shared *shared = phy_package_get_priv(phydev);
-> +	struct phy_device *phydev_p0;
-> +	int ret;
-> +
-> +	phydev_p0 = shared->phydev_p0;
-> +
-> +	phy_modify_mmd(phydev, devad, regnum, mask, cal_val);
-> +
-> +	ret = mtk_cal_cycle_wait(phydev_p0);
+Hi,
 
+On Thu, Nov 5, 2026 at 2:40=E2=80=AFPM Nick Desaulniers <ndesaulniers@googl=
+e.com> wrote:
+>
+> On Thu, Nov 5, 2026 at 1:30=E2=80=AFPM Doug Anderson <dianders@chromium.o=
+rg> wrote:
+> >
+> > Hi,
+> >
+> > On Thu, Nov 5, 2026 at 10:23=E2=80=AFAM Rong Xu <xur@google.com> wrote:
+> > >
+> > > The issue you mentioned regarding excessive time in applyFlowInferenc=
+e
+> > > comes from Profi.
+> > >
+> > > The AutoFDO implementation used in the kernel is FS-AFDO (which uses
+> > > FS discriminators). There are known issues when using Profi with
+> > > FS-AFDO; enabling Profi actually degrades performance compared to
+> > > original profile propagation. When we tested and worked on AutoFDO fo=
+r
+> > > the kernel, we did not enable Profi.
+> > >
+> > > While I haven't looked into this specific bug yet and am unsure if it
+> > > is unique to FS-AFDO, I recommend using -fno-sample-profile-use-profi
+> > > to disable Profi for now.
+> >
+> > Interesting. I can suggest that to the team digging into it and see if
+> > it solves the problem. My AI agent says it will though. It claims that
+> > the default flipped recently and "-fno-sample-profile-use-profi" will
+>
+> I wonder who flipped the default? Perhaps they're not aware of _all_
+> of the existing users of AutoFDO, such as the Linux kernel.
 
-> +static int airoha_rext_cal_sw(struct phy_device *phydev)
-> +{
+I've been preparing a patch to add -fno-sample-profile-use-profi. As
+part of that, my commit message will include this:
 
-...
+Starting in Clang 21 (LLVM commit 2fc4a4a9d3a8 ("[Driver][SamplePGO]
+Enable -fsample-profile-use-profi (#146795)") [1]), the Clang driver
+automatically passes -mllvm -sample-profile-use-profi whenever
+-fprofile-sample-use is specified, enabling LLVM's flow-based profile
+inference algorithm (Profi) by default.
 
-> +	phydev_dbg(phydev, "Start REXT SW cal.\n");
-> +	first_calib = airoha_cal_cycle(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_ANA_CAL_RG5,
-> +				       MTK_PHY_RG_REXT_ZCAL_CTRL_MASK, zcal_ctrl);
-> +
+Link: https://github.com/llvm/llvm-project/commit/2fc4a4a9d3a87a9e11c48ef25=
+522aa17c2a71003
+[1]
 
-> +static int airoha_cal_sw(struct phy_device *phydev, enum CAL_ITEM cal_item,
-> +			 u8 start_pair, u8 end_pair)
-> +{
-> +	u8 pair_n;
-> +	int ret;
-> +
-> +	for (pair_n = start_pair; pair_n <= end_pair; pair_n++) {
-> +		switch (cal_item) {
-> +		case REXT:
-> +			ret = airoha_rext_cal_sw(phydev);
-> +			break;
-
-> +static int airoha_start_cal(struct phy_device *phydev, enum CAL_ITEM cal_item,
-> +			    enum CAL_MODE cal_mode, u8 start_pair,
-> +			    u8 end_pair, u32 *buf)
-> +{
-> +	int ret;
-> +
-> +	switch (cal_mode) {
-> +	case SW_M:
-> +		ret = airoha_cal_sw(phydev, cal_item, start_pair, end_pair);
-
-
-> +static int airoha_phy_calib(struct phy_device *phydev)
-> +{
-> +	phy_package_lock(phydev);
-> +	if (!shared->rext_sw_calib_done) {
-> +		ret = airoha_start_cal(phydev, REXT, SW_M, NO_PAIR, NO_PAIR, NULL);
-> +		if (ret) {
-> +			phy_package_unlock(phydev);
-> +			return ret;
-> +		}
-> +
-> +		shared->rext_sw_calib_done = true;
-> +	}
-> +	phy_package_unlock(phydev);
-> +
-> +	ret = airoha_start_cal(phydev, TX_R50, SW_M, PAIR_A, PAIR_D, NULL);
-
-
-> +static int an7581_phy_config_init(struct phy_device *phydev)
-> +{
-> +	struct airoha_socphy_shared *shared = phy_package_get_priv(phydev);
-> +	struct phy_device *phydev_p0;
-> +	u8 phy_offset;
-> +	int oldpage;
-> +	int ret;
-> +
-> +	phydev_p0 = shared->phydev_p0;
-> +	phy_offset = phydev->mdio.addr - phydev_p0->mdio.addr;
-> +
-> +	if (phy_package_init_once(phydev)) {
-> +		ret = an7581_phy_package_config_init_once(phydev);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret = airoha_phy_calib(phydev);
-
-> @@ -88,6 +1610,7 @@ static struct phy_driver mtk_socphy_driver[] = {
->  	{
->  		PHY_ID_MATCH_EXACT(AIROHA_GPHY_ID_AN7581),
->  		.name		= "Airoha AN7581 PHY",
-> +		.config_init	= an7581_phy_config_init,
-
-> > There are 4 phys in total, only the phy with mdio address 9 has the
-> > calibration capability. Thus only one phy at the time can perform
-> > the calibration sequence.
-
-config_init -> airoha_phy_calib -> airoha_start_cal -> airoha_cal_sw
--> airoha_cal_cycle
-
-I cannot say i looked at all the details closely, maybe i missed an ==
-9 somewhere, but to me, it looks like two config_init can run in
-parallel.
-
-	Andrew
+-Doug
