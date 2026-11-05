@@ -1,47 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889390;
-	b=KPv9yvTPOHoLkuvO8F83dVekzk9Fa9sRi1kTw90+x+BtO5xPm/oF7q0L2RsRdNxozI4h
-	 YCkB2+Oglkjeq8vxIvr+cIrAvk8tvHVXKLTW+xy+JgGXJszcSPUrOln047MWaqzjOOc1p
-	 yHCO8/fqaORler01WWXHjqIhSgwqHL7sDZ+kwGaZ8AhpP8JjKDK2V4HB+S5n1qvq9rorK
-	 VKvZWtPC2lRU63L9z8cWad/+N3TThUD5ufL4XiJxMsLrw5BgMNMFzgq6pQ7Y468y2bwT+
-	 txkvVIG2vnXFiLDR5co65gjKGachriEF41BzR9uo+ew1RMr3yFMRsMmX1HcwdXCqY6A==
+	t=1793889403;
+	b=Cs2aJM+RtVWLKS70AfHE0QWHmPmy2Q61LWkkf//Vbfmm3HzxGIk5Qtj1XwYZLHNERTs9
+	 Gkb8GUiUynytgrDeq13TuUxBvw41omTGc/9ySEQGY8P1SZM/YVuoNYdkcEeh6WQutDcjl
+	 dJB4ZTJFCK9tgInHcjGCQRIc0BmoDZQDIbzkFKcUmfQl317HoCSPw9shO/4C5tmrM0hq4
+	 blONlOCWrz6f7nKTYtjGqR7Gy2LhHajmehj3/XE1a65vPWfCbviNwPoSKLQKTyKZuQzQL
+	 MiO8exIJxN/uMTYqJ4zJqcBzhf7nCna/epMbfKAqDgGFdD2+YxzjDDiNS6HK6FARp0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889390;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=WNaqt/zIb1JcNg4K9VF2Y1BZCn/3lY00rDpw9JPXaO4=;
-	b=x66/gCMUmIPiG/qeOA4U0wPq70IHTsLZqoWCE0NVYAXRkWaiQdDqZaLyozsInG8CEKCM
-	 rDnUkuFTJ4TwxSi2IaF2LiDnIxiXkRRYNBUqIQfTm/ueeR4ov8ZCMjYxkDe8QOgbqO1qt
-	 weAtOkTmnYZVQEaT3GYIa5U6J575yAQNV8II+e0U5Sy5vudhD3+za/akE4kCa4mSVQgYc
-	 cSZ4EyrdCcFIg7Bpj7UE3ZOmhFUlvcf0mKbxuMcc9DuunVUp3l1mYTWZ6hvdkbmePQJUR
-	 WFRp1AgFSxsyBnCiEMV8h+bBve++9xaF82fep/JfeNUVCb3Nt/4KWz5VtSmh6pzD4IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889403;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GcMP2OP16WIxrYvxN2uda09n3+mrRQRVJ25RVvdRwNY=;
+	b=Qx2uyPQ9QylDAyS3t4GnQBLwjY6h/8Min/DAtyHtpffBCgqrZzOuGv08wwjFKRxtZh25
+	 +ME+9oWD+yGmVGKjJwAKfjRHBbb9r4nzOMsUSfBgwgS5AXGI33ulALvYfZrHwgQyueAsZ
+	 1Y682uDkMgVa4NSxkvT3Ui1s+loioHuEuB0Ri2PrfVrlV/g8dDvEtAsPjylC8IMMoxFzO
+	 r22PQ2Qet960LplI8hPXtjR+GhrAtdacVQLrNWc8e5btdY+yvfg2RanoioYkP+DlTgcCr
+	 ALFL0oagwf1Gbm28n+rRZamUco7z2jNliyCW26fQQXTj40FTub+hVFgI1KZD73yy9aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Uf3p/qK8";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBr7dt4T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F93F606A332
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A16D606A31B;
+	Thu,  5 Nov 2026 14:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uf3p/qK8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 552531F00A02;
-	Thu,  5 Nov 2026 14:36:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBr7dt4T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAEC01F000C1;
+	Thu,  5 Nov 2026 14:36:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793889390;
-	bh=WNaqt/zIb1JcNg4K9VF2Y1BZCn/3lY00rDpw9JPXaO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Uf3p/qK8HfA39sBKpscrP9nuzc7KDsHZ2Vx8Y9W96aHVWtCxznsy40xG0npgM9465
-	 5zwUW0irw1IHHwMfWjgQTbTMZcKc6P6628L0oLGw+0keqR0HR52xr0xgmGePiiJECZ
-	 NwHotTeojiTcb3NGGIa2fHVQZXsnCR88mG5sxv2zZLh9D2b8ZfFqUaU+ZHJb/9pXCN
-	 5NKgc/goLiGEmoilpEqvIGFiFwenpnRpLZ/LdGvzQu0msxmMz2RUAYwxhdI6TWb39x
-	 KDDm58Kbn3YpOFvGPgIeGwvGXOrmATQf3G8oifQdLXSdW1OjmULR3C+QhV+3Fm+bkY
-	 pGcQ56QvG3v2w==
-Message-ID: <7ac409a1-fe3e-4b37-8130-4d49ecb6106a@kernel.org>
-Date: Thu, 5 Nov 2026 15:36:25 +0100
+	s=k20260515; t=1793889403;
+	bh=GcMP2OP16WIxrYvxN2uda09n3+mrRQRVJ25RVvdRwNY=;
+	h=From:To:Cc:Subject:Date;
+	b=dBr7dt4Tk0yoZ6PllavTIF2wayIuGlFVF+Uf36jF9HX7Bcz3NPAkwmsGbHYSeRNGo
+	 BTM0M/yizJRE8QWgMEIa+P3DX/pSXBSafr4x66pbFW2bvRWlGudylrmfOnMnvuZz2q
+	 jHc4Dxg84ys0X4sAEo0bljvsRvMaEnlGmcvdW19fzD/zZMg3B9WoDdQt1JafpHu+nl
+	 eOUGzjwjLQZ4WzGh4b2kqNEownhCLdIt0sIoCQe4YmnFbCEm5iK2BrNjqP3HMpnKYs
+	 wRAJ8k3a+9tScyOGdoZOWBMW8VU3xDuY/KyFAqMHR60rVxzNWDyehEtn3T9xUc0YzT
+	 af6T1qRqkCHhg==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] dt-bindings: reset: Remove orphan bt1-ccu.h
+Date: Thu,  5 Nov 2026 08:35:41 -0600
+Message-ID: <20261105143542.2716484-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,125 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/10] mm, slab: introduce slab_debug=N
-Content-Language: en-US
-To: Harry Yoo <harry@kernel.org>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>,
- Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
-References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
- <20261105-slub_tiny_rework-v3-4-0484ce59eabb@kernel.org>
- <auyFYsbsMm8qGThW@thinkstation>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
- KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
- 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
- 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
- tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
- Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
- 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
- LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
- 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
- BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
- QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
- gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
- CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
- UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
- XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
- 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
- FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
- QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
- 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
- icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
- uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
- SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
- cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
- La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
- FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
- bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
- +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
- jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
- CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
- HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
- SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
- 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
- 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
- 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
- wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
- NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
- OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
- jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <auyFYsbsMm8qGThW@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 15:30, Harry Yoo wrote:
-> On Thu, Nov 05, 2026 at 09:43:53AM +0100, Vlastimil Babka (SUSE) wrote:
->> Enabling slab_debug has the side-effect of disabling all percpu caching
->> of objects (now via sheaves), which can be sometimes useful for saving
->> memory for e.g. kdump kernels. To make this possible without the
->> overhead (CPU or memory) of actual debugging options such as poisoning,
->> introduce a No-op debug option that only forces the debugging slow paths
->> and zero sheaf capacity. The new corresponding slab flag is
->> SLAB_DEBUG_NOOP.
->> 
->> This will also allow reimplementing CONFIG_SLUB_TINY as a boot-time
->> option.
->> 
->> Two details have to be considered, as suggested by Harry Yoo [1].
->> 
->> - While SLAB_DEBUG_NOOP is part of SLAB_DEBUG_FLAGS, it should not
->>   prevent cache merging as it doesn't affect object metadata, and lack
->>   of merging would go against the memory footprint reduction. Thus
->>   exclude the flag from SLAB_NEVER_MERGE.
->> 
->>   - However add the flag to SLAB_MERGE_SAME, per sashiko.
->> 
->> - SLAB_DEBUG_NOOP alone should not request disabling printk pointer
->>   hashing. Thus rework the call to hash_pointers_finalize() to not rely
->>   on the slub_debug static key state. Instead determine whether the
->>   global or per-cache slab_debug options include any flags that are not
->>   SLAB_DEBUG_NOOP. This does not change the fact that caches created
->>   with explicit debug flags (i.e. slub_kunit tests) later in boot have
->>   no effect on pointer hashing, which is determined in
->>   kmem_cache_init().
->> 
->> While documenting the new N option, remove obsolete SLAB references from
->> the F option description.
->> 
->> [1] https://lore.kernel.org/all/arUx56ee_nkxYP_f@thinkstation/
->> [2] https://sashiko.dev/#/patchset/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org?part=2
->> 
->> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
->> ---
-> 
-> With the sashiko report to this patch fixed, this looks good to me.
-> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-> 
-> One nit comment:
-> 
-> specifying SLAB_DEBUG_FLAGS depends on CONFIG_SLUB_DEBUG, and with this
-> patchset there is no way to minimize slab memory usage w/o SLUB_DEBUG.
+The Baikal-T1 platform was removed, but the reset/bt1-ccu.h include was
+missed. Remove it now.
 
-Maybe not at this point, but unless I made some mistake, later slab_tiny=1
-stops depending on SLUB_DEBUG. slab_debug=N itself does depend on it but I
-think that's acceptable
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ include/dt-bindings/reset/bt1-ccu.h | 34 -----------------------------
+ 1 file changed, 34 deletions(-)
+ delete mode 100644 include/dt-bindings/reset/bt1-ccu.h
 
-> Sounds like it's time to make SLUB_DEBUG unconditional. It's enabled on
-> all distros listed in kconfigs [1].
-
-Yes it's my plan to do that next, I did even discuss it with Christoph at LPC :)
-
-> I built kernels w/o SLUB_DEBUG and the difference in the kernel
-> binary was about 40 KiB.
-> 
-> [1] https://oracle.github.io/kconfigs/?config=UTS_RELEASE&config=SLUB_DEBUG
-> 
+diff --git a/include/dt-bindings/reset/bt1-ccu.h b/include/dt-bindings/reset/bt1-ccu.h
+deleted file mode 100644
+index c691efaa678f..000000000000
+--- a/include/dt-bindings/reset/bt1-ccu.h
++++ /dev/null
+@@ -1,34 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * Copyright (C) 2020 BAIKAL ELECTRONICS, JSC
+- *
+- * Baikal-T1 CCU reset indices
+- */
+-#ifndef __DT_BINDINGS_RESET_BT1_CCU_H
+-#define __DT_BINDINGS_RESET_BT1_CCU_H
+-
+-#define CCU_AXI_MAIN_RST		0
+-#define CCU_AXI_DDR_RST			1
+-#define CCU_AXI_SATA_RST		2
+-#define CCU_AXI_GMAC0_RST		3
+-#define CCU_AXI_GMAC1_RST		4
+-#define CCU_AXI_XGMAC_RST		5
+-#define CCU_AXI_PCIE_M_RST		6
+-#define CCU_AXI_PCIE_S_RST		7
+-#define CCU_AXI_USB_RST			8
+-#define CCU_AXI_HWA_RST			9
+-#define CCU_AXI_SRAM_RST		10
+-
+-#define CCU_SYS_SATA_REF_RST		0
+-#define CCU_SYS_APB_RST			1
+-#define CCU_SYS_DDR_FULL_RST		2
+-#define CCU_SYS_DDR_INIT_RST		3
+-#define CCU_SYS_PCIE_PCS_PHY_RST	4
+-#define CCU_SYS_PCIE_PIPE0_RST		5
+-#define CCU_SYS_PCIE_CORE_RST		6
+-#define CCU_SYS_PCIE_PWR_RST		7
+-#define CCU_SYS_PCIE_STICKY_RST		8
+-#define CCU_SYS_PCIE_NSTICKY_RST	9
+-#define CCU_SYS_PCIE_HOT_RST		10
+-
+-#endif /* __DT_BINDINGS_RESET_BT1_CCU_H */
+-- 
+2.53.0
 
