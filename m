@@ -1,57 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896254;
-	b=GLbmQYlzyv/lEpAevzXZohKvFiOXSMRC+dzATjHpxGKTVrMR4AN1xm1d7tlgMHJq0vq9
-	 KoEI47ls+y0mvQqZVIQ04ijUT2bdp0WzJYo6Vb5/kg0HuYL2X8vcbX5BuJsCzGAV7rLW3
-	 gjSCPNT/+fdnS/kGzRRFBouCzI/gcRx3C8isBFz6uE24G+ElqIuql11SJw5V7JMEdHxA5
-	 +tEbaMUYWQhWPnR4gni6tSuHYPbqYXltkMADVBVCftPt+GARNg0TO7T6wW8QUoxawZjl7
-	 ubHLXQM/b8YsUNvCRjIeTUlBHvvSm68onlrMJt5UbE5TNRADEYcj2CIpLmYIhuFwHFw==
+	t=1793896260;
+	b=d4Zqj23EI5LxGLrmue5jBgKWnhAKmA+LotiGCP6G7XCN1wpDL2h/xivz6At49N17apNK
+	 zhVv7QgjkW0Bsb2RGULpV94GmPVgK/KCu3Iawhg2bc9tHyhhCtmMyahGXlhSodUdK+V+A
+	 EiHYF2xEEFocwWduZtDxBm4dz57HvOxN7IxVbSHbsPmd2w/XLGtIPIX3+BZ6WFd14PF2G
+	 mhsCX5yPcQZaY24bcrL+bFXA6LmGltBELkfWCKPcYhGLagckxdMc3iUl4PuLLJvC9VxXj
+	 3P1TpD+N8TC7vyVZZfYqu/p4Rzi1u6ZjY3ofSx/CbnwHwViNytVlqof3mBOyL9C475w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896254;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896260;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4CVsdYIniE0on55XqKXOAgOnbpE4vVSoU2vmeXz/FtY=;
-	b=rRr6ZG926a+fq+qUU0XSwB0ZMjYNCEWvDLYRzXXL0uz2wM7okGhauCPwc+P/hxQBDlZL
-	 xZTw3doM3AY5T8+e2BkQtz2z5aQSN7WjAhGNTDTFSq2WV7EUz9LMiqQkbWTC5AkJ/uhky
-	 LSIC5FTtQvqg40IYs+w+1o9lz8C8fNBEP4qOB0am2Wvofh2KJpQJn/r+xLxpB9jIdLzE8
-	 N6tzioiBHmcQ8oPeBku8U+DrSGrGvoAnaA5F7Gji2WRy1NdgLdVxWYU0/PDz1GRrCPgUl
-	 qXOr/g8YUI9pD0JE3WM9481oZ1Euz62H5VD8II75n7ktbH+iMoL+uCl9IAtfTFmXvqg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=F4drlvlvJ5apWkmhmYqS4OSIPGtDt295cdnGHNUWQi4=;
+	b=cVT5NyVM2Kgkni17WN3bXYSv6/iO2cNO8mmv7v+kXWn24foUn9W8Mtd65T1ZNDHFkhkb
+	 6S8yDvGWYULSXSlrZUXEUtgGXmvZIR0lrc1NpPtj3myXM4szs/smcd/8lbTBNC2yIHMaG
+	 439stfAIVgtVveAWS+efKV+A0mKbo/NB+k8nufCIURzsvbQoSMQbDr2I4pNK57kcxcrqO
+	 gDru8bhjAS39dm782mpNb5LJyENkQr5V8qFc8HRj0P65AofdFU0caOHqLEeQl5MXe0Tu9
+	 h3luqkE1Fk9Zgu8CNMo9BO/ovh8rSPHAIw+2VXOspdEL0DcvU8dvoWI0Q+bUVB5JlEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jmzrbtvj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LaTsHafE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E25D606D80E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D366083614
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:31:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jmzrbtvj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0341F00A20;
-	Thu,  5 Nov 2026 16:30:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LaTsHafE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F981F00A18;
+	Thu,  5 Nov 2026 16:30:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896254;
-	bh=4CVsdYIniE0on55XqKXOAgOnbpE4vVSoU2vmeXz/FtY=;
-	h=From:To:Cc:Subject:Date;
-	b=JmzrbtvjMEAuDGFkOD5Yy6BQ2fEUWb/SCfoGXXCbfvBi2IzYKPRi16cUEezsSehgP
-	 CULxZqUU+huDyLFpzNJHy8tJRZqUN9Z2B0pPGQ7nmYUls8DMILFn645s2gL11wtuhi
-	 Wqp+iBtBXNMwtLqVslSVSOhLNbfCkn6znRzCsHSDOU/TgYdFQux0UJXh3mvuB2ONfN
-	 brLFSwiunYkzGuJqsQ13UhsoG9XU23bko1QiP5Dt4gwE3+yNgAC6dlIc/YRc7PrYth
-	 Ee/jZLYkoLNp+tZe3EhxaXn5Hmx0JXTn4v7H8WqVZPe8rUQNUyU1pUjIgV2xT9SmR1
-	 4Zakt2eJx5XRA==
+	s=k20260515; t=1793896259;
+	bh=F4drlvlvJ5apWkmhmYqS4OSIPGtDt295cdnGHNUWQi4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LaTsHafETxawLWYl0/lFitIwrG4U6u7aRXRLppEN/0i7puOE9Eth77wLwUGKRhpvz
+	 jtZ4xWkLZQKMSQb0CRgajsj/oQxQFeW5SM9AJvh/L1YLRo5Xe9+6APkwx+j1ztnuh5
+	 0TV++vDJK5vAy2aN7vdA9/Lt60i3UPvgbOjFfE92U1uh50KMT2N17A6d0ojP5UN+B5
+	 ZnU2MbO2UY0Hj79S4tYcu233VSzZbzLqb7d2dqpUmbGxzCoRNp0IiLoRyS5IRuJtuZ
+	 ym/fKpPKYBSScmaRRsOTuzvrF+ry2cL6XnxhK/TChdzDxs5ITnuUR2Iufsy+SN8b6v
+	 hzRnWrx5/GMYw==
 From: Frederic Weisbecker <frederic@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
 	Marco Crivellari <marco.crivellari@suse.com>,
-	Phil Auld <pauld@redhat.com>,
+	Nikolay Borisov <nik.borisov@suse.com>,
 	Peter Zijlstra <peterz@infradead.org>,
+	Phil Auld <pauld@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Waiman Long <longman@redhat.com>,
+	x86@kernel.org,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 00/47 v2] cpu/hotplug: Remove cpu_down() global stop_machine() except for CPUHP_TEARDOWN_CPU itself
-Date: Thu,  5 Nov 2026 17:29:58 +0100
-Message-ID: <20261105163045.38862-1-frederic@kernel.org>
+Subject: [PATCH 02/47] x86/cpu/cacheinfo: Move CPUHP_AP_CACHECTRL_STARTING to post stop machine
+Date: Thu,  5 Nov 2026 17:30:00 +0100
+Message-ID: <20261105163045.38862-3-frederic@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105163045.38862-1-frederic@kernel.org>
+References: <20261105163045.38862-1-frederic@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,128 +71,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Between CPUHP_TEARDOWN_CPU and CPUHP_AP_OFFLINE, stop_machine executes
+all the teardown callbacks while stopping all CPUs in the system. This
+doesn't mix-up well with running RT or isolated tasks.
 
-As discussed in LPC, cpu_down()'s stop_machine() is a problem for
-running real time and nohz_full workloads, for example if we want to
-provide a cpuset interface for nohz_full and isolated partitions are
-created at the same time as those critical workloads.
+In order to transition smoothly from global stop_machine to finer
+grained synchronization between teardown callbacks and the other CPUs,
+a new stop machine post function has been introduced to be executed
+after the main one with IRQs still disabled while other CPUs can exit
+stop_machine().
 
-Here is a first step to start. stop_machine() gets a new "post" callback
-that is executed after the main one such that:
+The cpu_cacheinfo_mask is only accessed by hotplug operations and
+therefore the current CPU can be cleared from it while other CPUs
+have exited hotplug stop machine.
 
-* As before the main fn executes while all the other CPUs spin.
-* While other CPUs can exit stop_machine(), the target keeps IRQs
-  disabled and execute the post_fn.
+Move this teardown callback to post stop_machine() accordingly.
 
-All the states between CPUHP_AP_ONLINE and CPUHP_AP_OFFLINE are moved
-to the post callback because they can eventually run concurrently with
-the other CPUs. I made a dedicated commit for each of them with
-individual justification analysis and tweaked a bit CPUHP_AP_TICK_DYING
-to adapt it.
-
-Please double check CPUHP_AP_CPU_PM_STARTING with which I'm not too
-confident.
-
-In the end only CPUHP_TEARDOWN_CPU (which is __cpu_disable()) remains in
-the global stop machine, this will be the next step. The plan will be to
-(all with IRQs disabled)
-
-* Clear the CPU from cpu_online_mask
-
-* Start an RCU grace period and poll on it (while doing momentary eqs in
-  the loop), this *should work* with IRQs disabled. So all CPUs observe
-  the CPU as offline.
-
-* Check if the rest of x86 __cpu_disable() can be accomodated to run
-  without making other CPUs spin.
-
-Changes since v2:
-
-* Remove the irq work kick because nohz full kick now has content in its
-  irq_work callback.
-
-* Fix a build issues
-
-* Kick the new timekeeper with the more appropriate wake_up_nohz_cpu()
-  function.
-
-git://git.kernel.org/pub/scm/linux/kernel/git/frederic/linux-dynticks.git
-	core/hotplug-v2
-
-HEAD: 12f90ee6b38dbe86a3c8b9eccd8a0b509bfc005b
-Thanks,
-	Frederic
+Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
 ---
+ kernel/cpu.c        | 21 +++++++++++++++++++--
+ kernel/sched/core.c |  1 -
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
-Frederic Weisbecker (47):
-      stop_machine: Add post function to execute while other CPUs can exit
-      x86/cpu/cacheinfo: Move CPUHP_AP_CACHECTRL_STARTING to post stop machine
-      sched: Move CPUHP_AP_SCHED_STARTING to post stop_machine()
-      rcu: Move CPUHP_AP_RCUTREE_DYING to post stop_machine()
-      cpuidle: Move CPUHP_AP_CPU_PM_STARTING post stop_machine()
-      cpu: Move CPUHP_AP_IRQ_ARMADA_XP_STARTING..CPUHP_AP_IRQ_GIC_STARTING range post stop_machine()
-      irqchip/bcm2836: Move CPUHP_AP_IRQ_BCM2836_STARTING post stop_machine()
-      cpu: Move [CPUHP_AP_IRQ_EIOINTC_STARTING..CPUHP_AP_IRQ_MIPS_GIC_STARTING] range post stop_machine()
-      irqchip/loongarch-avec: Move CPUHP_AP_IRQ_AVECINTC_STARTING post stop_machine()
-      irqchip/sifive-plic: Move CPUHP_AP_IRQ_SIFIVE_PLIC_STARTING post stop_machine()
-      irqchip/aslint-sswi: Move CPUHP_AP_IRQ_ACLINT_SSWI_STARTING post stop_machine()
-      irqchip/irq-riscv-imsic-early: Move CPUHP_AP_IRQ_RISCV_IMSIC_STARTING post stop_machine()
-      cpu: Move [CPUHP_AP_PERF_X86_AMD_UNCORE_STARTING..CPUHP_AP_IRQ_RISCV_SBI_IPI_STARTING] range post stop_machine()
-      perf/x86: Move CPUHP_AP_PERF_X86_STARTING post stop_machine()
-      perf/amd/ibs: Move CPUHP_AP_PERF_X86_AMD_IBS_STARTING post stop_machine()
-      cpu: Move CPUHP_AP_PERF_XTENSA_STARTING post stop_machine()
-      ARM: vfp: Move CPUHP_AP_ARM_VFP_STARTING post stop_machine()
-      cpu: Move [CPUHP_AP_PERF_ARM_ACPI_STARTING..CPUHP_AP_ARM64_DEBUG_MONITORS_STARTING] range post stop_machine()
-      perf/arm_pmu: Move CPUHP_AP_PERF_ARM_STARTING post stop_machine()
-      perf: RISC-V: Move CPUHP_AP_PERF_RISCV_STARTING post stop_machine()
-      ARM: l2c: Move CPUHP_AP_ARM_L2X0_STARTING post stop_machine()
-      clocksource/drivers/exynos_mct: Move CPUHP_AP_EXYNOS4_MCT_TIMER_STARTING post stop_machine()
-      clocksource/drivers/arm_arch_timer: Move CPUHP_AP_ARM_ARCH_TIMER_STARTING post stop_machine()
-      clocksource/drivers/arm_arch_timer: Move CPUHP_AP_ARM_ARCH_TIMER_EVTSTRM_STARTING post stop_machine()
-      clocksource/drivers/arm_global_timer: Move CPUHP_AP_ARM_GLOBAL_TIMER_STARTING post stop_machine()
-      clocksource/drivers/jcore: Move CPUHP_AP_JCORE_TIMER_STARTING post stop_machine()
-      ARM: smp_twd: Move CPUHP_AP_ARM_TWD_STARTING post stop_machine()
-      clocksource/drivers/qcom: Move CPUHP_AP_QCOM_TIMER_STARTING post stop_machine()
-      clocksource/drivers/timer-tegra: Move CPUHP_AP_TEGRA_TIMER_STARTING post stop_machine()
-      clocksource/drivers/armada: Move CPUHP_AP_ARMADA_TIMER_STARTING post stop_machine()
-      LoongArch: Move CPUHP_AP_LOONGARCH_ARCH_TIMER_STARTING post stop_machine()
-      clocksource/drivers/mips-gic-timer: Move CPUHP_AP_MIPS_GIC_TIMER_STARTING post stop_machine()
-      clocksource/drivers/arc_timer: Move CPUHP_AP_ARC_TIMER_STARTING post stop_machine()
-      clocksource/drivers/rtl-otto: Move CPUHP_AP_REALTEK_TIMER_STARTING post stop_machine()
-      clocksource/drivers/timer-riscv: Move CPUHP_AP_RISCV_TIMER_STARTING post stop_machine()
-      clocksource: clint: Move CPUHP_AP_CLINT_TIMER_STARTING post stop_machine()
-      clocksource/drivers/c-sky: Move CPUHP_AP_CSKY_TIMER_STARTING post stop_machine()
-      clocksource/drivers/timer-ti-dm: Move CPUHP_AP_TI_GP_TIMER_STARTING post stop_machine()
-      clocksource: hyper-v: Move CPUHP_AP_HYPERV_TIMER_STARTING post stop_machine()
-      clocksource/dummy_timer: Move CPUHP_AP_DUMMY_TIMER_STARTING post stop_machine()
-      ARM: xen: Move CPUHP_AP_ARM_XEN_STARTING post stop_machine()
-      ARM: xen: Move CPUHP_AP_ARM_XEN_RUNSTATE_STARTING and CPUHP_AP_ARM64_ISNDEP_STARTING post stop_machine()
-      smp: Move CPUHP_AP_SMPCFD_DYING post stop_machine()
-      hrtimer: Move CPUHP_AP_HRTIMERS_DYING post stop_machine()
-      tick: Move CPUHP_AP_TICK_DYING post stop_machine()
-      x86/boot/tboot: Move CPUHP_AP_X86_TBOOT_DYING post stop_machine()
-      ARM: mm: Move CPUHP_AP_ARM_CACHE_B15_RAC_DYING post stop_machine()
+diff --git a/kernel/cpu.c b/kernel/cpu.c
+index 1ae03f1e8f84..c48cdff149f6 100644
+--- a/kernel/cpu.c
++++ b/kernel/cpu.c
+@@ -1275,7 +1275,7 @@ void clear_tasks_mm_cpumask(int cpu)
+ static int take_cpu_down(void *_param)
+ {
+ 	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
+-	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_CACHECTRL_STARTING);
+ 	int err, cpu = smp_processor_id();
+ 
+ 	/* Ensure this CPU doesn't handle any more interrupts. */
+@@ -1294,9 +1294,26 @@ static int take_cpu_down(void *_param)
+ 	 */
+ 	cpuhp_invoke_callback_range_nofail(false, cpu, st, target);
+ 
++	return 0;
++}
++
++static int take_cpu_down_post(void *_param)
++{
++	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
++	int cpu = smp_processor_id();
++
++	WARN_ON(st->state != CPUHP_AP_CACHECTRL_STARTING);
++
++	/*
++	 * Invoke the former CPU_DYING callbacks. DYING must not fail!
++	 */
++	cpuhp_invoke_callback_range_nofail(false, cpu, st, target);
++
+ 	/* Park the stopper thread */
+ 	stop_machine_park(cpu);
+ 	return 0;
++
+ }
+ 
+ static int takedown_cpu(unsigned int cpu)
+@@ -1313,7 +1330,7 @@ static int takedown_cpu(unsigned int cpu)
+ 	 */
+ 	irq_lock_sparse();
+ 
+-	err = stop_machine_cpuslocked(take_cpu_down, NULL, NULL,
++	err = stop_machine_cpuslocked(take_cpu_down, take_cpu_down_post, NULL,
+ 				      cpumask_of(cpu));
+ 	if (err) {
+ 		/* CPU refused to die */
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 04b62c16fa8c..eb6bbc610a06 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6003,7 +6003,6 @@ static void sched_tick_stop(int cpu)
+ 	WARN_ON_ONCE(!tick_work_cpu);
+ 
+ 	twork = per_cpu_ptr(tick_work_cpu, cpu);
+-	/* There cannot be competing actions, but don't rely on stop-machine. */
+ 	os = atomic_xchg(&twork->state, TICK_SCHED_REMOTE_OFFLINING);
+ 	WARN_ON_ONCE(os != TICK_SCHED_REMOTE_RUNNING);
+ 	/* Don't cancel, as this would mess up the state machine. */
+-- 
+2.53.0
 
- arch/arm/kernel/patch.c                  |  2 +-
- arch/arm/probes/kprobes/core.c           |  2 +-
- arch/arm64/kernel/patching.c             |  4 ++--
- arch/csky/kernel/probes/kprobes.c        |  3 ++-
- arch/loongarch/kernel/inst.c             |  3 ++-
- arch/parisc/kernel/patch.c               |  4 ++--
- arch/powerpc/mm/book3s64/hash_pgtable.c  |  4 ++--
- arch/powerpc/platforms/powernv/subcore.c |  2 +-
- arch/powerpc/platforms/pseries/lpar.c    |  2 +-
- arch/riscv/kernel/patch.c                |  3 ++-
- arch/s390/kernel/kprobes.c               |  4 ++--
- arch/s390/kernel/time.c                  |  3 ++-
- arch/x86/kernel/cpu/microcode/core.c     |  3 ++-
- arch/x86/kernel/cpu/mtrr/mtrr.c          |  3 ++-
- arch/x86/virt/vmx/tdx/seamldr.c          |  2 +-
- arch/xtensa/kernel/jump_label.c          |  4 ++--
- include/linux/stop_machine.h             | 12 ++++++++----
- kernel/cpu.c                             | 21 +++++++++++++++++++--
- kernel/sched/core.c                      |  1 -
- kernel/stop_machine.c                    | 14 +++++++++++---
- kernel/time/tick-common.c                | 15 +++++++++------
- 21 files changed, 74 insertions(+), 37 deletions(-)
