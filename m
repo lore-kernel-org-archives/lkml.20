@@ -1,55 +1,140 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793858574;
-	b=Awx8QufYUYtBQNJkaPDXo7pM/ZloZwvMarXIxFS9wfIkRBa8N49iR7gglhtdx7bso5U7
-	 Q3XBUJys9viOv8Gea+Nn2cIEAbJJACy0hD6wLuW+HAoouUx0BxDZs7CxBUo87vukqNJJF
-	 GJMv5JQlTqcj6bkG88iJ00thkCyKaCTOgJJrzhevR6Mvt+dfvZTBdOssP5oOuc0TAZh8j
-	 AptZQ1hJUZroujb9Oxsp+wvbcV2QZOvHWNCKZuLPXgFshd0TrcFqFR3lf97o+SFINlAuo
-	 FMMiLtCjXjRTgKBclnt/lmQgMxJ/hsIfHDJXajamJPHlnWyNl+RzFMvuOQt5UOErgBw==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793858684;
+	b=K0wredIq4Z+eXaBwhfNJJFFtRPwuWjOjF4wIc9+ALa0NQD7JHS47Y9uw0lpqTM2h8jNG
+	 JzR/IpE2Om4ohTsP8CleSCft+Z3zMqQRXr+JbCfRvy+ULTDGgsSI2pm9LPA2M54GK52Z4
+	 5ifw75UHPhpjT3bce9YcQhV+n/KtsnjVz/i9tZcr6zDJm7dBNUZJ1qH39IoGObAo34LLZ
+	 9T3gG9ASkIID53JM6tZsJZ0WKiCVGMx+IU54DLnLCJQEpuCUIZOiH3aloL6VnHn5vYXIa
+	 vssQ9ovAlyTC0WEJ0o3lPxSTHXhwBWB0lzpdJ5O7o36qTKYz4HfbuhADfi5dat0NgZQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858574;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
-	 X-ZohoMailClient;
-	bh=Je+pxxclclWOzMYv/ZDExoy2DE7Cbpmv5nO2YtyInVE=;
-	b=1RUDc2YoweenHyZiMPCFI3y1zdPGix58OxgDDccujxx7mDwZcDb1MJ/XFfu8EVYW3Meu
-	 /vl9rOfRf7kNktZynP3F+emYnD41yaJjrYpudiLeb4QKW527Ogierq3OA6ZDUxIdqIIPa
-	 skEWVOkzoBdMqeo/pM9om0XosHM6gE10MqSdn0FlW6OcfLl8GAfNt0hf3DJk6bOUOO3nN
-	 s7EprNo874nbZCEf7QQFP4ijzOMkHyDlw6Fj13hCTTJMNN+t2MbCNHhkpfOlHEaTgbo5D
-	 Mfcr8F2EN0TzUcczW/LGJvwLBb7CUYCjB4WwYs9U2LDjHQaibsziAPrFquc9sHkKH0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858684;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=is1tbQQ7c7hkK9s2rj1CIXvpaYKGLPpYElqPYsurweU=;
+	b=muePJpXb0YY+IpOdVMtlL75VnK2yurudMMoNHrZhwtiHf66RDo2gqVhgg3DMYJ+NIsAT
+	 zUhMGwpgS/KupZGCDVET04YxndxlFYqQ7bCMp2q6aHZnwo1Qur3ecb8ZFpIksASqOU685
+	 KW67q3uhwOVK7L9BtwTDt25mvG/anE87aZRrFUHv3d+tejLxz1nkKhTlPFUoN5reNwWKQ
+	 pNUq2bDtndc7ZutSgg293p3Gb0db1+RughhEE/hpogTPobCJstwPCzdtx6iwbAWx7R1DP
+	 a+f4RPC9QkT2RxMb69zvWCtCMxR2sAFgGGft4UCARj0urSwZKoA1UjmhO+9nJrUlYtg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.com;
-	spf=pass smtp.mailfrom=zohomail.com;
-	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=HE6Qx8Sl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gODpJwpn;
+	arc=fail smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D3F606A31B;
-	Thu,  5 Nov 2026 06:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19D3F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD20A606A31B;
+	Thu,  5 Nov 2026 06:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD20A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=HE6Qx8Sl
-ARC-Seal: i=1; a=rsa-sha256; t=1793858564; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UUbtslUHyo7v+DmWQ0tAhKbZqTP2FV8d9FUucA/ZxPU6IJw0njakJItVKNA7zgNQ2iSwpjzw8n0IWUHFi483MFXlOjau1Md6xppRvZSfnnO0WS7Yv3spWU50DLdeawr/5W67qNMjEvHKGP5qUmTfH8UgOo7Umf5Rgh62jyeXWro=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793858564; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Je+pxxclclWOzMYv/ZDExoy2DE7Cbpmv5nO2YtyInVE=; 
-	b=A4T10RbgY25DZ1giPQssorpjxJaHiNEIVMlNVphMG6OV8MY4Esk9uQ1FWJcVp0XYj+cDaOEjh43y0HaVjlWayCQ22r+njl/0XCcHngBzVMesGYij2G2EdpSPboazWlJ30NUgyOH8eknast57iFWMr+UqtdvGnR5Yv6DgAnaxs64=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: a=rsa-sha256; b=HE6Qx8SlPEgjMHx4iVCgzSkyTI8+snmdIp7AqMjBprtohlRzGxr9gtZssPhXcRR/NV27qIaLWHHnrM4i8CHfRzKcIT3kD8B1rFIFvSD1lAfz6ED3DjLp1vg/7f/Iln+WdF6yteAxFZ784ai3GrI9abySImlX3AbakwTzWfzR0QY=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=Je+pxxclclWOzMYv/ZDExoy2DE7Cbpmv5nO2YtyInVE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793858563308258.37950983087626;
-	Wed, 4 Nov 2026 22:02:43 -0800 (PST)
-Message-ID: <8a49b7c8-3be3-4c46-a5ee-6cdaefecea14@zohomail.com>
-Date: Thu, 5 Nov 2026 14:02:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gODpJwpn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793858680; x=1825394680;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=ra/HP0wh0djEYFBwf1MNdX/BtLLS2nHK0s9k+GgesGs=;
+  b=gODpJwpnvFfgRsnCQ8TB5t4N6hJDzl7kjZyOu2jih86MBftMyMVKZKZI
+   0asfQWR0S7uqp9WiyPMRe8OPKd5cu1gxxW49ULjtPvGI81AstDLECsCoT
+   X+exhXjGiyLupWq3RVJQwIGdUH/mWFYORPDp3GngUGwEZdlM4x1QtIQa2
+   my1szjuoZbGOcXrXs67v1g9H8FyA1bXRD9DXrHCXLlk4EGVAY5jz14khN
+   UnlTNOfNk/jNb9qeVMXrZyicfUE9Yu6c0+mtQd0E7nF/vOKKMsKwIx6GI
+   JOBtDz0D0yM+Og0XcvysrPfSp8XlfLzHKhzduXfu2XTwY8c6sYP5JxZpn
+   A==;
+X-CSE-ConnectionGUID: JIf8wnlxSxiCNSlamTF/Cw==
+X-CSE-MsgGUID: fns6d/8ZRuarqAK1xUd3KA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2533439"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2533439"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:04:39 -0800
+X-CSE-ConnectionGUID: 8r26UNpJSgaqdkV1y+/Kig==
+X-CSE-MsgGUID: YIFAYCX/SaKtEhYNfdx00Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6943037"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:04:37 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 22:04:37 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 22:04:37 -0800
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.21) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 22:04:36 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UGWuxD00uQawazrt4yr2H0aq+lk6gr1R4oerMgJErQ7uPpT4bKJ3yXPkTdt/gUSesc3qHoB42kmihAek/15wd+mfx/dWS0r7LZdpb8E6HJcHluviUJuG1i3yPOFfmAIzQqy+4GaEeCQEqKagUcu3cK8fCYkWF5Fzb8KGppDIMxeDnO671nfkqP5lk+DORjKbzf09JRuwgQ0VRoud5djZ5pBYnQ4wJjjhhCJe2bSuxti43mT2Aufjb2MpGcO6t4TqS0r2pnOxdsly2vW3NYNwvB1PfDJz7beNtqnhIZhQE29JQwkhGUBQvZrmv6et62J7GpgHIh5YBFEa8Sbma2M5Wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=is1tbQQ7c7hkK9s2rj1CIXvpaYKGLPpYElqPYsurweU=;
+ b=IDnnh5GeJI57kjf+Qk4b+Gmnk81FAc+Rr/jlCBF5tuU6HoJ5J2ADp+vFvvDGuw6kkhKd5bxp/wcxXEX18IF2hob87BNJSQ4FUBRR2YzlIGC8gOvS27CTadt6GzrcRXhjUBFdfEnxSa9kb4EVmfrNsfQdep+TT4QU/5PrMycggZtfQZ9hwir+xZu/jiy9D4X/kypLkm1V3RLA4YZoUtFMb1Ac1yg2NtEDeorHgM9AA5kJL/nlqBaZhvKKz/wDANauu8aiN3qejOUtQBg37+I15fqAdpCRUau9OGFvR/q5tG5rbVGAfuJIYD4fKpUNoOCxNm5kd5ipzhME6zHY9x9MyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by DSWPR11MB9558.namprd11.prod.outlook.com (2603:10b6:8:36c::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 06:04:29 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:04:29 +0000
+Message-ID: <c6080d32-49d0-413b-8c37-74709dadd6f6@intel.com>
+Date: Thu, 5 Nov 2026 08:04:24 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] Genesys GL9750 (17a0:9750) does not respond after its PCIe
+ slot is powered back on from D3cold, on s2idle resume and at runtime (ASUS
+ Vivobook 14 Flip TP3407SA, kernel 7.3.1)
+To: Ben Chuang <ben.chuang@genesyslogic.com.tw>
+CC: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"bhelgaas@google.com" <bhelgaas@google.com>, "rafael@kernel.org"
+	<rafael@kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Kyle Baedke
+	<kylebaedke@protonmail.com>, =?UTF-8?B?VmljdG9yU2hpaFvmlr3li53mlodd?=
+	<victor.shih@genesyslogic.com.tw>
+References: <x4G_0cgWnHWJtmgP4iX3hFfwwbWDyVuO9Ps8Pv_Rnq4VguufBRLzZex1IxGuTtaYfU7tS7U8RbKjB2I54HxfEmPk3gzKWvYDAyuZXrtWbDU=@protonmail.com>
+ <vqOfI4cXijz1Ft480-_mX3XkrTT_-oQ78Xy6CPrXD_r5R06i7H03y3szJFA7JAVs9YsW93_hUQ0hz5bTYItb7RUml3cGwxPmW9gPFIcNY-8=@protonmail.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <vqOfI4cXijz1Ft480-_mX3XkrTT_-oQ78Xy6CPrXD_r5R06i7H03y3szJFA7JAVs9YsW93_hUQ0hz5bTYItb7RUml3cGwxPmW9gPFIcNY-8=@protonmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DU2PR04CA0061.eurprd04.prod.outlook.com
+ (2603:10a6:10:232::6) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,98 +144,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] cxl/mbox: Use mapped errno to determine command
- status
-To: Alison Schofield <alison.schofield@intel.com>, dave@stgolabs.net
-Cc: jic23@kernel.org, dave.jiang@intel.com, vishal.l.verma@intel.com,
- djbw@kernel.org, iweiny@kernel.org, icheng@nvidia.com,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261103024305.2333508-1-ming.li@zohomail.com>
- <20261103024305.2333508-2-ming.li@zohomail.com>
- <auwI9iLC0NCRvp9R@aschofie-mobl2.lan>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <auwI9iLC0NCRvp9R@aschofie-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu080112271c1c7e0f77a06ee78d49f1320000b090f3fa3a2fc1b7162068d450fccb2ea7dd09f2f0c46cb9f0:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|DSWPR11MB9558:EE_
+X-MS-Office365-Filtering-Correlation-Id: acb14df5-c328-4ad3-2797-08df3b02a70c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|56012099006|11063799006|4143699003|261026121527099003|261022105027099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|261022075727099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: BR+jCh3n5lRWwToM01Wgh5c7xBbbxd0SiyXBGIeoHMkVF3W3mRWDRuk8lneBuBJKt4PRBROW0lQtkGSfum6rxHlH2DuScMubq9/n99UW08g49g7MH7tPQDibfi3VvCfvlqrDNMVTQUlUMtliQEuTzwelTkffonMFvMg1L0yG57hnD8XVE8TGeAs23djsqQpWfHEZmIhK0yHwxRnDms5QnuYh59W8F9jpZYijkcb4QVA5PxyZ5MnXbcN6sRoEHcmgLsKA/TBVRrRlBq5ZMEqJnnWijnmopuC80hwls1d1FHzzqPbC3Lkk3lqydx7zQIz7v89d1RXimZtlFSqYD1RBU0n8iKquEUddNnCMnB2e6G4+islJhOC/qOj13q9amZSCasOVr681b1G/K6SE+9QmBQdtu5/1irveNNzMdLan+Dcw9nr09Ae/QApPs890EEZ4pixwKvvZ8R0yfwyCHAPNCsvuUyrX/nSKkwU3p8yUCySQKDD+ozjT1eMTng/8+qg5S18Kr76aEG2MrYxaaqsWZXfsYXqXONlP0TPeBtas9movVZHf7JgXEJ67V7dpsuEQ/twxnNAgSUB18/XrSTu3FSlPUmP+EQi53KsWHiVxmKSHQ6pjRoRlgL77+rXfp+lu8mMDfDbSTcFkT0IDUJGL9ILKVEmQGA/ltUHaXiN0DDI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(4143699003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(261022075727099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjFvKzhxZy9IV1RteG8zc2lCY2NRaGsyOUI3TkYxdGUxUjZnSnRndStUZGk4?=
+ =?utf-8?B?SDE1RW0zRVNqZlJJVlBSVktSRmY0SE0vaXQ2SVdlOGdMMVJvNzF3VEpJR1V3?=
+ =?utf-8?B?b0JsSklwTTBKbGJZN0VpVExZbHFleTkyMGQzWFZvOFFIVTZQeC80bkFTWFU0?=
+ =?utf-8?B?bXpVOFNSZ2JRdWZkTUtXaWxIRVpiSkdPSWZ4ZUVnUTVHYm1uTEJEWXNYRHAx?=
+ =?utf-8?B?bXVLbU1Obkp5b3dJRHZCdk9ReW13SkhNZjhoeEhjY0NIb3k3WWpaR2UwM3h3?=
+ =?utf-8?B?cVhLU3lxbTYybm5EMzdQM2cwQWZLSzFZYnJaSFFFUUVyY2Ric09CZGJIcUpy?=
+ =?utf-8?B?SDZoSTBIS04yWHdrUCt1L01CSC9RWUFJd28vODd3V3RIVnk5K1NkdE1pdXRp?=
+ =?utf-8?B?UU90Rk4zRUlkMkFpL3IxU2ZPMzJJOER3aWlTdWJ6RnlQOGpRaVJ4RXpQOU1X?=
+ =?utf-8?B?STFIcXhmUDZGWVVqUXJzT21nMHVjeVR6OWIwcTVteGY1WU1hb01vRmJWMjBS?=
+ =?utf-8?B?ZWpaMXhPbGoxT2VBWDU0clgxT1piSFd5b2UrOHkzRXBUMlFqd2lrSVJ6cjln?=
+ =?utf-8?B?OHZkalhLck9LTGFUaGN0Mmh4eE4xSHNPQTZIdS92dzV2S1Zad3F0aWtDY0d1?=
+ =?utf-8?B?TU1CKytMMndYbE0yUEp2em1WU0ZXN1VnQW5TYVNoMGdhNVQvRWg0bzlySGFp?=
+ =?utf-8?B?VEdkdUdzOFNjOU55dEc5MWdueDBtNUM0WkgvU3ZmaVkyM0dab0gySXRrT0Rt?=
+ =?utf-8?B?N1ZjYndrNjJ6TG1xUS9rVnlWRUMzejBlWTRGUVRmTUUwUGZaUWdxNDZqRzRk?=
+ =?utf-8?B?cEVhc2hyM3FESjhvbzRsNkw5WVZsRUtPd0dpMlZCeE0weTB4aGlVTzdJRGUw?=
+ =?utf-8?B?b2s2TWMxMnhXWFJNVkxnZU52ek1CaVprWWFPT3NaVXc1eWxRTUpjV2J1TE4r?=
+ =?utf-8?B?MzlMakY5dnBUSlRQTHlCenpzcVY5ejJYTWhVTzhTMVEzUU9OWDh5OGRsQk9Q?=
+ =?utf-8?B?RFpRWCtXak9wM1BDYW5ycm54SkNRbmh1MlllTmNXZUZtcjZJZXh3N3A4R1Nv?=
+ =?utf-8?B?NG8wWDBndkN3VzNnV2JwbVpjcHFDOThBMjF3Q3pKbHBpV2cwSHRjZytDWWdz?=
+ =?utf-8?B?aUF2QXRzcGp2Y1dSak5VSHpZWnJXSEpERXVEdkRNMmpDTkNUbEZVR29GMkN1?=
+ =?utf-8?B?S1lIVnp0Skw4d2c5WGlwRUw1bTVpRjExa3FuU1lFclR0Tmo4SndQZHpwSzE0?=
+ =?utf-8?B?RTljNDloQWd2S3N3WkpRYjJxeWlOK0xSS3hUbG9KQmJSL1JvZEVKYVI2angy?=
+ =?utf-8?B?SWxZYm1UZUl1dmlCZysvN2ZrcVRNOVFaVHdVU0pXS3hzUkhIOUJBU0krNi9y?=
+ =?utf-8?B?SlBlWHVRVEZNM0tLM285MzI3NVhkRTlMZ2toRlRicCtBd1BZYW9oS0cvNjRY?=
+ =?utf-8?B?djBmdGJBR3h3MTdycTk5bmtCSDVteC9SN3YvL3ViSlpXUEt3N0xiK3duekZH?=
+ =?utf-8?B?RUdTNEY3WFU1c0FMUUdCVGdHQ1NQdHJILzI0c3VTQ1lIS09JeVlmaVZURERv?=
+ =?utf-8?B?ODlQazU3V05iS3o2dEprZ29wTzlKTU9YM2VWenYrUjVKZk9pOEd4dkY1bit0?=
+ =?utf-8?B?ZncrVGk1cUViTlI5dTZCNjRJdFVjQzR3bkNWck5IVnE2ZERhdW5UTzhFMHAv?=
+ =?utf-8?B?WkVSempwQUQ1THJoNWtPMGhJTW5peTNROHVSMHJNanZUcEhZaGNsdkFqRHcy?=
+ =?utf-8?B?d1BJMlorL1htSVUrZjRsSWI5MDZ0YWl1QzlodW5wYjdmSkdxYS95S1lCQnlT?=
+ =?utf-8?B?Uks3Q29SSjFOQm5DSGNnQXJqV25OMmVyZUtSVnZNWUUwUDg5MUFnUjBnMHZR?=
+ =?utf-8?B?Uk1CZkpLMS8xbGdwK0JjY0xHMEtOeGVnRDdJZFdYMGg3RHlvNCtWakkvSmZC?=
+ =?utf-8?B?Yk0xNWo2VURUeDNGcUpGd2FZcG1aOWxCTGpERTdKTVc3R3RTK1lKWWdnMkEz?=
+ =?utf-8?B?NlhhZlRHWmU1N2ZLK3RCNzNSaVRlYys3aHZmTWZpdWFjSkF4WnRyN3VkNnpJ?=
+ =?utf-8?B?UWxRSTJuNS9rSXFUTStLYW9GSFZIb2QycytCdnJHdHQ4T1NiVVZTcXNlenJx?=
+ =?utf-8?B?ZDNYZUNXRVpTb0J4YlJpdHpDWXROMWJZWlZ5TEZ0OE80d3pDL2tSVVd5V1lj?=
+ =?utf-8?B?RmlpOVFIQUxBTG9aOUN3MmNUQUp1TkpMRzJDTFI5UEZxV0RVMlZoUTVqWW1Z?=
+ =?utf-8?B?SDJ4alhrRW00c203WnFMMExLQ3FJRngxL1FOSTl2VEd5Q3E1NVNSREw3T3Aw?=
+ =?utf-8?B?RWVqd3AxT0MyV0pRN3NDVFUwRkpzRGtZYlNOdkVDRXdCbmxrY0lmNE5qWXVN?=
+ =?utf-8?Q?taty2+Et4mpaVeeY=3D?=
+X-Exchange-RoutingPolicyChecked: lysHfC4lhpxmWfKY1VjVJ6FaFsiVVbEEa3Kda2UGL4mJCiol4wh6TBovCIZ4fyj5CWWR/DLunG3TZk2r8Un9sLdBsksq6oxTK5axPOPHp94Hfi7N3FNKHkxxWvOXKKp1eVh1pZ+XAugi9aIAhKdMGyx7lvc0D3Oc1mkLZfZ+2n9vscivZzxlMQ8WwfzLNzbicsFY9RWh11FMb+g92fdxH9UMM+KEP2kuf3/SBJfOKWMwgxbaxVTk4SdLhpUQsiWaGKYHu+BQwdPK1vty/SYUTomMUOBX+Jg9sRAGhEqws9p3m5aZ1wElqJ8ZGpoYv5eE3NtLrTOUNCBIOsP5k90TKQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: acb14df5-c328-4ad3-2797-08df3b02a70c
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:04:29.1015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ESORVAlHXlsd908iw3Wn189BYPJg1+sqjt9Kz7fKxsYs7HAXCXALRbi+S7RnedZ1GLRiiyS1PMPx2Z6O7oXwuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9558
+X-OriginatorOrg: intel.com
 
++ Ben Chuang
 
-在 2026/11/5 12:41, Alison Schofield 写道:
-> On Tue, Nov 03, 2026 at 10:43:05AM +0800, Li Ming wrote:
->> cxl_mbox_cmd_rctable already maps all mailbox command return codes to
->> errno values. Use the returned errno directly instead of checking
->> mailbox return codes separately to determine whether a command succeeded
->> or failed.
+On 05/11/2026 05:32, Kyle Baedke wrote:
+> 
+> 
+> On Wednesday, November 4th, 2026 at 2:52 PM, Kyle Baedke <kylebaedke@protonmail.com> wrote:
+> First copy was in html mode this should be in plaintext
+>> The GL9750 SD host controller in my laptop is dead after its PCIe slot has
+>> been powered off and back on through the root port's ACPI power resource.
+>> This happens on resume from s2idle, and I can also reproduce it at runtime
+>> with no sleep involved. In both cases the link below the root port never
+>> comes up, so the device reads as all-ones. The sdhci errors are a
+>> consequence of that. I'm writing to the sdhci maintainers because the
+>> device is driven by sdhci-pci-gli, but the failure occurs before the
+>> driver can talk to the device.
 >>
->> Signed-off-by: Li Ming <ming.li@zohomail.com>
->> ---
->> v2:
->> - New patch.
->> ---
->>   drivers/cxl/core/mbox.c | 6 +++---
->>   1 file changed, 3 insertions(+), 3 deletions(-)
+>> == System ==
 >>
->> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
->> index 55828a836c01..bd91b03c4d21 100644
->> --- a/drivers/cxl/core/mbox.c
->> +++ b/drivers/cxl/core/mbox.c
->> @@ -270,9 +270,9 @@ int cxl_internal_send_cmd(struct cxl_mailbox *cxl_mbox,
->>   	if (rc)
->>   		return rc;
->>   
->> -	if (mbox_cmd->return_code != CXL_MBOX_CMD_RC_SUCCESS &&
->> -	    mbox_cmd->return_code != CXL_MBOX_CMD_RC_BACKGROUND)
->> -		return cxl_mbox_cmd_rc2errno(mbox_cmd);
->> +	rc = cxl_mbox_cmd_rc2errno(mbox_cmd);
->> +	if (rc)
->> +		return rc;
-> Hi Ming,
->
-> The existing code really seemed to want BACKGROUND as a special case, so
-> I searched the history on this one,  Davidlohr and you discussed this in
-> 2023 around sanitize[1] .
->
-> I do think it is confusing and if we can just follow the table codes,
-> that would be easier.
-
-Hi Alison,
-
-Thanks for your review.
-
-I checked the link you shared, it is about the return code of a 
-BACKGROUND cmd handling inside __cxl_pci_mbox_send_cmd(), because 
-__cxl_pci_mbox_send_cmd() needs to handle both non-BACKGROUND and 
-BACKGROUND cmds and returns the result. but in cxl_internal_send_cmd(), 
-I think we can consider the cmd done whether it is a BACKGROUND command 
-or not.
-
->
-> I'll let Davidlohr dig in on this one.
-Thanks.
->
-> I read both these patches as cleanups but no bug to be fixed.
-
-Sure, will drop the fixes tag.
-
-
-Ming
-
->
->
-> [1] https://lore.kernel.org/linux-cxl/mw5bsc5u72fdrgo7qovj6u2npg2asftzp3jeprwtmnvbvg7vet@fayzcxpurjl6/
->
-> -- Alison
->
->
->
->
->
->>   
->>   	if (!out_size)
->>   		return 0;
->> -- 
->> 2.43.0
+>>   Laptop:    ASUS Vivobook 14 Flip TP3407SA
+>>   BIOS:      TP3407SA.308, 03/05/2026 (the latest available)
+>>   Kernel:    7.3.1 (NixOS 26.11), x86_64
+>>   Device:    0000:2c:00.0  Genesys Logic GL9750 [17a0:9750] rev 1,
+>>              subsystem 1043:202f
+>>   Upstream:  root port 0000:00:1c.4 (ACPI \_SB.PC00.RP05), link 2.5GT/s x1
+>>   Cmdline:   intel_iommu=on iommu=pt pcie_aspm.policy=powersave
+>>              (the relevant parameters)
+>>   Sleep:     /sys/power/mem_sleep = [s2idle] deep. Selecting "deep" (S3)
+>>              hangs the machine and needs power to be cut to recover, so
+>>              s2idle is the only usable sleep mode.
 >>
+>> The root port's ACPI node has power resources (power_resources_D0 and
+>> power_resources_D3hot in sysfs). The endpoint's ACPI node has none.
+>>
+>> Other firmware/kernel messages seen at boot:
+>>
+>>   ACPI: \_SB_.PEPD: Duplicate LPS0 _DSM functions (mask: 0x1)
+>>   pci 0000:00:1c.4: mask Replay Timer Timeout Correctable Errors due to
+>>       0000:2c:00.0 hardware defect
+>>
+>> == Symptom ==
+>>
+>> After the slot is powered back on, config space reads of the device return
+>> ffff, the port's Link Status stays 0x1011 (Data Link Layer Link Active = 0,
+>> not training), and sdhci reports:
+>>
+>>   mmc0: sdhci: Version: 0x0000ffff   (register dump is all 0xff)
+>>   mmc0: enable PCI MSI failed, error=-22
+>>   mmc0: Reset 0x1 never completed.
+>>   mmc0: 3.3V regulator output did not become stable
+>>   mmc0: Controller never released inhibit bit(s).
+>>
+>> On a healthy boot the port's Link Status is 0x3011.
+>>
+>> == Resume trace ==
+>>
+>> Captured with rtcwake -m mem -s 15 (s2idle), pm_debug_messages=1 and
+>> dynamic debug enabled for drivers/pci/*, drivers/acpi/power.c and
+>> drivers/acpi/device_pm.c:
+>>
+>>   [  145.370215] sdhci-pci 0000:2c:00.0: PCI PM: Suspend power state: D3hot
+>>   [  145.406917] ACPI: \_SB_.PC00.RP05.PXP_: ACPI: PM: Power resource turned off
+>>   [  145.406948] pcieport 0000:00:1c.4: PCI PM: Suspend power state: D3cold
+>>   ...
+>>   [  159.865842] ACPI: \_SB_.PC00.RP05: PM: Power state change: D3cold -> D0
+>>   [  160.263869] ACPI: \_SB_.PC00.RP05.PXP_: ACPI: PM: Power resource turned on
+>>   [  160.264234] ACPI: \_SB_.PC00.RP05: PM: Power state changed to D0
+>>   [  160.264241] pcieport 0000:00:1c.4: power state changed by ACPI to D0
+>>   [  160.276459] pcieport 0000:00:1c.4: ready 0ms after power up D3hot->D0uninitialized
+>>   [  160.276866] pcieport 0000:00:1c.4: waiting 100 ms for downstream link, after activation
+>>   [  161.297053] pcieport 0000:00:1c.4: Data Link Layer Link Active not set in 100 msec
+>>   [  161.303943] sdhci-pci 0000:2c:00.0: restore config 0x3c: 0xffffffff -> 0x000001ff
+>>   [  161.321478] mmc0: enable PCI MSI failed, error=-22
+>>   [  161.421611] mmc0: Reset 0x1 never completed.
+>>   [  161.741170] mmc0: 3.3V regulator output did not become stable
+>>
+>> The slot was off for about 15 s (145.407 to 160.264), so this is not a
+>> short-off-time problem.
+>>
+>> == Reproduction without suspend ==
+>>
+>> From a healthy boot (device alive, no SD card inserted):
+>>
+>>   echo 1    > /sys/bus/pci/devices/0000:2c:00.0/remove
+>>   echo 1    > /sys/bus/pci/devices/0000:00:1c.4/d3cold_allowed
+>>   echo auto > /sys/bus/pci/devices/0000:00:1c.4/power/control
+>>   # the root port's power_state reached D3cold after about 2 s
+>>   sleep 1
+>>   echo on   > /sys/bus/pci/devices/0000:00:1c.4/power/control
+>>   # port is D0 again, but its Link Status is 0x1011 (DLActive = 0)
+>>   echo 1    > /sys/bus/pci/rescan     # repeated once per second for 15 s
+>>
+>> The device never reappears, and Link Status stays 0x1011 for the whole
+>> 15 s. This uses only a 1 s off time.
+>>
+>> == What I tried ==
+>>
+>> Suspend variants, each run with rtcwake -m mem -s 15 (s2idle), no SD card
+>> inserted. All of these failed on the first cycle:
+>>
+>>   - no changes
+>>   - endpoint power/control=on
+>>   - root port power/control=on
+>>   - endpoint link/l1_2_aspm and link/l1_2_pcipm set to 0
+>>   - endpoint link/l1_aspm, l1_1_aspm, l1_2_aspm, l1_1_pcipm, l1_2_pcipm
+>>     all set to 0
+>>   - endpoint removed before suspend, rescanned after resume
+>>
+>> This one passed 10/10 cycles (device alive 2 s and 8 s after resume, port
+>> Link Status 0x3011 each time):
+>>
+>>   - d3cold_allowed=0 on both the endpoint and the root port, set just
+>>     before suspend and restored to 1 right after resume
+>>
+>> Recovery attempted after a failed resume, with the root port held in D0
+>> (power/control=on) and the rescan polled for 15 s per stage. None brought
+>> the device back, and Link Status stayed 0x1011 throughout:
+>>
+>>   - remove + rescan
+>>   - secondary bus reset on the root port, then rescan
+>>   - Link Disable / enable on the root port, then rescan
+>>
+>> == Questions ==
+>>
+>> 1. Is this a known issue with this device or this platform's slot power-on
+>>    method?
+>> 2. What additional tracing would help (ACPI AML debugging, GPIO/pinctrl
+>>    state before and after the power resource turns on, anything else)?
+>>
+>> I can build and test patches on this machine.
+>>
+>> Thanks,
+>> Kyle
+>>
+>> Sent with Proton Mail secure email.
+
