@@ -1,94 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793907576;
-	b=CoOcryWMCQ7Iew7kOhaZxMxFrKbkBkCbAaiitcOCKgLuJynX47gcQH29rpvzdOIYgEdz
-	 7N5ZTr16Y05rpYpbSgsACWQ1RR0aZ3VAiXPfC/VSATF3/3rXP12+eKG5DOCJK6VAltxVL
-	 Ik+SYhJF91vH2o8q2HUvAT9cVZCbPboZAQpHtoPX4THyw0SBJsknFdaI4V+dOtla7ciRG
-	 ZL/GvkHYJgKq3CzaBX9XugfSZZRVgTJb8CusXDPnxjEEXTWGYZsS/2eQqHTnDyZWsZY/T
-	 9xPkzcA52+7oB7N7TmIHoAP05Gyk91XdFyJTNBvYy7eCtbvwjyOyP61lBLWRKSig70Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907576;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
-	b=REFur/lR8fSEkfdFWozUyz11hLKzB8gqwI0h9m9XbEuCXY5ssRUB8OXY5as4r0/v8pWL
-	 2WV1yCEfuMRUl8cdu8U5+y2vRf0vyrfe3Jr5xUrvgpgcSL9F0eU+MMFwuSCTmv2stKtlp
-	 6s5EieAM1iqxBDqSi5Q5XmSGa9JusXe5SVK4fQOIEHRdd3LTcMK1/SfOQndrRxY9pj9nU
-	 xrx/w1nTsx5fBvheptegaBD9CIlTL2n5SIoBuG34jWU7AvloDvKM2imLzcfBNg0F/az1w
-	 PCwIYH88+rgAX6H5uMX38aqNJ9fPUTs/mGx1rgEU17aTna/Jl82XwR8X/7pakMi3Bgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GVDeanTW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.10
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011010.outbound.protection.outlook.com [52.101.62.10])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793907618;
+	b=pZuuq/sQqBghJhdwdIFds+U8wPQ30BE9HcmNltVYnxLL/lEQim2dDrHS8yFSnludgSpA
+	 pXKValJZEIG6VHQgECi4nxFz9c4LJ6NJsiFNg3sJXPgHEvw8qherqZbNnngkNJWMRIk3d
+	 cQ7lfmsk2Cay7qun9MN95uYSpOlCOsI94JqBYOXLm85XarE6IKJ3rk8bMfgnwESq/Qmed
+	 inp6lDJmCTZzNigMJTNL1l90HBWcPOOHePi6n20G0RrspjnPhv6263cVXklEHAYjdeTtw
+	 qaAhAyx4jXAanfF7hJWDClbosLXPfcoSyBCAxGh9M8G82gP05RTk5C1lqeQfN4JFNjA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907618;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=RE8OBkU5mDo86LrVuitoOiwBMuthrGa7akoy1wMACbw=;
+	b=x2/gP/JUZhlb463muFIKtjREPA6SsRtTGtjD5641wdrzbLJwuvXKiSMjNc9S9nc+nEkL
+	 2MQVhavQVtkSkcRP2vFFgEPY13FF2IN0ltJtAYz06DeV4Pm/CuRR+0rUHd83omBvamsrf
+	 Hx9PZ58LRoo0AankhAueg7+LYyvo7ry8X0HSKbTP6Au8UWcFHqEiG7mlanV1HXxuef4Er
+	 fogWndNvFtBwrsQ6WZxo9Z/PBBzXfMRrkLflwLF1UbPDxTmCahbGr37Znqku/hxlGOajp
+	 J2b7mYCNmuRlvV6FE6zjuwLbVhj0Brw5Nt+l8QqKyIklMHo+w9vUnzUtK6B951SZboA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M8G9f8Cj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EPxCCmyx;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F983606D505
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:39:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F983606D505
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2283606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:40:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2283606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GVDeanTW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KYAc+4RLEOYqhWDCP0IA6LUWIDU4o+4aVFLcpdJvpEBtOBVkGGBeNHIG7NwVBNHB25Am6/Usl+lPlDMtWAQwGXWJF25NgDtgTqfHyFIrUfpxHFohDBWZIHK1HJ5Fdvb/JKCanMKYnPDnWQLHGJrTs2YKBeyGLx0nA+id7hdmJrlGrT/ruLgA+XqW6ictlF61UCaJVAQGyPIeKH3g5RtKzL/SGBOcPua3kTuPMFpGFOHOek4hiZci6uHBlLlJIsrBWKwkjd4pA/F/3GxdISS+6WYoFbgEDiQ8CSsvM35MBIWP2iU6fVxppz3UHtVL/oILabolxJo5OTssik6J0TgacQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
- b=i5HkeK+p5NQoLLB0DlxjXWqfjKgt6eXtczWAcsOhXE8isWuwMm4Y6fOvOlg02pHzdggCFO8Jz5sgHOYkGg2SHv0CjUPp9L66QeVfqRrl/zDmJmpTwMMi9xRSU/R46CWKEAeZlHnLcpvmzHAgVcyEDHADha+ZlSiv8fwW9hj53s69QK11cASdYuX+e3947ze2J0mwnXm4pBUqaezk7ro0EVMY+7TuXJbm+GMzShpqIXHQk/T6kNKr1NOQ3esdmJgA1JETk/JMWhhndD2pEE0Mm+eld2ptJI0Ks2aDJbgUN4/NtG9ITo+APHIIFSZRvuZ2BzBDOC7DriwpWRMtqrnLXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f224wI31v3llLai3IS32ULrwwPeR6i86anL7vhhmu6A=;
- b=GVDeanTW8IfuuyyOXfYGjMup6gLC5gzzJ+qWdOd10AcyAhkz87yF7Ivo7TE76Ih6oGQZ+u2NjQCzZqKrhA1d9ujqa8GXJ4hSEAm+TzYviU8B9GjRV1fUGLPIVnmvvWFbk7DGbqEbyQKtW7HSfNQWdqXmO8wkzj4Szl+28ClGoRM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by DM6PR12MB4137.namprd12.prod.outlook.com (2603:10b6:5:218::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 5 Nov 2026
- 19:38:37 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 19:38:36 +0000
-Message-ID: <0161e0ed-3b6a-496f-8502-6dcd219f3aca@amd.com>
-Date: Thu, 5 Nov 2026 13:38:33 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
- reports
-Content-Language: en-US
-To: "Zhang, Yidong (David)" <yidong.zhang@amd.com>,
- Lizhi Hou <lizhi.hou@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
- <2cf0906c-9766-4e3c-bfd0-3390263f5390@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <2cf0906c-9766-4e3c-bfd0-3390263f5390@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0410.namprd03.prod.outlook.com
- (2603:10b6:610:11b::22) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M8G9f8Cj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EPxCCmyx
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5HeKni2090983
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 19:40:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=RE8OBkU5mDo86LrVuitoOi
+	wBMuthrGa7akoy1wMACbw=; b=M8G9f8Cj616ftj+ofxMV6s1Waowz7SlcEhwHkZ
+	kGqGST1/umH8cN4bIPp4YAPeR/eaYIhO+hX0YknHiUtc1ZQJP+Z+il7EQSEzYT0h
+	F720dIt8WAs8GMxt6e0ZnZH5I1VZ4Fnwupn6t+MXp41iKbGnbi+pqfa3SB8jpY0k
+	3BWnBUSCvKIbUxg8B5ySWjcrlq1+Uy0TH7smliLoT1ZJX8XN8sml738umXciSSpg
+	vb/tfKOQYeNiZblZ13N5DmKn5L6eWUA1jiJX5A/gNZzx/IB5nhK6dmrEdlOlGgXL
+	3IAsNpyLteMAdbgnrL+ustSNQQRqH0Gk8H1tXkBdGmQycPug==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrq9fakwq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:40:16 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36d69ab3c2bso2343221eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:40:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793907615; x=1794512415; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RE8OBkU5mDo86LrVuitoOiwBMuthrGa7akoy1wMACbw=;
+        b=EPxCCmyxw9/ehD+dgu01fnzCRzAAXNRZFlKAxfreLD+xDKPHPdaxpcYvBdSa7gs77B
+         8P5ynaG+sFcxGokMcYyUmb67IN3R0BgSYQthduB5OFcCpPLilRh7pqIie0Dj11Q0v2a1
+         thigHpQNEvO07M25CPAJe7/+iMLHLQ27ERPDK+4L1KCi32JyDH0lnpDrg6rA3DmgEitA
+         tnIzC4zte5vRGx+rx5HDCYXK/kscjPN5F0Y0ptK85mdJHsAotqM2WdtOvWq43RKQrYHZ
+         MzqSVvFa2UXA4t/Fat+88NOyNzzt6gUdnoU8UVjp+l6peEODYyzxIm195MjKAMCoui5S
+         Ws/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793907615; x=1794512415;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RE8OBkU5mDo86LrVuitoOiwBMuthrGa7akoy1wMACbw=;
+        b=H28i209CInizaQINaZ95nXdyTjaXUwkJFlCVkGdCwg0ThppY9PbbzH3PUBfllYrU4g
+         cskTxKQtFyCU1wMrnpTWCQWfSiGk7/jFl0u+NghF9JMB9OZQuJBoRBdW9Z3zWda5q9X7
+         doNR1S0dTyXRP9ykc2Nt7icg3FOU7WulfpI2fVjDRiOQk7PsQkG4/WYNNxwMX9+nKapT
+         smfp9B8/RRKn5HM8zAOUyXP/mC+rgAqM65IYou43YXmAZMXkH/4qOD2MKVM9hDNdFSuB
+         jaW7lxjfQfQK+u20K7qWIPEnZlBSREbJ2uD4sOG59WO97fBIF0ArLiQPbVXWwdciwGqn
+         Wn4A==
+X-Forwarded-Encrypted: i=1; AKwUvByJXq36b7gvyytTCfIvuz/UaCNrwz2RibcaRD5zg2E1D2S+3H7BM8YhJInL5dRiVTHi25G9DrF3bep729g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GV6KrbOvVY0ovz1Z8pbkGz0UfrWXo6Ht/ouontMgNPc2WJfSd
+	tySxlPD0pVVeYGbkfS4xVDE+RdxlQRSsOUS7vwJXxBnaHiEjuFQ72P0C52szZMBBIhTA3wvFyw/
+	NB3YD+IMPQB2iv0Y3P2/FQ8QZeKhvAaak8n56ORZHyr0c1/OQIazHJ1BAAJnHTi8R3Q==
+X-Gm-Gg: AYBFou3WY0lojasJsDjaBA/vTdnAqjNXo9ltBvcw5R/orAc/8JHzoWn1RgjKVO0oxc+
+	v11TmQO2BLJqCqr3OCebHMbgiYtbkBHMqlntTcP8JdNNT9/JqplnXEspWTW6dwaJx5TR/+hJuh1
+	HXY1YyDd3UkyYaIGL9sG4VECNbKuWID+s0Ilogjxdwv3ucSCdrkW6KVeXEwmhYQDUQALMwZL4ne
+	davxR0I7+Gl4DN2KhFCEax+oxgB8TNMmOV/b4Aa6IcXYXPaXx11zCe16jipiNEFJVjdS40fzFrG
+	IVUEfyq8dU9HtVWih2DEtVcBiDS/WTDvpePod9Z6zyqFulS43TdxCARTZ675ipBy9eF5zwyfLMU
+	Tq94a8bKdxmr1U6M7BD25Ga0dagYHlcISmXz2NSQDKxDNZaX3KMs45EicmTat8NilUUiJyWYV8x
+	NDpeAZNAy/2E1QbvHCwGSpAFagHrVwWXkSW9xusB9Z7wKZC0wdGRm952tRIYil9Tyu73C2+g==
+X-Received: by 2002:a05:693c:66c5:10b0:36a:20b8:ee9f with SMTP id 5a478bee46e88-36f729cfad3mr207063eec.1.1793907615095;
+        Thu, 05 Nov 2026 11:40:15 -0800 (PST)
+X-Received: by 2002:a05:693c:66c5:10b0:36a:20b8:ee9f with SMTP id 5a478bee46e88-36f729cfad3mr207027eec.1.1793907614367;
+        Thu, 05 Nov 2026 11:40:14 -0800 (PST)
+Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f72cc9b88sm357284eec.14.2026.11.05.11.40.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:40:13 -0800 (PST)
+From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Subject: [PATCH wireless-next v3 00/21] wifi: Add Seamless Mobility Domain
+ (SMD) AP support
+Date: Fri, 06 Nov 2026 01:08:35 +0530
+Message-Id: <20261106-smd-v3-0-1723950e3cf8@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,380 +115,294 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|DM6PR12MB4137:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70d1a072-3fd6-43de-0efe-08df3b746227
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|22082099003|18002099003|261102123227099003|56012099006|261026140227099003|11063799006|261026121527099003|261022115727099003|261022105027099003|4143699003|10067099003|261022075727099003|261028144727099003|261021121427099003|261009223027099003|260925021911599003|260925022911599003|261021123027099003|260925021311599003;
-X-Microsoft-Antispam-Message-Info:
-	tylvNDGkngzIuB7thnsAqijCdKTDHe/gUgmin2zNHCS5gpKdlstgD0ohq27kLRGpayD6fDsLRUfofDdm2XXuD4bhaqXZvD2e8wtXHZzNAEbbAQSoRzhvZGgJRU9sDcOfP89/Bna3exdIfW1Ghzn7lTDiRNiUcSoy7HnXgWA0Wv/etpiyO5L5paidCaSJu6idGmEbgBoEzXG9eH175w837RACmNxpuDarAflkMVjJXpE9a3uG4uTAMatrqIuSImDTLCOQezSJKxV6KWjy3VhNf0yhKnfEpnYtao/Vq0dsxMeEPPA5frJRySwP3pk44uC9awIOZ1C/d6O1hf+AEzQBlHjlXTnK78j91X2vzRuPlGhdlJK48+G2p6T9BX283aMeetnH9xkJMUCbw6zuEXo36bIouqz4TtV0GoB0/fQf9Q4B4akP1BrerV8lWljvo15rjPHhTU1j/cmv0oJQkX4bQhazi9pn3y4xGAP1Jn9ot7r6DC71wy0Lh/V5CchDvTlYoTL6l4CsFxcM1ICgCKLVzVCxXIi4VflsCTLsR9ZEJoqWYSe4fD+BvHGf8xRikVcAttALFR7ELisjcYFBOaqfj3M3m2qD8hWqZnCY/eC/aU3hXeUoPbzAZkjA/sSmvAk8
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(261102123227099003)(56012099006)(261026140227099003)(11063799006)(261026121527099003)(261022115727099003)(261022105027099003)(4143699003)(10067099003)(261022075727099003)(261028144727099003)(261021121427099003)(261009223027099003)(260925021911599003)(260925022911599003)(261021123027099003)(260925021311599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NDJvYVA4bXY3V0dRMDM4NXpwTXRYSE9qSWZHRDR5cUw4ay82VElQN29rZ2Zk?=
- =?utf-8?B?eVdLc0VRckRsenBWQnlUNHh6M1grWDJvUG8zVSt4ekJvZ0RESU91ZDk2N1RP?=
- =?utf-8?B?eXJJQmZab0pzOGNpbDk3NHByYTlBeUE3UURsVU1DaGE0NnY2U3RydTJkZGk4?=
- =?utf-8?B?RnNIQlM2OGFRd0xIT0h2Snp1NzJZSHV0Z0hWV3ZmRU9zNTJJcXJ4U1p1Z1Bw?=
- =?utf-8?B?TEJLOEZGYWREcEdJdDFyRkhtaXJDckk3bTE3dWdwd3p4S2NuZDFWWjY0clVI?=
- =?utf-8?B?dHp5SENaZUFUNnRrclR0ZWxRU1Y3eVdNQlVBN2pzTURPOGQ1aGh3NHFuVjZm?=
- =?utf-8?B?bHFncFBObSt1cEJ3OFBXKzVhUGpDalpPc2d4bDBtMHRjOHhuK0xaTmJSWnk4?=
- =?utf-8?B?WUlKczcveWpUTGRYY3RrR3BmM1oxNjROZFU5a1dmNHh4cTVqT2swMU9hTFVp?=
- =?utf-8?B?MElWL3p5bmlIbi9ET1l4bTl3V0d3VEduVTk5SVN1dzdEaDRFblBUbVAzcFhs?=
- =?utf-8?B?a3ptVUhrbm5LV3liYzBtMHJOUmNaVExnWlJiODQzdi9vVmhITGtLdThKRTZh?=
- =?utf-8?B?NFVTdUFzNkh1ZEZDd1VjamN5YWhlRWlsU1ZzeTQ1Uk5IaElPelhkem96VWkz?=
- =?utf-8?B?Rjhyd3k3VE01SUlORGczNFZpVDFhWXhJM095MEtranJsRnFIOWlQT3RkTllL?=
- =?utf-8?B?aE9sZTQzd1pMNTR2OVFKaytvRHQwSHlFT0VkZFgwYXRHdFJJS1Z6RkhJdzBD?=
- =?utf-8?B?MFFhQTdENllwc09QQWZxYVZvc1hibWlUY0p3YmhMZUdHUVB2V1c2WVRtdEU4?=
- =?utf-8?B?cmtWaUE4d2dONFdONEo2Y01LTDZyTGo5UzZUaVI4RkhYa1VsaGZuZHM2R0Fq?=
- =?utf-8?B?ZGhZYVcxeHZ3Z002OVhTUWNCVE43YUNGU2FmV0JKYlc3WlZUZVNxNytqT3gv?=
- =?utf-8?B?Z1ZLd3NDUVQ1TUo3eStVM1pPUG9HL1l5elRyOUE0d3BPSTZpbzJWTndVYUFz?=
- =?utf-8?B?TU85VFdnaXFKUm9CWHF5bmNWSnVSYnY3LzV0endhMmxEeEg5SEw2WFVlUi9t?=
- =?utf-8?B?OXpBUTdWZzZvaUdVa09LZ1ErOTdxSEdSOG80dTRuSjVYZER3WlBsdW9lK1BN?=
- =?utf-8?B?cUUrczJhT2dlczF2eHRkS0t4ZkFuenVWUnVrTTZqOVhkNjV0a2g4c3lpWGxZ?=
- =?utf-8?B?NWh0SS9OV3lVY2JBQVZBY0lwWVRMeXdsalBrN0ZTSHdUVlBhQUtzNEZ5Wmwv?=
- =?utf-8?B?b1VQcWI0Wlp6WHZzSHZBcUV4eEQ3MTZIVmlLc1VKRjM2d2dEVWpuNUt5b0lw?=
- =?utf-8?B?Q2d4MjNQQU5ZNGxMM2JnSnNSVmhWcndlOENvdW1WZ0dwajhqbHVWVTVYNmxy?=
- =?utf-8?B?bjd0ZjBORWNoYWQrQ1lkTVh6V09aN3Mya3pINGQ4TGYzNDBOMVRFT3Z4cFc5?=
- =?utf-8?B?elNoNzNPWmVNelZjRlBhQkhZTTAyOVdRazU0ZTBXKzVqUjhiVnd1eWJma3BE?=
- =?utf-8?B?VlNWWEV2MmNPSlVwb29HSndBY2JsM2tlVWZXYjY1M1d6QnpVMmlRdnNHaWh1?=
- =?utf-8?B?WVgxa29Va0RtcVViQjIyV0J3ZFdHMDVFZWk3TXhUWVQ1VCtoVUpKam42a3Vk?=
- =?utf-8?B?YVNwWGNMV0tEQVdkZTE0WkVTa2o2T085Sm9CaTF3Uno5ZElJdnplSFpLWW11?=
- =?utf-8?B?S1FzbzZ5NmJiVjJKejc2M3ZxQ1I3WGN2dGRIN2RUVTZaQjFNOXNFMGpVbERx?=
- =?utf-8?B?UXhtbVBuZTJJdDZ0b2RkazN0d2lTL0ZWbjU2TDA1NmI4cW9VaWQvRVBQcFVy?=
- =?utf-8?B?U1JQMFFtcUNUUnhwY3RBVWNrajRaSnp3cUZMNVFMc2FwWURLd2tsSGRNczIv?=
- =?utf-8?B?Z0RIdjNhS2RSSmxkOWZtbkI0NEdVcms4YmR6RHA1OFF4bElpMnFySVE0SE80?=
- =?utf-8?B?dnB4K2p2UmdYeXRCQ204WnVWSDF0NGF0TVNFUTBSVHlCeHdKRkhUYU9UK29R?=
- =?utf-8?B?ZHdxTDhGdUdiK1BGVm55allKcjM0eE5rNXBuS213dUthWGJ4dnpqT1dYUHps?=
- =?utf-8?B?MWNzTHJOQ1FjUi9UUlQ0QlppRjNpUDN0a3NIeXZQWFpReGxhZWVERE9xaXd2?=
- =?utf-8?B?RVJrNHRyM3FuV3NoZTArMmdYSVFzTTNia2tYYVJ4WnFyaUFIbkdTSFRWeHFX?=
- =?utf-8?B?RTVuWkVrR21TK3pQRDVtMklSNy9JTWcvOTJJbkpTUCt0KzFqdVRvNnZVYzNy?=
- =?utf-8?B?WGVzZ040OTloUEpYRnY5UVdTRXQ3V1VqYUVIeDRHcXBoOHJXUmVJQTVWdHVy?=
- =?utf-8?B?REI5d012UVppOVRLRERtWDRoMThWWFhLNWJ1S25CbE5YdFBtdjJxdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70d1a072-3fd6-43de-0efe-08df3b746227
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:38:36.3806
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5nZ6FHTssiDi5YbSNDp67oCmEXR8f/9GO3nkOOwJsA2wzTilMGWm6qUcjfNlaSjTCDs2Pr832QM0eZRrTTzKYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4137
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADzb7GoC/yWNTQ6CMBCFr0JmbUmtBcGV9zAsWjpKE9pqBxFDu
+ Lulbl7y8n6+FQijRYJLsULE2ZINPpnToYB+UP6BzJrkQXBR85Y3jJxhx7pt6qbi5iwqSM1nxLt
+ d8ssNPjbiiETM4zJBl2KtCJmOyvfDfuWU9ftqsDSF+M3oWeTtnyJkpsyCcaa15LyVRh2NvAai8
+ vVWYx+cK5NAt23bDx/qWYDDAAAA
+X-Change-ID: 20260908-smd-16986850d725
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+        pooventhiran.g@oss.qualcomm.com
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3OCBTYWx0ZWRfX4kPsDVI6+8F5
+ UXuShyHaX1BYb72464IMWUIGXL+zky8OzgHz4ae0ieEocbweF5/pMmJiOc1+B74A7yq61RHKKo3
+ ghZjmFe7YdK7N5/o619Ffo86DQh4A9tGNuL5jGvK+IoP3Z8H9oHLPaksVqZIn1KPW3pt0Szna5P
+ Ch+YbFvb+dZV3fIKn4qyvfHeJ+qSL4hBaBMEYGgsuvoIZOWL70XoJULnUwd54vFdACPpaBTRtnU
+ xeimglDiGtCjubFYyROrszPPWrVAQxrjxO/pW/P5eIOuEtOnWU0GE3EYMD6Zy1W5JA4FxFDrl4a
+ FQwExg5AGWRsJYJAP0u5JY1LQ3DvmZg9N3DbQsyL6FtPNmC0vSCpNdt/H9siTS61Acg5G8v8XJ7
+ Qd7ybcvnjM73Ys/1/n+yijmJKKntWT8Tg9Kh72kJAW5JAb0Q4tSGabtlTnEG26NNSckACp5nrUp
+ FzpS+SBZd+xYr3voIyQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3OCBTYWx0ZWRfX4vDxYLSmtdjc
+ WCD/5WgBDDw4MGm0/CQ768/ZSJQM6Pxb42D2kkusZH6Be5Z0trjQrVKoCHcKT22XRMd5xoZ9E99
+ G//ANEEh8KNd6eEx7IbvIe8PKI1jyoM=
+X-Authority-Analysis: v=2.4 cv=Vdhir1p9 c=1 sm=1 tr=0 ts=6aecdba0 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=IAIsiuNt6YBZx1rtFIMA:9
+ a=xMBEclOYbkGmYhtY:21 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: CXHKcWkKUpZ3fI6Zg4xPiRLpiq9FRARp
+X-Proofpoint-GUID: CXHKcWkKUpZ3fI6Zg4xPiRLpiq9FRARp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ impostorscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050078
 
+IEEE P802.11bn introduces the Seamless Mobility Domain (SMD) - a mobility
+domain uniquely identified by the SMD identifier MAC address - where
+a non-AP MLD that is associated to the SMD Management Entity (SMD-ME) can
+transition from its current AP MLD to a non-colocated target AP MLD
+without requiring reassociation via SMD BSS Transition (ST) procedure.
 
+This series implements the nl80211, cfg80211, and mac80211 support for
+SMD BSS Transition in AP mode. Along with a summary of the ST procedure,
+the design of this series and patch structure are presented below.
 
-On 11/5/26 13:19, Zhang, Yidong (David) wrote:
-> 
-> On 11/5/2026 7:51 AM, Mario Limonciello wrote:
->> Some Platforms ship BIOS with either a default or an alternative trust
->> authority. The PSP validates the NPU firmware, so it must be signed with
->> the matching scheme. Firmware for the alternative scheme is named with
->> an "_l" suffix before the extension. A preproduction part needs firmware
->> of its own, named with a "_p" suffix.
->>
->> The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
->> whether this is a preproduction part. A preproduction part that also
->> reports the alternative scheme is not expected, so warn about it and
->> use the default firmware.
->>
->> Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
->> images of the aie4 devices so that initramfs generators include them.
->>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->> Changes in v2:
->> - Initialize val in aie4_psp_fw_variant() so a failed SMN read can't 
->> leave
->>    it uninitialized
->> - Only read the PSP firmware variant after the npufw/certfw path 
->> check, so
->>    VFs (which have no firmware paths) skip the SMN access
->> - Drop the redundant all-ones check, amd_smn_read() already returns - 
->> ENODEV
->> - Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1- 
->> dbffcc5abc23@amd.com
->> ---
->>   drivers/accel/amdxdna/Kconfig           |   1 +
->>   drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++ 
->> ++++------
->>   drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
->>   3 files changed, 141 insertions(+), 30 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/ 
->> Kconfig
->> index eddff490b4f75..cd17a89cf4146 100644
->> --- a/drivers/accel/amdxdna/Kconfig
->> +++ b/drivers/accel/amdxdna/Kconfig
->> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
->>       depends on DRM_ACCEL
->>       depends on PCI && HAS_IOMEM
->>       depends on X86_64
->> +    depends on AMD_NODE
->>       depends on AMD_PMF || !AMD_PMF
->>       select DRM_SCHED
->>       select DRM_GEM_SHMEM_HELPER
->> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/ 
->> aie4_pci.c
->> index 02dcb2f813d45..26c6162893760 100644
->> --- a/drivers/accel/amdxdna/aie4_pci.c
->> +++ b/drivers/accel/amdxdna/aie4_pci.c
->> @@ -11,6 +11,8 @@
->>   #include <linux/debugfs.h>
->>   #include <linux/firmware.h>
->>   #include <linux/sizes.h>
->> +#include <linux/string.h>
->> +#include <asm/amd/node.h>
->>   #include "aie.h"
->>   #include "aie4_msg_priv.h"
->> @@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct 
->> amdxdna_dev_hdl *ndev)
->>       aie4_fw_stop(ndev);
->>   }
->> -static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
->> -                 const struct firmware **npufw,
->> -                 const struct firmware **certfw)
->> +/*
->> + * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = 
->> alternative
->> + * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction 
->> part
->> + */
->> +#define AIE4_PSP_C2PMSG_63_SMN_ADDR    0x38109fc
->> +#define AIE4_PSP_FW_SIGN_ALT        BIT(6)
->> +#define AIE4_PSP_FW_PREPROD        BIT(28)
->> +
->> +enum aie4_fw_variant {
->> +    AIE4_FW_DEFAULT,
->> +    AIE4_FW_ALT,        /* "_l" images */
->> +    AIE4_FW_PREPROD,    /* "_p" images */
->> +};
->> +
->> +/*
->> + * The PSP only trusts firmware signed with the scheme the platform 
->> firmware
->> + * uses and a preproduction part needs firmware of its own. Reading 
->> which one is
->> + * in use is optional and only used as a hint for which images to try 
->> first:
->> + * anything but a clear answer is treated as default.
->> + */
->> +static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev 
->> *xdna)
->>   {
->> -    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> -    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> -    char fw_name[128];
->> +    u32 val = 0;
->>       int ret;
->> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
->> -               pdev->device, pdev->revision, ndev->priv->npufw_path);
->> -    if (ret >= sizeof(fw_name)) {
->> -        XDNA_ERR(xdna, "npu firmware path is truncated");
->> -        return -EINVAL;
->> +    ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
->> +    if (ret) {
->> +        XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", 
->> ret);
->> +        return AIE4_FW_DEFAULT;
->>       }
->> -    ret = request_firmware(npufw, fw_name, &pdev->dev);
->> -    if (ret) {
->> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
->> fw_name, ret);
->> -        return ret;
->> +    if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
->> +        XDNA_WARN(xdna,
->> +              "Preproduction part with alternative signing, using 
->> default firmware");
->> +        return AIE4_FW_DEFAULT;
->>       }
->> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
->> -               pdev->device, pdev->revision, ndev->priv->certfw_path);
->> -    if (ret >= sizeof(fw_name)) {
->> -        XDNA_ERR(xdna, "cert firmware path is truncated");
->> -        ret = -EINVAL;
->> -        goto release_npufw;
->> +    if (val & AIE4_PSP_FW_PREPROD)
->> +        return AIE4_FW_PREPROD;
->> +
->> +    return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
->> +}
->> +
->> +/*
->> + * Images for the other variants have a suffix before the ".sbin" 
->> extension.
->> + * Returns -ENOENT if @path has no such variant.
->> + */
->> +static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t 
->> size,
->> +            const char *path, enum aie4_fw_variant variant)
->> +{
->> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> +    const char *suffix;
->> +    size_t len, base;
->> +    int ret;
->> +
->> +    ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
->> +               pdev->device, pdev->revision, path);
->> +    if (ret >= size) {
->> +        XDNA_ERR(xdna, "firmware path %s is truncated", path);
->> +        return -EINVAL;
->>       }
->> -    ret = request_firmware(certfw, fw_name, &pdev->dev);
->> -    if (ret) {
->> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
->> fw_name, ret);
->> -        goto release_npufw;
->> +    switch (variant) {
->> +    case AIE4_FW_ALT:
->> +        suffix = "_l.sbin";
->> +        break;
->> +    case AIE4_FW_PREPROD:
->> +        suffix = "_p.sbin";
->> +        break;
->> +    default:
->> +        return 0;
->>       }
->> +    len = ret;
->> +    if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), 
->> ".sbin"))
->> +        return -ENOENT;
->> +
->> +    base = len - strlen(".sbin");
->> +    if (strscpy(name + base, suffix, size - base) < 0)
->> +        return -EOVERFLOW;
->> +
->>       return 0;
->> +}
->> +
->> +static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const 
->> struct firmware **fw,
->> +                const char *path, enum aie4_fw_variant variant)
->> +{
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
->> +    char name[128];
->> +    int ret;
->> +
->> +    ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
->> +    if (ret)
->> +        return ret;
->> -release_npufw:
->> -    release_firmware(*npufw);
->> +    ret = firmware_request_nowarn(fw, name, &pdev->dev);
->> +    if (ret)
->> +        XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
->> +
->> +    return ret;
->> +}
->> +
->> +/* The NPU and cert images are validated together, so both use the 
->> same variant */
->> +static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
->> +                 const struct firmware **npufw,
->> +                 const struct firmware **certfw,
->> +                 enum aie4_fw_variant variant)
->> +{
->> +    int ret;
->> +
->> +    ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, 
->> variant);
->> +    if (ret)
->> +        return ret;
->> +
->> +    ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, 
->> variant);
->> +    if (ret)
->> +        release_firmware(*npufw);
->>       return ret;
->>   }
->> @@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct 
->> amdxdna_dev_hdl *ndev,
->>       return 0;
->>   }
->> +/*
->> + * The firmware can only be started once. It is the PSP that decides 
->> whether it
->> + * accepts the images, and it does that when the firmware is started, 
->> so there
->> + * is no trying a variant and falling back. Pick the variant that the 
->> PSP
->> + * reported (the default one if it can't be read) and use the others 
->> only if
->> + * its images are missing.
->> + */
->>   static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
->>               void __iomem *tbl[PCI_NUM_RESOURCES])
->>   {
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->>       const struct firmware *npufw, *certfw;
->> -    int ret;
->> +    enum aie4_fw_variant order[3], hint;
->> +    int i, n = 0, ret = -ENOENT;
->>       if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
->>           return 0;
->> -    ret = aie4_request_firmware(ndev, &npufw, &certfw);
->> -    if (ret)
->> +    hint = aie4_psp_fw_variant(xdna);
->> +    order[n++] = hint;
->> +    if (hint != AIE4_FW_DEFAULT)
->> +        order[n++] = AIE4_FW_DEFAULT;
->> +    if (hint != AIE4_FW_ALT)
->> +        order[n++] = AIE4_FW_ALT;
->> +
->> +    for (i = 0; i < n; i++) {
->> +        ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
->> +        if (!ret)
->> +            break;
->> +    }
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
->>           return ret;
->> +    }
->>       ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
->>       aie4_release_firmware(ndev, npufw, certfw);
->> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/ 
->> amdxdna/amdxdna_pci_drv.c
->> index f233eb70a2957..dab8603e2381f 100644
->> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> @@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
->>   MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
->> +MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
-> 
-> 
-> I tested against both _l, _p and default sbins. All passed.
-> 
-> Reviewed-by: David Zhang <yidong.zhang@amd.com>
-> 
-> Tested-by: David Zhang <yidong.zhang@amd.com>
-> 
-> /David
-> 
->>   /*
->>    * 0.0: Initial version
->>
->> ---
->> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
->> change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
->>
->> Best regards,
->> -- 
->> Mario Limonciello <mario.limonciello@amd.com>
+The ST procedure broadly involves
+  - ST Discovery and association to SMD-ME
+  - ST Preparation
+  - ST Execution and Downlink Draining
+  - ST Context
 
-applied to drm-misc-next
+The communication between the current AP MLD and target AP MLD are via
+Inter-AP (IAP) communication (solicited and unsolicited) over the backhaul
+which is managed entirely within userspace (hostapd) - as per the
+discussions on the RFC [1].
 
+The IEEE standard defines only the type of data that may be exchanged via IAP
+but does not define the format and method of the IAP communication protocol
+and keeps it out of scope (subclause 37.16.9). So, those details are not
+part of this series.
+
+ST Discovery and association to SMD-ME (subclauses 37.16.2 through 37.16.4)
+===========================================================================
+A non-AP MLD may use techniques like active scanning, neighbor reports,
+or BSS Transition Management to discover the neighboring SMD AP MLDs.
+Once discoverred, the non-AP MLD can perform authentication and
+association with the SMD-ME and negotiate SMD capabilities. While
+generating PTK, based on SMD PTK mode, either SMD Identifier is involved
+in the PTK formula or only SMD KDK is generated.
+
+ - This series supports configuring an AP MLD as managed by an SMD-ME
+   with attributes such as SMD Identifier, SMD Preparation Timeout, SMD
+   Type, PTK Mode, etc., via NL80211_CMD_START_AP.
+ - This series supports managing the associated non-AP MLD that has
+   negotiated SMD via NL80211_CMD_NEW_STATION and
+   NL80211_CMD_CHANGE_STATION.
+
+ST Preparation (subclauses 37.16.5 and 37.16.6)
+===============================================
+The current AP MLD and non-AP MLD can use BTM frames to select a target
+AP MLD that the non-AP MLD can transition to. Once the target is
+selected, the ST procedure is invoked in two phases: ST Preparation and
+ST Execution.
+
+The non-AP MLD sends an ST Preparation Request (UHR Link Reconfiguration
+Request frame to with Type set to ST Preparation and Per-STA Profile
+subelements of the setup links for the target AP MLD carried in a
+Reconfiguration Multi-Link element) to the current AP MLD.
+
+On reception of this frame, the current AP MLD collects the non-AP MLD's
+dynamic sesion context and attach it to the same frame while delivering it
+to userspace. Userspace then sends this information as an IAP message to
+the target AP MLD. If Per-AP MLD PTK mode is used, DH key exchange
+happens in ST Preparation to derive the new PTK at the target AP MLD.
+
+The target, once processed the message, will set up the links as rquested
+and sends back the ST Preparation Response so that the current AP MLD can
+send the ST Preparation Response (UHR Link Reconfiguration Response frame
+with Type set to ST Preparation and statuses for each setup link) to the
+non-AP MLD.
+
+ - This series defines the layout for STA's dynamic context and supports
+   reporting the driver-attached STA's dynamic context along with the frame
+   via NL80211_CMD_FRAME event (this avoids roundtrips between driver and
+   userspace to separately request context for the recently received frame).
+ - The target AP MLD leverages the existing flows to set up the links
+   (NONE -> AUTH -> ASSOC).
+ - This series supports moving the STA to the prepared state (4a) via
+   the new STA flags (subclause 11.3.1).
+ - This series supports programming the STA's dynamic context via
+   NL80211_CMD_SET_CTX on the target AP MLD.
+
+NOTE:
+(a) While implementing the suggestion to follow the approach similar
+to how radiotap headers are attached to the SKB, for tagging the STA's
+dynamic context to the frame SKB from driver to mac80211, an alternative
+approach was found.
+(b) This reserves a new field in &struct ieee80211_rx_status as part of
+an existing union (please see this patch [2]). Since this was simpler
+than _pushing_ the context pointer to the frame SKB and _pulling_ back,
+this series follows this approach.
+
+ST Execution and Downlink Draining (subclauses 37.16.7, 37.16.8, and 37.16.10)
+==============================================================================
+When the non-AP STA is ready to transition to the target AP MLD that it
+has already been prepared with, it can send the ST Execution Request
+(UHR Link Reconfiguration Request frame with Type set to ST Execution)
+in two ways:
+
+Via the current AP MLD
+----------------------
+This path traces a similar flow to ST Preparation for context collection
+and reporting to userspace of the current AP MLD, transport to the
+target AP MLD, and ST Execution Response back to the current AP MLD and
+non-AP MLD. If there is a Nominal Maximum DL Draining Period Duration
+field is present in the ST Execution Response, the current AP MLD may
+start the DL draining period to drain the pendign buffered frames to the
+non-AP MLD.
+
+ - This series supports moving the non-AP MLD to the execution
+   in-progress state (state 4b) via the new STA flags on the current
+   AP MLD
+   upon reception of the ST Execution Rquest.
+ - This series supports moving the non-AP MLD to the DL draining started
+   state (state 4c) via the new STA flags on the current AP MLD and
+   implements proper validation for these flags as they are mutually
+   exclusive.
+
+Upon successful ST Execution, the non-AP MLD moves to the authorized state
+(state 4) on the target AP MLD and the unauthenticated and unassociated
+state (state 1) on the current AP MLD, without reassociation.
+
+Via the target AP MLD
+---------------------
+The non-AP MLD might send the ST Execution Request directly to the
+target AP MLD when the current AP MLD links are not reliable (RSSI drops
+after ST Preparation, etc.,).
+
+When the target AP MLD receives such a frame, it cannot collect the STA's
+dynamic context. Hence, the context is requested from the current AP MLD
+via IAP and then programmed on the target AP MLD. There is no DL draining
+in this path.
+
+ - This series supports fetching of context on the current AP MLD on
+   behalf of the target AP MLD via NL80211_CMD_GET_SMD_CTX and
+   NL80211_CMD_SMD_CTX_EVENT.
+
+ST Context (subclause 37.16.9)
+==============================
+The following information are part of the STA's dynamic context and transferred
+from the current AP MLD to the target AP MLD during ST Preparation and
+ST Execution:
+ - Block-ack parameters and timeout per TID
+ - Next DL sequence numbers per TID
+ - Duplicate receiver cache entries
+ - Replay counters
+ - Starting PN for DL individually addressed frames
+ - SCS stream descriptors
+ - MSCS Descriptor
+ - EPCS authorization info and priority access state
+ - WinStartO for existing DL block-ack agreements
+
+The non-AP STA may optionally request that sequence numbers not be transferred
+(to reset SN at the target AP MLD).
+
+This series suporting the SMD BSS Transition is structured as:
+ - nl80211/cfg80211 set of patches followed by their corresponding
+   mac80211 set of patches.
+ - nl80211/cfg80211: patches 1 to 11
+ - mac80211: patches 12 to 21
+
+[1] RFC: https://lore.kernel.org/linux-wireless/fbf4209c-4fd8-4047-96d7-7fa34d9ba44d@quicinc.com/
+[2] Patch ("wifi: mac80211: handle UHR Link Reconfiguration frame")
+
+Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+---
+Changes in v3:
+- Replaced deprecated dev_{hold,put} APIs with netdev_{hold,put} APIs.
+- Split and sorted the patches to list all nl80211/cfg80211 set of
+  patches followed by mac80211 set of patches.
+- Relocated context layout and cleaned up driver context with standard
+  fields defined - ("wifi: cfg80211: define layouts for SMD BSS Transition
+  context").
+- Split ("wifi: mac80211: handle UHR Link Reconfiguration frame") to
+  pass @rx directly from ieee80211_rx_list() in ("wifi: mac80211: pass
+  rx_data directly from ieee80211_rx_list()").
+- Added nl80211 DOC for AP SMD operations in corresponding patches.
+- Added SMD state based frame filtering in ("wifi: mac80211: filter
+  uplink and downlink frames based on SMD states").
+- Added DL Drain early termination event support in ("wifi: mac80211:
+  define API to invoke SMD Drain Completion event").
+- Fixed up commit texts and kdocs because of patch reorder.
+- Rebased on top of the latest snapshot.
+- Link to v2: https://lore.kernel.org/r/20260924-smd-v2-0-bb40094da1d4@oss.qualcomm.com
+
+Changes in v2:
+ - Replaced SKB extension with a mac80211-contained solution using
+   ieee80211_rx_status to forward the ST Preparation and Execution
+   frames along with the context.
+ - Fixed cover letter, commit text, and kdocs to clean up the
+   AI-suggested style and words.
+ - Fixed the build failure from v1.
+ - Rebased onto a latest snapshot of wireless-next
+   (6c0b7357e3c7f365ec51dd8d2b626130ee983ce1).
+
+v1: https://lore.kernel.org/all/20260908-smd-v1-0-65ad4ab30fbd@oss.qualcomm.com/
+
+---
+Aditya Sathish (1):
+      wifi: nl80211/cfg80211: define interfaces for SMD setup and STA update
+
+Pooventhiran G (19):
+      wifi: nl80211: define Seamless Mobility Domain (SMD) device capability
+      wifi: nl80211: add SMD BSS Transition sub-state STA flags
+      wifi: cfg80211: define layouts for SMD BSS Transition context
+      wifi: nl80211: define interfaces for SMD BSS Transition context transfer
+      wifi: ieee80211: define APIs for UHR Link Reconfiguration frame checks
+      wifi: ieee80211: define API to check if frame is class 3
+      wifi: nl80211/cfg80211: pack SMD dynamic context along with frame
+      wifi: nl80211/cfg80211: add support for SMD context programming
+      wifi: nl80211/cfg80211: add support for querying SMD context for target AP MLD
+      wifi: nl80211/cfg80211: define API to notify SMD Drain completion
+      wifi: mac80211: apply SMD BSS Transition STA sub-states
+      wifi: mac80211: add driver_op for SMD substate changes
+      wifi: mac80211: filter uplink and downlink frames based on SMD states
+      wifi: mac80211: send BlockAck policy in AMPDU action
+      wifi: mac80211: pass rx_data directly from ieee80211_rx_list()
+      wifi: mac80211: handle UHR Link Reconfiguration frame
+      wifi: mac80211: add mac80211 support to handle NL80211_CMD_SET_SMD_CTX
+      wifi: mac80211: add mac80211 support to handle NL80211_CMD_GET_SMD_CTX
+      wifi: mac80211: define API to invoke SMD Drain Completion event
+
+Rohan Dutta (1):
+      wifi: mac80211: set SMD parameters for AP setup and STA update
+
+ include/linux/ieee80211-uhr.h | 125 ++++++
+ include/linux/ieee80211.h     |  43 ++
+ include/net/cfg80211.h        | 186 +++++++++
+ include/net/mac80211.h        |  96 ++++-
+ include/uapi/linux/nl80211.h  | 254 ++++++++++++
+ net/mac80211/agg-rx.c         |   1 +
+ net/mac80211/cfg.c            | 189 +++++++++
+ net/mac80211/debugfs_sta.c    |   4 +
+ net/mac80211/driver-ops.c     |  24 ++
+ net/mac80211/driver-ops.h     |  54 +++
+ net/mac80211/drop.h           |   1 +
+ net/mac80211/ieee80211_i.h    |   2 +
+ net/mac80211/rx.c             | 140 +++++--
+ net/mac80211/sta_info.c       | 146 +++++++
+ net/mac80211/sta_info.h       |  19 +
+ net/mac80211/trace.h          | 104 ++++-
+ net/mac80211/tx.c             |  42 ++
+ net/wireless/core.c           |  25 ++
+ net/wireless/mlme.c           |  41 ++
+ net/wireless/nl80211.c        | 930 +++++++++++++++++++++++++++++++++++++++++-
+ net/wireless/nl80211.h        |  12 +
+ net/wireless/rdev-ops.h       |  28 ++
+ net/wireless/trace.h          |  61 +++
+ 23 files changed, 2485 insertions(+), 42 deletions(-)
+---
+base-commit: b8e5b0ae8ff47240366d38e5d12c65f878724316
+change-id: 20260908-smd-16986850d725
+
+Best regards,
+-- 
 
