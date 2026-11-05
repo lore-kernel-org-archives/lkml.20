@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903063;
-	b=JbaKR1OmHvLzkGn7D0/WNp01jBRsZKEfspnPzIg/J5hKhALwj0g2jvYzABztXPZ8nBN0
-	 RWYIl/y7PDGoLIXryAf2EYYG015YCsmyBuunh+vNlDciRo3F2EAAnLaR0TWs48GGh4ISn
-	 AsaWdswZzkPmfon+QhwvwyDrDHP+fMxltOGWPh/5lBKKNVGqmmAVWq86TgUfYDA4MGRzH
-	 CFxZHNWt1vrgFn55CL8r+2m60McO+BTzVpEbSqTRXpKcew7OuEjQvPXd6pt9mkFJ1EnDL
-	 stv79qscxiGvX9MbmnNsM0LLkQyGOLrcxcZt4Uefh7ulWS5zSB2/OKs6s5qb7yukDdg==
+	t=1793903083;
+	b=HziGbH9qpq/2zWkF7MVgazfw8D8UGpzV7yDrFS200XvOUI6WL1FdlsILIkeE/5YtrtDa
+	 FHYzmPLnc5/rgSJHi/E674i95BtRzydlCrN1selRAO7D+zJdqzw9YB/NY3RLTL1WMaPad
+	 Bt8eAb/KcF0azbY5Q1dqxYJ9ugD8RE3lS/c8IYFowp52MzPbkoF1xs4V2F0ZTlrAT4BZL
+	 T7RKrY8RgBsZYDSjlt51bsMyYvmdX8i88SqBuSbh6Tp7H+SAqHXs9OaRf/USuC4rWpeTr
+	 QGC5fcDNtT1p74nB+5Hf0dU2SDz5ovQuspEguaGEelTJ0orpRL+XqO8lRs8/yWi3u6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903063;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=cjUElBqzPluT7QSjt/7lModkJ2Ig4dFvcYSz+eg2RbU=;
-	b=E3RnQFP4bUzfUvnqUkxlkVR6EtOp2ZRmOC1tK6dIpQMz6dV69B7whBU0UyJrzOiV+Iot
-	 8Kc2XyzzrbBCoFx2q9lvr7RT7Uef75JzeVFSUtvH6qJR5WzToM87GZcATh/MoOfwMIGIk
-	 fx+M9KnPEOBGuiwffUDVAZnUNjOp/gRI4pdqbvQ2KzX+2bUitg6WTuU0JUo8JwSh3hgoT
-	 OqY9hY8vvRsNZAKdNV2wUGKOqvtmwBQzcN0M5KASkW4b3cfaoJSf8G1Bk7q41Lxb2EyZQ
-	 tlnt9OIyK67Z/ng2PSMM8gymKl1MGQHpe9DiNe7zLNXp9If6ViHLjZ5wfoKW0NpJMeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903083;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=E6Q8P1340lhjpphLE4vGSu5qYC4hlfkJAY0J5FgHtHo=;
+	b=St/DYKpityVrk253ujuRonaJDKP06bmgX0/LyRGPs9KbGf4DLi1Kw1huxytrhKzYYuXj
+	 4Tre2gd6Y0lKlE9cmdByA7DXm30DH7hqKg1bXdvcLvpTOR2QmdQH85QUayDqsUvQF/uul
+	 dkKtKZO2Y4yb2AHcWSenYxd3vVx06I1MaKOnBh123DYwllJIUOQuuodC8u5gKO1U1knEv
+	 6AjWW1f5etiIK4UzyDKs/aZq54zbO9ZYE7yy2EtwMDR4c2N6eH0Zuj8n1oi1Fmljc8YdJ
+	 cgNWu42cRD+03Ou35W3+3AKFGADClZ7v7gspKlh8YmNWV9LhO1+3a8YKy6sRdHhYlAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BD2aCl8r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E05Tioe+;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F67606A31B;
-	Thu,  5 Nov 2026 18:24:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F8B606A31B;
+	Thu,  5 Nov 2026 18:24:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70F8B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BD2aCl8r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C4E1F00919;
-	Thu,  5 Nov 2026 18:24:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903063;
-	bh=cjUElBqzPluT7QSjt/7lModkJ2Ig4dFvcYSz+eg2RbU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BD2aCl8ryPB4H4ifilP0HoKNxJrE3LkzDcHnc1GOhqqO09ag549Bc6WQDr5ixwtS8
-	 zkyMJkM9JwQ62U/YHXrczFfQ6L0mWX5u67BFPPe2elik8/x/0otCRECNlx6FLnOJtw
-	 GQ6eUI8iYMkN+re4rVqNG2LZ9wnG1lWgTK4Q2EuGFc/P2poedu5vTRLq8XNFK2U0yR
-	 4XTrfa2AKVSgz7Cx0/OqJqptghvWSLDYxND7Of6dlboNOaRVRgPGu1knF54Ykc7sh/
-	 tuuVC+LvthIg1J11BJp5xuGAYjDxPNnTsHT3UpynFhly7WBkbWugbX4l1ZR5mT/E32
-	 051o+m+YKGn+g==
-Message-ID: <b865a3ef-3a69-4bc0-be25-29d3ddfb3385@kernel.org>
-Date: Thu, 5 Nov 2026 19:24:15 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E05Tioe+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793903083; x=1825439083;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GRIUUO0N0cBOPlANN2KKDeJN/d7vjvFPsFxRvjTj6Vo=;
+  b=E05Tioe+uLEdhEDatIhTEDqd0ycMRnJdWcEnaIabETxRbGSbCh4dXUaz
+   uCa4Sv/5kgTew+ilW8YMjOnnRxmk3N+9WPtOa6IYfmEzoMfjGD/7Bfb0O
+   /7hL1vOin/K6Q2DFumd9gIn89GhnvtvD/r4Thc4aYoVrxMmQu5LICSTG5
+   CbjYN1vT1Ox75K83qeApeowuQ1AeRJNHBtn9TKCcr3ZEgx70KfUVNdBZI
+   JijPz00kwyZJOaFL2E0xLYu3wsbnSEd4r00u0/yWu52UgDSAvtSgokNVi
+   xhJ/7tqRO6DgLNXMZLzmvQUuHcDumkn9enAbTlcGN0gngMaA/NzsE8x5X
+   Q==;
+X-CSE-ConnectionGUID: DxYEiW9jT2OhyU/5LCa6Ww==
+X-CSE-MsgGUID: x7oKkk9TSNeLGW5JTg4QTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2576618"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2576618"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 10:24:42 -0800
+X-CSE-ConnectionGUID: z4SZqRXTRa2RGIHBG7N8Cw==
+X-CSE-MsgGUID: WnIR7PMzQgymMHOCEdnnXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7395680"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa008.fm.intel.com with ESMTP; 05 Nov 2026 10:24:39 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xP28a-00000000mfb-3EkY;
+	Thu, 05 Nov 2026 18:24:36 +0000
+Date: Fri, 6 Nov 2026 02:23:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Nikhil Gautam <nikhilgtr@gmail.com>, linux-iio@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, Nikhil Gautam <nikhilgtr@gmail.com>
+Subject: Re: [PATCH v5] iio: chemical: ccs811: Make sampling frequency
+ configurable
+Message-ID: <202611060115.RlOXqnls-lkp@intel.com>
+References: <20261104151138.9968-1-nikhilgtr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,116 +84,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: PCI: rockchip,rk3399-pcie: Add PERST#
- inactive delay properties
-To: =?UTF-8?Q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>
-Cc: shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
- mani@kernel.org, bhelgaas@google.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, heiko@sntech.de, dlemoal@kernel.org, iav@iav.lv,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261104215848.2087944-1-ehbello@gmail.com>
- <20261104215848.2087944-2-ehbello@gmail.com>
- <20261105-exuberant-finch-of-domination-3fbd6c@quoll>
- <20261105174042.2307139-1-ehbello@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261105174042.2307139-1-ehbello@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104151138.9968-1-nikhilgtr@gmail.com>
 
-On 05/11/2026 18:40, Enrique Hernández Bello wrote:
-> On Thu, Nov 05, 2026, Krzysztof Kozlowski wrote:
->> Vendor driver does not matter, it is antipattern. Do not mention it here
->> as reason to do such change.
->>
->> No need to repeat the diff.
-> 
-> Understood, both go in the next version.
-> 
->> us or ms?
-> 
-> ms. The 0 case is badly worded: the driver never holds PERST# for less
-> than 100 us, whatever the value, and 0 just ends up at that floor. I will
-> describe the floor instead of giving 0 a meaning of its own.
-> 
->> What is the nature of this timing? 100 ms is a lot. Are you sure you are
->> not describing RC delay (we have bindings for that already)
-> 
-> The 100 ms is not something the board needs. It is the driver's current
-> wait, T_PVPERL from the CEM spec, applied on every board. Because PERST#
-> is already asserted when that wait starts, it is also the width of the
-> reset pulse.
-> 
-> On my board (ROCK Pi 4C) the slot supply is regulator-always-on, so power
-> has been stable for seconds before probe and there is nothing left to
-> settle. The problem goes the other way: the JMB585 behind it stops
+Hi Nikhil,
 
-So maybe that's JMB585 issue? Arguments so far are rather against
-controller-based property.
+kernel test robot noticed the following build errors:
 
-> answering configuration reads when it is held in reset that long. A wait
-> of 0 to 15 ms enumerated 17 times out of 17, 20 ms once out of 3, and
-> 100 ms never in 5. So the board needs a shorter value, not a longer one.
-> I do not know why this endpoint behaves this way.
-> 
-> Which binding did you have in mind for the RC delay? If an existing one
-> fits, I would rather use it.
+[auto build test ERROR on jic23-iio/togreg]
+[also build test ERROR on linus/master v7.3 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The RC delay binding, gpio-delay.
+url:    https://github.com/intel-lab-lkp/linux/commits/Nikhil-Gautam/iio-chemical-ccs811-Make-sampling-frequency-configurable/20261104-204138
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git togreg
+patch link:    https://lore.kernel.org/r/20261104151138.9968-1-nikhilgtr%40gmail.com
+patch subject: [PATCH v5] iio: chemical: ccs811: Make sampling frequency configurable
+config: arc-randconfig-1000-20261105 (https://download.01.org/0day-ci/archive/20261106/202611060115.RlOXqnls-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261106/202611060115.RlOXqnls-lkp@intel.com/reproduce)
 
-> 
-> I also plan to drop rockchip,s2r-perst-inactive-ms, since it describes
-> an OS power state rather than the hardware.
-> 
-> Thanks,
-> Enrique
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611060115.RlOXqnls-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/iio/chemical/ccs811.c:18:
+   drivers/iio/chemical/ccs811.c: In function 'ccs811_write_raw':
+>> include/linux/cleanup.h:298:2: error: a label can only be part of a statement and a declaration is not a statement
+     class_##_name##_t var __cleanup(class_##_name##_destructor) = \
+     ^~~~~~
+   include/linux/cleanup.h:422:34: note: in expansion of macro 'CLASS'
+    #define ACQUIRE(_name, _var)     CLASS(_name, _var)
+                                     ^~~~~
+   include/linux/iio/iio.h:817:2: note: in expansion of macro 'ACQUIRE'
+     ACQUIRE(__priv__iio_dev_mode_lock_try_direct, claim)(dev)
+     ^~~~~~~
+   drivers/iio/chemical/ccs811.c:354:3: note: in expansion of macro 'IIO_DEV_ACQUIRE_DIRECT_MODE'
+      IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-Best regards,
-Krzysztof
+vim +298 include/linux/cleanup.h
+
+54da6a0924311c7 Peter Zijlstra 2023-05-26  293  
+2deccd5c862a033 Peter Zijlstra 2026-03-09  294  #define EXTEND_CLASS(_name, ext, _init, _init_args...)			\
+2deccd5c862a033 Peter Zijlstra 2026-03-09  295  	EXTEND_CLASS_COND(_name, ext, 0, _init, _init_args)
+2deccd5c862a033 Peter Zijlstra 2026-03-09  296  
+54da6a0924311c7 Peter Zijlstra 2023-05-26  297  #define CLASS(_name, var)						\
+54da6a0924311c7 Peter Zijlstra 2023-05-26 @298  	class_##_name##_t var __cleanup(class_##_name##_destructor) =	\
+54da6a0924311c7 Peter Zijlstra 2023-05-26  299  		class_##_name##_constructor
+54da6a0924311c7 Peter Zijlstra 2023-05-26  300  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
