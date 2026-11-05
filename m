@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840778;
-	b=oyJI7/8j6IuTGn0h2wD1AxlHS+xIzikk4L2GCrF/cU9GfuHsCGQirlXsm7WGcqPcdYWc
-	 JLj+PsnDJMhc/ytFOLT+R8TO0cDkTsn+AQ1avwpMjWy/l/zeND8CUOcE14TGQQduPnzzx
-	 CrjthWlci3g3Txn9jwqwvUIUCd4M4S/in5rAk9TQiLka3+ZGw2cCXJCuYWXk/CP+nHet9
-	 5SzMP3GRsotTQaQjFLEQBJsKtmvtOiq+VS42MVPI4a2FgU918DrUuPtV62OkJYbGU3QF4
-	 v2FLvH0vPCLPfgSBuD/VsMiIHtqfuAjsP96EgEjVYYt/pDYgwk0mFWpxGaYk21CEymw==
+	t=1793840796;
+	b=S73VG+gupVa3XMdy4OHwdaKOyMvYLAOBfXgzZkVW+6VHEjCIPDBD5LbFK8jcUNtnLYb7
+	 c09dMuUlOkaQAqAGvmxKLD/glZ1ukS0PmKIhZVNyFB1hqBe1q7xIxhfB0Onj2UcGb+8Vw
+	 sd8xN2+Y91b+A1VO54/05smTP2s7Up1cR+bMiFs7O1tqAbo8S+1srSHH+FIU6c+UNTH5t
+	 ZatWQKRHmWd+mPaSBDOfX8/TzTtZ6RTfXmOYKHJCllPgnp3TjrVJ0dycegfsOjLCidkI/
+	 mVjX2nHoxa2xKutj3kYLEitpHj+B0Tz1StrswYXdQfG7tT+ns73SxroDSSM9yE7kWrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840778;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
-	b=RBJupuCVZfXhRplVETP21pXqj0hnJrn4tYHSowYNSXethinhF4LSEmRTC5mLgbnkNzp9
-	 95RZZIZreBn0Mq4xVVoiaigfyiEvWTyE/ru86gyj0v0TClAaMavW7AUey4XUFrEd38Eru
-	 nN/boxj9SDyQ5/omv63DiaiHgnUC6sR5PJ2sidflZmOBPwfwPpA0VN1Qe0oGj06jutSKU
-	 jem/TCZ0wrf+wdm2GTc/Tq8ZvNNG/cq6SjftvMxjqgkjpNgXX9PNYGDVjL7BfGO4uacKX
-	 bTs3ww93dk/8JLZWuvsgtTGFdUVbdM48YhHEbrKXuEnTuilnZ+3A3zBGjil40uYpXpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840796;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:X-QQ-IMAP:X-QQ-SSF:
+	 In-Reply-To:References:Content-Transfer-Encoding:X-TUID:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=Z6KzLUrXAz/7ezwxnktJkotKAtm3QpIuW+6JblMcjgU=;
+	b=bovsZx+h6ZBtpQksS4ra4gRThPs9N87RR+44YrsrCwD2BWLgU7lLaWswOSdf8QwXQ63f
+	 BlU0ckh96wqr1BiSJX1zdNqQ2WWP3XXJNXoy6I1wQZ+EyreK64gA1ESzbsVn9Nt7Yivem
+	 HSj/2FzZGSw4pSC3HbGJCXTHAdInCQ5hLXMUIKPd7jem3mMUK8oZ30hm72fPnOC4e+OEh
+	 SewsIpLfnzyuHVIbOd+fZYg30QWIHVj+Z/Q2UTF0kSh5NPzW76mcf+fmPe5EFnzk9WnwW
+	 6gkj55/8LdVfvnPf5euUMpH6WVx7CmoQJLUb0YUaVVnFyL42UKduMMSzBFmjE6dLfPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=gW30Pkey;
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C8B606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C8B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471CC606A328;
+	Thu,  5 Nov 2026 01:06:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 471CC606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261105010614epoutp0195490238851374d683e5e56840898b41~lAK45PQ5O1785417854epoutp01P
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:06:14 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261105010614epoutp0195490238851374d683e5e56840898b41~lAK45PQ5O1785417854epoutp01P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793840774;
-	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=RA3zsBB6URHMzGwoGYVTZtDnG4Z/RSmoifO152SpBUu+BE87rLi3SQfpeaFgcWXKA
-	 E+4yTCLFFv47LIa+83OerP4m0YunVhraHGUkgn7/KS74QvP4afwSZiLvwjZk0B7/2N
-	 WJFaNH6P/Rtf+gXJ4fF4CmO1KriIpBYMuSjlBT9c=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261105010613epcas2p104a21c4f3ac935d60d726cc0c56fbdee~lAK4A-fKR0052700527epcas2p1G;
-	Thu,  5 Nov 2026 01:06:13 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.212]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKkdx2v9gz6B9m7; Thu,  5 Nov
-	2026 01:06:13 +0000 (GMT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=gW30Pkey
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793840750;
+	bh=Z6KzLUrXAz/7ezwxnktJkotKAtm3QpIuW+6JblMcjgU=;
+	h=Mime-Version:Date:Message-Id:To:Subject:From;
+	b=gW30PkeyylzigtFyedAgvwjpTbVkLmAYMIL7NBkSYjCJZDyS5Byd2gd+ARZUFYsGl
+	 ZPiasFCzbL8Yo8rbK64ln1YzDpoPRE4eCYR8jNq8BELz/K8baWEVSJ/GP5u0bLSmM2
+	 uJG82FG0utuoXWscvdgPUsfwPU78EB3xIQ32WGCM=
+X-QQ-mid: esmtpsz10t1793840744te03083a1
+X-QQ-Originating-IP: f1iOjw8CoXrK9BH5TL6CnZ6XmusYLHJuBDVeTopfVro=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 05 Nov 2026 09:05:42 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 1357862901825971351
+EX-QQ-RecipientCnt: 17
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,59 +59,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Subject: RE:(2) [PATCH 1/2] mm/huge_memory: set memcg_data before a split
- page leaves the folio
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>
-CC: Tao Yi <escape@deepseek.com>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett"
-	<liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, Ryan Roberts
-	<ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
-	<baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
-	<usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka
-	<vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Brendan Jackman
-	<brendan.jackman@linux.dev>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a@epcms2p6>
-Date: Thu, 05 Nov 2026 10:06:12 +0900
-X-CMS-MailID: 20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74
-References: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
-	<20261104-kpagecgroup-split-v1-0-f70e947fec85@samsung.com>
-	<20261104-kpagecgroup-split-v1-1-f70e947fec85@samsung.com>
-	<CGME20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74@epcms2p6>
+Content-Type: multipart/signed;
+ boundary=44909840bed98da606b822ce956ecc68a224b49c56b1dc02428b296ecab0;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 05 Nov 2026 09:05:39 +0800
+Message-Id: <DMMVGZBBQYU8.29I5BD5M9Z92Q@linux.spacemit.com>
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Daniel Lezcano"
+ <daniel.lezcano@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>
+Subject: Re: [PATCH 2/5] clocksource/drivers/spacemit: Add K1 timer support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+X-QQ-IMAP: 0
+X-QQ-SSF: 0000000000000000000000000000000
+In-Reply-To: <CABdCQ=NH2NDYVXvBFoM0k-Gn9XB=F5FX_y+uNomjTCb0TtpqFg@mail.gmail.com>
+References: <20261103-spacemit-soc-timer-v1-0-36722421db6e@linux.spacemit.com> <20261103-spacemit-soc-timer-v1-2-36722421db6e@linux.spacemit.com> <CABdCQ=NH2NDYVXvBFoM0k-Gn9XB=F5FX_y+uNomjTCb0TtpqFg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-TUID: fCS71Nn8OH1k
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NkLA2q2LD229lrTptkMGgc3LgSv0NORU3hyi4g8YZEoQ0JrgUVzEAP9P
+	GMgTehFb2YFC5LHAljXetK3oQtyWvztbfDl0fW/MWCkLEJ8L/aBEVQCXeQnO+EfbaKtXkSV
+	WbPGOKkLvnz3AxJDVRb4E681HzmQbYt1hSGD6lFgmFenFETFPu39c4Funr0I1NKMu2xaD4K
+	ARClesWr5T2RVKHslcofSzsol4K02efQToZgfIgJfKAIAcBEPdFM93QQASsbXOtXxb4O4HI
+	YbTJUvRdnJU15qZIPZXv2Bbd9Dwdp6Z2vPvtE5/2HoV1qcABnKcddjOfJB/ldAaPb39JmMP
+	qamLIJBPAeplHraw5xIFUjDER33MGl+tqIZ/ZbxLtH02ysgLqNXpamgI3oPY1NCfXq07RLP
+	96hvw9SOp3th14X4dzGtXOOmeZ8T0NKY9HyLVsa5AKcNv6oShBxApLNgfGRE6BBIs7oWRph
+	KeS3zOC/byftJGef+m1TbFMfsbyA+L2iyTSqeXPX8NUtZLlCzFtybvHokp5Wfo9coh2BLTl
+	mf/rs3fITvJY1w9xG/FEOaOXFo56QZ5UQRvOGugO06EiXjNvPQ7a3fWuwrLXd12hRHCUTgv
+	yUb3VLAMy5sbfHBQux0AlWRZs35G+Cz2IoHmdOzCvNTjaIiO/XTlUELxsdqKBx49D7pvxll
+	qOz89fyCZ+eGGsDtVLxLtvlTqbpdtDugjEybBwJClw/gOG87MlheAa0tWdj65f9zTRhgRJV
+	xhXsnpyKH8x/PmgqlIb/FcLejjyOrFPoFw60GaiLE/B/8+jfkid3M+i3Vk271ai191Dz5+B
+	hxkFI4izv1q4HRG2Kt6crTYyf6ijyxz/cc2SLrHFYV3SIpJW2J/Rx9bJfkJ8ucmmBfujNVg
+	nCS1MZW9hzJH6hdzOAJHtVDAdhiwsftDCIMfRmnod/RpdXBUqlfjdwtUy0Kc9f912RGnt4t
+	0HDKy4wH401iAp9Drq2nUZR/u7FZn6NlQenpoVgVB3uG1xBVNd6MN1rIG7qFJPKwOxciK9G
+	QZ4Dofa8SqTn9jv/qFOK0lt8ZFoXFKWKQRvaFFJyyYNLneADJ8hiU1JKjEeClHW3XRZouwN
+	msJyMthmjUh
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-On Wed Nov 4, 2026 at 11:33 AM EST, Zi Yan wrote:
-> Assign memcg data before clear_compound_head(), so lockless,
-> reference-free readers get the right value instead of bogus data from
-> the overlaid ->_nr_pages in the first tail page.
+--44909840bed98da606b822ce956ecc68a224b49c56b1dc02428b296ecab0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Thanks, agreed. Your wording says why the assignment has to come before
-clear_compound_head(), which my comment left implicit.
+On Wed, 4 Nov 2026 19:28:00 +0100, Iker Pedrosa wrote:
+> > +       irq =3D platform_get_irq(pdev, 0);
+> > +       if (irq < 0)
+> > +               return irq;
+>
+> Consider using dev_err_probe() here for consistency with the rest of
+> the function.
+platform_get_irq() already prints an error through dev_err_probe(),
+so I'd rather not print it twice.
+
+> 32768 looks like a magic number. I'd recommend you to add a comment
+> above explaining the clock rate bounds.
+
+> 3 also looks line a magic number that could have an explanation. I'd
+> suggest you to add a macro with a proper name to have it properly
+> documented.
+Agreed on both, will use named constants with comments in v2.
+
+> The device tree bindings support both spacemit,k1-timer and
+> spacemit,k3-timer, but the driver's of_match_table only lists K1. You
+> should add K3 to the list.
+K3 is described as "spacemit,k3-timer", "spacemit,k1-timer", so it
+binds through the K1 fallback. I'll add K3 to the match table only if
+it ever needs different handling.
 
 Thanks,
-Daejun
+
+--=20
+Troy Mitchell
+
+
+
+--44909840bed98da606b822ce956ecc68a224b49c56b1dc02428b296ecab0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIYEABYKAC4WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauvWYxAcdHJveUBrZXJu
+ZWwub3JnAAoJEJgJ74D5MzQvMTcBAJiD4kR1iAZMK1VbPW2J2bTMBOjkpvGkklin
+34cjePNAAQCEM2Pd5FKJRojTn0AA5gzgAvnCFeqcVgmsKyYYY9m0AQ==
+=FeT9
+-----END PGP SIGNATURE-----
+
+--44909840bed98da606b822ce956ecc68a224b49c56b1dc02428b296ecab0--
