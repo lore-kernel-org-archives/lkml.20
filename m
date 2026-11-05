@@ -1,49 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896332;
-	b=yI0XF6J7GYqKD0ZKkWeC46HdiPEE7BP5tEpxQ8NizWZ0hUxUFXNKl2KbyfCgHl5otRaV
-	 wsjrMfVKDyR5GsDDpxKmU2pWMRy6//alXzDY2Q3L9DlWHl/I5Mwp3phEvjcATkdFKx7hQ
-	 mGPECKqZOtU8eh82pBbk5I865EZkOgEiiZqxdQzVYJpAjDyzntqdmNC94rt3fyaKFQZLB
-	 KNOjSWWvSaW9qQ2YfYfhPNjQHHyof9USHN0uxyXZ08d+YJ9ASKTI+BNSRbQCv6UlMxhjz
-	 NIx+rPF6n+ygvYNO/1BOj91SE32eO5BPJOhYmRnJ7ayCEwNI2MqTkseE8XqswhM2GkQ==
+	t=1793896348;
+	b=K7Z5JK/J6dbMBSCHo41sSDcXfdYicGDWKapvrn25PultubVl8QfPRjZwp7iLCUnI6b/0
+	 XHHN3vIkklZaQKhYJ6fXsF6y8LEDUJSWA4n8ZHuIuNtfWaN6EGvB89m1lFt1687BuufKN
+	 d30OAvaNxWksID7/Xv0yZB+e7TFdVi36O7XVcR7DLVDYkFJnSiNYdJz7Tnfc/57+37ZiP
+	 ehY9yWO4eOjlYZJezQffpLgdnP5IF1baerHiqM3S1+WRQK9L5+yygZyb2Sa6XHrQqo7u2
+	 recrvRLP/a9pPP+tE7rzREO4iVc/q/gO+d4Ow3Py7P6pBIRYLunOAtiJ739tllhRR3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896332;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=s4NWbuvuth328WuI4yRDsUxrAkUoeScZ/xXaa/okTGo=;
-	b=oyaWajuJM4UVhe7fgkUlKDdempOBvJFzXz3YMMAKAdizhgmitZ3n7U5EPcTZm8ZfkPVG
-	 EnSTeHbeBCQHZ64AA8su5kgraDbDnluTn4jJoGjLta7BSnxov6GddidyaCUgrA1cMOpVQ
-	 SNcKaxOPzoIqwDOEAHt7QJHPTMfGzKyDc0LvIX0TB26dWYkFUIPCWXQTiDYQDH4LLZn6M
-	 WcGhrj+1FtEEYQyyPm8BGrmknYCBzOeqLLObWOcJze1ooCdkHT79TIcMPw4LT7rBzH2yg
-	 bURNV1ZaT+oJhmYdONeq8u7FXpMl6AcLrSkWMCJKJrevJMtycLkikQpU/4r9PJpZKJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896348;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=OPMMO0d+VXO9ICqZUUEFSq+tSoxDgooDUAqX3oem3F0=;
+	b=EosyvgU0FRa2jPaJrPMNvKaKn91WOaIJxcx5Xbjc2z1j6/HLPkxwdgbf1g+FBK2+BdpP
+	 fm54ClL8v4Dd7AERtNzcgn9jGvgpUsaY1Djsx3L1wQea4f5Agts11vwF4piX+pIu6WCcf
+	 iuAxm4J5ktqKRr19IFUwKH/jZRiukrnKy6yiV28C5nmdTXfhXxTjJb2/hzG+aoQGROeaO
+	 d2qfyzkJmTAZFbt0hYhnuw33YTelj5c5YNdVFnSwPNF1I87pSS6WqLY2gVBzA3H/nwzXP
+	 poq5LY1ZbqiBqgSthyNJTRJPxRUehDR1GcWVckip1IEsxeKnVNuHWtWuP9H36ldEIGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ss+SidAd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VclYDwv7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FC3606A903;
-	Thu,  5 Nov 2026 16:32:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2060C606D838
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ss+SidAd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4812F1F00919;
-	Thu,  5 Nov 2026 16:32:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VclYDwv7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA89F1F000C1;
+	Thu,  5 Nov 2026 16:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896332;
-	bh=s4NWbuvuth328WuI4yRDsUxrAkUoeScZ/xXaa/okTGo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Ss+SidAd9Ug/IgXRLh8zcNtTp4uGU1wbcjxsOnIdvA77IsvoeiNkVVJt+Dw08tI1E
-	 gK5ka5TJzeYUuK8Motq0qGhsAfwiH4c9unVA+oWMHn0EuF9TwqTjaZV1pbHuBqrx8l
-	 0ZBYeUFPElB9HMit1Ae1h623UYkPWpIpnyVL5rQ8qV/6lpvr5tJK9QMCtaOTmsR7Ui
-	 FueVTyzPHTH23ho0yLG672cy7aVIkoLtAAIEGdiVmGf1POks5zDh8TkF+Zn7FPr9px
-	 SxTpkyz3JZYrai8A6DHXO55lPAs2UKDqeN5XY8i4ZARuXJFdc7SQCnOHF9nfnQcw4g
-	 XTPg9rXBF/kHA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4022F391B173;
-	Thu,  5 Nov 2026 16:32:12 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793896347;
+	bh=OPMMO0d+VXO9ICqZUUEFSq+tSoxDgooDUAqX3oem3F0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VclYDwv7bL0v7D6h8c3lBgZv7Xf8vS6nqdU4DciXbPDyDlypJEDtmCTNdbvhWgwuU
+	 APm4TJ4apO24X9luy5tUqojphPbkZOr5qlpJBn0htG/BufP0Q76eyJmWM2GfCUvYck
+	 6J7AwUUsUl0stGsYB21IphWNrJuZJ+2RBRb6ANck7paJUPQRCbi+hgC1jOe0xDIocg
+	 D3HtJPNNrAK7OCFj5Z4ml7wMFrtVBCWOup/MMi8TLkvZzXj1KtYD09UGJ+iqWeGy1n
+	 WYONCZ/WMyQQ6Zxt0eVKZmhjWkn1wes5HGK7Lrba+FdHlaCO68XiYmQXWPIIZ9gSrT
+	 JAOKFUHpJk/BA==
+From: Frederic Weisbecker <frederic@kernel.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Phil Auld <pauld@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>
+Subject: [PATCH 30/47] clocksource/drivers/armada: Move CPUHP_AP_ARMADA_TIMER_STARTING post stop_machine()
+Date: Thu,  5 Nov 2026 17:30:28 +0100
+Message-ID: <20261105163045.38862-31-frederic@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105163045.38862-1-frederic@kernel.org>
+References: <20261105163045.38862-1-frederic@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,42 +65,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: hci_qca: fix use-after-free in ibs debugfs
- files
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179389633088.103975.11910858924814622408.git-patchwork-notify@kernel.org>
-Date: Thu, 05 Nov 2026 16:32:10 +0000
-References: <20261105055645.12917-1-25031212351@stu.xidian.edu.cn>
-In-Reply-To: <20261105055645.12917-1-25031212351@stu.xidian.edu.cn>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: brgl@kernel.org, marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, ytkim@qca.qualcomm.com
 
-Hello:
+Between CPUHP_TEARDOWN_CPU and CPUHP_AP_OFFLINE, stop_machine executes
+all the teardown callbacks while stopping all CPUs in the system. This
+doesn't mix-up well with running RT or isolated tasks.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+In order to transition smoothly from global stop_machine to finer
+grained synchronization between teardown callbacks and the other CPUs,
+a new stop machine post function has been introduced to be executed
+after the main one with IRQs still disabled while other CPUs can exit
+stop_machine().
 
-On Thu,  5 Nov 2026 13:56:45 +0800 you wrote:
-> qca_debugfs_init() creates an "ibs" directory under hdev->debugfs and
-> stores pointers to fields of struct qca_data in the debugfs files.
-> qca_close() frees qca_data without removing that directory, while
-> hdev->debugfs is only removed when the HCI device is released. The HCI
-> device can outlive the driver data, for example when an HCI socket still
-> references it, so reading or writing one of the ibs files then
-> dereferences freed memory.
-> 
-> [...]
+The teardown callback here simply performs IRQ disablement, which can
+run concurrently with other CPUs.
 
-Here is the summary with links:
-  - Bluetooth: hci_qca: fix use-after-free in ibs debugfs files
-    https://git.kernel.org/bluetooth/bluetooth-next/c/eeca795cec6d
+Move it to post stop_machine() accordingly.
 
-You are awesome, thank you!
+Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
+---
+ kernel/cpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/cpu.c b/kernel/cpu.c
+index 27acdd9800cf..8a563de99dc1 100644
+--- a/kernel/cpu.c
++++ b/kernel/cpu.c
+@@ -1275,7 +1275,7 @@ void clear_tasks_mm_cpumask(int cpu)
+ static int take_cpu_down(void *_param)
+ {
+ 	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
+-	enum cpuhp_state target = max((int)st->target, CPUHP_AP_TEGRA_TIMER_STARTING);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARMADA_TIMER_STARTING);
+ 	int err, cpu = smp_processor_id();
+ 
+ 	/* Ensure this CPU doesn't handle any more interrupts. */
+@@ -1303,7 +1303,7 @@ static int take_cpu_down_post(void *_param)
+ 	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
+ 	int cpu = smp_processor_id();
+ 
+-	WARN_ON(st->state != CPUHP_AP_TEGRA_TIMER_STARTING);
++	WARN_ON(st->state != CPUHP_AP_ARMADA_TIMER_STARTING);
+ 	/*
+ 	 * Invoke the former CPU_DYING callbacks. DYING must not fail!
+ 	 */
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
