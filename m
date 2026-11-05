@@ -1,104 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847424;
-	b=B9F8G2C+SEsa7GSqf1BARG+ZtKZcv5BjMgNYJIdGnzLfBdyudrJ/u4/NWJHk2pTZb5/h
-	 DQ3SiZbaFDxQROKF2PTfIYPdBBq008Pu5hX0uWI7NkdyK/9xxX3u6eE+N1ZYflOm5hW0r
-	 HAoEIq/m6mCmrhqik50ZRCClou5+EyC+KsuXVPyQVmb/aA0qt388u6ljDv9CXSlIe8pyq
-	 98sGhf7pI6qz5rGAXdphWFdspM24ghAOsN3u20poD8w8ZxHystwoeYBOsofnUfXQSw/1E
-	 EqmV0sNcQL7rdnAX11LrmTUy+nfDvSH0EH6jZiwLe1vYyVHPaKJOw6+BVbBAN0gi6qw==
+	t=1793847439;
+	b=l6XxHMjY7ax7o+4i7XJyJno4Np3NL7j7jdxIqIcYAe89fBv0dvTzsJZjb0xmLuzUZ0+E
+	 RlsApM0cGDivVLcvlrutwa4xpxFUsp5vMU/fwU7DxC6J0fjAjpMj/FP7f67OBrDUQmVTM
+	 BWVgZDsMkxSizaXhZFlA6i7FcJiejFxaugShoMRsx8rQ3LQXXYcIkbqdJD8VJ/MEYAZhb
+	 RUzWyqhPyNtCqWEodA3Qqa2hpavQW7A2KPRO3LSneVxToezmny5bvbUEbHmFXiT1pHkp2
+	 7yajw8dLnRFIHoJz0UYlnqMtt7oQ+SFdjiWGxNOXglSLwAsSLg5dWalIr2ZOttIUXaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847424;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=glFoeqTtNUfY2+mxzil5Yl+taLvoFmrlvPohUi507NU=;
-	b=ti80qbQDArwM6NyPDjmCL0hbV9ZB+5iXKn16y3XPxDpZ+inyZXekMA0CIiO6/yYJ8QAT
-	 EyQ0afk3RQXEwWvP39H0hzWD5d7rqiNel6niTJVpoDpvuXDSurIqoNfATOXox5Plha4en
-	 VrZmagE6fzou32P3q9O6Stzn8P+cJVmHDi1erN+eA+rmYkCOk9hTFZ6OCYPykVzTyqIIM
-	 /WrRoY8w204A22KryHVzqDfXPbMOqiQy7hsKitcIrwFqBLXTaKNsqZt/YpseCr9+D8nax
-	 lC1Q7ygkU8bqYWWJdLNAhkmu57l5PhKJpJnkVDLG91KPOPFgAr58jzXwpaF01DcX6VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847439;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jq9t4i4p9xF2mSol4zZx3RitgWvrWh8XynSKXKryK9o=;
+	b=nWNs9hdNPRGEYethIl/yUMpX+Xrz07mpx/5RwEPpn+e00/wDbioxI879fKQOdIFtlNgg
+	 bu7QbB50Gfrgy4izd6lbIIZVTKS+IBS3lQzTaHLJK1DhlgNoXTC8YpHRoYHxi/8TTc8AR
+	 7WZHZb8XszUPU7l4oDWwqI30rY3zLFUt1dzheqO/UY976QPZJ03XbKhZaRL+WpVFnksdv
+	 jUZQo1TgcG1wVED5DVPIAHegPJbEI7RPjxpjUMq7vgbpC2D0vxFfce8LSpxnu07sC7oqF
+	 7ecVGmqwFpcuOY3psVRGfn0Ns064TdEw9MzDJBm/PlBbt1Njnz82MQ5YzV8dMsiifzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=R7Qt27yL;
-	arc=none smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=RpmkdZsZ;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6B2606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A6B2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2A8606A328;
+	Thu,  5 Nov 2026 02:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA2A8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=R7Qt27yL
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id C7D4C3F2A0
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1793847420;
-	bh=glFoeqTtNUfY2+mxzil5Yl+taLvoFmrlvPohUi507NU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=R7Qt27yLogN3RdwhkZEmcyiyW6IZiEIXy5Zu80URZC1U8z2l53NHQULrfFmhvvgag
-	 m83lobKsrmVgbMg/TZtycvej2pY1E630J62ZHBXdQTmCIHzwjOURDY7X89ulrc5e4K
-	 ycE8n0+ntb9ullBhGrDttiRIDwZOH9Ia1cEshE49jjnrdzlWOTji2+wbFgtWoe+LQL
-	 V/hRmOXPBK6OgKzQAdTbIStBgQW+LHMcb7WNhYxMCGqAASfVqsS/znmCo+pdfEciST
-	 fX5E6BjS6THvcuZq6qOfFp7yzYjyL+Zh7x9nL7I75lYW+GWpNQ+9j/0LLq6UkWKvbk
-	 fR2rRZEbFIuZ9sLVMMvtwtFBfm72GNqdBdsemj7qZRG74Q7GlBFhMjSc08QGbL92+1
-	 /kBVQcI5bbGeHIKsUNt7K1DDd84BumEUvpezoGoGiaC9cntwKlkRQhGpFMWB1f0MQH
-	 USl4zSQ22e59tcbCWY48fvYtmC6Hol+mh5QpIW76RU4ozEDiIEhLxiwLR2JbaSqrJH
-	 MDNCHdoZbIPXNjpAk+f5qm71TvqAc4FiskyCBw+crER0li+2xTUeUh5HiYsMpQNWUd
-	 KlJhNsLPRM2B4GIRFPsXN61BI2GLYRYlOxSPfAR+rhT9RSKmqiIoIFoGZyXC2+ze9A
-	 xVfk7fQXJJGSf8V0e8np4gQw=
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a06bc723b1so1925444b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 18:57:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793847419; x=1794452219;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=glFoeqTtNUfY2+mxzil5Yl+taLvoFmrlvPohUi507NU=;
-        b=z7vWoAymBnj8V/Eu+kscNzdx3EXIsUKykQY8ulutjRRP9Rjfk1UYbV+2yVkpFkByRq
-         lDmKfEB0rWnLv+7vs7Isf/xpc74paO8dCMcl02cz1PwK7N3lRUDL8XSEHlarijfYc+k9
-         +LJBgc4CA8PnRCiKDHiWn6ilHMLqczzS0fVu/8bWihjKG/z0XW3aToF4i+45nB6RPTaq
-         8PYLsHB8fCrHBd7/hzjJH7I4heSVI5odtjckdHi5hLYyYqGwCk4y4YBSKWFErivocJ8V
-         X1kxSJmeAqa+Kc4k44iAE+GWOASXMxmwd//E78DPmQyBu6BbU0gbJoX2YIqvBzKRxIpH
-         nrHw==
-X-Forwarded-Encrypted: i=1; AKwUvBwkfpQbOMrIlkQ6wScHNgq0uu/qZMG2l53OIlIDzqN7Ka4Gx5JfyTi0O8YDKBFBw2quFMacEOCS3BxjwJs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9d3SFdkXF3utCz6qsvoC4zEy6b6rtwzIdM0VYeHJDvSpEILclI
-	uyUU7x87igMW0r42GOue7eUs8+OXvvuCP3xVYoHYxV2RJwLoffc7COmZ0O7uhnX9dDh0Yl9fHpd
-	3lFYfMRZD5XawiHmkCRZonMDYchlICzOKlHQXPL+aRQ0fll32iAbBmE7KyJH0ApBTFo0Cw8sJ7F
-	YOZ2BQsf59RbfZEanK1nI=
-X-Gm-Gg: AYBFou1zcgrL5ZvdvCGS0ZM8AiNFF5wWHgj561Diqf1wj/FPlZGfWtTtt7S798KFB2L
-	8xw3LZcW5jO/8Pyp/EjM7Jq/0SYVqyCrLFKGHu+aK1RQQzOMcxpwpNKXtGIeg4Br58OGrlPHuPV
-	4UIveHnrPqJGq1//hN49hKngvNjWQ2YZQWyCnhNYneC72fSpbwBSPhqnXl2yAwIYcZlnmoJtaQn
-	e+RteHCxw1CshLM9X/BpCjvXf6CFf7SiPIhrVLQ6rQ/AMyDb4OI+tNcjTEtKyUsHSZiW0FK9T/L
-	/QvNINCe5ZXyfxFTkK7DrBQLgk1qHz07maiqqxtua9HsWZ/o9Ax+BrKYjA00qhqypAjifRZN99Q
-	mnNm397RnQKOpk0tBIh0ULRGB3FyRX0Ge4sn1UgF1PM2WxTOXFIpNlttBTrDxs1fUxftl4Ca9oM
-	ScKQe4QS+zV37egBC4vjEIyYSOVBIj
-X-Received: by 2002:a05:6a00:806:b0:886:bb44:631f with SMTP id d2e1a72fcca58-8a9bb79fb0dmr15642263b3a.10.1793847419303;
-        Wed, 04 Nov 2026 18:56:59 -0800 (PST)
-X-Received: by 2002:a05:6a00:806:b0:886:bb44:631f with SMTP id d2e1a72fcca58-8a9bb79fb0dmr15642244b3a.10.1793847418922;
-        Wed, 04 Nov 2026 18:56:58 -0800 (PST)
-Received: from localhost.localdomain (211-75-139-218.hinet-ip.hinet.net. [211.75.139.218])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b667995sm1399905b3a.40.2026.11.04.18.56.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 18:56:58 -0800 (PST)
-From: Chris Chiu <chris.chiu@canonical.com>
-To: tiwai@suse.com,
-	kailang@realtek.com
-Cc: linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=RpmkdZsZ
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id B2C4C41A1E;
+	Thu,  5 Nov 2026 13:57:08 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1793847428;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jq9t4i4p9xF2mSol4zZx3RitgWvrWh8XynSKXKryK9o=;
+	b=RpmkdZsZgbcqwmyzDPOHCYuMU0SBv/jUzTl1QoMHcQVeo0u/j6SGGCqv+w/ndAa13kSVAA
+	wo6WG8mTHMZG74TD2ywRBD3jGdpSMVQrhsFyD8F+t0NxR/0xBn6bkv0XOij2z5Qx9WvqvO
+	9WhaIKy8AkqL6NBL8xJN92IVkOaOYfpz3l2dUaIA0aVQWOtlldR6aIdg1T2H35mfznO9FT
+	lCx2BAR2LN2km3Xa2GYIw3X2F7wlT603IOdoJa0kFWsmh6fs6UYXkCLhv7ekwlmESQXeiN
+	Woma5LxrMLM2EUHmpQGEoqkhl/6ZqiHZ7pcAIgWErjpBbJgIdInm0tjQPbWDSQ==
+X-GPT-Reason: This email is classified as legitimate personal/professional
+	communication. The content is a technical kernel patch description
+	regarding a wifi driver (rtw88), which aligns perfectly with the
+	personal mailbox of alastair@d-silva.org. The sender domain (d-silva.org)
+	matches the recipient domain, the "Cc" and "Reviewed-by" headers
+	reference known Linux kernel development entities (vger.kernel.org,
+	linux.dev), and there are no indicators of marketing, phishing, or
+	urgency.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Chris Chiu <chris.chiu@canonical.com>
-Subject: [PATCH] ALSA: hda/realtek: Use inverted mute LED quirk for HP ZBook 8 G2a
-Date: Thu,  5 Nov 2026 10:56:47 +0800
-Message-ID: <20261105025647.1116662-1-chris.chiu@canonical.com>
-X-Mailer: git-send-email 2.43.0
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next v8 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+Date: Thu,  5 Nov 2026 13:56:57 +1100
+Message-ID: <20261105025700.1655219-2-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105025700.1655219-1-alastair@d-silva.org>
+References: <20261105025700.1655219-1-alastair@d-silva.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,42 +84,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-HP ZBook 8 G2a (SSIDs 0x103c:0x8f40, 0x103c:0x8f41, 0x103c:0x8f42,
-0x103c:0x8f62) use the Realtek ALC245 codec with a TAS2781 amplifier
-via I2C. They share the same hardware configuration as the related
-0x103c:0x8f94 / 0x103c:0x8f95 models but were left on
-ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED, which drives the speaker mute
-LED backwards: off when muted and on when unmuted.
+When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
+returns without reading data. Because it returned void, the caller still
+counted rx_len against the loop budget while leaving data stranded in the
+FIFO.
 
-Reassign these SSIDs to ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED
-so the LED follows mute state correctly.
+Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
+of the receive loop in the caller immediately.
 
-Fixes: 9afbbf490322 ("ALSA: hda/realtek - Enable Mute LED and Tas2781 for HP platform")
-Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index f7786e1b0878..b00036f2719d 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7738,11 +7738,11 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8f3a, "HP EliteBook 6 G2i", ALC236_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8f3c, "HP EliteBook 6 G2a", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
- 	SND_PCI_QUIRK(0x103c, 0x8f3d, "HP EliteBook 6 G2a", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
--	SND_PCI_QUIRK(0x103c, 0x8f40, "HP ZBook 8 G2a 14", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED),
--	SND_PCI_QUIRK(0x103c, 0x8f41, "HP ZBook 8 G2a 16", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED),
--	SND_PCI_QUIRK(0x103c, 0x8f42, "HP ZBook 8 G2a 14W", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8f40, "HP ZBook 8 G2a 14", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
-+	SND_PCI_QUIRK(0x103c, 0x8f41, "HP ZBook 8 G2a 16", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
-+	SND_PCI_QUIRK(0x103c, 0x8f42, "HP ZBook 8 G2a 14W", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
- 	SND_PCI_QUIRK(0x103c, 0x8f57, "HP Trekker G7JC", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x103c, 0x8f62, "HP ZBook 8 G2a 16W", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8f62, "HP ZBook 8 G2a 16W", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
- 	SND_PCI_QUIRK(0x103c, 0x8f7e, "HP Messi", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8f94, "HP ZBook 8 G2a 14", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
- 	SND_PCI_QUIRK(0x103c, 0x8f95, "HP ZBook 8 G2a 16", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index ecd4d751c05a5..172aa7ad4732a 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1348,7 +1348,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
+ }
+ 
+-static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
++static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	const struct rtw_chip_info *chip = rtwdev->chip;
+@@ -1365,12 +1365,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 
+ 	skb = dev_alloc_skb(bufsz);
+ 	if (!skb)
+-		return;
++		return -ENOMEM;
+ 
+ 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
+ 	if (ret) {
+ 		dev_kfree_skb_any(skb);
+-		return;
++		return ret;
+ 	}
+ 
+ 	while (true) {
+@@ -1379,7 +1379,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 					   &pkt_stat, &rx_status);
+ 		if (ret) {
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return ret;
+ 		}
+ 
+ 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
+@@ -1393,7 +1393,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 				"oversized RX packet: %u, %u bytes left\n",
+ 				pkt_offset + pkt_stat.pkt_len, rx_len);
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return -EINVAL;
+ 		}
+ 
+ 		if ((curr_pkt_len + pkt_desc_sz) >= rx_len) {
+@@ -1423,11 +1423,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 		skb_reserve(skb, curr_pkt_len);
+ 		rx_len -= curr_pkt_len;
+ 	}
++
++	return 0;
+ }
+ 
+ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
++	int ret;
+ 
+ 	do {
+ 		if (rtw_chip_wcpu_8051(rtwdev))
+@@ -1438,7 +1441,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 		if (!rx_len)
+ 			break;
+ 
+-		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
+ 
+ 		total_rx_bytes += rx_len;
+ 
 -- 
-2.43.0
+2.53.0
 
