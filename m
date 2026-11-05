@@ -1,95 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793916303;
-	b=Bvr/uhcd89neqXvrGNQdSK9vKdk3zrlpC7YVco0Aaa3AL//Gl9zjXxqEGd3746ro2evj
-	 fOLPcU2SQd46P1r7ek127El9reTcUsS1PBVvyLwaQmnXAzJ7bkViPFfabGVRT+yLNraAn
-	 JKWgMhjCN0pzwWBLRttOS0/jV+FVkM6Vaszm93jUBN0OPmzJQlZVMQbTsnxM3dFKysb76
-	 YpvyUY9TNvuAf4q9U7C7gReo9yU3hh9ZYfrI8RT7ykfGT4XTwhm8VFlJKIPPNorVbiz/I
-	 C43bqcNiP3+azdZOx05eTVt9qil1WId9+mycTbF15AsJjv/MmHCnne+DUyPzv1ObT/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793916303;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UM79h6/XeKWukEb9O63r2sc+IIK+Q8AyvjK8pFLS5ek=;
-	b=5PCuDtWbTcrg1dptZzH6K0czZbVPGxCqZDBaWCX7fEQlkiMFTR1e4Vdb5pCIAsAeizDb
-	 ZSP9TBbNeGx+7FlKlY5H1aPMZ9QXzz+YDyMJmgojZx+aBFgcYwuI+Wevd0OcwGYmqPeCg
-	 wYduOXuxdSQiCbOhcjl8XiwIvprbdD3XBh9RnelkP19Ibp4pztRgWXiOLuXd8s22pO8zk
-	 GMIZ1e17+U0Jxqu+EewlXIeQ5UygqK7978tvXBVZyING7zpObYxH6jhYbrGRfy2vqwHo3
-	 8n2raLk0KmMX+yAt1oV8l75MsiMx9hybuofn6+EKqmUnDicDwig+lwVENHQXkR3szHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=q5hmPZFv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.50
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013050.outbound.protection.outlook.com [52.101.83.50])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793916392;
+	b=DOWXieEP/jhI1Adf7oszj4NrHPayynRRy9rmyOORgmm37zwlx1/1K50aQlFKZXXs5o5Q
+	 XbuwVCaDX69COJidvFuWZe546bq5oKWVAbSg1llLzNwTUVCI3KuE6+py/Pxm6VjNhDfQw
+	 tqVyjhG1NCY2dc9TW8Asw0rluw9h7id/GldEzQQ0HxN3auiA79jQZ5PxKckny7XDiy4cr
+	 M1yt3aqu1txmoY+c9YB6M/lhUFZFW7VQcovoy+9hASQA5sR/TZtzYbzc8OH+ntyFDx5yH
+	 7ManGI7v28RF+FrpM6wBZayju1tQ/aGHvzvrdWkSHzEIotNDYaoBMoCppFuWTLBshEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793916392;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ddrnZmJB37VdL/q6siqf8NrklVhSy4qXZBmdXTHloB8=;
+	b=A+rdSXCxoV/RO7K3fGlI1pXfvFRcnKYHGgj+Occ6ctaprditQXl31qlH7TMEOZU1J6VE
+	 Kr17K0f8Fvu8LqdSy5wVsX2KfdhyKhxHAOZi2Uv27pbea1rQSDGj7cbGU5nC/vptvKGjX
+	 4MpXq1LOWAdE7MljjjWLn5kAfsa2OGmbjwxv/KpAhUZflbYLIVHAs/xVUXmTi1kkc0mM6
+	 bbgFlv5CwpBqC6MRVKRiJqQc5oATvsy4QhyBtEsRI3Q/ojAV0KlTeAN9TfhW4zbeBgA++
+	 3V9rM1E2V+xz0UbuJoyIP0r/hLNrjrr5mWSJIXTSHPmNuRgUTeA/yDf6juwSZXhvvKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=WWJn3IZu;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189BA606A329;
-	Thu,  5 Nov 2026 22:05:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 189BA606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB39606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:06:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB39606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=q5hmPZFv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZSHwm3WBdYDWm7nUvYG6mNxIWXN61KDW0xklDT+fcNa4uuHCEB0qAwwc8QrOkCQdsYuY6dbDrx/KRgen9RXewOib5xvYeOet+0t2e/eBUkhR0RgpqEKNOebkR146DkM9qCJs15Q4e9/zOVG0AqTp8ca+pqvSzPxuLojbN2y/CtqQ9WxFRnFGaWhtP0mxEeq4kWgqgzX0sSX2iE/ZWrQklTMh5+cnyy9VsP5P94VXhkecUmNoKB8WBB6zJxx55CjEp+woE1HWT3Y/Dx7or1/ue+yoGS95S+1Q1Hh/YK/B7SYQDWaPAY50hk58/SqlqI2D4t96GLgc6oQw7I6+eH/ErQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UM79h6/XeKWukEb9O63r2sc+IIK+Q8AyvjK8pFLS5ek=;
- b=egBKD8udShZdPSBFAMNDtyDRY2NSAbyOACvhQUuDR2jtQEj9JQs9h/bJkSGeJx0THhBoNBC75q5pHCpTHCHWXLKFuqBfh9JSCJ2oMCi3Z6Wa3rV7O70/PcBgWvmFpkaXrdEkF/dIb+lB9yWbKdmUnOgPQx8fEeqgLngz5UJdBULhrCIjy5gWUvsF7TDW+Uk78mu+WFQs+3a/gwKd1Iuj3Fcm+46fmL1EU55nI7F1z+kYsyySGNByvCdzo2QvfBmxgj0Iqp3tknIT3P/sJE8wUVJ38fBWdF1KypZ//7YSLgRJQ6vlUjZvzMmq6zaNA5vRqCMltIvEqFgsuAjgqTrp3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UM79h6/XeKWukEb9O63r2sc+IIK+Q8AyvjK8pFLS5ek=;
- b=q5hmPZFvjC335dzC3T/n/fQ04AY3NelKcVYhSrwngIWfJDowTcst2GEuRXWeyW5XKFrMiYEpWLEdZwuT1Pb9MhXwXfVNX3XiY7hVDcuM8KmSd1RAfV8mWiZwZBrOWl3x4p9nW75chlVlePM2IBQS0WfiBTEkppVG2m6Md5Cc7LZSjdBRoZ5ZOomyTqDxvd1Tl76nqhHtK6Z90uf5ud0kMsmtUmTdrE+XEEMQ8FXzidPiOK+B3Bkcrpo7RlkMrtlnbOuRnvOQ6tAWY41ct72s0osps4YdchWAyqmkVBQeMzMP6/2T9qrv2DsA/4CpmjtfcJoQokTBCtNqIc2bq3uo2A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM9PR04MB7684.eurprd04.prod.outlook.com (2603:10a6:20b:287::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 22:05:00 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 22:04:59 +0000
-Date: Thu, 5 Nov 2026 17:04:52 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Shubham Patil <shubhamsanjay.patil@amd.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	meaganlloyd@linux.microsoft.com, git@amd.com
-Subject: Re: [PATCH v2 1/3] i3c: Add helpers to get the maximum transfer size
- for a device
-Message-ID: <auz9hONlL4kr6qrL@lizhi-Precision-Tower-5810>
-References: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
- <20261105085425.3418230-2-shubhamsanjay.patil@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105085425.3418230-2-shubhamsanjay.patil@amd.com>
-X-ClientProxiedBy: DS1PR02CA0010.namprd02.prod.outlook.com
- (2603:10b6:8:452::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=WWJn3IZu
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so143545e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:06:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793916390; x=1794521190; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ddrnZmJB37VdL/q6siqf8NrklVhSy4qXZBmdXTHloB8=;
+        b=WWJn3IZu7/SBCB169KNJ09KjsviN3ME4cBl1ctqAtT1wnxTAHTXBfL0aVNat86L/Ik
+         rew7TuRrNSljKrYLdSvxfQeEb3fagl3RHJ3UT7Pz8SyAGHEJq4aXR76oNzpCPUxSjwVL
+         wWLZZvPlDb8FzUiviess2qAH/M/ocI4U8Mz7i7dGJjjv8hgan6iegAGL83dMBWrO1Ezd
+         hQCZ6CAZ0xp83fsXLn1NdlOp9obV09taUMZR0sj/hUsRhwbQQ/EyT5j3oMhQT1VqdNP0
+         drpqwQftx1DUSbakA9BTc/DLUyWQR8gyeelLNYAS753/pQCSh5iJ2UVBR2d69iWgF3cf
+         z1uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793916390; x=1794521190;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ddrnZmJB37VdL/q6siqf8NrklVhSy4qXZBmdXTHloB8=;
+        b=u/+FF3lHmc1e2J7X2A/6P20KIPsMZHcrpX8+SvkVyqnWKM6FpLTWRSHJYrwBOvKs+/
+         IK2cEDh3PMJ6XCsvqGNlds/UNrAl0tOBtFbzInM4plQyTAcSZrI6im3gd0fc+zj+JCjo
+         L67k6HbOtGhb3QF61ldjqIT3aROA7xVZ2vkBkOZpWo67RbLroOpe10G9/M0GSRBbS7mo
+         +0i2xv0hxvcMLleF4SYpDnEgHl41FAy9idVTj8KQ/+VCBm+4zHPJSzQKzSInVnZ7KfuL
+         Wj08hFC5H8esmENX0d4pJIcyilzslLsEbzQhZ3lrySBQWoSN4xooRaw7SlXTTGW42+Jl
+         DDTA==
+X-Forwarded-Encrypted: i=1; AKwUvByf9uZxyXc+/GJ8oalkfTb09nnNS3X3efPh94oeAgtX3tHUn2u5zF2FOVDESSio3Juox7I61mLZ3KpNp9w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98HklMx+joAiqArh9bM4KOn7CK+Jrr4owykPdImWd892IUDpzD
+	8bskJBQvAwoMZHTVpUuVtBD6aMMp7C9F4da/4Eit84xJ50VQQGuL0vvYfLZ+NCpHhaQ=
+X-Gm-Gg: AYBFou0idBIFHY04pvsNK1XvzsmHWEWnDZ/K6qEC7o4XENBlRcd3DLuc0WZZ75vET+N
+	1Nm35ozSlhLmOY6gkM5MilIl2jaUTb2Py08z60vX7uASZLvCzSo81ZvZ2fxmfjBlHHJviU6lUHF
+	YYp4PKWsO996KuqFPP5eZ5g9qkZsDjc/l43cIJreVj3gCtaF6qZsOVJzi6zwJamOqzrWFIlAiOp
+	DdCd4wxLNJwRoug762f5Oab/WxcV7rhX1nEFjOLd8Qi2ATwJh7xNl5MkbVeZh2nXjqEGDlFQT5o
+	r6fwlarJL8xlkIZ6YoFMcj52tbYZDDxyOUQDKFk+MAIVUny8AvFyOWTzSZvu6O2VuEZ0k6uViwZ
+	NVl/miSgAGXuOBLtzLGc/UWDhYUM+i0hrwP5snIBvb+Jlc/zMxoOnZcHC5u7ZP7RQdYteO/7y0W
+	sppjr6sAhn/5Ps5li0/0iBJTlv/DiXvV8b3Nu+EWlbmqC4Qtl0U7i1mW82bWHoiqfwQUXxKzgKS
+	dmy9pjgtZnn1LDKhW43SS7jUv9o6ycWePILWK5cy/nF9NNo35a0gXpnm4GUZoCMLHduZsTPy5L+
+	VIx916UOEEDaj4lron/f
+X-Received: by 2002:a05:600c:310f:b0:4a1:acaa:9d4c with SMTP id 5b1f17b1804b1-4b6de78934bmr7539875e9.25.1793916389942;
+        Thu, 05 Nov 2026 14:06:29 -0800 (PST)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f736a1da4sm1108191eec.7.2026.11.05.14.06.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 14:06:28 -0800 (PST)
+Message-ID: <7595d1e6-b61d-48fc-b616-5562735297d2@suse.com>
+Date: Fri, 6 Nov 2026 08:36:23 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,119 +92,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB7684:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cb5e5ee-219c-41d6-458e-08df3b88d5b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|23010399003|366016|1800799024|10067099003|18002099003|22082099003|11063799006|56012099006|261102123227099003|4143699003|5023799004|261026121527099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	9WEBUGe1lbrKCzzRL8sa+XnKnC5kKT7ErDJT4NwlifA0p1JRRZverk1fcRTtqZzFV4Ha9OUTthP+WDJacUXWq2hPDuYzbgWOCQuc5C9xcueK8UNU0xUvYTD6imvayQjJuvccKvuqjaTUIqjpFNhCP7UdELITPfx11p3ZGysGOSJB+KaPP7Phxgolbbwdi+QGIRT6wvNtTyLLXY3CJi4dL++9ssccvvAgJ+V1L0FKFpLEt1F2fbC0nDgLwGMU4jGecOAFUJ+lnYpqxw9SHu4e5J8wDiDFDl+rMR2ywD5LHTEbpur45Ax+XhUV9OkgTWUPpOILDuW7aPzFTotkHP14Lo3SPVAMLRJHrZfKQ02sOs9wWlYPxehNBHBnRQMIHNwKsObKhQoJjkte3V0qrUS4oK3OGAXxSEe6oHZ4PoycE3TdKyQOTbvmJ5jv+5olKHnfralJaICxlct7DLlgJhHwL5/XbF9pa+RfzB836BAyeIFsgvCDHrZwyJhWBycFaVV6bcsbgV1C0LVBUOOoCDEIpD2MDD4TxVyBWw+uqkhcVvNaLb78G4AWeqoLNI0sJPwfO4zwgTkV2q3l/a3stcPWINS3TgA+2grydSeO23oTz9pAjbwCyM/xAbZsoA2jJjt51EDSvSDWfTGwF8W2jvJoGHR3SKqlYR4mzjdXY8As1fk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006)(261102123227099003)(4143699003)(5023799004)(261026121527099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tw/aps4NVF+fzaTWGizW6QTZRw34kujYjdmyGA+bUQZhKOtz9McQUbVsd6bb?=
- =?us-ascii?Q?ePJ3yCEMXUtQC7te0SxVeRDYrolYjuQqKDNMaH/GI6TNQwJrX5dmq1O+aDIB?=
- =?us-ascii?Q?YZbteEZdvZ/zwB7hwGa1I6xkeas2t4nx6puA8D485P+fR1nNE239OjCvl5o5?=
- =?us-ascii?Q?aSykArBoODHXvT/eUyRksz7tzfnijrepnx5XPgbp9nY8RZhxBIm8Ke4ndtHf?=
- =?us-ascii?Q?2ArN1R7qjAphgg2cmZwnYjgIR2NUlEe7e8VM9CbBo+nfzUQZGjKR8MdSZUeV?=
- =?us-ascii?Q?egN/zeJ9DI4z9GW684fdH0ewOXR/MMaqyPY4BVUg9e3MemW5QsZ/k19548bC?=
- =?us-ascii?Q?8uANfkgvQVehrD1uoiZmHTVrlkoFz69cndPfWaKb7GsSJIElazl5dn4bINKP?=
- =?us-ascii?Q?6DPx4iV4VIhHXfpXpW4Tf/GP4ZnpSZRi/ET4up1g0f8RzohYiByq6/SQofj8?=
- =?us-ascii?Q?Nx6cj8gisrLlqhMujEgB2rXmbffk9f1ZRD1G4kKCA3im3bmOfl9TenyP977s?=
- =?us-ascii?Q?yTDDDHX3eVzJFCbsAJNLnmKhhB2GFJkLgyhcqqsIcAnxptHP1pdsjVwZBH8z?=
- =?us-ascii?Q?eiPoRVXl9MEcS5WM/V5TrKVFKmQwfGIMuPiJRQEyKRufrIFzSwczK4+4E+Sn?=
- =?us-ascii?Q?IFXrtrZmAZefDgii3rnds26mhADhIUAA8Q73EsbKSddtdchJtk4m73wK5ITS?=
- =?us-ascii?Q?TwWahpvCLxrlmrze6P9GDLYiCZD2sKlqSdNssS5GwecjN0lvCGpvaOfd2GL3?=
- =?us-ascii?Q?JQ+bGhFnQQBmS7QYgmFoy+4Ftu0oMyDUKsmzykNV4gjc6WL5DpkBP+DfdciK?=
- =?us-ascii?Q?Cb/h+drgBFxrcRBKYHIiNQcT6N23M8uqtvotVeI2VCLGyyH7gdhHF0P8Xjlj?=
- =?us-ascii?Q?POQiMsk4s08KZBk89NQWtqDqH13dJ82eN17NX4J2mzAt9znxFug6t8w6cVAa?=
- =?us-ascii?Q?uP+26Rtl7u029/ZjUqzLQb2FIGlY5A9qLC5h7LQrx00OxOhBH9Bj2tjzfGD1?=
- =?us-ascii?Q?FfQ4NXaIRK1IfdAIPtmDfW5wdcs1Wel250SoxF+E69ngpllHSs+r/M+8BhRr?=
- =?us-ascii?Q?0pEJLaZ6PBnSVvjtbd6lXx2VKdflpH5GxZzXeDAbO16BD/eH4qpTzOBSujVg?=
- =?us-ascii?Q?gCPTaQV2dDN3pOdEs4ChqjSvQv9S7xmxcj8ovnbYurArJ4pzW5/E0v9BjBBh?=
- =?us-ascii?Q?c5pP2anFvBI1a585eQ6rkLZDJMK9fGH7kK4Drdq5Y40xiUgxgnWIpNgP4Gsp?=
- =?us-ascii?Q?NDkpncd+jCCk1Wovadl3p7vwFi7ih4qkEy244kftg7zXOuHeDp8jJ3PpB/wA?=
- =?us-ascii?Q?xBrrAba5K8qbnPChnx9DJSnz7477NLgjl21s1ASY4f5Wo30J+xUmfV5w8FWU?=
- =?us-ascii?Q?Od5dixvD/q//dv02ya+ojYnLyv6dAS3dDJ79wx1KlhTXBMFjnQ629EKqBZ4A?=
- =?us-ascii?Q?7JFW+FTMQPQgB44X2EKAB7lBbuvaLnreJFC7J0e93CM+NgQ1t16zcT6ph8K7?=
- =?us-ascii?Q?7bxsBAqxvQMxcujLaj/xbqNlehSETVHIG3qsaffZJ2P9sv1GgisI5/4Oq399?=
- =?us-ascii?Q?7z07dWYyx8qd+kesHBx8OTaOv/Wm2mfIWhU1CEFMKrZOoXo20wkMxoDY76zI?=
- =?us-ascii?Q?wBLL8tZBrMPwi5hOZCwRk4O2C5SSqwA+VxNnqJolbB8wYM9EPHmsi6SeVDJS?=
- =?us-ascii?Q?2TKzhE2JTHXnGWefyMzCyMlDTh9C32qXblYzhT+ixOLpvvpAgEztwS+AHEmt?=
- =?us-ascii?Q?R6aVHZymYbW+cBETngE9FscLqqCpgxtx5Ojsi/0DJFe9eD/lM3WV?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cb5e5ee-219c-41d6-458e-08df3b88d5b0
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 22:04:59.7603
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U9jHGDSZOcy58fLLXnW0E3ECK+B5f6AWswpmq9Z73sLvfyYN16cMv+K0L4XLFnU2XJ1y7A5c0ShWfTa3u1xa8ehMmJLkxviVPbnIfpcjpD9aKprcEinlSJcZdox/ya0P
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7684
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] btrfs: tree-checker: add balance item size check
+To: Siddharth Mishra <smish149@asu.edu>, dsterba@suse.com
+Cc: mason@kernel.org, josef@toxicpanda.com, fdmanana@kernel.org,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261105214738.111967-1-smish149@asu.edu>
+ <20261105214738.111967-3-smish149@asu.edu>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261105214738.111967-3-smish149@asu.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 02:24:23PM +0530, Shubham Patil wrote:
-> A target's MRL and MWL, retrieved with GETMRL and GETMWL, describe only
-> what that target can accept. They say nothing about the controller
-> driving it, which may impose a smaller limit of its own: the DesignWare
-> controller, for example, rejects any private SDR transfer that does not
-> fit its data buffer. A device driver sizing a transfer from MRL alone
-> can therefore build one the controller has to refuse with -EOPNOTSUPP.
->
-> Add tx_fifo_bytes and rx_fifo_bytes to struct i3c_master_controller, to
-> be set by a controller driver before i3c_master_register() when it has
-> such a limit, together with two helpers returning the smaller of the
-> target and controller values for each direction.
->
-> Both inputs use 0 to mean "no limit reported", so the helpers combine
-> them with min_not_zero() and return 0 only when neither side reports
-> one, leaving each caller to apply its own default. struct
-> i3c_device_info keeps the raw target values untouched.
->
-> The returned value applies to a single message. A controller is free to
-> budget its buffer across every message in one i3c_device_do_xfers()
-> call, so a caller batching several messages in the same direction may
-> still be rejected.
 
-can you try rephase commit message to make it shorter and summary most
-importnat part.
 
->
-> Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+在 2026/11/6 08:17, Siddharth Mishra 写道:
+> [BACKGROUND]
+> A paused or interrupted balance leaves a balance item in the root tree,
+> with the key (BALANCE_OBJECTID TEMPORARY_ITEM 0) and a struct
+> btrfs_balance_item of 448 bytes.  At mount btrfs_recover_balance()
+> reads the flags and the data, meta and sys args from this item, and
+> the balance is resumed with them.
+
+What's the point? The background provides nothing useful.
+
+You should directly say that a too small balance item can make btrfs to 
+read beyond item boundary.
+
+> 
+> [CAUSE]
+> The tree-checker has no check for TEMPORARY_ITEM keys, and
+> btrfs_recover_balance() reads the item without checking its size.
+> With a balance item that is too short, the reads go past the end of
+> the item into the data of the previous item in the leaf,
+
+Or even beyond the leaf boundary if it's at the last slot, which can be 
+more problematic.
+
+> and the
+> balance is resumed with whatever those bytes hold.  Nothing is
+> reported.  For example this balance item is 48 bytes short:
+> 
+>    item 11 key (DATA_RELOC_TREE ROOT_ITEM 0) itemoff 12545 itemsize 439
+>    item 12 key (BALANCE TEMPORARY_ITEM 0) itemoff 12145 itemsize 400
+>                                                         ^^^^^^^^^^^^
+> 
+> The mount succeeds and the balance is resumed:
+> 
+>    BTRFS info (device vda): balance: resume
+>    BTRFS info (device vda): balance: ended with status: 0
+
+I don't think the succeeded case adds any value.
+
+> 
+> [ENHANCEMENT]
+> Add check_balance_item() to reject a balance item whose size is not
+> the size of struct btrfs_balance_item, so the leaf is refused when it
+> is read:
+> 
+>    BTRFS critical (device vda): corrupt leaf: root=1 block=30654464
+>    slot=12, invalid balance item size, have 400 expect 448
+>    BTRFS error (device vda): read time tree block corruption detected
+>    on logical 30654464 mirror 1
+>    BTRFS warning (device vda): couldn't read tree root
+>    BTRFS error (device vda): open_ctree failed: -EIO
+> 
+> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 > ---
-...
->   *
->   * A &struct i3c_master_controller has to be registered to the I3C subsystem
-> - * through i3c_master_register(). None of &struct i3c_master_controller fields
-> - * should be set manually, just pass appropriate values to
-> - * i3c_master_register().
-> + * through i3c_master_register(). Except for @tx_fifo_bytes and
-> + * @rx_fifo_bytes, which a controller driver may set before registering, none
-> + * of &struct i3c_master_controller fields should be set manually, just pass
-> + * appropriate values to i3c_master_register().
->   */
->  struct i3c_master_controller {
->  	struct device dev;
-> @@ -580,6 +585,8 @@ struct i3c_master_controller {
->  	struct work_struct hj_work;
->  	struct work_struct reg_work;
->  	unsigned int dev_nack_retry_count;
-> +	u16 tx_fifo_bytes;
-> +	u16 rx_fifo_bytes;
+> An alternative is to check the size only where the item is read, in
+> btrfs_recover_balance(), before bctl is allocated.  That refuses only
+> the balance item and fails the mount with -EUCLEAN, instead of refusing
+> the whole root tree leaf:
+> 
+>    BTRFS error (device vda): invalid balance item size, have 400 expect 448
+>    BTRFS error (device vda): failed to recover balance: -EUCLEAN
+>    BTRFS error (device vda): open_ctree failed: -EUCLEAN
+> 
+> It was tested the same way as this patch.  The tested diff, indented so
+> that it is not applied with this patch, in case it is preferred:
+> 
+>    diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+>    index 3d4ef6725..97154f59f 100644
+>    --- a/fs/btrfs/volumes.c
+>    +++ b/fs/btrfs/volumes.c
+>    @@ -5230,11 +5230,17 @@ int btrfs_recover_balance(struct btrfs_fs_info *fs_info)
+>     		return 0;
+>     	}
+>     
+>    +	leaf = path->nodes[0];
+>    +	if (unlikely(btrfs_item_size(leaf, path->slots[0]) != sizeof(*item))) {
+>    +		btrfs_err(fs_info, "invalid balance item size, have %u expect %zu",
+>    +			  btrfs_item_size(leaf, path->slots[0]), sizeof(*item));
+>    +		return -EUCLEAN;
+>    +	}
+>    +
 
-if support dma, FIFO size become not important.
+Don't put another diff part, even with extra spaces to break diff format.
 
-max_tx_bytes,
+I'm almost hitting the key to send out a comment criticize the 
+duplicated code.
 
-Frank
+All you doing is just to make the whole patch hard to read, not only the 
+comments after the "---" but also the cursed alternative.
 
->  };
->
->  /**
-> --
-> 2.34.1
->
+
+If you are not sure about what is the correct way to validate such item, 
+do read old codes/history of tree-checker and similar patches in the 
+mailing list that got rejected.
+
+Then you should not come up with such stupid question of using the 
+alternative way.
+
+
+The patch looks good, but the bad comments after "---" are so bad that 
+they make me hesitate to even add my reviewed-by tag.
+
+>     	bctl = kzalloc_obj(*bctl, GFP_NOFS);
+>     	if (!bctl)
+>     		return -ENOMEM;
+>     
+>    -	leaf = path->nodes[0];
+>     	item = btrfs_item_ptr(leaf, path->slots[0], struct btrfs_balance_item);
+>     
+>     	bctl->flags = btrfs_balance_flags(leaf, item);
+> 
+>   fs/btrfs/tree-checker.c | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+> 
+> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+> index f021ac14b..5698845be 100644
+> --- a/fs/btrfs/tree-checker.c
+> +++ b/fs/btrfs/tree-checker.c
+> @@ -2117,6 +2117,19 @@ static int check_qgroup_status_item(const struct extent_buffer *leaf, int slot)
+>   	return 0;
+>   }
+>   
+> +static int check_balance_item(const struct extent_buffer *leaf, int slot)
+> +{
+> +	const u32 item_size = btrfs_item_size(leaf, slot);
+> +
+> +	if (unlikely(item_size != sizeof(struct btrfs_balance_item))) {
+> +		generic_err(leaf, slot,
+> +			    "invalid balance item size, have %u expect %zu",
+> +			    item_size, sizeof(struct btrfs_balance_item));
+> +		return -EUCLEAN;
+> +	}
+> +	return 0;
+> +}
+> +
+>   static int check_remap_key(const struct extent_buffer *leaf,
+>   			   const struct btrfs_key *key, int slot)
+>   {
+> @@ -2512,6 +2525,10 @@ static enum btrfs_tree_block_status check_leaf_item(struct extent_buffer *leaf,
+>   	case BTRFS_QGROUP_STATUS_KEY:
+>   		ret = check_qgroup_status_item(leaf, slot);
+>   		break;
+> +	case BTRFS_TEMPORARY_ITEM_KEY:
+> +		if (key->objectid == BTRFS_BALANCE_OBJECTID)
+> +			ret = check_balance_item(leaf, slot);
+> +		break;
+>   	case BTRFS_IDENTITY_REMAP_KEY:
+>   	case BTRFS_REMAP_KEY:
+>   	case BTRFS_REMAP_BACKREF_KEY:
+
