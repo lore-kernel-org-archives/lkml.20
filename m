@@ -1,129 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862888;
-	b=vYQH4vheTh4S3WsKRWD5LhWalnEzYnMvELCJKi40zLFD4mEIj5cO5AvKj8CAS7W5pQVY
-	 2FAnA7E/IhGJO2AA6dcy4ZpFw/Vs8h+/pCAaMyZU5yyzmgVgcMP6tWyzcDAbKzQOt4ieP
-	 6uy8YV8Q1p8kANngrtf1H/Qx9REbiCcDQ6FhQiGXrmYqrZmmvjq2qO6xbHgs3uH6SvW1f
-	 469mSPKTHhPPjHx16fiSI4Tn2Su2Uy6/xatuj/xv0Ed6SRAEAUikbsYBzZZxhpFLQwR0h
-	 U2YFr1WdoFMKU0g+MLTE++A8rw9nNn09SZwgkfG55w3gqGSGx9lufd5VEpJrORMlKtQ==
+	t=1793862924;
+	b=1tMPPbRr7a3g/6oSWm/i8Eyhfw4aoXUgEbzBz3OKUqKDE5PhCSmRiM6dgQM0IOt/eBAn
+	 OX03JsZcuC3Qw5aRA4CnLvF/7VptQnStQ7pGf0Rvk5Yum311/loRe5dTauRGfX9/yNma/
+	 +Jr2xMoBhbDQABa2wwb3tFT7vmMFXdeRHX5c5QF+X64YiBJiI9pCg8wjMiv23lDKhhSkW
+	 u5TRm6NgnCQf/toWALJrlLFIJb2umTVOPjmqtiq/82Ek35DhalEVEhTAMQ3b/a+xNQDXQ
+	 IhMzFBBRJEB4/fnAdaf154B7jKMNlpAuKlMcdvlsDXyPszO0r2XMCbvTV5XxfQG5lUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862888;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cZkitsX+DewrI5AYsqUlHktt4nU0q8Qh/L8/eegqT0M=;
-	b=pK7uReI/N63DxbzXHSFK97XRO4iLLLmUOyuhlp4qzjLsMk1hUOqEQD6KpYuNP6Jp/rgG
-	 NMktgMDMToUCnDpGhciApRIT2mymGvHkizCt2+F5y/M9ccjRkcTzf/T+v8NwmV2oWQmd7
-	 E3gJhT1ZAbiZb1hOZpSATrfkQiM4zVgT0R/zc/LXGn766PHhxMxc4Z7ryqfwrCF0HTA4M
-	 5uYOjt2okdsOQXAAwGwfzRFDPtRDg4fLy7JmdoAtg5ShdWQhCpp2NkXr1K63BSIA9gBfd
-	 mq81aieFKAHe9+HH82llaeRXXkcABhhqXwJqOuqr77TlpBl2y0PUcDnCF5e0oPbOpTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862924;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=RI12gLHnesKv62FPCjs5sC7shOFUJ1v1NeOwQoemoh8=;
+	b=Qr9b0tAP72IS+YTQUn24QXNkt2+5CcoQcBtMHfxP6Icztf0e4bP/26qUUo4RCxY7t4Ql
+	 id3MrXs9DOWghSwCbjrBEcPaqoxI75TGvyee9gtOgt8yKV25Us3mnZxDG435oTopmrGv8
+	 WI7vfvcmFtBiXh1zWmttqbeOlM4BeKemnuBjGPksBi7gliYJyRZ1ikS3pKzcptFA6yAr/
+	 RAgTXIPfxyMTqVu5ayVD01U5E4VIVzeAHfElE8H/Vl0sXptTVT+lpk6Xag9ESHS5EFMuV
+	 9a+7t1o9HiNK8rD5ZZOourXUTjkbqc4mdv4F57QYYekW6EFEq36dyB8bE0FsyRgamhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VAAtYU2R;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XumuW6oi;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=brVNnJD7;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56404606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56404606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAE8606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:15:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAE8606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VAAtYU2R;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XumuW6oi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793862887;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cZkitsX+DewrI5AYsqUlHktt4nU0q8Qh/L8/eegqT0M=;
-	b=VAAtYU2RgYH6pQzcks5y24LAZUYSV56hDWarr8l094ODjAnp8V1cuOURn6ywczROCOympa
-	WveQ1JOJ8guwZ7ZDZMWMN0FKJCg4DOZ5Os5d85+LeIDPq9/IND3IAx3owZjauqdLiyj1m1
-	bGpdYFf8bCLQ10xsqShdxjoYOqmGyMw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-611-fV3jIRUEMf-EHKG6uguiRA-1; Thu, 05 Nov 2026 02:14:46 -0500
-X-MC-Unique: fV3jIRUEMf-EHKG6uguiRA-1
-X-Mimecast-MFC-AGG-ID: fV3jIRUEMf-EHKG6uguiRA_1793862885
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so18645845e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:14:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=brVNnJD7
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b203b0c139so479746b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:15:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793862885; x=1794467685; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cZkitsX+DewrI5AYsqUlHktt4nU0q8Qh/L8/eegqT0M=;
-        b=XumuW6oiQTXigEVxC3UHVAwrKCYL1EEn7E32m48Ko4QP2cFWCAPjnLrKEFWy1rwBuB
-         ilv43E/3WOJglVkTMZ8l9v9liW8tY3OlgCmZ29DVHm03/IHV1oIW8hkl1b8HvgOpvWXh
-         KFaHEgQS+si5j4Uy596RWbLGsBamCmT8NpgDPcpow6JCsAqObeoeni1PM6AaOvJ/xc+D
-         kTVcKRqvjzgn0dK1GmLzCBxvkbB6/35y7Cd0SmiSHSVaIIv72nnu/acXSa8NrpciVV2E
-         6Rr/CtKL5wxX06v/SeZxJ+Wsmb79j55O3RF9Lm6iJ56+6kDGPokO95FXaR2OvXPGglU9
-         OBFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793862885; x=1794467685;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793862923; x=1794467723; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cZkitsX+DewrI5AYsqUlHktt4nU0q8Qh/L8/eegqT0M=;
-        b=imT0nE6uCv9FMhaGdzXVzIJ1NeO51HvFfeUPc9ukyaC44TuBznMrFIyUXlgZ+m8G2C
-         RdOIqNSfs2K7xEWDjiVtHgiYj+xBfDF2mkjKaqNw8XVqaoj8rG6ab8wlxAqe+3Kwi0db
-         nDPKbVyEnGYQFjQFBZJRqToAgDPrPPeb3PVwst1mWx1RzmNOvUQ0j9bzSBgM6kPlxpar
-         D2kxBOhOCt/1vBlXP3rL2ptRH2PU/q1P3OOI/wS7S++WbAtxVfaA0Wz51M3OLMTF9THt
-         APVN6qucteljRiR+LpmZHLaY/GygBuARiX9BMA7lnWmJLmGd29E9xJe9rofM+HgMcQI+
-         lB+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzY4PxhOwyu0f/U2Pg1p9Sw062x4Ue7VPkIiXfBHPEgDpHqFECiPnHSLAGsxKt8GfHw8tiu2hs20bKpT7Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mbeNX+heYHng+9SEFDn1QfnYw3A8CqVrR1kdcHVqU4hyYICYa
-	gGcjbpMHVjMYkEjFZ/mA1JF9+9oxzg2NU0D7uSQBnK+ez0qvVhAjXSt7jEHPzgy+M4P87iZl1mJ
-	cfs4nP13eZH6sxSpUycVPM3aEp7m+jaWK0XnvAozwQmBOj7xDQbDCv2W37zP7L+8Z3g==
-X-Gm-Gg: AYBFou0P+boTzjgrU13CdwhORdeHSLTFvb1HNZUwIzWQuC+mFVvfXMRKNBv8hCoS/q1
-	YCEghzJ6y6LHwoG9/Yh6e9L6ykBu5zoSzuzpzf2Wcr49Ac/b0W2eVl+A0vCtSXYP4ZMLuqdo7MN
-	6Mf560n/VjBunbO1mui9E+LwdfzVOsu2wD5dZfurGHsI355BRRTZ6VnN9F35bAVjY8y0T/SblBe
-	IPM/ZtTJfe8/RsCuzmosSw3L1EY2KYRvF059jtysdLpedpMvBEImJLNC0KOMMoFs1UgNhS41VB5
-	Ji7FfvHP+bXTg+YupiqO6ouc7HhnpfPD3BNZeOnNIDqbUnmq3XAwkTEx7uaRRQOFEPMUdkI9K9M
-	g/xR5x9dN22GHtVBYnCPRJMCYlEquZa/VEuexFP3MQCJfLvkAIHZI5eaZi9RCXXC6RrqKGw7QEh
-	dMKQ==
-X-Received: by 2002:a05:600c:a012:b0:4a3:59c9:a747 with SMTP id 5b1f17b1804b1-4ac1793fb0fmr400160515e9.17.1793862884849;
-        Wed, 04 Nov 2026 23:14:44 -0800 (PST)
-X-Received: by 2002:a05:600c:a012:b0:4a3:59c9:a747 with SMTP id 5b1f17b1804b1-4ac1793fb0fmr400159945e9.17.1793862884464;
-        Wed, 04 Nov 2026 23:14:44 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba207sm39679165e9.10.2026.11.04.23.14.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 23:14:43 -0800 (PST)
-Date: Thu, 5 Nov 2026 08:14:41 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v2 01/21] sched: Reject SCHED_FLAG_KEEP_PARAMS before
- reserving deadline bandwidth
-Message-ID: <auws4cpKvQnmNM4f@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
- <20261104211207.1392343-2-mathieu.desnoyers@efficios.com>
+        bh=RI12gLHnesKv62FPCjs5sC7shOFUJ1v1NeOwQoemoh8=;
+        b=brVNnJD7pXtFn2O4Us0ktmHWlimJXIFhlrU9YGibCHjbLNiubieX326XKNStjCFntD
+         3golXOKmCisIIWmAxV3Xn+sJvBeJoKzQCKhwYsEsG8BqAUYlzACZRB5y+p4j3kwyGybe
+         pmN/h8IZQybaABPE5TNCI74ZZ/T0ADfJGN9bt2zN+rgdEl91PDNDQZKddursoR65TR/O
+         x1H7OA4pe0xj3PJv8ZVJrmAI3wI+0lrCb0F00Yx/UUxwbLXTINHJ8JuTm7exThzXntfM
+         PKxOWvo6wckB1jtN1Sq5QspKQllcWRn4w1RCpt0iRKzfrG0xzSV75UFQlLcyDGws5s3t
+         OmTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793862923; x=1794467723;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RI12gLHnesKv62FPCjs5sC7shOFUJ1v1NeOwQoemoh8=;
+        b=qejlw3pANBdH3ptdgHoAOuC3oMyO6bJjbkee30z7S8wRA0zom3w9UDWvqA0f2Owjs+
+         ifXNyBaG3aQ79uPSu5RqsUWcb87b9Reyurf21lKtn6sCyqrg2tXJ7RDcW3GnuS1a81v7
+         VxuMB3e7AcG0/BozFiTXQ8iTA1QNKz68KIv04rPR7xE8JVMZD4iz1tUv3cdIw1YhF/H5
+         JKSBhmQ44Mk4WIsvMajuBW4xW51Xmkq7tgVQZOEMB+WyFka3QWvvrqFO1nafhxFlByud
+         jtO5VnWUHwwqrOsLTy0uTLYv8fdcrp2Bro3EhV5QK76lry22lA/Idi67TGllKAFSiGlc
+         BDlw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7FDqowdCepRhygLvEI+K4qNTvZh8hmuxRaCIEg42rcbZQVLD8zX9R2HY0dlWgYs+U/WfM2wqHBwRDo5E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2w56jGZ6cTYX1NZ2cNe30C2Wp5a0L8zbCjoKg8Bln8IipNidC
+	j603SAFwh7/lkLdlu/P2rBtnMEwh3exQ1ERTEskQlI6+cmMbQ3X5q/NifpNacBzOMambabdirp/
+	Jf4NKmAaxxEzIsIVpjbhsjg==
+X-Received: from pglv29.prod.google.com ([2002:a63:151d:0:b0:cc7:492f:3ac1])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:2982:b0:3e2:1787:da07 with SMTP id adf61e73a8af0-3e928dd8de3mr15532220637.56.1793862923106;
+ Wed, 04 Nov 2026 23:15:23 -0800 (PST)
+Date: Thu,  5 Nov 2026 15:15:17 +0800
+In-Reply-To: <20261105071518.1458428-1-stanleyjhu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,34 +78,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104211207.1392343-2-mathieu.desnoyers@efficios.com>
+Mime-Version: 1.0
+References: <20261105071518.1458428-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+Message-ID: <20261105071518.1458428-2-stanleyjhu@google.com>
+Subject: [PATCH 1/2] scsi: ufs: core: Skip redundant variant resume after
+ error recovery power-up
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Brian Norris <briannorris@chromium.org>, 
+	Can Guo <can.guo@oss.qualcomm.com>, Peter Wang <peter.wang@mediatek.com>, 
+	John Garry <john.garry@linux.dev>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-scsi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
+suspend callback failures"), a failed W-LUN runtime resume leaves
+ufs_device_wlun in RPM_SUSPENDED with power.runtime_error == 0. If
+error recovery then powers up the host, ufshcd_vops_resume() is called
+twice in a row without an intervening ufshcd_vops_suspend():
 
-On 04/11/26 16:11, Mathieu Desnoyers wrote:
-> __sched_setscheduler() returns -EINVAL for a SCHED_FLAG_KEEP_PARAMS
-> request that would change scheduling class, after sched_dl_overflow()
-> has reserved the bandwidth of the request, and nothing gives it back.
-> Switching a SCHED_OTHER task to SCHED_DEADLINE that way fails and leaks
-> the runtime that sched_setattr() filled in from the task's slice, up to
-> 100ms with a custom one, into the root domain's total_bw. Repeated, it
-> makes the root domain refuse every deadline task, and refuse to offline
-> its last CPU.
-> 
-> Reserve the bandwidth after that check, last of the checks. A refused
-> request also leaves sched_reset_on_fork as it was again.
-> 
-> Fixes: 8a70415351ba ("sched: Reject SCHED_FLAG_KEEP_PARAMS when it would change scheduling class")
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
+1. __ufshcd_wl_suspend() runs ufshcd_vops_suspend() at POST_CHANGE, and
+   a failed W-LUN runtime resume rolls back through vendor_suspend: to
+   keep the variant suspended while ufs_device_wlun stays RPM_SUSPENDED.
+2. ufshcd_err_handling_prepare() sees ufs_device_wlun suspended and
+   calls ufshcd_vops_resume(), while ufshcd_recover_pm_error() leaves
+   ufs_device_wlun in RPM_SUSPENDED.
+3. The next ufs_device_wlun runtime resume calls ufshcd_vops_resume()
+   again with no ufshcd_vops_suspend() in between, leaking core_clk and
+   iface_clk enable counts in ufs_qcom_resume() via qcom_ice_resume().
 
-Makes sense to me.
+Track POST_CHANGE variant suspend state in hba->is_vops_suspended and
+skip ufshcd_vops_resume() when already resumed so variant suspend and
+resume callbacks remain paired 1:1 across error recovery.
 
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
+Cc: stable@vger.kernel.org # v7.3+
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/core/ufshcd-priv.h | 21 ++++++++++++++++-----
+ include/ufs/ufshcd.h           |  2 ++
+ 2 files changed, 18 insertions(+), 5 deletions(-)
 
-Thanks,
-Juri
+diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
+index e55c2a02c1f5..9e4d8174a0f0 100644
+--- a/drivers/ufs/core/ufshcd-priv.h
++++ b/drivers/ufs/core/ufshcd-priv.h
+@@ -236,20 +236,31 @@ static inline void ufshcd_vops_fixup_dev_quirks(struct ufs_hba *hba)
+ }
+ 
+ static inline int ufshcd_vops_suspend(struct ufs_hba *hba, enum ufs_pm_op op,
+-				enum ufs_notify_change_status status)
++				      enum ufs_notify_change_status status)
+ {
++	int ret = 0;
++
+ 	if (hba->vops && hba->vops->suspend)
+-		return hba->vops->suspend(hba, op, status);
++		ret = hba->vops->suspend(hba, op, status);
++	if (!ret && status == POST_CHANGE)
++		hba->is_vops_suspended = true;
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static inline int ufshcd_vops_resume(struct ufs_hba *hba, enum ufs_pm_op op)
+ {
++	int ret = 0;
++
++	if (!hba->is_vops_suspended)
++		return 0;
++
+ 	if (hba->vops && hba->vops->resume)
+-		return hba->vops->resume(hba, op);
++		ret = hba->vops->resume(hba, op);
++	if (!ret)
++		hba->is_vops_suspended = false;
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static inline void ufshcd_vops_dbg_register_dump(struct ufs_hba *hba)
+diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
+index be62165b785e..cdcaccf9201b 100644
+--- a/include/ufs/ufshcd.h
++++ b/include/ufs/ufshcd.h
+@@ -1038,6 +1038,7 @@ enum ufshcd_mcq_opr {
+  * @devfreq: frequency scaling information owned by the devfreq core
+  * @clk_scaling: frequency scaling information owned by the UFS driver
+  * @is_sys_suspended: UFS device has been suspended because of system suspend
++ * @is_vops_suspended: tracks whether variant POST_CHANGE suspend is active
+  * @urgent_bkops_lvl: keeps track of urgent bkops level for device
+  * @is_urgent_bkops_lvl_checked: keeps track if the urgent bkops level for
+  *  device is known or not.
+@@ -1226,6 +1227,7 @@ struct ufs_hba {
+ 	struct devfreq *devfreq;
+ 	struct ufs_clk_scaling clk_scaling;
+ 	bool is_sys_suspended;
++	bool is_vops_suspended;
+ 
+ 	enum bkops_status urgent_bkops_lvl;
+ 	bool is_urgent_bkops_lvl_checked;
+-- 
+2.56.0.385.gac671c819a-goog
 
