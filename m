@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866222;
-	b=EmnWdspRfzMtkEPjQWzZi3H5QPieKqU8FZX84efOWwVSIujXUNj/T4SAxZjJdbH4aA8a
-	 ndSMP5CFfBiPY3jZ/LajbPTLY8kDa4mVYPVoAkKvuRwZT44Zxgz4abhAhLiFXMoi/ONyb
-	 EdyJCmKqeCn2e94FJzG+pZNuxpTp8fYAQbs+acv+tRWovixro9QYJ6VF1KdIaop5DONRH
-	 l9yO302Ei1Jx/BqAhbeLno3JklfS4HA6PAEQBwAFstW008X823y6kVSvRJw2OLN7HlyA+
-	 8KMKKvdUiyvL/YW3SHkhsdMqjO2GCpYpzWJG7c2r8SKQs/erweBopNq2Ik7/7XypkzQ==
+	t=1793866228;
+	b=kw0MxdJLpPRwTjhAkXYMopXeooDTZn1mEP1vCQq4NIUR8U7Queo1VJni8J2o3G0ggGr8
+	 3mwysc5UgJ5H9YmqCGMmakdCASj6eLSEoGU2BVEuYtoYd4QueOa6D/JsSvESkrPcsEYiv
+	 AgXA05QYHmcFbczf9C2xpS1knuBbioMMC6OxdcFID3/Mv6cNN/L/5qI8wA2p8D+k4bZjO
+	 idTfn/qORE6LyaNxZQDbplsaQgiIgyIsN+KvXUNp0cF/HhL7C0PckyY4yjGnCqG2LqbFV
+	 /qjx5K/e3mlt+E5mALynYfpkttWP6Een/lrX6mucG6Qz0G2P1cUID/5CD5LGwSZjRwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866228;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
-	b=0xKv4+fB5OaEPWZAemVl3tDDZCcwUhtBkFCIzJi4o8n2DPr3UhXbQSgkcZtI2EE6xgzf
-	 vhi2IwDluFvDBKkbP63OkQUXV3n/qjJUivuPEIfATSYZ0AOAzE89aYO1VuBe8LcMU3cJo
-	 5KuJ6q00YwIYun1wFCEEOn6XUu1eqQH0JRfqD6DBLFNcbNOnc612lctwD0hM04EMrnwaS
-	 9RNqaxu4CKwbxmWIS5b3h0cNMI82hLMpNwqZON51ZlkaLlBZ9rysHg7Q9d1SFEvhe3vT6
-	 IzXnFI+KdL+4211eoIA1vLg33fG7cCf4EVbQ3RaEiy66fGCiPpWo8djw0xRf/tDZFVw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uXh0iha/4VP9dzuigCmM9TrRRukz7g4ClrVx0LThZLY=;
+	b=FJ4cVKkAzyP991+RdpVCRsDC7UnDN+w6KnlcMcRNzH/3AviyNeHLgxF6wbwJKKbcsdO8
+	 fXWdoYiA8hL1XbDk9ykRjNHC6Hx1z5hsusmHBxGDh7ZZvBy//e0l9WQedaua3IgPLfgQ4
+	 UosVI+NU7740zCBmUuZ4DKUThI2CXhj+NsQeLJSndT/NuO/BTIhaiyx8neOhtZTPRk0vM
+	 aCircObDBUTirgd+f5vrreeBYalh8Jbr+U1kFfhWh0qSzgZ1U3XBoV3H/8X/bUmQhZ6aq
+	 ykZ12j3ScSeA7hL7+A586L9SlIcjAEcMm9aBCUBXRsVM1Rtwt9wWeRzSyQrwyeyC2YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Z8MnDae2;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="N/Qx1IS5";
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9580C606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9580C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D51606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5D51606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Z8MnDae2
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so10861675e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:10:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N/Qx1IS5
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso1260672f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:10:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1793866220; x=1794471020; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
-        b=Z8MnDae2Fsn66y+fSPyhIuqVEskaO6qb9N4w+S1WzyIZxbKvRPUaH83NjoqUuRdMlQ
-         +55mICaJ6Mx4r9o4hofBCQXICU1dZRMk6ZFp69lam3+EG2p/B8tv3geUffTwhQveCz15
-         CiJ3AJX+wQRitZ5yRXE3IpRddVqAtBQA+LFpuZnJJlfMDbJ647OrTyhsZsYzMxcheuT7
-         kDqst3oFw40pV5MPPnyS1I07Qb1DjDb2+tfRvbNRWPLCqOp52ICk+qV9dTDFL7B3EQyl
-         aMoXwSy08+l0EzHmmZDL+HcgI/PWt+WPFGN92vN4ylbNtBCitkfiE8D/rx1t8fVhAf2N
-         pkTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866220; x=1794471020;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793866226; x=1794471026; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
-        b=dH0c0NGIb09UDZ+XtHxAcr9fYP3MuIQVPQLW2dU4VdceeczmJA8So130uxMJ8eNHtQ
-         P8+aJU/mtZmjjREAwItevMwtDD1foWn2uN324o7MR975clx9QS/q21yQnxZ//vyEIxnE
-         M7ePjE6ervMjyr9W5/HHstRyTe+WfqYRxYVipTQg49E5d7brrzkIAlHOHK0kMyMWOwHP
-         zoCL+0vA9fRex1Ao6dEez7KxiCqHhBipqZMZ1gs7dK3hSm9IneHuApl0b6jV4v+EniOu
-         N9067X7PRnuIMfYqqo9qmcTzE06i9fQm0pLPIgwTcHOxGqNTeaaidzUwz3QYelVT8ToU
-         4mYA==
-X-Forwarded-Encrypted: i=1; AKwUvByLpDjfLRcSGbQfHXBeCnUxz/p7h8856JgGVZXzs0M9olQj3U/Gb+38xzw3VOtNSftqB1s2CKKBzfAIThA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kke0dCrzYD8ABNefs/mqES6py2AwQm8elK35Czw2oA2GotF8s
-	1+1ocfTjuW1HnNd2NC04sVKMq+0jnj5hA0WCsKiNgKQCMxmyo9SRizc=
-X-Gm-Gg: AYBFou2cmkoKEdvLqI/jZs57Iyk5ErsJKS/VVwp5eebKdsEWdyebuBqlMryFhzkCEU3
-	E2/iauVCsKJnTynuZk0ebYWNgTBI/Is7j4rylfuDc6QUkRMCu978HyDzCw3MMWcaSHCMcub2ReF
-	yo/k04j6LWTWmNRF1y4oGMmWfeRYocQErJ8qCEkNIJt8DQ2I/j1deFuKsJQq7zAvcVgdruss9hj
-	PJl8mhJgIhb6rs142l2ka+C1HD3GMXysjL5zU7bVEoFP5LoJt9jPtpSIJjkimfOdNM0kEJv+Pxv
-	GcZUc4CyP0sVnC9H0mG6VunjlaXhSKU26xUaLUjFP5rbaK3NR5EdMU2SX6kJq+udF0taeYbv/kt
-	bxBboV501Umqnwrvalx78+37aGsBfhPf+r2x3m4+tXvsn5nnqb5GSWIqukeSPXrsUfE3LrnEy5l
-	pE3cEgrRcbvWRHdZOHMhMEF91Ey/g4vTg2KPxXWMSzSblKBzrgpFGBtxGjOVrypLqvVrmd6O+5e
-	bqSyV0pYXKcFK2wRlU4Wa5J90iSilxkHtrQ6u5vm3G8VOaYQW+rEV7Ti3GYIpcSEmgmQQrTegXX
-	MftueXsMYPh6aXm75zrUViLU6ttevvM4ma8416y8iktw3Yq5FPh/qQ+f7tKr+yIMRDttSlFExRS
-	mRbg=
-X-Received: by 2002:a05:600c:4585:b0:4a7:8fe8:130c with SMTP id 5b1f17b1804b1-4ac1889d5a1mr393620925e9.28.1793866219820;
-        Thu, 05 Nov 2026 00:10:19 -0800 (PST)
-Received: from [192.168.1.3] (p5b2b4618.dip0.t-ipconnect.de. [91.43.70.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba207sm43172805e9.10.2026.11.05.00.10.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 00:10:19 -0800 (PST)
-Message-ID: <2d666e39-816a-4f38-960b-3e537189219b@googlemail.com>
-Date: Thu, 5 Nov 2026 09:10:18 +0100
+        bh=uXh0iha/4VP9dzuigCmM9TrRRukz7g4ClrVx0LThZLY=;
+        b=N/Qx1IS5dy7gvkOcK1TXZaqscveNhbL+KnTmQ99w4X1HCotJLcRwDWMzag0WTqQb0X
+         GZKEZattQNx1zbUfXihhqRVerpQrKSNS+ITsYDTA4p7l7kRnzuFeXqMkzCHJ1OXa3Kc0
+         eKvTRT79PMQYAr1JM643c8Pfr4z5bjrsM6M2kQdYVE2jUV5trR2EVYG0537Rwa5nKg3n
+         9xRP7QBTPvKtNAjucPKwmCnleiCh3lULvU0ncKy0lKmxpjgEvybvxqjRqJCAZXafW4Jx
+         oZKtfTyg/fIri8wIZ0CxinlaYybANYnYzm02JfHMaOPM0+yQS1hIEVisEjsyhnlTAPQJ
+         r5Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793866226; x=1794471026;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uXh0iha/4VP9dzuigCmM9TrRRukz7g4ClrVx0LThZLY=;
+        b=yHP5bws43tKG8FmQHtyhIH7q836JhLnK8yehEAINU635mstJg9N/LOAiC+cpPqGXX5
+         JWwi8K5yZ2CMdW81UVojs0Q+mHKxEJuVG5p4FWLPOlNhFAYDQ+T9xzIYf+BJl8CNvsh+
+         d4jgCiMWA/YhseOvuaAPiM5H3p4IIDno2L4aQDQ42OSKoptFrwoxqLW9Xem4i3h6r4jT
+         Wg5TCiQ+5UraEIWvh6LB/wRS1bUsi84C9oRIy9JqYI7c3ANitJVGmPtzOSod7WMbXn4o
+         L/whJzVtoPRN4IZwZm2xzOcfVFY0rPmP2lCHeTuIV6amztFtn5OWMbGAKSS+Xjnq96Rs
+         F5Rw==
+X-Forwarded-Encrypted: i=1; AKwUvBwiuJYKLjLluZohQmQeXfkKjVvqyTkBrqwO4OCcxc5JdMbwoO/kLpibzVZteEDOnyDKmG3kPNln4DDbyx4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nQo0NnIXoDwaUJyV9tRgJ+e4BC28aFv3eP4Ov8uqS3pUZfXHa
+	watdqQlynjB2hq3MH8ysbFJO1CSwxdx0MbHJ33pjoV/wlBNR+lt9Nt2d
+X-Gm-Gg: AYBFou2nCfr6zARs8AJPsfeQIbDzInUAcc3d5p6MDL5aUUQZLOivKKrcv1qmBYl33KM
+	83R3EPpIBk+NeUch1IP6zlrXrnyl5PcT/ZevEoOEaHgjI1ush5+z9XIPSUcxG1XoKOiCdhdkJ/e
+	J4LIUNEW6uf9xopF0akZ9Bstsbuk1JjeT224GFxtjOJAx7q7F0fbFrHfSBdS+1DCMBLjsfVzSz9
+	t53IwlTzXAcKOMy5xz6zpoH1ekZZi3j7JhWc+5AyYHbAfdV2f1MaATX6OPV0x8R56WBRQD69d7c
+	Fp2RGh/G4SMZOG6+8wbFBHqh6tnvMUVcmUrvJf8cwKcbqEcE+vn7lr4EwCCK+k8iEmwjE2SGlVI
+	TOohpjH3RUozqnL67bAlYF8+sPp8+sLo/enJ93NdxXY6JZNABBCcQTYanF3qhprwLXjILrMF2d0
+	ksAiJAJzFnMTAoHoVmjJcOLRVEuzbRdYQn45Aqa+5ToW/V5sUAiN5XbpqlI+sLuLIDfkfIazYsg
+	8mI19uL5sUpecphQPADEz59I9ActmLHNBKh6WCQmAWYlfAf7SnRL+f+wV3zh0t5tXTdiORbDScs
+	v7dSlR/mfFId5Fd06b/vUtzNAFw+0HNIJqml4WbChkAsiQ==
+X-Received: by 2002:a05:6000:2201:b0:48a:f36d:fb57 with SMTP id ffacd0b85a97d-48e6e303ca8mr40111334f8f.18.1793866225864;
+        Thu, 05 Nov 2026 00:10:25 -0800 (PST)
+Received: from localhost.localdomain ([2a06:c701:4763:5b00:bfea:518b:8c4e:2d27])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8e29sm9029351f8f.19.2026.11.05.00.10.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 00:10:25 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH v2] block: avoid repeated notifications for dead disks
+Date: Thu,  5 Nov 2026 10:10:07 +0200
+Message-ID: <20261105081007.816058-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261031171325.4073830-2-thnkslprpt@gmail.com>
+References: <20261031171325.4073830-2-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,45 +101,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261104211038.406938024@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 04.11.2026 um 22:03 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.3.2 release.
-> There are 547 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+blk_mark_disk_dead() reports disk death even when GD_DEAD is already
+set. For example, NVMe reset failure and subsequent namespace removal
+can call it twice, repeating holder mark_dead callbacks.
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+Move the GD_DEAD test-and-set into the callers of
+__blk_mark_disk_dead() so blk_mark_disk_dead() reports holder death
+only on the first transition. Preserve the helper's queue-drain
+return value for __del_gendisk().
 
-On my machine, I don't see the issue Ronald Warsow reported.
+Fixes: d8530de5a6e8 ("block: call into the file system for bdev_mark_dead")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+Updated in v2:
+- move the atomic GD_DEAD check into both callers, as suggested by
+  Christoph Hellwig
+- keep the helper signature and queue-drain return semantics unchanged
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+ block/genhd.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
+diff --git a/block/genhd.c b/block/genhd.c
+index 10ca8b4d6eea..7e4570f9cea7 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -659,12 +659,6 @@ static void blk_report_disk_dead(struct gendisk *disk, bool surprise)
+ 
+ static bool __blk_mark_disk_dead(struct gendisk *disk)
+ {
+-	/*
+-	 * Fail any new I/O.
+-	 */
+-	if (test_and_set_bit(GD_DEAD, &disk->state))
+-		return false;
+-
+ 	if (test_bit(GD_OWNS_QUEUE, &disk->state))
+ 		blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
+ 
+@@ -689,17 +683,19 @@ static bool __blk_mark_disk_dead(struct gendisk *disk)
+ void blk_mark_disk_dead(struct gendisk *disk)
+ {
+ 	blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
+-	__blk_mark_disk_dead(disk);
+-	blk_report_disk_dead(disk, true);
++	if (!test_and_set_bit(GD_DEAD, &disk->state)) {
++		__blk_mark_disk_dead(disk);
++		blk_report_disk_dead(disk, true);
++	}
+ }
+ EXPORT_SYMBOL_GPL(blk_mark_disk_dead);
+ 
+ static void __del_gendisk(struct gendisk *disk)
+ {
+ 	struct request_queue *q = disk->queue;
++	bool start_drain = false;
+ 	struct block_device *part;
+ 	unsigned long idx;
+-	bool start_drain;
+ 
+ 	might_sleep();
+ 
+@@ -727,9 +723,11 @@ static void __del_gendisk(struct gendisk *disk)
+ 	 * Drop all partitions now that the disk is marked dead.
+ 	 */
+ 	mutex_lock(&disk->open_mutex);
+-	start_drain = __blk_mark_disk_dead(disk);
+-	if (start_drain)
+-		blk_freeze_acquire_lock(q);
++	if (!test_and_set_bit(GD_DEAD, &disk->state)) {
++		start_drain = __blk_mark_disk_dead(disk);
++		if (start_drain)
++			blk_freeze_acquire_lock(q);
++	}
+ 	xa_for_each_start(&disk->part_tbl, idx, part, 1)
+ 		drop_partition(part);
+ 	mutex_unlock(&disk->open_mutex);
 
-Beste Grüße,
-Peter Schneider
-
+base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.43.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
