@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899616;
-	b=Qq9ppBqESj0cMNyoaDTBfetwwXQM/1mMTZEamY1hjQJW/4LVFSDfu/jBjq12OPA4HCBU
-	 rXrs7eliaMJRbXJWEl7UhJYxGQhpJsxU0QXXmnjU2x9vAVDHyxUEOKQZWIyPZLLsI0wZn
-	 IH50xfIpLt1AUnoiYaEHMDxJYAjz8JMey6TM4ObtZJCgafnYH3aPgs23EsNkU8cvQPNyK
-	 YluvU++C9LZ5E21OfTInxIEBK/3EXXZNLUWIp/MHMsnXin4fyziptyXbgekWnoGWzXuqD
-	 MGDDTs3x54wLsljyuGt1IyhxkNic04LJB4SQ7zORRZhbj6GVjhn9jgtnWPA6S1yRJng==
+	t=1793899730;
+	b=GlwsUFyShHJuWXKLfdw3WlRoUCzMUZEKb8x8oFeyul7H5NXex1NoXlFSFQ5vngcEA3J4
+	 7YrMtoPY+u90SiJsS//1+Xr1iq5Pz1SvyjHCPvaYBR1y2fefVZIf2nOe4mODKlpRNvKwD
+	 kPKypvlhTg0Uuggo/FaoXr97ct2rZYLy+gquCsfji/1Yqt2eNlCuO2Qs6i5kd7JG5N97o
+	 mDiIK9yUXc9V1/ScMFMmp/lABmn3pgWns3+dGbRTro2PkwNsY4/+CmLDfNe98oB+ydYg6
+	 vU76XPv6UfMN9DPgSZIGeaCgcKdbF3Lr3TyKgj+WiiUks9RpMFS+6Yuw5ZoTSWWWevg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899616;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=pv7MklMh40uZcAi4SKZfbl5EAYBB+uiXBzpLsbSe1GE=;
-	b=rzXrNDkV6dMQbZk0A8zpt/0r+OlHh71PwCC5rtSDeCpC4lBuFXaj1WyLSb+EJNPCmRSC
-	 eelYbd49Q17q+1qx/VQRRZqBKH/ewXY86NN6CqVasXy6bdM0mo+1fpcb+7It4Gu3H5UDd
-	 aRTKamkujP5XlHnbQdqEonjsQMxvdeyplCT520SY81de0xClbYFgynxobvv/7wFajvddq
-	 gu4OqcjknNMVJsWaStP0n+Y1s0mvV4nW0eA8qjawjXOVHn9udB2DA9pdpgYWhLRzpPUhN
-	 L3eDiENBBhC0PclT7RKNcI8vt1Z/XOMB8Kd2BmTrOvGc4kUsMTPdPzaTEtrmoA/4Guw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899730;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Hj9tH0eL1+DEDCQDifLnB7RdlGpysEuUv6+m2uiwBO4=;
+	b=Qnlc2Dy5VtBfutOnWP3qTV45Cn6+KDfQ+RIpBvkkR0q92ftFSVuikJ7yyPGTcBBbs+jB
+	 NrIYZTwVcrjbrpmDe0ffeaxuSpl3wzzSqbw4E/nC3MfpWihz29c6EBBjGwQcrjzvgmPUP
+	 UnqR6aPdSrwQfhQprFR6PwAxQ5hBP7CXRZG3GSzn6BNhM/t+O3Zcj2e4h0x6eCH11x8Nd
+	 Jxap5QPre7Wep4lhB7P01rC5ZQkfw8JCERH8QIb40Uu20Allom5mdetzMUrdepamwE8jv
+	 rs4yWp5S/AxAO12hgfX6blSW9y6fQBf6rVrb61ZSThXtEq5xFCoU/1v7y2Rg7FXaIhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RHfWCLgr;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gVvdrzcI;
+	arc=none smtp.remote-ip=95.215.58.74
+Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC552606D803;
-	Thu,  5 Nov 2026 17:26:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC552606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BEF606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31BEF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=RHfWCLgr
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id B40781A0C0A;
-	Thu,  5 Nov 2026 17:26:52 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 5DDF36000F;
-	Thu,  5 Nov 2026 17:26:50 +0000 (UTC)
-Date: Thu, 5 Nov 2026 12:26:48 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vineet Gupta <vineet.gupta@linux.dev>
-Cc: Peter Zijlstra <peterz@infradead.org>, mhiramat@kernel.org,
- mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE
- to 1024
-Message-ID: <20261105122648.67abbe1d@gandalf.local.home>
-In-Reply-To: <1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
-	<20260922225526.1554758-2-vineet.gupta@linux.dev>
-	<20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-	<1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gVvdrzcI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kMkbzyr+XfIq7fCH0p3nJBoTzaB10OWbZHRIVm6/Qes=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793899726; v=1; x=1794504526;
+ b=gVvdrzcIa3LWWxP8W/Ht9qPub+i1vs2lZsGOY08nZVdCpYExADrE0BN/9Z0URkfR3kAkszL5
+ k+qxgE/sdQb2jGKJtFZ7T37npsw9B4MW0rOkdOVemwxsLfcrPk3fg7t12FbU/O7mdOa8GyKO426
+ uYW22aH8zubZN73KhhzY6oQg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8bcaed4620e5aed3;
+	Thu, 05 Nov 2026 17:28:45 +0000
+X-Mizu-Trace-ID: 8bcaed4620e5aed3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <39da378e-eac3-49cf-9ac4-7bd02d70eb37@linux.dev>
+Date: Thu, 5 Nov 2026 17:28:45 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,30 +58,314 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+ without FSRM
+To: David Laight <david.laight.linux@gmail.com>
+Cc: bp@alien8.de, dave.hansen@linux.intel.com, dsterba@suse.com,
+ hpa@zytor.com, linux-kernel@vger.kernel.org, mingo@redhat.com,
+ terrelln@fb.com, tglx@kernel.org, x86@kernel.org,
+ torvalds@linux-foundation.org, kas@kernel.org, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
+References: <20261104222806.1826508-1-usama.arif@linux.dev>
+ <20261105081205.5a84e4cb@pumpkin>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20261105081205.5a84e4cb@pumpkin>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 5DDF36000F
-X-Stat-Signature: 6d38fdaz4tpccretw3cu5fob64q9xee9
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18Y4DFtXkg4jsJZYBISd9ocbt9PHNYCMOA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=pv7MklMh40uZcAi4SKZfbl5EAYBB+uiXBzpLsbSe1GE=; b=RHfWCLgrnx4ZxBIH2r6VcZ24XDAK/69saLUX/jGVp0l69uyPFkkq0WeCWSkgL10OXYnAU1ucQ2OfghwEK7IsYCvppdeMyO/3GE5HBISOAeDYIuyzbGJdIvzG2CrCoQ0mBjHaeE8ETynP6wIhnMy2C+g8ErmBzNDkTUTMcwuxFEI=
-X-HE-Tag: 1793899610-320862
-X-HE-Meta: U2FsdGVkX196ApTKk9z3YfX9TVkdxyThCeVOey5oiGGnblNR0vtupo1sCnJeFXkpA+lsfg/nxOW0Ze/w06Jw5JgIcSOEolRbWv5tNNLDILUXjhqq6WNqFPREk+mBYz04qFk6NKvY5hCTgXUTrfFg3HSILOjh+bjTnNDhuJZgJCMZVxw33zouJ87ekKPUazr5bW/jS4b7ikPpuziO1Vdm56194XyDemAtffZiF1kGknFBvEluljcUQ0ERGV8DO9wzvExfgDg4NnSWmFd3jnBlKhMyvqZMjpJCNh1fJQr2bumme3is7qyL5cvl+r8uMc+JgZjuU6Jgz7HGasXAGR3Pbh37Hxmi9Wo4TO87NhmOhmWmnt2wQaDBXTBGJlSk6cRuBEL99hNd+b0ejQudiWHHmVNfGXL4VNJdz5Z4FT01x2YwYKyM0G30yDFh53dc3fjcUbZm1E5kVN7a1XiO4vEJoA==
 
-On Fri, 25 Sep 2026 12:32:49 -0700
-Vineet Gupta <vineet.gupta@linux.dev> wrote:
 
-> For submission, would you take this up as reported-by me or do you 
-> prefer I send a v2 (your authorship and SoB etc) ? No big deal either 
-> ways just not sure what the std operating procedure is and nuances of 
-> all the tags etc.
 
-Please implement Peter's suggestion and send a v2 with the tags:
+On 05/11/2026 08:12, David Laight wrote:
+> On Wed,  4 Nov 2026 14:28:06 -0800
+> Usama Arif <usama.arif@linux.dev> wrote:
+> 
+>> Since commit 68674f94ffc9 ("x86: don't use REP_GOOD or ERMS for small
+>> memory copies"), memcpy() uses REP MOVSB only on FSRM CPUs, so ERMS CPUs
+>> without FSRM, such as Skylake through Cooper Lake, copy every size with
+>> the scalar loop. Large copies matter there: in Meta's x86 fleet, about a
+>> third of the time in memcpy_orig() is btrfs zstd decompression copying
+>> pages into and out of zstd's buffers.
+>>
+>> Use REP MOVSB from 2048 bytes on ERMS CPUs. On a 1.4 GHz Cooper Lake, an
+>> aligned, cache-hot 4 KiB memcpy() then takes 66.8% less time (123.4 ns
+>> instead of 371.7 ns), and btrfs zstd reads take 4% less time. Smaller
+>> copies keep the scalar loop: using REP MOVSB from 32 bytes made
+>> 32/64/128/256-byte copies 114.9%/54.4%/66.1%/23.2% slower.
+>>
+>> To keep the dispatch cheap, fold memcpy_orig() into __memcpy(). With
+>> FSRM, "rep movsb; RET" replaces the 32-byte length check. With ERMS, a
+>> shift of the length in RDX selects REP MOVSB; RCX already holds the
+>> count. Copies below 32 bytes skip the check, which is a single NOP
+>> without ERMS.
+>>
+>> The FSRM replacement now contains a RET. apply_returns() runs before
+>> apply_alternatives(), so with the ITS return thunk it decides whether to
+>> keep the thunk from the RET's address in .altinstr_replacement. Align the
+>> replacement to a cache line so that the RET keeps it; the thunk is safe
+>> wherever the replacement is copied.
+>>
+>> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+>> ---
+>> v1 -> v2: https://lore.kernel.org/r/20261013100442.2658311-1-usama.arif@linux.dev
+>> - Raise the threshold from 512 to 2048 bytes. REP MOVSB was slower than
+>>   the scalar loop for some misaligned copies of 512 to 640 bytes.
+> 
+> Which cpu type was that?
 
-Link: https://lore.kernel.org/all/20260924100040.GD4121339@noisy.programming.kicks-ass.net/
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Cooper Lake (Xeon Platinum 8321HC).
 
-Thanks,
+> Do I remember the older zen cpu falling back to byte copies?
 
--- Steve
+I just checked, and Zen 1 and Zen 2 have neither ERMS nor FSRM, so
+they keep the scalar loop. Zen 3 onwards has both, and FSRM already
+uses REP MOVSB for every size.
+
+> I wonder if it is possibly to do a run-time patch of the constant.
+
+It might be possible. But I wanted to keep the patch usecase driven.
+The current usecase is coming from zstd/btrfs. If we find a usecase
+where it might be faster for smaller copies, it might become worth
+looking into then?
+
+> In all the tests I've done on Intel cpu (going back to sandy bridge)
+> the only alignment that made any difference was 64 byte (32 on older cpu)
+> alignment of the destination buffer.
+> 
+
+Also I should have been clearer in the changelog, by "misaligned copies of
+512 to 640 bytes", I had tested a 513-byte copy with the source at page offset
+1 and destination at 63, it took on average 62 ns with REP MOVSB versus
+49 ns with scalar. I had done a couple of other tests at 640 bytes as well.
+
+> That could be 'for further study'.
+> 
+> There are some very bad alignment pairs on some cpu.
+> On zen5 if (IIRC) (src - dest) % PAGE_SIZE is between 1 and 127 then
+> the both setup and per-byte cost of REP MOSVB are significantly higher
+> (the byte alignment makes minimal difference throughout).
+
+I am seeing similar on Cooper Lake.
+
+> I don't remember finding anything similar on the Intel cpu I tested.
+> But it is probably not worth checking for them because the cost of the
+> comparison will be larger overall.
+> 
+
+Yes, I agree.
+
+Do you think this version of the patch seems acceptable?
+
+I feel like we should only investigate for lower size if we can find a
+usecase.
+
+> David
+> 
+>> - Fold memcpy_orig() into __memcpy(). With FSRM, "rep movsb; RET" now
+>>   replaces the 32-byte length check (David Laight, Linus Torvalds). In
+>>   v1, the 13-byte empty FSRM replacement became a jump that FSRM CPUs
+>>   took on every call (Kiryl Shutsemau).
+>> - Do the ERMS check after the 32-byte check, so copies below 32 bytes
+>>   skip it (Kiryl Shutsemau), and keep the count in RCX so REP MOVSB
+>>   needs no reload (David Laight).
+>> - Align the FSRM replacement so that its RET keeps the ITS return thunk.
+>> - Fix the comment that called the return value the source input.
+>> ---
+>>  arch/x86/lib/memcpy_64.S | 101 ++++++++++++++++++++++-----------------
+>>  1 file changed, 57 insertions(+), 44 deletions(-)
+>>
+>> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
+>> index 12a23fa7c44c5..dc71b7d1bfd58 100644
+>> --- a/arch/x86/lib/memcpy_64.S
+>> +++ b/arch/x86/lib/memcpy_64.S
+>> @@ -27,28 +27,33 @@
+>>   *
+>>   * The 'rep movsb' itself is small enough to replace the call, but the
+>>   * two register moves blow up the code. And one of them is "needed"
+>> - * only for the return value that is the same as the source input,
+>> + * only for the return value that is the same as the destination input,
+>>   * which the compiler could/should do much better anyway.
+>>   */
+>>  SYM_TYPED_FUNC_START(__memcpy)
+>> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
+>> -
+>>  	movq %rdi, %rax
+>>  	movq %rdx, %rcx
+>> -	rep movsb
+>> -	RET
+>> -SYM_FUNC_END(__memcpy)
+>> -EXPORT_SYMBOL(__memcpy)
+>>  
+>> -SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+>> -SYM_PIC_ALIAS(memcpy)
+>> -EXPORT_SYMBOL(memcpy)
+>> -
+>> -SYM_FUNC_START_LOCAL(memcpy_orig)
+>> -	movq %rdi, %rax
+>> +#ifdef CONFIG_MITIGATION_ITS
+>> +	/*
+>> +	 * Returns are patched before alternatives. Align the replacement
+>> +	 * source so its return is in the first half of a cache line and ITS
+>> +	 * retains its thunk. The copied return can then execute in either
+>> +	 * half of a cache line.
+>> +	 */
+>> +	.pushsection .altinstr_replacement, "ax"
+>> +	.balign 64
+>> +	.popsection
+>> +#endif
+>> +	ALTERNATIVE __stringify(cmpq $0x20, %rcx; jb .Lhandle_tail), \
+>> +		    __stringify(rep movsb; RET), X86_FEATURE_FSRM
+>>  
+>> -	cmpq $0x20, %rdx
+>> -	jb .Lhandle_tail
+>> +	/*
+>> +	 * RCX holds the count for REP MOVSB and scalar copying; RDX is scratch.
+>> +	 * Shift RDX to check length >= 2048 without destroying the REP count.
+>> +	 * The 10-byte alternative fits a NOP without ERMS.
+>> +	 */
+>> +	ALTERNATIVE "", __stringify(shrq $11, %rdx; jnz .Lerms), X86_FEATURE_ERMS
+>>  
+>>  	/*
+>>  	 * We check whether memory false dependence could occur,
+>> @@ -56,9 +61,9 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+>>  	 */
+>>  	cmp  %dil, %sil
+>>  	jl .Lcopy_backward
+>> -	subq $0x20, %rdx
+>> +	subq $0x20, %rcx
+>>  .Lcopy_forward_loop:
+>> -	subq $0x20,	%rdx
+>> +	subq $0x20,	%rcx
+>>  
+>>  	/*
+>>  	 * Move in blocks of 4x8 bytes:
+>> @@ -75,23 +80,23 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+>>  	movq %r11,	3*8(%rdi)
+>>  	leaq 4*8(%rdi),	%rdi
+>>  	jae  .Lcopy_forward_loop
+>> -	addl $0x20,	%edx
+>> +	addl $0x20,	%ecx
+>>  	jmp  .Lhandle_tail
+>>  
+>>  .Lcopy_backward:
+>>  	/*
+>>  	 * Calculate copy position to tail.
+>>  	 */
+>> -	addq %rdx,	%rsi
+>> -	addq %rdx,	%rdi
+>> -	subq $0x20,	%rdx
+>> +	addq %rcx,	%rsi
+>> +	addq %rcx,	%rdi
+>> +	subq $0x20,	%rcx
+>>  	/*
+>>  	 * At most 3 ALU operations in one cycle,
+>>  	 * so append NOPS in the same 16 bytes trunk.
+>>  	 */
+>>  	.p2align 4
+>>  .Lcopy_backward_loop:
+>> -	subq $0x20,	%rdx
+>> +	subq $0x20,	%rcx
+>>  	movq -1*8(%rsi),	%r8
+>>  	movq -2*8(%rsi),	%r9
+>>  	movq -3*8(%rsi),	%r10
+>> @@ -107,11 +112,11 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+>>  	/*
+>>  	 * Calculate copy position to head.
+>>  	 */
+>> -	addl $0x20,	%edx
+>> -	subq %rdx,	%rsi
+>> -	subq %rdx,	%rdi
+>> +	addl $0x20,	%ecx
+>> +	subq %rcx,	%rsi
+>> +	subq %rcx,	%rdi
+>>  .Lhandle_tail:
+>> -	cmpl $16,	%edx
+>> +	cmpl $16,	%ecx
+>>  	jb   .Lless_16bytes
+>>  
+>>  	/*
+>> @@ -119,55 +124,63 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+>>  	 */
+>>  	movq 0*8(%rsi), %r8
+>>  	movq 1*8(%rsi),	%r9
+>> -	movq -2*8(%rsi, %rdx),	%r10
+>> -	movq -1*8(%rsi, %rdx),	%r11
+>> +	movq -2*8(%rsi, %rcx),	%r10
+>> +	movq -1*8(%rsi, %rcx),	%r11
+>>  	movq %r8,	0*8(%rdi)
+>>  	movq %r9,	1*8(%rdi)
+>> -	movq %r10,	-2*8(%rdi, %rdx)
+>> -	movq %r11,	-1*8(%rdi, %rdx)
+>> +	movq %r10,	-2*8(%rdi, %rcx)
+>> +	movq %r11,	-1*8(%rdi, %rcx)
+>>  	RET
+>>  	.p2align 4
+>>  .Lless_16bytes:
+>> -	cmpl $8,	%edx
+>> +	cmpl $8,	%ecx
+>>  	jb   .Lless_8bytes
+>>  	/*
+>>  	 * Move data from 8 bytes to 15 bytes.
+>>  	 */
+>>  	movq 0*8(%rsi),	%r8
+>> -	movq -1*8(%rsi, %rdx),	%r9
+>> +	movq -1*8(%rsi, %rcx),	%r9
+>>  	movq %r8,	0*8(%rdi)
+>> -	movq %r9,	-1*8(%rdi, %rdx)
+>> +	movq %r9,	-1*8(%rdi, %rcx)
+>>  	RET
+>>  	.p2align 4
+>>  .Lless_8bytes:
+>> -	cmpl $4,	%edx
+>> +	cmpl $4,	%ecx
+>>  	jb   .Lless_3bytes
+>>  
+>>  	/*
+>>  	 * Move data from 4 bytes to 7 bytes.
+>>  	 */
+>> -	movl (%rsi), %ecx
+>> -	movl -4(%rsi, %rdx), %r8d
+>> -	movl %ecx, (%rdi)
+>> -	movl %r8d, -4(%rdi, %rdx)
+>> +	movl (%rsi), %edx
+>> +	movl -4(%rsi, %rcx), %r8d
+>> +	movl %edx, (%rdi)
+>> +	movl %r8d, -4(%rdi, %rcx)
+>>  	RET
+>>  	.p2align 4
+>>  .Lless_3bytes:
+>> -	subl $1, %edx
+>> +	subl $1, %ecx
+>>  	jb .Lend
+>>  	/*
+>>  	 * Move data from 1 bytes to 3 bytes.
+>>  	 */
+>> -	movzbl (%rsi), %ecx
+>> +	movzbl (%rsi), %edx
+>>  	jz .Lstore_1byte
+>>  	movzbq 1(%rsi), %r8
+>> -	movzbq (%rsi, %rdx), %r9
+>> +	movzbq (%rsi, %rcx), %r9
+>>  	movb %r8b, 1(%rdi)
+>> -	movb %r9b, (%rdi, %rdx)
+>> +	movb %r9b, (%rdi, %rcx)
+>>  .Lstore_1byte:
+>> -	movb %cl, (%rdi)
+>> +	movb %dl, (%rdi)
+>>  
+>>  .Lend:
+>>  	RET
+>> -SYM_FUNC_END(memcpy_orig)
+>>  
+>> +.Lerms:
+>> +	rep movsb
+>> +	RET
+>> +SYM_FUNC_END(__memcpy)
+>> +EXPORT_SYMBOL(__memcpy)
+>> +
+>> +SYM_FUNC_ALIAS_MEMFUNC(memcpy, __memcpy)
+>> +SYM_PIC_ALIAS(memcpy)
+>> +EXPORT_SYMBOL(memcpy)
+> 
+
