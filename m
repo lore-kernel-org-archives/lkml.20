@@ -1,111 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866650;
-	b=QiTNcYltkTCgH8CNaoN2E556QQLP6BQEqBKRf5T+CWo22NJnUIByUfcr7hBwhNrj0ZwG
-	 3g435cFdG5uQuO19B+iI9V1V08qCXPKCJ+xr9kpjackZA9f8x3VUcGE7Q2Lv3ZVpgRmZs
-	 Jp0GfmmwhB2iezty0GErPbpOBqRXdeJWgLjm7fUckuQ6sHdSpSuN642ltLrtXkUSeUEje
-	 0b4yQyIrU3qCn4JIz6s9ReJvngQDhZOhMSw79PZfObcvUYzfJXIo/pUrShZSDsXX3A9U7
-	 nnoWCihbKMYuPVxi7R8x9yi+ONAp9T8l35OAqPEj7n+baBxtaeF7/ZOhYP602kYfZTA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866650;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=BJGWFOkAbAvqtC9ZmVuWCIdXA4sNhgkQh3qqt15eZLE=;
-	b=DJGo32cUlBfDfqY9WOeR3B1ANutI45VCM1TMks06nbvVAqjN7wcFqj0Jj0zGp0aPY69e
-	 72PsdNvi7Rw4//tKLy3yWkw92065zb7x4hI9cUHUA1lhnNyEf97F/BzTinBI3fMzOnQsM
-	 a0PTvZP9YVFinbAeEns9vnkosXjc4hY7psESjSzROQtos1ffTJVo3T5uKI1IPzhH3DifZ
-	 kgRONMgl5yClXvleSWTNNb6jPZUsosSnYkstJWnV1AoOF1HBqzihzqcFagPOZBFIbNjaH
-	 cAVHULo53kNePGSqpppumSH0ZBDMkriQtX7HpZ/V4Ev2TAixrND9hX/Wm8ZSV8ei2tQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n5yEkUO1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OWxloPAe;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793866640;
+	b=mW+x38GIK9m6ieBLjHZhzQgeI9nHeegv3M5JJX9L6R7192+QxfoF1zGC3WVLKDn6kWuG
+	 YKvfAaQgmF3O5t3Z1v/0xEfEnm6+vszsSgoxQm+gnvIw/3eqwpvErAs2t8AHQwAq7Bct4
+	 fWfhx4Tx79Gmk+I5o481j/EVRABy7hkMyTIyXxlUV/RJ9CIVsYn0xa18ml2etCnWCLGJc
+	 F4EU334TYymbfkv5dFQ7EyRwuc6GMvygnwaVODxQ4QPdWAy22seKqSZ+ReudrZpZLCsUF
+	 prInClVkmsrYTbN21LjD54OG54XnuM/J05OPAGpN3Msw3EOfH6mRafbGGia0ll1sTSA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866640;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=KD4AAaRf4p3UJIXQQB6vPlBio7Rs8gGThbMv02QHs+s=;
+	b=t+6WtaupV8vFBt8nVY4jOC8VFHla/VMS5Ae2zs+6MLuVmXUIjo7xNmYavYJgjiuY5P8s
+	 cxLrbZNvyWSLIFtbvNJoL3Tljt2u62WVLL5nvfwTPt/CKX87nekDr2CEyzM0bVl3euC1j
+	 Rfd7OPuei8bJjhjscxLgV6oc0+8K+16zjOoaHQVmUvSFPuX5CQMCvnpZJius02a/PgJpL
+	 hWsFDWcEFmMltNi3GuAR+ykVqqvhtmsyNnKARIDw+IGyZaNuLDdEPXHXUwGxzwaHwt5Ys
+	 9GExEKX7awT6YUxjMIxhJL2GzCEDXDsfUfit8IIZUcHhWIxfS/TeApn6sorRyKpi2Pw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbxrgyxx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50722606A328;
+	Thu,  5 Nov 2026 08:17:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbxrgyxx
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793866639;
+	b=1Tu2+M1FpsFi59jzhUDq4o6lT9V70J4c7fh2deZ5uFOngDQpuLCBtLwfy8i732buCrIN
+	 MXqq0sad5mT2dQxgq+9P0NWwqXCCEt1mg1uI2Qt77b9TkEPi3bqp6W+6Xa87lyFbhWo9w
+	 tcIFnGX8/GzQqTY8a5jQoje+jKIHv9J/6kG0VEN6dg7zPzRedMY2E/6VpXVpgtxMPyqvB
+	 NjDmjJPJs2632yBrGDYUykaPBCtREbXzTD55gsC0mDjKLlgNCxzWAZZvQS84lLKvie9gA
+	 BUXVjiD97LjdNWDxgIb1+uS81FW72P4fewNSYh5VreVt7tmFd9bCvBsf1xr/oNeQCcQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793866639;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=KD4AAaRf4p3UJIXQQB6vPlBio7Rs8gGThbMv02QHs+s=;
+	b=P8dR/otbnKnoNLmKnw5R6EHiD9l6QCkSB9xxsG5eAMROSAPLIGpc7w2fry8cRw3CmC2W
+	 9pXLAGnP8E8K3PvXhm4+ZxTaZBrpNzLArU8Gr112dwjgZPHMbwAn6LewBI1dslFTDemP+
+	 u9C/OnW5ys2De1Rezwu9nNXifaevGsjnOQOTa8Dk5j+Ye+yxvs5F9XLy2JhieertnDKYY
+	 QbcfklRbjb+mHIfSNJP/AfL5DfDELdC1i1Ab7H80Uty4NnO/QIh9RS2vK3sY+ALTiITZ5
+	 7SCjDiRL6+pPOkzvcA6XZvnp3TOY+mDK5nDe6ugb29Lzo7sBqfjFstT9HEOw3KuKuMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA92606D809
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:17:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDA92606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n5yEkUO1;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OWxloPAe
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56V21Y2588237
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:17:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BJGWFOkAbAvqtC9ZmVuWCIdXA4sNhgkQh3qqt15eZLE=; b=n5yEkUO1a3p8uX3j
-	AmpIH1k4enZhmFn9bgq/EnLzLvIXZj3GwObapkpLpTr1qH4xdJubO/3IjGrGXD29
-	H/DrjwtFdDSWNn4f4ggp5ZTq4j0lqMV+NQ6V/PGUPw0XtnTsMgJ4A++4a+PGImbY
-	40fmVY4NUBLLo5BGW3gR/6fLx0kXmolH98Y3TrmeE2KHu/JH36yAK34I2V5AtMIm
-	HSCiaxro49pxGM+OnVmzQX7TnlLtQXIpKGKJ3y1K2oNCFi/7sLQWiTMVmSZsKgkZ
-	y3oHOA42mfH0Pic4cpuC6szq5cT/4D2qEqQ0rvmuy2uITDzqbSLFxe5tUKI8QqDk
-	xz4VLA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr89suf1v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:17:28 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ea6b66e53so47974985a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:17:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793866648; x=1794471448; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BJGWFOkAbAvqtC9ZmVuWCIdXA4sNhgkQh3qqt15eZLE=;
-        b=OWxloPAe1vgJV2Ooner+Jk40SD6GR3OzR3mBkyYRXUI2c+RcbIXQiJBHH99SrKrz1p
-         KFFj/G6yQoggke43zckm9+H4/ITM/Bw9CxtSRZLpP4RK4FRT5nnEjp0dCtdj+y/Pk3L1
-         e1MDd1RPPFxC/a49zx7qvgqBOCXRh4HUCp4F6IYI1iRGgCvOZluq04Q0+5XZXWmNKS6U
-         5M55U8i9UYBMMJV5iikeCvZp+PXhcqg2SFHjZ7TEfuoP5oXMhPVdMwpIKIu6fqRB/ix0
-         AT3di7OJhT1ygweT+jSBOTfPY7WjFz/9afbuhH/FuaSqSLF75GXzRe+xrkrXdnfesNtL
-         8l3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866648; x=1794471448;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BJGWFOkAbAvqtC9ZmVuWCIdXA4sNhgkQh3qqt15eZLE=;
-        b=GPZEIkFAaXOxkxOGE3Y0BIp5rc1gOD4L0i6IKuIeO79o2/XjzPIfeJ0hW9BpwmRv54
-         32SOyKfwRgh2y0Byw4+ZHdYZKo5oeEtKXMex7TFC1F5xKtXCMaFC76vYbP4mpU5zPdr4
-         9kYd5qD8VxcdhiR96FjvUb7Qk2lKnzzvLX0B/yAgJxahrkPG3AOLHuBWMJXHxxyisova
-         P96YLjLabBYTgGL3mO+vopLmS6kkhvBYm0+T08oR0m1/WUiaF1w79SSEuY2F1dX5LNBR
-         BgdHmSJGIafaO0Vu28SECjDUFGnu1zoFfKO2EdubP+u1C5EtQSZ0vssK0gBs7o7h3JAd
-         +hGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAjZWkpwkE/ddHe/aRV0buHdjbQP93QId9P5Fb/nMFeUTmhYzQwFbrfTPa9kIKgCu7WnkRKPaomSxd1SM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PTw8vq9UT3QTxGnnRnPmATJ/YWOSPGVTXKJT3B4Qs2OQcYn8n
-	3eoOcYfrZ8fVjCfIYo0A9nE91PvpgsoRKSCaljf4MKtNxBmm3/VkLZylyMRBJRnlWr55EPivN+5
-	smvvBCi471rYeFIJyp9s8pzJ2BH382s613KZkupVDEWrZrKawCaS3l54+rlbAa9oPVyw=
-X-Gm-Gg: AYBFou0TSp5I6z6xHz5kjaaDPDsRUW5K8JbWC08FxThmqdjVeRuHfSLNlAU0879NGNS
-	wysdTWCGS7UuIhg0OH/8Je58ra7tS6TIBbXeKW0JZXcHJc/TitUFxx2oOCqDLD3nUv381HnkW8R
-	JxUSc3kLOQEY07aF14vsb3DR+KAIlb/3exQ2EZ/ZQ4q81hIjXSZKUMfsxwyKZRxr1dhglT0mJ7w
-	X3pqZKlbP9aKu3fn7og0MpOkJTPgvSdJxFdrOIYd5FF3ek3vLTqI6kPzJA2ad/gISkBBu/YEkLt
-	QVU6Kr6X4QfQkGbbZPXlw2Y6XhzZ8QGF5aLCWETSXuCZUX/AJdCp9AFqJ6xVoUTG6UD8s2Qmxvq
-	Nwtxwk1uf3hAtWo/6yw9iREGEghPp8g4oekzShN288V6CRFmhInFt1bEksBgGaQG88zoC
-X-Received: by 2002:a05:620a:a40e:10b0:92e:6485:f640 with SMTP id af79cd13be357-94421762860mr3088643385a.4.1793866647974;
-        Thu, 05 Nov 2026 00:17:27 -0800 (PST)
-X-Received: by 2002:a05:620a:a40e:10b0:92e:6485:f640 with SMTP id af79cd13be357-94421762860mr3088640685a.4.1793866647490;
-        Thu, 05 Nov 2026 00:17:27 -0800 (PST)
-Received: from [192.168.226.1] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e4236basm148809766b.26.2026.11.05.00.17.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 00:17:26 -0800 (PST)
-Message-ID: <b9bc095b-e22a-4965-937a-0e4f9543f874@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 09:17:24 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 57B8A1F0093A;
+	Thu,  5 Nov 2026 08:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793866639;
+	bh=KD4AAaRf4p3UJIXQQB6vPlBio7Rs8gGThbMv02QHs+s=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=hbxrgyxx6BFw8s7ol86ak2XN/m5dn8iNbseaNBqkfFpZdpywaDy7PbC/3HOz9qpPT
+	 hpj+/LDtg+tT/6sN5MyLYnhBNi6uEskHmUbU084E6LMS166zf4FLiUNPKqxryww81m
+	 U28NoNQ88qU8HBTt1fDImh99HH7cFtq6XdBj2kGp1NLrZizY57IjwILnzjcxxQCLhT
+	 3wkO3XuF1gq6QETotn4Uj5zGJpVJo2cxN7eVFaPZ9XsxIAYWhqviAF8eE9YJ10TSX3
+	 B4ZQ54lUxvKtUeHLj1e+iBUhYSHzA0ubaAt0Goiz3ChPs056JuRnAfLkx3IXVdcOZ2
+	 To2X5VfMYMaWw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id ACB544716D;
+	Thu,  5 Nov 2026 08:17:18 +0000 (UTC)
+From: Isaac Adjei via B4 Relay <devnull+code.isaacadjei.me@kernel.org>
+Date: Thu, 05 Nov 2026 08:16:51 +0000
+Subject: [PATCH] gpio: mpfs: reject unsupported interrupt types
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,57 +82,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: qcom: cmd-db: Fix probe race with possible ERR_PTR
- dereference
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Haotian Zhang <vulab@iscas.ac.cn>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261104151550.215604-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261104151550.215604-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-gpio-mpfs-irq-type-v1-1-cbb2b0b2a807@isaacadjei.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBtII4muEi1Kx5pFahpRRHdPW
+ r7F/w9kSkwZevFAopMzB18gKwFmnfxCyLYYVK20lHWLS+SAW3QZOe143JGQGm061czGWQ0ljIk
+ cX/90GN/3AyioTb1kAAAA
+X-Change-ID: 20261105-gpio-mpfs-irq-type-e36c823bcfd6
+To: Conor Dooley <conor.dooley@microchip.com>, 
+ Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
+ Daire McNamara <daire.mcnamara@microchip.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
+ Dan Carpenter <error27@gmail.com>, Isaac Adjei <code@isaacadjei.me>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793866638; l=1787;
+ i=code@isaacadjei.me; s=20261105; h=from:subject:message-id;
+ bh=RPHB+79SRzi3MO4cqrlIZyGYkUrVv21I2XEOqLhYUno=;
+ b=fFDDILoO4M0UxwIpenwFbNGJG0/z4thpkU2owNKbMEFvFJ2+2Fw0TJ7pG2PG/Yd9BnSqRfuuC
+ 2eygNlMXFfxBi6tBkhb9N+FkxBtISiPq5e7WZCwWSl5xEAZcw7nXG0d
+X-Developer-Key: i=code@isaacadjei.me; a=ed25519;
+ pk=VhIIXFXv1g0LAdmG85V9QxWkeBc0KGdKUVH/4o0lWco=
+X-Endpoint-Received: by B4 Relay for code@isaacadjei.me/20261105 with
+ auth_id=1415
+X-Original-From: Isaac Adjei <code@isaacadjei.me>
+Reply-To: code@isaacadjei.me
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: KGw2FOoIBXe03awAc1Hyv-H1c8dhQYty
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfX4Xr9rwNBAtf+
- efESEX9WJnolS+VBf0uTnirSfGs1QQzyBTSJjlj2e9JyoHljKuNRdg2GO3s8bMIRqdSm3QITamL
- ESUhZa858pGbvBBzFDaHmpC2dkiopy8EEAbwU6phrLaksSC10XO5qRiWTDbGO61hm38BrykMwQy
- JtziMqUrt3xnjnXzsB+TaxcRZSfFDCxzHLjDw6yGV8n4RU2ETQUAjl/ghf917vTEwcJn3nMWjy6
- 5v5eU8+JmwZ1mKNepSZgoWJzYwyz4gYHwQP9XETOCwmwSEKRWYfSj7+8kPynfzkXMAI0TYGX+M8
- fkvSxKiKZ9J1Io+FP7BcgG2+rV3So2Osc91w1mWfAFBD6rZqNcuj2aaw07Ss96iMAp3n4snslFB
- 7f2T7Orh0TDx1LAo/B/HU30ahCSSA+m0kty+pOm0H6x8Po+FMw1SHWDnBc/RAq9evCfURS1DQNA
- 8rnQ25g1bL9xvQZYfoA==
-X-Authority-Analysis: v=2.4 cv=N628hG9B c=1 sm=1 tr=0 ts=6aec3b99 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=h-WqzLMcamjAHn9wFlcA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: KGw2FOoIBXe03awAc1Hyv-H1c8dhQYty
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfX4yiiLI8P7jJJ
- wT4QHwBdCx4chT/YdZ7VJ/dxCWawVqslTiNhH2FrLEkErtHsRLFcXa+IesWtcVa8oDzEc9RA/2p
- KcGpuClTAJO/wGcfT7DxXrnpAgiNFTw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 clxscore=1015
- impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050032
 
-On 11/4/26 4:15 PM, Krzysztof Kozlowski wrote:
-> cmd_db_dev_probe() stores the result of devm_memremap() directly in the
-> global "cmd_db_header" variable and only afterwards validates it, which
-> opens a very short window where a concurrent thread could access and
-> dereference stored ERR_PTR.
-> 
-> Theoretical (not reproduced) race condition could look like:
+From: Isaac Adjei <code@isaacadjei.me>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The switch statement in mpfs_gpio_irq_set_type() does not handle
+unsupported interrupt types. For example, IRQ_TYPE_NONE is not listed.
 
-Konrad
+When an unsupported type is passed, interrupt_type remains
+uninitialised. Its undefined value is then written to the GPIO control
+register. The function still returns 0, making the caller believe the
+operation succeeded.
+
+Add a default case to return -EINVAL for unsupported interrupt types.
+
+Smatch reported the following warning:
+
+  drivers/gpio/gpio-mpfs.c:144 mpfs_gpio_irq_set_type() error: uninitialized symbol 'interrupt_type'.
+
+I built the driver with W=1 and got no warnings. I also reran Smatch
+and confirmed that the warning was resolved.
+
+This is compile-tested only. I do not have access to PolarFire SoC
+hardware for runtime testing.
+
+Fixes: e57b53f0f36a ("gpio: mpfs: Add interrupt support")
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/r/202411080149.bOpayvf6-lkp@intel.com/
+Signed-off-by: Isaac Adjei <code@isaacadjei.me>
+---
+ drivers/gpio/gpio-mpfs.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpio/gpio-mpfs.c b/drivers/gpio/gpio-mpfs.c
+index 7f0751d7b..0b7a48e0a 100644
+--- a/drivers/gpio/gpio-mpfs.c
++++ b/drivers/gpio/gpio-mpfs.c
+@@ -138,6 +138,8 @@ static int mpfs_gpio_irq_set_type(struct irq_data *data, unsigned int type)
+ 	case IRQ_TYPE_LEVEL_LOW:
+ 		interrupt_type = MPFS_GPIO_TYPE_INT_LEVEL_LOW;
+ 		break;
++	default:
++		return -EINVAL;
+ 	}
+ 
+ 	regmap_update_bits(mpfs_gpio->regs, MPFS_GPIO_CTRL(gpio_index),
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261105-gpio-mpfs-irq-type-e36c823bcfd6
+
+Best regards,
+-- 
+Isaac Adjei <code@isaacadjei.me>
+
+
