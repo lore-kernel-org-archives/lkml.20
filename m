@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793893807;
-	b=XRDhMDlJO//ixlELWKSsmTvwfkF/B/bj0MEQakIIPIgQ1zPz8/ftnbZDIN+R6Wfa7jV+
-	 xv36V8BQZ4z8zJ8K0OCAnCEbad0rbYV4hpiJ9JgEBbjeBmSuAOFURdRuc8bYc1X3nd0Bl
-	 9blHtVPMdcepBCLOyn6XQ0ZhZ5fMsH2OMco5o0R2BdrBV8QYsKqv5i2vodG/sj9hEA7kN
-	 RsxUqVznupiClZeIn45MyeMt01b95g0lPToRQhWugfsKj5AbcyJwR10+eoDNEt9YsMnKV
-	 gYTYXiOlLGt4ZLYIkB8rxN+NhCHBbEM6itSF7zNmle/9SyaTGrJRAod3VbzkhxPYntw==
+	b=SyLuxegY6TCxbl2VvuKAQac2dDw/9CL2pV+IZJeJ9CBPeNF/F+gltlgmqG2oChuNjphV
+	 XpsmLohMgpvhq9pAgpaDP7mxW4XoHZ8VruX9mbCmED2ghK9d3yAsMXdHJ62V/rTtUdir8
+	 +4CEB+Gs6RKzsLWb4J8bJHdk/IIeo1/3O1EEOFCr6DuLt0y3TXSOxT17fxeD9qsyEB8Ls
+	 N4QR7cymNOV7+Mw6G5iievEA+w+i+XuTzOfvkdCeIygfxwQJ545g/MlBPNR3p+O89Ywab
+	 iS4bwyoZNXCquL8ugAh5lRHfxSBO01m+psrTPn/hQ99CAFvtruh676gyPDJNOBZ6K1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793893807;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=h7IHIRRM4XFq6GwXgluit19dquWavUx85ZLuD079Loc=;
-	b=kx2ePbraC/AwYjD6EcuxFHuB3dLfROc4fZv5jFiQqaxQ5tVFuXXwfc7nSpPCk5PQ/hn7
-	 HyRU9eT7I5kkuB3NCulr9ycjBCqH8MloAlzOJHZkWb2c6DhrF9egEhsZGi0qbhCkIExzJ
-	 3trQANSMsUGIndfbFtFoPIOXMw+uG2YqoS1wU0HbZKMT73lCQBJ3nPw/w77OE7XU9rylZ
-	 WE7eaI9Fn1ZejV1b8+twJMcyiuDPssWmkXAWK6gwZwCwjfUFBZ3d6XoVtMSfJuPSaWNr7
-	 vkWZ674qf/UohcT9u9Yy66YchxQSjqMrbLx6OoA6//dphGgJGT62URCQD8ye8vPNxnQ==
+	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=E7RyVZdQRrFYW33Mv02BmWV0i6lT0Z4tqhtPA/W0mTY=;
+	b=0NjPT2yJtBf4dxuNumZeoqxLPhrTaUsMya5CKWawWNCTCAU/0diyuMa560Dh2a64r4SA
+	 N5XUTKNVmsLy4jZhx1rXqyAXS+IySdOsRRjzFuetj8Yim7O3l24TLfvEfCcbeDc+oUQ9D
+	 0I6m9aNVl+DsP7JpMlxQdpF33kBN0t6LrTYyeCMy34B49uJp33EteSq5Ln90yYsCK0n4e
+	 u1rgB98dPHduQiQoQ/nn1+BYf7HX9ruBJ2Iu5zOEKb98v5hVxb8VlhpYdgsOgJ3u2AUDO
+	 l0kXRNzM20k37f6nnqgSU1u9c7B1/QhukVNc5l9++M+TeGEC3UtqkQdCqUHYXPnRA1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=wJOQVik5;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=H3IO0BEc;
 	arc=none smtp.remote-ip=90.155.50.34
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B826075F41;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20B560A6F7A;
 	Thu,  5 Nov 2026 15:50:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3B826075F41
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B20B560A6F7A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=wJOQVik5
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=H3IO0BEc
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=h7IHIRRM4XFq6GwXgluit19dquWavUx85ZLuD079Loc=; b=wJOQVik5uP7OzAC5hZCitvfvF0
-	4Thd8CLgIpOlwvCfnb6BOX4rc0TukNFuOPsOx3/UrpS3NUXN7vhvsItwvt0Xb4rXkNUC2TNWc043u
-	T3eK2BL1xtTetnGeKdhOWYxTPWpTwt5iXQxe278C36OP6PNO88vmYSoUJUPdrTc6/DXtYrkXNBsnV
-	RR3YzmQg+ZLuJpAXGELumrxRv3mTGdnI0JTdKCRxVgOKpeVEckfVd52Hy/PV0awnb2xCWs0pRd+bP
-	OkmqqbnTzNpxquMdiwgJ5cVsywOvGE9TeLptWJMVexyFIU0ltrJdza9vVbytkS9z0OjrVR+iZV1b9
-	PJDxaiVw==;
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=E7RyVZdQRrFYW33Mv02BmWV0i6lT0Z4tqhtPA/W0mTY=; b=H3IO0BEc+tQjGnS83F/d68xSGQ
+	sdR973IX6KJN+GBLVRhsF06Ti8RuEQwhNP+LZHL7gv+WSMh+J7yMufvn+h6VDCzabk/PZVNrqGHTb
+	gSPrSNiG6QG3qq7mOi7ym0EaOO9pf9KzTjpHvdunnmnNJ+WN+h6UpSlSaP4TfzzoNfFal8cA2XU6Z
+	KOK19dbEi/Em1Xm3qau8q0cXGtIbXMNM6e77BmNOZKOiFkLqmvhFmzQR/vR+KwS9QFMi2ACqLqKD3
+	T0r6DRaGJJ7Rjft+clXBibsPDMfggrObKJTJhd5z1BZ8dY4v9uN9moIERg57kTWHufN4uSaKLmFk5
+	RJcIlilg==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOzit-00000009aog-3EQm;
-	Thu, 05 Nov 2026 15:49:55 +0000
+	id 1xOziu-00000009aov-1vhq;
+	Thu, 05 Nov 2026 15:49:56 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xOzit-0000000Aays-2HEO;
-	Thu, 05 Nov 2026 15:49:55 +0000
+	id 1xOziu-0000000Aazk-0yJg;
+	Thu, 05 Nov 2026 15:49:56 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Dongli Zhang <dongli.zhang@oracle.com>,
 	joe.jin@oracle.com,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v11 03/23] KVM: x86: Replace nr_vcpus_matched_tsc count with all_vcpus_matched_tsc bool
-Date: Thu,  5 Nov 2026 07:49:34 -0800
-Message-ID: <20261105154955.2525419-4-dwmw2@infradead.org>
+Subject: [PATCH v11 15/23] KVM: selftests: Add library helpers for clock and TSC-offset ioctls
+Date: Thu,  5 Nov 2026 07:49:46 -0800
+Message-ID: <20261105154955.2525419-16-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261105154955.2525419-1-dwmw2@infradead.org>
 References: <20261105154955.2525419-1-dwmw2@infradead.org>
@@ -93,105 +93,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Using a count and comparing with kvm->online_vcpus was always racy
-because a new vCPU could be created while kvm_track_tsc_matching() was
-running and comparing with kvm->online_vcpus. That variable is only
-atomic with respect to itself; kvm_arch_vcpu_create() runs before
-kvm->online_vcpus is incremented for the new vCPU.
-
-Replace the count with a boolean that is set in kvm_track_tsc_matching()
-after comparing the count, and cleared when a new TSC generation starts.
-The boolean is consumed by pvclock_update_vm_gtod_copy() under the
-tsc_write_lock, which serializes against __kvm_synchronize_tsc().
-
-Keep the count for now as it's still used in the trace event.
-
-Note that the explicit clear of the flag when a new generation starts
-is currently overwritten by the unconditional recompute in
-kvm_track_tsc_matching() under the same lock; it is preparation for
-subsequent patches which consume the previous value of the flag.
-
-Initialize the flag to true at VM creation: a VM whose vCPUs never
-reach kvm_track_tsc_matching() — notably with a protected guest TSC
-(TDX, SNP Secure TSC), where __kvm_synchronize_tsc() returns early —
-would otherwise never be eligible for PVCLOCK_TSC_STABLE_BIT, where
-the old read-time computation gave 0 + 1 == 1 for a single-vCPU VM.
+Add wrappers for KVM_[GS]ET_CLOCK_GUEST, the KVM_VCPU_TSC_OFFSET device
+attribute and KVM_[GS]ET_CLOCK to the x86 library header, so that the
+KVM clock selftests don't each open-code the same ioctl invocations.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/include/asm/kvm_host.h |  1 +
- arch/x86/kvm/x86.c              | 18 ++++++++++++++----
- 2 files changed, 15 insertions(+), 4 deletions(-)
+ .../selftests/kvm/include/x86/processor.h     | 50 +++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index ea48b1949316..1efca01647d2 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1242,6 +1242,7 @@ struct kvm_arch {
- 	u64 cur_tsc_write;
- 	u64 cur_tsc_offset;
- 	u64 cur_tsc_generation;
-+	bool all_vcpus_matched_tsc;
- 	int nr_vcpus_matched_tsc;
+diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
+index 5898a277a2e0..4062bdb32716 100644
+--- a/tools/testing/selftests/kvm/include/x86/processor.h
++++ b/tools/testing/selftests/kvm/include/x86/processor.h
+@@ -12,6 +12,7 @@
  
- 	u32 default_tsc_khz;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 90f9b07ef749..ec8693f4827f 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -1125,8 +1125,10 @@ static void kvm_track_tsc_matching(struct kvm_vcpu *vcpu, bool new_generation)
- 	 * and all vCPUs must have matching TSCs.  Note, the count for matching
- 	 * vCPUs doesn't include the reference vCPU, hence "+1".
- 	 */
--	bool use_master_clock = (ka->nr_vcpus_matched_tsc + 1 ==
--				 atomic_read(&vcpu->kvm->online_vcpus)) &&
-+	ka->all_vcpus_matched_tsc = (ka->nr_vcpus_matched_tsc + 1 ==
-+				     atomic_read(&vcpu->kvm->online_vcpus));
+ #include <asm/msr-index.h>
+ #include <asm/prctl.h>
++#include <asm/pvclock-abi.h>
+ 
+ #include <linux/kvm_para.h>
+ #include <linux/stringify.h>
+@@ -1029,6 +1030,55 @@ static inline void vcpu_xcrs_set(struct kvm_vcpu *vcpu, struct kvm_xcrs *xcrs)
+ 	vcpu_ioctl(vcpu, KVM_SET_XCRS, xcrs);
+ }
+ 
++static inline int __vcpu_get_clock_guest(struct kvm_vcpu *vcpu,
++					 struct pvclock_vcpu_time_info *pvti)
++{
++	return __vcpu_ioctl(vcpu, KVM_GET_CLOCK_GUEST, pvti);
++}
 +
-+	bool use_master_clock = ka->all_vcpus_matched_tsc &&
- 				gtod_is_based_on_tsc(gtod->clock.vclock_mode);
- 
- 	/*
-@@ -1367,6 +1369,7 @@ static void __kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 offset, u64 tsc,
- 		kvm->arch.cur_tsc_write = tsc;
- 		kvm->arch.cur_tsc_offset = offset;
- 		kvm->arch.nr_vcpus_matched_tsc = 0;
-+		kvm->arch.all_vcpus_matched_tsc = false;
- 	} else if (vcpu->arch.this_tsc_generation != kvm->arch.cur_tsc_generation) {
- 		kvm->arch.nr_vcpus_matched_tsc++;
- 	}
-@@ -1591,8 +1594,7 @@ static void pvclock_update_vm_gtod_copy(struct kvm *kvm)
- 	bool host_tsc_clocksource, vcpus_matched;
- 
- 	lockdep_assert_held(&kvm->arch.tsc_write_lock);
--	vcpus_matched = (ka->nr_vcpus_matched_tsc + 1 ==
--			atomic_read(&kvm->online_vcpus));
-+	vcpus_matched = ka->all_vcpus_matched_tsc;
- 
- 	/*
- 	 * If the host uses TSC clock, then passthrough TSC as stable
-@@ -10007,6 +10009,14 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	ratelimit_set_flags(&kvm->arch.kvmclock_update_rs, RATELIMIT_MSG_ON_RELEASE);
- 	kvm->arch.kvmclock_offset = -get_kvmclock_base_ns();
- 
-+	/*
-+	 * Start with all (zero) vCPUs considered matched, so that a VM whose
-+	 * vCPUs never reach kvm_track_tsc_matching() — notably when the guest
-+	 * TSC is protected (TDX, SNP Secure TSC) and __kvm_synchronize_tsc()
-+	 * returns early — is still eligible for PVCLOCK_TSC_STABLE_BIT.
-+	 */
-+	kvm->arch.all_vcpus_matched_tsc = true;
++static inline void vcpu_get_clock_guest(struct kvm_vcpu *vcpu,
++					struct pvclock_vcpu_time_info *pvti)
++{
++	vcpu_ioctl(vcpu, KVM_GET_CLOCK_GUEST, pvti);
++}
 +
- 	raw_spin_lock_irqsave(&kvm->arch.tsc_write_lock, flags);
- 	pvclock_update_vm_gtod_copy(kvm);
- 	raw_spin_unlock_irqrestore(&kvm->arch.tsc_write_lock, flags);
++static inline int __vcpu_set_clock_guest(struct kvm_vcpu *vcpu,
++					 struct pvclock_vcpu_time_info *pvti)
++{
++	return __vcpu_ioctl(vcpu, KVM_SET_CLOCK_GUEST, pvti);
++}
++
++static inline void vcpu_set_clock_guest(struct kvm_vcpu *vcpu,
++					struct pvclock_vcpu_time_info *pvti)
++{
++	vcpu_ioctl(vcpu, KVM_SET_CLOCK_GUEST, pvti);
++}
++
++static inline u64 vcpu_get_tsc_offset(struct kvm_vcpu *vcpu)
++{
++	u64 offset;
++
++	vcpu_device_attr_get(vcpu, KVM_VCPU_TSC_CTRL, KVM_VCPU_TSC_OFFSET,
++			     &offset);
++	return offset;
++}
++
++static inline void vcpu_set_tsc_offset(struct kvm_vcpu *vcpu, u64 offset)
++{
++	vcpu_device_attr_set(vcpu, KVM_VCPU_TSC_CTRL, KVM_VCPU_TSC_OFFSET,
++			     &offset);
++}
++
++static inline void vm_get_clock(struct kvm_vm *vm, struct kvm_clock_data *data)
++{
++	vm_ioctl(vm, KVM_GET_CLOCK, data);
++}
++
++static inline void vm_set_clock(struct kvm_vm *vm, struct kvm_clock_data *data)
++{
++	vm_ioctl(vm, KVM_SET_CLOCK, data);
++}
++
+ const struct kvm_cpuid_entry2 *get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
+ 					       u32 function, u32 index);
+ const struct kvm_cpuid2 *kvm_get_supported_cpuid(void);
 -- 
 2.43.0
 
