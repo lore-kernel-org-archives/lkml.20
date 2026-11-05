@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793913246;
-	b=CGZf8piiavWJI0Hu4/j78PtyE/eplgCC1Yz/I0jSUlCFme87pkoe9zjLp+orbd1ROaKi
-	 dTHs26qKSAHJgAvVW7z+lCvu/wM3XNayozR4ObxpXLVPWyQA3nX47M/tnl9qTs2usDeHK
-	 KuS3eNRBKHgxTVwsLEURpMz2cMZ7tVwnAQNHo+APWTjCKXC6OAnUfjlP4X0hfUYYpj2jl
-	 //UNO8fq7vxBDQjucQ4MV41uBu9dq3sH8R76zbN6XmAWRL/nqhbdAOF2IvzTmYEjjNXLg
-	 UMMyLfacwuG+s/KnYjz0Nm10DuktVjLxTtLsKooseyguohrjBalpDppE+hzCvzooOnA==
+	t=1793913392;
+	b=knDppXAI+75pqvzo8Jh2+G1dwkksWpc+aKQJWmktTjG9CyuEuT3umCWSAlFcB3ZtbUKg
+	 DltlEloSdu30+Rgzyazs9ujE/x2+YdQ8CaZBR74f178yywj+X30zABz0OUVZLM3FknBcE
+	 P0MQCwSPXY0PqWxKWcKz/hgfY1DuDwcsarD3DT9AEVpwwRjtas7xQa8iYB7oYwSX8MuYW
+	 zL5gjcOJK6eZ+BkBD9ycpvvZAih0ZPuWqlX6usArhnA3KBpMpIpmZwKqGy2w0n5ciufb1
+	 FhpRYXo4Ky7cznefhq1Qi9qwTdmqOAAphQ8uGNiqlS2Rfwm67myoOMLdssNePoO/xhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913246;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=y+Jf9HlpMjkJ/6ix4ew1upvfuwcFL6cNOjjo/sfG/Rw=;
-	b=3XyKEQ/O0eCEes+Meqfcz8XOkNW936ekLKgsRkk4I/PV0AKpnoVMMSYnbcNBFTCG+btm
-	 aIza6Pm7w/vuboSvVePVUn6qmDBwY1KHVxZRPjWmFC3g/iGX7jMQms7ACizOfdbnI/BrO
-	 w04IwCiPY2PEzlygYrZRpUeL9nLvMYt7espbIBTza09Fch0nx3iqYIPCU4/zSkfyjtJwG
-	 dsRt/ENAFVK5v4BNI6U1ZCMLIDTR88KAK3dQ2PwIDAnnINbH0B2dEu63h0Nibl4VTQCbl
-	 HFVdDbHj5lX5J9Tv9RbNLa1PsI8zdStflo6TK4oJb+r+r1BrtGp11IZGx1/GB4a0JDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913392;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xRj+1WgN1BrmQW8Cu7h3hEln/8iUG3pzDfaG3KwvBw4=;
+	b=FcX8lii9glSHhxyb1ex2CBqH0TkEk7Cm8RAsOcAFxmCbn5wQmeBOUOwYNygI+tMKQKDf
+	 0s3cX/wiqaJtlojL4x/s2LGvL2rmtxo7iizupI8hFVFO/bNro60P7kx2WOk4HMQ1sYC7o
+	 QUeYpyDYLILo6aXTliC85qjh7rGDi/rzM7F02f6H1fQ7oFbV+16DE1zf+di88V98JE2cQ
+	 N7oJbjIBTXvQexCV5oaszwFAtrnqrP3u7A/yW1qQQgrZhVsY3oKcFMM+WZT7oP3HsFUtw
+	 Tf74yBEZVZpNSKQuKokuf0MadYTMZkgXPA/CK7McSlaTpR5snbSPFMpi5UMh3fQJvaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jEGgnV3t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+UsAmZG;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18BE606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:14:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35AA606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D35AA606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jEGgnV3t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43431F008A2
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793913245;
-	bh=y+Jf9HlpMjkJ/6ix4ew1upvfuwcFL6cNOjjo/sfG/Rw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jEGgnV3t5PzKSQ8TikIytSkfbH6GjCYtswDDlXqn5J0Otuddr7NPu3NDUrWlHYb9F
-	 wP4bwTNiIUIV6uZ1swyYXldSCut1FcqDSozHOwFtHh2aFovXvDNDvkNi+VT72fUt2e
-	 OMAPOnQ9eRAsM4rd0sNy6FRT8ObKgqBqMZH9YDMtXv4oli3JL9FZMM97NY8MDYBHou
-	 xZuhRenhEr2fSyPRQiSWonqnZiEqoBdQ4toaiI2LkXL4CWmSK0JleysKh6bbtX6caE
-	 RV/zjdP1GpnM19U0Wp2mawSZEZpZNmsxc8LMBqitH1pWRwzYvUapib0VUL9lnIgtbD
-	 VEvsbaJoBgwCA==
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e7ad9f78dso281440985a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:14:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz1Uotaa5qCyvu3e9a2cMv3CbCQ6mV2ufBjyH99p8Q6V6/6XZD5lMx3xN8ky5Z5kUTLfZtoFjTdzz/YGMQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86fu099EzxyO8KswQLRrhjUXLL3uMP9LUGp8nXKPRmsW+OFOX7
-	lIukmx30KwdKTB7AI1C3UDmYH98xtr08DrlxAza4s5BYyACoBT9tWpqAzQKc5yb2PiVGxhJFsJc
-	sdSUB0yO4LyBZI+HSn+9rmzXZSSv/dsI=
-X-Received: by 2002:a05:620a:4385:b0:93f:2ae1:ea06 with SMTP id
- af79cd13be357-945f34ac2f8mr61467985a.44.1793913245103; Thu, 05 Nov 2026
- 13:14:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+UsAmZG
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a208d93758so27705825e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:16:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793913390; x=1794518190; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xRj+1WgN1BrmQW8Cu7h3hEln/8iUG3pzDfaG3KwvBw4=;
+        b=I+UsAmZGmbl+fJKyfhrjvbUQBr+vmNGkYXN3MA9J+7vqCnUOTn4liWlg7hvRpAAgsH
+         y6YitFWx9cfFARQzlbDFXco2Jk/g8SrZ57Zro8m83yT65BYaQW5QTE8/EsawolbKZq+h
+         ahWyPZ5BtdZyK2a0H2aFiACQKXOChfpuV0N+M32dfOcHmOt9KrOgHM8SL5t2KG8uZuVL
+         aeLjYiqlYl/fkpBqZGuI4TdKlgTlrDs8kuvahyZVurywY710MpNuTQ6VKuttnmUHaro7
+         H7xStlaPX6R2ZZ7VAkKznSwQj4U/Oeq7JnbtrY3nboOhZ0viwX8HwQ1hWnDClj5WYKUx
+         oIJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793913390; x=1794518190;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xRj+1WgN1BrmQW8Cu7h3hEln/8iUG3pzDfaG3KwvBw4=;
+        b=fzei+Kmg06AaKLUFwmmL54vKmrrankAipfUvjDyj0D18id+96fJ/3F04+Ljp7/IL/z
+         ONeu1wuPoSvmJUIokjLEswKZhxYHuJY3logYdEMnkIgoRYdvuOuoQagrbYlMmQ6DMo7Q
+         4kCWW8dyUQeeQ05q52et7iJ2j8XQ3+l5j2Z7wPr7Ixw465mJhbveax5M1u4w5J6DbyfE
+         r8+pQl2Y4Ox4CJPGUk+B8/w1c1bgxxoI8WXqyC50NmHXLV+rnRjfRapeSIwtWTCw+1lG
+         2vBLvDETrPvwegnGXWfRkpAmDrGu1tM0QMsXVw19E/H2i1Pg8zy8i2eXqXegp0tXRyMQ
+         n5Sg==
+X-Forwarded-Encrypted: i=1; AKwUvByAcTKYuGMCUzvpTD7+fNDagSFaK9RxwwEh1m9zR0y92hhk8MyxPTc4mN9JDzxAY6b9nVn/Y14o4BTW8F4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fnd+XN4BrSx7eJGvJyn7MBEByfrF2+v5XAP+sVpMdjdga+Lg2
+	8EdPKEHxk9/43aYwrGtguJXh8rx5SFUuXLooq8FhboB9qYWEryzpR9B0
+X-Gm-Gg: AYBFou0E3OgJhxwixJNaUuqO2tJodQI6XqZytlvygBS06GndBpZ9I3uoWiJd/tAHGvB
+	fIyv1OSU2NWDT6Y1pDDuZU+2vGN1chQ/Yty9A8XFVnrhNlS764W8BryDU0ofgt4Gn40Zzb36iZ7
+	pvAbIyas4lJFYVQRby26EulOTWSg+KMymH26G8Dur1xhVF2gY3aWhec1khPVMNzxvfQ8HfDs89M
+	9bFmHjmhhht2fOn7XhAz/F6rTNp/cSUd89ckb7tXnNT2C2N37a/IMlfoiRnodYE01nOOR3BDBXZ
+	jsJEuKIwmhzkrRD10C3xF+aGs7RekIt/ffuGS/a4aVq8eJsa2+fo7fUnOQjjgBt3yHSeH2OE5eT
+	xD5kNf4bEYvY3ywfl0TQl2kXQBsAwq7vjNC+PdFJ+Cu/rMfAnk/gnMSnc3/l5OzWZBU/IWoxLEd
+	mclmJPLC0aQYHEMJZozgADIMc4QVwke5P+UgycFqviJiPXRLFdJ3UP4BzdA6pp0YMTxGraC197l
+	KoVxHiHqxAwcCLDj+MQyxFkp73M6cqKltsYXy/FsYY+AjA/q338YOy5o88UADCO7uiI237Z6R7N
+	lxIOTDrVoHEmwNJMiZf87RpNhMAHwFq99+c2n4DUsAy+xZSGhfu0IniEwNfJKswiPCfFewtbTzM
+	=
+X-Received: by 2002:a05:600c:8b05:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4b6e0172847mr5899255e9.32.1793913389982;
+        Thu, 05 Nov 2026 13:16:29 -0800 (PST)
+Received: from localhost.localdomain ([87.13.215.38])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fedc09675sm11703458f8f.55.2026.11.05.13.16.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 13:16:29 -0800 (PST)
+From: Francesco Giandinoto <testata.nucleare13@gmail.com>
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Cc: Francesco Giandinoto <testata.nucleare13@gmail.com>,
+	Teddy Wang <teddy.wang@siliconmotion.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-fbdev@vger.kernel.org (open list:STAGING - SILICON MOTION SM750 FRAME BUFFER DRIVER),
+	linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] staging: sm750fb: make g_fbmode constant array
+Date: Thu,  5 Nov 2026 22:13:16 +0100
+Message-ID: <20261105211344.17532-1-testata.nucleare13@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,168 +99,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026084035.535989-1-hui.zhu@linux.dev> <CAMgjq7AJSU9jUBTHGcm05mtGBH4EMQ_ua9YNwuLOGVzhkdLKkA@mail.gmail.com>
- <CAGsJ_4zPZg6pCuhDtTpSkueS2EDSfWeYa23h7kC9hEU0iGB-+w@mail.gmail.com>
- <CAMgjq7DvmrwTu0vz7oHx7y7w1B9uA0AbS3YJ5CcrDVg9VwKqpw@mail.gmail.com> <CAMgjq7A6jJQ_Ncp0BCqjQJ8pJXrjr1PoOu0rdj0NJOivKp6e+A@mail.gmail.com>
-In-Reply-To: <CAMgjq7A6jJQ_Ncp0BCqjQJ8pJXrjr1PoOu0rdj0NJOivKp6e+A@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 6 Nov 2026 05:13:54 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zO5S5XFc6dd70wKEs_mzqu_QW2bGOPyhKo4w2cjZrWUQ@mail.gmail.com>
-X-Gm-Features: AclHuK_B_VZ3qcNpr2dPS2dUlAbGVZX7TPvdgSf43uHODhJbux5jfw9zMDTWt5Y
-Message-ID: <CAGsJ_4zO5S5XFc6dd70wKEs_mzqu_QW2bGOPyhKo4w2cjZrWUQ@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 3:27=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
-[...]
-> > > > >
-> > > > >  mm/folio.c | 6 ++----
-> > > > >  1 file changed, 2 insertions(+), 4 deletions(-)
-> > > > >
-> > > > > diff --git a/mm/folio.c b/mm/folio.c
-> > > > > index 35e242b48870..ea3adb6a89d7 100644
-> > > > > --- a/mm/folio.c
-> > > > > +++ b/mm/folio.c
-> > > > > @@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lru=
-vec, struct folio *folio)
-> > > > >             folio_test_swapcache(folio) || folio_test_unevictable=
-(folio))
-> > > > >                 return;
-> > > > >
-> > > > > +       lru_gen_clear_refs(folio);
-> > > > >         lruvec_del_folio(lruvec, folio);
-> > > > >         folio_clear_active(folio);
-> > > > > -       if (lru_gen_enabled())
-> > > > > -               lru_gen_clear_refs(folio);
-> > > > > -       else
-> > > > > -               folio_clear_referenced(folio);
-> > > > > +       folio_clear_referenced(folio);
-> > > >
-> > > > Why can't we just call folio_set_lru_refs(.., 0), and should we cle=
-ar
-> > > > PG_workingset? Keeping it helps PSI on refualt / redirty tracking (=
-not
-> > > > sure if meaningful but CLRU does this), clearing it makes eviction
-> > > > better, but the eviction issue is MGLRU-only, CLRU keeps it.
-> > >
-> > > I recall that in v1 [1], Hui mentioned:
-> > >
-> > > "Use folio_clear_referenced() rather than
-> > > folio_set_lru_refs(), which is not defined without
-> > > CONFIG_LRU_GEN."
-> > >
-> >
-> > Or prehaps we can have a folio_clear_lru_refs() do in a unified way
-> > for For both CLRU / MGLRU? (Just like folio_migrate_lru_refs).
->
-> And it will be better if we can keep this operation off-list just like
-> right now :), some later works could benefit from it.
+The g_fbmode variable is used as an array of constant string pointers. Add the missing const qualifier to clean up the source code and adhere to kernel coding standards
 
-lru_gen_clear_refs() is currently multifunctional. It clears
-refs/workingset, but also returns true to skip
-folio_batch_add_and_move() in both deactivate_file_folio()
-and folio_deactivate().
+Signed-off-by: Francesco Giandinoto <testata.nucleare13@gmail.com>
+---
+ drivers/staging/sm750fb/sm750.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This actually looks a bit weird. However, following the current
-logic, I've drafted a version that we can use as a starting point
-for discussion:
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 21e310274..47d2917cc 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -12,7 +12,7 @@
+ static int g_hwcursor = 1;
+ static int g_noaccel __ro_after_init;
+ static int g_nomtrr __ro_after_init;
+-static const char *g_fbmode[] = {NULL, NULL};
++static const char * const g_fbmode[] = {NULL, NULL};
+ static const char * const g_def_fbmode = "1024x768-32@60";
+ static char *g_settings;
+ static int g_dualview __ro_after_init;
+-- 
+2.56.0
 
-diff --git a/mm/folio.c b/mm/folio.c
-index dc2c796a4ea7..bc17cd3b6b6c 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -444,12 +444,12 @@ static bool lru_gen_clear_refs(struct folio *folio)
-        int type =3D folio_is_file_lru(folio);
-        unsigned long seq;
-
--       if (gen < 0)
--               return true;
--
-        folio_set_lru_refs(folio, 0);
-        folio_clear_workingset(folio);
-
-+       if (gen < 0)
-+               return true;
-+
-        rcu_read_lock();
-        seq =3D READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
-        rcu_read_unlock();
-@@ -465,6 +465,8 @@ static void lru_gen_inc_refs(struct folio *folio)
-
- static bool lru_gen_clear_refs(struct folio *folio)
- {
-+       folio_clear_referenced(folio);
-+       folio_clear_workingset(folio);
-        return false;
- }
-
-The another option is:
-
-diff --git a/mm/folio.c b/mm/folio.c
-index dc2c796a4ea7..8d1fd788188c 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -438,6 +438,12 @@ static void lru_gen_inc_refs(struct folio *folio)
-        } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags)=
-);
- }
-
-+static inline void __lru_gen_clear_refs(struct folio *folio)
-+{
-+       folio_set_lru_refs(folio, 0);
-+       folio_clear_workingset(folio);
-+}
-+
- static bool lru_gen_clear_refs(struct folio *folio)
- {
-        int gen =3D folio_lru_gen(folio);
-@@ -447,8 +453,7 @@ static bool lru_gen_clear_refs(struct folio *folio)
-        if (gen < 0)
-                return true;
-
--       folio_set_lru_refs(folio, 0);
--       folio_clear_workingset(folio);
-+       __lru_gen_clear_refs(folio);
-
-        rcu_read_lock();
-        seq =3D READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
-@@ -463,9 +468,10 @@ static void lru_gen_inc_refs(struct folio *folio)
- {
- }
-
--static bool lru_gen_clear_refs(struct folio *folio)
-+static inline void __lru_gen_clear_refs(struct folio *folio)
- {
--       return false;
-+       folio_clear_referenced(folio);
-+       folio_clear_workingset(folio);
- }
-
- #endif /* CONFIG_LRU_GEN */
-@@ -659,10 +665,7 @@ static void lru_lazyfree(struct lruvec *lruvec,
-struct folio *folio)
-
-        lruvec_del_folio(lruvec, folio);
-        folio_clear_active(folio);
--       if (lru_gen_enabled())
--               lru_gen_clear_refs(folio);
--       else
--               folio_clear_referenced(folio);
-+       __lru_gen_clear_refs(folio);
-        /*
-         * Lazyfree folios are clean anonymous folios.  They have
-         * the swapbacked flag cleared, to distinguish them from normal
-
-
-I would personally prefer the latter. What do you think, Hui and Kairui?
-
-Best,
-Barry
