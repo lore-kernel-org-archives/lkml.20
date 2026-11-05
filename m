@@ -1,55 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.155.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868753;
-	b=iLqbkh7tt4lbDr6odgG9a75NOon5AspKD3+JITySOlW10ExeKCvZz55vVZXBxDc4C9Ap
-	 jXHEIv8V2vf7gTPwI4ZdDxWF3Ge3BAlwHMABshcYRppEbfvtt54r+PAidrZZsNTlwFdaW
-	 VmClmSEPYeisDH+RYG3vTthVqylSuCQFW33WhAX7CKR8lb8c9lMwpgkoEGCtFagXxdqMO
-	 Ca6q77o88imzOC4blpqFBwMi798q9LC/5powX9H8lfnTP8LJQFpPSmytYoDn4ZpdT8lMR
-	 2fQrjatqnpnqvn0yruVNeDeeF4drCmT7gCEzbQQ+WlchEwtATexTWGRWdampbif3Aow==
+	t=1793868775;
+	b=exhJg2Nx1hnRz4YEmY3dUrYI8xz5/UbTNIfjK6/Z3y4jqSLbkHQMY0x/Pz/D6nypICxh
+	 v49c1Rh5XXOkjB5Ol1gAELyrfZL7Ema0DKA/Mz1YoHOatDUYqxnWerYva6NsHm0oe34VH
+	 M5XoJcC1Tjli5bC5DszHWR8AwGiu0fOMKPXdBvkONmL7Srj7lGznixs64wmlMBWM1Lx/q
+	 X9108M1ABqimFmBx/ZcuXZ9dNfLvUzdReafKwR5iwxvllY2qpNSt8rUjKv5FVisEZRE9d
+	 Sqk7jurTjvjTkwnYZ8Sm5HZXHQYo4lm2ijZFs4sKdEC028FYpTTTAhH+ltylJEx0ofg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868753;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wJg6LdQRbrPpwYVegnpjyk+7xCRX8N+225QfVMKTWjs=;
-	b=jYEg3eeREz3mG/Tpx1ziSfPwUVH08statieha4JvDmaYCRcFSjoaVNA4s68pm3YDTJgG
-	 Lrp3VeolgOO2Ybze3GuH9/zkF8Qkz4VoE1RLDlpLVt0n02TaRtteAFYmu2CppDjsECk3t
-	 JgzvEgXg8drsKEBjDKsXgxPwgJ4tSGEsQkM+wLXOOH/5h5TSbTgfg/2GxsZehk74HaDDR
-	 nM8qWtzOnzmz6rJ42ecmXK5xt/ZJVFSs/+bWutYWF06katoAXO8YBb51HChTu1Ybl1uBD
-	 dhR7mfF3RhtGawMrkh0rBpSIqFHMvSFGzgOwKH50uhT/X+AN2CUSfbcX1iKMkCl0Y5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868775;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=AMLcD+hGM2YOapN/sUnfnykNRt6o0ap1kwwr8NVUnQg=;
+	b=ZcF2WwI/E+ZVaodF3D0xcaYf+luXst9Y9YKweWlpbprRxBWrC1sIbysIcp3977sM+jzP
+	 Z/YtWUFsuR2HxgE+Km3fB4uAD0EFR02JDRqrOgJCNxCji+ACXVTg1OjGcE+95Gni+KFFJ
+	 IFPmnU4QBWKv3UzeIPMa0MwtATpOGxvxPuYqIjJ5gZdBHu2YG4RfTbGoSkUOYoVwvdXUK
+	 sTV9dwvEb6C4ZEZJHvKkRMdqDOvrLW16Ih8Vjre7V6somZbekmZ7DbGkb5vXlqWJNG8ox
+	 XhT9xIwkddWhWr7YZ4F+sQumAJTd44Dry2AkVfCfSXJbO7P8V3oXKpomiKXPCjaRdcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=frIL0MlK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=enneenne.com;
+	spf=pass smtp.mailfrom=enneenne.com;
+	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=PmAjAabQ;
+	arc=none smtp.remote-ip=62.149.155.132
+Received: from smtpdh18-1.aruba.it (smtpdh18-1.aruba.it [62.149.155.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54441606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E807606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:52:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E807606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=frIL0MlK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63E11F0093A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793868752;
-	bh=wJg6LdQRbrPpwYVegnpjyk+7xCRX8N+225QfVMKTWjs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=frIL0MlK4g8G8TGA4q5NqlddOgZo75MtOSEoRTUTiuc5dH7aZOwpbXHyQTa31Gh7e
-	 qfPQdPx4nRkqfVyEUws9wEjkER4X2ZQp6w9iGqJW7qg5rL3gtZmfHNi7i3+4Am5zUB
-	 XALlvdR1KfZ//scP52Kg7a/gcplFH1vQt8X9d/Wk18PE5AfbGnAK/pF45mjIDJ1sKt
-	 vASTV2DgCeXN+iHnCE/3brZPf5w6OTBMszJ0ZpN9oTuHBNfdtTGJSam0WnoK5ct4YJ
-	 T2VAyPVKkEe+Ls1LS6kTZ2pvxsbC49VUV2v7X52SpeP+S4/4Venra4inTdmy4dwy26
-	 JWu/530A4B3jQ==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1710554e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:52:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxQTkIaRz9xQ4JYQBOMUZxASWt1ihpSfAXATA0zk0kmlrzlOk5LInlJ8NBwiqJkcfaWoHleVNu9EQuSJFo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5/YrWhoYsFegVullM+bl7IQ+1Nth7d+VGLVeSNCOWVfGgdRLB
-	nRX7uFjPbwGSSg4ZR/dxZX6yixHQqKgPiRYqZJAWFzwtEPzxpwYTrfwEW2j2MHwY4Q06feoyN2F
-	QzBlRYU+DLxxcm6e/Dr+zVJSWpSzSUuU=
-X-Received: by 2002:a05:6512:23a0:b0:5bf:e25f:d59c with SMTP id
- 2adb3069b0e04-5bfe25fd6dbmr5526210e87.38.1793868751664; Thu, 05 Nov 2026
- 00:52:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=PmAjAabQ
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id OtDAx2STqgnmROtDAxllGL; Thu, 05 Nov 2026 09:52:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1793868765; bh=dqeyyXqzyoH8AV7yuk+9uMwG31IpZYucUyBKTQ2/Chs=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=PmAjAabQkdbU5EmCkYAcu7O6V2HGxLLgyTWBCoU0JNRDhVPFPckwPbc0arUS06fga
+	 bp2XbiAwjmm61nZVZojSS3DVGWlX+gekvjOWII6HwbpFFvzR+hAjq4n8ZoQK3SLY3I
+	 /Ze7l2LXwmw/PWDArpDxJN8oVk0sZi13dIqtd/qMvlw068ZXtoqMf8V6x7NwW2Ck9L
+	 NQ55wDx36SJquXC0opiYKBS7eXgVB2pzwwJsqr/Zfb/YhlnyNxuJieW2nkuf/iaMWc
+	 wFp/W4kJcmm6jaVKnLXbA8h0XHahSk8JD8JKa+6WJiPHsOu/3nohK+YcTL4HuFU9ta
+	 KKszeNhrH+Kdg==
+Message-ID: <15a9c1ef-3ab7-40fb-995a-f94300939597@enneenne.com>
+Date: Thu, 5 Nov 2026 09:52:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,82 +56,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh> <2c0b79c4.1d697.1a1a15126b6.Coremail.xuhx@hust.edu.cn>
-In-Reply-To: <2c0b79c4.1d697.1a1a15126b6.Coremail.xuhx@hust.edu.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 09:52:17 +0100
-X-Gmail-Original-Message-ID: <CAD++jLn7MuFe=y7+-y7fxi_WRxXzjM-48GysvuodsHYS-+t00w@mail.gmail.com>
-X-Gm-Features: AclHuK_UJAJyOTCPbjPdMC3U5sf5F6cRFzpjTj_JvwiEUnBsDrOH_HYL5di2CoM
-Message-ID: <CAD++jLn7MuFe=y7+-y7fxi_WRxXzjM-48GysvuodsHYS-+t00w@mail.gmail.com>
-Subject: Re: gpio: gpiolib: final put of the gpio_device happens inside the
- SRCU read critical section on the setup-failure path -- deterministic
- use-after-free read at guard release (unfixed upstream)
-To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-Cc: brgl@kernel.org, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pps: parport: release port claim before unregistering PPS
+Content-Language: en-US
+To: Yaohan Li <shunsheng1218@gmail.com>, akpm@linux-foundation.org
+Cc: akpm@linux-foundation.org, lasaine@lvk.cs.msu.su,
+ linux-kernel@vger.kernel.org
+References: <179378570450.72941.3525412815403628312@gmail.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <179378570450.72941.3525412815403628312@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfOztcoRMpgOcEurCiulDS+62tGgWWL3do3wThWJrGnqJNzW5Vz2c3y5D1oIj259QSDUqj2jDE/iXL8SVmUI6+Ea4DE4dmOGNe79UcREw957rchAl5Hkn
+ NrZ//xoMOVzC+8W/c0bnbClwPXru2tZch6coJAa3CnmqLUXn4s0u3FXALBlz+RRoBm7eTJ1nB0d/JAKY6WSKV9BNyVkh8l4vKg59MZt+0GVW2ieHGptbfW0M
+ knTCtktD5PBnTB+ma2bp/jxvxS2hXkMmQpiN54DzrKDggy3x32xuQyZHYb43lWXJ1uQg/B9ntN4V0wxioE8NUQ==
 
-On Tue, Nov 3, 2026 at 1:10=E2=80=AFPM =E5=BE=90=E6=99=97=E7=BF=94 <xuhx@hu=
-st.edu.cn> wrote:
-
-> On gpiolib's setup-failure path, the guard that protects the
-> gpio_device lookup (srcu_read_lock at gpiolib.c:1094) is also held
-> while the device is being torn down: gpiochip_setup_devs()'s error
-> path drops the last reference (gpiodev_release at :893-906, which
-> calls cleanup_srcu_struct at :904 and kfree at :905) while the
-> caller's guard is still inside the read critical section -- so the
-> guard's own release (srcu_read_unlock) reads ssp->sda out of an
-> already freed gpio_device.  In the hog path the refcount can be
-> exactly 1 at that point, which is the common case, so this is not
-> an exotic window: it is a sequential-ordering violation that fires
-> whenever that error path is taken, no concurrency needed.  On a
-> stock 7.3 KASAN kernel, replaying gpiolib's exact single-threaded
-> statement sequence 1:1 (lock at the :1094 guard point -> the :904
-> cleanup -> the :905 kfree -> the guard's unlock) hits
-> WARNING: kernel/rcu/srcutree.c:696 at cleanup_srcu_struct (the
-> self-held-reader defensive branch: sda and srcu_sup leaked, not
-> freed), and the subsequent srcu_read_unlock produces
-> BUG: KASAN: slab-use-after-free in __srcu_read_unlock+0x1a reading
-> object+8 -- exactly the ssp->sda field of the freed container.  The
-> setup-failure path also misses the list_del_rcu() that the success
-> path performs, so the destroyed device can remain reachable through
-> the global list.  As far as I can tell this is unfixed upstream.
+> parport_detach() unregisters the PPS source before releasing the
+> parallel-port claim. Disabling interrupts does not necessarily drain
+> an interrupt handler already in progress, and the handler can still
+> reference the PPS source after it has been released.
 >
-> The detailed description:
-> * The ordering (Linux 7.3, drivers/gpio/gpiolib.c)
->   The caller takes the lookup guard (srcu_read_lock, :1094), then
->   gpiochip_setup_devs() fails (e.g. cdev/hog registration errors),
->   and the error path drops the final reference;
->   gpiodev_release() runs cleanup_srcu_struct(&gdev->srcu) at :904
->   and kfree(gdev) at :905 -- while the caller is still inside the
->   SRCU read critical section it took at :1094.  When the caller's
->   guard destructs, srcu_read_unlock(&gdev->srcu, idx) touches the
->   freed object (reads ssp->sda at object offset +8).  The hog path
->   leaves refcount=3D=3D1 here as the common case (no other holders
->   yet), so the final put is genuinely final.
->   Secondary: the failure path lacks the list_del_rcu() the success
->   path performs, leaving the freed device linked.
+> Release the parport claim first. parport_release() synchronizes with
+> interrupt handlers using the parport claim lock, so the PPS source
+> remains valid until the existing handler has completed. Unregister
+> the PPS source only after the claim has been released.
 >
-> * Evidence (stock 7.3 KASAN; deterministic, single-threaded;
->   reproducer attached)
->   gpiodevsim.c replays gpiolib's own sequence with a kzalloc'd
->   container of the same layout: srcu_read_lock (the :1094 guard) ->
->   cleanup_srcu_struct (the :904 call; hits the srcutree.c:696
->   WARNING -- the library's own "reader still inside" defense
->   triggers, leaking sda/srcu_sup exactly as the source predicts) ->
->   kfree (the :905 call) -> srcu_read_unlock (the guard's
->   destructor):
->     WARNING: kernel/rcu/srcutree.c:696 at cleanup_srcu_struct
->       (leak branch: srcu.sda non-NULL, srcu.srcu_sup non-NULL)
->     BUG: KASAN: slab-use-after-free in __srcu_read_unlock+0x1a
->       Read of size 8, address =3D object+8 =3D=3D the ssp->sda field
->       alloc: insmod kzalloc;  free: the kfree step above
->   One run, no interleaving, no kprobe parking -- the violation is
->   in the ordering itself.
+> A KASAN test using the actual pps_parport detach and interrupt paths
+> reproduced the use-after-free before the change and did not report
+> it under the same injected interleaving after the change.
+>
+> Fixes: a10203c691eac ("pps: add parallel port PPS client")
+> Assisted-by: ZCode:GLM-4
+> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+> ---
+>  drivers/pps/clients/pps_parport.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/pps/clients/pps_parport.c b/drivers/pps/clients/pps_parport.c
+> index f5af18bc2971a..8031446db8ada 100644
+> --- a/drivers/pps/clients/pps_parport.c
+> +++ b/drivers/pps/clients/pps_parport.c
+> @@ -209,8 +209,16 @@ static void parport_detach(struct parport *port)
+>  	device = pardev->private;
+>
+>  	port->ops->disable_irq(port);
+> -	pps_unregister_source(device->pps);
+> +	/*
+> +	 * Release the port claim before unregistering the PPS source:
+> +	 * parport_release() takes cad_lock for writing, which drains any
+> +	 * in-flight interrupt handler (parport_generic_irq() calls our
+> +	 * irq_func under cad_lock for reading, touching device->pps).
+> +	 * With the old order the handler could still run after
+> +	 * pps_unregister_source() had freed the pps_device.
+> +	 */
 
-TL;DR, Dostoyevsky commit, make it terse and human-readable,
-inline the patch do not send it as an attachment.
+Just a nit, only if you need to respin: IMHO the last two lines of
+this comment could go, since they describe the old code rather than
+this one, and the commit message already says it.
 
-Yours,
-Linus Walleij
+>  	parport_release(pardev);
+> +	pps_unregister_source(device->pps);
+>  	parport_unregister_device(pardev);
+>  	ida_free(&pps_client_index, device->index);
+>  	kfree(device);
+
+Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+
+Thanks,
+
+Rodolfo
+
+-- 
+GNU/Linux Solutions                  e-mail: giometti@enneenne.com
+Linux Device Driver                          giometti@linux.it
+Embedded Systems                     phone:  +39 349 2432127
+UNIX programming
