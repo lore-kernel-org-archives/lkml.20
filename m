@@ -1,75 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889796;
-	b=o5Lzpi0rjaWUCtqOJn0MLsq9qypYp6XwngmoUOoC09C61KXPtBIaJHewqzTXu9SMTPUO
-	 zwgOISfBfyNfpbMp2h6GYEzqDBVkXBveSsxkwIDDsHQEDKnbNsZKMzELIQD6HRIuZqmLh
-	 2oWPMVcvza6mjjMBGle8DEX9Y/FqDp6kgS910rJaaueZPIBc1+7jpOr6eTlWOuhx+uYkQ
-	 TXUhG0nwqSka7K7Ue+zYK73jPH6NOL1GzHqp3DMzoCp4zYO/zpiPNlSI1MK1aYdLSDAM5
-	 fRK77TOIiOxBsgbcrlzj36IrWbpVD+t37y4GLPQf8h9xsaAOLP2i6Goz9APEypb9XMw==
+	t=1793889839;
+	b=y+KN2tvK9hMH2RGcHxwiCiXlA8bDCWXAJpeBQu4q1h5Omw7dffkPi7ADeHX7BAyLmrbQ
+	 iNWTUCGwsvKGsiIJgn9WkLhD80Y1LdK5Jo9IlzZpKF8bvpKnnM/DtK5x0T7wq6ZiCvi8G
+	 GOj+yB/7Uf7MqOs/SPj86I6miZ8kZ5rYzp/GgOY9y+xf/iuL8u7F8fZk5dNHMcTijb7X/
+	 jtaw5HH6cEtulmvJx97l9pXnHglSgh2zNJe8jdAiHBleEVOjkPPIriBD4CTZ3hZXj9RK7
+	 az2I7VCmzS4jka4dIpg+S7Rw4GQM1Kg0tc8r2dV52+n+AvWp7jD6hwBY+2vJcPe0UHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889796;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=MnyLKUfg5ufAqKiT0oKE83kexAXeCPTLKjrnMiWI+IU=;
-	b=WYbA2Jnf/g3MF16GCGSMmSmp2y2mBUSFhtTEX1kUxN4U7Pp/Ao+VnE6S68mFPMWAmupa
-	 rEt3sVc8MqY2+Z0fAj/gzzZiDSh/kCldrp8BLbzgPd2ReR50vTLIL4y3v/4dF1fQ2RmT+
-	 ceGpBN8Ar53xp7kAJ+fQuz5+qqf7iKv5SKhLtp363wxV5zEHdCD+5VnVcYq8QOzJPMPOT
-	 3wTpq8GCE/Y6n1bKsajWgURlYf82Nq5t0HySM+5G9LK58G9vmkJBKL7I+raAebeHUBbIN
-	 faZLIltEpo4zpvpdHBF+0o4XXiVUWditDx8DNhu/HvMz3pZgNjBZ9WWu6vW3pFJNO0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889839;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=sQrCRoliZd1zlb3rt/5YQhInFDdr0lZwJn246gGNKTE=;
+	b=frDDThirER4PCL6QFGU1VjZL/N+/uHuYRCaXlS40M639ozhA4Jc8OeQ7bz07JoSGsIUw
+	 kqaiExh6KxwwfqtP4+cvyJ1YqGqm61N07JKSFJcKMF7lZKosJyBIXK8qZxwvxl6ewv/Kv
+	 4lAnQgTmd/2fTpV4POgkfk6PH+OiXrWzeY+W7PIPdKTDblBmwZIaj/8Jh6hywFM5Q7dE5
+	 QKlvzv9cF1wyw4zcJXMl6BVgn22DbSzz9JdEZRPE3LE/eQFNNbKb7gpp3JbRxxOOgadmR
+	 nQ8RQWqSI6o3UBggZdcNbbYDc8WDPna+Oi781dI5mMZmecG8pNN2ZH49IbpW/RRr5WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y9rOLmAK;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QWxinNsQ;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7CE606A334
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7CE606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE59606A328;
+	Thu,  5 Nov 2026 14:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BE59606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Y9rOLmAK
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so4374119c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:43:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793889796; x=1794494596; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MnyLKUfg5ufAqKiT0oKE83kexAXeCPTLKjrnMiWI+IU=;
-        b=Y9rOLmAKjBVdrCp02W76hV9kicaJEHdhvzHUIzJyOlft0uebcy41X9U7JkYqpM3u8q
-         VL8urorwkYTTjsajE8Q6hWl4PKlKi/MwLuZMh2e93cdqV9O5Dui0f8lpZCWuGV3JtFU+
-         OXO3WQxJrY287dJdKczTEy56tpb6KictYEZk6C4AJoTrrtLGm/9OrLX9uh0J12MP8vD6
-         JPkOq6r5Kzb0gH2oU3QWpT/ZzUrQNc6jk+Ip3V75fCGmdeFuMvhM30+erX7Hg/Ma/R+a
-         w3JnHwr7WopHxD0f39mTIe3FivrSHbA8Jem3SBEYdWC6CP3qi6A+aN7FqrC1A7ZjfCSV
-         EZnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793889796; x=1794494596;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MnyLKUfg5ufAqKiT0oKE83kexAXeCPTLKjrnMiWI+IU=;
-        b=ClWkmomx3D17u0DS6uYWXlCsiED/SWj9U3FccWrFBXPY8KPhxNjJ5JpLm94oq+vNtD
-         MD71r3FYaoKVJZOnfgLfV5DPBg8O/KTzIzP59Bz0uapqJDZl4xXobAfvCwals+mn26Il
-         kZn5JrRgjOd6jzGrKKWJxW6U1iJQAB2Q+Fp9vPj7RGqqla5rZZXBEdtPIuWjJ4LMrc3j
-         TVdvFSIPwPkoxgyj4wEArt6F/wqaFGsS4hciVaOo/QnuH1AJMSGZRW6lsznwJZy5+zi5
-         1WjW6XnNt3KRCN/PVIzWLO39ij6+arMgjzdUxo9NDJgRRdSjaZz0IgK63FXNUABfuVwq
-         Te6Q==
-X-Forwarded-Encrypted: i=1; AKwUvByCxaAtZ1pTu+Uq1K5pejnDAKvRGMGPcX5dmV0Ygj9PysCAnGLveJBeqB6EiXbDOOZwm49JH9JC6WdtkS0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+VFN/qvg0NEqo+V+wF+2Lxz9AweXEVCvRpq0y1JNX6Iv5RuE5S
-	n/Y5Etpkxxo8HxM4+P0EirC6667ylkrzgZu1s8FwJmcqMUEO4SsHehBvGju+wvv3p2YNHeFgTX9
-	L6ZGxPLiVtBqCWiHqOqag9g==
-X-Received: from dldz11-n1.prod.google.com ([2002:a05:701b:418b:10b0:1a1:3ce6:560b])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:b047:20b0:1a3:bfb6:44ad with SMTP id a92af1059eb24-1ac5da797d4mr31199827c88.32.1793889795206;
- Thu, 05 Nov 2026 06:43:15 -0800 (PST)
-Date: Thu,  5 Nov 2026 22:43:13 +0800
-In-Reply-To: <sashiko-outbox-198693@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QWxinNsQ
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AEBVE3166383;
+	Thu, 5 Nov 2026 14:43:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=sQrCRoliZd1zlb3rt/5YQhInFDdr0lZwJn246gGNK
+	TE=; b=QWxinNsQ/dT+S/Sln4aYpQYtPAGzaClCWkV3uad7N7XFMkLS8gDWeRxP/
+	mHlKhSzS+oSdq8RHb9ryvrkJXTZWNHGFggN1q/wHTFeakoJAbobw2QASC3czYnHd
+	1mzmu+r63NTUzk8qGu/HrlI+K2Ki802OJ4gmFB4PIyVQDELpYPd1784+CRjsiQec
+	rGtAWApffSETUWOI9fI7gW0yF4QO8YCcCmoA5Jl7BpshV2lzaHZJQmOZy7azSVnG
+	JQmIjRJecWjyN3mcd97/KGzb5ltZoKvX/jz+kSWge8kbtfUmGZoA75AMjhFtQ/DS
+	jLoJOngLZpYNoLU+hp2FM+AI00s2A==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rj2mnw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 14:43:36 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EZApf1796824;
+	Thu, 5 Nov 2026 14:43:35 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka6tech-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 14:43:35 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5EhW0X47120720
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 14:43:32 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 12DE220040;
+	Thu,  5 Nov 2026 14:43:32 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BFB7120049;
+	Thu,  5 Nov 2026 14:43:25 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.70.234])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 14:43:25 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+        rnsastry@linux.ibm.com, ssrish@linux.ibm.com
+Subject: [PATCH v6 0/9] Extend PKWM to support user-created wrapping keys
+Date: Thu,  5 Nov 2026 20:13:11 +0530
+Message-ID: <20261105144320.357260-1-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,33 +94,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261105071518.1458428-1-stanleyjhu@google.com>
- <20261105071518.1458428-3-stanleyjhu@google.com> <sashiko-outbox-198693@kernel.org>
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261105144313.2627198-1-stanleyjhu@google.com>
-Subject: Re: [PATCH 2/2] scsi: ufs: core: Wake consumer queues on suspended
- W-LUN recovery
-From: Stanley Jhu <stanleyjhu@google.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Brian Norris <briannorris@chromium.org>, 
-	Can Guo <can.guo@oss.qualcomm.com>, Peter Wang <peter.wang@mediatek.com>, 
-	John Garry <john.garry@linux.dev>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-scsi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 3irOr4P377RmltnbQVN8xsmcAw-fAKDh
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1NiBTYWx0ZWRfX8SFuTe989GVG
+ 40LBK1/63bgaBd7jx3pugk9x+q5JorpqVuOq33C1fLVH3np7A1EG0Z852+3mjt//y583hQkhRZK
+ bkhdrXAnd9xJsXm630dyarHnQ/YwKTg=
+X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6aec9619 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=ZmkVjOJ7g21S_g4humkA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1NiBTYWx0ZWRfXzxKSvWymtLlt
+ T9OdGfKPq2zWi82MRM4+KACsx1+75qSNPnzusgIPsmBj/icEW1WqnW/qwUHTykntHowp6FcRGE8
+ mNZLh4andbZCfYwohcJ/bqOiwoXZ2BrTTfgbbQRzyrd+ppLv37LX8G8dJpbdXgX8/qAg5OxbtHR
+ 16euz3gl/bsdeh4l4kECd6LlmkUFWL504Kp0nlssMpvs7tAP6/js7M7Ubul9XCqASdirgGpbEE2
+ 8lcO+xkbW9gxOCoQDD67SYeyIKeZa+mvyoip8l3w04lCFcLGNdperQnpazkwKzfDZnlvhce6aAT
+ 9Ya5AwwJkN9NlOinC2mcNbr7dJsisx5tLM6fFX94bYqLkGE6CcgRz8QrPBlldTD/O7guFnhtufZ
+ h08BVjRV0cFKeL3AL8lgLPV3T8sxk2VraK3+BqQDg8/K1kApNVEZ2fb0e4lcUD3pWWSmS52uRGO
+ Sq6efiZjqJn4upivEuQ==
+X-Proofpoint-GUID: Ve7yx-SFnF9ClQIkML5-lQsjtc5od3ap
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050056
 
-On Thu, Nov 05, 2026 at 07:43:05AM +0000, sashiko-bot@kernel.org wrote:
-> Can leaving ufs_device_wlun in RPM_SUSPENDED here cause hba->dev to
-> prematurely runtime-suspend before the asynchronous consumer resume work runs?
+The PKWM trusted source currently uses a single default wrapping key per
+LPAR. This key is created during trusted source initialization, and all
+trusted keys backed by PKWM are sealed and unsealed using it.
 
-Agreed. This will be fixed in v2.
+Recent versions of PKWM allow users to create and manage their own wrapping
+keys through a set of lifecycle operations. This patch series brings these
+PKWM capabilities into the kernel, allowing users to create, manage, and
+select wrapping keys for sealing their trusted keys, rather than requiring
+all trusted keys to use the default wrapping key.
 
-> Wouldn't that leave resume_sdev_queues false and
-> leave the consumer queue stuck in __bio_queue_enter()?
+This series extends PKWM to support user-created wrapping keys. It adds
+the required HCALLs, allows users to select a wrapping key by label when
+creating PKWM-backed trusted keys, and introduces a sysfs interface for
+managing wrapping keys from userspace.
 
-Agreed. This will also be fixed in v2.
+This patchset also includes six preparatory fixes. These correct double
+conversion of PLPKS write, remove, and wrapping key flush errors; align
+wrapping length types with the underlying HCALL interfaces; preserve the
+original error returned when default wrapping key generation fails;
+initialize PKWM output buffer pointers before cleanup; and clear sensitive
+PKWM seal and unseal buffers before freeing them.
+
+Changelog:
+
+v5 -> v6:
+- Hardened wrapping key lifecycle HCALL helpers
+  - Default wrapping key check
+  - Component prefix and wrapping key handling
+  - Label length validation
+  - -ENXIO when revoke/unrevoke are unsupported
+- Rejected non-ASCII characters in wrapping key labels
+- Added stable prerequisite to the wrapping key flush error fix
+- Re-ordered the stable fixes
+
+v4 -> v5:
+- Addressed issues reported by Sashiko
+  - Added HCALL-defined length validation for wrapping operations
+  - Cleared stale PLPKS sysfs kobject pointers on initialization failure
+  - Documented "default-wrapping-key" as a reserved label without assuming
+    it exists
+- Dropped Tested-by tags from modified patches
+
+v3 -> v4:
+- Addressed issues reported by Sashiko
+  - Fixed double conversion of PLPKS object flush errors
+  - Initialized PKWM output buffer pointers before cleanup
+  - Corrected the documented H_PKS_GET_OBJECTLABELS output field order
+  - Prevented stale policy use and caller data modification during
+    revocation checks
+  - Fixed wrapping key sysfs kobject cleanup
+  - Restricted wrapping key sysfs initialization to pseries
+- Dropped Tested-by tags from modified patches
+
+v2 -> v3:
+- Moved most of the refactoring and hardening patches into a separate
+  series:
+  https://lore.kernel.org/all/20260923182816.151451-1-ssrish@linux.ibm.com/
+- Added a fix to clear sensitive PKWM seal and unseal buffers before
+  freeing them
+- Added Nageswara's Tested-by tag
+- Refined error handling and documented default wrapping key restrictions
+
+v1 -> v2:
+- Addressed parameter validation issues reported by Nageswara
+- Tweaked PLPKS_WRAPKEY_SYSFS Kconfig help text
+- Added two preparatory bug-fix patches
+- Cc'd stable@vger.kernel.org where applicable
+
+Srish Srinivasan (9):
+  keys/trusted_keys: propagate wrapping key generation errors
+  keys/trusted_keys: fix PKWM output buffer cleanup
+  keys/trusted_keys: clear sensitive PKWM buffers
+  pseries/plpks: fix double conversion of write and remove flush errors
+  pseries/plpks: fix double conversion of wrapping key flush errors
+  pseries/plpks: fix length types for wrapping operations
+  pseries/plpks: add HCALLs for PKWM wrapping key life cycle management
+  keys/trusted_keys: enable PKWM wrapping key selection by label
+  pseries/plpks/wrapkey: expose PKWM wrapping key management to
+    userspace via sysfs
+
+ .../ABI/testing/sysfs-firmware-plpks          | 113 ++++
+ Documentation/arch/powerpc/papr_hcalls.rst    |  33 +
+ .../security/keys/trusted-encrypted.rst       |   4 +-
+ arch/powerpc/include/asm/hvcall.h             |   5 +-
+ arch/powerpc/include/asm/plpks.h              |  40 +-
+ arch/powerpc/platforms/pseries/Kconfig        |  15 +
+ arch/powerpc/platforms/pseries/Makefile       |   1 +
+ arch/powerpc/platforms/pseries/plpks-sysfs.c  |  14 +
+ .../platforms/pseries/plpks-wrapkey-sysfs.c   | 408 +++++++++++++
+ arch/powerpc/platforms/pseries/plpks.c        | 576 ++++++++++++++++--
+ include/keys/trusted_pkwm.h                   |   3 +
+ security/keys/trusted-keys/trusted_pkwm.c     |  52 +-
+ 12 files changed, 1203 insertions(+), 61 deletions(-)
+ create mode 100644 arch/powerpc/platforms/pseries/plpks-wrapkey-sysfs.c
+
+-- 
+2.52.0
+
