@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901011;
-	b=a/5YV6fdHv3Wq2Xwg47IQWy6ZE2tru/H7Kkdk5vVb2YElEsP9X4tekCUDAtvfQipXNZm
-	 JWxMwkznKVLDdCnMwQNPWvrUNlwAnMFLveGPkgsCyrBr4sFJGhdZz4pfk009/WVlbnSpi
-	 1NeEozg/lgk/Jfddx+sE+RdIthjpk++5I6T7NafaRqIAcw6Emd+8blJx4WQiCPLuHXwpI
-	 wA2wBfwaF8r2Nab8Aedpd+fy0YC80KE5LS8BAp8vNceplyyFmKh0vW7vy+bE4RjExnueY
-	 q03MbkfvDdvRctYNKq0GUpAlHnRTu9GI/HmzMAOwITrmdlqWwxoDrI1XX6ro3nxYh3g==
+	t=1793901019;
+	b=ArS7nsPKX7UvDnp7meRPwCG9iBhK62vAQbjFGGDASO+Y9YU+wxDd1xgA+Zhi8k2ThIt3
+	 OoV0HVPZ9uNzwDz6c4O19cX7cf6G8JYNKULx1M6J3NkY/dQwGs1npPeE64jtequ+8jyUe
+	 Nk1eco59s0j3OsqN4kuT5uXz+0vQ/d1RUlMSRa4+XbgMGiBG7tVJuA7KR75g97ZXZWFT9
+	 l/6hHfUvGTGpjcblBa8227K0h60mmh5oRrtFcObUNjaOIz7S1CUsEooN9zjfQlWscV4zZ
+	 e04HO/uMrvThkqqCUPa60eItq9uXYtiDRwywVSSYgxEiZa9fPttIPtXzffXWire7P+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901019;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=igxEc+MTOqAdiXi1dSGRkv2g+PoAmFiYUjf2iRakRDY=;
-	b=2DX1NFfx6/v2JXt5XJYDmGNJ+KxGKIx0EPI6IgusS7Q+/oUvXTNtIaYOIouxXw4tHeCk
-	 X95/F+OktY3rzF8kjqrFMQU//M9h+iyI4lXaviurHr8AVsMtyTT4exT4iN+Wp0bHZBL3q
-	 RGpM8QvmimBYsrv5/9Q6whw213z911anP0pmHQFT1r3OsjFVWpts0lPeIQEs7iRddGi1k
-	 npnJ8BhtiqbXpwoelZ8gA9l1/cZsCsnlsJ7q5uBoca2KJ+qFGsO/L94sk/xcyslCimDst
-	 qnB1WdZnnw07EN325BIpAiDhN6iURpSWVQGSl6jBPmuDSq1ZLsbwE6P/pk+j7SoRCGw==
+	bh=82qwBr50W/qO5etC4d9RNtnzdj3BiIQHx4SEKe7SXsM=;
+	b=tI8ow1zN8KuieldooPEDX0sriDGpjf5cEaQhLCbPM3TPU6eOP/2BU0BWmtD3sHzT5dzp
+	 HBgB8ZHLUDH8yl5KpxDy8RJP9R+eyFVXhHdRF1QSUlHd6XyqrcNkDMXWQH77xgr3N6i8D
+	 6jCdmtO+z/oZf1ErwJNEEIWkn+mnNUtKW2bJi3VUH0UsJpkHCLXulxKTeIZJuUuic1rRh
+	 1s3Vgk8kRtEPZQb/vzcuE0VHFTKXARgShI4M2sGi/iFtv+LxOmM9LF8h4uyL5Fl1HMiRU
+	 mao7FxyR3zz9d0C8fGwhOQVUcoMVsa0J5gu8qF8DZE6NY9qIRrHjeCQoQTYZgAqFt9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nWDqzorf;
-	arc=none smtp.remote-ip=95.215.58.213
-Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OAPRL2Hu;
+	arc=none smtp.remote-ip=91.218.175.95
+Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C34F606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:50:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C34F606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45536606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:50:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45536606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nWDqzorf
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OAPRL2Hu
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LLlgdevBBdJJUP3RYH6MF67ODYXlzihUz/N4bDB5bkw=;
+DKIM-Signature: a=rsa-sha256; bh=EfdKYXft/Got+YC/18pvThL4WWsgxbwvlWO8iRA97JQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793901008; v=1; x=1794505808;
- b=nWDqzorfA23n69Mz0dcjW1DMUFvfaTZAoNGWSzM5uXCFNWdAI2F3HSSKBWEBojXMYmDZJuN4
- MohRX0+Vb4CFEECfHjofTaUe2l7rGw6J8jeYR6djiYdSni8YnhG8LuyPXmM5QCdzTh4o6t/6s1X
- 7MebSOsPWdYwuVmADlg0kMPc=
+ t=1793901016; v=1; x=1794505816;
+ b=OAPRL2HuzV1t/TWHKLUcs6U+fsUbco4TNJdDorimCWfFB8QKTvEvhbNz+9GNNMX6UDJcqQP2
+ Oa5j/tRwpq97xo5cK77+z5dohRNQroRrEZt1fPwnmmHBpZSO0qAlkCVFEY6BRNhA4RHZgow27xJ
+ njh9/wZ7SYG25lNbsoDReJLM=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id c4bf3e9adab4dad2;
-	Thu, 05 Nov 2026 17:50:08 +0000
-X-Mizu-Trace-ID: c4bf3e9adab4dad2
+Received: by mta11.migadu.com with ESMTPS id c8adc97c972600d4;
+	Thu, 05 Nov 2026 17:50:15 +0000
+X-Mizu-Trace-ID: c8adc97c972600d4
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Gabriele Monaco <gmonaco@redhat.com>
@@ -53,9 +53,9 @@ Cc: Nam Cao <namcao@linutronix.de>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v8 06/14] rv: Make da_monitor_reset_hook, sync_hook and EVENT_NONE_LBL overridable
-Date: Fri,  6 Nov 2026 01:49:06 +0800
-Message-Id: <58752a7c181127dcd2db9c69359c6d96af75e1d6.1793900349.git.wen.yang@linux.dev>
+Subject: [PATCH v8 07/14] rv: Introduce DA_MON_ALLOCATION_STRATEGY
+Date: Fri,  6 Nov 2026 01:49:07 +0800
+Message-Id: <9eb3cf597afb19a1e1374d14f34a344cea7d054a.1793900349.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1793900349.git.wen.yang@linux.dev>
 References: <cover.1793900349.git.wen.yang@linux.dev>
@@ -72,50 +72,207 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-Wrap da_monitor_reset_hook, da_monitor_sync_hook, and EVENT_NONE_LBL with
-ifndef guards so HA-based monitors can substitute their own implementations
-before including this header.
+Per-object DA storage allocation is currently limited to kmalloc on
+demand. Add a compile-time selector so monitors can choose among three
+strategies:
 
-Overrides of da_monitor_reset_hook must still call ha_monitor_reset_env()
-or cancel outstanding timers to avoid timer UAF.
+  DA_ALLOC_AUTO   (default) - kmalloc per object on the monitor path
+  DA_ALLOC_POOL             - pre-allocated fixed-size mempool;
+                              selected by defining DA_MON_POOL_SIZE
+  DA_ALLOC_MANUAL           - caller pre-inserts storage; framework
+                              only links the target field
 
-No behaviour change for monitors that do not override these macros.
+nomiss switches from the implicit DA_SKIP_AUTO_ALLOC override to an
+explicit DA_MON_ALLOCATION_STRATEGY DA_ALLOC_MANUAL; the behaviours are
+equivalent (pre-allocated storage, no allocation on the sched_switch
+start path).
 
-Reviewed-by: Gabriele Monaco <gmonaco@redhat.com>
+Suggested-by: Gabriele Monaco <gmonaco@redhat.com>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- include/rv/ha_monitor.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ include/rv/da_monitor.h                  | 121 +++++++++++++++++++++--
+ kernel/trace/rv/monitors/nomiss/nomiss.c |   2 +-
+ 2 files changed, 112 insertions(+), 11 deletions(-)
 
-diff --git a/include/rv/ha_monitor.h b/include/rv/ha_monitor.h
-index 3bf1dd15544c..5372e5dfe3c5 100644
---- a/include/rv/ha_monitor.h
-+++ b/include/rv/ha_monitor.h
-@@ -37,8 +37,14 @@ static bool ha_monitor_handle_constraint(struct da_monitor *da_mon,
- 					 da_id_type id);
- #define da_monitor_event_hook ha_monitor_handle_constraint
- #define da_monitor_init_hook ha_monitor_init_env
+diff --git a/include/rv/da_monitor.h b/include/rv/da_monitor.h
+index c7f9733fb8a4..76169e41d4e5 100644
+--- a/include/rv/da_monitor.h
++++ b/include/rv/da_monitor.h
+@@ -14,7 +14,45 @@
+ #ifndef _RV_DA_MONITOR_H
+ #define _RV_DA_MONITOR_H
+ 
++/*
++ * Allocation strategy for RV_MON_PER_OBJ monitors, selected before including
++ * this header.  Defining DA_MON_POOL_SIZE N implies DA_ALLOC_POOL.
++ *
++ * DA_ALLOC_AUTO   - kmalloc on demand; unbounded (default).
++ * DA_ALLOC_POOL   - DA_MON_POOL_SIZE pre-allocated slots.  The start handler
++ *                   must run in task context; other handlers only call
++ *                   da_handle_event() and never allocate.
++ * DA_ALLOC_MANUAL - caller pre-inserts storage; framework links the target.
++ */
++#define DA_ALLOC_AUTO   0
++#define DA_ALLOC_POOL   1
++#define DA_ALLOC_MANUAL 2
 +
-+/* Overrides must still call ha_monitor_reset_env() or cancel the timer. */
-+#ifndef da_monitor_reset_hook
- #define da_monitor_reset_hook ha_monitor_reset_env
++#ifdef DA_MON_POOL_SIZE
++#if defined(DA_MON_ALLOCATION_STRATEGY) && \
++	DA_MON_ALLOCATION_STRATEGY != DA_ALLOC_POOL
++#error "DA_MON_POOL_SIZE implies DA_ALLOC_POOL"
 +#endif
-+#ifndef da_monitor_sync_hook
- #define da_monitor_sync_hook() synchronize_rcu()
++#if DA_MON_POOL_SIZE == 0
++#error "DA_MON_POOL_SIZE must be non-zero"
 +#endif
- #define da_monitor_free_hook ha_monitor_free_env
++#define DA_MON_ALLOCATION_STRATEGY DA_ALLOC_POOL
++#endif /* DA_MON_POOL_SIZE */
++
++#ifndef DA_MON_ALLOCATION_STRATEGY
++#define DA_MON_ALLOCATION_STRATEGY DA_ALLOC_AUTO
++#endif /* DA_MON_ALLOCATION_STRATEGY */
++
++/* Zero default keeps pool-mode conditionals compile-time constant. */
++#ifndef DA_MON_POOL_SIZE
++#if DA_MON_ALLOCATION_STRATEGY == DA_ALLOC_POOL
++#error "DA_ALLOC_POOL requires DA_MON_POOL_SIZE to be defined and non-zero"
++#endif
++#define DA_MON_POOL_SIZE 0
++#endif /* DA_MON_POOL_SIZE */
++
+ #include <rv/automata.h>
++#include <linux/mempool.h>
+ #include <linux/rv.h>
+ #include <rv/kunit.h>
+ #include <linux/stringify.h>
+@@ -563,6 +601,46 @@ static void da_kfree_cb(struct rcu_head *head)
+ 	kfree(ms);
+ }
  
- #if !defined(HA_SKIP_AUTO_CLEANUP) && RV_MON_TYPE == RV_MON_PER_TASK
-@@ -77,7 +83,9 @@ _Static_assert(offsetof(struct ha_monitor, da_mon) == 0,
- #define ENV_INVALID_VALUE U64_MAX
- /* Error with no event occurs only on timeouts */
- #define EVENT_NONE EVENT_MAX
-+#ifndef EVENT_NONE_LBL
- #define EVENT_NONE_LBL "none"
-+#endif
- #define ENV_BUFFER_SIZE 64
++/*
++ * Zero-initialised for non-pool monitors, whose pool paths compile away.
++ */
++static mempool_t da_monitor_pool;
++
++static void da_pool_return_cb(struct rcu_head *head)
++{
++	struct da_monitor_storage *ms =
++		container_of(head, struct da_monitor_storage, rcu);
++
++	da_monitor_free_hook(&ms->rv.da_mon);
++	mempool_free(ms, &da_monitor_pool);
++}
++
++/*
++ * da_create_pool_storage - pop a free pool slot and insert it into the hash.
++ * Returns NULL if the pool is exhausted.  Caller holds an RCU read-side CS
++ * and the monitor's serialisation lock.
++ */
++static inline struct da_monitor *
++da_create_pool_storage(da_id_type id, monitor_target target,
++		       struct da_monitor *da_mon)
++{
++	struct da_monitor_storage *mon_storage;
++
++	if (da_mon)
++		return da_mon;
++
++	mon_storage = mempool_alloc_preallocated(&da_monitor_pool);
++	if (!mon_storage)
++		return NULL;
++	memset(mon_storage, 0, sizeof(*mon_storage));
++
++	mon_storage->id = id;
++	mon_storage->target = target;
++
++	hash_add_rcu(da_monitor_ht, &mon_storage->node, id);
++	return &mon_storage->rv.da_mon;
++}
++
+ /*
+  * da_destroy_storage - destroy the per-object storage
+  *
+@@ -588,7 +666,10 @@ static inline void da_destroy_storage(da_id_type id)
+ 	 * A reader from before hash_del_rcu() may still arm; the free
+ 	 * callback runs past it, so the hook disarms there.
+ 	 */
+-	call_rcu(&mon_storage->rcu, da_kfree_cb);
++	if (DA_MON_ALLOCATION_STRATEGY == DA_ALLOC_POOL)
++		call_rcu(&mon_storage->rcu, da_pool_return_cb);
++	else
++		call_rcu(&mon_storage->rcu, da_kfree_cb);
+ }
  
- #ifdef CONFIG_RV_REACTORS
+ static void __da_monitor_reset_all(void (*reset)(struct da_monitor *))
+@@ -614,6 +695,13 @@ static inline void da_monitor_reset_state_all(void)
+ static inline int da_monitor_init(void)
+ {
+ 	hash_init(da_monitor_ht);
++	if (DA_MON_ALLOCATION_STRATEGY == DA_ALLOC_POOL) {
++		size_t storage_size = sizeof(struct da_monitor_storage);
++
++		return mempool_init_kmalloc_pool(&da_monitor_pool,
++						 DA_MON_POOL_SIZE,
++						 storage_size);
++	}
+ 	return 0;
+ }
+ 
+@@ -633,20 +721,33 @@ static inline void da_monitor_destroy(void)
+ 	hash_for_each_safe(da_monitor_ht, bkt, tmp, mon_storage, node) {
+ 		da_monitor_free_hook(&mon_storage->rv.da_mon);
+ 		hash_del_rcu(&mon_storage->node);
+-		kfree(mon_storage);
++		if (DA_MON_ALLOCATION_STRATEGY == DA_ALLOC_POOL)
++			mempool_free(mon_storage, &da_monitor_pool);
++		else
++			kfree(mon_storage);
++	}
++
++	if (DA_MON_ALLOCATION_STRATEGY == DA_ALLOC_POOL) {
++		rcu_barrier();
++		mempool_exit(&da_monitor_pool);
+ 	}
+ }
+ 
+ /*
+- * Allow the per-object monitors to run allocation manually, necessary if the
+- * start condition is in a context problematic for allocation (e.g. scheduling).
+- * In such case, if the storage was pre-allocated without a target, set it now.
++ * da_prepare_storage - allocate or link per-object monitor storage.
++ * Only the first start allocates; later starts reuse the existing da_mon.
++ * Must run in task context (see the allocation strategies above).
+  */
+-#ifdef DA_SKIP_AUTO_ALLOC
+-#define da_prepare_storage da_fill_empty_storage
+-#else
+-#define da_prepare_storage da_create_storage
+-#endif /* DA_SKIP_AUTO_ALLOC */
++static inline struct da_monitor *
++da_prepare_storage(da_id_type id, monitor_target target,
++		   struct da_monitor *da_mon)
++{
++	if (DA_MON_ALLOCATION_STRATEGY == DA_ALLOC_POOL)
++		return da_create_pool_storage(id, target, da_mon);
++	if (DA_MON_ALLOCATION_STRATEGY == DA_ALLOC_MANUAL)
++		return da_fill_empty_storage(id, target, da_mon);
++	return da_create_storage(id, target, da_mon);
++}
+ 
+ #endif /* RV_MON_TYPE */
+ 
+diff --git a/kernel/trace/rv/monitors/nomiss/nomiss.c b/kernel/trace/rv/monitors/nomiss/nomiss.c
+index 6e47d379f777..c80a2c51c514 100644
+--- a/kernel/trace/rv/monitors/nomiss/nomiss.c
++++ b/kernel/trace/rv/monitors/nomiss/nomiss.c
+@@ -18,7 +18,7 @@
+ #define RV_MON_TYPE RV_MON_PER_OBJ
+ #define HA_TIMER_TYPE HA_TIMER_WHEEL
+ /* The start condition is on sched_switch, it's dangerous to allocate there */
+-#define DA_SKIP_AUTO_ALLOC
++#define DA_MON_ALLOCATION_STRATEGY DA_ALLOC_MANUAL
+ typedef struct sched_dl_entity *monitor_target;
+ #include "nomiss.h"
+ #include <rv/ha_monitor.h>
 -- 
 2.25.1
 
