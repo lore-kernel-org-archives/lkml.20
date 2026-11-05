@@ -1,87 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878695;
-	b=GIwaDe/tmFEVl3Iuk3GkZMf0fpqpEnqGo1y2XMQmzgX/6ZlxBPH8Ri8JjJUMuh4W+AWJ
-	 eubYRFDfriatf9rh+u7u32vd6LePzNlUqo65t5oVacCbl9oXjEhRtHV0hb+Uhfe1ItHye
-	 r8ira+AhLHXfYm8a5XbmgM+XMaFNqtEZSNzBq6ex/2y55M4ec4/hcOBcRB3+vXaurDWAn
-	 OH0rt8+rhn8Ya69awNzcbUIX0mZZ1J0vgKpePnrBUowSy3zoY2KLTlXOJDBAqmDpbnnv4
-	 /l+DaY6iZQ0IDA0DKRgp1yqI4xoP2acR/L1lDVwBRLxefNk0Z2/og8K1e2RShwMBxrA==
+	t=1793878697;
+	b=v0DOMaVtbVFzTZ2eBnQtB1XglJO8s8bSVBtC41B65Q1aZqLO8byvyEufKt9pFF+YXcLB
+	 7vhUJ7H8bS1DoQTr2dOSTsxm5eAJzNYeHUPCNsH9NndoRyTVyfE3awJ329l1WvTDe1dpn
+	 Gxu9beG5Re+hHNcyIGPmSgM99N9fv4MkpVk+6GKDDwYVfX+v5OrtimpczgrhUVmGyHj/+
+	 Gl0prOIo2CaUWaQbKeHIwn6vXjsyPLd1E98zjCgm5EAnM+GxymTF08ZA6zpPEmg/MnYnf
+	 XFN4MIEG/GAMX55LpvWgHQ1vaWfoU5XO3NV1ICdT3wlY8MoCUfTh5O804AodWYnx8aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878695;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=tbsBhorpX5/hg11/oBkLoGN5x3wli6X3ebAisCWgK2c=;
-	b=vSM6wgKy8N/PWyK3kmzs4lDESG1YZPfoeHnkLxwPIczUB/vDmZS4PfM2c0IZiWmYjPJp
-	 wm8ztFpOnA6ne4edxh722riSbIOeD8B5j3OOSUTqrTfhiAqDJVScg+Qqib5AMBHqp0iNa
-	 BDVd0uoO1Wu1hejWGDLSGUYw5dS94zk8SthF5iVH7bJEO7HFKoAMTZe+E/kSjufzP7bRn
-	 JY/KpxM6iHcJhODNwd6yJ200Sn5xXg8dZfSDxEz9bokCd7uca9c+2m64jGX2ERTomfGaF
-	 XNaXy0jc5aCaOCQgi+UhCi+xR8/DwBkY1uRA07w74azPPHE8cdQNoRZkmyOwwXXvMpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878697;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=jRo6v1yesX88h7OcyNAcfI2+Tt+WAJUB3xSN50MgUos=;
+	b=DLXjQSDBkuDAfBUcLnJmcxdOLHvrr195Pa6vPzHcJU7K8X21ky5Ho4yGdgSugtYNuaSH
+	 o6oGIONn2T6PQB7xJb2jcVRtRkJMGDltDr9GO6cXPoWKxYFqDs3dfvZEaMjDETSeeP562
+	 baZCUl1TbpORqaalICQGXn/9E+7yDhQ7JGLC6+wfd7Xf2ecXS7hZOsXav3BNjTW3Esg1B
+	 VetrGB3+KOZYPidNIyLphjvEZlgAj+KMQqE2wRA/+1WXybjuhYKAc12zYfc206zbQZK0B
+	 C0QNBo+iXOo3KRsig1zz+/IpKfEeoJR46SVdyIn3GcMHsIW1HawZ4OzzR1JuSAdwlNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9X+iDw2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhlsZn4y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEBD606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:38:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818C2606A32F;
+	Thu,  5 Nov 2026 11:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9X+iDw2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171B81F000C1;
-	Thu,  5 Nov 2026 11:38:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhlsZn4y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E63B1F000C1;
+	Thu,  5 Nov 2026 11:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793878694;
-	bh=tbsBhorpX5/hg11/oBkLoGN5x3wli6X3ebAisCWgK2c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M9X+iDw2ORrpPUaDkz7MrCQc+gRQbprFWySehjB2KG4rXWODD4igi+duJmMoSnlRl
-	 kopf5u3YgN78VtyHl01cXCmfizipTxNpk9SOEBgAAr3E8HL0zkMhopiP05LtJceWrY
-	 ED1WnjC2S+xlCNv5zBI0n69ItkHBN5Wv4H+yDUCiuDnOO8jDRfjazJZOuRPLJcFlvn
-	 o7n1fCqLc0w49cechdoVyDSWEqcr3LondEMEu5s12GyhP//iaF4cgVTlLRiCFKnT7n
-	 YVnsMU9vpesAWl+HTeCTqQOCSgRLztuF/dP3vfs26f6kTtzbNGF3sa+mLKXdYiBHiM
-	 st1wzmJSheO8g==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 6D272198003A;
-	Thu,  5 Nov 2026 06:38:10 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 05 Nov 2026 06:38:12 -0500
-X-ME-Sender: <xms:oWrsakkGlgKpR4wSm4ye8vv5csIAo86ksnI3CRCrKjaIAGWH7p4RZQ>
-    <xme:oWrsajYtjeGUs_u_kIuefPOf_AzTPUtWXK-DrRSGYCrQpC4L5EcIZyN7-INXKLOrj
-    UGT8w0Zod-RsEbrQCenUDhV7iSUy-tD9bftu208ILE03j7t44SYUg>
-X-ME-Received: <xmr:oWrsasBHzt1eXTYkDr6ygg5y9ro_Ytj9FkIMPtFlnndtttzqxgzJyhCDHMo>
-X-ME-Proxy-Cause: dmFkZTFgCBY0H5ERCpEWHMWeRovHwsuqR+Zb+dTNF6i0Wx6f7bDy0HWpqxM/ilEd3SmjwZ
-    vjJAUFeZ/zBNEC3KI2YM+ad6PmkKx4ukR8n5J8nEiKNFWVXyvayr0881g5/mna2LEZcqam
-    I8+YZ6HPM1KFewLEYnolCm4NMYZG7n/P92+sSLWoLbVmG9/cM8ddAdCMCI/zzzsvgYhWH/
-    U0/un/WLwaEnnvjrs8TM7ghH3lFOprirTdMYV8lQR2O11uKvbkktYbVoKk6QpJLoKDlpMF
-    htE8GiRINFSaJ74JopyvAxB/OOc/3hMfEeCHd9+w/qJ7P2Stp8TOD//K8G5YrP+v/+gaSn
-    rqCy4qK4skVM4GvMeNcty2X+jEl/W9vNjpmQZj7NSp3HcqiH2ME/3kKmcO4vdSZxh38I7J
-    hm8EEkedoYry5QczVgTb4gK5JbJXByKI9E/D12mIdar2rGXlzoLvqb04B6flvcbpWOUqwa
-    xWodXioGRteUh8SVPRSz+jSe33SB4Q/D/xWYp5buKmkf/K7DPwLQz3JakHyyAf5XP2v2k0
-    ypce1ZV2IEOqx+byeARzy6zXkHBuMXRBPo8mflhhICtYm4kEfDGfscjBvW7nHL41WdHa5c
-    0QTbN74SZIEmIktDxDq1ZWXtR6RQcPexInTsmSlhYzkCOES6HqFBvU3HrZ1g
-X-ME-Proxy: <xmx:oWrsapZ0sJZPaTLJohiTbQH0GBzNwIUuyVsQjhPFgXtwhGjHo0Ovuw>
-    <xmx:oWrsaghIMK7D5dEeDwAHlTtyLk2v7kb6ZDy0SBbzNCAnWqhCAjKzVQ>
-    <xmx:oWrsapw5fN2OQzBsVBeThBvK9xYPabwzuGCdda-JmTfst2VqD70-FQ>
-    <xmx:oWrsar7ua-Gcqusx-0RQROs1qZszuYf6_HFQ7zjrPjym7UOkp0fL0Q>
-    <xmx:omrsai0JtSjuBIAGCYf8dN5F2ipy5pl5kQbKYWQ6nBG8-gYebIvfqvyX>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 06:38:09 -0500 (EST)
-Date: Thu, 5 Nov 2026 11:38:08 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	James Morse <james.morse@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Doug Anderson <dianders@chromium.org>, Breno Leitao <leitao@debian.org>, Dawei Li <dawei.li@linux.dev>, 
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>, kernel-team@meta.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] arm64: sdei: Run the event handler on the kernel
- vectors
-Message-ID: <auxqaslfm5t3FAPL@thinkstation>
-References: <20261104180936.2981070-2-kas@kernel.org>
- <20261104182842.3436759-1-usama.arif@linux.dev>
+	s=k20260515; t=1793878697;
+	bh=jRo6v1yesX88h7OcyNAcfI2+Tt+WAJUB3xSN50MgUos=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=KhlsZn4yFevLCGBPZ+LUQkIXowVSUHj6Hlf5vx5Sdk/TD3VsG4KJVK1HUPHe9iIYh
+	 FtLMqxBhPeL5wUOpWC9q4NqZ5oFUjOx6TZ+5dbMlHR82zDDytOWhWE0oVPrQ1dziSP
+	 9NQw6dcIH6Lz+19ELuWGLRo9CvvkI5x93WAxPB4mE8HnsHSwWrB1Tik5cewhSQnbNx
+	 Gegv7724y6vxHgg8dMCGuX4ZyhC4h2MKgaGi+NGp1KWpzoQmddvQAwYmXkdgUKq1uL
+	 PHMJCKTYcecy/HAX3SrKHOu8o8GyH4jc+fhfotTlZiln2sJH3Uce3tcPz5WdZluJqz
+	 ZvMqbzNGCQNhw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 421B3272E97B;
+	Thu, 05 Nov 2026 11:38:15 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
+ Jason Wang <jasowangio@gmail.com>, Francesco Valla <francesco@valla.it>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ virtualization@lists.linux.dev, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
+References: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
+Subject: Re: [PATCH v3 0/2] Add devicetree bindings and maintainer for
+ spi-virtio
+Message-Id: <179383873171.2186205.18306069236737533511.b4-ty@b4>
+Date: Thu, 05 Nov 2026 00:32:11 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,25 +71,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104182842.3436759-1-usama.arif@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1695; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=d/2HHn0oM1yVBytTovcK25fmEh8H6DrOdy6DAE4SDbU=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeZC0XVd+1debfPX+5WkI2/wlkmKnILeN3IfGbaoZby
+ w23i+ksHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIolsM/9RX3q1o3/pvh992
+ OSmH7Pa9pz2nNzJvenSA+7/kqnt8V7wY/kf+rmbslamrD32rPu1m35pqG5E5Zx/f3Vq1UXxa028
+ /Kz4A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Nov 04, 2026 at 10:28:41AM -0800, Usama Arif wrote:
-> Would doing the swap in __sdei_handler(), around the whole NMI
-> entry and exit pair, close that window?
+On Thu, 29 Oct 2026 17:27:42 +0100, Francesco Valla wrote:
+> Add devicetree bindings and maintainer for spi-virtio
+> 
+> When a virtio transport exposes a non-discoverable bus, the devicetree
+> can be used to declare its child devices (if any) and/or other
+> properties. To allow for that, the virtio framework searches for a node
+> with a suitable compatible in virtio_device_of_init() when registering
+> a device [1]; such compatible takes the form "virtio,deviceXX", where
+> XX is the hexadecimal representation of the virtio device ID as defined
+> by the virtio specification.
+> 
+> [...]
 
-Yes. The WARNs you point at only fire when context tracking is already
-broken, but the same window has tracepoints: trace_hardirqs_off_finish()
-fires irq_disable exactly when the event lands in user space, and a BPF
-program attached there can fault.
+Applied to
 
-It applies to 2/2 too: anything that traps in irqentry_nmi_enter()
-overwrites ELR, ESR and FAR before do_sdei_event() saves them.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
-I'll move both into __sdei_handler(), around irqentry_nmi_enter() and
-irqentry_nmi_exit(), in v2. do_sdei_event() still needs the interrupted
-VBAR for the IRQ-like resume, so it will get it as an argument.
+Thanks!
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+[1/2] dt-bindings: spi: add spi-virtio
+      https://git.kernel.org/broonie/spi/c/5e36c313bcba
+[2/2] MAINTAINERS: replace spi-virtio maintainer
+      https://git.kernel.org/broonie/spi/c/a64623716fa1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
