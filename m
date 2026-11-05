@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849580;
-	b=G5koVCjf15q9MPx9XlV7XcbawEWlx7WXqWzvVnkTnbrTpI7JPFtbj9szTLiCPuxqd6dv
-	 ewaXqGnP84EnlQUSnr14EsQR8RX3UhNm/0KIlHLggSFRBEQql3PHjiJBzI3dwWluoBDaG
-	 l7Hd49GTqCm2VLxH4jamoGKCpTwL0OEVRWPqvfjeMIVzs5KUnd3oFjynrFyEDTdMklCIO
-	 C8WuDghz9Wrgxunm4yYHqQnG74MzSEhKz70MWR3+p0L8P6txgNeCudB+v+M4nEpTblXCU
-	 rVOAynWDkI+/V9hjqU8dqBxcj8t8RzFuIl83e9KVU+/Ve0yfagrDgR7InnzSU7LMmMw==
+	t=1793849643;
+	b=Zn/9Krfrdw9WSqfYWwShbr7TJXFFv6p1aYLIzomQkIYTmI53EuLkbAibNv4/q7AAPFjw
+	 ogF5J6/pfFCAQGz41FYMjakxOq1o/4ta4Ei0LhWrTvgCwLvXCTvS9176jXO15HDtQwXLm
+	 psv/CUjOHlgM2/CJR9Nv1B2EFiy+3JeEjTiCyR5X78F1njw5mCODj85SwlpFjLdWfzETA
+	 AN1ThwMzVl0CewqDDetQdb9bS788f7W8tRvBpgIk/mX1pe7mzaNXLyV0K/C2A03gAXQ/o
+	 Ly4rYSacbUO/lf8jv0drjd+KDngFuaNdV+ASjPBZ6naB3QW6lnH4ThQXKMwc7ip6fWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849580;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jIzkVeBI9b3PEm/Tr6PfIipXlg8et2MLSXZyIQ53oIE=;
-	b=Bt1mxh0aRyrjQrkxkAfpyFaPNSrMRwBdRjLQnKFJUwmiBuFtW4w5HI4W5mQMsAAgFpsA
-	 ssHy12nv1et3RKSi268BeS4LOA1JGtpvHR68pn7uOrkP/DfIMy7LmJp+jfNj/hDV9mw7S
-	 FAHrgGMvk3leB4k0H4c42OcBZQ93f5zz32+x2chnRqlitU/4cu0NUKd2DkqKnhnqdLdu7
-	 VZzqV89SLgiuQrmCQvBrlbGxhdX9MYWI370G3wJRzxkLYfEgF5seoQZWpSqJE5I25jZl3
-	 tYsNdSfpyCf9A3ehW3YuvLskfosTF8W/jHPS7eP5c8vBhwdUdZPs1WmJGa4ede1S0nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849643;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=l+Yp56smGIs8eBVmZ42TlX/QjRgKCo02jmsCVaG2LHM=;
+	b=racZ6SI9/3UvwbCYdzBwNHAObe0u0u2IwPlkvwoeV3XGGsRdIkpylysR35f9uwkaLcoy
+	 ZO6myVy6RXHB+sLjcgqm/byQn5dbtfAdSSSHpWv4l07z/tS60sEV/9jJvokmI+vHhUhBl
+	 HAWTH5PQoaJaGOtpqajynRJHSSHmlUBVWqlbbt4S1cqK9R8lmFh8GLpLa97TY/dfTho0Q
+	 Qb/9CKUk09s2E9GWVsneahZvhsWXQNnfZ1GboBymUxqOCmonnsbJUjUP/bkEqhbSfQ+MC
+	 pR/gEGUXqUKLKOrJes4YzSyIsk1Xc0rfeek+ykoFQtCpe4PIvrbyFlj5mTeXbVUdOkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lwFiiNKB;
-	arc=none smtp.remote-ip=185.70.43.166
-Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGjYA7GK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33C1606A326;
-	Thu,  5 Nov 2026 03:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B33C1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD16A606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=lwFiiNKB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793849576; x=1794108776;
-	bh=jIzkVeBI9b3PEm/Tr6PfIipXlg8et2MLSXZyIQ53oIE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=lwFiiNKBs+wTOTOekItXMHg+620VO3If6nc9oABez1PyHXOZNYoMFQz9a1D+YilRe
-	 N2tsOooKbaLFpTa3OvMNA0oD/ZuphvcB/qNOM4/+9tUaw/cXZt3M3ycSQ4Dgeusysm
-	 +D6UE9xLk7qaJ8RCusMdArzoNblhhBEnSrMip24WMpTpx7m46AfAnNiLrl2Aaj03ut
-	 2NV7mybIcLBPfJBo0D8s0N8HNC93JoADYXSxfHOABXEoxicv5efOGwjWwR7LroNI2E
-	 uWzgj7pYcvvMEwqs+qFIY38SqQEAzsfdGImScwHSSmXfUGbpQ9FhkJZ7zfofTqzI7H
-	 LeAGk8vJrv6eQ==
-Date: Thu, 05 Nov 2026 03:32:49 +0000
-To: "adrian.hunter@intel.com" <adrian.hunter@intel.com>, "bhelgaas@google.com" <bhelgaas@google.com>, "rafael@kernel.org" <rafael@kernel.org>
-From: Kyle Baedke <kylebaedke@protonmail.com>
-Cc: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [BUG] Genesys GL9750 (17a0:9750) does not respond after its PCIe  slot is powered back on from D3cold, on s2idle resume and at runtime  (ASUS Vivobook 14 Flip TP3407SA, kernel 7.3.1)
-Message-ID: <vqOfI4cXijz1Ft480-_mX3XkrTT_-oQ78Xy6CPrXD_r5R06i7H03y3szJFA7JAVs9YsW93_hUQ0hz5bTYItb7RUml3cGwxPmW9gPFIcNY-8=@protonmail.com>
-In-Reply-To: <x4G_0cgWnHWJtmgP4iX3hFfwwbWDyVuO9Ps8Pv_Rnq4VguufBRLzZex1IxGuTtaYfU7tS7U8RbKjB2I54HxfEmPk3gzKWvYDAyuZXrtWbDU=@protonmail.com>
-References: <x4G_0cgWnHWJtmgP4iX3hFfwwbWDyVuO9Ps8Pv_Rnq4VguufBRLzZex1IxGuTtaYfU7tS7U8RbKjB2I54HxfEmPk3gzKWvYDAyuZXrtWbDU=@protonmail.com>
-Feedback-ID: 212527205:user:proton
-X-Pm-Message-ID: e3f05f633c40ddf18529b7d5aa15b834ff41ae80
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YGjYA7GK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 386B01F00A1A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:34:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793849642;
+	bh=l+Yp56smGIs8eBVmZ42TlX/QjRgKCo02jmsCVaG2LHM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YGjYA7GK343Pjnrfl3nofa0xcvg8KD1pXJekSNdyyCiTvYVtawW3B5HsQyMsage1F
+	 j4Drah6q6VlOF5mqA0cMvykdPH7q2jFJADU1qs4r/jM2c2wVcGsEaOhL6I1NT4r25v
+	 yBzXn9kmVUfdGUZMMwIIIWh/2jJPZ7YlCRQ5touqvXt8CASPKZOkADXbUvuBi1p0Xm
+	 kVwX0CvQCqnjUwipJd3dRGy/W2npv7BntvX/KM95lwaL0ZMg9D+7JUJbPrtfVAMLsg
+	 sBfpQyW4hrdzahpG74ElKjd4UP4l9N09jpRCho70txcS/HaXse5J0hJg4G4jmDAnHS
+	 rMVggHotSGVrg==
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91c7a0c1617so19640246d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:34:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByCyNxkLEinJRwLE4+mRYekaSGQuDOCFgTA4U1yFkk8tyI5b02phfa4zWMNpFSsVwMPL2zh8HRRGJ+pJMs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Nap6hEYknBdXTZaCcJFnExLKty9aIJqcok0FTe+UffOuA4JUg
+	sLFYwqChfpyuNZudZQq5K2OAoPbIPDT+5YO+b52OIAhUGFhhlNay03kR2tkdJHmcGawbv2b8P/M
+	5ZdgAANlv2lOm+nQddExCV4h4W6HSjsI=
+X-Received: by 2002:a05:620a:3720:b0:93e:fc02:e8d4 with SMTP id
+ af79cd13be357-94421630bedmr3380444185a.27.1793849641568; Wed, 04 Nov 2026
+ 19:34:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,170 +59,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261104130817.849089-1-ridong.chen@linux.dev>
+ <20261104130817.849089-8-ridong.chen@linux.dev> <CAGsJ_4y_Ay0mYO3ic72oepjtW6KYf2sKRXEHb3Ff8uwKrOJZjQ@mail.gmail.com>
+ <4f830c30-f99c-4f75-851b-1a3f6d1342b1@linux.dev> <auvisj8NeTJ8FunG@MiWiFi-R3L-srv>
+In-Reply-To: <auvisj8NeTJ8FunG@MiWiFi-R3L-srv>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 5 Nov 2026 11:33:50 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zVwLMRKOOGycVfnGEjxwy3wO8azyWD4YX6+d7DpAypzQ@mail.gmail.com>
+X-Gm-Features: AclHuK95QOPSEjcqkBAiK0QpfFcwI57KNwsmNgJhbn3lT1vePCwCD9VdxFwjbS0
+Message-ID: <CAGsJ_4zVwLMRKOOGycVfnGEjxwy3wO8azyWD4YX6+d7DpAypzQ@mail.gmail.com>
+Subject: Re: [PATCH v7 7/7] mm/mglru: add tracepoint for aging
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Dave Chinner <david@fromorbit.com>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-trace-kernel@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
+	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>, Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+On Thu, Nov 5, 2026 at 9:58=E2=80=AFAM Baoquan He <baoquan.he@linux.dev> wr=
+ote:
+[...]
+> > >
+> > > Reviewed-by: Barry Song <baohua@kernel.org>
+> >
+> > Hi, Barry,
+> >
+> > Thanks a lot for testing and the Reviewed-by.
+> >
+> > Updating it would be fine with me, but I'd slightly prefer the current
+> > output, to keep it consistent with the debugfs lru_gen_full file. It
+> > also prints a fixed window of MAX_NR_GENS generations from the oldest
+> > to the newest, marking the ones below min_seq with 'x'. The event
+> > reports anon_min_seq and file_min_seq in place of the 'x', so the
+> > generations that don't exist can still be told apart, and they always
+> > read 0. Keeping the same window and order makes it easy to compare the
+> > event with debugfs, e.g. when looking at both while debugging.
+> >
+> > That said, if others such as Baolin, Baoquan or Kairui also prefer
+> > printing only the existing generations from the youngest to the
+> > oldest, I'm happy to send another version with that change.
+>
+> I like oldest -> youngest a little better because when I am thinking
+> about MGLRU logic in my mind, I would put min_seq in the left, max_seq
+> in the right, then wrap around from right to left.
+>
 
+OK. We have both left-handed and right-handed people
+in the world. Somehow, I feel like a right-handed person
+trying to write with my left hand when reading from
+oldest to youngest. But I'm perfectly fine with that!
 
-On Wednesday, November 4th, 2026 at 2:52 PM, Kyle Baedke <kylebaedke@proton=
-mail.com> wrote:
-First copy was in html mode this should be in plaintext
-> The GL9750 SD host controller in my laptop is dead after its PCIe slot ha=
-s
-> been powered off and back on through the root port's ACPI power resource.
-> This happens on resume from s2idle, and I can also reproduce it at runtim=
-e
-> with no sleep involved. In both cases the link below the root port never
-> comes up, so the device reads as all-ones. The sdhci errors are a
-> consequence of that. I'm writing to the sdhci maintainers because the
-> device is driven by sdhci-pci-gli, but the failure occurs before the
-> driver can talk to the device.
->=20
-> =3D=3D System =3D=3D
->=20
-> =C2=A0 Laptop: =C2=A0 =C2=A0ASUS Vivobook 14 Flip TP3407SA
-> =C2=A0 BIOS: =C2=A0 =C2=A0 =C2=A0TP3407SA.308, 03/05/2026 (the latest ava=
-ilable)
-> =C2=A0 Kernel: =C2=A0 =C2=A07.3.1 (NixOS 26.11), x86_64
-> =C2=A0 Device: =C2=A0 =C2=A00000:2c:00.0 =C2=A0Genesys Logic GL9750 [17a0=
-:9750] rev 1,
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0subsystem 1043:202f
-> =C2=A0 Upstream: =C2=A0root port 0000:00:1c.4 (ACPI \_SB.PC00.RP05), link=
- 2.5GT/s x1
-> =C2=A0 Cmdline: =C2=A0 intel_iommu=3Don iommu=3Dpt pcie_aspm.policy=3Dpow=
-ersave
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(the relevant parameters)
-> =C2=A0 Sleep: =C2=A0 =C2=A0 /sys/power/mem_sleep =3D [s2idle] deep. Selec=
-ting "deep" (S3)
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0hangs the machine and nee=
-ds power to be cut to recover, so
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0s2idle is the only usable=
- sleep mode.
->=20
-> The root port's ACPI node has power resources (power_resources_D0 and
-> power_resources_D3hot in sysfs). The endpoint's ACPI node has none.
->=20
-> Other firmware/kernel messages seen at boot:
->=20
-> =C2=A0 ACPI: \_SB_.PEPD: Duplicate LPS0 _DSM functions (mask: 0x1)
-> =C2=A0 pci 0000:00:1c.4: mask Replay Timer Timeout Correctable Errors due=
- to
-> =C2=A0 =C2=A0 =C2=A0 0000:2c:00.0 hardware defect
->=20
-> =3D=3D Symptom =3D=3D
->=20
-> After the slot is powered back on, config space reads of the device retur=
-n
-> ffff, the port's Link Status stays 0x1011 (Data Link Layer Link Active =
-=3D 0,
-> not training), and sdhci reports:
->=20
-> =C2=A0 mmc0: sdhci: Version: 0x0000ffff =C2=A0 (register dump is all 0xff=
-)
-> =C2=A0 mmc0: enable PCI MSI failed, error=3D-22
-> =C2=A0 mmc0: Reset 0x1 never completed.
-> =C2=A0 mmc0: 3.3V regulator output did not become stable
-> =C2=A0 mmc0: Controller never released inhibit bit(s).
->=20
-> On a healthy boot the port's Link Status is 0x3011.
->=20
-> =3D=3D Resume trace =3D=3D
->=20
-> Captured with rtcwake -m mem -s 15 (s2idle), pm_debug_messages=3D1 and
-> dynamic debug enabled for drivers/pci/*, drivers/acpi/power.c and
-> drivers/acpi/device_pm.c:
->=20
-> =C2=A0 [ =C2=A0145.370215] sdhci-pci 0000:2c:00.0: PCI PM: Suspend power =
-state: D3hot
-> =C2=A0 [ =C2=A0145.406917] ACPI: \_SB_.PC00.RP05.PXP_: ACPI: PM: Power re=
-source turned off
-> =C2=A0 [ =C2=A0145.406948] pcieport 0000:00:1c.4: PCI PM: Suspend power s=
-tate: D3cold
-> =C2=A0 ...
-> =C2=A0 [ =C2=A0159.865842] ACPI: \_SB_.PC00.RP05: PM: Power state change:=
- D3cold -> D0
-> =C2=A0 [ =C2=A0160.263869] ACPI: \_SB_.PC00.RP05.PXP_: ACPI: PM: Power re=
-source turned on
-> =C2=A0 [ =C2=A0160.264234] ACPI: \_SB_.PC00.RP05: PM: Power state changed=
- to D0
-> =C2=A0 [ =C2=A0160.264241] pcieport 0000:00:1c.4: power state changed by =
-ACPI to D0
-> =C2=A0 [ =C2=A0160.276459] pcieport 0000:00:1c.4: ready 0ms after power u=
-p D3hot->D0uninitialized
-> =C2=A0 [ =C2=A0160.276866] pcieport 0000:00:1c.4: waiting 100 ms for down=
-stream link, after activation
-> =C2=A0 [ =C2=A0161.297053] pcieport 0000:00:1c.4: Data Link Layer Link Ac=
-tive not set in 100 msec
-> =C2=A0 [ =C2=A0161.303943] sdhci-pci 0000:2c:00.0: restore config 0x3c: 0=
-xffffffff -> 0x000001ff
-> =C2=A0 [ =C2=A0161.321478] mmc0: enable PCI MSI failed, error=3D-22
-> =C2=A0 [ =C2=A0161.421611] mmc0: Reset 0x1 never completed.
-> =C2=A0 [ =C2=A0161.741170] mmc0: 3.3V regulator output did not become sta=
-ble
->=20
-> The slot was off for about 15 s (145.407 to 160.264), so this is not a
-> short-off-time problem.
->=20
-> =3D=3D Reproduction without suspend =3D=3D
->=20
-> From a healthy boot (device alive, no SD card inserted):
->=20
-> =C2=A0 echo 1 =C2=A0 =C2=A0> /sys/bus/pci/devices/0000:2c:00.0/remove
-> =C2=A0 echo 1 =C2=A0 =C2=A0> /sys/bus/pci/devices/0000:00:1c.4/d3cold_all=
-owed
-> =C2=A0 echo auto > /sys/bus/pci/devices/0000:00:1c.4/power/control
-> =C2=A0 # the root port's power_state reached D3cold after about 2 s
-> =C2=A0 sleep 1
-> =C2=A0 echo on =C2=A0 > /sys/bus/pci/devices/0000:00:1c.4/power/control
-> =C2=A0 # port is D0 again, but its Link Status is 0x1011 (DLActive =3D 0)
-> =C2=A0 echo 1 =C2=A0 =C2=A0> /sys/bus/pci/rescan =C2=A0 =C2=A0 # repeated=
- once per second for 15 s
->=20
-> The device never reappears, and Link Status stays 0x1011 for the whole
-> 15 s. This uses only a 1 s off time.
->=20
-> =3D=3D What I tried =3D=3D
->=20
-> Suspend variants, each run with rtcwake -m mem -s 15 (s2idle), no SD card
-> inserted. All of these failed on the first cycle:
->=20
-> =C2=A0 - no changes
-> =C2=A0 - endpoint power/control=3Don
-> =C2=A0 - root port power/control=3Don
-> =C2=A0 - endpoint link/l1_2_aspm and link/l1_2_pcipm set to 0
-> =C2=A0 - endpoint link/l1_aspm, l1_1_aspm, l1_2_aspm, l1_1_pcipm, l1_2_pc=
-ipm
-> =C2=A0 =C2=A0 all set to 0
-> =C2=A0 - endpoint removed before suspend, rescanned after resume
->=20
-> This one passed 10/10 cycles (device alive 2 s and 8 s after resume, port
-> Link Status 0x3011 each time):
->=20
-> =C2=A0 - d3cold_allowed=3D0 on both the endpoint and the root port, set j=
-ust
-> =C2=A0 =C2=A0 before suspend and restored to 1 right after resume
->=20
-> Recovery attempted after a failed resume, with the root port held in D0
-> (power/control=3Don) and the rescan polled for 15 s per stage. None broug=
-ht
-> the device back, and Link Status stayed 0x1011 throughout:
->=20
-> =C2=A0 - remove + rescan
-> =C2=A0 - secondary bus reset on the root port, then rescan
-> =C2=A0 - Link Disable / enable on the root port, then rescan
->=20
-> =3D=3D Questions =3D=3D
->=20
-> 1. Is this a known issue with this device or this platform's slot power-o=
-n
-> =C2=A0 =C2=A0method?
-> 2. What additional tracing would help (ACPI AML debugging, GPIO/pinctrl
-> =C2=A0 =C2=A0state before and after the power resource turns on, anything=
- else)?
->=20
-> I can build and test patches on this machine.
->=20
-> Thanks,
-> Kyle
->=20
-> Sent with Proton Mail secure email.
+Thanks for sharing your thoughts, Ridong and Baoquan!
+
+Best,
+Barry
