@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793890154;
-	b=KcXYdqNI6TvLgVLbM/KUtYfd43T441kw5DoyI6y3C1fwp/NzZtBbVncVC4Qt6lhwDUkF
-	 gm6EsnIxUF07GY5upceVpam3BqGCJRvB/YOhFmWePl40/WhVOKWsoGLao0caDIoyxsaxa
-	 hie6BOqytwpNsSn4Uvkto5P/fqFT921b7z34gpK/3C002iS2KeTBaZaVD3tfETxuDLnrY
-	 YCF0jwRpm/6vfujRwP5Eq35Uti2a9TI4yFI9klzdO/6ps8TZFaOBdgyoptoQBywVDbmK+
-	 jcYN4TKZ1yVUtFPE9Wv6JaArpdcDy54Dkn0MVG6blkFAwTjQVg9XtPuqw7g+AMHhU1w==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793890166;
+	b=ZZ360rp3rDvDDt1GeCO2mUTpx+X9atgiS0q0NfD7VMWRMU7SBCMyFggL2NN41icTtrbz
+	 mE0gQ1sGdDuF0/AcnWav8Vqw4BisrvjiwxsHcvMkGHTDvOV56JVFOm8fy5lVDYe/AF2vX
+	 UatPOywvtAjeSo4buWQMfk0lRLNKpPZScWFgmyR4/938XtsElYsRfCghqdjacUUPojcu1
+	 Pmo9gsziAUF0ackWTo3uXFKKfYASbFUsH+lOJshM9Mjjpj1Q8aa8UGO2bb3pDDeACCgTr
+	 S+24VhBPtktXDK83gjQXxihzZzbLvVHzTPSnQp2q4JjPyW1zM/CeTJAx1nVUR7OBl9w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890166;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
-	b=JGPTAygOoZtAPhAWPwX3LdNtjlGQpD4Fay5l7vvrt7Wp14M38E3J9VjipcQzxvqBLk1r
-	 7FSpWNgiyxIrjN0CasseesmFVI3uBKN3sJIkINzf1ZJ6hXpWDdyhwIFq6z9zYZ2r064R2
-	 +ThQZSy5qd2kuwM0BdKwOYC5tp8xq6DgSosUfyfATMx0uliVMYFXi13/nRheBlvU3hO4g
-	 f+twiZ98Tq6Y3prFg5e6SClyci6tPKRrKx1fw6+ZJlyY/IhsaEReV6ZQ88klf1i1pbTXI
-	 Axrim73+MTM6K9VhGhbcimoGMcFYyUq0AcivN0bPwVe4R23nJ/OY+ksHj855g5ZztKQ==
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CNSQ2u2fdcn6xU89GMiVA2i17h7TVWSzkOj+YndWHWI=;
+	b=GyrCP8rvR2NYJM1ni4OpX7SXcm53mOztnpti1Qg45YQU8gfZNNwCrh6x+lhzSjAcsp71
+	 k2h5oLuU56MpOOx11STqz6QqD5gbv8QZCNxmId/T4ttWY+dxyv37TNzclGZ/oWZk0QKj+
+	 iw3dnlc3pQ/RHjcHH8lVKNsl5YuIzrxLr75gEfMrdwGoXtr5MkRqoGZSNy8gVRY6zKn1Y
+	 blV78rp3aphKDu00dWn/hJW/OKs46gca6WRA1aSZlZMgDMeRn6ix018zrEkXDFiYnHIUG
+	 VENT8hAiPOAGgAHIWPVCJzHLqHB1ZMyo/ZVJUE9e2YVgDmhrTv7WvdWxUP2nj9eKQSQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WtCH3TRq;
-	arc=fail smtp.remote-ip=74.125.224.46
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ToF8LLeI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D47606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56D47606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D9B606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:49:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D9B606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WtCH3TRq
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67c08c7adadso567240d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:49:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793890153; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ToF8LLeI
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc147d86bebso567241a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:49:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793890166; cv=none;
         d=google.com; s=arc-20260327;
-        b=raxFxUsz26dBU9lRjpS7C3moxC21OhVggRHaLurdWggxifCeA9xVUlEAE8zfj6CZy6
-         pT1S5LfRp9Ss7EXd/cZUlr9urP3LfDtmgEkMEuiAGzLM1w/AuvrPICqEaOdjXZGCc3j1
-         sHHcSPc6cOzfHzNdFP4tQsi4VtdkUL+g0UN4grlU3wiorgAknTZ3LRNWrmEjfiSOqsay
-         aZI7RKTeXjxs844x+Xpe+PtGLqJw0qS2q2BBLOF6w2zuYvR5/JSI00hWglV5WpOlasGS
-         xm7tkNs9Or44+AN8Ks4VDEpyFX+HYuj89mbQsrWcIorIFEIxcKlSYTcgh9UM2QB8vCm5
-         AerA==
+        b=MGpCcBXMvZfCCFuYiq9RPfbMoWkCsD7JtqNK0DnqXq/zgOkbDzcg8WfgefjkVlC4mK
+         Xv+PyWt/NILVeO5btgCUE+l/sEla8PxRQSULsrSxcVb7+d6iKFT3y3Kl3PUHAQQtsG4a
+         6KPuyCenIaGwamhOcfxzOuTbRPC0YFTfWfYV1QQPfjW/UEz0Nm7pHq9WlJsDd/e5utHO
+         PRnAnbzHEEaaYhEeekPFqKGTagoTFqAFJNdvqo55wlVurTBBhm/QjCnSz6OW72dcka62
+         qIMEXsSETfG0bBPxy9Tvx3GyL8ZEfU2orMgSgE497RUq7Qgkk6Cinfu5hIwD4lj3sa5O
+         h3JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
-        fh=i/iRfPxKnj2egeQkurVGQPSgfDQDIZm9o+AxYzZzJQ8=;
-        b=SvfvLUWQw08BZ8WmdUaVpamcxZ5CKpGjW8KKsjxkLlt1t9aKK7fiejVbfKALNSiCow
-         jKGT1WVvXKsQQbfnZcU0GRvRtP+alRjBdNX/Nr3g0B72BcimYrpcH9zezXhMSzlJCBA7
-         o1AAzL46fF3M3GKUSoMBRYoD+3alxG92nuZ2qxPEsf7JzzMJAcBGl3Dxek3F4u5C9ddo
-         ZPDX4WNY6n7zW3bRIlbMHQYbbF5eHJdoqq5f73oSFPpWRlCV/nKjxEXMginHHuKj7KYu
-         Tf+MeXULTHHxCJ9jhMWtllk6NFng4OYelDwI3B5I5PXQoA2SodcNMIBv4+pWeKJWDdKx
-         7Gog==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CNSQ2u2fdcn6xU89GMiVA2i17h7TVWSzkOj+YndWHWI=;
+        fh=7IkN3P+F36lIqWpAB8za8VTtWI/zXA/QIT5oBPMGvYk=;
+        b=Pdk/LWB0AaKBysahBtQZbAZz77bpW2SuBfbJOZmx6N4tv/eXaLTt4Uevw5A066tq6f
+         N+kKttsitgtoXzyLjUXUBSm+xTEEHgh3wfsApWp3IGjzXrzsmn432ugJ+QGXPjUGVFZB
+         HULn6L8wcggTWOvxfmfaVjOp8o/EppVq8QHPtVsOSKUsRj3GZqkIi1nnb7Wc+PPXoLET
+         K7NudXumAfQScIEYEMlgSb7PQM/iNyv6/JcfVaFsbXeMFClFusLgPxeh/aT/A+exeaWh
+         fhg1YxqcZV5zlWPy6BTGIlYI8kwHJxF/Wz4MPtfxGVEDtxQ92+Mgno+T5xcQbBwDFULI
+         q4sg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793890153; x=1794494953; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
-        b=WtCH3TRqFTYythzQ0H1Y/8kQGCd68gJBEz3yDB9QLQZWGRY4Kplm155FR6u2KtjeV/
-         pUVI3hoIhYCRDOR9kuu9ty/lSZqKBrls+8ValTsxkcy/gQM2b91Pd/VKZMoJ4GbIFODx
-         E9moLGE4AosxcDPl/R6QUfpumW2EM1BikvniNbrb1h+ETNrJtKQiHEVkm7n1UfB6/k0w
-         RKjX1jBm67t3t9yanWu1KjBBzWB1HQDM5UpiMZHKsNtBDJt1d6wEPn4ErrV3XwsCfK+B
-         gQELKq7Eg6aZTaDfhho3gAeSn7RgGqstT/KkwcO9s0IgTZDrCW7B5gXyTf4vdXZh/SnN
-         jIzg==
+        d=gmail.com; s=20260707; t=1793890166; x=1794494966; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CNSQ2u2fdcn6xU89GMiVA2i17h7TVWSzkOj+YndWHWI=;
+        b=ToF8LLeIaaP+GNEDDk68dv8hZyCHB1Ns6HmE9NgF9lc5WRDrzd0wGnIHuzkT9rviv6
+         49lyBZqPiUa8udzzL/OMdqkG3ZwrK9E3yDjhSPEER6+foNDJy+MPwmb+n3+zI5c2rclt
+         +cWa3sc0OlEA46tOguSeyt55hxMxicHp8V41KpLKIjKUEWTk888wr9cOs9pwZQ2GzbSz
+         yfyi3v1I0bcLpvBqDcfMXAa268n1nSAvzPdfqrt2nOrBteP+Hw79eSiyWwx5QOfy7lJF
+         nVYKaqVlBCZ9Fcatk6FBcyoNIhtZEdyMKWYWQy3DsTx1+d+fpVEehMb2wP6zJAT9+t76
+         rBbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890153; x=1794494953;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VgauoPLiP0v5M8oyKkXnXeYyHv/1syF6LIptNT4Sfz0=;
-        b=Gnt7zd6OA1rg4/waYNKWy4r4u1mM8tUBV+bzYCLFiQH2tda3dRSLPB3ZRNJOOleMIV
-         Pn2mNgtDiHfbUc+OnDrwYiNHlSrbLxe3tby9hO2Gmv8rqZVX0sgN8kXHDm1Pf+9rgNp3
-         zrhncNW6Bx/t8yOsW6nyNUA4ZQLdn8Tbc7qVVhLn9DL8OrNCMLQoY4bZPSHsaKAWUaz/
-         saRpV18uPHqSy+Dm8eE/j+QByQoHEHxP9ayecI/89vlLVl+NoqHJbfqYYIE0BU/MgqrO
-         LvIbNyayzxRK2AXmT+miyTEXfKz0d4m3ngX1SwKEYZWz8f442Efa9c6gnFsJVvl6kkuE
-         nUpA==
-X-Forwarded-Encrypted: i=1; AKwUvBydHRzjTRPUXe6KmPS7nUhRmB782pI0Qz1vQL280aCLQPPl8JyRFxliAEDpJEPMl6qVtOo/4MYizhgVL5o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92mkOYru6YWc1b9Us08Z9r/uMeL15o5MSv37WZ/yO/5Mc0VuGq
-	NjnyWl6jPnEbcuDk1DHxP6cCqMh1X3MIU4L9BO/3ZGFcaMlgB3wa1MQB6gA9ZfsR73IpNhtAX42
-	aW02Ao1uEytAi+KK0j7T+Lcdwaw84jg==
-X-Gm-Gg: AYBFou0XxoxUB3evioFE6JX9AT3jzObw6PkraBdXU4wf5Rv2+lNOYJPg1b0dZcAr/Dj
-	ktVjuflMvdDuSVsSHjKYQxle6cFYO5pKfC46uW66bh6b2zfufZdIIpZlHoSgFRcLUxbgMdqGBUH
-	xkD85kB+cm8BlQWxOBd450VqvdG0ldazq7fvGZVMjuofmTPRElcguduYbYt9H6TLiGCkWEq4gw7
-	Yo889f5Y9EZJSocp9M8zvmTYKN6saCqg+NtJPG75QLwqQ5FHoO0ABMckjwrCp1FFCc3f0579zut
-	cNyggkXCaoaQnPifMa7bqrxFcm+FoJ0niMjECDfKbtjN+r6EjzWlciRBhWUz4qziUM21Rb7RMzU
-	rr1xafzi9SsvVGlOuVtX1kzwJRUX/dY/UNst7OxkqWZ7Nlkqy3juiHiKPsR7sRyIi7pZQ8zbXiC
-	0IcfgQ16SzQPl2cAw=
-X-Received: by 2002:a05:690e:450c:20b0:67b:31a:9b7b with SMTP id
- 956f58d0204a3-67ba4fa40b1mr7256109d50.33.1793890153050; Thu, 05 Nov 2026
- 06:49:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793890166; x=1794494966;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CNSQ2u2fdcn6xU89GMiVA2i17h7TVWSzkOj+YndWHWI=;
+        b=rzgnpCTXpv5hCUYmiFFsTiXBT570R7TbOaxp2niF38AmQLKxFf3equ7lnhPXUoNM+l
+         3Y3Vw0Wgo1IEwtWzIrPqraYywh8ymwVv5sUvvabEPW2+P2KhxYg80NKVMvEGCK20SaYI
+         lGj7j+NMqB56r03ciOgCHgVDXPe5COPhlir7nmFDaSFhs1utbzvBAxiM1md0J2CTvRYN
+         S7QuzVTQl08s6x3nxtZDJYj7m3p4Iv9PtbfBw+gwCLfdqCcNnBo6dYgmJph2IuiGwVPH
+         PzyVlxhctybbPNaUq1ZbyjS5acpmU4OM8xUX0c8Ma6GxkFrqXl3SLczL6tW4qFnI2Z/f
+         G/6A==
+X-Forwarded-Encrypted: i=1; AKwUvBxLgQcoP+4vtFlX9Ftlr84gBwRSr3R+1PI6VmHM5erDl6T3h8cT94x3eK7quwf6kHl51ixabWuMaO0ihmM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cAzS3zZOtHYZvkDmuvZVrTfwti9R/6IZWKcuwg64hC99ChI42
+	kf/zsDg1cMin/JYHizjv7/vKrdyioI5inT56rOC473aTJzEV2cidFH3JmRBbDFIO/n3Z0X9oPHJ
+	utaQd1kdnS23XDSgF+VvgOPRJO+vZIWY=
+X-Gm-Gg: AYBFou0v80NETiKuyY+SMou9/IiACAR8OtjcoRwVcjW77CpT6zzAg0ZGSr2faHVzK3P
+	7U0Z7FV2QfrTtQppo+giQHNBKbkJCnqcCIvI9KIU4MLO7iAn1xJ37wmzTxXry3UtX5UJfMcqBKv
+	KcldT0mJsRXVtev02VwEum2Fybb75ZNU7RrdlBkF9mxYMc4/rMWlH58Kn8Yc7d/UHTaEfbvp7P0
+	QbGNpOpMBuj73XOsAstfmHQzdW1KKWfsuYrgMkf35hb51H4ppvpbK+OIaTfG1hZO69xdwq38afR
+	+6FoKntI53BGuPxLZx8T20g3OSJ6FSrBwnnIA0Cfe15G6rtgtp+mE61HI6yqZ2F6+Z4ouMBP4aQ
+	iPAZakQp9W1wU1y5HPCjfZfyS5yO4f9pyNiOEp8wYBJsuO0qr+hukAW44OUH7eb2xzlbRT7A=
+X-Received: by 2002:a17:90b:3ccd:b0:3ae:6e7d:7fa4 with SMTP id
+ 98e67ed59e1d1-3b0afe69796mr2135935a91.50.1793890165432; Thu, 05 Nov 2026
+ 06:49:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,99 +104,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-a133-series-v1-0-58217cb33a87@gmail.com> <d4d89cf9-884d-424b-927d-5b6692f50327@arm.com>
-In-Reply-To: <d4d89cf9-884d-424b-927d-5b6692f50327@arm.com>
-From: Rajan Yadav <rajanyadav0307@gmail.com>
-Date: Thu, 5 Nov 2026 08:49:00 -0600
-X-Gm-Features: AclHuK-SbGVRFFZQFk2Ozvq-Gg4EdtItrFF8Dqsp7Ze5suIdv9U1RHoClLmzyb0
-Message-ID: <CANxy8yTiJoGJe5uz_R5hTdmT9A8ZsxAphB6qWSB4_SDuLSHSaA@mail.gmail.com>
-Subject: Re: [PATCH 0/6] sunxi: A133: Add CPU speed grade detection and OPP table
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Yangtao Li <tiny.windzz@gmail.com>, Viresh Kumar <vireshk@kernel.org>, 
-	Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Ripard <mripard@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Cody Eksal <masterr3c0rd@epochal.quest>, Alexander Sverdlin <alex@sverdlin.org>, 
-	Paul Kocialkowski <paulk@sys-base.io>
+References: <20261030195025.5153-1-muniquefeitoz4@gmail.com>
+ <20261030200827.24648-1-muniquefeitoz4@gmail.com> <CAD++jLkYC2Fjwy_LFEP1=uUioGX0QGJz3pXrZrqzuq=oT_5EDQ@mail.gmail.com>
+In-Reply-To: <CAD++jLkYC2Fjwy_LFEP1=uUioGX0QGJz3pXrZrqzuq=oT_5EDQ@mail.gmail.com>
+From: Munique Feitoza <muniquefeitoz4@gmail.com>
+Date: Thu, 5 Nov 2026 11:49:14 -0300
+X-Gm-Features: AclHuK8yQLLiHYDlQTq1hRvCOMFp64maFXpGwrEHIdQgobRQ7mPOh-zouQTHhKM
+Message-ID: <CANA1Dbk=Xw==LBpLSsYAxBDQMzxpcvkWajwzuZUZRC5-w4oT9A@mail.gmail.com>
+Subject: Re: [PATCH v2] pinctrl: amd: Clear interrupt enable bit on spurious
+ GPIO IRQ
+To: Linus Walleij <linusw@kernel.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, 
+	"Mario Limonciello (AMD)" <superm1@kernel.org>, Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andre,
+Hi Linus, Mario,
 
-Thanks a lot for the quick and detailed answers!
+Adding Mario to CC as requested for v2.
 
-On 11/5/26 12:30, Andre Przywara wrote:
-> So I read about the 1.6GHz somewhere, might just be a marketing claim
-> about some max frequency. If the common speedbins do not support 1.6GHz,
-> that's fine, but apparently some do, so I'd keep them in, for people who
-> happen to have those SoC revisions.
+Mario, could you please take a look at the v2 patch?
 
-OK, v2 will add 1608 MHz for b0 and b1. The SDK table stops at
-1512 MHz; 1608 MHz is only in the table of the factory firmware on my
-board (its kernel was built in January 2026, the SDK import is from
-October 2024). I compared the two tables entry by entry: the factory
-table is the SDK table plus five OPPs, all other values are the same:
+Best regards,
+Munique
 
-  1608 MHz: b0 1.18 V, b1 1.13 V (max 1.14 V)
-  1416 MHz: a0 1.18 V, a1 1.18 V, a2 1.13 V
 
-Should I add the 1416 MHz OPPs for a0-a2 as well, so that the table
-matches the factory one?
-
-> I think if we can be sure that the current mainline OPPs still apply
-> with this series, that's good enough.
-
-They do. The series does not change the A100 code path (patch 2 only
-moves the cell reading into a helper), and on the K5C the patched
-kernel with today's A100 table gives the same OPPs and voltages as
-before. A 6.18 kernel without the series and with the new A133 table
-falls back to the A100 selection (with 1008 instead of 1080 MHz).
-
-> Regarding 1008 MHz: This was just some frequency close to 1GHz picked by
-> U-Boot, that should be low enough to not cause any trouble, even with
-> the default voltage. How critical is this "unlisted initial frequency"
-> message? If it causes trouble, we can add a made-up 1008MHz OPP with
-> some safe voltage, otherwise I'd say we just leave it.
-
-Not critical. It is a pr_info, and cpufreq switches right away to the
-next higher OPP (1080 MHz). With the A133 table it does not appear,
-since that table has 1008 MHz, as the BSP does. So I would leave the
-A100 table as it is.
-
-> So like for the H616, please just use the SoC ID call, that's a clean
-> solution. Maybe just make sure that it can fail somewhat gracefully
-> (read: not crash).
-
-That is what the series does. Without SOC_ID the driver warns
-"SMCCC SOC_ID not available, using speed grades a0-a2", falls back to
-the A100 selection (plus the BSP's a0 rule for normal parts) and
-continues. I tested this on the K5C with a test build that forces the
-revision to unknown.
-
-> I think some of those handheld gaming consoles use the A133P variant?
-> Maybe there are some tables in "their" source code?
-
-Good idea, I will look for those.
-
-> Thanks, I will try to get those logs, I have the Liontron board and the
-> Teclast tablet.
-
-Thank you! I will wait for your logs and the other reviews before
-sending v2.
-
-> P.S. Since you mention the KickPi: can you please work with Paul (in
-> CC:) to upstream the DT for this board?
-
-Yes, happy to. Paul, I have a K5C DT that I run on mainline kernels
-(6.18 and 7.4-rc1): eMMC, SD card, USB host and the PMIC work.
-Ethernet needs a PHY driver (Maxio MAE0621A) that is not in mainline
-yet, and the Wi-Fi/BT chip (Seekwave) has no mainline driver. The
-"kickpi" vendor prefix is not in mainline either. How would you like to
-do this: should I send the DT with you in Cc, or do you already have a
-version I should build on?
-
-Thanks,
-Rajan
+On Thu, Nov 5, 2026 at 5:19=E2=80=AFAM Linus Walleij <linusw@kernel.org> wr=
+ote:
+>
+> On Fri, Oct 30, 2026 at 9:08=E2=80=AFPM Munique Feitoza
+> <muniquefeitoz4@gmail.com> wrote:
+>
+> > When do_amd_gpio_irq_handler() detects a spurious interrupt on a pin
+> > that is not configured as an IRQ line (!gpiochip_line_is_irq()), it
+> > currently only clears BIT(INTERRUPT_MASK_OFF) while leaving
+> > BIT(INTERRUPT_ENABLE_OFF) set. Unlike amd_gpio_irq_disable(), leaving
+> > INTERRUPT_ENABLE_OFF enabled allows the pin interrupt status bit to
+> > keep asserting in WAKE_INT_STATUS_REG0/1.
+> >
+> > Clear both INTERRUPT_MASK_OFF and INTERRUPT_ENABLE_OFF when disabling
+> > a spurious GPIO IRQ on both the main and RGPIO banks.
+> >
+> > Signed-off-by: Munique Feitoza <muniquefeitoz4@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Drop the early return on !ret before writing EOI_MASK to
+> >   WAKE_INT_MASTER_REG so that spurious GPIO interrupts disabled in the
+> >   !gpiochip_line_is_irq() path still receive an EOI signal on the
+> >   controller.
+>
+> Loop in Mario on v2
+>
+> Yours,
+> Linus Walleij
