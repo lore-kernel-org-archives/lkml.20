@@ -1,104 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793923168;
-	b=tzV3Gyjlvp35RRd3UdqKT7Hiay5RlkzW68mRUXBSkXj6wy98ZsDzwR53hdWudtdAU/RM
-	 IxqZOJSRrniDgTlglaHRz9mwenlqPdiOTK5e8CsDflzJiJhzqkCf7RmwQSncxKB4RgLN1
-	 jIQAr5LBdQR4J69ezjxZLCBwmi+8SQIOV6IQk1uWtXLHC/O9cZUbZb2WK9jCYEAp5wcI/
-	 0+2IArc8BiC5Qh/szW7dHCzazVDs5abGEBRd2ILd63GRlqaW4JZE4YSW4UBz87LVCMPvi
-	 VbbgJQ4W//WhJlxupoGWJ+4KuZcKbej137NTEC0N7riP7xX0Tiqk0JJWOuYkkWQwlkA==
+	t=1793923169;
+	b=zIX/hcqOrtyP/lJLYL5A5n8OVYKhzh1XCFOiGxfLKGIklt7XbN0uiycLMRlgjfN+FPZr
+	 hGKgLHNe99/bucUAMUXiZguLu7FYOMkCJzjcKmJQ+h8SmuHFFSKEZU+FUOsQH8+7daG75
+	 3MdeQVUg1TA2G0GQr/cjTS3i1fsdxgtuQX0+WZt5R9c8O+6WFbnH1JOlQ8U663QgAaxPs
+	 PGv83bFQsqbG+5J3ium5fYUr5sseIRVCD7Jw22U7AkPjPJYdFmkGsnjTMu5oQfdiNfneJ
+	 8l2y7gFSA6qj17IyF8GrtCmKibEi5LJUwb+tc7x49+jqbNS1FZBwUR+riNrh0NvWd3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793923168;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:X-Google-Original-From:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=b3EJWAyP/KgN/GqYocveH6uI/meUdW4z3waTDv9EBRc=;
-	b=HifSwLbXKtZJKvAJ/6lVKWXr+JNqfCBBujx6jaGzJ1A7YQJomJ/wtWLeUYCGjZp/2VrS
-	 8VCiCtsv/Z7U0LRk6h3RUH4ulMbljuBVBkFkC4BVgEhstBHSx65fiDCp/Ft/mE0AO6j7i
-	 SkqzlMnXjUh39m/uDlX8yKYr/O3tK75m43f1GtZcUBIwFr/WuJJ5s5VLGmgg//7EnNi5y
-	 YTO2eV7X9YicBZfp3eDL38NoNMFLccrSL2uOC7c4I4iLsXZXS8PJ6ujEQIRYxu75128fY
-	 /H67GsU44z6DjReY3YqkkujEhxb/DXL1JBNry5XSLVsWehrxE49MsmKZn+uPHItQ9Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793923169;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:Autocrypt:In-Reply-To:Content-Type;
+	bh=T28C9sQ8FiCIuaarqzvmePMhVsvyoXKLzlM0HPzQJ7c=;
+	b=CX/kMwpgqufTRsFo65yxnfY+jc3YYpx4iSTLkoT7YLgxB2X0Ky7NiOk6qA/Le0EvLeQv
+	 lX5wNzcp7obmtWskD1jRfIqW+WOstb1NgWHxM2mtf0OgM8sFLgRSmIMqcJ5kaDvELJW4N
+	 TNUPahcSF+5lKiz3KHO58eHLRwf/DCZxfPm9drK01dLzaGG6vX9SfDFrKPJnmUO5kf3JH
+	 k8eiwEOrW0zVE8Wf8UoB4FXbg7qF8AscQBwQc87P85lJjwgupl4ke3Tr9tSs64gJJr/si
+	 WGjRchtBojwXfRwYSgeYUxibc6vrJHL9fnbDw9f3nZNCqzok91/SYfd+5+ck6ONhZbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=XDz8JISh;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a1sxyxC7;
+	arc=none smtp.remote-ip=209.85.217.47
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E775606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:59:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E775606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1F8606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:59:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F1F8606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=XDz8JISh
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so34970a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:59:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a1sxyxC7
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7ce78f9d6baso81109137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:59:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793923167; x=1794527967; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=T28C9sQ8FiCIuaarqzvmePMhVsvyoXKLzlM0HPzQJ7c=;
+        b=a1sxyxC7bQJtfR7cdopBphi5R7bfTcf4xIBuY2RS9JbzxOht/RAT3BkY2w83PWKnM+
+         988yugqgJ6bBH0W1+FVyiBl0PYlbTffRN+Jnse+kr/Yx051ED0XQgqs5YDIsWysPqFlS
+         7nR9B5nNy616IxcczXvYD+/SK09DOIOFUKTW1P8/I8BgeOLF3MbE0FfmotxNAuoSiaC0
+         Kq5Cnz0Syk5jaMFWW+9TnPJ0ZiB+G/7CXLW9pOnDDvyE22s69/OUdmVhraqejKq5C/XZ
+         ZK1mPztrd+pXvS/sqZQavirWG/gP4PtyNZDeEowd2L8HhFyXT/ryj+5jxSOtVvQjn6eQ
+         MW6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793923167; x=1794527967;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:dkim-signature:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b3EJWAyP/KgN/GqYocveH6uI/meUdW4z3waTDv9EBRc=;
-        b=Fhev0hGv5ATxV4jeRw9lXHMnuin7w4CMu8/E7vgMtIfOAfJTfIf8X+8hudMAHotdtA
-         qfXELGRC1rXdMYvhAr+W8VzdCR18f3XlT+3QDVcqN+/dXAkMfAgLHUlbPoAgkawm8rv5
-         KIi6p6VuylM48OsnK7WULhLffE5uXifv6wmT9uJD3ELqdO93+4BO6sQbluq0CTbcOid2
-         4yyT+Tn5YVU5CqRi60ZFD4t+6lnhCwiA89oyoTuDwspFDuBgo01z/AO9M6RIYKdM7Zjp
-         oI84hyrgYqtvQEPEFtBq4DCLFlzoxY0B7NuP4qEU6qk9FN3ndaz4gzf3WxFGA8ci2Sxh
-         Q5kg==
-X-Forwarded-Encrypted: i=1; AKwUvBxx3/yaxFH946yIoYJPdmOydYQYL3vWG1qSBWiILYakke42/PcROEeLcoMmlQOF2QvIDL/ea/Y/VElOX8Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9deEMknt1JBht7RJAt+BwqoHwf4oZzbTQoXr4YpCn2c1Sjfypf
-	/uhE+rt8qM5SKnnxW5xpSq4J4ciJVYGRxgkKMGpG5AtB0IT3+hzDXTrWh/jItvR75Ds7cAnRqUQ
-	vHx7x1lNv0lYZopmdz7UgpJlaYiofHKghNwzhJXRHQp9O+z/fAL7MH/eCelJnNqq+Ddn+Ri3Aia
-	pYxXpH8KJ67Bb1a27JjlnTA3vbrR3Gqm8S8ieMvydZCpyBdzQMNSeFHjfDPbd/jUiMJ7yWG3h/D
-	QwhPPsenSpfT/iLsqNbSthFOx4=
-X-Gm-Gg: AYBFou1iJ6VcebN6aoI76Oa/R1uMuyMtWSFP27s54K6f+3h5na8t2FZe/+G4uwJbHBL
-	7rYe30w6fDhwcB56YN5c88GHuWRp8EE7mEHV12PhXj2pKMtJO/xfU1ClUr/JXJdtpO+jfvbn/pY
-	tlQWBZYrqtd3n1eRwxhQtXaAjavixzM0wXCdPelmvivDBHv0m0mYVC2JNZx+y6Vo0qADZ+D0eLg
-	8MCfz4krGoljb8ROFCLZeV4VxNKALLzFuo8oRaRspVIYmAk9jp99/UKrd7vaX0m2gUsOmsN8GcG
-	uIKMhIAqfPI5gcV7T5/Ip81r790aISgbiIbphHSD28s7xd9QjA1uxtTrYe3nqKgwyHoqWlsvU7z
-	RLO9+fYMwpehwjd5q/qKdRMvuaLsY/z83aUgo6UvCKRpBoKs72cUeHlpVE2A051IqnXOCXp8KDK
-	j3+9ngzjhOaphFu6lzI7UC7LJpYtLcAqahjmHRbYGn
-X-Received: by 2002:a17:90b:4acc:b0:3ac:9e76:aa9b with SMTP id 98e67ed59e1d1-3b0db5f17abmr699023a91.7.1793923166679;
-        Thu, 05 Nov 2026 15:59:26 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b315a3f7sm2922364a91.1.2026.11.05.15.59.26
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 05 Nov 2026 15:59:26 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91becce058aso1584656d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:59:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793923165; x=1794527965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:from:to:cc:subject:date:message-id:reply-to
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=b3EJWAyP/KgN/GqYocveH6uI/meUdW4z3waTDv9EBRc=;
-        b=XDz8JISh2U5ACra/vr6lhYCn5SUgsKncbdfN8ZAYvPGgWDrE6SequL1+Jif6904yvB
-         /38207F/DkfwJYUetgUNPuDDTxvXgab5HWGGRuAP6TaNEIuGdOiqJJBRcanGcSnCli2p
-         vyf7kfjwIaruACFB9K116jf4WR8bUNeedibqA=
-X-Forwarded-Encrypted: i=1; AKwUvByxSePrhV2MzXX5gm7ui/fgAzLlV+uXCqbsN7DA8EmFCiSmYuUdN/aBb4ujquWeYQvrOddac/4ituJmyG4=@vger.kernel.org
-X-Received: by 2002:ad4:5e87:0:b0:91e:8d68:564b with SMTP id 6a1803df08f44-91ea961d91emr9255466d6.16.1793923165573;
-        Thu, 05 Nov 2026 15:59:25 -0800 (PST)
-X-Received: by 2002:ad4:5e87:0:b0:91e:8d68:564b with SMTP id 6a1803df08f44-91ea961d91emr9255166d6.16.1793923165088;
-        Thu, 05 Nov 2026 15:59:25 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a4f9bdsm7260506d6.16.2026.11.05.15.59.22
+        bh=T28C9sQ8FiCIuaarqzvmePMhVsvyoXKLzlM0HPzQJ7c=;
+        b=WZ/jdvAoOXbyPuHFZ/TqAhp+V+bOiDtiI87gqLK7d4clU4TScXcT1Vrja6QIktu5Qe
+         BvpvQmercSrxQk2j+mmIBodSCOF8Iy30FUdv4O9PD/t9KzRl7ISss8IWlEpfpFrgkTOf
+         LVQUq8Oi9k9QRKFBjOaGF88J6YqJQAGPLytIEZvTFwZIyj7VN7kIeA/Q0V5BBjLDNJPO
+         cgt6lIAGUEdXdrqndHfB+A5OqYhdiaZvinNxE0yf7bCwrGmFM58cmhCBTRX4fwrtfZWA
+         ZaXlpZl4w/CyuI8J4ndBjUsgoJJisxqb+7hBc0o7dgYHeegAqZeXR4mMtG+pgF/j0/Me
+         Oc0A==
+X-Gm-Message-State: APuU4Z/dEjQz769vw/49ddogYnc+pFg88Ai4aR75dcs99S/FmWDOI8cX
+	q+dWkmo0PR41Om53A0iI8iaM+HrDJ5OuDxXhLqTlUXMO8boMQnHrcWCL
+X-Gm-Gg: AYBFou0SwsLqcEZRLSVFxzDtgsvV76xXmnBbF9CIQL63wF/RrE4hftX1uVCp20N2gtt
+	+38SilvjaowI/1vSgVAWOMvW3VyCqKfvMuVZcSygykOVgcsahiZh/jucuT/4QsXm7LiIW/fKa7U
+	Gz3AyI1M30sbmcBQlR75MnQYu83+BvRecgLHMJMCnc8mKStS5RM+DDIcYIblsDgCuS624XxKPQR
+	6yQ8XYz5YRI7tvaHndSCEx9OCaO/rQQATaG2TNByoFFNH6pehkOjICdADmU6CDHQfNs74r15jyk
+	zBIbFpCycTwm98r8JvF/3uR4mQgXqnh81GCHVtJll/tCY+cZAr6I4YgtYWjdfauBm7Fpljs+3Sn
+	yaoJynXEtW1X4OComrJm16J/GR1FgR8iS0PDPd/mteNJbW5+/eFOcalXxy3f4xs36faDCiPBcjE
+	IK2tnvvVVL0PKvkcC6lqe50fk7JrJXUIYSoChYR+HuzcA3MJPAswD6oDX5E+SnfT/ak2JHuevl/
+	FB2bPZTFop7dPK2DZyrJQZOIWj1WJlhekv3+Bi4jFHWJdZJPzMV82Cx02Yyq+F0ZZfkdDUUaBy9
+	GB9Ngi+zQebXal3qn+j3Cx0H/QYfe0PD
+X-Received: by 2002:a05:6102:a199:20b0:7d2:9ed1:3773 with SMTP id ada2fe7eead31-7d29ed13a45mr743172137.27.1793923167308;
+        Thu, 05 Nov 2026 15:59:27 -0800 (PST)
+Received: from [10.138.10.6] ([149.102.242.31])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc650fc3dsm176157e0c.15.2026.11.05.15.59.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 15:59:24 -0800 (PST)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-X-Google-Original-From: Florian Fainelli <fainelli@broadcom.com>
-Message-ID: <097f4855-eca1-414a-932c-107d9eee5088@broadcom.com>
-Date: Thu, 5 Nov 2026 15:59:21 -0800
+        Thu, 05 Nov 2026 15:59:25 -0800 (PST)
+Message-ID: <310aec2d-3a83-4544-870a-ccd5abd78f48@gmail.com>
+Date: Thu, 5 Nov 2026 18:59:03 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,90 +90,212 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/idle: Stop the tick when no cpuidle driver is
- available
-To: Christian Loehle <christian.loehle@arm.com>,
- Joseph Salisbury <joseph.salisbury@oracle.com>,
- "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: rafael.j.wysocki@intel.com, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, frederic@kernel.org,
- linux-pm@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- regressions@lists.linux.dev
-References: <096b42fa-107f-450d-b3b1-03bcad3f1e04@oracle.com>
- <CAJZ5v0g+SkTxuP5fqUMisQAh19v-JzpmRZHiKtYzJH1sVt656g@mail.gmail.com>
- <5f5cb821-92ae-4539-ae81-a43e33a7ded5@arm.com>
- <f5946a8a-43be-49d4-a827-25149112b21f@oracle.com>
- <774c3a68-6a6b-4e2e-a347-03e36953b750@arm.com>
- <0b9b9c3d-8ba0-4329-9504-b9d33c627649@arm.com>
-Content-Language: en-US, fr-FR
-Autocrypt: addr=fainelli@broadcom.com; keydata=
- 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
-In-Reply-To: <0b9b9c3d-8ba0-4329-9504-b9d33c627649@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Subject: Re: MAP_FIXED leaving holes on failure is very difficult to recover
+ from and can even be a security hole
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linux kernel mailing list <linux-kernel@vger.kernel.org>,
+ linux-mm@kvack.org, Bert Karwatzki <spasswolf@web.de>,
+ Jiri Olsa <olsajiri@gmail.com>, Kees Cook <kees@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Sidhartha Kumar <sidhartha.kumar@oracle.com>,
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>
+References: <8b45a161-101f-4f28-9b7a-c7c8b8a29f90@gmail.com>
+ <auyXeApQlV_CMQDm@gremlin>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
+ aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
+ Z7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/UorR+FaSuVwT7rqzGrTlscnT
+ DlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7MMPCJwI8JpPlBedRpe9tfVyfu3euTPLPx
+ wcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9Hzx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR
+ 6h3nBc3eyuZ+q62HS1pJ5EvUT1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl
+ 5FMWo8TCniHynNXsBtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2
+ Bkg1b//r6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+ 9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nSm9BBff0N
+ m0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQABzTxEZW1pIE1hcmll
+ IE9iZW5vdXIgKGxvdmVyIG9mIGNvZGluZykgPGRlbWlvYmVub3VyQGdtYWlsLmNvbT7CwXgE
+ EwECACIFAlp+A0oCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJELKItV//nCLBhr8Q
+ AK/xrb4wyi71xII2hkFBpT59ObLN+32FQT7R3lbZRjVFjc6yMUjOb1H/hJVxx+yo5gsSj5LS
+ 9AwggioUSrcUKldfA/PKKai2mzTlUDxTcF3vKx6iMXKA6AqwAw4B57ZEJoMM6egm57TV19kz
+ PMc879NV2nc6+elaKl+/kbVeD3qvBuEwsTe2Do3HAAdrfUG/j9erwIk6gha/Hp9yZlCnPTX+
+ VK+xifQqt8RtMqS5R/S8z0msJMI/ajNU03kFjOpqrYziv6OZLJ5cuKb3bZU5aoaRQRDzkFIR
+ 6aqtFLTohTo20QywXwRa39uFaOT/0YMpNyel0kdOszFOykTEGI2u+kja35g9TkH90kkBTG+a
+ EWttIht0Hy6YFmwjcAxisSakBuHnHuMSOiyRQLu43ej2+mDWgItLZ48Mu0C3IG1seeQDjEYP
+ tqvyZ6bGkf2Vj+L6wLoLLIhRZxQOedqArIk/Sb2SzQYuxN44IDRt+3ZcDqsPppoKcxSyd1Ny
+ 2tpvjYJXlfKmOYLhTWs8nwlAlSHX/c/jz/ywwf7eSvGknToo1Y0VpRtoxMaKW1nvH0OeCSVJ
+ itfRP7YbiRVc2aNqWPCSgtqHAuVraBRbAFLKh9d2rKFB3BmynTUpc1BQLJP8+D5oNyb8Ts4x
+ Xd3iV/uD8JLGJfYZIR7oGWFLP4uZ3tkneDfYzsFNBFp+A0oBEAC9ynZI9LU+uJkMeEJeJyQ/
+ 8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd8xD57ue0eB47bcJv
+ VqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPpI4gfUbVEIEQuqdqQyO4GAe+M
+ kD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalql1/iSyv1WYeC1OAs+2BLOAT2NEggSiVO
+ txEfgewsQtCWi8H1SoirakIfo45Hz0tk/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJ
+ riwoaRIS8N2C8/nEM53jb1sH0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcN
+ fRAIUrNlatj9TxwivQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6
+ dCxN0GNAORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
+ rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog2LNtcyCj
+ kTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZAgrrnNz0iZG2DVx46
+ x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJELKItV//nCLBwNIP/AiIHE8b
+ oIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwjjVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGj
+ gn0TPtsGzelyQHipaUzEyrsceUGWYoKXYyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8fr
+ RHnJdBcjf112PzQSdKC6kqU0Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2
+ E0rW4tBtDAn2HkT9uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHM
+ OBvy3EhzfAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
+ Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVssZ/rYZ9+5
+ 1yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aWemLLszcYz/u3XnbO
+ vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
+ HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <auyXeApQlV_CMQDm@gremlin>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------v3Fk1rd1TVAVxiYTaToqVCZE"
 
-On 7/28/26 09:37, Christian Loehle wrote:
-> Commit f4c31b07b136 ("sched: idle: Consolidate the handling of two
-> special cases") changed the no-cpuidle-driver path to use the previous
-> tick wakeup heuristic.
-> 
-> Oracle reported a substantial sysbench regression on small OCI VM shapes
-> with no cpuidle driver available. Reverting the commit recovered the lost
-> performance.
-> 
-> Restore the previous tick handling for the no-driver case while retaining
-> the heuristic for the single-state cpuidle case.
-> 
-> Fixes: f4c31b07b136 ("sched: idle: Consolidate the handling of two special cases")
-> Reported-by: Joseph Salisbury <joseph.salisbury@oracle.com>
-> Closes: https://lore.kernel.org/all/096b42fa-107f-450d-b3b1-03bcad3f1e04@oracle.com/
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------v3Fk1rd1TVAVxiYTaToqVCZE
+Content-Type: multipart/mixed; boundary="------------83icaf8RpTmC0OcPxXVMnRa7";
+ protected-headers="v1"; hp="clear"
+Message-ID: <310aec2d-3a83-4544-870a-ccd5abd78f48@gmail.com>
+Date: Thu, 5 Nov 2026 18:59:03 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: MAP_FIXED leaving holes on failure is very difficult to recover
+ from and can even be a security hole
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linux kernel mailing list <linux-kernel@vger.kernel.org>,
+ linux-mm@kvack.org, Bert Karwatzki <spasswolf@web.de>,
+ Jiri Olsa <olsajiri@gmail.com>, Kees Cook <kees@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Sidhartha Kumar <sidhartha.kumar@oracle.com>,
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>
+References: <8b45a161-101f-4f28-9b7a-c7c8b8a29f90@gmail.com>
+ <auyXeApQlV_CMQDm@gremlin>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <auyXeApQlV_CMQDm@gremlin>
 
-FWIW:
+--------------83icaf8RpTmC0OcPxXVMnRa7
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+On 11/5/26 10:11, Lorenzo Stoakes (ARM) wrote:
+> [ please check kernel mails in MAINTAINERS - my and Liam's at least wer=
+e
+>   incorrect, which makes it easy to miss. Fixed those up. ]
 
-We also hit this issue after it got back ported into stable trees (5.15, 
-6.1, etc.) and this is seen during a network throughput test. This is on 
-an ARM 32-bit platform with:
+I thought I did that, but obviously I didn't do it properly.
 
-# CONFIG_ARM_CPUIDLE is not set
-# CONFIG_ARM_PSCI_CPUIDLE is not set
+> Thanks for the report.
+>=20
+> In general linux system calls do not guarantee compound operation
+> atomicity, and any assumption based on that is incorrect. If you see an=
 
-Not that we could not fix that, but this platform really only has WFI 
-has the idle state and it looks like other people are impacted anyway.
--- 
-Florian
+> error - the operation failed, perhaps partially.
+>=20
+> Further, a failed MAP_FIXED leaving gaps was the case for most of the> =
+history of linux. Avoiding that is infeasible.
+>=20
+> I advise you to review the NOTES section
+> https://man7.org/linux/man-pages/man2/mmap.2.html on MAP_FIXED - your
+> suggested use of it is not recommended.
+
+Does that mean that MAP_FIXED should be deprecated?  It seems that the
+safe use-cases can all use MAP_FIXED_NOREPLACE, and that the use-cases
+that cannot be served by MAP_FIXED_NOREPLACE cannot be served by current
+Linux.
+
+Specifically, if a MAP_FIXED mmap() fails,  the mapping might either
+still be there (in which case one _must_ call munmap() to cleanup)
+or it might not be there (in which case one _must not_ call munmap()).
+There's no race-free way to tell which is the case.  This means that
+MAP_FIXED is unusable in multithreaded programs, unless one is okay
+with leaking address space.
+
+Are there cases, such as anonymous mappings, that cannot leave holes?
+I believe there are some programs that depend on this to handle
+SIGBUS faults from truncated mapped files.  If even that can leave
+a hole, the only thread-safe alternative would be longjmp() out of
+the SIGBUS handler.
+
+An alternative behavior would be to unmap the pages, but keep the
+address space reserved, as if the mapping was a PROT_NONE anonymous one.
+That would avoid the "it may or may not have been freed" situation,
+as it would be safe to retry the mapping or call munmap().
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+
+--------------83icaf8RpTmC0OcPxXVMnRa7--
+
+--------------v3Fk1rd1TVAVxiYTaToqVCZE
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmrtGFYACgkQszaHOrMp
+8lP62Q/7BcuZTzNzDjqSulu1PZ3/tUbs2jPgRtVT5LhsEf2oiGxL2EdiAWkv3BjC
+H+8rqHEku3aP58uLRffqPi9kZY9Xa+V8OfD65coQFYoAjjNwUw9FunF3xlkz16Qb
+uo4J0RpFHdJ28SIJI3soCLpyIblsRrsVngml34smiRZ45cpiN7E2D0w3/gxe5hkm
+WCkZTlLEzIwTVHNp9ersihO/42l9fgwCoTg0mYhwRb6cBtQVe/dnzX43GuSbXXb6
+nXmS3olDR2vkdIejl6WHwLgspT4nRcZMotr27kspanPKfy9CXF/bvNjyTdIbnmcO
+duL3/Giw+FiFDWo3NreNgcviFYA0xwitOvyzUhkab+Hc0V6H8ihx1C59E8+cUPgu
+juZZg+Vm90eCIx7UkSvIEVEsXi1wcnLBvAJiLOT8Io2kqQOs4RaelRkTRosawY8u
+SVzdnkSpHNcd9bQ/KTKRZ6LaT1//M8TO9zIQj0RW3v67J4nApgEh02LK+zQSO9z7
+BnryJdGTann2cQkth8VNyTLYN2VCo5UW8gYh1fvQFjU0Cp3aP87tKxwRC59Et+kq
+LEaNGRSNYAb65WN6s+SYq/+OxAA60qB68jTIHMbfYbL8mXmlEf+lPctmihxE96YG
+vOIZB3vR6DsPbjyl/ZlPhQptzUt6nwuMMTmX85RgNSHwICvq3To=
+=aUcF
+-----END PGP SIGNATURE-----
+
+--------------v3Fk1rd1TVAVxiYTaToqVCZE--
