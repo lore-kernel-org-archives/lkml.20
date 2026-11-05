@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869671;
-	b=kqlBaPIJO+HoEauMx+7xN3evuUm6j4ZBZu4VTHAK3FC9xqitx6qxL8BoGwaCaeaDtrQ2
-	 DdT4s9SfFpoTKUWYYySyHxKW7vSdpRftXOh93P//k3PXsb/PfkSw9rSCMH8vjr/vBmOpO
-	 9+Qj4r6qaxfPAIyuBVKDfUNl+al4/xvUpZhDRU2dad7tYvw3PWrRmCUK2w4EDqVj3JW7N
-	 NKZxKM34FzL3sdShTrFcc4JJuEIYBfBTJneuqIlMix2+x90lxiiytxqCieKo/WbXYQqkC
-	 egsSHJv+aj/ZeHmisBWG9Bs/o+MGQqsGTHV/1ws7zcA2eYNxm1IWO4pgavdYTYb37zA==
+	t=1793869672;
+	b=UhfAlIB4z2n3sdOxnVaKFOxgmiQ5tCTcKte7HKSs8epYTpCRE3aqusWcbw7PvvzU+F7e
+	 t5JMCV/pXTX8PtvaflrMsUIBvUX9tSAZy7ibQ5Vj6bBKHc9COPo0Z5V6JHXb7TMw3SPcY
+	 GssZ5281N8uyqqvUhN5+4gNrV5qz1MjtuFa38rhEZUsAkLtqXXIhei3r2G6PDQx9O0W1a
+	 vE6vdrRdUESZCxUVFrvxJUk/vpY6HchB9bL3Bhzq6sFyMahiTCFLoTItJjDOLl1USP3bN
+	 FGK0m20Qi6pp4Wng8ykcaBWx31PqOIgJuqMRkpYA4uQG+GhyIg5gD6LaEm520vyO14w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z2i3ysHV2P7OAwQB8Ti5GqJN8ZXWRRtLyGzrjnEl+ts=;
-	b=w2yEOYQFfpA4o4blUnZAOy/G5qiOBYwbJ4PuwPRyDghci+Z9xFLgOg9DgiIak5gElBGn
-	 B1KtD7UIVCkOvdYN+4dr3a2BWtg+DHMNIesGsMXwm/9xKucLUkSFAxzOJbPcHGi4NVxO7
-	 zThVeOCJr4lHT9UBISlGTuYNTh5K3XGFbOvMghYu8dXuW+gkKZ+JRNOiuyGPxk671OCjg
-	 QYH0woHkeyMdipErQ3wH4AZwUKQ9BfE4xZqFDKaYUREH0sF26/d+v4hIb94eGlx9uWDH6
-	 abOeFu3SjVM7Rs1LGszypIYrgAWAYyA41qxFCERhy/0HqBlz2beKyHD7LJJbrlO798g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869672;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=54Z8ybMc1OScYLavz991Fm7rVn6+US4jmJBbtOLVhAs=;
+	b=3l4TBnWxix9gDWtQNkT8mYvMLRjFLLCNfqqedWYMwcnhrQ4NCWz1enIy3hjBgiDmrVcn
+	 Ndv4jHPBm/qTgVSr+bXh09qHmowFjaE1v//KwVz6IdxOrVXFGOoT3FZRBrblintY7ATa8
+	 XPPg5yz8+Y5uJbWJWXLTX1QHzZmaUrldxm0XSM2sh1hD7T9fd4QFT3z7mPZtnI5O0zmtn
+	 0xmV9m4pKq3IGuwCd28Eh0BrqzehhJD4wfjmLnE2lWI1U5ERjMHgA7N4Sa5SfMsMXszG6
+	 kL5Ug0nPd0b2JBvkxPZMKOHj1+2T9djXAGVdfC+gX4lrTDWBDr22YS13jwoy5frD6CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dp5CWzco;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aL5WtT0t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE41606D802
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:07:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE41606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC24606A33C;
+	Thu,  5 Nov 2026 09:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dp5CWzco
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so1067739a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:07:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793869669; x=1794474469; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z2i3ysHV2P7OAwQB8Ti5GqJN8ZXWRRtLyGzrjnEl+ts=;
-        b=dp5CWzco2DHFFtYhnARqZW8PUCUXfxzLtdf7l4X2HbZ8tjSYjAzwdFtn6LeRH5AMnv
-         DZkQPmyBhmGtQ45DjvLZearl2E84eD//EwELqVABRDj7A7WPh4DDtsulqEyehWDBksbV
-         4nWcgNssKLqwQYF9eBIEOE6NYmXHa+yAO2IkmLmwQgnnc+SlIqdKX7z/oa4jxCqXQoFm
-         LmC0KWk1W5OXjquXfg0r4xl1/2JMiN2I1qXSvc2E35SYVlo5/eK65Bw1kOxalSU3TUJ6
-         YTPFzzMto0ESauKLpeGeOQ9Y2Az/w3f4f7v4n3zu9n0v8yeikwYafhQiJUQWVvqFciTe
-         qGPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793869669; x=1794474469;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z2i3ysHV2P7OAwQB8Ti5GqJN8ZXWRRtLyGzrjnEl+ts=;
-        b=jbAIA/81ULfWhoyLjj/+pNOI3W99t2tKctD7XYr7EpoK5NSwdR/HmF8WqSFO32/Ihm
-         nwi/1QAiP84c9ycKy7MPUSjmAaEwwp20i/BFDfYcfddu3zSmxi5TFCkUACB5E53dsRj/
-         VOV3RDd/v0s33idgwdzOmT55VjLf8Blds5Gz0EK/OVZLluGM9Qi0NTflPaTrBMOS5wp/
-         POishPoucQgj7G8vB7I80fBE1lY0SYP9uckQfN61Xb232Nbm+ZL8AwfZTqssZ/VDu2QY
-         k/pvYgim7pZGvI6kEJi6Czuz7s2aN1LgTApvmRgSKYeX/p/GBPaLcAr80mvVnarh+vZN
-         owIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxonw9EnGzBbBAXsPTJz+g1QhAgqbWiW7cZ9Iu5J4xUQHb67E/syqLi3gpt6/q4I7LaOr9UiV6KfwOXaY4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zzmQDql1zENh8SBHVq7fDhVas2oe7zvHC0o0Y/0UZw/wkR6Vx
-	HsAvVeYXhfID4ZaZnXT6ydbIF3Sglmmx+tuTnoLrQTqM1/PX3DPfSSgyFq5TnW4J7as=
-X-Gm-Gg: AYBFou38oQIpkwBPgim7vRygsYzJw8/fOlGMZfdmqVPR/lmm1zAV/MAwQ6NhHZLFDUV
-	vAJQtCUEOizIX/xKAMf9yr3nvp4T8VV9SdUmFI0aJumvASKfi0gMNnXnSznuAch2yfDZgZOa7VI
-	GgAMhTkN7wp5+5JccvtladGl1YlF7zDTE12Qcx9xwrk/kCkr9E8xVBGP7VIL+7Ycoud6Ooj20cP
-	V238clIfbYv95ij3vZ/4eqWSLFNaVwLLjvOVmGcF9Lx1wC/ts2IPpVXCuYJRntgpAGxJv86BQjB
-	VsDYekZgQAdmilPWhFsrb+5vvDONGWO3GKuJ7y8J8esziyQahT7T4o88BjQonc4aexYDMo7isj9
-	0ArO00OGnCGve3/X7KY6G/nnfSkGoChtyGVwr9DVmSOnyCNZXzvlUfzQUIEteBuKEB2ywE1HFBx
-	EZGuKSr2xrR+WpEEdjoy+lrHHAMKWY38Z2itLNpsVRbdrlc/JPjW6bPFHHDptlFF4ew78qATflu
-	b2/ANyydFeGmtJyBRFYofPGIiqgR3Z7jkgZLmSeUJzyHNOlejEw16ao0jOtrFhH6TxUm076JCdC
-	vMn88fwTHiH1RtnsVSoD
-X-Received: by 2002:a17:906:f58c:b0:c40:38b5:d784 with SMTP id a640c23a62f3a-c4ca7b1f74bmr1767896566b.22.1793869669211;
-        Thu, 05 Nov 2026 01:07:49 -0800 (PST)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b1ee455336sm559123b3a.54.2026.11.05.01.07.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:07:48 -0800 (PST)
-Message-ID: <9e2c808e-6edf-42b4-a70f-5fecc8f1eb69@suse.com>
-Date: Thu, 5 Nov 2026 19:37:43 +1030
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aL5WtT0t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AA901F000C1;
+	Thu,  5 Nov 2026 09:07:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793869672;
+	bh=54Z8ybMc1OScYLavz991Fm7rVn6+US4jmJBbtOLVhAs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aL5WtT0tT3KEouSHR0po6mj0GHvCzlOD4tKBwzIzFvLHbrNFlnr243qMFWyIcpG9H
+	 e6knO/hkJXKULAp+8EHDFBgzW5mvJhMa8iUvcC6WjWeRMpRrcJ3GssMcn/vbT4Z0sZ
+	 Nexc7V8fFTWPZAFev0g+ppbaRxfmV7e82qf2f4NXLQhQaysz0aeI+rWAFWKrZJTq+a
+	 35qZtdvBwoHcWu9tze/2vBDsQYoEpg22TZvUDAS0+nK7s4P5xw17d2uv8Qq6z5WwLw
+	 qBE452CZN5gE2BBatKYr4gQqkBTgM8tpl+OA8SYziJfZAKF1UN55N6MO7wU2cCC/zt
+	 rX9oUTOqJlELA==
+Message-ID: <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
+Date: Thu, 5 Nov 2026 10:07:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,289 +52,168 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: tag all metadata I/O with REQ_META
-To: socketpair@gmail.com, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>
-Cc: Mark Harmstone <mark@harmstone.com>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104-btrfs-sb-read-req-meta-v1-1-e06b4d059897@gmail.com>
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
+ Ryan Wanner <ryan.wanner@microchip.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
+ <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+ Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+ Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
+ <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Laxman Dewangan
+ <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+ "moderated list:ARM/Microchip (AT91) SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+ "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+ "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+ "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
+ <linux-renesas-soc@vger.kernel.org>,
+ "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+ "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Thierry Reding <treding@nvidia.com>
+References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
+ <autj6pr_bPaul3w0@ashevche-desk.local>
+ <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+ <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
+ <autqC143h7Qf1R9H@ashevche-desk.local>
+ <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+ <auuYcS7-YqJKcUbE@ashevche-desk.local>
+ <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
+ <auxGom0XR-Hax9b3@ashevche-desk.local>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261104-btrfs-sb-read-req-meta-v1-1-e06b4d059897@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <auxGom0XR-Hax9b3@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-在 2026/11/4 21:08, Mark Korenberg via B4 Relay 写道:
-> From: Mark Korenberg <socketpair@gmail.com>
+On 05/11/2026 10:04, Andy Shevchenko wrote:
+> On Wed, Nov 04, 2026 at 11:54:56PM +0100, Krzysztof Kozlowski wrote:
+>> On 04/11/2026 21:41, Andy Shevchenko wrote:
+>>>>
+>>>> But sure, if we want to play such numbers game, I will be sending
+>>>> reviews for single lines.
+>>>
+>>> I'm not playing anything. The problem is that the patch unites the files that
+>>> have distinct maintainers and unrelated to each other code. That's why in the
+>>> subsystems I maintain, I almost always require to split on per-driver basis.
+>>> Yes, exceptions are possible, but has to be quite rare.
+>>
+>> That's independent problem. Patch could be split, but it was not. Since
+>> it was not, receiving end should act accordingly, e.g. when performing
+>> incomplete review of only part of the patch, do not call that entire
+>> patch was reviewed by giving the Rb tag, but give Ack tag.
 > 
-> Tree block reads and writes and super block writes carry REQ_META, but
-> several other paths do metadata I/O without it, so the block layer and
-> drivers (blktrace, BFQ, blk-cgroup, wbt, ublk) see it as data I/O:
-> 
-> - scrub reads super blocks with a bare REQ_OP_READ;
-> - btrfs_repair_bbio_failure() rewrites a bad tree block copy without it;
-> - RAID5/6 rbios build new per-device bios from a bare op, so all tree
->    block writes on RAID5/6, and recovery reads, lose the flag;
+> No, (partial) Rb != Ack.
 
-I think this can lead to very cursed combinations.
+It is, because there is no partial Rb tag.
 
-A RAID56 mixed block groups. In that case, how do you handle recovery?
+There is partial review, but not partial Rb tag, please see exactly
+submitting patches. It repeats the same in three separate places:
 
-A vertical stripe can contain both data and metadata, should the 
-recovery be counted as data or meta?
+"Acked-by.... user may not have carried out a technical review of the
+patch,yet they may be satisfied ..."
 
+"Reviewed-by:, instead, indicates that the patch has been reviewed and
+found acceptable according to the Reviewer's Statement:"
 
-> - scrub and dev-replace read, repair and copy metadata block groups
->    without it;
+Above important: "THE PATCH"
 
-Again, what if a block group is mixed?
+It is not "the patch or its parts"
 
-> - remap relocation copies metadata block groups without it.
-> 
-> Tag these by the chunk type: metadata and system chunks get REQ_META,
-> mixed chunks do not,
+Further:
 
-That almost kill the meaning of re-introduce this flag.
+"I state that:
+(a) I have carried out a technical review of *this* patch to evaluate
+its appropriateness and readiness for inclusion into  the mainline kernel."
 
-I'm more interested in how other dm devices, like LVM/dmraid handle 
-those REQ_META flags.
+And further:
 
-E.g. a btrfs over a LVM/mdraid, and btrfs passes REQ_META for a tree 
-block read, then should the LVM/mdraid pass REQ_META to the underlying 
-devices?
+"A Reviewed-by tag is a statement of opinion that *the patch* is an"
 
-If not, I see no particular reason to strictly follow that for 
-scrub/dev-replace/raid56 recovery.
+In three places it is THIS or THE patch. Complete (exhaustive) list of
+options what can be reviewed to get the credit and give statement of
+oversight.
 
-> as they also hold data.  All bios of a block group
-> then carry the same flag and stay mergeable (blk-cgroup does not merge
-> bios that differ in REQ_META).
+Statement of oversight DOES NOT include "part of the patch".
 
-I'm more interested in what you really want to archieve?
-
-Just to make the REQ_META more consistent?
-
-> 
-> This does not change the btrfs submission path: scrub and remap bbios
-> skip checksumming, and scrub_read_endio() and scrub_repair_read_endio()
-> do not wait for other I/O, so running them on endio_meta_workers is
-> fine.  With blk-cgroup, metadata scrub I/O is now issued as root and
-> charged back, like other metadata I/O.
-> 
-> bdev_rw_virt() takes an enum req_op, but gfs2 and xfs already pass
-> REQ_META through it.
-> 
-> Signed-off-by: Mark Korenberg <socketpair@gmail.com>
-> ---
-> I noticed this in the request log of a ublk zoned device: tree block
-> reads and writes arrive with UBLK_IO_F_META, while the super block
-> reads at mount do not.  An audit of all bio submission sites in
-> fs/btrfs then found the paths listed in the commit message.
-> 
-> The super block reads at mount are the one case I left alone, along
-> with a few others:
-> - btrfs_read_disk_super() and sb_write_pointer() read through the
->    block device page cache, which cannot pass REQ_META.  That is on
->    purpose since 8f32380d3f29 ("btrfs: use the page cache for super
->    block reading"), to stay coherent with mkfs and udev.  The same goes
->    for btrfs_scratch_superblocks().
-> - Discards free space, and the empty preflush of write_dev_flush()
->    covers the whole device.
-> 
-> Testing: virtme-ng VM, memory backed null_blk, tracefs
-> block:block_bio_queue, every bio classified as super block or by the
-> chunk type of its dev extent:
-> - RAID5 metadata and data: copy /usr/include, scrub, then replace
->    devid 1 with a new device
-> - DUP metadata with one copy of a leaf corrupted, read the directory
->    until "read error corrected"
-> 
-> Bios of metadata chunks, with REQ_META / without:
-> 
->                                  before      after
->    RAID5 writes (and RMW reads)  0 / 274     245 / 0
->    scrub                         0 / 390     369 / 0
->    scrub, super blocks           0 / 6         6 / 0
->    dev-replace                   0 / 258     243 / 0
->    repair write                  0 / 1         1 / 0
-> 
-> No data bio carries REQ_META, before or after.  No new warnings, W=1
-> build clean.
-> 
-> Not tested: the remap relocation part, btrfs-progs 7.1 here cannot
-> create a remap-tree filesystem.  Mark, could you give it a look?
-> 
-> The audit, the patch and the test were drafted with the help of an AI
-> assistant (Claude Opus 5.5).
-> ---
->   fs/btrfs/bio.c        |  3 ++-
->   fs/btrfs/raid56.c     |  3 ++-
->   fs/btrfs/relocation.c | 13 ++++++++-----
->   fs/btrfs/scrub.c      |  5 +++--
->   fs/btrfs/volumes.h    | 10 ++++++++++
->   5 files changed, 25 insertions(+), 9 deletions(-)
-> 
-> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-> index 2e12a6d7e16f..efbce4d549ff 100644
-> --- a/fs/btrfs/bio.c
-> +++ b/fs/btrfs/bio.c
-> @@ -951,7 +951,8 @@ int btrfs_repair_bbio_failure(struct btrfs_bio *bbio, const struct bvec_iter *or
->   	}
->   
->   	repair_bio = bio_alloc(smap.dev->bdev, max(1, length >> PAGE_SHIFT),
-> -			       REQ_OP_WRITE | REQ_SYNC, GFP_NOFS);
-> +			       REQ_OP_WRITE | REQ_SYNC |
-> +			       (is_data_inode(inode) ? 0 : REQ_META), GFP_NOFS);
->   	repair_bio->bi_iter.bi_sector = smap.physical >> SECTOR_SHIFT;
->   	while (cur < length) {
->   		struct page *page = bio_iter_page(&bbio->bio, iter);
-> diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
-> index a8a8004bb14c..1b5cdcdeced3 100644
-> --- a/fs/btrfs/raid56.c
-> +++ b/fs/btrfs/raid56.c
-> @@ -1205,7 +1205,8 @@ static int rbio_add_io_paddrs(struct btrfs_raid_bio *rbio, struct bio_list *bio_
->   	/* put a new bio on the list */
->   	bio = bio_alloc(stripe->dev->bdev,
->   			max(rbio->bioc->stripe_len >> PAGE_SHIFT, 1),
-> -			op, GFP_NOFS);
-> +			op | btrfs_chunk_req_meta(rbio->bioc->map_type),
-> +			GFP_NOFS);
-
-At least I do not think it's a good idea to touch RAID56, unless you can 
-prove that mdraid is also passing those flags.
-
-I want to align btrfs to existing RAID56 implementation, not the opposite.
-
->   	bio->bi_iter.bi_sector = disk_start >> SECTOR_SHIFT;
->   	bio->bi_private = rbio;
->   
-> diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-> index b2ac5b836b21..af17be38eea3 100644
-> --- a/fs/btrfs/relocation.c
-> +++ b/fs/btrfs/relocation.c
-> @@ -4146,8 +4146,9 @@ static int copy_remapped_data_io(struct btrfs_fs_info *fs_info,
->   }
->   
->   static int copy_remapped_data(struct btrfs_fs_info *fs_info, u64 old_addr,
-> -			      u64 new_addr, u64 length)
-> +			      u64 new_addr, u64 length, u64 type)
->   {
-> +	const blk_opf_t meta = btrfs_chunk_req_meta(type);
->   	int ret;
->   	const u64 copy_len = min_t(u64, length, SZ_1M);
->   	struct page **pages;
-> @@ -4172,12 +4173,12 @@ static int copy_remapped_data(struct btrfs_fs_info *fs_info, u64 old_addr,
->   		to_copy = min_t(u64, to_copy, BIO_MAX_VECS << PAGE_SHIFT);
->   
->   		ret = copy_remapped_data_io(fs_info, &priv, pages, old_addr,
-> -					    to_copy, REQ_OP_READ);
-> +					    to_copy, REQ_OP_READ | meta);
->   		if (ret)
->   			goto end;
->   
->   		ret = copy_remapped_data_io(fs_info, &priv, pages, new_addr,
-> -					    to_copy, REQ_OP_WRITE);
-> +					    to_copy, REQ_OP_WRITE | meta);
->   		if (ret)
->   			goto end;
->   
-> @@ -4344,7 +4345,8 @@ static int move_existing_remap(struct btrfs_fs_info *fs_info,
->   		goto end;
->   	}
->   
-> -	ret = copy_remapped_data(fs_info, new_addr, dest_addr, dest_length);
-> +	ret = copy_remapped_data(fs_info, new_addr, dest_addr, dest_length,
-> +				 bg->flags);
->   	if (unlikely(ret))
->   		goto end;
->   
-> @@ -5161,7 +5163,8 @@ static int do_remap_reloc_trans(struct btrfs_fs_info *fs_info,
->   		}
->   	}
->   
-> -	ret = copy_remapped_data(fs_info, start, new_addr, length);
-> +	ret = copy_remapped_data(fs_info, start, new_addr, length,
-> +				 src_bg->flags);
->   	if (ret) {
->   		btrfs_abort_transaction(trans, ret);
->   		goto fail;
-> diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
-> index 98362c91bce4..269948b1caeb 100644
-> --- a/fs/btrfs/scrub.c
-> +++ b/fs/btrfs/scrub.c
-> @@ -934,7 +934,8 @@ static struct btrfs_bio *alloc_scrub_bbio(struct btrfs_fs_info *fs_info,
->   	 * enough to contain the full stripe.
->   	 */
->   	bbio = btrfs_bio_alloc(round_up(stripe->stripe_len, PAGE_SIZE) >>
-> -			       PAGE_SHIFT, opf,
-> +			       PAGE_SHIFT,
-> +			       opf | btrfs_chunk_req_meta(stripe->bg->flags),
->   			       BTRFS_I(fs_info->btree_inode),
->   			       logical, end_io, stripe);
->   	bbio->is_scrub = true;
-> @@ -2957,7 +2958,7 @@ static int scrub_one_super(struct scrub_ctx *sctx, struct btrfs_device *dev,
->   	int ret;
->   
->   	ret = bdev_rw_virt(dev->bdev, physical >> SECTOR_SHIFT, sb,
-> -			BTRFS_SUPER_INFO_SIZE, REQ_OP_READ);
-> +			BTRFS_SUPER_INFO_SIZE, REQ_OP_READ | REQ_META);
->   	if (ret < 0)
->   		return ret;
->   	ret = btrfs_check_super_csum(fs_info, sb);
-> diff --git a/fs/btrfs/volumes.h b/fs/btrfs/volumes.h
-> index 891bc2432870..66796f09eae8 100644
-> --- a/fs/btrfs/volumes.h
-> +++ b/fs/btrfs/volumes.h
-> @@ -709,6 +709,16 @@ static inline enum btrfs_map_op btrfs_op(const struct bio *bio)
->   	}
->   }
->   
-> +/*
-> + * REQ_META for I/O to a chunk of type @type that holds only tree blocks.
-> + * A mixed chunk also holds data and gets no flag, otherwise its data
-> + * would be tagged as metadata.
-> + */
-> +static inline blk_opf_t btrfs_chunk_req_meta(u64 type)
-> +{
-> +	return (type & BTRFS_BLOCK_GROUP_DATA) ? 0 : REQ_META;
-
-Missing BLOCK_GROUP_METADATA_REMAP and also handling BLOCK_GROUP_SYSTEM.
-
-> +}
-> +
->   static inline unsigned long btrfs_chunk_item_size(int num_stripes)
->   {
->   	return offsetof(struct btrfs_chunk, stripe) +
-> 
-> ---
-> base-commit: df5b88a7914e18488908ddf13e14e31ab39f954c
-> change-id: 20261104-btrfs-sb-read-req-meta-7be597aaaa51
-> 
-> Best regards,
-
+Best regards,
+Krzysztof
