@@ -1,207 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793853558;
-	b=AlRW7088ud+917x8XfdrJpckEAg1v0Ozo5c/SsASjWNVQd0xA9DgENLthMhDNCaO2okV
-	 40EwIkhik99GBPUQPPT8ct6Lsk/8JoziBUbQkWK8zY5AEGCrtWrziIlMOds8SfgnvH8hy
-	 KaMNysgibZ6K7rgl+mojFzTqpA3DPTJhHYG0dU8nH0CwASTiSimL5BDs08VdMZGzdy6Bx
-	 gmJrsfxznmI3k7I4IXhwJrySL739YqBKM+2km/GtJZUJPKnYfq+nFqBgEbwCARjEkejoP
-	 JIpcjvRRTaaOvlp/JOODkMs+SlJIX1zNup7a7xQGhESOpVzOdW23a6F9Cu/7yfaM1Fg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853558;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793853594;
+	b=ufb3DX9JfE/x+992knbBbLOqK87hmrmCnQaRZxJM5MsZXgD1sU9fv49BcRHC/KLn+UgZ
+	 3IWynsPo8cjBdO78SWIBPhFjlyca53lHRozY5NqRYFOpxqZoFwzrUMLHJjpUET9v1Zstz
+	 p7qFh67P3rOXfEALkbbh+nKcKqS7vEFDRIp0Pauc0al/3oxI1mrQccOO9iEL0pc3TXRp7
+	 B8IfSSWeqPC7mj/U2SFgdqNfacTWJ6ytEfpg6213VxLyBKM9JzX6M9cRrYdNT5MgCXml5
+	 Ab+UrhK8gg3+us4qkyCnVdDRZbC4Ie58AGVJ4iELCR558y2JyrkU2VYBgfz7gLEP+2g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853594;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=cKai6IVNHzZSkbOyR4vR1N2uwEB++AsJkjcbPQG/cKs=;
-	b=SYqYe1nEFQyktzRg8X/Ix8yy22Enwa2A53+S5xFAJyInSlMSmMWJO3xzTiFOXBiKFTmy
-	 zR5Z39iOL4FQm5R+/k9KYVVSEtJNjTp6gsTny63caytIqxs94Kust7RwmL3pTbjMLPpyG
-	 QUOm7rl9Hn1CPZn/4LcJm3+DYWHBnUTpySRiDgQBfld9uJN87+RYrxq7O63KeLNHyuXzj
-	 chwkGsb7YipZWB1Z6I9+EnNevaGv1UXwDN6wsL3sSRpPd/HrMOV12HS1ymLUa2/JYSe+r
-	 Sew3+o0tvHuhVDpC7khmLBzblanO1gwTtdf+gXuyfLwp7lZgsF/b4pNPZSNmzp9zEgw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=YKqgrFiBbbWTC3iydlJ8VTujCnEtWpNuTsiR0Bmg0Pc=;
+	b=wYBqoXPtQVcexwIBN97OvsJrREJUE+SPb5AT+F615KGF7vov65c3MyPJHw/BF+MwU4cR
+	 NRq3z4qYoyPEXsfxyd7A9g/URTcMq6to9sDDGYN/1QhEctHLc4g4IZJxDw65VKkCpk3k3
+	 oV0xYv/i1XrLpxb0/RoylHhICm07rq6YdI8UR/v9dMue94USvtj+JFBEh7rqpZajCahbB
+	 NJc2j9cB5V/CWEK4brW88PMz38LLvyVe0CS57s93dq9oLd6vWdvGAjVetLzz4o1mxRnqi
+	 r9Zq/aXS3p21ik6LCcX6BZjyipprXB25eTHJsddNGlZkhilqJ7rUHouko8iO8TFuFvQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XPjhXPdI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XcPPuqyK;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5F5606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:39:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E5F5606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F132B606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:39:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F132B606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XPjhXPdI
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XcPPuqyK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793853557; x=1825389557;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=cKai6IVNHzZSkbOyR4vR1N2uwEB++AsJkjcbPQG/cKs=;
-  b=XPjhXPdIhhVpRBwaBAKWaj8YKmjYidUd2tu3dPdyIpDv8dvv0DbpbYWk
-   Jr6696wPMuoJHQVkJuCXrvnrfjEK0HWbFQaXyEYo92x9KDXoMfBnnl8FS
-   ulUxTZH8n6H8D7aIjIoCuznfWdz1Gd8NZYIaM+Ow9e85waiJPKCAawrPT
-   7TbDkmN01xte6G0umA9eO+HrLDzrwoKXkNlflTlm9zGZkdW55Pw3Li+IF
-   LkbcyoIU1MppB4Lt2caYt4nKMSZJKL7dhpFFM9UO3JulxMibbeHCjlyxK
-   L0wI7PZuSgtZwmyod9iAtSWRdnOu7IjOFAtapQ5ljPkl+BK/LR/GL7uaA
-   A==;
-X-CSE-ConnectionGUID: lr/EnpP9R5WHTxi7ncacTg==
-X-CSE-MsgGUID: bLPQ2pMUTLGXGNH/ZMUG1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2635145"
+  t=1793853593; x=1825389593;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EZ6zco1K1tAz8v13jDM/MgKfVILftAbDKiAEr4ycyCc=;
+  b=XcPPuqyKWz7Xcmua5uyh4cQscLLveNvD7Car2g2tbSwFeRLP8WwBcCRX
+   AZypicQqiJvnARYUnZ2KiH96QEQkoR/ELkWLBBABt4O0RKyI69lkicvyc
+   q9PbAuH6QZOWIh3fmpyZ6uPJVopb08SaVFTt+WBhDZgPhveOw/Od+9b8g
+   MgkcCKLxuf5/jlgCPZEstbUOlXd0jvjw3uESHzyxkozGTaQ3wEiLQZWSU
+   VDAjnFkvT9mHP1wtr9Zp6eksqHI7sAc00Gmj2spBR8d1SAvEBj6rUh9lL
+   jHK7eaolAVe8VV87EV1FEbIEyJVE2tXtqOa5aFomfA7WnFXpmGD615KZX
+   w==;
+X-CSE-ConnectionGUID: qVhDxLmERVql4TRNLRTP0w==
+X-CSE-MsgGUID: GPfkWymwQJqEg9KdeZeVgg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2721203"
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2635145"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 20:37:49 -0800
-X-CSE-ConnectionGUID: ra0UI3VnQPejRkLUZyq8tg==
-X-CSE-MsgGUID: H2P8a1U6R6K70P14QKV1mA==
+   d="scan'208";a="2721203"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 20:39:53 -0800
+X-CSE-ConnectionGUID: azbN95y1Tj+RCA6RxL/jEw==
+X-CSE-MsgGUID: brRElNI+Sn2mvd0OtqX5Bg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="7061784"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 20:37:48 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 20:37:48 -0800
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 20:37:48 -0800
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.61)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 4 Nov 2026 20:37:47 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n+GerlE9oNTdg+5iOuvNveM9dGQjmx+nbg9C3Io18mphe+1MckJODsl/3biXHUNNlJTa/HMpjli95ewVKd8PO5oAuatu0WFx6VAIAiTQQS9mfB91EYiz3OWbBodpzwU19oWFGpd7MAMMfzIDb6sCj0jmvC1lYYQXR9COlMJ+b+pU1h6LggIfv0SQOg4p6elb+tUfbXO31HG0jUGP9jduwI18kfQ11S4HR0fN+A59c1QhV3DgkwalH3pjmHzVrwwyQ7Zfyn6ZU3IUrvrOtUgywLWArAJEgxcQhfpTA6mh94AsXa145nHR6LpSX3eYXzC1284RZIOyuX7Z1A0VJk9CTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cKai6IVNHzZSkbOyR4vR1N2uwEB++AsJkjcbPQG/cKs=;
- b=s4PWZwN0iD1QaCuqgN3u8FZ80aBQ0/RNH+vWcHVPz05emDTv4f8C85of6YSVLTqj5eo8ju/3K9leS05IFyPR5i1w+2L4rwhoOaTVcZ6edMbp7vukY7FberJbLNjJIAKzmGqgie0bcMffSTP2qM6SkrbPzjeAiKgrQPnzWhoqzj/rzkUV0Kt+y2pXTr7GyZqotm4XgOVqSGZXzilf0PC576+sA6HdaZbo7pdkf2W+voKh+uy2884cFwAvacZSYDrJWqMnFikbMTPLOuFmTXGo+phqUn2bXoNiT9+86btuKkhVUGtgOx5BDczkD73+s8M2MGXdAQyfJ9y+z/u7Equ52g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
- by DS6PR11MB9894.namprd11.prod.outlook.com (2603:10b6:8:464::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 04:37:40 +0000
-Received: from IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
- ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 04:37:40 +0000
-From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "Li, Xiaoyao"
-	<xiaoyao.li@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>
-CC: "Hansen, Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>, "mingo@redhat.com"
-	<mingo@redhat.com>, "Peng, Chao P" <chao.p.peng@intel.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>, "Tian, Kevin"
-	<kevin.tian@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
-	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "Verma, Vishal L"
-	<vishal.l.verma@intel.com>, "hpa@zytor.com" <hpa@zytor.com>,
-	"tglx@kernel.org" <tglx@kernel.org>, "nicolinc@nvidia.com"
-	<nicolinc@nvidia.com>, "bp@alien8.de" <bp@alien8.de>, "Gao, Chao"
-	<chao.gao@intel.com>, "aik@amd.com" <aik@amd.com>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>
-Subject: RE: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Topic: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
- operations
-Thread-Index: AQHdS9rFOalajx5+oUCDkC5Yzlha8rcCNcsAgAIPpMCACwdhAIAB6v4ggALZp1CAB3RpgIAAwCFwgADRDICAAL+JgIAAZjwAgADpviA=
-Date: Thu, 5 Nov 2026 04:37:39 +0000
-Message-ID: <IA3PR11MB91367791D58F8DA63D0F2B3692772@IA3PR11MB9136.namprd11.prod.outlook.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-	 <20260924041032.1096569-7-zhenzhong.duan@intel.com>
-	 <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
-	 <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
-	 <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <IA3PR11MB9136FE2B23CA52EC68EF2139926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <bd0f63af98521d76e0d34ea31f18accc063d1d27.camel@intel.com>
-	 <IA3PR11MB9136FEF30F06D8D5118B389292692@IA3PR11MB9136.namprd11.prod.outlook.com>
-	 <a63e7dbdba277b5a551ec74d09144e97f55504dc.camel@intel.com>
-	 <IA3PR11MB91363BF2AFC2ED5E126DBFA792682@IA3PR11MB9136.namprd11.prod.outlook.com>
- <b15708f7cd770fdba4082b19488422a376c2aa9c.camel@intel.com>
-In-Reply-To: <b15708f7cd770fdba4082b19488422a376c2aa9c.camel@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|DS6PR11MB9894:EE_
-x-ms-office365-filtering-correlation-id: a43cf318-3e2f-4af8-2bac-08df3af6865b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|22082099003|18002099003|38070700021|56012099006|11063799006|5023799004|4143699003|261028144727099003|261022105027099003|261026121527099003|261022075727099003|261026140227099003|261102123227099003|261021121427099003;
-x-microsoft-antispam-message-info: T8ormy3soITL9w6tZMJycaBFKZSiiN/mXDdOx0kTArPPtILFyrDC1BbhcsHWaTa7mBbZr2Os0SdJ6bF60D3oTHVdPrMEDJNRSat6v8JCkVvbWTmo64FOVGPfzE5SnwFSyLcgb/i23V8Oh9zJiL4PPJI2ek4jhFoZiGlt+1aYGG36o7FcWltqybIfHXQShphB6lcpgNnfNl8xAKIOjVeigeqBwzPuzTJ3zO2evwMokKtMNI+uClzi9I3j+Rw0k/R6ZKiUehDsGX3CDyCB618OFRXMw9qBAGeXthMnISZseaS7N+sTE0HzktHvGn6qEcXCWJ9SggOoXtkMWnlEP6rXgKLDvjtJq5OiSEksLEimgh2pRJcx4+/0WBmlDeAQYJBJGw72m2DLLoEdy+JoGeVdIWkKr4JQ8DZIyp4VZPYPDndagRLowUnf5smIarv5GWGxno5jznAUQApxPzklGeD2p8MXKemV7hajbCZPAC3Zub/yE/S9zuo/g4GWkn4QEgAc3XY0wkKV3uuHAiq9cnX2G/D/jMSMz4KiKkspvG0CHJrHKgDvlYW80c5wUC3+ibBaKj7/EManhz9ylKLc2HPFhFfpYtWCPe2vz7iwBCRxQtLHlmI3QeSziakhPd5MkZFvCpcUp9S7lO4P4OXeEVWqjz2TKWAC6wFZ+OFMJtEN3jmG7LzAGJCOedk2vfebHzYASTzU2Phz5sq6fonE/ct1QdLcOroCe7OQKiePmO07ADg=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(5023799004)(4143699003)(261028144727099003)(261022105027099003)(261026121527099003)(261022075727099003)(261026140227099003)(261102123227099003)(261021121427099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MkRqNjF0SUY0YWFEVHlZS0E0KzFUblJIWkZJV2JVWFA0R0ZFQVdHYWZYcXZh?=
- =?utf-8?B?SU9IOGg4VHg4eEVFaEExSXgrTzRETlpPcXJJaVlqZlpTOElCWEt4d1JxQ2RP?=
- =?utf-8?B?eG9YL25ydGphRWtzcmN5aXhJWFlIUHpiZnJ5ME0yV004andnM0ZmL3ZOQ01S?=
- =?utf-8?B?OGdLVUdiakhyVzVzblc0My80SUxYZVR5TVFkL3hOaXFIODJ3R1ExaWl2eHor?=
- =?utf-8?B?SGNNSTBWOXFPMlYwRkN1T29GeEs5RHNTdm52c3c1QkhjeVRFUDZEK2VFdmtK?=
- =?utf-8?B?MEhsVStyWFRnZ3ZEMmtnekY0aHBXTHFEWTRsR0VCQW1tU2QwQmhFeHdZdHIv?=
- =?utf-8?B?cXZSc2VKNlZMSTVYUFAzRDdrekh2T2pWc1lYMFBQT3FiR28xcmpOS1p2Y1o2?=
- =?utf-8?B?UEI5ZXczZmZoYXRvTWhtMWE0dVZXemhreldRNnU0d1pQWWhqTEk3WmgxZXQ5?=
- =?utf-8?B?SDNaY3pDOUtveEs4aW80MGg0VTJOSWdKWG1ac2Y3aDRKczRYeDluS0lmbjJO?=
- =?utf-8?B?Z2FoUWZQdTZRYzljT1l4QmdZbTRyc1ptVnFrL25QS2xmUEFiUy9wcVE1dXcz?=
- =?utf-8?B?YnhpTTRveGNvamw0aHR5b0x5b2NhTHFLQWEzZE1iUnFiNncrM2tmYncyN2lH?=
- =?utf-8?B?VWZQT0NaUU9iRCtoQ0tGZVFSMnpJT1JPWlFqU2puWmExRW56STZOMHdQSjdU?=
- =?utf-8?B?RllicmUza2Y1NEM3ZTBUUGM0eHNmUHJ3RCtHWWxoakc1Y05nSjhoQXF0dHdM?=
- =?utf-8?B?dFM3NEhmeUppcmVuTjMrZ2RXQTVhdUNMT1ZhcnZBdndXOTRFRnhOOUFyb1VH?=
- =?utf-8?B?eWw0WE5ocTJ4cmtHUnJWa2ROWHpoSUsyLzZlbktZV0VOUThmdmxGdHFIVXZv?=
- =?utf-8?B?ZEVrbFd6MUtRc2Q4V1psSk56L2Z3UGF3L01DZU9DRCtDbE9XWkNhSlRFOHVD?=
- =?utf-8?B?Z3lCSEcybWwvK1M5N1NRRVBMSklXSllkRE5lWjVHZVAwWVBteHVlajJEdGtK?=
- =?utf-8?B?RGV1ZGJkY29pdS9yd0ZPQTJ5UFZqSTBWU1JpV0xyU2JQZTZqWlhuek5iZ3hp?=
- =?utf-8?B?Y1BNM0JZU1N1YnpCVWY1ZUVhU0RuNkdBYkxaT3ppODNqd29LMUVIRGgwTkNK?=
- =?utf-8?B?UGhiVWVic2s4dlJBbDFLNzRDUGFFV2lDUGFWdXlIUWZEWXVXMVBxK2N0aHp6?=
- =?utf-8?B?Mzh4RjVNMEwvTDlUeFRvZ0ZWS2wxQXlsdTd5d0JvU0VyM0hPNSswYUVmdytt?=
- =?utf-8?B?OG1xd2FZektndDZPL0VBYjhySkppSEE3NHU1VldQYkovTkx6aiszdEliQ2VW?=
- =?utf-8?B?WWl5SllhVGcyRWJLMEt6YVNwN1FrK0UyRVIrWklscUJiQVowSTIyYm5Veiti?=
- =?utf-8?B?VVQwcW5QTHdMd3M2ZVNIaUxoTkRKKzRpWm9jdERteFJUME1VZ2pESjNnTzdq?=
- =?utf-8?B?SytDRy8vc0hHbEdsMGZhRUdNaDRhNGIwNkV5bGVXOWF0K3FaS1lPNWtIdWdL?=
- =?utf-8?B?UzJ5L3VtRWhJSm83aDRSRWxCUFdLZ2pmcHR6V1pxYkRsOElCU2pCRzBKZERX?=
- =?utf-8?B?ZUhtNTRleHl0YnU2TVlRbTlrZGJOU242cVNXVVhKZjRmWEcvTCt0QURDLzla?=
- =?utf-8?B?WWI5Q2Roejcrd2RnZjVCdnYxbzUxck96anF4enV3bm45UDVMNjNrakJ4ZE9u?=
- =?utf-8?B?bWUwY01MOTFFbXVsb0NpMVdHcFhJMEQxVHk1Zk1PSUhwd3pqc0ZHYU15YXpi?=
- =?utf-8?B?aFdweU9BNHEyeVhqaDZuYUt1UVpoVlNuenlmdWgyNTZNazBpbmhrZGYwWlRh?=
- =?utf-8?B?dG5USENzOEpBNElOQzVyanA1M28zcFBYRHBjZkpoVnhrdlNJNmZGQXpqVWVr?=
- =?utf-8?B?V1dWUk8xSXlHcXNGS3pDakMzNzMzVlhKRzZPeTRDVHBOT29SMG1sZ2RZM1dl?=
- =?utf-8?B?TGJRNW90Sy9LU3dqSkhIb2R0UmtjUGNWaTgrVXZwMUhrbFFNSnl2ck51eGVT?=
- =?utf-8?B?T01Hc2lDbXd1OVdPdWZKQTE0cXA1VDg5N0FTdlVZMTkxUEw5VVE1NTdwcER2?=
- =?utf-8?B?MFVIYkJhck0yanVHckYzTnZzY05oRkpDRUs5VVNtTTFSVFFwYmNEbkZqN1Y4?=
- =?utf-8?B?NmxsdThQbUNETW5KVXpOanpmZHNrSlJUaWRpbzR0ZXFYOGFJYTRDMm5RODda?=
- =?utf-8?B?bEJjOXBPNUhPQmw5NWtoN0xtWWZ1S2pWOVREZ1UwdVJPVVordWI2L1pqaVM2?=
- =?utf-8?B?M1BSYWRNNGxXdllZYmk2ZkNGdzQ5cHVjRHhVbWUwcFVkSDU5T2dzYUJleXZU?=
- =?utf-8?B?SFZ1Tjh4Tm5vK1NiWmNidVJiVVpaZUpON3d4RkN5SzdXRkRmbHhpQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+   d="scan'208";a="8669849"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 04 Nov 2026 20:39:50 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOpGM-00000000leF-3eaK;
+	Thu, 05 Nov 2026 04:39:46 +0000
+Date: Thu, 5 Nov 2026 12:39:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
+Message-ID: <202611051237.oXlTZ7GB-lkp@intel.com>
+References: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -211,27 +88,255 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: k535GPL98s2oDzZNn1HAbwtKkIqT7wPt9cbsrBAuS/EgIdiVl12tbO76L+uJmStgoldSYJyxZJAOrTg/kBUd8Nu2V6Y6jUc+lDvxi84dcHt4NyVhQo0l7bkKHRgxdRX8cdddnjz9N4hBMZRC6r7v4EhnR10E1t5+I7oa3CrK0w5/R3JILYZzaQ4rLUb7ZL2uoQpITjxuwmBPMalDE/poz8UQjxbVt1meflbq/Tth8de2YyiiEG5cYg3CSIPDWTdFhatjD8v6KE4Dte9CvSobM+mhPPDW+7attJlsxmLyGSuiQBgTfBLIyQ5v8hS8phGMiE1pJ8mCYx9ob3J4xAj7aQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a43cf318-3e2f-4af8-2bac-08df3af6865b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 04:37:39.9866
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wZEB4jKwopOvfnRr66+ktJrEP4ZbsSN/UwfJ/oAUWwDj2eZMAAVXLwHEZLAKx0lrdVmgDc/DXLw3LflVlwPI6rbB5uoPj3kIHFNlDa71xSs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB9894
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
 
-DQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IEVkZ2Vjb21iZSwgUmljayBQ
-IDxyaWNrLnAuZWRnZWNvbWJlQGludGVsLmNvbT4NCj5TdWJqZWN0OiBSZTogW1JGQyBQQVRDSCAw
-Ni8xNV0gdmlydDogdGR4LWd1ZXN0OiBTdXBwb3J0IFRESSBiaW5kIGFuZCB1bmJpbmQNCj5vcGVy
-YXRpb25zDQo+DQo+T24gV2VkLCAyMDI2LTExLTA0IGF0IDA4OjU5ICswMDAwLCBEdWFuLCBaaGVu
-emhvbmcgd3JvdGU6DQo+PiA+IEknbSBub3QgY2xlYXIgd2hvc2UgZmF1bHQgdGhpcyBpcy4NCj4+
-DQo+PiBIb3N0IHNpZGUgZmF1bHQsIGUuZy4sIGEgbWFsaWNpb3VzIFZNTSBkb2VzIG5vdGhpbmcg
-aW4gVU5CSU5EIFREQ00NCj5oeXBlcmNhbGwuDQo+DQo+SWYgdGhlIGhvc3QgKmNhbiogYWx3YXlz
-IGhhbmRsZSB0aGlzLCBidXQganVzdCBkb2Vzbid0LCB0aGVuIEkgd29uZGVyIGhvdw0KPm11Y2gN
-Cj5lZmZvcnQgd2Ugc2hvdWxkIHNwZW5kIHRvIG9uIGhhbmRsaW5nIGl0LiBXZSBjYW4ndCBwcm90
-ZWN0IGFnYWluc3QgVEQgRE9TDQo+YnkgdGhlDQo+aG9zdCwgc28gZG9uJ3QgdHJ5LiBTbyB0aGlz
-IHNlZW1zIHNpbWlsYXIuDQoNCkZhaXIgcG9pbnQsIEkgd2FzIG92ZXJ0aGlua2luZyB0aGlzLg0K
+Hi Pierre-Eric,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on next-20261028]
+[cannot apply to drm-misc/drm-misc-next linus/master v7.3 v7.3-rc7 v7.3-rc6 v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Pierre-Eric-Pelloux-Prayer/drm-amdgpu-add-gpu_recovery_enabled-flag-to-amdgpu_device/20261029-161949
+base:   next-20261028
+patch link:    https://lore.kernel.org/r/20261029152000.22001-4-pierre-eric.pelloux-prayer%40amd.com
+patch subject: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261105/202611051237.oXlTZ7GB-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051237.oXlTZ7GB-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611051237.oXlTZ7GB-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:956:3: error: cannot jump from this goto statement to its label
+     956 |                 goto error_put_gobj;
+         |                 ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:959:54: note: jump bypasses initialization of variable with __attribute__((cleanup))
+     959 |         PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+         |                                                             ^
+   1 error generated.
+
+
+vim +956 drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+
+   869	
+   870	int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+   871				  struct drm_file *filp)
+   872	{
+   873		const uint32_t valid_flags = AMDGPU_VM_DELAY_UPDATE |
+   874			AMDGPU_VM_PAGE_READABLE | AMDGPU_VM_PAGE_WRITEABLE |
+   875			AMDGPU_VM_PAGE_EXECUTABLE | AMDGPU_VM_MTYPE_MASK |
+   876			AMDGPU_VM_PAGE_NOALLOC;
+   877		const uint32_t prt_flags = AMDGPU_VM_DELAY_UPDATE |
+   878			AMDGPU_VM_PAGE_PRT;
+   879	
+   880		struct drm_amdgpu_gem_va *args = data;
+   881		struct drm_gem_object *gobj;
+   882		struct amdgpu_device *adev = drm_to_adev(dev);
+   883		struct amdgpu_fpriv *fpriv = filp->driver_priv;
+   884		struct amdgpu_bo *abo;
+   885		struct amdgpu_bo_va *bo_va;
+   886		struct drm_syncobj *timeline_syncobj = NULL;
+   887		struct dma_fence_chain *timeline_chain = NULL;
+   888		struct drm_exec exec;
+   889		uint64_t vm_size, tmp;
+   890		int r = 0;
+   891	
+   892		/* Validate virtual address range against reserved regions. */
+   893		if (args->va_address < AMDGPU_VA_RESERVED_BOTTOM) {
+   894			dev_dbg(dev->dev,
+   895				"va_address 0x%llx is in reserved area 0x%llx\n",
+   896				args->va_address, AMDGPU_VA_RESERVED_BOTTOM);
+   897			return -EINVAL;
+   898		}
+   899	
+   900		if (args->va_address >= AMDGPU_GMC_HOLE_START &&
+   901		    args->va_address < AMDGPU_GMC_HOLE_END) {
+   902			dev_dbg(dev->dev,
+   903				"va_address 0x%llx is in VA hole 0x%llx-0x%llx\n",
+   904				args->va_address, AMDGPU_GMC_HOLE_START,
+   905				AMDGPU_GMC_HOLE_END);
+   906			return -EINVAL;
+   907		}
+   908	
+   909		args->va_address &= AMDGPU_GMC_HOLE_MASK;
+   910	
+   911		vm_size = adev->vm_manager.max_pfn * AMDGPU_GPU_PAGE_SIZE;
+   912		vm_size -= AMDGPU_VA_RESERVED_TOP;
+   913		if (check_add_overflow(args->va_address, args->map_size, &tmp) || tmp > vm_size) {
+   914			dev_dbg(dev->dev,
+   915				"va_address 0x%llx is in top reserved area 0x%llx\n",
+   916				args->va_address + args->map_size, vm_size);
+   917			return -EINVAL;
+   918		}
+   919	
+   920		if ((args->flags & ~valid_flags) && (args->flags & ~prt_flags)) {
+   921			dev_dbg(dev->dev, "invalid flags combination 0x%08X\n",
+   922				args->flags);
+   923			return -EINVAL;
+   924		}
+   925	
+   926		/* Validate operation type. */
+   927		switch (args->operation) {
+   928		case AMDGPU_VA_OP_MAP:
+   929		case AMDGPU_VA_OP_UNMAP:
+   930		case AMDGPU_VA_OP_CLEAR:
+   931		case AMDGPU_VA_OP_REPLACE:
+   932			break;
+   933		default:
+   934			dev_dbg(dev->dev, "unsupported operation %d\n",
+   935				args->operation);
+   936			return -EINVAL;
+   937		}
+   938	
+   939		if (args->flags & AMDGPU_VM_DELAY_UPDATE &&
+   940		    args->vm_timeline_syncobj_out)
+   941			return -EINVAL;
+   942	
+   943		if ((args->operation != AMDGPU_VA_OP_CLEAR) &&
+   944		    !(args->flags & AMDGPU_VM_PAGE_PRT)) {
+   945			gobj = drm_gem_object_lookup(filp, args->handle);
+   946			if (gobj == NULL)
+   947				return -ENOENT;
+   948			abo = gem_to_amdgpu_bo(gobj);
+   949		} else {
+   950			gobj = NULL;
+   951			abo = NULL;
+   952		}
+   953	
+   954		if (amdgpu_device_is_wedged(adev)) {
+   955			r = -ENODEV;
+ > 956			goto error_put_gobj;
+   957		}
+   958	
+   959		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+   960	
+   961		r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+   962		if (r)
+   963			goto error_put_gobj;
+   964	
+   965		/* Add input syncobj fences (if any) for synchronization. */
+   966		r = amdgpu_gem_add_input_fence(filp,
+   967					       args->input_fence_syncobj_handles,
+   968					       args->num_syncobj_handles);
+   969		if (r)
+   970			goto error_put_gobj;
+   971	
+   972		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT |
+   973			      DRM_EXEC_IGNORE_DUPLICATES, 0);
+   974		drm_exec_until_all_locked(&exec) {
+   975			if (gobj) {
+   976				r = drm_exec_lock_obj(&exec, gobj);
+   977				drm_exec_retry_on_contention(&exec);
+   978				if (unlikely(r))
+   979					goto error;
+   980			}
+   981	
+   982			r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
+   983			drm_exec_retry_on_contention(&exec);
+   984			if (unlikely(r))
+   985				goto error;
+   986		}
+   987	
+   988		/* Resolve the BO-VA mapping for this VM/BO combination. */
+   989		if (abo) {
+   990			bo_va = amdgpu_vm_bo_find(&fpriv->vm, abo);
+   991			if (!bo_va) {
+   992				r = -ENOENT;
+   993				goto error;
+   994			}
+   995		} else if (args->operation != AMDGPU_VA_OP_CLEAR) {
+   996			bo_va = fpriv->prt_va;
+   997		} else {
+   998			bo_va = NULL;
+   999		}
+  1000	
+  1001		/*
+  1002		 * Prepare the timeline syncobj node if the user requested a VM
+  1003		 * timeline update. This only allocates/looks up the syncobj and
+  1004		 * chain node; the actual fence is attached later.
+  1005		 */
+  1006		r = amdgpu_gem_update_timeline_node(filp,
+  1007						    args->vm_timeline_syncobj_out,
+  1008						    args->vm_timeline_point,
+  1009						    &timeline_syncobj,
+  1010						    &timeline_chain);
+  1011		if (r)
+  1012			goto error;
+  1013	
+  1014		switch (args->operation) {
+  1015		case AMDGPU_VA_OP_MAP:
+  1016			r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
+  1017					     args->offset_in_bo, args->map_size,
+  1018					     args->flags);
+  1019			break;
+  1020		case AMDGPU_VA_OP_UNMAP:
+  1021			r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
+  1022			break;
+  1023	
+  1024		case AMDGPU_VA_OP_CLEAR:
+  1025			r = amdgpu_vm_bo_clear_mappings(adev, &fpriv->vm,
+  1026							args->va_address,
+  1027							args->map_size);
+  1028			break;
+  1029		case AMDGPU_VA_OP_REPLACE:
+  1030			r = amdgpu_vm_bo_replace_map(adev, bo_va, args->va_address,
+  1031						     args->offset_in_bo, args->map_size,
+  1032						     args->flags);
+  1033			break;
+  1034		default:
+  1035			break;
+  1036		}
+  1037	
+  1038		/*
+  1039		 * Once the VA operation is done, update the VM and obtain the fence
+  1040		 * that represents the last relevant update for this mapping. This
+  1041		 * fence can then be exported to the user-visible VM timeline.
+  1042		 */
+  1043		if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) &&
+  1044		    (!adev->debug_vm || timeline_syncobj)) {
+  1045			struct dma_fence *fence;
+  1046	
+  1047			fence = amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
+  1048							args->operation);
+  1049			if (timeline_syncobj) {
+  1050				if (!args->vm_timeline_point) {
+  1051					/* Replace the existing fence when no point is given. */
+  1052					drm_syncobj_replace_fence(timeline_syncobj,
+  1053								  fence);
+  1054				} else {
+  1055					/* Attach the last-update fence at a specific point. */
+  1056					drm_syncobj_add_point(timeline_syncobj,
+  1057							      timeline_chain,
+  1058							      fence,
+  1059							      args->vm_timeline_point);
+  1060					timeline_chain = NULL;
+  1061				}
+  1062			}
+  1063			dma_fence_put(fence);
+  1064	
+  1065		}
+  1066	
+  1067	error:
+  1068		dma_fence_chain_free(timeline_chain);
+  1069		if (timeline_syncobj)
+  1070			drm_syncobj_put(timeline_syncobj);
+  1071		drm_exec_fini(&exec);
+  1072	error_put_gobj:
+  1073		drm_gem_object_put(gobj);
+  1074		return r;
+  1075	}
+  1076	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
