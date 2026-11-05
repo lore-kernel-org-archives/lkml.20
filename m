@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876125;
-	b=2159V7zAOQE6S64gLcZYsvyZ8+QbLI4mcLslpXeTAj7qZ674cXpJhqf+qaxsX8+PQS6R
-	 sEytyxjFOUuylb77xsXP0hp8foiGa6MWfjK/IJYza3SNlZZgvWTBat4DGbWogROwexcA5
-	 kevLOjh1pQNmMjBw746hlcQxsWl9csmXK475X49JDmKj6fUqttyAQBYA2LvowpH42WW/E
-	 nN1usJN6NjXMOkifT3bMzcESpe4vlEO8J82NRbAaN9L+meMR13XfDcpcc0DPBmAFu3Wj6
-	 tNn33gdnjsTlApSriZNqyfISBz8LzIZj75As+qWccf171sBq1FV/rQ2ZPQop+SCGn7g==
+	t=1793876110;
+	b=FVJmSxZN9p23U+Zf0zPB8HMvQJfgsS4U17oaJgcY/oMgbhKnHzXdHJdnSnGnf4YACMP/
+	 ToKHvWknBQxLMtOE46qt1cmOsElC0W4q0iYZyx+eIB7SuQxmu3VyA0HxAaL8fSNS8Pkqk
+	 XqlpCf8NMj+kcYfU1aVOtqJrf4x5T3Q5KWQDSqzoLjLSnIGUfaFygRBVySkQmDBy5nC+D
+	 B8g3MMW4v2BT9RrvNJT+ra03SUyZF2Ko4QJLXE+IYxN9FDzdfzYA6XjnpQZ7jSGMAhKPB
+	 cfLHTZwV8vWZca7j8slg8Fw6OgFqlaP4SUgq5cTR684RC51yAA/KPzUjhZB3hBWOGlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876110;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aFHl9iBgx/Mfi+s4BZBS+ijcqSNzZQXuaxbMC9IotGE=;
-	b=ep2UlAfcgLKYPQUwNbCEFYcHvBO5hCeEtCqrz13SRFp46I1fnJOycLYF/oCwivVANStO
-	 7QlhefKZqXZUKx3cvIHXG1RXub2tH0QO+QcXkpHTYhkxY1wFg+wcO8+4QIs3g4HynpKfD
-	 wxARYK6dq64cn6ECNaKNYRFW8rJzbiELbzd0d7wZ09/I/ekV0b4chvt5LHNguHToO0rln
-	 FOU6DqD+A3DRUpAReJ6JhifhQiZ9I6omHekcIQgHjZRTMxRzrr0pvkw81EncWRIeZNxJ7
-	 rZSdPlobfZQpsmqZsc56qQptpac1KQh+q4ug43FB8ZyNncRHKvNssy6UWFnVwHCEHwg==
+	 From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=S3kBGMpJUDqyGZZ/3EY9QtmjH3XQ/06sMAWybkANdok=;
+	b=jx016X2SFVtAZp48kC8ur5ckCQ3U20h2iiXmuapAeyZvM/Yc26jkQS/OsuMh0FzFY3lV
+	 J9ekJ/0ai5xu8b1OVkH6MZNCZZejvsz2TeyzYb1tOVONl2cbWsziH+SJivv68Xt76glSp
+	 OPcPz6AJlAXwYfyQrMaqrzqzPpG20dcW3pj7s6dc4uHhhRjWK3o/YJxJrpAFdQsBLoqrb
+	 Y9FygdtvFpsNSNBQJyJBOMTleDnqxDxh6IMQ1+CxMOfcMzvfWSUJWgJebOCdr7GK/ufVt
+	 1Hqc67XD16JVqx4qgR6PlH1VDVO0O+nqDt4zc+mvaxejj/PEUCaC6l7cjXqdD+ja1fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E6O5lImZ;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u2Mckaf7;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2CB606D816
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:55:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF2CB606D816
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88717606EE9B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:55:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88717606EE9B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E6O5lImZ
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1424764f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:55:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u2Mckaf7
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso11514125e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:55:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793876118; x=1794480918; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aFHl9iBgx/Mfi+s4BZBS+ijcqSNzZQXuaxbMC9IotGE=;
-        b=E6O5lImZg5SW7X/1Kt7u6KIODDdp22L1v+mEm7A9ECfk9QiwVuOMIpJ7JIQSm4jw0G
-         1a9WUzBHs7IkVXJ5vrJdh6Vjvp9QcE68tYMYwcF7MF7VLafsjwQj4kuWxGxFaaaMqsZP
-         GWHxXut2wTBKEjWnBEttxn3rEBlkY2fmklUq3cqDsg3LfDsVk4gytofiH+AdMLJnxjGI
-         6kzLrAD1KpMc1FEDsb5/T/2ZpbZDiHH0NVwSEtFLHrAsYTV0Ktg9IrtFXppfSKwiCfeL
-         iF4rt5Bq2B6SjcPbDc+1FvPCNU4tBlmcitzreR/JVLcErfnLZxm2szVUxEGwHHvpi3OW
-         mIsA==
+        d=gmail.com; s=20260707; t=1793876109; x=1794480909; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S3kBGMpJUDqyGZZ/3EY9QtmjH3XQ/06sMAWybkANdok=;
+        b=u2Mckaf72MIFO28Q8RwfK/lbM5uktuJE64/vY3ti6Vu2yRYVEk3NoKZqDkWoJ982A/
+         XJRnrA2u7LoZ/G7Y21kthouyeGcNCUv9NtRa5kdATIQj662s4BW49MNSqu0IrDgQ45X8
+         iCBHrHr9b4+cC/w28QMebSAET2czFcRanHMQX86qtIXWI4uh+3otxo1J8Q35iqXL+eXj
+         6wYZIDDPzNOc/2rCS87HRpYjja+srroLYbmp7Q91pvHKNrkqZBXjuKGLoZ99QtncLYZ/
+         L9RsOXu9+W98X31RMtoTuJz59NE7I0os5Z+iPTwYyLB8YnEiLu/hO6wGDP6Fmdvvn43a
+         MmhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793876118; x=1794480918;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aFHl9iBgx/Mfi+s4BZBS+ijcqSNzZQXuaxbMC9IotGE=;
-        b=q6NMbY7Ny10UsAh3v1Ra3L20Uc0oH7JKZFYmjm0CkQQ564E9QpUP8gKSz287yPWAQK
-         cNW0hYXz250aeFyWf4R0pER596CPV6jv8hxc+niE9MGuYL0YVeRIawBJozEm4Zlufhy5
-         jD/yvW4JcpcEUAywarqt6RiM9dzGQKOpIUQKTncAPb/rsVfTzru2F67ddMbHuoSSI7hk
-         wq+XnnJzNNX79ZwD9Vm9Z3SHOy462jW8RcW4xAsFebFdp/3/pO13qIRfWohTqtm69DJW
-         l35u/Pxdwr4L80sY5jSXVz1g8sIvWqyxPBMX2fqCQUBLBcqtDAX/woCOWZ2PzgJUwoE2
-         YU0g==
-X-Forwarded-Encrypted: i=1; AKwUvBzB/CU2kYWZA+QShv0c5gytWRmmSbuuymFqOTlb/9zTSm10lvisPopRoW7Cla9mN8++YTXw08LYgN/RLGY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4aXPbiBSI+4doY38iyRfNfp6y8pgmp+F3JckwriFNb+vHdKWc
-	QEPORCOCd/ZWTrXZJRUfFSmFUstaru6JICI7Ui+n/FH8KNPf1MCapIm2
-X-Gm-Gg: AYBFou0Ov7z1sYDkHXsDEYCQKrUn4Crpj5dPDpkaCZPCkjFLBafqMcLf4Ze0s+yWet+
-	OmbJtFO3PBML9nrmT0KMajjYRTLNMvobJdTNcliZtscGQGfXzjDIXg+sAJKRi0srrbpUJI+uokK
-	VSKQHCKnIueGJXQMGl14RHxEROBCPSeAlhzUFbHHHYHLAGeAZW65n+JcwlEBbkYf2j+7gOHVnNX
-	g16Ino2dj0qmC8PBQP8hLAKaBf6bTl0zea6df6GNZjwC1/7Oif/lSJJuX1rIX9p6WollsH+dG22
-	FpRBcKHupYdv4VLu6fcIfL3PkHWH2LjKaAaFMoRQd1MbNQBWSAsz/pIrfS8uM7aVJbSrcIav/Mo
-	DzYgnQAbCNysjX0vH3QwXNE17bO+bDjucqpUW4pXvzxZrlLrcFJbjmzu7b8az/K/CFWzUQxkbYX
-	Ls6B/dIsBWiudYngVksjpGRxSdms92KUj3J17LXj4MkFggZRxflLn4xEW+MZ4s0hs3KG/amOOd/
-	2eidzBeKJgWvDH4TdDtBBuelQldFkHrLYTi/WRNtd4xYTy6NAquLi/k//7pzc0C8sqEFhgCiDB0
-	pBjkjCTldKTmtTOr9i1TQZV7H1q7USRVTR8v3XRx8K9s06cIykeLl3hQqxHAtIVy7UtDdBoYyvG
-	D20yEP0Ka37nxPla0Mh5iKLb0
-X-Received: by 2002:a05:600c:674f:b0:4a2:1655:87db with SMTP id 5b1f17b1804b1-4ac1228a434mr433568835e9.0.1793876117760;
-        Thu, 05 Nov 2026 02:55:17 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793876109; x=1794480909;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=S3kBGMpJUDqyGZZ/3EY9QtmjH3XQ/06sMAWybkANdok=;
+        b=zuNBdUPV7Hz0hDUPwtGrZuPXjE0YXki6Ie7norn7Es3T0QqJa6pMqW8CJiAhiTPw7I
+         6a3pgLaZurUEGLGKtRWUaifcAuRXVOXAVwZR1Kf+Zy3g4DSSQ62oq0ZnjFdI3dZq7/2D
+         C6wd4uft3lAqhMSYSCrPqh2Iz5JoYklBJNyY7zHlKc1+JWhMSTTcwzwnf5OnMgndGaoo
+         Xr1QJwrJMNdSM90ej1fN1aehQ+1fomjsD9OwZAGWqRYt+psgQfK9S+VlD8LXPlknK0jf
+         fJXkYEpXWUcxDChlEqrKrzSzrZQONujNQ+zCV+aE3deZTSgZS0VLAGu8d2C7lj3vNyiL
+         n9fg==
+X-Forwarded-Encrypted: i=1; AKwUvBw77Jk8QOg1JhhTSncvNRsqUlCPrR/VBiWvwkgly13egbpM1UB0RDqlKSM4S6z0LWR/PMOCxlpCf8rbsr4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UOJW6jsxcGBzZuojTMtJe/dmtMHYiZoeygs+bjlxofQxywTVl
+	1hzAyrhSavEyBPYeIPVEkzxwykew6W6hZ4GGDESgvaOcQrArdRx6rxK3
+X-Gm-Gg: AYBFou1VRUBs4tv1ubV01qNDrci/bRjYF9yy70ZYscIYkUxlCDgr95FF2tBVXDoigHU
+	6H9nxqlDED14PMkjkR5MCDPu0Ij8MUULWT1mluoi4ksiuVWgXxh6ttJGUiC66IWU5wYBeXA9kEr
+	d0LTfVVqq05ulf15WeqGssnKnFK03myZMIG6NdxQd7z3NoyZdEuPAKqmgWup2koB65q1M2gHQR+
+	MQINeSDnA0+mj2sHjlpbNW9oJnn8amcpvU3rOURsmnVMzSFtxuc4UUWN2WZ89A0JR3SERJtzOsp
+	5aw1wv7AS3Ryy70bcgIG3CQGvkn42GjZilck5LF1XZgHZEoQiUUwCaLBTzkYBbPA6F0LbZJ9+GG
+	aAlRLfTEMMQlnvvrFz1BaAYKhdqAcss5LHokfs9gsV0gItnE/MSIGic/AVd4tGzko6FvkXysEyo
+	PE8UUveYDc4K3fITcw/bZdCd8gsFuxbVT3oZw1cy7ApcNMigQEqICeCrmP+hkM5leeI3IPfQeRd
+	6rGBM6g7CMjny7xf9w3jnXQw/lkGepENl5aMEIusbk8Zicr+6Bmnmk7EHbVr6xYXNh3yc6v0ENN
+	k7YtAs0M09n21LiKcLYcUcYtmLVRT4ueSZuS6xm/JesHaSftiksMq7+cvDBg/oO5adg0iyZwyPT
+	d+aS5evWTtzDGKRhJa5zSvZ/+
+X-Received: by 2002:a05:600c:5397:b0:4a4:7a8d:c736 with SMTP id 5b1f17b1804b1-4ac16acfceamr398713475e9.9.1793876108729;
+        Thu, 05 Nov 2026 02:55:08 -0800 (PST)
 Received: from Ansuel-XPS24.lan (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4b57317cb8esm59576355e9.13.2026.11.05.02.55.16
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4b57317cb8esm59576355e9.13.2026.11.05.02.55.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:55:17 -0800 (PST)
+        Thu, 05 Nov 2026 02:55:08 -0800 (PST)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -99,12 +98,10 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	netdev@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v5 6/6] net: phy: mediatek: add calibration logic for AN7583
-Date: Thu,  5 Nov 2026 11:55:02 +0100
-Message-ID: <20261105105504.1024-7-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v5 0/6] net: phy: mediatek: calibration for AN7581/3
+Date: Thu,  5 Nov 2026 11:54:56 +0100
+Message-ID: <20261105105504.1024-1-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261105105504.1024-1-ansuelsmth@gmail.com>
-References: <20261105105504.1024-1-ansuelsmth@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,297 +113,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Similar to Airoha AN7581 Switch PHY also the Airoha AN7583 SoC
-requires dedicated calibration and tuneup to make EEE correctly work.
+This small series adds calibration support for Airoha AN7581 and
+AN7583 integrated PHYs.
 
-Airoha AN7583 differ from AN7581 by having a dedicated table for
-calibration and additional EEE logic tuneup.
+The calibration logic is quite big so I decided to split
+the driver from the mediatek one to keep things organized.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/phy/mediatek/airoha-ge-soc.c | 232 ++++++++++++++++++++++-
- drivers/net/phy/mediatek/mtk.h           |   1 +
- 2 files changed, 230 insertions(+), 3 deletions(-)
+Minor change were needed and just additional symbol to use what
+is common between mediatek and airoha PHYs.
 
-diff --git a/drivers/net/phy/mediatek/airoha-ge-soc.c b/drivers/net/phy/mediatek/airoha-ge-soc.c
-index 18b9b6562f6d..089035bb3e9b 100644
---- a/drivers/net/phy/mediatek/airoha-ge-soc.c
-+++ b/drivers/net/phy/mediatek/airoha-ge-soc.c
-@@ -159,6 +159,106 @@ static u8 an7581_zcal_to_r45ohm[64] = {
- 	 52,  50,  48,  46,  44,  42,  40,  39,  36,  35,  32,  32,  30,  28,  27,  25
- };
- 
-+/*
-+ * 2 chip revision
-+ * TXMR or discrete
-+ * 2 MDI type
-+ * TX AMP test/TX AMP 1G/TX AMP 100M/TX AMP 10M/R50
-+ * 4 PHY
-+ */
-+static int an7583_tx_amp_compensation_tbl[TRANSFORMER_TYPE_MAX][MDI_TYPE_MAX][CALIB_CONST_TYPE_MAX][4] = {
-+	[DISCRETE] = {
-+		[MDI_0R] = {
-+			[TX_AMP_TEST_A] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_B] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_C] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_D] = { -3, -3, -3, -3 },
-+			[TX_AMP_1G_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_B] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_C] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_D] = { 0, 0, 0, 0 },
-+			[TX_AMP_100M_A] = { 4, 4, 4, 4 },
-+			[TX_AMP_100M_B] = { 4, 4, 4, 4 },
-+			[TX_AMP_10M_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_10M_B] = { 0, 0, 0, 0 },
-+			[R50_A] = { 4, 4, 4, 4 },
-+			[R50_B] = { 4, 4, 4, 4 },
-+			[R50_C] = { 6, 6, 6, 6 },
-+			[R50_D] = { 4, 4, 4, 4 },
-+		},
-+		[MDI_5R] = {
-+			[TX_AMP_TEST_A] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_B] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_C] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_D] = { -3, -3, -3, -3 },
-+			[TX_AMP_1G_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_B] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_C] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_D] = { 0, 0, 0, 0 },
-+			[TX_AMP_100M_A] = { 4, 4, 4, 4 },
-+			[TX_AMP_100M_B] = { 4, 4, 4, 4 },
-+			[TX_AMP_10M_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_10M_B] = { 0, 0, 0, 0 },
-+			[R50_A] = { 0, 0, 0, 0 },
-+			[R50_B] = { 0, 0, 0, 0 },
-+			[R50_C] = { 0, 0, 0, 0 },
-+			[R50_D] = { 0, 0, 0, 0 },
-+		},
-+	},
-+	[TXMR] = {
-+		[MDI_0R] = {
-+			[TX_AMP_TEST_A] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_B] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_C] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_D] = { -3, -3, -3, -3 },
-+			[TX_AMP_1G_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_B] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_C] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_D] = { 0, 0, 0, 0 },
-+			[TX_AMP_100M_A] = { 4, 4, 4, 4 },
-+			[TX_AMP_100M_B] = { 4, 4, 4, 4 },
-+			[TX_AMP_10M_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_10M_B] = { 0, 0, 0, 0 },
-+			[R50_A] = { 4, 4, 0, 0 },
-+			[R50_B] = { 4, 4, 0, 0 },
-+			[R50_C] = { 5, 5, 3, 4 },
-+			[R50_D] = { 4, 4, 4, 0 },
-+		},
-+		[MDI_5R] = {
-+			[TX_AMP_TEST_A] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_B] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_C] = { -3, -3, -3, -3 },
-+			[TX_AMP_TEST_D] = { -3, -3, -3, -3 },
-+			[TX_AMP_1G_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_B] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_C] = { 0, 0, 0, 0 },
-+			[TX_AMP_1G_D] = { 0, 0, 0, 0 },
-+			[TX_AMP_100M_A] = { 4, 4, 4, 4 },
-+			[TX_AMP_100M_B] = { 4, 4, 4, 4 },
-+			[TX_AMP_10M_A] = { 0, 0, 0, 0 },
-+			[TX_AMP_10M_B] = { 0, 0, 0, 0 },
-+			[R50_A] = { -4, -4, -4, -4 },
-+			[R50_B] = { -4, -4, -4, -4 },
-+			[R50_C] = { -2, -2, -2, -2 },
-+			[R50_D] = { -3, -3, -2, -2 },
-+		},
-+	},
-+};
-+
-+static u8 an7583_zcal_to_r50ohm_0R[64] = {
-+	127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
-+	127, 127, 127, 122, 118, 114, 110, 106, 102,  98,  96,  92,  88,  85,  82,  80,
-+	 76,  72,  70,  68,  64,  62,  60,  57,  55,  52,  50,  48,  46,  44,  41,  40,
-+	 38,  36,  33,  32,  30,  28,  26,  24,  24,  22,  20,  18,  16,  16,  14,  12,
-+};
-+
-+static u8 an7583_zcal_to_r50ohm_5R[64] = {
-+	127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
-+	127, 127, 127, 127, 127, 127, 127, 127, 127, 124, 120, 116, 112, 110, 106, 102,
-+	 99,  96,  93,  90,  88,  84,  81,  79,  76,  73,  71,  68,  66,  64,  61,  59,
-+	 56,  54,  52,  50,  48,  46,  44,  42,  40,  39,  37,  36,  33,  32,  31,  29,
-+};
-+
- /* One calibration cycle consists of:
-  * 1.Set DA_CALIN_FLAG high to start calibration. Keep it high
-  *   until AD_CAL_COMP is ready to output calibration result.
-@@ -824,8 +924,9 @@ static int airoha_rx_offset_cal_sw(struct phy_device *phydev)
- 	phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x100, 0x0);
- 	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x145, 0x1000);
- 
--	phy_write_mmd(phydev, MDIO_MMD_VEND1, MTK_PHY_RG_ANA_CAL_RG6,
--		      0x1);
-+	if (phydev->drv->phy_id == AIROHA_GPHY_ID_AN7581)
-+		phy_write_mmd(phydev, MDIO_MMD_VEND1,
-+			      MTK_PHY_RG_ANA_CAL_RG6, 0x1);
- 
- 	return 0;
- }
-@@ -1625,10 +1726,133 @@ static int en7528_phy_config_init(struct phy_device *phydev)
- 				MTK_PHY_LED_BCR_EXT_CTRL);
- }
- 
-+static int an7583_phy_package_config_init_once(struct phy_device *phydev)
-+{
-+	struct airoha_socphy_shared *shared = phy_package_get_priv(phydev);
-+
-+	/* FIXME: Read SoC MDI Resister Type if available or default to 5R */
-+	shared->mdi_resister_type = MDI_5R;
-+
-+	if (shared->mdi_resister_type == MDI_0R)
-+		shared->r50_cal_tbl = an7583_zcal_to_r50ohm_0R;
-+	if (shared->mdi_resister_type == MDI_5R)
-+		shared->r50_cal_tbl = an7583_zcal_to_r50ohm_5R;
-+	shared->tx_amp_compensation_tbl = &an7583_tx_amp_compensation_tbl;
-+
-+	return 0;
-+}
-+
- static int an7583_phy_config_init(struct phy_device *phydev)
- {
-+	struct airoha_socphy_shared *shared = phy_package_get_priv(phydev);
-+	u8 phy_offset;
-+	int ret;
-+
- 	/* BMCR_PDOWN is enabled by default */
--	return phy_clear_bits(phydev, MII_BMCR, BMCR_PDOWN);
-+	phy_clear_bits(phydev, MII_BMCR, BMCR_PDOWN);
-+
-+	phy_offset = phy_package_offset(phydev);
-+
-+	if (phy_package_init_once(phydev)) {
-+		ret = an7583_phy_package_config_init_once(phydev);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = airoha_phy_calib(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = airoha_phy_auto_select_transformer(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = airoha_phy_tx_amp_compensation(phydev);
-+	if (ret)
-+		return ret;
-+
-+	/* Enable Idle Mode Power Setting */
-+	if (phy_offset == 0) {
-+		phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x268, 0x07F1);
-+		phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x703, 0x3111);
-+		phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x271, 0x3C24);
-+		phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x701, 0x1023);
-+	}
-+
-+	if (shared->transformer_type[phy_offset] == TXMR) {
-+		phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x23, 0x0881);
-+		phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x24, 0x0881);
-+		phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x25, 0x0881);
-+		phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x26, 0x0881);
-+
-+		if (shared->mdi_resister_type == MDI_5R)
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x05, 0x0205);
-+		else
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x05, 0x0200);
-+	} else {
-+		if (shared->mdi_resister_type == MDI_5R) {
-+			/* RX setting for 5R_TXMR before AN setting */
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xe7, 0x6666);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xe9, 0x0003);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xfe, 0x0006);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xe6, 0x1111);
-+			/* 100M sharp */
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x23, 0x0c86);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x24, 0x0c86);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x25, 0x0c86);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x26, 0x0c86);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x01, 0x01cb);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x02, 0x01c2);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x03, 0x0108);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x04, 0x0211);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x05, 0x0205);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x06, 0x0387);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x07, 0x03ce);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x08, 0x03c8);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0b, 0x0005);
-+		} else {
-+			/* 100M sharp */
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x23, 0x0886);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x24, 0x0886);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x25, 0x0886);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x26, 0x0886);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x00, 0x0195);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x01, 0x01cb);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x02, 0x01c2);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x03, 0x0108);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x04, 0x0211);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x05, 0x0205);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x06, 0x0387);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x07, 0x03ce);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x08, 0x03c3);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0a, 0x0010);
-+			phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0b, 0x0005);
-+		}
-+	}
-+
-+	/* RX Setting */
-+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x3c, 0xc000);
-+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x3d, 0x0000);
-+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x3e, 0xc000);
-+
-+	/* EEE setting */
-+	phy_write_mmd(phydev, MDIO_MMD_AN, 0x3c, 0x0000);
-+
-+	/* 10M settings */
-+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x1a3, 0x00d2);
-+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x1a4, 0x010e);
-+	phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x27b, 0x1177);
-+	phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x27c, 0x0808);
-+
-+	phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_3, 0x14, 0x190);
-+	phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_1, 0x14, 0x3a18);
-+
-+	phy_write(phydev, 0x9, 0x0600);
-+
-+	/* EEE keep only Pair A ON */
-+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x630, 0x006E);
-+
-+	return 0;
- }
- 
- static struct phy_driver mtk_socphy_driver[] = {
-@@ -1671,6 +1895,8 @@ static struct phy_driver mtk_socphy_driver[] = {
- 		.led_hw_control_set = mt798x_phy_led_hw_control_set,
- 		.led_hw_control_get = mt798x_phy_led_hw_control_get,
- 		.led_polarity_set = an7581_phy_led_polarity_set,
-+		.read_page	= mtk_phy_read_page,
-+		.write_page	= mtk_phy_write_page,
- 	},
- };
- 
-diff --git a/drivers/net/phy/mediatek/mtk.h b/drivers/net/phy/mediatek/mtk.h
-index bc46646a95fd..608e5e3d754f 100644
---- a/drivers/net/phy/mediatek/mtk.h
-+++ b/drivers/net/phy/mediatek/mtk.h
-@@ -13,6 +13,7 @@
- 
- #define MTK_EXT_PAGE_ACCESS			0x1f
- #define MTK_PHY_PAGE_EXTENDED_1			0x0001
-+#define MTK_PHY_PAGE_EXTENDED_3			0x0003
- #define MTK_PHY_PAGE_STANDARD			0x0000
- #define MTK_PHY_PAGE_EXTENDED_52B5		0x52b5
- 
+I followed the naming pattern of mtk by calling the new source
+airoha-ge-soc and related config.
+
+The calibration use lots of static table and software calibration
+at runtime instead of using efuse to calibrate.
+
+There is one pecularity where some register and calibration needs
+to be done on port0 first and then with the related port.
+
+This is O.K. as port0 presence is mandatory for the functionality
+of the integrated switch and it's assumed to be always present
+on the MDIO bus.
+
+MAINTAINERS is updated to reflect the changed code.
+
+(this was tested from a long time and also verified by Airoha for
+correct order of calibration)
+
+Changes v5:
+- Add review tag
+- Add additional helper for phy package
+- Use __phy_package helper instead of phydev_p0
+- Better use lock and unlock for phy package
+- Configure base address for the phy package
+
+Changes v4:
+- Fix typo in Kconfig
+- Prevent out-of-bounds for zcal_ctrl
+- Protect concurrent rext_sw_calib_done
+- Validate port 0 presence for calibration
+- Correctly set shared local variable
+- Use phy_package_init_once for shared tables
+- Better handle early exit restore
+- Better handle phy_select_page
+
+Changes v3:
+- Address comments from sashiko bot
+- Apply review and suggested changes from Airoha
+- Rebase on top of net-next
+
+Changes v2:
+- Split header register patch from cal_cycle part
+- Fix missing EXPORT_SYMBOL_GPL
+
+Christian Marangi (6):
+  net: phy: mediatek: export __mtk_tr_write
+  net: phy: mediatek: move MTK GE SoC registers define to dedicated
+    header
+  net: phy: add additional helper for PHY package
+  net: phy: mediatek: split Airoha code to dedicated source
+  net: phy: mediatek: add calibration logic for AN7581
+  net: phy: mediatek: add calibration logic for AN7583
+
+ MAINTAINERS                              |    9 +
+ drivers/net/phy/mediatek/Kconfig         |   18 +-
+ drivers/net/phy/mediatek/Makefile        |    1 +
+ drivers/net/phy/mediatek/airoha-ge-soc.c | 1917 ++++++++++++++++++++++
+ drivers/net/phy/mediatek/mtk-ge-soc.c    |  521 +-----
+ drivers/net/phy/mediatek/mtk-ge-soc.h    |  374 +++++
+ drivers/net/phy/mediatek/mtk-phy-lib.c   |   77 +-
+ drivers/net/phy/mediatek/mtk.h           |   15 +
+ drivers/net/phy/phy_package.c            |   57 +
+ drivers/net/phy/phylib.h                 |   73 +
+ 10 files changed, 2537 insertions(+), 525 deletions(-)
+ create mode 100644 drivers/net/phy/mediatek/airoha-ge-soc.c
+ create mode 100644 drivers/net/phy/mediatek/mtk-ge-soc.h
+
 -- 
 2.55.0
 
