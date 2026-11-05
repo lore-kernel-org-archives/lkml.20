@@ -1,92 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891092;
-	b=W3gqDcK65NZ9Xmnj2eqrG8emlrxVbIsSe2HNbNEpUM/V5LCG6NZTHbr+oYsiu6sK/Bzd
-	 Gqq/fzri2YWRn84CUt7NssSWTWUhkBWwmW+tst4EBWgSg1XIdpP/ZrughA61pVPiHuAfp
-	 722ObY49aYLqRjgB08QFzmR0aX8VT15l8K9JSglng9woqQDu3xOoIei+exKQLLwzfd+N/
-	 qrfdC8DsJz3yAdpMTEzn+Gsqn6veElaKry2HgnO27kOzCQhxJrWEKfn+ff84n1s5hC0so
-	 cHsT1iI/retIcI/xS7QFRwStr7QJK9npbQOGwdWtwXi0wp2LW7UNLcOJ08ZVCl2OXoA==
+	t=1793891104;
+	b=HBtPVV9jHE6Zjt2TVix6atXCHxIUonHEQBZjMs/8MxIys/Fc/JSltE2vrOPcPz7JwoaR
+	 ci1UgPKLze9Xo5jhzvc9jIcPxfkyNVaxLFyUhUymWWslrUwfz3FAMpZFTR82+3IIb3Jt8
+	 vC2iUO9zDQkzx4NwBIuLbKTNdFE/6NUxo768ComsUHjr6RORBpeisePSRCDEAL1SoN5wo
+	 Ynu/MCf/qOdHqwGxyQX8tPNscXsqBFu8P3Kc1kldU88/Oku0JCYPuRoEqFaIRP0LXiNyE
+	 +kEfk7AfGOeuQSYFtPscN9M5cEwZGJB2KR+F3zgyXzmtEqdl7R2gxL8XTyDCAHKSM+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891092;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bfpdbUUIX16VN5mCBIU3OZ+av/8U5ZQPuLtnxoG4U/M=;
-	b=a8RFiqalf+LChTutfbV7BfZy8GMkYTdjS0lH2YyoYHnfkbha5s1ziikiXkUcFn4vexNo
-	 m8QeYpRJOT0HvY/zU2BW5zsjs6WDy4KB9nnsHCUq3KKyaOGX6mj/EpBEhwEqS8lI53FZl
-	 rmVD5S4xnoF6e43RhntUK9F3oe9BF1okzNg+RWmkebmrGtyA2WNP9RpdccHGM0UBxdgzI
-	 D3THGXEhmnSyzSgHQ19AL7rypEjxCltli5QmWGUk3H8fhtATWH0BkXRrWOWD6RUQBcc9i
-	 pc7q4ijRPJe7ki31el7xaGqMMTqMuFQyw+M+/xITKCop4HKhcQJBUc6cuCzz4uKXU+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891104;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=IDZiEDQ2fJcCZR1mPomOrN1HJzC+gocV2xQLf/Xmqno=;
+	b=ZINlSprPFoPW+BlDy2gFoGryyK4tbnD/wIiX0Vn3q/R2pUJzM8/bpl1AQiNzaDeltiFT
+	 k0nAo6OP5EM42uWZyUrUPR2WsKfuBgb41WJROA/2nFkAy7bFp5myirJ7pmgNasTOdZkj0
+	 SQl3vxyNejgwG/4Q1CYbjOvf7oW7lSLkcNeU5v75c2/xvXBmFG35QBHEygew0C3t02ZLr
+	 cjMh/cPmWQgL4+DpJPweZTd7h8onnPQ81GICQSytR5ckJ+PBa4jecZwCQQ1bJQbumMV/y
+	 qIM/zqoNkElm5wyI50mJyUEPDapE30oxzTDBOHQQowNLmoEE1HYtrOUg3KxLj4NNAdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bzFOeGay;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOw8A1j;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4410606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:04:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4410606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A96606A31B;
+	Thu,  5 Nov 2026 15:05:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bzFOeGay
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3297411eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:04:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793891091; x=1794495891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bfpdbUUIX16VN5mCBIU3OZ+av/8U5ZQPuLtnxoG4U/M=;
-        b=bzFOeGayjr/M5InmbjnG+mZzsQJNJyGjTjP8LVB8WONzHZ7oSs8qa0N9nw2STWV8bi
-         0yCpaqQA1Kr363JXv1yq++tKnGLSMxNrzMyCdn9zWauPDQHW4/1nDqrMFhEDNaDYWgtC
-         gClU0IA/e8md0gpkNY62b+BeH2ZOH7xEIX+c2PC6cRif+rdndbxt5zC43niNl0WWEjLs
-         lxq7dKIJBSFtulQKRfKN82gMNktOjMsfhbze4OdtyKgSNDM+2duIwoOPPDxEYlK2Us5o
-         Gc2tEf5oF8IJuOR/HqVT+KU/2PCUDPkRmXWRAYrN4EVE/CoS4bBq4xQ6LXl5wsFVxFsy
-         JPzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891091; x=1794495891;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bfpdbUUIX16VN5mCBIU3OZ+av/8U5ZQPuLtnxoG4U/M=;
-        b=Tuvxt262Dm2qpnR/fBNg4HJCwn58KXVeAH4D3LWUQj+0abJFzfRp5ht17hEbeLvGBx
-         9qw5HerlmPEawGtTSeqSp5PW6zPkm7ZUgjpNH40CVaPPpCfzhy7jOXIKbhZuyBvNac3i
-         qjT0POwn9MifES+/O2z3E+6T5t8HVCQTyyoyIsgCTZmZo1XZ44dHZF1qnwkChSVThRkv
-         H+OCLmwKEvDEt8/s4Z6rmvnzgGe3dUJZgoLLEFOef7LAuWSrin0Q7V7UsOtYNzENDXn7
-         9r2Ign511+BobQoB3j6ncVCY9/TGqBP7qXdON4QPThVPjGdDtdidOud272/9dU6D70vx
-         Tuyw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/ZBRFfSCUJAk+WZxd6P0zWq6c+yoa008k+i+mXe8LbDAT0B5GOkkAvL7ZLeU67qbP7noqxqiDtHBPIs4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sx7B3+PgyLCvhJH7ME5/+e3V9Qyw6Hkh+BYDM5EiTq+XKEbOL
-	p72hJDdqmmw/HINAAt9Hd+5oIxy7hP39ZqeHCxwLoRlqn+Tw7U0Lk9OC
-X-Gm-Gg: AYBFou1HKyi2WerStzsRdn/daw/dOvACqTnZBXaaWXYCRGa4ygukEn+zB0So6U3dZ/h
-	jWiaWA4VmETjOu3NwnaM4WChyazBkTOYUd8RbZxIDsFcY147h6BVdNArXUQ+cothnl/fmH+HcIs
-	QtiuSREf/3oCv2s7N8WKZwV8mDbl+5nFV399FSWH5rSd7NpRTXeJZDQJQ/+XJ7qKorexTGp9Ig4
-	uUuNVQPS01zheDAkrGswU7kBcgkfMU97d/D3OMWviOeGugVJ86kRA37Q1QQRh/zDbnLRAb53J67
-	P4Op39D1ydaaIeuq6eJEH4XCfVDJXiyhmqN/QSGXpM+BYL1Tvr4SDHf/zylBoMVauKE/E9ol52J
-	4KS91DIvq/sDmx409lXwu9dC9E0Hlulhd6iFCnB6E0qOaaZChrBfqUSk9Z2xqrilqzdsDBFnCRH
-	kh12PiVy3+cvKKBgVTuiiFTlbvkfAXA/XxiiPWcIeIU3Y8GQLruXSLHXIeUXz0hCgbvdAttfaxZ
-	80QZ3VdymyrT7ZPWmcKo6mGdL5YRZAQImYN1YPw/QysRDKgeaBfnSM87jK05+zq+zGduDZA/SA1
-	SwIMmpx0UPKwYZVlyLYy45DaGNWJ1k+EzbCwQsGWVQXIkY8q35oZsA==
-X-Received: by 2002:a05:693c:4145:20b0:36f:551:2bd5 with SMTP id 5a478bee46e88-36f05512dbfmr772632eec.32.1793891090524;
-        Thu, 05 Nov 2026 07:04:50 -0800 (PST)
-Received: from Anonymous.localdomain ([223.181.63.167])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36d34d5960esm18325064eec.5.2026.11.05.07.04.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:04:49 -0800 (PST)
-From: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
-To: outreachy@lists.linux.dev
-Cc: johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hussain Sitamouwala <husainsitamuwala21@gmail.com>
-Subject: [PATCH] wifi: mac80211: remove unused drv_offchannel_tx_cancel_wait tracepoint
-Date: Thu,  5 Nov 2026 15:04:33 +0000
-Message-ID: <20261105150433.10816-1-husainsitamuwala21@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrOw8A1j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA91E1F000C1;
+	Thu,  5 Nov 2026 15:05:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793891103;
+	bh=IDZiEDQ2fJcCZR1mPomOrN1HJzC+gocV2xQLf/Xmqno=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HrOw8A1jlUuhJDo1BiAbNQGXgo0JMDDcCaPKHctvyeHpkOGNMXXK9/65YyKmpklzH
+	 rlN5wpQjCoPa3I+ssp3r4upL0cZMHwUddWnS+er5KF4ShJtKSv9Kxe6YZf3mMwZZk3
+	 SAvN2djBmxXJM/XX59Q/5PMOX4NA/rclcaRZTHsB94oMDA9H2FUvtVycQHZv4ravfX
+	 pTPN7wyffQwgwU7ShR+nKJNKSvSQSozsE59O/DR2/496o73Wv2MkC9P0Nz5b06UeBZ
+	 hkcjkn1ly8s5Yerske8dk0Ck2Sdd7endvSjESEOiAwolQU3ipl9m0CjobIs3Cyi+9U
+	 SfdfwyVMM80WA==
+Date: Thu, 5 Nov 2026 16:04:58 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: kernel test robot <yi1.lai@intel.com>, 
+	Breno Leitao <leitao@debian.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org, 
+	Mateusz Guzik <mjguzik@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-fsdevel@vger.kernel.org
+Subject: Re: [linus:master] [fs/pipe]  f7f4665dc5:
+ lmbench3.PIPE.bandwidth.MB/sec 18.5% regression
+Message-ID: <20261105-trommeln-einspannen-radius-ccb4e174e407@brauner>
+References: <202611041404.befe64cd-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,37 +59,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <202611041404.befe64cd-lkp@intel.com>
 
-The drv_offchannel_tx_cancel_wait tracepoint is defined but never
-used. Its only call site was in drv_offchannel_tx_cancel_wait() in
-driver-ops.h, which was removed by commit b4ca6084a84d ("mac80211:
-remove offchannel_tx API"). That commit left the trace event
-definition behind.
+On Thu, Nov 05, 2026 at 08:38:45AM +0800, kernel test robot wrote:
+> 
+> 
+> Hello,
+> 
+> kernel test robot noticed a 18.5% regression of lmbench3.PIPE.bandwidth.MB/sec on:
+> 
+> 
+> commit: f7f4665dc520fd8bbc1db20e59945773e03744a0 ("fs/pipe: unify the page pools into a single per-pipe pool") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
 
-Remove the unused tracepoint. It was found with "make UT=1".
+@Breno can you reproduce this?
+It's something we should at least investigate.
 
-Signed-off-by: Hussain Sitamouwala <husainsitamuwala21@gmail.com>
----
- net/mac80211/trace.h | 5 -----
- 1 file changed, 5 deletions(-)
+> 
+> testcase: lmbench3
+> config: x86_64-rhel-9.4
+> compiler: gcc-14
+> test machine: 224 threads 2 sockets Intel(R) Xeon(R) (Sapphire Rapids) with 128G memory
+> parameters:
+> 
+> 	test_memory_size: 50%
+> 	nr_threads: 20%
+> 	mode: development
+> 	test: PIPE
+> 	cpufreq_governor: performance
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <yi1.lai@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202611041404.befe64cd-lkp@intel.com
+> 
+> Details are as below:
+> -------------------------------------------------------------------------------------------------->
+> 
+> The kernel config and materials to reproduce are available at:
+> https://download.01.org/0day-ci/archive/20261104/202611041404.befe64cd-lkp@intel.com
+> 
+> =========================================================================================
+> compiler/cpufreq_governor/kconfig/mode/nr_threads/rootfs/tbox_group/test/test_memory_size/testcase:
+>   gcc-14/performance/x86_64-rhel-9.4/development/20%/debian-13-x86_64-20250902.cgz/lkp-spr-2sp2/PIPE/50%/lmbench3
+> 
+> commit: 
+>   c610d2d078 ("fs: annotate inode timestamp accessors")
+>   f7f4665dc5 ("fs/pipe: unify the page pools into a single per-pipe pool")
+> 
+> c610d2d0787961cd f7f4665dc520fd8bbc1db20e599
+> ---------------- --------------------------- 
+>          %stddev     %change         %stddev
+>              \          |                \  
+>      29142 ±  2%     -18.5%      23737        lmbench3.PIPE.bandwidth.MB/sec
+>     191.80 ±  8%     +54.1%     295.65 ±  5%  lmbench3.time.elapsed_time
+>     191.80 ±  8%     +54.1%     295.65 ±  5%  lmbench3.time.elapsed_time.max
+>      23261 ± 16%     +19.3%      27743 ±  5%  lmbench3.time.involuntary_context_switches
+>       9853 ± 16%     +27.9%      12605 ±  5%  lmbench3.time.system_time
+>      51.80 ±  2%     +11.6%      57.80 ±  3%  lmbench3.time.user_time
+>  2.928e+08 ±  3%     +26.6%  3.706e+08 ±  4%  lmbench3.time.voluntary_context_switches
+> 
+> 
+> Disclaimer:
+> Results have been estimated based on internal Intel analysis and are provided
+> for informational purposes only. Any difference in system hardware or software
+> design or configuration may affect actual performance.
+> 
+> 
+> -- 
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+> 
+> 
+> 
 
-diff --git a/net/mac80211/trace.h b/net/mac80211/trace.h
-index ea46c3cca21a..f34d079f3d38 100644
---- a/net/mac80211/trace.h
-+++ b/net/mac80211/trace.h
-@@ -1472,11 +1472,6 @@ DEFINE_EVENT(local_only_evt, drv_tx_frames_pending,
- 	TP_ARGS(local)
- );
- 
--DEFINE_EVENT(local_only_evt, drv_offchannel_tx_cancel_wait,
--	TP_PROTO(struct ieee80211_local *local),
--	TP_ARGS(local)
--);
--
- TRACE_EVENT(drv_set_bitrate_mask,
- 	TP_PROTO(struct ieee80211_local *local,
- 		 struct ieee80211_sub_if_data *sdata,
 -- 
-2.53.0
-
