@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840477;
-	b=dN6sFSOxS7enJus86dBQGHiQHr/J18p+6xLISbkKQYjsyltgP47nsvI8XN4xCUXzgDAZ
-	 nuFberrekJLEcbNTOYrm7dIxo4Z2XuBYdfWjGsIKmZdLW+BZ0S9jV9ll68j/PSjMCRRVz
-	 JG2dvR1VkYI9PH9XFMy+gju+junUBFhFZBvGqLV0RQHnWyDTAOKr3qg4aQzltU2P2IpgA
-	 dYp9ftk9UEJH6MpIa7jru17y8O1eHZiSisY7FRZS4QfGOzFH2g2MUUwOqh4bfiBOCvIFR
-	 l+wN7kuyV33U65nlo74fRwHp4wqgVVDJzDbpYeiYSrdnZmXKuQuwuHYYN8YooV/gVAg==
+	t=1793840469;
+	b=JBXp1GHz2OqPdw5xrKh+H8rO38iRPpzsmNUzDY2LC0licS7usodSICuLo+WsodkSynVc
+	 pIYBqiYKUyM7K6r+v+my0JqPyV4Th2YeDj7dKJaMFfsov0iasAAW4PMNTkPD928BfwneQ
+	 DQ9DaUJ2mVqjES7TztPR8Xytdkv/mTdKih7xjIstV2vxtWzNlfRI3Hbp8DrWiFDh+xZMJ
+	 vjcsfTXf0B31yLaMsC07djIxG5AGu68ALfpkOAEL1QU9XQQ9oxbsWb/1W59xbTlRSMmYK
+	 QdF2I3Xl1RbRsHbIO4PU4SHadk3XhETlSpCHqu5vXcrGFjd9XnxR+yBqh/3GsfYBODw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840477;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840469;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=SYtilPzqPXCnIDuAgNHfH0KQUIcCbca4y5FMXD8c9rs=;
-	b=5WFsHR2P91zYW1b/NxDp4Em2dhNyXcb0v5SgRNCItP/1nwMmatzSIbVU5VrNUHZPui4m
-	 ZuelfGg/deRpW9/LiMrmr3J+0XIJgkRYUn5BO3jWSuAlA2k1eyB68R344q44WjGJ5Ecfp
-	 mWraHdipJNePZvrR0S4AjnUScnfT/xbP8oM6M0T4ERXRXWpkF+gxtTSyO5CmHNK4anjgp
-	 JC+ihZ+98c5/kd70gnVFq8xWDkEFiHoHg1qQxAiXYvoOCs1JfGw0178YGCO4+35NXbSwm
-	 1NYZQDsEhJQ5CatRPUNLIka8UfQE//ixMxLZ0Z7EPwd9lrK5UqVAoNa7zcFrwjChp8Q==
+	bh=RAFb17GsP189MX2Ow85b5LOdXAlkTMYun3I6ex+1Do4=;
+	b=pXaxOIxrxDHyljCcC1mEo7NXaJSxQdj1tVWm/ui7R14oqzrFlADs47oLe1cDohzqSqki
+	 dT1M2rvGqm4WMyyTBJVpAe76hEn2UqDHViYyBBYYaKRPg/cfO6POHfZCQDNV07/YU62TZ
+	 dnMKc1BYUlzHFtG94jYv9PeoGPv1KP7UeFCMIdjvqeJB/G9XwfyzNf3pKRVybg5I2OyCO
+	 T9sgLqR8hHvRveOoRFoWrxxt1diL1zGNwiOluwateWUi7U82mi8xXejNtX3JlcPdqBUhQ
+	 WUtZdaKxWqqIzweMxnpS9LOzUCapGkngj0R32RsZX48PCP/NFhfhNS0mQj+uDVotp7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KUfR5Obr;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=hRjvfwyU;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57AA606EEBF;
-	Thu,  5 Nov 2026 01:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57AA606EEBF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38042606A331;
+	Thu,  5 Nov 2026 01:01:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38042606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KUfR5Obr
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=hRjvfwyU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840475;
-	bh=t4xm3scI4l7rWR2iBzxLstmE0RTUxpACdTblDz3oXNQ=;
+	s=mail; t=1793840467;
+	bh=yymjG31JJ8kOjRl1351lsr7olGfy6eylum5Lxqg7q60=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=KUfR5ObrP8jFka/2UPUUWjo5o+FDtK93b3osH2OAYgNva3uJp9kGslkH1OJPda5Zf
-	 15X8CZOFNP1JNd9dCYuNZEnWFFVWRV3JrpqciB3HKcITk1exygNn1GPePk2JiLZIqy
-	 6LiQEhNSQKDr4q5w8frc2zPmaLmytXKMtIYys4O7CaqzfsjbFZfi+PKeGal9ZXjTR8
-	 2aOHtllwVzPI6ymja4nt2se6eWSmqQrg96a6lqDvy0zSfwfzPdLW84D9dTz2l55iyb
-	 As6jY4tda6vDPVLhwlAfVOQybrhbMNzJC/cveKrTF6i433O+G7wby2GR2vUOTHaOmq
-	 KvkFfAhG1aXCw==
+	b=hRjvfwyUbLrW2/ZfhRdkq7GHO52ZCtSK4NsReeaO9XxGz7qjtqQWU3LrljiVWpVdP
+	 OkjumEiharb2y8xmoVuyLTwdsEWcNVWV27hDIM2h/tRrxursFhwjOc5hRGJUvZUMnt
+	 5QScjVVmIVOM1ldltR7e6GRXAVaFpK+JluK+0InSGDA+Gaqbnzv46sH+7Lvoa6xHmc
+	 mnXu+Hw5x8p3D2RfopAAk2N9MXMRkk/v7ZMpvQGDS1rFf6W6J7n7kp6/vH39alFOHp
+	 qq9P15ZduoWj2uwB2XIriBIcPIqSnZsNpKUY44w2875NvK85LxF9417PWOROfQ4Ai3
+	 wWXB7rk+Eu/xg==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 038DD17E0CE8;
-	Thu, 05 Nov 2026 02:01:15 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 72DA117E0CF7;
+	Thu, 05 Nov 2026 02:01:07 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:46 +0200
-Subject: [PATCH v6 12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code
- in atomic_check()
+Date: Thu, 05 Nov 2026 03:00:36 +0200
+Subject: [PATCH v6 02/15] drm/rockchip: vop2: Fix resource leak on
+ vop2_enable() error path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-12-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-2-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -88,44 +88,120 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-dw_hdmi_qp_rockchip_get_vop_format() calls
-drm_atomic_get_bridge_state(), which takes the bridge private object
-lock through the atomic state's ww acquire context and may therefore
-fail with -EDEADLK when the lock is contended.
+vop2_enable() returns void, so callers cannot tell whether powering up
+the VOP2 succeeded.
 
-The DRM core expects -EDEADLK to be propagated up from atomic_check()
-so it can drop all held locks and restart the commit.  Replacing it
-with a hardcoded -EINVAL defeats this backoff mechanism, making
-otherwise valid commits fail spuriously when multiple threads perform
-atomic commits concurrently.
+Additionally, if rockchip_drm_dma_attach_device() fails, vop2_enable()
+returns without disabling the core clocks or dropping the runtime PM
+reference taken earlier, leaking both.
 
-Propagate the error code returned by the helper instead of
-unnecessarily overriding it.
+Make vop2_enable() return int and unwind all resources on every failure
+path.  As disabling the core clocks is also needed in vop2_disable(),
+factor it out into a local helper used by both.
 
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260902230603.AF5C61F000E9@smtp.kernel.org/
-Fixes: a18aa0dd7a0b ("drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property")
+Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Tested-by: Igor Paunovic <royalnet026@gmail.com>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 39 +++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index f2a1ea8dfefa..db1933d75ced 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -203,7 +203,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index bfb384142568..e0caea93a896 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -860,6 +860,13 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
+ 	return ret;
+ }
  
- 	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
- 	if (ingest_fmt < 0)
--		return -EINVAL;
-+		return ingest_fmt;
++static void vop2_core_clks_disable_unprepare(struct vop2 *vop2)
++{
++	clk_disable_unprepare(vop2->pclk);
++	clk_disable_unprepare(vop2->aclk);
++	clk_disable_unprepare(vop2->hclk);
++}
++
+ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ {
+ 	u32 pd;
+@@ -871,7 +878,7 @@ static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+ 	vop2_writel(vop2, RK3588_SYS_PD_CTRL, pd);
+ }
  
- 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
- 	    s->output_bpc == conn_state->hdmi.output_bpc &&
+-static void vop2_enable(struct vop2 *vop2)
++static int vop2_enable(struct vop2 *vop2)
+ {
+ 	int ret;
+ 	u32 version;
+@@ -879,25 +886,24 @@ static void vop2_enable(struct vop2 *vop2)
+ 	ret = pm_runtime_resume_and_get(vop2->dev);
+ 	if (ret < 0) {
+ 		drm_err(vop2->drm, "failed to get pm runtime: %d\n", ret);
+-		return;
++		return ret;
+ 	}
+ 
+ 	ret = vop2_core_clks_prepare_enable(vop2);
+-	if (ret) {
+-		pm_runtime_put_sync(vop2->dev);
+-		return;
+-	}
++	if (ret)
++		goto err_put_pm;
+ 
+ 	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
+ 	if (ret) {
+-		drm_err(vop2->drm, "failed to attach dma mapping, %d\n", ret);
+-		return;
++		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
++		goto err_disable_clks;
+ 	}
+ 
+ 	version = vop2_readl(vop2, RK3568_VERSION_INFO);
+ 	if (version != vop2->version) {
+ 		drm_err(vop2->drm, "Hardware version(0x%08x) mismatch\n", version);
+-		return;
++		ret = -EINVAL;
++		goto err_detach_dma;
+ 	}
+ 
+ 	/*
+@@ -932,6 +938,17 @@ static void vop2_enable(struct vop2 *vop2)
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
+ 	vop2_writel(vop2, RK3568_SYS1_INT_EN,
+ 		    VOP2_INT_BUS_ERRPR << 16 | VOP2_INT_BUS_ERRPR);
++
++	return 0;
++
++err_detach_dma:
++	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
++err_disable_clks:
++	vop2_core_clks_disable_unprepare(vop2);
++err_put_pm:
++	pm_runtime_put_sync(vop2->dev);
++
++	return ret;
+ }
+ 
+ static void vop2_disable(struct vop2 *vop2)
+@@ -942,9 +959,7 @@ static void vop2_disable(struct vop2 *vop2)
+ 
+ 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+ 
+-	clk_disable_unprepare(vop2->pclk);
+-	clk_disable_unprepare(vop2->aclk);
+-	clk_disable_unprepare(vop2->hclk);
++	vop2_core_clks_disable_unprepare(vop2);
+ }
+ 
+ static bool vop2_vp_dsp_lut_is_enabled(struct vop2_video_port *vp)
 
 -- 
 2.55.0
