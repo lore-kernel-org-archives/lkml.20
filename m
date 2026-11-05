@@ -1,73 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876850;
-	b=VeShkZZNGJFQ9A5z/6h+N8p7G7OyYuI/a0ouCC8Z+xbmOnrCnq6mOM6DdGBAGI5ug2vV
-	 UVOz0xbS6VHgSQWWjOjzX0rY5oHdcWGOf9Ey0JBFb1+U08no7GRCL8u8llEMaTQ3HoBiR
-	 KPgn1BZNheHFXBecPjz+eN9m84KnujMIKdwoLF2jmTqT6qItQkA4/Q6Of5aopMu3QxWNH
-	 Bfrr0tUGsCkLl2plDwbAJXHVlKTmcIhXt34tnWi08B5zXxyAhEQF+eQIZkzZWfYZX21TK
-	 M027UGEH4LD+VNaDGVCz6X3ZtylIiWuJrpJQKBFHscZ6DlpUgs0S2nHQGCBXFK1fM/A==
+	t=1793876860;
+	b=YL0YhHFgECb+0lJrwSTlO837fvyVXnOF0vGkEHP1dt/Rc3fsgAWuoQvfw5lMTTh9MD4H
+	 VRxEbJkHawRfr8wu0HlOJnglIzy2Rkh8Ai4GqKzZt8+lTZgRA9Ud510w1TubIHKddETTz
+	 uPcXOBNVg9v+1zGI1TK+ZY93/TV+YuRagk6kVFoNeytM7RwxvVkchrSG5BxOw9MXaT837
+	 bH8gpQhYyNQlx4RLRIogjsjYZSb6JHC8e9Sc6iF+2fZ9Ga54NCvjLJPczKfgu4vasVKxS
+	 BgsUeoRXhxSqBQ8OpZJhvkl7q5rZLrEeU02tpmk5KEO0DDpmooiKHNi0RGOBp3NgMKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876850;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=qRtaoYPpcX5o8ocOiQoryhWt/gszvTTnQicjOjV3lUQ=;
-	b=vlqiAzrijx7wb95TZhTjqaCSQyMfBNXKZnm0+ZF2NF3COjTgDcx7n1FF0MWNJBaqEMrQ
-	 bFaK29MF/tyx4a6piCulPigq4b6g2fUgBqaaV1rN4oGx5CRbvEdo91+RMFWQEAskId80n
-	 gAN1QoKDrNJ0i4c6nUMatISLpRfD+VPBP7iSUXgR/hW6KTq69mU7mSidBpVht5Wlvnyhb
-	 Vi7eZ29t3MIDgk05JNNU9Em9ECVRPRHNTMPCBOYBUBw/Ombt3eq+TZRPPXTTlP1c+1hAX
-	 3/BihoRUezSC/csFdlKJ4dEqfvlTJP5641BAhLs6v3zNMigsLVoxVeVrpdzQoWnR7Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876860;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
+	b=BkPaXRcxDM7a3f/ai8oIVqBFmpZH+LNoJgjeanU0BYHP/FbGNtjrMiDylgmF0D5sgFOh
+	 EIWSIfFumGVqiUpoKnwVZJixhwHkVTnEjHRCoJOzbJogdxCbmuaB7j6sh91zUZqsnzuvM
+	 RnwDY29x0EJ9cLEIyNvUwwflz7a0QMwSKe0/iQo2mcvCZFgc2aH/9P/iMO/2XVe0OX3A2
+	 4XUW2ieb3zlYoRJgvXOagoC6Mqvv3B/gR2o4bPzqkZYaYN4TKwuzf+1YYnfkkR+BW9SI9
+	 ksJV1U9KtEa8l5ZWMzJDjDwYCurLkcBYTig3S/XyFhmyF0rzft6Yw5iMNyN9ibJBEwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=nTntgJOm;
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ecay6QKq;
+	arc=none smtp.remote-ip=209.85.161.50
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540FD606A32E;
-	Thu,  5 Nov 2026 11:07:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 540FD606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578AC606EE87
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:07:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 578AC606EE87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=nTntgJOm
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 28EA2149663A;
-	Thu, 05 Nov 2026 12:07:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793876876; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=qRtaoYPpcX5o8ocOiQoryhWt/gszvTTnQicjOjV3lUQ=;
-	b=nTntgJOmzLYFgNzZqxAbXwj8lHmVfGLo/srQUR5R2M7DBtetxIhUuJlWAv7Drim+XT8SKN
-	g/eaHz55UmE638wyUv8blGt1ywQMgDbSTjMoKKi69014v+LUzkcxe9EXFfZ5IgKOaNbVPc
-	rT3UuRPqyaQFaeTSNHTYIxCVs3Tc1yfhuwwHQxjj+nVV20xS7NORe9ePzkjrC+SZYvngZj
-	pyX0+v9onfKrIdtZcydUBirAerZpZ3RWRwbibkCSAySeG5pA+cVLNc0q2rKTOUidRtXfyE
-	4qcVGrISXBTZXOyVJskOblpoBdHO2GKAkxdne2ROSc9IVel/h+1yGBxPcFTNDA==
-From: Alexander Dahl <ada@thorsis.com>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ecay6QKq
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-716da696c1aso228470eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:07:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793876859; x=1794481659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
+        b=Ecay6QKqhC6kn7BuWoVPzwDa/Eckq99O7ro3UbYoxGCM6JrjmZh1sue+JID8GmV9mP
+         /neJ6klECd5nqtefqWVE6DQIwbnDKKI1BQapmlzgEOZ7i0Dfn1OVesrQW28eW9l7Lz9p
+         8B4e//IMa9OsNdf82XOECh8rDMyLi9+Hx6bEWeRdHigY/6J3g6q6xdp3M7RRKkbgw+5i
+         wJH5yt9ZBBr3xmPwILd+0KWAmBALLz/AeLPrrKBCvcJzWlRlz2gWDtk5IuzOOyzuM+S4
+         yKHIrvVpI0//PEFMiDXQ9Vn63rwREWvrRbUU3cTyL39ET8mghl9DmUrdNTQGUlWQYcTF
+         qFvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793876859; x=1794481659;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
+        b=aeWArIzx/8rX2INMysmpIA3GuCyKDKujPvxwP57eR6Y0XrjwgK1D75vxrgxlJSswTs
+         XfzmqV/WHtz7RIybhpZfB2vJPDtLezVd5fW9v0b1GidLNkdbnJnG3fcWBOKcxAXL8QxP
+         YB2I4gCUsOCU+nmRiqRcim+9XN83AqgL0W0PoRbmVPj+YE406LDRikj2VTQvtjscT7OS
+         aN8je7mhipB8YeAs3ZjYPrRU72lZwWJzXUwNRz7uRKuLLTCVFmheZ7nmcLaxeDSUnmZA
+         NJPAgx0kFslAFvhR6UD8MQiMBGsOTapjbaj5Lr+figdLwF2GIIu3Htfe6P1R+P/KNeCF
+         hVFw==
+X-Forwarded-Encrypted: i=1; AKwUvBybdI3mOPhRcdrN8iCsO685Jv3TJYYEWA0gu0kwJfjXTc6PQh6AZ4JRufcguMIEWXpRdDPrl7/6rBou9Ic=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YeKqLNm111vkufQa3UtSal3cB1/JNHKTSbN6kp8sUqN9fan0W
+	5gSLiJ5dxozAxFCN1Jmhx3smn6ZqITJWj3vol91lX1kJFWgSyHN8IVJ7nYA/a1TXxDQ=
+X-Gm-Gg: AYBFou1cPB03clnbsD3Mr6Pv9EbSjAnDbWzolixore5Nw1TvO7SNuqWBxe3E/Cn9ByB
+	hs5HTL300SU5efFO7ehjAPsmr2AuScCvz5hJ/hlGqW+cYVCkFd+E6+RMxyeQ8rEgTMKV3Zif1Ru
+	LxpAuqZ8u2qdc0log6AV8prmnLMB+vvGAtU8ldpu2iAh6fuEqRDw3tXUiyJEVb0bQngogE0z8/Y
+	bzbgvGzcK8i75JWogJvtKisS05a8RxI/G5nG3G4E19fZ7VeMCMmc82sEdRPReGhQxf99Rcjy7Hy
+	131Z+EgmaytqJca4jINtfJ90smP7Fb7j15aCsfT4oGk441I9uD2cNFyCoOwwLlwcb4o9ZDMbkZr
+	FJ6eZiqIiR+5+oD/ZwGrP7spmGfwKZcc3Z/wpLwaSV1tfJ6M4DImMjRH8dCGWkW9XPYmJDzW5G0
+	AVzyvYeI4QeNkIFkgsVyC/A3IcpNJon7tdx9AGQlC9SHlo6jnRhFJRD5zUivLmyTfZiUlqkTpNP
+	5ODsDHstPtb8hg7AQhmrTtNp/K5pGaS5NF6YOg8rqKlFdqR7ev7jH0fCySKMsb036HfqP9CrMEd
+	2lOhTeiXcHdE6s+51UNUjL2COddtYroaj80tafY5W5+moN0k
+X-Received: by 2002:a05:6820:1344:b0:716:b573:bc42 with SMTP id 006d021491bc7-716b573cc2cmr4325326eaf.52.1793876859099;
+        Thu, 05 Nov 2026 03:07:39 -0800 (PST)
+Received: from kiss ([2602:feda:30:ae86:2cf:9dff:feba:f25b])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c134ff86sm3843725eaf.14.2026.11.05.03.07.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 03:07:38 -0800 (PST)
+From: ZhangDM-520 <jixianqiang1540@gmail.com>
+To: Cosmin Tanislav <cosmin.tanislav@analog.com>
+Cc: Julien Massot <julien.massot@collabora.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM)
-Subject: [PATCH v4 02/16] dt-bindings: clock: at91: Split up per SoC partially
-Date: Thu,  5 Nov 2026 12:06:38 +0100
-Message-ID: <20261105110715.2486432-3-ada@thorsis.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
-References: <20261105110715.2486432-1-ada@thorsis.com>
+	ZhangDM-520 <jixianqiang1540@gmail.com>
+Subject: [PATCH] media: i2c: max96717: fix bitfield overflow in pinconf setter
+Date: Thu,  5 Nov 2026 19:07:21 +0800
+Message-ID: <20261105110721.1701499-1-jixianqiang1540@gmail.com>
+X-Mailer: git-send-email 2.56.0.341.gebdc087dc9
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,413 +98,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Before adding even more new indexes creating more holes in the
-clk at91 drivers pmc_data->chws arrays, split this up.
+max96717_conf_pin_config_set_one() inverted the single-bit enable value
+with a bitwise NOT, so disabling a pin passed ~en_val to field_prep().
+For a one-bit field that value is 0xfffffffe or 0xffffffff, which no
+longer fits the mask:
 
-This is a partial split up only for some of the old PMC definitions.
+  field_prep: value too large for the field
 
-Binding splitup was proposed for several reasons:
+The runtime shift masks the high bits, so a plain build is fine. Once
+max96717_get_pin_config_reg() is inlined and both mask and en_val are
+constant folded - which ThinLTO with an AutoFDO profile does - the
+__BF_FIELD_CHECK_MASK() assertion in include/linux/bitfield.h fires and
+the build dies in ld.lld:
 
-1) keep the driver code simple, readable, and efficient
-2) avoid accidental array index duplication
-3) avoid memory waste by creating more and more unused array members.
+  ld.lld: error: call to __compiletime_assert_550 marked
+        "dontcall-error": field_prep: value too large for the field
 
-Old values are kept to not break dts, and to maintain dt ABI.
+Use logical NOT instead. All masks reaching this branch are single-bit
+(GPIO_OUT_DIS, TX_EN, RX_EN, GPIO_OUT, TX_COMP_EN, RES_CFG), so the
+resulting field value is identical at runtime and fits the field at
+compile time.
 
-Link: https://lore.kernel.org/linux-devicetree/20250207-jailbird-circus-bcc04ee90e05@thorsis.com/T/#u
-Signed-off-by: Alexander Dahl <ada@thorsis.com>
+Fixes: ea15bcd94f0f ("media: i2c: maxim-serdes: add MAX96717 driver")
+
+Signed-off-by: ZhangDM-520 <jixianqiang1540@gmail.com>
+
 ---
+ drivers/media/i2c/maxim-serdes/max96717.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Notes:
-    v4:
-    - "re-added" some definitions present in hardware but not used in dt
-    - reword header comment (at91 -> Microchip) for newer SoCs
-    - PMC_UTMI was renamed where appropriate according to datasheets
-    
-    v3:
-    - full splitup for all at91 family SoCs instead of just a few
-    
-    v2:
-    - new patch, not present in v1
+The failure needs a profile-guided or IPO build that folds
+max96717_get_pin_config_reg() into its caller; it was hit by a distro kernel
+built with CONFIG_AUTOFDO_CLANG and ThinLTO.
 
- .../reset/atmel,at91sam9260-reset.yaml        |  3 ++-
- .../bindings/usb/atmel,at91sam9rl-udc.yaml    |  3 ++-
- .../dt-bindings/clock/atmel,at91rm9200-pmc.h  | 16 ++++++++++++
- .../dt-bindings/clock/atmel,at91sam9260-pmc.h | 16 ++++++++++++
- .../dt-bindings/clock/atmel,at91sam9g45-pmc.h | 16 ++++++++++++
- .../dt-bindings/clock/atmel,at91sam9n12-pmc.h | 16 ++++++++++++
- .../dt-bindings/clock/atmel,at91sam9rl-pmc.h  | 16 ++++++++++++
- .../dt-bindings/clock/atmel,at91sam9x5-pmc.h  | 16 ++++++++++++
- include/dt-bindings/clock/atmel,sama5d2-pmc.h | 20 ++++++++++++++
- include/dt-bindings/clock/atmel,sama5d3-pmc.h | 16 ++++++++++++
- include/dt-bindings/clock/atmel,sama5d4-pmc.h | 17 ++++++++++++
- .../dt-bindings/clock/microchip,sam9x60-pmc.h | 15 +++++++++++
- .../dt-bindings/clock/microchip,sam9x7-pmc.h  | 19 ++++++++++++++
- .../clock/microchip,sama7d65-pmc.h            | 26 +++++++++++++++++++
- .../dt-bindings/clock/microchip,sama7g5-pmc.h | 23 ++++++++++++++++
- 15 files changed, 236 insertions(+), 2 deletions(-)
- create mode 100644 include/dt-bindings/clock/atmel,at91rm9200-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,at91sam9260-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,at91sam9g45-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,at91sam9n12-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,at91sam9rl-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,at91sam9x5-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,sama5d2-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,sama5d3-pmc.h
- create mode 100644 include/dt-bindings/clock/atmel,sama5d4-pmc.h
- create mode 100644 include/dt-bindings/clock/microchip,sam9x60-pmc.h
- create mode 100644 include/dt-bindings/clock/microchip,sam9x7-pmc.h
- create mode 100644 include/dt-bindings/clock/microchip,sama7d65-pmc.h
- create mode 100644 include/dt-bindings/clock/microchip,sama7g5-pmc.h
+Reproducer:
 
-diff --git a/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml b/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml
-index 84c4801df8d9a..8c89ccc3d6393 100644
---- a/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml
-+++ b/Documentation/devicetree/bindings/reset/atmel,at91sam9260-reset.yaml
-@@ -67,9 +67,10 @@ additionalProperties: false
- examples:
-   - |
-     #include <dt-bindings/clock/at91.h>
-+    #include <dt-bindings/clock/atmel,at91sam9260-pmc.h>
+  make O=/tmp/afdo LLVM=1 defconfig
+  ./scripts/config --file /tmp/afdo/.config \
+	-e MEDIA_SUPPORT -e MEDIA_CAMERA_SUPPORT -e VIDEO_DEV -e I2C -e PINCTRL \
+	-e GENERIC_PINCONF -e GENERIC_PINCTRL_GROUPS -e GENERIC_PINMUX_FUNCTIONS \
+	-e COMMON_CLK -e LTO_CLANG -e LTO_CLANG_THIN -e AUTOFDO_CLANG \
+	-m VIDEO_MAXIM_SERDES -m VIDEO_MAX96717
+  make O=/tmp/afdo LLVM=1 olddefconfig
+  make O=/tmp/afdo LLVM=1 CLANG_AUTOFDO_PROFILE=/path/to/afdo.prof \
+	drivers/media/i2c/maxim-serdes/max96717.o
+
+Unpatched:
+
+  ld.lld: error: call to __compiletime_assert_NNN marked "dontcall-error": field_prep: value too large for the field
+  make[7]: *** [scripts/Makefile.build:290: drivers/media/i2c/maxim-serdes/max96717.o] Error 1
+
+The index in the symbol name depends on the configuration. With this patch the
+object compiles and drivers/media/i2c/maxim-serdes/ links max-serdes.o. The same
+build with CONFIG_AUTOFDO_CLANG=y and no CLANG_AUTOFDO_PROFILE compiles even
+unpatched, which isolates the profile-guarded inlining as the trigger.
+
+The essence, without a profile - the check itself turns the constant into a
+fatal error under both compilers:
+
+  field_prep(BIT(0), ~1U)	-> clang/gcc: "negative width in bit-field"
+  field_prep(BIT(0), !1U)	-> fine
+
+Not tested: hardware, and a GCC LTO build of this driver.
+
+Two other FIELD_PREP() users pass ~value with fields narrower than the value's
+type, drivers/net/ethernet/sunplus/spl2sw_{mac,phy}.c. They are latent for the
+same reason but receive runtime values, so they did not fail here and are not
+touched by this patch.
+
+diff --git a/drivers/media/i2c/maxim-serdes/max96717.c b/drivers/media/i2c/maxim-serdes/max96717.c
+index e004e71cb768..e57dd701017c 100644
+--- a/drivers/media/i2c/maxim-serdes/max96717.c
++++ b/drivers/media/i2c/maxim-serdes/max96717.c
+@@ -604,7 +604,7 @@ static int max96717_conf_pin_config_set_one(struct max96717_priv *priv,
+ 	case PIN_CONFIG_OUTPUT_ENABLE:
+ 	case PIN_CONFIG_INPUT_ENABLE:
+ 	case PIN_CONFIG_LEVEL:
+-		val = field_prep(mask, arg ? en_val : ~en_val);
++		val = field_prep(mask, arg ? en_val : !en_val);
  
-     reset-controller@fffffd00 {
-         compatible = "atmel,at91sam9260-rstc";
-         reg = <0xfffffd00 0x10>;
--        clocks = <&pmc PMC_TYPE_CORE PMC_SLOW>;
-+        clocks = <&pmc PMC_TYPE_CORE AT91SAM9260_PMC_SLOW>;
-     };
-diff --git a/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml b/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
-index cdbbd17f80363..15f5bb51fd8a7 100644
---- a/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
-+++ b/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
-@@ -61,13 +61,14 @@ examples:
-   - |
-     #include <dt-bindings/interrupt-controller/irq.h>
-     #include <dt-bindings/clock/at91.h>
-+    #include <dt-bindings/clock/atmel,at91sam9rl-pmc.h>
-     #include <dt-bindings/gpio/gpio.h>
-     gadget@fff78000 {
-         compatible = "atmel,at91sam9g45-udc";
-         reg = <0x00600000 0x80000
-                0xfff78000 0x400>;
-         interrupts = <27 IRQ_TYPE_LEVEL_HIGH 0>;
--        clocks = <&pmc PMC_TYPE_PERIPHERAL 27>, <&pmc PMC_TYPE_CORE PMC_UTMI>;
-+        clocks = <&pmc PMC_TYPE_PERIPHERAL 27>, <&pmc PMC_TYPE_CORE AT91SAM9RL_PMC_UTMI>;
-         clock-names = "pclk", "hclk";
-         atmel,vbus-gpio = <&pioC 15 GPIO_ACTIVE_HIGH>;
-     };
-diff --git a/include/dt-bindings/clock/atmel,at91rm9200-pmc.h b/include/dt-bindings/clock/atmel,at91rm9200-pmc.h
-new file mode 100644
-index 0000000000000..35fce34e00b82
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,at91rm9200-pmc.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91rm9200 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91RM9200_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_AT91RM9200_PMC_H
-+
-+#define AT91RM9200_PMC_SLOW	0
-+#define AT91RM9200_PMC_MCK	1
-+#define AT91RM9200_PMC_MAIN	3
-+#define AT91RM9200_PMC_PLLACK	7
-+#define AT91RM9200_PMC_PLLBCK	8
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,at91sam9260-pmc.h b/include/dt-bindings/clock/atmel,at91sam9260-pmc.h
-new file mode 100644
-index 0000000000000..6a5453cf70954
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,at91sam9260-pmc.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91sam9260 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9260_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9260_PMC_H
-+
-+#define AT91SAM9260_PMC_SLOW	0
-+#define AT91SAM9260_PMC_MCK	1
-+#define AT91SAM9260_PMC_MAIN	3
-+#define AT91SAM9260_PMC_PLLACK	7
-+#define AT91SAM9260_PMC_PLLBCK	8
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,at91sam9g45-pmc.h b/include/dt-bindings/clock/atmel,at91sam9g45-pmc.h
-new file mode 100644
-index 0000000000000..44a804ff96fff
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,at91sam9g45-pmc.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91sam9g45 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9G45_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9G45_PMC_H
-+
-+#define AT91SAM9G45_PMC_SLOW	0
-+#define AT91SAM9G45_PMC_MCK	1
-+#define AT91SAM9G45_PMC_UPLLCK	2
-+#define AT91SAM9G45_PMC_MAIN	3
-+#define AT91SAM9G45_PMC_PLLACK	7
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,at91sam9n12-pmc.h b/include/dt-bindings/clock/atmel,at91sam9n12-pmc.h
-new file mode 100644
-index 0000000000000..6eaef69242ee8
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,at91sam9n12-pmc.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91sam9n12 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9N12_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9N12_PMC_H
-+
-+#define AT91SAM9N12_PMC_SLOW	0
-+#define AT91SAM9N12_PMC_MCK	1
-+#define AT91SAM9N12_PMC_MAIN	3
-+#define AT91SAM9N12_PMC_PLLACK	7
-+#define AT91SAM9N12_PMC_PLLBCK	8
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,at91sam9rl-pmc.h b/include/dt-bindings/clock/atmel,at91sam9rl-pmc.h
-new file mode 100644
-index 0000000000000..0bb195712f785
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,at91sam9rl-pmc.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91sam9rl clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9RL_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9RL_PMC_H
-+
-+#define AT91SAM9RL_PMC_SLOW	0
-+#define AT91SAM9RL_PMC_MCK	1
-+#define AT91SAM9RL_PMC_UTMI	2
-+#define AT91SAM9RL_PMC_MAIN	3
-+#define AT91SAM9RL_PMC_PLLACK	7
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,at91sam9x5-pmc.h b/include/dt-bindings/clock/atmel,at91sam9x5-pmc.h
-new file mode 100644
-index 0000000000000..d095dcc9b29ff
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,at91sam9x5-pmc.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91sam9x5 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9X5_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_AT91SAM9X5_PMC_H
-+
-+#define AT91SAM9X5_PMC_SLOW	0
-+#define AT91SAM9X5_PMC_MCK	1
-+#define AT91SAM9X5_PMC_UPLLCK	2
-+#define AT91SAM9X5_PMC_MAIN	3
-+#define AT91SAM9X5_PMC_PLLACK	7
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,sama5d2-pmc.h b/include/dt-bindings/clock/atmel,sama5d2-pmc.h
-new file mode 100644
-index 0000000000000..51bb410c699e2
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,sama5d2-pmc.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91 sama5d2 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_SAMA5D2_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_SAMA5D2_PMC_H
-+
-+#define SAMA5D2_PMC_MCK		1
-+#define SAMA5D2_PMC_UPLLCK	2
-+#define SAMA5D2_PMC_MAIN	3
-+#define SAMA5D2_PMC_MCK2	4
-+#define SAMA5D2_PMC_I2S0_MUX	5
-+#define SAMA5D2_PMC_I2S1_MUX	6
-+#define SAMA5D2_PMC_PLLACK	7
-+#define SAMA5D2_PMC_AUDIOPLLCK	9
-+#define SAMA5D2_PMC_AUDIOPINCK	10
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,sama5d3-pmc.h b/include/dt-bindings/clock/atmel,sama5d3-pmc.h
-new file mode 100644
-index 0000000000000..92210969104d6
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,sama5d3-pmc.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91 sama5d3 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_SAMA5D3_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_SAMA5D3_PMC_H
-+
-+#define SAMA5D3_PMC_SLOW	0
-+#define SAMA5D3_PMC_MCK		1
-+#define SAMA5D3_PMC_UPLLCK	2
-+#define SAMA5D3_PMC_MAIN	3
-+#define SAMA5D3_PMC_PLLACK	7
-+
-+#endif
-diff --git a/include/dt-bindings/clock/atmel,sama5d4-pmc.h b/include/dt-bindings/clock/atmel,sama5d4-pmc.h
-new file mode 100644
-index 0000000000000..53870448d6a1d
---- /dev/null
-+++ b/include/dt-bindings/clock/atmel,sama5d4-pmc.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * at91 sama5d4 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_ATMEL_SAMA5D4_PMC_H
-+#define _DT_BINDINGS_CLOCK_ATMEL_SAMA5D4_PMC_H
-+
-+#define SAMA5D4_PMC_SLOW	0
-+#define SAMA5D4_PMC_MCK		1
-+#define SAMA5D4_PMC_UPLLCK	2
-+#define SAMA5D4_PMC_MAIN	3
-+#define SAMA5D4_PMC_MCK2	4
-+#define SAMA5D4_PMC_PLLACK	7
-+
-+#endif
-diff --git a/include/dt-bindings/clock/microchip,sam9x60-pmc.h b/include/dt-bindings/clock/microchip,sam9x60-pmc.h
-new file mode 100644
-index 0000000000000..050e5e774b274
---- /dev/null
-+++ b/include/dt-bindings/clock/microchip,sam9x60-pmc.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * Microchip sam9x60 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_MICROCHIP_SAM9X60_PMC_H
-+#define _DT_BINDINGS_CLOCK_MICROCHIP_SAM9X60_PMC_H
-+
-+#define SAM9X60_PMC_MCK		1
-+#define SAM9X60_PMC_UPLLCK	2
-+#define SAM9X60_PMC_MAIN	3
-+#define SAM9X60_PMC_PLLACK	7
-+
-+#endif
-diff --git a/include/dt-bindings/clock/microchip,sam9x7-pmc.h b/include/dt-bindings/clock/microchip,sam9x7-pmc.h
-new file mode 100644
-index 0000000000000..292c5873e101e
---- /dev/null
-+++ b/include/dt-bindings/clock/microchip,sam9x7-pmc.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * Microchip sam9x7 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_MICROCHIP_SAM9X7_PMC_H
-+#define _DT_BINDINGS_CLOCK_MICROCHIP_SAM9X7_PMC_H
-+
-+#define SAM9X7_PMC_MCK		1
-+#define SAM9X7_PMC_UPLLCK	2
-+#define SAM9X7_PMC_MAIN		3
-+#define SAM9X7_PMC_PLLACK	7
-+#define SAM9X7_PMC_AUDIOPMCPLL	9
-+#define SAM9X7_PMC_AUDIOIOPLL	10
-+#define SAM9X7_PMC_PLLADIV2	14
-+#define SAM9X7_PMC_LVDSPLL	15
-+
-+#endif
-diff --git a/include/dt-bindings/clock/microchip,sama7d65-pmc.h b/include/dt-bindings/clock/microchip,sama7d65-pmc.h
-new file mode 100644
-index 0000000000000..08581418b9115
---- /dev/null
-+++ b/include/dt-bindings/clock/microchip,sama7d65-pmc.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * Microchip sama7d65 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_MICROCHIP_SAMA7D65_PMC_H
-+#define _DT_BINDINGS_CLOCK_MICROCHIP_SAMA7D65_PMC_H
-+
-+#define SAMA7D65_PMC_MCK0		1
-+#define SAMA7D65_PMC_USBPLL		2
-+#define SAMA7D65_PMC_MAIN		3
-+#define SAMA7D65_PMC_CPUPLL		4
-+#define SAMA7D65_PMC_SYSPLL		5
-+#define SAMA7D65_PMC_DDRPLL		6
-+#define SAMA7D65_PMC_GPUPLL		7
-+#define SAMA7D65_PMC_BAUDPLL		8
-+#define SAMA7D65_PMC_AUDIOPMCPLL	9
-+#define SAMA7D65_PMC_AUDIOIOPLL		10
-+#define SAMA7D65_PMC_ETHPLL		11
-+#define SAMA7D65_PMC_MCK1		13
-+#define SAMA7D65_PMC_LVDSPLL		15
-+#define SAMA7D65_PMC_MCK3		16
-+#define SAMA7D65_PMC_MCK5		17
-+
-+#endif
-diff --git a/include/dt-bindings/clock/microchip,sama7g5-pmc.h b/include/dt-bindings/clock/microchip,sama7g5-pmc.h
-new file mode 100644
-index 0000000000000..27668634b0a2b
---- /dev/null
-+++ b/include/dt-bindings/clock/microchip,sama7g5-pmc.h
-@@ -0,0 +1,23 @@
-+/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
-+/*
-+ * The constants defined in this header are being used in dts and in
-+ * Microchip sama7g5 clock driver.
-+ */
-+
-+#ifndef _DT_BINDINGS_CLOCK_MICROCHIP_SAMA7G5_PMC_H
-+#define _DT_BINDINGS_CLOCK_MICROCHIP_SAMA7G5_PMC_H
-+
-+#define SAMA7G5_PMC_MCK0	1
-+#define SAMA7G5_PMC_UTMI	2
-+#define SAMA7G5_PMC_MAIN	3
-+#define SAMA7G5_PMC_CPUPLL	4
-+#define SAMA7G5_PMC_SYSPLL	5
-+#define SAMA7G5_PMC_DDRPLL	6
-+#define SAMA7G5_PMC_IMGPLL	7
-+#define SAMA7G5_PMC_BAUDPLL	8
-+#define SAMA7G5_PMC_AUDIOPMCPLL	9
-+#define SAMA7G5_PMC_AUDIOIOPLL	10
-+#define SAMA7G5_PMC_ETHPLL	11
-+#define SAMA7G5_PMC_MCK1	13
-+
-+#endif
+ 		ret = regmap_update_bits(priv->regmap, reg, mask, val);
+ 		break;
 -- 
-2.47.3
+2.56.0.341.gebdc087dc9
 
