@@ -1,107 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793868889;
-	b=2nbTIrJZl0BoDFKGYUQmEQPJMt0IUV9L5OfByZHNT747GFaC2YLKnNMe1FqVZLcWFj09
-	 PU++M3qpu2unC3OKhGwm56nPeal6Z6qzkfHQ2FyxZPAcPrkhzr3sKzYUXM/9eeeNg6Uat
-	 zNtqpLWCEYqlWV50kO/+JzgIwKn3gFXnpX92hLoADCxriWWUU6D40QiOWY9wfqks3HZwM
-	 U08Uuw21AJqOZ9SrdgVfhj0B2YQlCKAX+584KSHWUmfVqcIOYGtt017rhSSJeGMxL3G88
-	 Ty8wZgBnmkp3+iy3NWOYK6bXWgr8NjE8DRP/FinOKAuU53PvHhfoZvcGD1g0zCMA+jw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868889;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cxlnERCCRe8RFVm2YDYFQfIUZL74+5D8TEnz+OePIZ4=;
-	b=GZR7FDHANxncaJ3eu7XuT+2ogoRKQwx+pdnX9W4rwFiXXmVSCru1RnfWrczu4OEn/7XA
-	 /hCK9Dtxh7iwvHT1WBJINIW/gOrHTokU+vG0HXqBsj11R9jpLm8wYbbcvv3dyfBHKWTGf
-	 OhD5OeOjLMjbFpvFC7Xext1vOAGWVOydbzQPafkaUXjB+294A62agMSEuogBulysKaMlP
-	 G4XTaPA17/EK2+GhXViCuOvtt8rP3/a4uiSh6/XYdZ3Ww4YFaf2nGHDIyJAORSnvFVhzF
-	 wK/iIgfbRgcGdLMttwyMWT6S4joG0k4P+NTK3cHuMTNtt4i4cxO5rh1snOBgPtcUy5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="cx/6JUkG";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.62
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013062.outbound.protection.outlook.com [40.107.201.62])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793868911;
+	b=4BudLy/T22LA2fHNBolUxmR2AV7x4FpvBBHDr4tqJ4kjMk4IxPuC9i8Xo0XndGmvpD1Q
+	 pnB1PuUxQZLfuN2jKAfwh7z59vqhkBZNlWvv4L68f7Zz5CNCJsGAggmtSRRZ5Gsv4wysy
+	 ZjVhgNAQWE7yKBBmn2K/fSRYyJ15DQwchzGyJ6z2UV7oZmFeDs0c3MxQog6j+B/TonqCE
+	 ol7cBGcp3vyP4Jjk/ad1ys59UY+KuqtwsVpdjMGG3HvC0xzTmZSPPd1TnXeqW2oTUmrgs
+	 PBnrENHLHO3iXwIFzRxOrPJKw+WncS3v7eh3fbuihACdQWC6PDD4HxUj6Rga7c0l6ZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868911;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=9MhwkwUuh1J4nIkDJ4OGuZ0UUch4I3yF9JIiznCJquc=;
+	b=LQFRC8edeNGybIprv2y925O7cP0mP9O7BfEDUAQIjlXIrOsJIU2FSnWPj4OfNB3tIaCo
+	 rIaF8Wvndr0A2NarQXJ6NMlt/aixnlmt2YqIUyB0RF+PoSZTs1smNGQHyh3AtNogwoLnm
+	 gsOrhqfSGGKL5WaJzGemhgYl1uQg30/nMapYW/4YNPq2ZyxK6+5/QJDG6dLx/IOxlNYRG
+	 KoT86AqkNqM5AB9fqfknezFpjlUgUocq4YJ2kl8Kz/qpOoPQHxqNxSl6h+kNVljeuicFZ
+	 T/uJvqjGlXRBHmPFu7Q3AIx6gGz/M2kbIb/BQNVuPE7cMbQoDJv71x/qZ7zlSJD+rxA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="d8c+3/2r";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=in8MIq+G;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2B1606A329;
-	Thu,  5 Nov 2026 08:54:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F2B1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E5B606A339
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:55:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7E5B606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cx/6JUkG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uf6Bl6eY29/O/aIh1QzuLCEvgh2ZuU8r4zu5hsTXm3NBHISVOgG1bcKStfTr/I6Cj+TBDC8vsjRX8jy4JMrcMDr5tVIBZUa6QWAATByLdJpXsuaUg67iqC+mFJ1qsYv+b+RFqiJmsJPnSM1Ld72LwvOPLXNu/2NQ6kHyKPNul86vmHNlFNTO2D2fx0/CLB62XL/EmhCfNoQsLuV8cpkVVDn29RYfZcCs/ZMRAX48qbnDVFGs9uqBa8RUbUh+RVgDDzHnpR77leA+ltJ8APeK60blYlTgTIflaXhStb5GNblhNK5iORNDmyJxXjTjBsr/SM1PaY28SZfbsFeFreffyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cxlnERCCRe8RFVm2YDYFQfIUZL74+5D8TEnz+OePIZ4=;
- b=fZ+5c3JOX9ve1FmQPOExh7wbBXTZqELD7CLlSx67oFsEg4gQnB3F8uADTW277hK6bMd6hEtUtiX5M6Mer84K3nGYEpe/qgRJFC7YvY9G9jlLDVfKXnyEtzEqdgQZP105I0Qbu0GVnjN+YhZzPtmTmcz2k82n7kkpXsV5fTr42ONYdXyeHYPPCGBN3TD6mnYv+mvelUpX4FFyg7h0EDZyDhBYrzC+mpL/c9Mz5mwCbk87uy8if+DtHzf2v/k4pOcmILq/zoUfJZ1YGZyaoAUA9eeg8wRdz3N9kB//G54bfcUljwmbfg2vg4ktk9+6RXcRH43fdVR3clWhRHuxLmwI6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cxlnERCCRe8RFVm2YDYFQfIUZL74+5D8TEnz+OePIZ4=;
- b=cx/6JUkGKwlrpC4Zvx4J+9V8t37kDZpUzSqHw1/ZVLb+kSIuU1CnwAe7jRvIIcVxhJKUtfBABUnV0EwW1Q/hSceSAFhK2jXaCyq/46FrAnBI2hEeSSNktRgteKT5YF1G8cxI57vYREA+C5tuiHLhD5ljH4au79L6kMhfLBuZgzI=
-Received: from MW4PR03CA0173.namprd03.prod.outlook.com (2603:10b6:303:8d::28)
- by CH8PR12MB249853.namprd12.prod.outlook.com (2603:10b6:610:702::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 08:54:44 +0000
-Received: from CO1PEPF00018864.namprd03.prod.outlook.com
- (2603:10b6:303:8d:cafe::78) by MW4PR03CA0173.outlook.office365.com
- (2603:10b6:303:8d::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 08:54:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF00018864.mail.protection.outlook.com (10.167.249.152) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 08:54:43 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 02:54:41 -0600
-Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 5 Nov 2026 02:54:39 -0600
-From: Shubham Patil <shubhamsanjay.patil@amd.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>
-CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <meaganlloyd@linux.microsoft.com>,
-	<git@amd.com>, Shubham Patil <shubhamsanjay.patil@amd.com>
-Subject: [PATCH v2 1/3] i3c: Add helpers to get the maximum transfer size for a device
-Date: Thu, 5 Nov 2026 14:24:23 +0530
-Message-ID: <20261105085425.3418230-2-shubhamsanjay.patil@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
-References: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=d8c+3/2r;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=in8MIq+G
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A58RQ7P247869
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 08:55:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9MhwkwUuh1J4nIkDJ4OGuZ0UUch4I3yF9JIiznCJquc=; b=d8c+3/2ruthX1ChK
+	iaqihZDvlaa9iN2ZYV3y5CFjQhXPM+Ce26chKsrFLMTKpZn0DdVpsCG1vS5Oq6hx
+	g69QRF7WWi+IrBKlSFhPqdMz3zOofnDJvaeRvRB6r/pG5F5z+JFJbiuF3337fGDU
+	wahrozqj62nDI2f9Sh/Z2Mq4OGRMGh9tUwB6LA6cwxUUwdK6261fcVqUxaw9Rrv7
+	gdmcv4Ep2gCxpTpcHJvw+0rmiu+orTFs+AFqURE7UZae6xKmfPe62f8b2wds876Y
+	mIP79j0nBC3Stv1lRnqwkWhZGyV5XONgGXmIsae4wZKLBByK9DPlgvNp4BerF/tp
+	8Yk6hA==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrpaag3na-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:55:09 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9907de400a6so343090241.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:55:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793868909; x=1794473709; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9MhwkwUuh1J4nIkDJ4OGuZ0UUch4I3yF9JIiznCJquc=;
+        b=in8MIq+GQKlf9ahVKfwpI17Km7G/VogtiwOsTH9ckJpxzKfJRCJxEf26LGgrb/vzUd
+         nCHepkMLxxg8ep1BFCPNq1ISqTbxIonEuNoqL3aH/dPBMgQdwXTNpQyH4etf6Lt0Cm+H
+         qCtLwo9BaHjuf0ybxZ2xfbrd1TXjclypxXOuYqytdMv7QVBCe17AjdOHO7P2+K2owNTD
+         Ts5b9e/aXURVcSQwk5FTEFs7nyHdqVaR038a5RZswIXbQfGiupqfCt/aR3AH2EFMH40B
+         oisbZSuWSiTs4NOgiQjiBwWz9bKwIvR/jBKV0uNc5AL+mIZTRhSWFlpLQHyepNR+Utx9
+         7DaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793868909; x=1794473709;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9MhwkwUuh1J4nIkDJ4OGuZ0UUch4I3yF9JIiznCJquc=;
+        b=HYDoPC5GJjJN/j1fx9ZIL6YNy9U9oHKHG9Th8gius5DyR/fCYP8wjOFcof5ny/KFcN
+         cmQLiL2mxISsZ+zsRZgx8bWxK0LNWL9yU/CpvsCRxrY+RrpjTA7A0Wegippt0rt7/6Ht
+         RkeqMbPGaaPt9MVrx3KiPniEexF2yHNZBlINmelsfcZ/Hn8Isixy1ZmHmcwnRw22vv3d
+         VGKYFf5Q3IEA0C4EUDDfrsPISaaA38KI+dzVTHoXP8QowEZ7unBPrz5Wl2YFnDwZ0W2W
+         TebxpP5VeYdC+d2KV0NXF0hN5I1RKmXw+kKqDA0+vLDGIWIdmdWiKZhEOsgJyiWzvzJo
+         07dw==
+X-Forwarded-Encrypted: i=1; AKwUvBzuiTEDyuMiWh2SxgZqwnRT+KTyJziT+VLHkd35vpja9Lr9KFWwylsXdDjGGH64FLl+Pta2mgcxP3KjrBA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9p1IZlpwHcL7Z8dsGxkDSadTNVDdFwAmbncIAH9Dlujnpyaqc/
+	q1PgTKoaZa52Zxdjzt9rCtbik7njh+n8aq0kizTNDG43kCcnS0woYw3P6/RLdZmX1WX/jffUdjF
+	WwMuqeIrUHEEBNzHDuwY8ehxUUZXT+N+soSqQrj5CHbISK0whZAvFlBX3p8uV7o3IC8U=
+X-Gm-Gg: AYBFou3a7xEDDEQyYyPxXTfzU7Tc+e5I+cQHWLPEkj5RlF+jkGmbqeUgYUdGQZPgxjN
+	qExE2BnPCng+wugvljslqo5PPBG8RD9cioO4qJU6KVTrdf8ULbCttARocp/sr8+Jw0eD9b4lRph
+	8ezlT77xTZc/Lu9MAJde+777oN5lh+KXDFfYwcRgtwi4QedP99UpmwxK1ZxDEi/ILHCMXlIo1JA
+	t2JtJPepOPuNtsKLGmJMt1vxWzXzmXonTJ/Npp3FyfqGpQ+4tQJWm95iALgTLlu4Qeqzg0fA0zv
+	pN1zfkNInWq4GWq7sxfpkM5GNarwVb3vemGnZGLPB+ZqUCIxsjI95dqeAhgmoMc3Mfgr5vQdtqJ
+	XMQb1oZM/07IGmVWlMb7OMCNfLAJ/DVm6JMEui7UdKhjeuGlIhUxXztqbAAJdQreO8IlVUqeFO0
+	/J
+X-Received: by 2002:a05:6102:8099:b0:7cc:274a:3e0c with SMTP id ada2fe7eead31-7d0725528c1mr7536291137.13.1793868909040;
+        Thu, 05 Nov 2026 00:55:09 -0800 (PST)
+X-Received: by 2002:a05:6102:8099:b0:7cc:274a:3e0c with SMTP id ada2fe7eead31-7d0725528c1mr7536280137.13.1793868908552;
+        Thu, 05 Nov 2026 00:55:08 -0800 (PST)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fedc09675sm8659918f8f.55.2026.11.05.00.55.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 00:55:07 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: brgl@kernel.org, Jinseob Kim <kimjinseob88@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linusw@kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] gpiolib: reset lookup flags for each hogged line
+Date: Thu,  5 Nov 2026 09:55:05 +0100
+Message-ID: <179386890168.13258.979830877015023583.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104115938.226-1-kimjinseob88@gmail.com>
+References: <20261104115938.226-1-kimjinseob88@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,178 +123,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018864:EE_|CH8PR12MB249853:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbea85ce-8800-42c5-ce56-08df3b1a6f8d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|11063799006|5023799004|56012099006|261021121427099003|261021123027099003|261009223027099003|261026121527099003|261102123227099003|261102130727099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	VCZzEpJcO6FCwHXz2CX1hTgVCzcNTilk6dbb9CDxdHyzgF/TpX1z3NwrbYk32leYDjzvD1Stc5PaY7/Lh4nallT1QmF6PZv3DgoKHZiaZa8QD00htkHqu3fQu2MNFK0NnAv+Pr/kGe2Tq15nd99We66a9IElZn/xh6aberlBBZtT1o2ERxYxFIHFgv4j/qAaOiOrmRnGf5rZbji7+Rdo8FV49KEBSdC/4sAd8xz1s6W2cuoDqyPRUd/2l6cEmMsjwtzHEIyj9TvtTW1tdt5Y+dDWG69jAjGkzdw+Abtm8Ws++CFwsVpfRez3hqRJlBBOp3QA2aJNfnAQRW/drNfZyPef6Zlnf6LFu+l35YPF/rYjQpmvGR0CDzWzE75qWSrmkN8qWtduG1A6sXGUj1lVsixKwjJR2FYFcfjo2+sbyctgbdXwDMHZa+a2w/Eyh7QzkIWqKxdpIlj8GqFBC8Qv0mGZX/hiExiw5R8TKlyW4/Zqewl3q1JJAyJMWRrmD5FF0cX1z+OXRZGXWayARwtTxM0wen5logucpCE1kRxkvDI+bpcjT8OSMRdk79vxMqJQe0zELbespXeVLQ+CgH/eYUEJDvF8uqctd1yuCwL5iqpfSa6B/msxUnA86lOzMj69vIt1EC89YHxf2OY8kLDg7+5EGRAx1PtRQHhWGHNJ+uDuzeQTI09OGR4JztrV07d/R7Y4TfWoOcag+T/QozAjvA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(11063799006)(5023799004)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(261102123227099003)(261102130727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ns7i6gXP5WRH8eN48NrbnTFeV6KbibFVFSQDpsAfkmheXP6iVjDkmHmGD8zTING0LsdIDwIkRIIQ0YmxrH8c0MJzHCHDr0vXV982vj+ZXqbwrgSeBaRGTrk38pPUNZoOTlvitSIyFV9HiWuAFb2tCBCTp2pPTGnCYbwJ5+wRV4C0G8RhXMftaf0h1P9M45kIi9k4ZcvLACnMhPj4sHLfZ8O/OrM9bA6qTO735zojOqGvAXujxKVJaZHnG29V8dik3Av8s8I5rYCttRwt2lctHo3IibpPbS5vXv0gsptUvDKNYfjArRsOVI45lnTRr0EU7pqZ9sPORKDVRrd2zVn+a26Rn/C24HLzFM36VAvcXuzVaE9DlkqpWK8yLwXYCvA+OaFDsvAoTW/mwky1mIlRjnQBFzTnaj8MWsx58kJ/HtEoESKRcj/zK0judttumEie
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 08:54:43.5307
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbea85ce-8800-42c5-ce56-08df3b1a6f8d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00018864.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB249853
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX4t3+vSSUvOjO
+ pAYXo11o7Kg69P/2uaRAFbgX7V+BJufna/DHv6SOpRFkLWr92YoApqejxQaVB7uQ60i6PKinei9
+ Qf8HOJkVejY06n2Nry2lcbnsUDLLAGBj+yFSKxlwiWySu764kspSwztfFUTJDHZYdRRGXkB/unh
+ Ui26RwXPyPcpw1ajYYf99d1Mt1RvSiNWHx/gcViLnRk60e/qZA9RGoiHAhpkwQ/cjDdqHvD1eZ7
+ rYv64GRxaZk1YIqqrgJd5ol5Mawx4GOf8W76NrNcnb0MZ+AzmihS9+B+MFVf/NRXWQ00WShwVdC
+ VinqqMHCdBxbFdobJWHf02ZgJECGyhcq5re8zTc9BZJr0Mggf4+7VlnmchLAQXvEM9HmRUzdAEZ
+ MxtOv3s/07wpboPtn2CzT+nVRea2LXnJj0NqS3bnD2c2ZkSSGn4SRGWr/vBzp6z99bXjpm2C41E
+ usMOCQEnIHjaw9C++JA==
+X-Proofpoint-GUID: SEnXCUlkuYZBzljWR_OZYig1HfJuNH-5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX6AnIjztFhemW
+ 6VORK8EdEthzHMJpuKJSKqFYI196UIFYDPKEbC+1FZT3GpWK8SlYFYzeeX9MP4QRoowgHJ9Kby3
+ dGX5SaSnwuvUmEedn5lCi1BByjH8XK0=
+X-Proofpoint-ORIG-GUID: SEnXCUlkuYZBzljWR_OZYig1HfJuNH-5
+X-Authority-Analysis: v=2.4 cv=WOXqzXsR c=1 sm=1 tr=0 ts=6aec446d cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=BRXwEdrC_15mm0w6M84A:9 a=QEXdDO2ut3YA:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 spamscore=0 phishscore=0 suspectscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050035
 
-A target's MRL and MWL, retrieved with GETMRL and GETMWL, describe only
-what that target can accept. They say nothing about the controller
-driving it, which may impose a smaller limit of its own: the DesignWare
-controller, for example, rejects any private SDR transfer that does not
-fit its data buffer. A device driver sizing a transfer from MRL alone
-can therefore build one the controller has to refuse with -EOPNOTSUPP.
 
-Add tx_fifo_bytes and rx_fifo_bytes to struct i3c_master_controller, to
-be set by a controller driver before i3c_master_register() when it has
-such a limit, together with two helpers returning the smaller of the
-target and controller values for each direction.
+On Wed, 04 Nov 2026 20:59:38 +0900, Jinseob Kim wrote:
+> gpiochip_add_hog() initializes lflags once before iterating over the GPIO
+> specifiers. In the non-OF path, an active-low line sets GPIO_ACTIVE_LOW,
+> but a later active-high line does not clear it. A single firmware hog
+> with mixed polarities therefore configures later active-high lines as
+> active-low, including inverting their initial output value.
+> 
+> Initialize the lookup flags for each line before translating its flags.
+> The OF helper already overwrites the flags for each specifier; the
+> non-OF path must also start with a fresh value.
+> 
+> [...]
 
-Both inputs use 0 to mean "no limit reported", so the helpers combine
-them with min_not_zero() and return 0 only when neither side reports
-one, leaving each caller to apply its own default. struct
-i3c_device_info keeps the raw target values untouched.
+Applied, thanks!
 
-The returned value applies to a single message. A controller is free to
-budget its buffer across every message in one i3c_device_do_xfers()
-call, so a caller batching several messages in the same direction may
-still be rejected.
+[1/1] gpiolib: reset lookup flags for each hogged line
+      https://git.kernel.org/brgl/c/c20464a78162cf8b3a1c9dc7e0d764e535bfe582
 
-Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
----
- drivers/i3c/device.c       | 49 ++++++++++++++++++++++++++++++++++++++
- include/linux/i3c/device.h |  3 +++
- include/linux/i3c/master.h | 13 +++++++---
- 3 files changed, 62 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i3c/device.c b/drivers/i3c/device.c
-index 4df4682af150..588f66b3af6d 100644
---- a/drivers/i3c/device.c
-+++ b/drivers/i3c/device.c
-@@ -9,6 +9,7 @@
- #include <linux/bug.h>
- #include <linux/completion.h>
- #include <linux/device.h>
-+#include <linux/minmax.h>
- #include <linux/mutex.h>
- #include <linux/slab.h>
- 
-@@ -106,6 +107,54 @@ void i3c_device_get_info(const struct i3c_device *dev,
- }
- EXPORT_SYMBOL_GPL(i3c_device_get_info);
- 
-+/**
-+ * i3c_device_get_max_read_xfer_bytes() - get the maximum readable message size
-+ *
-+ * @dev: device the transfers would be directed to
-+ *
-+ * Return: the smaller of @dev's MRL and the controller's receive limit for a
-+ * single message, or 0 if neither reports a limit.
-+ */
-+u16 i3c_device_get_max_read_xfer_bytes(const struct i3c_device *dev)
-+{
-+	u16 mrl = 0, rx_fifo_bytes = 0;
-+
-+	i3c_bus_normaluse_lock(dev->bus);
-+	if (dev->desc) {
-+		mrl = dev->desc->info.max_read_len;
-+		rx_fifo_bytes = i3c_dev_get_master(dev->desc)->rx_fifo_bytes;
-+	}
-+	i3c_bus_normaluse_unlock(dev->bus);
-+
-+	/* 0 means "no limit reported" on either side. */
-+	return min_not_zero(mrl, rx_fifo_bytes);
-+}
-+EXPORT_SYMBOL_GPL(i3c_device_get_max_read_xfer_bytes);
-+
-+/**
-+ * i3c_device_get_max_write_xfer_bytes() - get the maximum writable message size
-+ *
-+ * @dev: device the transfers would be directed to
-+ *
-+ * Return: the smaller of @dev's MWL and the controller's transmit limit for a
-+ * single message, or 0 if neither reports a limit.
-+ */
-+u16 i3c_device_get_max_write_xfer_bytes(const struct i3c_device *dev)
-+{
-+	u16 mwl = 0, tx_fifo_bytes = 0;
-+
-+	i3c_bus_normaluse_lock(dev->bus);
-+	if (dev->desc) {
-+		mwl = dev->desc->info.max_write_len;
-+		tx_fifo_bytes = i3c_dev_get_master(dev->desc)->tx_fifo_bytes;
-+	}
-+	i3c_bus_normaluse_unlock(dev->bus);
-+
-+	/* 0 means "no limit reported" on either side. */
-+	return min_not_zero(mwl, tx_fifo_bytes);
-+}
-+EXPORT_SYMBOL_GPL(i3c_device_get_max_write_xfer_bytes);
-+
- /**
-  * i3c_device_disable_ibi() - Disable IBIs coming from a specific device
-  * @dev: device on which IBIs should be disabled
-diff --git a/include/linux/i3c/device.h b/include/linux/i3c/device.h
-index e30ea2cb13cb..cb3374e4f9fa 100644
---- a/include/linux/i3c/device.h
-+++ b/include/linux/i3c/device.h
-@@ -331,6 +331,9 @@ int i3c_device_do_setdasa(struct i3c_device *dev);
- 
- void i3c_device_get_info(const struct i3c_device *dev, struct i3c_device_info *info);
- 
-+u16 i3c_device_get_max_read_xfer_bytes(const struct i3c_device *dev);
-+u16 i3c_device_get_max_write_xfer_bytes(const struct i3c_device *dev);
-+
- struct i3c_ibi_payload {
- 	unsigned int len;
- 	const void *data;
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index d58070a72a49..3084cc7a21be 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -551,11 +551,16 @@ struct i3c_master_controller_ops {
-  *            context (notably the resume path), and is skipped if the
-  *            controller is shutting down
-  * @dev_nack_retry_count: retry count when slave device nack
-+ * @tx_fifo_bytes: maximum number of bytes this controller can transmit in a
-+ *		   single message, or 0 if it has no such limit
-+ * @rx_fifo_bytes: maximum number of bytes this controller can receive in a
-+ *		   single message, or 0 if it has no such limit
-  *
-  * A &struct i3c_master_controller has to be registered to the I3C subsystem
-- * through i3c_master_register(). None of &struct i3c_master_controller fields
-- * should be set manually, just pass appropriate values to
-- * i3c_master_register().
-+ * through i3c_master_register(). Except for @tx_fifo_bytes and
-+ * @rx_fifo_bytes, which a controller driver may set before registering, none
-+ * of &struct i3c_master_controller fields should be set manually, just pass
-+ * appropriate values to i3c_master_register().
-  */
- struct i3c_master_controller {
- 	struct device dev;
-@@ -580,6 +585,8 @@ struct i3c_master_controller {
- 	struct work_struct hj_work;
- 	struct work_struct reg_work;
- 	unsigned int dev_nack_retry_count;
-+	u16 tx_fifo_bytes;
-+	u16 rx_fifo_bytes;
- };
- 
- /**
+Best regards,
 -- 
-2.34.1
-
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
