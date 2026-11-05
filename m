@@ -1,111 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881896;
-	b=x+K/Eci/VZkYdTQXAFIjz0bCriil3ZM111zmoIsR4EPtqmhXVR2GgEASuOTEPwLcPVtd
-	 sCgdcjTd09U/+qavdVxFrOaP5tS6IMxBy9Cbur/mVy0cYom6NQm2ByHI2XjCEtTRGAYhd
-	 X/Qqe6fh+ZHHT71aubO/RwOsaCMhCGHw+K9pkv/dTOmZNxATfO1izBWmgtYwrcotwupsP
-	 DjAhmakMPSxzRVRxNEethabQiLrKA9XjvCD/0mAJ9epOWIcYXffC3vEOvuxCKeQlhKrzY
-	 aKlA7KpNxTUVRE72ae8hQnwObNzV2fpoT+DMSQw6OO/3LPG3ExxWHVfkiq/LHNkocZA==
+	t=1793881943;
+	b=iTlbZsNC8BHwx+xIjpykiOYB+KEHs3nAHBfmGQcSGjFUgksqqG58TeuaWDYy4RG8anGy
+	 DRJp45HSpI8D3xiv86MCtDaFYtsI11q9E6j0/dC3hoztp+//9fk3R7gJrHsMuqv195LEO
+	 3SPTDfz20mqKZMzFI3697UJ0twekM3yATfTTR47LRmQcGQ1TlcX+UfqCNEv5u+zZRRDJG
+	 M2kck3k7pxCHo8tvPuyP56qhSMtPakcjS2svgt04941IFWOqbXEUyOq+uBxRLJGGWucAp
+	 s7xt3WfZGpp4Fa8+zoSj4FI+6aSIB4DySgcnGKnnIiWmkjhaxzMu+17c5G7XIXSumEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881896;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=s2k+6/IDNmT6SFeMIneO9SpU+2c9mLn7ihon2BlbEuM=;
-	b=1JJFo3+CHOivKY3vh6Vp39IRt7xpJfGYuacvyOfHLbaqihdmOOYQ/HjL4RaFD9Hpo4Tj
-	 iLaZsWXf8p/d5niSKKXHh0buM0VV9BjEueF+X48xrzSnDf32m8nboo3izkkctXzqanBYZ
-	 kiO2QMBF1PBejk9yWsvyTcUaoXynZOBQRSgfr3yg/3pTJtm25t3tb3ANOoJxGKk332JCS
-	 K1DOngnYEj0LRTKedmLyxJEilH2NfREp8yTvx4Xj9zI9gNKBFt2hCyZQm6Ve8+CY1zhzh
-	 Ymp+Mh2qfiNLsAuSRGNmt8MXDkwTQfVbJXOPufMU2b/Aq5cFwn+8Ry+UyDLsb2YYJOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881943;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=bKGuzAUaHML6wkJsYB/5ryGtpKz03dwMg3XqSc0JR10=;
+	b=bZs+Duj5X2wrQHCZoTMuaSsrEEqJcciFir2tu9KMeGKaVAHvQwOoIb4kB1BZsiMoB37C
+	 3qqeJnScCvV3MS464UmBt1mhT7tdbVSoHmcyVpabU88Yl/IRgcEJxuNFBCT//O6OIotHb
+	 c0COznx4kqNb6/LCX3mVVi0efRoCsFl7R6mw23AkhFtNh2S6UKy0rKMt3wlQJB0r8UT1X
+	 93tiYdqOhp+CcRIWsYw6FumSBnECbYoLM2reOrfEKm68gWxqnkIXUR8qmAy25t4Bqisgn
+	 zBTpzoddMicKZTPzRZl9/oC+ex7P3ppg/cmbwo+tohU9ynGdPLjkiLcO1IShTTc4Dkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GHpqSwXi;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CyiMSSgP;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qsiszkq6;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8C4606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB8C4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E08606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:32:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E08606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GHpqSwXi;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CyiMSSgP
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5B3LRm3193512
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 12:31:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=s2k+6/IDNmT6SFeMIneO9S
-	pU+2c9mLn7ihon2BlbEuM=; b=GHpqSwXiOFD9Cncjs1+KU8bYoFnoGL1BUoF2pR
-	5vf4ZFTQ66Cx0hFbne37L7oWVKd2Tnqj6vIMy9F8H9ITx5ett+1xYT2NkwcLQclQ
-	8hmskIY5ESqkLAF+HFDzlyvHO5gfKoSGT3N5dHnRucJSetUgtUIqGNo/KbUwpsIj
-	ew2zhZKNe3ZH+/RUX0Owif7vFct1ccW4q6SwYVgQxUOR7vf38jI/H9+/y17Hb4cq
-	wNUhu1Ov/6kZXgbkDQ7r+9u9x2qVKtjUGE5PIbVTSRM9Ew3yAyKnGdYd2zk8RM1E
-	oLAp2i9XT3sUpEAYimptdcBumwF57vk+XwAgjZ0xGWC066Hg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrrkdrbw8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:31:35 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ac0ae43900so2167443a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:31:35 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qsiszkq6
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36d6765756fso2063849eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:32:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793881894; x=1794486694; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793881942; x=1794486742; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=s2k+6/IDNmT6SFeMIneO9SpU+2c9mLn7ihon2BlbEuM=;
-        b=CyiMSSgPgLhYHRWi6Pm+pcfbh3MOe1Wte5C3YcxPwqmOwsoNTnMmNU+N/jivN1lOCz
-         5uzHGW4hShPamrM8vjQZU4hb/+lwDqMwYtbcJR/ooQC7rNSbHzpPyp8znA6n09IOvtqM
-         osE0LsuLXi/LM+ftEWWhoxVwn9G3ULHuivVUlydPdzpDVAr0qZTnXE9exdIqaevqkuxa
-         PEdHeGTKVYdy3l9jsqsAo4BnQcQ1rB1ZaqEAOmBQi0h/9qNCi8akLiHCm5kmEK5rrcuK
-         jd2XNtaSsGO1AYdPrbixf9g2Ss8peSxzmX1fOr666jGUVcgGOU3SsUyHA6JG1tAldREL
-         9Myw==
+        bh=bKGuzAUaHML6wkJsYB/5ryGtpKz03dwMg3XqSc0JR10=;
+        b=qsiszkq6wgIIY5dymhJ4OwntnzIgN8ILM1ZAEE82nyw6pVYBkmwXLfW/TcMzLKdeCU
+         VjnQTl3z0Ke0lsEJoO1TScDJznH3zSPY4btbU/84M7l+VQRH87B4HgDBswDI0RqkcBlH
+         +vF4U8R4NScWGa3kgCUUEaGhFH2id7qOTlf3Fa7agxAhg3D0T/eCUFf5E4IWS/aJ39+c
+         4HWDap0OM0za/fAKrPsDLgFgpO4OtMjFmHz8siBZK8tpHKygxrM5X1DQVZjGwhwpPoKp
+         WbpZZsmJDRztlm1b8qS3z1cvMuOvA8GeQ7s6vKrsxeeR03HvyaI/3m8bI8/RpyYE2uZC
+         hGKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793881894; x=1794486694;
+        d=1e100.net; s=20260707; t=1793881942; x=1794486742;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=s2k+6/IDNmT6SFeMIneO9SpU+2c9mLn7ihon2BlbEuM=;
-        b=gRlV4keND7tvdYEEXP5Ubwp0VfWgBNUvZzbQwgsDPP/0DiB9rUbBtkax13wD7suKoW
-         Hpaa80mJSu3lY040C5pZGn+s93TDN1NxwTRvx3lU89S9AGzBdfdQBvo+HZ1H4a8yCwL0
-         WXFOCZ/Z90jzOhlZOFC/fPgUk4n70CT60qDkcFDExlgo1ZIyLB9/MCughoPjy4IIXj9r
-         dbCIsdjbEXT/Qp96jPPxElaraq+E6xWdxwbQsCYvR1vBF91kc5/CXF0c9a6drveYtXbe
-         OmfYmlSImEtrEEP8TIrunfsr4u3loUnqG0qJizGj2Gz9cGXHHnQ42ZlNY5zOAJqtUx4C
-         7t1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzVMf0w4MlmLt0wi6fr01jbKDgQ4fUsfJGQIusRmFEC5GuLJygq2/wb/y60CGaLNTbonkk+Ff6lfcnzjY0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/m+M+UOHNRBN6e0Db7e6f3Z5FgTX/Iy6zMDSLrrPE19NneLVdg
-	spkyARqqTJnDwdkGuMIClaI0plziSmr88oeLu8cz9cH7cZt8eRPDnXWAZ11j1tEgKwQY4V491+j
-	hp0lJJoaNvCuuHsGrZpIuljiaAXVTTE1iuCo4xqZFzJLk4ZfItCv8Bqd/+OMlR0f0nWo=
-X-Gm-Gg: AYBFou3yUBTBw0+2G89Mfc/rjoyLIR5Jd1Y0wyFJloQyakqagWZofoO79nQ7J74GfyI
-	QhbAThIDdlduf3OA8FMFDmMoywj0ts9g1cG4xHfCzkcNcX9DaKwGDjGpU/7SC+3F9xbTckPiFYr
-	pxckm5bjRkEN4vltDEzzDSkI19p/jDAYf4osFS+d0w9NYYHOUzeKJx46ndmD4S60DiczH8+cBCJ
-	AVfT1dRnC+bON2bjszjTD1hb6Z/sVcyjfa9SSdx/A7aZJVgl/xsdtLuwRwcYLc+Qa5LajIjYvVH
-	oTzKFumZIBy6ZBf6dNYfS8J4VSTZDTyuOcRMr3+jniCFiWF+ewjjEacE9PaTfvcqQEAtuJHQpjW
-	VlLy/DXLriIioCuiRx7XRl9HzKcmpwHJkwaEAm95lB9XM/7/fDlA+MHpYJFYiJMDt1+SMYrDuyP
-	pBA80NAoqhoak=
-X-Received: by 2002:a17:90b:4a4a:b0:3ac:8446:c1a5 with SMTP id 98e67ed59e1d1-3ae897d313cmr15166543a91.48.1793881894488;
-        Thu, 05 Nov 2026 04:31:34 -0800 (PST)
-X-Received: by 2002:a17:90b:4a4a:b0:3ac:8446:c1a5 with SMTP id 98e67ed59e1d1-3ae897d313cmr15166513a91.48.1793881893960;
-        Thu, 05 Nov 2026 04:31:33 -0800 (PST)
-Received: from hu-anupvish-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b312cc44sm4186768a91.1.2026.11.05.04.31.30
+        bh=bKGuzAUaHML6wkJsYB/5ryGtpKz03dwMg3XqSc0JR10=;
+        b=0Vu7XNJz0Zo2LnEUNoLL4JC+s6TqnkoMEaigqa8q3bYSsLFV/Ds6TLkRA6mLhA5E3K
+         0Cj9Rm6n+0Z0N+O5hC4kgwitNJg4GHA2momA8EsC0sAIpWvm8h7PAkEruDaTu0omRC5+
+         NUzrfjUvtMdceYPD1mdkC/zfZbx6c/1C2GcI9cCnaqwtnf5iGpXDPDFRg8ke2qan+yVw
+         BGjWp1FzSrhOvG8GDSESapKFjIF+pqUmRGpEGUqLtQguGn6d2Ycdjd6hWJymGmw7LJy4
+         vQFKZ9An1+CbU+buCcBrhUY1cnYy+3mZfhnF/1bzvusuoKslt8vNrE75N9b77zMKc8Kj
+         z5bA==
+X-Forwarded-Encrypted: i=1; AKwUvBxH7KDG3z0658JTd2dQRJrJ39CsKPWaWEdr//9St+DUIlIzbPynoVilvgfx1WmG0tvNWCnPM5JhNQSBSp4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8f4N7eRMyXb1d2iSZ3o29jCyX9SXWhftOhkgxv6Td+QPqlcaKq
+	eEmH/kBQVGDYn/1idTohhr29wBftYEfMmdxb9YexwR6O6hufsUIxAKJk
+X-Gm-Gg: AYBFou31mLEYC8zlcCEz6RAqueHjZWUMTtCHTyP3k9N2eZrv/GrQP4wNGo1Vp1Wp3K9
+	zs73WHwqc9BdgFo7O5969Kopk/Zi8KFXn15MV/+ToLzTem3ohrYuIHaE2zuk6nDcwcg2TzOFpsf
+	IAMCrU/7ZCV6SdsB6hWvrlcU0iKnWf1WvwRId2rDt+Oyu2ulf6F1H65g16pSehZ8sk67Z02q2KQ
+	zPB9PySXCogvS87vBFiaJIjG7hsyY7AclpbC4nSVGWkQAm7tiQ1VpQLEAelzYrSsHv35XUHFIZQ
+	BSUlX8M9pte/Bv1mu//O5s9jWxJEA8iez0LGRCuaY/vL+8PTgBHKQMkig6LUHYXpKzZsnaRGcRP
+	DCZmvOIRC1nPs0WtUZwICRHhbP+F21nrEm3+ENkWmU12SEvvMPPHgYYy//haaFpMiL1gIBqJdy2
+	Dyvca8SLFeeRs3LSksyNXJpMspMuBSZo8zsLnsI3nRwcLlpUpJGsUa4XH/kz/FbLGqW281kxuqf
+	E7pt21NSZAyspKp196cgTC5CV5njonJtGDJo9Ssoi6tFCkYTrXpaI5bSVW+EWq+NBlK8ty/+hLa
+	p1bxpU+o7HdEfvDPONuusIbLGoHkWqZ/lp8K1YY2WDu5UZA=
+X-Received: by 2002:a05:7300:de06:b0:36d:2b02:86a6 with SMTP id 5a478bee46e88-36d2b028b7bmr5063810eec.4.1793881941559;
+        Thu, 05 Nov 2026 04:32:21 -0800 (PST)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3966daasm21742977eec.23.2026.11.05.04.32.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:31:32 -0800 (PST)
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 18:01:27 +0530
-Subject: [PATCH] remoteproc: qcom_wcnss: Clean up subdevices on probe
- failure
+        Thu, 05 Nov 2026 04:32:21 -0800 (PST)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 05 Nov 2026 07:32:11 -0500
+Subject: [PATCH v2] mm/shmem: remove truncated folios from the page cache
+ in batches
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,106 +93,132 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-wcnss_unwind_send-v1-1-ad94209143da@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAB537GoC/yXMQQ6CMBBG4auQWduEViXEqxhDaOcHxsVoOiAmh
- Ltbdfkt3tvIkAVGl2qjjJeYPLTAHypKU68jnHAxhTo03tdnF09uTWrWLbqKcmdQdjzwsY9AbAN
- TSZ8Zg7x/2+vtb1viHWn+vmjfPwiofix4AAAA
-X-Change-ID: 20261105-b4-wcnss_unwind_send-dfd3abeeb82d
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793881890; l=2026;
- i=anup.vishwakarma@oss.qualcomm.com; s=20260805; h=from:subject:message-id;
- bh=J71tadodfRGYJW5Nycr++mJmbgMQDs4uWDoXVUU2Y0M=;
- b=oWCm2r0F8KdbSL3/Mz39DDABOVzQqHowV1zzCmpf2CR8zdAItJDBHnMDVMug7TbWMT2hhEvIW
- RgM560kAdvWDJ8DIXl3bh6oGdp6xSdW4lq341ty8gHL+OeHMJdTP8vS
-X-Developer-Key: i=anup.vishwakarma@oss.qualcomm.com; a=ed25519;
- pk=Y9ilCu91UQrzHOM14SG2IjnmQ1QSroH5uVeBSWEmEDM=
-X-Authority-Analysis: v=2.4 cv=Xd4cX455 c=1 sm=1 tr=0 ts=6aec7727 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=wmpEfPDpJ3FsH4av_P0A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: zjJByEOD8jm3JNRuSLKrCwjWiRwe3vnT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0OSBTYWx0ZWRfXw8RKtOm983aK
- cyoAPq8UAVUfgUe4Kv9EPuGWEJuSg4sp7oEYA/wvrRPh1wQQ6ZDQ7GaEiXYtp5NKM/kRvVeK34K
- 8hzQyq6eId5P3F7OK7AosPA+kehuiwE=
-X-Proofpoint-GUID: zjJByEOD8jm3JNRuSLKrCwjWiRwe3vnT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0OSBTYWx0ZWRfX+xFuOM6UwaJR
- JHoCu0Hwf9Dnyn6KG05M4t5RxEPfHzhHTcFW4Y5d4S1OCFwH4N2jWVYVpRaav96/FwkfBAsAvkh
- QNtuvaknRVfFUKN0dtByP0retkbOGW7RcK9tvvBaK5K5zTDAVvogBsECYy302SkLElczus/EK0/
- mBRLBdjhxRSvDMhZUCuR8S/od4CxoEwUi1nlaWiP2qUDjRlZhgUczBSNXC7z4yV3NKw4uofjWPW
- B1OdQkhzLHiI8kzN4u8+Qx2CmTtHMwg5xmNDaZv3QHPrqIF9dMq4wpOGL4vStcEed0cnPD4j9Sy
- IU0bhj+68k/McL4ccK4GJZ51kFFYyX/oE4hKOBlgCyM96p6/YZqNbZQsRVoeXb1SeCv4QA3zJXm
- ORWRwZedNLGEqiS4fbxype0mZz65H+kmBhj8n0lVH4F/W9tZ3wmpJ9Enjr8wDr/e6uxDRGtNf5k
- /lou2zRFh2C8Bx1z+lA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050049
+Message-Id: <20261105-bug-mm-shmem-undo-batch-v2-1-ae5f89ced044@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEp37GoC/4WNQQ6CMBBFr0Jm7ZhOVRRX3sOwgHagk1hKWiAaw
+ t2tXMDle8l/f4XEUTjBvVgh8iJJwpBBHwowrhl6RrGZQStdktIVtnOP3mNynj3Ogw3YNpNxaFk
+ pspUpO2LI6zFyJ++9/KwzO0lTiJ/9aKGf/d9cCAkvVXs6a9IdX2+P3jfyOprgod627QtJLB9xv
+ gAAAA==
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-wcnss_probe() registers the SMD and sysmon subdevices before the iris
-probe and rproc_add(), but the error paths after them only release the
-power domains. A failure there, such as a deferred probe of the iris
-clock or regulators, leaves the SMD subdevice registered with its
-smd-edge node reference held, and leaves the sysmon instance on the
-global sysmon list.
+truncate_inode_pages_range() takes the folios it finds out of the page
+cache with delete_from_page_cache_batch(), which takes the inode's
+i_lock and the i_pages lock once for each batch of up to
+FOLIO_BATCH_SIZE folios.
 
-Unwind in reverse order of registration. The sysmon failure path skips
-qcom_remove_sysmon_subdev(), as wcnss->sysmon is an error pointer there.
+shmem_undo_range() calls truncate_inode_folio() on each folio instead,
+so filemap_remove_folio() takes and drops both locks once per folio.
+Truncating, punching or freeing a tmpfs file or memfd made of small
+folios, such as a large /dev/shm segment, pays for that on every page.
 
-Fixes: 5a856bc63ce9 ("remoteproc: wcnss: Bond SMD edge to remoteproc")
-Fixes: 1fb82ee806d1 ("remoteproc: qcom: Introduce sysmon")
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Clean each folio up as truncate_inode_folio() does, collect the ones to
+remove and take them out with delete_from_page_cache_batch(), which
+needs truncate_cleanup_folio() outside mm/truncate.c. Swap entries, and
+the folios kept when undoing a failed fallocate(), stay out of the
+batch. Dropping an 8 GiB file of 4K folios, median of five runs,
+averaged over two boots of each kernel, in a 32 vCPU VM:
+
+                        before    after
+  ftruncate() to 0     1150 ms   917 ms
+  hole punch           1165 ms   919 ms
+  close() of a memfd   1153 ms   921 ms
+  unlink()             1152 ms   921 ms
+
+Files of PMD-sized folios take 18-27 ms with or without this change.
+
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 ---
- drivers/remoteproc/qcom_wcnss.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+V1 -> V2:
+- Unlock the folios after folio_batch_remove_exceptionals(), as Jan
+  suggested
+- Rebase onto v7.4-rc1-132-g05441d697f7f and update the numbers from a
+  new run
 
-diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
-index c856a92af43c..f4847fb8f13b 100644
---- a/drivers/remoteproc/qcom_wcnss.c
-+++ b/drivers/remoteproc/qcom_wcnss.c
-@@ -653,13 +653,13 @@ static int wcnss_probe(struct platform_device *pdev)
- 	wcnss->sysmon = qcom_add_sysmon_subdev(rproc, "wcnss", WCNSS_SSCTL_ID);
- 	if (IS_ERR(wcnss->sysmon)) {
- 		ret = PTR_ERR(wcnss->sysmon);
--		goto detach_pds;
-+		goto remove_smd_subdev;
+v1: https://lore.kernel.org/r/20261029-bug-mm-shmem-undo-batch-v1-1-59b34212fe78@gmail.com
+
+To see it, fill and remove a large /dev/shm file:
+
+  fallocate -l 8G /dev/shm/f && time rm /dev/shm/f
+---
+ mm/internal.h |  1 +
+ mm/shmem.c    | 13 ++++++++++---
+ mm/truncate.c |  2 +-
+ 3 files changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 566cbd2dce485..abe64e49a4170 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -628,6 +628,7 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
+ unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
++void truncate_cleanup_folio(struct folio *folio);
+ int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
+ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 		loff_t lend, pgoff_t *pstart, pgoff_t *pend);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index af21a89abb0f6..2e51cc9c4c24e 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1352,6 +1352,9 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 	index = start;
+ 	while (index < end && find_lock_entries(mapping, &index, end - 1,
+ 			&fbatch, indices)) {
++		struct folio_batch remove;
++
++		folio_batch_init(&remove);
+ 		for (i = 0; i < folio_batch_count(&fbatch); i++) {
+ 			folio = fbatch.folios[i];
+ 
+@@ -1363,11 +1366,15 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 				continue;
+ 			}
+ 
+-			if (!unfalloc || !folio_test_uptodate(folio))
+-				truncate_inode_folio(mapping, folio);
+-			folio_unlock(folio);
++			if (!unfalloc || !folio_test_uptodate(folio)) {
++				truncate_cleanup_folio(folio);
++				folio_batch_add(&remove, folio);
++			}
+ 		}
++		delete_from_page_cache_batch(mapping, &remove);
+ 		folio_batch_remove_exceptionals(&fbatch);
++		for (i = 0; i < folio_batch_count(&fbatch); i++)
++			folio_unlock(fbatch.folios[i]);
+ 		folio_batch_release(&fbatch);
+ 		cond_resched_tasks_rcu_qs();
  	}
- 
- 	wcnss->iris = qcom_iris_probe(&pdev->dev, &wcnss->use_48mhz_xo);
- 	if (IS_ERR(wcnss->iris)) {
- 		ret = PTR_ERR(wcnss->iris);
--		goto detach_pds;
-+		goto remove_sysmon_subdev;
- 	}
- 
- 	ret = rproc_add(rproc);
-@@ -670,6 +670,10 @@ static int wcnss_probe(struct platform_device *pdev)
- 
- remove_iris:
- 	qcom_iris_remove(wcnss->iris);
-+remove_sysmon_subdev:
-+	qcom_remove_sysmon_subdev(wcnss->sysmon);
-+remove_smd_subdev:
-+	qcom_remove_smd_subdev(rproc, &wcnss->smd_subdev);
- detach_pds:
- 	wcnss_release_pds(wcnss);
- 
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 733d2713a875a..c6bf4aa0b91e8 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -151,7 +151,7 @@ EXPORT_SYMBOL_GPL(folio_invalidate);
+  * its lock, b) when a concurrent invalidate_mapping_pages got there first and
+  * c) when tmpfs swizzles a page between a tmpfs inode and swapper_space.
+  */
+-static void truncate_cleanup_folio(struct folio *folio)
++void truncate_cleanup_folio(struct folio *folio)
+ {
+ 	if (folio_mapped(folio))
+ 		unmap_mapping_folio(folio);
 
 ---
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-change-id: 20261105-b4-wcnss_unwind_send-dfd3abeeb82d
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261029-bug-mm-shmem-undo-batch-de001d9c6f1e
 
 Best regards,
---  
-Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
 
