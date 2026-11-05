@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793907760;
-	b=jcb9ghBX28ZUvV9kx5GrcO9AiFsAliavXHijwoLXZTgEzhfqxX0NfD0hDNPaUgaRBRkP
-	 7VvFmTRJ+pH6W7swzmwYUIAROSxuMZ4ePBurtl+ZLafoMhW0W5QPClYYbzmqjDBE+hCky
-	 edyltFCc/rpJQobKGhJEKeKA0PtwB0t+cIcgzlF4MXCPbm+Oqew9moRUgJxWHxesCZswO
-	 ccMStbKjHtu/0A8j9e5xQk8QgVjWi/8Slp9+gkQZ9ksYVoV7pquQGjGxr4fV1pzN/tWe7
-	 Hi0/+ILP82UtbVWK6g9My7uXypIahPkhcOZB6znYIhigqHOLFZw9YgzCv7PO46WqyPw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907760;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FUjFF4/lQI2J939Rl5oexJ8HSAevBIiohF20FbQvF74=;
-	b=OH1OkI9BLPE/uCj2wkMWscs3lNkWF+eOYz3wCGmVGenug5QReZEmlFeFWV44Q20N6foT
-	 RR6kH0JzZPEmJWcEv9bn+DAaQ4mNcaOy0pUGCb12yc62M/LaEJGtN08zxv7djVs8sQZ7f
-	 b47RxjvdnQcSidcorH0AHDhIGgSOSawVllZ4tnCmyfIa0AqdTHjmyiO6XVY1O30UN9U6B
-	 q0cANz9d2gUA7+2lf7Tlm9mgU+DZiKhRlajrJkbPjkpiCm217f6zPe5EPvJBuIC09URXY
-	 UYGbn8FEPd4mh9Gw5c6wWnU/22jkL2/bel3rQS5tXkmSQm7BEVlXd2hUQbiMyQRHn5Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XpmRnnhP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793907813;
+	b=fmE2iQccM9vShPDV0IRwKOmJKBL4Rq7l/bulGZJkipYhPyMW6NUCTpwuY8/EXr6VR8xP
+	 LKe+N5K7p0KHX8ctztKRcyQdwPGSXKFJ0lU61YhQG/xgwqRnDEwtlUbDyJP39uOEfGxcF
+	 pxwEW0tQUnom6RUZIuOBRdnx8Yn+nk2t8W4IzCKJZHfIxW2vbKIqVjPZBfHrxCsBpi/KV
+	 9D9Bj34jyN896pGvCfNKO60wRa9iky7i0mKuOXIL5zKGjh2E50BAP9I6kFV1hE7QrJkJr
+	 5NxiuJ/77kpR1Zpab8xvhWOPXmb6qZaphZFWjX3LrqlbrJvAzaUzkfk5rYSFa4MAWvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907813;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dTMunOvWx9vfj4dikKtc63lykbDUpZcV5Bu+Cvs6i4Q=;
+	b=MU3KWu0zQZgdGih/pGfweW7FfzRNHd1q8yW9MZesOZpaMNakUyHyO4+ZY64tkpITNS/u
+	 7hx8EYqnf7ipb+A8kgdYNrgvFwT7hXs9Q4VGIbdUb5gZ8IA2kfoddQEBVt9Hjxm9uR8W+
+	 IwSWKNyWSFQOuewHYDIajUoOnCKkNU/oRC0D9fN73KU8PBgHnRF+aRQclPfpu2M+Q/SP6
+	 Kks1gVY8zOPuPIrNccg38MB+4JA4IFcgOtYETE4B25cwP+NlEVPEJ+F2xrodzPBn1AGkj
+	 boERyL2Z9z/vZ6k8uVV7v7GxN1Cs1kEWyqUcAklwEKOtjpcy9CLM0mqCvdWUf0VOeaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gzfK7/nF";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D356078559
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:42:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20D356078559
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D40E606A6C4;
+	Thu,  5 Nov 2026 19:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XpmRnnhP
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so21200105e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:42:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793907758; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D5wDNpJNA1X83T3IK/oEOzICzqXRw3qDK9QoG6g9GgUhoDrA55rOQNdzCyK3sRxR4d
-         ZisRyWT2T5oIfTauIukQtfT5qExFsPh4zrObOKukAzWotbovXGODoiWiJ1/6lK1sAwfZ
-         9z3uIQH9fRsx82hFY+Q98fPpdztf5x4v0/lc8jCMX5+oRa8lIUoBiE7rtL3NeDF1DzfN
-         nLDka7S4Ai60GjgqdWCtWk99oqkgBWtnOf9gBThN+R4Q8IxxsVFKVEccAnRgsBpZCmIE
-         14Nd293QRRmgl4yEAk/O+RphAeI7oAKs25IE1vvpi+9vdt2YHxIVmXyzmbqI2tgiqfT7
-         /rRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FUjFF4/lQI2J939Rl5oexJ8HSAevBIiohF20FbQvF74=;
-        fh=FEg3fxHnPF1H+uHPJR1mJgjc52HvzTgfmrEwSa8xnnU=;
-        b=hHE8+9kQBvrXF7PIqGzA3eJP/pLxYdnLAbtLR+01Xf4EOrH9R7189o2T2jZWthJUxr
-         KLZHw9TdOHAf/QHzZk4xXXfkFh3wRpHrppvimWu2SZsZ+Cg5UzzhkR2F3/rVEdfSxyEE
-         CKY56EtPD8hQuktsQKbOzV6Ko3noGsubaALnS97zS8BmE+TrO/BU60XUjZsxaXm9Sgyt
-         cN5JfQa9Hx4s4svKadnYF3lSsRYqsUDD5K9YQ/F9YKtA7CDhaJ9ttY7yJ8dL5g6pf3H7
-         srgeW92ZrbnzBi4rjLEax20e5vvilNb31TDdeQSBBAjH7qLw4ezt1Rc3w02/8Z3uULC+
-         Lppg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793907758; x=1794512558; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FUjFF4/lQI2J939Rl5oexJ8HSAevBIiohF20FbQvF74=;
-        b=XpmRnnhPkKizQ/zJ4iRRUolBEIrQyWbYKx+dBHoaKpLClFlTAmH77kc8/u9GHvlJ82
-         ShJCFB3vdX/zDLZOfugNohxHRqn4KJEFXYK5L+HwtHNbapCB232gzJ4tnR/LloDyqvnL
-         dNgUDMnHR7NpEVjNM8kbLDaGD7mSAlt/uarv0wO1XIv8Bx5tAOoscLsWGwLkToBhqO6V
-         37Tc/lkRqB5cU4Y8CJrsdwxCcTnKPEA/LGH8fzdmtyG3FJ9c7asKqnORUtL4v1xuP/fj
-         Ssf/mxhylyE0YkHfKgFd4gLxSL6SPJtTLc2u0R2ULHcp1THtdSgAWqqDOPJOKdMex00t
-         W0Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793907758; x=1794512558;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FUjFF4/lQI2J939Rl5oexJ8HSAevBIiohF20FbQvF74=;
-        b=bPaArOctB+ps2yz14GKSdCbtflyUpTr/AHQrfUfda81nFgjX5PTwLhfY+mFT+kdNlK
-         AEubba/hCfxvLx/4BBlLy+tS2V+OgTdu05l86z8/GhsQws/ZeGybW53+8zU7GX7YHuId
-         kPzFVYRe8sx4jd6sVFDWkCPD9CeidnR+H8Y8d7CHi95XTw/6/bDuHJ2bT7EjaT0gW8yy
-         e+h9eQKOoR7VbzjB0QtiUbPoqWytIX4itZiv4d+VtXFBzY6oX/MFEhOJKeSNUDKpr/P7
-         ZPYigOehzfH/tI91O8y6coBsLG4eeW3Tn1Rpg07XzwLdwTTZpgAydAarNFWUSFgrAmDs
-         ICiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxeIX6ZakZnXZ0d2SWH8ybvrwJQgnayGodElGZwXZb5VEKTneIgwn/Nt8jnA7JOIcdv12w3XdVwZsNPm7o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9oyEBICzsDPo45m2gVhAwQb2LNsja4iD9XIV9V/qzcEy85B8rS
-	LC3zcyYubAXcymRK0YXMVmTlL/dHTAfrOsZ/2UvOY7NzntRSAfY/b0nyle3bHXlsGyZkJ26zTYp
-	MsHHLf9rszvgQtqcTqPPcWjGyB8XhzlwvhFKMwK0=
-X-Gm-Gg: AYBFou0fcXtynNf6EudbqPGIMZzWSaw0LYalH9OqILte8xvW0Df6h5EKk5bzwPrKsNG
-	2uyjyg2Om6UbdC00JxrZWjDI3xEUSnq/NU1qO0cZWjuOEPHKE3Ngd6wLnLxEuFByoxpSXoGpTTk
-	FcjRTZcj+Hz2aKgR9IpsFajS6Br5ZZHgOF/tHilq/7B3aNvInLintgQ1lK+PR29WZVkePivLhEv
-	4i4BsMt2/aSa9w9/w17dIZKr7nBsfJYbhchPGoI1dEAfXBSGHd9ynYGgi1mRO6tmiuYropldarg
-	uSX7PBSqP5LpSpLhCacj1LVeLrUpUJzHrro5DcXvcsQ1sAvG2Ij7wxHIeigC0zCul2gXliQig95
-	N7C1xMi/Gz23uKOGmnckAe4jAVvq9vw9X7uPmR0c3AE0jzZqyjh0aalD4x6z8KUDcZVQRJ3E1Vd
-	Qcca0f3oCY6nZU/iK7rRZf3hvxbHGCsR+hffV3n5dAVS0WKgAGzQWdZorC92OMBJRHBL5yvQ4H+
-	t1G56djWjq5B2/kKhUhq6gBmcKOi6IJ6p+nJZZK90ypzeaojqYr5g==
-X-Received: by 2002:a05:600c:4455:b0:4a1:f720:74cd with SMTP id
- 5b1f17b1804b1-4b6de6916b3mr2613335e9.24.1793907758040; Thu, 05 Nov 2026
- 11:42:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzfK7/nF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE29F1F008A1;
+	Thu,  5 Nov 2026 19:43:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793907813;
+	bh=dTMunOvWx9vfj4dikKtc63lykbDUpZcV5Bu+Cvs6i4Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gzfK7/nFuPPtB7TuaDe3+Fc+p0bNF+u4OzPhpYnN6Pgry/ETk5WJw/bk6pxBpNtXo
+	 VakeLxhOZEHtnMaMA/tBF8ufO9+3k+q73OIS4DvkuLPDyKlT0XPBcxLnwnFQgGVYT6
+	 iR5Ow3jhrstIzdB1yLOnqInMkHBiz6HeSWPrVT+6K396fgBqDeSDUbRl+mfkzr5Sf7
+	 lQkvd+zApBq4+NcjVkx12fZytmu2Yg5o6q730thrkMasxcit1lT3Ddk8nk1Md+QKsO
+	 Am85USGObzeUurcYRcqOFtoGLhaGBp9Ox5CAXaSD+iylDf4nZrPOtjeu8rcQYYVov5
+	 kHczTEJKgsa2w==
+Message-ID: <8c11d322-5b30-43ef-8d8f-1baab4a90332@kernel.org>
+Date: Thu, 5 Nov 2026 20:43:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,37 +51,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105135316.2465369-1-mlichvar@redhat.com>
-In-Reply-To: <20261105135316.2465369-1-mlichvar@redhat.com>
-From: John Stultz <jstultz@google.com>
-Date: Thu, 5 Nov 2026 11:42:25 -0800
-X-Gm-Features: AclHuK8_Cdf5KAWZdw4g1K8Nm6fP2wA8tqVrHe7sfl7XE0jtg8CHifIXYqpUXVg
-Message-ID: <CANDhNCoJsgv8wGa7WDrHvtWGgmb264j8BFMnw-vCQT7Jrwui-Q@mail.gmail.com>
-Subject: Re: [PATCH] timekeeping: Initialize TAI offset to 37 seconds
-To: Miroslav Lichvar <mlichvar@redhat.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, David Woodhouse <dwmw2@infradead.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm/swapfile: drop a large unmapped swap-in folio in
+ unuse_pte()
+To: mt4022@columbia.edu, Andrew Morton <akpm@linux-foundation.org>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261105-swapin-large-unmapped-v3-1-d5906e4cf18d@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261105-swapin-large-unmapped-v3-1-d5906e4cf18d@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 5, 2026 at 5:53=E2=80=AFAM Miroslav Lichvar <mlichvar@redhat.co=
-m> wrote:
->
-> With Resolution 5 of the 28th CGPM (continuous UTC becoming effective on
-> 20 May 2027) [1] and no leap second announced for the last possible
-> date at the end of the year 2026 [2], no more leap seconds or other
-> leaps in UTC are expected for at least a few hundred years. The TAI-UTC
-> offset can be assumed now to be constant (37 seconds).
->
-> Set the offset in the timekeeping initialization to the expected value
-> to not require it to be set in user space via ADJ_TAI. It can still be
-> changed, and leap seconds can still be set, but nothing should be
-> expected to do that anymore. Existing applications are expected to
-> either set the offset to the same value, or not touch it at all if they
-> see it is not zero.
+On 11/5/26 18:19, Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh <mt4022@columbia.edu>
+> 
+> Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
+> for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into
+> one large folio in the swap cache.  The folio only becomes anon once
+> do_swap_page() maps all of it, so if the faulting PTE changes in the
+> meantime the folio stays in the swap cache while not being mapped or
+> anon:
+> 
+>   Task A (fault)                       Task B
+>   do_swap_page()
+>     /* swaps in large folio F */
+>                                        madvise(MADV_DONTNEED)
+>                                          /* zaps the faulting PTE */
+>     /* PTE changed (F not mapped) */
+> 
+> swapoff then maps it, which marks all of its pages as mapped and
+> exclusive, and the next fault on one of the other PTEs crashes in
+> do_swap_page():
+> 
+>   [    6.424485] kernel BUG at mm/memory.c:5195!
+>   [    6.424503] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   [    6.427654] CPU: 0 UID: 0 PID: 67 Comm: swapmthp Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+>   [    6.432665] RIP: 0010:do_swap_page+0x24eb/0x2fa0
+>   [    6.451035] Call Trace:
+>   [    6.451567]  <TASK>
+>   [    6.453841]  __handle_mm_fault+0x13b5/0x3b40
+>   [    6.458525]  handle_mm_fault+0x16f/0x480
+>   [    6.461143]  do_user_addr_fault+0x312/0xa30
+>   [    6.462044]  exc_page_fault+0x66/0xc0
+>   [    6.462846]  asm_exc_page_fault+0x26/0x30
+>   [    6.476708]  </TASK>
+> 
+> do_swap_page() already drops such a folio from the swap cache when it
+> can't map all of it.  We move that check into a helper and use it in
+> unuse_pte() too, so swapoff drops the folio and swaps the entries in
+> again as small folios.  With the fix, the next fault doesn't crash
+> anymore.
+> 
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 1s.
+> 
+> Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_SYNCHRONOUS_IO")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
 
-Should we also emit a warning if/when applications try to change it?
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-thanks
--john
+-- 
+Cheers,
+
+David
