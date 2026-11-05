@@ -1,100 +1,180 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.14
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793883034;
-	b=VBjzJuIz0tDVF+L2c20dqb5eE3ec/CJ7XFZ3bvPOJd6FDBf6hAR+EOlg3MYUe+1z+dbL
-	 FGD7E9bOHwKPbQOavnEMKojofjaFGFHfDEHZE2ciae+WyWqPbDkiJhOQVNxI48EcXWWKK
-	 /Y/KC7Xz5/KNAHIfIQcQ/KQeS42mHc34KqYn/iBEpu5SO5XZPdJbBFkom1e1tC8wv/RwY
-	 h02iWqzwzNe1dUfA90l2Qlk1CsX7c0AL3Sw2i4ssskA4Wj+YD/nI/+iRnxxMc4iW//jkI
-	 JHM4cxRnhYMOEErcsMSW2DrpHB3/oUAXvU9kRO3vchAyf1DddmNOkxM/XbkAJoxcdjA==
+	t=1793883056;
+	b=gp5FkSGoO1hHvuSdhwBtVjvmWZKh4v0z6kNMR2K2kcH/k/gkzQojUguUGrE8TmDO0z3W
+	 z9L2kj1iL7yijezhyG7pYSEKIQIpdkxOz+TJzAhdma+gt3lBJOIHVOeoA3u/GoNmMUTsy
+	 ADWLK7Uo2SXsj8P9atoSVLnyeO6BsqW3r6/H7X8x2+6YhF7L8UYGgc2iO2Yii0F6S7E8x
+	 d4SCoPbgIs6DOw1vZVvD//rbjheJJd7RTXAUlz2kxzzPAl0uSrMrbEtDtXdY5wizxkf2/
+	 IxS6ERlvyQjZS6/Rii5Qa0a02ykefjGZS0QY//8JucHh0bzbOhBUCfUeXssH7iE/qwQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883034;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
-	b=MpR1TnL+l/z4nmE8RV/TZzxqb6eigDZVJmt+TPIEsz4rov6B1F5Ccfg3pPiu0yUb5vLn
-	 CY43wZYDRMKqMaeW49xx9tDc1iuGxc5mjyPi6Eo00T2Kk3hthtQrKOLYD25bDuzYQ3G42
-	 6G+wrnT+bwC4iuzrIGzcHysuCuYcnGmzXNu/xZMGOVKiT6u4CWKY4mCKmUkQlDSqHjTsZ
-	 Sd2o6cCV8bsGk8ufFKjqSD7+Q+hka7CgNlsfKh1KNYdu/Ed4TNCN41kAG/UvcB+u33ctu
-	 bLWR3s97fRPRe8VKOciVacjE1KmrFtpYFk91vFSSrZLiXqHeq/4roMUM1TWYtsO2nsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883056;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=tTm0aw1KwdQjIz2crEpeXc6IEwMkxQFjxql+mZgR+GU=;
+	b=31vYKGIbUjroWq0s6VzCelLTmvdgqON+xsg32shJXmyJTlETlAJ6JXVYmwToWTlB12K/
+	 ci0cfNFeGuFOO4I4Wh+turK97DxkUiDDHuTtysDK6Jn3jpf1pEQA4hs0jM1XRT7JENl8a
+	 T1puzk5Yy53UtcEcefuwDMfLSCBXQbEe9MyEs57JKN/9iV60x5EfXrIfBU5hGjYZH1/hp
+	 6WvKXc10xsPtOKppV+/9Pe0Gk1Mg+ivXfP7yX55/47syOTpv1IVcuRR4A1Sn/Heoq1/uq
+	 TZibAxB97d2KOOKETKr9vjdci5s9zA6zlMfw3eMX0c9GbVAsyPmodbU0vbbLRc/XPaA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=luxonis.com;
-	spf=pass smtp.mailfrom=luxonis.com;
-	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=AaPhrYO0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="XTI/fOFQ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9969606D818
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:50:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9969606D818
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8B2606A326;
+	Thu,  5 Nov 2026 12:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E8B2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=AaPhrYO0
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b56c3677f8so1682983a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:50:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793883032; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J3Be+pTUkm61skxA3Dw1b3w8GswR6/vrPOFk9xuXWv7DQPdrkn4rqD/i67ibyG5fMD
-         NgfUaOeWdcrdHnXDb0K5jMWYopzu/xIDCRON19EqGPnlzG+UKN5Qk2Kxk1Zjjn5UAQY8
-         INyUWbnf/Xe5MpbhZA+uiw3c5+SYYNuQfxT3t5+dN1P9a8EsSu7xJobMp1wnpFFPrOvw
-         tPTbA9HcoCfADJBQPq0wYaWq3Hiy/E28gCUHpUj3LIVlZN+nZC6pzF/KPRc0kV/+IE1b
-         MNqW1UAVAwhnSAS2+SKOI50/vZZEzWiI4eMpvb6qER+PssnC/k4iskKTuPE3umWL15Uw
-         ppWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
-        fh=Jfy21L7Ox5weZ7Exqoxf9Kogt8vI+LPT0d4tQBnxt9o=;
-        b=O8AKlVj2StNCo39NgpXhU3xNc2hgWaFhpMmNs2MS3FCd55wQmjlE2wFOEgssT+enRF
-         BAb9JYy6O98+q7AxPkCPsw3MKKvZfxaRhts0DTkEDsD2FcmSZWxavXcfru11/qVfTS0b
-         YnOncJ5/D/a7IizchQgCKClm0NKQvnVyBP2z+ljZaE54cH4pMQs/ztfarwje5VLdIZXV
-         zNFpyX+U//lM2A8dm7XuIoxbbK10Fw9m7uDuhdR3tcOB3bno66ILO0ne9ZzUxohmh//p
-         N5v67iyWGg6fzqRxQbLCORFQlX9TcllKcqqgX9+uGzJ2g9LfTskO9AED87RH9Flv+wm6
-         uMFg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=luxonis.com; s=google; t=1793883032; x=1794487832; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
-        b=AaPhrYO0r4u+Q7lIQ1qSS8rg//A/haANyRTxqzSDHNs7Q03zKmtWqm7rlMoajRbBmI
-         7cdjypj1nI9ME4l0tPc0b7Ri3I3BIN5ONdDTohhgf6lbMGst/wBW+2L5hHgsV1lMJk4M
-         Y4NX9T63xg/3kD/JsepvUbCUttxaXeZ6BOtbdt2eIMLysFDiKSo/AAxIiuDm8Z2LsD5B
-         Fvew1vb9VYJM3z5tihBk/Dkn6wkbnq8YyKjMdguAcsS86uhTdbxi48DAkSdhibeb28HS
-         Jwdcd2Rw2eHR9zGFveYtdorgxtszrX5NiNgrStV9aSWwN/OB0zxg9SiSXI3jarirxT87
-         1g/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793883032; x=1794487832;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
-        b=gGY+YgvjTTxOFcEVjmz57pDG/MyY/SqV6wgpOTEilHfO62z0zT0obJEZcKJaEDLLxP
-         OkOU1ZsYiHtAOudyRcaHDrmuleNiYzPp/BPzqr/VeOQ+J+37kWGHAVu5Z8c/7Y3PLLUE
-         u7atZIuMKVtqvrWRkBntpDL1+huSKmHFc25nul2dWr5OmCwylnbsjT8wL4gAoeqPPSGh
-         qXLIBMnK6b4NiIedDS90hgR6fKWAlekQFR35UFnYLEg1mKbf9x21g4C4uDGxqdEyroL0
-         PVDCeOGciVEi/i3zsJKJWf/7JgdR4qS6FUdkED36wUpUzJj3XPxldaRj6oY6ZA0e62U1
-         MakQ==
-X-Forwarded-Encrypted: i=1; AKwUvBza0z4Gj+DLdBy5xMhPf6I0zIf/yNRNSijVLbUkudboxrnNhC2ZSMwnRW+NhMhLlPlChcRFnHUVae5JH9k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CpezgpceHjPOwJsTtHdE/d3dpzxLCStB1V5gPh+EM++2+990c
-	upBGmzNoMPneFC+LYbiGbp5TfxLKxNoEUQBJGfCIkM9JWt90qorb/ZmPpuhNzeg0KMzftRypSzP
-	LtpTtISGWv6ODaZa8Y8ciHv9oYpwPikYS1un3LJ/IqA==
-X-Gm-Gg: AYBFou3C5DyHC1fDNM89UPbUBdKsmQJ0E76z94BPcv7ACen9spkcMXMFsfq9QivWzwD
-	WyODOVLXBCdVKBYKHuE/mf3mqWzGyZzIcKrsCVR2Q5PvgtX1XA4djQSk1LQVE1lR54cS7FiA+bC
-	fJLzjP7XSsLWA7zrRJYQ7IRs5b9D2JXHZrmC3Gn3YU5Gg5AQ/ylNu2bgIo54byO8SgQCPrZwmUb
-	ezpxK6/9eABFZlvjjW6SMR11rOslbSLAcD++ppk/JMjHuqKpGlLMGeytqpiWrEEYJWs/zU3Gr0V
-	t+UvHzEQZ1K7F7PUN70FqEsMxaaWQyUjZ2LTZM6iCHPVrjomTZAvGaJgBJs1eKRvUXo+4eOicDM
-	F4IZBWqpTwY1lRn+5CAM+/hbQA3nWaiZZ3oTRlilDgLkF+5KF5YypMnachcI=
-X-Received: by 2002:a05:6402:4510:b0:6b5:8227:f921 with SMTP id
- 4fb4d7f45d1cf-6b58227fc0cmr1372938a12.3.1793883032296; Thu, 05 Nov 2026
- 04:50:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XTI/fOFQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793883055; x=1825419055;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=DVTEEKSZ6c8vusuvDYtwJ4nfHqai3fo7nPuajMtLxfA=;
+  b=XTI/fOFQR5WBYnG5hKr5eUrDYVTq9p8RaVaiou5w4+ogesoYS/vbzT4Y
+   1uwjsi19J8CQ2s32nHjx9MYFAU9m1DQ/1fp3oTsmz/cgo7ac+kPMcwL3e
+   Vv8jNJLQ7hnhGG6pPNXhIUCySCyqKB6JpmQ2MHXFsyILEKIU6K+QHR45T
+   2Z/JiLa9dYHE+GDGb/8mwNx63VRhqT3Ihe2yeQQGsJFgArX79y3GwJiQP
+   TcsRODuWDljMo3TGrhZu9QcXtGJYMqy5iylyYJ0bIXfGXbzhowLy+cOVe
+   /CmDZp/UyWeK8lEkOs+qzBk3H6q6g756yRM+u+hVhCm0uQVOhzT7/8/ef
+   g==;
+X-CSE-ConnectionGUID: 9x+iFeQ3TAG/4slIdz+f2A==
+X-CSE-MsgGUID: qyIzo8H0TzOjUX4VqHooAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2557783"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2557783"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:50:54 -0800
+X-CSE-ConnectionGUID: u88PAwlGQvuzY+xkiA39xg==
+X-CSE-MsgGUID: sF1r355RR/2yisGZDf0RJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7015368"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:50:55 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 04:50:54 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 04:50:54 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.25) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 04:50:53 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EAV/JO/o0xjuRP8v/tSlfc5DPULQGRLdKRH2PeX/BiIBXmAoWSFERoX2bOL25dW6ARnvjI9YESTUTimY/GspOTMheEK0fXtCUcmXaOmqysxthnFMSZMXvruIGoptMOVZLtqc6jk4UNHkukvff9PgWpWGZve0dqZ/ogOo6zoj7PzmN16+Sd4+pAPQSwuRcazHmX5CLrWEZtDfIhauxf0W1zgaf5Avlmj6XsB4t3AVHWFQNfOfztYbRzHIkyBCsHnFUMLx70naXPprBmWFoYl8OFZxrPqaGrqnqdj7xKBwhWcvNNdSwbnZC73ZeCQ4rrAR7J5EWGZ6c+C/XqOnlPQJNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tTm0aw1KwdQjIz2crEpeXc6IEwMkxQFjxql+mZgR+GU=;
+ b=affuBNXpyGE54OJKBIZhKhge18OXciT3Eeixvee93F1oa2aTaXSINGv+gAIlrTjVSRhSyJZcACbUR2OSj45LgESIx3iuS7IqGKxbBURNAOlRzDbAx5MKmgpEAJ/n3vRSxKmQo7Bu9oraKV/FH++GN3FQLcdMCW8+/SEhOe1kdo45y/8vGoDq4WydOG5wxLE9ci2DDpQnVZ0ehULVLWun5QB41PsQArxsnuvF4VQSUowJkUPENH5H1LuoXS3Cj6HUvFYn9aQ/vvigq5hnGKD0/0kkFwisAPMqHwF103QKM5xt0l2Ub5JqF9Cpk3hJeQVtu6Csm35DWk7f5aOq1f44vA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH3PR11MB566895.namprd11.prod.outlook.com
+ (2603:10b6:610:34d::22) by CH4PR11MB222363.namprd11.prod.outlook.com
+ (2603:10b6:610:508::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 12:50:46 +0000
+Received: from CH3PR11MB566895.namprd11.prod.outlook.com
+ ([fe80::87f5:c8cf:d52:e584]) by CH3PR11MB566895.namprd11.prod.outlook.com
+ ([fe80::87f5:c8cf:d52:e584%7]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 12:50:46 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: David Hu <dhu@x6u.co>, Mustafa Ismail <mustafa.ismail@intel.com>, "Shiraz
+ Saleem" <shiraz.saleem@intel.com>, Leon Romanovsky <leon@kernel.org>, "Jason
+ Gunthorpe" <jgg@ziepe.ca>
+CC: Jacob Moroni <jmoroni@google.com>, "intel-wired-lan@lists.osuosl.org"
+	<intel-wired-lan@lists.osuosl.org>, "linux-rdma@vger.kernel.org"
+	<linux-rdma@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "David, Hu" <xuehaohu@google.com>
+Subject: RE: [PATCH rdma-next v4 1/6] RDMA/irdma: Plumb uverbs_attr_bundle for
+ QP, SRQ
+Thread-Topic: [PATCH rdma-next v4 1/6] RDMA/irdma: Plumb uverbs_attr_bundle
+ for QP, SRQ
+Thread-Index: AQHdaxojO7oKbe9RvUq/94D6I1H5g7cfckMw
+Date: Thu, 5 Nov 2026 12:50:45 +0000
+Message-ID: <CH3PR11MB56689519BD2B2A4CD964487E0DE5772@CH3PR11MB566895.namprd11.prod.outlook.com>
+References: <20261030181512.2056056-1-dhu@x6u.co>
+ <20261030181512.2056056-2-dhu@x6u.co>
+In-Reply-To: <20261030181512.2056056-2-dhu@x6u.co>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR11MB566895:EE_|CH4PR11MB222363:EE_
+x-ms-office365-filtering-correlation-id: f1d14584-c464-4bd5-57a7-08df3b3b6903
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|38070700021|261021121427099003|261022105027099003|11063799006|10067099003|4143699003|261022113327099003|261021135927099003|56012099006|261021123027099003|261009223027099003|261026121527099003|261028144727099003|261022075727099003|261022115727099003|261021130227099003|261102123227099003|261026130827099003|261026140227099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: lB+O9XPdkNOTiKrtMIn8ddEpL6zksUIDekzehefFqYvEDfW+c/yU3BBzu3zFX5Pc4uptauXxYHZUw2o5NpjhBBwk8SHARsySLKwqhsBKp0d3S4jP70Z5Xd8nZixqaDBBurTjRfkngRWLoCDyIg5qA1AUaGOX0srie+D4eojGM0wUHM+GfdFNAlvRi+W4ExhGTMytLcsuTHyV9iwYEB2uipwQc564xAKhlFQT8llPqW2oYF5UgNF5Y6zsWUAiBgZWxve6MS+cHa4pdB3swjcE7CkNDcfVrV7CiGDfH8CBciqkP1vfYRztLe69EHyZJu7JhTosRjUXoZTWVnRgfSwBRshZY/uJewsuac515KhWRNG1ydedYofN8ALsIIGQW9DAUHjqAA0bMcp4U676EtvvO1ugtkzUucWI3gZKHVE3l62nI+dZ4PKP++pPJyTaruzFAPvUNMNHhWjyYQRqYvZFqy5g9ZSSm8rzlZYmA/uIeBmxAxi4ywB8PtUu39JWzF63cF6Vkp14dO/6tzjMoq6jef/iKbqMmcTz9cH3SS4qOkhPPvtFLK0IxTs+dY5NdHoivYwOYh5MX57iDvpEFaz1A/n43Olpg0iHVCtOU+tD7OR0kgW/hpyDX9lwutMqqYy71mvE8IcoZYHW5+IpX3MDdHJx0iCU35++8zv0mkY6bQ1lXKpSpj1hH1avTBwX03mNbhCgScJpGNEXs9/MnKD3wwVf0xHxxnvDOVVAPeavW9A=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB566895.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(261021121427099003)(261022105027099003)(11063799006)(10067099003)(4143699003)(261022113327099003)(261021135927099003)(56012099006)(261021123027099003)(261009223027099003)(261026121527099003)(261028144727099003)(261022075727099003)(261022115727099003)(261021130227099003)(261102123227099003)(261026130827099003)(261026140227099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3OBURU3ehhdcyLzlPSgUWS/TjJcZyzty/ie4D6uYLOBQzz6sfHL5dvzpvSQg?=
+ =?us-ascii?Q?XQGCNuGGq1nkwqZCHuywU2k4dvIGdNAeMk0jnwDB8EdRd7GlbBL93+qJL7so?=
+ =?us-ascii?Q?MJAFXD8fER7gHTG763x+lLSiyp/P3MRKI1yTYYAaKTch0elq4FOFpbI09Ubl?=
+ =?us-ascii?Q?gh0aqbtoFVukfZs90x3hPVB8BdsRzGPg9BS82EEPd5KaDH3Zn4UXsqxGqwP/?=
+ =?us-ascii?Q?WCIzo+pZ6OB3m3jCjYdny5mjAeNPKXWdOv3JrlQIR1SNp9yHvUESp3AKFtmW?=
+ =?us-ascii?Q?rZqVyRNeE/iC/2Oii9Mj0Df/iTD4QTyt7jB9Qsvx4qicvsz1YR7fcZtej5H9?=
+ =?us-ascii?Q?xiXkJjCMg/H0grhc/+HSZP6Wo8BPFxuFqP4IsxUfRS6qnLOp+RSzzxvg/f3I?=
+ =?us-ascii?Q?ytdMjMg+I3hFh7pY/5dUclAnIqbZNRdkwacPX0osMXNeGCIwzReKxob9iXV/?=
+ =?us-ascii?Q?TnZHQeYrLE69WKbAcYLh2QtejubA5dx3FLEclm+NU2++HiNOJCObI4Ort8T0?=
+ =?us-ascii?Q?3a2swxrd43/6w20ORQWG6DNx6duPRzEYNhunHRYlmNPF4H8TYT77jnv2JsQQ?=
+ =?us-ascii?Q?+kV4lLVcoGaT++Kx3mbmsR+LTqgZKEfMgCjsZ6UH8rC+PHfKjQ6SyaSxeweA?=
+ =?us-ascii?Q?6xucV/w9IC6lHt6n8gEq5oxkrQAFLlNy6UYNDZxrRT4C6B2MqhcVe/KZG5tP?=
+ =?us-ascii?Q?qeZS84zFLSm7QXP6BcKURTxMgTusdlXQB4s8CurNSPSMGe8lURSgfbrI2qe+?=
+ =?us-ascii?Q?ZTv0nGcPhFC8DyrTc4Fayew5XkfHzSUiiw05P+QleYFrIyaj2aLJK+rT1q/x?=
+ =?us-ascii?Q?iPMahv0pxaPX64T+uuTK8vpGgi3zjU/RBW3Q6PsDMTQWhN4E6oT6zg947R9O?=
+ =?us-ascii?Q?FauP4BDE6CQdAwzbF3IbSdtW1gri5y3etZ59ByeO6mE0jJljHUv4nlQ19fFk?=
+ =?us-ascii?Q?FKxwS2gG9RA2z2KwEQPuhm1PiTQLJl7+KLDR0CJgSu+7v4RB0+O1z/TtiBes?=
+ =?us-ascii?Q?SDnDq8ggRQ7jSe8NH7NtwlZNGm8GAbMnhsbem/nUfPqJ4c5W0Nw8nPTnWg36?=
+ =?us-ascii?Q?x46P4BJAqlrknANeX4M/I+6pOpDNcVhJlJjNPHUoSjZheNNLJLGaX1NkKO1c?=
+ =?us-ascii?Q?esCsV75dNA9VHU82zNLWd0IBP9l2FrxRWEHv7k+PzBlSaJCv8cs26+0cXABx?=
+ =?us-ascii?Q?7O6zVnaA3kXXey0fPPeoWrt/Hw+QvmCwqLFGaAg/Fk2IHgEk6ssFrwOErvhv?=
+ =?us-ascii?Q?6H9GZ2Bt0NDSg4IcFGZVw63dRsIXmsMOi7um9mRiEGu5bW3TvE1Haps+nOHQ?=
+ =?us-ascii?Q?W+sV3lXVKChPlaxn97wWtXc9CJu9Llgc6zBVVTygf3zux9OV8HwU/58LJZeV?=
+ =?us-ascii?Q?L9MZyIKh2vnk/c0vbbzEAfpzC6LVMKR1XKdl+jztxVwVtUZ1mzFseOxmYV83?=
+ =?us-ascii?Q?s5grlfzSJ1Yq9U8qFXXmBFZVjkGUGhTrEdxq670duzg23Zh3wLGTHQQERgxI?=
+ =?us-ascii?Q?XYo2CX9rtGf8AsjWy2IbxFkA8TNH2kwBCnMJOhJu7A5zk6L742UXbTkNwU86?=
+ =?us-ascii?Q?1twmVTkVjYyNP2MvDLfL2OaHxpKCIXBpV+T5NlzrcoJ9f0B5o/cFjF7pHCCQ?=
+ =?us-ascii?Q?0awqy+1pSwUym9PxJseSHkYmCKmm2aWMzNfRas8uc3BYOpctkngDrOHrqQMM?=
+ =?us-ascii?Q?TLOUPYo4v3VN2EvHrEPYyyM5jyQd5J1ig0kJhOjVudTIhw1butg60+HLppnm?=
+ =?us-ascii?Q?TfEhbr1udrt8AWwSufUyv6tZ3UY31UM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,134 +184,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101102720.702600-1-jure.rebernik@luxonis.com> <c2191a11-4148-463e-aec4-c1ffe5c732d7@intel.com>
-In-Reply-To: <c2191a11-4148-463e-aec4-c1ffe5c732d7@intel.com>
-From: Jure Rebernik <jure.rebernik@luxonis.com>
-Date: Thu, 5 Nov 2026 13:50:20 +0100
-X-Gm-Features: AclHuK_wIav0SwzrlsNwACWakZrKC3c-OCoeFKk73bmPWBjfnXtYuwCmn4ecdms
-Message-ID: <CAD9jT+pAn6S_pFOZnS2ZQc=Hfb7FY6Fdop9J1-N8yHoLvHnHjw@mail.gmail.com>
-Subject: Re: [PATCH net] r8169: enable the RxOverflow interrupt again
-To: Jacob Keller <jacob.e.keller@intel.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, netdev@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Sunil Goutham <sgoutham@marvell.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: LwkuJVgHtlFIh5Yjw9SRLcfj/MZsqOV2cEtpYIEAqbidmpefBQzuC71VmxGLooVOtydtVnsrvgCLeW3Ia1U0n7oTFyHb4ZUJcqmhPOieEIjfcRHG9cIirfTyP5uMbTP+gN6OJ1A3TfSRzuZM0y+QluwXvmZXWnsFEGeDA1E23c/3FYAONjacydJvsNuv4V+t+VUfRMuuoobxnsVdHiTcRtjNF46vpJFk4F4d/dU/vj4V5N+C5QWetY0H+bSkgs/An0Wd4TZgr7uXLyXZztXkrmxNAeMOYVBRno4vGEPHplhyT1xXqM2BC+z/5sf5RkT/csqjBDSvjP3UALWBnPMxfw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB566895.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1d14584-c464-4bd5-57a7-08df3b3b6903
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 12:50:45.9761
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 98/3Sl4Xd0Q5LVdxD5OtfgcUa7tjcjZG/+sY+j7sY4LmF4VcBoIbqGkwGJDgOPO72GNnZ1cJFNoWegEJpNs3oQjpGw9/FNbTSBm04PY2jZQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR11MB222363
+X-OriginatorOrg: intel.com
 
-On Wed, Nov 04, 2026 at 02:49:53PM -0800, Jacob Keller wrote:
-> If people disagree, then I think v2 should just clear RxOverflow only
-> for RTL8168h rather than only keeping it on RTL8125 since thats the only
-> one claimed to be tested in the original commit. To me, it seems
-> entirely plausible that RTL8168h also has this same behavior and
-> requires the flag but simply wasted tested with this same use case.
->
-> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
 
-Thanks for the review, Jacob.
 
-Adding Sunil Goutham to Cc, who reviewed 6994520a3328, the commit this
-patch fixes.
+> -----Original Message-----
+> From: David Hu <dhu@x6u.co>
+> Sent: Friday, October 30, 2026 7:15 PM
+> To: Mustafa Ismail <mustafa.ismail@intel.com>; Shiraz Saleem
+> <shiraz.saleem@intel.com>; Leon Romanovsky <leon@kernel.org>; Jason
+> Gunthorpe <jgg@ziepe.ca>
+> Cc: Jacob Moroni <jmoroni@google.com>; intel-wired-lan@lists.osuosl.org;
+> linux-rdma@vger.kernel.org; linux-kernel@vger.kernel.org; David, Hu
+> <xuehaohu@google.com>
+> Subject: [PATCH rdma-next v4 1/6] RDMA/irdma: Plumb uverbs_attr_bundle
+> for QP, SRQ
+>=20
+> From: David Hu <xuehaohu@google.com>
+>=20
+> In preparation to support modern UVERBS ioctl attributes (such as
+> UVERBS_ATTR_UMEM for CoCo DMA bounce buffers), we pass down
+> `uverbs_attr_bundle` for inner QP, SRQ routines. Since standard uAPIs
+> provide `ib_udata`, we derive it via the helper macro,
+> `rdma_udata_to_uverbs_attr_bundle`. `irdma_create_cq()` supports
+> `uverbs_attr_bundle` already, therefore, this patch fills the gap for QP
+> and SRQ.
+>=20
+> QP, SRQ uAPI will now have `ib_udata`, and CQ uAPI has
+> `uverbs_attr_bundle` as a top level input. However, we think it is a
+> future project to unify them.
+>=20
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+>  drivers/infiniband/hw/irdma/verbs.c | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/infiniband/hw/irdma/verbs.c
+> b/drivers/infiniband/hw/irdma/verbs.c
+> index c91c55917de9..811b1d532599 100644
+> --- a/drivers/infiniband/hw/irdma/verbs.c
+> +++ b/drivers/infiniband/hw/irdma/verbs.c
+> @@ -637,13 +637,15 @@ static void irdma_setup_virt_qp(struct
+> irdma_device *iwdev,
+>   * @iwqp: qp ptr (user or kernel)
+>   * @info: initialize info to return
+>   * @init_attr: Initial QP create attributes
+> + * @attrs: uverbs attribute bundle
+>   */
+>  static int irdma_setup_umode_qp(struct irdma_ucontext *ucontext,
+>  				struct irdma_create_qp_req *req,
+>  				struct irdma_device *iwdev,
+>  				struct irdma_qp *iwqp,
+>  				struct irdma_qp_init_info *info,
+> -				struct ib_qp_init_attr *init_attr)
+> +				struct ib_qp_init_attr *init_attr,
+> +				struct uverbs_attr_bundle *attrs)
+>  {
+>  	struct irdma_qp_uk_init_info *ukinfo =3D &info->qp_uk_init_info;
+>  	unsigned long flags;
+> @@ -981,10 +983,14 @@ static int irdma_create_qp(struct ib_qp *ibqp,
+>  	struct irdma_qp_init_info init_info =3D {};
+>  	struct irdma_qp_host_ctx_info *ctx_info;
+>  	struct irdma_create_qp_req ureq =3D {};
+> +	struct uverbs_attr_bundle *attrs =3D NULL;
+>  	struct irdma_srq *iwsrq;
+>  	bool srq_valid =3D false;
+>  	u32 srq_id =3D 0;
+>=20
+> +	if (udata)
+> +		attrs =3D rdma_udata_to_uverbs_attr_bundle(udata);
+> +
+>  	if (init_attr->srq) {
+>  		iwsrq =3D to_iwsrq(init_attr->srq);
+>  		srq_valid =3D true;
+> @@ -1071,7 +1077,7 @@ static int irdma_create_qp(struct ib_qp *ibqp,
+>=20
+>  		init_info.qp_uk_init_info.abi_ver =3D iwpd->sc_pd.abi_ver;
+>  		err_code =3D irdma_setup_umode_qp(ucontext, &ureq, iwdev,
+> iwqp,
+> -						&init_info, init_attr);
+> +						&init_info, init_attr,
+> attrs);
+>  	} else {
+>  		INIT_DELAYED_WORK(&iwqp->dwork_flush, irdma_flush_worker);
+>  		init_info.qp_uk_init_info.abi_ver =3D IRDMA_ABI_VER; @@ -
+> 2337,7 +2343,8 @@ static int irdma_modify_srq(struct ib_srq *ibsrq,
+> struct ib_srq_attr *attr,  static int irdma_setup_umode_srq(struct
+> irdma_device *iwdev,
+>  				 struct irdma_srq *iwsrq,
+>  				 struct irdma_srq_init_info *info,
+> -				 struct ib_udata *udata)
+> +				 struct ib_udata *udata,
+> +				 struct uverbs_attr_bundle *attrs)
+>  {
+>  	struct irdma_create_srq_req req =3D {};
+>  	struct irdma_ucontext *ucontext;
+> @@ -2420,6 +2427,7 @@ static int irdma_create_srq(struct ib_srq *ibsrq,
+>  	struct ib_srq_attr *attr =3D &initattrs->attr;
+>  	struct irdma_pd *iwpd =3D to_iwpd(ibsrq->pd);
+>  	struct irdma_srq *iwsrq =3D to_iwsrq(ibsrq);
+> +	struct uverbs_attr_bundle *attrs =3D NULL;
+>  	struct irdma_srq_uk_init_info *ukinfo;
+>  	struct irdma_cqp_request *cqp_request;
+>  	struct irdma_srq_init_info info =3D {};
+> @@ -2430,6 +2438,9 @@ static int irdma_create_srq(struct ib_srq *ibsrq,
+>  	u32 depth;
+>  	u8 shift;
+>=20
+> +	if (udata)
+> +		attrs =3D rdma_udata_to_uverbs_attr_bundle(udata);
+> +
+>  	uk_attrs =3D &rf->sc_dev.hw_attrs.uk_attrs;
+>  	ukinfo =3D &info.srq_uk_init_info;
+>=20
+> @@ -2470,7 +2481,7 @@ static int irdma_create_srq(struct ib_srq *ibsrq,
+>  	attr->max_wr =3D iwsrq->max_wr;
+>=20
+>  	if (udata)
+> -		err_code =3D irdma_setup_umode_srq(iwdev, iwsrq, &info,
+> udata);
+> +		err_code =3D irdma_setup_umode_srq(iwdev, iwsrq, &info,
+> udata, attrs);
+>  	else
+>  		err_code =3D irdma_setup_kmode_srq(iwdev, iwsrq, &info,
+> depth,
+>  						 shift);
+> --
+> 2.56.0.317.g454f8302e1-goog
 
--- Jure Rebernik
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
 
-On Wed, Nov 4, 2026 at 11:50=E2=80=AFPM Jacob Keller <jacob.e.keller@intel.=
-com> wrote:
->
-> On 11/1/2026 2:27 AM, Jure Rebernik wrote:
-> > Commit 6994520a3328 ("r8169: disable interrupt source RxOverflow")
-> > removed RxOverflow (RxDescUnavail in the vendor driver) from the
-> > interrupt mask on the grounds that NAPI is scheduled anyway when the
-> > chip runs out of RX descriptors. On RTL8125B that does not hold.
-> >
->
-> This commit says it was "Tested on RTL8168h."
->
-> > When the RTL8125B runs out of RX descriptors it sets RxOverflow and
-> > stops receiving. It does not start again when the driver returns
-> > descriptors to it, only when RxOverflow is cleared in IntrStatus.
-> > rtl8169_interrupt() clears only the bits it read on entry. If the ring
-> > fills while NAPI runs with the interrupt mask cleared, RxOverflow is
-> > set after that read and stays set: NAPI empties the ring, unmasks the
-> > interrupts and completes, the stopped receiver raises no RxOK, and
-> > RxOverflow is no longer an interrupt source. Reception stays stopped,
-> > and every frame is counted in rx_missed, until another event such as
-> > TxOK makes the handler clear all status bits.
-> >
-> > This was observed on a machine in real use: an RTL8125B (XID 641) on
-> > the PCIe bus of an arm64 Qualcomm QCS8550, running v7.2.6. With UDP
-> > at 800 Mbit/s inbound and nothing sent by the host, reception stopped
-> > for seconds in 13 of 20 30 s runs, losing 5% to 31% of the datagrams,
-> > and a single transmitted packet restarted it. To confirm the cause,
-> > a debugfs dump added to a test build of the driver showed, during each
-> > stop, IntrMask 0x2f, IntrStatus 0x50, NAPI idle and all 256 RX
-> > descriptors owned by the NIC. Writing only RxOverflow to IntrStatus
-> > from user space, through the sysfs PCI resource mapping and with
-> > nothing transmitted, restarted reception in 17 of 17 stops.
-> > Reproducing the stall itself needs no kernel modification.
-> >
-> > With this change backported to v7.2.6, 0 of 20 runs stopped and the
-> > worst run lost 0.03%, on two RTL8125B boards. It was build-tested,
-> > not run, on this tree, where the single-vector path RTL8125B uses
-> > is the same as in v7.2. The multi-vector mapping used by RTL8127 is
-> > not changed and was not tested.
-> >
-> > Restore the mask of the chips that had RxOverflow before that commit.
-> > Only RTL8125B was tested.
-> >
-> > The investigation was done with an AI coding assistant (Claude Code):
-> > it wrote the HIL test scripts, the debugfs instrumentation and the
-> > register tools used above, proposed this change and drafted this
-> > changelog. I reviewed the change and the evidence, and the test
-> > results above come from runs on our hardware.
-> >
-> > Fixes: 6994520a3328 ("r8169: disable interrupt source RxOverflow")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
-> > ---
-> >
-> > Notes:
-> >     This restores RxOverflow for every chip that had it before 6994520a=
-3328,
-> >     but I could only test RTL8125B. If you prefer, I can send a v2 that=
- sets
-> >     it for the RTL8125 family only (rtl_is_8125()).
-> >
->
-> I was thinking that it might make sense to only remove RxOverflow from
-> RTL8168h, the one that the original change was tested on. However,  the
-> original change is not motivated as a bug fix, and I think given we
-> *know* it is harmful to have this bit clear on RTL8125B, I think I agree
-> with this implementation that sets it for all device types.
->
-> If people disagree, then I think v2 should just clear RxOverflow only
-> for RTL8168h rather than only keeping it on RTL8125 since thats the only
-> one claimed to be tested in the original commit. To me, it seems
-> entirely plausible that RTL8168h also has this same behavior and
-> requires the flag but simply wasted tested with this same use case.
->
-> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
->
-> >  drivers/net/ethernet/realtek/r8169_main.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/et=
-hernet/realtek/r8169_main.c
-> > index cd4ebc654dd0..62709160d354 100644
-> > --- a/drivers/net/ethernet/realtek/r8169_main.c
-> > +++ b/drivers/net/ethernet/realtek/r8169_main.c
-> > @@ -6086,7 +6086,9 @@ static void rtl_set_irq_mask(struct rtl8169_priva=
-te *tp)
-> >               tp->irq_mask =3D RxOK | RxErr | TxOK | TxErr | LinkChg;
-> >
-> >               if (tp->mac_version <=3D RTL_GIGA_MAC_VER_06)
-> > -                     tp->irq_mask |=3D SYSErr | RxFIFOOver;
-> > +                     tp->irq_mask |=3D SYSErr | RxOverflow | RxFIFOOve=
-r;
-> > +             else
-> > +                     tp->irq_mask |=3D RxOverflow;
-> >       }
-> >  }
-> >
->
