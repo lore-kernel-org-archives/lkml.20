@@ -1,128 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877181;
-	b=UyikgISSer9j1qz0HUq/+qVD46Oe7ECVrD/Y6Dzi/AuqtWE915oBSM4peuUxJYb2eRKk
-	 +Eo3xhcHExPwURZTGmE7UrMhFpZONbUS8P4Hm3bnawvW0D1Ts9IF81u9NdzH0ZZEVjLV8
-	 MHn3lbuea7Fwg+bMm1qO5L/MkVw1RZjfOmWt2b6Cu2ZYx9zjth4oVRKsYHxaSQFMjkX07
-	 vm3pTVbTiRDl5VpDlru4+stEFZTZ0OcfjA6K8+eJiz24pUK9aJeBPobGhMq0XRqQke9M2
-	 6Fax7mYoXAx+mhHSMYJlz/tKgZhpgYZLUgTAhLRHOSaG4t1E0COXlPi5MpNe3Xf7FUw==
+	t=1793877183;
+	b=oWPWyhCzWXEGlRRDkN0rNvPmR73bmhxPaxJja9uEJJRyZzK1QzQjuzkG9PvKfO6877bH
+	 urpgiM8gQ025oNj51X8pl1Bzx9f69efkiqwyzHrqgHjiSF3fwTV9Ip0jOWn0zGolNd3xV
+	 Okw5FXWBhscmAxpvkmv8SA5LQEV7/wAkkHmUrcZs4/GQeg58lWNpUOJglX0RlJk+s2lFg
+	 vHKv69D8w2oZD2k/KuIhuYvHapZnKibm3HLuGKv2f9H9Y5fk0BY7ALJz+NPCDDgJC2RqU
+	 24QIFN2+GZqDKCg9wbEEbZ0PvnT+p7tWBiYjL5dR4RtjVBo6+Ycwal/wAsjNo4DBkRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877181;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=ZHY6y+s2RrJzwaejYRMjR8b7lUTPpigmvDA0dU0XxKE=;
-	b=ZL4vgMfdknEWiXidAErizJR8D6oGMeptdqlm/kuESur2FGRb9aQb0q4pzhZa8bWKeOOk
-	 BMjLs2AFPAQ13FrwPxqB4V+YRzvxDN3e0bxa9lb4CORkTlZ8+ohEbymTmVvYfxvesGIYZ
-	 NcRRw79KgAXFf+gMk0hQJc84dE8obzw6JSEO1Y/8Gg3As7dvLsaW0+WY3WoOsN0ccoKL6
-	 VZsRPysf3/jZtZGpI22ZRWDZxAbslA0EoUxtkHd1qP/jxKTr4c3ja0n5YtADIPSgKPzkZ
-	 VQW9fMdNlcr9p7OYdhkdoGsuCnsVxg/F8LR7fLbQAuxdPBVe/YC9cd8qeZ5lMg2o3NA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877183;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Disposition;
+	bh=zwhdkb/FX7XgqeOXnGWlh03jUQFZ+bFCBVltb+Toynw=;
+	b=uoOxotYFe4WOEY1UTsx6PRdirDs7Nb6Ts5Ejwa7tU54hxuDHK5JKnXaHg5zrw6iAE3Vf
+	 JD/S1SnZkaq+YQqk2YO+ynV0rGa8d/6gk+3qd329CsytlTPVOHL48lKyKLJhRnomnomkp
+	 q7sJ0eQlR64znT4hZ59/RLeMacesPGRSq8gV62v1y9Egcs05n3ox+uiqBW+wMtN48vhDt
+	 ff6WTsnfnokyy71/Kl/C5s9jiAo7dWJ5ev8JVa00P9zwooaTiWdaoZKJWiIV9dNUmNbjB
+	 hwX8Mbayx8Yaoev/4bfNh151CCexLHcfuhAhFIclklFdqiGGXNgwklGXkGudgOqdqQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PFN6w7Uo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OIIJR9F3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PFN6w7Uo;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OIIJR9F3;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XIkevbHs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D6E606A32F;
-	Thu,  5 Nov 2026 11:12:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71D6E606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57971606A338;
+	Thu,  5 Nov 2026 11:13:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PFN6w7Uo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OIIJR9F3;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=PFN6w7Uo;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OIIJR9F3
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B0DFF21FC5;
-	Thu,  5 Nov 2026 11:12:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793877173; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZHY6y+s2RrJzwaejYRMjR8b7lUTPpigmvDA0dU0XxKE=;
-	b=PFN6w7UogynvDg6wXP5wRfpBkFaml+uFR7+DGPlk44D7H+/LQa+SoO2XJcQjvnSWrZwu11
-	0Hu0xVZ/0wl3P3VSS2M4p6oN+AHfLIdMpImDTZLXRA49JKD79Q7UQ54TherVqbDKGvid1C
-	dm4w3eHvJSCns3Mg7kqvbfylEJcImJE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793877173;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZHY6y+s2RrJzwaejYRMjR8b7lUTPpigmvDA0dU0XxKE=;
-	b=OIIJR9F30Nqs/C66tmGPlHwJsAZoznWM2UgcVCWZi+3xk/7RQOJOBCyTUNyGtkbOhEzr9X
-	eWIQGVIGQKlqH2DQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793877173; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZHY6y+s2RrJzwaejYRMjR8b7lUTPpigmvDA0dU0XxKE=;
-	b=PFN6w7UogynvDg6wXP5wRfpBkFaml+uFR7+DGPlk44D7H+/LQa+SoO2XJcQjvnSWrZwu11
-	0Hu0xVZ/0wl3P3VSS2M4p6oN+AHfLIdMpImDTZLXRA49JKD79Q7UQ54TherVqbDKGvid1C
-	dm4w3eHvJSCns3Mg7kqvbfylEJcImJE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793877173;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZHY6y+s2RrJzwaejYRMjR8b7lUTPpigmvDA0dU0XxKE=;
-	b=OIIJR9F30Nqs/C66tmGPlHwJsAZoznWM2UgcVCWZi+3xk/7RQOJOBCyTUNyGtkbOhEzr9X
-	eWIQGVIGQKlqH2DQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E9F83134F4;
-	Thu,  5 Nov 2026 11:12:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sAV+L7Rk7GrQVwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 05 Nov 2026 11:12:52 +0000
-Date: Thu, 05 Nov 2026 12:12:52 +0100
-Message-ID: <87ld77sf9n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	linux-fsdevel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	linux-sound@vger.kernel.org,
-	linux-mm@kvack.org,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH RFC 0/7] proc: move procfs to what kernfs does
-In-Reply-To: <20261105-erbrechen-unecht-bauformen-0794d3cfb679@brauner>
-References: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
-	<464ef986eab97abf226791c7e19ad111.josef@toxicpanda.com>
-	<20261105-erbrechen-unecht-bauformen-0794d3cfb679@brauner>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XIkevbHs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330D71F00919;
+	Thu,  5 Nov 2026 11:12:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793877183;
+	bh=zwhdkb/FX7XgqeOXnGWlh03jUQFZ+bFCBVltb+Toynw=;
+	h=Date:From:To:List-Id:Cc:Subject;
+	b=XIkevbHsIuFatnIQvUdyH53B34yzxrvtzro+0Jrutc5WWjZ0Fd8SodiGTmVObLFpy
+	 UOgs9oxsOwC+eF0Z8ntKi31nw/tJA1INR336g9pVLRBv6k8JigcEiH6gUMG70bIzAc
+	 ZSS7h/YcV+tOrx3v+op+ycSZ+n7hBVihOw3KS80tTHJqIY5uH45XtiKE7GgsLda5s1
+	 UUpOTTf58b6XZYH5qB3f6J8J6jOiRIprGwwHGNDTNHvW9CuyaKYJwYzm30+3YjL1B0
+	 QssZ/OxFQfFf80LiyYFbXCr5km+40fwyEXqKfLspFXgAuJojjrkYgiveCNATAlvHYw
+	 HvtVmHsjW+cZg==
+Date: Thu, 5 Nov 2026 12:12:55 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+Cc: alx+linux-hardening@kernel.org, Alejandro Colomar <alx@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: [PATCH v1 0/2] Add strprefix() and fix a bug with it
+Message-ID: <cover.1793876837.git.alx@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,47 +67,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-
-On Thu, 05 Nov 2026 11:28:56 +0100,
-Christian Brauner wrote:
-> 
-> On Wed, 04 Nov 2026 22:23:51 +0000, Josef Bacik wrote:
-> > - snd_info_text_entry_write() allocates the larger buffer and frees the
-> >   old one without copying what's in it, so a text entry written in
-> >   pieces loses the start once it crosses a page.  It's been like that
-> >   since ffb73b08e794.
-> 
-> Yay, more bugfixes... You share the blame for more mail traffic now.
-
-Indeed it's a real bug (regression by the commit).  Also your fixes
-for old issues should be taken sooner.  Would it make sense to pick up
-those for 7.4-rc, then rebase your rest series for 7.5?
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="r6xff2usp7bnktkk"
+Content-Disposition: inline
 
 
-thanks,
+--r6xff2usp7bnktkk
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: linux-hardening@vger.kernel.org
+List-Id: <linux-hardening.lore.kernel.org>
+Cc: alx+linux-hardening@kernel.org, Alejandro Colomar <alx@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: [PATCH v1 0/2] Add strprefix() and fix a bug with it
+Message-ID: <cover.1793876837.git.alx@kernel.org>
+MIME-Version: 1.0
 
-Takashi
+Hi!
+
+str_has_prefix() is based on sizes and lengths, which means it must
+overload the valid length 0 to mean not found.  This is a typical
+consequence of choosing to design an API around sizes and lengths, and
+vanishes when moving to pointer-based similar APIs.
+
+This patch set adds strprefix(), deprecates str_has_prefix(), and uses
+strprefix() in one place to fix a bug reported by Bartosz.
+
+We can later work on replacing the other uses of str_has_prefix(), which
+might hide similar bugs.
+
+Testing
+~~~~~~~
+
+I've built this patch set with 'allmodconfig'.  I've not run the
+resulting kernel, though.
+
+
+Have a lovely day!
+Alex
+
+Alejandro Colomar (2):
+  string: Add strprefix(), and deprecate str_has_prefix()
+  device property: Fix fwnode_name_eq() for empty node names
+
+ drivers/base/property.c |  5 +----
+ include/linux/string.h  | 19 ++++++++++++++++++-
+ 2 files changed, 19 insertions(+), 5 deletions(-)
+
+Range-diff against v0:
+-:  ------------ > 1:  9c81f6f62fd0 string: Add strprefix(), and deprecate =
+str_has_prefix()
+-:  ------------ > 2:  37eafcd682b0 device property: Fix fwnode_name_eq() f=
+or empty node names
+--=20
+2.55.0
+
+
+--r6xff2usp7bnktkk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsZLcACgkQ64mZXMKQ
+wqmjpg/+K1xFGAApGF5BLfzlRzVRpA+1k5MiUCC49l6XlbXGUB2uQKu+OojHxCCc
+Gh7JfPJFn9abea3K2Ym4d9yrDgPCn9e6lf+GLP44VAUqoSC+mLlLhKicIut7CBYx
+aCXDUIgSofgmLiMyt83mQnhzdtbAWxRfA/Nyh4HEhxMH9CpCbtyycYRt23c67St4
+VJSUM1G5arNmAB1Qfsq3r+3q8eUGXIeeIDwN3bLIwIfzT9I0MZdo0xOlRDQuLmRZ
+e5UU1Zx1TL1LGU1Mtw8axmw5hA9k/+hB5NsihuT0mJblpNMOmEAQ+7VdKfDwi5/F
+8w+2nxlDVp0w7h0q9lVi9L281Fkx4sjoyjtYfBf7ArAb9Gl0KQWFzKNVQnTPn9z5
+Q0BB/9mTqeH9qdnPOQMx6d76YMYEUaDiWGdsuYRL/wZO3mNv9iAGPPG7vKdcfvLw
+uMg3WRPQJg/oxhGdixM2srF1tqG7onvf75YxMH0D0Ph31KN15F8BOxxwskWYuOmp
+i1hIhcXfxTVoKSBQiPCetc1n8Bpf944Foe2vloqgM7vxrT/XP+nj7opx6kcDK6ch
+fhtQhHSIGevflJO4xRWJVg/I0mGYs2aJE/1WvnQ1vPDizW0r/k7mAKIVrlUghPF/
+8q5WI9ZpWUuvlT8Vf8YMpaF+vMI94Idp9BsqBiE+c3XhRm6pfAg=
+=0/kl
+-----END PGP SIGNATURE-----
+
+--r6xff2usp7bnktkk--
