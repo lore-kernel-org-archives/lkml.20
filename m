@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879149;
-	b=Nj10E0alLZqHFrWYR0ueR7MwWWuRv5xNq/jWTgPtmN6LC29XD0JevaWmfAJwrMtqx25Y
-	 lLTBMNXsc+5FwtLU/SqRb2QIWU4H4Vo+rlpfCT58AaYq4ZQRYJ41m0xIXF30uklP2RJUv
-	 Eb3t3MvOnzitw0dQMuY6EBIgh9KSMn/NYyYTFsJSnBtyFNcvEU3UgI1D0cnNTssvuQsns
-	 uIyCIK2udwwskYLlKEDbPeHSOnh2+OQuTB0Nno5Focu9JhzU+XLTbykIqFgUN9OTFFKg5
-	 +UjK/aeWydG/5Iu1M4brT+Lz3SY58JzscxD8IjCdNuqP+KGFb97Z1tV4YVnu7XNFWeA==
+	t=1793879175;
+	b=c1AtUMeU/+ynkmQHjXKjKMdJnBd0aEfmlqOKSUlqBpAJPzsDosJR0W+N5IefODyfwisd
+	 N94wRLACxr0BMDgCchqx001//rtrHpgp3f4HDpcdATPknqHOFgw0tpZ6eG6oS6rE9onmJ
+	 CwfhyuSHfwOxlWYG1doD0Dc1VhxwC26qMVbji9URNSdo8wHGZV7cTfQ2tTVSMv38YJ45k
+	 EmDJkGPIHNyOgsKdaHy/b/AGtOnITlGBT7hTxlVhBTI+Dpca4ZwUtI1N3Po2wdTkIMdr0
+	 YHU5njqfj1p6Yax07C7o7ZODuugSV9vkcGKZbTV3knzs4djVuvZAlF+MGgRmo2GIoMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879149;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=urrgTOdhrZbA2FGtYgxftgMNBud/Y8/6+LuWZZfe/7k=;
-	b=OQTnz5cs9H1ukUP6LECpI8OBMB+Aohq9UfTCRXYdsA5xzWNorKRgXctNRKPacS8v4S8q
-	 pzrsC/lxtP3jUJwqy5I4O7L6hducEp/6LIZNuY9G+kYQ6NCBuuY6MgCs58l6DbldZbVYF
-	 ivhb/k3faLuhjZ6HLbzEFks+KS9M8xLWS7L/lW2sHWjPKfnwOD6WqK0V4pcvFS785f+CU
-	 Kk0GNne5pEaHx351ZqiNCDfKZB9dhsRkEbwD8LPU5Jti6ZWRgEUZAD+cuZt3cCpY2LuhZ
-	 yzHVdxLh6fh9DpSASy1md62kKUptckeQ/Xy8LExuV8DFYFy3vx1k0ohH2IhXQeGwd8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879175;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=NSKZa4ye0LkUdsLkrm7Rm28ju04K47Dqy5NWckuPC+k=;
+	b=R0yY+SVlwjdrCDEsst5tyGGxcK8n0tyifo0hPlKMsrW9sKam2+uNK7ypZoT1X6WYxQAF
+	 0/YeYXDDQXXqJI9qsI+S324AN55LsIuhfcoVw0/DUcZ872KcqUuMQEVPFxRSoWdP/pWpP
+	 bN/EdOx8W2mMZTiFkL8kzUlhEOVy4+tmHVZKffoQRYzhWYfM74i2pmQZL5LkK6NUBIkUS
+	 VlGKRnZwc63FfDzAlZApSF7VO3+ntHTKJ+BFFldTuf7ULHEl/jWKD2qDuFNIyCEGe88YA
+	 49rRnzIZXqHKcHkusKb3gkESlrqs/ian2s+jCmFMwbAtsq0dxY3CTy9TdshSIaYIRwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O7G21oQn;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EAD606AB1A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:45:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6EAD606AB1A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8524606A929;
+	Thu,  5 Nov 2026 11:46:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8524606A929
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O7G21oQn
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so17956345e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:45:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793879147; x=1794483947; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=urrgTOdhrZbA2FGtYgxftgMNBud/Y8/6+LuWZZfe/7k=;
-        b=O7G21oQnj5EJzLMX33JkomM0jG8TtAWCpdbH9a5JQ9LNoAwKNVCHbeWdzvN4aqIv8o
-         e0i6mtuQjfheHG6pvcl7R7PuKXkw36xAPrRZynGhXNubC1q81XYCUwdjSzzOB4u0NXHL
-         yqQsMbTEKxAhumaEEA8MLob0jiCe6+JyP5/y0kLzQjF3U4WpN9olH+b1d/7FevyDYzWD
-         3Xs/zqsfTbDnbR7CPfq86qHpU1BJCRXYdDtqp2Td/3Oa0h2vT+HnHjtAuQE+OFFYBST7
-         CIKEARQUuRGTQ8TErl2zwuYTXN59lN5TyCB/qRm69TqfrDaJ7jzJ8nv56HfTmVDmqSNc
-         3w7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793879147; x=1794483947;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=urrgTOdhrZbA2FGtYgxftgMNBud/Y8/6+LuWZZfe/7k=;
-        b=DUdnv17ZNCZQLQXPuUSlgFfiZalKbhTs1nij+LRqA4RwG2/5apbAAVsCCxdfiWjH6y
-         BLehV/1VsAIa/HbaMIYDk54z2C1Y0zZvJ7svDKc8cYzLxTVJl9/zmoE/r8vwVdJ5wMek
-         jwdpFfpi2xN45zom4DTZS49mDZVcXVgpAiK1ByUv7lKj0AlPCRc1cVYl3H4Eebg6/1or
-         /0csGEpDikV1F4ezc8Sn4G3VOAEvBKYPQBsennbDpMUbZMKxKJIvs3SyaHCDfPGgbEo9
-         OWkPjxC2raZBtKLoJFIkTvfApgJk0Du4ck59ZTeQXP1FjF2UmDJLF8VoJdka9Jyj/E9i
-         ffoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxzs6UG+uEDWRHfICSzsb1Kn+U7F3mHpPbOVdBO/77SEByQfdLH/SKrOKAvDvm4o2jp+z0DE0wHtRbt3j0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zZoJaS+Pa6gVBXun0dtNx8vAAViCjC5jYnS/Ha6cm58pbOXCD
-	qL4yJrOQQvnMO6md/KHqkOSUxJRyPW/ZGCWOY+SeqWYEf09IEi6PYc6I+EfIp9j6A6A=
-X-Gm-Gg: AYBFou3jyzmkWzZH9FJCISEvizXOkDAjuMfBM0JRvRofscTENxiukrrvToxgR4xjOYW
-	KUU2VRRR7jzS66jTNYmsJXY2eVMmYd7IIFb06S7XxP2HB8oB8c+1rjhWjx2URj6fRjjWg55rntb
-	dLBsrApuwg/FUspa4tz7NwWYOpkjNmph6e27oiEDozliJn3T3x2QiTWWXB853b9GmwuBrwqPm2n
-	NozK415DQLHe+6z7RmIg89Vyvyn7QaxgZpPIQfR0e2k7VXb7uTrX33n8mewewHv9NgXG6XROPc8
-	SDRZ3lfSLY4UKbfs+Wq495wMPRE7rsDsGkYWc4x9Gjx6660wwlLvA2KsjM7KaEkN5reW65x4HaX
-	TJT7lD8VAn7/7DJcZkvCyYs4M2cMEgn/2Zi8gNT5vfD5w7nIO6woivCj4KKXiRVSL1a5XKaK2CL
-	V6HtFwE3IbeLhe3JNl/Rm/M2EwW3PWDzz7J1vBMadCO9I+9chllhP6yElQHlfK+sWbyBGNMzaoh
-	EfvzDk+8MugUXH/UOp/FFnpKsl7wYmf0Z7jxbt6nTVyMSYnKlq1B/jdZfnaLnhixlHEGjBLemQV
-	G2m7YZj9AjJJ4M+ySHjJEdk+8KyPRRJc
-X-Received: by 2002:a05:600c:608d:b0:4a2:1197:1de0 with SMTP id 5b1f17b1804b1-4ac18b7dcdbmr405802955e9.19.1793879147059;
-        Thu, 05 Nov 2026 03:45:47 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b571f46538sm56679525e9.5.2026.11.05.03.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:45:46 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Date: Thu, 05 Nov 2026 11:45:06 +0000
-Subject: [PATCH v4 18/19] perf test: cs-etm: Test multiple per-thread
- threads
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793879173; x=1825415173;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OCg2W30o8vQ8OO1s+xdsqkrOdBHhLk2OtMes1baq76c=;
+  b=Sr4C7iZ9s0umWaZx9amVQ2t0Hc2an7JmRL1z8Optpa67ofauSGIpe3ij
+   qkVWRnYSJRCPGXp/+XenM5QQ1M/XH0zWeEy2GPz7nCOjsP7POvqPBIYx2
+   wZt6aoawM7ppPcsrMdchyCvF72M0fLIMsn4tvncGWIq9A3pq9PI4IU+AL
+   HeNUTYbNmCg0q9RJ5HOKC5PYlhhKWqMhzwnhy1iWGavcLgHxW9z+k5aJo
+   1qVIHAPO742jKJUsmjxV8iUQi1jjc8OZft383EO7Xs0blEVXN5+C3OUb3
+   Ob6BJ12bZALuCQPxF4byOt8XOT6BNEkVmlQ3Df3PrDnpKzy3ik/rAt4Vk
+   Q==;
+X-CSE-ConnectionGUID: ikH6ayYAS56OD+IhwId09g==
+X-CSE-MsgGUID: RodlU/yTR8aEHagp006/nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2548016"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2548016"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:12 -0800
+X-CSE-ConnectionGUID: Vdd75W6xS4i/w10gfKSiGA==
+X-CSE-MsgGUID: DBVu0q0gTD6lwwwebdsT1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7113980"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:10 -0800
+Date: Thu, 5 Nov 2026 13:46:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Gobi Durairaj <gobidurairaj@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: atomisp: fix block comment style in sh_css_sp.c
+Message-ID: <auxsf6qUD4XeAV2D@ashevche-desk.local>
+References: <20261105064312.360626-1-gobidurairaj@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,127 +83,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-james-cs-unformatted-per-thread-fix-v4-18-7759e0ce2449@linaro.org>
-References: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
-In-Reply-To: <20261105-james-cs-unformatted-per-thread-fix-v4-0-7759e0ce2449@linaro.org>
-To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
- Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>, 
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arnaldo Carvalho de Melo <acme@redhat.com>, linux-doc@vger.kernel.org, 
- James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105064312.360626-1-gobidurairaj@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Launch something that has multiple child threads, attach to it and
-make sure that all child threads are present in the samples
+On Thu, Nov 05, 2026 at 12:13:12PM +0530, Gobi Durairaj wrote:
+> Convert block comments to the preferred kernel style with a leading
+> "*" on each line and the closing "*/" on its own line, as reported
+> by checkpatch.
 
-This will only work with 1:1 sinks/sources, and looking for TRBE is an
-easy way to guarantee this. In theory this could also work for ETR
-sinks, but we'd have to attempt to record and skip if that fails, which
-would make the test silently skip if the record command started failing
-on TRBE too.
+If Sakari wants to take it...
+This type of changes to this driver are not appreciated at this moment, sorry.
+I can point to the success story in case you want to continue with this driver
 
-Tested-by: Leo Yan <leo.yan@arm.com>
-Reviewed-by: Leo Yan <leo.yan@arm.com>
-Signed-off-by: James Clark <james.clark@linaro.org>
----
- .../perf/tests/shell/coresight/per-thread-multi.sh | 76 ++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
-
-diff --git a/tools/perf/tests/shell/coresight/per-thread-multi.sh b/tools/perf/tests/shell/coresight/per-thread-multi.sh
-new file mode 100755
-index 000000000000..bace76cb6a51
---- /dev/null
-+++ b/tools/perf/tests/shell/coresight/per-thread-multi.sh
-@@ -0,0 +1,76 @@
-+#!/bin/bash -e
-+# CoreSight per-thread multiple threads (exclusive)
-+
-+# SPDX-License-Identifier: GPL-2.0
-+
-+# If CoreSight is not available, skip the test
-+perf list pmu | grep -q cs_etm || exit 2
-+
-+if ! tmpdir=$(mktemp -d /tmp/perf-cs-per-thread-multi-test.XXXXXX); then
-+	echo "mktemp failed"
-+	exit 1
-+fi
-+
-+cleanup_files()
-+{
-+	if [[ $parent ]]; then
-+		kill -9 $parent
-+		wait $parent || true
-+	fi
-+	if [[ $perf ]]; then
-+		kill -9 $perf
-+		wait $perf || true
-+	fi
-+	rm -rf "$tmpdir"
-+	trap - EXIT TERM INT
-+}
-+
-+trap cleanup_files EXIT
-+trap 'cleanup_files; exit 1' TERM INT
-+
-+# Multiple --per-thread events are only supported with 1:1 sinks/sources
-+if ! ls /sys/bus/coresight/devices/trbe* > /dev/null 2>&1; then
-+	echo "No TRBE sinks, skipping"
-+	exit 2
-+fi
-+
-+# Launch 2 threads to run indefinitely
-+nthreads=2
-+perf test -w named_threads $nthreads 0 &
-+parent=$!
-+
-+# While parent still exists, wait for the 2 children to spawn
-+while kill -0 "$parent" 2>/dev/null; do
-+  threads=(/proc/"$parent"/task/*)
-+
-+  if (( ${#threads[@]} >= $(($nthreads + 1)))); then
-+    break
-+  fi
-+
-+  sleep 0.1
-+done
-+
-+echo "Recording..."
-+perf record -o "$tmpdir/data" -e cs_etm//u --per-thread -Se -m,128K --pid $parent > /dev/null 2>&1 &
-+perf=$!
-+
-+sleep 1
-+
-+kill $parent
-+wait $parent || true
-+unset parent
-+wait $perf
-+unset perf
-+
-+echo "Decoding..."
-+perf script -i "$tmpdir/data" > "$tmpdir/script" 2>/dev/null
-+
-+# Check all threads were traced and they have the correct thread name and symbol
-+for i in $(seq 1 $nthreads); do
-+	if ! grep -q "thread${i} .* named_threads_thread${i}" "$tmpdir/script"; then
-+		echo "Error: thread${i} missing" >&2
-+		exit 1
-+	fi
-+done
-+
-+exit 0
+https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurares@gmail.com/
 
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
