@@ -1,47 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896001;
-	b=rcbRbZ2Jgxcf04XEodHMcG4QSD+YEURyOm/kOh38cywr9vRTZPHamsTsIGtcEwLdnMIV
-	 xEaBa3TvC8LoRHmVWvZUo+O6x7HRmSV4MsFdWCXeEDVigK0dRShjM5+AxDQJE0MiBimkM
-	 E0xY61f3JnU31azFALxiCqBbp2YnCaK8Ry6rLTe7ZDCZp3FOMglYYpouNI/zZ79s+S+6y
-	 zXbb0B/6HSQQm5PFoxdRzVgdwT33XR1i3fjInm6eF+zwF+XSKyKTI92ZdE+E6hsQgtd7i
-	 Sv2nGE/a/J6FT4Anmh8ORfqSGoPYgIbW1bIbyh9LLhUM/oAeKJ2EtYRDGxRsFko4J9g==
+	t=1793896023;
+	b=iK3YxHAlHGre6RWRkBnk3D3BSy1/UbJjJVNucr0ohBwpVTKjTm+qdoLXTCZ3huLkCQDQ
+	 t9NaMzPqozK0pgjD3zRrkpo4y4WeqjuhnGMpBK375EIBZgyTNVmXHp7crR5g571pu/wJK
+	 ZbTii+QNznm2ylQ0502ClcfS08EMBkxO/cP6jA4AO+tkkBeRV3ApIXsAml9yBmN0jUuDj
+	 gVRFA9a+r8mbuVaFqTb2VYyphsJgaGXadOievMqlI2ieDnrrQH8UWTi7UfkVI4f8hy/uL
+	 PvI7UgAgqIdrrNh7omjR810Raofvfk9et4k0HbJIkru1ey43vXgux39ksBluwVZ6mAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896001;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qtZeTuzPQKYq8eszUqD+SRGzpXOVyxLQWDuwYeTjf5Q=;
-	b=Hwnu30Ha2Z8rzPLjxUJ7J97Y7KDAxmSFJtbkC28/Dn9J/O+DAF+vGEiBdCvOTIwpfKC7
-	 +/8dirYaWSRoZu4M8nNvaa9Zq6KohTjA29aOQnw7MZ8bmeDqyE1VqjmLT8Ps1KhID+GVe
-	 0yAIKDcQHUwHpRfSA1Brdg2l7Eujiw23SLy3yujn9/zW05XgtSdCgtg8677p5tGvAPRCT
-	 Z5T0rXuWreFGJySQhI0FjSGlcGF6oWQa9O8d7TY51CKdqFx03njWW3FY1s+2G2gG/Lvq5
-	 aY1kB93ZI/dGyP88Eq4sGpLw4EMqNndtEG13H6/oww3pAqhehFRCiKau8XnoankPBXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896023;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=auiIKhbmoRZT4mFY+NhWtro4ChWc0LCFT6CcONkj2hM=;
+	b=NvSPiRNCSp7LKfjBIZyU331EZZJ1ajzVIooOY8FC+YDLpRBJIknkDkYcEyZr3hsYil6X
+	 JxOMxjgtGYQebmu5Yripv7evGXLMdRFP0ta2d12iiZ16IwkwDvK+zawbv+m/JFEvtvMMw
+	 D1TenhZLEoK+DiNOBYaZ3TZ2gk1KE94mJvuP6k8EK62TmNdNTI2zIvsiHS3XvnP+4e16s
+	 cJLn3GCEJ9GAPBCOL5AuRYNd55crK2k+En6KRcuwM6iWmcR9Z8OOfdh1k7nB2Zp9mlD/f
+	 S4iH6YtBR+cKk2xk/cmnRxuIHwk6P55bUlm90nTEpzn+Bez3X+ObeDdKPL2NNwaJhwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PDkW+Dkk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=TH080M2b;
+	arc=none smtp.remote-ip=209.85.217.41
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5CE606A32E;
-	Thu,  5 Nov 2026 16:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EA6606D802
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:27:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95EA6606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PDkW+Dkk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F641F000C1;
-	Thu,  5 Nov 2026 16:26:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896000;
-	bh=qtZeTuzPQKYq8eszUqD+SRGzpXOVyxLQWDuwYeTjf5Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PDkW+Dkk/ikUA2I2LoBa4am52lL1qxLkqd4GBvnXEVe+byiTsKXFfimedyhcrvPQc
-	 FR6YPClNrMLr4CZq3+hR3d3C/JecDyvomOJh/SqAxwmMYlpSQT5Q7fsJfM5K2syDOQ
-	 3SNVYMOe00GN/HFeEumbSfsrHe/7vPMhI41l6Wf9lJNrd+PRiRyPAF39lHkYcOBk7t
-	 5UdJtsYe5ybmRl8Xmf443CjGgikGHZJiJGfsK7aXp75HE0W2xwXnRHLAmfquYmU9qS
-	 lF+PhjslxoEmgZC8CZrN4Jw9jvhMBB8Qj6aa4ktncYH3ojeaXI9StlXrpwsvhAAL6i
-	 fTsXMP+R25yoA==
-Message-ID: <e515960d-18fb-4d61-8842-beb6a73fbc27@kernel.org>
-Date: Thu, 5 Nov 2026 17:26:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=TH080M2b
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7cccb2c96d0so639211137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:27:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793896021; x=1794500821; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=auiIKhbmoRZT4mFY+NhWtro4ChWc0LCFT6CcONkj2hM=;
+        b=TH080M2b2W5GU83fC4bkAl8rc89cXnFJ2JUZ1DQM2E1G7nxV0uZ+iMHWJDX5M/hBR0
+         v8Q4S1dZz9e+Wy709/pkQPJoJ382ui88GBuCa7YwB1Pwv+V08ySzbQGdCs4et9sFRxVX
+         1a78LWa2r/qDmkC73yn92WJjnMydzWl2HaDmNekF7y5RHwsZB7YPGLTTr3xjjmuI4LbR
+         sgpTrG1DSTm++FzIJZEq0knZSmQ9xxE9IezNyVfi/1ZtU95O+iPlQHI5LWAc3/YmXStT
+         Vgy3IZE07Q/+XWoEa8k60w3BygO7yb8zhuyYBqBwOLPUaUevbalW8R2MAA5wjUpSFz6r
+         zz0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793896021; x=1794500821;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=auiIKhbmoRZT4mFY+NhWtro4ChWc0LCFT6CcONkj2hM=;
+        b=YtP4rDT9P+Fy5+JB5qV2xqjCg42hw1Lfmhx2z0DTWiqeUA443BK0GiHtePS0RkrwPe
+         iQdiuUbQXNnpc6q9b7C+moY5CIqW5w11Fw2KptFrkt42zHpBO9jYeoHa2hL7hMbmRnGM
+         cyRLZ4jjUb+BBUuQmN2LfJIXtNp4N/yJ0FCQI54a2QXcQztV6BQ0iiQ0E9yJutJK8vsO
+         uEE8+rheCgtGq2M/BVWlz7bPwaIeHadPV6++4qHk5inNUHkmpoSfjqF59qpPTAammkXs
+         OE87LWusV6XgxoqTEf96rlNb7LANUFRBYOVodzY9GxsMExedBGqUJSrxZHOYYuT2BpHP
+         davA==
+X-Forwarded-Encrypted: i=1; AKwUvByBXhDeLt6C8sk2tTj9yTqRjIFc2TljLzY6tqYZM3HTYIh8Mk5/anx38/DUtszBRY5U7cVpu7gLPzMO5do=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+BB5tcSk0j2O+DzRhe8irlUvqZUniq5GbWr2zPRU4U7i+7eHys
+	jZVegvOqAcOy3gtuaM/5MOw4wcaz1nyZZCwQ3aGzY+UingoZEr6loBHuFy9JJFxOJKY=
+X-Gm-Gg: AYBFou3k2vanvZJ9HlYfTfvBmaooLcekDYNQJnQLVh8z3WJsMJLaoAwp1CIvo8Gp8LQ
+	pyGANjv/wmEcKoQcipB4+AuvJaG5AZAiOzv72c+7xmXrINItlDQcCyQ6vU92xb5ob+ak3x1xWZN
+	v7c/fSPezil4UCbCqQOXxvddtud2MCXQJdBV6Qy1goFRpBE9f9YQzevWruYe4ok1vAnEl2e2fjr
+	lcT4dz4ITWn6YGwbeOybSRFfoPqz/krCBTA3O+G9LUsbfJyZmeXzFTr4Jq/jAcqduMWZuARW5k9
+	H6Ij+s9MQY/PUFjJHn4SoY3AcdqNXEcvOkKAzb4D3cSQ9qzd/hGxSogl2BxD9STw91x8vjf4M3s
+	2+JrI8/4XNt628zGokA53MKD2LROJMhCwGKThVl2LrLj45J+ZyUkHkGnJ9Ru+CGnJ8RmbgvC0FJ
+	yVDMWvd4owDMxuo6oWznc3iKnuRT57CXHO5EHleuJbUH/vRf8SmBJJc5tC4WzbVCpY4NfMu3f2X
+	chrYDZZjA2r3eHAJOapLPCW0+pCqs1P+RPsFqpfqQyWNkkPu0YmDET8Qr91iCF9RiR3X7Pptg5h
+	wkvgw1GpbpGqr60oVcRG4uqk04kUYe287nwPn3l82XHCExAWVYZ8l38lx5qiAJOB7b3gzuQ5LsX
+	nUexyIL4so2a2nK1B0UKH3k5qVkpAt6c=
+X-Received: by 2002:a05:6102:3f9f:b0:7cc:174b:f7bc with SMTP id ada2fe7eead31-7d2a15715c3mr29296137.15.1793896021174;
+        Thu, 05 Nov 2026 08:27:01 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d26fef4ed3sm4667110137.11.2026.11.05.08.27.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:27:00 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xP0Il-000000032XP-37xT;
+	Thu, 05 Nov 2026 12:26:59 -0400
+Date: Thu, 5 Nov 2026 12:26:59 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH 17/17] PCI: Replace untrusted state with device trust
+Message-ID: <20261105162659.GB663069@ziepe.ca>
+References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+ <20261105-device-trust-core-v1-17-1e536825b4eb@nvidia.com>
+ <2026110526-aerobics-correct-4c06@gregkh>
+ <20261105131856.GA8298@unreal>
+ <20261105140352.GF3889730@ziepe.ca>
+ <2026110558-tartar-juicy-036a@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,176 +136,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>, Frank.Li@oss.nxp.com,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Russell King <linux@armlinux.org.uk>,
- Richard Genoud <richard.genoud@bootlin.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Peter Griffin
- <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Cunhao Lu <1579567540@qq.com>, Raul E Rangel <rrangel@chromium.org>,
- Yenchia Chen <yenchia.chen@mediatek.com>,
- Zhiyong Tao <zhiyong.tao@mediatek.com>, Carlo Caione <ccaione@baylibre.com>,
- Moteen Shah <m-shah@ti.com>, Kendall Willis <k-willis@ti.com>,
- Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>,
- Nicolai Buchwitz <nb@tipi-net.de>, Karl Mehltretter
- <kmehltretter@gmail.com>, =?UTF-8?Q?Stefan_D=C3=B6singer?=
- <stefandoesinger@gmail.com>, Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
- Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
- John Ogness <john.ogness@linutronix.de>, Pan Chuang <panchuang@vivo.com>,
- Petr Mladek <pmladek@suse.com>, Robin Gong <yibin.gong@nxp.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu
- <2426767509@qq.com>, "Nikola Z. Ivanov" <zlatistiv@gmail.com>,
- Haoxiang Li <haoxiang_li2024@163.com>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Myeonghun Pak <mhun512@gmail.com>, Wenhua Lin <Wenhua.Lin@unisoc.com>,
- Cixi Geng <cixi.geng@linux.dev>,
- "open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
- "open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-mediatek@lists.infradead.org>,
- "open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..."
- <imx@lists.linux.dev>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- "open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES"
- <linux-samsung-soc@vger.kernel.org>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
-References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
- <aux2VKHnVLwq_wzi@orome> <auyQEVmA2KeGu9DL@ashevche-desk.local>
- <2e12316d-d079-471f-9c29-ef5fb765216a@kernel.org>
- <auys4Yg-qAr4Rt5w@ashevche-desk.local>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auys4Yg-qAr4Rt5w@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026110558-tartar-juicy-036a@gregkh>
 
-On 05/11/2026 17:20, Andy Shevchenko wrote:
-> On Thu, Nov 05, 2026 at 03:35:20PM +0100, Krzysztof Kozlowski wrote:
->> On 05/11/2026 15:17, Andy Shevchenko wrote:
->>>>> ---
->>>>>  drivers/tty/serial/8250/8250_dma.c  | 6 ++----
->>>>>  drivers/tty/serial/8250/8250_mtk.c  | 3 +--
->>>>>  drivers/tty/serial/8250/8250_omap.c | 6 ++----
->>>>>  drivers/tty/serial/amba-pl011.c     | 6 ++----
->>>>>  drivers/tty/serial/atmel_serial.c   | 6 ++----
->>>>>  drivers/tty/serial/fsl_lpuart.c     | 6 ++----
->>>>>  drivers/tty/serial/imx.c            | 6 ++----
->>>>>  drivers/tty/serial/msm_serial.c     | 6 ++----
->>>>>  drivers/tty/serial/mxs-auart.c      | 6 ++----
->>>>>  drivers/tty/serial/pch_uart.c       | 6 ++----
->>>>>  drivers/tty/serial/samsung_tty.c    | 6 ++----
->>>>>  drivers/tty/serial/serial-tegra.c   | 6 ++----
->>>>>  drivers/tty/serial/sh-sci.c         | 9 +++------
->>>>>  drivers/tty/serial/sprd_serial.c    | 3 +--
->>>>>  drivers/tty/serial/stm32-usart.c    | 6 ++----
->>>>>  15 files changed, 29 insertions(+), 58 deletions(-)
->>>>
->>>> Reviewed-by: Thierry Reding <treding@nvidia.com>
->>>
->>> Krzysztof, now look at this case. I would argue that this is even less fit than
->>> # subpart(s) case, because it might imply anything. Again the problem is the
->>> bundle, and for such a case (when tons of independent changes are bundled in
->>> the same stuff, *every* Rb tag has to be explained on what has been reviewed!
->>
->> I think this case is obvious - Thierry reviewed this patch and gives Rb
->> tag, according to reviewer's statement of oversight.
+On Thu, Nov 05, 2026 at 10:43:00AM -0500, Greg Kroah-Hartman wrote:
+
+> > But I supposed Greg is asking about /sys/bus/usb/devices/DEVICE/authorized ..
 > 
-> It's unclear from a bare tag, It misses that kind of information. Documentation
-> is also unclear to me as it does *not* describe the case what should I do when
+> Yes, that is exactly what I am asking about.
 
-Documentation is clear and I quote to you multiple times, to which you
-did not respond.
+It looks like that does the same basic idea of delaying driver binding
+that this series does. Hopefully Leon can harmonize it to use the
+shared trust level flag instead of a usb specific flag and retain all
+the uABI around it.
 
-"Reviewed-by:, instead, indicates that *the patch* has been reviewed and
-found acceptable according to the Reviewer's Statement:"
+But, even with this v1 the user can choose to use the generic trust
+level and ignore the USB specific authorized and get the same
+functional outcome.
 
-Important: "THE PATCH"
+> And I know there are other types of devices that will want to use this
+> type of thing (i.e. SPDM seems to be spreading to other new bus types),
+> so it's good to have and get right.
 
-Further:
+Yes, we are investing alot of time right now in trying to get SPDM
+uAPI right when we bring the general framework into the
+kernel. Everyone needing SPDM should be able to re-use it.
 
-"I state that:
-(a) I have carried out a technical review of *this patch* to evaluate
-its appropriateness and readiness for inclusion into  the mainline kernel."
-
-And further:
-
-"A Reviewed-by tag is a statement of opinion that *the patch* is an"
-
-All of these are exhaustive (as in complete) statements leaving no
-interpretation whether this is part of patch or entire patch. It is THE
-patch, meaning entire patch.
-
-You do not drive your car, as only a wheel. You driver *the car*.
-
-You live in some apartment. *The apartment* is your home, not "piece of
-your apartment is your home".
-
-Best regards,
-Krzysztof
+Jason
