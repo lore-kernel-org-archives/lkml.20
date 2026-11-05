@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793854090;
-	b=TA9p6z6ZWcgLTsEDSbXuordL7uDtYjZS6/aNejb32R7MDfHCKL8q8g0TuR/8gvzM4apD
-	 DePxFCWKOTwkPzLNvnQV9RJzcKQVU+V0A9/hRIXGMqLMFQKWk76J1YJnC8RUCqXdHtSHM
-	 UnqwpPtyVVFjQO8I9FMPWE9cjZQbWSREXn4wzxq+FGAxQRQfIWFDVQttdb1LVFrZT2y0Y
-	 JJEU2NdoVV/Bu9ZmmjGnGXtpCiChY7wCD4nNzbcvZS/T6/kCaoPJjEjiKbk4PlDHkAGap
-	 Dr8qveQXKiCAASYXQXiEFummD+PTUH2bqZ+3Ta8aOnVicKCAQLzN6RpWp2QOuFcS31w==
+	t=1793854101;
+	b=AXoiyxgYp/AXOKVQjZRrn8RGxcMbbFwzClCsDg6lC4JqJ8FE++bPvPWxTw6py5/DAMxV
+	 9zmbw79R3+t0yW1bMSIFEdmi9kSPIUX9qpYTrKW0hRxCPzW1z16fAOa0CdlOSFDuRrcqO
+	 Ipzrrdt9uUxX6Biybv0P38jP2XaZ2e+XECew7XfOSEy+BzNIH7rDRV2lGJYfLEd3rCWwi
+	 l2NL5VGYS4ZSuFsByFhILkG6Yuna5Jemapm1cHgzwPkX+SkwWS3XmJ6z4NLVLpsxs2kLP
+	 LYEcvA8wIIV8p6t6d4ewpPhMKO0XjP/d4/ZmQfIlsxjesZ21SMGEXAyc4fz1vY7OXBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793854090;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793854101;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=3ty0pxF0Y4y567rYue/e29XaeUplt8CeYzKMMjvhBvo=;
-	b=MMJ7UXd3ZVxO8qt2TmSXMp/9lp/Kvx9MUB9xgPTgx835fsCqdXF3T8J1oYLUCr/3hhVl
-	 ENdCx20LMjAMJx+2p5EJ1DwOZ5hjcgNt0WDyGUQFLichgNxWnTs74WKgswiJQI3T2DobJ
-	 dONWUwWp7rJOMNmSjaqocUkthUoNdy9X7jORjx6YB1BGrtF6OBCBm/NljSnJmvT5O9jHL
-	 liFAQaBiO7vtotBCadPnbqaANIiRu6wto+hjMf7HYGt6OoBJKX8ElJW513jwlyS+MGi25
-	 qQJ5bTHBbPqEHU9clcBbWP1aBRuEf2A0SOJdMGYnv9PtnL5liPvA5pgNd48avFlFcuA==
+	bh=Z4CptPZ1xxIkHaBqUwJgyo6uh3NXVfD6E10G6VWgJe8=;
+	b=2WC8YIMXcL3RrreYon8kyL0x/koWqTkv2EnEfVaYNvItpyumf+bQUryG4qpqExUjXgiv
+	 aAdaJ37/Vh/LLWMVlUW0MW95Lbh+yq5MvRoFJWjLAPQSDViyTACXZp6sDGWU4IqCTvsFe
+	 JljryZ4opV6t2iPXzpjL4ILIKvtQbAFgqjoF9f9c/JGQeRC5B0GMDvbdXGwMblRbhBs+t
+	 67GPzJivh8A+ajjdYxoANcL39VM07U/7lCfKQdAJP9DW4DKbIPkin4t9DA1ff+K5c24lD
+	 wzmoHDoDlq+BcLR4bZJPlDhdUb5uJYVEwTFLYEEe7BkEjIa1IDYxMTWC7J4cG5UrNJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U5UBq+kq;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U+aQgEZx;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDC4606A33A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:48:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DDC4606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ECE606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:48:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21ECE606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U5UBq+kq
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1ae18eb9b69so1466742c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:48:09 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U+aQgEZx
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15ea896ddc8so2523279c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:48:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793854088; x=1794458888; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793854100; x=1794458900; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3ty0pxF0Y4y567rYue/e29XaeUplt8CeYzKMMjvhBvo=;
-        b=U5UBq+kqrIhn1dL11t1zmApLI8352uktQXMUGyNhpIuiSViyA4IVuUfMgX4qB0qqAq
-         wWs7OuQ/fg4DLEQg6sn9z8WVR2Peu42dw/27hTeDV6w/yYwsuEOm6zy7tXdqP42AgITZ
-         y16rVaVJJwGHacNr0fxTMqLwn3PXfiSHexnVc=
+        bh=Z4CptPZ1xxIkHaBqUwJgyo6uh3NXVfD6E10G6VWgJe8=;
+        b=U+aQgEZxeS5Pre7SDZg848BQdqMpLL7Cd5tR4LeM0Qd358dg8QaB+rw3k/7OcykJnh
+         VIidf2eRyWud4n6W1l7WdXDRcxxw8rJeoMdABWWD0TFNc4DeYOlOndfx5+ZowprbJsjM
+         9PqRK0VDzKr2FVQh9FMNwF2M8h8rIVf5VAQUI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793854088; x=1794458888;
+        d=1e100.net; s=20260707; t=1793854100; x=1794458900;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3ty0pxF0Y4y567rYue/e29XaeUplt8CeYzKMMjvhBvo=;
-        b=ouxs+bj6Tk5vnr35qD79BSt+bnejMtiv2KJDm0V8rvOaAextMUPkSymQV1l+L7JUp0
-         Jc6VRF7VwQTI9bm9mrZyAel9VvO4BaBVLMLZP1LXiBJ11vjy7WSYbvtbvhND29h1DSPB
-         ecedBuHvQGteGddgmLPmKnTu1vzncFWq7dcj6JjXh/Iu1MffOIQs2BMakd6ZYguEIV1s
-         hbbbOEisjqNtNxPc6ewytrWAdMxVD/zgo8cO7aoFQXgEWrNfiz+EdiKrVhpMAwyOmbnw
-         YEwncG6OuuiWRZJPgR1iGecIWolxYuz1tVrnmo9oQhwB5957JQAAlUjuDgKEKtuj9/u5
-         /5Tg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQdmSWM/gD/u8BiIEKYjiFcxYtfjLN/n/AcpnD/mZ3c+eiLTLEdz7SgDffADMCRCH0OPnF+DqFJq8jkUY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CeZ0Ixg2OYcJj+3/ec4FO94UwlXw05cB9lxJ+pkCxhU/EzdQN
-	61ewgG3Rf6Mtb7ip7x87wwt8bIf6ZpTA8g3cUHsblp1oIviCEVW/kXt2wiVIU8hfhQ==
-X-Gm-Gg: AYBFou21ywY/1QJOhoHA9QUrLw/rTDP6xah9wx1s43vZE9hZw0cUqbQf6ZK+y+GkMd3
-	1eGJyICyKio0tSAq/opI83MUyhEsSBLDPTb76DLagIs80nN228rJjz57L8HPJU0N9+/LjK25hl2
-	HiGrRi/eCvp0UrGKB+2u9IqvvV6Tr5QkmzD+St1Kb9uhdmZ8rYEmp5dNCYHBJHvev5d0/ywynO4
-	fpWhKVOz+6b19EK1MVEyKPDEZ0Z+1Wu2YTP5e6ecAy/1+8fmMLwQ4RDH3SyuxtnvsHjYTHVuW9w
-	CEeTK+UiUxNi4Yuwt5zkxZrZUdhfQTmnlrFLEZ9gOHlr5ho9uB/pKlaWbZZyHFopx+QEt2CuOP9
-	zA+hjBC+XPhz7D+O8ED01LDVCMBOT4TpeY5u7yc4/8oghECwxPEIjap7xca3D/GhKFRHC0IHG5q
-	fnilw8w4Q0ie0kfRR3CzVKR5LSKkIE7vQrmXHXzAmhlDm4aOE4eYSWlIkKdIfhSWcBO2Z8rimdJ
-	kE+A7x8yrnOy/py8fxM9BfLDDqsuSC0BkP61i6X4G8TgT0Vfp23NX3gX2WoAdhvldZjyQp07e0s
-	AS9xhaoKlc3vkhdMIClM2U4ElQE/I4F/oOsdNSyuAwe8plfSWy/ConLOfATchTvL+Z66LdZO44X
-	ocsxR929r04/fWWb5gz4=
-X-Received: by 2002:a05:7022:f115:b0:183:7d42:cfb5 with SMTP id a92af1059eb24-1ac5d88c1famr24632184c88.19.1793854088224;
-        Wed, 04 Nov 2026 20:48:08 -0800 (PST)
+        bh=Z4CptPZ1xxIkHaBqUwJgyo6uh3NXVfD6E10G6VWgJe8=;
+        b=wr+q5NeZdmkHYG7sGpn33w3ThPz2CqZAaf+uXK9UFt9U/5l9/5PZQLE/hv+eeqRjiV
+         616uYu12PNOF5l2UFpnYjQLjFmy2i5yZ/eISa6InQTCMnDilYn9dlS/2hqI7esl3fQvP
+         hEwqTIV2Elg6TZwlzqmtCT0y5jV/y22JfRJfkiz+ieEvWbbI/CTPIgbnxMkz60GWw5/q
+         dXWbDIzx3zfveDDOEhFGvmc9sdUKZR/kyoQUZ8Ip9lOnKeJzNtYHul6BVbKFOiBw2SaD
+         BjdUflKoPjakG6U/AwnYilMXA+ND81f+TKgj0kn7J1FeTXauxxlom5M67Fl5z43tX4BK
+         oBbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxa+69TIHAOoTUW0gU6ECr2a8T8OhfGhlnO7cKWB3RVenUNlAKkFISAIJ5e4fGq9F/HEx0XYQERb91v5hY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/C9QlceKDWhg/IGXvuSNBDff5sitBmKSgafkbsbLzyg1FNyd8H
+	1LPcPEKF+ZKf68l1UbEWavehX5xWEQHIcZxFX6N7YW9xjoWXg/pP4n73TxFM3XWybQ==
+X-Gm-Gg: AYBFou2vxUUWvShvoHKKAsWDoVMLjB6ZL60hBJX03sFk3MezA7ENKtJw2/3OjwUG1rg
+	pH99vIz8Exy1oIvzOD3Hy0BzmuzkDX0f1RPRJ/9M2PTXy3WekArCFgsaNMAtKZXVqGvWNpObc6A
+	g3aREeqmH8YUSpAi08pJ/GSywg3A7K/gxdU81k753UsnRYFrzloJ5c5jz2FqP/6AaAYJ5l9TN66
+	KphAy6+ToTVsxrP7edeCf2diYM/YYzkY21RDgicgGRhGgECFQz3EaTa6ijNnLbEUWjjogSW3gUK
+	MOUPbW810zP41V2rUgA7VcbCXAy0+SdG3Lhho5ptSSxIhn1vTMlidPUInm2Rz8HHGFi2yaUXp58
+	7UkozC6FMNLgzMlGz2b63GnzZ1gh3cBHY49j+Stb7bJvZZdc8zx9W+kgNa77gSFNIXGHwmbuDjH
+	ZxgbdNy+rcL7zfX1as0QxWE3arklOYVsFF1ihy94st/qGmrKtq+wVd8XdAg9k1+FJfgKBgsLm7Z
+	breRGmpsh0PgAqeJ1guD4nuxNsPlFdyfPItioiEQPt7fulZxBSZap9YDZGdmSsfkSJ/246NPpAr
+	e4TiAMK25eTrVJ7Tz3LcWDcp8mqqE5JdBe7vcYO/UzcW5KEqqjWtw/koybv/ahfqJidZHdvQ/k+
+	zOd82Vf8hqHHdavKSac66Ay6sgXptK9H7Ud6qWMQ=
+X-Received: by 2002:a05:7022:7e0c:b0:14c:d8d9:9502 with SMTP id a92af1059eb24-1ac5a0b8a9amr26997590c88.14.1793854100117;
+        Wed, 04 Nov 2026 20:48:20 -0800 (PST)
 Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:37bc:b763:7ec7:65b4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c6f0dcsm17142927c88.21.2026.11.04.20.48.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c6f0dcsm17142927c88.21.2026.11.04.20.48.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:48:07 -0800 (PST)
+        Wed, 04 Nov 2026 20:48:19 -0800 (PST)
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Nhat Pham <nphamcs@gmail.com>,
@@ -88,9 +88,9 @@ Cc: Nhat Pham <nphamcs@gmail.com>,
 	linux-block@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH 3/7] zsmalloc: switch handle type to struct zs_handle
-Date: Thu,  5 Nov 2026 13:47:33 +0900
-Message-ID: <20261105044752.1997895-4-senozhatsky@chromium.org>
+Subject: [PATCH 7/7] zsmalloc: constify struct zs_handle pointer in read-only functions
+Date: Thu,  5 Nov 2026 13:47:37 +0900
+Message-ID: <20261105044752.1997895-8-senozhatsky@chromium.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261105044752.1997895-1-senozhatsky@chromium.org>
 References: <20261105044752.1997895-1-senozhatsky@chromium.org>
@@ -105,461 +105,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-zsmalloc handle is an unsigned long that holds an address of a
-handle_cachep object, so zsmalloc and its users have to cast it
-back and forth.  Introduce struct zs_handle and switch zsmalloc,
-zram and zswap to struct zs_handle pointers.
-
-This is a preparation for the next patches, which embed struct
-zs_handle into zram and zswap entries.  No functional change.
+Constify struct zs_handle * in functions that don't modify the handle.
 
 Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 ---
- drivers/block/zram/zram_drv.c | 28 ++++++------
- drivers/block/zram/zram_drv.h |  2 +-
- include/linux/zsmalloc.h      | 13 +++---
- mm/zsmalloc.c                 | 83 +++++++++++++++++++----------------
- mm/zswap.c                    |  8 ++--
- 5 files changed, 72 insertions(+), 62 deletions(-)
+ include/linux/zsmalloc.h |  4 ++--
+ mm/zsmalloc.c            | 10 +++++-----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 5c13addd22f6..2c2e11b2b663 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -2030,7 +2030,7 @@ static bool zram_meta_alloc(struct zram *zram, u64 disksize)
- 
- static void slot_free(struct zram *zram, unsigned long index)
- {
--	unsigned long handle;
-+	struct zs_handle *handle;
- 
- #ifdef CONFIG_ZRAM_TRACK_ENTRY_ACTIME
- 	zram->table[index].attr.ac_time = 0;
-@@ -2096,7 +2096,7 @@ static int read_incompressible_page(struct zram *zram, struct page *page,
- 				    unsigned long index)
- {
- 	struct scatterlist sg[2];
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	void *src, *dst;
- 
- 	handle = zram->table[index].handle;
-@@ -2118,7 +2118,7 @@ static int read_compressed_page(struct zram *zram, struct page *page,
- 	enum zcomp_dstrm_mode mode = ZCOMP_DSTRM_EXCLUSIVE;
- 	struct zcomp_dstrm *zstrm;
- 	struct scatterlist sg[2];
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	unsigned int size;
- 	void *dst;
- 	int ret, prio;
-@@ -2146,7 +2146,7 @@ static int read_from_zspool_raw(struct zram *zram, struct page *page,
- 				unsigned long index)
- {
- 	struct scatterlist sg[2];
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	unsigned int size;
- 	void *dst;
- 
-@@ -2257,14 +2257,14 @@ static int write_same_filled_page(struct zram *zram, unsigned long fill,
- static int write_incompressible_page(struct zram *zram, struct page *page,
- 				     unsigned long index)
- {
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	void *src;
- 
- 	handle = zs_malloc(zram->mem_pool, PAGE_SIZE,
- 			   GFP_NOIO | __GFP_NOWARN |
- 			   __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
--	if (IS_ERR_VALUE(handle))
--		return PTR_ERR((void *)handle);
-+	if (IS_ERR(handle))
-+		return PTR_ERR(handle);
- 
- 	if (!zram_can_store_page(zram)) {
- 		zs_free(zram->mem_pool, handle);
-@@ -2295,7 +2295,7 @@ static int zram_write_page(struct zram *zram, struct page *page,
- 			   unsigned long index)
- {
- 	int ret = 0;
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	unsigned int comp_len;
- 	void *mem;
- 	struct zcomp_cstrm *zstrm;
-@@ -2328,9 +2328,9 @@ static int zram_write_page(struct zram *zram, struct page *page,
- 	handle = zs_malloc(zram->mem_pool, comp_len,
- 			   GFP_NOIO | __GFP_NOWARN |
- 			   __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
--	if (IS_ERR_VALUE(handle)) {
-+	if (IS_ERR(handle)) {
- 		zcomp_cstrm_put(zstrm);
--		return PTR_ERR((void *)handle);
-+		return PTR_ERR(handle);
- 	}
- 
- 	if (!zram_can_store_page(zram)) {
-@@ -2451,8 +2451,8 @@ static int recompress_slot(struct zram *zram, unsigned long index,
- 			   u32 threshold, u32 prio)
- {
- 	struct zcomp_cstrm *zstrm = NULL;
--	unsigned long handle_old;
--	unsigned long handle_new;
-+	struct zs_handle *handle_old;
-+	struct zs_handle *handle_new;
- 	unsigned int comp_len_old;
- 	unsigned int comp_len_new;
- 	unsigned int class_index_old;
-@@ -2534,9 +2534,9 @@ static int recompress_slot(struct zram *zram, unsigned long index,
- 			       GFP_NOIO | __GFP_NOWARN |
- 			       __GFP_HIGHMEM | __GFP_MOVABLE,
- 			       page_to_nid(page));
--	if (IS_ERR_VALUE(handle_new)) {
-+	if (IS_ERR(handle_new)) {
- 		zcomp_cstrm_put(zstrm);
--		return PTR_ERR((void *)handle_new);
-+		return PTR_ERR(handle_new);
- 	}
- 
- 	zs_obj_write(zram->mem_pool, handle_new, zstrm->buffer, comp_len_new);
-diff --git a/drivers/block/zram/zram_drv.h b/drivers/block/zram/zram_drv.h
-index 5416e25e64e8..5b211a9f314c 100644
---- a/drivers/block/zram/zram_drv.h
-+++ b/drivers/block/zram/zram_drv.h
-@@ -79,7 +79,7 @@ enum zram_pageflags {
-  */
- struct zram_table_entry {
- 	union {
--		unsigned long handle;
-+		struct zs_handle *handle;
- 		unsigned long element;
- 		unsigned long blk_idx;
- 	};
 diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
-index 5b7298a5026b..693c9484b638 100644
+index 674358f39191..793fc887015c 100644
 --- a/include/linux/zsmalloc.h
 +++ b/include/linux/zsmalloc.h
-@@ -22,14 +22,15 @@ struct zs_pool_stats {
- };
- 
- struct zs_pool;
-+struct zs_handle;
- struct scatterlist;
- 
- struct zs_pool *zs_create_pool(const char *name);
- void zs_destroy_pool(struct zs_pool *pool);
- 
--unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t flags,
--			const int nid);
--void zs_free(struct zs_pool *pool, unsigned long obj);
-+struct zs_handle *zs_malloc(struct zs_pool *pool, size_t size, gfp_t flags,
-+			    const int nid);
-+void zs_free(struct zs_pool *pool, struct zs_handle *handle);
- 
- size_t zs_huge_class_size(struct zs_pool *pool);
- 
-@@ -40,10 +41,10 @@ unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size);
+@@ -65,9 +65,9 @@ unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size);
  
  void zs_pool_stats(struct zs_pool *pool, struct zs_pool_stats *stats);
  
--void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
-+void zs_obj_read_sg_begin(struct zs_pool *pool, struct zs_handle *handle,
+-void zs_obj_read_sg_begin(struct zs_pool *pool, struct zs_handle *handle,
++void zs_obj_read_sg_begin(struct zs_pool *pool, const struct zs_handle *handle,
  			  struct scatterlist *sg, size_t mem_len);
--void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle);
--void zs_obj_write(struct zs_pool *pool, unsigned long handle,
-+void zs_obj_read_sg_end(struct zs_pool *pool, struct zs_handle *handle);
-+void zs_obj_write(struct zs_pool *pool, struct zs_handle *handle,
- 		  void *handle_mem, size_t mem_len);
+-void zs_obj_read_sg_end(struct zs_pool *pool, struct zs_handle *handle);
++void zs_obj_read_sg_end(struct zs_pool *pool, const struct zs_handle *handle);
  
  extern const struct movable_operations zsmalloc_mops;
+ 
 diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index 7ef80e0da626..7d8aab56f5cd 100644
+index ff1cde4c5dc2..e0f89a3b77f1 100644
 --- a/mm/zsmalloc.c
 +++ b/mm/zsmalloc.c
-@@ -264,6 +264,10 @@ struct link_free {
- 	};
- };
- 
-+struct zs_handle {
-+	unsigned long __private obj;
-+};
-+
- static struct kmem_cache *handle_cachep;
- static struct kmem_cache *zspage_cachep;
- 
-@@ -438,16 +442,16 @@ static void init_deferred_free(struct zs_pool *pool) {}
- static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage) {}
- #endif
- 
--static unsigned long cache_alloc_handle(gfp_t gfp)
-+static struct zs_handle *cache_alloc_handle(gfp_t gfp)
- {
- 	gfp = gfp & ~(__GFP_HIGHMEM | __GFP_MOVABLE);
- 
--	return (unsigned long)kmem_cache_alloc(handle_cachep, gfp);
-+	return kmem_cache_alloc(handle_cachep, gfp);
- }
- 
--static void cache_free_handle(unsigned long handle)
-+static void cache_free_handle(struct zs_handle *handle)
- {
--	kmem_cache_free(handle_cachep, (void *)handle);
-+	kmem_cache_free(handle_cachep, handle);
- }
- 
- static struct zspage *cache_alloc_zspage(gfp_t gfp)
-@@ -466,9 +470,9 @@ static void cache_free_zspage(struct zspage *zspage)
-  * Pairs with READ_ONCE() in handle_to_obj(): zs_free() may read the
-  * handle locklessly, so prevent store tearing here.
-  */
--static void record_obj(unsigned long handle, unsigned long obj)
-+static void record_obj(struct zs_handle *handle, unsigned long obj)
- {
--	WRITE_ONCE(*(unsigned long *)handle, obj);
-+	WRITE_ONCE(ACCESS_PRIVATE(handle, obj), obj);
- }
- 
- /* Protected by class->lock */
-@@ -817,13 +821,13 @@ static unsigned long location_to_obj(struct zpdesc *zpdesc, unsigned int obj_idx
+@@ -805,7 +805,7 @@ static unsigned long location_to_obj(struct zpdesc *zpdesc, unsigned int obj_idx
  	return obj;
  }
  
--static unsigned long handle_to_obj(unsigned long handle)
-+static unsigned long handle_to_obj(struct zs_handle *handle)
+-static unsigned long handle_to_obj(struct zs_handle *handle)
++static unsigned long handle_to_obj(const struct zs_handle *handle)
  {
--	return READ_ONCE(*(unsigned long *)handle);
-+	return READ_ONCE(ACCESS_PRIVATE(handle, obj));
+ 	return READ_ONCE(ACCESS_PRIVATE(handle, obj));
  }
- 
- static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
--				 unsigned long *phandle)
-+				 struct zs_handle **phandle)
- {
- 	unsigned long handle;
- 	struct zspage *zspage = get_zspage(zpdesc);
-@@ -839,7 +843,7 @@ static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
- 		return false;
- 
- 	/* Clear all tags before returning the handle */
--	*phandle = handle & ~OBJ_TAG_MASK;
-+	*phandle = (struct zs_handle *)(handle & ~OBJ_TAG_MASK);
- 	return true;
- }
- 
-@@ -1122,7 +1126,7 @@ unsigned long zs_get_total_pages(struct zs_pool *pool)
+@@ -1110,7 +1110,7 @@ unsigned long zs_get_total_pages(struct zs_pool *pool)
  }
  EXPORT_SYMBOL_GPL(zs_get_total_pages);
  
--void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
-+void zs_obj_read_sg_begin(struct zs_pool *pool, struct zs_handle *handle,
+-void zs_obj_read_sg_begin(struct zs_pool *pool, struct zs_handle *handle,
++void zs_obj_read_sg_begin(struct zs_pool *pool, const struct zs_handle *handle,
  			  struct scatterlist *sg, size_t mem_len)
  {
  	struct zspage *zspage;
-@@ -1169,7 +1173,7 @@ void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
+@@ -1157,7 +1157,7 @@ void zs_obj_read_sg_begin(struct zs_pool *pool, struct zs_handle *handle,
  }
  EXPORT_SYMBOL_GPL(zs_obj_read_sg_begin);
  
--void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle)
-+void zs_obj_read_sg_end(struct zs_pool *pool, struct zs_handle *handle)
+-void zs_obj_read_sg_end(struct zs_pool *pool, struct zs_handle *handle)
++void zs_obj_read_sg_end(struct zs_pool *pool, const struct zs_handle *handle)
  {
  	struct zspage *zspage;
  	struct zpdesc *zpdesc;
-@@ -1184,7 +1188,7 @@ void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle)
- }
- EXPORT_SYMBOL_GPL(zs_obj_read_sg_end);
- 
--void zs_obj_write(struct zs_pool *pool, unsigned long handle,
-+void zs_obj_write(struct zs_pool *pool, struct zs_handle *handle,
- 		  void *handle_mem, size_t mem_len)
- {
- 	struct zspage *zspage;
-@@ -1253,7 +1257,7 @@ size_t zs_huge_class_size(struct zs_pool *pool)
- EXPORT_SYMBOL_GPL(zs_huge_class_size);
- 
- static unsigned long obj_malloc(struct zs_pool *pool,
--				struct zspage *zspage, unsigned long handle)
-+				struct zspage *zspage, struct zs_handle *handle)
- {
- 	int i, nr_zpdesc, offset;
- 	unsigned long obj;
-@@ -1280,9 +1284,10 @@ static unsigned long obj_malloc(struct zs_pool *pool,
- 	set_freeobj(zspage, link->next >> OBJ_TAG_BITS);
- 	if (likely(!ZsHugePage(zspage)))
- 		/* record handle in the header of allocated chunk */
--		link->handle = handle | OBJ_ALLOCATED_TAG;
-+		link->handle = (unsigned long)handle | OBJ_ALLOCATED_TAG;
- 	else
--		zspage->first_zpdesc->handle = handle | OBJ_ALLOCATED_TAG;
-+		zspage->first_zpdesc->handle =
-+			(unsigned long)handle | OBJ_ALLOCATED_TAG;
- 
- 	kunmap_local(vaddr);
- 	mod_zspage_inuse(zspage, 1);
-@@ -1305,23 +1310,23 @@ static unsigned long obj_malloc(struct zs_pool *pool,
-  * otherwise an ERR_PTR().
-  * Allocation requests with size > ZS_MAX_ALLOC_SIZE will fail.
-  */
--unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp,
--			const int nid)
-+struct zs_handle *zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp,
-+			    const int nid)
- {
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	struct size_class *class;
- 	int newfg;
- 	struct zspage *zspage;
- 
- 	if (unlikely(!size))
--		return (unsigned long)ERR_PTR(-EINVAL);
-+		return ERR_PTR(-EINVAL);
- 
- 	if (unlikely(size > ZS_MAX_ALLOC_SIZE))
--		return (unsigned long)ERR_PTR(-ENOSPC);
-+		return ERR_PTR(-ENOSPC);
- 
- 	handle = cache_alloc_handle(gfp);
- 	if (!handle)
--		return (unsigned long)ERR_PTR(-ENOMEM);
-+		return ERR_PTR(-ENOMEM);
- 
- 	class = lookup_size_class(pool, size);
- 
-@@ -1342,7 +1347,7 @@ unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp,
- 	zspage = alloc_zspage(pool, class, gfp, nid);
- 	if (!zspage) {
- 		cache_free_handle(handle);
--		return (unsigned long)ERR_PTR(-ENOMEM);
-+		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	spin_lock(&class->lock);
-@@ -1410,9 +1415,11 @@ static unsigned int obj_to_class_idx(unsigned long obj)
-  * encoding is disabled), fall back to pool->lock for the lookup.
+@@ -1395,7 +1395,7 @@ static unsigned int obj_to_class_idx(unsigned long obj)
   */
  #if ZS_OBJ_CLASS_BITS > 0
--static inline void obj_class_get_and_lock(struct zs_pool *pool, unsigned long handle,
--					 unsigned long *objp, struct zspage **zspagep,
--					 struct size_class **classp)
-+static inline void obj_class_get_and_lock(struct zs_pool *pool,
-+					  struct zs_handle *handle,
-+					  unsigned long *objp,
-+					  struct zspage **zspagep,
-+					  struct size_class **classp)
- 	__acquires(&(*classp)->lock)
- {
- 	struct zpdesc *f_zpdesc;
-@@ -1428,9 +1435,11 @@ static inline void obj_class_get_and_lock(struct zs_pool *pool, unsigned long ha
- 	*objp = obj;
+ static inline void obj_class_get_and_lock(struct zs_pool *pool,
+-					  struct zs_handle *handle,
++					  const struct zs_handle *handle,
+ 					  unsigned long *objp,
+ 					  struct zspage **zspagep,
+ 					  struct size_class **classp)
+@@ -1415,7 +1415,7 @@ static inline void obj_class_get_and_lock(struct zs_pool *pool,
  }
  #else
--static inline void obj_class_get_and_lock(struct zs_pool *pool, unsigned long handle,
--					 unsigned long *objp, struct zspage **zspagep,
--					 struct size_class **classp)
-+static inline void obj_class_get_and_lock(struct zs_pool *pool,
-+					  struct zs_handle *handle,
-+					  unsigned long *objp,
-+					  struct zspage **zspagep,
-+					  struct size_class **classp)
- 	__acquires(&(*classp)->lock)
- {
- 	struct zpdesc *f_zpdesc;
-@@ -1447,7 +1456,7 @@ static inline void obj_class_get_and_lock(struct zs_pool *pool, unsigned long ha
- }
- #endif
- 
--void zs_free(struct zs_pool *pool, unsigned long handle)
-+void zs_free(struct zs_pool *pool, struct zs_handle *handle)
- {
- 	struct zspage *zspage;
- 	unsigned long obj;
-@@ -1455,7 +1464,7 @@ void zs_free(struct zs_pool *pool, unsigned long handle)
- 	int fullness;
- 	struct zspage *zspage_to_free = NULL;
- 
--	if (IS_ERR_OR_NULL((void *)handle))
-+	if (IS_ERR_OR_NULL(handle))
- 		return;
- 
- 	obj_class_get_and_lock(pool, handle, &obj, &zspage, &class);
-@@ -1559,12 +1568,12 @@ static void zs_object_copy(struct size_class *class, unsigned long dst,
-  * Find alloced object in zspage from index object and
-  * return handle.
-  */
--static unsigned long find_alloced_obj(struct size_class *class,
--				      struct zpdesc *zpdesc, int *obj_idx)
-+static struct zs_handle *find_alloced_obj(struct size_class *class,
-+					  struct zpdesc *zpdesc, int *obj_idx)
- {
- 	unsigned int offset;
- 	int index = *obj_idx;
--	unsigned long handle = 0;
-+	struct zs_handle *handle = NULL;
- 	void *addr = kmap_local_zpdesc(zpdesc);
- 
- 	offset = get_first_obj_offset(zpdesc);
-@@ -1589,7 +1598,7 @@ static void migrate_zspage(struct zs_pool *pool, struct zspage *src_zspage,
- 			   struct zspage *dst_zspage)
- {
- 	unsigned long used_obj, free_obj;
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	int obj_idx = 0;
- 	struct zpdesc *s_zpdesc = get_first_zpdesc(src_zspage);
- 	struct size_class *class = pool->size_class[src_zspage->class];
-@@ -1760,7 +1769,7 @@ static int zs_page_migrate(struct page *newpage, struct page *page,
- 	struct zpdesc *zpdesc = page_zpdesc(page);
- 	void *s_addr, *d_addr, *addr;
- 	unsigned int offset;
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	unsigned long old_obj, new_obj;
- 	unsigned int obj_idx;
- 
-@@ -2291,7 +2300,7 @@ static void zs_destroy_caches(void)
- 
- static int __init zs_init_caches(void)
- {
--	handle_cachep = kmem_cache_create("zs_handle", ZS_HANDLE_SIZE,
-+	handle_cachep = kmem_cache_create("zs_handle", sizeof(struct zs_handle),
- 					  0, 0, NULL);
- 	zspage_cachep = kmem_cache_create("zspage", sizeof(struct zspage),
- 					  0, 0, NULL);
-diff --git a/mm/zswap.c b/mm/zswap.c
-index ad01c691a263..397b06c9f33b 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -215,7 +215,7 @@ struct zswap_entry {
- 	unsigned int length;
- 	bool referenced;
- 	u8 pool_idx;
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	struct obj_cgroup *objcg;
- 	struct list_head lru;
- };
-@@ -888,7 +888,7 @@ static bool zswap_compress(struct folio *folio, long index,
- 	struct scatterlist input, output;
- 	int comp_ret = 0, alloc_ret = 0;
- 	unsigned int dlen = PAGE_SIZE;
--	unsigned long handle;
-+	struct zs_handle *handle;
- 	gfp_t gfp;
- 	u8 *dst;
- 	bool mapped = false;
-@@ -949,8 +949,8 @@ static bool zswap_compress(struct folio *folio, long index,
- 
- 	gfp = GFP_NOWAIT | __GFP_NORETRY | __GFP_HIGHMEM | __GFP_MOVABLE;
- 	handle = zs_malloc(pool->zs_pool, dlen, gfp, folio_nid(folio));
--	if (IS_ERR_VALUE(handle)) {
--		alloc_ret = PTR_ERR((void *)handle);
-+	if (IS_ERR(handle)) {
-+		alloc_ret = PTR_ERR(handle);
- 		goto unlock;
- 	}
- 
+ static inline void obj_class_get_and_lock(struct zs_pool *pool,
+-					  struct zs_handle *handle,
++					  const struct zs_handle *handle,
+ 					  unsigned long *objp,
+ 					  struct zspage **zspagep,
+ 					  struct size_class **classp)
 -- 
 2.56.0.398.g882cbad275-goog
 
