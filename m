@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840476;
-	b=lxMD1GAyz9+ng6UCZ2q9vINNNt7uPEHWSHiaRnlCq68yRu+YDOHeia+dtPBXtCl/63MC
-	 /TJgLheIBHecfQ58uVhiu3w9UBst9fP25paKX7DkF5OltE/ptVWUcLCIVyKiIGGdlmIca
-	 6Ronyn8VJE6gvbT/K//e6kXaSgryh6RFEyrXvIKy2vdIWd7G4GXA0BF1xeb0JXfBhDDJL
-	 jgun1Pcam3R/3cJPVfhtpvD7UOqGgJH1QolkSsUauMdgl1KvZDQTg77wqYmhFDzH8qqjJ
-	 OV2Fxv8hioVO0KV4BQBDKK+h47Gl/LM0nmbnc0Kn6tN1KnVC+4gFCLroDHdFHHwlnDA==
+	t=1793840495;
+	b=GrQMVL3qBwlGVR53GCs8Nyr66ZayfxXNilmAiznA00FlESb9Nooc5bltBY+woBwJP3u/
+	 CrUr8EWkp8ova2qMAijyQSTAC9kds/gSjoMkKTey7Ie+iVpo1PskNpTv5SZv9+9p5CvPc
+	 EcaM1Yct7qHNZfYLOcMeM26iHKc+IFE0hKSyIsNIKJjf2/01BshZqlvKLyateRWs0hQBW
+	 obksQiUxV/m572WNvecHqMqLuFXtajZ/Mut+y51vAroL9Za2v8V+WLQciIruz8CZma5gW
+	 vW8eTrliMZRExd1AInPgpOkJhHM1MWPbywjD1M7aZww/vnAx/Ie5vunE/AML63yJIeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840476;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=O50/RPW38+N8i5gjSk+TqiFc1u8BMhD1yRooJzVaNj4=;
-	b=Fi2/l3ORUJGIbOoadyz8gNsHvVHnJmY9avlCNRC1sQAdgper203C0a5rFh8a/uXj6eqb
-	 0DZNIRY6bwQlUsfLbjZVebhro628hn943+DH1CvcjdQ6Ormdmraeae0xCNRrELpq2grVi
-	 /AM5sfmEcP4Osn4Or5xJQPLvamenUxctQBeHVj9Mq81Q6NWTILLy2s5UiF/22ZTjUQhPi
-	 qjEFZiVXpZuOIqrpnyDQtUwYNRU570QrX/8WxuPeBGdxYQTQVYwCJ+lL3H27z5ON4crnr
-	 SvcliMjcl7JkbQJH/3Fb2QRz6dP3uBhQtcBdZ3aXS/dTahb7HAnBS+HJaBmdVu/2rrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840495;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=kZxX/XIkUIJjuTAxtj9rZq8g8wa65n2oh9KUXIeg7Jw=;
+	b=QjTRo8SjYEJt5xAo89b+Et5CRas2JrLac7vfbqDR77pQIr7jZJckXMITV1tsezSgBDYo
+	 w0bYV+MTCGsHPIYqDAFIK7QubAIu2QBG0d2GFWuazBQd/VXxPHP9ZcXjydpg+d0xSzQjq
+	 Ufjz3jVoAzOifoGz7nA464UmE3vY2FPow0o3U21d1JTqU63GJ6KKQg6c7nsn6HV9Pjuby
+	 9MwowWjfKgADr1Yg6CCGqm9rG9m+nJ2eHTIJPIzAG964G3KYlTngKHdyvuN9TmBHr1Z24
+	 7Zf+ar5wDrQraNsBKjuWkYpAo7xs9+6q4nvQNI+ChDyIam0CkYAV24xIFtg0HD7dptw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=igTkkW+e;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=eMR10iCu;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D42606EEA9;
-	Thu,  5 Nov 2026 01:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2D42606EEA9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FC1606D828;
+	Thu,  5 Nov 2026 01:01:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03FC1606D828
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=igTkkW+e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840474;
-	bh=fK5c5ENnVBF9Cbe0Gx7/q+sFZIPn1Kn5+5RFTv/gG2g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=igTkkW+ew6DQUksmViomveI/6C6QialiidTjFeRoCM0AFXDpNyBRYvf2Z2HNkHXVF
-	 r6sHOtQbwXg1Ca2khWSgPRDh3bzZPGFNvh6r5lww1fZavswx9rUepwmRALn8INUs/u
-	 /CMQKlHBSaiOvfvHXz3+W8NuHb8gWPQoivLsTGDlnSok1Y1OHSW1WLEJDpZ9lyXQcb
-	 Zo9HhS19w7WaQfV5QCEOwHfHmrd5jjWMc9oq4F42yqjuwB+a1yr+yTgjLHplWDZ60V
-	 EELvYEtW9gqk5m9GcpC9bakGGDtQaA9lX3hWDPmg5ugzOgWnieyAIKomOdJUuHwKjV
-	 eXSy1tXVu7P+A==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4103417E02F2;
-	Thu, 05 Nov 2026 02:01:14 +0100 (CET)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:45 +0200
-Subject: [PATCH v6 11/15] drm/bridge: dw-hdmi-qp: Log resolution and
- refresh rate in atomic_enable()
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=eMR10iCu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793840430;
+	bh=kZxX/XIkUIJjuTAxtj9rZq8g8wa65n2oh9KUXIeg7Jw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=eMR10iCuDsFB1F78SQwns91/ipxyB7mOxad6ESpd88ZvFIjKpj/akcwHlXtIdCwwl
+	 Ou4DipQck0jyIQYbeWHT4kwcNTV36CGWcwFKFBZ+GqDLsqvAxtZO3prWnUzw8JqwUw
+	 ByACrxS2jSSln4YLVdmNhMljLKusqm+G8q2cz9Jg=
+X-QQ-mid: esmtpgz14t1793840425t9f665007
+X-QQ-Originating-IP: 3kPxtlDRI3SKmHDdIjQxdPAEL0gM87Iz4VIbjjf+RIA=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 05 Nov 2026 09:00:23 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13532499832840154010
+EX-QQ-RecipientCnt: 17
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,91 +58,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-11-1bb63ef5766e@collabora.com>
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
-In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Daniel Stone <daniel@fooishbar.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.15.2
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=ac3ca7b792b26755fe7a725c28bb57121983448927d4375be7781694ab05;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 05 Nov 2026 01:00:20 +0000
+Message-Id: <DMMVCWRCJKLN.3GKI5P3X6TQNB@linux.spacemit.com>
+Cc: "Daniel Lezcano" <daniel.lezcano@kernel.org>, "Thomas Gleixner"
+ <tglx@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Yixun Lan"
+ <dlan@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>
+Subject: Re: [PATCH 3/5] riscv: dts: spacemit: Add the K1 APB timer
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261103-spacemit-soc-timer-v1-0-36722421db6e@linux.spacemit.com> <20261103-spacemit-soc-timer-v1-3-36722421db6e@linux.spacemit.com> <CABdCQ=M_FwJOEG9Lhzahk=qA-qmqMH1QeGg7dfFPWdwT=4J63Q@mail.gmail.com>
+In-Reply-To: <CABdCQ=M_FwJOEG9Lhzahk=qA-qmqMH1QeGg7dfFPWdwT=4J63Q@mail.gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MiUxkXieYO8R5F479AZG0CCaMSPpI8BjUSMydLSCmKzOjNvTBU8VtAxi
+	JXZtp8ezY8aeOdCyzCS68nr5BR9s4J5taYFHCI29RbWgLuuaEgBiio42s4AfEgpVvUW1v5C
+	vz44OcAsPCP8c2ym2stbX2lS/5w9FjlRiuXwS1ywnZUr8nXmP1lrmXPzYUbSJxmmp5jBnrV
+	v80FChJoAqRZgz5jzHb6l7KXGEYf7amU0KYmfWCqP5MX0KbJGYuF8aVSx0zogG3ooezDwm6
+	5+nUenLK6WLTULzqQ6QokEePTnHJv4O/Av7FPNhq3xL3UVje/OWHF988AjgpQEpA1WUy3//
+	HC4ZJIhi1Jrm3ZdzR3xV8XG4EtNAfDEcygQf1RDkRAvt9bdBzgBfn20Gcb2cidTyxJSKgHp
+	Epsliz4+qn7LT59G0rfjR1Vb2ucHv1wS4NxLQWtALGh5TPdutL0jtJ9z/GJ2VzVMFjNdKIt
+	rma1VXM+Roq0LryzShJY275dJO8/4hPop8YWZEXxkadRB49/GRhsM9IB0dNIcjmojx+SHVj
+	3KOujew+YVtQkJKtndue5qytOKPklFQoyEfudQGI7Z4RMrlKyNuro4/qyWiroKJi4w/nPvs
+	PrnB/mL3AWFMSYnMr3yh0+cHDf/QAhpzzIXnW2AJkfn9vbmBFXokVBi5QVfcvCB8Wcl6O7v
+	JM+XqSM+3kCcXdfhAEOooifBDp08DMR6OSuAkooEEx8Kuc2DGAWTnRy6UQIJN7RLF+DhfgH
+	GkQY2tPUD4puqZdudoev8npCls87+8gfRom5zdsQgs57B7WN4lCtSmWiN3APxjX2OztO902
+	zhtEwyAfKdGo8IhlGFGDcemzzZZ5V00xxX8ye/Ag1amGAEdiTM7/572BAy0d3clZysxob/N
+	LIvdMRi81e4zn+PVOx1pqYx4HDUPIKwQJnZL86Idf5220YQfzvIB5DkSHt6urfbodVjK/YB
+	F2FkRkaeJd4/PWhzeVCMSOsprMYdVAi8Z/aXaya/Tb/nM8S20lcRsksxLE3tyo23dl4uw/j
+	ugMuTeJusH9FT8OtPFDt3kSoMofx9CASt5N8u1LYU3g/rv6MdJrLZKiIcskY7w02zUI333n
+	PfcnNp74GY93SlLilW4oIaEj8LklxqT9QrhsGVl5biU
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
-previously printed the literal string 'HDMI' as the mode field, giving
-no information about the actual display timing being configured.
+--ac3ca7b792b26755fe7a725c28bb57121983448927d4375be7781694ab05
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Extend it to include the active resolution and refresh rate by
-retrieving the CRTC mode from the incoming atomic state:
+On Wed Nov 4, 2026 at 6:34 PM GMT, Iker Pedrosa wrote:
+> El mar, 3 nov 2026 a las 9:56, Troy Mitchell
+> (<troy.mitchell@linux.spacemit.com>) escribi=C3=B3:
+>> [...]
+>> +               timer0: timer@d4014000 {
+>> +                       compatible =3D "spacemit,k1-timer";
+>> +                       reg =3D <0x0 0xd4014000 0x0 0x100>;
+>> +                       interrupts =3D <23>;
+>
+>
+> K1 timer specifies interrupt as <23>, but K3 uses <26
+> IRQ_TYPE_LEVEL_HIGH>. The IRQ type should be consistent.
+No, K1 uses the PLIC but K3 uses the APLIC.
 
-  dw_hdmi_qp_bridge_atomic_enable mode=HDMI:1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
 
-This makes the log line self-contained and directly useful when
-debugging mode-setting issues, format negotiation, or TMDS rate
-mismatches without having to cross-reference a separate mode dump.
+--=20
+Troy Mitchell
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index b268c9376087..c6551f4cbf93 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -539,6 +539,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 	struct drm_connector_state *conn_state;
-+	const struct drm_display_mode *mode;
-+	struct drm_crtc_state *crtc_state;
- 	struct drm_connector *connector;
- 	unsigned int op_mode;
- 	int ret;
-@@ -552,6 +554,9 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
- 
- 	if (connector->display_info.is_hdmi) {
-+		crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+		mode = &crtc_state->mode;
-+
- 		op_mode = 0;
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
- 
-@@ -559,7 +564,10 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		if (ret)
- 			dev_warn(hdmi->dev, "Failed to enable scrambling: %d\n", ret);
- 
--		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u scramb=%d\n", __func__,
-+		dev_dbg(hdmi->dev,
-+			"%s mode=HDMI:%ux%u@%uHz fmt=%s rate=%llu bpc=%u scramb=%d\n",
-+			__func__, mode->hdisplay, mode->vdisplay,
-+			drm_mode_vrefresh(mode),
- 			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
- 			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc,
- 			connector->hdmi.scrambler_enabled);
+--ac3ca7b792b26755fe7a725c28bb57121983448927d4375be7781694ab05
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-2.55.0
+-----BEGIN PGP SIGNATURE-----
 
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauvVJCEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+QZwD+LjXA7nF7yyOy
+r5aU5N43nrOkq5zWRWyg3wPUqMQ60okBAIu/lWTjTK76ntl7G6+I0RE4LaYRG3ec
+dmzhL1IFj68D
+=Fl9h
+-----END PGP SIGNATURE-----
+
+--ac3ca7b792b26755fe7a725c28bb57121983448927d4375be7781694ab05--
