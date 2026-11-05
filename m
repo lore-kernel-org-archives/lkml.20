@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910370;
-	b=fWU9e7oOzhWfx9qrIWY1IEmv8Dor6H0Vxxr9K7/lgubyqKE0b3h2lWwQnuooSfFqJ0uI
-	 Mh6ZnU4ru0SBLJ1hBE+kuyj9idmwFjz+axmTnULBLVdENvEyrBJhwyPdM9vl44VOSPXCj
-	 1D8L+jPQfHcBIfyiH2LtHWCFMC0IbYrS4atiwlb7D44Hv0Eb+Qn2xQ1ezRHeGr0m/YMce
-	 nhdLpxY46AvmPSl672LE3Sm5glv3VCfR6khPKUb98G5vV8h7Xxz+MhOpyqrYZV0x6K5UC
-	 Xz2FIgLf1M+JKAUnDqlye50vJewD7FTadjkxxySRyZmdGOvxo2AsY79IgCGg2OiBWFw==
+	t=1793910427;
+	b=AQ4tMJd/+YaKx9/NY/FdrLN8i7jtOQOp9vXTYvU7tWbVxzH6MtQfstDp/9j/Batq6Rjn
+	 3WTiymRHBmZsmsVpYJxpEnN3g5Up9aAJa2noaa/o23/qXstRdO81PPoa4ztkAPAPuKtjb
+	 cZxW0Ns9OPnju8nm/6gHDrshezqe7XrQHF6FkP+ZgLEtOvDkB73rH02rotfNFOxeKojBg
+	 vmysuDG//u1CkQ9BFr4EY1px8H6tMiTHld/OtaYTMH42imQvkdxNtp7FQmW+rw0wHja7b
+	 Zp11RbFLjf1QR0UUzq0c1z2c85yXZCd4eKsF4KFH19acBIZMmimrjepO/CesEPbDRRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910427;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=6PhYnOuaolg4JTRnCvQouViB9Tyk3Jhd5dCgyqQ05EE=;
-	b=MXFmFLWy0qswSt87RwtlLzAcOTQV2fNC49oWEwBz2iZ52e+n5vUrGBOlvv3htuipnLi7
-	 elnL7XzbBVwrl5G34bOUXNT8DPZzr0UbsoiNk35Pd1t/YfuQ8KFYKgPiOxNmDvBbRHyGv
-	 3CRNtlus1IsedP51+2Z6e4BQ/3aDi9ckRZ/eMTcjNbO0nrIaN0nsbGP6cHUVyD7l+mSCk
-	 cTIiFzYm1Dqtva97Z69kkx1scQiIorzzY4brWpIgJe6iCJSH+DuGrDYkLsFyz2p9laA3h
-	 08MbkxPweztSk5jIulTAhjOs38udCUX+hddIl/OmVw63WG6LXGs6T3quexW4l2peSYw==
+	bh=g8P8+TQ+mIFYXzxYjm6s16Bn2EXxuNT9/QxKsRhb6z4=;
+	b=hrXWz/6ZUWy1UEavvCQnJnuhslgXPxtpN/JUj3+gie3Pc8SGuG/icwZRE5/zAOKqyNRd
+	 A4B3DxJ8uevXWbWR6YSUXCrONLKgvRFndKZTdKyXV3r4nUAMXwT5LSMGfmCKeWw18Jf4h
+	 aQ/caZAPZqGknkGkUnRmg599/e7gB1BwYema7GCTRRcC895GMqUWz3Rgq7spmqwlq1+Ec
+	 dDuWD46n3auQMA80dI4ACk2e0xSMHpmTVfDiAFC0dVqtEygqVprGHDLrfPnmxG/2FvzWI
+	 QPhWJ9mEVMtDgsLEWsdAcfqxuag6nR0bCGxkMpR5VIpvYeMDFQkfoHb2wscdYNvTGCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H257HZkY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=onhJ18i0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB02606A326;
-	Thu,  5 Nov 2026 20:26:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A4B606A326;
+	Thu,  5 Nov 2026 20:27:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H257HZkY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755471F0089F;
-	Thu,  5 Nov 2026 20:26:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=onhJ18i0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C931F0089F;
+	Thu,  5 Nov 2026 20:27:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793910369;
-	bh=6PhYnOuaolg4JTRnCvQouViB9Tyk3Jhd5dCgyqQ05EE=;
+	s=k20260515; t=1793910426;
+	bh=g8P8+TQ+mIFYXzxYjm6s16Bn2EXxuNT9/QxKsRhb6z4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=H257HZkY5ZLXLGZh1ay3PnMy0GH0TJ3ZT8gnwBg5Nr15yy1uRkoGszb4bClrp63j4
-	 hUy9r64h25pMvJ25y9cjdvQFXwjSBYjn5gYoAryOUN/AOv1lrprdsfhdMaF/duKzf3
-	 TqtHSZAIaV1N3xZGlxEHIWNyHU3v7DIG/u44+6XO1zpuqdOk6rgBx+63lMdFjiIAiv
-	 NK0ZRkVg8vSX1R2RPctHfg3MnBT0ioUhyxSs2rB10Az+2u8ptgr1U4jJ2x+5fVqm19
-	 lP0UnY19PWjgYwOUXLa9pl9PZoemsC7fBxDZ24/eNB4jSzvqr2oX5zNffJw88LDS5v
-	 m6fwm7TNfX8dA==
-Message-ID: <a724d159-1509-4649-afa7-a2669d37b4f6@kernel.org>
-Date: Thu, 5 Nov 2026 21:26:00 +0100
+	b=onhJ18i0tmCwgMpxhDpIrwnZsqxTAUP71kru0jkQKWrnlu3UF4yXe+HlhhDgTa9r9
+	 4FnAUem3x7Ag+mReeb6h0tgIM7MSGVHpZ6mYWBKF4RyLg1Zzksm2EcnfRHEX9ftlHP
+	 8mUvYg1zbr21f8Db9D/nxHvBlPjWMRZuQv7FYx3GRB8FfOZjNww4biQscLeN5olRIA
+	 KX+M5+dxmZxFdVCYi8xryPr1KrU8Pt+/s699sEFiDAEFqp/MZJ/3AT+1SOfWZywkpt
+	 dLB+QwWDvdYw8Jdn2ybVSIr4InN3H6o9s3J+/TKwV+0E4ggz+ZCmOjvT3/jzOeSLSz
+	 pOByuqzWjN7ow==
+Message-ID: <9676c3f4-8b5d-4153-a6bf-9bd2b933aedd@kernel.org>
+Date: Thu, 5 Nov 2026 21:27:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,16 +52,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] soc: toshiba: tc9564: config system controller
-To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
- bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
- alexandre.torgue@foss.st.com, marex@nabladev.com,
- changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104004332.2141282-1-elder@riscstar.com>
+Subject: Re: [PATCH v2 2/3] dt-bindings: iio: proximity: Add Benewake TF-Luna
+To: vidhu.linux@gmail.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
+References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+ <20261031-tf-luna-v2-2-ce403579bb8a@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -107,35 +107,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261104004332.2141282-1-elder@riscstar.com>
+In-Reply-To: <20261031-tf-luna-v2-2-ce403579bb8a@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04/11/2026 01:43, Alex Elder wrote:
-> This series is comprised of some code that was previously sent
-> separately.  It now incorporates a new system controller driver
-> that advertises clock and reset functionality, as well as regmap
-> access to its address range.  This combination is being treated
-> as a new series.  (Details of previous versions are below.)
+On 30/10/2026 19:53, Vidhu Sarwal via B4 Relay wrote:
+> From: Vidhu Sarwal <vidhu.linux@gmail.com>
 > 
-> The Toshiba TC9564 is an SoC that attaches to a host system via PCIe.
-> It includes a PCIe switch with three downstream ports.  To one of
-> these ports an embedded PCIe endpoint is attached, and that implements
-> two PCI functions.  BAR 4 for both PCI functions provides access to
-> registers controlling blocks within the SoC.
+> Add binding for the Benewake TF-Luna, a single point ToF
+> LiDAR distance sensor with a range of 0.2 m to 8 m.
 > 
-> The system controller driver adds the clock and reset devices
-> using the mfd_add_devices() interface.  The clocks and resets
-> are implemented by drivers included in this series.
+> The sensor talks either UART or I2C, selected by the level of pin 5 at
+> power-up. This binding covers both interfaces. Pin 6 is a data ready
+> output and is described as an interrupt.
+> 
+> Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
+> ---
+>  .../bindings/iio/proximity/benewake,tf-luna.yaml   | 66 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 ++
+>  2 files changed, 72 insertions(+)
 
-Toshiba TC9564 bindings and DTS should be posted completely. We spent
-great amount of time on discussing already and I pointed more than once
-that big picture is missing.
-
-You are not describing here parts of a SoC.
-
-You are describing one, single device how the host sees it and DT
-maintainers (and writing bindings) ask for complete picture in such cases.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
