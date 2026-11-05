@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885639;
-	b=L7KdpLFyK5y4P+YrIKxw5KIMTZDokB63ZwzDMxMiOqoNJLem2UxKWAB7cPE2ncAxSPLG
-	 EwoQ97k7JIcWeL+rcy6B5o4ZB78H8aj7R8BVLhIXXUpouI2/Bhs3LonZlQ7TfrT8wrhQR
-	 JW/JRuYFg1BpGUU3SDSVom6qsV2Ow7BM790ZzWvsan8CJ/g7+cRJj63aG1QyO0Qi7SJ8v
-	 nZoh9LetO8QLk4QeyHkGyogi+d7WhimIONq8a4CEa6ALWM6NNgvjUsb2XqylmA3KEJ37p
-	 7dou06tXX3Z7aouC+l4+v/v945TL+1Xx6qXLpUZjzH/Yu0Oy1OdU9K1pet4lEIf32Rg==
+	t=1793885656;
+	b=OXr5th9sWHkC6wgFViHEM+2qklIP8q18fu7b72wU4AaVO06b8thNtfAnV93MIZAXWqfW
+	 XyLi+tqaMq8V7npqDJ1eZyFiF+lidZst3shI12gV9MhpUCwRK2AAiTluCpay69tKvLKbc
+	 n64xZfH9bwkf/Pyo14/GdenZ0xGVm7oo39eWNAyyGcwf4S4seBQCMcFq0a4RcuVt0Yj+y
+	 V65Hg1av8McGQMS4plOYTem8NkQfII6A0rtlzlatuFZheagCiD4tUzmxcPfxIfzh+UxW6
+	 O66ZtcuZzL0EUm2zlYswBNYfGL+trU1bfHBd+GZbpMuubzGVI0fJivYFueLL1P5b1Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885639;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=I3bAWnKCJBnbyR0aJvBMJR5ltQ+PdODDur6AdradSno=;
-	b=WOdZ2mUZ0Srungoxn7Yawdpu9kTetH3BsEL0pwrJPD+A/AXHe24G/RbKKuZBW+KkkoLC
-	 yTny23+BUHLV4YZ0H1GfzhgmfPuPadmrhMtZIUkDJ6jBNlOsH/KhS5MHPKxYB6gNcAXE2
-	 1kswrdbyrg6ZBVa3TM5GHnyLwzCK+kZv/w+C3iNttifxQ0AdHnRubE5jtQvj5EJdDtaL6
-	 Fx6An57zwVwKT6aHzdGZ7TykK4id3BZaG/A8zFMLah0G/WDIdvY+1zp2ZoT+Rs9yNNGtC
-	 6/WhPvBekhLXkwR5PRacyymlWNn//SqTxoD6WkiGCIfp6y8oOUH64Yg5Ilt/xfnJXzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885656;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=xtG6fIgcVTzyv91/g3gp13PkyR5FUez629otMerYOAs=;
+	b=nWudy0uYrc2YIUq9+A1NotxnfXOV2ZtMkbMJkX7/TVeojoXh4unn2euC8QIjcpWa0Y+l
+	 i1D+HzCn26fO6cwMeVjp4N2ro0mYEGQ7xla55u09b8onYsCNj+GCpk4181gSH5W2YyzUF
+	 6XfOD0Q0TQ+l4spKwj9JKWP0fzPnYXZg4obz79jH14/CIahkvbhCjWSi0uvlwT36fmeZJ
+	 CSZXSFtmgguRVSg9CF9TMC5y34X9NatLIxeVrDvSAKNBDmMLEAahxzkvZXfFbfjX252Fo
+	 gL7/lbXEU1eZauyAt8rfvwjdqj/uahY6QEse2yVZKSw6urRfqpdypOE9Re4UKtV3iHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SZmuEBRQ;
-	arc=none smtp.remote-ip=95.215.58.222
-Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EED606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:33:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52EED606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AJAD0adZ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B997606A32D;
+	Thu,  5 Nov 2026 13:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B997606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SZmuEBRQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=de7uJZx7NF3cVuzxaJ2ihuCpEPiMGYjY4vUsWroOYR8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793885636; v=1; x=1794490436;
- b=SZmuEBRQwhGsepMtsIyF8VqiSHhCWYZsl7j8LRl9uN/eL95ThRe54HRIBgWbNIwN2Nu6AST6
- l/AaLrqjW8ULAuItWOkZ0eNF8Bgt/M8/ITxMyDRHO1899fH5RUuJ+G1Rt5ji5MghuymFnluHlk7
- +RQ39nXgqenRjQ+lR52UBwzQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d698f65570305b22;
-	Thu, 05 Nov 2026 13:33:56 +0000
-X-Mizu-Trace-ID: d698f65570305b22
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c8be6713-2378-4dc5-9959-fc7eddd800e1@linux.dev>
-Date: Thu, 5 Nov 2026 21:33:47 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AJAD0adZ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D4776152B;
+	Thu,  5 Nov 2026 05:34:11 -0800 (PST)
+Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4A10D3F628;
+	Thu,  5 Nov 2026 05:34:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793885654; bh=l14vhx5E/VbDt8tx/DC7VJgj77lpt87vUA3lRCAIukc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AJAD0adZM+HCYJxY7MSwwM7ewupYaBK7MHtAFWoJGwaLsy9a2Z3j0hqOYyLCD7h9l
+	 uZQcELPuN4SgmB/pGNNyGyoik9JIl7sAoIqln4XYNWCG+mWzdqV5Zl3w/eOB4igDB/
+	 a7d1AJeMDvSeVAgYKmR7bolgYmyGdI2IYsVoMx3k=
+Date: Thu, 5 Nov 2026 13:34:09 +0000
+From: Joey Gouly <joey.gouly@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Will Deacon <will@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 05/16] KVM: arm64: selftests: Add protected-VM boot
+ trampoline
+Message-ID: <auyF0ePpUlJKZgNo@e143914.arm.com>
+References: <20261104084842.132944-1-fuad.tabba@linux.dev>
+ <20261104084842.132944-6-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,93 +70,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC net] net: force software segmentation of PPPoE packets
-To: Eric Dumazet <edumazet@kernel.org>,
- Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Stanislav Fomichev <sdf.kernel@gmail.com>, Hangbin Liu
- <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
- Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexander Duyck <alexander.duyck@gmail.com>
-References: <20261020143031.1829-1-qingfang.deng@linux.dev>
- <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
-Content-Language: en-US
-From: Qingfang Deng <qingfang.deng@linux.dev>
-In-Reply-To: <CAL4Wiiptz1zyxRDKrCrnK2Q-qn0_1d1aSxuUPkJKWnODpjMp1g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104084842.132944-6-fuad.tabba@linux.dev>
 
-Hi,
-
-On 10/20/2026 11:08 PM, Eric Dumazet wrote:
-> Le mar. 20 oct. 2026 à 16:30, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
->>
->> Ordinary TSO does not update the PPPoE payload length. A PPPoE GRO packet
->> forwarded by a bridge can retain hardware GSO features and reach the
->> driver without software segmentation, if the egress Ethernet interface
->> advertises TSO.
->>
->> To force software segmentation, clear the GSO feature mask for
->> ETH_P_PPP_SES in harmonize_features().
->>
->> Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
->> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
->> ---
->>   net/core/dev.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/net/core/dev.c b/net/core/dev.c
->> index a6951ea08961..27483a2ad747 100644
->> --- a/net/core/dev.c
->> +++ b/net/core/dev.c
->> @@ -3831,6 +3831,10 @@ static netdev_features_t harmonize_features(struct sk_buff *skb,
->>          type = skb_network_protocol(skb, NULL);
->>          features = net_mpls_features(skb, features, type);
->>
->> +       /* Ordinary TSO does not update the PPPoE payload length. */
->> +       if (IS_ENABLED(CONFIG_PPPOE) && type == htons(ETH_P_PPP_SES))
->> +               features &= ~NETIF_F_GSO_MASK;
->> +
->>          if (skb->ip_summed != CHECKSUM_NONE &&
->>              !can_checksum_protocol(features, type)) {
->>                  features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
->> --
->> 2.34.1
->>
+On Wed, Nov 04, 2026 at 08:48:31AM +0000, Fuad Tabba wrote:
+> EL2 takes only PC and X0 from the host when it boots a protected vCPU,
+> and resets everything else. So the registers the selftest library sets
+> before the first run never reach the guest.
 > 
-> Ouch.
+> Boot a protected guest through a trampoline that restores X0-X7, seven
+> EL1 system registers and the stack pointer from a block X0 points to,
+> then enables the MMU and branches to the guest's entry point.
 > 
-> harmonize_features() is called for every packet, GSO or not.
+> Co-developed-by: Will Deacon <will@kernel.org>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Similar idea to the 'realm-boot' I added, and mentioned previously. I
+think it should work for Realms too.
+
+Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+
+> ---
+>  tools/testing/selftests/kvm/Makefile.kvm      |  1 +
+>  .../selftests/kvm/include/arm64/pkvm.h        | 50 ++++++++++++++++
+>  .../selftests/kvm/lib/arm64/pvm-entry.S       | 58 +++++++++++++++++++
+>  3 files changed, 109 insertions(+)
+>  create mode 100644 tools/testing/selftests/kvm/include/arm64/pkvm.h
+>  create mode 100644 tools/testing/selftests/kvm/lib/arm64/pvm-entry.S
 > 
-> This is a GSO-only problem, please do not add more protocol-specific
-> tests in this path. gso_features_check() is only called for GSO
-> packets, and the cost there is amortized over all segments.
+> diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+> index 17a4256e90819..c254e82f9a786 100644
+> --- a/tools/testing/selftests/kvm/Makefile.kvm
+> +++ b/tools/testing/selftests/kvm/Makefile.kvm
+> @@ -35,6 +35,7 @@ LIBKVM_arm64 += lib/arm64/gic_v3.c
+>  LIBKVM_arm64 += lib/arm64/gic_v3_its.c
+>  LIBKVM_arm64 += lib/arm64/handlers.S
+>  LIBKVM_arm64 += lib/arm64/processor.c
+> +LIBKVM_arm64 += lib/arm64/pvm-entry.S
+>  LIBKVM_arm64 += lib/arm64/spinlock.c
+>  LIBKVM_arm64 += lib/arm64/ucall.c
+>  LIBKVM_arm64 += lib/arm64/vgic.c
+> diff --git a/tools/testing/selftests/kvm/include/arm64/pkvm.h b/tools/testing/selftests/kvm/include/arm64/pkvm.h
+> new file mode 100644
+> index 0000000000000..6ef769b8ff977
+> --- /dev/null
+> +++ b/tools/testing/selftests/kvm/include/arm64/pkvm.h
+> @@ -0,0 +1,50 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025 Google LLC
+> + * Author: Fuad Tabba <fuad.tabba@linux.dev>
+> + * Author: Will Deacon <will@kernel.org>
+> + */
+> +
+> +#ifndef SELFTEST_KVM_ARM64_PKVM_H
+> +#define SELFTEST_KVM_ARM64_PKVM_H
+> +
+> +#ifndef __ASSEMBLER__
+> +/*
+> + * Register state the boot trampoline (pvm-entry.S) restores. Only PC and X0
+> + * survive to a protected guest's first run, so X0 points at this block.
+> + */
+> +struct pvm_boot_args {
+> +	u64	jump_tgt;
+> +
+> +	u64	regs[8];
+> +	u64	cpacr_el1;
+> +	u64	sctlr_el1;
+> +	u64	tcr_el1;
+> +	u64	mair_el1;
+> +	u64	ttbr0_el1;
+> +	u64	vbar_el1;
+> +
+> +	u64	tpidr_el1;
+> +	u64	sp_el1;
+> +};
+> +#endif
+> +
+> +#define PVM_BOOT_ARGS_OFF_JUMP_TGT	0
+> +#define PVM_BOOT_ARGS_OFF_X0		(PVM_BOOT_ARGS_OFF_JUMP_TGT + 8)
+> +#define PVM_BOOT_ARGS_OFF_X1		(PVM_BOOT_ARGS_OFF_X0 + 8)
+> +#define PVM_BOOT_ARGS_OFF_X2		(PVM_BOOT_ARGS_OFF_X1 + 8)
+> +#define PVM_BOOT_ARGS_OFF_X3		(PVM_BOOT_ARGS_OFF_X2 + 8)
+> +#define PVM_BOOT_ARGS_OFF_X4		(PVM_BOOT_ARGS_OFF_X3 + 8)
+> +#define PVM_BOOT_ARGS_OFF_X5		(PVM_BOOT_ARGS_OFF_X4 + 8)
+> +#define PVM_BOOT_ARGS_OFF_X6		(PVM_BOOT_ARGS_OFF_X5 + 8)
+> +#define PVM_BOOT_ARGS_OFF_X7		(PVM_BOOT_ARGS_OFF_X6 + 8)
+> +#define PVM_BOOT_ARGS_OFF_CPACR_EL1	(PVM_BOOT_ARGS_OFF_X7 + 8)
+> +#define PVM_BOOT_ARGS_OFF_SCTLR_EL1	(PVM_BOOT_ARGS_OFF_CPACR_EL1 + 8)
+> +#define PVM_BOOT_ARGS_OFF_TCR_EL1	(PVM_BOOT_ARGS_OFF_SCTLR_EL1 + 8)
+> +#define PVM_BOOT_ARGS_OFF_MAIR_EL1	(PVM_BOOT_ARGS_OFF_TCR_EL1 + 8)
+> +#define PVM_BOOT_ARGS_OFF_TTBR0_EL1	(PVM_BOOT_ARGS_OFF_MAIR_EL1 + 8)
+> +#define PVM_BOOT_ARGS_OFF_VBAR_EL1	(PVM_BOOT_ARGS_OFF_TTBR0_EL1 + 8)
+> +#define PVM_BOOT_ARGS_OFF_TPIDR_EL1	(PVM_BOOT_ARGS_OFF_VBAR_EL1 + 8)
+> +#define PVM_BOOT_ARGS_OFF_SP_EL1	(PVM_BOOT_ARGS_OFF_TPIDR_EL1 + 8)
+> +
+> +#endif /* SELFTEST_KVM_ARM64_PKVM_H */
+> diff --git a/tools/testing/selftests/kvm/lib/arm64/pvm-entry.S b/tools/testing/selftests/kvm/lib/arm64/pvm-entry.S
+> new file mode 100644
+> index 0000000000000..a0974cde78da6
+> --- /dev/null
+> +++ b/tools/testing/selftests/kvm/lib/arm64/pvm-entry.S
+> @@ -0,0 +1,58 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025 Google LLC
+> + * Author: Fuad Tabba <fuad.tabba@linux.dev>
+> + * Author: Will Deacon <will@kernel.org>
+> + */
+> +
+> +#include "pkvm.h"
+> +
+> +	.text
+> +	.balign 16
+> +	.globl	pvm_entry_start
+> +pvm_entry_start:
+> +	mov	x30, x0
+> +
+> +	ldr	x0, [x30, #PVM_BOOT_ARGS_OFF_X0]
+> +	ldr	x1, [x30, #PVM_BOOT_ARGS_OFF_X1]
+> +	ldr	x2, [x30, #PVM_BOOT_ARGS_OFF_X2]
+> +	ldr	x3, [x30, #PVM_BOOT_ARGS_OFF_X3]
+> +	ldr	x4, [x30, #PVM_BOOT_ARGS_OFF_X4]
+> +	ldr	x5, [x30, #PVM_BOOT_ARGS_OFF_X5]
+> +	ldr	x6, [x30, #PVM_BOOT_ARGS_OFF_X6]
+> +	ldr	x7, [x30, #PVM_BOOT_ARGS_OFF_X7]
+> +
+> +	ldr	x8, [x30, #PVM_BOOT_ARGS_OFF_JUMP_TGT]
+> +
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_CPACR_EL1]
+> +	msr	cpacr_el1, x9
+> +
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_TCR_EL1]
+> +	msr	tcr_el1, x9
+> +
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_MAIR_EL1]
+> +	msr	mair_el1, x9
+> +
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_TTBR0_EL1]
+> +	msr	ttbr0_el1, x9
+> +
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_VBAR_EL1]
+> +	msr	vbar_el1, x9
+> +
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_TPIDR_EL1]
+> +	msr	tpidr_el1, x9
+> +
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_SP_EL1]
+> +	mov	sp, x9
+> +
+> +	/* No stale TLB entries, and the writes above in effect, before the MMU is on. */
+> +	tlbi	vmalle1
+> +	dsb	nsh
+> +	isb
+> +	ldr	x9, [x30, #PVM_BOOT_ARGS_OFF_SCTLR_EL1]
+> +	msr	sctlr_el1, x9
+> +	isb
+> +
+> +	br	x8
+> +	.globl	pvm_entry_end
+> +pvm_entry_end:
+> -- 
+> 2.47.3
 > 
-> Devices without NETIF_F_HW_CSUM already lose GSO for ETH_P_PPP_SES
-> because of the can_checksum_protocol() check in harmonize_features(),
-> and fraglist GRO packets (the main use case for PPPoE GRO) are
-> segmented in software anyway.
-> 
-> This leaves bridged, non fraglist GRO PPPoE packets sent to a
-> NETIF_F_HW_CSUM + TSO device. Have you hit this on real hardware?
-
-+Cc: Alexander Duyck
-
-I ran the real hardware test on Intel igc.
-
-igc_tso() requires skb_network_header() to point to the IP header, which 
-is not the case for PPPoE packets, so it won't work on an unmodified 
-driver. I therefore used a kernel module to inject PPPoE GSO skbs 
-directly to the driver's TX path, deliberately pointing 
-skb_network_header() to IP.
-
-Test results show that the hardware can still perform TCP segmentation, 
-but it cannot update the length field in the PPPoE header. So 
-theoretically, we might be able to make GSO_PARTIAL work in PPPoE.
-
-Kind regards,
-Qingfang
-
