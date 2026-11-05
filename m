@@ -1,63 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914729;
-	b=4t+gap+HaKp7y2u+U9DU6ZWRaJJBKqeN7OZi2JAwUJ5tpoVm5NgSzP380GER6W/WyaTs
-	 OMTjbiLiH0BqmOVKMf01A1jhONxsyEgIWu3f+XTvRDRf1FtPrpM8cjI+N15b+6f+StLzX
-	 7dwVQR+IJcuys4VlJhY9hfwofo8e6nfsLvqk5m3v3tG/ZNejBytipzSBUEMCjT/9VULs0
-	 m667nEtSriOlKKfp4rvplgST5px25qy1GhiT8m97v2Ca6T6XstuqNlcnL6JyjSdtAMvPd
-	 q0zetu4k9shjj6EbWebauActqrrl4jgTN6C4bFi1pHyHYWU3cw3kNkDe2g69eHNsWgQ==
+	t=1793914731;
+	b=3d2cRph7kaEu5+lAU4Dz7a34+bmkx9nW7Vfo8uFidw/ZQRAwL0XH33Ek3uqXRfnM44Ri
+	 7HnHmAnc9xo3n43mfUzKHvdK8oZVYF92+ppC5dYa8UWOK1D5h2NJi99VvMpfxjpEPUAPa
+	 9uBojdmIb2BmCft1EH7TlaWhBgDf/mxxw1mad3iqeYEUW83QCw+wicIOMTB0JnuA9koLL
+	 L2RsY5rhf6s5xhpfukAyp+ff3rUkL4QZZKo6HMOsLq8QNETs7Kpc0qX1KAGfqdhkEFo1t
+	 WEtEQGtbyaSgK5EbVDRpjhJ2ltujl0SiYzRxdAzHCxoFh21GdTyzsLVH0+SuyVECeIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914729;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OG3uAdRsKsnCgp4y6ps7Sg3KysoNOneAEH7kqGaywLk=;
-	b=lsHn6fvrwNZT61aZ+LXhtNS85tSooqTDF4MxEq2iw28zEcDoY4NEYy6bNbjTBnmBafqE
-	 26f0LYv+S/zMx9cBzXaoT589TvR4YuZJcXv8PGukyP46SS1mXr/pWEAxeO9G5WgvlZg10
-	 9zjCFSXNLxrC3VuPu4tPN5zmwKq9XUVynPACBMDLK2Pv0r0VyPnBKpC5nJ8AxK9WSeQ6w
-	 ovEKlTqjejeSphJnfdd8DEzCcsPhNsXH+bQM6STbTAZUfl4x0Mx3LC4+T0lkujsCjNlDX
-	 n4wFyZWW/Z6uDCaKmmfgUpx8VBePeHalvRBRsYMzL3Dd5swV9Efx4WL1b7CtYuwWE/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914731;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=h0r+2HII2Bw3x8GbS9DCIhnhso5iPGJPaQEPn7qxf4Y=;
+	b=aR+lBmlfIqv/iTcw0sKVvhfCSfaQXNdXAs/U6Jsjzyq6urKkFdshtAE/NHRiz5z0p5PB
+	 4qSJY9kUzmdMBKSzxJF0V9qUCYXV35kX6H6h3THH4FXlxRqYjTgJfR7E4RCOJvjH0G6RF
+	 MGtQUU3bM5MVIo028vemaqcu+dMM8Fj8SIOOIjdmcdUDDdZO5scRnz9193qz3RLH6gQMs
+	 kGhGBJsQTNvCE1bgY/sdv19HnlL3LuOTZR6ibE5feKWyJR6Kz3sAECe+4XTxkIq4AwLyA
+	 06dbsoaB/VmQPZP8TDu20NbllFnMBnxW5ceKwjQ8YbKOLIHaWgiafraKs2CTZL7B7kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGjc7uJ3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsjGOjYf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119FF606A326;
-	Thu,  5 Nov 2026 21:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1971606A33B;
+	Thu,  5 Nov 2026 21:38:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGjc7uJ3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67AB71F0089F;
-	Thu,  5 Nov 2026 21:38:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsjGOjYf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373001F008A1;
+	Thu,  5 Nov 2026 21:38:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793914728;
-	bh=OG3uAdRsKsnCgp4y6ps7Sg3KysoNOneAEH7kqGaywLk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=XGjc7uJ3Jhwrp/iwFo3hEPaDKdaFdkiYPdKOQDlg6QQS6Xo/1LtSxo6vgDV7jxac4
-	 4EH0psVYsPNjiKM7Pk4vtuhYeQ9ILJvrFiK32rvmKXL/YQ/J1KmIBroXbMV+zIPltx
-	 ePArzOOdnXK0EeNxfoz9gNbfv1aFUcKL8aUagADAtk0EdCq2fdGXCQWwkvMlGlF7t4
-	 7feuM4k6zPQD8jEglIgf1r5qXCkIswlu1OZszqDpWL85RkxWXExapYBrZGAtTX+9+f
-	 Bw0DKgQjSc6vXQN8jlma79kTnHD5MnoCNZ4hsixGwpS7JMgmQ+O9zB0fGhTL9I9cBQ
-	 Q/kvMzWVmx5kw==
-Date: Thu, 5 Nov 2026 15:38:47 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Koichiro Den <den@valinux.co.jp>, Niklas Cassel <cassel@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	"open list:MHI BUS" <mhi@lists.linux.dev>,
-	"open list:MHI BUS" <linux-arm-msm@vger.kernel.org>,
-	"open list:PCI ENDPOINT SUBSYSTEM" <linux-pci@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 1/1] PCI: Replace chan->device->dev with
- dmaengine_get_provider_device()
-Message-ID: <20261105213847.GA1565775@bhelgaas>
+	s=k20260515; t=1793914730;
+	bh=h0r+2HII2Bw3x8GbS9DCIhnhso5iPGJPaQEPn7qxf4Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=lsjGOjYfF/x2gLEaNqAXt/2kxNgPVUg88bJPuvfotirBcHI12sxLMDFw6z5lYmyps
+	 v5YLGHXYB2ye7WWW3qlkFuxK6MqAsuf7r0XkBc8wzT+tk28O3bpZOHXMXMFYIupb/7
+	 W0Q1j7GIKo/2Jxz/WDVTy7tLC+G/oR2jYYPHQmvSbACdwe3GGgujnpm6jgBjtVK+Kq
+	 laX6QlbwjPHpmo4vLsA0R30tp693GyEwVKE7ddQD7QdycXgxJiCXhjKfyLnoNiA+Rw
+	 eMaEzZVsemBaK4Nsp9OyqCTOpyIz6YaLyUvlwu9SpbqkFPu7hdt7SH3s3KDftGHcpS
+	 FJ1+PxX5QtrYw==
+From: Christian Brauner <brauner@kernel.org>
+To: Russell King <rmk+kernel@armlinux.org.uk>, 
+ HyeongJun An <sammiee5311@gmail.com>
+Cc: Hyungjung Joo <jhj140711@gmail.com>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260715115231.1585166-1-sammiee5311@gmail.com>
+References: <20260715115231.1585166-1-sammiee5311@gmail.com>
+Subject: Re: [PATCH] fs/adfs: bound directory entry name length in
+ adfs_fplus_getnext()
+Message-Id: <20261105-maschinen-freibad-abriss-1bf38bc75111@brauner>
+Date: Thu, 05 Nov 2026 22:38:47 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,23 +60,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auz2EAk-b-ZsX6PW@SMW015318>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-On Thu, Nov 05, 2026 at 03:33:04PM -0600, Frank Li wrote:
-> On Wed, Nov 04, 2026 at 03:27:10PM -0600, Bjorn Helgaas wrote:
-> > On Wed, Nov 04, 2026 at 10:01:59AM -0500, Frank.Li@oss.nxp.com wrote:
-> > > From: Frank Li <Frank.Li@nxp.com>
-> > >
-> > > Use the dmaengine_get_provider_device() API instead of directly
-> > > accessing chan->device->dev to get the DMA provider device.
-> > >
-> > > No functional change. Prepare make to struct dma_device private to the DMA
-> > > engine.
-> >
-> > "Prepare to make ..." I assume?
+On Wed, 15 Jul 2026 20:52:31 +0900, HyeongJun An wrote:
+> adfs_fplus_getnext() reads the per-entry name length bigdirobnamelen
+> straight from the on-disk big directory and passes it to
+> adfs_dir_copyfrom() as the copy length into obj->name[], a fixed
+> ADFS_MAX_NAME_LEN (260) byte buffer.  adfs_dir_copyfrom() only bounds
+> the copy against the number of directory buffers, not the size of the
+> destination, so a crafted image with bigdirobnamelen larger than the
+> buffer overflows the stack-allocated object_info::name that
+> adfs_fplus_iterate() passes in.
 > 
-> Yes, Do you need me respin it or you can fix when apply?
+> [...]
 
-I'm sure Mani can fix it.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] fs/adfs: bound directory entry name length in adfs_fplus_getnext()
+      https://git.kernel.org/vfs/vfs/c/8b41fb1fc25d
+
