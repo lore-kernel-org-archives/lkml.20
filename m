@@ -1,89 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892216;
-	b=YBYmqPJsTY5GSvhDHhoOWRGn6QRumtR5TZP4UlJRp7WMi9nna3vqwt/j7B/ftCEQZcjm
-	 N05gQelU6FRc7wYoDbzEg/LnJWuPKITjxIOmEIlf48OqkOTe87j9U7py+0GKNnxCLZAdH
-	 MQjbdcF3SFE60gcxcklUz7vmSukUQxuI7spM2jH436LlsAHQaRr1aj5EsD9AcImeafIAU
-	 wkexVeGzzjoY6HVgqFXvqs0ApbOa8fpxeRkfnYAqBHVFmNKyME32ceyAZa2dCOpsf/NMn
-	 UkpxQ1CeEB2kRdQSoXWOmxIDwGow5w1DBuNykLVAj8RJq3i57ioBnmDNckAe+fACMjA==
+	t=1793892222;
+	b=qj75g6L2o4QenHzW+wfVaYV0a/rWvx0sNM6ORiLLLOFiCQGUwYOt6h50sWyFM620UYjS
+	 75RFrR5qwG8oHDkB9B+xRJ197RWZTenzNGniGU9Ym8HeIMbXBcFz7bpZRh6uT4J4axa6E
+	 8k1ZaktXPDIYQgws4E/69F3Nd8F+xdyqZ7vt4lKidSO3kxV0/O+yK43qbx0tFfVJh9nrS
+	 2qXBY9BhtxgBl98vwXMJXbcONFmKXHtqLixiPCU8slhERQ2kETRNLOhr4k8zU14OKJJ3J
+	 4pa3GdYebcqnN8fKcKi/X5HrMsLeTdEkg5QC4Y3UiXDAz1nqLRd+0xfViKnToVhUA/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892216;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=kdXj6//jxdtcWs7h4JxcJxKLQ6Lk98T2w2GxXOA8Ujw=;
-	b=XbHWne/rr2JL5TcO3y5MF8pVrC8IJr3rpxmLNJdyHZPHH6InWCyRCaEzED5XmKJt8sOi
-	 BcxLMaTeVBmldOP3yFC2zJIIOV6Je4b5eZvUIP3fc83e9yiyPaodozAe2WCzdeWS8X7ui
-	 JF7aMr3+Kk0FPBNrRgr0ZZZ3FKmXZxVS79NFcrlzqRxYmuBOegVMcBxflzr7XwIZ0lsnl
-	 PgD4tDEg3I41XP5cHzbWjoKkaSNJABFTEyXCmxRucjcRuUHBH+SkNS6Rl/5++SZvqNCSL
-	 1Q664uIMpS2cjdy2uny/PsgdcqFWFFaT1wdACMF1W8B6NeBKGtfupUlZZ4gCkdZ+76A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892222;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=DT1BsS1jyuPyNRrdkSexz5S4IsBfNSt7ax5gSpAirZ4=;
+	b=qJVL6LXesUwD2yni4lBtJmbrIQ+0lK6DGMELAxuNEX3AkquQvnHN6Y/CbgqwCpgKyIkW
+	 +IUDrriBJ9yICk6GKhGs0f+nO/R9peekQSG3KDTVdKlHSAZCjynTcW7Gh06U+RsloA15k
+	 3JQRk2RwX9eNKzfYowhXT/I37THp3c4DthByDBWN++EHNsIvtnX7i6DIsI9EzihjfkzxH
+	 dfHMUcgUwJweQVkvVI+DLBJ2LrcjIxd79uyOXpf5hIAdxIMOXuEwsGtoKtpembQ5lID77
+	 FiV5NvWjBjJT3k78gs4Lq84RkI/S36giXTqzB9UbrB67QkDfqxb6Juq73hxsSRIowmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=jFv7JG3X;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ARGr01Vs;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3811F606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:23:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3811F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0D2606A329;
+	Thu,  5 Nov 2026 15:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F0D2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=jFv7JG3X
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so21668335e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:23:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892214; x=1794497014; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kdXj6//jxdtcWs7h4JxcJxKLQ6Lk98T2w2GxXOA8Ujw=;
-        b=jFv7JG3XZaJkSmPlPLcfE9OCnqAnrFIHWurWtq5O25T0d3IKJTFJLQ/Tlh1cQdZdF5
-         jZe0mRWMpOKGSKlVU7OnUUrtccQJos28SZAjnjAooX9EAk1qDqsSytT2/MABpT0o6cW4
-         Te3Q+wfScQdbIEl9gzzkLutwHZkHOSstck/g9x4QgupyhN2uZxfhrATdnH6Aap6zGwje
-         YY3hR3y9CsIxwLB/YjwmNnarq3DANSUZsv841ylnVyMBLXVDctsWvYB7fhs2JO7MbycC
-         mKDrvns48LjXuMQogYbKDJupivw/9KKxj9x3UvvPVIXjbEMcj5jV4dSOfwjXKADHZKaV
-         JYLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892214; x=1794497014;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kdXj6//jxdtcWs7h4JxcJxKLQ6Lk98T2w2GxXOA8Ujw=;
-        b=T01DGPNRg+Nyy1S83j5DRRCCtRxat3ZfuQ1Fub7EO3hNKkSHz8wRKBzhqOZHhDlwOC
-         +VR3alUgYhvRpPa1fvt9SY31S6sjK8xB2PuuQDcAyGC1AComxJOxsvhaqIZamyS0BDDX
-         HbvyyfoMwhX3jjA8ZTIkuLSor+QJqT5GAOp3Q/kHOeU10j/PUg6LAo4YRDYg2k8ca4PQ
-         z8L9navudC1nEjyshFh0W+NnmLd3S3ro/0p8VQSPhT2RW5VPsoNDdJMIcRiqLNLpMt5I
-         Sr+qWerEUNkyOwAWqE7uRP0Xau5CUQ2CkEEkOz/rY+zIGka6DFzZue23U1ZwpqRRcq1R
-         pJhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByBSuV3oeFKs4aqfzxvULNjfvJQP2d3YcekH33kfnDRrqtj61LPApmk29MFUHPIGO9ADyEPMU1TZ8B4DpE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UZqJunUh2p3KcLw4hQxJr7FFIZagt1oN96Jmenp8raRkux6zu
-	wxPo9YRtS3NmRNO2drv3NIUqbYMk7QJNoxlomotFp+IbYqMCBc0AWXnA14ImqGJK4a8=
-X-Gm-Gg: AYBFou39FVWO2DiLj9+FmpuKArFjlE46vhp5sB/JC79zU4PVri5E/+PpasAWIdO+BDi
-	/otT9ge7y0/0X1kdAiuLWZxUpvptBdO1iybM5L9mji3JLXlojrd4pldwIMBlJNsd1OWkZh766LO
-	R1znj/Ukuio+0FzzIIX7pLlFOYrSBpMqXLs68cfoHpogRSc26Mi++r4Fhy3ib2HZpvHMpmUjDU/
-	vgdxi91r7qg6xaC2wZ9mWzxKFq+9HJbtcuD6yhm4YxWikCaBRn+OQlWXj/tkE3oeXWuOYFsTtRM
-	CbYmPxPG9mn5hpmdInAphAq89yeIm0jvrpZfr27dQGfX1Jvz6x3Ymk6eH56i0rpWSBgQ8WKayqT
-	0HIKUhqzCiT/TJtQ2aBqYDmGguUcksfQ79wysjIJ+jBgJC28QtKdbYGeRmyUKLhkIb6pI4DA+i4
-	ndDj6kgN/FIZzsc6ycZyHv7T0ZbbQ/I+cKhtLPhh8abrMuBVG06u7aXJQNaZ8P64KpUQpkjlYJF
-	iET+MTcw+mpIi5xgei+i4Z9P8qbSVL1Ag7KoeMAqbBwB0GjFHHnXMn7BfwDCnQdMRTDHNSzXnHD
-	YUAOzZsIfyH6lBJEiIsudsrydaX7DCnH0aS8sD4KxwOR
-X-Received: by 2002:a05:600c:e547:10b0:4ad:5e09:ae43 with SMTP id 5b1f17b1804b1-4ad5e09ae61mr223607775e9.29.1793892213219;
-        Thu, 05 Nov 2026 07:23:33 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.254])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac1caesm10086281f8f.17.2026.11.05.07.23.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:23:32 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:55 +0000
-Subject: [PATCH RFC v3 63/90] fs: drop privileges from what a cell may
- write to
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ARGr01Vs
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiRFX3788136;
+	Thu, 5 Nov 2026 15:23:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=DT1BsS
+	1jyuPyNRrdkSexz5S4IsBfNSt7ax5gSpAirZ4=; b=ARGr01VsOnOimr7DXByzSz
+	zyj5BE6I9JzdvMJytjZgAXqIUsOrnDCqTgawDKs9iwUziwTeA/VGxh2KLIdH966a
+	JUMe5oHARm6uegOKdD1jSZGl0Rs2IA1/3YRGVb4vykesoFxPgEoVF2QRoZ6HZtCN
+	7u8JXdjkFe1CFNraCbmF9BTEwYQZEmaarNwlhqc/uJ/eh8AAvBlVfdAhxV3fc6QJ
+	SCLYLKm0tERwhV4a1XnfyyviDJUVJ4XBrcsWaHg9Vd0zoS5gUXRBf7YcXBtABjUB
+	7vhkmf+R/lSRE128SWrbhvIVNDKDkfmT0jMHb/z5fzgqb3cA095811gXrwJBG4Qw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn827342t-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 15:23:40 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EYxQv1685712;
+	Thu, 5 Nov 2026 15:23:39 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrmrejbag-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 15:23:39 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5FNZBn13894036
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 15:23:35 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3782C20043;
+	Thu,  5 Nov 2026 15:23:35 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F16AF20040;
+	Thu,  5 Nov 2026 15:23:34 +0000 (GMT)
+Received: from [9.68.16.159] (unknown [9.68.16.159])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 15:23:34 +0000 (GMT)
+Message-ID: <fa1128de-56c5-438e-8350-1eb4b0bb96a8@linux.ibm.com>
+Date: Thu, 5 Nov 2026 16:23:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,182 +85,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] KVM: s390: pv: remove misleading gaddr output from
+ KVM_PV_DUMP_CONFIG_STOR_STATE
+To: Gautam Gala <ggala@linux.ibm.com>, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com
+Cc: david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
+        agordeev@linux.ibm.com, svens@linux.ibm.com, kvm@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261028111651.66917-1-ggala@linux.ibm.com>
+Content-Language: en-US
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <20261028111651.66917-1-ggala@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-63-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890935; l=5024;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=/WLGeeEm8E2O/SOVtC/ElmM+tG1LfrcPrZQl9vVf+t8=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKS5fAxTghKSICyzvxndkndKJSwBCeYnyHI67j2sLdsxkcKPY/AbqzZwCCaz7i90Wyltyf/Pup1
- em+ZpbT5sfgc=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: iATJZcgaTipyR8iQA9cjapTOFVADjqR3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX9EgdyNufDIPK
+ 85qUoPAUgyUXLimPw3KwxA8RA7uAK9ZPEQ/RUM0dghKoJggTzcgQDjwW5gFgV5hgUuR9ZLTiGzc
+ tpTgK4HH8q5AIemleZPIAdbkGiFIxIy1PYHuNSLTJqSDWfT47rIP7qZy090RgloGGSB1pht27wh
+ 6abdNP8HR34X7sw3ea4c7RxL9umYjobBlKauJ7iy/gIqvIqpa+E+qUakmbSa7Xc6vc0cV3VKgft
+ CEa5dk4Bm1ZpM3UGOA8IoLVfAz/Rcju0FYT7/s+dWXRjJJwJz6+1sCkCm1ftlpfp/lQe0FTOVI1
+ 7ytzoAA5q1vmmbAuxuT+xMLD5mDAz0WzHuvN3JrtnfPZY2FC01XZeNqbpJct/pBtReAdUHKolLV
+ TcwPE4N18zpqyZjWry6dJp9LJeATmr8WpZDE4xgiPWxB7FHMQf+khicYqNFRp/oRQ90e+wxxio1
+ K9xhgdHWMS/ANIpUcqg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX98LVJZXfh/x4
+ PILoHaROGMmliHoZP/vqX89Z3AVPF/wJggdYEuLoGQpTsiR6n32aL2Avq2CsJBAGa3OX9RLiVPv
+ YhiC4p8pjj2chOPvPaC06Vqm/eFluCg=
+X-Proofpoint-GUID: iATJZcgaTipyR8iQA9cjapTOFVADjqR3
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aec9f7c cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=HnjXUhQ4soRVsTnYCPEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050060
 
-A write() clears the set-id bits and the file capabilities of a file. A
-store through a shared mapping does not. So a task of a cell could replace
-the contents of an existing set-uid file while the file keeps the bit.
+Am 28.10.26 um 12:16 schrieb Gautam Gala:
+> A comment in kvm_s390_pv_dmp() suggested gaddr is an output parameter
+> for KVM_PV_DUMP_CONFIG_STOR_STATE, and kvm_s390_pv_dump_stor_state()
+> wrote back uvcb.gaddr through the pointer accordingly.
+> 
+> However, api.rst does not document that KVM_PV_DUMP_CONFIG_STOR_STATE
+> writes back dump.gaddr and QEMU does not use it. Furthermore, the
+> write-back would not have reached userspace in any case: dmp was passed
+> by value to kvm_s390_pv_dmp() so copy_to_user() in the caller always
+> copied the unmodified input gaddr, not the updated one.
+> 
+> Drop the write-back and the misleading comment, and change the gaddr
+> parameter of kvm_s390_pv_dump_stor_state() to u64 to reflect its
+> input-only role.
+> 
+> Fixes: 0460eb35b443 ("KVM: s390: Add configuration dump functionality")
 
-Clear them as soon as a task of a cell opens a file for writing, and when
-pidfd_configure() places a file that is open for writing.
+I will remove this, no need to backport.
 
-This changes the inode at open time, like O_TRUNC, so it is done in the
-same place as the truncation, in do_open(). The directory lock has been
-dropped at that point, which is not the case in ->atomic_open(). The
-change needs write access to the mount, so it waits if the filesystem is
-frozen, but only if there is something to clear.
+> Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+> Signed-off-by: Gautam Gala <ggala@linux.ibm.com>
+> Reviewed-by: Janosch Frank <frankja@linux.ibm.com>
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- fs/inode.c           | 61 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- fs/namei.c           |  8 +++++++
- include/linux/cell.h |  7 ++++++
- kernel/embryo.c      |  6 ++++++
- 4 files changed, 82 insertions(+)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index f63535ee3629..d32c14217420 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -4,6 +4,7 @@
-  * (C) 1999 Andrea Arcangeli <andrea@suse.de> (dynamic inode allocation)
-  */
- #include <linux/export.h>
-+#include <linux/cell.h>
- #include <linux/fs.h>
- #include <linux/filelock.h>
- #include <linux/mm.h>
-@@ -2379,6 +2380,66 @@ static int __remove_privs(const struct mnt_idmap *idmap,
- 	return notify_change(idmap, dentry, &newattrs, NULL);
- }
- 
-+#ifdef CONFIG_CELLS
-+static int cell_privs_to_kill(struct dentry *dentry)
-+{
-+	umode_t mode = d_inode(dentry)->i_mode;
-+	int kill = 0, ret;
-+
-+	if (mode & S_ISUID)
-+		kill |= ATTR_KILL_SUID;
-+	if (mode & S_ISGID)
-+		kill |= ATTR_KILL_SGID;
-+	ret = security_inode_need_killpriv(dentry);
-+	if (ret < 0)
-+		return ret;
-+	if (ret)
-+		kill |= ATTR_KILL_PRIV;
-+	return kill;
-+}
-+
-+/**
-+ * cell_file_drop_privs - a task of a cell is about to be able to write @file
-+ * @file: a file open for writing
-+ *
-+ * Nothing a cell writes imparts privilege. A write() drops the set-id bits and
-+ * the file capabilities of what it writes to, a store through a shared mapping
-+ * does not. So for a cell they go as soon as the file can be written at all,
-+ * and they all go, whatever capabilities the caller has.
-+ *
-+ * This changes the inode, so the caller must hold no inode lock and no write
-+ * access to the superblock. It waits for a frozen filesystem, but only if there
-+ * is something to drop.
-+ *
-+ * Return: 0 or a negative error, in which case @file must not be handed out.
-+ */
-+int cell_file_drop_privs(struct file *file)
-+{
-+	struct dentry *dentry = file_dentry(file);
-+	struct inode *inode = file_inode(file);
-+	int kill;
-+
-+	if (!S_ISREG(inode->i_mode) || IS_NOSEC(inode))
-+		return 0;
-+
-+	/* A look without the lock, as do_truncate() takes one. */
-+	kill = cell_privs_to_kill(dentry);
-+	if (kill <= 0)
-+		return kill;
-+
-+	kill = mnt_want_write_file(file);
-+	if (kill)
-+		return kill;
-+	inode_lock(inode);
-+	kill = cell_privs_to_kill(dentry);
-+	if (kill > 0)
-+		kill = __remove_privs(file_mnt_idmap(file), dentry, kill);
-+	inode_unlock(inode);
-+	mnt_drop_write_file(file);
-+	return kill;
-+}
-+#endif
-+
- static int file_remove_privs_flags(struct file *file, unsigned int flags)
- {
- 	struct dentry *dentry = file_dentry(file);
-diff --git a/fs/namei.c b/fs/namei.c
-index 49995c353292..f36c1a385d80 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@ -4862,6 +4862,14 @@ static int do_open(struct nameidata *nd,
- 		mnt_drop_write(mnt);
- 		mntput(mnt);
- 	}
-+	/*
-+	 * Nothing a cell writes imparts privilege. Here, like the truncation,
-+	 * because it changes the inode: the lock of the directory has been
-+	 * dropped, which is not so in ->atomic_open().
-+	 */
-+	if (!error && unlikely(current_cell()) &&
-+	    (file->f_mode & (FMODE_WRITE | FMODE_CREATED)) == FMODE_WRITE)
-+		error = cell_file_drop_privs(file);
- 	return error;
- }
- 
-diff --git a/include/linux/cell.h b/include/linux/cell.h
-index 1d0eec34acb9..0451055f74fc 100644
---- a/include/linux/cell.h
-+++ b/include/linux/cell.h
-@@ -284,4 +284,11 @@ static inline umode_t cell_strip_setid(umode_t mode)
- 	return mode;
- }
- 
-+/* Nothing a cell writes imparts privilege: files that are already there. */
-+#ifdef CONFIG_CELLS
-+int cell_file_drop_privs(struct file *file);
-+#else
-+static inline int cell_file_drop_privs(struct file *file) { return 0; }
-+#endif
-+
- #endif /* _LINUX_CELL_H */
-diff --git a/kernel/embryo.c b/kernel/embryo.c
-index 0a04f39fa37a..657ce07441e0 100644
---- a/kernel/embryo.c
-+++ b/kernel/embryo.c
-@@ -113,6 +113,12 @@ static int embryo_install_fds(struct embryo *e)
- 		ret = security_file_receive(file);
- 		if (ret)
- 			return ret;
-+		/* As if the cell had opened it. */
-+		if (file->f_mode & FMODE_WRITE) {
-+			ret = cell_file_drop_privs(file);
-+			if (ret)
-+				return ret;
-+		}
- 		ret = replace_fd(e->fds[i].fd, file, 0);
- 		if (ret < 0)
- 			return ret;
 
--- 
-2.55.0
+Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+
+
+thanks applied.
+> ---
+>   arch/s390/kvm/s390/pv.c   | 16 ++++++----------
+>   arch/s390/kvm/s390/s390.c |  7 +------
+>   arch/s390/kvm/s390/s390.h |  2 +-
+>   3 files changed, 8 insertions(+), 17 deletions(-)
+> 
+> diff --git a/arch/s390/kvm/s390/pv.c b/arch/s390/kvm/s390/pv.c
+> index b18abd0e29ef..a9bc32d5be6f 100644
+> --- a/arch/s390/kvm/s390/pv.c
+> +++ b/arch/s390/kvm/s390/pv.c
+> @@ -901,10 +901,9 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
+>    *
+>    * Stores buff_len bytes of tweak component values to buff_user
+>    * starting with the 1MB block specified by the absolute guest address
+> - * (gaddr). The gaddr pointer will be updated with the last address
+> - * for which data was written when returning to userspace. buff_user
+> - * might be written to even if an error rc is returned. For instance
+> - * if we encounter a fault after writing the first page of data.
+> + * (gaddr). buff_user might be written to even if an error rc is
+> + * returned. For instance if we encounter a fault after writing the
+> + * first page of data.
+>    *
+>    * Context: kvm->lock needs to be held
+>    *
+> @@ -917,13 +916,13 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
+>    *  -EFAULT if copying the result to buff_user failed
+>    */
+>   int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
+> -				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
+> +				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
+>   {
+>   	struct uv_cb_dump_stor_state uvcb = {
+>   		.header.cmd = UVC_CMD_DUMP_CONF_STOR_STATE,
+>   		.header.len = sizeof(uvcb),
+>   		.config_handle = kvm->arch.pv.handle,
+> -		.gaddr = *gaddr,
+> +		.gaddr = gaddr,
+>   		.dump_area_origin = 0,
+>   	};
+>   	const u64 increment_len = uv_info.conf_dump_storage_state_len;
+> @@ -934,7 +933,7 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
+>   
+>   	ret = -EINVAL;
+>   	/* UV call processes 1MB guest storage chunks at a time */
+> -	if (!IS_ALIGNED(*gaddr, HPAGE_SIZE))
+> +	if (!IS_ALIGNED(gaddr, HPAGE_SIZE))
+>   		goto out;
+>   
+>   	/*
+> @@ -989,9 +988,6 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
+>   		}
+>   	} while (buff_user_len);
+>   
+> -	/* Report back where we ended dumping */
+> -	*gaddr = uvcb.gaddr;
+> -
+>   	/* Lets only log errors, we don't want to spam */
+>   out:
+>   	if (ret)
+> diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
+> index e4912db67adc..1f975ebeca82 100644
+> --- a/arch/s390/kvm/s390/s390.c
+> +++ b/arch/s390/kvm/s390/s390.c
+> @@ -2522,12 +2522,7 @@ static int kvm_s390_pv_dmp(struct kvm *kvm, struct kvm_pv_cmd *cmd,
+>   		if (!kvm->arch.pv.dumping)
+>   			break;
+>   
+> -		/*
+> -		 * gaddr is an output parameter since we might stop
+> -		 * early. As dmp will be copied back in our caller, we
+> -		 * don't need to do it ourselves.
+> -		 */
+> -		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, &dmp.gaddr, dmp.buff_len,
+> +		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, dmp.gaddr, dmp.buff_len,
+>   						&cmd->rc, &cmd->rrc);
+>   		break;
+>   	}
+> diff --git a/arch/s390/kvm/s390/s390.h b/arch/s390/kvm/s390/s390.h
+> index aa0d1d062f8d..5d6c36c6ba34 100644
+> --- a/arch/s390/kvm/s390/s390.h
+> +++ b/arch/s390/kvm/s390/s390.h
+> @@ -316,7 +316,7 @@ int kvm_s390_pv_unpack(struct kvm *kvm, unsigned long addr, unsigned long size,
+>   int kvm_s390_pv_set_cpu_state(struct kvm_vcpu *vcpu, u8 state);
+>   int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc);
+>   int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
+> -				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
+> +				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
+>   int kvm_s390_pv_dump_complete(struct kvm *kvm, void __user *buff_user,
+>   			      u16 *rc, u16 *rrc);
+>   int kvm_s390_pv_destroy_page(struct kvm *kvm, unsigned long gaddr);
 
