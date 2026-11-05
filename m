@@ -1,64 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914666;
-	b=yRo38yjJMNOC8nm14Kbr4HrwReHoSj0UJLls9pW4ThgbEcXqlE6FqxjiD0NwbObR3VLZ
-	 1J64mr+OhrQ9mxPSO62+pZVJM/9adhG9IoFHZVWOQaG/ZoKV4e8kQrNiSPGZWv1SYQnJv
-	 JL1YKngO2qvJKjAncpySc5LONA8xb7feDaOK99rokKs0m2+lqRPwgUUWzRVNJVfe/U3dR
-	 cbVPAuThhVB309BLrAvBe6L9N4WFqzoUU/2rPZkFmmDaPUvM5XHMgHmeVPbYmsSyq9Os3
-	 9d3SdT3m0NjqmkhGsJEruI59yyUbu0j+2bruhDiAw/FP/7Na6l95Ouq7CzuhArNq1/Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914666;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=Z7MyjlK223pIL18T1qkoDQuJHQwQ7PjffmCPYkwoQRU=;
-	b=CYlsGJz5oxmL6nLYUg92aEmZHpp+8E0R6a+He3OE/nejdXHBRBXgpL0kMyK1gbyhUX34
-	 nwQ33KAlnyHqdsKWBWmXXqKI11WpEmBDNA1cEdMp/CFnL84xjOT5/2qZLIz1SbT3QKTwJ
-	 e4HHuauZ4x05Vgx2W3+zQDSg9/4bXEk4U1pQHdsWzHU0WkP7ICkeftQCLJyoB8Hn4GQbf
-	 vzKnum50d6vSFt6+NKOpCjjeMu0uk3Sfr+dzI/HO2UWAKSdPiaYu1AkTS3TeIs6VTqjhw
-	 Cmc31BRvN9Af3CnhGwwsrGbsvIFo1tq5+59Wt6qdnTvRV0/gZW7VovaQXGYo7i8zf2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JVr2Y4g9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793914702;
+	b=ETmjBCdRjzRd0LGsXMPQlYLQKMBNmg/Y6pMhqHTWJRIva6V5otE95lumYQK1whBKd4iJ
+	 NNexu92UmniY8NGveLExukaWxsInQr6HGU+1BYaQq2HWeXjxqhWRfj+/0JUV3N9b5uGAE
+	 9y9ZWyYcFYDkXPan2pkjZXu9oQc9xCJK4tywZfENV5CLxGr4NpvKAv5iprR+bhccBKUZ5
+	 FSDeBAf2Z4+CELMCrdJCberv0gCkm5OOVJUqMyN0xr475KOtnlDT41uDN50Up5IjLqqeA
+	 is70qfj1XBHB2LU5z/48eTMFW7NXOx3T30sCpgvzQfHT9c1cFYh4fxDWBsKxonR00qQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914702;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ffOlhY0edizRkUbuvKbot2I8Et1phstXhLA9S0EOflE=;
+	b=2liMvvVQj2WqJwufppyCcf3d9Q7BdAgVDa79YcCRamOThgt4Y9/XnNTCHdmZiFI3USaN
+	 bAXr9K3WLJaM4cdvEIXsb2voZbpqTTSZDs5BaqWMHt5MIu7Qy8qsR43Gp1l0ey+X6sbOo
+	 Jf3bBk9MNni6nX4D0xFvcb1NfB9wMac2s7yFW2HeYnVfVmCTz+B8ZBYwED8abewhL0yZD
+	 rV5h5oNeDd8glICdE6dRppkCTA4i3Oe5CpDrYRTPaU7wvlmZAbNvVxXNiaolGwfgILgDV
+	 jEITBu/PH75P5yQ9dmSMO+O9Z0OF7RYmHMAHjGquUUs9/yrPSl2hECvYixAH9NrtshQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hi+59SID;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.52
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010052.outbound.protection.outlook.com [52.101.201.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B17606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8557606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:38:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8557606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JVr2Y4g9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30E31F0089F;
-	Thu,  5 Nov 2026 21:37:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793914665;
-	bh=Z7MyjlK223pIL18T1qkoDQuJHQwQ7PjffmCPYkwoQRU=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=JVr2Y4g9I2Uofy1UXMxVq0CmgTurasTa3LZoVOVvoXym3QeZWsjiErAUPokj6NZ1g
-	 xcA4Sw4ttCqmyyub6NQT0Pm2H1A2KVO7LC5Y740L3+iKkor9HAeXKVtnvXCnd7T6ID
-	 tOtqHDVrHZ4gXZudgJphXWvkvYePyTF0gZ+cPuDZU5jkGEaN2+VtWwtAoyz7dWSCWE
-	 RWzsjMKZxIQrIidUeTtdr8cuORz37QPnC5BSRICZuRMhOsNpGn9EkeynPj1y0o2FB9
-	 D/rgzRQTpAWWZXfqjEBCX6J4OJqtXrTIv+KffxFqXi+Am3myQm0v1qt9ovkYkw03PQ
-	 xtvEFpe8q6j6Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D8155391B19C;
-	Thu,  5 Nov 2026 21:37:45 +0000 (UTC)
-Subject: Re: [GIT PULL] Core MM updates for 7.4-rc2
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261105084704.5703-1-david@kernel.org>
-References: <20261105084704.5703-1-david@kernel.org>
-X-PR-Tracked-List-Id: <linux-mm.kvack.org>
-X-PR-Tracked-Message-Id: <20261105084704.5703-1-david@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git tags/mm-core-7.4-rc2
-X-PR-Tracked-Commit-Id: 71555ae8c7572fd99158013ca2e29187c5d2508d
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: d68ce4e71248e1ff5af9654b407541d9260b3ba5
-Message-Id: <179391466439.190890.2508388451772076480.pr-tracker-bot@kernel.org>
-Date: Thu, 05 Nov 2026 21:37:44 +0000
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hi+59SID
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nQbDj7HLXMffh8GDuEoJdvftxmuLovJKw+IRCo0h22M2zWsJkDmEnVL7rCssKmpYdq8bcfAfxNItWNYaPZo2S9w1smKqJIQh8vx9R6cjbfvFThDOVOGOfdLAw+Y2YgKeMlJQPCPUmTDY6OrZUll/Z64dV3rg6pwWxMlicE/LCebVIWCu53KWSIxlmXLeHiu9qHODeGCmVIULm1hF3HchEAZbBIazdegC2LRe8Fsi7XL1U3HzC4CmspmFGoffArVyDvmjsL/Wd9BYdD2FK/el1owEy5a0h1AlPKRG6AN83U9qXr8OeILitLuga3ghg2I64asDKWpzbRf/L9CN+nT4Ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ffOlhY0edizRkUbuvKbot2I8Et1phstXhLA9S0EOflE=;
+ b=Fr5NqPGiQ6C5JvibE5GHuqvC/7NeZYHN38upjk7Hl+nC+eNeyOnhX4wmFuz+XKAL+KZbQmDB+GF02Hr0MCxn/hVKJou+kyCqYhdiyxcdeeMVnM0o36myF6lEstoKPoD2RYmuRVklrHmW7qjtPusCD+6808XosDwiGRkDZ4JqaXHXqRzzCAhgLTwrWCaPNWFSwgjGU/UFCVfE8s68LOOvrJ7LxAOe7x4HgHRvmmXjFfyTGuqeXUt/pCwvTx0zVdESSAgmuWtWvJLsr83ruCT1pjLVRCgmD06SP4QcOD1bhtzuOe6njx7669bCGuLfDswYI/RaaCqeLMFtVOTl8/C7tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ffOlhY0edizRkUbuvKbot2I8Et1phstXhLA9S0EOflE=;
+ b=hi+59SIDmMv4wWRbo++FEeAaSx6TbVi1L4bRe4zChiyTaSbaGsGmSrq9FseO9NZP6KbxGqKrhq6+44gDyphdkXi/vmd1mr+DUFQcWisecJ9+1EizxFNs1iX5PPgPDzMS+Hfnj0q84YOD4xsyi/BQ4G0sBU6M4706ci+NTkKQX40zJdqjWUOyR18pbllCr2W3kK2d5tLkQ6JN1Dl5Vt9ukf3fve5GGzvtn2f8To3WmTQWS3iOvd5yNvLdsDXeJPDOrhXUAuvlaBxLPKhL3P9toToCObVCyfgASWwNe0hU7nEEsNflE/w+4GoCOrl9HYS3hzD3GuUQcEPYYmg+ayLAvQ==
+Received: from CH0PR03CA0073.namprd03.prod.outlook.com (2603:10b6:610:cc::18)
+ by CH3PR12MB297944.namprd12.prod.outlook.com (2603:10b6:610:367::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 21:36:14 +0000
+Received: from CH2PEPF000166BD.namprd04.prod.outlook.com
+ (2603:10b6:610:cc:cafe::aa) by CH0PR03CA0073.outlook.office365.com
+ (2603:10b6:610:cc::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
+ Nov 2026 21:36:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH2PEPF000166BD.mail.protection.outlook.com (10.167.252.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 21:36:14 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
+ 2026 13:35:53 -0800
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
+ 2026 13:35:52 -0800
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Thu, 5 Nov 2026 13:35:48 -0800
+Date: Thu, 5 Nov 2026 13:35:45 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
+	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
+	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>
+Subject: Re: [PATCH v9 12/25] iommu/arm-smmu-v3-kvm: Probe SMMU HW
+Message-ID: <auz2sUAFRdzFjtxT@nvidia.com>
+References: <20261015200903.2735565-1-smostafa@google.com>
+ <20261015200903.2735565-13-smostafa@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +117,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261015200903.2735565-13-smostafa@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166BD:EE_|CH3PR12MB297944:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4da32274-ecdb-49d2-411e-08df3b84d19a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|7416014|1800799024|10067099003|18002099003|6133799003|22082099003|11063799006|56012099006|4143699003|261028144727099003|261026140227099003|261022105027099003|261021121427099003|261021135927099003|261102123227099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	6lnr4Ir1dUlZlPcKI9YKXiiRWdG1Bmr/pZm4gG4j1kybgJB9tDCD2pqqjcFKCOHz3YJipxmAV4Mhu/AmKPwacMEJG9r3MKbmECaoKb9LtGYXbCAW9fMuVEOD2aat8AtaaWm5DxaNze5rkzEVGuKnbcvqp9Pxxx2z1KysMAKdtjLgXfo3YtpY/qrArAc0sDwVxhkg2INucPmFJDUxtTr7NTOJdSsHMze4nhQchI0JcrGuqiMDfL7w5EQ0yUaNiHCG7dIDM7A1pcNwZ6RcZJqr7HZuiqvjVE8qoT/D10IeLqovZKHTwLfjwqNdIya8gVUdXU411afgfY0wTJzN/1ZS2Pmb1fh8r+4YEwjW1XjWVrIJWIvv97FGQU13m6eP9aZyXf4GklD/PKlO+bs+Ewt6Q2dN2ZTKOqziu8l93DeiotzZDC38NElzatWFLwseTwiz/KiHe4jKmdHZjk9Z79CTxEn9gPRSEvXLakJPxrZpQOf3EOb8n2T9LCXlcak8upnTohupzfw1XyHDHKJviQlwMlntOkH1ixDQYVjsaDQgqUFlN25TFvMkolbOZvc+415ZfUdWsRBmX3elgoFDX0d+2xm3Rstf2ylZ7V+xSnAvrARVouONkhDzTSwyJItmIiBCXcTaLfo4rUEjP9eJv4jD+6tO2V/PcHftxZTBupI5reepMSys5UTfQH8HakCWFe8G+5Nd3J2hsyLvkQaB4tjmhQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(7416014)(1800799024)(10067099003)(18002099003)(6133799003)(22082099003)(11063799006)(56012099006)(4143699003)(261028144727099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021135927099003)(261102123227099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	n9rDfx0oqXveyXfkdKmC4BPKMnn4Tuc52bqgE+XD90SD0Iilx4SUK/cf4opBWULhgUL7d4qV+FLcjPzwV/x4Ik6lgddaqcTf1R4Jqzmkjyp7A+vEa8bmWxuY8JO7tOcSuyXR56gW+p1CZNKzQQgnFT8lSNamGthlY62xtFAuhMkMYATzS2v6P/NeIwJt7xR1ao+/FRLMYxwTBCrVNoCeHp3KNvzJuvvIAt1RtkCSQM0OP4AKRb9yt0JyIKBbxBrVR6gG0gIqOjocwxcnXdeSLosIyAEtkROIRzTQeI3fwIlsuBzTyA6fEVQDpvaCYoemNCKm4Y5c89sbHtkbS6uyjEJ1/3o/xXKjt7zQ9rzmzdK4rwdvK4ijHlz6ToV6tnY6VytsK3ZU7qO+Asgofmgm8PPQHEmLhmKkX5bfazpuqNAHNs1zF+92RKhqgPXmAqEE
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 21:36:14.7129
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4da32274-ecdb-49d2-411e-08df3b84d19a
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF000166BD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB297944
 
-The pull request you sent on Thu,  5 Nov 2026 09:47:02 +0100:
-
-> git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git tags/mm-core-7.4-rc2
-
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/d68ce4e71248e1ff5af9654b407541d9260b3ba5
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+On Thu, Oct 15, 2026 at 08:08:43PM +0000, Mostafa Saleh wrote:
+> Probe the SMMU features from the IDR registers with the functions shared
+> with the kernel driver. SubstreamID bits and queue sizes are not needed
+> here: CDs are not shadowed and the command queue is set up later.
+> 
+> The hypervisor requires two things the kernel driver does not:
+> - Coherent table walks, reported by both firmware and IDR0.COHACC, as
+>   it does no cache maintenance on its tables.
+> - Nested translation, as the host keeps stage-1 and the hypervisor adds
+>   stage-2.
+> 
+> Signed-off-by: Mostafa Saleh <smostafa@google.com>
+ 
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
