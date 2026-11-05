@@ -1,92 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793911020;
-	b=3Rinn/uwcTPmko5KGbAAm/e65UPFA4jKIKA+rnzIdldVRmZCsB3hGN5ugBuDaNA8PL0M
-	 QU+6B+a6LasZbvcXfaNQZPj1aflrbjxvCuwxWFwNyX1tSmO4XZYzHysyI8AML0nVkfCMi
-	 dkHcEHD0DgR0RJoY76eLtSS9UsHiH394Hw4Duu5ovzaba7QKYUPA/rTkqlrff/gocRaUv
-	 CDZdUOLihWj2QKiFzu557h0bAUwFQreJr97auopyt6skhOriyWADIHL5aT/w1qvf8FMh9
-	 ON9kKTSzeFm7hLZWCIx5iqXuL66REPc5voahXzhm0SWXk5rDS4+xTTuWw8puUNs3Z9A==
+	t=1793911011;
+	b=NINFLyD4kIAExEocEq6T2y4efoMtD9Aa7z1Dd/O0FFtHqmULC9/D/Uk1wES5rtycBD/l
+	 J8kMd6W4XbdjxLBiu2ranjNIj7qYJ91YPBoLq6qAtZ+F1jrbKV7P/9PyI4ei8vIcn/TGk
+	 IflU4EocvTUNbY8L56ZrOilcqvQnCsULs9L7r4SPkZn8UoVrFFPQjR4EwGyeLQq3jer7r
+	 7Xr3G2Ez1xM0+ogaf71bj5KfbziULhUBLvoWj4iOa2XagVaUD2haLQCsAxYgxtK6ettNm
+	 ccZ2yz3/+wJ9cUgubl47z3h0iSk9CRWgevN7HrpHU2KJUUXrzVKb2XdI2N37MsoYsAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911020;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=PFVwgOT0aaLDOnm5OSGliikQrCnjG+mZrD4LikZIekA=;
-	b=R9YYhC0HiPuGgFjkLCK4a7+829Snt/zGi0Q8yqKJmdCsVAMHE91EZTsG0Ohafoe94Xrq
-	 Ml4jga/HqnXv/B6/Qwq+rif8uQEWTRyP/zD8u0/0g1Shu6AFutgpiyJ8+nqDJmGhjntqS
-	 fT8CnPDfnauODTok8VrepcnF+H/q9bTBPCihaMvnYodf71TvsFfD3O0G77QXyXXf8PVPs
-	 sQVIkhCY5Kn6waenUkf7cADqOTWXg2knkdK3XxgLuXzasLeDQV8NNDR/ifUM2FBi8Io6k
-	 jyg9vfODSZano9O1JdUUcVx/2pcOe+fdzL+Ryea9o6l35UclYgg1z0U4B/2DTlzv9CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911011;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Aksn1xaVgHle35uS+1fBiwvzomWYK3pQA4w7I7bCnB0=;
+	b=xBWaPYduWJF8D0Kd6TBdY/WPX9HOBddfjI64lmCslI+foNwnS/8i7sF9JOnb9vGZVXXl
+	 JcMAj5q7UP5HMVCJDhDmqqLfg2uBz78cNJAoe1XNY6jbhiuRPOYz9lmYnk5yikja49vYx
+	 XFNzSamPpWMG/kkZ/xKdzCdD06dt0ewVJtQuNUlysOB3N9b7s6R4JbHX6skg0AbzEbOcv
+	 ggDs7Arn9odEXj6mEHCyaR6jZTdPvFkPd18GJ85Lz9h5edHmYU4YozaIMUIRnwZ2N7hh+
+	 SPQnNGOG04WtJnKOFMqQ7eSRK9fGVoN02ywPWxsPcOe64yE64dse/OYuK0WPwWfcIFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=KmzNHtuU;
-	arc=none smtp.remote-ip=209.85.219.54
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=LohdS9Pu;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94E66082BFC
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B94E66082BFC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4317606D801;
+	Thu,  5 Nov 2026 20:36:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4317606D801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=KmzNHtuU
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91befbcad6dso27320096d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:36:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793911019; x=1794515819; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PFVwgOT0aaLDOnm5OSGliikQrCnjG+mZrD4LikZIekA=;
-        b=KmzNHtuUX8Ya2RZyRfBrsMJNEt7z3jGi4SdMZMBxLWz2jq6lix7tObxwB0c1r6q8RG
-         9mq6s/0r+LL3f5T18APQI9pk2QXhd118SbxDM45YfPUbmU4k97Ng4XHOv4CHvqKGWBCf
-         2nOpLV1VKyKrFDpUgSaUz1V93hunTlAIvjn4cwKB1OKrXqCpJXlvZkTfC4BYcw2JCZ14
-         MaE9ug0YTPlUDpL5xXhkR/Ec0oMIDZWIoXitM/P8VENwCUGXcXxAZVUaVQ9cSwzZ+R5R
-         J0MlFUW8HhRdEScTFgsflZCkops+tNVhEyaviEEMMkVrYcaymEi9zZkpNnozn9UAQm68
-         rj9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793911019; x=1794515819;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PFVwgOT0aaLDOnm5OSGliikQrCnjG+mZrD4LikZIekA=;
-        b=OmVAPLBH32K5oauspPyzKK5U1NEJyq9l7IuIQYHEVnMdw5ORq2gstmCwZ14sGHUbo8
-         6p/myGJVgVb296GWN5p/Qbxsxo8HIdP3RuNqCrW1mb8Ba7SQesrRB+/4S9ZaRuDuxsx4
-         NW4jr08HGkpi05u6q/JdIhrTkl63hBAww5t/ZEfux8dEZclwjQUaXRk8PTHXeb5ZmpRc
-         eV1yMIzGUxNosRnJp2upzOFYuwmdShCW6qCyXTuFRQkN4b+QADE6eAx9t3y9Bj8zLM+h
-         WZ/D+Wg/fF9zhOBn1AtgksoFv2UH3ZzR4lGLhDGwLa+AroCzFgV3CwD2nQJ9XOXTFLpT
-         eolQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwIDfG2kQWGnvnZLCoWH6LLpPOQ30RL69U8jE1kxGTXeHbFIcWlNc607zkBb8gwLG8NY5+vVDTH3Twk5Ow=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ByNNthLwZcp9B0zbYUCrNXvbj3ddiHJFpnobJYaZM0NrilT+N
-	p1AcibVLg1MerRIJUzxQgw+NswOHnPBZD1n7Ph/XrLs8wnr0ERo/SHBIc168wjs5xw==
-X-Gm-Gg: AYBFou35Oh1zZ0bISjSsv+Fvc0Ketp4czP4yfidN5WCqdA9hVIHd12thxoh9lpB3pSt
-	ffvT53Wa0iksgDNLsdJH70JS/FNTfbkh7aLFvOSkwDuGbqYllnP6g7WhJyjb4bUebgNd9n7PsPu
-	uuYL0xB8upED2188s6JoZtIqtZg9u9HAlZEdN724F5mEIDv8zibK3iipcfnrKcGsi81iAaripiK
-	0xwQhhV9rgAy9AicG0swbla1poewYPSi+V3VRZUlyzJlQdLKfiCxnV4ZYUjDYMBQtWJMbAvVo1S
-	Zx4AUKsVGEDVZnOoFiRK2hSadUu8PanN798fPkyDSb+No4QyjRj2GUJOdngjEIk/Z5YSmzAoZf8
-	dEV3K9J0P5Z0hL/WYip/WZZuk0YiuXthpZv6H4W8GCACran15o0j64G5i8/kEYksIUfpsRLv1l7
-	9USZGm5bCNWVvsbmrPubTn2aZO090Wbm3BWsCzvUL9S2uhPxidcyJ5unP0/7HvGAp0leSp1Pruk
-	k1QEmaz64yLVQ+muYygzZH0xY818YTrz1C6z9b9IWjHnLtQ0ks/o34fHtBcv6ZB8unnux2G5PHd
-	qStKqVQQ68l5iXiN/It+pN4sU5bF
-X-Received: by 2002:ad4:5e88:0:b0:91e:7eed:7ce3 with SMTP id 6a1803df08f44-91ea965c4d4mr2244596d6.21.1793911018363;
-        Thu, 05 Nov 2026 12:36:58 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6acebb0sm3887666d6.45.2026.11.05.12.36.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:36:57 -0800 (PST)
-Date: Thu, 5 Nov 2026 15:36:55 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Tang Bin <tangbin@cmss.chinamobile.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] USB: ohci-spear: check clk_prepare_enable in probe
-Message-ID: <e46b0f2d-8b9c-449f-90f3-03231bb96c9c@rowland.harvard.edu>
-References: <20261026134019.3020-1-tangbin@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=LohdS9Pu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1793911008;
+	bh=Aksn1xaVgHle35uS+1fBiwvzomWYK3pQA4w7I7bCnB0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=LohdS9Pu3jJnWKSs1batg9FmWx//06UG+D5K53D1BHyPRTSddCMjcKFYORnmwXYg5
+	 wb/j+Yx8pqMvevUIPnaBTdJIOD2Hw66ZWWgJbeMnhYwTUzAjqo61fRv/1LIZoKrDWE
+	 XuzTIQxA1BDtjIGhUw9kZfy7NvVV/24Tvhg8U+/DiG8oqxSzuAPkdEZxIOBjBVmOeU
+	 S2t29DDEvbxp1gwu6Aw+/d5gUx5cBePq3JapbjO/TmKUZfJyBraX2V0zb0xi2J5YMJ
+	 pNl0+v4YuMysMn5rCzEsvh/6vG1/0tX+Khrw/9nxxwkYOK4YnPj1PKrhpH3DAQfqu+
+	 ggaTqcipL2ETQ==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLDcc4zKfzLrP;
+	Thu, 05 Nov 2026 15:36:48 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: David Hildenbrand <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>,
+	Martin Liu <liumartin@google.com>,
+	David Rientjes <rientjes@google.com>,
+	christian.koenig@amd.com,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	SeongJae Park <sj@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Wei Yang <richard.weiyang@gmail.com>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Yu Zhao <yuzhao@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Aboorva Devarajan <aboorvad@linux.ibm.com>,
+	David Carlier <devnexen@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Kees Cook <kees@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Oleg Nesterov <oleg@redhat.com>
+Subject: [RFC PATCH v24 07/10] mm: keep the RSS counters of single-threaded processes exact
+Date: Thu,  5 Nov 2026 15:36:36 -0500
+Message-Id: <20261105203639.1459524-8-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
+References: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,42 +115,327 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026134019.3020-1-tangbin@cmss.chinamobile.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 09:40:19PM +0800, Tang Bin wrote:
-> spear_ohci_hcd_drv_probe() ignored the return of
-> clk_prepare_enable(sohci_p->clk). On failure usb_add_hcd() runs unclocked
-> and the error path clk_disable_unprepare() would unbalance the count. Check
-> the return and bail to err_put_hcd on failure.
-> 
-> Fixes: 1cc6ac59ffaa ("USB: OHCI: make ohci-spear a separate driver")
-> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
-> ---
+Until a second thread shares the mm, initialize the RSS counters lazily,
+without their counter tree: the task owning the mm adds to a plain
+counter, and other tasks, such as reclaim, khugepaged, the OOM reaper or
+remote GUP, add atomically.  The RSS counters of single-threaded
+processes are therefore exact, their precise sums for /proc/PID/status,
+/proc/PID/statm and the OOM killer take O(1), and they use no per-cpu
+memory.  The readers of the approximation, such as /proc/PID/stat, the
+RSS high watermark and the rss_stat tracepoint, get the exact value for
+these processes.
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+The owner, mm->rss_owner, is the task running on the mm: the child in
+dup_mm(), or the task in exec_mmap(), which also clears it from the mm
+it leaves, as exit_mm() does.  It stays NULL, which matches no task, in
+the mm of exec() until exec_mmap() and in those of the other users of
+mm_alloc(): all their updates are atomic.  It is only compared with
+current, never dereferenced, so a single task writes the plain counter,
+including while a vfork() child shares the mm.  mm->owner (CONFIG_MEMCG)
+is not used, because mm_update_next_owner() hands it over to another
+task while a vfork() child may still update the counters.
 
->  drivers/usb/host/ohci-spear.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/host/ohci-spear.c b/drivers/usb/host/ohci-spear.c
-> index 5aeabb051..9d93b3f86 100644
-> --- a/drivers/usb/host/ohci-spear.c
-> +++ b/drivers/usb/host/ohci-spear.c
-> @@ -80,7 +80,9 @@ static int spear_ohci_hcd_drv_probe(struct platform_device *pdev)
->  	sohci_p = to_spear_ohci(hcd);
->  	sohci_p->clk = usbh_clk;
->  
-> -	clk_prepare_enable(sohci_p->clk);
-> +	retval = clk_prepare_enable(sohci_p->clk);
-> +	if (retval)
-> +		goto err_put_hcd;
->  
->  	retval = usb_add_hcd(hcd, irq, 0);
->  	if (retval == 0) {
-> -- 
-> 2.52.0.windows.1
-> 
-> 
-> 
+copy_mm() activates the counter tree when a thread is created with
+CLONE_VM, except for vfork(), whose parent waits while the child shares
+the mm.  mm->rss_stat_mutex serializes the activations, as
+mm->mm_cid.mutex serializes the mode changes of mm_cid at fork and exit,
+without relying on which tasks can create threads.  Once the tree is
+active, thread creation no longer takes the mutex.  This moves the
+allocation of the per-cpu counters and tree items of the RSS counters
+from fork() to the creation of the second thread of a process, which
+returns -ENOMEM if it fails, as fork() could before.  The tasks the
+kernel creates with CLONE_VM for a process, such as the io_uring workers
+and the vhost tasks, also share its mm: a single-threaded process using
+them gets the counter tree.  The updates made before the activation stay
+in the single counters, which the sums keep reading, so updates racing
+with the activation are not lost.  Once the tree is active,
+__add_mm_counter() no longer reads rss_owner, so the updates of the
+threads of a process do not pull in its cache line, which other
+mm_struct fields share.
+
+The tree stays active when the process returns to a single thread:
+going back to the single counters would need a grace period for the
+remote updaters, and a process alternating between one and two threads
+would pay for each switch.
+
+Before the activation, the updates of tasks other than the owner are
+atomic additions to one word per counter: concurrent remote updates
+of the same single-threaded process from many CPUs, such as direct
+reclaim unmapping its pages, contend on it.
+
+* Testing results:
+
+Test hardware: 2 sockets AMD EPYC 9654 96-Core Processor (384 logical
+CPUs).
+
+With the test program and the instrumentation described in the patch
+switching the RSS counters to hierarchical counters, in a KVM guest with
+384 vCPUs, each pinned to its own CPU of the host, with the NUMA topology
+of the host, the approximation of the RSS counters of the single-threaded
+program is exact, compared to an 841MB delta for the upstream counters.
+With an idle second thread, which activates the counter tree, the
+hierarchical counters reach a 96MB delta, compared to 845MB for the
+upstream counters.
+
+On bare metal, with 1000 to 16000 single-threaded processes alive, a
+read of /proc/PID/statm, which computes 3 precise sums, takes 5.3 to
+6.5us, compared to 16.5 to 19.0us with the upstream counters, and a read
+of /proc/PID/status, which computes 4 precise sums, takes 11.4 to
+13.1us, compared to 26.6 to 28.6us.  A fork + exit of a child touching
+no pages takes 116us, compared to 139us (219us compared to 247us when it
+touches 64 pages): its counters are destroyed without 4 precise sums
+over 384 logical CPUs in check_mm(), and neither per-cpu memory nor tree
+items are allocated or freed.
+
+On bare metal with SMT disabled at runtime, where the upstream batch
+size is 384, will-it-scale page_fault2 with one process is 5.1% faster
+than with the upstream counters, and page_fault3 1.3% faster (one boot
+each, the upstream one on the previous day; the boot-to-boot spread
+reaches 3%, so neither is claimed as a gain).
+
+* Memory Use
+
+Per mm, on a 64-bit arch with 64-byte cache lines, including the
+rss_owner pointer and the 24-byte activation mutex, for a
+single-threaded and a multi-threaded process, compared to the upstream
+percpu counters:
+
+                    Bytes per mm
+  nr_cpus fan-out  1 thread  threads  upstream
+        2 2             192      264       192
+       16 16            192      320       416
+       64 16,4          192      768      1184
+      384 8,8,8         192     6400      6304
+     1024 8,8,16        192    13568     16544
+
+A single-threaded process uses 192 bytes for its RSS counters whatever
+the number of CPUs: the 4 counter structures, rss_owner and the mutex in
+mm_struct, compared to the 4 upstream counter structures (160 bytes) and
+their per-cpu memory.  On x86_64 with 16, 384 and 1024 possible CPUs,
+the mm_struct slab object keeps its upstream size (1752, 1872 and 2112
+bytes in /proc/slabinfo).  A multi-threaded process adds nr_cpus bytes
+of per-cpu memory per counter (1536 per mm at 384 logical CPUs),
+compared to 4 * nr_cpus bytes per counter (6144 per mm) for the upstream
+counters, and the tree items, without the rounding of their slab cache.
+fork() no longer allocates memory for the RSS counters.
+
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+---
+ .../core-api/percpu-counter-tree.rst          |  7 ++++
+ fs/exec.c                                     |  5 +++
+ include/linux/mm.h                            | 24 +++++++++++--
+ include/linux/mm_types.h                      | 16 +++++++++
+ kernel/exit.c                                 |  3 ++
+ kernel/fork.c                                 | 35 +++++++++++++++++--
+ 6 files changed, 85 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/core-api/percpu-counter-tree.rst b/Documentation/core-api/percpu-counter-tree.rst
+index 138e9b74b0c8..87babe2276c4 100644
+--- a/Documentation/core-api/percpu-counter-tree.rst
++++ b/Documentation/core-api/percpu-counter-tree.rst
+@@ -102,6 +102,13 @@ The activations of the same counters must be serialized by the caller:
+ a concurrent activation would publish a second tree and lose the
+ updates made to the first.
+ 
++The RSS counters of an mm use this: the task owning the mm updates the
++plain counter, and other tasks, such as reclaim, update the atomic
++counter. The tree is activated when a second thread shares the mm,
++under mm->rss_stat_mutex, which serializes the activations.
++A single-threaded process therefore has exact RSS counters, cheap
++precise sums, and neither per-cpu memory nor tree items for them.
++
+ Use Cases
+ =========
+ 
+diff --git a/fs/exec.c b/fs/exec.c
+index 8d2b14e1d455..7a6f07a6d482 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -875,6 +875,8 @@ static int exec_mmap(struct linux_binprm *bprm)
+ 		}
+ 	}
+ 
++	/* This task owns the RSS counters of the new mm, see __add_mm_counter(). */
++	WRITE_ONCE(mm->rss_owner, tsk);
+ 	task_lock(tsk);
+ 	membarrier_exec_mmap(mm);
+ 
+@@ -903,6 +905,9 @@ static int exec_mmap(struct linux_binprm *bprm)
+ 	if (old_mm) {
+ 		mmap_read_unlock(old_mm);
+ 		BUG_ON(active_mm != old_mm);
++		/* Updates of the old mm by this task are now atomic. */
++		if (READ_ONCE(old_mm->rss_owner) == tsk)
++			WRITE_ONCE(old_mm->rss_owner, NULL);
+ 		/* Defer teardown to setup_new_exec(), outside the exec locks. */
+ 		bprm->old_mm = old_mm;
+ 	} else {
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 36242c7ff84f..4d740c0c5f54 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3617,23 +3617,41 @@ static inline unsigned long get_mm_counter_sum(struct mm_struct *mm, int member)
+ 
+ void mm_trace_rss_stat(struct mm_struct *mm, int member);
+ 
++/*
++ * Until a second thread shares the mm, the RSS counters are exact single
++ * counters: the task which owns the mm updates a plain counter, and other
++ * tasks (reclaim, khugepaged, the OOM reaper, remote GUP, ...) an atomic
++ * one. See copy_mm(). Once the tree is active, all updates go to it:
++ * rss_owner is not read, so the updates of the threads of a process do not
++ * touch its cache line.
++ */
++static inline void __add_mm_counter(struct mm_struct *mm, int member, long value)
++{
++	struct percpu_counter_tree *counter = &mm->rss_stat[member];
++
++	if (!percpu_counter_tree_active(counter) && current == READ_ONCE(mm->rss_owner))
++		percpu_counter_tree_add_owner(counter, value);
++	else
++		percpu_counter_tree_add(counter, value);
++}
++
+ static inline void add_mm_counter(struct mm_struct *mm, int member, long value)
+ {
+-	percpu_counter_tree_add(&mm->rss_stat[member], value);
++	__add_mm_counter(mm, member, value);
+ 
+ 	mm_trace_rss_stat(mm, member);
+ }
+ 
+ static inline void inc_mm_counter(struct mm_struct *mm, int member)
+ {
+-	percpu_counter_tree_add(&mm->rss_stat[member], 1);
++	__add_mm_counter(mm, member, 1);
+ 
+ 	mm_trace_rss_stat(mm, member);
+ }
+ 
+ static inline void dec_mm_counter(struct mm_struct *mm, int member)
+ {
+-	percpu_counter_tree_add(&mm->rss_stat[member], -1);
++	__add_mm_counter(mm, member, -1);
+ 
+ 	mm_trace_rss_stat(mm, member);
+ }
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 20b4517b7329..f0d315d72adb 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -1352,6 +1352,22 @@ struct mm_struct {
+ #endif
+ 
+ 		struct percpu_counter_tree rss_stat[NR_MM_COUNTERS];
++		/*
++		 * Task updating rss_stat with percpu_counter_tree_add_owner()
++		 * until the counter tree is activated by a second thread: the
++		 * task running on this mm, set by dup_mm() and exec_mmap(),
++		 * cleared when that task exits or execs, NULL for the other
++		 * users of mm_alloc(). Only compared with current, never
++		 * dereferenced. Not mm->owner, which depends on CONFIG_MEMCG
++		 * and which mm_update_next_owner() hands over to another task
++		 * while a vfork() child may still update the counters.
++		 */
++		struct task_struct *rss_owner;
++		/*
++		 * Serializes the activations of the rss_stat counter tree,
++		 * until the tree is active. See mm_activate_rss_stat().
++		 */
++		struct mutex rss_stat_mutex;
+ 
+ 		struct linux_binfmt *binfmt;
+ 
+diff --git a/kernel/exit.c b/kernel/exit.c
+index d5e7bc2af804..c153cd064987 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -582,6 +582,9 @@ static void exit_mm(void)
+ 	local_irq_enable();
+ 	task_unlock(current);
+ 	mmap_read_unlock(mm);
++	/* From now on, this task updates the RSS counters of @mm atomically. */
++	if (READ_ONCE(mm->rss_owner) == current)
++		WRITE_ONCE(mm->rss_owner, NULL);
+ 	mm_update_next_owner(mm);
+ 	mmput(mm);
+ 	if (test_thread_flag(TIF_MEMDIE))
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 02e25115ff85..ac4eb1370e62 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1108,6 +1108,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p)
+ 	memset(&mm->rss_stat, 0, sizeof(mm->rss_stat));
+ 	spin_lock_init(&mm->page_table_lock);
+ 	spin_lock_init(&mm->arg_lock);
++	mutex_init(&mm->rss_stat_mutex);
+ 	mm_init_cpumask(mm);
+ 	mm_init_aio(mm);
+ 	mm_init_owner(mm, p);
+@@ -1148,8 +1149,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p)
+ 	if (mm_alloc_sched(mm))
+ 		goto fail_sched;
+ 
+-	if (percpu_counter_tree_init_many(mm->rss_stat, NR_MM_COUNTERS, RSS_STAT_BATCH_SIZE,
+-					  GFP_KERNEL_ACCOUNT))
++	if (percpu_counter_tree_init_many_lazy(mm->rss_stat, NR_MM_COUNTERS, RSS_STAT_BATCH_SIZE))
+ 		goto fail_pcpu;
+ 
+ 	lru_gen_init_mm(mm);
+@@ -1542,6 +1542,8 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 
+ 	if (!mm_init(mm, tsk))
+ 		goto fail_nomem;
++	/* The child owns its RSS counters, see __add_mm_counter(). */
++	mm->rss_owner = tsk;
+ 
+ 	uprobe_start_dup_mmap();
+ 	err = dup_mmap(mm, oldmm);
+@@ -1569,6 +1571,23 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	return NULL;
+ }
+ 
++/*
++ * Serialize the activations of the RSS counter tree, whichever tasks create
++ * threads. Once the last counter is active, the activation is complete and
++ * thread creation skips the mutex. That check needs no acquire: the updates
++ * and the sums of the counters order their own accesses to the tree. Not
++ * observing the other counters active yet only delays their updates going
++ * to the tree.
++ */
++static int mm_activate_rss_stat(struct mm_struct *mm)
++{
++	if (percpu_counter_tree_active(&mm->rss_stat[NR_MM_COUNTERS - 1]))
++		return 0;
++	guard(mutex)(&mm->rss_stat_mutex);
++	return percpu_counter_tree_activate_many(mm->rss_stat, NR_MM_COUNTERS,
++						 GFP_KERNEL_ACCOUNT);
++}
++
+ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
+ {
+ 	struct mm_struct *mm, *oldmm;
+@@ -1593,6 +1612,18 @@ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
+ 		return 0;
+ 
+ 	if (clone_flags & CLONE_VM) {
++		int err = 0;
++
++		/*
++		 * A second thread shares the mm: activate the RSS counter
++		 * tree. A vfork child shares the mm while the parent waits,
++		 * so the single counters still fit. The tree stays active if
++		 * the clone fails later, which is harmless.
++		 */
++		if (!(clone_flags & CLONE_VFORK))
++			err = mm_activate_rss_stat(oldmm);
++		if (err)
++			return err;
+ 		mmget(oldmm);
+ 		mm = oldmm;
+ 	} else {
+-- 
+2.47.3
+
