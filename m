@@ -1,70 +1,196 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884798;
-	b=n4Vz+IcIRuDK7BAMAPVFFIC9xC69QsoXE59G3tlQKhm72UAMzmN+L0KChsTWba5i6mok
-	 Nd/Xi9/w/T2E/QQOJf7LiwFf/GMd3ktwB8slMGJ1DeuM+6YUeXHBGM8z90k6kEGC8WIzy
-	 Y8EhopttKscUNA/dCiazQ7Z9IBOvBZYfPTiII67GnGT2rODvYenFV8LZpLiRDMiUSWRfb
-	 QfXYQsiN0uO6TrB2KjIk0O1u71ZoNOGVQK+mQ3DtgLqu7yONbC9B+yQi3HHVr+r0dQQtM
-	 +6pBLs9yIqylPP8Uy2eFHUB+pRv8J5U1iaNqN0Q1LDfjbI2N6XVhNcgRHO1CzovZA1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884798;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793884844;
+	b=DnDnN0XECxYQ0E9CtHa4pb2ucBgUGnUWGjbxyr55jlAv5ZZM1FC1JOtTkCFV66bNlV1j
+	 J/mfbyBGE0UsRB3EHEmJaDPHWeoga4OWVJwud151ORbxTaD5FNdKMvMOhxRZa0urJH8cy
+	 v9ryu7zwi3cjW67Ld3YtpboDEGpv5Px8Idp7LrXjaDNXuW3o2WdxMPtBfTBXqpRxCR073
+	 9lqX4Saz91uJe/G4NCELlR4li2vUZ0PX3D+hHrkXvncm5JQqW4gcT3U2VZ2qCOjFRTWEr
+	 fEEhI7PbUjD46iz3QVsV3mg26Q62CanQ+rwi9+rjQ/ES7T9Qz1M5+DzRrWI8wM3oVnA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884844;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
-	bh=qF6cFUTLgGehWGCvGtVcbUf7HKscHyyzCRDr0R3QGqo=;
-	b=E+QTtdrR0KB+NVQwdnytYgq0Vc7lPDOTrHzYXj1krwwEUftukK4j05dj6jpI+EX7rRFE
-	 gbWOoH/ra9+64KX0TzIQZTRKiA9bJymTQNelU2Y5Mn9yNF9nlbdmgH88m0pabBnXBl1EF
-	 H1byJIuzD83iJDEaRYOgDXANyOejtwdxpuusAsmbPAsIyI1U+BAkee7lQw+QHNzyfYyJx
-	 CMEY2l2ovUuD28WL8VWKaj6C9GNcvWeYeqIGH1MQK5muI193Qu8R29j7xfkbXDyCHJ7a2
-	 idKZ7cxTi5bOli/2JF2hC6iwLEpaJwEVFMe1hSqGiEa/WQGRGr9GWsvDizVR6SnDmxw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=TRlL8Ue1;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=1x85ET5mc1i2HLEFBf9uOg3USJS0vxv6/D5h2dTdn0Y=;
+	b=lqrxITDwFs3xPufxLCDZltthldtbFCuPdJ7hJerCz6XaUsq7f9KSm+tTaHW2SCt+ok8/
+	 gcBYm1MpwitEPTE09C5YuzheM0ui8wAt+HtJ+K1unghKpq93Do+bvsBqdHcK+eKz8rPJr
+	 012UoKmD1e4rvW1O++PIukSNbFK+p8mdQZYffw1aIEQCkrF0p5QAzXixQ83znm0oY3g8+
+	 lCWY51ri5WWUd8tbCngYSrMqVJnN/9tzmJxlZp/Vq4HGzU3jMovc4tbxUfBBe/CsLpd9j
+	 BdAq7ePrHzK/mykknHvABhgzIGTNDteFk2L9KRgWokPGlVORlkPO/oxLXDtKCvO8i5Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OEsGzSQH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07286606A336;
-	Thu,  5 Nov 2026 13:19:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07286606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CD2606A31B;
+	Thu,  5 Nov 2026 13:20:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24CD2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=TRlL8Ue1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OEsGzSQH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793884804; x=1825420804;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=Cq/v8RVQ1OpaQOEC36yieTOeZyrja5SYKVwBt6+3Qyg=;
-  b=TRlL8Ue1EtS1hk7aO8Ul6+hAfGPuZhY/dAStCP5QBWWYUZzyNAVztSpF
-   eB4/wNQgGjVNc9Pi9N01k2x+xhAyJlRD+rsHZ1EZoESsEW8ITqnIkoXvP
-   HJzClo9KHlV9ZaCHrIy/jICRc5s3J0Z4+IqoQQ4SLqob97iHShTiWz/et
-   6ekg1EIa/1R2QCe5GulqXnn9tItgxbYJsKYzQzoQaTu5eV02w4me0DahR
-   qJ71ltc/p97MThwfiB0Kj6XARZB2K5q16ZDiplja1GsBg/U+QUV/smIlq
-   ooPO69qWnTWgVYqym/DIovQ9cNOj1exbBaVAHpR+y7yxfqa05eUqmr4K3
-   w==;
-X-CSE-ConnectionGUID: eMNILcxmQYipmVKmzTvfhQ==
-X-CSE-MsgGUID: ZY2Pf+XfRgCyQJ4aELRNSQ==
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793884843; x=1825420843;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=1x85ET5mc1i2HLEFBf9uOg3USJS0vxv6/D5h2dTdn0Y=;
+  b=OEsGzSQHaRREPKmGIJILG3NntOPbZeczN6t5fmG0FIPkETaK4RvxzY23
+   M8b8YzJGgZl9BAtqQABPJ6ERkRXtfXMhRY5SNcDRSlcUzVl4aj36ucgvB
+   DDCP3fJlcTGlYL9IYTkGaQD41US7Csfy9saHCu05v89IanjG01LqakGUC
+   m4vyWSwHQ6q6mD26fC01bw6+uBvGNQ6oJ0xp0YXlA1iL0NmtDf2UOxJhU
+   C0hDvWGcCGtzEYa5Ti/1xP2ZHeMUA89f/8QDAfxYqgDWThuVe5T3UltEe
+   Sn11ihmFQYcvTaHZWIJgq3awdMWarQkPtMFTwfik07Vm/+4AvVuhf6q+R
+   Q==;
+X-CSE-ConnectionGUID: 2mkfdBjUTAS/dokHRryWig==
+X-CSE-MsgGUID: T6fzJWtwTD+arxYNWDI2wQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2557309"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="233135322"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:20:03 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 5 Nov 2026 06:19:56 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 5 Nov 2026 06:19:54 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Thu, 5 Nov 2026 14:19:38 +0100
-Subject: [PATCH net-next v3 4/5] net: sparx5: Add hardware programming for
- the port policer
+   d="scan'208";a="2557309"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 05:20:42 -0800
+X-CSE-ConnectionGUID: GE5Gfgw6QnaD+2DZzOBBzA==
+X-CSE-MsgGUID: xnmIIDrYTVqKa3iS1fkPeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7417629"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 05:20:41 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 05:20:41 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 05:20:41 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.55) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 05:20:40 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mT/rrNZpR6UB/7i8K1p5GOMGPYARhUmkzrHCnNjHnbM65HpblGhTbcC9H2ELxx07cQpYPkcPSkmSYIy/fXl72kwxCkMlz8T6s/y1z9rxtzqyojF3uzaKeD527waCi4Jy7RzkWGOVyUeNtXLbMx0jMuvFfbLMnEI9ZVfl0H49bdA2KfnDLWYsHb2xAiz+kJ4QD7OUqtTC3wbd+jtoBl8xeKQl6uYRgVOsC2xzFtWknfjzrdjKn4v53bl+Fx4xGi/7/CkBqR+6k/th4gMbPFn3jN38wfpZZpr6U62KkgR65b7oVgS8uQ+x6Lwtqu3KUQPcfZoEyi0cWqpJBf1iXsA3hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1x85ET5mc1i2HLEFBf9uOg3USJS0vxv6/D5h2dTdn0Y=;
+ b=emY92l+EjNFXnV8/xrGmKidEKn14cnyB92cTV+vKpKjubVLbnLKEa4ze0TxgpH7wYiqOlfXHed3xjolPXvkvH3fxdhgOjUL/jQBVsB5Hvg+dmK7SOWxyqGw4amjD9pK2/kdw+CqgrY1uWrIWm1AwNG0FKOTvjjHToFYuVq2TQLVe3NzDSDVOTTfmdWYdLYTgWTZrYk8duoWQc/emUJMnwkO2+8tDySvacZUSl6yTEtbtQnno9GTCD71hOtBAYgLbRDzmTSPsxRpi8Cy0fEh+xzuFROaAK8h8LyvjGKiNGNptb5gvD0iS/doycItD489Az4fqwG5CPszlnivUkqATew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA1PR11MB6219.namprd11.prod.outlook.com (2603:10b6:208:3e9::15)
+ by SN7PR11MB6947.namprd11.prod.outlook.com (2603:10b6:806:2aa::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 13:20:38 +0000
+Received: from IA1PR11MB6219.namprd11.prod.outlook.com
+ ([fe80::a2b9:8e8:c48b:ea31]) by IA1PR11MB6219.namprd11.prod.outlook.com
+ ([fe80::a2b9:8e8:c48b:ea31%5]) with mapi id 15.21.0569.011; Thu, 5 Nov 2026
+ 13:20:37 +0000
+From: "Nitka, Grzegorz" <grzegorz.nitka@intel.com>
+To: "Keller, Jacob E" <jacob.e.keller@intel.com>, Simon Horman
+	<horms@kernel.org>
+CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kubalewski, Arkadiusz"
+	<arkadiusz.kubalewski@intel.com>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"Machnikowski, Maciej" <maciej.machnikowski@intel.com>, "Neustadter, Marc"
+	<marc.neustadter@intel.com>, "Temerkhanov, Sergey"
+	<sergey.temerkhanov@intel.com>, "Olech, Milena" <milena.olech@intel.com>
+Subject: RE: [PATCH iwl-net 1/2] ice: ptp: serialize E825 PHY timer start with
+ PTP lock and incval
+Thread-Topic: [PATCH iwl-net 1/2] ice: ptp: serialize E825 PHY timer start
+ with PTP lock and incval
+Thread-Index: AQHdTT3/mw0oX4rl5kuPy79D8beTq7bhGAuAgCg2T4CAFmfWAA==
+Date: Thu, 5 Nov 2026 13:20:37 +0000
+Message-ID: <IA1PR11MB6219BE8C90BA9A3BC9E2A9F192772@IA1PR11MB6219.namprd11.prod.outlook.com>
+References: <20260925222824.270640-1-grzegorz.nitka@intel.com>
+ <20260925222824.270640-2-grzegorz.nitka@intel.com>
+ <20260926170543.GA13925@horms.kernel.org>
+ <a71ec0bd-bbce-4801-b79e-8b7d648aba6c@intel.com>
+In-Reply-To: <a71ec0bd-bbce-4801-b79e-8b7d648aba6c@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR11MB6219:EE_|SN7PR11MB6947:EE_
+x-ms-office365-filtering-correlation-id: 01708580-dd05-4f99-5723-08df3b3f94ac
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|22082099003|18002099003|38070700021|56012099006|11063799006|261028144727099003|261026140227099003|261022105027099003|261022075727099003|261102123227099003|4143699003|261021123027099003|261009223027099003|261021121427099003;
+x-microsoft-antispam-message-info: rzMCbH94WmNdcwtknawPocMJEsWQ74I5hWH9vI+8dMSNEKhfGeQ0e5tr5AZPf8uYOD3aqhpMXCIAFsmWVGv0QWI6oSIibRsmcOG7Nt8X0BwZbrAXavalGCgUl7gO6IVHSO02ta/q2VmFwSFrSF4G1hqfh0XaXi/SI1h8E9MGSKmoDgTk0xPDTuyID8HPInL+nKX7FbRf+1sZfLEPfusmK+cH0iB/yUKJM0kcAll2O6EACVVVYAQFB9ZlRm2BWRQz+WGC8VUtwNa5QmZ925H3jNJtiJMQN+C0cdys46Z0nZvkKP23uvDtvU8hJHcBwuLmIHw7J1ZoSvpSUH/KFyCubH3IF9x/ggv6DZ66T6iH9e8OFk91kXvJbpnb0nhgkWKyYP4h4ywfNao4oS8viThWSgIPNSlmzgLGfPr1LTLy+DwTsHTpn6TUjWi/OtK2CCWq7dVFcVfEHkQ0d+ShLBT4+KHIf2SZqz+gM40+9Q32ZTnMPf+lp5zNNLDqDRIOjRY7rm+lTc1K0zFoQH5sCnIi+Nh87Tu2avVETUEmlYAV8U1vE6uNXYgI1gfk6ZDw/jaGpwRFFTlpnlrOmnmCpoFBzTHad7+5yXwyH47/NHhZLaL8lKC0K+QUqIyM6cakzaYQSPYKoDHEJZCooJ/7JuH3Oq7cn/YSlmBQG1Z+le95wWwtFgz8aKchnuaVfLysOfRJkE5+ftvGHdbWh0lKfpHkixWSBiBQaFyWAYw1oJNDFRw=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB6219.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(261028144727099003)(261026140227099003)(261022105027099003)(261022075727099003)(261102123227099003)(4143699003)(261021123027099003)(261009223027099003)(261021121427099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZVBRdzdCb1h4eUxiditobVo2djVsTXhEMXZ2VkZwM09UeHJIOUVFREtLY05y?=
+ =?utf-8?B?RDlwVlJPZkNSRHJrUFEvUklWMGlocW42K05Dcm0wSTJpWmU3UWdLOUFDdVFt?=
+ =?utf-8?B?eG9UZHV3T05jUTdQbHdkWFhYNVNHRXlqMGRvM1NHUWszRU81cUdwamthZGVo?=
+ =?utf-8?B?OWVKdkkzSVNMWU5XOTN2NXRLY2Jqa3B5ajlJbVJjUitqenVCUkwzMFhmL210?=
+ =?utf-8?B?YUJBVTlxL2U5YUxKVUw5RlR6T3I3aHd4RVpTeUdtam1BVy9ELzdGMnR5MC9k?=
+ =?utf-8?B?RXJaVjJOdy84QlkxM2xUTWxEWU9jTXUyZVQybVZYV2dBRlVYd3FTV0FJTGps?=
+ =?utf-8?B?THRKb2pVTVM2Z3hYUWpwRGxkc1Y5Vmk1L0dDM1JJNGJ6Y09ET2lNSi9hVmtP?=
+ =?utf-8?B?Y09wWGZORkdEdjZ5M0Y3R21jYTBwUWc4R0pRQUM1ME5MT3lYQWIwWXVLSXEx?=
+ =?utf-8?B?M1pIV2FBS1VIWXdsVlRVTGQ0azl3YzhYQ0FKOXI1NW5KU0VwZnBDZUI2RGp5?=
+ =?utf-8?B?aG1KL1dpZkhYa05wSUM0TkhITWJYSlA0cWdYZlBBVjN1YzdZNDNGSmIxQmpF?=
+ =?utf-8?B?ZzMvMithdUcwNEw1emtlbk1WYkVOVEpMaVFIWkZsdnFRWlhnZXlZbmQxZUJY?=
+ =?utf-8?B?Rjk4bk4xazRQM1lTcmhxNHJpUFZIMVlBRFA4YXl2MUxsMERwWVBzdU5FZmp5?=
+ =?utf-8?B?aStEOEI0S1V3eG9iZlFMOWYvbmFkc3c4UWRmV1pWQmZkWElMd1gvNVR1OXdC?=
+ =?utf-8?B?RlhHdHpxUzVHRm9vMGlFSllOaVFldnhiejdOa3pmMFFyWUFrVlJQQ09ZRmlz?=
+ =?utf-8?B?ZWJuKzlRR1g1bURVMGxjdUFHTnRXblhtMFFzQVNnZjRVUVZjbzA0WnA5L1I4?=
+ =?utf-8?B?N0RnU1dVRmJxZGd4N0xEQzROU29teThHTXYxZHp5L3RQYnU0NElYVFhoS2Nn?=
+ =?utf-8?B?QXNlaUNjTmw0ZVNzN0tzR3NPYmRKMmpSU080WHBaTzE5VzU4Y2dGUEJpdnQ3?=
+ =?utf-8?B?eG1KM0tJcDVHcjdkYTVZNTZXRVNGWEtKa3I3K1dSdERqT1F0ejk5UkxvVHRW?=
+ =?utf-8?B?UGZwT0kwc2NiTEgvSC9XV3dnTk42KzhpZHlFOEVXeXErUlMvOFIwTUtXTXov?=
+ =?utf-8?B?a0tzY3Y2blBYNFptdDJLcG40ZktidlYzVXppUXc4QWUyYkVGdjZBQzF5azFS?=
+ =?utf-8?B?eW82U0FSTWUxMDdQb0UrbCtYTk5Wc3Z4ZXFZVzh4YTFVckNBSTR6dDc5V3BM?=
+ =?utf-8?B?MlhBV2N4aGk1d1hGazMrSDJvQ2N0N2o5WVFmZWFlbEU4ejdSK2MrWkVmZDYy?=
+ =?utf-8?B?bWlNeUlpbVlINEFMaElObmNNRk5DUHBYanpjdWJic1IwRk5kV0NvckIwcGNE?=
+ =?utf-8?B?aC9ndmVwdWRuZ1VYTkJuTUVNZ0hzU2JMQktMbHFydUJmL2JIN3FaTDdoVjFL?=
+ =?utf-8?B?cERqZjJLZ2RuMWNKR2VGWC9nTHRDMFNPUTdEM2w4YmNxdEp3cFRuR0VoMk51?=
+ =?utf-8?B?cXRaTDB4WHJmSHc4Z09qb1JKRHFsNmF2UnQwQk9nT3BPcTJvNnBzdC9XeEJs?=
+ =?utf-8?B?Y0V5TVc4cEJKbXZFYVFoUkJtbUQ0N1YxWS9VdnVPa1ZEekM2OGNtdGNpZGtJ?=
+ =?utf-8?B?SzEvUjhIYVRJdkFsTmZEeG8vY3BJd01qemVoNUpzKzdTZjI1enVnRE0yUmVF?=
+ =?utf-8?B?NzJRV005ZzIxOXlUUkZmejFENlZJMTZ6eGtrVEZZU0pPalRPSDd5SFM2OGpt?=
+ =?utf-8?B?MzlGK1pvcTVlSVdaOGpKUUZoK2p0T1BkQ203TlpoK3VJNnhYb2VENGVhcWY3?=
+ =?utf-8?B?K00yOVpYYm9lT1E3VmZKenVYOVdHcE9BY2Fnc2NJbHBjVTBVcDZSbHJLZzlk?=
+ =?utf-8?B?MkdwYjlPV1dmYVoyU0cwZlJ3SC84L0hQekpodklTSUxxNnd5S2hWZWI2NHdw?=
+ =?utf-8?B?UHZUTUEvUEI4U3NFSGhpR2xoc3RsdkJpbHVBbjMvQkVuZnNUTXJJU0d6R1Vv?=
+ =?utf-8?B?NVJpQmRDZmV4MFh2aEV1anF5dm1yNlh0azVsbkE3Y1Qvckg2QkFwNG9lOTdP?=
+ =?utf-8?B?T0lVRTlQVXFDaGtWMENrbnNXSmJabWE5bW1CMDE4eWlmeStBMzhVWXQrVFcv?=
+ =?utf-8?B?cktWbDZnMmxWWTVnWTNsNjBrMXh0aGo0VldjbGJzLzFaN05lbEp0cndPRUlo?=
+ =?utf-8?B?b2JiYTBGOE9LM0pUR1hnYW1tRXluN3FnREZuN2NVdkwwd0h5QlRHdGozSlZI?=
+ =?utf-8?B?emtucFI0TUI3VjRyNG1TUE15RzhmNFNxUGllZTlQelZzSXEvVEJ0Z2RTMExR?=
+ =?utf-8?B?aDZYMmEyNzllUUIwMU5ZMEIyRURKK3FSWGVDYjM3bkNUSEdNeEIrQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,595 +200,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261105-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v3-4-b45a3a26bed5@microchip.com>
-References: <20261105-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v3-0-b45a3a26bed5@microchip.com>
-In-Reply-To: <20261105-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v3-0-b45a3a26bed5@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>
-CC: <robert.marko@sartura.hr>, <netdev@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: b4 0.14.3
+X-Exchange-RoutingPolicyChecked: Kt4InSrKv8ckhN5BK+pksrbc7A0E+3/N9kQgpBZjXAvrff7JDPXVn06QTjFIymZvli+240Kt6xXeg7C9AgSgYcQJxBvg1mlluYlDrStqxuWbpRNB75ot1eGHfxr6Ri1n7iPTaNrGkZIFZ9bJxoJ2etqsy0E+3cTyZ5jVvjNdzFe7qZ82+zt8qpAwjPb0VmJlZq3WIF0jFRzpGQ9h34PXLchT9pgaUmYGv/Ne/ZoEMNv6TMhGbD3W3OC8fQ6KCmcNRe2I2zCJCS72ykzyvKtYLfaBEc3nplZCDXkXaoQVVzsKgDPlKs5udveMMcL3YzwMKJJBXP/lV6IsbXxq1oPxng==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6219.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01708580-dd05-4f99-5723-08df3b3f94ac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 13:20:37.2635
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7dL0D5hBwGOnuovswRxlMJ4GsulSCZ9kbmWo5kXhAAy4vFBPC+kzGKmmQhL4HkXu7mZL+kIYQixC77N/Q30J5+lreiTD4wSpawBmUdN3oMQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6947
+X-OriginatorOrg: intel.com
 
-Each ingress port has four single-rate leaky bucket policers in
-ANA_AC_POL. A policer is configured with a rate, in units of
-25040 bit/s, and a burst, in units of 8192 bytes, and drops the frames
-that exceed it. The four policers of a port share the pass and drop
-statistics counters of the port, which are 40 bits wide. Before use,
-all policers must be initialized through the force-init bits in
-POL_ALL_CFG.
-
-Add support for programming a port policer, and for reading back its
-pass and drop counts. Do not include preamble and inter-frame gap in the
-metered frame size, so that the configured rate is a data rate, as tc
-police expects and as on lan966x and ocelot. Since the statistics
-counters are shared, use only one policer per port. Initialize the
-policers and select the events counted by the shared counters at probe.
-
-Read the counters from the periodic stats worker as well, and accumulate
-them into 64-bit totals, so that a wrap of the 40-bit counters is not
-lost between two reads of the tc stats. Take queue_stats_lock around the
-existing ethtool read of the shared counter 0, since reading the LSB of
-a counter latches its MSB.
-
-The port policer is not reachable from tc yet; the next patch adds
-that.
-
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
----
- .../net/ethernet/microchip/sparx5/sparx5_ethtool.c |   6 +
- .../net/ethernet/microchip/sparx5/sparx5_main.h    |  22 +-
- .../net/ethernet/microchip/sparx5/sparx5_police.c  | 404 ++++++++++++++++++++-
- drivers/net/ethernet/microchip/sparx5/sparx5_qos.c |   4 +
- 4 files changed, 432 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c b/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c
-index d42c57bead89d..9db3682afa955 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c
-@@ -231,9 +231,14 @@ static void sparx5_get_ana_ac_stats_stats(struct sparx5 *sparx5, int portno)
- {
- 	u64 *portstats = &sparx5->stats[portno * sparx5->num_stats];
- 
-+	/* Serialize with the port policer, which reads the LSB and MSB of the
-+	 * port stat counters as a pair.
-+	 */
-+	mutex_lock(&sparx5->queue_stats_lock);
- 	sparx5_update_counter(&portstats[spx5_stats_ana_ac_port_stat_lsb_cnt],
- 			      spx5_rd(sparx5, ANA_AC_PORT_STAT_LSB_CNT(portno,
- 								       SPX5_PORT_POLICER_DROPS)));
-+	mutex_unlock(&sparx5->queue_stats_lock);
- }
- 
- static void sparx5_get_dev_phy_stats(u64 *portstats, void __iomem *inst, u32
-@@ -1116,6 +1121,7 @@ static void sparx5_update_port_stats(struct sparx5 *sparx5, int portno)
- 		sparx5_get_asm_stats(sparx5, portno);
- 	sparx5_get_ana_ac_stats_stats(sparx5, portno);
- 	sparx5_get_queue_sys_stats(sparx5, portno);
-+	sparx5_port_policer_stats_poll(sparx5->ports[portno]);
- }
- 
- static void sparx5_update_stats(struct sparx5 *sparx5)
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-index 19217d443cc74..93df90a62a9c8 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-@@ -19,6 +19,7 @@
- #include <linux/hrtimer.h>
- #include <linux/debugfs.h>
- #include <net/flow_offload.h>
-+#include <net/pkt_cls.h>
- 
- #include <fdma_api.h>
- 
-@@ -210,8 +211,11 @@ struct sparx5_port_config {
- #define SPX5_POLICERS_PER_PORT 4 /* Number of ingress port policers */
- 
- struct sparx5_port_policer {
--	struct flow_stats prev;
-+	/* Last raw values of the 40-bit hardware counters */
-+	struct flow_stats raw;
-+	/* 64-bit totals, and the totals last reported to tc */
- 	struct flow_stats stats;
-+	struct flow_stats prev;
- 	/* Port policers hold the client reference (cookie) */
- 	unsigned long policer;
- };
-@@ -298,6 +302,10 @@ struct sparx5_mall_mirror_entry {
- 	struct sparx5_port *port;
- };
- 
-+struct sparx5_mall_port_policer_entry {
-+	struct flow_action_police police;
-+};
-+
- struct sparx5_mall_entry {
- 	struct list_head list;
- 	struct sparx5_port *port;
-@@ -306,6 +314,7 @@ struct sparx5_mall_entry {
- 	bool ingress;
- 	union {
- 		struct sparx5_mall_mirror_entry mirror;
-+		struct sparx5_mall_port_policer_entry port_policer;
- 	};
- };
- 
-@@ -655,8 +664,8 @@ void sparx5_sdlb_group_init(struct sparx5 *sparx5, u64 max_rate, u32 min_burst,
- 
- /* sparx5_police.c */
- enum {
--	/* More policer types will be added later */
--	SPX5_POL_SERVICE
-+	SPX5_POL_SERVICE,
-+	SPX5_POL_PORT,
- };
- 
- struct sparx5_policer {
-@@ -669,6 +678,13 @@ struct sparx5_policer {
- };
- 
- int sparx5_policer_conf_set(struct sparx5 *sparx5, struct sparx5_policer *pol);
-+int sparx5_port_policer_init(struct sparx5 *sparx5);
-+int sparx5_add_port_policer(struct sparx5_mall_entry *entry,
-+			    struct netlink_ext_ack *extack);
-+int sparx5_delete_port_policer(struct sparx5_mall_entry *entry);
-+int sparx5_update_port_policer_stats(struct net_device *ndev,
-+				     struct tc_cls_matchall_offload *tmo);
-+void sparx5_port_policer_stats_poll(struct sparx5_port *port);
- 
- /* sparx5_psfp.c */
- #define SPX5_PSFP_GCE_CNT 4
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_police.c b/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
-index c88820e83812c..0fb1003e1b189 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
-@@ -4,9 +4,47 @@
-  * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
-  */
- 
-+#include <linux/iopoll.h>
-+
- #include "sparx5_main_regs.h"
- #include "sparx5_main.h"
- 
-+#define SPX5_PORT_POLICER_FILTER_COUNTER 1
-+#define SPX5_PORT_POLICER_PASS_COUNTER 2
-+
-+/* The port policer statistics counters are 40 bits wide (32-bit LSB + 8-bit
-+ * MSB register pair).
-+ */
-+#define SPX5_PORT_STAT_CNT_MASK GENMASK_ULL(39, 0)
-+
-+#define SPX5_PORT_POLICER_0_FILTER_EVENT BIT(4)
-+#define SPX5_PORT_POLICER_1_FILTER_EVENT BIT(5)
-+#define SPX5_PORT_POLICER_2_FILTER_EVENT BIT(6)
-+#define SPX5_PORT_POLICER_3_FILTER_EVENT BIT(7)
-+#define SPX5_PORT_POLICER_0_PASS_EVENT BIT(8)
-+#define SPX5_PORT_POLICER_1_PASS_EVENT BIT(9)
-+#define SPX5_PORT_POLICER_2_PASS_EVENT BIT(10)
-+#define SPX5_PORT_POLICER_3_PASS_EVENT BIT(11)
-+
-+/* Do not add preamble and inter-frame gap to the metered frame size, so that
-+ * the rate is a data rate, as tc police expects.
-+ */
-+#define SPX5_POLICER_DATA_RATE_GAP 0
-+
-+/* Bit rate unit for the port policer (bits/sec) */
-+#define SPX5_POLICER_RATE_UNIT 25040
-+/* Burst size unit for the port policer (bytes) */
-+#define SPX5_POLICER_BYTE_BURST_UNIT 8192
-+
-+enum sparx5_port_policer_stat_event_mask {
-+	SPX5_PPEM_NONE,
-+	SPX5_PPEM_EVENT_NO_ERROR,
-+	SPX5_PPEM_EVENT_AND_ERROR,
-+	SPX5_PPEM_EVENT,
-+	SPX5_PPEM_ERROR_NO_EVENT,
-+	SPX5_PPEM_ERROR,
-+};
-+
- static int sparx5_policer_service_conf_set(struct sparx5 *sparx5,
- 					   struct sparx5_policer *pol)
- {
-@@ -40,10 +78,65 @@ static int sparx5_policer_service_conf_set(struct sparx5 *sparx5,
- 	return 0;
- }
- 
-+static int sparx5_port_policer_conf_set(struct sparx5 *sparx5,
-+					struct sparx5_policer *pol)
-+{
-+	u32 portno = pol->idx / SPX5_POLICERS_PER_PORT;
-+	u32 polidx = pol->idx % SPX5_POLICERS_PER_PORT;
-+	u32 rate, burst, mask, cfg;
-+	int cnt;
-+
-+	rate = DIV_ROUND_UP_ULL(pol->rate, SPX5_POLICER_RATE_UNIT);
-+	burst = DIV_ROUND_UP(pol->burst, SPX5_POLICER_BYTE_BURST_UNIT);
-+
-+	/* Disable the policer when rate and burst are both zero, otherwise
-+	 * police known and unknown unicast, multicast and broadcast frames.
-+	 */
-+	mask = (rate == 0 && burst == 0) ? 0 : 0x7f;
-+	if (mask) {
-+		/* Program the bucket before enabling the policer */
-+		spx5_wr(rate, sparx5, ANA_AC_POL_PORT_RATE_CFG(pol->idx));
-+		spx5_wr(burst, sparx5, ANA_AC_POL_PORT_THRES_CFG_0(pol->idx));
-+		spx5_rmw(ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK_SET(mask),
-+			 ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK,
-+			 sparx5, ANA_AC_POL_PORT_CFG(portno, polidx));
-+	} else {
-+		/* Disable the policer before zeroing the bucket */
-+		spx5_rmw(ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK_SET(0),
-+			 ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK,
-+			 sparx5, ANA_AC_POL_PORT_CFG(portno, polidx));
-+		spx5_wr(rate, sparx5, ANA_AC_POL_PORT_RATE_CFG(pol->idx));
-+		spx5_wr(burst, sparx5, ANA_AC_POL_PORT_THRES_CFG_0(pol->idx));
-+	}
-+
-+	/* Count policer events, not bytes, for all eight priorities on the
-+	 * port's filter and pass counters, which are shared by all of the
-+	 * port's policer instances.
-+	 */
-+	cfg = ANA_AC_PORT_STAT_CFG_CFG_PRIO_MASK_SET(0xff) |
-+	      ANA_AC_PORT_STAT_CFG_CFG_CNT_FRM_TYPE_SET(SPX5_PPEM_EVENT) |
-+	      ANA_AC_PORT_STAT_CFG_CFG_CNT_BYTE_SET(0);
-+
-+	for (cnt = SPX5_PORT_POLICER_FILTER_COUNTER;
-+	     cnt <= SPX5_PORT_POLICER_PASS_COUNTER; cnt++)
-+		spx5_rmw(cfg,
-+			 ANA_AC_PORT_STAT_CFG_CFG_PRIO_MASK |
-+			 ANA_AC_PORT_STAT_CFG_CFG_CNT_FRM_TYPE |
-+			 ANA_AC_PORT_STAT_CFG_CFG_CNT_BYTE,
-+			 sparx5, ANA_AC_PORT_STAT_CFG(portno, cnt));
-+
-+	spx5_rmw(ANA_AC_POL_PORT_GAP_GAP_VALUE_SET(SPX5_POLICER_DATA_RATE_GAP),
-+		 ANA_AC_POL_PORT_GAP_GAP_VALUE,
-+		 sparx5, ANA_AC_POL_PORT_GAP(portno));
-+
-+	return 0;
-+}
-+
- int sparx5_policer_conf_set(struct sparx5 *sparx5, struct sparx5_policer *pol)
- {
--	/* More policer types will be added later */
- 	switch (pol->type) {
-+	case SPX5_POL_PORT:
-+		return sparx5_port_policer_conf_set(sparx5, pol);
- 	case SPX5_POL_SERVICE:
- 		return sparx5_policer_service_conf_set(sparx5, pol);
- 	default:
-@@ -52,3 +145,312 @@ int sparx5_policer_conf_set(struct sparx5 *sparx5, struct sparx5_policer *pol)
- 
- 	return 0;
- }
-+
-+static u64 sparx5_port_policer_cnt_get(struct sparx5_port *port, u32 cnt)
-+{
-+	struct sparx5 *sparx5 = port->sparx5;
-+	u32 lsb, msb;
-+
-+	/* The MSB is latched when the LSB is read, so read the LSB first */
-+	lsb = spx5_rd(sparx5, ANA_AC_PORT_STAT_LSB_CNT(port->portno, cnt));
-+	msb = spx5_rd(sparx5, ANA_AC_PORT_STAT_MSB_CNT(port->portno, cnt));
-+
-+	return (u64)msb << 32 | lsb;
-+}
-+
-+static void sparx5_port_policer_cnt_accum(struct sparx5_port *port, u32 cnt,
-+					  u64 *raw, u64 *total)
-+{
-+	u64 cur = sparx5_port_policer_cnt_get(port, cnt);
-+
-+	*total += (cur - *raw) & SPX5_PORT_STAT_CNT_MASK;
-+	*raw = cur;
-+}
-+
-+static void sparx5_port_policer_stats_update(struct sparx5_port *port,
-+					     int polidx)
-+{
-+	struct sparx5_port_policer *pp = &port->tc.port_policer[polidx];
-+
-+	lockdep_assert_held(&port->sparx5->queue_stats_lock);
-+
-+	sparx5_port_policer_cnt_accum(port, SPX5_PORT_POLICER_FILTER_COUNTER,
-+				      &pp->raw.drops, &pp->stats.drops);
-+	sparx5_port_policer_cnt_accum(port, SPX5_PORT_POLICER_PASS_COUNTER,
-+				      &pp->raw.pkts, &pp->stats.pkts);
-+}
-+
-+static void sparx5_policer_stats_update(struct sparx5 *sparx5,
-+					struct sparx5_policer *pol)
-+{
-+	u32 portno, polidx;
-+
-+	switch (pol->type) {
-+	case SPX5_POL_PORT:
-+		portno = pol->idx / SPX5_POLICERS_PER_PORT;
-+		polidx = pol->idx % SPX5_POLICERS_PER_PORT;
-+
-+		sparx5_port_policer_stats_update(sparx5->ports[portno], polidx);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+static int sparx5_get_port_policer_idx(struct sparx5_port *port,
-+				       unsigned long cookie)
-+{
-+	if (port->tc.port_policer[0].policer == cookie)
-+		return 0;
-+
-+	return -ENOENT;
-+}
-+
-+static int sparx5_alloc_port_policer_idx(struct sparx5_port *port,
-+					 unsigned long cookie)
-+{
-+	/* Only one port policer per port is supported: the port's filter
-+	 * and pass statistics counters are shared by all four hardware
-+	 * policer instances, so stats can only be attributed correctly to
-+	 * a single active policer.
-+	 */
-+	if (!port->tc.port_policer[0].policer ||
-+	    port->tc.port_policer[0].policer == cookie)
-+		return 0;
-+
-+	return -EEXIST;
-+}
-+
-+static void sparx5_get_port_policer_stats(struct sparx5_port *port,
-+					  int polidx)
-+{
-+	struct sparx5_policer pol = { 0 };
-+
-+	pol.type = SPX5_POL_PORT;
-+	pol.idx = port->portno * SPX5_POLICERS_PER_PORT + polidx;
-+
-+	sparx5_policer_stats_update(port->sparx5, &pol);
-+}
-+
-+static void sparx5_init_port_policer_stats(struct sparx5_port *port,
-+					   int polidx)
-+{
-+	struct sparx5_port_policer *pp = &port->tc.port_policer[polidx];
-+
-+	mutex_lock(&port->sparx5->queue_stats_lock);
-+
-+	pp->raw.drops = sparx5_port_policer_cnt_get(port,
-+						    SPX5_PORT_POLICER_FILTER_COUNTER);
-+	pp->raw.pkts = sparx5_port_policer_cnt_get(port,
-+						   SPX5_PORT_POLICER_PASS_COUNTER);
-+
-+	memset(&pp->stats, 0, sizeof(pp->stats));
-+	memset(&pp->prev, 0, sizeof(pp->prev));
-+
-+	mutex_unlock(&port->sparx5->queue_stats_lock);
-+}
-+
-+/* Called once a second from the stats worker, so that a wrap of the 40-bit
-+ * counters is never missed. Only one port policer per port is used.
-+ */
-+void sparx5_port_policer_stats_poll(struct sparx5_port *port)
-+{
-+	mutex_lock(&port->sparx5->queue_stats_lock);
-+	sparx5_get_port_policer_stats(port, 0);
-+	mutex_unlock(&port->sparx5->queue_stats_lock);
-+}
-+
-+int sparx5_update_port_policer_stats(struct net_device *ndev,
-+				     struct tc_cls_matchall_offload *tmo)
-+{
-+	struct sparx5_port *port = netdev_priv(ndev);
-+	struct flow_stats *prev_stats;
-+	struct flow_stats *stats;
-+	u64 pkts, drops;
-+	int polidx;
-+
-+	polidx = sparx5_get_port_policer_idx(port, tmo->cookie);
-+	if (polidx < 0)
-+		return polidx;
-+
-+	stats = &port->tc.port_policer[polidx].stats;
-+	prev_stats = &port->tc.port_policer[polidx].prev;
-+
-+	mutex_lock(&port->sparx5->queue_stats_lock);
-+
-+	sparx5_get_port_policer_stats(port, polidx);
-+
-+	pkts = stats->pkts - prev_stats->pkts;
-+	drops = stats->drops - prev_stats->drops;
-+
-+	prev_stats->pkts = stats->pkts;
-+	prev_stats->drops = stats->drops;
-+
-+	mutex_unlock(&port->sparx5->queue_stats_lock);
-+
-+	if (!pkts && !drops)
-+		return 0;
-+
-+	flow_stats_update(&tmo->stats,
-+			  0,
-+			  pkts + drops,
-+			  drops,
-+			  jiffies,
-+			  FLOW_ACTION_HW_STATS_IMMEDIATE);
-+
-+	return 0;
-+}
-+
-+int sparx5_add_port_policer(struct sparx5_mall_entry *entry,
-+			    struct netlink_ext_ack *extack)
-+{
-+	struct flow_action_police *police = &entry->port_policer.police;
-+	struct sparx5_port *port = entry->port;
-+	struct sparx5 *sparx5 = port->sparx5;
-+	struct sparx5_policer pol = { 0 };
-+	int idx, err;
-+
-+	if (!entry->ingress) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer is not supported on egress");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (entry->port->tc.ingress_block_shared) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer is not supported on shared ingress blocks");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->exceed.act_id != FLOW_ACTION_DROP) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->notexceed.act_id != FLOW_ACTION_PIPE &&
-+	    police->notexceed.act_id != FLOW_ACTION_ACCEPT) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->peakrate_bytes_ps || police->avrate ||
-+	    police->overhead) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->rate_pkt_ps) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (!police->rate_bytes_ps) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer requires a rate");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->burst > ANA_AC_POL_PORT_THRES_CFG_0_PORT_THRES0 *
-+			    SPX5_POLICER_BYTE_BURST_UNIT) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->rate_bytes_ps >
-+	    div_u64((u64)ANA_AC_POL_PORT_RATE_CFG_PORT_RATE *
-+		    SPX5_POLICER_RATE_UNIT, BITS_PER_BYTE)) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	idx = sparx5_alloc_port_policer_idx(port, entry->cookie);
-+	if (idx < 0) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Only one port policer per port is supported");
-+		return idx;
-+	}
-+
-+	pol.type = SPX5_POL_PORT;
-+	pol.rate = police->rate_bytes_ps * BITS_PER_BYTE;
-+	pol.burst = police->burst;
-+	pol.idx = port->portno * SPX5_POLICERS_PER_PORT + idx;
-+
-+	sparx5_init_port_policer_stats(port, idx);
-+
-+	err = sparx5_policer_conf_set(sparx5, &pol);
-+	if (err)
-+		return err;
-+
-+	port->tc.port_policer[idx].policer = entry->cookie;
-+
-+	return 0;
-+}
-+
-+int sparx5_delete_port_policer(struct sparx5_mall_entry *entry)
-+{
-+	struct sparx5_port *port = entry->port;
-+	struct sparx5 *sparx5 = port->sparx5;
-+	struct sparx5_policer pol = { 0 };
-+	int idx, err;
-+
-+	if (!entry->ingress)
-+		return -EINVAL;
-+
-+	idx = sparx5_get_port_policer_idx(port, entry->cookie);
-+	if (idx < 0)
-+		return idx;
-+
-+	pol.type = SPX5_POL_PORT;
-+	pol.idx = port->portno * SPX5_POLICERS_PER_PORT + idx;
-+
-+	err = sparx5_policer_conf_set(sparx5, &pol);
-+	if (err)
-+		return err;
-+
-+	port->tc.port_policer[idx].policer = 0;
-+
-+	return 0;
-+}
-+
-+int sparx5_port_policer_init(struct sparx5 *sparx5)
-+{
-+	u32 value;
-+	int err;
-+
-+	/* Initialize all port policers before usage */
-+	spx5_rmw(ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT_SET(1) |
-+		 ANA_AC_POL_ALL_CFG_FORCE_INIT_SET(1),
-+		 ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT |
-+		 ANA_AC_POL_ALL_CFG_FORCE_INIT,
-+		 sparx5, ANA_AC_POL_ALL_CFG);
-+
-+	err = read_poll_timeout(spx5_rd, value,
-+				!(ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT_GET(value) |
-+				  ANA_AC_POL_ALL_CFG_FORCE_INIT_GET(value)),
-+				500, 10000, false, sparx5, ANA_AC_POL_ALL_CFG);
-+	if (err)
-+		return err;
-+
-+	/* Configure the port policer filter and pass statistics counters.
-+	 * Counter 0 is owned by sparx5_ethtool.c (SPX5_PORT_POLICER_DROPS).
-+	 */
-+	spx5_wr(SPX5_PORT_POLICER_0_FILTER_EVENT |
-+		SPX5_PORT_POLICER_1_FILTER_EVENT |
-+		SPX5_PORT_POLICER_2_FILTER_EVENT |
-+		SPX5_PORT_POLICER_3_FILTER_EVENT,
-+		sparx5, ANA_AC_PORT_SGE_CFG(SPX5_PORT_POLICER_FILTER_COUNTER));
-+
-+	spx5_wr(SPX5_PORT_POLICER_0_PASS_EVENT |
-+		SPX5_PORT_POLICER_1_PASS_EVENT |
-+		SPX5_PORT_POLICER_2_PASS_EVENT |
-+		SPX5_PORT_POLICER_3_PASS_EVENT,
-+		sparx5, ANA_AC_PORT_SGE_CFG(SPX5_PORT_POLICER_PASS_COUNTER));
-+
-+	return 0;
-+}
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c b/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c
-index 7370533243b6b..06412078bc651 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c
-@@ -449,6 +449,10 @@ int sparx5_qos_init(struct sparx5 *sparx5)
- {
- 	int ret;
- 
-+	ret = sparx5_port_policer_init(sparx5);
-+	if (ret)
-+		return ret;
-+
- 	ret = sparx5_leak_groups_init(sparx5);
- 	if (ret < 0)
- 		return ret;
-
--- 
-2.34.1
-
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogS2VsbGVyLCBKYWNvYiBF
+IDxqYWNvYi5lLmtlbGxlckBpbnRlbC5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBPY3RvYmVyIDIy
+LCAyMDI2IDk6MTAgQU0NCj4gVG86IFNpbW9uIEhvcm1hbiA8aG9ybXNAa2VybmVsLm9yZz47IE5p
+dGthLCBHcnplZ29yeg0KPiA8Z3J6ZWdvcnoubml0a2FAaW50ZWwuY29tPg0KPiBDYzogaW50ZWwt
+d2lyZWQtbGFuQGxpc3RzLm9zdW9zbC5vcmc7IG5ldGRldkB2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4
+LQ0KPiBrZXJuZWxAdmdlci5rZXJuZWwub3JnOyByaWNoYXJkY29jaHJhbkBnbWFpbC5jb207DQo+
+IGFuZHJldytuZXRkZXZAbHVubi5jaDsgS2l0c3plbCwgUHJ6ZW15c2xhdw0KPiA8cHJ6ZW15c2xh
+dy5raXRzemVsQGludGVsLmNvbT47IE5ndXllbiwgQW50aG9ueSBMDQo+IDxhbnRob255Lmwubmd1
+eWVuQGludGVsLmNvbT47IEt1YmFsZXdza2ksIEFya2FkaXVzeg0KPiA8YXJrYWRpdXN6Lmt1YmFs
+ZXdza2lAaW50ZWwuY29tPjsgZGF2ZW1AZGF2ZW1sb2Z0Lm5ldDsNCj4gZWR1bWF6ZXRAZ29vZ2xl
+LmNvbTsgTWFjaG5pa293c2tpLCBNYWNpZWoNCj4gPG1hY2llai5tYWNobmlrb3dza2lAaW50ZWwu
+Y29tPjsgTmV1c3RhZHRlciwgTWFyYw0KPiA8bWFyYy5uZXVzdGFkdGVyQGludGVsLmNvbT47IFRl
+bWVya2hhbm92LCBTZXJnZXkNCj4gPHNlcmdleS50ZW1lcmtoYW5vdkBpbnRlbC5jb20+OyBPbGVj
+aCwgTWlsZW5hIDxtaWxlbmEub2xlY2hAaW50ZWwuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENI
+IGl3bC1uZXQgMS8yXSBpY2U6IHB0cDogc2VyaWFsaXplIEU4MjUgUEhZIHRpbWVyIHN0YXJ0IHdp
+dGgNCj4gUFRQIGxvY2sgYW5kIGluY3ZhbA0KPiANCj4gT24gOS8yNi8yMDI2IDEwOjA1IEFNLCBT
+aW1vbiBIb3JtYW4gd3JvdGU6DQo+ID4gT24gU2F0LCBTZXAgMjYsIDIwMjYgYXQgMTI6Mjg6MjNB
+TSArMDIwMCwgR3J6ZWdvcnogTml0a2Egd3JvdGU6DQo+ID4+IEZyb206IE1hY2llayBNYWNobmlr
+b3dza2kgPG1hY2llai5tYWNobmlrb3dza2lAaW50ZWwuY29tPg0KPiA+Pg0KPiA+PiBpY2Vfc3Rh
+cnRfcGh5X3RpbWVyX2V0aDU2ZygpIHByb2dyYW1tZWQgdGhlIFBIWSBpbmNyZW1lbnQgdmFsdWUg
+YW5kDQo+ID4+IHBlcmZvcm1lZCB0aGUgUEhZLXRvLVBIQyBwaGFzZSBzeW5jaHJvbml6YXRpb24g
+aW4gdHdvIHNlcGFyYXRlIFBUUA0KPiA+PiBzZW1hcGhvcmUgY3JpdGljYWwgc2VjdGlvbnMsIGFu
+ZCB0b3VjaGVkIHRoZSBzaGFyZWQgc291cmNlIGNvbW1hbmQNCj4gPj4gcmVnaXN0ZXIgKEdMVFNZ
+Tl9DTUQgdmlhIGljZV9wdHBfc3JjX2NtZCgpKSBhbmQgcmVhZCB0aGUgc291cmNlIGluY3ZhbA0K
+PiA+PiBiZWZvcmUgYWNxdWlyaW5nIHRoZSBzZW1hcGhvcmUgYXQgYWxsLg0KPiA+Pg0KPiA+PiBC
+ZWNhdXNlIEdMVFNZTl9DTUQgaXMgYSBzaW5nbGUgZ2xvYmFsIHJlZ2lzdGVyIGxhdGNoZWQgZm9y
+IHRoZSBzb3VyY2UNCj4gPj4gdGltZXIgYW5kIGFsbCBQSFkgcG9ydHMgYnkgR0xUU1lOX0NNRF9T
+WU5DLCBhIGNvbmN1cnJlbnQgYWRqdGltZQ0KPiAoc21hbGwNCj4gPj4gb2Zmc2V0LCA8PSBTMzJf
+TUFYKSBvciBhZGpmaW5lIGNvdWxkIGNsb2JiZXIgdGhlIHNvdXJjZSBjb21tYW5kDQo+IGJldHdl
+ZW4NCj4gPj4gdGhlIGluY3ZhbC1pbml0IGFuZCB0aGUgcGhhc2Utc3luYyBzdGVwcy4gSW4gdGhl
+IHdvcnN0IGNhc2UgdGhlIHNvdXJjZQ0KPiA+PiB0aW1lciBjb21tYW5kIHdyaXR0ZW4gYnkgaWNl
+X3B0cF9hZGpfY2xvY2soKSAoSUNFX1BUUF9BREpfVElNRSkgd2FzDQo+ID4+IG92ZXJ3cml0dGVu
+IGJ5IHRoZSB1bmxvY2tlZCBJQ0VfUFRQX05PUCBmcm9tDQo+IGljZV9zdGFydF9waHlfdGltZXJf
+ZXRoNTZnKCksDQo+ID4+IHNvIHRoZSBhZGp1c3RtZW50IHdhcyBhcHBsaWVkIHRvIHRoZSBQSFkg
+cG9ydHMgYnV0IG5vdCB0byB0aGUgUEhDLiBUaGlzDQo+ID4+IGxlZnQgdGhlIEU4MjUgUEhZIGNs
+b2NrIHBlcm1hbmVudGx5IG9mZnNldCBmcm9tIHRoZSBQSEMsIHNob3dpbmcgdXAgYXMNCj4gYW4N
+Cj4gPj4gaW50ZXJtaXR0ZW50IGNsb2NrIGRyaWZ0Lg0KPiA+Pg0KPiA+PiBIb2xkIHRoZSBQVFAg
+c2VtYXBob3JlIGFjcm9zcyB0aGUgZW50aXJlIHN0YXJ0IHNlcXVlbmNlOiBhY3F1aXJlIGl0DQo+
+ID4+IGJlZm9yZSB0aGUgZmlyc3Qgc2hhcmVkLXJlZ2lzdGVyIGFjY2VzcyAoaWNlX3B0cF9zcmNf
+Y21kKCkpLCBrZWVwIGl0IGhlbGQNCj4gPj4gdGhyb3VnaCB0aGUgaW5jdmFsIHJlYWQsIFBIWSBp
+bmN2YWwgaW5pdCwgYW5kIHRoZSBwaGFzZSBzeW5jaHJvbml6YXRpb24sDQo+ID4+IHRoZW4gcmVs
+ZWFzZSBpdCBvbmNlLiBTaW5jZSB0aGUgaGFyZHdhcmUgc2VtYXBob3JlIGlzIG5vdCByZWN1cnNp
+dmUsIHNwbGl0DQo+ID4+IHRoZSBwaGFzZS1zeW5jIGhlbHBlciBpbnRvIGljZV9zeW5jX3BoeV90
+aW1lcl9ldGg1NmdfdW5sb2NrZWQoKSwgd2hpY2gNCj4gPj4gYXNzdW1lcyB0aGUgY2FsbGVyIGFs
+cmVhZHkgaG9sZHMgdGhlIGxvY2ssIGFuZCBjYWxsIGl0IGRpcmVjdGx5IGZyb20NCj4gPj4gaWNl
+X3N0YXJ0X3BoeV90aW1lcl9ldGg1NmcoKS4gVGhlIGxvY2tpbmcgd3JhcHBlciBpcyByZW1vdmVk
+IGFzIGl0IG5vDQo+ID4+IGxvbmdlciBoYXMgYW55IGNhbGxlcnMuDQo+ID4+DQo+ID4+IEZpeGVz
+OiA3ODFmZjhmMmQ1NzUgKCJpY2U6IHB0cDogc2VyaWFsaXplIEU4MjUgUEhZIHRpbWVyIHN0YXJ0
+IHdpdGggUFRQDQo+IGxvY2siKQ0KPiA+PiBTaWduZWQtb2ZmLWJ5OiBNYWNpZWsgTWFjaG5pa293
+c2tpIDxtYWNpZWoubWFjaG5pa293c2tpQGludGVsLmNvbT4NCj4gPj4gQ28tZGV2ZWxvcGVkLWJ5
+OiBHcnplZ29yeiBOaXRrYSA8Z3J6ZWdvcnoubml0a2FAaW50ZWwuY29tPg0KPiA+PiBTaWduZWQt
+b2ZmLWJ5OiBHcnplZ29yeiBOaXRrYSA8Z3J6ZWdvcnoubml0a2FAaW50ZWwuY29tPg0KPiA+PiBT
+dWdnZXN0ZWQtYnk6IE1hcmMgTmV1c3RhZHRlciA8bWFyYy5uZXVzdGFkdGVyQGludGVsLmNvbT4N
+Cj4gPj4gUmV2aWV3ZWQtYnk6IFNlcmdleSBUZW1lcmtoYW5vdiA8c2VyZ2V5LnRlbWVya2hhbm92
+QGludGVsLmNvbT4NCj4gPj4gUmV2aWV3ZWQtYnk6IE1pbGVuYSBPbGVjaCA8bWlsZW5hLm9sZWNo
+QGludGVsLmNvbT4NCj4gPg0KPiA+IFJldmlld2VkLWJ5OiBTaW1vbiBIb3JtYW4gPGhvcm1zQGtl
+cm5lbC5vcmc+DQo+ID4NCj4gPj4gLS0tDQo+ID4+ICBkcml2ZXJzL25ldC9ldGhlcm5ldC9pbnRl
+bC9pY2UvaWNlX3B0cF9ody5jIHwgNDggKysrKysrKysrLS0tLS0tLS0tLS0tDQo+ID4+ICAxIGZp
+bGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0pDQo+ID4+DQo+ID4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9pbnRlbC9pY2UvaWNlX3B0cF9ody5j
+DQo+IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvaW50ZWwvaWNlL2ljZV9wdHBfaHcuYw0KPiA+PiBp
+bmRleCAyMGJkMTgxMzY1MGYuLmQzZTRhZWI3ZTQ5NiAxMDA2NDQNCj4gPj4gLS0tIGEvZHJpdmVy
+cy9uZXQvZXRoZXJuZXQvaW50ZWwvaWNlL2ljZV9wdHBfaHcuYw0KPiA+PiArKysgYi9kcml2ZXJz
+L25ldC9ldGhlcm5ldC9pbnRlbC9pY2UvaWNlX3B0cF9ody5jDQo+ID4+IEBAIC0yMDQ1LDcgKzIw
+NDUsNyBAQCBzdGF0aWMgaW50DQo+IGljZV9yZWFkX3BoeV9hbmRfcGhjX3RpbWVfZXRoNTZnKHN0
+cnVjdCBpY2VfaHcgKmh3LCB1OCBwb3J0LA0KPiA+PiAgfQ0KPiA+Pg0KPiA+PiAgLyoqDQo+ID4+
+IC0gKiBpY2Vfc3luY19waHlfdGltZXJfZXRoNTZnIC0gU3luY2hyb25pemUgdGhlIFBIWSB0aW1l
+ciB3aXRoIFBIQw0KPiB0aW1lcg0KPiA+PiArICogaWNlX3N5bmNfcGh5X3RpbWVyX2V0aDU2Z191
+bmxvY2tlZCAtIFN5bmNocm9uaXplIHRoZSBQSFkgdGltZXINCj4gd2l0aCBQSEMgdGltZXINCj4g
+Pg0KPiA+IG5pdDogSSdtIG5vdCBlbnRpcmVseSBzdXJlIHJlbmFtaW5nIHRoZSBmdW5jdGlvbiBp
+cyB3YXJyYW50ZWQuDQo+ID4gICAgICBCdXQgaXQncyB5b3VyIGNhbGwuDQo+ID4NCj4gDQo+IEkg
+YWdyZWUsIHJlbmFtaW5nIHRoaXMgaXMgdW5uZWNlc3NhcnksIGFuZCBJIHRoaW5rIHNsaWdodGx5
+IGNvbmZ1c2luZyBhcw0KPiB1c3VhbGx5ICJ1bmxvY2tlZCIgc2hvdWxkIG1lYW4gInRoaXMgd2ls
+bCB0YWtlIHRoZSBsb2NrIiB3aGlsZSAiX2xvY2tlZCINCj4gbWVhbnMgInRoZSBjYWxsZXIgaXMg
+YWxyZWFkeSBsb2NrZWQuDQo+IA0KT0sgYW5kIGFncmVlLiBMZXQncyBrZWVwIHRoZSBvcmlnaW5h
+bCBmdW5jdGlvbiBuYW1lLg0KVGhhbmtzIQ0KDQo+ID4+ICAgKiBAaHc6IHBvaW50ZXIgdG8gdGhl
+IEhXIHN0cnVjdA0KPiA+PiAgICogQHBvcnQ6IHRoZSBQSFkgcG9ydCB0byBzeW5jaHJvbml6ZQ0K
+PiA+PiAgICoNCj4gPg0KPiA+IC4uLg0KDQo=
