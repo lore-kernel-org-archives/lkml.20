@@ -1,101 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793898185;
-	b=EMeD5H1CppeVVYN5HeL7AMS9Ejf9rOUaB7Mr2ELtn+yeWuIh1TyHVoBklC3EuIPP2q7f
-	 jF4tSkWobB3KLJNQvv5FktIOSzLcozhWmHqzt0NheTMzRR6aoLYQ33A9+2QvQWVqhyaQ/
-	 +spvYUPxYDvhEOGgTfcnaFAXjEYismKOuyalHfdcGPvMfLD5PAln6jtDyyce0kNpxOBmh
-	 1uNfHIZbJq8Bq8W7li9OBCFZR1zyL0UxWGBMtc5S4Hohir2xEDLJW+JK384ZKC9bk20eS
-	 +VMT6V/SDVuaccuhk6KxvNyT6BE9Uia0wAKpxiMdt46rGTpflR8vstTmPLWthDMiNQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898185;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=myxHuKBMV+4xfHAoPcmps6Jo0+mw1I0xl2wkI4iMH50=;
-	b=Sc6MfZOdjKLQEaa3zwoKo8/+gZZTWcujOi9yIkXN7mxJUR/c4x/ZxXI7MvAaTlQMdsia
-	 3qwtLKEsz3u+OAFiVO7hnuVQPI9LJcY18VnNcSL6nZSDzoiGt/k8O5Rayis2Yk2ba+Xyv
-	 pVM8g9AOE/QVjfvbHujBmVNqsF6dPaK4rHmUuy3HkyT/kdSebCASLMBI3LH7Sd8Ws6Xcj
-	 ocVktdIwRBBmnks9cVR18VzMEWsJkSs4o0/yQTggGD4yvi/n9o1++4ltx6LBVPA0zI9p1
-	 EQF5aAObrd0PvbTZVnoL7bbVm8B7UZ4uqltxVziQWCdmTMqpvElQnWxGQu6T784+Ymw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Yie/T8br";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793898186;
+	b=bGLbHiE+fhkytbcMboioVVICpFbcheRplmN93wVUxk6c4fHPeTNFQ6Tw+jhC9p7ziCfk
+	 7qobfdK339K87t0RmXlL061fDfJgiyWgPOrWeHuKmGJvGL53t3bQzcfBaWWzUvLGZqGFC
+	 x0PMIVPhnwwJR04omt6Ky5EILyrAAhFTKx6FVKZHVK8m0XZnxAJ4maiu9VIhxHsIsrzyE
+	 uLqZCbP4S65eGGs2hLQI6nic+2kGcZNgxYsbJ+IjyFao8CkIW3XHHNsM8KhwDLWjnIAfW
+	 1+B+zoWfm5vqgpwc0dr9hi7RpDuOSZM/pQXXJqwbRbonzQwbquVRlISZ6/W7vSj6Q2Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898186;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+GDK5SHSY6SA93NwCdlZTl+b20QDETC0OdxKh5BTja4=;
+	b=4At+Amqkb6CTUDF6wkXu9opH7x06FCTnbzI6wLDQm4BQ67yk0+CR+PulLw88M4NDh9RF
+	 JDfCPJ/wC0Uu70F4YpO+YH65Ox4tVxvw5h9QTDKMIUQjGI4ecdL/xrFerKwCkIEfUvqPO
+	 PUYllOTQYwiaGgPaIcOUAC4g2eTVqKrdxYEHsg8oJz4f//7efgngmtKoBpfMrBEdrsT/O
+	 m73vSx2h2dilLQV9hOAQQ4iWm7SrCbdhglMkBp2fOMX2705zNJkKHCVCxmBeJz68ACXK+
+	 w9QbfB+ntEkYkbqEFE8ILXnLM80mywF733F1Eyg6hY8Mv0k5EG9Q65XaoJ81fokOEZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/zzQhn9";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985B4606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985B4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0762D606A33E;
+	Thu,  5 Nov 2026 17:03:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yie/T8br
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1956921f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:03:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793898183; cv=none;
-        d=google.com; s=arc-20260327;
-        b=glV/eEeofKmg/dQogppn/eS5N+nT8LDKY++qAjP9KIKHL0XbDNNHUxLKenJjTbp8BN
-         9S382BqB+I6rN7khJx3gLB3v+/8XbbfbGgfdbi1QVhzQFIYpBuRJz9N2hrQfYSHu73H+
-         V+qOyii9203gWbMIA34hliejAknh872AQaINAMlkC8kjf1OGGTJVJ1U9QTbIZ+acvSHY
-         e1Ej6j2YlHawlWHrg70sOuckCQ1za/Sp2zttTE1br4eAkFjkPBc5yqb1OEORpkAPMQ1T
-         s4mk60b5Fy6jz0vbBIpDIWaMKoakxR928ddolAH0jRauZme0Ocyd+zVSXXzc09uPkGPf
-         CEhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=myxHuKBMV+4xfHAoPcmps6Jo0+mw1I0xl2wkI4iMH50=;
-        fh=eXykZNZNsFkfR26Cz039QnlqpRG5z8mbrBupcsip/40=;
-        b=nHaHSNV7epMlWOprHv/yASHUFnVteu5/VHc8xm4il/RP87OqznV7ktPfzWcOew+Qhk
-         6MI1+6TtCElCby6tknlKO4dutpCqB3TuPRvBNhj/exwc6Ynnpv0cFRS5rKikTbGUWC7S
-         bUaUgigZzK/Od+QzCOkmsY7mzVygOBhlb/EyvKN8jSBL4KtU75vWv0UtwhV+rG/Qz+PB
-         wEv+fUqbMzcWaVdEZx5ohZTwzA1QeBrV2/78cMX3ehmqF8qjK7y4ItUQbYxV5JpAXmVy
-         JJtgI/Rmp2g64Gxh7yFnx6v2p5GU5XoK12y8qbmv+MIWpoIrQPjYNvrOrl5EiWFodjhx
-         7i0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793898183; x=1794502983; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=myxHuKBMV+4xfHAoPcmps6Jo0+mw1I0xl2wkI4iMH50=;
-        b=Yie/T8brMNwD9XMtoCRe4KocbowOal4KvpE8BrlwXg+74uPYL2na7XdS71r0etDevo
-         jSuftvcY6zXZMcR3usSsir+uCR+ND9Q1w46SkNB78+f+N7+KcdKzJuhi8+WzqJpqASSD
-         SB6VXbUx2EGWa0XiAHI1sFZ9AKfFC9IWFjzOQplInLIKCD8/r7b7x7UQj4S8JO4lVRCM
-         ydZXZeoz2/d4hBHQTZerbPRE1YccCiLk7u/+Pm9ywXZRuncEFx0X1PL9zxUFSebD1b8x
-         FciIG7UqaMvwQH+NAO6vdLr08VcCyBYh/am2KOMbdoiyIifCKX/+j/u170FM+Rqfr6HG
-         NUVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793898183; x=1794502983;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=myxHuKBMV+4xfHAoPcmps6Jo0+mw1I0xl2wkI4iMH50=;
-        b=lyM4mHehaFmsIX4f+frwiMsYp3esKkvrWnIPdHCW9qKB0KRXISx/3X9SGvXYFWVBQB
-         KZ6jatfIbKwusyTbf8Pm54BsvAau0Y+FaellkSnCSsZooToNEqryP9LZF+LSR8cpuTXf
-         8twpGDz1XEuPzLJfkS1EkVl/19SA+1LzqBoxGTCRu90MBSXVGEykCQ0Nx6IZ6Z09nkVg
-         WL3kZJkEAwKmgbxr7JHQBRnpbHdPsIA/kFIF4rfl7e4LOpbD7CZDyPzEWqsO1yKuFDz5
-         g8YNd06LLxTNJYaULPGCyKwaZAPXICR/3ofkfGCW0GIkBYERt0YHU6QLk656JbpXIpyB
-         M9nA==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ+oYhG9qHJjArbrpCzeSdijZ10X0HX6fvot3CaNfPBg6SOEVfqAxUuF5+YZjYsXxukFzkwLCy03Rw8Lk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9a4eNq+JJr43Rf13Q4dUvuuhMbN+f/totFHXmfnJKzLLnlx6vM
-	HlRqQprZEV2h4Mken8O2XdTzupmiaejMtzWrEt5J9gOH6jniG1e4cMx+P77u7fbrGS31EKClrzy
-	hMxQpX+xG7m11GskerwhVPpoQhWAbhBs=
-X-Gm-Gg: AYBFou1Z2dz96XB2i76MO9KiEie2k598FStXp7gip+VqHd98peX1jOzsSzpwRiyVWXn
-	c3u8OVL2gLB8Ga0FKZjOgJbzlPz0FlfRoO5vlpZgrXpau9Spqqf6HjwsX79ZIzQBeUwZs+8Ex4L
-	EdvPLzLz1PYrX2xCPyMHD62q1DwZJlXAxt8PL2ZBjDkHji3UXTxpc4KIymBWWbVQNiwlCEITWEd
-	3gXKyUDGMGKnc9YoakEPJj58wk0xjONx7YbGreP4zXhdhUot+itiuB92LTdMRoUuzkvUdOQ2D3u
-	WY39nKdxhXK3AdTsWVGjAdvm9012bbUlx25c7/IRfTzRWegaUWhhL92g1J1PVa5Vb4e+2o6PEx8
-	bnscjUQNo/0bLeZjK17jDG/W1HxCyuAX8bY55Oe65mI3LSd+rid3ehZXzvW6TeY82v5dRbW3wSA
-	pZciW7QFRu88MkKc0JHSpVfA==
-X-Received: by 2002:a05:6000:2501:b0:48e:5d33:da5c with SMTP id
- ffacd0b85a97d-49273f500damr506459f8f.1.1793898182689; Thu, 05 Nov 2026
- 09:03:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/zzQhn9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4329B1F00A15;
+	Thu,  5 Nov 2026 17:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793898185;
+	bh=+GDK5SHSY6SA93NwCdlZTl+b20QDETC0OdxKh5BTja4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U/zzQhn9F9RkCJilk4OZI/QAAx01gxRgJL5gzdN1eBbPe+uIGkyUIY/eHuti0URuV
+	 PC7SUDFqmuz2hgDMK1d01qt6xjAyjtPUFHYy28KJ/ecJVH9fN82lpkhN/4yVV1XlRO
+	 J+g/tpgZlN6y1WvV3NayHklvEYOpvWYENJlITQYLg5XptBrIk+g6mtTGVFojNMYH0f
+	 k08K2sSlJ0/J3aq6my/f7r4uDwhlW8g15clSQ4VvKR/0ZgfPRWwuC2F48xkjZIw6dX
+	 57HFiVyxHavVE/PKepqny3sH4DJ91vEiRpr6mCqisqmj08Gc+2CBOd1Z/MKUn0p7F3
+	 5Eai81R5zHBiQ==
+Date: Thu, 5 Nov 2026 17:03:03 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Richard Chang <richardycc@google.com>, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 3/7] zsmalloc: switch handle type to struct zs_handle
+Message-ID: <auy19VvYgb25vnFc@google.com>
+References: <20261105044752.1997895-1-senozhatsky@chromium.org>
+ <20261105044752.1997895-4-senozhatsky@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,109 +60,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260929113921.119489-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260929113921.119489-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMuHMdX9bJB-BUqJxvzYbaVuNziux1NhgXvkY6rgvGC6tdYe4w@mail.gmail.com>
- <CA+V-a8tbWcODg8E1qDwXU63ohfSgdeMm6GuEkrg=vyrNLQpbgQ@mail.gmail.com> <CAMuHMdX1j6G+Kd80-6s5PEVkOfG_tS2U8p47929G9kHvD1S-eQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdX1j6G+Kd80-6s5PEVkOfG_tS2U8p47929G9kHvD1S-eQ@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 5 Nov 2026 17:02:36 +0000
-X-Gm-Features: AclHuK9B3JW76CB2qKvqEnvosxoUZui94RMsNVjlo-gO8QGB6XF8SpTGr1OOZV0
-Message-ID: <CA+V-a8u6G0=wtBxEkjY3rYf-BQv23jJdc-4NE7aePEx_WkOVqA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] clk: renesas: r9a09g056: Add ADC clocks and reset
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105044752.1997895-4-senozhatsky@chromium.org>
 
-Hi Geert,
+[..]
+> diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
+> index 5b7298a5026b..693c9484b638 100644
+> --- a/include/linux/zsmalloc.h
+> +++ b/include/linux/zsmalloc.h
+> @@ -22,14 +22,15 @@ struct zs_pool_stats {
+>  };
+>  
+>  struct zs_pool;
+> +struct zs_handle;
+>  struct scatterlist;
+>  
+>  struct zs_pool *zs_create_pool(const char *name);
+>  void zs_destroy_pool(struct zs_pool *pool);
+>  
+> -unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t flags,
+> -			const int nid);
+> -void zs_free(struct zs_pool *pool, unsigned long obj);
+> +struct zs_handle *zs_malloc(struct zs_pool *pool, size_t size, gfp_t flags,
+> +			    const int nid);
+> +void zs_free(struct zs_pool *pool, struct zs_handle *handle);
+>  
+>  size_t zs_huge_class_size(struct zs_pool *pool);
+>  
+> @@ -40,10 +41,10 @@ unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size);
+>  
+>  void zs_pool_stats(struct zs_pool *pool, struct zs_pool_stats *stats);
+>  
+> -void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
+> +void zs_obj_read_sg_begin(struct zs_pool *pool, struct zs_handle *handle,
+>  			  struct scatterlist *sg, size_t mem_len);
+> -void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle);
+> -void zs_obj_write(struct zs_pool *pool, unsigned long handle,
+> +void zs_obj_read_sg_end(struct zs_pool *pool, struct zs_handle *handle);
+> +void zs_obj_write(struct zs_pool *pool, struct zs_handle *handle,
+>  		  void *handle_mem, size_t mem_len);
 
-On Thu, Nov 5, 2026 at 2:52=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
->
-> Hi Prabhakar,
->
-> On Thu, 5 Nov 2026 at 15:03, Lad, Prabhakar <prabhakar.csengg@gmail.com> =
-wrote:
-> > On Wed, Nov 4, 2026 at 4:45=E2=80=AFPM Geert Uytterhoeven <geert@linux-=
-m68k.org> wrote:
-> > > On Tue, 29 Sept 2026 at 13:39, Prabhakar <prabhakar.csengg@gmail.com>=
- wrote:
-> > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > >
-> > > > Add clocks and reset entries for the ADC controller.
-> > > >
-> > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.c=
-om>
-> > >
-> > > Thanks for your patch!
-> > >
-> > > Similar comments as for "[PATCH 1/2] clk: renesas: r9a09g057: Add ADC
-> > > clocks and reset".
-> > >
-> > Ok, I will apply the same fixes here.
-> >
-> > > > --- a/drivers/clk/renesas/r9a09g056-cpg.c
-> > > > +++ b/drivers/clk/renesas/r9a09g056-cpg.c
-> > >
-> > > > @@ -539,6 +556,10 @@ static const struct rzv2h_mod_clk r9a09g056_mo=
-d_clks[] __initconst =3D {
-> > > >                                                 BUS_MSTOP(3, BIT(4)=
-)),
-> > > >         DEF_MOD("gpu_0_ace_clk",                CLK_PLLDTY_ACPU_DIV=
-2, 15, 2, 7, 18,
-> > > >                                                 BUS_MSTOP(3, BIT(4)=
-)),
-> > > > +       DEF_MOD("adc_0_pclk",                   CLK_PLLCM33_ADC_PCL=
-K_DIV2, 16, 7, 8, 7,
-> > > > +                                               BUS_MSTOP(3, BIT(9)=
-)),
-> > > > +       DEF_MOD("adc_0_adclk",                  CLK_PLLCM33_ADC_ADC=
-LK_GEAR, 16, 8, 8, 8,
-> > > > +                                               BUS_MSTOP(3, BIT(9)=
-)),
-> > Shall I also rename this adc_0 to adc_?
->
-> OK, let's match the docs.
->
-Ack.
+I would squash patch 7's constification here.
 
-> >
-> > > >         DEF_MOD("tsu_0_pclk",                   CLK_QEXTAL, 16, 9, =
-8, 9,
-> > > >                                                 BUS_MSTOP(5, BIT(2)=
-)),
-> > > >         DEF_MOD("tsu_1_pclk",                   CLK_QEXTAL, 16, 10,=
- 8, 10,
-> > > > @@ -634,6 +655,7 @@ static const struct rzv2h_reset r9a09g056_reset=
-s[] __initconst =3D {
-> > > >         DEF_RST(13, 13, 6, 14),         /* GPU_0_RESETN */
-> > > >         DEF_RST(13, 14, 6, 15),         /* GPU_0_AXI_RESETN */
-> > > >         DEF_RST(13, 15, 6, 16),         /* GPU_0_ACE_RESETN */
-> > > > +       DEF_RST(15, 6, 7, 7),           /* ADC_ADRST_N */
-> > ADC_0/1/2_ADRST_N?
-> >
-and this I'll keep it as is (ADC_ADRST_N)
+>  
+>  extern const struct movable_operations zsmalloc_mops;
+> diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+> index 7ef80e0da626..7d8aab56f5cd 100644
+> --- a/mm/zsmalloc.c
+> +++ b/mm/zsmalloc.c
+> @@ -264,6 +264,10 @@ struct link_free {
+>  	};
+>  };
+>  
+> +struct zs_handle {
+> +	unsigned long __private obj;
+> +};
+> +
+>  static struct kmem_cache *handle_cachep;
+>  static struct kmem_cache *zspage_cachep;
+>  
+> @@ -438,16 +442,16 @@ static void init_deferred_free(struct zs_pool *pool) {}
+>  static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage) {}
+>  #endif
+>  
+> -static unsigned long cache_alloc_handle(gfp_t gfp)
+> +static struct zs_handle *cache_alloc_handle(gfp_t gfp)
+>  {
+>  	gfp = gfp & ~(__GFP_HIGHMEM | __GFP_MOVABLE);
+>  
+> -	return (unsigned long)kmem_cache_alloc(handle_cachep, gfp);
+> +	return kmem_cache_alloc(handle_cachep, gfp);
+>  }
+>  
+> -static void cache_free_handle(unsigned long handle)
+> +static void cache_free_handle(struct zs_handle *handle)
+>  {
+> -	kmem_cache_free(handle_cachep, (void *)handle);
+> +	kmem_cache_free(handle_cachep, handle);
+>  }
+>  
+>  static struct zspage *cache_alloc_zspage(gfp_t gfp)
+> @@ -466,9 +470,9 @@ static void cache_free_zspage(struct zspage *zspage)
+>   * Pairs with READ_ONCE() in handle_to_obj(): zs_free() may read the
+>   * handle locklessly, so prevent store tearing here.
+>   */
+> -static void record_obj(unsigned long handle, unsigned long obj)
+> +static void record_obj(struct zs_handle *handle, unsigned long obj)
+>  {
+> -	WRITE_ONCE(*(unsigned long *)handle, obj);
+> +	WRITE_ONCE(ACCESS_PRIVATE(handle, obj), obj);
+>  }
+>  
+>  /* Protected by class->lock */
+> @@ -817,13 +821,13 @@ static unsigned long location_to_obj(struct zpdesc *zpdesc, unsigned int obj_idx
+>  	return obj;
+>  }
+>  
+> -static unsigned long handle_to_obj(unsigned long handle)
+> +static unsigned long handle_to_obj(struct zs_handle *handle)
+>  {
+> -	return READ_ONCE(*(unsigned long *)handle);
+> +	return READ_ONCE(ACCESS_PRIVATE(handle, obj));
+>  }
+>  
+>  static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
+> -				 unsigned long *phandle)
+> +				 struct zs_handle **phandle)
+>  {
+>  	unsigned long handle;
+>  	struct zspage *zspage = get_zspage(zpdesc);
+> @@ -839,7 +843,7 @@ static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
+>  		return false;
+>  
+>  	/* Clear all tags before returning the handle */
+> -	*phandle = handle & ~OBJ_TAG_MASK;
+> +	*phandle = (struct zs_handle *)(handle & ~OBJ_TAG_MASK);
+>  	return true;
+>  }
 
-> > > >         DEF_RST(15, 7, 7, 8),           /* TSU_0_PRESETN */
-> > > >         DEF_RST(15, 8, 7, 9),           /* TSU_1_PRESETN */
-> > > >  };
-> > >
-> > > The lists of clock and reset signals (tables 4.4-2 and 4.4-3) claim
-> > > there are 3 sets of clocks and resets, one for each ADC instance,
-> > > but this does not seem to be reflected in the register bits?
-> > >
-> > The clock tree in r01uh1072ej0130-rzv2n (additional document).pdf
-> > shows single clock is shared by all the three instances.
->
-> I take your word on that (I only have the additional doc for RZ/V2H).
->
-This has been tested on the V2N EVK connector J3.
+Would it be cleaerer if obj_allocated() just returned the handle here? I
+believe this can be done separately in a prep patch.
 
-Cheers,
-Prabhakar
