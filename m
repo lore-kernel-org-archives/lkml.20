@@ -1,68 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793858796;
-	b=wtesFwpuQ0NxhXRBHz5U+bAJHSGm05A+V+MpL9AvI5jYJtjGmIK+cuAlnWPZHWbjB9/6
-	 a22E0892f9je6jsS3POgmWHIb6kAn9oQLWGmbnYazuL0fkB8nVTchNJe2vNY9ryXR6B2S
-	 whidF/Zdls4bCbx8ZgLMSWIPXvJi4ik/2GN6IjLwtcZbu2yHwp5ID/ex+qdpSSnlS3D9Y
-	 WiPHiATE1vFKkg9rfEhSdOjc2unJ/fg1BtCpSWLdX4FU6LXlFFb4eJysSLVXCPTCn2Np/
-	 8kuZvpf225ouvpTFVTiKiv2KDs4kL+Hr5cSBOQPS69jpvQgHdxgoWqGuEaz7jqjq7rQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858796;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=hlm+rn+oysNQEGjSF8tAU2VzC9EojVXk66lwsMDmr7U=;
-	b=NWfd1HrCEfyHIQk2pgDaq4pAWU6EVdC+PwMJgxpXSn+bgKPBd4AQsBzEDfcrJO+LC9UB
-	 JBO+KSO8SBPm+bcE+ulDdH8FEllg7yoCVMAOdoTFWD1JnxedRMhKZ7kG/htaKDs34xdHr
-	 sxYB++y4zutDL18XigqjbbY5XDyXyNPOZiRHh3QMF45x3Iam2t4/p1sUoEeR9mHeaEMEl
-	 vTXAevNsbWlVipRlkIc4IPufxAeMzipGHoqjW3Yz/VrtkbO9GLGC2ElKPpdTm3AZ0EVXg
-	 yafEuj4L3JxEAubtqmfqpdNGQg5Y1TyY1V9LJxf98lXExrOI1j5XjCXegZFl/4DZrhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sqj84r+D;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793858936;
+	b=Ycrzka9XFesn1FYIuPwkE1DOzkn4Ih/ghwjxEK/cUU9R5MewHgfW5i0w8uVl8//QBL9A
+	 nSfjY2ZJ4BXeT/U4pocGxKse2TBCsa+6Oqv7jzG/916AvRquFcNdzu0bWgKo0rfcA3dal
+	 J6OnfzlJ41MUohH/iOqyqafpf8FVbD8iMboGc25Eftm+Tw0GgiXp+pAWqiqgP/uKdqdI3
+	 Z1ymEoFzK8VRk2D4XS3pwowlYSznOW5MVYlnme03ebyFr4imuw+2866G8ZACsUB7p/A27
+	 iZoqtqAFyPQZOCwrzjmAz2Oabi7AevLfOfiOVMp1OxNiKswj/zcvIwU9NE7lRttk1ZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858936;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=M3DrYTcpWup/5cuuiAlGMoyyyySpp9VpFcQP4dOMZyI=;
+	b=GbET80ODi7Y6hyZ5tvTBSfuj1F0BHeEH/nfL6A/OrF12d4DLOB0YkgxJ5V+gs02/kMUm
+	 cms+o9jbWaXQuXR/vacxhx8fPGaZ5LypSkeeBMi1K8S8rK04sapyfxV+RNeO5O5bXVMQv
+	 mDHN24y+Ch6Lg/rx5rNTpFlboQUIaAJLVu5M8NX2QWad02fwzM/zR7ZeeS+Y5N5p4Aa7d
+	 Vb+AY7wHcP65IcXdWN464p1asrdfxBBFHwugnn9ILgPkaWUORIF4x2gvxXwqC1HzCKp8o
+	 quhanEUd7qEysFZyu/mh6+cU6sQYTp8PNg6BuqFEbKQMS0DcLutSoaUwLGWjmiLNyyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PnR1tcQx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.40
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011040.outbound.protection.outlook.com [52.101.57.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF35606A326;
-	Thu,  5 Nov 2026 06:06:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAF35606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD814606A31B;
+	Thu,  5 Nov 2026 06:08:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD814606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sqj84r+D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793858795; x=1825394795;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=e1Atk2ZmfPf0LeQVA4o58INUz/taOCt0EIF6/hjQxu8=;
-  b=Sqj84r+DxXe7/Nj4F6lVzK7c5MN1epEYaNy/+g1RU63ncMonWVW/er2G
-   wHmgMNCjXAGJHY4w4GDqRd6HU9dnjcX16lXWESyKzB2DQKgsRhUCr72t8
-   Wb8GLSInCQyGmm1h97e1VjTIluG/HCl0S0B0vt6RK9nMhbUq+IeAtz/yN
-   30NNLXgGyRaD4ETteHni5pjSNUpaTs9KKyLX/jAu42r08/zh/vaWV1XLe
-   VqoZT93wTXLrpg/ZHqw/8zQcLQEpWVx+0gRrB7u02ZrPao8S+7oZIlo7Z
-   yWpqM4lj2udWkug58b6BUq2avSXLk0UE6ASvQ5fbiMh/tJiIb8P+4Ngon
-   g==;
-X-CSE-ConnectionGUID: n7wZXhPbRR+W9xGrLSDlHA==
-X-CSE-MsgGUID: Sq+B1ZhBQqGh7vUgRBz0qQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2628740"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2628740"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:06:35 -0800
-X-CSE-ConnectionGUID: cl2az8UQR/ar1xXQbOTzxA==
-X-CSE-MsgGUID: biV5YcuiTEaTHjQdSSRgUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="8688050"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:06:31 -0800
-Message-ID: <d52dba58-5f8a-4980-b9d0-0b1e0df48f82@linux.intel.com>
-Date: Thu, 5 Nov 2026 14:06:27 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PnR1tcQx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fRTsL7pm6uKe9+vhJ2LySJYSJQgLpES3PrwGqkcwsYjQf0G2L/pNj3LucgIx7A5RTWI8a9YXVvZZsTYnrJADRN8HK3yauQYOnFDZCuOge44i+ZR/7hguGTe/0sIt+CQ9jF4tUUl6/jNE9lFtr678pxS6wtYNnAsGsYGvjTCD2F9VxHKtcQQ2z0pthrncYXwXUCha+dvgy5SjkXeK3w5KYXQSWmd4SWukb0JC4m9BQShkkfusLtbgtwT8K6RWctA58si+jnsHeYzy4qq0XTNCJSiafEuegc17+PXvbFuS9vgBhihLolPcsTu9TrmPCl3GqsBMEoIFD2ENS+0u9IHu+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M3DrYTcpWup/5cuuiAlGMoyyyySpp9VpFcQP4dOMZyI=;
+ b=J5Z7zUfpRQ/FV/ACQLm7zKc15O4J2/87xQMslZItBMudSkwey3BpV4tyOiPww5Vzvs6TrQPZDg4wPJRjXxek23yYtYZ+Sqayu9USxdnWHwruJCMc6rBMZ2tv++VF9fxXMJV+WHUWEduIJl7Gz+G1QGFHrZkP57vuLdDGlszIqisP0d4V6AVEFZ2OXs9M0k44J0ngsr4pgzbid3ZJ16lJIPG7omty3/3E1A95R6+fUeghHLSGZpgxk+DUrhZo5ROp3sIUBDGJ1tQpf+lDvkJszjn11vi+r83CBAQe34i6bJYQXFKTSja+/NhCFaRCrBgI8KJBnw2bP6h8vs7du6uHbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M3DrYTcpWup/5cuuiAlGMoyyyySpp9VpFcQP4dOMZyI=;
+ b=PnR1tcQxubFDqOvcrrkw2D5sPktkKqogpGMvWnjK+3R8puPCPIsi5WmB9HV6mSqa3p17NNxhojTwmYJpqw5vPqBsMSN02YAKN3u3FTW9zmLoTjatl8/NKj27grN2rg9O2UwVfePfkVyV6rNUdIQuGZBl5J1aIwOAILz6L07HzChj3NOi17CkmIky4ywoV/zm5iDDaOBkURqYK+Ih9qIe3vP72BkmxYY0uVHn2StGX3pinZRM2yJQzc1NC9E/bpDTZ61V4teJLPiyas3a6zjU55po7ysWWF4zgxh5v94MVTdZy/g6tcvxKp0SK2XuXdPVXxy58QUkuyidfhMXgvEHKg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
+ by BL1PR12MB5875.namprd12.prod.outlook.com (2603:10b6:208:397::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
+ 2026 06:08:51 +0000
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 06:08:50 +0000
+Date: Thu, 5 Nov 2026 17:08:45 +1100
+From: Balbir Singh <balbirs@nvidia.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Michal Hocko <mhocko@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>, Harry Yoo <harry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v8 1/7] mm/memcontrol: flatten try_charge_memcg control
+ flow
+Message-ID: <auwdbYi9sLaNd1G6@parvat>
+References: <20261104233029.3282438-1-joshua.hahnjy@gmail.com>
+ <20261104233029.3282438-2-joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104233029.3282438-2-joshua.hahnjy@gmail.com>
+X-ClientProxiedBy: MEWPR01CA0292.ausprd01.prod.outlook.com
+ (2603:10c6:220:1f0::7) To CH3PR12MB9730.namprd12.prod.outlook.com
+ (2603:10b6:610:253::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,213 +116,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, iommu@lists.linux.dev, x86@kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, xiaoyao.li@intel.com,
- Chao Gao <chao.gao@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] x86/virt/tdx: Add SEAMCALL wrappers for IOMMU
- setup/clear
-To: Xu Yilun <yilun.xu@linux.intel.com>
-References: <20261015010705.1973284-1-baolu.lu@linux.intel.com>
- <20261015010705.1973284-2-baolu.lu@linux.intel.com>
- <atBz5cj0wQZv/fLN@yilunxu-OptiPlex-7050>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <atBz5cj0wQZv/fLN@yilunxu-OptiPlex-7050>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|BL1PR12MB5875:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a4bee68-b31f-43ec-4840-08df3b034302
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|10070799003|366016|376014|7416014|1800799024|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261026121527099003|261026140227099003|11063799006|4143699003|10067099003|56012099006|18002099003|22082099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	ir+zadc/kNAQTP0sTd36li/XYAtECMdU1HG1ejijY27usFcrVi1TQuVhGXUlCPepY75B+BUgG5eRfAt1p/ZbZpQGGhLXByf9ghxpt+NvhMmsaKrSMB47Q+gw7SCSCwPl7f7VP8lie67O2foZAxwCVjP3Ji/EZHjAQzJ5k3KXSVG/P7aCZhbxmwz3BkDYQRTMhg5aTbTX4UzOf8bgz/Md2vuulVm0uGfu5eTAdvtZtXqPmjhiOOZ4iDmHryMM2hNANN/tzh3jEFB/Y2sZXhi2TiEKv1gInZOqIN2Op1Oe1ztMso24R38OmNJ2qEfOt9TeFr/netV5RxMjPuwhomcntiKCd+fxq3xWtXueKYIPMAGZuMOcSGbUNCqPVbz2wPtEmhJYsGRsPNSeOCOm9YeQ/5fTi6pcDxSvG6dvr3VydNrkb1LuciZYXqvBd/MysPNZlBRCU6OzFI2F/FsQavYnzYSjjs7Ce7Q+1GJxpUtfmbXTujnx5Rdp/PESYVAEuj5ikHKQPqJCcVjlnLh+LBdJS7FAziFZrR1tYR0m4gmvmnwq3SpjLVYHbBvcN7RDhxU2EcJVw9lLhjJQRkVgFVYvvnbMhnV+bM8PH0928/s9AsNhDj3no95uMPhytV/zOL0ePjfY3/bNdCVkgGWEvVIUVRzQb5Tu0xl8ScOlieI/udY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(366016)(376014)(7416014)(1800799024)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261026121527099003)(261026140227099003)(11063799006)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+Der5HW/4IBWhAq6NDPXIuVIh2Qpu/cfe/ptZpJV8uIDH9tsKcs1FkSCa5dE?=
+ =?us-ascii?Q?vdhvByMHp/ylHEtxxJNtPbOEh54OdfOfnN60xRtoHnOSlL4ArG5zaolz1dFa?=
+ =?us-ascii?Q?xY8HAiBdMDvTcy9oJ6kjeN1Na2xZvtMM2yai/gxBUpIPLQv4kLm60PgK+Mzw?=
+ =?us-ascii?Q?6dVkw+pG7gsZ9jGWvJxFyK+SPxermsbiFw8Dw0ZzHlHfw1NJT2v9k2bgXvmS?=
+ =?us-ascii?Q?vLnQVXbagL8aT9qCbDCnNE7jA+gSrBs70JXPgvHMdFTgtITX59yHhJQnwUdQ?=
+ =?us-ascii?Q?mxwVgA+bU+kOkUBX2YhxyJUfn5x+rAJWn9b4cB7T6FWNkaPZBjSA7UE6aEhk?=
+ =?us-ascii?Q?rquKS4h2uZ7EUzbOQDVpSgl91AZtUGfWEahzB7y1R7j4GbSvMrP7PeoA5bGK?=
+ =?us-ascii?Q?R8U6uPa5i0yDRc/Y0BZ/HPI+B7iR0nBqOoTI9ZiAR2vgewktvTFgcHQc2Rnq?=
+ =?us-ascii?Q?iL/MzdRWbygyXAzakGyxXkHoprP7TuEQUIZVeF8uNo0ShuytyZbABBRuvyld?=
+ =?us-ascii?Q?ifwLcxShAMvMquzwJ38XxO0L7I9Pe5gTdC9n18grMK+amvZ4w0NRJhb+0vVt?=
+ =?us-ascii?Q?DXj/QE1B6rrlabRbTNNmbgNDo+oh821Zzj7E0c1cNpPmVYFrtorJZWXFHy+c?=
+ =?us-ascii?Q?jZCRox2aDIk/0XZ2fQP9+TcxKi+Uv0bEHYUwqAxagRauS5+ngR37zTTEDKQm?=
+ =?us-ascii?Q?ymQemAy/szfP1TGipd3nAcqZTeSDc+bq6AMNghtXukLfZE22uKhu1ikgT+av?=
+ =?us-ascii?Q?K0nffWsbnxOJrdDr9s7tWbdQJGosEeEHizY+pV2XOlkpzkm07QIVBlFXrPQi?=
+ =?us-ascii?Q?6G92nh7dZoJW/iywH2iVKJJnfI/LyhBJMnY4sN32Gy2feEGxnTs6J+Cx02MY?=
+ =?us-ascii?Q?lIGx0hOG2kk4x3aB4Xk+Q7w/9L7rtt9//J8Lkb3fuhbBvkV/tnYDE/qnPSdl?=
+ =?us-ascii?Q?pmbTyMC5yGryUV0iT9OnXCda6C9D6HTne8NoAxuDc4C7v4AIGpz5WNPOmaA2?=
+ =?us-ascii?Q?wzhSwlNCkdV+AuiCjSlsqhLT8wZEs9gQL1zv0cnEAA1Ml9F0CXcIxeZDcFVw?=
+ =?us-ascii?Q?ZmVxtz990HlkgSFrr9NAxqShxJOiynRsZNylrFtxGcbncCWkPZCxo5EGsFqD?=
+ =?us-ascii?Q?cEhLKCWkhfvboEeSqDqTOfWY92IbdrvHQ0deyaHC3OIS/dkQiivFsOTfHrM/?=
+ =?us-ascii?Q?tKJJ6dTob3SHLYBwYbiCicN4oPNJWZ31dEFN7W4weQ/iprOYAyixL6fbl/Kf?=
+ =?us-ascii?Q?CnmL6OOZuqbyuYznNlvvMSR58faEinHlW40/X5pZbYqyu36gPwuQdFPFLO/y?=
+ =?us-ascii?Q?0SgHSVnzOoStgr82aXQYd10aN1l5x+x9ZK5rkC33mEPOdWg09AO81zKdWN2N?=
+ =?us-ascii?Q?pvoPOXcR5eyIjBLuUqpAhz+5anHxKY5a+Qgb8TZuaiqwEVDdEPpGxDgZYkP9?=
+ =?us-ascii?Q?R0kQLys7rykQxUevoHAYxUXjoH3J/YPlL46NHpjy8UOoMkToeSl5DLdan7d9?=
+ =?us-ascii?Q?o+mh15JQSnXzLMWPnj5Nnraw57y2wyLql7miy5VVwnvcNzRkUWP5dXUMaZu/?=
+ =?us-ascii?Q?CyZoJzVPQjaCJ4IJpaVPcT6Y3B7jnalH1U5B5OtFsXGb+hxe+3Fy6B0vIaE2?=
+ =?us-ascii?Q?zAe0iT+Qa38iXsAAZMRZCC36mgbfkF4MSmfVLFBHFizYCdsnhGK82e0O2O+H?=
+ =?us-ascii?Q?4//vb22fBZFpbhxoc3n0JEs0Bd0z+c7pShdDFEEraEB9hNcJ68fIUCiCNXPK?=
+ =?us-ascii?Q?aWdMP54e75Jx1raSJ0RO6y5VhAm8MkGLBI9EOd+m3r9rfmBYXtcnW5DhT+T/?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4yd5noAtRnNLFg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a4bee68-b31f-43ec-4840-08df3b034302
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 06:08:50.6226
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ab1IsVeIOdf2z7S6hDtQXxqX6ikh+IXLurjseHlIyz7N76BRL/67WYHHJQ/YLNPqprRG2fRC+qd6Kvd+gBgBdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5875
 
-On 10/15/2026 2:34 PM, Xu Yilun wrote:
-> On Thu, Oct 15, 2026 at 09:07:02AM +0800, Lu Baolu wrote:
->> Add SEAMCALL wrappers for TDH.IOMMU.SETUP and TDH.IOMMU.CLEAR.
+On Wed, Nov 04, 2026 at 03:30:22PM -0800, Joshua Hahn wrote:
+> Refactor try_charge_memcg by flattening the nested memsw/memory
+> page_counter operations to separate the logic between the two.
 > 
-> We need this patch been reviewed by x86 reviewers. x86 convention
-> doesn't start with the implementation, so remove it.
+> When page_counter_try_charge is made stock-aware, this flattening makes
+> the control flow easier to follow since each page counter now has its
+> own success/failure paths.
 > 
-> We can start with a generic description of what the 2 SEAMCALLs are
-> doing in general and why. Maybe move some of your description in next
-> paragraph ahead.
+> No functional changes intended.
+> 
+> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> ---
+>  mm/memcontrol.c | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index ffbcea28a608c..66f38efb800ab 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2811,18 +2811,21 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+>  		batch = nr_pages;
+>  
+>  	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
+> -	if (!do_memsw_account() ||
+> -	    page_counter_try_charge(&memcg->memsw, batch, &counter)) {
+> -		if (page_counter_try_charge(&memcg->memory, batch, &counter))
+> -			goto done_restock;
+> -		if (do_memsw_account())
+> -			page_counter_uncharge(&memcg->memsw, batch);
+> -		mem_over_limit = mem_cgroup_from_counter(counter, memory);
+> -	} else {
+> +	if (do_memsw_account() &&
+> +	    !page_counter_try_charge(&memcg->memsw, batch, &counter)) {
+>  		mem_over_limit = mem_cgroup_from_counter(counter, memsw);
+>  		reclaim_options &= ~MEMCG_RECLAIM_MAY_SWAP;
+> +		goto reclaim;
+>  	}
+>  
+> +	if (page_counter_try_charge(&memcg->memory, batch, &counter))
+> +		goto done_restock;
+> +
+> +	if (do_memsw_account())
+> +		page_counter_uncharge(&memcg->memsw, batch);
+> +	mem_over_limit = mem_cgroup_from_counter(counter, memory);
+> +
+> +reclaim:
+>  	if (batch > nr_pages) {
+>  		batch = nr_pages;
+>  		goto retry;
+> 
 
-Agreed.
-
-> 
->>
->> TDH.IOMMU.SETUP transitions an IOMMU and related I/O stack into Secure
->> TDX Mode. During this transition, the TDX module validates and protects
->> relevant I/O resources from further untrusted host access, providing the
->> trusted foundation required before enabling TEE-IO security protocols
->> (e.g. SPDM/IDE).
->>
->> TDH.IOMMU.CLEAR performs the reverse operation and tears down the Secure
->> TDX Mode state for the target IOMMU.
->>
->> The caller is responsible for allocating the required pages and
->> populating the parameter page in the ABI-defined format.
->>
->> See Intel TDX Connect ABI Specification [1], Section 3.2 (TDX Connect
->> Host-Side (SEAMCALL) Interface Functions).
->>
->> Thanks to Xu Yilun for the initial draft.
-> 
-> Feel free to drop it. Not that important.
-
-Dropped.
-
-> 
->>
->> [1] https://cdrdv2.intel.com/v1/dl/getContent/858625
->>
->> Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
->> ---
->>   arch/x86/include/asm/tdx.h  |  2 ++
->>   arch/x86/virt/vmx/tdx/tdx.h |  2 ++
->>   arch/x86/virt/vmx/tdx/tdx.c | 56 +++++++++++++++++++++++++++++++++++++
->>   3 files changed, 60 insertions(+)
->>
->> diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
->> index 89e97d5761d8..8b5411d3eb67 100644
->> --- a/arch/x86/include/asm/tdx.h
->> +++ b/arch/x86/include/asm/tdx.h
->> @@ -176,6 +176,8 @@ u64 tdh_mem_page_remove(struct tdx_td *td, u64 gpa, enum pg_level level, u64 *ex
->>   u64 tdh_phymem_cache_wb(bool resume);
->>   u64 tdh_phymem_page_wbinvd_tdr(struct tdx_td *td);
->>   u64 tdh_phymem_page_wbinvd_hkid(u64 hkid, kvm_pfn_t pfn);
->> +u64 tdh_iommu_setup(u64 reg_base, void *root, u64 *tdx_iommu_id);
->> +u64 tdh_iommu_clear(u64 tdx_iommu_id);
->>   #else
->>   static inline void tdx_init(void) { }
->>   static inline u32 tdx_get_nr_guest_keyids(void) { return 0; }
->> diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
->> index bdfd0e1e337a..d7beb42cf972 100644
->> --- a/arch/x86/virt/vmx/tdx/tdx.h
->> +++ b/arch/x86/virt/vmx/tdx/tdx.h
->> @@ -49,6 +49,8 @@
->>   #define TDH_SYS_SHUTDOWN		52
->>   #define TDH_SYS_UPDATE			53
->>   #define TDH_SYS_DISABLE			69
->> +#define TDH_IOMMU_SETUP			128
->> +#define TDH_IOMMU_CLEAR			129
->>   
->>   /*
->>    * SEAMCALL leaf:
->> diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
->> index 1b9ff749dd8e..5d31c1b0890a 100644
->> --- a/arch/x86/virt/vmx/tdx/tdx.c
->> +++ b/arch/x86/virt/vmx/tdx/tdx.c
->> @@ -2034,3 +2034,59 @@ void tdx_sys_disable(void)
->>   	if (ret && (ret & TDX_SW_ERROR) != TDX_SW_ERROR)
->>   		pr_err("TDH.SYS.DISABLE failed: 0x%016llx\n", ret);
->>   }
->> +
->> +/*
->> + * Wrapper for TDH.IOMMU.SETUP leaf, which transitions the IOMMU and related
->> + * I/O stack into Secure TDX Mode.
-> 
-> Other tdh_*() wrappers don't have the general descriptions. We all know
-> these are wrappers for some SEAMCALL leafs.
-> 
-> So if there is no special thing to note, remove it.
-
-Removed for both wrappers.
-
-> 
->> + *
->> + * The @root page format is defined by the TDX Connect ABI spec (Table 3.35,
->> + * Structure of IOMMU_MT Parameter): the first two entries describe the size
->> + * and HPA (Host Physical Address) of the two contiguous buffers for the
->> + * invalidation queue; the remaining entries provide HPAs of
->> + * IOMMU_MT_PAGES_COUNT metadata pages. IOMMU_MT_PAGES_COUNT is obtained from
->> + * trusted IOMMU global metadata.
->> + */
->> +u64 tdh_iommu_setup(u64 reg_base, void *root, u64 *tdx_iommu_id)
-> 
-> IIUC, the void *root is a vague type, no type safty. Is it better we
-> define an explicit structure that mirrors the in-memory ABI? Something
-> like:
-> 
->    struct tdx_iommu_metadata {
-> 	u64 iq1_pa;
-> 	u64 iq2_pa;
-> 	DECLARE_FLEX_ARRAY(u64, mt_pa);
->    };
-> 
-> Or,
-> 
->    struct tdx_iommu_metadata {
-> 	u64 iq1_pa;
-> 	u64 iq2_pa;
-> 	u64 mt_pa[510];
->    };
-> 
->    static_assert(sizeof(struct tdx_iommu_metadata) == 4096);
-
-Good point. I updated the code with the following:
-
-   #define TDX_IOMMU_MT_IQ_NR	2
-   #define TDX_IOMMU_MT_MAX_PAGES	(PAGE_SIZE / sizeof(u64) - 
-TDX_IOMMU_MT_IQ_NR)
-
-   /* IOMMU_MT parameter page for TDH.IOMMU.SETUP (ABI spec Table 3.35). */
-   struct tdx_iommu_mt_param {
-       u64 iq[TDX_IOMMU_MT_IQ_NR];	/* HPA | number of 4K pages */
-       u64 mt[TDX_IOMMU_MT_MAX_PAGES];	/* HPA of each metadata page */
-   };
-   static_assert(sizeof(struct tdx_iommu_mt_param) == PAGE_SIZE);
-
-   u64 tdh_iommu_setup(u64 reg_base, struct tdx_iommu_mt_param *param,
-               u64 *tdx_iommu_id);
-
-> 
->> +{
->> +	struct tdx_module_args args = {
->> +		.rcx = reg_base,
->> +		.rdx = __pa(root),
->> +	};
->> +	u64 ret;
->> +
->> +	/*
->> +	 * Don't loop forever:
->> +	 *
->> +	 *  - TDX_INTERRUPTED_RESUMABLE guarantees forward progress between
->> +	 *    calls.
->> +	 *  - On TDX_INTERRUPTED_RESUMABLE, all registers except RAX remain
->> +	 *    unchanged.
->> +	 */
->> +	do {
->> +		ret = seamcall_ret(TDH_IOMMU_SETUP, &args);
->> +	} while (ret == TDX_INTERRUPTED_RESUMABLE);
->> +
->> +	*tdx_iommu_id = args.rcx;
->> +
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_FOR_MODULES(tdh_iommu_setup, "tdx-host");
->> +
->> +/*
->> + * Wrapper for TDH.IOMMU.CLEAR leaf, which terminates Secure TDX Mode for the
->> + * target IOMMU and restores control of related hardware resources to the host.
->> + */
->> +u64 tdh_iommu_clear(u64 tdx_iommu_id)
->> +{
->> +	struct tdx_module_args args = {
->> +		.rcx = tdx_iommu_id,
->> +	};
->> +	u64 ret;
->> +
->> +	do {
->> +		ret = seamcall(TDH_IOMMU_CLEAR, &args);
->> +	} while (ret == TDX_INTERRUPTED_RESUMABLE);
->> +
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_FOR_MODULES(tdh_iommu_clear, "tdx-host");
->> -- 
->> 2.43.0
->>
-
-Thanks,
-baolu
+Acked-by: Balbir Singh <balbirs@nvidia.com>
