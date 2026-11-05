@@ -1,112 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892745;
-	b=cEkEgYJQ6hyzSYLssMpNt+SjjW1EdwnoeBOR4NVO2IkDvLZZRNiC4dny01lchTus00uC
-	 LKVjAs1/fiO4U5XOUxzcF/bTvh8YHSeFl9jpwYSCaILsIY/wiGFR3/i1siH976k0xppxC
-	 Rq4tJXn48FjKn/FzC16veodIrj7yzKX+dcdJgw3hdpE4GkyvNaDLvx0F4+o9BMeC1EYhq
-	 M7F+D0+wH0IG7N+w8Lc5fxod70VGh7+13Pft5wXbbgaYzmeZzLslox/VUjsQEuwfBWNlh
-	 Jc6K7f9lc6ZuqLaGn8+MTyCFE46gptsZHpUN31T5iZJwpjemKk4wUdi+SYsmrNez+wQ==
+	t=1793892759;
+	b=IvPxM1pLaHvX2m09dJv1ei2fQE5Yt4QpUa8UY50W5iy/k6NpEe1cIkAAazKdGJnx/kE2
+	 NW/gZdyYdp0XTx/eUNVpIy90PBeiXRtNTh/lxbbg3wWAst8zTUE5H2+7A6lAo6bMbbql0
+	 neyTeOJiPJ8UnM8BDiM9RK5Pbj5zRjlyUptCwZdjaZ8wzqyP1o4/MLU45yHPaMbiU8a6j
+	 YO2Yjd79fDlks7w8a3aUC577CDX8M9oaKrtd+HscVa707IDuUjEjxw74lnQSeZPjGm13f
+	 zavOjWIa9XZ+cCHfe9SjL/oHhhXb5hYq/gO8WGQI3CGxJbVg5PxCf0+zZn/jarKLOlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892745;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=;
-	b=V3Z56MXUu390DksqnoBSlvMx0+TPeELlzQZtxU0vj6KzOQR4/Bypu6RQ1oBkETDDqA3y
-	 P0fpUScHvlG7xpAG3RDNHK9mG4pkgtEvb0R7rBXJly4zok2Af0aWAdNWoXAnAVFOurhto
-	 1CC5GNILGa4Y2WMiZNXC8rh8rqYW7/aaG3qM7FKJqcYW+xEFpmJ60Wv185e25fo3hD+25
-	 pAlvJLBZZdmHoSGU7UcMNScefzx5bCFtr8XZuxM5ge1TZVmRMuhxN0OWz3SF1i9vG5730
-	 snnQJkZd6m5SofbvSv16qgpnguk8GYO/Wk+MpAwhl+XqBnCRksagsQpIdjGcBcCaeGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892759;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=W9QF5hbzUCYoZDZ3I7IciqT8HzBzhR7NbTf+LS8V6R0=;
+	b=d5G9zyMF2PrewmaA/v0nBObZBdqJ9c2yr1IrTPSPGX0QUnjQnn8AxhMRvi8/M8P4sqMY
+	 T92tg4Pu+HGvnDa9uSg7xcpdWopjfk0CJMY8yT+8uFeZdZ071MW4BYlieDAcWqpOuVZbs
+	 NYSM33sCwcCXg+A0zNg5m9Ph3I7EHaYqz7XCY72spvyKarkrOU7EMr3wQ6RUfe83oBAWR
+	 8/0ERgjyZe8RKJeshkLFrFm9V3wYLyxHBJ/NvoKQH0ZdbC4pvd+uILNnK7k4gY/EDBrrj
+	 2E0cq+oJidvjKj2VOIPqolxWZpl9p1Ay7lBynTovTnnbiJr42UlyomVZXflH8kreltA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p1ILuSim;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iUsEEJqA;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b="Q/hkGo+F";
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55742606A335
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55742606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44D5606D81A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:32:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C44D5606D81A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p1ILuSim;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iUsEEJqA
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQ7fh4133965
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:32:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=; b=p1ILuSim5deoO8ja
-	3wphI/7Nsrgrqxx/+9uzSfHc6ihiO0isa17zG0dIcmjBGWCIGX3RU5A3vPW0Of+Z
-	zSGCJNAB4ydNwylGt4IqRlyIdK772pN6VFyPJf+TIvRvvzawMEqD48Zufsy500lU
-	VubhVlKSarv8F6EkCPH872vYZ3cSJoY89UoYVSApubdcnd6RDJO2UnKeGFvYYICp
-	CuKFeG0Ccl/lQpZv6Fm8y6DNZpuRQfpmwRav889WXfIwZFdWPmmFg7moo53X1wDB
-	OTdiorrPAVhsTwtpr+ft+Tf/Jg4bdcg9+1ooCmuyqK2aaebKn8G69z80h1MuY+9P
-	Sgg0Gw==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrksqadd1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:32:24 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eac41ff334so1920426e0c.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:32:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Q/hkGo+F
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91e7c847aceso17745236d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:32:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793892744; x=1794497544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=;
-        b=iUsEEJqAEQ/1hYUc1sK1t45AlgNgX4bjkphvJjO01DQCT6acITHmMj0md6xEKoCZas
-         uK7NDeTE2VIcycrkpkj5meWzPhLKE4SPp53B/gCvWovvqwUpOo4/ZJP15skC6tUY0mmR
-         cjuIvYXg3LrCXWFRncgriN9gaOhy0gKCKCMf6jGW8rDR7jIKUpZHZQLwv+i/N+r51FOD
-         kK9gfTKhoxPrMhQC3mQ+XlXshbAgCF5xFmXqAXc4QvCSKj+xkDcwAIbnmCx3lIieu0/t
-         zMeAXMH7KHCUXam/0rSxx/3wn6On+YlSQdhdoQ6EhTON1VTF8ZUgDjim2SZQafAEpkTc
-         NwTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892744; x=1794497544;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=toxicpanda.com; s=google; t=1793892758; x=1794497558; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=o9aybnm6z6uCy7Z3S2M1SU/Xzgy17fe/G/KhASnMe+U=;
-        b=2qL7dOJc/lv4Ce7ijt6EykQbmGEQtX/TH2S/mcyMibgbGsfSwqw5cPba/axcLiyvVa
-         zgW3AU6YhorJdVlCg2esc6fyYt3z2a2eHNvPKZZrvEdEYKmAHoiPtfogjtaxeaiMYKox
-         GPPYJw3iUIQ4KKXBsSXtiug58k8nkUWxJLXgZ7ehLHGZ7xaXwxSZ7l2BsVmkU1RWKZtX
-         elti4rkWKjNzgMeik1l/FJHX4h19LSGkq4DXP2hyJQkOd20eAi14B0iT51VvdjZFVpga
-         z68qnBxz+jdzqUvpDnLqKFfVr5pxZT1e/TbhQIJU714CWk+l7uuDn8D0iOSI0z6v9GeP
-         HhwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyaA306tlIUkVvQoYRkGGy4vGUwp57c+dhk+d/bwi+50G3fRrJae11RPYH7TI8LruCI9lOFrTmJZy1gV0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ODosg3ENFE/O02ujxsRNlTb9uQZ/vCMOst0NuUe5+Wq7Z3B64
-	Ma23fmHdsx2EJckRhe+7ug6G0onnCd73aTxdQ4juTZjPm6y38Znx4POUr6iHFk8/tpfEPZyPNv1
-	rNqxsVwAZLoYgvedXqu759OjVH70CaTAA5g6xaXLvL9lkgJHv4FnI1RdlMuRR97hUwC0=
-X-Gm-Gg: AYBFou1LqtGSUKXv+VDUCFbsI2a24SnW+RDIX6lYmLvHfWh+Ds9QDtbsfkVM9QZiIob
-	HMRgu+bVHxjwEImPdZ7uQSoYd8eU8dQRqZ75iidoumC5CTbIoGtRyJprjtnZaMAIjMcuDw55WdM
-	ND4v/Jres+vuzeroREySOJ4htZlYSIQkfRzIBxgBoiQ9tjp/Z5+TitpAly/dQ4Zhh6doObhS9Y3
-	xLZSf0ND9zhtozyZjTjow6/F97DyOJ/B5XlskomCUSaVBRbcWbsiGMC9r4qoAczfk/261lhXnQ/
-	JUcJ/j+POazOLC6BCgigRVt90FKEpDoLpNAqmT+gvSbkVhqkopCPDNmEUIEHr/d2tW3okdD0qzI
-	42RRPYpP88Ug6NqIDx7kanfkVUS/H9QL7mAQCtow4keCWVEHge9kc0cUrl3yviF8OjPpIfNXFpa
-	i+6MT6pawiBSDUKwUt
-X-Received: by 2002:a05:6122:469b:b0:5ea:b972:1403 with SMTP id 71dfb90a1353d-5ec68539420mr9780602e0c.3.1793892743673;
-        Thu, 05 Nov 2026 07:32:23 -0800 (PST)
-X-Received: by 2002:a05:6122:469b:b0:5ea:b972:1403 with SMTP id 71dfb90a1353d-5ec68539420mr9780528e0c.3.1793892743105;
-        Thu, 05 Nov 2026 07:32:23 -0800 (PST)
-Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcb8sm70424915e9.1.2026.11.05.07.32.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 07:32:22 -0800 (PST)
-Message-ID: <6740e6e8-6b77-47dc-8b9a-b81efb557664@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 16:32:17 +0100
+        bh=W9QF5hbzUCYoZDZ3I7IciqT8HzBzhR7NbTf+LS8V6R0=;
+        b=Q/hkGo+FK5cKEprDXG7FBBWS9aS4gHBhukF+1psbbcJ77e6k4918reYxOVHzeS5Vfq
+         1MOIReUKeexIiqNY7SQxqBMRpqoty9OEdjrRco1KvPqbL7ClJF291haXjgTWIbCERlM8
+         TGHu6uYrlFuSc23yhj/eTBcTV5VMKiTzDt+LzWbNKS7otLhngUMQEiWdL5vHHhGS8j2a
+         5xARVuN27Mb6e9F5VVDMrSHLmWoAFIxs1TKAX5vNP7KY2JtOOeZ0LOW9ooW9y8zVzAa1
+         VFGY4e9TsGjTZCNYbwWOS9qosHED51UXVYpbMG8LTde89jSicOEfJsHHIOpK5R1ecRz4
+         kTGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892758; x=1794497558;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W9QF5hbzUCYoZDZ3I7IciqT8HzBzhR7NbTf+LS8V6R0=;
+        b=QTGR2ZrqMgiS2tKHv+2R8TTJVjWDjKnHuLTh+V9RVamKs+DVCGN4eacrYJl0bnMkYF
+         oJ0d+6n4UiHYzZUfKGChmDemlrcVL3LoarPPL5VuqwbYn/h873kBP8dRAs6zYzgIml3K
+         YvnmvZxIzpe+m0ulMB/zsh/JoEbg37LW5opevFL79q6c1qiX+cT8LdH/AmTjD1eoTx9V
+         EDZ6X93TqLmW/O4w14gddJPvWr2Z/O+ibSJBwWG1npsp2d0vqQHPZRCRn+GA5JPnow48
+         xy2LsJ2xfCivvbaD7Rf6NCuHeVLW5D60rIh887c9+YKoMHOMjPSXPb4IIxtvdjoB69k5
+         upnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5cqkPxARulwtYvdaVx689RL3S2TOBZDTgk/14Hp5nn4TlViAo/BsPtkaZ+x8rXI3HsbmtnIaDAnYgVCw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bHAO9jx+ruLu0n8O0Oz4F/lx3Llsqd6gbWirW3Z41wxcCDyO9
+	MXk4TgUKby+jvZSKt3PenAI762NXej3KgWY+WYglq6HJs37WgqxGiKS7XFQ6UZ0j+r0=
+X-Gm-Gg: AYBFou1BhrJQu+bYUygACKfocQhU8v+pq8/3roiA2XAgd9d+/sGBFAx6NXfFtEEma5c
+	2Wb02JeIiukXiApagf5Mh9DOYMp/Ab9KON4LpejdSIht4Azvv9ouTCoXyc0VmpUWKD+7RE43NFX
+	HslKEhnkE/MeeF+tRaNEJS0kff6IHGl1/oLAQaMnqjHqVcsNcwGhMhCgQeA1NATqCiDFFrEhYTm
+	GhISxGXxNdvcu9H/vM02p+Vb7wjoLUqx9/kAXuSkfIFj04OEkiUKJG64j1pI9jrTVkRZV/7maoD
+	+pySQ2dGg49Sx3izRxrOaHKyOpIHoHM5lV/40BZd/z++yDiI7pt5vDZ0FnL/d0bL9AJaWaezZ+X
+	ccce04xwU4qaOMTkLrarx3+VV/CWl1troLloCIPlUxTE3XCnI3OCc3nlx4xzQMpLQGoBamyjIP7
+	do0eRuqbK9lj+KdT8FoPJkmju/85NVy1nAhP9spAY2yGDm05Q1InBH/4+PPrlwgz0w3AtaHvLGR
+	cI56+pBULhfOoQ+VURkVe0A7Cal/S/hQGks4I7ZYpXiS8/LTr4hONWX+MupwGgt5yxLq8BHd+Wq
+	INepTvl1xkPQV7yOO+2qSRgggC4B2R47Qfo9NaU+qVOgxQ==
+X-Received: by 2002:a05:6214:ca2:b0:91c:52f2:b469 with SMTP id 6a1803df08f44-91ca4b595aemr341157326d6.15.1793892757602;
+        Thu, 05 Nov 2026 07:32:37 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.246])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7dfe973bsm49909996d6.22.2026.11.05.07.32.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:32:35 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:03:20 +0000
+Subject: [PATCH RFC v3 88/90] arch: wire up the cell system calls
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,74 +92,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/6] powercap: Add generic zone hierarchy creation
- helpers
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        rafael@kernel.org
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
-        Lukasz Luba <lukasz.luba@arm.com>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org
-References: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
- <d33ddfe789ee42a00d3ff3df55e0c4011e69debc.1793666444.git.daniel.lezcano@oss.qualcomm.com>
- <f018a2c1-2618-458d-a95f-a0cfdef9ac39@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <f018a2c1-2618-458d-a95f-a0cfdef9ac39@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX22Xibt6X4rZN
- qWGBICqTMbymo9Z4x6z46p3ivzQGL2/tLLQhjNnOgd6A1H5hl12ChHQVx2avVmRZ6RLtBSed/10
- NGQoQW20sdobWA0M4ft8vSKZamu1qpAh/+bzatznBaAxtzDCSzSMuIQHUpwAMkUA/SyFtEQ/zBi
- QGAI6KiJq85S3EikeY/ndjNZLwh9kzmnjM9II4uvPW/Ix6MM8UxrOW3ZcY0RSJI8Ea3wOJGy6Tk
- gQrA/7u7wRMaa6pMRuUvDFIwLTX1gvWZf7/l8QEb7R/lX4sMUDOcSxCdNtYdZI/zVoAE3iNCrIh
- nNIQDDztSYKzXY2fnMO2RiOZCk7EN9rt7A+XylRyGLA9ok1JTsxouVcQAeDktOtYGg8mILE+CS4
- rJqJSWACMKFqiG35C4Fir4u/BK3gWfTegGcHFfTjH0rqfjl6YeoQKQJxKuQ4OPtBPuZgOZFXaB4
- FSnPoarXf9ckGBJeKuQ==
-X-Proofpoint-ORIG-GUID: 1cv_Ap0QEehEwXwbz12YK31kiIXWYp7M
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX8CC7F8qeQxD+
- LrLrjhOyCOdIwEXL/EohkwZ07XxtYdO3QOre+GT4Z3M1chif7SGKTdsa43eVskQg/xFSo41AqiO
- kCjihDP3I98qO5iegHvjg2nFR1jOkkw=
-X-Authority-Analysis: v=2.4 cv=CIe/zhrD c=1 sm=1 tr=0 ts=6aeca188 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=49fcMjTkyU320Q8Jtn8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-GUID: 1cv_Ap0QEehEwXwbz12YK31kiIXWYp7M
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050061
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-88-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=5416;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=jGFSk6fF/gH1paSfT76+71kLQeCCUX/CemcF177XB5U=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QDceqJ59WM96QNaMYpWM6bjN/hcsoqX2QXE2rKxYjPq41+78tc/rgyBLpTKfG6SAb5xj1ixN8cP
+ +W5IiM9kgdAc=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
+Wire up cell_create(), cell_configure(), cell_info(), cell_open(),
+cell_kill() and pidfd_configure() on x86 and in the generic system call
+table.
 
-Hi Manaf,
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ arch/x86/entry/syscalls/syscall_32.tbl |  6 ++++++
+ arch/x86/entry/syscalls/syscall_64.tbl |  6 ++++++
+ include/linux/syscalls.h               | 14 ++++++++++++++
+ include/uapi/asm-generic/unistd.h      | 15 ++++++++++++++-
+ kernel/sys_ni.c                        |  6 ++++++
+ scripts/syscall.tbl                    |  6 ++++++
+ 6 files changed, 52 insertions(+), 1 deletion(-)
 
+diff --git a/arch/x86/entry/syscalls/syscall_32.tbl b/arch/x86/entry/syscalls/syscall_32.tbl
+index 2c172ef48dfd..4ed6bf999b53 100644
+--- a/arch/x86/entry/syscalls/syscall_32.tbl
++++ b/arch/x86/entry/syscalls/syscall_32.tbl
+@@ -478,3 +478,9 @@
+ 470	i386	listns			sys_listns
+ 471	i386	rseq_slice_yield	sys_rseq_slice_yield
+ 472	i386	fchroot			sys_fchroot
++473	i386	cell_create		sys_cell_create
++474	i386	cell_configure		sys_cell_configure
++475	i386	cell_info		sys_cell_info
++476	i386	cell_open		sys_cell_open
++477	i386	cell_kill		sys_cell_kill
++478	i386	pidfd_configure		sys_pidfd_configure
+diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+index d5b6045b0090..bdf0c48b5682 100644
+--- a/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -397,6 +397,12 @@
+ 470	common	listns			sys_listns
+ 471	common	rseq_slice_yield	sys_rseq_slice_yield
+ 472	common	fchroot			sys_fchroot
++473	common	cell_create		sys_cell_create
++474	common	cell_configure		sys_cell_configure
++475	common	cell_info		sys_cell_info
++476	common	cell_open		sys_cell_open
++477	common	cell_kill		sys_cell_kill
++478	common	pidfd_configure		sys_pidfd_configure
+ 
+ #
+ # Due to a historical design error, certain syscalls are numbered differently
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 552d9710a0d5..f70bfe5b028b 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -77,6 +77,7 @@ struct cachestat;
+ struct statmount;
+ struct mnt_id_req;
+ struct ns_id_req;
++struct cell_info;
+ struct xattr_args;
+ struct file_attr;
+ 
+@@ -442,6 +443,19 @@ asmlinkage long sys_statmount(const struct mnt_id_req __user *req,
+ asmlinkage long sys_listmount(const struct mnt_id_req __user *req,
+ 			      u64 __user *mnt_ids, size_t nr_mnt_ids,
+ 			      unsigned int flags);
++asmlinkage long sys_cell_create(int parent, unsigned int flags);
++asmlinkage long sys_cell_configure(int cfd, unsigned int cmd,
++				   const char __user *key,
++				   const void __user *value, int aux);
++asmlinkage long sys_cell_info(int cfd, struct cell_info __user *info,
++			      size_t size, unsigned int flags);
++asmlinkage long sys_cell_open(int cfd, unsigned int what,
++			      const char __user *key, const void __user *arg,
++			      unsigned int flags);
++asmlinkage long sys_cell_kill(int cfd, unsigned int flags);
++asmlinkage long sys_pidfd_configure(int pidfd, unsigned int cmd,
++				   const char __user *key,
++				   const void __user *value, int aux);
+ asmlinkage long sys_listns(const struct ns_id_req __user *req,
+ 			   u64 __user *ns_ids, size_t nr_ns_ids,
+ 			   unsigned int flags);
+diff --git a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
+index 5b7e77a7c736..aa7bcaa8348f 100644
+--- a/include/uapi/asm-generic/unistd.h
++++ b/include/uapi/asm-generic/unistd.h
+@@ -867,8 +867,21 @@ __SYSCALL(__NR_rseq_slice_yield, sys_rseq_slice_yield)
+ #define __NR_fchroot 472
+ __SYSCALL(__NR_fchroot, sys_fchroot)
+ 
++#define __NR_cell_create 473
++__SYSCALL(__NR_cell_create, sys_cell_create)
++#define __NR_cell_configure 474
++__SYSCALL(__NR_cell_configure, sys_cell_configure)
++#define __NR_cell_info 475
++__SYSCALL(__NR_cell_info, sys_cell_info)
++#define __NR_cell_open 476
++__SYSCALL(__NR_cell_open, sys_cell_open)
++#define __NR_cell_kill 477
++__SYSCALL(__NR_cell_kill, sys_cell_kill)
++#define __NR_pidfd_configure 478
++__SYSCALL(__NR_pidfd_configure, sys_pidfd_configure)
++
+ #undef __NR_syscalls
+-#define __NR_syscalls 473
++#define __NR_syscalls 479
+ 
+ /*
+  * 32 bit systems traditionally used different
+diff --git a/kernel/sys_ni.c b/kernel/sys_ni.c
+index c8be0abaa407..e0ff9a6909fb 100644
+--- a/kernel/sys_ni.c
++++ b/kernel/sys_ni.c
+@@ -167,6 +167,12 @@ COND_SYSCALL_COMPAT(keyctl);
+ COND_SYSCALL(landlock_create_ruleset);
+ COND_SYSCALL(landlock_add_rule);
+ COND_SYSCALL(landlock_restrict_self);
++COND_SYSCALL(cell_create);
++COND_SYSCALL(cell_configure);
++COND_SYSCALL(cell_info);
++COND_SYSCALL(cell_open);
++COND_SYSCALL(cell_kill);
++COND_SYSCALL(pidfd_configure);
+ COND_SYSCALL(fadvise64_64);
+ COND_SYSCALL_COMPAT(fadvise64_64);
+ COND_SYSCALL(lsm_get_self_attr);
+diff --git a/scripts/syscall.tbl b/scripts/syscall.tbl
+index 0ab531605120..cff7843e2677 100644
+--- a/scripts/syscall.tbl
++++ b/scripts/syscall.tbl
+@@ -413,3 +413,9 @@
+ 470	common	listns				sys_listns
+ 471	common	rseq_slice_yield		sys_rseq_slice_yield
+ 472	common	fchroot				sys_fchroot
++473	common	cell_create			sys_cell_create
++474	common	cell_configure			sys_cell_configure
++475	common	cell_info			sys_cell_info
++476	common	cell_open			sys_cell_open
++477	common	cell_kill			sys_cell_kill
++478	common	pidfd_configure			sys_pidfd_configure
 
-On 11/5/26 10:35, Manaf Meethalavalappu Pallikunhi wrote:
-> Hi Daniel,
-> 
-> 
-> On 11/3/2026 10:18 AM, Daniel Lezcano wrote:
-
-[ ... ]
-
->>   drivers/powercap/powercap_sys.c | 204 +++++++++++++++++++++++++++++++
->>   include/linux/powercap.h        | 205 ++++++++++++++++++++++++++++++++
->>   2 files changed, 409 insertions(+)
-> 
-> I rebased my Qualcomm SPEL powercap driver series on top of this series 
-> and migrated the series without any issues.
-> 
-> Tested-by: Manaf Meethalavalappu Pallikunhi 
-> <manaf.pallikunhi@oss.qualcomm.com>
-
-Thanks for testing !
-
+-- 
+2.55.0
 
