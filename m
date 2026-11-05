@@ -1,48 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912774;
-	b=T21o7ua+4INLvGQY9hBQbEWZUBQcUNAIqaody44bsdHWiB5Qs4iUeIEN5TfMKvdOJWRR
-	 nYnc93VhZpts8zqsdUuIrILdMsBvPjCMs6xjM3eaqx49gFdRx9r6LqeP41skhds3l3G/i
-	 Irppd32B7UDv+lzNhVKVtscUGwo5qKSTQ8aULDpaTWLbI5feM8Q0pZxZr2YUMjhy/k3RL
-	 Sulr9hpusmX9eZ3oI2e6jgdQGxitHE+frBzqtMr8SCj3xVNsCiFRqbrjDB6U4S/vKFKHY
-	 rXNqDk/L5FIR8rVcvOw95L8eUcUvYzqnIyd60HpZ1yqdZHcD2Z0qhJcqfZSbwfPbmOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912774;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=rQ5eRcL8i4WiE6GtABNg6lA1lIZIpMhDQQ82RZBg9WY=;
-	b=iMJiDttZDjd7BYUjF6abzbTmcOgwhnLp4G/1Fe74EQ5QT0OQo4V621eTzsE8G/dvrXrq
-	 ZLh9/dJjO2XF1vrcYlifR9BvXcJdPOCSkj7G5d8uN05hG4BcD5wI2i4ccH8nJ2UjBrDBM
-	 QSHTF1UyMJ75E2HOmntUcv309ZjjgAcbH6/c6rRNeyTBJbeXRHbb/KDbUgiaWh1Hg/FZ5
-	 jyE6x0Zomff8eC9u4aNP2hzJprgZNtD8zlVKbnKnTKSbCZGyadVo/jzTwLTsmGX1xVEhP
-	 45S97WQ6IUb/gcuz0DgyMATsjVw+RZWwTrg+J4DTHgXrnQiKIailVCUj27q8eiFiOlw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S8CYFX4J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793912806;
+	b=ZOzBmfb+M9PJVkr0esbUa6E8YlxbJIWzyxntRfGKhlWOHnX9gYw8iJYLE1ZMd1amkzYN
+	 DCvPBIKRly1SZW+cuUHbD8dlZ513qeSRX1VbHRd5akQEUFffVUMfmimLS2uM8H9vBo5Lm
+	 ZktJZoqbAed1d4Jm4YwVfdaDVl54Y7ffcoZxT+kRuZqqrCK9NTPnmePfrJsqnVrpmVYrK
+	 W4tlpAdkHxqTgOh02gq0QiwpdxxQtoRXNdtaqbVbLdyU+5h3oJPIUtLD2L0Ml7g7A6oaA
+	 eZ8DLclyUYC2760yq1+OZzyszY8PyC0XGRlaHru1gL/eHxG8N/WTNoRvCKLEuO/1PZg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=PQ5xrz6/5W9B/AU5YTZ4/YsX+i9J+WP+jzQ06aUOz0I=;
+	b=p76bSHZPFi7KnUNZX/A3WXPecORipYMXMrRH13/6RT5LdF185Iz6M4tMGA8CDW+ZIT9z
+	 HF8X7r7iqsF6KVIAEAq/jvIo+wM2aCKmN997H3Gco8tBhh6fVG6VhGzwc3gXQx9hD6Snh
+	 u/akQAy8Owoc92FwjZ/2n19GU9VBkZzwfiG+zs8++j5cle0jCMV/0kpn5+vpltUmqADlE
+	 irNwjSIt3vKZ1AzgcdG45pzqKDWo/euML4F5u/kLkkpUa6lQCJNz+MhJOhtCqC+bOFTRb
+	 5jy07zX3j5YpmespSD+c/ExInz5rmLPXVIVftWxRe/ZnS0dZpnFSSPpRKeuZ+G5w+/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MwJ76Ks5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3710A606A332;
-	Thu,  5 Nov 2026 21:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F71606A330
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:06:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1F71606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S8CYFX4J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190791F008A1;
-	Thu,  5 Nov 2026 21:06:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793912773;
-	bh=rQ5eRcL8i4WiE6GtABNg6lA1lIZIpMhDQQ82RZBg9WY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=S8CYFX4JsG8LD0hbwcgSQGkkF0ToeoZfZ+W7sYhcVvvvyId0c2kXpF/nDLh5GP73y
-	 l7FqfeS0r2inh81Q2FLwfe3R1ub9kpTEp9U4p7m3RAnpnM8hrf7E3MImfStu2/hGgP
-	 LnSVVcH69MPY1AsZqhp2mJ3P4GZH0mZ86gqHSeymX92cts+0GqS28OGx/cZF7XHj1k
-	 GL6MG2AyfpLshr0MBMZ64Ltlwq9gJBLs0ISnJcnAK79zb/Tnl4XS5J9SjY4vmytNA5
-	 ICvmM/z0LTXJeWId5xk8NfZc8pCl5JdEtXH1WbDlcIxV8F3Lr49iZHWLQljjvgkmcx
-	 kdk0o/ntqNkiA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 05 Nov 2026 21:05:32 +0000
-Subject: [PATCH 01/14] xen/privcmd: convert mmap hook to mmap_prepare
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MwJ76Ks5
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-49134c8509fso7848f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:06:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793912804; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mZrIDux4LTycHFet1ydHQuYTCuAV1rOGKiZGmaVl0Mt8aso1vmCpuS9TGQpr7EqGRD
+         ZWTLlb37XcVo9bT312BUW4sZQ+kHnGmfH09qF2gOy4EbaslJPCpr4r0+vsoW7G/kv3W9
+         uniu9HEn1sEiqwPX0yqNBhZWfLS1zSHP/bpci96cnv+jUjGyxVd/w9l/imn0gOq36mXJ
+         mdyxZa0AubqXxlENQ4wxOmJHEVRoNcnW6UhUCZckvJbPGGDjfJuqBdI2+I+R2mYdA9Ln
+         yu9OnFwGBlKN0X1cvkV+jf1IiDnBq5opI0BBmcL6fdoFWKP2LixtB1fAwCwI/9cpJxIW
+         5ePA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=PQ5xrz6/5W9B/AU5YTZ4/YsX+i9J+WP+jzQ06aUOz0I=;
+        fh=9lEuzK8g/hjcpGO4XjT5fAtMH0lBMNBOb8MdObwDM+8=;
+        b=hzvXeW5iN2THoUEd78S5qiAc4j5LrygKPe4yDDwrncOR2j9qs/pKNLUIZ3Zy7suh7y
+         l5yhGQwWfRCLH6HDiQQzHe2UftSQpSXJOrIXV+MQITvuC/6uqYSIpWwOfdZqTa4EpOh3
+         Jj70foiiqjy0cvKK6MXQ62sbAsWLcYOhmfcvJ7mcjUmiBz4i4Ks/vUvBYWjVL5JjGmL1
+         nAjH7romGpQw5S/Q45Etdoq2s6dfjp+F9Wi5IuthIH8TMG3RtHgn8+zAIypfPfWf2K01
+         z1RnNF/cEzV9RVHcEhVYoap2bcoM6tYUHs5rpTcD7300ctaJxf+N9S7E1wHWzdfe/+8v
+         YvWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793912804; x=1794517604; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PQ5xrz6/5W9B/AU5YTZ4/YsX+i9J+WP+jzQ06aUOz0I=;
+        b=MwJ76Ks5Y+rKs77nfkcWgGGIm90efC1A+MzQ+8wZ3Hi9xf1bd4nsNC7HWcgOPZ7FZg
+         yu54ZNROcPfiNnVTY6hcmbKqOTu21bEKggFBcVHJM+tDzLsJanQQkMruevgqEqFQ9m9b
+         9Okrho5OhtlFmvCVeQwSmsdSvH1UZ3wZ06hHH75dUUoCbMAdmWEOgok0pbVFs/FgEkKG
+         5b7CgmRYgVNxIIj49pasfL3Qz8teKSM5+X6pMqe6PiBQVUltaxwnLdbAbeEn5iY7EZOw
+         MImujzfSruFsGdab0k1HbDIPF+nWQipw4z/7b27A7MIBv4HUFubKWVhEU8kTJ6eZwyNV
+         T8WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793912804; x=1794517604;
+        h=content-transfer-encoding:content-type:to:subject:message-id:date
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PQ5xrz6/5W9B/AU5YTZ4/YsX+i9J+WP+jzQ06aUOz0I=;
+        b=ApcmK/PQA+74j7kHmOZ7ed+bjpDN/7Tf5LYVffBfxNVdzC72t+LFGLUNmZKfowqRfR
+         /Ojv3WpcZYAV4Q4O18wwSAhPW0RS9SVY9ZArzM7pYC+uXoVSGLR6Xr5chqgtoqPIZU1U
+         AsGS5L5uR4J6CqMQVpmLjorMU6Nzwj7efwPA5CPezedKGFJmZpc/IoOrFBuCk8fZxw3E
+         oQN5Hvs3DAtn13wgZUXoXfaGwhT78zM9R8RlQ8wQD6iBnMQZzkgETm5vbbodwwICgnIB
+         iMqs+1JR0dU9Wqw2v962fMBZAmHS6APBNFDUW0ulwXBtKGDHeDzeyi2laoPlCaCEQJkE
+         wu2g==
+X-Forwarded-Encrypted: i=1; AKwUvBx/C44Ei+h7xjrmc66JG+x4Ta5psV0tNQUJBgpDLlJ7sHhH9sgfNezpPdZL7BhlCJ8D4rryx4Ajl2bsIu0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/B/ZcWI7VJa4LUcJJaS2iAtIBNK8wiyKb1CRGGkLUfvz147lLa
+	uyaQAei6vOdIo0qfVlc4n0tZW8fOOtBGjThmCn5SIlsQbRybA6v2CP1A6VGwLq6yAmX8nfr+Ri4
+	1dShxWq/9t4p4Nzuog90TuhmU6O39rPQ=
+X-Gm-Gg: AYBFou0tlTYF2TyJC7SIsaXrKf17I4tfxmanMXyr8RrRauM5vSot/98ucHAbwnHyTfu
+	zlvKWDMmC6mf7Jxat/svLXNQTZDntvD7LVaqX7MfOW6v7BwZvtABZbu7EIyOLZQH4gPhwbwwdWy
+	SVgPz0TwlQqca9K2c9l+6iEZ1IBVgkiVOGuldNZZ9oSHqSFYMmVglBaZbAzvzOUIvJXMhmhpxNs
+	CgISiFMzYjmsDPdjpOHHbmdzvimmH61kr7dWbPA2CPG2l95fB9wl2MCLiBsgNzNQopcJjVJkLyP
+	ZHNC/w+ZSwXH8t7RzGVMhBWJkjAc1gQCDAEvCllt4jX/G4a76SKd2fFMXVps7LgP3bzBkj+mN0Q
+	15dmUnPQlmVYvCGsrp+FKFhnQK5H/8oppVllSeZO/1rSdyZ8plwD5LsUqUP1jky4Z/7AMe9gfdL
+	gW7uYrOxjpeCswDxsn3405z5kx6u9HnvxkNUVLXlAxHoE9MiQmUV1J
+X-Received: by 2002:a05:6000:2510:b0:48d:f488:f32a with SMTP id
+ ffacd0b85a97d-492775f23a9mr1599167f8f.56.1793912803834; Thu, 05 Nov 2026
+ 13:06:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,105 +104,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-late-2026-mmap_prepare-v1-1-c56aadfbab8a@kernel.org>
-References: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
-In-Reply-To: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
-To: Juergen Gross <jgross@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Jan Kara <jack@suse.com>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- Scott Branden <scott.branden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- David Woodhouse <dwmw2@infradead.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: ljs@kernel.org, xen-devel@lists.xenproject.org, 
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
- virtualization@lists.linux.dev, linux-sgx@vger.kernel.org, 
- selinux@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-arm-msm@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org, netdev@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1514; i=ljs@kernel.org;
- h=from:subject:message-id; bh=GK8WxTPthKHfR93FzNaT4NLMedimx0+ktYQW4BobhBY=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLevF99VPp6bFPmGrbg90HFf0669ovdC6+z+yPP6qT6/
- 43lmrDCjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkyiVGhhddyb5uM/686WNQ
- fPLi1lmb7Xrn/+udbrtjGvdeLJrHfj7D/5yLgT+f8MQUZDw4PNFjcW0v43WvQwzhSqW5cg/9JO3
- rWQE=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Thu, 5 Nov 2026 14:06:32 -0700
+X-Gm-Features: AclHuK8Cjd9cUW2LR9znWEJxOp10JF8kDZifUXejaVPmbKzhx3QybC-mp6UtYl8
+Message-ID: <CAKEwX=NXSwSiuY65EV5nqFocMLd6-afsiJfgy_ahB2v_MDmcng@mail.gmail.com>
+Subject: Virtual Swap Sync
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, Chris Li <chrisl@kernel.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Gregory Price <gourry@gourry.net>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rik van Riel <riel@surriel.com>, Wei Xu <weixugc@google.com>, 
+	Yosry Ahmed <yosry@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Move from the deprecated mmap hook to the new mmap_prepare hook.
+Hi folks,
 
-The hook only sets VMA flags and operations. The VMA private data is
-already NULL at this point, so we no longer explicitly clear it.
+Sorry for the delay in scheduling. I also figured it was not a good
+time with all the merge activity + the big list of issues that needs
+urgent attention :)
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- drivers/xen/privcmd.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+Since no one responded to the last email, I took the liberty to do
+some timezone math and create the meeting myself :) How does this
+sound?
 
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index 5e56fbc93447..16f96c05af2d 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -1630,14 +1630,13 @@ static const struct vm_operations_struct privcmd_vm_ops = {
- 	.fault = privcmd_fault
- };
- 
--static int privcmd_mmap(struct file *file, struct vm_area_struct *vma)
-+static int privcmd_mmap_prepare(struct vm_area_desc *desc)
- {
- 	/* DONTCOPY is essential for Xen because copy_page_range doesn't know
- 	 * how to recreate these mappings */
--	vm_flags_set(vma, VM_IO | VM_PFNMAP | VM_DONTCOPY |
--			 VM_DONTEXPAND | VM_DONTDUMP);
--	vma->vm_ops = &privcmd_vm_ops;
--	vma->vm_private_data = NULL;
-+	vma_desc_set_flags(desc, VMA_IO_BIT, VMA_PFNMAP_BIT, VMA_DONTCOPY_BIT,
-+			   VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
-+	desc->vm_ops = &privcmd_vm_ops;
- 
- 	return 0;
- }
-@@ -1666,7 +1665,7 @@ const struct file_operations xen_privcmd_fops = {
- 	.unlocked_ioctl = privcmd_ioctl,
- 	.open = privcmd_open,
- 	.release = privcmd_release,
--	.mmap = privcmd_mmap,
-+	.mmap_prepare = privcmd_mmap_prepare,
- };
- EXPORT_SYMBOL_GPL(xen_privcmd_fops);
- 
+Thursday Nov 12, 2026 =E2=8B=85 5pm - 6pm (Pacific Time (Canada))
 
--- 
-2.56.0
+which translates to:
 
+Vancouver: Thursday November 12, 5PM PT
+US west coast: Thursday November 12 4:00pm PST
+US east coast: Thursday November 12 7:00pm EST
+Europe: 1:00am Friday November 13 CET
+Beijing: 8:00am Friday November 13 CST
+
+Folks, can you double check the invitation, and please let me know if
+I missed you in the invite :)
+
+Best,
+Nhat
