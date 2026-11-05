@@ -1,50 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.54.77.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896658;
-	b=FamRppQ/3qlT+FWyP61mFTzXrMnudfF3Ox2GkE4ORFtsFqL/vSqm6dqCvsMu4VPMEROy
-	 kuJdHAkixHInKEPYQmvcp1bim0METkHwlyg9a4w5VkWp0vIv0SaLfh9qUgQsrUXvfot+P
-	 /MWumTlAA4SPPOIysaTomarOS1eBi57XlK03Eamq9t70ZIyNLFzRelVvoNRQ0KD+n6Vkj
-	 YT0GpRuqqaid9Y0oankaDVJmn8e44ZuEGRZE6vV0d1mFzqjdkGRbejISC9qF1SCyzJ6MA
-	 B3g1L9hXKaf8vYMGHpPyE7bXHngRHZNZEg0l7k25fuNuOJ/6y4OEyNBNxPXXHPfoLOg==
+	t=1793896710;
+	b=FDgZ//L/QVCAuaB4D+vakG5uIBv8x4VgGsUuVuDXEPex/Cmrt+/RWhevk4G5OTv8kwJZ
+	 3bCK9uQLLT1WuwwLy1NUudu3H/fUFqrlCk1T8LTx5xUn+F5mxrjft3uTdiAwdeuRu8OE6
+	 UEjDYHZzMsM7Ugq+zeEKtwrcVL5/xmgHk1Vg5K3+hLVFoFNpAO7IDPkZioCZ5QQP9iusT
+	 aGo3HJm1ObkfkihPGf2gct6O+gEczBwH80Bcsaw1wmzGTCrtT4PIQDz8WMCVDaeKtbKqm
+	 5uA+rAyBAYVMGsPfU5nd40vtwR4MUK95utOG6326ZUZz1X3dnSGYjNT6Jjn2mT31CLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896658;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=csElEp+VhdZG2jnq1WLbmjmoJ99uEQ9BCkuzOTjKEJ4=;
-	b=ozXfonuAKUbDZJIijbQYUsuRwiIdsFa9vZeYpHOyqUAx2c/EPZh3dD12aCj4vFbnkSs5
-	 tspuEBKcsL1EzSbo26eSlwiaZgrsZ8QQoDBjkPYS29+cVvGtTfjJR3y7J+Hf7lX7MLGmH
-	 V8sjN5ULkUR+/HLSU+yBkx04fNkOSGKEJ83M1FEMZ8Bn1MO8WXM9tO9qwY2fMFWbXNld8
-	 aZTCm130IWH3Ftc2v0+4qHUPzQ1JkEF26xE57kHSg7o6NFLRGBe8BG52KUIjkBa8p2fSp
-	 DttpxO1OsH2WPO2oCxWPb4brckrffnUNxaQ7ecBhZIptchnqo6tHeTZlWFrBcW4iT2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896710;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=644Ux7LSRWCHfvx6IGEzyoWmRuLxfdQL0zRVoWbF/Dk=;
+	b=FtCY4bPe0M4EEfl91ILWjHa8R/H3xmr7QDXKfmB0pLz2GD3TPsIExiNMUYfhkdosgSzP
+	 D+EoO3WROJeIwa1kmi6PMgOz6XbGmPcwajwqzbNBYqMDiddUct4X8QkRDlkJ0GQoGyUGt
+	 N5LFmV8kpyuqgfuij6RiE7jWGY6zZTouXvcxNvmQS0ibQGYoXLs+KhOgV/XwnKDWVt9Yh
+	 80qgLispqqW6dEr0kKxDbINla12NHIyDVwY6v1+wnTHemnolKRBloXlvV6nq3s7aLljur
+	 KhyFKc9Wrt6bURts9qZ3EikIUPgn8TBVT/COoa/PgkvmtoHVGY+0EnzO+OgGFHyL/+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=OADZb1yX;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D5D606CBCD;
-	Thu,  5 Nov 2026 16:37:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D5D606CBCD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=OADZb1yX
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793896652; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=csElEp+VhdZG2jnq1WLbmjmoJ99uEQ9BCkuzOTjKEJ4=;
-	b=OADZb1yX25qqRO0W23iOHaPjIk7pHhc5AzDX9N/3sKfGr8PQBpcQ+cZUewCLD55eGxTxHsVf6mVeLGBTW43a7Fg1kr2jh1ZVqqXwEMkNw6ZoZi1ohqUYQEKDwxDMkBXOUHqqNCvuqtdJaodJNzL6jQM4keQ0bVas/8oAYhel0rs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R811e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XE98I-._1793896650;
-Received: from 30.42.176.22(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XE98I-._1793896650 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 00:37:31 +0800
-Message-ID: <ae6f5ba2-8afc-43db-8d0a-f82d0163702d@linux.alibaba.com>
-Date: Fri, 6 Nov 2026 00:37:30 +0800
+	dmarc=pass header.from=mobileye.com;
+	spf=pass smtp.mailfrom=mobileye.com;
+	arc=none smtp.remote-ip=207.54.77.50
+Received: from esa3.hc555-34.eu.iphmx.com (esa3.hc555-34.eu.iphmx.com [207.54.77.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55E1F606CBEF;
+	Thu,  5 Nov 2026 16:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55E1F606CBEF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
+  t=1793896715; x=1825432715;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=MQguZ0pPB6xu64Iy4rpZmRI3D7Q0au41P1yYEXMSS5w=;
+  b=Y/X9gp5F45I9x7TC3t6u0luET2oFOst8BnlAm9CaHf0SfE9BXLGpQp83
+   0w+88iTlwpC2T+58n9M8XB+xsTeQsSM36r6K87ElhxhQvW8X+zObumJso
+   Vw6rQVZj0XxyY5t11B5mZ/xabKk6o5zIz8qI3eZpnI/9ivJR3L6qMCbfn
+   QUM1Xe1N+9tH5UdSgBclD/RhAMA1u7cWd83sd8sIHgD4g8Lluvhlj76ci
+   R1oSJUncdCIsJhm9we5buKVtygife0HZGfKSY4CM2gQiSzQ6GE/OONiWw
+   NpixICzXnyPLlSuCrQNcNvYkuUdRRbkqXsC4YmCH/xMpE6srNjTOClNhO
+   g==;
+X-CSE-ConnectionGUID: 56rEPMB7TX+VmlzKc6VAJw==
+X-CSE-MsgGUID: x3IAhptHS3i1FOxFHcWGzw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from unknown (HELO ces04_data.me-crop.lan) ([146.255.191.134])
+  by esa3.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 18:38:23 +0200
+X-CSE-ConnectionGUID: JIxwA1YCRDeUJxsR5v7J3Q==
+X-CSE-MsgGUID: qLV/c2C+Qm2HuxmYRkiwnA==
+Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
+  by ces04_data.me-crop.lan with SMTP; 05 Nov 2026 18:46:12 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Thu, 05 Nov 2026 18:38:15 +0200
+From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Date: Thu, 05 Nov 2026 18:37:38 +0200
+Subject: [PATCH v5 3/3] riscv: probes: reject probes inside an LR/SC
+ sequence
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,99 +66,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] fscrypt: Cap data units at the page size
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-fscrypt@vger.kernel.org, jaegeuk@kernel.org, tytso@mit.edu,
- linux-ext4@vger.kernel.org, adilger.kernel@dilger.ca, jack@suse.cz,
- yi.zhang@huawei.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
- linux-kernel@vger.kernel.org
-References: <20261103153132.4154855-1-libaokun@linux.alibaba.com>
- <20261103153132.4154855-2-libaokun@linux.alibaba.com>
- <20261103224006.GC2281@quark>
- <922240f9-8233-4466-a787-2f7ddba7c490@linux.alibaba.com>
- <20261104195127.GA1971@quark>
-Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <20261104195127.GA1971@quark>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-lrsc-only-v5-3-f0648f57b2e1@mobileye.com>
+References: <20261105-lrsc-only-v5-0-f0648f57b2e1@mobileye.com>
+In-Reply-To: <20261105-lrsc-only-v5-0-f0648f57b2e1@mobileye.com>
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>, 
+ Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Chao-ying Fu <chao-ying.fu@globalfoundries.com>, 
+ torvalds@linux-foundation.org, olof@lixom.net, 
+ aleksa.paunovic@htecgroup.com, arikalo@gmail.com, 
+ Boqun Feng <boqun@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Luke Nelson <luke.r.nels@gmail.com>, Xi Wang <xi.wang@gmail.com>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Pu Lehui <pulehui@huawei.com>, Puranjay Mohan <puranjay@kernel.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Vladimir.Kondratiev@mobileye.com, bpf@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+X-Mailer: b4 0.16.0
 
-On 2026/11/5 03:51, Eric Biggers wrote:
-> On Wed, Nov 04, 2026 at 10:31:46AM +0800, Baokun Li wrote:
->> What I had in mind before was to keep the default as min(bs, PS) and
->> allow DU > PS only when explicitly specified, which seemed to give
->> better compatibility.  Cross-machine or cross-page-size cases seem
->> uncommon, and existing machines have probably already avoided them by
->> specifying a 4K or smaller DU.
->>
->> Keeping the existing default semantics and returning an error in the
->> LBS case for the user to specify seems feasible.  But then
->> test_dummy_encryption and the xfstests cases that use the default would
->> need to specify the DU explicitly, otherwise the LBS + encrypt test
->> coverage would drop a lot.  That is, in the kernel or the tests we
->> always have to set a default DU size.
->>
->> If you confirm that we should take the route where LBS requires an
->> explicit data unit size and the default is rejected, I can adapt the
->> kernel and xfstests in v2.  Or should we go back to the more compatible
->> DU > page size approach?
-> 
-> It will indeed be annoying to have to explicitly specify the data unit
-> size, but I don't see a better solution for now, given the complexity of
-> supporting data unit sizes larger than the page size.  I think making
-> the on-disk format needing PAGE_SIZE to interpret is a no-go.
-> 
+A kprobe or uprobe replaces an instruction with a breakpoint. The trap
+clears the hart's reservation, so if the breakpoint sits on the lr, on
+the sc, or on any instruction between them, the sc fails, the loop
+branches back to the lr and the probe fires again. The sequence never
+completes.
 
-Agreed.
+This has always been possible on RISC-V, because cmpxchg and the
+conditional atomics are LR/SC loops. Once Zaamo is disabled every
+kernel atomic is such a loop, and so is every atomic in userspace built
+for the same hart, so the chance of a probe landing in one grows
+accordingly. arm64 has the same problem and rejects probes inside an
+exclusive-load/store-exclusive region.
 
-> I suppose that in theory, how FS_IOC_SET_ENCRYPTION_POLICY handles
-> log2_data_unit_size=0 could be changed: it could start actually writing
-> log2_data_unit_size=12 to disk (rather than writing 0 which means the
-> filesystem block size).  I think that can still lead to problems,
-> though.  For one FS_IOC_GET_ENCRYPTION_POLICY would return something
-> different from what was set.
+Teach the shared instruction decoder to reject lr and sc themselves.
+This covers both kprobes and uprobes.
 
-I also considered making the default explicit, e.g. 4096, when the
-bs > PS.  GET_ENCRYPTION_POLICY would then report 4096 instead of
-the 0 that was set, which I think is fine provided we log it:
-an unset field means "use the kernel default", and this just pins
-down what that default is.  This works for v2.
+For kprobes extend arch_check_kprobe(), which already walks the
+instructions from the enclosing symbol up to the probe address, to
+track whether the address lies between an lr and the following sc, and
+reject it if so. The walk goes forward, so compressed instructions do
+not make it ambiguous.
 
-I dropped it over test_dummy_encryption: mount options are parsed
-before the block size is known, and the policy is const once it is,
-so only invasive changes would work.
+uprobes have no symbol to start from and only the probed instruction
+is copied. Use the rules for a constrained LR/SC sequence instead: at
+most 16 instructions between lr and sc, all base integer instructions
+other than loads, stores, JALR, FENCE, SYSTEM and backward jumps or
+branches, or their compressed forms. Read the text that follows the
+probe from the task, which the caller's mmap_lock allows, and walk
+forward. Reaching an sc through permitted instructions only means the
+probe sits inside a sequence; any other instruction, an lr, the end of
+the window or unreadable text means it does not. Only a sequence that
+follows these rules is guaranteed to make progress, so a probe inside
+any other one is already on unsupported ground.
 
-But the dummy policy is recreated on every mount and never persisted,
-so there is no on-disk policy to stay compatible with.  The template
-can just use SECTOR_SHIFT (simplest); alternatively, refuse it on such
-a fs, or support an explicit du_size through a helper shared by the fs
-(most complex).
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+---
+ arch/riscv/include/asm/insn.h          | 28 ++++++++++
+ arch/riscv/kernel/probes/decode-insn.c | 94 ++++++++++++++++++++++++++++++++++
+ arch/riscv/kernel/probes/decode-insn.h |  7 +++
+ arch/riscv/kernel/probes/kprobes.c     | 22 +++++++-
+ arch/riscv/kernel/probes/uprobes.c     | 31 +++++++++++
+ 5 files changed, 180 insertions(+), 2 deletions(-)
 
-> 
-> Regarding xfstests, take a look at how common/verity adds $FSV_BLOCKSIZE
-> to all 'fsverity enable' commands by default, to select some Merkle tree
-> block size that the filesystem supports.  Something similar could be
-> done with fscrypt.  Yes, this won't work with v1 encryption policies,
-> but v1 policies are obsolete.  Most of the xfstests that use v1 policies
-> should just be updated to use v2 instead.  The btrfs folks were working
-> on that earlier, since they're not planning to support v1 at all.
-> 
+diff --git a/arch/riscv/include/asm/insn.h b/arch/riscv/include/asm/insn.h
+index c3005573e8c9..f5de81753bec 100644
+--- a/arch/riscv/include/asm/insn.h
++++ b/arch/riscv/include/asm/insn.h
+@@ -10,11 +10,16 @@
+ 
+ #define RV_INSN_FUNCT3_MASK	GENMASK(14, 12)
+ #define RV_INSN_FUNCT3_OPOFF	12
++#define RV_INSN_FUNCT5_MASK	GENMASK(31, 27)
++#define RV_INSN_FUNCT5_OPOFF	27
++#define RV_INSN_FUNCT7_MASK	GENMASK(31, 25)
++#define RV_INSN_FUNCT7_OPOFF	25
+ #define RV_INSN_OPCODE_MASK	GENMASK(6, 0)
+ #define RV_INSN_OPCODE_OPOFF	0
+ #define RV_INSN_FUNCT12_OPOFF	20
+ 
+ #define RV_ENCODE_FUNCT3(f_)	(RVG_FUNCT3_##f_ << RV_INSN_FUNCT3_OPOFF)
++#define RV_ENCODE_FUNCT5(f_)	(RVG_FUNCT5_##f_ << RV_INSN_FUNCT5_OPOFF)
+ #define RV_ENCODE_FUNCT12(f_)	(RVG_FUNCT12_##f_ << RV_INSN_FUNCT12_OPOFF)
+ 
+ /* The bit field of immediate value in I-type instruction */
+@@ -136,7 +141,13 @@
+ 
+ /* parts of opcode for RVG*/
+ #define RVG_OPCODE_FENCE	0x0f
++#define RVG_OPCODE_OP_IMM	0x13
+ #define RVG_OPCODE_AUIPC	0x17
++#define RVG_OPCODE_OP_IMM_32	0x1b
++#define RVG_OPCODE_AMO		0x2f
++#define RVG_OPCODE_OP		0x33
++#define RVG_OPCODE_LUI		0x37
++#define RVG_OPCODE_OP_32	0x3b
+ #define RVG_OPCODE_BRANCH	0x63
+ #define RVG_OPCODE_JALR		0x67
+ #define RVG_OPCODE_JAL		0x6f
+@@ -188,6 +199,17 @@
+ #define RVG_FUNCT12_EBREAK	0x1
+ #define RVG_FUNCT12_SRET	0x102
+ 
++/* parts of funct5 code for A extension */
++#define RVG_FUNCT5_LR		0x02
++#define RVG_FUNCT5_SC		0x03
++
++/*
++ * The AMO funct3 field holds the access width: 010 for .w, 011 for .d.
++ * Matching bits 14:13 alone accepts both and nothing else.
++ */
++#define RVG_AMO_WIDTH_MASK	GENMASK(14, 13)
++#define RVG_AMO_WIDTH_WD	BIT(13)
++
+ #define RVG_MATCH_AUIPC		(RVG_OPCODE_AUIPC)
+ #define RVG_MATCH_JALR		(RV_ENCODE_FUNCT3(JALR) | RVG_OPCODE_JALR)
+ #define RVG_MATCH_JAL		(RVG_OPCODE_JAL)
+@@ -200,6 +222,8 @@
+ #define RVG_MATCH_BGEU		(RV_ENCODE_FUNCT3(BGEU) | RVG_OPCODE_BRANCH)
+ #define RVG_MATCH_EBREAK	(RV_ENCODE_FUNCT12(EBREAK) | RVG_OPCODE_SYSTEM)
+ #define RVG_MATCH_SRET		(RV_ENCODE_FUNCT12(SRET) | RVG_OPCODE_SYSTEM)
++#define RVG_MATCH_LR		(RV_ENCODE_FUNCT5(LR) | RVG_AMO_WIDTH_WD | RVG_OPCODE_AMO)
++#define RVG_MATCH_SC		(RV_ENCODE_FUNCT5(SC) | RVG_AMO_WIDTH_WD | RVG_OPCODE_AMO)
+ #define RVC_MATCH_C_BEQZ	(RVC_ENCODE_FUNCT3(C_BEQZ) | RVC_OPCODE_C1)
+ #define RVC_MATCH_C_BNEZ	(RVC_ENCODE_FUNCT3(C_BNEZ) | RVC_OPCODE_C1)
+ #define RVC_MATCH_C_J		(RVC_ENCODE_FUNCT3(C_J) | RVC_OPCODE_C1)
+@@ -227,6 +251,8 @@
+ #define RVC_MASK_C_EBREAK	0xffff
+ #define RVG_MASK_EBREAK		0xffffffff
+ #define RVG_MASK_SRET		0xffffffff
++#define RVG_MASK_LR		(RV_INSN_FUNCT5_MASK | RVG_AMO_WIDTH_MASK | RV_INSN_OPCODE_MASK)
++#define RVG_MASK_SC		(RV_INSN_FUNCT5_MASK | RVG_AMO_WIDTH_MASK | RV_INSN_OPCODE_MASK)
+ 
+ #define __INSN_LENGTH_MASK	_UL(0x3)
+ #define __INSN_LENGTH_GE_32	_UL(0x3)
+@@ -262,6 +288,8 @@ __RISCV_INSN_FUNCS(c_ebreak, RVC_MASK_C_EBREAK, RVC_MATCH_C_EBREAK)
+ __RISCV_INSN_FUNCS(ebreak, RVG_MASK_EBREAK, RVG_MATCH_EBREAK)
+ __RISCV_INSN_FUNCS(sret, RVG_MASK_SRET, RVG_MATCH_SRET)
+ __RISCV_INSN_FUNCS(fence, RVG_MASK_FENCE, RVG_MATCH_FENCE);
++__RISCV_INSN_FUNCS(lr, RVG_MASK_LR, RVG_MATCH_LR)
++__RISCV_INSN_FUNCS(sc, RVG_MASK_SC, RVG_MATCH_SC)
+ 
+ /* special case to catch _any_ system instruction */
+ static __always_inline bool riscv_insn_is_system(u32 code)
+diff --git a/arch/riscv/kernel/probes/decode-insn.c b/arch/riscv/kernel/probes/decode-insn.c
+index 433d9035b888..6a4f55b07d04 100644
+--- a/arch/riscv/kernel/probes/decode-insn.c
++++ b/arch/riscv/kernel/probes/decode-insn.c
+@@ -4,11 +4,99 @@
+ #include <linux/kprobes.h>
+ #include <linux/module.h>
+ #include <linux/kallsyms.h>
++#include <linux/bug.h>
+ #include <asm/sections.h>
+ 
+ #include "decode-insn.h"
+ #include "simulate-insn.h"
+ 
++/*
++ * Can insn sit between the lr and the sc of a constrained LR/SC sequence?
++ * The ISA allows base integer instructions there, except loads, stores,
++ * JALR, FENCE, SYSTEM, backward jumps and taken backward branches, plus
++ * their compressed forms. Backward branches are treated as not allowed:
++ * the retry branch follows the sc, so one inside the body is not a
++ * constrained sequence.
++ */
++static bool __kprobes riscv_insn_is_lrsc_body(u32 insn)
++{
++	u32 funct3;
++
++	if (GET_INSN_LENGTH(insn) == 2) {
++		switch (insn & RVC_INSN_OPCODE_MASK) {
++		case RVC_OPCODE_C0:
++			/* c.addi4spn; the rest of the quadrant is loads and stores */
++			return (insn & RVC_INSN_FUNCT3_MASK) == 0;
++		case RVC_OPCODE_C1:
++			/* Arithmetic, c.j, c.jal and branches, bit 12 is the offset sign */
++			if (riscv_insn_is_c_j(insn) || riscv_insn_is_c_jal(insn) ||
++			    riscv_insn_is_c_beqz(insn) || riscv_insn_is_c_bnez(insn))
++				return !(insn & BIT(12));
++			return true;
++		case RVC_OPCODE_C2:
++			funct3 = (insn & RVC_INSN_FUNCT3_MASK) >> RVC_INSN_FUNCT3_OPOFF;
++			if (funct3 == 0)	/* c.slli */
++				return true;
++			if (funct3 == 4)	/* c.mv, c.add, but not c.jr, c.jalr, c.ebreak */
++				return !riscv_insn_is_c_jr(insn) &&
++				       !riscv_insn_is_c_jalr(insn) &&
++				       !riscv_insn_is_c_ebreak(insn);
++			return false;	/* stack loads and stores */
++		}
++		return false;
++	}
++
++	switch (insn & RV_INSN_OPCODE_MASK) {
++	case RVG_OPCODE_OP_IMM:
++	case RVG_OPCODE_OP_IMM_32:
++	case RVG_OPCODE_LUI:
++	case RVG_OPCODE_AUIPC:
++		return true;
++	case RVG_OPCODE_OP:
++	case RVG_OPCODE_OP_32:
++		/* funct7 0 or 0x20 is base I; anything else is M, B or another extension */
++		return !((insn & RV_INSN_FUNCT7_MASK) & ~(0x20U << RV_INSN_FUNCT7_OPOFF));
++	case RVG_OPCODE_BRANCH:
++	case RVG_OPCODE_JAL:
++		/* forward only, bit 31 is the offset sign */
++		return !(insn & BIT(31));
++	}
++	return false;
++}
++
++/*
++ * Does the instruction at the start of buf lie inside a constrained LR/SC
++ * sequence? Such a sequence holds at most RISCV_LRSC_MAX_BODY instructions
++ * between the lr and the sc, all from the set above. Walk forward from the
++ * probed instruction: reaching an sc through permitted instructions only
++ * means the probe sits in the body; anything else, including an lr that
++ * opens a new sequence, means it does not. The walk stops at the end of
++ * buf, so a short buffer only makes the answer more permissive.
++ */
++bool __kprobes riscv_probe_in_lrsc_body(const u16 *buf, size_t len)
++{
++	size_t off = 0;
++	u32 insn;
++	int n;
++
++	for (n = 0; n <= RISCV_LRSC_MAX_BODY; n++) {
++		if (off + 2 > len)
++			return false;
++		insn = buf[off / 2];
++		if (GET_INSN_LENGTH(insn) == 4) {
++			if (off + 4 > len)
++				return false;
++			insn |= (u32)buf[off / 2 + 1] << 16;
++		}
++		if (riscv_insn_is_sc(insn))
++			return true;
++		if (!riscv_insn_is_lrsc_body(insn))
++			return false;
++		off += GET_INSN_LENGTH(insn);
++	}
++	return false;
++}
++
+ /* Return:
+  *   INSN_REJECTED     If instruction is one not allowed to kprobe,
+  *   INSN_GOOD_NO_SLOT If instruction is supported but doesn't use its slot.
+@@ -23,6 +111,12 @@ riscv_probe_decode_insn(probe_opcode_t *addr, struct arch_probe_insn *api)
+ 	 */
+ 	RISCV_INSN_REJECTED(system,		insn);
+ 	RISCV_INSN_REJECTED(fence,		insn);
++	/*
++	 * The breakpoint trap drops the reservation, so a probe on either
++	 * end of an LR/SC sequence makes the SC fail on every retry.
++	 */
++	RISCV_INSN_REJECTED(lr,			insn);
++	RISCV_INSN_REJECTED(sc,			insn);
+ 
+ 	/*
+ 	 * Simulate instructions list:
+diff --git a/arch/riscv/kernel/probes/decode-insn.h b/arch/riscv/kernel/probes/decode-insn.h
+index 42269a7d676d..aa1b0d363545 100644
+--- a/arch/riscv/kernel/probes/decode-insn.h
++++ b/arch/riscv/kernel/probes/decode-insn.h
+@@ -15,4 +15,11 @@ enum probe_insn {
+ enum probe_insn __kprobes
+ riscv_probe_decode_insn(probe_opcode_t *addr, struct arch_probe_insn *asi);
+ 
++/* A constrained LR/SC sequence has at most this many instructions between lr and sc */
++#define RISCV_LRSC_MAX_BODY	16
++/* Bytes from the probed instruction through the farthest possible sc */
++#define RISCV_LRSC_SCAN_BYTES	((RISCV_LRSC_MAX_BODY + 1) * 4)
++
++bool __kprobes riscv_probe_in_lrsc_body(const u16 *buf, size_t len);
++
+ #endif /* _RISCV_KERNEL_KPROBES_DECODE_INSN_H */
+diff --git a/arch/riscv/kernel/probes/kprobes.c b/arch/riscv/kernel/probes/kprobes.c
+index 9e2afabf94e8..9c2284eafae9 100644
+--- a/arch/riscv/kernel/probes/kprobes.c
++++ b/arch/riscv/kernel/probes/kprobes.c
+@@ -12,6 +12,7 @@
+ #include <asm/sections.h>
+ #include <asm/cacheflush.h>
+ #include <asm/bug.h>
++#include <asm/insn.h>
+ #include <asm/text-patching.h>
+ 
+ #include "decode-insn.h"
+@@ -49,9 +50,17 @@ static void __kprobes arch_simulate_insn(struct kprobe *p, struct pt_regs *regs)
+ 	post_kprobe_handler(p, kcb, regs);
+ }
+ 
++/*
++ * Walk the instructions from the enclosing symbol up to addr. This checks
++ * that addr is an instruction boundary and that it does not lie inside an
++ * LR/SC sequence: the breakpoint trap drops the reservation, so the SC
++ * would fail and the loop would hit the probe again on every retry.
++ */
+ static bool __kprobes arch_check_kprobe(unsigned long addr)
+ {
+ 	unsigned long tmp, offset;
++	bool in_lrsc = false;
++	u32 insn;
+ 
+ 	/* start iterating at the closest preceding symbol */
+ 	if (!kallsyms_lookup_size_offset(addr, NULL, &offset))
+@@ -61,9 +70,18 @@ static bool __kprobes arch_check_kprobe(unsigned long addr)
+ 
+ 	while (tmp <= addr) {
+ 		if (tmp == addr)
+-			return true;
++			return !in_lrsc;
++
++		insn = *(u16 *)tmp;
++		if (GET_INSN_LENGTH(insn) == 4) {
++			insn |= (u32)*(u16 *)(tmp + 2) << 16;
++			if (riscv_insn_is_lr(insn))
++				in_lrsc = true;
++			else if (riscv_insn_is_sc(insn))
++				in_lrsc = false;
++		}
+ 
+-		tmp += GET_INSN_LENGTH(*(u16 *)tmp);
++		tmp += GET_INSN_LENGTH(insn);
+ 	}
+ 
+ 	return false;
+diff --git a/arch/riscv/kernel/probes/uprobes.c b/arch/riscv/kernel/probes/uprobes.c
+index eb177d0ce8ab..d97a10262166 100644
+--- a/arch/riscv/kernel/probes/uprobes.c
++++ b/arch/riscv/kernel/probes/uprobes.c
+@@ -28,6 +28,34 @@ unsigned long uprobe_get_swbp_addr(struct pt_regs *regs)
+ 	return instruction_pointer(regs);
+ }
+ 
++/*
++ * Is the instruction at addr inside a constrained LR/SC sequence? Only the
++ * probed instruction was copied, so read the text that follows it from the
++ * task. The caller holds mmap_lock, as uprobe_write_opcode() requires too.
++ * Text that cannot be read ends the scan early, which accepts the probe.
++ */
++static bool uprobe_in_lrsc_body(struct mm_struct *mm, unsigned long addr)
++{
++	u16 buf[RISCV_LRSC_SCAN_BYTES / sizeof(u16)];
++	struct vm_area_struct *vma;
++	struct page *page;
++	size_t got = 0;
++	int len;
++
++	while (got < sizeof(buf)) {
++		len = min_t(size_t, sizeof(buf) - got,
++			    PAGE_SIZE - offset_in_page(addr + got));
++		page = get_user_page_vma_remote(mm, addr + got, FOLL_FORCE, &vma);
++		if (IS_ERR(page))
++			break;
++		uprobe_copy_from_page(page, addr + got, (void *)buf + got, len);
++		put_page(page);
++		got += len;
++	}
++
++	return riscv_probe_in_lrsc_body(buf, got);
++}
++
+ int arch_uprobe_analyze_insn(struct arch_uprobe *auprobe, struct mm_struct *mm,
+ 			     unsigned long addr)
+ {
+@@ -53,6 +81,9 @@ int arch_uprobe_analyze_insn(struct arch_uprobe *auprobe, struct mm_struct *mm,
+ 		return -EINVAL;
+ 	}
+ 
++	if (uprobe_in_lrsc_body(mm, addr))
++		return -EINVAL;
++
+ 	return 0;
+ }
+ 
 
-Agreed on rejecting v1.  The xfstests cases that need it will have to
-be skipped or converted to v2; I can do that if nobody else is on it.
-
-So, to enable this by default when bs > PS:
-
-  1. reject v1, and convert the xfstests cases;
-  2. in fscrypt_ioctl_set_policy(), make the default 4096 explicit
-     and log it;
-  3. for dummy, either use SECTOR_SHIFT, refuse it on such a
-     fs and skip the tests, or support an explicit du_size?
-
-Looking forward to hearing your thoughts.
-
-
-Cheers,
-Baokun
+-- 
+2.43.0
 
