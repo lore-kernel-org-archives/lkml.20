@@ -1,95 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793913392;
-	b=knDppXAI+75pqvzo8Jh2+G1dwkksWpc+aKQJWmktTjG9CyuEuT3umCWSAlFcB3ZtbUKg
-	 DltlEloSdu30+Rgzyazs9ujE/x2+YdQ8CaZBR74f178yywj+X30zABz0OUVZLM3FknBcE
-	 P0MQCwSPXY0PqWxKWcKz/hgfY1DuDwcsarD3DT9AEVpwwRjtas7xQa8iYB7oYwSX8MuYW
-	 zL5gjcOJK6eZ+BkBD9ycpvvZAih0ZPuWqlX6usArhnA3KBpMpIpmZwKqGy2w0n5ciufb1
-	 FhpRYXo4Ky7cznefhq1Qi9qwTdmqOAAphQ8uGNiqlS2Rfwm67myoOMLdssNePoO/xhg==
+	t=1793913414;
+	b=wG4gqQKMVN+DtPA8N3V8Ki/wU0PRx5MEpR5WOKIOw2AEjnw0fj3/eRh+EtDg4oLlUEM3
+	 r9Zq2RwOozrEH7DRFahLT9TEZzCgO37tKA0J+Cx6s1YbKyLGJzuk2UclbxFa5k3Y2oSTG
+	 qICadbXIjHLmd/pzNE7yvnEj4wwfzLZeJ9gGPhQWR28Q/O+HwVKhLCRP4+Bv3CMNaKXFB
+	 vZbe2cTIo61NPXDSzLNsYGr10CUUOowmNmKmYBwsq5rzKA9oy9qIAk/bPwN+PodQZASvC
+	 pLq1nsSV3Wnzmqqk6gayxcwd5iAmvZwdWyrveW9op1V3p++fiSswfx1YSoWfytpTT0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913392;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xRj+1WgN1BrmQW8Cu7h3hEln/8iUG3pzDfaG3KwvBw4=;
-	b=FcX8lii9glSHhxyb1ex2CBqH0TkEk7Cm8RAsOcAFxmCbn5wQmeBOUOwYNygI+tMKQKDf
-	 0s3cX/wiqaJtlojL4x/s2LGvL2rmtxo7iizupI8hFVFO/bNro60P7kx2WOk4HMQ1sYC7o
-	 QUeYpyDYLILo6aXTliC85qjh7rGDi/rzM7F02f6H1fQ7oFbV+16DE1zf+di88V98JE2cQ
-	 N7oJbjIBTXvQexCV5oaszwFAtrnqrP3u7A/yW1qQQgrZhVsY3oKcFMM+WZT7oP3HsFUtw
-	 Tf74yBEZVZpNSKQuKokuf0MadYTMZkgXPA/CK7McSlaTpR5snbSPFMpi5UMh3fQJvaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913414;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VxizPleZhq8HwEA9+OGD1/wqtPtl9/FGqR/08An4bnA=;
+	b=0oiAuUn/fTS+fckEIcwUkdCNKuYRpeXw2oChIu45Fx1ZdCH5QxenG/FZCW3ipMt6enXN
+	 V6I87jnc7/qG43pbwcKqGTBO7l0gstQyYklSuUJC64LZQBIzg/ev884f16KoabZjlvGxD
+	 o55GSh9hl7MpuB+drRqd4MCe2EOfYKIomKjxGDdbmd8ypkxM/O34iCDfNMbwXj+y/AKoB
+	 Mxvo+Y1KVIwahEhm393skhPWmf64QOXaIVg8EQ+YPkB61GLudeoeQC12caoOWJsKJlQf7
+	 wr/hmcSJGF0N3xKuZa9pdaPx0nUKBdX7YdGMGayvXSeIgiGWQh7R/jjoAJUxM36bAGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+UsAmZG;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g565L9wk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35AA606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D35AA606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D060606A31B;
+	Thu,  5 Nov 2026 21:16:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+UsAmZG
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a208d93758so27705825e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:16:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793913390; x=1794518190; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xRj+1WgN1BrmQW8Cu7h3hEln/8iUG3pzDfaG3KwvBw4=;
-        b=I+UsAmZGmbl+fJKyfhrjvbUQBr+vmNGkYXN3MA9J+7vqCnUOTn4liWlg7hvRpAAgsH
-         y6YitFWx9cfFARQzlbDFXco2Jk/g8SrZ57Zro8m83yT65BYaQW5QTE8/EsawolbKZq+h
-         ahWyPZ5BtdZyK2a0H2aFiACQKXOChfpuV0N+M32dfOcHmOt9KrOgHM8SL5t2KG8uZuVL
-         aeLjYiqlYl/fkpBqZGuI4TdKlgTlrDs8kuvahyZVurywY710MpNuTQ6VKuttnmUHaro7
-         H7xStlaPX6R2ZZ7VAkKznSwQj4U/Oeq7JnbtrY3nboOhZ0viwX8HwQ1hWnDClj5WYKUx
-         oIJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793913390; x=1794518190;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xRj+1WgN1BrmQW8Cu7h3hEln/8iUG3pzDfaG3KwvBw4=;
-        b=fzei+Kmg06AaKLUFwmmL54vKmrrankAipfUvjDyj0D18id+96fJ/3F04+Ljp7/IL/z
-         ONeu1wuPoSvmJUIokjLEswKZhxYHuJY3logYdEMnkIgoRYdvuOuoQagrbYlMmQ6DMo7Q
-         4kCWW8dyUQeeQ05q52et7iJ2j8XQ3+l5j2Z7wPr7Ixw465mJhbveax5M1u4w5J6DbyfE
-         r8+pQl2Y4Ox4CJPGUk+B8/w1c1bgxxoI8WXqyC50NmHXLV+rnRjfRapeSIwtWTCw+1lG
-         2vBLvDETrPvwegnGXWfRkpAmDrGu1tM0QMsXVw19E/H2i1Pg8zy8i2eXqXegp0tXRyMQ
-         n5Sg==
-X-Forwarded-Encrypted: i=1; AKwUvByAcTKYuGMCUzvpTD7+fNDagSFaK9RxwwEh1m9zR0y92hhk8MyxPTc4mN9JDzxAY6b9nVn/Y14o4BTW8F4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fnd+XN4BrSx7eJGvJyn7MBEByfrF2+v5XAP+sVpMdjdga+Lg2
-	8EdPKEHxk9/43aYwrGtguJXh8rx5SFUuXLooq8FhboB9qYWEryzpR9B0
-X-Gm-Gg: AYBFou0E3OgJhxwixJNaUuqO2tJodQI6XqZytlvygBS06GndBpZ9I3uoWiJd/tAHGvB
-	fIyv1OSU2NWDT6Y1pDDuZU+2vGN1chQ/Yty9A8XFVnrhNlS764W8BryDU0ofgt4Gn40Zzb36iZ7
-	pvAbIyas4lJFYVQRby26EulOTWSg+KMymH26G8Dur1xhVF2gY3aWhec1khPVMNzxvfQ8HfDs89M
-	9bFmHjmhhht2fOn7XhAz/F6rTNp/cSUd89ckb7tXnNT2C2N37a/IMlfoiRnodYE01nOOR3BDBXZ
-	jsJEuKIwmhzkrRD10C3xF+aGs7RekIt/ffuGS/a4aVq8eJsa2+fo7fUnOQjjgBt3yHSeH2OE5eT
-	xD5kNf4bEYvY3ywfl0TQl2kXQBsAwq7vjNC+PdFJ+Cu/rMfAnk/gnMSnc3/l5OzWZBU/IWoxLEd
-	mclmJPLC0aQYHEMJZozgADIMc4QVwke5P+UgycFqviJiPXRLFdJ3UP4BzdA6pp0YMTxGraC197l
-	KoVxHiHqxAwcCLDj+MQyxFkp73M6cqKltsYXy/FsYY+AjA/q338YOy5o88UADCO7uiI237Z6R7N
-	lxIOTDrVoHEmwNJMiZf87RpNhMAHwFq99+c2n4DUsAy+xZSGhfu0IniEwNfJKswiPCfFewtbTzM
-	=
-X-Received: by 2002:a05:600c:8b05:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4b6e0172847mr5899255e9.32.1793913389982;
-        Thu, 05 Nov 2026 13:16:29 -0800 (PST)
-Received: from localhost.localdomain ([87.13.215.38])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fedc09675sm11703458f8f.55.2026.11.05.13.16.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 13:16:29 -0800 (PST)
-From: Francesco Giandinoto <testata.nucleare13@gmail.com>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: Francesco Giandinoto <testata.nucleare13@gmail.com>,
-	Teddy Wang <teddy.wang@siliconmotion.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-fbdev@vger.kernel.org (open list:STAGING - SILICON MOTION SM750 FRAME BUFFER DRIVER),
-	linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] staging: sm750fb: make g_fbmode constant array
-Date: Thu,  5 Nov 2026 22:13:16 +0100
-Message-ID: <20261105211344.17532-1-testata.nucleare13@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g565L9wk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0229C1F0089F;
+	Thu,  5 Nov 2026 21:16:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793913413;
+	bh=VxizPleZhq8HwEA9+OGD1/wqtPtl9/FGqR/08An4bnA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g565L9wkD5iSSuGFWKDuD3r5m/puCbGyJJCo3TJWpw9Qk1mtMlX3Vhu/zaycMuZyG
+	 8WIHVCle+3SB5Y13eRo9Q/o/7luBCPOEmo3Ccnjes64p+oDk7jULazfvcBLuq5BP8p
+	 ejZYak2vpyWx7teiB/ViaVFVVt4nGpOAS2ngNx9Jp7VKECYVgIb8o7HI8C2fDkaeJh
+	 1L+iyjnb+5rRrtkH5nQw1QSEFedeiKX/TPIZiO0SCv3OgZGZZN310wOQ9GXsMclAs+
+	 7xgKYiEZJywRJ4oAqp4kOsDiORP6ys9gNtrwp9RMPZcFAkHKvefz1LLsVqo4RSAXPT
+	 MFSEB1NF38ycg==
+Date: Thu, 5 Nov 2026 22:16:44 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Chen Linxuan <me@black-desk.cn>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	John Johansen <john.johansen@canonical.com>, Georgia Garcia <georgia.garcia@canonical.com>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] pidfd: Add task path ioctls
+Message-ID: <20261105-fotokopien-essen-inbegriff-be31e4f3c8a6@brauner>
+References: <20261027-pidfd-get-paths-v4-0-e2a6a47e3c95@black-desk.cn>
+ <20261027-pidfd-get-paths-v4-3-e2a6a47e3c95@black-desk.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,28 +70,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027-pidfd-get-paths-v4-3-e2a6a47e3c95@black-desk.cn>
 
-The g_fbmode variable is used as an array of constant string pointers. Add the missing const qualifier to clean up the source code and adhere to kernel coding standards
+On Tue, Oct 27, 2026 at 04:46:09PM +0800, Chen Linxuan via B4 Relay wrote:
+> +	case PIDFD_GET_EXE:
+> +	case PIDFD_GET_CWD:
+> +	case PIDFD_GET_ROOT:
+> +		error = pidfd_get_task_path(pidfd_pid(file), cmd, arg, &path);
+> +		if (error)
+> +			return error;
+> +
+> +		return FD_ADD(O_CLOEXEC,
+> +			      dentry_open(&path, O_PATH, current_cred()));
 
-Signed-off-by: Francesco Giandinoto <testata.nucleare13@gmail.com>
----
- drivers/staging/sm750fb/sm750.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So the path we take from the task is a jump target, just like
+/proc/<pid>/cwd and /proc/<pid>/root are. So complete_walk() runs
+->d_weak_revalidate() on them. Without that a stale dentry on nfs or
+overlayfs turns into a valid O_PATH fd.
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 21e310274..47d2917cc 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -12,7 +12,7 @@
- static int g_hwcursor = 1;
- static int g_noaccel __ro_after_init;
- static int g_nomtrr __ro_after_init;
--static const char *g_fbmode[] = {NULL, NULL};
-+static const char * const g_fbmode[] = {NULL, NULL};
- static const char * const g_def_fbmode = "1024x768-32@60";
- static char *g_settings;
- static int g_dualview __ro_after_init;
--- 
-2.56.0
-
+And failfs relies on ->d_weak_revalidate() to refuse pinning its root. A
+task that fchdir()ed into the failfs root can now hand it out through
+PIDFD_GET_CWD. Which would be breaking a guarantee we give. So we need
+the same check here. I'm just not yet sure how we best do this.
