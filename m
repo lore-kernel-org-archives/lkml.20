@@ -1,48 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912933;
-	b=e4UtUnz/Lvsx6tfY/bhDwiC26qhoG8Ksu1psAOJHRsD7sJNF2/wInSxAdkvS4WVTZ2Te
-	 NzX02p2wd9QNGziKPyzPmKP86jCq2DCapkm/nrJj0uqoxihIAPCXaJxalMC7+bIDuxUaF
-	 JSZx9sJSJoRaMasLkHVr4fPj3Ygah1hO9k8+7NamTMOd3Q+bsyjNbCZ3djsiDxbt/o4PD
-	 9ni1sulQjh7vSycSDtwXLeRgii8WnpueObGAq7c/XXRmFZ4SqpFGveS119Oul685Y/m2B
-	 C4ePszhSAUDZ8X5QyvviPttiHNA+zB4HPbjBB4eYUWnH0atPBbw0stHEaZhSmh7kABA==
+	t=1793912939;
+	b=oh4gJlCHtPoqscj6ISLhj2KC1AhKjscoOmXEPxJe8AsjMnYU5UD+bulw4HWxZlEWysYS
+	 0xPsjlGNc0pS9jId74aHjZwCBOHNuUnd0TkrYACi/KDjbpi2aGMFHqz1RIr58Tj79mBmz
+	 NQAHYa+0NM7m9F/+dPA7TMwe0ffrBEnWIx5rjogy5UdQqoN3GquiLntx9atk7+twHGlGz
+	 aUeSAhnacv8tkRhDRy6rLItyhMOPdUTyqPgEigZn9U1g4XvgXtzsSp31dP1fpeKBjGx+W
+	 EWgrkNACj8LkeaNoT7UMi5tcAgFpfhwn907uAqcSUsrVTJaPWZDcyK5+d9ijHIfxWnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912933;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=f5KzmK9Yc1O2UTKJiw6Ig75W/rQrebyZwa5yMpDxZPA=;
-	b=pLScJHH3wL0ljpTaS6WcxHFwU+36boWywu9tDluKtQbIFJV4754kLfU/HRFTFiiblvH/
-	 MRsr3UrE1F6mWGUZT770JJ4/1irkn4H58EaREgvSCMb5IU0tX71KT9FnZ3f4hhTpS5ymW
-	 UrGwtGWikSNxBYHInFrnzMiGd/EKWZilD5H60o/cY5Ul7+0EaK34laur08rLPaHH/GMld
-	 bTkmvdpdc6bel9iwjWgkLtRNnmc4xnlSLxkk/O9DUOcTomX60a/RsaW8RakU06/cHrrCr
-	 f6IxscE1TTCAKYprQDBukDbV3sneHHIdTndDU0VuDAlKc5HQ00WjExpa639cXN/zQYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912939;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=zmrbzV1PCoGNlOYAhGjRcBVn+qyXAzla9Guh3ab51sc=;
+	b=VlzNcmSk0i5Rx3qGvlYQ/vmXjUpW6XaaAwrSSnaFt63z7GcG0tI77UxrEETk636IJpGe
+	 oh7WT4rD/h6kv3fnqLhj0TkuYZ4PW3uP3TQlma+WqElRJZk+qn9B0SLqm1NlmixBK7YXW
+	 pvyzoPU28uvlcott+I8Vp2gdUYgT3EuzPzrlqiXnYtTXDsSEMvn/7NxXTltONS4sHSQuL
+	 LfWurVvm8Kyhsq/J31TAY7mtLni+j3UfDNhNkBuRf7XgT5J2fGQTUrzvu0RPMnvp+v24T
+	 wB1Miu7umx0fwgGH9o+mFqrHc7lbbEEociG0de5G4vnsep+3uQEilCZHwmSa2EXIBwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8CRph5N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=LSrGiK1j;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412B6606D82C;
-	Thu,  5 Nov 2026 21:08:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786F96082BCD
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 786F96082BCD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n8CRph5N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555ED1F008A2;
-	Thu,  5 Nov 2026 21:08:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793912933;
-	bh=f5KzmK9Yc1O2UTKJiw6Ig75W/rQrebyZwa5yMpDxZPA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=n8CRph5N+6GvMpxdTIZcApabmYM00ArLewFL8fQnfylRd81N3dMFr0fH9tM4p+HtO
-	 aUidU5CiMimh6FJxpyYqMz3zczVFtpB2Rg8C6Cvpnenu7HefwcLf7SzXaei+nFpCsq
-	 g+IIikN+Wpf5xA5Iml3JdYU+nz+jxroAIVKnx8cAky1Mefm7dQRJYZr4fXxy8faV+B
-	 gKm7dUWZnjvRP+x3tKmFXknw94zv5xgigYJCPUGpqxlfNq5n3JmZ8HKLtFE8wxCIUp
-	 5Rf8140WFsZqvLSCfX0CiwE+wK86zC1db93JvTfAih23Aag2hbuzEZLeh7mzRE98Cl
-	 QUXlmqQj/bSaw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 05 Nov 2026 21:05:45 +0000
-Subject: [PATCH 14/14] vhost-vdpa: convert mmap hook to mmap_prepare
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=LSrGiK1j
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91c7b00a75fso24453326d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:08:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1793912938; x=1794517738; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zmrbzV1PCoGNlOYAhGjRcBVn+qyXAzla9Guh3ab51sc=;
+        b=LSrGiK1jiy6V885V9jN8Bi3b6sNFbX+dZ266bmKi4t+St0LvwHyatzh97rXhiGOqcC
+         CaEDvyj+s5LQxu+fJ2TeQJ5ccIZUwni7qUOe6vtSI64pxjTjVU2hXKfVZka0bTeM8jKC
+         9fHm6CoZXeXwQ5UVG1VyR21oGr0GSG47dCWP/sHxbVqLkjNtgvMVE1tWreBvI8N9fg0t
+         nFi9UELQyynrPUqvfCpwssW21Jam3IDVvy05B/PHNgD3/N3v7u4JgyRmZ7zsrpSBTGQY
+         NYZ4EA34HR24ZnF1iwEUqy72umQyV2ZFl8CQQW9WMEqJ1wHDStInDTbhwqROPgfvApI2
+         KbBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793912938; x=1794517738;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zmrbzV1PCoGNlOYAhGjRcBVn+qyXAzla9Guh3ab51sc=;
+        b=Y1Pqk/wTttaPiay6CL2UsJeOIDqjRTKtQLoZG6dpfJXpcNLeWkjFqcVyTJQrBrbZ32
+         rUpgIbMnikEpxw64DFTm+BH3voiRM3DBEYnlZ3EUjelYdYqPIr2sVPX1TDhDnzvMeniN
+         c2ZJrArRTo7w0Api0n7ioy0IV/3maa0xeM7D3bDj1f0UytsnMlr8Oh11eFC08r+acC2q
+         88UJIXbTcVGUfjDCowbbgJCE5jpX/ZM4bWUGAX3uJTilu+UaMYecDH5jQc/klE6anTwT
+         BzOQcEgZBT3YCGVcuIiURjK4I/P2D9EEsAE3E2ycieF9/etWvZhr6WLHjPgW8Ye2BkVV
+         tE4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxN2BTXXm5MiRh0m3xemI++F61iHDa2GD90bvLG+uleNo+kahDtCeLCOYpjNrJnMu+nBEvqSjthYjLIA7A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AN/fi23WkJhOd6UQEzAu2IPAgyqQ+vZ9/v3yQLLQCLsAarTb4
+	vS5/3hXCx5KyjabAodWZyaX5Smlqi9IreQr2OvbHXKKRSkiq40d+55Ls+fIbl6qCMjyrcLQuBVC
+	uttu7wqPQ
+X-Gm-Gg: AYBFou3iFsiQyNMva69im+K9axFXVvF2fdfARqAdKd5Sywoc7GH616WwXXcG0tbuj9a
+	jsvrZLHzKqGcS5ehxCP/la0/an6G/G58+LDXWP2az6+6dJBJiifRNGEYD8eK0v7nbfQwGyKbHIO
+	9NOWyTS/8wUnja5ZOHiNjRStux8ZXKYWsmcx27Wf95XQBkDyfHkGhLwX9WAF3K6EmM35viKm2pG
+	t+jWCtFoidg/EFRr6rNtfj4r/CI726MTmL7b2QevVEe75a369ywiMgnIEyts1Zuk3YxPIKJSsUE
+	yTdKpfB6fvg5sycBjU+rgzXNHIHuOoIhTzo6GVEKUXubXdPE7w4Wl4QJ/UMPcjqfC8AP4kToUr5
+	c8NkFHF6ZL9okd+OpN6HWfC62KV/XZTPM9YYkHe+LMOUYp30vJQJRLRw5iLPBhzz6vCcrujFM/1
+	aBz22tSIpBHIFMlSPrs0SSgXK3sokm0wT2t30nsH/0aNR4s5gKl7LmFPYncdhZ8d3oXLF+LdgjN
+	INYHLz4152uSUIJewdKgv9qk+lCaClSSy5l8QM4KSAZ14Y8lVFPQcCpBfjhu4Da7z//EXkGD42m
+	N1omc2sv3aW3Tb9xHF0Vhi6D8nu3
+X-Received: by 2002:ad4:5cc7:0:b0:91e:9ab9:bf37 with SMTP id 6a1803df08f44-91ea9627890mr3858876d6.14.1793912938154;
+        Thu, 05 Nov 2026 13:08:58 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a9a744sm4578596d6.32.2026.11.05.13.08.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 13:08:57 -0800 (PST)
+Date: Thu, 5 Nov 2026 16:08:54 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>, stable <stable@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH 02/19] USB: core: signal the end of an sg request last
+Message-ID: <c4a8be3d-5b0c-4581-b225-05211a4ae9cc@rowland.harvard.edu>
+References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+ <20261027-llm-usb-v1-2-b9751ddb9c7c@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,129 +99,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-late-2026-mmap_prepare-v1-14-c56aadfbab8a@kernel.org>
-References: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
-In-Reply-To: <20261105-late-2026-mmap_prepare-v1-0-c56aadfbab8a@kernel.org>
-To: Juergen Gross <jgross@suse.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Jan Kara <jack@suse.com>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- Scott Branden <scott.branden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- David Woodhouse <dwmw2@infradead.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: ljs@kernel.org, xen-devel@lists.xenproject.org, 
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
- virtualization@lists.linux.dev, linux-sgx@vger.kernel.org, 
- selinux@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-arm-msm@vger.kernel.org, 
- op-tee@lists.trustedfirmware.org, netdev@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2490; i=ljs@kernel.org;
- h=from:subject:message-id; bh=JMVxOxpfFwzbko1Dkxmi/MhSfdurHV7XcSZNEQmi5LM=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLevF9bav5wk6fYrXOXd6ULZVa0TPfJ+Lg9MZfZ9diee
- +qG2zLOdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiYXcY/qcUxNtcOqidzSK8
- Kjc5+rCJmY7SZFXp7BChe/6HDFawfmP473xkKtfXWhYbrcSmOwwT5rzNXJ5t/Wde6Okj54p0482
- qOAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-llm-usb-v1-2-b9751ddb9c7c@linuxfoundation.org>
 
-Move from the deprecated mmap hook to the new mmap_prepare hook. The hook
-only validates the request and sets the VMA flags, operations and page
-protection.
+On Tue, Oct 27, 2026 at 03:57:42PM +0100, Greg Kroah-Hartman wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> sg_complete() and usb_sg_cancel() call complete() with io->lock held and
+> unlock afterwards. usb_sg_wait() does not take the lock again after
+> wait_for_completion(), so it can return while the other CPU has not
+> unlocked yet:
+> 
+>   CPU0 (giveback)                     CPU1 (usb_sg_wait())
+>   spin_lock_irqsave(&io->lock)
+>   io->count--
+>   complete(&io->complete)
+>                                       wait_for_completion() returns
+>                                       sg_clean(io), return
+>                                       the caller reuses the request
+>   spin_unlock_irqrestore(&io->lock)
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- drivers/vhost/vdpa.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
+Wouldn't it be simpler just to make usb_sg_wait() take and release the 
+spinlock before it calls sg_clean()?  Then the routines calling 
+complete() would be guaranteed to have finished using the io structure.
 
-diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-index ff7d90719171..993b2d7c8927 100644
---- a/drivers/vhost/vdpa.c
-+++ b/drivers/vhost/vdpa.c
-@@ -1573,19 +1573,19 @@ static const struct vm_operations_struct vhost_vdpa_vm_ops = {
- 	.fault = vhost_vdpa_fault,
- };
- 
--static int vhost_vdpa_mmap(struct file *file, struct vm_area_struct *vma)
-+static int vhost_vdpa_mmap_prepare(struct vm_area_desc *desc)
- {
--	struct vhost_vdpa *v = vma->vm_file->private_data;
-+	struct vhost_vdpa *v = desc->file->private_data;
- 	struct vdpa_device *vdpa = v->vdpa;
- 	const struct vdpa_config_ops *ops = vdpa->config;
- 	struct vdpa_notification_area notify;
--	unsigned long index = vma->vm_pgoff;
-+	unsigned long index = desc->pgoff;
- 
--	if (vma->vm_end - vma->vm_start != PAGE_SIZE)
-+	if (vma_desc_size(desc) != PAGE_SIZE)
- 		return -EINVAL;
--	if ((vma->vm_flags & VM_SHARED) == 0)
-+	if (!vma_desc_test(desc, VMA_SHARED_BIT))
- 		return -EINVAL;
--	if (vma->vm_flags & VM_READ)
-+	if (vma_desc_test(desc, VMA_READ_BIT))
- 		return -EINVAL;
- 	if (!ops->get_vq_notification)
- 		return -ENOTSUPP;
-@@ -1598,12 +1598,13 @@ static int vhost_vdpa_mmap(struct file *file, struct vm_area_struct *vma)
- 		return -EINVAL;
- 	if (notify.addr & (PAGE_SIZE - 1))
- 		return -EINVAL;
--	if (vma->vm_end - vma->vm_start != notify.size)
-+	if (vma_desc_size(desc) != notify.size)
- 		return -ENOTSUPP;
- 
--	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
--	vm_flags_set(vma, VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
--	vma->vm_ops = &vhost_vdpa_vm_ops;
-+	desc->page_prot = pgprot_noncached(desc->page_prot);
-+	vma_desc_set_flags(desc, VMA_IO_BIT, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT,
-+			   VMA_DONTDUMP_BIT);
-+	desc->vm_ops = &vhost_vdpa_vm_ops;
- 	return 0;
- }
- #endif /* CONFIG_MMU */
-@@ -1615,7 +1616,7 @@ static const struct file_operations vhost_vdpa_fops = {
- 	.write_iter	= vhost_vdpa_chr_write_iter,
- 	.unlocked_ioctl	= vhost_vdpa_unlocked_ioctl,
- #ifdef CONFIG_MMU
--	.mmap		= vhost_vdpa_mmap,
-+	.mmap_prepare	= vhost_vdpa_mmap_prepare,
- #endif /* CONFIG_MMU */
- 	.compat_ioctl	= compat_ptr_ioctl,
- };
-
--- 
-2.56.0
-
+Alan Stern
