@@ -1,65 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883572;
-	b=mL93WAaZNTc9/WRzLl9MgSF9AHWGBpF55zzAz8NguuatPIw+RNM+r+VwGd9Rd6qn1mox
-	 5pySwPVRsKyYrKqBrTj+ibzmEs1Ge9Tc/yJiGGei2M6rvpqeLas+Za6RKtxAdJTO5Z+PP
-	 CqCm4Z71aUwyVv9J9Qt2AN8QUjmzTXru4ghIDrSCC1KG3wEonSmWP0rIQlRRaAa6IKhDu
-	 TWkzMEfQtv0SB3kXGPx1ETDrFgBPzMFQsXCAzx3BLE0Fg7Lb3FyRpJrP/PiKkO5P0z6Om
-	 gkABPhYt0yihxE87OhnY/wela+sWocVmfD+fVIp6euLNknE0EUQkYf+cWJMAPNw05vA==
+	t=1793883581;
+	b=l03Y79EFJETgXgsLaoy4KeNeZ0kKV7Rbj197/N1sRU1j/ZxS8xG1FbqWc8YCLUFZ8Ltt
+	 7EwbGr12Yulw7/OlSo7g9Fb4fYiwe149BQA+Jbt22xwfGADK4lY5P7brVG9W4zeqBxO0m
+	 tO2xVVw+As12dKvN5Vt9PxRouESQEf5/ewncIOeVQOmMztDKMm6HUNuZcIpsk0DMt3N9E
+	 516gP1fpq0ZTwgKVNJLg19bKDXjf0MYfk0yON6pTzmzKDVOY2qmAu7VOdOufLQulYpjw9
+	 3yV3YgdmwYxYvul2rZKObI0gujqKFv2FmC0gkjQ6MBXA2ZPWc3jn3/UHkVNdm09+Irw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883572;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=+E22eGQ2MJjCILPPn9RP6s1QVwt1VQHo3HCnxy0O66A=;
-	b=qOtu5/UCvZiJI8xZT+GauUD7INTPAmJOd12bvpVpFqqZO0rvvR0ef51BhmoCEWR9MhLl
-	 D3fh+Gn8R6PWu0q5TyOIyRJMijqeid0Dy+99WZOZPRIAYswzaPWp4hgUpxfl3ZhJefH7R
-	 eoUSYEkbDP5I85t3Q6llSv/XtOwUH6r9MUzi24Qjwk6dA1OyeFcRh4avu5S8O8vvwJE4W
-	 +198qiLP1bxFtDfFZUlLb3psKhWoPHFzpkTXOcrekoVEcUU9Bech7knS9oP43Edd5NITV
-	 NvBL7PcZCdxpogwaFHOhM5/EeHETFdF2Ie/bu8Rs0WHQwlbiJtP95pyNfQVrNIjsHJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883581;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=z/gziC0JLIrvCdp4GmTMosiOJuTAZ2fDyAiYOPUD65U=;
+	b=H1WUzJwdnfMRhbxFWO4rJzdQk3yDN74MdLpxjgK0BnfE2csTv/bhd9fx3trMtxbcrINF
+	 XQ1IM0YJEPakrVJvbUoqX1lRapSXaPfwx9XkfWo50r5AftVl0LsGML+nbUiBo7QQfhmuN
+	 ZEn/S0jvZeFHC7l7BbfaTm2mxbah/dI5R/VkUqW/8eszAmtWSDf/t7KtvrkPE0fCfigxQ
+	 o0oQMR1SUi64Ids0ruAkZpKdveAGAV1/lnICiooeZyHMXSw/SSDMgQNqJtDWc7OPEjqEM
+	 wcE/vwIfTiVTUhl7LDV5yn0TErv1PBTSQbqhtv9rNMhBtxOOKR/2JEMJhm40dKB3MUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=cS7ul+wi;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RYGzJ9/p";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB9C606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB9C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4688606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:59:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=cS7ul+wi
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+E22eGQ2MJjCILPPn9RP6s1QVwt1VQHo3HCnxy0O66A=;
-	b=cS7ul+wikj1KUf5rkKa9MyhHiH+s2IyoUyiP3zfHwGpPZvSjuxGmIlG1V83ZLRyMoquvSCW/Q
-	EBHGUFzgMAtkI1p3cogsaEq9/V4qlMyLiBOzbqv9LOoKDbF9fWMFWLKnOjz+nybHE7ms9vpcoZb
-	4mnnLjDnA+Tp+92Uc+YBlQ0=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jL2Sb68VbzmVBV;
-	Thu,  5 Nov 2026 20:59:11 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4BCF44057A;
-	Thu,  5 Nov 2026 20:59:23 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
- 2026 20:59:22 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <chenhuacai@kernel.org>, <kernel@xen0n.name>, <rppt@kernel.org>,
-	<tangyouling@kylinos.cn>, <baoquan.he@linux.dev>,
-	<loongarch@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v8] LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
-Date: Thu, 5 Nov 2026 20:59:06 +0800
-Message-ID: <20261105125906.2284169-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYGzJ9/p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19611F000C1;
+	Thu,  5 Nov 2026 12:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793883580;
+	bh=z/gziC0JLIrvCdp4GmTMosiOJuTAZ2fDyAiYOPUD65U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RYGzJ9/p0iFShU47y10rrIgFqPZdTiGgb9DmbgiqklepkrzDPFw2kBC9/2zqeWEUW
+	 viaCxlogpvwX+3aCC0Sd8lUceLDljigJa9iLlCb9F10Yjlhj3iUQLny2d4YgsfoDa3
+	 9/gwNyB3H1+V9zLO+cNJVvrzMZehr/KQStMXx3w7NBURr+o996im+MYc36G4g+NxEN
+	 se/C/q0CTuMLefGDtpMkVF12OHR0TuBO1Ct6i9ir8QX5vXEXIKFI4HlBRW8n78msRp
+	 hj62W4vFhO49wxFNmhDB+OVuLmD4BbTZ7PH5QxouxT1NQe2LKzMLX+QeyIgefcxJfB
+	 DoRApwQsIJc5A==
+Date: Thu, 5 Nov 2026 12:59:38 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hao Li <hao.li@linux.dev>, 
+	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Conor Dooley <conor@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v3 01/10] slab, kunit: pin test slabs by an extra
+ allocation
+Message-ID: <auxzbxa40B6uLAyN@thinkstation>
+References: <20261105-slub_tiny_rework-v3-0-0484ce59eabb@kernel.org>
+ <20261105-slub_tiny_rework-v3-1-0484ce59eabb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,49 +63,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-slub_tiny_rework-v3-1-0484ce59eabb@kernel.org>
 
-A retry allocates new elf headers and overwrites image->elf_headers,
-leaking the previous buffer.
+On Thu, Nov 05, 2026 at 09:43:50AM +0100, Vlastimil Babka (SUSE) wrote:
+> Several of slab kunit tests allocate and free a single object from the
+> test cache, perform intentional UAF actions and validation, while
+> expecting the empty slab to stay on the partial list.
+> 
+> This subtly relies on non-zero s->min_partial. It currently compile-time
+> defaults to a non-zero value, but in theory a sysfs write racing with
+> the kunit test could change it.
 
-Free it before assigning.
+> More importantly, the upcoming
+> CONFIG_SLUB_TINY changes will make it possible to run the kunit tests
+> with s->min_partial being a compile-time zero, which means the tests
+> will now do unintended UAF writes on the page allocator level, and also
+> report failures, as flagged by sashiko [1].
 
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Youling Tang <tangyouling@kylinos.cn>
-Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
-Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v7 -> v8:
-- Split out from the patch set as Mike suggested.
-- Link to v7: https://lore.kernel.org/all/20261026075201.699550-1-ruanjinjie@huawei.com/
----
- arch/loongarch/kernel/machine_kexec_file.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Makes sense.
+ 
+> To prevent this in a robust way, add an extra object allocation to the
+> tests, that will prevent the slab being freed. Use migrate_disable() to
+> prevent migration to a different NUMA node, which would place the
+> allocation to a different slab.
+>
+> [1] https://sashiko.dev/#/patchset/20261024-slub_tiny_rework-v2-0-bf1419ab5ffd@kernel.org?part=8
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
 
-diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-index 5412aa9f3568..0fe60907b97f 100644
---- a/arch/loongarch/kernel/machine_kexec_file.c
-+++ b/arch/loongarch/kernel/machine_kexec_file.c
-@@ -166,6 +166,10 @@ int load_other_segments(struct kimage *image,
- 			vfree(headers);
- 			goto out_err;
- 		}
-+
-+		if (unlikely(image->elf_headers))
-+			vfree(image->elf_headers);
-+
- 		image->elf_headers = headers;
- 		image->elf_load_addr = kbuf.mem;
- 		image->elf_headers_sz = headers_sz;
+Looks good to me,
+Acked-by: Harry Yoo (Meta) <harry@kernel.org>
+
 -- 
-2.34.1
-
+Cheers,
+Harry / Hyeonggon
