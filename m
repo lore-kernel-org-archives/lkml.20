@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894044;
-	b=FLVtERtXg/tKpsBLccqQljnxNzbc1b1F8HJYauhIYwPSS2irCxlDsSSZTTso6Z3YcuQb
-	 F5tMXFXUoJ/khnVTwhSnAVr3dfLtssS1PC2LrzRIdGHlrUAmww2lQ85E1Cf43AOPNzcwo
-	 Y8DWkq8iSNSrb/pY/qJ7Wye2FrfZpyDx9wbHjBp7nawZTUH0CP3bDx0yOq345uRjjo+GT
-	 qOiDYNNLmcipZOu6mEh5mspNqGsenwg/mQNs1IwaQkLsbLuWOcfDn40J8sBi0oKkUw5Yr
-	 6ZoEYrD6EK7ZFLq4SjNsC5iGtUXai3+6lHU/h/FPF44L3EXX7kGS+wfpds1gyZoJ3cw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894044;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=7lRC6CWOVikwkZ28NfqI8YIi29jv4pscxSqAe8AOmBM=;
-	b=ybGOlVnievDoD7kj1nrJ++uUCNVhvXmNoJSdr0AUfgArwjvWWvqOwbP+uCQmq9feBQMa
-	 tXw5NB2PqN0tr9endgBovVAEiGbYcTdaJfLwIc9L+MW4umEYmEZdQnHMZeb2qrxWfT2+k
-	 Ooe34Szn+hOi3FsdY/p/12Nx7HBVorKTC58pXxNbZ0PWnlDUxR9GW+XpDizUDEuLhSryS
-	 HOCYmdFpOQvqecxiVUq7Vg6A9HPHL6ZEQG3/3C4KDtqXwtzliAVoj90kOM7Tji5IKOF6Q
-	 iNvnVrHmnmZjGmc2yu2n0mB9bonY6ICIbhb2xYP3/5PRhYxQHMSwC0Y49zcvXZKvMiA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ugt04DdM;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793894037;
+	b=QHzVsaZzixwChndIxu4e/++TrtxkCUyeUsCHXKJsuxM3afzARVfS7HDMAvnvU36lcPSr
+	 q7cpKMH1FHV2dtjDSD7BKeBELSi/O4kB9HL6pR6WGz2lsswa/OtSRyMMs8ZGpWnhmSFBw
+	 WLM4Vm50SFSYaZzX7SK9iRXaCb5vSggolkGXBySI1vWZqCKEuw4R5KDs/7JlrM1Kvy81f
+	 4BLLt/YYfFVbOEZmK6KerJ6Ovl/cQQT8NxYYmVbvSvvtO7d5afRoxPLXm4GOytctxdZbM
+	 jNeszbVDiFUZBjbpydnCvDeHbx5K2Giq5GcXeDus6AOgPkXN9SYAlmuVc3YU1kojVAg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894037;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=aFyxDfy6nq4JsCbeO+IwynELVljNeTVnd8XRS/Ay8pI=;
+	b=xI9y8Fn1QIT/epyTQC8lR0c6cqJpEQ9O1+w1MzjmLJ/2nazEyy2cqR1RBVeda19Nv/zA
+	 xS7O2ctNglRYrwzdoV7nOyqkM+frUCe1sk1QU3a0V++4LdABGo9BDiKNIXCs72qBTxMKc
+	 q3YDWSrU/TEDwHoZQUvNnYQJZY0AI4P4c31xoK/0/RDPIBuQh8Q4C+5xtvUjZkvOBndvO
+	 3+9G9DqbpdOQ+ZXDXZhMg0Qq2kybSWreSs3SM7ldHAv8sUW/zW/R8knNu07W0m1JubJ2Q
+	 mBtR6+gEXf6yfYqEPOyJt7hDaK35cPkDUE/WN4gaNOMcdOUixxVHKBvvYDbVnhvp6kQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Koigd53D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB62F606A628
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:54:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB62F606A628
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D0D606A607;
+	Thu,  5 Nov 2026 15:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7D0D606A607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ugt04DdM
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so1370394a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:54:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793894043; x=1794498843; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7lRC6CWOVikwkZ28NfqI8YIi29jv4pscxSqAe8AOmBM=;
-        b=Ugt04DdMvXNIQi3CXkpq6YOCaNigKtVrwiH+cApbnptfKsc3875hQ8SLzdVvHnp1BT
-         dDJKJlt57BhJ/VRTJXF34zczoA/aVp5goduL7Ghdh5Us3RrGs3LoOL/AsaVHnWTxn1Yt
-         yWCn/Vb3vePRNkG3+cBgdBmV0XE4n0miN8b5mHWpzbyQRZ2XIoBZaiF0Iq54jw5ycBTL
-         atYFmOBbhhDiuO4wc3GLBxcxNsj/EgNPc8K2pi9jYNhuIshsfZQ5kGY9JrzJy83XlDZ9
-         Tbp26ETT/OdIgT2qr2LwwoiTDpKy9aEYZyrTmyiBc9jmm/JdJlTVst3dMSpSWDKet7UW
-         vIRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894043; x=1794498843;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7lRC6CWOVikwkZ28NfqI8YIi29jv4pscxSqAe8AOmBM=;
-        b=Cxu7tiZLGi5zvsDZo2Jfro18yZs0shRxKLAKD/BrGJqzlYOmYnrhXVDQX1q5ikz0yp
-         /FPR1ixEPXyd9dXXqkilXJuhM22MxsGHFbLmtrzJseLrxYa8yCMvRoRgxFvKUOZUvtgc
-         sO2/aPoAsl2/9i6Dja7rXWlKmDmnygHYScobCh/fEdXgZ/D2F25nuJgfSzRzcT8PRZTU
-         3c+fiKwgSYpAQ3wQKUQx+bjLwc23vmyrRvsG5OJgI2RoWEyzPKhnB1PChcsM3LiROKwB
-         RgF4PFPvZesIyZ+Vwl+Ipc8Mi3yR4eduUskhEGlUGRlCxV70vVk08RxsuN+j1yotVQam
-         sTLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvWLveQ54LapjRh9kkmtiIs5qsDoFt23texwbuHSx7FbSGF5aLAORGmL9dmrKvNIR/TPZ6GWNsQlva5gE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6pk5wiPvl20nX5M714Z+GqyqwaRFlh3TUePRE9Jrjz2yBFzC7
-	sOcWbGziHz+lfrlFgWa/V+qjFCMBgv7BE7V2gaNHY4R5y0LwXRHwudnA
-X-Gm-Gg: AYBFou1YRFdOAijKs/tFE36sFiRmanR8YAKxJa/LU3a516cPklSbNbxFIleRk0qRynn
-	E+fOZ2JmiXcdXt99S+T47RWIUL3c0gJ1o4NDkMcQEzcftl0xtPjXbKb0YaO9k+UvJHADlz1GU7+
-	YpczJJDTaVTZFAPo1MDDe+peMqYmuk4j+x3Gr3LInTpfTxzDaTheVq/a90NXUG/2SKGq9D07p7U
-	qZNA5rUZ89fGj01npjhkfuWCRmOvWL0lNsT0h4G0I1uCyCwoeg6ct7EFSTM5W60yEoK+hBYCitJ
-	GIyEPbnex/R/wXFjkhPPdA46O676BgaZBBVjxzJvz/+GmNZBJ7KfrzN1hPt0SRbyrcwXX5CqjT6
-	8NUZEb9o/ppMYQpVSQEaNy9Rh3Z21yk2vo224wJD7bM8zyIfGfhmOt3HARidRJHluWuL2ihx3lE
-	rRTVvOMigmRVEDMRbj3Z2u4Dd7m1wnd6jBtrMrLFhEoas06M39loO1lG3SYu8jrhx19Wz/Z60oQ
-	jJjN0uLXPdgFZ7gGwO9W4w=
-X-Received: by 2002:a17:90b:4b90:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3ae89851099mr16476018a91.52.1793894042835;
-        Thu, 05 Nov 2026 07:54:02 -0800 (PST)
-Received: from [127.0.1.1] ([2405:201:201e:816f:e3c3:bcdb:ef3c:2956])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b2cf80c9sm4518780a91.0.2026.11.05.07.53.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:54:02 -0800 (PST)
-From: Viral Patel <viral8854@gmail.com>
-Date: Thu, 05 Nov 2026 21:23:47 +0530
-Subject: [PATCH 1/2] dt-bindings: iio: magnetometer: add Infineon
- TLE493D-W2B6
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Koigd53D
+ARC-Seal: i=1; a=rsa-sha256; t=1793893972; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kaeCJsxGjwXK1eBIKyUfvVH3syby8WhVbqkdJIyrSD02U/hUvWlbHOP0Q5/8XUGc2aeu+9fJXzd77wBOl2rzPtGiLgANZEZEQd+dZVsiVBX+/hjJQj/8oMxuVy2hRxxRiWSyGTJgngaiZq7nKJZboRu/RvJz7EzP8pBbP9z44Ys=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793893972; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=aFyxDfy6nq4JsCbeO+IwynELVljNeTVnd8XRS/Ay8pI=; 
+	b=PMhYumL3pBr/gB6JiB+zqQLdUP7RloJaSOqGHIepAzjxaj9txRG4xlrOuKKLvCpYADyYtF68xQKt04dPRPUEFoBrE5O7DwS0oY3k812kSXie973KMRIc921VDte1t6uN8FAoZPotLOtNi1Ep5pPdGWKOWV98ZWynJBvIlAPIvDc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=Koigd53DirSmCJztb08D1dYHSEQ3uhkYdqeFSNhR1c4zloIqxktVwSgj7oV9k/1/+vidcKUiXUUTEa4kjtsyvtRnmGFOUAVnGmDZNt1+5vYE5y7tVG7jNoNL7ogg10Rz/FMc3VQVP0NUsrZb1XEV7w6HBYix5xK10es/Z7FbJLM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=aFyxDfy6nq4JsCbeO+IwynELVljNeTVnd8XRS/Ay8pI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793893970956976.0401364709152;
+	Thu, 5 Nov 2026 07:52:50 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 05 Nov 2026 16:51:54 +0100
+Subject: [PATCH v2 03/27] video/hdmi: Add VTEM EMP packing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,113 +61,238 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-tle493d-v1-1-3246e91e6394@gmail.com>
-References: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
-In-Reply-To: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Viral Patel <viral8854@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793894033; l=2848;
- i=viral8854@gmail.com; s=20261014; h=from:subject:message-id;
- bh=FR1ySw/9hgFNGeOtC9yaVRejdNXl5U2rc2d5645AYE8=;
- b=ntwaFkEjnDHWypKRs0NxTxwu1QSP1xhgCTyTbCwd1OAgwx3t9TnJha+6oOgDTsPg4rA7tdYPf
- Y+fa81qBonxC/rkt5+A+zUBzE3QQJpP6QqS/vOgkxJHdZzHUwjSuw/P
-X-Developer-Key: i=viral8854@gmail.com; a=ed25519;
- pk=UC+UDB53t70pTK4wncXf3tfh0hsYMCqpxYnTaKX3MYA=
+Message-Id: <20261105-vrr-limiter-uapi-v2-3-55f4215be2c2@collabora.com>
+References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+ Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
+ Derek Foreman <derek.foreman@collabora.com>, 
+ wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 
-Add a binding for the Infineon TLE493D-W2B6, a 3D Hall effect magnetic
-sensor with 12-bit resolution per axis and an integrated temperature
-sensor, accessed over I2C. The A0 to A3 variants of the part only differ
-in their default I2C address, so a single compatible covers all of them.
+From: Derek Foreman <derek.foreman@collabora.com>
 
-The sensor's /INT output shares a pin with SCL and cannot be wired to an
-interrupt controller as a separate line, so there is no interrupts
-property.
+VTEM EMPs are a type of infoframe that is required for Variable Refresh
+Rate. Add code to pack them.
 
-Signed-off-by: Viral Patel <viral8854@gmail.com>
+Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- .../iio/magnetometer/infineon,tle493d-w2b6.yaml    | 48 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 +++
- 2 files changed, 54 insertions(+)
+ drivers/video/hdmi.c | 97 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+ include/linux/hdmi.h | 19 ++++++++++
+ 2 files changed, 115 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
-new file mode 100644
-index 000000000000..46f9c0e77e24
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
-@@ -0,0 +1,48 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/magnetometer/infineon,tle493d-w2b6.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Infineon TLE493D-W2B6 3D Magnetic Sensor
-+
-+maintainers:
-+  - Viral Patel <viral8854@gmail.com>
-+
-+description: |
-+  Infineon TLE493D-W2B6 3D Hall effect magnetic sensor with an I2C interface
-+  and an integrated temperature sensor. The A0, A1, A2 and A3 variants only
-+  differ in their default I2C address (0x35, 0x22, 0x78 and 0x44).
-+
-+  The sensor's /INT output shares a pin with SCL, so it cannot be routed to
-+  an interrupt controller as a separate line. The binding therefore has no
-+  interrupts property.
-+
-+properties:
-+  compatible:
-+    const: infineon,tle493d-w2b6
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        magnetometer@35 {
-+            compatible = "infineon,tle493d-w2b6";
-+            reg = <0x35>;
-+            vdd-supply = <&vdd_3v3>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0017755f593b..c8916e1286d3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13110,6 +13110,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/infineon,peb2466.yaml
- F:	sound/soc/codecs/peb2466.c
+diff --git a/drivers/video/hdmi.c b/drivers/video/hdmi.c
+index 45b42f14a750..ed9abc7ad228 100644
+--- a/drivers/video/hdmi.c
++++ b/drivers/video/hdmi.c
+@@ -983,6 +983,10 @@ hdmi_infoframe_pack(union hdmi_infoframe *frame,
+ 		length = hdmi_vendor_any_infoframe_pack(&frame->vendor,
+ 							buffer, size);
+ 		break;
++	case HDMI_INFOFRAME_TYPE_EMP:
++		length = hdmi_emp_infoframe_vtem_pack(&frame->vtem,
++						      buffer, size);
++		break;
+ 	default:
+ 		WARN(1, "Bad infoframe type %d\n", frame->any.type);
+ 		length = -EINVAL;
+@@ -994,9 +998,11 @@ EXPORT_SYMBOL(hdmi_infoframe_pack);
  
-+INFINEON TLE493D-W2B6 DRIVER
-+M:	Viral Patel <viral8854@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
+ static const char *hdmi_infoframe_type_get_name(enum hdmi_infoframe_type type)
+ {
+-	if (type < 0x80 || type > 0x9f)
++	if (type < 0x7F || type > 0x9f)
+ 		return "Invalid";
+ 	switch (type) {
++	case HDMI_INFOFRAME_TYPE_EMP:
++		return "EMP";
+ 	case HDMI_INFOFRAME_TYPE_VENDOR:
+ 		return "Vendor";
+ 	case HDMI_INFOFRAME_TYPE_AVI:
+@@ -1516,6 +1522,29 @@ hdmi_vendor_any_infoframe_log(const char *level,
+ 	}
+ }
+ 
++static void
++hdmi_emp_infoframe_vtem_log(const char *level,
++			    struct device *dev,
++			    const struct hdmi_emp_infoframe_vtem *frame)
++{
++	hdmi_infoframe_log_header(level, dev,
++				  (const struct hdmi_any_infoframe *)frame);
 +
- INFINEON TLV493D Driver
- M:	Dixit Parmar <dixitparmar19@gmail.com>
- L:	linux-iio@vger.kernel.org
++	hdmi_log("    game vrr enabled: %u\n", frame->game_vrr_en);
++	hdmi_log("    fva factor minus 1: %u\n", frame->fva_factor_m1);
++	hdmi_log("    m_const: %u\n", frame->m_const);
++	hdmi_log("    base vertical front porch: %u\n", frame->base_vfront);
++	hdmi_log("    base refresh rate: %u\n", frame->base_refresh_rate);
++}
++
++static void
++hdmi_emp_infoframe_log(const char *level,
++		       struct device *dev,
++		       const union hdmi_infoframe *frame)
++{
++	/* Only support VTEM for now */
++	hdmi_emp_infoframe_vtem_log(level, dev, &frame->vtem);
++}
+ /**
+  * hdmi_infoframe_log() - log info of HDMI infoframe
+  * @level: logging level
+@@ -1542,6 +1571,9 @@ void hdmi_infoframe_log(const char *level,
+ 	case HDMI_INFOFRAME_TYPE_DRM:
+ 		hdmi_drm_infoframe_log(level, dev, &frame->drm);
+ 		break;
++	case HDMI_INFOFRAME_TYPE_EMP:
++		hdmi_emp_infoframe_log(level, dev, frame);
++		break;
+ 	}
+ }
+ EXPORT_SYMBOL(hdmi_infoframe_log);
+@@ -1919,3 +1951,66 @@ int hdmi_infoframe_unpack(union hdmi_infoframe *frame,
+ 	return ret;
+ }
+ EXPORT_SYMBOL(hdmi_infoframe_unpack);
++
++/**
++ * hdmi_emp_infoframe_vtem_init() - initialize an HDMI VTEM EMP
++ * @emp: HDMI VTEM EMP
++ */
++void hdmi_emp_infoframe_vtem_init(struct hdmi_emp_infoframe_vtem *emp)
++{
++	memset(emp, 0, sizeof(*emp));
++	emp->type = HDMI_INFOFRAME_TYPE_EMP;
++}
++EXPORT_SYMBOL(hdmi_emp_infoframe_vtem_init);
++
++/**
++ * hdmi_emp_infoframe_vtem_pack() - pack a vtem into a binary buffer
++ * @vtem: pointer to &struct hdmi_emp_infoframe_vtem to pack
++ * @buffer: pointer to pre-allocated output buffer
++ * @size: maximum size in bytes of @buffer
++ *
++ * Pack a VTEM infoframe struct into a binary buffer in a way that's suitable
++ * to be sent out over the wire.
++ *
++ * Returns the number of bytes packed into the binary buffer or a negative
++ * error code on failure.
++ */
++ssize_t hdmi_emp_infoframe_vtem_pack(struct hdmi_emp_infoframe_vtem *vtem,
++				     void *buffer, size_t size)
++{
++	u8 *ptr = buffer;
++
++	if (size < HDMI_INFOFRAME_SIZE(VTEM))
++		return -EINVAL;
++
++	/* 4 bits max */
++	if (vtem->fva_factor_m1 > 0xF)
++		return -EINVAL;
++
++	memset(buffer, 0, size);
++
++	/* Header Data */
++	ptr[0] = vtem->type;
++	ptr[1] = BIT(7) | BIT(6);
++	ptr[2] = 0;
++
++	ptr[3] = BIT(7) | BIT(2);
++
++	ptr[4] = 0;
++	ptr[5] = 1;
++	ptr[6] = 0;
++	ptr[7] = 1;
++	ptr[8] = 0;
++	ptr[9] = 4;
++
++	/* This is where the VTEM part starts */
++	ptr[10] = (vtem->fva_factor_m1 << 4) |
++		  (vtem->m_const ? BIT(1) : 0) |
++		  (vtem->game_vrr_en ? BIT(0) : 0);
++	ptr[11] = vtem->base_vfront;
++	ptr[12] = vtem->base_refresh_rate >> 8 & 0x3;
++	ptr[13] = vtem->base_refresh_rate & 0xFF;
++
++	return 14;
++}
++EXPORT_SYMBOL(hdmi_emp_infoframe_vtem_pack);
+diff --git a/include/linux/hdmi.h b/include/linux/hdmi.h
+index b80a5ee63bb2..71e2b36896af 100644
+--- a/include/linux/hdmi.h
++++ b/include/linux/hdmi.h
+@@ -55,6 +55,7 @@ enum hdmi_packet_type {
+ };
+ 
+ enum hdmi_infoframe_type {
++	HDMI_INFOFRAME_TYPE_EMP = 0x7F,
+ 	HDMI_INFOFRAME_TYPE_VENDOR = 0x81,
+ 	HDMI_INFOFRAME_TYPE_AVI = 0x82,
+ 	HDMI_INFOFRAME_TYPE_SPD = 0x83,
+@@ -76,6 +77,7 @@ enum hdmi_infoframe_type {
+ #define HDMI_AUDIO_INFOFRAME_SIZE  10
+ #define HDMI_DRM_INFOFRAME_SIZE    26
+ #define HDMI_VENDOR_INFOFRAME_SIZE  4
++#define HDMI_VTEM_INFOFRAME_SIZE   10
+ 
+ /*
+  * HDMI 1.3a table 5-14 states that the largest InfoFrame_length is 27,
+@@ -235,6 +237,18 @@ struct hdmi_drm_infoframe {
+ 	u16 max_fall;
+ };
+ 
++struct hdmi_emp_infoframe_vtem {
++	enum hdmi_infoframe_type type;
++	unsigned char version;
++	unsigned char length;
++
++	bool game_vrr_en;
++	bool m_const;
++	unsigned char fva_factor_m1;
++	unsigned char base_vfront;
++	u16 base_refresh_rate;
++};
++
+ void hdmi_avi_infoframe_init(struct hdmi_avi_infoframe *frame);
+ ssize_t hdmi_avi_infoframe_pack(struct hdmi_avi_infoframe *frame, void *buffer,
+ 				size_t size);
+@@ -249,6 +263,10 @@ ssize_t hdmi_drm_infoframe_pack_only(const struct hdmi_drm_infoframe *frame,
+ int hdmi_drm_infoframe_check(struct hdmi_drm_infoframe *frame);
+ int hdmi_drm_infoframe_unpack_only(struct hdmi_drm_infoframe *frame,
+ 				   const void *buffer, size_t size);
++void hdmi_emp_infoframe_vtem_init(struct hdmi_emp_infoframe_vtem *frame);
++ssize_t hdmi_emp_infoframe_vtem_pack(struct hdmi_emp_infoframe_vtem *frame,
++				     void *buffer,
++				     size_t size);
+ 
+ enum hdmi_spd_sdi {
+ 	HDMI_SPD_SDI_UNKNOWN,
+@@ -457,6 +475,7 @@ union hdmi_infoframe {
+ 	union hdmi_vendor_any_infoframe vendor;
+ 	struct hdmi_audio_infoframe audio;
+ 	struct hdmi_drm_infoframe drm;
++	struct hdmi_emp_infoframe_vtem vtem;
+ };
+ 
+ ssize_t hdmi_infoframe_pack(union hdmi_infoframe *frame, void *buffer,
 
 -- 
-2.43.0
+2.56.0
 
