@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871148;
-	b=rzlTLE3++iQXDnBKSFDLhS9iYwX/TZabV4WKLe5MiRpcD8F1F+vEvR95c9Jy4oAjzc0b
-	 4CfDo5+4I18LV9nXvBR7Op2t4VaQ6W7+GfxPVTlPERzgA9GLB5g9WbvxZOZzI4QYq8RcO
-	 x5Y1Y/ehd6X0N3WJ5KKNfpoi1xDHecHotf0PIcwFq2IFtIdamcGNZ8uJmiK7Ec+BcUFYg
-	 kX/Y46c1r0ZZsAZ8HzvlezX4xU8wSS+fkOkzdmxlfZYrCujnBaSjssRIOb+I/SZHv2jB9
-	 B/pTfk9Mpf5V5M36M0cPpxk4fwwKp3a6Wv74fuMsQIM334n7XrbNq2CT6mbAK0A1Vww==
+	t=1793871171;
+	b=aAMIG0FtNcK9fOw/U5gew9HMFDWN9GX1boTU2DrvLnTr3W8Yc/VIdKvLIwW/KalccAe2
+	 7AOQaVaOug6YUoDZAvl5kF0sH9Nz8Llqu3lagp7l8UPEH/7XwCjW1WZmkAhT6VmmqD6QW
+	 iM9su1ok2vlhESqWDpK1DPEf5JJbDMO5y2ahQh0wSQ+CN63hE38zpABZiZgqHNFycB279
+	 Fnyl4Gv+6uQ2GRNerrgjDlH+7CnsUvPqUknskEPAY2nACFMbuc7Yzpynq4j8IJbIUdboQ
+	 Y6as8Znppy0GZ1y2HZyJSM6qLDny+AVJS8tBqgOitjfkej2ka6iEfDABPBKw5f7iNkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871148;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Z5UoptergY0pXPhOZfV8qVoo9ZyI9tAXpbNaS7WGsPs=;
-	b=LiRzhM6gfoNDtu1R/Sbd51WfnFNFoyk+O1c63jFN+nlDfuyV18l5xtpmTJJ8IyHhm8xl
-	 OiUIOaXqbxQKHeeY6xPdTCIG1wD0e5AQ9WqfHdasimY+j17u7BmjJZgyAnyBv+1i4pVuT
-	 pEQDiYVuUNYhNR7Lg26P1XQRjpWdEOic25IOaCPhqKTLa8qyDcZxwxWcLabhqkKWDNK+j
-	 yG2DFYTbyOm1CnUEtQsLAnX6cAQ4NjJKtkA4IE9Gv/APoGtcVMmM3wzm3WznIsqAAGLUp
-	 uEsWPMlkMJtTCyE1QRGqWuiO+uSyKuvCmFiirlBjSREajcGBFBH+JOembsJJPJDR5uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871171;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ysAWuQsmXi0UpVaJ15Q1RIi/6yFzToRukQ4uvO9n3gw=;
+	b=sgX46R38TLS/kLPgOT1RB4uNuFjsUjm/GPlywP1Y2HnKmLs+iPAiiHU7uvBHiPkbwTi0
+	 9FsvT6KT/c4YIT5eOjDiNk6wtJqFtz5QJT0kccjHc3yxJECudVVjhRlK3s2mSehASvjm4
+	 +f53RjhU9HBuhS3d2VEy2QIFrTnFRzg20LIu3nUwUOpVL/w6GiTSjrI5eOWICrNazG8n4
+	 tdbH0kAsvYdAXMYfe4Ec04ZeFBuiOIQX3J+xqsdMvmYBjpc+PLOtztDUS5LFtIRvibcSb
+	 ufv8HE5/+KO53DqwWFN+djfOrHWWyQqcAR0ZKReR1VejBo21WTEhQDkZejaN9Qhtczw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cWUKTqoK;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xLtixwq4;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CF1606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:32:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67CF1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D41606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:32:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76D41606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=cWUKTqoK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793871145;
-	bh=ViE9NczNde3sg3tSsZ6L6dOH8qK0mpgSPv6HZO+Nxe0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cWUKTqoKhaQ4sKoovGnmI/gRFqHkGnWmdGuM1ntYMoEqoOaNLBtr8w/T9NsZmwD6c
-	 dW/ybKa/MwXQ4MpYnlmgcCiyxNp+wfeC8pLT8ug3M4LlmZ2OSjEdlJ+pt8s3o0rZso
-	 grIFRe7j71llFUcjdQTHBgPEmO5siwISdAsXDXOD+xyztkSV0GA8mbpmAH54FJXQZE
-	 yMBOxYYEzSk4fa8/VkmGSjAVdr2alyoTs2FNBJqdDYg9GNTKAu0wUfS/TQFjFXmey7
-	 GZ9gECALLvYOx84X0V1MxDrk6QhW0CwcCzUb9TUdvEsVruBu79PWBQcB9c8Z/Ca1F/
-	 Ul/7S471OvMRg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D6BE717E096A;
-	Thu, 05 Nov 2026 10:32:24 +0100 (CET)
-Message-ID: <26d45091-592d-4be1-8017-b9937c9df071@collabora.com>
-Date: Thu, 5 Nov 2026 10:32:24 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xLtixwq4
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793871167; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=ysAWuQsmXi0UpVaJ15Q1RIi/6yFzToRukQ4uvO9n3gw=;
+	b=xLtixwq4lf07giPU+hnjSd8DVy0chpDOZYUxpFnK64pQt5WMZlp0jVaJABZCL6jd/1cjq7p8SWAFzeg01CCHc96EKQk+kJ43HzscgIXLispOlO4Y9n/aIKvlILeymWaNNHEhxv/GvFltj0xvqce9Fs0QBoO2VoWfslaQBIIgWL8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XE8D.3c_1793871166;
+Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XE8D.3c_1793871166 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 17:32:47 +0800
+Message-ID: <d07c04cb-3ee2-48fc-b289-7167a8589f38@linux.alibaba.com>
+Date: Thu, 5 Nov 2026 17:32:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,81 +54,42 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/mediatek: Validate gamma_lut size
-To: Fei Shao <fshao@chromium.org>, Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Cc: David Airlie <airlied@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-References: <20261105091054.3993611-1-fshao@chromium.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261105091054.3993611-1-fshao@chromium.org>
+Subject: Re: [PATCH v2] shmem: skip empty unmap ranges when punching holes
+To: Hungyu Lin <dennylin0707@gmail.com>, hughd@google.com
+Cc: david@kernel.org, akpm@linux-foundation.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261105055619.58289-1-dennylin0707@gmail.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261105055619.58289-1-dennylin0707@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/5/26 10:10, Fei Shao wrote:
-> The DRM core only checks that a GAMMA_LUT blob size is a multiple of
-> sizeof(struct drm_color_lut), not that its entry count matches the
-> hardware LUT size. mtk_gamma_set() and mtk_aal_gamma_set() then read
-> the blob up to the hardware LUT size, which is an OOB read when the blob
-> is shorter.
+
+
+On 11/5/26 1:56 PM, Hungyu Lin wrote:
+> When a hole ends before the first page boundary, shmem_fallocate()
+> calculates unmap_end as -1. Casting it to u64 makes the range check
+> succeed even though the hole contains no complete pages.
 > 
-> Add mtk_crtc_atomic_check() and reject gamma_lut with invalid length.
+> For example, punching one byte at offset zero calls unmap_mapping_range()
+> with a zero length, which means unmap to the end of the file. The file
+> contents are preserved outside the hole, but unrelated mappings are
+> removed and must fault back in. This can be reproduced with fallocate -p
+> -o 0 -l 1 on a mapped tmpfs file.
 > 
-> Fixes: 2f3f4dda747c ("drm/mediatek: Add gamma correction.")
-> Signed-off-by: Fei Shao <fshao@chromium.org>
+> Keep unmap_end as the exclusive rounded end instead of subtracting one,
+> and adjust shmem_falloc.next and the unmap length accordingly. A hole
+> ending before the first page boundary then has an end of zero, so the
+> unsigned range check skips the empty range. Retain the unsigned
+> comparison so rounding the start near the maximum file offset continues
+> to be handled correctly.
+> 
+> Fixes: 83e4fa9c16e4 ("tmpfs: support fallocate FALLOC_FL_PUNCH_HOLE")
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 > ---
-> 
->   drivers/gpu/drm/mediatek/mtk_crtc.c | 21 +++++++++++++++++++++
->   1 file changed, 21 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-> index 2920f3198ef6..fd9b51fd00ea 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-> @@ -880,6 +880,26 @@ static void mtk_crtc_atomic_flush(struct drm_crtc *crtc,
->   	mtk_crtc_update_config(mtk_crtc, !!mtk_crtc->event);
->   }
->   
-> +static int mtk_crtc_atomic_check(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-> +{
-> +	struct mtk_crtc *mtk_crtc = to_mtk_crtc(crtc);
-> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +	struct drm_property_blob *gamma_lut = crtc_state->gamma_lut;
-> +	unsigned int lut_size;
-> +	int i;
-> +
-> +	if (!gamma_lut)
-> +		return 0;
-> +
-> +	for (i = 0; i < mtk_crtc->ddp_comp_nr; i++) {
+> Changes in v2:
+> - Use an exclusive unmap_end throughout, following David's suggestion.
+> - Add Baolin's Reviewed-by.
 
-Yet another iterator in an array of components, slowing down this driver...
-
-I know it's not merged yet, but please, do it on top of my restructuring for
-mediatek-drm...
-
-Cheers,
-Angelo
-
-> +		lut_size = mtk_ddp_gamma_get_lut_size(mtk_crtc->ddp_comp[i]);
-> +		if (lut_size && gamma_lut->length != lut_size * sizeof(struct drm_color_lut))
-> +			return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static const struct drm_crtc_funcs mtk_crtc_funcs = {
->   	.set_config		= drm_atomic_helper_set_config,
->   	.page_flip		= drm_atomic_helper_page_flip,
-> @@ -899,6 +919,7 @@ static const struct drm_crtc_helper_funcs mtk_crtc_helper_funcs = {
->   	.atomic_flush	= mtk_crtc_atomic_flush,
->   	.atomic_enable	= mtk_crtc_atomic_enable,
->   	.atomic_disable	= mtk_crtc_atomic_disable,
-> +	.atomic_check	= mtk_crtc_atomic_check,
->   };
->   
->   static int mtk_crtc_init(struct drm_device *drm, struct mtk_crtc *mtk_crtc,
+Thanks. This still looks good to me.
