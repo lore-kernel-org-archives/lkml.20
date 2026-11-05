@@ -1,129 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879572;
-	b=4JqbkshOdncYKl7cacrPwgBzufqc12Lk44fjHRichx049fAY1qLVLqUahSdWsiZ/fZW+
-	 mZhMN9kLdJjwd//Er1PVbCnKNr016ivN5TqHWZF8H7YVb+N69KjEqy4rAKjAmh5iuId6i
-	 bD2koLosDH/qm0AkvByIVKFfvSrLxRfUDT5/7h6CxsiR/4VX5VMZ7VZVhEgx7Jm1Lzkab
-	 658b/sfqZXz035pepENL+wCnv25c0l0rC38Xz749610RbE71Fzj8089HNIFCjjCXpHrMv
-	 PTLodlButNJH3Gfc7hcMGiEZ0Q4jMaNZbLMM0kGtmw5HtQYxYtZOktYSD/Abh82bI3g==
+	t=1793879620;
+	b=d0OBqsvmrb5jllhJSNAzV5wDyo9IccYcEG92YuHBdSMbbEf6SOlgi3LxQ4LL7Kq3mVA4
+	 kJJ/nOVFqFEEZj8ENsSPXlor6BA5wdPsm7QJalpd1sPMpXU9m6RMtbWBELMrLlywfGhh3
+	 Pbd5wxHFrnx7Tz/io50s+2sU+NcRAmZHwxUDwV7vS4++N0DjC/pP9gktB5gtU96Bz6pMv
+	 Cska0jXZT+V0AIGRJbTDGDJKBxdEMRjtlFMGXpOnOp4doRl9FavGKJZTMYwj43K40kMSF
+	 lteFug9XzGg3ft1gNUwtm5/skXYv7wqtUbfbxLohp5Jn5LW2Pyga1yxxEufzG7BvQxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879572;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=XTBVvV1llMrY8oPUgGAOljMGttnFmdc1n4iSvCofGvk=;
-	b=bpbI65RtQw/CHNKvst6gx6u/5xAlZclCad2cXmhfIa/E+iVhCEUm2lbB24CpWi8HydGk
-	 zpvZAayd2Gzyi2D6O43V46cg7aMZEb8zkgacd4ZLyEnIkjd1VH1OqfvDmIJaCSwy7q5u1
-	 XvU7HPN7h967dINDKt6quRu8OE1TKeW06LoK0ARMXfCg+fsyfA+6akgehaJOoXTfjzgH4
-	 za5UaBzPrWA5Sg+eRfKMXz+03xHoqGoQzBvM+ChP2PSjEuNsnv5lgkj69oVAWdPyYLA3b
-	 pO2QGSet2rsG1pQ+q52POQpu9XfAMQ26CKnqH6LvblzpUD2UYd2xFpml7i3TT5pe1yQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879620;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Pj9iaBPmqdv/BlcqSHugBwJUfcba4Pba+SAzc1+Jd7g=;
+	b=AIpkJ/1eEbpgrJT+vPy6hBZdfkaCajMIxYxKHyq216OXReoxq5VUdfC8sM64uK/zStUv
+	 gGfG8pzsn/MWsbx6Ek3v74HApNNuyPNFyrNTtJG89oxkENu3OOASRBagsPl5Xb5QLx5OU
+	 GG1L4ixHHIlZQdgBRl9kMK6RmOGqMJixIyGymS/yfuGTB3ZGtYL8+f7r/cGZ8JX95cAIX
+	 DvR2oPW+LtyGKXHBTvRsWgaYYW/oKpOaUjBqIiZ6R9Mav1Jh8NuHyKYzgER5nu7rVTTgQ
+	 1OSu35N9pYzNPaZNmHn6nPVw739PVcI+2NGDKnNC/8LFNnuRvDf3tfc1sY1BuQTqp5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IlDc2Fvh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vvDSWJYG;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IlDc2Fvh;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vvDSWJYG;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="fkBLuL/I";
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BC0606A33C;
-	Thu,  5 Nov 2026 11:52:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15BC0606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAB2606A328;
+	Thu,  5 Nov 2026 11:53:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FAB2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IlDc2Fvh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vvDSWJYG;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=IlDc2Fvh;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vvDSWJYG
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 090681F785;
-	Thu,  5 Nov 2026 11:52:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793879570; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XTBVvV1llMrY8oPUgGAOljMGttnFmdc1n4iSvCofGvk=;
-	b=IlDc2FvhESlDd8QXX4z/a9lq2dVMhaxW+HuiTJo6x+4vVVqrVz8k3f/Wr+Mze0vHlceBFP
-	JaL/+k/+YFdhkL/6vCq7Bg2Jyl3kffnaUQoNLw7CYQNpyydj2pmW97ukL1Mouho+skqqWs
-	9mNCq/qpRDGAphiHFTSprMwCLm6e0Vk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793879570;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XTBVvV1llMrY8oPUgGAOljMGttnFmdc1n4iSvCofGvk=;
-	b=vvDSWJYGu2lVXhJVWrbpDbn5nEUGh3VUqLxrYRbdmdLlIIqOha94poMzPs0o88aMpXXTQC
-	GveF9mKsY1fCOgBQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=IlDc2Fvh;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=vvDSWJYG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793879570; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XTBVvV1llMrY8oPUgGAOljMGttnFmdc1n4iSvCofGvk=;
-	b=IlDc2FvhESlDd8QXX4z/a9lq2dVMhaxW+HuiTJo6x+4vVVqrVz8k3f/Wr+Mze0vHlceBFP
-	JaL/+k/+YFdhkL/6vCq7Bg2Jyl3kffnaUQoNLw7CYQNpyydj2pmW97ukL1Mouho+skqqWs
-	9mNCq/qpRDGAphiHFTSprMwCLm6e0Vk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793879570;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XTBVvV1llMrY8oPUgGAOljMGttnFmdc1n4iSvCofGvk=;
-	b=vvDSWJYGu2lVXhJVWrbpDbn5nEUGh3VUqLxrYRbdmdLlIIqOha94poMzPs0o88aMpXXTQC
-	GveF9mKsY1fCOgBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CB5FC134F4;
-	Thu,  5 Nov 2026 11:52:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FWlQIxFu7GoAAwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 11:52:49 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 45F61B6C1; Thu, 05 Nov 2026 12:52:41 +0100 (CET)
-Date: Thu, 5 Nov 2026 12:52:41 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 18/38] proc: don't WARN about a name that is already
- registered
-Message-ID: <qaqawx4ajooiiqzu3ngxc46khpnq74u6sl5tz6az4uyssxzly4@346lsx342het>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-18-59422ed3e465@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fkBLuL/I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793879620; x=1825415620;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hk7iYDPvzCJ8cyId3xaaMshRR8SFZ2MT0MF74wQE6iM=;
+  b=fkBLuL/IPJl/doXC9Cl3SEWxwI7YJMjbve+5gmD73HX7gjp83TtrB+Aa
+   pXNT428BuQz4i/MbZw7g4BDH46t7firEm7qndfFgbWfq6XxUI/LFD7ox4
+   e+XmdVuNMWaIO7dMSQ9YiL9Myyel2AudSMjJI1DhkPS3kmnoJqpGoLbX5
+   af4BnFggHY0mr7iL+ab6WP6gzVFtI8e+e3fbJzZ5bzcNDo4A1YZoh57WT
+   /WbqRC2kE2U52lnC317DLR1M3aO0rJVu3/m2IUgDjQJ0h3heTae6ubNVr
+   OpSSvQXNltBXlGNUi95WIZeQ+/oHp4TEUgkP+RpRRRjjY/ynmfXX6jiFE
+   Q==;
+X-CSE-ConnectionGUID: ux5MDRDkTKimq4gdIemr0g==
+X-CSE-MsgGUID: Yv7hYmEzTD2YK66WO6exrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2657972"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2657972"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:53:39 -0800
+X-CSE-ConnectionGUID: WdtljnQFQbyVVhuPzGLNFw==
+X-CSE-MsgGUID: z06fTSAORbu2TUXlmWlOvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7397635"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:53:37 -0800
+Date: Thu, 5 Nov 2026 13:53:34 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
+ tags
+Message-ID: <auxuPmopn43wisF9@ashevche-desk.local>
+References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <auxDTdfMVS3yazCk@shikoro>
+ <35983c5a-7deb-4b0e-9bd4-981754343200@oss.qualcomm.com>
+ <auxHASG78dTviSz8@shikoro>
+ <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
+ <auxMOdmFYDYGjqa9@shikoro>
+ <8abb2394-5210-495f-8420-a02bd16ff466@oss.qualcomm.com>
+ <auxmMrANvWIJi94i@shikoro>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,111 +91,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-18-59422ed3e465@kernel.org>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	R_RATELIMIT(0.00)[to_ip_from(RLpnapcpkwxdkc5mopt1ezhhna)];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[60];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 090681F785
+In-Reply-To: <auxmMrANvWIJi94i@shikoro>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon 02-11-26 15:21:33, Christian Brauner wrote:
-> proc_register() WARNs when the directory already has an entry of the
-> same name and fails the registration. Callers that pick their names
-> themselves should never get there but some take names from userspace.
-> pktgen creates a file for each device a writer of "add_device" adds,
-> named after the device. A device can have any name, including "pgctrl"
-> or "kpktgend_0", the names of pktgen's own files:
+On Thu, Nov 05, 2026 at 01:19:14PM +0200, Wolfram Sang wrote:
 > 
->   ip link set lo name pgctrl
->   ip link set pgctrl up
->   echo "add_device pgctrl" > /proc/net/pktgen/kpktgend_0
+> > >> "Reviewed-by:, instead, indicates that *the patch* has been reviewed and
+> > >> found acceptable according to the Reviewer's Statement:"
+> > > 
+> > > So, for the SPI patch: if someone spent time and reviewed the complex
+> > > core changes, but only 2 out of dozens of drivers, this would be an Ack
+> > > according to you. I would, however, understand that this person doesn't
+> > 
+> > No, and I explained this in this commit msg. That person reviewed the
+> > MAIN concept of the patch.
 > 
->   proc_dir_entry 'pktgen/pgctrl' already registered
->   WARNING: fs/proc/generic.c:404 at proc_register+0x555/0x8b0, CPU#0: bash/241
->   Call Trace:
->    proc_create_data+0x9f/0xf0
->    pktgen_thread_write+0xd9b/0x1780
->    proc_reg_write+0x1c2/0x3c0
->    vfs_write+0x1cd/0xfa0
-> 
-> The files of a network namespace belong to the root of its user
-> namespace and none of this requires a capability. So once pktgen is
-> loaded an unprivileged user can taint the kernel, or crash it with
-> panic_on_warn, from namespaces of its own. pktgen itself copes with
-> the failed registration just fine.
-> 
-> So go back to what proc_register() did before commit 6c2f91e077f1
-> ("proc: use WARN() rather than printk+backtrace") and what
-> sysfs_warn_dup() does for sysfs: report the name with pr_warn() and
-> dump the stack. While at it, do that after dropping proc_subdir_lock
-> instead of printing a backtrace while holding the lock that every
-> lookup and readdir in procfs needs.
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: 6c2f91e077f1 ("proc: use WARN() rather than printk+backtrace")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> With that MAIN concept emphasized, I am okay with your reasoning and
+> agree. Before (I cite, upmost paragraph) "*the patch*" could be
+> interpreted as 100% of the patch (including dumb driver conversions).
 
-Makes sense. Feel free to add:
+...which may lead to discouragement of reviewing such a patch.
+At least that's how I read the point.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> > "Reviewing pieces of the patch while ignoring the main part of it, is
+> > much closer to Acknowledgment, thus Ack, and "Reviewed-by" credit should
+> > not be applicable."
+> 
+> I agree. As stated before, I don't care so much. I am glad you do :)
+> I'll happily take the "# subpart" potion of your patch here.
+> 
+> > Nowhere in my patch here I said you CANNOT review part of the patch or
+> > cannot even leave Rb tag for such case, right? What are we discussing
+> > now, exactly?
+> 
+> I hope the misunderstanding has been resolved in the first paragraph.
+> 
+> > Do you agree that if person skips the main point of the patch, the hard
+> > part, and reviews only less important part, that looks more as an Ack,
+> > than Rb, considering how "Reviewer's statement of oversight" is worded?
+> 
+> Sure. It is not so important to me, but yes, I agree.
 
-								Honza
-
-> ---
->  fs/proc/generic.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-> index c560c96a64eb..ef804cd3ec45 100644
-> --- a/fs/proc/generic.c
-> +++ b/fs/proc/generic.c
-> @@ -401,9 +401,10 @@ struct proc_dir_entry *proc_register(struct proc_dir_entry *dir,
->  	write_lock(&proc_subdir_lock);
->  	dp->parent = dir;
->  	if (pde_subdir_insert(dir, dp) == false) {
-> -		WARN(1, "proc_dir_entry '%s/%s' already registered\n",
-> -		     dir->name, dp->name);
->  		write_unlock(&proc_subdir_lock);
-> +		pr_warn("proc_dir_entry '%s/%s' already registered\n",
-> +			dir->name, dp->name);
-> +		dump_stack();
->  		goto out_free_inum;
->  	}
->  	write_unlock(&proc_subdir_lock);
-> 
-> -- 
-> 2.53.0
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+With Best Regards,
+Andy Shevchenko
+
+
