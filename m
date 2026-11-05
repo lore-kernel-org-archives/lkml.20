@@ -1,49 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793902616;
-	b=LlQSATc57ANTd4QNClrWZkO6HMIVXqlpdOF/7iPtcmDSO2pMEnBovm0GM7WdJP8MpY0h
-	 3vs6Qpde5SWZu0EZn8VOWgsUKeQFuM+9Q2bqLNzxuy4vx7nv3w9qoA8RdFFYC25ZFRrZ6
-	 YQPscA/Kg695NA3Y5YT/lForJUUpgYJoH+hb9t5zXORdTO+KxGdJIEs0ON2OTjJlEn8aU
-	 Wq7gWb/SdxBXxmNgRwA1XN+6KTOe8KE3Azu+mdXmzfsElOsng3OHkrvr4ggMLldUNPGjP
-	 wEFkHjQ93QRqJGHJOT6J/gO9HCtG6GedQ16QVEcmegrYtiYU6T1P+DS03uzQh1Xm/GA==
+	t=1793902665;
+	b=EC25UVjKhIZUIYBIOVDhkfeiVjxJhzkSZhw2Ot5+IAqVViPaIpDqmRFQUoMWeUgKyNc7
+	 u3nKzO5lcNeLlsA9OrXJ0eS2fMBGbkGrfsprer+2Ug1Dm7FEGI52Fj+mfeUfM9xsDIHBh
+	 TLASSd9rULElotxYeCIqrpJAgbr0qWsRI0RsZk/FWplsJJWFKZg3E4w89Mj+ds7Q/2b4z
+	 gVhXUA3CwleU3c/QLP4g5OUkmZ2XQbGV+MXKxSuZ/PbR93mlOd27y/OON6U43UrkbOr5U
+	 obsDtqmURDLJy7+QgsSbJ4Dzznr1sSfKgdk2cKcaEGvOujN5eJ1x/TjaSk+W/Gw0i2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793902616;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=vMpWvkjgwpvMMa7+syhmsy3PKYx+lNXAcu0o7qMwcLg=;
-	b=CRCAZ1kQhFus0iwhEdQk0y++BlcgyJy60hozP9qVbfmIXA61zXkMZO3n5drYH1TMPm1e
-	 nLR3yuOcNgYWpF4Q3JWCkK+0LsfENGWG94P6AHiPT0vTQeZlB8sqC/Xp7S+LeRv8KCEke
-	 4K53gym1ZKK3+0kKTT4XYCRFNXNQvdm9exp/ltl7KcYZD/LF0R1fSSvaGeL1d2C/pU95Q
-	 TzCevCpM0ZVwP8XqH4Zx5yMjf+Slh0wQWIq2DO0xUZTh3GYgX5G/bPcSBwgbuPBUmII8O
-	 R/JFmXJQTlQ8Sca7AaXMpJCf+KBfEzQdy0wdcmTrcPPSaS6MmkGPvu/XZ6osnP5ihdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793902665;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RSve3Rzibv2SYG1Dy0Z1Qv5oy3nhoFx9D69qTZufN8s=;
+	b=fQeNSyvGI5Zw01QKPVI+klKFp7CQGR+y5rL0ShaK4bl0Jl6o+H1Vct7F0ReTh7Fm+AGe
+	 cOCS9Pe9af5RpNT0wKkD5+UEZ0VwD9Q6/iwE07AMnu8d18QHU+jDUeGLbkoHTZNXneS8G
+	 3+QdbIsLraKbTbVL3x4Iz4kZiLqVElBMI6lhlsFQD9szAraLYoH3vaFZzYNyD8k+G2xAp
+	 mVjqCxiO7VcOS5ilQiksW7iA1jFDk+/kVEMz/B60ctLvVlpGA7bzwKq/zivmcf8tI3hP6
+	 y1o1EltloBRFfpPvS886nlYht9yitFSjj6DpXXfmH0elfqquGVl/Pu6v9fyDSLOSJ/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zce8u9kf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="RD/NLS8o";
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D43606A326;
-	Thu,  5 Nov 2026 18:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B13D606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:17:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B13D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zce8u9kf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6775A1F000C1;
-	Thu,  5 Nov 2026 18:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793902615;
-	bh=vMpWvkjgwpvMMa7+syhmsy3PKYx+lNXAcu0o7qMwcLg=;
-	h=From:Date:Subject:To:Cc;
-	b=Zce8u9kfBUlYo6KPIi/Kk8ohVlE7iAqICTrnuxM4OKaYJT8CbiOb+lNyAvDEfG1zo
-	 hjnQd9+iJlRqJieiLQaQ8FHaRzreH1IYeiVkIVs/7L0vdncoo4akHf/VCrGyWyqevH
-	 uafdMf2itzKtADBAlzNGtQzKM0R6rbKZyDFUT49/eltsfUq/viuVCDVsyET7gxubUB
-	 ifLonotA7eXw+8MFA0l25QnuqbtDVG5ixTQGTCJP7MYDAhPH5a+lnMKUqChCn+6mnx
-	 FvJ2lGsBuTLNTSbMLHV4slSs6uJWnTRppiyrPmZQ47NdPAwVivq79Dc6LkUzAWWb6I
-	 FUP4nD4UrGwyA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 05 Nov 2026 19:16:44 +0100
-Subject: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RD/NLS8o
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so2240962a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:17:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793902664; x=1794507464; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:reply-to:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RSve3Rzibv2SYG1Dy0Z1Qv5oy3nhoFx9D69qTZufN8s=;
+        b=RD/NLS8oA6H9b3VuAC0Rxp4BPg1H4sBR+9VFz5nmENouymgYWxTyywsHhwOWY4jfE+
+         8EcfcGn+CkAvY6crujoLhpzp02VbnNjxQAQL/U5u7XSoHgfkjgcQrqi2lCBpg1o6hjwQ
+         Ue1oLePJGAmqTA3sOkoZB+jj/myGVxMzg1UpIuV0H17S8QsKuBnaDbw6NICZI5BzllMB
+         YEU3YER9TS1jjaXOsC63kclaFjLFhAYsVnANP3YIAQ3dCmuIRm+4mvS1PLf4APGDnBn7
+         Hw8cdP/bU32RpCoyNQTFmWDEQvS+ukxljb0jmrkoX4YJNzd+P96RrFpUh5zPGCy+xXxJ
+         jpdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793902664; x=1794507464;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:reply-to:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RSve3Rzibv2SYG1Dy0Z1Qv5oy3nhoFx9D69qTZufN8s=;
+        b=e8l59BzsfPWs4wzPOQquAXldQVuRjktHNf1CwZovuzBxaPMIrUJikJ7n6KDku9VmUA
+         uJN6GRSBD0EiDbfJR2RRBsqQ0rWZc0q5/EuXF0f5kwkXa5mX6d9a8mBTpW7+cwz0kVMB
+         28D8v3hvCnkTAZpzp4mvkG9OaoOXVIEpmJNEWTmhisvHYceAmHWFD2I9hAtSkJRLTXFy
+         I6yIVMlW2PGfYAJpEHp6KLhYhGm2m2C4MyNTlSTT0O7/DGcTHNgvXvG1KzFdwBn30ybw
+         3DEDslC9JWTFu9O4N8ykJJvuzYmz3PMD4SCox5gr03c+UlmeWsm6xjzO858A+14XU5Xn
+         JfiA==
+X-Forwarded-Encrypted: i=1; AKwUvByYtT5fBM3eY4DSTludo+6C4Gblo02YnitVT5uw8bQCS7bX0ccmZzZ6OAC+0OzmI1d8HSsP0Sr6+eVU40Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kh2DMdZrcCWwvH7WUtepvYzmujQjO5QWeq/iOWyx6Ag6dmVm3
+	wzdLOk7QEbHwMixYcleV7uSTHLkeEic6TdPFwaH2op/8lmrWfbAsUuQBovV4TrWBl6w4/02K4dh
+	tm2pdSw==
+X-Received: from pgni8-n2.prod.google.com ([2002:a05:6a02:6a48:20b0:cc7:b455:d1fe])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:6a22:b0:3e2:9261:2342
+ with SMTP id adf61e73a8af0-3ebb29c313amr354931637.28.1793902664215; Thu, 05
+ Nov 2026 10:17:44 -0800 (PST)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Thu,  5 Nov 2026 10:17:42 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,83 +78,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAvI7GoC/yXMQQqDMBBA0avIrBuYRGqrVyklqBl1CmrIJKUg3
- t1Ul2/x/wZCgUmgKTYI9GXhdcnQtwL6qV1GUuyywaCptMa7Eop2SiNZPzubfFxdG0nVXf00WOJ
- jKBFy6wMN/Du/r/dlSd2H+vifwb4f8usBZ3kAAAA=
-X-Change-ID: 20261105-set_huge_pmd_uptodate-9b9820307f30
-To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Hugh Dickins <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Zach O'Keefe <zokeefe@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1539; i=david@kernel.org;
- h=from:subject:message-id; bh=4vPRQgFKZMvkn+yRb7hUHK9P1W7c8xgEacmzWiDG098=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLenBDYF6dT1ebwouDdmfDrT5l/yqdorLYTb9qf9uJBx
- M5Pz6ovdJSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjAR/WqGP7y3LZzkeI4/rtvC
- c09x08cjapfurVeL8DBW9bzbrLBWeAkjw23meu0ZiwLt81acetgfvmEH11qxjII83SPfTLrdD6b
- uYQMA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+Message-ID: <20261105181742.3718448-1-seanjc@google.com>
+Subject: [PATCH] KVM: VMX: Re-pend KVM_REQ_APIC_PAGE_RELOAD if getting backing
+ pfn fails
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>, "=?UTF-8?q?Carlos=20L=C3=B3pez?=" <clopez@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-uptodate. For example, shmem fallocate() can put such folios into the
-page cache.
+Retry loading the APIC-access page if getting the backing pfn fails for
+any reason and APICv is enabled, i.e. if the vCPU will consume the value
+stored in vmcs.APIC_ACCESS_ADDR.  Dropping the failed reload would result
+in KVM running the vCPU with a stale backing pfn and in all likelihood
+break APIC emulation/virtualization.  E.g. if KVM's page tables are able
+to map the page, then guest accesses would go to the new physical page
+instead of being treated as APIC accesses.
 
-collapse_file() already refuses to proceed with folios that are not
-uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
-such folios, leaving handling to the page faults.
+Opportunistically WARN if the memslot lookup fails, as KVM fully controls
+the memslot, and VMX doesn't support inhibiting the APIC-access page, i.e.
+KVM VMX should never delete or invalidate the memslot while the VM is alive
+and reachable.
 
-Note that collapse_file() effectively clears shmem folios through
-shmem_get_folio(); let's keep this fix simple and simply let the page
-fault path deal with that.
+Do *not* WARN if getting the pfn fails, because despite KVM controlling the
+memslot and allocating the backing page, there is nothing special about the
+underlying VMA.  I.e. userspace can munmap(), mprotect(), etc. the VMA and
+thus prevent KVM from faulting in the page.  If that happens, it's firmly
+userspace's responsibility to re-install a valid mapping, e.g. to prevent
+the vCPU from getting stuck in an endless KVM_REQ_APIC_PAGE_RELOAD loop.
 
-Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
-Reported-by: Chris Mason <mason@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: e8fd5e9e9984 ("kvm: fix crash in kvm_vcpu_reload_apic_access_page")
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-191120@kernel.org
+Cc: Carlos L=C3=B3pez <clopez@suse.de>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
-Once reviewed, I will pick this up in a timely manner.
----
- mm/khugepaged.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 8d9f05a39afb3..db135b3c44ef1 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1900,6 +1900,12 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
- 		goto drop_folio;
- 	}
- 
-+	/* Leave any uninitialized folios to the page fault path. */
-+	if (!folio_test_uptodate(folio)) {
-+		result = SCAN_FAIL;
-+		goto drop_folio;
+FWIW, I actually verified this is a real bug, and that the fix works, by
+hacking KVM to map the APIC-access page at a hardcoded virtual address, and
+then modifying the xapic_ipi_test to unmap() and mmap() that virtual addres=
+s
+(usually at a different pfn).  I didn't Cc stable@ because unmapping the
+APIC-access page is all but guaranteed to be fatal, e.g. the VMM would have
+to blindly retry on -EFAULT when trying to fault-in the page into the MMU
+inevitably fails.
+
+ arch/x86/kvm/vmx/vmx.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index b341af4c6057..13dcf9c12c83 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -6923,8 +6923,10 @@ void vmx_set_apic_access_page_addr(struct kvm_vcpu *=
+vcpu)
+ 	 * APICv is enabled, but paranoia won't hurt in this case.
+ 	 */
+ 	slot =3D id_to_memslot(slots, APIC_ACCESS_PAGE_PRIVATE_MEMSLOT);
+-	if (!slot || slot->flags & KVM_MEMSLOT_INVALID)
++	if (WARN_ON_ONCE(!slot || slot->flags & KVM_MEMSLOT_INVALID)) {
++		kvm_make_request(KVM_REQ_APIC_PAGE_RELOAD, vcpu);
+ 		return;
 +	}
-+
- 	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
- 	switch (result) {
- 	case SCAN_SUCCEED:
+=20
+ 	/*
+ 	 * Ensure that the mmu_notifier sequence count is read before KVM
+@@ -6941,8 +6943,10 @@ void vmx_set_apic_access_page_addr(struct kvm_vcpu *=
+vcpu)
+ 	 * if APICv is permanently inhibited, i.e. the memslot won't reappear.
+ 	 */
+ 	pfn =3D __kvm_faultin_pfn(slot, gfn, FOLL_WRITE, &writable, &refcounted_p=
+age);
+-	if (is_error_noslot_pfn(pfn))
++	if (is_error_noslot_pfn(pfn)) {
++		kvm_make_request(KVM_REQ_APIC_PAGE_RELOAD, vcpu);
+ 		return;
++	}
+=20
+ 	read_lock(&vcpu->kvm->mmu_lock);
+ 	if (mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn))
 
----
-
-base-commit: f44fd601f72e09e44c667b9234c9cd469856679c
-
-change-id: 20261105-set_huge_pmd_uptodate-9b9820307f30
-
---
-
-Cheers,
-
-David
+base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+--=20
+2.56.0.567.gdb80ae8cd5-goog
 
