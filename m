@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877984;
-	b=NMaF9pqOZrRXXo5Ti/xiBKyzgG/cBJsHzDMinhg6aKQVnbQcmJn9WLtbU4CuQ9N8MmMc
-	 vpu9wQ4kFX2vQpx6O/JgCU0fIZRuCEqdtfahLQ3Jxe9LXTj/UmHzFmt2cXRXfDknsxBib
-	 UMfp848O7HH8OTBVQZeeW7gqhjCFcx+HcAzRJjmtZ62K8AzUq/xL6hSMG5wQe0DvFj50X
-	 eu/z7LvjVR5gWt9IUxAc/UG75nb+4re7TX+nA+479erQ+K8BwIwXN33TJ2bzhBu/DqEs5
-	 8aXtlLzR4dKK7lzHKXA7qUhmBJE5gHdtPHPCudT5pEniZV6bxMfPM+A0EWCtrAbtCuA==
+	t=1793877980;
+	b=Z223aQMCUwN+g6i5TJ2aiSH1tFQlIs8EGbu7w1iAYNRdKANJiVdkiMzCgcB6/I5mWrPs
+	 H8eXluQhO1cuem6ufLYXrKlp3piFu2ZqA0XtYjnCkPcGmwPr76CATzPzu6URZ+7m5Aw8P
+	 u0b8O/oGmQ85BElZI6OqW12zojHxQybULyh4DTEHhy0SpCT9q6iu/UaaiYGH9sQK8/qqB
+	 48cn/aiv1PzZP3Tz8hLUH/PcoKrcZwf5d1YqRXerrwwl9ncZGD+Ga3POeXYNUAkgTFFOb
+	 zUwm2etM3WoKlqk+E051PUTsP9PNyjbp1qdsFuDMHxfh+kvuxPcUK0xtPGV/9js00Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877984;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=7PH/1R2E//KGI4z2Br/DeDo0D1Ypy1FTj3nhUxyqjSE=;
-	b=OdTxonHoWGrZonyU8z/3iuT5Knk90fDBrTZ+9cc7TAOBsO/bT/exIWTH+wPDdk02GktT
-	 ebpsWxOsbpaqOchk4dNA3tFiMlPAqsfTw/W6xaBa3vWLAt/D63QM40p4NdYthadCoruRQ
-	 6rczX4lWObLttNbiNnaXmw2m7y60/obbLFiAWEHhl0OrZ6a+VLC69m9/tVz778LhOE84/
-	 sZTAMSIVIAfYiSpJss5vdTgfkRmj42hZYkUoXUJHXkB+pGbvzg0A4yZJgd8Rb7uUXiwFQ
-	 Px3lg/z4jvLPSWpdDM0i3G5/qUsnCG4o4WbQ3GQn1YPH8/2iYXv1hleSvtUDpIZSAHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877980;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=C1hrqNfab2BUyeQ19amVpDlqCunra+cEiy/RJrNmaJA=;
+	b=kTALgVi2cb6CbDw/XCwAdZGK12U4a6jwyiBnc5fDQsEUgTHu+RgtOnS0JnBGy3SHk+vO
+	 ba6WzZxd2xjGyAke9798dUHtkyTOUoLKn+/gW16/oFNGtq8Kajt+7xLfLvcJE05hZP4QN
+	 V/qEc/r1V/3kDt5844RZdhnw9G4HvAs1AjkRAsNn4oU9B62F3toOX5s49AKTtEohaxVf/
+	 13otpUZYzqFKqU/Na7t6kSOjIIQOPiSOv7Nj5HS0v/MNwwO0i1tyLwhW2WdgSVmseoA0I
+	 zgOS4SAmUoh7Edu47Fn/uYdiY0n5KDNXY6Vze+IyCM1wnqm450m1KcOkNPvMBmWcD4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Fs1ynA5O;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB924606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB924606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kV7uWx02;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D7E606A31B;
+	Thu,  5 Nov 2026 11:26:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Fs1ynA5O
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 006121595;
-	Thu,  5 Nov 2026 03:26:20 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 621BD3F628;
-	Thu,  5 Nov 2026 03:26:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793877983; bh=10W/InQm/aAm2y+k02PdzfKJPwAxej5pbhisj8esRGE=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=Fs1ynA5OLQdhBVaT7A7C5NE6YLSjsWxjyOKLBENHpAZzTXgO8clqPLqAtShAMum4N
-	 Oe0w3ewq7/VQkVGQbIX0QWVUiZ+H/Bmybasf1KW0iJf8avfClxixhl0DXLxQqyNp/e
-	 svT6yCg1FJcfxk493Ha+ZLOqNalGh+yZBvPE5Z2A=
-Message-ID: <d34a5211-1a8e-43de-9afc-6abab72caa2e@arm.com>
-Date: Thu, 5 Nov 2026 11:26:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kV7uWx02
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9825B1F000C1;
+	Thu,  5 Nov 2026 11:26:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793877979;
+	bh=C1hrqNfab2BUyeQ19amVpDlqCunra+cEiy/RJrNmaJA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kV7uWx027yJNBJV681LZoEv5Bq9G0Br+8GS0AUvEyFZR+1OLxWiSV8sXwwsRe5bLk
+	 BIK9S4QaLJE5aN26WFS2dY8USE7ULwRmuKaMugMzZh7FH7w4VsnjeEzlO6r4whbAG2
+	 4NwEbDt2/RNKcwWEwOwqwZ2Kv5CfWAyDj9uos1kGHiYeP+UJWMZfZxJsoa6RxxUJmz
+	 oqlbi8S6NLYzfHEnaMFqhKkimoY6TmTdnF2QiBs0yx5zjd1EFOLmXvliOUWYaNyrIS
+	 UVvLyV0mIvxqoEwFan24dInFGdHn6C542Wyx1zQoPnK4GWUAbNKpnZzE0WxVCzP6q/
+	 OAYY5BHoU6byQ==
+Date: Thu, 5 Nov 2026 12:26:15 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, shubhrajyoti.datta@amd.com, 
+	shubhamsanjay.patil@amd.com, adrian.hunter@intel.com, manikanta.guntupalli@amd.com, 
+	linux-i3c@lists.infradead.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, jarkko.nikula@linux.intel.com, wsa+renesas@sang-engineering.com, 
+	alok.a.tiwari@oracle.com, konrad.dybcio@oss.qualcomm.com, andersson@kernel.org, 
+	jyothi.seerapu@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com, 
+	aniket.randive@oss.qualcomm.com, praveen.talari@oss.qualcomm.com
+Subject: Re: [PATCH v7 1/3] dt-bindings: i3c: Add support for Qualcomm I3C
+ controller
+Message-ID: <20261105-nonchalant-groovy-manticore-76d2a1@quoll>
+References: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
+ <d40f2212-754d-4788-a555-6a58c2479bed@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,97 +64,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] fs/resctrl: Report a temporary RMID shortage per
- CLOSID
-To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
- reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
- babu.moger@amd.com, bp@alien8.de, tan.shaopeng@fujitsu.com,
- zengheng4@huawei.com, gshan@redhat.com, jic23@kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261105070934.2258613-1-ruanjinjie@huawei.com>
- <20261105070934.2258613-2-ruanjinjie@huawei.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261105070934.2258613-2-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <d40f2212-754d-4788-a555-6a58c2479bed@oss.qualcomm.com>
 
-Hi Jinjie,
+On Wed, Nov 04, 2026 at 06:01:15PM +0530, Mukesh Savaliya wrote:
+> Apologies for the additional email. I missed including the cover letter with
+> this series.
+> 
+> Please ignore this series without the cover letter. I have resent the
+> complete series with the cover letter included.
+> 
+> Sorry for the inconvenience.
 
-On 05/11/2026 07:09, Jinjie Ruan wrote:
-> An RMID that is freed is held in limbo until its cache occupancy drops
-> below the threshold, after which it returns to the free list. A request
-> that fails because of limbo is thus temporary and worth retrying, which
-> resctrl reports to userspace as -EBUSY. A request that fails because
-> every RMID is in use is permanent and reported as -ENOSPC.
-> 
-> Where an RMID is only meaningful together with a CLOSID, a request can
-> only be satisfied by an RMID belonging to the requested CLOSID, so the
-> distinction has to be drawn per CLOSID. Instead it is drawn system wide.
-> -ENOSPC is reported when the free list holds no RMID for the requested
-> CLOSID, even when that CLOSID has RMIDs in limbo. -EBUSY is reported
-> when the free list is empty and another CLOSID has an RMID in limbo,
-> even when the requested CLOSID has none. Userspace is thus told to give
-> up on a shortage that may clear on its own, and to retry one that cannot
-> clear until it removes a group itself.
-> 
-> Architectures where the RMID is independent of the CLOSID always match
-> the first entry on the free list, so neither case arises there and only
-> MPAM systems are affected.
-> 
-> Draw the distinction from the number of RMIDs the requested CLOSID has
-> in limbo where the RMID depends on the CLOSID, and from the system wide
-> count otherwise. Drop the separate test for an empty free list, which
-> the search handles on its own.
-> 
-> Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+You got here some Sashiko review, so that has to be addressed.
 
-Thanks for fixing this MPAM oversight.
 
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Reinette Chatre <reinette.chatre@intel.com>
-> Cc: Babu Moger <babu.moger@amd.com>
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> ---
->  fs/resctrl/monitor.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index 04e4ea612b7c..b8f4e1ff4083 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -207,9 +207,6 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
->  	struct rmid_entry *itr;
->  	u32 itr_idx, cmp_idx;
->  
-> -	if (list_empty(&rmid_free_lru))
-> -		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
-> -
->  	list_for_each_entry(itr, &rmid_free_lru, list) {
->  		/*
->  		 * Get the index of this free RMID, and the index it would need
-> @@ -225,7 +222,17 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
->  			return itr;
->  	}
->  
-> -	return ERR_PTR(-ENOSPC);
-> +	/*
-> +	 * No free RMID matched. If this CLOSID has RMIDs in limbo, return
-> +	 * -EBUSY so userspace can retry. Otherwise, the CLOSID is genuinely
-> +	 * out of RMIDs. When RMIDs are not per-CLOSID, any RMID in limbo
-> +	 * delays the allocation.
-> +	 */
-> +	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
-> +		return closid_num_dirty_rmid[closid] ? ERR_PTR(-EBUSY) :
-> +						       ERR_PTR(-ENOSPC);
-> +
-> +	return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
->  }
->  
->  /**
+Best regards,
+Krzysztof
 
