@@ -1,67 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838194;
-	b=R1t3bg1/VW6bjS6Qod859v5e5PFOXpg80MpZAtHV+1ZK4wzgKwyO5GNYdXR9853OgHxo
-	 LpOpGsY9cvQr1apeS8ToKlEntY7YSUFuGV0aAVQCS695cckEWngDPEx2tGDbk1oRTR1n5
-	 YdxQnDb/d9CSpwT4qmAQmBu/T1vgBeaOP7fsqoXlM004uOybw3sSoBldUadV8m5JSuFPZ
-	 bkKY/C9Iz40YVLL/Stf0nMHSEIkwPwxmaJRjUVU5mPdfML++2+RT7Bd/YjbIk4+T2rkzO
-	 SMs2o4mJxQx+n7b1Dwk1lQh7N/XKjWZ8J5EF5HQIJbSMPqYdULXMqLXuWoZCNaFFfLQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838194;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=G/GgkrKdXMKKX27qcIVOvVckFZk3QBrPBjY7nunH4SY=;
-	b=dL/7GJvMzMh7AtKrEpm8WHUS4egwBeyRhtnZZH735zs0nqYbLrhwSnh955++11fG0G+R
-	 FQQ6sgP5p7wGzkuyg8SqvosN8T346fhWlCGESjw7b7X/2dABigphZJqJqgJtPtWDiZ34Y
-	 oLsKzvOq0HtjgHRG3dbsEvvmRqq39g0q06kMYdTBzU/EN/lzFNQjIBxbSQTTqe4K8qv1n
-	 /v/O4sak52m4Z+aPSLLEhRDTTXSStI3YOt7UZbtGNB6Le8Kce/s3daDwUyKm7fRcxZcW5
-	 wO4IgwThrWHU3yHh4OlQeFJn8G6dS34/M8t2N2tx8NNhCAv3H5/z+t/gvpBPTvTEcuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjfleZhz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793838259;
+	b=BFtL23OYRoiTMEN9VbJ4JkaIWa3vtjvIGbx0O5pnX37+ACmJ7hxrQ5P+Ju2Lt3tIipJl
+	 bfI7MDYmr4DtsWO+pkGLJ3vFc8JYxijl/SKur7BalixlnPPl3gUD7j+t2sjyiwwW6b1I6
+	 hPoJGnmSXmQqDwkxwfBhVE4rysPkVsDevBBdiT0BNATClkaluhm+UfQdHUnhVI4tUunHi
+	 ucd6AI/JcWqYtd854rzNE7H/qhZ/KpqlfrFZn2a0TuGY7MFWgsMTIab60vYJV6sKJAfmh
+	 S2jaDtM8a97JtdvwZootp499cAiINoOXRB6fov/EPSVaVZNixDt70XNDMyA75OhymIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838259;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tZ/CEyaDYXsNNRdMIEB4q1HaASe6B5/6Xwid5BMJouc=;
+	b=pJww5sPbRjP6MujaeqE3j45DQYScscAd74TD+7eKBEvMV/i+SLxXAMyLZ3FlFf2Qx16D
+	 tZPuQSsk3dQvEmlTibJLc3dx/xn2ErbG3+hYZz4OikmmVQB0qlVXqmMX9zyi5tzT7b1XF
+	 FIp45Jxr8K7GOXKkuLL+Fx1nyNNtl8pv7YMT2orudDkKk6SyHVQF051I0eOLthe3W/Bon
+	 CW9xsWDlTNrOOnJ7IVCvtNzHlQnpn9D8+0ipMZcjanx53Tvuu1+krZw4nSV2wgf5mpWYE
+	 M44gT8oAis5rAnii9bZ5FwePkZZvaHDWVpK1bTifIZh+8G0E+7Q4N4Z6GOXgC/a4NUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=UqiBTXsE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.42
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013042.outbound.protection.outlook.com [52.103.14.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36965606A326;
-	Thu,  5 Nov 2026 00:23:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DB8606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:24:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9DB8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TjfleZhz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B762A1F000C1;
-	Thu,  5 Nov 2026 00:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793838194;
-	bh=G/GgkrKdXMKKX27qcIVOvVckFZk3QBrPBjY7nunH4SY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TjfleZhzN+mAoPhY7nSomGHREMnPPDGdYQ/5h1DWbd0kTlHDH+ZZ8PQjZoiXeeasG
-	 cQOQ3xp2/aXyuZSFIFa07Tm5PM/nT9pMWsvhRVbXWv4nVC5MkYsptL/POCRfBDg2bE
-	 TiVIpwGybN7ifKn34gX4/3zCEmhoznMbg6fgpzlUBbRQr6EkOFdb0QKXhRsvbL+fUu
-	 8QhkAQpOV178wRyNaIsmltbylfu+ToJZZXO2XZwqch75uHikceV7ppCjSdowwFX7QX
-	 5q2Jey/gGK+WEZLfO8XTXkCOMke35rf8xQE37wU1PGFRGItc62CsxC3ff9zsDT/2oh
-	 weO86NLynjt6g==
-Date: Thu, 5 Nov 2026 00:23:08 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>,
-	Joshua Crofts <crofts@kernel.org>,
-	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=UqiBTXsE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=toaZ+IHKzW5/RPu3ShNeotq/iYj6zSGkOHnGjNdDUG0q08jlF01vLs1SaHzok6pPpF+Hofp8ajtmao635NkQsMNFzXR+0RCpuNba1TEEullKE8bzYgm7vckT5ZK/SQstnSs9EzBgjZ/WITVPkSBAtf0K5qdGSipWXalzyX8O1/Eg5NonJk3/vlafsxYPYz0v+Kaaba4AfIigJ4sNRZGfB2yNSwKHjRGozeB/ZDXFliXg8O6HRJWJJEp/Qe2bSTJIXMV2Mkk3xPg/yH1bWRsQzkuQ91I5xsA2W1dCcz/a6Topp8Gz4ZhhooE720arm0XKqPq96n0J7XPxDTuM2DcLVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tZ/CEyaDYXsNNRdMIEB4q1HaASe6B5/6Xwid5BMJouc=;
+ b=RY4IBAzzIUL7zfm7MlvOcXVTjE88gmerahPHyK2rI0w7Tpurvs5fXVHkCSIVWBd1kaTURkiA67NXTpmAoIVUUamBaLyypKuMlOq6lYoIeC61+LFvJ9p/cTIYwAlAGxW2nNLjAQimAk2cOOF8B5G/IoDjAc9Tkui5xAWcFupYLsFjJywpTblblgJav7dKzDp+jxAiJ/gyl/Yxzyrd2H94yCdewMLznoTjFS8JCx2HuX6+OgyHnUP5PwRk5Iv87H+wYKc1uJe3euLcv2J1jKNhvaTeaZYPyNZlV7AgOIAcGy/StLRKPgUXBYYX6N1iIclVPxwT3RZqfY1CQnZFOggK8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tZ/CEyaDYXsNNRdMIEB4q1HaASe6B5/6Xwid5BMJouc=;
+ b=UqiBTXsES9VDN0w2ZPjREQ+KHLT9zLlixgMZmVMadMwKwk8cyQgJEJ9fx20tpDHu2t0G0WBcizOzOY963z5/Odl+lBF1cdgz0AKDOzjrAybRuUwvQ2fUQ5zaJ/VvPccJBUEL9eY7BTVOCzFcw7j1JWTKignG89usY+S2P1QeXhm/hj9ywUtZXj6G6ikCd65aVA/teVrvek9xuvNqNz0sIQzTSBSV6tiidqLBO8gAlFB2Gos0o4ZATkQBzt2ffLFhw+5Y4IYuaqsyrRDtHa1kBpq0w/NBrqdXpAo2BZW6uSYipincShImO2xR01tnd5JvyObLw/pQlf2yPz5wN2vrYw==
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
+ by CY5PR12MB6599.namprd12.prod.outlook.com (2603:10b6:930:41::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 00:24:16 +0000
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 00:24:16 +0000
+From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+To: broonie@kernel.org
+Cc: chernyakin.victor.j@outlook.com,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] dt-bindings: iio: adc: adi,ad7625: add LTC2387
- and ADAQ2387x
-Message-ID: <20261105-domestic-seminar-a5899614d882@spud>
-References: <20261104132143.215581-1-Nicolae-daniel.Deaconescu@analog.com>
- <20261104132143.215581-5-Nicolae-daniel.Deaconescu@analog.com>
+Subject: Re: [RFC PATCH 0/2] regmap: add APIs to bypass regmap_field and work with reg_field directly
+Date: Wed,  4 Nov 2026 18:23:58 -0600
+Message-ID:
+ <SN1PR12MB252866763981CE496B249497A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <c9a8b55f-72be-4196-af43-5a18b38b8b45@sirena.org.uk>
+References: <c9a8b55f-72be-4196-af43-5a18b38b8b45@sirena.org.uk>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH2PR14CA0049.namprd14.prod.outlook.com
+ (2603:10b6:610:56::29) To SN1PR12MB2528.namprd12.prod.outlook.com
+ (2603:10b6:802:28::33)
+X-Microsoft-Original-Message-ID:
+ <20261105002358.697394-1-chernyakin.victor.j@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,357 +96,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ROJN7Ub5gSfSxiiY"
-Content-Disposition: inline
-In-Reply-To: <20261104132143.215581-5-Nicolae-daniel.Deaconescu@analog.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|CY5PR12MB6599:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fb63bfb-24d8-4c38-c129-08df3ad31fb8
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|4140399003|260925184616899003|25010399006|5072599009|23021999003|24121999003|19110799012|15080799012|8060799015|22091999003|52005399003|40105399003|26121999007|19061999003|440099028|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?acHQv+AwS/FjXULCDMO2jo5jwM7Zsrn9QNzrawskGGzN4TMeIBsnW2ZDHEV2?=
+ =?us-ascii?Q?dI+S2wZmilteG/QxkeXCWLaxdLv6fjz75qcs23VfLu5VMsPMD+Kz6GeiLf/u?=
+ =?us-ascii?Q?OppAvkCGPJgPyn8WPf7VCyX8pShRe9tvDAj1c4DjBlTK1zeXmRiQgDXITt3a?=
+ =?us-ascii?Q?4cLcPyG+ms4sXymJL2UVoRNW+b3xin7Q2CLUOy8zwX2Ci5tysXjOqi3nlvbW?=
+ =?us-ascii?Q?3YvQmp/QcUytzQ5tLm7aMWEsEZE6fBOw2MHe6K0fhqioLTetUzHMMf8xIW3M?=
+ =?us-ascii?Q?ePRIn/Fz3CpiXjrrYhUWh23SXRyRC8hIx92h1sk+lDFCFwn9ImEB2z40wAyM?=
+ =?us-ascii?Q?RNl80CWqrhxIm3MDSeJZFynfOgTn+JmqTmfOwN6n39cLBeb964ffJFNIOKop?=
+ =?us-ascii?Q?13Rq9JeD4FMxHk//DstC5K9c8nQQQX9no6u4NhlGLrp7Fi1QAlG7w8Ylom4k?=
+ =?us-ascii?Q?8cvVBFEIBKvzu3qgCPIgYg3VlZ4eUVPkiQXNzz9P1NU7NuI3HePURI3Y9Yqt?=
+ =?us-ascii?Q?8MegceFD0emeHnxZCrQCGsLhcd717wjfW+K/9HWQR9HhYki2cjU7LAyN4l74?=
+ =?us-ascii?Q?u/VD47yJJEa2UFBUHzcGH1PIkEycMDE94BoEHjUZn+5IQV7U2GYRHF+aG9lD?=
+ =?us-ascii?Q?9R0AtOTyZRG4EkMwOWSyIZ3B1iiNDArFsC6UJB2aTpAuULGEykQQg0ASkK85?=
+ =?us-ascii?Q?mw/fMXyFW/DG2XHvGYlitL9hhDLfORtttbr4+lnRW0D2JZR9YdoF/zHk8EwC?=
+ =?us-ascii?Q?PWHJvCclEKJkd+7+Bl9i4CWFDmyw3GoXY5mXkQ0ZqATG7KysSotyXFijngh8?=
+ =?us-ascii?Q?JgFJm0OS/Ee0aB5Gszhl9n7Qr8O7wxNxjtadfZjI5436D72uNWZcavh1Ba/K?=
+ =?us-ascii?Q?HyeDl0O1HpOgA6/ndjjN4/1bCzkb2FWWn/aDSSPj4wnCigL9ed3+mfxME4pY?=
+ =?us-ascii?Q?qkjBkBgfxqie1fBK/RyGLrhu5q7itXIg8nz+3wo4jkzkTO4so9w8ArYapP3d?=
+ =?us-ascii?Q?jaeAeEovYNo81zA//AocN3eW1BjFtUpoN/HDTTc3JkFj6CGQk9ofPwP5NKfG?=
+ =?us-ascii?Q?8lw0KdoNO7gQvRUwC1dEELChbkSxDg=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FAqJRH8uG8X4D8WkupAEG3dcW8n4h5MmD1Ac8Yqnl/sCYw1R6LPjSLBXJzzH?=
+ =?us-ascii?Q?TxFpKxzJc7zXEDP6OS6BJzkmuYMULdEnnqg00xzElIjtvo7udZK9fvCy8OvW?=
+ =?us-ascii?Q?XgwE5VV2GweneKM5Q0s8+RYjcVq5PbvnL78uOalm4tc8MHBiLsZuNX41FhiW?=
+ =?us-ascii?Q?DF3W6oGhf8n3d+JpkuXhKxLn0bp4ARw6OuMWv3fnz9IL1L6lKHfJtWpDUF0y?=
+ =?us-ascii?Q?P7iWxWRycjwZ5ccq4kpHuemmB4SZW1rKaXNXCpk3qJfC/AckCPx0W84Eyi4n?=
+ =?us-ascii?Q?dR0/llZsbop6UEhPjskswFh4Kw4hn4+oFDcBqkk41KaMuYc1AUmfcrTxqYxz?=
+ =?us-ascii?Q?4xUeybYkrxRZg6VWE1XBe9NYDrzl8GCOJHUR3NAqY1x4yqcQwojnqikGy+CV?=
+ =?us-ascii?Q?+YrNTbn3yuSq/dPB4ufNb1+DDQHYHCgn5IlwynWUVHAVse7FTUhw/3WWFQNr?=
+ =?us-ascii?Q?YqV3cuNyyN1KRgR8sbFmtKHO/Dy//Mwuv6fSXm5PTexkHKfxFGz4YMuZUZa8?=
+ =?us-ascii?Q?U3tf41i7MvPqdX/IPITEiQagg7vNIi1p1hZLmRPkW+J5TNmHhuOColQ7ytbT?=
+ =?us-ascii?Q?OLX4PW+a4ZqOynmznqkT3MEclvkJBxjJWlM1MZqUBVwVCi6YtYvhQivPAXM2?=
+ =?us-ascii?Q?FvhpfbhDK+3kbpL9qd4nQ8GMFmbL+3PfxxsSsG72BRgqigJWrzGfyf7o426c?=
+ =?us-ascii?Q?d7EBZxL7faxqfeybzvur0RbBjVnQdrkP5/nBUicLEygYLNeW+YxC63X2fQ+i?=
+ =?us-ascii?Q?Rj3yMoDfV6lUl4LkZzTXEYBQS85PECkv/UVgSHLoyyeV2S2nOm1BVOh+pUzr?=
+ =?us-ascii?Q?XivT6EHvpSknPCdx64boq2OSFUzHGAuazwQo/GQP99GsQn7BJ8k13JQ4nc8k?=
+ =?us-ascii?Q?aA1xghvHlvD/znWn/7vLgdxdPFXay0QDlpmzntBTRMVuZEgDMfvbPPMz72Ty?=
+ =?us-ascii?Q?yOtAqXAa7JzzfyPJUMuleY4H9NV4+0bHqJ/gqEsKSoSlqlbJe3rFykwUo7I1?=
+ =?us-ascii?Q?oyUcNWCe5eDs1PgwmJowXMfqhaUgR3SinKj3ffrxnf1PKpBmKvzwX+GUnq82?=
+ =?us-ascii?Q?j0Nh3sme5rCkcjL/lgE0IiuNZWJ3ObxHFPPfHEHHkTgn7VAccsuG9K8zU8G0?=
+ =?us-ascii?Q?SIC4n5okkRl1vIf/5h6ZJRV/NeBNBDAmhLOyew/Bk1FT4GfvV9HK2q7R5pD7?=
+ =?us-ascii?Q?m8SU+DQEf3eZCjphRbrgcQ2NM3Fg8eKof/SPP5NAzvZkDWSoZ7iBjhUjTkXr?=
+ =?us-ascii?Q?Yvv2Ha3LXqmGuE+q4N/C6why6/ynDbyEpHSQrGzVeDZTITxGue8kzmiKPbC7?=
+ =?us-ascii?Q?ENzBUosx4l4CKGXAdtwFoAJsISWkO0n2OMJNyr9lPcqASKEI2x3QApHWGl4I?=
+ =?us-ascii?Q?m3hILDIqp/tB8yMdLFrPXZlUy9ZJj76QZNM6moZh5/JKsO7c9A=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fb63bfb-24d8-4c38-c129-08df3ad31fb8
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 00:24:16.2943
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6599
 
---ROJN7Ub5gSfSxiiY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> > This is not actually a new idea! Both it and the current *_alloc approach
+> > were suggested as alternatives right when the regmap_field_* APIs were
+> > being added [1]. The *_alloc approach was chosen without much
+> > discussion, but I think (and Patch 2 demonstrates, I hope) that
+> > this approach is the cleaner one.
+> 
+> The demonstration in patch 2 would be a lot clearer had I been sent
+> patch 2...
 
-On Wed, Nov 04, 2026 at 03:21:42PM +0200, Nicolae-Daniel Deaconescu wrote:
-> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
->=20
-> Add the LTC2387-16, LTC2387-18, ADAQ23875, ADAQ23876 and ADAQ23878 to the
-> binding. They are single channel differential ADCs like the AD762x and
-> AD796x and are read the same way: CNV and CLK are driven by two PWMs and
-> the LVDS data is captured by an AXI ADC. They differ in what is around the
-> converter:
->=20
-> - Their output is double data rate on one or two lanes, selected by the
->   TWOLANES pin, described by adi,use-two-lanes.
-> - They have no EN pins, and no clocks property, because the PWM provider
->   reports the clock its waveforms are derived from. The second PWM is nam=
-ed
->   clk, as that is the pin it drives, where the AD762x and AD796x name it
->   clk_gate.
-> - The supplies are VDD, VDDL and OVDD on the LTC2387, and VDD, VIO, VS+ a=
-nd
->   VS- on the ADAQ modules.
-> - The ADAQ modules have a fully differential amplifier in front of the AD=
-C.
->   Its gain is fixed on the ADAQ23875 and set by pin strapping on the
->   ADAQ23876 and ADAQ23878, described by adi,gain-milli.
->=20
-> The properties and supplies of the two groups of parts are made exclusive.
-> The gain is described in the devicetree as the pin strapping can't be read
-> from the part. There is no fallback compatible, as a driver for one of the
-> existing parts would read these wrongly: their output is double data rate
-> and has other timing limits.
->=20
-> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> Co-developed-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@ana=
-log.com>
-> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analo=
-g.com>
-> ---
->  .../bindings/iio/adc/adi,ad7625.yaml          | 193 +++++++++++++++++-
->  1 file changed, 184 insertions(+), 9 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7625.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad7625.yaml
-> index 8848562af28f..dbdded88236c 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad7625.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7625.yaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/iio/adc/adi,ad7625.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Analog Devices Fast PulSAR Analog to Digital Converters
-> +title: Analog Devices Fast PulSAR, LTC2387 and ADAQ2387x Analog to Digit=
-al Converters
-> =20
->  maintainers:
->    - Michael Hennerich <Michael.Hennerich@analog.com>
-> @@ -17,6 +17,11 @@ description: |
->    * https://www.analog.com/en/products/ad7626.html
->    * https://www.analog.com/en/products/ad7960.html
->    * https://www.analog.com/en/products/ad7961.html
-> +  * https://www.analog.com/en/products/ltc2387-16.html
-> +  * https://www.analog.com/en/products/ltc2387-18.html
-> +  * https://www.analog.com/en/products/adaq23875.html
-> +  * https://www.analog.com/en/products/adaq23876.html
-> +  * https://www.analog.com/en/products/adaq23878.html
-> =20
->  properties:
->    compatible:
-> @@ -25,14 +30,37 @@ properties:
->        - adi,ad7626
->        - adi,ad7960
->        - adi,ad7961
-> +      - adi,adaq23875
-> +      - adi,adaq23876
-> +      - adi,adaq23878
-> +      - adi,ltc2387-16
-> +      - adi,ltc2387-18
-> =20
->    vdd1-supply: true
->    vdd2-supply: true
->    vio-supply: true
-> =20
-> +  vdd-supply:
-> +    description: 5V analog power supply (VDD), LTC2387 and ADAQ parts on=
-ly.
-> +
-> +  vddl-supply:
-> +    description: 2.5V analog power supply (VDDL), LTC2387 parts only.
-> +
-> +  ovdd-supply:
-> +    description: 2.5V output power supply (OVDD), LTC2387 parts only.
-> +
-> +  vs-p-supply:
-> +    description: Amplifier positive supply (VS+), ADAQ parts only.
-> +
-> +  vs-n-supply:
-> +    description:
-> +      Amplifier negative supply (VS-), ADAQ parts only. Leave it out if =
-VS-
-> +      is tied to ground.
-> +
->    ref-supply:
->      description:
-> -      Voltage regulator for the external reference voltage (REF).
-> +      Voltage regulator for the external reference voltage (REF, or REFB=
-UF
-> +      on the LTC2387 and ADAQ2387x).
-> =20
->    refin-supply:
->      description:
-> @@ -40,18 +68,23 @@ properties:
-> =20
->    clocks:
->      description:
-> -      The clock connected to the CLK pins, gated by the clk_gate PWM.
-> +      The clock connected to the CLK pins, gated by the clk_gate PWM. Not
-> +      described for the LTC2387 and ADAQ parts.
->      maxItems: 1
-> =20
->    pwms:
->      items:
->        - description: PWM connected to the CNV input on the ADC.
-> -      - description: PWM that gates the clock connected to the ADC's CLK=
- input.
-> +      - description:
-> +          PWM that gates the clock connected to the ADC's CLK input, so =
-that
-> +          it sees the burst of pulses for each conversion. It is named
-> +          clk_gate for the AD762x and AD796x, and clk for the LTC2387 and
-> +          ADAQ2387x.
-> =20
->    pwm-names:
->      items:
->        - const: cnv
-> -      - const: clk_gate
-> +      - enum: [clk_gate, clk]
-> =20
->    io-backends:
->      description:
-> @@ -91,6 +124,23 @@ properties:
->        Indicates if EN3 is hard-wired to the high state. If neither this
->        nor en3-gpios are present, then EN3 is hard-wired low.
-> =20
-> +  adi,use-two-lanes:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      Describes whether the TWOLANES pin of an LTC2387 or ADAQ part is s=
-et
-> +      high, selecting two-lane LVDS output, or low, selecting one-lane
-> +      output (the default).
-> +
-> +  adi,gain-milli:
-> +    description:
-> +      Gain of the fully-differential amplifier that the ADAQ modules
-> +      integrate ahead of the LTC2387 die, expressed as gain * 1000. It is
-> +      fixed on the ADAQ23875 and set by pin strapping on the ADAQ23876 a=
-nd
-> +      ADAQ23878, so it must match the board. Not allowed on the ADAQ2387=
-5,
-> +      whose gain is fixed at 2.
-> +    $ref: /schemas/types.yaml#/definitions/uint16
-> +    enum: [370, 730, 870, 1380, 2250]
-> +
->    en0-gpios:
->      description:
->        Configurable EN0 pin.
-> @@ -109,10 +159,6 @@ properties:
-> =20
->  required:
->    - compatible
-> -  - vdd1-supply
-> -  - vdd2-supply
-> -  - vio-supply
-> -  - clocks
->    - pwms
->    - pwm-names
->    - io-backends
-> @@ -157,6 +203,111 @@ allOf:
->          - required: [ref-supply]
->          - required: [refin-supply]
-> =20
+That's what I get for just blindly using get_maintainer.pl, sorry
+about that. Sent it to you now.
 
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - adi,ad7625
-> +              - adi,ad7626
-> +              - adi,ad7960
-> +              - adi,ad7961
-> +    then:
-> +      properties:
-> +        pwm-names:
-> +          items:
-> +            - const: cnv
-> +            - const: clk_gate
-> +        vdd-supply: false
-> +        vddl-supply: false
-> +        ovdd-supply: false
-> +        vs-p-supply: false
-> +        vs-n-supply: false
-> +        adi,use-two-lanes: false
-> +        adi,gain-milli: false
-> +      required:
-> +        - vdd1-supply
-> +        - vdd2-supply
-> +        - vio-supply
-> +        - clocks
-> +    else:
-> +      # The LTC2387 and ADAQ parts have no EN pins and no clock to descr=
-ibe.
-> +      properties:
-> +        pwm-names:
-> +          items:
-> +            - const: cnv
-> +            - const: clk
-> +        vdd1-supply: false
-> +        vdd2-supply: false
-> +        clocks: false
-> +        # REFIN is the bandgap output and the input of the reference buf=
-fer.
-> +        # An external reference goes to REFBUF, through ref-supply.
-> +        refin-supply: false
-> +        en0-gpios: false
-> +        en1-gpios: false
-> +        en2-gpios: false
-> +        en3-gpios: false
-> +        adi,en0-always-on: false
-> +        adi,en1-always-on: false
-> +        adi,en2-always-on: false
-> +        adi,en3-always-on: false
-> +        adi,no-dco: false
-> +      required:
-> +        - vdd-supply
-
-Honestly, when the devices are this different, I don't think having a
-shared binding is worth it. Shared driver perhaps, but when so many
-properties don't apply the things should be kept in different binding
-files I think, this is just confusingly different IMO.
-
-Thanks for sorting out the clocks thing though.
-
-Conor.
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - adi,ltc2387-16
-> +              - adi,ltc2387-18
-> +    then:
-> +      properties:
-> +        vio-supply: false
-> +        vs-p-supply: false
-> +        vs-n-supply: false
-> +        adi,gain-milli: false
-> +      required:
-> +        - vddl-supply
-> +        - ovdd-supply
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - adi,adaq23875
-> +              - adi,adaq23876
-> +              - adi,adaq23878
-> +    then:
-> +      properties:
-> +        vddl-supply: false
-> +        ovdd-supply: false
-> +      required:
-> +        - vio-supply
-> +        - vs-p-supply
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: adi,adaq23875
-> +    then:
-> +      properties:
-> +        adi,gain-milli: false
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - adi,adaq23876
-> +              - adi,adaq23878
-> +    then:
-> +      required:
-> +        - adi,gain-milli
-> +
->  additionalProperties: false
-> =20
->  examples:
-> @@ -174,3 +325,27 @@ examples:
->          en0-gpios =3D <&gpio0 86 GPIO_ACTIVE_HIGH>;
->          en1-gpios =3D <&gpio0 87 GPIO_ACTIVE_HIGH>;
->      };
-> +  - |
-> +    adc {
-> +        compatible =3D "adi,ltc2387-16";
-> +        io-backends =3D <&axi_adc>;
-> +        ovdd-supply =3D <&supply_2_5V>;
-> +        pwms =3D <&axi_pwm_gen 0 0 0>, <&axi_pwm_gen 1 0 0>;
-> +        pwm-names =3D "cnv", "clk";
-> +        ref-supply =3D <&supply_4_096V>;
-> +        vdd-supply =3D <&supply_5V>;
-> +        vddl-supply =3D <&supply_2_5V>;
-> +    };
-> +  - |
-> +    adc {
-> +        compatible =3D "adi,adaq23878";
-> +        io-backends =3D <&axi_adc>;
-> +        pwms =3D <&axi_pwm_gen 0 0 0>, <&axi_pwm_gen 1 0 0>;
-> +        pwm-names =3D "cnv", "clk";
-> +        vdd-supply =3D <&supply_5V>;
-> +        vio-supply =3D <&supply_2_5V>;
-> +        vs-n-supply =3D <&supply_0V>;
-> +        vs-p-supply =3D <&supply_5V>;
-> +        adi,gain-milli =3D /bits/ 16 <870>;
-> +        adi,use-two-lanes;
-> +    };
-> --=20
-> 2.34.1
->=20
-
---ROJN7Ub5gSfSxiiY
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvMbAAKCRB4tDGHoIJi
-0i10AQD/tNisJywPmYC8U477uiHkiKqvDIqD9qHn8joLigTBwAEA3D/r1NmAHU9Y
-Miz0fVKmQ8Oicn+94n9XdF0YZziMBg0=
-=KgFr
------END PGP SIGNATURE-----
-
---ROJN7Ub5gSfSxiiY--
