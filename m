@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892077;
-	b=kldKH+fZ8oDJYlyz9YR97pHtMH6591AIj/jB15KRCOeIhZtNYwpC9OANLJuEEU8aQpmt
-	 coEzXJ9xw4/j8m/K1N+36JmZHZpZf1sDMn2b/s9dFKmIjpoeX5jDVgejqCH608iFLZJnk
-	 s7VQpc41FYqHK5LZ+7rzkXno4oY+e/a7CD3EGCxAczhK4BnB+hjiX7ST8uR/vLy/34roq
-	 Du1/9LOI7hbq61wxN1jIiEQK2K4QQuJRYBF7BRf+GxYuP5iX9JxhadFIG4Bf8fDCmJFXE
-	 Whz1ZKQKQHh+t74MVQ8bca7shk4uD1RX6d8Ie2FcaCdpr2q4+AM/Ipj4Sv4poSZSLxw==
+	t=1793892075;
+	b=HlXJf6AIxv2YmSvwTWT/gpiNggj6nEah/XVJ0dgYArkf/EIa9jQOaZ1fPlW9n9meAI/y
+	 vdEJ55+1g7TQIW1OXB0PSCaw3rrx75QH6mToNgQ/Tue7BIzF/p29CBa70QP3cbDqh9aW1
+	 5PcYANuBeT8MqnML4hyWW6gD+V62YCDxzPuwYwE9DE5N3mRrT3Gqr9CVK+YzhaZFzN40S
+	 EQtHoCnIfQEkNs9qDUABc8ZSUsgTzm/tmOXY/9Q+YxAOEwqhTRAlSrRNlASsM57Hce+Q0
+	 CLr+Pc9MXUkHICyM13VZ3PJbI0Tf5spw0uWObhVz3SmzJsGn8YVx4Bt3ggYJ6eYMx7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892077;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=u2u9PsPEFuJjBc6T1esj7oeDK3O7JwKIO6kYyidKbLY=;
-	b=VDHHlL9ODx3cixRMS4z7V0iPzpTO/g4EROjLoMhish1blNaBu0dfEMx6g9qRp5mcES1v
-	 7GDKAKg1pkapBZItJGS4hscUKmKQaaJY4wvrPsxdkaXUpl8VWabQQVgLCH2PTCjiK8hKe
-	 PYTTiLL25KnWGmkEzZEuQmCCmXKBeJv+D2mdIvnodkb6rK3jql3ZU8+yBgQzja7iNo7xc
-	 3BMdgpF/ul56igKu3XWL7Q42dcazqDRv/omoRdIm3tl0F7qW809cVwms2052Et40zNN9U
-	 eBpyWkcIkKPgVLhKZeh/PzcdsCyHCsNurqkTI1SBCqNKv8eVCUbNf9ZHpnCHhmJnQwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892075;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:List-Id:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=NzjDcogdjGLC/Z3rU4KyBTyFDp1K6wM2WbeYqpBBZB8=;
+	b=LvfpEQgBT1SwxkieSxgQcFETyu5c+ndWw9d6gCFyXOmEQLK91DilWvUyOg0o1EA9AtQ4
+	 K01aoyaoFdQlJGSnuEskFtCSZXCGCLdiIyQt2qePllMw7I0QKdTuyRS/zE3UaB0UuBFAO
+	 lQLf71wRTbZtqn7cSMfI/r2Gbze6zvClI/wauKlBdP/BHvLgpJ1hswG5YZSntCmUGY3P3
+	 t5bWgVG9nwuP1If3tVjypNwjkr2ptl0y40F3h61l4yNqyReuzX30VDx3CXZ/NbPR+lgeV
+	 btcvnR4jhuk65TdekTqOOMB4UZtzgNqy2OahQE0yI9n+u1vL/GomXl9QFZTzlOFO3vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rqPPKMgk;
-	arc=none smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPtiiDW7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1330606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:21:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1330606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7597606A32D;
+	Thu,  5 Nov 2026 15:21:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rqPPKMgk
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eafb65e204so641005e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:21:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892076; x=1794496876; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u2u9PsPEFuJjBc6T1esj7oeDK3O7JwKIO6kYyidKbLY=;
-        b=rqPPKMgkREkU9IM211ra3k8AITo9T+TdNDhco6Oy60gtAM2RnRAKMggyHKkB4jLaSs
-         0r9s/bfxnQAXHahfiW2nyVtgFkMQ0n7u1IHZODS/U9HER4Q0JOoPMLF/vm5Hqu9i+XQz
-         XAqaJRpdK4CamQW7eDb8stBOv2z+fYBFmTDh/HbJISeOEhRmQ81xJGoc2NAcnoG8Tbes
-         P7aoACeIOyBklmTYbsiURKGDjOd1fqzO0ebyGCG1pbHMEt48DO5ayhwlLKFQ5Yca8eAe
-         GtAjVAatAZ2oQpZ/hg5WP2ob8L8VRCw+KHXnYfYZfdipb2KK72+QvrY3WmwfoXezTn2A
-         92LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892076; x=1794496876;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u2u9PsPEFuJjBc6T1esj7oeDK3O7JwKIO6kYyidKbLY=;
-        b=HOQyHaYabrVUf5WPHo9wzjKv/lTW471lImFs73Uqke4/tAFtZAtSbMcj52o6Rs7ukC
-         Lhxb6VSKb6T43S8BY/T6soaWnPfTVhusFTWlbbXsa1fQzvSjq3ocbi5Zy7jKk1oCFErZ
-         Wqc2+TV4lxjh3Z3UZq3VTKNvSKX9YRQSqcFTGk0aZTXF/oEbrpjNzWHPB8q40v+dr8sn
-         sDxSaw3wVMQ8Pndx2qz8nn2DgFK4Tj/s86tZDCNkzRIQoyMzn36xRBwhwq++YXqjw8Yy
-         57FeSCyDcxuGYoBW213t1URVOIVizjwMzg+gMlekgoNPMgzluvi041jhGtcwwlHTzhpR
-         nR2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxxkyR7h5NkiIy+MKYBFrxSnnqlhJTgXpygW1yrZTY1Cl5oby6BUACS68e9tLSQNETZ/Ykh5DzkzdqAbpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+a6v5waCKXbbqIVFparedCnPqwy+LCSOfyOjK1FK6C1qzElSe4
-	AQ0UPBzB4lr5Mrl3oDS8o5NdtAQvGZ8dwowdMP7vcA9ccsxwB8fObGeVNCF3IHcMTKQ=
-X-Gm-Gg: AYBFou20AACus8s0D6myTZ2Ag315yUm7P8EqeOSH7QuNUWU8APYllslGFry5iZAmL8B
-	C/PeUaf5O8MLhtdVt4JynDzK3s7FSMVkd2xTHHSoUoDASumKEbQKjLBPPA8kmw33q/rK1K8BaCF
-	QZv6ZrdTwwxbSbpoJIcuJG3RisPYiDrsjVYR0pq2qfFP+F6xgl45fCfCZLk/Hqk2zSNxXD5e/Fw
-	TrgDpKpH2plxMXpOT+z9rp/1XyqJSI4uFWQ8YCnherXm7ie53edY05EkSQQXlHYDHIairZ386f6
-	Os+Joa4dnxP4krt7RDO6J0QvF7w4cUI7mzx12MVV5arz+ISaixV4zHDadtSx4hUZzF2DcoT3qp9
-	bM67Wh6fvXI0vU761EFF90k/gUmdp0xFM/FBKrpjym6j29hLLVPH2LIar2UKfBTxKJRJ/OJqEiO
-	Fgu/WsJ4318mbm1bSi1tBk5KfW10gufbIk7dt4k50tNS0+p9U9maTXX+9LVjXPT3vIEY/PBqDyj
-	h3fcQTVQvwiJqNlFSZYBNyhUeZobVSBP7cZqeXZrqRhnNy+YznmJ5ZVZZ3kQ1OvbhuaxvSKnJel
-	GoU1va2Z2sMcjRleAZfzJJ0/djHx0OEUPf0pbwdFCw6L
-X-Received: by 2002:a05:6122:506:b0:5ea:e188:a5af with SMTP id 71dfb90a1353d-5ec6894ded1mr9818300e0c.11.1793892075876;
-        Thu, 05 Nov 2026 07:21:15 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.254])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-998d37aad94sm4845109241.0.2026.11.05.07.21.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:21:14 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:49 +0000
-Subject: [PATCH RFC v3 57/90] resctrl: let a cell change nothing
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPtiiDW7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8BA1F000C1;
+	Thu,  5 Nov 2026 15:21:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793892074;
+	bh=NzjDcogdjGLC/Z3rU4KyBTyFDp1K6wM2WbeYqpBBZB8=;
+	h=Date:Subject:List-Id:To:Cc:References:From:In-Reply-To;
+	b=gPtiiDW7VtcwOZuPjL74NRmVyBGWaOGiWCF3GFXluwlU0ZxlvNe+cQJokH6UkM7tA
+	 3qDv2ZKXsX+7KWH/6JY+NDNNht/+GEjiUinSV2dYzxUzsHYE05Vz0+YfMsGu+LZ9pv
+	 I6SwbzEc4tJSGd+Gu4v73xaU+3hCQ12Oey1rYlZhLCwAJcDBwfr8IobWu62rMt261t
+	 X8lkbvN2XIooPjgUCA/W1j2wL+CCU0D9Wmu4DDAvCWUeXiRwv+qjKbIOwdU4WyhYFF
+	 bjQoLlzYSg3gb+rEh7JGgMZJID6QbmAg1XYlDMu0SDOhed5UtIPWg1OvWMGqiYyn7m
+	 gmgLFOu+PzFUA==
+Message-ID: <5001d8c2-2334-48bd-bc95-6b33e3922a46@kernel.org>
+Date: Thu, 5 Nov 2026 16:21:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,92 +51,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org,
+ Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>,
+ Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
+ Kees Cook <kees@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
+ Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Saravana Kannan <saravanak@kernel.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>,
+ linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <cover.1793876837.git.alx@kernel.org>
+ <cover.1793882260.git.alx@kernel.org>
+ <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
+ <auyOkL1Vb1iKicS9@devuan>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <auyOkL1Vb1iKicS9@devuan>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-57-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890934; l=2307;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=C92opVjn3f0vj1bT/yXpnChkXGGDp1qEgM2rpFsMc5I=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QMKEW3pc/80nYyED9rpa7CvnvI7XhWfomql1dcJdBJ9B9XfQzU8gbEdcv4Cn1d2ql9b8TmLlM0l
- 1+OG3tgCHMws=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-resctrl is delegated the same way as cgroupfs. A group belongs to whoever
-created it, and the owner can write to its files, create groups below it,
-and remove and rename them. A cell with a single id runs with the id of
-the user who created it, so it owns every group that this user owns.
+On 05/11/2026 15:16, Alejandro Colomar wrote:
+> Hi Bart,
+> 
+>> Date: 2026-11-05 15:01:22+0100
+>> From: Bartosz Golaszewski <brgl@kernel.org>
+>>
+> [...]
+>>
+>> I have no idea what causes it but I'm getting so many patches lately
+>> that are subsequent iterations of a series sent with In-Reply-To: header
+>> pointing to a previous thread.
+> 
+> I don't know what others do, but in my case it's a conscious manual
+> action.  I use --in-reply-to in git-format-patch(1) to make all
+> revisions of patch sets be descendants of the cover letter of v1.
+> 
+> We do this in the Linux man-pages, as it helps me keep track of all
+> revisions of a patch set easily in mutt(1), without having to follow
+> links or use more-complex tools like b4(1).
 
-Moving a task to another group through the tasks file is already refused
-across cells. But other operations affect tasks without checking them:
+My mailbox gets 200-300 patches per day (not counting replies), so I
+have no idea how that could be manageable if all versions of some series
+were threaded to itself. Some old thread popping up to the top,
+half-read, deeply nested like 20-deep indentation?
 
-  - Removing a group moves its tasks to the parent.
-  - Renaming a monitoring group moves its tasks to another control group.
-  - A write to schemata, cpus or mode changes the conditions that the tasks
-    of the group run under.
+But even in second workflow, reviewing individual patches via b4 or mutt
+after shazaming (my main workflow of DT) not via inbox, would get huge
+irrelevant thread of past discussions requiring me to look for stuff
+actually for the review. How to find actual patch to review in this huge
+thread? I tried many times, takes much more time than reviewing simply
+current version.
 
-Creating groups also uses up hardware ids, of which there are only a few
-for the whole machine.
+b4 is not so more complex, honestly it's just new interface and after
+learning a few new commands is straightforward and easy. And solves
+successfully, without creating noise or problems to others, all problems
+which you might be trying to solve: referencing earlier versions, easy
+comparing between any version, collecting trailers, sending nice
+thank-you letters with commit and tree references etc.
 
-All of this requires a builder that gives the cell access to resctrl. It
-should not do that, but the boundary of a cell should not depend on nobody
-making a mistake.
+I believe there should be no excuse for modern maintainer to not use b4
+in the workflow. The same BTW for submitters of anything bigger than
+3-patch series.
 
-No part of resctrl can belong to a cell. So implement may_change() and
-refuse every change by a task of a cell. Besides cgroupfs, resctrl is the
-only kernfs based filesystem that is delegated by changing ownership.
+And for maintainers, along with `b4 review tui` above statement will
+only grow.
 
-Compile tested only.
+Final note, you will receive template-nags from several maintainers if
+you keep send them series threaded to past versions, but of course there
+are also folks who are fine with that.
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- fs/resctrl/rdtgroup.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 6b7b7daa9fd3..e7f2ec56f371 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -12,6 +12,7 @@
- 
- #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
- 
-+#include <linux/cell.h>
- #include <linux/cpu.h>
- #include <linux/debugfs.h>
- #include <linux/fs.h>
-@@ -4451,11 +4452,18 @@ static int rdtgroup_show_options(struct seq_file *seq, struct kernfs_root *kf)
- 	return 0;
- }
- 
-+/* Nothing here is a cell's, whatever the modes say and whoever owns it. */
-+static int rdtgroup_may_change(struct kernfs_node *kn, enum kernfs_change what)
-+{
-+	return current_cell() ? -EPERM : 0;
-+}
-+
- static struct kernfs_syscall_ops rdtgroup_kf_syscall_ops = {
- 	.mkdir		= rdtgroup_mkdir,
- 	.rmdir		= rdtgroup_rmdir,
- 	.rename		= rdtgroup_rename,
- 	.show_options	= rdtgroup_show_options,
-+	.may_change	= rdtgroup_may_change,
- };
- 
- static int rdtgroup_setup_root(struct rdt_fs_context *ctx)
-
--- 
-2.55.0
-
+Best regards,
+Krzysztof
