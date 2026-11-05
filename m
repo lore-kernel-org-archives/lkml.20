@@ -1,95 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.0
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793874857;
-	b=uB7S4bv1hJMf268AxFVJFZd5Vmr3KDLiki+jtlLKo4H2zutUvNlAWx/GHvq5YhZ5Lzom
-	 v1uBvh80NOeRkN5vAZFfqyCE41vKONLjQ0IITx3UaHt6uWAltNQq3/Lmstz/vwZMwfgX7
-	 IE2f9CDBRapAIjYr+j5sgVn/N5xVQv7TjvlQjSswZMn8ft7Baxktf1Zs00N/Sz2zv3YP0
-	 XWPfEM9zuxX5gOKuiYxzJnelnASMEgZVzP0DaYmgjWCtlTRLtSZdQ8F2+opVlqtyUxcTZ
-	 +v60TNrmHB+9mhi5KLTEVedrm83YTDh2kUmkzVbBgg0zAMmoX4FdB8srZtcs2uIoNXw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874857;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LGYeWZACCwLExDZvLoxltm3R3fMi81hCwisfqN8hC8s=;
-	b=TsWD/Y+ud9O7Hy/74kJCrK8iCWMugVQOzBtxmfBe3fsLu5izF8sAISNXNFzu0RajEuyy
-	 lUSDQvJ4WiKrnRthFyc5qsP/agOD1eWyrYDsli2GvvEh+qLqU9fQ5x73pJ506Xnwckn76
-	 Fb5fQ2OSLRK+H3FC1y5Im9utbuYAM61HIlq6W7HEnBssoSSjYcjl92530sWb3o+ecfgMA
-	 iEgIx6ZMbHaeCcK71dwspcYr6wPNiBmfhZUcsbb7MtrsAizD6J432EAaE249VHndiAKjV
-	 Y9X928hThK9tetXUNODz/mMYrz6cD+Nh4nNK0GZgpeF0Ks+4Zd7jmGfYUMp/BqKTkoQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b="a/h82aik";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.0
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013000.outbound.protection.outlook.com [52.101.83.0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793874940;
+	b=sLRlxq6aC23vRGta5Q6uO1PJtRJ5So/uqL7JvV0kknz/ZDG3ynGKEFHi9nMCcB61NE88
+	 DyO23IanYyreryRHMtdcMKUgwKw8fIZRkLN29+EvPEIwXgdGJli3QEWcCgktbbxf5poqi
+	 SkdWqKlkqP+LmV8V6B9/4kJvCC1KJnzhadySXTnca0hRBhgvqeVT5dTXXJS5Cm5C/rxzT
+	 mk/tJ/VBvkh8ajh/o/lY+k+uGDG2yylV/gmnFGPJeHowPa4oGay2/SR5TYlx6Qd5SsPOA
+	 g0WS2QbFNPPOVdL4rjny8lfD1sCFhyx/FFJ6Jw+ZTgpaiFJuKD/Wfaz/A2z/PUHzcdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874940;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YNdbcFZbsaJWPBCwR8C1OKagOKxRAxAHyAgQ2nT3Lq8=;
+	b=Csx1yFZsuW3xzKhLMH7Xw8MHDl5aVdbZVzYu4yF87ubm52hHVpdwIorhM3EvmkxGYDOr
+	 DkQX5buy2Yedza2aCdg1/hc1SU+SCRSuKKhPXdl8eu8dZMfSaKS70qPaazt5bzGPY64e6
+	 IT8OwYwJPeCyWgpeYDeF/5zvihZA04muGYz7MuSWufNv721jZe3N2zFBz72X0lnZq2QQq
+	 k9rWCzF47rSZfHWZfgFfrShHQidhnT3q/MkBNVxC8c6sam/mUmUR12TxHwG5cEt6PAwVl
+	 f6n81Ix+mHJgW3Y8a3/7dDVqIpN+aDDJURQOLpPBJF1y2nTTd+n78VEmL3sg3v/Z60A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bv3sYQLx;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AA4606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:34:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0AA4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E46606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:35:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76E46606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=a/h82aik
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Sm/rq5lr8+EOb+BWBzSUO4niD/hsujgqAIQTVLSGf1ZhjO5HAfqFaBJGnfMGSXoOsO3Xh7htwD7vctVaEq94LA1/bbtqeNfbaO58A14y9Z9md2CPk9usiijpZULC8F7575v1Ar8Y6x9F5mr9r4a4GgBJN3G0Aw3i5plp1n/TVYOu/7n9ytQH6GkaHnfiPjU39fTFiagB/D2VB+RSGQJtxa3W0Dd5KjLWSiIBz+se71KP72neC0NXEMh2c2lvh4R/NeXoj4/rU2I+fG9NnJj5TWZAfVUzxqjIv6Z0cDEvF0s6nrBsc+BktZuW6XK9h8NwJDSXzJ3wVZQkksECcEA0TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LGYeWZACCwLExDZvLoxltm3R3fMi81hCwisfqN8hC8s=;
- b=KEvbD2tm707ELA7qtPdB2X6Of+n5bsZeovNfgzVhYghAvO8IZ4+QtFSIQVZ1fXoxWWmb05wuy66xNtmHwTMHaLgalaB84cJUlsDaWSil9bU8Mq3nHpRmLUms69LqDqDPu8txJ5Dd4R6lNVBGEOtApdbyi4ZvonhUvvGUUNcjDVOSukXLPf6G+U/avTFjx+ud+MEW48C3yWFRIY8CvvqJhNmQwe+umxkF0qlp6O6SXb1KRRHbDlLPy70FzWIsaz2fk4oH5yGhr/9UFB8Z9W0eHNbIjFJmt9WOgdNveTMsdEWhByUNrXfhxH5fXyqTWwpbfXYg42mtWH1smMo4LwTjLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LGYeWZACCwLExDZvLoxltm3R3fMi81hCwisfqN8hC8s=;
- b=a/h82aikwYoAnPx9GdI+TdbFTPZ3TiJWTlBBmdpgG3Tdprre+ZlFopMfGMEkLYy22IgNlh5ZlT3uR8LUhIGSBaiCWWIlJrMgbMCiWRzzsE6Z1jvWNmTH4GG/IKkju4RCUw0gqoraS7VNUq7IxvUcNFRXj4/uYkADdgjGo1orYXuerGo8Uhku8ugjKNLjIEXx9L6I51ENrq54Wiq1rkMOCLBFJ7C1n6ad6ax2h+AFi6x5l6TOzUuwFzY4Fs0yfaYmM+bmLGZQPWVYpGZQAbJd9FGwqS6YnTbMleDGEVbgktII9VJIT1GWGibEjFvTFVXiEw1iZ8EI/o1rBdsrIZ8icQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB7PR04MB4474.eurprd04.prod.outlook.com (2603:10a6:5:3c::17) by
- AS8PR04MB7750.eurprd04.prod.outlook.com (2603:10a6:20b:2aa::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.10; Thu, 5 Nov 2026 10:34:14 +0000
-Received: from DB7PR04MB4474.eurprd04.prod.outlook.com
- ([fe80::c22a:1b5e:12e7:8b3e]) by DB7PR04MB4474.eurprd04.prod.outlook.com
- ([fe80::c22a:1b5e:12e7:8b3e%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 10:34:14 +0000
-From: Stefan Ghetu <stefan.ghetu@nxp.com>
-To: han.xu@nxp.com,
-	miquel.raynal@bootlin.com
-Cc: richard@nod.at,
-	vigneshr@ti.com,
-	s.hauer@pengutronix.de,
-	imx@lists.linux.dev,
-	daniel.baluta@nxp.com,
-	linux-mtd@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bv3sYQLx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793874940; x=1825410940;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=eNT8/TR9RrSgwmJ4tlW5/yXQPcCQJRbz4BDv4boO4TU=;
+  b=Bv3sYQLxwdBGT5wMkTn3gRZFwdA0tso2w67T65XfBpuVSGNT3sN4Vuns
+   yk7taDhs+/MYHM8hNYrv1I6es/8DSbfOwhW6z48WIGIJSpKjj3Kz5Y7U5
+   yTU1WXDhL8KJjevv1hkrR0kF4EzL7w2kKCOTFSoUBw0o5n04v+9JQnmzP
+   h88uGony99a88kDz6mz0vSqETW6SUxSC8U9uqFZ1+9/bWfmKAlpyez1Z6
+   rdx6J1+hzIWGxaI+9BTPxSEvLzF5Cv6vwM1UF/VpznSHrRhbN05in+zZ1
+   D1r6L/d9VN/vd/I6iA+FEL9KU1ziMf/I/oAdlDH5W1d/q7mY8eIafpYXP
+   A==;
+X-CSE-ConnectionGUID: ru2ctCGXQSKyQr8ye8gh5Q==
+X-CSE-MsgGUID: NneDmWPwRQKxbLRJql9cbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2673045"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2673045"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:35:40 -0800
+X-CSE-ConnectionGUID: AxLYI/mTRRWpgEagJEcWcg==
+X-CSE-MsgGUID: xdsO5fN2R/mGxWrwOKG0Rg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="8737660"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa011.fm.intel.com with ESMTP; 05 Nov 2026 02:35:37 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 80C9499; Thu, 05 Nov 2026 11:35:35 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>,
 	linux-kernel@vger.kernel.org,
-	Stefan Ghetu <stefan.ghetu@nxp.com>
-Subject: [PATCH] mtd: rawnand: gpmi: Fix possible NULL pointer dereference in gpmi_nfc_exec_op()
-Date: Thu,  5 Nov 2026 12:34:10 +0200
-Message-Id: <20261105103410.4424-1-stefan.ghetu@nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AS4P192CA0004.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:5da::12) To DB7PR04MB4474.eurprd04.prod.outlook.com
- (2603:10a6:5:3c::17)
+	driver-core@lists.linux.dev
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	Victor Chernyakin <chernyakin.victor.j@outlook.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 1/1] regmap: Add REG_FIELD_GENMASK() helper macro
+Date: Thu,  5 Nov 2026 11:34:54 +0100
+Message-ID: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,97 +87,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4474:EE_|AS8PR04MB7750:EE_
-X-MS-Office365-Filtering-Correlation-Id: 096e3e36-ebac-4dbb-62f7-08df3b285617
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|366016|23010399003|376014|18002099003|10067099003|56012099006|11063799006|261021121427099003|261026121527099003|261102123227099003|261021123027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	MH4D4tqtgBd4SKvbv0CN9h1tfcp6R70mZ/TMIGcdiCrpWexedubV2fkFTeQhFznFYup5Tsx9ra/IdyAj/BofvIHIyFZj5sXdcSrGCI4SPszYYSRcmSWg6Poxp4HoWYu+ZqKvnfhtcNHlG3nha885/5RgvWsdVP1q8AKHe/thI7V/it8CI5GWz6FUGMzPx1vFCIMl8WiyG9v9UaL5ehrCzd1cfsI+69RXZQKlNa1mOmMvqhegdu0hMrD0vx22F7OaM4b0v9ZQyyp37vgyYLDqPfntR31WAr9F3eqXnD22MectnW6ctw4xhLex2YixUX+eBrf5b3IPnXxUiAqa3eMSIy23dHU86tlw3WbrgsscJver3emPm8+tYm23Wg0LwwJAbFSBaHtqjKkTo+Et72tODkr3Kfa9SZoOSoD5DzWGm2B2ffi813p+qDYZ4N+OPIzOyR5ySSMMfPscilOs2Hcn0saGkkQjC1yA+x5urKfhLIGytqkUsBfUqnaOBK1mTXV0rnoFhth01byG47Q6gl1DQNUk9qlKsl/JGD1/1xpN7C4v/SfcKDf7br8FS9Uo/VX5BcPteoakmSxsNOGMcrtB5MMnDz8ukqa3ak/zmxrIl9EhXSKFvt8UtNiAAz9XflJm2M2pwfIwdVWEArlVWNe0C+ikVraQiOZ35kHdhQNCr50=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR04MB4474.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(366016)(23010399003)(376014)(18002099003)(10067099003)(56012099006)(11063799006)(261021121427099003)(261026121527099003)(261102123227099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?EQ3W35kFa0/wc9v0R5UsyAm2ioG4jkhLRQZSG28vd1Ai2eSWl8bIdXHzZbDq?=
- =?us-ascii?Q?HUbP5L8eASkO/fsqK1DPmZxsHX+Y/fQvzk5Kq0WFAOhOGQqYGsZ57T0g+twz?=
- =?us-ascii?Q?gAxKb0BNrHSpoUezNPABcfeow/PMESQpbjoVDUJUuE8iWKZ7+TF23rult44L?=
- =?us-ascii?Q?l166Dl/rWA+8kfqJA4M13JyTtcDM7ORWqQX70V3OtFITij9aI+lpc0w7E5nU?=
- =?us-ascii?Q?voYnKg7WXCDfHAKN7TzCXxTquzUbimbm1vpClL0BF+dl3iLOkiu8+uGEvJlY?=
- =?us-ascii?Q?pkxg2Qaij/3Z9jpPqLy0d2NubLC1kgTYhAGOT27q0CVcZ4HVIz2Ga+K1CPJp?=
- =?us-ascii?Q?3QqbVJ4ph2HOgGexzznPnG8hqJ89jMDWXnoz4apWcMvxkjttTMiGGnxfq2+W?=
- =?us-ascii?Q?qGNPfLLPRAlnYWOVYexpXUb8mH+1LEbRSz8Pl0qBorcErzKeyKQQfj+kCJ2W?=
- =?us-ascii?Q?s9OYzYejjATSiVTMXdkuJb+Q5BRHbhGurE3ct7ZgSIgT30bQWVEsxkqI6Ib0?=
- =?us-ascii?Q?npznGseyOjV7n9aBhN2EvD0YsySF59FK/os7ASInaNBxljU/d+CmXNRf+rvD?=
- =?us-ascii?Q?4ePeEvpWMRtZxXFYOvV1d79wXDzN531Uepmt4P11h5wW9F/aNhuohyqSiQsB?=
- =?us-ascii?Q?rgVu7d9hPLfv4v17bjxrS1qD0EOsoF0Mp+c7jlZWPr2HCIw8Zg7ItXiPMZec?=
- =?us-ascii?Q?8MyZtGtAFTQWwKT1b+V/KeHaar+QGuuR4rF+AC2DoQ9+13TYQ6KTbaiLUuYL?=
- =?us-ascii?Q?plkRUc5SQz4SHEXp0cXv24OvamBSJ4HFhbuA3IwBb2f2ER2qBGfZXnD/uzBA?=
- =?us-ascii?Q?BOt8LHXEe9ULn8SdFXS+YXX6Vh52j9RXGe4NYRo63JXKSLsw6BYGCk3L0Pzo?=
- =?us-ascii?Q?MiacYjeT+BkT0zzgQC3qoItEeUcQtZtAMcqIJluflglGhIqei+WP8ytwem4j?=
- =?us-ascii?Q?xc7KLsZxpIzQUWDpzd4JHIYYabkRypDRsgw5hLwVOeQKtBnnM2vxTfmGzpVx?=
- =?us-ascii?Q?oJgKfsFYfBs8076dhkZtSlWZ9Nm0f5ROYY/JYLtM4C6Rn8nd6jOct7+yHDuT?=
- =?us-ascii?Q?FwVKUQ9CiG06Mx4/g5LfI3Hf8ysxRtX1cEL4zbe2pPkXh7iCkTG+IZxXfVK9?=
- =?us-ascii?Q?n8DJxWZ1HKitfjNPgrYvd5Fw+clUD8WfjwlIofXFTPh4bIJQcQo+hJr3NyjS?=
- =?us-ascii?Q?0H2ZhNNaf2Dn/X467SsfbjutNL/FmSMQ5m/yJVfNXt5iPLwDGMH4lsIu0pXg?=
- =?us-ascii?Q?eA7UWt0GMZXDKgoz4mM4gb8UB6sA0haY+j6YlMaobvRFpKBm6Wpc4KNWsUtw?=
- =?us-ascii?Q?Yty5vpsWgrIPeSyRUKMhD8U0G90+IAckt1F9iKoeh71gQarW7kP7/lEbsbBe?=
- =?us-ascii?Q?ajhY32VM0PPNRnLt8HHcQ4PT7SqQj8mGej+Efc44a5A+TINxTOKTjmlg+aMe?=
- =?us-ascii?Q?GfIsvUJvSMTEPL6oPT5ni9rJ1BJ8rV2jh5+TwD76zDkRpTVTzNciE7FAic1T?=
- =?us-ascii?Q?C6vRdccfIwGFilcCxwsIKBx/Z14+drA7/bGIGqZN68SCqN424zKu18rkbiIU?=
- =?us-ascii?Q?yDWIPqx0tYfjp9b/33nceaZTT02KQJjjex+lLDqe2mjowILNvlwXs5/2fZ4D?=
- =?us-ascii?Q?vbZRltkAXD7AlDyC0WylqxdnC4BWHTzsGxgandzzNz+VYeXoTWB+33S7yB1n?=
- =?us-ascii?Q?LD83fwPHKFiRQTWxAws2o5cl9Zm+BgsPdvSPPpxuoT8XbZccfsArgfh01c7/?=
- =?us-ascii?Q?3fCKzhSPOg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 096e3e36-ebac-4dbb-62f7-08df3b285617
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4474.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:34:14.1050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vnnrUBaJhf+HMswhbqhVnhMAYY/2EbwxHG9l+2H5OTJ8xWf138vevd98f9LxlYQHScbxo4AoIlMLZLYsRABa9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7750
+Content-Transfer-Encoding: 8bit
 
-From: Han Xu <han.xu@nxp.com>
+One time in regmap and already a few times over the whole kernel
+the users want to extract a mask from the regmap field data type.
+Provide a helper and convert regmap core to use it. Others may
+follow later on.
 
-In gpmi_nfc_exec_op(), the desc pointer is checked inside the loop, but
-that check is skipped when the loop continues in the NAND_OP_CMD_INSTR
-case. As a result, desc may still be NULL when it is dereferenced after
-the loop. Move the sanity check outside of the loop.
-
-Reported by Coverity.
-
-Fixes: ef347c0cfd61 ("mtd: rawnand: gpmi: Implement exec_op")
-Signed-off-by: Han Xu <han.xu@nxp.com>
-Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-index 0f1528710a6a..e876a19ee9da 100644
---- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-+++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
-@@ -2616,11 +2616,11 @@ static int gpmi_nfc_exec_op(struct nand_chip *chip,
- 						   &direct);
- 			break;
- 		}
-+	}
+Inspired by a patch SN1PR12MB25282EC93A27F3577BB9B454A5772@SN1PR12MB2528.namprd12.prod.outlook.com
+that leaves the driver to handle the custom macro for that.
+
+ drivers/base/regmap/regmap.c | 2 +-
+ include/linux/regmap.h       | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
+index 83f1f5942135..48e96bc9e7b6 100644
+--- a/drivers/base/regmap/regmap.c
++++ b/drivers/base/regmap/regmap.c
+@@ -1215,7 +1215,7 @@ static void regmap_field_init(struct regmap_field *rm_field,
+ 	rm_field->regmap = regmap;
+ 	rm_field->reg = reg_field.reg;
+ 	rm_field->shift = reg_field.lsb;
+-	rm_field->mask = GENMASK(reg_field.msb, reg_field.lsb);
++	rm_field->mask = REG_FIELD_GENMASK(reg_field);
  
--		if (!desc) {
--			ret = -ENXIO;
--			goto unmap;
--		}
-+	if (!desc) {
-+		ret = -ENXIO;
-+		goto unmap;
- 	}
+ 	WARN_ONCE(rm_field->mask == 0, "invalid empty mask defined\n");
  
- 	dev_dbg(this->dev, "%s setup done\n", __func__);
+diff --git a/include/linux/regmap.h b/include/linux/regmap.h
+index a72f17ab6264..8f3034881f8a 100644
+--- a/include/linux/regmap.h
++++ b/include/linux/regmap.h
+@@ -10,6 +10,7 @@
+  * Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
+  */
+ 
++#include <linux/bits.h>
+ #include <linux/bug.h>
+ #include <linux/cleanup.h>
+ #include <linux/delay.h>
+@@ -1477,6 +1478,8 @@ struct reg_field {
+ 				.id_offset = _offset,		\
+ 				}
+ 
++#define REG_FIELD_GENMASK(_reg_field)	GENMASK(_reg_field.msb, _reg_field.lsb)
++
+ struct regmap_field *regmap_field_alloc(struct regmap *regmap,
+ 		struct reg_field reg_field);
+ void regmap_field_free(struct regmap_field *field);
 -- 
-2.34.1
+2.50.1
 
