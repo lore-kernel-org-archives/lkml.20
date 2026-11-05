@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910927;
-	b=2raO0/R6BU3MS/v9R2BegO+npslKQGKr2qsC8ZR0vUBJB4yhTof/OYUuI9qKwSAuxxbz
-	 Y7KtCrILoF12U3XcdJ9LRjMMOE/Eb3uiR55MUWhh7S8wdjQGh82K3h5l/Fy6Uszr0okbX
-	 BhvVEWysmbFJGCc4pq3bS63T38QwOfcME/vKNR1hGnHRNwLUXYwnTdZbr8aFNpf9mOWaZ
-	 mm+DyuF8ijLd1zYjhR6RJgLePvqWkfGffq9wcwORCPCdfYf9zlMOnVwGW3ybYre54H3Zp
-	 /k530giKxErJmUrTHR4+0GmSusb9CK5oNqahBa1udxkLjMOgzBq/ZvTRAe1RWIa6m4Q==
+	t=1793910952;
+	b=AuyK97rkE6YZdYtTNRhv98z5gSY7ObDwaTAeMfq3lTFEZsIjlmKat64DQAJhVJ7xIt5R
+	 hSpxY9OrRM+cQjsIG6uj6DIAPEXSEdSukriXiOlnxSgv2GKzJZvcFUuQssiFOtnG3rHOY
+	 wqd0PmAJd06xawCKQIMjtmQTM1iVSty2e1bW7xoRAcmeUxH3yq443mZIOKzB/G6t5/hPj
+	 WUkHSjwn7dRGgvl+JrSUQxPUEBal7s0WdzNKisFE0MNIoR2lMLMuNFfBICY70AMabHb0v
+	 CjRMA7qV1jQqTtqXfSMMUTl88H2mAQX6S7Ys+Aa7FXHV1irjw1w8X1o9fweMdFsmtDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910927;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Ek88mUADN7Q+v+B3mP2BWCJjP45ejN496oxJwiHaM+0=;
-	b=jSe8XUQ43vPOY7NgHcCMpG8tzXuPmD0IuWlwAbxkNN0JFsS2kL7yUXSU9ife2lsEgehI
-	 uc12FoquBlh+5x1tsyUSa11mdJ0OIHTBDPB9ULV2R78nccSJev7XBgVRaa6ZKn462PnOL
-	 saK8NdMUxvgGje7rJxdBy2k2AMvVt25M90JyQPuMgABQKPteU+XQNdm/Q3wLpwvoNwCH7
-	 dXbgLynAXPQ7iUfXv/eTBVw2l9InMLrZQAbofFvPTWAefpE+EeQHbw6dL3nJMgf71IRDP
-	 omT9/XRRZzPjC1ff7Uh1PG6Lsl7zPGlreRXzuN15xfCTTO4joYF2N0jAIOgnOvgjfNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910952;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=sJJKjK0K6EALIuHLfHejOsTyjBZ8Ozdl83llEgi1uXM=;
+	b=X2xrgTrFQQ0wmOFElrFntcDEmi+bENk7B+Ti3QC1AvzYgw3b2mpTuO1+V022O9hv64EZ
+	 H8IWPD+er+C0ywLKRekbUHLOyJtkySerFAjeSbuzOS6s85kn6uB3aXNGswWJPd65++YVI
+	 BEhs3w49mxC4s+QQi1O8XOXXDZLr+qmO+Uazv8wTyT8ROZodwpYjM4pktNzlBdMUG/OcY
+	 nr7qqBfz9i8spBDjx3iFqtLjd43M7CVhZOUWD7qZKnTiqkb+A6ZqVjVS8frvrpzuxDhB+
+	 y8m7J2a6ea5do70g/KMlyPxC9aU6XtMu6Shk6fTP9Z8yHyr5PzX2KdY4J90o8u492+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Un3J6mQl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sEWgQ7Ic;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6AF606D813;
-	Thu,  5 Nov 2026 20:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2B4606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B2B4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Un3J6mQl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F21A1F008A1;
-	Thu,  5 Nov 2026 20:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793910926;
-	bh=Ek88mUADN7Q+v+B3mP2BWCJjP45ejN496oxJwiHaM+0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Un3J6mQleL9hAsn8hJ/Nyfnbr4vzJsTdecUip8PiYQeosWM2NalX7zUWrVRW3Utqh
-	 tMe1VsnFqYg9Pd/f+Df2m3DzV1vm2OZA/pT0HYFcKikAHVZqOK1Pf5aD6dIK7POfDy
-	 c2xD+iEDQ0NWtR5OjJLIx5hWVw+B/XZfBnCKP0i1nZtM1AFqs7UyComr7aqqXj0FP0
-	 EmLwd1WzGHvZ1HgBTAXsVECpCoZKfe700HIB+KbIH65zPWeMswIimFaMHvaginvA7f
-	 8K79PGUtD+dlCk+Qf4wz75ZJIxWLj3r43wBdlZx2wAjdJFqJw2fkNIc+n6LLyF8Hnr
-	 gStj8EQEZPjNQ==
-Message-ID: <sashiko-outbox-200114@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/24] sched/deadline: Do not take a waking task's
- bandwidth off a runqueue it left
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
-In-Reply-To: <20261105193359.1450487-12-mathieu.desnoyers@efficios.com>
-References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
- <20261105193359.1450487-12-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 20:35:25 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sEWgQ7Ic
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so2760434c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:35:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793910951; x=1794515751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sJJKjK0K6EALIuHLfHejOsTyjBZ8Ozdl83llEgi1uXM=;
+        b=sEWgQ7IccBR8y2XoZ0jYxksrEQgEAurbrwXNLDu2AJ9F1k0EOio/gJbIMRwGpCB1PH
+         nfvNzqOtVmtR/+4zCPenK/g7S2MVPkjxYJLWn7Tw5Bx8S8dZh6jgWlcNKOlCkREJ5JTC
+         aFVilgJfBkr6Q2EPZ/heFkP2iQlYED9D4tWg5Rc9yUPg2JYNELhxVmtsNB9A9cYt3Jpc
+         gn439p6ieYPFU25PKAM34TRI3iyTro+YqHi53KpYDbNzjQRWCTI/9mfvDF3LAJuGSFI7
+         sp1o9i8lZG4S/Rby8WOdtVpfi6dlgZ1fW6C/0h8wh+YA99bPrPpJ8z6SbOC609EqkDOY
+         qZww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793910951; x=1794515751;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sJJKjK0K6EALIuHLfHejOsTyjBZ8Ozdl83llEgi1uXM=;
+        b=1W3HjechSPxPwOO6nJfxesDqR4Tafj8TNwkgq+swxG4QiVeiMetjThHSrcv5UG9zrv
+         b4/NUsErnmVCn6cQpXYUPxWOEhJ3Ah2JEL1Yj1YJwDoD6qORwqR7zZtYPn0T2JvroA+5
+         znabv4JWq22xY8e18aHjYfG63dyKOvaHm/8oj9BizHSxxmBmPvTwG/qxe2BCCwQOP9ut
+         bjq9klE00cF/rx2/4kZs+jAsLd5bOoiptc4n4db1AuhpVWkKbbTv2AboYuz8acFQCyf/
+         43E/Hgdo2tpQ2lKNTcptQmEnj+A/n5qRa5vSBnaKHpaXKW/EZUyB/8Zb7RfJUxhcfbVH
+         LUtA==
+X-Gm-Message-State: APuU4Z/SFP7q/BLpTseS0VXaxG5DRZzf6LVFnPXSoo32YdS5rKyOIw3A
+	VhMGlXycehqisIAYqqrsXZS8r24Fp9S5OrJjB/o1EcCMXnBbvZP8QrMv7FYtJA==
+X-Gm-Gg: AYBFou0xqhvv3MNBTvPNlBIKFs3471bc1iCLgg8Neqda+zbeVCuwlnVDi9seEriKwzu
+	u04fVx8xBIxOP7r85/Geup/eozxsT4fLIrYg5VyngaCsmyM8CoATjueEmyEMp/sXnneCNyU26RC
+	HzFPvMwfSIEkPvQutM9xCyb5ndcTBSOF4LRnRd6t+a4J8DHYrRs6czRYmRbm3QmQB2Ml5OnjKwR
+	BHlxGdFPqj7GtSx9ZaABquuOa2/aViCjCI5F2MDKw8PJImlXptv4vi/VymC6jeoZhLMXB82yUxF
+	8WSuemoJI+4F/pUEQtRIvQgnBLSXQzHXHe6mFwK1+fNe7T86oD3aYDOFC3Iqd7EjnDEqdfwDLKD
+	qVvaFXVbAEzG7O/6uMP12vzkm1A2w/Kmu5Iqewnn/Y4Uj7/xHgw9wcpJJJn5I1tlZC4yKogIG1G
+	cZFNbdmsFbHyu1M3gQQrdJ48Oo/9T+Eb+8pNZmo6s0JTIii/5EFmRw++BsK3oT/mdI0PQdHnKFz
+	FsWM7cRfaZaac4QbYEzHrd0pIPeZBvJzyyoV3JEH0icA3nvg7qXz2K6sGXJPeTA7unCbot9JZk8
+	XzTP7CkZ
+X-Received: by 2002:a05:701a:c90a:b0:15b:7f7a:730d with SMTP id a92af1059eb24-1b25d342861mr126756c88.28.1793910951382;
+        Thu, 05 Nov 2026 12:35:51 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b86fbesm19778365c88.1.2026.11.05.12.35.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:35:50 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Paul Boddie <paul@boddie.org.uk>,
+	paul@crapouillou.net,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	linux-mips@vger.kernel.org (open list:INGENIC JZ47xx SoCs),
+	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS)
+Subject: [PATCH] drm/ingenic: Allocate and register the internal bridge separately
+Date: Thu,  5 Nov 2026 12:35:17 -0800
+Message-ID: <20261105203517.2293404-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,114 +101,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] sched/deadline: premature bw release and state reset in switched=
-_from_dl()
---
+The LCD controller's internal bridge is embedded in an object allocated
+with drmm_encoder_alloc(). This initializes the encoder but leaves the
+bridge's reference count at zero. Since drm_bridge_attach() takes a
+reference, probing the CI20 display produces addition-on-zero and
+underflow warnings and fails to attach the HDMI bridge chain.
 
-commit 32169fc2d3492f6357debcf70a3512a72875ebc4
-Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Allocate the internal bridge with devm_drm_bridge_alloc() and register
+it with devm_drm_bridge_add() before attaching it. Keep the encoder in a
+separate DRM-managed allocation: encoder cleanup can drop the final
+bridge reference before it has finished accessing the encoder. Find
+the internal bridge through the encoder's bridge chain during mode
+setting, and use the bridge argument directly in bridge callbacks.
 
-sched/deadline: Do not take a waking task's bandwidth off a runqueue it left
+Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in drm_bridge_attach/detach()")
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++--------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-This commit adds a dl_bw_oncpu flag to struct sched_dl_entity to track
-whether a task's bandwidth is currently accounted in a runqueue's this_bw.
-This prevents double-charging or underflowing this_bw when a migrating task
-is modified or changes scheduling class while sitting on a target CPU's
-wake_list before being enqueued.
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 625ec76cf04d..520912f9ed0d 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -121,16 +121,15 @@ struct ingenic_drm {
+ };
+ 
+ struct ingenic_drm_bridge {
+-	struct drm_encoder encoder;
+ 	struct drm_bridge bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+ 
+ static inline struct ingenic_drm_bridge *
+-to_ingenic_drm_bridge(struct drm_encoder *encoder)
++to_ingenic_drm_bridge(struct drm_bridge *bridge)
+ {
+-	return container_of(encoder, struct ingenic_drm_bridge, encoder);
++	return container_of(bridge, struct ingenic_drm_bridge, bridge);
+ }
+ 
+ static inline struct ingenic_drm_private_state *
+@@ -738,7 +737,9 @@ static void ingenic_drm_encoder_atomic_mode_set(struct drm_encoder *encoder,
+ {
+ 	struct ingenic_drm *priv = drm_device_get_priv(encoder->dev);
+ 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+-	struct ingenic_drm_bridge *bridge = to_ingenic_drm_bridge(encoder);
++	struct drm_bridge *first_bridge __free(drm_bridge_put) =
++		drm_bridge_chain_get_first_bridge(encoder);
++	struct ingenic_drm_bridge *bridge = to_ingenic_drm_bridge(first_bridge);
+ 	unsigned int cfg, rgbcfg = 0;
+ 
+ 	priv->panel_is_sharp = bridge->bus_cfg.flags & DRM_BUS_FLAG_SHARP_SIGNALS;
+@@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 				     struct drm_encoder *encoder,
+ 				     enum drm_bridge_attach_flags flags)
+ {
+-	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
++	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+ 				 &ib->bridge, flags);
+@@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+ 					   struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+-	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge->encoder);
++	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge);
+ 
+ 	ib->bus_cfg = bridge_state->output_bus_cfg;
+ 
+@@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 			drm_panel_put(panel);
+ 		}
+ 
+-		ib = drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
+-					NULL, DRM_MODE_ENCODER_DPI, NULL);
++		ib = devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge, bridge,
++					   &ingenic_drm_bridge_funcs);
+ 		if (IS_ERR(ib)) {
+ 			ret = PTR_ERR(ib);
++			dev_err(dev, "Failed to allocate bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		encoder = drmm_plain_encoder_alloc(drm, NULL,
++						   DRM_MODE_ENCODER_DPI, NULL);
++		if (IS_ERR(encoder)) {
++			ret = PTR_ERR(encoder);
+ 			dev_err(dev, "Failed to init encoder: %d\n", ret);
+ 			goto err_drvdata;
+ 		}
+ 
+-		encoder = &ib->encoder;
+ 		encoder->possible_crtcs = drm_crtc_mask(&priv->crtc);
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
+ 		ib->next_bridge = bridge;
+ 
++		ret = devm_drm_bridge_add(dev, &ib->bridge);
++		if (ret)
++			goto err_drvdata;
++
+ 		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+-- 
+2.53.0
 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 37b931fc2faf2..d4cd5b5fb27b7 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-
-[ ... ]
-
-> @@ -2789,6 +2810,11 @@ static void migrate_task_rq_dl(struct task_struct =
-*p, int new_cpu __maybe_unused
->  		 */
->  		cancel_inactive_timer(&p->dl);
->  	}
-> +	/*
-> +	 * Until the enqueue on the CPU it wakes on charges it there, this
-> +	 * bandwidth is on no runqueue: the rq of task_cpu() is not the one
-> +	 * it was taken from, which dl_bw_oncpu now says.
-> +	 */
->  	sub_rq_bw(&p->dl, &rq->dl);
->  	rq_unlock(rq, &rf);
->  }
-
-[Severity: Medium]
-When a task blocks before its 0-lag time and then wakes up on another CPU,
-can switching it out of SCHED_DEADLINE while it is still on the target
-CPU's wake_list prematurely release its root-domain bandwidth and reset its
-CBS period state?
-
-When the task blocks, schedule() -> dequeue_task_dl() ->
-dequeue_dl_entity() calls task_non_contending(&p->dl, true), which sets
-p->dl.dl_non_contending =3D 1 and arms p->dl.inactive_timer for the 0-lag
-time.
-
-If the task wakes up on another CPU before that 0-lag time passes,
-try_to_wake_up() -> set_task_cpu() -> migrate_task_rq_dl() subtracts
-running_bw from the old runqueue, clears p->dl.dl_non_contending =3D 0,
-cancels p->dl.inactive_timer, and clears p->dl.dl_bw_oncpu =3D 0 via
-sub_rq_bw():
-
-kernel/sched/deadline.c:migrate_task_rq_dl() {
-	...
-	if (p->dl.dl_non_contending) {
-		update_rq_clock(rq);
-		sub_running_bw(&p->dl, &rq->dl);
-		p->dl.dl_non_contending =3D 0;
-		cancel_inactive_timer(&p->dl);
-	}
-	sub_rq_bw(&p->dl, &rq->dl);
-}
-
-If try_to_wake_up() queues the task on the target CPU's wake_list via
-ttwu_queue_wakelist(), p->on_rq remains 0 (!task_on_rq_queued(p)) and
-p->dl.dl_bw_oncpu is 0 until sched_ttwu_pending() runs on the target CPU.
-
-If sched_setscheduler() or sched_setattr() switches the task out of
-SCHED_DEADLINE during that window (such as the switch out and back in
-described in the commit message), switched_from_dl() sees
-!task_on_rq_queued(p) and p->dl.dl_non_contending =3D=3D 0:
-
-kernel/sched/deadline.c:switched_from_dl() {
-	if (task_on_rq_queued(p) && p->dl.dl_runtime)
-		task_non_contending(&p->dl, false);
-
-	dec_dl_tasks_cs(p);
-
-	if (!task_on_rq_queued(p)) {
-		bool released =3D false;
-
-		if (p->dl.dl_non_contending) {
-			sub_running_bw(&p->dl, &rq->dl);
-		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
-			dl_task_release_bw(p, task_cpu(p));
-			released =3D true;
-		}
-		sub_rq_bw(&p->dl, &rq->dl);
-		if (released)
-			__dl_clear_state(&p->dl);
-	}
-}
-
-Because migrate_task_rq_dl() already cleared p->dl.dl_non_contending and
-canceled the inactive timer, switched_from_dl() treats the task as if its
-0-lag time has already passed. It immediately releases total_bw via
-dl_task_release_bw() and resets runtime, deadline, dl_throttled, and
-dl_yielded via __dl_clear_state(&p->dl), allowing another task to be
-admitted or the same task to switch back into SCHED_DEADLINE with a fresh
-full budget before its 0-lag time.
-
-Should switched_from_dl() also re-evaluate the 0-lag time via
-task_non_contending(&p->dl, false) when !p->dl.dl_bw_oncpu?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105193359.1450=
-487-1-mathieu.desnoyers@efficios.com?part=3D11
