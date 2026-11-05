@@ -1,85 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793855930;
-	b=1/Kb0LzcWhCoHxf+YHXqAPFrQ+DOJbYz8tUJ58D30s1xdkIhyoIp7tz4AjKrLi2Yy53+
-	 AU/icRFMveUyLmqHQJx4+sKs22L6mt/Ugtu+yTKb77stkLwbraG4WZoLaS566K9mgLxD6
-	 mIBrwMALYUGXFMIGnQ8f/E9SUPCCuHcS4ZHSQEEPBCyBuJ6GYnHMKv8Khdk1Mkbdbhlsc
-	 b23EBg+d5aC0Bx8+TxYFzUR6Y6AWhx96BnA+Q+/rMZJUlJt1EHoDq8fJXzjkonjp5ekpm
-	 5Fr4udYqH8FKUlQKTufGgt8qhiaaSO4lkvGZgIJ5CP+v7K4hQo1gWbhoXpcCKmU/Bzg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793855930;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
-	bh=rlYQXXtVW/GHUXiTSX/d/W1MLwKEaP5IBpluVfBfScQ=;
-	b=XY7MVaaCgiVGU4MWQevLtgNjwMq6W1NruB7ixcyRkPr5oZ3QAz35G61fgCD6w4gwX5dk
-	 UarKSTTGgrldYTrjlInuXW5oMBuMyzlAOBDPCKR0tKSuAHYh6IImbff7u3V2Be5Im/b63
-	 zA8Wkgm9O61Y+ZXOzUGHxwZh4V9yyQmVTPX7tpjDWVUK0DYJ1MSubDHLmHlKn7ygwCsQo
-	 x9koVVYp63t91S8OF4V47woA6D2miIiy4f8JUmE9youfzZP/99ueWHgKqfved9XS+yD/C
-	 w5FBA1fkbesh9UcSQAAEEQPUPdyEvbwRTnW9/35ERY8Hb9LiDxcRUN/KFqMIVC9hlVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WKwtpAuH;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793855950;
+	b=G2PrvbvA+bmouz1hm3cOaQ0WuthejO2fqLt6q1dZHpnXosZqZhfd9ZNA3i3+ZEH2jIBy
+	 sfR6PsWx5TuXcMlxwRGNgpJ7vI6PmYYP1nfINbt5htwRkwS0AOQN/SSKcl/OEfMZ5YF8z
+	 2P/15nX3M4N4PaK8WRMHkacL0vZ+OfpZFkE92AFzMBtWLpTxw/5rtw9mF88uR95s31i1L
+	 9k4mFX4y6QDczs2HYOLaEFJ8cOF1l6SDAGCyprchbTPcL65mKm5/pL8UD9IN28AYI4GP5
+	 D3436M2pLmGuhU2vbLn/4ehZCdvdjHFyDO9GM04y/p0A///zfFEQAwLMZLYVmnCdbfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793855950;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UJAb5IKao7rcYiPMXVWXohjpxa1Urn10d23UrrMkpNc=;
+	b=q2CYEPw0vLexcOLC8l9eiD9xegzpM0qd27FClnFcGYvuJ7nWA8Ldv5DvSa6rQ56PUPsW
+	 MBSvUY/qouzF0/GeCBeS6wD22KGFw+lLTJ7POeW1kfMuFroGrog94rUpPE8bgxRa7w5FK
+	 EvfukEI6+O7Iwk/+a7DjbOMQwy9E9qEX5otpQrnWlYqg1dwWMLulcINF7J8SC9ewqzkzK
+	 djFBuPLVhIePm/IhNWsOcj78C4lF4gF7+1XG1LEtJcAEIN0wXcnmy1LuyBgXEH8/VOFAj
+	 KoJEQJZak4M3je6spa3hS9MmoRIwIvnPrg3mWwWKjtLByjfl7hq1ObgXWJCq+MIRsGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2ts1q+BX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.45
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783B3606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 05:18:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 783B3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC38606A326;
+	Thu,  5 Nov 2026 05:19:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BC38606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WKwtpAuH
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so178056a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 21:18:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793855930; x=1794460730; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rlYQXXtVW/GHUXiTSX/d/W1MLwKEaP5IBpluVfBfScQ=;
-        b=WKwtpAuHMlpIAChAw/SfvJ1rdirTSs7Egq4NIjvP3WY6cZvURIgJ1OMFcIvwdKdRHD
-         c2Y8Vn5y5roQZoW8I5a1hwPq1y7tCh7BD0vIODJE7M7B3n02amaXravnjDNXPcIXPdRg
-         Bu2WGOKR8nuUWmvT45WkB1T1vEsSSwawTUPAuXcW7H5vEIXpL+EH1VaHIhfuWWCYh3Nq
-         koAxaMwSPycrkl/cZyOX7SRtRZlizo9BzIAXZ7kDPmq3mPW2ouVyJGVvAXDwjUiKm93v
-         iBEA8PxNL2bH82y+lOt/y1q7e5e32OSGHrKeefK4grz7+SeRJkkyhgQvLzM0NaG09R8m
-         mL/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793855930; x=1794460730;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rlYQXXtVW/GHUXiTSX/d/W1MLwKEaP5IBpluVfBfScQ=;
-        b=UqPwUlzp8nGFntzOWg99XU7fHr3QIp5OJ6LzZHN6P1/hn7P8lpeUWLGqg9cCJWdncF
-         3creBkW4nDWqf+AQ1ydyixpkxAOz5hBYBPFJzHYHp3CIV3wEck6twJjhlS5cLf7F4gMT
-         dz9RAKDiNVyfzac/aIYGX3NeJQfKQaceaKrs97XCjl0TCOLLpdxSXMB51gAWKYoyjk1t
-         X2qZCKs1gWQAkweUOsihg1FuQGmbUVU5GWqN6zF0AXt61VDfRZKuRhdEJvli2E4MDS/q
-         un9I6qDbshkdIIAsE32ZAfEk1Q2Q+Aew8tM6omdYcjY9OMOHnvlfV8XSf9hF4eULw9qu
-         hXXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPFKawdPKOWxGq6dasyL9d1A3woYVQ4M9JpFyCxxfxhl6MCTYho2rNuEJa+FZRKNo2keGaGWbR1o1OlME=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xmX0W/KeQXKO9KkTnZoBjgAuIMI9zWEPMAHEQ8MIG0uZSBNzi
-	sOukNy7xv+WMhRqJzBfRBPOuEnvxZL46GsrTBlmOb4q8IPzJppvS6zQV
-X-Gm-Gg: AYBFou1JvUQsE9pphvB8N+KNqmBXgfRTtQrwJ4rRgxPVAx4rKDAewEvuFyx7wQbLY2C
-	ZTLJLsYOlm98pV8qFpCMtVB2/ND6jhJon2ALDJQoBsqOFqBbciCHPO7vku+Uo4Q4HevmuF9RD7N
-	JUg9smZWSkh9AOhiz/5rTJzOykql/VxiwgCSI7obxk1mHpcPyEPz2V2XPQ7gqTW9X6v1sBhqRJK
-	Bx+JaHRo2wXvOAWv6zcOPev9Li98CqOB9r2it7U6nVJEusuV4sxbh9mttZR5qd3ciLsT9PdesD6
-	zj4HL3iqgAQ+m3bqldrwdu0T8oIKUU0x+kF52IFi8+3aKzyFbWuIeFNu4RWq6v7f/TG6cGX1F4H
-	WV3+DTyneoibeLIgo5Of5uSJMpUVATTcOadDRrFR7ZwNSOj1yQuvrloNe3LEKQhPC0OOrOuCyBV
-	YJG8smjWxFbmyYXuSaQ1pUwT9YWUSFFNoHxqT6LAsjdPVxs8iu2FLlI1BG4VdOVTpG7D81JGuhD
-	A5b/4fygFVj9q00wM0Y/Z7XGWrwr/5pK9iPDOHArNcLvWVlf7RcQoIsQtvL7HFWP+7tZRlGy+g6
-	gu1crfJRfUst1BRABK8oroIrmTzMnkquEFulhzgd1p4NsW0AjCMBA2mjf+7AcRv1hgUGa5keK2l
-	CGikZOUhIYNlb8XcjAgDKk7TtZLHe5Hn9R+EZTyWwJgOsn0sofyvOtNU=
-X-Received: by 2002:a17:90b:56c8:b0:3ad:dc36:c3d7 with SMTP id 98e67ed59e1d1-3b0afdf2b12mr1020541a91.24.1793855929364;
-        Wed, 04 Nov 2026 21:18:49 -0800 (PST)
-Received: from localhost ([153.61.198.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b2cf80c9sm2002505a91.0.2026.11.04.21.18.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 21:18:48 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2ts1q+BX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=skl8QnlJ4LG6FZL/BRSyRzG1ok2aqndqzQQpy7ESbpSbV8NqQKB3GZTDwpYzC9V2AHZN7GzHY5gq9CQQMbOmKft7UOwRczS2wdi+FfUaWogg4BVJ5Z3+oCU4nl42ufQtggqN4XPFuaeMQ40i48JPytOy7HayP83CvASriK+ffCF2Qyj1PZcjo87PVSbMEx0+Db0ikJoiBCAq+FbdP/iRnn1gx3FN+EjclE2hSKdMt2NbWOjAtOXn1i/kDGrtxelmQL+V5U0vOU5h1tBmmGRQORTvQYeIRVPM+sMlsxefeB+ax1qoBeha0L2SJVxXO2dFcW9EOxfN0+mWBCOsKoHCoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UJAb5IKao7rcYiPMXVWXohjpxa1Urn10d23UrrMkpNc=;
+ b=ELZMM3Aa/j8fH39S1D5jOJMxWJmWXuEJvbd1sy5hfkQKielwN22Fd7tqLqiVCqJvm7lPui1GZXhJfIxlkZZXdOpYhfHPGchP30Beisbbr9yTMis4it/sw/CHxKCibALqEdMpzydnMa0Reoxbt1oQgH1xHwLh+r/UYfbfBDK7paxdIKssujIGal5f1POjE+aGIVOwM03kyvMC0G0Ywp+9M2zPCk1u2UsCV7u8PsFhhcKRxA6MCazuSaQCTfTioAmJUYAXUeq9aZR33NR3GtAg+F/s+fzWYza0ryRFFLDTfqLXJVX3rRgFZgNc33ve+tpwae09Mv6O9q8Zm6WbWUfscg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UJAb5IKao7rcYiPMXVWXohjpxa1Urn10d23UrrMkpNc=;
+ b=2ts1q+BXy9THwPsXdHyebAbVflFC3wAoiNaQvhtJvyuJnjD1y1cMoppdn66JcKWPmx88V614IiUxqInc8Auedp0Dn9ZXZQFKdFHwoodvtTcAx3ggYIGgakQs7VNwXcfSu+GmUHER9PnHLEkgCRQFkOVxzzTEZCMfRGdBNca2Yfg=
+Received: from SJ0PR03CA0271.namprd03.prod.outlook.com (2603:10b6:a03:39e::6)
+ by CH8PR12MB9838.namprd12.prod.outlook.com (2603:10b6:610:270::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 05:19:04 +0000
+Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::37) by SJ0PR03CA0271.outlook.office365.com
+ (2603:10b6:a03:39e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
+ Nov 2026 05:19:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 05:19:04 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 23:19:04 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 4 Nov
+ 2026 23:19:03 -0600
+Received: from xsjblevinsk51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 4 Nov 2026 23:19:02 -0600
+From: Ben Levinsky <ben.levinsky@amd.com>
+To: <jassisinghbrar@gmail.com>, <andersson@kernel.org>,
+	<mathieu.poirier@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>
+CC: <michal.simek@amd.com>, <tanmay.shah@amd.com>, <ben.levinsky@amd.com>,
+	<linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 0/6] Add AMD PL Mailbox and RPMsg support for the AMD BRAM remoteproc
+Date: Wed, 4 Nov 2026 21:18:56 -0800
+Message-ID: <20261105051902.1646651-1-ben.levinsky@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,105 +113,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 05:18:48 +0000
-Message-Id: <DMN0USP1E59A.34N710IJOO0PJ@gmail.com>
-To: "Martin Kelly" <martin.kelly@crowdstrike.com>
-Cc: "Mike Bazov" <mikeba@sentinelone.com>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
- "John Fastabend" <john.fastabend@gmail.com>, "Shuah Khan"
- <shuah@kernel.org>, <bpf@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Peter
- Zijlstra" <peterz@infradead.org>, "Steven Rostedt" <rostedt@goodmis.org>,
- "Andrey Grodzovsky" <andrey.grodzovsky@crowdstrike.com>
-Subject: Re: [EXT.MSG] Re: [PATCH RFC bpf-next 0/2] bpf: Do not let
- preemption cause false recursion drops in trampoline progs
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-X-Mailer: aerc 0.20.1-355-gf870624f6c37
-References: <20261025-b4-bpf-trampoline-preempt-v1-0-198dcdc0c6ac@sentinelone.com> <DMIIV9CE0PN4.309YUGIXQUZNF@gmail.com> <CAPnbwjrB_je6jXt3BGD-1q1yFs_wFd-Yh9KzixKzLK_X3Stuag@mail.gmail.com> <DML75890DWIX.EYB690LPBM1O@gmail.com> <CAPnbwjpv3bkGAKVjc7Eywgo-H4X6uDLYPJWFuSakGs_sBdgr3w@mail.gmail.com> <DMM2FJ2SNYYO.24TEJ05OOR08E@gmail.com> <CAH=2mMABxvf+GNr7vUKNkGvyU-gmaXKMGNJHg4URUCW_eyuxGg@mail.gmail.com>
-In-Reply-To: <CAH=2mMABxvf+GNr7vUKNkGvyU-gmaXKMGNJHg4URUCW_eyuxGg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|CH8PR12MB9838:EE_
+X-MS-Office365-Filtering-Correlation-Id: 940f73f7-4892-4818-d3d1-08df3afc4f34
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|36860700016|82310400026|261026140227099003|11063799006|56012099006|261021123027099003|261009220027099003|261021135927099003|261009221727099003|261009221227099003|261009223027099003|261009223327099003|261022075727099003|261102123227099003|261021121427099003|261028144727099003|261026121527099003|261022105027099003|10067099003|18002099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	aU2sCRxZMn5uINF0H6HKaXlv9PaN5p+SXw16OdJjY+PxBuMBDaUMXC3NUqHv4/29PvzKIlk/AKXEOe5Fv0PcDypsnay9qhgI6hqQvRQQvYQtWIK8cwqFUDQ2UB6rE8llPlzOPQi7+GTQwcHTYHCNd8xgshuwrZVWSYuw690ZqG5+TDmP+kEGWtEVK3oS2uyfvixo6lvYH6Fqix1z0ekpjuWO4eLm51dXsD4cse73eMMjYmWqX3/qYkw8sP5vRtAY+L33luN94xi7qi5NR94SNJbJNTofh7KRZY+T+N7Bpn1I4BxbDa58H36xwQDAqP9uckUQiVLdWTfkQyI6ETpUKK9hDGMbTDmF1C4B/4WRK4+gQzZ6zfnELdNLTxttNCv8X6UZJvqSo8NpQDVfxoY4iEEAmFgiYF4Ieoeh2Plvqh17YMXXDyo9EnJYmAOFJr+z5JfFkQkqlgOUXirOVJVfwvHMvNNKrug/NZd5Sd2NjRXCYGcrojm9rHSlTZgELjMDSCeLx6UgUobs8BOZ3Ysfnsstt1RECa2MSHf3yN6WLwmXO4NAahCa1Be721rQpihjwI6OrxMifgyrJbRCXxZw0uArBExeI42PCUUVEzV585jiSp0VE/NEjlBDZElW1zA7YwL6d8QvlKnqgBVS99yDNdFcTmv00V7zmiyibaxar6c=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(36860700016)(82310400026)(261026140227099003)(11063799006)(56012099006)(261021123027099003)(261009220027099003)(261021135927099003)(261009221727099003)(261009221227099003)(261009223027099003)(261009223327099003)(261022075727099003)(261102123227099003)(261021121427099003)(261028144727099003)(261026121527099003)(261022105027099003)(10067099003)(18002099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bMTS4wyndssuSp2nFztN70E887gOB3brVIgmcEQU6Dil+wmQ2ZO4YYXy/+NK2iG3y8pRNp3mPaEGtlgwvPMKivhZCCU+5jYsyD3ifcX1Hc2mWw4Tik5lo19oSQbLXunBeXcIPG6cFErAmIxQGRpb6TITVwpKPGIoGIYQS2MeI7Ux2Qce4CxWUoSPNEu62J5Ucv+F7wQMH2MFkfeKqYBL2ilJVy7Ow83P7aUQUZef0gkURApKRmUlFb7UeXVReZ99VEpUlvlJ75LxbLtrj/eiJZwWvGYJGi5n1O6XlmSxsy8GwPE+kZLyRr4VkNbJ7Pj4uDqLAVbxk6CNVJP2mo0WiZ1xjzdYqTVXAnjPM5gQJ3vIEpIvDo3KCTAByVe7ZYJr+pjrZuuKLJ7ZqGgO4heKozLzUJZG6bvb2w8CgL0yx9kj5h1IYqVBrBnecyWTReXT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 05:19:04.3915
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 940f73f7-4892-4818-d3d1-08df3afc4f34
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9838
 
-On Thu Nov 5, 2026 at 1:12 AM UTC, Martin Kelly wrote:
-> We have noticed this issue independently in testing of our own security
-> agent and have hit the same false recursion skips on 7.0 and 7.1
-> kernels. More details and measurements below.
->
-> On Tue, Nov 3, 2026 at 6:24=E2=80=AFPM Alexei Starovoitov
-> <alexei.starovoitov@gmail.com> wrote:
->> Today a fentry prog never runs twice at the same time on one cpu.
->> Existing progs rely on that for their per-cpu maps.
->>
->>   task A, cpu 0                     task B, cpu 0
->>   buf =3D lookup(&percpu_scratch)
->>   fill buf
->>   <preempted>
->>                                     buf =3D lookup(&percpu_scratch)
->>                                     fill buf
->>                                     output(buf)
->>   output(buf)   <- data of B
->>
->> A plain (*cnt)++ in a per-cpu map loses updates the same way.
->> Today B is skipped and recursion_misses counts it.
->> With the per-task check A sends a corrupted event and nothing counts it.
->
-> Our programs avoid writing to per-CPU arrays because of corruption on
-> PREEMPT_RT kernels, where trampolines have always been preemptible and
-> thus can corrupt these structures.=20
+This series adds a mailbox controller for the AMD programmable-logic (PL)
+Mailbox soft IP and uses it to add RPMsg support to the AMD MicroBlaze/V
+BRAM remoteproc driver, so that a soft processor in the PL can communicate
+with Linux over virtio-rpmsg.
 
-what do you mean? the reentrance prevention counter works on PREEMPT_RT too=
-.
-per-cpu array are not corrupted there.
+Patches 1-2 fix the existing BRAM remoteproc driver:
+- Pass the device name to rproc_mem_entry_init() through a constant format
+  string instead of using it as the format.
+- Drive the reset GPIO with gpiod_direction_output() so a start still
+  produces a reset pulse after the PL has been reconfigured, which restores
+  the AXI GPIO to its default direction.
 
-> So for us, an opt-in flag that allows
-> preemption (instead of skipping) would work well and not regress current
-> programs that don't opt in. A verifier scan for per-CPU arrays could
-> also work, but it would need to distinguish read-only vs write access to
-> those maps.
->
->> Add bpf_preempt_disable().
->> Your test forces the preemption in the middle of the prog.
->> Explicit bpf_preempt_disable() will fix it.
->> And you'll have an easy way to see why disabling preemtion
->> for the whole program might hurt your own production.
->
-> We tried bpf_preempt_disable()/bpf_preempt_enable() around our hooks on
-> a 2-vCPU 7.1.5 VM with HRTICK under an open/close stress test load.
-> recursion_misses for the locks_remove_file fentry actually increased
-> slightly 29M to 31M (this may be within noise). As far as we can tell
-> from the code, the trampoline takes prog->active before the program's
-> first instruction and releases it in __bpf_prog_exit_recur() after the
-> program finishes. bpf_preempt_enable() calls preempt_enable(), which is
-> a reschedule point. That reschedule happens with prog->active still
-> held.
+Patches 3-4 add the binding and the mailbox-framework controller for the
+PL Mailbox IP. The controller exposes independent TX and RX channels. Its
+interface clock is enabled only while a channel is started. RX uses a
+threaded receive-threshold interrupt that drains the FIFO, with the FIFO
+depth taken from the device tree. TX completion is reported by
+mailbox-core polling of the send-threshold status bit.
 
-pls try _no_resched() as I suggested in the other reply.
+Patches 5-6 extend the BRAM remoteproc binding and driver with optional
+mailbox channels and named reserved-memory regions for the vrings and the
+shared RPMsg buffer pool. The driver registers the carveouts, exposes the
+loaded resource table, requests the mailbox channels at probe time, sends
+virtqueue notification IDs through the mailbox framework, and defers
+received notifications to process context. Without mailboxes the driver
+keeps supporting load, start and stop only.
 
-> In a process-heavy workload on a 2-vCPU VM (~1M fork+exec of
-> short-lived processes, ~606/second) we recorded the following number of
-> recursion_misses on a 7.0.9 and a 7.1.5 kernel. Both kernels use lazy
-> preemption with PREEMPT_RCU enabled. The miss rate has increased
-> significantly, which we suspect is due to the HRTICK change.
->
->                                   7.0.9 (HRTICK off) 7.1.5 (HRTICK on)
->                                   =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> security_file_permission fentry   1 in 61,580        1 in 1,568
-> security_inode_getattr fentry     1 in 59,242        1 in 1,707
-> do_file_open fexit                1 in 813,983       1 in 2,503
-> sched_process_exec raw_tracepoint 1 in 1,000,816     1 in 500,408
+The series is based on mainline during the v7.4 merge window and uses the
+remoteproc wc-ioremap and optional resource-table helpers merged for
+v7.3-rc1.
 
-Thanks for the numbers.
-Are you saying turning off HRTICK is not an option for your production?
+Changes in v2:
+- dt-bindings: mailbox:
+  - Use the single compatible "amd,pl-mailbox-2.1". The Mailbox is a soft
+    IP core in programmable logic, not a SoC block, so like other PL soft
+    IP bindings the compatible names the IP core and its version instead
+    of a SoC. "pl" distinguishes it from the IPI mailbox hardware.
+  - Rename amd,mbox-pl-fifo-len to amd,pl-mailbox-depth, and explain that
+    the depth is chosen per IP instance at synthesis time and cannot be
+    read from the registers.
+  - Add the MAINTAINERS entry together with the binding.
+- mailbox:
+  - Match only amd,pl-mailbox-2.1.
+  - Depend on ARCH_ZYNQMP || COMPILE_TEST.
+  - Do not access the FIFO when the mailbox core submits a queued message
+    after the transmit channel has started to shut down.
+  - Handle the receive interrupt in a threaded handler that acknowledges
+    the event first and then drains the FIFO until it is empty, so a full
+    FIFO can no longer stall reception.
+  - Add a file header with the driver description and copyright.
+- dt-bindings: remoteproc: drop the redundant dependentRequired block.
+- remoteproc:
+  - Keep the existing dependencies and add "depends on MAILBOX" instead
+    of selecting user-visible symbols. Name the PL Mailbox controller and
+    the virtio RPMsg bus in the help text.
+  - Request the mailbox channels at probe time, so a missing controller
+    defers the probe, and release them on unbind.
+  - Free the mailbox channels before cancelling the receive work, so a
+    late notification cannot queue it again.
 
-> We don't have a preferred mechanism and are generally open to any
-> approach that would help reduce these recursion_misses. Whatever the
-> mechanism, it would be ideal to cover raw_tp programs too, since
-> a46023d5616e made those preemptible.
+v1: https://lore.kernel.org/r/20261014213426.2957480-1-ben.levinsky@amd.com
 
-agree. let's come up with a design then.
+Ben Levinsky (6):
+  remoteproc: amd_mbv_bram: Bound device name formatting
+  remoteproc: amd_mbv_bram: Restore reset GPIO direction after PL
+    reconfig
+  dt-bindings: mailbox: Add AMD PL Mailbox IP
+  mailbox: Add AMD PL Mailbox soft IP controller
+  dt-bindings: remoteproc: Add RPMsg resources to AMD BRAM rproc
+  remoteproc: amd_mbv_bram: Add RPMsg support
+
+ .../bindings/mailbox/amd,pl-mailbox-2.1.yaml  |  73 ++++
+ .../bindings/remoteproc/amd,bram-rproc.yaml   |  21 +
+ MAINTAINERS                                   |   7 +
+ drivers/mailbox/Kconfig                       |  11 +
+ drivers/mailbox/Makefile                      |   1 +
+ drivers/mailbox/amd-pl-mailbox.c              | 378 ++++++++++++++++++
+ drivers/remoteproc/Kconfig                    |   5 +
+ drivers/remoteproc/amd_mbv_bram_rproc.c       | 270 ++++++++++++-
+ 8 files changed, 761 insertions(+), 5 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mailbox/amd,pl-mailbox-2.1.yaml
+ create mode 100644 drivers/mailbox/amd-pl-mailbox.c
+
+
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+-- 
+2.34.1
 
