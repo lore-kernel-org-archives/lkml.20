@@ -1,114 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907629;
-	b=M1H+L004TlS3HybUuIklJzWH+dF5C/NUvfA7i5pzefFqGMnw7QONLaK8YYTGeYACmCTX
-	 gxVNLKTNuBKptRyOzkuCkydqtqghz78wgaX8Vl/RnSHE0GcoaQRGgw8/FwMDrQ3xxf86P
-	 odpcrHSkTTlDc3hXpxoiXLMpjWQJpKd4YtxH7NBzKA40tFwUMrB3t7C5GQGfWlj4RQ8No
-	 3DEdNXuaJslXUjSMo7SuFN0qnOt+2ZTsmX8UKDnm8Ih2NH130gvvZfw1tcnibzgm7BhsU
-	 9kyFbu+X6ok6Hi5KuLIDCw0SK/BQ6MaurxveVMpgyTR9k67eFugce23oa/c6uKQFZ+w==
+	t=1793907635;
+	b=ThmEkh2eHKZzAex2hV3Imar1IsDlizRqq2OarW9xFwrmjNgE2K2n5wEnWbQWfzeRkpOY
+	 PdjBhK3zlxhzPouT2EDNFsdSjgbZLWeRBL7g2x4AxRvZWwJgM6V0H8TRnH8Mg6x6wzhFn
+	 3YDtO4Pp+ks2DmGm6IInNsSrcwX3lp8zakkTOTT+wtWddYXfZnXp5IsGbHyFn6fBw6hv+
+	 Hv17N7uJ73Hpw9UR7FFlyodNVqwchO5+Efd7C52igp3iH+R0JXEJjwvydVcr+So65kApm
+	 ff7G16Q5uM1Gu8SXCR08Y/54SlJ2Ty0htKCRHIb+FFQh7Ufys4YNAuvEDMC9EVLcF/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907635;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=t+2GmO7PaqO9tj08Vy5ZqyiEv2TnteeQzM548W4k4ww=;
-	b=Xz2NobDEzeSbD2qrIKBBNjDx/g4LgOyPB8wrYonaX1Ipc2OFKjyR29fAXhxTpCJ31WEJ
-	 8ia5rwje2ILWHpr3vx32fKmuJUTlzLV07lLZzjDpIlJptvd3rToCZVk/A4a0M0Shht91O
-	 aN3XahEnHSeqZG/mOZjDw8l7WjyIIq8COW3sSx7aTGinSXxseXAiSYh/Z7AfU8FAmZArW
-	 w3q0e2Wz9+9TgDsuTO8g5t1qMO8guj089ak1C30kqSeeNSjfFhxDrwol7l6LbcFobXewn
-	 ehtGKlb3kqhYWNA/NpYo7JZ/bsIJegJGWD5Z9ILNznJS2EkdenmWufJmHOVLz1vaSwA==
+	bh=eOy3jglmQsb7BW/pRy/lGAKuPlj6QMj+Cu4GsxBWH2o=;
+	b=RbwMsHV1m4BF2Tlz6Coz4uo9Lwuhp7YUwiRxqcR2027engZ0CPu8hupi+WYSoSYg/HuP
+	 NbzLUe1L3u3AxdiqJvuivsCKDujMpRsrQJTHBVhJN8Vp9eHJINKd35QezKhpwo2Nn8HRs
+	 Ey+u34gHi9K+l4dMp4qyz2wV6FT7tBIYhMy+xfhcEBoRlE/Ndq6j8DX8CICSDpchKXR/P
+	 61zvg3BZSVewYqJYlR6PEYxzs96XRF2hXtMqVYgMKoaS0xsWXOLK2RaDnFichJ7KflMZ4
+	 /2Bd/RkDJW18AZzz3TlPdnXEaIcxpDNE1sGpH8b+VysoMe6WW7i8CfnUX9KjNNbjPZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bflba8CW;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VZrQvME8;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lICFUt19;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b0vbx2u7;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E126F6075329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:40:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E126F6075329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB4F6082BE2
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFB4F6082BE2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bflba8CW;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VZrQvME8
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5JLST2597674
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 19:40:28 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lICFUt19;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b0vbx2u7
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5HeQJT1122112
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 19:40:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t+2GmO7PaqO9tj08Vy5ZqyiEv2TnteeQzM548W4k4ww=; b=Bflba8CWEPdoabhA
-	R20jruyw3xnOBQe3HDRGXH3cg34Bqd00IRrTY4h/Oj2OmQWMYndrLUT6WZGN7CXF
-	2hiAbiigaTsZJezGgL/3r63kvl1PawqzazO2JfKydYLh+67K0owBcMzt9jmZFK8x
-	rhp3zM8o0+XElR251qsgq1XJdTwvxSbTjMJ9Rui2qAb4V4LffO6KtPhPrBoDC2pa
-	Sp453QkOACPvZP7WEMC9Y182zz40kt2xSeL1KA5Rv7v6zJesUckXaEin/RfGgywJ
-	5aIzT0aYM3MAFzjFOW2ps26nZ7uEQZjkFwOwEzt0FX6TdTQh9Lfkzz3I2wa/sWi9
-	QIrohA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hryvv02s7-1
+	eOy3jglmQsb7BW/pRy/lGAKuPlj6QMj+Cu4GsxBWH2o=; b=lICFUt19cPudNs1p
+	gt3LLcixl2VrlE1PW9a4d4TTh/JevYYsbggadMWY6xeFjyr5YnGM99z+4Zb+LOXF
+	18sJovqA3nC9dIP4qszatqd6z139E+P8Kr4VZ0lshGsg4oUhnHGmv57ZOobi/la2
+	2DpPExhHhpW5DJznqfjL28OTDd54HpLKrpPeOG/MCLy05DusG88cv6WikkVhNXDj
+	5uElfxRh+0wdUmYSxUvrLJ174EgaNeVnG4RmTgDS5kZwV6Rct3GLTJ1ov/ymH91N
+	u7anRA4H244gUkrmqYPOJqrBCcksjb3G+GTdDBcQdrdAvuaYPvs8VxhTgEUk6nB2
+	CQ7j7Q==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrq1p2r37-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:40:27 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so4315678eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:40:27 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 19:40:32 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36efb506f29so667796eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:40:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793907627; x=1794512427; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793907632; x=1794512432; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t+2GmO7PaqO9tj08Vy5ZqyiEv2TnteeQzM548W4k4ww=;
-        b=VZrQvME8YKsviP0NosXlQ2JtIWIWCgOHExzTQbsSbJLDsY3aC/fODQht8SI7n2mYI1
-         HgEtfzDCIYVS8Bij5IjKfhWHsNbTRUD9zljRLxcd/AKZk1CaYVdWu9lh0tZVBzO7uhDW
-         OV8FBZx0YKMA+1BC1QHsYZ1C2tG+I2CblhTPV6XYfqor9HI8BRnI3qvaOn8gw9AzZXJX
-         0cmMfkPy80cE+/wCQVQyw7CSPAEp8cWPGXIyn+zUGHZwo5wDzInNZQ37HeiUzqSTu4si
-         +71n5gOZF5e5wGYAtbrm5Hoze+Fhg8sf8ouUWTjBvhauVO4twL837yq4JEi3QTyS5CKP
-         G5IA==
+        bh=eOy3jglmQsb7BW/pRy/lGAKuPlj6QMj+Cu4GsxBWH2o=;
+        b=b0vbx2u7zaWjyNj5BT+VuGMj6i+4a5VBSEXKaOK5ukOKgnDHH11+mVkxEdjtIXSKZh
+         xGuBX19uwN4kDQy5geku3gACJwAeY4O2EciQV14nS/+l5yMku+3LsffmgF/13t6veSxG
+         39/4al/+i9tgtxrDET7qA1QIioEMWr3sapFxuEnKZNcbvVQzNZ+A14j5t+r5g6EDVHGt
+         k1QC9VxQeRc0XTMdDejzVXdMosj5EY4O7Hbm2sPIR4AhcpC5RNF5pqm5jgz1+zdEGjlK
+         Ifv43W0J3Ry0BL/+8nFpMCgGUp0uL6ig+5Pmom++vxcR6+r2OSDWS/Oh3dyRu2Hn+iym
+         NQsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793907627; x=1794512427;
+        d=1e100.net; s=20260707; t=1793907632; x=1794512432;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t+2GmO7PaqO9tj08Vy5ZqyiEv2TnteeQzM548W4k4ww=;
-        b=f1L+s8OJ2bvCOHFm/mJL9K3EUHMy0QUjRDgUmvnNH4Uxt62DoALv3MuAUVaH5Cq+sf
-         COhfXymQ4mFvuqACv7tyJYCJ2bdXw/1OyGOn2H0SFr8bD2Ccs+fcA9yC1USkkQlw8UeD
-         XpMY8a4Ahni+JAWVc0AmkLlDrJQeZnliyZRun0x+bwREcRVHv0+hnHxaWQO6s9SErjJA
-         +z8HuhUid9NS4XQMbGBebbcIILD+DW4qW+r3aotud0G447o3WK/LXEeCMXEgj58m+4aV
-         iCHjbgZn4VSZL0jJkLLtCkl9FllrGLZ8FDRoAO/GBlsKInste2PGWK2pKDv0/c8aHeBW
-         ASDg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3dFa2ATUnM2J0VuEEL30f4mKu7W6hFH2ZGuDbQFFs+kA5VL06FrlV8y1M+TOhzwRKpevow3jbyJwIfUM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Quyj+314C/vM286B4f7Bn16mPmp7xB+CXFCOM1Eobiia5wPaC
-	7w3AGBJXxl8Q8oImVIWIzSSdsiFRsOBnJ3XxAt/yV+152iWbfNk6E2ifHO1YvTDp11JNH9B+q3q
-	smqkszsnTB6B50b1Ui0UxUGvVVegb+upohZC9nntprayJIpmFQxgi32APOfqJUmkg+dkCD6KEcQ
+        bh=eOy3jglmQsb7BW/pRy/lGAKuPlj6QMj+Cu4GsxBWH2o=;
+        b=waFPtLXTAXQIHTtOKY1BkPmo0rsPXlWPvlZYVFzoxttbM/2gQn42R8On+UGSvHn98j
+         Gt4vQvR53s37naFYlS3GhKj1bVd1WcvcHQeoV1R9qxDk4J2XzwU4p1k1cpK2M/YEjvmX
+         gvxUMLuJrHOE3mE4huLzn+s/gjkONmBbIIuZ8VBhxFazSYlAqK5Fhw+6JSFwkKWDSbUy
+         A70KfSi3m0/8ceN1HgNL7kNxhY8+EA7tf5rNHibRdMjWG8mD3qsrWiAzFh8rwisNA02c
+         sx2VJm7XPAdBei6tEg8IcLxnUzkB1DFSrl8oAm3oj/CcB3nELFm/5eRcEV1ZQYwWDYFL
+         ODYg==
+X-Forwarded-Encrypted: i=1; AKwUvBygq53lbmcpYBPTG827+SN+j6PctXqtsWDC/Ugtefq7Or3Wip2HXgmgq0u+bL1fTV+sBxi+Up5GdS8Guqo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xUiBWoNwT29PM0iI+QV38XtWEpG12buVMZoC0hGE33/Ztf3gh
+	W5wG4LjVsTgBIVyWpvJrPACVZboG1G5Pc4hHyGokn4JrsfyDYfaYNtrnyDA0VAyhsl5z6ZIIs2G
+	aHBT43nHzlQ1Mqyd6HknZi5XMeau4/dNfLsPJbV4/1nP8eHN5ebHEkqVOd7dYUzoqdmbHMqrX5A
 	==
-X-Gm-Gg: AYBFou0boSE5YH2NZsu4U2jzo8ylNH8Kb0n9TX33ttzN3t2kg8YcmqF7Vw4pD8vkmcr
-	elwqLXR2Jk8s/Dz/RERi3/qdN66MiCJUWMdarhzgl1u6ilayybvTfIe8Z4btQfi5vTbqXYe7m0t
-	5wk3klTcAqm32s/qbZ5IAa7EpqbiM7f3Cu/z7bwe81SO3aiW+sstNHMrYR7hj+5U0zbwwBTHwUk
-	XufypFifBki0tGgFG0UQSoUEYkUaq5HgZSl15K3HdlCEnAckXsIFEm6tFvZxPSTGG01wPJcSy+G
-	ef6u2wtuNyRY2MO0ZMewXwCrJlE4XXApWluEO8sUeyhPdeR3nsAftx7Qwvl3BwpXHaAmtIPwFdC
-	O22TcYyL2crE6CMEXNCm5CmeM5itjzIH3N0G+r1uSsYyJB1alFyy3Y056QYFiQk+DI2n8JL1z6z
-	fRwhgr18W9HLVmlt9tDNJNXuCYEuDcaZIVEb0cW0O9Cw60jOzWkC2eeSiv8WZXlKIHa7XR/g==
-X-Received: by 2002:a05:7301:d802:b0:36d:2704:6adf with SMTP id 5a478bee46e88-36f7494e265mr157924eec.11.1793907626598;
-        Thu, 05 Nov 2026 11:40:26 -0800 (PST)
-X-Received: by 2002:a05:7301:d802:b0:36d:2704:6adf with SMTP id 5a478bee46e88-36f7494e265mr157880eec.11.1793907625975;
-        Thu, 05 Nov 2026 11:40:25 -0800 (PST)
+X-Gm-Gg: AYBFou0TQR+hg9fPbiGTp+SX+FhOFAZMOHO9UsAsqakQTrqGNsE4hOmScDUgQkI2OyR
+	N5Fb3D8SLDHV4qhFWxBbHHvSCS6nbVPIYjTFJPNdONtpMXkLs7k/8z1gl8aUhACGZ3dS0R4EINp
+	x7lDRESSSpfd8N2/Q1kPJBBosG3YH5zP46h2RHmKKFa9YC7FVJ8fkx6FJ/AWXOmmezh7Tg+0Unl
+	/M8zvcQgam1RMUgevvYtzcrPLIf5mwlixub8+Dp5qvfhECBvCwHovHVLRyqjmlAp3cIVKuMdl5R
+	9+CcVwFTpuU6zvkna8Olz6s7JmPYRzFzlIsRAWsudkG6HTkgnl6GxhfyuAhuuU8vc63XcXWGyFC
+	/JU9sVf6VrXHbmu5fRZoZtj5Cv8jQVn3wVM+0mMdCjONjQ8gd7+EDpz8iXQ1Pdvuxy1ahC2lMbl
+	D3mz5Ds9UF2CYhM4OFrnPpBpxgXFACtmyaAyED1mCbvzDWJ/HoKBO97sW3VHVZ/NmCkYbdAQ==
+X-Received: by 2002:a05:7301:f8e:b0:36e:3a0a:2953 with SMTP id 5a478bee46e88-36f775f83f4mr152689eec.41.1793907631574;
+        Thu, 05 Nov 2026 11:40:31 -0800 (PST)
+X-Received: by 2002:a05:7301:f8e:b0:36e:3a0a:2953 with SMTP id 5a478bee46e88-36f775f83f4mr152653eec.41.1793907630996;
+        Thu, 05 Nov 2026 11:40:30 -0800 (PST)
 Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f72cc9b88sm357284eec.14.2026.11.05.11.40.23
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f72cc9b88sm357284eec.14.2026.11.05.11.40.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:40:25 -0800 (PST)
+        Thu, 05 Nov 2026 11:40:30 -0800 (PST)
 From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Date: Fri, 06 Nov 2026 01:08:39 +0530
-Subject: [PATCH wireless-next v3 04/21] wifi: cfg80211: define layouts for
- SMD BSS Transition context
+Date: Fri, 06 Nov 2026 01:08:41 +0530
+Subject: [PATCH wireless-next v3 06/21] wifi: ieee80211: define APIs for
+ UHR Link Reconfiguration frame checks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,149 +119,187 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-smd-v3-4-1723950e3cf8@oss.qualcomm.com>
+Message-Id: <20261106-smd-v3-6-1723950e3cf8@oss.qualcomm.com>
 References: <20261106-smd-v3-0-1723950e3cf8@oss.qualcomm.com>
 In-Reply-To: <20261106-smd-v3-0-1723950e3cf8@oss.qualcomm.com>
 To: Johannes Berg <johannes@sipsolutions.net>
 Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
         pooventhiran.g@oss.qualcomm.com
 X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3OCBTYWx0ZWRfX7IpF4Axz5+c6
- eliMeF36hx4bXsi0OI2BMJnMlz1WXGMyNINa+GgKgiZRDzg/wKU7ZAy0Gz3Py/p9PvOUon5WU7G
- N2f2dJd+N1IY0ewcsPIMtLpLu+JUo4k=
-X-Proofpoint-GUID: -EBRLG4D_-UerwCzfgORmweUct29gKPT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3OCBTYWx0ZWRfX6XeqcQ9Lx5d1
- 5vMz0cKepp+g6iFAfYMQROH9FzONQwDNytSI5uKBA05w2cA8LLE/mxEmrGpbxJqGTXOJj/Tz6fs
- HnXuAQwMe/HSetGFqpHKazr5eJqxkOBYxuhAv1c3jqft9AOgOsF/7kW+2yW8S2lSGMIQza14bE7
- IqhxfxEFPrNmUt+3bHPiRHf1cQuLizxGLsn2atR0OcICcUG0CrhfGH4J/vii12h1uAlnZr9rcX+
- xtMHOX+54nYHp+UlySljAkdpO+P4buiCVUXSGAsUnk4pY61DOsJmGc3h3SX8gUKfSgTgxjeIZ70
- z4ScjzRUhz8edG3TYmyvtIwT0Hfz//NKHWlzQQkc9OFv9H+kBfT2yRJDHatRu4urxUchw8VloxZ
- UAtyW99SwcWsgXa6eSshtf1zq5/Yr6o7ix5o4YDmWpJOvOR0wanzDhQQbPbSyb+kXfHPOoAOCjO
- jUwVMQ9udbChDVhX11g==
-X-Authority-Analysis: v=2.4 cv=dKUzC+Zb c=1 sm=1 tr=0 ts=6aecdbab cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=AaYkjHXG c=1 sm=1 tr=0 ts=6aecdbb0 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=J_Cd7DG4o9UVoa3JfjsA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: -EBRLG4D_-UerwCzfgORmweUct29gKPT
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=oDYSrMgdSjg_aXkkWaUA:9 a=bFRUnEHUPHmmGGYb:21
+ a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3OCBTYWx0ZWRfX8AgvHeieCKB9
+ GesWwAdAHbaV8rKofElF4idNWA45nuTminhehVLqj0yXMouc2WQM+WysU6SpZJKW2s98dT5YU5Y
+ 6ZMQbs/wKjLUEM1lnTk2T5yFwm2mJJWxM1HWgcjwzdR0L1qVaMmc937d2NiFOaQEHm+faH7+h2z
+ MK7QujAkKsuvsHiHVUV69cr7yxEzUZGKjwNn6y0k3EPVHgeqjUnUi8e/gDEMOZFtCzmI6fM8/Nj
+ n2Kh2lGB6uu+BMaUfbREP0GY8idWgY6WjdV+z+NY8z/Luk+2e+HmrCrXBuCVzG5lU8w6+FfLmlJ
+ q3wF4Bh3xDdDkQG05HJNvg9DnOTexAYDSCeL9jXbmMqgr8mb1dAbUnK4q+vgwbMUWfoFVWmmVSD
+ J8Dpcv7OI6G+MsvBD7D0ZJe4PYg09jDylNDuE4AKQRqrAnDxsxDhuji3iVdw8vYNAsvnfFLew8w
+ gKaJhvibayAeGhcdXhw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3OCBTYWx0ZWRfX+Hi7H4Y2qy6j
+ r0Wj/zWt4aqFuG9xHsgX7mAXQIPgDq0GXu7Zcaj7AIGNHPq5usriHcuukW38J85JVd0IzvrvG+4
+ pyiKi2764NxiLXfRxluUZF+JzLAk4OY=
+X-Proofpoint-ORIG-GUID: KsGELfUM5IvCZFO7G637y1cXtWq13N4z
+X-Proofpoint-GUID: KsGELfUM5IvCZFO7G637y1cXtWq13N4z
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 malwarescore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050078
+ phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050078
 
-IEEE P802.11bn/D2.0, Aug 2026, subclause 37.16.9, defines the context
-data to be transported during SMD BSS Transition (ST) laid out in
-subclause 37.16. The station's context data is attached to the ST
-Preparation or Execution Request action frames so that userspace
-receives the context along with the relevant frame.
-
-Define the context data: per-TID sequence numbers (SN) in downlink (DL)
-and uplink (UL) directions, packet number (PN) in DL, per-TID packet
-numbers in UL, per-TID BlockAck session parameters in DL and UL,
-management SN in DL and UL, and management PN in UL. This data is used
-by drivers to report the context along with the frame SKB.
+Add APIs necessary to check whether the frame is a UHR Link
+Reconfiguration Request/Response/Notify frame and subtypes to invoke
+necessary SMD BSS Transition handling on the AP MLD.
 
 Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 ---
- include/net/cfg80211.h | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+ include/linux/ieee80211-uhr.h | 125 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 125 insertions(+)
 
-diff --git a/include/net/cfg80211.h b/include/net/cfg80211.h
-index 54d549afd8e3..938fbfe0e71d 100644
---- a/include/net/cfg80211.h
-+++ b/include/net/cfg80211.h
-@@ -11147,4 +11147,86 @@ void cfg80211_incumbent_signal_notify(struct wiphy *wiphy,
- 				      u32 signal_interference_bitmap,
- 				      gfp_t gfp);
+diff --git a/include/linux/ieee80211-uhr.h b/include/linux/ieee80211-uhr.h
+index c6c89e4562f4..9274fa146f01 100644
+--- a/include/linux/ieee80211-uhr.h
++++ b/include/linux/ieee80211-uhr.h
+@@ -699,6 +699,131 @@ ieee80211_uhr_mode_change_tuple_next(const struct ieee80211_uhr_mode_change_tupl
+ 	return (const void *)((const u8 *)tuple + needed);
+ }
  
-+/*
-+ * Context information carried in SMD BSS Transition (refer IEEE P802.11bn/D2.0,
-+ * Aug 2026, subclause 37.16.9.
++/**
++ * ieee80211_is_uhr_link_reconf_req - check if frame is UHR Link Reconf Request
++ * @skb: the SKB to check
++ * Return: whether or not the frame is a UHR Link Reconf Request frame
 + */
++static inline bool ieee80211_is_uhr_link_reconf_req(struct sk_buff *skb)
++{
++	struct ieee80211_mgmt *mgmt = (void *)skb->data;
++	u8 category, action;
 +
-+/*
-+ * Data TIDs transported in the context, IEEE P802.11bn/D2.0, Aug 2026,
-+ * subclause 9.4.2.364.
-+ */
-+#define IEEE80211_SMD_CTX_NUM_TIDS 8
++	if (!ieee80211_is_action(mgmt->frame_control))
++		return false;
 +
-+#define IEEE80211_SMD_CTX_MAX_PN_LEN 16
++	if (skb->len < IEEE80211_MIN_ACTION_SIZE(uhr_link_reconf_req))
++		return false;
++
++	category = mgmt->u.action.category;
++	action = mgmt->u.action.action_code;
++
++	return category == WLAN_CATEGORY_PROTECTED_UHR &&
++	       action == IEEE80211_PROTECTED_UHR_ACTION_LINK_RECONFIG_REQUEST;
++}
 +
 +/**
-+ * struct ieee80211_smd_ctx_ba - BlockAck parameters for DL and UL
-+ *
-+ * @amsdu_supported: Peer's capability to support A-MSDU within A-MPDU.
-+ * @ba_policy: BlockAck policy (0 = delayed BlockAck, 1 = immediate BlockAck)
-+ * @buffer_size: Reorder buffer size from ADDBA Request (10-bit, max 1023)
-+ * @timeout: BlockAck session timeout
-+ * @ext_no_frag: ADDBA Extension fragmentation support
-+ * @extfrag_level: ADDBA Extension HE fragmentation level
-+ * @ext_buffer_size: ADDBA Extension buffer size; combined with @buffer_size as
-+ *	(@ext_buffer_size << 10 | @buffer_size) to get the full reorder
-+ *	buffer size
-+ * @winstarto: WinStartO of the BA window
++ * ieee80211_is_uhr_link_reconf_resp - check if frame is UHR Link Reconf
++ *	Response
++ * @skb: the SKB to check
++ * Return: whether or not the frame is a UHR Link Reconf Response frame
 + */
-+struct ieee80211_smd_ctx_ba {
-+	bool amsdu_supported;
-+	u8 ba_policy;
-+	u16 buffer_size;
-+	u16 timeout;
-+	bool ext_no_frag;
-+	u8 extfrag_level;
-+	u16 ext_buffer_size;
-+	u16 winstarto;
-+};
++static inline bool ieee80211_is_uhr_link_reconf_resp(struct sk_buff *skb)
++{
++	struct ieee80211_mgmt *mgmt = (void *)skb->data;
++	u8 category, action;
++
++	if (!ieee80211_is_action(mgmt->frame_control))
++		return false;
++
++	if (skb->len < IEEE80211_MIN_ACTION_SIZE(uhr_link_reconf_resp))
++		return false;
++
++	category = mgmt->u.action.category;
++	action = mgmt->u.action.action_code;
++
++	return category == WLAN_CATEGORY_PROTECTED_UHR &&
++	       action == IEEE80211_PROTECTED_UHR_ACTION_LINK_RECONFIG_RESPONSE;
++}
 +
 +/**
-+ * struct ieee80211_smd_ctx - IEEE 802.11bn SMD Roaming Context (refer
-+ *	IEEE P802.11bn/D2.0, Aug 2026, subclause 37.16.9)
-+ *
-+ * @dl_sn_valid: if downlink (DL) SN Transfer is requested or not
-+ * @ul_sn_valid: if uplink (UL) SN Transfer is requested or not
-+ * @pn_valid: if PN is transferred or not
-+ * @ba_params_valid: if BlockAck parameters are transferred or not
-+ * @mgmt_tid_valid: if management information is transferred or not.
-+ *	@{d,u}l.mgmt_sn and @ul.mgmt_pn are still bounded by @{d,u}l_sn_valid
-+ *	and @pn_valid fields.
-+ * @pn_len: Length of PN in bytes; varies by cipher type
-+ *	(e.g. CCMP (6), GCMP-256 (16))
-+ * @dl: DL context data such as SN, PN, and BlockAck params.
-+ *	SN and PN transferred are offset to reserve space for DL frames sent by
-+ *	the current AP MLD so that the target AP MLD does not repeat them.
-+ * @ul: UL context data such as SN, PN, and BlockAck params.
++ * ieee80211_is_st_prep_req - check if frame is ST Preparation Request
++ * @skb: the SKB to check
++ * Return: whether or not the frame is an ST Prep request frame
 + */
-+struct ieee80211_smd_ctx {
-+	u8 dl_sn_valid:1;
-+	u8 ul_sn_valid:1;
-+	u8 pn_valid:1;
-+	u8 ba_params_valid:1;
-+	u8 mgmt_tid_valid:1;
++static inline bool ieee80211_is_st_prep_req(struct sk_buff *skb)
++{
++	struct ieee80211_mgmt *mgmt = (void *)skb->data;
++	u8 type;
 +
-+	u8 pn_len;
++	if (!ieee80211_is_uhr_link_reconf_req(skb))
++		return false;
 +
-+	struct {
-+		u8 valid_tid_bmap;
-+		u16 sn[IEEE80211_SMD_CTX_NUM_TIDS];
-+		u8 pn[IEEE80211_SMD_CTX_MAX_PN_LEN];
-+		struct ieee80211_smd_ctx_ba ba[IEEE80211_SMD_CTX_NUM_TIDS];
-+		u16 mgmt_sn;
-+	} dl;
-+	struct {
-+		u8 valid_tid_bmap;
-+		u16 sn[IEEE80211_SMD_CTX_NUM_TIDS];
-+		u8 pn[IEEE80211_SMD_CTX_NUM_TIDS][IEEE80211_SMD_CTX_MAX_PN_LEN];
-+		struct ieee80211_smd_ctx_ba ba[IEEE80211_SMD_CTX_NUM_TIDS];
-+		u16 mgmt_sn;
-+		u8 mgmt_pn[IEEE80211_SMD_CTX_MAX_PN_LEN];
-+	} ul;
-+};
++	type = mgmt->u.action.uhr_link_reconf_req.type;
 +
- #endif /* __NET_CFG80211_H */
++	return type == IEEE80211_UHR_LINK_RECONFIG_REQUEST_ST_PREP;
++}
++
++/**
++ * ieee80211_is_st_exec_req - check if frame is ST Execution Request
++ * @skb: the SKB to check
++ * Return: whether or not the frame is an ST Exec request frame
++ */
++static inline bool ieee80211_is_st_exec_req(struct sk_buff *skb)
++{
++	struct ieee80211_mgmt *mgmt = (void *)skb->data;
++	u8 type;
++
++	if (!ieee80211_is_uhr_link_reconf_req(skb))
++		return false;
++
++	type = mgmt->u.action.uhr_link_reconf_req.type;
++
++	return type == IEEE80211_UHR_LINK_RECONFIG_REQUEST_ST_EXEC;
++}
++
++/**
++ * ieee80211_is_st_exec_resp - check if frame is ST Execution Response
++ * @skb: the SKB to check
++ * Return: whether or not the frame is an ST Exec response frame
++ */
++static inline bool ieee80211_is_st_exec_resp(struct sk_buff *skb)
++{
++	struct ieee80211_mgmt *mgmt = (void *)skb->data;
++	u8 type;
++
++	if (!ieee80211_is_uhr_link_reconf_resp(skb))
++		return false;
++
++	type = mgmt->u.action.uhr_link_reconf_resp.type;
++
++	return type == IEEE80211_UHR_LINK_RECONFIG_REQUEST_ST_EXEC;
++}
++
++/**
++ * ieee80211_is_uhr_link_reconf_notify - check if frame is UHR Link Reconf
++ *	Notify
++ * @skb: the SKB to check
++ * Return: whether or not the frame is a UHR Link Reconf Notify frame
++ */
++static inline bool ieee80211_is_uhr_link_reconf_notify(struct sk_buff *skb)
++{
++	struct ieee80211_mgmt *mgmt = (void *)skb->data;
++	u8 category, action;
++
++	if (!ieee80211_is_action(mgmt->frame_control))
++		return false;
++
++	if (skb->len < IEEE80211_MIN_ACTION_SIZE(uhr_link_reconf_notif))
++		return false;
++
++	category = mgmt->u.action.category;
++	action = mgmt->u.action.action_code;
++
++	return category == WLAN_CATEGORY_PROTECTED_UHR &&
++	       action == IEEE80211_PROTECTED_UHR_ACTION_LINK_RECONFIG_NOTIFY;
++}
++
+ #define for_each_uhr_mode_change_tuple(data, len, tuple)		\
+ 	for (tuple = (const void *)(data);				\
+ 	     ieee80211_uhr_mode_change_tuple_next(			\
 
 -- 
 2.34.1
