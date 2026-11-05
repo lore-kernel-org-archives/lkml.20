@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892107;
-	b=aIgGPups2w4YSDzP9xfvOYV6LTllpl+RZZLc+iSVcQSk0qCTtktDndcETZBgu5qBBxB2
-	 qq7heMncNFoJStoAVCUel/Bh1nojB1hPuXrFRefCD77CPF4Qc80RB6EKRsD1K8k53kkuM
-	 3EC54ouNsan3svnGUC/Nm+1vCYujKXzPTV9vSjfbUgZQHhs31Jxc6IORGKdN7+FOl3qL3
-	 N+AXKEB8km+3lLEgK7r/FW6MlrNrs64yvymkiwR8MDrr1p3MCuZuYCotCNzJmMeusbtiT
-	 gVB1nRC/q+b9wk1xJ09FPaEbgvbSoYhCI5vnZ8/JDWNr7KR5npPe55ctOJdaxzsiubg==
+	t=1793892128;
+	b=JjC1V6wbeN2zrQjEZcUOZVo4QqZ7quvZpP0UMYLr/N4XGt4396Ye6vWXv8Ku9EFlYISl
+	 xlEunomSJHDrbLgHnW9TvbmqE31n0092RUryjd1eQHtcFanl3zFbnK34n/uBQnXbj43cq
+	 6h6cLTK0C/m42plDSlA3Eej/R601ixh99Tq7PtxQvqrncwgoVCQu0iCGtReF2gpW5mZof
+	 5LXFp6uKo0NiGbBa87F3xrk83301IMIcuXtADD7ibQgLbBwMBYiMXdEn3CSEvzfZaPH57
+	 7+bWSJ3g89G2Il8a+Gw2fUFGoCK7Ks+aqhPtPDVwCt2gejelJkc2B7BXKETi3s4H9yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892128;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=tdXoQ0OJtdssGpQSd2KrWswUSI+QmuXShw8y6JP9/is=;
-	b=m2yYMG9NwJUONGGiWUi0tZ5HqctI72qMaPppX1/BbFIpNmpjWh1dIpv1JDaxkDer5ctX
-	 bu2+EkKIH1i/1BQRUdbHC/6rEsjmGkSlEgltePv1UIKh483iw4rv1GH5XXD98jzCMPR9P
-	 FjAxp8zFGOutkHEEZnjUz0m22QIAStlFNevm3JNC8vOkAX6irSGsgBOGkZyn4t5BV6PMG
-	 5kAFcrODkiwIQw9X9ZuD/5PKDLWvtIrvrNiyMuey435sQwggsP5LAW468H31jNqDiH5V5
-	 U1UklUpFRB3TLJ/34HqhXJqMszXVVDI9SCk3bVqDbaUjjio2MKcPfdv7kO7gt94mHlA==
+	bh=vj63xyhuZ3SVCbccahbLO+6+SjXllROfEnHLRARVSqI=;
+	b=lZcx/MQhwGnJp7diBsLOvOYYirstiyf5boGCqG2FIE5Uoj32oDBR6pRc2IF3U/OoSyih
+	 /F8m0CjzoY7fzvsodSBKgputc4L6OnFpA4UKgvm1cK2NDMc3CiEdoA3aAT/bh7zPAvejF
+	 fzFLKqK19Z+cba50vZF9XsA946AmK4/OcVzYtFjd5TBCtvvN10HXxv3FgrIfIOH+Y+E+j
+	 qmnL6b0GfEBcM1ruaXZQhxWSr46VINNEQq0Tx4OewQTln/NoMJqWgEyip3pQDv8KUDHzb
+	 9EXDG7m+6iZsFNkjSIn7IeEkN537OYevK0W412OGoJUusDvwTUh9xVCtjI5qjlUrA5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=LM66gd3w;
-	arc=none smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=hk3vz+8R;
+	arc=none smtp.remote-ip=209.85.219.44
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A5D606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:21:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A5D606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE52606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:22:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE52606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=LM66gd3w
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b305d38bafso20485517b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:21:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=hk3vz+8R
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-91e8938fd01so17054706d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:22:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892106; x=1794496906; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1793892126; x=1794496926; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tdXoQ0OJtdssGpQSd2KrWswUSI+QmuXShw8y6JP9/is=;
-        b=LM66gd3wSAf3b5KsYgD7xIOmppIsJwWyRtBCd3az0I1WlXvq0i6mMRR6cZlBJhpRnr
-         k05RU97FSMYsKZDSkbgwHK2tDlfYmieObK57iBJ8srHER9xLfxBQQvhPDHj2qcHgkihK
-         BuhVGvSHZqmidjUQYtAPzAMyYh1hq5K6hlsdeTbrcW5o9rMvPXIfJ4HkCBPnrzDkCRi8
-         n0cX+aV9kaHj5xlXSw+7h4Tf2H8yK+J70CqAKynl0V3sHSzvFOU1BI1ZAoZR3MGpn7hn
-         KEeYTX1R0Ek5CqD7tUve+7K/MT/334CmpOFFf8LohjTWVjYl3t7+TybcfShyBLjMGBO6
-         FegA==
+        bh=vj63xyhuZ3SVCbccahbLO+6+SjXllROfEnHLRARVSqI=;
+        b=hk3vz+8RnfObq5Pv1ZZoHlBChlbX0ElAKLkc7I/F1uNaVSGwk04qb8mU8kkz9ae1B3
+         ZHl4MP4vgohtkLAxxffdPymLme4JOws7ZMBkAwAeQiey51ZwbS/cjBgbbyGoCDircdKe
+         /MfmY4IAj6RD8I5WliWVt6si3DxXCeejhuAkN0pDhN/yxRtDoeSxi/fgu8pcG8xtLmLW
+         mq4mmI7OdLgsEf6CvjcfNLsUWf+xhFo+osTBsJQzpJaSz9lQqpR0jNW2ZmPpETggOgrh
+         4i8vgNUpdzm2JS1pmvT29GPHlx9m4qxHmnaoPqg2odzy+D5TJhcOynVPM5H/DgE1/bqw
+         GTfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892106; x=1794496906;
+        d=1e100.net; s=20260707; t=1793892126; x=1794496926;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tdXoQ0OJtdssGpQSd2KrWswUSI+QmuXShw8y6JP9/is=;
-        b=LbfqASmJ4cm8F2Sp38CQjH1dArOowNZX3IKbfeoEG0ilkyZHSStXDAlhpfkwzs7PLc
-         9cl3eiFO+o515soVVpNRBMtlrA0PRf65Qxx9XQ39gbDXYY68b7iPYu5axaSTEWPTnfko
-         PKDUVAB3kIVvPS3v1Uymeip0iKDfeMBuDKNRKzl8U4TLLk47Ar18iDUEdcffZemBiHcg
-         PZCZ+tKz7dns0joYi1jNMVIyLyMtRlEYViVpWJc18LE0QJgXNpuyZi//0CjsYnb/So7P
-         fzdaAqgIYnU9S7DiLlnAx4Js7PoS0rOTfv+0lhelLZ7Fbl13xgJ39kVlAUqDsmCGWR/C
-         gIYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwjsxNMbyt6foPh6Aap3QF32tBof3bnN8+qK+/dvF87ncAxOQP12Py8CE3dad1TavRROD2NjLvS9/BMJ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UZUC4ZKzD9mYSTeTFcGjKSXPR59xAd6eCjGi9+BjcZA3S5oru
-	iFJJQd0M6K7OXwL81Jd2RiptFbwwlcG8Bwi7cXyaqQmI4QwC5ZCKgYbxnu68qEYtGK8=
-X-Gm-Gg: AYBFou1FGy0xTOk0RKG5s63OQpfldtN7f5UWtuas2zGKR9jDtrZKwWjvSnNV1kmhHnG
-	1BOJ9niWp/gHGZq3oKeKnB8JnlWk4xRxAHg2RqiXOFMmgVyccYbRABfKXtgqN5UfDRp6cPzyOLb
-	sjf+sq+GcDOg71ggcamBzsZOW5F42nhRUYusfi82otnglvlraJBhtx5Hl7UpfD65SExqeLdw0R9
-	+iGbriTwCGqfevX0VETPbOCKuic2X0fXR7G25EvRaiePFfR76qY9iN9KVvGKHAyC1ewMIISz1eD
-	7uesmIxtM9P22IBAWeF0fGWiF4672MbAaqJuLnBI9JG4XeINPG28trHOTZ/pXAoSKNMX3iBokzU
-	4AaRle11RjU27cJ+zFlB2sBw9rEGYISxg8Xb9dZcdMvn7VQrj9h23q8dfuOseSelzgweCv6o/YL
-	lrxAW1uV8kLBAJO5VnEWh0+MGsIn16EGVwxwB3p568HcYbNe9qCfQINyP0XYkCobs8NcBGXiWGj
-	LjHKJODgM0XlYVXbtXlxxHHOJ2Y/DMPEXOy4J0PVlgh/zchfRc76fGSzpxJ1SGbMSDr/h70BYug
-	+K5NAMHxYmY/63BkeEleKt/irfaRIYTnOtgkielKJZML5A==
-X-Received: by 2002:a05:690c:d81:b0:8b0:a28d:6450 with SMTP id 00721157ae682-8b2b674ae44mr145055817b3.40.1793892105486;
-        Thu, 05 Nov 2026 07:21:45 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.247])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bdffedsm41762827b3.45.2026.11.05.07.21.43
+        bh=vj63xyhuZ3SVCbccahbLO+6+SjXllROfEnHLRARVSqI=;
+        b=Csyb0j7NuHjMYiYe9qzZ+TD5mXTGNs0TAX+yFAuOeYtvJG7j4V2hK613usLCjjbyoC
+         Ensgvlx0HB+gMK1kzHpad2P2IlRS0yMsjC+lScoNddHs0vt0CFLNdkYtacnxdBGv0lUd
+         q+6QKb64MabY4U1HtgRtDW2CB2BEixUSjFxRBtZa5OHTVGWuPxscsRkpz1OHQ2MfzcIn
+         DOCkQpQgGMVYRMthJ2QKXlpsJHN1phuzY38QyArBKq4hj8WxKu7NFT8gkqzHXaPJ0irG
+         XCd9k1HHaPwyAwZVn6KI76RFWYqQgsBc5Ku1BHu4gnjXTzNx63T581w5AbwdVuVFMt9b
+         e6Cw==
+X-Forwarded-Encrypted: i=1; AKwUvBxf01w0uN4jvDYBMy6FsOJ9f1cBXV+CVNduKLMmsaAaoEQr/wfuarwCF2NLQFEf3zEQ0piGPIXyCQtPvSw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uJdEfrYQyXNAiH+UTuNepsSGjf8gy8rtQO/UudFMCx4ZBlbbT
+	9tFbuzATJLthqsno8K8BimsGyrL9UbKhq4hIZmWw21pueD1u9wJjV2VzxklE5fOcs5Q=
+X-Gm-Gg: AYBFou12RH5YiBh5so61/7GQ+f6a6eBwm3wYyV8DuXD0wnJgYjW32I1c+1smjwQ0ndA
+	LK+ohTIupe8DBnOuneezj68FYC5GjFA3iRxiilapP3ytTapmFLWXE+1hWAXceZkc6//dsqXYlVF
+	8TuuFyqBpmm3obSFFMH25ZHDzib8r5R7NIayys7l4kod4T4q3J78OCEaLj99V52dJz2keU5iGpL
+	0A8WqerGK8MsAl0fqWMTxC/qbwoF95cpAgW38/KUjLF/4Lmy+DvEf0N2+AzkZ7JYciBpeocZmSF
+	QKhjtcZGs98i+IAOm5K/Cb+x0G6FheUl5C1hZrW2iViycukdGkYt0hvMHprVGPB3mcPWSUpOJua
+	pi7Ef/2kBdIJbjBzngd0eaqhS50DN/zj+hgDOWesa+sQ9z4u/ShGNeWEDqtr3aNTb4S7WvCAcGE
+	brunuE+6MnHDT9EhJKcLZWdmipjw9s9IZORzKj+cqmXKlA+R7F8DvQZ9aeaEBHZTgedmeb/hbVb
+	ajSFCZxscHYRTzHBCv+EdFBcFNWlN56Og8gNB1t6T5aWj5lZfV3ifdT7xD5ItHZj7dfQbv7LkL8
+	0vOrieA9gzp13qZPUjPcOPwvmDGk2XzEktVShxRilNlG5A==
+X-Received: by 2002:a05:620a:1d0a:b0:93b:fb3c:2d09 with SMTP id af79cd13be357-944217bfdc4mr3145520385a.66.1793892126628;
+        Thu, 05 Nov 2026 07:22:06 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.245])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d47c6f5esm481020585a.16.2026.11.05.07.22.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:21:44 -0800 (PST)
+        Thu, 05 Nov 2026 07:22:06 -0800 (PST)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:50 +0000
-Subject: [PATCH RFC v3 58/90] cred: let no id count across cells
+Date: Thu, 05 Nov 2026 15:02:51 +0000
+Subject: [PATCH RFC v3 59/90] ptrace: refuse PTRACE_TRACEME across cells
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-58-bc9095937a84@toxicpanda.com>
+Message-Id: <20261105-b4-cells-v3-59-bc9095937a84@toxicpanda.com>
 References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 To: Christian Brauner <brauner@kernel.org>, 
@@ -105,155 +105,56 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890935; l=5577;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890935; l=1373;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=YRL9PIkUyk5gNQ3+3Udiz5r37G/0gHdcwpaRJf5Tna8=;
+ bh=00kMzkixkwO1y9l5s18VmaAqC40wDdqwsB124NYHwSQ=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKPZ42+uYoQ/lM8DV2cOBFp67IB8JnwRWFq8idb7j7v4AggH5KqsH544xoqHvRORHX/Ikym7sKR
- EJkacmW1OFgU=
+ QORpRdpq0dXNEhf4GcQiv93YcGkFIz6GZ2Kg7DN1VWvJrL/dYNQ/C0mMbGKkSbRqj/ymkuqjY9T
+ s3DUVY4kjBw0=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-A cell with a single id runs with the kuid of the user who created it.
-That causes problems in both directions:
+The parent of a task that was spawned into a cell is the spawner, which is
+outside of the cell. PTRACE_TRACEME would turn the spawner into a tracer
+without its consent.
 
-  - The pid namespace prevents the cell from naming tasks outside of it.
-    But the pids of the cell are visible from above. So every other task of
-    that user passes the checks that compare uids, and can signal, renice
-    or limit the tasks of the cell. The authority over a cell is supposed
-    to be the cellfd.
-  - The parent of a task that was spawned into a cell is the spawner, which
-    is outside of the cell. With KEYCTL_SESSION_TO_PARENT the task could
-    replace the session keyring of the spawner with one that it controls.
+A traced task is not reaped automatically. It would remain a zombie, and
+zap_pid_ns_processes() would wait for it. A hostile cell could use that to
+prevent itself from ever being reported dead.
 
-The ids of two credentials can only be compared if both belong to the same
-cell. All the rules that let one task act on another because of its ids
-are now in one place, so the restriction can be added once. Add
-cred_ids_comparable(), and make every rule call it first. That covers
-signals and SIGIO, scheduling attributes and nice values, I/O priorities,
-resource limits, ptrace, moving a task in a cgroup v1 hierarchy or between
-resctrl groups, and KEYCTL_SESSION_TO_PARENT.
-
-It also applies to euid 0. Some of these rules let a task with euid 0 send
-SIGIO to any task, or move any task in a cgroup v1 hierarchy or between
-resctrl groups. A cell is a hard boundary for root as well. A cell that
-misbehaves can be killed and built again.
-
-The capability checks that sit next to most of these rules are not
-changed. A capability that is held in an ancestor user namespace still
-applies to a task of a cell for now.
+Refuse PTRACE_TRACEME if the parent is not in the same cell.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- kernel/cred.c       | 28 ++++++++++++++++++++++++++++
- kernel/cred_kunit.c |  5 +++++
- 2 files changed, 33 insertions(+)
+ kernel/ptrace.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/kernel/cred.c b/kernel/cred.c
-index 3aa1b1e3eade..72df625f8c99 100644
---- a/kernel/cred.c
-+++ b/kernel/cred.c
-@@ -577,6 +577,10 @@ void __init cred_init(void)
-  * Where it says so, a subject with euid 0 may act on anybody. That is a
-  * capability by another name, from before there were any.
-  *
-+ * It is also the one place to say when the ids of two credentials are not to be
-+ * compared at all, in which case every rule says no. They are not across cells,
-+ * see Documentation/userspace-api/cells.rst.
-+ *
-  * These functions only speak for the ids. A capability that does as well, and
-  * the LSM hook that goes with the operation, remain with the caller.
-  *
-@@ -588,6 +592,18 @@ void __init cred_init(void)
- #define CRED_EUID	BIT(1)
- #define CRED_SUID	BIT(2)
- 
-+/*
-+ * Are the ids of two credentials to be compared at all? Every rule below asks
-+ * this first.
-+ *
-+ * Across cells an id means nothing, 0 included. A one-id cell runs on the ids
-+ * of whoever made it, and authority over a cell is a handle.
-+ */
-+static bool cred_ids_comparable(const struct cred *subj, const struct cred *obj)
-+{
-+	return cell_same(subj, obj);
-+}
-+
- static bool cred_euid_is_root(const struct cred *subj)
+diff --git a/kernel/ptrace.c b/kernel/ptrace.c
+index c30e15d39c41..c6115922ea2e 100644
+--- a/kernel/ptrace.c
++++ b/kernel/ptrace.c
+@@ -508,8 +508,20 @@ static int ptrace_attach(struct task_struct *task, long request,
+ static int ptrace_traceme(void)
  {
- 	return uid_eq(subj->euid, GLOBAL_ROOT_UID);
-@@ -607,6 +623,9 @@ static bool cred_has_uid(const struct cred *cred, unsigned int ids, kuid_t uid)
- static bool cred_uid_match_any(const struct cred *subj, unsigned int subj_ids,
- 			       const struct cred *obj, unsigned int obj_ids)
- {
-+	if (!cred_ids_comparable(subj, obj))
-+		return false;
-+
- 	return ((subj_ids & CRED_RUID) && cred_has_uid(obj, obj_ids, subj->uid)) ||
- 	       ((subj_ids & CRED_EUID) && cred_has_uid(obj, obj_ids, subj->euid));
- }
-@@ -633,6 +652,9 @@ bool cred_ids_allow_signal(const struct cred *subj, const struct cred *obj)
-  */
- bool cred_ids_allow_sigio(const struct cred *subj, const struct cred *obj)
- {
-+	if (!cred_ids_comparable(subj, obj))
-+		return false;
-+
- 	return cred_euid_is_root(subj) || cred_ids_allow_signal(subj, obj);
- }
+ 	int ret = -EPERM;
++	bool same;
  
-@@ -671,6 +693,9 @@ bool cred_ids_allow_ioprio(const struct cred *subj, const struct cred *obj)
-  */
- bool cred_ids_allow_move(const struct cred *subj, const struct cred *obj)
- {
-+	if (!cred_ids_comparable(subj, obj))
-+		return false;
-+
- 	return cred_euid_is_root(subj) ||
- 	       cred_uid_match_any(subj, CRED_EUID, obj, CRED_RUID | CRED_SUID);
- }
-@@ -693,6 +718,9 @@ bool cred_ids_allow_control(const struct cred *subj, enum cred_ids which,
- 	kuid_t uid;
- 	kgid_t gid;
- 
-+	if (!cred_ids_comparable(subj, obj))
-+		return false;
-+
- 	switch (which) {
- 	case CRED_IDS_REAL:
- 		uid = subj->uid;
-diff --git a/kernel/cred_kunit.c b/kernel/cred_kunit.c
-index b3a54e8c565f..3921e8f2716f 100644
---- a/kernel/cred_kunit.c
-+++ b/kernel/cred_kunit.c
-@@ -9,6 +9,7 @@
- #include <kunit/test.h>
- #include <linux/cred.h>
- #include <linux/uidgid.h>
-+#include <linux/user_namespace.h>
- 
- /* Root, since two of the rules know it, and two others. */
- static const uid_t ids[] = { 0, 1000, 1001 };
-@@ -31,6 +32,8 @@ static void uid_combination(unsigned int n, struct cred *cred, struct cred *tcre
- {
- 	memset(cred, 0, sizeof(*cred));
- 	memset(tcred, 0, sizeof(*tcred));
-+	cred->user_ns = &init_user_ns;
-+	tcred->user_ns = &init_user_ns;
- 	set_uids(cred, &n);
- 	set_uids(tcred, &n);
- }
-@@ -169,6 +172,8 @@ static void cred_ids_control_rule(struct kunit *test)
- 	tcred = kunit_kzalloc(test, sizeof(*tcred), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, cred);
- 	KUNIT_ASSERT_NOT_NULL(test, tcred);
-+	cred->user_ns = &init_user_ns;
-+	tcred->user_ns = &init_user_ns;
- 
- 	for (n = 0; n < NR_CONTROL_COMBINATIONS; n++) {
- 		cred->uid    = KUIDT_INIT(1000 + !!(n & BIT(0)));
+ 	write_lock_irq(&tasklist_lock);
++	/*
++	 * The parent of a task that was spawned into a cell is outside of it,
++	 * never asked to be a tracer and will not behave like one.
++	 */
++	rcu_read_lock();
++	same = cell_same(current_cred(), __task_cred(current->real_parent));
++	rcu_read_unlock();
++	if (!same) {
++		write_unlock_irq(&tasklist_lock);
++		return -EPERM;
++	}
+ 	/* Are we already being traced? */
+ 	if (!current->ptrace) {
+ 		ret = security_ptrace_traceme(current->parent);
 
 -- 
 2.55.0
