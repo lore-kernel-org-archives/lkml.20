@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793873159;
-	b=ExYGL7gTZjExZmEoIpPJmz3iu3BCNMp/U/glD/jMKDNOxkQatJZEUqwJERlghvZ0neYH
-	 UHnJ0AO89lHjs3LSP0Wn0Uc0fnT06Rti0XirfJqPwKBeg3ML9ZJXvvdtmYUKC5k/BeV8W
-	 UkS+rmWdzMwt09tSDCuk+CQEIyy13pl4VsWz6V5CVOwovMlnhNxNrHxWPpeQMQx7KjBDf
-	 /roNpVnAL9BsmrO4xIx80R4qj/wxpzZFiu3BJkjgPgRaz/xuyEcwJpIRCtZJOwoxeTdF7
-	 UIF6mlbyHqPYnOPwg4ACeW7hWryKB5I+p8bcZrsULovOy+Wi2l15uVxH+fGAXfn9Kcg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873159;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YaMA+9QcOz8IOBAL6yfJDI+7D/mu2twW0lAxe70wvPg=;
-	b=mJ8rMQ4rwgEGldULp+yfwcwHYAhts9TBqo1oO9VaEtAz42dSewgVHMv+rXp3z3n2ndJB
-	 LVmRkIdHmRjFSXWlYbjnp0aQsmxhDCZMF5gBeOr8Eeue5XxojBSZuY1h5hF+xCCjyanzG
-	 SvsU+q52+qeXn/v8z1JUhxQhJFB9eoabilxicG5VmmsBtZylQXt968bfRyIR2M3Ta2IwH
-	 IV5M3ObDPdzkdUQv/MviioqvYCJJS7Zjem9Zih+0fWu/FXva08e6pZ1HAV4Zg8r77rDjZ
-	 loVCgPLPe4E25efhJFj3eDvdmG4VTkPxzro0TY5gU21pn9hBe2mX5Oc7fNV2F165eYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HvLV4KdX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.42
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010042.outbound.protection.outlook.com [52.101.193.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793873168;
+	b=J59UPIl7Lcn6lgbXWBwrM/N+5rOFcl7p/lGsfPq2UCk0VjzPKluliZpn+WXP3UrP07ya
+	 lIRiTySq0EW02P6IMQHmoutnMm5OP1n3JNn2SSy0gSDHg7lJsg89ZhrlH1b0I3eY66qQz
+	 bp1G1eLwkPimkQsdKZ9p/ZmHfuU/WJ0XWPe+qWzEXKDkRRO1lnkO6VIKYOyVQC9d1NZuo
+	 XnxpjWE3ptavDvfRRdKY8MY8tfTyqXCn1NDC+Li4UkjnwD8Frq51BiEEjYiQoKUzPvhKb
+	 HiBPyQsTRJiOHNNHdnrjM+56iaZpeVAcBvqFVM1X42ICfW4P5sfFAin6hZFplbXZOoA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873168;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 Content-Transfer-Encoding;
+	bh=nKJwSk/vDIrgiNZ7qnipZOqYuzA86E3ORIiz2b16MoE=;
+	b=JhenH+6ldeP3Q8qgq04iWmsPGz8YKjs7Qp5RXBP00CkemfFBeb4mKiqglcoEF54xEWPi
+	 BADjzndxS+u3ncaoYvl8IU8GoQ98f32+qPggS5G2pxmNC/Pvs5pPBKst/tz3SY2GU8Gev
+	 zZHvfFCfGKYQdHKDEivf9u5v39W2CX+YbNh1ULi6MAE2Brucq0sVt/bn896P2nrYSzZo0
+	 egp5IM17u49bXbcIEVzxZVnDZr58zdpeYutiNlA1LQN9TNkIa2BOI7qdwhmel65cT5WWY
+	 my+OhN+U2SPNNPZn2jy/gSTuiAICwYPc/d6KXyQBGpzvhrcYW5XcaLxfvdy4rSBLI9w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5Stki7i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F53A606D807;
-	Thu,  5 Nov 2026 10:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F53A606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F214606D813;
+	Thu,  5 Nov 2026 10:06:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HvLV4KdX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FXCKDJN58NrFUXYry81c3fO1sv4qY69Hi5tc19Xqyg+1odWXI1hYaYDnbI/lY6q2SwZz+b674+f+cQn6k1d03sPPuoFswcBM/yV4EWdJEyKtmVOVjNYp28rAz1+F8yttC8ry/Uvck3nDE40DHJWLhxRpyt+ZpQB5vvJ1gWeQP7L5eK9z2Jdn4zQSbdS5m8EHIbjP1wYoKyZMwuInuNzSQ0ffzjEA8sFICdqbFdXOn68eA0/RoSmoy05IQ3yc+tVor2mrWDC5Qwz/No4IGiDOK/XUm80adBBujtqO6xmtuwJ6X9Qt0SXRmqT053AGTsgcBftCDuEE2v5G7mExBGS+Zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YaMA+9QcOz8IOBAL6yfJDI+7D/mu2twW0lAxe70wvPg=;
- b=MDYNlucGGxSVelqTSClfhta2jJvG6oNOFXIcTkYS0g2PBKSCIv6v+kjrOGhRBQooy13bDiwSa1L/GJGMNM6rmlZEkLShncOMTRKQAmaJhRv2DJLnZuTpx4XsBPQeHiFDjnK08IRKBCop2vVPBRy6mVYDXziktCa5gVGw5h/A5JYrAEGfdKB/wXTIw/NH5uni2tPwvxv6eSXaqVFwS6IW/341XpX9Dd2dG6PxTZhQKYVfEATYhIG0UCKGfy1HT4Dz3miw0esMzvsSM2odpELpOvRWhgVkoU5QKia1PXp7cwPCr/Uzzc5msLZTbqpxi+7vGJJEmvIO+t3HdK94e8tRqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YaMA+9QcOz8IOBAL6yfJDI+7D/mu2twW0lAxe70wvPg=;
- b=HvLV4KdXdqWoil18tVLIiMcY2WDwYuu5HGXu/M87+vVksBExQeRULwtoMX3VBZ6dNEnzfhgyAmPz7PD7tkKwkYw4o1wXQCWQvDHWSkqzYUXwk/gdbRA/83OY9rh0Ws5A8/4l2yHbcAlassdNxU4JoK9Sh1MJlF5QJOhL09HXU7EG5pv6QXZvKmII6bf5lQJZ6JIRR7i9EVyg4jiqYUMZ7+m45uO5Oktj2Qimr9luhIqsR1iGRw33pXKM1ukaYoQFUW6FNshsZfyyAXcsA0AQP7qOEWIxT+h/VyvbYfT2VazSum5M3nt+cj8Y9kyoQGw6z9Q7rLVGiipVw63mhKHp/A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL3PR12MB6473.namprd12.prod.outlook.com (2603:10b6:208:3b9::16)
- by PH7PR12MB8177.namprd12.prod.outlook.com (2603:10b6:510:2b4::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 10:05:52 +0000
-Received: from BL3PR12MB6473.namprd12.prod.outlook.com
- ([fe80::778:72e1:e792:df81]) by BL3PR12MB6473.namprd12.prod.outlook.com
- ([fe80::778:72e1:e792:df81%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 10:05:52 +0000
-Message-ID: <4b02dc55-7362-438c-9595-19818a60cbf4@nvidia.com>
-Date: Thu, 5 Nov 2026 12:05:47 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH rdma-next] RDMA/mlx5: Free software WCs left on wc_list at
- CQ destroy
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
- Haggai Eran <haggaie@mellanox.com>, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maher Sanalla <msanalla@nvidia.com>
-References: <20261103-free-sw-wcs-v1-1-3885ce449012@nvidia.com>
- <20261104140106.GE478286@unreal>
-Content-Language: en-US
-From: Edward Srouji <edwards@nvidia.com>
-In-Reply-To: <20261104140106.GE478286@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0159.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::15) To BL3PR12MB6473.namprd12.prod.outlook.com
- (2603:10b6:208:3b9::16)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5Stki7i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4922E1F00A1C;
+	Thu,  5 Nov 2026 10:06:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793873163;
+	bh=nKJwSk/vDIrgiNZ7qnipZOqYuzA86E3ORIiz2b16MoE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U5Stki7iYP4jxqqKba2NJT3slr7UbNc+dG1ptFAwiVq+dC4MHPG6BYjHq9I2vppuZ
+	 knHcAi8g0KlIQofRS6hJhk2JIH8XCJ5lye4zrQQr8kTeZ5UAYhpeE1OHVllgdA6644
+	 7ty6CAEAMz/jWnxSff27ociGmEwwTvKfRjcZOnnRIWhNT27HsumGy0eyqH84iEe5xu
+	 NR5a8+M+mnCy0WAafJSFPf3n2OaCtfDGCqE4WAV6FZ1IQd8Q23SebocAkZ2aNWFRZw
+	 5T4AMbpyu+OM7uJgf8/yTnjliWyLTwPJmnLu6ATaUlwLLZsHRYGQFtbcbbbbF0T4sq
+	 fy2Vlng2VuTrg==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v13 05/19] PCI/P2PDMA: Evaluate ACS controls at the path divergence
+Date: Thu,  5 Nov 2026 12:04:36 +0200
+Message-ID: <20261105-fix-p2p-acs-v4-0-v13-5-3dd065907c3b@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105-fix-p2p-acs-v4-0-v13-0-3dd065907c3b@nvidia.com>
+References: <20261105-fix-p2p-acs-v4-0-v13-0-3dd065907c3b@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,161 +84,344 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR12MB6473:EE_|PH7PR12MB8177:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1d89ab2-7f4a-4c57-bd56-08df3b245fea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|11063799006|4143699003|5023799004|56012099006|261022075727099003|261021123027099003|261102124527099003|261021121427099003|261009223027099003|261022105027099003|261102123227099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	gqJQcwJWk2YlV0nxII1LL5JcBkpCjSObgl2kdODHmR4FdA8UgOw0+BTvlSQTkd3Hz+RgFj8uEaq0W3nR6ldjw3A396OIfLS9rDMC19HR2jgKzcVNB6MiHr6ALizQJUScPL7n0p6IOsm56qjgADehnPqkp2Ggs1joav8xaxEa9TVAo1vV2aOyVph869JJ3XKgv6o+/AmWBKX8Z/T/Y6tnGLwTFB9DFjy/tk4fVi+g71VKeyV2uiHZf2rfneCOar02NetCB987NdqtLtEmIXbYJlnKHm7Xkrkd0oBTCpOeu/2by2oy4x/Nd2qUXSWOa6spCO5DrdKVcPhL5M/kLblxpjsSiwBB/eqMl2wVDr51/sj9gW507Jt8biyGZI8owUdZchcvclsPLH/14jdAYytKMoTB1bvqxJc4XyvzM2IsZFz1BUyK+IO15w8NkC9Hhx5KqsH0IonN/6e6/dVkQQ71nJ/dg3z1IZPQ2Hn1nwSRHsujHEl1tiDwwuAyq8LEHXFJpdyrTGgWZ/olRhkQuYdwrQA/5uVLlrmI8ZxbCi0YhLiroupdcP933g3CwIehT1QIsF0XCUkDeJFJKE5m7zqrFEtIPkJvVHZYNBKD+7LyLBaoNhrhOvJ82vw+Y1unXciyRm+Zm5q5i3ZsiyXLv75WBkEUwFgTj7Fz7t8DO6O7zo8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL3PR12MB6473.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(4143699003)(5023799004)(56012099006)(261022075727099003)(261021123027099003)(261102124527099003)(261021121427099003)(261009223027099003)(261022105027099003)(261102123227099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bVhSV3RvODVoV1RPOE43c05ZNzRrNTk0VDRDSGZEc1FHSWtQbE5LZUZ6TzJn?=
- =?utf-8?B?MjNNVk9ISmwxNUFnLzJEZDFVbVNrcENPTGJGU2RVSWJOcVBaSTJMVkw1TnNa?=
- =?utf-8?B?dGhYV0htRTNFQnh3T1pycTM3UDNZOXRUUXZqRXMzbjZ0K0tMcmxCbHk2NVVu?=
- =?utf-8?B?M0s1cm9WR0NRTTVsejBpNVJ5SE9pUjduVFJnN0o2TkJyUzBGSkQ2djVCYzdL?=
- =?utf-8?B?OFRQTjFQTU1iQ1RRTGRDUC8wYUNjVkRVTFlOMUJZV2w4eVVFQUUvcDdrckNX?=
- =?utf-8?B?Q0tXM0Q3WDllOGZSa0RLUnZZOE53MW1KYU1PVkhoWUcxMlN1Y0FpZEF1T2xq?=
- =?utf-8?B?SUVvQ2NkTGw2Tm9KblJVUFlPQUN6eS9QbTZxaHRXdGJLZHpWVnZsZnRmRjhU?=
- =?utf-8?B?dkk3MHlhUm9DWWozcEhud0J4OHBLM0ZORUowcy9kTkdVT1F0d2RXMDA3WXFQ?=
- =?utf-8?B?ZnU4MTF5UGhuSHJZbTR3dXROWFc3U1N3OTlPbSs0dzFMVmlNUVNmbk1zRkdG?=
- =?utf-8?B?WEZQTGZ1WHFlalNrT1R6MGFqaDhMNGVtVU9ydS80SVZHVFJKdndlRDgzOEcw?=
- =?utf-8?B?MnBqdUZSYXM4Q2ZnRjJYaDNEdEZEUmFKWEhTZ0hNb0tZUndBMkdQRUh5TjBC?=
- =?utf-8?B?RmprcFZCZFlRZkt3TEdGMFRYeGFsYmRraHljbUluVGRuL1hzb2hNRGkzTHQ5?=
- =?utf-8?B?UFl0ZFJZR3dNUzhTWnhuNUNJN2xPY1FFWFl4OXVrcWY4S3Z3ZzdlNFBsNmZk?=
- =?utf-8?B?VGJRMDdqMG9FSldaR2dxZWpIc0czR1V2Y1RWczAyVlF4KytvUlV5em5wNW8z?=
- =?utf-8?B?aFMyTUdZN3lETFdSd2VUNmVCeTREZU1VQ0kybEcyS01LQ1dpcjBPY08xM2la?=
- =?utf-8?B?WEpIWTl6OXU2Z001SC9pYUNHWTdrblV3Zy94eXc1d0k0QjI2TVA4Uk9HOXFQ?=
- =?utf-8?B?czRtcHNSK3BRQWpMbHpPeFlIZ1Ixc2g0TmM3c1ZIb3lzek9FSzltNFdubUpE?=
- =?utf-8?B?ZHIxNjJ5aDBvak9BQjdGRFlMaitqN1k1NnRFdndzc01FNHFCU2ZOQzhpR2gw?=
- =?utf-8?B?aXVOd0sxdEhNMkNnS3pjdVZDNXp1U2Q3WUpKcVUxU0RBbU9kcUNhcFBYVTBC?=
- =?utf-8?B?T0U4OEZWekNURTQ5SkJtRFdmRS9LejlaeWR2MWlGSkQwNVlCNlFZYjFpWGFS?=
- =?utf-8?B?Um0yeDVnTW9kMUgvZ3pEVitsRTVZbjhSY3hSM2dQMEFCa3hEcmp0MnJ5M05D?=
- =?utf-8?B?ejJvQkIyVzdvWVEwRXptcDVyZjN2MmZGS2x4WnlNM1FjL1RPSStraER4L3do?=
- =?utf-8?B?UzAxVWRlTkU4NjNSMnlKZUdibzJIY1k3SCs4VHNyV0U1N3daQW85b1V0RUJ6?=
- =?utf-8?B?c2Zick84aUlqTkRpQlRnVUhEMHF4YVdQZ0NvUUZ5ZnFDVWx6a0xyNjFETmZB?=
- =?utf-8?B?dGtlZmF6bmVZSTh4QWdTL3RSdjV0S2g3alRmSDhXMDFsNG1EdWhVdHpKV3cr?=
- =?utf-8?B?am5Xc0RtTERoeW9jR3BoR1Y5dFJlZDY2VUdFUTdaVlNib2VFcXMvR2ZhUURp?=
- =?utf-8?B?MytuQjJVRzlDeHV2SmVJRUREQkY4TmdDRHpTcytEVklhWFlabDgraklpMmsz?=
- =?utf-8?B?OTBsa1JmWDdYVStmbFZIQnRtMEl4eVBlYkt3UzJxc0JvZmhlV1lnUjhqdU4z?=
- =?utf-8?B?MktUakp2UUluS0ltdUoraityWDU1YnAzdm1Nd0ZQbTJHTjNONDJYMTFZYjVv?=
- =?utf-8?B?enhmdHZlNVpXVktQdElaeWhSS09ldW1NWFZYNFNjYkNnUkljeFR6Tzc2azRE?=
- =?utf-8?B?NHd6ZzVBVXZYTmI3OGZlV1hEZWlSMkVWNnFOcCs0bVF5TzlYbVN1YklDM2lo?=
- =?utf-8?B?TmkzVyt3VlFHZVZDNFcvbHJUT2piNllzUmxBN2FCSUNSc3ltZ0M1NnNteitm?=
- =?utf-8?B?ck03MTEwZk54R1JvTWhEQUlmQ3MwODNsU2o0MlpJQlZtTnVKZENCVHQrZmg3?=
- =?utf-8?B?SXRjWXB0ZkQwejBtSS80SG9QRlZTVStMQUdTdUJmNGVRS2hieTd0S013UUt1?=
- =?utf-8?B?VEV0TVhwMkdpZVhXVHFyL3ExMTZWYW80V20zeEpaVGpGNGQ4Z3MrWVdjdXNp?=
- =?utf-8?B?aW5YTFdWZEVpb3I0M3dYUWt0MlJWdnFtdm1qNVVxYVFkYXBFaHZUQ3BQK3V4?=
- =?utf-8?B?UzNZdlZia1FLRjBsQnBWYlFvTEljQlM4dFA3YUxNUDZGZmpkeGRldFhoSFIy?=
- =?utf-8?B?M2Vxak9zUFlxZlo5Tmxmdm5NRFFCNGRvSXNBQlMrV1RxdlJ5RGJXWHI4Q2I4?=
- =?utf-8?B?N0xsL1Y5TDF3YXJVWlhVaFQ3dUdpVEdOTi9iM0twekFHUFZIUFNNdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1d89ab2-7f4a-4c57-bd56-08df3b245fea
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6473.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:05:52.6212
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DARL6XHklTvdVpg8loi9wRQkD9sVvBK/NGnqrC1OeEW+sWPOKf2bu79+DFBWdWiSO6Wdb0sEL6QETFO3NHwEQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8177
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
+From: Leon Romanovsky <leonro@nvidia.com>
 
+ACS redirect controls below the path divergence reject valid nested
+topologies, where traffic already has only an upstream route. Sibling
+functions can lack an internal peer route even with redirect controls
+clear, so ignoring their shared ports can incorrectly permit bus
+addressing.
 
-On 11/4/2026 4:01 PM, Leon Romanovsky wrote:
-> External email: Use caution opening links or attachments
-> 
-> 
-> On Tue, Nov 03, 2026 at 06:55:19PM +0200, Edward Srouji wrote:
->> Software WCs generated by mlx5_ib_generate_wc() are allocated one at a
->> time and linked onto cq->wc_list. The only thing that ever frees them is
->> poll_soft_wc(), i.e. a consumer actually reaping them. If the CQ is
->> destroyed while entries are still linked, those allocations are leaked.
-> 
-> Is this real issue? Just put WARN_ON(!list_empty(...)) instead.
-> 
-> Thanks
+Evaluate directional controls at the divergence and account separately for
+unsupported internal routes between functions sharing a PCIe link. Check
+Upstream Forwarding at every shared Downstream and Root Port only when a
+host route is needed. Reject unreadable controls needed for that route,
+and keep redirect advice when clearing controls restores a direct route.
 
-Yes, it's a real issue reachable on a normal device removal.
-E.g. ib_mad destroys the GSI QP and frees the CQ without polling it 
-(while it may have unpolled completions).
-I'd say that this is a complementary fix to 
-https://patch.msgid.link/20261008141209.6923-1-prathameshdeshpande7@gmail.com
-Before it, a pending notify_work still ran and polled from freed memory, 
-which was the UAF it fixed.
+Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+ drivers/pci/p2pdma.c       | 204 ++++++++++++++++++++++++++++++++++++---------
+ include/linux/pci-p2pdma.h |   8 +-
+ 2 files changed, 169 insertions(+), 43 deletions(-)
 
-> 
->>
->> Drain the list in destroy_cq_kernel(). Nothing can be walking wc_list by
->> then: the poll context is the only walker, notify_work the only thing
->> that can re-arm it, and both are stopped before post_destroy_cq() runs.
->>
->> destroy_cq_kernel() is also the error unwind for mlx5_ib_create_cq(), so
->> move the INIT_LIST_HEAD() of wc_list up next to the other list
->> initialisations, ahead of anything that can jump to err_cqb.  The driver
->> object is zero-allocated, and list_for_each_entry_safe() evaluates the
->> next linkage before testing the loop condition, so draining a wc_list
->> that is still all zeroes would oops.
->>
->> Fixes: 25361e02c448 ("IB/mlx5: Generate completions in software")
->> Reviewed-by: Maher Sanalla <msanalla@nvidia.com>
->> Signed-off-by: Edward Srouji <edwards@nvidia.com>
->> ---
->>   drivers/infiniband/hw/mlx5/cq.c | 13 ++++++++++++-
->>   1 file changed, 12 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/infiniband/hw/mlx5/cq.c b/drivers/infiniband/hw/mlx5/cq.c
->> index 55ffd7d4de517e6ce3f04c98b4edcd94b12e43b3..2f7ac350c3d8f179ad1d4d8c1181b93f3151c7ce 100644
->> --- a/drivers/infiniband/hw/mlx5/cq.c
->> +++ b/drivers/infiniband/hw/mlx5/cq.c
->> @@ -933,8 +933,19 @@ static int create_cq_kernel(struct mlx5_ib_dev *dev, struct mlx5_ib_cq *cq,
->>        return err;
->>   }
->>
->> +static void drain_soft_wc(struct mlx5_ib_cq *cq)
->> +{
->> +     struct mlx5_ib_wc *soft_wc, *next;
->> +
->> +     list_for_each_entry_safe(soft_wc, next, &cq->wc_list, list) {
->> +             list_del(&soft_wc->list);
->> +             kfree(soft_wc);
->> +     }
->> +}
->> +
->>   static void destroy_cq_kernel(struct mlx5_ib_dev *dev, struct mlx5_ib_cq *cq)
->>   {
->> +     drain_soft_wc(cq);
->>        free_cq_buf(dev, &cq->buf);
->>        mlx5_db_free(dev->mdev, &cq->db);
->>   }
->> @@ -1067,6 +1078,7 @@ int mlx5_ib_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
->>        spin_lock_init(&cq->lock);
->>        INIT_LIST_HEAD(&cq->list_send_qp);
->>        INIT_LIST_HEAD(&cq->list_recv_qp);
->> +     INIT_LIST_HEAD(&cq->wc_list);
->>
->>        cqe_size = cache_line_size() == 128 ? 128 : 64;
->>        err = create_cq_kernel(dev, cq, entries, cqe_size, &cqb, &index,
->> @@ -1102,7 +1114,6 @@ int mlx5_ib_create_cq(struct ib_cq *ibcq, const struct ib_cq_init_attr *attr,
->>        mlx5_ib_dbg(dev, "cqn 0x%x\n", cq->mcq.cqn);
->>        cq->mcq.event = mlx5_ib_cq_event;
->>
->> -     INIT_LIST_HEAD(&cq->wc_list);
->>        kvfree(cqb);
->>        return 0;
->>
->>
->> ---
->> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
->> change-id: 20261103-free-sw-wcs-8cf40aa66fd8
->>
->> Best regards,
->> --
->> Edward Srouji <edwards@nvidia.com>
->>
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index dbab955dcbdbb..abc26749eb5c6 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -531,6 +531,7 @@ static u16 pci_acs_p2pdma_quirk_redirect(struct pci_dev *pdev, u16 ctrl)
+ }
+ 
+ enum pci_acs_p2pdma_state {
++	PCI_ACS_P2PDMA_NOT_SUPPORTED,
+ 	PCI_ACS_P2PDMA_DIRECT,
+ 	PCI_ACS_P2PDMA_REDIRECT,
+ };
+@@ -566,8 +567,8 @@ pci_acs_p2pdma_completion(u16 ctrl)
+ /*
+  * Read @pdev's ACS Control register, with Request and Completion Redirect
+  * taken from its ACS quirk if it has one. A device with neither has no
+- * peer-to-peer controls at all, which routes the same as having them all
+- * clear. Returns false when the register is present but cannot be read, or
++ * peer-to-peer controls at all. Whether functions can route internally is
++ * checked separately. Returns false when the register cannot be read, or
+  * reads as all ones, which is what a device that does not answer returns;
+  * @ctrl is then meaningless.
+  */
+@@ -589,6 +590,68 @@ static bool pci_acs_p2pdma_ctrl(struct pci_dev *pdev, u16 *ctrl)
+ 	return true;
+ }
+ 
++static bool pci_acs_p2pdma_downstream_port(struct pci_dev *pdev)
++{
++	return pci_is_pcie(pdev) &&
++		(pci_pcie_type(pdev) == PCI_EXP_TYPE_ROOT_PORT ||
++		 pci_pcie_type(pdev) == PCI_EXP_TYPE_DOWNSTREAM);
++}
++
++/*
++ * Only use this for functions sharing a PCIe link. An absent RR or CR
++ * capability means that the corresponding internal peer route does not
++ * exist, rather than that a programmable redirect is disabled. Likewise,
++ * SR-IOV functions that support internal peer traffic must implement ACS.
++ * Use each VF's own capability, not its PF's.
++ */
++static bool pci_acs_p2pdma_no_internal_route(struct pci_dev *pdev, u16 flag)
++{
++	if (pci_dev_specific_acs_enabled(pdev, flag) > 0)
++		return true;
++
++	if (pdev->acs_cap)
++		return !(pdev->acs_capabilities & flag);
++
++	return pdev->is_physfn || pdev->is_virtfn;
++}
++
++/*
++ * Traffic redirected above the divergence has the same ingress and egress
++ * at every shared Downstream Port. ACS Upstream Forwarding must carry it
++ * toward the host instead of back down that link. Missing UF support does
++ * not establish a forwarding route, even though it satisfies an isolation
++ * query. Report unreadable controls separately from missing forwarding.
++ */
++static struct pci_dev *
++pci_acs_p2pdma_no_upstream_forwarding(struct pci_dev *common,
++				    struct pci_dev **unreadable)
++{
++	struct pci_dev *pdev;
++	u16 ctrl;
++
++	for (pdev = common; pdev; pdev = pci_upstream_bridge(pdev)) {
++		if (!pci_acs_p2pdma_downstream_port(pdev))
++			continue;
++
++		if (!pci_acs_p2pdma_ctrl(pdev, &ctrl)) {
++			*unreadable = pdev;
++			return NULL;
++		}
++
++		/*
++		 * Include Root Ports here. The PCIe port type check excludes
++		 * the legacy AMD southbridge quirk, which may sleep.
++		 */
++		if (pci_dev_specific_acs_enabled(pdev, PCI_ACS_UF) > 0)
++			continue;
++
++		if (!(pdev->acs_cap && pdev->acs_capabilities & ctrl & PCI_ACS_UF))
++			return pdev;
++	}
++
++	return NULL;
++}
++
+ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
+ {
+ 	if (!buf)
+@@ -638,7 +701,7 @@ static void pci_p2pdma_warn_redir(struct pci_dev *client,
+ 			 seq_buf_str(quirk_list));
+ 	if (pci_p2pdma_end_list(acs_list))
+ 		pci_warn(client,
+-			 "to disable ACS redirect for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
++			 "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
+ 			 seq_buf_str(acs_list));
+ }
+ 
+@@ -807,9 +870,10 @@ static unsigned long map_types_idx(struct pci_dev *client)
+  * If the two devices are the same PCI function, return
+  * PCI_P2PDMA_MAP_BUS_ADDR and a distance of 0.
+  *
+- * If they are two functions of the same device, return
+- * PCI_P2PDMA_MAP_BUS_ADDR and a distance of 2 (one hop up to the bridge,
+- * then one hop back down to another function of the same device).
++ * If they are two functions of the same device, return a distance of 2.
++ * A bus address requires an internal route between the functions. Otherwise,
++ * Upstream Forwarding must carry the traffic through their shared ports
++ * toward a supported host bridge.
+  *
+  * In the case where two devices are connected to the same PCIe switch,
+  * return a distance of 4. This corresponds to the following PCI tree:
+@@ -826,13 +890,14 @@ static unsigned long map_types_idx(struct pci_dev *client)
+  * then to Device B. The mapping type returned depends on the ACS
+  * redirection setting of the ports along the path.
+  *
+- * The client is the Requester and the provider the Completer. Check Request
+- * Redirect on the Requester's path and Completion Redirect for read
+- * Completions on the Completer's path.
++ * The client is the Requester and the provider the Completer. At the path
++ * divergence, check Request Redirect and Egress Control on the Requester-side
++ * port, and Completion Redirect for read Completions on the Completer-side
++ * port.
+  *
+- * If ACS redirect is set on any port in the path, traffic between the
+- * devices will go through the host bridge, so return
+- * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
++ * If ACS redirects traffic at either divergence port, return
++ * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE. If the ACS Control register cannot be
++ * read, return PCI_P2PDMA_MAP_NOT_SUPPORTED. Otherwise, return
+  * PCI_P2PDMA_MAP_BUS_ADDR.
+  *
+  * Any two devices that have a data path that goes through the host bridge
+@@ -846,10 +911,16 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 		int *dist, bool verbose)
+ {
+ 	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
++	enum pci_acs_p2pdma_state state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
+ 	struct pci_dev *a = provider, *b = client, *bb;
++	struct pci_dev *a_child = NULL, *b_child = NULL;
++	struct pci_dev *acs_unreadable = NULL;
++	struct pci_dev *uf_blocked = NULL;
++	struct pci_dev *uf_unreadable = NULL;
+ 	struct pci_p2pdma *p2pdma;
+ 	struct seq_buf acs_list, quirk_list;
+-	int acs_cnt = 0;
++	bool req_upstream = false, cpl_upstream = false;
++	int acs_redirect_cnt = 0;
+ 	int dist_a = 0;
+ 	int dist_b = 0;
+ 	char buf[128], quirk_buf[64];
+@@ -865,57 +936,112 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
+ 	 */
+ 	while (a) {
+ 		dist_b = 0;
+-
+-		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
+-		    pci_acs_p2pdma_completion(ctrl) ==
+-			    PCI_ACS_P2PDMA_REDIRECT) {
+-			pci_p2pdma_list_redir(&acs_list, &quirk_list, a);
+-			acs_cnt++;
+-		}
+-
++		b_child = NULL;
+ 		bb = b;
+ 
+ 		while (bb) {
+ 			if (a == bb)
+-				goto check_b_path_acs;
++				goto check_paths_acs;
+ 
++			b_child = bb;
+ 			bb = pci_upstream_bridge(bb);
+ 			dist_b++;
+ 		}
+ 
++		a_child = a;
+ 		a = pci_upstream_bridge(a);
+ 		dist_a++;
+ 	}
+ 
++	/*
++	 * The paths share no upstream bridge, so there is no direct path for
++	 * ACS to gate: PCI_P2PDMA_MAP_BUS_ADDR is not reachable here and the
++	 * request can only get to the peer through the host bridge.
++	 */
+ 	*dist = dist_a + dist_b;
+ 	goto map_through_host_bridge;
+ 
+-check_b_path_acs:
+-	bb = b;
+-
+-	while (bb) {
+-		if (a == bb)
+-			break;
++check_paths_acs:
++	*dist = dist_a + dist_b;
+ 
+-		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
+-		    pci_acs_p2pdma_request(ctrl) ==
+-			    PCI_ACS_P2PDMA_REDIRECT) {
+-			pci_p2pdma_list_redir(&acs_list, &quirk_list, bb);
+-			acs_cnt++;
++	/*
++	 * ACS P2P routing controls apply where a TLP can route toward the peer
++	 * or upstream. Below that divergence, its only route toward the other
++	 * branch is upstream, so redirect controls do not affect the path.
++	 */
++	if (a_child && b_child) {
++		if (pci_acs_p2pdma_ctrl(a_child, &ctrl))
++			state = pci_acs_p2pdma_completion(ctrl);
++		if (state != PCI_ACS_P2PDMA_DIRECT) {
++			pci_p2pdma_list_redir(&acs_list, &quirk_list, a_child);
++			if (state == PCI_ACS_P2PDMA_REDIRECT)
++				acs_redirect_cnt++;
++			else if (!acs_unreadable)
++				acs_unreadable = a_child;
+ 		}
+ 
+-		bb = pci_upstream_bridge(bb);
++		state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
++		if (pci_acs_p2pdma_ctrl(b_child, &ctrl))
++			state = pci_acs_p2pdma_request(ctrl);
++		if (state != PCI_ACS_P2PDMA_DIRECT) {
++			pci_p2pdma_list_redir(&acs_list, &quirk_list, b_child);
++			if (state == PCI_ACS_P2PDMA_REDIRECT)
++				acs_redirect_cnt++;
++			else if (!acs_unreadable)
++				acs_unreadable = b_child;
++		}
++		/*
++		 * Two children of one Downstream or Root Port share a link.
++		 * Use topology rather than slot numbers or the multifunction
++		 * bit, since ARI functions and VFs need not share those.
++		 */
++		if (pci_acs_p2pdma_downstream_port(a)) {
++			req_upstream =
++				pci_acs_p2pdma_no_internal_route(b_child, PCI_ACS_RR);
++			cpl_upstream =
++				pci_acs_p2pdma_no_internal_route(a_child, PCI_ACS_CR);
++		}
+ 	}
+ 
+-	*dist = dist_a + dist_b;
+-
+-	if (!acs_cnt) {
++	/*
++	 * Below a shared upstream bridge, a path whose divergence ports do not
++	 * redirect routes the request directly.
++	 */
++	if (!acs_unreadable && !acs_redirect_cnt &&
++	    !req_upstream && !cpl_upstream) {
+ 		map_type = PCI_P2PDMA_MAP_BUS_ADDR;
+ 		goto done;
+ 	}
+ 
+-	if (verbose)
+-		pci_p2pdma_warn_redir(client, provider, &acs_list, &quirk_list);
++	if (!acs_unreadable)
++		uf_blocked = pci_acs_p2pdma_no_upstream_forwarding(a,
++							      &uf_unreadable);
++
++	if (verbose) {
++		if (acs_unreadable)
++			pci_warn(client, "ACS Control is unreadable for provider %s at %s\n",
++				 pci_name(provider), pci_name(acs_unreadable));
++		else if (uf_unreadable)
++			pci_warn(client, "ACS Control is unreadable for provider %s at %s\n",
++				 pci_name(provider), pci_name(uf_unreadable));
++		else if (uf_blocked)
++			pci_warn(client,
++				 "cannot forward peer-to-peer DMA for provider %s upstream at %s\n",
++				 pci_name(provider), pci_name(uf_blocked));
++		if (!acs_unreadable && (req_upstream || cpl_upstream))
++			pci_warn(client,
++				 "peer-to-peer DMA with provider %s requires the host bridge; no internal route between functions\n",
++				 pci_name(provider));
++		else if (!acs_unreadable && acs_redirect_cnt)
++			pci_p2pdma_warn_redir(client, provider, &acs_list,
++					      &quirk_list);
++	}
++
++	/* An unreadable control or unusable forwarding leaves no route. */
++	if (acs_unreadable || uf_blocked || uf_unreadable) {
++		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
++		goto done;
++	}
+ 
+ map_through_host_bridge:
+ 	if (!cpu_supports_p2pdma() &&
+diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
+index 873de20a22475..dd17501ba1b6e 100644
+--- a/include/linux/pci-p2pdma.h
++++ b/include/linux/pci-p2pdma.h
+@@ -42,10 +42,10 @@ enum pci_p2pdma_map_type {
+ 	PCI_P2PDMA_MAP_NONE,
+ 
+ 	/*
+-	 * PCI_P2PDMA_MAP_NOT_SUPPORTED: Indicates the transaction will
+-	 * traverse the host bridge and the host bridge is not in the
+-	 * allowlist. DMA Mapping routines should return an error when
+-	 * this is returned.
++	 * PCI_P2PDMA_MAP_NOT_SUPPORTED: Indicates no safe mapping is available,
++	 * for example because ACS blocks the direct path or the required host
++	 * bridge is not in the allowlist. DMA Mapping routines should return an
++	 * error when this is returned.
+ 	 */
+ 	PCI_P2PDMA_MAP_NOT_SUPPORTED,
+ 
+
+-- 
+2.56.0
 
