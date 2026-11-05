@@ -1,106 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793897088;
-	b=neTY7iHllfy++p6MqCHTXZXc1P7nXkUU3bOJXSIS+OXCYsaaUFn9XFUIDIdfNF3Us3U1
-	 AXQzqz+4NBaHGZXypn001bj5HHLGyBD+Ep+9TJdMlPjdQMoo+8h8X/Iyg+ebpqA3J/1EP
-	 stgTMF+A/2ioeuedvRYIVEvkdglbjxbIjA8Vv7yuaqs1B68yF4GyQwxelCs2pPRC3cqRk
-	 Y+pP6e4Q1J8n4iRmQnWoKE9OwbDpTjwk15fnynQWLS8Lb1/6YheGXVk9BN/YaRGKaS6yq
-	 FStSusc2LPFYdW0/ibQLiSfvYACblxyy7hr+VPlT52M1l08d41IHx8gC8kJtcwz0r1A==
+	t=1793897102;
+	b=RO55BLf80Ws/WhNiroPY1wFQz7wEYpDCIoeodjs411OaOTQu6jtH/0ds8JevJIPwcAks
+	 GmILpKeTPzotcq+7R6Tx2m3NVByUEKhaf3ZX4sWtp5qXWoI6w/qOkOfw9Zn6ZxAXafH1+
+	 5HA9E6AYoq3yEgXG/bCW8xDiKmNf38O20SKa/ink+MHmDPwGrifeAJnVt/oe6aQyqj+nn
+	 cgTQ55Vkkoe1TSjoUWau6lYl35R+sekhGLcZ/bVJ9c4xh+MJh2wopu8R76vb+7uqahF8w
+	 s4x0eR/t23WZKDdKceWkQ3SO2TGXbCsRDHvE0wxzrBecgYykXJI1FXDCQXE1+3Eh3JQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897102;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:From:In-Reply-To:References:Date:X-Gm-Features:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZqMiJDrBp9dqyb3cO42U+9O+NQ7NWtABCad+4xnCfR4=;
-	b=tmFAPkV4nzJZ650dv5oxmWRqQQDdAEVto2JVkuk0KcowZWT65BkTcLdaRDsHGNNINfba
-	 W4VwG2jpurMZKIPSoYubHnR5u/K3MQnSNxD/9kZ4NJfAWaoNamhTnZt/hjAsY8wN68mo5
-	 dD3AAlJfWT4NNTW3ORha6rK/dt1ds1tTB+w7/F9xNm8fd+cs/VcY3ChU/qEa0mpPSuFd2
-	 yMHp2JjzymzysjBxMuafBMd/gJf4eMMqvjg1tAG6yz/SqqUb3ivyUmtvG29gTMRPCbM1B
-	 kp8jDYA/YBjAb7e2wy1HSZIPEI/L9hsee7LHjTycVqk67NMbqwxpbqCQVpIMKZV1aBQ==
+	bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
+	b=Ko0umcrPNcMPF6ZafbkLSDSzB56p2QahTbQ4rVQuc84vecefKCUSAU0wbPG1Tw0cDy3k
+	 VC8HNPx24jjuUvi/BNFhOuvyRko+sEj2KeJvKuzXaYs1rCwc6ze6rYIvAGw++ZVxzlPoe
+	 AJHul3zXUXPD87Btp9SrmRk6gtgClISal+K2BvPFaHXVrHAxfKmFq5nOwFSWMHlsHvuaH
+	 pFxfVqMsmoNvLh8BXkC4Tzy6kuPZYMkN8RzmxdnUCCO9tg7CBKzWtKk3BnGceGTF2hnJg
+	 u2WiMUWMIPD0Fw7uWe7IHx/b9scDlCntV3ZQutVYaXMXKZ4wgc5mxni4xOyIlxVjBKw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b01Rcwgg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GeWQn8+z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D92606A900
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0D92606A900
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3526A606A336
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3526A606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b01Rcwgg
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c169ae1cb26so144804766b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:44:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793897086; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GeWQn8+z
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9f6a16afcso70435ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:45:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793897101; cv=none;
         d=google.com; s=arc-20260327;
-        b=KfBIe7LsWtiDGwENb37oma+fau1DHMdTVOy37E/oJHuMOY1IeF7BRiXg7gELsIPo9P
-         dZ57oP8kXHEjfVVD2VNirBT97ilc1ufKzIZXubRbfueDpjrpDfQK+j8J731U/lwcQ62+
-         bAB0dEqxjaaRX5HOLZnvMObWbGW9SyjvnkoSZQEoSKAcfnKBC4YgLK18d8RgjCHC1r/b
-         3CD+oIVvkqTldWgcWCjT+E3HzgwzKJ+ziBx5VC7UOlkoJK0JcK7hakIIv2iarn+6bneo
-         vzQeOztW+AQXtirizoDEO4q2ZZBXf4jZC0AK6xwuQ8yfWh10NcytzonCt5NCcPqCTeCf
-         UBwQ==
+        b=Wu/HvvNAXaw5WIHBxxW08gihPC0iiCnm4jSkqKkrTmIAFD4uPnpwMnYgFT1cBn5MG3
+         xrjvP0Kq+j7OXqRlPeCN26D8oyaM1HDGMAsj9WG4UYwr1RySRco9BNqC6ED33z4OtKxO
+         RCNYpyDqEag07SgDLakS7ZR/DBXij62dqOOaOP9TKZzMXANfnNRw3LzFPVJPNm29lUkh
+         k00kSi/C2ul0hs/NrfBjvuNSh16ZAfCYFu7bxLzcuRXH1PzDOLW40EkNuZEKUw+B4VyH
+         jr1iI3VSREsp37PfsTnLYdwy//3dptuUqWHUGNwNEXQmqF/ag6Sb5o7ER8q3yZPGa/53
+         a3eQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:references
-         :in-reply-to:from:mime-version:dkim-signature;
-        bh=ZqMiJDrBp9dqyb3cO42U+9O+NQ7NWtABCad+4xnCfR4=;
-        fh=8LpqKqTLRrVaAHWrmnuOLTTE0qjOY9cxY9k96MxyliQ=;
-        b=h3Ca9PnG5ai/hPL/LNnWlySY5R8n9GobdxkE/PD4UFXxZDwIWDNW/vm9FSwCPhQyxH
-         qKsxOJnxWXNLcWM8W4vYi3ZYqrPOcOg774G6ic+LxorVvHZKCgqLW4W7i8cpC2PXM2fI
-         o9odCSY+XYbHrj7Ljdjq1PR0ZoguJA8LgPKW6+Zv1Dz0wQXAWaAgyogep2gftVCy+QWd
-         peCpCu2vukH+o220Q/wYLH5G+RA72nb4412dRgLGGGRNCPQFnE4oqYbqDlKGK5TeqeUW
-         rglF2jvJh7Umq8EwQBrYHmxxs1WN+8r2gKeLvzIX8CVraTQthNRoLNbNC5ce93GfyjE2
-         glZg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
+        fh=WsNJXEzcnUjFEeFD3eymHQcz/7JgGKYyWgOPN2NGrEk=;
+        b=V1Ssv+lV5DAFo/gUUrKm741D/Y3oVi+4TPqkWoKFOcvoip2BZNftjapSTdOW5p51JC
+         H7up4AKjS4n5StARstlk2epcX9aT9bJWKz2aBeIUP2Irlac4KVi4jgVTwVKZE9wU5DVi
+         5eTsPcq42rXK0kXltjMvcGiqAauZuuNoG0tXirJH/zUHNGYzbz75Q0BwxtINN36GpydL
+         WDZvh1cdzBrtOCzv9HD9rPfaFh/b3yKrpWG/V2l6UPLdMKiQvdQJ6urROG2sfjt1+QTx
+         sPT0ExJqceR5vFmU+XkRN0i9DqoWNBWg+bs1eXMalWw1KcwMVt23Su0CAQ/f8NOad/dV
+         YZ8w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793897086; x=1794501886; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793897101; x=1794501901; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:from:to:cc:subject
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZqMiJDrBp9dqyb3cO42U+9O+NQ7NWtABCad+4xnCfR4=;
-        b=b01Rcwgg4xzxHkoGJsC9MswRqBWrzkxTQNBAVtIkQfYjPLLvI2QKHgosecpsHrTcn7
-         PI8eXrcMKe0WT3HnhXDNHZit3ibYF1yx0BNyXAd8u0UqPg3XtBYsJQ/5CF6/utvJrC+2
-         V02saf/O3u2/Qyor9iPiSwa0zGX9TZYQFBfIR5sHVlzcxG1i6eAfa3wLJLzPu+OCJRQJ
-         9voFjAokw76fxBV2dnOXVZDaNbm0KYp5/dSdjPDMlORXFdzzLk+WHXYdgsqXwd18jLv3
-         ATgv17clGJnQmIyBQfYC0hSCMQq0Gr9gCoc7h6P/ST8O8rfRw3aitX7oDWM8U09hekDx
-         mcJw==
+        bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
+        b=GeWQn8+zTCHvUtarI8ppl7DxE2DxVhnh3Q3uJMcuo811/kyKqNIvbJWgM44d/Z1jcF
+         uxmZ4HtlFK3aSnR0TpKMlENeCTJ66Vj86SOJ0/Fdfh8t1Cj7stI7bnd17Zvp3zgU+34M
+         bzAZN7oAmeii/J8KUcDC/yM25/Sbdl7PX+ToYXi5fBWmc3IFwetmuW3nrnkHhPSIrke7
+         JMadU+uRc/vwrPc410zSBHmfVbJPQ8+Y7/0vOIJcm6g+X7vLsHIE7B3bIW/RS538Hi3A
+         MbXbLOH0GrIrlZHra2msMNU/Bx1iAwPKcy2ZsFUi7kZl5+78lIcdmYBOerALR38eOCI8
+         4SpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897086; x=1794501886;
+        d=1e100.net; s=20260707; t=1793897101; x=1794501901;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:references:in-reply-to:from:mime-version:x-gm-gg
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZqMiJDrBp9dqyb3cO42U+9O+NQ7NWtABCad+4xnCfR4=;
-        b=olg9+xW4a4pUTJyO8lGSHfEs6O3/f/ro5gEmrXqSG9DAhlrMKU5kjv3AI+qvIGEO6P
-         l+pmfGvvUn6KbE/b+elKuU6N16Ooovfu6lt5AtdSZn3J9vypJ5O1lnokZ4msiJQc2l4j
-         PJj6DKX8uXQjSpNe91xsd4uKn4iwn39KpGP6mQ9ElFjuVjuNQ+B9pTi6uRulUaeKodb5
-         2UaRc+TZJhwdf6i5GVSgrd7CpmiNBZT/0Nl/Z0d9/14c5kerXR4u6vs/Ir3qaESaCEF9
-         GfmSJBEGTCqW30puFd40TljcXvJ0c6BYiELumIpyRFFB6ce7O+JjJsByURb762PlPZUG
-         rdtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ8Qx7WCkJK0UXZKEHm/RGBStI6GLdbvcfREg894plfdw96iFKbzHutDVEt52vBYqIeje6P5YlsoksSWA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CHlKfI+Hfxc0Q4qGpOhnzijEfkZzXzEGz4lOezg18M0N4OGha
-	KMOSWf8l5xItnRJwI+rY3RdIftYRNfD8a7APeTTJNYas1ae9O3QhT6/To8bJoFsPw9Pg08EzXcq
-	NNafRmC6uxIKEgxuS6LcR39gNR7RaFfs=
-X-Gm-Gg: AYBFou2+fOrx+/l1vJep01LiiTYpvwfTFqa+UCzy3mH5EqpDjhsZBeX0/2XqYhA361r
-	HkKWPnS2NU/gc7HjQU7N8dC6T3UgrXYH9fU+qgMhS8elnCtSSiEfgAOG6ILvVF2+tNZ3y6hH3bq
-	IbhTL1vJSh0BNh9YzcTUkSYwUCb8Cqdc3Fa6C7Nb727pUqBMu6hgMreGmzIU/BYiJn7eOxgs5sH
-	xR+I1bTZriz2jpuUvyUCBAs8ly8IYGvwhR+xJmz7+Cixi+iRdpMGEUMiVDJMMHby7E7Bfo3WBx/
-	1s7OfRozuJMPKznO9YVPpoc/crepW9IB8ed+S2r985LiNNso9lDeoP13ZIBjvCzPVxLFiikaHK+
-	5bykxIvNFk26gvQ0UjDduHSzugavTrHqRdZn09bd4z2ugicJOl/ij9AKDDcEzyGzJEB1oq7LQt8
-	51/eoCXt5KRERHEiNut1h1zIiTPoiwDjNoWxeRoGmlZJk022SfnM5NhwC3Vj2TG4LiGOdARx0iZ
-	GTYKqdopVF/focTZQ==
-X-Received: by 2002:a17:907:6d20:b0:c2e:204d:9490 with SMTP id
- a640c23a62f3a-c4d206eeb04mr289874166b.17.1793897086336; Thu, 05 Nov 2026
- 08:44:46 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 5 Nov 2026 08:44:43 -0800
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 5 Nov 2026 08:44:43 -0800
+        bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
+        b=I5KVYoYSA6Lao9gr5cq6wJwhnmfvPZFK87Hov6HOL8nURCgwfw77XxwpK2c4MyfUwE
+         WL4fTrlL49a5csCziW1pKKPHYLGQSeg8Vf5biWRC1ekYgVpeeZedvoA7NZ2BXwBTCG55
+         PaK37162Kb5xdfRopyM5iB5yMCfc0/FxPF0HmTSksLKapEO/1qQi85/96i3e45BCWkBd
+         Y8QDN7OYxVomsIVUpzhb7sbRP0oq9qs5AFk/fECnsf6dsXM5xjLUF9X7+TUK0dU/0gZ9
+         bqQp2YNB0GLAflx/LzyEIfNBGCvriGtNHQZjbSG5csr+c9IRfhSIk6HTDnvtSunAzOIa
+         hOSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzCYdBDKwN9EIy5P8c6cZts5xtDtHZ5ZrG26LQh3+4ZcqQ+GZZGmgGdGQ6LFVNMcHSReDTCXCyz1JldkEg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pooXAJH9X25Ag/+jnAeqM9ChkZQScTwPI9lo3pgsXjzWoqgAo
+	a+8ZRM2vxXjK5DRyKQ/3P/qCFaZ85xbObK/QZyVsoBzRu2tGE+1ttGBG1P/ubFSG0CTkr8FX1Kp
+	LaamKhZcj/jGRN2xU2TsTniMBWR1Qbg1I1Xyt3f5KjwbmwfSxx0i+N6OO
+X-Gm-Gg: AYBFou2iMDukM0zj/OC0RJIhAqvwG2yE2FZAoSstfMcAYUBx0aeYFuZBJE23zMvl8de
+	rlYegPo47fts4+4tL+YMB36clktAmNPDyejZXGgC1fkmpwWxYFeOHFdfSxOcCMYRchEKoj4ED55
+	kKTB7/Uk/TDWSSztDaB94R9c1WwnMXnwIBXc++LpswuZsj4h0NBy3mcBQrMYXuA3cT2lUqQl9fi
+	dCAKFfkbfZo8lWCxhQntL3yPw81LSx4WqzZaQfuJ8KJFa/TaE0giLaQJFY1mlRthlwbkC2ZYSfO
+	LjzoWzE78XybCFlEJJtlZwa2BKSm0m2i490iS7cXpB77dKKeNqFcBp54nWp7AsaUJKFbjVABU09
+	4y1Ujjo4lWU87hIG/VLB/RdXDRnJhqT0aYP4JwaF5CeVrvbSl3CLg1pGWBj2CGazhzm8T39/70y
+	1qQ8TGzYGeDvCq1G5UyNzNYaA=
+X-Received: by 2002:a17:903:26c5:b0:2e6:344:7bb4 with SMTP id
+ d9443c01a7336-2ed27dfcd4cmr5295155ad.11.1793897100818; Thu, 05 Nov 2026
+ 08:45:00 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,140 +105,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Florin Badita-Nistor <baditaflorin@gmail.com>
-In-Reply-To: <CAL4WiirS2n23vb9qHUHX+xBWqjiiM2KzCoFR2dysEzdXrcFQpg@mail.gmail.com>
-References: <CADnh+D0zSzAyYCLo5cXU56o9X-P3RG3N2ix7ARPrP95d8sBXmg@mail.gmail.com>
- <CADnh+D3nz5aehxjvurK+Fv7gF6n4csMm-dFatvdMmg1fWdGSQg@mail.gmail.com> <CAL4WiirS2n23vb9qHUHX+xBWqjiiM2KzCoFR2dysEzdXrcFQpg@mail.gmail.com>
-Date: Thu, 5 Nov 2026 08:44:43 -0800
-X-Gm-Features: AclHuK8kDXY8JI8yzjWMA1cEKLPpuiBD7I5EcwcGty_AjuJnIHOuzNY_Tlbm3_g
-Message-ID: <CADnh+D3faqV0QBm5tnqpTCoU9ugX_5j0mbkzKae7GT0hhgOU4Q@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] tcp: avoid false bind exhaustion with odd-sized
- port ranges
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, ncardwell@google.com, kuniyu@google.com, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	shuah@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org> <20261102-work-procfs-bugfixes-v1-19-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-19-59422ed3e465@kernel.org>
+From: Jann Horn <jannh@google.com>
+Date: Thu, 5 Nov 2026 17:44:23 +0100
+X-Gm-Features: AclHuK-fnefOFLp1bzMgat_Ywl30iLttA2NtTvDkjZ9zj3bJEHqA_bwaqAGV1Yw
+Message-ID: <CAG48ez2XEE+U4iyhxB6b2Zm88Mj6a36iQX1=X6NyJtB4o6hJ6Q@mail.gmail.com>
+Subject: Re: [PATCH RFC 19/38] proc: resume readdir after the last name it returned
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Eric,
-
-> Please mention the side effect: with an odd @remaining, the wrap
-> (port -=3D remaining) flips parity, so the first scan is no longer
-> restricted to odd offsets.
-
-Agreed. I will state that wrapping an odd-sized range can select ports
-of the parity preferred by __inet_hash_connect(), while even-sized
-candidate sequences remain unchanged.
-
-> Also note that __inet_hash_connect() has the same rounding for
-> netns-wide ranges, so connect() still misses a port there.
-
-Understood. I will make the scope explicitly bind() allocation only.
-The netns-wide connect() behavior remains unchanged; I will not suggest
-that odd-sized namespace ranges are fully handled.
-
-> This has been there since 2016 and needs an odd-sized range, I would
-> target net-next and drop the stable Cc.
-
-I will retarget both patches to net-next and remove the stable Cc.
-
-> Both patches are mangled by your mailer [...] Please use
-> git send-email for v2.
+On Mon, Nov 2, 2026 at 3:26=E2=80=AFPM Christian Brauner <brauner@kernel.or=
+g> wrote:
+> proc_readdir_de() counts the entries of a directory and resumes a
+> listing at the number getdents64() stopped at. The entries are sorted
+> by name, so one that is added or removed in between shifts everything
+> behind it by one. Listing /proc/net/dev_snmp6 with a buffer that holds
+> ".", ".." and "lo" and adding a device whose name sorts before "lo"
+> makes the next call return "lo" a second time. Removing one that sorted
+> before the position makes the next call skip an entry instead.
 >
-> Also, please trim the cover letter to the problem and the test
-> results.
+> Since commit 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()") an
+> entry that is removed while it is being emitted also ends the listing
+> right there. pde_subdir_next() finds nothing after an erased entry, so
+> proc_readdir_de() reports the end of the directory and the next call
+> resumes by number, skipping another entry. For /proc itself
+> proc_root_readdir() takes that as the end of the static entries and
+> moves on to the pids, so the rest of the static entries is missing.
+> And if the position is behind the last entry when a call starts
+> proc_readdir_de() returns 0, so /proc then lists no pids at all.
+>
+> So remember the name of the last entry a call emitted in the file and
+> resume at the first entry after it, like kernfs resumes after the node
+> it stopped at. An entry that was removed while it was emitted is
+> continued after by its name as well. If the position was moved by a
+> seek in between the listing counts from the start like before.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Sorry for the malformed patches. The raw Sent copies applied locally,
-but that did not establish that the copies received by the list were
-intact. I will use git send-email for v2 and verify the received copies.
-I will also shorten the cover letter to the problem and test results.
+Reviewed-by: Jann Horn <jannh@google.com>
 
-I will allow at least 24 hours from v1 for further feedback before
-posting v2 as a new thread, with a link to v1.
+> +static void proc_dir_cursor_set(struct file *file, struct proc_dir_entry=
+ *de,
+> +                               loff_t pos)
+> +{
+> +       struct proc_dir_cursor *cursor =3D file->private_data;
+> +
+> +       if (!cursor) {
+> +               cursor =3D kmalloc(sizeof(*cursor), GFP_KERNEL);
+> +               if (!cursor)
+> +                       return;
 
-Thanks for reviewing the change.
+(For both this and the proc_sys version, you could instead do the
+cursor allocation at the start of readdir() so that you can return a
+proper error if it fails, but I guess it doesn't really matter and
+that would complicate the code a bit more...)
 
-Florin
 
-
-On Thu, 05 Nov 2026 12:17:56 +0100, Eric Dumazet <edumazet@kernel.org> wrot=
-e:
-> Le jeu. 5 nov. 2026 =C3=A0 12:04, Florin Badita-Nistor
-> <baditaflorin@gmail.com> a =C3=A9crit :
-> >
-> > inet_csk_find_open_port() rounds the range length down to an even
-> > number but keeps the original exclusive upper bound for wrapping.
-> > For an odd-sized range, the two scans can therefore miss a valid port
-> > and return EADDRINUSE while an eligible port remains free.
-> >
-> > For example, restrict a TCP socket to IP_LOCAL_PORT_RANGE [40000, 40002=
-]
-> > and hold explicit binds on 40000 and 40001. bind(..., 0) always fails,
-> > although an explicit bind to 40002 succeeds. Both IPv4 and IPv6 TCP and
-> > MPTCP are affected. A namespace-wide odd-sized ip_local_port_range can
-> > also trigger the failure without a per-socket range setting.
-> >
-> > Keep the full length for the scan bound and wrapping. The two scans
-> > then cover every candidate in an odd-sized range, with at most one
-> > repeated candidate when exhausted. Even-sized candidate sequences
-> > remain unchanged.
-> >
->
-> Please mention the side effect: with an odd @remaining, the wrap
-> (port -=3D remaining) flips parity, so the first scan is no longer
-> restricted to odd offsets. For odd-sized ranges, bind() will now pick
-> ports of the parity __inet_hash_connect() prefers.
->
-> I think this is fine: same-parity netns ranges already trigger
-> "ip_local_port_range: prefer different parity for start/end values",
-> and __inet_hash_connect() ignores parity (step =3D=3D 1) for per-socket
-> IP_LOCAL_PORT_RANGE. But the changelog should say so.
->
-> Also note that __inet_hash_connect() has the same rounding for
-> netns-wide ranges, so connect() still misses a port there. This is
-> fine since the sysctl already warns about this setup, but the
-> changelog should not suggest netns-wide odd ranges are now fully
-> handled.
->
->
-> > The issue was triggered while developing port-range selftests with
-> > Codex assistance, then confirmed using userspace reproducers on
-> > unmodified kernels. No kernel instrumentation or fault injection was
-> > needed. Booted x86-64 KVM kernels were tested against the regression
-> > selftest, the full ip_local_port_range suite, and a Go net.Listen
-> > reproducer. The Go reproducer fails 100/100 times per IP version before
-> > the fix and 0/100 afterwards with a three-port namespace range and two
-> > listeners occupying its first two ports.
-> >
-> > Fixes: ea8add2b1903 ("tcp/dccp: better use of ephemeral ports in bind()=
-")
-> > Cc: stable@vger.kernel.org
->
-> This has been there since 2016 and needs an odd-sized range, I would
-> target net-next and drop the stable Cc.
->
-> > Signed-off-by: Florin Badita-Nistor <baditaflorin@gmail.com>
-> > ---
-> >  net/ipv4/inet_connection_sock.c | 2 --
-> >  1 file changed, 2 deletions(-)
-> >
-> > diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection=
-_sock.c
-> > index e56beec43..755fcea35 100644
-> > --- a/net/ipv4/inet_connection_sock.c
-> > +++ b/net/ipv4/inet_connection_sock.c
-> > @@ -343,8 +343,6 @@ inet_csk_find_open_port(const struct sock *sk,
-> > struct inet_bind_bucket **tb_ret,
->
-> Both patches are mangled by your mailer (wrapped hunk header here,
-> wrapped diff --git line in 2/2), they do not apply. Please use
-> git send-email for v2.
->
-> Also, please trim the cover letter to the problem and the test
-> results.
->
-> The code change itself looks good to me.
->
-> pw-bot:cr
+> +               file->private_data =3D cursor;
+> +       }
+> +       cursor->pos =3D pos;
+> +       cursor->len =3D de->namelen;
+> +       memcpy(cursor->name, de->name, de->namelen);
+> +}
