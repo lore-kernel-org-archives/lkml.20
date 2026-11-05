@@ -1,110 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893610;
-	b=DpNEYK8VlH2VYYP/YGD/LSo0ykAvvQaJMvUuodQ8KycobooDdJxDG0Dt62Hr5kPmIFiM
-	 mLNI/uKUpLaWzv0S/hzrVootLw1EdZN/ofnekGFi0Rj9Gr3FAXAkVI+koUmBdIA+lZ2sa
-	 uGNoKj6NEQSFoiQfJ871487Lp3ssJUpE5ksnS/SCxN8m5tZ3ybAsjJQJBNVAMAHaaBsZ0
-	 3XJpqv3jcXVhD0L2u1XtwV/efJsityc/OFW+80tmp6dfK3TyWRuCSiHWqkLZz6y3gJlWk
-	 rkGm0PUFFV6jXAaa6ZH1cvnyx0KhwItZZqP0MyyerTer/8eLi2JNpyrsAwD6WI2m9Gg==
+	t=1793893625;
+	b=0Eb0tsEsxaKOw0cNhf+Wr07YX2xb0yzQ2Uad98H6rH89cGG9zam4DYcOrxhE9WR8kq05
+	 qIwfI30G/M0x2Ji+M0Gf2DHPeoDeGd9Wd1M9doCVajQ7lSv4awHk+LXHrGRRI4L5gar0N
+	 hRYUy03/hqkt7Z/rhDm2X7URWrPB1weQTl2A6tMy1h46eYiSWnOevMJ2Hqp6f1+mkALY+
+	 KbBX3tFOwsLeJsaqyTidi4+d4Ai4XIdXCGBagwLUEnOtUdbTuZJ/XJBYj5yUi7EsOYEtl
+	 ChxIyTJEAMrcg8CLCKNWYEfzXT6GLHhhv1Iai7C9wxCUO7kxU0PJbnc2r+Dx51kWvcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893610;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=RN+WEUPp4KINOTOtwDMjWGbdxhennDprUx1GDkbGW6I=;
-	b=hjVYtNiJMqDAYwki3+BqmNA3yNeGe+v8TZeDWZU3DC8USwXVZlIAou/lJLXyd7j8XQ3s
-	 KmuK8YPLQ1YUYb6GPYg12fvMvtD/HPmgo66bBjM4b/Xz7CfIZl1IW8fbNHuDWFcL3gPA5
-	 el4udyFC/6YJIJprpivOq0Y30pJHuz6d7orJSlGr+gOxA6qAE7IT7oPZsJ7J4AWynrtLP
-	 0SdsDIs9U6YotyEUTbU6eWMgqh/hm2pR8dR5bo1SmzY1wi6hW6W33Ul00pj6hTLgYsm2I
-	 BjxbVuhoTwIFw2M/8ib/tfWrH3JZssh1p/H0whwq4PlkdPNcBOWnbaSyIZE0eL6V+DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893625;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=O6bILW/g/kskdNqu+4aAR8CuG+uu0iXCPuKUviAfh1g=;
+	b=rTEhhWoz0V0hOvkExyrLYq/ye8Beco4eFMgW6KNnATpn2ahjPox5lSQcUaZ/IywIm1WD
+	 cADT/LsqbsDklcg7NdJ8jsVe0PXliPK7msKdljcdB3RqChc3mCgNaiGQBRa39Ee6ixf4T
+	 IpFzvPiycyugC4mohIFcnAFcPjH4zmmoZH0xNm4rRxI5GZ1X8WJd+q5ErOdznjXFDLRjT
+	 TVJYsiUqNK91JAQxEXld3xtdxYE6pzZj0Mt5yx7lzUh81xvVNZc9AbWP9doqq2V3NF/iH
+	 wrUqYYnnm4BJ/icCIpt64Gs6ol1bATnv3lLJ2s3TSpr8xhvNhtJxsaBzgSStggOZYXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UbgLQfmH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NeiuGTIc;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=d+7efhlJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488E6606A332
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 488E6606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2352C606A326;
+	Thu,  5 Nov 2026 15:47:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UbgLQfmH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NeiuGTIc
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQLkK687357
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:46:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=RN+WEUPp4KINOTOtwDMjWG
-	bdxhennDprUx1GDkbGW6I=; b=UbgLQfmHay1X+yLkye7NquJWqU5e0T0xMorbpE
-	74Ttkk3IcQCJZwuOfogWU5uXpQKh/oTjnd9cYKbq0bW3rj7XRJDB1tZ3CpwtycAn
-	BeZOC//LnRvrAnZ7u7FlUyDLOuQE25ubJNXpbEIEMIOuxl9/M6/W2+Bnm4XSIBze
-	oKceZdEID2DXR+k+W5EFVf+Hvo37clM7+TRhEM17pGLdFGC7JxfxvzrXcijSkJVf
-	8N9YDYYc5R92tCaQ3JJPnfznxFcQ46sztjBN6p/+92aE6IAAnFuQSQK35wbGUo5c
-	hqnW/zSD2V0yeutOmQorrudVCg5uwEG31yCLMWNzjGuuCVHw==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrq1p1nb2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:46:49 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc23a549a9so1581121137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:46:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793893608; x=1794498408; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RN+WEUPp4KINOTOtwDMjWGbdxhennDprUx1GDkbGW6I=;
-        b=NeiuGTIcDa0UFX5v82P4oZ0WJu5KVbWMNDs3GR2L8p1fx7zZcZyrjB6VxrX5NUCB6N
-         eHdIDgVXXkiHUpu6/FHKgtE9FvhR1ig7GAEei4+MFiIheIGXYrapXFX15FlVWRgUG008
-         2JtuIba77h77V4H2b045mwUGoFGTyholICVyAuLpku78CVH/5uzpOSWqUxixZjXm1aqV
-         ud5eIyCvvoXAf0VVQ7jcyQCeBiFkBfIZepROugkZ1Akwv7wapLoXaNuxQrFLGqLra3Zt
-         caoI1dEF1whJDIBvf8nDVFBbw7CZPUdJdtoHxPakiSdkasof596lWyN2l4HiqYj0sYe9
-         h5GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793893608; x=1794498408;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=RN+WEUPp4KINOTOtwDMjWGbdxhennDprUx1GDkbGW6I=;
-        b=hVTmifzHMqGd1d1Lc1/mAnUgj0yLZuy6zA5Vcv8ANgp+AKiq+2KpSAmrItL61sVYhA
-         WTStwkQ6OURkmp8iaBJaHdpIeKrEXXm6Uaid+9ln4w7wNn4fnSELoFxMH5Js7y8LdvaF
-         w/us3bGGAVNMJNUYst1zRPpjJsSysrqlecIzO09jPx9Gw7y44yhyqGxttJckvkxK9t8g
-         iUbjFJEumBQeGhDGgIxLFqpf6BJ3eQTQuCy4YcjGWE+LnwyjE7BaXJIJFvirMDiNTg2d
-         c8CmIW+V8zzVjDJtCr/ZSeCInB07EWhllwE4Jnhb5zJ1I9GRUGMJAYBcpgt0wOBw3eMg
-         +19w==
-X-Forwarded-Encrypted: i=1; AKwUvByqRxIakpB6+YYGVZhTpBd46fYHeRwm7rRDBeKJcE3+L1K+Act4iE2QM/qPNn7xC/rsmVbpZPn5PrCNiUo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9f1zwHu0YkhlAJUdvJE9ZjHCX99urg45zjKu3j+WP97rUwDKs2
-	8qbKvEfEcwno0s3wQUliTz6KZVQhBIvG8K4iENlVCJJfC38Y6ToLduXTCEhq6/Y3BxiTCKWlPxJ
-	R4RR3cXW9eYxaorLKqWaKruTYRcwkELxxyJD87qTXP6Iqo8h65cEcETVf42I5VScMDwQ=
-X-Gm-Gg: AYBFou3fx7xpyI1h2HTlsafvcyZ/pMqFm9xb1K7IdfX2Zb1Zzpfkmut5k4y8pZ2Ds7n
-	al88WAmN9j6MacF+tJjLk4+J9kOCPYA5zLy0gOy1dUoYQbqSUFiAsbs+Ybc6zik1r+hfH4kD8ID
-	8jIwOiG7a6pgvzvUc6K/OD3iC3BpTsgE0wtgFwxi61YW4vrXEGXY/Pqudt149m98WzbX4SgVDiU
-	/oAXXRHqDGjPnfF6YkDz9z7mOI36caQRVOnLDoaf4LDPWhKeB5pWlvy6OyXbMhD33UwNt6enhOE
-	y6MxIzBSRBdinD1GpcSIZP3DlDrRtmiwhhfN7TwXCubEVvIQGD/Bncln8nMKONWMX4qvwuVDdW/
-	WqARqONgdF2ZLbAXB2Yuqc9vSbD4sxL3WiBJE0+VIOzV3n0ee/kaXbHuuGlDJGhVR7b7BGLJg3q
-	qlPQ==
-X-Received: by 2002:a05:6102:8099:b0:7cc:bc0:b2d0 with SMTP id ada2fe7eead31-7d072d59168mr9324561137.33.1793893608507;
-        Thu, 05 Nov 2026 07:46:48 -0800 (PST)
-X-Received: by 2002:a05:6102:8099:b0:7cc:bc0:b2d0 with SMTP id ada2fe7eead31-7d072d59168mr9324517137.33.1793893607880;
-        Thu, 05 Nov 2026 07:46:47 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda1fb0esm10717936f8f.49.2026.11.05.07.46.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:46:46 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 16:46:45 +0100
-Subject: [PATCH] power: sequencing: fix serdev controller reference leak
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=d+7efhlJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8F81F000C1;
+	Thu,  5 Nov 2026 15:47:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793893624;
+	bh=O6bILW/g/kskdNqu+4aAR8CuG+uu0iXCPuKUviAfh1g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d+7efhlJvucg2rMp+tvbuEYTiu0sUslTsSso0++OPPE2I/wO3aQKhkMulDIcEkKAQ
+	 JoedLjUPeKwcvcvajcOpZ6An2KIeob+dXkPxVIbyWtAYFBYiImHULDhB1Qr/8sFfNs
+	 3L4q8oi9OpCvAw1Iu9qBTKZiQevPMtGXBHxlYUhk=
+Date: Thu, 5 Nov 2026 10:47:03 -0500
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Stefan =?iso-8859-1?Q?B=FChler?= <stefan.buehler@tik.uni-stuttgart.de>
+Cc: Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [BUG] kernel.sysrq sysctl race condition(s) / list corruptions
+Message-ID: <2026110537-earmark-surgery-163d@gregkh>
+References: <ece93045-3df5-4645-8d3e-bc8392c45ed6@tik.uni-stuttgart.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,120 +54,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-pwrseq-pcie-m2-serdev-ref-leak-v1-1-e2e022ca17ec@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOSk7GoC/x2N0QqDMBAEf0XuuQdJICH4K6UPYjZ6aG2agBbEf
- +/h47DMzkkNVdCo706q2KXJZ1Owj47GedgmsCRlcsYFa43nctSGL5dRwG/HqifsXJF5xbBw9s7
- CxJB8jqQnRRf53YHn67r+lZkypXAAAAA=
-X-Change-ID: 20261105-pwrseq-pcie-m2-serdev-ref-leak-f521e086d5f8
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2168;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=blvW7P+vdcHikV9wkNkqbWJ4eKvSI0rN+D6MuijpqgY=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq7KTmd1rI0vmNN85k0PZmqXGbQ8qWCS5DLVv9q
- J9gq1Xa1vCJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCauyk5gAKCRAFnS7L/zaE
- w94KEACA5RwVkTCGlBgYEPF7sW4hDzlNdX/Mkg8SksT9dCIa2v3O3WNBupuy8rIxu3W5/cuYUw1
- c1dzdVJMZYqcH4Mb6pCinkkd5z5+lduqTNLSXtIHVjpiGFL2Ex5lTF1aloa+9FWz1RoHIquisyY
- R/BFEBZ9cyUP39Yx00fnQqnNcgtZwhvcx80PhXqQusGEr2Y9KwzPc3L9GO3OFE7U4WBR3nrB8G+
- 4p/ooTTMIJl0yif8KQXors2F0zY/vrLHA4yQyAYiLxoKFck2iSdhu/v75WkX/Li0HMWwx1TjvrJ
- I53v/UQiSfMbWyXATm81qIG8BE188YjxHnlbpowxF1Imif2MuAUUnQUKJb31t7sAhfVdzF3lNet
- meCGbN2bamOhRr+2qtOAmf1QgX9GhUFbLWvP9olvER/nL7JsvrdQrvVFUVMUp28UoWyye98u+CH
- 7oqg5T0ge65lwSLsI3DHbMwXLXDwBehf3ypoQ9lq3j+BqJskzc+yi1SHP+J4olgkQxJ9xW9xG2k
- CV5X3Je2nLPFedDOGnIddzjBXP5Dk8D7WBuwVO6Bf9pRH0q4vUjdIbHGD60Gdss5imJnno85qJG
- r12NIf1dbaegpiWbhdb0YRvV46DzaLJdG3iXkZjH0ReHkXBKAhn2Tgukz7k20QTiilC/vRh/vbG
- qzC+9B+9xzd1EwQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Authority-Analysis: v=2.4 cv=AaYkjHXG c=1 sm=1 tr=0 ts=6aeca4e9 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=vvZYVk8vaF1dF-lsgB0A:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MiBTYWx0ZWRfX5UKEBE/mf6nh
- d9IhqH+KwuwK2mdv9LZkxLAYkOCNHf0SHzavTE/dkyKnPdHkrWlQb3tRGZH1XKER3LOWgaHFsBS
- vC1HIX0KYACGUWnyyhZcOPOWTb3LLzd6ok0WXXN1Rgfjjs8cDs/pM6GkQTfOwvmP0RxkbyfiyqL
- KeqekSt4J1gKFGxGA+KrncskitH7u0tVcYQ2nJvrOiaq2JUW4sZfeEL6xKSxsTU1JHLE9GPxo7Z
- BYniN19CT0Uj5sDfvt66UnT/vq45ULwBeGAx3/Zv6aXYdg2R9nX8U8+a+WNcDelQVBoAa5R0JBl
- kzeQ7PPfKvLKf8MYIKmSiF1IOu2v8eoQHpb5vddQAoOBfx049i+IV5G8jY7PUyyJvHWDiqOcql3
- seKVRoSesDgcgzF/rD8Yj48LrizcRwEB9VcZJcyM3y8w3vFTL/cA1cqgP1f2D1DKZ0XIyqw+4YA
- hxDXzbCiv7YG+sFNyvA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MiBTYWx0ZWRfX9pxl+gnezEuq
- O64h9XCqtQY4SMvcbHJxiVxy47oHgx9C0poQZyUmebcNuaYwonjW7BffuSPlrqn7NQPgbefFfLZ
- J0N4e6AFXGD+67/lWC/JZufYdWbMeHc=
-X-Proofpoint-ORIG-GUID: DegLhAJUfD_BUkAPwUvEDYFKe8ersLJB
-X-Proofpoint-GUID: DegLhAJUfD_BUkAPwUvEDYFKe8ersLJB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0 spamscore=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050062
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ece93045-3df5-4645-8d3e-bc8392c45ed6@tik.uni-stuttgart.de>
 
-In pwrseq_pcie_m2_create_serdev_one(), if serdev_ctrl->serdev is NULL but
-pdev is already tracked in ctx->pci_devices, we return early from the
-loop and skip the serdev_controller_put(), leaking the reference.
+On Thu, Nov 05, 2026 at 03:29:54PM +0100, Stefan Bühler wrote:
+> Hi,
+> 
+> we have `kernel.sysrq = 0` in /etc/sysctl.d/, and run `sysctl --system`
+> multiple times, possibly concurrently.  This week I found the system in a
+> weird state, and one `sysctl --system` process that couldn't be killed, with
+> a "list_del corruption" in the kernel log pointing to
+> `input_unregister_handle`.
+> 
+> This was on a debian stable 6.12.115+deb13.1-amd64, I think the most
+> interesting part of the logs is:
+> 
+> ---
+> list_del corruption. prev->next should be ffff8d6e4324d040, but was
+> ffffffff915cf038. (prev=ffffffff915cf038)
+> ------------[ cut here ]------------
+> kernel BUG at lib/list_debug.c:62!
+> Oops: invalid opcode: 0000 [#1] PREEMPT SMP NOPTI
+> CPU: 0 UID: 0 PID: 1454 Comm: sysctl Not tainted 6.12.115+deb13.1-amd64 #1
+> Debian 6.12.115-2
+> ...
+> Call Trace:
+>  <TASK>
+>  input_unregister_handle+0x1b/0x90
+>  sysrq_disconnect+0x33/0x40
+>  input_unregister_handler+0x3d/0xc0
+>  sysrq_toggle_support+0x48/0x70
+> ---
+> 
+> I can easily reproduce it by running two copies of this script (even on a
+> single CPU):
+> 
+> ---
+> #!/usr/bin/env python3
+> 
+> with open("/proc/sys/kernel/sysrq", "w") as sysctl:
+>     while True:
+>         sysctl.write("0\n")
+>         sysctl.seek(0)
+>         sysctl.write("1\n")
+>         sysctl.seek(0)
+> ---
+> 
+> I think I can see how `sysrq_toggle_support` has a race condition; I don't
+> understand how that (in my original scenario that only tried setting it to
+> 0) could end in problems, even if it ran sysrq_unregister_handler() multiple
+> times without sysrq_register_handler() between (the code looks like it
+> should leave a clean input_handler, and not do anything bad when passed a
+> clean input_handler).
+> 
+> I see how it could run sysrq_register_handler() multiple times without
+> sysrq_unregister_handler() between when using my python script, and how that
+> is going to be a problem - and when I tried it with vanilla
+> 7.4.0~rc1-g05441d697f7f (on a different system), I actually get a "list_add
+> double add":
+> 
+> ---
+> list_add double add: new=ffffffffa9bea108, prev=ffffffffa9bea108,
+> next=ffffffffa9c09b20.
+> ------------[ cut here ]------------
+> kernel BUG at lib/list_debug.c:35!
+> Oops: invalid opcode: 0000 [#1] SMP NOPTI
+> CPU: 0 UID: 0 PID: 1392 Comm: python3 Not tainted 7.4.0-rc1+ #3
+> PREEMPT(lazy)
+> Hardware name: VMware, Inc. VMware Virtual Platform/440BX Desktop Reference
+> Platform, BIOS 6.00 11/12/2020
+> RIP: 0010:__list_add_valid_or_report.cold+0x15/0x33
+> Code: 36 fe ff e9 de 84 7d 00 4c 89 e6 bf 0f 00 00 00 e8 2e ff ff ff 48 89
+> f2 48 89 d9 48 89 fe 48 c7 c7 d0 d4 7b a9 e8 69 36 fe ff <0f> 0b 48 c7 c7 f8
+> d3 7b a9 e8 5b 36 fe ff 0f 0b 48 c7 c7 d0 d3 7b
+> RSP: 0018:ffffd485c2f97a20 EFLAGS: 00010246
+> RAX: 0000000000000058 RBX: ffffffffa9c09b20 RCX: 0000000000000000
+> RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffffffa9a5b680
+> RBP: ffffffffa9bea0a0 R08: 3fffffffffff7fff R09: 0000000000000577
+> R10: ffffd485c2f97840 R11: 0000000000000002 R12: ffffffffaa78ad50
+> R13: ffffffffa9bea108 R14: ffffffffa92f4e00 R15: 0000000000000002
+> FS:  00007f78eb9b9780(0000) GS:ffff8ce9cf828000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00000000007132b0 CR3: 00000001041a2006 CR4: 0000000000770ef0
+> PKRU: 55555554
+> Call Trace:
+>  <TASK>
+>  input_register_handler+0x89/0x130
+>  sysrq_toggle_support+0x5f/0x70
+>  sysrq_sysctl_handler+0xb0/0xc0
+>  ? __pfx_sysrq_sysctl_handler+0x10/0x10
+> ...
+> ---
+> 
+> It seems `input_register_handler` is usually called from module __init, with
+> freshly allocated data, or with a mutex being held - afaict only sysrq is
+> potentially calling it with an already registered handler.
+> 
+> `sysrq_toggle_support` probably should use a mutex too.
+> 
+> 
+> Summary:
+> 
+> * my python script (run two instances) triggers a kernel BUG on both
+>   debian stable 6.12.115+deb13.1 and vanilla 7.4.0~rc1-g05441d697f7f
+>   within seconds
+> * 6.12.155 shows a "list_del corruption" in `input_unregister_handle`,
+>   which I can't explain (especially not in the original environment)
+> * 7.4.0~rc1-g05441d697f7f shows "list_add double add" in
+>   `input_register_handler`, which is kinda expected
+> * sometimes a python script segfaults, sometimes it ends up unkillable
+> * I don't think this is accessible from unprivileged userns / containers
 
-Initialize ret to 0 and jump directly to the label that ensures the
-reference is released.
+Can you try this patch out:
+	https://lore.kernel.org/r/20261030123640.263164-1-zhanxusheng1024@gmail.com
+as it seems to describe the issue you are seeing here.
 
-Cc: stable@vger.kernel.org
-Closes: https://sashiko.dev/#/bug/linux-07754192-a8ad-42d6-ab1b-cd6f16bec846
-Fixes: c4be520907a4 ("power: sequencing: pcie-m2: Create serdev for PCI devices present before probe")
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/power/sequencing/pwrseq-pcie-m2.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+Or am I mistaken?
 
-diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/sequencing/pwrseq-pcie-m2.c
-index 56c5d51293c10faba6c978265bcd07a6980d2a52..e3bc5ebb1e56666d135c04b23f6d462a0a166df3 100644
---- a/drivers/power/sequencing/pwrseq-pcie-m2.c
-+++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-@@ -296,7 +296,7 @@ static int pwrseq_pcie_m2_create_serdev_one(struct pwrseq_pcie_m2_ctx *ctx,
- 	struct serdev_controller *serdev_ctrl;
- 	struct device *dev = ctx->dev;
- 	struct pwrseq_pci_dev *pci_dev;
--	int ret;
-+	int ret = 0;
- 
- 	struct device_node *serdev_parent __free(device_node) =
- 		of_graph_get_remote_node(dev_of_node(ctx->dev), 3, 0);
-@@ -308,16 +308,14 @@ static int pwrseq_pcie_m2_create_serdev_one(struct pwrseq_pcie_m2_ctx *ctx,
- 		return 0;
- 
- 	/* Bail out if the device was already attached to this controller */
--	if (serdev_ctrl->serdev) {
--		serdev_controller_put(serdev_ctrl);
--		return 0;
--	}
-+	if (serdev_ctrl->serdev)
-+		goto err_put_ctrl;
- 
- 	/* Bail out if the serdev device was already created for the PCI dev */
- 	scoped_guard(mutex, &ctx->list_lock) {
- 		list_for_each_entry(pci_dev, &ctx->pci_devices, list) {
- 			if (pci_dev->pdev == pdev)
--				return 0;
-+				goto err_put_ctrl;
- 		}
- 	}
- 
+thanks,
 
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261105-pwrseq-pcie-m2-serdev-ref-leak-f521e086d5f8
-
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-
+greg k-h
