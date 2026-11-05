@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893808;
-	b=B8oRVbV1sqhSGlkSNj0XUXnZJ8hqz+RrTpEcCDOfXMrc/koJVhWgEv2V5jP8FAwPWsGu
-	 HI0PsAHsEKnpcjwiWBjhe6wqQ1UCljCjcvie8XSQh3sJgxPOiODBvIxi+wmR9NnniXzJ0
-	 ZOIocuxGK8qC0LLijt47lhNBahHaDEt/0dsJbNGUcCesCJxlr5ukenGKDXMg9GcZU91DG
-	 pXNYYetW5jQyEc583XHc2jlTy9FxDGhpiejwcaEYvvdaWWVAb6Makb5ZSwoRZo6pXbUli
-	 81930iWvsbBEx5MgKRaneq4mxsz1bUsA+QLtTv+a2hFgJzZKsySFvSUQXfzNsJ/3ocg==
+	t=1793893805;
+	b=OAinDlWRr+zLJih7UdOfBZXjP4JR7sE3dvndtdOIakRr1piX3fByAYVROBQ3ayCYn/ke
+	 xpTReY0MsMHd5Ex0OnuXq/EZuXfr1Frnp/ZV9loeGcYBlJJ9yKvEWoszFv8n3MYIvrH8t
+	 8UOe8DqocDuKr7Kn1nsm30k17QbMywo8ZqGUUraT+xgCzfxQ+nWm7NeVHWDMQw27lrZyc
+	 32fNBPXNcGmjDSwx1jINeghYPGG6PKUQvEOkZdmDE+VWr+k3CVBEn9OQGir35qIC9Q2D9
+	 QdItZR+hVUZtNQxIRDbX5a/TIiZTJq+r5/Uym5fpCxUBqJQe1lQqyRM2e2i5lEIfGLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893808;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893805;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=owfwD0c0iFVkQvxXvAVHEdrEkPi8aTG2v+Yo8RsVjLo=;
-	b=prdcRJrK/WbHxHphkJdj5Uvs9/odPiwjqv9DxeZpsY34MZEVnLhqbUccZI+MU4TtwzmQ
-	 yVak0a7PXzjxEihCHUYiOsPAV9NCnmszuvbRYiDr0PNH/TX5YOzISis8Ncy3L2zSfiYJh
-	 qfR2vWcNeUEA/2+mzwx58VgvNoe1X3gCf4qN3u1/yiLddFO78/cU8lhTBE8iDGtNPF0R5
-	 NJ3utGOpj4XM4uPmQpKFnTw0pUWPpHWhP8RhBuq+FbV/RDU2PzpPpMxK3i8qaqg4SlLL2
-	 rsP3MgMZzABA24+y3ZLGWSVDk5qu2toLWr+o7BriuRmy68vpPi+6aLc8upXVcnuqcrw==
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=l1si1cKxVaPJRHhpJBL3f0tOHY9gzjDBCiBVwqvknmI=;
+	b=XaYTgGMeX3RlQlX1N20iaZofWm2+xX9CpEqSBY2x4AVYjkRmwfcLxKmRE0P6wqN8mN8j
+	 8ssqQ/45MNceGpY603L0ZPTnclHUdVH595uwra5xx+jxdPnRpO6mNhDEImlfLHd0A7m4e
+	 NvHHcqUdtMiYuW/yYbnSaD95qVIkw3r9Oar3Agj91ze79+MhOaUzW5QRxQ8+1C3+d46+7
+	 45mWPeOU3GrB12Vjy03tuHnt23g6wopGFcwqUSOoBm0G++S5eBC2zkZ5grv+UXuzms10Y
+	 M7YkcrL3pIm0UiBCDUWoWkpgl1dKO6xatLUzZhDj5bCahbBKmyjQzR09jKtHJg1R4ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=FbXOOX8v;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CbBOFroF;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B212160A6F7D;
-	Thu,  5 Nov 2026 15:50:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B212160A6F7D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41C6606D828;
+	Thu,  5 Nov 2026 15:50:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B41C6606D828
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=FbXOOX8v
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CbBOFroF
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=owfwD0c0iFVkQvxXvAVHEdrEkPi8aTG2v+Yo8RsVjLo=; b=FbXOOX8vbDQkaNDkiTyDoCi0GI
-	JbPxVa0uJaJ0nH2KdWLZQ1b41mAhpvDhmrHl4VimexZABaM1zNkCJ7p5BGD6CW3sgbLWBcq6nybSv
-	RtmK55YPnkziyKx5y4tyxXs3uy2ZzfZlt1c2IR1o4nQglyenBHZgDkcNijt5WtbXHR8RBY2czDCv4
-	5Kbgdj/SnX5OYqhgX7s/6eqJR/T6d9rv0FKgADxwMTQI8XC6GqIhukF5KJjp02re2d5nV5lk/c/wo
-	jo2a4jOzuH1Pb0+Qm+ijRn5cnhlAvql5bALrkR8hZyK/ou+5tdd3Tz28N4nZkd4q+WY2D84acs/K/
-	IMMMbylQ==;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=l1si1cKxVaPJRHhpJBL3f0tOHY9gzjDBCiBVwqvknmI=; b=CbBOFroFlQHLE5/J4VBcIrdKjR
+	/96dqulkF1bv/Uovq7tcPD//ajXcGrQyPxUN/ZnMEeTffAeBYUyFSzCle3R3/1Eq2rYj8mpIiw2s3
+	kb5XGNO0jVTr9QbjARoh3qgXsA/cEKmGriLnpHkq4oq5EkyiwmOaa/8c6eVeTKLVrNJYwukqCg+me
+	SECy1+4d8QMtr+eKpoXc/VNTfp1PJlA99AN1AFCB5+042Nc34qZTg6PLGrR0yvZ1WqEzw98w2sj/s
+	mHDA7bX1WEhikkUPhHNGdT/8uzQjlXhTs1IKjF6dQQ+t/b81OVZAtgy83ADtTzslRXFnrTMzj8NAm
+	bDvFKL3Q==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOzit-00000009aof-2vx4;
-	Thu, 05 Nov 2026 15:49:55 +0000
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOziw-00000003BoA-28Vl;
+	Thu, 05 Nov 2026 15:49:58 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xOzit-0000000Aaym-20JR;
-	Thu, 05 Nov 2026 15:49:55 +0000
+	id 1xOziu-0000000Ab09-2IpF;
+	Thu, 05 Nov 2026 15:49:56 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Dongli Zhang <dongli.zhang@oracle.com>,
 	joe.jin@oracle.com,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v11 01/23] KVM: x86: Improve synchronization in kvm_synchronize_tsc()
-Date: Thu,  5 Nov 2026 07:49:32 -0800
-Message-ID: <20261105154955.2525419-2-dwmw2@infradead.org>
+Subject: [PATCH v11 20/23] KVM: selftests: Add Xen runstate migration test
+Date: Thu,  5 Nov 2026 07:49:51 -0800
+Message-ID: <20261105154955.2525419-21-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261105154955.2525419-1-dwmw2@infradead.org>
 References: <20261105154955.2525419-1-dwmw2@infradead.org>
@@ -93,110 +93,291 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-When synchronizing to an existing TSC (either by explicitly writing
-zero, or the legacy hack where the TSC is written within one second's
-worth of the previously written TSC), the last_tsc_write and
-last_tsc_nsec values were being misrecorded by __kvm_synchronize_tsc().
-The *unsynchronized* value of the TSC (perhaps even zero) was being
-recorded, along with the current time at which kvm_synchronize_tsc()
-was called. This could cause *subsequent* writes to fail to synchronize
-correctly.
+Test that Xen runstate (steal time) is correctly accounted across a
+simulated live migration using KVM_XEN_VCPU_ATTR and KVM_[GS]ET_CLOCK_GUEST.
 
-Fix that by extrapolating the generation's TSC value to the current
-time (data = cur_tsc_write + elapsed cycles) before passing it to
-__kvm_synchronize_tsc(), so the recorded {data, ns} pair always lies
-on the generation's line and the one-second matching window slides
-forward with each synchronized write. When the TSC is stable, reuse
-the generation's offset exactly; when it is unstable, compute a new
-offset for the extrapolated value.
+The test simulates what a real VMM does during migration:
+1. Creates a VM with Xen HVM config and runstate tracking
+2. Runs the guest to accumulate some kvmclock time
+3. Saves clock (KVM_GET_CLOCK_GUEST), TSC offset, and runstate
+4. Marks the saved state as RUNSTATE_runnable (vCPU not running)
+5. Destroys the source VM
+6. Sleeps 10ms (simulating migration network transfer time)
+7. Creates a new VM and restores all state precisely as saved
+8. Runs the guest and verifies the migration gap appears as steal
 
-Furthermore, there were *three* different TSC reads used for calculating
-the "current" time, all slightly different from each other. Fix that by
-using kvm_get_time_and_clockread() where possible and using the same
-host_tsc value in all cases.
+The VM is placed in long mode explicitly (KVM_XEN_ATTR_TYPE_LONG_MODE)
+so the kernel writes the 64-bit runstate layout; nothing in this test
+writes the hypercall-page MSR, which is what would otherwise latch the
+mode from the guest's EFER.
+
+The guest TSC is transferred via the KVM_VCPU_TSC_OFFSET attribute. As
+the "migration" is to a new VM on the same host, restoring the same
+offset makes the guest TSC continue uninterrupted across the gap, so the
+restored pvclock yields a kvmclock which has kept running too. That is
+what makes the migration gap visible: the destination kvmclock is ahead
+of the saved state_entry_time by (at least) the gap duration, rather
+than restarting from the destination VM's creation time.
+
+The kernel accounts the gap because: on vcpu_load, it transitions from
+RUNSTATE_runnable to RUNSTATE_running, computing delta = kvmclock_now -
+state_entry_time. Since kvmclock has advanced past the saved entry time
+(real time elapsed during migration), the delta is added to time_runnable.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Paul Durrant <paul@xen.org>
 ---
- arch/x86/kvm/x86.c | 39 ++++++++++++++++++++++++++++++---------
- 1 file changed, 30 insertions(+), 9 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/x86/xen_migration_test.c    | 222 ++++++++++++++++++
+ 2 files changed, 223 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/xen_migration_test.c
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 32563a91fba9..7a2b0b99373f 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -210,6 +210,10 @@ module_param(pi_inject_timer, bint, 0644);
- static bool __read_mostly mitigate_smt_rsb;
- module_param(mitigate_smt_rsb, bool, 0444);
- 
-+#ifdef CONFIG_X86_64
-+static bool kvm_get_time_and_clockread(s64 *kernel_ns, u64 *tsc_timestamp);
-+#endif
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 79d26de18bf3..1edc78845fd3 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -153,6 +153,7 @@ TEST_GEN_PROGS_x86 += x86/debug_regs
+ TEST_GEN_PROGS_x86 += x86/tsc_msrs_test
+ TEST_GEN_PROGS_x86 += x86/vmx_pmu_caps_test
+ TEST_GEN_PROGS_x86 += x86/xen_cpuid_timing_test
++TEST_GEN_PROGS_x86 += x86/xen_migration_test
+ TEST_GEN_PROGS_x86 += x86/xen_shinfo_test
+ TEST_GEN_PROGS_x86 += x86/xen_vmcall_test
+ TEST_GEN_PROGS_x86 += x86/sev_dbg_test
+diff --git a/tools/testing/selftests/kvm/x86/xen_migration_test.c b/tools/testing/selftests/kvm/x86/xen_migration_test.c
+new file mode 100644
+index 000000000000..564781db3da2
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/xen_migration_test.c
+@@ -0,0 +1,222 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Test Xen runstate (steal time) preservation across simulated migration.
++ *
++ * Verifies that the kernel correctly accounts the migration gap as
++ * steal time (runnable) when runstate data is saved and restored
++ * precisely, but real time elapses during the migration.
++ *
++ * The key insight: userspace saves the runstate with state=RUNSTATE_runnable
++ * (the vCPU is not running during migration). On restore, the kernel sees
++ * that kvmclock has advanced past state_entry_time, and accounts the
++ * difference as time spent in the runnable state.
++ */
++#include <inttypes.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <string.h>
++#include <unistd.h>
 +
- #define KVM_SUPPORTED_XCR0     (XFEATURE_MASK_FP | XFEATURE_MASK_SSE \
- 				| XFEATURE_MASK_YMM | XFEATURE_MASK_BNDREGS \
- 				| XFEATURE_MASK_BNDCSR | XFEATURE_MASK_AVX512 \
-@@ -1374,14 +1378,23 @@ void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
- {
- 	u64 data = user_value ? *user_value : 0;
- 	struct kvm *kvm = vcpu->kvm;
--	u64 offset, ns, elapsed;
-+	u64 offset, host_tsc, elapsed;
-+	s64 ns;
- 	unsigned long flags;
- 	bool matched = false;
- 	bool synchronizing = false;
- 
- 	raw_spin_lock_irqsave(&kvm->arch.tsc_write_lock, flags);
--	offset = kvm_compute_l1_tsc_offset(vcpu, rdtsc(), data);
--	ns = get_kvmclock_base_ns();
++#include "test_util.h"
++#include "kvm_util.h"
++#include "processor.h"
 +
-+#ifdef CONFIG_X86_64
-+	if (!kvm_get_time_and_clockread(&ns, &host_tsc))
-+#endif
-+	{
-+		host_tsc = rdtsc();
-+		ns = get_kvmclock_base_ns();
-+	}
++#include <asm/pvclock-abi.h>
 +
-+	offset = kvm_compute_l1_tsc_offset(vcpu, host_tsc, data);
- 	elapsed = ns - kvm->arch.last_tsc_nsec;
- 
- 	if (vcpu->arch.virtual_tsc_khz) {
-@@ -1424,13 +1437,21 @@ void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
-          */
- 	if (synchronizing &&
- 	    vcpu->arch.virtual_tsc_khz == kvm->arch.last_tsc_khz) {
--		if (!kvm_check_tsc_unstable()) {
-+		/*
-+		 * If synchronizing, advance the reference point to "now"
-+		 * so the matching window slides forward with each vCPU.
-+		 * Extrapolate from the generation's own origin: 'elapsed'
-+		 * is measured from the most recent write, which lies on
-+		 * the generation's line only for the first matched write.
-+		 */
-+		u64 delta = nsec_to_cycles(vcpu, ns - kvm->arch.cur_tsc_nsec);
++#define SHINFO_GPA	0xc0000000ULL
++#define RUNSTATE_GPA	(SHINFO_GPA + 0x1000)
 +
-+		data = kvm->arch.cur_tsc_write + delta;
++#define RUNSTATE_running  0
++#define RUNSTATE_runnable 1
++#define RUNSTATE_blocked  2
++#define RUNSTATE_offline  3
 +
-+		if (!kvm_check_tsc_unstable())
- 			offset = kvm->arch.cur_tsc_offset;
--		} else {
--			u64 delta = nsec_to_cycles(vcpu, elapsed);
--			data += delta;
--			offset = kvm_compute_l1_tsc_offset(vcpu, rdtsc(), data);
--		}
-+		else
-+			offset = kvm_compute_l1_tsc_offset(vcpu, host_tsc, data);
- 		matched = true;
- 	}
- 
++/*
++ * The 64-bit (long mode) layout: 'state' is followed by 4 bytes of
++ * padding so state_entry_time is naturally aligned. The VM is placed
++ * in long mode explicitly below; without that, KVM would latch 32-bit
++ * mode (no hypercall-page write ever happens here to latch it from
++ * EFER) and write the packed compat layout instead.
++ */
++struct vcpu_runstate_info {
++	u32 state;
++	u64 state_entry_time;
++	u64 time[4];
++};
++
++static void guest_code(void)
++{
++	volatile struct vcpu_runstate_info *rs =
++		(void *)(unsigned long)RUNSTATE_GPA;
++
++	/* Report runstate times — no need to enable kvmclock MSR,
++	 * the kernel writes runstate using its internal kvmclock. */
++	GUEST_SYNC_ARGS(0, rs->time[RUNSTATE_runnable],
++			rs->time[RUNSTATE_running], 0, 0);
++}
++
++static struct kvm_vm *create_xen_vm(struct kvm_vcpu **vcpu)
++{
++	struct kvm_vm *vm;
++	int xen_caps;
++
++	vm = vm_create_with_one_vcpu(vcpu, guest_code);
++
++	xen_caps = kvm_check_cap(KVM_CAP_XEN_HVM);
++	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_SHARED_INFO);
++	TEST_REQUIRE(xen_caps & KVM_XEN_HVM_CONFIG_RUNSTATE);
++
++	/* Map pages */
++	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
++				    SHINFO_GPA, 1, 2, 0);
++	virt_map(vm, SHINFO_GPA, SHINFO_GPA, 2);
++
++	/* Enable Xen HVM with MSR interception (enables runstate tracking) */
++	struct kvm_xen_hvm_config cfg = {
++		.flags = KVM_XEN_HVM_CONFIG_INTERCEPT_HCALL,
++		.msr = 0x40000000,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_CONFIG, &cfg);
++
++	/* The guest runs in long mode; make the runstate layout match. */
++	struct kvm_xen_hvm_attr lm = {
++		.type = KVM_XEN_ATTR_TYPE_LONG_MODE,
++		.u.long_mode = 1,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &lm);
++
++	/* Set shared_info */
++	struct kvm_xen_hvm_attr ha = {
++		.type = KVM_XEN_ATTR_TYPE_SHARED_INFO,
++		.u.shared_info.gfn = SHINFO_GPA >> 12,
++	};
++	vm_ioctl(vm, KVM_XEN_HVM_SET_ATTR, &ha);
++
++	/* Set runstate address */
++	struct kvm_xen_vcpu_attr rs_addr = {
++		.type = KVM_XEN_VCPU_ATTR_TYPE_RUNSTATE_ADDR,
++		.u.gpa = RUNSTATE_GPA,
++	};
++	vcpu_ioctl(*vcpu, KVM_XEN_VCPU_SET_ATTR, &rs_addr);
++
++	return vm;
++}
++
++int main(void)
++{
++	struct pvclock_vcpu_time_info pvti;
++	struct kvm_xen_vcpu_attr runstate_save;
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	struct ucall uc;
++	u64 tsc_offset;
++	int ret;
++
++	TEST_REQUIRE(sys_clocksource_is_based_on_tsc());
++	TEST_REQUIRE(kvm_has_cap(KVM_CAP_CLOCK_GUEST));
++
++	/* === SOURCE SIDE === */
++	pr_info("=== Source: create VM and run guest ===\n");
++	vm = create_xen_vm(&vcpu);
++
++	/* Run guest once to accumulate some runstate time */
++	vcpu_run(vcpu);
++	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++	TEST_ASSERT_EQ(get_ucall(vcpu, &uc), UCALL_SYNC);
++
++	pr_info("  Guest sees: runnable=%" PRIu64 " running=%" PRIu64 "\n",
++		uc.args[2], uc.args[3]);
++
++	/* Save clock state */
++	vcpu_get_clock_guest(vcpu, &pvti);
++
++	/*
++	 * Save the guest TSC offset. This test migrates to a new VM on
++	 * the same host, so restoring the same offset makes the guest
++	 * TSC continue uninterrupted across the migration gap, and the
++	 * restored pvclock (KVM_SET_CLOCK_GUEST) then yields a kvmclock
++	 * which has also kept running across the gap. (A real migration
++	 * to a different host would compute the destination offset from
++	 * KVM_GET_CLOCK's {host_tsc, realtime} pair as described in
++	 * Documentation/virt/kvm/devices/vcpu.rst.)
++	 */
++	tsc_offset = vcpu_get_tsc_offset(vcpu);
++
++	/* Save runstate — the vCPU is now "runnable" (not running) */
++	runstate_save.type = KVM_XEN_VCPU_ATTR_TYPE_RUNSTATE_DATA;
++	vcpu_ioctl(vcpu, KVM_XEN_VCPU_GET_ATTR, &runstate_save);
++
++	/*
++	 * Transition to runnable state before saving — the vCPU is
++	 * not running during migration.
++	 */
++	runstate_save.u.runstate.state = RUNSTATE_runnable;
++
++	pr_info("  Saved runstate: running=%" PRIu64 " runnable=%" PRIu64
++		" entry=%" PRIu64 "\n",
++		(u64)runstate_save.u.runstate.time_running,
++		(u64)runstate_save.u.runstate.time_runnable,
++		(u64)runstate_save.u.runstate.state_entry_time);
++
++	u64 saved_runnable = runstate_save.u.runstate.time_runnable;
++
++	kvm_vm_free(vm);
++
++	/* === MIGRATION GAP === */
++	pr_info("=== Simulating migration (sleeping 10ms) ===\n");
++	usleep(10000);
++
++	/* === DESTINATION SIDE === */
++	pr_info("=== Destination: create new VM and restore ===\n");
++	vm = create_xen_vm(&vcpu);
++
++	/* Restore the guest TSC offset (same host: TSC continues) */
++	vcpu_set_tsc_offset(vcpu, tsc_offset);
++
++	/* Restore clock — kvmclock will now be ~10ms ahead of the snapshot */
++	vcpu_set_clock_guest(vcpu, &pvti);
++
++	/* Restore runstate exactly as saved (state=runnable) */
++	runstate_save.type = KVM_XEN_VCPU_ATTR_TYPE_RUNSTATE_DATA;
++	ret = __vcpu_ioctl(vcpu, KVM_XEN_VCPU_SET_ATTR, &runstate_save);
++	TEST_ASSERT(!ret, "Restore runstate failed: errno %d", errno);
++
++	/*
++	 * Run the guest. When the vCPU enters vcpu_run, the kernel
++	 * transitions from RUNSTATE_runnable to RUNSTATE_running.
++	 * It computes: delta = kvmclock_now - state_entry_time
++	 * This delta (which includes the migration gap) is added to
++	 * time_runnable (steal time).
++	 */
++	vcpu_run(vcpu);
++	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++	TEST_ASSERT_EQ(get_ucall(vcpu, &uc), UCALL_SYNC);
++
++	u64 guest_runnable = uc.args[2];
++	u64 guest_running = uc.args[3];
++
++	pr_info("  Guest sees: runnable=%" PRIu64 " running=%" PRIu64 "\n",
++		guest_runnable, guest_running);
++
++	u64 steal_increase = guest_runnable - saved_runnable;
++	pr_info("  Steal time increase: %" PRIu64 " ns (migration gap)\n",
++		steal_increase);
++
++	/*
++	 * The steal time increase should be at least 10ms (the sleep).
++	 * The actual gap runs from the source's state_entry_time to the
++	 * destination's kvmclock "now" at vcpu_load time, which includes
++	 * everything from the source guest's last runstate transition
++	 * through VM teardown and re-creation — so the upper bound exists
++	 * only to catch wild miscalculation (e.g. an unscaled TSC delta),
++	 * and is deliberately generous for slow or loaded hosts.
++	 */
++	TEST_ASSERT(steal_increase >= 10000000ULL &&
++		    steal_increase < 60000000000ULL,
++		    "Steal time increase %" PRIu64 " ns not in expected range "
++		    "[10ms, 60s]", steal_increase);
++
++	kvm_vm_free(vm);
++	pr_info("PASS: Migration gap correctly accounted as steal time\n");
++	return 0;
++}
 -- 
 2.43.0
 
