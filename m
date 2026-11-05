@@ -1,71 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906586;
-	b=Cv21rvyrN1qQEnE10VASij7e4xJfdGxOEsc427bxLr1GSUlf3xRdNBHz3uJNvoALJcRB
-	 9oOZALEqjb229ekEzZmeQGvMitSgEVqbdF7YHhiY3YrvPy5jkbCVZP+QOxR8anPVB2UoJ
-	 eV5wV2W4fKWq7sNnxkOKfcQ0z0KZOPJliJ7BzUWyc30YNm/3D2tfkq45+5uYdLCo5n2UT
-	 cT5LYlvwsZd63ccb63FSqJJ+FcTRy0vAMNwXDWgSDdqIApvR/3uIhqBXI2Tfs+cSDNe1q
-	 XFws4OnDZe3MAg/63JOhqA/KNmfna4L1ycL4SZgrNogFjMcShDn5xJtX0P/IfIaQlgQ==
+	t=1793906658;
+	b=vhgZ0dozk3uS7jweborJynchX01D3b9P2/XtEAoTxzHiVZO08Bt455j1fjkpPQhG/ljh
+	 fhRgU9oyRBcCiMyTzos6D/asO0nuZ58COZmYQKSC54lT/Gt4MX2UDXgaC7qC4h8CQbUuN
+	 twCAOid15ngLVcW9xkzEBrXowou4WqA6rTihmR1amh/66NtikyEIuX0N7zwowoc7WgfDo
+	 lwYdkgYzyelZd0AD6L8Xy/1W6tUX8gl80bDmBPh4kLBx4fYh41a/VDhWov61fwL01Gfhn
+	 Fh3d8LtQjz3VrwZhkUEfx7AdYf+yY00RW5qJqz3pWKoBqN+IVU1oBeuT5otj7TjUsbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906586;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
-	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
-	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=cUiAAzp7g7L96rQmg3eJA59kYzOq2QF3OGciXBltc5w=;
-	b=mK1ceUPJBNDZig1iMSx232ZZAaXLAB008P0d5wXDRD6yG7Iwmxf1RcRxO+tPpz7Y2od3
-	 73Kxj2eTrCaWvEtqFgOOGonZh5xUz9KKktk0WJAO/LpZLTUImBasgS730hkOI90H2NVxi
-	 GwHJu/ZqiZ16Drv4mmkxAkp8lFfKVPJkf/+CwhAaP6PmNfMacIGdZFikx+kutMp9WclRb
-	 n88qStp4vVEYjJv4QwrVn2Mp0Jh79MldSNufLG/Ao59l3Rq4QMk9v33FfjXvQst/4CZiD
-	 gBd3MKA1dZGQbmdzv5OV1I5A4kITqDwLN2QIcFkMgbrgTNdAOua4qZ2eNVM5OrPeF1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906658;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=VfvCB69zFffTvll7Uz088QFRKuitfNBaW/NJB0o56kg=;
+	b=gAKAPFa86iztX451XKVMPv0ylpzuXteKERKxO7bWMUIL9Al+1Yfhs4QoK4wsCfHltg0f
+	 TG5v4M9NP1XNz/eZ6RKktEPXhLLAR1bYfgMzrpr4BKmMeIS72lvYPa7MN5WcPL41iDERe
+	 XDYSuEgKv/zwhcPxl+bv5M8RC9TPcHJl6/w4OFSald57AmGACMWrKiudsZ8sIADElCSA0
+	 KnpGSRTOTMkVv+bNARo0ZcRiYTRAvWsafojakc3m6GJTfptpDEfWb5QYs4ONGqjRXL6q/
+	 l96iSkBlSWT3F7jcbuxK9tkhxDzV4wmO3RZ98ruhKigYmOsARv17d84psjbe9XLHBHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fqwqf.xyz;
-	spf=pass smtp.mailfrom=send.fqwqf.xyz;
-	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=DyiT8qBV;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Et5Fkoqb;
-	arc=none smtp.remote-ip=23.251.234.57
-Received: from e234-57.smtp-out.ap-northeast-1.amazonses.com (e234-57.smtp-out.ap-northeast-1.amazonses.com [23.251.234.57])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=joshtriplett.org;
+	spf=pass smtp.mailfrom=joshtriplett.org;
+	dkim=pass header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=AtPTHxb6;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="FpG0US/e";
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABC8606D810;
-	Thu,  5 Nov 2026 19:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ABC8606D810
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5000606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:24:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5000606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=DyiT8qBV;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Et5Fkoqb
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1793906585;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=QMAw3v00ul2mdeBNCyVHXFACtQTxGcioilnanO3wF+c=;
-	b=DyiT8qBV66tysQFwpSODI+Ob/QGNrpmmOLRY4UcQRPTYDoxbosiu8xhWlUUBkaVA
-	H0ypr+ZwnK75ydBp4GZNDyjMI6MXP+wCqKey7RSDhPB5ME3MPyauUJ2BQlqHeveOmft
-	OOJ9AXyqA5jpHEsyJb9K+5kz6I9vPbSZBALtUkc4=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906585;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=QMAw3v00ul2mdeBNCyVHXFACtQTxGcioilnanO3wF+c=;
-	b=Et5Fkoqbg9Ag0+OC2QuAU3hthkW7RE3+7qYOVPKAFcd99PbkSK0/C+eZRLqkELsR
-	29dpB2UV/K1whgwJGqdna2dyXAn4RLWknxzb662OQvn6f1LnRKup8MlJiWwDB/9E7k0
-	b9EXQ4fo6eyOVjpa4BiG5KrVVKds20Cy2KA0uHqE=
-In-Reply-To:
- <010601a1ad274a9c-ca2fc8f5-d3fb-435d-8572-c0d3eb701649-000000@ap-northeast-1.amazonses.com>
-References:
- <010601a1ad274a9c-ca2fc8f5-d3fb-435d-8572-c0d3eb701649-000000@ap-northeast-1.amazonses.com>
-X-Mailer: git-send-email 2.53.0
-From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: Jingyuan Liang <jingyliang@chromium.org>
-Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	daleyo@gmail.com, broonie@kernel.org, u.kleine-koenig@baylibre.com, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: [RFC PATCH v3 4/5] dt-bindings: input: hid-over-spi: add the
- Surface Laptop 7 touchpad
-Message-ID: <010601a1ad2a2dba-85a8b4dd-f21b-4dbf-afae-9a40b533338d-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 5 Nov 2026 19:23:05 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=AtPTHxb6;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FpG0US/e
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 1B72DEC0123
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:24:17 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Thu, 05 Nov 2026 14:24:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	joshtriplett.org; h=cc:content-type:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm3; t=1793906656; x=1793993056; bh=VfvCB69zFf
+	fTvll7Uz088QFRKuitfNBaW/NJB0o56kg=; b=AtPTHxb6T4qxMK1tAs470VUwz7
+	KV4vHjcqBgvYPeytqFAPwQiYEijo50nBf/luN2dcU0xWeCaQzGS8y0Im3PIoAU8z
+	JwT1Lx4vlvpeUEq8Bwr7J0ggVFkt8bIdy3Ek/ZrNZq81uabEWOpO8FCpRK6GVtXr
+	lCw43RvUv3Yqzv+rAgY4MHOEIgC2SxcFvxS5OKdXc+rrCaW4+hWK3eN9grX4iUoW
+	XFZEsYeJePAHVu4qDrlSd67oDSeTfzDJzWFTer9OF5JRJkVrPiDZmOD99p4jHR5x
+	CIJuRNZ/zXf0J0w6lWmfmjJDi1CRd4V6AbJGkk0SkHIkdJBDR5JwCSv6rVpA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793906656; x=
+	1793993056; bh=VfvCB69zFffTvll7Uz088QFRKuitfNBaW/NJB0o56kg=; b=F
+	pG0US/ex4mB0Yn9TIxxpL9EGJ4cXfiRbPTNntqJeBjha4F927CqaJaQ2eBmygQYd
+	PIMmXMLiGmf7x6qkc2tnQvYrWweNSU4wFlWGuInaMCgOYROsmivyWT7xEyGEeTTM
+	MMCuRWI8M3nfi/hI0+8m34G0nXFmOOKnHwOiPjhYVBoO+kcnKEU4bmsVeCbTAwZx
+	rQzDgrG8tBQsLdQSc5ZBH7U2dj8cOBdXSapQUy7dXEMO5rCc0ls42h57JSO50jAO
+	buZWDH+0E+XsHO4bGGvprtx0axeNCF12tp/+CUBuBTvl0sygOUeE+9HV/MMRf8Tu
+	J8E6b36n0HWa6Kw6FdoAQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=joshtriplett.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793906656; d=joshtriplett.org;
+	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:lGrUbN4MITJhzkfv4K4gkgWoRoAOqn7QEfmgJoMXDg0sdj7
+	0Jfi1DhvB/4VhG4CQQdxZQBUkHJ24tgFSEZpMF2sp3HI7l5stV+d/UydiNbRfK28
+	5wEx5hpcHQvqLtYWotjHTFgSY162Civiz+Dwhs/VNr2PFjkGrH9gdQyDWSO9aR3Z
+	boDlnoZf3xHYrDuieyL7EUmQMnyYfub2wHsGVzK0GDVaVqSAVgACqfic/7zSKOGt
+	0QsJZS9ibtNb5Ui+Xi+35IzBN4oG1fbRv4B3VFdbenPcbWYXpwO5tKL50Z2hrQHB
+	OxHSvPlJTwpqRe4yOM/q8ZQJMMgjhrQBQpY+btA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=content-disposition,content-type,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:rx+BpPmfIdPB4Tlqo3YU1f29HBHc55uNpTZc2CQUCyg=:k+Gh0LVp5gav5ovJp95LVAl72Y/3htLWNcLdWsteD9Q=;
+X-ME-Sender: <xms:4Nfsaka8L4-bcem0tFB4NTUQsjo75Us3AOw-CIqZcumKzRKAa3NpMg>
+    <xme:4NfsaicPd0-L-fVWZD-zSniI_WrOdNV53ynMGk_ssMRX_X-ZWlLjtkEWoZjfyA1wT
+    qfgvpgMawp1l3PO0Kmo72tGxJgzUKwsefX-7CV1skpsGxi6gc4HkkqG>
+X-ME-Received: <xmr:4NfsaplVYPOoCpGM3uHUk3gW-6MJfYlZWAxpLSxS6ZNYvTAUrAu1EZFMSg>
+X-ME-Proxy-Cause: dmFkZTFlFYMDGrPYwdNRx/GDjrurDJkqMGUZMAXjzy7BvQiIhXGcwMv11OxN5tZ/z/kIvv
+    6cklvOTOyjLd3Sj6jaKNDwAoSmIC9ot+2iS7Ael6CYOnqCrgD9/Nqh+/Xcpzv9ikR1gC7s
+    n0ShIa+m3tbrO/3YuNnrqIUdUlL2yLxi3zyI/yZwF2Ek4nyECMXYgh2yff95MryHoAqYwc
+    c57h03E7fuJldqud62nqSHe4s6g5mSQkDEGX7p4Rdcj/hO5kFaUZ8rtWQAsWbFIUKDLRy8
+    JSbr4tKrxhsDn/ETs39JJIzChYrgFb9KgloM++eGqCyVt32Gx+3920r4V+kOb58U2fvgsg
+    mwhL3OU6AeBLUVc1iD0lbT2/IfkTnziWU9RtmN7jAZVCzphF2pz2yGH9jUVQkpUHJdwdde
+    ctxt/b6adk0zj8cfr68+5ROKcAVXMqM2w+QzkqoC7zwQ+yJJAFt0gNlbRb7x/Df2pVqZbi
+    Pbeclf36SQh93yxFyMD41fDsmk0wmLEwKmMs+kr/csQxRaSp5q95kXK2kFPecg/GHTICch
+    6FrkipMIYZaOrhUA2KakV0/I97/iNmPudlF/lzZC2oAPlWPSupyC9x0Dfo861U2Lqm+HPy
+    NoJwTJ4tm4YTr2Ck7nKa+XlKRYBEUhUgfCbQTtI5M/+9RsKM0064MjzfMR7Q
+X-ME-Proxy: <xmx:4Nfsaq1f-pyzTpwyRO9J22skREzAHDRg_QfSPJYXZnXe4B_iaXaBKA>
+    <xmx:4NfsaqeTzJX8Zc3pARtY1wmqWlmvfzbXDhfvUP6OpZJ849FkPNvMyA>
+    <xmx:4Nfsasb4KEc2OEMfNKvHcPOwH_HZ2hIB2XbdezLIDKJY_jYVGFFJhw>
+    <xmx:4NfsanGS9q903gU-wnLpUYEKUywClFHSAsNJjfVk19IfIvR69nnTGg>
+    <xmx:4NfsapWw_kRu9H60Ks-RWFWptLUEYLP7ab30GkeGLQEZJMeGLor3qEc6>
+Feedback-ID: i83e94755:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 14:24:15 -0500 (EST)
+Date: Thu, 5 Nov 2026 11:24:14 -0800
+From: Josh Triplett <josh@joshtriplett.org>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Rong Zhang <i@rong.moe>,
+	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
+Message-ID: <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,89 +125,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.11.05-23.251.234.57
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The Surface Laptop 7 13.8-inch (Romulus13) touchpad uses HID-over-SPI
-with quad address/data transfers. Add its compatible to the common
-binding, with both bus widths fixed to four and a 20 MHz clock limit.
-The existing supply and active-low reset properties cover this device.
+tpacpi can expose the charging LEDs as `tpacpi:orange:batt` (LED 1) and
+`tpacpi:green:batt` (LED 2). However, at least on my X1 Carbon Gen 11,
+these LEDs get hidden because `TPACPI_SAFE_LEDS` doesn't allow them.
 
-Keep the G6 digitizer constraints unchanged. Pinctrl properties are
-already permitted by the common schemas and need no local definitions.
+Add these to `TPACPI_SAFE_LEDS`, so that tpacpi can expose them.
 
-Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
+This was previously proposed in
+https://lore.kernel.org/lkml/20250403040846.7834-1-martin@arp242.net/ .
+
+I'm currently toggling these using write_support via ec_sys, and would
+prefer to handle these via the normal LED mechanism.
+
+Signed-off-by: Josh Triplett <josh@joshtriplett.org>
 ---
- ...=
-/bindings/input/hid-over-spi.yaml          | 40 +++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ drivers/platform/x86/lenovo/thinkpad_acpi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bi=
-ndings/input/hid-over-spi.yaml b/Documentation/devicetree/bindings/input/hi=
-d-over-spi.yaml
-index bed0746f00..ec8c72493d 100644
---- a/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-+++ b/Documentation/devicetree/bindings/input/hid-over-spi.yaml
-@@ -22,11 +22,30 @@ description: |+
- allOf:
-   - $ref: =
-/schemas/input/touchscreen/touchscreen.yaml#
-   - $ref: =
-/schemas/spi/spi-peripheral-props.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: microsoft,=
-romulus13-touchpad
-+    then:
-+      properties:
-+        =
-spi-max-frequency:
-+          maximum: 20000000
-+        spi-rx-bus-width:
-+          items:
-+            - const: 4
-+        spi-tx-bus-width:
-+          items:
-+            - const: 4
-+      required:
-+        - spi-rx-bus-width
-+        - spi-tx-bus-width
-=20
- properties:
-   compatible:
-     enum:
-       - microsoft,g6-touch-digitizer
-+      - microsoft,romulus13-touchpad
-=20
-   reg:
-     maxItems: 1
-@@ -73,3 +92,24 @@ examples:
-         pinctrl-0 =3D <&ts_d6_int_bias>;
-       };
-     };
-+  - |
-+    #include <dt-bindings/interrupt-controller/ir=
-q.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    spi {
-+      #address-cells =3D <1>;
-+      #size-cells =3D <0>;
-+
-+      touchpad@0 {
-+        compatible =3D "microsoft,romulus13-touchpad";
-+        reg =3D <0>;
-+        spi-max-frequency =3D <20000000>;
-+        spi-rx-bus-width =3D <4>;
-+        spi-tx-bus-width =3D <4>;
-+        interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
-+        vdd-supply =3D <&vreg_ts_5p0>;
-+        reset-gpios =3D <&tlmm 120=
- GPIO_ACTIVE_LOW>;
-+        pinctrl-0 =3D <&touchpad_reset>;
-+        pinctrl-names =3D "default";
-+      };
-+    };
+diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+index 4f81855ad721..50a8cff5b374 100644
+--- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
++++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+@@ -5608,7 +5608,7 @@ static const char * const tpacpi_led_names[TPACPI_LED_NUMLEDS] = {
+ 	"tpacpi::unknown_led3",
+ 	"tpacpi::thinkvantage",
+ };
+-#define TPACPI_SAFE_LEDS	0x1481U
++#define TPACPI_SAFE_LEDS	0x1487U
+ 
+ static inline bool tpacpi_is_led_restricted(const unsigned int led)
+ {
+-- 
+2.55.0
+
