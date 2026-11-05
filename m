@@ -1,121 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793913513;
-	b=YllbaRqsFM+s0kevAIOrwNT/7e++L0OhMtjPj/e3DOUJV6UEcHf1oQ3oVPtrCLrYVcew
-	 qdp0EFX7GpbAjWm4U/zJ8wZVWyFE1H+4pfVRQRcdqfK+Qpngid4Bdar/c9LiR7UhS860b
-	 gVJb8KAo8pHV6jcYgRX71BNvIQJdVI7XTCRUhIl188okp7g0dZ93x45DXVFBoIodbUFD+
-	 oqCX80FwzemmrQjvsLHgDiiPSpMokJ+1kotT8KUEN1EF9Iv/WST5TvHnY7cfiGMaGEDOc
-	 JMNR7+f7Uq6Jl+xD/2gsmRNV/nCAwoZP2teN6hRh4saeY1PZeKKD9wzh8sKRG2Rv31w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913513;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=idhKrh8uUVc5yxt+j09UwoBoyIDMx5hoaetLDVaRBeU=;
-	b=cle9ohlX4TtvFcKHSFg4VSCQyj/3gvsPP3VQvbgbUeKqklSfUWf+vEdnB+EeciQRL3gF
-	 HbG7vwslOVXAAn/FPvcAK74veaeSW5yYWscNkN0ZlCowy7z+6YB8WzdatiJ1CwSomrrog
-	 x2QYau/aa7Dg2sn7QE2WRNoNbufO33cGILOrj6Q0/jYAQgIOCXTSlBoNu/PSQuaJG9VgX
-	 QlvrGgoP9dG5mcch6QNMj5W5DimBmALBdBph0QZJRKLtWBlOK57RGYDRoW0cjoxYtfBvJ
-	 E4o4kwrtPVnwgZZchXJNqjI3GeXI4hsEKEfNSMS1gX9QR2J62M34JnxuG7W5MZvtELA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VEXv6wgd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.50
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011050.outbound.protection.outlook.com [52.101.52.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793913551;
+	b=SxaAlYBeUogOfwMSYum/s8u3xDdVlr6xO1Wr9Gb85qMp8V7ucrS+aJsU9fATqm3v3r/M
+	 Mdv1VokVm2eR0VkZSJ1hOa7Sz1YSxW0uoVAI9UJkJZDGwF8nO+y5vKUzMzaOo6A0oBsCr
+	 eStNf52e15cbhYChPoINcYusCUv71FR6hu2ypiPny+H6HTNtvESSRAjd7RkQNbMCAwX1h
+	 jYMy7Pf1OCdkuPqG9dHFUkQBBYXYjFlvLPWNu54vwkoQTuuaFZTvVYL64o99tlXCXHL3r
+	 7mUQ4aqDJ5wLRRfP2R2r/68nkkGxh3SAEE0U7hpb3VnPaXgH0ODjzWdBrwfQVxig0Zg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913551;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1rj8tKO5/pFqbT+hKQWjyojZu6Y+BFNIgIDZkUjrPRE=;
+	b=LyjBr+Mni1AYJnQUsZTBu7ER8kxNYVh9DVsUt7ek3Uq5opBUn7wNMOE3f/WKKkW0PfEp
+	 p8TO2dgBQAPf/aVH73D21MW5qbfH2y1J+kW9p3tUUI3tPQmHcxlm8MY/ymr9beWaKS1UE
+	 13dMGbRQexr+kDthTdqz0J4Hl5H3HobDy2IbyWCwSvl+qEBxDNEBsU7z65ERW7T/vUqqX
+	 fa8wRqXT60Pnh2ZRLiQBdl7w88AwzBO7paVJp5mSCUWSCG5pIYkWZwntG2LvFNoEPs1c4
+	 1XyjWdg/AcIsGUczY65TAygR/1tOrAVvhL4waQusAACq8rMatpJqhsViaRxREEOa73w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQAfmjej;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09A0606D802;
-	Thu,  5 Nov 2026 21:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A09A0606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B273606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:19:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VEXv6wgd
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n1TpEYWzevc/T6umSNC3srCDVP+KD3d6JFqNqaHr4+BQaSEE4KDz98joqts46jCun+mYWHcQTAceudQjaZJyM2x9TtCpbUErVXkA7aEmm16WVhq8w0zA/VS+0itbW51HgWImIL/XFHvbn5pt21EfE1AJ9Cru0N1Dls792xXtCBGae1btKYGlvt8ZmQAFUXml5H/a0SJBs1vb7ni6cBK0nQmiZzQ3ciSpp5StzijLMLTSkVfetjcKKSzI/eb26vbSwLVFdjfEknhSUOvnCrN1UWGooBp6ygEK60qHGVYKUGUlSDooo7ybLwvFNYuxsJpa4a061S6hbcKwB3vY+CC6dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=idhKrh8uUVc5yxt+j09UwoBoyIDMx5hoaetLDVaRBeU=;
- b=XVNvpT9l2Zt+0qAPq//HwrD27pJFsTlwKvARqNQm4w4nVHBipl1TBskD82vpMWj91h3a1Qe/pD6fe79t8m3uB4y/xSeoj1TFBvgD7eZXzfN4pgGiyhLXS+c2RwCO17XWC1BaQkKqr4Zw1L+XQGe4rY16wOCacqUy/tspMat1UAzzevEbT/onmwP8hgH2MHrhR4PSIjAn49i3ijfS+k0h05wliwWSwongPTa3XdZ0ddimOTMV3nx9A6rt476YP9f7K9ltw8dHO5rpZptidh8WUrMgj4jWgEp5Jcib5/Pvt1RBWKQZXEW/8BfxxpZYNOvqrTCdv9doTAEcguJxY233qQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=idhKrh8uUVc5yxt+j09UwoBoyIDMx5hoaetLDVaRBeU=;
- b=VEXv6wgdoOU4RESkgR+cWZ4U1aEhlmFsMAMfSroC1NlAi2Lij1ZgNLk+1XGaS+BtixZH5XZwxRpFuDKYlgl3wpt+2490MmNXUmf6kGkchjJZlAo6P4qcBIiIPzH6WYY5zOyxAl8SjVE6kgDBSPGUXRlNlLW+dVfa57TPVf/9GGs+eSWuDTCSF2u+tU93yBPwNu9bIYmB0zVDzwWanbdIShWMqrTukaBHKolkcPkV46DV69aBvkQBIs9FWl4gHT5NT04TpdbgAvBfRC68eYDfVUXWqT+dqxeD1lbDBhjHHHDkDp/Kxc1gSC80AYaEfDKgzlJvrO8K2kh+s+cBucOlOw==
-Received: from BN9PR03CA0798.namprd03.prod.outlook.com (2603:10b6:408:13f::23)
- by DS0PR12MB8813.namprd12.prod.outlook.com (2603:10b6:8:14e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 21:18:25 +0000
-Received: from BN3PEPF00022BD8.namprd03.prod.outlook.com
- (2603:10b6:408:13f:cafe::7) by BN9PR03CA0798.outlook.office365.com
- (2603:10b6:408:13f::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Thu, 5
- Nov 2026 21:18:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BN3PEPF00022BD8.mail.protection.outlook.com (10.167.248.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 21:18:25 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 13:17:55 -0800
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 13:17:55 -0800
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Thu, 5 Nov 2026 13:17:49 -0800
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Andrea Parri <parri.andrea@gmail.com>, Boris Pismenny <borisp@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>, "Gal
- Pressman" <gal@nvidia.com>, Jeroen Massar <jmassar@nvidia.com>, Jianbo Liu
-	<jianbol@nvidia.com>, Kuniyuki Iwashima <kuniyu@google.com>, Leon Romanovsky
-	<leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
-	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, "Patrisious
- Haddad" <phaddad@nvidia.com>, Prathamesh Deshpande
-	<prathameshdeshpande7@gmail.com>, Raed Salem <raeds@nvidia.com>, Roi Dayan
-	<roid@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drory
-	<shayd@nvidia.com>, Simon Horman <horms@kernel.org>, Steffen Klassert
-	<steffen.klassert@secunet.com>, Tariq Toukan <tariqt@nvidia.com>
-Subject: [PATCH net V3 8/8] net/mlx5e: Serialize TC and IPsec offload exclusion counters
-Date: Thu, 5 Nov 2026 23:16:36 +0200
-Message-ID: <20261105211637.1083978-9-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20261105211637.1083978-1-tariqt@nvidia.com>
-References: <20261105211637.1083978-1-tariqt@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQAfmjej
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0223F1F008A5
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:19:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793913546;
+	bh=1rj8tKO5/pFqbT+hKQWjyojZu6Y+BFNIgIDZkUjrPRE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eQAfmjejgdnCzPDmmvL1g4LJ0FSdCE6YGj3poL/nTRncVJqtrGf9Q9sdCQFzE11Pu
+	 /lEVBQMzOx/43xG2n7rf9MHAQ3mwFDHSy0i7OzmcV7yeEzftKgxESCHD+jPPs2KOLv
+	 QX7XNYXqgT2MHjP2nM0zoLzX7fiNPfIZ7WeblwnPUWes7KGOOC5Nc3ZXiXLD+FSSBP
+	 l637S64oF3PGjMII3+031JqODU00rZZHTUKrMmk249le5undNVv4sk5TV7uBuH6XKA
+	 ANqHplOYmuq1Iy5KOQqh/ce3kYJyxQBBk+qE5TdT6nUWJWREJbcFfWdN5rVgtx54dI
+	 wDme9hKUsZMlA==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be42ae8eb1so1411083e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:19:05 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByyfPLzpHfqGKImFWQQBCyMNwf4bnkFz0kPrXCUS23GXQfshWZYym/I1DOhKiQHDCUXLVq3oF1rd8XAMxg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xbTrN+D565G2FNQxPcffbVKBQ9K6sdPHTst6zsJ66uu2AUMqH
+	jBvFIN9YdTY9xQ0vraU3OuYmepSRkrIyeB4HwNqoUuuh2LR9s4IY3K01jcvTnIU6W9Boqus2au3
+	NT+j8uobSdZUSXZl4miWsDIdTQgbQ0+Q=
+X-Received: by 2002:a05:6512:3d15:b0:5bc:f29b:1a5c with SMTP id
+ 2adb3069b0e04-5c003ac490dmr84970e87.23.1793913544353; Thu, 05 Nov 2026
+ 13:19:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,208 +59,307 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD8:EE_|DS0PR12MB8813:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0f32a77-3f73-487c-8e03-08df3b825423
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|261009223027099003|261022075727099003|261021123027099003|261022105027099003|261021121427099003|261102123227099003|261026140227099003|261028144727099003|22082099003|18002099003|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	0JMLc4s5MH70jEDELfG2FRyn21JAt5uBgTV4zQdxkWp7REgTMVe7r+Cgg0KASe6sKSJX8FpzzV5hpYEuKrU0hfTSDqSzkX4zj4id4vg+KPVoYJp4B2VQ8VbMPCWBrqgFLpjtR0t30kNN8eCdtwTC2RFt2xF5Dr4prHqAh2OnfkANSz2lVWj55+7KBXIH5jn8aIL5EXslSUnqB9VzLLVVd7SiawG+OtN+1TegXmVyzCBdomEImNSvl460lH31NuiJ4CAZ4rRC99P1EYLRHgTmE33ZHA2S6qRPJTkoVIFYLROsGBlZI5F3vPCg1YRWKikv4e6HEWhkiLdYVrDHE2qULAakaLTKCIvPl7V/rjoIbf9n26z1YMoObEoQ/0egoIeTXfvMMHEFB5VtP0+6xPdyOBrrCMt/GEYeT86hcp4VpvwafS9vlLIR7aTv5SBL9pEmIx66zOgyE/CH0SH4zU1re++6gY6YOjMHymm/9MmxidDsDcGuYpEB/GW55fCGd4p4O7ImekzD1dR4L/fuwlg7VVUCwuOZNwsJV/pvjlNVAzGKVVwVjwRcWzi4TWePJwBbbdiszRGp7FOd6cl2h/+2bJRRitYhI4B7oB3mN/AA5me8pYdMs4cF4YwWj9yHThdg3WezKljH2dgMqAa+JMeg0wa2LQj0e1UlIbI0lxWngYDIUgjVTwjXskHC8PqmmhISkII6Gp9FJUkGs2FN0H6Q1w==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261102123227099003)(261026140227099003)(261028144727099003)(22082099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	+hFIAKF1e9GuM8hPDKKAdjFZmnJL2SaqA929kK5LcmuY6SXf+kWI0sodpkbsavrYcpjxPhBTGgGphZqtTAnkAJU2Hh7Nh2Mz6uU8Phzeao2Us3M37UyJJ6MKYGndh+PI4/QJHUa5rwfl77O0Jf/JKImBkel2y6vej84T/BR67pI1+rDqFDYBYHB1GATVVdVDBjyw4ckJmUpQvNv1n73fyg1RQu7QE2WLFjyqp3ycOPieR5CfIzwgdYIzU6FK02zwzIgAG6tAu8KnaaXI2XOMhIkYJtsFpeNPUXX82F+1la8bAoE4ExEnELT6l1+oaWvyL6oDyhoW0rBzsEDlwOKPAS4yIUMdD1DIhipFgXKoGvBOKBalH07It+Jz5LQe1FUldXTiiL0WHis49OCcRW9pAk4KxqwaR/mZ2WQXC6ODkqymWaCxKWKZNoVlMNA/AVXq
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 21:18:25.1536
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0f32a77-3f73-487c-8e03-08df3b825423
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BD8.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8813
+References: <20261103221717.3840215-1-briannorris@chromium.org>
+ <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+ <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
+ <auuICAm4BC_8Pzs5@google.com> <CAJZ5v0jTX1FgeS9FCV=+V4uacSgLQBVsSPnU27ybgUGg57GUOA@mail.gmail.com>
+ <auzlLwlleGLPsLcw@google.com>
+In-Reply-To: <auzlLwlleGLPsLcw@google.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 5 Nov 2026 22:18:52 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
+X-Gm-Features: AclHuK_Rw1SqQ-ayyKUPK1R6gu5PeotgZxuqEl-8c-_ZkMhL2cIhEUfo-I4VHDo
+Message-ID: <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent to dependency
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Cosmin Ratiu <cratiu@nvidia.com>
+On Thu, Nov 5, 2026 at 9:21=E2=80=AFPM Brian Norris <briannorris@chromium.o=
+rg> wrote:
+>
+> Hi Rafael,
+>
+> On Thu, Nov 05, 2026 at 12:59:24PM +0100, Rafael J. Wysocki (Intel) wrote=
+:
+> > On Wed, Nov 4, 2026 at 8:31=E2=80=AFPM Brian Norris <briannorris@chromi=
+um.org> wrote:
+> > >
+> > > On Wed, Nov 04, 2026 at 02:34:22PM +0100, Rafael J. Wysocki (Intel) w=
+rote:
+> > > > I should have responded to the v1 of this, but didn't manage to get=
+ to
+> > > > it.  Sorry about that.
+> > >
+> > > Hehe, well that's what v2 is for :)
+> > >
+> > > Thanks for looking.
+> > >
+> > > > On Tue, Nov 3, 2026 at 11:23=E2=80=AFPM Brian Norris <briannorris@c=
+hromium.org> wrote:
+> > > > >
+> > > > > When a child device suspends, it does not update the last_busy ti=
+mestamp
+> > > > > for its parent. If that parent configured autosuspend and didn't
+> > > > > otherwise maintain its last_busy timestamp, it may now be immedia=
+tely
+> > > > > eligible to suspend. This is probably not expected -- the parent =
+should
+> > > > > wait for its autosuspend delay before suspending.
+> > > >
+> > > > Let's first talk about what autosuspend is for: My understanding is
+> > > > that it is there to avoid incurring the runtime PM suspend and resu=
+me
+> > > > latency (and cost in terms of energy) in the cases when the device =
+is
+> > > > known or at least is expected to be needed in the near future.  IOW=
+,
+> > > > we want to defer the runtime suspend of the device because if it
+> > > > suspended, it would be resumed shortly thereafter.
+> > > >
+> > > > I'm not sure if that is always the case when a dependent device
+> > > > suspends and its reference to the parent/supplier is dropped.
+> > >
+> > > To be clear: dropping a reference is not the point at which we extend
+> > > the timer -- it's simply the point at which we propagate the last_bus=
+y
+> > > timestamp.
+> > >
+> > > The naive algorithm is:
+> > > Every time a device updates its last_busy, sync that timestamp to all
+> > > its dependencies.
+> > >
+> > > My proposal modifies that naive algorithm so that it avoids additiona=
+l
+> > > graph walks -- it defers that "sync" step until later. (Now that I'm
+> > > spelling this out, I feel like I should have included this in the com=
+mit
+> > > message...)
+> >
+> > OK, thanks for explaining!
+> >
+> > You seem to be arguing that the current behavior is counter-intuitive
+> > because people would generally expect the parent's (or supplier's)
+> > last_busy to be automatically advanced to the last "busy" time of its
+> > last active child (or consumer).
+>
+> More or less. Or, I don't see why "child was recently busy and may be
+> busy again soon" should not translate to "everything the child uses
+> might be needed again soon".
+>
+> > That is a bit far-fetched IMV because the child's last "busy" time
+> > need not be the same as the parent's last "busy" time, at least in
+> > principle (of course, that is debatable, but that debate can be had
+> > later).
+>
+> I don't get this -- I'm very much asking for that debate right now,
+> because so far, I disagree :)
+>
+> > Still, the underlying observation seems to be that if the child
+> > suspends and then resumes relatively shortly, it may not make sense to
+> > suspend and resume the parent in the meantime, which is fair enough.
+> > Of course, advancing the parent's last_busy will only help here if its
+> > autosuspend delay is long enough though.
+>
+> Right. But that's the whole point of this argument -- if all autosuspend
+> delays were the same, this wouldn't really matter. But the presumption
+> is that the parent wants delay because it's more costly -- it will be
+> imposing extra wakeup cost for its children if it's not accounted
+> properly.
+>
+> > So you can argue that if the parent's autosuspend delay is long
+> > enough, then it should prevent the parent from suspending across
+> > relatively short periods of child suspension.  Again, this is fair
+> > enough, so why does it not happen at times?
+> >
+> > It certainly does happen when the parent actually has to resume
+> > because rpm_resume() calls pm_runtime_mark_last_busy() for it then and
+> > (given a sufficiently long autosuspend delay) it will stay active if
+> > the child resumes a short enough time after suspending.  However, when
+> > the child resumes, the parent is still active, so rpm_resume()
+> > triggered by the child does not advance its last_busy timestamp, so at
+> > one point in the future it will suspend when the child suspends.
+> >
+> > This arguably is inconsistent, so my approach to addressing the
+> > problem at hand would be the attached patch (sorry for the attachment,
+> > but GMail is generally not good at handling appended patches).  If I'm
+> > not mistaken, it should be sufficient to address the particular issue
+> > that triggered commit c537d3457542.
+>
+> It's only sufficient if the child is not active for "too long". Suppose
+> the child stays active for 2s and then suspends briefly; your solution
+> does not work.
 
-The counters enforcing TC and IPsec packet offload mutual exclusion are
-not consistently serialized. IPsec admission conditionally takes
-mode_lock for writing, while TC admission holds it only for read.
-Neither release path takes the lock, and devices without an eswitch
-cannot rely on it at all.
+It doesn't work in the sense that it doesn't do what you want.  But fair en=
+ough.
 
-These are per-core-device counters, separate from the eswitch mode and
-encapsulation reservations protected by mode_lock. Move them into
-mdev->offload_block and protect their checks, increments and decrements
-with a dedicated spinlock that is available even without an eswitch.
-A spinlock is used because some of these functions are called from
-atomic context and is a good fit because the critical sections are and
-will stay really short.
+> In commit c537d3457542, I imagine the 0.2s polling example is just an
+> example;
 
-IPsec admission then no longer needs mode_lock to update these counters.
-Add warnings for unbalanced releases. Keep mlx5_esw_lock() for eswitch
-operation admission and temporary mode/encapsulation reservations.
+I'm not sure about that, but OK, say it's just an example.
 
-This was found by upstream Sashiko during review of [1], and spun-off
-into a fix from the larger patch.
+> what if that period was 0.1s, with some natural variance up or
+> down? Then I could easily see how the child remains active for longer
+> than 2s, and then occasionally is inactive for longer than 0.1s,
+> allowing both the child and parent to autosuspend.
+>
+> Or in concrete terms: see the appended test diff, which attempts to
+> emulate:
+>
+>  - 200 cycles of child get/put
+>  - delay in between each put -> get cycle
+>  - delay of approximately 100ms, with a configurable +/- variation
+>  - apply the shorter variation (e.g., 90ms) most of the time, with a
+>    longer variation approximately every 2s
+>
+> So for example, that looks something like:
+>
+>  cycle 0 to 22:   delay 90ms
+>  cycle 23:        delay 110ms
+>  cycle 24 to 46:  delay 90ms
+>  ...
+>
+> With your patch:
+>
+>    0ms variation =3D=3D PASS (child suspends 200 times, parent suspends 0=
+ times)
+>   10ms variation =3D=3D FAIL (child suspends 21 times, parent suspends 4 =
+times)
+>   20ms variation =3D=3D FAIL (child suspends 7 times, parent suspends 7 t=
+imes)
+>   30ms variation =3D=3D FAIL (child suspends 6 times, parent suspends 6 t=
+imes)
+>   40ms variation =3D=3D FAIL (child suspends 5 times, parent suspends 5 t=
+imes)
+>   50ms variation =3D=3D FAIL (child suspends 4 times, parent suspends 4 t=
+imes)
+>   60ms variation =3D=3D FAIL (child suspends 3 times, parent suspends 3 t=
+imes)
+>   70ms variation =3D=3D FAIL (child suspends 2 times, parent suspends 2 t=
+imes)
+>   80ms variation =3D=3D FAIL (child suspends 1 time, parent suspends 1 ti=
+me)
+>   90ms variation =3D=3D PASS (test didn't run long enough to fail)
+>
+> With my patch, all cases pass. (The child suspends in the same pattern,
+> but the parent does not suspend in between.)
+>
+> For comparison, with neither patch:
+>
+>    0ms variation =3D=3D FAIL (child suspends 200 times, parent suspends 1=
+0 times)
+>   10ms variation =3D=3D FAIL (child suspends 14 times, parent suspends 8 =
+times)
+>   20ms variation =3D=3D FAIL (child suspends 7 times, parent suspends 7 t=
+imes)
+>   30ms variation =3D=3D FAIL (child suspends 6 times, parent suspends 6 t=
+imes)
+>   40ms variation =3D=3D FAIL (child suspends 5 times, parent suspends 5 t=
+imes)
+>   50ms variation =3D=3D FAIL (child suspends 4 times, parent suspends 4 t=
+imes)
+>   60ms variation =3D=3D FAIL (child suspends 3 times, parent suspends 3 t=
+imes)
+>   70ms variation =3D=3D FAIL (child suspends 2 times, parent suspends 2 t=
+imes)
+>   80ms variation =3D=3D FAIL (child suspends 1 time, parent suspends 1 ti=
+me)
+>   90ms variation =3D=3D PASS (test didn't run long enough to fail)
+>
+> So, your patch makes an improvement, but it doesn't handle this kind of
+> variation very well.
 
-[1]
-https://lore.kernel.org/netdev/178907726586.219967.4695695146458742597@kernel.org/
+And it is not designed to do so.
 
-Fixes: c8e350e62fc5 ("net/mlx5e: Make TC and IPsec offloads mutually exclusive on a netdev")
-Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-Reviewed-by: Jianbo Liu <jianbol@nvidia.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- .../mellanox/mlx5/core/en_accel/ipsec_fs.c    | 43 ++++++-------------
- .../net/ethernet/mellanox/mlx5/core/en_tc.c   | 18 +++++---
- .../net/ethernet/mellanox/mlx5/core/main.c    |  1 +
- include/linux/mlx5/driver.h                   |  8 +++-
- 4 files changed, 31 insertions(+), 39 deletions(-)
+Of course, it will not prevent the parent from suspending if the child
+does not attempt to resume it for a time longer than its autosuspend
+delay.  That's by design and you didn't have to take the time to
+demonstrate it.
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c
-index dbe5547d7a49..55de9abbd72b 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec_fs.c
-@@ -2585,45 +2585,26 @@ void mlx5e_accel_ipsec_fs_read_stats(struct mlx5e_priv *priv, void *ipsec_stats)
- 	}
- }
- 
--#ifdef CONFIG_MLX5_ESWITCH
- static int mlx5e_ipsec_block_tc_offload(struct mlx5_core_dev *mdev)
- {
--	struct mlx5_eswitch *esw = mdev->priv.eswitch;
--	int err = 0;
--
--	if (esw) {
--		err = mlx5_esw_lock(esw);
--		if (err)
--			return err;
--	}
--
--	if (mdev->num_block_ipsec) {
--		err = -EBUSY;
--		goto unlock;
--	}
-+	int ret = 0;
- 
--	mdev->num_block_tc++;
--
--unlock:
--	if (esw)
--		mlx5_esw_unlock(esw);
--
--	return err;
--}
--#else
--static int mlx5e_ipsec_block_tc_offload(struct mlx5_core_dev *mdev)
--{
--	if (mdev->num_block_ipsec)
--		return -EBUSY;
-+	spin_lock_bh(&mdev->offload_block.lock);
-+	if (mdev->offload_block.num_block_ipsec)
-+		ret = -EBUSY;
-+	else
-+		mdev->offload_block.num_block_tc++;
-+	spin_unlock_bh(&mdev->offload_block.lock);
- 
--	mdev->num_block_tc++;
--	return 0;
-+	return ret;
- }
--#endif
- 
- static void mlx5e_ipsec_unblock_tc_offload(struct mlx5_core_dev *mdev)
- {
--	mdev->num_block_tc--;
-+	spin_lock_bh(&mdev->offload_block.lock);
-+	if (!WARN_ON_ONCE(!mdev->offload_block.num_block_tc))
-+		mdev->offload_block.num_block_tc--;
-+	spin_unlock_bh(&mdev->offload_block.lock);
- }
- 
- int mlx5e_accel_ipsec_fs_add_rule(struct mlx5e_ipsec_sa_entry *sa_entry)
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-index 708b7987ea4c..9f97c9d680bb 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-@@ -4836,16 +4836,19 @@ static bool is_tc_ipsec_order_check_needed(struct net_device *filter, struct mlx
- static int mlx5e_tc_block_ipsec_offload(struct net_device *filter, struct mlx5e_priv *priv)
- {
- 	struct mlx5_core_dev *mdev = priv->mdev;
-+	int ret = 0;
- 
- 	if (!is_tc_ipsec_order_check_needed(filter, priv))
- 		return 0;
- 
--	if (mdev->num_block_tc)
--		return -EBUSY;
--
--	mdev->num_block_ipsec++;
-+	spin_lock_bh(&mdev->offload_block.lock);
-+	if (mdev->offload_block.num_block_tc)
-+		ret = -EBUSY;
-+	else
-+		mdev->offload_block.num_block_ipsec++;
-+	spin_unlock_bh(&mdev->offload_block.lock);
- 
--	return 0;
-+	return ret;
- }
- 
- static void mlx5e_tc_unblock_ipsec_offload(struct net_device *filter, struct mlx5e_priv *priv)
-@@ -4853,7 +4856,10 @@ static void mlx5e_tc_unblock_ipsec_offload(struct net_device *filter, struct mlx
- 	if (!is_tc_ipsec_order_check_needed(filter, priv))
- 		return;
- 
--	priv->mdev->num_block_ipsec--;
-+	spin_lock_bh(&priv->mdev->offload_block.lock);
-+	if (!WARN_ON_ONCE(!priv->mdev->offload_block.num_block_ipsec))
-+		priv->mdev->offload_block.num_block_ipsec--;
-+	spin_unlock_bh(&priv->mdev->offload_block.lock);
- }
- 
- int mlx5e_configure_flower(struct net_device *dev, struct mlx5e_priv *priv,
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/main.c b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-index 1a45474ce03d..0439fcfb9ce5 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/main.c
-@@ -1814,6 +1814,7 @@ int mlx5_mdev_init(struct mlx5_core_dev *dev, int profile_idx)
- 	lockdep_register_key(&dev->lock_key);
- 	mutex_init(&dev->intf_state_mutex);
- 	lockdep_set_class(&dev->intf_state_mutex, &dev->lock_key);
-+	spin_lock_init(&dev->offload_block.lock);
- 	mutex_init(&dev->mlx5e_res.uplink_netdev_lock);
- 	mutex_init(&dev->wc_state_lock);
- 
-diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
-index abb99371ff13..84e9f6bdb7c1 100644
---- a/include/linux/mlx5/driver.h
-+++ b/include/linux/mlx5/driver.h
-@@ -789,8 +789,12 @@ struct mlx5_core_dev {
- 	u32                      vsc_addr;
- 	struct mlx5_hv_vhca	*hv_vhca;
- 	struct mlx5_hwmon	*hwmon;
--	u64			num_block_tc;
--	u64			num_block_ipsec;
-+	struct {
-+		/* Protects the fields below. */
-+		spinlock_t lock;
-+		u64 num_block_tc;
-+		u64 num_block_ipsec;
-+	} offload_block;
- #ifdef CONFIG_MLX5_MACSEC
- 	struct mlx5_macsec_fs *macsec_fs;
- 	/* MACsec notifier chain to sync MACsec core and IB database */
--- 
-2.44.0
+The question is how often those kinds of patterns occur in practice.
+Or IOW, whether or not they occur often enough to justify adding
+complexity related specifically to addressing them.
 
+> > Note that I'm not worried about the potential raciness of this new
+> > last_busy update with other possible concurrent updates of last_busy
+> > because they all use approximations of the current time and if they
+> > are close enough to each other, it should not matter who wins the
+> > race.
+>
+> Ack, that's one advantage in your style of solution, because you're only
+> handling timestamps "in the moment."
+>
+> > > With that said:
+> > >
+> > > > The core calls pm_runtime_mark_last_busy() for resuming devices und=
+er
+> > > > the assumption that they are resumed for a reason and so it is like=
+ly
+> > > > that they will be needed in near future, but I'm not sure if that
+> > > > assumption can be extended to a child suspend case.
+> > >
+> > > But that's not what I'm doing: I'm not calling mark_last_busy() -- I'=
+m
+> > > just making mark_last_busy() transitive to all dependencies. So any t=
+ime
+> > > we *already* say the child is busy, I also extend that to the parent =
+--
+> > > I'm not generating any new timestamps; I only reuse the timestamps we
+> > > already selected.
+> > >
+> > > My view on the logic (using your terms above): when a child calls
+> > > mark_last_busy(), it suggests that child might be needed in the near
+> > > future. Whenever a child device is needed, so is its parent (barring
+> > > ignore_children). Thus, mark_last_busy() should also refresh the
+> > > parent's busy timestamp.
+> >
+> > Of course, it can be argued this way though there are
+> > counter-arguments (probably not worth discussing in detail at this
+> > point) and there is the question how much of a difference this would
+> > make after addressing the rpm_resume() inconsistency mentioned above
+> > (which IMV needs to be address regardless because it is not limited to
+> > the parent-child or supplier-consumer situations).
+>
+> I would love to hear your counterarguments.
+
+OK, I'll say more about that tomorrow (it's past 10 PM here, time to
+go away from the keyboard).
+
+> I don't believe your solution solves the problem,
+
+That depends on what problem in particular you mean.
+
+It addresses an inconsistency in rpm_resume() and as I said above,
+this needs to be done anyway because it is not only related to the
+cases when children or consumers are involved.  There are other cases
+in which rpm_resume() gets called for an active device and the lack of
+last_busy update causes the device to suspend earlier than expected.
+
+> and my solution does while also handling
+> the inconsistency you mention.
+
+I'm not sure about that.
+
+For example, say a device has an autosuspend delay of 2 s.  Say it is
+initially suspended and user space writes "on" to its "power/control",
+so the device resumes.  Now, 1 s later, user space writes "auto" to
+the device's "power/control" and the autosuspend delay is respected,
+so the device doesn't suspend.  Next, 1.5 s after the first resume,
+user space writes "on" to the device's "power/control" and the device
+does not resume because it is active (its last_busy is not updated).
+Finally, user space writes "auto" to the device's "power/control", say
+1 s later, and the device suspends even though it can be expected to
+stay active for at least 1 s more.
+
+How is that going to be addressed by propagating last_busy from
+children/consumers to parents/suppliers?
+
+Note that I'm not dismissing your proposal, I'm just having doubts
+about the need to do this kind of thing in the core code.
