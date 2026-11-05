@@ -1,45 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.10.52.204
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793853778;
-	b=RU6q4FE0ZF29tb+MH40bzzF4RI/i4ILNpea1uCVE/F/L/x5RmgE/3q7XzZIji5I6oLsJ
-	 riVGuxpbUaaUBuSUcTb9Jo27b4vrE+p17c+Brwv8yqxJWQojSjyceaIf7N4LpnbRdN3oM
-	 h9+XiZ71FjXapVKJg/v+d2oqK7C2PtnQuyX9BGvciA41Fr5EdJAeCWDnzos4sW0z82b77
-	 zQDh8jArfgJYDEWcNWzKP7a7fC0EHUJwQ4oUyMs+kdMxrNrZNQsrHskkenrRPvEx2ZX9n
-	 Hox2H3Qbk/wklnrhVrBBUvvaGfHqRn+vNECbMjZATFAaJjbJgVhtgjiEyHgAD7j/ozw==
+	t=1793853851;
+	b=z8f5VoIRyG/ucS42RAhMYARz+q64URV8Z6eEGFgjtFZUDoFrrnKjzXdP2tSzgiPo5vp0
+	 tXu/+JbCoM23fOZhVHYdlGy8MhNofHla5ErVcT9lkBnW0UQR5V3apJWFxlevWaG1EK0eW
+	 CX8PX9gCQO5tI11AtTzGdP0amRwAJutQqfD2SFc2jCBZQL1htuit/ygb7/mSXlPqh6Zb+
+	 F4U8MWtfLzpZ4qNmQArKPY30FNUNAYbmvt8dB2ht19+pVuJ7h/S5sRMpk5w7H9Gu52Tr/
+	 F8g8CnKlGFEPhfmsLDn9Bbg2qlJ59JvgTaNYwLkRtQ/itKQgHOXoyTgL4po9m12CI1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853778;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=cN6YJ1UnxOE16ti8xYaxD9MJqzQpgNzKBI/Qx70ZbgA=;
-	b=tO2LrnImKw6+RZYAiU4KUJCujQ62BNqC5c2ZcKp5rl6C5VsYQxTPWwGruVq+NPAKSqdk
-	 bsKi+e6QV//y4HezfN0CvgpQwBBgL4OcoU05ObhgcY8HaQNc36vo4w5KCLCFigjGhcymc
-	 1LyOhoF60vwT60AK6S0VTa4Uf6qWeGPTJpg3I4qm+9l7i01yCE3VQJxFykmFILzRqf3DK
-	 +CWLtHlozcCp1FPQ5wvyNd1ak5iMMvuul85nIe47jYD358PBUNoe18G7vi/w9WI2OA7Lr
-	 cZ0NCFHEg5QQpIIIdEnK214rHJ7pxkFgiosP0jB0H9UYiK0h0sKXA8mTkSBvHYVKKEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853851;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:X-Amp-Result:Received:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-originating-ip:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=OLY+fK2buOemUlO1Z0CivAmC0sQIYBL6KveaXnqAsLg=;
+	b=a0Ybqkqs0IKUjQoLDgCrM/87MjwBt33LHMH40zLOVCJsXUUgjFKmvPlQK0CnIjA36O+R
+	 rcuI0EjuG3XRKu0WZ2zLUlTgOHOz/KbrnkyETlao3crWqi8xYjqtfsg1mJ53EG22Tp0Dr
+	 IlDffJTlnEoDzD2IEltUIEpamZIJJxj7cmDnR5XdxKARkIkNmAVNKnb8UKz4ZkYx59617
+	 vbPS4StV/Hne+aSNX7mdk0i5rnmaFWLy5+K+etMAjMT+/ldjQ+jUYfa6Dy37AYySKmddH
+	 suKhmHRGXpyYG/3iIghK1zTYEy50P530kVIXrcXoZ9QxLtuurOMauDSoUEDqZiWVqqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1UXq+0k;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infineon.com;
+	spf=pass smtp.mailfrom=infineon.com;
+	dkim=pass header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=Q9cb7FPn;
+	arc=none smtp.remote-ip=217.10.52.204
+Received: from smtp9.infineon.com (smtp9.infineon.com [217.10.52.204])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578FA606A32C;
-	Thu,  5 Nov 2026 04:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7485606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:44:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7485606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=infineon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infineon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1UXq+0k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A8B1F000C1;
-	Thu,  5 Nov 2026 04:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793853777;
-	bh=cN6YJ1UnxOE16ti8xYaxD9MJqzQpgNzKBI/Qx70ZbgA=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=D1UXq+0kLGwHk/Lgm8ny/UprJEvxodjQXYpqXFGEDngiNmZ9FKC6LxLhTtegM4UFq
-	 FEnJpiKLoWtNmCfzFZyNdlzFaaVzHgsvKfJVSUYyhBi2vMCxup7eyLHtVtW0bRhs3m
-	 I1FkmaQ28ws5+xIm4wugUR14+tTJUEDY6BpzZ2dxvmWJbkK99W8J4uBU7YLRmFupF+
-	 /l0nHrcday7jYHaTgOPMu/V2OFQs/dOjwcaiJpZJA9amvjjgV5LA3ETHe/bu3JKeDi
-	 oLgX3Ak0lmY3X04kIHYm1cfJI80+V8KEGGNVa4Vy+OGwm1lvnBdDtnkAxmKQcD2/k2
-	 XKpoFhl5/OPkA==
+	dkim=pass (1024-bit key, unprotected) header.d=infineon.com header.i=@infineon.com header.a=rsa-sha256 header.s=IFXMAIL header.b=Q9cb7FPn
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
+  t=1793853851; x=1825389851;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=OLY+fK2buOemUlO1Z0CivAmC0sQIYBL6KveaXnqAsLg=;
+  b=Q9cb7FPnMSiZHWa7M31BvtWisA5DRLnWA3ywEUMPVy3Nd1bFbippyCXF
+   jZftHdNkyKHj3uwznPaAwIOFYys+X+f7fh1sQGe0GIYONcPW/Mdzgxpd2
+   Z6mdD5s5ryK6PUmhvuQAieuU+RrtNb6NS9JIYngfIaaiFurCYAPqxfAri
+   Y=;
+X-CSE-ConnectionGUID: Ugs3KXr0SXOtj5jyI359hQ==
+X-CSE-MsgGUID: 2JryHZ1IRoCRR9jOD8PPGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="116531502"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787004000"; 
+   d="scan'208";a="116531502"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO MUCSE814.infineon.com) ([172.23.29.40])
+  by smtp9.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 05:44:02 +0100
+Received: from MUCSE815.infineon.com (172.23.29.41) by MUCSE814.infineon.com
+ (172.23.29.40) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
+ 2026 05:44:02 +0100
+Received: from MUCSE815.infineon.com (172.23.29.41) by MUCSE815.infineon.com
+ (172.23.29.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
+ 2026 05:44:02 +0100
+Received: from MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be]) by
+ MUCSE815.infineon.com ([fe80::b54c:c0bd:546c:c9be%12]) with mapi id
+ 15.02.2562.056; Thu, 5 Nov 2026 05:44:02 +0100
+From: <Takahiro.Kuwano@infineon.com>
+To: <nuno.sa@analog.com>, <linux-mtd@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <pratyush@kernel.org>, <mwalle@kernel.org>, <miquel.raynal@bootlin.com>,
+	<richard@nod.at>, <vigneshr@ti.com>
+Subject: RE: [PATCH RESEND v3] mtd: spi-nor: micron-st: Add support for
+ is25wx01g
+Thread-Topic: [PATCH RESEND v3] mtd: spi-nor: micron-st: Add support for
+ is25wx01g
+Thread-Index: AQHdasSUzP6S2xaSGUGYHgMvhOFISrce4XNA
+Date: Thu, 5 Nov 2026 04:44:01 +0000
+Message-ID: <0cbfb61d062b437b8e860a9c93b13e4d@infineon.com>
+References: <20261102-mtd-spi-nor-new-issi-chip-v3-1-f5e38e200fc8@analog.com>
+In-Reply-To: <20261102-mtd-spi-nor-new-issi-chip-v3-1-f5e38e200fc8@analog.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,57 +94,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] kbuild: dtbinst: Create destination directories before
- installing
-From: Nathan Chancellor <nathan@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Masahiro Yamada <masahiroy@kernel.org>, linux-kbuild@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261016-topic-dtbs_install_fix-v1-1-8cf50b642cba@oss.qualcomm.com>
-References: <20261016-topic-dtbs_install_fix-v1-1-8cf50b642cba@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 21:42:49 -0700
-Message-Id: <179385376961.826739.14151847592351019006.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1081; i=nathan@kernel.org;
- h=from:subject:message-id; bh=cpRbEdk5DsK63rlgJb74umfHVwDwiUBoMgEzBYQ/bcU=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFlvOH1Pa76eXBvW9l0rhcdZ8Oyb2+VHZ5svDT+8svTqk
- rscpUkLOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEMpcwMhxUPDir819t/8OY
- wjPHTFuSs3p5r8ypW/E9V1gyn8s6+RYjw+G4Xp1p/Zu63+u5/Nf6N7uyKUPowfXTB4Ll858sf1B
- XxwYA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-> dtbs_install installs each DTB with 'install -D', which creates the
-> parent directory of the destination on demand. With a parallel build,
-> two DTBs that share a not yet existing directory are installed
-> concurrently and both try to create it. The loser fails, which aborts
-> the whole build:
-> 
->   install: cannot create directory 'debian/linux-image-7.1.0/usr/lib/linux-image-7.1.0/arm'
->   make[6]: *** [scripts/Makefile.dtbinst:23: .../arm/foundation-v8-gicv3.dtb] Error 1
-> 
-> The failure depends on job scheduling, so it shows up as a build that
-> fails for no apparent reason and passes when re-run.
-> 
-> Create all destination directories up front, the same way
-> scripts/Makefile.modinst does for modules, so the install rules no
-> longer race.
-> 
-> Fixes: aefd80307a05 ("kbuild: refactor Makefile.dtbinst more")
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Seems reasonable to me.
-
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-
-Rob, do you want to take this or should we take it via Kbuild?
-
--- 
-Cheers,
-Nathan
-
+SGksDQoNCj4gQWRkIHN1cHBvcnQgZm9yIHRoZSBJU1NJIElTMjVXWDAxRywgYSAxIEdiaXQgKDEy
+OCBNaUIpIG9jdGFsIE5PUiBmbGFzaC4NCj4gVGhlIHBhcnQgaXMgZnVsbHkgZGVzY3JpYmVkIGJ5
+IFNGRFAsIHNvIG9ubHkgdGhlIGZsYXNoIElEIGFuZCBhIHNtYWxsDQo+IHBvc3RfYmZwdCBmaXh1
+cCBhcmUgbmVlZGVkLg0KPiANCj4gV1JJVEUgU1RBVFVTIFJFR0lTVEVSICgwMWgpIHRha2VzIGEg
+c2luZ2xlIGRhdGEgYnl0ZSBhbmQgb25seSBhZmZlY3RzDQo+IHN0YXR1cyByZWdpc3RlciBiaXRz
+IDc6Miwgc28gdGhlIGRlZmF1bHQgMTYtYml0IFdyaXRlIFN0YXR1cyBhc3N1bXB0aW9uDQo+IGRv
+ZXMgbm90IGhvbGQuIENsZWFyIHdyaXRlX3NyMV9hbmRfc3IyIHNvIHRoYXQgdGhlIHNpbmdsZSBi
+eXRlIHdyaXRlX3NyMQ0KPiBwYXRoIGlzIHRha2VuOyB3cml0ZV9zcjEgaXMgYWxyZWFkeSBzZXQg
+dG8gMDFoIGJ5IHRoZSBCRlBUIHBhcnNpbmcuDQo+IA0KPiBUaGUgZmxhc2ggYWxzbyBoYXMgbm8g
+U3RhdHVzIFJlZ2lzdGVyIDIuIENvbmZpZ3VyYXRpb24gcmVnaXN0ZXJzIGFyZSByZWFkDQo+IHdp
+dGggQjVoLzg1aCBhbmQgd3JpdHRlbiB3aXRoIEIxaC84MWgsIGFuZCB0aGUgMzVoIFJlYWQgQ29u
+ZmlndXJhdGlvbg0KPiBSZWdpc3RlciBjb21tYW5kIGRvZXMgbm90IGV4aXN0LCBzbyBjbGVhciBy
+ZWFkX3NyMiBhcyB3ZWxsLg0KPiANCj4gU29mdHdhcmUgd3JpdGUgcHJvdGVjdGlvbiBpcyBkb25l
+IHRocm91Z2ggdGhlIGJsb2NrIHByb3RlY3QgYml0cyBpbiB0aGUNCj4gc3RhdHVzIHJlZ2lzdGVy
+OiBCUDAtQlAyIGF0IGJpdHMgNDoyLCBCUDMgYXQgYml0IDYgYW5kIGEgVG9wL0JvdHRvbSBiaXQg
+YXQNCj4gYml0IDUsIHdoaWNoIGlzIGV4YWN0bHkgd2hhdCBTUElfTk9SX0hBU19MT0NLLCBTUElf
+Tk9SXzRCSVRfQlAsDQo+IFNQSV9OT1JfQlAzX1NSX0JJVDYgYW5kIFNQSV9OT1JfSEFTX1RCIGRl
+c2NyaWJlLCBzbyBzZXQgdGhvc2UgZmxhZ3MgdG8gZ2V0DQo+IHRoZSBnZW5lcmljIGxvY2tpbmcg
+c3VwcG9ydC4NCj4gDQo+IE5vdGUgdGhhdCBnaXZlbiB0aGF0IHRoZSBGbGFnIFN0YXR1cyBSZWdp
+c3RlciAoRlNSKSBoYW5kbGluZyBpcyB0aGUgc2FtZQ0KPiBhcyBpbiBzb21lIG1pY3JvbiBkZXZp
+Y2VzLCB3ZXJlJ3JlIGFkZGluZyB0aGUgaXNzaSBjaGlwIGRpcmVjdGx5IG9uIHRoZQ0KPiBtaWNy
+b24tc3QgZHJpdmVyLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTnVubyBTw6EgPG51bm8uc2FAYW5h
+bG9nLmNvbT4NCg0KUGxlYXNlIGFkZCBMaW5rOiB0YWcgYXMgTWljaGFlbCBtZW50aW9uZWQgaW4g
+WzFdLg0KDQpbLi4uXQ0KDQo+IEBAIC02NTUsNiArNjgwLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBzcGlfbm9yX2ZpeHVwcyBtaWNyb25fc3Rfbm9yX2ZpeHVwcyA9IHsNCj4gDQo+ICBzdGF0aWMg
+Y29uc3Qgc3RydWN0IHNwaV9ub3JfZml4dXAgbWljcm9uX2ZpeHVwc1tdID0gew0KPiAgICAgICAg
+IHsgLmZpeHVwcyA9ICZtaWNyb25fc3Rfbm9yX2ZpeHVwcyB9LA0KPiArICAgICAgIHsgLmlkID0g
+U05PUl9JRCgweDlkLCAweDViLCAweDFiKSwgLmZpeHVwcyA9ICZpczI1d3gwMWdfZml4dXBzIH0s
+DQoNClNhc2hpa28ncyBjb21tZW50IFsyXSBsb29rcyB2YWxpZCB0byBtZSBhcyB0aGlzIGNoaXAg
+c3VwcG9ydHMgOEQtOEQtOEQuDQpDb3VsZCB5b3UgcGxlYXNlIHRha2UgYSBsb29rPw0KDQpUaGFu
+a3MsDQpUYWthaGlybw0KDQpbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtbXRkL0RM
+RVRSUlZSVVdFUC4xVlUxRUhBUkQzTVNIQGtlcm5lbC5vcmcvDQpbMl0gaHR0cHM6Ly9zYXNoaWtv
+LmRldi8jL3BhdGNoc2V0LzIwMjYxMTAyLW10ZC1zcGktbm9yLW5ldy1pc3NpLWNoaXAtdjMtMS1m
+NWUzOGUyMDBmYzglNDBhbmFsb2cuY29tDQoNCg==
