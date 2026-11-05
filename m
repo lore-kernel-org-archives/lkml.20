@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907161;
-	b=Z1NvJQekiAMWWbsBMHQU2tR3pKP6m8drAYUIa9YM6emrWRcuwU3YFELI+Yxj03DSoqAB
-	 vEq9Zy9EQt2E0OvAkiHy5euOV62zA4wH97sejAkFU4RMXgkR27FEJxHCe5YZ8MmgxXmN9
-	 RhVVKpzn4V/uRk9qpQe8GcUqiZlesvCh8vEerXsW8iQ8u17hgs6F3WpJXSAPbjpXYOXek
-	 47MVQsRIRXds/v4VLLjamMI4HAEbzc+VD42x5EBveBENmBnCn7w+UHh17PU/Axpa/hpfp
-	 nABiOGag05vSlLdolltwJtyIPoLJT4cubvYOZ7kTNGZjfW0bH2fgb+D5/F6tHwrUFRg==
+	t=1793907165;
+	b=KRgUSm6Iy625ZLpMqkXzSJ4apI48Tk7VVwm+vpZ3o6WyMDkkbfsnfPh6RyxLopnnjlUr
+	 BQNDXnfUON5rHS81TIdEL8LSaCYilzyEEKdGBB28EjbxIJmtu82LyiBx/nW8No7nsOVbC
+	 mtQhzW/v7Cln8vM6hRioalecDVT87M0OxtsSoQ3qyRzxokR6YVVFg+WfrYD9UPg6HPjgd
+	 XLi6hB7+H90/hh8HFv9IpRvxWJZL2PqAscP5uZCr4OT1ZN4JeQDjSK4hKPRxGDKi+iqNS
+	 LqemHIs4fF/RxfMFIZnApSr5DzgnCAEaaHSP3L27zZ7jeHSArh07IwZXZNTnoBIyTSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907161;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Rb2ofXzgJBc5fIuQP0w05xjk/81sHfOWEL8zO3J0XUA=;
-	b=haiDEWCHoZE8Xgx/HnHdbzKUfXf5w2zihw4W6shBfEZ80TGz5/tUtybk4pwIbG4fOeCk
-	 bi0FyOX9zA8Pr95Q6jPJYNnBmdLEFGlXUfZA/EEpKh6dy1olzAXeVIzvAEdMQaYpztfKi
-	 wQwNVslyqUigtDBmiqxv6UujnX9/bBcoCT73Tyr9Al9BhQzFWrGe4RaQ3B6FJlVQAHH8q
-	 m3GVsvlgU1YDINIX/Mt5VrbWe1Rnj5jXW4X/9dL53Yp17JgWxqKzBwQ2wyl7owJ7AH1Wl
-	 UxDKe5UOj3BiGWf00AzOt1CwDbZ+SSE1+tBRQv/mdztzwv6XKAn444G74+wPeo4K8RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907165;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9JYvchWNYP7Qhse19z85hXzOJjhHmC8E+HAVLm+92M0=;
+	b=bF1PjpyCDiPkItSKpcTv4Dc2XP1rX6DcaDCkMqXSD4og+CFEXd0K+XACyVWz4Pvsn24G
+	 ozIa3KIyaSnlmWLU3tB9CkyackzFmzz62q3U3+6iEFMA6Iw4FIWIWHeZnxK3/Pxr2YiX5
+	 zhacQZ43n9zJep0cBqmEBF8x+cl6kwFxJ0ZS4vucerpLfsIQ0IncdOZxALhiIejwwZFWO
+	 xIalniH9S/0Jh9ldUZ9iAK+aEXipEQBVfWhn4IvMW3HGGWKRfcUg5jFjItSThpOC7ULit
+	 9Dn2/S/1acA1NS1n4iZnA+5nt4fXIP8qdnS2cfd5L+9GKysHKzDYxpkUKcly/+PHzaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDtVrelY;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fsh4bQYq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B80E606A6C4
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C47606A6C4;
+	Thu,  5 Nov 2026 19:32:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDtVrelY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C1A1F00893;
-	Thu,  5 Nov 2026 19:32:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907161;
-	bh=Rb2ofXzgJBc5fIuQP0w05xjk/81sHfOWEL8zO3J0XUA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eDtVrelYYt9il2577q40L8EJ4XtDnLbe9oqPCZ5DVXPhy2CZ8RykrXLqcT8lNJ9fo
-	 iVvdOiFyVuQs7f9uc0KWN9MENqV2XhI4rRvK3+VjAyx04aExFaeskqW93dB8KnV1I7
-	 jXPC/Dq+sLpMiFkrvl1FXVJfY5SmBtdGcpXVpAosWwzVpgGOAtgpDNtkSivs3sMb0S
-	 idxJlASIgnR6P/pT9DmadA3pyNe/7F5fBJgEg6bIU8TZ5JFBDrGQZ6Q/e/u9IVIB7y
-	 yZXuho1Kj6QIDbZlEjN5wDAh5ZVw8ddXkVoI6kVGhOjvfJ+tc5dncmBzIgU7aioe/k
-	 V1zZhbj+ZI/kg==
-Message-ID: <7dc47941-0c84-4260-bf9c-1a9bbe4d4f08@kernel.org>
-Date: Thu, 5 Nov 2026 20:32:37 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fsh4bQYq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47911F00895;
+	Thu,  5 Nov 2026 19:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793907165;
+	bh=9JYvchWNYP7Qhse19z85hXzOJjhHmC8E+HAVLm+92M0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Fsh4bQYqMWs7carasWGDuHRy4Vk/lJrPAI34OneO9HrTG2V1O8i5xUeFVX1yYbl+I
+	 ZNyZyt/Ts+sjd3gO77ODfqyUhpNY6s+mf9lDYESl+MvTxE5P8sWgQuglBvGHq1fwHT
+	 FLTCbyVVxaegRwIhVxhoszJ+XaI3i/Y2wOLcYpy0=
+Date: Thu, 5 Nov 2026 11:32:44 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com>
+Cc: baolin.wang@linux.alibaba.com, brauner@kernel.org,
+ fuse-devel@lists.linux.dev, hughd@google.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, mszeredi@redhat.com, syzkaller-bugs@googlegroups.com,
+ syzkaller@googlegroups.com
+Subject: Re: [syzbot] [mm?] [fuse?] WARNING in shmem_initxattrs
+Message-Id: <20261105113244.274cfd420b666687f37643ec@linux-foundation.org>
+In-Reply-To: <6aecb307.a24d9935.80af2.0019.GAE@google.com>
+References: <20261105082717.c459bb33778fcf27e5675082@linux-foundation.org>
+	<6aecb307.a24d9935.80af2.0019.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,90 +58,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] shmem: skip empty unmap ranges when punching holes
-To: Hungyu Lin <dennylin0707@gmail.com>, hughd@google.com
-Cc: baolin.wang@linux.alibaba.com, akpm@linux-foundation.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261105055619.58289-1-dennylin0707@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261105055619.58289-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 11/5/26 06:56, Hungyu Lin wrote:
-> When a hole ends before the first page boundary, shmem_fallocate()
-> calculates unmap_end as -1. Casting it to u64 makes the range check
-> succeed even though the hole contains no complete pages.
-> 
-> For example, punching one byte at offset zero calls unmap_mapping_range()
-> with a zero length, which means unmap to the end of the file. The file
-> contents are preserved outside the hole, but unrelated mappings are
-> removed and must fault back in. This can be reproduced with fallocate -p
-> -o 0 -l 1 on a mapped tmpfs file.
-> 
-> Keep unmap_end as the exclusive rounded end instead of subtracting one,
-> and adjust shmem_falloc.next and the unmap length accordingly. A hole
-> ending before the first page boundary then has an end of zero, so the
-> unsigned range check skips the empty range. Retain the unsigned
-> comparison so rounding the start near the maximum file offset continues
-> to be handled correctly.
-> 
-> Fixes: 83e4fa9c16e4 ("tmpfs: support fallocate FALLOC_FL_PUNCH_HOLE")
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
-> Changes in v2:
+On Thu, 05 Nov 2026 08:47:03 -0800 syzbot <syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com> wrote:
 
-Thanks, I'll wait a couple of days and then queue this for the next merge window.
+> Hello,
+> 
+> syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+> 
+> Reported-by: syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com
+> Tested-by: syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com
+> 
 
--- 
-Cheers,
+Great, thanks.  My LLM-controlled live-kernel testing setup liked it
+too.
 
-David
+Christian, I'll send this over soon:
+
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: shmem: consume the reserved xattr space despite remount
+Date: Thu, 05 Nov 2026 08:08:06 -0800
+
+Creating a tmpfs inode can trigger WARN_ON(ispace) in shmem_initxattrs()
+when a concurrent remount sets nr_inodes=0.  With panic_on_warn enabled,
+this warning can panic the machine.
+
+shmem_initxattrs() reserves space for the security xattrs while inode
+limits are enabled.  It later tests max_inodes again before consuming that
+reservation for each installed xattr.  If remount disables the limit
+between those steps, successfully installed xattrs leave a nonzero
+reservation behind.
+
+Use the remaining reservation, rather than the current mount policy, to
+decide whether to subtract the installed xattr's space.  This also leaves
+the failure path with only the unconsumed reservation to refund.
+
+An initially unlimited filesystem cannot acquire an inode limit through
+remount: shmem_reconfigure() rejects that transition.
+
+Link: https://lore.kernel.org/20261105082717.c459bb33778fcf27e5675082@linux-foundation.org
+Fixes: 076e5cef28e27 ("simple_xattr: change interface to pass struct simple_xattrs")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=4324f771847cecb27c54
+Tested-by: syzbot+4324f771847cecb27c54@syzkaller.appspotmail.com
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Miklos Szeredi <mszeredi@redhat.com>
+Cc: Christian Brauner <brauner@kernel.org>
+---
+Reproduced the warning before the fix and verified its absence
+afterward in a Debian 13 guest with SELinux enabled (permissive).
+
+A temporary hook paused file creation after reserving security-xattr
+space. Another process completed a real nr_inodes=0 remount before
+creation resumed. The unpatched kernel left 94 bytes unconsumed and
+triggered WARN_ON(ispace); the patched kernel consumed the reservation
+completely. File contents and the security xattr were verified.
+
+Ordinary creation on limited and unlimited tmpfs mounts also passed
+on both kernels. No additional KASAN or lockdep reports occurred.
+
+Tested Linux 7.4.0-rc1 with GCC 13.3, KASAN and lockdep, using KVM:
+8 GiB RAM, four vCPUs and one virtual NUMA node, backed by a
+Threadripper PRO 3995WX. Both kernels had the same diagnostic hook;
+the ordering was forced rather than left to random stress.
+
+ mm/shmem.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/mm/shmem.c~shmem-consume-the-reserved-xattr-space-despite-remount
++++ a/mm/shmem.c
+@@ -4451,7 +4451,7 @@ static int shmem_initxattrs(struct inode
+ 		if (simple_xattr_add(&sbinfo->xa_cache, &info->xattrs, new_xattr))
+ 			break;
+ 
+-		if (sbinfo->max_inodes)
++		if (ispace)
+ 			ispace -= simple_xattr_space(new_xattr->name, new_xattr->size);
+ 		retain_and_null_ptr(new_xattr);
+ 	}
+_
+
