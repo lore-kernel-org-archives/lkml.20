@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793918076;
-	b=jLfPcDCWLsaKhs5zxEc3Z0XarbT+l6bGvY/xCzypE1SJMVZ5+V9N2RTeBk6GpZUbXM9h
-	 qXHxomoVZ+ihgv2MgLwTD4SaoJs4Q6M7iJcpP0G/3a9xOASZXwMzaQRiutrSqMJHVF4Ov
-	 ykjkF/Y3vgUzQ7oUsZWQ046+CDkN1P3+nIWaq5aNq5raWVtttAgOOfa6rZlE3L3QTWGJh
-	 6JB+9FoJqwusz1prT9mIuDnzKDv64RfpnH9yPmZAVfzOtpKqKs0t1RfNtmlsoOZHuoJgt
-	 fLSxXb17Z7xXvMtuB5eQ6vSTYBwxKciKhoHfMnGVWG+MpFaDVWNOA64aPsacgf2mKZw==
+	t=1793918075;
+	b=X14og3JFYtGZ3f/zufSzjyPUSYtA8H00EBIh9Yux+FOOAGYgR6cPQOZV0OH8/kSdTC4M
+	 tK8YKaQdNOour573q3BJ7syWuG8EqbjcJ3E6bZjq9rbap2ClZN1wgPtp2xzN0mNbHCwpY
+	 nqbEnM/1ohhNanpyTm4PSISmnr9uw/4511aDLPtKEjoYAhQ3pmo/7XDZcS8B2X5aXHiDA
+	 JeQxDIFGdFR0sPGXQgktU/O60ebOaIBu7+K3QnSHyimll2Ogjfcgaevlw6QnjaRUjdnZ8
+	 U+CIbZAYgeo+b27yFWFUp5rRi2aAUeibWUGDAf82g7RUgpm/aDr0wAlurceIFx7YLTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793918076;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793918075;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=1hYspQIQ4LkjWerTtfiwgFtZ0WGW92Raq9eAnPsktJs=;
-	b=Gk1qGE0fUiNES5fQtDEfXc4PJFCYY7JdjLf8avMoAwBKFdnunPZOclX/f1n0sxA7+0+Z
-	 WmcIGMJiNmlTio2k3uS+Ism2ikj4mGIC9jTgwg6SCL5EPyNQxe2Ncoveu8jn0TpdOM4vm
-	 B04CmaZ5lQk4ZW9E2D6lQPjVAGwF57K40ZhL951P21mOhehRfgHhdXUr9AunKUvLQ1yIO
-	 AOAC6PlJHYg4supwdOPUA/fJlQIqNOeskEy8Esn9SZgzDaT72JXnlzDCxvsTIeoBKbirk
-	 B2KsNVCqsWYnUEnZs6GFHq1icqrunRPP2D0fltFD4Uxo3Y3PYym7nkfOC8Tck4TnTJQ==
+	bh=oXC0xO4zLhmVGs6KoURlIdb6x3QgmfrvscYjlJ8lq1E=;
+	b=w23PDAkUUdYr7NZRgu5dOxCgkLYxUpRFzWaODHbbpGj4UAJUsHR2M5A/tRz3MZEW9zos
+	 2/b6xN4mUj2jJNDb+KOZh+Uyqx/029YECiv4LYale0Jr8vDJbhysXMzzObNK4sOOrkc6e
+	 oK8ZgRhcaGxTbmZxcJwj0SLn5uPVkX3rm/gkKqbAaL0M1h1OsgTHciN59b4JTYsvaHuNw
+	 l/Tk0JBlqBJPCdE2ANAzBVKvUpqWSl7J/Wg3tstMcUMNiUSiW6aPlVe+YbxeHMTS/IJGT
+	 z/vDOEZVdiNVbFYqHIA1q69b0BxN8pB5OmBOZm98l4MWay4Q19aP0JWuA2SGoGjTRdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSXLCZnB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KX1psBg3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A4F606D803;
-	Thu,  5 Nov 2026 22:34:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD77606A33B;
+	Thu,  5 Nov 2026 22:34:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSXLCZnB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533AA1F0089F;
-	Thu,  5 Nov 2026 22:34:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KX1psBg3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262191F0089F;
+	Thu,  5 Nov 2026 22:34:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793918075;
-	bh=1hYspQIQ4LkjWerTtfiwgFtZ0WGW92Raq9eAnPsktJs=;
+	s=k20260515; t=1793918074;
+	bh=oXC0xO4zLhmVGs6KoURlIdb6x3QgmfrvscYjlJ8lq1E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YSXLCZnBsbSH6o9EuclTsHCKziC97L4yn92K40m06PANLvq1GqQl3bKFJE8dK7QoU
-	 p1YA0e+08t+qsfofVL5fcjba2n5sO0jNzAj9WXkGnmqTXPM5x42Mw5l31ctLwll7pt
-	 D6PPgAT/bMOzcsIYtAn4MwHwbeIYLB9BaaGjOklDQsoQTs8kPV5FO+ixObOZQgR/14
-	 JieCUr930vDatI4bY+SqwLhE9PAfHx5NDgbZfC69B0wLqQxsLDL5/o9leHd89UWy85
-	 rtHuS0KlBewmmNvVykQ3rF+xB8hK7VzPbtEXKhAVncWK5s0UkaaSpmUvkvhO9kOn85
-	 Z/8P1rEGwT2yA==
+	b=KX1psBg3zJQ7zeMKw49FUfKb6aUTjYarvYcFw7vMZUjCWNa5IF5JdfsownZSOlJkd
+	 M160PX/O0rcLqu27r4aWz4t6mCPT2i/dhGu59dhG5DY25e0COGXkm8AFQSiS3knE+c
+	 KUO7Sb3lcMg3YVPW0Hv6C8ZxRlUjOjlpUn5/vJjuHJWoGnEb30nfkTm/vj75XzVvYI
+	 FH94nRl58QuA7n0UhwJrdWmkjIn7/Z6t/qruWc39+BpQyZNQWkzjOI6CTJF8I1WRXG
+	 Fg9EMBi/fCrGu58LfXaN+o05NHTAh9KmeQfRcpNyOsS1EUM/YQ6XL5oS0/0hpjMIts
+	 IrfLrVOWryFQg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 05 Nov 2026 16:34:19 -0600
-Subject: [PATCH 6/7] ARM: dts: arm/vexpress: Fix Cortex-A15 GIC compatibles
+Date: Thu, 05 Nov 2026 16:34:18 -0600
+Subject: [PATCH 5/7] ARM: dts: arm: Add missing "#dma-cells"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dt-vexpress-dts-fixes-v1-6-66615c3c8ec3@kernel.org>
+Message-Id: <20261105-dt-vexpress-dts-fixes-v1-5-66615c3c8ec3@kernel.org>
 References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
 In-Reply-To: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
 To: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -66,55 +66,52 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-The "arm,cortex-a15-gic" compatible does not take a "arm,cortex-a9-gic"
-fallback compatible, so drop it.
+"#dma-cells" is a required property for DMA controllers. Add it where
+missing.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts | 2 +-
- arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts  | 2 +-
- arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts     | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/arm/versatile-ab.dts          | 1 +
+ arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts | 1 +
+ arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts  | 1 +
+ 3 files changed, 3 insertions(+)
 
+diff --git a/arch/arm/boot/dts/arm/versatile-ab.dts b/arch/arm/boot/dts/arm/versatile-ab.dts
+index 907c3dd2849d..f1c927e8a8fc 100644
+--- a/arch/arm/boot/dts/arm/versatile-ab.dts
++++ b/arch/arm/boot/dts/arm/versatile-ab.dts
+@@ -234,6 +234,7 @@ dma-controller@10130000 {
+ 			interrupts = <17>;
+ 			clocks = <&pclk>;
+ 			clock-names = "apb_pclk";
++			#dma-cells = <2>;
+ 		};
+ 
+ 		uart0: serial@101f1000 {
 diff --git a/arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts b/arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts
-index dd68250fa999..75d7f2852f94 100644
+index 72a65a83c7c3..dd68250fa999 100644
 --- a/arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts
 +++ b/arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts
-@@ -92,7 +92,7 @@ watchdog@2b060000 {
+@@ -122,6 +122,7 @@ dma-controller@7ffb0000 {
+ 			     <0 91 4>;
+ 		clocks = <&sys_pll>;
+ 		clock-names = "apb_pclk";
++		#dma-cells = <1>;
  	};
  
- 	gic: interrupt-controller@2c001000 {
--		compatible = "arm,cortex-a15-gic", "arm,cortex-a9-gic";
-+		compatible = "arm,cortex-a15-gic";
- 		#interrupt-cells = <3>;
- 		#address-cells = <0>;
- 		interrupt-controller;
+ 	timer {
 diff --git a/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts b/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
-index 8f210671b287..f3f9d6e4dd16 100644
+index 7b74ba30b8a3..8f210671b287 100644
 --- a/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
 +++ b/arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts
-@@ -147,7 +147,7 @@ memory-controller@2b0a0000 {
+@@ -207,6 +207,7 @@ dma-controller@7ff00000 {
+ 			     <0 91 4>;
+ 		clocks = <&oscclk6a>;
+ 		clock-names = "apb_pclk";
++		#dma-cells = <1>;
  	};
  
- 	gic: interrupt-controller@2c001000 {
--		compatible = "arm,cortex-a15-gic", "arm,cortex-a9-gic";
-+		compatible = "arm,cortex-a15-gic";
- 		#interrupt-cells = <3>;
- 		#address-cells = <0>;
- 		interrupt-controller;
-diff --git a/arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts b/arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts
-index c716e60a8be0..a5e0dde254ab 100644
---- a/arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts
-+++ b/arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts
-@@ -119,7 +119,7 @@ watchdog@2c000620 {
- 	};
- 
- 	gic: interrupt-controller@2c001000 {
--		compatible = "arm,cortex-a5-gic", "arm,cortex-a9-gic";
-+		compatible = "arm,cortex-a5-gic";
- 		#interrupt-cells = <3>;
- 		#address-cells = <0>;
- 		interrupt-controller;
+ 	scc@7fff0000 {
 
 -- 
 2.53.0
