@@ -1,117 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873973;
-	b=VUGBfR05YOYQIpHI4Ht34Z6EawjEo/Ack2NzInYqi7PLLRuHh3SPUPJnTn7/5d1tQ+KT
-	 1tZqIpbK+4nNaMM9QeT6wqghxcsUK8fgRj3CbRCUFuMx8eJAPAEfCHaSYB34w9pS3Lwil
-	 Cq44AUdLK2QXL+qBskns0NJXAeLIznAQQ3q61oIfQEaDWkwEpcPUDXROoQ4we8p2ggBG0
-	 GjvPT31ahUrk+pT8xrDJH19l68Sxx4KpQEikiW+skCj/UWeC20eBqPWTY764ll65mLFfM
-	 xDM4HG484/+cs5JSodegq1adgfM/Wag4kKk69J6IJK1AdmEzQbB4O3Mmzs7WuBEujpw==
+	t=1793873975;
+	b=K0DaD6RrAV4pP8woM2QXMARr/6j/3s1yk4BsLqJNtXF+G1S38YyxZX39urmTucT+E3nW
+	 44mRKTAnApJGnZd3igDV0xfy2xoz1zrQB7bdv4V4MjTxHV2o5UFkJW1LmCSKUZ3RrPw6r
+	 wRsrkyFboUYVeoMj8RIH6c/3leLAsZ06ofhc3zESXZsu5jTsfkYzGpgAKdQeBR9xHVaFX
+	 fA1CDiZJfxHHdmLXOPbagrEc4RIXz08vD2bhqKd5ODCqTcpb9O2zlR4piO5qB/nVKvTPF
+	 jeXoiniawU9mh32va/ylhq+172MmRuWEcLRJJxR8HPGZMAiXGxIw9V/+b54IpX8Unzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873973;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
-	b=HZZRZcpprps1gVjnLcOBbH3JXER2ieBNvQzMkw9cgwMAW+odLc6rleI3x7di082TIHaO
-	 x/a3wmGzNMnDUE5x3X13i33I+nzpZkV2+JdEb4aMaCSq7SvZ2z6HJpYOEaLxUhpiO7C8V
-	 J2Eb8mg6TwhR+KyRFBXJyjDD3Cym5jnqfSJQ92Clu92SohdmfhF9HF2N0RYEfrRSxHBgK
-	 x1g0jV25hkt0rx0u0cc3Sbo1Oykf5ElkfdGpoefVbjJ3+To9g911rlXTR7Kduf37YUKFz
-	 c16r0I1uzcBC6kfhYPT4fIUJ7gI0FsK2Z92lcKseZZSXXaA/xH39LP6PPbL3+pQz5YQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873975;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=V1425VickH0U/cq3HA//BsimIL61YS+3s6S4I+LnDFY=;
+	b=22rkAsFRjMvYXveog5nfBKFrpPsBYixWcMvVtPPPqoZEk3aH92f1Cs6r7znYfidxi51P
+	 NztfuH3fVYKIa3fcgKM5V2BrLg+bS8OcKnRI92UsjnRWBzx0fhAozhQy61hYvp5Xf5U+N
+	 42NXsvEEdlJ9RrFjmRqTLEjXOhBghwwaX1b24LumECGZw6AFV6hZ6ArLTEuzTksbQ9Ftb
+	 H3qXZZL+9VwY/ELdjkQvg7knECuPvpsx73FwReNjNw8PpP3KPeWm5Td3eJduBSLjEN14p
+	 8tiFPNEItxB5ZjcNsJCzO/i5ZBTo9zOoTLJ1ts4E/5beelLzSB0btlWju7VVJNFWL2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PY8w+zYA;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HMJklcMh;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NYhKMp79;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F453606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB378606A330
 	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:19:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F453606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB378606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PY8w+zYA;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HMJklcMh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793873971;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
-	b=PY8w+zYAXiiVifm6btqV+p5uDBQw5cQQYVuimHjxqdacJfiJcVuJAgaOTL3MWKRWVKDitI
-	mCsjOWf0L6ZcIug3KS6evtUDA2nG2AFeSAohzEmzEMrG97dg0RH5BrlnRceL6KZLKnizB/
-	7WdZy/6eIV3q/m+xNIGWscRxWYF2xy8=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-68-jAjFn5yLPCWv5u7HUE3YjQ-1; Thu, 05 Nov 2026 05:19:30 -0500
-X-MC-Unique: jAjFn5yLPCWv5u7HUE3YjQ-1
-X-Mimecast-MFC-AGG-ID: jAjFn5yLPCWv5u7HUE3YjQ_1793873969
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-49034831bb3so1084418f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:19:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793873969; x=1794478769; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
-        b=HMJklcMh9FcYEXGvdgDrdmi0+f7NbWsuCXHc0hMqdEPVp0TkQ8B0Jwpy4ReTtJzZPh
-         SLE2pVTWesYvybWibzIhXsA+oZIsNutxhoV792AUzGz2aE9aYfuOTtoBPli/Sua9yeQP
-         D5X2qTQGPX+DRtRiEiPbrU+/nm4dkuZwKBuHVZCchSHf3fioFSc8iDW/bdRDkgpSWIav
-         QXg+UVZcMs2Fwv1bKpXD/uz8JxLfiDSngSlKMGnZt95jFNna+U0Z/dlhhREXpRzmJvVS
-         njlcPJDpkfq4PB9wlB47/l3VMD0V6cDYLLM826nBbkvglvtcqFAQhs0nEB6astc5/pC8
-         1dRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793873969; x=1794478769;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
-        b=NYBSpAJHAtd4KCnJ5QJZIESVRQipXL4ZOkTQgC5OyWx5vGz6orehN2J+T+n1/eUvzN
-         v/RWtZGWs9V5LSxpnL4LxU2sCX/TmJF1+P0GvynUduDYRR181As1v2Ij6fz6DAA32E38
-         7yngXvwQOH7Ww6Rbn7quOt3mcNZBLgdaTmG9IjruSEk413UZ9sLoBEvU5thOrg8xrLvG
-         9AeLDsXy3NH0jIB3fFy8Y58Tb+V5S4YMQNqtMymN06CqNCZaRb/XSJ2zx4TjRaMXCsKj
-         gvSs1M348WwKpGC/DzqZrz5neBG+ExSyLWthf+bPEzO3jZvfCuE00/TXM9S0JOWD0fn+
-         0i0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwvh+RJEGvf5v3IS9iuOYmF8B5IZOV9fJPEUKoxjBC+H2+r9mSp+TsR+xnN9hrUKo04C/IR3MNmrMS/KgQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89Yk1REse73wwCsEKLFb2C7S/ze0eBCpK9KOtcMAnjhprB40zP
-	rdg45YtHW8C1RAmPsk+m71vI1JLLTQa5YaDCemIuu2+ewcgSqot87LWKAanO5hZx0Xo4U+yWMyP
-	dAQlss3vYhMyuXjs7JZhQXLC6THDfJHN3jkVv8QyxPoAWQNsxQaVFkoArIBA1uRiasQ==
-X-Gm-Gg: AYBFou1Io3sPd19NLHbqYDewkLgA9FO0dX/nHqcuwRCpStUp3Qro5zhXC5sw8OA/F5f
-	5Kouqk+mUcNVJRa65FOmtDTMmby5z0tn+Km3juH8ehdSRHYjupT5lsb8RHOQQAATIKJmUIuNOfl
-	6HD872D+6ZseaCXEBDUsFBtFwQwKGFCBoEXCTrcgvSbETniboQyfk2o6ya44sYyDFaH2KQ/X3vy
-	mdY0Q82v8aqFzJTdY6g+hKeRExApyPqmeqitsRHvaSdYGxIeguj18p8l1tc/wJQh7GRE2XW3tS5
-	x1Yn2FJAxhiRKtC23rZGCPHCdysv8kzLSag6EhmeKBnRfk6Al7Z0jg6i9wp2tysvjcxicjQzlOa
-	uCqAzgSZnzZkafqO95wGwv/ITY7Na36LmKTxt6KPcySoOTxhI6QoL
-X-Received: by 2002:a05:6000:3109:b0:48f:bcbf:26fc with SMTP id ffacd0b85a97d-48fbcbf2c1cmr13670556f8f.53.1793873969165;
-        Thu, 05 Nov 2026 02:19:29 -0800 (PST)
-X-Received: by 2002:a05:6000:3109:b0:48f:bcbf:26fc with SMTP id ffacd0b85a97d-48fbcbf2c1cmr13670494f8f.53.1793873968633;
-        Thu, 05 Nov 2026 02:19:28 -0800 (PST)
-Received: from sgarzare-redhat ([80.116.143.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844c8sm9640157f8f.26.2026.11.05.02.19.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:19:28 -0800 (PST)
-Date: Thu, 5 Nov 2026 11:19:23 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: jrmmhm.kernel@eldare.de
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Jason Wang <jasowangio@gmail.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, virtualization@lists.linux.dev, 
-	kvm@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3] vsock/virtio: clear vqs[] to avoid a UAF on a
- failed PM restore
-Message-ID: <auxVKMavkOw3Ia-6@sgarzare-redhat>
-References: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NYhKMp79
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793873972; x=1825409972;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Zj0zVNOu94ih07InFYHgHqA1Pz8gcacruHHQkFrLLpQ=;
+  b=NYhKMp79rnjMBbIfRtXSmpVO1dkw4s0B/DDF7I7fVd1sh20rE1ssFhLM
+   OLUWh1dg+byUPG8TmD/cNN7qRAaLHWqnu5kwwAf/r275j2PCDasgkVEfb
+   zForqq62iCqE/wos4wFVxFI0I4fQwGJ7OxN/HPBeCA/GIjoVyvhUWKC9D
+   XcuwcGnXvpr4UzkOvvszd7j/iuZC8+uFyEVqJ4ItRS5FxXDLXoNUyL8vU
+   gMileqaMod6D6ecfsEk7d5TSOJq1saiMyU2Gfj5OgqaJLrSOPeEXjnYZf
+   xSmGzqCeP7zJCDx7en+S8CL3uNDZNmQNF/+UJOUS1q8W7tYXqNe4Bpf1j
+   g==;
+X-CSE-ConnectionGUID: x7A5H3FsT4KY11Vz/GI3Lg==
+X-CSE-MsgGUID: aSmbn6VlQMiZUESxI+6rPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2558379"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2558379"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:19:32 -0800
+X-CSE-ConnectionGUID: abrshWGPTYu/d9jzsvHs1g==
+X-CSE-MsgGUID: hmA+C8GUSKyTM8PuN9yZHQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="8741743"
+Received: from chenyu-dev.sh.intel.com ([10.239.62.184])
+  by fmviesa012.fm.intel.com with ESMTP; 05 Nov 2026 02:19:29 -0800
+From: Chen Yu <yu.c.chen@intel.com>
+To: tony.luck@intel.com,
+	reinette.chatre@intel.com
+Cc: tglx@kernel.org,
+	bp@alien8.de,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	fenghuay@nvidia.com,
+	babu.moger@amd.com,
+	hongyu.ning@intel.com,
+	chen.yu@linux.dev,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v10 03/12] x86/resctrl: Require 64-bit x86 for resctrl support
+Date: Thu,  5 Nov 2026 18:08:29 +0800
+Message-Id: <39843a4166ca45ac777548eb70e777e2f23c949c.1793864720.git.yu.c.chen@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1793864720.git.yu.c.chen@intel.com>
+References: <cover.1793864720.git.yu.c.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,121 +90,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 05:26:43PM +0100, Jerome Mohm via B4 Relay wrote:
->From: Jerome Mohm <jrmmhm.kernel@eldare.de>
->
->virtio_vsock_vqs_del() frees the virtqueues but leaves vsock->vqs[]
->pointing at them. If virtio_vsock_restore() then fails, the driver
->stays bound with a dangling vqs[], and the next freeze or unbind
->passes a freed virtqueue to virtqueue_detach_unused_buf():
->
->  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
->   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
->   virtio_vsock_remove
->  Freed by task ...:
->   vp_del_vqs
->   virtio_vsock_freeze
->
->Clear vqs[] after del_vqs() and when virtio_find_vqs() fails. Return
->early from virtio_vsock_vqs_del() when vqs[] is empty: a second
->del_vqs() would free virtio-mmio's IRQ again ("Trying to free
->already-free IRQ").
+From: Tony Luck <tony.luck@intel.com>
 
-Is this an issue or just a warning?
+Intel Application Energy Telemetry (AET) provides event counts in 64-bit
+registers in MMIO space. For accurate results these should be read with a single
+64-bit load operation from the CPU.
 
->
->Found with the help of Anthropic's Claude and reproduced on virtio-pci
->by failing the restore with failslab; the virtio-mmio IRQ issue was
->found by the netdev Sashiko review. With this patch neither report
->appears on virtio-pci or virtio-mmio guests, and the vsock vmtest.sh
->single-VM tests pass. A find_vqs() failure after some virtqueues were
->set up was not exercised.
->
->Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
->Cc: stable@vger.kernel.org
->Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
->---
->Changes in v3:
->- Shorten the commit message (Stefano, Michael).
->- Drop the two comments on clearing vqs[] (Bobby) and shorten the
->  remaining one.
->- Drop the tool note below "---"; it is in the commit message (Stefano).
->- Comment changes only; not rebuilt or retested.
->- Link to v2: https://patch.msgid.link/20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de
->---
-> net/vmw_vsock/virtio_transport.c | 16 +++++++++++++---
-> 1 file changed, 13 insertions(+), 3 deletions(-)
->
->diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
->index 4f9aa9c4c3aa..ffe7cd93463d 100644
->--- a/net/vmw_vsock/virtio_transport.c
->+++ b/net/vmw_vsock/virtio_transport.c
->@@ -714,8 +714,10 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
-> 	atomic_set(&vsock->queued_replies, 0);
->
-> 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
->-	if (ret < 0)
->+	if (ret < 0) {
->+		memset(vsock->vqs, 0, sizeof(vsock->vqs));
-> 		return ret;
->+	}
->
-> 	virtio_vsock_update_guest_cid(vsock);
->
->@@ -781,6 +783,14 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
-> 	 */
-> 	virtio_reset_device(vdev);
->
->+	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+In preparation for the removal of the separate CONFIG_X86_CPU_RESCTRL_INTEL_AET
+configuration option, move the X86_64 dependency to X86_CPU_RESCTRL.
 
-I'd prefer to move this before the virtio_reset_device(), because the 
-comment on top of that is related also to the next steps (detach unused 
-buffers), so having this in the middle is not really readable.
+This is in line with Dave Hansen's proposal[1] for an addition to Linux
+documentation that details reduced 32-bit x86 support.
 
->+
->+	/* After a failed restore no virtqueues are live, and a second
->+	 * del_vqs() would free virtio-mmio's IRQ again.
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+Link: https://lore.kernel.org/all/c6ab0c24-8931-4f0d-9be6-23498ab4c38b@intel.com/ # [1]
+---
+Changes since v9:
+- This patch is picked up from the AET series so that both series carry
+  identical versions, which is why its changelog refers to AET rather
+  than ERDT. (Reinette Chatre)
+- Add Reinette's Reviewed-by.
 
-What will be the issue of freeing virtio-mmio's IRQ again?
+ arch/x86/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-
-The rest LGTM.
-
-Thanks,
-Stefano
-
->+	 */
->+	if (!vsock->vqs[VSOCK_VQ_RX])
->+		return;
->+
-> 	mutex_lock(&vsock->rx_lock);
-> 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
-> 		kfree_skb(skb);
->@@ -791,10 +801,10 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
-> 		kfree_skb(skb);
-> 	mutex_unlock(&vsock->tx_lock);
->
->-	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
->-
-> 	/* Delete virtqueues and flush outstanding callbacks if any */
-> 	vdev->config->del_vqs(vdev);
->+
->+	memset(vsock->vqs, 0, sizeof(vsock->vqs));
-> }
->
-> static int virtio_vsock_probe(struct virtio_device *vdev)
->
->---
->base-commit: 363c8c79220d0db4d65dcd570529ddda15067cb5
->change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
->
->Best regards,
->--
->Jerome Mohm <jrmmhm.kernel@eldare.de>
->
->
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 58dce0b66179..4aff3c6cda0c 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -515,7 +515,7 @@ config X86_MPPARSE
+ 
+ config X86_CPU_RESCTRL
+ 	bool "x86 CPU resource control support"
+-	depends on X86 && (CPU_SUP_INTEL || CPU_SUP_AMD)
++	depends on X86_64 && (CPU_SUP_INTEL || CPU_SUP_AMD)
+ 	depends on MISC_FILESYSTEMS
+ 	select ARCH_HAS_CPU_RESCTRL
+ 	select RESCTRL_FS
+@@ -538,7 +538,7 @@ config X86_CPU_RESCTRL
+ 
+ config X86_CPU_RESCTRL_INTEL_AET
+ 	bool "Intel Application Energy Telemetry"
+-	depends on X86_64 && X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
++	depends on X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
+ 	help
+ 	  Enable per-RMID telemetry events in resctrl.
+ 
+-- 
+2.25.1
 
