@@ -1,99 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793919591;
-	b=Eqglr/YKuhAR437eEuSxTFaA0PGfu8KDjuotbQnN+EkzN1IGK8CujK2QxefxMZwihDNB
-	 zw1Ec1qinAPsXBbCAYGPFXNZd755zg8mKbGRi/mEWfiG4AMIHoQegSYBUglxzgIaQKxst
-	 ustFzXmBVYFcoQPyZTA0A95bLMstVCURZSzc2xYakznlATSshhsemOhuZAH2XJNoY9VPc
-	 mqCaM0lr/JfcTei+jHLnNSRsPI5LhqETa5zhQ6lSRISZu/QONn4F54cI2OoDRLRlBuA3l
-	 Pvy4DCyQpdYD3Q9qCHHZJJXdKeMNC/MUDxy37qU0NrloUZIyWKDwkNAAUy7y7iFmOEQ==
+	t=1793919589;
+	b=K/a15MYGZi754FarcVzHkuMuvAbu/D6kD4657TMQFc+/B3C7Cs3km5IGGtEaGwwRAgYa
+	 2HlLhfqg6mpoVxkiBkfbl1ouogOe60kqNlMqVbZCP+IFR1b+PWExYwI0BeYEfP5Dj5ZLp
+	 Q6xPKZjnH1g+/Exo7RH+SIudr48r21nulBcd4XwjNsVuNNNUxnewyPKmXcj3xOX/fPL/T
+	 ou7poaAn5L7F3f318wMeGOIVPONBsiueGENgv+wJk+t+kwRYan2rfNCSVARUZQQI0466i
+	 A65weZik7PGgT6+yxiUk7zdSLCxWLD0+wbDhrZiJ4z8zdUar+O62Hkg5DZMNZqSj/ew==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793919591;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=RrHtlwl+AEhIC5xfPPlTatk3kWQjUPqvdwoLzmNPK+8=;
-	b=BrmTyf2I3RafPVLlVHZs5i4ukttwoUeh2oWg5L+gMYSQq0e/vL1cj0twMVxIptMcaCj7
-	 /OiPZQmMNA0bK2pbI+3zjwVnMXY3wOlT9QhrY5XMHkyV0TyNwWvH6VaYZvz/CNTZgWAs/
-	 EJ3jsMX6XEUtzOCcbmILGdfIPF6B7/+1ho0xWNTmLo1hXfroLeIVPorS7giE/aaw92coy
-	 BQ5U1LQN+NQ6WYVV7jx//ATSLNsZXJCifTzuEqX17iT4XXuWECPKGj2WukvFYJgwxibUN
-	 5t6B8WVd7zsK7cn03JiOpwXfctbyR9nJTecBfbRUlhw3ZLe6ElrEKhGnmUuR2UZEU8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793919589;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=WdrkeWA5q5NZPAjfL6pBJnTm0PpgBinSg9ZwIQcwiok=;
+	b=gJFa6d1DvzoBqM5p2vT/cNgE5nplP6hDzUl/5RgWGoSo/oAsp6oEJVLZ4ciU28TxYaz5
+	 WW7lJ05OQfcMKOro0H4G/DeiyCwK1JS75XHWOflwcs30IZ6WwsKCurC7XufRlL9CoIzs/
+	 fb5Kd7FGSW+nKSs58hiJyl3rSOWvhg9exXysrKHM7aPsAfHZSXpNCecPXDBuFjCHxQbEG
+	 BRKsO+iIZrhbIryimizDWK1CKftgX9eNU+kbRO5ZKdhQunH1Y3t01kZNEj9GZBTS5NbkK
+	 9q5XlgXGXVngrAUX975S3ZCFF+qfFKdiL6l7NI0eSshDHEyqVfFv6CFyrU57gu7s5eA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YWQOh8dC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.53
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMwS3fBk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBD3606A328;
+	Thu,  5 Nov 2026 22:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMwS3fBk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793919589;
+	b=c9NqO4TLKq8l8MlIVHnPqbEdRZp+Jw29wdoJpCzGZ7UujRxvDLRGrr/pjlKadlkkh3Ce
+	 9tTjYcH9Qo4viqI52ytB/ex1Lx3JmaJ3LOzW9MzvK1PvA1j/kTJP+Ju+lrsPFiXrvfisC
+	 zpvfDxlVPJo3NWDCdaF0+MOwP3ucct3DcVHI/Y1gvUO9qdIzXLthwNR6u0Dg/z/SMrIJb
+	 QYilag3/xl7QiyDT3P6+UkDVFlsDt8rVirwr48nNiFLu2WQSwti2fCNBrEprZ86zBN9Ac
+	 1vfdJH3C69dIAJx7WANfUvE0q4g7L1cgtSThjSV3xBKp2HQOB39pqipCXVjr+ZgO6fA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793919589;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=WdrkeWA5q5NZPAjfL6pBJnTm0PpgBinSg9ZwIQcwiok=;
+	b=Fd/+r7gNgqW5CdYXwsZ7Ph2X/F0EHLCdXoBBp/vJuiCg1iKBKdWaemsKUoV1NiJeZtju
+	 UeQCq/R/7Lbj+H5aRpgPu5dH2LuVylLzgRQSfgGPDSp/DEydJT0Pt3B/DacVIwJzOagZt
+	 qs+akDh/PhAmQhnEsJeFTJTCqcP6D1+RNPuLvG6+oXmwN9m7dB+hDRqgMM1ivGvYujfYV
+	 xyqq/fyROxtcYb2W+hdPcUFM57HHfchQCqeqPDYkvYdP7inILwPVNh160vEEx1syuKFfp
+	 u09gYwfTSc3geo1SaZrburRsEWnZQCR/rI8onqNT+itGo+I7SUQJjwTT7wqRLHB97hA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDB3606D806
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 22:59:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DDB3606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YWQOh8dC
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so41947e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 14:59:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793919589; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g3b9Drh5gUC2V/Ws3+TAo16wP8as55WQvmcnxKiHufqoIcF5toBxl9qdsD9SeQXt68
-         MEjgXEdaHpQHUmwluZ4Uu4RVZnon6Ot4xZNtp7o2n77XpDuENZoVm8dy/4P0Pcoct9ZP
-         37ME1rcQ+byeskBzdyNSOyO/NAETWdxnYC6ja+VhkWxf1JKCGozbZBitA6PslmqSzSEO
-         1TMSPhFeOY3H2oOc4i+CipmWzvJcMWzq2NWfn7efKwO9dsuUoadUc4Vli9DyxcmUZonW
-         qrFc+kLSN6EetXxpiE7c0hA6xyO3lAdKtG7Y6h5rBTP0yMGweib2405Rf98gvoekkYjz
-         REcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=RrHtlwl+AEhIC5xfPPlTatk3kWQjUPqvdwoLzmNPK+8=;
-        fh=EsQF6GDFXviC8efKJHT/1zUJU8rMg0zVfX9IGNTd228=;
-        b=Bl0+A8F22Qsov3UNrkjVQ9gV+Vn25kkarNIH/T0MZIfz8Uzxgj2P13JK/jafhq2dek
-         tIBY0EItxeB7bi7jf+LMCgWRLqs/KRd+xIPI+W5ZGGocQ/pt0e9z6TWBuFxE+hlSk7E3
-         JQ1FNzGsTz/b3iYE2NckjgVAHxWq7V8qMCR+AqLBL8YbHJqs3xQMCpL6+Jet053DHkVM
-         Ufz36IyRWP/Jm7eVkYgQ6Hxdbe1+Bak9Xsu20BNuksgRHJ2s9vvE8urDDmhBx5yD3exX
-         03AOK93iFlxjyr/DO9n3dTLGbsmGLW/nVPziXmdMrpSdtPGefXCm8+YeImP/3UsLGfcb
-         Unow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793919589; x=1794524389; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RrHtlwl+AEhIC5xfPPlTatk3kWQjUPqvdwoLzmNPK+8=;
-        b=YWQOh8dCM8gvON6hVDpStq7yHj2s6IWgWnB/nxtN6C8wgL0M20bsbcxa9HLr0sPjc3
-         /E1jD8ECQKDHCXpS6s1+ajdYlCRx4SxTio0M77qhW0SenZ9/9K5LshPugByWuu9M2mck
-         sJG1cNfhn+lb80HOdE3w5CyXcHmxZZa7Cvka37UZqZa/aStW942SFOQRVDSgbufnPzLt
-         MkM7TpvsiKsUkLywIaccFh1Hlf7HOqQlnxivlVVAXho3NmU4XUB1AC0Nzsbm7KYvOWwd
-         +sYAQwnyhttjSWdf0pTuvRS3a+/sUgM8Al9OdAhlvYQzVVW6sw/Iv1vI2zx40RBTDGWK
-         vsgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793919589; x=1794524389;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RrHtlwl+AEhIC5xfPPlTatk3kWQjUPqvdwoLzmNPK+8=;
-        b=EtgG7V71c/IZq4H9oR7e7doI0UzgsvJWXpDxss58KpJxHLtwuOg3IUtPXNZU47hATi
-         gnUOQGKsUt5jNt/V8YbBTycBDbMkt61NgkRQjrhoQd+ZepZh/Kks0LSI9Dsa6iEOxZB6
-         MLDD6+HtLXGH7JAO23ojSzpwkFtHZ/dgUmPYOXgvaVgJmgvDrFHi71ezf50ldOycP/Cw
-         YvMgOOjq/vc0Boi3qKXSHKnYMjSDxsOOFgcfwB6bliphlkAiCKli3LOHADLIFFxgDMbc
-         g9SyP+q75kZj8oMu7/qknN2+rjiurTh0/+mCGaFddLrgzXCq0zGkySdzdOQqaURmmthZ
-         s+4A==
-X-Forwarded-Encrypted: i=1; AKwUvBw9fqAV3o7dJdaNhu6ZK323/TpF1uo171JKm63Xj/aOQ+WaS4XTSsC7eftobZALfiDxTMziJtISe4WhuhU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HEqqtyZOL1nbK6YUYGsDHxC9601hOQzr+chvm2mA5Hk9FYLLY
-	m70/T3f9Txbkcv+JztqphHNF0Cf5nVcAK3RuGkFga4fY0mx4MJv85l+cD6gQmQG0pLAXp6B9Pyw
-	d7RR4bdnB8/ok1HBVV0fuU5UV9az3gqQ=
-X-Gm-Gg: AYBFou2iGY0hwAXivFyfifSAJZezLwOBZuUXbxfBqyGeGF+fX/Lw1fWux76uY8/OuM6
-	HOKsx5oTxlAJqpX85+ra4KE0oi8kdu9gkXWeh3RhTGM5nzIIsoJFVj95rVE4LUldkGIjaLhir31
-	EJNiTQ4FhXuho5/UJnouMc+e6qlyXp9AsBYiMEpoaOAwEYgwsHh8mofFELvxlcL5rZRrSHJJ/gs
-	4/AEwE4ZZmlPOBPpNbqlnJzUEZQJvt8uikGuRXJopNl1UNribgrqBQ5EXMlVYysNv+5r5Zqx/Zc
-	JJKXaSK42zww3thql+g4ZW66BBgrISNhUbzVs7MxNaAmMwdtqnRW7x7zO18ZqJ66ZL4H0Z87OgI
-	GhnOWV5TAh59bpsRtOoxjoXvFnoj9OPWP254jaG++ky+h6Z7g9l/ApNeMKTvZ
-X-Received: by 2002:a05:6512:1192:b0:5be:4a09:cda5 with SMTP id
- 2adb3069b0e04-5c003af7714mr125332e87.58.1793919589269; Thu, 05 Nov 2026
- 14:59:49 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 734191F008A2;
+	Thu,  5 Nov 2026 22:59:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793919589;
+	bh=WdrkeWA5q5NZPAjfL6pBJnTm0PpgBinSg9ZwIQcwiok=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=GMwS3fBkn+OeUvvKnPShuxiZ22PTxPS1f8st6c77zZ6JFMfiYLVby47fsqjjEY7Zh
+	 PFT0xp0SqIoloSneDaRID4E0sfIVG5+HIT330tABYzGzLGoKVKSRm6VH4Lipr/vTQr
+	 nLugk0fF16Bw1OIcqaQQeFjqoWOdP9rmai2bYHI3N6/QiD/os/W9Po0sD9xP7qLIet
+	 TcEwrFCkOs+nJitSMMBbApV4fwlUZjeSmJX3O3THj269prBuR39jdwPXlWmksRPRC2
+	 KVvpr42SboHsFPuzSnrYe6fr11yW/0DJ5Xq42p13mtOX30Q7eFXpr4vLn4nE93QX1f
+	 9T+f6FVpXp7/Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C5E3A45AD3;
+	Thu,  5 Nov 2026 22:59:47 +0000 (UTC)
+From: Xuheng Li via B4 Relay <devnull+xuheng.cs.columbia.edu@kernel.org>
+Subject: [PATCH v2 0/3] KVM: arm64: Fix the hyp pool size on large
+ machines, plus two hardening patches
+Date: Thu, 05 Nov 2026 22:59:47 +0000
+Message-Id: <20261105-hyp-pool-and-map-v2-0-44a6ca90190b@cs.columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,58 +84,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-a5xx-gpu-pm-v2-0-457aafbb28da@gmail.com>
- <20261019-a5xx-gpu-pm-v2-1-457aafbb28da@gmail.com> <bd3b073b-cae5-4ea8-8ed4-063db0aa5e64@oss.qualcomm.com>
-In-Reply-To: <bd3b073b-cae5-4ea8-8ed4-063db0aa5e64@oss.qualcomm.com>
-From: Fabricio Akio <fabricioakio@gmail.com>
-Date: Thu, 5 Nov 2026 19:59:10 -0300
-X-Gm-Features: AclHuK-50e5PrDAf3J21VAWq1T9hcSqfrAmJp671654qb1dhNNUctHumFE4UGmM
-Message-ID: <CANxzQdFZL0_KbNHfQ3DWyMfp-SuEyomRCdYi9tAFMkGkcoTatQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] drm/msm/a5xx: Reset the GPU when resuming it
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Paul Sajna <sajattack@postmarketos.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQqDMBBFryKz7khGiNaueo/iIjHTOqAmJFUq4
+ t2beoAu34P//g6Jo3CCW7FD5FWS+DlDdSmgH8z8YhSXGSpV1URK47AFDN6PaGaHkwloNTeWW0P
+ UEuRZiPyUz5l8dJkHSW8ft/NhpZ/9E1sJFTa6tla7K6u6ufep7P24TFZMyW6B7jiOLz0pGeS2A
+ AAA
+X-Change-ID: 20261105-hyp-pool-and-map-b5e7be9a1191
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>
+Cc: Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+ Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Xuheng Li <xuheng@cs.columbia.edu>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793919587; l=1934;
+ i=xuheng@cs.columbia.edu; s=20261028; h=from:subject:message-id;
+ bh=CAOlYbJH00SZ0i+KHyNqqm2Di8dpY/YNVVprTboRUdo=;
+ b=c1X/nyAlwsURpe72dwNz4wB9yo7f6Xx60mT0l5jS7LojUn/cgTuWMddWKw/TsCvXlYu41zll8
+ XqC4R8vzMtCCkFzXTCd4CKrg+/ZfCIGYmt4qkNKIPTZebWkZn+MPamQ
+X-Developer-Key: i=xuheng@cs.columbia.edu; a=ed25519;
+ pk=L1HVV+goqxYmEMO/OXakL6uf9isSpgk2QrLlFqyZ2Qs=
+X-Endpoint-Received: by B4 Relay for xuheng@cs.columbia.edu/20261028 with
+ auth_id=1349
+X-Original-From: Xuheng Li <xuheng@cs.columbia.edu>
+Reply-To: xuheng@cs.columbia.edu
 
-On 10/23/2026 3:29 AM, Akhil P Oommen wrote:
-> On 10/20/2026 7:35 AM, Fabricio Akio via B4 Relay wrote:
->> On SDM630, SDM660 and MSM8998 the GPU's GX power domain belongs to its
->> SMMU, not to the GPU, so GX switches off only once the SMMU suspends as
->
-> This is incorrect. There is no Adreno GPU where SMMU is powered by GX. I looked
-> at the DT of SDM630 and I don't understand it. Seems like a creative workaround
-> to vote different power domains.
->
-> Please reword GX -> CX here. Adreno SMMU is powered by CX GDSC in every chipset.
-> In some chipsets, the core GPU blocks are also powered via CX GDSC. So it
-> makes sense to do a SW RESET in case CX didn't collapse due to a vote from the
-> SMMU driver or something.
+Three changes for issues we found in pKVM as part of our research
+project.
 
-Ok, the SMMU is on CX. It is the DT that gives it GX, as Konrad also
-pointed out, and v3 will say so.
+Patch 1 fixes 32-bit size computations in hyp_early_alloc_contig()
+and hyp_pool_init().  The hyp page-table and host stage-2 regions reach
+4 GiB on machines with about 2 TiB of RAM; the early allocator then
+carves them too small, so the two pools overlap and can hand out the
+same page twice.
 
-The message keeps GX, though: with a test DT putting the SMMU on CX
-alone and the GPU on GX, the CP lost its ring state on all 4 resumes
-with the SMMU held awake; with the current DT it kept it on all 3.
+Patch 2 checks the host stage-2 PGD allocation for NULL before using
+it.  With patch 1 applied that allocation cannot fail, so this only
+turns a mis-sized pool into a clean -ENOMEM instead of a hyp panic.
 
-So v3's first sentence becomes:
+Patch 3 makes hyp_map_walker() refuse to replace a valid block mapping
+with a table, which would skip break-before-make and unmap the rest of
+the block.  Nothing in mainline maps into an existing hyp block, so this
+is hardening; Android's interface for EL2 modules to map pages can reach
+it.
 
-  On SDM630, SDM660 and MSM8998 the device tree attaches the GPU's GX
-  power domain to its SMMU, whose own domain is CX, so GX switches off
-  only once the SMMU suspends as well.
+Signed-off-by: Xuheng Li <xuheng@cs.columbia.edu>
+---
+Changes in v2:
+- Patch 1: also fix the same overflow in hyp_early_alloc_contig(), which
+  makes hpool and host_s2_pool overlap (reported by the Sashiko review of
+  v1); describe that in the commit message and add its Fixes: tag.
+- Link to v1: https://lore.kernel.org/r/20261105-hyp-pool-and-map-v1-0-756bb5d8e067@cs.columbia.edu
 
-> Instead of a new API, we can just move msm_devfreq_resume() here. That will align
-> with the A6xx sequence.
+---
+Xuheng Li (3):
+      KVM: arm64: Compute hyp early-allocation and pool sizes in 64 bits
+      KVM: arm64: Check the host stage-2 PGD allocation for NULL
+      KVM: arm64: Don't replace a valid hyp block mapping with a table
 
-I take that to mean removing the call from msm_gpu_pm_resume(). That
-reaches A3xx and A4xx as well, so v3 does it in a patch of its own
-before this one: a4xx_pm_resume() and a new a3xx_pm_resume() wrapper
-call it right after msm_gpu_pm_resume(), where it ran before, and
-a5xx_pm_resume() then moves it after the reset. A2xx has no gpu_busy
-callback, so it has no devfreq. I can only test on A508, so A3xx and
-A4xx are untested.
+ arch/arm64/kvm/hyp/nvhe/early_alloc.c | 2 +-
+ arch/arm64/kvm/hyp/nvhe/mem_protect.c | 3 +++
+ arch/arm64/kvm/hyp/nvhe/page_alloc.c  | 6 +++---
+ arch/arm64/kvm/hyp/pgtable.c          | 7 +++++++
+ 4 files changed, 14 insertions(+), 4 deletions(-)
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261105-hyp-pool-and-map-b5e7be9a1191
+
+Best regards,
+-- 
+Xuheng Li <xuheng@cs.columbia.edu>
+
+
