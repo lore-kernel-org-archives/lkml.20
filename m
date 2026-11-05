@@ -1,108 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914411;
-	b=153FI4/c4K+dj4yVpLzWF+eNcFml/Z5c38Ci+ZtNwMsanbPgT+AahvMN7lO/L7IJ7x9v
-	 vkQtVnYmzGbblpRoL+1Ds+U7Pm/mqWqUcv7K+6nvAwtleN8OpUOp5mKDVkp1XSzfR131j
-	 J6i0Wlqcy9TV6i4jq4u5/dlWP78fNPDUzbJAAKJA1cTvcoubgzSoNyo39g/Qdsiynr9pE
-	 81QfnvJH3iZL0aR7y1r0TbRUSY+JYD+YOEsKTZvl1okAZ6SIl/aw2yRYkoXHHuXk+RMx8
-	 jhkvfW6OCNioLJNr0xMTFg96hynCUryAWf40sOCk4BLZilse/RTZ+5y8LMX+fQvDeww==
+	t=1793914423;
+	b=zw+f4eeso7Hz8ZyI0GOanWEm7pXU93NcHaWt9cPVJCJ/Hbpn3ivG1odP2Rzlywr+keKw
+	 OZqkfBVi+MHk3/TDFxrubEPG6tN9uqa1Y55vbKS0PooVXtCP7LgtaksEtIpcodAi8RqYg
+	 ZlCy4eOk5lxQYzmW2hTvFsCmqGKGzpv3jzqRcQFFxToFvtQPzhp/7xoHgYLbArctdvH6R
+	 nRlmO8zEvtyciIolb1Yw6z5HAu/4qPNgJG4A4G3Tew9ZSsGbnwOa38bsLfIRPQgSYQD9e
+	 5IDkqHYhBWx/8ZbxXc/ZNsNX4QesbHnkYr6ElrgZ7S6/pM2vScAT6QHx3VI09RGaBfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914411;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Notht+srG91GHUEX+NvJgjSsIAvRKoHhEo0WPhNbsG0=;
-	b=hSAoKVgnrimDIUpiCxbJKd4ZLRI9PW79CXqkypGCE8TMB7DJP63obWDE3jZJWVYU1VGm
-	 e1Q00LzHjcv6l5RAU1HK4V4RslZJ6gnIvUMAo+A9op/WlDFMX6IKBuUdgOB1unGdhAAVe
-	 WENjwfSKSB7J7+YF4seGkwxBPJ3275ZO15dljTeaXFJuUjTblxPYThUr2eBSVPgztKkf8
-	 oNXmFk28WNpEAUUqBvAkCui7a3di5QFtb75WlJOpiAYj5WeA8dryGYpwCDo1e0isHPeaj
-	 W1ZwSbYywlALdLlRJnAtVtrYjDIQqUWVqEJzld+X8ubJXBHoghji/vEu8AbbUz2gAeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914423;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=gyrnE3StgLLppWu/w1Zj17hP7uByeqDos0uxgrgtFTA=;
+	b=udrAldbrdPXEJmAgIiMzyO1hhtJMxuW9WL9aHBIP+ryJ9nkNkKvrmlnPzqHxS+/avqfx
+	 b4pFyNYzmW2PIPS0rGy7he8d7xzZ7U72X5vFAAVHlW4vFo5GnFgG+TeMfnAMqBT9vsxJX
+	 LUzChdS6w3F6BquEFW+OoQ2hW0SK/gAnnyK5Dx8RnrrBnoXHJ35Uo1ZjfocaRGBo3e7TD
+	 UdyGTjSqmWugL6Y6nlnfHtVI5UuKXV6yW948KDbiJB1ErqU9XdP9yIW6OvO+POGhjQ59Z
+	 R7vVw6EgK69LcbXCv/KEe640+uqTpx64yHJfYKYV5kVaXkhOKkc5RYJwQ8WZIDpTlOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=mgcrea.io;
-	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AJwUzOk0;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KySY8v2i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C7A606D833
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:33:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C7A606D833
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAF2606A32F;
+	Thu,  5 Nov 2026 21:33:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AJwUzOk0
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso22458635e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:33:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793914409; x=1794519209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Notht+srG91GHUEX+NvJgjSsIAvRKoHhEo0WPhNbsG0=;
-        b=AJwUzOk0BhfGc0m3sJO94SX9OpHJG9OF8spXB3ZhwVayzvDwwAhC1A4rAd5qmQ/m/d
-         VZeVBc8DPqpwc7uJBWI4XVovwPpk5aVPG1+vdqYgZWVqShka6UExS71u29+p0u6Df3AH
-         ZZ2GHSAFRZ3ANQDO07NubnEG4FfEl4s8jSQf/k5ZdAhDH76tQJ2l6CsEKc762Slt3WM/
-         VdbSgH+yLJqXeJ3/Ov/xeJEoTKcVYNuQZqmiMELwveIIrxrfiB2dy/uz0lYTVi6RC+cP
-         J8WiulSCadYE7E865prkbm8GFF8d0pCNCG/h3UVc+VYd3U0/HGY18Pdw686QMdz1rmle
-         uEZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793914409; x=1794519209;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Notht+srG91GHUEX+NvJgjSsIAvRKoHhEo0WPhNbsG0=;
-        b=PqFERoxEtKYb3ddrxrAMo9pJ6yPFBf/zyJVK3qzNxYsK/xxG84IH37ptyvW7IyREQc
-         puQJ69IJ5lliQnaupPt5eFtd8LiPR7E472SxTahOdFHBYfbIv3D1Lh6Sk/9uF3AQk8oL
-         5RCkzvcb+C8MLpQ2gg87g65bf3c0IMGBJ12kmr44PNgBXVUOG6kbx9kcGbkUhSh0Lkwn
-         9w3rrpWEtAqJEcoDQpymsS7uadwjksU9y+e4BT9UQP9a/lbVpPYH1ifNeNK2d+oCMcxe
-         VYOC1LXTL+rtAoZiy67MdK9mer6k7MiY0hobJjdpWtBZ2Qm2WWKLgGygHUkUiH0a1fwA
-         ztOA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+3/V9+Qs9qtf3s9b1u8teX/Cr+KwFcNi9dpjjbfl/tO/DkdqGvjO5lSgdx81jM466oyFLLkLpWl8FUnI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+t0RCBb+JaVZuBQTJjkYMRnjsob+mXCd3Mg8EqxR9/xLLeXR0
-	Njqly+rNFpNXhZctZKBkTFKBl6JyCPcPHi3efb17KblczaVn8z1JhIGwlCAU8C0IsUU=
-X-Gm-Gg: AYBFou1aee9vodmeSD9mIrCgcnpbRUpHp6sqW8Qd8iCIJdbIxVbU37oh3GvfV54Qal1
-	5joKFmGSXPa+7rOC6C3fBo/hzgc6WpXSNrUHV95prxA60mcus4nxCUYkiVNcsSzNZZFoDEYey5m
-	Xb2BmCSfCaGNxrkEtqZsQHs/xbOPo1Icy7Ox+N5JtjRKlbZ2iqU0SoFKFydE3gyFMv2yLWEKAJe
-	xHlaXLA1sOZKLFwOB+ebDDn31w9FssjSyG0tk5wsHShhe2f8Htowa1yVPfnO7q6Bkbic3vF35d5
-	3ZG75Nc3Xopk6RrllkmrplBlK9bpHlrvnC/1mDaqX7PqWXVb5kmgyZp+H/BR1O5sk+e+o9CG9gF
-	7NOsTWfGJwDft2ivoLBZfmxNJZIDUsmFpgdw4IxsrDnnCcFW5E6NQKW9lcxfthY4NyuVESGcQq0
-	3sxKF1DyrpFMAeBsAeYDgWdH5USt+YaZ7+R5El3wNXdPba+KMZMvgGROIQqdyI3c3HTdx+PGd5c
-	hz2NY22KOA+oisEPQgAg77sTTg+l66p95igBA4EE2Tk2GvXRWexvfXK47ltyimtMCnnp5Zq5Q9G
-	BgPEqd9/fzhZOEVdpqzIo88JynOSyD1e5zaS4d46UhMupnNn5Rd+GgXdDxkrlTh17WPX06inJSv
-	Ywkb07gw=
-X-Received: by 2002:a05:600c:608a:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4b6db0d07dbmr6419195e9.3.1793914409184;
-        Thu, 05 Nov 2026 13:33:29 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5c25:f8d1:d9d7:54c1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b411de95b4sm107798385e9.0.2026.11.05.13.33.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 05 Nov 2026 13:33:28 -0800 (PST)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	Joshua Crofts <crofts@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: [PATCH v5 2/2] iio: adc: Add a driver for the Ingenic X1600 ADC
-Date: Thu,  5 Nov 2026 22:32:10 +0100
-Message-ID: <20261105213210.87457-3-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261105213210.87457-1-olivier@mgcrea.io>
-References: <20261105213210.87457-1-olivier@mgcrea.io>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KySY8v2i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40D671F008A1;
+	Thu,  5 Nov 2026 21:33:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793914422;
+	bh=gyrnE3StgLLppWu/w1Zj17hP7uByeqDos0uxgrgtFTA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=KySY8v2iVhfX9XmbTPAjoWpOOoStWED32L7geLQedlTOyfzMD821GXDji/aJCs91g
+	 GE8VHZVMMVt/9EWB8gvZ5QAV6M4Z8iZR14JLegw1HBtpVJgLZ5Jpb4hMmqakv1Y8T2
+	 J3W5SsZkG/h+7dKRemngAdJ3V/UP7xZB5c7W0tHxe0mFmCt2L1lY6n1FLqMlmr8fjb
+	 dlwVMuAoXSETJY8PhQeJD3cLsp2RZPxziTCNm1xbZlA6IW74JIdogIzyyvk4cA3/EF
+	 y86X8Znr4mh554QczMFTDr8quuZWaBCF6FnwzkKy6LGfdMFrUxD0Cgb4a06kpFL8tY
+	 gDS0kcAmCGaJQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 05 Nov 2026 21:30:58 +0000
+Subject: [PATCH 07/13] mm/madvise: convert madvise_vma_behavior() to use
+ vma_flags_t
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,355 +53,404 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-late-2026-vma-flags-v1-7-0d3cd15ab75f@kernel.org>
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+In-Reply-To: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+ Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, 
+ SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>, 
+ David Rientjes <rientjes@google.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Georgia Garcia <georgia.garcia@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, damon@lists.linux.dev, 
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12147; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Jdvn0Mgw7BMpf0cKP+Qll9Jkd0pYJBC/PPvElQfebXM=;
+ b=kA0DAAoWz53NioHifxQByyZiAGrs9abIgvJwzGlQITkHdubFSSRXaihhRLrSArEFYrZS/HaXj
+ oh1BAAWCgAdFiEE5/QXv1IUVp6J0E9Gz53NioHifxQFAmrs9aYACgkQz53NioHifxRgHQEA6api
+ 67rJLIqE4CJNZkb1wCotipiVVf+Y7cQRsloF324BAJySN92AsF7wdvZU0Uz+sIXE9jnIvs3DoCC
+ tXc+5oysF
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The X1600's SAR ADC has four auxiliary channels, each with its own start
-bit, interrupt flag and 12-bit result, and none of the touchscreen or
-battery engines of the JZ47xx ADCs that ingenic-adc drives. Add a small
-driver that exposes the four channels as voltages against the SADC_VREFP
-reference: the vref-supply's voltage when there is one, else 3.3 V, its
-typical value.
+Replace use of the legacy vm_flags_t flags with vma_flags_t values
+throughout the madvise logic.
 
-The registers are in chapter 19 of the X1600 programming manual. The
-ADC clock divider is even, as the manual has it (an odd value divides
-by one less); the vendor kernel writes the divider minus one, which
-gives a slightly faster clock than it asks for.
+In order to do so, update ksm_madvise() and hugepage_madvise() to take a
+vma_flags_t pointer, and update their other callers in mremap and the
+powerpc KVM ultravisor code accordingly.
 
-Tested on a HiBy R1, whose play/pause and volume keys sit on channel 0
-behind adc-keys: all three read and report correctly.
+In the latter case we replace vm_flags_reset() with vma_overwrite_flags().
+The VMA is write locked at this point, so the atomic flags preserved by
+vma_overwrite_flags() cannot differ from those copied, and the behaviour
+is unchanged.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # LX16 - driver only, no real world test
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- MAINTAINERS                         |   1 +
- drivers/iio/adc/Kconfig             |  10 ++
- drivers/iio/adc/Makefile            |   1 +
- drivers/iio/adc/ingenic-x1600-adc.c | 269 ++++++++++++++++++++++++++++
- 4 files changed, 281 insertions(+)
- create mode 100644 drivers/iio/adc/ingenic-x1600-adc.c
+ arch/powerpc/kvm/book3s_hv_uvmem.c | 10 ++++----
+ include/linux/huge_mm.h            |  4 ++--
+ include/linux/ksm.h                |  4 ++--
+ mm/khugepaged.c                    | 10 ++++----
+ mm/ksm.c                           | 11 +++++----
+ mm/madvise.c                       | 47 ++++++++++++++++++++------------------
+ mm/mremap.c                        |  2 +-
+ 7 files changed, 46 insertions(+), 42 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4ab4ae67f788..81d5d1c89cff 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13180,6 +13180,7 @@ INGENIC X1600 ADC DRIVER
- M:	Olivier Louvignes <olivier@mgcrea.io>
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
-+F:	drivers/iio/adc/ingenic-x1600-adc.c
+diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+index 463aef870c4e..0fa50bee2ffc 100644
+--- a/arch/powerpc/kvm/book3s_hv_uvmem.c
++++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+@@ -393,7 +393,7 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+ {
+ 	unsigned long gfn = memslot->base_gfn;
+ 	unsigned long end, start = gfn_to_hva(kvm, gfn);
+-	vm_flags_t vm_flags;
++	vma_flags_t vma_flags;
+ 	int ret = 0;
+ 	struct vm_area_struct *vma;
+ 	int merge_flag = (merge) ? MADV_MERGEABLE : MADV_UNMERGEABLE;
+@@ -411,15 +411,15 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+ 			break;
+ 		}
+ 		vma_start_write(vma);
+-		/* Copy vm_flags to avoid partial modifications in ksm_madvise */
+-		vm_flags = vma->vm_flags;
++		/* Copy flags to avoid partial modifications in ksm_madvise */
++		vma_flags = vma->flags;
+ 		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
+-			  merge_flag, &vm_flags);
++			  merge_flag, &vma_flags);
+ 		if (ret) {
+ 			ret = H_STATE;
+ 			break;
+ 		}
+-		vm_flags_reset(vma, vm_flags);
++		vma_overwrite_flags(vma, vma_flags);
+ 		start = vma->vm_end;
+ 	} while (end > vma->vm_end);
  
- INJOINIC IP5xxx POWER BANK IC DRIVER
- M:	Samuel Holland <samuel@sholland.org>
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index f8456c803988..fab8147834b1 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -891,6 +891,16 @@ config INGENIC_ADC
- 	  This driver can also be built as a module. If so, the module will be
- 	  called ingenic_adc.
+diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+index c745f7ad2298..8b6f4101eabf 100644
+--- a/include/linux/huge_mm.h
++++ b/include/linux/huge_mm.h
+@@ -508,7 +508,7 @@ change_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 			__split_huge_pud(__vma, __pud, __address);	\
+ 	}  while (0)
  
-+config INGENIC_X1600_ADC
-+	tristate "Ingenic X1600 ADC driver"
-+	depends on MIPS || COMPILE_TEST
-+	help
-+	  Say yes here to build support for the SAR ADC of the Ingenic X1600
-+	  SoC and its four auxiliary channels.
-+
-+	  This driver can also be built as a module. If so, the module will be
-+	  called ingenic-x1600-adc.
-+
- config INTEL_DC_TI_ADC
- 	tristate "Intel Bay Trail / Cherry Trail Dollar Cove TI ADC driver"
- 	depends on INTEL_SOC_PMIC_CHTDC_TI
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index d7bb4815df61..702715603c94 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -77,6 +77,7 @@ obj-$(CONFIG_IMX8QXP_ADC) += imx8qxp-adc.o
- obj-$(CONFIG_IMX93_ADC) += imx93_adc.o
- obj-$(CONFIG_INA2XX_ADC) += ina2xx-adc.o
- obj-$(CONFIG_INGENIC_ADC) += ingenic-adc.o
-+obj-$(CONFIG_INGENIC_X1600_ADC) += ingenic-x1600-adc.o
- obj-$(CONFIG_INTEL_DC_TI_ADC) += intel_dc_ti_adc.o
- obj-$(CONFIG_INTEL_MRFLD_ADC) += intel_mrfld_adc.o
- obj-$(CONFIG_LP8788_ADC) += lp8788_adc.o
-diff --git a/drivers/iio/adc/ingenic-x1600-adc.c b/drivers/iio/adc/ingenic-x1600-adc.c
-new file mode 100644
-index 000000000000..81bc651731b2
---- /dev/null
-+++ b/drivers/iio/adc/ingenic-x1600-adc.c
-@@ -0,0 +1,269 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Ingenic X1600 ADC driver
-+ *
-+ * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
-+ *
-+ * The X1600's SAR ADC has four auxiliary channels, each with its own start
-+ * bit, interrupt and 12-bit result (X1600 programming manual, chapter 19).
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/iio/iio.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/jiffies.h>
-+#include <linux/math.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#define X1600_ADC_REG_ENABLE		0x00
-+#define X1600_ADC_REG_CTRL		0x08
-+#define X1600_ADC_REG_STATUS		0x0c
-+#define X1600_ADC_REG_DATA(bank)	(0x10 + (bank) * 4)
-+#define X1600_ADC_REG_CLKDIV		0x20
-+#define X1600_ADC_REG_STABLE		0x24
-+
-+/* ENABLE: bits 3..0 start a channel's conversion; bit 15 powers down. */
-+#define X1600_ADC_ENABLE_POWER_DOWN	BIT(15)
-+/* CTRL: bits 3..0 mask the channels' interrupts. STATUS: write 1 to clear. */
-+#define X1600_ADC_CHANNELS_MASK		GENMASK(3, 0)
-+#define X1600_ADC_DATA_MASK(shift)	(GENMASK(11, 0) << ((shift) * 16))
-+/* CLKDIV: an even divider from the device clock; US and MS: for repeats. */
-+#define X1600_ADC_CLKDIV_CLKDIV		GENMASK(7, 0)
-+#define X1600_ADC_CLKDIV_US		GENMASK(15, 8)
-+#define X1600_ADC_CLKDIV_MS		GENMASK(31, 16)
-+#define X1600_ADC_STABLE_TIME		GENMASK(15, 0)
-+
-+#define X1600_ADC_NUM_CHANNELS		4
-+/* SADC_VREFP when no vref-supply gives it: the datasheet's typical value. */
-+#define X1600_ADC_VREF_DEFAULT_mV	3300
-+#define X1600_ADC_BITS			12
-+/* The ADC clock the vendor kernel runs at. */
-+#define X1600_ADC_CLK_RATE_HZ		1166667
-+#define X1600_ADC_TIMEOUT		msecs_to_jiffies(20)
-+
-+struct x1600_adc {
-+	void __iomem *base;
-+	struct clk *clk;
-+	struct completion done;
-+	int vref_mV;
-+	/* Serialises conversions: there is one completion for all channels. */
-+	struct mutex lock;
-+};
-+
-+static u32 x1600_adc_read(struct x1600_adc *adc, unsigned int offset)
-+{
-+	return readl(adc->base + offset);
-+}
-+
-+static void x1600_adc_write(struct x1600_adc *adc, unsigned int offset, u32 value)
-+{
-+	writel(value, adc->base + offset);
-+}
-+
-+static irqreturn_t x1600_adc_irq(int irq, void *data)
-+{
-+	struct x1600_adc *adc = data;
-+	u32 status;
-+
-+	status = x1600_adc_read(adc, X1600_ADC_REG_STATUS) & X1600_ADC_CHANNELS_MASK;
-+	if (!status)
-+		return IRQ_NONE;
-+
-+	x1600_adc_write(adc, X1600_ADC_REG_STATUS, status);
-+	complete(&adc->done);
-+	return IRQ_HANDLED;
-+}
-+
-+static int x1600_adc_read_raw_channel(struct x1600_adc *adc, unsigned int ch, int *val)
-+{
-+	unsigned int bank, shift;
-+	u32 enable, data;
-+	int ret;
-+
-+	guard(mutex)(&adc->lock);
-+
-+	reinit_completion(&adc->done);
-+	x1600_adc_write(adc, X1600_ADC_REG_STATUS, BIT(ch));
-+	enable = x1600_adc_read(adc, X1600_ADC_REG_ENABLE);
-+	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, enable | BIT(ch));
-+
-+	if (wait_for_completion_timeout(&adc->done, X1600_ADC_TIMEOUT))
-+		ret = 0;
-+	else
-+		ret = -ETIMEDOUT;
-+
-+	enable = x1600_adc_read(adc, X1600_ADC_REG_ENABLE);
-+	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, enable & ~BIT(ch));
-+	if (ret)
-+		return ret;
-+
-+	/* Two results to a data register, the even channel's in the low half. */
-+	bank = ch / 2;
-+	shift = ch % 2;
-+	data = x1600_adc_read(adc, X1600_ADC_REG_DATA(bank));
-+	*val = field_get(X1600_ADC_DATA_MASK(shift), data);
-+
-+	return 0;
-+}
-+
-+static int x1600_adc_read_raw(struct iio_dev *iio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int *val, int *val2, long mask)
-+{
-+	struct x1600_adc *adc = iio_priv(iio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = x1600_adc_read_raw_channel(adc, chan->channel, val);
-+		if (ret)
-+			return ret;
-+
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = adc->vref_mV;
-+		*val2 = X1600_ADC_BITS;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info x1600_adc_info = {
-+	.read_raw = x1600_adc_read_raw,
-+};
-+
-+#define X1600_ADC_CHANNEL(_ch) {				\
-+	.type = IIO_VOLTAGE,					\
-+	.indexed = 1,						\
-+	.channel = (_ch),					\
-+	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-+	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
-+}
-+
-+static const struct iio_chan_spec x1600_adc_channels[] = {
-+	X1600_ADC_CHANNEL(0),
-+	X1600_ADC_CHANNEL(1),
-+	X1600_ADC_CHANNEL(2),
-+	X1600_ADC_CHANNEL(3),
-+};
-+
-+static void x1600_adc_power_down(void *data)
-+{
-+	struct x1600_adc *adc = data;
-+
-+	x1600_adc_write(adc, X1600_ADC_REG_CTRL, X1600_ADC_CHANNELS_MASK);
-+	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, X1600_ADC_ENABLE_POWER_DOWN);
-+}
-+
-+static int x1600_adc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct iio_dev *iio_dev;
-+	struct x1600_adc *adc;
-+	unsigned long rate;
-+	u32 div, reg;
-+	int irq, ret;
-+
-+	iio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
-+	if (!iio_dev)
-+		return -ENOMEM;
-+
-+	adc = iio_priv(iio_dev);
-+	init_completion(&adc->done);
-+	ret = devm_mutex_init(dev, &adc->lock);
-+	if (ret)
-+		return ret;
-+
-+	adc->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(adc->base))
-+		return PTR_ERR(adc->base);
-+
-+	adc->clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(adc->clk))
-+		return dev_err_probe(dev, PTR_ERR(adc->clk), "Unable to get clock\n");
-+
-+	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-+	if (ret < 0 && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "Unable to get the reference voltage\n");
-+
-+	adc->vref_mV = ret == -ENODEV ? X1600_ADC_VREF_DEFAULT_mV : ret / (MICRO / MILLI);
-+
-+	/* Powered down, interrupts masked and cleared, as the vendor does. */
-+	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, X1600_ADC_ENABLE_POWER_DOWN);
-+	x1600_adc_write(adc, X1600_ADC_REG_CTRL, X1600_ADC_CHANNELS_MASK);
-+	x1600_adc_write(adc, X1600_ADC_REG_STATUS, X1600_ADC_CHANNELS_MASK);
-+
-+	rate = clamp(clk_get_rate(adc->clk),
-+		     2UL * X1600_ADC_CLK_RATE_HZ, 254UL * X1600_ADC_CLK_RATE_HZ);
-+	div = round_up(DIV_ROUND_UP(rate, X1600_ADC_CLK_RATE_HZ), 2);
-+	/* US and MS at their reset values: single conversions don't use them. */
-+	x1600_adc_write(adc, X1600_ADC_REG_CLKDIV,
-+			FIELD_PREP(X1600_ADC_CLKDIV_CLKDIV, div) |
-+			FIELD_PREP(X1600_ADC_CLKDIV_US, 16) |
-+			FIELD_PREP(X1600_ADC_CLKDIV_MS, 4));
-+	reg = x1600_adc_read(adc, X1600_ADC_REG_STABLE) & ~X1600_ADC_STABLE_TIME;
-+	x1600_adc_write(adc, X1600_ADC_REG_STABLE,
-+			reg | FIELD_PREP(X1600_ADC_STABLE_TIME, 1));
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_irq(dev, irq, x1600_adc_irq, 0, dev_name(dev), adc);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Left powered up: a typical use, such as buttons read through adc-keys,
-+	 * polls every few tens of milliseconds, and powering up takes 2 ms.
-+	 */
-+	x1600_adc_write(adc, X1600_ADC_REG_ENABLE, 0);
-+	fsleep(2 * USEC_PER_MSEC);
-+	x1600_adc_write(adc, X1600_ADC_REG_CTRL, 0);
-+
-+	ret = devm_add_action_or_reset(dev, x1600_adc_power_down, adc);
-+	if (ret)
-+		return ret;
-+
-+	iio_dev->name = "x1600-adc";
-+	iio_dev->modes = INDIO_DIRECT_MODE;
-+	iio_dev->channels = x1600_adc_channels;
-+	iio_dev->num_channels = ARRAY_SIZE(x1600_adc_channels);
-+	iio_dev->info = &x1600_adc_info;
-+
-+	return devm_iio_device_register(dev, iio_dev);
-+}
-+
-+static const struct of_device_id x1600_adc_of_match[] = {
-+	{ .compatible = "ingenic,x1600-adc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, x1600_adc_of_match);
-+
-+static struct platform_driver x1600_adc_driver = {
-+	.driver = {
-+		.name = "ingenic-x1600-adc",
-+		.of_match_table = x1600_adc_of_match,
-+	},
-+	.probe = x1600_adc_probe,
-+};
-+module_platform_driver(x1600_adc_driver);
-+MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
-+MODULE_DESCRIPTION("Ingenic X1600 ADC driver");
-+MODULE_LICENSE("GPL");
+-int hugepage_madvise(struct vm_area_struct *vma, vm_flags_t *vm_flags,
++int hugepage_madvise(struct vm_area_struct *vma, vma_flags_t *vma_flags,
+ 		     int advice);
+ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+ 		     unsigned long end, bool *lock_dropped);
+@@ -710,7 +710,7 @@ static inline bool unmap_huge_pmd_locked(struct vm_area_struct *vma,
+ 	do { } while (0)
+ 
+ static inline int hugepage_madvise(struct vm_area_struct *vma,
+-				   vm_flags_t *vm_flags, int advice)
++				   vma_flags_t *vma_flags, int advice)
+ {
+ 	return -EINVAL;
+ }
+diff --git a/include/linux/ksm.h b/include/linux/ksm.h
+index d39d0d5483a2..1ffc69a72a1a 100644
+--- a/include/linux/ksm.h
++++ b/include/linux/ksm.h
+@@ -16,7 +16,7 @@
+ 
+ #ifdef CONFIG_KSM
+ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+-		unsigned long end, int advice, vm_flags_t *vm_flags);
++		unsigned long end, int advice, vma_flags_t *vma_flags);
+ vma_flags_t ksm_vma_flags(struct mm_struct *mm, const struct file *file,
+ 			  vma_flags_t vma_flags);
+ int ksm_enable_merge_any(struct mm_struct *mm);
+@@ -139,7 +139,7 @@ static inline void collect_procs_ksm(const struct folio *folio,
+ 
+ #ifdef CONFIG_MMU
+ static inline int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+-		unsigned long end, int advice, vm_flags_t *vm_flags)
++		unsigned long end, int advice, vma_flags_t *vma_flags)
+ {
+ 	return 0;
+ }
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index a2c7c6a0768d..be1f779c8da5 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -363,16 +363,16 @@ static unsigned int collapse_max_ptes_swap(struct collapse_control *cc,
+ }
+ 
+ int hugepage_madvise(struct vm_area_struct *vma,
+-		     vm_flags_t *vm_flags, int advice)
++		     vma_flags_t *vma_flags, int advice)
+ {
+ 	switch (advice) {
+ 	case MADV_HUGEPAGE:
+-		*vm_flags &= ~VM_NOHUGEPAGE;
+-		*vm_flags |= VM_HUGEPAGE;
++		vma_flags_clear(vma_flags, VMA_NOHUGEPAGE_BIT);
++		vma_flags_set(vma_flags, VMA_HUGEPAGE_BIT);
+ 		break;
+ 	case MADV_NOHUGEPAGE:
+-		*vm_flags &= ~VM_HUGEPAGE;
+-		*vm_flags |= VM_NOHUGEPAGE;
++		vma_flags_clear(vma_flags, VMA_HUGEPAGE_BIT);
++		vma_flags_set(vma_flags, VMA_NOHUGEPAGE_BIT);
+ 		/*
+ 		 * Setting VM_NOHUGEPAGE will prevent khugepaged from scanning
+ 		 * this vma even if we leave the mm registered in khugepaged if
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 61b772bba229..3eb9c1ec2f87 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -779,7 +779,8 @@ static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
+ 	if (ksm_test_exit(mm))
+ 		return NULL;
+ 	vma = vma_lookup(mm, addr);
+-	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) || !vma_has_anon_rmap(vma))
++	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) ||
++	    !vma_has_anon_rmap(vma))
+ 		return NULL;
+ 	return vma;
+ }
+@@ -3021,7 +3022,7 @@ int ksm_disable(struct mm_struct *mm)
+ }
+ 
+ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+-		unsigned long end, int advice, vm_flags_t *vm_flags)
++		unsigned long end, int advice, vma_flags_t *vma_flags)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	int err;
+@@ -3039,11 +3040,11 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+ 				return err;
+ 		}
+ 
+-		*vm_flags |= VM_MERGEABLE;
++		vma_flags_set(vma_flags, VMA_MERGEABLE_BIT);
+ 		break;
+ 
+ 	case MADV_UNMERGEABLE:
+-		if (!(*vm_flags & VM_MERGEABLE))
++		if (!vma_flags_test(vma_flags, VMA_MERGEABLE_BIT))
+ 			return 0;		/* just ignore the advice */
+ 
+ 		if (vma_has_anon_rmap(vma)) {
+@@ -3052,7 +3053,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+ 				return err;
+ 		}
+ 
+-		*vm_flags &= ~VM_MERGEABLE;
++		vma_flags_clear(vma_flags, VMA_MERGEABLE_BIT);
+ 		break;
+ 	}
+ 
+diff --git a/mm/madvise.c b/mm/madvise.c
+index e9fa4f71efea..1b539e67b00d 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -148,11 +148,10 @@ static int replace_anon_vma_name(struct vm_area_struct *vma,
+  * Update the vm_flags or anon_name on region of a vma, splitting it or merging
+  * it as necessary. Must be called with mmap_lock held for writing.
+  */
+-static int madvise_update_vma(vm_flags_t new_flags,
++static int madvise_update_vma(vma_flags_t new_vma_flags,
+ 		struct madvise_behavior *madv_behavior)
+ {
+ 	struct vm_area_struct *vma = madv_behavior->vma;
+-	vma_flags_t new_vma_flags = legacy_to_vma_flags(new_flags);
+ 	struct madvise_behavior_range *range = &madv_behavior->range;
+ 	struct anon_vma_name *anon_name = madv_behavior->anon_name;
+ 	bool set_new_anon_name = madv_behavior->behavior == __MADV_SET_ANON_VMA_NAME;
+@@ -601,7 +600,8 @@ static void madvise_cold_page_range(struct mmu_gather *tlb,
+ 
+ static inline bool can_madv_lru_vma(struct vm_area_struct *vma)
+ {
+-	return !(vma->vm_flags & (VM_LOCKED|VM_PFNMAP|VM_HUGETLB));
++	return !vma_test_any(vma, VMA_LOCKED_BIT, VMA_PFNMAP_BIT,
++			     VMA_HUGETLB_BIT);
+ }
+ 
+ static long madvise_cold(struct madvise_behavior *madv_behavior)
+@@ -650,7 +650,7 @@ static long madvise_pageout(struct madvise_behavior *madv_behavior)
+ 	 * further to pageout dirty anon pages.
+ 	 */
+ 	if (!vma_is_anonymous(vma) && (!can_do_file_pageout(vma) &&
+-				(vma->vm_flags & VM_MAYSHARE)))
++				vma_test(vma, VMA_MAYSHARE_BIT)))
+ 		return 0;
+ 
+ 	lru_add_drain();
+@@ -881,12 +881,12 @@ bool madvise_dontneed_free_valid_vma(struct madvise_behavior *madv_behavior)
+ 	struct madvise_behavior_range *range = &madv_behavior->range;
+ 
+ 	if (!vma_is_hugetlb(vma)) {
+-		unsigned int forbidden = VM_PFNMAP;
++		vma_flags_t forbidden = mk_vma_flags(VMA_PFNMAP_BIT);
+ 
+ 		if (behavior != MADV_DONTNEED_LOCKED)
+-			forbidden |= VM_LOCKED;
++			vma_flags_set(&forbidden, VMA_LOCKED_BIT);
+ 
+-		return !(vma->vm_flags & forbidden);
++		return !vma_test_any_mask(vma, forbidden);
+ 	}
+ 
+ 	if (behavior != MADV_DONTNEED && behavior != MADV_DONTNEED_LOCKED)
+@@ -1021,7 +1021,7 @@ static long madvise_remove(struct madvise_behavior *madv_behavior)
+ 
+ 	mark_mmap_lock_dropped(madv_behavior);
+ 
+-	if (vma->vm_flags & VM_LOCKED)
++	if (vma_test(vma, VMA_LOCKED_BIT))
+ 		return -EINVAL;
+ 
+ 	f = vma->vm_file;
+@@ -1333,7 +1333,7 @@ static bool can_madvise_modify(struct madvise_behavior *madv_behavior)
+ 		return true;
+ 
+ 	/* If the user could write to the mapping anyway, then this is fine. */
+-	if ((vma->vm_flags & VM_WRITE) &&
++	if (vma_test(vma, VMA_WRITE_BIT) &&
+ 	    arch_vma_access_permitted(vma, /* write= */ true,
+ 			/* execute= */ false, /* foreign= */ false))
+ 		return true;
+@@ -1357,7 +1357,7 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
+ {
+ 	int behavior = madv_behavior->behavior;
+ 	struct vm_area_struct *vma = madv_behavior->vma;
+-	vm_flags_t new_flags = vma->vm_flags;
++	vma_flags_t new_flags = vma->flags;
+ 	struct madvise_behavior_range *range = &madv_behavior->range;
+ 	int error;
+ 
+@@ -1388,44 +1388,47 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
+ 	/* The below behaviours update VMAs via madvise_update_vma(). */
+ 
+ 	case MADV_NORMAL:
+-		new_flags = new_flags & ~VM_RAND_READ & ~VM_SEQ_READ;
++		vma_flags_clear(&new_flags, VMA_RAND_READ_BIT,
++				VMA_SEQ_READ_BIT);
+ 		break;
+ 	case MADV_SEQUENTIAL:
+-		new_flags = (new_flags & ~VM_RAND_READ) | VM_SEQ_READ;
++		vma_flags_clear(&new_flags, VMA_RAND_READ_BIT);
++		vma_flags_set(&new_flags, VMA_SEQ_READ_BIT);
+ 		break;
+ 	case MADV_RANDOM:
+-		new_flags = (new_flags & ~VM_SEQ_READ) | VM_RAND_READ;
++		vma_flags_clear(&new_flags, VMA_SEQ_READ_BIT);
++		vma_flags_set(&new_flags, VMA_RAND_READ_BIT);
+ 		break;
+ 	case MADV_DONTFORK:
+-		new_flags |= VM_DONTCOPY;
++		vma_flags_set(&new_flags, VMA_DONTCOPY_BIT);
+ 		break;
+ 	case MADV_DOFORK:
+ 		if (!vma_is_mm_backed(vma) || vma_is_hugetlb(vma))
+ 			return -EINVAL;
+-		new_flags &= ~VM_DONTCOPY;
++		vma_flags_clear(&new_flags, VMA_DONTCOPY_BIT);
+ 		break;
+ 	case MADV_WIPEONFORK:
+ 		/* MADV_WIPEONFORK is only supported on anonymous memory. */
+-		if (vma->vm_file || new_flags & VM_SHARED)
++		if (vma->vm_file || vma_flags_test(&new_flags, VMA_SHARED_BIT))
+ 			return -EINVAL;
+-		new_flags |= VM_WIPEONFORK;
++		vma_flags_set(&new_flags, VMA_WIPEONFORK_BIT);
+ 		break;
+ 	case MADV_KEEPONFORK:
+-		if (new_flags & VM_DROPPABLE)
++		if (vma_flags_test_single_mask(&new_flags, VMA_DROPPABLE))
+ 			return -EINVAL;
+-		new_flags &= ~VM_WIPEONFORK;
++		vma_flags_clear(&new_flags, VMA_WIPEONFORK_BIT);
+ 		break;
+ 	case MADV_DONTDUMP:
+-		new_flags |= VM_DONTDUMP;
++		vma_flags_set(&new_flags, VMA_DONTDUMP_BIT);
+ 		break;
+ 	case MADV_DODUMP:
+ 		/* Only mm-backed memory can be meaningfully dumped. */
+ 		if (!vma_is_mm_backed(vma))
+ 			return -EINVAL;
+ 		/* Core mm may discard droppable memory at any time. */
+-		if (new_flags & VM_DROPPABLE)
++		if (vma_flags_test_single_mask(&new_flags, VMA_DROPPABLE))
+ 			return -EINVAL;
+-		new_flags &= ~VM_DONTDUMP;
++		vma_flags_clear(&new_flags, VMA_DONTDUMP_BIT);
+ 		break;
+ 	case MADV_MERGEABLE:
+ 	case MADV_UNMERGEABLE:
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 0d06d7f37f19..5f4e7d1ce3b7 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1133,7 +1133,7 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+ 	struct vm_area_struct *vma = vrm->vma;
+ 	unsigned long old_addr = vrm->addr;
+ 	unsigned long old_len = vrm->old_len;
+-	vm_flags_t dummy = vma->vm_flags;
++	vma_flags_t dummy = vma->flags;
+ 	const bool split_before = vma->vm_start != old_addr;
+ 	const bool split_after = vma->vm_end != old_addr + old_len;
+ 
+
 -- 
-2.39.5
+2.56.0
 
