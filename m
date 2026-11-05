@@ -1,47 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907099;
-	b=ePx3+xyyb9Aw6xl/mBOXE64Lx4GXUK/bETy7dMfM+DP9nDdcy0bqUZ/z3FEHY3iZtZdv
-	 wKte5Q/azCXxHaeQA+Lw8IMFfAMppv1ifMJC4jp1IPwOsH+hdAVuG+VthCfnyU17DIGPq
-	 u+6pwi4EI8/MhyOcFGehIKiihtonZH4YEoe6oTGn/6zNfSQ9/8saUiF5hGv2kDqfaYR87
-	 uapWQsDcMYAoldEQre1n6JIIFkBaezSQuyuxpnw1n4HcA8wnNoZsuNabzJRV4THRClGZE
-	 qHGKR2ZJ0Qcu8pLcFU1TEpfR0P8UbYKFcI9kkdl7oBLg89HezCtt0fVzwQOWDXH9mHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907099;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HbYwxsff3zwmd12NfwO1WlkOU+zbs7lqClhdSOh1kUY=;
-	b=wtVxHKHHQFr2nb4eZhZaU37JM00ZhfZQT95KSrFcass/EO+bNCunVRxtdTKwAwCAAMzq
-	 h84NaUuBuJVF3rqFVZf9OOleMocegm/GMWzZLbOBkIWhXWIeTLXOvsKY5g/XZc805qg2f
-	 9+U1kBU9xJ9Mq3H32R+qlPeVlvojAMhbYsLwZ+QMO9BHRDNlkvr+QtlxIriz1/8dUCeQJ
-	 I7qL+CttgTyEupXVLYWBEDKPw2PFiPXvLoOgZUYIL9GxQjtcb4JBUuMEBKHq27aMmwsCr
-	 aT40rOS+aN5Dj1THxLl2B828gbtlOSL3nnRU0nz2bB7UtoCZCkm+LZ2hO1KkLa+j7hQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qj3MxEnr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793907119;
+	b=KHXspeuZ9SWFC9Lsc4UNnoBg+WluRdkNFHLAqchSJbuBAIoBr1zFf9onC6XJSnILAfE/
+	 nBliR65ssCbzK8oSNzEZTXT+VZsWf66EN3LHnEl4e1A8UB8yH/jVS8/NcQb3kTPBs+QBR
+	 QeiriG1UEtLaShCabUX51+QtSK4x1S64nxg3otgWVi1O2uo7AM7sATjGZtZYcBL/XBjWb
+	 sqUwnY3RDCFZnu+HAJKco9otfuyEMa72H/VjO064K9ERdoEAHjJHV0ZWEF4tTPZwL13/V
+	 VNyVCy+ykwEYnAOPPI1E46bTP4aNBw+T52+6MHIeaG+qyUvBxqBvH+eoba+lIe0GXiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907119;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WHq6JsXHtT6J1Ah3GMEL9Ry8ZCd9gxlJDVbDT8ZOLHw=;
+	b=mSnWuwNka3EJUsoX3G+rcWPLQHgz3Mr4oPp1UUkMJ0A8/N1XFtIFQ7H8MsLoBQCTOBBT
+	 lXBqJvcipsgKc3aAdjHNx0G7rzB39xniPiB5/XaefwokrJBOglyK5l3qK6nvslP+MlmFu
+	 qs87aQx8pzvzT/5z3R8t5EAVxoVq+1iHaQaR/XEXiUmGsyfsuGaBxKmc9Sv4aMbtHniOy
+	 8sog/Q9jxXViwtYDz90kaI4X2WexdfwNGesbexF/QFP/31LSUt/D7kD6+hxSr853vVZU6
+	 CoMxjv7HYUC4/PdH9SDdWsAUzBlVPO7UA+K/3itQVUmXMKJ+DX8V8fAHIEJIX36iMYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="TFZGNQB/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.34
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012034.outbound.protection.outlook.com [40.107.209.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBBD606D834;
-	Thu,  5 Nov 2026 19:31:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DDA6083612;
+	Thu,  5 Nov 2026 19:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3DDA6083612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qj3MxEnr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A361F00919;
-	Thu,  5 Nov 2026 19:31:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907092;
-	bh=HbYwxsff3zwmd12NfwO1WlkOU+zbs7lqClhdSOh1kUY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qj3MxEnr6FZYNwGTA5OmT2naokiXBMoHwDE6Lj8EUey3p+vrrO+B7NR7pnKV1X4Zv
-	 qqIeSuiUuOlHHWmQati8GlB2VskV8ND0tGhzjfhPW6kr/SBz7F7Ksc5uoplrPAkTXs
-	 nwy4juookyx2inwkQQcPq7sIBbI4Eb6zyNYvHH/fQmeejdV8Cxd5VYuzpUShTk59Gi
-	 YeZ+/gnyn8aF5z8wFi+1OVRHwLwoCazMPcWmivOpHrtoCzd2V5e9Wm9qmpzEVsqkS2
-	 Ub7iAPCVTOVFtrTRKKcaKClHWOHjDer09tg317cjYDXHOX5ZLSlG3YUEptkgtAZRHU
-	 Wm+aYhRsS9jKQ==
-Message-ID: <1d89aaf1-6c91-4f87-a5c8-15c4fa93503e@kernel.org>
-Date: Thu, 5 Nov 2026 20:31:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TFZGNQB/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bRIsx3iPwmK466Cd8woc0M7z1leJfNVv1wiiiAd8snlWy/j+b07dBZ+KJOIsccb+P+6CxtASpyvLJC4ca35+HtsWlGi4XNcXddOtnmMWflToyaAckYsETPYs41NagN4Vu41qGbMbp8AVdmG6esnTN9i/5H3vz+P+t8kQAMiXtSw2YYkLrK5LF/fz2CpKp2LPihmNhEFBT7W7LpTnE1zPedOb3g2x59dnQq08h7rabDJHv/ceBx5MSZIcb0xZwgiT95wRDRmu1xIKqYvS82DJRpjYXxGd6wW8mjKSk4Qg5DRX4OXaWQUB4r7/8obISoKdMmlDN6MZ11sPSUuB4+6iww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WHq6JsXHtT6J1Ah3GMEL9Ry8ZCd9gxlJDVbDT8ZOLHw=;
+ b=cXpdv6LodS+31OTSY5gDbkSiayZ+FCpKR0AIswA9NELLJup/077gFHBSg+5yNl/gcDu2EXSygUOaoiwnhEA+LHJ3tBjLhD9nSd4qX1I5lclF3pHhaPG3f40qhOv4VahyApHakNDqTQRVUVGxVYXgEyJmD3R3M2vinsOGB797nHqBRqSAsGUUpkUbtYNe+Tb3Mh3XdrrHCyfUt4BcbxVjKUodAs+eDZhkYxKu3iRt5Fyf5hd6dxGb2FJ+jc0jhcxERtPhDWXr6ENRqNBj/sRXNKl4qnxuckR/Rnd+mgH6PhRVriCK8QgkjelT8Jx2857Dhlqd65kJxWCsM6aF4J1WNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WHq6JsXHtT6J1Ah3GMEL9Ry8ZCd9gxlJDVbDT8ZOLHw=;
+ b=TFZGNQB/M91LqdT2dD0mVPe3vZ0ro57Da79mz0NGxTQxLiRRhQwR6iEnZ5OFYN3+hMx3dWEqt/5uXySqAiHyZw5bYc3Z+oXJ/rIM3XI+72vZg+F7SvuM6ceGOLug57JtA6F70naDnfVVr6HDIPCbNh7qowe+XFBleAYTLa/Ec+iiEbkGbA3W8/jVsuNbZC8k3udWHbkGXe1Bo6bDobqN51ABzkTA23jkafuEeC3zoO4nuwrUf8PO+LE20j23zXfS7yl277ZkKb01AB9iZIyqoHYfX15gnpjfag1OCPHWtkNIFnwkMI+ZMB5SgLOag11G+7NDOx51B9wWewORO9Ft1A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB9734.namprd12.prod.outlook.com (2603:10b6:8:225::23)
+ by LV3PR12MB9409.namprd12.prod.outlook.com (2603:10b6:408:21d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 19:31:51 +0000
+Received: from DM4PR12MB9734.namprd12.prod.outlook.com
+ ([fe80::ba44:51c5:b641:2917]) by DM4PR12MB9734.namprd12.prod.outlook.com
+ ([fe80::ba44:51c5:b641:2917%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 19:31:50 +0000
+Message-ID: <5f6c3f86-23df-4da2-bc03-6ea2c2a7986a@nvidia.com>
+Date: Thu, 5 Nov 2026 21:31:43 +0200
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net V2] net/mlx5: Use only loaded devices for PTP clock
+ operations
+To: netdev-bot+sinfo@kernel.org, Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Cosmin Ratiu <cratiu@nvidia.com>,
+ Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org,
+ Mark Bloch <markb@mellanox.com>, Mark Bloch <mbloch@nvidia.com>,
+ Moshe Shemesh <moshe@mellanox.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Saeed Mahameed <saeedm@mellanox.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ Shahar Shitrit <shshitrit@nvidia.com>, Simon Horman <horms@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>
+References: <20261104183158.758314-1-tariqt@nvidia.com>
+ <179381746658.488859.12055215608519756880@kernel.org>
+Content-Language: en-US
+From: Carolina Jubran <cjubran@nvidia.com>
+In-Reply-To: <179381746658.488859.12055215608519756880@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TL2P290CA0030.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:3::16) To DM4PR12MB9734.namprd12.prod.outlook.com
+ (2603:10b6:8:225::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,103 +109,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/shmem: remove truncated folios from the page cache
- in batches
-To: Qiliang Yuan <odys.yuan@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261105-bug-mm-shmem-undo-batch-v2-1-ae5f89ced044@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261105-bug-mm-shmem-undo-batch-v2-1-ae5f89ced044@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB9734:EE_|LV3PR12MB9409:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7a84c8c-6dc8-4b62-9146-08df3b7370a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|6133799003|10067099003|18002099003|22082099003|56012099006|4143699003|11063799006|261022105027099003|261028144727099003|261102123227099003|261022075727099003|261021121427099003|261026140227099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	kZ62aOxgguRfliyy+PpGYJUortIq2aXJe89xgx86QF3nNM84FRbP59zkwmCbubahm0jP1OQdrp+wlSB9Tx49PRrkatsb84DsrzYbe6EsxzY05t01DsgO9p0FpoFjPRf0zmHsj9CGawWQo4LZuRwJ+jdpKY/xcQPTtEKelZlTvGoijGx5QLUn6454jWJuaGhsPrhAFGAj+vCTo204MYwfBn0RgpzM6BfNzGaPYxw5a+kFLJ1BP/5Lg+nVMYNUkYWPBMf8n2X/cbG5DqvfCF4Smim6isOP9/9yHn7d+ZZQWkc8gTFLkGCMxsmhR4m4H0cD4/bQMsicK43iP70q4WDH8YKJTt1A79qUAQTACe29J/EPi9Tg2rNKvBfb3ZByn7GzZxe16/9H/VI6NP4xtGVicI92N0hgRjjb4r16jKxiX08oHkrKeR07Wloj3uMvVzCbVP2tUaTgmaov2q8wwAv442JGN4HwpeXV2Gsei6h34Yd7mT4zy/kTs7UCYKBLiUDw0KafLXjwF3VmWvg4SI5bfuVll9fBtgpY7ujrixjheM1TYOvR6padws5shdgJoaYNq/SgRgHVJ2YLRILuu3vntKYY8+FtrTR/lBoRlB7CTX8KIuCrCqNEREDugNnFkWGL77Cta71DYlrhoGSctfobLdiAzbY3mYyD/rYLVH4xdiw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB9734.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(261022105027099003)(261028144727099003)(261102123227099003)(261022075727099003)(261021121427099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cHBwVGdxMnVHWUt2NTFuSzZXUUE1SldQNlh1V2plOWQrTHpPR25xYnA4QWlM?=
+ =?utf-8?B?STg2S3hsSC9HWlZRYlh1ME1YTmpRTDhMVmc5R0F5Y2dPYkdSMm8rWm5PT2F3?=
+ =?utf-8?B?N0FsRi9laTVIMVlab0tsTEdQeDZvR3RIVmoxc2ljOEpOOVBSUXpnR1lJL0U1?=
+ =?utf-8?B?UTJDdkRRdGhFc1U2V0NqbWFoTDJpWG4rZENtM29JcTcxMHlTNWRaS1dHbmtn?=
+ =?utf-8?B?c1pXSmg0b0ZTSU16Njc1aFZWdWlIb0hqMTdtdE91MEZxV3FjM011enFocWNp?=
+ =?utf-8?B?MGJoNHErVFZRbHQyMjcrUEUreUFMeWd3ZHdXZ05kd2hkQ0NadnFjVnlTN2FP?=
+ =?utf-8?B?NWh5U3M3Z2NEWGdpSTkxZ0JPamUxSHkvSjdqcGY0dzg0M2VEVlVQK0tFbmJN?=
+ =?utf-8?B?azAvVEtPNHc2VVRBVnpOTDdZMGtWOVNoWTZzVTFvMlFIV2E2cGZNaFQ4dlJJ?=
+ =?utf-8?B?VW14cVNqU0VsM2JmYUZJQzJ2WU9mNStWV0tOYWlkMXYrbDIveVFjcmlFRFo5?=
+ =?utf-8?B?N2FuUEp0SWQwMitDYXBEakVaQmhRS0hteklaY2J1M2w5dGU0WXZkeCsvcStu?=
+ =?utf-8?B?TVFOUlJGaDk5VnlOTE9TcVVSeGJUV2NyTjVEa1VETEFZMXRvVDZWRXRROWYr?=
+ =?utf-8?B?N2dMeFFpSW9aaFpFT1AvNVFEa3ZCazQxZ2RESnNuZUZ3cW01U3RGRWxMY3Bn?=
+ =?utf-8?B?cjBpc3FKM2JoZ3ltS0ZWUnhpQ29iVndHZk5CNDlxK0VFeThXVVJxbVFKUVNF?=
+ =?utf-8?B?R2poVkhaRFR1MXFPUE9jUFVjYUhzMnJrdXY0cFAvWEk3bzBXRU1EeXFDUXhQ?=
+ =?utf-8?B?ajNXMXN5NTJrNnpzWVoveHlnMDZXMnlpU3FGaG04bW96RFd2RkJvOVREdUJk?=
+ =?utf-8?B?VzNoTVcwRy9kME95d29veEhrc1BRc3hvUDg0OWY3SHpNSjZZemErOUpUUzJX?=
+ =?utf-8?B?c1BadWFNU1ZaL20yU2RlV2xoVFM5SGl1RlpDL1VaM3JQeURTK2V4SVFIQnRz?=
+ =?utf-8?B?UTEwY282R3I0NTdnc3NBTlJzSmNyMXVqYmVJOWU1U0NUMGJIUm1WUVl6NnJF?=
+ =?utf-8?B?d3pjcVVpVzlPRXJQVC9wbkJaOTNnemViZ2R0RnhrYVBCMlNBVi9rOUVnNmI4?=
+ =?utf-8?B?TElFRHN2b3BCcVg5QXNRNEFsL3Flcm5xUFFYNTVMYyt0SmI5SncvNjhoWFQy?=
+ =?utf-8?B?QWJSODlpYUxCc3ZwMVNsbng1Yk9jeGo4NVNyRHFFaXpFWjZvNnBOc1RPMHps?=
+ =?utf-8?B?Q3YrNnNsWEJTOTFlZ1FySWE0c2VyRkFKLzNpKzhoMGFzVVdUWXd0QUlXTkhj?=
+ =?utf-8?B?WkVaRlFFNk5lSHhRMW9SR2EwQ2RldnpwSTQwVmJTbmpRVHlKUnNBQzVZYkNX?=
+ =?utf-8?B?d09Ca05pQkRJdzZXbEJrM083OURyT1owYnFUQW1VUGQrRHY0RUdWMVQrMzdt?=
+ =?utf-8?B?SlBmSVV1OCtoU0hpdWNPWXVCQ2lUN3NCVFd5cCtncXdQMlpiRW01Q1VMTnlq?=
+ =?utf-8?B?V3pnTXRSa1krRGVMOEZTekJUTmczNUtwWW5yeUxYbXgxekhUdWdQVlBsSitN?=
+ =?utf-8?B?aWgrK1Rjc1d1WVdXNkNIVzFXOEJqZUxKQlRTcFViSXNMWnNmUmhScTI1bXg3?=
+ =?utf-8?B?c0l6VWxPUnkrc3owd05MN0lLcWZhTXJnbFVsM0hrVHZESWQ1Z2xCZDdVQXBQ?=
+ =?utf-8?B?SlBaakV2R3pZdi96RDZrRDhhZmZIYzVPdkJwTUZHMjZRV2xQdVVtbGtIV1Bp?=
+ =?utf-8?B?RmgzM0lDTlBITElCTHpEaFoyK3UrWUJ2UE9kR280RjJlaHUrRWRuYjhueVg1?=
+ =?utf-8?B?RG5uaEJvZFRJd3orZnhrVkNmUEU3QXNJenlLUVIyTlVtRW1SVnNMaVlsdHZ3?=
+ =?utf-8?B?Q1hreEdYNVhyZ2JEZHNZWXRYejZ1SUcxRi9QMkJvaFZJLzJELzRodEFEdmsr?=
+ =?utf-8?B?bFVacUt2NmVvSlRwamlFcCtpd0txcjYwUy9pVjl6b3dJOWJ2aC9xYm8yUERG?=
+ =?utf-8?B?V1c1WFB4WWkvMlpQMHBKV3c4d0pmUHpwNmkyQ0gwdC9aTGwzcVV0WGtkR3RY?=
+ =?utf-8?B?RUtCMTYvcGE2RXpDdW5hNE5tQmpvNzJKSnlUQnFXcHJqeWg4S3ZweXh2bHlI?=
+ =?utf-8?B?OWZWZ2ZOS3RGeE5sa1UvbUw0NUdPdTBkZEVQcmhzcEVMdk8xWWIzQVpmNDNE?=
+ =?utf-8?B?YjY2SS9kTkFyUldYWnRJYkgzS3pNOWFOSmVKeDg5WTg2NnVTZTU3UmlPWjhX?=
+ =?utf-8?B?TkJYNmg4dUF3eGJrUUZkdWY0d2VMUERrS2NpMEhJMkIzYkNQMGdVNitiMkJD?=
+ =?utf-8?B?RkpjR1phRnB0L0RlTm85d0F1MisxN0Q0azVYcnFYQXV2T2dpV0RTQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7a84c8c-6dc8-4b62-9146-08df3b7370a5
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB9734.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:31:50.8422
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ijXuz0rBaYnUGAyFuTKfcmOBDTWqyJ6vsUWphgD+Tj+YSD+rgr2TfcfYxWGHtXPv2mBfIk3slmjai2sixGMFQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9409
 
-On 11/5/26 13:32, Qiliang Yuan wrote:
-> truncate_inode_pages_range() takes the folios it finds out of the page
-> cache with delete_from_page_cache_batch(), which takes the inode's
-> i_lock and the i_pages lock once for each batch of up to
-> FOLIO_BATCH_SIZE folios.
-> 
-> shmem_undo_range() calls truncate_inode_folio() on each folio instead,
-> so filemap_remove_folio() takes and drops both locks once per folio.
-> Truncating, punching or freeing a tmpfs file or memfd made of small
-> folios, such as a large /dev/shm segment, pays for that on every page.
-> 
-> Clean each folio up as truncate_inode_folio() does, collect the ones to
-> remove and take them out with delete_from_page_cache_batch(), which
-> needs truncate_cleanup_folio() outside mm/truncate.c. Swap entries, and
-> the folios kept when undoing a failed fallocate(), stay out of the
-> batch. Dropping an 8 GiB file of 4K folios, median of five runs,
-> averaged over two boots of each kernel, in a 32 vCPU VM:
-> 
->                         before    after
->   ftruncate() to 0     1150 ms   917 ms
->   hole punch           1165 ms   919 ms
->   close() of a memfd   1153 ms   921 ms
->   unlink()             1152 ms   921 ms
-> 
-> Files of PMD-sized folios take 18-27 ms with or without this change.
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> ---
 
-Thanks, I'll wait a couple of days and will then queue this.
+On 04/11/2026 20:37, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
+>
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
+>
+>   - What hardware the change was tested on. For driver fixes please
+>     mention the device (and if relevant firmware version) used for
+>     testing, or say that the change was not tested on real hardware.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
--- 
-Cheers,
+Hi,
 
-David
+Apologies for missing these details in v2. I'll make sure to include them
+if another revision is needed.
+
+The issue was observed and reported internally during PCI suspend/resume.
+During the initial investigation, another team found that stopping the
+PTP worker prevented the issue. I do not have any logs to share.
+
+I then investigated the report through manual code inspection and found
+that the periodic PTP worker could access PCI registers through its
+backing function after that function had been unloaded. Stopping the
+worker alone wasn't enough because PTP operations could still access
+the same unloaded backing mdev. The change therefore ties the worker to
+the load state and ensures that PTP hardware operations use only a loaded
+backing function.
+
+The change was tested on ConnectX-7 hardware.
+
+Thanks,
+Carolina
+
