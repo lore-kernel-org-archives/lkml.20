@@ -1,65 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878737;
-	b=RIrOSuXo+Y0naCT/vaYk4q84at8b/m7RBRVSYiwp28VGUH8s9PNSUxLG0mlx7jCcJ+eL
-	 /wsNESy233p4PLeNxbuYkQJ0G2VwApmS9ueuQwXPbnCzZqlOvlhicfgUIk9xLLra7Powu
-	 aJDdQzr30RnFZT5usmaa8crmJE6gfBp47CLFkLGge63t/yIlx8mMbn/bwowQhAKYdxUrB
-	 POxlvOOEoKtCO44sKQiEzs3LWCjzRmiY3Pjy97M6M7XSTBOtFhMSPJUBbP1eogYx+ekK9
-	 WQgj5cyqzijntZVXmNcSc4pCHvI4wnE681leCU4lls3+6SYUr1T8HyiMnbizeE950CQ==
+	t=1793878753;
+	b=PcUmW7pohD9MeTFqsoWopuVrbK9EgQkB7e0LiqL3+w2TJQKkA7U1X0fBBeqA5a0+lOe9
+	 DCHD0T9ItJSG7NHsWlOcJdsbVQV8B36oVU7E59aL0sl0knrXGmKnknbrRF7Wlv7E1nvRq
+	 ZiXuzkDxA36PFczjhbzXiqb5z2XBU3Xe0q7PMh3o0dUhhm80Z2qjfx6UPpgSuh0OTL8RX
+	 XjY4QLOyYFVyMRXCeAAE5TEzncrpDF5CzLSfxTTC0rUsL8jFi5H6h4eSghY07vjQHrSV1
+	 6OvuVhWhrITr1IBKO9SQrT4v1+bkHyYlQsEYhbVXozezcS75CFQjlgvnIhhPOardHIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878737;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iuAuq2ID5TGFzn2pe0VJ1GBuLXTQHkhjD0pbehz9mLo=;
-	b=f9IiegzVA7HZ5sKA0Ycig0Nu6VotEbP+W0WvjyKu1So7t8Ss/krYWwfo6XAczxGRDM8i
-	 M/3tlXhuilUiWS/o/D/xkihSG8KP1v/sl1wK5l0exgb/1Vlg9YHXzNi5yAETekPouTkOg
-	 iH2z+h++wK/Rd2J3JTRoX31rqnN+bS6xefG0Mo1Z/WF0eJeJMoYwH0Cs+F7vAr4EsoNjb
-	 Cb8p0RmMxF3x4IkAwMmHnO6gpQ6Oa0dBOYOpGu1hIVSSbdu+uuzTzGqucdEfysOGhRAXd
-	 iUC1wUKqWq+0WPlmVt2V7lheJdycBMMQC6xSMKxv2nEsod6QdztWMHqjtZGCRQlhO+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878753;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wLy/MC5U/srGzmiqFOFPlUlx6h4GbJbOkj3ViR+QLTs=;
+	b=IRf7rKLWjIN1ruz6AVTh0R8iDdz0rucE/kjAS1g/9xFJ/t7JM/kVzp3O3a0tGY78238G
+	 Be3KmVb7fkZitjG0QiUBsgISzXOSy181ydQjids2+Dgwjbs7i/kvQ2522CKUUt+OP5srY
+	 u58MWVahNBR296wpxc5pilLwihSHa7+uCiCiqTbLhCg7Hn9O7TRjvTvpypocigrq+f1RI
+	 KjFXvHojNRUknI8zH33h4SDR52KQ9Ei4PwXUxBE2iEj5U6nDup7YVZeM8m35gQChS6Som
+	 R6xvCtNoTGWzLTtlkXetzfI0SAEywwC/lNKz9t9PAQkmI0sHoOHngVmair5CQIrlycw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKsbFlx8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NMcfvhUV;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA220606A335;
-	Thu,  5 Nov 2026 11:38:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74388606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:39:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74388606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKsbFlx8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F1A1F000C1;
-	Thu,  5 Nov 2026 11:38:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793878736;
-	bh=iuAuq2ID5TGFzn2pe0VJ1GBuLXTQHkhjD0pbehz9mLo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MKsbFlx8167Xt68/FdC4AGG+0FAoLxd96i0SMW6DYf1Rp9REAm71JsCQK64LXDfmD
-	 jpQIFxb8Ljs+dtF4hCQ/J1SH4KWevWOD31InLwMOA50QmzkxVFoluVhfd3A7+h3STZ
-	 05rOnfFDuaxSVd0sstW+I76xhw0/RFbI6uhBJfujzHjG7C9sqCPTV3OdBm3XqHLER7
-	 +vop+yVrDaDhHo/gUpdEEj1gnzpiH+lZgCkS4+2bl48d/XaHjeFbe29HfC2zih8t6s
-	 Wxx9UZwCgE7j7t3xTYS1fATgSwwd4D4elFQ74zzj1PrVCpl9NqB65HOSzGHKBeLEkQ
-	 Fh/jNGj55+tcQ==
-Date: Thu, 5 Nov 2026 12:38:47 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auxn9fKsOKeIFIJa@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NMcfvhUV
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a18fc7a38so1852534eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:39:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793878751; x=1794483551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wLy/MC5U/srGzmiqFOFPlUlx6h4GbJbOkj3ViR+QLTs=;
+        b=NMcfvhUVqPBalavljOq3AdNC7tJsJBv+ug0t2CLiNqpmrU2AJNud3XXIMeJZF1rnOC
+         pwureEM5btmrTMJvCLOk5ptu0BLvxUbiDQ/o3Bflr7+msvseP1z73Yc1Uln4l+a7Zfmq
+         zYFYG4rFEdklLdFOLn7TL1v/Xcz0OhNeszy6COYhjuCmbF9CYHx6lPFnmfxOkjlwFzEu
+         EAzlsMYY2UtA1VHKFFGTsBuzjUdycHOFqijPRKvoZm210mvOBEaf5E2xoUJ1eBGiTZYU
+         D1WLug9kwHBatTqrkmXEKkT8/HWf+mjJVNdgrxkLvAadIbVG5c6iOtmNpG99GapzGoHL
+         BsTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793878751; x=1794483551;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wLy/MC5U/srGzmiqFOFPlUlx6h4GbJbOkj3ViR+QLTs=;
+        b=eeDVOiEgTKRlPioRPcDogQNZmuo2gBW7/b6O3nP0cZeyt9CfyyIrrBhgJ5A7aFtJCu
+         KZ/SzQblTVWtDvZEsNGnafanaweb4dz42vmgdR8CsOl7u9V+x322t2DFha3hFINwI1Wu
+         KBTLmBdSlTkto2Hngh91QBOogDqUkarVO9+TH/Z/BLzbjcrNWXsNY0fszVT+EbfI6ZV0
+         qyiShZbMGOnN4wf/YcgpZpePTUvA5068KCarTiogm6pUl0EJWSB5iJ7LA3f+UWtR2nCL
+         v5mdnZDyCquUxa+hrqzTSkeixXmfPE0kcHLn5hYdTtvD26ywDzaSWyW5/0EkVeW0EcdL
+         LTgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwarSZS3kel/d8boKFufizIEyNYdTTpajlvtV+zmsm4gWTR7/DhJhu5FU0gBy7HI4gcMh8sDS0YccVJtH4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ENpwHXfTbf1acTnkwm1BOseDVzZo9Rx3OD5CHwbpXAFFCJsL8
+	aGCysAjraqBiSUqLXOoV+1eBZdNqFacj1QPD5b8W3Jki3PptZSefSlLD
+X-Gm-Gg: AYBFou34acHwhVVfNDz+ZsfSUj9VVZ+QnWk2zKqGHAYcYhsb2KRug99dwuySpLOEHFQ
+	lUuvQIr5HomgEXwxy46pBxHbO7rR3FpAfjw2qUothLRykVr27BEAND4+WDwEgggqBxmmbj7SpfA
+	J9BYxScMEDpZ6kLMZ4QY+uFqbLgYAz1oQlpDNe/mrSNB6X8hPxmtGNS6sNn+Ynkz9xJmYI2D2qK
+	ITd16GN/2K1rqM4sZZceaj2IqZid16oi4w/uFPd6ADcLeNe8g7rGUKvwaWi67MJYRCkwG0hLxe6
+	IhiGpD9zOx2LgwZEDDbMKPUdsMUFXKKlsniMvd6t/byqPDbOrA00xOiXrZi4lKWk4K83G+6t9tn
+	mi+Tz8ffqgE7b2fefcGJ0/tFesVB0brU14luc51XVnVtD3e0OO03Dxfqyu4deSnN+eqYvy4emgx
+	EvwoROIUWnuB2/twkgpnU/1m4OBaCIA1TqNsjWFXkEuU8d9Q7Y/ed1F4g2scwk1ZFjeat+m1pvX
+	S7vzgGmVY3CgPgBVjAYp6016QwFZWPOVKjAwKsuJi7u4HKT+HygD47vx8CjDtgCmQUXpAZzA0bC
+	hVr55SdO3GkBr5Uq7RgByjmzkRtSXIkYCvDPsGu4Ag8sTCPerezw2nPuNWRY/e6noB6mVP9dDB+
+	AEA96Hrh/P+wwGpWqOL7mUX3gKDFrzJ8=
+X-Received: by 2002:a05:7300:a943:b0:36c:991e:c9b with SMTP id 5a478bee46e88-36c991e288dmr14652570eec.14.1793878751259;
+        Thu, 05 Nov 2026 03:39:11 -0800 (PST)
+Received: from lwq-System-Product-Name.. ([23.247.137.158])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38f53a6sm15089493eec.15.2026.11.05.03.39.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 03:39:10 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+To: netdev@vger.kernel.org,
+	david@ixit.cz,
+	davem@davemloft.net,
+	kuba@kernel.org
+Cc: edumazet@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] nfc: rawsock: serialize SEND_SHUTDOWN with the TX work requeue
+Date: Thu,  5 Nov 2026 19:38:12 +0800
+Message-Id: <20261105113812.969651-1-shunsheng1218@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,124 +102,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rgj25ae5zgxkqfls"
-Content-Disposition: inline
-In-Reply-To: <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
+rawsock_release() sets SEND_SHUTDOWN before cancelling tx_work, but it
+updated the shutdown flag without the write-queue lock that
+rawsock_data_exchange_complete() holds while it tests the flag and
+re-queues tx_work.  A deferred completion could pass that check before
+the flag was set and still schedule the work after cancel_work_sync()
+had returned; the worker then ran on a socket that was freed right
+after release dropped its reference.  KASAN reports the
+slab-use-after-free in rawsock_tx_work().
 
---rgj25ae5zgxkqfls
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auxn9fKsOKeIFIJa@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
+Set SEND_SHUTDOWN under the write-queue lock, so the completion either
+queues the work before the flag becomes visible (and cancel_work_sync()
+then covers it) or observes the flag and does not queue.  The
+completion-side check from the previous submission is kept.
 
-Hi Andy,
+The remaining requeue window after the cancel-based teardown was
+previously raised in review of that change (CVE-2026-23372): an
+asynchronous NFC completion can queue tx_work after
+cancel_work_sync() has returned.  This change closes that window and
+does not claim to be the first report of a rawsock teardown
+use-after-free.
 
-> Date: 2026-11-05 13:24:18+0200
-> From: Andy Shevchenko <andy.shevchenko@gmail.com>
->
-> On Thu, Nov 5, 2026 at 1:13=E2=80=AFPM Alejandro Colomar <alx@kernel.org>=
- wrote:
-> >
-> > str_has_prefix() is based on sizes and lengths, which means it must
-> > overload the valid length 0 to mean not found.  This is a typical
-> > consequence of choosing to design an API around sizes and lengths, and
-> > vanishes when moving to pointer-based similar APIs.
-> >
-> > This patch set adds strprefix(), deprecates str_has_prefix(), and uses
-> > strprefix() in one place to fix a bug reported by Bartosz.
-> >
-> > We can later work on replacing the other uses of str_has_prefix(), which
-> > might hide similar bugs.
-> >
-> > Testing
-> > ~~~~~~~
-> >
-> > I've built this patch set with 'allmodconfig'.  I've not run the
-> > resulting kernel, though.
->=20
-> No, all lib/ new code should be accompanied with new (Kunit) test
-> cases. Update the respective lib/tests/* for that or if not yet
-> converted to Kunit something in lib/*test*.c
+This issue was found during an AI-assisted source review of the socket
+release, TX work and deferred data-exchange completion paths.  It was
+reproduced on a KASAN kernel with a deterministic timing-injection
+harness for a deferred NFC completion callback: with only the
+completion-side check, stalling the completion between its shutdown
+check and schedule_work() while release ran produced seven
+slab-use-after-free reports in rawsock_tx_work(); with this change the
+same sequence and the original purge-window injection produce no
+reports.  The tests run in QEMU with a virtual NFC device; no NFC
+hardware is involved.
 
-Thanks!  Does this sound good to you?
+Link: https://lists.openwall.net/netdev/2026/03/24/271
+Fixes: d793458c45df ("nfc: rawsock: cancel tx_work before socket teardown")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+---
 
-	diff --git i/lib/tests/string_kunit.c w/lib/tests/string_kunit.c
-	index 0819ace5b027..702030dbb93b 100644
-	--- i/lib/tests/string_kunit.c
-	+++ w/lib/tests/string_kunit.c
-	@@ -287,6 +287,14 @@ static void string_test_strspn(struct kunit *test)
-		}
-	 }
-	=20
-	+static void string_test_strprefix(struct kunit *test)
-	+{
-	+       KUNIT_ASSERT_EQ(test, strcmp(strprefix("foobar", "foo"), "bar"), 0=
-);
-	+       KUNIT_ASSERT_EQ(test, strcmp(strprefix("foobar", ""), "foobar"), 0=
-);
-	+       KUNIT_ASSERT_EQ(test, strcmp(strprefix("foobar", "foobar"), ""), 0=
-);
-	+       KUNIT_ASSERT_NULL(test, strprefix("foobar", "bar"));
-	+}
-	+
-	 static char strcmp_buffer1[STRCMP_LARGE_BUF_LEN];
-	 static char strcmp_buffer2[STRCMP_LARGE_BUF_LEN];
-	=20
+v2:
+- Set SEND_SHUTDOWN under the write-queue lock, so a completion that
+  tested the flag before it was visible can no longer requeue tx_work
+  after cancel_work_sync() returned (v1 only added the completion-side
+  check, which left this ordering window open).
+- Added deterministic A/B testing of that window: stalling the
+  completion between its shutdown check and schedule_work() while
+  release runs reproduces the use-after-free on the v1 code and is
+  clean with this change.
+- Corrected the Fixes tag to the cancel-based teardown commit and
+  linked the earlier review thread for the remaining window.
 
-BTW, I don't see any existing tests of str_has_prefix() --the API I'm
-replacing-- under lib/.
+v1: https://lore.kernel.org/r/179378590950.74297.14503648624087894519@gmail.com/
+ net/nfc/rawsock.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-	$ grep -rn str_has_prefix lib/
-	$=20
+diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
+index f7d7a599fade7..dd8401e3402d3 100644
+--- a/net/nfc/rawsock.c
++++ b/net/nfc/rawsock.c
+@@ -68,12 +68,23 @@ static int rawsock_release(struct socket *sock)
+ 		nfc_sock_unlink(&raw_sk_list, sk);
+ 
+ 	if (sk->sk_state == TCP_ESTABLISHED) {
+-		/* Prevent rawsock_tx_work from starting new transmits and
++		/*
++		 * Prevent rawsock_tx_work from starting new transmits and
+ 		 * wait for any in-progress work to finish.  This must happen
+ 		 * before the socket is orphaned to avoid a race where
+ 		 * rawsock_tx_work runs after the NCI device has been freed.
++		 *
++		 * Set SEND_SHUTDOWN under the write-queue lock so it is
++		 * ordered against rawsock_data_exchange_complete(), which
++		 * tests the flag and re-queues tx_work under the same lock:
++		 * either the completion queued the work before we take the
++		 * lock (cancel_work_sync() below then covers it), or it
++		 * sees SEND_SHUTDOWN and does not queue.
+ 		 */
++		spin_lock_bh(&sk->sk_write_queue.lock);
+ 		sk->sk_shutdown |= SEND_SHUTDOWN;
++		spin_unlock_bh(&sk->sk_write_queue.lock);
++
+ 		cancel_work_sync(&nfc_rawsock(sk)->tx_work);
+ 		rawsock_write_queue_purge(sk);
+ 	}
+@@ -168,7 +179,14 @@ static void rawsock_data_exchange_complete(void *context, struct sk_buff *skb,
+ 		goto error_skb;
+ 
+ 	spin_lock_bh(&sk->sk_write_queue.lock);
+-	if (!skb_queue_empty(&sk->sk_write_queue))
++	/*
++	 * Once the release path has set SEND_SHUTDOWN, do not requeue
++	 * tx_work: the socket may be freed right after cancel_work_sync()
++	 * returns.  The flag is checked under the same lock that the
++	 * release path uses to set it.
++	 */
++	if (!skb_queue_empty(&sk->sk_write_queue) &&
++	    !(sk->sk_shutdown & SEND_SHUTDOWN))
+ 		schedule_work(&nfc_rawsock(sk)->tx_work);
+ 	else
+ 		nfc_rawsock(sk)->tx_work_scheduled = false;
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.34.1
 
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---rgj25ae5zgxkqfls
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsasEACgkQ64mZXMKQ
-wqk9Qg/+OQAqxdYzvH5vd6JAN205T5MzqQ/i65YlKf7EUl2HRQyrb2LYH5Hih1M9
-NwzT6aHOK2UtZhMmHBp7tqqWKDinP2l5MS8OyFX5E67DsK2OMzxlxk/mHqoAwjsH
-PrVOHXTVU5DYQr8+qnEtkNcHVk0eCR9+rlp26DKymdDv/qRdIsIYfYx0UiFV0t7g
-TSBmvl0Ys/VswxpEcZmDKybM0PB7zCjG9w/aTYKS6UW7v6soSyTkZfjKJvntk5H7
-DBZVjLbN4dyrIQcs0QCP4Q1Prto1xHAaXHI0AFNvRzW0wf4MMaY9GzXHu5NZ2aO9
-SNvjSVkgwtY3AN8DBEucqt3zC/q1c2dwY2G7WmAOR6T3AS/pw4ME/rLOnJgiLP4n
-5qbO2a8ozXnJkp4XYdLefBWreYgkVxmHkSDzd5XL8Z1ymtAKu623HeXGxLkGsuwc
-nIxoMfFVV6YsMvDXKFnwYj8jZoXAB4iYXxzUuRJRX38FBY0YtS+ZTTSxkg3orl6i
-PNx5buOyY9SUvMaj0kW07uWBNSFMeUgjcE1GOFnLvTRTGVOFW3VACpCdUx5jtpqv
-tRu2pi6+7rQJfaoT0m6vvy84m9qHrFnWbh5dfgZK2WH2MO9zuU2/ma2zIy+m+t1K
-BwtfkKVuv4DAapnOpA08RMO79tt6dtnO217R7F2ffvNHTr8Ix3A=
-=29ag
------END PGP SIGNATURE-----
-
---rgj25ae5zgxkqfls--
