@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.94
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869286;
-	b=gQpqLYy/iSBkZo4BnjjM2ahpAc7siVrOBv1LEmw1aD15ptq1ZHbESNDNLwe33xZQHfK8
-	 Y+9Zf90LubgP6PcMwBysl9VBRJMrvqHzpi+16Y6PfHr+RkD2UY3MlDGxqFNb5WXjy0809
-	 q68bW94ItZcRTttKhXO36+pS/mVmSBuT+1yLgy1Q7PIE09JaM78WU7yTHZ7nqZKthT9TG
-	 ZSvPVA68FJncNYx+1gnivu5Ki4i3SGFZbqSEnP/EqoHl9RNA9zlR6Q686eBVbNhyTCxtB
-	 oQF5tMqY3CQ47esu9QGiyDRRNLmck6QZzA1S/VxFoWytX7px/5scDDvg/DrIKRJ+3pA==
+	t=1793869293;
+	b=D0Dki2nwqxx2ir1I82zRhU3ZyrhU4bD65yzlAhSTJi2ppLS8VSOa+8aVeJX+Ka/+IVuU
+	 wWIa+ce+wumW6fZp9dkEVSK7fpLQuVnfTj2Gq/MFeGQ/8KyvlLijIfEID74scjyRpt+BH
+	 6sXCKASpiPxokwK1c0ZtF1RrMRS7J1R9NbxfBSL9ROhFYXZ/LFfwpNZ3m2B7eQ61kk7FA
+	 j43fNXSTYUW9/PVPTSXAQRyiRuh78hn41g0IReOGD+2ll1B8HhPQ9HFmclEys3YTH69cN
+	 ErC7LVcIX8LQTq05QGPxgZheZkFrxo8LJwZaXE9HMc+pVOSP9xUHnF6x79dI8bRoX6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869286;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZhBHR54kEL9iXFFLculYwS1Y3YGdU3q4GAVnVZsSbSo=;
-	b=OoE15+zdNAFgdhgeBq5ibTsS28KWqDbM0vOUK3xuErSNmNmF6mcAbY7Jf6npLMp8C600
-	 IZMR94ugZUHo4DGqOyrYmHLEUox5U4L2FSarMTxsifN05sYONYrnPv0hLQGwoEfpa37KI
-	 ShyOgRpzY+QniU3Kwza4MK65fLzKPg3541RTmWd4gGgKGSqXdM6oOyNnlZBLaMb7a63mE
-	 OkBbw7wis95a1DDMoThcGH/mDjvwuCwcjnYkqtb2+aHabvAk5ocLMaPbWqP8Ns8SZwC1x
-	 yCc4ybH+rMM8PIojpOtmd7cFnoVl341dlQiFNzUAL4AXbUF7NhyXT62M4XD5A3hBl3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869293;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7hLKL0jW9VnknpicZ4GU5PzaIM4jESCiNAB2XEKPe0U=;
+	b=zy0Yqh38VebwrAEoNUtTDfIXV9mDw11EDmZnA5Mb00R6RmBvnrhA0+vcW+AJxEGrcKIF
+	 Tk6Y5FjwPyOcTRl7q0NMOXTeKVopMaN7j7Ptatd4QgpscjM/PMk8uYGDx6CcCfFYojz49
+	 jX+Y6R9KG+RIvUAv9Z5K80vA3pe65fTosWGqu7o0gG7gW1d4k/MZRZfsMTjzc2AbiOGbd
+	 ptGwEUGLC/xh6CUf9q69mHTGJ/ybdOsWswMpIat6UpWSLMtc5T1af9we0NWAORjdR1T1T
+	 cdix1gLbS79Keipa3kHGkC6owG8k7QpUGUvrKKz9GAhlTjykgcDIcz87pGzFj8WgfhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DMMArXbJ;
-	arc=none smtp.remote-ip=95.215.58.94
-Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+axH5p6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186E9606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 186E9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BB0F4606A331;
+	Thu,  5 Nov 2026 09:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DMMArXbJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EjAYAwEjxdMoSEuay9tHnlAFEwg1E9QXVI4FTt6mxzo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793869282; v=1; x=1794474082;
- b=DMMArXbJX6uH4jhAwXMtWHBD6gM0kyXSmb19Dcv6OpvN6afNotBJwuRKbWKJefiMT+z1S0r+
- 3gjhEiWk8ccfDMSM9czOGfE87dfIDKIY8apltrCP2KZJ/yq+SsvsSWqzEKP4MjOF/hN2lJsO3rW
- FlamKKjroSuhWCTXYbUN7bpk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f9eee819d6736c7b;
-	Thu, 05 Nov 2026 09:01:22 +0000
-X-Mizu-Trace-ID: f9eee819d6736c7b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a5b6947e-4184-48f0-840a-ff2222be3f80@linux.dev>
-Date: Thu, 5 Nov 2026 10:01:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+axH5p6
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 781D71F00A15;
+	Thu,  5 Nov 2026 09:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793869292;
+	bh=7hLKL0jW9VnknpicZ4GU5PzaIM4jESCiNAB2XEKPe0U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A+axH5p6lyAp5u0NrfWmtfP8lQNzzuUfYqlTWMtvqmz+Cy+Nfz4N7/sGgkRA8I3jk
+	 ++QOvs0Ced2TSRJXtZy3BiRaw4L27vobffHTIA3mEvXxtbWk1eusCHhq0hPJ1htMy0
+	 +jmoqjVeZ4uppi6SkCmcueplP/m0WIYR77JaH6vb6861/vCFxMJqahyOXqMjssenkk
+	 tGWH0AjjsB3QLt92b7clvuX5QlMT/7iQSnsWE/bJm3cmQwAXJY8GyiUJRy7GGU/6+w
+	 Om89A9zLHG8Xb9GJonaKdrG2AaSB5LogjkRCvmh2bUiDdXcnZD3SnjlOJo2iqwxkK/
+	 Vt7aX+QtxPV8A==
+Date: Thu, 5 Nov 2026 10:01:28 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Danny Kaehn <danny.kaehn@plexus.com>
+Cc: Benjamin Tissoires <bentiss@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jiri Kosina <jikos@kernel.org>, linux-input@vger.kernel.org, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Ethan Twardy <ethan.twardy@plexus.com>, 
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, Leo Huang <leohu@nvidia.com>, 
+	Arun D Patil <arundp@nvidia.com>, Willie Thai <wthai@nvidia.com>, 
+	Ting-Kai Chen <tingkaic@nvidia.com>
+Subject: Re: [PATCH v14 0/2] Firmware Support for USB-HID Devices and CP2112
+Message-ID: <n2v4cyl2mdmtxml6qqrtz6jqhv6pxpqqkqhwzc7gd22t3dxobo@s3dgflqe3llq>
+References: <20260520-cp2112-dt-v14-0-b1b4b6734b6f@plexus.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,82 +61,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] ASoC: Intel: avs: Soundwire support
-To: Cezary Rojewski <cezary.rojewski@intel.com>, Vinod Koul <vkoul@kernel.org>
-Cc: linux-sound@vger.kernel.org, broonie@kernel.org, tiwai@suse.com,
- perex@perex.cz, amade@asmblr.net, linux-kernel@vger.kernel.org,
- yung-chuan.liao@linux.intel.com
-References: <20261103134958.2089136-1-cezary.rojewski@intel.com>
- <bcfe64de-359c-4f16-9014-5d6f8bf30c40@linux.dev>
- <9da94716-4dde-4389-9574-12f90b52e05a@intel.com>
- <d9672276-5616-4609-98c1-5b9bdd06cf05@linux.dev> <aus0GT3ht1oEY2mc@parshuram>
- <746bae53-ed1d-4881-9268-968c25270bda@intel.com>
- <259d0c79-2a36-4a36-8e7c-fa24137a02bd@linux.dev>
- <54b9b19e-7513-49cb-8367-8ef7711ac918@intel.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <54b9b19e-7513-49cb-8367-8ef7711ac918@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260520-cp2112-dt-v14-0-b1b4b6734b6f@plexus.com>
 
-
->>> However, I find it easier to move from hardcodes to the basic allocation
->>> approach (seen here, in this very patchset) than the other way around.
->>> The change would consist of updating intel_hw_params() so the PDI
->>> allocation is no longer done there.
->>
->> Change is risky, especially when this touches platforms all the way to
->> CNL across at least 3 generations of Intel hardware since 2018, for no
->> tangible benefit.
+On Wed, May 20, 2026 at 11:13:05AM -0500, Danny Kaehn wrote:
+> This patchset allows USB-HID devices to have Firmware bindings through sharing
+> the USB fwnode with the HID driver, and adds such a binding and driver
+> implementation for the CP2112 USB to SMBus Bridge (which necessitated the
+> USB-HID change). This change allows a CP2112 permanently attached in hardware to
+> be described in DT and ACPI and interoperate with other drivers.
 > 
-> Well, that's why I don't want to mix the 2 patchsets. However, I'm of
-> those who is not afraid of editing code that touches older platform - my
-> intention wouldn't be to level the code, obviously. From functional
-> perspective it should reach status quo. And both teams have their CIs.
-
-CI resources are limited, lab space and maintenance costs result in
-older generation moved to 'community support', you'd be lucky if there
-is one device per generation...
-
-"If it ain't broke don't fix it" applies here.
-
-There are many other topics to work on with the on-going change from
-HDaudio to SoundWire in the PC space, Linux is way way behind Windows as
-measured by all the recent bug reports on configurations with new
-vendors/new chips - not to mention that there are very few reviewers for
-SoundWire...
-
-> Now, I assume most of the discussion touches on patch 2/7, the one with
-> sdw_cdns_assign_pdi()/release_pdi(). The main suspect:
-> 
-> intel_hw_params(dai)
-> 	alloc_pdi()
-> 	config_pdi()
-> 	params_hook()
-> 
-> is a DAI operation, represents dai->hw_params(). The params hook is
-> there to give SOF some location to send IPC from. If intel_hw_params()
-> is split, there is no need for hooks. Such hooks are certainly not elegant.
-
-The reason for those hooks is not technical, it's due to the split in
-the code between the Soundwire code in drivers/soundwire and the
-controller in sound/soc/sof/intel. There's no real other way to send an
-IPC from the SoundWire side, it is what it is now.
-
-> I believe the way forward is to convert DAI ops present in intel.c to
-> library-type functions. Let platform components call these. Frankly,
-> except for our friend, intel_hw_params(), one could say they already are
-> - perhaps the whole intel_pcm_dai_ops could be dropped.
-
-No, the intel_pcm_dai_ops was introduced to have intel-bus-common define
-a generic behavior for a stream and the ops hide hardware-specific
-implementations between CNL and LNL. This has nothing to do with the PDI
-really.
-
-There's a second level of indirection to send an IPC with the
-dai->hw_params, again the implementation is done differently depending
-on generations. Note that in theory on ACE2.x SoundWire could have been
-managed without any dependency on the DSP firmware and thus no IPC,
-unfortunately decisions made by firmware folks result in the need for
-this IPC. It is also what it is now.
+ 
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
