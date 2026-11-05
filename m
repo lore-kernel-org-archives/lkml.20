@@ -1,47 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873195;
-	b=GqQ+5GNMdDWI5zrSzWAo+bdTrF7FUaaBHErMXCk4VxoUwFAj3IeuUAIFr2an+wjsLpP9
-	 V/SzjhCuYip3EwnMtZF4VLZ2sdmY0EXNF+dVsYSJ9ofyq9SBk7dqGZHj/9jPQdIYcJaZt
-	 Tazz6mc4wnXEMKNQ7Xkf07AYdWh2eoAhzHBmiIq8XVPYYCW7QXHDk+xjeCkhF+gTiukW2
-	 GIgG8fOWIH3vidxOgySlwiFboao7PYJ0U+bPkcgrNzGhd9a2Q08EnuzEUDL53e1/XC73P
-	 Tz0fLWec3e/jwUyEVmBc3zR5L1gByy8/9uP0WGmfqIMj53q3hsnzV30lp3A1kaqB6Gw==
+	t=1793873206;
+	b=Vyd5YzPwUTL/z+TOEb8WguhHuxr3+TzxTQvvt9g+4WUDDDAstcj5ONx1KCSZ1fwSO/wI
+	 kk30xlkzAqeeOw7FtpPGlw71LGTd/2F5VW29E1XReJuvXb73NLX94Zd19DPBBePuiCbtP
+	 emCOxX2ZEhAT21P03Tgn8eiQVXuJkI06x3KQAXo+SkyiffaxC4Dy0lVGL2WeA6HETOFIc
+	 qCLcxYFdKvRyr9LApADmNd6CvfM/dSvFxZ86g0FFb62vVfhsUSoWMIN220h5LFONBbjFV
+	 VI+ikVtn4IRIqITJE62Yd9aShhvKAcQSGBIakWVtq+DXKwYe0e1CQbUVtDMk61uLzlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873195;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KlNcyjmnp6YOIH32Y02xB2NJvMagbLi0xJ9gkTl0Efg=;
-	b=GreumvdOf69AYewavpm8d6VhULIs21lG/i+59rqQK+OK9sFbRQLN/sqUYUfbxMkZ1cPk
-	 Xt21WUacGyYALo/ZIgVHV5kGgZLVEd7lmL/3nCjgo6c9rpRo+HJPIPL51nwJD8YrIJ4Mn
-	 ICYao3SR7yP5AXxenFxAib5tiA2Sa9xaKELyIhF7IydQDeEUbscrrVDqobHLutA0M7fjA
-	 PHLNSmTNhJ9hGIiFg9q3QTE+FNk3AEijZmwRyAm7FvOrsTOPn8EYKqCdV6MEM0hFabaoW
-	 vVJTbyPxaHP+8SHOjxyaqnLn74n2Svpoip8h1YGQ9sTNDWLuP90Zi4YdbrCRVf7AwSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873206;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 Content-Transfer-Encoding;
+	bh=pFoJauY+ge8oZt6IncAYryNUK0J2lM4fu9aSr026sNo=;
+	b=bOSApXZRehNq3maqb/p9FI0vqCumQFr9P81MQeE04HQWKxT+l1g2aATbA9SaLYIzhj09
+	 rVl0blLYTnEgHVZiPplT2wf7mQmXXmgJhSuULpMf67VFtLM7GyxPJsKB/xllH1ggKkL2N
+	 GoqjQGvT7rWIwz2RL9JMS4HY+SyjsaOPiubMQmoCcfb+j7YV2AHbj2hEEA9Hjm0tjZYOA
+	 ZXHUQAyBSav/CqdKh8N0fyXUy/PpD2zZwzb9RYxQYmjiIF8w8/27qECFXmHIwbFSqr9RX
+	 Att+ZV9YSPdDGOTouFAn7y8cXmhoWJ3a4ve5OQaPFyWzmvjZDFkSZ5sRp8SGnUPZUgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Co5RLZ1i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjZn38Vw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1394060A5BC2
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:06:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1774606AA58;
+	Thu,  5 Nov 2026 10:06:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Co5RLZ1i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4B41F0093A;
-	Thu,  5 Nov 2026 10:06:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjZn38Vw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D57EE1F000C1;
+	Thu,  5 Nov 2026 10:06:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793873194;
-	bh=KlNcyjmnp6YOIH32Y02xB2NJvMagbLi0xJ9gkTl0Efg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Co5RLZ1izUA4+0k0RkTBzo9U56BblHGcuBoqwpfGPxHMAzOSJLeLAVZ4VmxUTkfyB
-	 pfS8kdZYT4ULCueqoSrRy780B0spAHvEcK6/IUNfcw867io+38qeF7QJsiaccSnwzz
-	 bsvrVw1W/8zdoEonWU3/PWOC/NncXkfPe385AhyCmCaYiycfjm3U48OgI4Lca+0KFi
-	 WoJ16/bcNibNqR32kowvTzDs8M/F+uGJkFxdeEwV144aQ41QocFOQKYDQLqwPG2TMZ
-	 q6UJhtSNvl9iaN2F+xMpNCpwT/QjmhohMGCyi4uU9TMAvT0ZI4uvlJcKtTdENTZeVi
-	 v8mC3pJVCneQg==
-Message-ID: <8ebb182b-8a01-4d32-8c76-7e4bd9e54ddb@kernel.org>
-Date: Thu, 5 Nov 2026 11:06:29 +0100
+	s=k20260515; t=1793873206;
+	bh=pFoJauY+ge8oZt6IncAYryNUK0J2lM4fu9aSr026sNo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZjZn38VwsrwMZXJLV5x34Lok+FZ+yf4xp9O8BDRyvQLc0yF7Dx2hLMrrUFBmi8OGu
+	 bdKwA6sHymWKFFrb58oZ/9pR8zW6+O1V59ZLUGiOzg6uwKgirzFZLhImDV0vEIKxuW
+	 JiXeyQ83LdmTcpE+R9mRW6z0ci0n4Jz4qBF/PLZb/LAa9kUQU7vnsVDfbqsHT2z4VE
+	 bhBgSPKg8t56tejL4KDbjWWqrp8yK3qbHjf7vg2le90AcA5gh2d6W+tTC9qr6nIQtv
+	 BxxnseASJx7NULJXqyBicgkFsRNlH7M32fit4MsFrUwwuoTNLbAw5U1q75BpH2n6KN
+	 W8J6OQuDtNqQA==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v13 17/19] PCI/P2PDMA: Let a client declare that it selects ATS per mapping
+Date: Thu,  5 Nov 2026 12:04:48 +0200
+Message-ID: <20261105-fix-p2p-acs-v4-0-v13-17-3dd065907c3b@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105-fix-p2p-acs-v4-0-v13-0-3dd065907c3b@nvidia.com>
+References: <20261105-fix-p2p-acs-v4-0-v13-0-3dd065907c3b@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,107 +84,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
- sizes
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lance Yang <lance.yang@linux.dev>, Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, ljs@kernel.org, riel@surriel.com,
- liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
- qi.zheng@linux.dev, pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
- <20261105045406.39871-1-lance.yang@linux.dev>
- <0ddaf336-7cb7-4e83-af2c-f60d23f7aafd@linux.dev>
- <f7bd740e-1328-473e-96f5-89658a08d514@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <f7bd740e-1328-473e-96f5-89658a08d514@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 10:00, Baolin Wang wrote:
-> CC Barry, who added the TTU_SYNC in shrink_folio_list().
-> 
-> On 11/5/26 1:48 PM, Lance Yang wrote:
->>
->>
->> On 2026/11/5 12:54, Lance Yang wrote:
->>>
->>>
->>> Good catch!
->>>
->>>
->>> Right. Whether the folio can be PMD-mapped doesn't tell us whether its
->>> PTE table can be reclaimed, so those extra checks can skip synchronization
->>> that the caller explicitly asked for ;)
->>
->> Ouch ... one thing I missed ... what about order-0 reclaim?
->>
->> shrink_folio_list() only sets TTU_SYNC for large folio, so can't we still
->> hit the same race there?
-> 
-> Thanks Lance. But this matches the purpose of the TTU_SYNC flag, which is used
-> to avoid racy checks with PVMW_SYNC. If no TTU_SYNC flag is set, it means the
-> caller can tolerate some racy checks.
-> 
-> For this case, I think we should set TTU_SYNC unconditionally in
-> shrink_folio_list(). Barry, what do you think?
+From: Leon Romanovsky <leonro@nvidia.com>
 
-That makes sense. I hope this doesn't throw a big wrench into our reclaim
-performance numbers.
+The PCIe ATS Enable bit covers the whole device, so P2PDMA cannot tell
+from it whether a client will translate a given address. Most devices
+translate any address once ATS is enabled, but some choose ATS per DMA
+mapping and can still use bus addresses for the rest.
 
-Can someone benchmark this?
+Add pcim_p2pdma_set_ats_per_mapping() so the driver of such a device can
+declare that before P2PDMA starts treating clients with ATS enabled as
+translating everything. Keep it in the device's P2PDMA state, which
+already ends with the driver binding.
 
-But maybe we should really follow-up with the folio-size based optimization in
-sync_with_folio_pmd_zap(), where we only need a memory barrier (and sufficient
-documentation why something that cannot be PMD-mapped can get away cheaper).
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+ drivers/pci/p2pdma.c       | 30 ++++++++++++++++++++++++++++++
+ include/linux/pci-p2pdma.h |  4 ++++
+ 2 files changed, 34 insertions(+)
+
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 9b35aabbfa157..df66aa056dec8 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -26,6 +26,7 @@
+ struct pci_p2pdma {
+ 	struct gen_pool *pool;
+ 	bool p2pmem_published;
++	bool ats_per_mapping;
+ 	struct xarray map_types;
+ 	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
+ };
+@@ -1769,6 +1770,35 @@ void pci_p2pmem_publish(struct pci_dev *pdev, bool publish)
+ }
+ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+ 
++/**
++ * pcim_p2pdma_set_ats_per_mapping - Declare per-mapping ATS for a client
++ * @pdev: PCI device that initiates peer-to-peer DMA
++ *
++ * Declare that @pdev issues Translated Requests only for the DMA mappings its
++ * driver sets up to use ATS, rather than for any address once ATS is enabled.
++ * P2PDMA then routes this client's Requests with the Address Type each query
++ * asks about, rather than the one its ATS Enable bit implies.
++ *
++ * Call it once pcim_p2pdma_init() has succeeded. Without P2PDMA state the
++ * declaration is dropped and the ATS Enable bit keeps deciding.
++ */
++void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
++{
++	struct pci_p2pdma *p2p;
++
++	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
++	if (!p2p)
++		/*
++		 * ats_per_mapping is a performance optimization,
++		 * if pcim_p2pdma_init() didn't set pdev->p2pdma pointer
++		 * for some reason, let's simply use ATS global settings.
++		 */
++		return;
++
++	p2p->ats_per_mapping = true;
++}
++EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
++
+ /**
+  * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
+  * @provider: P2PDMA provider structure
+diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
+index dd17501ba1b6e..ce389e18d0239 100644
+--- a/include/linux/pci-p2pdma.h
++++ b/include/linux/pci-p2pdma.h
+@@ -82,6 +82,7 @@ struct scatterlist *pci_p2pmem_alloc_sgl(struct pci_dev *pdev,
+ 					 unsigned int *nents, u32 length);
+ void pci_p2pmem_free_sgl(struct pci_dev *pdev, struct scatterlist *sgl);
+ void pci_p2pmem_publish(struct pci_dev *pdev, bool publish);
++void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev);
+ int pci_p2pdma_enable_store(const char *page, struct pci_dev **p2p_dev,
+ 			    bool *use_p2pdma);
+ ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
+@@ -138,6 +139,9 @@ static inline void pci_p2pmem_free_sgl(struct pci_dev *pdev,
+ static inline void pci_p2pmem_publish(struct pci_dev *pdev, bool publish)
+ {
+ }
++static inline void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
++{
++}
+ static inline int pci_p2pdma_enable_store(const char *page,
+ 		struct pci_dev **p2p_dev, bool *use_p2pdma)
+ {
 
 -- 
-Cheers,
+2.56.0
 
-David
