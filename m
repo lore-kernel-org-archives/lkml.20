@@ -1,94 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.209.82
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915600;
-	b=0MrTMziZwxII4vRl4o+jAwURWtLBHrl+e05EQ5l7SH48dc/PaA0QIG+pdNI4QtB4J3Bm
-	 rYRpPwu6uleDCj7VN6VYJKaDQljy3Nt0YwpHUw0c5YlkUqdPf6G4wR0MGgSOuA/5Mghl7
-	 54BNQexoCF3P0fORA6RXgrynnByvW3JAGiSsxWNrsyOyaKNnJLud20SsJjwOHTZXFGCGm
-	 ePqooHbwczg893dQACwuUmMJzddxv03TrMjOHYU69rVvxVv3l3hlhI3QkQU30pCT0eKjY
-	 Jzj9DBtKU4/HKE4UeLFeOc3Ntbvh5hZ4Wl1FL1p5rja04AiHSYlg+lDTZ7qH/SCeexA==
+	t=1793915597;
+	b=h4PaONmryS2nXjtco0JVAF639qR6NpFU1t6UdoYrvDOUCYODto1cab1+ne0JCzbAbXlz
+	 4tp4N4Qe9LqG57/tITB0USQk/fDnLapD5MCZtFfL5fQt4LEFQsvdUlsR2jtH3vl/b4cqf
+	 nNwDqEgR9QEReRVjgan/BYEshOSKiZQftncvtvo1u0W2SWNXDVsom+oClsdbgNdvzOpc8
+	 iTPHH1qG3MPqp6E3Fi68hecL36Jnyqd/hWGRtwEg26PyXp42SriW+Ep1x0MltwbvlmeLK
+	 PgXr6Rn6k3tFmWsBPYWCk8+XaH9WlkEaGuWSNdPwpKQgP1scueu2gKD86Wj9zq0e3+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915600;
-	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
-	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Soft-Attack:
-	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:DKIM-Signature:
-	 X-AuthUser:Received:From:To:Cc:Subject:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Date:
-	 X-CM-Analysis:X-CM-Envelope;
-	bh=x6fWEIwcZqF+uebJhhOi96RZVMVojjt7Yr1nCZ0fX90=;
-	b=vXf7uOC0hqpa+i1cNkoQPMlzEws8MhBMmW/i7jUYveJxuULpiokL6yNt5Li996ulSYiS
-	 X26JHH5r9itqn0zelq3Ta2Ef+cLOn8w810J01GY8FqmkbYwjJ32RhFa7Z1QYiP94XIb91
-	 gR666fB3fnV8yOl814m4Vy7hHHH6aSY1zzsKHLLxcCVkEqBkdMSVX1HIUf0u6uYFXPIzU
-	 UJC+LhFVQDB3OTxILTgErNRJ0OxEjlEx67WEkidqlmXANikREdCM5T4/IY/XrVafYx+tv
-	 IwWTJ/83H9sObMezx/1Pga6d8wcMrPmm5vqBlIO+4aU7xmPaZ14pzjnvtYPc2ylov9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915597;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ydingrYB6uW4rebn/QPgfSs9E1VGseZYnprZrlSzIHI=;
+	b=sd2vgJFA4wZvwFALQB2kQn52UerApHF+iKHLkbpIDUTvTpKb6W34E+FLLtlWjOaGIrz3
+	 nEQx2ufgyocs3o/fnVEMs5ZwW+f366s2KCHyfQ6oYXCcg63M7QI0Lwr8l1zc1ySevOkYG
+	 Dao6w0Mkf4Bm6lIRJL4hk68c1syj6IXFPVkJEhYoI8F+dtaGMGTHb5I0BqaR6XuUEf/Zt
+	 fiv6fHbqzPnMu1iQOmrAoMSbvT1+DrPvvoJ5PRl1U3Fc1BGtvxweHllu/5hMFyjx3yYZi
+	 cAV2f+3oRWvd0eEJD/thWewZL97q/u/S9aqQh6hLOhY4Y5urB8uWttLvCF3CzGSqztQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marsrover.mx;
-	spf=pass smtp.mailfrom=marsrover.mx;
-	dkim=pass header.d=marsrover.mx header.i=@marsrover.mx header.a=rsa-sha256 header.s=hostingermail-a header.b=qSPkgMW9;
-	arc=none smtp.remote-ip=23.83.209.82
-Received: from heron.birch.relay.mailchannels.net (heron.birch.relay.mailchannels.net [23.83.209.82])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9S1fSUv;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58293606D802;
-	Thu,  5 Nov 2026 21:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58293606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marsrover.mx
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marsrover.mx
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4231F606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4231F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marsrover.mx header.i=@marsrover.mx header.a=rsa-sha256 header.s=hostingermail-a header.b=qSPkgMW9
-X-Sender-Id: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 54B6C4E1FAC;
-	Thu, 05 Nov 2026 21:53:13 +0000 (UTC)
-Received: from fr-int-smtpout22.hostinger.io (100-99-176-144.trex-nlb.outbound.svc.cluster.local [100.99.176.144])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 5BD944E1F32;
-	Thu, 05 Nov 2026 21:53:11 +0000 (UTC)
-X-Sender-Id: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: hostingeremail|x-authuser|rodrigo.rea@marsrover.mx
-X-MailChannels-Auth-Id: hostingeremail
-X-Soft-Attack: 3cc6770d49e0cae9_1793915593224_2425707991
-X-MC-Loop-Signature: 1793915593224:3081047466
-X-MC-Ingress-Time: 1793915593223
-Received: from fr-int-smtpout22.hostinger.io (fr-int-smtpout22.hostinger.io
- [148.222.54.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.99.176.144 (trex/8.0.2);
-	Thu, 05 Nov 2026 21:53:13 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marsrover.mx;
-	s=hostingermail-a; t=1793915589;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x6fWEIwcZqF+uebJhhOi96RZVMVojjt7Yr1nCZ0fX90=;
-	b=qSPkgMW9nd1cjHd+DeIfh4R/NOpjcAYWpWoSRnBkRAeiC2B882vFM+mxy24H8ZNGZIsHs2
-	5VWSrsL6VrxfYe2S8b197E5z0+0pWpiDX6d9MhEOO5L00mlyiX7vMqhCxeq/5839BOTeo2
-	FOUj4H7AMQ5Ynh5A7fEnTw/UGFuC+CFzI1HDPEOa9FxTt+tvSKAwd0EMotKi4WtH/4F9z7
-	alB1NC7KmWlMt9CGpi2k/6GJSEAEDd8I0PkVkTlCDy/c1NPcuIn3RJsmuvjFtpxdEPCKS3
-	fXqvBun8/wd3arFDMM9kRTeZeGbG6365N1FNT8P4gNgRi3un22gkpGTqnFGBUg==
-X-AuthUser: rodrigo.rea@marsrover.mx
-Received: from 0-0 (unknown [IPv6:2806:103e:32:db7c:5585:b158:b565:ff3c])
-	(Authenticated sender: rodrigo.rea@marsrover.mx)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4jLGJg6sRCzyg7;
-	Thu,  5 Nov 2026 21:53:07 +0000 (UTC)
-From: Rodrigo Rea <rodrigo.rea@marsrover.mx>
-To: alexandre.belloni@bootlin.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	alexander.stein@ew.tq-group.com,
-	linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	daniel.aguirre@nxp.com,
-	rodrigo.rea@nxp.com
-Subject: [PATCH 1/2] dt-bindings: rtc: pcf85063: Add NXP PCA85074A
-Message-ID: <20261105215204.2446733-2-rodrigo.rea@marsrover.mx>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105215204.2446733-1-rodrigo.rea@marsrover.mx>
-References: <20261105215204.2446733-1-rodrigo.rea@marsrover.mx>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9S1fSUv
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4b467581b98so137535e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:53:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793915596; x=1794520396; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ydingrYB6uW4rebn/QPgfSs9E1VGseZYnprZrlSzIHI=;
+        b=Z9S1fSUvIRc3h4VJqyRCHNBtVBHQ4wHYKSDI/ZvWDSPmYw30deLUTCSosxLlgrkLuO
+         imYgLSdby4iHxevIUSieExpDWlrVv5ABq3QocQY6MluqaKTZdMt811lZH6ScQTYZAUtl
+         K3RczEQmzE7X4OTKPVBpLgj6+L2gSb/Etlo/cTDzdmA+frwzU0kcLr/jTuy+Kqfyyk04
+         Rlk1GbE1RKZQ57BFgfTNZ9AG6BJqYY3yJYz6ScFwif90QCueaOUzyRzw1PqxL42wjfLY
+         lWzwFqbOVavFQNe7QacUPWuqzjiZtr0bJUFd5wKQlj4HMFKpdK4RE36ITExb64/bBkg5
+         EAlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793915596; x=1794520396;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ydingrYB6uW4rebn/QPgfSs9E1VGseZYnprZrlSzIHI=;
+        b=uvy7TCT9ZcWB98E9ee9ZgGsTxnLZ8jgCR8vI2iMIzk0SnOPJM01zaDTSCGId4wkIs1
+         M30CXunhJ8I3TUatdEFOHq5PRli69MaojXopqckB7CjKcv3BGXz8MlTNBDuGnWpXFVYi
+         sEqyDKNIJsvZ8MQRBIwkXJYZN8HeTRS3zA6US+q0tZtt9vlJu1q6hXuBoKL6nkgmbbKt
+         VHl01AvDcbWNOKzNvsfs5J6dAN6eci8d+L3V6o3eVki/lrFNTLsV4UGlRKDr5Epk5lZm
+         0Aj/gW0hKajqVxVXLtL+sCYOi+nNj3XJJVTERkcT0xAsGREGi30mjqVA4VZ7eVcBoNP7
+         bSSA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEZdmBmSsJDWOj1SiRI7p8f/r6rFNU+GjQ8tisOLL69zPuWtUYcW3V4arqpBQOmUxffTLaCm4drUsJzSs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+n+BwQLPFjKyCcqqgoIK8YBEzzmuc6Ji8vJ0bQgxqNNHXEUq3a
+	J5zMcWqBpl3HNg+RKW6UBEbgWjU0DO6P1LKycLeGiLQEMYmSq3yzCiXk
+X-Gm-Gg: AYBFou0l5c5VoGUZXHgIZMP3A6B3yCdtUGFK7Buzf4R0gilC4jqPccjda0xNH92ocGh
+	3Cr+ffCCOwsG6RNxLluApyrQ7W/yc2BcEURxp2QnFTtBdTe5AA6Lw9zu0BOueFS3P7lMXYfOHqJ
+	fF0jAhnuTmAWqDxuh4XejbbKiVFTVkBvGA5wUGwdFslO0X5zscrXlP2G4kpkeoxn1yhM4GvPe9I
+	q08/lzKAcj7XITBudA20Ol3CKsGyaB+l9fH2kAfo8qDCUS0/+yXzv8RsHCes/zVgNDHV2w6Yt62
+	cTslAgwQw16SnIGvWp4JbG0ikIcKFDcoScC5ItH/JU65h5cE/AAfZmQ2AVD3zn9M/3tM/DJeiH1
+	LuPiCApMy/lGYvZSx9ikaWCCKMUASVsXlaN02mSECvssA5gqcQHe51iE/ujhXK7nMR1k2kGWCqM
+	/qDAfkk9JCOtSQEcBMZKS8mqAXJmRDZMmZuPJP/qa7n44j27MHiF/XJgxEIGrHZinO8ex8U018U
+	D2UYPK3b2EZa3r3wJ1XpP9Y6Zc7e5qvBToHvGopI/qCOoNaT6jXQs2tUXkP8TShrCB22Ms3bjr6
+	B5xyU5LCTOwl5IZ3GxHPppL2
+X-Received: by 2002:a05:600c:6992:b0:4a3:59c9:a754 with SMTP id 5b1f17b1804b1-4b6df11da05mr6193785e9.22.1793915595572;
+        Thu, 05 Nov 2026 13:53:15 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6ed5b8159sm5295235e9.2.2026.11.05.13.53.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 13:53:15 -0800 (PST)
+Message-ID: <551892bd-d7ca-4c79-9c7b-9d3d08c913e4@gmail.com>
+Date: Thu, 5 Nov 2026 22:53:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,32 +92,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Date: Thu,  5 Nov 2026 21:53:07 +0000 (UTC)
-X-CM-Analysis: v=2.4 cv=UdEDS7SN c=1 sm=1 tr=0 ts=6aecfac5 a=IBQtBY+zZK3LDN2rWOxbiA==:617 a=xqWC_Br6kY4A:10 a=8AirrxEcAAAA:8 a=6YoeE7raNcvHRFXWJXEA:9 a=ST-jHhOKWsTCqRlWije3:22
-X-CM-Envelope: MS4xfFbLdyNXQfzM9Q9v/ZnOI06TLdUw95FPk+0FkPUiNAYnczLwE69wqjaIYu6b+EEME/U9PKDkr1BWOYiHW42H43GMjA1bIyLcAuka2AvhZW0w7Ys8/E7Z 41CnY/Dpw+098oEi/5UzVfV8jl3sgvESHC1I8oyKnuFibn1piwa+qoqSPNXp2kWigrjvFDyT3Op/RwEuWYmvqvJyAAlJIwEvPpjEBJCozD0RrF69LJBHv1U6 PLKLqF9VQ7ZbD0wS5+oRx8XAILzXgOJx2fIZJHDTYRPHS/tKI/DkF/pbncGe/Q2/+JiN7qNdEI6CpbvrfDfsKOLvOiQ1mkXho7RFFShi/RiIpTpzxYvJ9PU8 8Dq1dwgIY4QOO+7yGlyXv6bhQ2TCjIt2A86+ZaEQamlgLp25FuuTXyttU3H3r6WH+fv7sIYDoSEVtAPfuj3EuO9Ay6zmHIN26Y1xUmIc+JAK2ScbuKm6HVDd 4BYg+dDLPGU6VxGj82G0xKQmuqmczqpBZ7JOoelWfuQW79ChFmHKv+kMeZxLnpWD0kyX7CN2w0J/frIRLOhclKalawGklFpGWoBXWg==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
+ after scanning enough VMAs
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
+ <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Rodrigo Rea <rodrigo.rea@nxp.com>
+On 11/5/26 9:57 PM, Lorenzo Stoakes (ARM) wrote:
+> khugepaged walks an mm's VMAs under the mmap read lock in
+> collapse_scan_mm_slot(), checking for ineligible VMAs first, and skipping
+> them if encountered.
+> 
+> It charges cc->progress 1 page against the /sys/.../pages_to_scan budget
+> when these are encountered, however only checking this budget once an
+> eligible PMD-spanning VMA is encountered.
+> 
+> It can therefore hold the mmap read lock for a long time if there are a
+> large number of ineligible VMAs present in an mm, over which time no mmap
+> write locks (and thus no VMA write locks) can be acquired.
+> 
+> Address this by checking whether the mmap lock is contended after every
+> KHUGEPAGED_MAX_VMA_SCAN_BATCH VMAs walked, that is a quarter of the
+> pages_to_scan budget, and if so dropping and re-acquiring the mmap read
+> lock before resuming the walk from the per-mm cursor.
+> 
+> As the walk is resumed from the cursor rather than the VMA that was current
+> when the lock was dropped, the cursor must never move backwards. A VMA
+> ending at the top of the address space causes ALIGN() to wrap the cursor to
+> zero, so treat such a VMA as the last in the mm rather than skipping past
+> it.
+> 
+> This was tested locally with ~1M ineligible VMAs mapped ahead of a
+> collapsible region of memory, and resulted in a reduced mmap_lock hold time
+> of 170us down from 95ms.
+> 
+> This was also observed to reduce mmap_lock stalls in concurrent threads of
+> a similar duration. Note that a reader re-acquiring the lock can currently
+> steal it from a writer that is queued but not yet running, so the full
+> benefit to writers depends on the separate rwsem change at [0].
+> 
+> Local measurements indicated no change for ordinary use cases, so this is
+> all upside.
+> 
+> This work came out of investigations into mmap stalls when getting latency
+> numbers for an unrelated patch series.
+> 
+> [0]: https://lore.kernel.org/all/20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org/
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/khugepaged.c | 31 +++++++++++++++++++++++++++++--
+>  1 file changed, 29 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 216c4b8d28c4..eaa01dae5a03 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -66,6 +66,12 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
+>  
+>  static struct kmem_cache *mm_slot_cache __ro_after_init;
+>  
+> +/*
+> + * The number of VMAs to walk before checking for, and relieving, mmap lock
+> + * contention, as a function of the pages_to_scan budget.
+> + */
+> +#define KHUGEPAGED_MAX_VMA_SCAN_BATCH(pages_to_scan) ((pages_to_scan) / 4)
+> +
+>  /**
+>   * struct khugepaged_mm_slot - khugepaged information per mm that is being scanned
+>   * @slot: hash lookup from mm to mm_slot
+> @@ -2910,6 +2916,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+>  	struct mm_struct *mm;
+>  	struct vm_area_struct *vma;
+>  	unsigned int progress_prev = cc->progress;
+> +	unsigned int nr_vmas_batch = 0;
+>  
+>  	lockdep_assert_held(&khugepaged_mm_lock);
+>  	*result = SCAN_FAIL;
+> @@ -2942,15 +2949,35 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+>  	for_each_vma(vmi, vma) {
+>  		unsigned long hstart, hend;
+>  
+> +		/* Relieve mmap lock contention after walking a batch of VMAs. */
+> +		if (nr_vmas_batch++ >= KHUGEPAGED_MAX_VMA_SCAN_BATCH(progress_max)) {
+> +			nr_vmas_batch = 0;
+> +			if (mmap_lock_is_contended(mm)) {
+> +				mmap_read_unlock(mm);
+> +				cond_resched();
+> +				mmap_read_lock(mm);
+> +				vma_iter_set(&vmi, mm_slot->address);
+> +				continue;
+> +			}
+> +		}
+> +
 
-Document the NXP PCA85074A real-time clock compatible.
+with pages_to_scan below 4 the batch is 0, so under constant contention
+we keep dropping the lock at the cursor and never scan anything, don't we?
 
-Signed-off-by: Rodrigo Rea <rodrigo.rea@nxp.com>
----
- Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml
-index f7013cd8f..b06ad3e0c 100644
---- a/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml
-+++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85063.yaml
-@@ -18,6 +18,7 @@ properties:
-       - nxp,pcf85063a
-       - nxp,pcf85063tp
-       - nxp,pca85073a
-+      - nxp,pca85074a
- 
-   reg:
-     maxItems: 1
 -- 
-2.56.0
-
+cheers,
+jose a. p-a
