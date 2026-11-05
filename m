@@ -1,67 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884272;
-	b=kTp+QQsiBTfzmAJ/ETyMC7medFiLJFlAIsXhuuiFDwanzhclSNY1B373jYq85R3YiZX2
-	 JF616xWx0wpm+nHjqp2C5xfpmxK08lcNbztJJ1xgyZ3pSQ76o3QPHbJWkUc26/TzzLgMa
-	 gE7/osFN3inRz6Nrv8w4FEpAXk/C57dm/wqtcjVvbiphEvfkrHU74cu76D0EPgm/Q5yYk
-	 sDAPqnL7iGRyFa2IPStVwKhmSdCUE2dU/EXDQ+FW3uyqtOeEgZ36Kwthu1MpQWVMtSXlq
-	 I+Bn/iFCpHXL4kUW5O3LQC7t4cpoHlSvLuSqifuDLv8qHSLg7ssYBU7Zmun6rlGJmww==
+	t=1793884268;
+	b=UncyaDcvmOwK/wCM1MHE9ds0HlKtvaRv7hLll2UCNdQOHYuIWgSsspgWOygCnEdm4ZUR
+	 L9brXs5XH9PkQAfW3OSFI1a6uo0kcS1Vwd+28J9b1g34vLlDuhU5Z6wTsW7VxsY75udJc
+	 PtFt6Bfn14MGYQKlVKxT4iUV/4w0naXVlBchJ3K/LSKCdkBQj+m00eUPB7OVaPgjYOR97
+	 L7lDPHLqRawfRaLCodyqRNwJwPAsr2KvsC0av8CpbK6KFWVvEXq+wlFMd8YwMkTnIiNSl
+	 4kQIPvuJxdPOWYQhUJ21kkAMckmiGdxo4jdzgD0CNNNF45DvKHVi1oGSajsD2pKJiXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884272;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=wB7MAZM6DeqfgWnsRCY9GJY0+/kpbyJiFnWeErSJxzU=;
-	b=LK4T2Ec3pjbcI7uP9++Z9IMpdArVqwglyj8KbeMh7m5WH3D+68A23y8vqFi1Z23ScHR/
-	 c7jmCdItIx/diHK6hqgqoEr1G5xlf9bqMSbRHcNcbQpUg1etT9dLXZnQkG8bLOdodvsOx
-	 5jRSpUExdSaAWAnabFTePs9ToAzOL7D4wrTkxHxxJUkmJHDyBgVFSNu5yYHUrchowCJDV
-	 DEugQyM6saVRAV9FtZ53zQfc4fUO43NaqsgIRTDb+qZMMIgM5dQf747Ukjoh/PwInYBtt
-	 LI2h2vFpedni6shkyd5vxfqgQlAtypnvpJeo4No5UjV9d0Xv+GmDfFj06y7jQarH6dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884268;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=KCJIKkyLRcnhroO1aaONY++L92KXRYW5XDFDK8Wryfs=;
+	b=Uo16S2Qkb8h1EfrxVT9gyNnbteQ7Rr0Fze41KJUILE7qm1mzyzkFGcehspGmKYLtWPnC
+	 gOLZU+JjCC6LSOeR43YBg16K/4D7dHdwp/rUuWhIF70SulmoWE4hgpVNvERBytRm9UI22
+	 PZORlXAyXw9JgoosDvHTwtkbl+pN+zRaKSNFISMptYL1A5xkUDpH5ASjU9XXA6oLWKwu7
+	 UZSSJA1RNs0t2UOoCAwvu4OcNcZQrE3p5xMN4tRicrauqBEhmmTP5AZnxZymYuzIQVr2N
+	 tjAZnQBF0Fhd/AXbAFuRTRUAwsjX0WcWMWW3V1/bd8Ft3QAAtgg6drOGDyvyHvA8kVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=BkWi5TWr;
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVrw6HHV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B668606D82F;
-	Thu,  5 Nov 2026 13:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B668606D82F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DC0606A32D;
+	Thu,  5 Nov 2026 13:11:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=BkWi5TWr
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 411A614966F7;
-	Thu, 05 Nov 2026 14:11:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793884305; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wB7MAZM6DeqfgWnsRCY9GJY0+/kpbyJiFnWeErSJxzU=;
-	b=BkWi5TWreaofM19/8hMVtrgru8LsDY5r3vF+OF557u4Hq4fmstrJgBv7iu4SpOncLQCBaq
-	PTRUHW1RN9hoY3eafJsJMRfwbQdz/ud3iP7/b4XtOpToYT8oLcmlrV5xMVwxOty7KUREg4
-	IvackDtLzqMQAB2U/sEiBIColZDTu4ZQghDk5CoV0pPry8Aq0rX07N4EmYgM9j7vsgjfpQ
-	In89pJWz/TvSGikjriOfw+6UN9J0gl0z2XJDhOOD5ihNaO3m+p8j7cgpM8RGTMRcqZ56L1
-	fpIbIC268A9/MzU5xBtQ2WGAnrb2cmKUlZyGaAo+a3/i0uE13tOKoShWRB78MA==
-From: Alexander Dahl <ada@thorsis.com>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v4 14/16] ARM: dts: microchip: sam9x60: Add OTPC node
-Date: Thu,  5 Nov 2026 12:06:50 +0100
-Message-ID: <20261105110715.2486432-15-ada@thorsis.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
-References: <20261105110715.2486432-1-ada@thorsis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVrw6HHV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390651F000C1;
+	Thu,  5 Nov 2026 13:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793884268;
+	bh=KCJIKkyLRcnhroO1aaONY++L92KXRYW5XDFDK8Wryfs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=mVrw6HHV+bupF80pNKlnzcHxZw7ocqJUw/vupnR9C6ML8QwB2ebc8FIKYBQGXMg03
+	 AmLAafGsgoET5s5J7aC2Uhm9bA1+jRFQXsPZbz0ViqK426+QPJab6y/dIiuiPtzkBW
+	 qwU5R30Xe6wdVFOjA3awVfFYZZg040ThA3bZhNUI+yzPM07XXLKG7a+6eJEiqaUEe5
+	 HlpkZHYAeQwU9q7oMs0L0FbS5ekVtDfvcU32wh2CP20ffvo0b9SSJXzbsefbmSrWKX
+	 7Kxb8btNKdCjJozD1GqxSDedQ4ioKKWr05D5rzTQfPKB6PnB/ILLTuIhZyBnOicXuz
+	 hF0wsoc9x7VuA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 05 Nov 2026 14:10:13 +0100
+Subject: [PATCH 4/5] iommufd: fix cleanup when adding memfd folio pins
+ fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,53 +53,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-refcount_overflow_stable-v1-4-70b9c655da3e@kernel.org>
+References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
+In-Reply-To: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
+ Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Steve Sistare <steven.sistare@oracle.com>, 
+ John Hubbard <jhubbard@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ iommu@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3513; i=david@kernel.org;
+ h=from:subject:message-id; bh=xhwhJlBPehyF74AdW/XvbNaMmG2B0qFeGlvJE2A5afE=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLeNFiGOoi/Tqjd2rLuo3LI1uLV80+ylDX63QtS+rj86
+ OueK6VRHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExE6DbDfz/rnLXTG9YuvdW2
+ v51td9KxD6+qG2787ev49NvQfrud2EmG//4fPNv0dn6R3P9i937u91PqfXfvuqq7qbV7yhZB1rP
+ durwA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-The One-Time Programmable (OTP) Memory Controller (OTPC) is the secure
-interface between the system and the OTP memory.  It also features the
-Unique Product ID (UID) registers containing a unique serial number.
+folio_add_pins() can fail after memfd_pin_folios() succeeded pinning a
+folio. Upcoming folio refcount limit checks will make this easier to
+trigger.
 
-See datasheet (DS60001579G) sections "7. Memories" and "23. OTP Memory
-Controller (OTPC)" for reference.
+Let's fix three problems in the error handling:
 
-Signed-off-by: Alexander Dahl <ada@thorsis.com>
+1. pfn_reader_release_pins() uses the allocated array size instead of the
+   number of folios returned by memfd_pin_folios(). With large folios,
+   cleanup can unpin uninitialized entries. Remember the number of returned
+   folios and use that during cleanup.
+
+2. pin_memfd_pages() returns on failure without releasing the pins acquired
+   by the current call. Release the per-page pins for folios already
+   expanded into the page array, and the single pins for the remaining
+   folios.
+
+3. pfn_reader_next() returns on failure before updating batch_end_index,
+   even if the batch already contains successfully expanded folios. Update
+   it before propagating the error so cleanup releases those pins as well.
+
+Fixes: 92687c793644 ("iommufd: pfn_reader for file mappings")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
+ drivers/iommu/iommufd/pages.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-Notes:
-    v4:
-    - Dropped new microchip,sam9x60-otpc compatible,
-      use microchip,sama7g5-otpc instead
-    
-    v3:
-    - Removed needless header include
-    - Removed clock-names, not part of bindings anymore, and not used by driver
-    
-    v2:
-    - squashed with patch adding the clock properties
-
- arch/arm/boot/dts/microchip/sam9x60.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/arm/boot/dts/microchip/sam9x60.dtsi b/arch/arm/boot/dts/microchip/sam9x60.dtsi
-index 4b777c61c1e09..996b13300ca06 100644
---- a/arch/arm/boot/dts/microchip/sam9x60.dtsi
-+++ b/arch/arm/boot/dts/microchip/sam9x60.dtsi
-@@ -155,6 +155,14 @@ sdmmc1: sdio-host@90000000 {
- 			status = "disabled";
- 		};
+diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+index 2f6153108add7..fcdbde007a9ab 100644
+--- a/drivers/iommu/iommufd/pages.c
++++ b/drivers/iommu/iommufd/pages.c
+@@ -781,6 +781,7 @@ struct pfn_reader_user {
+ 	struct file *file;
+ 	struct folio **ufolios;
+ 	size_t ufolios_len;
++	unsigned long ufolios_count;
+ 	unsigned long ufolios_offset;
+ 	struct folio **ufolios_next;
+ };
+@@ -800,6 +801,7 @@ static void pfn_reader_user_init(struct pfn_reader_user *user,
+ 	user->file = (pages->type == IOPT_ADDRESS_FILE) ? pages->file : NULL;
+ 	user->ufolios = NULL;
+ 	user->ufolios_len = 0;
++	user->ufolios_count = 0;
+ 	user->ufolios_next = NULL;
+ 	user->ufolios_offset = 0;
+ }
+@@ -843,6 +845,7 @@ static long pin_memfd_pages(struct pfn_reader_user *user, unsigned long start,
  
-+		otpc: efuse@eff00000 {
-+			compatible = "microchip,sama7g5-otpc", "syscon";
-+			reg = <0xeff00000 0xec>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			clocks = <&pmc PMC_TYPE_CORE SAM9X60_PMC_MAIN_RC>, <&pmc PMC_TYPE_PERIPHERAL 46>;
-+		};
-+
- 		apb {
- 			compatible = "simple-bus";
- 			#address-cells = <1>;
+ 	offset >>= PAGE_SHIFT;
+ 	user->ufolios_next = user->ufolios;
++	user->ufolios_count = nfolios;
+ 	user->ufolios_offset = offset;
+ 
+ 	for (i = 0; i < nfolios; i++) {
+@@ -859,8 +862,12 @@ static long pin_memfd_pages(struct pfn_reader_user *user, unsigned long start,
+ 			} else {
+ 				int rc = folio_add_pins(folio, npin - 1);
+ 
+-				if (rc)
++				if (rc) {
++					unpin_user_pages(user->upages,
++							 upages - user->upages);
++					unpin_folios(user->ufolios + i, nfolios - i);
+ 					return rc;
++				}
+ 
+ 				while (npin--)
+ 					*upages++ = folio_page(folio, offset++);
+@@ -1251,14 +1258,14 @@ static int pfn_reader_next(struct pfn_reader *pfns)
+ 			return -EINVAL;
+ 
+ 		rc = pfn_reader_fill_span(pfns);
++		pfns->batch_end_index = pfns->batch_start_index +
++					pfns->batch.total_pfns;
+ 		if (rc)
+ 			return rc;
+ 
+ 		if (WARN_ON(!pfns->batch.total_pfns))
+ 			return -EINVAL;
+ 
+-		pfns->batch_end_index =
+-			pfns->batch_start_index + pfns->batch.total_pfns;
+ 		if (pfns->batch_end_index == pfns->span.last_used + 1)
+ 			interval_tree_double_span_iter_next(&pfns->span);
+ 
+@@ -1320,7 +1327,7 @@ static void pfn_reader_release_pins(struct pfn_reader *pfns)
+ 		if (!user->file) {
+ 			unpin_user_pages(user->upages + start_index, npages);
+ 		} else {
+-			long n = user->ufolios_len / sizeof(*user->ufolios);
++			const unsigned long n = user->ufolios_count;
+ 
+ 			unpin_folios(user->ufolios_next,
+ 				     user->ufolios + n - user->ufolios_next);
+
 -- 
-2.47.3
+2.43.0
 
