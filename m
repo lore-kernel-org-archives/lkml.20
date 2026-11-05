@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870061;
-	b=cSqb09HoXepMPiyjy8UJRot9Fk36oTcW4FXBpve9cRxJE9JRHgs2HaFWp/A4788CCJv7
-	 LGuAZYnzHyVgA/fOoLkq3xk9Cq4xc9LnICSofNpahvQ3qJhzNLbu/XbxDcJVJlrtWrhfU
-	 4nRv2Wgx3XvBH87j9D9JBcaPHgygsEtco8mQJ6p9AT6rRCls9SSs8RsGlyO23ZmnPdGUk
-	 l01PDy+gX0ceZhHuWtgEObkfWLsRLGpioeSmv22QLL15TqE7NQs69d3mVydW0hubgmrAw
-	 +C5u7Rr5opvE3BBqjELa3fXebLJugrb2nJBMAccYZmdjObJF6zBnEDYfhc3zywaw8Ag==
+	t=1793870076;
+	b=5bxa/Xj+QT9ihLnbCy05ptY/tti5qn9qFUJ/svE0+DN+4I0qEgv2ae2McJGM5j5AA2zc
+	 LtnleGgoKOn8P8VriD1NE80Dp4Rmh74lBd//hAsu2Q1daIXAoi7J81Lu0ZuwkSnWKMHOM
+	 VcP6k0C8lYCFi4pt7LlycS/vov9k5aBQ+MFLKhSFa6jMVD3JTbZSvGZEmcCDCjMHFJf3f
+	 oNGh+/FSZ8kcYrPEmxcl46slXUx1/BGyUuErtxloz1+XyGgUwgXCIyl4n5QRB5ua083Vf
+	 BvWVPEnb9ZQpGCnggRXTYS/B+R43jrrc4sq0Y1bReWOIyNe13X3dwDblMMcc0vLPBuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870061;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1ZiKnEgfHfPpMJ1mCuEff7XYe7UmVMKemG/M0rSuRDc=;
-	b=NH3pJi+dXTsxoug3rRqtfreIBMM+hEIia4HANlu+ki6ujYzkT7PbOmI9jjYJS/YyH26i
-	 BB8NpOtqCo1o/dSPFOhILkJ/DzMRV0awVmvtTAJNPI6e+VzXwvo5AVUPDpfRE86pAlPkk
-	 s/dMhXvW2fMWvJvWZtyHVCsItAADNzEkz+EyDlqsf/GsOAgQFngZ2hZpBP4G6GXdR5X1f
-	 3YJXLTiX7Zko6V/mgLMd2lNxCYwpk8VSI4+PYCZG7wLKb/YdGKed19VeW6rjSkQRM96yy
-	 dMSbwAkCmGLCavDXJj6reXBKB+3jgFeY5JdB3LWR6pcjjA91Fg4KTGYxaGElOMoJx/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870076;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=c46WxFyETwEcqtsQp1SFSIazgQf/H4h26hFEZAFO9Gg=;
+	b=IpIO7lID25qpzsSZSPN0sIg4JN+s3DKrn2A7eh7iNfo1pfe5L6sQY5hD3EBcXgYQ5moC
+	 pe+z6mba6Ri1fMxCn73naiFvrfKY6FRB2QdNWdt24deQ64EpPWz8+Aa9n4SwjrNMxXqWy
+	 W4viiwExpSuFM5gEpgS7Qrasl/AapWr2JKZxuVZYh6UwnFWE6eVjkY1ktpK0kc7upsDX+
+	 jLiNvXrR2iVZz41xmqu3klQ1NlWVtES0EqS8DAuwGnkw4QetqZW5nx3Rh2gP+B90VzCP8
+	 EjdksY0ox1INa+9lAdZcfKSYgRFtHtaO0ZYbN9qG+/f/t+MxqullmUJfs35Tr4fZ7Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6ashVfP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktfWI8Q4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667CD606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:14:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DC8606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6ashVfP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11871F00919
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:14:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktfWI8Q4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB501F000C1;
+	Thu,  5 Nov 2026 09:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870060;
-	bh=1ZiKnEgfHfPpMJ1mCuEff7XYe7UmVMKemG/M0rSuRDc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=k6ashVfPPFI0i6JKfuV1tiBVeT337nYK/eyq7g90RY3/xKQXb5aEwiZaQ4HbXDMQ2
-	 0nXRBPt3exslF9DSfIVlkcu/4JXwMOLoVmsd3/vpvrDXE6X0gCf/xklWdyo9Mx69S9
-	 jpbQomZGjYd5q1nKQLAKPjknNS91L46P6758v3jdxlsEl8KCPiVgyPJZdrUurgAwbB
-	 cJNYjDrVDfOqVuH1oGrWCgXGgRgxsZlt0DgXjVydy3wkknAGnUqe2NE1SwFhwgx7nF
-	 8+zgWy7+lF1BWSsvfIAOeMnd5N4I316En+etl3dvjER42S72I9WDluay4wNNaeJnP5
-	 a3OpRkRum0FJQ==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be42ae8eb1so959721e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:14:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwyGPeB0uTjRU92q4YOPJ4VB2O5Atk4+C5Kj638b0Z1TrHY8EBo2hEa00WGzVL5CNKZ5Z1EcWBRpMoqJXk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VKQ/NRAlXS3/YFxid8Vfc804znrcSf2sW+tf7aEi7XJ6gNAvW
-	fZ8KpgMGA7wYxHHUNjBS+r5AaPHuI84GyzJaX6Be/MqxiHIMTEBmBhvQJ2PQ1bZMgKiwT82M2DP
-	Pzzo2+naV1+60KPsRaNOlJBPkpt63cUU=
-X-Received: by 2002:a05:6512:3f04:b0:5bc:dd8e:df73 with SMTP id
- 2adb3069b0e04-5bfd9580e90mr6517186e87.62.1793870058769; Thu, 05 Nov 2026
- 01:14:18 -0800 (PST)
+	s=k20260515; t=1793870076;
+	bh=c46WxFyETwEcqtsQp1SFSIazgQf/H4h26hFEZAFO9Gg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ktfWI8Q4vvZ/Suk4u/Z5aTrQy9i9t32YKXfQ7yPPh20KgnXPYhbqiuTQoFxlte3b2
+	 FHbD7Mg/+M8CzYWkjA5G3q1+wv5vevr3Vm4KuqVqYWWWQENVeixLJWfdUxkd12KwY3
+	 bwFtNiSHJq9ZGMSfvXx3KLZrJJuzRwzpXdtQB5fEaa5MwPD8e5rmMTguT61iC16BjL
+	 c+D+XMIrtz35vHDxREVACmLuN6H9ELmk36dqz8zpDcL5+ODLi0fVMOCNYp2W5FK0vU
+	 sBa875lovxXJ4/lIIEjlwPfQ9CSUpJOey5NNbRj/lZEAAUs8Ykr+g71BvJxxZbtiNI
+	 mMk/dUWiv8HEw==
+From: Maxime Ripard <mripard@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Joe Perches <joe@perches.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH] MAINTAINERS: DRM DRIVERS AND MISC GPU PATCHES
+Date: Thu,  5 Nov 2026 10:14:28 +0100
+Message-ID: <179387004596.656088.1969311294761983783.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <576e04e1d8f0d5ac0805d450b9c87e69f7f0d2c8.camel@perches.com>
+References: <576e04e1d8f0d5ac0805d450b9c87e69f7f0d2c8.camel@perches.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,49 +63,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102212500.195783-1-auhmirza02@gmail.com>
-In-Reply-To: <20261102212500.195783-1-auhmirza02@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 10:14:07 +0100
-X-Gmail-Original-Message-ID: <CAD++jLne9FgabDUWoirYejnnNfm4GD5zh-E-b_vUGoiwH=CgpQ@mail.gmail.com>
-X-Gm-Features: AclHuK8F0VIEDKLYMK9m3DAXX4pxugopcZU_-apdZs3yndIet0l3l8rwt1ou_-c
-Message-ID: <CAD++jLne9FgabDUWoirYejnnNfm4GD5zh-E-b_vUGoiwH=CgpQ@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: keembay: make keembay_gpio_irqchip const
-To: Areeb Ul Haq Mirza <auhmirza02@gmail.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andy Shevchenko <andy@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 3, 2026 at 8:50=E2=80=AFPM Areeb Ul Haq Mirza <auhmirza02@gmail=
-.com> wrote:
+On Sun, 01 Nov 2026 00:41:12 -0700, Joe Perches wrote:
+> There's a small defect in get_maintainers.pl that allows
+> incomplete file pattern matching.
+> 
+> Update the "F:	include/drm/drm pattern" to specify only
+> the actual files covered instead of a prefixed partial path
+> to these .h files.
+> 
+> [...]
 
-> gpiolib warns about mutable irq_chips at probe time:
-> "not an immutable chip, please consider fixing it!"
->
-> Make keembay_gpio_irqchip const, flag it as IRQCHIP_IMMUTABLE, add the
-> GPIOCHIP_IRQ_RESOURCE_HELPERS and register it with
-> gpio_irq_chip_set_chip().
->
-> The chip only implements .irq_enable() and .irq_disable(), so call
-> gpiochip_enable_irq() and gpiochip_disable_irq() from those callbacks,
-> following commit 35d008679a5a ("pinctrl: plgpio: Convert to immutable
-> irq_chip") [1] and commit 2993d2dd8ff4 ("gpio: timberdale: Make irq_chip
-> immutable") [2]. gpiochip_enable_irq() is called once a free interrupt
-> source and slot have been found, so a line is only marked enabled when
-> it is actually routed. gpiochip_disable_irq() is called after the line
-> has been cleared from the interrupt configuration register.
->
-> Link: https://lore.kernel.org/r/20230414-immutable-irqchips-2-v1-3-6b59a5=
-186b00@linaro.org [1]
-> Link: https://lore.kernel.org/r/20250509-gpio-v1-8-639377c98288@nxp.com [=
-2]
-> Signed-off-by: Areeb Ul Haq Mirza <auhmirza02@gmail.com>
+Applied to misc/kernel.git (drm-misc-next)
 
-Driver is marked as orphan so I just applied the patch.
+[1/1] MAINTAINERS: DRM DRIVERS AND MISC GPU PATCHES
+      commit: 5ce31e96b5eea830f87d43e603ee715f4b4479c5
 
-Cc to Andy if he wants to pick up maintenance for this one, but I doubt
-it (not x86, right?)
-
-Yours,
-Linus Walleij
+Thanks!
+Maxime
