@@ -1,96 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.62
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793861002;
-	b=NG7sC1BwFbu4AhF8cOfrJr5IEE91+KHbns1AQWgJIFRqRVz2VFPWr7m582R1t0dei7Je
-	 rvV8y1rcjIenTWleM7kkpGKo2KhgIrNcwmUs5wYwyeDlIW9+mo8N/5LYltdfyqgHbsA2d
-	 x74S4Cmvq/vpUEyeT1pdeCxKht0Z+abqgRYfrW02jqxgiP0tIHyrakKivI6OpFKlovJdd
-	 sE/BJL1+Ccm9FNoj3vDwjqeD0S0f3OSWEgVNT+xZwh6qb24eu9pTTKoH7QheovRnaG4td
-	 8pv66PC94c5nUPfLho6FRjZ+Q1fAaTqAdY8AHn3qmtEfy52Hr/Ok7qyd9x44OawDc9g==
+	t=1793861025;
+	b=Fo9cKSdYM6gKzd0SXIVTIgzogND+2jgzLVtqqjRAFMNeY0BEbjkLX5ggtYSuIPryenwB
+	 ohYAbbEbdaNV73x1E+rbHD26IWw+sPqrPUPgaIEHD6XJgo+IZUj+hHiU+kdgEMLnZBSyA
+	 J0kCOrmxfMQlbkDps1+2yuJlDQPnghNjvtcKgRGjOxDDfjwGogL/QXjo2SERrjfvVAjHm
+	 YkirlLb9PIttGTlO1Ut54SI1UNegNA6GNh/GGbn1KOT8p1ka4ZAWK+nGAa4+Kvz1YshOG
+	 ogYGZvm5CXzrzVsBuaz9MkfG43hI3vq8ZUKEctsQvYd/PnacmzPjD8cBMRqBGcnzi3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793861002;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HOKhZ+OmEJZ1PLckraBlLABqKVAROM53Rmk2rUoOxt0=;
-	b=SMWyTcotnnM3OverTZgt7saDNWu/FN4qb3BWTXk6WrP0KKzd5RX+/D12KJE2G5omPpFd
-	 +xSlsz3mIwD9YzW4n+kofmbfAgdY2K+idn6x5FKTZ8irv+iKc8mMckebPMkIVMPLIRfzQ
-	 t8CRfKQci1C8YDmFQP1HXR8HnXxJuBFhyFCbnDbxQ3fLD0ULzXcpU1/+RtUE1daz3Vxdy
-	 /KU96QFbGiVnyNRmD1Gw5o4rWxdSZqofo8ogmRk+Kv7FIms3m7K7CzS/PetuSqaHnn9UU
-	 W9Xl+KIVjXHdUKKYIfuwmdL4MoTeoxrxelmGPtIjpJffM43cXbnY4m76lFDSIrsU9Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793861025;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VLLZjXMmTQmjz6A0S5RDZnlHH5IW/gvBf0f/hTwSx+Q=;
+	b=0bzLSEw0HMkoyr1h01CTjF+PkYcC1AIQB7C6WOeI5/+3CBcS/PhUydy6h3MhtANfS36A
+	 AGcht5TlTfu77aU1AjCpankKYuxfK7qv7TJlm/LcFe9lJpGQyBzwX/eY1wASiAj0AVn04
+	 9f8Ca74+73sRuFxAGJwFacF75iHaHHJab54So2GLjvk5LbKGaGckA4zZAAidI+FCgxPI8
+	 CELJjTs4CpzuodSeaYymrI1KAUknhKf+z7HXVErEfWxdGrrgNvUvLaLyvuGZ54DkDE5gi
+	 Va0cAhqd4LD0bx6688dHvopZ7b9DwZlnTRXDq50SC2L/y5mmahIhvVF4iVlJR1UpLvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuKVEH1x;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dr3KtrT7;
+	arc=none smtp.remote-ip=95.215.58.62
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AC9606D82E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3AC9606D82E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E2D5606A33E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:43:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E2D5606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuKVEH1x
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3514b90bb89so2952011eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:43:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793861001; x=1794465801; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HOKhZ+OmEJZ1PLckraBlLABqKVAROM53Rmk2rUoOxt0=;
-        b=MuKVEH1xUqrYC1GjaCSZWWicHXAVCUiBM0uO0SW52JjbYMEzebJ4dm0N1HIEnLJ2U3
-         QaJL4Js/NWHXLTqhHyqTkdoPVj+P7xA5C+aGVvan+NZ26FYSU+dH7lvWM3iuPF+9e+rU
-         Tk2D2Bf4yIagI+gYv85Ac2U+LA4BqtcFBDu1pAoKRBYIe0GjHctSARx1QaCgXuPJHHbV
-         YuGCistEpSmWOI+2O/wy8puh2khrR3GOL3eQuI2H6a4Ciki818ZnKt96GySPXlU8HLAi
-         vjI5n0La7WeUS+jIgQbfOxypVMCoed52c7Gj8cEk9jIcksGP5wftxWQl/GyMpbPxubF2
-         O/Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793861001; x=1794465801;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HOKhZ+OmEJZ1PLckraBlLABqKVAROM53Rmk2rUoOxt0=;
-        b=oxb7pJEht2K0Pg/Jgntk/F8kwcnGIvkCgZw+rKBcaFdorFWybCBiL0lscVipjStBvO
-         WZP4/VqrqV1N5i5XxCaDZWOaOYbeiBy6KdOnNbl9vw2xnH+DU4zp3UUHBKYR+dILPAbN
-         WAO/HxqiT2d6lpG5bwiIHQ00wvGMGi2kvBFl8/Obl9B7YU16szngjI3qaRFZtkgJ0vy/
-         JuNAjBDkvyyVppHrWmsC9I2+6+pHdGFcVHvsm9F2FPtCUvFlrvmtNZaOzHN9pa4z6A0Z
-         RVX3xFi7mcjn27SowJQoVtIgV3iOYF+jvBsniIO1X7SWHrvUZjXnGu0i/ZsvMB2jsvyr
-         3Cew==
-X-Forwarded-Encrypted: i=1; AKwUvByW+JqWfOE365mMMntVliydztsxXheBU3guMKfU/NMIMWdgNtdt6/rxhcN253/JUv3YyqoakNqZqKKEcw0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z970dXuAb4lA3PKdHEWXvlYeWjy1EyY/jOgtlpj5+WCdKbuW9Uh
-	kX0UKYt4NlwGo/phRSS+cCaehmnnFwlm4YGoyyL5gdUV+N2xf/h2UbVv
-X-Gm-Gg: AYBFou0wTbPP5EJJQkYiNZarOd1hOWtD3JQcToHbhe7blOR+NLc7SrmD9fNYJ9sbjP9
-	/Jm37YJoWOSQUuTDVtHCubCaUBTnUVmm7PffrawFXXfg6/W7fPm4jPZwF2y7awtWLOeLd3DuVpT
-	85wtIQkA5UPVfrIeAlQmjdgVBQS3ZdwX9sI2qblLSaFUWp0FjlVRUvf+Pb3lf6uZVXYqnkIMRFH
-	SZkNF6kTXs/wj/6E02WCeLKJn79efFmblladT81P/e7lvAOo2llMbUtN0abbSHShQ299hB8XSxk
-	RdGYmiFnE3mGqDRpwPjIjsJuaiVVHQpRmA4s3WGjovtxOyyvOiAEFMVonqebwo0BtDDnP8Dd6B1
-	dZsHifLHGFHFFeabLCSLGK8qu7LRvUWJAZ+B2wiF+RYtTZbrMIlh3f2a7hWR//aGWhbebVeSnW5
-	eyFqIuuK6JtJ4WjjnJw/G00LDn8k/SOg3k96qhgCdLu2Q6wi3ndwr0O10HY771zmIH5L/HyUhKq
-	CIamrMrr56vha8vcJEsqfAy6ToY+Cq5L7/nI1Y3qW8d1VP3dLdpJQ1GffJmcobnQXdpRCwHW4wW
-	fbSGEg8Ae7JnlicXnWkgz3ZFiaI2m3ux6j5zkpZ8A4gagNtB8fb5UO9uO5CggUX7Qjdqj3xCogo
-	=
-X-Received: by 2002:a05:693c:4159:20b0:351:29c8:643 with SMTP id 5a478bee46e88-36a423a8b7fmr30063206eec.18.1793861000822;
-        Wed, 04 Nov 2026 22:43:20 -0800 (PST)
-Received: from kernel-dev.multipass ([49.37.221.53])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3785430sm19435759eec.3.2026.11.04.22.43.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 22:43:20 -0800 (PST)
-From: Gobi Durairaj <gobidurairaj@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: atomisp: fix block comment style in sh_css_sp.c
-Date: Thu,  5 Nov 2026 12:13:12 +0530
-Message-ID: <20261105064312.360626-1-gobidurairaj@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dr3KtrT7
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TWkp5Lnn5QB+qibeKwukcrGkB96ZSbaKyvgbcrCA0z0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793861022; v=1; x=1794465822;
+ b=Dr3KtrT7CgIYiYmuLuynQz7FsyQquKcK5x6eBmHQgVizR9nUejIlgWIrjoNHYZg7TqZv2yrb
+ nRUb7AWBBNz4ccZFgi3c4heqgBUOpx63NV3QTCQgXBcnai8jnkiLqUiX24jgAjx13k9IgI3hXf0
+ Sd+OCZxBT0wx5Q9qRFtz7DRE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 868ae7c57c796658;
+	Thu, 05 Nov 2026 06:43:41 +0000
+X-Mizu-Trace-ID: 868ae7c57c796658
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 5 Nov 2026 14:43:27 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Timur Stukan <timur.stukan.linux@gmail.com>
+Cc: netdev@vger.kernel.org, Nikolay Aleksandrov <razor@blackwall.org>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jarod Wilson <jarod@redhat.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] bonding: 3ad: don't set BOND_LINK_FAIL on a slave
+ that is not up
+Message-ID: <auwlgjeIsjStlUnd@fedora>
+References: <20261101145653.63648-1-timur.stukan.linux@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,60 +70,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101145653.63648-1-timur.stukan.linux@gmail.com>
 
-Convert block comments to the preferred kernel style with a leading
-"*" on each line and the closing "*/" on its own line, as reported
-by checkpatch.
+On Sun, Nov 01, 2026 at 04:56:53PM +0200, Timur Stukan wrote:
+> In 802.3ad mode, when bond_update_speed_duplex() fails on NETDEV_UP or
+> NETDEV_CHANGE, bond_slave_netdev_event() sets the slave link to FAIL if
+> the slave has ever been up (last_link_up != 0), and to DOWN otherwise,
+> so that miimon can set it right once speed/duplex are valid.
+> 
+> last_link_up is never cleared, so a slave that is currently DOWN but
+> was up before is set to FAIL as well. miimon then treats it as a slave
+> that is still in use and takes it through the full down path again:
+> the link failure count is incremented, "link status definitely down"
+> is logged and the 802.3ad port is disabled a second time, although the
+> slave has not been up since it went down.
+> 
+> Reproduced in 802.3ad mode with miimon=100 by setting a slave down and
+> up again. On NETDEV_UP the speed is still unknown, so the notifier sets
+> FAIL, and the next miimon pass sees no carrier and proposes DOWN:
+> 
+> 	ip link add bond0 type bond mode 802.3ad miimon 100 lacp_rate 1
+> 	ip link set enp0s3 down
+> 	ip link set enp0s4 down
+> 	ip link set enp0s3 master bond0
+> 	ip link set enp0s4 master bond0
+> 	ip link set enp0s3 up
+> 	ip link set enp0s4 up
+> 	ip link set bond0 up
+> 	# wait for LACP to settle
+> 	ip link set enp0s3 down
+> 	ip link set enp0s3 up
+> 
+> procfs then shows "Link Failure Count: 2" in enp0s3 slave part. Also in
+> dmesg wrote twice: "link status definitely down, disabling slave".
+> 
+> Fix this by setting FAIL only for a slave that is currently UP and
+> leaving other states alone. An up slave that loses speed/duplex still
+> goes through FAIL as before, and DOWN/BACK slaves are left to miimon,
+> as in the other modes.
+> 
+> Fixes: ea53abfab960 ("bonding/802.3ad: fix link_failure_count tracking")
+> Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
+> ---
+>  drivers/net/bonding/bond_main.c | 15 +++++----------
+>  1 file changed, 5 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> index 7019e5d8fdc8..8212d406f3bc 100644
+> --- a/drivers/net/bonding/bond_main.c
+> +++ b/drivers/net/bonding/bond_main.c
+> @@ -3973,18 +3973,13 @@ static int bond_slave_netdev_event(unsigned long event,
+>  	case NETDEV_CHANGE:
+>  		/* For 802.3ad mode only:
+>  		 * Getting invalid Speed/Duplex values here will put slave
+> -		 * in weird state. Mark it as link-fail if the link was
+> -		 * previously up or link-down if it hasn't yet come up, and
+> -		 * let link-monitoring (miimon) set it right when correct
+> -		 * speeds/duplex are available.
+> +		 * in weird state. Mark an up slave as link-fail and let
+> +		 * miimon set it right when correct speed/duplex are available.
+>  		 */
+>  		if (bond_update_speed_duplex(slave) &&
+> -		    BOND_MODE(bond) == BOND_MODE_8023AD) {
+> -			if (slave->last_link_up)
+> -				slave->link = BOND_LINK_FAIL;
+> -			else
+> -				slave->link = BOND_LINK_DOWN;
+> -		}
+> +		    BOND_MODE(bond) == BOND_MODE_8023AD &&
+> +		    slave->link == BOND_LINK_UP)
+> +			slave->link = BOND_LINK_FAIL;
+>  
+>  		if (BOND_MODE(bond) == BOND_MODE_8023AD)
+>  			bond_3ad_adapter_speed_duplex_changed(slave);
+> -- 
+> 2.43.0
+> 
 
-Signed-off-by: Gobi Durairaj <gobidurairaj@gmail.com>
----
- drivers/staging/media/atomisp/pci/sh_css_sp.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_sp.c b/drivers/staging/media/atomisp/pci/sh_css_sp.c
-index 2beb7168517f..bb916de3dce3 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_sp.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_sp.c
-@@ -266,8 +266,10 @@ sh_css_sp_start_raw_copy(struct ia_css_frame *out_frame,
- 	pipe->copy.raw.max_input_width = max_input_width;
- 	pipe->num_stages = 1;
- 	pipe->pipe_id = pipe_id;
--	/* TODO: next indicates from which queues parameters need to be
--		 sampled, needs checking/improvement */
-+	/*
-+	 * TODO: next indicates from which queues parameters need to be
-+	 * sampled, needs checking/improvement
-+	 */
- 	if (pipe_conf_override == SH_CSS_PIPE_CONFIG_OVRD_NO_OVRD)
- 		pipe->pipe_config =
- 		    (SH_CSS_PIPE_CONFIG_SAMPLE_PARAMS << thread_id);
-@@ -702,8 +704,10 @@ sh_css_sp_write_frame_pointers(const struct sh_css_binary_args *args)
- 			err = set_output_frame_buffer(args->out_frame[i], i);
- 	}
- 
--	/* we don't pass this error back to the upper layer, so we add a assert here
--	   because we actually hit the error here but it still works by accident... */
-+	/*
-+	 * we don't pass this error back to the upper layer, so we add a assert here
-+	 * because we actually hit the error here but it still works by accident...
-+	 */
- 	if (err)
- 		assert(false);
- 	return err;
-@@ -1233,8 +1237,10 @@ sh_css_sp_init_pipeline(struct ia_css_pipeline *me,
- 	sh_css_sp_group.pipe[thread_id].port_id = port_id;
- 	sh_css_sp_group.pipe[thread_id].dvs_frame_delay = (uint32_t)me->dvs_frame_delay;
- 
--	/* TODO: next indicates from which queues parameters need to be
--		 sampled, needs checking/improvement */
-+	/*
-+	 * TODO: next indicates from which queues parameters need to be
-+	 * sampled, needs checking/improvement
-+	 */
- 	if (ia_css_pipeline_uses_params(me)) {
- 		sh_css_sp_group.pipe[thread_id].pipe_config =
- 		SH_CSS_PIPE_CONFIG_SAMPLE_PARAMS << thread_id;
--- 
-2.53.0
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
