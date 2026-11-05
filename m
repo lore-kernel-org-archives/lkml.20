@@ -1,107 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877190;
-	b=ZY56pN0uAA79Ci5gs8EnYgzG5qjm4An/R7yQcaO84GRUPCGWvnT4F78X7Vc04W+HDrup
-	 A2YxTrxZ5gyOpf1TEicr4Mc8JRYWmPOBPO5M8kvX0tUs9E7VENZI0ZDgCxHFggkFL7RMz
-	 WtbDfXlntw/mttG0qdm/a2KA8/i0Qb4alpz/bZbCzMc/gT6RnpeAl+3B410w5wifRJlY2
-	 lkKg2lwHgbjkOnKqRv/g8UEHwGBPjWzMC8ZaI2g+GgmrC/T/nIaE0+n2GUU+eX/IvCzkF
-	 zY30monQwrwszXvpiqoZN+2GiZT3ab39zci0w3E+nrNDZ0RwtYK9j59KNzy87rJgP1g==
+	t=1793877261;
+	b=cP6CnkOuXbqLSYUdxkS6cUK9/8gFG9I5Hrrs4sv2tED/OJ9KqABpMyaKuWjhngU/aUqB
+	 EDD66qoAQAB6/xB3GGzgXDmSL96e30YH9Ycaq4vJ4qWt2gSM4tRpShTclNoUnnXBbMH/y
+	 fPtNHREnU9Str5w4cynlr64o8Hx3TAU0TLorSIu6V3sH1zbtWa0W7BCEZRbLeejGnXoyx
+	 GWJ12LbdzlDyg6o8Ozn1umsFWqseEVg15mLAr1rvEw+ZG0YmL48EW33RGlMyqp+USrQci
+	 l75t+BIPghjS3NG3er8ePmhKzsncNNPYmyvF8EMEZk7EeS7/gGVtN3ehuv4pmHvTTGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877190;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=DjYu4yt3RK0Xx9SJ3jT2askD5Cjf05nRefGibZGlW4E=;
-	b=dB7JtDqFDoW8NmyPqri/2BC1bRDY3p7EBCB6zraSVEhXG/ZfW/KEdv9gilWc1X1ygkAm
-	 6Mt98r4TmTrDSHTf5eWphQCcaRkYdt2p3pS4qrwLis1SDZ30dTqArEzAgU79JWC/yQ+OG
-	 GBa8YPTm8RREwTTc4XjmQ71Qk6h2UgLXT3dbZtSYPz52oD0O5bzzc2QEYgeBTpWC1gG0y
-	 Dvx9MWFjYFWhXyWJ7bhG8RIfAIi3ufiCY2tqzZ4HE0U+kkoZ813MoRuEtmmUrmbqeI6BG
-	 UmREmeGhMh+xXFm5VVZozO3YgjHCRkzWDrv/x3G1V3Wi8mnIcHXg8PJRJTZsoVBNjDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877261;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=XAqh6Ji5fw+0oP93TacPTzshJY7oy0XzHBALqxs/KFM=;
+	b=IRCmb0HVCWOR2foq9htcqGb+wxlMWxLyqHSyif/AaJsPnkpeto6LQF+bwOaqHcy9mRiL
+	 nsmoWCGwo6ys6hz5YWF+kEU6Nlc3Xxv3X1T7ui57DL4ck8uDCZBV4EACtwTasRcxBovLr
+	 tVatVcGv0hbWKtvEC+pXNX7Ejy1pNQlzH7m1RxSrBg4ViZuXSBTicbeF7QobpYtDt2Ngf
+	 T7drMS9Y5Cdqrd9uyqJDtxnLSkCxjfzFLH7g7QQB0HECQiWH1HYyUtxLHCa2jADRP21nL
+	 3OUohGfs4fdOJWfBY4vvbKKi4w3d6F4yrNh65vHFZ6OZsaL3Ag8RuteR0nEuophQYkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="hEM/Akjz";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RBDVdOnn;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="hEM/Akjz";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RBDVdOnn;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE13606D804;
-	Thu,  5 Nov 2026 11:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE13606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=IzQWeu2+;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18854606A326;
+	Thu,  5 Nov 2026 11:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18854606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hEM/Akjz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RBDVdOnn;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hEM/Akjz;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RBDVdOnn
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F2B7F21EFA;
-	Thu,  5 Nov 2026 11:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793877188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DjYu4yt3RK0Xx9SJ3jT2askD5Cjf05nRefGibZGlW4E=;
-	b=hEM/AkjzxEGmSFcv+Kxo/aXB3B/D8XmYcXinvh9SMMo6KRBlOFpWUegKn9K7nZwqzIhywz
-	AMCAvsAulU0EnNL2bSbEK8hJVjrpSFArD7MQDB9WsfP8z0m7ql1te3xkeZvVAMJdPfTFQN
-	KXusvdnCANnYDzPKsdUC9FCVOYkiQp8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793877188;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DjYu4yt3RK0Xx9SJ3jT2askD5Cjf05nRefGibZGlW4E=;
-	b=RBDVdOnnrg9iObP8c4dbkETTCeqbG6gaYMGTdUdlxG/zwYTCNMU99SOW6BJyFjNvKaqO2W
-	ha7ffFgvYit8D4CQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793877188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DjYu4yt3RK0Xx9SJ3jT2askD5Cjf05nRefGibZGlW4E=;
-	b=hEM/AkjzxEGmSFcv+Kxo/aXB3B/D8XmYcXinvh9SMMo6KRBlOFpWUegKn9K7nZwqzIhywz
-	AMCAvsAulU0EnNL2bSbEK8hJVjrpSFArD7MQDB9WsfP8z0m7ql1te3xkeZvVAMJdPfTFQN
-	KXusvdnCANnYDzPKsdUC9FCVOYkiQp8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793877188;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DjYu4yt3RK0Xx9SJ3jT2askD5Cjf05nRefGibZGlW4E=;
-	b=RBDVdOnnrg9iObP8c4dbkETTCeqbG6gaYMGTdUdlxG/zwYTCNMU99SOW6BJyFjNvKaqO2W
-	ha7ffFgvYit8D4CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA489134F4;
-	Thu,  5 Nov 2026 11:13:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id tkFWKcNk7GrfVwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 11:13:07 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 5AC52B6A7; Thu, 05 Nov 2026 12:13:07 +0100 (CET)
-Date: Thu, 5 Nov 2026 12:13:07 +0100
-From: Jan Kara <jack@suse.cz>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Breno Leitao <leitao@debian.org>, 
-	Arjan van de Ven <arjan@linux.intel.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fs/select: reject negative timeval components in
- do_compat_select()
-Message-ID: <u7acpjmrb4e5wiesl35f3buaiibj26jxjddjfngcut3qtvdurx@pucwumtcgnkp>
-References: <20261031083059.3245047-2-thnkslprpt@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=IzQWeu2+
+Received: from linux.microsoft.com (unknown [89.136.50.44])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 9E12920B7166;
+	Thu,  5 Nov 2026 03:14:01 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9E12920B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793877244;
+	bh=XAqh6Ji5fw+0oP93TacPTzshJY7oy0XzHBALqxs/KFM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IzQWeu2+SgkSBoHCeqoOFjAFcigMao96hVxciMMEO2c2fmP5Z+FqI729dCauLK2RU
+	 h/s89uJG3scywJndP8t7dYoN3IdRJHXs6B6TiVrtwC3THgzsUIAgrRtuzFBz76hNpY
+	 imGxsSwpb2HJtCSU+aePeHuKLMP8FIyR/GVUfvcM=
+Date: Thu, 5 Nov 2026 13:14:08 +0200
+From: Doru =?iso-8859-1?Q?Bl=E2nzeanu?= <dblanzeanu@linux.microsoft.com>
+To: wei.liu@kernel.org
+Cc: Linux on Hyper-V List <linux-hyperv@vger.kernel.org>,
+	mukeshrathor@linux.microsoft.com, magnuskulke@linux.microsoft.com,
+	John Starks <jostarks@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Naman Jain <namjain@linux.microsoft.com>,
+	Nuno Das Neves <nunodasneves@linux.microsoft.com>,
+	Muminul Islam <muislam@microsoft.com>,
+	Anatol Belski <anbelski@linux.microsoft.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mshv: Add an ioctl to scrub partition state
+Message-ID: <auxlAE9xTnZU6Eqo@linux.microsoft.com>
+References: <20261029062801.28598-2-wei.liu@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,80 +68,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261031083059.3245047-2-thnkslprpt@gmail.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261029062801.28598-2-wei.liu@kernel.org>
 
-On Sat 31-10-26 10:31:00, Avi Weiss wrote:
-> do_compat_select() normalizes old_timeval32 before validating the
-> timeout. Negative seconds and microseconds can cancel each other,
-> causing compat select() and old_select() to accept invalid timeouts.
-
-Yes, but who cares? You can pass various strange values (like making sec +
-usec / USEC_PER_SEC overflow) resulting in odd behavior but you are only
-shooting yourself in the foot... So if it doesn't hurt integrity of the
-code flow, I'd just ignore this.
-
-								Honza
-
+On Wed, Oct 28, 2026 at 11:27:54PM -0700, wei.liu@kernel.org wrote:
+> From: John Starks <jostarks@microsoft.com>
 > 
-> Reject negative components before normalization (as kern_select()
-> already does) - and preserve the handling of oversized positive
-> tv_usec values.
+> Userspace VMMs need to reset a child partition's hypervisor-managed state
+> without destroying its VPs or rebuilding its memory and eventfd
+> registrations. Exposing HvCallScrubPartition through generic hypercall
+> passthrough would bypass the synchronization and cached-state updates
+> needed by the driver.
 > 
-> A 32-bit syscall reproducer confirmed four incorrect results on the
-> unpatched kernel. With the fix applied, all my test cases passed on
-> both compat select interfaces.
+> Add MSHV_SCRUB_PARTITION as a no-argument partition-fd ioctl. Hold the
+> partition mutex and try-lock each populated VP mutex in index order,
+> using the partition mutex as the lockdep nesting lock. Return -EBUSY
+> without issuing the hypercall if a VP is busy. This excludes VP ioctls
+> without waiting indefinitely for a running VP; userspace must stop its
+> run threads before requesting scrub.
 > 
-> Fixes: 4d36a9e65d49 ("select: deal with math overflow from borderline valid userland data")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> After a successful scrub, clear cached intercept suspend so the next run
+> clears explicit suspend rather than trying to consume a stale intercept.
+> Preserve deferred blocked waits and notification accounting: a VP becoming
+> dispatchable does not imply its host notification has already arrived.
+> Keep the locks through this update and unwind them on every exit.
+> 
+> Scrub is nonallocating, so issue one fast hypercall, trace its status and
+> return the existing errno translation. Let the hypervisor determine which
+> partition configurations support scrub. Device quiescing and restoring
+> guest execution state remain userspace responsibilities.
+> 
+> Signed-off-by: John Starks <jostarks@microsoft.com>
+> Signed-off-by: Wei Liu <wei.liu@kernel.org>
+> 
 > ---
->  fs/select.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Tested repeated scrub/run, sparse and 64-VP locking, busy unwinding,
+> interrupted blocked runs, concurrent memory invalidation and irqfd
+> activity on x86-64, and delayed notifications with separate diagnostic
+> instrumentation. The affected ARM64 objects compile. ARM64 runtime and
+> hypervisor scheduling remain untested. Doorbell delivery across scrub
+> works, but exposes an existing eventfd hardirq wait-context warning under
+> lockdep, separate from this change.
 > 
-> diff --git a/fs/select.c b/fs/select.c
-> index 95d76531015aa..8b6d1dd2977c6 100644
-> --- a/fs/select.c
-> +++ b/fs/select.c
-> @@ -1265,6 +1265,8 @@ static int do_compat_select(int n, compat_ulong_t __user *inp,
->  		if (copy_from_user(&tv, tvp, sizeof(tv)))
->  			return -EFAULT;
+> GitHub Copilot generated the implementation and test probes, investigated
+> locking and notification handling, ran builds and Incubator tests, and
+> drafted this description. Human review selected the dedicated ioctl and
+> try-lock policy and corrected the nonallocating hypercall contract.
+> ---
+>  drivers/hv/mshv_root.h         |  1 +
+>  drivers/hv/mshv_root_hv_call.c | 11 ++++++++
+>  drivers/hv/mshv_root_main.c    | 50 ++++++++++++++++++++++++++++++++++
+>  drivers/hv/mshv_trace.h        | 17 ++++++++++++
+>  include/hyperv/hvgdk_mini.h    |  1 +
+>  include/hyperv/hvhdk.h         |  4 +++
+>  include/uapi/linux/mshv.h      | 11 ++++++++
+>  7 files changed, 95 insertions(+)
+> 
+> diff --git a/drivers/hv/mshv_root.h b/drivers/hv/mshv_root.h
+> index 1f086dcb7aa1..0c89d47c3ab5 100644
+> --- a/drivers/hv/mshv_root.h
+> +++ b/drivers/hv/mshv_root.h
+> @@ -279,6 +279,7 @@ int hv_call_create_partition(u64 flags,
+>  			     union hv_partition_isolation_properties isolation_properties,
+>  			     u64 *partition_id);
+>  int hv_call_initialize_partition(u64 partition_id);
+> +int hv_call_scrub_partition(u64 partition_id);
+>  int hv_call_finalize_partition(u64 partition_id);
+>  int hv_call_delete_partition(u64 partition_id);
+>  int hv_call_map_mmio_pages(u64 partition_id, u64 gfn, u64 mmio_spa, u64 numpgs);
+> diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+> index cb55d4d4be2e..8ab99f1afeed 100644
+> --- a/drivers/hv/mshv_root_hv_call.c
+> +++ b/drivers/hv/mshv_root_hv_call.c
+> @@ -161,6 +161,17 @@ int hv_call_initialize_partition(u64 partition_id)
+>  	return ret;
+>  }
 >  
-> +		if (tv.tv_sec < 0 || tv.tv_usec < 0)
-> +			return -EINVAL;
->  		to = &end_time;
->  		if (poll_select_set_timeout(to,
->  				tv.tv_sec + (tv.tv_usec / USEC_PER_SEC),
-> 
-> base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
+> +int hv_call_scrub_partition(u64 partition_id)
+> +{
+> +	u64 status;
+> +
+> +	status = hv_do_fast_hypercall8(HVCALL_SCRUB_PARTITION, partition_id);
+> +
+> +	trace_mshv_hvcall_scrub_partition(partition_id, status);
+> +
+> +	return hv_result_to_errno(status);
+> +}
+> +
+>  int hv_call_finalize_partition(u64 partition_id)
+>  {
+>  	struct hv_input_finalize_partition input;
+> diff --git a/drivers/hv/mshv_root_main.c b/drivers/hv/mshv_root_main.c
+> index cc2cfce2aefd..9f21855b8518 100644
+> --- a/drivers/hv/mshv_root_main.c
+> +++ b/drivers/hv/mshv_root_main.c
+> @@ -1648,6 +1648,53 @@ mshv_partition_ioctl_initialize(struct mshv_partition *partition)
+>  	return ret;
+>  }
+>  
+> +static int mshv_partition_ioctl_scrub(struct mshv_partition *partition)
+> +{
+> +	unsigned int i, vps_locked = 0;
+> +	int ret;
+> +
+> +	lockdep_assert_held(&partition->pt_mutex);
+> +
+> +	/*
+> +	 * Run ioctls may wait indefinitely. Userspace must stop its run
+> +	 * threads; never wait for a VP while holding the others. The
+> +	 * partition mutex stabilizes even a sparse VP array.
+> +	 */
+> +	for (; vps_locked < MSHV_MAX_VPS; vps_locked++) {
+> +		struct mshv_vp *vp = partition->pt_vp_array[vps_locked];
+> +
+> +		if (vp && !mutex_trylock_nest_lock(&vp->vp_mutex,
+> +						  &partition->pt_mutex)) {
+> +			ret = -EBUSY;
+> +			goto unlock;
+> +		}
+> +	}
+> +
+> +	ret = hv_call_scrub_partition(partition->pt_id);
+> +	if (ret)
+> +		goto unlock;
+> +
+> +	/*
+> +	 * Scrub clears intercept suspend and sets explicit suspend.
+> +	 * Retain deferred waits and lifetime notification accounting.
+> +	 */
+> +	for (i = 0; i < MSHV_MAX_VPS; i++) {
+> +		struct mshv_vp *vp = partition->pt_vp_array[i];
+> +
+> +		if (vp)
+> +			vp->run.flags.intercept_suspend = 0;
+> +	}
+> +
+> +unlock:
+> +	while (vps_locked) {
+> +		struct mshv_vp *vp = partition->pt_vp_array[--vps_locked];
+> +
+> +		if (vp)
+> +			mutex_unlock(&vp->vp_mutex);
+> +	}
+> +	return ret;
+> +}
+> +
+>  static long
+>  mshv_partition_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+>  {
+> @@ -1662,6 +1709,9 @@ mshv_partition_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+>  	case MSHV_INITIALIZE_PARTITION:
+>  		ret = mshv_partition_ioctl_initialize(partition);
+>  		break;
+> +	case MSHV_SCRUB_PARTITION:
+> +		ret = mshv_partition_ioctl_scrub(partition);
+> +		break;
+>  	case MSHV_SET_GUEST_MEMORY:
+>  		ret = mshv_partition_ioctl_set_memory(partition, uarg);
+>  		break;
+> diff --git a/drivers/hv/mshv_trace.h b/drivers/hv/mshv_trace.h
+> index e7280c47e579..9f6d9e67d987 100644
+> --- a/drivers/hv/mshv_trace.h
+> +++ b/drivers/hv/mshv_trace.h
+> @@ -71,6 +71,23 @@ TRACE_EVENT(mshv_hvcall_initialize_partition,
+>  	    )
+>  );
+>  
+> +TRACE_EVENT(mshv_hvcall_scrub_partition,
+> +	    TP_PROTO(u64 partition_id, u64 status),
+> +	    TP_ARGS(partition_id, status),
+> +	    TP_STRUCT__entry(
+> +		    __field(u64, partition_id)
+> +		    __field(u64, status)
+> +	    ),
+> +	    TP_fast_assign(
+> +		    __entry->partition_id = partition_id;
+> +		    __entry->status = status;
+> +	    ),
+> +	    TP_printk("partition_id=%llu status=%#llx",
+> +		    __entry->partition_id,
+> +		    __entry->status
+> +	    )
+> +);
+> +
+>  TRACE_EVENT(mshv_partition_release,
+>  	    TP_PROTO(u64 partition_id),
+>  	    TP_ARGS(partition_id),
+> diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
+> index 6a4e8b9d570f..c0172699b145 100644
+> --- a/include/hyperv/hvgdk_mini.h
+> +++ b/include/hyperv/hvgdk_mini.h
+> @@ -478,6 +478,7 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
+>  #define HVCALL_NOTIFY_PARTITION_EVENT                   0x0087
+>  #define HVCALL_ENTER_SLEEP_STATE			0x0084
+>  #define HVCALL_NOTIFY_PORT_RING_EMPTY			0x008b
+> +#define HVCALL_SCRUB_PARTITION				0x008d
+>  #define HVCALL_REGISTER_INTERCEPT_RESULT		0x0091
+>  #define HVCALL_ASSERT_VIRTUAL_INTERRUPT			0x0094
+>  #define HVCALL_CREATE_PORT				0x0095
+> diff --git a/include/hyperv/hvhdk.h b/include/hyperv/hvhdk.h
+> index 0c89c62c9706..d0043860693c 100644
+> --- a/include/hyperv/hvhdk.h
+> +++ b/include/hyperv/hvhdk.h
+> @@ -369,6 +369,10 @@ struct hv_input_delete_partition {
+>  	u64 partition_id;
+>  } __packed;
+>  
+> +struct hv_input_scrub_partition {
+> +	u64 partition_id;
+> +} __packed;
+> +
+>  struct hv_input_get_partition_property {
+>  	u64 partition_id;
+>  	u32 property_code; /* enum hv_partition_property_code */
+> diff --git a/include/uapi/linux/mshv.h b/include/uapi/linux/mshv.h
+> index 32ff92b6342b..7681e3c73a7a 100644
+> --- a/include/uapi/linux/mshv.h
+> +++ b/include/uapi/linux/mshv.h
+> @@ -255,6 +255,17 @@ struct mshv_root_hvcall {
+>  /* Generic hypercall */
+>  #define MSHV_ROOT_HVCALL		_IOWR(MSHV_IOCTL, 0x07, struct mshv_root_hvcall)
+>  
+> +/*
+> + * Scrub a partition's guest state; takes no arguments.
+> + * Stop all VP run threads first: a busy VP causes -EBUSY without issuing
+> + * the hypercall. On success, the VPs are explicitly suspended.
+> + *
+> + * Kernel resource registrations and VP fd/mmap lifetimes are preserved.
+> + * Userspace must quiesce its devices and restore guest execution state.
+> + * Failure does not imply successful reset or guaranteed rollback.
+> + */
+> +#define MSHV_SCRUB_PARTITION	_IO(MSHV_IOCTL, 0x0B)
+> +
+>  /*
+>   ********************************
+>   * VP APIs for child partitions *
 > -- 
-> 2.43.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> 2.53.0
+
+Tested-by: Doru Blânzeanu <dblanzeanu@linux.microsoft.com>
