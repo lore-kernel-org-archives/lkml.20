@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914441;
-	b=mydavL42KeCEQgjOKoXiCp4B5p0mqyNBzr6b8DXB95iRfWntvkAE6Wx6j7oH6IYPa9bB
-	 XG+8zMVn1b6hJxopaJdGCFi6SnnZ0FwSUBgw/aL5DxhpkSlOjmv8AUEAIcTFw9PkMCE/i
-	 iugw72jEgdY/nBD8uwecFZCkndBPoKsGMQVr7u2jdzjx08E7shMOI/2uNlTSXAADSRJJi
-	 QP0H21+uF+Pjnf638XbhooFZ73Ewc7QUkpmrku+LqXbyNKh+wNk0LTKcA/RUiECR1UtE/
-	 LBYRULW75BzufZLp9z6iuOC6/VDMLOtB5qTkiqWU+XpsIsGKYS9jF8fWJwba5jBEs1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914441;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q1O6PsPSrFnt9BTLaaISkTdkv8+AsEerts7T47IxUwQ=;
-	b=qaNJhiYsi65aPwhY2l7n4YsK5scsp0wkR4Tc6YazKHuI3OCpm6ovmmkdS2MKxnX2uje6
-	 /KSJ/vUeJUFt2rFxMrQ9q33pC4nKwkGp3EdFcGuKOXwyaRK3Ee0uTCQ8fJJJmKoMAWOal
-	 agbW8OEQioqVTFg7eRA/liatbhqhZ1fR+gjfEVSnuUe6gkw/CGpa5zOMy9zlZpNCeoq1q
-	 GnDcYfP8CwP1vunCyA75olbSFDItOcpLob0LBwPLNW12SRYGvR72YkpjnwMghw7bxnPYc
-	 vs17c2cUcV1Wp/EHOgWBKpfCvt3lyYMS/boHKe0W6dJERw7O8kGUGGn1jJ01IJEo0Wg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FP6qFnXO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793914453;
+	b=EOhfhlbq7lHBiMpzw8j40aiI/acpBFd/WhOK+KE2/AwnNI/SkkOi1ZO95qFBXMr1NXnH
+	 AnYJl6HSDtR2MVGveotgyuGGfgYNmNehRrEkeSM1/k0rbH8eP3E+1rVHOPGf6xHA2zw0L
+	 r7QRRXFrAwjoGvxHPHcZyXNwOy4JM9XSfw0BPyse2yiqSUweRzGJ8auu2P27sdN9fvqB2
+	 epXwTPhXjaqfyJJ+yfAJz7zkrvnWZqrF0ssEo9XcLqtGU0XTt5kQJf5q533KCF3YSz1bW
+	 JlxdFmjrMornLuzgQ5+cIoNymRV6rS+kMoC4wX7u6xg3k4yTUR5oxVbPtmCYFJOHjhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914453;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=SI00QxGGBKrcJzsigG/IXk3v6J7kiDinn5cvl23JkuI=;
+	b=CYbPvzXzDz000DUzw+YLgPtYHrhTf0FLC5Nu79CUZSuP+hWqMLtXGJQe0rVVEWxQiNk4
+	 yXxfgp0DPeV4+fMOF+yVUuZ6ptCDarXCyG/s09APM62w2Hfjdj8vMUIV8H3fqkovuAD/0
+	 uIRB7ZV3g6JQWnNZr6N3YQQgOpKsqwnJXBhi3DeYXW2/wYwu1BN0beg7JgcKgIr7ciu3g
+	 L44pclgSxxJyP36TPPrLhn+2sp03sOsIBMp1RwvAh5Mzfn5Im/stA3h3n/MvbE2PHu87Z
+	 kx7ghVMwNg7jjIiUxxzgBNtD0VlKafPQhMjOAyT9HZqnwTwrWXo0gHtpN5dtkZQ/vrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hl+ccYah;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2327606A338;
-	Thu,  5 Nov 2026 21:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA43F606D83C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:34:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA43F606D83C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FP6qFnXO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265CA1F0089F;
-	Thu,  5 Nov 2026 21:33:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793914440;
-	bh=Q1O6PsPSrFnt9BTLaaISkTdkv8+AsEerts7T47IxUwQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FP6qFnXOsA4KQpngsPCZd5lXBRNPCMj99mGbaOnvk5VdxhrZD9E2YiEbUspll/M98
-	 k46DOiZz/G4kPuu8uUVt4XNGYcEkntyJBALH3XTT3CahGiUpY2cDDeocvjUuhR/9p0
-	 wJGvlS5BjR/voyFaU125NCiqWpfEoToetp0cUf9HT58FmMhUV9ZuaxarhpeLKXuy9W
-	 qlKv7KwkPEzfONlC3AHLNnNMXXon1I/FJSztkelxU5z1gphUucDgmgGsBNnuZsWVqz
-	 Ho3I6eXllot+zXbOF7NC4ZDW5Vek8hlvaZQeijm2vj/9vbhhr6pkv8eyISBtYZOGxb
-	 9183O3UZctltw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 05 Nov 2026 21:30:59 +0000
-Subject: [PATCH 08/13] mm: convert miscellaneous VMA flag tests to use
- vma_flags_t
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hl+ccYah
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so2300200a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:34:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793914451; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UIy2CQxeeWdCMW1ErdwUDnxI+pSuiK/MQKP8fb6owXVdsnOOyI886fBEyqtQnCed18
+         EYSHjrIXwJw3b2N6xb/CnXB8JmgdKWmIk6QpqK80fku+btz9XZFUzdwgiMRk5ecxOmW/
+         FwecTYaOVgf23qWPtdEyLqWRiFnSpGMF/N9gBZoJmw/4sHe/7SVdvOROst12lqlA6P3t
+         PhCEFby6fL8sGTKNM5gx9eCaRD3ruEBgaq/AdWn0BqTN8WlXQVN93MKTl0+TTnAteREn
+         tfaeRL2vL5j6BP3582w/x0tlHN3UKDH4Zl0OzYKZH9zojkM8xsqrc5gTuEGu/6CNUEQY
+         EDyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SI00QxGGBKrcJzsigG/IXk3v6J7kiDinn5cvl23JkuI=;
+        fh=3btH3VHMwzH10R3D9B0slkTd7RujN+Ay+2s61xlQCJc=;
+        b=dR4r/N1q0e/KZRUaeFlRgDLBMp+KXdwXKSpe9XARN4KUY1j0Fe7Rhhtu6+JiKpiHAW
+         8oPq3g9LxPtG29cwLUT6eE0DJnnoLod0eLm51wDMJrIZAu4icrFQoouakXzGRURTzL6F
+         vmaZxBrZIBqrmj+MMxr4sFYD8wC+hM0uPgGcTyY+axqcrwcx4HBcecwg30VPA4mdj4Bi
+         FO8Me/GAWGoWXoK6YlQnhKM4+UTSc0GvDy3gH/mCS6V3PQC06LYPuUTt9Jp5kPIeEs1y
+         UTygr5dZyXNX/9GamqsMQWZobftPVmOmMuRpppBAcV9bAX+Aj9vJNW7M5joJ2sDqDdls
+         bStQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793914451; x=1794519251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SI00QxGGBKrcJzsigG/IXk3v6J7kiDinn5cvl23JkuI=;
+        b=Hl+ccYah2c2TJGKzEuwCSZ2271/KIZUZBHSnk/+2IE/cCUZsXxa2GexStU3GPccu+L
+         c9pguKwDW+Sf+Fn+GA68uVtKE0t0VnesyC9yU3Jw4FKh2SwwCcWgdL2nNGu0/Ie35U8B
+         MGFXARhSF03AY42sAaITfjloe8nQY7YlibBJwWQhm2G09NxtgMXOGI+31ENhOhfFM+cn
+         w91MMdS5EWN2I5AhdOUPtXuGCNt3rlaFsouQf6OUuSgJlQBtaB8pXMA4WlaGx4kg9P6M
+         1zDjWLxzILMZlaS3Ofwh41t66qSb1pk/CND/b/5SIoRVPIhCTDyNDTAqPkiK5WkbHu3D
+         c5EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793914451; x=1794519251;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SI00QxGGBKrcJzsigG/IXk3v6J7kiDinn5cvl23JkuI=;
+        b=xKS0elTBOxvp12Zfo+UUxtW3sO3oVsCJp6pL13eN7k8Ze6AVca9QEt5VxPQr9GNTry
+         oKPpBC6dRmAujC8SAkA+hM9bGe9irGqjxhs3hEHcFHbynPGbwEBX2nQL1EscLoy32dA5
+         FmwgtJMW/yeh3NJjhCtHI1/B0JYR58Rka/KiQTSYmr9ipCUkbR73RE7YSzxmQ+FLDYAM
+         Hawzu1utlamcuNAjKvJrATu7TDZSytsldklMvlbwcIq+vCOADE1M0Irdp6+7PbP3DsjK
+         243kS19KRhiHTNtLhO41I0LfKUeCC4ncXuDCzsp8vvcHdvoRIvTspIMpsrYIEHqIEgH6
+         c5fA==
+X-Forwarded-Encrypted: i=1; AKwUvBzYZbfX3zv6Hla22moEica8vAGbmRkXEo78ssYGHchvWbJSAxoy1F7lEWK5Wfc6jI5SEKcUDWEQDZN8jrc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FYYQMaPNgRZEZK3gpsr+qBXMcZNjsaw22LeiAdyjXuHP2RSEM
+	7HFbzeDjYXnVZZFuIr5LyexkQMxixMsEqSiPhivq///Vf6mymEpBjvV8hLOT2JA5cu9h+dfp9o2
+	2RZI0/ZAtf115nlc5G5zlB/fr1ZqK9Gk=
+X-Gm-Gg: AYBFou1y72WS1Bh9UuqxkH85DLhITX0T2EQN4GSL/7pcmZDMj3vfURH//zk7k2UQhB/
+	ZlUT/wjoZaVRhFxtw8tpgZdBsXOWPZdth5r9URwGX9o0N0/2X9xv+FStSPrezgYtZdRZanKpooo
+	lHsu2G55GDYfVBPGnv8/1fUBLxuKYNSsBrz9qj8gIZpnBiK7FAcQXCymod9LkMpsuBjxGNkbQsa
+	tigy4Rlj2Htb/fYVAwdFH1MHcVdzP+zEbotL62dmaAL3CpPIb0cOaszID7fOSG1XYO1Kbo6W5Ru
+	jcqW4l4DRE8q8hpsqLn/n841bVQqcH4DmdjZRUcn+74qxdLUtinSGg8YKugGa+ccqqgQMdcAblp
+	CX/EG3gCa7rGAlzWtuYjcUNGKLmRquii6mkdDDyISIT/YS5BEGU3CJ5vRWHOcTNUZxHhkY9c=
+X-Received: by 2002:a05:6402:3883:b0:6b5:114d:cf36 with SMTP id
+ 4fb4d7f45d1cf-6b597474b45mr392264a12.0.1793914451121; Thu, 05 Nov 2026
+ 13:34:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,301 +104,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-late-2026-vma-flags-v1-8-0d3cd15ab75f@kernel.org>
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
-In-Reply-To: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>, 
- SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>, 
- David Rientjes <rientjes@google.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- John Johansen <john.johansen@canonical.com>, 
- Georgia Garcia <georgia.garcia@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>, 
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, damon@lists.linux.dev, 
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org, 
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7804; i=ljs@kernel.org;
- h=from:subject:message-id; bh=qpbuJVrxyY/7AAHSEFGEKenLjEhgiUuNHBU8QsxXe74=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLefF0+1f0Tq5WqHxOL/8ZuOem6JVHm36fmN294GXLt9
- Oy1G9aWdJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiM58wMnw+cf5EVN3exN9H
- REo0wg+meG1S8M+ISRBNuON3NNyf24OR4aTj3j3KcWEz8vZrMrSkLHpV0no97fyM/DRD6bnMDyf
- HcwMA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+References: <20261031010232.3361085-1-samarth.colleges@gmail.com>
+In-Reply-To: <20261031010232.3361085-1-samarth.colleges@gmail.com>
+From: Samarth Narang <samarth.colleges@gmail.com>
+Date: Thu, 5 Nov 2026 16:33:59 -0500
+X-Gm-Features: AclHuK_MtBiurCXf6HQzaNhcFD5EDBMpBf2QfAxGsVk3Isuov9i5p3cCovbCXtE
+Message-ID: <CAAbz3fQbs_+aubvjLmApkGaYtiAdQLZ0RRJKjjpRogFQmCDeQw@mail.gmail.com>
+Subject: Re: [BUG] crypto: starfive - DMA left running after timeout while
+ buffers are unmapped
+To: Jia Jie Ho <jiajie.ho@starfivetech.com>, William Qiu <william.qiu@starfivetech.com>, 
+	conor@kernel.org, kernel@esmil.dk, hal.feng@starfivetech.com, 
+	changhuang.liang@starfivetech.com
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Replace use of the legacy vm_flags_t flags with vma_flags_t values in the
-remaining straightforward VMA flag tests scattered throughout core mm, HMM
-(and its test module), DAMON and the OOM reaper.
+Hello,
 
-No functional change intended.
+The two addresses listed under STARFIVE CRYPTO DRIVER in MAINTAINERS
+(Jia Jie Ho and William Qiu) both bounced this report with "550 5.4.1
+Recipient address rejected".  I have added some more folks on this
+thread, who seem to be active in the STARFIVE ecosystem who perhaps
+could weigh in on the report quoted below.
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/linux/mm_inline.h | 2 +-
- lib/test_hmm.c            | 4 ++--
- mm/damon/vaddr.c          | 2 +-
- mm/hmm.c                  | 6 +++---
- mm/internal.h             | 2 +-
- mm/mempolicy.c            | 4 ++--
- mm/mmap_lock.c            | 4 ++--
- mm/msync.c                | 4 ++--
- mm/oom_kill.c             | 4 ++--
- mm/pagewalk.c             | 2 +-
- mm/vma.h                  | 4 ++--
- 11 files changed, 19 insertions(+), 19 deletions(-)
+Thanks,
+Samarth
 
-diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-index ab69b9930893..da04d81a819c 100644
---- a/include/linux/mm_inline.h
-+++ b/include/linux/mm_inline.h
-@@ -657,7 +657,7 @@ static inline pte_marker copy_pte_marker(
- 
- static inline bool vma_has_recency(const struct vm_area_struct *vma)
- {
--	if (vma->vm_flags & (VM_SEQ_READ | VM_RAND_READ))
-+	if (vma_test_any(vma, VMA_SEQ_READ_BIT, VMA_RAND_READ_BIT))
- 		return false;
- 
- 	if (vma->vm_file && (vma->vm_file->f_mode & FMODE_NOREUSE))
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index b409c42bfe6f..d7702d99ac9b 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -1248,7 +1248,7 @@ static int dmirror_migrate_to_system(struct dmirror *dmirror,
- 	mmap_read_lock(mm);
- 	for (addr = start; addr < end; addr = next) {
- 		vma = vma_lookup(mm, addr);
--		if (!vma || !(vma->vm_flags & VM_READ)) {
-+		if (!vma || !vma_test(vma, VMA_READ_BIT)) {
- 			ret = -EINVAL;
- 			goto out;
- 		}
-@@ -1320,7 +1320,7 @@ static int dmirror_migrate_to_device(struct dmirror *dmirror,
- 	mmap_read_lock(mm);
- 	for (addr = start; addr < end; addr = next) {
- 		vma = vma_lookup(mm, addr);
--		if (!vma || !(vma->vm_flags & VM_READ)) {
-+		if (!vma || !vma_test(vma, VMA_READ_BIT)) {
- 			ret = -EINVAL;
- 			goto out;
- 		}
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index b549496ea8e2..9a43f7428142 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -240,7 +240,7 @@ static void damon_va_walk_page_range(struct mm_struct *mm, unsigned long start,
- 		goto lock_mmap;
- 	}
- 
--	if (!(vma->vm_flags & VM_PFNMAP)) {
-+	if (!vma_test(vma, VMA_PFNMAP_BIT)) {
- 		ops->walk_lock = PGWALK_VMA_RDLOCK_VERIFY;
- 		walk_page_range_vma(vma, start, end, ops, private);
- 	}
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 2f1e98c6b644..058d0b48399a 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -595,8 +595,8 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
- 	struct hmm_range *range = hmm_vma_walk->range;
- 	struct vm_area_struct *vma = walk->vma;
- 
--	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
--	    vma->vm_flags & VM_READ)
-+	if (!vma_test_any(vma, VMA_IO_BIT, VMA_PFNMAP_BIT) &&
-+	    vma_test(vma, VMA_READ_BIT))
- 		return 0;
- 
- 	/*
-@@ -659,7 +659,7 @@ static int hmm_do_fault(struct mm_struct *mm,
- 		return -EFAULT;
- 
- 	if (required_fault & HMM_NEED_WRITE_FAULT) {
--		if (!(vma->vm_flags & VM_WRITE))
-+		if (!vma_test(vma, VMA_WRITE_BIT))
- 			return -EPERM;
- 		fault_flags |= FAULT_FLAG_WRITE;
- 	}
-diff --git a/mm/internal.h b/mm/internal.h
-index 8b1263e81054..cbb205f06097 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1249,7 +1249,7 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
- 
- static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
- {
--	if (vma->vm_flags & VM_SHARED)
-+	if (vma_test(vma, VMA_SHARED_BIT))
- 		return false;
- 
- 	return atomic_read(&vma->vm_mm->mm_users) == 1;
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 80c693c6d693..31d42bcad529 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -2015,7 +2015,7 @@ SYSCALL_DEFINE5(get_mempolicy, int __user *, policy,
- 
- bool vma_migratable(struct vm_area_struct *vma)
- {
--	if (vma->vm_flags & (VM_IO | VM_PFNMAP))
-+	if (vma_test_any(vma, VMA_IO_BIT, VMA_PFNMAP_BIT))
- 		return false;
- 
- 	/*
-@@ -2565,7 +2565,7 @@ struct folio *vma_alloc_folio_noprof(gfp_t gfp, int order, struct vm_area_struct
- 	pgoff_t ilx;
- 	struct folio *folio;
- 
--	if (vma->vm_flags & VM_DROPPABLE)
-+	if (vma_test_single_mask(vma, VMA_DROPPABLE))
- 		gfp |= __GFP_NOWARN;
- 
- 	pol = get_vma_policy(vma, addr, order, &ilx);
-diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
-index 834bbf86e004..1b0560a4dfcd 100644
---- a/mm/mmap_lock.c
-+++ b/mm/mmap_lock.c
-@@ -636,7 +636,7 @@ struct vm_area_struct *lock_mm_and_find_vma(struct mm_struct *mm,
- 	 * Well, dang. We might still be successful, but only
- 	 * if we can extend a vma to do so.
- 	 */
--	if (!vma || !(vma->vm_flags & VM_GROWSDOWN)) {
-+	if (!vma || !vma_test(vma, VMA_GROWSDOWN_BIT)) {
- 		mmap_read_unlock(mm);
- 		return NULL;
- 	}
-@@ -659,7 +659,7 @@ struct vm_area_struct *lock_mm_and_find_vma(struct mm_struct *mm,
- 			goto fail;
- 		if (vma->vm_start <= addr)
- 			goto success;
--		if (!(vma->vm_flags & VM_GROWSDOWN))
-+		if (!vma_test(vma, VMA_GROWSDOWN_BIT))
- 			goto fail;
- 	}
- 
-diff --git a/mm/msync.c b/mm/msync.c
-index 90b491a27a14..953efa1738c5 100644
---- a/mm/msync.c
-+++ b/mm/msync.c
-@@ -81,7 +81,7 @@ SYSCALL_DEFINE3(msync, unsigned long, start, size_t, len, int, flags)
- 		}
- 		/* Here vma->vm_start <= start < vma->vm_end. */
- 		if ((flags & MS_INVALIDATE) &&
--				(vma->vm_flags & VM_LOCKED)) {
-+				vma_test(vma, VMA_LOCKED_BIT)) {
- 			error = -EBUSY;
- 			goto out_unlock;
- 		}
-@@ -90,7 +90,7 @@ SYSCALL_DEFINE3(msync, unsigned long, start, size_t, len, int, flags)
- 		fend = fstart + (min(end, vma->vm_end) - start) - 1;
- 		start = vma->vm_end;
- 		if ((flags & MS_SYNC) && file &&
--				(vma->vm_flags & VM_SHARED)) {
-+				vma_test(vma, VMA_SHARED_BIT)) {
- 			get_file(file);
- 			mmap_read_unlock(mm);
- 			error = vfs_fsync_range(file, fstart, fend, 1);
-diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-index 5d48bd862c27..91b11299cb5d 100644
---- a/mm/oom_kill.c
-+++ b/mm/oom_kill.c
-@@ -524,7 +524,7 @@ static bool __oom_reap_task_mm(struct mm_struct *mm)
- 	 * of the address space.
- 	 */
- 	mas_for_each_rev(&mas, vma, 0) {
--		if (vma->vm_flags & (VM_HUGETLB|VM_PFNMAP))
-+		if (vma_test_any(vma, VMA_HUGETLB_BIT, VMA_PFNMAP_BIT))
- 			continue;
- 
- 		/*
-@@ -537,7 +537,7 @@ static bool __oom_reap_task_mm(struct mm_struct *mm)
- 		 * we do not want to block exit_mmap by keeping mm ref
- 		 * count elevated without a good reason.
- 		 */
--		if (vma_is_anonymous(vma) || !(vma->vm_flags & VM_SHARED)) {
-+		if (vma_is_anonymous(vma) || !vma_test(vma, VMA_SHARED_BIT)) {
- 			if (zap_vma_for_reaping(vma))
- 				ret = false;
- 		}
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index e6493bbe6919..41e19f544493 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -393,7 +393,7 @@ static int walk_page_test(unsigned long start, unsigned long end,
- 	 * define their ->pte_hole() callbacks, so let's delegate them to handle
- 	 * vma(VM_PFNMAP).
- 	 */
--	if (vma->vm_flags & VM_PFNMAP) {
-+	if (vma_test(vma, VMA_PFNMAP_BIT)) {
- 		int err = 1;
- 		if (ops->pte_hole)
- 			err = ops->pte_hole(start, end, -1, walk);
-diff --git a/mm/vma.h b/mm/vma.h
-index 3fc3b47a954b..201dbfe3d7f8 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -597,9 +597,9 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
- 	 * private mappings, that's always the case when we have write
- 	 * permissions as we properly have to handle COW.
- 	 */
--	if (vma->vm_flags & VM_SHARED)
-+	if (vma_test(vma, VMA_SHARED_BIT))
- 		return vma_wants_writenotify(vma, vma->vm_page_prot);
--	return !!(vma->vm_flags & VM_WRITE);
-+	return vma_test(vma, VMA_WRITE_BIT);
- }
- 
- #ifdef CONFIG_MMU
-
--- 
-2.56.0
-
+On Fri, Oct 30, 2026 at 9:02=E2=80=AFPM Samarth Narang
+<samarth.colleges@gmail.com> wrote:
+>
+> Hi,
+>
+> I found two DMA cleanup issues in the StarFive JH7110 AES and hash
+> drivers. On timeout, or when preparation of a subsequent descriptor
+> fails, the drivers can return an error and unmap their scatterlists
+> without terminating previously issued DMA descriptors.
+>
+> Line numbers refer to mainline at 83f32c773255. I could not find any
+> dmaengine_terminate_*() calls under drivers/crypto/starfive/.
+>
+> 1. AES (jh7110-aes.c)
+>
+> starfive_aes_dma_xfer() submits and issues out_desc on cryp->rx (lines
+> 471-472), followed by in_desc on cryp->tx (lines 481-482). It then waits
+> up to one second for the RX descriptor's completion callback (line 484).
+>
+> If the wait times out, the function clears alg_cr and returns
+> -ETIMEDOUT. The caller, starfive_aes_map_sg(), subsequently unmaps the
+> source and destination scatterlists (lines 520, 540-541) and propagates
+> the error.
+>
+> Nothing in this error path explicitly terminates either DMA channel. The
+> descriptors may therefore retain the ability to access their mappings
+> after those mappings have been released.
+>
+> There is also a descriptor-preparation failure path. If
+> dmaengine_prep_slave_sg() fails for in_desc (line 474), the function
+> returns -EINVAL even though out_desc has already been issued on
+> cryp->rx. The destination scatterlist is subsequently unmapped at line
+> 541.
+>
+> Since the RX descriptor transfers data from the device to memory, any
+> later execution of that descriptor could write to storage whose DMA
+> mapping has already been released.
+>
+> 2. Hash (jh7110-hash.c)
+>
+> starfive_hash_dma_xfer() submits and issues in_desc on cryp->tx (lines
+> 150-151), then waits up to one second for completion (line 153).
+>
+> On timeout, the function clears alg_cr and returns an error.
+> starfive_hash_one_request() subsequently unmaps the source scatterlist
+> at line 235.
+>
+> The TX descriptor has not been explicitly terminated before the unmap,
+> so it may retain access to the old source mapping.
+>
+> DMA provider and possible consequences
+>
+> On JH7110, the AES and hash DMA channels use the sdma controller,
+> associated with the PL080 DMAengine implementation through jh7110.dtsi.
+>
+> The transfers are flow-controlled by the crypto hardware. I could not
+> establish from the driver source whether clearing alg_cr fully
+> suppresses further DMA requests, drains requests already accepted by the
+> DMA controller, or retires the corresponding descriptors.
+>
+> Even if clearing the register prevents immediate further transfers, that
+> does not by itself establish that the DMAengine descriptor has been
+> retired. If the controller can resume the outstanding descriptor when
+> requests become available again, a later crypto operation could cause
+> accesses using the previous request's mapping.
+>
+> Depending on the DMA mapping configuration and subsequent memory reuse,
+> such accesses could read from or write to storage belonging to another
+> operation.
+>
+> Proposed fix
+>
+> I think the error paths should explicitly terminate the outstanding DMA
+> operations before returning control to the callers that unmap the
+> scatterlists.
+>
+> Specifically:
+>
+> In starfive_aes_dma_xfer(), synchronously terminate both RX and TX
+> channels after a timeout, and terminate the already-issued RX channel if
+> preparation or submission of the TX descriptor fails.
+>
+> In starfive_hash_dma_xfer(), synchronously terminate the TX channel on
+> timeout.
+>
+> Both functions execute in the crypto engine worker context and already
+> use wait_for_completion_timeout(), so a synchronous termination call
+> appears appropriate. The cleanup would need to preserve the original
+> error and account for the outcome of termination.
+>
+> Would dmaengine_terminate_sync() be the preferred approach here, or is
+> there a crypto-controller-specific shutdown sequence that must precede
+> DMA termination?
+>
+> I can prepare and compile-test a patch if this direction is acceptable.
+>
+> These cases were identified by a research static analyzer for DMA
+> lifecycle ordering and subsequently reviewed against the source. I have
+> not reproduced a timeout or late DMA access on JH7110 hardware. The
+> reported issue is the absence of established DMA retirement before
+> unmapping, rather than an experimentally demonstrated memory corruption.
+>
+> Thanks,
+> Samarth
