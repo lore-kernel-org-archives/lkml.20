@@ -1,121 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906658;
-	b=vhgZ0dozk3uS7jweborJynchX01D3b9P2/XtEAoTxzHiVZO08Bt455j1fjkpPQhG/ljh
-	 fhRgU9oyRBcCiMyTzos6D/asO0nuZ58COZmYQKSC54lT/Gt4MX2UDXgaC7qC4h8CQbUuN
-	 twCAOid15ngLVcW9xkzEBrXowou4WqA6rTihmR1amh/66NtikyEIuX0N7zwowoc7WgfDo
-	 lwYdkgYzyelZd0AD6L8Xy/1W6tUX8gl80bDmBPh4kLBx4fYh41a/VDhWov61fwL01Gfhn
-	 Fh3d8LtQjz3VrwZhkUEfx7AdYf+yY00RW5qJqz3pWKoBqN+IVU1oBeuT5otj7TjUsbQ==
+	t=1793906725;
+	b=0xgNt75mIJJrwSp3RqTTur9u1kjMrWrfNXLpX1iRZxXSDYIPUMcPdolTaoWE6nQC+Rer
+	 9C8vz9IukaT3KCFUVdCEsSOzgeINt9ORiE2E9I8b4p1bPMc3ouvT7G4B2brFzdQ/CgY5/
+	 qt8+mzplVrTNJQSpGw1yOvhgBhJVkz0E8HjN2APhl2Z0hV5VEE/J/M3g4K/KCR7qe45Ho
+	 eNFIipDCEIUrYsf3tWIVrJJN9wYRynTOmGB7NtUqfZP7XhPA4EA1K/KSE81l8Fno97730
+	 Bi3eMOmtFTXlYQq5SnWR0NRYTW3sowjoowsKuFsuArOpAboFeut2Vb55xrHwQ46lm5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906658;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=VfvCB69zFffTvll7Uz088QFRKuitfNBaW/NJB0o56kg=;
-	b=gAKAPFa86iztX451XKVMPv0ylpzuXteKERKxO7bWMUIL9Al+1Yfhs4QoK4wsCfHltg0f
-	 TG5v4M9NP1XNz/eZ6RKktEPXhLLAR1bYfgMzrpr4BKmMeIS72lvYPa7MN5WcPL41iDERe
-	 XDYSuEgKv/zwhcPxl+bv5M8RC9TPcHJl6/w4OFSald57AmGACMWrKiudsZ8sIADElCSA0
-	 KnpGSRTOTMkVv+bNARo0ZcRiYTRAvWsafojakc3m6GJTfptpDEfWb5QYs4ONGqjRXL6q/
-	 l96iSkBlSWT3F7jcbuxK9tkhxDzV4wmO3RZ98ruhKigYmOsARv17d84psjbe9XLHBHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906725;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=s4FZg8DsfWmRP296oRW8/FWLLuk54fxztQ3Y/s+Qjl4=;
+	b=PRJgG2hELVmE9kUCj/oeCPniQvsa3wphibCWnSUnsRxFZhJqt+jI5DGPITSda0kcMpwf
+	 lp4NDXo9vOLdfSkLoljkxQeVNksPlRE7N5CDnc8S5l4fODxZLutTAsHwe2lEwayrMDRDb
+	 56VyNypNUN6KU5vYXXcd5hDbd2Oce+Y8Rh5FOF6Es5OOkCsCY6+rLtXYq5wXxE0Bk0Qe3
+	 truD6iNDemRXCibg3EZvd3iolNNXCFQaRWROSylhV7qZ0aSJV+KGtXIafgBNXF/sjOaRX
+	 R3ZyCNPythwj+blIdgUY4JrE67NTLetddnjvRx6Mx+9ks56f8wfKINYUXw+jsetAFCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=joshtriplett.org;
-	spf=pass smtp.mailfrom=joshtriplett.org;
-	dkim=pass header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=AtPTHxb6;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="FpG0US/e";
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bLCqWOUa;
+	arc=none smtp.remote-ip=209.85.167.50
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5000606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5000606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6975C606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:25:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6975C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm3 header.b=AtPTHxb6;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=FpG0US/e
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1B72DEC0123
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:24:17 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Thu, 05 Nov 2026 14:24:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	joshtriplett.org; h=cc:content-type:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm3; t=1793906656; x=1793993056; bh=VfvCB69zFf
-	fTvll7Uz088QFRKuitfNBaW/NJB0o56kg=; b=AtPTHxb6T4qxMK1tAs470VUwz7
-	KV4vHjcqBgvYPeytqFAPwQiYEijo50nBf/luN2dcU0xWeCaQzGS8y0Im3PIoAU8z
-	JwT1Lx4vlvpeUEq8Bwr7J0ggVFkt8bIdy3Ek/ZrNZq81uabEWOpO8FCpRK6GVtXr
-	lCw43RvUv3Yqzv+rAgY4MHOEIgC2SxcFvxS5OKdXc+rrCaW4+hWK3eN9grX4iUoW
-	XFZEsYeJePAHVu4qDrlSd67oDSeTfzDJzWFTer9OF5JRJkVrPiDZmOD99p4jHR5x
-	CIJuRNZ/zXf0J0w6lWmfmjJDi1CRd4V6AbJGkk0SkHIkdJBDR5JwCSv6rVpA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793906656; x=
-	1793993056; bh=VfvCB69zFffTvll7Uz088QFRKuitfNBaW/NJB0o56kg=; b=F
-	pG0US/ex4mB0Yn9TIxxpL9EGJ4cXfiRbPTNntqJeBjha4F927CqaJaQ2eBmygQYd
-	PIMmXMLiGmf7x6qkc2tnQvYrWweNSU4wFlWGuInaMCgOYROsmivyWT7xEyGEeTTM
-	MMCuRWI8M3nfi/hI0+8m34G0nXFmOOKnHwOiPjhYVBoO+kcnKEU4bmsVeCbTAwZx
-	rQzDgrG8tBQsLdQSc5ZBH7U2dj8cOBdXSapQUy7dXEMO5rCc0ls42h57JSO50jAO
-	buZWDH+0E+XsHO4bGGvprtx0axeNCF12tp/+CUBuBTvl0sygOUeE+9HV/MMRf8Tu
-	J8E6b36n0HWa6Kw6FdoAQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=joshtriplett.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793906656; d=joshtriplett.org;
-	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:lGrUbN4MITJhzkfv4K4gkgWoRoAOqn7QEfmgJoMXDg0sdj7
-	0Jfi1DhvB/4VhG4CQQdxZQBUkHJ24tgFSEZpMF2sp3HI7l5stV+d/UydiNbRfK28
-	5wEx5hpcHQvqLtYWotjHTFgSY162Civiz+Dwhs/VNr2PFjkGrH9gdQyDWSO9aR3Z
-	boDlnoZf3xHYrDuieyL7EUmQMnyYfub2wHsGVzK0GDVaVqSAVgACqfic/7zSKOGt
-	0QsJZS9ibtNb5Ui+Xi+35IzBN4oG1fbRv4B3VFdbenPcbWYXpwO5tKL50Z2hrQHB
-	OxHSvPlJTwpqRe4yOM/q8ZQJMMgjhrQBQpY+btA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=content-disposition,content-type,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:rx+BpPmfIdPB4Tlqo3YU1f29HBHc55uNpTZc2CQUCyg=:k+Gh0LVp5gav5ovJp95LVAl72Y/3htLWNcLdWsteD9Q=;
-X-ME-Sender: <xms:4Nfsaka8L4-bcem0tFB4NTUQsjo75Us3AOw-CIqZcumKzRKAa3NpMg>
-    <xme:4NfsaicPd0-L-fVWZD-zSniI_WrOdNV53ynMGk_ssMRX_X-ZWlLjtkEWoZjfyA1wT
-    qfgvpgMawp1l3PO0Kmo72tGxJgzUKwsefX-7CV1skpsGxi6gc4HkkqG>
-X-ME-Received: <xmr:4NfsaplVYPOoCpGM3uHUk3gW-6MJfYlZWAxpLSxS6ZNYvTAUrAu1EZFMSg>
-X-ME-Proxy-Cause: dmFkZTFlFYMDGrPYwdNRx/GDjrurDJkqMGUZMAXjzy7BvQiIhXGcwMv11OxN5tZ/z/kIvv
-    6cklvOTOyjLd3Sj6jaKNDwAoSmIC9ot+2iS7Ael6CYOnqCrgD9/Nqh+/Xcpzv9ikR1gC7s
-    n0ShIa+m3tbrO/3YuNnrqIUdUlL2yLxi3zyI/yZwF2Ek4nyECMXYgh2yff95MryHoAqYwc
-    c57h03E7fuJldqud62nqSHe4s6g5mSQkDEGX7p4Rdcj/hO5kFaUZ8rtWQAsWbFIUKDLRy8
-    JSbr4tKrxhsDn/ETs39JJIzChYrgFb9KgloM++eGqCyVt32Gx+3920r4V+kOb58U2fvgsg
-    mwhL3OU6AeBLUVc1iD0lbT2/IfkTnziWU9RtmN7jAZVCzphF2pz2yGH9jUVQkpUHJdwdde
-    ctxt/b6adk0zj8cfr68+5ROKcAVXMqM2w+QzkqoC7zwQ+yJJAFt0gNlbRb7x/Df2pVqZbi
-    Pbeclf36SQh93yxFyMD41fDsmk0wmLEwKmMs+kr/csQxRaSp5q95kXK2kFPecg/GHTICch
-    6FrkipMIYZaOrhUA2KakV0/I97/iNmPudlF/lzZC2oAPlWPSupyC9x0Dfo861U2Lqm+HPy
-    NoJwTJ4tm4YTr2Ck7nKa+XlKRYBEUhUgfCbQTtI5M/+9RsKM0064MjzfMR7Q
-X-ME-Proxy: <xmx:4Nfsaq1f-pyzTpwyRO9J22skREzAHDRg_QfSPJYXZnXe4B_iaXaBKA>
-    <xmx:4NfsaqeTzJX8Zc3pARtY1wmqWlmvfzbXDhfvUP6OpZJ849FkPNvMyA>
-    <xmx:4Nfsasb4KEc2OEMfNKvHcPOwH_HZ2hIB2XbdezLIDKJY_jYVGFFJhw>
-    <xmx:4NfsanGS9q903gU-wnLpUYEKUywClFHSAsNJjfVk19IfIvR69nnTGg>
-    <xmx:4NfsapWw_kRu9H60Ks-RWFWptLUEYLP7ab30GkeGLQEZJMeGLor3qEc6>
-Feedback-ID: i83e94755:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 14:24:15 -0500 (EST)
-Date: Thu, 5 Nov 2026 11:24:14 -0800
-From: Josh Triplett <josh@joshtriplett.org>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Rong Zhang <i@rong.moe>,
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
-Message-ID: <a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bLCqWOUa
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so2047451e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:25:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793906724; x=1794511524; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s4FZg8DsfWmRP296oRW8/FWLLuk54fxztQ3Y/s+Qjl4=;
+        b=bLCqWOUaX0uq6AQj9rJdrFqH2vW/Qsze0/0lF8jRGMesKwa0bSZpycJVLKIcb/sZ8F
+         1RZ6Nz7ottsGm6HJGlbx8/fvf22sNQCDA1W3XnIFeFQKVgk4CJmIZWET0Td45RHDXHwa
+         3QUR8NmaWtgdE0Xxa4jz1R4qXQ/mhnc7UT1efxLctlYvq2/yzTrfFZJqhPaFFDsjjgK1
+         tXxafuDjQa0bLv7eth8kQBmoiAvWRA/AIo75VkO37SfPIK9Irqw+HaiEXysotEqTzbft
+         /KcsGjO+Ls3W5HUnFjviVg4EzuvJO1Xh3CQVJsYukwla890cgnRJtj071VhKmDsH54GQ
+         svTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793906724; x=1794511524;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s4FZg8DsfWmRP296oRW8/FWLLuk54fxztQ3Y/s+Qjl4=;
+        b=FsG9QeVti1ETLr7bLVqp+7DmkIYJviXD1zrYYiWjHhcsMaMqFCA7MkuNb35hGddYvW
+         QEOA/kF3y2rUu3y/xu0sQO13lFYPfS/VKBfaQFLGviJ5I6CF5UgBgaKzcBPbc5qUYnP/
+         M1D3z65AG8ERRBV15Mct+4KWNQXT3liXgMfp9XC5/CaI3/LIxTGF4pa2VeeWqTs3EuT1
+         nhzs7iljhJUY8StSSP+rzpFwoxImdzHgyfTWe1+HaSI1rohfQdw4bHEGzhbxCjHv196S
+         xfGbTQNTWGfs/jJH6IzMjgOribkYnyXkbC8W/803EjNGK1fXa7vffxqMJE8fyvuDlFOI
+         ZsIA==
+X-Gm-Message-State: APuU4Z9VLNFttVp2gtFjL1e18mbsQWDpF3ukZlxxLYLkVwq2NEPbPZzO
+	VcxFZBHF2LP0Vpapce3q3qPeRQNodQhw1rVGStKp2fwVlW315/Mh3jqx
+X-Gm-Gg: AYBFou2oid32ajkc+mz81INN+ensMI+RLNYjDCb4Z/g1TX383DP6SieSICYqR6KAza4
+	MdLNJ5HHxr44nJnqBUYtqNuSkr1AdBNzBUzBI9yUdCf6gad9aFH19Sl8Yc2frl6ExkZRdDx+EQ2
+	bbGH9DLvvV6/Fg0jNO5dyKGWPpEHBkI08jbrloyfjl3vzIZ1dxbx2IqRW3/ACpW/4TpwHI17KAZ
+	0oq3bSciHkQe8A8R0hWAvP3XWCfR5Dfww0TvmNBKKWcMuy3BXBL4zUDZsepW2i/DcmT6BxjJmO5
+	iJx6m9TcantQZP30EjS+okKg5fiajRvfr3rXFuL8nqSNnl95f4P9rPc4Q40rWG1yBargrCpIjgv
+	vp62hdd4iAndIDT7AnJlUO1Il+AB260S15Qz1+AgIOWTIH3/naMiC75Bg0u4HRJ6V88Md/YYMTN
+	SJKnYxYqxYdBIv0fqEfFkFq7XojFdKPvAT9uUhyurguKqqwBhWEg725MMQGPviBpvLW1VhVFWwT
+	MsIczc1hXFDxS+LJ9xEBCpMWEdJNCyxbqsNxPUqGJZCM1L8QPZ42RsmhPvxlHgJBroKLq5X2VVy
+	zuGFeNk7YEzW+caaMCuJwEz7iEZB6tpTTNCA/3Z3KD4=
+X-Received: by 2002:a05:6512:104d:b0:5ba:356b:5a85 with SMTP id 2adb3069b0e04-5c003ae0858mr15497e87.43.1793906723445;
+        Thu, 05 Nov 2026 11:25:23 -0800 (PST)
+Received: from localhost.localdomain ([185.65.135.248])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c0030a3b50sm25897e87.79.2026.11.05.11.25.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:25:23 -0800 (PST)
+From: Trace <tracekotae@gmail.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	fujunjie <fujunjie1@qq.com>,
+	Jan Kara <jack@suse.cz>,
+	Matthew Wilcox <willy@infradead.org>,
+	Vishal Moola <vishal.moola@gmail.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [REGRESSION] mm/filemap: mmap read-around stays off for an open file after sparse faults, since 7.2
+Date: Thu,  5 Nov 2026 20:25:17 +0100
+Message-ID: <20261105192517.228523-1-tracekotae@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,39 +101,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-tpacpi can expose the charging LEDs as `tpacpi:orange:batt` (LED 1) and
-`tpacpi:green:batt` (LED 2). However, at least on my X1 Carbon Gen 11,
-these LEDs get hidden because `TPACPI_SAFE_LEDS` doesn't allow them.
+Hello,
 
-Add these to `TPACPI_SAFE_LEDS`, so that tpacpi can expose them.
+since 7.2, once an open file has taken more than MMAP_LOTSAMISS mmap
+misses, it gets no more mmap read-around, even if the access then turns
+sequential. For a reader that does not run into pages an earlier
+read-around brought in, it stays that way until the file is opened
+again. Each later page is a synchronous 4 KiB read, which on NFS is a
+round trip.
 
-This was previously proposed in
-https://lore.kernel.org/lkml/20250403040846.7834-1-martin@arp242.net/ .
+I think it comes from this series:
 
-I'm currently toggling these using write_support via ec_sys, and would
-prefer to handle these via the normal LED mechanism.
+  0b9c0aeba938 ("mm/filemap: count only the faulting address as a mmap hit")
+  9b0fcac3cfe7 ("mm/filemap: do not count FAULT_FLAG_TRIED retries as mmap hits")
 
-Signed-off-by: Josh Triplett <josh@joshtriplett.org>
----
- drivers/platform/x86/lenovo/thinkpad_acpi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I have not bisected or built a revert. By reading mm/filemap.c, v7.1
+and the current 6.18.y have the old accounting and v7.2 onwards the new.
+I measured 7.3.1 and 6.18.60, and the program below also gives 16384
+on 7.2.14 (with the zen patches) on a SATA SSD. do_sync_mmap_readahead()
+and do_async_mmap_readahead() are unchanged from v7.3 in next-20261103
+and in mm-unstable, mm-hotfixes-unstable and mm-new of 2026-11-03.
 
-diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-index 4f81855ad721..50a8cff5b374 100644
---- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-+++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-@@ -5608,7 +5608,7 @@ static const char * const tpacpi_led_names[TPACPI_LED_NUMLEDS] = {
- 	"tpacpi::unknown_led3",
- 	"tpacpi::thinkvantage",
- };
--#define TPACPI_SAFE_LEDS	0x1481U
-+#define TPACPI_SAFE_LEDS	0x1487U
- 
- static inline bool tpacpi_is_led_restricted(const unsigned int led)
- {
--- 
-2.55.0
+As I read it: above MMAP_LOTSAMISS, do_sync_mmap_readahead() returns
+without reading, and mmap_miss only goes down on a hit. With no
+read-around the next page is not in the cache, so the next fault is
+another miss, and nothing lowers the counter again. Before the series,
+the retry after each read-around counted the pages it had just brought
+in, so a sparse reader did not reach the limit. The series' tests run
+random, stride and sequential access each on its own, not one after
+another on the same open file.
 
+The program below writes a 2600 MiB file, drops it with
+POSIX_FADV_DONTNEED, touches 2000 pages 1 MiB apart through a private
+mapping, then reads 64 MiB sequentially and counts major faults. x86_64,
+4 KiB pages, read_ahead_kb 128, ext4, plenty of free memory (7.3.1 on
+NVMe, 6.18.60 on a SATA SSD):
+
+                                          7.3.1   6.18.60
+  sequential only                             1         1
+  sparse pass, then sequential            16384         1
+  sparse, MADV_SEQUENTIAL, sequential       512       512
+  sparse, close and reopen, sequential        1         1
+
+The same pattern in a Python version, on 7.3.1, on NFS v4.2 over 1 GbE
+through WireGuard: 80-90 MiB/s with no sparse pass, 5.7 MiB/s after it.
+
+How I met it: PyTorch loading a model from safetensors on NFS, on a
+Radeon AI PRO R9700 with ROCm, where the driver faults in the mapping:
+
+  folio_wait_bit_common
+  nfs_do_read_folio
+  nfs_read_folio
+  filemap_read_folio
+  filemap_fault
+  __do_fault
+  do_fault
+  __handle_mm_fault
+  handle_mm_fault
+  hmm_range_fault_locked
+  amdgpu_hmm_range_get_pages
+  svm_range_validate_and_map
+  svm_range_set_attr
+  kfd_ioctl
+
+safetensors maps the whole file (torch.UntypedStorage.from_file,
+MAP_PRIVATE) and builds one tensor view per entry, which takes one
+read fault per tensor, mostly on its last page. A model file holds
+hundreds of tensors spread over the file, so mmap_miss passes
+MMAP_LOTSAMISS within a few seconds of the mmap, before any weight is
+read (bpftrace on filemap_fault, reading file->f_ra.mmap_miss). The
+GPU driver then faults the weights in through the same mapping, every
+page a synchronous 4 KiB nfs_read_folio, about 1800 a second.
+Read-around came back only when the GPU's walk happened to continue
+through a window that one of the first hundred faults had read around:
+async readahead restarted there, and about 900 hits later mmap_miss was
+under the limit again. With the page cache cold, one model's first
+picture took 700 s on 7.3.1, 512 s of it below 10 MB/s, against 239 s
+on 6.18; a larger model's first run took 54 minutes against 13.
+
+Is read-around meant to stay off for the life of the open file once the
+limit is passed? I have no patch to offer.
+
+#regzbot introduced: v7.1..v7.2
+
+Thanks,
+Trace
+
+---8<--- mmap-ra.c
+/*
+ * mmap-ra.c: does a sparse first pass turn off mmap read-around for the
+ * rest of an open file?
+ *
+ *   gcc -O2 -o mmap-ra mmap-ra.c && ./mmap-ra /path/on/a/disk/testfile
+ *
+ * Writes a 2600 MiB file (removed at the end), drops it from the page
+ * cache with POSIX_FADV_DONTNEED, and counts major faults for a 64 MiB
+ * sequential read through a private mapping.
+ */
+#define _GNU_SOURCE
+#include <err.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/resource.h>
+#include <unistd.h>
+
+#define MIB	(1UL << 20)
+#define SIZE	(2600 * MIB)
+#define SPARSE	2000		/* single pages, 1 MiB apart */
+#define SEQ_OFF	(2100 * MIB)
+#define SEQ_LEN	(64 * MIB)
+
+static long majflt(void)
+{
+	struct rusage ru;
+
+	getrusage(RUSAGE_SELF, &ru);
+	return ru.ru_majflt;
+}
+
+static char *open_map(const char *path, int *fd)
+{
+	char *m;
+
+	*fd = open(path, O_RDONLY);
+	if (*fd < 0)
+		err(1, "open");
+	m = mmap(NULL, SIZE, PROT_READ, MAP_PRIVATE, *fd, 0);
+	if (m == MAP_FAILED)
+		err(1, "mmap");
+	return m;
+}
+
+static void run(const char *path, const char *name, int sparse, int advice,
+		int reopen)
+{
+	long page = sysconf(_SC_PAGESIZE), before;
+	volatile char sink;
+	unsigned long off;
+	char *m;
+	int fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		err(1, "open");
+	if (posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED))
+		errx(1, "posix_fadvise");
+	close(fd);
+
+	m = open_map(path, &fd);
+	if (sparse)
+		for (off = 0; off < SPARSE; off++)
+			sink = m[off * MIB + 37 * page];
+	if (advice && madvise(m, SIZE, advice))
+		err(1, "madvise");
+	if (reopen) {
+		munmap(m, SIZE);
+		close(fd);
+		m = open_map(path, &fd);
+	}
+
+	before = majflt();
+	for (off = SEQ_OFF; off < SEQ_OFF + SEQ_LEN; off += page)
+		sink = m[off];
+	printf("%-40s %6ld major faults\n", name, majflt() - before);
+
+	(void)sink;
+	munmap(m, SIZE);
+	close(fd);
+}
+
+int main(int argc, char **argv)
+{
+	static char buf[MIB];
+	unsigned long i;
+	int fd;
+
+	if (argc != 2)
+		errx(2, "usage: %s FILE", argv[0]);
+
+	fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, 0600);
+	if (fd < 0)
+		err(1, "create");
+	memset(buf, 0x5a, sizeof(buf));
+	for (i = 0; i < SIZE / MIB; i++)
+		if (write(fd, buf, MIB) != (ssize_t)MIB)
+			err(1, "write");
+	if (fsync(fd))
+		err(1, "fsync");
+	close(fd);
+
+	setvbuf(stdout, NULL, _IOLBF, 0);
+	run(argv[1], "sequential only", 0, 0, 0);
+	run(argv[1], "sparse pass, then sequential", 1, 0, 0);
+	run(argv[1], "sparse, MADV_SEQUENTIAL, sequential", 1, MADV_SEQUENTIAL, 0);
+	run(argv[1], "sparse, close and reopen, sequential", 1, 0, 1);
+
+	unlink(argv[1]);
+	return 0;
+}
