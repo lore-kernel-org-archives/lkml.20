@@ -1,49 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887213;
-	b=eU0vOB2Q77en/OyXqlV2hQNY8hn+UIyr19kbtdtf+3EdxWWwqi8+Zu/B/Y4H61xJbhvf
-	 LgRPjemm5llLrOrEFyGBhCDr7Mzu1ABaXkVCLybZ6mi90Y11B5aQjXQwKvug0tLCMe02y
-	 Xch1MOAjUdgChzvtCvcGK/7u6bAfQTyJX7vW2LJtSqX6OvFEmDDdcPXCQxfAWnkCK6uk4
-	 xzRn1lx0fk264+K7JUPPMUfoKUqSS307Is6OVFVqe1uOQjBlMS1+JysSZikbj3CeY0F4K
-	 QesYaBTWp0AGszBIk3genrWSRpM6OWM5z0p5IcMPlGhTddcAQC9mwWZZmDgHS/YdKAw==
+	t=1793887251;
+	b=BFtRp7HxM2Y8g7nNHEhAsiybovNKUMnzSK4XEr3NNfFH+ZmHnIEiW0Kb4qrYvjPOFi0v
+	 gqm7KsfVD1nViZhWsJhBZt2Jhrvnxd78SuSAQLG8Fr60SCp1srC2j91brj80UmTtH6n3S
+	 veMFEWONaKalB+Rjn/9yCDg/QR16I75Wf9ClpMCqGyRMk6smWw6etrqBI7rlv+Uuy+AXJ
+	 yVbGz+ERYg6CEzBPAMB/RyDHCE66J0h3CWUQrTFpEnFKowzQ88WFNgojiNWWykB83GCCo
+	 /FkHY+U3O8bySVNmIYaGG6QGopfYekgL4vR6dQatbOtR8yp9mu6GRsK0IyGWAINTfHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887213;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=Wbz89TKEx262rwj21tXM8dzwd8os90vJZRvRJAR90DQ=;
-	b=0DPzdIEIHi/TqTzahXYb8opPwxl9FvJFrER5aOwG8WQWl8bTTXKgw6xeuF2GGQ9mDxq9
-	 rIpqDLpIJvNZqnSgr+Gi5MA7f/2lN91CuDpeYm6nklhZ7LTnqDA1v2bNCkiTcFVvwsHS6
-	 +5CWXUhJE0zNMC3Hd/SMfjV3jYoRIA/BbMe4cwBX5lusLoPLubtgbnZHYLT081E6aLkwr
-	 aNtb6SDHJZcK3hf409sPblA6Xi58Y5SDhdlQjUwyBjw2R9I7pWgOgPwyJ2Uo7W1slFo8O
-	 BwmRM8XiBSGoB4EXXsmdaP0Tn+S5fQ92KVtnFcNCT87jcU3/29xEzfwXBT6JtcGTibQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887251;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=s074/WGaEZodvb8MrBC/plqFT0cVs1hNQbBNRgLS+7A=;
+	b=cPoqGe7EUBeAoP52rhSXRd06DcGJ8ZGHrCd7e52uKBbnbyGId6mT4snV7WlcjIwfHUdR
+	 oF904T6UcZyzw8XPMspEWCVStdW3JrGCpEZNdIqFEm4YCU0C6xaKQOkDP/dCCuvGezYxp
+	 HxiJKfqjeaukg71IEIXZ25TpwXdAbOdfU8dh0/P9ISkVFaS3XgFcgKxGeR1/REJX2SQ5N
+	 QMkfUfG69SJXenbPkzjt1dEML7AriatJfEpoWS5EEdkPjmcCzx0Uvh8vmr5eY0NWh3Ocp
+	 ewdTK/8b6k5NNQUzw/iOlwmxF+qeg9Z6u3biCLiYTkHpIY6dymXN4VIrANI3qE423FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SyYcTkLC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nxY9Jccf;
+	arc=none smtp.remote-ip=74.125.224.44
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0592E606A328;
-	Thu,  5 Nov 2026 14:00:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E943606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:00:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E943606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SyYcTkLC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894621F00919;
-	Thu,  5 Nov 2026 14:00:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793887212;
-	bh=Wbz89TKEx262rwj21tXM8dzwd8os90vJZRvRJAR90DQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=SyYcTkLCqxwsHDEUX9fa+uTYAlShsY2XTG0LxNcdjPfAvYnE/v4yFdgg4MvTZ/r4s
-	 GvvjBLzBu1phRsakHumHhW2+iMK3KWNXJgNEETSyneQ9eYcUWWW/xHodCB/cRL4aF4
-	 3R7pFXpKqOOZPQgp+sWDIYS7qAyicpIFK4rs0BuR3VttvyS354vFwBWIwJ2g9QoXf8
-	 ow7EIZMQvl1NhpgP8WpuWb5MbXsTPtbyn6GyscFALozvoBIWW3CCsJcJLfCaxbOjpc
-	 HFkVO3iZn/+p0iSmxVtxzm8maJXt6F8QrmL6+PaJX8+3kcN9JsZiPvvRcGsx/35xPo
-	 /WWKPgtJfUD4w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D2D0391AF93;
-	Thu,  5 Nov 2026 14:00:12 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nxY9Jccf
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67c08c7adadso506475d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:00:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793887249; x=1794492049; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s074/WGaEZodvb8MrBC/plqFT0cVs1hNQbBNRgLS+7A=;
+        b=nxY9JccfHr/AUQr5sZcoBDbdnqV2s5ymUY6k8leyIxTDI+P2/s3U/f4FtFBr5zEDy+
+         hhjwvuWVVISEoxcC68qQC9W8qMSVsOw7dtqwzjGWKP1Gzo7O6+7mZxMJsZHzbB/KqlPK
+         zKfSTNpzdR9y9YriGZWXguMcQFhPSbpcFILwe0zICxAFLuCt0qL2h+DubEOyPkJSLRrY
+         gns4wXEEpBO/ooPpmQ7DbrOPDTh4PdF05cIZ3lQ+Q3X43+pUJRb+XZbu1g8jp62beAtU
+         y4DOzWRswBA7uA4nO1VgbMWIA0KFVApSoQ0kgcP7XJwvF0W7e6IkM4IJBwvRQOvEIWVK
+         88CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793887249; x=1794492049;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=s074/WGaEZodvb8MrBC/plqFT0cVs1hNQbBNRgLS+7A=;
+        b=tfSsPFmxxXFF8l0Lmic7D7u2ZLxQMc6aPflukjjPI5OONGQ1d0NPeTI/D+PJPMnDoV
+         4nyzLowqtvgzh5IcjRme88vukVEsW00np3JIz0gmFu0pBRanCNznwXOfMO9e5ZQP/Z2p
+         3w36hNCLpP1wabWvKwpzkivii3OaBWI7+3HPuAcn17jVTjYBWy6kPEsQC/K+bSBa7SVa
+         lZl3aermpsd0wBUR66v1BXfPAKK61rjfBdzEokJBDJ391HLkclChYhOCHnVwpHaVb5Ew
+         dD3Qm6SYK1UXWeGhU++ylRZu/fCNbj5a90OwK9GvjCcQsuuMa1hNtuD5IqsrbfEk8imn
+         yliw==
+X-Forwarded-Encrypted: i=1; AKwUvBzX3PwqcM5u61q3+4b8UUgVz5koNlJ7/VEXjzxvol0XJ7oEQXwS7oYF3pna7sYmvUrI+GTvg2BS6IV3knU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9h0G+ZoJFcV/pFneEqKZr8mTWatMjy7kLXLR/8GK5UnIu3vtu5
+	0JjwOdbaIL9cpAs6+oLJmXeHiixk1DJeKIaom0azRNOHPkEAyLDKlVPBx6YSsW2T
+X-Gm-Gg: AYBFou240DD+yuvM00KkuUWSyL5vvQ0sw7H5g9J4Kw0RoDkZwEpqrCUtySnF7vy5CY5
+	Jz1w9N6OIgvPt4vcCqrS5XE11WTPNnaygDg6oyP5sISugo1Zp9KXdfvd3yteV4Lg/ofA/kRBGEE
+	Xi5CTtFGo329VUdLBLPQYa+jstJJZWU/pQ04R4OAyhBrjEIoOTjygFTqK/Nc6GnBEJgeAymC1+v
+	8wrTm9xCgQ5+f0nUng8OKP51dzL8B8UIWkzIJBsb9kbTIzbLpN0F0eCoze+3Xj5fmVIZpCj9E0v
+	Ih1nObwRdbnJZi0lClxo/EK9ghFciks7b4cnVh5z3UNg7jHXrYNT9lZI2Glj31zm1avvrpZpufJ
+	v3sdjs5vidcxHwnSJ8BAeutYsnw9l94/Z2e/s6Eh8ti28izj9FUurkXMGgaV1kPwQDshToclOzP
+	uWzSSAoJTRAfIUyTw6HcM6fStBJdk6SqErNCMhKo8tPWrD8XXFM7JXWVcxFocV8Oy15R8lAIwLP
+	tlz0xj9PfMiy6ef4BBDKB+UdmFWu6ByVgnRoT0rRkhWSRZOcJJjrFY7sbEUBVh6LzMynL5YZKCl
+	MKvKxhrb5bDiNSS12RQj/J6NqvHiuh1/CY8BavP5AEKmc/LNSc6m12amQiqF3zhoK3nYlDjp+hS
+	ucqZvaJYPa0wGHZ1r0rrWhIREa8B+KPe9z5FYQGK+RngGSyc5tn0VLEyxzDMY
+X-Received: by 2002:a05:690e:d86:b0:679:bec4:aef with SMTP id 956f58d0204a3-67ba4fa93dcmr9290626d50.32.1793887249206;
+        Thu, 05 Nov 2026 06:00:49 -0800 (PST)
+Received: from lab01.myowncloud.network ([2601:cb:4000:1c5:5396:7ba1:d08a:ebca])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bee202a69sm3492991d50.5.2026.11.05.06.00.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 06:00:45 -0800 (PST)
+From: Amit Patole <amit.patole@gmail.com>
+Date: Thu, 05 Nov 2026 09:00:36 -0500
+Subject: [PATCH] jbd2: document the h_invalid handle flag
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,45 +91,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2 1/2] l2tp: ppp: remove unused backlog callback
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179388721117.3722597.3147877095658047375.git-patchwork-notify@kernel.org>
-Date: Thu, 05 Nov 2026 14:00:11 +0000
-References: <20261103055614.3729-1-qingfang.deng@linux.dev>
-In-Reply-To: <20261103055614.3729-1-qingfang.deng@linux.dev>
-To: Qingfang Deng <qingfang.deng@linux.dev>
-Cc: jchapman@katalix.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, xiaolinkui@126.com,
- netdev-bot+sashiko@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-kdoc-jbd2-h_invalid-v1-1-4bc224f7d0a2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAASM7GoC/yXMQQqDMBBA0avIrDuQBKrVq0gRkxnraImSqBTEu
+ 5vq8i3+3yFyEI5QZTsE3iTK5BP0IwPXt/7DKJQMRplca/XEkSaHgyWDfSN+a79C+DJlQaTyTpc
+ KUjkH7uR3Xev37bjagd3yX8FxnIQaoEB3AAAA
+X-Change-ID: 20261105-kdoc-jbd2-h_invalid-8297dd06f190
+To: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
+ Andreas Dilger <adilger@dilger.ca>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Amit Patole <amit.patole@gmail.com>
+X-Mailer: b4 0.15.2
 
-Hello:
+Commit 61e2a90a910c ("ext4: enable scoped NOFS when starting a handle
+in nojournal mode") added the h_invalid bit to struct
+jbd2_journal_handle but did not add it to the kernel-doc comment above
+the structure, so kernel-doc now warns:
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+  include/linux/jbd2.h:523 struct member 'h_invalid' not described in
+  'jbd2_journal_handle'
 
-On Tue,  3 Nov 2026 13:56:11 +0800 you wrote:
-> PPPoL2TP sessions receive packets through pppol2tp_recv(), which passes
-> packets directly to PPP or queues them on sk_receive_queue. No receive
-> path queues packets on the session socket backlog or calls
-> sk_receive_skb() with that socket, so pppol2tp_backlog_recv() is unused.
-> 
-> Remove the unused callback. L2TP/IP control sockets retain their
-> separate backlog callbacks.
-> 
-> [...]
+Describe the new flag. It is set by ext4_get_nojournal() on a handle
+that is not attached to any journal and is tested by
+ext4_handle_valid().
 
-Here is the summary with links:
-  - [net-next,v2,1/2] l2tp: ppp: remove unused backlog callback
-    https://git.kernel.org/netdev/net-next/c/7c43105da5fc
-  - [net-next,v2,2/2] l2tp: unexport l2tp_udp_encap_recv()
-    https://git.kernel.org/netdev/net-next/c/ae54bc28fc9e
+The warning was found by running scripts/kernel-doc over the headers
+pulled into the htmldocs build. An AI coding assistant (Claude Opus
+5.5) was used to locate the warning and draft this change; it was
+verified with scripts/kernel-doc (no warnings left) and checkpatch.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Fixes: 61e2a90a910c ("ext4: enable scoped NOFS when starting a handle in nojournal mode")
+Signed-off-by: Amit Patole <amit.patole@gmail.com>
+---
+Comment-only change. Built with W=1 on x86_64 (fs/jbd2/, fs/ext4/)
+with no new warnings.
+---
+ include/linux/jbd2.h | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
+index e3886963ba00..69f12366a09a 100644
+--- a/include/linux/jbd2.h
++++ b/include/linux/jbd2.h
+@@ -482,6 +482,7 @@ struct jbd2_revoke_table_s;
+  * @h_sync: Flag for sync-on-close.
+  * @h_reserved: Flag for handle for reserved credits.
+  * @h_aborted: Flag indicating fatal error on handle.
++ * @h_invalid: Flag for a handle not attached to a journal (ext4 nojournal mode).
+  * @h_type: For handle statistics.
+  * @h_line_no: For handle statistics.
+  * @h_start_jiffies: Handle Start time.
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261105-kdoc-jbd2-h_invalid-8297dd06f190
+
+Best regards,
+--  
+Amit Patole <amit.patole@gmail.com>
 
