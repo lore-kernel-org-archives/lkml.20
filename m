@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896257;
-	b=TMJaIkPELoYzX3Q/6ZPAuJVWY6NyII89JmUVRiP7j0p0rUdiP51SLnUiQzKB6PIujtvp
-	 JDZhhVvTqiPruoBsQrfuPcS3mNLVjJ+z6WDfl3xeNP/8KU2jmuscuD4xld7qV9YHZykmm
-	 jonaZ0sI6DkKHNd9TqCcfeLS5JFMmhMAY0ANXv8X1QPj/rBd3LJFPAAvzRaNaJ8Cl84ll
-	 pgnYqwU+XxqHUBNriC44T3JIWjAWagGoY6rwCwQlurjbaKcJLTEx+hNq2MX+7WWnhKcPe
-	 DYVvojiKLeQyWVQH9SwuQ8kFaNk/oTAooNvZJ1NQwDywARBdo1YITJslfeODOXloHvA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896257;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vbFDvHB/nnpMGXOJ+EP9xgZ84bCEnXivSzweLho2gH4=;
-	b=l8E4nYQ+7UEDsxg0fYQxBlodohjQZoWhYLiAJY78ZqytzBQbULjomfPwzw8Z//JYkRX0
-	 q7n8GU7R4thqebRli7piXsFYFwSA7Q9MM7xSI9KXls5Ex15ZAUK9rHiO/N/33qRRT6aO+
-	 qCIAo5Jm2NEpd2W8qW69RlDV8MDSx+lXMgusgThOBMVeTY+Dejhak+vZuajjAcXQ/OhF9
-	 SZj2zIYS+aDkkzYlZuZ3rzXpX+noxwwCFaTEX+G+N7P9Fnr+2nkUZ+9DeEuzrE5PhWSD3
-	 9KaQsxZz3Nz1nsKhUv3hHnlh3EJm67u98vD5dUL3n7SJPmJnv6LTp+p8eF73mvNjauA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOSp9dHG;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793896242;
+	b=g++eimK7U7tCDgtTHUAwEumU1oJd+IjTb8dHbvg3YIoEgcTRtagZeqN88SPk0Nk5nmiQ
+	 7x7txGesceGqXAyHnTmshlk28pNmHGBlYuilwO9d0hITYtrLsozc4CegtVh+MG+NxvmoC
+	 qNcHpKH3v/5W537rfjYQVceQeKPs/6ikfs7PQX7OFVj2wdnPnHmqLSO9OnpQfrJW43M8C
+	 BLWDJ8lwqZPt6Pp4eVX7HJSRA2MzCVMskzIb6ndrHhunIPf8yz7DhSKff6Y1Np7uGuxNL
+	 oJRJP6z+optUybwHOzeZZK7jg6rzyIMab5UosY8YPbYoI4vVVl8MRxjWzkuqSs8nFUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896242;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=kH3aeQG1zjkky2iTwwiZsNSmhO92m6g31TTG4/mfG38=;
+	b=tCz8bcGrXQlUEiQ+Kn7iP39U2JYO/glFXEk8q51eCht92QK1dIbU3VNN1CKnO1Tbn5WR
+	 qaf+P4NMsYFHR/VIAmvsa6tQifyzPqdQMwrPpqKgy2mT4ZRzjzOp6fGewf18YDXcLZJa1
+	 pFOSS+2cNlJhr2dQ41Iz0joi704769QRfo3RrgfX2hHmAQX/DqfC1j+h6SdTtyKyyKREW
+	 PyNrUegwNkjiLxNTQ+JmpLrcckqTzmygwuU5pJ3U7r9ZuZWt7e583I22oWwvwqivnPb7n
+	 6t9sHMhkLnxu/wm3tmlup8YzQ0rajgMoER1fNtVUuWt7RNsqWL4cYXAiMnHzhQDBoog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQvYsS5B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CD76082BDC
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468C4606A337;
+	Thu,  5 Nov 2026 16:30:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bOSp9dHG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33291F00A1D;
-	Thu,  5 Nov 2026 16:30:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQvYsS5B
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793896241;
+	b=D9bIsKbVMEAoVAyx45tXiJykYOVB/t/oLe/G+T6BWfsf2AulympFKqDRcKwQWOKAaPUH
+	 7IBFTgpryqcHCP3McNEJk7B+WN44S434x4TQBH3r14319TvyLTFsu9DzXGAL4V2GTErJd
+	 MCsjGmc2DOvv8cx5GxooUd7k5wueHpwE7muTpYLsKODZB8TkG2YmOoMklhMpjcBt1W6D4
+	 P5vjpSPnFE9t1FXyHLlT5+mId5AwTF1fsfMDB5YoaFnyZdqGShnB+/wP6et+bUZbSQRc7
+	 vvsMk3Z9wWBK3yytOzzKPKfkImcV4qx69WW/cTHhyaRgAWjLfAa0ePpSFPVN0XyRRFQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793896241;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=kH3aeQG1zjkky2iTwwiZsNSmhO92m6g31TTG4/mfG38=;
+	b=xTHZAL9c/ywuJInuMkMZz+UZrLYRUEFJ2OaXdRhdFUxnx+q6jHSuYl9o3j5FwfHBEjg9
+	 zqlKhurMuCB1V9EDtX5Dr46WR/LYTdmhwPeLop7vO+ehkUphMsN+ednGj4DEDcbaSMl2i
+	 fYyE3gT8bmxn8EP4SKQXLBGTi4Mvg3uGLh3MJEylYX5r82CvDNmkYwOwJixtFpfUpfkcN
+	 JJc+llW1WsMLKAE1jCrD7LMsB3aZVYbS83WbXkO4Szp0FG+fW90NXZ7h9KXz6yXZ/rZUt
+	 xJtvNtfjIhJFJ68OJ8h7JmaTs7RTlp1jDiA8+aF77QHpjYBshnSnuthp34uCcjOYUhQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1450C1F00A15;
+	Thu,  5 Nov 2026 16:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896256;
-	bh=vbFDvHB/nnpMGXOJ+EP9xgZ84bCEnXivSzweLho2gH4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bOSp9dHGQ0395mjvxAnMx2REKrudU22feeCgcClOcnwCp2+L4AkuN3zseRweLpQe8
-	 1Z2Bf/m3+QV/Sm6Yt3CKBXPIHY47KGtXZUL7IMZn+w0UnMnIOrIC1VUiKZ1QAOkF18
-	 SHm/k4ZR3BgAL1FGcE99eJ6GwEVRZZiBCClIMo7qHXWqNBMWpoJKtJmsxMv06BCA3V
-	 wc0yTVdA9F3JjWTp0xzxkGzIFnRE6Vw9/5Sqmo85advp387Pc2C630lFM2ZT0WaNXz
-	 PYknBTSfWpJrx05w2zWwZDlmEnJNjotF+a7N0V7JK0RW4hFQcqCIiMPVQZHZKRHq+m
-	 0sFKYGGjGEokQ==
-From: Frederic Weisbecker <frederic@kernel.org>
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Phil Auld <pauld@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 01/47] stop_machine: Add post function to execute while other CPUs can exit
-Date: Thu,  5 Nov 2026 17:29:59 +0100
-Message-ID: <20261105163045.38862-2-frederic@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105163045.38862-1-frederic@kernel.org>
-References: <20261105163045.38862-1-frederic@kernel.org>
+	s=k20260515; t=1793896241;
+	bh=kH3aeQG1zjkky2iTwwiZsNSmhO92m6g31TTG4/mfG38=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hQvYsS5BIgtggtu8HSqIUIrfX+REPbHJKs4TcufksdplAOak/hm8G4Jx0t1DXI9Zx
+	 OOm+rYBRysu0RzIz1OdDbQl5w6ShiaCtT8WpryYCEGILsirzomT1PtxSMNW0Dllz7b
+	 bPJEM+XzksarHvY15qi3H0jRc7yavLaqSLPn1E6gx3qhb0f9+y0pa3FrC/x/xpAyNN
+	 Ln16/jYbbnouX0BVpYTreavkxqGC1wD6luB/sIwwOj08pfgvgj+hwCw4+QcNK7/3bO
+	 o1VSb171fxNdT1OaBroaJNvFJgmYD0pQRrgO+GpgFT+/7o7fyLA4APEhaMqjGMlEIo
+	 O7pbG2MD/92hw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 970584732C;
+	Thu,  5 Nov 2026 16:30:39 +0000 (UTC)
+From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 11:30:40 -0500
+Subject: [PATCH net-next v6 4/6] tls: update the RX key when a KeyUpdate is
+ received
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,417 +83,365 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-keyupdate-rfc-v6-4-99b695f9eb4f@gmail.com>
+References: <20261105-keyupdate-rfc-v6-0-99b695f9eb4f@gmail.com>
+In-Reply-To: <20261105-keyupdate-rfc-v6-0-99b695f9eb4f@gmail.com>
+To: John Fastabend <john.fastabend@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org, 
+ Alistair Francis <alistair.francis@wdc.com>, 
+ Martin Belanger <martin.nvme.dev@gmail.com>, 
+ Martin Belanger <martin.belanger@dell.com>, 
+ Daniel Pereira <danielmaraboo@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793896238; l=11213;
+ i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=dsc8bTbjua1Q1639nENGEqhwASElOJ5OhNYJ4v5pDYw=;
+ b=vhJkvKrpYBfq/dzyjkSAYUjjUCx5puiHXm/yI3q4pdszyNUg4M/oKR0xvtcEhN/jHKeLifFQH
+ AkDuLHO/X9jBxqd6CFZFMVm1xzsgZ+E6h5zA4LJ+JTAGB0hk0Jt+UIQ
+X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
+ pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
+X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
+ with auth_id=1176
+X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
+Reply-To: martin.nvme.dev@gmail.com
 
-Between CPUHP_TEARDOWN_CPU and CPUHP_AP_OFFLINE, stop_machine executes
-all the teardown callbacks while stopping all CPUs in the system. This
-doesn't mix-up well with running RT or isolated tasks.
+From: Martin Belanger <martin.belanger@dell.com>
 
-In order to transition smoothly from global stop_machine to finer
-grained synchronization between teardown callbacks and the other CPUs,
-introduce a new stop machine post function to be executed after the main
-one while other CPUs are released. Now stop machine machine state
-becomes:
+When a KeyUpdate arrives, kTLS blocks reads with -EKEYEXPIRED until
+the user installs the next key. A kernel user such as nvme-tcp or
+sunrpc never does, so the connection stalls.
 
-1) Schedule stop_machine on the given mask (all CPUs in the hotplug down
-   case).
+For a socket with a registered RX secret, derive the next key and
+install it when the KeyUpdate is decrypted. The record is not passed to
+the user, so recvmsg(), splice() and read_sock() go on to the next
+record. Without a registered secret the behavior is unchanged.
 
-2) Global synchronization rendez-vous on MULTI_STOP_PREPARE
+A KeyUpdate that is not alone in its record, has a wrong length or an
+invalid request_update value ends the connection, as RFC 9846 section
+4.7.3 requires. So does a peer that sends more than 8 KeyUpdates in one
+second, the same limit as GnuTLS. That case is counted as
+TlsRxRekeyError and logged, rate limited.
 
-3) All CPUs disable IRQs on MULTI_STOP_DISABLE_IRQ
-
-4) The outgoing CPU executes the main function
-
-5) Rendez-vous on MULTI_STOP_EXIT so that all CPUs synchronize with
-   the main function.
-
-6) Concurrently with 5), the post function is executed on the outgoing
-   CPU with IRQs still disabled while other CPUs can exit
-   stop_machine().
-
-Add the new post function argument with the following Coccinelle script:
-
-	@@
-	expression arg1, arg2, arg3;
-	@@
-
-	- stop_machine_cpuslocked(arg1, arg2, arg3)
-	+ stop_machine_cpuslocked(arg1, NULL, arg2, arg3)
-
-Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
+Reviewed-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 ---
- arch/arm/kernel/patch.c                  |  2 +-
- arch/arm/probes/kprobes/core.c           |  2 +-
- arch/arm64/kernel/patching.c             |  4 ++--
- arch/csky/kernel/probes/kprobes.c        |  3 ++-
- arch/loongarch/kernel/inst.c             |  3 ++-
- arch/parisc/kernel/patch.c               |  4 ++--
- arch/powerpc/mm/book3s64/hash_pgtable.c  |  4 ++--
- arch/powerpc/platforms/powernv/subcore.c |  2 +-
- arch/powerpc/platforms/pseries/lpar.c    |  2 +-
- arch/riscv/kernel/patch.c                |  3 ++-
- arch/s390/kernel/kprobes.c               |  4 ++--
- arch/s390/kernel/time.c                  |  3 ++-
- arch/x86/kernel/cpu/microcode/core.c     |  3 ++-
- arch/x86/kernel/cpu/mtrr/mtrr.c          |  3 ++-
- arch/x86/virt/vmx/tdx/seamldr.c          |  2 +-
- arch/xtensa/kernel/jump_label.c          |  4 ++--
- include/linux/stop_machine.h             | 12 ++++++++----
- kernel/cpu.c                             |  3 ++-
- kernel/stop_machine.c                    | 14 +++++++++++---
- 19 files changed, 48 insertions(+), 29 deletions(-)
+ include/net/tls.h       |   7 +++
+ net/tls/Makefile        |   3 +-
+ net/tls/tls.h           |   2 +
+ net/tls/tls_keyupdate.c | 155 ++++++++++++++++++++++++++++++++++++++++++++++++
+ net/tls/tls_sw.c        |  38 +++++++++++-
+ 5 files changed, 201 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/kernel/patch.c b/arch/arm/kernel/patch.c
-index 4d45e60cd46d..c49db43c69a4 100644
---- a/arch/arm/kernel/patch.c
-+++ b/arch/arm/kernel/patch.c
-@@ -124,5 +124,5 @@ void __kprobes patch_text(void *addr, unsigned int insn)
- 		.insn = insn,
- 	};
+diff --git a/include/net/tls.h b/include/net/tls.h
+index aacc6d12226e..a5bc28a7d1f5 100644
+--- a/include/net/tls.h
++++ b/include/net/tls.h
+@@ -63,6 +63,11 @@ struct tls_rec;
  
--	stop_machine_cpuslocked(patch_text_stop_machine, &patch, NULL);
-+	stop_machine_cpuslocked(patch_text_stop_machine, NULL, &patch, NULL);
- }
-diff --git a/arch/arm/probes/kprobes/core.c b/arch/arm/probes/kprobes/core.c
-index 9fd877c87a38..3f6520c12d29 100644
---- a/arch/arm/probes/kprobes/core.c
-+++ b/arch/arm/probes/kprobes/core.c
-@@ -171,7 +171,7 @@ void __kprobes kprobes_remove_breakpoint(void *addr, unsigned int insn)
- 		.addr = addr,
- 		.insn = insn,
- 	};
--	stop_machine_cpuslocked(__kprobes_remove_breakpoint, &p,
-+	stop_machine_cpuslocked(__kprobes_remove_breakpoint, NULL, &p,
- 				cpu_online_mask);
- }
+ #define TLS_HANDSHAKE_KEYUPDATE		24	/* rfc8446 B.3: Key update */
  
-diff --git a/arch/arm64/kernel/patching.c b/arch/arm64/kernel/patching.c
-index 09f019c6547a..43a8d545f050 100644
---- a/arch/arm64/kernel/patching.c
-+++ b/arch/arm64/kernel/patching.c
-@@ -233,6 +233,6 @@ int __kprobes aarch64_insn_patch_text(void *addrs[], u32 insns[], int cnt)
- 	if (cnt <= 0)
- 		return -EINVAL;
++/* KeyUpdate: msg_type, 24-bit length, request_update (RFC 9846 4.7.3) */
++#define TLS_KEYUPDATE_MSG_SIZE		5
++#define TLS_KEY_UPDATE_NOT_REQUESTED	0
++#define TLS_KEY_UPDATE_REQUESTED	1
++
+ #define TLS_AAD_SPACE_SIZE		13
  
--	return stop_machine_cpuslocked(aarch64_insn_patch_text_cb, &patch,
--				       cpu_online_mask);
-+	return stop_machine_cpuslocked(aarch64_insn_patch_text_cb, NULL,
-+				       &patch, cpu_online_mask);
- }
-diff --git a/arch/csky/kernel/probes/kprobes.c b/arch/csky/kernel/probes/kprobes.c
-index 3c6e5c725d81..3bbd44d21ca3 100644
---- a/arch/csky/kernel/probes/kprobes.c
-+++ b/arch/csky/kernel/probes/kprobes.c
-@@ -48,7 +48,8 @@ static int __kprobes patch_text(kprobe_opcode_t *addr, u32 opcode)
- {
- 	struct csky_insn_patch param = { addr, opcode, ATOMIC_INIT(0) };
+ /* SHA-384, the longest hash of a TLS 1.3 cipher suite kTLS supports */
+@@ -142,6 +147,8 @@ struct tls_sw_context_rx {
+ 	u8 zc_capable:1;
+ 	u8 reader_contended:1;
+ 	bool key_update_pending;
++	u8 key_update_count;		/* received in this window */
++	unsigned long key_update_window;	/* jiffies */
  
--	return stop_machine_cpuslocked(patch_text_cb, &param, cpu_online_mask);
-+	return stop_machine_cpuslocked(patch_text_cb, NULL, &param,
-+				       cpu_online_mask);
- }
+ 	struct tls_strparser strp;
  
- static void __kprobes arch_prepare_ss_slot(struct kprobe *p)
-diff --git a/arch/loongarch/kernel/inst.c b/arch/loongarch/kernel/inst.c
-index 0b9228b7c13a..f0f04406909c 100644
---- a/arch/loongarch/kernel/inst.c
-+++ b/arch/loongarch/kernel/inst.c
-@@ -284,7 +284,8 @@ int larch_insn_text_copy(void *dst, void *src, size_t len)
- 		return err;
+diff --git a/net/tls/Makefile b/net/tls/Makefile
+index 6edcf1271b75..ce8ac6a59f8c 100644
+--- a/net/tls/Makefile
++++ b/net/tls/Makefile
+@@ -7,6 +7,7 @@ CFLAGS_trace.o := -I$(src)
+ 
+ obj-$(CONFIG_TLS) += tls.o
+ 
+-tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o tls_hkdf.o
++tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o tls_hkdf.o \
++	 tls_keyupdate.o
+ 
+ tls-$(CONFIG_TLS_DEVICE) += tls_device.o tls_device_fallback.o
+diff --git a/net/tls/tls.h b/net/tls/tls.h
+index b2061f6bf065..63ece8074985 100644
+--- a/net/tls/tls.h
++++ b/net/tls/tls.h
+@@ -149,6 +149,8 @@ int init_prot_info(struct tls_prot_info *prot,
+ 		   const struct tls_cipher_desc *cipher_desc);
+ int tls_hkdf_expand_label(const u8 *secret, size_t secret_len,
+ 			  const char *label, u8 *out, size_t out_len);
++int tls_keyupdate_rekey(struct sock *sk, int tx);
++int tls_keyupdate_rx(struct sock *sk, struct sk_buff *skb);
+ int tls_set_sw_offload(struct sock *sk, int tx,
+ 		       struct tls_crypto_info *new_crypto_info);
+ void tls_update_rx_zc_capable(struct tls_context *tls_ctx);
+diff --git a/net/tls/tls_keyupdate.c b/net/tls/tls_keyupdate.c
+new file mode 100644
+index 000000000000..49f45d892262
+--- /dev/null
++++ b/net/tls/tls_keyupdate.c
+@@ -0,0 +1,155 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright (c) 2026 Dell Technologies Inc. or its subsidiaries.
++ *
++ * TLS 1.3 KeyUpdate, RFC 9846 sections 4.7.3 and 7.2.
++ *
++ * A TLS 1.3 peer can change the key of the direction it sends in at any
++ * time. It sends a KeyUpdate message, then encrypts all later records
++ * with the next key. A sender must also change its key before the key
++ * has protected too many records (section 5.5).
++ *
++ * The next key is derived from the application traffic secret, not from
++ * the current key. User space gives the kernel only the key and IV, so
++ * the kernel cannot derive the next key on its own. Without the secret,
++ * a received KeyUpdate goes to the application, and the kernel stops
++ * decrypting until the application installs the next key with TLS_RX.
++ *
++ * With TLS_TX_TRAFFIC_SECRET or TLS_RX_TRAFFIC_SECRET, user space also
++ * gives the kernel the secret of that direction. The kernel then handles
++ * KeyUpdate itself. This file derives and installs the next key, and
++ * processes a received KeyUpdate. tls_sw.c sends KeyUpdate messages.
++ */
++
++#include <linux/jiffies.h>
++#include <linux/skbuff.h>
++#include <net/strparser.h>
++#include <net/tls.h>
++
++#include "tls.h"
++
++/* A peer that sends more KeyUpdates than this in one second ends the
++ * connection. Each one costs three HMACs and a new key, and carries no
++ * data.
++ */
++#define TLS_KEYUPDATE_RX_MAX_PER_SEC	8
++
++/**
++ * tls_keyupdate_rekey - install the next key of one direction
++ * @sk: socket
++ * @tx: non-zero for the transmit direction
++ *
++ * Derive the next application traffic secret from the registered one,
++ * then its key and IV, and install them. The record sequence number
++ * restarts at zero.
++ *
++ * Return: 0 on success, or a negative errno. On error the installed key
++ * and the registered secret do not change.
++ */
++int tls_keyupdate_rekey(struct sock *sk, int tx)
++{
++	struct tls_context *ctx = tls_get_ctx(sk);
++	struct tls_traffic_secret *secret;
++	const struct tls_cipher_desc *cipher_desc;
++	u8 iv[TLS_MAX_SALT_SIZE + TLS_MAX_IV_SIZE];
++	u8 next[TLS_MAX_TRAFFIC_SECRET_SIZE];
++	union tls_crypto_context tmp;
++	struct tls_crypto_info *info = (void *)&tmp;
++	int rc;
++
++	secret = tx ? &ctx->tx_secret : &ctx->rx_secret;
++	cipher_desc = get_cipher_desc(ctx->prot_info.cipher_type);
++	if (!cipher_desc || !secret->len ||
++	    cipher_desc->salt + cipher_desc->iv > sizeof(iv))
++		return -EINVAL;
++
++	/* version and cipher_type; the rest of tmp stays zero */
++	memset(&tmp, 0, sizeof(tmp));
++	*info = tx ? ctx->crypto_send.info : ctx->crypto_recv.info;
++
++	rc = tls_hkdf_expand_label(secret->data, secret->len, "traffic upd",
++				   next, secret->len);
++	if (rc)
++		goto out;
++
++	rc = tls_hkdf_expand_label(next, secret->len, "key",
++				   crypto_info_key(info, cipher_desc),
++				   cipher_desc->key);
++	if (rc)
++		goto out;
++
++	rc = tls_hkdf_expand_label(next, secret->len, "iv", iv,
++				   cipher_desc->salt + cipher_desc->iv);
++	if (rc)
++		goto out;
++
++	memcpy(crypto_info_salt(info, cipher_desc), iv, cipher_desc->salt);
++	memcpy(crypto_info_iv(info, cipher_desc), iv + cipher_desc->salt,
++	       cipher_desc->iv);
++
++	rc = tls_set_sw_offload(sk, tx, info);
++	if (rc)
++		goto out;
++
++	memcpy(secret->data, next, secret->len);
++
++out:
++	memzero_explicit(next, sizeof(next));
++	memzero_explicit(iv, sizeof(iv));
++	memzero_explicit(&tmp, sizeof(tmp));
++
++	return rc;
++}
++
++/**
++ * tls_keyupdate_rx - process a received KeyUpdate
++ * @sk: socket
++ * @skb: the decrypted record, which starts with a KeyUpdate message
++ *
++ * Called with the socket locked, for a direction with a registered
++ * secret. The caller does not pass the record to the user.
++ *
++ * Return: 0 on success, or a negative errno if the connection must end.
++ */
++int tls_keyupdate_rx(struct sock *sk, struct sk_buff *skb)
++{
++	struct tls_context *ctx = tls_get_ctx(sk);
++	struct tls_sw_context_rx *rx_ctx = tls_sw_ctx_rx(ctx);
++	const struct strp_msg *rxm = strp_msg(skb);
++	u8 msg[TLS_KEYUPDATE_MSG_SIZE];
++	int rc;
++
++	/* A KeyUpdate must end its record (section 5.1). Another message
++	 * in the same record is not supported.
++	 */
++	if (rxm->full_len != sizeof(msg) ||
++	    skb_copy_bits(skb, rxm->offset, msg, sizeof(msg)))
++		return -EBADMSG;
++
++	/* msg_type, a 24-bit length of 1, then request_update */
++	if (msg[1] || msg[2] || msg[3] != 1)
++		return -EBADMSG;
++	if (msg[4] != TLS_KEY_UPDATE_NOT_REQUESTED &&
++	    msg[4] != TLS_KEY_UPDATE_REQUESTED)
++		return -EBADMSG;
++
++	if (!rx_ctx->key_update_count ||
++	    time_after(jiffies, rx_ctx->key_update_window + HZ)) {
++		rx_ctx->key_update_window = jiffies;
++		rx_ctx->key_update_count = 0;
++	}
++	if (++rx_ctx->key_update_count > TLS_KEYUPDATE_RX_MAX_PER_SEC) {
++		TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYERROR);
++		net_warn_ratelimited("tls: peer sent more than %d KeyUpdates in one second\n",
++				     TLS_KEYUPDATE_RX_MAX_PER_SEC);
++		return -EBADMSG;
++	}
++
++	rc = tls_keyupdate_rekey(sk, 0);
++	if (rc) {
++		TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYERROR);
++		return rc;
++	}
++	TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYOK);
++
++	return 0;
++}
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index 7f7a2f70b02a..027c32edaf85 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -1551,15 +1551,28 @@ static int tls_check_pending_rekey(struct sock *sk, struct tls_context *ctx,
+ 	if (hs_type == TLS_HANDSHAKE_KEYUPDATE) {
+ 		struct tls_sw_context_rx *rx_ctx = ctx->priv_ctx_rx;
+ 
+-		WRITE_ONCE(rx_ctx->key_update_pending, true);
+ 		TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXREKEYRECEIVED);
++
++		if (ctx->rx_secret.len) {
++			err = tls_keyupdate_rx(sk, skb);
++			if (err) {
++				tls_err_abort(sk, err);
++				/* callers free the record only on success */
++				consume_skb(skb);
++				return err;
++			}
++			return 1;
++		}
++
++		WRITE_ONCE(rx_ctx->key_update_pending, true);
  	}
  
--	ret = stop_machine_cpuslocked(text_copy_cb, &copy, cpu_online_mask);
-+	ret = stop_machine_cpuslocked(text_copy_cb, NULL, &copy,
-+				      cpu_online_mask);
- 
- 	err = set_memory_rox(start, (end - start) / PAGE_SIZE);
- 	if (err) {
-diff --git a/arch/parisc/kernel/patch.c b/arch/parisc/kernel/patch.c
-index 35dd764b871e..097d7fde833c 100644
---- a/arch/parisc/kernel/patch.c
-+++ b/arch/parisc/kernel/patch.c
-@@ -114,7 +114,7 @@ void __kprobes patch_text(void *addr, unsigned int insn)
- 		.len = sizeof(insn),
- 	};
- 
--	stop_machine_cpuslocked(patch_text_stop_machine, &patch, NULL);
-+	stop_machine_cpuslocked(patch_text_stop_machine, NULL, &patch, NULL);
+ 	return 0;
  }
  
- void __kprobes patch_text_multiple(void *addr, u32 *insn, unsigned int len)
-@@ -126,5 +126,5 @@ void __kprobes patch_text_multiple(void *addr, u32 *insn, unsigned int len)
- 		.len = len
- 	};
- 
--	stop_machine_cpuslocked(patch_text_stop_machine, &patch, NULL);
-+	stop_machine_cpuslocked(patch_text_stop_machine, NULL, &patch, NULL);
- }
-diff --git a/arch/powerpc/mm/book3s64/hash_pgtable.c b/arch/powerpc/mm/book3s64/hash_pgtable.c
-index d9b5b751d7b7..d7fddc93a1aa 100644
---- a/arch/powerpc/mm/book3s64/hash_pgtable.c
-+++ b/arch/powerpc/mm/book3s64/hash_pgtable.c
-@@ -551,8 +551,8 @@ static bool hash__change_memory_range(unsigned long start, unsigned long end,
- 		// Ensure state is consistent before we call the other CPUs
- 		mb();
- 
--		stop_machine_cpuslocked(change_memory_range_fn, &chmem_parms,
--					cpu_online_mask);
-+		stop_machine_cpuslocked(change_memory_range_fn, NULL,
-+					&chmem_parms, cpu_online_mask);
- 
- 		cpus_read_unlock();
- 		mutex_unlock(&chmem_lock);
-diff --git a/arch/powerpc/platforms/powernv/subcore.c b/arch/powerpc/platforms/powernv/subcore.c
-index f7668ef1ac1f..ac9c7685141b 100644
---- a/arch/powerpc/platforms/powernv/subcore.c
-+++ b/arch/powerpc/platforms/powernv/subcore.c
-@@ -366,7 +366,7 @@ static int set_subcores_per_core(int new_mode)
- 	/* Ensure state is consistent before we call the other cpus */
- 	mb();
- 
--	stop_machine_cpuslocked(cpu_update_split_mode, &new_mode,
-+	stop_machine_cpuslocked(cpu_update_split_mode, NULL, &new_mode,
- 				cpu_online_mask);
- 
- 	cpus_read_unlock();
-diff --git a/arch/powerpc/platforms/pseries/lpar.c b/arch/powerpc/platforms/pseries/lpar.c
-index 6a415febc53b..c847b81bdeb3 100644
---- a/arch/powerpc/platforms/pseries/lpar.c
-+++ b/arch/powerpc/platforms/pseries/lpar.c
-@@ -1678,7 +1678,7 @@ static int pseries_lpar_resize_hpt(unsigned long shift)
- 
- 	t1 = ktime_get();
- 
--	rc = stop_machine_cpuslocked(pseries_lpar_resize_hpt_commit,
-+	rc = stop_machine_cpuslocked(pseries_lpar_resize_hpt_commit, NULL,
- 				     &state, NULL);
- 
- 	t2 = ktime_get();
-diff --git a/arch/riscv/kernel/patch.c b/arch/riscv/kernel/patch.c
-index 2b5adf01c550..4fa99aae5120 100644
---- a/arch/riscv/kernel/patch.c
-+++ b/arch/riscv/kernel/patch.c
-@@ -297,7 +297,8 @@ int patch_text(void *addr, u32 *insns, size_t len)
- 	 */
- 	lockdep_assert_held(&text_mutex);
- 	riscv_patch_in_stop_machine = true;
--	ret = stop_machine_cpuslocked(patch_text_cb, &patch, cpu_online_mask);
-+	ret = stop_machine_cpuslocked(patch_text_cb, NULL, &patch,
-+				      cpu_online_mask);
- 	riscv_patch_in_stop_machine = false;
- 	return ret;
- }
-diff --git a/arch/s390/kernel/kprobes.c b/arch/s390/kernel/kprobes.c
-index e806b124e4ba..692007d9d468 100644
---- a/arch/s390/kernel/kprobes.c
-+++ b/arch/s390/kernel/kprobes.c
-@@ -161,7 +161,7 @@ void arch_arm_kprobe(struct kprobe *p)
- 		swap_instruction(&args);
- 		text_poke_sync();
- 	} else {
--		stop_machine_cpuslocked(swap_instruction, &args, NULL);
-+		stop_machine_cpuslocked(swap_instruction, NULL, &args, NULL);
- 	}
- }
- NOKPROBE_SYMBOL(arch_arm_kprobe);
-@@ -174,7 +174,7 @@ void arch_disarm_kprobe(struct kprobe *p)
- 		swap_instruction(&args);
- 		text_poke_sync();
- 	} else {
--		stop_machine_cpuslocked(swap_instruction, &args, NULL);
-+		stop_machine_cpuslocked(swap_instruction, NULL, &args, NULL);
- 	}
- }
- NOKPROBE_SYMBOL(arch_disarm_kprobe);
-diff --git a/arch/s390/kernel/time.c b/arch/s390/kernel/time.c
-index 6102db8e4e7d..040fcb195d78 100644
---- a/arch/s390/kernel/time.c
-+++ b/arch/s390/kernel/time.c
-@@ -588,7 +588,8 @@ static void stp_work_fn(struct work_struct *work)
- 		memset(&stp_sync, 0, sizeof(stp_sync));
- 		cpus_read_lock();
- 		atomic_set(&stp_sync.cpus, num_online_cpus() - 1);
--		stop_machine_cpuslocked(stp_sync_clock, &stp_sync, cpu_online_mask);
-+		stop_machine_cpuslocked(stp_sync_clock, NULL, &stp_sync,
-+					cpu_online_mask);
- 		cpus_read_unlock();
- 	}
- 
-diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
-index 0dd0c7241c57..8a54c419fc28 100644
---- a/arch/x86/kernel/cpu/microcode/core.c
-+++ b/arch/x86/kernel/cpu/microcode/core.c
-@@ -620,7 +620,8 @@ static int load_late_stop_cpus(bool is_safe)
- 	if (microcode_ops->use_nmi)
- 		static_branch_enable_cpuslocked(&microcode_nmi_handler_enable);
- 
--	stop_machine_cpuslocked(load_cpus_stopped, NULL, cpu_online_mask);
-+	stop_machine_cpuslocked(load_cpus_stopped, NULL, NULL,
-+				cpu_online_mask);
- 
- 	if (microcode_ops->use_nmi)
- 		static_branch_disable_cpuslocked(&microcode_nmi_handler_enable);
-diff --git a/arch/x86/kernel/cpu/mtrr/mtrr.c b/arch/x86/kernel/cpu/mtrr/mtrr.c
-index 468c53b20acf..497e95fb275c 100644
---- a/arch/x86/kernel/cpu/mtrr/mtrr.c
-+++ b/arch/x86/kernel/cpu/mtrr/mtrr.c
-@@ -175,7 +175,8 @@ static void set_mtrr(unsigned int reg, unsigned long base, unsigned long size,
- 				      .smp_type = type
- 				    };
- 
--	stop_machine_cpuslocked(mtrr_rendezvous_handler, &data, cpu_online_mask);
-+	stop_machine_cpuslocked(mtrr_rendezvous_handler, NULL, &data,
-+				cpu_online_mask);
- 
- 	generic_rebuild_map();
- }
-diff --git a/arch/x86/virt/vmx/tdx/seamldr.c b/arch/x86/virt/vmx/tdx/seamldr.c
-index b1137ca6150d..3fd03d552f18 100644
---- a/arch/x86/virt/vmx/tdx/seamldr.c
-+++ b/arch/x86/virt/vmx/tdx/seamldr.c
-@@ -341,7 +341,7 @@ int seamldr_install_module(const u8 *data, u32 data_len)
- 	/* Ensure a stable set of online CPUs for the update process. */
- 	cpus_read_lock();
- 	init_state(&update_ctrl);
--	ret = stop_machine_cpuslocked(do_seamldr_install_module, params,
-+	ret = stop_machine_cpuslocked(do_seamldr_install_module, NULL, params,
- 				      cpu_online_mask);
- 	cpus_read_unlock();
- 
-diff --git a/arch/xtensa/kernel/jump_label.c b/arch/xtensa/kernel/jump_label.c
-index ad1841cecdfb..2278db2af2a4 100644
---- a/arch/xtensa/kernel/jump_label.c
-+++ b/arch/xtensa/kernel/jump_label.c
-@@ -60,8 +60,8 @@ static void patch_text(unsigned long addr, const void *data, size_t sz)
- 			.sz = sz,
- 			.data = data,
- 		};
--		stop_machine_cpuslocked(patch_text_stop_machine,
--					&patch, cpu_online_mask);
-+		stop_machine_cpuslocked(patch_text_stop_machine, NULL, &patch,
-+					cpu_online_mask);
- 	} else {
- 		unsigned long flags;
- 
-diff --git a/include/linux/stop_machine.h b/include/linux/stop_machine.h
-index 84e7fb627ba4..18302a104188 100644
---- a/include/linux/stop_machine.h
-+++ b/include/linux/stop_machine.h
-@@ -131,6 +131,7 @@ int stop_machine(cpu_stop_fn_t fn, void *data, const struct cpumask *cpus);
- /**
-  * stop_machine_cpuslocked: freeze the machine on all CPUs and run this function
-  * @fn: the function to run
-+ * @postfn: the function to run after @fn while other CPUs can exit
-  * @data: the data ptr to pass to @fn()
-  * @cpus: the cpus to run @fn() on (NULL = one unspecified online CPU)
-  *
-@@ -138,7 +139,8 @@ int stop_machine(cpu_stop_fn_t fn, void *data, const struct cpumask *cpus);
-  *
-  * Context: Must be called from within a cpus_read_lock() protected region.
+ /* On decrypt failure the connection is aborted (sk_err set) before
+- * returning a negative errno.
++ * returning a negative errno. Return 1 for a record the kernel consumed
++ * (a KeyUpdate): the caller frees it and does not pass it to the user.
   */
--int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data, const struct cpumask *cpus);
-+int stop_machine_cpuslocked(cpu_stop_fn_t fn, cpu_stop_fn_t postfn,
-+			    void *data, const struct cpumask *cpus);
+ static int tls_rx_one_record(struct sock *sk, struct msghdr *msg,
+ 			     struct tls_decrypt_arg *darg)
+@@ -1883,6 +1896,11 @@ int tls_sw_recvmsg(struct sock *sk,
+ 		err = tls_rx_one_record(sk, msg, &darg);
+ 		if (err < 0)
+ 			goto recv_end;
++		if (err > 0) {
++			tls_rx_rec_done(ctx);
++			consume_skb(darg.skb);
++			continue;
++		}
  
- /**
-  * stop_core_cpuslocked: - stop all threads on just one core
-@@ -161,13 +163,15 @@ int stop_machine_from_inactive_cpu(cpu_stop_fn_t fn, void *data,
- 				   const struct cpumask *cpus);
- #else	/* CONFIG_SMP || CONFIG_HOTPLUG_CPU */
+ 		async |= darg.async;
  
--static __always_inline int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
--					  const struct cpumask *cpus)
-+static __always_inline int stop_machine_cpuslocked(cpu_stop_fn_t fn, cpu_stop_fn_t postfn,
-+						   void *data, const struct cpumask *cpus)
+@@ -2038,7 +2056,10 @@ ssize_t tls_sw_splice_read(struct socket *sock,  loff_t *ppos,
+ 			goto splice_read_end;
+ 
+ 		tls_rx_rec_done(ctx);
+-		skb = darg.skb;
++		if (err > 0)
++			consume_skb(darg.skb);
++		else
++			skb = darg.skb;
+ 	}
+ 
+ 	rxm = strp_msg(skb);
+@@ -2120,6 +2141,11 @@ int tls_sw_read_sock(struct sock *sk, read_descriptor_t *desc,
+ 			err = tls_rx_one_record(sk, NULL, &darg);
+ 			if (err < 0)
+ 				goto read_sock_end;
++			if (err > 0) {
++				tls_rx_rec_done(ctx);
++				consume_skb(darg.skb);
++				continue;
++			}
+ 
+ 			released = tls_read_flush_backlog(sk, prot, INT_MAX,
+ 							  0, decrypted,
+@@ -2519,6 +2545,12 @@ static void tls_finish_key_update(struct sock *sk, struct tls_context *tls_ctx)
  {
- 	unsigned long flags;
- 	int ret;
- 	local_irq_save(flags);
- 	ret = fn(data);
-+	if (!ret && postfn)
-+		ret = postfn(data);
- 	local_irq_restore(flags);
- 	return ret;
- }
-@@ -175,7 +179,7 @@ static __always_inline int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
- static __always_inline int
- stop_machine(cpu_stop_fn_t fn, void *data, const struct cpumask *cpus)
- {
--	return stop_machine_cpuslocked(fn, data, cpus);
-+	return stop_machine_cpuslocked(fn, NULL, data, cpus);
- }
+ 	struct tls_sw_context_rx *ctx = tls_ctx->priv_ctx_rx;
  
- static __always_inline int
-diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 376d297a6292..1ae03f1e8f84 100644
---- a/kernel/cpu.c
-+++ b/kernel/cpu.c
-@@ -1313,7 +1313,8 @@ static int takedown_cpu(unsigned int cpu)
- 	 */
- 	irq_lock_sparse();
- 
--	err = stop_machine_cpuslocked(take_cpu_down, NULL, cpumask_of(cpu));
-+	err = stop_machine_cpuslocked(take_cpu_down, NULL, NULL,
-+				      cpumask_of(cpu));
- 	if (err) {
- 		/* CPU refused to die */
- 		irq_unlock_sparse();
-diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
-index d085ba1f4b44..588ed6d3dafd 100644
---- a/kernel/stop_machine.c
-+++ b/kernel/stop_machine.c
-@@ -168,6 +168,7 @@ enum multi_stop_state {
- 
- struct multi_stop_data {
- 	cpu_stop_fn_t		fn;
-+	cpu_stop_fn_t		postfn;
- 	void			*data;
- 	/* Like num_online_cpus(), but hotplug cpu uses us, so we need this. */
- 	unsigned int		num_threads;
-@@ -238,6 +239,10 @@ static int multi_cpu_stop(void *data)
- 				if (is_active)
- 					err = msdata->fn(msdata->data);
- 				break;
-+			case MULTI_STOP_EXIT:
-+				if (!err && is_active && msdata->postfn)
-+					err = msdata->postfn(msdata->data);
-+				break;
- 			default:
- 				break;
- 			}
-@@ -582,11 +587,12 @@ static int __init cpu_stop_init(void)
- }
- early_initcall(cpu_stop_init);
- 
--int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
--			    const struct cpumask *cpus)
-+int stop_machine_cpuslocked(cpu_stop_fn_t fn, cpu_stop_fn_t postfn,
-+			    void *data, const struct cpumask *cpus)
- {
- 	struct multi_stop_data msdata = {
- 		.fn = fn,
-+		.postfn = postfn,
- 		.data = data,
- 		.num_threads = num_online_cpus(),
- 		.active_cpus = cpus,
-@@ -608,6 +614,8 @@ int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
- 		local_irq_save(flags);
- 		hard_irq_disable();
- 		ret = (*fn)(data);
-+		if (!ret && postfn)
-+			ret = (*postfn)(data);
- 		local_irq_restore(flags);
- 
- 		return ret;
-@@ -624,7 +632,7 @@ int stop_machine(cpu_stop_fn_t fn, void *data, const struct cpumask *cpus)
- 
- 	/* No CPUs can come up or down during this. */
- 	cpus_read_lock();
--	ret = stop_machine_cpuslocked(fn, data, cpus);
-+	ret = stop_machine_cpuslocked(fn, NULL, data, cpus);
- 	cpus_read_unlock();
- 	return ret;
- }
++	/* Only a pending KeyUpdate holds poll() back. The in-kernel rekey
++	 * runs while the KeyUpdate record is still queued.
++	 */
++	if (!READ_ONCE(ctx->key_update_pending))
++		return;
++
+ 	WRITE_ONCE(ctx->key_update_pending, false);
+ 	/* wake-up pre-existing poll() */
+ 	ctx->saved_data_ready(sk);
+
 -- 
 2.53.0
+
 
