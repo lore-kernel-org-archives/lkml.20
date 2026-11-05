@@ -1,72 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793913855;
-	b=tUa99nzE9QU9ynbodx7GayVs8SItia7M7NmC9RN5Vdescq3CceTALvc2ZUn0zHIRgb3T
-	 vZtipEq+D0eRiZrHs95B8D4zwmqccpSRKNhFWtUnwsx8ZGLOoE1t/XemL5ZXlCDZmy09f
-	 9okDcQZjlwQNzUgygaM22+kiVQxUkkavmKUkz+CcIKtVWSnfL30x/FJYpzsZdrurNGVRF
-	 9i/qrRJ80DGCEma8BcCmg29oA8CImjlwhlC8DY+cdYS3NzXdUQzKzazhNk1Oh93vdBav6
-	 YWw0SyrrUWrw398x472DPYxutcfTTvvxIj+ayj/Pd1Ehu29TtvWqhNU0n8KB4AHB5pw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913855;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RL5BhiqJaN/kv+lpAW+VL6m3SxBczrfzmnRexU7rIck=;
-	b=jw8MPSG46GMNemrSIt2DOgEJJnIOyYkaJJSZOjjzZZIdlgIbnjiNjgwitgSYkcAmM4b3
-	 4p+Bno2wM3+9o8pSHPPr/E3rJncbZBdLkrvK4xOBIAuVy+BbI9g7sh7Zax/dyHE1YNim4
-	 WjdHilj8rO9Hz3x3gHkiXXVlLnOYTwgveHsUu3zu5CFWXVZwQjU0DFaY7wLrzgREAmxyn
-	 0fDC80CzlZR3Ad2yYoNDChWcPQBn9t2L8QgAo0FUqEp6v/YVLZczSVjqFC+9U3CYiQJ0f
-	 YWzl3J6RLD0Mn0TMhpJTOnCNmKqbVq0x67MEDekPr61hTqHRI9CF/HruzCQv2N0/sdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbsA1GaX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793913921;
+	b=chW7B+nqDi46SJsO0uDUOj1gkyw9OH+h0KpDuAQftyScZYgnTVKDyPsBNfKp6O20eNA3
+	 1lanogdP5iCwxqWFLd8gHY7ZbYhnwpokpBfU7T31alJNQRqxSa7DP4oFqMPi0dVJqnEOW
+	 T3+O6LB+BqRztpniPKz/0yvFcNmT29r1ULgyb6lbwr5Wj3Z2cDDQinFxAOsAMnZv8xp+M
+	 rI3vCwltW9lb6xjz3ZRr4k+FTy3KuM703DnETtnvo/ldnoS/BwOPRBMPpPZFtVeJjvetl
+	 cliDP1+O/FTYNwNzTbLkYWpyblrAm8y1Ur8uALZM+G0hiRsFHEizZhfgHwmQJyAuv7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913921;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7IgY4oSwJmunrObC+s4jlkajaBgT8VZrvasnO3k+eC0=;
+	b=blg6knu510++MYPI9HYDx2/dLX7o719uuNa/ewwPWRmB3/a82KAdiwj/99htaTD78kEZ
+	 X+qQu4flcBwIAe5qz/nvWexGpM+SJr4ZbC/DVL4kfo85a5krMSTzdfjsnlvmup0MPDjqI
+	 hGh62S9uCVJBdJu8eEaPLhve5gLUmz+jNV5dkLdk6OraEr1sLzng4K8s4A0NzXysO/ZyH
+	 E8+jw8XDHXUArOFwuudPV4NBHJIZ5cYi4RcwjUgpXZgXLQO/pPIQIr9SXxwFomVro3Wfh
+	 iGelIFppcCOrdCzogTJPkx7M7K91ktqFqWmWJ1fDftpf5rmAlW5yD66eKUgu4X33mrw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WGLIoJXh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8103606A31B;
-	Thu,  5 Nov 2026 21:24:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C04F606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:25:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C04F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbsA1GaX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52121F0089F;
-	Thu,  5 Nov 2026 21:24:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793913854;
-	bh=RL5BhiqJaN/kv+lpAW+VL6m3SxBczrfzmnRexU7rIck=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gbsA1GaXPI4QnttpwObOJr6cz6NiyjV4gcFXP4+DlrAX21vVmLOwHoUY34gJ1eBiD
-	 lDCjiaD5XNdUK6sslw7T/y+IsTWrf+XXg+RT+XqQ4FvmnInd6GhmqjFxwwrAIe505T
-	 taveJhHFkKCknGncsIH2+Zt/xTD7nTwtOUWP3ds07tEz6fDYCkA/UbnXjdt7yjykkd
-	 a0E5SE/Ly92P2mgvV8IRxG0WA7QGSkscPWWMBb7/4Y1gSlAKnMPyNfR1CHuZgbhIHo
-	 CJOsXZCbj3PrR60qpdWkvaayVoQ/5EMbY4X0JPtz76slazQ+0HSfyhV7XGyk7qG5jN
-	 wbT9FSJVPA7JQ==
-Date: Thu, 5 Nov 2026 22:24:06 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <auzxXyAU6zyHtMtn@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
- <20261105111423.360f4ba8@gandalf.local.home>
- <auyuINXEJKc1KoG7@devuan>
- <20261105115019.2fe7c91b@gandalf.local.home>
- <auy0O467UqOzqYub@devuan>
- <auzGMV1YbO9DodBq@ashevche-desk.local>
- <auzHFRzd86iV4-RA@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WGLIoJXh
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-533202fe429so86161cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:25:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793913920; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jQxRb7uKTWn8fVruMmcZrK6L0h6Lxc7vB9YvSmMYJrU2u89gXD2V8gLJmlnuA9qOuZ
+         lP7OlseKp121QfyVl1wfy17BTToVrDp4q5I/61W2OIlzX6YwyqRdUzPDBNgVejdGOBoe
+         WpHmgUoWncY8WCKfmfnEakbv1x5pykrxl/LxOWFyQnNQhhPFviGwiNsu+X0VrQ+xfbRn
+         Cf6hmELDQehEFd8RXP9C+G3z0DLCkY3by1eBxnOeEVeZX9BPnh7j0keITMFXOlKxDGMl
+         ei5khYPuMQwuvMoIP2CAk1LctS1V/Ib+DHLpivF+hgQautaeJ1zU2wQMjsfIHHDelyMM
+         ORZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7IgY4oSwJmunrObC+s4jlkajaBgT8VZrvasnO3k+eC0=;
+        fh=ZFbx6QZcLsVHFpR3EFV+5Xc32zb/f/j+H/y4Id0aQoM=;
+        b=EKugLmUTKKZ9TIDAAKOwLWrSFCh+az8jq1Jr9LlfaFXyH8Q18VwhlwZjxSu2qlZ2A9
+         sv3JHyPFQ7PTtgYvCIJotujZA30+muJbhsdn51k7Qni9fTvmp+0N/dWGgTqAQ4QOJDXp
+         bBPOWWfd46khhzVymwq15u917z0xipGsudabVqraJy/9SgjEQ1pxyPJmVQOwdmZ6JuJB
+         CoYNB7noIl7Ud/bVVNVyOewHACGswsDZqpgAYDeIAuCy1+GOzJnYJb40hWZm82PshPx4
+         2amNpt5f9QPhprMFHktTAMi0BNEn/OSrn+1dUEghnH+hBcLJ2FaHXbWLSkvdO7w/xA9K
+         Q/5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793913920; x=1794518720; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7IgY4oSwJmunrObC+s4jlkajaBgT8VZrvasnO3k+eC0=;
+        b=WGLIoJXhRcmdGEb0n3pms2EfI2CQ8It7v7QuZGcE+MZKrW3D+lGvxsvxvhkSHP/mbo
+         bk6/AlouKi4J0jyyhi404w3EBpkEBI5LS8cpBgAwiGgGzIbrFdjTCqeHQxEY+hjXfCJS
+         H5/2JtTpRC3KdZ4bSc1LjlagJ4tdfVk7GzXeZAVnuYXHovSBJ0SWAgz8WUZEZ0q4QeYP
+         0RhLlfU9PoAGlZPJ1B4d0e7EG+vokwVzYffDLVbl1dva39eXcC8d0JMgldFCP+sWIBfl
+         NotKlyKVj4jdcQZsPcjO97JAgOxpjGJLQX05nKgzg+riL050Vf92EK83U7lJYfAwjlN7
+         JYJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793913920; x=1794518720;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7IgY4oSwJmunrObC+s4jlkajaBgT8VZrvasnO3k+eC0=;
+        b=wqZ6sbmkFsept7b8r9bTW+nLWtqT2ji494QQ2Y0Y6ZRMLKKPP+HxqgSvbuxkrrpw0Z
+         yqUyB0MdSqO+Utbl2xk1FdEoUgRDjWyD7ffHHGFQ9J07emPOECh5/z9xnOcRMm4k45+7
+         W7/K/reA5LM8+b9UjGIPprWOnpcjMUITfqoomOFQS0t1bN+SIIxpE7ApB4Gi+8e7oHHP
+         uvnfX34Zq2iWw36EV/OifGVDIuaKsC+mQB3srRWAu0urURdKXuNykjItS4BjVTiTEcXE
+         WTwMrzb8FexBTnNihZZBlZadqaOyecH/CxGGYs4wCtOFT5JpduD50+tThfvkwClKNSPs
+         e4rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0RWSwbRnLUqSXLfhqgZlmHQV/F8AvoUPL7KU/hRR8yOaB9VIsoGGQPXRWX19EfJNhRGuSIkJnT0c6HKw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ZOqAhw1hyDBb0lhsscKpYqzCLJrDkOpDSqHktamhQfpZ0uqeD
+	7TNSoH+TvmbW57Hs8CfYfAQuT1T3tKzmfQ89SPejg26d8ih1O0DZgdi5o2GpN01YSHxHOBBjOjQ
+	lcU5Hjrr85j+aiAKSMDuuF9KvhyT8bC9wtjTsQk5O
+X-Gm-Gg: AYBFou29y9HUXdHzmZUv3X7YIImwPAR1YkmgclsXG54vgGr4jSrM818CEEyXUQ7/nBb
+	CN5+N88CA79z23HNYVldgXtVDgJe0tXUvjgnXMOMY4nmenAtvDhLV7iybsc065anxNu32hp5L1d
+	FzazGM9OeMlPsMNFFwkgxSkAoqVbF1dn4DHdgvRjaGJDJtOK3MvN9rMOZYYtj4Dhsxl1llogBiV
+	QpYuQfhBGTakQNc0/W6ZumLpJgvqVgV8d3xJiFUAY+vrgfWk0/hO4KuvCcNlzXOLoAS4Gfm18+b
+	MSlouQ96Ksv1wQHPoX8M2YJn8ih/lhr7a0s2QZDW8OGDGyk5DAEGJ3ouRHT0p/f9ad97M4Rh7Aa
+	QWmUrHM4N3jrinqajxPQhzugu5cY98zKZ10Oc+Q==
+X-Received: by 2002:a05:622a:4118:b0:536:934f:7da2 with SMTP id
+ d75a77b69052e-54e18ff2e12mr4497211cf.2.1793913919805; Thu, 05 Nov 2026
+ 13:25:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,210 +104,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2jm3oxexb27di5hk"
-Content-Disposition: inline
-In-Reply-To: <auzHFRzd86iV4-RA@ashevche-desk.local>
-
-
---2jm3oxexb27di5hk
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org> <DMNJSQDUACRI.HXKF5B6GSQOX@nvidia.com>
+In-Reply-To: <DMNJSQDUACRI.HXKF5B6GSQOX@nvidia.com>
+From: "Zach O'Keefe" <zokeefe@google.com>
+Date: Thu, 5 Nov 2026 13:24:42 -0800
+X-Gm-Features: AclHuK_cW9BDiSPs8h6BDqPFpxUXOylylNhDy7qGq0VHRrxqPWf2FvEDLTBnfxI
+Message-ID: <CAAa6QmSF0bkATC6kNO0B1ydFtDi=OEYJJ5eH4zEakxjJ9z7ZqA@mail.gmail.com>
+Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in MADV_COLLAPSE
+To: Zi Yan <ziy@nvidia.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <auzxXyAU6zyHtMtn@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
- <20261105111423.360f4ba8@gandalf.local.home>
- <auyuINXEJKc1KoG7@devuan>
- <20261105115019.2fe7c91b@gandalf.local.home>
- <auy0O467UqOzqYub@devuan>
- <auzGMV1YbO9DodBq@ashevche-desk.local>
- <auzHFRzd86iV4-RA@ashevche-desk.local>
-MIME-Version: 1.0
-In-Reply-To: <auzHFRzd86iV4-RA@ashevche-desk.local>
 
-Hi Andy,
-
-> Date: 2026-11-05 20:12:37+0200
-> From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+On Thu, Nov 5, 2026 at 12:09=E2=80=AFPM Zi Yan <ziy@nvidia.com> wrote:
 >
-> On Thu, Nov 05, 2026 at 08:08:57PM +0200, Andy Shevchenko wrote:
-> > On Thu, Nov 05, 2026 at 06:46:18PM +0100, Alejandro Colomar wrote:
-> > > > Date: 2026-11-05 11:50:19-0500
-> > > > From: Steven Rostedt <rostedt@goodmis.org>
->=20
-> [...]
->=20
-> > > > Oops, typo, I meant trace_event_filter.c
-> > >=20
-> > > Still not found.
-> > >=20
-> > > 	alx@devuan:~/src/linux/linux/master$ find | grep trace_event_filter.c
-> > > 	alx@devuan:~/src/linux/linux/master$ find | grep trace.event.filter
-> > > 	alx@devuan:~/src/linux/linux/master$=20
->=20
-> Besides that the above is yet another "Useless use of grep".
+> On Thu Nov 5, 2026 at 1:16 PM EST, David Hildenbrand (Arm) wrote:
+> > madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
+> > uptodate. For example, shmem fallocate() can put such folios into the
+> > page cache.
+> >
+> > collapse_file() already refuses to proceed with folios that are not
+> > uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and s=
+kip
+> > such folios, leaving handling to the page faults.
+> >
+> > Note that collapse_file() effectively clears shmem folios through
+> > shmem_get_folio(); let's keep this fix simple and simply let the page
+> > fault path deal with that.
+> >
+> > Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_CO=
+LLAPSE")
+> > Reported-by: Chris Mason <mason@kernel.org>
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> > ---
+> > Once reviewed, I will pick this up in a timely manner.
+> > ---
+> >  mm/khugepaged.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> Makes sense.
+>
+> Acked-by: Zi Yan <ziy@nvidia.com>
 
-See below (spoiler: not so useless).
+Ah, good catch..
 
-> > Oh, you are an oldschool guy :-)
+Agree with Hugh that the "pte_mapped" naming is a bit of a misnomer,
+though it was how I was thinking of things at the time.
 
-In this sense, yep.  :-)
+Thanks David / Chris.
 
-> >=20
-> > I can't believe people with Git index available are using `find`
-> > and not `git ls-files`. `find` is too slow...
->=20
-> $ time find . -name trace_events_filter.c
-> ./kernel/trace/trace_events_filter.c
->=20
-> real    0m0.081s
-> user    0m0.028s
-> sys     0m0.053s
->=20
-> $ time git ls-files \*trace_events_filter.c
-> kernel/trace/trace_events_filter.c
->=20
-> real    0m0.014s
-> user    0m0.010s
-> sys     0m0.005s
->=20
-> $ time git ls-files \*trace_events_filter.c
-> kernel/trace/trace_events_filter.c
->=20
-> real    0m0.014s
-> user    0m0.004s
-> sys     0m0.010s
->=20
-> $ time find . -name trace_events_filter.c
-> ./kernel/trace/trace_events_filter.c
->=20
-> real    0m0.083s
-> user    0m0.021s
-> sys     0m0.063s
->=20
-> (with IPC to `grep` it will be even slower)
-
-Actually, IPC to grep(1) makes it faster, not slower.  :)
-Not only that, but I get to use a regex, which is more comfortable than
-a glob for finding stuff.
-
-Even if only for the regex, I find it already worth it, but the better
-performance makes it even better.
-
-	$ time find . -name trace_events_filter.c
-	./kernel/trace/trace_events_filter.c
-
-	real	0m0.064s
-	user	0m0.025s
-	sys	0m0.040s
-	$ time find . | grep trace_events_filter.c
-	./kernel/trace/trace_events_filter.c
-
-	real	0m0.059s
-	user	0m0.023s
-	sys	0m0.043s
-	$ time find . | grep trace_events_filter.c
-	./kernel/trace/trace_events_filter.c
-
-	real	0m0.058s
-	user	0m0.033s
-	sys	0m0.032s
-	$ time find . -name trace_events_filter.c
-	./kernel/trace/trace_events_filter.c
-
-	real	0m0.070s
-	user	0m0.020s
-	sys	0m0.050s
-
-About why, I'm not sure if find(1) is slow at filtering, or if having
-a separate CPU working on the filtering makes it more powerful (perhaps
-both).
-
-I think it might indeed be that find(1) is slow at filtering, because
-using git-ls-files(1) is faster without piping to grep(1):
-
-	$ time git ls-files | grep trace_events_filter.c
-	kernel/trace/trace_events_filter.c
-
-	real	0m0.023s
-	user	0m0.018s
-	sys	0m0.010s
-	$ time git ls-files \*trace_events_filter.c
-	kernel/trace/trace_events_filter.c
-
-	real	0m0.016s
-	user	0m0.012s
-	sys	0m0.004s
-	$ time git ls-files \*trace_events_filter.c
-	kernel/trace/trace_events_filter.c
-
-	real	0m0.011s
-	user	0m0.011s
-	sys	0m0.000s
-	$ time git ls-files | grep trace_events_filter.c
-	kernel/trace/trace_events_filter.c
-
-	real	0m0.023s
-	user	0m0.017s
-	sys	0m0.012s
-
-Still, the fact that grep(1) is easier to remember than git-ls-files(1)
-means that it's worth it for me to pipe to grep(1).  But indeed, using
-git-ls-files(1) in this pipeline to replace find(1) might be reasonable.
-After all, I don't want to search in temporary files.
-
-BTW, on top of all this, the interface of find(1) is so badly designed
-that I can never remember how to use it properly.  Compare that to
-piping to grep(1), which everyone knows how to do with eyes closed.
-
-Necessary link when discussing about find(1):
-<https://doc.cat-v.org/unix/find-history>
-(it's quite fun; recommended read!)
+Reviewed-by: Zach O'Keefe <zokeefe@google.com>
 
 
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---2jm3oxexb27di5hk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrs8+4ACgkQ64mZXMKQ
-wqkiFhAAqFKamchoNDNeTetmiCh3yJp6GUbHyaX2RrrE5EdmqnhkEX4NQk0+JaXn
-1ImkNyzgBAAOwyJaDxo7nnveXmK9DzPk8aIMt7ciqhb5d2O5sZJ3PLxNMl4Fzuoe
-lGjop+rtjDb69AMcqOuPdlDqxwh8uiinyVeCqP0hqwN7OmOjajGSlQr11buRLI+d
-pgMJZGiws5vKtInNzV1/weIgBQtgM6fqpWiS40XQlgyALWl/h2d+5wT7veje8quA
-VtCLbm+Wgv/WUyAEcVd88h8U/M/8B7YGq3tD8LXinuDvXf02/crJn6eHn4bWBnPS
-XRQunxLUeSL0xmiFZHYYOzIaVbJHr4Gc3c3mzqiGPJlXFvmyPMwKjJza1Ix7WKij
-I06KwMkQSj9rSFi69ppg5TJ4KgAg99lGEV8eJH4M5Itxcvd6LmTkYktnBfWTrVDm
-btA8iOPm94SE3RGW+LLQS6Ozz/lvGsIytydiwnMJ+8c66x70PNHSkIaWJ1wj38HR
-uXdg1EhLTpAzVvJ+nSzx4Bz7o3HxsYkc/XdwKdlzCriAj2rPHc26AYhCv6ES9XCw
-yY3UO8+D56tuq/bM5SBi51bIFpch6ATnPpo2FuYVvNqoD/e/DR2G1ruK3iRkEtlD
-mpz+6bnkWoaknK3xeyJXiS5YuoSfFWeM8sE+gfUmjTZ7Ett3iRA=
-=oZOp
------END PGP SIGNATURE-----
-
---2jm3oxexb27di5hk--
+> --
+> Best Regards,
+> Yan, Zi
+>
