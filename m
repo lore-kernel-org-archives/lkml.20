@@ -1,47 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874539;
-	b=PzhZkZnB6dJKuAjA7Ns7eztjG2f6GtmfVSJ3++075D0DQ45DR+83cscZsxeJP7j9fOHD
-	 SEvEWiViLgTQJheCNUknZM87zKLDkIk0W95z8tPkmacvW0pGrwsy8AJOLbkNenn62bIzz
-	 gvUL4Srq+RCSBKjr9yV+t5WhmLD172rKRRbpQRN7OF/YOqVxWQKuNowJdk3Ep44XY3i4k
-	 cIakjoFifYC23zG/c5q+vPrmNIvaJaPPEwm0KPKoq/l196PX6giAgQ0vj1hOG2qZQ6gMj
-	 v39aJ+J5P4304MaBG1dxdL8VfMF8eriuD6OZC1J3oVTa2+OCvn4k0y1hxoyQScw2jEA==
+	t=1793874545;
+	b=XmofeqvVmeneDDk9xu006JWFi9llDB9vf0DKa2yuJibBltMN1Geux6EAli5+h51oK7OD
+	 VcQpUuNREO4baoO802iG/qgkMtAFF5RZ11DuOjdrPFG0Is2tcyH2z1/ZWikDbsArKge06
+	 FEBNyIGQTL3bJXhJ8KvUEJZOv4/1QIOje4diheObrUmZLkJafbkffAq1iGH0fIkjBsTzP
+	 VKHRX7UIhrVb1GdW5U05Ybc3w3rMoUxc4PB86bD4DsM1LYQ60a6PW1aELlqvPNmtyVIBL
+	 J6zrkTl6aLqhHW1Rz4YqcvuWiv7V51MIV3i+BqiE9eVC56dmP3WT1vjhfBFj9QkKy5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874539;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DSkOHXuDBf1pgGwk7mqhtOIuvilX/GFlHMjt2QNkx6I=;
-	b=wxPVwpPWcYfZdb+NP5OVTxOqQyHMxIL6G4Y9acLzXCODKrGAwC9ifz3ArduCFH/+gZFW
-	 fi3y/SCrgQ9MtKc1v/QZ+UDMLEGUi8dupFfqltQJ3IQB7/GybibQotCvSWqfLs9O3sTYA
-	 O3ZWP/3nsFg9uTOk1Sf0nG5lIH0NSBrOAuFUTYC9/pUSPlXWNd0Tvc3G+kHmZRgzCTqa4
-	 Q7wkjacIXnK0GDJVPsU8fJCJ1p4RKQ+EDgdRuI6az1YsU1R2RyJFPMpd8m67Iqz2PnFU5
-	 EePhiKP5Gx+OINlSbhYLtGsn54XIVPYYvL5zf/JaCQL3W5DmxkZUMwHAydCC78fEZ1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874545;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=6hANZJB2Azv54bDyM4oKWaAqx1DIkGLLUuu1pUJ8+bU=;
+	b=3c9lYeh1voTL+59b6rREJ43SZU76Zgy7yenprDXcVjbTwmQL9x1Pzn43I0nJJyVh3f9D
+	 G8jmPqfz66qDlHlGLzOFiG9KVQ41p7JgR9WlyjLmK3/FceLj80T+vj+jUt3hLU37PZyc7
+	 NpMSoSTdL2SchKLxHIpgS9M2obwt/I7LEw9j+ELJZWIr1YtBm0e7DQqyPBq/e+vtJ9Bnp
+	 +6FuMeGmry2Y3qvZ79MU8iwsE24x65x9ntExOoC3ImsH7mBD43l4dO/5pFIPYW462stlR
+	 AuUWUzrFbt04+DR+j62w1dmtvVJOhtSoYAGgtZtFRrLkqVUeDsA62aRG8jfLC0XxIWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D5FX/qth";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=0wRnwcbH;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F97606A31B;
-	Thu,  5 Nov 2026 10:28:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399BB606D806
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 399BB606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5FX/qth
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9919D1F000C1;
-	Thu,  5 Nov 2026 10:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793874538;
-	bh=DSkOHXuDBf1pgGwk7mqhtOIuvilX/GFlHMjt2QNkx6I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D5FX/qthyK0NqnE0cZ6gDihcGQqcR+80V0Pvt0dHUbgQZE6mFbffUCUREvE5DEvzS
-	 99vhZZ6A/YabImxHJ8X34i2j8aeyZ24ncS/tjQ6Dghp3ahbNi7qRasKjsE4tb+0LDp
-	 8rY2fNrgoGg+v6Mqr7rnbzY3H423iPxrkGBWXayxV5cpx3WLY3ITr67vMcSkW4eDlm
-	 PIU7REyUmeiVu7VELSVOleQQdjnEkae/F48HBht2qROXj+W0/yCABs32z49O8Ux/zl
-	 V1zSQNF0Brx8TEz+dnYPI0qYdNgOhltl+vaCGSQpG39O6T22vky+xsm0yM6ZTWDwns
-	 2JypCrn1Hzzrw==
-Message-ID: <c05cb7a5-35b7-4364-9b7a-a87e54bf0ecf@kernel.org>
-Date: Thu, 5 Nov 2026 11:28:47 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=0wRnwcbH
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c169ae1cb26so81627966b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:29:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1793874543; x=1794479343; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6hANZJB2Azv54bDyM4oKWaAqx1DIkGLLUuu1pUJ8+bU=;
+        b=0wRnwcbHBDXCOMw+mNKHeFRL4AwbI6yrcXn5GRDkodHv8/+T94lI5/17TOlFhmSDNk
+         xKdJlNMTUQEP+9bsWQithmvKn5GAg6J2hW4dEpTERqTd2d4vD/ps+7CqmyI+fvcpU3wv
+         ygLREqTdfUz4kmd0BW+6gng80Zoq/GUYIMFoVRyT+FDapWpE9YTci5IDO8xZ2iFuRTlj
+         4jmWFzdPacgYetRKp9+qXF61ySUlmH7FRssfo+uPN9j3ACpSJcRdrOhBTsGNXSB5noh8
+         LeD47MJqtlKUgfnm7vN11dtazS+2Nl1KLymo/4+nxFcDe4SEjFU6EkxOE5W6Y4z7m3FT
+         L5tQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793874543; x=1794479343;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6hANZJB2Azv54bDyM4oKWaAqx1DIkGLLUuu1pUJ8+bU=;
+        b=u4zmx7TkYsCvgVNuMQQETMD6fnY/FIJPiVUsFruyS3uOMK98jGQGRYbfzOvnmhYRDz
+         IiqgI/fkb64jCIiViVlKRiRJosplCspWZ2zcYVKmQkedmmGKG/H2HPL3TJSr1sSmS9qT
+         fhRyuulzFHgPeax3XJQocfV1vGVjRfCV+NKRT6ZH5nwA7GtpQBS65OmAC01p6Suo/Fau
+         hvEZUbutakSjalyURh+cGhwFKDb/ARoncQEEZHYZFdhpDEvUmrfAVDX+crwxriBD989L
+         Qs6qO1z9+3bVy8WSjJwqBuRrWWXDR0vO6nlMVK9Dz0bjlyzT9A177pyVbGlWpWMtsnPb
+         zsoA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8mIEAvuIEJWiT4qoNsbCed64Rp6sKujlWh2i50RN2YEn9rWtBPP7jNsnVV1Efkc4IR4z3ch5m4iYKOVo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UwmrGGG5MatnXu7YW88H9e2CFiSFS8NUHOCrb9Ir73PdguPVM
+	GXX/eTz/n6dRQp2JDFGTDvB8tOgxENkgb5x2/AVz0kqxcJvYjdd4UD+OpiTW18put7OToAuktzv
+	dI60Twi4=
+X-Gm-Gg: AYBFou0bsOaQyIlIVOO2p9F33pCcbm537o8Fhomx+FIw2K+Eb8AgiZhCP6JRxtjXNbG
+	v/6nrZwOYqy+kG+5gFjSXe1vMomtVF5e5qA2242glkpYVipaPG5gkGGTvE04RT/7jlKJivt1FKj
+	22m2MbCAVS4buflniH6KXx1q0IUtCKYR6TaX/IAays2AwFqPTzlyP3z+AOJcNFZQyzU3pt9AcFf
+	j14+Pr3VfU+zd8Ls+yOzzjPGAeJuRkI3ZNEAhehwVF8wIDSWSliw7sHDO6FNUTdtMrDGs8n+AW3
+	PJayQYo7Z0vOGjqwWu38h35D+T/aoA46+McILr/hflOy2Pk3Oks/hAFib0i3uwFsoMvwIhFd6fV
+	UvLNCtrqssS6yddUsshhwrfWfqz56xBWpw+LHhL2Yctblj3lfgD87SbckCRW+Wru9t7JO1of8mL
+	wsmKqMIcqdxMAKqw+GUY5duRJQVda3dclh1JM/PfC3LWNSjP1PAAYD3Ng3gb69x4+N2QqdHNPGf
+	L2FohnY2TkZ5df87U3z0R27mxPXB+YKCdS1TPiq90iuLWXGbHkpxbf78HaTB9Qks43HXT0uBDbh
+	MDM5DDO0hG0hf2/lvmH+ngZzx8hjp7jRiwOg2iBIuJR0OdXCKi/Z7LfJ9CF6shSQt8YW8uKOveZ
+	VNQh1gQyTLWY=
+X-Received: by 2002:a17:907:3e0c:b0:c46:7de7:e41d with SMTP id a640c23a62f3a-c4d206f22dcmr174044466b.18.1793874542649;
+        Thu, 05 Nov 2026 02:29:02 -0800 (PST)
+Received: from [172.16.220.224] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b5864a87c1sm278665a12.2.2026.11.05.02.29.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:29:02 -0800 (PST)
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Date: Thu, 05 Nov 2026 11:29:00 +0100
+Subject: [PATCH v3 1/3] dt-bindings: media: i2c: dw9800: Redocument DW9800K
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,147 +94,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] mm/khugepaged: drop/reacquire mmap read lock if
- skipped enough VMAs
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Waiman Long <longman@redhat.com>, Suren Baghdasaryan <surenb@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
- Yonghong Song <yonghong.song@linux.dev>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-References: <20261103-khugepaged-latency-fix-v1-0-a07ab16ac860@kernel.org>
- <20261103-khugepaged-latency-fix-v1-5-a07ab16ac860@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261103-khugepaged-latency-fix-v1-5-a07ab16ac860@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-dw9800k_cleanup-v3-1-6850ee6a5a5a@fairphone.com>
+References: <20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com>
+In-Reply-To: <20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ stable@vger.kernel.org, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793874541; l=4474;
+ i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
+ bh=JHsk8t4k0NZ/ewosQGK5JWUdcdnvV4ysNURYZvCFlcY=;
+ b=oyPS1ksp83aCOZM8rLYrzBHtsAgqXH6Us4lrCSRrPMwn0DUWjkYjpeq2R5GcVNG7nwM0hTMYT
+ ugXFK4bJBILC9xpBCKZdJEHcb2yo6gtC3Z/utzScuCksPc0Pbe7MV3d
+X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
+ pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
 
-On 11/3/26 09:27, Lorenzo Stoakes (ARM) wrote:
-> khugepaged walks an mm's VMAs under the mmap read lock in
-> collapse_scan_mm_slot(), checking for ineligible VMAs first, and skipping
-> them if encountered.
-> 
-> It charges cc->progress 1 page against the 8 * HPAGE_PMD_NR budget when
-> these are encountered, however only checking this budget once an eligible
-> PMD-spanning VMA is encountered.
-> 
-> It can therefore hold the mmap read lock for a long time if there are a
-> large number of ineligible VMAs present in an mm, over which time no mmap
-> write locks (and thus no VMA write locks) can be acquired.
-> 
-> Address this by dropping + re-acquiring the mmap read lock after
-> KHUGEPAGED_MAX_SKIP_BATCH VMAs have been processed. Use the newly
-> introduced mmap_read_lock_nosteal() to ensure queued writers take
-> precedence when doing so.
-> 
-> This was tested locally with ~1M ineligible VMAs mapped ahead of a
-> collapsible region of memory, and resulted in a reduced mmap_lock hold time
-> of 170us down from 95ms.
-> 
-> This was also observed to reduce mmap_lock stalls in concurrent threads of
-> a similar duration.
-> 
-> KHUGEPAGED_MAX_SKIP_BATCH was derived empirically to a conservative value
-> of 1024 VMAs, which should not interfere with mm's that have an ordinary
-> number of VMAs.
-> 
-> Local measurements indicated no change for ordinary use cases, so this is
-> all upside.
-> 
-> This work came out of investigations into mmap stalls when getting latency
-> numbers for an unrelated patch series.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/khugepaged.c | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index 216c4b8d28c4..b9c72ee8b421 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -66,6 +66,12 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
->  
->  static struct kmem_cache *mm_slot_cache __ro_after_init;
->  
-> +/*
-> + * The number of VMAs with nothing to scan to walk before dropping and
-> + * reacquiring the mmap_lock to relieve lock contention.
-> + */
-> +#define KHUGEPAGED_MAX_SKIP_BATCH 1024
+The DW9800K's properties are too different to justify sharing the same
+bindings file as the dw9719, Create a separate bindings documentation
+for the Dongwoon Anatech DW9800K with its updated properties.
 
-I don't quite enjoy this magic number.
+More specifically:
 
-Besides it saying nothing about "VMAS", so the name it self is pretty unclear.
+The DW9800K did not share the SAC1 and SAC6 modes
+that the DW9719 used.
 
-I was wondering whether we can give the "cc->progress += 1" a different weight.
-Skipping VMAs seems to be more expensive than we thought.
+Description of vcm-prescale does not match the calculations labeled in
+the DW9800K datasheet for how clock diving rate is computed.
 
+New property timing-control introduced to offer more fine-tuned dividing
+options available to the DW9800K.
 
-(Maybe we should also just say "skip after X" VMAs in general, whether we
-skipped them or not?)
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+---
+ .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+ .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+ 2 files changed, 91 insertions(+), 1 deletion(-)
 
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+index 8e8d62436e0d0c4f9af9e52262b23881abd37cec..38db0764c0f70ad49295dcddc182b7e100a68b29 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+@@ -21,7 +21,6 @@ properties:
+       - dongwoon,dw9718s
+       - dongwoon,dw9719
+       - dongwoon,dw9761
+-      - dongwoon,dw9800k
+ 
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..f5bae7b287f1bbfba0c974431bc8faf232c06c45
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dongwoon Anatech DW9800K Bi-Direction Voice Coil Motor (Bi-VCM) Controller
++
++maintainers:
++  - Luca Weiss <luca.weiss@fairphone.com>
++  - Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
++
++description:
++  The Dongwoon DW9800K is a single 10-bit digital-to-analog converter with
++  +-130 mA output current sink capability, designed for linear control of
++  bi-directional voice coil motors (Bi-VCM) in camera lenses. This chip
++  provides a Smart Actuator Control (SAC) mode intended for minimizing
++  mechanical vibration.
++
++properties:
++  compatible:
++    enum:
++      - dongwoon,dw9800k
++
++  reg:
++    maxItems: 1
++
++  vdd-supply:
++    description: VDD power supply, can range from 2.3V to 4.8V
++
++  dongwoon,sac-mode:
++    description: >
++      Slew Rate Control mode to use: direct, LSC (Linear Slope Control) or
++      SAC2-SAC5 (Smart Actuator Control).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum:
++      - 0 # Direct mode
++      - 1 # LSC mode
++      - 2 # SAC2 mode (operation time# 0.48 x Tvib)
++      - 3 # SAC3 mode (operation time# 0.72 x Tvib)
++      - 4 # SAC4 mode (operation time# 1.20 x Tvib)
++      - 5 # SAC5 mode (operation time# 1.64 x Tvib)
++    default: 3
++
++  dongwoon,vcm-prescale:
++    description:
++      Indication of VCM internal clock dividing rate select, as one multiple
++      factor to calculate VCM ring periodic time Tvib.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum:
++      - 0 #  Dividing Rate -  2
++      - 1 #  Dividing Rate -  1
++      - 2 #  Dividing Rate -  1/2
++      - 3 #  Dividing Rate -  1/4
++      - 4 #  Dividing Rate -  8
++      - 5 #  Dividing Rate -  4
++    default: 1
++
++  dongwoon,timing-control:
++    description:
++      In LSC mode (252 + value * 4) * divider value in microseconds
++      In SAC mode (6.3 + value * 0.1) * divider value in milliseconds
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0x00
++    maximum: 0x3f
++    default: 0x20
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        actuator@c {
++            compatible = "dongwoon,dw9800k";
++            reg = <0x0c>;
++
++            vdd-supply = <&pm8937_l17>;
++
++            dongwoon,sac-mode = <4>;
++            dongwoon,vcm-presc = <0>;
++            dongwoon,timing-control = <16>;
++        };
++    };
 
 -- 
-Cheers,
+2.43.0
 
-David
