@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881042;
-	b=ff0AfaThMHX1bK/ZodLgvw7901dFjMbjrwrkXtjzeN18LlWck930H354OPufvqjwmYIG
-	 WO5m02fUC/zmXJk02qYuBb6EPhl7hIswP/G579lagssd/odNL6ErD1CS07HZUh65WdX6J
-	 4i0Ssyf43myMNnETp4swdN2s95Tw7r6foW63F4B9x7PxLX1FlG6zZv//a/aaShce+EEzF
-	 JVAqNpWJsla+BZgpW0yYS1wU06eKSg4ZUVhjjximqYIZGbrZKXj7uFL+R/jsC1+EXhYfT
-	 ChHsTu3MlvQgHOWhPpP9WQ+iW3tXr8Hj3SSR6HmP7VW2z3ZZzKu3MofQSQb8U1OFagA==
+	t=1793881045;
+	b=akqWS9Sq++g4KexB3cVvf34oij0TrtHm6hFA95LET3+FGL3t+HMpTbHB8TnLF0EX6z3r
+	 qmiLVI0b+VtWecB9K0c3wK5tCIvRgUUJ8kT4WiIjCxxrzQDzqZSN9cEPKNMEi01WVEVA8
+	 EQz63K86uX0Aoi1XOKH6Ex8IH4C7o7EwaapRrcLid+bz71AoYx29h8Hi0EDHwlMzmsk57
+	 NZX57u0Ivu5FYjvpWKaYWCyz4WmuAqgk9+QFOf5kTCTCn/lYMPScDbQI+euVPvJxTtXFh
+	 hHuF7U1OROIlFBl0jsYW2Hshzqwt0d8D6+Dr8Fy9pIRoxmIdvuG005jsQk4ZQnYm/6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881045;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NZ3CgzX5kCqEc5zzVuYtQMrEP9DNTdrTQOJmfrHXdUM=;
-	b=qB6pywNhppTqMTZ09Pr2iKHqaeRAL1kk0MW7rMNIag+s9QDwQygUkXQv5Zi3n9urZzUI
-	 ohW7OQe5DtAMy+I8nqD9YYWxZb7RGLuOsx/muuSt+G9f1cmS0QnUPlHEqd6WGMhepNjJQ
-	 p7A9zVClqbYJKN9w9Bd8AZblLTQHseyi8oNYgG3tRS3B9M/EuSYjbUlqdVyeW3agKP3P5
-	 gru3RrZ6UWD95zFJayttfggL9BNj6w5oMH8heZjhOKWZ/5sCJtTRsdy3oSqlHJk0Ey7L4
-	 QCQy2uSiptEb9tnB2XM7T5Jt25pFQS6XwCyNbj6d2n98AC5wT3r/4wWjnk6s2yMvHpg==
+	bh=7VlBoOECwIyEF/oYh2BB6rvaEtQ85D/IgkCWg3P1M34=;
+	b=TW0Cv76cn+umKNinGOPBI/FUQ55a0ANJ02RvoWuI+hI/e4+yyYDgdtJK1pmTqlHt/fAB
+	 wg4Doxwb/Nf5IwAnM1V2f5v6oL2mxOtEa7e3uG2QHdb/MIPyKYREkgRH/KBDv1Bxs8kKt
+	 WVRZYZVfZQ9Gj6CcKZ5mBCYrBPKXHtiRcW3mDlw5hjVUuRk9RVIX8ZM+E81ZL6NmLK6Tg
+	 Iq0jDRup9uVxzoQnWtVj9X1Jyi0X8FdTUpP9RfB4R/1JQ94iDPuyUCIs+id0L4AhS/Xd6
+	 W331Dp0NYpeFQ0WBWzrwFWVhJkQvVXiiHynae3XJk0HNonEhYnfyEOMuPjWsMBv10NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V64hvXG/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VpTGiKDR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51569606D83E;
-	Thu,  5 Nov 2026 12:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57083606A339;
+	Thu,  5 Nov 2026 12:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V64hvXG/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877111F0093A;
-	Thu,  5 Nov 2026 12:17:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VpTGiKDR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8501F00A02;
+	Thu,  5 Nov 2026 12:17:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881042;
-	bh=NZ3CgzX5kCqEc5zzVuYtQMrEP9DNTdrTQOJmfrHXdUM=;
+	s=k20260515; t=1793881045;
+	bh=7VlBoOECwIyEF/oYh2BB6rvaEtQ85D/IgkCWg3P1M34=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V64hvXG/6ati29xvEOwA+mKQa0d7FJScqk/4Vov27oAQ9RgN2TVHLfQY7TjZ6YRk9
-	 KfAftY8bbwNhFfUbwevB6z3w0l+tbCxNFkQMBOLGSJdZ/TWkYLs4jC39F0lC8Ivjvz
-	 JJhZhwfNodO4qfOxjx8modj8zfRT+sLG6l01SrikaTWYiJxv53wI2hx/XNqRDVGaXq
-	 kxR2nIjwAAUeExh/HM4R9cfmuZd9YxBV0Mj98yNoX1l79198Sa9BZC7RrwUdrUs0HZ
-	 run9S9EKxte8HsKtXpKdXvma8V73cMNl+tOQy4x105jjH41sz8DUoW3ZZs3UIZqZ0d
-	 CQ1r1xtOSHmwg==
+	b=VpTGiKDR6bBKAch4lgZlUDWYdY0UC3upO6lVewOG6iaRwuU+h9wSnpgBz958Dcxq5
+	 jBlupzi2jLLB2S3uZYGVexzwwiw+cdLAkklosewF2GLcdIFOweAw2mwjLp9XtJ3Dfg
+	 XActJH25+5fEva19UOalJF4qSq8EV4eYtq6V/gTGjf97u6dS/r/u4iPnElOqCtyLvt
+	 BAipgsX5MtoNytG2kYJEbZ4F/i7TOKU8gwcWmRvR1ORCLxtqkBMgnaNY3mSXbVMGx9
+	 xS2vFaq61K/vYw+j0vX5QUufHwioSZAwV5PVAO8DTGhdgTIcHDgzfSpheuqD8yHHDD
+	 CWwlTVUHlVC7A==
 From: Joshua Crofts <crofts@kernel.org>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -57,9 +57,9 @@ Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	imx@lists.linux.dev
-Subject: [PATCH 07/10] iio: gyro: bmg160: remove redundant pm_runtime_dont_use_autosuspend() call
-Date: Thu,  5 Nov 2026 12:16:32 +0000
-Message-ID: <20261105121635.1612-8-crofts@kernel.org>
+Subject: [PATCH 08/10] iio: imu: kmx61: remove redundant pm_runtime_dont_use_autosuspend() call
+Date: Thu,  5 Nov 2026 12:16:33 +0000
+Message-ID: <20261105121635.1612-9-crofts@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261105121635.1612-1-crofts@kernel.org>
 References: <20261105121635.1612-1-crofts@kernel.org>
@@ -82,21 +82,21 @@ Remove the redundant function call.
 
 Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
- drivers/iio/gyro/bmg160_core.c | 1 -
+ drivers/iio/imu/kmx61.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/iio/gyro/bmg160_core.c b/drivers/iio/gyro/bmg160_core.c
-index b007f46d3fd6..f1e1d21e590f 100644
---- a/drivers/iio/gyro/bmg160_core.c
-+++ b/drivers/iio/gyro/bmg160_core.c
-@@ -1169,7 +1169,6 @@ int bmg160_core_probe(struct device *dev, struct regmap *regmap, int irq,
- 	return 0;
- 
+diff --git a/drivers/iio/imu/kmx61.c b/drivers/iio/imu/kmx61.c
+index 1ca998f44eb2..bc8e88ffe430 100644
+--- a/drivers/iio/imu/kmx61.c
++++ b/drivers/iio/imu/kmx61.c
+@@ -1388,7 +1388,6 @@ static int kmx61_probe(struct i2c_client *client)
+ err_iio_unregister_acc:
+ 	iio_device_unregister(data->acc_indio_dev);
  err_pm_cleanup:
--	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_disable(dev);
- err_buffer_cleanup:
- 	iio_triggered_buffer_cleanup(indio_dev);
+-	pm_runtime_dont_use_autosuspend(&client->dev);
+ 	pm_runtime_disable(&client->dev);
+ err_buffer_cleanup_mag:
+ 	if (client->irq > 0)
 -- 
 2.47.3
 
