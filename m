@@ -1,86 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893001;
-	b=aOGAputtNR81+Qijl2BErvI9LHJvY9D4NoPrKvi8Ib631F0bqgaYs+QOFGofkxTf6XhP
-	 uFToFtjKowoK1pH/HtMn50/TB841jS3r8OHsvaG97JR/lthdzHoFU5lLfrjxs/bPtnrlH
-	 vkEXlzWdMlZWtuTBTunWKSyy5YpuqJPvcgSNogjmTaTKiJ5VvyLf/NxNmUz+MLaj/FzEC
-	 3dfrR8wCG50kbE5vReD9DzsIvIoexVu5EIwz5seyntWTSx9RRy9U6H9d2v8zANivPTJyf
-	 5VxK8MQAOAF1OUdO1K9rGk7Vp4rey2QCxQjINNV7NGuK6fZfvsIIRNH9eP7UkEriszQ==
+	t=1793893025;
+	b=c7y3/WKmDxo/Ew7iwCzaHD944WF/st3ulRF2N52E1l1IiXwcbTap5j7zxKIOYMF/hUFP
+	 el1GPy5y72qcWxSNm+syYJeGSvnoGckR0SYoh14H9gw17oLIXRqYh9MOweQzyKWtMEJPb
+	 1CFz8AGa1Z5lB0OiiPeaAtZpk0Mw8xOkCR8iU85ZHt61XicvnrmRCQYo5bWzj0wBMFbEW
+	 ajnms1yXa9q2VSebSv/CRKM4d6o1LZ/rM9h0kMWIGvnTqly96tJXCKByYwLFNII33lyzl
+	 X6OuwNqifHaM02Ltck+llEYdwpoMGNseS3aZk/BFjzAYotzsg7qr6EoP/xWgY8su74g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893001;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WMIfUSC08BqgK169oF+WQophOR+gP8olx7dB7m3lVdI=;
-	b=l1ges1sDQs99vnu83rn2Z/dk5BzwP7ioFkXPl7PIgNqKSDTNr/hHGqOYrB5JY5KGsUMy
-	 LQVEtED3SDIEDuuRoUh1YxfQ/kW7rR0WNaFyNvFDUrZEg3YJAryDZdu/I5EOLnhApeCSr
-	 Mg+7uPXv1VpWvCsb3sdZv9sCRsFsRZS/qnMuVm0G95b6pASFjuVT3BHFAzUftoacBBtwv
-	 XePrA7b1eowFYPJqQzkQ3gZv2hIuuM4XUdrmLXZ+YkRf5dICRQf7GTNJ6DHjJr4AStGkr
-	 5rBh+vvjSZcD9fHdGCK3XMTB+OhE9Fhrfkwm3RlD+aCDm4TBgRGNYjJ/5PCuMZVG54g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893025;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=kvailjwqfOmhbJJjcy8TbvowePxzON+06QO6Up9gGT0=;
+	b=bn/qxkZx4n7Tix7Jb46MoXGZf6npPS5/izax5bHz3V6e6J4fO4+vXmXpqXjaJar21PpD
+	 tZBTTJ2pHVWeEhyPnS86g8ijwzVifRCFUvlGeQhijjpr3L3fdzMhCLhz+Rda9RRP7iQgA
+	 6OeZw98a4n2GEvLIzOFa7+EJeQ1Pyfe6gm+cdmH6IitoErEH0jF/fwPbT0zgQoSjND/0U
+	 KrAJXHge4nUbB1okU32+wfvkaqOiNCSXjig/lckhHqXVxprqsVEd11zPOFo5FLHTQTcpX
+	 D4etdC3i6njdX8g0p2wXhRpwjCGDyuD5nhhzS9oRIMnZK4xr6FDqE4d8gDubEjLn2cA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQ2UVcx0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--halg.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Gxle+Ke/";
+	arc=none smtp.remote-ip=209.85.218.69
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F776606A31B;
-	Thu,  5 Nov 2026 15:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46734606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:37:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46734606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--halg.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQ2UVcx0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3617D1F000C1;
-	Thu,  5 Nov 2026 15:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793893000;
-	bh=WMIfUSC08BqgK169oF+WQophOR+gP8olx7dB7m3lVdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GQ2UVcx0gaNOwo0yy9wftnb8YdlMK/DhNEwIT+Ja4l0mEunsi7pyo+Yoj+Ijw7oqf
-	 mUr8+4Y9IKNGF12cfn5mWrWn87XYuqmTMQJphnw2OCQ1WjYneGTAZvps6xLlNfO5oQ
-	 oSJHx8/355u1AZtd58DBfy/xtRnTeZ+VZojz2v6C5itcJZdiGLR/hsGTAG0ZSV9VY9
-	 n8FER9NZsV8jYHgeaY4da3lu7SKNrw57S8PTG90MNhkl296SICCgdGoTg13reFYICw
-	 zfTvJI58o4+DE8ClCZFFcs1HAxxT/4YOpd2sEFGXy+nwq3X6z+W1BgMZrSWmNG4Y7s
-	 B7xxjbNedfKbQ==
-Date: Thu, 5 Nov 2026 16:36:38 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Frank.Li@oss.nxp.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, 
-	Richard Genoud <richard.genoud@bootlin.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Orson Zhai <orsonzhai@gmail.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Cunhao Lu <1579567540@qq.com>, Raul E Rangel <rrangel@chromium.org>, 
-	Yenchia Chen <yenchia.chen@mediatek.com>, Zhiyong Tao <zhiyong.tao@mediatek.com>, 
-	Carlo Caione <ccaione@baylibre.com>, Moteen Shah <m-shah@ti.com>, Kendall Willis <k-willis@ti.com>, 
-	Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>, Nicolai Buchwitz <nb@tipi-net.de>, 
-	Karl Mehltretter <kmehltretter@gmail.com>, Stefan =?utf-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>, 
-	Shitalkumar Gandhi <shital.gandhi45@gmail.com>, Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>, 
-	John Ogness <john.ogness@linutronix.de>, Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>, 
-	Robin Gong <yibin.gong@nxp.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu <2426767509@qq.com>, 
-	"Nikola Z. Ivanov" <zlatistiv@gmail.com>, Haoxiang Li <haoxiang_li2024@163.com>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Myeonghun Pak <mhun512@gmail.com>, 
-	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>, 
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>, 
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
-	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-Message-ID: <auyiAE3lhnFahBK2@orome>
-References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
- <aux2VKHnVLwq_wzi@orome>
- <auyQEVmA2KeGu9DL@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Gxle+Ke/
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c42394d1e41so217500166b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:37:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793893024; x=1794497824; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kvailjwqfOmhbJJjcy8TbvowePxzON+06QO6Up9gGT0=;
+        b=Gxle+Ke/ft0qPJDBX0JQWzA1ZLmQgVZzBrWyEVoNZxTcMrrajfo1O4ASCBG23EIcjq
+         cUy28QM3QPVKkqYviAKt4UuDyzpJABmNQR4JRuUY/9J9Hkfes1ObSbTFJBTMv0xgyn36
+         I605vsADiFHcxXf4eX61I0j4Gi+kKyS6oNG5NvaDGMqTtAbtArrAfHjtJRgz0KAQXT73
+         KzZfmQgJwuEWSDCZ0Dz1NtIeuRDvR+OePZg4x0U3S37xPzoaWN3MauXtR0KYCrK+pAhq
+         rsIk4Yf8fmIvbb2p7AhpUlOpetxQvv3G4Qgr9XZcKOy2pWy+dVo2136CYJcH164SwW/n
+         pIAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793893024; x=1794497824;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kvailjwqfOmhbJJjcy8TbvowePxzON+06QO6Up9gGT0=;
+        b=CB1bF9HfibVKCES0peRxFAwU+y+KDv5LOFAzjHp9hFLe+jvUDH3hRbK2rVCcO6gxln
+         byGytRGeL1nKk+3Z4vWTTUG9pGbUwCr82AYBqRZeTKHm+vWe2Nt+SOMzEbV+Tgoov8wu
+         Alz2RF6BcRqdvQ5uaho1isha4kYONinNwZpi4JQBdpj8Xk65yMh3uf3n1O9h/r69sSky
+         gx/6tq2Ep/UDECW9DHYf/sr8qzEJ+ytGdIPOqTsAv71s09EfkiJkaDBbBM+WYEkHDhJn
+         8mVV6JonEPpXC5gkxSDEECrD2Qgrt1tLu9DBOyD38KrTn/Htmz2ikJEyPqBCnY7AXRm8
+         zY8g==
+X-Forwarded-Encrypted: i=1; AKwUvByRRlMX5sECJG6BoATK9fVpfoYSj/0+R5U/R8YI+dJ+P8KJhex1uYMt0igLSMWxuEjTlmmdGJHS7/xKviE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NJfXvwND/2LtZsOBA79v5RLq/HvI8sLPEgZHb1ZOiOLwdyLtC
+	N2+kaEhGnMlFI5VOHYBxwQc4pC1YHlpRMGOeb1m7n2FgbL8OQfqZ4z5rEogMuZEjs+YfqeRJXg=
+	=
+X-Received: from ejcwz8-n2.prod.google.com ([2002:a17:907:b048:20b0:c4d:23d9:b0d9])
+ (user=halg job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:cb88:b0:c26:19e3:e98d
+ with SMTP id a640c23a62f3a-c4ca7af17a5mr1750569566b.45.1793893023363; Thu, 05
+ Nov 2026 07:37:03 -0800 (PST)
+Date: Thu, 5 Nov 2026 15:37:02 +0000
+In-Reply-To: <aunVmg42/S2uUDWR@hallyn.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,89 +77,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2ahiyus6jckmdxu2"
-Content-Disposition: inline
-In-Reply-To: <auyQEVmA2KeGu9DL@ashevche-desk.local>
+Mime-Version: 1.0
+References: <20261028221705.3915340-1-halg@google.com> <aunVmg42/S2uUDWR@hallyn.com>
+Message-ID: <auyink594bxptAPN@google.com>
+Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
+ opt-in netns loopback
+From: "Hallgrimur H. Gunnarsson" <halg@google.com>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
+	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jann Horn <jannh@google.com>, "=?utf-8?Q?G=C3=BCnther?= Noack" <gnoack@google.com>, KP Singh <kpsingh@kernel.org>, 
+	Jonathan Calmels <jcalmels@3xx0.net>, Casey Schaufler <casey@schaufler-ca.com>, 
+	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-api@vger.kernel.org, containers@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
+On Tue, Nov 03, 2026 at 06:37:46AM -0600, Serge E. Hallyn wrote:
+> Generally, if I, or some users I support, need to use unprivileged containers
+> or user namespaces, then when an 0day comes along, I can hopefully trust them
+> not to exploit it.  The biggest danger comes from the fact that, right now, if
+> they can use them, anyone can.  So if someone can trigger some other code running
+> as user nginx or something, that can become a root vector.
+> 
+> So what if we had a built-in feature or LSM which implemented a credential based
+> whitelist, entered at firstboot?  Something like
+> 
+> ```
+> # Default deny
+> uid == 1000  # approved
+> 1005 < uid < 1010  # approved
+> gid == 1005
+> security_label = lxc_user_t  # Not sure how far we want to go with this
+> tty # must have a session
+> ```
+> 
+> Now, if you want to use user namespaces for generic sandboxes for all
+> users, e.g. to confine browser activity or nginx modules, then this model
+> may not fit.  Or rather, it might need a few tweaks.
 
---2ahiyus6jckmdxu2
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-MIME-Version: 1.0
+Thanks for taking a look and sharing the credential-based allowlist.
 
-On Thu, Nov 05, 2026 at 04:17:53PM +0200, Andy Shevchenko wrote:
-> On Thu, Nov 05, 2026 at 01:28:46PM +0100, Thierry Reding wrote:
-> > On Mon, Nov 02, 2026 at 12:54:48PM -0500, Frank.Li@oss.nxp.com wrote:
-> > >=20
-> > > Replace open-coded assignments to callback and callback_param fields
-> > > of struct dma_async_tx_descriptor with calls to the
-> > > dmaengine_desc_set_callback() helper across serial drivers.
-> > >=20
-> > > No functional change intended. Prepare to make struct
-> > > dma_async_tx_descriptor private to the DMA engine.
-> > >=20
-> > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > ---
-> > >  drivers/tty/serial/8250/8250_dma.c  | 6 ++----
-> > >  drivers/tty/serial/8250/8250_mtk.c  | 3 +--
-> > >  drivers/tty/serial/8250/8250_omap.c | 6 ++----
-> > >  drivers/tty/serial/amba-pl011.c     | 6 ++----
-> > >  drivers/tty/serial/atmel_serial.c   | 6 ++----
-> > >  drivers/tty/serial/fsl_lpuart.c     | 6 ++----
-> > >  drivers/tty/serial/imx.c            | 6 ++----
-> > >  drivers/tty/serial/msm_serial.c     | 6 ++----
-> > >  drivers/tty/serial/mxs-auart.c      | 6 ++----
-> > >  drivers/tty/serial/pch_uart.c       | 6 ++----
-> > >  drivers/tty/serial/samsung_tty.c    | 6 ++----
-> > >  drivers/tty/serial/serial-tegra.c   | 6 ++----
-> > >  drivers/tty/serial/sh-sci.c         | 9 +++------
-> > >  drivers/tty/serial/sprd_serial.c    | 3 +--
-> > >  drivers/tty/serial/stm32-usart.c    | 6 ++----
-> > >  15 files changed, 29 insertions(+), 58 deletions(-)
-> >=20
-> > Reviewed-by: Thierry Reding <treding@nvidia.com>
->=20
-> Krzysztof, now look at this case. I would argue that this is even less fi=
-t than
-> # subpart(s) case, because it might imply anything. Again the problem is =
-the
-> bundle, and for such a case (when tons of independent changes are bundled=
- in
-> the same stuff, *every* Rb tag has to be explained on what has been revie=
-wed!
+The latter scenario (generic sandboxes for all users) is actually the
+primary use case that I'm targeting. I want to allow unprivileged users to
+create user namespaces, e.g. for sandboxing, but without granting them
+security-sensitive network capabilities (CAP_NET_ADMIN/CAP_NET_RAW) when
+they are not strictly needed, given the historically high risk of local
+privilege escalation associated with them.
 
-It may be a bit subtle, but the placement of the tag indicates that it
-applies to the entirety of the changes. I didn't crop the list of
-changed files, nor did I omit the summary.
+The two approaches target complementary layers of the problem. A credential
+allowlist at creation time controls who can create a user namespace, while
+this patch series controls what capabilities are available inside that
+namespace (and its descendants) once it is created.
 
-That bit of meta-data obviously isn't picked up into the tag line, but
-I think the default meaning of Reviewed-by is that it applies to the
-entire thing.
+Gating creation works well when there is a clear boundary between trusted
+and untrusted users. However, in a multi-tenant environment (like a large
+container fleet), we generally treat workloads as untrusted by default.
+Because we still want to allow these untrusted workloads to use unprivileged
+user namespaces for sandboxing, it is essential to keep the attack surface
+small and follow the principle of least privilege whenever possible.
 
-Thierry
+More specifically, this patch series enables that model of safe sandboxing
+across three key use cases:
 
---2ahiyus6jckmdxu2
-Content-Type: application/pgp-signature; name="signature.asc"
+1. Configurable capability stripping: Administrators can enable unprivileged
+   user namespaces for all users to support sandboxing, but configure the
+   system to strip CAP_NET_ADMIN and CAP_NET_RAW by default in new user
+   namespaces created by unprivileged users. Basic sandboxing rarely needs
+   these (except to bring up loopback, which Patch 1 addresses via
+   CLONE_NEWNET_LOOPBACK).
 
------BEGIN PGP SIGNATURE-----
+   The per-namespace bounding set can enforce this either globally via the
+   sysctl, or explicitly via clone3() at the container manager level. This
+   restriction is monotonic and persists down the namespace hierarchy.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrsooYACgkQ3SOs138+
-s6HsEBAAvgrbYKAHxYaotfiffEkaiu5bekj96h6z+cilejnIbjAQULN3YB/vJgMw
-989E+Tc9xOUp2VZUOGlEURoAZlx2VASTX17Z9qMdAMBvAU9JaaRRR3lgg3DBe9P8
-nesEI+jXi55+OB8tZg5FthLgQGbxy/lM0Nqch6aZbmT6leB70s5h6lYrHeoafCtw
-3qy76KmxowG5jx/CIQHQhUhC5jMsTFlqoX/6YoC2ps0L2dinYqON9TEhN+ljs0hp
-kYmyPE4g1QaXGk2sUrrCM18iLOxjNtJwNspmndfkUP8T1v6qexGmSJXeQMAF6Hsx
-Mb47ov4M1dpeFP4TcXghlmJdCbDQyO6Z+SDMzMOO33UdOkC+MrSb8P8yuN4QD909
-Dw/3qIapRxlrxhIkmd+dihmne+1irCgEMuTqpJful+lMYOWQ2yESoE+G9u9fJHDI
-wL7sTTrtCEMAl2oaO6xtAmaV6/FHFgCG8vCMM1QVg6zuSGk3mTW3qQbRO5ginzwk
-tAxKdIbWeU0RQoXINwh24JoAQs+rswnGgFUBvl+XZpNgnp7NOs2DrvC1uueuxtvB
-1s57F8cZLIwxAMhmnBNKuTiu8YGNEwNGVQpoCBDvvdTohhssdav1DaP462lhmVfh
-aLHhfjTv/1wqXk95lqVM51sm3ytRti+1p0zjyqZN0Hm+p3vnZX8=
-=tFls
------END PGP SIGNATURE-----
+2. Selectively granting CAP_NET_ADMIN: Some containerized workloads
+   legitimately need CAP_NET_ADMIN to configure advanced networking for
+   sub-containers. Because an unprivileged creator's child namespace is
+   bounded by:
 
---2ahiyus6jckmdxu2--
+     parent_bset & (sysctl_ceiling | creator_effective)
+
+   a container that is explicitly granted CAP_NET_ADMIN in its own user
+   namespace automatically propagates that capability into the bounding
+   set of any child namespace it creates (unless it is explicitly
+   dropped).
+
+3. Dropping capabilities for nested namespaces: If a container with
+   CAP_NET_ADMIN needs to spawn an inner user namespace to run untrusted
+   code in a nested sandbox, it can use CLONE_NEWUSER_BSET to voluntarily
+   drop CAP_NET_ADMIN from the inner namespace's bounding set. This
+   guarantees the nested sandbox cannot access the capability and the
+   restriction persists for all further descendants.
+
+As a quick clarification on how this interacts with the hierarchy: the
+bounding set restricts tasks inside the namespace and parent tasks
+relying purely on the parent-ownership check. It does not restrict
+tasks in an ancestor userns that inherently hold the capability.
+Therefore, in the nested sandbox scenario above (#3), the parent
+container with CAP_NET_ADMIN can still configure the sandbox's network
+from the outside (by using setns() to enter the nested netns directly)
+even though CAP_NET_ADMIN is stripped inside the sandbox userns.
+
