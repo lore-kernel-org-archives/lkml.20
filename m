@@ -1,64 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901046;
-	b=1sId07LuaeD6dOzSnkn3XLYov+n31+Bbrob9QPJdFmxVgLEYE9NvH1HHGr4GGpdylvP9
-	 RIeoQbKxO3grSjV3Mv3qi3g1VGm9Az3E9kRczqC+Hvo6HQWXjO/XCcthM7ELL05epuily
-	 ecoELqnN297YFm7f/yzYj19Db1Lu4ReM2xFe2xlvVqhZ2EBm0swVIuEqS7KbtCq3qOjW7
-	 W9VEY1NLT9rTmx55FPqec2H3e2FLg2dPGCTjWYyrlxQlHzj9vo1x8LE28jwVB1uHI+wxk
-	 cthgUOxBoO+4nmAL8O8SAyL6Z0FOqm/oWOAe7oTmyunrBLRFfU2sdFGH659tS+kSXlw==
+	t=1793901052;
+	b=vYUmKeJl8ZlIy6c9GOmOMgU14N607bVf/uG2Ufp+q9eZOQCH4I/ukBkDfog9Z/UuAk7S
+	 MK68AaWmgLOBt9aDaT8nhxT9GxMyKn47Nrbo2Y2LV062JYvr0lHM7AYIRnbMgKdGSCC0u
+	 vmvNkgWAZ73vRIFG6+TJgLpdiVq5Jtk/zE4yi9DJhbo+gMeV98hFTCybM8QBjHdzH5tfe
+	 +7A5EXAKX2rSjcbYpVCBQAfJP68kmjuxpRrxBWQx+/VYTP4k/HG+jtLzJQMA4sDEbM6J8
+	 Xc75HgKHIYQbkSR8NyhTiEH/t2QhBMXMCBhEP+NKezLGhFbkTaWF3IHQUMaCs1e3O+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901046;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vL3fCf3x0Npft/XX19i4MfqfDFYZRdVWqAhvaY2r/60=;
-	b=1w7E6UgmHEt/ns2+uNirj1YRYiDwmkhqfVpbv5LtD5HcKGjbX5rLYnuYiDivukQzoPvy
-	 I+A91YEaZ/h55sh9VhPc5sO74Kw51MLYR45f5OE6ImllXg47G8gFQD6Qy+mezmu1E+DdC
-	 QEmw7LA9l5rdH/Zlh07pD7sAbL8fhFlTt1c2fZwvfaVufmBeLhIzFQhO6Zx34S4vlNbRj
-	 jvYgA9/AgOBPRsdtcgBpmzvgwQliLeSr+gTXZih5004qbHiBxAJr49Biophu+sMyqob/g
-	 8yQLetO5fOueBiguPnH/hOGBRfDRTdYd4JouEYhl0m43bGeL1AKu50R1BSK6h3AuAaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901052;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=yeBuNAxgVTHYRfiOZ/WoZlL/Ne7UUU+UJLURwLyFVIo=;
+	b=VvGKnZybQn/FNZYULKTbZTDZUrMbC4QCHS0DnhOiopwdvN5Nq5xuLhsm8Y2O/Dpcvtyt
+	 fV03VCIwmo97bdXrkpiY2wGKQcr9r7LxHH7dWLwG+Za94Bx5v+bR0Guj+CZThQBKyI+jB
+	 /u2jpvNap35KJD36pFh9rqrVjfZUnETSv9bhoosgA/zZutvI7rK6UDzttltA+k5spmpul
+	 cTEwyz2UctrWKWcbhy5SCqCEGjaPyZ/Lwn5u+uDGisOMew3GSoP133g0etrk1sKGghnv5
+	 u3zM3F9Yu43MP2mWEnlcocQQXmrqVj1ooy70g5RCFmTGH6LXfJnArHC367zsIXysIPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UE0PEjZh;
-	arc=none smtp.remote-ip=91.218.175.107
-Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=D7EHD+CL;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36392606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36392606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B97A606D817
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B97A606D817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UE0PEjZh
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ma8G2wF1f1YY7iy2mQ8RS1pQN+DkGoPBZuT2jhb1M04=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793901043; v=1; x=1794505843;
- b=UE0PEjZhClLbjPS57qJgZ1kdHccMDMZhZRRsaj0JSCOYq8X/RW+ta1HgFIHghRXt4LzYmYjD
- V3l9RcVRtJ7Aai9sLoZMEbD8tarMBX99WxAcvf8dTCj8aTp0J6dOY2NHhGfnxugbhmDISlOuMJG
- 1dpm3u+6Su+PsrBpFvCsf0NA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e1ab382a23fba1aa;
-	Thu, 05 Nov 2026 17:50:43 +0000
-X-Mizu-Trace-ID: e1ab382a23fba1aa
-X-Migadu-Flow: FLOW_OUT
-From: wen.yang@linux.dev
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: Nam Cao <namcao@linutronix.de>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v8 11/14] rv: Add tlob hybrid automaton monitor
-Date: Fri,  6 Nov 2026 01:49:11 +0800
-Message-Id: <3471283eefd839c47fdd0fd2cfd6ac4e28a342dc.1793900349.git.wen.yang@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1793900349.git.wen.yang@linux.dev>
-References: <cover.1793900349.git.wen.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=D7EHD+CL
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so20326815e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 09:50:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793901049; x=1794505849; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yeBuNAxgVTHYRfiOZ/WoZlL/Ne7UUU+UJLURwLyFVIo=;
+        b=D7EHD+CLoq/1hFPnpq5nhg93uExMb9c3y3DU0/cJ+oomDLaHZXaLaFp3ti11pGI23Z
+         0TXqaNrV/BTDJ9ZyXDdgALM8r4TjNxgXCaE121BuSc/AP2RbWDlV1m1ObPRHYuyin2ni
+         2vD3mtVZNXzh8zz+Sil2VFcZMoLxI7FqpieGbhZwBuyYJhJiB6yFPBaZDPZKEbxJO/TQ
+         jgtlUsA/tRO03fdsg5A0iSrhMvk4YwbBa+hWPfuP3MeLro/eajQrXDZBYbMKia8Mfw7k
+         qHaB24JjyptjJN+10/H5XNItjwRK+mNOJVG9y0xWPEdEELWdyKF8yOCYM+/GeIroeso7
+         tbDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793901049; x=1794505849;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yeBuNAxgVTHYRfiOZ/WoZlL/Ne7UUU+UJLURwLyFVIo=;
+        b=1Tk1Npbqu2xqMt/2IutiCv4MZrNl60IxlXVE1L6W2ZsqHFg7xiHi6Y3gB1IjfYBlQw
+         iqXIKSjuVzXFrjXM2AH4jSl8szHW3HlNYtFEldIW8U6Up6qRrBZaAqk8CiFxAywQo1JI
+         VDNiSZtMJo6cr1pXuD+CaF/vxhalKzoxtfx/GI9wyZ67iGtZZ53bhx33K4FSK+WmprKb
+         fsulogkav7y2o0Acz3D8PVHltNEiM4ORWbjthED/TMcJm/w/6ZWeJ1f0h2vqQwh9aIja
+         CzprmftFySJeCg9EfqVAUqTmh0hP+QR0QX+CBt3HeQnH4XFNlErhrz+vYND77E7v+0Ap
+         Q4dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjusP+H0gN1nL6hhbNgD6Br+VC8J5Ex+89v/goJDmkvQxVwlnPCnS7hegjsVwITlQW/R3/2aDK8HPOlrk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZNcXWemu3Tn3E3SUon00PWO+UOV3KV8G5x5G5irTuZBCWQFvN
+	fRprKARoqOCXyZmy+V7EUDjdM48ly90lU9o/axTWUm4SvGU/OXLk4B3M70GBI7y1L30=
+X-Gm-Gg: AYBFou1iN4nCbe+WQMI0m8TaSUGFhJ7g21ySyG71Jq6mm5m//Vt2pKC+0cjQZuDuzCS
+	kw1mNcv7YeMVktlk4xmqrl6yTrafTf4VI4RI+08Q0K5oMVcsatj5w9xNEyl9JlM/jwx7LSO+NgX
+	Cv61w8tBdX41pxelUTik4839w6JUt5BpeRNdsOVMqQttZqrn3xaS7dKKNKUch6JJlzHBUlNYwiT
+	Cmq0X58rSkZcOXjKWCNr0f/2RMM/XKNXtrmnoWmoE9+wBhgAOEdBawkyakdMlU6oMlFzAdqJ6cj
+	F+H3GqszOXidaFESoqgQj6erdAK2H/4Q/7mrbNbIuaI3GQwzanraVKc9epmkVFefJQdIKY8Z0FV
+	ZaltDUUHr6ogUS59vyCZYofeDc2EM+1CSSNECnNWoZRKksYmHXVlwfshL0kZDZWtiUV0FMTSxeU
+	swUDlQJh2l+0d1kvL9hzHbRMHIBsT/c1lRuwy8/VvyIVBw5oISNPJDvUKbMIw/mOpwADvMybTGp
+	ZjTh2rvXQ/FF/Q7xi1sJ11g2CgM1iCLcM6e93r4OSurnS98yrSSOFFCGiJOGdHar2cKVY/ct+xb
+	O5H+AcJbPdzrnuM3DaJye1hxVNdOI403F7Ccaqz9RKDqmiV2
+X-Received: by 2002:a05:600c:6095:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4ac182dc30fmr388592985e9.22.1793901048997;
+        Thu, 05 Nov 2026 09:50:48 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6c776c90asm889365e9.4.2026.11.05.09.50.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:50:47 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,1198 +89,2387 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RFC RFT v2 3/3] clk: meson: pll: Remove the dedicated n
+ parameter
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jian Hu <jian.hu@amlogic.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-amlogic@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261029-meson_refactor_n-v2-3-ff4ac74e527b@amlogic.com>
+References: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
+ <20261029-meson_refactor_n-v2-3-ff4ac74e527b@amlogic.com>
+Date: Thu, 05 Nov 2026 18:50:40 +0100
+Message-Id: <179390104085.2573818.48733523079260500.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=73609; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=aEvfLFnQW9cMlDdbY5/PfG+rEOzGt/1J10mMSsFjigI=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlvDn72nOvfwlGx/B234imv40GbZSZ0c5yM/DG32C/o9
+ YYJByS3dpSyMIhxMciKKbLUcFeLv5PU+jJrus5tmDmsTCBDGLg4BWAiS58wMsy6qvamcqpua07y
+ oW1MGWy98ptfyqdkXf/GZZM9aTO3eCTDHz7jlDMH3sdNdpbZNsV3K09vbf8ht9IXLCsMZn9ft1d
+ KkxsA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-From: Wen Yang <wen.yang@linux.dev>
+> The Meson PLL framework models the PLL pre-divider (N) using a dedicated
+> field in struct meson_clk_pll_data. Since the common clock framework
+> already provides a generic divider implementation, there is no need to
+> keep PLL-specific support for it.
+> 
+> The pre-divider is not intended to be dynamically adjusted. According to
+> the hardware design, each PLL has a single fixed N value, defined together
+> with the rest of the PLL. N = 1 for most PLLs, and N = 3 for a few special
+> cases (the axg PCIe PLL, gxbb Fixed PLL and the meson8b GP0 PLL). The PLL
+> input frequency constraints are respected by this fixed value.
+> 
+> Remove the dedicated n parameter from the framework and simplify the PLL
+> rate calculation accordingly. The pre-divider will be represented as a
+> separate divider clock by platform drivers where needed.
+> 
+> Replace the dedicated PLL pre-divider with a standalone divider clock
+> for all amlogic SoCs. The PLL DCO now takes the pre-divider clock
+> as its parent instead of the input clock directly.
+> 
+> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> ---
+>  drivers/clk/meson/a1-pll.c     |  69 ++++++++--
+>  drivers/clk/meson/axg.c        | 230 +++++++++++++++++++++----------
+>  drivers/clk/meson/c3-pll.c     |  99 +++++++++++---
+>  drivers/clk/meson/clk-pll.c    | 203 +++++++++++----------------
+>  drivers/clk/meson/clk-pll.h    |  17 +--
+>  drivers/clk/meson/clk-regmap.h |   2 +-
+>  drivers/clk/meson/g12a.c       | 265 ++++++++++++++++++++++++++---------
+>  drivers/clk/meson/gxbb.c       | 304 +++++++++++++++++++++++++++--------------
+>  drivers/clk/meson/meson8-ddr.c |  39 +++++-
+>  drivers/clk/meson/meson8b.c    | 238 +++++++++++++++++++++-----------
+>  drivers/clk/meson/s4-pll.c     | 128 +++++++++++++----
+>  drivers/clk/meson/t7-pll.c     | 186 +++++++++++++++++++------
+>  12 files changed, 1224 insertions(+), 556 deletions(-)
+>
 
-tlob (task latency over budget) is a per-task hybrid automaton RV
-monitor that tracks wall-clock time across a user-delimited code
-section and emits an error when the elapsed time exceeds a configurable
-budget.
+This a fairly big chunk. What you could do is:
+- make the prediv optional in the PLL temporarily
+- make one change per soc
+- finally remove the prediv from the PLL
 
-The monitor tracks four states (running, waiting, sleeping, stopped)
-driven by sched_switch and sched_wakeup tracepoints.  A single clock
-invariant, clk_elapsed < BUDGET_NS(), is enforced by a per-task hrtimer
-(HRTIMER_MODE_REL_HARD).  On expiry error_env_tlob is emitted; which
-phase consumed the budget (running, waiting or sleeping) is recovered
-from event_tlob in user space.
 
-Tasks are registered for monitoring by writing to the tracefs monitor
-file using the ftrace uprobe_events convention:
-  echo "p:myregion /path/to/binary:OFFSET_START OFFSET_STOP threshold=NS" \
-       >> /sys/kernel/tracing/rv/monitors/tlob/monitor
+> diff --git a/drivers/clk/meson/a1-pll.c b/drivers/clk/meson/a1-pll.c
+> index 100c4221256e..681ba329d52b 100644
+> --- a/drivers/clk/meson/a1-pll.c
+> +++ b/drivers/clk/meson/a1-pll.c
+> @@ -25,6 +25,36 @@
+>  
+>  #include <dt-bindings/clock/amlogic,a1-pll-clkc.h>
+>  
+> +/* Keep the pre-divider at 1 to achieve the best PLL performance. */
 
-The per-task monitoring record is embedded directly into struct
-da_monitor_storage via DA_OBJ_EMBEDDED_TYPE, eliminating the need for a
-private mempool, separate RCU reclamation, or parallel OPEN/CLOSED/RETIRED
-states. Window transitions and reentrancy are managed directly by the
-automaton model and framework storage lifecycle.
+What performance ?
 
-Suggested-by: Gabriele Monaco <gmonaco@redhat.com>
-Signed-off-by: Wen Yang <wen.yang@linux.dev>
----
- Documentation/trace/rv/index.rst           |   1 +
- Documentation/trace/rv/monitor_tlob.rst    | 162 +++++
- kernel/trace/rv/Kconfig                    |   1 +
- kernel/trace/rv/Makefile                   |   1 +
- kernel/trace/rv/monitors/tlob/Kconfig      |  12 +
- kernel/trace/rv/monitors/tlob/tlob.c       | 732 +++++++++++++++++++++
- kernel/trace/rv/monitors/tlob/tlob.h       | 143 ++++
- kernel/trace/rv/monitors/tlob/tlob_trace.h |  20 +
- kernel/trace/rv/rv_trace.h                 |   1 +
- 9 files changed, 1073 insertions(+)
- create mode 100644 Documentation/trace/rv/monitor_tlob.rst
- create mode 100644 kernel/trace/rv/monitors/tlob/Kconfig
- create mode 100644 kernel/trace/rv/monitors/tlob/tlob.c
- create mode 100644 kernel/trace/rv/monitors/tlob/tlob.h
- create mode 100644 kernel/trace/rv/monitors/tlob/tlob_trace.h
+Suggest:
+Force the PLL pre-divider at 1 to minimize PLL jitter.
 
-diff --git a/Documentation/trace/rv/index.rst b/Documentation/trace/rv/index.rst
-index 29769f06bb0f..1501545b5f08 100644
---- a/Documentation/trace/rv/index.rst
-+++ b/Documentation/trace/rv/index.rst
-@@ -16,5 +16,6 @@ Runtime Verification
-    monitor_wwnr.rst
-    monitor_sched.rst
-    monitor_rtapp.rst
-+   monitor_tlob.rst
-    monitor_stall.rst
-    monitor_deadline.rst
-diff --git a/Documentation/trace/rv/monitor_tlob.rst b/Documentation/trace/rv/monitor_tlob.rst
-new file mode 100644
-index 000000000000..bf87b90405cd
---- /dev/null
-+++ b/Documentation/trace/rv/monitor_tlob.rst
-@@ -0,0 +1,162 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+Monitor tlob
-+============
-+
-+- Name: tlob - task latency over budget
-+- Type: per-object hybrid automaton (RV_MON_PER_OBJ)
-+- Author: Wen Yang <wen.yang@linux.dev>
-+
-+Description
-+-----------
-+
-+The tlob (task latency over budget) monitor is a per-object hybrid
-+automaton that checks a task's elapsed time (CLOCK_MONOTONIC) against a
-+budget: from an instrumented entry point to its matching return, the
-+task must not spend more than the budget in any combination of running,
-+waiting and sleeping.  The clock ``clk_elapsed`` must satisfy
-+``clk_elapsed <= BUDGET_NS()`` in the ``running``, ``waiting`` and
-+``sleeping`` states; when it does not, the HA timer fires, the framework
-+emits ``error_env_tlob`` and resets the monitor::
-+
-+                                           | (initial)
-+                                           v
-+        +--------------+   stop    +----------+
-+     +->|   running    | --------> |  stopped |
-+     |  +--------------+ <-start-- +----------+
-+   switch_in  preempt  sleep
-+     |        |       |
-+     |        |       |
-+     |        v       v
-+     +---------+  +---------+
-+     | waiting |  | sleeping|
-+     +---------+  +---------+
-+          ^            v
-+          |   wakeup   |
-+          |            |
-+          +------------+
-+
-+Not drawn above, ``running`` and ``waiting`` each take ``wakeup`` as a
-+self-loop: a task woken between ``set_current_state()`` and ``schedule()``
-+is still on CPU, and a wakeup never ends the budget window.  ``stopped``
-+takes every scheduler event (``preempt``, ``sleep``, ``switch_in``,
-+``wakeup``) as a self-loop, so a task keeps going through the scheduler
-+between windows without disturbing the model.  See
-+``tools/verification/models/tlob.dot`` for the full model.
-+
-+``stopped`` has no invariant and hence no timer.  A ``stop``
-+(``tlob_stop_task()``, window ended) does not reset the monitor: a later
-+``start`` (``tlob_start_task()``) begins a new window from ``stopped``.
-+Task exit and monitor disable are the paths that free the per-task
-+state; removing a binding only resets the windows it opened and leaves
-+the state in place.  A START while a window is still open (a nested
-+window) is a model violation, reported through ``error_tlob``.
-+
-+The non-running condition (monitor not yet started, or reset after a
-+violation or monitor disable) is handled implicitly by the RV framework;
-+it is not an explicit DA state.
-+
-+Usage
-+-----
-+
-+tracefs interface (uprobe-based external monitoring)
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+The ``monitor`` tracefs file instruments an unmodified binary via
-+uprobes, following the ftrace ``uprobe_events`` convention.  Each
-+binding has a NAME::
-+
-+  p:NAME PATH:OFFSET_START OFFSET_STOP threshold=NS
-+
-+The probes at ``OFFSET_START`` and ``OFFSET_STOP`` (ELF file offsets of
-+entry points in ``PATH``) call ``tlob_start_task()`` and
-+``tlob_stop_task()``.  ``PATH`` may contain ``:``; the last ``:`` in
-+``PATH:OFFSET_START`` is the separator.  ``threshold`` is in
-+nanoseconds and must be between 1 us and 1 hour.  ``NAME`` follows the
-+ftrace event-name rule (``[A-Za-z_][A-Za-z0-9_]*``, 31 characters at
-+most) and must be unique among the registered bindings
-+(``-EEXIST``); overlapping ranges on the same binary are rejected
-+too, since a task runs one window at a time and a second range would
-+shadow the first::
-+
-+  echo 1 > /sys/kernel/tracing/rv/monitors/tlob/enable
-+
-+  echo "p:myregion /usr/bin/myapp:0x12a0 0x12f0 threshold=5000000" \
-+      >> /sys/kernel/tracing/rv/monitors/tlob/monitor
-+
-+  # List registered bindings
-+  cat /sys/kernel/tracing/rv/monitors/tlob/monitor
-+
-+  # Remove the binding NAME
-+  echo "-:myregion" >> /sys/kernel/tracing/rv/monitors/tlob/monitor
-+
-+As with the ftrace dynamic-event files, opening ``monitor`` for write
-+with ``>`` truncates: ``echo > monitor`` removes all bindings.  Use
-+``>>`` for every individual command, removals included.
-+
-+A task may hit the START/STOP pair any number of times: each pair of
-+hits is one window, and the per-task record is kept between windows,
-+until the task exits.  A window ends at whichever comes first, the STOP
-+probe or the timer; if the timer won, the STOP is a no-op and the next
-+START opens the following window.  Removing a binding also ends the
-+windows it opened, without reporting them, so a task still running an
-+instrumented section is not reported once its binding is gone; a later
-+START, from that or another binding, reuses the record.
-+
-+A task reaching a range bound to a different binding is reported
-+through ``error_tlob``: windows do not overlap, and the second would
-+shadow the first.
-+
-+Up to 64 tasks can be monitored at once; the per-object storage comes
-+from a pre-allocated pool.  A task that starts past that cap is not
-+monitored (the kernel log carries a one-time warning), and reuses its
-+slot on a later START.
-+
-+Violation tracepoints
-+~~~~~~~~~~~~~~~~~~~~~
-+
-+A budget violation emits the framework tracepoint ``error_env_tlob``:
-+``id`` (task pid), ``state``, ``event`` (``"budget_exceeded"``) and
-+``env`` (``clk_elapsed``).
-+
-+Deriving the per-state breakdown
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+Which phase consumed the budget (``running``: compute, ``waiting``:
-+scheduler pressure, ``sleeping``: I/O) is recovered from ``event_tlob``,
-+the standard state-transition tracepoint.  Each window is a run of
-+``event_tlob`` lines for one pid: ``start`` opens it, ``stop`` closes it,
-+and a violation closes it with ``error_env_tlob``.  Attribute the time
-+between consecutive lines to the ``next_state`` of the earlier one::
-+
-+  echo mono > /sys/kernel/tracing/trace_clock
-+  echo 1 > /sys/kernel/tracing/events/rv/event_tlob/enable
-+  echo 1 > /sys/kernel/tracing/events/rv/error_env_tlob/enable
-+  trace-cmd record -e rv:event_tlob -e rv:error_env_tlob
-+  # ... run workload ...
-+  trace-cmd report
-+
-+The ``mono`` clock is required: ``event_tlob`` timestamps are compared
-+across CPUs because a task migrates during a window.  The three buckets
-+sum to ``clk_elapsed`` up to the tracepoint overhead.
-+
-+Design notes
-+------------
-+
-+- A fresh window always starts in ``running``: monitoring a task that
-+  is already waiting or sleeping at START misattributes the first
-+  interval to ``running``.
-+- ``TASK_STOPPED`` and ``TASK_TRACED`` carry ``prev_state != 0`` and
-+  count as ``sleeping``, indistinguishable from I/O-blocked time.
-+- A task preempted between ``set_current_state()`` and ``schedule()``
-+  carries ``prev_state != 0`` and counts as ``sleeping`` although it
-+  stays runnable.
-+- ``sched_wakeup_new`` is not hooked: a task is attached by a START
-+  probe in its own context, after the initial wakeup.
-+
-+Specification
-+-------------
-+
-+- Graphviz Dot file: tools/verification/models/tlob.dot
-+- KUnit tests: kernel/trace/rv/monitors/tlob/tlob_kunit.c
-+- User-space tests: tools/testing/selftests/verification/
-diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
-index 2bc412304293..68f0b9bc2dc3 100644
---- a/kernel/trace/rv/Kconfig
-+++ b/kernel/trace/rv/Kconfig
-@@ -82,6 +82,7 @@ source "kernel/trace/rv/monitors/wakeup/Kconfig"
- source "kernel/trace/rv/monitors/stall/Kconfig"
- source "kernel/trace/rv/monitors/deadline/Kconfig"
- source "kernel/trace/rv/monitors/nomiss/Kconfig"
-+source "kernel/trace/rv/monitors/tlob/Kconfig"
- # Add new deadline monitors here
- 
- # Add new monitors here
-diff --git a/kernel/trace/rv/Makefile b/kernel/trace/rv/Makefile
-index 8dc14a1819b8..99a8dceb829f 100644
---- a/kernel/trace/rv/Makefile
-+++ b/kernel/trace/rv/Makefile
-@@ -20,6 +20,7 @@ obj-$(CONFIG_RV_MON_OPID) += monitors/opid/opid.o
- obj-$(CONFIG_RV_MON_STALL) += monitors/stall/stall.o
- obj-$(CONFIG_RV_MON_DEADLINE) += monitors/deadline/deadline.o
- obj-$(CONFIG_RV_MON_NOMISS) += monitors/nomiss/nomiss.o
-+obj-$(CONFIG_RV_MON_TLOB) += monitors/tlob/tlob.o
- obj-$(CONFIG_RV_MON_WAKEUP) += monitors/wakeup/wakeup.o
- # Add new monitors here
- obj-$(CONFIG_RV_UPROBE) += rv_uprobe.o
-diff --git a/kernel/trace/rv/monitors/tlob/Kconfig b/kernel/trace/rv/monitors/tlob/Kconfig
-new file mode 100644
-index 000000000000..4f072a9a4da2
---- /dev/null
-+++ b/kernel/trace/rv/monitors/tlob/Kconfig
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+config RV_MON_TLOB
-+	bool "tlob monitor"
-+	depends on RV && UPROBES && HIGH_RES_TIMERS
-+	select HA_MON_EVENTS_ID
-+	select RV_UPROBE
-+	help
-+	  Enable the tlob (task latency over budget) hybrid-automaton RV
-+	  monitor.  tlob tracks per-task elapsed time across a
-+	  user-delimited code section and emits a violation when the
-+	  elapsed time exceeds a configurable per-invocation budget.
-diff --git a/kernel/trace/rv/monitors/tlob/tlob.c b/kernel/trace/rv/monitors/tlob/tlob.c
-new file mode 100644
-index 000000000000..fe7d88df62f1
---- /dev/null
-+++ b/kernel/trace/rv/monitors/tlob/tlob.c
-@@ -0,0 +1,732 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * tlob (task latency over budget) RV monitor.
-+ *
-+ * A per-task hybrid automaton that checks a task's elapsed time against
-+ * a configurable budget across a user-delimited code section.
-+ */
-+#include <linux/ftrace.h>
-+#include <linux/tracepoint.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/init.h>
-+#include <linux/rv.h>
-+#include <linux/fs.h>
-+#include <linux/namei.h>
-+#include <linux/security.h>
-+#include <linux/ctype.h>
-+#include <linux/seq_file.h>
-+#include <rv/instrumentation.h>
-+#include <rv/rv_uprobe.h>
-+#include <rv.h>
-+
-+#define MODULE_NAME "tlob"
-+
-+#include <rv_trace.h>
-+#include <trace/events/sched.h>
-+
-+struct tlob_uprobe_binding;
-+
-+/*
-+ * Per-task monitoring record, embedded directly in struct da_monitor_storage
-+ * via DA_OBJ_EMBEDDED_TYPE. Allocated and freed with the storage.
-+ */
-+struct tlob_record {
-+	u64				threshold_ns;
-+	struct tlob_uprobe_binding	*binding;
-+};
-+
-+#define DA_OBJ_EMBEDDED_TYPE struct tlob_record
-+#define RV_MON_TYPE RV_MON_PER_OBJ
-+#define HA_TIMER_TYPE HA_TIMER_HRTIMER
-+#define DA_MON_POOL_SIZE TLOB_MAX_MONITORED
-+#define EVENT_NONE_LBL "budget_exceeded"
-+
-+#include "tlob.h"
-+#include <rv/ha_monitor.h>
-+
-+#define BUDGET_NS(ha_mon) (ha_get_target(ha_mon)->threshold_ns)
-+
-+static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs_tlob env,
-+		      u64 time_ns)
-+{
-+	if (env == clk_elapsed_tlob)
-+		return ha_get_clk_ns(ha_mon, env, time_ns);
-+	return ENV_INVALID_VALUE;
-+}
-+
-+static void ha_reset_env(struct ha_monitor *ha_mon, enum envs_tlob env,
-+			 u64 time_ns)
-+{
-+	if (env == clk_elapsed_tlob)
-+		ha_reset_clk_ns(ha_mon, env, time_ns);
-+}
-+
-+/*
-+ * clk_elapsed <= BUDGET_NS in running/waiting/sleeping; stopped exempt.
-+ */
-+static inline bool ha_verify_invariants(struct ha_monitor *ha_mon,
-+					enum states curr_state,
-+					enum events event,
-+					enum states next_state,
-+					u64 time_ns)
-+{
-+	if (curr_state == stopped_tlob)
-+		return true;
-+	return ha_check_invariant_ns(ha_mon, clk_elapsed_tlob, time_ns,
-+				     BUDGET_NS(ha_mon));
-+}
-+
-+static inline void ha_setup_invariants(struct ha_monitor *ha_mon,
-+				       enum events event,
-+				       enum states next_state,
-+				       u64 time_ns)
-+{
-+	if (next_state == stopped_tlob) {
-+		ha_cancel_timer(ha_mon);
-+		return;
-+	}
-+
-+	/*
-+	 * Only a start re-anchors the clock.  Every other transition keeps
-+	 * the anchor, so the timer already points at the right expiry and
-+	 * re-arming it would just take the hrtimer base lock on every
-+	 * scheduler event of a monitored task.
-+	 */
-+	if (event != start_tlob)
-+		return;
-+
-+	ha_reset_clk_ns(ha_mon, clk_elapsed_tlob, time_ns);
-+	ha_start_timer_ns(ha_mon, clk_elapsed_tlob, BUDGET_NS(ha_mon),
-+			  time_ns);
-+}
-+
-+static bool ha_verify_constraint(struct ha_monitor *ha_mon,
-+				 enum states curr_state, enum events event,
-+				 enum states next_state, u64 time_ns)
-+{
-+	if (ha_verify_invariants(ha_mon, curr_state, event,
-+				 next_state, time_ns)) {
-+		ha_setup_invariants(ha_mon, event, next_state, time_ns);
-+		return true;
-+	}
-+
-+	/*
-+	 * The event itself found the budget exceeded, so it reports the
-+	 * overrun and closes the window.  Without the reset the transition
-+	 * would still be taken with the timer left armed, and the expiry
-+	 * would report the same overrun a second time.
-+	 */
-+	da_monitor_reset(&ha_mon->da_mon);
-+	return false;
-+}
-+
-+/*
-+ * One registered uprobe pair. Multiple bindings can be active simultaneously
-+ * on different binaries or on disjoint ranges of the same binary.
-+ */
-+struct tlob_uprobe_binding {
-+	struct list_head		list;
-+	char				name[TLOB_MAX_NAME];
-+	char				binpath[TLOB_MAX_PATH];
-+	loff_t				offset_start;
-+	loff_t				offset_stop;
-+	u64				threshold_ns;
-+	struct path			path;
-+	struct rv_uprobe		start_probe;
-+	struct rv_uprobe		stop_probe;
-+};
-+
-+static LIST_HEAD(tlob_uprobe_list);
-+static DEFINE_MUTEX(tlob_uprobe_mutex);
-+
-+static int tlob_start_task(struct task_struct *task, u64 threshold_ns,
-+			   struct tlob_uprobe_binding *binding)
-+{
-+	struct tlob_record *rec;
-+	struct da_monitor *da_mon;
-+
-+	if (!da_monitor_enabled())
-+		return -ENODEV;
-+
-+	if (threshold_ns < TLOB_MIN_THRESHOLD_NS ||
-+	    threshold_ns > TLOB_MAX_THRESHOLD_NS)
-+		return -ERANGE;
-+
-+	scoped_guard(rcu) {
-+		da_mon = da_get_monitor(task->pid, NULL);
-+		if (da_mon) {
-+			rec = da_get_target(da_mon);
-+			if (WARN_ON_ONCE(!rec))
-+				return -ENODEV;
-+			/*
-+			 * A record left by a removed binding is adopted: the
-+			 * task is between windows and nothing owns it.
-+			 * Anything else starting it while it still belongs to
-+			 * another binding would silently shadow that window.
-+			 */
-+			if (rec->binding && rec->binding != binding) {
-+				trace_error_tlob(task->pid,
-+						 model_get_state_name(da_mon->curr_state),
-+						 model_get_event_name(start_tlob));
-+				return -EALREADY;
-+			}
-+			/*
-+			 * A START while the window is still open is a model
-+			 * violation (running/waiting/sleeping x start). Hand it
-+			 * to the model for reporting, but leave the record
-+			 * untouched: adopting the new budget here would change
-+			 * the window that is already running.
-+			 */
-+			if (da_monitoring(da_mon) &&
-+			    READ_ONCE(da_mon->curr_state) != stopped_tlob) {
-+				da_handle_event(task->pid, NULL, start_tlob);
-+				return -EALREADY;
-+			}
-+			rec->binding = binding;
-+			rec->threshold_ns = threshold_ns;
-+			/*
-+			 * Not da_handle_event(): a violation reset the
-+			 * monitor, and a plain event is dropped while
-+			 * !da_monitoring(). This restarts it and runs start.
-+			 */
-+			return da_handle_start_run_event(task->pid, NULL,
-+							 start_tlob) ? 0 :
-+								      -ENODEV;
-+		}
-+	}
-+
-+	struct tlob_record init_rec = {
-+		.threshold_ns = threshold_ns,
-+		.binding = binding,
-+	};
-+
-+	if (da_handle_start_run_event(task->pid, &init_rec, start_tlob))
-+		return 0;
-+
-+	/*
-+	 * The framework reports a disabled monitor and an exhausted pool the
-+	 * same way.  Storage is published only once a pool slot was claimed,
-+	 * so its absence means the pool is what ran out.
-+	 */
-+	scoped_guard(rcu)
-+		da_mon = da_get_monitor(task->pid, NULL);
-+	if (da_mon)
-+		return -ENODEV;
-+
-+	pr_warn_once("%s: no free record, task %d stays unmonitored\n",
-+		     __stringify(MODULE_NAME), task->pid);
-+	return -ENOSPC;
-+}
-+
-+static int tlob_stop_task(struct task_struct *task,
-+			  struct tlob_uprobe_binding *binding)
-+{
-+	struct tlob_record *rec;
-+	struct da_monitor *da_mon;
-+
-+	if (!da_monitor_enabled())
-+		return -ENODEV;
-+
-+	scoped_guard(rcu) {
-+		da_mon = da_get_monitor(task->pid, NULL);
-+		if (!da_mon)
-+			return -ESRCH;
-+
-+		rec = da_get_target(da_mon);
-+		if (WARN_ON_ONCE(!rec))
-+			return -ENODEV;
-+		if (binding && rec->binding && rec->binding != binding)
-+			return -EINVAL;
-+
-+		/*
-+		 * A budget overrun already closed the window and reset the
-+		 * monitor; the STOP that follows must not report again.
-+		 */
-+		if (!da_monitoring(da_mon))
-+			return 0;
-+
-+		da_handle_event(task->pid, NULL, stop_tlob);
-+	}
-+	return 0;
-+}
-+
-+static void handle_sched_switch(void *data, bool preempt,
-+				struct task_struct *prev,
-+				struct task_struct *next,
-+				unsigned int prev_state)
-+{
-+	if (!preempt && prev_state != TASK_RUNNING)
-+		da_handle_event(prev->pid, NULL, sleep_tlob);
-+	else
-+		da_handle_event(prev->pid, NULL, preempt_tlob);
-+
-+	da_handle_event(next->pid, NULL, switch_in_tlob);
-+}
-+
-+static void handle_sched_wakeup(void *data, struct task_struct *p)
-+{
-+	da_handle_event(p->pid, NULL, wakeup_tlob);
-+}
-+
-+static void handle_sched_process_exit(void *data, struct task_struct *p,
-+				      bool group_dead)
-+{
-+	da_destroy_storage(p->pid);
-+}
-+
-+static int tlob_uprobe_entry_handler(struct uprobe_consumer *self,
-+				     struct pt_regs *regs, __u64 *data)
-+{
-+	struct tlob_uprobe_binding *b =
-+		container_of(self, struct tlob_uprobe_binding, start_probe.uc);
-+
-+	tlob_start_task(current, b->threshold_ns, b);
-+	return 0;
-+}
-+
-+static int tlob_uprobe_stop_handler(struct uprobe_consumer *self,
-+				    struct pt_regs *regs, __u64 *data)
-+{
-+	struct tlob_uprobe_binding *b =
-+		container_of(self, struct tlob_uprobe_binding, stop_probe.uc);
-+
-+	tlob_stop_task(current, b);
-+	return 0;
-+}
-+
-+/*
-+ * tlob_release_binding - stop tracking the windows opened by @binding
-+ *
-+ * A binding may be removed while tasks are still inside its windows.  Their
-+ * timers are armed and would report an overrun against a binding that no
-+ * longer exists, so reset those monitors once no handler can run anymore.
-+ * The record is left in place and its owner cleared: a later START, possibly
-+ * from another binding, adopts and restarts it.
-+ *
-+ * Runs after rv_uprobe_unregister_sync(), which is what makes the walk free
-+ * of concurrent writers to rec->binding.
-+ */
-+static void tlob_release_binding(struct tlob_uprobe_binding *binding)
-+{
-+	struct da_monitor_storage *mon_storage;
-+	int bkt;
-+
-+	guard(rcu)();
-+	hash_for_each_rcu(da_monitor_ht, bkt, mon_storage, node) {
-+		struct tlob_record *rec = da_get_target(&mon_storage->rv.da_mon);
-+
-+		if (rec && rec->binding == binding) {
-+			rec->binding = NULL;
-+			da_monitor_reset(&mon_storage->rv.da_mon);
-+		}
-+	}
-+}
-+
-+static void tlob_unbind(struct tlob_uprobe_binding *b)
-+{
-+	rv_uprobe_unregister_nosync(&b->start_probe);
-+	rv_uprobe_unregister_nosync(&b->stop_probe);
-+	rv_uprobe_unregister_sync();
-+
-+	tlob_release_binding(b);
-+
-+	iput(b->start_probe.inode);
-+	iput(b->stop_probe.inode);
-+	path_put(&b->path);
-+}
-+
-+static int tlob_remove_uprobe_by_name(const char *name)
-+{
-+	struct tlob_uprobe_binding *b, *tmp;
-+
-+	guard(mutex)(&tlob_uprobe_mutex);
-+
-+	list_for_each_entry_safe(b, tmp, &tlob_uprobe_list, list) {
-+		if (strcmp(b->name, name))
-+			continue;
-+		list_del(&b->list);
-+		tlob_unbind(b);
-+		kfree(b);
-+		return 0;
-+	}
-+
-+	return -ENOENT;
-+}
-+
-+static void tlob_remove_all_uprobes(void)
-+{
-+	struct tlob_uprobe_binding *b, *tmp;
-+	LIST_HEAD(pending);
-+
-+	guard(mutex)(&tlob_uprobe_mutex);
-+
-+	list_for_each_entry_safe(b, tmp, &tlob_uprobe_list, list) {
-+		list_move(&b->list, &pending);
-+		rv_uprobe_unregister_nosync(&b->start_probe);
-+		rv_uprobe_unregister_nosync(&b->stop_probe);
-+	}
-+
-+	if (list_empty(&pending))
-+		return;
-+
-+	rv_uprobe_unregister_sync();
-+
-+	list_for_each_entry_safe(b, tmp, &pending, list) {
-+		list_del(&b->list);
-+		tlob_release_binding(b);
-+		iput(b->start_probe.inode);
-+		iput(b->stop_probe.inode);
-+		path_put(&b->path);
-+		kfree(b);
-+	}
-+}
-+
-+static int tlob_add_uprobe(const char *name, const char *binpath,
-+			   loff_t offset_start, loff_t offset_stop,
-+			   u64 threshold_ns)
-+{
-+	struct tlob_uprobe_binding *tmp_b;
-+	char pathbuf[TLOB_MAX_PATH];
-+	struct inode *inode;
-+	struct path path __free(path_put) = {};
-+	char *canon;
-+	int ret;
-+
-+	guard(mutex)(&tlob_uprobe_mutex);
-+
-+	if (binpath[0] != '/')
-+		return -EINVAL;
-+
-+	struct tlob_uprobe_binding *b __free(kfree) =
-+		kzalloc_obj(*b, GFP_KERNEL);
-+	if (!b)
-+		return -ENOMEM;
-+
-+	strscpy(b->name, name, sizeof(b->name));
-+	b->threshold_ns = threshold_ns;
-+	b->offset_start = offset_start;
-+	b->offset_stop  = offset_stop;
-+
-+	ret = kern_path(binpath, LOOKUP_FOLLOW, &path);
-+	if (ret)
-+		return ret;
-+
-+	if (!d_is_reg(path.dentry))
-+		return -EINVAL;
-+
-+	inode = d_real_inode(path.dentry);
-+
-+	/*
-+	 * Names are unique, and so are ranges on the same binary: a task
-+	 * runs one window at a time, the second would silently shadow the
-+	 * first. Direction normalised so a reversed start/stop still matches.
-+	 */
-+	list_for_each_entry(tmp_b, &tlob_uprobe_list, list) {
-+		loff_t s1, e1, s2, e2;
-+
-+		if (strcmp(tmp_b->name, name) == 0)
-+			return -EEXIST;
-+		if (!rv_uprobe_is_registered(&tmp_b->start_probe))
-+			continue;
-+		if (tmp_b->start_probe.inode != inode)
-+			continue;
-+
-+		s1 = min(offset_start, offset_stop);
-+		e1 = max(offset_start, offset_stop);
-+		s2 = min(tmp_b->offset_start, tmp_b->offset_stop);
-+		e2 = max(tmp_b->offset_start, tmp_b->offset_stop);
-+		if (s1 <= e2 && s2 <= e1)
-+			return -EEXIST;
-+	}
-+
-+	canon = d_path(&path, pathbuf, sizeof(pathbuf));
-+	if (IS_ERR(canon))
-+		return PTR_ERR(canon);
-+	strscpy(b->binpath, canon, sizeof(b->binpath));
-+
-+	b->start_probe.uc.handler = tlob_uprobe_entry_handler;
-+	ret = rv_uprobe_register(inode, offset_start, &b->start_probe);
-+	if (ret)
-+		return ret;
-+
-+	b->stop_probe.uc.handler = tlob_uprobe_stop_handler;
-+	ret = rv_uprobe_register(inode, offset_stop, &b->stop_probe);
-+	if (ret) {
-+		tlob_unbind(b);
-+		return ret;
-+	}
-+
-+	b->path = path;
-+	path_get(&b->path);
-+
-+	list_add_tail(&no_free_ptr(b)->list, &tlob_uprobe_list);
-+	return 0;
-+}
-+
-+static void *tlob_seq_start(struct seq_file *m, loff_t *pos)
-+{
-+	mutex_lock(&tlob_uprobe_mutex);
-+	return seq_list_start(&tlob_uprobe_list, *pos);
-+}
-+
-+static void *tlob_seq_next(struct seq_file *m, void *v, loff_t *pos)
-+{
-+	return seq_list_next(v, &tlob_uprobe_list, pos);
-+}
-+
-+static void tlob_seq_stop(struct seq_file *m, void *v)
-+{
-+	mutex_unlock(&tlob_uprobe_mutex);
-+}
-+
-+static int tlob_seq_show(struct seq_file *m, void *v)
-+{
-+	struct tlob_uprobe_binding *b =
-+		list_entry(v, struct tlob_uprobe_binding, list);
-+
-+	seq_printf(m, "p:%s %s:0x%llx 0x%llx threshold=%llu\n",
-+		   b->name, b->binpath,
-+		   (unsigned long long)b->offset_start,
-+		   (unsigned long long)b->offset_stop,
-+		   b->threshold_ns);
-+	return 0;
-+}
-+
-+static const struct seq_operations tlob_monitor_seq_ops = {
-+	.start	= tlob_seq_start,
-+	.next	= tlob_seq_next,
-+	.stop	= tlob_seq_stop,
-+	.show	= tlob_seq_show,
-+};
-+
-+static int tlob_parse_uprobe_line(char *buf, char **name_out, char **path_out,
-+				  loff_t *start_out, loff_t *stop_out,
-+				  u64 *thr_out)
-+{
-+	unsigned long long thr = 0, stop_val = 0;
-+	long long start_val;
-+	char *p, *name, *path_token, *token, *colon;
-+	bool got_stop = false, got_thr = false;
-+
-+	if (buf[0] != 'p' || buf[1] != ':')
-+		return -EINVAL;
-+
-+	p = buf + 2;
-+	while (*p == ' ' || *p == '\t')
-+		p++;
-+
-+	name = strsep(&p, " \t");
-+	if (strlen(name) >= TLOB_MAX_NAME || !is_good_name(name))
-+		return -EINVAL;
-+
-+	if (!p)
-+		return -EINVAL;
-+	while (*p == ' ' || *p == '\t')
-+		p++;
-+	path_token = strsep(&p, " \t");
-+	if (!path_token || !*path_token)
-+		return -EINVAL;
-+
-+	colon = strrchr(path_token, ':');
-+	if (!colon || colon - path_token < 2)
-+		return -EINVAL;
-+	*colon = '\0';
-+
-+	if (path_token[0] != '/')
-+		return -EINVAL;
-+
-+	if (kstrtoll(colon + 1, 0, &start_val))
-+		return -EINVAL;
-+	if (start_val < 0)
-+		return -EINVAL;
-+
-+	while (p && (token = strsep(&p, " \t")) != NULL) {
-+		if (!*token)
-+			continue;
-+		if (strncmp(token, "threshold=", 10) == 0) {
-+			if (got_thr)
-+				return -EINVAL;
-+			if (kstrtoull(token + 10, 0, &thr))
-+				return -EINVAL;
-+			if (thr < TLOB_MIN_THRESHOLD_NS ||
-+			    thr > TLOB_MAX_THRESHOLD_NS)
-+				return -ERANGE;
-+			got_thr = true;
-+		} else if (!got_stop) {
-+			long long sv;
-+
-+			if (kstrtoll(token, 0, &sv))
-+				return -EINVAL;
-+			if (sv < 0)
-+				return -EINVAL;
-+			stop_val = (unsigned long long)sv;
-+			got_stop = true;
-+		} else {
-+			return -EINVAL;
-+		}
-+	}
-+
-+	if (!got_stop || !got_thr)
-+		return -EINVAL;
-+	if (start_val == (long long)stop_val)
-+		return -EINVAL;
-+
-+	*name_out  = name;
-+	*thr_out   = thr;
-+	*path_out  = path_token;
-+	*start_out = (loff_t)start_val;
-+	*stop_out  = (loff_t)stop_val;
-+	return 0;
-+}
-+
-+static int tlob_parse_remove_line(char *buf, char **name_out)
-+{
-+	char *name = buf + 2;
-+
-+	if (buf[0] != '-' || buf[1] != ':')
-+		return -EINVAL;
-+	if (strlen(name) >= TLOB_MAX_NAME || !is_good_name(name))
-+		return -EINVAL;
-+
-+	*name_out = name;
-+	return 0;
-+}
-+
-+static int tlob_create_or_delete_uprobe(char *buf)
-+{
-+	loff_t offset_start, offset_stop;
-+	u64 threshold_ns;
-+	char *name, *binpath;
-+	int ret;
-+
-+	if (buf[0] == '-' && buf[1] == ':') {
-+		ret = tlob_parse_remove_line(buf, &name);
-+		if (ret)
-+			return ret;
-+		return tlob_remove_uprobe_by_name(name);
-+	}
-+	ret = tlob_parse_uprobe_line(buf, &name, &binpath, &offset_start,
-+				     &offset_stop, &threshold_ns);
-+	if (ret)
-+		return ret;
-+	return tlob_add_uprobe(name, binpath, offset_start, offset_stop,
-+			       threshold_ns);
-+}
-+
-+static ssize_t tlob_monitor_write(struct file *file,
-+				  const char __user *ubuf,
-+				  size_t count, loff_t *ppos)
-+{
-+	char buf[TLOB_MAX_PATH + TLOB_MAX_NAME + 128];
-+
-+	if (count >= sizeof(buf))
-+		return -EINVAL;
-+	if (copy_from_user(buf, ubuf, count))
-+		return -EFAULT;
-+	buf[count] = '\0';
-+	if (count > 0 && buf[count - 1] == '\n')
-+		buf[count - 1] = '\0';
-+	if (!buf[0])
-+		return count;
-+	return tlob_create_or_delete_uprobe(buf) ?: (ssize_t)count;
-+}
-+
-+static int tlob_monitor_open(struct inode *inode, struct file *file)
-+{
-+	int ret;
-+
-+	ret = security_locked_down(LOCKDOWN_TRACEFS);
-+	if (ret)
-+		return ret;
-+
-+	if ((file->f_mode & FMODE_WRITE) && (file->f_flags & O_TRUNC))
-+		tlob_remove_all_uprobes();
-+
-+	return seq_open(file, &tlob_monitor_seq_ops);
-+}
-+
-+static const struct file_operations tlob_monitor_fops = {
-+	.open		= tlob_monitor_open,
-+	.read		= seq_read,
-+	.write		= tlob_monitor_write,
-+	.llseek		= seq_lseek,
-+	.release	= seq_release,
-+};
-+
-+static int tlob_enable_hooks(void)
-+{
-+	rv_attach_trace_probe("tlob", sched_switch, handle_sched_switch);
-+	rv_attach_trace_probe("tlob", sched_wakeup, handle_sched_wakeup);
-+	rv_attach_trace_probe("tlob", sched_process_exit,
-+			      handle_sched_process_exit);
-+	return 0;
-+}
-+
-+static void tlob_disable_hooks(void)
-+{
-+	rv_detach_trace_probe("tlob", sched_switch, handle_sched_switch);
-+	rv_detach_trace_probe("tlob", sched_wakeup, handle_sched_wakeup);
-+	rv_detach_trace_probe("tlob", sched_process_exit,
-+			      handle_sched_process_exit);
-+}
-+
-+static int enable_tlob(void)
-+{
-+	int retval;
-+
-+	retval = ha_monitor_init();
-+	if (retval)
-+		return retval;
-+
-+	return tlob_enable_hooks();
-+}
-+
-+static void disable_tlob(void)
-+{
-+	tlob_disable_hooks();
-+	rv_this.enabled = 0;
-+	tlob_remove_all_uprobes();
-+	ha_monitor_destroy();
-+}
-+
-+static struct rv_monitor rv_this = {
-+	.name		= "tlob",
-+	.description	= "Per-task latency-over-budget monitor.",
-+	.enable		= enable_tlob,
-+	.disable	= disable_tlob,
-+	.reset		= da_monitor_reset_all,
-+	.enabled	= 0,
-+};
-+
-+static int __init register_tlob(void)
-+{
-+	int ret;
-+
-+	ret = rv_register_monitor(&rv_this, NULL);
-+	if (ret)
-+		return ret;
-+
-+	if (rv_this.root_d) {
-+		if (!rv_create_file("monitor", RV_MODE_WRITE,
-+				    rv_this.root_d, NULL,
-+				    &tlob_monitor_fops)) {
-+			rv_unregister_monitor(&rv_this);
-+			return -ENOMEM;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void __exit unregister_tlob(void)
-+{
-+	rv_unregister_monitor(&rv_this);
-+}
-+
-+module_init(register_tlob);
-+module_exit(unregister_tlob);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Wen Yang <wen.yang@linux.dev>");
-+MODULE_DESCRIPTION("tlob: task latency over budget per-task monitor.");
-diff --git a/kernel/trace/rv/monitors/tlob/tlob.h b/kernel/trace/rv/monitors/tlob/tlob.h
-new file mode 100644
-index 000000000000..0a9e150436f4
---- /dev/null
-+++ b/kernel/trace/rv/monitors/tlob/tlob.h
-@@ -0,0 +1,143 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _RV_TLOB_H
-+#define _RV_TLOB_H
-+
-+/*
-+ * C representation of the tlob hybrid automaton (see tlob.dot).
-+ * "stop" fires only from running (both callers run on CPU); running x
-+ * start is INVALID: a stray re-start must not reset the budget clock.
-+ * Invariant: clk_elapsed <= BUDGET_NS() in running/waiting/sleeping;
-+ * stopped is exempt.
-+ *
-+ * Format: Documentation/trace/rv/deterministic_automata.rst
-+ */
-+
-+#include <linux/rv.h>
-+#include <linux/sched.h>
-+
-+#define MONITOR_NAME tlob
-+
-+enum states_tlob {
-+	stopped_tlob,
-+	running_tlob,
-+	sleeping_tlob,
-+	waiting_tlob,
-+	state_max_tlob,
-+};
-+
-+#define INVALID_STATE state_max_tlob
-+
-+enum events_tlob {
-+	preempt_tlob,
-+	sleep_tlob,
-+	start_tlob,
-+	stop_tlob,
-+	switch_in_tlob,
-+	wakeup_tlob,
-+	event_max_tlob,
-+};
-+
-+/*
-+ * HA clock env: clk_elapsed, elapsed time since the window start; anchored in
-+ * running/waiting/sleeping, cleared on stop.
-+ */
-+enum envs_tlob {
-+	clk_elapsed_tlob,
-+	env_max_tlob,
-+	env_max_stored_tlob = env_max_tlob,
-+};
-+
-+_Static_assert(env_max_stored_tlob <= MAX_HA_ENV_LEN, "Not enough slots");
-+#define HA_CLK_NS
-+
-+struct automaton_tlob {
-+	char *state_names[state_max_tlob];
-+	char *event_names[event_max_tlob];
-+	char *env_names[env_max_tlob];
-+	unsigned char function[state_max_tlob][event_max_tlob];
-+	unsigned char initial_state;
-+	bool final_states[state_max_tlob];
-+};
-+
-+static const struct automaton_tlob automaton_tlob = {
-+	.state_names = {
-+		"stopped",
-+		"running",
-+		"sleeping",
-+		"waiting",
-+	},
-+	.event_names = {
-+		"preempt",
-+		"sleep",
-+		"start",
-+		"stop",
-+		"switch_in",
-+		"wakeup",
-+	},
-+	.env_names = {
-+		"clk_elapsed",
-+	},
-+	.function = {
-+		/* stopped: sched events self-loop */
-+		{
-+			stopped_tlob,	/* preempt   */
-+			stopped_tlob,	/* sleep     */
-+			running_tlob,	/* start     */
-+			INVALID_STATE,	/* stop      */
-+			stopped_tlob,	/* switch_in */
-+			stopped_tlob,	/* wakeup    */
-+		},
-+		/* running */
-+		{
-+			waiting_tlob,	/* preempt (prev_state == 0)  */
-+			sleeping_tlob,	/* sleep (prev_state != 0)    */
-+			INVALID_STATE,	/* start (is -EALREADY)       */
-+			stopped_tlob,	/* stop                       */
-+			INVALID_STATE,	/* switch_in                  */
-+			running_tlob,	/* wakeup                     */
-+		},
-+		/* sleeping */
-+		{
-+			INVALID_STATE,	/* preempt   */
-+			INVALID_STATE,	/* sleep     */
-+			INVALID_STATE,	/* start     */
-+			INVALID_STATE,	/* stop      */
-+			INVALID_STATE,	/* switch_in (via waiting) */
-+			waiting_tlob,	/* wakeup    */
-+		},
-+		/* waiting */
-+		{
-+			INVALID_STATE,	/* preempt   */
-+			INVALID_STATE,	/* sleep     */
-+			INVALID_STATE,	/* start     */
-+			INVALID_STATE,	/* stop      */
-+			running_tlob,	/* switch_in */
-+			waiting_tlob,	/* wakeup    */
-+		},
-+	},
-+	.initial_state = stopped_tlob,
-+	.final_states = { 1, 0, 0, 0 },
-+};
-+
-+/*
-+ * Hard cap on concurrently monitored tasks: the framework pre-allocates
-+ * this many per-object storage slots (DA_MON_POOL_SIZE).  A task keeps its
-+ * slot from its first START until it exits, so a fresh start past the cap
-+ * returns -ENOSPC without touching the allocator, and the monitor is not
-+ * applied to that task.  Restarts reuse the task's slot.
-+ */
-+#define TLOB_MAX_MONITORED	64U
-+
-+/* Maximum binary path length for uprobe binding. */
-+#define TLOB_MAX_PATH		256
-+
-+/* Maximum binding name length (excluding NUL). */
-+#define TLOB_MAX_NAME		32
-+
-+/* Minimum monitoring budget (1 us). */
-+#define TLOB_MIN_THRESHOLD_NS	1000ULL
-+
-+/* Upper budget bound (1 hour). */
-+#define TLOB_MAX_THRESHOLD_NS	3600000000000ULL
-+
-+#endif /* _RV_TLOB_H */
-diff --git a/kernel/trace/rv/monitors/tlob/tlob_trace.h b/kernel/trace/rv/monitors/tlob/tlob_trace.h
-new file mode 100644
-index 000000000000..cda3f39fc110
---- /dev/null
-+++ b/kernel/trace/rv/monitors/tlob/tlob_trace.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+/*
-+ * Snippet to be included in rv_trace.h
-+ */
-+
-+#ifdef CONFIG_RV_MON_TLOB
-+DEFINE_EVENT(event_da_monitor_id, event_tlob,
-+	     TP_PROTO(int id, char *state, char *event,
-+		      char *next_state, bool final_state),
-+	     TP_ARGS(id, state, event, next_state, final_state));
-+
-+DEFINE_EVENT(error_da_monitor_id, error_tlob,
-+	     TP_PROTO(int id, char *state, char *event),
-+	     TP_ARGS(id, state, event));
-+
-+DEFINE_EVENT(error_env_da_monitor_id, error_env_tlob,
-+	     TP_PROTO(int id, char *state, char *event, char *env),
-+	     TP_ARGS(id, state, event, env));
-+#endif /* CONFIG_RV_MON_TLOB */
-diff --git a/kernel/trace/rv/rv_trace.h b/kernel/trace/rv/rv_trace.h
-index 2f8a932432c9..4bfa39717cef 100644
---- a/kernel/trace/rv/rv_trace.h
-+++ b/kernel/trace/rv/rv_trace.h
-@@ -189,6 +189,7 @@ DECLARE_EVENT_CLASS(error_env_da_monitor_id,
- 
- #include <monitors/stall/stall_trace.h>
- #include <monitors/nomiss/nomiss_trace.h>
-+#include <monitors/tlob/tlob_trace.h>
- // Add new monitors based on CONFIG_HA_MON_EVENTS_ID here
- 
- #endif
+> +static const struct clk_div_table a1_prediv_div_table[] = {
+
+a1_pll_prediv_div_table
+
+> +	{ .val = 1, .div = 1 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap a1_fixed_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = ANACTRL_FIXPLL_CTRL0,
+> +		.shift  = 10,
+> +		.width  = 5,
+> +		.table = a1_prediv_div_table,
+
+This table is only useful if the clock is writeable.
+Otherwise, a simple CLK_DIVIDER_ONE_BASED would do
+
+> +		/*
+> +		 * The PLL pre-divider have a zero value after reset,
+> +		 * which does not produce a usable clock. Use
+> +		 * CLK_DIVIDER_INVALID_ZERO to report this state correctly.
+> +		 * The pre-dividers below use this flag for the same reason.
+> +		 */
+
+That is the definition of the flag you've introduced, so I don't think it is necessary.
+
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+
+Actually that flag is pointless on RO clock.
+
+The point of this is not just to silence to warning but also to let the framework
+know the clock need initialization, which can only happen if it is writeable.
+
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "fixed_prediv",
+> +		.ops = &clk_regmap_divider_ro_ops,
+
+You've argued with sashiko that you are not using ro ops and don't
+need to care for them, yet here we are ...
+
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "fixpll_in",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap a1_fixed_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -37,11 +67,6 @@ static struct clk_regmap a1_fixed_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = ANACTRL_FIXPLL_CTRL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = ANACTRL_FIXPLL_CTRL1,
+>  			.shift   = 0,
+> @@ -61,8 +86,8 @@ static struct clk_regmap a1_fixed_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "fixed_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "fixpll_in",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&a1_fixed_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  	},
+> @@ -83,6 +108,24 @@ static struct clk_regmap a1_fixed_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap a1_hifi_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = ANACTRL_HIFIPLL_CTRL0,
+> +		.shift = 10,
+> +		.width = 5,
+> +		.table = a1_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "hifi_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "hifipll_in",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static const struct pll_mult_range a1_hifi_pll_range = {
+>  	.min = 32,
+>  	.max = 64,
+> @@ -108,11 +151,6 @@ static struct clk_regmap a1_hifi_pll = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = ANACTRL_HIFIPLL_CTRL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = ANACTRL_HIFIPLL_CTRL1,
+>  			.shift   = 0,
+> @@ -140,10 +178,11 @@ static struct clk_regmap a1_hifi_pll = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "hifi_pll",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "hifipll_in",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&a1_hifi_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -281,6 +320,7 @@ static struct clk_regmap a1_fclk_div7 = {
+>  
+>  /* Array of all clocks registered by this provider */
+>  static struct clk_hw *a1_pll_hw_clks[] = {
+> +	[CLKID_FIXED_PREDIV]	= &a1_fixed_prediv.hw,
+>  	[CLKID_FIXED_PLL_DCO]	= &a1_fixed_pll_dco.hw,
+>  	[CLKID_FIXED_PLL]	= &a1_fixed_pll.hw,
+>  	[CLKID_FCLK_DIV2_DIV]	= &a1_fclk_div2_div.hw,
+> @@ -291,6 +331,7 @@ static struct clk_hw *a1_pll_hw_clks[] = {
+>  	[CLKID_FCLK_DIV3]	= &a1_fclk_div3.hw,
+>  	[CLKID_FCLK_DIV5]	= &a1_fclk_div5.hw,
+>  	[CLKID_FCLK_DIV7]	= &a1_fclk_div7.hw,
+> +	[CLKID_HIFI_PREDIV]	= &a1_hifi_prediv.hw,
+>  	[CLKID_HIFI_PLL]	= &a1_hifi_pll.hw,
+>  };
+>  
+> diff --git a/drivers/clk/meson/axg.c b/drivers/clk/meson/axg.c
+> index 280842e9cb37..e6e6b9a8030c 100644
+> --- a/drivers/clk/meson/axg.c
+> +++ b/drivers/clk/meson/axg.c
+> @@ -107,6 +107,36 @@
+>  #define HHI_DPLL_TOP_I			0x318
+>  #define HHI_DPLL_TOP2_I			0x31C
+>  
+> +/* Keep the pre-divider at 1 to achieve the best PLL performance. */
+> +static const struct clk_div_table axg_prediv_div_table[] = {
+> +	{ .val = 1, .div = 1 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap axg_fixed_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_MPLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = axg_prediv_div_table,
+> +		/*
+> +		 * The PLL pre-divider have a zero value after reset,
+> +		 * which does not produce a usable clock. Use
+> +		 * CLK_DIVIDER_INVALID_ZERO to report this state correctly.
+> +		 * The pre-dividers below use this flag for the same reason.
+> +		 */
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "fixed_prediv",
+> +		.ops = &clk_regmap_divider_ro_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap axg_fixed_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -119,11 +149,6 @@ static struct clk_regmap axg_fixed_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_MPLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_MPLL_CNTL2,
+>  			.shift   = 0,
+> @@ -143,8 +168,8 @@ static struct clk_regmap axg_fixed_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "fixed_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&axg_fixed_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  	},
+> @@ -171,6 +196,24 @@ static struct clk_regmap axg_fixed_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap axg_sys_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_SYS_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = axg_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "sys_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap axg_sys_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -183,11 +226,6 @@ static struct clk_regmap axg_sys_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_SYS_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = HHI_SYS_PLL_CNTL,
+>  			.shift   = 31,
+> @@ -202,10 +240,11 @@ static struct clk_regmap axg_sys_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "sys_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&axg_sys_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -227,39 +266,57 @@ static struct clk_regmap axg_sys_pll = {
+>  	},
+>  };
+>  
+> -static const struct pll_params_table axg_gp0_pll_params_table[] = {
+> -	PLL_PARAMS(40, 1),
+> -	PLL_PARAMS(41, 1),
+> -	PLL_PARAMS(42, 1),
+> -	PLL_PARAMS(43, 1),
+> -	PLL_PARAMS(44, 1),
+> -	PLL_PARAMS(45, 1),
+> -	PLL_PARAMS(46, 1),
+> -	PLL_PARAMS(47, 1),
+> -	PLL_PARAMS(48, 1),
+> -	PLL_PARAMS(49, 1),
+> -	PLL_PARAMS(50, 1),
+> -	PLL_PARAMS(51, 1),
+> -	PLL_PARAMS(52, 1),
+> -	PLL_PARAMS(53, 1),
+> -	PLL_PARAMS(54, 1),
+> -	PLL_PARAMS(55, 1),
+> -	PLL_PARAMS(56, 1),
+> -	PLL_PARAMS(57, 1),
+> -	PLL_PARAMS(58, 1),
+> -	PLL_PARAMS(59, 1),
+> -	PLL_PARAMS(60, 1),
+> -	PLL_PARAMS(61, 1),
+> -	PLL_PARAMS(62, 1),
+> -	PLL_PARAMS(63, 1),
+> -	PLL_PARAMS(64, 1),
+> -	PLL_PARAMS(65, 1),
+> -	PLL_PARAMS(66, 1),
+> -	PLL_PARAMS(67, 1),
+> -	PLL_PARAMS(68, 1),
+> +static const struct pll_mult_table axg_gp0_pll_params_table[] = {
+> +	PLL_MULT(40),
+> +	PLL_MULT(41),
+> +	PLL_MULT(42),
+> +	PLL_MULT(43),
+> +	PLL_MULT(44),
+> +	PLL_MULT(45),
+> +	PLL_MULT(46),
+> +	PLL_MULT(47),
+> +	PLL_MULT(48),
+> +	PLL_MULT(49),
+> +	PLL_MULT(50),
+> +	PLL_MULT(51),
+> +	PLL_MULT(52),
+> +	PLL_MULT(53),
+> +	PLL_MULT(54),
+> +	PLL_MULT(55),
+> +	PLL_MULT(56),
+> +	PLL_MULT(57),
+> +	PLL_MULT(58),
+> +	PLL_MULT(59),
+> +	PLL_MULT(60),
+> +	PLL_MULT(61),
+> +	PLL_MULT(62),
+> +	PLL_MULT(63),
+> +	PLL_MULT(64),
+> +	PLL_MULT(65),
+> +	PLL_MULT(66),
+> +	PLL_MULT(67),
+> +	PLL_MULT(68),
+>  	{ /* sentinel */ },
+>  };
+
+Contiguous tables make no sense anymore.
+
+>  
+> +static struct clk_regmap axg_gp0_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_GP0_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = axg_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "gp0_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static const struct reg_sequence axg_gp0_init_regs[] = {
+>  	{ .reg = HHI_GP0_PLL_CNTL1,	.def = 0xc084b000 },
+>  	{ .reg = HHI_GP0_PLL_CNTL2,	.def = 0xb75020be },
+> @@ -280,11 +337,6 @@ static struct clk_regmap axg_gp0_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_GP0_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_GP0_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -307,10 +359,11 @@ static struct clk_regmap axg_gp0_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "gp0_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&axg_gp0_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -332,6 +385,24 @@ static struct clk_regmap axg_gp0_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap axg_hifi_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_HIFI_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = axg_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "hifi_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static const struct reg_sequence axg_hifi_pll_init_regs[] = {
+>  	{ .reg = HHI_HIFI_PLL_CNTL1,	.def = 0xc084b000 },
+>  	{ .reg = HHI_HIFI_PLL_CNTL2,	.def = 0xb75020be },
+> @@ -352,11 +423,6 @@ static struct clk_regmap axg_hifi_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_HIFI_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_HIFI_PLL_CNTL5,
+>  			.shift   = 0,
+> @@ -380,10 +446,11 @@ static struct clk_regmap axg_hifi_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "hifi_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&axg_hifi_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -771,11 +838,35 @@ static struct clk_regmap axg_mpll3 = {
+>  	},
+>  };
+>  
+> -static const struct pll_params_table axg_pcie_pll_params_table[] = {
+> -	{
+> -		.m = 200,
+> -		.n = 3,
+> +/*
+> + * A pre-divider value of 3 provides the best performance for
+> + * the AXG PCIe PLL.
+> + */
+
+Again, define performance here. what does it mean ?
+
+> +static const struct clk_div_table axg_pcie_prediv_div_table[] = {
+> +	{ .val = 3, .div = 3 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap axg_pcie_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_PCIE_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = axg_pcie_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "pcie_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+>  	},
+> +};
+> +
+> +static const struct pll_mult_table axg_pcie_pll_params_table[] = {
+> +	PLL_MULT(200),
+>  	{ /* sentinel */ },
+>  };
+>  
+> @@ -801,11 +892,6 @@ static struct clk_regmap axg_pcie_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_PCIE_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_PCIE_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -828,10 +914,11 @@ static struct clk_regmap axg_pcie_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "pcie_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&axg_pcie_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -2067,10 +2154,15 @@ static struct clk_hw *axg_hw_clks[] = {
+>  	[CLKID_GEN_CLK_SEL]		= &axg_gen_clk_sel.hw,
+>  	[CLKID_GEN_CLK_DIV]		= &axg_gen_clk_div.hw,
+>  	[CLKID_GEN_CLK]			= &axg_gen_clk.hw,
+> +	[CLKID_SYS_PREDIV]		= &axg_sys_prediv.hw,
+>  	[CLKID_SYS_PLL_DCO]		= &axg_sys_pll_dco.hw,
+> +	[CLKID_FIXED_PREDIV]		= &axg_fixed_prediv.hw,
+>  	[CLKID_FIXED_PLL_DCO]		= &axg_fixed_pll_dco.hw,
+> +	[CLKID_GP0_PREDIV]		= &axg_gp0_prediv.hw,
+>  	[CLKID_GP0_PLL_DCO]		= &axg_gp0_pll_dco.hw,
+> +	[CLKID_HIFI_PREDIV]		= &axg_hifi_prediv.hw,
+>  	[CLKID_HIFI_PLL_DCO]		= &axg_hifi_pll_dco.hw,
+> +	[CLKID_PCIE_PREDIV]		= &axg_pcie_prediv.hw,
+>  	[CLKID_PCIE_PLL_DCO]		= &axg_pcie_pll_dco.hw,
+>  	[CLKID_PCIE_PLL_OD]		= &axg_pcie_pll_od.hw,
+>  	[CLKID_VPU_0_DIV]		= &axg_vpu_0_div.hw,
+> diff --git a/drivers/clk/meson/c3-pll.c b/drivers/clk/meson/c3-pll.c
+> index dd047d17488c..57bbd0498811 100644
+> --- a/drivers/clk/meson/c3-pll.c
+> +++ b/drivers/clk/meson/c3-pll.c
+> @@ -230,6 +230,36 @@ static struct clk_regmap c3_fclk_div7 = {
+>  	},
+>  };
+>  
+> +/* Keep the pre-divider at 1 to achieve the best PLL performance. */
+> +static const struct clk_div_table c3_prediv_div_table[] = {
+> +	{ .val = 1, .div = 1 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap c3_gp0_prediv = {
+> +	.data = &(struct clk_regmap_div_data) {
+> +		.offset = ANACTRL_GP0PLL_CTRL0,
+> +		.shift = 10,
+> +		.width = 5,
+> +		.table = c3_prediv_div_table,
+> +		/*
+> +		 * The PLL pre-divider have a zero value after reset,
+> +		 * which does not produce a usable clock. Use
+> +		 * CLK_DIVIDER_INVALID_ZERO to report this state correctly.
+> +		 * The pre-dividers below use this flag for the same reason.
+> +		 */
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data) {
+> +		.name = "gp0_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "top",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static const struct reg_sequence c3_gp0_pll_init_regs[] = {
+>  	{ .reg = ANACTRL_GP0PLL_CTRL2,	.def = 0x0 },
+>  	{ .reg = ANACTRL_GP0PLL_CTRL3,	.def = 0x48681c00 },
+> @@ -260,11 +290,6 @@ static struct clk_regmap c3_gp0_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 19,
+>  		},
+> -		.n = {
+> -			.reg_off = ANACTRL_GP0PLL_CTRL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = ANACTRL_GP0PLL_CTRL0,
+>  			.shift   = 31,
+> @@ -282,10 +307,11 @@ static struct clk_regmap c3_gp0_pll_dco = {
+>  	.hw.init = &(struct clk_init_data) {
+>  		.name = "gp0_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "top",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&c3_gp0_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -318,6 +344,24 @@ static struct clk_regmap c3_gp0_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap c3_hifi_prediv = {
+> +	.data = &(struct clk_regmap_div_data) {
+> +		.offset = ANACTRL_HIFIPLL_CTRL0,
+> +		.shift = 10,
+> +		.width = 5,
+> +		.table = c3_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data) {
+> +		.name = "hifi_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "top",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static const struct reg_sequence c3_hifi_pll_init_regs[] = {
+>  	{ .reg = ANACTRL_HIFIPLL_CTRL2,	.def = 0x0 },
+>  	{ .reg = ANACTRL_HIFIPLL_CTRL3,	.def = 0x6a285c00 },
+> @@ -343,11 +387,6 @@ static struct clk_regmap c3_hifi_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 19,
+>  		},
+> -		.n = {
+> -			.reg_off = ANACTRL_HIFIPLL_CTRL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = ANACTRL_HIFIPLL_CTRL0,
+>  			.shift   = 31,
+> @@ -366,10 +405,11 @@ static struct clk_regmap c3_hifi_pll_dco = {
+>  	.hw.init = &(struct clk_init_data) {
+>  		.name = "hifi_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "top",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&c3_hifi_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -391,6 +431,24 @@ static struct clk_regmap c3_hifi_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap c3_mclk_prediv = {
+> +	.data = &(struct clk_regmap_div_data) {
+> +		.offset = ANACTRL_MPLL_CTRL0,
+> +		.shift = 16,
+> +		.width = 5,
+> +		.table = c3_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data) {
+> +		.name = "mclk_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "mclk",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static const struct reg_sequence c3_mclk_pll_init_regs[] = {
+>  	{ .reg = ANACTRL_MPLL_CTRL1,	.def = 0x1420500f },
+>  	{ .reg = ANACTRL_MPLL_CTRL2,	.def = 0x00023041 },
+> @@ -415,11 +473,6 @@ static struct clk_regmap c3_mclk_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = ANACTRL_MPLL_CTRL0,
+> -			.shift   = 16,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = ANACTRL_MPLL_CTRL0,
+>  			.shift   = 31,
+> @@ -437,10 +490,11 @@ static struct clk_regmap c3_mclk_pll_dco = {
+>  	.hw.init = &(struct clk_init_data) {
+>  		.name = "mclk_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "mclk",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&c3_mclk_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -636,10 +690,13 @@ static struct clk_hw *c3_pll_hw_clks[] = {
+>  	[CLKID_FCLK_DIV5]	= &c3_fclk_div5.hw,
+>  	[CLKID_FCLK_DIV7_DIV]	= &c3_fclk_div7_div.hw,
+>  	[CLKID_FCLK_DIV7]	= &c3_fclk_div7.hw,
+> +	[CLKID_GP0_PREDIV]	= &c3_gp0_prediv.hw,
+>  	[CLKID_GP0_PLL_DCO]	= &c3_gp0_pll_dco.hw,
+>  	[CLKID_GP0_PLL]		= &c3_gp0_pll.hw,
+> +	[CLKID_HIFI_PREDIV]	= &c3_hifi_prediv.hw,
+>  	[CLKID_HIFI_PLL_DCO]	= &c3_hifi_pll_dco.hw,
+>  	[CLKID_HIFI_PLL]	= &c3_hifi_pll.hw,
+> +	[CLKID_MCLK_PREDIV]	= &c3_mclk_prediv.hw,
+>  	[CLKID_MCLK_PLL_DCO]	= &c3_mclk_pll_dco.hw,
+>  	[CLKID_MCLK_PLL_OD]	= &c3_mclk_pll_od.hw,
+>  	[CLKID_MCLK_PLL]	= &c3_mclk_pll.hw,
+> diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
+> index 1ea6579a760f..a7e3f8c8eb78 100644
+> --- a/drivers/clk/meson/clk-pll.c
+> +++ b/drivers/clk/meson/clk-pll.c
+> @@ -14,7 +14,7 @@
+>   *        +--------------------------------+
+>   *        |                                |
+>   *        |             +--+               |
+> - *  in >>-----[ /N ]--->|  |      +-----+  |
+> + *  in >>----------->|  |      +-----+  |
+>   *        |             |  |------| DCO |---->> out
+>   *        |  +--------->|  |      +--v--+  |
+>   *        |  |          +--+         |     |
+> @@ -23,7 +23,7 @@
+>   *        |                                |
+>   *        +--------------------------------+
+>   *
+> - * out = in * (m + frac / frac_max) / n
+> + * out = in * (m + frac / frac_max)
+>   */
+>  
+>  #include <linux/clk-provider.h>
+> @@ -52,8 +52,7 @@ static int __pll_round_closest_mult(struct meson_clk_pll_data *pll)
+>  }
+>  
+>  static unsigned long __pll_params_to_rate(unsigned long parent_rate,
+> -					  unsigned int m, unsigned int n,
+> -					  unsigned int frac,
+> +					  unsigned int m, unsigned int frac,
+>  					  struct meson_clk_pll_data *pll)
+>  {
+>  	u64 rate = (u64)parent_rate * m;
+> @@ -66,7 +65,7 @@ static unsigned long __pll_params_to_rate(unsigned long parent_rate,
+>  		rate += DIV_ROUND_UP_ULL(frac_rate, frac_max);
+>  	}
+>  
+> -	return DIV_ROUND_UP_ULL(rate, n);
+> +	return rate;
+>  }
+>  
+>  static unsigned long meson_clk_pll_recalc_rate(struct clk_hw *hw,
+> @@ -74,17 +73,7 @@ static unsigned long meson_clk_pll_recalc_rate(struct clk_hw *hw,
+>  {
+>  	struct clk_regmap *clk = to_clk_regmap(hw);
+>  	struct meson_clk_pll_data *pll = meson_clk_pll_data(clk);
+> -	unsigned int m, n, frac;
+> -
+> -	n = meson_parm_read(clk->map, &pll->n);
+> -
+> -	/*
+> -	 * On some HW, N is set to zero on init. This value is invalid as
+> -	 * it would result in a division by zero. The rate can't be
+> -	 * calculated in this case
+> -	 */
+> -	if (n == 0)
+> -		return 0;
+> +	unsigned int m, frac;
+>  
+>  	m = meson_parm_read(clk->map, &pll->m);
+>  
+> @@ -92,21 +81,20 @@ static unsigned long meson_clk_pll_recalc_rate(struct clk_hw *hw,
+>  		meson_parm_read(clk->map, &pll->frac) :
+>  		0;
+>  
+> -	return __pll_params_to_rate(parent_rate, m, n, frac, pll);
+> +	return __pll_params_to_rate(parent_rate, m, frac, pll);
+>  }
+>  
+>  static unsigned int __pll_params_with_frac(unsigned long rate,
+>  					   unsigned long parent_rate,
+>  					   unsigned int m,
+> -					   unsigned int n,
+>  					   struct meson_clk_pll_data *pll)
+>  {
+>  	unsigned int frac_max = pll->frac_max ? pll->frac_max :
+>  						(1 << pll->frac.width);
+> -	u64 val = (u64)rate * n;
+> +	u64 val = (u64)rate;
+>  
+>  	/* Bail out if we are already over the requested rate */
+> -	if (rate < parent_rate * m / n)
+> +	if (rate < parent_rate * m)
+>  		return 0;
+>  
+>  	if (pll->flags & CLK_MESON_PLL_ROUND_CLOSEST)
+> @@ -119,128 +107,76 @@ static unsigned int __pll_params_with_frac(unsigned long rate,
+>  	return min((unsigned int)val, (frac_max - 1));
+>  }
+>  
+> -static bool meson_clk_pll_is_better(unsigned long rate,
+> -				    unsigned long best,
+> -				    unsigned long now,
+> -				    struct meson_clk_pll_data *pll)
+> +static int meson_clk_get_pll_range(unsigned long rate,
+> +				   unsigned long parent_rate,
+> +				   unsigned int *m,
+> +				   struct meson_clk_pll_data *pll)
+>  {
+> -	if (__pll_round_closest_mult(pll)) {
+> -		/* Round Closest */
+> -		if (abs(now - rate) < abs(best - rate))
+> -			return true;
+> -	} else {
+> -		/* Round down */
+> -		if (now <= rate && best < now)
+> -			return true;
+> +	if (rate <= pll->range->min * parent_rate) {
+> +		*m = pll->range->min;
+> +		return -ENODATA;
+> +	} else if (rate >= pll->range->max * parent_rate) {
+> +		*m = pll->range->max;
+> +		return -ENODATA;
+>  	}
+>  
+> -	return false;
+> -}
+> +	if (__pll_round_closest_mult(pll))
+> +		*m = DIV_ROUND_CLOSEST_ULL(rate, parent_rate);
+> +	else
+> +		*m = div_u64(rate, parent_rate);
+>  
+> -static int meson_clk_get_pll_table_index(unsigned int index,
+> -					 unsigned int *m,
+> -					 unsigned int *n,
+> -					 struct meson_clk_pll_data *pll)
+> -{
+> -	if (!pll->table[index].n)
+> +	/* Multiplier exceeds hardware range */
+> +	if (*m >= (1 << pll->m.width))
+>  		return -EINVAL;
+>  
+> -	*m = pll->table[index].m;
+> -	*n = pll->table[index].n;
+> -
+>  	return 0;
+>  }
+>  
+> -static unsigned int meson_clk_get_pll_range_m(unsigned long rate,
+> -					      unsigned long parent_rate,
+> -					      unsigned int n,
+> -					      struct meson_clk_pll_data *pll)
+> +static int meson_clk_get_pll_table(unsigned long rate,
+> +				   unsigned long parent_rate,
+> +				   unsigned int *m,
+> +				   struct meson_clk_pll_data *pll)
+>  {
+> -	u64 val = (u64)rate * n;
+> -
+> -	if (__pll_round_closest_mult(pll))
+> -		return DIV_ROUND_CLOSEST_ULL(val, parent_rate);
+> -
+> -	return div_u64(val,  parent_rate);
+> -}
+> -
+> -static int meson_clk_get_pll_range_index(unsigned long rate,
+> -					 unsigned long parent_rate,
+> -					 unsigned int index,
+> -					 unsigned int *m,
+> -					 unsigned int *n,
+> -					 struct meson_clk_pll_data *pll)
+> -{
+> -	*n = index + 1;
+> +	unsigned int i;
+> +	int ret;
+>  
+> -	/* Check the predivider range */
+> -	if (*n >= (1 << pll->n.width))
+> -		return -EINVAL;
+> +	for (i = 0, ret = 0; !ret; i++) {
+> +		if (!pll->table[i].m)
+> +			return -EINVAL;
+>  
+> -	if (*n == 1) {
+> -		/* Get the boundaries out the way */
+> -		if (rate <= pll->range->min * parent_rate) {
+> -			*m = pll->range->min;
+> -			return -ENODATA;
+> -		} else if (rate >= pll->range->max * parent_rate) {
+> -			*m = pll->range->max;
+> -			return -ENODATA;
+> +		if (pll->table[i].m == rate / parent_rate) {
+> +			*m = pll->table[i].m;
+> +			return 0;
+>  		}
+>  	}
+>  
+> -	*m = meson_clk_get_pll_range_m(rate, parent_rate, *n, pll);
+> -
+> -	/* the pre-divider gives a multiplier too big - stop */
+> -	if (*m >= (1 << pll->m.width))
+> -		return -EINVAL;
+> -
+>  	return 0;
+>  }
+>  
+> -static int meson_clk_get_pll_get_index(unsigned long rate,
+> -				       unsigned long parent_rate,
+> -				       unsigned int index,
+> -				       unsigned int *m,
+> -				       unsigned int *n,
+> -				       struct meson_clk_pll_data *pll)
+> +static int meson_clk_get_pll_multiplier(unsigned long rate,
+> +					unsigned long parent_rate,
+> +					unsigned int *m,
+> +					struct meson_clk_pll_data *pll)
+>  {
+>  	if (pll->range)
+> -		return meson_clk_get_pll_range_index(rate, parent_rate,
+> -						     index, m, n, pll);
+> +		return meson_clk_get_pll_range(rate, parent_rate, m, pll);
+>  	else if (pll->table)
+> -		return meson_clk_get_pll_table_index(index, m, n, pll);
+> +		return meson_clk_get_pll_table(rate, parent_rate, m, pll);
+>  
+>  	return -EINVAL;
+>  }
+>  
+> -static int meson_clk_get_pll_settings(unsigned long rate,
+> -				      unsigned long parent_rate,
+> -				      unsigned int *best_m,
+> -				      unsigned int *best_n,
+> -				      struct meson_clk_pll_data *pll)
+> +static unsigned int meson_clk_get_pll_max_multiplier(struct meson_clk_pll_data *pll)
+>  {
+> -	unsigned long best = 0, now = 0;
+> -	unsigned int i, m, n;
+> -	int ret;
+> +	unsigned int i, max_mult = 0;
+>  
+> -	for (i = 0, ret = 0; !ret; i++) {
+> -		ret = meson_clk_get_pll_get_index(rate, parent_rate,
+> -						  i, &m, &n, pll);
+> -		if (ret == -EINVAL)
+> -			break;
+> -
+> -		now = __pll_params_to_rate(parent_rate, m, n, 0, pll);
+> -		if (meson_clk_pll_is_better(rate, best, now, pll)) {
+> -			best = now;
+> -			*best_m = m;
+> -			*best_n = n;
+> -
+> -			if (now == rate)
+> -				break;
+> -		}
+> -	}
+> +	if (pll->range)
+> +		return pll->range->max;
+> +
+> +	for (i = 0; pll->table && pll->table[i].m; i++)
+> +		max_mult = max(max_mult, pll->table[i].m);
+>  
+> -	return best ? 0 : -EINVAL;
+> +	return max_mult;
+>  }
+>  
+>  static int meson_clk_pll_determine_rate(struct clk_hw *hw,
+> @@ -248,16 +184,32 @@ static int meson_clk_pll_determine_rate(struct clk_hw *hw,
+>  {
+>  	struct clk_regmap *clk = to_clk_regmap(hw);
+>  	struct meson_clk_pll_data *pll = meson_clk_pll_data(clk);
+> -	unsigned int m, n, frac;
+> +	unsigned int max_mult, m, frac;
+>  	unsigned long round;
+>  	int ret;
+>  
+> -	ret = meson_clk_get_pll_settings(req->rate, req->best_parent_rate,
+> -					 &m, &n, pll);
+> -	if (ret)
+> +	/*
+> +	 * The pre-divider resets to an invalid zero value and reports a
+> +	 * zero rate until it gets programmed. Ask the parent for the
+> +	 * lowest rate which keeps the requested rate reachable; the CCF
+> +	 * will program the pre-divider when applying the parent rate.
+> +	 */
+> +	if (!req->best_parent_rate) {
+
+No you are only handling on the prediv being on its bad value here.
+Doing that is incorrect.
+
+What you must do is properly implement rate propagation, without assuming
+the predivider is RO.
+
+The mean calling clk_hw_round_rate() and not just when the its rate is 0
+
+> +		max_mult = meson_clk_get_pll_max_multiplier(pll);
+> +		if (!max_mult)
+> +			return -EINVAL;
+> +
+> +		req->best_parent_rate = clk_hw_round_rate(req->best_parent_hw,
+> +							  DIV_ROUND_UP_ULL(req->rate, max_mult));
+
+The above means you would prefer the running PLL on its max multiplier,
+so a lower parent clock.
+
+What happens if the prediv round the clock rate down from this request ?
+AFAIU, you'd end up out of range and would not be able to abjust
+
+A way to deal with this could be to :
+* target the middle of the range and round the parent
+* If the parent provided allows the range to provide the requested freq, you stop here
+* if the parent_rate provided would put the multiplier out of range,
+  then, you ask again targeting min if you were above max ... and if you are still above max => EINVAL.
+
+It is a trial and error approach similar to what the simple divider is doing.
+The difference here is frac gives you a very fine adjustement ability so all you need from the parent
+is to be in the range.
+
+> +		if (!req->best_parent_rate)
+> +			return -EINVAL;
+> +	}
+> +
+> +	ret = meson_clk_get_pll_multiplier(req->rate, req->best_parent_rate, &m, pll);
+> +	if (ret && ret != -ENODATA)
+>  		return ret;
+>  
+> -	round = __pll_params_to_rate(req->best_parent_rate, m, n, 0, pll);
+> +	round = __pll_params_to_rate(req->best_parent_rate, m, 0, pll);
+>  
+>  	if (!MESON_PARM_APPLICABLE(&pll->frac) || req->rate == round) {
+>  		req->rate = round;
+> @@ -268,8 +220,8 @@ static int meson_clk_pll_determine_rate(struct clk_hw *hw,
+>  	 * The rate provided by the setting is not an exact match, let's
+>  	 * try to improve the result using the fractional parameter
+>  	 */
+> -	frac = __pll_params_with_frac(req->rate, req->best_parent_rate, m, n, pll);
+> -	req->rate = __pll_params_to_rate(req->best_parent_rate, m, n, frac, pll);
+> +	frac = __pll_params_with_frac(req->rate, req->best_parent_rate, m, pll);
+> +	req->rate = __pll_params_to_rate(req->best_parent_rate, m, frac, pll);
+>  
+>  	return 0;
+>  }
+> @@ -420,7 +372,7 @@ static int meson_clk_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+>  {
+>  	struct clk_regmap *clk = to_clk_regmap(hw);
+>  	struct meson_clk_pll_data *pll = meson_clk_pll_data(clk);
+> -	unsigned int enabled, m, n, frac = 0;
+> +	unsigned int enabled, m, frac = 0;
+>  	unsigned long old_rate;
+>  	int ret;
+>  
+> @@ -429,19 +381,18 @@ static int meson_clk_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+>  
+>  	old_rate = clk_hw_get_rate(hw);
+>  
+> -	ret = meson_clk_get_pll_settings(rate, parent_rate, &m, &n, pll);
+> -	if (ret)
+> +	ret = meson_clk_get_pll_multiplier(rate, parent_rate, &m, pll);
+> +	if (ret && ret != -ENODATA)
+>  		return ret;
+>  
+>  	enabled = meson_parm_read(clk->map, &pll->en);
+>  	if (enabled)
+>  		meson_clk_pll_disable(hw);
+>  
+> -	meson_parm_write(clk->map, &pll->n, n);
+
+N used to be written here. With your change, it could be written out of this
+code, possibly while the PLL is running.
+
+Should the PLL use CLK_SET_RATE_GATE ?
+
+>  	meson_parm_write(clk->map, &pll->m, m);
+>  
+>  	if (MESON_PARM_APPLICABLE(&pll->frac)) {
+> -		frac = __pll_params_with_frac(rate, parent_rate, m, n, pll);
+> +		frac = __pll_params_with_frac(rate, parent_rate, m, pll);
+>  		meson_parm_write(clk->map, &pll->frac, frac);
+>  	}
+>  
+> diff --git a/drivers/clk/meson/clk-pll.h b/drivers/clk/meson/clk-pll.h
+> index 949157fb7bf5..cf20deaac1ed 100644
+> --- a/drivers/clk/meson/clk-pll.h
+> +++ b/drivers/clk/meson/clk-pll.h
+> @@ -11,9 +11,8 @@
+>  #include <linux/regmap.h>
+>  #include "parm.h"
+>  
+> -struct pll_params_table {
+> -	unsigned int	m;
+> -	unsigned int	n;
+> +struct pll_mult_table {
+
+nit: a struct with a single member. A plain 0-terminated
+`const unsigned int *` list of multipliers would do
+
+Also, there are spaces instead of a tab before `m`.
+
+> +	unsigned int    m;
+>  };
+>  
+>  struct pll_mult_range {
+> @@ -21,11 +20,10 @@ struct pll_mult_range {
+>  	unsigned int	max;
+>  };
+>  
+> -#define PLL_PARAMS(_m, _n)						\
+> -	{								\
+> -		.m		= (_m),					\
+> -		.n		= (_n),					\
+> -	}
+> +#define PLL_MULT(_m)			\
+> +{					\
+> +	.m = (_m),			\
+> +}
+>  
+>  #define CLK_MESON_PLL_ROUND_CLOSEST	BIT(0)
+>  #define CLK_MESON_PLL_NOINIT_ENABLED	BIT(1)
+> @@ -33,7 +31,6 @@ struct pll_mult_range {
+>  struct meson_clk_pll_data {
+>  	struct parm en;
+>  	struct parm m;
+> -	struct parm n;
+>  	struct parm frac;
+>  	struct parm l;
+>  	struct parm rst;
+> @@ -41,7 +38,7 @@ struct meson_clk_pll_data {
+>  	struct parm l_detect;
+>  	const struct reg_sequence *init_regs;
+>  	unsigned int init_count;
+> -	const struct pll_params_table *table;
+> +	const struct pll_mult_table *table;
+>  	const struct pll_mult_range *range;
+>  	unsigned int frac_max;
+>  	u8 flags;
+> diff --git a/drivers/clk/meson/clk-regmap.h b/drivers/clk/meson/clk-regmap.h
+> index 8e5c39b023e1..ee2a4b3408f0 100644
+> --- a/drivers/clk/meson/clk-regmap.h
+> +++ b/drivers/clk/meson/clk-regmap.h
+> @@ -75,7 +75,7 @@ struct clk_regmap_div_data {
+>  	unsigned int	offset;
+>  	u8		shift;
+>  	u8		width;
+> -	u8		flags;
+> +	u16		flags;
+
+Needed for BIT(9). This is a clk-regmap change that every Amlogic user of
+the flag depends on. A separate small patch before this one would be
+clearer, or at least mention it in the commit message.
+
+>  	const struct clk_div_table	*table;
+>  };
+>  
+> diff --git a/drivers/clk/meson/g12a.c b/drivers/clk/meson/g12a.c
+> index d0d4c7b6dc82..4be367c89aca 100644
+> --- a/drivers/clk/meson/g12a.c
+> +++ b/drivers/clk/meson/g12a.c
+> @@ -137,6 +137,36 @@
+>  #define HHI_SYS1_PLL_CNTL5		0x394
+>  #define HHI_SYS1_PLL_CNTL6		0x398
+>  
+> +/* Keep the pre-divider at 1 to achieve the best PLL performance. */
+> +static const struct clk_div_table g12a_prediv_div_table[] = {
+> +	{ .val = 1, .div = 1 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap g12a_fixed_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_FIX_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		/*
+> +		 * The PLL pre-divider have a zero value after reset,
+> +		 * which does not produce a usable clock. Use
+> +		 * CLK_DIVIDER_INVALID_ZERO to report this state correctly.
+> +		 * The pre-dividers below use this flag for the same reason.
+> +		 */
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "fixed_prediv",
+> +		.ops = &clk_regmap_divider_ro_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap g12a_fixed_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -149,11 +179,6 @@ static struct clk_regmap g12a_fixed_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_FIX_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_FIX_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -173,8 +198,8 @@ static struct clk_regmap g12a_fixed_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "fixed_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&g12a_fixed_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  	},
+> @@ -206,6 +231,24 @@ static const struct pll_mult_range g12a_sys_pll_mult_range = {
+>  	.max = 250,
+>  };
+>  
+> +static struct clk_regmap g12a_sys_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_SYS_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "sys_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap g12a_sys_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -218,11 +261,6 @@ static struct clk_regmap g12a_sys_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_SYS_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = HHI_SYS_PLL_CNTL0,
+>  			.shift   = 31,
+> @@ -238,12 +276,12 @@ static struct clk_regmap g12a_sys_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "sys_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&g12a_sys_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  		/* This clock feeds the CPU, avoid disabling it */
+> -		.flags = CLK_IS_CRITICAL,
+> +		.flags = CLK_SET_RATE_PARENT | CLK_IS_CRITICAL,
+>  	},
+>  };
+>  
+> @@ -265,6 +303,24 @@ static struct clk_regmap g12a_sys_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap g12b_sys1_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_SYS1_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "sys1_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap g12b_sys1_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -277,11 +333,6 @@ static struct clk_regmap g12b_sys1_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_SYS1_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = HHI_SYS1_PLL_CNTL0,
+>  			.shift   = 31,
+> @@ -297,12 +348,12 @@ static struct clk_regmap g12b_sys1_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "sys1_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&g12b_sys1_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  		/* This clock feeds the CPU, avoid disabling it */
+> -		.flags = CLK_IS_CRITICAL,
+> +		.flags = CLK_SET_RATE_PARENT | CLK_IS_CRITICAL,
+>  	},
+>  };
+>  
+> @@ -386,6 +437,24 @@ static struct clk_fixed_factor g12b_sys1_pll_div16 = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap g12a_gp0_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_GP0_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "gp0_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static const struct pll_mult_range g12a_gp0_pll_mult_range = {
+>  	.min = 125,
+>  	.max = 255,
+> @@ -415,11 +484,6 @@ static struct clk_regmap g12a_gp0_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_GP0_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_GP0_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -442,10 +506,11 @@ static struct clk_regmap g12a_gp0_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "gp0_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&g12a_gp0_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -468,6 +533,24 @@ static struct clk_regmap g12a_gp0_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap sm1_gp1_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_GP1_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "gp1_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap sm1_gp1_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -480,11 +563,6 @@ static struct clk_regmap sm1_gp1_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_GP1_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_GP1_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -504,12 +582,12 @@ static struct clk_regmap sm1_gp1_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "gp1_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&sm1_gp1_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  		/* This clock feeds the DSU, avoid disabling it */
+> -		.flags = CLK_IS_CRITICAL,
+> +		.flags = CLK_SET_RATE_PARENT | CLK_IS_CRITICAL,
+>  	},
+>  };
+>  
+> @@ -531,6 +609,24 @@ static struct clk_regmap sm1_gp1_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap g12a_hifi_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_HIFI_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "hifi_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  /*
+>   * Internal hifi pll emulation configuration parameters
+>   */
+> @@ -555,11 +651,6 @@ static struct clk_regmap g12a_hifi_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_HIFI_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_HIFI_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -583,10 +674,11 @@ static struct clk_regmap g12a_hifi_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "hifi_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&g12a_hifi_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -609,6 +701,24 @@ static struct clk_regmap g12a_hifi_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap g12a_pcie_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_PCIE_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "pcie_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  /*
+>   * The Meson G12A PCIE PLL is fined tuned to deliver a very precise
+>   * 100MHz reference clock for the PCIe Analog PHY, and thus requires
+> @@ -630,9 +740,9 @@ static const struct reg_sequence g12a_pcie_pll_init_regs[] = {
+>  };
+>  
+>  /* Keep a single entry table for recalc/round_rate() ops */
+> -static const struct pll_params_table g12a_pcie_pll_table[] = {
+> -	PLL_PARAMS(150, 1),
+> -	{0, 0},
+> +static const struct pll_mult_table g12a_pcie_pll_table[] = {
+> +	PLL_MULT(150),
+> +	{ /* sentinel */ },
+>  };
+>  
+>  static struct clk_regmap g12a_pcie_pll_dco = {
+> @@ -647,11 +757,6 @@ static struct clk_regmap g12a_pcie_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_PCIE_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_PCIE_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -674,10 +779,11 @@ static struct clk_regmap g12a_pcie_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "pcie_pll_dco",
+>  		.ops = &meson_clk_pcie_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&g12a_pcie_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -729,6 +835,24 @@ static struct clk_fixed_factor g12a_pcie_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap g12a_hdmi_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_HDMI_PLL_CNTL0,
+> +		.shift   = 10,
+> +		.width   = 5,
+> +		.table = g12a_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "hdmi_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap g12a_hdmi_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -741,11 +865,6 @@ static struct clk_regmap g12a_hdmi_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 8,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_HDMI_PLL_CNTL0,
+> -			.shift   = 10,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_HDMI_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -765,15 +884,15 @@ static struct clk_regmap g12a_hdmi_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "hdmi_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&g12a_hdmi_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  		/*
+>  		 * Display directly handle hdmi pll registers ATM, we need
+>  		 * NOCACHE to keep our view of the clock as accurate as possible
+>  		 */
+> -		.flags = CLK_GET_RATE_NOCACHE,
+> +		.flags = CLK_SET_RATE_PARENT | CLK_GET_RATE_NOCACHE,
+
+On these SoCs, the display clocks registers are poked directly by DRM unfortunately.
+Those clocks are read-only and NO CACHE, including the prediv.
+
+CLK_SET_RATE_PARENT does not make sense in that case.
+
+>  	},
+>  };
+>  
+> @@ -4593,9 +4712,13 @@ static struct clk_hw *g12a_hw_clks[] = {
+>  	[CLKID_VCLK2_VENCLMMC]		= &g12a_vclk2_venclmmc.hw,
+>  	[CLKID_VCLK2_VENCL]		= &g12a_vclk2_vencl.hw,
+>  	[CLKID_VCLK2_OTHER1]		= &g12a_vclk2_other1.hw,
+> +	[CLKID_FIXED_PREDIV]		= &g12a_fixed_prediv.hw,
+>  	[CLKID_FIXED_PLL_DCO]		= &g12a_fixed_pll_dco.hw,
+> +	[CLKID_SYS_PREDIV]		= &g12a_sys_prediv.hw,
+>  	[CLKID_SYS_PLL_DCO]		= &g12a_sys_pll_dco.hw,
+> +	[CLKID_GP0_PREDIV]		= &g12a_gp0_prediv.hw,
+>  	[CLKID_GP0_PLL_DCO]		= &g12a_gp0_pll_dco.hw,
+> +	[CLKID_HIFI_PREDIV]		= &g12a_hifi_prediv.hw,
+>  	[CLKID_HIFI_PLL_DCO]		= &g12a_hifi_pll_dco.hw,
+>  	[CLKID_DMA]			= &g12a_dma.hw,
+>  	[CLKID_EFUSE]			= &g12a_efuse.hw,
+> @@ -4618,6 +4741,7 @@ static struct clk_hw *g12a_hw_clks[] = {
+>  	[CLKID_VAPB_1]			= &g12a_vapb_1.hw,
+>  	[CLKID_VAPB_SEL]		= &g12a_vapb_sel.hw,
+>  	[CLKID_VAPB]			= &g12a_vapb.hw,
+> +	[CLKID_HDMI_PREDIV]		= &g12a_hdmi_prediv.hw,
+>  	[CLKID_HDMI_PLL_DCO]		= &g12a_hdmi_pll_dco.hw,
+>  	[CLKID_HDMI_PLL_OD]		= &g12a_hdmi_pll_od.hw,
+>  	[CLKID_HDMI_PLL_OD2]		= &g12a_hdmi_pll_od2.hw,
+> @@ -4693,6 +4817,7 @@ static struct clk_hw *g12a_hw_clks[] = {
+>  	[CLKID_CPU_CLK_AXI]		= &g12a_cpu_clk_axi.hw,
+>  	[CLKID_CPU_CLK_TRACE_DIV]	= &g12a_cpu_clk_trace_div.hw,
+>  	[CLKID_CPU_CLK_TRACE]		= &g12a_cpu_clk_trace.hw,
+> +	[CLKID_PCIE_PREDIV]		= &g12a_pcie_prediv.hw,
+>  	[CLKID_PCIE_PLL_DCO]		= &g12a_pcie_pll_dco.hw,
+>  	[CLKID_PCIE_PLL_DCO_DIV2]	= &g12a_pcie_pll_dco_div2.hw,
+>  	[CLKID_PCIE_PLL_OD]		= &g12a_pcie_pll_od.hw,
+> @@ -4820,9 +4945,13 @@ static struct clk_hw *g12b_hw_clks[] = {
+>  	[CLKID_VCLK2_VENCLMMC]		= &g12a_vclk2_venclmmc.hw,
+>  	[CLKID_VCLK2_VENCL]		= &g12a_vclk2_vencl.hw,
+>  	[CLKID_VCLK2_OTHER1]		= &g12a_vclk2_other1.hw,
+> +	[CLKID_FIXED_PREDIV]		= &g12a_fixed_prediv.hw,
+>  	[CLKID_FIXED_PLL_DCO]		= &g12a_fixed_pll_dco.hw,
+> +	[CLKID_SYS_PREDIV]		= &g12a_sys_prediv.hw,
+>  	[CLKID_SYS_PLL_DCO]		= &g12a_sys_pll_dco.hw,
+> +	[CLKID_GP0_PREDIV]		= &g12a_gp0_prediv.hw,
+>  	[CLKID_GP0_PLL_DCO]		= &g12a_gp0_pll_dco.hw,
+> +	[CLKID_HIFI_PREDIV]		= &g12a_hifi_prediv.hw,
+>  	[CLKID_HIFI_PLL_DCO]		= &g12a_hifi_pll_dco.hw,
+>  	[CLKID_DMA]			= &g12a_dma.hw,
+>  	[CLKID_EFUSE]			= &g12a_efuse.hw,
+> @@ -4845,6 +4974,7 @@ static struct clk_hw *g12b_hw_clks[] = {
+>  	[CLKID_VAPB_1]			= &g12a_vapb_1.hw,
+>  	[CLKID_VAPB_SEL]		= &g12a_vapb_sel.hw,
+>  	[CLKID_VAPB]			= &g12a_vapb.hw,
+> +	[CLKID_HDMI_PREDIV]		= &g12a_hdmi_prediv.hw,
+>  	[CLKID_HDMI_PLL_DCO]		= &g12a_hdmi_pll_dco.hw,
+>  	[CLKID_HDMI_PLL_OD]		= &g12a_hdmi_pll_od.hw,
+>  	[CLKID_HDMI_PLL_OD2]		= &g12a_hdmi_pll_od2.hw,
+> @@ -4920,6 +5050,7 @@ static struct clk_hw *g12b_hw_clks[] = {
+>  	[CLKID_CPU_CLK_AXI]		= &g12a_cpu_clk_axi.hw,
+>  	[CLKID_CPU_CLK_TRACE_DIV]	= &g12a_cpu_clk_trace_div.hw,
+>  	[CLKID_CPU_CLK_TRACE]		= &g12a_cpu_clk_trace.hw,
+> +	[CLKID_PCIE_PREDIV]		= &g12a_pcie_prediv.hw,
+>  	[CLKID_PCIE_PLL_DCO]		= &g12a_pcie_pll_dco.hw,
+>  	[CLKID_PCIE_PLL_DCO_DIV2]	= &g12a_pcie_pll_dco_div2.hw,
+>  	[CLKID_PCIE_PLL_OD]		= &g12a_pcie_pll_od.hw,
+> @@ -4935,6 +5066,7 @@ static struct clk_hw *g12b_hw_clks[] = {
+>  	[CLKID_VDEC_HEVCF]		= &g12a_vdec_hevcf.hw,
+>  	[CLKID_TS_DIV]			= &g12a_ts_div.hw,
+>  	[CLKID_TS]			= &g12a_ts.hw,
+> +	[CLKID_SYS1_PREDIV]		= &g12b_sys1_prediv.hw,
+>  	[CLKID_SYS1_PLL_DCO]		= &g12b_sys1_pll_dco.hw,
+>  	[CLKID_SYS1_PLL]		= &g12b_sys1_pll.hw,
+>  	[CLKID_SYS1_PLL_DIV16_EN]	= &g12b_sys1_pll_div16_en.hw,
+> @@ -5088,9 +5220,13 @@ static struct clk_hw *sm1_hw_clks[] = {
+>  	[CLKID_VCLK2_VENCLMMC]		= &g12a_vclk2_venclmmc.hw,
+>  	[CLKID_VCLK2_VENCL]		= &g12a_vclk2_vencl.hw,
+>  	[CLKID_VCLK2_OTHER1]		= &g12a_vclk2_other1.hw,
+> +	[CLKID_FIXED_PREDIV]		= &g12a_fixed_prediv.hw,
+>  	[CLKID_FIXED_PLL_DCO]		= &g12a_fixed_pll_dco.hw,
+> +	[CLKID_SYS_PREDIV]		= &g12a_sys_prediv.hw,
+>  	[CLKID_SYS_PLL_DCO]		= &g12a_sys_pll_dco.hw,
+> +	[CLKID_GP0_PREDIV]		= &g12a_gp0_prediv.hw,
+>  	[CLKID_GP0_PLL_DCO]		= &g12a_gp0_pll_dco.hw,
+> +	[CLKID_HIFI_PREDIV]		= &g12a_hifi_prediv.hw,
+>  	[CLKID_HIFI_PLL_DCO]		= &g12a_hifi_pll_dco.hw,
+>  	[CLKID_DMA]			= &g12a_dma.hw,
+>  	[CLKID_EFUSE]			= &g12a_efuse.hw,
+> @@ -5113,6 +5249,7 @@ static struct clk_hw *sm1_hw_clks[] = {
+>  	[CLKID_VAPB_1]			= &g12a_vapb_1.hw,
+>  	[CLKID_VAPB_SEL]		= &g12a_vapb_sel.hw,
+>  	[CLKID_VAPB]			= &g12a_vapb.hw,
+> +	[CLKID_HDMI_PREDIV]		= &g12a_hdmi_prediv.hw,
+>  	[CLKID_HDMI_PLL_DCO]		= &g12a_hdmi_pll_dco.hw,
+>  	[CLKID_HDMI_PLL_OD]		= &g12a_hdmi_pll_od.hw,
+>  	[CLKID_HDMI_PLL_OD2]		= &g12a_hdmi_pll_od2.hw,
+> @@ -5188,6 +5325,7 @@ static struct clk_hw *sm1_hw_clks[] = {
+>  	[CLKID_CPU_CLK_AXI]		= &g12a_cpu_clk_axi.hw,
+>  	[CLKID_CPU_CLK_TRACE_DIV]	= &g12a_cpu_clk_trace_div.hw,
+>  	[CLKID_CPU_CLK_TRACE]		= &g12a_cpu_clk_trace.hw,
+> +	[CLKID_PCIE_PREDIV]		= &g12a_pcie_prediv.hw,
+>  	[CLKID_PCIE_PLL_DCO]		= &g12a_pcie_pll_dco.hw,
+>  	[CLKID_PCIE_PLL_DCO_DIV2]	= &g12a_pcie_pll_dco_div2.hw,
+>  	[CLKID_PCIE_PLL_OD]		= &g12a_pcie_pll_od.hw,
+> @@ -5204,6 +5342,7 @@ static struct clk_hw *sm1_hw_clks[] = {
+>  	[CLKID_TS_DIV]			= &g12a_ts_div.hw,
+>  	[CLKID_TS]			= &g12a_ts.hw,
+>  	[CLKID_GP1_PLL_DCO]		= &sm1_gp1_pll_dco.hw,
+> +	[CLKID_GP1_PREDIV]		= &sm1_gp1_prediv.hw,
+>  	[CLKID_GP1_PLL]			= &sm1_gp1_pll.hw,
+>  	[CLKID_DSU_CLK_DYN0_SEL]	= &sm1_dsu_clk_dyn0_sel.hw,
+>  	[CLKID_DSU_CLK_DYN0_DIV]	= &sm1_dsu_clk_dyn0_div.hw,
+> diff --git a/drivers/clk/meson/gxbb.c b/drivers/clk/meson/gxbb.c
+> index 7a7b104182ff..9d09f13c22fb 100644
+> --- a/drivers/clk/meson/gxbb.c
+> +++ b/drivers/clk/meson/gxbb.c
+> @@ -115,6 +115,35 @@
+>  #define HHI_BT656_CLK_CNTL		0x3d4
+>  #define HHI_SAR_CLK_CNTL		0x3d8
+>  
+> +static const struct clk_div_table gxbb_fixed_prediv_div_table[] = {
+> +	{ .val = 3, .div = 3 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap gxbb_fixed_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_MPLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = gxbb_fixed_prediv_div_table,
+> +		/*
+> +		 * The PLL pre-divider have a zero value after reset,
+> +		 * which does not produce a usable clock. Use
+> +		 * CLK_DIVIDER_INVALID_ZERO to report this state correctly.
+> +		 * The pre-dividers below use this flag for the same reason.
+> +		 */
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "fixed_prediv",
+> +		.ops = &clk_regmap_divider_ro_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap gxbb_fixed_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -127,11 +156,6 @@ static struct clk_regmap gxbb_fixed_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_MPLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_MPLL_CNTL2,
+>  			.shift   = 0,
+> @@ -151,8 +175,8 @@ static struct clk_regmap gxbb_fixed_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "fixed_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&gxbb_fixed_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  	},
+> @@ -192,6 +216,30 @@ static struct clk_fixed_factor gxbb_hdmi_pll_pre_mult = {
+>  	},
+>  };
+>  
+> +/* Keep the pre-divider at 1 to achieve the best PLL performance. */
+> +static const struct clk_div_table gxbb_prediv_div_table[] = {
+> +	{ .val = 1, .div = 1 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap gxbb_hdmi_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_HDMI_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = gxbb_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "hdmi_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&gxbb_hdmi_pll_pre_mult.hw
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap gxbb_hdmi_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -204,11 +252,6 @@ static struct clk_regmap gxbb_hdmi_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_HDMI_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_HDMI_PLL_CNTL2,
+>  			.shift   = 0,
+> @@ -229,14 +272,32 @@ static struct clk_regmap gxbb_hdmi_pll_dco = {
+>  		.name = "hdmi_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+>  		.parent_hws = (const struct clk_hw *[]) {
+> -			&gxbb_hdmi_pll_pre_mult.hw
+> +			&gxbb_hdmi_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  		/*
+>  		 * Display directly handle hdmi pll registers ATM, we need
+>  		 * NOCACHE to keep our view of the clock as accurate as possible
+>  		 */
+> -		.flags = CLK_GET_RATE_NOCACHE,
+> +		.flags = CLK_GET_RATE_NOCACHE | CLK_SET_RATE_PARENT,
+> +	},
+> +};
+> +
+> +static struct clk_regmap gxl_hdmi_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_HDMI_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = gxbb_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "hdmi_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+>  	},
+>  };
+>  
+> @@ -252,11 +313,6 @@ static struct clk_regmap gxl_hdmi_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_HDMI_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		/*
+>  		 * On gxl, there is a register shift due to
+>  		 * HHI_HDMI_PLL_CNTL1 which does not exist on gxbb,
+> @@ -282,15 +338,15 @@ static struct clk_regmap gxl_hdmi_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "hdmi_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&gxl_hdmi_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  		/*
+>  		 * Display directly handle hdmi pll registers ATM, we need
+>  		 * NOCACHE to keep our view of the clock as accurate as possible
+>  		 */
+> -		.flags = CLK_GET_RATE_NOCACHE,
+> +		.flags = CLK_GET_RATE_NOCACHE | CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -413,6 +469,24 @@ static struct clk_regmap gxl_hdmi_pll = {
+>  	},
+>  };
+>  
+> +static struct clk_regmap gxbb_sys_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_SYS_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = gxbb_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "sys_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap gxbb_sys_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -425,11 +499,6 @@ static struct clk_regmap gxbb_sys_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_SYS_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = HHI_SYS_PLL_CNTL,
+>  			.shift   = 31,
+> @@ -444,10 +513,11 @@ static struct clk_regmap gxbb_sys_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "sys_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&gxbb_sys_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -469,38 +539,56 @@ static struct clk_regmap gxbb_sys_pll = {
+>  	},
+>  };
+>  
+> -static const struct pll_params_table gxbb_gp0_pll_params_table[] = {
+> -	PLL_PARAMS(32, 1),
+> -	PLL_PARAMS(33, 1),
+> -	PLL_PARAMS(34, 1),
+> -	PLL_PARAMS(35, 1),
+> -	PLL_PARAMS(36, 1),
+> -	PLL_PARAMS(37, 1),
+> -	PLL_PARAMS(38, 1),
+> -	PLL_PARAMS(39, 1),
+> -	PLL_PARAMS(40, 1),
+> -	PLL_PARAMS(41, 1),
+> -	PLL_PARAMS(42, 1),
+> -	PLL_PARAMS(43, 1),
+> -	PLL_PARAMS(44, 1),
+> -	PLL_PARAMS(45, 1),
+> -	PLL_PARAMS(46, 1),
+> -	PLL_PARAMS(47, 1),
+> -	PLL_PARAMS(48, 1),
+> -	PLL_PARAMS(49, 1),
+> -	PLL_PARAMS(50, 1),
+> -	PLL_PARAMS(51, 1),
+> -	PLL_PARAMS(52, 1),
+> -	PLL_PARAMS(53, 1),
+> -	PLL_PARAMS(54, 1),
+> -	PLL_PARAMS(55, 1),
+> -	PLL_PARAMS(56, 1),
+> -	PLL_PARAMS(57, 1),
+> -	PLL_PARAMS(58, 1),
+> -	PLL_PARAMS(59, 1),
+> -	PLL_PARAMS(60, 1),
+> -	PLL_PARAMS(61, 1),
+> -	PLL_PARAMS(62, 1),
+> +static struct clk_regmap gxbb_gp0_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_GP0_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = gxbb_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "gp0_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+> +static const struct pll_mult_table gxbb_gp0_pll_params_table[] = {
+> +	PLL_MULT(32),
+> +	PLL_MULT(33),
+> +	PLL_MULT(34),
+> +	PLL_MULT(35),
+> +	PLL_MULT(36),
+> +	PLL_MULT(37),
+> +	PLL_MULT(38),
+> +	PLL_MULT(39),
+> +	PLL_MULT(40),
+> +	PLL_MULT(41),
+> +	PLL_MULT(42),
+> +	PLL_MULT(43),
+> +	PLL_MULT(44),
+> +	PLL_MULT(45),
+> +	PLL_MULT(46),
+> +	PLL_MULT(47),
+> +	PLL_MULT(48),
+> +	PLL_MULT(49),
+> +	PLL_MULT(50),
+> +	PLL_MULT(51),
+> +	PLL_MULT(52),
+> +	PLL_MULT(53),
+> +	PLL_MULT(54),
+> +	PLL_MULT(55),
+> +	PLL_MULT(56),
+> +	PLL_MULT(57),
+> +	PLL_MULT(58),
+> +	PLL_MULT(59),
+> +	PLL_MULT(60),
+> +	PLL_MULT(61),
+> +	PLL_MULT(62),
+>  	{ /* sentinel */ },
+
+Again ... drop those, it is something I had already asked on v1 I think.
+
+>  };
+>  
+> @@ -522,11 +610,6 @@ static struct clk_regmap gxbb_gp0_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_GP0_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = HHI_GP0_PLL_CNTL,
+>  			.shift   = 31,
+> @@ -544,6 +627,25 @@ static struct clk_regmap gxbb_gp0_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "gp0_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&gxbb_gp0_prediv.hw
+> +		},
+> +		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+> +	},
+> +};
+> +
+> +static struct clk_regmap gxl_gp0_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = HHI_GP0_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = gxbb_prediv_div_table,
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "gp0_prediv",
+> +		.ops = &clk_regmap_divider_ops,
+>  		.parent_data = &(const struct clk_parent_data) {
+>  			.fw_name = "xtal",
+>  		},
+> @@ -551,32 +653,32 @@ static struct clk_regmap gxbb_gp0_pll_dco = {
+>  	},
+>  };
+>  
+> -static const struct pll_params_table gxl_gp0_pll_params_table[] = {
+> -	PLL_PARAMS(42, 1),
+> -	PLL_PARAMS(43, 1),
+> -	PLL_PARAMS(44, 1),
+> -	PLL_PARAMS(45, 1),
+> -	PLL_PARAMS(46, 1),
+> -	PLL_PARAMS(47, 1),
+> -	PLL_PARAMS(48, 1),
+> -	PLL_PARAMS(49, 1),
+> -	PLL_PARAMS(50, 1),
+> -	PLL_PARAMS(51, 1),
+> -	PLL_PARAMS(52, 1),
+> -	PLL_PARAMS(53, 1),
+> -	PLL_PARAMS(54, 1),
+> -	PLL_PARAMS(55, 1),
+> -	PLL_PARAMS(56, 1),
+> -	PLL_PARAMS(57, 1),
+> -	PLL_PARAMS(58, 1),
+> -	PLL_PARAMS(59, 1),
+> -	PLL_PARAMS(60, 1),
+> -	PLL_PARAMS(61, 1),
+> -	PLL_PARAMS(62, 1),
+> -	PLL_PARAMS(63, 1),
+> -	PLL_PARAMS(64, 1),
+> -	PLL_PARAMS(65, 1),
+> -	PLL_PARAMS(66, 1),
+> +static const struct pll_mult_table gxl_gp0_pll_params_table[] = {
+> +	PLL_MULT(42),
+> +	PLL_MULT(43),
+> +	PLL_MULT(44),
+> +	PLL_MULT(45),
+> +	PLL_MULT(46),
+> +	PLL_MULT(47),
+> +	PLL_MULT(48),
+> +	PLL_MULT(49),
+> +	PLL_MULT(50),
+> +	PLL_MULT(51),
+> +	PLL_MULT(52),
+> +	PLL_MULT(53),
+> +	PLL_MULT(54),
+> +	PLL_MULT(55),
+> +	PLL_MULT(56),
+> +	PLL_MULT(57),
+> +	PLL_MULT(58),
+> +	PLL_MULT(59),
+> +	PLL_MULT(60),
+> +	PLL_MULT(61),
+> +	PLL_MULT(62),
+> +	PLL_MULT(63),
+> +	PLL_MULT(64),
+> +	PLL_MULT(65),
+> +	PLL_MULT(66),
+>  	{ /* sentinel */ },
+>  };
+>  
+> @@ -600,11 +702,6 @@ static struct clk_regmap gxl_gp0_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = HHI_GP0_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.frac = {
+>  			.reg_off = HHI_GP0_PLL_CNTL1,
+>  			.shift   = 0,
+> @@ -627,10 +724,11 @@ static struct clk_regmap gxl_gp0_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "gp0_pll_dco",
+>  		.ops = &meson_clk_pll_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&gxl_gp0_prediv.hw
+>  		},
+>  		.num_parents = 1,
+> +		.flags = CLK_SET_RATE_PARENT,
+>  	},
+>  };
+>  
+> @@ -3006,11 +3104,15 @@ static struct clk_hw *gxbb_hw_clks[] = {
+>  	[CLKID_GEN_CLK_SEL]	    = &gxbb_gen_clk_sel.hw,
+>  	[CLKID_GEN_CLK_DIV]	    = &gxbb_gen_clk_div.hw,
+>  	[CLKID_GEN_CLK]		    = &gxbb_gen_clk.hw,
+> +	[CLKID_FIXED_PREDIV]	    = &gxbb_fixed_prediv.hw,
+>  	[CLKID_FIXED_PLL_DCO]	    = &gxbb_fixed_pll_dco.hw,
+> +	[CLKID_HDMI_PREDIV]	    = &gxbb_hdmi_prediv.hw,
+>  	[CLKID_HDMI_PLL_DCO]	    = &gxbb_hdmi_pll_dco.hw,
+>  	[CLKID_HDMI_PLL_OD]	    = &gxbb_hdmi_pll_od.hw,
+>  	[CLKID_HDMI_PLL_OD2]	    = &gxbb_hdmi_pll_od2.hw,
+> +	[CLKID_SYS_PREDIV]	    = &gxbb_sys_prediv.hw,
+>  	[CLKID_SYS_PLL_DCO]	    = &gxbb_sys_pll_dco.hw,
+> +	[CLKID_GP0_PREDIV]	    = &gxbb_gp0_prediv.hw,
+>  	[CLKID_GP0_PLL_DCO]	    = &gxbb_gp0_pll_dco.hw,
+>  	[CLKID_VID_PLL_DIV]	    = &gxbb_vid_pll_div.hw,
+>  	[CLKID_VID_PLL_SEL]	    = &gxbb_vid_pll_sel.hw,
+> @@ -3213,11 +3315,15 @@ static struct clk_hw *gxl_hw_clks[] = {
+>  	[CLKID_GEN_CLK_SEL]	    = &gxbb_gen_clk_sel.hw,
+>  	[CLKID_GEN_CLK_DIV]	    = &gxbb_gen_clk_div.hw,
+>  	[CLKID_GEN_CLK]		    = &gxbb_gen_clk.hw,
+> +	[CLKID_FIXED_PREDIV]	    = &gxbb_fixed_prediv.hw,
+>  	[CLKID_FIXED_PLL_DCO]	    = &gxbb_fixed_pll_dco.hw,
+> +	[CLKID_HDMI_PREDIV]	    = &gxl_hdmi_prediv.hw,
+>  	[CLKID_HDMI_PLL_DCO]	    = &gxl_hdmi_pll_dco.hw,
+>  	[CLKID_HDMI_PLL_OD]	    = &gxl_hdmi_pll_od.hw,
+>  	[CLKID_HDMI_PLL_OD2]	    = &gxl_hdmi_pll_od2.hw,
+> +	[CLKID_SYS_PREDIV]	    = &gxbb_sys_prediv.hw,
+>  	[CLKID_SYS_PLL_DCO]	    = &gxbb_sys_pll_dco.hw,
+> +	[CLKID_GP0_PREDIV]	    = &gxl_gp0_prediv.hw,
+>  	[CLKID_GP0_PLL_DCO]	    = &gxl_gp0_pll_dco.hw,
+>  	[CLKID_VID_PLL_DIV]	    = &gxbb_vid_pll_div.hw,
+>  	[CLKID_VID_PLL_SEL]	    = &gxbb_vid_pll_sel.hw,
+> diff --git a/drivers/clk/meson/meson8-ddr.c b/drivers/clk/meson/meson8-ddr.c
+> index 0f93774f7371..a3f4c47982d9 100644
+> --- a/drivers/clk/meson/meson8-ddr.c
+> +++ b/drivers/clk/meson/meson8-ddr.c
+> @@ -23,6 +23,35 @@
+>  #define DDR_CLK_CNTL			0x18
+>  #define DDR_CLK_STS			0x1c
+>  
+> +/* Keep the pre-divider at 1 to achieve the best PLL performance. */
+> +static const struct clk_div_table meson8_ddr_prediv_div_table[] = {
+> +	{ .val = 1, .div = 1 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap meson8_ddr_prediv = {
+> +	.data = &(struct clk_regmap_div_data){
+> +		.offset = AM_DDR_PLL_CNTL,
+> +		.shift   = 9,
+> +		.width   = 5,
+> +		.table = meson8_ddr_prediv_div_table,
+> +		/*
+> +		 * The PLL pre-divider have a zero value after reset,
+> +		 * which does not produce a usable clock. Use
+> +		 * CLK_DIVIDER_INVALID_ZERO to report this state correctly.
+> +		 */
+> +		.flags = CLK_DIVIDER_INVALID_ZERO,
+> +	},
+> +	.hw.init = &(struct clk_init_data){
+> +		.name = "ddr_prediv",
+> +		.ops = &clk_regmap_divider_ro_ops,
+> +		.parent_data = &(const struct clk_parent_data) {
+> +			.fw_name = "xtal",
+> +		},
+> +		.num_parents = 1,
+> +	},
+> +};
+> +
+>  static struct clk_regmap meson8_ddr_pll_dco = {
+>  	.data = &(struct meson_clk_pll_data){
+>  		.en = {
+> @@ -35,11 +64,6 @@ static struct clk_regmap meson8_ddr_pll_dco = {
+>  			.shift   = 0,
+>  			.width   = 9,
+>  		},
+> -		.n = {
+> -			.reg_off = AM_DDR_PLL_CNTL,
+> -			.shift   = 9,
+> -			.width   = 5,
+> -		},
+>  		.l = {
+>  			.reg_off = AM_DDR_PLL_CNTL,
+>  			.shift   = 31,
+> @@ -54,8 +78,8 @@ static struct clk_regmap meson8_ddr_pll_dco = {
+>  	.hw.init = &(struct clk_init_data){
+>  		.name = "ddr_pll_dco",
+>  		.ops = &meson_clk_pll_ro_ops,
+> -		.parent_data = &(const struct clk_parent_data) {
+> -			.fw_name = "xtal",
+> +		.parent_hws = (const struct clk_hw *[]) {
+> +			&meson8_ddr_prediv.hw
+>  		},
+>  		.num_parents = 1,
+>  	},
+> @@ -79,6 +103,7 @@ static struct clk_regmap meson8_ddr_pll = {
+>  };
+>  
+>  static struct clk_hw *meson8_ddr_hw_clks[] = {
+> +	[DDR_CLKID_DDR_PREDIV]		= &meson8_ddr_prediv.hw,
+>  	[DDR_CLKID_DDR_PLL_DCO]		= &meson8_ddr_pll_dco.hw,
+>  	[DDR_CLKID_DDR_PLL]		= &meson8_ddr_pll.hw,
+>  };
+> diff --git a/drivers/clk/meson/meson8b.c b/drivers/clk/meson/meson8b.c
+> index bc029c6ab622..0c9ba079bc51 100644
+> --- a/drivers/clk/meson/meson8b.c
+> +++ b/drivers/clk/meson/meson8b.c
+> @@ -95,30 +95,61 @@ struct meson8b_clk_reset {
+>  	struct regmap *regmap;
+>  };
+>  
+> -static const struct pll_params_table sys_pll_params_table[] = {
+> -	PLL_PARAMS(50, 1),
+> -	PLL_PARAMS(51, 1),
+> -	PLL_PARAMS(52, 1),
+> -	PLL_PARAMS(53, 1),
+> -	PLL_PARAMS(54, 1),
+> -	PLL_PARAMS(55, 1),
+> -	PLL_PARAMS(56, 1),
+> -	PLL_PARAMS(57, 1),
+> -	PLL_PARAMS(58, 1),
+> -	PLL_PARAMS(59, 1),
+> -	PLL_PARAMS(60, 1),
+> -	PLL_PARAMS(61, 1),
+> -	PLL_PARAMS(62, 1),
+> -	PLL_PARAMS(63, 1),
+> -	PLL_PARAMS(64, 1),
+> -	PLL_PARAMS(65, 1),
+> -	PLL_PARAMS(66, 1),
+> -	PLL_PARAMS(67, 1),
+> -	PLL_PARAMS(68, 1),
+> -	PLL_PARAMS(84, 1),
+> +static const struct pll_mult_table sys_pll_params_table[] = {
+> +	PLL_MULT(50),
+> +	PLL_MULT(51),
+> +	PLL_MULT(52),
+> +	PLL_MULT(53),
+> +	PLL_MULT(54),
+> +	PLL_MULT(55),
+> +	PLL_MULT(56),
+> +	PLL_MULT(57),
+> +	PLL_MULT(58),
+> +	PLL_MULT(59),
+> +	PLL_MULT(60),
+> +	PLL_MULT(61),
+> +	PLL_MULT(62),
+> +	PLL_MULT(63),
+> +	PLL_MULT(64),
+> +	PLL_MULT(65),
+> +	PLL_MULT(66),
+> +	PLL_MULT(67),
+> +	PLL_MULT(68),
+> +	PLL_MULT(84),
+>  	{ /* sentinel */ },
+>  };
+>  
+> +static const struct clk_div_table meson8b_fixed_prediv_div_table[] = {
+> +	{ .val = 4, .div = 4 },
+
+Previous table was showing a prediv of 1 ... here it jumps to 4 without
+an explanation !
+
+Also, it is a RO clock, so what is the point ?
+
 -- 
-2.25.1
+Jerome
 
