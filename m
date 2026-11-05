@@ -1,107 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793905881;
-	b=VZAAD6vAgUbB4pYBkltcrCNukcaFo+/BubbdBF7aeQROTkewRsK+h+RIhPUzI68dqE7B
-	 3af0I5vHdP9GzP7FR+H95Z+V0lyWf/50ciyzhZAH5w/XWUx0Sypi/s3J0PpnHbEIrfsVf
-	 Kb5qEW7dj2ec/UaCWk6alHn228ku6Uh8wtRnKXbyhbEbhXnp1WDoVCD8j/3Aehe0ZK7ML
-	 zo7Hb3j37jSQdRYUggss7syWtSO5X7rZ8lnGMGJTMy9GW0YlKasBCASOf5IQYnzAGXXXY
-	 B7UpH/kgam9PVqKv6OReBdcgZ9vXjDBBQ2Cko8EQZ6rfsco9hb/lvu0kQbXQyGn8OnQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905881;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=n3yEXi6OTivPfYgHTXZCsJbsplhpsTfTQ0NHWdHlsRg=;
-	b=JNSolxuJZ1IiafWuKdGrjTcXWML367OyKqgzBTaXdqQFKjYKjU+z6C9VUvMdfynyXFOt
-	 wGtTTnQVlfyGA5bNvsQ4IJ6yIQaQH264iN6u2nUIAeYUME1Ir7QkUeuhtCRN0gj+uv78Y
-	 a9U00sit9NjqIiBI5vlEAmgaQCj4XGxtvO/zYuVrg1SsAOl4Hy8LjFBcOxCAZ7ZFmD27Q
-	 RcaxLd+5z2TFUGp/C5cn/JkTV1bSH6gbkkQIkIATVxX+mWCgBN7wmuXOafaur6BCQQVbc
-	 6CiIDPrlBFboBmzkDud7ERxfCPWX0rIi0AAXIzUn2iHHrXieWBhK1TC+/X4a+DaGsAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ccvWYqzo;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hXlax1G0;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ccvWYqzo;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hXlax1G0;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.117
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793905887;
+	b=ypC1KDhOWjSkHIS/3hzx9Nz32979cbMFhGWXlnS+81RguHlrNgdY7RTVoJrle7ol6B0Z
+	 lFjIV6UP3HfrnazpnTziJnDBvYJkp5Z9YgBx/vKDWvTXRgVjMHiDKz7ZSb5ciVJ7T5p0o
+	 HcjC/1zaJKztmzEuw5qeds62YgQ162PKJVU0sAtPQl4uwLkCMKDtfPSQJzqesjNktCIct
+	 Vo/NZZklH7H8TpcAO+I6Rteqx2ytGAJSa+SkQHx2g9yK26+W6OqS6fEoouOatlhbRrhZk
+	 p0zfuBQ0vgeChh61q6q8ucxJrGqoqQqa0I5n0fLE4Xu9V+KKm7QON9dIx/T3qYGUdKA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905887;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=nk+4efmjiYcgYse/P/9Rm6OyWsSsxvDo3CokQLJCWPk=;
+	b=LUZfviBhyorWEk6XA7k6QTGHK2DMFAe/5J+4BacAgbAkAczwq2bvMbuDx4Vwsqslof4Y
+	 /7L1R9/K01Chsy+O3g+/rxZc6teABmme85LzDe9drIoqr/40XlM0TUvYwZl4gCIepnqu+
+	 UXd6KSCbdFXsYNNTBi2XgsxUjoBIjrsBxHVGd6ow1oKVZruS9aOH4bkwkxrGOYM9hVSF9
+	 Qf3GLeydFAuFgtirqGvNg02o+Hb+AjZGDnH3mIvneku0xe1uy7XL8d7hmApZgCXn9voTr
+	 NX4fsPKs6Q2fCo0yRQKzs49YudDhe6OGQ2Ii3jDJvLjzU9kSHsAfDw7OSo9RpWE/KlA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=iVeY7tq0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.192.117
+Received: from YT5PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11021117.outbound.protection.outlook.com [40.107.192.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA09606A32C;
-	Thu,  5 Nov 2026 19:11:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DA09606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8435606A337
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:11:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8435606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ccvWYqzo;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hXlax1G0;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ccvWYqzo;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hXlax1G0
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 88ABC21FB9;
-	Thu,  5 Nov 2026 19:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793905878; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n3yEXi6OTivPfYgHTXZCsJbsplhpsTfTQ0NHWdHlsRg=;
-	b=ccvWYqzoGHgzHeJj65wgZRwYpcaQeSAwfIFFSvDqR0dsb8fA2Ka/pdHrcpRzbCYDCF2B/o
-	rnP7XNzlYHnw1QYn6Mvlmn3LSbLSO+NsY3OXq7/iqUoS4MxgZRzSH5bFJf+2z0adpi5sFG
-	4TcKYNmyQe6Thb/ryfTEDwyLrdSn0Kk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793905878;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n3yEXi6OTivPfYgHTXZCsJbsplhpsTfTQ0NHWdHlsRg=;
-	b=hXlax1G0dTU3WS4++6GjlloltsEmiLd0yq0aDVtIkmTehyI6hXYwHYgehnmf5oMPISy4ZA
-	AVRWVqWNoJsLcbDw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ccvWYqzo;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=hXlax1G0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793905878; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n3yEXi6OTivPfYgHTXZCsJbsplhpsTfTQ0NHWdHlsRg=;
-	b=ccvWYqzoGHgzHeJj65wgZRwYpcaQeSAwfIFFSvDqR0dsb8fA2Ka/pdHrcpRzbCYDCF2B/o
-	rnP7XNzlYHnw1QYn6Mvlmn3LSbLSO+NsY3OXq7/iqUoS4MxgZRzSH5bFJf+2z0adpi5sFG
-	4TcKYNmyQe6Thb/ryfTEDwyLrdSn0Kk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793905878;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n3yEXi6OTivPfYgHTXZCsJbsplhpsTfTQ0NHWdHlsRg=;
-	b=hXlax1G0dTU3WS4++6GjlloltsEmiLd0yq0aDVtIkmTehyI6hXYwHYgehnmf5oMPISy4ZA
-	AVRWVqWNoJsLcbDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6281C132C9;
-	Thu,  5 Nov 2026 19:11:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QoY+D9bU7Go4SwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 19:11:18 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id E0941B990; Thu, 05 Nov 2026 20:11:13 +0100 (CET)
-Date: Thu, 5 Nov 2026 20:11:13 +0100
-From: Jan Kara <jack@suse.cz>
-To: Amit Patole <amit.patole@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
-	Andreas Dilger <adilger@dilger.ca>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] jbd2: document the h_invalid handle flag
-Message-ID: <blcq6pkrt6wycircqqm2dh5ss7nt3z7vuc47mvlc7czgpu2opo@jjpdhu3fbqo2>
-References: <20261105-kdoc-jbd2-h_invalid-v1-1-4bc224f7d0a2@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=iVeY7tq0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c1rQyU+VIb+m24aYXOOR++Aj6BaC0se1ljJOdyfPg5IFwM+GwWicLrcLACFSsrmsQkHsC0cf252PAPKh9CbyyxDibK4iYVYBj7WMSPEAdWxiQex0uKkhGblM5RTeDx5hZVHDeuSS+xeKx4kZdPVxKhrOQuNGJQ6VO/+Zf+dMGBhW5CnpJ9m600tWz2BkPRWsJu33AiJXFFxhp4Ew8GJkQp1STpe5yuXn4A9sFdXiPkYa+81JIR0aUVNwaz7x9oaF4UbKe0fG1FNa7I1Wm/ilOdnO2w9NAEYqCJRMkvQon5JowWSYFM7srAi0usTVjcbhNrIi/plAdXpK3QksdRx+YQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nk+4efmjiYcgYse/P/9Rm6OyWsSsxvDo3CokQLJCWPk=;
+ b=h8I4V2Y8Oe5zN0ypRll+8NSYI4r4uj8OE/nflYIBvf78QF9RtBilKMbDPdwz3K0ld2ar1/oTqMw6cadjOQrtJETMDSq2y05KK1W0xCHYyOMSAudiRApRTcb+zdIOL+Fjm3Yb3FA2kmlCpODlHIYE7b/DdjSRO1muK05EP/4/b5zGATOevZTkoYtWOsdSDs9BePKh8NaOsyOiIiGGlrFV2HeKKx56Xr3WOBqM6eGdGpczafRqggA5QAvQxSzbKGd07AmlTWEfp8wc9oyaAgDj4nL1xV/wgcDqsPSBIPM9eJs8jMFA8CMUKdUWBEdim66eW0OzI89sLBkRaFC0YwK54g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nk+4efmjiYcgYse/P/9Rm6OyWsSsxvDo3CokQLJCWPk=;
+ b=iVeY7tq0P6JzdJxSR6+n5AJIzDo4VonZo1R3eJEzo5k7cJlz2jQgA9btuBnAqTBQQc57XFSWuQ1yPyhl/jV088c1MZmDsP8aUaARBrtdFMZaBOTZ5mKZUNerUygdn1oI0tkNwjyCzx7VzuC5F/Svfx5YKHEgvOnBNhAyL+guGIEXA5UBTAAxz5HPmQDD8ZD+0509BmkhuL7ePpTJzCEMnc9x0OQ+wRX92jiQn9xkm48tvIMQYmoBh6JGOmlRGpsHQGHlcAcou47cSscqdgniIgN6+DrakGbzP6Psy0yCLFb0kcRx+Twg3P1x41D7QnHcWIzt9A+2skjz5MjsgKsJRQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT4PR01MB179656.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:185::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 19:11:22 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 19:11:22 +0000
+Message-ID: <550d3b35-5780-4726-82df-274b4d39d401@efficios.com>
+Date: Thu, 5 Nov 2026 14:11:21 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 15/21] sched/deadline: Record the root domain holding a
+ task's bandwidth
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, linux-kernel@vger.kernel.org
+References: <20261104211207.1392343-1-mathieu.desnoyers@efficios.com>
+ <20261104211207.1392343-16-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-198299@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-198299@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0162.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::25) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,101 +100,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-kdoc-jbd2-h_invalid-v1-1-4bc224f7d0a2@gmail.com>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 88ABC21FB9
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT4PR01MB179656:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5d2671e-89d4-4da4-884f-08df3b70943a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|261026121527099003|5023799004|4143699003|56012099006|261022075727099003|261009223027099003|261022105027099003|261102123227099003|261028144727099003|261026140227099003|261021121427099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	oH41EPz+3WG8EomOE1qFOLYdq0NLnxDxKMeYtSlG3utPrGv4Ni5M3jF5HpAWJ6Cd+oVG7rMnsaOx5r3hq0+kHzNQT8xN9ewW3bX9zgcFU0rMR8ieNiChb5qbujIX2OHNzn2ocgWgD27Ynr6YuTvjTLZjAwWhXnkjOjdLr0ppjDAtV4n1TuqdUvyKyAFvYkud6tXkN9G/z3kyA5Rjh1sDhookvJJFftVO/8Khy5dwZWtFy92myMFppgvDrTfsN16qy2EsPmlzXu1sDOe336rI5iUnddbJWWYmrXIRszbUCxGqkAiGg1H6Hla+TZX7nupt0888srNzs9sNCvlJKdiP99Tem4u4YQfBe0igveT624ETn396+uPNRQpK5W3gG6AIS9/FxtxxTKCrTTypLaNQf07ME2aVO5AqUnB3rGhSSuLXfq2eMlDLasHwVq/ihySUjwjHg01EicxLyI4Ao5Rve8aEW6gUBtkGv7pBpwFkdw9HgtkmdTQN8JVOvEFyhP0rwQ2pjjurI/WCpUg5bJd8S0Ym7ndaGlM9l5X6I0ngs9e5DLVMLtA6WXbVKh7mXTlncq8guaaOFsrXKCluSkkNi2B+X6hZsEoBd1IGqsvXV4o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(261026121527099003)(5023799004)(4143699003)(56012099006)(261022075727099003)(261009223027099003)(261022105027099003)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TTErMUpWY2ZQMFRsWEdDOGNNdG4xOTcvdGNZZFgrYVIwNmRERGsyWWx3NE04?=
+ =?utf-8?B?ZWI2RG9mcXdiMVdWRzVSTngwOCtaSy9FYlNDa1RUbDZtWkNOUFlkZzZWQklC?=
+ =?utf-8?B?L3VHcnVuQ1VodUFLZ3Q5MXBOZEZ6M3Z2QUZ6b1p6YWFwZllOczBQN3AvUTl3?=
+ =?utf-8?B?Z3U2SWtwQ1JncXYzbWFjMWcxNzR6UmhDd2pHZjlWRDZEZ3pYeXRHMm83eG8w?=
+ =?utf-8?B?ZC9yWjhBRXU2WnByaS9rYVRXbmd4Nll1ZVNIemJLdEM1cTljSHN3dTRXcDNM?=
+ =?utf-8?B?RGNtd3F0VW5ISnpsK2VrTUxRWllIRFljSzcyRnorN2k4bEN0clRVNVhyK1Vt?=
+ =?utf-8?B?a0QvdWlTVmhBdUlWaENIMTFLV1JFS21uODNpKzJSbGtsWExxb1ozRU1CTUJX?=
+ =?utf-8?B?ckFSZUNBYktZMWhyL0Uxayt1TjVLTWRwTURONTdLL1J0T2c5YzM2Kzl1UEVX?=
+ =?utf-8?B?Nm8zc2tWc2FyU0E0eVhJbkVvUXgyajg3ZUVaTkFvcWtYZDZaZktrbkRLVHRz?=
+ =?utf-8?B?UmI4dEYxOFdvTU1pY2pMYVRCZC9hbmMxeGdxeFNLMy9uL1dNaGNyelFBayt6?=
+ =?utf-8?B?eFZ2bzFmMUU4aUErQlhwVThhbjI2RGYzOVBOWGFhNS9ZUFowaXZVOTF4N3h6?=
+ =?utf-8?B?VWFjYndLaU9FK0NPUmw3VWhsaXZjSm9zYUMyVnBMaklRT3VSUlpvSDdVeHgy?=
+ =?utf-8?B?SVhzeUVKWjRxTUQ5UDA2eWtmRUlLb0JZTEFDVEN5b3RxMXhhWVcxa0hzejRF?=
+ =?utf-8?B?WTgySUx1Q1FYanUzaVRzQ3c2QjB0SU1lTXduR1ZTL3VuaWlyYm81UE9WLzJ4?=
+ =?utf-8?B?NzMvblMvL0tZU2hKbkd5V3VDLzdUbUY2UnNQaHBySERjdU05N2grVkRUcno3?=
+ =?utf-8?B?d0ZFSk1WcUJKRmFmZUN3NmdvV1N0V3JBRUV5S3FoRHYwQ20vdFB5cVdVdFdl?=
+ =?utf-8?B?U05aWTRxbkhGV2Q0VWxFMnlmUGxFNWRyL1NMeFpCdCt6bUI4aHJqd0NzZmNI?=
+ =?utf-8?B?Z3UvdUYwQjJ0Q2JvY3lqSUJQdG95cFZlWWlheVU0K09zSDU1b3Ayb3FsRGhw?=
+ =?utf-8?B?RFBjN2d4bDh2MEg5eHVrVm5Wd3J5cmYrcld2dFdMZzR2cU5QQ0dmR0d2NU91?=
+ =?utf-8?B?ZngwRXFpT2x0RWpmZXdsZjZjdE1Md292TDh2YTB2VjRjMEZxUVUwOWVra01F?=
+ =?utf-8?B?OWxrMTNlWVpQS01LaXo4VGZIY2lURDlQR2ZSLzBvMmlRVjFPcUlqaVd6WkRt?=
+ =?utf-8?B?QTZOeTVMZjFCOHVSMFlZOGZOaWZOaFFVSmFDRGlvM05veHFoSlRLdmNaa3F0?=
+ =?utf-8?B?ek95SGVlL2lSQ0F5RVRGdXZCTXZ0S2N3TlczUVhmVm4rRVpUcDdQdnVvR3pp?=
+ =?utf-8?B?bDlWZkNZd1JWUjVtcFRzdGw3ZnhncXVHSS9KaUNaL2dDZkk1cEJBQmFrWW5Q?=
+ =?utf-8?B?L3l5Q1I1d3Q4cXVvWURja05xOUdMSHlNV2o1ZlVGVDMvWFVnN2Q3TFZkaDVv?=
+ =?utf-8?B?NHJoejVYekY3dUZuOWdIdi9paVJvcG83TzVJczlBQzJiWHo4SnNoeTBLV29W?=
+ =?utf-8?B?NTFaYXhlVXZZdnpreGxId0l1Y1JMUnlCOHM4dlU4bGExbWpudGNaRDdiQWU3?=
+ =?utf-8?B?WjB4NWNvcjErRGNHcGgyYWQzZWJGdGVkSm9hM2lObzlLQWVxelpadXRaMVc0?=
+ =?utf-8?B?OEFnallGWit4S0hYaFJVQTk3dWJuVXY0UEsxLzZKRzhZWmxGTm9pQTcyMkdh?=
+ =?utf-8?B?Y1kyYVFCYmx4K1BRUThQSnFMVXhHK0h0MHpncGlyZTRoNEk4ZzAxYnRST2pr?=
+ =?utf-8?B?OEdRWjVJdFQzVStmNjNoYzlGTWFGOWJCNWR3YnlRa1Zmd25vN1F3VlRMNVVz?=
+ =?utf-8?B?ckZCbzlYbHN2OExHTVBSWXVmaWFmWjVrZ29ZRmw2NlplUDd3bWwrK1VtYU8z?=
+ =?utf-8?B?Q1ZFbzZzd1RNaExKUytpaFBBc1JmL1JqWlhtQTJqQzA1N2Z3MExyeGJ4RG5L?=
+ =?utf-8?B?M3ZlZ1VIb2t2bXRXcGsybEVFeFVzUVhMMXoxRnFKdm9lQ2RIWWpkVXg4UU1J?=
+ =?utf-8?B?cEYxU2gzd0FQUlF6UExqazZ1YWJTWXMvcDFobHFIdkdDWEN6UTJGSkI2UnBp?=
+ =?utf-8?B?S0RTZ2JETWhtL0dVU1l6ekFSV3NYK1gxQmFEUmRNMHh2K293MDUrck5EeHdq?=
+ =?utf-8?B?NnRVcG16UzNnT1E2SG1ZcWlWN25QR2JNSUxibzhhVll0UFhPajBkeG1Pcm5i?=
+ =?utf-8?B?bWJodlgrVkdJMWowZERFditvcktaL3lFWWVWOTBXbXozT0JKYk4yTlF5djBR?=
+ =?utf-8?B?Z2s0Wld2OEdSVzcyS0FBOWFHWVVDN3grUXlvOUUvamJNQXdNcER4M3JaK0VI?=
+ =?utf-8?Q?mdA8sGNzXUS8fCNzrGC0RjvxNiN8/whdbVHia?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5d2671e-89d4-4da4-884f-08df3b70943a
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:11:21.9808
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l8hSs9cVR+Wa+Rki8HYiLPgS7wPOBDDgaqa/v2h3VYnzd/IYp7Uzo+UxxseJtYgLfkW1JkF96r2nsJGH9GPLNktnuaShtNZzdJsCnsEDvjo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT4PR01MB179656
 
-On Thu 05-11-26 09:00:36, Amit Patole wrote:
-> Commit 61e2a90a910c ("ext4: enable scoped NOFS when starting a handle
-> in nojournal mode") added the h_invalid bit to struct
-> jbd2_journal_handle but did not add it to the kernel-doc comment above
-> the structure, so kernel-doc now warns:
+On 2026-11-04 18:31, sashiko-bot@kernel.org wrote:
+[...]
 > 
->   include/linux/jbd2.h:523 struct member 'h_invalid' not described in
->   'jbd2_journal_handle'
+> [Severity: High]
+> Can root domain bandwidth accounting be corrupted during a rebuild when a
+> departed task is boosted into dl_sched_class via priority inheritance before
+> its 0-lag time expires?
 > 
-> Describe the new flag. It is set by ext4_get_nojournal() on a handle
-> that is not attached to any journal and is tested by
-> ext4_handle_valid().
+> When a SCHED_DEADLINE task leaves the deadline policy before its 0-lag time,
+> switched_from_dl() arms inactive_timer and calls dl_task_depart(p) to link
+> p->dl.dl_departed_node onto dl_departed_list with p->dl.dl_bw_cpu recording
+> its root domain CPU. If p is then PI-boosted via rt_mutex_setprio() ->
+> switched_to_dl(), dl_task_undepart(p) unlinks p->dl.dl_departed_node while
+> preserving p->dl.dl_bw_cpu.
 > 
-> The warning was found by running scripts/kernel-doc over the headers
-> pulled into the htmldocs build. An AI coding assistant (Claude Opus
-> 5.5) was used to locate the warning and draft this change; it was
-> verified with scripts/kernel-doc (no warnings left) and checkpatch.
+> If dl_rebuild_rd_accounting() runs while p is PI-boosted,
+> dl_add_task_root_domain(p) sees list_empty(&p->dl.dl_departed_node) == true:
 > 
-> Fixes: 61e2a90a910c ("ext4: enable scoped NOFS when starting a handle in nojournal mode")
-> Signed-off-by: Amit Patole <amit.patole@gmail.com>
+> 1. If p was moved to another cpuset partition while in SCHED_NORMAL (where no
+> deadline admission check ran because !dl_task(p)), dl_add_task_root_domain(p)
+> ignores p->dl.dl_bw_cpu, adds p->dl.dl_bw to the new cpuset's root domain via
+> dl_get_task_effective_cpus(p), and overwrites p->dl.dl_bw_cpu with cpu. Or,
+> if an earlier rebuild had already dropped p's departing bandwidth, this path
+> resurrects p->dl.dl_bw into p's effective cpuset.
+> 
+> 2. Because rt_mutex_setprio() only holds p->pi_lock and rq->__lock (not
+> cpuset_mutex or dl_accounting_mutex), p can be PI-boosted when
+> dl_clear_root_domains() runs (so it is not on dl_departed_list and is not
+> restored there) and then deboost via rt_mutex_setprio() -> switched_from_dl()
+> before the task walk reaches p. switched_from_dl() puts p back onto
+> dl_departed_list after dl_clear_root_domains() has already finished, and
+> dl_add_task_root_domain(p) skips p because !dl_task(p) is now true, dropping
+> p's active 0-lag bandwidth completely.
+> 
 
-Looks good. Feel free to add:
+[ Repeating answer to PATCH v2 09/21, which is also relevant here. ]
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+A departed task boosted into the class before its 0-lag time is counted
+once, wherever a rebuild runs: the walk finds it in the class and counts
+it in its cpuset's root domain, the record is updated, and the release at
+the deboost reads the record. Where the deboost races the walk, the
+departing bandwidth is dropped for the remaining lag, as it is for a
+departed task whose recorded CPU went inactive; the generation keeps the
+release out, so nothing underflows.
 
-								Honza
+A rebuild that finds a CPU for a task an earlier one dropped counts it again,
+which is the intent: the bandwidth of a departed task is held until its 0-lag
+time.
 
-> ---
-> Comment-only change. Built with W=1 on x86_64 (fs/jbd2/, fs/ext4/)
-> with no new warnings.
-> ---
->  include/linux/jbd2.h | 1 +
->  1 file changed, 1 insertion(+)
+> 3. For a regular non-deadline task with p->dl.dl_bw == 0 that is PI-boosted
+> during a rebuild, dl_add_task_root_domain(p) unconditionally sets
+> p->dl.dl_bw_cpu = cpu, leaving a non-negative dl_bw_cpu on a task with zero
+> bandwidth after it deboosts.
 > 
-> diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
-> index e3886963ba00..69f12366a09a 100644
-> --- a/include/linux/jbd2.h
-> +++ b/include/linux/jbd2.h
-> @@ -482,6 +482,7 @@ struct jbd2_revoke_table_s;
->   * @h_sync: Flag for sync-on-close.
->   * @h_reserved: Flag for handle for reserved credits.
->   * @h_aborted: Flag indicating fatal error on handle.
-> + * @h_invalid: Flag for a handle not attached to a journal (ext4 nojournal mode).
->   * @h_type: For handle statistics.
->   * @h_line_no: For handle statistics.
->   * @h_start_jiffies: Handle Start time.
-> 
-> ---
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-> change-id: 20261105-kdoc-jbd2-h_invalid-8297dd06f190
-> 
-> Best regards,
-> --  
-> Amit Patole <amit.patole@gmail.com>
-> 
+> Should a departed task stay on dl_departed_list across PI boost/deboost until
+> its bandwidth is actually released, and should dl_add_task_root_domain(p) skip
+> tasks with p->dl.dl_bw == 0?
+
+Part 3 is fixed in v3: the walk skips a task with no bandwidth of its own, so a
+boosted task gets no record. A departed task need not stay on the list across a
+boost: the record stays, and the release at the deboost reads it.
+
+> [Severity: Medium]
+> Does updating a task's deadline parameters while it is asleep after moving to
+> a new cpuset partition still use the stale task_cpu(p) root domain in
+> __sched_setscheduler() and sched_dl_overflow()?
+
+The EPERM is the baseline's affinity check of __sched_setscheduler(),
+which compares the span of the runqueue the sleeping task is on with its
+new mask; out of scope here. The uncounted path runs with admission
+control off alone.
+
+Thanks,
+
+Mathieu
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
