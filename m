@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793848490;
-	b=SArVxdUlmlpGUb0BqO5KTCLkC4x1xslWcfbQfGJACl65pi/ydpjPSZerS8Bq6WFaQfHL
-	 bSD3SJE/LQcCLUXl3gCwTdYEqNdxEAMoj/Gpx9H9V6uDQ8Bt1hjmxArsnz+IbIOxFOLy2
-	 ul77skfpxwZrU5FiEIp18nUjo4/+AwYOx9Si7mdcSOzAFKhBorchPnYWZTG6612wg+VnV
-	 OlN+6KPKyK5Kd5TsOE3DpFR21qWsG5Fb93InsndSFL+ytM/ZLmDd39WBe0WyI8YF3K92b
-	 9Rgs7gxZxK9orzqajHm5a0XO7XzjaRdbEDG2OCxneKHSkwJ6XUktmwcAUyI52WOW2dw==
+	t=1793848499;
+	b=iIwPe8E20LaaAejyrlWJyMk9BE4GLf703f+WkRnNtcOpDGLv7nPqOEmrnDIO6NMqrBBA
+	 Bzxelatm6oj2WjWs5jfKKtjEhtNku6P/6RM2VQ8X/T1fiuPh3EjShkxmgDcnkJGYz2rw2
+	 zVifjyWLxpAuXQYHVunQSrTuMcO9SMfR8u6uy1Tz1JDdp147PazgpkXDF/96LUerV245j
+	 X8fTMRfkoSe3Rp0TXcal2yo3AS7N57S5Rb0IU50Wpwl/HDAdvpgUHyIPMWzcKZ0qDwj+g
+	 61bPr16bEevwdSBwSxaTWELdnirqT2LI5Z2UIUp50qxj31bJWBzY2Lp7Juy9SLD5gug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793848490;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=e+ufwWTqe/yOyThkZLCwuXirSaPEZ6SPf/o4r9Bdnd0=;
-	b=0yljwcw6gMd/EytNlhWC3RtXVQtrc3YHT5xcyqLTI86vupghqFrP86K7XTTIofOyLKsP
-	 I9ika3uCOxvamZwU//t68nryc4XOoHzyPJTzv4+vbOoFEMUcIMRuW4bmAMejtrN+lwWKT
-	 lQmdp/gzXt8trmjVFp9O5Aih6zYd1w0Zua7t5eoDYfLohp1YXtxgLrdevpfbeM9gHKEaK
-	 Uh+ONHeaXbtJA7CvbzpdfQ4e46+Qa5mzHYdAGM1Wud7KSLbeRkmE3HckjlYVsT8WXTxYV
-	 7I89+DP0gxth7R55gM6Rj3grwCD0W58LJ+1rR72YCcy5BUV4dC36jwnlCunvPZ5+CjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793848499;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zOO21uz9MwUO2eNDkgr3BLnA+IJI4wMV/UkAs/11CkE=;
+	b=2PC0uORXBjf/nmTif4J2LHHIrJ+TLqoPXyJjxPfbuxX35dvr/Fp/YyQwtUn+jvqMQYOP
+	 1xHnr4AD64r9NxXjLQEe4S4NaymheZ9t8xwDybfEET1uoKQKGKDr2GVMkS29Wc0jzhdLu
+	 WhnDcA9OUzJnsGv+Bb9RncWyrgw+BzjF76keO6eQhiyTvtGi9t4PMT1OR56KoUYFQ37aC
+	 dHIG18A8ewlc27bO+u3IsT/rOK/CzFukncnEo56iWIRnBtF+sP5ueHcXVhFV5Sy6LykZF
+	 MydqB1I/PWiDoLP2ymFaWXOF3LUAj0NcEK6KpiWaGO766ZWscqT3r7o5B8fmFJSKpOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7InAYm7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=motor-comm.com;
+	spf=pass smtp.mailfrom=motor-comm.com;
+	arc=none smtp.remote-ip=115.124.28.172
+Received: from out28-172.mail.aliyun.com (out28-172.mail.aliyun.com [115.124.28.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD149606A332;
-	Thu,  5 Nov 2026 03:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7InAYm7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7391F00919;
-	Thu,  5 Nov 2026 03:14:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793848489;
-	bh=e+ufwWTqe/yOyThkZLCwuXirSaPEZ6SPf/o4r9Bdnd0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=M7InAYm77dKIVcWYkI0QwI4a5poNlKZD2yypYJkz0tsN5gwC5SnYQgy/LJqVD8aIN
-	 GLSCxtg85siA7dVYl/qNRIGtD33W7voYPdNSEOvBFNT4LCIwWjLYDiL5p9nOodqvkA
-	 2/2ci4WaYUb/yOdSDQI3wvp2EWHuHtD/UtAr8KMzx18dzp/GxLZcoHexHDpW4ODP0G
-	 uqUQNpXvLLLE/1/tylT2hmErAqzHSuu7PQ0dTaRwcvixj2tVSPIPl9p5I40qZPurzt
-	 V6TDYJKDTpi55vIxqkcIjB6MGWztQfryfjy8VD/v1fHAqaUYXMv11kOTTzLuQH8DBU
-	 u4+aZ5cFclBtw==
-Message-ID: <681354cdb85b67410793908d9aa4ee37a06408d2.camel@kernel.org>
-Subject: Re: [PATCH v2 1/2] SUNRPC: add request-scoped disconnects when
- cancelling tasks
-From: Trond Myklebust <trondmy@kernel.org>
-To: tmenninger@purestorage.com, anna@kernel.org
-Cc: cel@kernel.org, ebadger@everpuredata.com, jcurley@everpuredata.com, 
-	jlayton@kernel.org, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, 	netdev@vger.kernel.org,
- slingappa@everpuredata.com, Tim Menninger	 <tmenninger@everpuredata.com>
-Date: Wed, 04 Nov 2026 22:14:47 -0500
-In-Reply-To: <20261105020249.2607367-2-tmenninger@purestorage.com>
-References: <20261105020249.2607367-1-tmenninger@purestorage.com>
-	 <20261105020249.2607367-2-tmenninger@purestorage.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C1A606A32E;
+	Thu,  5 Nov 2026 03:14:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2C1A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07852332|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00587506-7.46963e-05-0.99405;FP=11562893469595389074|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jx7-i0o_1793848491;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jx7-i0o_1793848491 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 11:14:51 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mmyangfl@gmail.com,
+	horms@kernel.org,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: [PATCH net-next v17 2/5] net: dsa: motorcomm: use max_ports in series for port bounds checking
+Date: Thu,  5 Nov 2026 11:14:39 +0800
+Message-Id: <20261105031442.4164960-3-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261105031442.4164960-1-kyle.switch@motor-comm.com>
+References: <20261105031442.4164960-1-kyle.switch@motor-comm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,93 +66,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-11-05 at 02:02 +0000, tmenninger@purestorage.com wrote:
-> From: Tim Menninger <tmenninger@everpuredata.com>
->=20
-> rpc_cancel_tasks() allows callers to cancel a selected set of RPC
-> tasks,
-> but callers that also need to tear down the connection currently have
-> to
-> disconnect at the rpc_clnt level.
->=20
-> That is broader than necessary for clients with multiple transports.
-> A
-> cancelled request is associated with a specific rpc_xprt and records
-> the
-> connection generation on which it was transmitted in
-> rq_connect_cookie.
->=20
-> Add rpc_cancel_tasks_and_disconnect() to cancel matching tasks and
-> mark
-> matching requests that remain on the transport transmit or receive
-> queues
-> for conditional transport disconnect when the request is released.
->=20
-> Store the disconnect indication in struct rpc_rqst rather than struct
-> rpc_task. An RPC task can release one request and later acquire
-> another,
-> so task-scoped state could otherwise be consumed by a successor
-> request
-> and disconnect the wrong transport generation.
->=20
-> After cancelling matching tasks, walk the client's transports and
-> mark
-> matching requests belonging to that client that remain on the
-> transmit
-> or receive queues. An rpc_xprt may be shared by multiple rpc_clnt
-> instances, so requests belonging to other clients are left untouched.
->=20
-> When a marked request is released, use xprt_conditional_disconnect()
-> with
-> its saved rq_connect_cookie. This disconnects the transport only if
-> it is
-> still using the same connection generation on which the request was
-> sent,
-> and leaves a replacement connection untouched.
->=20
-> Requests that were never transmitted do not require a disconnect.
->=20
+Replace the hardcoded YT921X_PORT_NUM macro with the per-series
+max_ports field in port validation. This removes family-specific
+constants from the common code path and simplifies adding new
+switch families with different port counts.
 
-I'm all for optimising where it makes sense, however this is adding
-another spinlock protected section in xprt_release() for something that
-is clearly a rare corner case.
+No functional change for existing YT921X devices.
 
-So how about something like the following change instead?
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ drivers/net/dsa/motorcomm/mdio_bus.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-8<---------------------------------------------------------------
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout=
-/flexfilelayout.c
-index 7fe8b91fa47c..42b0b04de659 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -2459,6 +2459,12 @@ static bool ff_layout_match_io(const struct rpc_task=
- *task, const void *data)
- =09return false;
- }
-=20
-+static bool ff_layout_match_untransmitted_io(const struct rpc_task *task,
-+=09=09=09=09=09     const void *data)
-+{
-+=09return !RPC_WAS_SENT(task) && ff_layout_match_io(task, data);
-+}
-+
- static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg)
+diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
+index dd6c52f37bbf..83f0212551ff 100644
+--- a/drivers/net/dsa/motorcomm/mdio_bus.c
++++ b/drivers/net/dsa/motorcomm/mdio_bus.c
+@@ -113,7 +113,7 @@ static int yt921x_mbus_int_read(struct mii_bus *mbus, int port, int reg)
+ 	u16 val;
+ 	int res;
+ 
+-	if (port >= YT921X_PORT_NUM)
++	if (port >= priv->series->max_ports)
+ 		return U16_MAX;
+ 
+ 	mutex_lock(&priv->reg_lock);
+@@ -131,7 +131,7 @@ yt921x_mbus_int_write(struct mii_bus *mbus, int port, int reg, u16 data)
+ 	struct yt921x_priv *priv = mbus->priv;
+ 	int res;
+ 
+-	if (port >= YT921X_PORT_NUM)
++	if (port >= priv->series->max_ports)
+ 		return -ENODEV;
+ 
+ 	mutex_lock(&priv->reg_lock);
+@@ -145,6 +145,7 @@ int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
  {
- =09struct nfs4_ff_layout_segment *flseg =3D FF_LAYOUT_LSEG(lseg);
-@@ -2484,6 +2490,9 @@ static void ff_layout_cancel_io(struct pnfs_layout_se=
-gment *lseg)
- =09=09=09clnt =3D ds_clp->cl_rpcclient;
- =09=09=09if (!clnt)
- =09=09=09=09continue;
-+=09=09=09rpc_cancel_tasks(clnt, -ECANCELED,
-+=09=09=09=09=09 ff_layout_match_untransmitted_io,
-+=09=09=09=09=09 lseg);
- =09=09=09if (!rpc_cancel_tasks(clnt, -ECANCELED,
- =09=09=09=09=09      ff_layout_match_io, lseg))
- =09=09=09=09continue;
+ 	struct device *dev = yt921x_priv_to_device(priv);
+ 	struct mii_bus *mbus;
++	u32 max_ports;
+ 	int res;
+ 
+ 	mbus = devm_mdiobus_alloc(dev);
+@@ -157,7 +158,8 @@ int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+ 	mbus->read = yt921x_mbus_int_read;
+ 	mbus->write = yt921x_mbus_int_write;
+ 	mbus->parent = dev;
+-	mbus->phy_mask = (u32)~GENMASK(YT921X_PORT_NUM - 1, 0);
++	max_ports = priv->series->max_ports;
++	mbus->phy_mask = (u32)~GENMASK(max_ports - 1, 0);
+ 
+ 	res = devm_of_mdiobus_register(dev, mbus, mnp);
+ 	if (res)
+-- 
+2.25.1
 
---=20
-Trond Myklebust
-Linux NFS client maintainer, Hammerspace
-trondmy@kernel.org, trond.myklebust@hammerspace.com
