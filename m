@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891426;
-	b=T60UBwbPeRB4rt1FHk+ImDo9cOmr1UjoPZTf9Hj45dvsoVwCtGoahVPwBCFQ/0pL1kJz
-	 /vxJ014Ix/0FilqNy+3BhBgTRmOVNigYZPFmPIgtX1kWNZUY0y1stR5PsfqCpsiQn2E8W
-	 OgWRCAFjc+ADgrld3yP8W401uAJFAt3mqiVU2ME36mCTr1rmD/o1jlwb8WWrXmdyrIx6l
-	 YdWcmNkACGf3yI1W/Pj+njyoFfqjww2VXEu+ziNEFCqdY3vLHNJHUJfJJ6iPvG4/W+bw9
-	 0SfoBLv41GbVLfNN6AHR6nQR/bJeBahQpYhtuQGUcNUS6FNCzznpowUA8mzzaaq8QZA==
+	t=1793891450;
+	b=Id+aM/Xmyi0pOak/IQBuAxXLD138jFCHXYBbxcmwO2Y/DvAKNrx6xwclHLAoYRKkJnIX
+	 e7gpsYShXffROhkj02fD3Lz4qRQRmuAOYW1Ls7VyGvNSa6SkzSD3OXSct/vSXRlriRBzF
+	 fT6PsuJTqe5+8bFzGDeeGZmdmIATS2l01eN1r/g0IxvnOiHV5JsDw1dqXPycNWY8L6OKz
+	 vEW7jn8suLZ21HiMXVhZWVk7ThOpxnhIjsfwPres0XMRAtgvF+m8lO9/tTSlbbuDhnKwF
+	 U1Io9ldplc0L0FOLKAn0JJNufJMnk8s4MVsXKuyie0pjrJTJroLZVOubem1k0bzdwPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891450;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=8g0XHR/ITbhhSMgVfvFIbq3CplagOiu3oAqzJZfHPV0=;
-	b=CorqaDj7Z1aecoZQZhLq5mnpnoXIlUK340sEAMfkILvwUlGfAV6qYwY1CleeNHottyn/
-	 l1NBSOrByoc2ojKHmk98QSH9AraKrhIt+2q/FOYoCSueXv4WrIcCoBpPozxKU8Ik5egx9
-	 tqgk+rX48Rl0yCLFsJjg1N65MJfT+cmHqeN0XjH3UkHEVtRwBleAsN6mT50MoQZXnPb3J
-	 l+H1wYoCl5lDCWXgROBycaWZ6WzKcv9D5tthQ0oTp7NW/bpQgMWA4gu3wuoOETAdE1ICa
-	 mh5eKso1DMweseNe6EDIEHY/9aw9lGqHPQv1NQ0WJ5BKIpfwQs5qfCRQ8ZnL6cd2W3w==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xF2MyCPe1SO/SsRhlDuDyRpsUTowZ9eaIobnWhahWMM=;
+	b=EnDs8uHu4AaRUfYtywYmvVqH2C2l6EWtsx9Gdc3wem//ascz59jMrrLhN4Ek8pDULcjX
+	 xgUiPjEsanEjSTZumnbAk4pbBSGF3ufHTLn5HaJi+yIiAUKQ66bfpKLGZbHKsiaou/Z5P
+	 UYuSqoM5kwDv6iiN6oMDxHnMGapZlf/dZ6cR/eGAaPiTsCXbCx03jxJbmP9+VOfO4FAQw
+	 mbVhWAt0fb9IsDoEYC2CF/xh7m0YgzH8my6z6zxoLuFwoWjC+/Z43mZ+VXoxl0UDzUGrH
+	 FyypsYjgPeyTbLGgmjJHmWPmJ6acIqXo7AjN9hPaY4u8x/8+VUTbmyPs4vXYWPwWspQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=HlXGSXaR;
-	arc=none smtp.remote-ip=74.125.224.53
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=c9iPqoR4;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED126606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED126606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19D9606A329
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:10:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F19D9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=HlXGSXaR
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67be5d0e9cbso1548962d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:10:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=c9iPqoR4
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so18838535e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:10:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793891425; x=1794496225; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8g0XHR/ITbhhSMgVfvFIbq3CplagOiu3oAqzJZfHPV0=;
-        b=HlXGSXaRXHnouVNwDNxoNqqv3UML3PUm+cCAoTSvOZoqqdn4nYJ7zprTSZVmLyZXfV
-         a/PZYMm6BJ5nyHxrsNjCsWdgNjiMDz29d3KWlXsUS75S3el0jqPeDS87HWmZUfe10zUJ
-         jF3wzq45JmbVZLurf1+1KZwUmLy+WlUm+5mXLpDUKYg6vInbnD7uTo9e7kpGtV/93NYR
-         zALj2+iJcWgx+x7xApc1gLLq3L66rWNhC5oWve1KN7cR2Lq8DuLqdjxve8UYKd4NXd5O
-         2xwxWZT8UXHeAGtArBg2vEmeceiLYLYh/FQHMOkJonB3q+3G1YV9NLuJs0evYCyDii7N
-         je2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891425; x=1794496225;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1793891447; x=1794496247; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8g0XHR/ITbhhSMgVfvFIbq3CplagOiu3oAqzJZfHPV0=;
-        b=mvPPk8e4G+zg0dPnLaUoduS2b7j8+o6CyWYcJeqJiGPHIlFHdpOjSbmdxdzGU1bUR3
-         1wafhg9s9leD5wVHoGerZBLJir4EziBiNu9RSqh1QNZP1Co7zbaif4oKjJ0jU2dl510Y
-         IkNZkSNOPdfHSj/8Sjo5Bv9YZy+o9RS97CsManZWRI7x0L1rA0IEpWg+f4m41So1TCnz
-         /WmP2PvnWUAHODyJldBfbataDbBoW1BjCWHJxb2R5SpkWi3jWQ2zNtcQetUSKSL3XS8w
-         qYn7imxdziwfiA70U/ZJpwaKCJCh6sSSOQ+JjM1p+dBlpirZmI/xa0uHk/1rDajqgGX6
-         XiLg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9IsezUVkYBiqvVynnca4tthSRgWE56FjJV40X8MGAiCvNvUJD6Bcx72ImJ3VXx3H1ce58EXyqHYevcro=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/EUD5DDUHsuP7PUfyZUFefAnTZgVusRPXX5HXSPU3M9ua+iG3E
-	q71vWgE2v3hxc71AaK9u1QS4ln+60Kq5qXUXF7DX81X9A39Kt9W3mF1SFoFCHm7kHoM=
-X-Gm-Gg: AYBFou1UriffSIXL9TGxc+9TMXSLm0618MwWrVMqXBZV+YpEzFM5qFsVv2SOOnMM1aA
-	HO5tYJdAkB922fDJ13pYBeiy3Y4Z+jhzaH4d5NW/vqMiVTcwOfpFF1jRG2WY5Na+cqZb1P/CG9N
-	T+SUgoVnli9rLmZsT5C3s+gYEmWceQaIOYWA5NB0P7iOKv60HFGvh9W5NAdR5/Rtp6ijcYySkW6
-	nAXV4v4wWIYADCLyb3IR3jrclBLyQxp+crqNiuZGDOw5YoWMUYugRrNe4GFHAjVqUzgzMP5o5iO
-	50XwL8KvCgYOJOOIxW8bUAU38ohFVtDBzYkx2DeWCZmrquWk9zeIiPIQ/WybgHSWd56bxjs+Zp5
-	i/iZj1TehkgR1e3JooZu1dFUCnQTUPGCjbtRIVN2SxM10InYAEK/usQlsK8ajId5k9mUNN1hh/O
-	LeJAgx88GfU9QhT+GJPNT5CS3PR1c3799AMZZlmr40igtS/oOozURkKymyCMGirAXRgA1Ceg70z
-	HQtT3cVrWbHeBH8FyW/axwjyxmbQgNlyqtUvox1/rsE+Q5Ve1CShNHREINtX8XRpBgVVJDUBq4H
-	VJKxpovhxEIeBCdEp2Sw0RG1iJRi2soHpxtyuabr36z54w==
-X-Received: by 2002:a05:690e:1247:b0:67c:10f8:ae42 with SMTP id 956f58d0204a3-67c10f8aea6mr175755d50.157.1793891424738;
-        Thu, 05 Nov 2026 07:10:24 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.242])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bf91b6e7dsm2786090d50.13.2026.11.05.07.10.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:10:23 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:20 +0000
-Subject: [PATCH RFC v3 28/90] cells: add the "root" slot
+        bh=xF2MyCPe1SO/SsRhlDuDyRpsUTowZ9eaIobnWhahWMM=;
+        b=c9iPqoR4i2lU4A7xlKx39/EykYZWlgSIgjSKBV39DrsJnL0vLz2kjB/P0sqI3+j6or
+         5bGEoX7xJXJOvg7Ign0tCZGTh2KkQUgZiboADtKYk/dm+T9jcudH4kZIcEbek+V+oZqO
+         HB6wCgdOGNNw/26rqnVZiL8Bu4m8ba2VV5CCMEqv1rUhE/9QzVyJeItfpKD7h1hLOE2G
+         bLp6CM1Z64s+7w0bn73ag9ezPHyZIePIOqYnXN89KNg39cZxGKWKfFahxAeDt0ZtvGUU
+         SXayBvs7GqshctvcGKF9YmlYG5Lnf/VuD4fNfl0BWu1L1j9tREM6cgGD8st66a5ySJvr
+         tFig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793891447; x=1794496247;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xF2MyCPe1SO/SsRhlDuDyRpsUTowZ9eaIobnWhahWMM=;
+        b=pAKY0Nvdx5y2KnxelBMpO6zAzORaVl69WCODiR2TJ8GVd8zva1MX8qXYpUZZj6yZhz
+         sSHkKrf/bUkbP7/odP7gSEgxFjLxg2TpKVN0FyjRfUaG3gtK2tQ9QZ8cUwVPxjiJr+V/
+         RWcPveSiOgm0X2kyjVhpNKykdtd0F2/N7NmlnMGxT0S0M63xwOWHOgo6BsZQk1yH98Hv
+         s7WxcTbKmfWxFeCXqnxYHNfhZv75WW7a5N8bpNk7pzmgDEeM0W/ZL14vhM6e7wzTz1Xc
+         1iUDB2rKlJXacl1hH+PxmhSCoIVeNEB7nSeGwmaQwH1vFIrHzKdwcgDqodjEI2a3RLMY
+         536w==
+X-Forwarded-Encrypted: i=1; AKwUvBw/YQvNxhOiWCCS6OXlCnQVF+VnbK6EjFw5JaLx+lCLzYYFjwoLsbepnHBfQ7iwJnLaCNnCoq28KE5qv6w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+08w7oUNDgww5mP9GD8b/v7CfER8ZW6d/SmxnwMz69javFYrzK
+	dK7PWL86Eiq2E6LUWKjnHzJYl+VOmWXzJu4cCL5yxYfQJJDD9lFvP6P3xhkvx3y1lJc=
+X-Gm-Gg: AYBFou1h/0rJkdwjZxXiMaKjKSOeY6T+G+c3ZasgZyX2JdK7+lmYi8Au4//Bn1nx5r/
+	SCoa/Atf0y3Obtw2xt4PX3NXJ8zj8ywNVp6diGA4qb8DJTrsBwt0KUvRbkOgFkzM+YXXA14OCDg
+	phjhGfetma5CSXYkFxGoMZypaW1QKirTIcOYfTo9DpivcdQQb2/I0fzso545iv8QHNspBVgDKRX
+	TiFzMr3BehSWfjJTEAErBmox5TZIeyBMNTIV4r/kcGmZhhy8nCH/SwEGWS1k51ST/ScF0smVM+G
+	am+FvwRw3oVyxOUCwq18SOyhwaFW8tMtDjIIAszn62d21ppQCqFjNHGugRR29L/LqGjcF4RrRw/
+	q5qP44jdKn6FPrlpEmrbz+3jk0LbVTSGsQSTLrHE+J0mDyy+P40AFt5jFPx9V/DLcrwKOZLLkhF
+	wSXG4PtGGV525tkfJw4b5SGQagznyOTDghfHXvGskX4Gao2Eh9hysZ8CPnNz61u7Y/PnjfhplR3
+	6Lh0hx3aoXKwJRI6JKgTxeYVh+3GFN1VDHK4zCFvsvE0Zc9tQApcTzd4vHtLU0mr/nOgyjj8oUC
+	Ec0gNuSm863NI0Gq77y1gqYiVZ0wNNaqGeKjjtVE6r2tBgHvumTAQw==
+X-Received: by 2002:a05:600c:4752:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4ac18e5d4d0mr449585315e9.29.1793891447318;
+        Thu, 05 Nov 2026 07:10:47 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e58fcc6sm132091435e9.2.2026.11.05.07.10.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 07:10:46 -0800 (PST)
+Message-ID: <f7b19834-dc88-4431-a383-4b73edc5dc4d@linaro.org>
+Date: Thu, 5 Nov 2026 15:10:45 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,93 +92,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-28-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890933; l=1991;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=PSE8gg+upOtVSxRUph97ujeQ57cqnyzeIjRRjO4JC5k=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QE8dTtZZkZ6nMq4uM+gi2MCO34vLYWaw54icrkWLiF2c4b6JzwvjvlKv+Pg6IY0sLzLN2q1Plv9
- +JSKwYW1hVQI=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/7] perf: arm_pmuv3: Add pmuv3_event_implemented()
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Amir Ayupov <aaupov@fb.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
+ <skhan@linuxfoundation.org>, Daniel Pereira <danielmaraboo@gmail.com>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-perf-users@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>,
+ Mike Leach <mike.leach@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
+References: <cover.1792907332.git.aaupov@fb.com>
+ <cover.1792989860.git.aaupov@fb.com>
+ <23ffe461b8d7b04f78118154dfc9ea1d2a14978a.1792989860.git.aaupov@fb.com>
+ <a876b77b-c4e4-4019-868a-af12c93f441f@arm.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <a876b77b-c4e4-4019-868a-af12c93f441f@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-CELL_SET_FD with the key "root" takes a file descriptor for a mount
-namespace and makes it the mount tree of the cell.
 
-Holding a file descriptor for a namespace gives no authority over it. So
-the caller needs CAP_SYS_ADMIN over the user namespace that owns the mount
-namespace. That is one half of what setns() requires. The other half
-concerns the namespaces of the caller, which do not change here.
 
-Whether the mount namespace is suitable is checked later, when the cell is
-sealed.
+On 05/11/2026 14:54, Suzuki K Poulose wrote:
+> On 26/10/2026 05:48, Amir Ayupov wrote:
+>> Drivers outside the PMU driver may need to know whether the local CPU's
+>> PMU implements a common event before relying on it, for example a trace
+>> unit driver checking that the PMU counts its external outputs as
+>> TRCEXTOUTn.
+>>
+>> Add pmuv3_event_implemented() to the arm64 asm/arm_pmuv3.h, next to
+>> read_pmceid0() and read_pmceid1(). It reads PMCEID0/1 on the calling CPU:
+>> events 0x0000-0x003f are reported in bits [31:0], and the common events
+>> from ARMV8_PMUV3_EXT_COMMON_EVENT_BASE in bits [63:32] from PMUv3p1. Move
+>> ARMV8_PMUV3_EXT_COMMON_EVENT_BASE next to the event numbers in
+>> linux/perf/arm_pmuv3.h so it is available without CONFIG_ARM_PMU.
+>>
+>> Suggested-by: James Clark <james.clark@linaro.org>
+>> Assisted-by: Devmate:Opus-5.5
+>> Signed-off-by: Amir Ayupov <aaupov@fb.com>
+>> ---
+>>   arch/arm64/include/asm/arm_pmuv3.h | 19 +++++++++++++++++++
+>>   include/linux/perf/arm_pmu.h       |  1 -
+>>   include/linux/perf/arm_pmuv3.h     |  3 +++
+>>   3 files changed, 22 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/include/asm/arm_pmuv3.h b/arch/arm64/include/ 
+>> asm/arm_pmuv3.h
+>> index 8a777dec8d88a..acd62c4f16743 100644
+>> --- a/arch/arm64/include/asm/arm_pmuv3.h
+>> +++ b/arch/arm64/include/asm/arm_pmuv3.h
+>> @@ -173,6 +173,25 @@ static inline bool pmuv3_implemented(int pmuver)
+>>            pmuver == ID_AA64DFR0_EL1_PMUVer_NI);
+>>   }
+>> +/*
+>> + * Whether this CPU's PMU implements a common event, as reported by
+>> + * PMCEID{0,1}: events 0x0000-0x003f in bits [31:0], and from PMUv3p1 
+>> events
+>> + * 0x4000-0x403f in bits [63:32], which read as zero before PMUv3p1.
+>> + * Must run on the CPU whose PMU is queried.
+>> + */
+>> +static inline bool pmuv3_event_implemented(u16 event)
+>> +{
+>> +    bool ext = event >= ARMV8_PMUV3_EXT_COMMON_EVENT_BASE;
+>> +    u16 id = ext ? event - ARMV8_PMUV3_EXT_COMMON_EVENT_BASE : event;
+>> +    u64 pmceid;
+>> +
+>> +    if (id >= 64 || !pmuv3_implemented(read_pmuver()))
+>> +        return false;
+>> +
+>> +    pmceid = id < 32 ? :() : read_pmceid1();
+>> +    return pmceid & BIT_ULL(id % 32 + (ext ? 32 : 0));
+>> +}
+>> +
+>>   static inline bool is_pmuv3p4(int pmuver)
+>>   {
+>>       return pmuver >= ID_AA64DFR0_EL1_PMUVer_V3P4;
+>> diff --git a/include/linux/perf/arm_pmu.h b/include/linux/perf/arm_pmu.h
+>> index 02d2c7f45b527..792283d29d7b5 100644
+>> --- a/include/linux/perf/arm_pmu.h
+>> +++ b/include/linux/perf/arm_pmu.h
+>> @@ -124,7 +124,6 @@ struct arm_pmu {
+>>       u64        reg_brbidr;
+>>   #define ARMV8_PMUV3_MAX_COMMON_EVENTS        0x40
+>>       DECLARE_BITMAP(pmceid_bitmap, ARMV8_PMUV3_MAX_COMMON_EVENTS);
+>> -#define ARMV8_PMUV3_EXT_COMMON_EVENT_BASE    0x4000
+>>       DECLARE_BITMAP(pmceid_ext_bitmap, ARMV8_PMUV3_MAX_COMMON_EVENTS);
+> 
+> Could we not avoid this change ? Or why not move both of the definitions ?
+> 
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- kernel/cell/slots.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+I don't think you can avoid it unless you redefine it. But the place 
+it's moved to has similar event number definitions, so it seems ok to me.
 
-diff --git a/kernel/cell/slots.c b/kernel/cell/slots.c
-index 3f74b4640334..b3dfb32b1345 100644
---- a/kernel/cell/slots.c
-+++ b/kernel/cell/slots.c
-@@ -46,6 +46,33 @@ static int cell_set_budget(struct cell *cell, struct file *file)
- 	return 0;
- }
- 
-+static struct ns_common *cell_ns_from_file(struct file *file, int type)
-+{
-+	struct ns_common *ns;
-+
-+	if (!proc_ns_file(file))
-+		return ERR_PTR(-EINVAL);
-+	ns = get_proc_ns(file_inode(file));
-+	if (ns->ns_type != type)
-+		return ERR_PTR(-EINVAL);
-+	return ns;
-+}
-+
-+/* A mount namespace that nobody has entered, which sealing sees to. */
-+static int cell_set_root(struct cell *cell, struct file *file)
-+{
-+	struct ns_common *ns = cell_ns_from_file(file, CLONE_NEWNS);
-+
-+	if (IS_ERR(ns))
-+		return PTR_ERR(ns);
-+	if (cell->mnt_ns)
-+		return -EBUSY;
-+	if (!mnt_ns_may_claim(ns))
-+		return -EPERM;
-+	cell->mnt_ns = mnt_ns_get_from_common(ns);
-+	return 0;
-+}
-+
- static int cell_set_string(struct cell *cell, const char *key, const char *val)
- {
- 	if (!strcmp(key, "hostname"))
-@@ -63,6 +90,8 @@ static int cell_set_fd(struct cell *cell, const char *key, struct file *file)
- {
- 	if (!strcmp(key, "budget"))
- 		return cell_set_budget(cell, file);
-+	if (!strcmp(key, "root"))
-+		return cell_set_root(cell, file);
- 	return -EINVAL;
- }
- 
+Moving both makes sense though.
 
--- 
-2.55.0
+> 
+> Also, I would need an ACK from the arm_pmu maintainers to accept this
+> change via coresight tree.
+> 
+> Cheers
+> Suzuki
+> 
+> 
+>>       /* Only to be used by ACPI probing code */
+>> diff --git a/include/linux/perf/arm_pmuv3.h b/include/linux/perf/ 
+>> arm_pmuv3.h
+>> index d698efba28a27..c21f185a283d6 100644
+>> --- a/include/linux/perf/arm_pmuv3.h
+>> +++ b/include/linux/perf/arm_pmuv3.h
+>> @@ -78,6 +78,9 @@
+>>   #define ARMV8_PMUV3_PERFCTR_STALL_SLOT_FRONTEND            0x003E
+>>   #define ARMV8_PMUV3_PERFCTR_STALL_SLOT                0x003F
+>> +/* Base of the common events reported in PMCEID{0,1}[63:32] from 
+>> PMUv3p1 */
+>> +#define ARMV8_PMUV3_EXT_COMMON_EVENT_BASE            0x4000
+>> +
+>>   /* Statistical profiling extension microarchitectural events */
+>>   #define ARMV8_SPE_PERFCTR_SAMPLE_POP                0x4000
+>>   #define ARMV8_SPE_PERFCTR_SAMPLE_FEED                0x4001
+> 
 
