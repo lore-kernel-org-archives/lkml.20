@@ -1,88 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871391;
-	b=1avTobBWSpwDiAaVFB378kTMB0nevJdJscfe6OuJ6TqfYrVWwaUqRUn0H7vB7kvApN7H
-	 g9o2NYIKKSkPfOlHTkZxEB0JVGY/ysBXXo4TlsCrqxoQ38Lu6LzSEwaCa9hqoBfI8eZ9j
-	 jTdnlyVuFaeo5jz++N1L5nM5YcqBmLBc8OWGueFKF3VN4lruSjVL98ZCy78crhmco8N+b
-	 IPErWxFhaT6rW8sY+FAcE+3MR2IjuTDnaBzDPoa4EdXa3nhyMSTscIDocYJwEMlzJtTSC
-	 PLms5wk83zH77H7j3k3Vlp7tiJtTkGkj+FrcG70QbE7digR2tVimE37qGfhedqbzWEQ==
+	t=1793871395;
+	b=Japir2uKetNtfnm/QS6Llug69ZoaxTBBVVbL2Zxp8bdu9hwmVSsnuRBzQtVcJsvJT70t
+	 xXPLbrsbIdVYAjxj4OC1IMIq1GKliQkSX+p5Qa3HUMKfzxHUp5luGpCWGi/FHJpZRFl8U
+	 vJ5gihwiKIvN4mI0Oa19VnhzfAnliz+FVUdat+yU97ecnk2WpSyUNht24KFm8WWgvKZap
+	 3ToMtEyT60Xrw5YG8DS8xFY0WdEfaLUwwPXY0Qc58k6JKiB4gtBARNcVWefF8tLqFT66/
+	 Z78kCtUeB1Wn8TDmTClSdallGNkA2mzFijIsxMPGlO8IszKb1BZTfW6KUmn5BEmAN7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871391;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=t7tMtv9nbHUIAtxv3eTEVgmJcIdaFB9h8nrHOfA0Uqg=;
-	b=44FGIuu9uaWwpAVS1dLNyyyreRfO2Sl6SoFZqIn3RYFk2Ylu0p2Val2hhtWM9tXcioxf
-	 6zg3P00GhwOxIfYHTS4uC0x/kF3wcIqXz1yv05+pU/ragYUbC3RIwlBLAlWLeGiujn9sa
-	 mqvGEJxtV8ee4mfMRQ2bs1WpaMSRSshygZ9uUDT9AYppoQ5vHkalLJeNP2YWo7CRtF3CT
-	 43mHjf4N7eW5bZeufnhJti5eIpOxuywR9siSSIc7VLt0wckIcPZj/xOWoMsW1thDjIozl
-	 3U0zs+dFSZGyE6fe3U6JBcdJwUdq4Me/izxYnPoHwnk9Ubhpgy087vhb9aIBmeg//fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871395;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=amOrn2BM3j3WAFT6zEbS3mm8c/xDQuLIHsYgmvBaKeM=;
+	b=OgBbk6OE47DuQLxpIEx9x0gdWqRdpe02uNC/1V8yxo7jz6VuFdP+nhGIL2/dCkBiT5uV
+	 LSxnr5Q/Ogr+wSV2zvazAJlDR3+L0gCsOWaVTTITV82UD6/L8UCSUBC5RucIi3mJEY7d7
+	 4R6B1V8TkSLWRHsbXiew8bi/S45dTUChA8WiBm0on5DbL8LzZdu93sNRNo94XtWOr4Zoh
+	 rSmoTIcmwrKp7pNaUG8ocwE2OXCsE6oyjzpwAfisrjt0FyKOtH5OtyVU+s9ZeqxjltBnP
+	 p7Gk17CIG1jDG0wIydOKUaqbUP81FBr/os2Q2Xjroqhn4CsrKJPPNUL3jY52HREFjrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Nv/Hec1t";
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kz93Il83;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A09606A339
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A09606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EC4606A337;
+	Thu,  5 Nov 2026 09:36:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06EC4606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nv/Hec1t
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-353804b591eso3192820eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:36:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793871390; x=1794476190; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t7tMtv9nbHUIAtxv3eTEVgmJcIdaFB9h8nrHOfA0Uqg=;
-        b=Nv/Hec1tBbrs+gQGPwId1zOfhmpR73x9S1gapAOwp3H4td0/knMPSD1yx/Hbo9+n2Q
-         R44ItVEPb0CCQO75+YzxIKTAoBMsSQQmDtlcqHYxgnOitP+Z0yu35jUFfYG99E8mJfaI
-         w5FVh7e7tyILA4pu+Pve5OIWV+X7iV/mznao+HwyQN0m+VsmtmL4phU9Es82zLm2vcyT
-         0s302RvFPaa79xOpW5+KyhCSmBPmZffS9sSdGknkA5hO4X18o5yuaLmQPEXvbadO75Pl
-         chD+vfDJjLRHopkfxCYP3wcVuW2IWEwJMB+YJGEWt+CDYtzlvl36qqh5KWqk+hGULFHH
-         1TSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793871390; x=1794476190;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t7tMtv9nbHUIAtxv3eTEVgmJcIdaFB9h8nrHOfA0Uqg=;
-        b=ato/G81KqbksiJCRyvFKwA+vpNf1Fiv5k1KugxbtjN9+YQoSX88raN1kqyWGEjEXi1
-         aYhsK4xU4JYQH/U/erZTPxgbRFYWX06nSz0XvKWKXUyNEbL/SIpogHXW0A4iZKqR53DC
-         hnV5ZsrfDBxHXpNnLTRB6sW5cPc8rAVDVX4V3gQ9nK6qTLvxF9jSJ3EE/2C01SXDXb71
-         I9PX3JC53vLU1AjlztXg/UgKyGlxsZpg6lGwqf8x8AQ02vy/MRXhnUFgRiKixp+WekVk
-         9v6TEhnthQSfRUwZfLuT0qyQ72eKCu59uWdnnqHJh2QLtq9SXPNWDTyEF1ijC9SeFfL2
-         ybLg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKjgSQlcjuP7YD/JNXHk+ctnCuSVnmliTctASNB2EccNrybSDKk60BCf32tfm6aXu9rnEigKfK81MTKEs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lvbXJgdk0e+Ui8Gt8M6UjGM3j47S4u1DSATw1wInzTpjQEeru
-	lcSrP6fesjDXXitbTSh1ixIucOOW5pS1pZXNMVLtVNqrnbTLUESxQMVq
-X-Gm-Gg: AYBFou2WPm7iCWTZc4hWmAtEBOCMxKxSasr6pVmu1nI20+rN5SN381jmPPtrv+GNovW
-	auRJduTjPy9L1Oui3yEdxrqVSwIV6jo5b7cHmb9X/8q01JrX7p9Bx66a0VSfacKOGPR2FY/gPbY
-	7oBaQ1O3Qfa0uTB91kzSCeAyQwZ+1/HSEMp8NNykYT87If/Jp9XoAVWy6PLKba8dCPWNGIaro85
-	ECypjCFiJo9V1EmX9yrgE4CP9zh2LrDBu+5r7QlVfqIBxGINYu5ekKPZJ2z1I/HIliMO626lRfq
-	TqKnJXYduVmSWO9SWPlJx5UZxLhmzam0gEanfBo7khV+rmi7XheE9p5BfYwDiIanlKsWIxH6net
-	tzBa8eZ9e+AMv3pyJ7cFXrJy4IGoEuI6UF95RgkUW6N3sQA2PaDGz69qd+wtL3E5cowIXg6bKyX
-	pLMfPO4Sy8KqI1LWtAyVDYDGQk78t759b8F+gAT+iJUfYFkb3xGlOgGCGywG9SnPj9tgQWmN3Em
-	/sHnLfYJBZv3hBkP7R4FDhiQvND7eEqfy5uAbJGb23Fpvc6fGfycYzC5qP/70luMRbeCAcdVPGQ
-	1TT142p2189D2r2fLyHI3Xie
-X-Received: by 2002:a05:693c:8817:10b0:36a:1788:3d1c with SMTP id 5a478bee46e88-36a423fd04dmr28133229eec.34.1793871389924;
-        Thu, 05 Nov 2026 01:36:29 -0800 (PST)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fa273sm17363207eec.16.2026.11.05.01.36.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 01:36:29 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 05 Nov 2026 04:36:15 -0500
-Subject: [PATCH v2 2/2] selftests/mm: cover merging KSM pages aged by smart
- scan
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kz93Il83
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793871395; x=1825407395;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XPy64qOWUbAHoiyLGCzNor5MK4R9RiDPJM0T594C8kU=;
+  b=Kz93Il83Tv+ryM75PKs53ZyYw8+eSX/36mjsJNOzbzmWnD/BpEWdC/wA
+   OVnculX7A7sV6ztBl1Od1D0Zou+u661GWC75eDR+dVqSLdOp7qwXGTQDf
+   ypK2etKTira+bfcDEE6wK1nSopsEKGjzZBa3vMnyI+iCDm2FFVYUYJsBL
+   wSVbczfgApVtbXIJYkuXBQo4t01dMkTX0aF7uowdKdSFVC/3PnJ3RI8aH
+   cHadGxRyW470JHSfo1rwrONdtwtQuBag+hMrJWVq4eUWZ+STtuG1gz7TQ
+   bIFNSVxVnV7T6OiYtSpbi5WY/WgXxJqJAW9xp5zIntAZqttYGbMJiQLfv
+   w==;
+X-CSE-ConnectionGUID: PwUg2k9NS6uPTEiQJpG9pw==
+X-CSE-MsgGUID: x4M8oy/CRyKc/i87G8BviQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2745425"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2745425"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:36:34 -0800
+X-CSE-ConnectionGUID: JeSjlIADSz2CkG3b626siA==
+X-CSE-MsgGUID: q1LawZWwT3eXus4rDYzo+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7120392"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:36:22 -0800
+Date: Thu, 5 Nov 2026 11:36:20 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Li@oss.nxp.com,
+	Mark Brown <broonie@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	CL Wang <cl634@andestech.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
+	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
+	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
+	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
+	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
+Message-ID: <auxOFGTRAKb5bLXD@ashevche-desk.local>
+References: <autj6pr_bPaul3w0@ashevche-desk.local>
+ <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
+ <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
+ <autqC143h7Qf1R9H@ashevche-desk.local>
+ <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
+ <auuYcS7-YqJKcUbE@ashevche-desk.local>
+ <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
+ <auxGom0XR-Hax9b3@ashevche-desk.local>
+ <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
+ <auxH_WzaOLsQ4-go@shikoro>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,178 +139,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-2-8a9780b6844e@gmail.com>
-References: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
-In-Reply-To: <20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auxH_WzaOLsQ4-go@shikoro>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-ksm_functional_tests checks merging and unmerging with ksmd's default
-settings, but nothing there exercises smart scan, which skips pages KSM
-has failed to merge for a while.
+On Thu, Nov 05, 2026 at 11:10:21AM +0200, Wolfram Sang wrote:
+> 
+> > > No, (partial) Rb != Ack.
+> > 
+> > It is, because there is no partial Rb tag.
+> 
+> Heh, just what I wrote a minute ago in the workflows-thread. The clean
+> solution is to introduce one. I'd vote for it.
 
-Smart scan used to time those skips per page, so two identical pages
-that became mergeable some scans apart could end up never being looked
-at in the same scan, and were never merged. "mm/ksm: align smart scan
-skips with the scan number" fixed that.
-
-Add a case that lets sixteen unique pages age for a dozen scans, then
-makes a duplicate of each mergeable one scan apart, and expects every
-pair to be merged 32 scans later:
-
-  kernel               failures, two boots
-  before the fix       20/20, 20/20
-  with the fix          0/20,  0/20
-
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- tools/testing/selftests/mm/ksm_functional_tests.c | 108 +++++++++++++++++++++-
- 1 file changed, 107 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/mm/ksm_functional_tests.c b/tools/testing/selftests/mm/ksm_functional_tests.c
-index 31c06c72203fd..71d9b3cbdb8c1 100644
---- a/tools/testing/selftests/mm/ksm_functional_tests.c
-+++ b/tools/testing/selftests/mm/ksm_functional_tests.c
-@@ -695,6 +695,111 @@ static void test_fork_ksm_merging_page_count(void)
- 	munmap(map, size);
- }
- 
-+static int ksm_wait_full_scans(long nr)
-+{
-+	long start, cur;
-+
-+	start = ksm_get_full_scans();
-+	if (start < 0)
-+		return start;
-+	do {
-+		cur = ksm_get_full_scans();
-+		if (cur < 0)
-+			return cur;
-+	} while (cur < start + nr);
-+
-+	return 0;
-+}
-+
-+static void test_merge_aged_pairs(void)
-+{
-+	const unsigned int pairs = 16;
-+	const unsigned long size = 2 * pairs * pagesize;
-+	char *map, old_smart_scan = '1';
-+	int smart_scan_fd;
-+	unsigned int i;
-+
-+	ksft_print_msg("[RUN] %s\n", __func__);
-+
-+	smart_scan_fd = open("/sys/kernel/mm/ksm/smart_scan", O_RDWR);
-+	if (smart_scan_fd < 0) {
-+		ksft_test_result_skip("smart_scan not supported\n");
-+		return;
-+	}
-+	if (pread(smart_scan_fd, &old_smart_scan, 1, 0) != 1 ||
-+	    pwrite(smart_scan_fd, "1", 1, 0) != 1) {
-+		ksft_test_result_fail("Enabling smart_scan failed\n");
-+		goto close_fd;
-+	}
-+
-+	if (ksm_stop() < 0) {
-+		ksft_test_result_fail("Disabling (unmerging) KSM failed\n");
-+		goto restore;
-+	}
-+
-+	map = mmap(NULL, size, PROT_READ | PROT_WRITE,
-+		   MAP_PRIVATE | MAP_ANON, -1, 0);
-+	if (map == MAP_FAILED) {
-+		ksft_test_result_fail("mmap() failed\n");
-+		goto restore;
-+	}
-+	if (madvise(map, size, MADV_NOHUGEPAGE) && errno != EINVAL) {
-+		ksft_test_result_fail("MADV_NOHUGEPAGE failed\n");
-+		goto unmap;
-+	}
-+
-+	/*
-+	 * Page i of the first half and page i of the second half form a
-+	 * pair with content no other page shares.
-+	 */
-+	for (i = 0; i < pairs; i++) {
-+		memset(map + i * pagesize, i + 1, pagesize);
-+		memset(map + (pairs + i) * pagesize, i + 1, pagesize);
-+	}
-+
-+	/* Let the first page of each pair age without a duplicate. */
-+	if (madvise(map, size / 2, MADV_MERGEABLE)) {
-+		ksft_test_result_fail("MADV_MERGEABLE failed\n");
-+		goto unmap;
-+	}
-+	if (ksm_start() < 0 || ksm_wait_full_scans(12) < 0) {
-+		ksft_test_result_fail("Running KSM failed\n");
-+		goto unmap;
-+	}
-+
-+	/*
-+	 * Make the duplicates mergeable one scan apart so that each pair
-+	 * starts out with a different distance in scans.
-+	 */
-+	for (i = 0; i < pairs; i++) {
-+		if (madvise(map + (pairs + i) * pagesize, pagesize,
-+			    MADV_MERGEABLE)) {
-+			ksft_test_result_fail("MADV_MERGEABLE failed\n");
-+			goto unmap;
-+		}
-+		if (ksm_wait_full_scans(1) < 0) {
-+			ksft_test_result_fail("Running KSM failed\n");
-+			goto unmap;
-+		}
-+	}
-+
-+	if (ksm_wait_full_scans(32) < 0) {
-+		ksft_test_result_fail("Running KSM failed\n");
-+		goto unmap;
-+	}
-+
-+	ksft_test_result(ksm_get_self_merging_pages() == 2 * pairs,
-+			 "Pages aged by smart scan got merged\n");
-+unmap:
-+	ksm_stop();
-+	munmap(map, size);
-+restore:
-+	if (pwrite(smart_scan_fd, &old_smart_scan, 1, 0) != 1)
-+		ksft_print_msg("Restoring smart_scan failed\n");
-+close_fd:
-+	close(smart_scan_fd);
-+}
-+
- static void init_global_file_handles(void)
- {
- 	mem_fd = open("/proc/self/mem", O_RDWR);
-@@ -720,7 +825,7 @@ static void init_global_file_handles(void)
- 
- int main(int argc, char **argv)
- {
--	unsigned int tests = 9;
-+	unsigned int tests = 10;
- 	int err;
- 
- 	if (argc > 1 && !strcmp(argv[1], FORK_EXEC_CHILD_PRG_NAME)) {
-@@ -753,6 +858,7 @@ int main(int argc, char **argv)
- 	test_prctl_fork_exec();
- 	test_prctl_unmerge();
- 	test_fork_ksm_merging_page_count();
-+	test_merge_aged_pairs();
- 
- 	err = ksft_get_fail_cnt();
- 	if (err)
+Then I MUST started REQUIRING to split the patches in such cases to actually
+review them?
 
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
