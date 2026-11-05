@@ -1,54 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.185.58.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887810;
-	b=lWtNUoX++61pgcE9HfvtwAYtFjX4HKjqoZBUUXwXyyXUBUXQYRygEmsnCsv8As7KsZQA
-	 ELS615LXi22OXW6LdTEyOw183EmSmC9uie03muRWT2xsVVsyCnuvoH94mDCHAc8HLWDm4
-	 sa9qoIhLMR8E3sPcJwL7qHrnW5XkWCDySjI19HAAvS0ZfA4Kt6lf28k9/hJbCPUKSXhta
-	 EcZlndL0rHq1HKylTk3d/teG+dK1yvcEVSoU1PX8WNjcWwC6GWmy2kwqo3PAA4sZlPFMb
-	 qTLOIqw7oJdIcNXze2Y9quDhxx5ZfvetOou9jv8AhRPaYCafIkHHPp5bWJO0jSJg9sA==
+	t=1793887821;
+	b=bf4q70rMFN0RkbZlA6sWiCrs0f9/SU+2ze5NqCXltIyAe03w6XidemAIZbkiPO2RQflc
+	 ftdjP4RaJz249VpxW7OJwhZHbad80aY5En+101Xc+SpPZM6tz4mPouMkc3CbkU8RI3yBd
+	 KsX0cb5uzkv6AOzioBk1UUPIJ8PbFY+dUpJlGWFHMT0YFRnpqAwY+pZvZdhn0xH2Oo1uP
+	 uh9Qjs1f8fA2GzggceFgVPqJlG37XFlwzYUH5un9zz9SgN8nft4Ets9Tf5/j+89RYtrbj
+	 mknEB1LfIqqXPEfEel4ThI2ozCzP1ooK3qpQWltzkKkiIrZbI71SV1erGx9JGsG70WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887810;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=rXYKCnFMOcWT/GHOYQM/Rfu/7o9VqnHXStFCMJH6+uU=;
-	b=NsuWf/sUEfAcJKv4Hk/Ki5jQyhJPpwXOtGTrrAZ4qmoKUtQKMeznzNpolZ2j/EFKyIWX
-	 Lav99X5cLO9ypSbt+To7F8eBre6Ls9URno9uKA9Nqiv+gJRLlmCL2q77nXf0yxTSv3oXs
-	 1W1C0oZEJH7zXbpsq6qm/snmkyyipEmc2LxCusZanSwoX+8szjHzUdptyoniPaoPWRU0z
-	 j5n7vjXajU9ATwh9xOSIVe0R4DS85yp8jw37vZNPRA3+vGSS7KeWvxyMa3IIbDqMPFpvq
-	 ShspuAj2+S4LoIBhyIWO/Kz5ug9YR9cfl2MYT4ZWTmr7Yq6oBJiEfiTerYxbRDD4/Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887821;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-Spamd-Bar;
+	bh=2w/pv8W8p2703IU4YSematscewyjnxpED9mVVxiIFo4=;
+	b=Df+OBpZ6XMF7HU7etQsB+gGi3cjOJ+VvAdX3miFwusxtSWR4fFiMQNqnNPKtxvQtbBJc
+	 QPIYOdDFPttDM/yTKGacY+n/BcswYOnVcxQf6Y71X5jFPqWcBY7v2IfCmzoLFEnowsiuR
+	 3d9fx4yW3hUlcyKytCVUDmE1TkV8OhnbsbIyhhMmSXQphnbVmRj0Is/XRloO3t4dZd8cx
+	 r1ZKaYAw8yqmYilC+Ax0KujiSRs/xUHFrk2VL4C9ztEDQ0lcegwK5hM207JIGcvLXbIYj
+	 XkYMFH5CGiYbTdg4f6FZ5TAxACsxaAMGVF22dBTXmjM87GbWGbiBaYo09h2KWLDL3GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bH4IT6Ql;
-	arc=none smtp.remote-ip=95.215.58.196
-Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=badcode.im;
+	spf=pass smtp.mailfrom=badcode.im;
+	dkim=pass header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b="RJ/XGpAd";
+	arc=none smtp.remote-ip=185.185.58.180
+Received: from badcode.im (badcode.im [185.185.58.180])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C77606A33A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:10:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35C77606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD92C606A33D;
+	Thu,  5 Nov 2026 14:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD92C606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=badcode.im
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=badcode.im
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bH4IT6Ql
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rXYKCnFMOcWT/GHOYQM/Rfu/7o9VqnHXStFCMJH6+uU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793887807; v=1; x=1794492607;
- b=bH4IT6QlLloPI5/z3PFIsj33HFOP6499Pz6Da93pkoarR8FGaLcaGn55vGgw/M1lEVoMhSyl
- 4ISSwYo2PX8xYPyjJ9ZyySMDjy97Z+yefRM8jJ9uyugfEqP3ztM8eiseohokaq7OqtdByu/Xk3n
- d2gd4DjyRnusDfmWJGU4ShaY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id dd249d3f7c375ee6;
-	Thu, 05 Nov 2026 14:10:05 +0000
-X-Mizu-Trace-ID: dd249d3f7c375ee6
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=RJ/XGpAd
+From: Alexander Ildiyarov <alex@badcode.im>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=badcode.im; s=dkim;
+	t=1793887818;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2w/pv8W8p2703IU4YSematscewyjnxpED9mVVxiIFo4=;
+	b=RJ/XGpAd89QuYTXpsvBXCp4YT4Zv3Rpp5EAi8+phAcuzARz58byHBX/dkXUGrMezEwxi1d
+	ZXHmgZGLp5oVw+vLiLYzPLOB4yAtEUBqFrEHajSAEjIK0bQBe3WI/7YRiVMR+A71fDu1OD
+	zuk+eRu6uYuk8exG6s2Cbfeuwn5VwdPffjUNFKLFk/7B9cprr92edeGzMs4FmeVbrQX4qC
+	vaf1LbZgqiTmUBJnjC2mSRdIm2taIRatXLGDfwRFVsGDwySwAKGSM0aWEU5+fFxGw/Tbsp
+	iiEii+JIBQOzaZ3S8UXRe2y460XkStCPHQSOq8izmrrjwUyow6yANzRQHlDTCg==
+Authentication-Results: badcode.im;
+	auth=pass smtp.mailfrom=alex@badcode.im
+To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
+	wireguard@lists.zx2c4.com,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Alexander Ildiyarov <alex@badcode.im>,
+	stable@vger.kernel.org
+Subject: [PATCH net 2/2] wireguard: noise: recheck replay and flood under write lock on initiation
+Date: Thu,  5 Nov 2026 17:10:06 +0300
+Message-ID: <20261105141006.95083-3-alex@badcode.im>
+In-Reply-To: <20261105141006.95083-1-alex@badcode.im>
+References: <20261105141006.95083-1-alex@badcode.im>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,103 +72,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 0/4] mm: Enforce read-only shared vmemmap tail mappings
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <0851db25-fef3-4f96-8d37-81ad5c51d6c8@kernel.org>
-Date: Thu, 5 Nov 2026 22:09:33 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Lance Yang <lance.yang@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- linux-mm@kvack.org,
- linuxppc-dev@lists.ozlabs.org,
- linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6492A4DD-B00E-40EA-85D6-93183E8D3ADC@linux.dev>
-References: <20261019090830.1917657-1-songmuchun@bytedance.com>
- <0851db25-fef3-4f96-8d37-81ad5c51d6c8@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spamd-Bar: -
 
-Hi David,
+wg_noise_handshake_consume_initiation() checks the initiation's
+timestamp against latest_timestamp, and last_initiation_consumption
+against the current time, while holding handshake->lock for reading.
+It then drops the lock and takes it again for writing to store the new
+state, without repeating the checks.
 
-> On Nov 5, 2026, at 18:33, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> On 10/19/26 11:08, Muchun Song wrote:
->> This series is split out from the earlier, larger series "mm: =
-Generalize
->> HVO for HugeTLB and device DAX" [1]. While the parent series =
-generalizes
->> vmemmap optimization across HugeTLB and device DAX, this subset =
-addresses
->> a single, self-contained step: mapping shared vmemmap tail pages =
-read-only
->> at population time.
->>=20
->> After the previous HugeTLB and device DAX conversions, both can =
-install
->> optimized shared-tail mappings during vmemmap population. These =
-mappings
->> should be read-only because each shared tail vmemmap page backs =
-metadata
->> for many tail pages. HugeTLB applies this protection in a later,
->> subsystem-specific pass, but device DAX currently lacks it.
->>=20
->> This series moves the protection into the generic sparse-vmemmap and
->> powerpc radix population paths. This protects device DAX mappings and
->> makes the HugeTLB-specific vmemmap_wrprotect_hvo() pass redundant. =
-With
->> that pass gone, the bootmem-only optimization wrapper has no distinct
->> work and is removed as well.
->>=20
->> This is intended to be the fifth smaller step toward the broader HVO
->> generalization. The remaining HVO naming and enablement consolidation =
-is
->> left for follow-up series.
->=20
-> I assume this patch series is no longer applicable after we remove the =
-RO
-> protection for HVO.
->=20
-> Or am I missing something? :)
+Incoming handshake packets are spread round-robin over all online CPUs,
+so two copies of the same initiation, received back to back, are
+processed in parallel. Both copies can pass the checks before either of
+them updates latest_timestamp and last_initiation_consumption, so the
+replay and flood protection is bypassed. The responder then creates two
+responses, each with a new ephemeral key, and installs the keypair of
+the last one, while the initiator accepts whichever response arrives
+first. When those differ, the session is unusable until the initiator
+gives up on it and starts a new handshake, and an attacker who can see
+and duplicate initiations can repeat this for every handshake.
 
-Not quite :) The runtime RO part yes, but the vmemmap population path is
-a different story =E2=80=94 struct page isn't initialized there, so =
-there are no
-concurrent accessors and setting RO is safe.
+The window is narrow, since the expensive DH computations happen before
+the check, so it is between up_read() and down_write() only. With netem
+duplicating every initiation between two namespaces, no double response
+was observed in 200 handshakes on a 4-CPU VM. With a usleep_range(1000,
+2000) inserted before down_write() to widen the window, 30 of 50
+duplicated initiations produced two responses, and in 12 of 50 cases
+the session was unusable after the handshake. With this patch applied,
+and the same delay, every duplicate was rejected and all 50 sessions
+worked.
 
-So we can keep it and enjoy the protection RO gives us: if something =
-goes
-wrong, we catch it right at the first scene. So I think this series is =
-still
-needed.
+Fix this by doing the checks again once the write lock is held, keeping
+the read-locked check as a fast path for rejecting replays.
 
-Thanks,
-Muchun
+This is the initiation-side counterpart of the response-side race fixed
+by:
+commit 2a73c9b2c0ca ("wireguard: noise: reject response consumption after intermediate initiation")
 
->=20
-> --=20
-> Cheers,
->=20
-> David
+Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Alexander Ildiyarov <alex@badcode.im>
+---
+ drivers/net/wireguard/noise.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/net/wireguard/noise.c b/drivers/net/wireguard/noise.c
+index 428d3afe3ce4..209127654e65 100644
+--- a/drivers/net/wireguard/noise.c
++++ b/drivers/net/wireguard/noise.c
+@@ -580,13 +580,23 @@ wg_noise_handshake_create_initiation(struct message_handshake_initiation *dst,
+ 	return ret;
+ }
+ 
++/* Must hold handshake->lock, for reading or writing */
++static bool initiation_is_replay_or_flood(const struct noise_handshake *handshake,
++					  const u8 timestamp[NOISE_TIMESTAMP_LEN])
++{
++	return memcmp(timestamp, handshake->latest_timestamp,
++		      NOISE_TIMESTAMP_LEN) <= 0 ||
++	       (s64)handshake->last_initiation_consumption +
++			       NSEC_PER_SEC / INITIATIONS_PER_SECOND >
++		       (s64)ktime_get_coarse_boottime_ns();
++}
++
+ struct wg_peer *
+ wg_noise_handshake_consume_initiation(struct message_handshake_initiation *src,
+ 				      struct wg_device *wg)
+ {
+ 	struct wg_peer *peer = NULL, *ret_peer = NULL;
+ 	struct noise_handshake *handshake;
+-	bool replay_attack, flood_attack;
+ 	u8 key[NOISE_SYMMETRIC_KEY_LEN];
+ 	u8 chaining_key[NOISE_HASH_LEN];
+ 	u8 hash[NOISE_HASH_LEN];
+@@ -594,6 +604,7 @@ wg_noise_handshake_consume_initiation(struct message_handshake_initiation *src,
+ 	u8 e[NOISE_PUBLIC_KEY_LEN];
+ 	u8 t[NOISE_TIMESTAMP_LEN];
+ 	u64 initiation_consumption;
++	bool reject;
+ 
+ 	down_read(&wg->static_identity.lock);
+ 	if (unlikely(!wg->static_identity.has_identity))
+@@ -630,17 +641,21 @@ wg_noise_handshake_consume_initiation(struct message_handshake_initiation *src,
+ 		goto out;
+ 
+ 	down_read(&handshake->lock);
+-	replay_attack = memcmp(t, handshake->latest_timestamp,
+-			       NOISE_TIMESTAMP_LEN) <= 0;
+-	flood_attack = (s64)handshake->last_initiation_consumption +
+-			       NSEC_PER_SEC / INITIATIONS_PER_SECOND >
+-		       (s64)ktime_get_coarse_boottime_ns();
++	reject = initiation_is_replay_or_flood(handshake, t);
+ 	up_read(&handshake->lock);
+-	if (replay_attack || flood_attack)
++	if (reject)
+ 		goto out;
+ 
+ 	/* Success! Copy everything to peer */
+ 	down_write(&handshake->lock);
++	/* Check again, now that we have an exclusive lock, so that two threads
++	 * processing the same initiation in parallel can't both pass the check
++	 * above before either of them updates the timestamp.
++	 */
++	if (initiation_is_replay_or_flood(handshake, t)) {
++		up_write(&handshake->lock);
++		goto out;
++	}
+ 	memcpy(handshake->remote_ephemeral, e, NOISE_PUBLIC_KEY_LEN);
+ 	if (memcmp(t, handshake->latest_timestamp, NOISE_TIMESTAMP_LEN) > 0)
+ 		memcpy(handshake->latest_timestamp, t, NOISE_TIMESTAMP_LEN);
+-- 
+2.43.0
 
