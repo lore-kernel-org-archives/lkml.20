@@ -1,67 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877191;
-	b=vxmieMLzsapChyh40kkKNUTaYd9X5VRO0hF3imSUfjD5fYbCDnTC1LpEtG8Dc93ksghE
-	 g4ODgmf8nFUY+njBgZdlqmECHeYSF+yKXivruxHhXJGdQwGZsSAWmO17++IxdLHpetA1J
-	 XoCssjzK06ijOxoHXwyHsibQvKVXsd6mFQ4OblUHYm4ZGUN8MsTwDtUhEag0q45VKnYC2
-	 3NZyVEJMSvNZBM+abq+Xc/V3I7UJaH66Us7oH9nEzgpmMPPGm8GH10o8JLAV3ZfyrsJ5f
-	 2HF0YP21nUI/S0pgIMAYatRbEdn8BgmPBL2/Jov1TB/z8IuHQzl1qliiuyu6X+g2isQ==
+	t=1793877179;
+	b=BguUkvE/zuNhkkkIn6uHL1Wq2nhzdx6hrks/8050BfkATPyoUtJzFggONTpAgopYrdfa
+	 KSh4paF4he6y8Bvh0X/QDrgo/jh9CSxdu0dWoJc/1DbDCEth+ArmOcVOKPcgee9WYyZ8R
+	 oibFM3qQy5Wpi3aDHWKXphKXbEXYBbc7FyiOR8J8KkJoAJAdDYrLYp0kv8LNLfO4E4fKy
+	 7DpjfF/VFVIWCOMcXXLQdvCflyHzLiFXRK9bO1ojVw5uW+slO8p/xHQk7VYHCyAx/J/MQ
+	 SizKxMDx/FlF9rUJNI4j6+0DC+yNYgxIzn+eCQm4ypd6oyDtSnICuw1ARDeXrn5daew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877191;
-	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
-	 X-Mailer:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=2tVBLkspS/pcV2twFy5VIVtnZMrYpSwDIb0KYFUTXfU=;
-	b=jeEVZa0v64/W2nAPUcx+WaW4zkztN6hAU5PrPwr3HrEKDcLIrqw29g57M55nO1HZBQ32
-	 pxI1y8Af8J1nXeSlgi4rpto0z2MlKqqixP/BkVGCdyBivyIA9HsGHrQGcHhIxscofL1np
-	 2lojz0AJz8tb+i9wxSETCEmzL4tQSxGDmClZ1olgqF0UhQFvqH9nUkVhSl5haAy8Lsi5J
-	 sQFXdAqJzhi3bWD9+AUZKnh/y0IkrrTqzCzpLlGQKiPheTJAUt5PVjPvqgZAOURoYU++M
-	 jLAtf21e17iEb2UqaeqEqArjJom1BTTF2ylNvgd4ybXsFRQKPDgtxyzBquEiaLjg1Mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877179;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=6vjyiGIRoP6f/zO9hxEixZrq8kzu9uZMm6qA66eptAg=;
+	b=zuXh7veWl1wh9Mhrs348s13gwuXayHxYEPqjPSumO2SQIFNE4/xskcXGYN6lH5PfJxhQ
+	 +an6szQubQFGjOSA/N03RfnaKW/8UK2ScTwEgW4swHgRP8skNxsICBhLYZSeFFUW8HOe8
+	 O+DEesoAb6MdV+Lp6AfLnQJU3koHnFbw5GuHGlRZOiFDRYe5UK3eAJHeC6NDekNEnO6jJ
+	 zuO+i4yhbg7ZrszCPj8BevK0P2eMyV/YWnqQNoBpxyqKDydjfjkhKOG6uYOHI57KtK8+i
+	 GDn8vOl5I48yTkwdAu96z3+dlS4AE6VRCbRXbE2B5NzbvdyO8/kb2ruXPtbcc9SqznQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFzOpoQ4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vjRST9MO;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFC2606D81E;
-	Thu,  5 Nov 2026 11:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD09F606A328;
+	Thu,  5 Nov 2026 11:12:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD09F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFzOpoQ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A131F00919;
-	Thu,  5 Nov 2026 11:13:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793877191;
-	bh=2tVBLkspS/pcV2twFy5VIVtnZMrYpSwDIb0KYFUTXfU=;
-	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
-	b=AFzOpoQ4zdhuwU2LuP5T0kvBzXYFhUyX2iDxo2Uf/rq79kdDqIYN8zj9rEALINKlu
-	 2/XyEsvHp94YrzNAVHesJs4U6TJ4Y8uQg4ZZ93SsECr2BNgQYS2Ijz3HZ4wvUfKaf6
-	 VIRhS9XvI/gouXupZ7E8d3B15nkv7exL0ElaKG9iWJ2TUrPrOoRRLJSS60tRew2wSp
-	 9Fgz3g1xRY8pMWMXgWBbKAkMLy/xjhr11hzcffSYUaV29IK3gobtugA++1lu2aKeJa
-	 HDkHhJ1yirN3+rNVZEckdb0a0F3Wch9T/zvaY3LEVr5BDk4/6oGmP1ftgnIvK+iwZA
-	 lXGNPkk2Yx3OA==
-Date: Thu, 5 Nov 2026 12:13:03 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: alx+linux-hardening@kernel.org, Alejandro Colomar <alx@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v1 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
-X-Mailer: git-send-email 2.55.0
-References: <cover.1793876837.git.alx@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vjRST9MO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=6vjyiGIRoP6f/zO9hxEixZrq8kzu9uZMm6qA66eptAg=; b=vjRST9MOrlSiEWOiB/CtbC0Sc/
+	K/8EuJFSfxZs6xtaHWs/GJlfmv20pA7Ag6k+ul1JS5973LQEYXofJTnYtdtqeMfBUiew3b9I4UXzk
+	F8eQil00FQU8Rsg95sAnSuf3KzJXhqcDOW9WosL6dpBe7QwykR7eJECXhah5pfdPx7a52Xc7YuHBD
+	In5+BxW3SWkaWtkm8VaYpfIqsXOaDv/jy/MUdIAN+SxNiFmLbBf9YYr9/qJLLyEZEXL9V0ZtyJso8
+	9Ci1KpuaRUeI9UlHxiEcpXIWU9YlUrv37Bp4SKwlT1LIcoAOoalHhQPDsRGqMnYk9kbdhQvZ5GwQv
+	nOyWRolA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOvOi-008SOs-1X;
+	Thu, 05 Nov 2026 11:12:49 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 05 Nov 2026 03:12:42 -0800
+Subject: [PATCH v2] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,152 +63,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5k6bo5x76lzahrf6"
-Content-Disposition: inline
-In-Reply-To: <cover.1793876837.git.alx@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
+X-B4-Tracking: v=1; b=H4sIAKlk7GoC/4WNQQ6DIBREr2JYl0Yoauiq92hcgHz0Nyk0HyVtj
+ Hcv2gM0s3rJzLyVJSCExK7VyggyJoyhgDxVbJhMGIGjK8xkLVshaskJw8jt4j0Qn8A4/owZHPd
+ 6ML5xRiulWBm/CDy+j+N7/+O02AcM8/62NyZMc6TPYc5i7/2VZMFL2kZ3l07XFtTNgUUTzpFG1
+ m/b9gWHOcTvzwAAAA==
+X-Change-ID: 20261102-ring-buffer-head-moved-f9caf5da9444
+To: Steven Rostedt <rostedt@goodmis.org>, 
+ Vincent Donnefort <vdonnefort@google.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com, 
+ stable@vger.kernel.org, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3440; i=leitao@debian.org;
+ h=from:subject:message-id; bh=CJmlLfCQU+JeiPNpiR+gSThux8Q0K3xWUmTQdi3OLi8=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq7GStplCZ9lWp2lJaCVcItVooZnYKcgn9Y4hNj
+ lp7XJ4MKEKJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauxkrQAKCRA1o5Of/Hh3
+ bb6zEACvFPFsZMGjfPubQhe6PSzlJ/wMshG3uRAjRWYaE10CIhstCACQc9tlenOGppOrg/beyD0
+ m+6VTDr77efUmfTKxx1kq3C44sl+V4FZaEfjW8EwLT6k1CfVcNRi8nrSWRFXKWFonTaYkFC8/fe
+ BbihCpZh1wXj+Z+KJ9uPY4bYn1+KnzmdGTyMN+WbX53uwk+J7Q8v34KaaoFMMLypw4jazdXKTmy
+ qV+QwHjLA2/zEeRoqlmkeDBp8xdN4VJwHcQKZMuAL8KcO2ZCpmySt0YCqtKq6iHln7JhtVB4+uw
+ NeoPBVm696fLf3n8GkPCav4kzMHY+OqhoiBGvDwuJ4Udoe0tg/ngX5C9o4JjpuKz7L6tOcckDgi
+ z1Es21hPDe+LbEuv+aPSlH2upupqrfkvw36pAKSRJL/CRhti40h3Qb7Kt8hHazFv9eS9FWAL/ug
+ 6CoN4Ua/ZHCTU5SOK/SQzeXtG6xV2zv9FDkWE4EltNNsCvCDN8IjYGRNgnoy+PDwBAVpPiqnX/2
+ 0dHSLSC4SVXtErMYLVdiorbQBiDXuOfc+PrEw6ElWjwy6b1XQdIPfRgXvubOlSkrEzsOrHme8fG
+ 22nxZoSCVEM/QPmbZ2pboXNN9UeI3TYByEeAgcLjj5WVMYUa8afNdkeBlnoElIBP8xoamzzV1KK
+ 28M8Uj/s7sO9xGw==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
+The following warning occasionally fires on a KASAN-enabled debug
+kernel in Meta's fleet:
 
---5k6bo5x76lzahrf6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-List-Id: <linux-hardening.lore.kernel.org>
-Cc: alx+linux-hardening@kernel.org, Alejandro Colomar <alx@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v1 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
-References: <cover.1793876837.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <cover.1793876837.git.alx@kernel.org>
+  WARNING: kernel/trace/ring_buffer.c:3793 at rb_move_tail+0xf78/0x1050
+  Call trace:
+   rb_move_tail+0xf78/0x1050 (P)
+   __rb_reserve_next+0x648/0xac0
+   ring_buffer_lock_reserve+0xd00/0xf00
+   trace_buffer_lock_reserve+0x28/0x188
+   trace_graph_return+0x220/0x3e8
+   ftrace_return_to_handler+0x2bc/0x5a8
+   return_to_handler+0x20/0x48
+   __arm64_sys_sched_yield+0x18/0x30 (F)
 
-As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
-between an empty prefix matching an empty string from a non-matching
-prefix.  This is a fundamental design flaw in this API, and not
-something that can be fixed.
+rb_handle_head_page() moves the head page forward in two steps: it marks
+the pointer to the old head page UPDATE, then marks the pointer to the
+page after it (new_head) HEAD. The second cmpxchg is assumed to return
+only HEAD or NORMAL, but it can also return RB_PAGE_MOVED:
 
-As always, this is a consequence of choosing sizes instead of pointers.
-Sizes are often the wrong choice.  In this specific case, pointers are
-more capable of differentiating these cases, as NULL is a special
-sentinel value that doesn't need to overload a valid value.
+  CPU 0 (writer)                        CPU 1 (reader)
+  ------------------------------------  --------------------------------
+  rb_handle_head_page()
+    old head ptr: HEAD -> UPDATE
+    new_head = page after old head
+    <interrupt: nested write>
+      sees UPDATE, marks new_head
+      HEAD and moves the tail page
+    </interrupt>
+                                        rb_get_reader_page()
+                                          swaps new_head out for the
+                                          reader page
+    cmpxchg(new_head|NORMAL ->
+            new_head|HEAD) -> MOVED
+    RB_WARN_ON()
 
-Let's implement strprefix(), a function that returns a pointer
-right after the prefix if found, and a null pointer if not found.
+A nested writer that interrupts the outer one after the second cmpxchg
+still sees the old head pointer UPDATE and repeats the second step. If
+the reader swaps new_head out just before that cmpxchg, it returns
+RB_PAGE_MOVED too.
 
-We'll slowly migrate existing code from str_has_prefix() to strprefix().
+RB_WARN_ON() permanently disables recording on the whole ring buffer,
+and the outer writer returns without clearing its UPDATE flag.
 
-Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Andreas Schwab <schwab@linux-m68k.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andy Shevchenko <andy@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Daniel Scally <djrscally@gmail.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Joe Perches <joe@perches.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Len Brown <lenb@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Namhyung Kim <namhyung@kernel.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Tom Zanussi <zanussi@kernel.org
-Cc: linux-acpi@vger.kernel.org
-Cc: driver-core@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-hardening@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
+In both cases another writer has already moved the head off the old
+head page, as when the cmpxchg returns HEAD. Treat RB_PAGE_MOVED the
+same way and fall through: the outer writer still clears its UPDATE
+flag, and the caller updates the tail page as usual.
+
+Fixes: 77ae365eca89 ("ring-buffer: make lockless")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- include/linux/string.h | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+Changes in v2:
+- Fall through on RB_PAGE_MOVED instead of returning 1, so a nested
+  writer still moves the tail page (Vincent)
+- Drop the duplicated UPDATE clear (Vincent)
+- Document RB_PAGE_MOVED in the "Valid returns" comment (Vincent)
+- Commit message improvements
+- Link to v1: https://patch.msgid.link/20261102-ring-buffer-head-moved-v1-1-165973790be4@debian.org
+---
+ kernel/trace/ring_buffer.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/string.h b/include/linux/string.h
-index 6cb5cdd01158..0397e630bdc8 100644
---- a/include/linux/string.h
-+++ b/include/linux/string.h
-@@ -545,16 +545,33 @@ void memcpy_and_pad(void *dest, size_t dest_len, cons=
-t void *src, size_t count,
- 	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
- })
-=20
-+/**
-+ * strprefix - string prefix
-+ * @s: The string to be tested
-+ * @prefix: The string to see if @s starts with
-+ *
-+ * Returns:
-+ * *  @s+strlen(@prefix) if @s starts with @prefix
-+ * *  NULL if @s does not start with @prefix
-+ */
-+static __always_inline char *strprefix(const char *s, const char *prefix)
-+{
-+	size_t len =3D strlen(prefix);
-+	return strncmp(s, prefix, len) =3D=3D 0 ? (char *) s + len : NULL;
-+}
-+
- /**
-  * str_has_prefix - Test if a string has a given prefix
-  * @str: The string to test
-  * @prefix: The string to see if @str starts with
-  *
-+ * DEPRECATED: Use strprefix()
-+ *
-  * A common way to test a prefix of a string is to do:
-  *  strncmp(str, prefix, sizeof(prefix) - 1)
-  *
-  * But this can lead to bugs due to typos, or if prefix is a pointer
-- * and not a constant. Instead use str_has_prefix().
-+ * and not a constant. Instead use strprefix().
-  *
-  * Returns:
-  * * strlen(@prefix) if @str starts with @prefix
---=20
-2.55.0
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1fd28a72e6ee13..44782b71664722 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -3783,10 +3783,13 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
+ 	 *            1) We really set it.
+ 	 *            2) A bunch of interrupts came in and moved
+ 	 *               the page forward again.
++	 *  MOVED  - another writer set it, then a reader on
++	 *           another CPU swapped it for its reader page.
+ 	 */
+ 	switch (ret) {
+ 	case RB_PAGE_HEAD:
+ 	case RB_PAGE_NORMAL:
++	case RB_PAGE_MOVED:
+ 		/* OK */
+ 		break;
+ 	default:
 
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-ring-buffer-head-moved-f9caf5da9444
 
---5k6bo5x76lzahrf6
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsZL8ACgkQ64mZXMKQ
-wqnk8A/6Aq7WPOagi6Sfx8s5CgbwInsS6EffBqQ/4TOLlrx9auPCrvZFFHP8IDIY
-FiYV8YHPirbxBEuGKE4fVURzB8h0JPT7OXch7spASby/KSY52V/h8rSRM284nNFd
-ofrm4iST+LNuYQ2MPFx3G40GXhOKExPxvbX+QyEbYowJnXg++K5rkRWN2SmvDcmH
-1u1rQFfBCCaDaW9ZB1/AUI60TIfBi1BXEH9ZBfLMRzDB+UfbmtK9N7Fb7LmWTD5Q
-lWCicYqqQcswqTpMJu80eX+nRZ1+jlPz8/5X5FhWgJltQlBfUtEZDQHs3Muvs122
-aj8eu4O8cL0wzYP9beE5M9RMYFP46hYN7JQWg49dEn0LhCSiQBqjHNYpTm4Ltsai
-zCgPH1FjdFpD1urssqai/fIzGI/UvalG17mNP57Q1Kx4XCj0B4Z7GdsRNQETfepl
-T7HASb5MHMhif02QDE1yYJMayS9xKBe5HJS2Sai4MXHoNgwhKfzQUJ7aYuDZFgMt
-e80qKPDo2FN+OmYR6IHZB3t6Oj9lj+xkfZoPmVbkoiYzyRDQ0/XUAR+GM3pgrPIn
-mNlBu9Ul65RVbXgsWhgg/71zCIWktmxzPwmD43W8nU0SJvdn+6E3vj0cXmc/l7Lm
-SIklhbePjI48isKL44y9gU5pbyNknIt/i0hx7IrzQifOaCrt9KU=
-=sKqC
------END PGP SIGNATURE-----
-
---5k6bo5x76lzahrf6--
