@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867028;
-	b=5bpEtzD/tEVGSxFFxhnNQ1+2Q4rVwlga/bcBLy9QuF0teixYi6PLOhiTbIODpjbOCwIQ
-	 3EX+uMhUVE2BZWpE093MqwV9CJwJBM+wBq6kzOOFTQhPuGaOpoo+fiVDJxDc5KQgBMl+6
-	 jRAXJxunJSGUUdeWdcyNWfkoG2Ei/PSBDo8nDG4nKoLHYUq5U+QHGMoB63JUoDGM+T/3n
-	 gN4J83eVoksuBDDP+YdSicGDAOtXXYm4jTqApMW64SwCIRwrCXQLQ2gtO1Te1/HSyD89p
-	 2LDduUmximie32CTNVBJBb2/oWjkF6jRT8459JqGERlWWSZdy1CigFUnLW6L7aFzWQQ==
+	t=1793867039;
+	b=bLvtxkpD0DoTl+2BqlNgbsc8+ta+Khr0OQn5/H6fZpnV2Qu4En3KL26zVNG2L+F8aNJs
+	 ucrdyNWGdpj0zwXbOi9LXFVcXISRQK2WyV8EkMogUUxrEX7yshu1We69OxRxrW/f01pRp
+	 gGqEXQEMa8TTURo8ynKE3oSvPU4NGW2Yl5lTSHTm83pyu6uGLsDYKPEoOmRhncbJj1nBG
+	 ZOMR+fZjLZLt04ZA6vdIrHYCfBRjTMLGM8dg126RjYxDbWkaYKF27LfqCY0njeKdDUcN2
+	 nxuakGwU7oCjEpxHrJcwuvB60biQsV9SF8KbNvOEh0ms1SLiBzmJZK/cBnniN29r4qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867028;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=NI1GgIgXNQObAgyI4VamVXZkG9i7zMwG2QWU7SC7WiU=;
-	b=MJt02Qr2gLeCNSQahAS6h6xi49gyG2PgQBGyl65ONtJpONIVFyFia7WLw9+qmLqKEWET
-	 rfeB4N1gSEqz1/WroeovoTh1qgQ4iWD1lfMQZGdp1ZNbEx3b3MIThcd71L/9XqgCzQDI1
-	 QVUte1UZulngK7wQb1aoXtS1bxUasMhyCiUBcCOZ3wdHWzfpmJoPmg2KZeVJw30m03IAK
-	 fCOI0cSRy5qPW475PSMRyru3Guu2T4Zg8f+vHmA6aJ+e+rYvgHZbDe660v2byErBPanUC
-	 Mc19ovo4Bj39hqG7Bo/1DaK18/EAIX1I0gujviRQXRrHsD0rig5bzuwvIFignA02nhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867039;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=PMy26U+a8p6T/DZbXU09t/uUDgp8RhhSnvRaYUMUKHQ=;
+	b=LzEzNdFNJcCIYoQbvwaRSEpkOy6wmkwc6htGzUmiGrMAOWfmy8rCaxGZDLsdvXtga/J8
+	 uXogYRWyLLbAOtCXwyKkDTtOSWC1kLzya3OWXvcBzw+tBjYAT1HmSzqrDfwoEfPFlTro5
+	 aw3qs+7TpvV1Kve6dcd8v6xDDotts8e/I1gQYtedSiTIOwnxJibMwwqDw4nZvNs1m72M8
+	 zN7iE/TbNsXgap+Pt+miiosm53E5i7ckPMXiO862Lnt+JIC09rh0fPasJwi66WelN2eHR
+	 PLgzmEnImF2yp4Rlwd/pxuNjuMAiApRs81WRFDbXtP4TSh75CjtM5ohI7KMrbUkS/BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="w3S/F3Gn";
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CEB606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:23:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1CEB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso2032597b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 00:23:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793867026; x=1794471826;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NI1GgIgXNQObAgyI4VamVXZkG9i7zMwG2QWU7SC7WiU=;
-        b=jX5JMDxIFMmRJi6wgTcUJODr63Nvn/QIWLfjgPVN4h836uV7/BmqPJI4gIcfmaEzCX
-         yp5RGwXObgpMAlG9jj5C6LY3XrOdCCdNRZkYN9MLtadd98cKgGp6rjGR7wkT0ukv2WaN
-         8sLQbiOS3YfJTBhVy3MKaMnC443fjzwCE6MCouUDnvekhJHXwaemQxXDowsGGgE3NPe5
-         R9MD3cJGhiUUnYMMRndcoeA5k6sGVVoWWjWlBnqtEzJ54or8p9qKKC/b6UCqzbERCcd5
-         R2oe5599nsio7oYfWL7PhgdbvXq/kKnOuGZ4eVpKkP0kXXsJD6d4Sfk9iCp6M5Pw8T4w
-         ZV9g==
-X-Forwarded-Encrypted: i=1; AKwUvBz+QsTYsioZWc24J+4qM6pm9V1eaKDxNETRnsenfMl9rCnW3y9ABaQB3uR7GfNlk+vpYisz9OxiYsT6yQQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CdMG40hYUSbTHKLir5etQqk4PXcis1a6RTqbdd+vemC/AM3Hj
-	uf6YKfTQtUm7czaDd9a1NuAu62ds7gXeSbSazKvPGWNTDC95AeAN3xzPTuuSZkscJEdtIuUOr+w
-	cNNmlXqz3mAZfUHbO9bfbU1i46/K2EqSlMaCeRSqJCTUtLRx9ixS5Ob+N300=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC678606A32D;
+	Thu,  5 Nov 2026 08:23:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC678606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=w3S/F3Gn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793867032;
+	bh=PMy26U+a8p6T/DZbXU09t/uUDgp8RhhSnvRaYUMUKHQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To;
+	b=w3S/F3Gn97YS7b8k/zWQLBH4kGJVVAPDCZso/q7Yd5Ov1twQ1Y/dVtZ8RjPaIHAwP
+	 EifBninTic1fqdXnnVmgEXZuTX91obKx97IckaeAqNWFiyBeS/o7aPRtQvZPMybx1b
+	 FhrV33k/c+I4/g6Q2+CRN+NulrdhgYhONDmGAap4=
+X-QQ-mid: esmtpsz10t1793867031t33177925
+X-QQ-Originating-IP: S5npOyi7aINTfxWjzN8uAgHEA4v9Zxn+qFnXr53kbTw=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 05 Nov 2026 16:23:48 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11420959379972091869
+EX-QQ-RecipientCnt: 13
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Subject: [PATCH 0/5] riscv: dts: spacemit: k3-com260: Describe SD card, SPI
+ NOR and MAC
+Date: Thu, 05 Nov 2026 08:23:45 +0000
+Message-Id: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,218 +65,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:e8d4:20b0:564:48f3:df91 with SMTP id
- 5614622812f47-56448f3e1fbmr6077549b6e.12.1793867026656; Thu, 05 Nov 2026
- 00:23:46 -0800 (PST)
-Date: Thu, 05 Nov 2026 00:23:46 -0800
-In-Reply-To: <6acd1c88.a150a118.27e199.0053.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aec3d12.f31022ea.233d2f.0004.GAE@google.com>
-Subject: Re: [syzbot] [nfc?] KASAN: slab-out-of-bounds Read in pn533_recv_frame
-From: syzbot <syzbot+93f169a8e7d66864f800@syzkaller.appspotmail.com>
-To: chandradhar.2003@gmail.com, david@ixit.cz, krzk@kernel.org, 
-	linux-kernel@vger.kernel.org, michael.thalmeier@hale.at, 
-	netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev, sameo@linux.intel.com, 
-	shreeramrahul94@gmail.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CIBBA0as0s+4kgLQxXsV0UWHUUQHDtMaEc
+ PdizV+9zS8glJkETl2BTB8WTrFB9x24+xxvhOybwSgzaq0GfB7QpWBGhSH59UUoHmPKGGaH1pJ
+ vaTscDbTDO9OVv/v9PP0t6+VBbvktodYN44gfFX8AAAA=
+X-Change-ID: 20261105-k3-com260-module-sd-nor-mac-44edede14582
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1397;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=f8JEl3nwmhnXtGnW8XRJdFD/mPXqxg42zaRBQTXPx4o=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlvbIWnvTgvpOEbvNRl4l7OK8dTZ/zQEUlJO7Xwl9sVh
+ QRxOROxjlIWBjEuBlkxRZbuBzzbCnyibAsECn1h5rAygQxh4OIUgInML2L4n8jqofpLSHHf1Y+7
+ A74cvuH5+qFuScwd9R3fDlhk7/v94y8jw+Ggh/M+SrqLpAZ6x+Vv0fHQPBj2dKL3QhHJkPu3bYo
+ eswMA
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OW4JKxETGMY2DIfDzSfv0dcHyCjnrUVymz+ILJz3gdwWt1q2FwcGN4GF
+	S85gtH+aEBzJ2Pr8uFyBsAGULPO4W35qmb0OMPVBvMqJkBSqQvshDUevdrqzeC51tbsjxcM
+	R/KgA/SDFysKpQY423swtj4d6oLqYFqh7zO207YMAzRvXMuRNo9VoCLyf5zXW4st4pWka+F
+	j2KbZ5pBzwE88fUcIYwyuCFg0KQ8ofzN0kYtC3LC0QxcYOyHZmzon9TQbgDYidSVo6dPXOI
+	Vbzo9OJzuydNN6bBqBrIIZJ3cSn+IDWSKkb0DMAPrx71uSWYQYLthxVlf67A+LRrfee9Z+e
+	vhXHvisKv4xg4mgb4LKvMwiQc+n8OP7LNfKQZLQQdlcte8VZJH4KFhn3KWlzIZ2A3kZV31L
+	NOMj82z0RUGkw9pcjeAwZvrFB83iUTxLB//WFz4fn+kgvod8uuq7IYOTh3m7GEKJ9maVJVj
+	6T+Zw0wnWpYcFEyoMT9D1FHCQ4IyP5UFAGjsI09wfGerw2YhtSDTRNnmeyeiTFwDnskXRkc
+	U2glyt33KVZ3zuyoKWj8wUBjVDv8ZQM2q2R0erGFk62pBbzilC+ZsD+ndyQN1qEh6KA0go/
+	paxl3cH8VdXYGLZgrRDqG5WCOplWPeRP1xMn1x3P3Pmf1NRVhVMur9Dt8tgzoLq4B+Gcy9p
+	W795glPT6YZil8yrBAgrAJKLSpdXq7H7q0Eiw/cWTT/iylJBXktjtIrytUniHW2Ja+TUPeo
+	Bp23/Lz779gTUlWbktijzw6eSjnh9bFmQOyXS+Hp1DnUUNZ2cQ0zJhYo7x4+v//9j3Gmxu5
+	fk64vMmIRwaBlYJOBlMsuOpasLSjy3azGROMa3Olxp1dRwdmmyL2TzlPghlu2GeJMxSG3Yj
+	B6rAuAa9n5lLWwLxf20xb6BBeRIc2F0ARJxwtT6FNtD0cDlQezGJmhER55/1o0k4iIJqYrX
+	54Ce/JucEds3q/0vOfVDQPE960s8KGG8AtsLOJ5dgVLhutsF83w0SDj0CGGh1HPBifJG0G+
+	gb+FT4djauKkHcbQk0q1004r8zX1cMGTHcstn4KRzOUI38nlotfLlUXkOxu7Q2EPm4+tiEV
+	lzAAtn56s4jjEetOcniVi99IFOT3xboufAJiQA5zpNV
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-syzbot has found a reproducer for the following issue on:
+The SD card slot and the SPI NOR flash of the K3 CoM260 module, and the
+MAC address stored in its EEPROM, are part of the module, but they are
+either described only in the IFX carrier device tree or not described
+at all.
 
-HEAD commit:    8b7179210b22 Add linux-next specific files for 20261104
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=1472fca1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5dad87d6a9d5ee90
-dashboard link: https://syzkaller.appspot.com/bug?extid=93f169a8e7d66864f800
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1641aca1580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15c09edd580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/24dabb992a55/disk-8b717921.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/efb6c59219d5/vmlinux-8b717921.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ced4d906c236/bzImage-8b717921.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+93f169a8e7d66864f800@syzkaller.appspotmail.com
-
-PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-PN533 RX: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-==================================================================
-BUG: KASAN: slab-out-of-bounds in hex_dump_to_buffer+0x36c/0xd70 lib/hexdump.c:194
-Read of size 1 at addr ffff888027737a00 by task swapper/1/0
-
-CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Call Trace:
- <IRQ>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- hex_dump_to_buffer+0x36c/0xd70 lib/hexdump.c:194
- print_hex_dump+0x16b/0x2b0 lib/hexdump.c:277
- pn533_recv_frame+0x5f6/0x6d0 drivers/nfc/pn533/pn533.c:2202
- __usb_hcd_giveback_urb+0x378/0x540 drivers/usb/core/hcd.c:1658
- dummy_timer+0xa9a/0x4ce0 drivers/usb/gadget/udc/dummy_hcd.c:2051
- __run_hrtimer kernel/time/hrtimer.c:2079 [inline]
- __hrtimer_run_queues+0x3bc/0xa10 kernel/time/hrtimer.c:2136
- hrtimer_run_softirq+0x1e3/0x2e0 kernel/time/hrtimer.c:2153
- handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
- __do_softirq kernel/softirq.c:703 [inline]
- invoke_softirq kernel/softirq.c:542 [inline]
- __irq_exit_rcu+0xc6/0x220 kernel/softirq.c:786
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1073 [inline]
- sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1073
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:finish_task_switch+0x413/0xc60 kernel/sched/core.c:5434
-Code: 04 00 00 41 c7 84 24 20 0e 00 00 00 00 00 00 0f 1f 44 00 00 49 83 c4 48 4c 89 e7 e8 c7 56 89 0a e8 22 92 3a 00 fb 4c 8b 65 c8 <49> 8d bc 24 18 17 00 00 48 89 f8 48 c1 e8 03 42 0f b6 04 30 84 c0
-RSP: 0018:ffffc900001c7be0 EFLAGS: 00000206
-RAX: 000000000008812b RBX: ffff8880b833d3a0 RCX: 8000000000000001
-RDX: 0000000000000000 RSI: ffffffff8e9ef560 RDI: ffffffff8cb01080
-RBP: ffffc900001c7c30 R08: ffffffff91e104bf R09: 1ffffffff23c2097
-R10: dffffc0000000000 R11: fffffbfff23c2098 R12: ffff88801fa99f40
-R13: ffff88801fa99f40 R14: dffffc0000000000 R15: 1ffff11017067a74
- context_switch kernel/sched/core.c:5586 [inline]
- __schedule+0x17e5/0x5830 kernel/sched/core.c:7382
- schedule_idle+0x51/0x90 kernel/sched/core.c:7500
- do_idle+0x4ad/0x540 kernel/sched/idle.c:384
- cpu_startup_entry+0x43/0x60 kernel/sched/idle.c:458
- start_secondary+0x101/0x110 arch/x86/kernel/smpboot.c:312
- common_startup_64+0x13e/0x157
- </TASK>
-
-Allocated by task 0:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3f/0x90 mm/kasan/common.c:79
- unpoison_slab_object mm/kasan/common.c:354 [inline]
- __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:380
- kasan_slab_alloc include/linux/kasan.h:257 [inline]
- slab_post_alloc_hook mm/slub.c:4716 [inline]
- slab_alloc_node mm/slub.c:5029 [inline]
- kmem_cache_alloc_node_noprof+0x34f/0x600 mm/slub.c:5101
- kmalloc_reserve net/core/skbuff.c:616 [inline]
- __alloc_skb+0x27a/0x7a0 net/core/skbuff.c:716
- alloc_skb include/linux/skbuff.h:1390 [inline]
- pn533_recv_response+0xc4/0x230 drivers/nfc/pn533/usb.c:65
- __usb_hcd_giveback_urb+0x378/0x540 drivers/usb/core/hcd.c:1658
- dummy_timer+0xa9a/0x4ce0 drivers/usb/gadget/udc/dummy_hcd.c:2051
- __run_hrtimer kernel/time/hrtimer.c:2079 [inline]
- __hrtimer_run_queues+0x3bc/0xa10 kernel/time/hrtimer.c:2136
- hrtimer_run_softirq+0x1e3/0x2e0 kernel/time/hrtimer.c:2153
- handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
- __do_softirq kernel/softirq.c:703 [inline]
- invoke_softirq kernel/softirq.c:542 [inline]
- __irq_exit_rcu+0xc6/0x220 kernel/softirq.c:786
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1073 [inline]
- sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1073
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-
-The buggy address belongs to the object at ffff888027737740
- which belongs to the cache skbuff_small_head of size 704
-The buggy address is located 0 bytes to the right of
- allocated 704-byte region [ffff888027737740, ffff888027737a00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x27734
-head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff888140a9bdc0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000200130013 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff888140a9bdc0 dead000000000100 dead000000000122
-head: 0000000000000000 0000000200130013 00000000f5000000 0000000000000000
-head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5650, tgid 5650 (syz-executor223), ts 84263979260
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1874
- prep_new_page+0x22/0xb0 mm/page_alloc.c:1882
- get_page_from_freelist+0x22a1/0x22e0 mm/page_alloc.c:3964
- __alloc_frozen_pages_noprof+0x211/0x450 mm/page_alloc.c:5506
- alloc_slab_page mm/slub.c:3382 [inline]
- allocate_slab+0x7d/0x5e0 mm/slub.c:3497
- new_slab mm/slub.c:3548 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7522
- refill_sheaf mm/slub.c:2915 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4807
- alloc_from_pcs mm/slub.c:4883 [inline]
- slab_alloc_node mm/slub.c:5017 [inline]
- kmem_cache_alloc_node_noprof+0x432/0x600 mm/slub.c:5101
- kmalloc_reserve net/core/skbuff.c:616 [inline]
- __alloc_skb+0x27a/0x7a0 net/core/skbuff.c:716
- napi_alloc_skb+0x86/0xaf0 net/core/skbuff.c:856
- page_to_skb+0x240/0x1780 drivers/net/virtio_net.c:880
- receive_mergeable drivers/net/virtio_net.c:2426 [inline]
- receive_buf+0x720/0x1b60 drivers/net/virtio_net.c:2596
- virtnet_receive_packets drivers/net/virtio_net.c:2921 [inline]
- virtnet_receive drivers/net/virtio_net.c:2945 [inline]
- virtnet_poll+0x22bf/0x3100 drivers/net/virtio_net.c:3040
- __napi_poll+0xaa/0x330 net/core/dev.c:7985
- napi_poll net/core/dev.c:8048 [inline]
- net_rx_action+0x61d/0xf50 net/core/dev.c:8205
- handle_softirqs+0x265/0x8d0 kernel/softirq.c:669
-page last free pid 5317 tgid 5317 ts 54559667751 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1416 [inline]
- __free_frozen_pages+0xd1a/0xe10 mm/page_alloc.c:2972
- __slab_free+0x269/0x2c0 mm/slub.c:5922
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:364
- kasan_slab_alloc include/linux/kasan.h:257 [inline]
- slab_post_alloc_hook mm/slub.c:4716 [inline]
- slab_alloc_node mm/slub.c:5029 [inline]
- kmem_cache_alloc_noprof+0x2b4/0x600 mm/slub.c:5043
- vm_area_alloc+0x24/0x140 mm/vma_init.c:36
- __mmap_new_vma mm/vma.c:2765 [inline]
- __mmap_region mm/vma.c:3119 [inline]
- mmap_region+0x18e8/0x2820 mm/vma.c:3201
- do_mmap+0xe0a/0x1300 mm/mmap.c:573
- vm_mmap_pgoff+0x27a/0x520 mm/util.c:581
- ksys_mmap_pgoff+0x4dc/0x760 mm/mmap.c:619
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff888027737900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
- ffff888027737980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->ffff888027737a00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-                   ^
- ffff888027737a80: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888027737b00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-----------------
-Code disassembly (best guess), 1 bytes skipped:
-   0:	00 00                	add    %al,(%rax)
-   2:	41 c7 84 24 20 0e 00 	movl   $0x0,0xe20(%r12)
-   9:	00 00 00 00 00
-   e:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
-  13:	49 83 c4 48          	add    $0x48,%r12
-  17:	4c 89 e7             	mov    %r12,%rdi
-  1a:	e8 c7 56 89 0a       	call   0xa8956e6
-  1f:	e8 22 92 3a 00       	call   0x3a9246
-  24:	fb                   	sti
-  25:	4c 8b 65 c8          	mov    -0x38(%rbp),%r12
-* 29:	49 8d bc 24 18 17 00 	lea    0x1718(%r12),%rdi <-- trapping instruction
-  30:	00
-  31:	48 89 f8             	mov    %rdi,%rax
-  34:	48 c1 e8 03          	shr    $0x3,%rax
-  38:	42 0f b6 04 30       	movzbl (%rax,%r14,1),%eax
-  3d:	84 c0                	test   %al,%al
-
+Fix the SD card power description, move the SD card slot into the
+shared CoM260 device tree and describe the SPI NOR flash there. Enable
+the AT24 EEPROM driver and the ONIE TLV layout in the RISC-V defconfig,
+then let the module's Ethernet controller take its MAC address from the
+module EEPROM. Every carrier using the module inherits these
+descriptions.
 
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Troy Mitchell (5):
+      riscv: dts: spacemit: k3-com260-ifx: Drop wrong SD card vmmc-supply
+      riscv: dts: spacemit: k3-com260: Move SD card to the module
+      riscv: dts: spacemit: k3-com260: Add SPI NOR flash
+      riscv: defconfig: Enable AT24 EEPROM and ONIE TLV layout
+      riscv: dts: spacemit: k3-com260: Set Ethernet MAC from EEPROM
+
+ arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 18 ------
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi    | 76 +++++++++++++++++++++++++-
+ arch/riscv/configs/defconfig                   |  2 +
+ 3 files changed, 77 insertions(+), 19 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261105-k3-com260-module-sd-nor-mac-44edede14582
+
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.spacemit.com>
+
