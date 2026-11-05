@@ -1,89 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880874;
-	b=Vu2PRSI80mdxmcdZLC/RHOxWnR6L8+NFTc7eUVhaznms+I7pHK+4xTP86XVJFgRDp0Y5
-	 cZn0TAla7oeZWFw1/PiYcQ97qTCy8pq/M2XnaIFtLk7M1QwHBIk0vjD/a+NLVo0PPYDzv
-	 y8j2nhXLNw11FxNtmeMJzF399xuxa0+6qG6tIlnEUBGWxXRZU85dpLkOMBHKqFVl/H6DQ
-	 1wh+QH9ISGj3LBOeezr3qJxw+MmoTyfApA1sr0m8lWLuYFSFF/LGFEfcc7hRtqyUXo+Np
-	 A2RQl+L4xJEPUtZWjxlPY4f/OvXkI4tgwuh7QnEwX06JVWRWwkfUXYVfiXqtgOaD4nw==
+	t=1793880877;
+	b=ml3mn7EA20eQMmA2dgXH7POWzdfcUt7wHd58RhY1HElvKKX/pyjhP0SpADeAFpybLO08
+	 QdTZGHQ+FUM7P/Kx7bnEJxzsWfy/Dp5Kvb9yJ0ZJubuT1qRnrBArfVj1NM2o/MwW2wWKB
+	 2FzvJvAQyhr/uun5/cQWApJfyaBzTMt66p5OF09ZZXqoSEwrLj9PhPDws8E1Abe5bRDCs
+	 ldsp9URC5gel4lv2vftsVqZ5KgDmp9vqPowBN5229qaQBh0rmi1tUSPB8LaTuQh7uap0Q
+	 yLrHF07+grSGnIZ+5MjbIAO8AHYN0rzXhnEEaetLIh4PAoZ6mPc3mC8TndCx7XQQjww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880874;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=Sh8XuEouFSxM3Nere9HIciNOvbIlIxwEdyp0u63ZD0M=;
-	b=WA3rZ8nFDBM4t+lLobVCEZlcb7zzYUAlj3JHKriFCsjYIDgtI+pZ4EM6UDjhHU6A9++S
-	 w/cpfgUDMT5u7VQS2HfQQXAmbX84wCCBG6rBTuCFpe1E7NGb2FIL/ILyXx04bK72l2Gpf
-	 9LBv/nzmwEobZUdx5EecNkK4EYCbOD19uwWFHU7U8TXyNbuK5my5oJ6RmWVXL5//HnI+s
-	 RNaku9DNqIGejXec60F8TkaMlmxWLNx9EIwnfRgDGnWY1rC4zgTubGTDUjj2qc6dIUT5J
-	 QOSwFt+TiC8IyExkviWWJS24LvD/7ssKEdBvBzyb1dr5isXf8KQTGJZNMHp0it9fQVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880877;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=cTd/aCD8n7satCSyRDFgmIwkqHciLz6XNniMaYZWJ00=;
+	b=xmwKgHjDpm7MBoAK4EJQJnqHYD3SKMfpajesesVN1fhpsnjgLUYTFgR/iHdrPenJZktc
+	 13pdsQ+XySkb5n//dXPgqv19/nQa9LiKha3lcWAML75cX5497pS19mZ2iZbFlclheBlya
+	 BurMMF3FOIo6D0xT/Mw1/jPuX2pykkjFyUcMrzfR7s0/3jVWKSSLpsGFnPjOqewRSDKR0
+	 e6hbKwV02WiUxgqpP3duMAvcEXLLomv6b07vNMA7GlXWSe6vWLiZX2JllpTi6iidhxfCz
+	 aPI05eJHd855YszMqIdCOAr0q9tvwAModQKk7k+THF3QDK3xWxL2zRI6sAzQ5WK9vPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PDybQWtJ;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a+3MIwoB;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A00F606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A00F606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821AC606D803;
+	Thu,  5 Nov 2026 12:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 821AC606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PDybQWtJ
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261105121431epoutp033c45ff4a9301755fa6d0998d557e414b~lJSX09xZS2805828058epoutp03M
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:14:31 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261105121431epoutp033c45ff4a9301755fa6d0998d557e414b~lJSX09xZS2805828058epoutp03M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793880871;
-	bh=Sh8XuEouFSxM3Nere9HIciNOvbIlIxwEdyp0u63ZD0M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PDybQWtJtaT7HN37J2PX4Ws4OFuscgdPQbVh8Efrhh4YTk8biaj49+hOvWkpkY3M7
-	 vuw6S6E2CD3toP5oXcs4wYxPamYgkt4L8WrAbtLRhbllk0nzfJqO3uh0dJrkBstrvk
-	 LF4RuyEfEwphJsWdcYwHWtkgQ+MTtz1Oj0BlcZL0=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261105121430epcas5p34f3ca1eb34c18b8da084aae5b60407af~lJSXKYc_Y2560125601epcas5p3B;
-	Thu,  5 Nov 2026 12:14:30 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.88]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jL1T15JsDz6B9m6; Thu,  5 Nov
-	2026 12:14:29 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261105121429epcas5p39d2113969a054d297cda76a67f309c14~lJSVreVaO2344923449epcas5p32;
-	Thu,  5 Nov 2026 12:14:29 +0000 (GMT)
-Received: from vega.samsungds.net (unknown [107.108.73.84]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105121426epsmtip1d622e1345811eb639be62820813704d9~lJSS_xApT3060130601epsmtip10;
-	Thu,  5 Nov 2026 12:14:26 +0000 (GMT)
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	Thinh.Nguyen@synopsys.com, selvarasu.g@samsung.com,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Subject: [PATCH v5 1/2] dt-bindings: usb: Add Samsung Exynos8855 DWC3
- controller
-Date: Thu,  5 Nov 2026 17:44:00 +0530
-Message-Id: <20261105121401.1661711-2-selvarasu.g@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20261105121401.1661711-1-selvarasu.g@samsung.com>
-X-CMS-MailID: 20261105121429epcas5p39d2113969a054d297cda76a67f309c14
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105121429epcas5p39d2113969a054d297cda76a67f309c14
-References: <20261105121401.1661711-1-selvarasu.g@samsung.com>
-	<CGME20261105121429epcas5p39d2113969a054d297cda76a67f309c14@epcas5p3.samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a+3MIwoB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793880875; x=1825416875;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cIAkWqEIjMGJJrbeOsRo5KIwsMYsIhRUxLBRYpp9Soo=;
+  b=a+3MIwoBS17K8q1QcstoAbahaz5+QmkJ3PPomjaJ+2VLQjDTzizG4pm7
+   z/lWyCo1r486kIICOGVk5TC18v0Fs6lfrUTYinvreM3nMyNlbEhxlRUwL
+   j3k5+JmPIyrxe2jBGhpTRkkiePeXLb5L1qrDN8FQmx07z6g8Oaev/oTQ1
+   fdv4i7kpWjC1wns1keem/GaunPlWt8oicSxEzV4F+5P+8Fc9xLoN4cLR+
+   0YE369kWl9SXddRIPSrl9XwqKeYKlGKRsQhX4YVBc6Isx3YqZLFe7fawL
+   npPkoLlEMBzg749VhQE0dE00Z079syaMhF/LNhxQVOpycGFTojNcXVA4L
+   w==;
+X-CSE-ConnectionGUID: doYFyXDSSBeRB0ghcXwhYQ==
+X-CSE-MsgGUID: +3wgAKxVT9OVoFFERyxJkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2659723"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2659723"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:14:34 -0800
+X-CSE-ConnectionGUID: W7qSl4yRT/OB42cZPsJTzw==
+X-CSE-MsgGUID: P/khoYopQTGJsBFL41dZ+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7401164"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 05 Nov 2026 04:14:32 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOwMP-00000000mAV-31db;
+	Thu, 05 Nov 2026 12:14:29 +0000
+Date: Thu, 5 Nov 2026 20:13:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, Chuanhong Guo <gch981213@gmail.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
+Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
+Message-ID: <202611052240.0EkLv6im-lkp@intel.com>
+References: <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,100 +86,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev>
 
-Add the Samsung Exynos8855 DWC3 binding using a flattened node
-representation, where the DWC3 controller is directly addressable
-rather than nested as a child node of a glue layer.
+Hi Joseph,
 
-This is the first Samsung Exynos binding using the flattened
-representation.
+kernel test robot noticed the following build warnings:
 
-Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
-Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
-Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../bindings/usb/samsung,exynos8855-dwc3.yaml | 71 +++++++++++++++++++
- 1 file changed, 71 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
+[auto build test WARNING on f33a24cc012d34f25bb9942681bd478a1757b806]
 
-diff --git a/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml b/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
-new file mode 100644
-index 000000000000..664c26c1a9ca
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/samsung,exynos8855-dwc3.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Samsung Exynos8855 DWC3 USB controller
-+
-+maintainers:
-+  - Krzysztof Kozlowski <krzk@kernel.org>
-+  - Selvarasu Ganesan <selvarasu.g@samsung.com>
-+
-+description:
-+  Describes the DWC3 USB controller block implemented on the Samsung
-+  Exynos8855 SoC.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - samsung,exynos8855-dwc3
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Reference clock for SOF/ITP generation.
-+      - description: Bus (APB) clock for register access.
-+
-+  clock-names:
-+    items:
-+      - const: ref
-+      - const: bus
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  power-domains:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+
-+allOf:
-+  - $ref: snps,dwc3-common.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    usb@13200000 {
-+        compatible = "samsung,exynos8855-dwc3";
-+        reg = <0x13200000 0x10000>;
-+        clocks = <&usb_clk 0>,
-+                 <&usb_clk 1>;
-+        clock-names = "ref", "bus";
-+        interrupts = <GIC_SPI 436 IRQ_TYPE_LEVEL_HIGH>;
-+        dr_mode = "peripheral";
-+        phys = <&usbdrd_phy 0>;
-+        phy-names = "usb2-phy";
-+        snps,quirk-frame-length-adjustment = <0x20>;
-+        snps,dis-u2-freeclk-exists-quirk;
-+        snps,gfladj-refclk-lpm-sel-quirk;
-+    };
-+...
--- 
-2.17.1
+url:    https://github.com/intel-lab-lkp/linux/commits/Joseph-Telaak-via-B4-Relay/dt-bindings-pinctrl-Add-Siflower-SF19A2890-pin-controller/20261104-022117
+base:   f33a24cc012d34f25bb9942681bd478a1757b806
+patch link:    https://lore.kernel.org/r/20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf%40telaak.dev
+patch subject: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
+config: sh-allyesconfig (https://download.01.org/0day-ci/archive/20261105/202611052240.0EkLv6im-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611052240.0EkLv6im-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611052240.0EkLv6im-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/pinctrl/pinctrl-sf19a2890.c:27:9: warning: 'REG_PC' redefined
+      27 | #define REG_PC(pin)             ((pin) * 0x8)
+         |         ^~~~~~
+   In file included from arch/sh/include/asm/ptrace_32.h:5,
+                    from arch/sh/include/uapi/asm/ptrace.h:28,
+                    from arch/sh/include/asm/ptrace.h:14,
+                    from arch/sh/include/asm/elf.h:7,
+                    from include/linux/elf.h:6,
+                    from include/linux/module.h:20,
+                    from drivers/pinctrl/pinctrl-sf19a2890.c:15:
+   arch/sh/include/uapi/asm/ptrace_32.h:23:9: note: this is the location of the previous definition
+      23 | #define REG_PC          16
+         |         ^~~~~~
+
+
+vim +/REG_PC +27 drivers/pinctrl/pinctrl-sf19a2890.c
+
+    25	
+    26	/* Pad configuration */
+  > 27	#define REG_PC(pin)		((pin) * 0x8)
+    28	#define  PC_OEN			BIT(7)
+    29	#define  PC_ST			BIT(6)
+    30	#define  PC_IE			BIT(5)
+    31	#define  PC_PD			BIT(4)
+    32	#define  PC_PU			BIT(3)
+    33	#define  PC_DS			GENMASK(2, 0)
+    34	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
