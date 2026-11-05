@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793854126;
-	b=TQx90Ba30eRz3ctCZGqrjnN4dvkJE6XAmZohNWwThmwWzFZY9gmyf0bH9J2RZoi/QUEP
-	 zcjMJ8KWHDTUNU6pf0YTxhDDBqbzsW4PCH59LyBTIpvUvrugGXNLHpaCWONpyat87QVKD
-	 JflZUjVB5DCU9yDMCAsjG8dyvVlMCjLuO0VyQHZ4MCho/+N04/fRLFRuc3Eog5SpJgVuO
-	 UeAskiDmgFdQM5PHeAAJZeD27DEm8UHB8svc5G7Qyb0mDRD1I/dKPaCfjGUjuzgSAytzn
-	 gYyvSQnD2AAfpq5orA1RgBBldbQEQGrEtRPyqR4qGJJ5KAPFn/ab9cczhzRXUe+9bMA==
+	t=1793854255;
+	b=AH+MJqtvHgXsRFIZnQkKgMIycsf9Ajumt7oCUje6Aet483wNt4YUA77IRoO7DGpsTXda
+	 vMkpnOC+xeDG75gzGyt5FMKNWgqYmmZseeabgRzEGnWb0fWHZRnZ+BuM2cUM8/Rw3Ds00
+	 MNWROHmtQyE0LtNlbOk1FReM5/nRRO4h7TDIIJtDz57iA3Z70CVrt5OJCSOuXtZJQ/3g3
+	 sPoYIT99/GgKAgss86EKFYGnqZcVvHiaLU2HayuS4N+HgyhtdP+gEHwEmU7dpVrNSZuKy
+	 3++wWg/dABTgOQ6IfaSSqydlZuEBMbmcGpaRPySuf7sOQKQZxAFWL7aC0dm1JjWi2XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793854126;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=3x9cT1KyByPhy6LKIu5Yv62mG19UO3yaYMnxIWxgiBM=;
-	b=Pc5FecdhTxS9ZsJq+qqXi9ZEWr5HpKdPwWJ8pZPfx9T9GB1fBe/KfEeuG8C+f8c9InF0
-	 5xL0sS+ay89EHqMEgQtV+oty2OLTom+aKFFEFY2HZGIhO0aqyVqZM0PP5AFJbZb32HWrc
-	 VFbN/9mQtVI1phcrThSV+iCrke1BliLRxLupSBW7RJPNxYFTrg6IPzLbZS666mY8yB6r4
-	 rq+SDAp0w8/Y/mRpvajltWh5fUxioQfu4c6HTY3Ckv7fz5y2pYzYQShbrBZ3BSf7lTrCO
-	 vVpFoJ9DFKMWhIEzt2F7Q/lgqEktdnSuggtrVxyr68cPuk9KcDiMsUL3dbU8VfPxgdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793854255;
+	h=DMARC-Filter:Received:Received:Received:Received:Received:From:To:CC:
+	 Subject:Thread-Topic:Thread-Index:Date:Message-ID:References:
+	 In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
+	 X-MS-TNEF-Correlator:x-originating-ip:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=a15eZ1GO5RhdStmXnLAyIP5/wcZSQKnyYEDvHOYqII0=;
+	b=AwVpbOOYHgWp0FRanWObXS/cKWnz0vwvfUf86Je0ER8z7p/wO3PWrWcCSvYnFUdUSswL
+	 G/NMxBV/kOU8sV5oQP/IDG1WW5zke56vVtmVLo+dqSteX/0PdAzpi9nz442hUzg1hKoo8
+	 bUorTAvokyAvJqfmseuBiYkV2XojLgJJ5fiOLyqWpc0LUDKI0r84ww6KR26RhhynDyqFK
+	 eBOUPsE0meeeg95Xr24np7ddj8pskipr8dWnV+QAsiHZrqOL7jIoG4KTUaSa0i1KN2pqs
+	 0iWn97n0tswi3DGh9NLLaGbsQfI5DD7AkCa3Op4GqAYphK1PtGBzWgjEPH/aVYsnAxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GuZyQNPg;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195D7606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:48:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 195D7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GuZyQNPg
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3662e7a9299so5133833eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:48:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793854125; x=1794458925; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3x9cT1KyByPhy6LKIu5Yv62mG19UO3yaYMnxIWxgiBM=;
-        b=GuZyQNPgVmU6HizjMMJ/e+W18mfv/8z5EjT6uaMNYIMCg6x8UvFeRmhgJlgz3rIV1q
-         +LP70bHG0QM9+pvolRD9fu9WFQ12R80V2r8SCnm+yT+fJ7NN4p1JsfrevydJW/Rxxvxw
-         rk2loLNAk88CjLXIR/4TiCgUab5Dh+JwX+9eUwvMeYIVde5IW3HOQiQYPPHlI6ctXxlZ
-         r1wD5d3Nnx+nifaKy8NUd52IYskJCszSj9KyBgGjKL8QdXZAJ/xPtIxcjTvdVbRp8BhC
-         SN8LD+skh7iC0wtZaQu7de/kcUsechKnbosOnHGfiYezmQSZCBIK7VEzIriuAPE7Z/EL
-         1rrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793854125; x=1794458925;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3x9cT1KyByPhy6LKIu5Yv62mG19UO3yaYMnxIWxgiBM=;
-        b=fmoH9HYuwRfO3ZBCnf9tOTjEOJixZfJPw9IYQI12VLO+qAP1gd0EtB1fv5wtFJ3B1y
-         o5sb2ifmNYLI4vcXKbOE11PIf5fqCngpLTrNyRy7SGcdsjqESPQOl3J/nPxtdYoITICE
-         YusIRG1xXELYMs0qZDK/IzO9dw85coYCMAboRyKkt0lTADH0KST9Ej7wRVOzaDdRYX4q
-         UeUqazYTfz1etwXwDyv1Uzic6fwVDfn8NQJL/SbmSv0kA475InNO4hqNaXxUluj+Emof
-         dX3firpxmVdZroRTieCShsuS9QtgMXj5hR/7z5dWQyGYEkou7w0wosdWfbfY7IebMf0D
-         XVyw==
-X-Forwarded-Encrypted: i=1; AKwUvByCMQZtJFQbv6qixloguWxTTkexVK+MSkxYCNe1p6oXnzCl6z76jDgFR4ejoG5fXdCAftAlSamOh4/oKPs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BFkJImFN6M/egVmaqHextHipmdez/ZhKUZDODDKB/cbDHIh42
-	gz55cHIGAHltfxW24zQpYPjtJoTWaNZta8FKBulWqYO05F7gx2Z6DLTFG563u1kJ/D916d1e8S+
-	+wntU4KrFIg==
-X-Received: from dybgh19.prod.google.com ([2002:a05:7301:13:b0:35c:794:f74])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:65d6:b0:368:72f0:353a
- with SMTP id 5a478bee46e88-36a42431e17mr22614402eec.38.1793854124717; Wed, 04
- Nov 2026 20:48:44 -0800 (PST)
-Date: Wed,  4 Nov 2026 20:48:41 -0800
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9BAC606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BAC606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jKqcs2TKhzwVJY;
+	Thu,  5 Nov 2026 12:50:37 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jKqcq1HBfzwVJY;
+	Thu,  5 Nov 2026 12:50:35 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id 388471549;
+	Thu,  5 Nov 2026 12:50:27 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 5 Nov
+ 2026 12:50:34 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Thu, 5 Nov 2026 12:50:34 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Chen Yu <yu.c.chen@intel.com>
+CC: "mingo@redhat.com" <mingo@redhat.com>, "peterz@infradead.org"
+	<peterz@infradead.org>, "juri.lelli@redhat.com" <juri.lelli@redhat.com>,
+	"vincent.guittot@linaro.org" <vincent.guittot@linaro.org>,
+	"tim.c.chen@linux.intel.com" <tim.c.chen@linux.intel.com>,
+	"dietmar.eggemann@arm.com" <dietmar.eggemann@arm.com>, "rostedt@goodmis.org"
+	<rostedt@goodmis.org>, "bsegall@google.com" <bsegall@google.com>,
+	"mgorman@suse.de" <mgorman@suse.de>, "vschneid@redhat.com"
+	<vschneid@redhat.com>, "kprateek.nayak@amd.com" <kprateek.nayak@amd.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jianyong.wu@outlook.com" <jianyong.wu@outlook.com>, Yibin Liu
+	<liuyibin@hygon.cn>, Yuan Zhong <zhongyuan@hygon.cn>
+Subject: RE: [PATCH] sched/cache: Fix group_llc_balance being unreachable
+ above the first NUMA level
+Thread-Topic: [PATCH] sched/cache: Fix group_llc_balance being unreachable
+ above the first NUMA level
+Thread-Index: AQHdbGdEfgKK63ccNEKIGUO+lEtYvrceRcQAgACNj1A=
+Date: Thu, 5 Nov 2026 04:50:34 +0000
+Message-ID: <dd193a850d164b02889fbcfafc556623@hygon.cn>
+References: <20261104141313.185433-1-wujianyong@hygon.cn>
+ <auvyMJU02aAFRB6P@chenyu-dev>
+In-Reply-To: <auvyMJU02aAFRB6P@chenyu-dev>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,46 +82,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261105044841.102295-1-irogers@google.com>
-Subject: [PATCH v1] perf jevents: Don't encode MSRs with no value
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Edward Baker <edward.baker@intel.com>, Thomas Falcon <thomas.falcon@intel.com>, 
-	Perry Taylor <perry.taylor@intel.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: kernel test robot <yi1.lai@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-Fixes the events mem_trans_retired.load_latency (EMR) and
-mem_inst_retired.latency_above_threshold_0 (NHM, WSM) that were having
-their ldlat= value encoded as python's None.
+Hi Chenyu,
 
-Fixes: ffc606ada3d7 ("perf jevents: Add python converter script")
-Reported-by: kernel test robot <yi1.lai@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202611050801.67bb4af4-lkp@intel.com
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/pmu-events/jevents.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> -----Original Message-----
+> From: Chen Yu <yu.c.chen@intel.com>
+> Sent: Thursday, November 5, 2026 11:04 AM
+> To: Jianyong Wu <wujianyong@hygon.cn>
+> Cc: mingo@redhat.com; peterz@infradead.org; juri.lelli@redhat.com;
+> vincent.guittot@linaro.org; tim.c.chen@linux.intel.com;
+> dietmar.eggemann@arm.com; rostedt@goodmis.org; bsegall@google.com;
+> mgorman@suse.de; vschneid@redhat.com; kprateek.nayak@amd.com;
+> linux-kernel@vger.kernel.org; jianyong.wu@outlook.com; Yibin Liu
+> <liuyibin@hygon.cn>; Yuan Zhong <zhongyuan@hygon.cn>
+> Subject: Re: [PATCH] sched/cache: Fix group_llc_balance being unreachable
+> above the first NUMA level
+>=20
+> Hi Jianyong,
+>=20
+> On Wed, Nov 04, 2026 at 10:13:13PM +0800, Jianyong Wu wrote:
+> > sched_balance_find_src_group() only considers group_llc_balance when
+> > sds.prefer_sibling is set:
+> >
+> > 	if (sds.prefer_sibling && local->group_type =3D=3D group_has_spare &&
+> > 	    (busiest->group_type =3D=3D group_llc_balance ||
+> > 	     sibling_imbalance(env, &sds, busiest, local) > 1))
+> > 		goto force_balance;
+> >
+> > sds.prefer_sibling mirrors SD_PREFER_SIBLING of the busiest group's
+> child
+> > sched domain, and sd_init() clears that flag on every SD_NUMA domain.
+> > So on any domain whose child is itself a NUMA domain, i.e. on systems
+> > with more than one NUMA level such as multiple nodes per socket,
+> groups
+> > tagged with group_llc_balance by llc_balance() can never take the
+> > force_balance path, and the group_llc_balance test there is dead code.
+> >
+> > Such a group falls into the !group_overloaded branch below and in the
+> > common case ends up in out_balanced, so a task that was placed
+> beyond
+> > the first NUMA level is never pulled into its preferred LLC.
+> >
+> > On a 2-socket Hygon system (8 nodes, 32 LLCs, 4 cores per LLC), with
+> > "spin 3"/"spin 4" (3/4 busy threads of one process), all threads were
+> > in one LLC in only 41/140 and 0/142 samples; every failing case had a
+> > straggler on the other socket. With this patch: 195/196 and 180/196.
+> >
+> > Only require sds.prefer_sibling for the sibling_imbalance() case, which
+> > is what it was originally introduced for.
+> >
+> > Fixes: f38cc2f0d8a3 ("sched/cache: Prioritize tasks preferring destinat=
+ion
+> LLC during balancing")
+>=20
+> This patch looks reasonable. Is this an enhancement rather than a fix?
+> Before this patch,
+> NUMA node task aggregation is disabled and task aggregation across SNC
+> nodes (Intel) or
+> level1 Nodes (AMD, Hygon with NPS2/3...) is enabled. After this patch,
+> both the NUMA level and the
+> SNC level enable task aggregation.
 
-diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index 080e04b51b8c..e083f7495e67 100755
---- a/tools/perf/pmu-events/jevents.py
-+++ b/tools/perf/pmu-events/jevents.py
-@@ -396,7 +396,7 @@ class JsonEvent:
-         event += f',{value}{canonicalize_value(jd[key])}'
-     if filter:
-       event += f',{filter}'
--    if msr:
-+    if msr and msrval:
-       event += f',{msr}{msrval}'
-     if self.desc and extra_desc:
-       self.desc += extra_desc
--- 
-2.56.0.455.g6c5a503b38-goog
+Right, it enables aggregation at the NUMA level too, so it can be seen as a=
+n
+enhancement. I'll drop the "Fixes:" tag.
+
+> Maybe some benchmark results in the
+> next version would
+> be helpful to indicate that no regression is found while there is benefit=
+ on
+> multi-node
+> domain systems (NUMA balancing enabled/disabled, etc.).
+>=20
+
+Sure, I'll run benchmarks with NUMA balancing on and off and include the
+numbers in v2.
+
+Thanks
+Jianyong
 
