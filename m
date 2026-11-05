@@ -1,73 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906349;
-	b=jV9EBpAh0xqm9c9men34aOEQzxrF+GtYMxqzT/MpmW8TJIAsP36NoMSFjqivbXZyZSXh
-	 CwB6YJxgngkUtFAFWe/mWWngZWWurBeJETaPy1j74M37ZEvi/5LLj669x/30rjkiD4l3V
-	 +3QI/4ynq0PEi5FNbXwkjS/8E2sPnBjrTyVpyFLiaiWd72db8nttYbbfHyqLnjoHCmMfH
-	 9jfGOm7x8EKGr6kXiPv1YpUlutupPs4jA6jj77YOk2sye+hFlXLxyZI6OLk0mEKcA+489
-	 VNV8GtuZ8ziTr2F1vWyjvOuMlX7cv9iDVSMJ+GJgNq1IntOGHZ+r8K0nTdKcQ+HBr1A==
+	t=1793906348;
+	b=VyMc7wza9SxkSk24hrF1MJOwKKs2oOa60L2lOLEh4IilHsVIbUOONEbknDhXaZvgUQ1T
+	 9HKmSVC8783M9LKkrVBn3zojl43SS+yvYPQk08jKVHHDrGz0mxEK3M5pMU6mlLoXHIOQi
+	 gW5vsrK1K/tS2fd/wxoNXqhYvu9PgOlo1ubDKEzZ/VNUIIbGlJXLNAql9dv4hek4PqWJL
+	 +Ot+GJHrocRAe//PumS6sS1Q3iJuBWZ5LeVryyCLhnxPHUSp1YidLLFs+q4VcXOh8o4Lb
+	 wAM3/4yA1Me4JfYdYAhiTp1NubW1kLG06+XVbhx+13QkZAJ2AEj9ldjp0odjk12m+dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906349;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-FB-Internal:Content-Type:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version;
-	bh=vuMKL4MeBxIRVdSpKFbvUMhYO/YtfoToNH2hzrzeago=;
-	b=iE0eThVsXhYIstbuFBMDA1Q7vcYFsNSurnCBWGccVba/lIUt+fqjjLeoT28VH3JX3iyY
-	 HUA5zttlDA9nFLynI/c3RCZR/gBloBSqedohl2YJqEP3gyF0OM9eIpzAcX38cxGXDXhHb
-	 uE2+Zvp5Nc/X8H6MupF9OVOOkkzUgfA2TlZLZPwpKcl0Vk3t3jkvEq0MaPfKTqpIDnNpQ
-	 4XYIRk/IFobCtzx4SyrIiLhbB1RxltSYqDIygOfZho7BrZHhfA3e3shTiPFZzZK33iJaU
-	 05bQI7S0A6cAiqJ3B0CfRsrknPNDXzTcMwzVMayph7e3ZxWFwZw8moPpmjpdQ5IjdUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906348;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:X-Mailer:From:To:Cc:
+	 Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:
+	 Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=4KTLjFOLB3Bw3rwGT8qot1q76+iLWn9KmQr9KnByOio=;
+	b=dNzbKIeSx7891+5XPmNzlfXDICa6oDAckulvgvlzq9j/7VBfNqxVHViXVxe9PwRMCroS
+	 7P3X3BBW6oIseRQdSP4SWWGiHun0alZd7uE9lV65hNbNCw2u7OQGo1284tNMR5HjyaNGX
+	 niEzKbc102dAFu4IcaWwbqXD8OFO8YlcdFhy4PFzLmnVsxyHRsPhBNUzMy3Uf+O6LDsTJ
+	 2/sp8snnkM5R8vBlA4AkeX6qrGGei+fSELfMmTod1gO4LghrJ4uVf2lRDhEtw05WgzNkB
+	 zgK45t6LBE72Q/Pxg1FogNl+hPptJAfJ1fwB2Ds95h3IhVhBJCNmcqF9s4N/FOJy+lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Olw5oDdX;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fqwqf.xyz;
+	spf=pass smtp.mailfrom=send.fqwqf.xyz;
+	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=0LMjIwBb;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=YDzFYP+z;
+	arc=none smtp.remote-ip=23.251.234.50
+Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC70606A333
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:19:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC70606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37698606D803;
+	Thu,  5 Nov 2026 19:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37698606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Olw5oDdX
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5J5oCs576959
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 11:19:06 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=vuMKL4MeB
-	xIRVdSpKFbvUMhYO/YtfoToNH2hzrzeago=; b=Olw5oDdXMTbpDd96kwpFhMmQ4
-	xR0an3jViZ/tnQFrtdbYuNE8dZDw3UPUR74l5BdB+lEEeRXRk8owyEvnEHhnYJUp
-	4dFZRVx0gmh3UFqsyd8ML7IbCf+Nx+aNirzqbFUuH6zK5Rg/gnsVHrQiyOWtWSdk
-	CsPxpy6zFOOzikHT10UM5vhxRiwu83lKhDv+KkvYzLn82apA31oghb+i0k+H0Xmh
-	Vn0kYGh+aI9jNHuaQdHP1g9wRzwU0DYzp7Jtve/ejvs7UN6DaVUbkwxfkVhxM9K/
-	eQQknQW/MNMgTmSOfB9z1/xjI5eBINTw98vyu3yplM8Vflg591gojgzdVKERw==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hrbck8j7p-5
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:19:06 -0800 (PST)
-Received: from twshared18199.01.snb2.facebook.com (2620:10d:c0a8:1c::11) by
- mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 5 Nov 2026 19:19:02 +0000
-Received: by devbig197.nha3.facebook.com (Postfix, from userid 544533)
-	id F296F2E811C62; Thu,  5 Nov 2026 11:16:00 -0800 (PST)
-From: Keith Busch <kbusch@meta.com>
-To: <tglx@kernel.org>, <bhelgaas@google.com>
-CC: <maz@kernel.org>, <lrizzo@google.com>, <hch@lst.de>,
-        <changfengnan@bytedance.com>, <namjain@linux.microsoft.com>,
-        <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-        <linux-nvme@lists.infradead.org>, Keith Busch <kbusch@kernel.org>
-Subject: [PATCH v2 0/2] genirq, PCI/MSI: mask without flushing
-Date: Thu, 5 Nov 2026 11:15:54 -0800
-Message-ID: <20261105191556.4042191-1-kbusch@meta.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=0LMjIwBb;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=YDzFYP+z
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1793906345;
+	h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=KjK6/it5+2sDEN6+68hm612BuS7rPhjf+Cw6EfwhY+Y=;
+	b=0LMjIwBbEXV9VRucSky8VB+NQdqv31r1REne19ATooStdbHX+56adyHFlDWtVxEj
+	FkK2gF4I/NiBi+29b8MfLpGmqFlkldRnKu2jZhGI4uY3d9XQmyge4rIwMFFH17bQbGR
+	m/Y45ysn0SydDhUKljfPni284lTo41RsMWM9cmnc=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906345;
+	h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=KjK6/it5+2sDEN6+68hm612BuS7rPhjf+Cw6EfwhY+Y=;
+	b=YDzFYP+zC6Rxrtg6NwWfbj7rC1WKjAyMGY64NSErEQFfQHijuFvqPEUN9xRHxtyj
+	REq2FY6i8QIzuUIiUYtdKTMRGOQnjv9MDPl8ztGSiFCKlSf49gz0Yll+AStUY3lorAA
+	wjSAXMgFmJU1vQhiJp1ANGl9n8rgmc461kWooOZU=
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] dmaengine: qcom: gpi: match control interrupts to the
+ pending command
+Message-ID: <010601a1ad2686dd-235641c9-2f2e-49d3-9ef9-3070b49614ce-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 5 Nov 2026 19:19:05 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,68 +68,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA3NiBTYWx0ZWRfX+IifLdFXs0LI
- PnMdM4KzUewKMfiQEn1JZ/PiVrxo/BLN9rbCzNMyDRPBjJGYG573kvR0fB726MkHnQRCFHAlIZE
- 9lO3BXEdNntLCJVmurZ9OPhB7xL2rB0gZfxEMU1NSuvr1s6CQ39Txi0mpuQ0oEdmGI49tX9AFtv
- CpoFV7HyZSnMPOzI/nzLqPvAFs8xoUlBA9J/be7o0vdcbXUTujOdmcIPnjJ1bdt9yuDbKY7eL2f
- GXU/sW4wvZShxgnhXAHMBvtn7T78qg8fLeNUgDbrqlOSqDJAw4zg3VfKKS6bw3RIfvE81MIK/1l
- S1MY2ZuQ4fo/B/7zj585PVT+7JN6eF7xJoOg+9+Y3X3+fNmpoE7qqfr8VBVNSmnblIaY6m0CTNm
- YP5l1C3TsfRSnYv4dlIjeuweyKgCAZf2Wu1cHH7B+js1zlP4rqKifNRcCXHtx1pi0FEr/xw0D7r
- sMXdcvzY6QkTFMhi/qg==
-X-Proofpoint-ORIG-GUID: XSIPWi3NIbYHEDA-m1Zi5ht9o9gfYw7L
-X-Authority-Analysis: v=2.4 cv=bp/Zl0ai c=1 sm=1 tr=0 ts=6aecd6aa cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=03ozwUkBphtHgyqjj1sw:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
- a=TAX1gFrxjG5BdyIcG9sA:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: XSIPWi3NIbYHEDA-m1Zi5ht9o9gfYw7L
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA3NiBTYWx0ZWRfX6jtqV7+bLMrP
- PKWREbHrPBsp2fAh7ScD8fbxM67CTnLLQ3dfA6weuPMPAc6ZSfd4/UFDh05QuUWqUf55FAXdiPC
- mikxGt0r2FPzjo7TUZtXbaqW44EmYcg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.11.05-23.251.234.50
 
-From: Keith Busch <kbusch@kernel.org>
+Each GPI instance shares one command completion between its two transfer
+channels and event ring. Both control interrupt handlers complete that
+object regardless of which target the pending command addresses. A
+control interrupt for the other channel or event ring can therefore end
+the wait early. During channel deallocation, it also applies the synthetic
+not-allocated state to every channel reported in the interrupt status.
 
-This adds a new irq api, disable_irq_noflush(), backed by an optional
-irq_chip irq_mask_noflush() callback, and implemented for PCI MSI-x. It
-writes the mask without reading back, and is for callers where an extra
-interrupt after returning is harmless compared to the added latency of
-flushing the masking write to the device.
+Record the pending command and target under pm_lock before writing the
+command register. Only complete a pending command for the matching target,
+and restrict the deallocation state override to that target. Clear the
+pending flag after the wait, including on timeout. Preserve updates of
+hardware state and the STOP_IN_PROC transition handling for all channels.
 
-There are no users in this series; the hybrid irq/polling work from nvme
-is expected to use it when switching between MSI-x interrupts and
-polling, so these are posted separately as prep patches that are
-hopefully generally useful.
+The existing ctrl_lock serializes command issuers. This change matches
+the interrupt target, not individual command generations: it does not
+attempt to distinguish late completions for successive commands to the
+same target after a timeout.
 
-RFC with the nvme usage:
-  https://lore.kernel.org/linux-nvme/20261013223543.395054-1-kbusch@meta.=
-com/
+Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
+---
+This is independent of the downstream QSPI controller changes used on
+my Surface Laptop 7. A version of the target-matching logic is in that
+working kernel, but I have not reproduced the delayed-control-IRQ race
+on an otherwise upstream kernel.
 
-Changes since v1:
-  - Keep the channel offline check guarding the flush read in
-    pci_msix_mask() (Sashiko)
+The patch applies to dmaengine next at =
+6628e7d4c6b. An ARM64 W=3D1 module
+build passes against my prepared kernel =
+build. An ASan/UBSan harness using
+the actual send and interrupt functions =
+passes 3,206 command/IRQ cases,
+including mismatched channel/event =
+notifications, STOP_IN_PROC, timeout
+and pending-state cleanup. The =
+unmodified driver fails that harness.
 
-v1: https://lore.kernel.org/all/20261105182706.3700908-1-kbusch@meta.com/
+base-commit: =
+ee9c669f9bf5fd2c24206746ded9382fe810df89
 
-Keith Busch (2):
-  genirq: Add disable_irq_noflush()
-  PCI/MSI: Implement irq_mask_noflush() for MSI-x
+ drivers/dma/qcom/gpi.c | 23 =
+++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
- drivers/irqchip/irq-msi-lib.c |  1 +
- drivers/pci/msi/irqdomain.c   |  6 ++++++
- drivers/pci/msi/msi.h         | 10 ++++++++--
- include/linux/interrupt.h     |  1 +
- include/linux/irq.h           |  3 +++
- kernel/irq/chip.c             | 31 +++++++++++++++++++++++++++++++
- kernel/irq/internals.h        |  1 +
- kernel/irq/manage.c           | 21 +++++++++++++++++++++
- 8 files changed, 72 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
+index a5055a6273..9479adf55d 100644
+--- a/drivers/dma/qcom/gpi.c
++++ b/drivers/dma/qcom/gpi.c
+@@ -514,6 +514,8 @@ struct gpii {
+ 	struct tasklet_struct ev_task; /* event processing tasklet */
+ 	struct completion cmd_completion;
+ 	enum gpi_cmd gpi_cmd;
++	u32 cmd_chid;
++	bool cmd_pending;
+ 	u32 cntxt_type_irq_msk;
+ 	bool ieob_set;
+ };
+@@ -684,16 +686,23 @@ static int gpi_send_cmd(struct gpii *gpii, struct =
+gchan *gchan,
+ 	dev_dbg(gpii->gpi_dev->dev,
+ 		"sending cmd: %s:%u\n", =
+TO_GPI_CMD_STR(gpi_cmd), chid);
+=20
+-	/* send opcode and wait for =
+completion */
++	/* Publish the command and its target atomically with =
+respect to IRQs. */
++	write_lock_irq(&gpii->pm_lock);
+ 	reinit_completion(&gpii->cmd_completion);
+ 	gpii->gpi_cmd =3D gpi_cmd;
++	gpii->cmd_chid =3D chid;
++	gpii->cmd_pending =3D true;
+=20
+ 	cmd_reg =3D IS_CHAN_CMD(gpi_cmd) ? gchan->ch_cmd_reg : gpii->ev_cmd_reg;
+ 	cmd =3D IS_CHAN_CMD(gpi_cmd) ? GPII_n_CH_CMD(gpi_cmd_info[gpi_cmd].opcode=
+, chid) :
+ 				     GPII_n_EV_CMD(gpi_cmd_info[gpi_cmd].opcode, 0);
+ 	gpi_write_reg(gpii, cmd_reg, cmd);
++	write_unlock_irq(&gpii->pm_lock);
+ 	timeout =3D wait_for_completion_timeout(&gpii->cmd_completion,
+ 					      msecs_to_jiffies(CMD_TIMEOUT_MS));
++	write_lock_irq(&gpii->pm_l=
+ock);
++	gpii->cmd_pending =3D false;
++	write_unlock_irq(&gpii->pm_lock);
+ 	if (!timeout) {
+ 		dev_err(gpii->gpi_dev->dev, "cmd: %s completion =
+timeout:%u\n",
+ 			TO_GPI_CMD_STR(gpi_cmd), chid);
+@@ -770,7 +779,8 @@ =
+static void gpi_process_ch_ctrl_irq(struct gpii *gpii)
+ 		 * not change hardware status. So overwriting software state
+ 		 * to default state.
+ 		 */
+-		if (gpii->gpi_cmd =3D=3D =
+GPI_CH_CMD_DE_ALLOC)
++		if (gpii->cmd_pending && gpii->cmd_chid =3D=3D chid=
+ &&
++		    gpii->gpi_cmd =3D=3D GPI_CH_CMD_DE_ALLOC)
+ 			state =3D DEFAULT_CH_STATE;
+ 		gchan->ch_state =3D state;
+=20
+@@ -779,7 +789,9 @@ static void gpi_process_ch_ctrl_irq(struct gpii *gpii)
+ 		 * Stop in process is a transition state and we will wait for
+ 		 * stop interrupt before notifying.
+ 		 */
+-		if (gchan->ch_state !=3D =
+CH_STATE_STOP_IN_PROC)
++		if (gpii->cmd_pending && IS_CHAN_CMD(gpii->gpi_cm=
+d) &&
++		    gpii->cmd_chid =3D=3D chid &&
++		    gchan->ch_state !=3D =
+CH_STATE_STOP_IN_PROC)
+ 			complete_all(&gpii->cmd_completion);
+ 	}
+ }
+@@ -877,13 +889,14 @@ static irqreturn_t gpi_handle_irq(int irq, void =
+*data)
+ 			 * cmd does not change hardware status. So overwriting
+ 			 * software state to default state.
+ 			 */
+-			if (gpii->gpi_cmd =
+=3D=3D GPI_EV_CMD_DEALLOC)
++			if (gpii->cmd_pending && gpii->gpi_cmd =
+=3D=3D GPI_EV_CMD_DEALLOC)
+ 				ev_state =3D DEFAULT_EV_CH_STATE;
+=20
+ 			gpii->ev_state =3D ev_state;
+ 			dev_dbg(gpii->gpi_dev->dev, "setting =
+EV state to %s\n",
+ 				TO_GPI_EV_STATE_STR(gpii->ev_state));
+-			complete_all(&gpii->cmd_completion);
++			if (gpii->cmd_pending && !=
+IS_CHAN_CMD(gpii->gpi_cmd))
++				complete_all(&gpii->cmd_completion);
+ 			type &=3D ~(GPII_n_CNTXT_TYPE_IRQ_MSK_EV_CTRL);
+ 		}
+=20
 --=20
-2.52.0
+2.53.0
 
