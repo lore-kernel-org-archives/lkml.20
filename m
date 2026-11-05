@@ -1,49 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912272;
-	b=X6YZJ2WDCl0q4XtfMirn6tYXkULkmn3WGrqQAKO9GEKkk7GJFGI0ciCWrtJUSz7h1oQC
-	 GBQbP7uFPfRfQtrwVDSxWfxC+UCkrVbKH10jaZBJZca2UIA+sf6xvT/tyTRUX5rkmvqPv
-	 iuxfHfVIQdIieRE2SPPvzHmfD6nk9wMijy8b9rRWYpZShgLCoIASKl53iC2wdmkK0yH4j
-	 HPbH0kx6Z8wxDzMhQSjgzmpzR3zQDjuUyXpEjfR0DzgjXvO32yoMzXguKdHpLb740iEEM
-	 656LwUuymGv9DEyWqRCzIKYTQ4kBWsyOnu+UYvJ0n+fxHo0SPONqcdiNeb5VhYsVKBQ==
+	t=1793912279;
+	b=UpL5ff9JBq6SOnvw2aRMdBO3e6FIdIoDpIMPugRCkqeZ5QUi3OGnNB5DsAcofZPzDHOY
+	 joUXhFLdaojMuc9LE3sKvhT5+pYF3glVIF+iQRalVls3Qjcq4Q8WJfHrx2JHIzV+xhtcA
+	 uDkEuZid7VUKZoU9FSnTT++UBclCq6cGYu9mg0VURuw+9z1eHYkDg27Djbk+MMowwx559
+	 3xsbqPgTIRsm1qlsgxQF9epxdvoijObVD+Zb8R/lbTHwP8307qi5eL3vDLbzQgu/KuWmw
+	 YsB5NvzgbBrwLT1smeM+WnesvCbz2n11qn8luQX4Jn8A3/0nOdRKjWTn+O0QJ23qMQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912272;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=7xdqtRluB5cup6GxSgXqpPix6FEngw788DfFRYAFbYQ=;
-	b=47jNTfgQnEPAGduGz2K+RwtL/nlEYRTvoBjsfLu/7GsIP59cOcJ3hr7Xi56Kl+2LHFGe
-	 dD7X/82nDxUdwUV4oBsUFs2Th1eHV2XvIFRchG02xCyOqwjSBM6lS1l0GNO6FcMJk3Ckw
-	 5u4lr1Nog5Ft56XCils/AyF9LkPVw374TvJQk2mYHOHApPcEtSPodO+E4y6XfeS7NWda5
-	 +oFlEmb0+l9OjLZ4hXs3QSMoO0anMxZ2bQ3QnGEepKGJKx4hnomc8bB+67+4KxmEn1gu1
-	 CZahM6TdS0jchihZyalqBNLruOKCEqSWe9kDcVybOoRR9NJAu/zu/lJOe7zMv9YmVAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912279;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=y3OwD37SrGJresbxUK3F5nIZp/tIcgjb7IQgtuSfY9s=;
+	b=0GJ8qQHz1Fmq7d1sRcSxU+YGq06upX6TUuNwQ2pnImM8HcydMYLBpkJyTFPqapupM4C6
+	 YNsm9y4jNjApx//UiEs5JkmzFIPtfoawRlRO/SN4EcDD9LjCq7j45LKC75NzGABkC60DJ
+	 pRpTDfNkr3EXbPxaGiY0ghH4iiWoktjsjUiCVAjOdgf/2B+r3FR5bZmfZDD//eSIozk5V
+	 qwdjLlqpjhgbFep5g8UeiFPAoq6hJWz4wJumgcr8OjgvYUz4ZQhrSkmeXTYnBsPbVdn8r
+	 UPTqX2mHCaUyikSaSeCFf8b+Oih4vL/nMzDeV8KuhKzYsL8RbufsKX9Cp0uPahqZltw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQj2IY9n;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3E4606D810
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LQj2IY9n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F3F1F0089F;
-	Thu,  5 Nov 2026 20:57:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793912271;
-	bh=7xdqtRluB5cup6GxSgXqpPix6FEngw788DfFRYAFbYQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LQj2IY9nFKHkOEffPPb8K+DnflcDR5ZszPHu6UFORi8e716U0QBk48/uh4E6uCBEt
-	 uMAtwlHbzn6NA9/Sl+pittFtC+t9OMIDdJ1XO08NYpVhs6E9BwdzSOfpAq6Ukym0e9
-	 NP6bNxv29/hrPbR3qLXmXc2trCNPFAz0rNnCMbY1keGlWQaaENF7BOeDsg4ZnmBoik
-	 m+mLIpuCLc8IpzZBhqEhk+GHyDBGeXH59shKfBJRbgvGn7bmawmYw6suu4crfCSfWf
-	 y0FNroeQlCxN2DGv6kibMzQsTkI4m9UMWOuq6vPspGW5jX9HKlDvfrja73qUWQ+hlt
-	 EWONfDc7SALcA==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 05 Nov 2026 20:57:24 +0000
-Subject: [PATCH v2 3/3] mm/khugepaged: release contended mmap read lock
- after scanning enough VMAs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41B5606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A41B5606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so2003118a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:57:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793912278; x=1794517078;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=y3OwD37SrGJresbxUK3F5nIZp/tIcgjb7IQgtuSfY9s=;
+        b=wGPv3Z26LXh60/agozbmnBKP2F4OF/+BEj7V3aBv4eTFRuFCHOgJSnM5U7xhW+d7pR
+         91yU+TOABy5PC+YUpa6sndIamh4xdEPfjL3XBwOa9jHDWDP2nUSmsLKxout28sOeEJWE
+         BrOzCVEAMkQA7o3LSCWdLTJEmryug9FSuLDyamBWEdg8vdbJqZR25CoCPlxVpXqijRJP
+         xcodcx+1WW8bE0yLhFpWg7YT7GxJU0gndbBNuPY/uDaXCcZKa6EA5J+qMqdKxgJoRcJ+
+         ALOuQspZ1CVG+9k/O40TxCUxKvGgLit4c0FWmjqXmEfNUKQ40MwrTBlo3ghNSNHIwuYz
+         Sb4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzgGme7va+FPELVUgqsNcS113HNQW99m+n7QGxpSRr9G0BeUQzLQ31Xc78TntV/TlSKq4J8AB3dee3772Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9iBeB/EbHzLmHH9wC0iIuTMsBe+12Vc869WgkLKszjdDH5ZwMi
+	MQttRhlckAMHkhz9pjE0MKleX1MJ+lFOsoBtOl1yp9nBbhuzCYnbLpiAio7HAA==
+X-Gm-Gg: AYBFou30g6a9uhLC/ZTOFY7YGpqL6p8yQb5NU0Q7Adr9BqQKo87MfLDCZPXvWMlwqaT
+	LoTP9bGo2EEtpDpD1j2OdT1JY/ZK9djfaybKQy6HnWaMJFJaxtqUxbutDU//sNPuXG/sGwDedd9
+	evF39K2hkt4kifRQmtdoXe+jG81EpJz/kN4GwEIg9ujvLo0ztiPZL5aR50xES9o55XyvxiMj9ob
+	iF4iCIAdaIEjyo2bl5+s4ZVH8gO+li+U6eUkFsPgeHmVxyPU9Sug7AZe3yv6fjeH4Sa4/HU4BcB
+	lpv8ItSjhwHg6XnYbIn2uVR0VddCYKN3ZyvxSh4T+DmGfK+GK8sfVNwPCEq72qggVhvzcdop1y2
+	rxV3WAluobiOuXgLMGfG1rZyQbmhhifSp5I6GOTjow51qaUoUyBIUwVM/eHPY6jtImYvF1mBRSZ
+	yNLKKPQ5tewnU5bJ5IwY7Rtt8RwwxfNK7hDYGKFe9j9GDG4lNmYpQ14OKLL4ixehwn8LEx6kDpi
+	XS4wJtVYpkyN07j9oXAMzF4Pf0Hgi+iZGURr9IGOZ6yWfmiCOKKacjPJ7hEKR+I3qKDZfnyX/2g
+	T3gnNw9JbjdR1dPX6GdLlG/aZer3QJ80z6hHMK0FZJtfTOwwQTlDY8F+beT6eeRAEesM+8gn2RL
+	TavQemYQYN3VhhjxHW15izGQokjSBONim
+X-Received: by 2002:a17:90b:314e:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3b0db70531fmr203036a91.52.1793912277992;
+        Thu, 05 Nov 2026 12:57:57 -0800 (PST)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com. [74.125.82.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b323cd3csm5091934a91.3.2026.11.05.12.57.57
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 12:57:57 -0800 (PST)
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36d6765756fso3048968eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:57:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxDhftYk3fvz9GjBuq2I409kYhrXBQ2sbuNOs4Ph4cGVaynYcsg1Vz9jo1yRmhSYQmkc/hg0yuiD1ra6wA=@vger.kernel.org
+X-Received: by 2002:a05:7300:ea91:b0:36a:6d52:e16c with SMTP id
+ 5a478bee46e88-36f75253924mr438929eec.12.1793912277153; Thu, 05 Nov 2026
+ 12:57:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,139 +81,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-khugepaged-latency-fix-v2-3-4384bbfe4606@kernel.org>
-References: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
-In-Reply-To: <20261105-khugepaged-latency-fix-v2-0-4384bbfe4606@kernel.org>
-To: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4235; i=ljs@kernel.org;
- h=from:subject:message-id; bh=wTj1jzVxGSI+LKIQFtrQdvwrFwZUi3YFGMYMG09Fs1g=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLevD2oIB2c1mZ//msz+7SM5suGYQde6kyWXil4/JY4o
- 03fxoabHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIbneG/3WBB1cp3L14TXpN
- yTNFebNw787vLg8fepuey85Z6qfZr8/wP2HV91N+hueELS7P25HDFaA/V5iTe9+/Z2xXsmWKhDt
- m8gIA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+ <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com> <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
+In-Reply-To: <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Thu, 5 Nov 2026 15:57:45 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
+X-Gm-Features: AclHuK9hGSAdRKsJYKbyzOuaSV6hdi58LXaj_oUeX5Eo9bGiXxx_BR0j2WjKwyM
+Message-ID: <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-khugepaged walks an mm's VMAs under the mmap read lock in
-collapse_scan_mm_slot(), checking for ineligible VMAs first, and skipping
-them if encountered.
+> Do you have access to another board which has a PHY connected, not a
+> switch?
 
-It charges cc->progress 1 page against the /sys/.../pages_to_scan budget
-when these are encountered, however only checking this budget once an
-eligible PMD-spanning VMA is encountered.
+No. The GL-SFT1200 is the only SF19A2890 board I have, and the only
+other one I know of, the vendor's evaluation board in OpenWrt, also has
+a fixed-link on this port.
 
-It can therefore hold the mmap read lock for a long time if there are a
-large number of ineligible VMAs present in an mm, over which time no mmap
-write locks (and thus no VMA write locks) can be acquired.
+> There are unexplained delays here. Is it the switch, this MAC, or the
+> PCB?
+>
+> We need to understand if tx-internal-delay 0 really means 0, or it
+> actually means 1065ps.
 
-Address this by checking whether the mmap lock is contended after every
-KHUGEPAGED_MAX_VMA_SCAN_BATCH VMAs walked, that is a quarter of the
-pages_to_scan budget, and if so dropping and re-acquiring the mmap read
-lock before resuming the walk from the per-mm cursor.
+I can't tell that from this board. The sweeps measure the sum of the
+MAC's delay line, the switch and the PCB, and I have no documentation
+of the line's own delay at step 0.
 
-As the walk is resumed from the cursor rather than the VMA that was current
-when the lock was dropped, the cursor must never move backwards. A VMA
-ending at the top of the address space causes ALIGN() to wrap the cursor to
-zero, so treat such a VMA as the last in the mm rather than skipping past
-it.
+What they do show, in the MAC's steps: the windows repeat every 8 ns,
+which puts the start of both eyes about 4 steps (0.2 ns) below 0. TX
+ends at step 51 and RX at step 28. So with every delay at 0 the link
+works, but right at the early edge of both eyes.
 
-This was tested locally with ~1M ineligible VMAs mapped ahead of a
-collapsible region of memory, and resulted in a reduced mmap_lock hold time
-of 170us down from 95ms.
-
-This was also observed to reduce mmap_lock stalls in concurrent threads of
-a similar duration. Note that a reader re-acquiring the lock can currently
-steal it from a writer that is queued but not yet running, so the full
-benefit to writers depends on the separate rwsem change at [0].
-
-Local measurements indicated no change for ordinary use cases, so this is
-all upside.
-
-This work came out of investigations into mmap stalls when getting latency
-numbers for an unrelated patch series.
-
-[0]: https://lore.kernel.org/all/20261105-rwsem-dont-steal-from-queued-writer-v1-1-275e070f426f@kernel.org/
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/khugepaged.c | 31 +++++++++++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
-
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 216c4b8d28c4..eaa01dae5a03 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -66,6 +66,12 @@ static DEFINE_READ_MOSTLY_HASHTABLE(mm_slots_hash, MM_SLOTS_HASH_BITS);
- 
- static struct kmem_cache *mm_slot_cache __ro_after_init;
- 
-+/*
-+ * The number of VMAs to walk before checking for, and relieving, mmap lock
-+ * contention, as a function of the pages_to_scan budget.
-+ */
-+#define KHUGEPAGED_MAX_VMA_SCAN_BATCH(pages_to_scan) ((pages_to_scan) / 4)
-+
- /**
-  * struct khugepaged_mm_slot - khugepaged information per mm that is being scanned
-  * @slot: hash lookup from mm to mm_slot
-@@ -2910,6 +2916,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 	struct mm_struct *mm;
- 	struct vm_area_struct *vma;
- 	unsigned int progress_prev = cc->progress;
-+	unsigned int nr_vmas_batch = 0;
- 
- 	lockdep_assert_held(&khugepaged_mm_lock);
- 	*result = SCAN_FAIL;
-@@ -2942,15 +2949,35 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 	for_each_vma(vmi, vma) {
- 		unsigned long hstart, hend;
- 
-+		/* Relieve mmap lock contention after walking a batch of VMAs. */
-+		if (nr_vmas_batch++ >= KHUGEPAGED_MAX_VMA_SCAN_BATCH(progress_max)) {
-+			nr_vmas_batch = 0;
-+			if (mmap_lock_is_contended(mm)) {
-+				mmap_read_unlock(mm);
-+				cond_resched();
-+				mmap_read_lock(mm);
-+				vma_iter_set(&vmi, mm_slot->address);
-+				continue;
-+			}
-+		}
-+
- 		cond_resched();
- 		if (unlikely(collapse_test_exit_or_disable(mm))) {
- 			cc->progress++;
- 			break;
- 		}
- 		if (!collapse_possible_orders(vma, vma->vm_flags, TVA_KHUGEPAGED)) {
--			/* Unable to collapse, skip to the next candidate. */
--			mm_slot->address = ALIGN(vma->vm_end, HPAGE_PMD_SIZE);
-+			const unsigned long next =
-+				ALIGN(vma->vm_end, HPAGE_PMD_SIZE);
-+
- 			cc->progress++;
-+			/* Check for overflow. */
-+			if (unlikely(next < vma->vm_end)) {
-+				vma = NULL;
-+				break;
-+			}
-+			/* Unable to collapse, skip to the next candidate. */
-+			mm_slot->address = next;
- 			continue;
- 		}
- 		hstart = ALIGN(vma->vm_start, HPAGE_PMD_SIZE);
-
--- 
-2.56.0
-
+Until that is known, how would you like v2 to describe this board?
