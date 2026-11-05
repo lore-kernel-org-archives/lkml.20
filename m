@@ -1,49 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870086;
-	b=b+Uev59NEtgf2b3HSLrDBlCBdmf3722TImqvZTzhxc9WaRDb8hQidt5kw0newmPkZ2YG
-	 aegwf2Oz9m0eEkohCWOthp0Ee7RQ0XCZqFiN3S6l2IeXUMFD3GqoGIgR+tcOd7dsrotYF
-	 VMI/crkwUcsl+W+Pdrl7q8eK187czFSuPXMeioU21LiQR84ttxgMAhJNIlo2ppJOp9+gI
-	 bjODWag6U/pd0fIDntWosmMVhMgIj0jT7z8D8pbOvSzOBr0X3oej4CtBxR4H3CRBKxIYy
-	 AfSBNe+4nYP2P/cVWpLi9xw52mgvUYJ8dN3oVWvk8wkZf+HVHFH+SiJTjbdogbYv1bA==
+	t=1793870129;
+	b=IJaVpWGnm8fgT0d97TWf+LXo4BxSizJrDID8W3bXLmmLa0JXSWAAG701mJDs/hJ8FuyO
+	 MQBOGGsu29Jfnxrj31FRM7qyxQnquv1gZMiu8Us2YDefk1qAozd/CefQvNy/q0WPXyMLt
+	 VxHnwV7LtTZFyB9rclDartJUY9QDZ9H6cDQ36mR9g7saVbqEBouWF7P9QGWVzlsCbO77m
+	 nsX9TvNHiJjZ5JNnJ//jYW8hgbWu1uNPxg2ROUw2mR7SOnnrqQDVMB9e6zGqMLpcx4oSZ
+	 M55c0sij4qej0E/YbIC+OMaMuUGSYy0vuWqsHajhET/Z1hvTG1t0uBQfjC+snh/9ZJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870086;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=i8wu4ldu0ctG+v5/R50fZxVjOYm5zkL0ZBbxTjniobI=;
-	b=W6Ge2o9OTmnJWRaHy0yehh+8a2ecEjeW65QGN38X3xa0x2pbVDZdiT88o9AdrCxFJbaD
-	 4w8V0sAIzyCqVHN5QMm2ynpMZtvgliZLTbAcHvbZdZN0hZ3M29fLH04C74emTVE9F7aCK
-	 MtAw55u57CB9j9owLkhoqJuGuXmDg7tVGqmNeJrVRfY8KR0fU5FE64uvF/FkqPFfz87oy
-	 2B7+ANbPXCvs/uX20UPkRx2OBHCz/HMVHovkPAR+6VyBQRqG3vxHHDBZj3yG/HehniT5Q
-	 mx/fVrGHhA915cGrAWgCpK2y/XtM9IeH3N8ZtSulFte/okQbU80kTPEuLmkEutFXqPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870129;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=gp+XvZ8u5ZE7X4dajdQ+NYbiZBnTVLgwCjJL4l80lxA=;
+	b=t0nLSVxQUHd8GR+2TvEO27J1rlPB+DoHOGlOBP9ojb+UcYUnsvJTrg3RdBvO9XD0hTVt
+	 PodoXWjEwf2NXdvSztPvGVDvKOQgrso9vDLgsFypmZ2IAyfAE0RA+78NzZwdDNY5DEBSp
+	 2oK2BdrHpR98b9yXirxqMtNw+TQgC/Q01h8ee9Os7o8H9nqFiQ5yqAxvUjsU1OxUUZF+Z
+	 zbg5LudrtJ4BzZHROUlkwZphEaitqRIuj75qw45gMOjBToWFdhn9b0ucqaxFQSalVXaFo
+	 yhQpimfyn9NwlAO5+2BYSh81DVU+oQCyzsgUvQJRGRflq/zmF6Xa5ezFgKi9BD0gJkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=D4Ltd34s;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3212E606A31B;
-	Thu,  5 Nov 2026 09:14:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3212E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=D4Ltd34s
-Received: from [192.168.1.14] (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 9AA5120B7166;
-	Thu,  5 Nov 2026 01:14:20 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9AA5120B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793870063;
-	bh=i8wu4ldu0ctG+v5/R50fZxVjOYm5zkL0ZBbxTjniobI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=D4Ltd34sEKHPD18nhlIWm5KNBTyTSdlyW+GsKEnAJBWG4wbIXpgA1crL6iRWcyp+z
-	 bYMTmEZO552Epal8dLsOC4Fp3/w3zekszksW0RsIar4Dhi9CKNhiYCFh0e/7LeLDAv
-	 To6I+maSI1WMGn+PRC0hJ+9ypm4uEw/sMTUUqvcc=
-Message-ID: <d3764ad4-9c95-470a-a3c2-474600657405@linux.microsoft.com>
-Date: Thu, 5 Nov 2026 14:44:32 +0530
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61A3606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:15:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D61A3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e7ad9f78dso196011285a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:15:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793870128; x=1794474928;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gp+XvZ8u5ZE7X4dajdQ+NYbiZBnTVLgwCjJL4l80lxA=;
+        b=JRTyeXpTwDj7+fBK7y9j46KYB0U0W6lFlHdGC+O98z5ePgjCrLVC6r8TRx5O6PT9oy
+         cT9hHXoWRqEDUx0LdWJ7XDOywmtNmtDKh1jp3lMDyZm9Onx77a+RAYk5elAtAY0z60Zj
+         rFqWQQ/dDJuCBnhO6lpZR6AoH5mJO/HIretymCcpCMDI7x21vmDozbZGm0xYwosQw0I/
+         TRf3SRkHJREJvusUc4RVTOnrsQPsQy8vOr7hHVPHCKW7lPE9W7aXEL9xed/exSgi+oh4
+         p6FzRs4RaDIiGIDtuItSnObHnCA8UbbGWpCiyF7jbfaqvlIObIm/glRLfq4aE/JAE/ag
+         IUNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwCEUhlS0Og3T8CiIfjPn/OYPk0+HX7Fodic5Wv1vgYXeHyvGHkAq9XM4cT1e08lfiQ8S4M5EnXKmxHqCw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/x+7eIB2OwYYIEDw/bN+pnY/k/A/mvx3Rj7R8eswBxibEW2+uB
+	D3o1zZVeFbySGoj0kkVIjsYqsOTO+PqkAdSDxgq6Xf7IjF6zQX9kyDJbpOqmmW6eZDY=
+X-Gm-Gg: AYBFou1xtiw41lkURIzX568iVXapaJGmy/D5HTv6LxKEp4Yw43h5HByxphJno/1Zms5
+	e9E+ZIKWEWrsHhDwRfJxvgq/Zohod8g/HjlfR6l3hwBlq8QIbW5baSDGeiyEg1FQZGVYr78lfx4
+	v5TDNmZGlIA64wzYLQ+A4vjDg85RDQ0vBauWLRuQb7Jz6zd6VOt16cfJ4jmhZGLVfEYdmGnWdDI
+	ADT+Dr8tCrSdJE3FOphd2mVoq8KAkurfGEKv4W8NaoKGp9VT2JQVxOF+vuXGVKIV3dU8kDWoQPo
+	YA4Y9E2beWUOXIBC4K+pt8x8SaYCW+Nc9ZYqNoE5myKCm1rpzS4dQ2CAzkFQCiCZn+Brz2LCeU+
+	T31XraqLZSZDMeiMo40RfIRLIKavyBYtr/REhyvVaICKF5RbNszUkJZAh4y2BpgbIC9ymLOrCTQ
+	6yxD9HH6SLMK8rTgs2tiKDqkqLQh0KVXO2Eip8StI+jU3sLYgmqywY1TcdWLrFgo/qZx0bnz3rv
+	3p2vEDQ42gkY9mQJjWWDCPiaTHqskwUp4ZhWjMA78t+YEmTm6gweqAXNlJ2dFjfhcDHORwqN0Hc
+	ABJgEzm8uPrJfWdNkTBn16/sKeB1LZvjvo7J+RXxL8f3NWZ7FwVVRlX7TSEy+8T4NIhbGw==
+X-Received: by 2002:a05:620a:84c4:b0:93f:dea:3b7e with SMTP id af79cd13be357-9442171286amr2995797485a.24.1793870127742;
+        Thu, 05 Nov 2026 01:15:27 -0800 (PST)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com. [209.85.222.177])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4814c0asm416090485a.20.2026.11.05.01.15.27
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 01:15:27 -0800 (PST)
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93ece7a73b9so191016985a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:15:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxZaY0gmsiY6vpWPn6M4tMQCmBikNpoVaGlVuZ84Dzbl+g6dgjgePQrPM0ZCbUD2rGPvwIpdP5ddKplte8=@vger.kernel.org
+X-Received: by 2002:a05:6102:c4f:b0:7cc:3eb0:6ece with SMTP id
+ ada2fe7eead31-7d072d53fa3mr9146730137.33.1793869733877; Thu, 05 Nov 2026
+ 01:08:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,86 +80,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Drivers: hv: util: Fix transport teardown on util_probe()
- failure
-To: Andrey Misiurov <amisiurov@cloudlinux.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>
-Cc: Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261104203049.1031148-1-amisiurov@cloudlinux.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261104203049.1031148-1-amisiurov@cloudlinux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 5 Nov 2026 10:08:40 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWHyQhJwFHd5dguORb0=KTeQPT8AwMr0Uo6UAJRcn-fsg@mail.gmail.com>
+X-Gm-Features: AclHuK-Joxo1A4dnmlO7hQLoxC6QCg3Be9nelvt7mgpbpsg01EIWZ9Dok6aJ4CQ
+Message-ID: <CAMuHMdWHyQhJwFHd5dguORb0=KTeQPT8AwMr0Uo6UAJRcn-fsg@mail.gmail.com>
+Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
+To: Frank.Li@oss.nxp.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Russell King <linux@armlinux.org.uk>, Richard Genoud <richard.genoud@bootlin.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Chunyan Zhang <zhang.lyra@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Cunhao Lu <1579567540@qq.com>, 
+	Raul E Rangel <rrangel@chromium.org>, Yenchia Chen <yenchia.chen@mediatek.com>, 
+	Zhiyong Tao <zhiyong.tao@mediatek.com>, Carlo Caione <ccaione@baylibre.com>, 
+	Moteen Shah <m-shah@ti.com>, Kendall Willis <k-willis@ti.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Kartik Rajput <kkartik@nvidia.com>, 
+	Fan Wu <fanwu01@zju.edu.cn>, Nicolai Buchwitz <nb@tipi-net.de>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
+	Shitalkumar Gandhi <shital.gandhi45@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
+	Sherry Sun <sherry.sun@nxp.com>, John Ogness <john.ogness@linutronix.de>, 
+	Pan Chuang <panchuang@vivo.com>, Petr Mladek <pmladek@suse.com>, Robin Gong <yibin.gong@nxp.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu <2426767509@qq.com>, 
+	"Nikola Z. Ivanov" <zlatistiv@gmail.com>, Haoxiang Li <haoxiang_li2024@163.com>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Myeonghun Pak <mhun512@gmail.com>, 
+	Wenhua Lin <Wenhua.Lin@unisoc.com>, Cixi Geng <cixi.geng@linux.dev>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>, 
+	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
+	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
+	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
+	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
+	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
+	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Mon, 2 Nov 2026 at 18:56, <Frank.Li@oss.nxp.com> wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+>
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper across serial drivers.
+>
+> No functional change intended. Prepare to make struct
+> dma_async_tx_descriptor private to the DMA engine.
+>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
+>  drivers/tty/serial/sh-sci.c         | 9 +++------
 
-On 11/5/2026 2:00 AM, Andrey Misiurov wrote:
-> Commit 07a756a49f4b ("Drivers: hv: util: Avoid accessing a ringbuffer
-> not initialized yet") moved the creation of the KVP and VSS transports
-> after vmbus_open(). util_probe() still calls srv->util_deinit() when
-> vmbus_open() or util_init_transport() fails, and hv_kvp_deinit() and
-> hv_vss_deinit() destroy hvt unconditionally.
-> 
-> On the first probe, or when hvutil_transport_init() has failed, hvt is
-> NULL and hvutil_transport_destroy() dereferences it.  After an unbind,
-> hvt still points to the transport freed by util_remove(), so a failed
-> re-probe frees it a second time.
-> 
-> Skip the destroy when there is no transport and clear hvt after it.
-> 
-> Found while reviewing a backport of commit 07a756a49f4b.
-> Not reproduced at runtime.
-> 
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> # sh-sci
 
-Ideally above 2 lines should go as comments in this patch here [1]. 
-Keeping that nit aside, this LGTM.
+Gr{oetje,eeting}s,
 
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> Fixes: 07a756a49f4b ("Drivers: hv: util: Avoid accessing a ringbuffer not initialized yet")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
-> ---
-
-[1].
-
->   drivers/hv/hv_kvp.c      | 5 ++++-
->   drivers/hv/hv_snapshot.c | 5 ++++-
->   2 files changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
-> index 336b278..813bec5 100644
-> --- a/drivers/hv/hv_kvp.c
-> +++ b/drivers/hv/hv_kvp.c
-> @@ -825,5 +825,8 @@ void hv_kvp_deinit(void)
->   
->   	hv_kvp_cancel_work();
->   
-> -	hvutil_transport_destroy(hvt);
-> +	if (hvt) {
-> +		hvutil_transport_destroy(hvt);
-> +		hvt = NULL;
-> +	}
->   }
-> diff --git a/drivers/hv/hv_snapshot.c b/drivers/hv/hv_snapshot.c
-> index 847dc69..a827cef 100644
-> --- a/drivers/hv/hv_snapshot.c
-> +++ b/drivers/hv/hv_snapshot.c
-> @@ -456,5 +456,8 @@ void hv_vss_deinit(void)
->   
->   	hv_vss_cancel_work();
->   
-> -	hvutil_transport_destroy(hvt);
-> +	if (hvt) {
-> +		hvutil_transport_destroy(hvt);
-> +		hvt = NULL;
-> +	}
->   }
-
-Regards,
-Naman
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
