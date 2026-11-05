@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893128;
-	b=0A0da0flefNymL5zX4MtFuuMKj2kgrL7sC+qYrreyj7E5HfaXueWPHLAewC9JueIVhTF
-	 3xLx98F1pBbEJJYC5DdH4yru5KInZQifw9VHHG6FLHsvm6OXdzac6KTK5DXARgYn8aIa+
-	 oSPDqVhaWXKHSRTHu6mZbebzDa7RROporz+44fUA2IcIOvhMxe5dQTheQbP2AdQgGz+dI
-	 befqnuOw050FfLCS4mhBHzAQtIw4kZJkm54nuuq4JhOrlblqJAfW4Z4LSuSh3xclGrXID
-	 ZGe2NRYbFV4Wgo1KuC+m9/W3OXts9KB6HV84CRrOfRNfpnEsHSuWY7lit1AG+hrcgsw==
+	t=1793893148;
+	b=zoRQQGsC+3YNeNq4HjR+Zm3Z1TRJnGHRPOovOxgFzPnSbW8z/ic9hgUBo7HqWBU8SK9O
+	 /zrXUo+VvoKR3bD/oK4r6+5ncWuXBeqZtMt/wqvmkwvrSwMSXEjKHlP5QhR3eMTAFiTLB
+	 Y13elvxGbJJGuz3Jts9tbhPNivcyuhfYt+Yb/DgTtWurkXxchSWp5UaUw92EDAivKZW/r
+	 RUV/LPGMDFHHBIz/zfp3ao3aM1sHqBjSFYTugtFvwWDX8pkEMGGxi4dIRFFibMinqBgW1
+	 bbK+hNtFwJtHkJVDa+JX9E1mi2YuIxu7aUmEdbXVxd/z0jymX6FFU3YznY5zJ+M/8gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893128;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0ZRMOu7q8zj8hzZXCiqSBsOFqMESxoThKf7jqYV+cxg=;
-	b=SjmboVNPTJOyyfChQpYYcM4Re1yhKUjG137scTr2QCtb7WuVNjzcomkr1bnxJn9VId4/
-	 aEYe7iO529HU68Onwc2W4r6vAfkuTpqFWfC2t7RtDRJuUh2Vfl2EFqDnKoEAcU0ASvh10
-	 +tbstJKnSHPeWVDpqPO2fzqWnb2pOUX6tdSnfIc+tCnH2OhPzncQEUvx5k7YTMTtDBpQK
-	 84db0T2q68wHX4htBU0XMyCiQ/kvfk5MjsLJepsk++KCDYMDA3aanLkZeP2YjSEw0zBAz
-	 ScNtYZ3omJLHQMrDD5jZkn8mBhQDfqQTdwaOa6Ekk8PD/2N2f7CGYbC7UUtdkYnrbQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893148;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8JkfHiQEMtf0YYgXubzDg94vF7YvHDx8RH2S+gQfkvI=;
+	b=sCuFwhlEarE9SW1Dz93FFH3K+OEnPbvW4UUBet61ISljnQ3i0cKu9D6DsqVGnJPzOQAj
+	 hKmHDZPNwTWIczGq0YNet6VaB3osrw/U65LoBL6SzpKRMRb1qayiLxm1xaiCqjk5WE3zU
+	 3Kv62gM+2go599v73ZA39M0odsXWbNJs9mZN/UqeCujUsv6uwXDGPx9c37blnp4CnVE+x
+	 K5C3FEJjyu9Ir3mYUc7+Ry8pnPknXTqMrXhqJ5UFS3pu3db5qRsVNLCRf8lHKW9sNhWHq
+	 QnkgDy3NlFAMpOtuHctX5VXe6il7RrTRB9yjj0u6ByJpfNMFtydFEayfiULCuPFO9Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHTnPPRl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=VsxxJdLL;
+	arc=none smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF40D606A336
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470E2606D809
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:39:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 470E2606D809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eHTnPPRl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A58A1F00A21
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793893127;
-	bh=0ZRMOu7q8zj8hzZXCiqSBsOFqMESxoThKf7jqYV+cxg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eHTnPPRlc0IH7Q8u3jaVpzNg12W4eRz/VwrILsZzaVscg0JSbM7yFkdkvamrOilYv
-	 PRIvX/sqpEDayj+Lk93vQDhjPTOAxYuegaE4P94ccLX3a2yR6vMwleDpCiMEZRbaq+
-	 eot6JHGw3a6ueS2ysJI8vNzq/73IwWSIndFB4A75LOh0NlWwZtnMC0cII1bMHcA/HA
-	 e2RmPVM21KYVjaZlRGD7bbnFh3EzkFwlFlXURm3gCqQkcynaax6Ya4QpYxJvMh+YJJ
-	 GCwZbt+jCS1M74E1L5AFBUcH5Noi6xZ+gp8Vk/Gqbu5WYrIkfVNbPow5hRpUT8lahV
-	 YUZWyhqKMB0Dw==
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so1721857a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:38:47 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBy8r+2shfYKZXjf+5gn8rN1XS4k5zWn8mstlfR21FdqToRa+uvaNDaNC1B5dnUxl8w4YlwxHCTVu1cH4Yc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9pMvopx/OEafZH/iSW0Y8rcc+ylS0f1ML7xyx8OxLoHDjWussj
-	hEWaI2b72RqB+0tcdVtEmhQTJ8pdQB2lTCE4AUEZIL2RpNEj2me8FEH7jEBGq0THG/P6y+3BmqE
-	ELgjHJR4lCWXgQvUebJtNJs2bHeWYM9Q=
-X-Received: by 2002:a17:907:5c5:b0:c49:df95:f0dc with SMTP id
- a640c23a62f3a-c4ca7b1b763mr1566645766b.19.1793893126389; Thu, 05 Nov 2026
- 07:38:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=VsxxJdLL
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-945ae2daa66so197224485a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:39:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1793893147; x=1794497947; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8JkfHiQEMtf0YYgXubzDg94vF7YvHDx8RH2S+gQfkvI=;
+        b=VsxxJdLLlfPOOtPonUHzniELq44+vkwx2NhzVYM+d/WiKtYn1rc2Dj9j860sK/BKYk
+         vpoSTrlRbE1PuFq7yuccJcNQWfi3mzALQrIhPdBLpEJMBXoLnnMuwCq6vobOqzbGWQ5k
+         hAIakt+aLJly0qKi/N4qCYMeUPnESlQTcefTHdav0DabkQpiBVclMiVRKw1mENC5bpXm
+         HJcafXEvWzVgl8Rridpjy7bYk8xywjNJIjWqBD79E+fiCCRpg8lUQE+E1kOdznRdNqxK
+         AsWa9Et5UIK66lV6BZ0MpPbkNGp9h3RzLJKoVMImgAstaLxHgCjJ/wbAh4b66Q9oG2x7
+         MTpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793893147; x=1794497947;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8JkfHiQEMtf0YYgXubzDg94vF7YvHDx8RH2S+gQfkvI=;
+        b=MCE3XKejSyhpL5b5dUwraU1xuTh/XwU5KyysCUYWW9zPoyjZ8+HJNMTDGrDDkRZoec
+         Nl27I7H1yvaF8G3Meen+h7V7bTYzPLZ3cP1WraUdTdoxFXNwzSP3xGa/Zt4TPfTzRcrM
+         +Wqbqxtyy5MT1yak9IfHmnsuTZ8icpx3TbGbcOMQZMB1rwrwRY1hNl6SKv+5201cvpqk
+         gkMq47CcTRZ3fpCBXfTCLwv/p61OCB7F4dlb5Bld7xi2mFvsGJlmXUaa2PsXXM4WoxTX
+         2fNsowvI1RQi1sXD2aui06dl76x4+RzAdeJ4TyWZpzTp8tl5E1z+t+5ok6rc1SwPov1T
+         drRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztqjO4zewrZ5M+kW7YqqpmfhUfHMyikWLT/Hmf/7E3EIdSV7CZp4kJcSrtbKnMCynpfAcEW0lKebIqI6o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AEmcbOVrxTewBQi/ff1j/n7+PtL8Q0JJeEQglqnsRnreBeacc
+	NiRO/xzhBq29rcC6wz3IOCEZPefluKIwTHVuab02tqjewYBM9+rVtOjsqbHUpvlz8A==
+X-Gm-Gg: AYBFou0mQJESRO9NG4Ja4pIGKIk22hBjF5HVP2BwjbY3JMIvw/Am9qZdaPz6Sqofgcz
+	7T0+Jn5rM3t42qaP+ndhL37Zt8bOveT1IHm8wUG4keqNYE9EqbxfSnapfQKon2C7jgWFjq58QG1
+	RY+3eSWiUhXV7ouheQSGLRn1tYvGhVYqmGS16A6K5/EV2QuM6kA6DCIUNo1JHWXWB1nc85WXlsQ
+	JtVQoPVy1Er5m/LYHEHa4E2lfax8OS0GMStZrs+Rh8IebfnHNbY/RXzuyFqIHPQj4D8wOWbJMwh
+	7zFU0fZDKx/6TW5tx8JYX7hIPuQOtbzQ24yqnBRaQzvALjWqVzGbuoWb8+WZtzQT3nDJD5NR/eN
+	Jsbn8hG3LLvkCXJVqaBSBoFot7xbcFCIxDF2rFYebqugUM+TOpXzefuy05QpdB7FMNEU/jqq1tQ
+	0CdQfJq5+OCsEU/zTdgFicXznczNaFJ/OE1olEO5XSDiz4d3D1eswcnintseOGiQKaYO2Xua8px
+	6vjxf73+wtALH7iUI4oBmzR2Rff9avvlnYpJWqsPFy9cwneIlZ81PsvReQ5S19IxQ89SELLv5Ad
+	v47qjezcBIrOsnmqCtZYDTrir7of
+X-Received: by 2002:a05:620a:618e:b0:93c:6e1d:96b4 with SMTP id af79cd13be357-944217b4de9mr2981549885a.62.1793893147067;
+        Thu, 05 Nov 2026 07:39:07 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d485a5fdsm488893285a.34.2026.11.05.07.39.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:39:06 -0800 (PST)
+Date: Thu, 5 Nov 2026 10:39:03 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v5] usb: xhci: Fix use-after-free race in
+ xhci_stop_device()
+Message-ID: <a6a3adbc-bab2-4047-b417-5faff738f59e@rowland.harvard.edu>
+References: <20261104000031.679944e7.michal.pecio@gmail.com>
+ <20261104035637.3325-1-25031212351@stu.xidian.edu.cn>
+ <b8ea2f8f-ff9e-4cc6-853b-114fe51173e6@rowland.harvard.edu>
+ <20261104175949.71804650.michal.pecio@gmail.com>
+ <d7448504-a63e-4f3a-a828-7656b1084105@rowland.harvard.edu>
+ <20261105085238.337cb70c.michal.pecio@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,83 +106,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
- <anXJ-5_vO7-toSe1@google.com> <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
- <auKqt6b4AxCLziIH@google.com> <aufPMirl4cD7tz0X@google.com>
- <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
- <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
- <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
- <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
- <179384102494.19062.12740032892044628762.b4-reply@b4> <auwOBaRtM9p_Wxfx@google.com>
- <18e529a5ab0738f7.3137322e32332e3235332e313736.873cb.0000sendgmr@google.com> <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com>
-In-Reply-To: <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 5 Nov 2026 07:38:35 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
-X-Gm-Features: AclHuK9v1LUqQa8y4F5WwBt7lgtm31VOg2z9IkfQynsl03ZvTXjiDfaCGV4M1pA
-Message-ID: <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction budget-aware
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Chris Wiseman <chriswiseman@google.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Xueyuan Chen <xueyuan.chen21@gmail.com>, Xueyuan Chen <xueyuan.chen@vivo.com>, 
-	Barry Song <baohua@kernel.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
-	Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105085238.337cb70c.michal.pecio@gmail.com>
 
-On Thu, Nov 5, 2026 at 7:08=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
->
-> On Thu, Nov 5, 2026 at 6:36=E2=80=AFAM Chris Wiseman <chriswiseman@google=
-.com> wrote:
-> >
-> > On Wed, Nov 4, 2026 at 9:05 PM Sergey Senozhatsky <senozhatsky@chromium=
-.org> wrote:
-> > >
-> > > On (26/11/05 09:10), Xueyuan Chen wrote:
-> > > [..]
-> > > > > SGTM, but I'll let Sergey chime in!
-> > > >
-> > > > Thanks, Nhat and Chris, for the discussion.
-> > > >
-> > > > If Sergey has no objections, I'd be happy to send a follow-up serie=
-s
-> > > > to make the shrinker configurable and add the unlocked pre-check as
-> > > > Nhat suggested.
-> > >
-> > > Thanks.  Sounds like you and Chris will to have "Rock-Paper-Scissors"
-> > > to determine who sends a oatch ;)  Just joking, let's first figure
-> > > out how exactly we want that zsmalloc-shrinker thing to behave wrt
-> > > zswap expectations.
-> >
-> > Haha, Xueyuan is welcome to send the patches!
-> >
-> > Dumb question on the zswap side - aren't the zswap shrinker and the
-> > zsmalloc shrinker independent?  Even if zswap's shrinker is turned off
-> > at runtime, normal swap-ins still free slots and leave fragmentation
-> > behind, and unlike zram, zswap doesn't have a manual sysfs compact knob=
-.
-> > Would it be simpler to just keep CONFIG_ZSMALLOC_SHRINKER as its own
-> > standalone config rather than tying it to zswap's runtime knob?
->
-> Yeah those 2 shrinkers are independent! I think we should just let
-> ZSMALLOC_SHRINKER default to the value of ZSWAP_DEFAULT_ON.
-> zswap_load() (i.e zswap-in) by itself is enough to create
-> fragmentation. The zswap shrinker is just another trigger (and it's
-> also irrelevant if zswap is disabled anyway).
+On Thu, Nov 05, 2026 at 08:52:38AM +0100, Michal Pecio wrote:
+> > I suppose we could check that there are no errant URBs still in
+> > progress just before putting the port into suspend, but is this
+> > really necessary?
+> 
+> It's already being done, looks like those drivers aren't *actually*
+> trusted very much. But there is the ep0 loophole.
 
-If zram doesn't benefit from zsmalloc shrinker, especially during
-reclaim, I wonder how much zswap benefits. AFAICT, it was hooked up
-before zsmalloc was hooked into compaction, and compaction seems like
-the right place to do this although it technically is freeing pages
-from the page allocator's perspective.
+Well, we can always add a check for ep0, just before the actual suspend.
 
-I wonder if this is something we can collect some data about, and
-maybe kill it off instead of putting off behind a config option. If
-hooking it into compaction is not enough, maybe we should add a
-similar interface in zswap to do proactive pool compaction from
-userspace, or maybe move the interface to zsmalloc itself.
-
->
-> How do you feel about this, folks?
+Alan Stern
