@@ -1,53 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887847;
-	b=weCSye8S6iwHoJqhsdwFIG7tOdPyik7b6B1+y3CGUR8cG4hfaQNQn+F5Vw0u+fy9DLSp
-	 dxyQi2Bf51hNYd2Dt7ug/jf6TqnTmeRrf3v3hDx1p2ghxzOgwg6chXC5Y9Ty/3ErF/YP+
-	 Za+5u41hULPBr2XMrmaM0erApkG60qHKaj07P0s5ZFQ6WerUZ6+eX+AmUmfjtUw0FmuP/
-	 4LRO7g53/JXbmj3Kjldyvrj1LVMNxojr+UF9KES0esbNsAKjUJplYbtILdxM7Hjr1W542
-	 rUm2nEHbBrKUkUkUiDCdn16lwSzSOQX+yqARZOfbnTYXtBObccgkPUNREktxw6EdzEw==
+	t=1793887944;
+	b=jbvJuezn99nvhS3iBbdYTCFU2KMZIuxZYPykQmUeujW4VVYG6bt7ZLDUC9W7NYq/cgfd
+	 UJ6owJVcqrl/zVysw/aXvtfLUzsJYDGCoJFUxDWbO5k0kfPA3kx9EE7+UUt6QC+QqAZaU
+	 0bsz8NbQwUysZiJeTOlCVBw/1Ps5lVMGAX4/F+Ak8lZFPkkzBxFUPdis4OujwOMSjCWc6
+	 7whez2+l6hmprq0Hno2nO1Ot6ct9r2p3Cl/dwK9IqRGvGl7P1dcNS3t2hKGz1N1ELBRYP
+	 kIMMnoxHAYsHiPSQWAJnYSGeZJSC1B+MdukDgH9J4Rbl5X6W58aBGLkC4v0L1Tok83w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887847;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=CibUYVH+7OYY+APiKvZin4in4hp417rNXMuqELO13JY=;
-	b=HrJK+nUxbshogO9+QNKfK7hDsnSkcYjA7OumDEDA7OM2A27pljlRd65TvSpydYQZVkBE
-	 8XzhlMxTz2Td4QH1ixug0+xqnYhlFOXujW51sWSHDDC974+kY1f537OsaPRxckU4Po5xL
-	 Uihxxu8yJsHqDg4stZRogD4bfVSQ6iPo9S4dQdND7cbpP46Nv2TldECjBJzbI6lWI7H0r
-	 k7LRxizLjsbX67ztPjOoE2JPc0hIKfGkFgQ/YIaaoSxh+Qg4eY3vyM+/wkgMhzniQKJhL
-	 DFfKQR8OFIFsYwy/kUvzdpqq8Mcuvknsmz2wCRgtbF6yTx4sDmmuqR12NIbKvIHUI6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887944;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=ZuyZA80OhXsTCt9eMx+qhWTC4yMPIt4JU/oWRmBa8MY=;
+	b=K1YyZ1ZXNIJY0U0UUSePj7E0nw/8zyNtFktWoOn03KNCqwvS4btMBs+YHQiKkM25flFY
+	 qGA8SASi+b1nY+R78qpLL2rm/NUo1HXmuDR3Ls/z5hbDLi2W4FCv+xDFkVjC7VBqkVlk8
+	 IlLS4nWsla5Osaz8nnWo/b0/i/EQvh5UUsGX1YiFrDQDevU4NR/TaWEzuaU2E4cdzqosI
+	 +ZGxS2cojpQ0sFJmANVtcTeHknRyJCwryrkg9DyJO8V1WE2W0onacKvPyfurHudM7Bggg
+	 IsRLu/3PyBvKcyjUICZozRIypPYYdQXY+yqRz3wBUosqsmFjHm1L1o0hGUs+pOIQJgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=CoEvBoFU;
+	arc=none smtp.remote-ip=216.40.44.16
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86080606A336;
-	Thu,  5 Nov 2026 14:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86080606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jL43320wKz4yjjB;
-	Thu, 05 Nov 2026 22:10:39 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6A5EAUA6074069;
-	Thu, 5 Nov 2026 22:10:30 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Thu, 5 Nov 2026 22:10:32 +0800 (CST)
-X-Zmail-TransId: 2afa6aec8e58bcc-eb307
-X-Mailer: Zmail v1.0
-Message-ID: <20261105221032737LKGdHz8FE-EFnNwJuw0N9@zte.com.cn>
-Date: Thu, 5 Nov 2026 22:10:32 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30D5606A31B;
+	Thu,  5 Nov 2026 14:12:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F30D5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=CoEvBoFU
+Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id 8CC92C0A0F;
+	Thu,  5 Nov 2026 14:12:20 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id A0FA617;
+	Thu,  5 Nov 2026 14:12:17 +0000 (UTC)
+Date: Thu, 5 Nov 2026 09:12:16 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Ilya Maximets
+ <i.maximets@ovn.org>, Matthieu Baerts <matttbe@kernel.org>, Aaron Conole
+ <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ dev@openvswitch.org, Adrian Moreno <amorenoz@redhat.com>, Antoine Tenart
+ <atenart@kernel.org>
+Subject: Re: [PATCH v7 0/4] tracing: improve symbolic printing
+Message-ID: <20261105091216.7b91db5a@gandalf.local.home>
+In-Reply-To: <20260922110955.363677-6-johannes@sipsolutions.net>
+References: <20260922110955.363677-6-johannes@sipsolutions.net>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,101 +63,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
-        <linux-fsdevel@vger.kernel.org>
-Cc: <jack@suse.cz>, <josef@toxicpanda.com>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBtb3VudDogZml4IHN0YXRtb3VudCgpIGFuZCBsaXN0bW91bnQoKSBvbiBlbXB0eSBtb3VudCBuYW1lc3BhY2Vz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A5EAUA6074069
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Thu, 05 Nov 2026 22:10:39 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEC8E5F.000/4jL43320wKz4yjjB
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: A0FA617
+X-Stat-Signature: 9993ajdnkirqqfjgyiomy5txnkn16gat
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX191ERUTatcYnoDmb5aynzKQhqeeWSoD2RY=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ZuyZA80OhXsTCt9eMx+qhWTC4yMPIt4JU/oWRmBa8MY=; b=CoEvBoFUueQ3s0mIEHKt46mqrflONFVjmmGg+zX6vv/BfOfO8LdoAL4s3r2saFOQLG8D6fxNi2pc9U6aBgQLyEKkxyzMEdmBOQXPfwVBsTMLwAOnnNGceL5vlHEToRsYXZD99dUWQWA6MpjLsDzYG0fOcodpoy7/lnnfQWybRpo=
+X-HE-Tag: 1793887937-685124
+X-HE-Meta: U2FsdGVkX1/3Wbpykymbkbb57VjYh0s2galJtG36rRIQW8TFwF+7E1IJjuw5NQAe25/iGWZNNQkyWT+a8422ISmZr96XK0nrAaQEFQ31qsZFoK0bMu8VBRYn6VvL73Iw7iM4mAs1x7vNeYUjyjDL3c/1373Vt3UVfuGBr/aheInp1BwjeQU4qskhLGjIZGxpuN+otXBJyaLAJMwU6vzQo+EBFJb7W1XoOglfKzxERKt0tKBVJ/xeoz5nURvKfDVGujYLXLVXYpN//WLEhk/vitnw4QDZ/T+mJ5xxRO8fWuMWQYYJurNrpktl9UUR14fwSJm2i229vjqGi5htXXN/jNCATliHKrTLZR9dxCLPnqYqpd0721dllAu7XYl6dDQKXFCyDNzz0Bkbs5xaOdHP9A==
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Tue, 22 Sep 2026 13:08:39 +0200
+Johannes Berg <johannes@sipsolutions.net> wrote:
 
-statmount() and listmount() on a foreign mount namespace fail with
--ENOENT when nothing is mounted on top of the namespace root.  That is
-the case for an empty mount namespace created by
-unshare(UNSHARE_EMPTY_MNTNS) or clone3(CLONE_EMPTY_MNTNS): its only
-mount is the namespace root, a nullfs mount, and no rootfs is mounted
-on it.
+> Hi,
+> 
+> Resend with the selftests and the two sashiko findings.
 
-Both syscalls resolve the path anchor for a foreign namespace in
-grab_requested_root().  It starts at ns->root and looks for a mount
-whose parent is that root, i.e. the mount covering the namespace root:
+Hi Johannes,
 
-	for (child = node_to_mount(ns->mnt_first_node); child;
-	     child = listmnt_next(child, false)) {
-		if (child != first && child->mnt_parent == first)
-			break;
-	}
-	if (!child)
-		return -ENOENT;
+Could you also add code in the samples/trace_events directory. Perhaps add
+a new event?
 
-When nothing is mounted on the root the loop finds no candidate, so the
-whole syscall fails although the mount id the caller asks about exists
-in that namespace.  statmount() issued from inside the same namespace
-succeeds, which shows that the mount is fine.
+This will make it easier to understand exactly how to add new __print_sym()s.
 
-Fall back to the namespace root itself in that case.  Inside such a
-namespace the root mount is what the members' root and cwd point at,
-so it is the correct anchor; paths below it are resolved relative to
-"/".
+FYI, this series did pass all my tests.
 
-The same condition also occurs for an anonymous namespace created by
-fsmount() or open_tree(OPEN_TREE_CLONE): it contains only the root
-mount itself, and statmount(STATMOUNT_BY_FD) on such a mount fd failed
-with -ENOENT for the same reason.
+Thanks,
 
-Fixes: 71aacb4c8c3d ("fs: Allow statmount() in foreign mount namespace")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on 7.3.0-next-20261030 (x86_64 QEMU/TCG guest, defconfig
-plus KASAN, no extra hardware).
+-- Steve
 
-A child process unshares into an empty mount namespace
-(unshare(UNSHARE_EMPTY_MNTNS)), reads the unique mount ID of its root
-with statx("/", STATX_MNT_ID_UNIQUE) and then blocks.  The parent opens
-/proc/<pid>/ns/mnt and queries that namespace by mount ID.  The mount
-ID is valid: statmount() from inside the child's own namespace returns
-fs_type=nullfs on both kernels.
 
-  unpatched                            patched
-  statmount() ret=-1 errno=2 (ENOENT)  statmount() ret=0,
-                                       mask=STATMOUNT_MNT_BASIC|
-                                       STATMOUNT_FS_TYPE
-  listmount() ret=-1 errno=2 (ENOENT)  listmount() ret=1,
-                                       id=<root mount>
+> 
+> v2 was:
+>  - rebased on 6.9-rc1
+>  - always search for __print_sym() and get rid of the DYNPRINT flag
+>    and associated code; I think ideally we'll just remove the older
+>    __print_symbolic() entirely
+>  - use ':' as the separator instead of "//" since that makes searching
+>    for it much easier and it's still not a valid char in an identifier
+>  - fix RCU
+> 
+> v3:
+>  - fix #undef issues
+>  - fix drop_monitor default
+>  - rebase on linux-trace/for-next (there were no conflicts)
+>  - move net patches to 3/4
+>  - clarify symbol name matching logic (and remove ")" from it)
+> 
+> v4:
+>  - fix non-module build and possibly dynamic event handling
+> 
+> v5: (https://lore.kernel.org/all/20240614081956.19832-6-johannes@sipsolutions.net/)
+>  - fix build warning in non-module build
+> 
+> v6: (https://lore.kernel.org/linux-trace-kernel/20260921101538.97286-6-johannes@sipsolutions.net/)
+>  - rebase
+>  - fix nit from Paolo (I hope, I don't remember changing it
+>    but it looks fixed!)
+>  - fix crash due to wrong data placement
+> 
+> v7: (this version)
+>  - update ovs selftest
+>  - don't ifdef drop_reason_lookup() prototype
+>  - fix section alignment
+> 
+> 
+> To recap, it's annoying to have
+> 
+>  irq/65-iwlwifi:-401   [000]    22.790000: kfree_skb:  ...  reason: 0x20000
+> 
+> and much nicer to see
+> 
+>  irq/65-iwlwifi:-401   [000]    22.790000: kfree_skb:  ...  reason: RX_DROP_MONITOR
+> 
+> but this doesn't work now because __print_symbolic() can only
+> deal with a hard-coded list (which is actually really big.)
+> 
+> So here's __print_sym() which doesn't build the list into the
+> kernel image, but creates it at runtime. For userspace, it
+> will look the same as __print_symbolic() (it literally shows
+> __print_symbolic() to userspace) so no changes are needed,
+> but the actual list of values exposed to userspace in there
+> is built dynamically. For SKB drop reasons, this then has all
+> the reasons known when userspace queries the trace format.
+> 
+> I guess patches 3/4 should go through net-next, so not sure
+> how to handle this patch series. Or perhaps, as this will likely
+> not cause conflicts (in fact I've been rebasing it for years now),
+> go through tracing anyway with an Ack from netdev? But I can
+> also just wait for the trace patch(es) to land and resubmit the
+> net patches after. Assuming this looks good at all :-)
+> 
+> Thanks,
+> johannes
 
-The patched kernel also still returns the mount for
-statmount(STATMOUNT_BY_FD) on a mount fd obtained with
-open_tree(OPEN_TREE_CLONE), i.e. for the anonymous namespace case.
-
-Both kernels are otherwise clean: no KASAN report, no Oops, no WARN.
----
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 25e196c05126..8a101a8c48f7 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -5888,8 +5888,14 @@ static int grab_requested_root(struct mnt_namespace *ns, struct path *root)
- 		if (child != first && child->mnt_parent == first)
- 			break;
- 	}
-+	/*
-+	 * Nothing mounted on the root of the namespace: an empty mount
-+	 * namespace (CLONE_EMPTY_MNTNS) or an anonymous namespace from
-+	 * fsmount()/open_tree(OPEN_TREE_CLONE).  Use the namespace root
-+	 * itself as the anchor then; there is no child covering it.
-+	 */
- 	if (!child)
--		return -ENOENT;
-+		child = first;
- 
- 	root->mnt = mntget(&child->mnt);
- 	root->dentry = dget(root->mnt->mnt_root);
