@@ -1,103 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837901;
-	b=ZHuAP1LEZ8b+Y/QT2OBvH8pvp0TVws4Rzm/uOABh24V3dHQ9+tdR2SvwIZDAmlxRa4TF
-	 /zklOC0JgLNxisXUvXx7cRWdwgqFlj3bt3rsF0199Gt9sHQFv6qWlEZxeqPdvDkbbd8PG
-	 kzW8+l3C6rsEMTCvoaIL43kVSh0fNbyBs9OFcOe3juxIkjj+y2kTnj6g1gyBK0UnuzJm2
-	 eVBVVd0VdK0lPQhMfshkrzDE+u+yOPZkJq/Ya6kGjyZTkxcRJWuTzF9NCDMY4zZogTVIH
-	 znV5swTKsUAEyzjXvIsUsu+fPeJV/UlrYx3y5TC6lMOb4JVu/569EPbStWzk16gzC7Q==
+	t=1793837958;
+	b=peK3sRSxK1earRKvjOYkn9dBVqYwRf/N51mwscbm9kgDwdgOCPJw0NOpDDSkq6L/sQL2
+	 uQfCbR+FafhNd1+Gr9bC0212Lru8i1FXwdlFUwWlcRdMJ+F06Qf9oc56VB9MuTfnbVhlz
+	 xYQcX1300M3kuRrI3PwMW+zxevCWli3EDjhUJKVya5J5E3YF5RixdnnAzHPR9gMNO/MNG
+	 SVaQG4nv+YxhaLifmv1sQvG/NWOPpoD20MzWn4rAKa8KaCoT7h5ukNLDL6d3MFiODNf1/
+	 Ub8rdk9Eb6SUowOz4sptIdDovl0vFI2f7bl4kN3wG0HmU0tOxsYFkm1bV05Qxn/vvTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837901;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2RfzmInKLxcVdPe2pyLqd5yFU8xZtV1axjF/Ql8v5bI=;
-	b=pZqhfeaMMBVPqC+rcZ6a5IT6T/L6rTTQjfjFF975/L+WzI52nMpAtr4se8u8w56bOe4q
-	 c8QEuctHBjTsKZx3cxpUCBdA23W++5ywvU8FXZDVGccfrOZ9V35IYbKhTQYjAzJT6MlED
-	 mygfjrTMaoHlibmKQovkOhNqO4UswEMnmRuHEjelTNdwAZvH7Zj/Uxj78W2Lb6GFtEycX
-	 4DXh3AXOFdIrIDlyJlZTeYwfXe5dZ8WSVN8tB1WLOiwLDcwP+GjRriASjw9l8cwFs+PbF
-	 P/w0LMgQUtlWvVSatXWum7DDV5tXmc3CefDrSByUu+END3Tf7VvdgHAUckfdhlM7JtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837958;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=h2lWjSoQETtt+rMMEH9f7ek+4yTWCbjIkzaURENrazI=;
+	b=Ea74xXFWRK6ojw3FhPDsS+K99Io1F/DoCDSy38qnmG5aprs7czmBvFNqvyotPju7Wq/Q
+	 18L+NKEA+HzgMwvU4dEasN/WZC0Bcbjd/6Xab8NmK6f/Tdk3fMAElCK8FT37hw5+sZhFM
+	 QEyZOSv8poxihZbUuuyn+raACUZauaOVX+ygOHveXimy1CfJKHtDQ8DhZgore2YYNWs1w
+	 JagGQWsuFrAY/CglrRLtg5g4dSEsxUmfTp7ApxPXD8vI1bMnCEyrEU+oysqo5tdRFLpyr
+	 c5/5EDAeGXf5rHHtVISaFUVx1EUr/dbQPgvPkjYNJ0ABczXGoWciV8TFoFTTiSumAjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tGzh5wCJ;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Er4GU8KN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE11E606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:18:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE11E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB82606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:19:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tGzh5wCJ
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5364d86f7f0so14070221cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:18:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793837900; x=1794442700; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2RfzmInKLxcVdPe2pyLqd5yFU8xZtV1axjF/Ql8v5bI=;
-        b=tGzh5wCJB8cmFeghCXefLX6eTl2V6HvaWGLLd0Vu1IRLcNHelhXLs6r2nHdPO1zJvX
-         CnL07oca1J/Rrj4nD1xyJSWYb1TL4mQ9rdHHR9MgYRRA691VxOWz98fDaHmXMHUs6G3K
-         28G9yC3hNQruZryIqF/3vG0ie2cCPREJbDrT8dvZbf4WRtzdSlcEOdygi5AuO9XRTtGK
-         1iqLowzTzQOVnj5DKXFQAyMRJEh/9PhDyNSUZsdfl+4iIIj17hdYiTc2501IQ7fzOudE
-         iBz/6nOU9byrFAlLJJFiEkBGIsCuk/Ro3jYQDkpAAEJMsF1ER+QcBbwq+VxG3xJUQ7J+
-         qoOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793837900; x=1794442700;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2RfzmInKLxcVdPe2pyLqd5yFU8xZtV1axjF/Ql8v5bI=;
-        b=Rvwjph/VKpSL6J9FTjzhgV/ms0KuW/MnIEgQeM7TW4Sad0p1tENP8dtO4YHQ+RWCo7
-         aprE6h/tURRqwYAC0f8A4Cup/A3UuObgoEgxsUixhtqcWSb8JZ8sEgPbiDJYRsRPVD8Z
-         BcqwS6dHvXab+0WZwMCLQPKoXPQk/+kIlohppe9+VxdYfOsaLOyaAqacwOHyXiJqeOTj
-         BXEvaCa8LECtTP6JxzjxaiM0/41IQrNnG+Qqw/0+x4C3JbpNdCm5IN84OWi2TnJwjoGz
-         u6Ta+34dF38zuKhg5ZzaKpXJISeeGC8QZ6NRLxj9JVT4lRQoMKYoDwFyRxo+KtihC8dy
-         RzNA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8RA+oBtpwc2LWvqPcqI3Fm3dmaaZu2yO5SmqRPzjcRevzxb3h3RLtCtJrqSYbsJHwe9LW/E9K1qLaDgU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Bx+MF596Tzg6wVmfafbTXxLMthyGjXoOwi9jJqeIeEkVOBSKf
-	rEzemB/uZJjhMJieQmlJm7E/+XML7NF4I6s4lddPVA9NpXkFDGBI4Nv1
-X-Gm-Gg: AYBFou2J8gKtRtyFitjUZyopUIyk4+i8RmhnPLUEzE7Puw64kXpeANAijdlLe0adID7
-	3XMX6c0VJ1zgMvP+PZ1FxApGuYDOACqG/GAa7N1y967J+2g76hL+cd98+V+pmusOlkl7twkBI6W
-	s1+v+5mM7BECAnDj1ZtgXQNvI45ISntQbG2xdtgkHaR2w3VYE4y2KfwTUjUl5gZQZU1zkXse58l
-	CR5LAsRfFkhnjwnTB8SvQtQetBfjCw632cD0JvcRK8Wp0KCnrv9N37YDu//HDzLeVZGGdKBLBcH
-	19dwxaxI8gof08+ERDnEEzX8yUGaGxYOLWlFKul8/T/qpzHtZVIo+DycGO9I4sGNhb5Rz2rfN1y
-	lMC8O8HHadwxaosfRmZI9r6kIlVh53XvuvdlFAvnqboAaSS917Q1ZQ7kLWr+YHHwWSBg67S4PAV
-	scB7I5mJBL6G8EezyTt22Q9MSf47WMWyPHFhuBcrouXQC07azqc76a/q+m2ol0ex1g3zzcM09N1
-	5iv1gTMEgKDuHKZ31g0i6srWkNmcs7OemFlRv3wANjgnfzRDJ6W9piqb6rgnmHziXLsjK+UY3G2
-	gzZdHv2YF6taa/Xsrw==
-X-Received: by 2002:a05:622a:393:b0:535:bb7a:884b with SMTP id d75a77b69052e-542b62a4c8bmr301056311cf.27.1793837899712;
-        Wed, 04 Nov 2026 16:18:19 -0800 (PST)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7e76be8dsm32655966d6.41.2026.11.04.16.18.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 16:18:19 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: Simon Ser <contact@emersion.fr>,
-	Alex Hung <alex.hung@amd.com>,
-	Daniel Stone <daniels@collabora.com>,
-	Sebastian Wick <sebastian.wick@redhat.com>,
-	Melissa Wen <mwen@igalia.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
-	Louis Chauvet <louis.chauvet@bootlin.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] drm/colorop: Release the object ID in drm_colorop_cleanup()
-Date: Wed,  4 Nov 2026 19:18:15 -0500
-Message-ID: <20261105001815.4000596-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Er4GU8KN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690B71F000C1;
+	Thu,  5 Nov 2026 00:19:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793837957;
+	bh=h2lWjSoQETtt+rMMEH9f7ek+4yTWCbjIkzaURENrazI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Er4GU8KNkfDeH/PGo142NQUEx/UNPv1H8C8sR4n6e8PK92LdgvWk29UwiPVLbLpUq
+	 6urlitcIeE9i0fEo6RPQD1+nbmhosn9tb4lxKU7oTfd7toWu7ruHI5KRwwQJn62z1/
+	 2G+/fLZXlH/yb1E0ftvk8OfbHk2Hq82gWtC9xPzdyr0VeicaKD3nQVDDp0NNKIPxE4
+	 fV1u89+xng/Cwa9JbucD4/pqHjzc6PA99tM0gHOdiIQ3uVEN+5F7mbKw9Q6JC/Ygfw
+	 j6OMbHn9+ZWJx6t1TFKi9GBsfvfYBS/PWdyGJWZ4RF1qXXlXxbjsN6lTxGCJoynbiv
+	 zFSPsXP5wgz8Q==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 35ACD26931B2; Thu, 05 Nov 2026 00:19:15 +0000 (GMT)
+Date: Thu, 5 Nov 2026 00:19:15 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] regmap: add APIs to bypass regmap_field and work
+ with reg_field directly
+Message-ID: <c9a8b55f-72be-4196-af43-5a18b38b8b45@sirena.org.uk>
+References: <SN1PR12MB2528754CEF9D8E5103ECAE28A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,48 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9Jh3+Dipje6xcLnR"
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528754CEF9D8E5103ECAE28A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-The drm_plane_colorop_*_init() functions add the colorop to the mode
-object IDR, but drm_colorop_cleanup() does not remove it, unlike
-drm_plane_cleanup(). When a driver frees a colorop after a failed
-pipeline setup, its ID still points to the freed object.
 
-vkms ignores the setup error and registers the device anyway, so the
-stale ID can be looked up from userspace. With one allocation in
-drm_plane_colorop_curve_1d_init() failed through failslab, querying
-the IDs with DRM_IOCTL_MODE_OBJ_GETPROPERTIES gives:
+--9Jh3+Dipje6xcLnR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-  BUG: KASAN: slab-use-after-free in __drm_mode_object_find+0x2e8/0x320
-  Read of size 4 at addr ffff88800b681020 by task getprops/79
-  Call Trace:
-   __drm_mode_object_find
-   drm_mode_obj_get_properties_ioctl
-   drm_ioctl_kernel
+On Wed, Nov 04, 2026 at 06:09:48PM -0600, Victor Chernyakin wrote:
 
-Call drm_mode_object_unregister() in drm_colorop_cleanup().
+> This is not actually a new idea! Both it and the current *_alloc approach
+> were suggested as alternatives right when the regmap_field_* APIs were
+> being added [1]. The *_alloc approach was chosen without much
+> discussion, but I think (and Patch 2 demonstrates, I hope) that
+> this approach is the cleaner one.
 
-Fixes: 9cf87f864d83 ("drm/colorop: Add destroy functions for color pipeline")
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
----
- drivers/gpu/drm/drm_colorop.c | 2 ++
- 1 file changed, 2 insertions(+)
+The demonstration in patch 2 would be a lot clearer had I been sent
+patch 2...
 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index 95da03d6c65c..edfb4d72d166 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -183,6 +183,8 @@ void drm_colorop_cleanup(struct drm_colorop *colorop)
- 
- 	if (colorop->state)
- 		drm_colorop_atomic_destroy_state(colorop, colorop->state);
-+
-+	drm_mode_object_unregister(dev, &colorop->base);
- }
- EXPORT_SYMBOL(drm_colorop_cleanup);
- 
+--9Jh3+Dipje6xcLnR
+Content-Type: application/pgp-signature; name="signature.asc"
 
-base-commit: 3944ca3e6b7d25e545e8ef6498f69941e8e0c8ae
--- 
-2.43.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCauvLggAKCRAv73Ows9A4
+iWhRAQCUcHKq6Keg1iMsIxfjGnu1igDpgu/W49AsvZ7lq2pcKwEA8Bwkm1sLQEK/
+guSQFtVGNSuP7sHAw7p6q2GcMGIriAk=
+=jK6E
+-----END PGP SIGNATURE-----
+
+--9Jh3+Dipje6xcLnR--
