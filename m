@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844835;
-	b=Eg8x0QEbseFxvPn+BaHXmxheqHDdE6nY4Gv/Ixe5hC6b0chCUMMt6jvUOhvtATw5EVWx
-	 iiuwU/UJHrSTXdiw21EG90jiwAnjrxgTpT2TbEQqsIjh+/0Uy8NLnLh6YL4eMzx/dIkIs
-	 xJVGCZ1+4XzJZLkTT6fDIto+2iVhfKn8hyEgQ1Dy+uSB3Ghr2n6oFFczuvbtETBc/tNpL
-	 0IwyMvf3E6hOc0mpmpBZ1uzZmOmajartpdKJ5JlAK12JAGbissJOA9BMOwdkdNpchinu/
-	 9RKCWojI87QMePSZd7efMqnlIvISreU/1KS6Z917upSiXVPoQDCLimnNEXpOcOn5HRA==
+	t=1793844847;
+	b=gwNYLB37S06wUNQtdugO7mG3qsDzcHV2vgTPIDjLCcrH4HkMkA+N3HTR5O7aZ2VimvwD
+	 WIiaRV2lOp8DWTR4T1ICQCXrWPXEtRK8nP7V987w9SbZimaqAOH4cLpx6tPx54r4gP/ln
+	 EtYRm9l5/Xu7ZmyXqkArQ6g1uAqq2XCuNPsEdpIwBjBOv+ZOo31SchSvkN2sSngsw5x6E
+	 MNqd1iL+RsfifVdtsHUbDd+Oe95vKxIoa2LneGm37U7l4wN2QEfjdxphvSvLaHU3ikqri
+	 pAJpmjfsDfvdJ04Z5/ncQFHW1ccqRFaMTNLTe/AH67hyY9NzhJjjt0klXYDVIzGcnUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844835;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=jbk/ihbbo8xIG/OluC/zPXeNuyP21AAyIO9Pon6dIe4=;
-	b=iG1RAC8EuwAeRq3GPltX5KRvxTFKJSBfwbsREPlFPBCbfs2a+Y+R7DkCWd9ulMcnef7M
-	 dGBidXq/6JG3pmjtPDsxn9ygDpGKue0FdAIJcBlNO7mz5V9na3AFvodyPY5OTdOkbF69g
-	 PjnAYKg6TatwHwgosdNTj8+r8/f3XptEHjyuqVuVQs1p541YZI1zLsbwJ+Cz1E7oowu6+
-	 Ys6Jjj7fuyvubdgg7QM6gjHKeafmJ+nkjF+4gOWgCoh1dxD5FLxsw85Mu8V2scA6Ehq0h
-	 yKxObKoeu0/+bzWYii55FtbrzrTKvU4IUMmZyQXgzjJ7hvs0ER8N8HaKZ7SobfmOTWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844847;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tXeq94tKXH8bHOz1amsH5XRU51n2PYOOTkgxfF1PjyI=;
+	b=EdFPUipSlOVE4BNiIAri7mmPtZE9XjGpJHO5Mxhg9KA97MNnyqb2PZWEZJTaapApwr6x
+	 gMkr2tUkuPRHIDyyPA3mcYR868Hp/234DWXd1xS33WOCcv87NSLbUbaphji8aDi89xwRv
+	 GrZUlZ7VCO0PmEhy9V1wQjrimCEH5JQ0fzeKNuMNf1VDHqt9nmebSnLXKqRDR/a9O+XY6
+	 7UzY2g/R5vG4aeufsOIHcJo1Ic0/VTCKvqaE72aiRtsFf7yA82LqKESuyD7rIk48iScvj
+	 LRXCc/bL+7QSkpTc/81t1nuWAoVyYGvgCimeqMksMBHa4YZB2Ohb/6aOYUi9JFx/Z8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="MBoxWp/V";
-	arc=none smtp.remote-ip=209.85.215.225
-Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=j2sTp789;
+	arc=none smtp.remote-ip=95.215.58.101
+Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF071606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:13:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF071606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D078606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:14:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D078606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=MBoxWp/V
-Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cd5f2834b19so51312a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 18:13:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793844834; x=1794449634; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jbk/ihbbo8xIG/OluC/zPXeNuyP21AAyIO9Pon6dIe4=;
-        b=MBoxWp/VMp/jHihnId3EgiwONu5hVMB9flYotVj8jbkpwsPWHst2MDLmXCtuLa7IFL
-         X1JFGYe6k9FuOJgk3nEOmlQauGkmZ2siyEH27d33Q8aityv0sL0AwVLBAOluwqbOOQbT
-         ikYV4SkwafMXj3pYYKwlQO/yq2AhRIrMBjv//F5wdHRNDrDbloJ7wB5KSfqo8PNPp0Gp
-         7quKUFAGAlDhhBezsDodHQMZcpuuZPHNB8yvx2Qi7PBM0kvNeCJ5Wsxyu4GzMjoLnOBU
-         5fk70VKuXXN6cEnU3gkFlvNTB8rZbLf222TV4ol1xYweWgRe5vMoNCs0l5soZEH0aiMw
-         LGAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793844834; x=1794449634;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jbk/ihbbo8xIG/OluC/zPXeNuyP21AAyIO9Pon6dIe4=;
-        b=uXlsOxXfXMnwSZZB7QZdSzaSnfFV82kLvh/ZeFsfdKUY+HFRvLD0r+WNWbKjhTzKJ6
-         WmlQDY4JKbG0BUvNXho80OkX3SwPD4cvmiNlg1xkzKf5THPoTM6Obj3jLQsuVWY0ibb2
-         8VHcJSRo4GQvjEmTBzJitzUQwL6ggKTRTulghJ2O9uY6EeF9unBqunJQL8rH1D4RmjD0
-         P58eAkJUcyqe91e5wRIIDhU2C2sE5Ue/DT11h0WT9hTEJDDd9MeZe0PqUrR3IyeUa1cF
-         rY4cX5Qufvo6tWTpH4sdUwl90CZCFoZJQFsh+Byk7eOZhZArkTBMOA6BGdzuv53ieKWR
-         epPQ==
-X-Forwarded-Encrypted: i=1; AKwUvByHuZi8a0exvFa5w8Fjuo6ywSbaSHbjDoPfztjja9fkLIWjj3TzVZii675S8Uc0rDtcUabzBXZvGYy3H7g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/z963+yLkqVEw64B1ME8NQNsxk7vwYmT4CFXSo0KBPVGD3csxq
-	VA4fO8cMrcGHdFAFZgyGDSmXxPJnlxITyp76R8WvDYOkB3VMOEZumfPrxqFW4hodmqPIr476aDP
-	EPfiQ+QWH5GBlUC8QBWOIdmQGVIzjcb0rAtYu
-X-Gm-Gg: AYBFou3ZWR/rogNfZkuiyrgJghlo/8lsPmZAJIqZ8B4yVfpC+V9brjYT0QF5IHQ/sJM
-	2FPxvq004kIUC80CNYz5vvo3aOmlZCeiGf0WsisNdVU3jOqzMbw7FKK/ZomUPxsWy2V1f1SMAmr
-	SWQ8y0UBkvta8FcaFUwfHYjeTdnttkHGTbet+mAzT3K7Tfw8MrF6w7uvUCPTyZrS2aHaqnGX1pf
-	NVAqbBVwSZ65SlLmtYDTtUEnEok49ZjMSshSNrG6TYSeee2OkF4wq0EhooAtipywR1kdDzUK4iw
-	dtRXquXVh4k/gjoYn2XKoQ77zrSoBrnLxBwd9njxlDJnRS+ihmG7omBcuWjTad6jEe//ocku5HX
-	zdB0Odyxa2b4WcSvaHXzufrE1u+OdMvT+
-X-Received: by 2002:a17:90b:3ec6:b0:3ac:a11a:7c88 with SMTP id 98e67ed59e1d1-3ae89767d8dmr25056607a91.3.1793844834135;
-        Wed, 04 Nov 2026 18:13:54 -0800 (PST)
-Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b2e09962sm836221a91.0.2026.11.04.18.13.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 18:13:54 -0800 (PST)
-X-Relaying-Domain: purestorage.com
-Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [10.17.2.4])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 6CBA940278;
-	Wed,  4 Nov 2026 19:13:53 -0700 (MST)
-Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id 609FCE4054E; Wed,  4 Nov 2026 19:13:53 -0700 (MST)
-From: Caleb Sander Mateos <csander@purestorage.com>
-To: Ming Lei <tom.leiming@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Caleb Sander Mateos <csander@purestorage.com>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ublk: optimize ublk_queue_cmd_list() for length-1 lists
-Date: Wed,  4 Nov 2026 19:13:49 -0700
-Message-ID: <20261105021351.2295547-1-csander@purestorage.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=j2sTp789
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=l5hRS8qgzR0WOCPLF0tQbQ+of37lp1oZsgw+XUQqwhg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793844844; v=1; x=1794449644;
+ b=j2sTp789TAzH4+lGZ7lYWfaDwj4tzc9cwnz9VymVYz+93eIx1j2P1wIewQP0NcIfVbJQKLyf
+ 0DO8NIIghKzDouBSBnDym1wAnQyGpqJsD9irj2dQSZrGObeDZJB96QtjMGxheDIwPErfv1cfpzT
+ zdnAQ3fG/Xx2Ge3hDWonFfXo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7ce234fbb2517b84;
+	Thu, 05 Nov 2026 02:14:03 +0000
+X-Mizu-Trace-ID: 7ce234fbb2517b84
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fc4939cc-84ec-4c5c-88a7-658ca800377d@linux.dev>
+Date: Thu, 5 Nov 2026 10:15:13 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,90 +58,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v2 01/51] alloc_tag: don't remove /proc/allocinfo
+ under the codetag module lock
+To: Christian Brauner <brauner@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados
+ <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>,
+ stable@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Suren Baghdasaryan <surenb@google.com>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-1-021c84d852e0@kernel.org>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-1-021c84d852e0@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For a request list of length 1, ublk_cmd_list_tw_cb() is more expensive
-than ublk_cmd_tw_cb(). It loads rq_next, which is in a separate cache
-line from the other struct request fields accessed in the dispatch path.
-And it dereferences mq_hctx->driver_data to get the struct ublk_queue *,
-whereas ublk_cmd_tw_cb() gets it from struct ublk_uring_cmd_pdu
-alongside the request pointer. On the submission, ublk_queue_cmd_list()
-can cheaply check whether the request list just assembled has length 1.
-So pass ublk_cmd_tw_cb as the io_uring task work callback if the list
-has a single request and ublk_cmd_list_tw_cb if it contains multiple.
+Cc Suren
 
-Collapse the req/req_list union in ublk_uring_cmd_pdu into a single
-field so ublk_queue_cmd_list() can store the head request to it in
-either case.
+Hi Christian
 
-Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
----
- drivers/block/ublk_drv.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+On 2026/11/5 03:06, Christian Brauner wrote:
+> codetag_alloc_module_section() takes the codetag type's mod_lock for
+> writing and calls reserve_module_tags() with it held. When that can't
+> reserve the tags, because the section's alignment doesn't fit, because
+> there are too many tags for the page flag bits or because the memory
+> for them can't be allocated, it shuts memory allocation profiling down
+> and removes /proc/allocinfo, still with mod_lock held.
+> 
+> remove_proc_entry() waits until every reader of the entry has let go of
+> it, and a reader of /proc/allocinfo takes mod_lock for reading in
+> allocinfo_start() while it holds the entry. So a module load that hits
+> one of those paths while /proc/allocinfo is being read waits for the
+> reader and the reader waits for the module load, for good.
+> 
+> Let a work item remove the entry in that case. The profiling is shut
+> down right away like before, the file just goes a moment later.
+> 
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 3d322fa1bc83..c397e354a7d6 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -117,21 +117,18 @@ struct ublk_batch_fetch_cmd {
- 	unsigned short buf_group;
- };
- 
- struct ublk_uring_cmd_pdu {
- 	/*
--	 * Store requests in same batch temporarily for queuing them to
--	 * daemon context.
-+	 * For ublk_cmd_list_tw_cb(), a list of batched requests queued to
-+	 * daemon context. For ublk_cmd_tw_cb(), a single request.
- 	 *
- 	 * It should have been stored to request payload, but we do want
- 	 * to avoid extra pre-allocation, and uring_cmd payload is always
- 	 * free for us
- 	 */
--	union {
--		struct request *req;
--		struct request *req_list;
--	};
-+	struct request *req;
- 
- 	/*
- 	 * The following two are valid in this cmd whole lifetime, and
- 	 * setup in ublk uring_cmd handler
- 	 */
-@@ -2104,11 +2101,11 @@ static void ublk_queue_cmd(struct ublk_queue *ubq, struct request *rq)
- 
- static void ublk_cmd_list_tw_cb(struct io_tw_req tw_req, io_tw_token_t tw)
- {
- 	struct io_uring_cmd *cmd = io_uring_cmd_from_tw(tw_req);
- 	struct ublk_uring_cmd_pdu *pdu = ublk_get_uring_cmd_pdu(cmd);
--	struct request *rq = pdu->req_list;
-+	struct request *rq = pdu->req;
- 	struct request *next;
- 
- 	do {
- 		next = rq->rq_next;
- 		rq->rq_next = NULL;
-@@ -2119,14 +2116,16 @@ static void ublk_cmd_list_tw_cb(struct io_tw_req tw_req, io_tw_token_t tw)
- 
- static void ublk_queue_cmd_list(struct ublk_io *io, struct rq_list *l)
- {
- 	struct io_uring_cmd *cmd = io->cmd;
- 	struct ublk_uring_cmd_pdu *pdu = ublk_get_uring_cmd_pdu(cmd);
-+	io_req_tw_func_t tw_cb;
- 
--	pdu->req_list = rq_list_peek(l);
-+	tw_cb = l->head == l->tail ? ublk_cmd_tw_cb : ublk_cmd_list_tw_cb;
-+	pdu->req = rq_list_peek(l);
- 	rq_list_init(l);
--	io_uring_cmd_complete_in_task(cmd, ublk_cmd_list_tw_cb);
-+	io_uring_cmd_complete_in_task(cmd, tw_cb);
- }
- 
- static enum blk_eh_timer_return ublk_timeout(struct request *rq)
- {
- 	struct ublk_queue *ubq = rq->mq_hctx->driver_data;
+Thanks.
 
-base-commit: e6ac1da6a53c5f670bf09e60a2500d15be68d2fc
--- 
-2.56.0
+is this a problem you have hit in practice?
+Sashiko discovered this issue earlier and reported it as follows:
 
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 2070e682fe106..112a014d4b890 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -950,10 +950,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+>  		int grow_res;
+>  
+>  		module_tags.size = offset + size;
+> -		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
+> +		if (!tags_addressable()) {
+>  			shutdown_mem_profiling(true);
+This is a pre-existing issue, but does this shutdown_mem_profiling(true) call
+introduce an AB-BA deadlock between /proc/allocinfo file readers (pde->in_use)
+and module loading (cttype->mod_lock)?
+A user reading /proc/allocinfo acquires the procfs in_use reference in
+use_pde(), then blocks on down_read(&alloc_tag_cttype->mod_lock) in
+allocinfo_start().
+Concurrently, if a module loads and tags_addressable() fails,
+codetag_alloc_module_section() holds down_write(&cttype->mod_lock) and calls
+shutdown_mem_profiling(true), which removes the proc entry. This removal waits
+indefinitely for the in_use reference to drop to zero, hanging both procfs
+reads and module loading.
+> -			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+> -				mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+> +				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +			release_module_tags(mod, false);
+> +			return ERR_PTR(-EAGAIN);
+>  		}
+>  
+>  		grow_res = vm_module_tags_populate();
+
+I previously sent a patch with a comparable idea, though Sashiko remained unconvinced.
+
+[patch]: https://lore.kernel.org/all/20260817062726.106511-3-hao.ge@linux.dev/
+
+[Sashiko's objections]: https://sashiko.dev/#/patchset/20260817062726.106511-1-hao.ge@linux.dev
+
+Could this patch perhaps wait for mine? No worries if this is inconvenient.
+
+Best regards                                                                                                                                                                                                                                                                  
+Hao
+
+> ---
+>  mm/alloc_tag.c | 27 ++++++++++++++++++++++++---
+>  1 file changed, 24 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 82e2c3448dcf..7d7ad6704953 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/seq_file.h>
+>  #include <linux/string_choices.h>
+>  #include <linux/vmalloc.h>
+> +#include <linux/workqueue.h>
+>  #include <linux/kmemleak.h>
+>  #include <uapi/linux/alloc_tag.h>
+>  
+> @@ -604,6 +605,26 @@ static void shutdown_mem_profiling(bool remove_file)
+>  	mem_profiling_support = false;
+>  }
+>  
+> +static void remove_allocinfo_file(struct work_struct *work)
+> +{
+> +	remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
+> +}
+> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
+> +
+> +/*
+> + * A module's tags are reserved with the codetag module lock held for
+> + * writing, and a reader of /proc/allocinfo takes that lock with the entry
+> + * pinned. Removing the entry there would wait for that reader for good, so
+> + * let a work item do it.
+> + */
+> +static void shutdown_mem_profiling_async(void)
+> +{
+> +	if (!mem_profiling_support)
+> +		return;
+> +	shutdown_mem_profiling(false);
+> +	schedule_work(&remove_allocinfo_work);
+> +}
+> +
+>  void __init alloc_tag_sec_init(void)
+>  {
+>  	struct alloc_tag *last_codetag;
+> @@ -855,7 +876,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+>  		align = 1;
+>  
+>  	if (!ensure_alignment(align, &prepend)) {
+> -		shutdown_mem_profiling(true);
+> +		shutdown_mem_profiling_async();
+>  		pr_err("%s: alignment %lu is incompatible with allocation tag indexing. Memory allocation profiling is disabled!\n",
+>  			mod->name, align);
+>  		return ERR_PTR(-EINVAL);
+> @@ -905,14 +926,14 @@ unlock:
+>  
+>  		module_tags.size = offset + size;
+>  		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
+> -			shutdown_mem_profiling(true);
+> +			shutdown_mem_profiling_async();
+>  			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+>  				mod->name, NR_UNUSED_PAGEFLAG_BITS);
+>  		}
+>  
+>  		grow_res = vm_module_tags_populate();
+>  		if (grow_res) {
+> -			shutdown_mem_profiling(true);
+> +			shutdown_mem_profiling_async();
+>  			pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
+>  			       mod->name);
+>  			return ERR_PTR(grow_res);
+> 
