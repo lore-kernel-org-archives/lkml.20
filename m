@@ -1,124 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793875453;
-	b=yxK5pPnO08VTOWug3aY6+riwq53Dc9a+enSudGH7EZT8/+GyujL3v2fX4yC+jHb1VVzR
-	 r1mSx9+7L7a7vF3sHMX8gv++a6pOa8L3lg9GGr7qYqWIkcxaj2iYK3+s+ArNZj5TL7nGG
-	 bzvA8c6k7pzoa1QYsqNvebSxyunrJ/BVYskUxd/JoZcU4/DE046eqP1UlB9njR46CXn+e
-	 S1OVYH6AsdDo9+iIFsvN9g4P4Vf3yAEeIpDherc+mKxydZTS435Ef0/bSty6uXEqMaiL4
-	 7ZhEBWXH36laq15iZIgfYHaVGk27ji5Baijw1De3PXdubhEjxBYc8Fk6/W/FWRlr23A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875453;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Xf5/vbep3X8hdJmcdG1lebyy2JgNR/ibl1SZ4lYtaMg=;
-	b=KVFAmX7rjqaiun4KhtVoXilJ5t+ypUof6vFaYfx++szaIbzgFa7xVqvVU2uaVHQxYRnZ
-	 ZfQ1z5y2zrF6u71ywp9XkdjVCtF5KoeJcJWXuXm7fSNReT7H+/kuTYc0H2gzyIF6lr59B
-	 5rGpTkfkKzgdTsg9cT2Y0qokNiMXQItZS1hL87EB8vD4BlRqug+MRdSB59nwcwzUY2LyQ
-	 JLYEijVOTqfPvSymE4FjRlRBkiCqZe7/Trjl1YmZZPL3hJ2/sYRsnDBPtbVW+Snnu1uKa
-	 SQl19kGlnjBiw5LOF6aLw377IQ9kcFXljulmu8wr3oGtJba/KUD//De10qULmAtJ8vw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iPGeVb7B;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gG1PvT2i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793875447;
+	b=Wf/JnlAJuH3nW5HLL9KeFZ2m8yT8p7nK+hqNBn/fCnjhU5Et1D+VmZFwUWbS5MD9bgTU
+	 xiHnTjdNhX/lvnJuZxg5syYuYxfwKhb3gcasMccnLwPwkHcxBrPaMiJ+O3hV7j3jRPbWD
+	 sOvrBYFluoivlfbeCItZRjUkBXe/jJ51vU5TGNxxGKNZ2iaRTZlk1nX93f7vXkQ88gHvR
+	 o9/okXSKHO0hpTXqjSFvCJDDbFTPXB30fGo/6ccC33hn9/bh86Kd70psS3u2TIn9qF7R8
+	 xURofAZEGiEECcywIZH2lDGR21KHbH0WfRCpAYxJlcVPLg3pVN4r/UXjdXvCrJGc8LA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875447;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=2B4Ux6cRb9R9inLtWJ2ItnXjNlyuBOpvcpUs0767FfY=;
+	b=c9bQrx4iBYBg0wnhKkMiNm9mwdRbhYiTUGQLN7xaEXbCT7B7bijVB9f3sAM/xZo7qRd1
+	 JX9uqaNlSFl8dUWSbv1vHWQ+VKQT/oMOx+STD3dyNoOpu119t7UlrYfR00N+mrhNT6Uc9
+	 eOoWh80ESzrVq5hekJOkyAmX6Iv5SRRWu3QPL7gSeMC7oG1B6Zg5oWM50xXYkKQSKwKI8
+	 VamUOHmlXRZsjq0BZKX97/QeROXVYuZFd+qnMbtlq1zJGtPyzzJs+/AqHicDR3oJpmslW
+	 0VyUxVrj0w/ObjdGxaGGLnMbhwy02Bnl6oyGA1wsMggwy58RsH86SfbC6FIMsTInZxg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=bNN5n2ci;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF7B606D821
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:44:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DF7B606D821
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF6B606EE8E;
+	Thu,  5 Nov 2026 10:44:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AF6B606EE8E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iPGeVb7B;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gG1PvT2i
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Ai3gp1583132
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 10:44:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Xf5/vbep3X8hdJmcdG1lebyy2JgNR/ibl1SZ4lYtaMg=; b=iPGeVb7BdAkbKkml
-	kucWy2KtJOwJtWPRILOKbGgMeGzqd7HZsNS7MqkLvb2XsSsEh5l6QFeHhUO1H2qo
-	DCqD41pSkVqlIdMB/ugOpvmTaC73582Qlc+J8uDncjYQrFnlibWZ8vYtZAixYRGJ
-	ckEr+dBbOO+R8H30dJr7socVsuVNfG/+C33m/+OapZ+5P9NWsFO1SXrb6zyWliQw
-	iXPyFoJxtpL7TKgpSV5Cq1dG454acXFP/Or7Un3hgN169Gaez6j4gZmKmskQo2uC
-	ZahDH46LOf7UtvzGMFfG8pwTr2Ib3qzv10GHAdm4dpocvfUSFoKyVE4bYGnVr5Bb
-	WOAygA==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrraar01c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:44:12 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67be4f2f42eso2866848d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:44:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793875452; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DDOLzKAE+CKK6cUl2CO3kEECZATg82VSuC0vtL3zrNOGcuNPKJU7iWjLrPk7lY3fH+
-         llOGbMayq4gwTLTJ0erStZWChoBH7KP3rmZVcTrQe3ufFERvc9dAtgmOoIX2l3hnbIDH
-         q8lCA4UNvyQUh/cD1tI3BBsJF6yoXCIcuXzMybq1Kj5AtNO/NySJP+izb9JGEVaMtUJU
-         91iO+iXV397ME53mm4begTo1kXEHtBEHt/Nt+57+synXbhBnwgUU5SYvY8e2Xk2/IIT/
-         IMpXrLtxbaVIuwTnbl+PIL93r2Gyq72sqL/UbVsaUP7B5RqgkaAzEKMr82uuzMOMkOTm
-         a1Bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Xf5/vbep3X8hdJmcdG1lebyy2JgNR/ibl1SZ4lYtaMg=;
-        fh=cQL/5LLe+mdui6pJVr7RR4hjoqVOVeF5BO2AjZkgOcU=;
-        b=Nh9y3lf3ZDdEQWDaD7uWDMR4VTIiomHn5BTVVAGHnb3doxEnrsfcWzhscC0ENobWTd
-         KJmjyt018pZGkTPodxU4VKOhBpBtKhuQH2cFYOkq8FLnGvN5r2qetatwHQ7lZBgqIUD/
-         W+xF3fcrxJSFnFmO0zTd8CUOrFySHkpGnQuwQxAmKaztes/X5K6o4Ixd1f+Xf+7ksxwi
-         R5tL1cqWyB7QtjWG5+FP+EycW+C6w1gfEKZoc3XbX38yBTYeYBnQZjPcfzJef43JuLby
-         koSlA3K1r5Xwbnf705576rtKb2GwJ3uuX7csYXC8PMjiiJeEy/N+6qOO5uvJBo5BHpAJ
-         19fQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793875452; x=1794480252; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Xf5/vbep3X8hdJmcdG1lebyy2JgNR/ibl1SZ4lYtaMg=;
-        b=gG1PvT2ituBZDAgVvKFjCqgSy4ef3Qck55pb9CBqcFUjmGh/m+Bav2UnfWCtlNu0uj
-         NfnsQ8q4rQRQ2jjhCR4pZJ7GYhc0HJo4ccGz5lKNMCbscMZNUU7BvPH6/nQfTmMkLPgp
-         ijhkFrmmfXy+5SNElFq82x/04W7whFmcq5J1Awk4IhpK46gMuM0WeOJnt7LLCFfBSJud
-         zuFTeHrKtZKhMrzuhcyS8g9qaKVoxMVcqI5SXO/1tpKhsKVZfmZI1eg/T0OI0cd8695a
-         GMoFiY1vDScmGV2wnpBY2JkIdolmyYmSVyGm4HC77Ca1R7GH3F2svavKRuASj+K6M+W+
-         ahug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793875452; x=1794480252;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xf5/vbep3X8hdJmcdG1lebyy2JgNR/ibl1SZ4lYtaMg=;
-        b=dtTBucea/FliHlMIGMXB25Rq5WZE1qrkUi+Qwiq2nioIOdSlA8nNCxJ8H/kns4VjSz
-         SWNJwiiN4mpaBZ4qU59h0cV3WJK8PKssOmaMC47ZDS0DIKiTJlqfdUCmKjUux7icX7vL
-         BhbAvP1DjRTwT/4p1oaLE1K26hRunNsZ+zB1gxnURhi7n0rgzp5O5W7Ag91YwZIyFz8A
-         I0l3tYvUG2nRoAv/cv/IH2v2hvqGfPwARIxnxPLZnE1eRfu12PdS5qdlYNZ3+v3cHnzy
-         UTci2zirf9iqhwpFFD0THQ3hAv0HFsdfCxJ/6wuVWMc5GqSmX1K7RjzPHl2ngoEJW69L
-         W5cw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCjL3n36eXee8e0PWozaoWQbORJTnkSvRyrqgH40g67O7CGgVDqrFCAUJEY85FQmkkkAU8v3TeKvTdbLc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wTQNMqSnsQ7Nj/QBnz3aDJBzghcOfSFGKUwKQbKaHj9uURz/W
-	NOuHdc+3+hZJQE0JMqU5V0ZPlnhpumlDeGJaZVOKI9OWJCM+nC6GYau+R14IwRke7d4kLSe5tqe
-	O2GigTgD1l34N9JqdTYICqCybhjHsxiinLSxGNOwaUD0YJBPmaSMzRdCE2U/LCtwfiZAHXG+aJe
-	M3D2X/MgWDpT51HiKQe+H5yjX3IpndYGaoqcowKgqcJQ==
-X-Gm-Gg: AYBFou23tQK3iPRDUJq9ERtHsrwFUpc7AggcgdBAcwBr/JKBy6NT0bOVwvQudl4cTZX
-	IDnmXz4NYV2DGF9wZkzesSwvxwnLUJ/dhSWVCYntocB0JqAWoeJLg77qu7OV9U9HequoW9pV9Fr
-	66kn+u0wcPiOS8aLGdR4/6nlWSWbelpq8iOxwDAgCceYIQkhI7j/UvE2par7EtyXK9BrPcRU51Q
-	WUQ9UFUDfYfCr6eVptUU8xzW39sYhvw5Za3NDQ5
-X-Received: by 2002:a05:690e:4145:b0:67c:a2c:8240 with SMTP id 956f58d0204a3-67c0a2c8545mr466488d50.78.1793875451492;
-        Thu, 05 Nov 2026 02:44:11 -0800 (PST)
-X-Received: by 2002:a05:690e:4145:b0:67c:a2c:8240 with SMTP id
- 956f58d0204a3-67c0a2c8545mr466481d50.78.1793875451076; Thu, 05 Nov 2026
- 02:44:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=bNN5n2ci
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=2B4Ux6cRb9R9inLtWJ2ItnXjNlyuBOpvcpUs0767FfY=; t=1793875444; x=2109235444; 
+	b=bNN5n2ciqkmJ/4gbu70LKRqogtNKvw7nmYCMEzN8vEJSxAiQgyqkm36jdARvSsrkIKai5zmE+DB
+	FZfIkTt6HHrxDhJB4em/LwIuzRrh4ZltO63RUuj+VmKsr0KeEbuwZpaEpgpOufOtSAaFt/O5gBmJC
+	emetdvrMymvxpMkG+edJ+xLsQH9AAvCCUKzejaj8G/YdHnLOVnYYnIJExY0FJawus2pd8x3hoUyJt
+	+OZnw9w6NmqfeREylXfUZava8P641Lfqu+bHJM0toL9M+ka0zLTcnWPSY2AO25p5U/Yjms3S638N0
+	iNlfIc5sknc96LbwYVhBChhPXQA3L2xbGQDQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xOuwl-003F5U-DR; Thu, 05 Nov 2026 11:43:55 +0100
+Message-ID: <33ccceef-3498-426a-ae7c-a8bafbb88992@igalia.com>
+Date: Thu, 5 Nov 2026 07:43:49 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,70 +57,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261009-fix-tee-max-keys-v1-1-1462d96bf438@oss.qualcomm.com> <atYDodGDc3z6Qv4f@sumit-xelite>
-In-Reply-To: <atYDodGDc3z6Qv4f@sumit-xelite>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 11:43:59 +0100
-X-Gm-Features: AclHuK82I7GOQ461EBrvJUf4LJ_kffL5_IxDC54rT4pmONT0rZ70Os06qoD-B9o
-Message-ID: <CAGgiveW5pqputgg6EcOCEGEVcBhyjrPUZ_8WKD656tWnw9sMcg@mail.gmail.com>
-Subject: Re: [PATCH] tee: optee: allocate a bitmap for all valid notification keys
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, linux-arm-msm@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0MiBTYWx0ZWRfX7V+I3j4/XglU
- pu/wx8a4n+/yju4kYId6U1jnmYuzPmiPMjNwOE54LHoEOv2sqmTZIOUGXvh9Awk1rAJJeNgVYtV
- ARlq47mls8jaNliwfkejKMa1a1BJ4ZI=
-X-Proofpoint-ORIG-GUID: eSyVDH6zdH6nqsVKaa6EyoWFAXFdmPFP
-X-Authority-Analysis: v=2.4 cv=U54Hnuru c=1 sm=1 tr=0 ts=6aec5dfc cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=VaSOubSYdYwWsDXPSwkA:9 a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0MiBTYWx0ZWRfX99L5s3llb2mZ
- rAxAC50o/kAZPgkIiBWijF4Itv1/etSUOhuYVEXpbUoVaQtTTERT+QkyQpakCDCrqrgltKnQRLl
- Zns3uN0wN08jHl6RSwbSnU3K1YSe3Q2uGFdOivx5eWtwf1F/rrVxJ8qtp3IdCeB1nNgGnI09atC
- 3Utu+e0/39G9ESmCsQWa1nVVMyAcxMLi/LtBhyJjcVochhaLj1b8t+NV7/fUL1qJHTNTakhA735
- FOGMxHiARq6Pd4/ldXdo8+W4ACOy14vgf00clIqrszCRVVtYDykXrL73rcu5k1LYyeERviRcWMb
- S/SaEPsi/jdbwYkrxB0yDn81t3JUIX8YzDwbuxat7MNfBpt+I1If6YflPUjKdaI5DKpZtLlmVN3
- FMuXZkBf6yFcyo0LZNGepgBgnUSLg2hIVYIyDmClYbbZEkFY8BS8CEd9xrzT9ap3t6RYZp0khf6
- 5IXQrvAT7nyN1hbUWRg==
-X-Proofpoint-GUID: eSyVDH6zdH6nqsVKaa6EyoWFAXFdmPFP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
- adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050042
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] accel/rocket: Report NPU usage through fdinfo
+To: Tvrtko Ursulin <tursulin@ursulin.net>,
+ Sidong Yang <sidong.yang@furiosa.ai>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+ Oded Gabbay <ogabbay@kernel.org>
+Cc: Gyeyoung Baek <gye976@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261103155338.1949294-1-sidong.yang@furiosa.ai>
+ <a9f016ce-f086-412d-9ca6-6608a41840e5@ursulin.net>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <a9f016ce-f086-412d-9ca6-6608a41840e5@ursulin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Tvrtko,
 
-On Mon, Oct 19, 2026 at 1:48=E2=80=AFPM Sumit Garg <sumit.garg@kernel.org> =
-wrote:
->
-> On Fri, 09 Oct 2026 at 20:19:48 -0700, Amirreza Zarrabi wrote:
-> >Notification keys are checked against an inclusive maximum, but
-> >optee_notif_init() passes that maximum to bitmap_zalloc() as the number =
-of
-> >bits. The bitmap is therefore one bit short. When the maximum key is a
-> >multiple of BITS_PER_LONG, accessing that key reads or writes beyond the
-> >allocated bitmap. Word rounding masks the problem.
-> >
-> >Allocate max_key + 1 bits so that the highest valid key has storage.
-> >
-> >Fixes: 787c80cc7b22 ("optee: separate notification functions")
-> >Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-> >---
-> > drivers/tee/optee/notif.c | 2 +-
-> > 1 file changed, 1 insertion(+), 1 deletion(-)
->
-> Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+On 05/11/26 06:22, Tvrtko Ursulin wrote:
+> 
+> On 03/11/2026 15:53, Sidong Yang wrote:
+>> There is no way to tell how much of the NPU a client uses. Implement the
+>> DRM usage stats: account the time each job occupies a core and report
+>> it per client as drm-engine-npu, along with drm_show_memory_stats() for
+>> the BOs.
+>>
+>> The cores are identical, so they are reported as a single engine with
+>> drm-engine-capacity-npu set to rdev->max_cores, the number of core
+>> slots. The time is summed over all cores, with an atomic counter as the
+>> cores complete jobs concurrently.
+>>
+>> Jobs can outlive the file that submitted them, so the counter is
+>> refcounted and each job holds a reference. The time covers the whole
+>> period a job owns a core, so it also includes handling the completion
+>> interrupt and the gaps between the tasks of a multi-task job.
+>>
+>> Document the keys in the rocket driver documentation.
+>>
+>> Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
+>> ---
+>> v4: Report a single drm-engine-npu key with drm-engine-capacity-npu,
+>>      instead of drm-engine-npu0..2, as drm-usage-stats.rst specifies for
+>>      a group of identical engines, and document the keys (Tomeu Vizoso).
+>>      The subject no longer says per-core. Gyeyoung's tags are dropped as
+>>      the accounting changed.
+>>
+>>      Still depends on commit 6eff1d69dae8 ("accel/rocket: search every
+>>      core slot when a core is removed") for rdev->max_cores.
+>>
+>> v3: Add a rocket_engine_usage_create() helper for the counter
+>>      allocation in rocket_open(), to pair with
+>>      rocket_engine_usage_destroy() (Gyeyoung Baek).
+>>
+>> v2: Size the per-core counters by rdev->max_cores, the number of core
+>>      slots, instead of the number of cores bound when the file is opened.
+>>      Sashiko reported the out-of-bounds read and Gyeyoung Baek reproduced
+>>      it with KASAN.
+>>
+>> Link to v3: https://lore.kernel.org/all/20261103104804.1887489-1- 
+>> sidong.yang@furiosa.ai/
+>> Link to v2: https://lore.kernel.org/all/20261101152723.1430312-1- 
+>> sidong.yang@furiosa.ai/
+>> Link to v1: https://lore.kernel.org/all/20261031083642.1076356-1- 
+>> sidong.yang@furiosa.ai/
+>>
+>>   Documentation/accel/rocket/index.rst  | 28 +++++++++++
+>>   Documentation/gpu/drm-usage-stats.rst |  1 +
+>>   drivers/accel/rocket/rocket_drv.c     | 70 ++++++++++++++++++++++++++-
+>>   drivers/accel/rocket/rocket_drv.h     | 15 ++++++
+>>   drivers/accel/rocket/rocket_job.c     |  7 +++
+>>   drivers/accel/rocket/rocket_job.h     |  4 ++
+>>   6 files changed, 123 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/accel/rocket/index.rst b/Documentation/ 
+>> accel/rocket/index.rst
+>> index 70f97bccf100..53c9aa7e2229 100644
+>> --- a/Documentation/accel/rocket/index.rst
+>> +++ b/Documentation/accel/rocket/index.rst
+>> @@ -17,3 +17,31 @@ project.
+>>   Hardware currently supported:
+>>   * RK3588
+>> +
+>> +.. _rocket-usage-stats:
+>> +
+>> +Rocket DRM client usage stats implementation
+>> +============================================
+>> +
+>> +The accel/rocket driver implements the DRM client usage stats 
+>> specification as
+>> +documented in :ref:`drm-client-usage-stats`.
+>> +
+>> +The NPU cores are reported as a single engine, npu, with a capacity 
+>> equal to the
+>> +number of cores. The time is summed over all cores, and covers the 
+>> whole period
+>> +a job occupies a core.
+>> +
+>> +Example of the output showing the implemented key value pairs:
+>> +
+>> +::
+>> +
+>> +        pos:    0
+>> +        flags:    02400002
+>> +        mnt_id:    33
+>> +        ino:    749
+>> +        drm-driver:    rocket
+>> +        drm-client-id:    246
+>> +        drm-engine-npu:    2296549300 ns
+>> +        drm-engine-capacity-npu:    3
+>> +        drm-total-memory:    24216 KiB
+>> +        drm-shared-memory:    0
+>> +        drm-active-memory:    1920 KiB
+>> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/ 
+>> gpu/drm-usage-stats.rst
+>> index 70b7cfcc194f..288764730d23 100644
+>> --- a/Documentation/gpu/drm-usage-stats.rst
+>> +++ b/Documentation/gpu/drm-usage-stats.rst
+>> @@ -218,3 +218,4 @@ Driver specific implementations
+>>   * :ref:`panthor-usage-stats`
+>>   * :ref:`xe-usage-stats`
+>>   * :ref:`amdxdna-usage-stats`
+>> +* :ref:`rocket-usage-stats`
+>> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/ 
+>> rocket_drv.c
+>> index 2bcfe4ab3c68..e22e8623db64 100644
+>> --- a/drivers/accel/rocket/rocket_drv.c
+>> +++ b/drivers/accel/rocket/rocket_drv.c
+>> @@ -3,8 +3,10 @@
+>>   #include <drm/drm_accel.h>
+>>   #include <drm/drm_drv.h>
+>> +#include <drm/drm_file.h>
+>>   #include <drm/drm_gem.h>
+>>   #include <drm/drm_ioctl.h>
+>> +#include <drm/drm_print.h>
+>>   #include <drm/rocket_accel.h>
+>>   #include <linux/clk.h>
+>>   #include <linux/err.h>
+>> @@ -68,6 +70,38 @@ rocket_iommu_domain_put(struct rocket_iommu_domain 
+>> *domain)
+>>       kref_put(&domain->kref, rocket_iommu_domain_destroy);
+>>   }
+>> +static struct rocket_engine_usage *
+>> +rocket_engine_usage_create(void)
+>> +{
+>> +    struct rocket_engine_usage *usage;
+>> +
+>> +    usage = kzalloc_obj(*usage);
+>> +    if (!usage)
+>> +        return NULL;
+>> +    kref_init(&usage->kref);
+>> +
+>> +    return usage;
+>> +}
+>> +
+>> +static void
+>> +rocket_engine_usage_destroy(struct kref *kref)
+>> +{
+>> +    kfree(container_of(kref, struct rocket_engine_usage, kref));
+>> +}
+>> +
+>> +struct rocket_engine_usage *
+>> +rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
+>> +{
+>> +    kref_get(&rocket_priv->engine_usage->kref);
+>> +    return rocket_priv->engine_usage;
+>> +}
+>> +
+>> +void
+>> +rocket_engine_usage_put(struct rocket_engine_usage *usage)
+>> +{
+>> +    kref_put(&usage->kref, rocket_engine_usage_destroy);
+>> +}
+>> +
+>>   static int
+>>   rocket_open(struct drm_device *dev, struct drm_file *file)
+>>   {
+>> @@ -86,10 +120,17 @@ rocket_open(struct drm_device *dev, struct 
+>> drm_file *file)
+>>       }
+>>       rocket_priv->rdev = rdev;
+>> +
+>> +    rocket_priv->engine_usage = rocket_engine_usage_create();
+>> +    if (!rocket_priv->engine_usage) {
+>> +        ret = -ENOMEM;
+>> +        goto err_free;
+>> +    }
+> 
+> Glanced over this patch by chance and it very reminded me of 
+> drm_sched_entity_stats tracking. That object is reference counted by the 
+> entity so I think it would satisfy your requirements. We would only need 
+> to add an accessor like drm_sched_entity_get_runtime() and just call it 
+> from rocket. Thoughts?
+> 
 
-I'm picking this up.
+I believe we tried something similar in the past (commit 97804a133c68)
+and it ended up being reverted after this regression [1]. I would be
+great to give this idea another change (specially now that we have
+drm_sched_entity_stats), as it would also be useful for V3D.
 
-Cheers,
-Jens
+[1] 
+https://lore.kernel.org/dri-devel/3e00d8a9-b6c4-8202-4f2d-5a659c61d094@redhat.com/
+
+Best regards,
+- Maíra
