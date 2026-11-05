@@ -1,54 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877104;
-	b=Edg1Ys7OJJEGHyz47OZyxut9MRTye4vuZTgzUrAwUaHy+wJ8JGDKyxg4FN3f8zJrs5ya
-	 lLBhH0s97x3qMb0cI8xj78iNrR5nIaPuGWJEDUcfcUBuXv/w1leCLnzDZaXDhlQECr0TA
-	 OewVLQu+Fz30OBAUxvEil6LT9dIThrMjOUODfNndCLe6rmfNryLA3GrYBk3BSFcz9G4Ej
-	 nYTtHyUEKKsNNib0obHwqDAHmi6iOqVNGHvvRY8aRtGUxCAu3O+vSdd5d4EqK/gs2Asf8
-	 b7GMBuUGdreXjKh/bd0AFo8GYqa7HZaz3wGcdRBECjdsICBWzIPsTa2kB2dFnUeF6wQ==
+	t=1793877109;
+	b=pxJPc5JAQmsM3GeD0echzOJt4RXdS/rYChvhP1q2Mh45CTL7g2bjHJ714bX2EMO/TOKr
+	 8uN0H0WgL+dTLWX3aKwUzexjVSuDWirRXGMQ7RiUCCXmmRCjk16T40G7uTf33jJb8Iil0
+	 H64VNy/qxlyPp39Q6/qCOkfxM6gbUH1887BZSBM6zR4wLNmloLRw16eU6YXkAPeQcrPrb
+	 +vIc98LKeKLfhXB8ct25ZeXokwjMA/4abgj+ufI6Kr8fPJt3WqGqJi/fVFAzViJIEbH8e
+	 dtBegh2tvRGNGBf09+DP13ZlLq4hPQSBQL2xI3tfJ1nUeze/bvl8ynPzthwCC0jUvqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877104;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=3jVc4SI3dwrhCHlixWzw1rVfq5AqGHNQ1RV/3qjkXoU=;
-	b=4jsKtyPTYiqZrMHzYHaAdyww4lfLRsYNHuFhENjvY5AZOJV7gThpMRYd1FN16jigIx/x
-	 qAj1Spe90G5SHXv5OllqaDbD+h9ieWRQbyTvrNUt+lMRfIRiNxAiTIdZbYh3VG6w5IqlD
-	 /UDDQ6YqFj3mRiwvK9hp9PnD6zq9dSWyVn0usAs8T0hY/TuzBAgG0AFFGCcT2QAP6nlyg
-	 dJ+vdefngPs9w59IhPHesxO2Ka/TIeIoEQ2p+0zduviW8jE/iGCmI0lKR7nPFtzDn/7/k
-	 VsGIw/kS/ES5eM/SMDwhABm0tPmEreQYivF95HWXHnG0Xn+FsuLGIs4YvIfCzrkVPrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877109;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UJTC+JRerMEIZGzXVfFC7iK2/khV6wuxurfu9NdaoBM=;
+	b=aqEz+OAdevrL/X6Lc4u8pYxQiOWVhGDpl7Cj7+egNiLCMvXetn7el11+7lS8rStr5TK+
+	 aWzmU4UUgFD5j+PIIyPtvjdAIK4I/NosyGbs/jPFOECl6N2SQKXEYZMF6Y6Fdq2N92VXD
+	 Y5KqwjDiufE5V2mEwtkI4n/cFHiZuQLzCbqDxvfvEDWk/vnfmGuiUbS9jbjA4hZWVRxYJ
+	 wUyPqTiuQMDXmrLhW/QbIiG+NF7+vhrs/Ojmld6Hb0jX1uFO9IjeyiVjO419DIR0aCskm
+	 wAl2+Xrzn2MZPSDpAB8TLkv7VY5hv9JBK0DQtKoYRxQP7ALqraf8i7JwtLVg1OiZavA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eZr29nzc;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ONQ1ZZqU;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B335606EE91
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:11:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B335606EE91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2d1eb484aso2169257b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:11:43 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D60606D805
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:11:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88D60606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eZr29nzc;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ONQ1ZZqU
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tC7C3684469
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 11:11:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UJTC+JRerMEIZGzXVfFC7iK2/khV6wuxurfu9NdaoBM=; b=eZr29nzcoT3z6mpf
+	zhDMrvmVUqwoxpzFHPn5DktkN7WZ1zjW153rBjPT++nUiPe2vU5AUMIKrK5+z7Dx
+	JSVtjPFtS4yBmCdNGmtzBzG0irfNE6DZacQa+qW3M/OPzm7D7s2+LO34J8dKUzZt
+	aFUHowR04eKYq/xVka9Mp4FlmRZGl0Fr8SJMXt8ged3QgJWNXOn451vfmuBpcilC
+	4cB+pGFkRacC59m1eCIizsh80K1jIGPpmFXYxWsc/lRyRPeFBs1jD5qnwoKx1AsD
+	fF9JSde0xNAkfZGjMfe0TdbjFpDtbgXHm7Kwmyj0HxFhCYnBauRUGXRldUzNu7wS
+	l49j+g==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrj43hqak-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:11:47 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-943e8ff02d0so186472685a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:11:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793877107; x=1794481907; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UJTC+JRerMEIZGzXVfFC7iK2/khV6wuxurfu9NdaoBM=;
+        b=ONQ1ZZqUCHXD58u04cTB5vCbjYwqLsYVI3p5NGzyOhmiccdfRQF7h8fMAFDmhiQLL2
+         GoS1i3yppEnLt1roua17e/sgpTYJ6a/LW1FQ1kJTQ7O1FhwpOsiRgHSEOvDM9J+sW/ZR
+         DiV5LqUmzMOhnMlGeOWOMlXoJAjgCov0Lm7LtBQieSlptLoJj5lGmwkM0MNynodd8+Iq
+         +sI5sHuNK0AgNS9vfsy+DN7vfmTRC6ZSFAhnGCmS93oplaBQpbZaJwheUno3gwrGcwGv
+         xpNM5yQWlF3IGn0O5X5TI+T0G7d9TgAAz0NfdnWXPdd0KbU/EtQ09Ufx5gXIJu49L8ij
+         RTMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793877103; x=1794481903;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1793877107; x=1794481907;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3jVc4SI3dwrhCHlixWzw1rVfq5AqGHNQ1RV/3qjkXoU=;
-        b=Ogk0beihN/Zx2pySL4qBDADnecMunD7j5GK9NOYvMBhBBRXM2fFecvwpkUzpAvjl1i
-         elZGAxV/kJZnjxSEb1ESG2rHFrGN6xXLSUKUuqAe0xDBTV6SYwzrViNBCydu9gr6KEpB
-         jaFR/VXVGQ8q12P5vYYqXxRKGuV5mW4LaJRlqLlR/mTxf/X9/gBHc0X/9VxMTXljJmcX
-         1KUo/V8yNQrrQqzbJj0iHMzlnPE2FAagKeLK90LdsowHBDDF3pOXFwqux0Eyowi9Q/de
-         1X/a2XGVSrn2T0bHyl4Sy+ecxpYQIFBg3oI2C7PIM+HobFUNv48ETGnN9K2pMkre/qNl
-         qGuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwil0cGVP1/7ot3ekK+VLukq1pPL+PVAK/r+NRUwvgbhHMhm3U3jYLzrfWiMgrj5ryUIxOM+U8og0qhEY8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z907a4+8N/aYgLTQgruQG6HkEAGJrpIQf44iC5C29XncoH/90OU
-	uCuRpItjsJV7r11INrijUc30q7inwh6xC/6p6Pfa9snDJRnDOYn/SssgAsaxHOFU4U4gnSQUdeO
-	F/z3p715ovpuT+C/BwTQLA9zN1eX2KZbG5JiByQVuLBXUYM+uZ7sqnmAWM8o=
+        bh=UJTC+JRerMEIZGzXVfFC7iK2/khV6wuxurfu9NdaoBM=;
+        b=zMEA0Ee1n2yh4xZmgYHwau1bi72lRLHRFJks+z2YOQhoxyAH40rxkBzsjuSNX3dJkk
+         biLwuTUgrgqaz35usklgErB+5Qk/KvatHhvSKi1wSVk0CCkrav/TgMAvc3QKszzGQvHb
+         iyF5UiyrzCWA58K/LR3b0vBTnXXOw21iJq5haNfwwNRMJoRAygQyAIXB8NlL0YbXFGJb
+         KGYJIzdJ8V+AvOMfBFgByflneA7GaJbUXMxTiMUnAEn9e3W9CoPuoLc+ewwweVTEFuND
+         5zzLotsCWSvDA6d/JoINj8+2ZVZ2bXosEnF4Nn3QHmBXZy9h0oasJECbn7SKsdrzMNOm
+         fpbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCQYPNQEm1hPYm9CCGcP71MHbZTkQWwERkUd2+UmXE7c9tL06IM2KsFeTCFX9AX7FSiaWq6DVxakchw64=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+H6Pis4z6NWuFYp8yQV+XWCNgbXwIHkXCRvY1HcAzfPFj/RXbA
+	pI/SYJos6ZkBtdmEjaq2qoNy2ELqBo9bBoKCxCv+6M5UVJQHuSkWTlnUcwcPmjgds5XgZ5sDaZj
+	FEAdZcv2lzsGkPZxF84zw37VczWGRmLB9Xyc2AYuBaK1/sYj2iCqGHO65T0JCKhORqlw=
+X-Gm-Gg: AYBFou1buhTMzb1f3GENle7ChdqTl7z9txBzjQdnPCPF+aJy+eAX3ucj6Nx5qjZbrtD
+	gP95Ce7yAz5f5V5JCzPUEMNNvtSielIgGFPkh+aGe1ZkY45z9N4gs+RzSJIKp0oCReEV/hgNw+C
+	h/IC8iUGHPBycvUDb+12F+DJ3DL5zzUBylYqqgmyn9Q8qMttJo7zNCkXR59fw88HXyCTpnkXlUT
+	Pb+UsBXdS+hdGUTCtHCMbBPGal9SZmFzFNAVhmALl7Cwh817T+OfLZ/5/dDXLQCLWe3Pn9iKv+n
+	jo+regjkKUXDjiQXpMvApVABAw1ekEvNfLOUO5yqBYEWuYK4NUCWzaG9rKeGGBT63+Bew2x57dU
+	bJXNEpfrg788Sn4J+d/uTcEN4IJTlYweMKm77netNciTggkcAH2xMhf9IE3r1ElHakFIRREWXxA
+	fBl1TXG1npl5E4Ahy55DJg52oDCm1ByQHp7fWjlkgd
+X-Received: by 2002:a05:620a:3188:b0:943:ff70:dc00 with SMTP id af79cd13be357-9442174fc9emr3044614285a.56.1793877106618;
+        Thu, 05 Nov 2026 03:11:46 -0800 (PST)
+X-Received: by 2002:a05:620a:3188:b0:943:ff70:dc00 with SMTP id af79cd13be357-9442174fc9emr3044608385a.56.1793877105968;
+        Thu, 05 Nov 2026 03:11:45 -0800 (PST)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d488f183sm438320685a.39.2026.11.05.03.11.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 03:11:45 -0800 (PST)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Date: Thu, 05 Nov 2026 19:11:01 +0800
+Subject: [PATCH RFC 3/3] i2c: qcom-cci: Support the CCU output mux
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,309 +116,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c40a:b0:4b9:e65b:8c33 with SMTP id
- 5614622812f47-5640ddb8b16mr12457733b6e.33.1793877103079; Thu, 05 Nov 2026
- 03:11:43 -0800 (PST)
-Date: Thu, 05 Nov 2026 03:11:43 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aec646f.aca85a03.3b899.0000.GAE@google.com>
-Subject: [syzbot] [net?] possible deadlock in sk_stream_wait_memory
-From: syzbot <syzbot+a761911cb2560f3ca2f7@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-ccu-v1-3-3accc4b901de@oss.qualcomm.com>
+References: <20261105-ccu-v1-0-3accc4b901de@oss.qualcomm.com>
+In-Reply-To: <20261105-ccu-v1-0-3accc4b901de@oss.qualcomm.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-i2c@vger.kernel.org, vikram.sharma@oss.qualcomm.com,
+        nihal.gupta@oss.qualcomm.com, vtumati@quicinc.com,
+        bryan.odonoghue@linaro.org, Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793877074; l=4082;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=0Fgpwz3SQDHyUhRlUEIFbbEDDaZfQdLbmmNOfyqJ+NI=;
+ b=YEvUVTUPuMY1/we+4fCKvKq9lfIf2BdKLFRArkIbb6oKdgc5OVq5MkqizBFK1UnH3T87uagqR
+ JQw75XFP5BED152z8NXXnVxhKstgxmfbx2tdKQFMaeDvyOcEgz2SRx2
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Proofpoint-ORIG-GUID: r-aWv8yvbxK1UqDIQuBGQLTK1BeX1Rjm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0NCBTYWx0ZWRfX8WYZm3dhS8sR
+ Dz/G1Bn35Pgoz9wscWPfKuPY3N6ap0mS0otCOvvZk2IZ5YFdExXR6vD++5do+ONujZu09aXllsU
+ +cNY9HNTO20aexZL3dVr2kl33W0Gekjom9eS+R3rvG62aq3QzbDaTfV5uTAjzPGbdcDrUHoJVRD
+ ie8c4j6maYkwpu6lb8mKIh+3Fb82o26H0EZKTrmMvPHT/y2AQ/LUqhNYO78AuWvLMo1HXs8eGSp
+ 2Hk/XapHu860vBhT8bc/p4O+Wbwo7xhP4Itfu3B5Vq/oI+ptu+G3WW5aIp7pGRit4350PCjGvAB
+ NNemTDCv84IJp9K9V59lPENoQHx2sHY6ThTryngZjqHKXH6k+I5x5mNFNZh/LvO6SFYuZLZQKW1
+ Pq0dek3WraGCVpZuuOr0szJXW5lQLbP0XPaBEBPcBEqja/hbsq1Y7wgLj0MCLfoTX3XgS9Exzaj
+ GTB9693WV9vJmZgRnBQ==
+X-Proofpoint-GUID: r-aWv8yvbxK1UqDIQuBGQLTK1BeX1Rjm
+X-Authority-Analysis: v=2.4 cv=SZdi5fRu c=1 sm=1 tr=0 ts=6aec6473 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=mtkgQ_vjiMZ5qraaaqMA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0NCBTYWx0ZWRfXy8aEgr2bOXr2
+ jFC1BLi7E+byEX6ZzGNOQ2r+tA0s7i/NJEhWeN0u5qOJ1fNx87vmlZ1AQ5kwaxhFBBvbylZqdfd
+ 1XUAdNGa2QFT7H8oWqWfe/FCjgd+kEQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050044
 
-Hello,
+On SoCs such as Nord, the CCIs are wrapped by a CCU. After reset, the
+CCI I2C ports are routed to the CCU, and the CCU output mux must select
+the CCI before any transfer can take place.
 
-syzbot found the following issue on:
+Get the mux register and bits from the optional qcom,ccu-mux-sel syscon
+reference and select the CCI at probe and runtime resume, right after
+enabling the CCI clocks and before the CCI is reset or configured, as
+the mux register is not retained across power collapse.
 
-HEAD commit:    03897066069f tipc: raise the minimum bearer MTU to fit tun..
-git tree:       net
-console output: https://syzkaller.appspot.com/x/log.txt?x=12215969580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d30e1495ee3ac817
-dashboard link: https://syzkaller.appspot.com/bug?extid=a761911cb2560f3ca2f7
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+The mux register is accessible only with the camera subsystem top power
+domain and AHB clock enabled, both of which are CCI resources. The
+syscon regmap serializes the accesses from multiple CCI instances.
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/4416adab3ebe/disk-03897066.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2165a756da2b/vmlinux-03897066.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/d949ba699d8b/bzImage-03897066.xz
-
-AI-generated root cause summary:
-In drivers/block/nbd.c, nbd_add_socket() reclassifies user-supplied socket locks
-to sk_lock-AF_INET-NBD using nbd_reclassify_socket(). Because the socket was
-obtained via sockfd_lookup(), userspace retains access to the socket file
-descriptor and can issue sendto()/sendmsg() calls on it. During userspace
-transmission, tcp_sendmsg() holds lock_sock(sk) (sk_lock-AF_INET-NBD) while
-copying user data, creating a dependency on &mm->mmap_lock via page faults.
-Concurrently, memory allocations while holding &mm->mmap_lock can trigger direct
-reclaim (fs_reclaim) to write back dirty pages through the NBD block device
-(nbd_queue_rq), which acquires &nsock->tx_lock and subsequently lock_sock(sk)
-(sk_lock-AF_INET-NBD), creating an ABBA circular locking dependency between
-&mm->mmap_lock and sk_lock-AF_INET-NBD.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=a761911cb2560f3ca2f7
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a761911cb2560f3ca2f7@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz.4.7408/2091 is trying to acquire lock:
-ffff888036f0a800 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0xaf/0x130 mm/memory.c:7530
-
-but task is already holding lock:
-ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1717 [inline]
-ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: sk_stream_wait_memory+0x8de/0xff0 net/core/stream.c:148
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #7 (sk_lock-AF_INET-NBD){+.+.}-{0:0}:
-       lock_sock_nested+0x41/0x100 net/core/sock.c:3908
-       lock_sock include/net/sock.h:1717 [inline]
-       inet_shutdown+0x6a/0x390 net/ipv4/af_inet.c:911
-       nbd_mark_nsock_dead+0x2cb/0x550 drivers/block/nbd.c:319
-       recv_work+0x1d14/0x1e30 drivers/block/nbd.c:1030
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #6 (&nsock->tx_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
-       nbd_queue_rq+0x373/0xff0 drivers/block/nbd.c:1207
-       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2131
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2546
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #5 (&cmd->lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       nbd_queue_rq+0xc1/0xff0 drivers/block/nbd.c:1199
-       blk_mq_dispatch_rq_list+0x499/0x1990 block/blk-mq.c:2131
-       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
-       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
-       __blk_mq_sched_dispatch_requests+0xd36/0x1580 block/blk-mq-sched.c:307
-       blk_mq_sched_dispatch_requests+0xd7/0x190 block/blk-mq-sched.c:329
-       blk_mq_run_work_fn+0x167/0x2f0 block/blk-mq.c:2546
-       process_one_work kernel/workqueue.c:3495 [inline]
-       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
-       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
-       kthread+0x38b/0x480 kernel/kthread.c:436
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #4 (set->srcu){.+.+}-{0:0}:
-       srcu_lock_sync include/linux/srcu.h:225 [inline]
-       __synchronize_srcu+0xca/0x2f0 kernel/rcu/srcutree.c:1662
-       elevator_switch+0x1e8/0x7b0 block/elevator.c:576
-       elevator_change+0x2fa/0x480 block/elevator.c:681
-       elevator_set_default+0x375/0x440 block/elevator.c:754
-       blk_register_queue+0x404/0x4f0 block/blk-sysfs.c:992
-       __add_disk+0x6b8/0xdb0 block/genhd.c:531
-       add_disk_fwnode+0x100/0x3a0 block/genhd.c:600
-       add_disk include/linux/blkdev.h:801 [inline]
-       nbd_dev_add+0x733/0xb60 drivers/block/nbd.c:2026
-       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
-       do_one_initcall+0x250/0x870 init/main.c:1419
-       do_initcall_level+0x10a/0x1a0 init/main.c:1481
-       do_initcalls+0x59/0xa0 init/main.c:1497
-       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
-       kernel_init+0x22/0x1d0 init/main.c:1622
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #3 (&q->elevator_lock){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       elevator_change+0x1af/0x480 block/elevator.c:679
-       elevator_set_none+0xb5/0x140 block/elevator.c:769
-       blk_mq_elv_switch_none block/blk-mq.c:5114 [inline]
-       __blk_mq_update_nr_hw_queues block/blk-mq.c:5159 [inline]
-       blk_mq_update_nr_hw_queues+0x5ef/0x19e0 block/blk-mq.c:5224
-       nbd_start_device+0x189/0xb30 drivers/block/nbd.c:1530
-       nbd_genl_connect+0x167d/0x1cd0 drivers/block/nbd.c:2310
-       genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
-       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-       genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
-       netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2584
-       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-       netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
-       netlink_unicast+0x8ef/0xa80 net/netlink/af_netlink.c:1361
-       netlink_sendmsg+0x7f0/0xb20 net/netlink/af_netlink.c:1920
-       sock_sendmsg_nosec+0x14e/0x190 net/socket.c:800
-       __sock_sendmsg net/socket.c:818 [inline]
-       ____sys_sendmsg+0x54e/0x850 net/socket.c:2715
-       ___sys_sendmsg+0x2a5/0x360 net/socket.c:2769
-       __sys_sendmsg net/socket.c:2801 [inline]
-       __do_sys_sendmsg net/socket.c:2806 [inline]
-       __se_sys_sendmsg net/socket.c:2804 [inline]
-       __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2804
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #2 (&q->q_usage_counter(io)#50){++++}-{0:0}:
-       blk_alloc_queue+0x544/0x690 block/blk-core.c:505
-       blk_mq_alloc_queue block/blk-mq.c:4439 [inline]
-       __blk_mq_alloc_disk+0x194/0x390 block/blk-mq.c:4486
-       nbd_dev_add+0x494/0xb60 drivers/block/nbd.c:1996
-       nbd_init+0x168/0x1f0 drivers/block/nbd.c:2743
-       do_one_initcall+0x250/0x870 init/main.c:1419
-       do_initcall_level+0x10a/0x1a0 init/main.c:1481
-       do_initcalls+0x59/0xa0 init/main.c:1497
-       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
-       kernel_init+0x22/0x1d0 init/main.c:1622
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 (fs_reclaim){+.+.}-{0:0}:
-       __fs_reclaim_acquire mm/page_alloc.c:4360 [inline]
-       fs_reclaim_acquire+0x71/0x100 mm/page_alloc.c:4374
-       might_alloc include/linux/sched/mm.h:316 [inline]
-       slab_pre_alloc_hook mm/slub.c:4673 [inline]
-       slab_alloc_node mm/slub.c:5011 [inline]
-       kmem_cache_alloc_noprof+0x5f/0x600 mm/slub.c:5047
-       mt_alloc_one lib/maple_tree.c:139 [inline]
-       mas_alloc_nodes+0x291/0x350 lib/maple_tree.c:1049
-       mas_preallocate+0x42a/0x840 lib/maple_tree.c:5016
-       vma_iter_prealloc mm/vma.h:698 [inline]
-       vma_link+0x123/0x460 mm/vma.c:1922
-       insert_vm_struct+0x3db/0x5b0 mm/vma.c:3608
-       create_init_stack_vma+0x607/0xa40 mm/vma_exec.c:155
-       bprm_mm_init fs/exec.c:279 [inline]
-       alloc_bprm+0x507/0x640 fs/exec.c:1570
-       class_bprm_constructor fs/exec.c:1580 [inline]
-       kernel_execve+0x85/0x9a0 fs/exec.c:1976
-       try_to_run_init_process+0x13/0x60 init/main.c:1548
-       kernel_init+0xb2/0x1d0 init/main.c:1678
-       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 (&mm->mmap_lock){++++}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __might_fault+0xcb/0x130 mm/memory.c:7530
-       _copy_from_iter+0x100/0x1680 lib/iov_iter.c:271
-       copy_from_iter include/linux/uio.h:236 [inline]
-       copy_from_iter_full include/linux/uio.h:253 [inline]
-       skb_do_copy_data_nocache include/net/sock.h:2333 [inline]
-       skb_copy_to_page_nocache include/net/sock.h:2359 [inline]
-       tcp_sendmsg_locked+0x214a/0x53c0 net/ipv4/tcp.c:1321
-       tcp_sendmsg+0x2f/0x50 net/ipv4/tcp.c:1462
-       sock_sendmsg_nosec+0x10f/0x190 net/socket.c:801
-       __sock_sendmsg net/socket.c:818 [inline]
-       __sys_sendto+0x408/0x5a0 net/socket.c:2283
-       __do_sys_sendto net/socket.c:2290 [inline]
-       __se_sys_sendto net/socket.c:2286 [inline]
-       __x64_sys_sendto+0xde/0x100 net/socket.c:2286
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  &mm->mmap_lock --> &nsock->tx_lock --> sk_lock-AF_INET-NBD
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(sk_lock-AF_INET-NBD);
-                               lock(&nsock->tx_lock);
-                               lock(sk_lock-AF_INET-NBD);
-  rlock(&mm->mmap_lock);
-
- *** DEADLOCK ***
-
-locks held by syz.4.7408/2091: 1, last CPU#0:
- #0: ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1717 [inline]
- #0: ffff8880760ed1e0 (sk_lock-AF_INET-NBD){+.+.}-{0:0}, at: sk_stream_wait_memory+0x8de/0xff0 net/core/stream.c:148
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 2091 Comm: syz.4.7408 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __might_fault+0xcb/0x130 mm/memory.c:7530
- _copy_from_iter+0x100/0x1680 lib/iov_iter.c:271
- copy_from_iter include/linux/uio.h:236 [inline]
- copy_from_iter_full include/linux/uio.h:253 [inline]
- skb_do_copy_data_nocache include/net/sock.h:2333 [inline]
- skb_copy_to_page_nocache include/net/sock.h:2359 [inline]
- tcp_sendmsg_locked+0x214a/0x53c0 net/ipv4/tcp.c:1321
- tcp_sendmsg+0x2f/0x50 net/ipv4/tcp.c:1462
- sock_sendmsg_nosec+0x10f/0x190 net/socket.c:801
- __sock_sendmsg net/socket.c:818 [inline]
- __sys_sendto+0x408/0x5a0 net/socket.c:2283
- __do_sys_sendto net/socket.c:2290 [inline]
- __se_sys_sendto net/socket.c:2286 [inline]
- __x64_sys_sendto+0xde/0x100 net/socket.c:2286
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2f21b9fb19
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f2f22997028 EFLAGS: 00000246 ORIG_RAX: 000000000000002c
-RAX: ffffffffffffffda RBX: 00007f2f21e25fa0 RCX: 00007f2f21b9fb19
-RDX: ffffffffffffff94 RSI: 0000200000000100 RDI: 0000000000000004
-RBP: 00007f2f21c37b70 R08: 0000000000000000 R09: 0000000000000000
-R10: 000000000000000b R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f2f21e26038 R14: 00007f2f21e25fa0 R15: 00007fffcbec2ed8
- </TASK>
-
-
+Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/i2c/busses/Kconfig        |  1 +
+ drivers/i2c/busses/i2c-qcom-cci.c | 42 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index 275aaa7f35833f0b07ae13e88def21c3fbc6c787..63ba7314ee7c7cc57115e267a006cd058fe3e305 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -1061,6 +1061,7 @@ config I2C_PXA_SLAVE
+ config I2C_QCOM_CCI
+ 	tristate "Qualcomm Camera Control Interface"
+ 	depends on ARCH_QCOM || COMPILE_TEST
++	select MFD_SYSCON
+ 	select PM_OPP
+ 	help
+ 	  If you say yes to this option, support will be included for the
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index 76a5dedf659fb8396ca5df188143469977526505..0e2190cf3300b7da727fc798a1440f30fa73e28d 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -7,11 +7,13 @@
+ #include <linux/i2c.h>
+ #include <linux/io.h>
+ #include <linux/interrupt.h>
++#include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/pm_opp.h>
++#include <linux/regmap.h>
+ 
+ #define CCI_HW_VERSION				0x0
+ #define CCI_RESET_CMD				0x004
+@@ -137,9 +139,26 @@ struct cci {
+ 	struct clk_bulk_data *clocks;
+ 	int nclocks;
+ 	struct clk *cci_clk;
++	/* Optional CCU output mux, routing the I2C ports to the CCI */
++	struct regmap *ccu_mux;
++	u32 ccu_mux_reg;
++	u32 ccu_mux_mask;
+ 	struct cci_master master[NUM_MASTERS];
+ };
+ 
++/*
++ * Hand the I2C ports over to the CCI. This has to be done with the CCI
++ * clocks enabled, which the mux register access needs, and before the CCI
++ * is reset or configured.
++ */
++static int cci_ccu_mux_select(struct cci *cci)
++{
++	if (!cci->ccu_mux)
++		return 0;
++
++	return regmap_set_bits(cci->ccu_mux, cci->ccu_mux_reg, cci->ccu_mux_mask);
++}
++
+ static irqreturn_t cci_isr(int irq, void *dev)
+ {
+ 	struct cci *cci = dev;
+@@ -651,6 +670,12 @@ static int __maybe_unused cci_resume_runtime(struct device *dev)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = cci_ccu_mux_select(cci);
++	if (ret) {
++		cci_disable_clocks(cci);
++		return ret;
++	}
++
+ 	return cci_init(cci);
+ }
+ 
+@@ -668,6 +693,7 @@ static int cci_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct resource *r;
++	u32 mux_args[2];
+ 	struct cci *cci;
+ 	int ret, i;
+ 	u32 val;
+@@ -730,6 +756,18 @@ static int cci_probe(struct platform_device *pdev)
+ 	if (IS_ERR(cci->base))
+ 		return PTR_ERR(cci->base);
+ 
++	cci->ccu_mux = syscon_regmap_lookup_by_phandle_args(dev->of_node, "qcom,ccu-mux-sel",
++							    2, mux_args);
++	if (IS_ERR(cci->ccu_mux)) {
++		ret = PTR_ERR(cci->ccu_mux);
++		if (ret != -ENOENT)
++			return dev_err_probe(dev, ret, "failed to get CCU mux\n");
++		cci->ccu_mux = NULL;
++	} else {
++		cci->ccu_mux_reg = mux_args[0];
++		cci->ccu_mux_mask = mux_args[1];
++	}
++
+ 	/* Clocks */
+ 
+ 	ret = devm_clk_bulk_get_all(dev, &cci->clocks);
+@@ -761,6 +799,10 @@ static int cci_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = cci_ccu_mux_select(cci);
++	if (ret)
++		goto disable_clocks;
++
+ 	/* Interrupt */
+ 
+ 	ret = platform_get_irq(pdev, 0);
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+-- 
+2.34.1
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
