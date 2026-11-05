@@ -1,63 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871080;
-	b=Rzi8cGCuSMOVfAR7UaSLyKGjpqIGTNFfImz7UFZozrglZYMeCw4pAsBUo9v4kOovDAGQ
-	 9okp7dyilwbq3uk8TZau6aZ8zeAUQMim8mRGAvifFYv0pXPKXnErCoqzEj1O6KfMJBUmN
-	 HtO3qQo496+m/ZuIu+Akz8nNsLDtjD7SKgst+QMPKKPQ6YsxSOhxkzT2pMJoGNJgYgf6B
-	 dUB36fP9lQwdPEspAjT82Z/rbke+gkyCC5bl3d+jsVKrzOHpNqOhC0F5M7lNnmvePONtp
-	 5rTGS6ATwNcDQXn0UEIKb0wYV/AWE/w0SrFT3ZNTg8Adx/jJCiO0yn8u0pGZMyh/xQg==
+	t=1793871105;
+	b=w817wzv28um5J6ubiEGXhDp0Cg/Of7vGqyFzVYpn7THgl3jY+RrXrN9XMFCGeSbyXZyz
+	 RGC0GNyaQHh8lValHE5Z8sWGNSdsSukplDGxgVr7+5zAdo+EFyQEndf0LhFRK8H20Nchu
+	 89ndWc2TxZ07poQLcEsk+eYnZNg3YnMD+bKqt1mEiK4957HB3ZMCN8/6E++qtC4wN27X2
+	 5Qwz7Z+8PcuCyOZH4sn34RCE2m67PI6sb0Yw2ZxCRBRgJ0iao7jF2a95+ZodR1Wee3FcF
+	 zZwwXC88uPcfKeP4JeeRJ1Exz2IX1ZQOFH1fgD6TC0NlUJoIW5Z2rFvk8dRq76l2OMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871080;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=vdZD0y5QaPmxoC/GOogdB9j6cmFXfwnHWNZ5At60b8I=;
-	b=uQ8vkKG+eDPCd3rfVbOuDB2i8OgYYXDmWioFAkygIzsDMa8PmNVlcAewIXHnR+ju78bN
-	 uThxgr3iVPg713tbSHiW8p2AzH/tA5GFfQ0gbBrYJ8jsYfwLAKcfCd/FCszdq63ZGS7L8
-	 bjdCedPJ4Sbjj7qI5OGdSwDSJcZvEucrFKJ3yIGoEoPyIwO8TCgkEl3q9gJo3X48qaXFO
-	 DTLfsIdlAu62ba9B76EJyO7iKqgTWAF7BcvkuC6OFTcFIHqwCJd7P5PFuOHF64NqQhOW3
-	 an8Vl+F991xN7O6BKJ8ccQs6dKwnGzFxHKmRLuyIrDXC7qwfXWSIhcZuxFs+0f5a6WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871105;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=LmW2Avgge5dW3mynPaSLJTuEcXaTCUJsUMnfQ2sD4Fs=;
+	b=yUuaxm2GohP1m+RcKD16QPh1+RxXr37+tJyKq3kkSdGOUc+9M1IZwzcq+wwmGAD4n+tZ
+	 hYdY6GPqS6/7GxC4iIPYFwnyXKz2xazq99kTMOmjEliJrwmK06JeHAN2PA9ncxI893tOT
+	 xCr5N+giaxMpWFi+LQGT/hVckknMDFL3xO1UOt4GTjwKDlFALLk96e0GY0iROsiHFl1yy
+	 2s/MO6FBfH2vcxjBnkutGsBPZrz3hE+y95Ov+cqNQDr8lz3NPnZqPxcjL+sCxm+7EWV9T
+	 HELtKQfKyCRfcp1sY4DQlzU2dQfkUU4x7MHwbWKwzqOpmIBzVm7djfMhjR4JxgBfqbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.99
-Received: from dggmsgout11.his.huawei.com (dggmsgout11.his.huawei.com [124.71.93.99])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cj3rJx1D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF90606A32F;
-	Thu,  5 Nov 2026 09:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEF90606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggmsgout11.his.huawei.com (SkyGuard) with ESMTP id 4jKxr02BSYz1c1kn;
-	Thu,  5 Nov 2026 17:30:40 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 77D5A4056D;
-	Thu,  5 Nov 2026 17:31:09 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.45])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgBnnu3OTOxqcwqpDA--.46006S2;
-	Thu, 05 Nov 2026 17:31:09 +0800 (CST)
-From: Tengda Wu <wutengda@huaweicloud.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v3 0/2] perf/core: Fix sigtrap task_work races
-Date: Thu,  5 Nov 2026 09:30:42 +0000
-Message-Id: <cover.1793870900.git.wutengda@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FC1606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cj3rJx1D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CFD1F00A17
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:31:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793871104;
+	bh=LmW2Avgge5dW3mynPaSLJTuEcXaTCUJsUMnfQ2sD4Fs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Cj3rJx1DN4cvulEPJ1/tI+fZX1gkg/fkI3akwcM16MborKDolt3swzwaMRGf4VVDG
+	 k8LTPWFxPQ0o/l6+OtgRGQu7wcehcEFAeXg6gHmbjuKnHK0biJp5C6XsRdUrkCeQNv
+	 MisDKpL5rXztjKOnuk7fYSdpkVC5a0/rkwzkl9Ab3KnhUATbtg4mV8nHBK+Q2GqknG
+	 WiNbjHtpIZFUO5rWcDv09AtwMbP/6Km+dOGv4k1FMOapT+47mSIWWc50lX+JSzQpKx
+	 NMzzgqIwCbCiuoMzdzzFeoGrm4GmaRue6fxTVA7BukuWeNt5IQQAsPwrGycfxo1y5R
+	 zsK98E3VGO/0Q==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b570ff3dfdso1121649a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:31:44 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzlhEACo9pg3empfVhOEv7SMNVU3IhTJFocFXCFVD6hE4gQHwNSv+1ZGl7xSt8pLXTV1etw+hZ1t8ebsQQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lgkH7AMkVDXq/XKzU+omo4lEYTJXWT961KQk6hbIWmtzUOmDV
+	FQ2Vier3UrC+5HJSM+CZeG1jjdc4Ro5Fa/hYh2TlOL47WHNV6L08q6SUM7o2MYTIpZsDv29zn3g
+	0Bu0O0UZUnF6pq84BhjAPuaycEYPSsH8=
+X-Received: by 2002:a17:906:7952:b0:c2e:40a0:7978 with SMTP id
+ a640c23a62f3a-c4ca7a54f88mr1637592766b.9.1793871102751; Thu, 05 Nov 2026
+ 01:31:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,61 +59,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgBnnu3OTOxqcwqpDA--.46006S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ary5Kw1xZr15tr1rGr4xCrg_yoW8XFWDpF
-	sxurySkw48J34Iv3y3Aw48Z3yrWw4Fqa13Wrs3Kw18AF45ZF98XFW7Gr4Y9FW7Cr97tayS
-	yw4vvFWkuryj9FDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBa14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkF7I0Ew4C26cxK6c8Ij28IcwCF04k20x
-	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
-	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIx
-	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
-	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
-	IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU2oGQUUUUU=
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
+ <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com> <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn>
+In-Reply-To: <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 5 Nov 2026 17:31:29 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
+X-Gm-Features: AclHuK-SAjBSNynGb1GuZvHWDP0DHlgPoiTrsrq0gnaLD9FLXKd3lXkK8ktcviM
+Message-ID: <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
+ field in the IOVT IOMMU structure
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, 
+	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
+	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
+	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Two fixes for sigtrap task_work handling since the switch to always
-enqueue SIGTRAP via task_work.
+On Thu, Nov 5, 2026 at 5:14=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> wrote=
+:
+>
+>
+>
+> On 2026/10/23 =E4=B8=8B=E5=8D=883:59, Huacai Chen wrote:
+> > Bibo,
+> >
+> > Now I have applied this series but with some modifications, please
+> > double check and test the code.
+> >
+> > https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongs=
+on.git/log/?h=3Dloongarch-next
+> In my v4 submit, it is:
+> +               case ACPI_IOVT_DEVICE_ENTRY_START:
+> +                       is_start =3D true;
+> +                       start_devid =3D ep->device_id;
+> +                       break;
+> however in rc1, it is modified as:
+>                  case ACPI_IOVT_DEVICE_ENTRY_START:
+>                          is_start =3D true;
+>                          entry->start_devid =3D ep->device_id;
+>                          break;
+> Here entry is not allocated and NULL pointer, it is allocated in
+> ACPI_IOVT_DEVICE_ENTRY_END switch case.
+>
+> I really do not know what is aid to modify it and let others to test.
+Sorry, it's my fault.
 
-The warning splats and PoCs for both patches are too long to inline in
-the commit messages. They are sent as separate replies to this cover
-letter, one per patch.
+In theory I should point out the modification (eliminating the local
+variable start_devid) and refresh a new version. But we have no time
+to do this because when the first patch is merged into the ACPI repo
+it is near the merge window.
 
-Patch 1 fixes a re-entrancy race in __perf_event_overflow(): pending_work
-was set only after task_work_add(), so an NMI could re-enter and enqueue
-the same pending_task twice, creating a cycle in the task work list and
-unbalancing the event refcount. Claim pending_work with cmpxchg() before
-enqueuing, and clear it if the enqueue fails.
+If you agree, I will submit such modifications to fix it.
 
-Patch 2 fixes a WARN_ON_ONCE() in perf_sigtrap() triggered by the context
-fast-swap path swapping ctx->task while a sigtrap event has pending task
-work. SIGTRAP is targeted at ctx->task, so exclude sigtrap events from
-fast-swap alongside inherit+sample-read events.
+diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
+index 87cee4f0fc80..4cdac28a1fd0 100644
+--- a/drivers/acpi/loongarch/iovt.c
++++ b/drivers/acpi/loongarch/iovt.c
+@@ -115,6 +115,10 @@ static int __init iovt_add_iommu(struct
+acpi_iovt_iommu *iommu)
+        for (i =3D 0; i < iommu->device_entry_num; i++) {
+                switch (ep->type) {
+                case ACPI_IOVT_DEVICE_ENTRY_START:
++                       entry =3D kzalloc_obj(struct iovt_device_entry,
+GFP_ATOMIC);
++                       if (!entry)
++                               return -ENOMEM;
++
+                        is_start =3D true;
+                        entry->start_devid =3D ep->device_id;
+                        break;
+@@ -122,10 +126,6 @@ static int __init iovt_add_iommu(struct
+acpi_iovt_iommu *iommu)
+                        if (!is_start)
+                                break;
 
-Changelog
-=========
-v2 -> v3:
-  - v2: https://lore.kernel.org/all/20261102021355.650671-1-wutengda@huaweicloud.com/
-  - Added Patch 2 to fix WARN_ON_ONCE() in perf_sigtrap()
-v1 -> v2:
-  - v1: https://lore.kernel.org/all/20261031114520.642476-1-wutengda@huaweicloud.com/
-  - Drop the redundant event->pending_work assignment. (Sashiko)
+-                       entry =3D kzalloc_obj(struct iovt_device_entry,
+GFP_ATOMIC);
+-                       if (!entry)
+-                               return -ENOMEM;
+-
+                        is_start =3D false;
+                        entry->end_devid =3D ep->device_id;
+                        list_add_tail(&entry->list, &np->ep_list);
 
-Tengda Wu (2):
-  perf/core: Prevent duplicate sigtrap task work enqueue
-  perf/core: Disable context fast-swap for sigtrap events
+Huacai
 
- include/linux/perf_event.h |  6 ++----
- kernel/events/core.c       | 30 ++++++++++++++++++------------
- 2 files changed, 20 insertions(+), 16 deletions(-)
-
--- 
-2.34.1
-
+>
+> >
+> > Huacai
+> >
+> > On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> =
+wrote:
+> >>
+> >> This change is already merged in acpica tree.
+> >>
+> >> slightly ping.
+> >>
+> >> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
+> >>   > According to the IOVT specification, define macros for each bit of=
+ the
+> >>   > Flags field in the IOVT IOMMU structure.
+> >>   >
+> >>   > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
+> >>   > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+> >>   > ---
+> >>   >  include/acpi/actbl2.h | 7 +++++++
+> >>   >  1 file changed, 7 insertions(+)
+> >>   >
+> >>   > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
+> >>   > index baef525367b5..76e4a5bc79b4 100644
+> >>   > --- a/include/acpi/actbl2.h
+> >>   > +++ b/include/acpi/actbl2.h
+> >>   > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
+> >>   >       u32 device_entry_offset;
+> >>   >  };
+> >>   >
+> >>   > +/* Masks for Flags field above */
+> >>   > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
+> >>   > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
+> >>   > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
+> >>   > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
+> >>   > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
+> >>   > +
+> >>   >  struct acpi_iovt_device_entry {
+> >>   >       u8 type;
+> >>   >       u8 length;
+> >>   > --
+> >>   > 2.39.3
+> >>   >
+> >>
+>
+>
