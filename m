@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.247.164.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884133;
-	b=nfhdRusYzjOpD1sBEr2ZvJ+7LfWE8xlQm4g6/UBpzBapiGPh7N/icSxpCb4tZwFPDNsw
-	 cjQaLgX5POZUqUJow8tBj4/YY9zt0RWiee9do2Wb2zvYlPeFPeTkurRF0KwKS3NGTiBSJ
-	 TWA8A6T+WN3k0wMGpq96oFmxNL8etquABdE88B+JjTxz5agbnvn6Vwby+JPELAJo5ILlD
-	 5uBJ0SyOV9n/npMI/+/+CwCBw/8Y3hsBdb8zOyh6YUcytWrJ6Gzay2g7zdOg992oiNBHp
-	 2g409OvzGkqgFQajTySIwgmH4TdyB1WRUtR1lNYtUxlEkBiXZQd6iqlqWYSlkzJeo2g==
+	t=1793884155;
+	b=5PE6Zh3eI0Dm2E8w9PSucsSic2JFMBXxfDq0v0JPf//VzP1YGhJye7u9k9Ss5wPgot+a
+	 swGUazscdAqpraprBQlwnqlEChoJ22WGKkpvw+lWx3y4H0tJQSGA5LL4Eu35lRS377edL
+	 CHcLL4QWdHAppCx7eMjXYRFMa9y971l7RmZNKaKGGpAujk91HDOaw07syIYKMcsWT97Kb
+	 Wb44Xwwl49y/lQ8wI66OifX6z+Xu34HUc/3eT9rGEc0WBPU60xT3z95BwVlZMsdvdip4M
+	 578ibHVRz5p4JfoOUMhvTQGqkFxHa+OJeXVSOg7f8zbUP88u4ZvtIcA3ftBpb2AZxTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884133;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Last-TLS-Session-Version;
-	bh=+3Gb1cybkRKoeLL2kGZWTIitMvdzJGlJP6G6wh553rY=;
-	b=KuIDnQFZ16AJLLJpl6TCxt2ED2DHO48HWZZrP90r1bdlkw+PVWwChxPeuEQr792Q4Ymk
-	 ekyWe4jdYehsUdykQxdT1HtaUvCabBJZX5X9pBriKMi8kq8qZWusbr/C2te8Ukppz9CMX
-	 6j5Lh4D1P+Jar1swg+OZ2FF2L0K0PpJDAYW3vdHqovu64Rmsv97G4yGnXkE42h75qBo+N
-	 pUC59A5nO44uk1/sYHnl+ZSeRv5HjGeW5NHtsAFXDFf/hYpU3NhDxQ6BGYUtTarrrizIU
-	 Dxl0ZBv3TEp2P6xh8CPp26DhSxBxu2nelCcz5bip++mm7j+EEGCe4LpsLFmH/722XhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884155;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=nKqS9ZMsRahIHs0QjU6Z8mMtCqLyoSSe36R37iF6B38=;
+	b=UDQ3Kt0MQw+cq8eVpJ0X2mTgI2HKF/EWTiKCbm/+nve34tZeQujdzC3fqNwVJYPfKcFz
+	 eBVTFQVgIqRakj6SMcbrSREr1kX8um49Mad738s6Yl/UD02pHSBG/jtZKkdJ0qBcA1XUd
+	 NJvKi0JouRbv18PQVESiXrs7Blo952v+TldrUcrqLCVXg1qs1AfuGym0m3HIPfbBjEv79
+	 1dbpu/IMNrIQ1HXNbelO5Mi5gzQi9SB8Fv2t7kJcdSZVgRFeFPCOkAXNmHX8J+kyFJJl/
+	 uy/Svv/UdBbztKEuJ3b4/rknDO61/kPBSuqovKtZN0cXPUb6fw//cjRbOA13tx2Frow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=koesling.info;
-	spf=none smtp.mailfrom=koesling.info;
-	dkim=pass header.d=koesling.info header.i=@koesling.info header.a=rsa-sha256 header.s=dkim header.b=LQWI2NqQ;
-	arc=none smtp.remote-ip=84.247.164.36
-Received: from mail.koesling.network (mail.koesling.network [84.247.164.36])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrCJ+9KU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98C8606A338;
-	Thu,  5 Nov 2026 13:08:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98C8606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=koesling.info
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=koesling.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0660D606A31B;
+	Thu,  5 Nov 2026 13:09:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=koesling.info header.i=@koesling.info header.a=rsa-sha256 header.s=dkim header.b=LQWI2NqQ
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B65601320F85;
-	Thu, 05 Nov 2026 14:08:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=koesling.info;
-	s=dkim; t=1793884123;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+3Gb1cybkRKoeLL2kGZWTIitMvdzJGlJP6G6wh553rY=;
-	b=LQWI2NqQIReu4FdhsO+Szn2fvUqPFXXl661BptJlohyhlnpD/Nt3WxwWDT2XD7j9qw8FuJ
-	bmVMe1ApXM/5Jz3LgSgnOII2ak+8XxtqlGuWLP5KkTk8o/VnOqTd8wN6fX0GDlUet651yW
-	awVctEyMfsXOVN3caSN/9iJu/0NDwQ1ZPyeQTyAQZ1VtqftlTo4jCLkyT9qVjC9EJqd2pT
-	GO3I1bkwzdxaghejudVlmbPTyOKdZLDcw1wLUdZ5OQyuN8Dx2x54pyjX9S3gHFVqaY0WiA
-	EmDLpnsv8ZQnRLw3fhLSBMzNfAVKrKOYueno71t4COJ5XNhUHlzR9Wc8wIPaIQ==
-From: Nikolas Koesling <nikolas@koesling.info>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- Aryan Sinha <sinha.aryan03@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: Re: [PATCH] HID: pulsar: print the battery error with %pe
-Date: Thu, 05 Nov 2026 14:08:37 +0100
-Message-ID: <ldaTdNN0R-CJNS6mWTaQdg@koesling.info>
-In-Reply-To: <20261104150055.33028-1-sinha.aryan03@gmail.com>
-References: <20261104150055.33028-1-sinha.aryan03@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrCJ+9KU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3CF1F000C1;
+	Thu,  5 Nov 2026 13:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793884154;
+	bh=nKqS9ZMsRahIHs0QjU6Z8mMtCqLyoSSe36R37iF6B38=;
+	h=From:To:Cc:Subject:Date;
+	b=NrCJ+9KUYB/7NPm+exFUKkv7HOVXzAFHLdPPqmNm0wFD8J6oNAfzm8cXLI33aJaHm
+	 vlzrFG0Y3+OxG8FytpVmg1r2rYpaxU7+/MfVenbPegPkbZsBagHW8d2pFNhP/0FbBZ
+	 d74iatEjPb2whsSxPNpoRbNAX10dU0cC33skX4OlGLeP9aLFHNTF2UZrrdg713hu4S
+	 6VwnB8qUoVAmpOnA5V8HgqyrhObD+oNwDtK71P4Hl8HSowHM/eJdkf2rB69h2neAFc
+	 T7uH5m4S4grCGCaDVcsR3HJA3+2W9TUpVSXT7xn52gNJrQ8yaYWls5ZwKZGFvfjzjn
+	 hZiqy03haFWXw==
+From: Thorsten Blum <blum@kernel.org>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: apple-gmux: Use guard(mutex) to simplify the code
+Date: Thu,  5 Nov 2026 14:08:27 +0100
+Message-ID: <20261105130826.345690-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,21 +59,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-Last-TLS-Session-Version: TLSv1.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5005; i=blum@kernel.org; h=from:subject; bh=tt1H0sM720f4VaAxGTyX/iYAw4iKCiB5mCSt9KeFngE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlv6k/93K4jxP+nsvy5TL75xPA3D7KllvV8+sKz1svqx NoSx5rjHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRJ8IM//R3q0no357zYu0y tRv9G5VXX3IzOr3/v1AjG9vRJ6Z3uP0Y/nD8YvcLqo9isZR7/EE0+bTdTHc3nek338Zzx9sWKEx eygcA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-Hi Aryan,
+Use guard(mutex) and remove the manual mutex_unlock() calls. Return
+several results directly and drop the now-unused local variables.
 
-thanks for the patch, the change itself looks good.
-However, it only converts one of the error prints in the driver. The remaining
-ones still print the plain errno with %d. they can use %pe with ERR_PTR(ret)
-as well.
-Could you send a v2 that converts all of them, so the driver reports errors
-consistently?
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/platform/x86/apple-gmux.c | 48 +++++++++----------------------
+ 1 file changed, 14 insertions(+), 34 deletions(-)
 
-Thanks,
-Nikolas
-
-
-
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index 9c728ac4e045..6c7790012011 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -169,41 +169,32 @@ static int gmux_index_wait_complete(struct apple_gmux_data *gmux_data)
+ 
+ static u8 gmux_index_read8(struct apple_gmux_data *gmux_data, int port)
+ {
+-	u8 val;
+-
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 	gmux_index_wait_ready(gmux_data);
+ 	outb((port & 0xff), gmux_data->iostart + GMUX_PORT_READ);
+ 	gmux_index_wait_complete(gmux_data);
+-	val = inb(gmux_data->iostart + GMUX_PORT_VALUE);
+-	mutex_unlock(&gmux_data->index_lock);
+ 
+-	return val;
++	return inb(gmux_data->iostart + GMUX_PORT_VALUE);
+ }
+ 
+ static void gmux_index_write8(struct apple_gmux_data *gmux_data, int port,
+ 			      u8 val)
+ {
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 	outb(val, gmux_data->iostart + GMUX_PORT_VALUE);
+ 	gmux_index_wait_ready(gmux_data);
+ 	outb(port & 0xff, gmux_data->iostart + GMUX_PORT_WRITE);
+ 	gmux_index_wait_complete(gmux_data);
+-	mutex_unlock(&gmux_data->index_lock);
+ }
+ 
+ static u32 gmux_index_read32(struct apple_gmux_data *gmux_data, int port)
+ {
+-	u32 val;
+-
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 	gmux_index_wait_ready(gmux_data);
+ 	outb((port & 0xff), gmux_data->iostart + GMUX_PORT_READ);
+ 	gmux_index_wait_complete(gmux_data);
+-	val = inl(gmux_data->iostart + GMUX_PORT_VALUE);
+-	mutex_unlock(&gmux_data->index_lock);
+ 
+-	return val;
++	return inl(gmux_data->iostart + GMUX_PORT_VALUE);
+ }
+ 
+ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
+@@ -212,7 +203,7 @@ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
+ 	int i;
+ 	u8 tmpval;
+ 
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 
+ 	for (i = 0; i < 4; i++) {
+ 		tmpval = (val >> (i * 8)) & 0xff;
+@@ -222,7 +213,6 @@ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
+ 	gmux_index_wait_ready(gmux_data);
+ 	outb(port & 0xff, gmux_data->iostart + GMUX_PORT_WRITE);
+ 	gmux_index_wait_complete(gmux_data);
+-	mutex_unlock(&gmux_data->index_lock);
+ }
+ 
+ static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
+@@ -241,24 +231,20 @@ static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
+ 
+ static u8 gmux_mmio_read8(struct apple_gmux_data *gmux_data, int port)
+ {
+-	u8 val;
+-
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 	gmux_mmio_wait(gmux_data);
+ 	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
+-	iowrite8(GMUX_MMIO_READ | sizeof(val),
++	iowrite8(GMUX_MMIO_READ | sizeof(u8),
+ 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
+ 	gmux_mmio_wait(gmux_data);
+-	val = ioread8(gmux_data->iomem_base);
+-	mutex_unlock(&gmux_data->index_lock);
+ 
+-	return val;
++	return ioread8(gmux_data->iomem_base);
+ }
+ 
+ static void gmux_mmio_write8(struct apple_gmux_data *gmux_data, int port,
+ 			      u8 val)
+ {
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 	gmux_mmio_wait(gmux_data);
+ 	iowrite8(val, gmux_data->iomem_base);
+ 
+@@ -267,35 +253,29 @@ static void gmux_mmio_write8(struct apple_gmux_data *gmux_data, int port,
+ 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
+ 
+ 	gmux_mmio_wait(gmux_data);
+-	mutex_unlock(&gmux_data->index_lock);
+ }
+ 
+ static u32 gmux_mmio_read32(struct apple_gmux_data *gmux_data, int port)
+ {
+-	u32 val;
+-
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 	gmux_mmio_wait(gmux_data);
+ 	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
+-	iowrite8(GMUX_MMIO_READ | sizeof(val),
++	iowrite8(GMUX_MMIO_READ | sizeof(u32),
+ 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
+ 	gmux_mmio_wait(gmux_data);
+-	val = ioread32be(gmux_data->iomem_base);
+-	mutex_unlock(&gmux_data->index_lock);
+ 
+-	return val;
++	return ioread32be(gmux_data->iomem_base);
+ }
+ 
+ static void gmux_mmio_write32(struct apple_gmux_data *gmux_data, int port,
+ 			       u32 val)
+ {
+-	mutex_lock(&gmux_data->index_lock);
++	guard(mutex)(&gmux_data->index_lock);
+ 	iowrite32be(val, gmux_data->iomem_base);
+ 	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
+ 	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
+ 		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
+ 	gmux_mmio_wait(gmux_data);
+-	mutex_unlock(&gmux_data->index_lock);
+ }
+ 
+ static u8 gmux_read8(struct apple_gmux_data *gmux_data, int port)
