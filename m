@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793902172;
-	b=0WXSwdAcels2mLp4eluJneE7cNVg843KhlDv86aX7r2UAqazra/2hA8V1oLWX7heyeKi
-	 C0j+DAKB+Q0NpDtR/kwDlVIdnic7V/K4D8j0UgO3gTT6B02dYD/ynjpVmFXuKuGILc9rr
-	 5/S/xWM7TaTDAvCQEi/Q4FsP1VzOIWVg80Hxz8rjgINrqkk+Vr0xQ7lmw2SbomoV1534H
-	 ihEbSjS3IgwqVRbjSrlX9wNxcQx0FKLGL2xNY30R5vWaVx6Fhux69XyRpMjUJ+fz7BtfG
-	 u0AAYutO6MP6VvxdZzDVNSUs8S3NlV+DEUTLjFAWBEVGajLca9aN5bVF4DlhwAcMcEQ==
+	t=1793902178;
+	b=kEnkAFhcN/N7v1vgeZXqjZXo8xWojC3/bEw2yk0AwzUINm/xCIX6D6UmUk69h3a53ciF
+	 W/ZHpz3umjvABKtSPhz2lgSNq04V2KBRwbbO+zisfsWNMZyDQ8wQfWJoVFRqQJUVpLCcH
+	 wd/TQ1P+XrrulGcckUAQH8Byj7zINgOQuI79Da8ZlxfZsjtQw5IG7NHBqjqvLKu8NR3U8
+	 7hrcvT+iyFnt/hF+xaORIPUqzHwQO4AG0E13Cx/Dhi+N1CKEMQPNwN06v6uCXgLRbr+A6
+	 wm4/VcQDtNEk9eiS6+g6PZjl06It3joidP2KT5pYc99YXqw/FXlCciv3R3nagHJuQxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793902172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793902178;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Subject:Date:Message-Id:X-Mailer:
-	 Reply-To:MIME-Version:Content-Transfer-Encoding;
-	bh=5GceAxTvgoZumHd09mtdaNlgWlGDTHfFRc56YtOlEpg=;
-	b=t3ZCxsvyWJintoGQftpHM+OP5gWLC+HsNaMS65B6Huv82bizU1Daa5w0pBkmz9hkiIPg
-	 YpitVKADojjpoozrYfSZ6iVpdYCXe16A+sM7vfO2/hJ8OeuWhmQYbn/4F2DZ4s7SNlRlH
-	 tP6F48/HkgvncZF0pclgbxtiWGY3EciFZbZyu8o+7snwTPiXuXR4zPpK8B6uh7CHW3iPv
-	 ajxMOXnX9ms204v9jVFLv8bhvFXFR2ac/9Fj/juVCaGaRECkTjNkdV7gS/0X7bYTny0qb
-	 QXsTUZvZTobQzbof0vxn8CGFBobJaff4YJlAAY82JAH1/5HsPdRLxoaIMG/mG3cxQCg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OZSdhiz0YIgaye6PEufVa/B4L/Yc043iCY3f1YH9O9c=;
+	b=2LJwn0th59qdVBLWiCqhUmX1Ni+R65ZkIFq4frEEOIVBOCAAcmWAPCx48cTTtyEdqpOi
+	 hlqIVnqx4ZmIrNi/OE24Hkfe6+iRvGTtVzMWpqn8dhQmHEh5wv+zJ/Upef6Tm/ZBHILMN
+	 msrEhejzJnkRpmX9eHeHT/SoxHGOWxMlpUll5r526rQUAmY/fh5NJHCdr9DsyPy3AlzSu
+	 IjVKP27un5nDfKDw43eYjfTChGlwQTlzPzIXqOhSDMd533lF9VQ1GTj0h36fDDQR1nPaY
+	 xcN5Ti7QTQpcAnnX+aO6XsL3UOlpjPsUocywCgwnPZ9Imc+5HZuU9TPN8MK71lQIPcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U7WahdAo;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fXMH1kJP;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CB7606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:09:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20CB7606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CF6606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6CF6606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U7WahdAo
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b3577deeb0so34111b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:09:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fXMH1kJP
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36cec75d8caso1074101eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:09:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793902171; x=1794506971; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5GceAxTvgoZumHd09mtdaNlgWlGDTHfFRc56YtOlEpg=;
-        b=U7WahdAo+LA7Aq7qSeMehkEnvfKNbF+6fWy4qIOQ+vP9oC7vEn2tBC75c3C3JflwUF
-         zMq5v1OojcKx5SEi7X8weJIlYXANhizZtZm3E9+Pduh60tdUQlR46iW+e2qKGRSDqpbA
-         ZwCGLPYl/7vM2RVVVXZx7Kd/37/GVw6LgWi5vhcQHn7ZzbDgDjT7EzL+lkT52Ud9oDnt
-         0KiLnj4/1qW3We+kMu11ouHGKBbYpjBVBjkLfEvhpuhVlkrXuNv6aUFQ8aWyO4TXCMZO
-         YJ4BFpWrypLOvsa8RxuAnCHlhZDKmZzJEMEi5d9CVG7HtxJP+AW55PFOucfKL5eHpNUX
-         jdog==
+        d=google.com; s=20260707; t=1793902177; x=1794506977; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OZSdhiz0YIgaye6PEufVa/B4L/Yc043iCY3f1YH9O9c=;
+        b=fXMH1kJPeod4lx1NsiA4kFAT7WFsD1Xrhza4bAG0daQ6vjy7acP+SiI+bO+7SHz9Z5
+         9HSonhxLnsYXmMtntU+AprijeNNICUk3Rxh5mHkP1UMF5I5hTE2LfT59VYHYX+hI0FQl
+         1RWKZy9ILOYy55K+4+ClC7whjMNBzy5haOeCEYU3qWyuwZ9dxPRE/EaIIwwtpURGH0Hq
+         HmraW8LALqMJ3GmOpftIv+uItXXFtEjrFOW81Ko5XobvGgouSXJXV/KdxH+ueEt0b825
+         8aGer5dCjAzIQIZa0n8TToa3gm9YlJXLpFKs+9pVbKmI5LcUMKKmcD9rrNKkz/y6UVwz
+         sfDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793902171; x=1794506971;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5GceAxTvgoZumHd09mtdaNlgWlGDTHfFRc56YtOlEpg=;
-        b=E6k2T+6BUfZSF0L9hJuzQeiu2qukhfPaJncZ/JEwxlIfbKe7pseNTwMbblHPQGrLj+
-         QwEWxgPFhT1Uh22rEsqhRjzblrFW7VziE+ORtbC0bsadRIc8czgPoLuYxuosBBsdtbXX
-         8dD9UhpAs5MoW3em+Ku56cUyhkJmn57FdgW1vwfma6X4f4F4/znDLKYBZjuV2Qc3CCMb
-         7T6EoXhGkm7f44RqfWFXlo5w7d3NTC3DXcd/NJmiXb9tmUvPKYzAdEMQO/njyrqrVLsB
-         W43oCICHs65xEl4NBffWEGm5ycVecC/AoEQy/E4wgj4K7W7xU9wwcDP5A/qHaISCW7sC
-         gQwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzvvsTT8tpyv6ddrlCuzwqy/I/PvkJPL8kCwYnH3BM8odui96FXLZjn/XsJiuttt3tetC7Q2gWrGcehjkI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cjKhgp7Gv2fqrUy4wWy9/FAZ0XiIVBcc1h+zGOo+481OAHF71
-	wLAY9nNaqYCGbMw5TIdfai6WXrm6NVpidXPwktmjI3LuhoPKO30K51xJ
-X-Gm-Gg: AYBFou1eUADR8Kn/5/69H0SwqyCEUvL83xlV34s77fMhJqiqsEIa9UGT9JelZzWbfyR
-	q0O9fysxDQtujo0DOtQjjHEOp+oU4Uu9P54g2NfjXe8U4/DVoLTYH+5atgBxyvO7EeBtd6R7Ymr
-	fZY0oi2A08NtRy62E2UQnge2zwtxt2l5as7rbgTlbRqvIjoGpyrbXZgAF4vsmMVpcHc48h3jSCF
-	4rqr9nK0grx/jpbsSsHGI6kHUcnH373uxY7Al0Ky+yq+zQ1DdwTtzNQx2wg+U5GG7sLqLVIzwbq
-	TF04l0E41gyzWCGM5Dk+xfjJX6A97ByP3E+aVZdp6s5IQHjjhmo67nPSv+gqN63M6FxvjX3Yxsy
-	dhJA1H8VVZLlzqtCundGV40Hfog9Dfvdxraf3Bj7jKOqozcSTIOcFeMs6LCsbSghT4BxwBVM/RS
-	iajuXRYiuA81DZ4+keQ7ZfRiD2ZFmEpsJVww4okEO3QSXF8YJLbGkIvlSya201CwRZGbwsaqVAD
-	q8MJElx8SmtJ2RnZC5ssNQK5BNSHIUzOVFawPksM9iiTmfRt6sqgB/t6cOWMYy3E0mHbhB+rkQL
-	vKpEu90P/bEczTRxIAPYhCz+zGysnMbyi8bKssrJxSIKI62Kn5o+NyeNDC8FUaTwEaMusmAPSBE
-	OAIQLDp2Ue65neHmXDkiIpZWkbiGh5ZqEEA==
-X-Received: by 2002:a05:6a21:8984:b0:3e2:95fb:8d03 with SMTP id adf61e73a8af0-3ebb2a58cbamr262300637.69.1793902171182;
-        Thu, 05 Nov 2026 10:09:31 -0800 (PST)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb467f798esm2497170a12.10.2026.11.05.10.09.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 10:09:30 -0800 (PST)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v2 1/1] Documentation: hyperv: Update docs for PCI pass-thru device support
-Date: Thu,  5 Nov 2026 10:09:22 -0800
-Message-Id: <20261105180922.69256-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+        d=1e100.net; s=20260707; t=1793902177; x=1794506977;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OZSdhiz0YIgaye6PEufVa/B4L/Yc043iCY3f1YH9O9c=;
+        b=l80tWDaBKj6VD6IZOTlkdfOmzJ1WPsEqAJg2syWkfuAcKML+ilq48L6NuxCSWMzPS2
+         +gJhSEklp4/m8R+yxNVwC483LzycBcM3mCvwi1NOVVwmmdlUfVZ2rIdymKD+jxhgWABo
+         CsCrxSK0yLrat/sPGczrNz+W4em5E7hipsW2QbT09al3s3KKIoEFCHIA/xqSbOhGpXZS
+         q6a8koiSE4DpyURkxvU6/qbQPHgCKvIeZJTnu5vRaQFpi+1iFFWxw0JQ50jCzFY+Y3CB
+         ZPbSGRbdsdOKYE5RiLT6OqPb2i8MId/o7PHagFJIixOYC8KN1tSuC5csf1U7cm6Aiwwt
+         QRZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzacFlruhu0PhMnwyUf+XNlqO+5sCmq1WiCCHlwv7YHt2dFgOof8uMhMTpmtVJHyTSXHbSuW1dD/+M98C8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z972onw7b+5pQIX26uPXPExrqEdzB7UssMvKmIxqdpvhNlsk8/i
+	VSfOfxe/rl8oaRx/YrQ2p0UewNhrg1dyqg+To8rYd+oZ2SmN1m8u5DC7n+pNGRcjiN0K3rfGmvU
+	TGOnmdJ2dKA==
+X-Received: from dyad10.prod.google.com ([2002:a05:693c:834a:b0:369:a832:e377])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:190c:b0:361:a195:c46e
+ with SMTP id 5a478bee46e88-36de39af458mr4059907eec.1.1793902176409; Thu, 05
+ Nov 2026 10:09:36 -0800 (PST)
+Date: Thu,  5 Nov 2026 10:09:21 -0800
+In-Reply-To: <20261105180923.3441359-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,247 +79,466 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261105180923.3441359-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261105180923.3441359-2-irogers@google.com>
+Subject: [RFC PATCH v3 1/3] tools build: Add Rust library build infrastructure
+ and zlib-rs feature test
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Quentin Monnet <qmo@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, linux-perf-users@vger.kernel.org, 
+	bpf@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a section to the documentation describing the IRQ domain and IRQ chip
-hierarchy that is created for virtual PCI devices, including the
-differences on x86 and arm64, and the reasons for those differences.
+Add shared Rust library build and feature detection support across tools/
+and implement the zlib-rs feature check:
 
-In the context of the IRQ domain and chip hierarchies, describe how the
-CPU selected for effective affinity is spread across CPUs in the affinity
-masks. Again, account for the differences in x86 and arm64.
+- Add tools/build/Makefile.rust with rules to resolve Rust library C
+  compiler and linker flags via %-cflags and %-libs targets.
+- Support resolving zlib-rs via LIBZ_RS_DIR, pkg-config
+  (libz-rs-sys-cdylib, zlib-rs, z_rs), or building libz_rs.a into
+  $(OUTPUT)libz_rs/ from the system Cargo registry
+  (/usr/share/cargo/registry) using offline Cargo (cargo metadata and
+  cargo build --offline).
+- Pass -Wl,--exclude-libs,libz_rs.a when linking libz_rs.a so symbols
+  pulled into the executable are marked HIDDEN and not exported into
+  .dynsym, preventing shared libraries linked against system libz.so.1
+  (such as libelf.so, libdw.so, and libcurl.so) from partially binding
+  some zlib calls to the executable's libz_rs.a and others to libz.so.1.
+- Add tools/build/feature/test-zlib-rs.c verifying ZLIB_VER_SUBREVISION
+  =3D=3D 15 (0xf) and linking against inflateInit().
+- Add RUST_TARGET_FLAGS_<arch> cross-compilation triples and the
+  feature_rust_lib helper macro to tools/scripts/Makefile.include.
 
-Finally, rework existing text on how MSI messages are composed. Provide
-an expanded section on the overall approach that Hyper-V takes to MSI
-messages. The section provides more context on the handling of MSI messages
-in the Hyper-V vPCI driver, and why it is structured the way it is.
-
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
-This doc update assumes that the patch to implement effective
-affinity spreading for arm64 SPIs [1] is accepted.
+ tools/build/Makefile.feature       |  12 ++-
+ tools/build/Makefile.rust          | 166 +++++++++++++++++++++++++++++
+ tools/build/feature/.gitignore     |   1 +
+ tools/build/feature/Makefile       |  11 +-
+ tools/build/feature/test-zlib-rs.c |  19 ++++
+ tools/scripts/Makefile.include     |  25 +++++
+ 6 files changed, 231 insertions(+), 3 deletions(-)
+ create mode 100644 tools/build/Makefile.rust
+ create mode 100644 tools/build/feature/test-zlib-rs.c
 
-[1] https://lore.kernel.org/linux-hyperv/20261101021928.52649-1-mhklinux@outlook.com/
-
-Changes in v2:
-* Fixed typos [Daniel Pereira]
-* Fixed incorrect function pointer name that should have been
-  .irq_write_msi_msg [Daniel Pereira]
-* Clarified that only MSI-X table writes are not trapped to the
-  hypervisor. MSI entries are in PCI config space, so are trapped.
-  [Naman Jain]
-* Corrected statement that all affinity changes result in a new
-  MSI message being composed and written. No new MSI message is
-  needed. An affinity change is communicated to Hyper-V via other
-  mechanisms. [Naman Jain]
-
- Documentation/virt/hyperv/vpci.rst | 164 +++++++++++++++++++++++++----
- 1 file changed, 145 insertions(+), 19 deletions(-)
-
-diff --git a/Documentation/virt/hyperv/vpci.rst b/Documentation/virt/hyperv/vpci.rst
-index b65b2126ede3..5355871c8c04 100644
---- a/Documentation/virt/hyperv/vpci.rst
-+++ b/Documentation/virt/hyperv/vpci.rst
-@@ -97,8 +97,10 @@ config space for the device.  This MMIO range is communicated
- to the Hyper-V host over the VMBus channel as part of telling
- the host that the device is ready to enter d0.  See
- hv_pci_enter_d0().  When the guest subsequently accesses this
--MMIO range, the Hyper-V host intercepts the accesses and maps
--them to the physical device PCI config space.
-+MMIO range, the Hyper-V host traps the accesses and maps
-+them to the physical device PCI config space. In CoCo VMs,
-+an explicit hypercall must be used to access PCI config space
-+rather than depending on a trap to the hypervisor.
- 
- hv_pci_probe() also gets BAR information for the device from
- the Hyper-V host, and uses this information to allocate MMIO
-@@ -159,6 +161,62 @@ ejections happen at inopportune times. Care must be taken when
- modifying this code to prevent re-introducing such problems.
- See comments in the code.
- 
-+IRQ Domains and Chips
-+---------------------
-+Early in the process of setting up a new vPCI device,
-+hv_pci_probe() calls hv_pcie_init_irq_domain() to create an MSI
-+parent IRQ domain for the device. This domain has IRQ chip functions
-+to interact with Hyper-V to compose an MSI message and to mask
-+and unmask interrupts. It becomes the parent domain for the
-+per-device IRQ domain created by the normal Linux driver for the
-+device when it sets up its IRQs -- e.g., the NVMe driver function
-+nvme_setup_irqs() calling pci_alloc_irq_vectors_affinity().
+diff --git a/tools/build/Makefile.feature b/tools/build/Makefile.feature
+index 4d37d11f674c..ecf27626d493 100644
+--- a/tools/build/Makefile.feature
++++ b/tools/build/Makefile.feature
+@@ -5,10 +5,11 @@ ifneq ($(OUTPUT),)
+   OUTPUT_FEATURES =3D $(OUTPUT)feature/
+   $(shell mkdir -p $(OUTPUT_FEATURES))
+ endif
++RUST_OUTPUT ?=3D $(abspath $(or $(OUTPUT),$(CURDIR)))/
+=20
+ feature_check =3D $(eval $(feature_check_code))
+ define feature_check_code
+-  feature-$(1) :=3D $(shell $(MAKE) OUTPUT=3D$(OUTPUT_FEATURES) CC=3D"$(CC=
+)" CXX=3D"$(CXX)" CFLAGS=3D"$(EXTRA_CFLAGS) $(FEATURE_CHECK_CFLAGS-$(1))" C=
+XXFLAGS=3D"$(EXTRA_CXXFLAGS) $(FEATURE_CHECK_CXXFLAGS-$(1))" LDFLAGS=3D"$(L=
+DFLAGS) $(FEATURE_CHECK_LDFLAGS-$(1))" -C $(feature_dir) $(OUTPUT_FEATURES)=
+test-$1.bin >/dev/null 2>/dev/null && echo 1 || echo 0)
++  feature-$(1) :=3D $(shell $(MAKE) OUTPUT=3D$(OUTPUT_FEATURES) RUST_OUTPU=
+T=3D"$(RUST_OUTPUT)" CC=3D"$(CC)" CXX=3D"$(CXX)" CARGO=3D"$(CARGO)" RUSTC=
+=3D"$(RUSTC)" $(if $(PKG_CONFIG),PKG_CONFIG=3D"$(PKG_CONFIG)") CFLAGS=3D"$(=
+CLANG_CROSS_FLAGS) $(EXTRA_CFLAGS) $(FEATURE_CHECK_CFLAGS-$(1))" CXXFLAGS=
+=3D"$(CLANG_CROSS_FLAGS) $(EXTRA_CXXFLAGS) $(FEATURE_CHECK_CXXFLAGS-$(1))" =
+RUST_FLAGS=3D"$(RUST_FLAGS)" LDFLAGS=3D"$(LDFLAGS) $(FEATURE_CHECK_LDFLAGS-=
+$(1))" -C $(feature_dir) $(OUTPUT_FEATURES)test-$1.bin >/dev/null 2>/dev/nu=
+ll && echo 1 || echo 0)
+ endef
+=20
+ feature_set =3D $(eval $(feature_set_code))
+@@ -128,6 +129,8 @@ FEATURE_TESTS_EXTRA :=3D                  \
+          libdebuginfod			\
+          clang-bpf-co-re		\
+          bpftool-skeletons		\
++         zlib-rs			\
++         rust				\
+          libunwind			\
+          libunwind-debug-frame		\
+          $(foreach arch,$(LIBUNWIND_ARCHS),libunwind-$(arch) libunwind-deb=
+ug-frame-$(arch))
+@@ -149,6 +152,7 @@ FEATURE_DISPLAY ?=3D              \
+          libcapstone            \
+          llvm-perf              \
+          zlib                   \
++         zlib-rs                \
+          lzma                   \
+          bpf			\
+          libaio			\
+@@ -216,6 +220,12 @@ ifeq ($(feature-all), 1)
+   $(call feature_check,compile-x32)
+   $(call feature_check,bionic)
+   $(call feature_check,babeltrace2-ctf-writer)
++  ifneq ($(filter zlib-rs,$(FEATURE_TESTS)),)
++    $(call feature_check,zlib-rs)
++  endif
++  ifneq ($(filter rust,$(FEATURE_TESTS)),)
++    $(call feature_check,rust)
++  endif
+   $(call feature_check,libunwind)
+   $(call feature_check,libunwind-debug-frame)
+   $(foreach arch,$(LIBUNWIND_ARCHS),$(call feature_check,libunwind-$(arch)=
+))
+diff --git a/tools/build/Makefile.rust b/tools/build/Makefile.rust
+new file mode 100644
+index 000000000000..952aac9fc4bf
+--- /dev/null
++++ b/tools/build/Makefile.rust
+@@ -0,0 +1,166 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Shared rules and helpers for discovering and building Rust libraries
++# (either from pre-installed packages/pkg-config or from distro Cargo
++# registry sources via offline Cargo) for tools/ builds and feature detect=
+ion.
 +
-+This MSI parent domain is parented to what the Hyper-V vPCI
-+driver calls the "root" IRQ domain. On x86, the root IRQ domain
-+is the VECTOR domain for the APIC. On arm64, the root IRQ domain
-+is a domain created by the Hyper-V vPCI driver to overlay the
-+"irqchip@<paddr>" domain created by the GICv3 driver when it
-+initializes the virtual GICv3 hardware provided to the guest
-+by Hyper-V. This overlay domain is named "hv_vpci_arm64", and it
-+handles the limitation that Hyper-V provides only a GICv3 to the
-+guest, not a GICv3 with ITS. As such, there are no LPIs available
-+in the guest, so it must use SPIs for vPCI devices. While this
-+is valid in the arm64 architecture, it is atypical. The Hyper-V
-+vPCI driver glues things together by having hv_vpci_arm64
-+allocate and manage the SPIs.
++ifeq ($(pound),)
++include $(dir $(lastword $(MAKEFILE_LIST)))../scripts/Makefile.include
++endif
 +
-+**x86 IRQ domains and chips**
++ifneq ($(CROSS_COMPILE),)
++  ifeq ($(filter --target=3D%,$(RUST_FLAGS)),)
++    ifneq ($(RUST_TARGET_FLAGS_$(ARCH)),)
++      override RUST_FLAGS +=3D --target=3D$(RUST_TARGET_FLAGS_$(ARCH))
++    endif
++  endif
++endif
 +
-++-----------------------+-----------------------+------------------------------------------------------+
-+| Domain Name           | Chip Name             | Notes                                                |
-++=======================+=======================+======================================================+
-+| VECTOR                | APIC                  | Spreads effective affinity                           |
-++-----------------------+-----------------------+------------------------------------------------------+
-+| <vPCI device GUID>    | Hyper-V PCIe MSI      | MSI parent. Per vPCI device. Created in              |
-+|                       |                       | hv_pcie_init_irq_domain().                           |
-++-----------------------+-----------------------+------------------------------------------------------+
-+| HV-PCI-MSIX-<PCIaddr> | HV-PCI-MSIX-<PCIaddr> | Per vPCI device. Created when driver sets up IRQs.   |
-++-----------------------+-----------------------+------------------------------------------------------+
++ifeq ($(PKG_CONFIG),)
++  ifneq (, $(shell which $(CROSS_COMPILE)pkg-config 2>/dev/null))
++    PKG_CONFIG :=3D $(CROSS_COMPILE)pkg-config
++  else
++    PKG_CONFIG :=3D pkg-config
 +
++    ifdef CROSS_COMPILE
++      ifeq ($(PKG_CONFIG_LIBDIR)$(PKG_CONFIG_PATH)$(PKG_CONFIG_SYSROOT_DIR=
+),)
++        CROSS_ARCH =3D $(notdir $(CROSS_COMPILE:%-=3D%))
++        PKG_CONFIG_LIBDIR :=3D /usr/local/$(CROSS_ARCH)/lib/pkgconfig/
++        PKG_CONFIG_LIBDIR :=3D $(PKG_CONFIG_LIBDIR):/usr/local/lib/$(CROSS=
+_ARCH)/pkgconfig/
++        PKG_CONFIG_LIBDIR :=3D $(PKG_CONFIG_LIBDIR):/usr/lib/$(CROSS_ARCH)=
+/pkgconfig/
++        PKG_CONFIG_LIBDIR :=3D $(PKG_CONFIG_LIBDIR):/usr/local/share/pkgco=
+nfig/
++        PKG_CONFIG_LIBDIR :=3D $(PKG_CONFIG_LIBDIR):/usr/share/pkgconfig/
++        export PKG_CONFIG_LIBDIR
++      endif
++    endif
++  endif
++endif
 +
-+**arm64 IRQ domains and chips**
++ifeq ($(findstring -static,${LDFLAGS}),-static)
++  ifeq ($(findstring --static,$(PKG_CONFIG)),)
++    override PKG_CONFIG +=3D --static
++  endif
++endif
 +
-++-----------------------+-----------------------+------------------------------------------------------+
-+| Domain Name           | Chip Name             | Notes                                                |
-++=======================+=======================+======================================================+
-+| irqchip@<paddr>       | GICv3                 | Picks 1st CPU for effective affinity.                |
-+|                       |                       | Created in gic_init_bases().                         |
-++-----------------------+-----------------------+------------------------------------------------------+
-+| hv_vpci_arm64         | MSI                   | Spreads effective affinity. Created in               |
-+|                       |                       | hv_pci_irqchip_init().                               |
-++-----------------------+-----------------------+------------------------------------------------------+
-+| <vPCI device GUID>    | Hyper-V PCIe MSI      | MSI parent. Per vPCI device. Created in              |
-+|                       |                       | hv_pcie_init_irq_domain().                           |
-++-----------------------+-----------------------+------------------------------------------------------+
-+| HV-PCI-MSIX-<PCIaddr> | HV-PCI-MSIX-<PCIaddr> | Per vPCI device. Created when driver sets up IRQs.   |
-++-----------------------+-----------------------+------------------------------------------------------+
++# Helper targets invoked by $(call feature_rust_lib,<name>) to query the
++# resolved compiler and linker flags for a Rust library feature.
++%-cflags:
++	@echo $(FEATURE_CFLAGS-$*)
 +
- Interrupt Assignment
- --------------------
- The Hyper-V virtual PCI driver supports vPCI devices using
-@@ -166,7 +224,7 @@ MSI, multi-MSI, or MSI-X.  Assigning the guest vCPU that will
- receive the interrupt for a particular MSI or MSI-X message is
- complex because of the way the Linux setup of IRQs maps onto
- the Hyper-V interfaces.  For the single-MSI and MSI-X cases,
--Linux calls hv_compse_msi_msg() twice, with the first call
-+Linux calls hv_compose_msi_msg() twice, with the first call
- containing a dummy vCPU and the second call containing the
- real vCPU.  Furthermore, hv_irq_unmask() is finally called
- (on x86) or the GICD registers are set (on arm64) to specify
-@@ -179,22 +237,8 @@ interrupts on a single CPU, causing a performance bottleneck.
- See details about how this is resolved in the extensive
- comment above the function hv_compose_msi_req_get_cpu().
- 
--The Hyper-V virtual PCI driver implements the
--irq_chip.irq_compose_msi_msg function as hv_compose_msi_msg().
--Unfortunately, on Hyper-V the implementation requires sending
--a VMBus message to the Hyper-V host and awaiting an interrupt
--indicating receipt of a reply message.  Since
--irq_chip.irq_compose_msi_msg can be called with IRQ locks
--held, it doesn't work to do the normal sleep until awakened by
--the interrupt. Instead hv_compose_msi_msg() must send the
--VMBus message, and then poll for the completion message. As
--further complexity, the vPCI device could be ejected/rescinded
--while the polling is in progress, so this scenario must be
--detected as well.  See comments in the code regarding this
--very tricky area.
--
--Most of the code in the Hyper-V virtual PCI driver (pci-
--hyperv.c) applies to Hyper-V and Linux guests running on x86
-+Most of the code in the Hyper-V virtual PCI driver
-+applies to Hyper-V and Linux guests running on x86
- and on arm64 architectures.  But there are differences in how
- interrupt assignments are managed.  On x86, the Hyper-V
- virtual PCI driver in the guest must make a hypercall to tell
-@@ -223,6 +267,88 @@ using all the vectors on a CPU doesn't happen. Since such a
- problem is only a theoretical concern rather than a practical
- concern, it has been left unaddressed.
- 
-+Effective Affinity Interrupt Spreading
-+--------------------------------------
-+For the APIC and GICv3 interrupt controllers, Linux must select a
-+single CPU from the affinity mask to be the effective affinity CPU.
-+While Linux is free to choose any CPU in the mask, a fixed algorithm,
-+such as always choosing the first CPU, can be problematic in
-+configurations with multiple identical devices (such as NVMe
-+controllers). Each device has the same set of affinity masks, so
-+the same CPU gets chosen for all the devices. Better performance
-+is usually achieved for multiple devices by spreading the assignment
-+among the CPUs in the affinity mask. No one CPU is overloaded
-+and interrupts from multiple devices can be processed in parallel.
++%-libs:
++	@echo $(FEATURE_LIBS-$*)
 +
-+On x86, the VECTOR domain and APIC IRQ chip do the spreading by
-+tracking the number of IRQs assigned to each CPU, and choosing
-+the CPU in the affinity mask that has the fewest assignments.
-+Because Hyper-V vPCI device IRQs eventually parent to VECTOR,
-+the spreading it does accrues to the IRQs for Hyper-V vPCI devices.
++# Place compiled Rust library artifacts in their own subdirectory under th=
+e
++# build output root (e.g. $(OUTPUT)libz_rs/, alongside libapi/, libbpf/, e=
+tc.)
++# rather than inside $(OUTPUT)feature/.
++RUST_OUTPUT ?=3D $(OUTPUT)
++LIBZ_RS_OUTPUT ?=3D $(RUST_OUTPUT)libz_rs/
 +
-+On arm64, the "ITS" IRQ chip for the GICv3+ITS does the same kind
-+of spreading for LPI interrupts. But IRQs for vPCI devices on
-+arm64 use SPIs and are parented to the "GICv3" IRQ chip, which always
-+chooses the first CPU in the affinity mask as the effective affinity.
-+That CPU can get overloaded in handling interrupts. So on arm64,
-+the hv_vpci_arm64 IRQ domain and associated IRQ chip provide the
-+spreading functionality. They track the SPIs assigned to each CPU
-+and choose the least-loaded CPU as the effective affinity. Then
-+the parent IRQ chip (GICv3) is invoked to actually set the effective
-+affinity in the virtual GICv3 hardware.
++$(LIBZ_RS_OUTPUT):
++	$(Q)mkdir -p $@
 +
-+MSI Messages
-+------------
-+In a typical guest on KVM, the VMM traps guest writes to a vPCI
-+device's MSI/MSI-X registers/tables. The guest writes a virtual
-+message (with a guest APIC address and a guest vector), and VMM
-+emulation translates the message to program the physical device and
-+physical device interrupt remapping (IR) tables on the guest's
-+behalf. The guest never sees or handles the host-level MSI message.
++# Use the system Cargo registry (e.g. /usr/share/cargo/registry from
++# Debian/Ubuntu librust-*-dev or Fedora rust-*-devel packages) offline via
++# Cargo so Cargo resolves compatible crate versions, dependency graphs,
++# features, and build scripts without touching ~/.cargo or the network.
++#
++# Upstream /usr/bin/cargo only searches crates.io by default; distros do n=
+ot
++# point /usr/bin/cargo at /usr/share/cargo/registry globally because Cargo=
+'s
++# directory source mechanism replaces crates.io entirely, which would brea=
+k
++# normal user builds. Instead, distro package builders (such as Debian's
++# /usr/share/cargo/bin/cargo wrapper and Fedora's %cargo_prep macro) confi=
+gure
++# source.crates-io.replace-with to point at /usr/share/cargo/registry. We =
+pass
++# the same source replacement via --config and set CARGO_HOME to a tempora=
+ry
++# directory so ~/.cargo is neither read nor modified.
++CARGO_REGISTRY_DIR ?=3D /usr/share/cargo/registry
++CARGO_OFFLINE_FLAGS =3D --offline \
++	--config 'source.crates-io.replace-with=3D"system-registry"' \
++	--config 'source.system-registry.directory=3D"$(CARGO_REGISTRY_DIR)"'
 +
-+Hyper-V takes a different approach in which writes to MSI-X table
-+entries are not trapped. The guest writes the device's MSI-X table
-+directly with a host-valid MSI message. By contrast, MSI entries
-+are in PCI config space, so writes to MSI entries are trapped to
-+Hyper-V (or are done with an explicit hypercall in CoCo VMs),
-+which allows for the possibility of using virtual messages. But
-+for simplicity, Hyper-V treats the two cases the same and requires
-+a host-valid message for both MSI and MSI-X.
++# cargo build takes --target=3D<triple> as a CLI flag (which also places t=
+he
++# output in target/<triple>/release/) and compiler flags via RUSTFLAGS.
++# Build with -C relocation-model=3Dpic so libz_rs.a can be linked into PIE
++# binaries.
++CARGO_TARGET :=3D $(patsubst --target=3D%,%,$(firstword $(filter --target=
+=3D%,$(RUST_FLAGS))))
++CARGO_RUSTFLAGS :=3D $(filter-out --target=3D%,$(RUST_FLAGS)) -C relocatio=
+n-model=3Dpic
 +
-+The physical IOMMU and its remapping table are owned by the host,
-+so the guest must ask the host for the proper message. The
-+"asking" is done by the .irq_compose_msi_msg function for the
-+"Hyper-V PCIe MSI" chip, which is hv_compose_msi_msg(). The
-+implementation requires sending a VMBus message to the Hyper-V host
-+and awaiting an interrupt indicating receipt of a reply message.
-+Since .irq_compose_msi_msg can be called with IRQ spin locks held, it
-+doesn't work to do the normal sleep until awakened by the interrupt.
-+Instead hv_compose_msi_msg() must send the VMBus message, and
-+poll for the completion message. As further complexity, the vPCI
-+device could be ejected/rescinded while the polling is in progress,
-+so this scenario must be detected as well. See comments in the code
-+regarding this very tricky area. A synchronous hypercall to get the
-+MSI message would be a much nicer interface, but the code makes do
-+with what's available.
++# Build libz_rs.a and stage its headers into $(LIBZ_RS_OUTPUT)include/:
++# - Cargo writes Cargo.lock next to Cargo.toml, so the synthetic manifest =
+and
++#   lib.rs are generated inside the writable $(LIBZ_RS_OUTPUT) directory r=
+ather
++#   than in $(srctree), and removed once the build finishes (any stale
++#   Cargo.lock from an interrupted build is also removed upfront so a dist=
+ro
++#   package upgrade in $(CARGO_REGISTRY_DIR) is not blocked by an old lock=
+file).
++# - Enable export-symbols (unprefixed zlib C ABI symbols), c-allocator, st=
+d,
++#   and gz (gzopen/gzopen64/gzread/etc.) on libz-rs-sys.
++# - Query cargo metadata for the resolved libz-rs-sys crate path so we cop=
+y
++#   the matching zlib.h and zconf.h headers that Cargo selected.
++$(LIBZ_RS_OUTPUT)libz_rs.a: $(wildcard $(CARGO_REGISTRY_DIR)) | $(LIBZ_RS_=
+OUTPUT)
++	$(Q){ \
++		rm -f $(LIBZ_RS_OUTPUT)Cargo.lock && \
++		printf '[package]\nname =3D "z_rs"\nversion =3D "0.1.0"\nedition =3D "20=
+21"\n\n[lib]\nname =3D "z_rs"\npath =3D "lib.rs"\ncrate-type =3D ["staticli=
+b"]\n\n[dependencies]\nlibz-rs-sys =3D { version =3D "*", default-features =
+=3D false, features =3D ["export-symbols", "c-allocator", "std", "gz"] }\n'=
+ > $(LIBZ_RS_OUTPUT)Cargo.toml && \
++		printf 'pub use libz_rs_sys::*;\n' > $(LIBZ_RS_OUTPUT)lib.rs && \
++		inc_dir=3D$$(CARGO_HOME=3D"$(LIBZ_RS_OUTPUT)cargo_home" $(CARGO) metadat=
+a $(CARGO_OFFLINE_FLAGS) --format-version 1 --manifest-path $(LIBZ_RS_OUTPU=
+T)Cargo.toml | sed -n 's/.*"name":"libz_rs_sys","src_path":"\([^"]*\)\/src\=
+/lib\.rs".*/\1/p') && \
++		test -n "$$inc_dir" && test -d "$$inc_dir/include" && \
++		mkdir -p $(LIBZ_RS_OUTPUT)include && \
++		cp -f "$$inc_dir"/include/*.h $(LIBZ_RS_OUTPUT)include/ && \
++		CARGO_HOME=3D"$(LIBZ_RS_OUTPUT)cargo_home" RUSTC=3D"$(RUSTC)" RUSTFLAGS=
+=3D"$(CARGO_RUSTFLAGS)" \
++			$(CARGO) build $(CARGO_OFFLINE_FLAGS) --release \
++			--manifest-path $(LIBZ_RS_OUTPUT)Cargo.toml \
++			--target-dir $(LIBZ_RS_OUTPUT)target \
++			$(if $(CARGO_TARGET),--target=3D$(CARGO_TARGET)) && \
++		mv -f $(LIBZ_RS_OUTPUT)target/$(if $(CARGO_TARGET),$(CARGO_TARGET)/)rele=
+ase/libz_rs.a $@ && \
++		rm -rf $(LIBZ_RS_OUTPUT)Cargo.toml $(LIBZ_RS_OUTPUT)Cargo.lock \
++			$(LIBZ_RS_OUTPUT)lib.rs $(LIBZ_RS_OUTPUT)target \
++			$(LIBZ_RS_OUTPUT)cargo_home; \
++	} > $(@:.a=3D.make.output) 2>&1 || { \
++		rm -rf $(LIBZ_RS_OUTPUT)Cargo.toml $(LIBZ_RS_OUTPUT)Cargo.lock \
++			$(LIBZ_RS_OUTPUT)lib.rs $(LIBZ_RS_OUTPUT)include \
++			$(LIBZ_RS_OUTPUT)target $(LIBZ_RS_OUTPUT)cargo_home $@; \
++		false; \
++	}
 +
-+Once the host-valid MSI message is obtained, the guest must treat it
-+as a black box that the guest does not interpret or modify. The only
-+valid guest action is to write it to the MSI/MSI-X registers/tables
-+using the .irq_write_msi_msg function on the HV-PCI-MSIX-<PCIaddr>
-+chip. That function is pci_msi_domain_write_msg(), which calls
-+__pci_write_msi_msg().
++# Only evaluate zlib-rs pkg-config / Cargo flags when building a zlib-rs t=
+arget
++# (or 'all'), avoiding unnecessary shell calls during 'clean' or unrelated
++# feature tests in tools/build/feature/Makefile.
++# Note: GNU Make's $(filter ...) only supports a single '%' wildcard per
++# pattern, so $(findstring zlib-rs,...) is used to match targets like
++# $(OUTPUT)test-zlib-rs.bin, zlib-rs-cflags, and zlib-rs-libs.
++ifneq ($(if $(MAKECMDGOALS),$(or $(findstring zlib-rs,$(MAKECMDGOALS)),$(f=
+ilter all %libz_rs.a,$(MAKECMDGOALS))),all),)
++  # Resolve zlib-rs flags and libraries in priority order:
++  #   1. Explicit LIBZ_RS_DIR=3D/path/to/prefix override
++  #   2. pkg-config (libz-rs-sys-cdylib when not linking -static since it =
+only
++  #      provides a shared library, zlib-rs, or z_rs)
++  #   3. System Cargo registry built via Cargo into $(LIBZ_RS_OUTPUT)libz_=
+rs.a
++  #      (linked with -lpthread -ldl -lm required by the embedded Rust lib=
+std)
++  ifdef LIBZ_RS_DIR
++    FEATURE_CFLAGS-zlib-rs :=3D -I$(LIBZ_RS_DIR)/include
++    FEATURE_LIBS-zlib-rs :=3D -L$(LIBZ_RS_DIR)/lib -lz_rs
++  endif
 +
-+Changing the affinity of an MSI or MSI-X IRQ does not require a
-+new MSI message. The new effective affinity CPU is communicated to
-+Hyper-V via hv_irq_retarget_interrupt() as called by hv_irq_unmask()
-+on x86, or by the GICv3 gic_set_affinity() function writing the
-+emulated GICD registers on arm64. Because a new MSI message is
-+not needed, the default msi_domain_set_affinity() function is
-+not used on the HV-PCI-MSIX-<PCIaddr> chip. Instead, the
-+.irq_set_affinity function is set to irq_chip_set_affinity_parent()
-+by hv_pcie_init_dev_msi_info() when the per-PCI-device IRQ domain
-+is created.
++  ifeq ($(FEATURE_LIBS-zlib-rs),)
++    ZLIB_RS_PC :=3D $(shell ($(if $(findstring -static,${LDFLAGS}),false,$=
+(PKG_CONFIG) --exists libz-rs-sys-cdylib 2>/dev/null && echo libz-rs-sys-cd=
+ylib)) || \
++                          ($(PKG_CONFIG) --exists zlib-rs 2>/dev/null && e=
+cho zlib-rs) || \
++                          ($(PKG_CONFIG) --exists z_rs 2>/dev/null && echo=
+ z_rs))
++    ifneq ($(ZLIB_RS_PC),)
++      FEATURE_CFLAGS-zlib-rs :=3D $(shell $(PKG_CONFIG) --cflags $(ZLIB_RS=
+_PC) 2>/dev/null)
++      FEATURE_LIBS-zlib-rs :=3D $(shell $(PKG_CONFIG) --libs $(ZLIB_RS_PC)=
+ 2>/dev/null)
++    endif
++  endif
 +
- DMA
- ---
- By default, Hyper-V pins all guest VM memory in the host
--- 
-2.25.1
++  ifeq ($(FEATURE_LIBS-zlib-rs),)
++    ifneq ($(wildcard $(CARGO_REGISTRY_DIR)),)
++      FEATURE_CFLAGS-zlib-rs :=3D -I$(LIBZ_RS_OUTPUT)include
++      FEATURE_STATIC-zlib-rs :=3D $(LIBZ_RS_OUTPUT)libz_rs.a
++      # Pass -Wl,--exclude-libs,libz_rs.a so symbols pulled into the execu=
+table
++      # from libz_rs.a are marked HIDDEN and not exported into .dynsym. Th=
+at
++      # prevents shared libraries linked against system libz.so.1 (e.g.
++      # libelf.so, libdw.so, libcurl.so) from partially binding some zlib
++      # calls to the executable's libz_rs.a and others to libz.so.1.
++      FEATURE_LIBS-zlib-rs :=3D $(FEATURE_STATIC-zlib-rs) \
++        -Wl,--exclude-libs,libz_rs.a -lpthread -ldl -lm
++    endif
++  endif
++endif
++
++zlib-rs-cflags: $(FEATURE_STATIC-zlib-rs)
++zlib-rs-libs: $(FEATURE_STATIC-zlib-rs)
+diff --git a/tools/build/feature/.gitignore b/tools/build/feature/.gitignor=
+e
+index 15fcd34acdb9..2fb933f84bd0 100644
+--- a/tools/build/feature/.gitignore
++++ b/tools/build/feature/.gitignore
+@@ -2,3 +2,4 @@
+ *.d
+ *.bin
+ *.output
++libz_rs/
+diff --git a/tools/build/feature/Makefile b/tools/build/feature/Makefile
+index 10340a537224..0c728531fcdc 100644
+--- a/tools/build/feature/Makefile
++++ b/tools/build/feature/Makefile
+@@ -50,6 +50,7 @@ FILES=3D                                          \
+          test-compile-32.bin                    \
+          test-compile-x32.bin                   \
+          test-zlib.bin                          \
++         test-zlib-rs.bin                       \
+          test-lzma.bin                          \
+          test-bpf.bin                           \
+          test-libbpf.bin                        \
+@@ -100,7 +101,7 @@ else
+ endif
+=20
+ ifeq ($(findstring -static,${LDFLAGS}),-static)
+-  PKG_CONFIG +=3D --static
++  override PKG_CONFIG +=3D --static
+ endif
+=20
+ all: $(FILES)
+@@ -301,6 +302,11 @@ $(OUTPUT)test-compile-x32.bin:
+ $(OUTPUT)test-zlib.bin:
+ 	$(BUILD) -lz
+=20
++include ../Makefile.rust
++
++$(OUTPUT)test-zlib-rs.bin: $(FEATURE_STATIC-zlib-rs)
++	$(BUILD) $(FEATURE_CFLAGS-zlib-rs) $(FEATURE_LIBS-zlib-rs)
++
+ $(OUTPUT)test-lzma.bin:
+ 	$(BUILD) -llzma
+=20
+@@ -374,4 +380,5 @@ $(OUTPUT)test-rust.bin:
+ ###############################
+=20
+ clean:
+-	rm -f $(FILES) $(OUTPUT)*.d $(FILES:.bin=3D.make.output)
++	rm -f $(FILES) $(OUTPUT)*.d $(OUTPUT)*.make.output
++	rm -rf $(LIBZ_RS_OUTPUT)
+diff --git a/tools/build/feature/test-zlib-rs.c b/tools/build/feature/test-=
+zlib-rs.c
+new file mode 100644
+index 000000000000..b8729c5135bb
+--- /dev/null
++++ b/tools/build/feature/test-zlib-rs.c
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <zlib.h>
++
++/*
++ * libz-rs-sys's bundled zlib.h defines ZLIB_VER_SUBREVISION to 15 (0xf) t=
+o
++ * distinguish itself from standard C zlib (which defines it to 0). Verify
++ * we are including the zlib-rs header and can link against its zlib C ABI=
+.
++ */
++#if !defined(ZLIB_VER_SUBREVISION) || ZLIB_VER_SUBREVISION !=3D 15
++#error "Not zlib-rs header"
++#endif
++
++int main(void)
++{
++	z_stream zs;
++
++	inflateInit(&zs);
++	return 0;
++}
+diff --git a/tools/scripts/Makefile.include b/tools/scripts/Makefile.includ=
+e
+index 378387f62960..7089e9ce64c7 100644
+--- a/tools/scripts/Makefile.include
++++ b/tools/scripts/Makefile.include
+@@ -109,8 +109,33 @@ CC_NO_CLANG :=3D $(shell if command -v $(firstword $(C=
+C)) >/dev/null 2>&1; then $(
+ # Some tools require bpftool
+ SYSTEM_BPFTOOL	?=3D bpftool
+=20
++CARGO		?=3D cargo
+ RUSTC		?=3D rustc
+=20
++# Map kernel ARCH to rustc --target triples when cross-compiling tools/.
++ifneq ($(CROSS_COMPILE),)
++  RUST_TARGET_FLAGS_arm		:=3D arm-unknown-linux-gnueabi
++  RUST_TARGET_FLAGS_arm64	:=3D aarch64-unknown-linux-gnu
++  RUST_TARGET_FLAGS_loongarch	:=3D loongarch64-unknown-linux-gnu
++  RUST_TARGET_FLAGS_m68k	:=3D m68k-unknown-linux-gnu
++  RUST_TARGET_FLAGS_mips	:=3D mipsel-unknown-linux-gnu
++  RUST_TARGET_FLAGS_powerpc	:=3D powerpc64le-unknown-linux-gnu
++  RUST_TARGET_FLAGS_riscv	:=3D riscv64gc-unknown-linux-gnu
++  RUST_TARGET_FLAGS_s390	:=3D s390x-unknown-linux-gnu
++  RUST_TARGET_FLAGS_x86		:=3D x86_64-unknown-linux-gnu
++  RUST_TARGET_FLAGS_x86_64	:=3D x86_64-unknown-linux-gnu
++endif
++
++# Query tools/build/Makefile.rust for a Rust library feature's CFLAGS and =
+LIBS
++# (building any required staticlib such as libz_rs.a under $(RUST_OUTPUT))=
+, and
++# populate FEATURE_CFLAGS-<feat> and FEATURE_LIBS-<feat>.
++define feature_rust_lib_code
++  RUST_OUTPUT ?=3D $$(abspath $$(or $$(OUTPUT),$$(CURDIR)))/
++  FEATURE_CFLAGS-$(1) :=3D $$(shell $$(MAKE) -s --no-print-directory -f $$=
+(srctree)/tools/build/Makefile.rust RUST_OUTPUT=3D"$$(RUST_OUTPUT)" $$(if $=
+$(PKG_CONFIG),PKG_CONFIG=3D"$$(PKG_CONFIG)") CARGO=3D"$$(CARGO)" RUSTC=3D"$=
+$(RUSTC)" RUST_FLAGS=3D"$$(RUST_FLAGS)" LDFLAGS=3D"$$(LDFLAGS)" $(1)-cflags=
+)
++  FEATURE_LIBS-$(1) :=3D $$(shell $$(MAKE) -s --no-print-directory -f $$(s=
+rctree)/tools/build/Makefile.rust RUST_OUTPUT=3D"$$(RUST_OUTPUT)" $$(if $$(=
+PKG_CONFIG),PKG_CONFIG=3D"$$(PKG_CONFIG)") CARGO=3D"$$(CARGO)" RUSTC=3D"$$(=
+RUSTC)" RUST_FLAGS=3D"$$(RUST_FLAGS)" LDFLAGS=3D"$$(LDFLAGS)" $(1)-libs)
++endef
++feature_rust_lib =3D $(eval $(feature_rust_lib_code))
++
+ ifeq ($(CC_NO_CLANG), 1)
+ EXTRA_WARNINGS +=3D -Wstrict-aliasing=3D3
+=20
+--=20
+2.56.0.455.g6c5a503b38-goog
 
