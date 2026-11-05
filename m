@@ -1,66 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793842224;
-	b=Chrq1rdadsnaEZwMOhKgE1uzVvJRkF1U5HEwpsDTlwlG7UeQ/gKKVypttkRUQ9444bFL
-	 QalG47F0vCY4gOJl5hhU53L7ZEksp+Ly57GsBtBe9cBfe0nTVEwdSSZUGaFy4HtgHt9yW
-	 JEwUKsZyahy3rE7xSbiRB/dB9hjtZqGFwax80/fKAgqhQ0jrd2YoZSvvn0sn85s6upSl/
-	 1GKIwEux4NFEP9tMnR8/lC1YzzINke8DjkC4W1vefPa/lg/DUmEpJnglhQ8jhzpTXE6Q5
-	 9SMnEqMDvcxowhWHbBRKNhLpA6D95vcKc4bB4+9JOHI1xlHKMqBFcLytYf1l6w7u1gQ==
+	t=1793842303;
+	b=RLN2keQHYDZnb1KefPFOOaIpwTXxumgxlWyX0d75UpLNJQ9zVWJ76AUrqM6UBSEsm8jU
+	 RN3+4JWkTgX+Og7Vgi4mGTWSaZX2WlX6TtoKdmTLpYEfqvU3TYDelGD5YiiCr9kWoPU22
+	 qdtnCfILQWn8rtHC7blVhebJ8h9LA5Fauq5yc1m65qoMlrWod7Sex4F+ruKZo6Cug+W6B
+	 /Wx37utx+POPEvjNa0xMIrm9anGAifIxdWER1u3WSh0MLgwgKhVVVO9pY+xnECZ7TGp5V
+	 uMnaaPjqhO/aBxSjJbAfxb/fi6v+tALpc2Gh7++5Yrv3vVCO48khN8jYuXIKGVasahg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793842224;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793842303;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=c9FyyRrDIJiM+pdGziNyvrHRdlHPw/S0AzKsVTLflEI=;
-	b=TuzcjoZcPAjd5UtoEW5qW8NTbM+xMB+SG2Sapu2Yx3tIwPDGPTxJe0hYn2W0SUXp9ByM
-	 9OQY+uJ8qWJ/QtDDY1gWqvDIGtKs9BIOvmPA2zUsQJYKo6IjEqDXMtqoHqXBwMB/Da0JY
-	 di1C1qMYqFJDiWwyF63U/gWMuHZIoK0wHzqbakEYu5LH9u2LuFlDgNbBgTjl8zZd+AuYl
-	 yEhEOcW5JWL7dsARHPLVwU3GCTKHMGk/YckPaDhBZR6SpFOv/LRrNJCvKWtC8DUGgB8Jp
-	 RrtCHABwK+pebOqwxZQ/wGHnf4flMQU2X7gaoMh1XE6JUtEfOIliJRRTKO78/DT0eMg==
+	bh=JLmWBKBg3eGd3tZYxEsm6k7nPECbaO41XaN1QBV12SI=;
+	b=INvpqYYdcz59jd3WcN2+V6bN7Y7/n9SdllGPHG5IxKt/Hs2zph7sOyiLi4NQyPiATsWA
+	 XquFUa2Fob7JHtG6yGENU7WLp6Ae5QnznAHNQKklCHK9ta5DvGiuHIo7orUWu74dKl0NW
+	 ZY58nr71C1YrB/gl8LL+UWZEPslDWUGwKOjEFG80gh+pn3aZcp2WnphT5Q+idPJb9pgaK
+	 SgrKsf1pvKCd5wpmk/S2yWY9ax9wVcXTB3GEiezB3PkVgpJe3ZZPgIP5onGsyOnZHrUNr
+	 BrbTre2w4lRKfyc9xNHgunx1t0mp5sLBh7EwUZ/c5/AiosCtUbeT2hZiR6MOgIl7qEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=379Ifg0I;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=T3XtYAmn;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8822A606A31B;
-	Thu,  5 Nov 2026 01:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8822A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC30B606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:31:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC30B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=379Ifg0I
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jKl9q0BDkz1XM6J5;
-	Thu,  5 Nov 2026 01:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793842219; x=1796434220; bh=c9FyyRrDIJiM+pdGziNyvrHR
-	dlHPw/S0AzKsVTLflEI=; b=379Ifg0Ib0caxg0l9GbqU9TMQhYkAGveaJG+hZ3H
-	fuPeFG4/ZhcbGW4stmdFYjb3oebrIJMu/xsf01+nldFVTMMG+ff5Rb/gGcK73x/T
-	0EW2vrx3RpYmkjNl9jIpPUD1ZNzhrZKZLW0R+N3C7t3aOdc7MzUDgcjcXPmOQ6pj
-	X4XHmDSdW9rKA6D/1njpzP+cf8sjWXzuyTAiSbuYqghR1jCwHeS8rVwqBDZ2FiUA
-	1jqIIVWeroXw3AQNZMA6y4McvroqTpAhijspIAxY6ds5VWzGPNLN0hN9Z5oorbpC
-	uIPhqCF3PLRh62dTim9O+fl3jPigB6sHr/guh/bUS/+rtA==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id D5KUB14VwKHN; Thu,  5 Nov 2026 01:30:19 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jKl9l0s7wz1XM311;
-	Thu,  5 Nov 2026 01:30:19 +0000 (UTC)
-Message-ID: <8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
-Date: Wed, 4 Nov 2026 17:30:18 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=T3XtYAmn
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso11674405e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:31:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793842301; x=1794447101; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JLmWBKBg3eGd3tZYxEsm6k7nPECbaO41XaN1QBV12SI=;
+        b=T3XtYAmn/YL2Jaa4b7CXx7WOYxKldBEXtKk8EHCLKqoKN13jQ0G1qJPyrVzCGlPqRZ
+         8wIFoJKBUw4KYeVChKTolfVH0QTot74STI49BC7aXAw2BE2agKhdB9znu9rFa1ERpomD
+         snbmlsqJQV6mWsQa57IRKLqLVCJNpDWqghMKnpoSM9yvr/28hAcicXa+cX2zo2gX2jre
+         B1Z68ChcBY7wiiHA+kmL1Av3vwN3Q9BWFZ85wvcs5kI6GSYs+2tQ3mrCmJUqDYp71+HU
+         XTD+2Mt0TnKpMttc4j/HvV8ipfi1RlZbR5W9C1+6uX87/rYpix31vz9sVEtU4EAxTte2
+         MxIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793842301; x=1794447101;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JLmWBKBg3eGd3tZYxEsm6k7nPECbaO41XaN1QBV12SI=;
+        b=TC133wbNmdnGSm2/TTDAyZbvUBTlfwlEaBiHU1YS8ABEtCAO4qVSEK40UFKXDOG2Q3
+         hEg9iD7TSIC2r/QklSwxSrfS6UszZMGqijI1IG3cToHPU1CP3WlXj/3AfUP/mm23fhj3
+         +Of58bxrl11UCDcWLYcQ3Hr5C0kHf5XGbQ08iY8J0HAIh3hqosNOL3r4vaOqn/q9rSny
+         8690Mpk33FGVvELJReCaS5BzanujPDhzYH8X0+V2pykjnoZJED1ioj36/cyMXiZWAIQH
+         Rrc9lUxPWwpgnBO19fNGuRefFq940xPgdGfm/mfoKWGa3FoWPD0tGcF6nD/D2YzAWDmm
+         vV9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzTkGO38qnVMhFk4mprKRPuorskBSm1qG724zuAOnpOatwpT5DtUAjDfGh7S7Q4eWNRYUmVWBj7CoddYLE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rGxcCLh4iMi+2lBPMRB196jczWwSFbFQP7j382WAt2iZhvYfx
+	e26WjM4r5UIDpQf8yrSSJgzoagDnwfc8FA1nzSbFC+pZhSbVaQnsyTpOZ1y0/QhTD7iujBBhyc4
+	r2S6KVmk=
+X-Gm-Gg: AYBFou3y9k4hbnl9nvFW5fN0JS5MEQ16UsDRy5yeRETl1uOn8ieOCELrty9KtcVCjlf
+	dIQqTqOBuZRaZV8KAV664aSbQ7IjGa9n6hGQQQ1E3HgtHVoodWpQkTIaALZ7E6uvr4s2u6ixBUh
+	eDGGirlWr1yglnT+MFVa5ttQkN1la14gbbKXwrU4vT3Nsr1nd/UopdpR5/FPCXEw3rLy4CyDro9
+	Wvqj3kU+CH2tiJQ6ZHVrIb+Gz/q72MqtOHGjas6Yesy7TDbuYOoJRxX76CHa7NvTCVdQ/a+Punx
+	A9s9L9nJxokOBo7PB8Dv/Ty+F/z81ZUqmKX39ek9CbiugNgq8+XnQtONMPDKx9osaVBLoUL1Wz0
+	tByCy43IZwjgiEvCFRHzNCD9JhCU7R1bQdZAnCtmTfLgGGyuzM1lcYfdz5XVWBBC1XbtZHhRWhz
+	1nmBSB2Hg728n4Q4G2MsA1uC3M02IOadRx59HtpMr2c9fE8X1DTZOTbSHjL9wSpasc8XENwmtzh
+	D4iVpqT6bkvgIVIS8Fr2iD7ELc8OXT1yDsJlQ1hLQS/aNNoVEK2Wbb9fSevP01nOQK7I/w1qfrD
+	xC+0T+7ADecRON+pRttoUOI9aZEZb+ZzYgFTUJqKCv5S0ivLkaqy7MCUFOTQ3NOfND4/QYtPpwu
+	muWkD0oJT08x0EmaAZ+Hs7KNwAqODgfXeIA==
+X-Received: by 2002:a05:600c:8b01:b0:4a2:74f:46c1 with SMTP id 5b1f17b1804b1-4ac1737c682mr398419395e9.8.1793842300720;
+        Wed, 04 Nov 2026 17:31:40 -0800 (PST)
+Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b414b170d0sm63919195e9.1.2026.11.04.17.31.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 17:31:39 -0800 (PST)
+Message-ID: <8401ef7a-de1a-4cb2-a3eb-be02a8436360@layalina.io>
+Date: Thu, 5 Nov 2026 01:31:37 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,83 +95,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com,
- martin.petersen@oracle.com, kwangwon.min@samsung.com, hy50.seo@samsung.com,
- cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com
-References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
- <CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
- <20261105004333.1097899-3-kwmad.kim@samsung.com>
+Subject: Re: [PATCH RFC v5 3/4] Revert "sched/rt: Substract number of tasks of
+ throttled queues from rq->nr_running"
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+ linux-kernel@vger.kernel.org
+References: <20261103005953.56271-1-qyousef@layalina.io>
+ <20261103005953.56271-4-qyousef@layalina.io>
+ <auoRQiZbirZCFF1x@scheduler.schedules>
 Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261105004333.1097899-3-kwmad.kim@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Qais Yousef <qyousef@layalina.io>
+In-Reply-To: <auoRQiZbirZCFF1x@scheduler.schedules>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/4/26 4:43 PM, Kiwoong Kim wrote:
- > Here is the timeline of an actual case for this that happened with 
-kernel 6.18.
- > [ ... ]
- > 2. So after the query was timed out, the driver did SQ cleanup.
- > Then the host updated CQ update and raised IS.CQES,
- > Unfortunately, complete() was called the driver's ISR afterward.
+On 11/3/26 18:51, Kayra Cizmeci wrote:
 
-This timeline describes code that no longer exists upstream. Since
-commit 08b12cda6c44 ("scsi: ufs: core: Switch to
-scsi_get_internal_cmd()"), the device management path no longer calls
-complete(). Please describe the race in terms of the current code:
-the query times out, the SCSI error handler calls ufshcd_abort() ->
-ufshcd_mcq_abort() -> ufshcd_mcq_sq_cleanup(), the request is finished,
-and the retry reuses the same reserved tag, struct scsi_cmnd and devman
-UCD. A late CQE for the first query then maps to hba->dev_cmd.tag via
-devman_ucd_dma_addr and completes the retry too early. That is why
-cq_lock matters here. Please also keep lines in the patch description
-at 75 columns or less.
+> So, as I was saying above I gave this a run. Did some tests:
+> 
+> In my base a RT task can only get a CPU's %95.5, with the series %99.9.
+> Even when rt_throttled is 1, task doesn't stop running. I opened
+> CONFIG_RT_GROUP_SCHED and set cpu.rt_runtime_us to 950000. cgroup v1.
+> 
+> 
+> And AFAICT from the code and my tests, nr_running is handled
+> differently/wrong with this patch.
+> 
+> When there is a RT group while throttling is enabled, with 2 tasks when
+> the group throttles nr_running should be 0. Since, there is nothing to
+> run. (If the group is alone in the rq tho :>) But with the patch series,
+> it stays 2. I think it's because dec_rt_tasks() does not call
+> sub_nr_running() in the group_rt_rq() case of se.
+> 
+> 
+> Or am I missing something :-)?
 
- > +static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
- > +					struct ufshcd_lrb *lrbp)
- > +{
- > +	guard(spinlock_irqsave)(&hwq->cq_lock);
- > +	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
- > +}
+This is an RFC as I was looking for potential historical context why it had to
+be done this way. I did call out in the cover letter that I am not sure about
+the implementation of inc/dec_rt_tasks() and was looking for advise too.
 
-READ_ONCE() is not necessary since the OCS is read with cq_lock held.
+I might have just missed that we have rt_task_is_entity(), does things get
+better with the below? Otherwise I'll just need to find the time to figure out
+the code and test it properly. Thanks!
 
- > +	if (!err && blk_mq_is_reserved_rq(rq)) {
- > +		enum utp_ocs ocs;
- > +
- > +		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
- > +					ocs != OCS_INVALID_COMMAND_STATUS, 20,
- > +					MCQ_POLL_US, false, hwq, lrbp);
- > +		if (err)
- > +			dev_err(hba->dev, "%s: OCS not updated. hwq=%d, tag=%d err=%d\n",
- > +				__func__, id, task_tag, err);
- > +	}
- > +
- >  	if (ufshcd_mcq_sq_start(hba, hwq))
- >  		err = -ETIMEDOUT;
+--->8---
 
-The SQ is still stopped at this point, so this loop can stop fetching
-from the hardware queue for up to MCQ_POLL_US (500 ms). Please move the
-OCS poll after the ufshcd_mcq_sq_start() call.
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 96d37a1ccc2a8..520273086134d 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -1132,7 +1132,7 @@ void inc_rt_tasks(struct sched_rt_entity *rt_se, struct
+rt_rq *rt_rq)
+        inc_rt_prio(rt_rq, prio);
+        inc_rt_group(rt_se, rt_rq);
 
-This code also waits for the interrupt handler to process the CQE. Why
-not reap the CQE from this function? ufshcd_clear_lu_cmds() already
-does that by calling ufshcd_mcq_poll_cqe_lock(hba, hwq) after
-ufshcd_clear_cmd(). Calling ufshcd_mcq_poll_cqe_lock() before reading
-the OCS would remove the dependency on interrupt delivery and match
-the existing code.
+-       if (!group_rt_rq(rt_se)) {
++       if (rt_entity_is_task(rt_se)) {
+                struct rq *rq = rq_of_rt_rq(rt_rq);
 
-Additionally, does the UFSHCI specification guarantee that the host
-controller posts a CQE (e.g. with OCS = ABORTED) for every command
-that has been cleaned up? If not, this patch turns cases that are
-harmless today into a host reset. Please cite the relevant section of
-the UFSHCI specification in the patch description or in a source code
-comment.
+                add_nr_running(rq, 1);
+@@ -1151,7 +1151,7 @@ void dec_rt_tasks(struct sched_rt_entity *rt_se, struct
+rt_rq *rt_rq)
+        dec_rt_prio(rt_rq, rt_se_prio(rt_se));
+        dec_rt_group(rt_se, rt_rq);
 
-Thanks,
+-       if (!group_rt_rq(rt_se)) {
++       if (rt_entity_is_task(rt_se)) {
+                struct rq *rq = rq_of_rt_rq(rt_rq);
 
-Bart.
+                sub_nr_running(rq, 1);
+
