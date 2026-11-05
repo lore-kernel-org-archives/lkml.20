@@ -1,106 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851531;
-	b=U32CthRg06WdVRy/gMEZOE5GCwF4AMnPMtpXChTc4fuXEa3poB/CjWEMQuwc3ctkhDXH
-	 5oyWmJav9x/DtAXzmGfrM4FwAVCzfQrM/q/rbE0AbDHE7vvhEcvl8rVN921b8vligqFI4
-	 D2W6nCzPiztRIN5yA3c/EOW3E/SLw4185oOPyRls85MKzRA8FR3jJv4vQL1lntLeHEeAh
-	 QwqVRzzqSFUarq9AlfIhcM9a2TViFBdRl3mjthoh6b9ULjK+KTTmuiRRmUZ9Z5I7gh6KI
-	 Qx28jFqqh4l6IhokGIOpKDamah6aczGzUUhqn6Lmkk7qRYM5B8AStbdmE3sFYzU+eQA==
+	t=1793851605;
+	b=CvTrnXQx5WgpmuftdO4jEFywrIkipOpFplZEU7exAy1/jZCLZfCTPJfuhB+qLZwDqsGQ
+	 dk4zHD4WKzS6TajQMjKHI+UDEidHwV2yOKCV5tYuxF2eVq3ELW5o/IcJE92tV3WuWNLxb
+	 gTvtpNCQtgk4msY45YjNFQIOq/Xm3m1J/zHU+hIM328LoUdEPJ35/eKmdyPbdJatMo2Bf
+	 lFFcgiXF5pizFcYLWd9lNb1c6MURXQosrpbDwHWQuyJrwwhqP5LABqrsAid7FgrzwZZ73
+	 DjUU6PIm6HzuJ7X3ZV2vDnjpXBX2pQarQulPc+x0h2QIE0vgnYcYvs0APFxb60qmaSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851531;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uhXzNT85syfQsWP0/fY2t6PKYwrrbIrshv8CnCw1QDI=;
-	b=xM3UBGOBFWF244zGKw88o52Ebc8sI2aXjalbEn5PEVHKBBcBpjBtxgbK7O17VcT4qo4L
-	 bW/3KOyKtCleUzb3DOxUOCgOkIWVJmU1Nzj8CSnlu+9Px+RVvPeImlMHDKpTUX77xZvMa
-	 1MD6w38QNySVWPvBxqAd7cjJVKo8CScVl35C+tMUdC/RMSHiDb8QHZwVIFvuG5vFOTgjf
-	 JKlUVCkLkynnGSh0V2/dv/8UAqtsRusmcx3ZlragO0p24K7tsecF6qq8Q1dlp2S6jObrq
-	 ipW6ZozbGQvfIwo4oHrI/o04VdOKiObTsM08QRzdIrASs/2I8huEiQdKpPsv9imz7LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793851605;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=IZ0bc19mShU8CRBKQ/MWs57BmD5jYU0VvDsgtRwVk+s=;
+	b=bXj87Q4Dw/j/sm/sm/2gW7mfGGbjCs1q427QFdCZwTFUT3LT5bdCqxW0oXXhLHp0d6Uv
+	 5UCNopVNDmoyk5mp0RXvPG8ec3JBeF5VDyRVYGBKTdHb42WTaCqp7jFaGnCUOziKHWTH+
+	 eapMrqJez9arvm8B2D+hWzFDL/u0RCxILdKgNZrIWeBvFRwHFHavLqEPsLUJqC/5Xdmid
+	 F8qfB/nTbCLnHlWhjKuK376Tn79yeYgjprfO1+Y1r3Zfs8q1MVnw8ezJqkPpvIEV2d9jo
+	 Txjb5O12IE8Qe1kxOdtSJaj3Rj5NMNto69GWgdptyY1tQ7JBYG/PSHEpsN7pWgwrkwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=reznichenko.net;
-	spf=none smtp.mailfrom=dpplabs.com;
-	dkim=pass header.d=reznichenko.net header.i=@reznichenko.net header.a=rsa-sha256 header.s=google header.b=VepMpLxv;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GBDVozvr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54A8606A32D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D54A8606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reznichenko.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dpplabs.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B4E606A31B;
+	Thu,  5 Nov 2026 04:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=reznichenko.net header.i=@reznichenko.net header.a=rsa-sha256 header.s=google header.b=VepMpLxv
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1266867a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:05:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=reznichenko.net; s=google; t=1793851529; x=1794456329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uhXzNT85syfQsWP0/fY2t6PKYwrrbIrshv8CnCw1QDI=;
-        b=VepMpLxvKUhAHEzmMxos/BPDl/sT7G+0yhx4Zk7yWSt5UDWMfcPoIqi9A8cLFBmmyf
-         EgS8G51JP6+LZZESQUChnBfhaOE6Z9pmH+L+NiFBOJFr1HTAHg9aFWiAMP8KetLKV2SE
-         DkCiMQAPKbqeGWSHRWdUGp6u7QcolbWnJBn6yDYNCIm2eOkZdz6QHjWTp58C+yDxMMPf
-         bMSr3hoixMSO3XLVoTYFocBLYCPA2xLecXMbhgS1EOdK3RXptrl5qWat5U6SWswGx4k/
-         vp0Q75iVBE/7NAr+PKAu4Q7sSULsB7PbXcsH2+5hxwnqF2z7u1czO82bOmT9YqXbvLDX
-         N7BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793851529; x=1794456329;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uhXzNT85syfQsWP0/fY2t6PKYwrrbIrshv8CnCw1QDI=;
-        b=mu05Oixho0y4hb+sBAZxYzqHJoOYpoR7ODjqBif69zeOU3HiRKpJ6TCtm05N59vMCw
-         PAPRtsGoHmaXhH2HRwP+3qvY9Z0ci1Q6SJs/UOpCtUaGkWsdk6QsdK2lV48kmgRuCWk0
-         UvXu/Uus6dlw3yIuu8uikfRmzse0tf0f0FMz13QaKZcc3QKGCENXPFlYrhlv1n140jY5
-         Yx0crxlRqfXuJo2CT/i0aVxfEYsTXMIQ+IjgC70mLO61TEjZI6jLV+j+nx1Yrkg6+p/G
-         0lzfU87yp/w9Z+w5rtvCIFCUgZDsKPSBxf5yqmMYPZU7R2NvA+z65EaA7EY6vxU1BTRw
-         JbMg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIZjwczto5B8T+36cp5R74r92ZyOWC0LTpmChUGwi4nAoJ+HJW6UGM0R1X/OSz/v7aQ4mPQ9e2tGRWPhY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mo5pZ6O+I7+gCG5+OTc0m/5SV3aMpUaPtXvDTSJjFL1hkKX8s
-	eS/8Agdjvlmloi/opsy5vTnNc0AnPQGVgTUFlzAk/Mj5lW/eHuoetN8q8GxVE11jC+E=
-X-Gm-Gg: AYBFou0zIdfxR8yrlF14ZJGbXx/H7hmIeNhZfhz0Jh4ery0dB7lXhg0T56YO5HBS2gX
-	FAiOxk7oEvX3W0k/hs4JmvrGsj+MwyQTtLHV64xfzlgvSww3Pl/sb/avFZyRbTh9PDvKDcTpp15
-	f8lWQVfQDMzV8lJ+Y1PhlowXc4b8GSR59UQRath9AtYk2CgdVx4VxGQe1xD/wweICZqRF5J8gYi
-	gQD4spAMGEmBWrQ+B4SNyf6tf+rZQe4KuVNiWBibDLldp6uaM6kfauV7hinTE/uBjZzvYbDne9Z
-	zNRkaTi6CuUzJKHl8VZHku5onNu1uwCPGsHPsFMXZ1rKYZ8wQbZYAMEr1aJuc0BaHMStqukd1O2
-	WZDe/CvZMv1JWyBsMrSP65EExxwTxcoMiHlTqZHHccyGFhl7BZ5Wn/sz1rpsOZZdRDD46QoiIaF
-	BD4udwXsWHAjaaqy6X18vJ+azyn8ZjYccZWuBsAlkkw6LQfMcoav6/0H7UcPwjnGN9RK6CxPwbd
-	7HuXhLj8uyexnQYWcVPyy3SuKoPggh9h1yw/7fR7lAA9WFW/X13vSYyhkQhnGcVeYSYYPedv4lZ
-	AvZFvkFXsgoXP3d8+4oo
-X-Received: by 2002:a17:90b:3142:b0:3ab:4f1:4f7e with SMTP id 98e67ed59e1d1-3ae897f3919mr15959327a91.28.1793851529190;
-        Wed, 04 Nov 2026 20:05:29 -0800 (PST)
-Received: from z440.. ([24.21.231.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b90def97sm952109a91.7.2026.11.04.20.05.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:05:28 -0800 (PST)
-From: Igor Reznichenko <igor@reznichenko.net>
-To: romain.tisserand@gmail.com
-Cc: airlied@gmail.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	igor@reznichenko.net,
-	jesszhan0024@gmail.com,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH 4/4] drm/panel: ilitek-ili9488: add the PocketGo S30 panel
-Date: Wed,  4 Nov 2026 20:05:26 -0800
-Message-ID: <20261105040526.26323-1-igor@reznichenko.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103110524.2812831-5-romain.tisserand@gmail.com>
-References: <20261103110524.2812831-5-romain.tisserand@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GBDVozvr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7171F00A02;
+	Thu,  5 Nov 2026 04:06:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793851605;
+	bh=IZ0bc19mShU8CRBKQ/MWs57BmD5jYU0VvDsgtRwVk+s=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=GBDVozvrSGEe8RW09746fW8FlXK5DACWUygM3bX+0RSrkvcDzjtCKcP8kLUPavcqJ
+	 EP9/XF2Q57+lCdlmOuLm5zUMEBGimsfWk+Ws2HuSSp3SVHXvoeuw6Upod17K3J69GU
+	 3dSiAQnn6xSDb5unn+n6CaBy4ktUlGYELA9N6hpECa+XCbHm8MdfCJDK1ao7Tq7jgj
+	 4lfrjOZLasSkkgQ4szUZ97dwHKuw5vC67jzQ6clWcMbDpimZLCSbeDJF1UVNYv1xCc
+	 eTMQby3OK30P4kP5eNN7arZbxjqM/Jhr6SwRG9rZC0L2zclBfmCtRmsUAT8lvuBQhL
+	 49c0Z48DnclQw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,15 +49,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] kconfig: fix dangling check_top after an unexpected
+ recursive dependency
+From: Nathan Chancellor <nathan@kernel.org>
+To: Leizhen Zhang <lzsx618@gmail.com>
+Cc: nathan@kernel.org, nsc@kernel.org, julianbraha@gmail.com, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261008164528.3685545-1-lzsx618@gmail.com>
+References: <20261008164528.3685545-1-lzsx618@gmail.com>
+Date: Wed, 04 Nov 2026 21:06:37 -0700
+Message-Id: <179385159707.826739.4691823071555399095.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1274; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=6vaMQPq+oJIi+T4T9QwlIS14IlW6PmuZNte86c8SeT4=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFlvGC4c+nP3WOhCK99V6iIeW+pvL9+/7ivvk2vXM7qn6
+ Zz/EDXlSEcpC4MYF4OsmCJL9WPV44aGc84y3jg1CWYOKxPIEAYuTgGYyNsqRoZthfM9b6s/M2Or
+ +TNX60VdvXna+t0VwV7lZb96L2UVe09hZPiu33Dk/a0Qn/UWjd+vLVB5I/p5h/yfznsCTvNXOXh
+ oVnECAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-> As on stock,
-> the panel is set to the 18 bpp interface pixel format while the DSI link
-> carries RGB888, so the panel shows 6 bits per color.
+> If the last symbol of a recursive dependency is a choice value,
+> sym_check_print_recursive() pushes the on-stack cv_stack onto the
+> dependency stack. If the choice is then not found on the stack, the
+> function prints "unexpected recursive dependency error" and returns
+> without removing cv_stack again. check_top is left pointing into the
+> stack frame of the returned function, and the next dep_stack_remove()
+> dereferences it:
+> 
+>   AddressSanitizer: stack-use-after-return ... in dep_stack_remove
+> 
+> This can be triggered by an (invalid) Kconfig file in which a symbol is
+> a choice value of two choices and the second choice depends on it:
+> 
+>   choice
+>   	prompt "c1"
+>   config A
+>   	bool "a"
+>   endchoice
+> 
+>   choice
+>   	prompt "c2"
+>   	depends on A
+>   config A
+>   	bool "a"
+>   endchoice
+> 
+> Jump to the existing cleanup at the end of the function instead of
+> returning directly.
+> 
+> Found by fuzzing Kconfig input with ASan/UBSan.
+> 
+> Fixes: d595cea62403 ("kconfig: print more info when we see a recursive dependency")
+> Assisted-by: Claude:claude-opus-5-5 ASan UBSan libFuzzer
+> Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
 
-Minor suggestion: please drop the implication that COLMOD 0x66 causes DSI to 
-display at 6bpc; the datasheet doesn't establish that causality. 
-I think COLMOD only applies to DPI and DBI, not DSI. The initialization 
-sequence can remain unchanged. Non-blocking.
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-Reviewed-by: Igor Reznichenko <igor@reznichenko.net>
+-- 
+Cheers,
+Nathan
+
