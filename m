@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890622;
-	b=gCpaIwysDG/iCULtie0+1MM81JVeFQ89ch2eAadPBnoU0UXjqTVJAyk39TTpmAEjqvrk
-	 xIsj4tP9FACx75bDxjnHJ9y8j6vHlVi25Egj2X4CXBfPJ+EhhRHIqm+wU8dNYr+R30FSG
-	 jReOlGOAof1bIjGCNY0Jx1WofMqV2W0OYhp+hpvlb1jfhinrqtTBZA0Dv/4c6/JDWmEdO
-	 iPQzTWjoHllSnIssmjuTO1Xo2hGHN2vJjtldOcMDCeBUJS7sSo26WboJ4WVmiGntQm0p8
-	 GrOGIfkFJ4FwpgSYhLomUFa4wj01EoMzNldq2R7Za0ThlkvyBlBWoFK1g/JJ670kueQ==
+	t=1793890643;
+	b=rvmrcdQg66ycXQRBrYoZ0YNGg+gmr5fldsDdEDNo2kSS5zP83oBFCIEwYo6L0B6x5PJt
+	 KG4Tsp6mhqDH+fn5x4o/JbeWEu3sYYE5pw5qrRr91+gmP2Kq6/wHOZdDq+oE+cYCPJzm3
+	 XfdzZlwdfacz5uypV8LQf4CUt2krpnyi47jVhPIEVPAFtu1jPjgkUFhW2yCtZ/Q8WJcvz
+	 FzeFiOcVZeoNTZz9Ouo/WIVeVDkhUMMDYbxYn/L7ADSj0Fw66Wv5kNJTjCkmgJPAZPu3D
+	 0vdGUlM5OrVSIkBesbxAc7RMS5ug+Twqu8XG9TBYJDCncfk//5Sr+fMslZL7jd8x86w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890622;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=qqlqZQM1bgY9LghoHa28vdCwGWWwQsflm2XkB9xroRw=;
-	b=dfw8u3ucdwkR/n2/H5uXEhJyadk5dr3FNwOck/4j318NmQ1x2DwU8nNEFO/yhfiPUjnP
-	 kLoLKL+O6oFA9l2+ZmLZRxfcTqkpSSaJS+lF9+Kj7gii9VAPAEM2avyhEobEAKbjaWSUh
-	 fpJ/dXRGFYt6GTLsWqHUATllANSZRb3vWGDSGNWwEmAYtCMgHnEO5p1gA2YKqX+fmqlx2
-	 lD/iIE/xAyOihsjVlLDMnJGUzU9bZc/2Z8SafTxvGhq9Ivx5Cr0qGFKOrGCci+s3/i4rS
-	 RQyX5yxjQi+7SvgJiLiE9GlKSpeEdRxVWB/myDvZ8QEECXVKtMCb5jqBklH+IbvoD6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890643;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LAh+fHBX5S66jM7YRVkD+ulSCs8XeJoMda5fYkmtiaE=;
+	b=WP6B6ds64N6OIgBObk0icDCHdwo4yWZCLujAGOqtkGq340vA/aeyAzDTRiWOCBjonpDr
+	 o/wZK1F4g9p2iryRc88AnsD/6X5EbNBf8Xpc/Kj1yqnUB4h8aKCNYu/u78fBpyBSzeWT2
+	 RFhvO6nAwYyvGKPiHdqVcj8L8vnVNq8rA6cBO1nLsgaBULt3dXbaJ+W3djHvBDxAVoK6P
+	 a4lSLICGdkCo75FdAr+QAP1p5zjgL3D+Kvyi39OdXbpP7oQbK2ZxuSqpvcjTsSvumzlyw
+	 azgbAIKfOHZAd2uuIpKEMwmzrbvFXtgSJdr0wZ+HF0oEHDbYUCW5dRZdLqzzTU01riw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FFicVFFG;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E302F606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:56:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E302F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACHH7U2mexqpshgAA--.7159S2;
-	Thu, 05 Nov 2026 22:56:54 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
- vulab@iscas.ac.cn
-Subject: Re: [PATCH 4/6] clocksource/drivers/davinci: Fix clock reference leak
- in of_davinci_timer_register
-In-Reply-To: 
- <CAMRc=MdzjvFovn5_QCtLQr5zGR4zjJraPXCaXNe3hxSVY39uYg@mail.gmail.com>
-References: <20260915051948.1727882-1-vulab@iscas.ac.cn>
- <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
- <20260915092518.1868587-1-vulab@iscas.ac.cn>
- <CAMRc=MdzjvFovn5_QCtLQr5zGR4zjJraPXCaXNe3hxSVY39uYg@mail.gmail.com>
-Date: Thu, 05 Nov 2026 14:57:01 -0000
-Message-ID: <179389062168.2031761.8680361794072834990@iscas.ac.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F8E606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:57:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F8E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FFicVFFG
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5349793eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:57:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793890642; x=1794495442; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LAh+fHBX5S66jM7YRVkD+ulSCs8XeJoMda5fYkmtiaE=;
+        b=FFicVFFG28O7DsFqcOvD49oFjNd+LS/7lAbf58ZGjBb/ARluIGEWnFD6Q2Y4X4frcq
+         oYLDDZWVdImMpDkRCoTa+Obj4Oda/YGU5FfIyOd97AbrxpvgysKXTsFZfyNhN5/dTsWN
+         bwsW70Zc8DDZh0BxIWQNyHuqk+3ihGVMCJ2AzXv+zzB7wHE2ir9g3VlcPAyYK4VNkOfo
+         7zfMXGKq7ruZuazM2bjmZatE+7Ya5JoJCZtUJ1p7/9arTLOjUOqlE5qw5ZZROIcnHj9u
+         XP+vba7vEW2rCDBgPYs65sFjmi3d+X6TW4yl/9VESaBUwFc1AGHWIXTXRTscx2OilQme
+         7s3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793890642; x=1794495442;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LAh+fHBX5S66jM7YRVkD+ulSCs8XeJoMda5fYkmtiaE=;
+        b=B1KKlMIPewmiYsB8oufmb6TlgtBCla6YId9YPtdMkwtSJzV+0x5aEp2KEDC/xZ8Y8J
+         WW67nfE80EuOGmIvymaNnmbXKl9U19pxG5l2gGDd+Xn6gl4znrRPVHX4dKXqH2bt3Lj3
+         lRO+it6ukmjoikgI6LAwicU48lV7Hz4KKLpc9CG6eZGU3CA2ptgyMQaQIzTnWF2G7DmK
+         BKFRmFO+bl6VvmtGj8gnDtvBjUz2fDPthT/IzzFr1Z5kczXtnj8t0t8//2EtUnCGEVwF
+         6qFD47cZcrKEMeSvRRG7fEY9nXlxtgAsGxaHBpr8vyH5RXrUSTZP9/kNPqcoYGRYyToW
+         lB1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxEILX30B1mXnHQef6hy+yKpImiycDOPdLdSsSXtR9tF4yrLnTY/9U6kWe9Hahk6Wi8IB6F4ucIcS32VDs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gcCD3IAysxiR7hZp+ZeBqHK4YrzkPTFRTPrJD+qfP38sQHIzY
+	jVybe0hCvRI3vrA3y9LjlmPz/a64jkBjA5EiVb1fq/B7DlPQEO7oDfFM
+X-Gm-Gg: AYBFou3yRCIED8+Xl5prSDB5p+YN2ekd3vnQfvzEsHQlRDpO9M3XJfd5iznJFVbbhxe
+	d9NsE4XkDZuOHOqyf3XoSu1lf2cOJqI28EXLyENKdLJgxb+GOPzCgsOxxA0M2mm4qoAUxy7ox5g
+	E6YsSl5/uXfkwhQEi2mPAyze549a7TGBBjx//jHp3jE0dwsxsJktQNiSEPAiGDiWvAn3mzmJD6R
+	XKHgTgffci88Rg9GTNvr+W4zdPBo+ATmzyZk7uXYsw1ujbPH4OZIuFaL7A0gPOpGNfinVIjgbEZ
+	oZd9lCLUdIbJ1UDsFcWj6AbjyN3lktuCFktRdySQ1Ra3m1UsEhVWnMAll9aKYX+XCFtPWw9J49l
+	1DRiYWbZ78JKv++g4npKtyZXLeS+YDud+51DWmvi3sV14EmrfNJ7A8lhvykdAmFepHddNCSw431
+	xOmjJWN2/G77bezKNtWo4RymYvj0BejoxGTWJo+7nMDUtwX0lMgOvVonI5tg8qC4JXgqQYafEqE
+	RFSIXM6SosJv0zLuvZmKSHpdM7Bm1+QDXKzHFvgAfY97iKAYVw6Lf6dQoR2bXUcPUGJuMY6TATn
+	Dnf4BSnB6hbYm9lhpcE+Kyb+3BrM0rxVnHWpfxQhtAmwm7Vu
+X-Received: by 2002:a05:693c:6393:20b0:369:f291:49da with SMTP id 5a478bee46e88-36a4243f71emr28876543eec.40.1793890642366;
+        Thu, 05 Nov 2026 06:57:22 -0800 (PST)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm23369977eec.27.2026.11.05.06.57.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 06:57:21 -0800 (PST)
+Date: Thu, 5 Nov 2026 22:57:11 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] gpio: cdev: fix waitqueue deadlock on chip deregistration
+Message-ID: <20261105145711.GA92894@rigel>
+References: <20261105-gpio-cdev-srcu-deadlock-v1-1-6047117030ec@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +99,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowACHH7U2mexqpshgAA--.7159S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtFWrGw13trW8Jw4fGr4rZrb_yoWfGrX_Wr
-	1vkFyDA3WDWF4jqr18KFyjgrZ7uas0gFyxZ3y5Jr4fZ34FqFn8GFySgwnY9F1rJrWFgrnF
-	gr1qvFWjq39rZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbIxFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
-	aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07
-	x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5
-	McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4
-	x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxG
-	rwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
-	AVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
-	7VU1pnQUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAICA2rsjugZrAAAsa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-gpio-cdev-srcu-deadlock-v1-1-6047117030ec@oss.qualcomm.com>
 
-Hi Bartosz,
+On Thu, Nov 05, 2026 at 03:47:59PM +0100, Bartosz Golaszewski wrote:
+> The three calls to wait_event_interruptible_locked() sleep while holding
+> gdev->srcu. In gpiochip_remove(), synchronize_srcu() runs before
+> gcdev_unregister(). The latter fires the waitqueue wakeup events from
+> the notifier callbacks, so a reader blocked on an empty FIFO never leaves
+> its SRCU section and the removal will block forever in the former.
+> 
+> Since rcu_access_pointer() is a plain READ_ONCE(), we don't really need
+> to take the SRCU read lock. We don't access the chip structure after
+> checking it. Remove the lock and instead make the waitqueue aware of the
+> possible chip deregistration. Keep the initial gdev->chip checks as
+> removing them may change the error codes visible to user-space, for
+> instance in cases of a non-blocking read on an empty fifo.
+> 
+> Ideally, we'd factor out the common code into a dedicated helper but
+> there doesn't seem to exist a clean way of passing a kfifo as argument
+> so let's open-code the three call sites.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> I've had it on my TODO list for a while. I vaguely remember someone
+> reporting it to me but can't find the reference anymore. Please feel
+> free to add a Reported-by: and Closes:.
+> 
 
-Sorry for the very late reply.
+Isn't this the same as patch 4/7 in Adrian's series[1]?
 
-> Can you test it on real hardware? I still have a davinci board somewhere but
-> I haven't booted it in years. If you can test it, I'm fine with it, otherwise,
-> I'd leave it as is just to be sure.
+Cheers,
+Kent.
 
-I do not have access to DaVinci hardware, so I cannot test this change on a
-real board. To be transparent about how the defect was found: it came out of
-static analysis of the clock API usage combined with LLM-assisted review, not
-from a failure observed at runtime. I therefore have no Tested-by or other
-runtime evidence to offer for this patch.
-
-Since I cannot meet the bar you described, I agree with your conclusion:
-please leave the code as is. I would rather drop this patch than have it
-merged without testing, so I will not resend it.
-
-Sorry for the noise, and thanks for the review and for your patience.
-
-Best regards,
-Wentao Liang
+[1] https://lore.kernel.org/linux-gpio/20261103-gpiolib-chip-removal-v5-4-aambrozewicz@nvidia.com/
 
