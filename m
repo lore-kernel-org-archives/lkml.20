@@ -1,70 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793866687;
-	b=lfKygGGLo/XQxyxlgdQ2O5MlilhaVdfmfYqlVBruqyWgAfLr9inD8hftE9bq9CjvOe4D
-	 gflzrHGipVW9x67hPZS6sYxZTsBe9Wq/uFrAm5GpKifV7vek5YTdeYRj0aYkSj5AQEnDi
-	 L8NN1/Em4fJed5t9iZAi+9M5pi1PAUMRqdfr5WAWRk1W7xigt4MfBmOD4sxd2j6LLN8eJ
-	 IjCfuk/1v2AAZMCVnn48oZaaje1GHjBqNgS7BNlQ4jp5kVuVG8Tnlhfxju8O/zcY0jLyC
-	 gH97W3FAGLeZLosrqvpUp0Cz9As5vO2bk7LZZbhptrFdGSBzbxWZ2ZNTttcPYMV/lSw==
+	b=bIxREdAxWwirVbUKFKxIQj4+fgWSf0MGh+Vuuna481HVvJ10cEAYZA95K/uhD1tDMlPN
+	 gjUjP7K4V1WeMib3mc08ofxcam7NCdeWsJhrMIMUO25UimLEItpiwnqqF5xBARTQ0XrMM
+	 L4RNSNdKqimydzzJ7L8t4/fE9KD+ZJE4P6LvdYNS/4u/7lZ9mlec16OSGVmQ/t2zFL4ra
+	 sbkYIoCa+haMBUVOGzmg8/SsIMGyP4jTQyZhZJpDtYHf0yE36/U90yIjH1PTvHWu7fQ3a
+	 YeHQl68bwAWO4b7L2u0bYy674KlPp1V4yW8HHPkduPI/MSa5edQBVZNjaQ0A8oZQ8YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793866687;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mkeKijkZJAb32Xidxy1cWIRtF5ltLYzkBnezIwTR2i8=;
-	b=whfJB1T+0rtUoMEdSptWKU3nT1df/vJUA4ies7y1kb0clE9IgtSIir9FSKnmCb8ccGVD
-	 IQA0KdPBiatyBAOAIILx3cvD454kv8ovv81huyWf7W9gQ8BuJoYB/F5e0H8KjU8cnuW41
-	 qq8/BqQUPTsB2hbeZSSb8EQYBzh3fECjd7mECRZEG8UNTKVsMkSSEyFWF7ga1c3g2htms
-	 9EVfGNxvVI7kGbQ9iqHL1jb13eGVWcaoWu0VHqseRWIT6oRnMXOkh6QhHkTcyCdIPqZUQ
-	 SXya2sdk3pKF/mKvbGrbO4BcUA5O5vHzgFOz8UWbOyZYkrFvsRUS8Mb8ABEFPswe3hg==
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=TugPtM8jOK84jPf/Xqe5A1M/W5MRVkYlZUyQ33BYgdI=;
+	b=iSGcAbW1dN9pGLdl3PUkb7vwWYLl/e4viYguJkcxkgFyHSq/0/DLGqwIy+yYS1+nHtvj
+	 rxmcytJOdsoFzzeCIg1j2UtYPF6R5HbJi3/fhHNxMnDU8VdPQV+MZBR6YLbTMsl5ZZcxB
+	 p1VNDCQb9/x9N+VQzpCeOaGTL6UQmCK1FEqpozg0L21XBT/LrypgrpdNrbxwjLg9WYEPI
+	 0l9ARx39FtykYJhbaPOtOz7C8KXQkI4IiNxGXlI5eu3iolFH5sn3Rz72/iN6kg/UUPcVP
+	 2r8NumOwn1QstXXZ+MXwiE++O64TIuG7jQAilwE+LAMVzJXDKWH5X2CgwnD+6kGUjJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fMfgocFw;
-	arc=none smtp.remote-ip=95.215.58.162
-Received: from mta1.migadu.com (out-162.mta1.migadu.com [95.215.58.162])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5145B606A32E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:18:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5145B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fMfgocFw
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qwrMdxVPnM+5ZppQDh0ezd2BTYb3+ptUjf9aMMr/HGQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793866684; v=1; x=1794471484;
- b=fMfgocFwzY6akGVpgl5ADZEuP5nOW+JyLD/ib5wT6AvwmFalE4CDGtIN+ydzyFu/pHtqGvLG
- Sf4PAjnLLSPgElJVT0yBoh5UpnX/nmU4ZeQ4BE1uw38V+L/E8F69KYPRinqn/u4mMWEba3zopnu
- /LvtkxJ2uXW7tq3iQ/rCErsQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 292388bdccba3920;
-	Thu, 05 Nov 2026 08:18:04 +0000
-X-Mizu-Trace-ID: 292388bdccba3920
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 5 Nov 2026 16:17:46 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Ahmed Abdelsalam <ahabdels@cisco.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>,
-	andrea@common-net.org
-Subject: Re: [PATCH net-next v2 5/5] selftests: seg6: add tests for PSP with
- a consumed SRH
-Message-ID: <auw7qq8vayCbOWMM@fedora>
-References: <20261105015715.57-1-andrea.mayer@uniroma2.it>
- <20261105015715.57-6-andrea.mayer@uniroma2.it>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D27606A332
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:17:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D27606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=TugP
+	tM8jOK84jPf/Xqe5A1M/W5MRVkYlZUyQ33BYgdI=; b=HP/f7wwzeKak7DumDLO9
+	JVt1nbyuIbwEvmWLzblXwUa9fHA8QGq/qxdkiPvBnBdfWzA7DAKYuMswXIwiGZeI
+	sifdTdpHrbkKn2cfjYz+DCejquVIc2HcrJkCdWGnfn8w8sRDZ67QMqoOAo9TyxhB
+	2IGsFIsOlY5lsG4S5en4FiChy1bAl3F+ottavwgE+82fwoOAPf5WA+FMOpT3R+BF
+	2KLvEAZIieAkmGBbXuYWFATGrKMGTrlv0ozHqnmpmuhSBEaBniPtSpneDXSHcEQ5
+	+WhVic7v8nyGM71Z5AdhJHNCzaKZIUIrLqqcAbo4a+eEyXeofMd09ZE2E48Fpmp2
+	wQ==
+Received: (qmail 1062996 invoked from network); 5 Nov 2026 09:17:54 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 5 Nov 2026 09:17:54 +0100
+X-UD-Smtp-Session: l3s3148p1@cWDgIYNfIIHAwtcC
+Date: Thu, 5 Nov 2026 10:17:53 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Vignesh R <vigneshr@ti.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Linus Walleij <linusw@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-omap@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] i2c: Convert to subsys_platform_driver()
+Message-ID: <auw7sUcbOOG8umVu@shikoro>
+References: <20261104113316.1634141-1-peng.fan@oss.nxp.com>
+ <93534aaf-00f3-45f4-982e-7fd44ab3799c@kernel.org>
+ <auuXnndiQOkEaOsj@ashevche-desk.local>
+ <c6664dd8-871e-4b38-8017-d4c1a02fd36e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,231 +91,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105015715.57-6-andrea.mayer@uniroma2.it>
+In-Reply-To: <c6664dd8-871e-4b38-8017-d4c1a02fd36e@kernel.org>
 
-On Thu, Nov 05, 2026 at 02:57:15AM +0100, Andrea Mayer wrote:
-> Extend srv6_end_flavors_test.sh with tests for the SRv6 End behavior
-> with the PSP flavor, alone and together with NEXT-C-SID, on packets that
-> carry a consumed SRH in front of the SRH to process.
-> 
-> Each test sends a ping along an existing SRv6 Policy, and a router on
-> the path inserts an extra SRH in front of the Policy's SRH. An End
-> behavior on another router consumes the extra SRH, and the router
-> connected to the host must then remove only the Policy's SRH.
-> 
-> These tests set seg6_enabled to 1 on the hosts, which must accept the
-> extra SRH, and set it back to 0 at the end. With seg6_enabled set to 1,
-> a host also accepts the packet when the Policy's SRH is not removed, or
-> when the extra SRH is removed in its place. For this reason, the
-> receiving host accepts the echo request only when its first SRH is the
-> extra SRH, with Segments Left 0 and followed by the ICMPv6 header. Any
-> other echo request is dropped, including one without any SRH. The extra
-> SRH is recognized by its last segment, which is the SID that triggered
-> its insertion.
-> 
-> The check on the receiving host uses the ip6tables srh match. Without
-> it, these tests are skipped. A test fails if the route that inserts the
-> extra SRH, or the rules on the receiving host, cannot be added.
-> 
-> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> ---
->  tools/testing/selftests/net/config            |   1 +
->  .../selftests/net/srv6_end_flavors_test.sh    | 280 +++++++++++++++++-
->  2 files changed, 279 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-> index 7a89e2618d4c..d5d2382b0b01 100644
-> --- a/tools/testing/selftests/net/config
-> +++ b/tools/testing/selftests/net/config
-> @@ -27,6 +27,7 @@ CONFIG_IP6_NF_IPTABLES=m
->  CONFIG_IP6_NF_IPTABLES_LEGACY=m
->  CONFIG_IP6_NF_MANGLE=m
->  CONFIG_IP6_NF_MATCH_RPFILTER=m
-> +CONFIG_IP6_NF_MATCH_SRH=m
->  CONFIG_IP6_NF_NAT=m
->  CONFIG_IP6_NF_RAW=m
->  CONFIG_IP6_NF_TARGET_REJECT=m
-> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> index 0355149bb7d6..157baa8ecb0b 100755
-> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
 
-[...]
+> I'll send v2 of my patch for submitting patches mentioning this syntax.
 
-> +# In a network namespace, accept the echo requests whose first SRH has the given
-> +# SID as last segment (Segment List[0]), SL=0 and the ICMPv6 header after it,
-> +# and drop any other echo request, including one without any SRH.
-> +# args:
-> +#  $1 - network namespace in which the rules are added
-> +#  $2 - expected last segment of the first SRH
-> +add_srh_check_rules()
-> +{
-> +	local nsname="$1"
-> +	local sid="$2"
-> +
-> +	ip netns exec "${nsname}" ip6tables -A INPUT \
-> +		-p ipv6-icmp --icmpv6-type echo-request \
-> +		-m srh --srh-lsid "${sid}" --srh-segs-left-eq 0 \
-> +		--srh-next-hdr 58 -j ACCEPT &&
-> +	ip netns exec "${nsname}" ip6tables -A INPUT \
-> +		-p ipv6-icmp --icmpv6-type echo-request -j DROP
-> +}
-> +
-> +# On a host, check that the echo requests carry the extra SRH alone.
-> +# args:
-> +#  $1 - host on which the rules are added
-> +#  $2 - expected last segment of the first SRH
-> +setup_hs_srh_check()
-> +{
-> +	local hs="$1"
-> +	local sid="$2"
-> +	local hsname
-> +
-> +	hsname="$(get_hsname "${hs}")"
-> +
-> +	add_srh_check_rules "${hsname}" "${sid}"
-> +}
-> +
-> +cleanup_hs_srh_check()
-> +{
-> +	local hs="$1"
-> +	local hsname
-> +
-> +	hsname="$(get_hsname "${hs}")"
-> +
-> +	ip netns exec "${hsname}" ip6tables -F INPUT
-> +}
-> +
-> +# Test a Policy with a consumed SRH: a router inserts the extra SRH on the
-> +# packets towards a SID, and another router consumes it. The destination host
-> +# accepts only the echo requests that carry the extra SRH alone.
-> +# args:
-> +#  $1 - router that inserts the extra SRH
-> +#  $2 - SID that triggers the insertion
-> +#  $3 - router with the SRv6 End behavior that consumes the extra SRH
-> +#  $4 - source host
-> +#  $5 - destination host
-> +#  $6 - suffix of the address on the loopback of the destination host
-> +#       (i.e. cafe::<host>:<suffix>), if any
-> +check_and_log_consumed_srh()
-> +{
-> +	local rt="$1"
-> +	local sid="$2"
-> +	local end_rt="$3"
-> +	local hssrc="$4"
-> +	local hsdst="$5"
-> +	local suffix="$6"
-> +	local msg
-> +
-> +	if ! ${HAS_SRH_MATCH}; then
-> +		msg="IPv6 Hosts connectivity: hs-${hssrc} -> hs-${hsdst}"
-> +		if [ -n "${suffix}" ]; then
-> +			msg="${msg} (${IPv6_HS_NETWORK}::${hsdst}:${suffix})"
-> +		fi
-> +		log_test_skipped "${msg}"
-> +		return
-> +	fi
-> +
-> +	if ! setup_rt_consumed_srh "${rt}" "${sid}" "${end_rt}"; then
-> +		log_test 1 0 "Extra SRH on rt-${rt} for ${sid}"
-> +		return
-> +	fi
-> +
-> +	if ! setup_hs_srh_check "${hsdst}" "${sid}"; then
-> +		log_test 1 0 "SRH check on hs-${hsdst} for ${sid}"
-> +	elif [ -n "${suffix}" ]; then
-> +		check_and_log_hs_lo_addr_connectivity "${hssrc}" "${hsdst}" \
-> +			"${suffix}"
-> +	else
-> +		check_and_log_hs_connectivity "${hssrc}" "${hsdst}"
-> +	fi
-> +
-> +	cleanup_hs_srh_check "${hsdst}"
-> +	cleanup_rt_consumed_srh "${rt}" "${sid}"
-> +}
-> +
-> +host_srv6_end_flv_consumed_srh_tests()
-> +{
-> +	local sid
-> +
-> +	log_section \
-> +		"SRv6 connectivity test hosts (h1 <-> h2, PSP with a consumed SRH)"
-> +
-> +	if ! ${HAS_SRH_MATCH}; then
-> +		echo "SKIP: ip6tables srh match not available"
-> +	fi
-> +
-> +	set_hs_seg6_enabled 1
-> +
-> +	# Policy (i.a): rt-4 inserts the extra SRH consumed by rt-3
-> +	sid="${LOCATOR_SERVICE}:2::${END_PSP_FUNC}"
-> +	check_and_log_consumed_srh 4 "${sid}" 3 1 2
-> +
-> +	# Policy (i.b): rt-2 inserts the extra SRH consumed by rt-3
-> +	sid="${LOCATOR_SERVICE}:1::${END_PSP_FUNC}"
-> +	check_and_log_consumed_srh 2 "${sid}" 3 2 1
-> +
-> +	# Policy (i.c): rt-4 inserts the extra SRH consumed by rt-3
-> +	sid="$(build_csid_container 2 "${END_CSID_PSP_FUNC}")"
-> +	check_and_log_consumed_srh 4 "${sid}" 3 1 2 "${END_CSID_PSP_FUNC}"
-> +
-> +	# Policy (i.d): rt-3 inserts the extra SRH consumed by rt-4
-> +	sid="$(build_csid_container 1 "${END_CSID_PSP_FUNC}")"
-> +	check_and_log_consumed_srh 3 "${sid}" 4 2 1 "${END_CSID_PSP_FUNC}"
-> +
-> +	set_hs_seg6_enabled 0
-> +}
-> +
->  test_iproute2_supp_or_ksft_skip()
->  {
->  	local flavor="$1"
-> @@ -1102,6 +1354,28 @@ test_kernel_supp_or_ksft_skip()
->  	ip netns del "${test_netns}"
->  }
->  
-> +# Before enabling the tests with a consumed SRH, make sure that the rules they
-> +# use can be added.
-> +check_srh_match_support()
-> +{
-> +	local srhm_ns
-> +
-> +	if [ ! -x "$(command -v ip6tables)" ]; then
-> +		return
-> +	fi
-> +
-> +	if ! setup_ns srhm_ns; then
-> +		return
-> +	fi
-> +
-> +	if add_srh_check_rules "${srhm_ns}" "${IPv6_TESTS_ADDR}" \
-> +		&>/dev/null; then
-> +		HAS_SRH_MATCH=true
-> +	fi
-> +
-> +	cleanup_ns "${srhm_ns}"
-> +}
-> +
->  test_dummy_dev_or_ksft_skip()
->  {
->  	local test_netns
-> @@ -1145,6 +1419,7 @@ test_dummy_dev_or_ksft_skip
->  # supports PSP also supports NEXT-C-SID.
->  test_iproute2_supp_or_ksft_skip psp
->  test_kernel_supp_or_ksft_skip psp
-> +check_srh_match_support
->  
->  set -e
->  trap cleanup EXIT
-> @@ -1156,5 +1431,6 @@ router_tests
->  host2gateway_tests
->  host_srv6_end_flv_psp_tests
->  host_srv6_end_flv_next_csid_psp_tests
-> +host_srv6_end_flv_consumed_srh_tests
->  
->  print_log_test_results
-> -- 
-> 2.43.0
-> 
+Please CC me because I would like to ack it (or review? ;))
 
-Tested-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
