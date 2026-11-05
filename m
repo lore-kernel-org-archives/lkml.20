@@ -1,145 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.110
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793873078;
-	b=L46m96uDuvUMy9pdCJG3gzxjASII67TSvQ1763GhwVh3J5dl62WmadL7f68pKzR8WPA/
-	 IoINAbMYH8/Bfrs0fuwkTOOwSFMVmQAAAQz3KgO/c+yEJtO0CUo2jujoZy76E3sbFrYZH
-	 VuwR4UNOE28n7T/l1ReWPJJL1kt5EddFBschAuv8y0zja+pjVaUVdmweBKflKoiJQrDEE
-	 BPHVMKImqxRyNwGIDunBGOiz9VuAVSmzL1XummV5e5aZhNZYtiv+ZUDwBSItPj0tbkNfQ
-	 373FySoYpkJlttDErPphubL7VrTtdKNwKSEVoYcSDtNl+rrJP/Cl7ht1FKptZGkjdaw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873078;
-	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ceLOBQxf+qgyqcpmXayoPmy8d1cF/qfocdpP4MIz7ic=;
-	b=zBggo8Wy41JBPF7rUJ93WtQTn4mRs1OyyTE6O/OHKlVGmm99gMHgbIMS8tioIRcZVqTd
-	 9TP2qATPyGFi10OVLLM93tmZ7guJAmbEqiAMnSuXvXa0bwigCiamfnAhiXMo05egUNQ+C
-	 QI/iUxaei2Ng/QO1H7Y+R3AdXKMi7CcMaKcWzjM2Pyk1ZPDt0TTZrJQVeA19qe9pRWw+x
-	 mI1QLdD4Y16Ge9RyKHc2qXS979zjmjqdpjcydoCHgePe8lx55lBobvcQ3ur1x6ZEYiI+H
-	 US2RU8Wc6nVezqUDOnf8dlczpzam8nMpPL0nN/1k+F1wTU3TeRWGWN0CI6gyK0bemUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.110
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2110.outbound.protection.partner.outlook.cn [139.219.17.110])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793873149;
+	b=GmKdWl2AYDRDy/OvyR8RGxYkUYTKNN1S7x5JJlOBiu1TpCYcPitR8QCUbGt9I0+gY1lE
+	 r0XcDc8ukvX6FwNmW8ebBUQwitGlZvp+Kk44+/5vu+DvWOAEvSm2wNWAg/3TYviAUCvhH
+	 WV2g3ilNv/+4XlrAscjX1NyDR0uWGgCLOowoq3Y6Fne1VlEKWGa+AzWcpXa3JAht5g5Ms
+	 gi8ZwllbfXRpLFmxMnv1TOy2jAsUTFjfWDryrNvX2eOXhChlsDz3SQbLtG6+Qz16zw7BD
+	 Txmdke7iQ7j327BcTiglh0cGglRA6rtRGi5Z2avz9FVMg2j+78OmrtvpD8DdpFTeBdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873149;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:X-Change-ID:X-Mailer:
+	 Content-Transfer-Encoding;
+	bh=H57ibmNlJKfA5VTS9n926s8nZL0rIRZmoGJQOQ7jq8Q=;
+	b=Ooh2ymxBtmYr1qjgnrQH/4XKlcY+n2nm9GNCetTM17b/ljdiX7ktduxl2lRKZ3cl8FXI
+	 AFUEHLnKxiRkh1+cAdkIdVMf9BkO9BwE8V0Q5ntflF9Ftr6xqBp9YULL6LpPRuK7oAsjR
+	 tLkXM9k7A6C870SOnwAOgyne42z5qMpKk7BMJbZHq7SB22t3HAS3RlU5cHPDbg55GKuDF
+	 lsnWLxNKrloRehec/Z8aIml3F8UHC6eUbpnWKOMbou2bd0XYjkHEV9F/5kj8xAodMlXx+
+	 Kt/21H+NDaV75znWmiG/vBj16mp/4NNwV0QaBol2r5Taq9p1MpEVGxBAF1usyLlHd5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evXHy5+Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87325606A32D;
-	Thu,  5 Nov 2026 10:04:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87325606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VxX21JVCymZ1hy6h6NXwvL52goxklaubCv1Mq0V89KJu0TsRXcGe7aBd2rp6aG7irF6Io8Y5Cw24MPiUer7Lu2srlrDryn7VaU8vO7elhpfKzm5jnxCLleAH6kWnpDktIGW+vX+Podm01L4LHqxJHmt0DiG60Ah3dmPYXlcSEAHVbvXhyyKtJgaH7Xs0qpp5llRSiZp4fmXjJ/RZAPilJkFUKYTCbEkADjFi/q0J1H/RjSYl5OytuPnWiiv3YKR03sKl3HBJxDAl7vTcu+7HyzgCFhcFm6dkzjSP4rZMRiYSIoJvRs+kypwvE+qXBaw4x9hJlkHxBB97Y46xDakIGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ceLOBQxf+qgyqcpmXayoPmy8d1cF/qfocdpP4MIz7ic=;
- b=Tm0/bRmnO0BYVXFAF9n9HGqIKenEqHk6a4YYjbhqLVvUgGo5TTdK2yfXTssLJtulqfpXKJYETTfsnAuTpQJ4dwrP336kfFj+c+jXnWQ0m9x6z4xaCy3blKlSYsYYr7MgocOtxzVZ1S/88sQtUFMz/yoITdCmzVDGmEuyVgh9xhJYCKka2SGaFF+IgsGoA28Y6orCaRLGhEVXBIarAoyDriTMEzSCLFeIUYM99eDvndS/3eAL8xUqRJV/y9tu95muz88McPh9W0dK9GjWJPn2JqkSR++wGZZVOStFPuqO2GEzd2DW3R+upunLK+0PAaxG39xvAmaYcWsSsgaqY87qmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1249.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 10:04:23 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0592.009; Thu, 5 Nov 2026 10:04:23 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Adrian Hunter <adrian.hunter@intel.com>, Asutosh Das
-	<quic_asutoshd@quicinc.com>, Ritesh Harjani <ritesh.list@gmail.com>, Ulf
- Hansson <ulfh@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>
-CC: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/2] mmc: cqhci: Add support for setting command idle
- time in nanoseconds
-Thread-Topic: [PATCH v2 1/2] mmc: cqhci: Add support for setting command idle
- time in nanoseconds
-Thread-Index: AQHdbE9rIIndTBL20EuScGL9G1iFBrcfFYOAgAAr7CA=
-Date: Thu, 5 Nov 2026 10:04:23 +0000
-Message-ID:
- <ZQ4PR01MB120287B3692FE12B801C677CF2772@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20261104112657.110536-1-changhuang.liang@starfivetech.com>
- <20261104112657.110536-2-changhuang.liang@starfivetech.com>
- <2e57a04a-71d6-416d-a49a-c7d78318ff79@intel.com>
-In-Reply-To: <2e57a04a-71d6-416d-a49a-c7d78318ff79@intel.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1249:EE_
-x-ms-office365-filtering-correlation-id: a96bbfa2-f75e-46b0-a857-08df3b242ac4
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|38070700021|4143699003|56012099006|261021121427099003|261102123227099003|261009223027099003|261022075727099003|261102130727099003|261026140227099003|261026121527099003|261028144727099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- Fy03KZemKdEjE8HVUkLH93zS9jCi31ATBGOBFZkGhn0IQPeSwUE9fRw2c/ngb0K0mGXzz1cgi0Wdu7A4DW9N5nFloa1coDrvyofihae9QPMeADs/ANeWt15nRkrUKaiQADwurJmGqfDCcvsKSNOEay8ZldB+xHxxhgpnjlolTlMpH4AKvzOyJOWfc4QWkgGTxcVyEM91iARBrg5lxw1cLMoDGGCWD+bACmFV/jH3H50BphB4q5alLPVOjOzQ+X3+86KbuYwCsomL3AQ2b6tWc/bW7TBaKJNHv6n1rvPBiIisVUi4HsF1EXz6fDNU/J1+zIOYFjIHFjvYerVkfgnqBudGIE1rWWX5PjanXwaAJ8DhCFINzUhWdqSWpJDRt5hmL4PV6AGri1cFx7iondoZKzWYJPSDztD9ojKCX4GEjySSS7Z4xHInHm+RMIoJOHdJSc4DVpMP1No9g98HTijguLoS1F5G0Lw95Os3mv2NO2sfPfQMT+YAf6jxb02KPhFC2aq1TahDLrpB+ILR6jMWJXDcqHMTeD/Wdt2I3qCnX2PSm/4LAD+15BiU463g94k4
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(38070700021)(4143699003)(56012099006)(261021121427099003)(261102123227099003)(261009223027099003)(261022075727099003)(261102130727099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Y0txSTFjZGtFT2xVUm5CTVJYODFaQVduVk9BNlBPaGtZZ280MVZQN1V3dTFN?=
- =?utf-8?B?L0d5N0VKQzJvN24yZzJ1N1FHVnNjRTFNZ0hGaWdDUCtoTzRSUktsV1lsd1NN?=
- =?utf-8?B?V2FjRmhSdlZJMmZidDczM1hEMUVnVnA1SXpwQ0s3eFFLeVVWblpoZ3pDT2E5?=
- =?utf-8?B?VFJxVlZFekVJQzdIelpCTzJoUVJnb3EwTkFTTmtGZ0FmY01uemxUbHFEemtJ?=
- =?utf-8?B?QlpyRlBmYk5Ja1FnVGgvMjBOUm1KUXBRNXpvckxTblJpZHN1Zzlqc2oybzcr?=
- =?utf-8?B?UUt3ai9ENm5UanFEY01QbXh3YXNXcG9mdTBxT01qRTRqTWZ4ZTJvRG82VVBN?=
- =?utf-8?B?Wjl4ZmNkbGpLMS82RTUwbzY1RVNRMzBob0FXVzJtZWVXc09zWVY3L0FEcmU3?=
- =?utf-8?B?eHdSSDA2dnordTV6Q3U1NE9jTVpObWlZK2lXN2toTXJoMnBLZTFuR0VkNStU?=
- =?utf-8?B?TzRLdUIrMFdvUk9jUVo2WFJZR09vYjVmdS9lVlZ5blRrNlpkVS8wZXl0T0t3?=
- =?utf-8?B?Y1NoT28xU0VKeXVHRU9BcTRsc0p2bkNkbnRHRENRUGI4M09MQ1laeFRaSDdy?=
- =?utf-8?B?V29meWIzQVp3WHRnV3NZY1BGdkhsbm5sRmptRVRHOXc1ZHY1VHphZ04xQldV?=
- =?utf-8?B?UlBDdmhwZmJGRk94dU4xcVhvKzhKK0tKTFJkdjJaUGFzeHFMczdOMVY3ZmNR?=
- =?utf-8?B?UjJwODBCdlg4MnhYSkV3aTNBbExsVldjajd6eGNZWTVrc1VOb1IwWjFCSyti?=
- =?utf-8?B?YmtVZ1d2WGRPK3Y0aUxEV1k5c3VCQTdOaVZOV2c4cEpxRUVZdHBsQU5KVGlP?=
- =?utf-8?B?R0NVSUZoT28wbjlrTHNGbDBnbkcvWXZuRzJ1WXJZZ3ZkSHpQYWpVb01SN1lk?=
- =?utf-8?B?MG9Ja3grUVhreHVGcENMVnVCUTY0RjZBdWMzOXB1UXd3L0VGWW9wR2gweS9o?=
- =?utf-8?B?b3FwcWk1TUFJYTEyTHl4cGxTZEJHN2VIcmF5NFpsYjU2UnYwTCtpUTBVRk9i?=
- =?utf-8?B?NXB0M1RxUzZyZTREU2pvUnVuS2JNRmhjTll4NWNyV1pIdjlkVGhZbnRRVlM2?=
- =?utf-8?B?NDdtSjNSSHl0SEpkZU8vY01pMGlPMGVIdXRwWEFDS1NvTWVSQzBjZU1RMHB5?=
- =?utf-8?B?ZStKRC9sbWdQS2JpSTNDalF2TmtiRFFRazZ1MkhpbERLWEVDYkhKNHRldHhl?=
- =?utf-8?B?Tko2NCtoSzRXcCthWEdDQlF3SDZmV1RvNXJ3cmNjL21MZXJVaGhyZk9tSlJM?=
- =?utf-8?B?TXUzcWFWdE9BVHB3azlpS250UWpZcnFSYWhFNCs0ZjJLOEc2K2JLTXhIbE0z?=
- =?utf-8?B?UVZsVTBNNmk1QkozenAwVVpVVWtoNUlnY1NEME9DWk5ZU0xUS1huYmtoVE9P?=
- =?utf-8?B?UFY1S2tjc2tyQ1orZkR0RkJIZXhxYSttYUdkMVJvUlQ5RUJpUU1rSVNsNW5C?=
- =?utf-8?B?dG1vOTAvbERrakg3UmRENG9GUmU5TSs0bHA5M2NNUUdKSXk3bVdmYzlWdC9W?=
- =?utf-8?B?elhzSXd5aXBHWmMxVEpFNlg3UTAwSzlzUFdBMUl3OHZyTGFoYng0MkU4ZnJo?=
- =?utf-8?B?SmNVTXpnK3RkSlY3MXZGeG1vYmxKUDk0ek0xZnFncG93aHQvdldtNDY0eG5L?=
- =?utf-8?B?b2xvbzhoNFR3VzhLQXBPZUNyeTN3WWZSMWJvZWNNd0pGL2FXbmh4WG1Fb2tk?=
- =?utf-8?B?cTVtdDQxUllyMkxQenh0a0hGd1ZtT1hYQU9nTXhTVWx1RExCZ1llY1FGMlAz?=
- =?utf-8?B?NlpSY3JBOU43ZEkzL3NKMnBBY0ZMeFNFZjR1WGZHdXF5YmQ0V1Jrb0g2QW9H?=
- =?utf-8?B?Qm5wMW1ZYXRMZUtHN1NHOEZuNUpzNzdpaFlwb0ZPWHAzVmJCTk9XK084aDdt?=
- =?utf-8?B?RDRmeS8zZ3JGQ1djOStqRVRDdUxnb0ZhR2I2MUk1U2dSTnNMeDZVNnZnUC9T?=
- =?utf-8?B?Rm9mUWFobFZ6MlBWblU1c3VDM3ZaWmRhdmVDaVJEQUhQYlBvdzM1MkJhN2lU?=
- =?utf-8?B?K0hVMVlKNExXRFMycmNKY243RVpkWk54blVZcVF6SnIwZHZEMFZTcHVxalVT?=
- =?utf-8?B?dHVWT3JsOVNWbUY3YWxNU3hPSzZFWlI4YjVLTVJoSlI0Zit2aW9CaFhZNThQ?=
- =?utf-8?B?UHUxZUFrMC9ic3BBbU5UWWVkZHcyeHk5THVibGtsRTErVUs5WW9COEJkRnE1?=
- =?utf-8?B?NXQ2T1JGT2ZQUGp5VG5oekJNdHFXckJkTmYxVnduYy9IdVNhZlFDMWdZVFlr?=
- =?utf-8?B?d0ZDdGhiOU9oQ01BY0hoSTNZR0J3ckI2cjhvemxHVWlBeFRQdnA0YTg4K2Rw?=
- =?utf-8?B?K2JpbG9hTWx0OS94TGhCSTBneFRjc0xsazBFQUdSbmFIdnQ4MXY0ZkNSdm1k?=
- =?utf-8?Q?AtpeSij8hojtJBME=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E347606A326;
+	Thu,  5 Nov 2026 10:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evXHy5+Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C2B31F000C1;
+	Thu,  5 Nov 2026 10:05:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793873149;
+	bh=H57ibmNlJKfA5VTS9n926s8nZL0rIRZmoGJQOQ7jq8Q=;
+	h=From:To:Cc:Subject:Date;
+	b=evXHy5+ZLTF56mPmr32t3SEsC93NaCtQViz4KJuaqFZKFxzOPZcWP5XUnwKE8Utwv
+	 LradAWvzlQ21G8o205/r5Hj7xh63O/IkGdMkNRndz1HWq2OaZPGbe4JeULvmvXexDd
+	 Dc6PnIovZGvRDJ8RBcREC0cYs7B7ziPBHttOwq3UGrrfCGISDSGj/XOHChpMnY6lO9
+	 K7Zc79w2Bk5fppF/54Nrx5+PjlM0fXEKvf7R9XpfpJrewj7hT41JfvHvJNsbyTM60F
+	 Sw7IbgLFrPbunepwcDSCtxFFiAqIbX/z/nZ3KiHujhB+1CIFTP/8Ykz5GUXbd3wCaR
+	 VH8kQVX8BI07g==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Date: Thu,  5 Nov 2026 12:04:31 +0200
+Message-ID: <20261105-fix-p2p-acs-v4-0-v13-0-3dd065907c3b@nvidia.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -149,139 +82,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: a96bbfa2-f75e-46b0-a857-08df3b242ac4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 10:04:23.1844
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SXnaYJOtuiYfYrCHaZSFbU6cnrqE4sw6ii9bBmejmswy7xELtK3zM9A2r4yJklcOXyEAPJZtE8NnIQksNYMfw48Z6kVRYdORn4B4/q/9D0AEyF55e8KAI4yt5hbfqLXj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1249
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-SGksIEFkcmlhbg0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuDQoNCj4gT24gMDQvMTEvMjAyNiAx
-MzoyNiwgQ2hhbmdodWFuZyBMaWFuZyB3cm90ZToNCj4gPiBBZGQgYSBoZWxwZXIgdGhhdCBkZXJp
-dmVzIHRoZSBpbnRlcm5hbCB0aW1lciBjbG9jayBmcmVxdWVuY3kgKElUQ0YpIG9mDQo+ID4gdGhl
-IENRRSBmcm9tIHRoZSBJVENGTVVMIGFuZCBJVENGVkFMIGZpZWxkcyBvZiB0aGUgQ1FIQ0kgY2Fw
-YWJpbGl0aWVzDQo+ID4gcmVnaXN0ZXIsIGFuZCBleHBvcnQgY3FoY2lfc2V0X2NtZF9pZGxlX3Rp
-bWUoKSB0byBsZXQgaG9zdCBkcml2ZXJzDQo+ID4gcHJvZ3JhbSB0aGUgU2VuZCBTdGF0dXMgQ29t
-bWFuZCBJZGxlIFRpbWVyIChDSVQpIGluIENRSENJX1NTQzEgdXNpbmcgYQ0KPiA+IHZhbHVlIGlu
-IG5hbm9zZWNvbmRzLg0KPiA+DQo+ID4gVGhlIENJVCBkZWZpbmVzIGhvdyBsb25nIHRoZSBidXMg
-aGFzIHRvIGJlIGlkbGUsIGluIGludGVybmFsIHRpbWVyDQo+ID4gY2xvY2sgY3ljbGVzLCBiZWZv
-cmUgdGhlIENRRSBpc3N1ZXMgQ01EMTMgdG8gcG9sbCB0aGUgUXVldWUgU3RhdHVzDQo+IFJlZ2lz
-dGVyLg0KPiA+IEl0cyByZXNldCB2YWx1ZSBpcyBjb250cm9sbGVyIHNwZWNpZmljIGFuZCBjYW4g
-YmUgZmFyIGZyb20gb3B0aW1hbCwgc28NCj4gPiBob3N0IGRyaXZlcnMgbWF5IG5lZWQgdG8gdHVu
-ZSBpdCBmb3IgdGhlaXIgcGxhdGZvcm0uIERvaW5nIHRoZQ0KPiA+IGNvbnZlcnNpb24gaW4gdGhl
-IGNvcmUgYXZvaWRzIGV2ZXJ5IGhvc3QgZHJpdmVyIHJlLWltcGxlbWVudGluZyB0aGUNCj4gPiBJ
-VENGTVVML0lUQ0ZWQUwgZGVjb2RpbmcuDQo+IA0KPiBTaG91bGQgcHJvYmFibHkgaGF2ZSBhc2tl
-ZCB0aGlzIGJlZm9yZSwgYnV0IHdoeSBjYWxjdWxhdGUgaXQgYXQgcnVudGltZT8gIElmDQo+IHlv
-dSBrbm93IHRoZSBoYXJkd2FyZSwgdGhlbiB5b3UgYWxyZWFkeSBrbm93IHdoYXQgdGhlIHZhbHVl
-IGlzIGdvaW5nIHRvIGJlPw0KPiANCg0KRm9yIGNvbnZlbmllbnQgdW5pZmllZCB1c2UgbGF0ZXIs
-IGRpZmZlcmVudCBTb0NzIG1heSBoYXZlIGRpZmZlcmVudCBJVENGTVVMIGFuZA0KSVRDRlZBTCB2
-YWx1ZXMsIHdoaWNoIGNvdWxkIGxlYWQgdG8gZGlmZmVyZW50IHBsYXRmb3JtcyB3cml0aW5nIGRp
-ZmZlcmVudCBDSVQgdmFsdWVzIA0KdG8gQ1FIQ0lfU1NDMeKAlGV2ZW4gdGhvdWdoIHRoZSBDSVQg
-ZXhwcmVzc2VkIGluIG5hbm9zZWNvbmRzIG1heSBiZSB0aGUgc2FtZS4gDQpPbmNlIHRoaXMgaGFz
-IGJlZW4gdmFsaWRhdGVkIG9uIG1vcmUgcGxhdGZvcm1zLCBpdCBtYXkgYmUgcG9zc2libGUgdG8g
-dW5pZnkgb24gYSANCm5hbm9zZWNvbmQtYmFzZWQgQ0lUIGFuZCB0aGVyZWJ5IGdldCByaWQgb2Yg
-dGhlIC5jcWhjaV9jaXRfbnMgZmllbGQgaW4gcGF0Y2gyLg0KDQpCZXN0IFJlZ2FyZHMsDQpDaGFu
-Z2h1YW5nDQoNCj4gPg0KPiA+IFRoZSByZXF1ZXN0ZWQgdGltZSBpcyByb3VuZGVkIHVwIHRvIHdo
-b2xlIGNsb2NrIGN5Y2xlcyBzbyB0aGF0IHRoZQ0KPiA+IHByb2dyYW1tZWQgaWRsZSB0aW1lIGlz
-IG5ldmVyIHNob3J0ZXIgdGhhbiByZXF1ZXN0ZWQuIFRoZSBoZWxwZXINCj4gPiByZXR1cm5zIC1F
-T1BOT1RTVVBQIHdoZW4gdGhlIGNvbnRyb2xsZXIgZG9lcyBub3QgcmVwb3J0IGEgdXNhYmxlIElU
-Q0YNCj4gPiBhbmQgLUVSQU5HRSB3aGVuIHRoZSByZXN1bHQgZG9lcyBub3QgZml0IHRoZSAxNi1i
-aXQgQ0lUIGZpZWxkLCBzbw0KPiA+IGNhbGxlcnMgY2FuIHJlcG9ydCB0aGUgZmFpbHVyZSBpbnN0
-ZWFkIG9mIHNpbGVudGx5IHJ1bm5pbmcgd2l0aCB0aGUNCj4gPiByZXNldCBkZWZhdWx0Lg0KPiA+
-DQo+ID4gUmVjb3JkIHRoZSBjaXQgdmFsdWUgaW4gY3FoY2lfc2V0X2NtZF9pZGxlX3RpbWUoKSwg
-YW5kIGlmIGNpdCBpcw0KPiA+IG5vbi16ZXJvLCBwcm9ncmFtIGl0IGludG8gdGhlIHJlZ2lzdGVy
-IG9uIGV2ZXJ5IGNhbGwgdG8gX19jcWhjaV9lbmFibGUoKS4NCj4gPg0KPiA+IFNpZ25lZC1vZmYt
-Ynk6IENoYW5naHVhbmcgTGlhbmcgPGNoYW5naHVhbmcubGlhbmdAc3RhcmZpdmV0ZWNoLmNvbT4N
-Cj4gPiAtLS0NCj4gPiAgZHJpdmVycy9tbWMvaG9zdC9jcWhjaS1jb3JlLmMgfCA2NA0KPiArKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPiA+ICBkcml2ZXJzL21tYy9ob3N0L2Nx
-aGNpLmggICAgICB8ICA4ICsrKysrDQo+ID4gIDIgZmlsZXMgY2hhbmdlZCwgNzIgaW5zZXJ0aW9u
-cygrKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbW1jL2hvc3QvY3FoY2ktY29yZS5j
-DQo+ID4gYi9kcml2ZXJzL21tYy9ob3N0L2NxaGNpLWNvcmUuYyBpbmRleCBhNDY2Y2Q4OGIwNDMu
-LmJmYTVkOGI3OTE0NQ0KPiA+IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvbW1jL2hvc3QvY3Fo
-Y2ktY29yZS5jDQo+ID4gKysrIGIvZHJpdmVycy9tbWMvaG9zdC9jcWhjaS1jb3JlLmMNCj4gPiBA
-QCAtMTIsNiArMTIsNyBAQA0KPiA+ICAjaW5jbHVkZSA8bGludXgvc2NhdHRlcmxpc3QuaD4NCj4g
-PiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPg0KPiA+ICAjaW5jbHVkZSA8bGlu
-dXgva3RpbWUuaD4NCj4gPiArI2luY2x1ZGUgPGxpbnV4L3VuaXRzLmg+DQo+ID4NCj4gPiAgI2lu
-Y2x1ZGUgPGxpbnV4L21tYy9tbWMuaD4NCj4gPiAgI2luY2x1ZGUgPGxpbnV4L21tYy9ob3N0Lmg+
-DQo+ID4gQEAgLTI3OSw2ICsyODAsMTQgQEAgc3RhdGljIHZvaWQgX19jcWhjaV9lbmFibGUoc3Ry
-dWN0IGNxaGNpX2hvc3QNCj4gKmNxX2hvc3QpDQo+ID4gIAljcWhjaV93cml0ZWwoY3FfaG9zdCwg
-dXBwZXJfMzJfYml0cyhjcV9ob3N0LT5kZXNjX2RtYV9iYXNlKSwNCj4gPiAgCQkgICAgIENRSENJ
-X1RETEJBVSk7DQo+ID4NCj4gPiArCWlmIChjcV9ob3N0LT5jaXQpIHsNCj4gPiArCQl1MzIgc3Nj
-MSA9IGNxaGNpX3JlYWRsKGNxX2hvc3QsIENRSENJX1NTQzEpOw0KPiA+ICsNCj4gPiArCQlzc2Mx
-ICY9IH5DUUhDSV9TU0MxX0NJVF9NQVNLOw0KPiA+ICsJCXNzYzEgfD0gRklFTERfUFJFUChDUUhD
-SV9TU0MxX0NJVF9NQVNLLCBjcV9ob3N0LT5jaXQpOw0KPiA+ICsJCWNxaGNpX3dyaXRlbChjcV9o
-b3N0LCBzc2MxLCBDUUhDSV9TU0MxKTsNCj4gPiArCX0NCj4gPiArDQo+ID4gIAljcWhjaV93cml0
-ZWwoY3FfaG9zdCwgY3FfaG9zdC0+cmNhLCBDUUhDSV9TU0MyKTsNCj4gPg0KPiA+ICAJY3FoY2lf
-c2V0X2lycXMoY3FfaG9zdCwgMCk7DQo+ID4gQEAgLTExNjMsNiArMTE3Miw1OSBAQCBzdHJ1Y3Qg
-Y3FoY2lfaG9zdCAqY3FoY2lfcGx0Zm1faW5pdChzdHJ1Y3QNCj4gPiBwbGF0Zm9ybV9kZXZpY2Ug
-KnBkZXYpICB9ICBFWFBPUlRfU1lNQk9MKGNxaGNpX3BsdGZtX2luaXQpOw0KPiA+DQo+ID4gK3N0
-YXRpYyB1NjQgY3FoY2lfaXRjZm11bF90b19oeih1MzIgaXRjZm11bCkgew0KPiA+ICsJLyogQ1FI
-Q0lfQ0FQLklUQ0ZNVUw6IDAgPSAxIGtIeiwgMSA9IDEwIGtIeiwgLi4uLCA0ID0gMTAgTUh6LCBv
-dGhlcnMNCj4gcmVzZXJ2ZWQgKi8NCj4gPiArCWlmIChpdGNmbXVsID4gNCkNCj4gPiArCQlyZXR1
-cm4gMDsNCj4gPiArDQo+ID4gKwlyZXR1cm4gSFpfUEVSX0tIWiAqIGludF9wb3coMTAsIGl0Y2Zt
-dWwpOyB9DQo+ID4gKw0KPiA+ICtzdGF0aWMgdm9pZCBjcWhjaV9pdGNmX2luaXQoc3RydWN0IGNx
-aGNpX2hvc3QgKmNxX2hvc3QpIHsNCj4gPiArCXUzMiBjYXAgPSBjcWhjaV9yZWFkbChjcV9ob3N0
-LCBDUUhDSV9DQVApOw0KPiA+ICsJdTY0IGl0Y2Y7DQo+ID4gKw0KPiA+ICsJaXRjZiA9IGNxaGNp
-X2l0Y2ZtdWxfdG9faHooQ1FIQ0lfSVRDRk1VTChjYXApKSAqIENRSENJX0lUQ0ZWQUwoY2FwKTsN
-Cj4gPiArCWlmICghaXRjZiB8fCBpdGNmID4gVTMyX01BWCkgew0KPiA+ICsJCXByX2RlYnVnKCIl
-czogY3FoY2k6IGludGVybmFsIHRpbWVyIGNsb2NrIGZyZXF1ZW5jeSBub3QgYXZhaWxhYmxlDQo+
-IChDQVAgMHglMDh4KVxuIiwNCj4gPiArCQkJIG1tY19ob3N0bmFtZShjcV9ob3N0LT5tbWMpLCBj
-YXApOw0KPiA+ICsJCXJldHVybjsNCj4gPiArCX0NCj4gPiArDQo+ID4gKwljcV9ob3N0LT5pdGNm
-X2h6ID0gaXRjZjsNCj4gPiArfQ0KPiA+ICsNCj4gPiArLyoqDQo+ID4gKyAqIGNxaGNpX3NldF9j
-bWRfaWRsZV90aW1lIC0gcHJvZ3JhbSB0aGUgU2VuZCBTdGF0dXMgQ29tbWFuZCBJZGxlDQo+ID4g
-K1RpbWVyIChDSVQpDQo+ID4gKyAqIEBjcV9ob3N0OiBDUUhDSSBob3N0DQo+ID4gKyAqIEBuczog
-aWRsZSB0aW1lIGluIG5hbm9zZWNvbmRzDQo+ID4gKyAqDQo+ID4gKyAqIFNldCB0aGUgbnVtYmVy
-IG9mIGludGVybmFsIHRpbWVyIGNsb2NrIGN5Y2xlcyB0aGUgQ1FFIHdhaXRzIG9uIGFuDQo+ID4g
-K2lkbGUgYnVzDQo+ID4gKyAqIGJlZm9yZSBpc3N1aW5nIENNRDEzIHRvIHBvbGwgdGhlIFF1ZXVl
-IFN0YXR1cyBSZWdpc3Rlci4gVGhlIGN5Y2xlDQo+ID4gK2NvdW50IGlzDQo+ID4gKyAqIHJvdW5k
-ZWQgdXAgc28gdGhhdCB0aGUgcmVzdWx0aW5nIGlkbGUgdGltZSBpcyBuZXZlciBzaG9ydGVyIHRo
-YW4gQG5zLg0KPiA+ICsgKg0KPiA+ICsgKiBSZXR1cm46IDAgb24gc3VjY2VzcywgLUVPUE5PVFNV
-UFAgaWYgdGhlIGNvbnRyb2xsZXIgZG9lcyBub3QNCj4gPiArcmVwb3J0IGl0cw0KPiA+ICsgKiBp
-bnRlcm5hbCB0aW1lciBjbG9jayBmcmVxdWVuY3ksIG9yIC1FUkFOR0UgaWYgQG5zIGRvZXMgbm90
-IGZpdCB0aGUgQ0lUDQo+IGZpZWxkLg0KPiA+ICsgKi8NCj4gPiAraW50IGNxaGNpX3NldF9jbWRf
-aWRsZV90aW1lKHN0cnVjdCBjcWhjaV9ob3N0ICpjcV9ob3N0LCB1MzIgbnMpIHsNCj4gPiArCXU2
-NCBjaXQ7DQo+ID4gKw0KPiA+ICsJaWYgKCFjcV9ob3N0LT5pdGNmX2h6KQ0KPiA+ICsJCXJldHVy
-biAtRU9QTk9UU1VQUDsNCj4gPiArDQo+ID4gKwljaXQgPSBESVZfUk9VTkRfVVBfVUxMKCh1NjQp
-Y3FfaG9zdC0+aXRjZl9oeiAqIG5zLCBOU0VDX1BFUl9TRUMpOw0KPiA+ICsJaWYgKCFjaXQgfHwg
-Y2l0ID4gRklFTERfTUFYKENRSENJX1NTQzFfQ0lUX01BU0spKQ0KPiA+ICsJCXJldHVybiAtRVJB
-TkdFOw0KPiA+ICsNCj4gPiArCWNxX2hvc3QtPmNpdCA9IGNpdDsNCj4gPiArDQo+ID4gKwlyZXR1
-cm4gMDsNCj4gPiArfQ0KPiA+ICtFWFBPUlRfU1lNQk9MKGNxaGNpX3NldF9jbWRfaWRsZV90aW1l
-KTsNCj4gPiArDQo+ID4gIHN0YXRpYyB1bnNpZ25lZCBpbnQgY3FoY2lfdmVyX21ham9yKHN0cnVj
-dCBjcWhjaV9ob3N0ICpjcV9ob3N0KSAgew0KPiA+ICAJcmV0dXJuIENRSENJX1ZFUl9NQUpPUihj
-cWhjaV9yZWFkbChjcV9ob3N0LCBDUUhDSV9WRVIpKTsgQEANCj4gLTEyMDcsNg0KPiA+ICsxMjY5
-LDggQEAgaW50IGNxaGNpX2luaXQoc3RydWN0IGNxaGNpX2hvc3QgKmNxX2hvc3QsIHN0cnVjdCBt
-bWNfaG9zdA0KPiAqbW1jLA0KPiA+ICAJCWdvdG8gb3V0X2VycjsNCj4gPiAgCX0NCj4gPg0KPiA+
-ICsJY3FoY2lfaXRjZl9pbml0KGNxX2hvc3QpOw0KPiA+ICsNCj4gPiAgCXNwaW5fbG9ja19pbml0
-KCZjcV9ob3N0LT5sb2NrKTsNCj4gPg0KPiA+ICAJaW5pdF9jb21wbGV0aW9uKCZjcV9ob3N0LT5o
-YWx0X2NvbXApOw0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21tYy9ob3N0L2NxaGNpLmggYi9k
-cml2ZXJzL21tYy9ob3N0L2NxaGNpLmggaW5kZXgNCj4gPiA4ZmJiYzQ4YzNmODUuLmU2ODQwYThm
-NDc5OCAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL21tYy9ob3N0L2NxaGNpLmgNCj4gPiArKysg
-Yi9kcml2ZXJzL21tYy9ob3N0L2NxaGNpLmgNCj4gPiBAQCAtMjYsNiArMjYsOCBAQA0KPiA+ICAj
-ZGVmaW5lIENRSENJX0NBUF9DUwkJCTB4MTAwMDAwMDAgLyogQ3J5cHRvIFN1cHBvcnQgKi8NCj4g
-PiAgI2RlZmluZSBDUUhDSV9DQVBfSVRDRk1VTAkJR0VOTUFTSygxNSwgMTIpDQo+ID4gICNkZWZp
-bmUgQ1FIQ0lfSVRDRk1VTCh4KQkJRklFTERfR0VUKENRSENJX0NBUF9JVENGTVVMLCAoeCkpDQo+
-ID4gKyNkZWZpbmUgQ1FIQ0lfQ0FQX0lUQ0ZWQUwJCUdFTk1BU0soOSwgMCkNCj4gPiArI2RlZmlu
-ZSBDUUhDSV9JVENGVkFMKHgpCQlGSUVMRF9HRVQoQ1FIQ0lfQ0FQX0lUQ0ZWQUwsICh4KSkNCj4g
-Pg0KPiA+ICAvKiBjb25maWd1cmF0aW9uICovDQo+ID4gICNkZWZpbmUgQ1FIQ0lfQ0ZHCQkJMHgw
-OA0KPiA+IEBAIC0yMzQsNiArMjM2LDExIEBAIHN0cnVjdCBjcWhjaV9ob3N0IHsNCj4gPiAgCWlu
-dCBudW1fc2xvdHM7DQo+ID4gIAlpbnQgcWNudDsNCj4gPg0KPiA+ICsJLyogSW50ZXJuYWwgVGlt
-ZXIgQ2xvY2sgRnJlcXVlbmN5IChIeiksIDAgaWYgbm90IHJlcG9ydGVkIGJ5IENRSENJX0NBUA0K
-PiAqLw0KPiA+ICsJdTMyIGl0Y2ZfaHo7DQo+ID4gKwkvKiBTZW5kIFN0YXR1cyBDb21tYW5kIElk
-bGUgVGltZXIgaW4gSVRDRiBjeWNsZXMsIDAga2VlcHMgdGhlIGRlZmF1bHQgKi8NCj4gPiArCXUx
-NiBjaXQ7DQo+ID4gKw0KPiA+ICAJdTMyIGRjbWRfc2xvdDsNCj4gPiAgCXUzMiBjYXBzOw0KPiA+
-ICAjZGVmaW5lIENRSENJX1RBU0tfREVTQ19TWl8xMjgJCTB4MQ0KPiA+IEBAIC0zMTgsNiArMzI1
-LDcgQEAgc3RydWN0IHBsYXRmb3JtX2RldmljZTsgIGlycXJldHVybl90DQo+ID4gY3FoY2lfaXJx
-KHN0cnVjdCBtbWNfaG9zdCAqbW1jLCBpbnQgY21kX2Vycm9yLCBpbnQgZGF0YV9lcnJvcik7ICBp
-bnQNCj4gPiBjcWhjaV9pbml0KHN0cnVjdCBjcWhjaV9ob3N0ICpjcV9ob3N0LCBzdHJ1Y3QgbW1j
-X2hvc3QgKm1tYywgYm9vbA0KPiA+IGRtYTY0KTsgIHN0cnVjdCBjcWhjaV9ob3N0ICpjcWhjaV9w
-bHRmbV9pbml0KHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UNCj4gPiAqcGRldik7DQo+ID4gK2ludCBj
-cWhjaV9zZXRfY21kX2lkbGVfdGltZShzdHJ1Y3QgY3FoY2lfaG9zdCAqY3FfaG9zdCwgdTMyIG5z
-KTsNCj4gPiAgaW50IGNxaGNpX2RlYWN0aXZhdGUoc3RydWN0IG1tY19ob3N0ICptbWMpOyAgdm9p
-ZA0KPiA+IGNxaGNpX3NldF90cmFuX2Rlc2ModTggKmRlc2MsIGRtYV9hZGRyX3QgYWRkciwgaW50
-IGxlbiwgYm9vbCBlbmQsIGJvb2wNCj4gPiBkbWE2NCk7ICBzdGF0aWMgaW5saW5lIGludCBjcWhj
-aV9zdXNwZW5kKHN0cnVjdCBtbWNfaG9zdCAqbW1jKQ0KDQo=
+Punch line for Linus from Jason:
+"Enhance detecting if the PCI fabric can support a peer to peer path
+by evaluating the full bi-directional fabric path over each of the
+three traffic type ACS controls. Expand the number of fabric
+configurations where the P2P algorithm makes the correct determination
+of support to include non-uniform ACS and situations where translated
+takes different routes from untranslated."
+
+--------------------------------------------------------------------------
+
+PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+This misclassifies asymmetric and nested switches, and reports one answer
+for every kind of TLP.
+
+Three ACS controls act on TLP attributes the Requester chooses rather
+than on the topology: Translation Blocking and Direct Translated P2P act on
+a Request's Address Type, and Completion Redirect skips Completions
+carrying Relaxed Ordering.
+
+Evaluate each direction at the path divergence, decide every class from the
+one walk, and treat a client with ATS enabled as translating unless its
+driver declares per-mapping ATS.
+
+This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+Changes in v13:
+- Read the Intel SPT PCH ACS Control dword at its nonstandard offset so
+  Translation Blocking is honored on host routes, addressing the
+  Sashiko review of patch 10.
+- Distinguished unreadable forwarding controls from missing forwarding
+  and retained redirect advice when clearing controls restores a direct
+  route, addressing the Sashiko review of patch 5.
+- Updated the directional routing documentation for shared ancestors.
+- Reused the ACS isolation-test mock setup
+- Link to v12: https://patch.msgid.link/20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com
+
+Changes in v12:
+- Rebaed to v7.4-rc1
+- Link to v11: https://patch.msgid.link/20261013-fix-p2p-acs-v4-0-v11-0-72cf8c96e617@nvidia.com
+
+Changes in v11:
+- Applied the client ATS policy in pci_p2pdma_distance_many() too, as
+  local Sashiko pointed out.
+- Read the ATS Enable bit once per query, so the class and the ATS policy
+  always agree.
+- Documented that pcim_p2pdma_set_ats_per_mapping() needs a successful
+  pcim_p2pdma_init().
+- The path diagnostics no longer read ACS Control or the bridge bus range,
+  and they report a failed cache store.
+- Added a KUnit case for Direct Translated P2P without a redirect.
+- Clarified the Relaxed Ordering and diagnostics commit messages.
+- Honored device-specific ACS redirection, such as Zhaoxin Downstream
+  Ports, in a new first patch with a KUnit case, as local Sashiko
+  pointed out. Relaxed Ordering Completions are redirected at such a
+  port too.
+- Clarified in the documentation that a quirk also redirects Relaxed
+  Ordering Completions and that Translation Blocking applies only to
+  upstream Requests, and labelled the ACS routing debug line with its
+  class, as local Sashiko pointed out.
+- Treated ACS registers that read as all ones as unreadable, and named
+  ports that a quirk redirects instead of suggesting
+  pci=disable_acs_redir= for them, as local Sashiko pointed out.
+- Ignored ACS quirks of endpoints, which only describe traffic between
+  their own functions.
+- Link to v10: https://patch.msgid.link/20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com
+
+Changes in v10:
+- Fixed the Relaxed Ordering description: a Completion carries the
+  attribute of its Request (PCIe r7.0 sec 2.2.9.1).
+- Used the PCIe terms Requester and Completer for TLPs, ACS and ports;
+  client and provider remain for P2PDMA objects.
+- Rebased on pci/p2pdma, which includes the prerequisite P2PDMA fixes.
+- Added a topology example to the path divergence patch.
+- Removed a repeated sentence from the disable_acs_redir documentation.
+- Explained the path divergence in the documentation.
+- Link to v9: https://patch.msgid.link/20261001-fix-p2p-acs-v4-0-v9-0-1a8e0f50ddd9@nvidia.com
+
+Changes in v9:
+- Removed dmabuf patches for now.
+- Removed mlx5 per-mapping ATS declaration for now; it comes back with
+  the dmabuf patches.
+- Link to v8: https://patch.msgid.link/20260928-fix-p2p-acs-v4-0-v8-0-404453b9c435@nvidia.com
+
+Changes in v8:
+- Added extra Reviewed-by from Logan.
+- Added patches to take care of ATS per-device vs. per-mapping option
+- Link to v7: https://patch.msgid.link/20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com
+
+Changes in v7:
+- Removed "Document pdev->p2pdma lifetime rules" patch, it gives nothing
+  after p2pmem fix.
+- Split dmabuf patch.
+- Tushar retested the series, so added his Tested-by.
+- Added Logan's ROB tags and fixed minor documentation issues pointed
+  by him.
+- Link to v6: https://lore.kernel.org/all/20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com/
+
+Changes in v6:
+- Changed DMABUF to use callbacks and not directly stored pointer.
+- Link to v5: https://patch.msgid.link/20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com
+
+Changes in v5:
+- Rebase on the posted fixes.
+- Dropped tags from changed patches.
+- Remove Egress Control Vector interpretation and coverage.
+- Keep enabled Egress Control conservative as a Request redirect.
+- Use pci_dbg()/dev_dbg() for diagnostics and drop the "debug" prefix.
+- Removed code comments from "Document the pdev->p2pdma lifetime and RCU
+  rules" patch and reduced description to actual lifetime explanation.
+- Added note that Linux assumes that TLPs are in strict-ordering and
+  untranslated.
+- Added code to calculate p2p paths per-TLP type.
+- Converted mlx5 to use that new proposed API.
+- Link to https://patch.msgid.link/20260821-fix-p2p-acs-v4-0-v4-0-94426b96de73@nvidia.com
+
+Changes in v4:
+- Reject ACS Violations and unreadable routing state instead of treating
+  them as host-bridge redirects
+- Added Tested-by tags from Tushar Dave
+- Added support to asymmetric ACS routing
+- Limited redirect checks to the two ports at the path divergence
+- Added standalone ACS routing diagnostics for hardware retesting
+- Dropped " PCI: Account for Direct Translated P2P in ACS isolation checks" patch
+- Link to v3: https://patch.msgid.link/20260811-fix-p2p-acs-v3-0-efc488ee7c03@nvidia.com
+
+Changes in v3:
+- Fixed pci_p2pdma_add_resource() error unwinding
+- Made pdev->p2pdma teardown wait unconditionally for RCU readers
+- Restricted pci_p2pmem_find_many() to pool-backed providers
+- Documented the pdev->p2pdma lifetime and RCU rules
+- Fixed calc_map_type_and_dist() handling of the verbose argument
+- Required the ACS port and target to share a bus before indexing the
+  Egress Control Vector
+- Gave pci_acs_enabled() and pci_acs_path_enabled() a scope, so the ACS
+  Direct Translated P2P rule no longer stops pci_enable_pasid() from
+  enabling PASID
+- Dropped "Report ACS ports when the paths share no upstream bridge":
+  the mapping type cannot change without a shared upstream bridge, so
+  the pci=disable_acs_redir= hint was not actionable there and the ACS
+  walk only cost config space reads
+- Folded the Request Redirect rule into pci_acs_rr_ineffective(), so
+  pci_acs_flags_enabled() and the Intel SPT PCH quirk share one copy
+- Renamed pci_acs_egress_ctrl_set() to pci_acs_egress_ctrl_is_set(), it
+  reads the bit rather than setting it
+- Reworded the blocked-path warning: ACS may also leave the direct route
+  indeterminate rather than blocked
+- Added KUnit coverage for the shared-bus guard, a device with no ACS
+  capability and an unreadable ACS Control register
+- Added the missing Fixes: tags, a second one on the
+  pci_p2pdma_add_resource() unwinding fix (the dangling devres action
+  dates to f58ef9d1d135) and one on the Egress Control isolation change
+- Link to v2: https://patch.msgid.link/20260806-fix-p2p-acs-v2-0-0cec14812965@nvidia.com
+
+Changes in v2:
+- Added Logan's ROB tags
+- Added commas in Documentation patch
+- Link to v1: https://patch.msgid.link/20260802-fix-p2p-acs-v1-0-a7c5eb64fff6@nvidia.com
+
+---
+Leon Romanovsky (19):
+      PCI/P2PDMA: Honor device-specific ACS redirection
+      PCI/P2PDMA: Document the TLP attribute assumptions
+      PCI/P2PDMA: Derive routing from directional ACS controls
+      PCI: Reject unreadable ACS controls in isolation checks
+      PCI/P2PDMA: Evaluate ACS controls at the path divergence
+      PCI/P2PDMA: Document directional ACS routing
+      PCI/P2PDMA: Collect the path's ACS controls before deciding
+      PCI/P2PDMA: Answer routing per TLP class
+      PCI/P2PDMA: Route Relaxed Ordering Completions directly
+      PCI/P2PDMA: Reject Translated Requests blocked by Translation Blocking
+      PCI/P2PDMA: Route Translated Requests under Direct Translated P2P
+      PCI/P2PDMA: Log detailed ACS routing diagnostics
+      PCI/P2PDMA: Add KUnit tests for the ACS routing decisions
+      PCI/P2PDMA: Test the ACS P2P routing walk
+      PCI: Add KUnit coverage for ACS isolation checks
+      PCI/P2PDMA: Document TLP-class routing
+      PCI/P2PDMA: Let a client declare that it selects ATS per mapping
+      PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
+      PCI/P2PDMA: Test the routing of clients with ATS enabled
+
+ Documentation/admin-guide/kernel-parameters.txt |   11 +-
+ Documentation/driver-api/pci/p2pdma.rst         |  106 ++
+ drivers/pci/Kconfig                             |   15 +
+ drivers/pci/Makefile                            |    1 +
+ drivers/pci/p2pdma.c                            |  961 ++++++++++++++--
+ drivers/pci/pci.c                               |    8 +-
+ drivers/pci/pci.h                               |   63 +
+ drivers/pci/pci_acs_test.c                      | 1409 +++++++++++++++++++++++
+ drivers/pci/quirks.c                            |   23 +-
+ include/linux/pci-p2pdma.h                      |   12 +-
+ 10 files changed, 2517 insertions(+), 92 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
+
