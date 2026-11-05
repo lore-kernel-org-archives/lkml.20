@@ -1,62 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885419;
-	b=nZfdqJDVONgn/+VJY0mJxMPqppHpBMYwvZP2gxh0HISmeJeoTuHg/2r/uyAxVLgqUWco
-	 s/h9HbHmM3orIFBAlp9EtCwWTpNO9T1Cspc6amILdPpFKqWonsYVVk6puKh+BgC0jfGIF
-	 DKZ9btgxE7LZOk2G9QFL6mkojQbykI9E6KzHqsaTVy6Ar30I73f6P5sBirrjkVh/U0Kp3
-	 CliPlL4TJ9zYtD6ZTQAQ6o0tuGW7bKO/uCc9S3ZdXVIh4ALtawhKImyPmMjPPZUxnSXXt
-	 Xp0SIMP/N1N6QPzdo5JYLta1TbS8aQ84OlVimYQ8zZ4sYsMVpgfPZvgRAM5+GL/6dCg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885419;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 CC:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=XBahw6M146sZLugvzmS/iUpJqDvqvUDfx3QgY4OtwYg=;
-	b=22izUsJ0H0qzqLQysUHMbTXTW0/+Fj8zQKkQMs6/witp0WIVse7Fy+P9GS9JK0VRitlV
-	 StYZANQKnocxxbAU2mnlSYF533pyk664heVxtWxsKL/+QMFIk2NKQhlSRNe02Sb2Jj9cX
-	 dVxJz6PsOWC5+1z/QN/N4MY2qU9JtA3QuwwglaNTDXqe1K8ioddKYAyF2d/KxhETHZ1XA
-	 iGX5uUN8UaYFQADNaNorqHxhpPG0/ttECTzyPRc+64CBvoCoYeWZRz/b1U1KKygGk1b2e
-	 lfiZKv6yP3C5ifkvg0SXT1Edm2BqfKJXIsvQEKduDYWvfctH27A4g+7bXEuGL1hCwLw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RN4YfyjO;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793885424;
+	b=OfmHExNXUSOnw0XX9aY8xLorEho8HkS0Vyc5ZKz69FnhtpkjU3ZlsPr/XVqB0n0D/q58
+	 KW74Zj0l9unwVRE7BSi3HC2aTpjBE1jyAJmFlgrVmNBuNP03Bxb6vX5v6O6jsNGJq3V/n
+	 opU9f/TD0DiR/KRMzv2MjXTyPKGAMCqVsGD/0v+qnwzaXJeXF2ouSIJRs0qS3UH1IAXrM
+	 eeTEg21CctGrxdy3f+DT2k7TWg9PFkf8EiE1gnFH1mwz9ofXi9EGtTnbg8JO2eobPoBFL
+	 C/Eg7kjGTf9Hsvo5ltCLfEpNXfnJN3B4RoHecbqubPoj0ljFaysWdvp5oWTBxrYUFfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885424;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=QgfnoudeIak5HcJlOuxSHq2rJVdqm7W1+hkuv6nDG4U=;
+	b=b1Pu4Ctp1LzUHFxPwAhVCdM+gOlbT7B84yBVdtmg3a7+NtRLEdeyc2GmvwRwa+1opQ+n
+	 eAK1CYS1GoCws6FClkBCHL+1HrDFofT+9FklUEWv+pSsbpa4v60z6Oxmwc+UQSJ4c9UQf
+	 SIXRImYNvE7wZd+wfsfGmX11I4OlhPpwJNivpJXj5ujTcIovcrV1jMiL5zdnfuWMGuUNN
+	 65/FyPtxHhIhaVYXG4OpIbWXFJcNhvba3Wm0I20TXE/FrNM4C1yd7lauz70wvWujX8DBS
+	 WeIaedpFWUTFPzvxR3fOoNnwAV2cfx5UussOgZKBkJyBoSURKlwhGIv+qbTHGFXOZog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlcKWq1x;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58653606A32F;
+	Thu,  5 Nov 2026 13:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlcKWq1x
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793885423;
+	b=V1rga1vjSdiNGh4TasS/hxg5ecOqmgfyEHTUsA98ZnGgbQnb07DD2FQ3Kqx96Almwoys
+	 M9H4dcAc+VICk8W/nwwC0pAY2G4P4laFDA7vPpX7IFGlWnA58S+aC5qnjA+SFKQaRdWwx
+	 vKy9nIAcbtY9nqLhJTyjaYbmXiiEmbV8Z6iZNTYtV9eCuh2ez5XD6WiYkgnabHEyWNwZx
+	 Vf1PhXRrImIDtFZnrF9U1guFeF6YoRx5nFYMYG1di7TCmU22h3MXOWrWdnD+4/XaPxVyz
+	 I5++uXNilQSqGt1Qgf92BC0cDE/XHkWH7lqZP2JXF1+zFPt8bsSHLp3AQJA3Scn+SjA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793885423;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=QgfnoudeIak5HcJlOuxSHq2rJVdqm7W1+hkuv6nDG4U=;
+	b=TIge8flh2LxivQr17zKFl5DqrM9fWHfBtXWnH7S089854N2sTspNffq4zFCXX7rpPXJg
+	 ZsT8lTg8/mnnzhEK6XLcXDaHzE4sFhdgKvgqM2pw81S1Kr4q+9GrPu0n4qEzRPwLb1pkN
+	 EsNc/kO8hUAax5sEfyTg4OtrgJ/GKFnp4odK0S1a175ZKHKpJGiJYpa01na4fyCHAFWwq
+	 eUb/w3o2T7zno3hUCYscWWTKAiuGndrxzvoeWExsB9ez8ELmRuLrscwI/hnMZtZ1kGcbn
+	 jfC2roa0pASnCeipiTv5WhBxz0ru2XH8EKTRjqn6Q1OTiZbLMTMw3vkwqBE7apI3taw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1481606A329;
-	Thu,  5 Nov 2026 13:30:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1481606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RN4YfyjO
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=XBahw6M146sZLugvzmS/iUpJqDvqvUDfx3QgY4OtwYg=;
-	b=RN4YfyjOyS5ooaP/OoqlyjO4HSTgKglyVRvAwmVEwiinlbqINXY/ET1GFZdNx+ACF7CF2K21b
-	GMltJwbdS6v8FwT2TBpiUpUas65+TPBMyv5V86ZErLqrrSu9ZrtVQWRF4bHHh0PeyPh1Liu3Cid
-	DMPq+7XD1GxnaxoccEs+z30=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jL38G5xVrzKm6Y;
-	Thu,  5 Nov 2026 21:30:06 +0800 (CST)
-Received: from dggpemr500012.china.huawei.com (unknown [7.185.36.140])
-	by mail.maildlp.com (Postfix) with ESMTPS id 33A2E40586;
-	Thu,  5 Nov 2026 21:30:13 +0800 (CST)
-Received: from whupemq100006.china.huawei.com (7.152.184.206) by
- dggpemr500012.china.huawei.com (7.185.36.140) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 5 Nov 2026 21:30:12 +0800
-Received: from [10.67.110.154] (10.67.110.154) by
- whupemq100006.china.huawei.com (7.152.184.206) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 5 Nov 2026 21:30:10 +0800
-Message-ID: <ad060270-6e32-4dcf-9830-6d2ffbfc0783@huawei.com>
-Date: Thu, 5 Nov 2026 21:30:09 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 4A0671F00A18;
+	Thu,  5 Nov 2026 13:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793885423;
+	bh=QgfnoudeIak5HcJlOuxSHq2rJVdqm7W1+hkuv6nDG4U=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=IlcKWq1xAmOg9tdgep6SOGj7usBZ1Vgwx02OcRf1ga+PXmJbjLKbix9Ip14tH14AI
+	 kyK0RF24OVxnKme/PXBRlmysS0txjZXBIXeAPNDGELGPb3KrSSXb5yPN2i7Zhx1N9d
+	 33x+m+Oa0HfsK+eiMDg1ooebACUOZSG2d/ceOFgvcK7PygYBWKJAfkQohsWXS6ZUId
+	 ZEs7sjwkI1JaCRX95M1Mq5e8eikt8OOajq/KMqZU0UJ8M73hkzJRSsd9L9lIWmOpUy
+	 7JptkqNnXXDNRFp/c5EIedm7CR7Umj4+9OvxSRiAZlEuTTidKfOsC/oX0scSM8HR0V
+	 79+rpALi24Ctg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9D17E47287;
+	Thu,  5 Nov 2026 13:30:22 +0000 (UTC)
+From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
+Subject: [PATCH 0/5] SM8350 GPU: memory bandwidth vote and speed bins
+Date: Thu, 05 Nov 2026 13:29:59 +0000
+Message-Id: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,316 +83,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 bpf-next 1/3] riscv: bpf: Add BPF private stack support
-Content-Language: en-US
-To: Chen Pei <cp0613@linux.alibaba.com>
-CC: <ast@kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>,
-	<memxor@gmail.com>, <bjorn@kernel.org>, <puranjay@kernel.org>,
-	<eddyz87@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
-	<yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
-	<ihor.solodrai@linux.dev>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <luke.r.nels@gmail.com>,
-	<xi.wang@gmail.com>, <shuah@kernel.org>, <rgbi3307@gmail.com>,
-	<guoren@kernel.org>, <bpf@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>, <linux-kselftest@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261104100411.997-1-cp0613@linux.alibaba.com>
- <20261104100411.997-2-cp0613@linux.alibaba.com>
-From: Pu Lehui <pulehui@huawei.com>
-In-Reply-To: <20261104100411.997-2-cp0613@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemq100006.china.huawei.com (7.152.184.206)
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNT3SQT3eJcC2NTA930glLd5ERLw+S0RMvERKM0JaCegqLUtMwKsHn
+ RsRB+cWlSVmpyCcgQpdpaAMy1mwRxAAAA
+X-Change-ID: 20261105-b4-sm8350-gpu-ca91cfa9aa2f
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Demeter Barna <me@fromdisposition.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793885419; l=1797;
+ i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
+ bh=D8VZFoCVME1aMQHvCdWPw5lNShSOUsROxlYF0NZDL6M=;
+ b=7AfKYelxwTvmG/00jufz4oiz8vWvG22SyGOJ9LXr+Wuy0s6v8uyCf5WgNVLURRlYq4RxTi+si
+ N919nvXLo0wCqQSA2Hcht8v7eNmhmGAbCYXMRglaWSy3pilzS4CGbve
+X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
+ pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
+X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
+ auth_id=1163
+X-Original-From: Demeter Barna <me@fromdisposition.org>
+Reply-To: me@fromdisposition.org
 
-Hi Pei,
+Two things are missing for the SM8350 GPU in mainline.
 
-On 2026/11/4 18:04, Chen Pei wrote:
-> A program on a private stack keeps its BPF frames in a per-CPU area of
-> its own rather than on the kernel stack of whichever context entered it.
-> bpf_enable_priv_stack() grants that mode only once the JIT reports
-> bpf_jit_supports_private_stack(), which riscv64 did not: programs there
-> always ran on the kernel stack, and a struct_ops program that requires
-> one was rejected with -EACCES.
-> 
-> Allocate a per-CPU area of the verifier calculated depth plus a 16 byte
-> guard region at each end, and point BPF_REG_FP (S5) at the top of it
-> while leaving SP on the kernel stack. Every BPF stack access already
-> goes through S5, and S5 is callee-saved with each subprog deriving its
-> own, so nothing else in the JIT has to know about the private stack.
-> 
-> The outgoing stack argument area stays in the kernel frame: callers
-> write it relative to SP, callees relative to RV_REG_FP, which the
-> prologue sets to the caller's SP.
-> 
-> The per-CPU lookup is emitted after the tail call entry point: a program
-> using a private stack can still be entered as a tail call target, and
-> RV_TAILCALL_OFFSET is a constant added to the target's bpf_func, so what
-> is in front of it must be the same size in every program.
-> 
-> The base is materialized with absolute moves, as on arm64, x86-64 and
-> powerpc64: the vmalloc'd per-CPU area is beyond an auipc pair from the
-> JIT region, and riscv64 has no register holding the per-CPU offset, so
-> the address of __per_cpu_offset is loaded too. emit_imm() is a choice
-> there, not a requirement; emit_addr() as used by
-> insn_is_mov_percpu_addr() would need an extra_pass argument and an error
-> return in bpf_jit_build_prologue(), touching bpf_jit_comp32.c too. Both
-> constants are fixed before the offset convergence loop, so the prologue
-> length is stable across passes.
-> 
-> The guard value follows arm64, x86-64 and powerpc64, and the 16 byte
-> two-copy region at each end follows arm64 and powerpc64, since x86-64
-> uses an 8 byte guard with a single copy. A jited program has them
-> checked when it is freed, reporting the first corrupted CPU only;
-> failure paths release the area unchecked since the image never ran,
-> which also clears priv_stack_ptr for the later bpf_jit_free().
-> 
-> RV32 does not declare support and keeps the existing kernel stack
-> behaviour.
-> 
-> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
-> ---
->   arch/riscv/net/bpf_jit.h        |  1 +
->   arch/riscv/net/bpf_jit_comp64.c | 42 +++++++++++++++--
->   arch/riscv/net/bpf_jit_core.c   | 84 +++++++++++++++++++++++++++++----
->   3 files changed, 115 insertions(+), 12 deletions(-)
-> 
-> diff --git a/arch/riscv/net/bpf_jit.h b/arch/riscv/net/bpf_jit.h
-> index 21a190a6a6d9..efab2b6803e4 100644
-> --- a/arch/riscv/net/bpf_jit.h
-> +++ b/arch/riscv/net/bpf_jit.h
-> @@ -14,6 +14,7 @@
->   
->   #define RV_MAX_REG_ARGS		8
->   #define RV_EXTRA_STK_ARGS	(RV_MAX_REG_ARGS - MAX_BPF_FUNC_REG_ARGS)
-> +#define PRIV_STACK_GUARD_SZ	16
->   
->   /* verify runtime detection extension status */
->   #define rv_ext_enabled(ext) \
-> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
-> index 371405598faa..a7a7d2f9da85 100644
-> --- a/arch/riscv/net/bpf_jit_comp64.c
-> +++ b/arch/riscv/net/bpf_jit_comp64.c
-> @@ -2134,12 +2134,34 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
->   	return 0;
->   }
->   
-> +static void emit_priv_stack_frame(struct rv_jit_context *ctx)
-> +{
-> +	u64 fp = (__force u64)ctx->prog->aux->priv_stack_ptr + PRIV_STACK_GUARD_SZ;
-> +
-> +	fp += round_up(ctx->prog->aux->stack_depth, STACK_ALIGN);
-> +	emit_imm(RV_REG_S5, fp, ctx);
-> +#ifdef CONFIG_SMP
-> +	emit_lw(RV_REG_T1, offsetof(struct thread_info, cpu), RV_REG_TP, ctx);
-> +	emit_imm(RV_REG_T2, (u64)__per_cpu_offset, ctx);
-> +	emit_sh3add(RV_REG_T1, RV_REG_T1, RV_REG_T2, ctx);
-> +	emit_ld(RV_REG_T1, 0, RV_REG_T1, ctx);
-> +	emit_add(RV_REG_S5, RV_REG_S5, RV_REG_T1, ctx);
-> +#endif
-> +}
-> +
->   void bpf_jit_build_prologue(struct rv_jit_context *ctx, bool is_subprog)
->   {
-> +	bool priv_stack = ctx->prog->aux->priv_stack_ptr;
->   	int i, stack_adjust = 0, store_offset, bpf_stack_adjust = ctx->stack_arg_sz;
->   
-> -	bpf_stack_adjust += round_up(ctx->prog->aux->stack_depth, STACK_ALIGN);
-> -	if (bpf_stack_adjust)
-> +	/*
-> +	 * With a private stack only the outgoing stack argument area is left in
-> +	 * this frame. It has to stay: the caller writes it relative to SP while
-> +	 * the callee reads it relative to RV_REG_FP, the caller's SP set below.
-> +	 */
-> +	if (!priv_stack)
-> +		bpf_stack_adjust += round_up(ctx->prog->aux->stack_depth, STACK_ALIGN);
-> +	if (bpf_stack_adjust || priv_stack)
->   		mark_fp(ctx);
->   
->   	if (seen_reg(RV_REG_RA, ctx))
-> @@ -2217,7 +2239,16 @@ void bpf_jit_build_prologue(struct rv_jit_context *ctx, bool is_subprog)
->   
->   	emit_addi(RV_REG_FP, RV_REG_SP, stack_adjust, ctx);
->   
-> -	if (bpf_stack_adjust)
-> +	/*
-> +	 * Point BPF_REG_FP at the top of this CPU's private stack. A program
-> +	 * with one can still be entered as a tail call target, at
-> +	 * RV_TAILCALL_OFFSET, so this has to come after that entry point; the
-> +	 * offset is a constant added to the target's bpf_func, so everything in
-> +	 * front of it must also be the same size in every program.
-> +	 */
-> +	if (priv_stack)
-> +		emit_priv_stack_frame(ctx);
-> +	else if (bpf_stack_adjust)
->   		emit_addi(RV_REG_S5, RV_REG_SP, bpf_stack_adjust, ctx);
->   
->   	ctx->stack_size = stack_adjust;
-> @@ -2320,3 +2351,8 @@ bool bpf_jit_supports_hmul(void)
->   {
->   	return true;
->   }
-> +
-> +bool bpf_jit_supports_private_stack(void)
-> +{
-> +	return true;
-> +}
-> diff --git a/arch/riscv/net/bpf_jit_core.c b/arch/riscv/net/bpf_jit_core.c
-> index f2497ec7d378..f2021088e447 100644
-> --- a/arch/riscv/net/bpf_jit_core.c
-> +++ b/arch/riscv/net/bpf_jit_core.c
-> @@ -9,6 +9,7 @@
->   #include <linux/bpf.h>
->   #include <linux/filter.h>
->   #include <linux/memory.h>
-> +#include <linux/percpu.h>
->   #include <asm/text-patching.h>
->   #include <asm/cfi.h>
->   #include "bpf_jit.h"
-> @@ -44,6 +45,62 @@ bool bpf_jit_needs_zext(void)
->   	return true;
->   }
->   
-> +#define PRIV_STACK_GUARD_VAL	0xEB9F12345678eb9fULL
+First, the GPU never votes for DDR bandwidth (patch 1). This fix stands
+alone and can be taken on its own.
 
-a nit, let move it with the PRIV_STACK_GUARD_SZ	macro.
+Second, the GPU speed bins are not read, so every part runs up to
+840 MHz: parts validated only up to 738 MHz run above their rating, and
+parts that support 900 MHz never get it (patches 2-5).
 
-others, looks good.
+The frequencies, voltage levels and bandwidths all come from Qualcomm's
+GPU tables for SM8350.
 
-Reviewed-by: Pu Lehui <pulehui@huawei.com>
+Patch 5 needs patch 3: without the keepout regions, reading the nvmem
+file resets the SoC. Patch 4 alone changes nothing until patch 5 adds
+the speed bin cell, and patch 5 without patch 4 keeps every part at
+speed bin 0 (up to 840 MHz, as today).
 
-> +
-> +static u32 priv_stack_size(struct bpf_prog *prog)
-> +{
-> +	return round_up(prog->aux->stack_depth, STACK_ALIGN) +
-> +	       2 * PRIV_STACK_GUARD_SZ;
-> +}
-> +
-> +static int alloc_priv_stack(struct bpf_prog *prog)
-> +{
-> +	u32 size = priv_stack_size(prog);
-> +	u32 end = (size - PRIV_STACK_GUARD_SZ) / sizeof(u64);
-> +	void __percpu *ptr;
-> +	int cpu, i;
-> +
-> +	ptr = __alloc_percpu_gfp(size, STACK_ALIGN, GFP_KERNEL);
-> +	if (!ptr)
-> +		return -ENOMEM;
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		u64 *stack = per_cpu_ptr(ptr, cpu);
-> +
-> +		for (i = 0; i < PRIV_STACK_GUARD_SZ / sizeof(u64); i++) {
-> +			stack[i] = PRIV_STACK_GUARD_VAL;
-> +			stack[end + i] = PRIV_STACK_GUARD_VAL;
-> +		}
-> +	}
-> +	prog->aux->priv_stack_ptr = ptr;
-> +	return 0;
-> +}
-> +
-> +static void priv_stack_check_guard(struct bpf_prog *prog)
-> +{
-> +	u32 end = (priv_stack_size(prog) - PRIV_STACK_GUARD_SZ) / sizeof(u64);
-> +	int cpu;
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		u64 *stack = per_cpu_ptr(prog->aux->priv_stack_ptr, cpu);
-> +
-> +		if (stack[0] != PRIV_STACK_GUARD_VAL ||
-> +		    stack[1] != PRIV_STACK_GUARD_VAL ||
-> +		    stack[end] != PRIV_STACK_GUARD_VAL ||
-> +		    stack[end + 1] != PRIV_STACK_GUARD_VAL) {
-> +			pr_err("bpf-jit: private stack overflow/underflow guard of prog %s corrupted on CPU %d\n",
-> +			       bpf_jit_get_prog_name(prog), cpu);
-> +			return;
-> +		}
-> +	}
-> +}
-> +
-> +static void free_priv_stack(struct bpf_prog *prog)
-> +{
-> +	free_percpu(prog->aux->priv_stack_ptr);
-> +	prog->aux->priv_stack_ptr = NULL;
-> +}
-> +
->   struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_prog *prog)
->   {
->   	unsigned int prog_size = 0, extable_size = 0;
-> @@ -84,12 +141,15 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   			    round_up((stack_arg_cnt - RV_EXTRA_STK_ARGS) * 8, STACK_ALIGN) : 0;
->   
->   	ctx->prog = prog;
-> +	if (prog->aux->jits_use_priv_stack && alloc_priv_stack(prog))
-> +		goto out_free_hdr;
-> +
->   	ctx->offset = kvzalloc_objs(int, prog->len);
->   	if (!ctx->offset)
-> -		goto out_offset;
-> +		goto out_free_hdr;
->   
->   	if (build_body(ctx, extra_pass, NULL))
-> -		goto out_offset;
-> +		goto out_free_hdr;
->   
->   	for (i = 0; i < prog->len; i++) {
->   		prev_ninsns += 32;
-> @@ -104,7 +164,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   		ctx->prologue_len = ctx->ninsns;
->   
->   		if (build_body(ctx, extra_pass, ctx->offset))
-> -			goto out_offset;
-> +			goto out_free_hdr;
->   
->   		ctx->epilogue_offset = ctx->ninsns;
->   		bpf_jit_build_epilogue(ctx);
-> @@ -124,7 +184,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   							  bpf_fill_ill_insns,
->   							  bpf_prog_was_classic(prog));
->   			if (!jit_data->ro_header)
-> -				goto out_offset;
-> +				goto out_free_hdr;
->   
->   			/*
->   			 * Use the image(RW) for writing the JITed instructions. But also save
-> @@ -190,10 +250,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   			ctx->offset[i] = ctx->offset[i - 1];
->   		ctx->offset[0] = ninsns_rvoff(ctx->prologue_len);
->   		bpf_prog_update_insn_ptrs(prog, ctx->offset, jit_data->ro_image);
-> -out_offset:
-> -		kvfree(ctx->offset);
-> -		kfree(jit_data);
-> -		prog->aux->jit_data = NULL;
-> +		goto out_free_ctx;
+The keepout regions in patch 3 were measured on one device (Razer Edge
+5G), one 32-bit word at a time; the 0x128-0x147 one matches SC7180 and
+SC7280. If Qualcomm has the documented ranges, I'm happy to use them
+instead.
 
-happy to see this, this place was indeed very confusing before.
+Signed-off-by: Demeter Barna <me@fromdisposition.org>
+---
+Demeter Barna (5):
+      arm64: dts: qcom: sm8350: Vote the GPU memory bandwidth
+      dt-bindings: nvmem: qfprom: Add SM8350 compatible
+      nvmem: qfprom: Add the SM8350 keepout regions
+      drm/msm/adreno: Add speedbins for A660 GPU
+      arm64: dts: qcom: sm8350: Add the GPU speed bins
 
->   	}
->   
->   	return prog;
-> @@ -209,7 +266,12 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   				   sizeof(jit_data->header->size));
->   		bpf_jit_binary_pack_free(jit_data->ro_header, jit_data->header);
->   	}
-> -	goto out_offset;
-> +	free_priv_stack(prog);
-> +out_free_ctx:
-> +	kvfree(ctx->offset);
-> +	kfree(jit_data);
-> +	prog->aux->jit_data = NULL;
-> +	return prog;
->   }
->   
->   u64 bpf_jit_alloc_exec_limit(void)
-> @@ -261,6 +323,10 @@ void bpf_jit_free(struct bpf_prog *prog)
->   		prog->bpf_func = (void *)prog->bpf_func - cfi_get_offset();
->   		hdr = bpf_jit_binary_pack_hdr(prog);
->   		bpf_jit_binary_pack_free(hdr, NULL);
-> +		if (prog->aux->priv_stack_ptr) {
-> +			priv_stack_check_guard(prog);
-> +			free_priv_stack(prog);
-> +		}
->   		WARN_ON_ONCE(!bpf_prog_kallsyms_verify_off(prog));
->   	}
->   
+ .../devicetree/bindings/nvmem/qcom,qfprom.yaml     |  1 +
+ arch/arm64/boot/dts/qcom/sm8350.dtsi               | 47 +++++++++++++++++++++-
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          |  8 ++++
+ drivers/nvmem/qfprom.c                             | 13 ++++++
+ 4 files changed, 68 insertions(+), 1 deletion(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261105-b4-sm8350-gpu-ca91cfa9aa2f
+
+Best regards,
+--  
+Demeter Barna <me@fromdisposition.org>
+
+
