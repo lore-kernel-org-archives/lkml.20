@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872686;
-	b=3Tqr15hnPRsTa5HhpjVA1yaL12G9cXipXhjBUcQx7qJL9QFR2j0di0DOugVaQ6Lt7gqo
-	 LhblANr6n0c1gXo4zCZpLKb8F6kynRo9o1kEc1sj8VibAGykuIwajk/QWwDtsJw5Vp8F0
-	 vsK1odGmPf41mCsBU1JJMsXGgZHBLs9Zy6s+H2L7c+oP6ac+jy/In+oB+SCG+wyLNB6QY
-	 b+CLeXNBMSROaHx+bSq/ADg7QJfm+Defun/4QTwoLIWl+AGrBFoarkwCQ7pbVhEtmNEMm
-	 y9qayT8+sw4wqswEVxHy0uFznePa5eb17Jg/Jn1PwhvWvXjrM3yhCPWDfaYtzejGuZw==
+	t=1793872721;
+	b=Pr2IaOhKjmEuU959hSt1POJan+ueZ+/jShl2baWqSF6oHaHyVU2WRhn8cGF/Tniuzl7o
+	 HSyQO9QAsE3PUmjud7hbUm3IRiwAc6Dap7L19voaEncEITrgAHXyVNiurDhdbnQObVqJx
+	 HzqOLg0AhEcjRHKxcLCzZ7IKdXZm4SR5chBfAe/Go4b9sVEbdt6sjLLzlX2ZW5h2szFax
+	 LNucUPZPWehnMEYmw0VCA/KY4FCGS6ElhkvnuGkrdARSDKbsojsaJH/agqmyLBj9snV6J
+	 hEw15Y4AlExpaV/cDSipjS8NYzPW2IdBiLcU0HKuSxJjqBaJFE2nEcibUGziefHwvRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872686;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=GGwd10+UV7oF3yQFv28KX3rG/BdRDcdmvcHFRYR63Gw=;
-	b=iX9SaYFc6fcndNpG7g7Y5TPRIi/FKiglxEesJs1oMvOg66itRh1f8mcemuPoobm7fARB
-	 9r5vW1Pg0/UM8tc38f7UNfYcyFtHDZFoTts6C5Ua20sXvnTLaU7hXQoN8C54qfvKkHPQB
-	 IwmVmIZEDjLQsLeQHV4RXvkAIsoiDNuYly/FEAWUtApwBlzAeVtJ0ZkEsCFR6tMuRh/oZ
-	 OVMCJ8mDmtr5iX53PfrWecEoG6ivhr8Q4IEgv0kYzRSi2MCnEs2bp4+OyqpiwSD8zYevm
-	 sa0HDtSgDhHLENokAW2RJMajZgpqnFME8IwVYOfkRMduGS8gheews+0sQJIo0YtmRTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872721;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=muRVNtpHPN8u6TD6ZpfYVyyB4/5pebiG/RBZ2qZUbIA=;
+	b=AfE9SFxa595g7hWYZcayBGy2vKnkRicQ6abRprQRYGH+9sArxW5YCrDsD4vuVghpqEmU
+	 QsOcGJBZK1N8zn0mJeQe5B1gs3jib5YVxda6xJsRTAokSjilElY3+TA94SlDVYD/ZC1tR
+	 TgtsQVGrQXJsRZ0U+eTD4i5ZUGL8OyC8iIA7gIsSDit6WFJogoEs0JS12JqLXbg83aAx3
+	 NotZO2U1SJ/KqZFa9e5hFvqwElJXENgPISZo/E6kcxKSbZPq3eN7CsLxHgdd1W9UevP8r
+	 GAyxZXDgl5qoRYR14ftkj6tgeN+miHBOLYhBhcd+9werF6eNWuu6oz/mY4mXGWQBojg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k2lqRhYQ;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTKJMCls;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15B5606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:58:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C15B5606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6832606A326;
+	Thu,  5 Nov 2026 09:58:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k2lqRhYQ
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E87C74E40774;
-	Thu,  5 Nov 2026 09:58:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B759D5FF85;
-	Thu,  5 Nov 2026 09:58:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E876103291FD;
-	Thu,  5 Nov 2026 10:57:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793872682; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=GGwd10+UV7oF3yQFv28KX3rG/BdRDcdmvcHFRYR63Gw=;
-	b=k2lqRhYQYGiir1oyFjpLl2b0S8lmp9L62kTX7RsYNETHPu0Rf4mZM6EjLHqe+9kAMFNqnB
-	6WwpR5/iAZtbP3Iovf/lp1cBufy0K9OHNw9MN9eXiITUKm4gViBsbT0t9skOrOZDZxitpR
-	sVXEnTlOVz8qosxjU2hZ50UKMzarXH/kTT6ti23csYW4UMvperkeM00LHf9uI20HxbqB9n
-	S1HFZh+MyP5cQvt9rThxXVONSrwYMBp6jh0wpG8s6QbK8vc6VhD+dWNOuvE/YcddORBEXK
-	g2HGtqEKWoeQS9Vpoge20gnbb56aHVaYIDFm2OeZHGDV9/UG4TmSqac+9Z9SHg==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dTKJMCls
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B216F1F000C1;
+	Thu,  5 Nov 2026 09:58:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793872720;
+	bh=muRVNtpHPN8u6TD6ZpfYVyyB4/5pebiG/RBZ2qZUbIA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dTKJMClsYHnp06jclLbts2Q4zCBaBIqZ4Yc2s92swYekKBG1ruRI0th2GBOll7rxl
+	 AIeYkYXYfD6x+Porhrg5HdPLmndCLYBDT5WuCYwcXf+oat8DZAtEOiOV1DlnI3hmOn
+	 vrWDalfzkPln0aEk6OkFLzwwOLMuMHnR4jCFAoVcmkvSYj7zmTqRrK5D+/Qtzq78Jh
+	 Qcgcg8C0Gph8m5XDmKpSScmir+OC+RkO1cdLzSwjEkOb5fM/bXfhiL9Oh6Zt3ZZxbi
+	 PxvwGlGFPw93PR0FLhO8xw+KMrEJk00O0+oSbLOpUhi8kLdqaSOTbmSLfGktuWufBS
+	 H2ZDSzOSQ+rpQ==
+Subject:
+ Re: [PATCH] nfc: rawsock: prevent TX work requeue after socket shutdown
+From: netdev-bot+sashiko@kernel.org
+To: shunsheng1218@gmail.com
+Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, lauro.venancio@openbossa.org,
+ sameo@linux.intel.com, linville@tuxdriver.com, aloisio.almeida@openbossa.org,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 05 Nov 2026 09:58:39 +0000
+Message-ID: <179387271921.488856.11043838083216323158@kernel.org>
+In-Reply-To: <179378590950.74297.14503648624087894519@gmail.com>
+References: <179378590950.74297.14503648624087894519@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,48 +64,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 10:57:56 +0100
-Message-Id: <DMN6SIQLWFK7.2O38VBNNDP1RX@bootlin.com>
-Cc: "Paul Cercueil" <paul.cercueil@bootlin.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maxime Ripard" <mripard@kernel.org>, "Dave
- Stevenson" <dave.stevenson@raspberrypi.com>, "Raspberry Pi Kernel
- Maintenance" <kernel-list@raspberrypi.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 3/3] drm/vc4: dpi: inline vc4_dpi_init_bridge() into
- vc4_dpi_bind()
-X-Mailer: aerc 0.22.0
-References: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com> <20261013-drm-fix-of_get_bridge-build-regression-v3-3-0b4c0b65be82@bootlin.com> <1202bdc6-afde-45e1-8a32-c64f9424a65d@igalia.com>
-In-Reply-To: <1202bdc6-afde-45e1-8a32-c64f9424a65d@igalia.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
 
-Hi Ma=C3=ADra,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On Sat Oct 24, 2026 at 3:03 PM CEST, Ma=C3=ADra Canal wrote:
-> Hi Luca,
->
-> If you go ahead with this patch, could you merge it with [1/3]
-> Personally, I prefer to keep it as a separate function. vc4_dpi_bind()
-> is already a big function, with several initializations. I have the
-> impression that vc4_dpi_init_bridge() makes the error handling more
-> clear.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-I agree, and that's why this inlining was not in my initial work. It was
-suggested by Paul, but since there are other opinions against it I'll just
-drop this patch.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Luca
+- [High] The fix is still racy, so the use-after-free it claims to close
+  remains reachable.
+- [Low] The patch only works on top of commit d793458c45df2a ("nfc:
+  rawsock: cancel tx_work before socket teardown", 2026-03-03), and the…
 
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+nfc: rawsock: prevent TX work requeue after socket shutdown
+
+The patch makes rawsock_data_exchange_complete() check SEND_SHUTDOWN
+under sk_write_queue.lock before it reschedules tx_work. The goal is to
+stop a delayed data-exchange completion from requeueing the work after
+rawsock_release() has started tearing the socket down.
+
+> diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
+> index f7d7a599fade7..efdbd512d4600 100644
+> --- a/net/nfc/rawsock.c
+> +++ b/net/nfc/rawsock.c
+> @@ -168,7 +168,13 @@ static void rawsock_data_exchange_complete(void *context, struct sk_buff *skb,
+>  		goto error_skb;
+>  
+>  	spin_lock_bh(&sk->sk_write_queue.lock);
+> -	if (!skb_queue_empty(&sk->sk_write_queue))
+> +	/*
+> +	 * The release path sets SEND_SHUTDOWN before cancel_work_sync():
+> +	 * once it is set, do not requeue tx_work - the socket may be freed
+> +	 * right after the cancel returns.
+> +	 */
+
+[Severity: Low]
+This comment relies on the SEND_SHUTDOWN / cancel_work_sync() block in
+rawsock_release(). That block was added by commit d793458c45df2a ("nfc:
+rawsock: cancel tx_work before socket teardown"). Before that commit,
+rawsock_release() did not set SEND_SHUTDOWN and did not cancel tx_work.
+
+The patch only carries:
+
+    Fixes: 23b7869c0fd08 ("NFC: add the NFC socket raw protocol")
+
+The lines it changes date back to 2011. It would apply cleanly to a
+stable tree that lacks d793458c45df2a, and there the new check would do
+nothing during release.
+
+Should this have a Fixes: tag for d793458c45df ("nfc: rawsock: cancel
+tx_work before socket teardown"), or at least name it as a prerequisite?
+
+> +	if (!skb_queue_empty(&sk->sk_write_queue) &&
+> +	    !(sk->sk_shutdown & SEND_SHUTDOWN))
+>  		schedule_work(&nfc_rawsock(sk)->tx_work);
+
+[Severity: High]
+Is this check actually serialized with the release path? Only the
+completion side takes sk_write_queue.lock here. rawsock_release() sets
+the flag and cancels the work without holding that lock:
+
+net/nfc/rawsock.c:rawsock_release() {
+    ...
+	if (sk->sk_state == TCP_ESTABLISHED) {
+		...
+		sk->sk_shutdown |= SEND_SHUTDOWN;
+		cancel_work_sync(&nfc_rawsock(sk)->tx_work);
+		rawsock_write_queue_purge(sk);
+	}
+
+	sock_orphan(sk);
+	sock_put(sk);
+    ...
+}
+
+Release only takes the lock later, inside rawsock_write_queue_purge().
+
+Can the following interleaving still happen? CPU0 holds the reference
+taken by sock_hold() in rawsock_tx_work():
+
+CPU0 (rawsock_data_exchange_complete)   CPU1 (rawsock_release)
+spin_lock_bh(&sk->sk_write_queue.lock)
+queue non-empty, sk_shutdown == 0
+                                        sk->sk_shutdown |= SEND_SHUTDOWN
+                                        cancel_work_sync(&tx_work)
+                                          tx_work idle, returns at once
+schedule_work(&tx_work) succeeds
+spin_unlock_bh()
+sock_put(sk)
+                                        rawsock_write_queue_purge(sk)
+                                        sock_orphan(sk)
+                                        sock_put(sk)
+                                          last ref, socket freed
+
+If tx_work is neither pending nor running, cancel_work_sync() returns
+right away. __cancel_work_sync() also calls enable_work() before it
+returns, so the later schedule_work() can still queue the work.
+
+rawsock_destruct() does not cancel tx_work, and the queued work holds no
+socket reference. When the worker runs, rawsock_tx_work() would read
+freed memory:
+
+	struct sock *sk = to_rawsock_sk(work);
+	struct nfc_dev *dev = nfc_rawsock(sk)->dev;
+	u32 target_idx = nfc_rawsock(sk)->target_idx;
+	...
+	if (sk->sk_shutdown & SEND_SHUTDOWN) {
+
+Would it close this window to set SEND_SHUTDOWN under sk_write_queue.lock
+in rawsock_release(), before cancel_work_sync()? Then either the
+completion sees the flag, or its schedule_work() ran before release took
+the lock, and cancel_work_sync() will cancel or wait for that work.
+
+Separately, the unlocked read-modify-write of sk->sk_shutdown in
+rawsock_release() races with the plain read here. It also races with the
+plain store in rawsock_report_error():
+
+	sk->sk_shutdown = SHUTDOWN_MASK;
+
+KCSAN would likely report this as a data race. The rest of the
+networking stack accesses sk_shutdown with READ_ONCE()/WRITE_ONCE().
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179378590950.74297.14503648624087894519%40gmail.com
