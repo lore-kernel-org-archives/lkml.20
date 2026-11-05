@@ -1,91 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852820;
-	b=dK4x5N29L4INu95TDdFtKTcfhYOZb3rCqPd5qg7a+Dni4xiYtLe09B+4udk8lDjLFpR8
-	 WsCWhIqcgJ6pn46CmRSVTg/L8R/J1CjRE2UU3I9fKQhzCHUX70O1pujlnI7JSIz+bDZtk
-	 VnF5K68rQNKxKchLS9nWvwTskz7vAncYperAshXsOmwbG0Pm+4XjRqyJ30DLvDMX6E12E
-	 Dx46g2VQVq4FgAJ5rnuEJHquk5c9ge3YgUQtr4rXZTlAdhZDEZtm6q6G/7xw0Aq93jCCc
-	 4GvJbcyYkrdTIaYOLXoW+JLdIfpPTva8hcdVhJqF+aF1Vb4NEcypt6JXFOkPUKNGFaw==
+	t=1793852871;
+	b=oBcRXDgXVsqVjeqgFPWm20lJaMdCc6xwa5Fp/dMcaQUnec8pwzA1pX4X+7oD1CwASw7a
+	 SX0E/eY5E9xkkV1vSleQsgA9EAb5OTTctGgFnF1PdQ1pzGDJG6onUiYrALM81lR14wUWw
+	 UeQufXGuljIoyF5AHIIpx2ATDhaEFzE+6379YLJQ7M10Elq165Q2VnP/mp/ucxjWWdFNY
+	 CHl+4T76Lcs4bKPEme/NQQcCFDVUxarYG37vUUN7A8VFICIbmzg2St524NrX9y/5JlYmr
+	 OViB9kNErHhSFll4m5YmXwcE2TfWrZFb2NI2iETP5geXm8xP7rmB85w7te8w7sqIoAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852820;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6Dx9GlhWSYYSjKrkLodD2g0q9NIvhIS/VlB9UxsGFr0=;
-	b=cmOPYkW2/m3D0yQTRQiNzCQ40wm8kz1LjN7ozYFXSOyf81LDwRdQyeZfceyD/h4a+015
-	 iHZveSy4m8EmZ8SRGUJvPhbE4IwlgO6tua6bUcROnykEmehdtKrJF9e/vnCGD2KT0A2UQ
-	 r2RqBkY47thc20wd7w8K9ENEGrwddlThihclQ7hylkQW1xV55BE+YM3rnBb/CJSM0ekI/
-	 Rv7cLTmmfUeyIQc8bYOKEQ4qSVbZYN1NAgokVyp/+AHKA2CXhc7WJs06nNV0EawBMBPKJ
-	 3daaptpGaPZCn98ol+TyIl0cfhXOsIaQ29VgmWnwmQiqv4P6sX7NPsNoPuPqVMcCjEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852871;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:X-Mailer:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=u6F4KDCYBUQmf5Ux75AdWla2t2dBWZcV4odDQlEP7Vs=;
+	b=QG3dLfAlvOSOEo3bV1XK68fD4o2CO5hcSIJAR2mLf+EOm+UYfCrk9LJ41hGX+iN+lA6A
+	 Hu96AZFpmMGn11ZYzE7vWWRvl8fJphQ11fJICNpJilGU25tiV9S1CweTIcI4gyxhQuPC/
+	 K5k3PAkLYTR5o8FaUYcBGGsZOabmjii1yN3gVg9KcSDDoTrGlEghi2FO0IjQFDdeWWnTf
+	 lhFdOoaqm3SB+9qqX5Yiw17JapRSb0y6N/DSq57h0+D1ZjBCyMf0QDxHm1kms5zkrnWdU
+	 2GwqZAuI+7+QvpQgh0gqw64/VaoSmXhX4MUSsAraIWwHfJZXWRmODtQNRFXhoEkG5yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mHAH4Mpa;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FhLoRdgv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F32606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F32606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475F2606A328;
+	Thu,  5 Nov 2026 04:27:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mHAH4Mpa
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1ae18eb9b69so1453716c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 20:27:00 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FhLoRdgv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD1C1F000C1;
+	Thu,  5 Nov 2026 04:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793852819; x=1794457619; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Dx9GlhWSYYSjKrkLodD2g0q9NIvhIS/VlB9UxsGFr0=;
-        b=mHAH4Mpad64UJiZp5ruoCr59wzblMsRYZTtIuYxJvK2sy90W600cldVglwDrg5IuXe
-         DhdGmi3PraSVBjy8GTEHDNTMSktut754GjoIvoGR2QOerY9k9bG5QdXtsIEwY5e8nTfb
-         ETXdl1fQ+tILXuBOa/qzy/Ve0ZIIAzb3ioZ+AwWMD+n50KYSxr+xyxo+9mxR0trd541m
-         oVe2U3Sk8+KRG8nccZxt/Q8mvO81BoJQWksoG7g47ctyiyGntGURexdOHql6IGD8K2lT
-         CiqaAIBu9tt05b/81TVS1gnILr6lfRm5giaqVJvIaWPPmE/ogtze4qVn+wf9lTutoQM7
-         BayQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793852819; x=1794457619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Dx9GlhWSYYSjKrkLodD2g0q9NIvhIS/VlB9UxsGFr0=;
-        b=Bx/RC40CrxqQZNDdtG8zfvXzs18xsfiwrMf2SU2Cb3AUQxbOwrBOB/lZrSijxs73dx
-         vTJ+uBCXMzV1TMNMOVwwerMak7+DZ6Ngr6McojpPAaoHOznezNFBuNBrdiwWyQm/iqU1
-         Gw+AS+jD1MuAAzXH5H7veKuJs4x+CCwBoSmvev/fnfJILXQ1fayC3EMKuYHyW1hdoiXR
-         njwEVRtXj2Zhfj0ywrqVOsfpvuBIe0xYzMqJTjK0vHDKCM3XzNGkFT93rrm2YgQUUoyg
-         fZ0QWxRwzltLiiLMAXrfyKrvUUovBAoApIalYnAbNzHaS2D2OKueRWydlPo0whvjQsqB
-         DFHg==
-X-Forwarded-Encrypted: i=1; AKwUvBwyNEq4U8j6OtJf2esvuvXFKGpBn0qN+pzJWqkm3wOzu9mRs9Hxh5mmETp2VXu0XaMQ/8akqUuvO//PoyQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vrhD9SUvZVc0ODAJM6dRlz8VDxycP6V6dDTPXi4tFUcplTG3k
-	YvZO+uA+zz4VCQkErlt2wPMvDGVsbIEZdbdhNCPQuK8ZdihZXPv4AMF6
-X-Gm-Gg: AYBFou2XlvdRrp4L8tm/V07lzEPlakomI9S9GhSlPoh8o5iM+7xE/IJC6VTZdEbQnhl
-	vzdUucNZqizHWl9lL0IKwLY1RxRhoboyuZMzNBNcUAIvUOkdfABsxE0zPpvLu6eXmRwyKEgnYX8
-	LPOESjqchlWvUEJb1WXpAGaMYkP/gQsYtSIbcgTR1g+z8S3QaF356yHdkRVTSOV/iXbaJRrnzSX
-	iColHx1RyE8aK2UidEFKcz381pIFvv/NZ+tPxv38HdD4OABI6K9xWiH6MoYEQ33yD5pXYCB0ZQ1
-	yTFELtOA+AxY8GCbyA9uVv/puR7tvOG0HRHMLRvSGyHRK87f+TGMlWGSpnkdqRnBR7IubXpN+5K
-	/DryHywIoLvm9v7lFPL1mZz0EddATaSO7ytKhz7ZCt21PDV+ATbEaFMUl8/9vngJBSpDPylhGMA
-	Efb2ouSOZXzt94Fl5uew3hZUxuBbSt3SHRds86fNb1zaQY/BvZJJoEETMKnZxzMJdVeSzbXJpY4
-	2XIBzMjw/S5Ii6PhVzcryHKuPtFq6+xUSs4n0LC6ts9EHVA1SEXep8H2OeAOG+UzLz+YSTCa/1i
-	OkDqk0C0laTkmqzjV+/X+fIZskgDGhJnK27zQfFvL2VHhOT2lCI2f8GUKJzkES/cn6tS
-X-Received: by 2002:a05:693c:894f:20b0:369:d992:e3 with SMTP id 5a478bee46e88-36a4242b2ebmr25756867eec.32.1793852819028;
-        Wed, 04 Nov 2026 20:26:59 -0800 (PST)
-Received: from localhost ([2409:40c4:1ac:755d:6be:3eb8:a598:dec5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38fe477sm11383276eec.17.2026.11.04.20.26.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:26:58 -0800 (PST)
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Subject: [PATCH] Input: synaptics - make InterTouch quirks table driven
-Date: Thu,  5 Nov 2026 09:56:14 +0530
-Message-ID: <20261105042614.688312-1-lovekeshsolanki00@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	d=linux-foundation.org; s=korg; t=1793852871;
+	bh=u6F4KDCYBUQmf5Ux75AdWla2t2dBWZcV4odDQlEP7Vs=;
+	h=Date:From:To:Cc:Subject;
+	b=FhLoRdgvhjhC76otaNKgvCnBlh7dz3VLrlFogfXeqxUzmIo8dzKfgv7TUuJgHfCuQ
+	 yHBB4WIA1dCoWMDJSn1Yim2MmriTEV8tEPmmNiz2WJ8Plj+XcwpiMXA+FZFKZnJvAW
+	 V1DGCzvuWmHm13mO+Jx4tyThJtjt/yPeXQ5XAFXk=
+Date: Wed, 4 Nov 2026 20:27:49 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-mm@kvack.org, mm-commits@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [GIT PULL] non-MM hotfixes for 7.4-rc2
+Message-Id: <20261104202749.a5b9ab39d3169f80b5089a14@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,92 +52,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-Move the device specific InterTouch quirk into a dedicated table to
-simplify exempting more devices in future.
 
-Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
----
- drivers/input/mouse/synaptics.c | 50 ++++++++++++++++++++++++++++++---
- 1 file changed, 46 insertions(+), 4 deletions(-)
+Linus, please merge this batch of others-than-MM hotfixes, thanks.
 
-diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
-index 1ed9261bff2b..748ade2004c3 100644
---- a/drivers/input/mouse/synaptics.c
-+++ b/drivers/input/mouse/synaptics.c
-@@ -213,6 +213,23 @@ static const char * const forcepad_pnp_ids[] = {
- 	NULL
- };
- 
-+struct synaptics_intertouch_quirk {
-+	u32 board_id;
-+	const char *pnp_id;
-+};
-+
-+/*
-+ * List of devices with broken board revisions.
-+ */
-+static const struct synaptics_intertouch_quirk
-+synaptics_intertouch_blocklist[] = {
-+	{
-+		/* ThinkPad T440p */
-+		.board_id = 2722,
-+		.pnp_id = "LEN0036",
-+	},
-+};
-+
- /*
-  * Send a command to the synaptics touchpad by special commands
-  */
-@@ -1814,6 +1831,33 @@ static int synaptics_create_intertouch(struct psmouse *psmouse,
- 				  leave_breadcrumbs);
- }
- 
-+/*
-+ * synaptics_intertouch_disabled - check if InterTouch should be disabled
-+ * for a given touchpad based on its board revision.
-+ *
-+ * Returns true if the touchpad's board ID and PNP ID match a known broken
-+ * entry in the synaptics_intertouch_blocklist table.
-+ */
-+static bool synaptics_intertouch_disabled(struct psmouse *psmouse,
-+					  const struct synaptics_device_info *info)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(synaptics_intertouch_blocklist); i++) {
-+		const struct synaptics_intertouch_quirk *quirk =
-+			&synaptics_intertouch_blocklist[i];
-+
-+		if (info->board_id == quirk->board_id &&
-+		    psmouse_matches_pnp_id(psmouse,
-+					   (const char * const []) {
-+						   quirk->pnp_id, NULL
-+					   }))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- /*
-  * synaptics_setup_intertouch - called once the PS/2 devices are enumerated
-  * and decides to instantiate a SMBus InterTouch device.
-@@ -1840,10 +1884,8 @@ static int synaptics_setup_intertouch(struct psmouse *psmouse,
- 			return -ENXIO;
- 		}
- 
--		/* Disable intertouch on known-broken T440p board revisions */
--		if (info->board_id == 2722 &&
--		    psmouse_matches_pnp_id(psmouse,
--					   (const char * const []){"LEN0036", NULL})) {
-+		/* Disable intertouch on known-broken board revisions */
-+		if (synaptics_intertouch_disabled(psmouse, info)) {
- 			psmouse_info(psmouse,
- 				     "Disabling intertouch for board id %u\n",
- 				     info->board_id);
--- 
-2.56.0
+
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm tags/mm-nonmm-hotfi=
+xes-stable-2026-11-04-20-26
+
+for you to fetch changes up to 5b4696e0bfc358619adaeab25ad35b4979af8331:
+
+  ocfs2: cache the mount context for dentry lock callbacks (2026-11-02 19:1=
+8:59 -0800)
+
+----------------------------------------------------------------
+mm.git review status for linus..mm-nonmm-hotfixes-stable
+
+Everything:
+
+Total patches:       22
+Fixes: tags:         19
+cc:stable patches:   17
+Reviews/patch:       0.77
+Reviewed rate:       68%
+
+22 patches. 17 are cc:stable.
+
+Most are OCFS2 fixes. These address extended-attribute corruption,
+missing attributes and kernel BUGs, along with crashes during cluster
+configuration, lock migration, recovery and unmount. Extent movement
+is also fixed to validate its range against a stable file size.
+
+Three FAT changes prevent a failed-write/FIBMAP race from spuriously
+making the filesystem read-only, correct directory link counts after
+rename, and speed up file expansion. The reported QEMU benchmarks show
+particularly large improvements on synchronous mounts.
+
+A taint-string fix prevents an out-of-bounds read which can expose slab
+contents in the kernel log. There are also build fixes for OpenRISC
+modules on CPUs without hardware multiply and for Clang 24.
+
+----------------------------------------------------------------
+Andrew Morton (2):
+      openrisc: export __mulsi3 for modules
+      MAINTAINERS: add an IPC entry
+
+Cen Zhang (7):
+      ocfs2: validate move extents against a stable EOF
+      ocfs2: keep locking_state within the cluster connection lifetime
+      ocfs2/dlm: serialize migration MLE cleanup on failure
+      ocfs2: stop recovery before shutting down local allocators
+      ocfs2/cluster: unlink socket containers before releasing resources
+      ocfs2: wait for filecheck kobject release after a failed add
+      ocfs2: cache the mount context for dentry lock callbacks
+
+Cl=E9ment L=E9ger (1):
+      MAINTAINERS: mailmap: use Cl=E9ment L=E9ger's linux.dev mail address
+
+Eklavya Singh (1):
+      ocfs2/heartbeat: serialize concurrent writes to a region's dev attrib=
+ute
+
+Hungyu Lin (1):
+      fat: fix parent link count when replacing a sibling directory
+
+Joseph Qi (6):
+      ocfs2: read the xattr entry hash before defragmenting the bucket
+      ocfs2: find the xattr entry again after defragmenting a bucket
+      ocfs2: find the xattr entry again after converting a block to a bucket
+      ocfs2: do not read the entry array of an empty xattr bucket
+      ocfs2: do not index before the entry array when dividing an empty buc=
+ket
+      ocfs2: do not read the entry array of an empty xattr block
+
+Matheus Alves de Almeida (2):
+      fat: preallocate space before expanding in fat_cont_expand()
+      fat: hold truncate_lock in fat_write_failed()
+
+Nathan Chancellor (1):
+      lib/base64: silence clang-24 -Wconstant-conversion with diag pragmas
+
+Nickolai Zeldovich (1):
+      panic: zero the dynamically allocated taint buffer
+
+ .mailmap                          |   4 ++
+ MAINTAINERS                       |  14 +++-
+ arch/openrisc/kernel/or32_ksyms.c |   1 +
+ fs/fat/dir.c                      |  10 +++
+ fs/fat/fat.h                      |   1 +
+ fs/fat/file.c                     |  70 +++++++++++++-----
+ fs/fat/inode.c                    |   2 +
+ fs/fat/namei_msdos.c              |   9 +--
+ fs/fat/namei_vfat.c               |   9 +--
+ fs/ocfs2/cluster/heartbeat.c      |  40 +++++++++--
+ fs/ocfs2/cluster/tcp.c            |   5 +-
+ fs/ocfs2/dcache.h                 |   5 +-
+ fs/ocfs2/dlm/dlmmaster.c          |  70 +++++++++++++++---
+ fs/ocfs2/dlmglue.c                |  34 ++++-----
+ fs/ocfs2/filecheck.c              |   2 +
+ fs/ocfs2/journal.c                |  15 +++-
+ fs/ocfs2/journal.h                |   1 +
+ fs/ocfs2/move_extents.c           |  70 ++++++++++--------
+ fs/ocfs2/super.c                  |   3 +
+ fs/ocfs2/xattr.c                  | 146 ++++++++++++++++++++++++++++++++--=
+----
+ kernel/panic.c                    |   2 +-
+ lib/base64.c                      |   3 +
+ 22 files changed, 388 insertions(+), 128 deletions(-)
 
