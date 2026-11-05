@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912279;
-	b=UpL5ff9JBq6SOnvw2aRMdBO3e6FIdIoDpIMPugRCkqeZ5QUi3OGnNB5DsAcofZPzDHOY
-	 joUXhFLdaojMuc9LE3sKvhT5+pYF3glVIF+iQRalVls3Qjcq4Q8WJfHrx2JHIzV+xhtcA
-	 uDkEuZid7VUKZoU9FSnTT++UBclCq6cGYu9mg0VURuw+9z1eHYkDg27Djbk+MMowwx559
-	 3xsbqPgTIRsm1qlsgxQF9epxdvoijObVD+Zb8R/lbTHwP8307qi5eL3vDLbzQgu/KuWmw
-	 YsB5NvzgbBrwLT1smeM+WnesvCbz2n11qn8luQX4Jn8A3/0nOdRKjWTn+O0QJ23qMQQ==
+	t=1793912333;
+	b=fWBwuR5jn1/DbbAut9dC+Fe5SCv24p2HyrBuVX7/PG/v/xwnxahoTr2Zm+0DQ/CY66SJ
+	 kxre/1EjH+Mt3WMvX6Ff9Z+dwErOV1YbN2qNPUkAXbdbJSnX8n9GAa4l49q+/HpxDYa85
+	 +fRKcfjZYZEXePN9NifYCmTUZJ2OoTwCpR5/fYEGxmfk35PJ3WSSwujomdReMjam6TOgc
+	 hEJ4kL/+UeN0Iam2rfXhKzun+jyHns0eQfNog2tMpTrH03AAOvcHEWg50Gfatsh1Z3uBR
+	 CE4zNxBExRUh/+C2mhCd0lWDfjnDn2zaYZLmUuCBCl/mNsDgmQ4pdLVesl9UN9b4kdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912279;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=y3OwD37SrGJresbxUK3F5nIZp/tIcgjb7IQgtuSfY9s=;
-	b=0GJ8qQHz1Fmq7d1sRcSxU+YGq06upX6TUuNwQ2pnImM8HcydMYLBpkJyTFPqapupM4C6
-	 YNsm9y4jNjApx//UiEs5JkmzFIPtfoawRlRO/SN4EcDD9LjCq7j45LKC75NzGABkC60DJ
-	 pRpTDfNkr3EXbPxaGiY0ghH4iiWoktjsjUiCVAjOdgf/2B+r3FR5bZmfZDD//eSIozk5V
-	 qwdjLlqpjhgbFep5g8UeiFPAoq6hJWz4wJumgcr8OjgvYUz4ZQhrSkmeXTYnBsPbVdn8r
-	 UPTqX2mHCaUyikSaSeCFf8b+Oih4vL/nMzDeV8KuhKzYsL8RbufsKX9Cp0uPahqZltw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912333;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=vC43Z356TqJuicgxWCHmaZbSDkPZZGittg+sJHxPzEo=;
+	b=QRhCHVABQIwCAQDdyaeH8+f9xYUihfshHEqaboVtr2Te/za98XOViurAt2+cSql9rJkz
+	 l96zlXmJZyJAD7u0t9tEi3Tb65el4IpVFPOzhrDrsIujUfA3Oc8G3TDQ6IEYpAiBT6FFa
+	 3uay2zaDjqL8l8a2rQPe+FIxZcENoY60fNJQpGE43dyjzNUDl8m1aSa2HGGUOq0MRnyqj
+	 WmJL4PUDa8IkZgBGEgB3W3e97C4oYJFdzcFUjjbwlwnAFyvCKj2AroL1Vf2PMEwjanVQ2
+	 3x/EKa5g60fhbFX/d0PTX0AVNqPXLDUNjRl/q7yLiRCGaJ/t8lhunefbYEjYn3ycEkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPQmbF+9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41B5606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A41B5606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so2003118a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:57:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793912278; x=1794517078;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y3OwD37SrGJresbxUK3F5nIZp/tIcgjb7IQgtuSfY9s=;
-        b=wGPv3Z26LXh60/agozbmnBKP2F4OF/+BEj7V3aBv4eTFRuFCHOgJSnM5U7xhW+d7pR
-         91yU+TOABy5PC+YUpa6sndIamh4xdEPfjL3XBwOa9jHDWDP2nUSmsLKxout28sOeEJWE
-         BrOzCVEAMkQA7o3LSCWdLTJEmryug9FSuLDyamBWEdg8vdbJqZR25CoCPlxVpXqijRJP
-         xcodcx+1WW8bE0yLhFpWg7YT7GxJU0gndbBNuPY/uDaXCcZKa6EA5J+qMqdKxgJoRcJ+
-         ALOuQspZ1CVG+9k/O40TxCUxKvGgLit4c0FWmjqXmEfNUKQ40MwrTBlo3ghNSNHIwuYz
-         Sb4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzgGme7va+FPELVUgqsNcS113HNQW99m+n7QGxpSRr9G0BeUQzLQ31Xc78TntV/TlSKq4J8AB3dee3772Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iBeB/EbHzLmHH9wC0iIuTMsBe+12Vc869WgkLKszjdDH5ZwMi
-	MQttRhlckAMHkhz9pjE0MKleX1MJ+lFOsoBtOl1yp9nBbhuzCYnbLpiAio7HAA==
-X-Gm-Gg: AYBFou30g6a9uhLC/ZTOFY7YGpqL6p8yQb5NU0Q7Adr9BqQKo87MfLDCZPXvWMlwqaT
-	LoTP9bGo2EEtpDpD1j2OdT1JY/ZK9djfaybKQy6HnWaMJFJaxtqUxbutDU//sNPuXG/sGwDedd9
-	evF39K2hkt4kifRQmtdoXe+jG81EpJz/kN4GwEIg9ujvLo0ztiPZL5aR50xES9o55XyvxiMj9ob
-	iF4iCIAdaIEjyo2bl5+s4ZVH8gO+li+U6eUkFsPgeHmVxyPU9Sug7AZe3yv6fjeH4Sa4/HU4BcB
-	lpv8ItSjhwHg6XnYbIn2uVR0VddCYKN3ZyvxSh4T+DmGfK+GK8sfVNwPCEq72qggVhvzcdop1y2
-	rxV3WAluobiOuXgLMGfG1rZyQbmhhifSp5I6GOTjow51qaUoUyBIUwVM/eHPY6jtImYvF1mBRSZ
-	yNLKKPQ5tewnU5bJ5IwY7Rtt8RwwxfNK7hDYGKFe9j9GDG4lNmYpQ14OKLL4ixehwn8LEx6kDpi
-	XS4wJtVYpkyN07j9oXAMzF4Pf0Hgi+iZGURr9IGOZ6yWfmiCOKKacjPJ7hEKR+I3qKDZfnyX/2g
-	T3gnNw9JbjdR1dPX6GdLlG/aZer3QJ80z6hHMK0FZJtfTOwwQTlDY8F+beT6eeRAEesM+8gn2RL
-	TavQemYQYN3VhhjxHW15izGQokjSBONim
-X-Received: by 2002:a17:90b:314e:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3b0db70531fmr203036a91.52.1793912277992;
-        Thu, 05 Nov 2026 12:57:57 -0800 (PST)
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com. [74.125.82.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b323cd3csm5091934a91.3.2026.11.05.12.57.57
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 12:57:57 -0800 (PST)
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36d6765756fso3048968eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:57:57 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxDhftYk3fvz9GjBuq2I409kYhrXBQ2sbuNOs4Ph4cGVaynYcsg1Vz9jo1yRmhSYQmkc/hg0yuiD1ra6wA=@vger.kernel.org
-X-Received: by 2002:a05:7300:ea91:b0:36a:6d52:e16c with SMTP id
- 5a478bee46e88-36f75253924mr438929eec.12.1793912277153; Thu, 05 Nov 2026
- 12:57:57 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BEC606A328;
+	Thu,  5 Nov 2026 20:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPQmbF+9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB7B1F0089F;
+	Thu,  5 Nov 2026 20:58:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793912332;
+	bh=vC43Z356TqJuicgxWCHmaZbSDkPZZGittg+sJHxPzEo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IPQmbF+90bTYLHZFA5HBS9TNtgBhU24zGb5anSfW1d4QSImPRkEjPxss58IqB8Qrg
+	 6AJlQbMNT1Z6Afusr4y8MHRzT0GRDXAwexNWjMcKifEhuGH5XUMnc59PXYt72Byqct
+	 9GzLoqNumZtbyiYzNWstozD3/QjlrrL5n+sKnM/l0FQoU9RbhCMdcPBWKJQasXQpmr
+	 bmHDvt0RJf7x0U3I+2p4pvg2JJG2TwkiufGizXeNsfffaJPvG/eElDjItxyraebvuj
+	 eZhCHdGJN+SM/cEN5buyDAQa8qq8aSrlcPMOcFHg6Fzd8mZVV79/87dATCUficIZGj
+	 vNXhNIdIA90ag==
+Message-ID: <sashiko-outbox-200171@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 18/24] sched/deadline: Credit a rebuild to the CPU
+ recorded with the task's bandwidth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105193359.1450487-19-mathieu.desnoyers@efficios.com>
+References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+ <20261105193359.1450487-19-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 20:58:52 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,50 +60,197 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
- <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
- <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com> <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
-In-Reply-To: <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Thu, 5 Nov 2026 15:57:45 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
-X-Gm-Features: AclHuK9hGSAdRKsJYKbyzOuaSV6hdi58LXaj_oUeX5Eo9bGiXxx_BR0j2WjKwyM
-Message-ID: <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
 
-> Do you have access to another board which has a PHY connected, not a
-> switch?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] sched/deadline: stale HK_TYPE_DOMAIN mask used in dl_get_task_effe=
+ctive_cpus()
+- [High] sched/deadline: dl_task_rebuild_cpu() drops cpu from dl_task_offli=
+ne_migration()
+--
 
-No. The GL-SFT1200 is the only SF19A2890 board I have, and the only
-other one I know of, the vendor's evaluation board in OpenWrt, also has
-a fixed-link on this port.
+commit 8fc0e93077a2156f71e1f02a2a295664e07d7e75
+Author: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
-> There are unexplained delays here. Is it the switch, this MAC, or the
-> PCB?
->
-> We need to understand if tx-internal-delay 0 really means 0, or it
-> actually means 1065ps.
+sched/deadline: Credit a rebuild to the CPU recorded with the task's bandwi=
+dth
 
-I can't tell that from this board. The sweeps measure the sum of the
-MAC's delay line, the switch and the PCB, and I have no documentation
-of the line's own delay at step 0.
+This commit adds dl_task_rebuild_cpu() so that root domain bandwidth
+rebuilds credit a deadline task's bandwidth to its previously recorded
+CPU when active and allowed, falling back to an active housekeeping or
+cpuset-allowed CPU, or skipping the task when no active CPU is available.
 
-What they do show, in the MAC's steps: the windows repeat every 8 ns,
-which puts the start of both eyes about 4 steps (0.2 ns) below 0. TX
-ends at step 51 and RX at step 28. So with every delay at 0 the link
-works, but right at the early edge of both eyes.
+> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+> index a058e0c65eca4..bcf7f88b204ad 100644
+> --- a/kernel/sched/deadline.c
+> +++ b/kernel/sched/deadline.c
+> @@ -3607,6 +3607,36 @@ static void dl_get_task_effective_cpus(struct task=
+_struct *p, struct cpumask *cp
+>  	cpuset_cpus_allowed_locked(p, cpus);
+>  }
+> =20
+> +/*
+> + * A CPU of the root domain that a rebuild of the accounting counts @p's
+> + * bandwidth in. The one recorded with it, where it is active and the
+> + * cpuset of @p allows it: that of the root domain that admitted the
+> + * bandwidth, or that the last move put it in, which the cpuset alone do=
+es
+> + * not tell where it holds CPUs of two root domains, housekeeping ones
+> + * beside the ones isolcpus=3D"domain" leaves to the default root domain=
+. The
+> + * record answers as well for a task whose own CPUs went offline, moved =
+to
+> + * an active one by dl_task_offline_migration(). Else the first active C=
+PU
+> + * the cpuset allows, a housekeeping one where it has any; and nr_cpu_ids
+> + * where it allows none, which the isolated CPUs allow, no deadline task
+> + * of theirs keeping the last of them online.
+> + */
+> +static unsigned int dl_task_rebuild_cpu(struct task_struct *p)
+> +{
+> +	struct cpumask *msk =3D this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
+> +	int recorded =3D p->dl.dl_bw_cpu;
+> +	unsigned int cpu;
+> +
+> +	dl_get_task_effective_cpus(p, msk);
+> +	cpumask_and(msk, msk, cpu_active_mask);
+> +	if (recorded >=3D 0 && cpu_active(recorded) &&
+> +	    (cpumask_test_cpu(recorded, msk) || cpumask_empty(msk)))
+> +		return recorded;
 
-Until that is known, how would you like v2 to describe this board?
+[Severity: High]
+As reported by Sashiko on v2 [1], does calling dl_get_task_effective_cpus()
+here still observe the lagging HK_TYPE_DOMAIN mask during cpuset partition
+transitions?
+
+In kernel/sched/deadline.c, dl_get_task_effective_cpus() checks
+housekeeping_cpumask(HK_TYPE_DOMAIN):
+
+    hk_msk =3D housekeeping_cpumask(HK_TYPE_DOMAIN);
+    if (housekeeping_enabled(HK_TYPE_DOMAIN)) {
+        if (!cpumask_intersects(p->cpus_ptr, hk_msk)) {
+            cpumask_andnot(cpus, cpu_active_mask, hk_msk);
+            return;
+        }
+    }
+
+Because cpuset_update_sd_hk_unlock() and cpuset_handle_hotplug() invoke
+rebuild_sched_domains_locked() -> dl_rebuild_rd_accounting() before calling
+housekeeping_update(), HK_TYPE_DOMAIN still reflects the pre-transition
+isolated partitions and excludes all CPUs in any PRS_ISOLATED partition.
+
+For example, if an isolated partition on CPUs 2-3 containing a deadline task
+p admitted on CPU 2 (p->dl.dl_bw_cpu =3D=3D 2) is shrunk to CPU 3, CPU 2 re=
+turns
+to top_cpuset's root domain while cpuset_update_tasks_cpumask() updates
+p->cpus_ptr to {3} without SCA_DL_BW_RESERVED. During the rebuild,
+HK_TYPE_DOMAIN still excludes both CPU 2 and CPU 3, so
+dl_get_task_effective_cpus() sets msk to {2, 3}. In dl_task_rebuild_cpu(),
+cpumask_test_cpu(recorded, msk) then succeeds for CPU 2 (and the fallback
+cpumask_first_and(msk, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)) would also
+pick CPU 2), crediting p's bandwidth to top_cpuset's root domain instead of
+def_root_domain.
+
+Similarly, if another CPU (such as CPU 1) is isolated by isolcpus=3Ddomain,1
+or in another isolated partition while an isolated partition on CPU 2
+transitions from PRS_ISOLATED to PRS_ROOT or PRS_MEMBER, HK_TYPE_DOMAIN
+still excludes {1, 2} during the rebuild, so dl_get_task_effective_cpus()
+sets msk to {1, 2} rather than the cpuset's allowed CPUs {2}. Conversely,
+because HK_TYPE_DOMAIN is built from cpu_possible_mask, if a task running on
+boot-isolated CPUs in def_root_domain has offline housekeeping CPUs in
+p->cpus_ptr, cpumask_intersects(p->cpus_ptr, hk_msk) evaluates to true and
+falls through to cpuset_cpus_allowed_locked(), causing dl_task_rebuild_cpu()
+to prefer an active housekeeping CPU over remaining active isolated CPUs in
+def_root_domain when the recorded CPU goes offline.
+
+> +	cpu =3D cpumask_first_and(msk, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT=
+));
+> +	if (cpu < nr_cpu_ids)
+> +		return cpu;
+> +	return cpumask_first(msk);
+> +}
+> +
+>  /* The caller should hold cpuset_mutex */
+>  void dl_add_task_root_domain(struct task_struct *p)
+>  {
+> @@ -3614,7 +3644,6 @@ void dl_add_task_root_domain(struct task_struct *p)
+>  	struct rq *rq;
+>  	struct dl_bw *dl_b;
+>  	unsigned int cpu;
+> -	struct cpumask *msk;
+> =20
+>  	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
+>  	/*
+> @@ -3626,10 +3655,16 @@ void dl_add_task_root_domain(struct task_struct *=
+p)
+>  		return;
+>  	}
+> =20
+> -	msk =3D this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
+> -	dl_get_task_effective_cpus(p, msk);
+> -	cpu =3D cpumask_first_and(cpu_active_mask, msk);
+> -	BUG_ON(cpu >=3D nr_cpu_ids);
+> +	cpu =3D dl_task_rebuild_cpu(p);
+> +	if (cpu >=3D nr_cpu_ids) {
+> +		/*
+> +		 * No active CPU to count this task's bandwidth: leave it out
+> +		 * of this rebuild, where dl_bw_gen keeps its release out as
+> +		 * well, until one has a CPU for it.
+> +		 */
+> +		raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
+> +		return;
+> +	}
+
+[Severity: High]
+As reported by Sashiko on v2 [2], can a throttled deadline task migrated by
+dl_task_offline_migration() still have its bandwidth credited to the wrong
+root domain or left unaccounted?
+
+When all CPUs in p->cpus_ptr are offline, dl_task_offline_migration() sees
+cpumask_any_and(cpu_active_mask, p->cpus_ptr) >=3D nr_cpu_ids and falls bac=
+k to
+cpumask_any(cpu_active_mask), moving the task and p->dl.dl_bw_cpu to an
+active CPU while p->cpus_ptr still contains only the offline CPUs.
+
+In dl_task_rebuild_cpu(), the check preserving recorded when the task's own
+CPUs are offline tests cpumask_empty(msk), where msk is the result of
+dl_get_task_effective_cpus(p, msk) & cpu_active_mask rather than
+p->cpus_ptr & cpu_active_mask. If other CPUs in msk remain active outside
+p->cpus_ptr (for instance, with isolcpus=3Ddomain,1,2 when p is affined to
+CPU 1 and CPU 1 goes offline while CPU 2 stays online, or when p is pinned
+to one CPU of a multi-CPU cpuset with admission control disabled and moved =
+to
+another partition's CPU), msk is non-empty ({2}) and does not contain the
+fallback CPU recorded by dl_task_offline_migration() (such as CPU 0).
+dl_task_rebuild_cpu() then rejects recorded and credits p's bandwidth to
+CPU 2's root domain while p runs on CPU 0.
+
+Additionally, during CPU deactivation in sched_cpu_deactivate(),
+cpuset_cpu_inactive() runs dl_rebuild_rd_accounting() immediately after
+sched_set_rq_offline(), before a throttled task's hrtimer fires
+dl_task_timer() -> dl_task_offline_migration(). If the deactivated CPU was
+the task's last active CPU in msk, dl_task_rebuild_cpu() returns nr_cpu_ids
+and dl_add_task_root_domain() returns early without updating
+p->dl.dl_bw_gen. When dl_task_timer() subsequently fires and calls
+dl_task_offline_migration():
+
+    scoped_guard (raw_spinlock, &dl_departed_lock) {
+        if (p->dl.dl_bw_gen =3D=3D dl_bw_gen) {
+            ...
+            __dl_add(dl_b, p->dl.dl_bw,
+                     cpumask_weight(later_rq->rd->span));
+            raw_spin_unlock(&dl_b->lock);
+        }
+        p->dl.dl_bw_cpu =3D later_rq->cpu;
+    }
+
+Because p->dl.dl_bw_gen !=3D dl_bw_gen, doesn't dl_task_offline_migration()
+skip adding p->dl.dl_bw to later_rq->rd->dl_bw, leaving the migrated task's
+bandwidth unaccounted until another root domain rebuild occurs?
+
+[1] https://lore.kernel.org/r/sashiko-outbox-198343@kernel.org
+[2] https://lore.kernel.org/r/sashiko-outbox-198343@kernel.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105193359.1450=
+487-1-mathieu.desnoyers@efficios.com?part=3D18
