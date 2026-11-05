@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887638;
-	b=b6G4L/rDyPPijG5LiMnGCpjJpkORd0nnZ3ntFzXpD4dvhuYO3nGmExJuCbaWCFz/FkVR
-	 fA7N68pau2ShluYRSJghkY1DSXTjO+9RdICAMQllsEXxH78RPLTrsoyy7aBTWxpFDTYm8
-	 bSctYq5V7XbWQq89zWWhrSasuAaaSidxbJHr5BVF9/N7D3sQSOlx1EL0G3PT9VsgkN9/X
-	 ZCbJRABn2V5nLSsiS4tHQF20VK9pgzHwZtfFE1dP1wAc1DiXjrDnT2/AANeSj9qkFcllS
-	 r4zSbJTc02rFAV6F6FykxLYri9D56+42lpQIr+c+LAs4IEglGmJODYiCzeeSPEE56eQ==
+	t=1793887660;
+	b=WOePFn5dTCYeLed1fQq3GCaAt6rP7VfO/fzhcthtEtA7f6Jkw7fna3tzAMWXHNBCPD30
+	 sPFariZ3m42ME8CStRCfx9DyuFcFoMjMFw7u4PoillBXZSexziqdlTUgS9YJfAuKowoWD
+	 kaepEKtFWllnJH1fZ0Hz6pUBWsFuGfxpN0J8yPjZH7ltiqV5SgR+wrY84/emGsl4yQb//
+	 eQBOt5UYWmHtxxMmU0VvyFfsqhdEf2Z8/4Zr18Zxw/TO5lLlScAw56Wxfu/Oo0bEZi84T
+	 piNrzlV6jSA7ZbgSg1gOJ4ENvYQFkUCOYDFrqSIpWJamkdAKB4a9qotLe5fJy5QFlmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887638;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam-Status:X-Rspamd-Server:
-	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=Utls/voivKi+vOuiVuSzZkWsQ+D1Jb0FNwOt2/GW5DQ=;
-	b=m6q5aqNKRAehewIZP7IcZZGNp3+nG6gWRe3LaNX8Nez35u1GyACTJwBV8ZLdo5PdUvip
-	 P4itTTtMu+ByzoPH7GPWhS9W++/B7r6k9UVUtUhWpChfIPXvRXfbwJRQ7kfVOVpMzQyem
-	 7aM6nr4bHzRjNjInfEgo7pf/KNVo5ZD05Qf2olFZXThgRfAE7/grIDqToL7/O1eDinqNv
-	 HGNVPJy2GBlq2bED3cZiO4/8nH2K2M2gI2NayUlXvv2rftSyPuf1brHBJmJ3OE8bZtMx2
-	 zLt7iNpRuyMClin3rGl2TlqozDWNbwRluDMtCOKcadgk2MLzvJnoFBRYkfZvZOoGmSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887660;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=SaeAqQfI2KAY38OvLqcKLanAVHw5PYzyGjgSbkUhC7E=;
+	b=QdPHZAJbgFU35d2xUIr54AscEMNImrfSXMQk8UPUia8YjTqhXq1SMr7h+pfZGPhf1Tqw
+	 QJCoK6NoXwEM7uO1PWdUEgqCRRJg9A+SrWnrHc+IsK1oxIB8SDTLJA1urTwS//7e16XW5
+	 ZJ5u+aIoisJkVsvrmUA9VT/aA6EwGr6tCp3bj3g24ZjSaM5rO5lOYQi7Z+sI016p225Dc
+	 wMlolcbRcy2uVoebk+TuRFpRVHutSPYfNaFw0DDmqlMG8cB/ljZncifv5ROhAsWkfDDNx
+	 ZWkmi+E72+g/OGiBt9iqDKxkvAHeJ3ASTbU7amNdSrGE0ezfIQ7bN+3ZxK6uooXl3wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=UmEpDNnc;
-	arc=none smtp.remote-ip=216.40.44.11
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ru8ZzJS2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EFA606A326;
-	Thu,  5 Nov 2026 14:07:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64EFA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D59606A31B;
+	Thu,  5 Nov 2026 14:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=UmEpDNnc
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id 2D87B160A01;
-	Thu,  5 Nov 2026 14:07:10 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 2828A6000C;
-	Thu,  5 Nov 2026 14:07:08 +0000 (UTC)
-Date: Thu, 5 Nov 2026 09:07:06 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
-Cc: mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzkaller-bugs@googlegroups.com,
- syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] ring-buffer: Skip time delta validation for the
- counter clock
-Message-ID: <20261105090706.19ed0e07@gandalf.local.home>
-In-Reply-To: <CADZg-m0FeLntAS6XxE-kc74vwH-jAh+jXT68qnVwXuHZNUHzfA@mail.gmail.com>
-References: <CADZg-m04iG5kCZ5-yh=Vz_ysYjVDGSYn3je4_-8AzWWfiC-bXQ@mail.gmail.com>
-	<CADZg-m0FeLntAS6XxE-kc74vwH-jAh+jXT68qnVwXuHZNUHzfA@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ru8ZzJS2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1F81F000C1;
+	Thu,  5 Nov 2026 14:07:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793887659;
+	bh=SaeAqQfI2KAY38OvLqcKLanAVHw5PYzyGjgSbkUhC7E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ru8ZzJS2U6Gz60vEbG0X2TnpHqRRuJJUfnYlCNRO9laJO3XG5u6NUNTJ3vsXdKrle
+	 VhZk8OLiEOb/RvK+ZfWZNf2MjI9QHkUstX6bfUHIXDwAwS9kMrpV9PU3VM/Q8Ft2B2
+	 +HQRX8ICj8ytzMWCFDE5blpwkk0VIFE6obClQgfJs+/hbBXQfetVds239Lq2lQs1eT
+	 ZJJtQ4x4wE4blIyvNyGAPZxAOIXyTnOoOuSTE0R5Tm8p5F+HM2c4ZG+8jEMfAYEHkM
+	 q/tcBWJZIw5FHUxGd8skVnaEHWZbZKjO1UfpfwGEHpqpMBac54NJohRS5PYLcEvQtw
+	 yjH+2CmXL7SZw==
+Date: Thu, 5 Nov 2026 14:07:34 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: SOF: amd: Load alternatively signed firmware with
+ an "_l" suffix
+Message-ID: <75156710-5ef8-4575-8f78-d65b9d752200@sirena.org.uk>
+References: <20261104-superm1-lms-sound-v1-1-c50b9284bcc2@amd.com>
+ <d98e6241-c3e1-4e18-a133-43fc7daefc2d@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,38 +67,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: br9t7qdek5pz77odheo55xarxjukw1eb
-X-Rspamd-Queue-Id: 2828A6000C
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19m525yaZt+H6oGT1CRSKAne1XcflCJr5E=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Utls/voivKi+vOuiVuSzZkWsQ+D1Jb0FNwOt2/GW5DQ=; b=UmEpDNncah1cps5RUnv6BgwixwT3Oc76JhZxj9cNfkv3zTwkF6M9s2B3EuNKt1yrp9j5AO1ND6uI0Qaamql9toycoDei7UP3vLwzZfIip/f8nM74NmikfLK5rJB88voThbnFlDky2Q2YKD0wldFvNw6vvIQu9NmtFed3Yvcc7FE=
-X-HE-Tag: 1793887628-646376
-X-HE-Meta: U2FsdGVkX1/v+RTy4pn4UivDt2OggKZ9IvuicZWGOYMuvZoMPPygV8iOsx+7Sho5F4Amu/FLqFWe8do4ZL8eYsZSTy1GgM1DKbMW27PojUF4vBAuTGtBzCAfS4arVmjjpOOiZDKgwhpuTsBgbYP0/CYuSejwJ10ubIvRZYuqy574rZkFTB6+ykZEyeGUrirZjy4LbxWBUdQXLrlVyNDoKRcnYOfliC5PfNBhWhfGouzJzETDsMJh3mP2ej8NEx6Z/1wIAQL3eli+yYK/2B/yrdZLckBXnpZ2qQSSYCiXNY7RTFFG52v+j0kc0P/D7ZYmvae8s3CYMZ4zLPVcIjxCZ09wqvvNbtUpRbDp5JwYIeNmF5NBmXWc6jB+mmhyQX2aaX1klIvJsAnHOIh+Voe6OBzenCBM2Q1Dm88Txq3ApSLKupVeKNQBgs6w/P4e9rzF1RvJ8wCSGNVR8JU77sNkpiXRxySqJIdsrQHj/zanzvIJlciVy6nbTInjJUhgkhDXfFrOFErsyts=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OrrbphR5k+C+gKCm"
+Content-Disposition: inline
+In-Reply-To: <d98e6241-c3e1-4e18-a133-43fc7daefc2d@linux.intel.com>
+X-Cookie: Alex Haley was adopted!
 
-On Wed, 4 Nov 2026 14:42:00 -0800
-Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com> wrote:
 
-> The counter trace clock increments on every read. Time delta validation
-> assumes that the clock values read while reserving and checking an event
-> can be reconciled with the deltas stored in the page. With the counter
-> clock, this assumption can fail for an intact ring buffer and report a
-> spurious TIME DOES NOT MATCH warning.
-> 
-> Skip time delta validation while the buffer uses trace_clock_counter().
-> Clock selection already resets the buffer, so events recorded under a
-> previous clock are not retained for this check. Recording and reading
-> counter-clock events are unchanged.
-> 
-> Link: https://lists.openwall.net/linux-kernel/2026/09/20/1283
+--OrrbphR5k+C+gKCm
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Nit, the above should be a lore link, but thanks for doing my todo ;-)
+On Thu, Nov 05, 2026 at 04:03:32PM +0200, P=E9ter Ujfalusi wrote:
+> On 04/11/2026 23:53, Mario Limonciello wrote:
 
--- Steve
+> > +	ret =3D amd_smn_read(0, MP0_C2PMSG_63_REG, &val);
+> > +	if (ret) {
+> > +		dev_err(sdev->dev, "failed to read PSP firmware signing type: %d\n",=
+ ret);
 
-> Reported-by: syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=eb74dca0d1eb3ec227a7
-> Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>
-> ---
+> > +	/* all ones means the register isn't accessible */
+> > +	if (val =3D=3D 0xffffffff)
+> > +		return -EIO;
+
+> this would also merit an error print?
+
+amd_smn_read() will convert this to -ENODEV anyway so that won't be
+reached.
+
+--OrrbphR5k+C+gKCm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrsjaYACgkQJNaLcl1U
+h9B/Wwf8DOeULOzwLR7XrrLKPa+4s8Q0T4G5MvT+jjSXyYUY8HZ0otiiQsy5rKZC
+W7u1I2ZiGiTpYGtFmDH+GuBhYvdG14MOGcD9eY434eldRADRM7U4YNkUrTM0AlSk
+k4VquZNYYFN86Ye3O/srzqR4lUcEDaneTcramwDVZ7ETYDQIjgssysscdnMNIn1t
+rHzrTKIPkI/hW2ANOe1s4YaOlqePRE9zKgflE89oIJlBqHeoZBR0i1hDa7eJbf1U
+D1QkJr8B+Wkie7cFmjCA1IzXJMRYXnXAhCMoNi9CeWnBgKQWOJ8zxc0wF1R/Uxow
+PggOmZwTnw1nY6xEtMCRfjzXtTx7Cw==
+=YXMX
+-----END PGP SIGNATURE-----
+
+--OrrbphR5k+C+gKCm--
