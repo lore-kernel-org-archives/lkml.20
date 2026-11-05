@@ -1,82 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882890;
-	b=EWBVROq4d5hi1plHSo07h7Rquuq2ikDRnh3fixpT4jfu+zjaoeED0cjW0jN4+yqdN7fK
-	 8z4viVONzz9tMaBfFWiKcyBAhzTNevEjGnAteYLHNElXlDLCqn1lnK9AnPJqmdd4HemTm
-	 QNYSMz1H52guhqkkv2ILjb/2gMtMvNvKNuHPOvmQLDyQH3plxHCMMbUQUUsK0F8rEdl2U
-	 ldzwiuhz1OhYCQFz9U59bicQ/9ZX71eABubA52nsTOnf9kIkFfjcLgPnqVA56QOGAA2t7
-	 YDE/aplu65kP3KRK2r8zDa0blSqwFXUEzGPs9sUuLTo+KNj97L+OgHBt1dAKeeTkgLA==
+	t=1793882900;
+	b=S0Fv1yTkBEpcW1yAarnAU4o/fEAtX8qSSYZR3XpTaeqgQ1fjGvxBbS8q9KLUmQXeBwZS
+	 7XB3zOxsWCTc+LM+Er2/+xHXVgfB9hHYM1yJ29YSDfmUhquwV7rYX/4FmWicbB+A50etK
+	 Fkm2YKspzrpIebn5L4Ar1BgekLo+FXUJ7QozTibgnFmJFEWI3qHDC4IsL8NXopqJ2Bino
+	 SiOEXZeEB7n1F2OwINJzGS0ZVAZj36OfzGXyjIBu17drFVMuVrXgSmG4oNEq5eM36STml
+	 iVu7NHEjBc7CocJyV/Nv6o0rzY4q7DEJaiXwS6zKKIBT9COPoGqB28vacuPL5rtWRmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882890;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=67Meo6SWs+PIUkmgdxjnuHYFvOEQPXfe0YgYIuPIdiI=;
-	b=aEVufChoZ3G94q/z8gb8abqcJJbVsmwb/7kmv4/TqbSR4c3fi1vJcQOi6lfqsUnykozn
-	 Fn1wODg6muXLc/pqkZ9KGdXlMqMWbhk9xj1OjW5x+SMCqflRNaLn2ZLT+xIF5h6kCUymT
-	 xmI7T5fpLskaMrOkqDT3r2Ny0fMxdKVUUtiRMmuSYWzEcSgJCfdeW8pwiXSI9gz3d+ni/
-	 dus4SB+HO+OlNVCin8+XEZApQIb0Lw/Tw95F1/GGRDdnzjLtVpZK9uN/9dzwZmvCZu22K
-	 8Cy6DRpLUwefXrWYD2PvhbiZgqCpfWo4vhakxwsDZKekdbC1xOifzaPB97gbxuWHhvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882900;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CeBw+s2LvMeqG/vb2nuXePt6wR8Y9lUm4clWyu7tZNY=;
+	b=4VzngWyIsfhNbuJU7/R28Ww5aTn6xxEn8brJWiwnAZ1g5DVx9hNZdBClYL7yTM8QrECB
+	 9QcmI6yPrCfQsGzKQCVzLDNczMNV9bm5Nz20ySzuEpbBJ6qgp7MX98FxK311L2iA+k5WZ
+	 44x+ZbZ/zuzrRxAn51zeCHTPjTQM/t9Ljrh/5LLEflwmUzXnz/QFoNqSR7Ur59B8dFfaT
+	 gImlPBwsyYO5NfnBabSwWRHobLPAmosCORBafK7TCOXKO+OMhv10qar0aPxsLWWI+HOzd
+	 fiN0wod41l80D/kXWlw5HpkuzsE/DZ1e0P41a6x6WStQhWZY3y4G40GU24Si6RjrlxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=wM2nZbKY;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIldk2Cs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED961606A31B;
-	Thu,  5 Nov 2026 12:48:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED961606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A5F606A32D;
+	Thu,  5 Nov 2026 12:48:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=wM2nZbKY
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jL2Cn6kBvzKm4y;
-	Thu, 05 Nov 2026 13:48:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793882885; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=67Meo6SWs+PIUkmgdxjnuHYFvOEQPXfe0YgYIuPIdiI=;
-	b=wM2nZbKYrnIh8WX0WuDbNcfZq7+PooA56MChjL9DGOkNxnqcR5H6N6DkYcnsMhJ91+6G9m
-	fX55ivHqzSW18hVVAspkRqwAEfvqack2bx4nNg6C/eGF1MtTa0nKvN3GpVKXCCRbUabTJc
-	5sX8voXKpVOjjeCcOqWlvVNf2glTSSyRlGZVJ90TuoEvLRIWvoZoiNpWLMvoJRLtpGDwlO
-	dwK47qW32ajvyuYJt0YMb4iYF/gGzauu9Ahh5ANSo6IEUoxI2KQH5E/s67LcdXBmop4VBB
-	T0J8XXPRXKvLWig/4xYxl0x0zfMDF3+ztxFng0w32JjKeR77Tj/78hWdKIQIIg==
-Message-ID: <f284e3b9501acca2cf41fd19409004de84a36e15.camel@mailbox.org>
-Subject: Re: [PATCH 1/3] dma-buf: dma-fence: Add flags parameter to
- dma_fence_init()
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Tvrtko
- Ursulin <tursulin@ursulin.net>, Philipp Stanner <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
-	etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
-	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
-	spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-usb@vger.kernel.org
-Date: Thu, 05 Nov 2026 13:48:03 +0100
-In-Reply-To: <005b77fd-5bd2-4ae5-a0c0-cff3f1f6c680@amd.com>
-References: <20261105113529.1989375-2-phasta@kernel.org>
-	 <20261105113529.1989375-3-phasta@kernel.org>
-	 <2f377d0f-2760-4465-ac68-b62210b33bd6@ursulin.net>
-	 <005b77fd-5bd2-4ae5-a0c0-cff3f1f6c680@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIldk2Cs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1F11F00919;
+	Thu,  5 Nov 2026 12:48:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793882899;
+	bh=CeBw+s2LvMeqG/vb2nuXePt6wR8Y9lUm4clWyu7tZNY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AIldk2CsQlorkpHASsofuj2utGYZeupCKR07f2JeNTZhwNllI0w3n4vBScSUWISUR
+	 kWvqw0mbm73nc7U5eGM3r4OZz4iEO8RcMgt2Ytx6TVAyQxKP6Yc9P55jGHy0CWFQA3
+	 pGeETt5FIAJXShO5uaEoh9wHbn9TgCRVRA/nT+yTAYj0yizEVok3BI6q74VXDmp+hE
+	 0J4YcTRvwPNnx3VC1DZ0R/t8K1hzumaozg/yMf1fWht9tsHcpW2J7uKScggTfISm0d
+	 PJfhyy5a8yrXHGHk8RMCgpvJEhIrfM2SM5FQWmaBX5YMeygPOfOt8Y+P47M1dphDCK
+	 Lvrjgoj8y8VcQ==
+From: Sasha Levin <sashal@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Beau Belgrave <beaub@linux.microsoft.com>,
+	linux-trace-kernel@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/user_events: cast pointers through uintptr_t
+Date: Thu,  5 Nov 2026 07:48:17 -0500
+Message-ID: <20261105124817.1532094-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261105110333.0fa21741@pumpkin>
+References: <20261103163913.640876-1-sashal@kernel.org> <20261105110333.0fa21741@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,45 +64,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: c917e2613df30c27150
-X-MBO-RS-META: zhysmcuaysmzyh6mji5yjtb3gu8yuuhx
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
--Cc rust-for-linux, since it was typo'ed and now misses the thread anyways.=
-.
+On Thu, Nov 05, 2026 at 11:03:33AM +0000, David Laight wrote:
+>On Tue,  3 Nov 2026 11:39:13 -0500
+>Sasha Levin <sashal@kernel.org> wrote:
+>
+>>  	reg.size = sizeof(reg);
+>> -	reg.name_args = (__u64)full_args;
+>> +	reg.name_args = (__u64)(uintptr_t)full_args;
+>
+>I'm sure you can't need both casts.
 
-On Thu, 2026-11-05 at 13:35 +0100, Christian K=C3=B6nig wrote:
-> On 11/5/26 13:06, Tvrtko Ursulin wrote:
-> >=20
-> > [I aggresively rewrote the To: list because my SMTP won't let me
-> > send this as it was.]
-> >=20
-> > On 05/11/2026 11:35, Philipp Stanner wrote:
-> > > Currently, there are two init functions for dma_fence,
-> > > dma_fence_init()
-> > > and dma_fence_init64().
-> > >=20
-> > > Since more future user options for dma_fence initialization would
-> > > require distinct init functions, too, it is better to do this in
-> > > a
-> > > unified way.
-> >=20
-> > Why not add something like dma_fence_init_flags() and leave the 99%
-> > of the callers out of the (huge) diff? Ie. just port
-> > dma_fence_init64() to dma_fence_init_flags().
->=20
-> Well one advantage of the Linux kernel is to avoid such wrappers. I
-> think having more than one function for the same thing basically just
-> adds more confusion.
+It works as is, but you're right, the assignment widens the uintptr_t on its
+own and the (__u64) isn't needed. Happy to respin without it if the maintainers
+prefer.
 
-Do you think all future users would want SEQNO64 by default, btw?
-
->=20
-> That's also why I would really like to just have one
-> dma_fence_signal() and not like five (or was it four?) variants.
-
-It should be dma_fence_signal(fence, error), anihilating
-dma_fence_set_error(), which is just another massive incentive to add
-race conditions.
-
-
-P.
+-- 
+Thanks,
+Sasha
