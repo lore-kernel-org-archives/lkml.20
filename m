@@ -1,84 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901276;
-	b=deFTirdfFA3ewmoOo/A7tYqPgZFD97Gb90AlVW3HtEcasJcAN+H/XBwARBlUMAZ1ofOW
-	 qF9AtwvDweYwcesaSS/DRYzsm6CjmqNnMhril48G6e1hSNQ8BUpFXiKrKsuvfaMRo4YLw
-	 XPcGg7u3zEiFYlGjI2qpG/F3IlDfzYnkgG2laRorqHNhJ9NZAklNTAvGvFRP+tFs16XTj
-	 28IMBJFKb4DY4heLw4f2zWtUJoCQ+lQk2IesxcQyz+M8G53bMPBxF2rMZZFq0pHwjoXzS
-	 MBjWwHxzHs+9JgA08n8pr4ewVgasM7B/SAex5vsU6ia11Ed5CV7HtPuMXqN2FEJjUFg==
+	t=1793901281;
+	b=FMMnTEwdMk3wEJQ19doQ9VCZcC55XGUxvs95cX5Nfw/IqXpC+3ZA4eESxLF7CuNWEJWM
+	 HgTaNHBfze+3Dd83ZMzJ1D+tx1h394jWiM74qbhaOJP7B4bz8NQbUyMjr3uURbTjZpcfU
+	 rQykn1ojgQfGWab/XAjm7LN1pdimAKOL1Ect7s36fq20RSTPkybRkDJSsUkHjUqq0bRcK
+	 s/1FooIFOjpOdFSrgFvIIJo1ixKfLoEc0htp6B9R5CedOlVgPDlPKgmY8j+LVBSE5r1V8
+	 /l3GYsggln5KsLdoEJ1qOHs650j5QYO9v4DVi+AQZyoC78FlvBqhzhiNM+0xxRP7SpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901276;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=eNswTHRkAB3xpLhJNb2j9JZGG582cPl1mfH65MgD+RA=;
-	b=RPBkpswrTgHz1HXFLgnaUmBP5dw9OelRE3N+pQ8NEsz9epFcQyX98nW4TrSF1Cmrr8Xi
-	 Okpn2TFEzhCdzjXLTYMU//bzKCKZ9g5dif8F3UvWXHSm7jE+SluWQzsn99M0n7hO8UXbv
-	 uCIO0YMMb/+6ytXpzKVC2g57Y8YLxL+deioaN7WDxkG7pIL2U68ECJcSdmUTl5kDTaUkv
-	 MKgy4LHJXEMQ/hl/V+wc++G+fDhIaVzd9qmoONcdU2X+tc9HlyvzP0X7fyJVpDJiVBuxH
-	 Xvy5JZcYBwFhdLFJEHO0POy2oqeys9SkLdH0damiUqwz1jj258957pWquKeqnEm1bPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901281;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5+IjkulH/41uJDVRRhy5A1j08msFct8na960h1PoJ4M=;
+	b=tY2QoLP/e9Bgt97KPdG/dZ3G+szhmxesT9ft0wvBRggMdPihK4OnZB2cE7maq3i13FYy
+	 3837dhTi0ipIEIz2dxamFvHko1Bcaka5EOWBtlqnhxjIPEnbhpm1X63ke7GUdXcknAYam
+	 2mdBeEZPZC5GBBZ6Fao+siMRJmRj1eOMPsSuDxPqm7ojaQhDNuuo3ZWRw/v7YuZXUgAwM
+	 /a7Z9GeLC0AmT+W6GXU+NQBnboMyvkDjJ/Vs58YUDlMPyGVVL5hWmr/n6uFMSUMUXFxjG
+	 BrGG4cXX7SKFQIHoHLkucbCjcdgl++AI2jNy0awtJnIolx5wf4HvMM7r8Sg2NzCq3Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fgzuvIbj;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=qUcgnBP3;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9572606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9572606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444EC606A326;
+	Thu,  5 Nov 2026 17:54:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 444EC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fgzuvIbj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793901274;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eNswTHRkAB3xpLhJNb2j9JZGG582cPl1mfH65MgD+RA=;
-	b=fgzuvIbjXHVAdERlt7LjLyL/kUDfzU2M2a2bVJv5tDn3bTXaZbFL/+nDojESzn6OTliFdX
-	tflVRmuxMzPZraF9bxAHxh4TWRmhokZM4E4snleoafh76gvBCWwtfMPmQz/4V10Qll9WRN
-	dXmPyMpMDchSFNP8+DqvG0ewTtIzKKU=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-620-whESyizYMTKoAN_7Vbzs-A-1; Thu,
- 05 Nov 2026 12:54:29 -0500
-X-MC-Unique: whESyizYMTKoAN_7Vbzs-A-1
-X-Mimecast-MFC-AGG-ID: whESyizYMTKoAN_7Vbzs-A_1793901267
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=qUcgnBP3
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jL91X5pJNzlfvqH;
+	Thu,  5 Nov 2026 17:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793901278; x=1796493279; bh=5+IjkulH/41uJDVRRhy5A1j0
+	8msFct8na960h1PoJ4M=; b=qUcgnBP3xkx+F+jgn5bfFNgbE5PpiuNT254GEgwN
+	yrfpAdMQ0zvC59Edt0HFVimxHL/mTum6dfNeQuZNp+GPmaHWsShw4ACLN4qJ0O+8
+	n13ewIBIGQcvZtb3M1qgdg0kY4eVYNB4WRNHVVSCk1wQzFmZ+Rj1rbVkEL0+1qSb
+	I9z8gfzRm5JUr3pHG6EtqbXVLMoOI7L1Mj8JRc+RmQXvCh+pzyy1EDR/LxjnPnLY
+	UK/r++fQK2UTuuLtIatAAMUilGEzc1HXOA1+C6lmfc9DQGc93IqNDYoAsfT/xh/0
+	AKBSq5oTQ9QoNjbVIt/VWWQyTZx4mEXKow+am6h41DHPzw==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id FndtKitPy4uo; Thu,  5 Nov 2026 17:54:38 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 21F9319560B5;
-	Thu,  5 Nov 2026 17:54:26 +0000 (UTC)
-Received: from jocolema-thinkpadp1gen4i.rmtusco.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5366418004FC;
-	Thu,  5 Nov 2026 17:54:22 +0000 (UTC)
-From: "John J. Coleman" <jocolema@redhat.com>
-To: zenghui.yu@linux.dev
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	peterx@redhat.com,
-	rppt@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	audra@redhat.com
-Subject: [PATCH v2] selftests/mm: scale uffd memory region contingent upon base page size
-Date: Thu,  5 Nov 2026 10:54:07 -0700
-Message-ID: <20261105175407.638242-1-jocolema@redhat.com>
-In-Reply-To: <20261011163527.95988-1-zenghui.yu@linux.dev>
-References: <20261011163527.95988-1-zenghui.yu@linux.dev>
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jL91V04QLzlfvq1;
+	Thu,  5 Nov 2026 17:54:37 +0000 (UTC)
+Message-ID: <b2614f98-e21c-459b-8dfb-f2a1cea93214@acm.org>
+Date: Thu, 5 Nov 2026 09:54:37 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,60 +70,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] scsi: remove dead code and redundant checks
+To: shao.mingyin@zte.com.cn, mkp@kernel.org, linux-scsi@vger.kernel.org
+Cc: James.Bottomley@HansenPartnership.com, alim.akhtar@samsung.com,
+ beanhuo@micron.com, stanleyjhu@google.com, loberman@redhat.com,
+ jmeneghi@redhat.com, linux-kernel@vger.kernel.org
+References: <20261105193328462jmyNd656AIL6fPlbEJ1Ki@zte.com.cn>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261105193328462jmyNd656AIL6fPlbEJ1Ki@zte.com.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When executing the uffd-unit-test, the "move-pmd on anon" test will fail 
-on aarch64+64k with a segmentation fault because the initial allocated 
-memory region is too small.  This only happens with the move-pmd* tests 
-because the architecture base page size is still utilized even though the 
-memory region is specific to the size indicated by the pmd.
+On 11/5/26 3:33 AM, shao.mingyin@zte.com.cn wrote:
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Patch 9f5c2aec3388 ("selftests/mm: fix uffd move-pmd test crash on 64K 
-base page systems") implements an initial fix to the segmentation fault 
-by skipping the test if the allocated memory region is not large enough 
-for the number of pages x page size requested.  But as this will skip 
-over the aarch64+64k pmd tests, this patch is intended to resolve the 
-problem with 64k pages by scaling up the initial allocated memory region 
-subject to base page size of the architecture.
+A cover letter doesn't need a Signed-off-by.
 
-Fixes: a2bf6a9ca805 ("selftests/mm: add UFFDIO_MOVE ioctl test")
+Thanks,
 
-Signed-off-by: John J. Coleman <jocolema@redhat.com>
----
-
-I made some basic revisions, but as I am looking to gauge opinions on 
-this email chain I am replying to the chain, I apologize if this is an
-inconvenience.
-
-Changes in v2:
- * Since psize() is included from vm_util.h through uffd-common.h, 
-   PAGE_SIZE macro removed.
- * Added UL suffix to ensure integer is treated as unsigned long.
-
- tools/testing/selftests/mm/uffd-unit-tests.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-index 2a97ba1d6feb1b35d6281449fd1917793a64fab1..3be227ed8d413f6e67e475862aba10ce13221446 100644
---- a/tools/testing/selftests/mm/uffd-unit-tests.c
-+++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-@@ -13,8 +13,13 @@
- 
- #ifdef __NR_userfaultfd
- 
--/* The unit test doesn't need a large or random size, make it 32MB for now */
--#define  UFFD_TEST_MEM_SIZE               (32UL << 20)
-+/*
-+ * The unit test does not need a large or random size, but the allocation size
-+ * needs to scale with base page size per architecture otherwise pmd alignment
-+ * tests will fail for architectures like aarch64+64k.  For standard 4k pages, 
-+ * this will allocate 64MiB, while allocating 1GiB for 64k page sizes.
-+ */
-+#define  UFFD_TEST_MEM_SIZE               (psize() * (16UL << 10))
- 
- #define  MEM_ANON                         BIT_ULL(0)
- #define  MEM_SHMEM                        BIT_ULL(1)
--- 
-2.56.0
-
+Bart.
