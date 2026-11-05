@@ -1,65 +1,87 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879343;
-	b=PwkR1kOQdq0KKOi83A1v607M1Al6EOUJBSnN2jYGNIoj86oY2iv1HFiogojlV8CS7Tvr
-	 UjzNv0UFSoqeYkLJD0OeRWPL+IOvcnQlljZBRRJlFGSAN49g/PSgTCsK7SlkRU5ld84MN
-	 WNn0+KEWknOzhRHfbWlm/lTzkF2d+FvwHJzz/Qd6R2Q/rLp28sAenhbQbii1fv0A7N9yN
-	 baSmSjIPqJG6vh8BmUu3MBajwlXtHk3gQgNW2O3VbeNW6MaO0WCvx2syILR2B5Vkx71jR
-	 hNffAU74oDHW2N8PMbWWJxwJfxJ2KAgg3CnDQ0KvCKxUGF3YOx0jVzER1hBVa2ovwVw==
+	t=1793879397;
+	b=qlwQPMjaKzZN3Pktm3iNdFocbu9Qk9lcCM+8o+kasc5bd381wGWls3TrTzivdRqoEoos
+	 mkAgCzjs/iqCKsizCOzRGO143ywUM6KEOCyIsbjFPb5tUKoXt1A+CtkVmY6v2veNHM5mq
+	 qohWTZfTL/E3GXiQaV+nFjj0Rrkx8yNKjg6rSO9WT0qjoSLccZozRhx35rxBpwKOlC0Yt
+	 odNvIRXsPiVT9A3gM+0QXFNhwqta3Hh3fB7CITXc7C1CvNOBaKNxhtrz+V3pECfToiQca
+	 q1wW+0FNtgoY706LSGqVRbz6aJ1HhPnSsydB9jDkgdUWkiEWmcLFqb7StbO6FEAly1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879343;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=uaayokCbVv4A1cXEEvxZH+uDqBX0dAowaGyg2mb9XGE=;
-	b=qKd35V8i6Xjj4CO0endWTeqWigMFchK2FbDH8Ba1Ih2qk5RgP0z8z2z5NZnJ2vHdbbaL
-	 gLqUM5z+2W82JMbaypDcxAyzvC1BFG8ACma3llrTZkDW/NQL2ZsmzIVzqOvFF+n3V0qE1
-	 8zoLN2xIBS0UNfqxN1xolurLwOGOI/woLCGvqYsPC1fY3FTBy9V4s3+EfbasY4H9DVZ0o
-	 2tzwPT25qhRK7ory20taMSu/nzXVhqmV+DU0waPDiyNeLPvCCX9vd1eeolFwQ6f7FbFLP
-	 DLTQKnb3vNfClc22/n43chqgsxPeujDmGUn4qncxjlxcQdM2OqkXVXcWSdTTFxWdMqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879397;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=VImrv8FOkQBPZjLUsdaZmiq4Cy9sbelPnrfcMNk1WI0=;
+	b=scmczt0DZl2DQpMDrUljjFESTziZjnL9+nLD94PfEAejNzJxewYik7A7xy/GRqzeCiZx
+	 E9GDnLYUNY6C+9eWYpUAnxKQVRwL3c21nUQZLr/PaTeFcNiBq5Nl/h6a+8cYsf9rUpCPS
+	 Z7YAlbv3s+7mNNd8v5DmxsfZtKe6qIWnOcyr5VsrBxhX3N3wy/7gTuSUeK8Y2zZbh/NYQ
+	 jmNMNsuhT63w232YNx4A+oZJvpMK1VRdp3cLc5HW3xnJ4DwsnC8VNB4CiSt/iLTJmcS4O
+	 wiAT3/TgHILbSOFjuZm4Cr+tmgpeU/gxR8Q3OcS2vKV2z9+WANiWIRsT4pEJgjC0Nug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VlzrjAG6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOhJJ17f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F51606D831;
-	Thu,  5 Nov 2026 11:49:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D97606A31B;
+	Thu,  5 Nov 2026 11:49:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VlzrjAG6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3DD61F00919;
-	Thu,  5 Nov 2026 11:49:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOhJJ17f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5BD1F000C1;
+	Thu,  5 Nov 2026 11:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879342;
-	bh=uaayokCbVv4A1cXEEvxZH+uDqBX0dAowaGyg2mb9XGE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=VlzrjAG6sSMU6/B47taid7cNtATcwGb/YZBNLb0kTEkIovnLvfxXJZ5AaFkpyQAWR
-	 ERalTfZ7mReUasMFW32jlz8YwIh4pLflfSXW9g2QmhqoLtn9cUnvSX3Vx+NYy0/qsN
-	 jwXijCNswfFXXAy7UA3K3HlC2dMXrHTXiJUii+IIqR7rn/QEVcE+EnxyQKUtYnUxCd
-	 ADYMeWP4s+/BxFUEmy3y2cJog62v4I2dVnEhLXHIcpToQihMLSXs1A752aZ681njzv
-	 OY/B9S7IFjn5xOGebzsDV9Phw+jw4fdS59ZL3ueglFJtyVDRgqFownDiEeKJ5750Zc
-	 IHzEnFgOIgVGg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id E4842272EB49;
-	Thu, 05 Nov 2026 11:49:00 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261104113228.1634005-1-peng.fan@oss.nxp.com>
-References: <20261104113228.1634005-1-peng.fan@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: imx-audmux: Convert to subsys_platform_driver()
-Message-Id: <179384086702.2186205.11117953235004783694.b4-ty@b4>
-Date: Thu, 05 Nov 2026 01:07:47 +0000
+	s=k20260515; t=1793879396;
+	bh=VImrv8FOkQBPZjLUsdaZmiq4Cy9sbelPnrfcMNk1WI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hOhJJ17fnaoVYndtIuekxR8R6KO9FBbg6IMn7mFLdmS1AHggfitt7+Nvrcw1ZoLS4
+	 Q65DYL5m5guEYklW1MnM8sShCjbOu/AVXCRkeAq0oWJzYgdSjMYQSoPJ96z4njASSx
+	 g0B6PgBhVRGiD/wpmrvUwA1kR0egiK6rTVJvWHCbIph7lJVlgjaYza1OLGN6+QLjV7
+	 eB+WAtu5GOmRtEtNDB3x5vun45DMPw9GgdaKtuLzUTNEVCYpObK5jCJwkxgaleD938
+	 anISYi/vi9jKckwLJA6u6BOWD2I3Hy1tpQyEN3C1GYWIOm7+okR8USjxmUUyIzI++d
+	 OX/zTf+vcj9eQ==
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8419B198003A;
+	Thu,  5 Nov 2026 06:49:51 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Thu, 05 Nov 2026 06:49:54 -0500
+X-ME-Sender: <xms:Xm3saiAdn_cZh3JtSZrh99WhVttXV31FNCr4PBP-ecHfjESLFAyeLw>
+    <xme:Xm3saopxSAetXRYpzwVNDP-QRy3P_jPcWB7JsYsS16lNph1qMbflVqH7SrgNofevG
+    o9yA6mIHliJgXjQtkKKvElnY8KcnuLkCCcGHC9u_cgftVDxmYe4qQw>
+X-ME-Received: <xmr:Xm3sau1vZ0S9_M5aNLCqdNT5Lq-NPQ05c7vA75rSiwVOkLoUv75Ra_nvijk>
+X-ME-Proxy-Cause: dmFkZTFaQBfUFVPMP8xrPqBpPtUnYXtbN3LRpp/oxJl/b1RmZnSSZHsU20CPxF1I64DXUJ
+    SNLa91ZNNqfrtHA9eDebWdeJ3pYuxgu/qVSEnCct1TlKIRlJn3GcjTHnnT+sn/oHMnbGM1
+    92CZwyL88cWl12ru+oFk3aGPCVOPyvG/BBaSa3nzQ0qnYXC+EDwfMTbKFpKaz7lB8mwBSr
+    tjdeBaZoIb3fDCkky6tsMipkpHqSdW7Zzs1aYBXDycZrYrz694hViPMgw3pBshbYyrko2L
+    Ohq3WEDa90dSPdCt1Zj6L7kr+Qhl/jG4fQDMc8x/v4q4YqTy9IFSVobK5sWmdPu2MF5qpt
+    EjNpg3PBFTo3XO9RRKHjGaWEQXb5hxpkiWD5hurwcftjcBKJ3dF7hkJYtdSdF1MXJTQGtI
+    U1DxCDZulyaz+XBHLq20bFdQhQbcfFjWNS+nuDxFo8TUM/HN7akP5A3EdHg18A8AJQwdQv
+    PWAvcY13nCclZdQ9XC+ee25WbgDrMiKU8N3e64SqzkgOYAmYJbKJAAlcOZK0GXdOgKQBNC
+    ul1laNs1D8hTZTkx8NJuJzTLRCqehRluIahZmS7tTps7YtiVuhHvREip5GILZ3mwcCpJtr
+    UaCfBsMS72oJMuFm65lhi0wXsXbtCojAj7PUM7Q/sN338f1Y+5/vcc2kDuzQ
+X-ME-Proxy: <xmx:X23sav36-BZf_GdwZf1t908PDlsbnfG7hQS6Im0OKWe1m08mb8IFBA>
+    <xmx:X23sarciPpe7lJ_W_T8XXfpsZ5Dz4Nickzk89PD9OSK30i_0X_RguQ>
+    <xmx:X23sar4mO8DRWKgjo6flEr1hmYHrDo14rxHdRIiC1TMqq78q9bRNlA>
+    <xmx:X23saoi18BpZHjKIwprPReemBZ9lHVBBrXRlSF6c1dUmGIYVXOylvQ>
+    <xmx:X23satrGkUFjjpRHQtDWiikpbfIcGWhCKBGjUS-v73FO4Hw4LlhPATus>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 06:49:50 -0500 (EST)
+Date: Thu, 5 Nov 2026 11:49:49 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Shuah Khan <shuah@kernel.org>, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/mm: skip split_huge_page_test without the
+ split_huge_pages file
+Message-ID: <auxtQQ7KsQJK0wkH@thinkstation>
+References: <20261105030242.1241448-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,46 +91,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1126; i=broonie@kernel.org;
- h=from:subject:message-id; bh=dsgrxpy2KP6cvgFm7+hbIpNnopwMFJSlB/+wS/jcktA=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe5OqEc28Rqo8MWMv8aadtytRZQvO/HDeev/z8jnn3z
- hW9byid0FHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJcDQx/FMMedHTplIk+11d
- Sycw7LCUhuT0Wu/v4u5ZD17plMzfyc7wT7/S+ehC2XM6DD4T1jpU+zt3fnJ82/T7rM0zkR/htzp
- k+QE=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105030242.1241448-1-sashal@kernel.org>
 
-On Wed, 04 Nov 2026 19:32:28 +0800, Peng Fan (OSS) wrote:
-> ASoC: imx-audmux: Convert to subsys_platform_driver()
+On Wed, Nov 04, 2026 at 10:02:42PM -0500, Sasha Levin wrote:
+> Every case in split_huge_page_test goes through
+> /sys/kernel/debug/split_huge_pages. When that file does not exist,
+> because debugfs is not mounted or the kernel has no CONFIG_DEBUG_FS, the
+> first write bails out of the whole test and it is reported as a failure:
+> 
+>   Bail out! write_file(/sys/kernel/debug/split_huge_pages): No such file or directory
+> 
+> Skip the test in that case.
+> 
+> Fixes: fa6c02315f74 ("mm: huge_memory: a new debugfs interface for splitting THP tests")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Applied to
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
-
-Thanks!
-
-[1/1] ASoC: imx-audmux: Convert to subsys_platform_driver()
-      https://git.kernel.org/broonie/sound/c/aa56acd47629
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
