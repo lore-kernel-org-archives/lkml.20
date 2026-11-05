@@ -1,89 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890724;
-	b=1F5ZA4XhqAoBkJd7Zin1jm0UlPnCTVIlbI0XlJJ5uTTEd9V5hAi0d76cn46M1IWttcfi
-	 zaDRwYOh39lEpIX6g/dHk4fDf++hC3wOYCLGWSxOL5WWtMOBy/9yS3eaeU3HGO7cqHNTU
-	 FZy/VPnyzkEFbOwZv3wDGBSF5bO90VsknnAvrXHL7W9SpkwpRCqtl5hB+hRzIQFcfcV5z
-	 U47ZJQvwJR2bQ8yV+f4Q6tvFbvkODRA96HVjsIo5588o7RWWjch02BjIQgkLLGrExcfGP
-	 5eavOBAKULvTodDkzfnd6Uum5OQLcoma2Qq9x4l1HLybBnBgy/DF6qHlyzM47EOOrEw==
+	t=1793890729;
+	b=v96bhJvkiid967OMLXnyqL15LRJxdPDFQfWncDmw/M91H7YnN4Z4PY1Ga90IbY2qsslB
+	 bXaE8AJnoSA+w1IQXX9midUg2hI3Gh456AGQAxe0Q5YXCRfrhRAh1Fc99EpwfDdAEAHSL
+	 wFwODX8OkfrrQ0mzpYlDlan93BYfEnHjY3a8uOPBjkKeD9JmZEo4YgFyuUdMSbV0SlvV0
+	 jtKPxMl/dxFZcrh8S8Ae8YF8YFRq5yieSS6tNO6PWh27U036wuXDAR4d89YQiYFf0LfZA
+	 ykb7GWku0CumOUXp9JGRwWhqj5AU3C6oB69/RaCx6k1DY6KXaHvRNlOTNRO68BK+KhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890724;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=buOTmB6dMBkT+g+e+VlChs8aFr20egJQvSL81OYURcg=;
-	b=w3/foD/V0agMOyzoFG3mY6zYe6RHhcUBHPjrdWIiyZhmXHQwoOGmJOaK5tg9/r7GuwcS
-	 NlFypLx4kGzcmRV03RkcVPpGtPWAU25llkEkxgh5VOMU5GvkIvnEgg5CE0WUWgmQJQ95a
-	 BKFXGzKgrPXeF+iwsPxFDMUcYO2/bEhAZhMd4RBImEQrjfIHtDV6fwyzMKGmSV1YPVEm9
-	 fGpH2nSZvbd8An2jaz0jPHPnDWh/CudlWWME1yl7smPBAY8e6gGkF0Ocj4gSoo1G9PopH
-	 ErMf0J8sfbAtG1VhDRl5jfBtiTfWVuOCplM0ANJY1qshPWvYzbHD1Ar6ezjQYsR0mNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890729;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=wUGc+KdbCgid8Ys19RjdSHyEDFT5mLI3WQY1DG1vEVY=;
+	b=3B0NZfzxi6oV2C+6o7K5jjp6e5jvT1oZIdIs0zBYhV2i/LMwkgYMhQMC5Nhv6S/Lh06p
+	 gADIxu/7jvgMIxm2FLKIDzawtVzTCCvW22SHyRteEfmQ7p1YAc7bKltzER9ItLT7yUk29
+	 6sDNzYD7PV60I0I+O0L55G8mfd9p0tzO0EdgrGRt0E7siRzguvJAAupqtvtNG7v81t702
+	 DlCfI8lz28MwlLC7BEHLpI4XTgjz73E5lFnFPOepmSsuV/AMUUMnoIb4h4xOV60h9DdCW
+	 u0Dxy3yB3O+cskREVhY6MUawL3XqGeTMH70dftUqIavtgiVFOUC3ZV7P17dcJVk/rCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=erkvnXUk;
-	arc=none smtp.remote-ip=209.85.210.42
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=cILGGSKY;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DBE6082BD4
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66DBE6082BD4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DA66082BD4
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7DA66082BD4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=erkvnXUk
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-8490a7d6696so1233272a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:58:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793890723; x=1794495523; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=buOTmB6dMBkT+g+e+VlChs8aFr20egJQvSL81OYURcg=;
-        b=erkvnXUkm8aB2WnNzJftRRZ+DY3KmyWhLQBiAKN1H+E+7MIfMDO4BygWkJitjRi0tL
-         cnfkpd94djLeGz3mN70uZ33o0JmOLYklG8e0TwPcNsQIg1NYFGGAd6JWlVqIzAUeDcQ3
-         pqqu34NBupkb5GpKm+UgO0gjR+83usYZ9gGULpRsYk/wa2s0m5nkhcjWf0DQavjoiuN/
-         cy8XmZPnhKkPTlZecESnfgTDBgXPR+j69xMEHk4m68csit0fOUcImvWWIFIXKMC1oET2
-         Xz2T13iY/behXTjKiAUgT6D1d+pxgcdhOBk96ojdwKohdM2q1JuItqbnKUj7JVvTvI1e
-         OGjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890723; x=1794495523;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=buOTmB6dMBkT+g+e+VlChs8aFr20egJQvSL81OYURcg=;
-        b=eth8oDssDeSQonGyicK+dwyaH4sSY5Hw3qAWmf6q+4EXOX74C4aFvfT7mQvB0WKbsY
-         uFRjsTm1xn+3RZAId7ff14bJ8VZfwNd74pynuxGHXb+5N9VWu2lryJH3swQB5uEfWLOo
-         8No1etleOjrJj5UZlpYZ7/SjV52CTCE4Hk+0hadMGiHQc/ixcUN6/vMOjW3UFpWfK5Gp
-         CsxVu+JvvoT/BvUXqikwJYK6SRsa3uNhamdAhD7nW0G0xzkpNeguMpcZd5MeZAyautTi
-         WMI12pMIw1zjY3k/Zkt0+WjV852LKo4NvKukXGiK7b7xQlFxkcUTznXS+U3K/8mDECni
-         idDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzI0anOs6GL7GunO62Pwo/fpHi/FIp1u+qu5yI+ft0UPka2Xc+Ecs9EysUFP599XllAjQbO1Pp8h4TnOM0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Kk9Ya0VzhptShMYKwUC647DwYdxXYh0f5kauKHmY3Tt82ruJ2
-	olf9xmjuC/pFUnqgC8hJ0h7netpWK07D945wMew5YtbjITb8smCYNYv+sAtz9FJAOJs=
-X-Gm-Gg: AYBFou2VrDk+Ek6s+Jibd5qSy/55L5miSDtzbB7PkN7jcL1YAI1CXzlPEGm7lzTOdqC
-	PthGWLBl5Ll7k1o0cddAN46Q/AwglEHsDT07bLGU6kBJUr73Q0UIGE1KJwLgMSK4OqU8YKLXKwA
-	1SI0OhgG3JcahA63YZ35BIR6wRSh+Bd4pw6uDruhw5hnVtaXt/kqeGDA4yikII+edJRrEM2Scdv
-	cUooZJtl/AqzjYT0xXRGQkFYMjbPDE62sbyOqt5oHpUX4gK4HUdTQ01BHFVvJ1lshmllmMqxoNE
-	IFqiSUnkXe4L8fGh19FLowltt93IN21Tmk/prtEzWYqM4K/FAbgx/JSRjLLwgO+69hdPG9IqgD+
-	GHg8Z94aoluV9BxvsJ2JQgs7POPzUOrFXyVDpZggM9lfo6QLqm21ilUvH9affmEv8MYJNQDiSV5
-	Y1xuhx2CeDl/XlJSf7Qy3+KG68bf6BXuxVI3ZqPSMBD3vfcCXwCrJz7nhcEl64iQ2Gbed2W7jvK
-	x8de24Cjou5SyH5ymnPYL8AMZcqW+L76OZSVLIWcBem84iqzKsJdZ+LplkHTjU38GlxTH17tiDL
-	OGsNAawAfJY6cP960pN+uf0yTt6i8n3iSeA01BPeJQjbGQ==
-X-Received: by 2002:a05:6830:25d6:b0:829:9992:20e7 with SMTP id 46e09a7af769-85d366454f8mr16577501a34.30.1793890723347;
-        Thu, 05 Nov 2026 06:58:43 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.242])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e603b9sm4639148a34.20.2026.11.05.06.58.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 06:58:42 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 14:57:14 +0000
-Subject: [PATCH RFC v3 23/90] nsproxy: build the nsproxy the tasks of a
- cell share
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=cILGGSKY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=wUGc+KdbCgid8Ys19RjdSHyEDFT5mLI3WQY1DG1vEVY=; b=cILGGSKYDJ7dqy+YASo/GTEkyW
+	unMYVoPVZ1GyGC6lR1cub+2Ar2kCkw2zqFKsJqRVBnLNGP20nAD/oYIUzHx1SQBp3IXGzFCBOXdey
+	xdw6UDm5lbMVDmUitC74KAY/kWQVT47VRVfI9fxz9cQf5Mhvg8qeSGpGdrqVqdVQ5Jpn5l7wJcP02
+	NNU/lfUj7lpri74Wuw3D+78EzxcspKpVT3ahCG5lnJtQNdx1IkWmRb2DNWr10w6jJKRswgf+8MWlR
+	Xh21OeomN1gouegy97XtPgO3dPkBzKVMo8oFbEb5hDrgYzVHJ6GuT/NQBucIQ9ph6fM7ZlfUv1xb1
+	iLu6XKhQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOyvN-000000037A3-1fL9;
+	Thu, 05 Nov 2026 14:58:45 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7AF013002F0; Thu, 05 Nov 2026 15:58:44 +0100 (CET)
+Date: Thu, 5 Nov 2026 15:58:44 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Marco Elver <elver@google.com>
+Cc: Bart Van Assche <bvanassche@acm.org>, Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Waiman Long <longman@redhat.com>, linux-kernel@vger.kernel.org,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH 08/14] lockdep: Introduce lockdep_assume_ctx_held()
+Message-ID: <20261105145844.GQ1813469@noisy.programming.kicks-ass.net>
+References: <cover.1793654853.git.bvanassche@acm.org>
+ <71bc2361d8676f1eea3c945cbf21a0c2542d5b92.1793654853.git.bvanassche@acm.org>
+ <20261105083746.GP2668804@noisy.programming.kicks-ass.net>
+ <CANpmjNMaDwcm+tQ-cOUjnE3n+5x8WgB5CZ037uurbwVa4Jn0BA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,158 +73,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-23-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890670; l=4299;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=0xMERCPZyIg8/DpTITYMjSEaKK9pIKI3JZmJ5dj+u00=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QCAXUMNK5XT1BglVpSfYJxXcdL2YqKiUKoGCbB+p1RuwNLSINsd+5TtlA8aIZenFz5CtnZ5Gt3s
- UK/ZuPhPFrQ0=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANpmjNMaDwcm+tQ-cOUjnE3n+5x8WgB5CZ037uurbwVa4Jn0BA@mail.gmail.com>
 
-The namespaces of a cell are a property of the cell, not of its tasks. A
-task of a cell can call neither unshare() nor setns(). So a single
-nsproxy, created when the cell is sealed, can serve every task that the
-cell will ever have.
+On Thu, Nov 05, 2026 at 03:39:33PM +0100, Marco Elver wrote:
+> On Thu, 5 Nov 2026 at 09:37, Peter Zijlstra <peterz@infradead.org> wrote:
+> >
+> > On Mon, Nov 02, 2026 at 01:34:38PM -0800, Bart Van Assche wrote:
+> > > Introduce lockdep_assume_ctx_held() and lockdep_assume_shared_ctx_held()
+> > > for code that needs to inform Clang's context analysis that a lock is
+> > > held in code paths where lock ownership cannot be proven at compile
+> > > time, e.g. because the lock is accessed through a pointer alias that
+> > > the analysis cannot resolve. These macros call respectively
+> > > __assume_ctx_lock() and __assume_shared_ctx_lock() and also verify at
+> > > runtime with lockdep that the lock is held. Store the macro argument in
+> > > a local variable with a unique name such that it is evaluated only once
+> > > and such that nested use of these macros does not cause shadowing. Rely
+> > > on Clang's context analysis resolving that local variable to the
+> > > expression it has been initialized with. Document both macros with
+> > > kernel-doc comments, including that __assume_ctx_lock() and
+> > > __assume_shared_ctx_lock() must be used for context locks without
+> > > lockdep support, e.g. bit spinlocks and the RCU context tokens.
+> > >
+> > > Convert the lockdep_assert_held() tests in lib/test_context-analysis.c
+> > > into lockdep_assume_ctx_held() tests and add tests for
+> > > lockdep_assume_shared_ctx_held().
+> > >
+> > > This patch prepares for removing the context assumptions from
+> > > lockdep_assert_held*().
+> >
+> > So the only convincing rationale from 0/n for doing this was that the
+> > current annotation can hide the need, and thus cause a lacking of
+> > __must_hold() on the function.
+> >
+> > I'm not sure I understand how this alternative form of the same avoids
+> > that same problem, and the above doesn't seem to mention the whole
+> > problem -- either that, or I just can't read this morning.
+> 
+> There's no problem if you're dealing with new code. But we have a lot
+> of lockdep_assert_held*() sprinkled all over existing code, which when
+> compiling the kernel with WARN_CONTEXT_ANALYSIS_ALL will not warn
+> where we would be better off with a __must_hold(). I believe Bart had
+> been working on enabling this more broadly and doesn't want
+> lockdep_assert_held*() hide warnings.
+> 
+> This latest iteration is a compromise for that problem, rather than
+> the previous proposals of removing __assume_ctx_lock() from lockdep
+> primitives entirely. The programming model is unchanged: we delegate
+> to dynamic checks where the static analysis fails, and that's the main
+> purpose of __assume_ctx_lock(). The only difference is that we'd have
+> to be more explicit about it, just because of legacy use of
+> lockdep_assert_held*().
+> 
+> I'm somewhat on the fence still, although would be willing to accept
+> this compromise if it does help catch more bugs, and is neutral to
+> only mildly more mentally taxing in writing new code.
 
-Add cell_create_nsproxy(), which builds that nsproxy from the namespaces
-in the slots of the cell. The uts and ipc namespaces are always new.
-Objects in a shared ipc namespace would be owned by ids of the cell and
-could outlive the cell. The time namespace is that of the builder.
+Aaah, so the 'solution' is to rename lockdep_assert_held(), such that
+the pre-existing annotation doesn't pre-pollute things? But if you start
+by converting existing lockdep_assert_held() to the new
+lockdep_assume_*_ctx_held() you'll run into the exact same problems?
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- include/linux/nsproxy.h |  9 +++++++
- kernel/nsproxy.c        | 67 +++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 76 insertions(+)
-
-diff --git a/include/linux/nsproxy.h b/include/linux/nsproxy.h
-index dc2447f5f092..02101d96e4dd 100644
---- a/include/linux/nsproxy.h
-+++ b/include/linux/nsproxy.h
-@@ -12,6 +12,9 @@ struct ipc_namespace;
- struct pid_namespace;
- struct cgroup_namespace;
- struct fs_struct;
-+struct cell;
-+struct net;
-+struct user_namespace;
- 
- /*
-  * A structure to contain pointers to all per-process
-@@ -101,6 +104,12 @@ void switch_task_namespaces(struct task_struct *tsk, struct nsproxy *new);
- int exec_task_namespaces(void);
- void deactivate_nsproxy(struct nsproxy *ns);
- void nsproxy_free(struct nsproxy *ns);
-+struct nsproxy *cell_create_nsproxy(struct user_namespace *user_ns,
-+				    struct mnt_namespace *mnt_ns,
-+				    struct pid_namespace *pid_ns,
-+				    struct net *net,
-+				    struct cgroup_namespace *cgroup_ns,
-+				    const char *hostname);
- int unshare_nsproxy_namespaces(unsigned long, struct nsproxy **,
- 	struct cred *, struct fs_struct *);
- int __init nsproxy_cache_init(void);
-diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
-index 2dcf105e8ee2..bfdd392f4007 100644
---- a/kernel/nsproxy.c
-+++ b/kernel/nsproxy.c
-@@ -28,6 +28,7 @@
- #include <linux/cgroup.h>
- #include <linux/perf_event.h>
- #include <linux/nstree.h>
-+#include <linux/cell.h>
- 
- static struct kmem_cache *nsproxy_cachep;
- 
-@@ -242,6 +243,72 @@ int unshare_nsproxy_namespaces(unsigned long unshare_flags,
- 	return err;
- }
- 
-+#ifdef CONFIG_CELLS
-+/**
-+ * cell_create_nsproxy - make the nsproxy every task of a cell shares
-+ * @user_ns:   the user namespace of the cell
-+ * @mnt_ns:    its mount namespace
-+ * @pid_ns:    its pid namespace
-+ * @net:       its network namespace
-+ * @cgroup_ns: its cgroup namespace
-+ * @hostname:  its hostname
-+ *
-+ * The nsproxy never changes: a task of a cell can neither unshare() nor
-+ * setns(). It takes its own references. The uts and ipc namespaces are always
-+ * fresh, the time namespace is the caller's.
-+ *
-+ * Return: the nsproxy, active and with a reference for put_nsproxy(), or an
-+ * ERR_PTR().
-+ */
-+struct nsproxy *cell_create_nsproxy(struct user_namespace *user_ns,
-+				    struct mnt_namespace *mnt_ns,
-+				    struct pid_namespace *pid_ns,
-+				    struct net *net,
-+				    struct cgroup_namespace *cgroup_ns,
-+				    const char *hostname)
-+{
-+	struct nsproxy *cur = current->nsproxy;
-+	struct nsproxy *nsp;
-+	int err;
-+
-+	nsp = create_nsproxy();
-+	if (!nsp)
-+		return ERR_PTR(-ENOMEM);
-+
-+	nsp->uts_ns = copy_utsname(CLONE_NEWUTS, user_ns, cur->uts_ns);
-+	if (IS_ERR(nsp->uts_ns)) {
-+		err = PTR_ERR(nsp->uts_ns);
-+		goto out_free;
-+	}
-+	/* Nobody else can see it yet. */
-+	strscpy_pad(nsp->uts_ns->name.nodename, hostname);
-+	strscpy_pad(nsp->uts_ns->name.domainname, "(none)");
-+
-+	nsp->ipc_ns = copy_ipcs(CLONE_NEWIPC, user_ns, cur->ipc_ns);
-+	if (IS_ERR(nsp->ipc_ns)) {
-+		err = PTR_ERR(nsp->ipc_ns);
-+		goto out_uts;
-+	}
-+
-+	nsp->mnt_ns = mnt_ns_get_from_common(from_mnt_ns(mnt_ns));
-+	nsp->pid_ns_for_children = get_pid_ns(pid_ns);
-+	nsp->net_ns = get_net(net);
-+	get_cgroup_ns(cgroup_ns);
-+	nsp->cgroup_ns = cgroup_ns;
-+	nsp->time_ns = get_time_ns(cur->time_ns);
-+	nsp->time_ns_for_children = get_time_ns(cur->time_ns);
-+
-+	nsproxy_ns_active_get(nsp);
-+	return nsp;
-+
-+out_uts:
-+	put_uts_ns(nsp->uts_ns);
-+out_free:
-+	kmem_cache_free(nsproxy_cachep, nsp);
-+	return ERR_PTR(err);
-+}
-+#endif
-+
- void switch_task_namespaces(struct task_struct *p, struct nsproxy *new)
- {
- 	struct nsproxy *ns;
-
--- 
-2.55.0
-
+That is a very minor and very subtle 'fix'.
