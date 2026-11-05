@@ -1,99 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793861722;
-	b=OoOR2kRDmEboIvGPvPzti4nasJTnHHBcsniT/0izq+YM2rYvWacudn6vc6SL1heEI3ek
-	 22d9yO4ys8BL7T0P4QFT8kUoblWzY3yBdYfH/6TtQizCIBZljthLT50PqAZOe/abmfta/
-	 pyhwvzszL2FopEMq9G0HiXO0g97cuSLJ6uNf4tpGyPY6XJBI8ssYrVLCTBxMzcn20AHN8
-	 1bhFBxMTciXZls5Q90pTJAXMzWllHNtmYicyH/ztPZ3M9dIQBJRJBE4H0wlHH984Ju6OU
-	 c9rjAqwGoVzYirW/NyLHE3pkZ2uja1XDHn6NeqqIlut1q4I7vBt9UHL+o1x3mKcmjPg==
+	t=1793861808;
+	b=1gMkG/H61I2lhPc38j9Qouu8+VRwXwoLlsJ8moNJbMtrpSk5IjFS4XXOXnEjX24oGyBP
+	 dr4LPPR9zq30YSHp4dZDKwCcR2f4tLKjCj5n1vlpVXvcyNRUnWppEkO0p7YfV+L4BFV0h
+	 q1LI181TbbkejCAPQqS71Zu4LJUbzfOk1NVWuxO4uCMtVjS7gwW+4qoFdVX4+Uqt4In0M
+	 nRfqLduZupncGG23dz+VOi13fBS1ENYcN9WIIMmikg5Kc8Tx8B9ofRpc0vryOOwPs2kYa
+	 yb+OqYh11oJ/odYtpUQwLa0uq/4DC6MhaSpkvMMNfvQZSESMq2vkY/mBeeOmHsLmviw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793861722;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LQW85bAVVPCdOOgk1XApSwydrJwSt71hzV9a95J//68=;
-	b=WTm4gmKBgcuqC+0ZEjQuEBdUpPl6XjRCsKl2Vor/IOcwCm9zuMHVXvWRiNXv7aAZS7uR
-	 3R0+y/4KV28edM/C+tEarDi77ULrrIN3aIzut4KAEOF6gOTvIk3zVq11e0g3vVldOgMBl
-	 lFgDk6KC55C+C3SPwRFzzJatwB62ZOIvwiJH+rn7iNA8DHTYgiTlygniy7xZMt6PcV83W
-	 0CP0RxpjL2YRyZPztSNF4O68F2JFLwMYx9xgvDEUs9iT5j+Xf0Kc8Ko6Y41pgZ8qX9ES+
-	 fbUixxad5KNK89ar0aiTjPW2vSdee/rK6gNP3wg2zR0lhlmoFQs0KJkXIK+3Dw4/hpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793861808;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Yp3RTYjbx/Vi7+f/9tTe8EdXwmMowWw6/3/L+wapJBc=;
+	b=rue31FtbZhaUflkQQ3IzjI1AM/QqUgxMtzbadJXSezJiYlM1R2PEaCWbRCBMV45tL1me
+	 2EkF05f+Gf4yudc9NJpoOmvH8Uhbg8LVRYW8Rl88B8PJp93QCBXb8Zd8x/eoR8QMS/C8A
+	 IRPtlviL/Xgah/wfj7ys4ogEfHFpS2Ei7IGeixoM9rlLOBdyxaseZWwlnXYnlZTz4DLiv
+	 9tUOGMV8P7b1l1ChPynI3YEZdrwGBXovFX/B6TCxgjMxPj6tBNH+JpUC7Nm4yi9lUmVht
+	 SnmNjkD+7XGwcMrFEW9pTcse8RQ7KFoOANqtjWorG8Aq3sqC3tKHu3s/FYehfv5gXfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CYBJgBxn;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E317606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:55:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E317606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CYBJgBxn
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad47c246f8so131619a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 22:55:21 -0800 (PST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FEFC606A31B;
+	Thu,  5 Nov 2026 06:56:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FEFC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793861721; x=1794466521; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LQW85bAVVPCdOOgk1XApSwydrJwSt71hzV9a95J//68=;
-        b=CYBJgBxn0EY06zA58v4VQ98AJISJdeEknofMoU64gnuZ15tc2TFF0OTo5Fzl4zSzo3
-         mhT/LynFJYsIEns4tggxcXTPmQ6Nko6WFvaXl1W5UYcc3UQAqg7Ok89mjPM/SpJGH4pu
-         kDXTZACy8zKkPTzkF6NKDIH3ZYiPaudqcLKV3owpnK1JRphfrneXYqliOtGINHTe4Feb
-         0W/PVlOo7wC5BAJu6Hy+fxqRp8o3nwllJeRPj+UoR+fkte0KcDaGc00yPbv8DFzf/fly
-         ZzL6qAJ7t9FEgjteU9nqFtJ+uoBKYhCEK7WlVmAZIfx2g9V5tLcbAtWOVAI1E3GwB+sP
-         8J1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793861721; x=1794466521;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LQW85bAVVPCdOOgk1XApSwydrJwSt71hzV9a95J//68=;
-        b=L5C/rK9DJXV1NX8Br+hFElZEnym4i11E+5DYz//C69q0SCLGUi23IIgM8g9b/zn4T0
-         kqrsClLVXHGeqmOre9h7KWMyZkb2QGnI60IcfrnV/W2o47TNdPhp5klTxiyC2E9tdGLd
-         iIDtQ8OrV1I0ARyt2oSV9CVcjL3eMvhh/Oq76xrNLTj4LFtW7Olen31gdGVzRIkqSA3w
-         jLreP6gWg7+b9hghAEvGAVTVt1Ku8buSgiKsCX4OtWdizsGMHsA7Znr5JdzqSR5YGysb
-         Ogzj4UkrszhAQ1RX81c1IDaKNSxJZ0BTvh1IIkYzL4CCYZIETFLA3QAcU/IIOEtxnErg
-         4Y3w==
-X-Forwarded-Encrypted: i=1; AKwUvBw/2YTFpuFY+A9wOWxQjNIcoIFBaHTMBLP6iTZSPDY78khyOTWahvOsx77DEI9L81mphl+D2PCTk6/GBs4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nyoAgB+vDF64b3kTMwq9xMTGPyQRFEvxDBcIhT/57gyJoZMjG
-	b1XaeVLPJ8zWcqKLgTCJJ7MmbQm+WjWOg0js332p3Qhy4B95zMDeHqEV
-X-Gm-Gg: AYBFou12+dzT4JrvsnhNldk6+ddv7xEmuqeTFzRHJyyI9+nWdkvSWGgj5MxzyqQ0vsf
-	4YvcEycuIuDwC7S1qlaHkYYw700nqrYV9sH0Fl76X52m3h3fesTniJDxXQIS/xICzSoxMQEiOoL
-	I21pEuvO3+JX8R84m3eotwrwt76LC0/5XfLkJ3d1sMilvG/1u2XLpC1cmJiIwzeojasCAWqO64S
-	/R4sn9tWhxcwtaisCqrPqrURfUKAREkSrEs8mTDH0BvDuGbqmru4FlVp0YTrqnGZYCxk1J8d7dF
-	vwGqjYBzSG5n1v2f+iGtQEfRPDG2kDt1d6k7rdXP9u5Ywnar+PQEUrNacFZcidpSb0qn7oM2Z0q
-	crVcAXT9a3Tgxf9VkPEXIX5iELSaiVY0l/7LLXD7ycDAaZXqRvudP1KFbqGhC23uoBmMtxQQis3
-	RxAasKrks3Vb6P+uwd107pJPAEPSjCfxxWvHnzTYFPxQFwukdyRlcrQykKy1rHtrvdly/PsGHWU
-	cKALbCxiThdBRB3OpbUmTECB4K6p3QjrJVvDgYY2sxGPZ9QVyCAT5AoJRIwlmVCcB26iVhQimna
-	Ib5Ig8Shahpw7AZva4ePS70ZXN3Zv7YpCEUSr6B5aY6PRJqyj+nwRGBFrMyFXmQGU2Vx6fLXjy+
-	O30GIyaTukSt/4O0c
-X-Received: by 2002:a17:90b:2e51:b0:3a0:c1b1:45fb with SMTP id 98e67ed59e1d1-3ae89282cf6mr26913916a91.0.1793861720549;
-        Wed, 04 Nov 2026 22:55:20 -0800 (PST)
-Received: from localhost.localdomain ([139.159.170.72])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31f8804sm2322929a91.17.2026.11.04.22.55.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 22:55:20 -0800 (PST)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: pablo@netfilter.org,
-	fw@strlen.de
-Cc: phil@nwl.cc,
-	vladbu@nvidia.com,
-	ozsh@nvidia.com,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qihang <q.h.hack.winter@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netfilter: nf_flow_table: defer pernet stats release to last flowtable teardown
-Date: Thu,  5 Nov 2026 14:55:09 +0800
-Message-ID: <20261105065509.94627-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=Yp3RTYjbx/Vi7+f/9tTe8EdXwmMowWw6/3
+	/L+wapJBc=; b=M4lmlAMu1BHoqEMl2dkVv+0IdEn6IDQ80lAB9AqRUfgclTT2KP
+	bQZlSvZQLqyl8dQCWJj7nZVnZbBbL708opeIu6laqeswi+BVeCAVyrhdYC2CdNJ9
+	FgFkLf3bCPTGCwzFP0Kf87An4TW2U0UhZPEh8/9zj2yDf4VIBIFasO+4o=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.59])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2XAKcKOxqWKYpAQ--.52689S2;
+	Thu, 05 Nov 2026 14:56:29 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] usb: usbfs: Require claiming a hub interface for hub class requests
+Date: Thu,  5 Nov 2026 14:56:27 +0800
+Message-Id: <20261105065627.5626-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261105054333.7811-25031212351@stu.xidian.edu.cn>
+References: <20261105054333.7811-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,183 +61,202 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkA2XAKcKOxqWKYpAQ--.52689S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Xw4fZF1DuFyktw4xAr1rCrg_yoW3Ww45pF
+	W7ta9IkrWDGr17ury3AFWUZayrCw4xAa4akFyft3yY9wnxJrW5AFyrKryYgw47Cr4rWFyj
+	yF45K398W34DGrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r47MxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUYjXd7UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUID2rrTMSepQAAsy
 
-The pernet flowtable statistics (net->ft.stat) are released when the
-netns exits, but the flowtables attached to a dying netns are torn down
-asynchronously afterwards: the tc conntrack action frees its flowtable
-from an RCU-delayed workqueue item (tcf_ct_flow_table_cleanup_work()),
-and nf_tables releases flowtables from the transaction release work.
+check_ctrlrecip() requires the matching interface to be claimed for
+requests addressed to an interface or an endpoint, but requests
+addressed to the device or to a port are passed through without any
+check.  For a hub that means userspace can send hub class requests
+through usbfs without claiming the hub interface, while the hub driver
+owns the ports.  Port requests use USB_RT_PORT, whose recipient is
+USB_RECIP_OTHER, and SetPortFeature(PORT_SUSPEND) is one of them.
 
-nf_flow_table_free() ends with a garbage-collection pass that queues
-offload works; flow_offload_queue_work() increments the pernet counters
-when scheduling them and the handlers decrement the counters again once
-they complete.  The flushes in nf_flow_table_free() only drain those
-workqueues when hardware offload is in use, so after free_percpu() the
-stray workers still this_cpu_inc()/this_cpu_dec() into freed percpu
-memory.
+That is more than a policy question.  The request goes to the HCD, and
+it can run concurrently with userspace releasing the hub interface
+through USBDEVFS_DISCONNECT_CLAIM, which unbinds the hub driver and
+disconnects the devices behind it.  xhci_hcd tracks the device behind
+each port and issues stop endpoint commands for it in its port suspend
+path, and it ended up reading a freed xhci_virt_device.
 
-Account flowtables at init time and defer the release of the statistics
-to the last nf_flow_table_free() of a dismantled netns, after draining
-the offload workqueues.  A netns without flowtables keeps the
-synchronous release.
+Require the interface the hub driver uses to be claimed for every
+non-GET request to a hub.  Hubs match the driver by device class or by
+interface class, so look up the interface instead of testing
+bDeviceClass.  A port claimed with USBDEVFS_CLAIM_PORT belongs to the
+caller and the hub driver does not connect devices to it, so requests
+for such a port stay allowed; that is what the ioctl is for.
 
-Fixes: b038177636f8 ("netfilter: nf_flow_table: count pending offload workqueue tasks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+Tools that manipulate ports of a hub under control of the hub driver,
+without claiming the port or the interface, now fail with -EBUSY.
+
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- include/net/netfilter/nf_flow_table.h |  1 +
- include/net/netns/flow_table.h        | 11 +++++++
- net/netfilter/nf_flow_table_core.c    | 44 ++++++++++++++++++++++++++-
- net/netfilter/nf_flow_table_offload.c |  7 +++++
- 4 files changed, 62 insertions(+), 1 deletion(-)
+Hi Alan,
 
-diff --git a/include/net/netfilter/nf_flow_table.h b/include/net/netfilter/nf_flow_table.h
-index 5b22d31cb1407..91ffa3072a0cc 100644
---- a/include/net/netfilter/nf_flow_table.h
-+++ b/include/net/netfilter/nf_flow_table.h
-@@ -376,6 +376,7 @@ void nf_flow_offload_stats(struct nf_flowtable *flowtable,
- 
- void nf_flow_table_offload_flush(struct nf_flowtable *flowtable);
- void nf_flow_table_offload_flush_cleanup(struct nf_flowtable *flowtable);
-+void nf_flow_table_offload_drain(void);
- 
- int nf_flow_table_offload_setup(struct nf_flowtable *flowtable,
- 				struct net_device *dev,
-diff --git a/include/net/netns/flow_table.h b/include/net/netns/flow_table.h
-index 1c5fc657e2675..6d2dc0d1f06c7 100644
---- a/include/net/netns/flow_table.h
-+++ b/include/net/netns/flow_table.h
-@@ -2,6 +2,9 @@
- #ifndef __NETNS_FLOW_TABLE_H
- #define __NETNS_FLOW_TABLE_H
- 
-+#include <linux/spinlock.h>
-+#include <linux/types.h>
-+
- struct nf_flow_table_stat {
- 	unsigned int count_wq_add;
- 	unsigned int count_wq_del;
-@@ -9,6 +12,14 @@ struct nf_flow_table_stat {
- };
- 
- struct netns_ft {
-+	/* Protects nr_ft and exiting. */
-+	spinlock_t		lock;
-+	/* Number of flowtables attached to this netns. */
-+	int			nr_ft;
-+	/* Set at netns exit; the statistics are then released by the
-+	 * last flowtable teardown.
-+	 */
-+	bool			exiting;
- 	struct nf_flow_table_stat __percpu *stat;
- };
- #endif
-diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
-index 0d72dc8ae47a1..de0a9f0e4f7b9 100644
---- a/net/netfilter/nf_flow_table_core.c
-+++ b/net/netfilter/nf_flow_table_core.c
-@@ -715,6 +715,7 @@ EXPORT_SYMBOL_GPL(nf_flow_dnat_port);
- 
- int nf_flow_table_init(struct nf_flowtable *flowtable)
- {
-+	struct net *net;
- 	int err;
- 
- 	INIT_DELAYED_WORK(&flowtable->gc_work, nf_flow_offload_work_gc);
-@@ -733,6 +734,13 @@ int nf_flow_table_init(struct nf_flowtable *flowtable)
- 	list_add(&flowtable->list, &flowtables);
- 	mutex_unlock(&flowtable_lock);
- 
-+	net = read_pnet(&flowtable->net);
-+	if (net) {
-+		spin_lock(&net->ft.lock);
-+		net->ft.nr_ft++;
-+		spin_unlock(&net->ft.lock);
-+	}
-+
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(nf_flow_table_init);
-@@ -771,6 +779,8 @@ EXPORT_SYMBOL_GPL(nf_flow_table_cleanup);
- 
- void nf_flow_table_free(struct nf_flowtable *flow_table)
- {
-+	struct net *net;
-+
- 	mutex_lock(&flowtable_lock);
- 	list_del(&flow_table->list);
- 	mutex_unlock(&flowtable_lock);
-@@ -781,19 +791,51 @@ void nf_flow_table_free(struct nf_flowtable *flow_table)
- 	nf_flow_table_iterate(flow_table, nf_flow_table_do_cleanup, NULL);
- 	nf_flow_table_gc_run(flow_table);
- 	nf_flow_table_offload_flush_cleanup(flow_table);
-+
-+	/* The gc pass above can still queue offload works whose handlers
-+	 * decrement the pernet statistics.  Drain them all.
-+	 */
-+	nf_flow_table_offload_drain();
- 	rhashtable_destroy(&flow_table->rhashtable);
-+
-+	net = read_pnet(&flow_table->net);
-+	if (net) {
-+		bool release;
-+
-+		spin_lock(&net->ft.lock);
-+		release = net->ft.exiting && !--net->ft.nr_ft;
-+		spin_unlock(&net->ft.lock);
-+
-+		/* Released by the last flowtable teardown, see
-+		 * nf_flow_table_fini_net().
-+		 */
-+		if (release)
-+			free_percpu(net->ft.stat);
-+	}
- }
- EXPORT_SYMBOL_GPL(nf_flow_table_free);
- 
- static int nf_flow_table_init_net(struct net *net)
- {
-+	spin_lock_init(&net->ft.lock);
- 	net->ft.stat = alloc_percpu(struct nf_flow_table_stat);
- 	return net->ft.stat ? 0 : -ENOMEM;
+v3.  v2 had two problems, both pointed out after it went out:
+
+ - a hub in a composite device matches the hub driver by interface
+   class, not by device class, so testing bDeviceClass alone missed it.
+   The check now looks up the interface the hub driver uses, whichever
+   way the device matched.
+ - USBDEVFS_CLAIM_PORT hands userspace a single port while the hub
+   driver stays bound; that is what the ioctl is for, and v2 made it
+   unusable by requiring the whole interface.  Requests for a port owned
+   by the caller are allowed now.  That needs a small helper in hub.c to
+   test ownership, which is why this touches three files.
+
+On whether this closes the window completely: it does not serialize the
+transfer, and it is not meant to.  check_ctrlrecip() runs under the
+device lock and do_proc_control() drops that lock before
+usbfs_start_wait_urb(), so an in-flight request is not ordered against a
+claim being released.  What the check gives us is that whenever a
+request is allowed, the hub driver is bound, so the port has no device
+for xhci_free_dev() to free.  The memory safety itself comes from the
+xhci hunk in the other thread.
+
+To your question: yes, that is exactly the sequence - one thread sends
+SET_FEATURE(PORT_SUSPEND) to the root hub without claiming interface 0,
+and another one releases the hub interface through usbfs.
+
+With the port owner exception above, tools like uhubctl that send
+SET_FEATURE(PORT_POWER) to a hub without claiming either the port or the
+interface will still get -EBUSY.  Do you want an exception while
+privileges have not been dropped, or is losing that use case the point?
+
+Whether this should be marked for stable is your call.  The missing
+check goes back to the initial git import (1da177e4c3f4) and the ioctl
+that can race with it arrived with 0837e7e5270b, so I did not add a
+Fixes: tag; I also left out Cc: stable because this changes behaviour
+for userspace.  The stable candidate is the xhci_hcd fix in the other
+thread.  If you would rather see this backported, tell me which commit
+you want named and I will resend with the tags.
+
+YuanZhe
+
+ drivers/usb/core/devio.c | 43 ++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/core/hub.c   | 14 +++++++++++++
+ drivers/usb/core/usb.h   |  2 ++
+ 3 files changed, 59 insertions(+)
+
+diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
+index 486ced74405e..7dc179108a31 100644
+--- a/drivers/usb/core/devio.c
++++ b/drivers/usb/core/devio.c
+@@ -878,10 +878,36 @@ static int findintfep(struct usb_device *dev, unsigned int ep)
+ 	return -ENOENT;
  }
  
- static void nf_flow_table_fini_net(struct net *net)
- {
--	free_percpu(net->ft.stat);
-+	bool release;
-+
-+	spin_lock(&net->ft.lock);
-+	net->ft.exiting = true;
-+	release = !net->ft.nr_ft;
-+	spin_unlock(&net->ft.lock);
-+
-+	/* Pending flowtables still update the statistics from workqueue
-+	 * context; the last one releases them, see nf_flow_table_free().
-+	 */
-+	if (release)
-+		free_percpu(net->ft.stat);
- }
- 
- static int nf_flow_table_pernet_init(struct net *net)
-diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
-index 4365859220e6a..6ac28802ef632 100644
---- a/net/netfilter/nf_flow_table_offload.c
-+++ b/net/netfilter/nf_flow_table_offload.c
-@@ -1180,6 +1180,13 @@ void nf_flow_table_offload_flush(struct nf_flowtable *flowtable)
- 	}
- }
- 
-+void nf_flow_table_offload_drain(void)
++/*
++ * Return the interface number through which the hub driver drives this
++ * device, or -1 if it is not a hub.  Hubs match the driver by device class
++ * or by interface class, and a hub embedded in a composite device uses the
++ * latter.
++ */
++static int hub_interface_number(struct usb_device *dev)
 +{
-+	flush_workqueue(nf_flow_offload_add_wq);
-+	flush_workqueue(nf_flow_offload_del_wq);
-+	flush_workqueue(nf_flow_offload_stats_wq);
++	struct usb_host_config *config = dev->actconfig;
++	int i;
++
++	if (dev->descriptor.bDeviceClass == USB_CLASS_HUB)
++		return 0;
++	if (!config)
++		return -1;
++	for (i = 0; i < config->desc.bNumInterfaces; i++) {
++		struct usb_interface *intf = config->interface[i];
++
++		if (intf && intf->cur_altsetting &&
++		    intf->cur_altsetting->desc.bInterfaceClass == USB_CLASS_HUB)
++			return i;
++	}
++	return -1;
 +}
 +
- static int nf_flow_table_block_setup(struct nf_flowtable *flowtable,
- 				     struct flow_block_offload *bo,
- 				     enum flow_block_command cmd)
+ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
+ 			   unsigned int request, unsigned int index)
+ {
+ 	int ret = 0;
++	int hub_ifnum;
+ 	struct usb_host_interface *alt_setting;
+ 
+ 	if (ps->dev->state != USB_STATE_UNAUTHENTICATED
+@@ -891,6 +917,23 @@ static int check_ctrlrecip(struct usb_dev_state *ps, unsigned int requesttype,
+ 	if (USB_TYPE_VENDOR == (USB_TYPE_MASK & requesttype))
+ 		return 0;
+ 
++	/*
++	 * A hub driver owns the ports and the devices behind them.  Letting
++	 * userspace change hub or port state behind its back, for example
++	 * with a SET_FEATURE(PORT_SUSPEND) request while the hub interface is
++	 * being released, is not safe: the request is passed down to the HCD,
++	 * which may walk per-device state that is being torn down at the same
++	 * time.  Port requests use USB_RECIP_OTHER, hub-wide ones use
++	 * USB_RECIP_DEVICE.  A port claimed with USBDEVFS_CLAIM_PORT belongs to
++	 * the caller though, and the hub driver leaves devices on such a port
++	 * alone, so requests for it are allowed.
++	 */
++	hub_ifnum = hub_interface_number(ps->dev);
++	if (hub_ifnum >= 0 && (requesttype & USB_DIR_IN) == 0 &&
++	    !((requesttype & USB_RECIP_MASK) == USB_RECIP_OTHER &&
++	      usb_hub_port_is_owned(ps->dev, index & 0xff, ps)))
++		return checkintf(ps, hub_ifnum);
++
+ 	/*
+ 	 * check for the special corner case 'get_device_id' in the printer
+ 	 * class specification, which we always want to allow as it is used
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index b119f5b6065c..16dbcb59dae5 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -2107,6 +2107,20 @@ int usb_hub_release_port(struct usb_device *hdev, unsigned port1,
+ }
+ EXPORT_SYMBOL_GPL(usb_hub_release_port);
+ 
++/*
++ * Returns true if @owner has claimed port @port1 through usbfs.  The caller
++ * must hold the device lock.
++ */
++bool usb_hub_port_is_owned(struct usb_device *hdev, unsigned int port1,
++			       struct usb_dev_state *owner)
++{
++	struct usb_hub *hub = usb_hub_to_struct_hub(hdev);
++
++	if (!hub || port1 == 0 || port1 > hdev->maxchild)
++		return false;
++	return hub->ports[port1 - 1]->port_owner == owner;
++}
++
+ void usb_hub_release_all_ports(struct usb_device *hdev, struct usb_dev_state *owner)
+ {
+ 	struct usb_hub *hub = usb_hub_to_struct_hub(hdev);
+diff --git a/drivers/usb/core/usb.h b/drivers/usb/core/usb.h
+index a9b37aeb515b..012c110ac4e9 100644
+--- a/drivers/usb/core/usb.h
++++ b/drivers/usb/core/usb.h
+@@ -82,6 +82,8 @@ extern void usb_unbind_and_rebind_marked_interfaces(struct usb_device *udev);
+ extern void usb_hub_release_all_ports(struct usb_device *hdev,
+ 		struct usb_dev_state *owner);
+ extern bool usb_device_is_owned(struct usb_device *udev);
++extern bool usb_hub_port_is_owned(struct usb_device *hdev, unsigned int port1,
++				     struct usb_dev_state *owner);
+ 
+ extern int  usb_hub_init(void);
+ extern void usb_hub_cleanup(void);
 -- 
-2.54.0 (Apple Git-157)
+2.34.1
 
