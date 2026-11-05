@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888061;
-	b=zH25ADqxmWgT2fXz05S0edobwSLsTmCF9aRZ+/uo9sqZ/fNsoytrqUI+vr5GQNOoUGNJ
-	 Pu/0LGvaYZRgmsoqR83uwXkOiyPparGOpfPQrcHf2t0vkjxlikp+k8qvZRrVaVLGcJpn9
-	 AddzN95E7l5aTHiHKtS1DcjqXCRPYmoQGPM2u3yEqVO8cQwvGxpLLGzxhTGdTwLQnADKh
-	 5VsZU8g63va1TzrqKmqYsebyqBmkMDksm2rygv3OiZyWC3jrtMswyh859X6zfw59macBE
-	 lgpLoMylrZIMUfnUtHllY0eewwzhgPFfPbGps8RpB3Xm7Jm42K/jyOG6BJrHBzKk3Vg==
+	t=1793888066;
+	b=tsjgSsubrkEAEruvEmRHqIydBOEEHwyhwuCnx9AzmMKBfJlp7uz7RfqI4BdaDO0EZI62
+	 A4bSsbAMo7Jo8AQG6CzJGatIWXIC41ouYM6BSwn7JbRfKmDLMw/n80Hp+h+RuI6J0ng6v
+	 m2P8eXpt4ubLlvqUzaFi38r/BR/K/MjBk+L6mYNOlCW7LLcbMKSlLcdik58qClMHZPAiG
+	 uVpWkn7DWELbnfpTcttwl6cdT+U4KtGMzhyKMhq/ln8/AwiIKAhILPTDYW95870LKQpzV
+	 Ki/cL5PTSLpLPpma1a4jxMmHaqmtI0alT6dXLo7RABYwfbg8mGzsTap0bfxoQerx24w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888061;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=C510kth/CBVLazESEsxRzArI7oc7963TMqt8w5w865M=;
-	b=LCOFkalv6fRko+w4YKLHucmiBeV8u4TI2R6luZwjFAnxm0yIY88SSlboJFyfdnobMv7r
-	 AN90TzMZs1HSJAq3uhiF8VYH4cjWhwWp10HE/IR5JEnzq/Xy3g7CAnf1dGjjx97h17f2M
-	 KrPceUEIzVWQk0mFg8FS3RLlIyKPLOTZ+c/aRRuJt/0hNRBr2BLEQrIjigb2B0pd/hKoM
-	 chLx2NbvouQq0lgBd5AhmtsSilW95s9F0QFbzkeUvPz/6TLdIXh1+YH8F7qRGtb+zt6YB
-	 1n0LnBQVs563Mz79Nl3hA1AaYj7GWE0HpJIeF9oPf+9yrWw+EtBw8a/x+veFfZvxdkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888066;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+	b=HTZj7vrqwL784Dg3aid8PZ5lyba5OMyUj4thFDSOTcSO/AmzUUKtj72dVvs6dpfdXeZb
+	 OZVKS2KpZxNqhSapY6vF1d0ASXc5wo1XzAQfGqDu+HrYyf4EXVqevKYu0SPs5FDmpfiLO
+	 Qc4wtLf3Pwc0mumkJqmtYSqCiM9fXPr2XKWhMVyX/VS2978GOnARcbAKjgwmHly74Yf0z
+	 xdXwKmhqafxaBDqLgYG3U7uh2DhR9SW88Dd2VjsYr+ZEmGv56pxHUi3LQ5pyporISiENi
+	 oUQn0XVMoMs1aBNAddWq8avLrN5h/fU/gvjAcsWRBRWahdOjtCaq5ErNw0cL0hjhR6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrjHL5HO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XfB5cgi9;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA911606D823;
-	Thu,  5 Nov 2026 14:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F58606A331
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:14:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7F58606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrjHL5HO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C26A1F0093A;
-	Thu,  5 Nov 2026 14:14:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888055;
-	bh=C510kth/CBVLazESEsxRzArI7oc7963TMqt8w5w865M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=QrjHL5HOEl8CuY4h06Ec+V9T8RSJ+k2veQODDwns+l/8GaLiL6v+3Ql4DoRs9CTUK
-	 RoftER9gCuyP2jVmoHJNSHmEUaiYWnqN2E31ltT/H++Cn3fe274uC04aayDfIbG8GC
-	 PctJExkivVs+QNCU/ar+sF9DaObMl0dW7LLyFB8ds3ge4Ll9PEgbgtouGRon2oXJUs
-	 pOla/EqdGAV0whiF9JknaOUXU6UXgNH20wdDan+fEFfOpfTMrQsncdbE087j/rjFGB
-	 MDxUBfdF+6nGTYMs8YfPO7AAgawmlJVhleOXi7z/mMBRS+6xSDSaA3YSkST2teHkdh
-	 DbmflQRohHJvg==
-From: Mark Brown <broonie@kernel.org>
-Date: Thu, 05 Nov 2026 14:01:17 +0000
-Subject: [PATCH v2 04/11] kselftest/arm64: Use exit_error() rather than
- SIGABRT in fp-stress
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XfB5cgi9
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5209177eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:14:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793888065; x=1794492865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=XfB5cgi9LHp3NkwPaC+DtMZZbSKB63/55LR2BLwVgihYMxwS+xooD0/5NZJ1GEVhyQ
+         2Xt8QSwAm0xlRbn6Bv0FlwvOF67YGj2rm7ZBR4a0aKp2FhUPw+ib3WM3jF+Tpw7jzSsu
+         +8iWohauLhCNpRhw1YVzhBulBBPiIEzDDSCU6ZOKcsjuOpyU5byBq/EARwRk9yoapZKv
+         wSkR/83QKaSI2xsYvZu8PVwdQWG6TVvNPIFJLjKLBvBYsjRPFTNOIlC09DPl2EFdArtM
+         Mf0Es/fT+0KBRgdlUAbX44ZIMghDe4jFpnQr7iB0WTtVCQKSSW0qjhOpQGSVX+WaNjl2
+         M5ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793888065; x=1794492865;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
+        b=NXQvZUZbsezeVtkg3AGs+8Cpfej2AYVOwwSTBedFcu+MX9dhczdcv6vwm1l0Ch9gUi
+         OFvsIvC7p6xNFCvOGoSksUVJoDh6HOgyzE+c+M6sCYTmfM4OLuuw1P6GjerLlctammi9
+         EJ7cbFHvw5gm7KmCp9/ZwOemvWkzTU+v89UTbUida9+eobBFS0eRL61416DJKbjBxth9
+         Q2FJYGifXP+DdnNCkO2KnR217WEwvSrLyzyNllhzTS450Qx90J5iWqtwP/675NW6EwGd
+         N7ACO7d1TYX4dHAj8uM6/k8VyfBqOkxy1o3uF7jgSIJh3q06L6kZaLV3q9A1g/IqBOrs
+         iVDQ==
+X-Gm-Message-State: APuU4Z9Rxr1CdorUVw9X9DN7WEMGecs5+MmBWoFU3kts3MXzFKieO5KI
+	Rgc8+66al166aRGhpS1msnMUwVFDHTskMQo3KlSPVCirCUYNzvzYjFmY
+X-Gm-Gg: AYBFou3xcS5VTqF/KPcbCkE9/EwuEca5ObB8aPB8+RfYMLsvto6f2iUwYFjkeuN1Q0M
+	JVm+fC98iz7+CoCJcAXaPOgjuLb7PXAfj4X/WMydLyqW04yBbjy0zMZ4OerUzgCpIKFU/Pmj9V5
+	MvCr/YDjSoOpCjbL290Sqag3oW7oo4OoCPgYzkqWbhlwVxhHAKu9FZ9cRlUxuIFHGFUqX/CC+Pe
+	f/528v7tA7mz1B3z+jiExrFo73S8RDPKkz5TFdUyv+a39PUH1HDsM8dMxPQul1FstWzaBdDn52y
+	X2/T/wMRJXb/BRLIKFRcjSEWB/2slaSiTW2l8IQmH9OC9qwgbs0MbcWTeba6lRc1IFscAzwXCCb
+	ZXEDWEEtyK1y8sNq6Rv+8JggbNmNPR8oGMlWyuplj6kgEddTRS1mzQ/H8WHFSyk+MCC3+JAGarV
+	qiK0sI+PZc2Kv23VyaKfrcFX9552+vVlUsKdobqbdfFNYAWsDcFFuy//A8L1g6UCp1SpCq31DBa
+	QlkP+74UP+EpcGVabonWf9xrcFTC757gcECXLA2Qiy+txwVIJoA17OPEEwVsSv+JIvGYyc/kuMR
+	p4SIO9TsO2Km32OnJ8XZ2v4mSC2vCzX7TE7as0yfQJMKcqOITT1ZqkJTr3tX8UEcovQ+ZFMuYw=
+	=
+X-Received: by 2002:a05:7022:f903:b0:149:cfa4:9b3b with SMTP id a92af1059eb24-1ac55776fa1mr29315626c88.3.1793888064798;
+        Thu, 05 Nov 2026 06:14:24 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.85])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm20987500c88.15.2026.11.05.06.14.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 06:14:24 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	sreekuttan2156239@gmail.com,
+	tiwai@suse.com
+Subject: Re: [PATCH] ALSA: core: Validate device type for dynamic minors
+Date: Thu,  5 Nov 2026 14:13:15 +0000
+Message-ID: <20261105141315.2982-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <8733tfu39j.wl-tiwai@suse.de>
+References: <8733tfu39j.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,178 +100,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-arm64-fp-stress-kvm-v2-4-81a5172468f0@kernel.org>
-References: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
-In-Reply-To: <20261105-arm64-fp-stress-kvm-v2-0-81a5172468f0@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kselftest@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3938; i=broonie@kernel.org;
- h=from:subject:message-id; bh=J/tK2tkelFUN0/4GFmBHelNZo1hOb68bre/CQsIpqVY=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe9Gsw1/v77MvbfvOc0rKNR3xvyef5JTp+vXKe592/o
- MjX77V1O0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRGeUM/0s1TPxOPPHMPFb5
- Om2L8XHlt8+FVFM9dqRMVH0fxGXqeImR4a75gQMuQQvyGl1C10twq9zyPhXsUPKwWIV7quIem5Q
- +HgA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-The fp-stress test loads all deliver a SIGABRT to the process group to
-report some errors they detect. There is no particular reason to use
-this mechanism over exiting with an error code, the fp-stress harness does
-not want this.  In order to facilitate running as KVM guests replace
-this with use of the exit_error() function we added.
+Hi,
 
-This also avoids loss of diagnostics due to the entire process group
-getting killed if any of these cases trigger.
+Thanks for applying the patch!
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- tools/testing/selftests/arm64/fp/fpsimd-test.S | 10 ++--------
- tools/testing/selftests/arm64/fp/sve-test.S    | 10 ++--------
- tools/testing/selftests/arm64/fp/za-test.S     | 10 ++--------
- tools/testing/selftests/arm64/fp/zt-test.S     |  8 +-------
- 4 files changed, 7 insertions(+), 31 deletions(-)
-
-diff --git a/tools/testing/selftests/arm64/fp/fpsimd-test.S b/tools/testing/selftests/arm64/fp/fpsimd-test.S
-index 5ee8ef51ea4e..fcbb3a872490 100644
---- a/tools/testing/selftests/arm64/fp/fpsimd-test.S
-+++ b/tools/testing/selftests/arm64/fp/fpsimd-test.S
-@@ -176,7 +176,7 @@ function setsignal
- 	cbz	w0, 1f
- 
- 	puts	"sigaction failure\n"
--	b	.Labort
-+	b	exit_error
- 
- 1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
- 	ret
-@@ -224,7 +224,7 @@ function _start
- 1:	puts	"Bad vector length: "
- 	mov	x0, x19
- 	bl	putdecn
--	b	.Labort
-+	b	exit_error
- 
- 2:	puts	"Vector length:\t"
- 	mov	x0, x19
-@@ -266,12 +266,6 @@ function _start
- 
- 	add	x22, x22, #1
- 	b	.Ltest_loop
--
--.Labort:
--	mov	x0, #0
--	mov	x1, #SIGABRT
--	mov	x8, #__NR_kill
--	svc	#0
- endfunction
- 
- function barf
-diff --git a/tools/testing/selftests/arm64/fp/sve-test.S b/tools/testing/selftests/arm64/fp/sve-test.S
-index 3447fe0e5554..26efdbdd88f9 100644
---- a/tools/testing/selftests/arm64/fp/sve-test.S
-+++ b/tools/testing/selftests/arm64/fp/sve-test.S
-@@ -344,7 +344,7 @@ function setsignal
- 	cbz	w0, 1f
- 
- 	puts	"sigaction failure\n"
--	b	.Labort
-+	b	exit_error
- 
- 1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
- 	ret
-@@ -397,7 +397,7 @@ function _start
- 1:	puts	"Bad vector length: "
- 	mov	x0, x19
- 	bl	putdecn
--	b	.Labort
-+	b	exit_error
- 
- 2:	puts	"Vector length:\t"
- 	mov	x0, x19
-@@ -474,12 +474,6 @@ function _start
- 
- 	add	x22, x22, #1
- 	b	.Ltest_loop
--
--.Labort:
--	mov	x0, #0
--	mov	x1, #SIGABRT
--	mov	x8, #__NR_kill
--	svc	#0
- endfunction
- 
- function barf
-diff --git a/tools/testing/selftests/arm64/fp/za-test.S b/tools/testing/selftests/arm64/fp/za-test.S
-index 33dc4ce8bfa1..7208bb2db9f1 100644
---- a/tools/testing/selftests/arm64/fp/za-test.S
-+++ b/tools/testing/selftests/arm64/fp/za-test.S
-@@ -189,7 +189,7 @@ function setsignal
- 	cbz	w0, 1f
- 
- 	puts	"sigaction failure\n"
--	b	.Labort
-+	b	exit_error
- 
- 1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
- 	ret
-@@ -240,7 +240,7 @@ function _start
- 1:	puts	"bad vector length: "
- 	mov	x0, x19
- 	bl	putdecn
--	b	.Labort
-+	b	exit_error
- 
- 2:	puts	"vector length:\t"
- 	mov	x0, x19
-@@ -288,12 +288,6 @@ function _start
- 
- 	add	x22, x22, #1	// Everything still working
- 	b	.Ltest_loop
--
--.Labort:
--	mov	x0, #0
--	mov	x1, #SIGABRT
--	mov	x8, #__NR_kill
--	svc	#0
- endfunction
- 
- function barf
-diff --git a/tools/testing/selftests/arm64/fp/zt-test.S b/tools/testing/selftests/arm64/fp/zt-test.S
-index c67242c2d5ab..c6cfbdeb2f0c 100644
---- a/tools/testing/selftests/arm64/fp/zt-test.S
-+++ b/tools/testing/selftests/arm64/fp/zt-test.S
-@@ -158,7 +158,7 @@ function setsignal
- 	cbz	w0, 1f
- 
- 	puts	"sigaction failure\n"
--	b	.Labort
-+	b	exit_error
- 
- 1:	ldr	x30, [sp], #((sa_sz + 15) / 16 * 16 + 16)
- 	ret
-@@ -222,12 +222,6 @@ function _start
- 
- 	add	x22, x22, #1	// Everything still working
- 	b	.Ltest_loop
--
--.Labort:
--	mov	x0, #0
--	mov	x1, #SIGABRT
--	mov	x8, #__NR_kill
--	svc	#0
- endfunction
- 
- function barf
-
--- 
-2.47.3
-
+Best regards,
+Sreeraj
