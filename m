@@ -1,85 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793841032;
-	b=HUThx2HFL/17MWcAwIB+6xKM1nBwNXyFmllwb9jrVJvoe3gIulPlCNVD3QfjQhpWaArW
-	 2zfvzk5FoUOkxnwWaBLN6yTeXZsGSKgv9U3Mgu+uhuNbYkR8dE5s9oCrWkHSPZsiKQ2IQ
-	 TvgOkWabtW8oI15tqtfWASaTAKNFk5iaSTXtrp9nxpRVPG1N0JdrQWozMYcq/K2QRU1eg
-	 NnFNaSyP0F2npvrkx4eQS/AeUCW5BQ652A6bUJKgHuX0c/5QVgibvJnAg54q9mrd+twT6
-	 FyDMrZx5HDEbtA1er3f/kCWZi8F4uMQRe44kO0NXajGh+jdFlN9ACbcPS96/dSYiD/g==
+	t=1793841099;
+	b=YYgxjH5p8sTTwKP0s5eByXB7dJnSz1QtEWc8h0OB+cgfqtj1t9PElw7lU/9Lbbg2oy24
+	 7cbqZzrj+6X6mnhB0ti/fj5E9DRWq5wzMXxOmNz8zg45AFlhfw7KWZo8NEgkachF/BJPB
+	 1C+3JUVVNciSVikhVWe6NoFgmHPGYcjL+Yt1cTgrtcJyRHMgHD85wDcmrLNl5tKMtxv/z
+	 806esdd4UsxS/kiYtaay+s+eSkUy+evGhQg1Q+GUPcOw0ujZm1FVpAl6wCFjqbTqyLl5X
+	 DQS9fWK7zqEJSk31w1Ly9QQo4y+1Z3WKIHNSv69qtPlwb9ePq2obUOlmNoY2TRPz/Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793841032;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=mA/5JmHeMYIVrBxf3oNqARmHAQK65wAhI4k5sCDPP90=;
-	b=rcxMTb9towsnL87fe1hAHAGHlqQuaIoZkHpPQyF2U0+l6B+Z0C/7sUIcMSdnmEStW155
-	 WOiK3TgWAPTUDRcG9n8to1dc9i4jf2E4k3WsmbH6kWDaqmrvX5/fUzXLJra8bQw+4rpZs
-	 qt5tuZwcgEC1mWLoUA6NKrY3Box4SJLNdg2+4B8dUDhprHRDyqx66YfiYIQTLxfFtDoIe
-	 v16kJDcBhecmEh8UNGgw+OiCp9qZDGXYqdPPqQxk1US74m2InVXNTH9CjbbjW2bAZKhJS
-	 aFtYQuGiqAST0WcoSJ6owWivT4eqLZuabyvp3bHLKwB+vV5GWip4VnpA+CNvSkhl8lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841099;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=afpW4vnpyJp1rQF7sDbdJVsvWT4LIy5CP2XonGShR/Q=;
+	b=qmwhgEmaY88mPsdQAMRhLkronKhLZaKhoZxLuuFCRT4OYQnruyXyGfHA4POhZezpYzXu
+	 6cgFRRL+Yrce7QViSUkmHG0OAJwudlyHgrG2pjFmNwBwnPSnDT2rBijCYpgV+wqnx4x9g
+	 l2AsNq7sHPTaTnesBnb5baRdDNTQt3a4Mcibbv3RL3IVsjxrlCwdWT+p1emu5j7UlcSXA
+	 tFVkVKl8UK4yeRTWlppE/tZmGUQexyBl+rR5Y5u0R5NHxukb+crj7Ov//Bids6M2s7eBt
+	 dKyRtfBAe6Ma9h8+Z+MLb75fjKIZ2rs7laSdC+kNpAfiKcgMF+kMzUmalTdWy1NovUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QLUQWoYq;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D82606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:10:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30D82606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47151606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:11:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47151606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QLUQWoYq
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-369dd48cda7so18512eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:10:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793841031; x=1794445831; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mA/5JmHeMYIVrBxf3oNqARmHAQK65wAhI4k5sCDPP90=;
-        b=QLUQWoYqhN4deyaI6qiQWtT5OU+ekb/TDIdnIaP5U6zJufLOwFJJIEL6L2yQ67VXXy
-         mJyNUKlnUyZpnFB/HuAXP7QbqPO+gt1Xoafz0yCl7oMr3tbBf+ozsY/qF+e4SNwLvAXV
-         97LTEfup9yFGG0ifDUdIsB4/PDre+RmazGEnKs2bgS44Wk7vVzXT7zdc25MJ3Uy1EhQl
-         sYmk3mvzLsrvX77eFq0bqu/KOpmrM8JkvczmYfkLVwYmnDFSVrUWqkOtAWDLXhPGRaj+
-         JHxljo95HhqmTHzN/wEgSbK6RMWModm5bzU5cRQDj7eWJnp3Q3LJXw0jx6l3JzZqo6Ub
-         KGKA==
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06e79e152so818586b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:11:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793841031; x=1794445831;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mA/5JmHeMYIVrBxf3oNqARmHAQK65wAhI4k5sCDPP90=;
-        b=qPHNzALGL20X0Sdaiwlw2OKOTa5PYnDPrkFjRsEt+vjuvvWWWtKJwTMW5kEQN5Pnr+
-         R0M7HEXXFMsS7+RaxjT69KaK1bN7MdLMLmSEUeqPl/Zzz6XNKV2e4MbUoYyuets4UeSN
-         WPmpAI+7v5J5v7/+EwkQ7FC+I9Yfz+b0+wdDm2uQQFsML6tinnroT9Yyo+p2BXEJZGgQ
-         hP7hCF2SREQEOR2HAqnxNsPjMTcwJ6Bcu552PzYHDSYykqKecaveBmKfOsD+djK9XrWx
-         nSQMulOxxWHbcTBOQ4WIlYIETPB/iSAeFiabGcSy02N5A6ImiTUHEihZVvEAZaV2Xu1z
-         PQlQ==
-X-Forwarded-Encrypted: i=1; AKwUvByeW7FxNJ1VPgYxvpfSt7qqF6O4GTa2F2k1uxQ7PZcTux7du1MC3Hi2gyHmRCApkZaYEEix4R/wKpzjSgA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TwAynz2U7phhupeHhGuvRtSGQ16XEeDF3PfEIFLkn9SxZeJF5
-	/p9KU0hBozcle+7N4ZMd5DFGiKTb6LwJz9XSGn61qyUV/se5ad5NYz0z
-X-Gm-Gg: AYBFou1FmbiP6n+ueOiPQOM+LVnKC0Ug2JwvQ1csPw3Et+fa6MiRZr1gF9Y+snUewe8
-	P61MdgJaKrUf8zTcexqj3zid4SBOPItF0HmNRiqBfA6SLurS6xixaWJBJCG4KOycvwcwVL7uf6l
-	y6i00Pz+1eCGyGefASRJqrkjhkb+85tOjTflP9GnqaXe99OaShezrh31jfxmK6gV+TAaOEcYWBH
-	7zbLdQ762/rqo5GlLkMVKPgzkNTevdyk+2Xyn6ohTJK1em1ByoFU/RnoqHgsCjXnLZMIb2clH/n
-	kjg+aO/na73KY23dddxy01ch47p+XJG5JcEVPD8JUALmOYfTaxeiIlc3yX5lw5fgG41h4Mnqmzr
-	ODta32Ko4DMFhHzBrBYDd97X4LONP1M0td/grrVbeJZVNIMaD2HxRUdzFYqJhOBg+tkaYPZHqRq
-	W2LplbfcEuazC19FNZiCM6OJu1c3CnoFmoZejfPsezkrMJHWTQTcDOkD/Q2Mq+81qC3Y/1TBcyG
-	HSLwxlHz8jqxSyyC6vMGxZv0Z0+7X6hxjd06mgs1uG8z6jIYv8qKHgiSBBsY1ZKpZCG2uvKLy5w
-	NESmJNMidt1t/qJUfEOIsepkMDcy/MUFE5sZz4BMlANittZpoRGRSDja2/Xxj+7bPBVS6KSXX7V
-	7PiApa0OMItaz
-X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id a92af1059eb24-1ac5b7dcb2bmr42937731c88.2.1793841030720;
-        Wed, 04 Nov 2026 17:10:30 -0800 (PST)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2d69asm10759440c88.11.2026.11.04.17.10.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 17:10:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793841098; x=1794445898;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=afpW4vnpyJp1rQF7sDbdJVsvWT4LIy5CP2XonGShR/Q=;
+        b=1eb8X6aqqqXVpWQZf2lCI+4BrLFrvdiuC5QBN4r7DEvZQak4eObgLQLdxo3YIsDCbF
+         hxIBzUZm+F7KoUdD3LRmZmTe0cNL0kNTkD5vwv8cmEguVwQZr/Wn3vTuJa3uKALtuN6G
+         4/C9CDyZgfEZ25/5AeMurixGTH7tH+V5gvCRMHBMfRVv06/uuIPninzYa6t6cMfCSuhk
+         6Kf1EnDU0Tf3rURrGO6VpAjmvqM/71efwvOcVr5cVW09DxsE8AKdZuJcq9eXDenC8bGG
+         xJNfREx8NmscgaAhjabLnx4gh9OUgTq4etLPe0zbY/YuGGrMkY5H+ugV2pQHZUJRDG+a
+         4Ndw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNj/tWRyECLTm9cRZm83aMJTSSFb7tWYfvDac5rGF8Ekm3X7gnrMq3ITEQE/UZc5Q/+7y+DTUskjv0p0g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SmovgVQ7yqgZxE3SsLEAk3LJW1YB2SoiRME//EX/HtAyICx5V
+	TV4jA6JEgAMzbGg5AgCUwe/X4bP10A8/7BGlU7If2I02guZ01TANFb9gegf1w4kv
+X-Gm-Gg: AYBFou3AdxPQayiIQh4xtE1UqUgdIx2wBSi+ku+S9OApFOplV2jlqTjZeWX3lLqP2RN
+	VtyY5YzvVjOM2M//FPMyL+5QGe0H86R0uEvb44Pa0GrWC2hSNyBGFTEdpDWVLC80stKZwQvJ8Vk
+	WTG12IarA2F9aP9VJ6ySmcZGTONZYjN1Cy3IqKHGdejkrz7Lck9kmzI23iG9FZMomuMae8toxSc
+	KamGhYy9Wyj2emDLVtjwh4V1gTQ8t1qncl36Js6udV6v3fUPevs+GcnMO05pS1qZhB3ICQJcqTe
+	fdac8BgHmvMn6b42+ILFlxBhsUlT9SxHQ6U5MG7Lxy7cJKel1CV8MS9EgGiHTLLPqE52IpTZl5v
+	q4CM5vnE0EB3iuPYpN8kGxcC885mSl1Ck1mAJjzwVTLfPYblMRHVo3K05etqGXveuwmg9aMd7jh
+	YNg5ROgR2sa5sh3ZRhuY6W0BMqIyfDnjoDPqBJBPcWyWGxm2VbihShAbGVoCNsQiWdhvOetGp8z
+	/gbPA2Jn+7n71+hRUz6STzfq2jQiS6V3+x3K37ZY+hiJ29apOgvY9PEbKfpp61YNKQEJFNFjpi/
+	kJWwWzi7OYxqaRIGK/AO1z4g2c1cQ7SbeIRxTtHy72Q+mBaqSSr2rs3VOf0ZsepB+8wMt0Az4G5
+	0XLXoldH/RnRQ4pihQZsQNNVGCcjkkPeeOGZBy4SZTq/Buxvo2uZkfcj72pZSTfPM
+X-Received: by 2002:a05:6a00:244c:b0:890:bd5c:5710 with SMTP id d2e1a72fcca58-8a9bf61f38bmr14507425b3a.41.1793841098480;
+        Wed, 04 Nov 2026 17:11:38 -0800 (PST)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09af918d8sm1386703b3a.22.2026.11.04.17.11.37
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 17:11:37 -0800 (PST)
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so2498353eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 17:11:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBw1eSyv/AqJpv/HNRfJtgjjnsld9nbjWBnsEyxfBwUXrXP2LUgYioxDmLJtt/0KxbySh6HcLc9dg2diHNE=@vger.kernel.org
+X-Received: by 2002:a05:7300:cc9d:b0:36d:2f0d:217d with SMTP id
+ 5a478bee46e88-36d2f0d26b3mr3496824eec.33.1793841096817; Wed, 04 Nov 2026
+ 17:11:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,83 +81,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction
- budget-aware
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Chris Wiseman <chriswiseman@google.com>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Xueyuan Chen <xueyuan.chen@vivo.com>, Barry Song <baohua@kernel.org>, 
- Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
- Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, xueyuan.chen21@gmail.com
-In-Reply-To: <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
-References: <cover.1786003779.git.xueyuan.chen@vivo.com>
- <anVWZVOt-xeD0dMH@google.com>
- <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
- <anXJ-5_vO7-toSe1@google.com>
- <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
- <auKqt6b4AxCLziIH@google.com> <aufPMirl4cD7tz0X@google.com>
- <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
- <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
- <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
- <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
-Date: Thu, 05 Nov 2026 09:10:24 +0800
-Message-Id: <179384102494.19062.12740032892044628762.b4-reply@b4>
-X-Mailer: b4 0.16.0
+References: <20261104-sf19a2890-mips-v1-0-eae80820af68@telaak.dev>
+ <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev> <20261105-stellar-viselike-e56010ed5fb6@spud>
+In-Reply-To: <20261105-stellar-viselike-e56010ed5fb6@spud>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 20:11:25 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6Ao+YDt6aX8+h8dyCsEs8CK1nzLpquUErPwbyce3OB4A@mail.gmail.com>
+X-Gm-Features: AclHuK_YtBOeVzlfxROlhjFtxAVCHbL5PR68tz94OCdt7Biz0baVYxdF4RY-7p4
+Message-ID: <CAPY4CJ6Ao+YDt6aX8+h8dyCsEs8CK1nzLpquUErPwbyce3OB4A@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: mips: Add Siflower SF19A2890 based boards
+To: Conor Dooley <conor@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Burton <paulburton@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-11-04 14:54 -0700, Nhat Pham wrote:
-> On Wed, Nov 4, 2026 at 11:46 AM Chris Wiseman <chriswiseman@google.com> wrote:
-> >
-> > On Wed, Nov 4, 2026 at 9:57 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> > >
-> > > Is this precheck basically checking if we can free at least one zspage
-> > > of the size class before proceeding? Yeah the number looks good -
-> > > let's add that, in parallel!
-> >
-> > Yeah, it just checks if a bucket has enough wasted slots to free at
-> > least one full page before taking the locks.  Sergey pointed out those
-> 
-> You meant full zspage here right? IIUC we keep the entire chain of
-> zpages around until the entire zspage is gone?
-> 
-> > two counters aren't atomic together so an unlocked check is just a
-> > best-effort hint - if you and Sergey are good with that, happy to send a
-> > patch.
-> 
-> Personally I'm happy with it being a best-effort hint!
-> 
-> We can also recheck after we acquire the lock (but I suspect it's
-> unlikely we'll get radically different decision?)
-> 
-> Sergey, how do you feel about this?
-> 
-> >
-> > > Ah ok hmm. Sounds like internal compaction isn't that helpful, i.e
-> > > zsmalloc already does a pretty decent job at packing objects that
-> > > there aren't a terrible amount of internal fragmentation in the first
-> > > place...?
-> > > Should we do CONFIG_ZSMALLOC_SHRINKER (default to N or to
-> > > CONFIG_ZSWAP) for now, and remove it in a couple of releases if users
-> > > in the wild do not complain?
-> >
-> > Compaction still helps when we trigger it between bursts (freed ~21 MB
-> > before the swap storm and ~10 MB after).  It just wastes time running
-> > mid-swap when new writes are filling those open slots right back up.
-> > Defaulting CONFIG_ZSMALLOC_SHRINKER to N (or CONFIG_ZSWAP) for a couple
-> > releases makes sense to me.
-> 
+> > +F:   drivers/gpio/gpio-siflower.c
+>
+> Based on this gpio thing being here:
+> pw-bot: changes-requested
+> The dt part of this is fine.
 
-Hi Nhat, Chris,
-
-> SGTM, but I'll let Sergey chime in!
-
-Thanks, Nhat and Chris, for the discussion.
-
-If Sergey has no objections, I'd be happy to send a follow-up series
-to make the shrinker configurable and add the unlocked pre-check as
-Nhat suggested.
-
+Thanks. v2 will drop that line; the GPIO series will add a MAINTAINERS
+entry of its own for the driver and its binding.
