@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870911;
-	b=fp7RJlcDFCLTlU2Aa3doxDptYXuYYedc5o+Twt4iiUgh1kdr5cweH3R4qPLKRwLoucRh
-	 S8biW5XsfFFbMepSQAen8BahQpCJqkPk9A1FM3PP+DNT7zxXEh3Ms2pTr3IqfppV5VgSc
-	 zglkTBU3lO0Xuy/Oh4wYyV666xecYqx2Y7sRunLbBlkDocBjPYCSOx4yVIbks3LKYvLD4
-	 Xfg9LXz0H9GJwxOHV6lBIPD+Bs8JCp6ilTSkhZUJ8IMz08Ej9uETUPD5mBPjAkT7jY7cu
-	 k1CcEI9wzAOknNUnYUTdGJDYBqTWdlTV4olw1PVERj0+/lFZlt5Tj4lnofG+zwHWxWA==
+	t=1793870968;
+	b=SaODe5p4XteQNQNQ0dHtbU0j3tzd+88PknhdM9bEzbjsndPmKzCR+ZnFRegEz9ka9iD5
+	 JwBkMkqUchxG3vXGbTdCr63Ypsmd09AZc34NyIv+GgFFMj+ueDKTGqc70kaE9ZKpOhp9h
+	 xtkeJIPktHoqLDOCvhPFov58BYaSDXI8xlZxtQthP7OM5XRKnkNdMBGXq8b87S8kNhdRE
+	 PRVfTGJK1cfF2u1pkcojnjcy2iqjhE4z+Oij7Z6CpSTkeGs4NH/WJp5byy6erPee3PWz9
+	 7/tgis/qt2NQ3L0Sn7GkUqbSDCJlQ2WDM78R7Zj4n/880durHNeRYXVzroqM94ZpErQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870911;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=efrXWF7wn+Yhj8J3Aq0tfHDHFwNyrjWQVCM9PXFIXwo=;
-	b=XD5PEk7LQfDqKIEFKKMmJxMy/UKDlOldNBmYlPKkkcxc9XPBXH71bTaOxycUmxwQYlML
-	 G7BprC4Ga3YwKbLO+LOHz9vjSokrSZ1VAtQ5Vo2QQp3pxS5ptwl7IcCF8/a+UpseFEfkD
-	 my4FmSiJpFEsGpmzPZqDsgOZpwP741n2aCpy4R2dpYoxAPFCgRoL8IwifEeQU5HDY0A5T
-	 yuyEAYdZG2tx3Ev/aLUtsUo+JqEdF01WgEjoUPiGML+dWObdel4mGxxKbziRSzkO2Po57
-	 uYWPo8kY6sagyxHcqaZ7yQhBveqRJSPgYDZWAdxJHQ2D6JCV3H2DOE4vWsXLMNQG60A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870968;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JFCU0FbtSuC2D7iPyi82SNxybv9/1CahXus+XyLTnc4=;
+	b=Oq2YyPszESjFRNj+HWCDoCONCFu0XL4H4YfE6sWVS/3cIg4cMElPVHSwNKfTqVfuPswx
+	 6YHgboVmp4azuptdJuXL/lcOTlrY8/HluLqfQMyOpD2Il0swAo9KX8ovgIRo6aPSPK/fm
+	 7ds4yn/DBpD6lTmfSNsW4hVPPE87vAOs1DaMNN7JXCwrgaCBE1cXBLiNqUwy+PKYvejsj
+	 dgucwvgxDRQMjhjiupYcQVhNdobRsaQajMU7Eej/r5U9VOSEW2juFpcsqav8e/Cdc6BNI
+	 kRXGlI/7JtWkEVyh75L7ZWFKl4SLHzxD1okRkZDcPi1JuWTJUjAOzecZrx4Z4zJijFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=RJemcz+W;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TpbPfdgW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2B3606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:28:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B2B3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88ED606A326;
+	Thu,  5 Nov 2026 09:29:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=RJemcz+W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=efrX
-	WF7wn+Yhj8J3Aq0tfHDHFwNyrjWQVCM9PXFIXwo=; b=RJemcz+WXW08s80sHHaG
-	948hrZREnRQmmlr16e8I+wy+DF2O3faJ8F0RPLOsDMLlYKxUVppmeK3UX5Ei1mHD
-	x7wxUBZNAeMr923ALvY3g+r2aoEEHvyCHL34DO2qoTW7AngkCtWAmVEeQgSAdcIL
-	Ky/pjerdaFxr36FqPTrYykSoiPTDUjQIlpEVLQa3knjGZ2jlAqynEuew9AmeZ5y0
-	W46LVJeseQ4YmGWKqfOpd8Wl4h8Ggmn5YkCqSL+HFUfUP5OvQwC58ayigEgS/nh8
-	Es8G0vlWzAMGXGrpI16eqnhtdCyJfjFHMDxc/abYg9Eg2pPFP5v4zmPiTGQ99ynQ
-	rg==
-Received: (qmail 1088796 invoked from network); 5 Nov 2026 10:28:26 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 5 Nov 2026 10:28:26 +0100
-X-UD-Smtp-Session: l3s3148p1@Dr0fHoRfxurAwtcC
-Date: Thu, 5 Nov 2026 11:28:25 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
- tags
-Message-ID: <auxMOdmFYDYGjqa9@shikoro>
-References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
- <auxDTdfMVS3yazCk@shikoro>
- <35983c5a-7deb-4b0e-9bd4-981754343200@oss.qualcomm.com>
- <auxHASG78dTviSz8@shikoro>
- <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TpbPfdgW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A6C1F000C1;
+	Thu,  5 Nov 2026 09:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793870967;
+	bh=JFCU0FbtSuC2D7iPyi82SNxybv9/1CahXus+XyLTnc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TpbPfdgWbH6gGD1XVstA3oJT7b5CDkZRmfmPvVlwNVz4gi1txWb4MKNvOd82hHgzx
+	 M5n8Hmb/YE7vOWlwMKHpqWHPpRRa9p7m0CXdDzdArFmMwW8329BlYcDhHpVfpkbf9t
+	 XsDszlEngFjzmH/tsneOFgvuRQ0B4NUL7WOT0fTxGOXmR0Y8sateaDFB1Uvp7/riDW
+	 cpyHu51t9NjfjbOmkgb/P/0Cj+GSqjjP+yqXVo0GINez7r4zd34ot8676o2QweXQhB
+	 O/isZNK0GboRZ8H9gaLSOhM8H/HMh1YB+Eyum/mnnJ6C5UeIf/aN47XVz+8g59wzdS
+	 YcSuMUyFfZUIQ==
+Date: Thu, 5 Nov 2026 10:29:22 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+	akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] x86: hugetlb: disable default CMA reservations on
+ 32-bit kernel
+Message-ID: <auxMctmYZTTwtRRJ@localhost.localdomain>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <ece5aebe95f6565046d17ffb738670feb3202943.1793850539.git.zhengqi.arch@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,39 +62,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
+In-Reply-To: <ece5aebe95f6565046d17ffb738670feb3202943.1793850539.git.zhengqi.arch@bytedance.com>
 
-
-> > Yes, if you want to spoil that, you'd need to introduce
-> > 
-> > 	Partly-reviewed-by: ...
-> > 
-> > or something.
+On Thu, Nov 05, 2026 at 12:07:43PM +0800, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
-> Ack is for that, no need for a new tag, quoting:
+> A 32-bit x86 kernel can run on a 64-bit-capable CPU advertising GBPAGES.
+> arch_hugetlb_cma_order() checks only this feature and returns a nonzero
+> order, although gigantic HugeTLB support on x86 requires CONFIG_X86_64.
+> Specifying hugetlb_cma= can therefore reserve a CMA area that cannot
+> serve the intended gigantic HugeTLB allocations.
 > 
-> "Acked-by.... user may not have carried out a technical review of the
-> patch, yet they may be satisfied ..."
+> On non-PAE kernels, the folded PUD_SHIFT yields a 4 MiB order, which is
+> equal to MAX_PAGE_ORDER. With CONFIG_DEBUG_VM enabled, this triggers the
+> VM_WARN_ON(order <= MAX_PAGE_ORDER) check in hugetlb_cma_reserve(),
+> warning that hugetlb_cma is attempting to reserve a non-gigantic order.
+> 
+> Require CONFIG_X86_64 as well as GBPAGES when selecting the default CMA
+> order to avoid these ineffective reservations.
+> 
+> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-It seems you are mainly aiming about the "Ack/Rev"-distinction problem.
-I don't care so much about this. I care more about the "# subpart"
-problem. A list of 10 Acks without subpart is to me as useless as 10
-Revs without subpart. The subparts give me the idea which parts of the
-patch have been looked at in some way, at least.
+Acked-by: Oscar Salvador <osalvador@suse.de>
 
-> "Reviewed-by:, instead, indicates that *the patch* has been reviewed and
-> found acceptable according to the Reviewer's Statement:"
+> ---
+>  arch/x86/mm/hugetlbpage.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/mm/hugetlbpage.c b/arch/x86/mm/hugetlbpage.c
+> index 3b26621c91286..70726a99ede7b 100644
+> --- a/arch/x86/mm/hugetlbpage.c
+> +++ b/arch/x86/mm/hugetlbpage.c
+> @@ -45,7 +45,7 @@ arch_initcall(gigantic_pages_init);
+>  
+>  unsigned int __init arch_hugetlb_cma_order(void)
+>  {
+> -	if (boot_cpu_has(X86_FEATURE_GBPAGES))
+> +	if (IS_ENABLED(CONFIG_X86_64) && boot_cpu_has(X86_FEATURE_GBPAGES))
+>  		return PUD_SHIFT - PAGE_SHIFT;
+>  
+>  	return 0;
+> -- 
+> 2.54.0
+> 
 
-So, for the SPI patch: if someone spent time and reviewed the complex
-core changes, but only 2 out of dozens of drivers, this would be an Ack
-according to you. I would, however, understand that this person doesn't
-want to repeat the boring driver review a number of times. I'd happily
-accept an:
-
-	Reviewed-by: <hero@reviwers.org> # for the core parts
-
-But still, the driver parts need review. We got a similar patch for I2C
-and 4 drivers out of those needed some cosmetic improvements. I reviewed
-that. But I did not review the changes in the dmaengine core which lead
-to the driver-fixes patch.
-
+-- 
+Oscar Salvador
+SUSE Labs
