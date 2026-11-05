@@ -1,52 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870188;
-	b=rxechAQ48XGkujwT0uk3aTduOoURKQ4vmgk9cqdstrsr/V+EQgJAdHGdRmWVyLompm2L
-	 +LpUXEwvnNFMmmk/N+zoAuap5Sg/wHLd8nbYQeRxUD7E+rBxoqJfQr3++qi6USxjPSZ7q
-	 Bp3mMSL+zyd1EIXhF6SgKl4Ctk0Yz8QfCitwVtV47eYy1DPw16/LNK5Mk93fLFCMwcDuE
-	 2/w/1Ua0XQ5P6qP+1DUZDpE2eNdkxLrY7SHb+B6ub508FsMGKqTJNTS9zKWRgTWA/HRtz
-	 xO8vLl12Bxb1H7b/ogyICQU/pLvI2EKKFGp8H3D11tzzTqDcPGIZf9BftR0bDnuYvjg==
+	t=1793870217;
+	b=FqMpUUV4KGMKVnP4DoXl/6Jl3pRxmcxLbujh0AraRb5mUB40fUl/mPbJH1Z/nGdYLKKv
+	 AaOgoawARv4PhPXSHsqE0WSgKICPZ2cVkAaMKMj0zo1Hx7a/TUND+VTJLWTluGOYdu9YW
+	 Tvc9yh+GglfNDjwCkgasRyiFLotmCSf+4ImCgUECGes/baR2RaT913hbOOlSQEvcZkB66
+	 xWx0InkZZJW9QBC6eulsUeJYCI/qyDupHr/Hzmry5Ay3+CwKShL9Pr8dhJg5BI4CNlT36
+	 Td7Oq6fmaMWrQTOOmqqy/e6f31QyfhOQGbkyW1mnmeYU9TiwOpokPhrCvPeKQCQGjJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870217;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y8kBtBaVO81MFy9Ojpfy+eSSWqJ9vi0lzc/RZkyvVQc=;
-	b=DMviwuLacDkS1HlQZWjujGShZkonXqPDQVkxz3vk/7HLDRIouztPlAu1h8mSxEx+0lQQ
-	 rVpFBv/adOMPGcleeFz/e2gf/hh1fqU7IkTQ38CSKjESiBGlyvzwA5cmCxhp4xPClNTB9
-	 RNevOyEIYk180YgbuvgG9CichTMDXRJVoaS4GyzGP4+bhT+n9n9yLCy4vHSfwjp/IWJUR
-	 yPsKR7G0pIa6k03dzqkfpTiuIXND+ZfmwJzZWBa65QsEW7a+ljsVRZ9GnhxG/y2ztUu+X
-	 An+JEHKhWkQ07ZzzHy0Ia+BNSfOYvPX+sicicmI2SchMLJH5m0wvxw2eSXYuIYGe5ig==
+	bh=/B0Xmlc6rqju+PGYvGBZ7ObHHOU978H/pVKBXVC450c=;
+	b=Wz8cc5Hcp1yrBAeCFhixLSOYASGZfmiTYT6Ztfv+v3dNaPa6VS4gzF+UiZ6jYafBlB2v
+	 WCRU7qWkkEzlTvDGHdqEe5JhBJvFMiCVA4yo/qANireJJZ03TAr4FMuf6QmCAcq7zZvtp
+	 zzcR2T/+mLRIf6DSpi7zWR373Xb+9NB+GVI0otAHvW+8N8f2CZhMaqz1BlOeWxHpjmbHb
+	 n0e2cwbuoNWL1PBoFXdWvAxFVX4oiZs0XVQARbO5qePus8QtYJz3bo9WRWWt8gjrFICHM
+	 d4mXQcbj09PZmLlewbmLXFAWAgj2JG12zB26fft5q2aBpETnf1ONT0MVbW0oucip7Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbDzTwg6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HC0JHHUC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5A177606A338
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6D790606A31B;
+	Thu,  5 Nov 2026 09:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbDzTwg6
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 49B7E1F000C1;
-	Thu,  5 Nov 2026 09:16:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HC0JHHUC
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 763831F000C1;
+	Thu,  5 Nov 2026 09:16:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870188;
-	bh=Y8kBtBaVO81MFy9Ojpfy+eSSWqJ9vi0lzc/RZkyvVQc=;
+	s=k20260515; t=1793870217;
+	bh=/B0Xmlc6rqju+PGYvGBZ7ObHHOU978H/pVKBXVC450c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UbDzTwg6NBBDiaqHUTTiTHNsqZwkvNzoMsw0x/eARP9Zh2ZX9jheHWN4ZnCrKP3yE
-	 gdLFYO1L9LY/gvxqn1oN0zWJxmIJ2QTvg1VKOpUc81D5uBKk8paITkJSog0EgCwRUA
-	 BJx3Rm3kkqx6MjSu9dfbYpIccG62Y/o6Yuack9GoE9ZzBKJzcOvtozO7LNVtzjaybW
-	 FDXZ9EXEM7Wu6lSd3sE/GYRORAQ4TIkFTuQzoHjtELkov1FZjsfLsNdJk4n552MEu5
-	 EzuMpBHsO5ivFn98DoZIScx6PClWuEB/4vIqd8N1Aw6DNPAzz8Sfr8WljJPh4dqIE8
-	 8nPHrYBq9zkQg==
-Date: Thu, 5 Nov 2026 10:16:24 +0100
+	b=HC0JHHUC5Z5QpI80WWJFrcZSG4CosWdR0f9odz1ECO3x4wIw1Ulvrt2YFvWQtkmRu
+	 3d3YdGB2XcUmo4OwP2kPrRi9ffMNewsW5dhoq4mTzvM45FDe0U4HYPLff4FZn9eTxl
+	 056Toc79tGrHywmutZ05+c7ofdS58KiFpBNwWekl+wazya/1Bh5xrfollvSvks4ZgR
+	 0HSlgrWpCwR56AB9NH4WR0u8wJylSdZ3IqwqIdKgBGErua8pJoKfMOAWxYixrk8unm
+	 U2QkfSgwue52r3ymp029rmX5pZmDQyIS6UDgSDe7EIbL24IS1JlBZOdacBzNzmvF1W
+	 7ZMHjo3RKZFhQ==
+Date: Thu, 5 Nov 2026 10:16:53 +0100
 From: Bartosz Golaszewski <brgl@kernel.org>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] reset: Fix issues reported by Sashiko
-Message-ID: <j2pauso4n2na3vytjskwa6arl2psd4zybxk74wxqetmd6dggr6@7opqymxo2it5>
-References: <20261104162038.48622-1-tzungbi@kernel.org>
+To: Eliav Farber <farbere@amazon.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/4] dt-bindings: pps: pps-gpio: document optional
+ pinctrl states
+Message-ID: <sapqrnp642h5yfewtei3qscw4tycwt6htndixeefzuouvcrxva@6kmmovqx2m4f>
+References: <20261104172912.26456-1-farbere@amazon.com>
+ <20261104172912.26456-4-farbere@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,33 +64,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104162038.48622-1-tzungbi@kernel.org>
+In-Reply-To: <20261104172912.26456-4-farbere@amazon.com>
 
-On Thu, Nov 05, 2026 at 12:20:36AM +0800, Tzung-Bi Shih wrote:
-> This series fixes two issues in the reset controller unregistration path
-> reported by Sashiko:
+On Wed, Nov 04, 2026 at 05:29:11PM +0000, Eliav Farber wrote:
+> When the PPS input GPIO is routed through a pin controller, a board may
+> need to mux those pins to a different function while pps-gpio is not
+> driving PPS (for example after the driver is unbound or across a kexec).
 > 
-> - Patch 1 fixes a reset_control leak when reset_control_put() is called
->   after reset_controller_unregister().
-> - Patch 2 fixes a circular locking dependency between `rcdev->lock` and
->   `rstc->srcu` in reset_controller_unregister().
+> Document the optional "default" and "inactive" pinctrl-names and show
+> both in the example. The "default" state selects the PPS/GPIO function
+> and is applied by the driver core before probe; the optional "inactive"
+> state, when present, describes the mux to restore when the driver is
+> unbound or the system is shut down. "default" is pinctrl-0, matching the
+> implicit ordering the pinctrl core already assigns it, and "inactive" is
+> pinctrl-1; the driver looks each state up by name.
+> 
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
-> v2:
-> - Address review comments on reset_controller_unregister() cleanup and
->   teardown ordering.
-> 
-> v1: https://lore.kernel.org/all/20261102155840.20376-1-tzungbi@kernel.org
-> 
-> Tzung-Bi Shih (2):
->   reset: Fix reset_control leak when put after controller unregister
->   reset: Fix circular locking dependency in
->     reset_controller_unregister()
-> 
->  drivers/reset/core.c | 69 +++++++++++++++++++++++++++++++++-----------
->  1 file changed, 52 insertions(+), 17 deletions(-)
-> 
-> -- 
-> 2.53.0
->
-
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+ 
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
