@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.23
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.62
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793868898;
-	b=AKIPg0OdtuTsGaMOxjBrUisYVaUNNP5n5OE2tMkLZCExLZFhnk1UgZFRfKz0ugFecDP3
-	 ETNLeniKI1U+c0gpJLVOxFlq90zcxEQhr3+Q3DQPMIeOPZky8HERayxLYi5gif4pecrrq
-	 6OQ+4vJ6bhk6suW4mZyJtmsP+GGXszSM1BYwiLmQt4+vvi+d3FTiicV0iP+NaFcfSH4Ab
-	 eP11Q0vvdXKtAFurm0gpjfx7G0gM0IzimroshBMN15KeQXBOcJGPa3Evil9g9LGkF8Hnu
-	 7SjYuKOc/tNsvFKw2Adkow1AnvpT57NHdr6UJZoD/ZNlp3AZkOfV1bj9kaj1U8v4Pkg==
+	t=1793868889;
+	b=2nbTIrJZl0BoDFKGYUQmEQPJMt0IUV9L5OfByZHNT747GFaC2YLKnNMe1FqVZLcWFj09
+	 PU++M3qpu2unC3OKhGwm56nPeal6Z6qzkfHQ2FyxZPAcPrkhzr3sKzYUXM/9eeeNg6Uat
+	 zNtqpLWCEYqlWV50kO/+JzgIwKn3gFXnpX92hLoADCxriWWUU6D40QiOWY9wfqks3HZwM
+	 U08Uuw21AJqOZ9SrdgVfhj0B2YQlCKAX+584KSHWUmfVqcIOYGtt017rhSSJeGMxL3G88
+	 Ty8wZgBnmkp3+iy3NWOYK6bXWgr8NjE8DRP/FinOKAuU53PvHhfoZvcGD1g0zCMA+jw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868898;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868889;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
@@ -26,79 +26,79 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=asJewU2/b3egR9ubZFd7BqtOwqChh+1O3HRjSFkYFYE=;
-	b=tlGv7KvcQzIKO3q5+Lh9SkYxWglqs0x+Uu0hBE7EeJKQQx9LXU3mUsNrMqF0BlBtsIWU
-	 wLjGWm/K76cYHmk4BxTteYc2kKA8sCcFt70mVaIhmzQ9b84IBikzzm5NanuehluwVPv7U
-	 gtS6l6rLnjukyBFDnUCmSedFSaef4KJKQrV/Vzfw3SNWh6ggRXGPXEL/kc9u0axuWlbZE
-	 Z8uhAZGmidOYVAQPLWzhaV00QjkTNR4KGrOsYhSfa8DeHRBlg8OdeiBR5wAWE4EiPdpzY
-	 FOnpVvclF+x7RRBQzJEYWsQ8cgp+eaxuUx4i9NjXXuHEeBnwYa5u4qwfteTIotLUmGA==
+	bh=cxlnERCCRe8RFVm2YDYFQfIUZL74+5D8TEnz+OePIZ4=;
+	b=GZR7FDHANxncaJ3eu7XuT+2ogoRKQwx+pdnX9W4rwFiXXmVSCru1RnfWrczu4OEn/7XA
+	 /hCK9Dtxh7iwvHT1WBJINIW/gOrHTokU+vG0HXqBsj11R9jpLm8wYbbcvv3dyfBHKWTGf
+	 OhD5OeOjLMjbFpvFC7Xext1vOAGWVOydbzQPafkaUXjB+294A62agMSEuogBulysKaMlP
+	 G4XTaPA17/EK2+GhXViCuOvtt8rP3/a4uiSh6/XYdZ3Ww4YFaf2nGHDIyJAORSnvFVhzF
+	 wK/iIgfbRgcGdLMttwyMWT6S4joG0k4P+NTK3cHuMTNtt4i4cxO5rh1snOBgPtcUy5w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TPoItz7u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.23
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012023.outbound.protection.outlook.com [40.107.209.23])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="cx/6JUkG";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.62
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013062.outbound.protection.outlook.com [40.107.201.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52018606D839;
-	Thu,  5 Nov 2026 08:54:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52018606D839
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2B1606A329;
+	Thu,  5 Nov 2026 08:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F2B1606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TPoItz7u
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cx/6JUkG
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YrO6Bqv80VtX3pSCb5UluRey7oOBmQP2VHOio1F9UgI8EAEPGxd8Rdu9DqdH/yl+2NZ8cO7RTrtt/KolB81JJsCwcgyQ9EAEYzvgFqYYlP/1yFv75n05fjkamchc2zyASg+Q1ze1fqlT/hdhf+RVnegbWXo/QJ5gD5iavHbF5f8omnJyUWnx3DCkCD6GOixiMFs1Z+EIh4+p2QRcnsSBUNzZSndURb7ymAU0vnCj3wV3j/fkG9537z6MAJYE6guHqtIDSU1jf+/N6JOmyJV+EFOFlrQmEYIueA0MseRoi6n+KqgC3FOfk/OYBBJO9w1o0TNWPNMR766FYTRA6r4tZw==
+ b=Uf6Bl6eY29/O/aIh1QzuLCEvgh2ZuU8r4zu5hsTXm3NBHISVOgG1bcKStfTr/I6Cj+TBDC8vsjRX8jy4JMrcMDr5tVIBZUa6QWAATByLdJpXsuaUg67iqC+mFJ1qsYv+b+RFqiJmsJPnSM1Ld72LwvOPLXNu/2NQ6kHyKPNul86vmHNlFNTO2D2fx0/CLB62XL/EmhCfNoQsLuV8cpkVVDn29RYfZcCs/ZMRAX48qbnDVFGs9uqBa8RUbUh+RVgDDzHnpR77leA+ltJ8APeK60blYlTgTIflaXhStb5GNblhNK5iORNDmyJxXjTjBsr/SM1PaY28SZfbsFeFreffyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=asJewU2/b3egR9ubZFd7BqtOwqChh+1O3HRjSFkYFYE=;
- b=IyorEacC9W3GP2x6KXnKZA+BX83imaBWQjS/rNBBba0FU2CpJBfJqKvzbPzOCQBmf8kuVHVfNvDJT0YfYuvCtjVqi57cvvLOVmIXr55K9pCxYRiVVviasCF5UQXo6kc7e1fT5IsndRAAPnEloGIDo6uIWwhSKtFNnSl6qpBQ43oMW8TXsiQ3Q7oTnGfFd1y1NW/ZYq1inpW2eUcXc/kzlkg3dl3JSTBaeyKyu+nY8qB046YEx5CFsncmTUkoPp+BzJYPRLwnyycZKFkOGVZ/UWmNreKVWb/DWd+cM+RDqbcKMWXzUjqt+eDuHFn18q3s/FvuIc5B76t6cd/BaPAMlw==
+ bh=cxlnERCCRe8RFVm2YDYFQfIUZL74+5D8TEnz+OePIZ4=;
+ b=fZ+5c3JOX9ve1FmQPOExh7wbBXTZqELD7CLlSx67oFsEg4gQnB3F8uADTW277hK6bMd6hEtUtiX5M6Mer84K3nGYEpe/qgRJFC7YvY9G9jlLDVfKXnyEtzEqdgQZP105I0Qbu0GVnjN+YhZzPtmTmcz2k82n7kkpXsV5fTr42ONYdXyeHYPPCGBN3TD6mnYv+mvelUpX4FFyg7h0EDZyDhBYrzC+mpL/c9Mz5mwCbk87uy8if+DtHzf2v/k4pOcmILq/zoUfJZ1YGZyaoAUA9eeg8wRdz3N9kB//G54bfcUljwmbfg2vg4ktk9+6RXcRH43fdVR3clWhRHuxLmwI6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=asJewU2/b3egR9ubZFd7BqtOwqChh+1O3HRjSFkYFYE=;
- b=TPoItz7uhs0cVRuzQodgNDr5tmWLDZzSUOZcLZIRlXS2U/MPr8B4w5MBqNiSljPwgYuMWR7UX6kRAdhOc9/sYQO9siQBTiKhTRN4z8gYW+HWBkNM1imlqqoZx0fqVIwYLuYfW4nRO5ipgJ1rM1kpNLTkO37eBLHz/gVzfKAT5sc=
-Received: from MW4PR04CA0371.namprd04.prod.outlook.com (2603:10b6:303:81::16)
- by SJ0PR12MB7066.namprd12.prod.outlook.com (2603:10b6:a03:4ae::5) with
+ bh=cxlnERCCRe8RFVm2YDYFQfIUZL74+5D8TEnz+OePIZ4=;
+ b=cx/6JUkGKwlrpC4Zvx4J+9V8t37kDZpUzSqHw1/ZVLb+kSIuU1CnwAe7jRvIIcVxhJKUtfBABUnV0EwW1Q/hSceSAFhK2jXaCyq/46FrAnBI2hEeSSNktRgteKT5YF1G8cxI57vYREA+C5tuiHLhD5ljH4au79L6kMhfLBuZgzI=
+Received: from MW4PR03CA0173.namprd03.prod.outlook.com (2603:10b6:303:8d::28)
+ by CH8PR12MB249853.namprd12.prod.outlook.com (2603:10b6:610:702::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 08:54:55 +0000
-Received: from BY1PEPF000264B2.namprd02.prod.outlook.com
- (2603:10b6:303:81:cafe::2a) by MW4PR04CA0371.outlook.office365.com
- (2603:10b6:303:81::16) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 08:54:44 +0000
+Received: from CO1PEPF00018864.namprd03.prod.outlook.com
+ (2603:10b6:303:8d:cafe::78) by MW4PR03CA0173.outlook.office365.com
+ (2603:10b6:303:8d::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 08:54:54 +0000
+ Nov 2026 08:54:44 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF000264B2.mail.protection.outlook.com (10.167.242.118) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF00018864.mail.protection.outlook.com (10.167.249.152) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 08:54:53 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 08:54:43 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
- 2026 02:54:52 -0600
+ 2026 02:54:41 -0600
 Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 5 Nov 2026 02:54:50 -0600
+ Transport; Thu, 5 Nov 2026 02:54:39 -0600
 From: Shubham Patil <shubhamsanjay.patil@amd.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
 	<Frank.Li@nxp.com>
 CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <meaganlloyd@linux.microsoft.com>,
 	<git@amd.com>, Shubham Patil <shubhamsanjay.patil@amd.com>
-Subject: [PATCH v2 3/3] mctp i3c: Clamp transfer lengths to the controller limits
-Date: Thu, 5 Nov 2026 14:24:25 +0530
-Message-ID: <20261105085425.3418230-4-shubhamsanjay.patil@amd.com>
+Subject: [PATCH v2 1/3] i3c: Add helpers to get the maximum transfer size for a device
+Date: Thu, 5 Nov 2026 14:24:23 +0530
+Message-ID: <20261105085425.3418230-2-shubhamsanjay.patil@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
 References: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
@@ -115,77 +115,174 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B2:EE_|SJ0PR12MB7066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b1fcd0d-f770-4511-e7bf-08df3b1a75a0
+X-MS-TrafficTypeDiagnostic: CO1PEPF00018864:EE_|CH8PR12MB249853:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbea85ce-8800-42c5-ce56-08df3b1a6f8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|5023799004|56012099006|261022105027099003|261021121427099003|261022113327099003|261022075727099003|261021123027099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|261028144727099003|18002099003|22082099003|10067099003;
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|11063799006|5023799004|56012099006|261021121427099003|261021123027099003|261009223027099003|261026121527099003|261102123227099003|261102130727099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	VwDaPVvr+dAAR/1p3LgwrEBVhSMuGMb5nL0Qvklpb3E85eQPlCb5NQKMKdWnsZ+mhODWbt493/sxe+eZoWq9PLJM/QOZ2muh39CNHqeZUaiioRFnhBadwmSj+dK7Qib6meWFO8kNvkaRysiLZ1xaGwuqvMgyEQrIuiGKREfUphMBtXJGxpe4O2OlIp4zO1XafUBfoK9pchg6fQarsQi3MHshuWEjvREt/cIwfc605eadDUoW/CDxJqvl6jmBUqFe6XlrBG4+JI6G9tjQRa+kcQDPW7Rma9vBsZqOYj7653dc8xUa/1adnp4nbpwNb83xcBBi234HVY+pm30hs2iY2PHhuKmEk+KQ/oUSRIZzjyFqzyP+kal5qHi9aa2VqWEFa1fFZYSICnxAK722Xj+RMFwXIwOL071sS6B+RujVv4n247W4qbKtFNhIqjOXYTJN5b1vFr9o/f8iMCkIhH3Z8PpP7jsF/qW8D2Qevs0Amls22AwoLiET/JwpOsSeyp7ET019ZjKQXtFRXIIUcNWmfq19lj2z1+B7DdJXUB1NwZ654yKKa4Vg0/LK2UiSLpTm2dUjW2Z1NB5iY2Jvwk4GE9hwcES9oWMrtMPTIAgxmtFKBLWpJlsHVbJI5rxgfKnT/vW4JbZ45/MMGYa2CnUEVB4JVH5cLERAu6sSXTbIykBp3qbNHED0rbGl+k/YdrckTjzY/gYVz3kDh0k3RzPEKw==
+	VCZzEpJcO6FCwHXz2CX1hTgVCzcNTilk6dbb9CDxdHyzgF/TpX1z3NwrbYk32leYDjzvD1Stc5PaY7/Lh4nallT1QmF6PZv3DgoKHZiaZa8QD00htkHqu3fQu2MNFK0NnAv+Pr/kGe2Tq15nd99We66a9IElZn/xh6aberlBBZtT1o2ERxYxFIHFgv4j/qAaOiOrmRnGf5rZbji7+Rdo8FV49KEBSdC/4sAd8xz1s6W2cuoDqyPRUd/2l6cEmMsjwtzHEIyj9TvtTW1tdt5Y+dDWG69jAjGkzdw+Abtm8Ws++CFwsVpfRez3hqRJlBBOp3QA2aJNfnAQRW/drNfZyPef6Zlnf6LFu+l35YPF/rYjQpmvGR0CDzWzE75qWSrmkN8qWtduG1A6sXGUj1lVsixKwjJR2FYFcfjo2+sbyctgbdXwDMHZa+a2w/Eyh7QzkIWqKxdpIlj8GqFBC8Qv0mGZX/hiExiw5R8TKlyW4/Zqewl3q1JJAyJMWRrmD5FF0cX1z+OXRZGXWayARwtTxM0wen5logucpCE1kRxkvDI+bpcjT8OSMRdk79vxMqJQe0zELbespXeVLQ+CgH/eYUEJDvF8uqctd1yuCwL5iqpfSa6B/msxUnA86lOzMj69vIt1EC89YHxf2OY8kLDg7+5EGRAx1PtRQHhWGHNJ+uDuzeQTI09OGR4JztrV07d/R7Y4TfWoOcag+T/QozAjvA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(5023799004)(56012099006)(261022105027099003)(261021121427099003)(261022113327099003)(261022075727099003)(261021123027099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(11063799006)(5023799004)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(261102123227099003)(261102130727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	8c1zGagK3BvsNt4jwZBG4/axuKc64DVkYLgJ9d5lKFglpT1LeA+GagEMsAPymA7FBBMPqVUcEfZoreSqp5UkkV60IcqGp2hhZyKH/8EZsc9yMxZH7RDWmGQ0Z9ENBCFqUiaS4k4f195aOM/xpWfS9sbgE8kOkkZSQSOeB2PVQtn/aywIsOAJVRw24cUZ2cgspqNUKAuJX/TefMyF1rGRibJjMQl3eJ1zaz26EPtlIDuS1VQ5brsoLjWkbhs9B+gg1nHuyjXsS0Zsn5gDYZXCkaOX+VcMLTUL88qxA0n0DMbpNaC2WyS52Cgc2CDRcbHDjFEdxilrWsJNxa5xb/R70dVX/qxszf/Pv9SoNmP5O6Gf5Q59Vklju/3lTpgE+2+3VrQqDtDFUUQKEsBOj541ImuAI18xtN7NMcOWs7d9ZUeYiGSphEy/2NLWXfPksDia
+	ns7i6gXP5WRH8eN48NrbnTFeV6KbibFVFSQDpsAfkmheXP6iVjDkmHmGD8zTING0LsdIDwIkRIIQ0YmxrH8c0MJzHCHDr0vXV982vj+ZXqbwrgSeBaRGTrk38pPUNZoOTlvitSIyFV9HiWuAFb2tCBCTp2pPTGnCYbwJ5+wRV4C0G8RhXMftaf0h1P9M45kIi9k4ZcvLACnMhPj4sHLfZ8O/OrM9bA6qTO735zojOqGvAXujxKVJaZHnG29V8dik3Av8s8I5rYCttRwt2lctHo3IibpPbS5vXv0gsptUvDKNYfjArRsOVI45lnTRr0EU7pqZ9sPORKDVRrd2zVn+a26Rn/C24HLzFM36VAvcXuzVaE9DlkqpWK8yLwXYCvA+OaFDsvAoTW/mwky1mIlRjnQBFzTnaj8MWsx58kJ/HtEoESKRcj/zK0judttumEie
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 08:54:53.7282
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 08:54:43.5307
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b1fcd0d-f770-4511-e7bf-08df3b1a75a0
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbea85ce-8800-42c5-ce56-08df3b1a6f8d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B2.namprd02.prod.outlook.com
+	CO1PEPF00018864.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7066
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB249853
 
-mctp_i3c_setup() takes the maximum read and write lengths straight from
-GETMRL and GETMWL. Those describe the endpoint alone, so on a controller
-with a smaller limit every read can be built too large and rejected.
-Transmit packets can similarly reach the controller even when they are
-larger than its transmit buffer. The receive path also allocates an skb
-for data the hardware can never deliver.
+A target's MRL and MWL, retrieved with GETMRL and GETMWL, describe only
+what that target can accept. They say nothing about the controller
+driving it, which may impose a smaller limit of its own: the DesignWare
+controller, for example, rejects any private SDR transfer that does not
+fit its data buffer. A device driver sizing a transfer from MRL alone
+can therefore build one the controller has to refuse with -EOPNOTSUPP.
 
-Use i3c_device_get_max_read_xfer_bytes() and
-i3c_device_get_max_write_xfer_bytes() instead, which return the smaller
-of the endpoint and controller limits.
+Add tx_fifo_bytes and rx_fifo_bytes to struct i3c_master_controller, to
+be set by a controller driver before i3c_master_register() when it has
+such a limit, together with two helpers returning the smaller of the
+target and controller values for each direction.
 
-Behaviour is unchanged when neither reports a limit, as the helpers
-return 0 exactly as the GETMRL and GETMWL fields do today.
+Both inputs use 0 to mean "no limit reported", so the helpers combine
+them with min_not_zero() and return 0 only when neither side reports
+one, leaving each caller to apply its own default. struct
+i3c_device_info keeps the raw target values untouched.
+
+The returned value applies to a single message. A controller is free to
+budget its buffer across every message in one i3c_device_do_xfers()
+call, so a caller batching several messages in the same direction may
+still be rejected.
 
 Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
 ---
- drivers/net/mctp/mctp-i3c.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/i3c/device.c       | 49 ++++++++++++++++++++++++++++++++++++++
+ include/linux/i3c/device.h |  3 +++
+ include/linux/i3c/master.h | 13 +++++++---
+ 3 files changed, 62 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
-index 88d9e36cd4a2..6d08898e1d21 100644
---- a/drivers/net/mctp/mctp-i3c.c
-+++ b/drivers/net/mctp/mctp-i3c.c
-@@ -81,9 +81,9 @@ struct mctp_i3c_device {
- 	bool have_mdb;
- 	/* I3C dynamic address */
- 	u8 addr;
--	/* Maximum read length */
-+	/* Maximum read length, limited by the device MRL and the controller */
- 	u16 mrl;
--	/* Maximum write length */
-+	/* Maximum write length, limited by the device MWL and the controller */
- 	u16 mwl;
- 	/* Provisioned ID */
- 	u64 pid;
-@@ -214,8 +214,8 @@ static int mctp_i3c_setup(struct mctp_i3c_device *mi)
- 	i3c_device_get_info(mi->i3c, &info);
- 	mi->have_mdb = info.bcr & BIT(2);
- 	mi->addr = info.dyn_addr;
--	mi->mwl = info.max_write_len;
--	mi->mrl = info.max_read_len;
-+	mi->mwl = i3c_device_get_max_write_xfer_bytes(mi->i3c);
-+	mi->mrl = i3c_device_get_max_read_xfer_bytes(mi->i3c);
- 	mi->pid = info.pid;
+diff --git a/drivers/i3c/device.c b/drivers/i3c/device.c
+index 4df4682af150..588f66b3af6d 100644
+--- a/drivers/i3c/device.c
++++ b/drivers/i3c/device.c
+@@ -9,6 +9,7 @@
+ #include <linux/bug.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
++#include <linux/minmax.h>
+ #include <linux/mutex.h>
+ #include <linux/slab.h>
  
- 	rc = i3c_device_request_ibi(mi->i3c, &ibi);
+@@ -106,6 +107,54 @@ void i3c_device_get_info(const struct i3c_device *dev,
+ }
+ EXPORT_SYMBOL_GPL(i3c_device_get_info);
+ 
++/**
++ * i3c_device_get_max_read_xfer_bytes() - get the maximum readable message size
++ *
++ * @dev: device the transfers would be directed to
++ *
++ * Return: the smaller of @dev's MRL and the controller's receive limit for a
++ * single message, or 0 if neither reports a limit.
++ */
++u16 i3c_device_get_max_read_xfer_bytes(const struct i3c_device *dev)
++{
++	u16 mrl = 0, rx_fifo_bytes = 0;
++
++	i3c_bus_normaluse_lock(dev->bus);
++	if (dev->desc) {
++		mrl = dev->desc->info.max_read_len;
++		rx_fifo_bytes = i3c_dev_get_master(dev->desc)->rx_fifo_bytes;
++	}
++	i3c_bus_normaluse_unlock(dev->bus);
++
++	/* 0 means "no limit reported" on either side. */
++	return min_not_zero(mrl, rx_fifo_bytes);
++}
++EXPORT_SYMBOL_GPL(i3c_device_get_max_read_xfer_bytes);
++
++/**
++ * i3c_device_get_max_write_xfer_bytes() - get the maximum writable message size
++ *
++ * @dev: device the transfers would be directed to
++ *
++ * Return: the smaller of @dev's MWL and the controller's transmit limit for a
++ * single message, or 0 if neither reports a limit.
++ */
++u16 i3c_device_get_max_write_xfer_bytes(const struct i3c_device *dev)
++{
++	u16 mwl = 0, tx_fifo_bytes = 0;
++
++	i3c_bus_normaluse_lock(dev->bus);
++	if (dev->desc) {
++		mwl = dev->desc->info.max_write_len;
++		tx_fifo_bytes = i3c_dev_get_master(dev->desc)->tx_fifo_bytes;
++	}
++	i3c_bus_normaluse_unlock(dev->bus);
++
++	/* 0 means "no limit reported" on either side. */
++	return min_not_zero(mwl, tx_fifo_bytes);
++}
++EXPORT_SYMBOL_GPL(i3c_device_get_max_write_xfer_bytes);
++
+ /**
+  * i3c_device_disable_ibi() - Disable IBIs coming from a specific device
+  * @dev: device on which IBIs should be disabled
+diff --git a/include/linux/i3c/device.h b/include/linux/i3c/device.h
+index e30ea2cb13cb..cb3374e4f9fa 100644
+--- a/include/linux/i3c/device.h
++++ b/include/linux/i3c/device.h
+@@ -331,6 +331,9 @@ int i3c_device_do_setdasa(struct i3c_device *dev);
+ 
+ void i3c_device_get_info(const struct i3c_device *dev, struct i3c_device_info *info);
+ 
++u16 i3c_device_get_max_read_xfer_bytes(const struct i3c_device *dev);
++u16 i3c_device_get_max_write_xfer_bytes(const struct i3c_device *dev);
++
+ struct i3c_ibi_payload {
+ 	unsigned int len;
+ 	const void *data;
+diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
+index d58070a72a49..3084cc7a21be 100644
+--- a/include/linux/i3c/master.h
++++ b/include/linux/i3c/master.h
+@@ -551,11 +551,16 @@ struct i3c_master_controller_ops {
+  *            context (notably the resume path), and is skipped if the
+  *            controller is shutting down
+  * @dev_nack_retry_count: retry count when slave device nack
++ * @tx_fifo_bytes: maximum number of bytes this controller can transmit in a
++ *		   single message, or 0 if it has no such limit
++ * @rx_fifo_bytes: maximum number of bytes this controller can receive in a
++ *		   single message, or 0 if it has no such limit
+  *
+  * A &struct i3c_master_controller has to be registered to the I3C subsystem
+- * through i3c_master_register(). None of &struct i3c_master_controller fields
+- * should be set manually, just pass appropriate values to
+- * i3c_master_register().
++ * through i3c_master_register(). Except for @tx_fifo_bytes and
++ * @rx_fifo_bytes, which a controller driver may set before registering, none
++ * of &struct i3c_master_controller fields should be set manually, just pass
++ * appropriate values to i3c_master_register().
+  */
+ struct i3c_master_controller {
+ 	struct device dev;
+@@ -580,6 +585,8 @@ struct i3c_master_controller {
+ 	struct work_struct hj_work;
+ 	struct work_struct reg_work;
+ 	unsigned int dev_nack_retry_count;
++	u16 tx_fifo_bytes;
++	u16 rx_fifo_bytes;
+ };
+ 
+ /**
 -- 
 2.34.1
 
