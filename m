@@ -1,59 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873546;
-	b=Ewx1ffEIu15d3e18qFRaarbm0ZUuUFz0iQeeG2bwMIP130azX0076c45vCxe6pDU5MUW
-	 ypVn9mzvTZRQMx4sVGqFOXpJzrTZfMW4/UfH1uEFam8gQGHMqiF5ECFt7uillTm5ON8tP
-	 ftqyooWYJHveJDvRTSPyjOG/zSv7QEPQxuvPBtEIJ9MM9dKuxxm7JDdAGgjlzaLOKy4lR
-	 CYIVCDQ5kPZXMbC+XlEDIxcVWkw96kmn/Icd0UAdTdjnlVd4Ik0xqL2XvIh37BLBMYv2M
-	 KpXa6iQBb05nSmLX07VrJ5eyvKPhShMqA0wWgWSKvA3ihjU8diZnb86rJLY8/ftwdOA==
+	t=1793873566;
+	b=wilzinZgaZLoB594fkYsbzBPsmmjGWEJU0bsJS2dNvVdE7KLWysGExKk2q1BMjTjcm7b
+	 3jpGRK6GxiVf8MiqIAqyufS4PkrYIEFPnUf4VVjj2cu8NTd1EqWk+eXSEiat3W525jI80
+	 cPh/u4KMZA10BLG6JSy/6hoVYLU+Xmk5VrTBiHJCGMlPBqfV0wHpr+t8OND+fhM5LBBaP
+	 PU1jzHnN2etyybwOs51LiDOKFNHWFB4J3+c2cxsyPl9fvgyEA1VJ8UnlJ1kI1nQhK5g4R
+	 Icpj0VVBw5BEI7kJM3fiK4vARkfEljyjdyDoP8gnT9rlQsZzrA2XIbBpiTlSA7uGtVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873546;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=5tdVeohczQcF/1PA58PpWxIbAKDKZLhIvKE2pdtIyoQ=;
-	b=wmTbFGawRHRdE6Prm62Mld/4R4X/TYuJQJ5mvUaDT2EpEMETZJIR5r2mFWw+SgmSFgE6
-	 8CInihxPmgSei9DePzGemanOsRIy4BlDKulWC3GLT6PtNmSCzqVV3Woz4O8rg/4TlfdhI
-	 oI8+SBQGhkWKjpSZ4+ucSCuOB8Ue+57c5T40QI2+f/bVWT2dj9WvH27OIIV/378ovjs7+
-	 Wpd0vrN774NbK6sV+HoZii9dfF1kNRxUZsKpxZ//cC4506avyyJHrA4rVldFFSqKZhmCd
-	 vYDd/I09ywxjW5B4owpz4GHZtwJue0zHyBpWZ/dwJ8EhoIHs5ACf8AolLj+56gBSpBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873566;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
+	 Date:Message-ID:User-Agent;
+	bh=NOF5QOMavsiAnWtFGJ6Jf9A10hmMS77Tff+wL/xSXu8=;
+	b=v36qowawfKRThMXGsJX/Qst99TCi3JoDr7GdsLytc9AestHEAsKFalPAGVaF0KVG+y7+
+	 XDCdqTIzvhlmZz2E7tjSzxRfYZ57/VwFpuFcp/7/+gkrERYpmIZp4VtU8ONk+IC9q+pn8
+	 RILM0FMfgaffxToyiYa/qX2Xpx/N+aD/EQkBgHjFnNNFlwdbgOmotWVNm6ZjQIj+xQ7Vh
+	 YsTvzFLUJnPf696IxodBMnOe7aZ/n5XofX3s0POGet7TZBpcPLk+Mb4kS0Xn/+fq3+QQ5
+	 EUdotW53ycYkWtNPKS3vJfowsETdc4lJGD8XUJqwfXZVqgEU5usdvtp4UawRZiGlnWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4m0xrqi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TjQdIb1l;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4A3606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4630606D814;
+	Thu,  5 Nov 2026 10:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4630606D814
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4m0xrqi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D294C1F000C1;
-	Thu,  5 Nov 2026 10:12:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793873546;
-	bh=5tdVeohczQcF/1PA58PpWxIbAKDKZLhIvKE2pdtIyoQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=D4m0xrqitxKnrWDpcPxFMNQayxHP7JZMlYZ5EK9L/FyD5VpbLSYYjCq4BowIrvgNf
-	 vIIq6h66ZAUN9n/FZNSd4ZndLixv7mhA5o4biggzhTz+9B16KSzt+ufd7Pc8f/dCgl
-	 CRqUdeiMbCFAx4rLH3tZW8n4EihPBVurj1FGAeDVXDuEN4KD/koqm90KifjEL2JJhd
-	 M8+2qqQlDlePkUvBiwvZfWGk/FvmUz2dvjbDFT5Qows8yTTvnTw5V4bcBrMuu2Pnku
-	 X3tW1kgC4CBsoYck8rH98jh8Mo8OQud0pYI8ilYKXl4rdKb25LjwmiaggxLtyjJC8V
-	 3thUu9pBgaPxA==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Hui Zhu <hui.zhu@linux.dev>
-Cc: Hui Zhu <zhuhui@kylinos.cn>, stable+noautosel@kernel.org
-In-Reply-To: <20261104091050.117076-1-hui.zhu@linux.dev>
-References: <20261104091050.117076-1-hui.zhu@linux.dev>
-Subject: Re: [PATCH v4] mm/memory: use pmdp_get_lockless() for the pmd read
- in do_fault_around()
-Message-Id: <179387354148.17709.689999444954400279.b4-ty@b4>
-Date: Thu, 05 Nov 2026 11:12:21 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TjQdIb1l
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 24D5433D;
+	Thu,  5 Nov 2026 11:10:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793873425;
+	bh=GDs6YCbVDxVScqZZAT353arDeziqS2XASVgUdwgJvtI=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=TjQdIb1lGXuJGu2gow2cLgH9JAWEeq+cuvu2zKL4PQULlTotjt2xbDIjnfBfw4hlB
+	 lOJUFOfKaHyJcr9NQDZF3Rxjh+bi72VECj9NSPqObx64SQuN8GIBd2TAlSIONDTE20
+	 cL8cBnUksNxep76n/jnevwUomc9NEEZN0dTSHoQA=
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,50 +53,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261105033224.2880607-1-t-lannynd@ti.com>
+References: <20261105033224.2880607-1-t-lannynd@ti.com>
+Subject: Re: [PATCH v2] arm64: dts: ti: k3-am62x-sk: Add orientation to IMX219 sensor node
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: b-brnich@ti.com, praneeth@ti.com, r-donadkar@ti.com, devarsht@ti.com, jai.luthra@ideasonboard.com, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Thorsten Lannynd <t-lannynd@ti.com>, linux-arm-kernel@lists.infradead.org
+Date: Thu, 05 Nov 2026 10:12:40 +0000
+Message-ID: <179387356065.194410.14555444564110226308@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-On Wed, 04 Nov 2026 17:10:50 +0800, Hui Zhu wrote:
-> KCSAN reports a data-race in do_read_fault / pmd_install; the same code
-> is in mainline:
-> 
->   write (marked) to 0xffff8d52a75fb810 of 8 bytes by task 27487 on cpu 5:
->    native_set_pmd arch/x86/include/asm/pgtable_64.h:83 [inline]
->    pmd_populate arch/x86/include/asm/pgalloc.h:84 [inline]
->    pmd_install+0xe0/0x120 mm/memory.c:444
->    finish_fault+0x5bc/0xb00 mm/memory.c:5204
->    do_cow_fault mm/memory.c:5432 [inline]
->    do_fault+0x5d0/0x6e0 mm/memory.c:5526
->    handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
->    __mm_populate+0x144/0x270 mm/gup.c:2207
->    __do_sys_mlockall+0x2cd/0x380 mm/mlock.c:764
-> 
-> [...]
+Quoting Thorsten Lannynd (2026-11-05 03:32:24)
+> The IMX219 CSI2 expansion module is externally attached. Without the
+> orientation property, V4L2_CID_CAMERA_ORIENTATION (0x009a0922) is not
+> exposed and libcamera fails with:
+>=20
+>   ERROR CameraSensor camera_sensor_raw.cpp:465 'imx219 4-0010':
+>   Mandatory V4L2 control 0x009a0922 not available
+>=20
+> Set orientation =3D <MEDIA_ORIENTATION_EXTERNAL> to fix this.
+>=20
+> Signed-off-by: Thorsten Lannynd <t-lannynd@ti.com>
 
-Applied, thanks!
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 
-tree: mm/core.git
-branch: core-7.5.misc
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/memory: use pmdp_get_lockless() for the pmd read in do_fault_around()
-      https://git.kernel.org/mm/core/c/6ab55cfd
-
--- 
-Cheers,
-
-David
-
+> ---
+> v2:
+>   - Use MEDIA_ORIENTATION_EXTERNAL instead of <2> (Kieran Bingham)
+>   - Add #include <dt-bindings/media/video-interface-devices.h>
+>=20
+>  arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso b/arch/a=
+rm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+> index 149c59c07182..70c2a197f1dd 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+> +++ b/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+> @@ -8,6 +8,7 @@
+>  /plugin/;
+> =20
+>  #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+> =20
+>  &{/} {
+>         clk_imx219_fixed: imx219-xclk {
+> @@ -72,6 +73,7 @@ ov5640: camera@10 {
+>                                 VDDL-supply =3D <&reg_1p2v>;
+> =20
+>                                 reset-gpios =3D <&exp1 13 GPIO_ACTIVE_HIG=
+H>;
+> +                               orientation =3D <MEDIA_ORIENTATION_EXTERN=
+AL>;
+> =20
+>                                 port {
+>                                         csi2_cam0: endpoint {
+> --=20
+> 2.34.1
+>
