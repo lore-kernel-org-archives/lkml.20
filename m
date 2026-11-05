@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.135.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866543;
-	b=Yh9FujEtLZc3N/iRzn2Jgn7z3JQGBhTdaElH7uqHl2zhKYmop5gjFRYfvFwUe/wlQ8cC
-	 h1ytVTC0glbII5nbN1MCP5ZhPXFTlO6CGkzMI97aosEnuamwNbBS3x8nOaWVXH5lqoFD7
-	 YpmrUo64mWw++PwKC5us3j+1s3mBFAK8za4B8qW+maGMx4K3UGESB3QXHdDLMux5Ajz2a
-	 xneVbHi+5P7BUEIRCEZ7qDpNmPqV9S6o94RcGFk3KrrqC97dgomojJCMvB+iBtX1wYp0h
-	 dt8AD+yngAb1Ylg43n+gIElza6DpK+O1l7uKMrVRp0jWB4Zavl/cocl6vfnSbo0Yvcw==
+	t=1793866572;
+	b=OUjf5VxwWJFiBUaSxJIkUOJ6Yi0ia8DOBEjnVizOJTDHJTeTuZzRtkgofjUF51Oa5l91
+	 Z+PAAwPMvy9olC0B5u93gBD3uqV///ua3cn6bgQej7Js/RNo7t78OKPozkxyJZzbpAHVJ
+	 dbFBOwrQceDGG1JAfhmmmyfEU84RfOs9UuWuIYTSobWg6Y3uf2RPRitEPpHq8PwE1el0l
+	 o2IV15iCvip5j1VRPlj9mVkuUtlGSedoC4lNPBT1ZisZbslIx6/3nK5K2JDPv7v6BHq+r
+	 YDcXF7V3Tp92eUpU8fO1cnCeqqiVKkuaFS9Yp4pFedFB5k8fQvxwGV77DnPsrbYSdDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866543;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PqVJrqCplD2272hpkWFwVcPUGoXg+HOijFlxAT2SeNM=;
-	b=eAw6bMmMe2uKYsHR0G9LZKSCpkUyiXXvBtTjy0LaEgcVB5ZCR/E6huIMn5GCtP4nu/O1
-	 4BACHAndKtzJZzQ16TtMSJbWLoPi8SW9hs//E9pBmeDhvlcslZ26vAyKkjjkH2O6Y6wX8
-	 +SRDt/sC+J7+92oiSSObm9ptRtqf3n/B1QGEFiLPZfFQjMgamAtwI1iKb33uSUxLRbgrP
-	 cSmSdMHwr4xi9cLgH+b4zmEwEXsmCFsGK5jiIpW5aNYCIx5ykr/q0E3rBAIEtE85WX0fQ
-	 MLIJYnZczNuXFbHq4aUDbNJ8rt7QGoq+03yVrJ/zmK59JlK4rno/lSIGqipQEqiwbeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866572;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ANne3oQ9yRwjrrK3povzRK6vY+FXA04MFtOh+xV0MyM=;
+	b=Kd5v9xajEDJKvvPVSYYgMXHCqXEyqHI6Y2R1CpaWb2e3YedSPtCaLC6ZvjTAyG/mvKy1
+	 pNU17RUH/cT1aMBikj2Gqa0so62CPN/ltt4V/BQVGweNbPx8Mhb4v6exC2Eej85iWnHRK
+	 P8ycxVGr7km9AdQA23EyHusbkka71DQ949JUph5KcfZMw8wMtfd/cXHEHyl3UVZvTf3Ta
+	 16PGBW8YrD1jOYwHm+vUSmneeYlkm+tWHC9mWpLSkLYf9/bS4cpFkcsZ3OzG4TE45kTwA
+	 qB/nfDDynxo9dLqb/NYLDy/LyJG3f/infZBhCeRY6xfKhIIFgjDLIUTeOdxoXn+gwLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNg+UfgH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=j7b768T2;
+	arc=none smtp.remote-ip=74.6.135.123
+Received: from sonic310-13.consmr.mail.bf2.yahoo.com (sonic310-13.consmr.mail.bf2.yahoo.com [74.6.135.123])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1481F606A32F;
-	Thu,  5 Nov 2026 08:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11CC606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 08:16:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C11CC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNg+UfgH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B75A1F000C1;
-	Thu,  5 Nov 2026 08:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793866542;
-	bh=PqVJrqCplD2272hpkWFwVcPUGoXg+HOijFlxAT2SeNM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oNg+UfgHD4ZLaUNBVkRFIHRA0gfjeajdzdUqRzfc5YLfimMgw73C7hTCGf2evUoiF
-	 o5aQenWk3lkesNtxN94qsYzqGbZ0sBeTkX4R0jeWMQ9hEwbMcMT6dX8TZkqtwCgwHf
-	 /y2LwIjZb3LYKBmcFxbd22p4oPOpyg4FeUYhPzUtJS+JxE9SEnh+5KpiuWrC+8LKY/
-	 wYXeba5Onzm117aObPxW4rGT+jZM89C5TkGsduI2ZfVhugghwGliz6ctTNZreFj56z
-	 9Ldf6gTscVYTguXZLVnnFXqTGgJq1fFT2dZFLjJuMOlqip46X01str7vxXoIy0V0Of
-	 /762uRT+HKBrA==
-Message-ID: <4d0e9017-18cb-4344-8f7f-414d708b4e9d@kernel.org>
-Date: Thu, 5 Nov 2026 09:15:35 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=j7b768T2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793866570; bh=ANne3oQ9yRwjrrK3povzRK6vY+FXA04MFtOh+xV0MyM=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=j7b768T26eOf/ABKGJn6piAYkwEKeAQCPJTXOhB2mH18eG3xLk8OeFDhBHg3EhD1lzBN9dtWRBBE8Gyn2IoAweaRWf6xl2rqzy015jYjpX4wBI/RURW3J+6HcYJVLMUxMfGkw9GfCwWIlXOvqeAjyDNuNcHlQ1fYcNtOOMFsYOaO3d4xrrYVdhUFDgErhHACIBp0GNEF20ng4d0zudkPy9nMO5R+hSkC5ifPWkhik/2Z0m/3Jwwe1Iwip6FHzNdiA9eoTSQKffmip3OzHUKeuB92w780EkirNNLLLCKRqgOaUWY6IbFe+b0appmlRufoiRIYZHoGCaa7Oc1jW5+A1Q==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793866570; bh=nu0YeT/UpV6Td/gqiGTBT8pGQ1cLZA8zmKTJwTCVYer=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=oYk8WOTZR5Cby3Pi7a06eOo+0f0NkCS/feM2Rz2/8nRCMeZ8B8F9IliGPkVWMIe5vmMIFDromxx/CPA6jz4sQo3s6qAx1/bkl2us1RUl1Urp9/CQrQH/06U4fU25csIOhsSojLdjqDGxUi/zg/AE6ppdiVkP/2U+C1ioICoQccXIwJ8LTDAY89/NcnvwxSokpnVUOxyC9EZbZSSo8jT5e8xewk9XTOjKpsEvM+MMzhmjs/4gzydePJ633m30njZwTykB9y2B5z5/eMWgT6Z+DwjZS1qx9VEfPeILBNk2UlfR5ks7DeWgrOmIQPWtft+aN/4QLL47LRywS7tw/eGLww==
+X-YMail-OSG: IMvZnDMVM1m98Jpi6GZf59UYveuCH_D61lxbkPa0c8rxOWPpOeEXZXU.OhN.bdn
+ tggm_z73ebwLYViiKSPJEPBBaAQkebUpepf654FvgUC3AgeiwhReqqIShro03qH96OR3sVD2UEUk
+ RH8ps1czr7WMTatuvWOoZ5iWAwZj7ewXh9bF028nV4SyHzgo7h0PG2IeD4j3SAHdNwXLjWXDU8o8
+ zyXFDoiFWx_YxfMb7xR78M7lM8tu8kckItah3RoyGp7zA.67NMWWY4TrG_eke3pl4DatTqjwLppC
+ P0C6DD5U6gQirRehO8cZlp49_eMbCyfZ911wINM0HrwamRwKOeWl3fX0tdb9TDh64uV3JdgbBSoQ
+ x9qXeNXIP6iRRAiVOZRG9eDa7BFHDZ7KEpbSdR5GPOBF9dnozvvsv59EALLuw4.AkLeN50IX4Pw0
+ B0.22lopitE.ySkuPbZvczda3lMYf5FJwIRb5ZwQf2umJmVAkF5RqRUbcKta8qSSYH6bvAdNkWr4
+ X4CvfDZ7FxJqWJGD4K.fXWT._TEUHugjfTpDWRbEdRt_AXwjpzYpdV3HruD05tCmvQIl75_9bjMT
+ yqYH.3mWUxjcyor8axsFaHMwTLL9qhCGEdlAB.QdToEOQXH3rW.JCNKVvYR_SpkCaXiS2ab2VJsg
+ 0iuudEdvHg1M94gJjtwUlPuGu0_AZItCSm6coBKPR6uVGYo3mCXwPM67.9hEXKbs1aWZG5ttAjQR
+ buWmwnEetAr.LNi7oBdI3W9bgz6QRnykCrg3Qk.NAS1Yu8TMixRLNGLAZEGWZnaMD3SIQfWsFITv
+ SvbF8BsCt8QvRTVHaaSN.VSQqSghFYfseelje77DNst4SFCM6u9O78wA_QUfsIwa78_QI_wQTdLh
+ o.So35pejdUfFTViqkD7lynbQIdVgIQgXziItoGMgRpk5njqY6s9ue7mW5RQBN52rGChK2JTz1C0
+ MUeCYtY_86CQ_c0fku7DmiOs5BOYwhEH7DqiTiMcUsr5Vy11zbA0pWP58Mkp2MbSEhLrDluCLjLO
+ ti2UCJpoWeYa.rkTTLu0lk4LWG5bs387KeMSyReDhEY0AxOonFdpu0BRVnbokxVrLkQkLXWZauRs
+ S_0OSpqzg2q8cU05KtAY7.lqJy8Qp7q8OwtQMoC2edrPRxvzixhoI6OmW0uXWf2QLCmIUe2wlED_
+ lWfvjCisvzCS7_L1pJ9wRcVH6RWck6jULb1XWIZpm5CQyUqRpuuKonz48cHTm9KPC0o2UlWIAjKD
+ H5ACpMY1TZYtBAfItnT5UuiSEgy4.A..96Bg5gV7G9J55qdFXbYAZKoy0QPaC.6oY2MLhdyKkgMm
+ 5ZBOaC.D1AX6IgVWFHIVDMzcbntUx7Es4hK.T62Veslokk3r_Pt.2jffk2GwIMopEtevDcrUpkT4
+ oxXIwbB1jbkzQgpw3Yext04zZRSovlhG3aiShfCosMBJrpSCBYx9PdZf_IH0.zIuPU1LTUv0Sh5J
+ RwyPzmQBru3AnbXWtfDGXhNtgs9EUSLrL_e6a04kinD4me382A_6krIM_rt54n3UYeeauM3Q94Dx
+ si1dEh9.maCSa3J7t4HxUYwHTPZsl1RSoXnV2rzLcSnEOSV7c8WIZiwSXaOpyjE23yKyvuQB4m.m
+ 5egpio2TsCoqTG5l6tNqoayWgqL_VnahKZK49PAk3SSbKAMedoxjlecbtqTx2XOrKEQ4mkWxWS4m
+ 5nzIbRNT1Dw2SM3inG9ZiWvxxgwcG.ijeGjzeuaveQ2G.8QUgzE3gMm2sr3MXK9MiOVHFEije3mK
+ 4L9.CqhayAZJw86Wt23AlRBxXtochzXyIYzbC4rJOFk79MdBPywheqDCY_qKcvPCyFz9MNWy33gM
+ KZOxqfa0Ebe4tQ5sgTRHLkQc_ohYnbZ04xBQxL_SopoW45OIefENtGXroBlw1a00a7pf9K_Ta2OM
+ js559gguVf.sHrpdPBTAlGpC0LgT7QzZLGnPIp7z7LDEfFS9X4YR92SSOfCBxJmdKqyOVq5FQ9GW
+ o26BwFuNWgdIEQc0SeoHOavE2JMPOJc55tys9uzPeKwBEEn9xjiuM61lXEyl2x2AUrb7rS6pkMgF
+ BvtaXeupJuiwQ4GlxvgZbp0FV_m1vwBBtEZAbAFxsCkKuZ0s6lUfRPzKhFO57SsnYPbttpyobB3p
+ aKvyDx5KTi7GQyonrkxL3YcBZyhrA8LOT86K7cDsp1fYR5d9U.mtwImCraib5wdmjH64_ByMIScm
+ 6v0uUJEtKbEW2XGnj.EhrWQNU0_l9XSsrTUrRqNQ.S0qloYbeGhtKIU0l0dDIo1ZxnrY1GU99W0v
+ iEd110yQGHS7uVm1jsyGLcJs0TRh656pIqtXAqq7N5fZQWelZEfacL2rU3UbC_UnUjY1uiS8._cS
+ g1zeM1bWz66Jeygx8_9RNkg--
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: e6f65b28-fd81-483e-8822-4724472c6c6f
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Thu, 5 Nov 2026 08:16:10 +0000
+Received: by hermes--production-ir2-5dd9bf4598-bbdwl (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID dcdd974f457abf0f44c6466242e2692e;
+          Thu, 05 Nov 2026 08:16:08 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Laurian Iacob <laurian.iacob@yahoo.com>
+Subject: [PATCH v2] media: staging/ipu7: use guard(mutex) in ipu7-buttress.c
+Date: Thu,  5 Nov 2026 10:15:57 +0200
+Message-ID: <20261105081558.6254-1-laurian.iacob@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104222832.32471-1-laurian.iacob@yahoo.com>
+References: <20261104222832.32471-1-laurian.iacob@yahoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,252 +98,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] mm/page_alloc: avoid direct reclaim and compaction for
- costly __GFP_NORETRY allocations
-Content-Language: en-US
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Salvatore Dipietro <dipiets@amazon.it>
-Cc: linux-kernel@vger.kernel.org, hch@infradead.org, abuehaze@amazon.com,
- akpm@linux-foundation.org, alisaidi@amazon.com, blakgeof@amazon.com,
- brauner@kernel.org, dgc@kernel.org, dipietro.salvatore@gmail.com,
- djwong@kernel.org, hannes@cmpxchg.org, linux-fsdevel@vger.kernel.org,
- linux-mm@kvack.org, linux-xfs@vger.kernel.org, mhocko@suse.com,
- ritesh.list@gmail.com, rvvandan@amazon.com, stable@vger.kernel.org,
- surenb@google.com, willy@infradead.org, ziy@nvidia.com,
- David Hildenbrand <david@redhat.com>, Christoph Hellwig <hch@lst.de>,
- Dmitry Ilvokhin <d@ilvokhin.com>, Brendan Jackman
- <brendan.jackman@linux.dev>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-References: <20261001082152.2879289-1-dipiets@amazon.it>
- <auuDXDglZ-Z1LZhA@quatroqueijos.cascardo.eti.br>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <auuDXDglZ-Z1LZhA@quatroqueijos.cascardo.eti.br>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 20:11, Thadeu Lima de Souza Cascardo wrote:
-> On Thu, Oct 01, 2026 at 08:21:51AM +0000, Salvatore Dipietro wrote:
->> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
->> introduced high-order folio allocations in the iomap buffered write
->> path.  When memory is fragmented, each failed costly-order allocation
->> enters __alloc_pages_slowpath() which runs direct reclaim, direct
->> compaction and drain_all_pages(), causing a 0.38x throughput drop on
->> PostgreSQL pgbench (simple-update) with 1024 clients on a 96-vCPU arm64
->> system.
->> 
->> The root issue is that direct reclaim and direct compaction are too
->> expensive for hot allocation paths that have fallbacks to smaller
->> allocations.  __filemap_get_folio_mpol() already marks higher-order
->> allocations with __GFP_NORETRY | __GFP_NOWARN, signalling that the
->> caller can handle failure.  However, the page allocator still enters the
->> full blocking slowpath for costly orders with __GFP_NORETRY, which is
->> unnecessarily aggressive when the caller will simply retry at a lower
->> order.
->> 
->> For costly-order allocations with __GFP_NORETRY, clear
->> __GFP_DIRECT_RECLAIM at the very start of the slowpath, before
->> can_direct_reclaim, can_compact and the nofail checks are evaluated.
->> This makes the entire slowpath treat the request as non-blocking: no
->> direct reclaim, no direct compaction and no drain_all_pages() IPI
->> across every CPU.  Reclaim and compaction move to the background
->> instead: kswapd is still woken for reclaim, and it wakes kcompactd for
->> defragmentation.  The system keeps its long-term health while the
->> latency-critical direct allocation path no longer stalls.
->> 
->> Allocations that also request __GFP_THISNODE are exempted.  That flag
->> pairing identifies the local-node-first THP attempt issued by
->> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
->> form transparent huge pages.
->> 
->> Clearing __GFP_DIRECT_RECLAIM makes these allocations reach the
->> !can_direct_reclaim bailout, which since commit 4c0ed883e051
->> ("mm/page_alloc: fix defrag_mode for non-reclaimable allocations") drops
->> ALLOC_NOFRAGMENT and retries instead of failing when defrag_mode is on.
->> With vm.defrag_mode=1 a __GFP_NORETRY allocation could therefore succeed
->> by fragmenting another migratetype's pageblock.  That is the wrong trade
->> for a caller that has already communicated it can handle failure and has
->> a cheap lower-order fallback, so exclude __GFP_NORETRY from the
->> relaxation.  The exclusion is not restricted to costly orders: any
->> __GFP_NORETRY caller has said it can cope with failure, so failing is
->> preferable to fragmenting for all of them.
->> 
->> Test environment:
->>   Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
->>              12x 1TB IO2 32000 IOPS RAID0 XFS
->>   OS:        AL2023
->>   Kernel:    v7.3-rc1
->>   Database:  PostgreSQL 18.4
->>   Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
->> 
->> Results (average of 3 runs, TPS):
->> 
->>   Config                                       Avg TPS   % vs baseline
->>   v7.3-rc1 baseline (vm.defrag_mode=0)          58,602               -
->>   v7.3-rc1 + this patch (vm.defrag_mode=0)     157,246         +168.3%
->>   v7.3-rc1 baseline (vm.defrag_mode=1)         109,012               -
->>   v7.3-rc1 + this patch (vm.defrag_mode=1)     157,778          +44.7%
->> 
->> Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
->> Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
->> Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
->> Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
->> Link: https://lore.kernel.org/all/20260911142102.2294202-1-dipiets@amazon.it/T/#u [v5]
->> Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
->> Cc: stable@vger.kernel.org
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Vlastimil Babka <vbabka@kernel.org>
->> Cc: David Hildenbrand <david@redhat.com>
->> Cc: Michal Hocko <mhocko@suse.com>
->> Cc: Johannes Weiner <hannes@cmpxchg.org>
->> Cc: Matthew Wilcox <willy@infradead.org>
->> Cc: Christoph Hellwig <hch@lst.de>
->> Cc: Dave Chinner <dgc@kernel.org>
->> Cc: Ritesh Harjani <ritesh.list@gmail.com>
->> Cc: Zi Yan <ziy@nvidia.com>
->> Cc: Dmitry Ilvokhin <d@ilvokhin.com>
->> Cc: linux-mm@kvack.org
->> Cc: linux-fsdevel@vger.kernel.org
->> Cc: linux-xfs@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
->> Acked-by: Zi Yan <ziy@nvidia.com>
->> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
->> Reviewed-by: Christoph Hellwig <hch@lst.de>
->> Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
->> ---
->>  mm/page_alloc.c | 21 ++++++++++++++++++---
->>  1 file changed, 18 insertions(+), 3 deletions(-)
->> 
->> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
->> index 12fac9084c48..64d09964ca77 100644
->> --- a/mm/page_alloc.c
->> +++ b/mm/page_alloc.c
->> @@ -4784,10 +4784,10 @@ static inline struct page *
->>  __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->>  						struct alloc_context *ac)
->>  {
->> -	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
->> -	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
->> -	bool nofail = gfp_mask & __GFP_NOFAIL;
->>  	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
->> +	bool can_direct_reclaim;
->> +	bool can_compact;
->> +	bool nofail;
->>  	struct page *page = NULL;
->>  	unsigned int alloc_flags;
->>  	unsigned long did_some_progress;
->> @@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->>  	bool can_retry_reserves = true;
->>  	unsigned long alloc_start_time = jiffies;
->>  
->> +	/*
->> +	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
->> +	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
->> +	 */
->> +	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
->> +	    !(gfp_mask & __GFP_THISNODE))
->> +		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
->> +
->> +	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
->> +	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
->> +	nofail = gfp_mask & __GFP_NOFAIL;
->> +
->>  	if (unlikely(nofail)) {
->>  		/*
->>  		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
-> 
-> This would trigger a warning if __GFP_NOFAIL and __GFP_NORETRY were ever
-> used together, though that does not make sense and I haven't found a case
-> where it is used in practice.
+Use scope-based guard(mutex) from linux/cleanup.h across
+ipu7-buttress.c to simplify error handling, remove redundant goto
+unlock labels, and ensure consistent mutex locking across all helper
+functions.
 
-Right. But always there is some risk someone does that unintentionally by
-trying to turn an allocation with incoming gfp flags (including unexpected
-__GFP_NOFAIL) to an opportunistic one first by appending __GFP_NORETRY, etc.
+Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
+---
+Changes in v2:
+- Restore the 'try:' label in ipu_buttress_ipc_send_msg() (Dan Carpenter)
+- Remove leftover mutex_unlock() in ipu_buttress_ipc_send_msg() and dead
+  'ret = 0' in ipu_buttress_authenticate() (Dan Carpenter)
+- Convert remaining mutexes in ipu7-buttress.c to guard(mutex)
 
-> Aside from either warning for the specific case of these flags being used
-> together or adding a comment right here to that effect, I don't think any
-> other change is needed, though.
+ drivers/staging/media/ipu7/ipu7-buttress.c | 75 +++++++++-------------
+ 1 file changed, 29 insertions(+), 46 deletions(-)
 
-Indeed. I thought we did have such warnings. Also a combination with
-__GFP_RETRY_MAYFAIL would make no sense. So we should perhaps add them.
-
-> Another comment about the general approach: TTM pool page allocator does
-> use __GFP_NORETRY and __GFP_DIRECT_RECLAIM for high orders and when we
-> previously suggested to drop __GFP_DIRECT_RECLAIM to avoid compaction, it
-> was frowned upon. In the end, a lot of other changes were made and for the
-> relevant cases, this does not seem to change its current behavior, amongst
-> other things, because it uses __GFP_THISNODE.
-> 
-> I did run some TTM GTT allocations with some fragmentation workload and I
-> haven't seen much change in the latency for these high order allocations,
-> so:
-> 
-> Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-
-Thanks!
-
->> @@ -4918,8 +4930,11 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->>  		 * Reclaim/compaction cannot run, so defrag_mode's strategy
->>  		 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
->>  		 * fallbacks rather than failing the allocation outright.
->> +		 * Not for __GFP_NORETRY: those have a cheap lower order
->> +		 * fallback, so failing beats fragmenting.
->>  		 */
->>  		if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
->> +		    !(gfp_mask & __GFP_NORETRY) &&
->>  		    (gfp_mask & __GFP_KSWAPD_RECLAIM)) {
->>  			alloc_flags &= ~ALLOC_NOFRAGMENT;
->>  			goto retry;
->> 
->> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
->> -- 
->> 2.50.1
->> 
->> 
->> 
->> 
->> AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
->> 
->> 
->> 
+diff --git a/drivers/staging/media/ipu7/ipu7-buttress.c b/drivers/staging/media/ipu7/ipu7-buttress.c
+index 40c6c8473357..e79bdb742210 100644
+--- a/drivers/staging/media/ipu7/ipu7-buttress.c
++++ b/drivers/staging/media/ipu7/ipu7-buttress.c
+@@ -6,6 +6,7 @@
+ #include <asm/cpu_device_id.h>
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/dma-mapping.h>
+@@ -76,7 +77,7 @@ int ipu_buttress_ipc_reset(struct ipu7_device *isp,
+ 		return 0;
+ 	}
+ 
+-	mutex_lock(&b->ipc_mutex);
++	guard(mutex)(&b->ipc_mutex);
+ 
+ 	/* Clear-by-1 CSR (all bits), corresponding internal states. */
+ 	val = readl(isp->base + ipc->csr_in);
+@@ -155,7 +156,6 @@ int ipu_buttress_ipc_reset(struct ipu7_device *isp,
+ 					"RST_PHASE2 retry csr_in = %x\n", val);
+ 				break;
+ 			}
+-			mutex_unlock(&b->ipc_mutex);
+ 			return 0;
+ 		case QUERY:
+ 			/*
+@@ -173,7 +173,6 @@ int ipu_buttress_ipc_reset(struct ipu7_device *isp,
+ 		}
+ 	} while (retries--);
+ 
+-	mutex_unlock(&b->ipc_mutex);
+ 	dev_err(dev, "Timed out while waiting for CSE\n");
+ 
+ 	return -ETIMEDOUT;
+@@ -229,12 +228,12 @@ static int ipu_buttress_ipc_send_msg(struct ipu7_device *isp,
+ 	u32 val;
+ 	int ret;
+ 
+-	mutex_lock(&b->ipc_mutex);
++	guard(mutex)(&b->ipc_mutex);
+ 
+ 	ret = ipu_buttress_ipc_validity_open(isp, ipc);
+ 	if (ret) {
+ 		dev_err(dev, "IPC validity open failed\n");
+-		goto out;
++		return ret;
+ 	}
+ 
+ 	tx_timeout_jiffies = msecs_to_jiffies(BUTTRESS_IPC_TX_TIMEOUT_MS);
+@@ -296,7 +295,6 @@ static int ipu_buttress_ipc_send_msg(struct ipu7_device *isp,
+ 
+ out:
+ 	ipu_buttress_ipc_validity_close(isp, ipc);
+-	mutex_unlock(&b->ipc_mutex);
+ 
+ 	return ret;
+ }
+@@ -527,13 +525,13 @@ static int ipu7_buttress_powerup(struct device *dev,
+ 	if (!ctrl)
+ 		return 0;
+ 
+-	mutex_lock(&isp->buttress.power_mutex);
++	guard(mutex)(&isp->buttress.power_mutex);
+ 
+ 	exp_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
+ 	if (ctrl->subsys_id == IPU_IS) {
+ 		ret = isys_d2d_power(dev, true);
+ 		if (ret)
+-			goto out_power;
++			return ret;
+ 		isys_nde_control(dev, true);
+ 	}
+ 
+@@ -560,7 +558,7 @@ static int ipu7_buttress_powerup(struct device *dev,
+ 	if (ret) {
+ 		dev_err(dev, "%s power up timeout with status: 0x%x\n",
+ 			ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
+-		goto out_power;
++		return ret;
+ 	}
+ 
+ 	dev_dbg(dev, "%s power up successfully. status: 0x%x\n",
+@@ -571,10 +569,7 @@ static int ipu7_buttress_powerup(struct device *dev,
+ 	val &= ~ctrl->ovrd_clk;
+ 	writel(val, isp->base + BUTTRESS_REG_SLEEP_LEVEL_CFG);
+ 
+-out_power:
+-	mutex_unlock(&isp->buttress.power_mutex);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ipu7_buttress_powerdown(struct device *dev,
+@@ -587,7 +582,7 @@ static int ipu7_buttress_powerdown(struct device *dev,
+ 	if (!ctrl)
+ 		return 0;
+ 
+-	mutex_lock(&isp->buttress.power_mutex);
++	guard(mutex)(&isp->buttress.power_mutex);
+ 
+ 	exp_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
+ 	val = 0x8U << ctrl->ratio_shift;
+@@ -601,20 +596,18 @@ static int ipu7_buttress_powerdown(struct device *dev,
+ 	if (ret) {
+ 		dev_err(dev, "%s power down timeout with status: 0x%x\n",
+ 			ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
+-		goto out_power;
++		return ret;
+ 	}
+ 
+ 	dev_dbg(dev, "%s power down successfully. status: 0x%x\n",
+ 		ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
+-out_power:
+-	if (ctrl->subsys_id == IPU_IS && !ret) {
++
++	if (ctrl->subsys_id == IPU_IS) {
+ 		isys_d2d_power(dev, false);
+ 		isys_nde_control(dev, false);
+ 	}
+ 
+-	mutex_unlock(&isp->buttress.power_mutex);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ipu8_buttress_powerup(struct device *dev,
+@@ -628,12 +621,12 @@ static int ipu8_buttress_powerup(struct device *dev,
+ 	if (!ctrl)
+ 		return 0;
+ 
+-	mutex_lock(&isp->buttress.power_mutex);
++	guard(mutex)(&isp->buttress.power_mutex);
+ 	exp_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
+ 	if (ctrl->subsys_id == IPU_IS) {
+ 		ret = isys_d2d_power(dev, true);
+ 		if (ret)
+-			goto out_power;
++			return ret;
+ 		isys_nde_control(dev, true);
+ 	}
+ 
+@@ -658,15 +651,13 @@ static int ipu8_buttress_powerup(struct device *dev,
+ 	if (ret) {
+ 		dev_err(dev, "%s power up timeout with status: 0x%x\n",
+ 			ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
+-		goto out_power;
++		return ret;
+ 	}
+ 
+ 	dev_dbg(dev, "%s power up successfully. status: 0x%x\n",
+ 		ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
+-out_power:
+-	mutex_unlock(&isp->buttress.power_mutex);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int ipu8_buttress_powerdown(struct device *dev,
+@@ -679,7 +670,7 @@ static int ipu8_buttress_powerdown(struct device *dev,
+ 	if (!ctrl)
+ 		return 0;
+ 
+-	mutex_lock(&isp->buttress.power_mutex);
++	guard(mutex)(&isp->buttress.power_mutex);
+ 	exp_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
+ 
+ 	if (ctrl->subsys_id == IPU_PS)
+@@ -712,7 +703,6 @@ static int ipu8_buttress_powerdown(struct device *dev,
+ 		if (val & ctrl->own_clk_ack)
+ 			writel(0, isp->base + BUTTRESS_REG_PS_PLL_ENABLE);
+ 	}
+-	mutex_unlock(&isp->buttress.power_mutex);
+ 
+ 	return ret;
+ }
+@@ -852,12 +842,10 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 		return 0;
+ 	}
+ 
+-	mutex_lock(&b->auth_mutex);
++	guard(mutex)(&b->auth_mutex);
+ 
+-	if (ipu_buttress_auth_done(isp)) {
+-		ret = 0;
+-		goto out_unlock;
+-	}
++	if (ipu_buttress_auth_done(isp))
++		return 0;
+ 
+ 	/*
+ 	 * BUTTRESS_REG_FW_SOURCE_BASE needs to be set with FW CPD
+@@ -879,7 +867,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				    BUTTRESS_CSE2IUDATA0_IPC_BOOT_LOAD_DONE);
+ 	if (ret) {
+ 		dev_err(dev, "CSE boot_load failed\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	mask = BUTTRESS_SECURITY_CTL_FW_SETUP_MASK;
+@@ -891,13 +879,12 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(dev, "CSE boot_load timeout\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	if ((data & mask) == fail) {
+ 		dev_err(dev, "CSE auth failed\n");
+-		ret = -EINVAL;
+-		goto out_unlock;
++		return -EINVAL;
+ 	}
+ 
+ 	ret = readl_poll_timeout(isp->base + BOOTLOADER_STATUS_OFFSET,
+@@ -905,7 +892,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(dev, "Unexpected magic number 0x%x\n", data);
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	/*
+@@ -919,7 +906,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				    BUTTRESS_CSE2IUDATA0_IPC_AUTH_RUN_DONE);
+ 	if (ret) {
+ 		dev_err(dev, "CSE authenticate_run failed\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	done = BUTTRESS_SECURITY_CTL_AUTH_DONE;
+@@ -929,21 +916,17 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
+ 				 BUTTRESS_CSE_AUTHENTICATE_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(dev, "CSE authenticate timeout\n");
+-		goto out_unlock;
++		return ret;
+ 	}
+ 
+ 	if ((data & mask) == fail) {
+ 		dev_err(dev, "CSE boot_load failed\n");
+-		ret = -EINVAL;
+-		goto out_unlock;
++		return -EINVAL;
+ 	}
+ 
+ 	dev_info(dev, "CSE authenticate_run done\n");
+ 
+-out_unlock:
+-	mutex_unlock(&b->auth_mutex);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ipu_buttress_send_tsc_request(struct ipu7_device *isp)
+-- 
+2.43.0
 
