@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793886044;
-	b=BiLis5NOayA6toeBE/0JWqxlQaQAKuU84xGALenNGNNFcHLvzamEDm0spklVzLvOsyn6
-	 LmYP/NYHVWhbZAFrGd756ZYiZOQazd2fTcPyrs/KWQMR1vaTSiBL+LcvahvL7fdEHLEF4
-	 Fgq44bg4gfvxK+jzeSNds2Wjp6sYAkNZbOAUK1HYzKDVoJYAY7k5/yMmVl/CeZBu+ScFg
-	 +9AcaT5L9bS+Hd7jhpOHd5bHF74BsLIco9ESVeOk/GGJyFB3pDh3BMpxtKAKA7x9LfcZY
-	 y0UVqVmEvFiFhxKLzX8AJXNrtYHm3Rrnv/0vbQPGK1GwKAmE7jaJgof6K16/oKCoGPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886044;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=O/MF+yzHtwPFQ57KxiYeQDNOPG9nJ4b8etqrS0FvHw4=;
-	b=O4TpXa1yIdkbIxEo2m3lUIvrBDDfXsFI8ybSwQXq+txsyK1hTFwTJffO5Yq/qrkpO1m2
-	 986xqTZ46EBLoU49blYG1Twda4sftjLEkOjDr0IqE6yESCblXM5xaOddz5kLqa883Bt1P
-	 jgKwkJOramwwf7evLBpSWBZn3l20WTHIl17FdkvEzK5lW5b5NzvjuShLMw62Hpy14eEca
-	 GcQFuUxzyUW/lDmnss6Pg50Zo5irL1pZZzwGVc/rhCvC8sYXGR9ElhQNEx1esuqeREtUe
-	 N6eb1M2jDfScaFg33boL0NQHRtIJo0zK914+FGqLfA3nFpZHYQuM28IJDzPYTvvI2nA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C71HwqMy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793886054;
+	b=A3ik829mBp/nAceC3HAT7IAdTWVEkVa8aXk/zoPxRrBSdtyfPgBLAHHJURlDdxmVy0BD
+	 Qt/3Zg4Ml40SyBMcvOqdonk/r3sRMEDW4g4Eb96UIX28YKpnwk2a3ea4/uFNcVRBpVFDs
+	 dZDZt595iu3HYESq7+ZhEYi1EqcB2XK+IhLJyUrLyI0Cq7OBBIFf6b89OOd+ItYoI0TKB
+	 RSDQHZJE8jF54SZ2A84NaGOREr/RkNWQorHoD7mHU8kabxT2xj16zAvRHQIS1uol6421G
+	 oh/G5rPI6mk7qMjvg8p2q3eQIAFk4/tckH7LiU55qRMsUCsooc0oOrNsK89/6Umi4sw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886054;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=S7t2RkNoj7H3PpYwhESf4GQH9llhdmMhHU9eX02nxmI=;
+	b=X8DZgW1Do6jC6VPyDB8pGL/DWkfeCeUYslF/oPg4eEjNABwjcqqkTaCE3d8tsQKyt3GU
+	 a13KU0MM9Vc1M5/82t3lRAo5L5ER8xxRDy9UQULDLfJ7x7RKDx/0tL6go+MDmZg0Ak926
+	 QfsmETYq0ZUW81ePBVhGIylIh92NFNT2PguE9/wfM22bict1MthbH9WU4yBd36M34K86C
+	 ZhTskva4ykkjIxPeJQqWCWArcQ2NvfgCh8v0jIeWdlgMp0jWiJk9MhEI3CsSOE1BxVMCC
+	 0IcDtYJ8YOFpIeHWsaXQfT9OIsCdtCa+8Lbltd1GNzano2qBA9Kc5hZMdbr9sEBCs9A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MN8w7hZ+;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6549606A326;
-	Thu,  5 Nov 2026 13:40:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77C9606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:40:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C77C9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C71HwqMy
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793886043;
-	b=T7TXzYPEg7PruJncEnv89umauJb7Vi5xYUB6uI1uDkIYTcjL2euuzwIggk3ldza/fOE0
-	 1INMjC3Y46UBFoxoQssAjVm/Drbuw9Vxe4cGHRN+2TgNxwZs3giMdQC2YXq5GCwuVQ0Rr
-	 cukwRERgNaQESyF0M1H4sPX8Ht1GQ5aOnuWjatYwXyPkqgfba8NBmm2zUwF/Rdt6VzGRa
-	 zOBhiCE8ZYdLt8FMYgWPcbmAzZV1p4MmpSQWqVvL9RTU96iVioVCp8cH7DwrjvN9Q5I7X
-	 5GvICb3r17bAlOOuCpW8N4t76aW/9z8qvVlN76pWYFAzd7BG34m3skAYGW+CYZxKIXA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793886043;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=O/MF+yzHtwPFQ57KxiYeQDNOPG9nJ4b8etqrS0FvHw4=;
-	b=xTsRWw8Awc3MJ5GwEcj2h5Zq0+lAHGaI7Ht9oL9cFdqzYrEQtUcOYGf1n9PFE+YP6Y/7
-	 tjgJRNTE7+aJLy9vtjIRx1bJNlM9AX8LwgCO62pqYiDi6DEzLAGP/YU0RYE8R3yKkyK1u
-	 8+wTF4krb4iGyWp2NCKs4712502ZUZ+b4+ezgffGYsaWF9ISXQhTxIt53vjjuH76qt2JW
-	 1HScwHKObBLW6aENHJxgyNjfRWRExbRYlMNjpE5x+aubNuMWscKhM13uDo42Sygq6EdMC
-	 Zu7+QeVsyRgb/Y620xc8QW08FY/uEipB1QFSvKhz+RN2lZDuR2jF6XASsyDsmdYs+ZQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MN8w7hZ+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793886052;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S7t2RkNoj7H3PpYwhESf4GQH9llhdmMhHU9eX02nxmI=;
+	b=MN8w7hZ+HbyXAJ7FrUjd/K7XZLEynBMFRLUZ2WtYoJyz4jvfKHRkX3eExt+UFQqMqwCkcK
+	4h3VR4s03w4lQ8U9oeFnrG2XjvGHv1BmuCxdugkIT/apsCSE6jEtytiwwU9x1t+W8f3Ni0
+	cW2L7BIw7N/hpaPqIxqSz1vvCdsI73s=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-145-2Xd5LgjsNWyMIKH7S99oNg-1; Thu,
+ 05 Nov 2026 08:40:47 -0500
+X-MC-Unique: 2Xd5LgjsNWyMIKH7S99oNg-1
+X-Mimecast-MFC-AGG-ID: 2Xd5LgjsNWyMIKH7S99oNg_1793886045
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id B6C891F000C1;
-	Thu,  5 Nov 2026 13:40:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793886043;
-	bh=O/MF+yzHtwPFQ57KxiYeQDNOPG9nJ4b8etqrS0FvHw4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=C71HwqMyuXLLzXD6fqSJksKKfASWFITkp/Syu32qyyO8hKhvIPR4q14fxuVU4yd+X
-	 eYlBiYYhp9yIeLikIkieQdxenjMX/27t0RBSHytF42IKnGHqFCEKPPIOKbjxX1R8IC
-	 rMGAFhBLecARKgtNTXIX1DGCJ62usgTfeS2spxBXSTsFej+CtPDB/+NyA7WMuzH88n
-	 ysn3lJNU8Dwh6xQLMF92KeGsd+3PchhjKgFnAHMX89mFgVwqKIaBVcWlNSjyA8HrvW
-	 0pgOfqP7Ou85bMZz/bQCzfor+6Zo3p7Absua2gF2x2mlGpnYF224anllp00OM84Hhg
-	 S1qfQF39PDJfA==
-Date: Thu, 5 Nov 2026 14:40:36 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Sanjay Chitroda via B4 Relay
- <devnull+sanjayembeddedse.gmail.com@kernel.org>
-Cc: sanjayembeddedse@gmail.com, Jiri Kosina <jikos@kernel.org>, Jonathan
- Cameron <jic23@kernel.org>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-input@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] iio: Remove redundant probe error messages for HID
- device drivers
-Message-ID: <20261105144036.00002e1e@kernel.org>
-In-Reply-To: <20261105-19-oct-hid-iio-unified-print-framework-v1-1-0b360d9552d9@gmail.com>
-References: <20261105-19-oct-hid-iio-unified-print-framework-v1-0-0b360d9552d9@gmail.com>
-	<20261105-19-oct-hid-iio-unified-print-framework-v1-1-0b360d9552d9@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 15F401801326;
+	Thu,  5 Nov 2026 13:40:45 +0000 (UTC)
+Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8AC251800347;
+	Thu,  5 Nov 2026 13:40:38 +0000 (UTC)
+From: Seiji Nishikawa <snishika@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Josh Don <joshdon@google.com>,
+	linux-kernel@vger.kernel.org,
+	syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	Ahmed Abdelraoof <araoof@amazon.de>,
+	Seiji Nishikawa <snishika@redhat.com>
+Subject: Re: [PATCH RESEND] sched/core: Do not touch SMT siblings that have not joined the core yet
+Date: Thu,  5 Nov 2026 22:40:35 +0900
+Message-ID: <20261105134035.170438-1-snishika@redhat.com>
+In-Reply-To: <20261105101018.GM1813469@noisy.programming.kicks-ass.net>
+References: <20261105101018.GM1813469@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,42 +92,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Thu, 05 Nov 2026 18:11:43 +0530
-Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org> wrote:
+On Thu, Nov 05, 2026 at 11:10:18AM +0100, Peter Zijlstra wrote:
+> Of the two, I like your better for being more consistent -- but you're
+> doing the same thing 4 times, which does beg the question if we cannot
+> wrap that nicer.
+>
+> How about so then?
 
-...
+Thanks, this looks nicer.
 
-> @@ -377,20 +377,16 @@ static int hid_accel_3d_probe(struct platform_device *pdev)
->  
->  	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
->  					    &accel_state->common_attributes);
-> -	if (ret < 0) {
-> -		dev_err(&pdev->dev, "trigger setup failed\n");
-> +	if (ret < 0)
+I tested it on v7.4-rc1 with the syzbot C reproducer. The warning did
+not trigger in about 1250 seconds (about 6100 offline/online cycles of
+CPU 1).
 
-You could also remove the comparison and just change the checks to `if (ret)`,
-as devm_hid_sensor_setup_trigger() always returns zero on success.
+Should I send a v2 with this change, or will you apply it yourself?
 
->  		return ret;
-> -	}
->  
->  	accel_state->callbacks.send_event = accel_3d_proc_event;
->  	accel_state->callbacks.capture_sample = accel_3d_capture_sample;
->  	accel_state->callbacks.pdev = pdev;
->  	ret = devm_sensor_hub_register_callback(dev, hsdev, hsdev->usage,
->  						&accel_state->callbacks);
-> -	if (ret < 0) {
-> -		dev_err(&pdev->dev, "callback reg failed\n");
-> +	if (ret < 0)
->  		return ret;
-> -	}
->  
->  	return devm_iio_device_register(dev, indio_dev);
+Thanks,
+Seiji
 
-
--- 
-Kind regards,
-Joshua Crofts
