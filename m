@@ -1,89 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869970;
-	b=xQS1akS4PGEewXNnfFGmKYWx8tzsgxTKBGdkDyBgLyn71b2Y/Kldad36SmN1qHR1a3Va
-	 MBAvhO6NhzQ6IakuI3KmhPEODLBBCXkm6QdYv0toG8KZAQh9nuHQL0bPBRs9bDTrXYJe0
-	 uq/+eE3W6HX0lTBFiE/IzElzo+70YtbNuuhkfjE3HodPR+fz53nHGaqvTb7yHx0sT4UgP
-	 w0lK3/LUeuymGnj8gxebLKbC7sShX8iMXldKEbp1wpNPUUeJO73rYVXMz8kZLYA7B2C5c
-	 ZJ8shuFRr6rgGvD4PoRsshHhHi/L3LuMWVaaZVoGekT6G4ozr8VbMkFZKkTC4+rAVxA==
+	t=1793869959;
+	b=KPBRdp+YjHgEVVQlGgJyLBMrwt6/cNYLjJgEk4le5qziRDwhfdRQl+IIX1jh0hUWPH5+
+	 YSizgYbaQ3nQGmiaVeb1Y3snst4y26pyH7xq1Y93c4+BpoCI8DgW2Wrk6OFU88HttLK5Z
+	 6Q/jPR0F3UKhyXILoNgdecFssFz5VWw+7YJrcCFx+XCa3GVB3LhE2yBXiPDHJRdGa6zSD
+	 u6r4Xqvh76rvnGQye1fW7iLBzJjPObatg7q6RRwjbVwy35uB9Xr1G27xMsh3j5465j0cr
+	 t+XjEop9JyANrE8RpUwfDbE+TEUsisEmBXW9wum2PVRYHBjx8UEO3g4tyrmJMNVk4xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869970;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MSpuKsAi67Z9mDW+vV5cUezACEgkCzamTDE9W9vtWQk=;
-	b=NYbap3MM6+OD8KLmu1Pa131cHNfB4PyvPeXVJMiJCWQneNRIC6Y+McVP2yag8wa3wmtf
-	 2hbWEAq3/y1URjMmQm5hUvk4Hlu1FWSKMKiSnkdN4ENFUW/3iRwgruE6dCcMUwXXYBtAm
-	 oGyWadrWLcRDELYUbjHW+VPjtKVg/uyJAQ9nBte05E0nvWOGyyqZowLnUswwxoLkmGxGN
-	 i7WD5IAr5hDHvq04XHnTKZ3UnC/wiJkJbs0yTwPZDCqQgGLrHKWEsHNDGXKHcudLlysAu
-	 KAqYV5+q8xDD05oNtAnaNgNdvEB91DAXBh4dAhPS5txwe3WiTHYhTKS3bDVQMTJg7zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869959;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=90ShHs1UBpoe+W48ldmcLOPXtu87EtyXaSj0QmGFSfY=;
+	b=3YKMNEh62eZjRqhcM/PENilclPavP9/BkFmR7IlPJ0M/8CJDQP/OVbzrwzJkBMOfoO6s
+	 qepMPvCM8u00KfQowDVhs4+r9J0p+qMPVwdvsiN/LcFDZgmmVGbI3/35JYUmJoieli/Sm
+	 minZdOxM5DpMoD2CQLjLccHp/7rVMslbKTOLIy8N3JvluATGS42k33tVHRnAFf+VkBcqL
+	 RVb0hDH5lwAcfLf/ycVPBCtGB/RLCyu7svrskG0LpiSub6E02FvPYSNLLH7+Fm80G0clP
+	 qEVh1l0LNN/JB1tcDs+TTX2RKZ8/LXXyqgxGWEdZDSMPe7L06JTLSqNTBAc5Mm5q9/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ursulin.net;
-	spf=pass smtp.mailfrom=ursulin.net;
-	dkim=pass header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=Dq03R32X;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L61cYoga;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E38B606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:12:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E38B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739C7606A32F;
+	Thu,  5 Nov 2026 09:12:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 739C7606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ursulin.net header.i=@ursulin.net header.a=rsa-sha256 header.s=google header.b=Dq03R32X
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so12342115e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:12:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1793869968; x=1794474768; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MSpuKsAi67Z9mDW+vV5cUezACEgkCzamTDE9W9vtWQk=;
-        b=Dq03R32XcNlkuTgzgGWLlb4WsFLZ2Qx9NAXLcyuNx1JVnnbdecm2eYNAXvWA38NqVY
-         gcL42rwYcechSFCrSxxMqWLkTpu/Xu6XtuWG5Kb5WEK3LsgwaQWSGVXaJUcm0/6WC2rT
-         hjfKqTbjGyAzd5pFgbsVXwX24K6dr2WskIHmFkkt5DD5qrZZR4XhVciu3/PLIBS303rU
-         2hB47mFdQGpV6yGzxfjdrfIGN0uTFjRW3NKc7hoMLlUVqT5/rSemd6NaNawgqRrRSiMo
-         UwHg74wPJ0lSAK6YSKSiRW5F0iswmoOA4i25dWRJPmhnoy7eyPF0k7FaM9G6wYIhBY/y
-         GZbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793869968; x=1794474768;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MSpuKsAi67Z9mDW+vV5cUezACEgkCzamTDE9W9vtWQk=;
-        b=E+CtAKYKhvwaeMlzzBEFBFLIJFx28KhmWInRX+Deiraex1QNaWhhCJesoWDJAEha9G
-         /LMvfbQusBr2Ch8xRLIUuFzHQKJCgdPZLUNVZZ53PN2nsaVKkNhZTvlRvJO4pKbTzD6G
-         PiQz+2hzk4u8i2+kh0z07h+y96flCANwV4oVjuLeRDv6Yvbv8jGClbl+RIoi1bePxhYN
-         B9zHBIdLCKcJ6ZJTkvEaVq5hWO0a4NZvi6CgqJ6nb93W5f1IJO2BewTJz87hOjxzNzcm
-         pyv4rr6CnYcYDl5cf34k0rT/naWcRjIv3dRDwSHsK/ICIFG2uYPe8Uli7y0ofvSmr9L4
-         fyzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxy+dFvKWwiYAsaxhrcoj2EFCLLDgh92ClC8OczOY2PIQP6ZuSXS86f7EAstGr0vozhDDWqBRip1QdOnZ8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZjFjnPLqKM41w6nDC7+AEabtd72O2pwlLGHQKoScMrju0lrG2
-	SD7s2ez7UAgn3go76B6GjDXY3ufy4iKQjtJV4vwulbZG3pzbSvqB9VyxXEIaRRVILo+PQ2idbR/
-	nFtaWGuQ=
-X-Gm-Gg: AYBFou10/VyiW55SkNOM118gTC6VHtDggbSZylDXGXMvpEu/yKJ7IEnc1gpHWSKx083
-	10bV2GIf8wd1vtJl9TZy4Sarhge3h5pII7Q3vNhTMBFgBu6F9AhEpAYnQ1FCgc3IyiJuKpsR3dQ
-	ZyCbWC8o+CsUlITagWP0W542ntkmimUTedTyy3pY+nvWfyf6F5SUPKpd8yXtx54Fq4+zTryV0W3
-	cjAl8J8oKtr8qZIbFUVEsxSfOpFf1j0tYIkVYQBI4dhDm89XmSrwtnGCr5pucrePh6kgR8o7HEk
-	FqEFrEY2t4zHGT6/StRfrGZEchME3MVkAzF9Qd4YMiOIRfLZmkMyzsMdNbEoqm+G/yyQPU9SQFS
-	U4P8QCXZ8VRjyo98+DR7QAElXsJaLgxyjcetZLp55TF079CVWiqTIv6K6VqHwKeSfjy0bBbhgcv
-	n9bOyHrep0I/TGvluMw7kP/ZzU7zvp4s5oD/Fr1wWDizzmIvOFRUOn44UG6d811f2S1lnWn7lVm
-	sh0JbDtdDpZ9ppblgvY/2D+yv9qDxkbfixLWw9sfC12CYoVP69ynhc3UzG/LMIVfcr98EW5EQ2K
-	bUnmdoqEv7gEb5cO60J6S/PJzYsNHJGWLvCNBo656Qa4ink+8Ht87ZN52Y+s/PF5FQ==
-X-Received: by 2002:a05:600c:a41:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4ac150b2136mr386865075e9.4.1793869967465;
-        Thu, 05 Nov 2026 01:12:47 -0800 (PST)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99d67sm9014875f8f.24.2026.11.05.01.12.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:12:46 -0800 (PST)
-Message-ID: <9c1805b5-06ae-426f-b286-9bbd43538afb@ursulin.net>
-Date: Thu, 5 Nov 2026 09:12:46 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L61cYoga
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793869959; x=1825405959;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Dz++69HapeENA57zHJBnq0oJ2fOfutZ9NHoiO/H6u9w=;
+  b=L61cYogaRBCqW6JsudCWRsfJL2K3EA2eal08XWtETkl2MOuIByhgzI6F
+   FICIy5UJJzOeLCUOBgNS86CWVfvWs7hN81mGTRhpBvCu++fjWC6fYPYwp
+   CH5v1ucJToptDJk4tqDEVfiNVeGwqAbfqcKqI/mdfqrdu9IEUh+swhlmd
+   M/0MvbOdE0Ce/Q2wA68JQknbJKHFehGAC9Zt5ta8hO1bmZKvqU7jdJayb
+   6HZliQHikfYbPt0pRTceSnrwvVyxGmh7Df37PhZhgXEtCukOpvnriC+k/
+   K9UDh7v+46805hdkP+N5tyUBtcujiFAAhZRy2xsno8VdyOfPY1dSxUJtl
+   w==;
+X-CSE-ConnectionGUID: BlDV9IZPRdeq25QMniSSTA==
+X-CSE-MsgGUID: 839hhwR2THyBco2kofCNHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2549131"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2549131"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:12:38 -0800
+X-CSE-ConnectionGUID: lR6z4GXfReGlu3/EPN36EQ==
+X-CSE-MsgGUID: lPmvdfNRReaL7TajpI3RKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7123499"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:12:20 -0800
+Date: Thu, 5 Nov 2026 11:12:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>,
+	Benson Leung <bleung@chromium.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Chanh Nguyen <chanh@os.amperecomputing.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Julius Werner <jwerner@chromium.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Ray Jui <ray.jui@broadcom.com>,
+	Scott Branden <scott.branden@broadcom.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sound@vger.kernel.org, linux-input@vger.kernel.org,
+	linux-tegra@vger.kernel.org, mfd@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
+Message-ID: <auxIcruDKIYb9I33@ashevche-desk.local>
+References: <20261102135330.2493332-1-robh@kernel.org>
+ <CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,82 +150,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/syncobj: Limit the number of handles and use
- kvmalloc for user-sized arrays
-To: "Yu, Fei" <fei.yu@intel.com>
-Cc: christian.koenig@amd.com, airlied@gmail.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, madhurkumar004@gmail.com,
- mripard@kernel.org, simona@ffwll.ch,
- syzbot+95416f957d84e858b377@syzkaller.appspotmail.com, tzimmermann@suse.de
-References: <39be711e-cd56-4a04-87ee-6aa2a0b69779@ursulin.net>
- <20261105081845.1230910-1-fei.yu@intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20261105081845.1230910-1-fei.yu@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Thu, Nov 05, 2026 at 10:39:06AM +0800, Chunyan Zhang wrote:
+> On Mon, 2 Nov 2026 at 21:53, Rob Herring (Arm) <robh@kernel.org> wrote:
+> >
+> > Unit-addresses by default (and most commonly) are hexadecimal. There's a
+> > number of cases using decimal patterns. Fix all of them, limiting the
+> > pattern to match the 'reg' limits if there are any.
 
-On 05/11/2026 08:18, Yu, Fei wrote:
-> From: Fei Yu <fei.yu@intel.com>
-> 
-> On 04/11/2026 10:27, Tvrtko Ursulin wrote:
->> On 04/11/2026 09:44, Christian König wrote:
->>> On 11/4/26 04:09, Yu, Fei wrote:
->>>> +#define DRM_SYNCOBJ_MAX_HANDLES        (INT_MAX / sizeof(struct syncobj_wait_entry))
->>>
->>> I really wonder if we should put that into the uAPI files?
->>>
->>> Not that userspace is potentially using it, but this is part of the uAPI
->>> and makes sense for documentation purposes.
-> 
-> I thought about that, but I'd prefer to keep it kernel internal, at
-> least for this fix:
-> 
->   - The value is derived from the size of a kernel internal struct and
->     from the kvmalloc() size limit, so it is not the same on 32-bit and
->     64-bit. To put it in drm.h I would have to replace it with a fixed
->     number, and that number becomes ABI. We could not easily raise or
->     lower it later.
-> 
->   - Tvrtko's series below avoids most of these allocations. Once that
->     lands, the right limit may be different, and an internal define is
->     easier to change.
-> 
->   - The patch has a Fixes tag, and keeping it out of the uAPI header
->     keeps the stable backport small.
-> 
-> For documentation, I could send a follow-up that adds a sentence to the
-> uAPI struct comments, saying that count_handles above an implementation
-> defined limit is rejected with -EINVAL. That documents the behavior
-> without fixing a number. Would that work for you?
-> 
->>> That kvmalloc_array() + the following copy_from_user should probably be
->>> replaced by using vmemdup_array_user(). But that should of course be a
->>> separate patch.
->>
->> Btw I tried to do that some time ago:
->>
->> https://lore.kernel.org/dri-devel/20251106132645.28208-1-tvrtko.ursulin@igalia.com/#t
->>
->> I have as local, more recent version which applies, but apparently never
->> sent it.
->>
->> Interesting part should also be the other patches from the above linked
->> series which avoid allocations altogether for the vast majority of cases.
->>
->> If there is interest I can re-base and re-send after this is merged.
-> 
-> Thanks, I wasn't aware of that series. I'll leave the
-> vmemdup_array_user() and points array cleanups to it, so we don't
-> duplicate work. Happy to test it once this fix is in.
+[snip]
 
-Thanks - just to clarify though - I understand I wait for your patch to 
-land and then rebase my series, right?
+> > --- a/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> > +++ b/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> > @@ -47,7 +47,7 @@ properties:
+> >      const: 0
+> >
+> >  patternProperties:
+> > -  "^([a-z]*-)?sensor(-section)?@[0-9]+$":
+> > +  "^([a-z]*-)?sensor(-section)?@[0-9a-f]+$":
+> 
+> Reviewed-by: Chunyan Zhang <zhang.lyra@gmail.com>
 
-Regards,
+Yes, I agree with Krzysztof that this tag is ambiguous. Please, mark precisely
+what have been reviewed.
 
-Tvrtko
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
