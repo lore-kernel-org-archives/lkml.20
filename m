@@ -1,94 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880492;
-	b=af5SemluiIrNTSUeEp0VoCLtSO0Dv2AWi+9vhcn2wSpexC890Q301l9e7E2H8mDcZCZX
-	 KgiILtn/utRm1GjgEiuzZG5NEN1WzuqrDDh12I6RYc3/BZ3cu8l142Ct1a/JVR90fulPe
-	 scFzttRtyawx5kFKvDMkG46CZg92W4nIvxcgBMHFsKuTG0eIrIZ8RGLjStzZhcgQH004E
-	 6Co7qlt9ueVUxpzl4GVcl+kWvKvL6ICI5U8nlWEmuzD03KTY8xsk/L87f9HgxU7pQfo4U
-	 YDftwfpA+Y7VfByDj1YjEwi8sa3AqJr9TD6YjVTwm3BW0mwce+NILyw7f+8jxVsHFZA==
+	t=1793880502;
+	b=tSRjzOOcLpqIDmWoYPTS9j9y4S4P2KBHkY3KhZHd9DmZPek3EbS04UWCTv6+BncIDYSp
+	 enLVLeHStrlC5g1IdwXB9BPV2N4h8VJWFvLo0ehrmxUQV0zhLO3thjUG1B4dopay2IqLI
+	 koGmSSPS6tQMz3Xpbx9GyOVmcvDRZmE2FT45m+GwSfxLa/3nE8nPg1sqyLkksuy04mGaP
+	 95Chgf3zMKsWOxELiYk0oCvAITSziv076Yv0aM9rBSLJNBmEZrzoEOcHtGMB6nSMaLHRs
+	 IHEwy6D3STSeEYSJz6kdwHy4AhT5aiKio2rAE4e//crH/oSKK7r6QYvRhL77XwCtfZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880492;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l7F9TTWWbMuBr9Fre/VxX8gEqsdwrkbz9r1btreVxJE=;
-	b=3HI/AX69p1miOE0vQtETJ1wByY8lBCyZGRZVAODri5dcjmRpuKLxi3fJfYcFTXgipoVS
-	 prn/0GwfdvA9A5q4edfzIwD0BwcCJX+61YORdcjYR0YuVxmN0uJtz7Uu4urb48+IB8Qhi
-	 HfaByUr7g5mqDN2ze65saNAbJBv46yzxYbGxFLnKAZfy+F0Yfn9F1vop5lrDG2jl9Ea3b
-	 XH/cQXjJW8U9bh2A0IAA3hEqWxY5McIbrOgoDYCl1/IQns+Go5Uhj04rsYuEO84ulRTHe
-	 RdmX3DYH1E9dPd3AD/LRg5AUMMBaW+qdxXE1On5jpPekRAO+hZt0Q0oYDiGRCU3yATw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880502;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+	b=UsvuFWr0/DtAebETQrgle4XjF8vwhtM1PLLbqEsxDuV0c3FMiTAFhLq0GMvySGkA4YT3
+	 qIUlF38SOJHadPonVmU4ggJ30F5/Kb9RFosv27SL++VUB69Rn1tKTSx3KUUJTs+jzYRAm
+	 G3YAW0sJhhHo84+jLUPmL6dJQ/WzYGtLvU2f5zfJgVHMnDgiy5lMyIqXbPouglFE8kHWr
+	 2yaILWLqYU5OV4hPs+SzG3GwxwpGqjcuAtc5IhHM/A4HKamhnVDeNBycQl/Tzkgesvtjo
+	 juMAxY++4zYYyWdOTKboJ6C3cEeO39pNXCieG6BICNe/1waVnyJt+KT0DH2fyQwMV6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VOHf58wf;
-	arc=none smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=duEJD6LP;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEuQ44sk;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=muH5tH8X;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Twh/XSEi";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DE9606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:08:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8DE9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C006D606A31B;
+	Thu,  5 Nov 2026 12:08:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C006D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VOHf58wf
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b56c3677f8so1634816a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:08:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793880490; x=1794485290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l7F9TTWWbMuBr9Fre/VxX8gEqsdwrkbz9r1btreVxJE=;
-        b=VOHf58wf8LTojh5I2KdMWrDXjHLT5K5fgYjJ4qsuu35mpAw6cc9jTBQ+katdsIkqER
-         /FC9cLHnmJzLdVOe1rWQiMo+2KkCsjRAS70gLoKLOlFSCbODbLMpd5yhmCQd8UFXy9HW
-         6sRR1ew/BesXTaAQjgfNB/uDyW1Gn+DQihCCuJNl/900YxQYeI/FbwLpPM3NnDoWmW3N
-         KTJtgVgkohuuY3OVbsj27j4m9KGVVCmYg30wOMjtKE62yD4T7YKCXc+hnNXxh3XmAT/Y
-         XWUGi2YYAlzZOdUmqLLf2ki8MXKcvjJHIr2C815CXawtvf+UZ5XkL0sGpkL/LjM4gWbN
-         3/qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793880490; x=1794485290;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l7F9TTWWbMuBr9Fre/VxX8gEqsdwrkbz9r1btreVxJE=;
-        b=Yddy6B9mR3NIrdttRRNZO5phQb784pxxtgghNz7YQYm07eywwb1ErKikjbNIynT+K8
-         uDvOhS3ucENT09jtx+U9kTm3xr8E6+rVqICHaYL1W7PFxQ+mc/DPufj/mURJsZdfFu4v
-         T8+098wwdPU+JRd4zS/N+I7X79ni7Ce5aimRc7nUByx2KFe6yyDkQqUsfBaswTSImK8X
-         y/QhCE6nirXPATxaeuSf5H9VVq72g1ogUE+3NB79EmuujMpomEHhoICpXmhnZpRwAjPi
-         ifItKaCNYuJcIP2777K1DuM7fWNWS8+f9AsHHspaGmMu9AowVCjKpbPeKKAlIvvv98qu
-         P28g==
-X-Gm-Message-State: APuU4Z84cldERBDV2ZoptI1Yi3RSkCabAMXZEcPghbKvVRzW7gsIo6Vf
-	Npn5EXLAn4l49YUbUGQ6DsnENwj4GI8gmWstxzpbNkyBJexVMjzi1pvA6q7xm3UK
-X-Gm-Gg: AYBFou1nbetfU30sYb76cmypwQDUZnIUYKY5k4HWLsjZPlCH524qalb4/QoDz2Jwq1W
-	j7C1iAWkOAigScKk6vctr29q2k6y73ilB6fiyKc40jdzOsM/LJLnZt/ekneNVEUxqly/dL8/qPK
-	5WjnrWhBDGr6QRBnxpjYCG/n7SBIkY77Tp49Y7Cs3BSSBPZkNzl++a8vw3Bx2i3gYmyvdXxitZC
-	ijQX8eyCpitTvToDoFQrZC2RayEI1mLA9KwXvAlpUUIG5RtFji22aKZtvAGTiHIQhJwken9pVJD
-	oBU2LdTCV0VgE1Hy+d55jiEta+PjgFNlSzAnQ6+qVGYfU+ZJeAUeW1qMoJm3S7Q4J0eiu7p9qAM
-	LxMcQKtq8Ht9LnN/z30PnSTdqfZYcShkwnn3/rnZwjUlkWB74BqJu4v3pR5RI8BPsyT7yuKyqKb
-	uJsdMBri9gTE8kGNQKZ01PXd1azyqVKQXY47cVsYDrTFw+TwTU6vzvF4n0WxlVwyDitOPsHzFH0
-	TlpX6WVi4VdVALCPqNbWSALJnB66wFkbTHNYeiL6vX/8FdivsKxaKAvh2QmTG8JE7uO4XumBirN
-	m8agR4jxv2XMqndDPFfl+eI4LTZWbm7e03Siy8VsvjE+IFNRwvIox4x0M0q8iLFNUXMsLzcViEF
-	uaPMFXgkcD8xjcjXR5hZ495mhvlma/hH1mP43P8NBE2c5EQ1U4bYjB6FY0aluqhZcGkY=
-X-Received: by 2002:a05:6402:a51a:10b0:6ac:8e1a:2b6f with SMTP id 4fb4d7f45d1cf-6b4d438baa9mr10181116a12.12.1793880489393;
-        Thu, 05 Nov 2026 04:08:09 -0800 (PST)
-Received: from linux-laptop.dynamic.ziggo.nl (2001-1c03-0884-3400-503b-37c4-84e0-7f98.cable.dynamic.v6.ziggo.nl. [2001:1c03:884:3400:503b:37c4:84e0:7f98])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac78e29sm1705142a12.27.2026.11.05.04.08.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:08:07 -0800 (PST)
-From: Laurijssen <lauserve@gmail.com>
-X-Google-Original-From: Laurijssen <laurijssen@protonmail.com>
-To: linux-kernel@vger.kernel.org,
-	pjw@kernel.org,
-	akpm@linux-foundation.org,
-	jannh@google.com,
-	brauner@kernel.org
-Cc: Laurijssen <laurijssen@protonmail.com>
-Subject: [PATCH] add utsname_set_field to reuse code in setdomainname and sethostname
-Date: Thu,  5 Nov 2026 13:07:51 +0100
-Message-ID: <20261105120751.920311-1-laurijssen@protonmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=duEJD6LP;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nEuQ44sk;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=muH5tH8X;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Twh/XSEi
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E09301F7A8;
+	Thu,  5 Nov 2026 12:08:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793880500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+	b=duEJD6LPekOEhn61R53kKb81GPHaXPGJIngKUTQX9WEfL8ykFAMPfmr3OERdgYmnfr5bEr
+	no/QUoCTwr2IM6pfVyWZvbGB+kH7jg6VMI0t/BL5piRkhHqFijSOo3qTB/uJ7xYzQrEyBs
+	gOFq7XIKvrhTvOnsUSKrNoDYiDAIbok=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793880500;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+	b=nEuQ44skKENyJxG2nI0WEya/Z6UeAf8j7o1gUA14jvXxD5ttTBDmJR+hSpD3AjkE27erIs
+	22RVTyoAXPvvBVDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793880499; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+	b=muH5tH8XGabU7XsT+4HLUn0YWyclJMbdrP8YC6jbblzcOUCNg6bIn+AZUHE8jVHVN8jliF
+	hdBtv4Gwr4LOd7CEkfIcFH+Z/XWj4sxlIWVLYY8yjERT78lqpfyk0ziLE47S7PXtNzHXyJ
+	8uq8NljKVjD/sxwntTPUE8trLhX/m8Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793880499;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+AscXsLOMvfsFvCViguJi+L1fCFKAfWK/UhUpwog254=;
+	b=Twh/XSEinlJ2UHBYu888sP3yxbsAvwQL1/rVLh+t/1fyMiI6SbhSYK2ev17aVQ6HLXKdNo
+	dDP1A3DjZ6h02FAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC4C6134F4;
+	Thu,  5 Nov 2026 12:08:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LbztIbNx7GrJEgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 12:08:19 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 3E083B6CC; Thu, 05 Nov 2026 13:08:15 +0100 (CET)
+Date: Thu, 5 Nov 2026 13:08:15 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>
+Subject: Re: [PATCH RFC 21/38] proc: let proc_remove() remove the entry it
+ was given
+Message-ID: <4woxjrofo67qve236jz54znbp74hk34ouesbpgh46g5lfb7bwn@v7dnw5ixlgff>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-21-59422ed3e465@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,220 +131,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-21-59422ed3e465@kernel.org>
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RL63fqwwx8ot6gmekemcs76f9d)];
+	MISSING_XM_UA(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[59];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -11.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-- add utsname_set_field to utsname_sysctl.c, it reuses duplicated code
-- call utsname_set_field from sethostname/setdomainname
-- moved uts_proc_notify from .h into utsname_sysctl.c and turned static
+On Mon 02-11-26 15:21:36, Christian Brauner wrote:
+> proc_remove() looks the entry up by its name in its parent and removes
+> whatever it finds there:
+> 
+>   remove_proc_subtree(de->name, de->parent);
+> 
+> If the entry was removed already, say along with its parent, that is
+> either nothing or a different entry that got the same name in the
+> meantime, and de->parent may well be gone. Two removals of the same
+> entry are a bug in the caller, but going by the name turns it into
+> removing an entry that belongs to somebody else.
+> 
+> Since commit 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()")
+> an entry that was unlinked has an empty rb node. So check for that
+> under proc_subdir_lock and otherwise remove the entry itself, with the
+> loop of remove_proc_subtree() moved into a helper both of them use.
+> Nothing can help a caller that passes an entry that has been freed
+> already.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: a8ca16ea7b0a ("proc: Supply a function to remove a proc entry by PDE")
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Signed-off-by: Laurijssen <laurijssen@protonmail.com>
----
- include/linux/utsname.h | 10 ++----
- kernel/sys.c            | 46 ++-----------------------
- kernel/utsname_sysctl.c | 75 ++++++++++++++++++++++++++++++++++-------
- 3 files changed, 66 insertions(+), 65 deletions(-)
+One nitpick below. Otherwise feel free to add:
 
-diff --git a/include/linux/utsname.h b/include/linux/utsname.h
-index dc5594ffffcc..409261d5381f 100644
---- a/include/linux/utsname.h
-+++ b/include/linux/utsname.h
-@@ -18,14 +18,6 @@ enum uts_proc {
- 	UTS_PROC_DOMAINNAME,
- };
- 
--#ifdef CONFIG_SYSCTL
--extern void uts_proc_notify(enum uts_proc proc);
--#else
--static inline void uts_proc_notify(enum uts_proc proc)
--{
--}
--#endif
--
- static inline struct new_utsname *utsname(void)
- {
- 	return &current->nsproxy->uts_ns->name;
-@@ -38,4 +30,6 @@ static inline struct new_utsname *init_utsname(void)
- 
- extern struct rw_semaphore uts_sem;
- 
-+int utsname_set_field(char __user *name, int len, enum uts_proc proc);
-+
- #endif /* _LINUX_UTSNAME_H */
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 755bfa5ccd92..688c5e9e222f 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -1421,28 +1421,7 @@ SYSCALL_DEFINE1(olduname, struct oldold_utsname __user *, name)
- 
- SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
- {
--	int errno;
--	char tmp[__NEW_UTS_LEN];
--
--	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
--		return -EPERM;
--
--	if (len < 0 || len > __NEW_UTS_LEN)
--		return -EINVAL;
--	errno = -EFAULT;
--	if (!copy_from_user(tmp, name, len)) {
--		struct new_utsname *u;
--
--		add_device_randomness(tmp, len);
--		down_write(&uts_sem);
--		u = utsname();
--		memcpy(u->nodename, tmp, len);
--		memset(u->nodename + len, 0, sizeof(u->nodename) - len);
--		errno = 0;
--		uts_proc_notify(UTS_PROC_HOSTNAME);
--		up_write(&uts_sem);
--	}
--	return errno;
-+	return utsname_set_field(name, len, UTS_PROC_HOSTNAME);
- }
- 
- #ifdef __ARCH_WANT_SYS_GETHOSTNAME
-@@ -1475,28 +1454,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
-  */
- SYSCALL_DEFINE2(setdomainname, char __user *, name, int, len)
- {
--	int errno;
--	char tmp[__NEW_UTS_LEN];
--
--	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
--		return -EPERM;
--	if (len < 0 || len > __NEW_UTS_LEN)
--		return -EINVAL;
--
--	errno = -EFAULT;
--	if (!copy_from_user(tmp, name, len)) {
--		struct new_utsname *u;
--
--		add_device_randomness(tmp, len);
--		down_write(&uts_sem);
--		u = utsname();
--		memcpy(u->domainname, tmp, len);
--		memset(u->domainname + len, 0, sizeof(u->domainname) - len);
--		errno = 0;
--		uts_proc_notify(UTS_PROC_DOMAINNAME);
--		up_write(&uts_sem);
--	}
--	return errno;
-+	return utsname_set_field(name, len, UTS_PROC_DOMAINNAME);
- }
- 
- /* make sure you are allowed to change @tsk limits before calling this */
-diff --git a/kernel/utsname_sysctl.c b/kernel/utsname_sysctl.c
-index 6c1522201e39..026e5c877a8b 100644
---- a/kernel/utsname_sysctl.c
-+++ b/kernel/utsname_sysctl.c
-@@ -5,6 +5,7 @@
-  *  Author: Eric Biederman <ebiederm@xmision.com>
-  */
- 
-+#include <linux/capability.h>
- #include <linux/export.h>
- #include <linux/uts.h>
- #include <linux/utsname.h>
-@@ -12,6 +13,9 @@
- #include <linux/sysctl.h>
- #include <linux/wait.h>
- #include <linux/rwsem.h>
-+#include <linux/uaccess.h>
-+
-+static const struct ctl_table uts_kern_table[];
- 
- #ifdef CONFIG_SYSCTL
- 
-@@ -67,10 +71,68 @@ static int proc_do_uts_string(const struct ctl_table *table, int write,
- 
- 	return r;
- }
-+
-+/*
-+ * Notify userspace about a change in a certain entry of uts_kern_table,
-+ * identified by the parameter proc.
-+ */
-+static void uts_proc_notify(enum uts_proc proc)
-+{
-+	const struct ctl_table *table = &uts_kern_table[proc];
-+
-+	proc_sys_poll_notify(table->poll);
-+}
- #else
- #define proc_do_uts_string NULL
-+
-+static inline void uts_proc_notify(enum uts_proc proc)
-+{
-+}
- #endif
- 
-+int utsname_set_field(char __user *name, int len, enum uts_proc proc)
-+{
-+	int errno;
-+	char tmp[__NEW_UTS_LEN];
-+
-+	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	if (len < 0 || len > __NEW_UTS_LEN)
-+		return -EINVAL;
-+	errno = -EFAULT;
-+	if (!copy_from_user(tmp, name, len)) {
-+		struct new_utsname *u;
-+		char *field;
-+
-+		add_device_randomness(tmp, len);
-+		down_write(&uts_sem);
-+
-+		u = utsname();
-+
-+		switch (proc) {
-+		case UTS_PROC_HOSTNAME:
-+			field = u->nodename;
-+			break;
-+		case UTS_PROC_DOMAINNAME:
-+			field = u->domainname;
-+			break;
-+		default:
-+			WARN_ON_ONCE(1);
-+			field = u->domainname;
-+			break;
-+		}
-+
-+		memcpy(field, tmp, len);
-+		memset(field + len, 0, sizeof_field(struct new_utsname, nodename) - len);
-+
-+		errno = 0;
-+		uts_proc_notify(proc);
-+		up_write(&uts_sem);
-+	}
-+	return errno;
-+}
-+
- static DEFINE_CTL_TABLE_POLL(hostname_poll);
- static DEFINE_CTL_TABLE_POLL(domainname_poll);
- 
-@@ -122,19 +184,6 @@ static const struct ctl_table uts_kern_table[] = {
- 	},
- };
- 
--#ifdef CONFIG_SYSCTL
--/*
-- * Notify userspace about a change in a certain entry of uts_kern_table,
-- * identified by the parameter proc.
-- */
--void uts_proc_notify(enum uts_proc proc)
--{
--	const struct ctl_table *table = &uts_kern_table[proc];
--
--	proc_sys_poll_notify(table->poll);
--}
--#endif
--
- static int __init utsname_sysctl_init(void)
- {
- 	register_sysctl("kernel", uts_kern_table);
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+> -int remove_proc_subtree(const char *name, struct proc_dir_entry *parent)
+> +/*
+> + * Remove @root, already erased from its parent, and everything below it.
+> + * Called with proc_subdir_lock held for writing, returns with it dropped.
+> + */
+> +static int __remove_proc_subtree(struct proc_dir_entry *root)
+>  {
+> -	struct proc_dir_entry *root = NULL, *de, *next;
+> -	const char *fn = name;
+> -	unsigned int len;
+> -
+> -	write_lock(&proc_subdir_lock);
+> -	if (__xlate_proc_name(name, &parent, &fn) != 0) {
+> -		write_unlock(&proc_subdir_lock);
+> -		return -ENOENT;
+> -	}
+> -	len = strlen(fn);
+> +	struct proc_dir_entry *de = root, *next;
+>  
+> -	root = pde_subdir_find(parent, fn, len);
+> -	if (!root) {
+> -		write_unlock(&proc_subdir_lock);
+> -		return -ENOENT;
+> -	}
+> -	if (unlikely(pde_is_permanent(root))) {
+> -		write_unlock(&proc_subdir_lock);
+> -		WARN(1, "removing permanent /proc entry '%s/%s'",
+> -			root->parent->name, root->name);
+> -		return -EINVAL;
+> -	}
+> -	pde_erase(root, parent);
+> -
+> -	de = root;
+>  	while (1) {
+>  		next = pde_subdir_first(de);
+>  		if (next) {
+> @@ -871,6 +852,34 @@ int remove_proc_subtree(const char *name, struct proc_dir_entry *parent)
+>  	pde_put(root);
+>  	return 0;
+>  }
+> +
+> +int remove_proc_subtree(const char *name, struct proc_dir_entry *parent)
+> +{
+> +	struct proc_dir_entry *root = NULL;
+> +	const char *fn = name;
+> +	unsigned int len;
+> +
+> +	write_lock(&proc_subdir_lock);
+> +	if (__xlate_proc_name(name, &parent, &fn) != 0) {
+> +		write_unlock(&proc_subdir_lock);
+> +		return -ENOENT;
+> +	}
+> +	len = strlen(fn);
+> +
+> +	root = pde_subdir_find(parent, fn, len);
+> +	if (!root) {
+> +		write_unlock(&proc_subdir_lock);
+> +		return -ENOENT;
+> +	}
+> +	if (unlikely(pde_is_permanent(root))) {
+> +		write_unlock(&proc_subdir_lock);
+> +		WARN(1, "removing permanent /proc entry '%s/%s'",
+> +			root->parent->name, root->name);
+> +		return -EINVAL;
+> +	}
+> +	pde_erase(root, parent);
+> +	return __remove_proc_subtree(root);
+> +}
+>  EXPORT_SYMBOL(remove_proc_subtree);
+>  
+>  void *proc_get_parent_data(const struct inode *inode)
+> @@ -882,8 +891,23 @@ EXPORT_SYMBOL_GPL(proc_get_parent_data);
+>  
+>  void proc_remove(struct proc_dir_entry *de)
+>  {
+> -	if (de)
+> -		remove_proc_subtree(de->name, de->parent);
+> +	if (!de)
+> +		return;
+> +
+> +	write_lock(&proc_subdir_lock);
+> +	/* Removed already, maybe along with its parent. */
+> +	if (RB_EMPTY_NODE(&de->subdir_node)) {
+> +		write_unlock(&proc_subdir_lock);
+> +		return;
+> +	}
+> +	if (unlikely(pde_is_permanent(de))) {
+> +		write_unlock(&proc_subdir_lock);
+> +		WARN(1, "removing permanent /proc entry '%s/%s'",
+> +		     de->parent->name, de->name);
+> +		return;
+> +	}
+> +	pde_erase(de, de->parent);
+> +	__remove_proc_subtree(de);
+
+I'd move the RB_EMPTY_NODE() and pde_is_permanent() along with pde_erase()
+call back to __remove_proc_subtree(). Both callers need them (so it is
+unnecessary duplication) and also logically it makes sense there.
+
+								Honza
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
