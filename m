@@ -1,124 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793892354;
-	b=yrObrr9W1NJ49OFR+PVgRkrTpzHZ2NpHnehpV3M2X5e2q2azG1SXiO+5pjmYWxF7lSrU
-	 HPL3GSYFe7Za2mDNtX1dEGH4ckgJS9rywdYXrf+DLJoIJY3sWWZqZuZ7uW39XArOREyQY
-	 ecw/c2NdnN51VukU9hvRLfbOfaNP1RneuO7M3nF55AhL9vAh/oRrkwKfRcIbKMGAd4mPd
-	 V6RoHuqOLSYoywDi5OS2XEXfVQ2vTzvybLMx8HqJcC4G7gHvAG5R76MULg49CjnJsITvb
-	 CgfyUJxZSN9HoDM7ZqHlvF7e1jZxJoR3AV00BJvaAA/TCRtBA582DIV1RT4tULFJrmA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892354;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=vjhKddhBYDjam7gmYzCuUV2TommKkjfbcHQoD1zd0pc=;
-	b=x27SQKriom29Qyhi0SpOOZRxWPQYfznWnUamnREm6SMgC+QKV4Ng5MZ37vjdmzIFja9H
-	 ia7mFhjwrlwMvPkqpBrunNyw4MdX0QI9jsckN6ZaWQz17gXOL8gmJHaJxKxYyv6KnI3qf
-	 gry9sauY51E5PYCh0qXGR8sYStxtC3ITxeCk/E+3FY6FAjbE5d/VwcbV9BZ/xa2cBOpqd
-	 oH3+OA1dbCiZWD/O3OrWFKEQ4KmTObYrenGmFL1gOLsbt7PHH1m3UjJtHF1yqG0gcNQfb
-	 9OEeHhwYDKlnYg3sUjZnw9GKJz4BjuBk3QPEfShN9LdRirULLvZVdeEzXVXRfnIz1+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WXgsHAIw;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WLYXjjDm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793892369;
+	b=gVH8Zche30KKaGRb7ZmeUpW4sXt3Jq4rKkhiyJ+FvaqTUGk3A3r3Gg3jL4YuYQPR3c0u
+	 MpqqNexad+kVLzDADT0Vg5MIJ/OMKfM6kV5IxGbPizg5YXdL57/q9NykmwlgEDqt2dt37
+	 3TTdcrIXGsfzmWQU+BX4gYEF7ekizonaOLyh4UsfvjDOd5gKfevC/HCNLYuY2S+d6mW4I
+	 0hs8W7YcUAmY0+MWxK1mEdYprPkyh9Kx1qmCN22yZUhBPjcy7C3Inpl8KQCXwa1cdLZxT
+	 ZQ6CYhbcJRuC5BriCv9RbrSqDL9WmnUxAHJ+2Wh5Tr76Tq8mxT9yBlDK0JiHTLnd3DA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892369;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=o+noQtRrvCKww67q7qzZKfdfT00Jg550BlEFzFIvgS8=;
+	b=W+O4k5IlO/Os+D8C08/Y5bpr+tpYOLN8+VRrz5wrYTjOC8aIR7C2ubkSV9CNx420RDDU
+	 EXQA8UdYssyD16+NDo2jLJl6Ykco2fqKKwKShH+WD3XrOv+GPEqQEA6ZCmgsJFiRTaLGQ
+	 113IUrbmTKaFHdCrSwyNKNIdKUIjbYdslvaV5u340kxMgUIuMBg+1mERHLUJtukGcdbCG
+	 wYPECpSXfsi5OM5mQAXXjfPYxV1eHnvZxnB2FyDbHfoX32f8OPQSlkHQ+hJyNnkUE7LO4
+	 +3W/bo/7zdWkXN2jAVUEtcz0urHrgwiuuL2BSRHox/HJZAcqN5UDNlUz9TnfmoYWzfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=p8Y65g9G;
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235B9606A337
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:25:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 235B9606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD63E606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:26:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD63E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WXgsHAIw;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WLYXjjDm
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQHmC1631001
-	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 15:25:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vjhKddhBYDjam7gmYzCuUV2TommKkjfbcHQoD1zd0pc=; b=WXgsHAIw4cd5PFjW
-	lNmKFBgafI++UoKu7IynvRLi/wt+QVNg8ySrAgw8O3o35+zwrbp+bul4Z4PAN1Yj
-	rjJKnkwqQkbm3cEIvFtNqVcN5f1eOU5pbJnrHNF7D8N5XYQUw2bpbtRs8I2TdFJG
-	XpJh1UpmR+xQfx87Of4dPAw+VY2mcxDog4B90qKnrVr6+UWqjryVxh1SflOobBAF
-	vH1fjqBhGQhjNGo0WMn7sRRzXep/lW3uyAXpRd3wRC2z9UUR2kiQV/7X0/KsmP4T
-	HgFMnwIcqCDB5QW5FsIRrNjs0jkzBxl6B/yxQ4KKr9H5Isw4dfnFF30HR/xD29Kv
-	F7jgqQ==
-Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com [74.125.224.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrkaqagr6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:25:52 +0000 (GMT)
-Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-679f81d5d7bso3430893d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:25:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793892352; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GtHaT+uhyu0Gc7XxgCBEZ6CYz9LGyTtfT8UKcaXo6AVFOIbDwQ3rxqy6K7MTVCNz8p
-         3IFvFBEa66vIO/d7Ry+ALZF9WRBbKVqUjv6K1QDOd5NXiMn2v6m0PU9zMOOVpDJqEPMq
-         2BbyNsQPCs7wSs0+RfZXxCgeaLyMCwQiu6TMEwyOXf+wp/0g+SRcpTPe1dyD8ZhAoC1z
-         cKrqpUh5GLq/6tjLlOSPppbsNYTzw8Ge1gHQYugruPI1ullBn4KB6vZ3BqT+GaNn8ohT
-         nzZBS9617YkD9RTRmIgIaRC835pUhazns+ee05Qq79I4B3Z07tn7UvZMJvUHhDV+5xlM
-         IM9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vjhKddhBYDjam7gmYzCuUV2TommKkjfbcHQoD1zd0pc=;
-        fh=zc6Ozex2fHgc1rkS1mNoSHRc/eQkabHnJtINZH6WujY=;
-        b=IPddvn9wEgOmLnsVLiayQ3JOZE8aZdcioOHHUgf2cfyEouNNFr9qDVA2vQ/d6nLR1i
-         25wGUYJgf/OhQS3mlb03xpUsQ+ba9U/6QOfEAD0ezEZdulZewOIixZFhhpf60xBHT2RU
-         yN8bvpcv+LIwGOBSiM/ME5sgS+h4Zcg/iwWrttz5Wc99qCrSPaNTz0lCuuL9GPLppRSY
-         vBj57KoqNEE85VcsvcuT+fX8fcpcTzcTHkG14JAR338ETaa7I2t19Ht061QGOHjMkuSj
-         vD0yMYVjEiWXZK97jYL97I1fjWis6xKKOZx/8zeDCqTjiH+2qsl+o+bK9TqUI6XrGQoJ
-         XSbA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=p8Y65g9G
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91e7af9a67fso14258896d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:26:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793892352; x=1794497152; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vjhKddhBYDjam7gmYzCuUV2TommKkjfbcHQoD1zd0pc=;
-        b=WLYXjjDmgY+FqKjJ0Xw5kC9fA5KqmRDKTwoAizy2J0qvHSGOSnCMFx2KJGmO0GOtzj
-         FRxaVpPyZ4swm0u4Cjbm8I6o+55F/0OArDAs+smRf2mg2hzIyElsQ6dC8V4kqeeiH4bW
-         SOWthIOBEUO4sqfg1llxzTOL86nUndA2pe1lsDSfHLJShTM5E2pjH91LALww5TW7ZTxg
-         rC+W0Ttfpq2A9PJHnMlzGdk0HJGHy9lx0L+rzycmHrsYE38KL4yzuyCITYXVY0rujdOS
-         Aovil250B9Hd5zIhei2HxFjWRD84w61srxtntYZ9FRqeUQxcHnQl0Sj8uWtW1o/bJnus
-         38Xw==
+        d=toxicpanda.com; s=google; t=1793892368; x=1794497168; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o+noQtRrvCKww67q7qzZKfdfT00Jg550BlEFzFIvgS8=;
+        b=p8Y65g9G3ePwpsRpJ9ItMi12wjo0mf7uZTfKe3r4pZ9WQzZT/C4ffUFA6efeTBifhK
+         apzefm0UxESeOfQuHsd0HS9AQjSwyGV+AgWM0j8DNaMWh4YjgST+hBGo3pZihU+0alVk
+         uk7KAjsyEcV2tPMAGOxsK4v9AzaewVZijMQSHOMofPC5M1I6pyHwg3IxOvYZ16WI4hfg
+         ulXDsTW8uIrDD4gLYiUF9/VdnMZ9JTbHZkxOb1tqSStyjUEGUwd5VQTa0t5v5zLCHolF
+         tA9OgB5QejYaF2yXSvdOS9thF2Y20M3ASKchSzVXMdSc9+IoPQzY1wWwUAJtezmMdQho
+         ypSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892352; x=1794497152;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793892368; x=1794497168;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vjhKddhBYDjam7gmYzCuUV2TommKkjfbcHQoD1zd0pc=;
-        b=YL0+9Mr18W4HIVNcNLr36aCXvLcoXTwIqj4adFZidVzFzjg73XV7xk9sQLP6TPhMZ0
-         wuhiSZoD7Ah3F0rU0QeMfLoOUE+IMJZB/J3kHHtP/5Iqe3v1Oaqa9g2wp7LwSXL0h8oY
-         OTzcZlC9zVda/OcUTIVUo7NBCkYeflQoDmiW2ccSsexth27obhfd7WOZaYUt5ukqse4d
-         BypuvRErVMGRlkT4Pff21yr+ZTbQoyf4Rql/0FuEpd/Tf7DaZ2Q8LMmv02qXqA1zw0Zd
-         WueHBLqs8wODNV9xBZv0NIsDq745Eozvr2kueKuivY/baL7DhMHBsTjN7VnMdRWaU2Wb
-         USww==
-X-Forwarded-Encrypted: i=1; AKwUvBz+K4JrYXuurVIjfER3uaqr3HtWtyA79/BzkZJ6M1SQCUVVv3ZoqiJUAYM+am1zYLwtPA3jKhxzvDAJoa0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9oI8gyGNz2U+DItC8Ahf6jUoNlTt+5azmhS0ReSMbEZBNiK1hk
-	jFzSm6z3L75FaditEwBE+MCRsJVAIqMgdgfrVeB0+Xy19Zo4KytCO1OswO3lDVeXbg5f6/nR3AD
-	tSC7il5RI6WX/q+icQ7k6b+f7JdxncnH2z72QB2JJjeUGWxqJF92Cil598m4pDi/sQh4d21Yhhw
-	4VEBfRUAMELSTAsLuTMpxnVK8BVDbR0i0EZnH501zCMg==
-X-Gm-Gg: AYBFou0Qx84JLV48DKvLq350XMAQIpsjky1wvB7wBMHiE7Io2aM5b0b9PeAa9pDV94q
-	il3daue4M+dH/Qfq2Xto/o4utvJrB7FZCtFvp9KeCWKnzidwd5/lGlbPPLoOE+PCxl2qf/MXKJf
-	XHsxEBNg7U1Geb7xBHub9sEZHmsu4iVF9y+PvJxnB/BOWMmL0wFhoZ5ED9LnhP9IQPLWkR1WHen
-	2mCOI+qiZxu4DmdAFiAkirujRo333Sm9dbWNgpP
-X-Received: by 2002:a05:690e:12cf:b0:677:dc7e:48b2 with SMTP id 956f58d0204a3-67ba4c86589mr11693056d50.2.1793892352261;
-        Thu, 05 Nov 2026 07:25:52 -0800 (PST)
-X-Received: by 2002:a05:690e:12cf:b0:677:dc7e:48b2 with SMTP id
- 956f58d0204a3-67ba4c86589mr11693043d50.2.1793892351655; Thu, 05 Nov 2026
- 07:25:51 -0800 (PST)
+        bh=o+noQtRrvCKww67q7qzZKfdfT00Jg550BlEFzFIvgS8=;
+        b=u7y8swmzItncSVJ7OAlcat2FjDAwfE76WNz2gAsbR4+2npuw91en8f1rmwaFcWXPvE
+         tNY7DpCaH9MZRPA0AvlJ8Ml3PbP2P11QuV7hsiXVnfC92R4V1FAhk32LWqd3GuWU0geX
+         KgT1XP4o28W2ACZCTmDdSRFplxcrfyAxTITJX1Oe0BTaF3M/p3hRnkwRTz0vEaevYIRQ
+         uOqxuSJdcy38VAk9PGP7KoJBx2lpYuCvWlEnWdi5np3erOl14nplqxjEr0xBgZ8Noz6F
+         p0BFXjy70wFxz8vPxzHzhFnGFO6CXEYflKItN067IDt67CGh8aSHOOHdngbM4qD7Dcqd
+         HpYg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4W4mhJ1Wujo8zf/z1ZvR7+sOforA6FDBJDLvnGlPFEdILH+tfQDMT0QkK2S5AfuzU7l2EqdpsYqCm0N4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+ulsWiTAQAwQb2LpSv18OXwtr/T85G+cyI7xiVvET2Ykuu8j/
+	7RWbnbzvHOACDFzIDxcXFxhRSQEZC4fvDlS9kqxabib/ELHjBaZsX9nPbRxlGpPYyLazCsssS1f
+	nykTYeJGJXw==
+X-Gm-Gg: AYBFou0YgeSzPndqhXnNpvB+mG3JErIOlvGXFdbmk4MVRkRxPrGhIdi+A3sDGqm7oms
+	M0iIWDrMyG562GyqjgSjG/OZjXGI4/UI+/wSKgbETVRvGeBof1ueMMUUPQLZeDre7297Lm+TzOG
+	UnB9KMg6XblqtNFziRO+uxbMS6rQLKv0oRqA+lhdO0pPy0cxi5obTLsdwtbB50XW50Ry3Ws9APK
+	Dmwgf9yp2BRNQ/bfjGLgc9EoMqkoy8+PIM73gkzI1EiB+FxEyE+yqTmgEL82W0UPvDWZAtPe65Z
+	2yUSpaZlTsA8tk1NqCCoGuiMxrnvV1jy9aBVfcYlZPmXgeSYwHjRiEEF8YQZuzUO0hu06cpvzjH
+	TrQdkuW0GKrMRLkCHk5vcugGb7ht9Fi7sLZjXQu8n0rYQHAzZn/yAPnugfvoNlgSRuGRfUVb685
+	NsNy7dxX60VZ1uLYBoWZXFAvL0RuQZKBM7YnGlyTr7TbcszRBGnJYPQslkb5f0FxhL4rvcUeQ52
+	6h2UBdJTP9v65YDovm01v4A7T2+nEBCyqToIZcUPnCYYOXQcrS2KIoGY5XLNG8jVidP6T4AW5bR
+	6RLCkTAljiF04lXBjnkLcvmEwzIMZJ0C6XC5oAyYf2pwW6r0NDRIn92nDIYQDHvX3myE
+X-Received: by 2002:a05:6214:5297:b0:91e:8a0b:c2ca with SMTP id 6a1803df08f44-91e8a0bc5admr72370686d6.58.1793892367804;
+        Thu, 05 Nov 2026 07:26:07 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.251])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e950f53bfsm25613906d6.7.2026.11.05.07.26.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:26:07 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 05 Nov 2026 15:03:02 +0000
+Subject: [PATCH RFC v3 70/90] seccomp: let a listener put no file into a
+ cell
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,107 +94,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023210238.551855-1-g.osokin@auroraos.dev>
- <CAGgiveXkWxrdeRYCxBC9X0eQSUAAxF5N+ioe3iM6GZ=pSqHHeg@mail.gmail.com> <auxy_pv57awSTf2m@sumit-xelite>
-In-Reply-To: <auxy_pv57awSTf2m@sumit-xelite>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 16:25:40 +0100
-X-Gm-Features: AclHuK8d8uq9ewtGZRQXy2A5QzI8YGszOw3YIr6_bJKxcDqcRh8qdQM6EdugmVs
-Message-ID: <CAGgiveXx8hwsbjvHFHb7qtCOxKDsgOmGN7rCDVj0y_-uNyX4kQ@mail.gmail.com>
-Subject: Re: [PATCH] tee: shm: don't warn on an oversized page array in register_shm_helper()
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: Georgiy Osokin <g.osokin@auroraos.dev>, Jens Wiklander <jenswi@kernel.org>,
-        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, lvc-project@linuxtesting.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: TkIpvPCTTMNVX4qsT-yoP_PjGSTM6CKg
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX2Ih4zCYpPzqV
- /LjkCNB33XNvBo/zdUpDQ3rgypCyGSMC5yg/TF/73S+ObL3/3zSQPJdO3O3I542Ydr62ULc+7dl
- VjoIA4VX43bP9uPSrCbMxINA9/dMDQ0=
-X-Proofpoint-ORIG-GUID: TkIpvPCTTMNVX4qsT-yoP_PjGSTM6CKg
-X-Authority-Analysis: v=2.4 cv=OZoNnRTY c=1 sm=1 tr=0 ts=6aeca000 cx=c_pps
- a=ngMg22mHWrP7m7pwYf9JkA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=HH5vDtPzAAAA:8 a=EUspDBNiAAAA:8
- a=t_EgE2yqlgOat-Z1zJ8A:9 a=QEXdDO2ut3YA:10 a=yHXA93iunegOHmWoMUFd:22
- a=QM_-zKB-Ew0MsOlNKMB5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MSBTYWx0ZWRfX4Tff6q1y+iTR
- HtP76PiE2c+qEbBFt8Y0/XvfVw6Qt7DGky1Td+NfUXSO5n7+BEu2Sys3+vd+pa2bBYWcnlvaXW6
- Z9HwvG+TW+GEU25YQ9Hvm1E23ePCFItlSfOA1jhCAXaILdrH7iTotBViNpbuazW8ARUSZ29qOCe
- KeApwcHKEw40kOK51PphrQT0n46FO2xncDcCt8B0+W1yej1tFickRFkh151Zxo/oeA53OOzFJZJ
- 1iI5OEKoP6Phk1o/DXIMUaq4EfRwJ0zVybriKtIvL1ELcytzyNM6hpFOorvXi5OrfamYiouCvyB
- 0kFbOEasjwuusNo7ZMy1xZSMw194PPLW4qYIybdaggSF9BOuntaorOArEHNMHapYIIOOidhIjwo
- YEmj7E47J6rdCzgg+Kjm0BEqzpM1y6W4cqAB1kKpcZpC/3pLJWEqHuHexxKFrrb/CKFbAGld3v+
- BhGj9TyxbnpbV//u+UA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050061
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-b4-cells-v3-70-bc9095937a84@toxicpanda.com>
+References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
+To: Christian Brauner <brauner@kernel.org>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
+ Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
+ Serge Hallyn <sergeh@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890935; l=1771;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=7eYOaRThtkUA9ByOJCuqUt94IjXJ0cwUOU3B59qhTG4=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QGv4KofqSrDYzxX7g0fxfHvjCeZyl0RgoeVNlZX90aawfIOm1cwAUhPdL+E+4AylW1MAn0wa3w6
+ RjcWWiYb0bA0=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Thu, Nov 5, 2026 at 1:13=E2=80=AFPM Sumit Garg <sumit.garg@kernel.org> w=
-rote:
->
-> On Tue, 03 Nov 2026 at 19:34:08 +0100, Jens Wiklander wrote:
-> >Hi,
-> >
-> >On Fri, Oct 23, 2026 at 11:03=E2=80=AFPM Georgiy Osokin <g.osokin@aurora=
-os.dev> wrote:
-> >>
-> >> register_shm_helper() sizes shm->pages from the length passed to
-> >> TEE_IOC_SHM_REGISTER and allocates it with kzalloc_objs(). A length ab=
-ove
-> >> 2 GiB makes the array larger than the page allocator can serve in one
-> >> block (MAX_PAGE_ORDER), so it trips its order warning; on a panic_on_w=
-arn
-> >> kernel that is a panic.
-> >>
-> >> The size comes from userspace and the request fails with -ENOMEM anywa=
-y,
-> >> so pass __GFP_NOWARN. kvzalloc_objs() would not help since kvmalloc
-> >> warns above INT_MAX as well.
-> >>
-> >> Fixes: 033ddf12bcf5 ("tee: add register user memory")
-> >> Cc: stable@vger.kernel.org
-> >> Cc: lvc-project@linuxtesting.org
-> >> Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
-> >> ---
-> >>  drivers/tee/tee_shm.c | 3 ++-
-> >>  1 file changed, 2 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-> >> index 6742b35..d539988 100644
-> >> --- a/drivers/tee/tee_shm.c
-> >> +++ b/drivers/tee/tee_shm.c
-> >> @@ -438,7 +438,8 @@ register_shm_helper(struct tee_context *ctx, struc=
-t iov_iter *iter, u32 flags,
-> >>                 goto err_free_shm;
-> >>         }
-> >>
-> >> -       shm->pages =3D kzalloc_objs(*shm->pages, num_pages);
-> >> +       shm->pages =3D kzalloc_objs(*shm->pages, num_pages,
-> >> +                                 GFP_KERNEL | __GFP_NOWARN);
-> >>         if (!shm->pages) {
-> >>                 ret =3D ERR_PTR(-ENOMEM);
-> >>                 goto err_free_shm;
-> >>
-> >> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-> >> --
-> >> 2.54.0
-> >>
-> >
-> >Looks good. Sumit, do you agree?
->
-> Yeah, feel free to add:
->
-> Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Seccomp filters are inherited by tasks that are spawned into a cell. That
+is intentional. The listener of a filter that uses SECCOMP_RET_USER_NOTIF
+stays outside of the cell, with the spawner or with whoever confined the
+spawner.
 
-I'm picking this up.
+SECCOMP_IOCTL_NOTIF_ADDFD lets the listener install any file that it holds
+into the task that is waiting for an answer. But once a task of a cell has
+started, no file should cross the boundary. The files that
+pidfd_configure() refuses to place, such as a cellfd, a namespace file or
+an io_uring of the host, could be installed this way a moment later.
 
-Cheers,
-Jens
+Fail the ioctl with EPERM if the task is in a different cell than the
+caller. The listener can still answer the system calls of the task.
+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ kernel/seccomp.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+index 3eecba5ccdef..b8ade37dfcae 100644
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -17,6 +17,7 @@
+ 
+ #include <linux/refcount.h>
+ #include <linux/audit.h>
++#include <linux/cell.h>
+ #include <linux/compat.h>
+ #include <linux/coredump.h>
+ #include <linux/kmemleak.h>
+@@ -1764,6 +1765,17 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
+ 		goto out_unlock;
+ 	}
+ 
++	/*
++	 * Filters are inherited by what is spawned into a cell, and the
++	 * listener stays behind. No file crosses the boundary of a cell.
++	 */
++	scoped_guard(rcu) {
++		if (!cell_same(current_cred(), __task_cred(knotif->task)))
++			ret = -EPERM;
++	}
++	if (ret)
++		goto out_unlock;
++
+ 	/*
+ 	 * We do not want to allow for FD injection to occur before the
+ 	 * notification has been picked up by a userspace handler, or after
+
+-- 
+2.55.0
+
