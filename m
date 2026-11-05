@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844072;
-	b=a+Fg0TBnMzyJUC1/Xleui5t+Lusgbq8geRrFY6/sYu8n+bDxHLFKPS/Hy+sBDYcfivcz
-	 eMeE0o/+CbrpAvjNcTls84eo7OXKAC3bvsOmbWZ8cwfBiVh06gJJLS36EVWFmb+cHI4Cg
-	 9qvNAMTEwDWgLBjcIGXuuNnhCtOMfYwY/qfJocN/j/HVGSpGODbYnwu8DHvBa2pl2lG4Q
-	 C/1WeMKjQ0CP2wt6i236nCmRsUc0IlVDkfW0cVhqvsxWMHyEqYrXYLpST3wNvvegoRj+a
-	 rLF/y+VDWxCVG0XbMpsmbrBXt65DuJshsgyxExlYlLUIZzV8LJVCEDRed1TqdP/Ye/Q==
+	t=1793844079;
+	b=y8ElK9gPtWJmvTj+MsbhO9l738ikOpUTBySGMoKkT+8X5RatNY4G7V9JaTxZSwzOoS+n
+	 gBUxTB6QvIaunUcGarVktcihag2UdaMqR/gZutBpQAR+g7m/oZUV+5uRfIdVeDFXiTsoe
+	 172oadm8Av5/kYVJbokcxyoet6qdT3rQ7ZVQFacX0zZXEwJ6lYSCsTihTqTQTzHrj3A+m
+	 COpIzd8tAPm9NH/ASJ5Deh1pngat5r77AvMXiPBiNrsVrhenVYlsvuB2iivOGfUoAhap7
+	 NSR8Q0glhAZqXU0pZ42Psp1kVplEyi+W3lD/sbNIJj4bkea9cAkOxel3YwA/0drA6rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844072;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844079;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=YL+lBqDUJNOy/hv9jUl5JyMaYSXCWE0E46LaudV422w=;
-	b=M/PRonBBF6hK198TSEnqaZySW2DmfLRMCOLqLjqDwtL5DeDB+nMoAbLHYNPmJ/hyqH16
-	 lAiKL5TJ87FuKN2IxACtCvwRMvtrmy/Pb0qDSqMXw0QVUlbK42aMvkclUXF44Z2tqLGUa
-	 j4IsPlJMg36wxMTyxxqsidw++3z8Omq/e2N12SbSxxrGO5/9kFrD6XvoI075sC2/9sjGF
-	 WySuKoWsQxbqkVBzKaLf8RPtUmFStDgqfXOgJDdt3B6ktbUJaN915DsPR6GMEANCeiEA0
-	 3aNhRqhx1aDQL5y1KeeeXOBNCAEaRMT/VSL9FW5lgCdTmkvgZjszS4dDKReHqg1s1iw==
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=HHbMXrntQTOJ5IPdESBOGZVApcYK5UI5lu9oMqvobYE=;
+	b=XuZbXpuUTXvPaiCY86dXynbJdTRqSr/Wyh01zFaVjrynEXt5gybKPfsO+NL9eLY+wnrt
+	 r/lMFqOhwkDgzuNpOSpU30nMnnecbGWOvEtrwbkY8X+dOnA2rHOXm+qwEPfnoOLyuFMN8
+	 ReFdnusBOXfj0I1NXfLlTIehxyOegcUnMX1r0Q/LD+jDICaKSFZNHjp5F11ZUMjo0JZgP
+	 VruAjkJumwhYhyhY1i8ZHmebDKJU1enkA4rrc0IK0n92L7d76k/GkpiU+4UtvQuc081N2
+	 1+ugoYmMw4g4jvHV7Sq2U0wV0PRysBkjrU0186NS2ngSf3DLDpwaJxbQeh6Bab3XkJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=LHX+gf4e;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Ae+tqrD0;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCCD606A33A;
-	Thu,  5 Nov 2026 02:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBCCD606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC99606EEA6;
+	Thu,  5 Nov 2026 02:01:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EC99606EEA6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=LHX+gf4e
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Ae+tqrD0
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=YL+lBqDUJNOy/hv9jUl5JyMaYSXCWE0E46LaudV422w=; b=LHX+gf4esAQAwNNl+6sG/OPhfw
-	R0AS7Ypu1vuUXonqAi82K6sEU8nEQTohPmpglaMnfgujKbxMYtiZDwfnMc5RgxzYx9BXYeQiDAMZm
-	KWqJ0hLZCM7yO6mVf4/S1eBxkDQN8JLP9eLte98q8UKOmgmNqgFKAG4DyeC8mQi2hq/bNhNak04yX
-	xCAuPMY17KxtGBhqDlsyhA+eE5+JvKMghaoZ74/3CkRfTebGLS1uC/q109pOeaVTFbL2433a9qPFZ
-	ICHIJMOOlMylejLTkfMikIFaOfAmdTYrWZYSCrWJc+nbP5tagApWfND7A6iCHsnUn6i7xhsLhDESJ
-	6Ebd5+9w==;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=HHbMXrntQTOJ5IPdESBOGZVApcYK5UI5lu9oMqvobYE=; b=Ae+tqrD0A5cIWp9q1MmrdrlOhm
+	x0DHa/HcBOUb8qpxiTZNQGso0gaFp60cS1T4G+k/gU+stshu3i38AotQfBfdAfTVoIaZt0GKHNtOv
+	1xIrt0/A/Qf433sSC8WDNBQT5CQu86Qs6LujeOtqo2kml1k9vlrsI1Rg8cJ4epb3o0SVHtLo10tDb
+	Bka/PNm22PqSLTkTcgJD7DwCbNWBvP1QbHQqVFnV/PQuKz76uTOKf+3XHGmyNLeMcSPI5oWqY05ar
+	DAuaXhf8/SNlQ9InzAkjGLZ4o4PRxsduxy4SN91W/GhAxZ7O3Ywe6d3KPGYt9qFII5v9FQYyj21e0
+	vIZZreKg==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOmmn-000000037jD-0EW9;
-	Thu, 05 Nov 2026 02:01:05 +0000
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOmmo-00000002ROR-265C;
+	Thu, 05 Nov 2026 02:01:08 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xOmmm-0000000AWDi-25oS;
+	id 1xOmmm-0000000AWE6-3u0A;
 	Thu, 05 Nov 2026 02:01:04 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
@@ -66,9 +66,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Kunwu Chan <kunwu.chan@gmail.com>,
 	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v2 11/20] KVM: nVMX: Implement cache for L1 MSR bitmap
-Date: Thu,  5 Nov 2026 02:00:53 +0000
-Message-ID: <20261105020104.2507083-12-dwmw2@infradead.org>
+Subject: [PATCH v2 17/20] KVM: nSVM: Cache L1's IO permissions map pages
+Date: Thu,  5 Nov 2026 02:00:59 +0000
+Message-ID: <20261105020104.2507083-18-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261105020104.2507083-1-dwmw2@infradead.org>
 References: <20261105020104.2507083-1-dwmw2@infradead.org>
@@ -81,437 +81,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Fred Griffoul <fgriffo@amazon.co.uk>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Introduce a gfn_to_pfn_cache to optimize L1 MSR bitmap access by
-replacing map/unmap operations. This optimization reduces overhead
-during L2 VM-entry where nested_vmx_prepare_msr_bitmap() merges L1's
-MSR intercepts with L0's requirements.
+The per-intercept IOPM check on every trapped L2 IO instruction reads
+L1's IO permissions map with kvm_vcpu_read_guest() — a
+memremap/memunmap cycle per access with unmanaged guest memory. Cache
+the three IOPM pages in gfn_to_pfn_caches keyed on iopm_base_pa, as
+for the MSR permissions map.
 
-The current implementation maps and unmaps the page on every bitmap
-merge, which is a significant performance impact with unmanaged guest
-memory (where the map is a memremap/memunmap cycle).
+Unlike the MSRPM accesses, an IOPM read is not naturally aligned: a
+two-byte read for a port range straddling a page boundary (e.g. ports
+0x7ff8-0x7fff at bytes 0xfff-0x1000) spans two pages, so read byte by
+byte, each from its own page's cache.
 
-The cache is initialized once at vCPU creation and deactivated when
-VMX operation ends; re-entering VMX operation reactivates it through
-the normal check/activate path. Readers run under kvm->gpc_srcu,
-following the check/activate/retry pattern; KVM only ever reads the
-L1 bitmap, so the cache is mapped read-only (which L1 may
-legitimately demand for its bitmap) and never marked dirty.
+Failure semantics are preserved: an unreadable IOPM reflects the
+intercept to L1 (NESTED_EXIT_DONE).
 
-This exports the core pfncache API to kvm-intel.ko, which is its
-first modular user.
-
-[dwmw2: Port from the rwlock-protected pfncache to the SRCU reader
-        protocol, rebase over the kvm_vcpu_map_local_readonly CLASS()
-        conversion, introduce the lock/unlock helpers in x86.h as
-        kvm_gpc_lock_page()/kvm_gpc_unlock() for later nSVM use, map
-        the cache read-only, init at vCPU creation.]
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260920215613.1CC0C1F000FF@smtp.kernel.org
-Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
-Co-developed-by: David Woodhouse <dwmw@amazon.co.uk>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/vmx/nested.c | 30 +++++++++++++++++++++++++----
- arch/x86/kvm/vmx/nested.h |  1 +
- arch/x86/kvm/vmx/vmx.c    |  2 ++
- arch/x86/kvm/vmx/vmx.h    |  2 ++
- arch/x86/kvm/x86.h        | 33 ++++++++++++++++++++++++++++++++
- arch/x86/kvm/xen.c        |  4 ++--
- include/linux/kvm_host.h  | 40 +++++++++++++++++++++++++++------------
- include/linux/kvm_types.h | 12 ++++++++++++
- virt/kvm/pfncache.c       | 37 +++++++++++++++++++++++++++++++-----
- 9 files changed, 138 insertions(+), 23 deletions(-)
+ arch/x86/kvm/svm/nested.c | 71 +++++++++++++++++++++++++++++----------
+ arch/x86/kvm/svm/svm.c    |  2 ++
+ arch/x86/kvm/svm/svm.h    |  7 ++++
+ 3 files changed, 63 insertions(+), 17 deletions(-)
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 516ba03bf608..bb0baa79c28c 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -370,6 +370,8 @@ static void free_nested(struct kvm_vcpu *vcpu)
- 	kfree(vmx->nested.cached_shadow_vmcs12);
- 	vmx->nested.cached_shadow_vmcs12 = NULL;
- 
-+	kvm_gpc_deactivate(&vmx->nested.msr_bitmap_cache);
-+
- 	nested_put_vmcs12_pages(vcpu);
- 
- 	kvm_mmu_free_roots(vcpu->kvm, &vcpu->arch.guest_mmu, KVM_MMU_ROOTS_ALL);
-@@ -390,6 +392,24 @@ void nested_vmx_free_vcpu(struct kvm_vcpu *vcpu)
- 	vcpu_put(vcpu);
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 4e22cd7a38e1..a682b7446c3e 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1519,10 +1519,36 @@ static void nested_svm_triple_fault(struct kvm_vcpu *vcpu)
+ 	nested_svm_simple_vmexit(to_svm(vcpu), SVM_EXIT_SHUTDOWN);
  }
  
 +/*
 + * Initialize the nested gfn_to_pfn_caches, once per vCPU. Unlike the
-+ * allocations in enter_vmx_operation(), the caches persist across
-+ * VMXOFF/VMXON cycles: free_nested() only deactivates them, and reuse
-+ * goes through kvm_gpc_activate() without re-init.
++ * allocations in svm_allocate_nested(), the caches persist across
++ * EFER.SVME toggles: svm_free_nested() only deactivates them, and
++ * reuse goes through kvm_gpc_activate() without re-init.
 + */
-+void nested_vmx_init_caches(struct kvm_vcpu *vcpu)
++void svm_init_nested_caches(struct vcpu_svm *svm)
 +{
-+	struct vcpu_vmx *vmx = to_vmx(vcpu);
++	int i;
++
++	kvm_gpc_init(&svm->nested.vmcb12_cache, svm->vcpu.kvm);
 +
 +	/*
-+	 * KVM only ever reads the L1 MSR bitmap, which L1 may keep in
-+	 * memory that its VMM maps read-only: map the cache read-only
-+	 * (which also means never marking it dirty).
++	 * KVM only ever reads the MSR and IO permissions maps, which L1 may
++	 * keep in memory that its VMM maps read-only: map the caches
++	 * read-only (which also means never marking them dirty), matching
++	 * the read semantics of the kvm_vcpu_read_guest() calls they
++	 * replace.
 +	 */
-+	__kvm_gpc_init(&vmx->nested.msr_bitmap_cache, vcpu->kvm, false, true, NULL, 0);
++	for (i = 0; i < ARRAY_SIZE(svm->nested.msrpm12_cache); i++)
++		__kvm_gpc_init(&svm->nested.msrpm12_cache[i], svm->vcpu.kvm,
++			       false, true, NULL, 0);
++	for (i = 0; i < ARRAY_SIZE(svm->nested.iopm12_cache); i++)
++		__kvm_gpc_init(&svm->nested.iopm12_cache[i], svm->vcpu.kvm,
++			       false, true, NULL, 0);
 +}
 +
- #define EPTP_PA_MASK   GENMASK_ULL(51, 12)
- 
- static bool nested_ept_root_matches(hpa_t root_hpa, u64 root_eptp, u64 eptp)
-@@ -734,7 +754,7 @@ static inline bool nested_vmx_prepare_msr_bitmap(struct kvm_vcpu *vcpu,
- 						 struct vmcs12 *vmcs12)
+ int svm_allocate_nested(struct vcpu_svm *svm)
  {
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
--	int msr;
-+	int msr, idx;
- 	unsigned long *msr_bitmap_l1;
- 	unsigned long *msr_bitmap_l0 = vmx->nested.vmcs02.msr_bitmap;
+ 	struct page *vmcb02_page;
+-	int i;
  
-@@ -759,11 +779,11 @@ static inline bool nested_vmx_prepare_msr_bitmap(struct kvm_vcpu *vcpu,
- 			return true;
- 	}
+ 	if (svm->nested.initialized)
+ 		return 0;
+@@ -1539,18 +1565,6 @@ int svm_allocate_nested(struct vcpu_svm *svm)
  
--	CLASS(kvm_vcpu_map_local_readonly, m)(vcpu, gpa_to_gfn(vmcs12->msr_bitmap));
--	if (m.ret)
-+	idx = kvm_gpc_lock_page(&vmx->nested.msr_bitmap_cache, vmcs12->msr_bitmap);
-+	if (idx < 0)
- 		return false;
+ 	svm->nested.vmcb02.cpu = -1;
  
--	msr_bitmap_l1 = (unsigned long *)m.map.hva;
-+	msr_bitmap_l1 = (unsigned long *)vmx->nested.msr_bitmap_cache.khva;
- 
- 	/*
- 	 * To keep the control flow simple, pay eight 8-byte writes (sixteen
-@@ -843,6 +863,8 @@ static inline bool nested_vmx_prepare_msr_bitmap(struct kvm_vcpu *vcpu,
- 
- 	nested_vmx_merge_pmu_msr_bitmaps(vcpu, msr_bitmap_l1, msr_bitmap_l0);
- 
-+	kvm_gpc_unlock(&vmx->nested.msr_bitmap_cache, idx);
-+
- 	vmx->nested.force_msr_bitmap_recalc = false;
- 
- 	return true;
-diff --git a/arch/x86/kvm/vmx/nested.h b/arch/x86/kvm/vmx/nested.h
-index c6de848bd9ce..e27299b9f30b 100644
---- a/arch/x86/kvm/vmx/nested.h
-+++ b/arch/x86/kvm/vmx/nested.h
-@@ -24,6 +24,7 @@ __init int nested_vmx_hardware_setup(int (*exit_handlers[])(struct kvm_vcpu *));
- void nested_vmx_set_vmcs_shadowing_bitmap(void);
- int nested_vmx_check_restored_vmcs12(struct kvm_vcpu *vcpu);
- void nested_vmx_free_vcpu(struct kvm_vcpu *vcpu);
-+void nested_vmx_init_caches(struct kvm_vcpu *vcpu);
- enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- 						     bool from_vmentry);
- bool nested_vmx_reflect_vmexit(struct kvm_vcpu *vcpu);
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 82eb891f684c..590095bcb665 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -7613,6 +7613,8 @@ int vmx_vcpu_create(struct kvm_vcpu *vcpu)
- 		WRITE_ONCE(to_kvm_vmx(vcpu->kvm)->pid_table[vcpu->vcpu_id],
- 			   __pa(&vmx->vt.pi_desc) | PID_TABLE_ENTRY_VALID);
- 
-+	nested_vmx_init_caches(vcpu);
-+
+-	kvm_gpc_init(&svm->nested.vmcb12_cache, svm->vcpu.kvm);
+-
+-	/*
+-	 * KVM only ever reads the MSR permissions map, which L1 may keep in
+-	 * memory that its VMM maps read-only: map the cache read-only
+-	 * (which also means never marking it dirty), matching the read
+-	 * semantics of the kvm_vcpu_read_guest() calls it replaces.
+-	 */
+-	for (i = 0; i < ARRAY_SIZE(svm->nested.msrpm12_cache); i++)
+-		__kvm_gpc_init(&svm->nested.msrpm12_cache[i], svm->vcpu.kvm,
+-			       false, true, NULL, 0);
+-
+ 	svm->nested.initialized = true;
  	return 0;
  
- free_vmcs:
-diff --git a/arch/x86/kvm/vmx/vmx.h b/arch/x86/kvm/vmx/vmx.h
-index 74cd50f29fa4..c6827368c84a 100644
---- a/arch/x86/kvm/vmx/vmx.h
-+++ b/arch/x86/kvm/vmx/vmx.h
-@@ -146,6 +146,8 @@ struct nested_vmx {
- 	 * Guest pages referred to in the vmcs02 with host-physical
- 	 * pointers, so we must keep them pinned while L2 runs.
- 	 */
-+	struct gfn_to_pfn_cache msr_bitmap_cache;
-+
- 	struct kvm_host_map apic_access_page_map;
- 	struct kvm_host_map virtual_apic_map;
- 	struct kvm_host_map pi_desc_map;
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index 436e2fb1396c..c48f3aeb4d64 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -14,6 +14,39 @@
+@@ -1575,6 +1589,8 @@ void svm_free_nested(struct vcpu_svm *svm)
+ 	kvm_gpc_deactivate(&svm->nested.vmcb12_cache);
+ 	for (i = 0; i < ARRAY_SIZE(svm->nested.msrpm12_cache); i++)
+ 		kvm_gpc_deactivate(&svm->nested.msrpm12_cache[i]);
++	for (i = 0; i < ARRAY_SIZE(svm->nested.iopm12_cache); i++)
++		kvm_gpc_deactivate(&svm->nested.iopm12_cache[i]);
  
- #define KVM_MAX_MCE_BANKS 32
+ 	__free_page(virt_to_page(svm->nested.vmcb02.ptr));
+ 	svm->nested.vmcb02.ptr = NULL;
+@@ -1654,7 +1670,7 @@ static int nested_svm_intercept_ioio(struct vcpu_svm *svm)
+ 	unsigned port, size, iopm_len;
+ 	u16 val, mask;
+ 	u8 start_bit;
+-	u64 gpa;
++	int i;
  
-+/*
-+ * Map a single page of L1 guest memory at @gpa into a gfn_to_pfn_cache
-+ * and enter an SRCU read-side critical section protecting the mapping.
-+ * Returns the SRCU index (>= 0) to pass to kvm_gpc_unlock(), or a
-+ * negative error code. While locked, the cache's khva and pfn are
-+ * guaranteed to remain valid: an invalidation cannot complete until the
-+ * reader drains.
-+ */
-+static inline int kvm_gpc_lock_page(struct gfn_to_pfn_cache *gpc, gpa_t gpa)
-+{
-+	int idx, err;
+ 	if (!(vmcb12_is_intercept(&svm->nested.ctl, INTERCEPT_IOIO_PROT)))
+ 		return NESTED_EXIT_HOST;
+@@ -1662,14 +1678,35 @@ static int nested_svm_intercept_ioio(struct vcpu_svm *svm)
+ 	port = svm->vmcb->control.exit_info_1 >> 16;
+ 	size = (svm->vmcb->control.exit_info_1 & SVM_IOIO_SIZE_MASK) >>
+ 		SVM_IOIO_SIZE_SHIFT;
+-	gpa  = svm->nested.ctl.iopm_base_pa + (port / 8);
+ 	start_bit = port % 8;
+ 	iopm_len = (start_bit + size > 8) ? 2 : 1;
+ 	mask = (0xf >> (4 - size)) << start_bit;
+ 	val = 0;
+ 
+-	if (kvm_vcpu_read_guest(&svm->vcpu, gpa, &val, iopm_len))
+-		return NESTED_EXIT_DONE;
++	/*
++	 * Read byte by byte: a two-byte read at the end of a page (e.g.
++	 * ports 0x7ff8-0x7fff spanning bytes 0xfff-0x1000) crosses into
++	 * the next page of the IOPM, i.e. the next cache.
++	 */
++	for (i = 0; i < iopm_len; i++) {
++		unsigned long offset = port / 8 + i;
++		struct gfn_to_pfn_cache *gpc;
++		gpa_t gpa;
++		int idx;
 +
-+	if (!PAGE_ALIGNED(gpa))
-+		return -EINVAL;
-+retry:
-+	idx = srcu_read_lock_atomic(&gpc->kvm->gpc_srcu);
-+	if (!kvm_gpc_check(gpc, PAGE_SIZE) || gpc->gpa != gpa) {
-+		srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
-+		err = kvm_gpc_activate(gpc, gpa, PAGE_SIZE);
-+		if (err)
-+			return err;
++		if (WARN_ON_ONCE(offset >= IOPM_SIZE))
++			return NESTED_EXIT_DONE;
 +
-+		goto retry;
++		gpc = &svm->nested.iopm12_cache[offset >> PAGE_SHIFT];
++		gpa = svm->nested.ctl.iopm_base_pa + (offset & PAGE_MASK);
++
++		idx = kvm_gpc_lock_page(gpc, gpa);
++		if (idx < 0)
++			return NESTED_EXIT_DONE;
++
++		val |= *(u8 *)(gpc->khva + offset_in_page(offset)) << (i * 8);
++		kvm_gpc_unlock(gpc, idx);
 +	}
-+
-+	return idx;
-+}
-+
-+static inline void kvm_gpc_unlock(struct gfn_to_pfn_cache *gpc, int idx)
-+{
-+	srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
-+}
-+
- int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops);
- void kvm_x86_vendor_exit(void);
  
-diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
-index 132f0c379537..ecfeeea57c66 100644
---- a/arch/x86/kvm/xen.c
-+++ b/arch/x86/kvm/xen.c
-@@ -2465,7 +2465,7 @@ void kvm_xen_init_vcpu(struct kvm_vcpu *vcpu)
- 
- 	kvm_gpc_init(&vcpu->arch.xen.runstate_cache, vcpu->kvm);
- 	kvm_gpc_init(&vcpu->arch.xen.runstate2_cache, vcpu->kvm);
--	__kvm_gpc_init(&vcpu->arch.xen.vcpu_info_cache, vcpu->kvm, true, NULL, 0);
-+	__kvm_gpc_init(&vcpu->arch.xen.vcpu_info_cache, vcpu->kvm, true, false, NULL, 0);
- 	kvm_gpc_init(&vcpu->arch.xen.vcpu_time_info_cache, vcpu->kvm);
+ 	return (val & mask) ? NESTED_EXIT_DONE : NESTED_EXIT_HOST;
  }
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index b78727cca9b1..f601e0650c36 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -1382,6 +1382,8 @@ static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+ 	svm->vmcb01.pa = __sme_set(page_to_pfn(vmcb01_page) << PAGE_SHIFT);
+ 	svm_switch_vmcb(svm, &svm->vmcb01);
  
-@@ -2486,7 +2486,7 @@ void kvm_xen_init_vm(struct kvm *kvm)
- {
- 	mutex_init(&kvm->arch.xen.xen_lock);
- 	xa_init(&kvm->arch.xen.evtchn_ports);
--	__kvm_gpc_init(&kvm->arch.xen.shinfo_cache, kvm, true, NULL, 0);
-+	__kvm_gpc_init(&kvm->arch.xen.shinfo_cache, kvm, true, false, NULL, 0);
- }
- 
- void kvm_xen_destroy_vm(struct kvm *kvm)
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 008012d74d58..c604b7bb0b4c 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -1471,26 +1471,35 @@ int kvm_vcpu_write_guest(struct kvm_vcpu *vcpu, gpa_t gpa, const void *data,
- /**
-  * __kvm_gpc_init - initialize gfn_to_pfn_cache.
-  *
-- * @gpc:	   struct gfn_to_pfn_cache object.
-- * @kvm:	   pointer to kvm instance.
-- * @never_dirty:   the cache never needs to mark its page dirty in its memslot.
-- * @vcpu:	   the vCPU which may pin this cache's pfn for direct use from
-- *		   guest mode, or NULL for a cache which is never pinned.
-- * @vcpu_req:	   service request posted to @vcpu when a pinned cache is
-- *		   invalidated; must be non-zero when @vcpu is given (request
-- *		   0 is a real request, so it cannot mean "none"). Most
-- *		   callers want the kvm_gpc_init_for_vcpu() wrapper.
-+ * @gpc:	 struct gfn_to_pfn_cache object.
-+ * @kvm:	 pointer to kvm instance.
-+ * @never_dirty: KVM never marks the cached page dirty in its memslot;
-+ *		 userspace must assume the page is always dirty (as for
-+ *		 the Xen shared_info page, written on every event channel
-+ *		 delivery). kvm_gpc_mark_dirty_in_slot() becomes a no-op.
-+ * @readonly:	 map without FOLL_WRITE; KVM must never write through
-+ *		 @gpc->khva. For guest pages KVM only reads, which the
-+ *		 guest may place in memory its VMM maps read-only.
-+ *		 Implies @never_dirty.
-+ * @vcpu:	 the vCPU which may pin this cache's pfn for direct use
-+ *		 from guest mode, or NULL. Callers use the
-+ *		 kvm_gpc_init() / kvm_gpc_init_for_vcpu() wrappers
-+ *		 rather than passing this directly.
-+ * @vcpu_req:	 service request posted to @vcpu when the cache is
-+ *		 invalidated while pinned; required (non-zero) when
-+ *		 @vcpu is given.
-  *
-  * This sets up a gfn_to_pfn_cache by initializing locks and assigning the
-  * immutable attributes.  Note, the cache must be zero-allocated (or zeroed by
-  * the caller before init).  Most callers want the kvm_gpc_init() wrapper.
-  */
- void __kvm_gpc_init(struct gfn_to_pfn_cache *gpc, struct kvm *kvm,
--		    bool never_dirty, struct kvm_vcpu *vcpu, u32 vcpu_req);
-+		    bool never_dirty, bool readonly,
-+		    struct kvm_vcpu *vcpu, u32 vcpu_req);
- 
- static inline void kvm_gpc_init(struct gfn_to_pfn_cache *gpc, struct kvm *kvm)
- {
--	__kvm_gpc_init(gpc, kvm, false, NULL, 0);
-+	__kvm_gpc_init(gpc, kvm, false, false, NULL, 0);
- }
- 
- /**
-@@ -1511,7 +1520,7 @@ static inline void kvm_gpc_init(struct gfn_to_pfn_cache *gpc, struct kvm *kvm)
- static inline void kvm_gpc_init_for_vcpu(struct gfn_to_pfn_cache *gpc,
- 					 struct kvm_vcpu *vcpu, u32 req)
- {
--	__kvm_gpc_init(gpc, vcpu->kvm, false, vcpu, req);
-+	__kvm_gpc_init(gpc, vcpu->kvm, false, false, vcpu, req);
- }
- 
- /**
-@@ -2054,6 +2063,13 @@ static inline void kvm_gpc_mark_dirty_in_slot(struct gfn_to_pfn_cache *gpc)
- 	RCU_LOCKDEP_WARN(!srcu_read_lock_held(&gpc->kvm->gpc_srcu),
- 			 "kvm_gpc_mark_dirty_in_slot() without kvm->gpc_srcu read lock");
- 
-+	/*
-+	 * Nobody may write through (and hence dirty) a read-only cache:
-+	 * its mapping was created without FOLL_WRITE and may lack write
-+	 * permission entirely.
-+	 */
-+	WARN_ON_ONCE(gpc->readonly);
++	svm_init_nested_caches(svm);
 +
- 	if (!gpc->memslot || gpc->never_dirty)
- 		return;
+ 	svm->guest_state_loaded = false;
  
-diff --git a/include/linux/kvm_types.h b/include/linux/kvm_types.h
-index bdee01f22a2d..193dd5b64c2a 100644
---- a/include/linux/kvm_types.h
-+++ b/include/linux/kvm_types.h
-@@ -122,7 +122,19 @@ struct gfn_to_pfn_cache {
- 	 * instead.
+ 	return 0;
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index 8a5dff5a9ee3..256eefb27a83 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -229,6 +229,12 @@ struct svm_nested_state {
  	 */
- 	atomic_t state;
-+	/*
-+	 * KVM never marks the cached page dirty in its memslot; userspace
-+	 * must assume the page is always dirty (as for the Xen shared_info
-+	 * page, written on every event channel delivery).
-+	 */
- 	bool never_dirty;
-+	/*
-+	 * The cache is mapped without FOLL_WRITE and KVM must never write
-+	 * through khva: for guest pages KVM only reads (e.g. the L1 MSR
-+	 * bitmap), which the guest may legitimately place in memory its VMM
-+	 * maps read-only. Implies never_dirty (there is nothing to mark).
-+	 */
-+	bool readonly;
- };
+ 	struct gfn_to_pfn_cache msrpm12_cache[MSRPM_SIZE / PAGE_SIZE];
  
- /* The cache is valid: pfn and khva may be used by readers. */
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index 5cb30525e577..42adfdccd6fe 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -223,6 +223,20 @@ void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm, unsigned long start,
- 	 */
- }
- 
-+/*
-+ * As gfn_to_hva_memslot(), but tolerate a KVM_MEM_READONLY slot for a
-+ * cache which promises never to write through its mapping.
-+ */
-+static unsigned long gpc_gfn_to_hva_memslot(struct gfn_to_pfn_cache *gpc,
-+					    struct kvm_memory_slot *slot,
-+					    gfn_t gfn)
-+{
-+	if (gpc->readonly)
-+		return gfn_to_hva_memslot_prot(slot, gfn, NULL);
++	/*
++	 * Cached mappings of the three pages of L1's IO permissions map,
++	 * keyed on ctl.iopm_base_pa, for the per-intercept checks.
++	 */
++	struct gfn_to_pfn_cache iopm12_cache[IOPM_SIZE / PAGE_SIZE];
 +
-+	return gfn_to_hva_memslot(slot, gfn);
-+}
-+
- static bool kvm_gpc_is_valid_len(gpa_t gpa, unsigned long uhva,
- 				 unsigned long len)
- {
-@@ -275,6 +289,7 @@ bool kvm_gpc_check(struct gfn_to_pfn_cache *gpc, unsigned long len)
- 
- 	return true;
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_gpc_check);
- 
- /*
-  * A mutator's xchg of the state word to zero may have consumed a live
-@@ -448,7 +463,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 	struct kvm_follow_pfn kfp = {
- 		.slot = gpc->memslot,
- 		.gfn = gpa_to_gfn(gpc->gpa),
--		.flags = FOLL_WRITE,
-+		.flags = gpc->readonly ? 0 : FOLL_WRITE,
- 		.hva = gpc->uhva,
- 		.refcounted_page = &page,
- 	};
-@@ -655,7 +670,7 @@ static int __kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, gpa_t gpa, unsigned l
- 			new_generation = slots->generation;
- 			new_slot = __gfn_to_memslot(slots, gfn);
- 			if (new_slot)
--				new_uhva = gfn_to_hva_memslot(new_slot, gfn) +
-+				new_uhva = gpc_gfn_to_hva_memslot(gpc, new_slot, gfn) +
- 					   offset_in_page(gpa);
- 		}
- 
-@@ -738,7 +753,8 @@ static int __kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, gpa_t gpa, unsigned l
- 			gpc->gpa = gpa;
- 			gpc->generation = slots->generation;
- 			gpc->memslot = __gfn_to_memslot(slots, gfn);
--			WRITE_ONCE(gpc->uhva, gfn_to_hva_memslot(gpc->memslot, gfn));
-+			WRITE_ONCE(gpc->uhva,
-+				   gpc_gfn_to_hva_memslot(gpc, gpc->memslot, gfn));
- 
- 			if (kvm_is_error_hva(gpc->uhva)) {
- 				ret = -EFAULT;
-@@ -801,9 +817,11 @@ int kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, unsigned long len)
- 
- 	return __kvm_gpc_refresh(gpc, gpc->gpa, uhva);
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_gpc_refresh);
- 
- void __kvm_gpc_init(struct gfn_to_pfn_cache *gpc, struct kvm *kvm,
--		    bool never_dirty, struct kvm_vcpu *vcpu, u32 vcpu_req)
-+		    bool never_dirty, bool readonly,
-+		    struct kvm_vcpu *vcpu, u32 vcpu_req)
- {
- 	mutex_init(&gpc->refresh_lock);
- 
-@@ -813,7 +831,13 @@ void __kvm_gpc_init(struct gfn_to_pfn_cache *gpc, struct kvm *kvm,
- 	gpc->uhva = KVM_HVA_ERR_BAD;
- 	gpc->active = false;
- 	atomic_set(&gpc->state, 0);
--	gpc->never_dirty = never_dirty;
-+	/*
-+	 * A read-only cache maps without FOLL_WRITE, so writing through
-+	 * gpc->khva would hit a mapping which may lack write permission;
-+	 * there is never anything to mark dirty.
-+	 */
-+	gpc->never_dirty = never_dirty || readonly;
-+	gpc->readonly = readonly;
- 
  	/*
- 	 * A vCPU-owned cache must come with a service request for the
-@@ -827,6 +851,7 @@ void __kvm_gpc_init(struct gfn_to_pfn_cache *gpc, struct kvm *kvm,
- 	gpc->vcpu = vcpu;
- 	gpc->vcpu_req = vcpu_req;
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(__kvm_gpc_init);
+ 	 * The MSR permissions map used for vmcb02, which is the merge result
+ 	 * of vmcb01 and vmcb12
+@@ -904,6 +910,7 @@ int __init nested_svm_init_msrpm_merge_offsets(void);
  
- static int __kvm_gpc_activate(struct gfn_to_pfn_cache *gpc, gpa_t gpa, unsigned long uhva,
- 			      unsigned long len)
-@@ -869,6 +894,7 @@ int kvm_gpc_activate(struct gfn_to_pfn_cache *gpc, gpa_t gpa, unsigned long len)
- 
- 	return __kvm_gpc_activate(gpc, gpa, KVM_HVA_ERR_BAD, len);
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_gpc_activate);
- 
- int kvm_gpc_activate_hva(struct gfn_to_pfn_cache *gpc, unsigned long uhva, unsigned long len)
- {
-@@ -932,3 +958,4 @@ void kvm_gpc_deactivate(struct gfn_to_pfn_cache *gpc)
- 		gpc_unmap(old_pfn, old_khva);
- 	}
- }
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_gpc_deactivate);
+ int enter_svm_guest_mode(struct kvm_vcpu *vcpu, u64 vmcb_gpa, bool from_vmrun);
+ void svm_leave_nested(struct kvm_vcpu *vcpu);
++void svm_init_nested_caches(struct vcpu_svm *svm);
+ void svm_free_nested(struct vcpu_svm *svm);
+ int svm_allocate_nested(struct vcpu_svm *svm);
+ int nested_svm_vmrun(struct kvm_vcpu *vcpu);
 -- 
 2.43.0
 
