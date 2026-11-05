@@ -1,101 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793848437;
-	b=QE6K7mzX1C8M2p1uYvPYJKVpeW6XoUrvp6d5zG+N/M40a2fMkgTiu5UXzbUbbtFa6Ryy
-	 YZkUa+N4Ahxx0GKdwx5PgxWuGKbzQGqS/sYlcbzuYX7xrUWKxzIsiXSwZ8LstvnK7wRly
-	 PWoFfwYSFMNyBlxdzCZ7VQMle21xOvYOGd7IuWINoCksR9BezgAxYhwtXwJJtR+KhT2l1
-	 ICJgXdyVCEJ/xg8Ac8rkQVhwKbuHxFWcg3wuS9yXQoEj6gqa6hm+GP7iKTRBxcs43DpO1
-	 C5/ce+/g1uyzCU/t2J3m+0I3VpitDXaTBA9/SJUjiW6NBFreeOHMgjuHmqoXjDuXF5Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793848437;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
-	b=t5pjSOROKWlPfUzwW5yGCd+e1SAw7qPIgv4qBJQDpoR8DtKgDl6+u2ImqqCCOpuc56Os
-	 gbl6sXo61UYdSAnXzfXJQnDYf5r7f4ko1UVZ5KmhamqlwohGgH0dl+pCDKbF8CGRkG/cr
-	 IDbmxv8dhQIMs50+ervvpXIAKPHgoV4TJfO2Ocvh93qr6tH+h2MTJPXBksH5ZK72PA2GV
-	 RCsVWcuTAJdsl5JGI9TH8jX9pyUdFSrrFemh6LVTwcfcCIKbQupD2as3GVAPczRuoOuVJ
-	 JEHXbfHjPyb/onBmU8AFUWmSom5ebxyd2niEGrvd7YQPWJ8lybqNUFhNufwhzuK8VVg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SotK8+sm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793848450;
+	b=AfO4pMNUae3oIVRG37aqdOZOvtKxtQrimRJUkj3pjhUfllKAirRVGSARyI/e/NlMw3zs
+	 FYVpf9iux1Tl2lWJ+VoGNBEFN8xjuimZXJFBCAF6K0WeaX2uW5lHNrPQFOEeNfEDxNRXH
+	 hzE1sZCHXxiXuLLBB2J972x0L3OCLg/hkRIhfLqTLbEAv8PA8NqWDCA3RyIQlF6eSgVW5
+	 U+dQO7q8/pWm3ql1sWpzRbFiHxZFO+h8GoCwBoz6g4s49XJQSm0489o48ppWT6ZZ75cVm
+	 zK5BcrGh9GT987EnAubA4R+9VWPXfpDkz/q9uvEujlmJu0ox7Z9pRRMrPet+42xLg3Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793848450;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=L0N4h6zVhz8n4j2GJtb5w0EICipqh7ENfZG1U4Wef4U=;
+	b=GUIk+NsxyXYUm9+SOv01iOC3shu8KTEmtxSHunS2fzQ9cMwhXu5OF5wpV44hDMwJPV5K
+	 rwTcSDYvlelnH0qB/uOpnPnXqnEhaebdbEAkBca+gdskFtPUZsTP2LGAh54wvHoNNs34S
+	 DgBELPzKXLIgPyYVfKsu8FwpbD4WmY5LBmxn6ZugUAgTex44VaGolRNHBpCfZprY4RENb
+	 BD8nVy7+90C/Z0UszvnPQhxw1hilk0PugU2rp61EsTuFtBRLFtfE1YJLkiN/V3rKIws8i
+	 RCqMvHxdGLbsf7CDrUqhDeEob6vHh+TkGqvpZJOKEdawNfV3x3bODKIS9JHOAclNCyg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jGmC66uV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2018D606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:13:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2018D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4D548606A326;
+	Thu,  5 Nov 2026 03:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SotK8+sm
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a05da1cc1fso605803b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:13:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793848435; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L8BZ13zpNrKGRcCIUKGOf/L44Ml4Reut3520xlR3BCXhgDswOifar1G00ZZ248nwj9
-         VAIw5yODn3CscGybP1lh5s9kWAgq0l9IOdXJegVapjpwKgmwmBiG6dEwu/JM94XP81sx
-         y90WP/YSyVAIWWm2lALJ8GFmPXTYk24SyF1vUkm7CJLQEcg4rb/JKjRd17JCRe2TIQgT
-         e2vByhE2kNXLhM3MsS3kWL1xXDwRR/4ylKtjosTiD14kfKGcrQz8ioM+deWmve7uURYp
-         Bk7LyxrZRqUFb1EJusTs6JY4TSK1Tqk2Ebky4VI3Fz7LMZqU9CbuRi8KJ3XLnynuuDyF
-         eVZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
-        fh=KztAUliy/sBWq1XLc0cRIHbOsW+GjdvZndmFBq9LRFs=;
-        b=K8MyjYE/PpmCorTqUS+Mduu3dvs/7cQQdfTpUpw8INZ+LZwb8YpuXi9+63ampH31kB
-         zcVEDjORmeTenqQvZ6E4S+OBV4kD8fvjwouzsBi3y8Q/QIu4dSVawPioNslQg3jMUwR1
-         KI7irWwhVE1nuc9x6PKjIlX7o3Ujb+W/qhH5uj7TUVXycA5UnSCUDWyUm8ohVijJgZlO
-         EWxe2o0DoSSNrTroWchXujLcZxICha/2Qp89e0xTuLqgygfvHg30pV/QKygRMF90ir2x
-         TpgBE3JA8jz2C7tZeTqzDYxJWIYTgxpGZnvEoKPpnhOYkg63fGAOWKEIobpNunyj3c9J
-         X1Nw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793848435; x=1794453235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
-        b=SotK8+smhvTUz4PSDyKGGwKHQT37/ySX4O669vPZw3Y0ELWARihuFr6hV9JHo02O85
-         iFWoIXL4q+fSWCkcxBGA9m2vH9VxdwGkgF3MXMMNfDINB72d4WbWc2+9pPo5lOD/BOCE
-         94aDCIN7y/RrwVkylu5ixdn++P7o0COea4HsYz8D6+77TVIcN9SJ458yU38AMgDT7NIj
-         0byKk/5SP5GYBHFIZ9ObiSyP7x6kBUbTeQMSkqaU+2IaQMqVkQDda/GaEcbETx5NW201
-         VoMLJAQPmg3xOvRyA+7eYXE/mbUCc+nMXESjC9WD7nJu3X9PXQvQKGrnPVUwEj3921E+
-         CC4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793848435; x=1794453235;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=APb1zxIAvX78bkBqgur/Yfvw9HDOt3nX0NcaiIPyRNA=;
-        b=pYtQGRs/KucBAmAjGVaS7YrdYnZEzVhJyTVZVXvc6LlBf6NXPXIUBfZFEsip0mAm6a
-         BP+Dldv4TnzLlu2N66OKqFolvIAsfE+o2txxIQV1KOGtAVX83haFpfKQEbGlXqPLVILd
-         q8fulCCCRP7Uh+U4rn8oOZcsNqnHaCDcXd8nb2MXtI+MJbJIDOr8+4JfES2A1dzBw4Zg
-         dRjGDTEuu9/EkDM3y1krPTIWh1I/W3OC0lwTQDTe2YDlQ61rvRMXn3Zs0dtSB2U1aSV6
-         coiPHq4+ByisBj5DExLy7D6CZ/96B7a3BihZN/ni3hcoSAfTGhYr3B0JCPBmwQf5UI7P
-         WdeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuBTprJek1QSnLAusuXUimoDcnpVc/k2j0W5cbYerQIlOgUJhxdk/GxOXKJZEZlU8bRONJvqtyr62hUkE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/h6y07wxPjIoyl1Co3fviDw5l4EnWLqUKV5c3E2YhEjvVXhvY7
-	8miTEQ+xlyRbtpfBpdax/4W0JZ2FeQj2P8PoK3JY+DeYWsdThe4GweIbhDOPwLq0C9DbkIwK9dS
-	X5CqSwy3RTdcBWcSdx15+Vr4DDebiSTs=
-X-Gm-Gg: AYBFou2SvJadS4p7KohB3TQTa3H2H2dP/zded8YVA6GgxE1yOqE7H0aQvyX//RQaVT9
-	xP/LpVH2qjCzgpD4jD1q2iSX7HhKg+XyR7DVKKMdNP/EEPUYjqfBDk68srAsfJ5I9I24T4I3axI
-	YWFpWbvSUUVOJ7I1c6ZCNltCzesXgkf00d2er1L32bT4xR0E0szVYDZWHB7VcuCO82KBibVLI/Z
-	wBfBC8Jgv5oXwemThw04/vt/z3nnMxJJWlW7qI7JFJWakSC87fJoGXU622dVeEy8TB0BJ6habEh
-	sdtTuBt8rOhpenrFDOItQEu1S+zQIUu8b6Vvsp46/53t905kPCiPzZ13+IP+0e6rMPMnt60T6v8
-	nin7Efk3kkIIsvC/vCXD0/a8YVGyCy1IBQ8nSbgUeMWbbnq7XxeJzr7eEw/TG88/QPCnS0wvpvG
-	PSyNz9y/1d3zhSRMBrhQvdjwYka/Tn4QVFAQ==
-X-Received: by 2002:a05:6a21:4e03:b0:3de:79fe:13f with SMTP id
- adf61e73a8af0-3e928d4d2bdmr15266438637.38.1793848435284; Wed, 04 Nov 2026
- 19:13:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jGmC66uV
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6A3771F000C1;
+	Thu,  5 Nov 2026 03:14:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793848450;
+	bh=L0N4h6zVhz8n4j2GJtb5w0EICipqh7ENfZG1U4Wef4U=;
+	h=From:To:Cc:Subject:Date;
+	b=jGmC66uVgeCFbUHtFNO+hOg7MvGttGjB44HcZJG1rIT6uKwQfi1MZ2Lvr6F8aBY4e
+	 A0cjaJ/aAALAR7+ZFjmJWaml6VRQ9nVFe1wlRz2BGJLY8S1y8G6d2S8Og/PwqvDoSp
+	 c3oK6/vxt1PDDOIwP3qlFWmsYf9lu3GNyrHrv5N/F77eBFP1a7pUn3mOB6xPOnUokQ
+	 pJG5jkSHowFEYfgVlfrWpwh2c5oE65zdr+uzjaLW2WGPPnUjkz3a5uHl7ld9/oKaG8
+	 4tEBGahu5k1NChvzYP6Fwc3/8Axpv7tkWBhUOKfHb33dJgE0EiuTD2n7Fd6TBiPDnG
+	 FYIcNuJtr/VhQ==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	bpf@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	fsverity@lists.linux.dev,
+	keyrings@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Alex Shi <alexs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Morris <jmorris@namei.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Song Liu <song@kernel.org>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>
+Subject: [PATCH v5 0/3] KEYS: Replace assoc_array with rhashtable
+Date: Thu,  5 Nov 2026 05:13:58 +0200
+Message-ID: <20261105031401.956609-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,194 +90,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com> <6aeabca9.fc50a118.dd1b.0001.GAE@google.com>
-In-Reply-To: <6aeabca9.fc50a118.dd1b.0001.GAE@google.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Wed, 4 Nov 2026 22:13:43 -0500
-X-Gm-Features: AclHuK-yj_RUDHyp9Y1n7HDYnVb1Clcvxnwwl_T_i4pkmkAMpXWxuQiWBKy17_s
-Message-ID: <CADvbK_cMBZbgujcxnj+rvwthSdNQzxEFXvr5jKr4HweQZbHZ+A@mail.gmail.com>
-Subject: Re: [syzbot] [sctp?] kernel BUG in __pskb_pull_tail (2)
-To: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
-Cc: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
-	marcelo.leitner@gmail.com, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 12:03=E2=80=AFAM syzbot
-<syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com> wrote:
->
-> syzbot has found a reproducer for the following issue on:
->
-> HEAD commit:    05441d697f7f Merge tag 'cocci-7.4-rc1' of git://git.kerne=
-l..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=3D162b8add58000=
-0
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3D1cf189394a856=
-f11
-> dashboard link: https://syzkaller.appspot.com/bug?extid=3Df15a6eff7a53f6e=
-b7dc3
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for D=
-ebian) 2.44
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D11b49b29580=
-000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D15b49b2958000=
-0
->
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d=
-900f083ada3/non_bootable_disk-05441d69.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/0edd3964be19/vmlinu=
-x-05441d69.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/84d6d8dd5648/b=
-zImage-05441d69.xz
->
-> AI-generated root cause summary:
-> When receiving an SCTP packet that is nonlinear (such as an SCTP GSO pack=
-et
-> constructed with fragments in frag_list), sctp_rcv attempts to linearize =
-the
-> packet using skb_linearize() if the sk_buff is cloned (e.g., tapped by a =
-packet
-> socket or shared) or not recognized as GSO. During linearization via
-> __skb_linearize() and __pskb_pull_tail(), skb_copy_bits() fails with -EFA=
-ULT due
-> to a discrepancy in frag_list fragment lengths or readable offsets, trigg=
-ering a
-> BUG_ON assertion failure. In production builds, this BUG() results in an =
-invalid
-> opcode oops and kernel panic, causing an immediate denial of service.
->
-> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3Df15a6ef=
-f7a53f6eb7dc3
->
-> IMPORTANT: if you fix the issue, please add the following tag to the comm=
-it:
-> Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
->
-> ------------[ cut here ]------------
-> kernel BUG at net/core/skbuff.c:2903!
-> Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-> CPU: 2 UID: 0 PID: 6002 Comm: syz.0.20 Not tainted syzkaller #0 PREEMPT(f=
-ull)
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.=
-16.3-2 04/01/2014
-> RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
-> Code: 5b f8 48 89 df e8 2b 03 fe ff 31 ff 41 89 c4 89 c6 e8 7f 58 5b f8 4=
-5 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 5c 5e 5b f8 90 <0f> 0b e8 54 5e=
- 5b f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
-> RSP: 0018:ffffc90000648870 EFLAGS: 00010246
-> RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
-> RDX: ffff88802ce60000 RSI: ffffffff89b30684 RDI: 0000000000000005
-> RBP: ffffc900006488f0 R08: 0000000000000000 R09: 00000000fffffff2
-> R10: ffff888046a12f77 R11: 0000000000000000 R12: 00000000000000e4
-> R13: 0000000000000180 R14: 0000000000000000 R15: ffff888030406780
-> FS:  000055558120b500(0000) GS:ffff8880d467c000(0000) knlGS:0000000000000=
-000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000020000001a000 CR3: 00000000385f5000 CR4: 0000000000352ef0
-> Call Trace:
->  <IRQ>
->  __skb_linearize include/linux/skbuff.h:4025 [inline]
->  skb_linearize include/linux/skbuff.h:4037 [inline]
->  sctp_rcv+0x143e/0x3cc0 net/sctp/input.c:120
->  ip_protocol_deliver_rcu+0x44c/0x4d0 net/ipv4/ip_input.c:207
->  ip_local_deliver_finish+0x3fb/0x6e0 net/ipv4/ip_input.c:241
->  NF_HOOK include/linux/netfilter.h:325 [inline]
->  NF_HOOK include/linux/netfilter.h:319 [inline]
->  ip_local_deliver+0x1a3/0x200 net/ipv4/ip_input.c:262
->  dst_input include/net/dst.h:481 [inline]
->  ip_rcv_finish net/ipv4/ip_input.c:492 [inline]
->  NF_HOOK include/linux/netfilter.h:325 [inline]
->  NF_HOOK include/linux/netfilter.h:319 [inline]
->  ip_rcv+0x33a/0x3c0 net/ipv4/ip_input.c:612
->  __netif_receive_skb_one_core+0x197/0x1e0 net/core/dev.c:6433
->  __netif_receive_skb+0x1f/0x120 net/core/dev.c:6546
->  process_backlog+0x487/0x1600 net/core/dev.c:6897
->  __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7966
->  napi_poll net/core/dev.c:8029 [inline]
->  net_rx_action+0xa40/0xf20 net/core/dev.c:8186
->  handle_softirqs+0x216/0xa20 kernel/softirq.c:669
->  do_softirq kernel/softirq.c:569 [inline]
->  do_softirq+0xaf/0xf0 kernel/softirq.c:556
->  </IRQ>
->  <TASK>
->  __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
->  local_bh_enable include/linux/bottom_half.h:33 [inline]
->  ipt_do_table+0xd71/0x1b10 net/ipv4/netfilter/ip_tables.c:357
->  nf_hook_entry_hookfn include/linux/netfilter.h:165 [inline]
->  nf_hook_slow+0xbf/0x220 net/netfilter/core.c:633
->  nf_hook include/linux/netfilter.h:280 [inline]
->  __ip_local_out+0x541/0xb80 net/ipv4/ip_output.c:120
->  ip_local_out+0x2a/0x1f0 net/ipv4/ip_output.c:129
->  __ip_queue_xmit+0x876/0x1f50 net/ipv4/ip_output.c:533
->  sctp_v4_xmit+0x91a/0x1070 net/sctp/protocol.c:1061
->  sctp_packet_transmit+0x22fe/0x30b0 net/sctp/output.c:659
->  sctp_outq_flush_transports net/sctp/outqueue.c:1174 [inline]
->  sctp_outq_flush+0xb2b/0x3380 net/sctp/outqueue.c:1222
->  sctp_cmd_interpreter net/sctp/sm_sideeffect.c:1826 [inline]
->  sctp_side_effects net/sctp/sm_sideeffect.c:1211 [inline]
->  sctp_do_sm+0xce1/0x5c30 net/sctp/sm_sideeffect.c:1182
->  sctp_assoc_bh_rcv+0x392/0x740 net/sctp/associola.c:1048
->  sctp_inq_push+0x25c/0x320 net/sctp/inqueue.c:91
->  sctp_backlog_rcv+0x169/0x590 net/sctp/input.c:331
->  sk_backlog_rcv include/net/sock.h:1194 [inline]
->  __release_sock+0x39d/0x440 net/core/sock.c:3341
->  release_sock+0x1e5/0x280 net/core/sock.c:3940
->  sctp_sendmsg+0x1166/0x22e0 net/sctp/socket.c:2091
->  inet_sendmsg+0x11c/0x140 net/ipv4/af_inet.c:864
->  sock_sendmsg_nosec net/socket.c:800 [inline]
->  __sock_sendmsg net/socket.c:818 [inline]
->  ____sys_sendmsg+0xa23/0xc30 net/socket.c:2715
->  ___sys_sendmsg+0x190/0x1e0 net/socket.c:2769
->  __sys_sendmmsg+0x20c/0x440 net/socket.c:2858
->  __do_sys_sendmmsg net/socket.c:2885 [inline]
->  __se_sys_sendmmsg net/socket.c:2882 [inline]
->  __x64_sys_sendmmsg+0x9c/0x100 net/socket.c:2882
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x7ff80879fb19
-> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f=
-7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff=
- ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007fff70bcd848 EFLAGS: 00000246 ORIG_RAX: 0000000000000133
-> RAX: ffffffffffffffda RBX: 00007ff808a25fa0 RCX: 00007ff80879fb19
-> RDX: 0000000000000001 RSI: 0000200000000e40 RDI: 0000000000000004
-> RBP: 00007ff808837b70 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-> R13: 00007ff808a25fac R14: 00007ff808a25fa0 R15: 00007ff808a25fa0
->  </TASK>
-> Modules linked in:
-> ---[ end trace 0000000000000000 ]---
-> RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
-> Code: 5b f8 48 89 df e8 2b 03 fe ff 31 ff 41 89 c4 89 c6 e8 7f 58 5b f8 4=
-5 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 5c 5e 5b f8 90 <0f> 0b e8 54 5e=
- 5b f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
-> RSP: 0018:ffffc90000648870 EFLAGS: 00010246
-> RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
-> RDX: ffff88802ce60000 RSI: ffffffff89b30684 RDI: 0000000000000005
-> RBP: ffffc900006488f0 R08: 0000000000000000 R09: 00000000fffffff2
-> R10: ffff888046a12f77 R11: 0000000000000000 R12: 00000000000000e4
-> R13: 0000000000000180 R14: 0000000000000000 R15: ffff888030406780
-> FS:  000055558120b500(0000) GS:ffff8880d467c000(0000) knlGS:0000000000000=
-000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000020000001a000 CR3: 00000000385f5000 CR4: 0000000000352ef0
->
->
-> ---
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
+The keyrings subsystem is the sole user of assoc_array. It has over 1700
+lines of code, no test suite, and a long history of bugs, with LLMs now
+finding more.
 
-Thanks for the reproducer.
+This unfortunate outcome has evolved over time by large from the shortage
+of in-kernel callers, time bandwidth and 3rd party contributors.
 
-The issue was caused by iptables TEE target (`pskb_copy`), where the new
-skb doesn't copy the skbs in frag_list, so modifying the skbs from frag_lis=
-t
-in sctp stack is not safe.
+What the keyrings subsystem needs is just a generic key-value store, which
+performs well with sparse key sets. Replace assoc_array with an
+rhashtable-backed keyring index and remove assoc_array from the kernel.
 
-I will prepare a patch for this.
+CHANGES
+=======
+
+v5:
+- Eric Biggers: Include <linux/jhash.h> explicitly in keyring.c.
+- Eric Biggers: Document why hashing type/domain_tag pointers with SipHash
+  and truncating the digest to 32 bits are safe.
+- Eric Biggers: Rework the commit message for "KEYS: Replace assoc_array
+  with rhashtable", including behavioral and operational changes.
+- Retry rhashtable_insert_fast() on transient -EBUSY in __key_link_begin().
+
+v4:
+- Eric Biggers: Correct the kerneldoc summary for keyring_is_empty().
+- Eric Biggers: Truncate keyring_index_key hash to u32 and drop index_id.
+- Eric Biggers, David Howells: Use a proper struct instead of a two-element
+  array to pass the edits.
+- Eric Biggers: __keyring_link(): Call key_put() in the rollback of
+  rhashtable_replace_fast().
+- Eric Biggers: Retract from using __free(kfree) in keyring_get_index().
+- Eric Biggers: Reuse keyring_link_key() in keyring_obj_cmpfn().
+- Eric Biggers: Document why keyring_index_free() uses queue_rcu_work().
+- Eric Biggers: Fix the commit message for "KEYS: Replace assoc_array with
+  rhashtable".
+
+v3:
+- Since David is away for the next week I decided to address the
+  low hanging fruit that I reported myself.
+- Unified and sanitized function and variable naming and removed
+  unnecessary asymmetry e.g., by renaming keyring_remove_all_links
+  as keyring_index_free, 'links' as 'index' and '_edit' as 'edit'.
+- Flattened the implementation by refactoring out some useless
+  wrappers and other constructs.
+- Addressed continuation after triggered WARN_ON() on at the three
+  sites that I've described in my email response to the previous
+  patch set version.
+- Reworked keyring_read() so that it triggers the scheduler between
+  the iterations.
+- Dropped "Assisted-by: LLM" tag because checkpatch.pl told me so.
+
+v2:
+- Tried to address all the issues pointed out by David and Eric. Tell me
+  if something was ignored, as that would be an unintentional mishap.
+- Updated and trimmed the source code comments.
+- For assoc_array_edit I decided to go with two-element pointer array,
+  which shifts a bit what David suggested.
+- Dropped is_keyring flag. It was so obvious call so I mention it here
+  just in case because too obvious maxes out my self-doubt ;-)
+- Used cleanup.h primitives where I possibly could especially in order
+  to make fallible initializations more bug-resistant.
+- The already-ack'd bug fixes are included but will be dropped as soon
+  as I've sent them over to Linus.
+
+VERSIONS
+========
+
+- v4:
+  https://lore.kernel.org/keyrings/20261029232437.2581640-1-jarkko@kernel.org/
+- v3:
+  https://lore.kernel.org/keyrings/20261025001105.1824178-1-jarkko@kernel.org/
+- v2:
+  https://lore.kernel.org/keyrings/20261023120953.1206778-1-jarkko@kernel.org/
+- v1:
+  https://lore.kernel.org/keyrings/20261016215326.4110064-1-jarkko@kernel.org/
+
+Cc: bpf@vger.kernel.org
+Cc: dm-devel@lists.linux.dev
+Cc: fsverity@lists.linux.dev
+Cc: keyrings@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: Alasdair Kergon <agk@redhat.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Alex Shi <alexs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Andrii Nakryiko <andrii@kernel.org>
+Cc: Benjamin Marzinski <bmarzins@redhat.com>
+Cc: Daniel Borkmann <daniel@iogearbox.net>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Eduard Zingerman <eddyz87@gmail.com>
+Cc: Emil Tsalapatis <emil@etsalapatis.com>
+Cc: Eric Biggers <ebiggers@kernel.org>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: James Morris <jmorris@namei.org>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>
+Cc: Mike Snitzer <snitzer@kernel.org>
+Cc: Mikulas Patocka <mpatocka@redhat.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Song Liu <song@kernel.org>
+Cc: "Theodore Y. Ts'o" <tytso@mit.edu>
+Cc: Yanteng Si <si.yanteng@linux.dev>
+Cc: Yonghong Song <yonghong.song@linux.dev>
+
+Jarkko Sakkinen (3):
+  KEYS: Introduce keyring_is_empty()
+  KEYS: Replace assoc_array with rhashtable
+  lib: Remove assoc_array
+
+ Documentation/core-api/assoc_array.rst        |  564 ------
+ Documentation/core-api/index.rst              |    1 -
+ .../zh_CN/core-api/assoc_array.rst            |  473 -----
+ .../translations/zh_CN/core-api/index.rst     |    1 -
+ drivers/md/dm-verity-verify-sig.c             |    2 +-
+ fs/verity/signature.c                         |    2 +-
+ include/keys/keyring-type.h                   |    1 -
+ include/linux/assoc_array.h                   |   88 -
+ include/linux/assoc_array_priv.h              |  178 --
+ include/linux/key-type.h                      |    1 -
+ include/linux/key.h                           |   29 +-
+ kernel/bpf/keys.c                             |    2 +-
+ lib/Kconfig                                   |   14 -
+ lib/Makefile                                  |    1 -
+ lib/assoc_array.c                             | 1724 -----------------
+ security/keys/Kconfig                         |    1 -
+ security/keys/internal.h                      |   14 +-
+ security/keys/key.c                           |   22 +-
+ security/keys/keyring.c                       |  994 +++++-----
+ security/keys/request_key.c                   |    8 +-
+ .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
+ 21 files changed, 479 insertions(+), 3643 deletions(-)
+ delete mode 100644 Documentation/core-api/assoc_array.rst
+ delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
+ delete mode 100644 include/linux/assoc_array.h
+ delete mode 100644 include/linux/assoc_array_priv.h
+ delete mode 100644 lib/assoc_array.c
+
+--
+2.47.3
+
