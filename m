@@ -1,90 +1,149 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793920916;
-	b=o09+W7JZnvtjqPlAfKN33l1HCtS+E24CH9OhhoX6umO6wnvGgp7uwL/kySavbmqj77vu
-	 TOKkyIaB+Rg4Kc2P38s0s8AW0dVKKjRtSkfKU1kEhFjEp5eaKmW9KDBqKi8Q1jravYW1Q
-	 u5w2pis6cV00s5Aj++K7NDeFIL21uM/UlQw/NlLuPRcv4RHp4IXa6I31OyHUbZHkRsUnW
-	 9fZ5TnbYr3WJbuzqmkFnKY2OayQzHa9aiGoPsCIX0x4E+kigFcb2vXM93Eu5p/VbKPh1h
-	 i9H2yZ8A75Wx/LA3Q/z8yq8/fQjxoxyFxf04c2VH+ivSD0K7oNWaGP0mIx1tUi6mguQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793920916;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=4CY6kteulYS6YGOwsvXKGn1qUkLcgM9XJ2I0e0tk+JA=;
-	b=dtwAbCm1yTNZs69ytLsJaDAO9tpzOJL2QrWbBhMbuyeJ09Jt2rbNqAog3zmgNVmYyuSH
-	 D2aq0NkONdY/HKbGfE888gEZiujHuFue7cS/ZNbunAx1fjN2Lu/RL6O+IppebbpSz/j2t
-	 bojzIORkGv3x9KlxD7Zw2CoewNWeXwWDavAiNEZObPQ1kMYnLNkuJi3cIjyxRo9exzk9P
-	 UXTDwp3j4vEXcUDLhJSmFfyZz4ztv7SjXcH0HoF1ZX91q23SXE1XIVwyY5OnV93k8I7EU
-	 XEmUz1Q2i0LdPJexEgPJMHb6AyMF0SA0272xAl+ltARP38GMgjy5EZAkaQOIRL1YpSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=gPo9SPxF;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793920946;
+	b=NcDo6JZUZIQGaVZ2nzVAJG46RN9aG+aZCSqQB9Ygwmayc+UZpbXsLxhJhMzaUB3mtLro
+	 4ORmBMKg93rGjf5SPPudIqtkYU3Q9ZaWkPGwRvasP5tcBr/Q1fanS4GgZCN47lDOVbFoP
+	 BAhlTUzTZAqH41raq0pNdbW3k2PX9ZkLTLCsBnbQlFEKtJ2EKjoBMe7oEuJiaTJFO5JDC
+	 DnKUW3s5340sVFxi2A+5c0nO4g0oQijT5YnLlqaseeP2FcXUM3PEXxh3ZHpwsF6kWS1Se
+	 MxOIKhdX6KR6OceUxWkuK3bsPSV/mkle5r37d3noD5JMHlX7FkKaAKfa4Dv1W0TMzKg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793920946;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xxeHnkyj/wdNYa4dad/YE7XQLAdR+L/s/agJCAyW8Jw=;
+	b=yYMWI6WXdsZXxFokUZnVgw7xtX6OouG0gz+3GRPPXJJx9qxq0fvFomVx8vRzQl/1BGwS
+	 ZrAXeAgAp+diMhVsotSkxfe7UdYOK0W6deh7q9pT7w6jlvPiH4uTr5IxyEIi+skLa1bH+
+	 sycgQJJuVlPRgQMHEbeKoGLCVk64/6yrWNKe9Jal+HjbQ+cA8dXK0LIvzzsUTIk9WBZem
+	 CAw67+ylGEo/MscVE16NzpdfqkSPPfKb5YUl1xeXzJqvsuQPfn00nWdFiI7ivNoB71mu8
+	 sTAuH5i/sjyTSgmaHrVBS+otqbJ8L9ptgHgFsSyvDMPUW15RwXrILYfOeA0lBwhjkGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=kns.com;
+	spf=pass smtp.mailfrom=kns.com;
+	dkim=pass header.d=kns.com header.i=@kns.com header.a=rsa-sha256 header.s=selector1 header.b=Tb8RYIKN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.50
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11013050.outbound.protection.outlook.com [40.107.44.50])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0809C606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:21:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0809C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2221606A31B;
+	Thu,  5 Nov 2026 23:22:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2221606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kns.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kns.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=gPo9SPxF
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c445c95d553so7020466b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:21:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793920913; x=1794525713; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4CY6kteulYS6YGOwsvXKGn1qUkLcgM9XJ2I0e0tk+JA=;
-        b=gPo9SPxFi2rVLsKhGrCqqE5hE92NbFoq1Zi2JOci1ChfKUbD/F6dG9k1a30KNoO4ZF
-         wClRGp+wp2ZjBS96hWxBSQamrLKtcD7VPC+k7NnmR7j7oQdpAKf8jlOaJBX3V5M92Mfj
-         b85PiFEwv9zEk1nfcT8S76Bsz/+2lc4z+sJno=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793920913; x=1794525713;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4CY6kteulYS6YGOwsvXKGn1qUkLcgM9XJ2I0e0tk+JA=;
-        b=gmKzHs7GQUenJI5gjhanlMj4qvcFg0+96O+BV44p/dici/QTLy4XBHMQgAJVdpcA+b
-         XVuS2dEDkORwBVmWMGRNHkkT6jRjCpNiuWmYTkwZrJEOyNnulFJ46XlCyUldJcl8rh5d
-         JOt+K3RPCTOCZUEP9F3XQSTecYUGSk5P2FyjmxcYGjUbmsArl7grraZMNdVx7gLueO+W
-         GPYmoR0rUtbCIWjhURV495pu9bCKmLpSBXtLj7BT8fwTLGc35KeiiVg7zscXd9KjiJ+i
-         OYArkW5fjqgsXStZVStithTYxS7QVbty0mYBJfcZDpXE6ItaWqf7lyraF1h7CneFAKET
-         DXSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDyiUFrqmj0fcez+LH8zT7bNPPugBANByV4BMNC/PdRNiFLp3vpeS30abv6O5Hrg5CFCNlOciHKwmKaro=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91zHFVODf9wKHQqHRAOzU1AW8O8cHm859sKVGhahCfG2DBwPbZ
-	DYcXuTbI3EJGJ2RG4jPGInbffwaT/xVseimtwt9tQGRYuTCjFSQHLlNprEdLPqqqNPnI5r+cD4/
-	sxE+yTfgY1g==
-X-Gm-Gg: AYBFou03JFn+tPqA8gNgsI3HPqfHTQLONxNCLtVqHiZ2F3Nwhl82eGrPOFQvqMwcK6a
-	I2yyYdeWeHsYGIwPXfXr4692F/ksM34QPAeKzzt/gUD7dOuYuMiehpkaA/5iyNwTjOGQ5wr1Z+p
-	7pQnbr0KYp0e6NjUmJ+rbeTvleq4AfbBC+FOpVsGig0dwwes4RDhrWsEousT1sq8dS5N1KG/CAq
-	b2G4p5tPKKiTITUQkj/LZCtwm2QDVyaUjnkUemx9kbAkWyIM4nSShvqApDrfn/kCnt1c53Duigv
-	NJJLlLMgMbA58wqjYmZ0IIjpti8akmj91PQtWmJfbZoQxVPKIRJ9eWUPGKGxDS1WyLjkI9vuhvr
-	qmXOBkOfgUfFJ5j7engPEIJifqUw8snM+WvsjZrdjRnKxUp1ZYwWryj7FEASdGzrSDTCQkzBi9J
-	3uM00UxNuTsMKXnhzq2Obq6T3McEomhJPVj13qSbEM88in2iot5/5UIElsvrL2zZNTJ0gypiaDI
-	TqA9bcKrpr90gUl2RJxTcz/TwTo15V7jQWVIqyWsrg0cmr5757YBrngh2mUp1GO1S+dRSb6HeR5
-	gcvqQX2VzRpNjyuhGKoC634xAGTJnv7eM0CjySpGIHWfpqy4CrheD0JgoXL4RVnBpuy37zAkdUn
-	R7w==
-X-Received: by 2002:a17:907:fd17:b0:c25:afb6:2d91 with SMTP id a640c23a62f3a-c4d344a88eamr72631966b.2.1793920913270;
-        Thu, 05 Nov 2026 15:21:53 -0800 (PST)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3562eb04sm26266266b.23.2026.11.05.15.21.52
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 15:21:52 -0800 (PST)
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c445c95d553so7018066b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:21:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx2sT2AsQUFzqu7150GI1dIa5tDOxvb/m+xi9XWLKM79OcMKa/buFHiLDoysrmuQWkQf761zhz2RFjUXfk=@vger.kernel.org
-X-Received: by 2002:a17:907:9c05:b0:c41:cf68:bbcf with SMTP id
- a640c23a62f3a-c4d34c42700mr81823766b.32.1793920911855; Thu, 05 Nov 2026
- 15:21:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kns.com header.i=@kns.com header.a=rsa-sha256 header.s=selector1 header.b=Tb8RYIKN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pKt8+7G6+CETm91gYVJQu+6czR0v47EwzCEqbqmDbZNkj0UxbiZoWDSMh3beqDnb8NPvhIAK+wVr/T88vlNbP1u5qte3K9gxJEcztCLbJ9lBSN/YGOguNxOpmnisnUjVHBzERHKkkbJCdxU5QMqSNKUyg1/bM02E+s8CNdqp/haeotmnEjZ+9V1l7ZgixTALSnvvGvI10CTuhhUdZgsBMJzXj6vJ1mn8FC0liuKF438/vNhtg09bHcD9b1E56O2bm4QxVfKwi6HH5spDQg+OzFUTqEHFTS0bdUbxQmBZA/oqK+MJjESthVhmqx3ABk/oax+ex8sIz7AKSoJrqOLeTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xxeHnkyj/wdNYa4dad/YE7XQLAdR+L/s/agJCAyW8Jw=;
+ b=v4YLA0f+3hCM32iGKj8r/kUeD6ySkR0zd6Qs17G4sWUA4DH2D0x4BJNo5jXf0yQtvsQOqfpD6qvYmYTuFi4dw6rFwUKJSDrZHZi4Cy/JasucP5GaaH0XsO62NaSXuF9Zybbbrz/hntmgnufiOgCUvv7Y1z/746AoyxbWXHxXuutUq97+gE30yB9pfolZ96ZUeHa8iT/nGICHi1KCRnOivgsHPAjdCDVmB+648RHtYCU9M4ZpsMfnzkcW2VuVtcfUYkwyrEm0Y0mRBlTo8ejdbAWgVl4pbs113bTBvK4g1NPFBeWl7kTiWW2o2ghll7OO53c0oFRoDsDbKbYru24WOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kns.com; dmarc=pass action=none header.from=kns.com; dkim=pass
+ header.d=kns.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kns.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xxeHnkyj/wdNYa4dad/YE7XQLAdR+L/s/agJCAyW8Jw=;
+ b=Tb8RYIKNtMCRFRSmxKrG5cKyciEPvOIgSBq1n6Vs56v9Rp+wAAVFqdT6jwsrEsdXt/aqA/nv/SkJuPtkY9n8PdantYP/upZGXRsULgSuFTjGYsVoS9mOfOy8WKK0Ikx0FuIYRjNQcbTh51QhfwP12yQLJj0+ItPxgHFo6nxtKjUVhZzw3f/NNbLlffT5+HBzRPaGqVcCsWNZ+pLSSFKPdZU5K20f9f0ojMuT91Rs2s/X9+t0+0lF0BQZ7inUSqX2qpfraZa1rx16MjGanAejx0vn7fw0IETNPr6wS+zR0RIvKiuflyzEdtofuB262MyApDa8ZLhV2vnmGNXoR2v2Yg==
+Received: from TY0PR01MB5723.apcprd01.prod.exchangelabs.com
+ (2603:1096:405:1b::14) by KL1PR01MB4768.apcprd01.prod.exchangelabs.com
+ (2603:1096:820:ba::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 23:22:20 +0000
+Received: from TY0PR01MB5723.apcprd01.prod.exchangelabs.com
+ ([fe80::150e:2612:b40c:cc2e]) by TY0PR01MB5723.apcprd01.prod.exchangelabs.com
+ ([fe80::150e:2612:b40c:cc2e%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 23:22:17 +0000
+From: Mike Schanne <mschanne@kns.com>
+To: "'gregkh@linuxfoundation.org'" <gregkh@linuxfoundation.org>
+CC: 'LKML' <linux-kernel@vger.kernel.org>, "'linux-rt-devel@lists.linux.dev'"
+	<linux-rt-devel@lists.linux.dev>, 'linux-rt-users'
+	<linux-rt-users@vger.kernel.org>, 'Sebastian Andrzej Siewior'
+	<bigeasy@linutronix.de>, 'Thomas Gleixner' <tglx@linutronix.de>, 'Steven
+ Rostedt' <rostedt@goodmis.org>, "'chris.packham@alliedtelesis.co.nz'"
+	<chris.packham@alliedtelesis.co.nz>, Todd Leitzel <tleitzel@kns.com>
+Subject: [PATCH] Revert "uio: use threaded interrupts"
+Thread-Topic: [PATCH] Revert "uio: use threaded interrupts"
+Thread-Index: Ad1te4Ezu/k/o99STK2OTlNpcneIYg==
+Date: Thu, 5 Nov 2026 23:22:17 +0000
+Message-ID:
+ <TY0PR01MB57238A4ACC7B9B3214A00A6CD2772@TY0PR01MB5723.apcprd01.prod.exchangelabs.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kns.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY0PR01MB5723:EE_|KL1PR01MB4768:EE_
+x-ms-office365-filtering-correlation-id: e0dde153-ad27-4f00-b83a-08df3b93a1f8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|19092799006|23010399003|1800799024|366016|6133799003|10067099003|18002099003|38070700021|261102123227099003|56012099006|261028144727099003|11063799006|261022105027099003|261102130727099003|261026140227099003|261021121427099003|261026121527099003|261009223027099003|261022075727099003|261021123027099003;
+x-microsoft-antispam-message-info:
+ GCXZkHdeKqQVN5GHB5ortb1zg4+lwUkDumqd/APlXBPegKUt2hITQwFJNmRyJsfPW2uPPKnOFSzHicI5xTUBSYTjRXYTPdfEAnijrgLsLDF6YN7S2c6trYgRnBZC4xAWXZGcJb+HS6WO0YZN5qQ7Bzb0jbJBWELnUQnMd+srvJOwCEHJSxmSo9W0oKi3KxF9cfPxCuUYAE6VJBjJW/CoRGLhimhY44lNFYuXWmJ0xFhsSs/8U7dXqsYxW7cllczT69OYBAnjFshhJQY0pabChWuPoFT+W2Tu9pnQM9alEWeC0mZeCsNHZPNS7VPBn21R7Ue3nErCNvd4TeE6heySW0L1U0I1IPlpVwJTxkZgpYALjJN0ixsjDuaX9lWL074eKuLKMgjj6qHDIsaxoez7UdY7nGcB/RPDsQID2pMwen92J7lbNbZM/9nbUJAHCeNz3nC1226x9C/5r3B7+jqjt2JVe4Ki9Mj8AFG6CoaCyVc4b8+WOtO9Nvg4T9Jw1XGjSIvMOsDniXW5uO7fceVnO7bZ1wfqlYpzAYqn4AuFWn3nJr1eryZ+20LqSRKlM79lsuzQpKKRmAZwzkDx6GLrjeFGxPTjZR3NFrt6D9Na0CWQE07LiSVePFvcLCdNa37hLUdg9gbzBRocAf4vRgZ8y1fzYTu3ye7TGzol5s6klyg=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY0PR01MB5723.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(18002099003)(38070700021)(261102123227099003)(56012099006)(261028144727099003)(11063799006)(261022105027099003)(261102130727099003)(261026140227099003)(261021121427099003)(261026121527099003)(261009223027099003)(261022075727099003)(261021123027099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?cnNkV0VqbEZqTFFFdzVNbDlGb3FRL1B4c0JNTk11WmlTc1BDaVBiQzdNd3RL?=
+ =?utf-8?B?UENPU3JDMVA0SUl6SlliN3F6NDlrWG1iMEhGakVlaXVGV1VFZEU2TklCYVV6?=
+ =?utf-8?B?VUtBbUMxL1RzUGZrSnFYZGthTkZmTjJIR0ZiWlREZXF3R24xNEp1MDNOUVVq?=
+ =?utf-8?B?Y1hBTFVHK1JLR25JWFRaMGJUamdkUlVxNHhMQ1BlZURjT3hNZTZpV1NETXov?=
+ =?utf-8?B?NnFKOEluTmNlRzIza25lUDNHb054ZWs0aVlvVzdNS2JucjRid2ZhUU1ycmZT?=
+ =?utf-8?B?bFc4WjNJQ1BRcVN0RVgrWS96dFBsc1RERzJEOUJBVzRGcUExWVlPY0JQdDNk?=
+ =?utf-8?B?OUxjM29zVXVjc2NtVHViYm5NY1c4cjNoK3NtUXpTNG9uSWU0TzBIM0NNZHI2?=
+ =?utf-8?B?aGs2RHViMXpWaEp3WjB4aWI4azBrb2FkM3VBT1hYbmRGYjE2em5wOW9tVGgx?=
+ =?utf-8?B?M09aTm5EemlTMU9QN1JzUVJBd2dMd1gzcjZiWUxnVGwvbGswZnpjcFBnSjUw?=
+ =?utf-8?B?RlViQmFLSVV0MG5iNFV4UGY4TlRlcGNWZlQ5YTREOG4vbzZoWGRxVDBrWlJ1?=
+ =?utf-8?B?OUNkMHFzb0l1VkhEYXJoZ0tObVNZN0dtMXdsQUkwWHlENzZoa2pCVklTeWwz?=
+ =?utf-8?B?aGNmdkxCWE9wLy8zTFRUdVNNM1BHcE4xWFdiSXk5Q1FJOURRZ2tTVlU1ajVa?=
+ =?utf-8?B?MmZvZmxCcHVrVXVuTnNOdlEyOEhXcE5hRHpNL0tzdDRSS2pKVEZWR3Y0U1Rq?=
+ =?utf-8?B?d2dJMVUwU1g4ZHgvdk9xTFJpV0lLTmVTQzRZWjVnTk5kdUNQUWl3RUZMMkhq?=
+ =?utf-8?B?OC9uTW9tR2tIV3ViM1BJSXA2S3I1cjU4V0ZOdDRVdDNRSElrQ1ZZVHJScUgr?=
+ =?utf-8?B?VXhWMTNuSGhmSy91cFpsRGd5bVZtczV2c0VTYSt4RklubUR1bURBZXJFTVZp?=
+ =?utf-8?B?Q0FldFRiT0lXTS85SUhGVkdxbm1xM2k2WTVyMkwrRWQ5dWtQUzNWVjEvSlJt?=
+ =?utf-8?B?ek9xbUEyZll5T1Q4aTVTTTFxVTlQUWxEWVZMNXNtL0FJdFNFU2MvVDk5S1VG?=
+ =?utf-8?B?eGVJRnJUSEZYMU1pNzdGMlR2OUswVEJkVFBLdlN1c3JidERYU0ZFZ2dUQUsy?=
+ =?utf-8?B?ODFtZU54VUlramVZRjFpVTZML05DQTFmQXdGT0NOSDZrVVRrMU53ZzdZR0tC?=
+ =?utf-8?B?d2sxTnFXeVlDMm5YYjlZN0JtR2VkS0dQT0E3Slg5YU9RMWlEZFBtTG55YzYy?=
+ =?utf-8?B?dW42aTdscVJIK2dvLzRaOWhpN3R1OGR4QThYTE5jdHpvbzB2d2xRbEVaU3JN?=
+ =?utf-8?B?ZkNvcU5TTjdqck90dG9SYXdsWlFEOHJFSVQwREFMUWRhMEc2dEhlOS9LL1p0?=
+ =?utf-8?B?VTRmZFBjdHk4Sk5HUzhoQTNaMnJtckQzcElTOVJsQk5WY283MUY3WTFTb0pn?=
+ =?utf-8?B?WE9CUVBtbkV1aDlESEgyVDdJY01wVTV4TGZBNnQ3NTBYb3d5R1d3R1ExZnpU?=
+ =?utf-8?B?eVJ3aG1vYkQ4d1JpUndHY0RWb2ZxMFZhZE9KNloxUVpOV0pJRllmOWRKR3dG?=
+ =?utf-8?B?a2MzbmxaMnVIV1dJSVBxbFN0c2JocVArZFY5ZzNQcWJEQlZRbS91U0F0UGVN?=
+ =?utf-8?B?UXRrRnJFQThtUnNHMnVVTlhsMk1jelB5aGlYMjVJeHBYZWlkWHlJWTBES2hT?=
+ =?utf-8?B?bUpFejExU1dST0wxTE9QekRqR3RNVW5Zbk5FUnMwOW9rZzlhS0M0RG82Nzlk?=
+ =?utf-8?B?WTJJbFpoWTVWSnNZUm9PYUgwQlgyVEJPWHFVL25zenZxTk1mTUx5Z2Vyc3lK?=
+ =?utf-8?B?LzJ6bXBUZ0IxY3I2ZHU2RGFGT2h5cE5NVkUwOUx4Y2Y3UVJPU1BCZkNENGpN?=
+ =?utf-8?B?blpMZUF2WUExblRHdkFJZ2hleFEvdDAwVFVqa1FXS0thMmRLZVkzWHAxWVQ2?=
+ =?utf-8?B?WjFoazhHZU9BRVNNemt3ZTRuMGpxSUtic3ZLa2VpMTIrMDVvMlpxMG1rWHZP?=
+ =?utf-8?B?T1JCUUROZ3d6U1BXaTFpVE9qajQwNVNTT0JVNXQ1SFhuQVd1c3g5OVdxZ1Fu?=
+ =?utf-8?B?WVVaWkd2L04wWFA4SUoydXp3Mkw4aStHZTI2Z0ZjNjcxNlpCQzlkY29DMlc3?=
+ =?utf-8?B?WEZmTDRjUExTNzJ5akRlNUxndUVPZzNSWUN5MnRRaW96RTl0ZFY0Q1R0cHRO?=
+ =?utf-8?B?M0ZEeXRCTExZWFBndkJHZHZYQ0Z0VzFPQ21GVFpNVzkrRUpZSzQvV2liK2cx?=
+ =?utf-8?B?azBNOXk5UjVNUDRpNkRvcjY5Nnh1WTNldGFqUDlGdEkvWkhrMDBjeHgxQmRQ?=
+ =?utf-8?Q?oRLHn3Ej+BUA0zwUUT?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,97 +153,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793876837.git.alx@kernel.org> <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
- <20261105111423.360f4ba8@gandalf.local.home> <auyuINXEJKc1KoG7@devuan>
- <20261105115019.2fe7c91b@gandalf.local.home> <auy0O467UqOzqYub@devuan>
- <auzGMV1YbO9DodBq@ashevche-desk.local> <auzHFRzd86iV4-RA@ashevche-desk.local>
- <auzxXyAU6zyHtMtn@devuan> <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
- <auz79Izf6Q5qOQPi@devuan>
-In-Reply-To: <auz79Izf6Q5qOQPi@devuan>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 5 Nov 2026 15:21:35 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wgGLZRQj_a9r9i2ZdhGZKKVxG+-mAj=pb=pRYyJaHAquw@mail.gmail.com>
-X-Gm-Features: AclHuK-tRyoIoIlVqV1ObINoCwGUeXX8nUrj1waZW-FHLSpz23irfQuKt09nDLk
-Message-ID: <CAHk-=wgGLZRQj_a9r9i2ZdhGZKKVxG+-mAj=pb=pRYyJaHAquw@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate str_has_prefix()
-To: Alejandro Colomar <alx@kernel.org>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-hardening@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, 
-	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: kns.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY0PR01MB5723.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0dde153-ad27-4f00-b83a-08df3b93a1f8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 23:22:17.3379
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 13db00d8-2bd3-413e-a71f-ae7175d8527f
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EV5UAhMLuRPamY+KX80kWX8hwD+k93PBGy24cukQbGdZeEfk4T9/fXt+LfACV30Qo8GGC8hadd16FBXxO1ZjjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR01MB4768
 
-On Thu, 5 Nov 2026 at 14:25, Alejandro Colomar <alx@kernel.org> wrote:
->
-> I'm not a fan of git-grep(1), because it's easier to remember grep(1),
-> as I already need to remember it for other stuff.
-
-Why?
-
-"git grep" is *literally* the exact same thing as "git ls-files |
-xargs grep" that you apparently find so natural. It takes all the same
-arguments as "grep" does.
-
-Except "git grep" is way more capable if you ever go "Oh, but I'd like
-to go back to an older version".
-
-That makes no sense.
-
-> I'm finding some issues with git-ls-files(1), though: it's listing
-> symlinks, which grep(1) complains about.  I wish I could discard those
-> with something like '-type f'.
-
-Christ.
-
-"Doctor, doctor, it hurts when I hit myself in the face with a spiky object".
-
-Stop doing that. You're just being silly for no reason.
-
->         $ time git ls-files | xargs grep ARRAY_SIZE | wc -l
-
-Just do the sane thing. Look:
-
-   git grep ARRAY_SIZE | wc -l
-
-Trust me. Just learn to write "git grep". After five minutes of doing
-that, you'll realize that you should always have done it, and you were
-silly thinking anything else.
-
-And it's faster too:
-
-  $ time git ls-files | xargs grep ARRAY_SIZE 2&>1 > /dev/null
-
-  real 0m0.636s
-  user 0m0.367s
-  sys 0m0.307s
-
-  $ time git grep ARRAY_SIZE > /dev/null
-
-  real 0m0.519s
-  user 0m1.837s
-  sys 0m1.719s
-
-(I used that "2&>1" to obviously remove the errors from the stupid
-mis-used of xargs).
-
-And it's *safer* too, because if you have filenames with spaces, "git
-grep" does the right thing. Your xargs thing now needs to start using
-"-z" to git ls-files and "-0" to grep to actually be safe.
-
-So just embrace "git grep". I can pretty much guarantee that if you
-use it a while you'll never go back.
-
-            Linus
+VGhpcyByZXZlcnRzIGNvbW1pdCBmOGEyN2RmYTRiODJkNDQyYWYxYzA2NDVhNWFjYzcwY2M5N2M2
+N2Y2Lg0KDQpUaGUgb3JpZ2luYWwgc29sdXRpb24gYnJlYWtzIHRoZSB0aHJlYWRpcnFzIGNhc2Ug
+aW5jbHVkaW5nIFBSRUVNUFRfUlQNClVuZGVyIFBSRUVNUFRfUlQsIGl0IGFkZHMgYW4gZXh0cmEg
+a3RocmVhZCBwZXIgVUlPIGlycSwNCndoaWNoIGFkZHMgYSBjb250ZXh0IHN3aXRjaCBwZXIgaW50
+ZXJydXB0Lg0KDQpTZWU6DQpodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNDAzMjYxOTU5
+MjcuMzI2NTI5Ny0xLWNocmlzLnBhY2toYW1AYWxsaWVkdGVsZXNpcy5jby5uei8NCmh0dHBzOi8v
+Z2l0aHViLmNvbS90b3J2YWxkcy9saW51eC9jb21taXQvZjhhMjdkZmE0YjgyZDQ0MmFmMWMwNjQ1
+YTVhY2M3MGNjOTdjNjdmNg0KDQpTaWduZWQtb2ZmLWJ5OiBNaWNoYWVsIFNjaGFubmUgPG1zY2hh
+bm5lQGtucy5jb20+DQotLS0NCiBkcml2ZXJzL3Vpby91aW8uYyB8IDE5ICsrKysrLS0tLS0tLS0t
+LS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMoLSkN
+Cg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvdWlvL3Vpby5jIGIvZHJpdmVycy91aW8vdWlvLmMNCmlu
+ZGV4IGY4ZmEyMDUyMjY2MC4uOWVmNWIyNzZiMDkwIDEwMDY0NA0KLS0tIGEvZHJpdmVycy91aW8v
+dWlvLmMNCisrKyBiL2RyaXZlcnMvdWlvL3Vpby5jDQpAQCAtNDQyLDMwICs0NDIsMjEgQEAgRVhQ
+T1JUX1NZTUJPTF9HUEwodWlvX2V2ZW50X25vdGlmeSk7DQogICogQGlycTogSVJRIG51bWJlciwg
+Y2FuIGJlIFVJT19JUlFfQ1lDTElDIGZvciBjeWNsaWMgdGltZXINCiAgKiBAZGV2X2lkOiBQb2lu
+dGVyIHRvIHRoZSBkZXZpY2VzIHVpb19kZXZpY2Ugc3RydWN0dXJlDQogICovDQotc3RhdGljIGly
+cXJldHVybl90IHVpb19pbnRlcnJ1cHRfaGFuZGxlcihpbnQgaXJxLCB2b2lkICpkZXZfaWQpDQor
+c3RhdGljIGlycXJldHVybl90IHVpb19pbnRlcnJ1cHQoaW50IGlycSwgdm9pZCAqZGV2X2lkKQ0K
+IHsNCiAgICAgICAgc3RydWN0IHVpb19kZXZpY2UgKmlkZXYgPSAoc3RydWN0IHVpb19kZXZpY2Ug
+KilkZXZfaWQ7DQogICAgICAgIGlycXJldHVybl90IHJldDsNCg0KICAgICAgICByZXQgPSBpZGV2
+LT5pbmZvLT5oYW5kbGVyKGlycSwgaWRldi0+aW5mbyk7DQogICAgICAgIGlmIChyZXQgPT0gSVJR
+X0hBTkRMRUQpDQotICAgICAgICAgICAgICAgcmV0ID0gSVJRX1dBS0VfVEhSRUFEOw0KLQ0KLSAg
+ICAgICByZXR1cm4gcmV0Ow0KLX0NCi0NCiAvKioNCiAgKiB1aW9faW50ZXJydXB0X3RocmVhZCAt
+IGlycSB0aHJlYWQgaGFuZGxlcg0KICAqIEBpcnE6IElSUSBudW1iZXINCiAgKiBAZGV2X2lkOiBQ
+b2ludGVyIHRvIHRoZSBkZXZpY2VzIHVpb19kZXZpY2Ugc3RydWN0dXJlDQogICovDQotc3RhdGlj
+IGlycXJldHVybl90IHVpb19pbnRlcnJ1cHRfdGhyZWFkKGludCBpcnEsIHZvaWQgKmRldl9pZCkN
+Ci17DQotICAgICAgIHN0cnVjdCB1aW9fZGV2aWNlICppZGV2ID0gKHN0cnVjdCB1aW9fZGV2aWNl
+ICopZGV2X2lkOw0KKyAgICAgICAgICAgICAgIHVpb19ldmVudF9ub3RpZnkoaWRldi0+aW5mbyk7
+DQoNCi0gICAgICAgdWlvX2V2ZW50X25vdGlmeShpZGV2LT5pbmZvKTsNCi0NCi0gICAgICAgcmV0
+dXJuIElSUV9IQU5ETEVEOw0KKyAgICAgICByZXR1cm4gcmV0Ow0KIH0NCg0KIHN0cnVjdCB1aW9f
+bGlzdGVuZXIgew0KQEAgLTEwNDQsOCArMTAzNSw4IEBAIGludCBfX3Vpb19yZWdpc3Rlcl9kZXZp
+Y2Uoc3RydWN0IG1vZHVsZSAqb3duZXIsDQogICAgICAgICAgICAgICAgICogRkRzIGF0IHRoZSB0
+aW1lIG9mIHVucmVnaXN0ZXIgYW5kIHRoZXJlZm9yZSBtYXkgbm90IGJlDQogICAgICAgICAgICAg
+ICAgICogZnJlZWQgdW50aWwgdGhleSBhcmUgcmVsZWFzZWQuDQogICAgICAgICAgICAgICAgICov
+DQotICAgICAgICAgICAgICAgcmV0ID0gcmVxdWVzdF90aHJlYWRlZF9pcnEoaW5mby0+aXJxLCB1
+aW9faW50ZXJydXB0X2hhbmRsZXIsIHVpb19pbnRlcnJ1cHRfdGhyZWFkLA0KLSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZm8tPmlycV9mbGFncywgaW5mby0+bmFt
+ZSwgaWRldik7DQorICAgICAgICAgICAgICAgcmV0ID0gcmVxdWVzdF9pcnEoaW5mby0+aXJxLCB1
+aW9faW50ZXJydXB0LA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZm8tPmly
+cV9mbGFncywgaW5mby0+bmFtZSwgaWRldik7DQogICAgICAgICAgICAgICAgaWYgKHJldCkgew0K
+ICAgICAgICAgICAgICAgICAgICAgICAgaW5mby0+dWlvX2RldiA9IE5VTEw7DQogICAgICAgICAg
+ICAgICAgICAgICAgICBnb3RvIGVycl9yZXF1ZXN0X2lycTsNCi0tDQoyLjUzLjANCg0KVGhpcyBl
+bWFpbCBpcyBub24tYmluZGluZywgaXMgc3ViamVjdCB0byBjb250cmFjdCwgYW5kIG5laXRoZXIg
+S3VsaWNrZSBhbmQgU29mZmEgSW5kdXN0cmllcywgSW5jLiBub3IgaXRzIHN1YnNpZGlhcmllcyAo
+ZWFjaCBhbmQgY29sbGVjdGl2ZWx5IOKAnEsmU+KAnSkgc2hhbGwgaGF2ZSBhbnkgb2JsaWdhdGlv
+biB0byB5b3UgdG8gY29uc3VtbWF0ZSB0aGUgdHJhbnNhY3Rpb25zIGhlcmVpbiBvciB0byBlbnRl
+ciBpbnRvIGFueSBhZ3JlZW1lbnQsIG90aGVyIHRoYW4gaW4gYWNjb3JkYW5jZSB3aXRoIHRoZSB0
+ZXJtcyBhbmQgY29uZGl0aW9ucyBvZiBhIGRlZmluaXRpdmUgYWdyZWVtZW50IGlmIGFuZCB3aGVu
+IG5lZ290aWF0ZWQsIGZpbmFsaXplZCBhbmQgZXhlY3V0ZWQgYmV0d2VlbiB0aGUgcGFydGllcy4g
+VGhpcyBlbWFpbCBhbmQgYWxsIGl0cyBjb250ZW50cyBhcmUgcHJvdGVjdGVkIGJ5IEludGVybmF0
+aW9uYWwgYW5kIFVuaXRlZCBTdGF0ZXMgY29weXJpZ2h0IGxhd3MuIEFueSByZXByb2R1Y3Rpb24g
+b3IgdXNlIG9mIGFsbCBvciBhbnkgcGFydCBvZiB0aGlzIGVtYWlsIHdpdGhvdXQgdGhlIGV4cHJl
+c3Mgd3JpdHRlbiBjb25zZW50IG9mIEsmUyBpcyBwcm9oaWJpdGVkLg0K
