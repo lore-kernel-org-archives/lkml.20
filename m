@@ -1,79 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793906114;
-	b=FDKcvtAu7Ib/9yyQjMAhmSbnv5qZNKHuOC+rBRkQgAhvy38olBRcq+JMF4u8xm4CjUa3
-	 9qgppJ9UhlDeaXncCJlcjrJ0k0KArmZns6GTLwUfK/76NihcMcwt4pARapN0TzprRX83y
-	 6n99Idz9nrw1UxnPgG7bHL8bMuChyXHCGVR7Ul7ZkPve7fLRLL1foUD7Eq36hEXkNgu99
-	 iEFkV86PjYl9NnlpJgj/3K4T1RxkOp9ktM3NxNradPljDE8ugb0S7hAJCn37hzESmvCCd
-	 4puWI3GEo789eG7oW/UkhtlIiHMOJVfHMiN+6HldIqUtfMSH3DpQ25178H4zuj5HqWw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906114;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MpkkzqM49PBx0OBrKa1vrz682hROHV6z9UgJRkS0jW8=;
-	b=xgLEk9SVnzhICRv7+WhRSzhtuV8PUY4Zmd9B7bY/2O69IwQCW5MUV0kbG8GuLK91Li+u
-	 cUVnUhrYTk1p6UW0scZf5/Wm005Hmfj8a/ShEJmUTtxoRLi5BAxAXUrUQOD6AxcLICxjQ
-	 TDQYdaFu5RZD3XZ7b/bq/FpKPmGqgn57o3ULVTiIZpG2Q85NGxddFJAPsRdYQN0wfgdXh
-	 X9pxFQ4gVSwz+GVAIP2H6GAUbonpkDiixRAVvKbaAa/UUkNuqVovUAp9EyMuzYRdFAucX
-	 A8Ub/5cXDQ3/+4ZGBRpLj5yNpDmVhfjTLKBkpmqy8QtDOFmiQT0yEVI4GbxhaNEJ2Pg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5eYWgdW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793906136;
+	b=tNhPT23fNa6h8v3fcdGPFqs+muu/7pxkdjYmd3dF2DZmWtGgxHnnfBsK3hJRWqlU/jNj
+	 SJLySRuhSnsfTldXB7qS8hssBAJ9HnPHBd016xJhuPV3Gp5k18lTcxGhDTwM51CGGQ69g
+	 IkQM4MfEBJFDc4XC1Yvw2SXx4tc7ADMKT71fR4m8Om/nmBaOlEea6bKOkWmrFvwA+3dnh
+	 8UZzve7KdMpXbcX0Vb9RhjhjzdgOACiGExFi3eAUq1h4ovAA467VHusiXFWaHgdfENcBl
+	 gX+uXP58aRJP7hz38djntrzeuGZn+Us9qm2EfS0OBFMqjlhjKmnVyT5jExGk35VMa1g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906136;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=SmXGLtwdL6+xdqj7AXF13PSOAqPEIyOh4wlNcIxilCA=;
+	b=e3FbWOdaQJUTxmd4n4l9Z8DMke0x8fIDse8a75lI+sJrnDMNuv4OZrxiNGpPajY8YlRv
+	 M+I7pjweiZ7GgVusx/dWBwXZLG//ngUIHr7YQ4BWqKzFJGpPZwZUbgCK1kbTxIgnDiO3b
+	 DSfO+LrxogGK8rW5bXFuUlNr/gGORdQa5itf+l8wF92c2PWK8LsrRkn+t1PrTa8FpUr4R
+	 J2xwan0CV8uxOmHx7uA8vBmwm+awqnhGoDaE8q7aDKQfIzsbsUqJ04Om0W0ZDNY4jxYE0
+	 ku2wRAmHb4L34AwwUzNywsUuA2RjDH+veYmllwknAAgNq1uU258yYLvtERNtWFkVskQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=aanBaxMn;
+	arc=none smtp.remote-ip=34.218.115.239
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70853606A328;
-	Thu,  5 Nov 2026 19:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09D0606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:15:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E09D0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5eYWgdW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793906113;
-	b=z7jUqkpry17ZyMXbfxTKx7QnCCB/VV95RT2LKjdGuLuQBCO1d/UopkLhQ7rf5WMIclKa
-	 TImhb3AJ3dhvZ3s2G715xIjJo/bDDKQqTeUI3Gi7og54kaBb4uLt/3J/VXFyFl2lq49l5
-	 HfroS+yDfbDnuSTmAxZargbxok6R5JXu6AJWt3vMd9Vkf6fiMvYxk0Jjsl44aAX1hynAS
-	 7QoOBlJIOAX6I6RC32ZRME+0p/aWc5FmKWrh5Jazsujp1G+PdOj3ZgYgVoS53PgyHxywv
-	 cYfmcCEEwFjTmhsifEm2KY/pMWBUw7K95+EbzFbbmGC98k3lA1b+A5WuxH8tGveNwdg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793906113;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MpkkzqM49PBx0OBrKa1vrz682hROHV6z9UgJRkS0jW8=;
-	b=sGyyC5OidUD6snVbZlxzaALQrUU7gTODXzKroWhAHiHs86JzvxpNe/Ew/iAajRDcVFgV
-	 CsaZa8TuL84yTI87UpIPPnpXTl+yCipZtnqCRd5J5nAPonxNUOW78WD48cmnj6vxlAE3M
-	 4vOhDvw18ZZXpZqQFWslGgi7A1RkDic83urwtCJoLZ4GUpECCpfpE4r0d1ttu4CzYxWo9
-	 zfz/aHteDGnKtK5f84WZsCeaEM5HW1TrKLXNYqbWQ9eD/GRE5qlnTxJ5RhfWEyg5iXqmk
-	 4s+SbS5LBNsU5e1FL1NYfc/+IHO1/clT8OtN58ySK6g3gGeddrsS3PW9VShHfB4WaDg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 330481F000C1;
-	Thu,  5 Nov 2026 19:15:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793906113;
-	bh=MpkkzqM49PBx0OBrKa1vrz682hROHV6z9UgJRkS0jW8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=M5eYWgdWZ/dMzIQEiVrUqbSuFBYNoc/9QOtxMWVd5nDrmHiKaTUbLSmRrkWneDOc/
-	 oqAMHrFq2Uh/TZpqXr0K9IqplchuEduyIzur8XDWjcrIsNviegOHNZuLBenTtKuYhF
-	 uogAX2tT1zzH8Lmx2LH+dFNrfzuq93DgkeL5m8JtvlgMtM9o8vm2KYvBlh4ZBDIv/D
-	 HwZZJPfn4a1EvGENPRaeA7ihDnR43Vfvxqq4kCO9FUy6vymqhQehf5Hod5glTjVOvX
-	 +ygKPXGAKdtkF+MENvRjY6TGKMIkEwkPj/ZO4sHJb6uW/n34SLUIV9y5UWyT4oqP1y
-	 QEsTIMtDmh7SQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B8223473D0;
-	Thu,  5 Nov 2026 19:15:12 +0000 (UTC)
-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 13:15:09 -0600
-Subject: [PATCH v5] doc: process: clarify scope of applying-patches as
- legacy reference
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=aanBaxMn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1793906135; x=1825442135;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SmXGLtwdL6+xdqj7AXF13PSOAqPEIyOh4wlNcIxilCA=;
+  b=aanBaxMn4ZG5Styl9Lef5uDoz1WOvx/erg9B+cr7WwW9oOGDV53lYfqb
+   4m2gjL+wFr7bET9h2BgRRHUR48uHgC9kSnnAOpafojnJRgftU/ItvrLyq
+   /HYtfDDdcAJMdaMJg5wQurUX3L/cEgRxSQGMrpC7ETyeijFZFdnpItZ57
+   39Ii5pcU/nx8fAIo3c6nK2PtsygCmkdKn98ZKKcg3S8+kvxQ1K9RZQyj3
+   VDj7orYfnnDr58ilkOecC7MiRq8OK73AJh8H3nfz+jJQI/vyoxSC+M52R
+   pQ338gA+Lmn/f0GTk+htnK7c0qPinFEVpUiFVgOfjlpoxPHPfHPzC6IYU
+   g==;
+X-CSE-ConnectionGUID: A9nJ3FyTRwKTVLb6rXkvPQ==
+X-CSE-MsgGUID: iG9TnQSaTA610vgUlcmtWw==
+X-IronPort-AV: E=Sophos;i="6.27,197,1787011200"; 
+   d="scan'208";a="33012070"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:15:35 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:19730]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.238:2525] with esmtp (Farcaster)
+ id 40b2d56e-bfa4-4cd9-86df-f52e0a0d2fa6; Thu, 5 Nov 2026 19:15:35 +0000 (UTC)
+X-Farcaster-Flow-ID: 40b2d56e-bfa4-4cd9-86df-f52e0a0d2fa6
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 5 Nov 2026 19:15:35 +0000
+Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 5 Nov 2026 19:15:34 +0000
+From: Mark Bundschuh <mkbund@amazon.com>
+To: <akpm@linux-foundation.org>, <muchun.song@linux.dev>, <osalvador@suse.de>
+CC: <david@kernel.org>, <jiaqiyan@google.com>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, Mark Bundschuh <mkbund@amazon.com>
+Subject: [PATCH v2] mm/hugetlb: add htlb_dissolve vmstat event
+Date: Thu, 5 Nov 2026 19:15:08 +0000
+Message-ID: <20261105191508.1021974-1-mkbund@amazon.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,91 +82,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-doc-patch-fix-v5-1-0658a9e3e235@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBCF4auYrq3ptNMirryHcQHTqTQRMGCIh
- nB3CytCIss3yffPKHruIvfichhFx0PsY9ukYY8HQVXRPFhGn7bQSjsAhdK3JF/FmyoZ4kcqjcA
- lc64timReHafz0rvd065i/26775IfYL7+Kw0gQTrIqMwDksfs+qiL+DxRW4u5NOhdrZM2TkEgY
- 8kqu9VmV5ukQwZEZ88+8/lW41rbrcb5N5eYs3EmOFzraZp+ZndC12QBAAA=
-X-Change-ID: 20261104-doc-patch-fix-0241ebee9254
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793906112; l=2566;
- i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
- bh=EN6cekPPb56Q6tXd+PLg1flIaO+HFXQJ6iP8RFMTeKI=;
- b=lhaJ3a9bk8+wmSU718Ox11hg+qBPbvt1otVm9sRmn2ZoJ7xbVw10r6GPtZ/275iFiALezSOS0
- /QA6NppvzZFCRLwcDnTfTjMEniJJDmJaocC7ccajgfBKSS505VDhD5k
-X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
- pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
-X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
- auth_id=1410
-X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
-Reply-To: aleszlucero@gmail.com
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+Memory offline and memory failure handling dissolve free hugetlb folios
+and lower nr_hugepages. Nothing records this, so when the pool shrinks
+it is hard to tell whether that or a write to nr_hugepages caused it.
 
-The applying-patches.rst document describes the manual manipulation of
-source trees using the traditional 'patch' and 'diff' utilities. While
-technically accurate for non-Git or constrained environments, it can
-create friction for new contributors seeking the primary Git-based
-workflows.
+Add an htlb_dissolve event, counted for each free folio that
+dissolve_free_hugetlb_folio() takes out of the pool.
 
-Update the opening note to explicitly state that this document serves
-as a reference for legacy or constrained workflows. Provide a direct
-cross-reference to howto.rst to steer contributors toward the standard
-Git infrastructure.
-
-Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
 ---
-Update the applying-patches.rst document to clarify that it serves as a
-reference for legacy or constrained workflows where Git infrastructure
-is unavailable, redirecting new contributors to standard Git-based tools.
----
-Changes in v5:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v4: https://lore.kernel.org/r/20261105-doc-patch-fix-v4-1-3eb49e363f64@gmail.com
+v2: say "takes out of the pool" instead of "frees" (Jiaqi)
 
-Changes in v4:
-- Restored missing blank line, cleaned template markers, dropped duplicated alias, and updated links across versions v1 to v4.
----
- Documentation/process/applying-patches.rst | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+v1: https://lore.kernel.org/all/20261105020324.2011790-1-mkbund@amazon.com/
 
-diff --git a/Documentation/process/applying-patches.rst b/Documentation/process/applying-patches.rst
-index c269f5e1a0a3..70142c8ec9a3 100644
---- a/Documentation/process/applying-patches.rst
-+++ b/Documentation/process/applying-patches.rst
-@@ -8,8 +8,14 @@ Original by:
+ include/linux/vm_event_item.h | 1 +
+ mm/hugetlb.c                  | 1 +
+ mm/vmstat.c                   | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
+index 2628ccda076a..822fe862e5b3 100644
+--- a/include/linux/vm_event_item.h
++++ b/include/linux/vm_event_item.h
+@@ -71,6 +71,7 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
+ #endif
+ #ifdef CONFIG_HUGETLB_PAGE
+ 		HTLB_BUDDY_PGALLOC, HTLB_BUDDY_PGALLOC_FAIL,
++		HTLB_DISSOLVE,
+ #endif
+ #ifdef CONFIG_CMA
+ 		CMA_ALLOC_SUCCESS,
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index da5d04edf7c1..7c79523b2a3c 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -2047,6 +2047,7 @@ int dissolve_free_hugetlb_folio(struct folio *folio)
+ 		}
  
- .. note::
- 
--   This document is obsolete.  In most cases, rather than using ``patch``
--   manually, you'll almost certainly want to look at using Git instead.
-+   This document focuses on the legacy method of manually manipulating source 
-+   trees using the traditional ``patch`` and ``diff`` utilities. 
-+
-+   For the standard Git-based workflow used to clone the repository and work 
-+   with kernel patches, please refer to Documentation/process/howto.rst.
-+
-+   The information below is maintained as a reference for constrained 
-+   environments or legacy workflows where Git infrastructure is unavailable.
- 
- A frequently asked question on the Linux Kernel Mailing List is how to apply
- a patch to the kernel or, more specifically, what base kernel a patch for
+ 		update_and_free_hugetlb_folio(h, folio, false);
++		count_vm_event(HTLB_DISSOLVE);
+ 		return rc;
+ 	}
+ out:
+diff --git a/mm/vmstat.c b/mm/vmstat.c
+index a3e809c57f29..6282eef7074a 100644
+--- a/mm/vmstat.c
++++ b/mm/vmstat.c
+@@ -1397,6 +1397,7 @@ const char * const vmstat_text[] = {
+ #ifdef CONFIG_HUGETLB_PAGE
+ 	[I(HTLB_BUDDY_PGALLOC)]			= "htlb_buddy_alloc_success",
+ 	[I(HTLB_BUDDY_PGALLOC_FAIL)]		= "htlb_buddy_alloc_fail",
++	[I(HTLB_DISSOLVE)]			= "htlb_dissolve",
+ #endif
+ #ifdef CONFIG_CMA
+ 	[I(CMA_ALLOC_SUCCESS)]			= "cma_alloc_success",
 
----
 base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261104-doc-patch-fix-0241ebee9254
-
-Best regards,
 -- 
-Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
-
+2.50.1
 
