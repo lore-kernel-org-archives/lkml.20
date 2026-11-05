@@ -1,93 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.128.84
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793865137;
-	b=aof9avyTOhPpF0mAwQfoUuEBfmD0slq8xGMY/a4RNYwcrAj1cNDM9lCVzZENRDdoLxy1
-	 pm+brITpCi4Ciq+UNRdRC1JTANc14hlwc5e7S6FLPei0bulPpDys+OSLPwDuVV841atNq
-	 oM74766Ew3GkotfPws0yVcd6wj5vGR42s2AEq+UU3fPQJAsYHvsfNPUYUW7xAw9eMTcW0
-	 ve615nCyUtS50mQ66QELEwja9NaC9nv2k0Q3aMx3NkkA7vJF0DEUHLNDYkXyrgOpsH5Ed
-	 ADU5Id6HBJYzMpcgoc5LE9SjaFwmbLIJeNsK0qxlF/VCuuY5kPlc9Dvw+pwtpEXTFAg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793865137;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5NdUmuxYWiQx6VVv4ZGzfckUZqiJcrCbcmT5yyCYJAw=;
-	b=KRsVkAJhWJeFQVUf+sj892kRb0l/WJ1j0Ef7ip26fr4hku8mlUMqxIzGciT0oAdF30ZK
-	 HVfXTRaDMP2G2Pgs7YRPO3P2SfCQokMdvdh4P44XoVa3vNVufC8o2ln4YdujEij3AIBWt
-	 h1uVkzK+qiRsPbyPy4i+etV98svu3hIe++xmeyUKHluhWb8kfmxGoULh4piSMEhrf/g2h
-	 356t8nM2nsTCpFDHZXtJB25xfwLHfkkPb0yb4d/nWby4bUaHnXoRE323EzXUzWXFCoYSW
-	 9X2woAdGvGKdSEukItQ7XMvvxH2EOsfme57hc8A0VRjeEnlTu0Q02qW1akeum5FgvXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="kk+/xwEL";
-	arc=none smtp.remote-ip=74.6.128.84
-Received: from sonic312-22.consmr.mail.bf2.yahoo.com (sonic312-22.consmr.mail.bf2.yahoo.com [74.6.128.84])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793865154;
+	b=p5VPLf9s/CiaYBbKCzDkTK1nYZdRkuDRtF74MoABAwibMuFznad3NI9uvTSfZD+cabdj
+	 TgzKJRh7BXC9RDJTGYArdih9YwRsK80BtXjIrvJ6Zy000g4iqr4OBpQrFjdwg7XyQ+hFh
+	 OhPdJdPf4AgpMXQZJwuHNEhlblQbQFyYxqKbGISPTFbC404jmJEunST6kdp6yO5zd6C6d
+	 H3JsmO0SurdxXywnGmYgWqsmt2YfEBzVL2P4O1QgE8r1mqkKspyS5JEdjhT7HYlGn4Bde
+	 cIRJayz1C8KON+P2J7DG29GQxhb0OYS6/FSoywJgHsqNO4oAH+YPcfCZZB8FgSj0YlQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793865154;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=UJ312eBsn1Ygh4FvbElLwVY+HLtQNYmxjBGI04ZaxcU=;
+	b=q6wGkFGfwc8pGxoBISAecH8UjQGWIIFrP/Zg4GFqvnONelSVELn5K/wFHmY65WGQh4MQ
+	 OB//Otwig8EpxbB+Vy8EpObkqqjrHTOWiLcVIP6974BI/5S7Wxeg4jIs6rWVeseRtiL5a
+	 chTgNMHJfagMDN++8bI5G/uoffvA6JKhAadURz3B/cltR7BMkra5lKwsRuMVdf9IqXdLi
+	 tQ7U+cRZNhJ/zYGgrzp1ETn/GjxuPKg1LMIZkm+uaIThiahl2DXzfEAVRBlZel2RHZaFH
+	 8ZmhYREkdqeeuT/V7ZcUf+eWIZabprQwER6btH33VtjX+2eMpjJ80cbu8N4HFhqFv8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=thegoodpenguin.co.uk;
+	spf=pass smtp.mailfrom=thegoodpenguin.co.uk;
+	dkim=pass header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="fj/Utz0+";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A083606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:52:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A083606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0326D606A338
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:52:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0326D606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=kk+/xwEL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793865131; bh=5NdUmuxYWiQx6VVv4ZGzfckUZqiJcrCbcmT5yyCYJAw=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=kk+/xwELzInQlXVMZ1ncgo8MioKwcRja5mDVPLeu4sxn9xotSfXMjEzkmjaL8SgKmxdJ7HMrypjP+cykHSP6L0vkmUO60ByLgNBJcJDEBCnz5bH2x2p3JhRZxWpr4G/zQrzyYM8dRYQi4zheonY1S7amiSowXWnGsTovd8iqk1075kTi2HOTljuZnNUZHsmkSO3dq40RDKTCsmYnjqRzfiuRAK7TOxTxaPFJg9icfko7fQycAPuC6b9JvEtDuPl2aqICbjGEMsxrG1UE4eBR8e6NsgFenVkd/Jt0g7VZu3EJPFbD8O6R8LzA51HJ5qq8fZOTYYRR/sTd8//gQW+3GQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793865131; bh=M8ZnozFOGbTYUVcfRE+lgLdEHOqbqI2xJSocsj65u3x=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=VBrjsXkG0UNfuSr8BvMJE36usQgn30RNxYX/QtjVU0L9Gd/Fp/lQyjVEXvrQiSBEQSMLfbKwQXD9/lS1i9gn3l6dX1OtxwxH0qntR8EhS6x2vCjBiCejsXT5v5uir/pEghM2KDTmqFtGdoYs9DzoGuusIyloU/SQ3uK0lvQ1K7V51hTgsXBzx3qziQ1ZRjgHS3HOHSQFW0vVTwxb9rMSY8NN9LH2Tp3941yIvEwR5vEK98Y9Q+B966vRPwG60HJ5iiAPTea0zj/C6mLZ3dyCWLSe/eN20+WGvndOo5HAkykI21ZkVQouEghcdjNktxr7mTfwwv/C+e4wTwiY7PrhLw==
-X-YMail-OSG: iQs2TvcVM1lifoYRSAfcPdAMl4tyLVibb5G53VjK4NSStyenauoTwAmz.IGQeps
- yvwkYK1JpR7Dp7b1DBV36.Se19Wuac5GPFB9RTJWjlamiadoEhw5cE5YSn1rQNja0zWa86dmvY0y
- wjUBO223EtN4z8WThPWwBb7ZPSOTrEX0.9i_l7Z_DRmWUYcnEM0omZK1yh4OdHIknH1Y4_kioKZm
- QV7g686ubQaUEHHVwgJ1GrrIELdMqeYo2c.jVoAQIUgMmsZSqHvqwSr99WnkDUxq7gjqtb01lnfQ
- jU755mbU2kdpbJoxZ0w0RlyXFqiwwkq5m1.9xzYOajTQg1me19yzLBeHE.Uay__yGowP0eLkvyAG
- HVO57TGNC7wiBRJuIEt_JM.PoEaNcuwtItq__dHKeAyIXgkFblXzOfANAcKRGt9fx8J3SuCRjskd
- zCueebPsJ8L4K879o8m0UsW0qHYCg0zNATHUj4iJTbhUsTVa1Yo2go0kPKYAXTKRstT4TdHcS_hi
- ZSWT6MKB8nuikeBpurufV724M4mniAyF7eZBkB.nS0CV0_3rvrgdvb9B2AnOgl3WwwxVAvbnxI9X
- dhI3Ma3bGDRSE9edKznOVU9.cOuF0wGI9b76fYEn5tl1c8ELOdLyQplU2EpuaNQSplvqpK9n_E8l
- oxShS8WbjVxeXR1ixQR2JEWdKAwTVy3McZQ80MgVKZS0.m7cPQUnds6I2zJ56zisL4lMPxkHVfcb
- cJ3eT6aDZ95jamd_91fpqYwzLKX0rrYhLwG31n9kjEHmVxJrmP.BEBafv_w_JO7Sq_QW2RVhpGUK
- THlctXnHXusEWXH.ceDVAKrFEB1AkS3ah8Qc4pGyo3qArNr8X8A4c41FqhOq7.KvOnQo6pEP62Xq
- FOxKA_C.mc0Oz1SEgwoZW2f2tj_XCtMfpY6KpqAjfwXJ98UnVviuh1ulAnUywKmcwEV8bkQLjhlH
- LOx6fwbvgaqjjcEpgkBu.yzLxzuA4y6YS5y7Uzu8Lv4Syh2dbwq0Ykn53xNDsEUvc3klZ3ClVgC5
- ZD32mxUw_BIQqBifEcAyWhImpcxSAuwicKREQBTWtZswcqserSx3jZwBdHPnQoQzksOgeplKQuSJ
- RGTMOgM_yHXpHCUDLLSHG7M8RLJzd8pLKe27bZhAgsQsOy2YdRMhPA2x9Dec0eeJIs1DGQBwog0P
- z2sA8cl4DNtWNaxjcZsHD3s41EX.OubyvAzsn1NrE7t8CPIEpzK5eGOfkAvfq762_AayixRldlbY
- 4JGcFRSrRIoueaU2jZ5QzDlIMSFR1T4Cn6DjGk6Kn0hglD9jrJdxlDcw_e83LU2HVh6T5lnm5VW_
- YtlGgKuf.oOM44.Pp7MoPYcyuzrKNg_Y8hrcavRFzu8MEcwIO6gaalTB8sA2aFXMV1ikwjGVmrtx
- l5sj4DtS5b2ZsIeDGwKiY8Qktfgapogs5hdVd7iwEBBLJPlcDBD7vWB_1R62bSo2rD9i0JZODcVd
- XKx8dNGadpEpbW7QIkn7r3bnyDb372pxjM2SWPg4XA7W4kEQ5zh4HYufMjFHaOv0mvKgPj8pI7zt
- z.owKzr9iVqm9FYiJevIYb5eZfsGF3sdmkzMjWeok2ITW2EIgeFIcGTjmZco_64s02RJ4d_YEhE5
- MjufLuwpZEvyY8qpEInHbjo7_d6hAX2mYr.6.z4dS_bVVRPEaMx0yknKlvy7isJBBWnxMXWZA7JV
- 72p_0zw79m5sfhSpbtXsSR72f8WqjXlfU_a7m4x66J2_E_rP9tw.RqLdw5raaa.ZUKLaHsv83Guj
- _LTremOv_K3rfTSYjyPc2Ex4.YsNDwx90wfTVg0I6VzzePqSgqRbuRsGGgw86RBTptg6EbRguTUk
- mvu9BTxHu_G94tXb.cgW6.G1gJr.lVQBLHPHWeOQ5RyIJDHQTv4EdnS0ymY1NPumtJaVelbA4j6N
- qYhMeSSzTMP.2NHm1QJQCmR1QQZR5omXgcHs4dIenrT4AS17ssE9IQZimoCH5K4tsLloHZmugq.J
- gqlPyeDOGLg6h.pZbiFkC0q0X.BsFZF0KckdegbtUMMrpHHv6ehgIXZPepma6B9ZnVJ3Xq.UnPGY
- K9ogkKxB3pPBCCNUQWhq5jfy9rikoI15EyWweyKuTxLe9VlSIjLdJ7rd6qGuhfIJdpCqsRE459G.
- 5eKZWXGNdLf4Kh7SZFdIWHIklKlIA5CID.dVCGVf9eKBVPiXBML4Z5RtBdLypaTrmO8cLQLwQl0L
- 3mzdwQEYf9XEtAS6R0yx5tPKIZ.MgG9VX_60Jo9p2GYtKGLl.dZR13B.mElBP8E98b_YskOREA_9
- irXdssTXUokW0Uz0Hn_1bk_YhjTuYZVPfEp086mLRJ949VWFGS3saMbp4UZiYwGEzfQ6iYBv5Moh
- ZT9q65jAidOUL
-X-Sonic-MF: <laurian.iacob@yahoo.com>
-X-Sonic-ID: 50d65b53-9592-4b73-a420-b3fb061fcc5f
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Thu, 5 Nov 2026 07:52:11 +0000
-Received: by hermes--production-ir2-5dd9bf4598-6rrk6 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID f361b5b43ce4155dcd1cef1c4df7c1f1;
-          Thu, 05 Nov 2026 07:52:06 +0000 (UTC)
-From: Laurian Iacob <laurian.iacob@yahoo.com>
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: staging/ipu7: use guard(mutex) and simplify retry loop in buttress
-Date: Thu,  5 Nov 2026 09:52:03 +0200
-Message-ID: <20261105075203.3175-1-laurian.iacob@yahoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <auwswLdxTSjA5BTL@stanley.mountain>
-References: <auwswLdxTSjA5BTL@stanley.mountain>
+	dkim=pass (2048-bit key, unprotected) header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fj/Utz0+
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5366463571cso15922711cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 23:52:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793865153; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nOmtVyJvTEJurz3+wFfvAIsmOSremyW8FE+x5JcC4uOlVuQv8YM3odYrrGKZ9DZ0ai
+         F3tb1D7LMOxwcsQfKQmF+XZanZOC0JKmU401DfflwoZ5n42A13Qfdn7ycLkJGKDOH2CH
+         YpqTitVqTe85e8QcBt/iCbnfHzYrLIjUvuYdfF5J0PrFViFEKgvjwWdnbRHk7tC0KeZi
+         JrTH3Dk93DHJVCVG4kEcg5wcWd/sRb59doVaqYGgRH15mzY2gOFT/dTTClfnJnXv2OMX
+         lZj/gjrVNQqxJupPWFiG6NV3WXAJOonpbZ6a9YlABjUInkTXQJYfbfYDti2+g0WsWEV2
+         rbRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=UJ312eBsn1Ygh4FvbElLwVY+HLtQNYmxjBGI04ZaxcU=;
+        fh=oHeFW1nRqRxP5QKLzeH35Z448xCREpxE9SmzKFpTbUY=;
+        b=ITKT6tcv5Od+9SLvr9P515wdV3NSvxyN4sGsfqGZh5Kh3SKORu2iDd9ZMdV8nadUM9
+         3YM686xpSZrvU1REDCCHQpdo18GWy+W1y8LkqnmTjvoM6O6JcTEqBAdOz9YKt7AhNdnX
+         1AubccJDMTvxCoGkKePpI+Be1HO09f29gwORqy1nheRFLWeAOcnk3AMJdgDWrk/G3gC3
+         g8BiKB3KsZEO1CUgb705pnaBr/nJF5zrlB+fJEnP7qEVyDqmL1lqMZRJdU7u6z7hx54U
+         LeB7KYYuzxhQ74bvm3P75JN3+TlYONaG7W6oS9sAYuQL5xtGwFEw4E7kk28Ns3Q7mwKS
+         7qdw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20260707.gappssmtp.com; s=20260707; t=1793865153; x=1794469953; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UJ312eBsn1Ygh4FvbElLwVY+HLtQNYmxjBGI04ZaxcU=;
+        b=fj/Utz0+Y60yxuICoU+fCjL6rWSodnNW6GiJHpZFeQ+K2c9r1QwILznm9v34n66don
+         oJmzfyvtULO2tr6wY+lSqq6zbRaU/rDDqXMmthU+VRX3LXLjyEd+frpxnTny+Zi6Bl40
+         5aZFwvUXnt+aJD703LqQYGi16cJJa/n+KXmo6ZTgZv0HO08YeC/iQQlgbb6ehBs74UJC
+         MqOimmMyxrchQL+wAPHSdoYvcUvNohjaX/Wfa4A3hfbTpbjwXam50XCSlFCHfrdVIki0
+         zQQ45uBjHZUMzFHITfSuog9dfvY/WAx1yFsc7j/TyUIyCNISIizr7gkGXBMA7YHDjJzJ
+         AWaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793865153; x=1794469953;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UJ312eBsn1Ygh4FvbElLwVY+HLtQNYmxjBGI04ZaxcU=;
+        b=zy8tJ1y3XQLXauIJfbjBQofxjiiON2w8swlx0Tbhl+HQOfVlS05Q4RpK/Q1tuW8YGI
+         8IiXRWsD2szptjAF7YMl6Ev6sv30BF8/lM0XybgsBXHvO3cZLQTygGeE15Fhcjd+O7SZ
+         MhTjsg061DrRzfPrhDjdSiKQOR68EGCBYDC0Td40FLAAZLQEWbLQzdgtVyVVxRw7teUS
+         JVU9IbRV+supqhysRsm2hdUHVPPrl3KzmaUOOd3pxb9S0XOCFFNj9oScCTBxv4JQcQ3u
+         zICv06qDKgYWFRKUuUJitkwlGLpeV8AnyDyobfPT/bKhJMASQpiuxjWDkzglETDlHTdf
+         gCEw==
+X-Forwarded-Encrypted: i=1; AKwUvBz8HjCvLxc5LtUHPrzM2c8fxkI8Tvz1Op7VMUrh/oJhAcfcFN5Wbvr/9FQvGUZ5g5qGs11Qth/T6IoQMQk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hremNgHazc2tU9VW9yFwa7Oy3be9eH79OIrkFH/K//aAV0FWH
+	N2DA24s73bJyReLREd8XDDXGB/5SbV+GMugWdZimiA1/fl310y6sTAljhQBuYFmBGrSRSYNqHkj
+	cydpKzkH73F+p02UoEQLKRCnu5Ja+fptZVQ+xznEWzg==
+X-Gm-Gg: AYBFou1RwY8VLu46zg2QH0eNP0bbUPZ2RqcpL7LpFnZrob5nrl3Hl9ArstF7wM6/TgX
+	gIwIdZvGuiWvUBm61ZasG90b9+CcJuKwnSRmY0gYDBH1ZOZvN7O0NajhwgVGHHTqSwgA6hHXr/W
+	rXJ9RGPFX0WJmoMFVcPQZpMKsaYzcKTAaRY8VVCxrdUvKOBjqrDg2VBnFrVSvArLsD5AtTazaVO
+	QUm5eL3GwBl2nNSqqSl9MAFTXATCfXIsImqplf4k5N9pAj0EKdv1eO1m3mZqKRv9lXDzXftHVsu
+	o652orUgl1g5pFp1iJVCfpjNCOT27vrjS9TPrKl+33bGsGYUZ4WSKV6q1q2EQXmwHCDR2qafQ+u
+	yv4MMSOJZGKqICYG/4O+YaTXH3MMghRSQSmbqbCazSyEb+6P0einMIVdBSNaEKwc32NgsqLXZ/+
+	fdMatn88UqJ2Ekrw6k
+X-Received: by 2002:ac8:5e14:0:b0:536:79aa:de06 with SMTP id
+ d75a77b69052e-542b781c097mr305348781cf.52.1793865152881; Wed, 04 Nov 2026
+ 23:52:32 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,12 +104,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261104-acpi-mfd-v2-0-64b9dee3baaf@thegoodpenguin.co.uk>
+ <20261104-acpi-mfd-v2-2-64b9dee3baaf@thegoodpenguin.co.uk> <auulmL-HXdzcdM2V@ashevche-desk.local>
+In-Reply-To: <auulmL-HXdzcdM2V@ashevche-desk.local>
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Thu, 5 Nov 2026 07:52:21 +0000
+X-Gm-Features: AclHuK8oxaHoF3EiK88-RObp0nE6JLTdIkoUzrIpdnanDmHfkYi6XSLOF6A9rt8
+Message-ID: <CAA6zWZKk9C_PnZKZueYYCT=XHcQA7r4SPM4MK8zWHLyYuxS=Uw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mfd: Use named initializers for acpi_device_id
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	David Rhodes <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, Zha Qipeng <qipeng.zha@intel.com>, 
+	Qunqin Zhao <zhaoqunqin@loongson.cn>, Thomas Richard <thomas.richard@bootlin.com>, 
+	Andy Shevchenko <andy@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+	linux-crypto@vger.kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks for the catch, Dan! I missed the remaining mutex_unlock in 
-ipu_buttress_ipc_send_msg() and the other functions in this file. 
-I will restore the try: label and convert all mutexes in ipu7-buttress.c 
-consistently in v2.
-
-Best regards,
-Laurian
+> Haven't I given the tag for Intel PMIC drivers?
+No I do not see it, the only reply on lore and in my inbox from you on
+V1 is re splitting the Intel LPSS.
