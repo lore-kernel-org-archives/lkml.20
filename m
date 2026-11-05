@@ -1,68 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896947;
-	b=eA0PoIKfvo7GffTwtqpO6HtKludauEA58xWrKJ5YjEBQNHQOuOpKciFdGST3DNz8sG34
-	 NHoDHpOohOS9G4KqFrA+XtoVRRAMvmKmJhSGEnfR/6mtZ+iXDGirXLP8B+Bmho1dNqYaH
-	 VnxL1znvG6zDdvPgziucZAxQoWjBgxM/Fgq0lUSeTv79EY6n9N/YezD7SO2PP3WLe8TM1
-	 C/hoZZ8Q39M3+JR1PGFBhlb0OjDQ0+RS+HO9M+kgfjW5Qr7ppD2y5PzrUSdgCGxwK5csz
-	 km172rJ1kjJK/KncNugpNrqQwrm8LNaHVd55Yl2qn9JyhANb2SK+UfZm/BNf8pLtcbQ==
+	t=1793896986;
+	b=sYw4r/ixXpldsnpzDjfV4iexenDhOt+RYRldY3hWXb36ZyCTIG3Pqy/RPGIgLOxnYR98
+	 5ngMbciCTYzfkob/F672sm+mt/KvedRZ+QsVvce1d6HRS9gBflMB1qqgGi01Ch0IBZR0+
+	 AyPKJfVkRtTj1SriNHwEFRLVxt1FtzpdOaO7w0RbozuFid1t/wK8H9rgd4PHm9gZl3rCZ
+	 0GiCYbK7xJ4zcdHkxPQlmFa2iIoptazkMv7NJAgjuHWMPXo0Krcj6IJN6nD/A6gRNksXC
+	 NK4H6GMo9ZoWPybUc6P+/8bxqwr6RYkx58WWElWJizVibE9J3urBStjLaDciNG0z+Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896947;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=A5z68CFRM/6YCihr3HEdTyBTNSmIyzUL+fF+d7hT5KY=;
-	b=TDnBRcbEEUtvmU+87BqsDVRE36nWTuWIg5nkQ327DWPhApxWOY0l/6Fk2+s1QOSlI7u2
-	 JhevIiIbAScuTcIhjDBiQgjqIvB9SF3CUYh4u/4w+g+Ge9B12H+eT95bp2kpwK6KKiU8v
-	 dgpPTR2BzMU01gMG8lpTUVA8mzcI9kfLS6uPzCKNzva6etF/vinwBUQ5DYtVMGMYtX30v
-	 NLkFMXTFgp0i3ntOadWtitiiF9W/yl1Lk+y97J5josDvcfShqyuKw+9bwI96NyEkaCuSP
-	 iNWgpgfC48oWscsQonm8jgp640dPYBvGU0fYkn0y/qMfDNCx9P3cILEnJN1ZCkAPDtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896986;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AJSPojTMD5FaksEtjWz2d1lbfmwj8ss6ZBjJxa7pTR0=;
+	b=Fz1noOqwSqGJiDAKUtGt46KDZFRBgUW7c4K78vSzl521yBEEkJwLvc8rwx5amZq+jP1o
+	 KqYZQa7mdEb746KbGP56sayUvGT2/vFGSYdMZyAGeGJOXsRg3rltF0s1B7uVw/GoKQ4RS
+	 QGu4/PEELjiNq5Nq4veGgV/sBw8kHirU/7S0IOAAtGS6ohelSFxxHy3HcfuFOwryeyv11
+	 Owbcp+lKMtP0Qq9aK1T/ELKk5TZ/rv0QE4C0gjV0zU0s+g104jDy5LWyxt5aILe2fGYO7
+	 jXrQKnktpPvHy6QaZcUcTWR0Ne33poi4hN+mfyaOFesU+nmepDHcACvca0HYQVdHV/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ax/AGobN";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iVwQ/kky";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6139D606A923;
-	Thu,  5 Nov 2026 16:42:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87361606A92B;
+	Thu,  5 Nov 2026 16:43:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ax/AGobN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 966AE1F00919;
-	Thu,  5 Nov 2026 16:42:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVwQ/kky
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89881F000C1;
+	Thu,  5 Nov 2026 16:42:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896947;
-	bh=A5z68CFRM/6YCihr3HEdTyBTNSmIyzUL+fF+d7hT5KY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ax/AGobN5b82qMX62m3W82zGu/OT0yEV/E7Op9g68v/AxXp7EXBExDomChH9EdDcm
-	 iciRleEpYLtviUrkYP2xvkNxfsmGysdGixHNwhODxWCUxYiiCQSR48a7OwHpaBQp4Z
-	 K2wuxlhnZC1w0GH9JDYmYHGjCmTkxQz/Fr5fVPJJTJvi+G2GBSsRpPBFKBDBbOSh3C
-	 TNHRRVSGT9yF/cQ7WrK9fUTg5p65glSuwonMI4AHYNWax6QuBZxjeY9TtDmmT1Bs7Y
-	 tWwOrBGSFiBKVlR4peN4/1XHIh1Z+3oxM4gHM/JF7CSzH75ZrltQ0XZaZakEOTqCcg
-	 ZkvaGRm9UcHYA==
-Date: Thu, 5 Nov 2026 17:42:19 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auyv5LCuyqH4KL8B@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
- <auyOkL1Vb1iKicS9@devuan>
- <5001d8c2-2334-48bd-bc95-6b33e3922a46@kernel.org>
+	s=k20260515; t=1793896986;
+	bh=AJSPojTMD5FaksEtjWz2d1lbfmwj8ss6ZBjJxa7pTR0=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=iVwQ/kky9CNa8BZ8Pw8ciGpeOuW10hzVJ7jglN6j1zXY7nILyR8A7WNHOxZuhtOky
+	 vLYasOdsnjV7UnVmqg03D5ZsQq59dT9POEDCacPahnzz/xwwiEEv8OnfjAyIIFoJf5
+	 n2/mnxvWjeFJHzxVsAK1mh6Q+dO41ZDapyPgUHt0mXSwJ2JL4x4p2a1rOsxMoJkffk
+	 1KrKsiHWHqYYMwRCUaCwaIPQHLKc47WJlWFPgoauAucEvZ+sgHJ8mJ91OaFnBGapzX
+	 eKdnZfpNxQGydVoSDgmVO+jlqNUvhuIwuEUuuwig5DP8AFSeA1D8ueAlLuXAaSCZt5
+	 wsakPJ7AGQNKQ==
+Message-ID: <f8c6da62-057f-4795-b88e-273986ef79df@kernel.org>
+Date: Thu, 5 Nov 2026 17:42:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,140 +51,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="omrct4i5bg4dodwb"
-Content-Disposition: inline
-In-Reply-To: <5001d8c2-2334-48bd-bc95-6b33e3922a46@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 01/19] spi: dt-bindings: add
+ spi-max-post-config-frequency-hz property
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Santhosh Kumar K <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, miquel.raynal@bootlin.com,
+ richard@nod.at, vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org,
+ takahiro.kuwano@infineon.com
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
+ praneeth@ti.com, sebin.francis@ti.com, u-kumar1@ti.com,
+ srikanth.boyapally@amd.com, m-shah@ti.com,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20261105105832.2134313-1-s-k6@ti.com>
+ <20261105105832.2134313-2-s-k6@ti.com>
+ <303eec47-bd2b-4ce2-b28f-aedbda21f91a@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <303eec47-bd2b-4ce2-b28f-aedbda21f91a@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 05/11/2026 17:41, Krzysztof Kozlowski wrote:
+> On 05/11/2026 11:58, Santhosh Kumar K wrote:
+>> Add spi-max-post-config-frequency-hz, a generic property for SPI
+>> peripherals that operate at two distinct clock rates: a conservative
+>> rate always reachable without controller configuration, and a higher
+>> rate achievable only after controller-side configuration.
+>>
+>> When both properties are present, spi-max-frequency gives the
+>> conservative pre-configuration rate and spi-max-post-config-frequency-hz
+>> gives the higher post-configuration target.
+>>
+>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>> Tested-by: Srikanth Boyapally <srikanth.boyapally@amd.com>
+>> Tested-by: Moteen Shah <m-shah@ti.com>
+> 
+> Drop tags, this did not happen. Please do not add blindly tags which are
+
+^ tested-by tags, I meant. Acked was correct.
+
+> obviously not applicable.
+> 
+> Best regards,
+> Krzysztof
 
 
---omrct4i5bg4dodwb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auyv5LCuyqH4KL8B@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
- <auyOkL1Vb1iKicS9@devuan>
- <5001d8c2-2334-48bd-bc95-6b33e3922a46@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <5001d8c2-2334-48bd-bc95-6b33e3922a46@kernel.org>
-
-Hi Krzysztof,
-
-> Date: 2026-11-05 16:21:02+0100
-> From: Krzysztof Kozlowski <krzk@kernel.org>
->
-[...]
->=20
-> My mailbox gets 200-300 patches per day (not counting replies), so I
-> have no idea how that could be manageable if all versions of some series
-> were threaded to itself. Some old thread popping up to the top,
-> half-read, deeply nested like 20-deep indentation?
->=20
-> But even in second workflow, reviewing individual patches via b4 or mutt
-> after shazaming (my main workflow of DT) not via inbox, would get huge
-> irrelevant thread of past discussions requiring me to look for stuff
-> actually for the review. How to find actual patch to review in this huge
-> thread? I tried many times, takes much more time than reviewing simply
-> current version.
-
-I send patch set revisions in reply to the cover letter of v1, not in
-reply to the last revision.  This means that revised patches will be
-indented 2 levels deep, not 20+.
-
-That is, this is how they'd look:
-
-		[PATCH v1 00] ...
-		=E2=94=9C=E2=94=80> [PATCH v1 01] ...
-		=E2=94=9C=E2=94=80> [PATCH v1 02] ...
-		=E2=94=9C=E2=94=80> [PATCH v1 03] ...
-		=E2=94=9C=E2=94=80> [PATCH v2 00] ...
-		=E2=94=82 =E2=94=9C=E2=94=80> [PATCH v2 01] ...
-		=E2=94=82 =E2=94=9C=E2=94=80> [PATCH v2 02] ...
-		=E2=94=82 =E2=94=94=E2=94=80> [PATCH v2 03] ...
-		=E2=94=9C=E2=94=80> [PATCH v3 00] ...
-		=E2=94=82 =E2=94=9C=E2=94=80> [PATCH v3 01] ...
-		=E2=94=82 =E2=94=9C=E2=94=80> [PATCH v3 02] ...
-		=E2=94=82 =E2=94=94=E2=94=80> [PATCH v3 03] ...
-		=E2=94=94=E2=94=80> [PATCH v4 00] ...
-		  =E2=94=9C=E2=94=80> [PATCH v4 01] ...
-		  =E2=94=9C=E2=94=80> [PATCH v4 02] ...
-		  =E2=94=94=E2=94=80> [PATCH v4 03] ...
-
-I jump to new mails with <tab>, and the patches have low indentation.
-I have never felt it hard to navigate within mutt(1), FWIW, but YMMV.
-
-Anyway, I can do it just for me, by editing the local mail after
-sending, and adding an In-Reply-To header just for me.
-
-> b4 is not so more complex, honestly it's just new interface and after
-> learning a few new commands is straightforward and easy. And solves
-> successfully, without creating noise or problems to others, all problems
-> which you might be trying to solve:
-
-> referencing earlier versions,
-
-Solved with threads.
-
-> easy
-> comparing between any version,
-
-Solved with the --range-diff in the cover letter.
-
-> collecting trailers, sending nice
-> thank-you letters with commit and tree references etc.
-
-I do these manually, but they're much less work than the two above.
-
-> I believe there should be no excuse for modern maintainer to not use b4
-> in the workflow. The same BTW for submitters of anything bigger than
-> 3-patch series.
-
-It feels more comfortable to me to use git(1) and mutt(1); YMMV.  :)
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---omrct4i5bg4dodwb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrssesACgkQ64mZXMKQ
-wqlpHw//RjSIF6gNAbgOqdFPgLJvqudRprJPRKJmM9FdTdtxPda3nDoRXI7kuAde
-IqlKhuSOIgoec1ipKnn2G3e/yXzxAWYHdodkPHo3FmbK8mcxMS+9ruX+UA/xx19B
-VmcsS5mpCa1A0ryYsKq7jvvfvr2WlgrDY6kbF2Us0vMXDY8pjKWMo5lpZBx7dOG4
-ObYERV39/2zwztawHLbIcQfD/sm+dUbEQ/GRylu/N5qwjYVwFEJGgVDOysTZllsP
-kYFVCh8bL6Sl/QxuHOeb10/Jn7L8BwiteNEUUlGYybSsrGE2eaWPM07qFGOjtgtZ
-rP/Ye2dxKMzYuXmzSaRiaRtbPb4a3fLvYPjbGYVq5C064qxBm6uEGwZH5keLzh1P
-c5PGyNpVimKB9c3ZGzRtCUsj7590gZzPK3v3yLYT5rWp6iJH4cXp6AFYlB3RmlZl
-A77JZrTJ77pMTX1zpMq0wxmboYrPZvjwSSsHOMaI8inNX+mfa5kpdDzjDCN8JaBy
-nP3n4XkIqGEjG9S2Rwy7EkAq2RYdoyDnCqty6eAZQtUgUy6RgXTObu3AHB2w2aqs
-8+re7oMPjZUJ+V6luuXA3iCT3KhmmnnGKNwI436A5TRysMfu6pU70wAzNA3pwvgA
-uY9tmYvBrRzUndraWhZ18WJKIONCEXEQQbIeEjZijmoAcNjmL54=
-=Oe7n
------END PGP SIGNATURE-----
-
---omrct4i5bg4dodwb--
+Best regards,
+Krzysztof
