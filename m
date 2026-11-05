@@ -1,54 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793846339;
-	b=46NGaJ1yONPl9hE8VcqtNvY48rfeAomRlEFntVd4h8CWUHzv5iEr2LNT9kCxP0DG4hT6
-	 PO6XFmkWJdH+q02XgeiNVTWa+vPW9zY2SSMgREOHAwOBFAGuLpxX7GzdjHTZ0ZNeVhhv1
-	 t9VHyxEq4cKC13leQECfyrz/Y/OYOIlhsKKdNkem5KcOhOHoUjwIgsJ0LT1TVRi/SkcBK
-	 6CPj+4IzkxnBWkX1/C8mRbxHvsbvlUvHSTcYbdDHaFdaL1rAe79iqgFtzOtOtnvMpKIOL
-	 q5+AQHLA6o/wpwtvtDSGubaNiTrSVQKs3x0aNAdZJXSzlJvE4SHXHHKzInT+9B8hEeA==
+	t=1793846393;
+	b=J4m3JMFZvs77eVltu0+7caIwuyzpE8P0rZ88aUJGyE0Zpea0cmSwVnziAP6d5bP8UqMy
+	 U/rs2Yl5DTd7bbcMSE68an/FqtDA2rsO3xgLWDCaDUxFJHMfdRRCZ+iYqGElsrRrvOgLR
+	 tQbgN6RCGpisHakQvpFm+Kwa+71Vn4v8qfpEK8S7mbg7cAnOySs5qtaD+jb2NnUouOxDZ
+	 xmLDZPCmK5ElemqCDX5FRh+coBOggiBxIftBFIsKCurJXjPN6mKVbQOVs0QISq9cGIsbe
+	 QjQDP5/SL5RZjWsE+NkAdfgQDnUekvVhyTx4KG2MsTpXmL/Lan4F2TJ+XqcfDikIT3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846339;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=3l03Jx6ES0n3NXuG9mumrJ8xYBQNgZrk193Mf6WF3Q0=;
-	b=aOR8FH3Y/FW0ZQR4kgpYaZ933adgu1dL9KpeQjcHR6iDlpqkILVBdDupl6mItJbiFrJk
-	 IA2X1cfUQFEbleqISL2Ki6wpi/ZbqfvbkFEayQ7ITpxYh3/YCGZ5cAkuVEkbNyok28otf
-	 7Y4jKpC06YvMjKP/NphIsfUYRr1VPMRZK1OWaWpbNWxT3Or7Lpjfy/6vVgAfgoIbINjeZ
-	 nT9UKOgsuPBNbQrWh/LUQIhZPR0ZtCzTCCqxtLWbEVrlcRGOUNYsf+i5G+Muk4t0rj6Ou
-	 bzUXDZ3aZ35rgZI5r0l2P4P+vj5upF/V+LHLhOov3NUEhp3EikBTbsR8OUspJAyootw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846393;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=8nHg2KK9YdUFsDyCN5OyhUk3RMp8EQBW/fDZ8x8OirA=;
+	b=1EJZCg8SCbxRN5MF7752a0sGydCtakJebARmycaWeFqAci1aojCbVM7+q3N6pRzSqePs
+	 zhyE13IKE4xdgCzphmJNc2AMt1BWY7HS2s+3elYfnnDsNjabxQIH8TBgL/ab/8AJ1d9Vx
+	 R4EcS9MuG7uarGGAD4IibOgyMZJTqE00NaSRznJzD7J2lRSeYKp0fVxPHnIpjt44RG0T7
+	 MI6h1NOyDR/a0KfivkELz6zgmgoadAQARrQHL/TiQs6FfbzCCeB3UBGf75pG7/msy8uaC
+	 AqlAsWecV4FouHS713PKcoH1yTsoRh5izujxDV3GAo8/zS0OE2/kBiy9xCnaVOCIP/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cmViAYd5;
-	arc=none smtp.remote-ip=91.218.175.181
-Received: from mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Nqz4+xih;
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A38A606A332
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A38A606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043FD606A32D
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:39:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 043FD606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cmViAYd5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=v45CDog2JRm1weUQFkof7B9qIVd7KYdFBRCOVPz0R4M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793846334; v=1; x=1794451134;
- b=cmViAYd5fxtad0Psx17cMQM6ajV0lFYY/g5Cq1u1OYYEh52bUkynG+0Ob+2EDMDgjLKz7iY2
- OvHu6645ritYLx9Rnoq3XM46f23r9t831zBugtWnJK4z8YdOezBW5kL+otkGYWGof2qiaMX+8AG
- xqmFe7BnoAa3p1rLgcIkbu3o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 2a7c54c2f09cafbe;
-	Thu, 05 Nov 2026 02:38:54 +0000
-X-Mizu-Trace-ID: 2a7c54c2f09cafbe
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Nqz4+xih
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793846386;
+	bh=8nHg2KK9YdUFsDyCN5OyhUk3RMp8EQBW/fDZ8x8OirA=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To;
+	b=Nqz4+xihSRA/SOazc9ytMPaaon6hM2Zpa/k876GDLA/rAvSdmROK7bgusiNH5yJRm
+	 MxDa4YviOx4vP5CKZmEuJc3kfvwqLKu/L2OohyPYk21mJnJpm1Y7KU5OpOGkVf3+ti
+	 zev+B3KBBNrXf3bQvlO8tLbPTEvcdSoXebx80EGI=
+X-QQ-mid: esmtpsz19t1793846385t4ab9dc35
+X-QQ-Originating-IP: jAFRworH1vs13TNo3XKmxMaP6Gk9VNAPonuIyG2DiCA=
+Received: from mail-pj1-f45.google.com ( [209.85.216.45])
+	by bizesmtp.qq.com (ESMTP) with SMTP id 0
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:39:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11113350443145860582
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso697634a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 18:39:44 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxz5Yd0Qny2UaTsQGGFvVlZgk57+H4NoUpTdqi/AVE21d5hYhCCfUgYz7Tt+cnputAaqjS6i+B8ry+baO0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ki6/354LmcDw2ZOAhursJjjQStWifgzWzeYyarni/SSXUVjGF
+	xMJp9b68EOckoACptczIz3WD7cpeI21CabC4IN1DcKTf0Y99+eq5mDxBAReQ19SqU2i6I3eLQsF
+	tLzmPMAEn/Pp4ga1Fi3hktFXwoJeSLYU=
+X-Received: by 2002:a17:90b:562d:b0:3ad:a462:f07f with SMTP id
+ 98e67ed59e1d1-3ae8982c1ffmr16206466a91.45.1793846382617; Wed, 04 Nov 2026
+ 18:39:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,150 +67,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH] mm/hugetlb: do not invoke the OOM killer when optimizing
- vmemmap
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261104133938.50974-1-zhangyili01@baidu.com>
-Date: Thu, 5 Nov 2026 10:38:37 +0800
-Cc: osalvador@suse.de,
- akpm@linux-foundation.org,
- David Hildenbrand <david@kernel.org>,
- kas@kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Mike Rapoport <rppt@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6773CA2D-35EF-441D-A736-BBEA4A07B074@linux.dev>
-References: <20261104133938.50974-1-zhangyili01@baidu.com>
-To: Yili Zhang <zhangyili01@baidu.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+References: <20261102135330.2493332-1-robh@kernel.org>
+In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
+From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
+Date: Thu, 5 Nov 2026 10:39:06 +0800
+X-Gmail-Original-Message-ID: <872B2B4EAE847E62+CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
+X-Gm-Features: AclHuK-lEE7dv-iC1Lsio6aPGOufL5hgelB1hFojisk2-zoMsjC0hhsp9HraOXA
+Message-ID: <CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Ivan Vecera <ivecera@redhat.com>, Benson Leung <bleung@chromium.org>, 
+	Guenter Roeck <groeck@chromium.org>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan <olivier.moysan@foss.st.com>, 
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Chanh Nguyen <chanh@os.amperecomputing.com>, Alistair Francis <alistair@alistair23.me>, 
+	Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
+	Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+	Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
+	Scott Branden <scott.branden@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-tegra@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OaSeLAL/pLNE6iqgQI6QdQ0ukAKcl204Ani0Dxue88h46qnMEMwruuVj
+	LUlrq6t3bFyukk6fpDNcWdwc2VspmKnENHy6n9EariJY7sKd7RLoFSy7KWW9vzUt6+54Jj6
+	DGm9mWxP3AG4AEIMynMREoiTDOHet3KErCAo+fXIhJp6tKIcQJwFNwS0Rh94jdCLOKVaKZD
+	dk9SMXwO4zS3BXWjmkKBVWW4RMFV6OVKR73X33hE1yGk77+gYowFrP60G4z2d1kzMzjAmF2
+	yydBgzVsNlSPGWukvWV5880MKoui3uBuTp5q+B1OshwKNb01/ZE1yipSqwQT+yFpY/d0mjg
+	BJnxoLK9GCEiqBFGw+rUWsnjMmftHny7NikXwW84UyWdBY1kozMi+7oME0ogjax43Hq0lnO
+	Vd91yMtSPcYKtazM8LOjI1oFmWwKkh1foZd+52sk4SP04CB5I87RphDTdzkb9vbNNMLp1z2
+	lRhnqLr+Wg03aqz+5NipZl9nColO7oPu8CX+kwmuBn2FVwWSer6JfXpPnIIq4NEOO2ldw35
+	bR0Haxfi80KGaHqESj/9BsNMAtKFUWo5REFf+CMjDJzAhJdRc2Obq1hrjUfFha0IDh5EmKt
+	pTNvmjbGL8sBw2FBWIMUdr4heaPSFC0rqEMR0rjX+xItNdFwD8jd32Lpo7BHi5/26pVAprN
+	I995NA+od99ClAHvJqRYtrAWqNGvaHZaTnlruOabtm+qXd/cDT5UdcSH8UpBYHiWlpq8D+0
+	b7KRC4ASEeFAi9/aG3JGloZZ410zG3s11T5YjVpTGPttidPQPp5RUB/zAD2I2x2F784E9pv
+	Updqu17s7JdUl8WgSToLzSNa92v5ZaEzdriiHTZkd+5hQcT20Id9zI3p0wXbLcA6sdhD51H
+	3p9WbUQrJLKTDyOfyY3FIdQs4XOjCto9vOwXruYfisSWWKhyPofWuNSB6SByLjG/hF0U2M0
+	ywFCLcPaPkaRKFNPO/RF1M9/dExlaVbvKlsmT0C5ajUoSX122VuT6wj7Yyz4tq+CgEFaFYE
+	Lxgz9TV6wtc/IVq0xbHnVeRpwwpNVBvpgEuFJiZQRJw8BKhdov
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-
-
-> On Nov 4, 2026, at 21:39, Yili Zhang <zhangyili01@baidu.com> wrote:
->=20
-> Boot-time hugepage allocation is designed to drain all free memory and
-> let the vmemmap optimization reclaim vmemmap pages, so that more
-> hugepages can be allocated afterwards:
-> hugetlb_pages_alloc_boot_node() flushes the folios accumulated so far
-> once si_mem_available() drops to zero, and hugetlb_pages_alloc_boot()
-> keeps retrying as long as progress is being made.  The allocation is
-> parallelized with padata and runs on many threads at once.
->=20
-> The page that will back the new head struct page of a folio being
-> optimized is allocated with a bare GFP_KERNEL mask in
-> __hugetlb_vmemmap_optimize_folio():
->=20
-> vmemmap_head =3D alloc_pages_node(nid, GFP_KERNEL, 0);
->=20
-> Once the workers have consumed all free memory, this allocation enters
-> the OOM path.  During boot-time allocation, at the do_one_initcall()
-> stage, there are no user processes yet, so out_of_memory() finds
-> nothing to kill and panics:
->=20
->  Out of memory and no killable processes...
->  Kernel panic - not syncing: System is deadlocked on memory
->  CPU: 74 UID: 0 PID: 1 Comm: swapper/0
->  Call Trace:
->    vpanic+0x32f/0x360
->    panic+0x57/0x60
->    out_of_memory+0x581/0x590
->    __alloc_pages_slowpath.constprop.115+0x97d/0xed0
->    __alloc_frozen_pages_noprof+0x303/0x330
->    __alloc_pages_noprof+0xa/0x20
->    __hugetlb_vmemmap_optimize_folio+0xa3/0x210
->    __hugetlb_vmemmap_optimize_folios+0x190/0x230
->    prep_and_add_allocated_folios+0x16/0x90
->    hugetlb_pages_alloc_boot_node+0x152/0x180
->    padata_mt_helper+0x5b/0xb0
->    padata_do_multithreaded+0x294/0x3a0
->    hugetlb_hstate_alloc_pages+0x2e1/0x3b0
->    hugetlb_init+0x3b5/0x640
->    do_one_initcall+0x49/0x200
->=20
-> Optimizing the vmemmap is best-effort by design: on allocation =
-failure,
-> __hugetlb_vmemmap_optimize_folios() frees the vmemmap pages reclaimed
-> from the folios it has processed so far and retries once, and folios
-> that still cannot be optimized are put into the pool unoptimized by
-> prep_and_add_allocated_folios().  The worst outcome of a failure is a
-> higher vmemmap overhead and, as a consequence, fewer hugepages being
-> allocated (along with a warning) - waking up the OOM killer is never
-> the right thing to do here.  Note that the same code also runs for
-> runtime hugepage allocations, where an OOM invocation may kill an
-> unrelated process instead of failing the optimization gracefully.
->=20
-> The head page is a vmemmap page, and every other vmemmap page
-> allocation involved is prepared to fail gracefully:
-> vmemmap_alloc_block() - which vmemmap_shared_tail_page() also uses
-> to allocate the shared tail vmemmap pages - uses
-> GFP_KERNEL|__GFP_RETRY_MAYFAIL|__GFP_NOWARN, and
-> alloc_vmemmap_page_list() uses GFP_KERNEL|__GFP_RETRY_MAYFAIL.
->=20
-> Align it with the other vmemmap page allocations by using the same =
-mask
-> that vmemmap_alloc_block() uses for vmemmap pages, so that a failure
-> returns -ENOMEM to the caller instead of going through the OOM path.
->=20
-> This was observed on a 384-CPU machine with ~1.5TiB of RAM booting
-> with a hugepages=3D reservation close to the total memory size and
-> CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON=3Dy, where the boot
-> panicked intermittently, depending on how the parallel allocation
-> workers interleaved.
-
-A really detailed analysis, but also lengthy (I think it's generated =
-from
-AI, It really should be trimmed before sending because the issue is very
-obvious and easy to understand).
-
->=20
-> Fixes: c0b495b91a47b ("mm/hugetlb: refactor code around vmemmap_walk")
-> Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+On Mon, 2 Nov 2026 at 21:53, Rob Herring (Arm) <robh@kernel.org> wrote:
+>
+> Unit-addresses by default (and most commonly) are hexadecimal. There's a
+> number of cases using decimal patterns. Fix all of them, limiting the
+> pattern to match the 'reg' limits if there are any.
+>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
-> mm/hugetlb_vmemmap.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index 0057fa2a16a8..3a759b930ed9 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -499,6 +499,7 @@ static int __hugetlb_vmemmap_optimize_folio(const =
-struct hstate *h,
-> {
-> 	unsigned long vmemmap_start, vmemmap_end;
-> 	struct page *vmemmap_head, *vmemmap_tail;
-> +	gfp_t gfp_mask =3D GFP_KERNEL | __GFP_NOWARN | =
-__GFP_RETRY_MAYFAIL;
 
-Thanks for fixing, but I realized that I've already fix it here [1], and =
-I didn't
-realize it's a real production issue. If you don't mind, I could add =
-your Reported-by,
-and make it a very small fix patch so that it can be backported more =
-easily.
+[snip]
 
-[1] =
-https://lore.kernel.org/all/20261104023510.260766-5-songmuchun@bytedance.c=
-om/
+> diff --git a/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml b/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> index afa551f6185f..222d70baef1e 100644
+> --- a/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> @@ -47,7 +47,7 @@ properties:
+>      const: 0
+>
+>  patternProperties:
+> -  "^([a-z]*-)?sensor(-section)?@[0-9]+$":
+> +  "^([a-z]*-)?sensor(-section)?@[0-9a-f]+$":
+
+Reviewed-by: Chunyan Zhang <zhang.lyra@gmail.com>
 
 Thanks,
-Muchun
-
-> 	int nid, ret =3D 0;
->=20
-> 	VM_WARN_ON_ONCE_FOLIO(!folio_test_hugetlb(folio), folio);
-> @@ -525,7 +526,7 @@ static int __hugetlb_vmemmap_optimize_folio(const =
-struct hstate *h,
-> */
-> 	folio_set_hugetlb_vmemmap_optimized(folio);
->=20
-> -	vmemmap_head =3D alloc_pages_node(nid, GFP_KERNEL, 0);
-> +	vmemmap_head =3D alloc_pages_node(nid, gfp_mask, 0);
-> 	if (!vmemmap_head) {
-> 		ret =3D -ENOMEM;
-> 		goto out;
-> --=20
-> 2.27.0
->=20
-
+Chunyan
