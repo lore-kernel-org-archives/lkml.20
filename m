@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886752;
-	b=Eff3NaDAHFZviENrRENjpWtTmyknxKeVdBLOQoRqKW1wcmN2KJwQpcEJvg9YahWK5YgC
-	 ClpQshNOf8xMzPmRo4FuMJSVKhZVQ96ja5zIQTh9k/SRfn8RjSHMvbSr0j5hm5/HdyiGO
-	 LgAUpOTNmNUDrMI2SYcxspHFRjOQis/fVz4IvQdkHmxU0AuCZaGeGhNDp8LjOMFXC36J7
-	 k0AylXh1Xdug0GTyMHx/89FkyN/8JDXtiiiWX09S0O+w24X+ezSwftWj7HEZNKIIJLIsn
-	 IicsoaT4C4/AcAlE6LsEuiw8K7RPrvvvec7RaGiL5izDKYG0COY7+1GrDpYg0gWQRZQ==
+	t=1793886756;
+	b=Uzj2vEYNDVbGPXmaqYD7wUz1kVy4w+cyM1pZN33LF3V7mR4X+FUyQz78mjz0W52Vrgh6
+	 RVync6zkLMTq/U3WSO5TX0JbutWDmo2SGL+Yc4v4jY3LnFEcsBpQRBmAC8hZ0Ae/nZaML
+	 5j3VMFsSv41CVHAc7mbmxZcIAwkP7qRvnCYvI2IB4RYOYE9CNt/AofPwUpgbBTHNU4c/d
+	 tMmUAcoc4y1pjxJvirXATmxJgfFHe8G1jtXGbynvcp+CvigXnQkvb+I+/LII7PBM1CfeI
+	 UjS2gvTrkw4teVgPRzFpkyAkhHoyJMLf/3fev+k3ktzvrkyVkNIx6KtxnvViOLf8aQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886752;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=RsnUe3JgTB8DnyyeAYUnaAmGAs6RXw0MhN3JR3y8fLA=;
-	b=E1w+bELqrTPFhL3My3Qhluiw0mAt7kiO6hwoCcxbRKCkXfBQ7+8GvHPZi7pj0dZsOcAB
-	 HDYxVFr/N1TATuvHxmRxKk/U+5bZQiY+loaV9rn8DthuyXrc+FTKHSEKWWBEVLpe5qWrE
-	 HDIutcBM8x2CaUHd1FpDC3jR0QKDtZ6l/Sssf+k27X+B2xODP1hVTqIAweCh6fh7hJnjW
-	 CcXvSO1hShVbbAKze3Kl0rnhcNhpR2ARsaMB8tGOm6saMARSFo91cQHHGD8U69yJHYULf
-	 dADqJp/Fqk/7hf+n4Lqk2wqsrzxRN3ZBCFlj7QGYvsA3hug9zdbEYcKyFLSVIU9vBmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QwmQA1a2QhYSOPcBSTBe/t1Xyv+zC9XEOaQnTg/X7XI=;
+	b=SJEf787D5is3T6E+434dK7jHQjopALV+DwYtR3HzCKaA8wIBbAI817yeNBJWsZDYWadd
+	 mClDrcYJb+Mesge4XJdRCkh7t1xYsRtGyMlctjOJVHHOrMRrk0+SfOj8hx31xmZVzkYUc
+	 dxYnTCEwS6H2XtKoHR5lng7YpZkAyPz9mhb3f+LBko5XZFecueZWKnAUTBsLUmVwv+smW
+	 FuRUYX1zkn3y8VthFfbyHIHaLO41NO2TmfPGmMGCP86sBVFd3y+gixUQSbNafb6G/if0O
+	 kILMbFZZPnlZTaOuux+pWqwa4HbBy8ttUmc7JXRYl13n4xuNVyrjl0YHJRtaE0HdPYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dOQH4A24;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44B4F606A333;
-	Thu,  5 Nov 2026 13:52:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44B4F606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dOQH4A24
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B9691650;
-	Thu,  5 Nov 2026 05:52:23 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 374123F628;
-	Thu,  5 Nov 2026 05:52:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793886746; bh=U59oM5gHSrnPLb3WgEtriMAyHxBns7UzuoS2VJzFNB8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dOQH4A24WRuTkitLEFqE+4JEmVDQkzQmG2G8d0S5B5K3MM5bRC9UfDmkrloVmL4yz
-	 9L1KgPSvMstz/tUmr9wWbaKHmfp8Brpqab13VVX8sZ06a2V/XoAuMyZKxwpoCr80sP
-	 CJcmUZcsQD+OG7nWeMGRTp4l2Tf3gTKbLHGA96OY=
-Date: Thu, 5 Nov 2026 13:52:19 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Yeoreum Yun <yeoreum.yun@arm.com>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, drdeeglaze@gmail.com,
-	James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A014606D80A
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A014606D80A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so13702075e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:52:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1793886753; x=1794491553; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QwmQA1a2QhYSOPcBSTBe/t1Xyv+zC9XEOaQnTg/X7XI=;
+        b=c34gCj/8CF0gjZPD4S6DE7fp5Zl7gSX0P0hMJk9lFt1y+nBZYrLUQMyOe9yskOljO0
+         mWq7a3nzqXz8tp3I6ubwhzBAOsJYhD2zSynoQZHrZRopkQjPUFsi2whqLUzl+ldansUM
+         MIoZ/uxtCEAMb9QDpVquB9CLXS7hpypOQBKzqBwygEabCHs8+Q8vFHnySRybX3XMNR5x
+         /bmNPcFbYLThOu3b+Gb9jeXLHMvKt3ZgoiXr0DY8zyFrDCAKVO/1n77AROFDNyHGSlRT
+         4sQdtVSWMSH4Fk6Bh6Fa2qjPcR18tiYc8STHLzktuM/SW/ODCEM5gMYc36N9pRaZ8t/X
+         7c+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793886753; x=1794491553;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QwmQA1a2QhYSOPcBSTBe/t1Xyv+zC9XEOaQnTg/X7XI=;
+        b=gSVS8Ry9Lr5LWTXWksTo6KVTGoTrrQFonOaCkoj9Q7KjcsSwsCcLg34xsdGu7VbQub
+         gZMumGL2oY42qKTchj/p8c+GyXOORkVclNnnRiv19eZVZ/MN9ognFgYVGlrKFxFy0dfD
+         Az2dqMI99fA57JhvqeYnbGqLTgJrMWiNJXs4fPpqgR9+5/N9zwYs/rpmHy2V9xXVGQIj
+         apKtzCuoRhvqyRE0x9o1h/YZpttgfMqWPWRPew/jumF90jifNV4HDT35L14oi2a74On/
+         eZqh44seEyf8/Ufp4Gy1JeuPKYaeuUD19u0hFXIfKxthJyi/xA6oH1h5xjx3Jx23gPbb
+         RHaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzWAdZeWnpkfodvLZbVjDStV5kHhOjGaiw55+tHemXLsTzTPOFs7dVYfB7couVdr79gS/wkJd41tfC0G8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6/ZjBrhl7kBF4PuNHcX8YpdtxSROlYYwiOc4lL/Mqt7wRqd6Q
+	/rbYB1GU1Xprn2RNvBoRiXxWs3lalN3YEpotqaGFsPk/mPxkZhG4mCsJwgZ+gYOtrc8=
+X-Gm-Gg: AYBFou2qwd7dpK6iafDLKKFpjwi1nrbPulQni32WGD64x2uMOlkBck3B3Lxhldpz/6O
+	RnUB9Rvsjz66J97Rr4UohwEZ++W4ossfqtsLZaMwu16elVoc6mRhm6PbXVWB8F9FcVS0q7D/Pbq
+	xK5CveJysDtZV3qX3TVx6iDn+GC1PW5bvOiRvmKDhzJl4oEBnIoKGMlEB1eq6PE1ZdhWoLb/MSE
+	g+YooCbbiDFKVaEJfb/S60E5dMsVRLImEPgpFsqNaPHJn8YbWl58RV9LF4HZ0W59zlHQyl+0lL8
+	Lzy1Mybk+xQW+QfsqlOQfGWZzf3L81wxhBLeoVWFg975EUWSqJPbv/hGRRIZZO2kes2/CMisjx+
+	R+Qm6JXysAbyVKob2sGiAOWUPQW1KIvzBiV4vo/ezCB/ryokXdpNJ4MSH/LA2ofnpFXy80my7rT
+	z+rdz2Tf0hvml7pLm674CZ6ASzKBK1kb0mTT9okBxYchk9GbUcmRxJgckgJyfNGq01WJ4KpPouM
+	yhQn47+M3nXWfFIOWzCKbbTN9d8YlkECHlDAVhTa2JVlmwA/aJo/z6b5l5zmKFIQH1W6RCdUidA
+	yz2eB+dMmGsDSkDtVq2Frgod4albp928kaTNoQw=
+X-Received: by 2002:a05:600c:83c5:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4ac17191074mr383781755e9.5.1793886753121;
+        Thu, 05 Nov 2026 05:52:33 -0800 (PST)
+Received: from localhost ([140.209.217.211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4104d600fsm127121635e9.0.2026.11.05.05.52.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 05:52:32 -0800 (PST)
+Date: Thu, 5 Nov 2026 14:52:28 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
 	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Message-ID: <auyKE2sGqtfjk4v5@e129823.arm.com>
+Subject: Re: [PATCH RFC 14/20] attestation: Add the base family specification
+ and generated files
+Message-ID: <auyG1AnzpjLdOtpR@FV6GYCPJ69>
 References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-18-jiri@resnulli.us>
- <auuDcABX27EeTApl@e129823.arm.com>
- <20261104194622.GC3889730@ziepe.ca>
- <aux01NUd85PabtZu@FV6GYCPJ69>
+ <20261015145053.3664509-15-jiri@resnulli.us>
+ <179302367452.58760.3782556786585774917.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,82 +105,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aux01NUd85PabtZu@FV6GYCPJ69>
+In-Reply-To: <179302367452.58760.3782556786585774917.b4-review@b4>
 
-On Thu, Nov 05, 2026 at 01:32:49PM +0100, Jiri Pirko wrote:
-> Wed, Nov 04, 2026 at 08:46:22PM +0100, jgg@ziepe.ca wrote:
-> >On Wed, Nov 04, 2026 at 07:11:44PM +0000, Yeoreum Yun wrote:
-> >> [..snip..]
-> >> 
-> >> > +static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
-> >> > +					       const struct ctlv_cursor *request,
-> >> > +					       struct attestation_evidence_request *decoded,
-> >> > +					       struct attestation_evidence_object_request **objects)
-> >> > +{
-> >> > +	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
-> >> > +	u32 challenge_length;
-> >> > +
-> >> > +	decoded->challenge =
-> >> > +		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
-> >> > +	decoded->challenge_length = challenge_length;
-> >> > +	if (challenge_length < caps->min_challenge_length ||
-> >> > +	    challenge_length > caps->max_challenge_length)
-> >> 
-> >> Hmm, I'm not sure whether this check is required for
-> >> ATTESTATION_EVIDENCE_BLOB_EVENT_LOG blob type.
-> >> 
-> >> for example, if the provider provides two evidence:
-> >>   - ATTESTATION_EVIDENCE_BLOB_PRIMARY (might attestation token)
-> >>   - ATTESTATION_EVIDENCE_BLOB_EVENT_LOG
-> >> 
-> >> might challenge is reuiqred for generating the token
-> >> and this would be marked at min/max_challenge_size in evidence_cap.
-> >> 
-> >> However, in case of eventlog, it wouldn't require challenge.
-> >> for example, TPM event log or CCEL event log.
-> >
-> >Right
-> >
-> >> Do we need some field on attestation_evidence_supported_object whether
-> >> it requires challenge or not and applies this sanity check per the object?
-> >> 
-> >> Otherwise, to get eventlog, it would need to send *dummy* challenge
-> >> always.
-> >
-> >I wonder if we should have two interfaces here for signed and unsigned
-> >evidence? It would be clearer for userspace then when it needs to
-> >provide a challenge or not.
-> 
-> Isn't the challenge field provided/not-provided enough?
-> 
-> Currently on the introspection side, device-get op would provide
-> challenge-lengths array:
-> 
->         evidence?:
->           challenge-lengths[8]:
->             length?: uint(..4096)
->             min-length?: uint(..4096)
->             max-length?: uint(..4096)
->  	  objects[16]:
->             blob-class: evidence-blob-class
->             max-length: uint
->             blob-instance?: uint(..u32-max)
-> 
-> I think it would make sense to have challenge-lengths array per object:
-> 
->  	  objects[16]:
->             blob-class: evidence-blob-class
->             max-length: uint
->             blob-instance?: uint(..u32-max)
->             challenge-lengths[8]:
->               length?: uint(..4096)
->               min-length?: uint(..4096)
->               max-length?: uint(..4096)
-> 
-> Then the unsigned object would just simply have challenge-lengths empty?
+Mon, Oct 26, 2026 at 03:07:54PM +0100, jgg@nvidia.com wrote:
 
-This looks good to me. :)
+[..]
 
--- 
-Sincerely,
-Yeoreum Yun
+>mr-get:
+>  request:
+>    id: uint
+>  reply:
+>    name: string
+>    supported-hash-algorithms[]: uint
+>
+>No definition what these numbers are. They should be TCG2 defined hash
+>algorithm constants I guess. Why not have an enum here for them?
+>
+>    caps: mr-caps
+>    register-index?: uint
+>
+>So we get a string and a small integer for every MR? Like PCR10 and 10
+>for TPM?
+>
+>=======
+>
+>mr-dump:
+>  request: {}
+>  reply:
+>    items[]:
+>      id: uint
+>      name: string
+>      supported-hash-algorithms[]: uint
+>      caps: mr-caps
+>      register-index?: uint
+>
+>
+>This returns all of the MRs at once?
+>
+>=======
+>
+>mr-read:
+>  request:
+>    id: uint
+>  reply:
+>    generation: uint
+>    values[]:
+>      hash-algo: uint
+>      data: binary
+>
+>Get, dump and read? I don't get it
+
+This is another netlink-influenced terminology. "get" fetches one object
+info, "dump" fetches all objects info. "read" reads a single MR.
+
+I'll remove get and just have dump accepting id as a "filter".
+
