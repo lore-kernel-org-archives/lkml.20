@@ -1,99 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907399;
-	b=33OYohS6Zr6WEOmNhqs+JcTwdo85UymX6ImDd/26cpuhEQ1iUoxOwW8guze5qjjjH9UD
-	 LqWeawjBuOxnMnZ2EHCnwo5kCiBb2epdRFJ3yoE0Jf7Zblyme9UyWcTrfld3Z7Q44enlk
-	 neIgzYz7p58TudDFH65mrJfSa72x8kgdwBH/ArPRNjPsk8mT1/DxmXmNDRFrobVtWJ0ji
-	 DSMpby4wDJjERbOQQrP68ksZWL3Cow8xL0/KvuKJ7IoQt5c1vN+R9+qxxL2RUwjvNjd5i
-	 zddMyBU033jq37oNUMdUphpR80PZfGwPzqku/vAHAwsWVuEjLkhtDKEHK7bsvOqudDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907399;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Varby6vTTgGosmDxdkbVVCPGhFaIy/1zgNtje3gNyzM=;
-	b=vO16TkbQU/LGV50xGqLs+g6/ILwhGoLrnY3PKYIfpjfwKaozRUek0/2QA6xaZGULlxZp
-	 GfuJQy8Onkg7DtZe2fsU/hUds7qM36Ziva5hjS63eKNUwhBBTiJksvUghXjG4XTlKjBB3
-	 9IXn5Ah/wgbH1woRmQqEe91t80Xwuw+n/cFWF5qtuYtAEGZnZ8ogqDKyNpyCdBC0BVXD9
-	 htnP7yYlUjCt9V/GzJr+xkAj9GToVHlPzIUJLO0TAkt3aEWfgUW5xxFOX/A/Tw8bm9C7n
-	 G8MIyf6KLpdDhmsU7WUaCIUiBm1sIdZl/pxDp4+g4K8vksr2MbHUgiBB9Jue9iKygqw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="MrvVq/pA";
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793907412;
+	b=F/ckwOKYlOwSrS/oRS3OE1UVIvgV7GBGQlpDBAAPWziXjovuo9Y54BLjomeiS1/aQQNZ
+	 WgugIBi/9azMOuX3UuvDEvE1YM23Y5Jp/YCwouX3vr6CVKCZXWZbQd+LTv2AAzaOLSCFi
+	 /CbWvGBVkov6U1BmEyil3LnyysuO/hjWTMLKf9eUVzG/RK+axgbOyYrZA5YX8VDh7RuRy
+	 Yh/vkFfq9IZg9IvDclbdlv/Xj1gfiiLOIVMJ/Zd1p5Jm+thm6nDpR0nRlCfPEqZRcDu3s
+	 qtFh9FCR2XBzyv0YdZ/wGDY8+XpM0oz9FtJdSNi9QH5N/GllRjJ6yn6NbMcU2ELW56A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907412;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Y2FJrGPfuUHo1DXNzVvrATlt3MI1C6M3KdeQ9bvcXPg=;
+	b=JDaWH932x7zVlB0+WNPD5I/6W0uqnUle5ouljZDLto3v38NhTQGu9tzct6px3G0Zue0u
+	 c++CmEATT6r8sTOMr7KMZlutCxh/v3T7T2u6oIdTXxtrA173vELeg0GKlsmvu1hL4ge5M
+	 //+sebQPWrDFtOR8i1F5C9LIL1YavqO/P5n9QVD+ewKtKOs74iH1qDoj26k8yXV5sUnYH
+	 OLJ82Em1AujMsizk1JM2MDAsUJlxrpWMuvXImmwfS5p/2VXtiEG7wxu+8UPanmPl7toLc
+	 jaEZUQpCaDLtqwreA54jmf2IwYYywYdTD5kGGW1JcDX6UX+7fT4WB8XCgeTzUSN9TfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=WXV0G132;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.62
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011062.outbound.protection.outlook.com [52.101.70.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C16606A6F6
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36C16606A6F6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED21606A6E0;
+	Thu,  5 Nov 2026 19:36:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED21606A6E0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrvVq/pA
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b271e573adso445833b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:36:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793907397; x=1794512197; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Varby6vTTgGosmDxdkbVVCPGhFaIy/1zgNtje3gNyzM=;
-        b=MrvVq/pAxeEpkWXJvxeD7gcR/Qrh87bKPPTXZNEO0tG57lXCu9eFrtFxefXkdMbQ+t
-         +FiL/k3Ptej86tBsPDeoLoizkVTIBwROn8QWbNusVRS8R/bCWm9dd6AGcGB7ub/WtPGR
-         UWy3DCVzTTXRt+1WOzTVq60M6NKtxfs+3JKFNAt/gZKsEsjG8TdLG+xv5InLaxogx2T5
-         OmYwab8IEf/IYxJ3jC3/1u/celUFJj8e96sXYWLdq5SO7gk63YV8hC7JdeKci8xMXjEq
-         4nI7GwwwC1aOwO/Mk+UIING/PbLJezKjiIG/tMhS17HnfXM8TKGnyuXPcUMKDSksixfU
-         SLNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793907397; x=1794512197;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Varby6vTTgGosmDxdkbVVCPGhFaIy/1zgNtje3gNyzM=;
-        b=z2ysv8JZ12sZeM2HLB42R6zVcUEhda2VAYJzIpf1VvaedKq8x5EqRMLmHC2DfY23Y3
-         xxGAKgh/DuoYpp7orScJ9Td59r1IjNitgPMPOrWqFwgZSUdGnivoZzsvfL3sHpU4Crrg
-         SMdF5WAqSV3WAV2snj2anxIyQosYG0VAd+LfiNydCrKq7V8GPxBo+6hnld5okgaZDSXs
-         HvyvaXVSV++NURg92CyBMJhDl4DnYlJcqW5C74/N49hRHl+MxFvgW4UkLGhYQYuZqFWF
-         fptCR/AG0mKEEWuQJyGKWYe3AXTG+Pbab8OXHYR19fVZXwPf0Fqjz5JVbZorpHegI6yB
-         SjDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQb8jrytB/L1DbcLw//XSgl/vVIhc+LHteIgGmLOFNujc8peOjxb7ifLA6HXQrcy/FXJJQwZshUrTTeLU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LEKTrDmCPKqnjyu2sHyLy5xEGloBEMn6IXn8k7s9agL72v7wm
-	DKKE1aPxfph179ntUdZxhXgk4lGgPh/4l4vJ0faMESNy5D/4TOburZXK
-X-Gm-Gg: AYBFou3qF9YxbiLGdPC723sH4okl+KnC7gVj0BqJUSUM7I+5MvwjvJ/OoJidbMiJ7xz
-	HafiiGbuRoJ3ir1kxTcUMiOxEMgxta9e4itHMi0quyFWCtsak28wwnmQNX+MTKxdrP3/tLi32IR
-	kBlrPX2MI8arwc1ckRAA91oBDv7gBclj5bfIL7ZMdfAbOaVcK4UGtOAo5tGzE10nYSA5XUMNBOm
-	8hSkXlH0+LOkOet4JrAZyGjKCdgxWTz6vMuCUn+jmjatJKsHwE3yG6mAqgsf18MZ3lU5uuEzZGE
-	hDgHh/ZEyJ2Yc/wT0v0aAAT70TvTP8vc53dYyIjp/Unoy2ZuPJeJmWayIukB1v0uRdzDbv6y1he
-	Nj2s7xZ5YcgVzR9mUnjW4ejPNJhj+7sGLXNRMtDd7Idxa25vSS1IuNobsqzq6NyadJYChNKHEbM
-	Bj2UjmLCHN/QsxYcV6LxD4/nht9sirPhs9qGhM9jzdHY6EuDxv0H+8MovXUkY7eUfRZcVxTJRH6
-	GCxOR8BiPpNMQ8ZvQShnLrXR+xdd1y4YTmCl8bIukKtZpiU/RoWbSjNOmgOTErORlJyJoOXPGqw
-	E64Gh6UeODRj4Muy0uPa0yJLAWRZBm8FOOCiYIs4yuxz0mT+
-X-Received: by 2002:a17:90b:448f:b0:3ab:9c73:147 with SMTP id 98e67ed59e1d1-3b0db69ee38mr32308a91.14.1793907397392;
-        Thu, 05 Nov 2026 11:36:37 -0800 (PST)
-Received: from ubuntu24.vpn.host.chaitin.net ([124.77.124.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42932sm499331a91.6.2026.11.05.11.36.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:36:37 -0800 (PST)
-From: Yuansheng Yang <0xbeac@gmail.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] KEYS: Protect pkey method checks against type removal
-Date: Fri,  6 Nov 2026 03:36:31 +0800
-Message-ID: <20261105193632.34363-1-0xbeac@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=WXV0G132
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kyUCaLUAdYFclUxaZiGMU2rTTLmxVnfFXwaxUr9LBjOxbccrGa14Eb0PeIlnSM6WQh5etiAyQbMWiu9For5cGY448YA7U4tr4pyplqqLu0mYAGuAajqy1L4s4HPHjiBuILf6EGyXVWLWrEbuGA2OeK8Jxp1cQGK2GeI2r7xqzF6jfQrj2VQo62gvvR0Y5BF3Onp7vkaqGbZI32uibofSh4LWrbl3LG677LYUF2Qp2o5/alkl/pFm6Rl+Af/JmvcCc/9Q5+UB9dsDRoMLDk0+7hb9mE3y/BlESN32w5QVDe/krJX8BNJsHqLahRLf/DWs9MrnkQEsNjw+Rc1SYEqd7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y2FJrGPfuUHo1DXNzVvrATlt3MI1C6M3KdeQ9bvcXPg=;
+ b=KlNGT1RTiFofq9ygEbk6Wu9PwBf703ZKvE4unpeixFrt433ZpmjibMNPBFBJ7XWOvPlEeO8PU34EUDDX2E0zTHziDWG5dbBHJ5Evken09ZtNMMwgEyo9AqzDNBO+SGbax4qeKHBeauVuMal+FXn6dce4LPMh0mbCJNjp0I4yRSxQQYq791Wg7jwMDL/ExOFooSzqlcjANKw+ToN/CwzWGj3m7+dSCAZvI41pxBUZ1I4cqO3qN4sRYwJ40UPFH6ea4Jx8xvCjofZh9f96wc+xs45k6KSJso9EaExhVJk44m195UHjbM3t0KbhAmNllZwEpjUBBG7fXBbb+2iOItVsoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y2FJrGPfuUHo1DXNzVvrATlt3MI1C6M3KdeQ9bvcXPg=;
+ b=WXV0G132kODe9zLvsTFNO0bZt3VEVampGPqccv48yh6PxzgyC0Ho1RqA9UMB+976lXFy7CoheKDcLYUlGkJxMqiuvvUjOuB1Mgp15cqJNczcox7PHrHtKZQ3kVZJcPBvsptvkul9dI4Ex+UlxvzpCXu5iejIC6OtmIX5PyVofQ5p4OCmh8QadOXgWL+WyHk+VWL6P76ntoAyklqHSjZLxXOx+Ibm6GXMX5FHsYTx8EQwgqVTmIJifkYAVd+kePeSW9M4YxcPK5dCuOoyrBF+G0w84ZokaeSqCdUCnHANKbuuiNqsW2fBbdWYsRZkehoN0HUubyFcWqtmVy9ch/q6SQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU7PR04MB11090.eurprd04.prod.outlook.com (2603:10a6:10:5b0::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 19:36:48 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 19:36:48 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] arm64: dts: freescale: imx95-aquila: mark +V1.2_DP as boot-on
+Date: Thu,  5 Nov 2026 14:36:40 -0500
+Message-ID: <179390737711.1615394.5923877906841119197.b4-ty@b4>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <auy1ANMSKTXZb8GE@kernel.org>
-References: <auy1ANMSKTXZb8GE@kernel.org>
+In-Reply-To: <20261023102408.119509-1-francesco@dolcini.it>
+References: <20261023102408.119509-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS1PR04CA0014.namprd04.prod.outlook.com
+ (2603:10b6:8:44f::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,192 +107,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU7PR04MB11090:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0801c68e-f439-4c21-1890-08df3b7421ee
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|261022105027099003|11063799006|261028144727099003|56012099006|261009223027099003|261022075727099003|261026121527099003|261026140227099003|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	2krser5mJL5H7RCqVYps2KuP0uJ3LkfVjlMSN/JWNR9nneEfAecHjbYKU43K6VTJ2uRnrA8ovFEd/bDB8wDWL3Y9DEOaGn+Yvwnydlwul2PcLrRWuNViHtlpqGq3T05daZgqRtdUvNi+D+e7dFJWxeRjnTlVOoK6M1LymO0nTHJZxWJjK42aCfEV04GkVfZwspYC2Qr5PyOXEqB1pIPv9g0LP3YdtkfrCn68Tb6hymNcp9qnZwuAKRujzF1pcvrnmJW+DviLlzrHoSFsvyp41xGwJtCNDWEZXsvowrX4kgc6jjKElFio3hjpUiO2r/NLliaI19HGkiYFAofBMgYfWwikvO7oOA5FtX0nd7doGmlcHAdyQuQ9pN/ODZXcjsIJbk+xE9ByScJ/xSwD/eToVjv9IrVHmJjA6u2Y8xjoMi6cbZ97ck3wmRaTjh/xEp+G2X5EkKnECtsxfcns/oxoE14TWhdGUqsC/8Rntn85xM/uUAVANVMhkqUuGcTwLr3PzukN3OSAYupMMJk2HIKZ9Kjj2FpR4GcoT+XzcGhmhJVptZOTFbZnBDlJeOLhfbMjSJjMy2gIirgYMAny87r3SNMMORIjRcqlpdzxIce17mtCsxzt8A49zmfazr6jU3axPxM2v/7lNO73dMRhsyjFT7u+yGlHaYD3vZfvWp8iDhM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(261022105027099003)(11063799006)(261028144727099003)(56012099006)(261009223027099003)(261022075727099003)(261026121527099003)(261026140227099003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?enRxV0RRUFdESlJJRkZVYlRSZnFBQ09yU3E5WkFtVUcxai95YnZaSGt5WUxi?=
+ =?utf-8?B?OFYxTDBqMm9FRk5sNkVmbEZ4b1N5UzEvYWthNzcyc2hBRlBkM2YzN0N6TVM3?=
+ =?utf-8?B?SXllRFVaUHNlRytQbDRhNFBXaWRETGQwS2w0eFprTkY0WDNoSkhnbVJEaDhv?=
+ =?utf-8?B?Y25uYTFDamRVbTlWY2xySWRFbW5YWURoZER6L0RJT0lpTUQ4dDBIVDlEcmlS?=
+ =?utf-8?B?Z283TDZnVmNZRlROQnF0NmlRVm1MVTJXS2NMU3BwV0FSckN1VDF4ZTJMZEhX?=
+ =?utf-8?B?TmlwSDdFTnhrOU1ZSWpheGtPY3hwcmZnOHFLdmZTd1RxeTJwSnkrM1Yzd3JW?=
+ =?utf-8?B?TEUvanY0UUhhNlVVQWdMUGc1eHAwY0haYlRXUGZOY1E4YVFXNldhNHlSa2hh?=
+ =?utf-8?B?Yjc3TkwzRGJ6eUlPckpDbG9TMmVNRTZCKzRvcHRmc042c2F6a3pQdUJncjds?=
+ =?utf-8?B?ekdqcVlsaHhLMmYvd0N6Vk5GNkhsaEV0MHVMSmtzMEM2cUpzKzlBbG1MR3k3?=
+ =?utf-8?B?UW5mUUVCdTJyRlF3eEZOQVd2Wit5QWVJVjJ0bk5Sb2pFeGhzbkt3MjBZdExm?=
+ =?utf-8?B?VHJOOElrWk83NjhyT2E3NmdwTnhCdkw4dldDMzF3c2tIVGNVTnNGT2ptT1RP?=
+ =?utf-8?B?SzZzSjRkNUUwNm1FRm5TUW42QXQ5MnFIZTg4YnU4dTNZNUhTekVETXI1b3py?=
+ =?utf-8?B?MWFNb3ZMbVRETU9HR09xZ0I5V3V1U3RpK2JoVm43Yk52OTJSbW9Pd2RyNjdH?=
+ =?utf-8?B?WjVwSDFacFQ5Znhxei9zSXpLYTl0TGd1N2VHR1VmK2Z1dzJ2ZVpIR1JBWkxL?=
+ =?utf-8?B?K3Qrem5jNGJMODBLb2N2YWt1aXdBVVlHOHRjQ3pyNFpuYUFKMllmNHdwK0Ju?=
+ =?utf-8?B?OEV6cUUwcWxVcWFBeHc2WUhsc1NHdDlpaTlLVit2QTFaSjZyMXdRdVVwY1c0?=
+ =?utf-8?B?V2dhM1FiMHFWUHFDdWRvbFRhYnZORE1XRWJNbi8veDB5ZkFLK29VQTlzS3R4?=
+ =?utf-8?B?eXg1cnJHdmFyRTFvU29VWVBnV0xEZVFkTlAxaDVpUzVqRVVwemVmaDQ4ZGtC?=
+ =?utf-8?B?b3UyZkoyUWt0R3docis4MGlRSzNtWHV4alZiTG8vT0JNdE5RTXpLRGFySXUy?=
+ =?utf-8?B?bEdML3poMEIxYUVvWlNCdmFWMm1aWkd0YmozVVpxb2FNaEt3aitEbkhuRlhk?=
+ =?utf-8?B?QXUvVVlTOUgvR1BQaEVTdWdqVG5nNU5mQkIzMnVYSm9kVVVNdXlERHpWTVBQ?=
+ =?utf-8?B?L2tiU1ZZMlpDSEhGVWN4aHF1b2h3ekFXaWoxbUM0ZE93QWNSTzIvbG1VNTdm?=
+ =?utf-8?B?RGY2SFFFeVZqT2dmMmRiSDV1QkU1UEVaeU5Ed1RXKytTRHQySExVUzRLUm14?=
+ =?utf-8?B?SGhGZXVvV3NRTFcvQVJVZTdwQnVnWDBpOXBvYXR3czJpZHZ6N08xVjRWM0da?=
+ =?utf-8?B?SkxlT0JhUWU3UWhjZGR0RkFmQmMxMHBuelRrRytVdlZpakM4bFp0VzU3NlB5?=
+ =?utf-8?B?cFlzc1VNL3YyYXhpVVIyS0NxOWRWSXpSYTdaSWI3ZmVTZTV1Sy9MSS9Ydy8x?=
+ =?utf-8?B?eHovK2pZajVSMlJ1dVpZVFpxNkJXRER2WjRLWmtsWFBQdzhlZC9kRXhEakhX?=
+ =?utf-8?B?aHRrdUtkc0RGNkNMSWZ0SC8zaUVUamxMeUo5bDJkdDlqMTEzTE5ReWFoQkg0?=
+ =?utf-8?B?MGFVRTIyYmVKVmJ1ODYvVEhEaytnSFN4SE5EVGJQUk9EdVdnMUpGbnlwcnVS?=
+ =?utf-8?B?VVBSdUw1c2dCdkl4L3R4cHpZcXVZWjIyMG5PbWZLa2dCamlRb21TQlBJRmNi?=
+ =?utf-8?B?Rzl4dyt1eURBRVhJVi9MaTFpc0ZTWXh5cXp0ZEVtQXMwNVpQeWJyUUdMTXFR?=
+ =?utf-8?B?UlA0ZjdMYTBodlZEY1lLU2NyK0tXUERPT3dzcDQxY09oK2xQdXJsWnl1Zm9F?=
+ =?utf-8?B?WUpnYW5vK29URUxIb1lKRWE0K0xWcXdGUkpqR0xPUUJ5M2l4VXNpeUp3N0px?=
+ =?utf-8?B?YWpBSmJycExzb0NnVjJlWHNZRitoZFhiUi8va3VEVU10ZDFWU2QraW9HdzU5?=
+ =?utf-8?B?Q0YrZXZxQmt5eEUySE15eVJSRy8vdzJJK3lrOGNWaUpVU0tibWthRkxRN3Yy?=
+ =?utf-8?B?S2RaNU0wK2I4cGxNbytqNFlTWWgyVkxxaE12bkRlTlE4bGUwY01jc2lVNnZY?=
+ =?utf-8?B?WHkvZTZ4ZXZjWDg2cG1zaE1kS0d2SU5NczdYY0JpcW15MVB4U2ZlUjNsZDhE?=
+ =?utf-8?B?S2dqUHBsNDNRZHNDRDZVbzIvN2NoWVA4Rk5aaCtBVDk2UG1xSjExV3ZTQTJM?=
+ =?utf-8?B?d0NrT0xkUGJnM0ZPbncxb0oxczYxb2RWdzR4VXZSSTB2TkwxaFIyUGszTGdn?=
+ =?utf-8?Q?lv4HIQU2NlANc+juttT+Qz8M88VHUvc1msNUr?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0801c68e-f439-4c21-1890-08df3b7421ee
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:36:48.2551
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JujE2cWHBlwZqs2bNamiSJ+zRYb2f9BH+nGhp9JCSEwwz2vJra5GxubNbk2CP1VKu/hHTzvlGnAwkBH1WlUk1NqJmuGAJCGXWIMEMuALCwChnN0m0hcFpAJ8i4AUidPh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11090
 
-keyctl_pkey_params_get() looks up the key, and keyctl_pkey_query(),
-keyctl_pkey_e_d_s() and keyctl_pkey_verify() then dereference
-key->type->asym_* outside key->sem.  A reference keeps the key alive, but
-does not pin the module providing its type.
+From: Frank Li <Frank.Li@nxp.com>
 
-unregister_key_type() calls key_gc_keytype(), which retypes every
-remaining key of the type to key_type_dead under key->sem for writing.
-The pkey paths read key->type again after their checks, so a concurrent
-module unload can turn the checked callback into the NULL key_type_dead
-member and call through a NULL function pointer, e.g.:
 
-  KEYCTL_PKEY_SIGN task              Module unload and key GC
-  ------------------------           ------------------------
-  keyctl_pkey_e_d_s()
-    if (!key->type->asym_eds_op)     unregister_key_type()
-                                       GC: down_write(&key->sem)
-                                       GC: retype to key_type_dead
-                                       GC: up_write(&key->sem)
-                                     free_module()
-    in = memdup_user(...)
-    key->type->asym_eds_op(...)      -> NULL call
+On Fri, 23 Oct 2026 12:24:03 +0200, Francesco Dolcini wrote:
+> Mark the +V1.2_DP regulator as boot-on, matching the hardware: the
+> CTRL_DP_BRIDGE_EN enable line of this supply of the SN65DSI86 DSI-to-DP
+> bridge is pulled up on the module, so the supply is on by default,
+> before any software runs.
+> 
+> Without it the regulator is briefly switched off and on again during
+> the board start-up, potentially disrupting I2C transactions on the bus
+> where the SN65DSI86 is connected.
+> 
+> [...]
 
-In-tree, turris-signing-key provides such methods.
+Applied, thanks!
 
-Remove the key->type->asym_query check from keyctl_pkey_params_get(): it
-runs without key->sem, so key_gc_keytype() can retype the key right after
-it.  Instead, make keyctl_pkey_params_get_2(), keyctl_pkey_query(),
-keyctl_pkey_e_d_s() and keyctl_pkey_verify() each take key->sem for
-reading, check the key->type->asym_* method they are about to call, call
-it and release key->sem.  As key_gc_keytype() takes key->sem for writing
-before it retypes the key, key->type cannot change between the check and
-the call.  Drop the asym_eds_op and asym_verify_signature checks that
-keyctl_pkey_e_d_s() and keyctl_pkey_verify() did before memdup_user() for
-the same reason; -EOPNOTSUPP is now returned from under key->sem.
-memdup_user(), kmalloc() and copy_to_user() stay outside key->sem, as in
-__keyctl_read_key().
+[1/1] arm64: dts: freescale: imx95-aquila: mark +V1.2_DP as boot-on
+      commit: d9266f28a24d1d835b180dcf6bf45f0de85ed565
 
-This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
-("keys: Protect the read method check against type removal") and for
-key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
-against type removal").
-
-Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
----
-Changes in v4:
-- Rewrite the commit message: describe what changes in
-  keyctl_pkey_params_get(), keyctl_pkey_params_get_2() and the three
-  keyctl handlers and why, and cite the read/update fixes by subject.
-- Rename the out_unlock labels to out_up_key_sem.
-- Use out_up_key_sem / out_free_in / out_free_params in
-  keyctl_pkey_verify(); leave the other functions' existing labels alone.
-- No functional change relative to v3.
-
-v3: https://lore.kernel.org/all/9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com/
-v2: https://lore.kernel.org/all/20261104021414.50696-1-0xbeac@gmail.com/
-
- security/keys/keyctl_pkey.c | 58 +++++++++++++++++++++++++++----------
- 1 file changed, 42 insertions(+), 16 deletions(-)
-
-diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-index 15b6bf6399..3e3253330c 100644
---- a/security/keys/keyctl_pkey.c
-+++ b/security/keys/keyctl_pkey.c
-@@ -100,9 +100,6 @@ static int keyctl_pkey_params_get(key_serial_t id,
- 		return PTR_ERR(key_ref);
- 	params->key = key_ref_to_ptr(key_ref);
- 
--	if (!params->key->type->asym_query)
--		return -EOPNOTSUPP;
--
- 	return 0;
- }
- 
-@@ -129,7 +126,16 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
- 	if (ret < 0)
- 		return ret;
- 
-+	down_read(&params->key->sem);
-+	if (!params->key->type->asym_query) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params->key->type->asym_query(params, &info);
-+
-+out_up_key_sem:
-+	up_read(&params->key->sem);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -185,7 +191,16 @@ long keyctl_pkey_query(key_serial_t id,
- 	if (ret < 0)
- 		goto error;
- 
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_query) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_query(&params, &res);
-+
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	if (ret < 0)
- 		goto error;
- 
-@@ -230,10 +245,6 @@ long keyctl_pkey_e_d_s(int op,
- 	if (ret < 0)
- 		goto error_params;
- 
--	ret = -EOPNOTSUPP;
--	if (!params.key->type->asym_eds_op)
--		goto error_params;
--
- 	switch (op) {
- 	case KEYCTL_PKEY_ENCRYPT:
- 		params.op = kernel_pkey_encrypt;
-@@ -260,7 +271,16 @@ long keyctl_pkey_e_d_s(int op,
- 	if (!out)
- 		goto error_in;
- 
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_eds_op) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_eds_op(&params, in, out);
-+
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	if (ret < 0)
- 		goto error_out;
- 
-@@ -305,31 +325,37 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
- 	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
- 				       &params);
- 	if (ret < 0)
--		goto error_params;
--
--	ret = -EOPNOTSUPP;
--	if (!params.key->type->asym_verify_signature)
--		goto error_params;
-+		goto out_free_params;
- 
- 	in = memdup_user(_in, params.in_len);
- 	if (IS_ERR(in)) {
- 		ret = PTR_ERR(in);
--		goto error_params;
-+		goto out_free_params;
- 	}
- 
- 	in2 = memdup_user(_in2, params.in2_len);
- 	if (IS_ERR(in2)) {
- 		ret = PTR_ERR(in2);
--		goto error_in;
-+		goto out_free_in;
- 	}
- 
- 	params.op = kernel_pkey_verify;
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_verify_signature) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_verify_signature(&params, in, in2);
- 
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	kfree(in2);
--error_in:
-+
-+out_free_in:
- 	kfree(in);
--error_params:
-+
-+out_free_params:
- 	keyctl_pkey_params_free(&params);
- 	return ret;
- }
+Best regards,
 -- 
-2.43.0
-
+Frank Li <Frank.Li@nxp.com>
