@@ -1,90 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892055;
-	b=FQcz0BD/eZfeXzxOwY7SJHP6NMQK28xsb/WCMe6MwYGIF5z9rHwY9jpySdZtgGMV1Ad/
-	 4wzJzkdEg8G0Ks80it5jDW463+wb4rKltgXSC/b/R9ApNt44pT8/tvgMBt1zSQ2qqZDaX
-	 FJ01VnproBLJx8penTXpp74WkULR5qS4oRU21VZsF0mk8pcy2WKscZSACpgghgVKA1Ltn
-	 fMntgdqhb1QTvuiyFiqmvCK8YISTLERrgg7CYnd2r34zq7eskH69//AjH62XZvdxcBVS4
-	 qjzSNQ2wKey0I88IEz0p77nBl4FKWKqdqwQ8ux9xt0Nd7y/3pHEu6wrMZhCUrZh33kg==
+	t=1793892077;
+	b=kldKH+fZ8oDJYlyz9YR97pHtMH6591AIj/jB15KRCOeIhZtNYwpC9OANLJuEEU8aQpmt
+	 coEzXJ9xw4/j8m/K1N+36JmZHZpZf1sDMn2b/s9dFKmIjpoeX5jDVgejqCH608iFLZJnk
+	 s7VQpc41FYqHK5LZ+7rzkXno4oY+e/a7CD3EGCxAczhK4BnB+hjiX7ST8uR/vLy/34roq
+	 Du1/9LOI7hbq61wxN1jIiEQK2K4QQuJRYBF7BRf+GxYuP5iX9JxhadFIG4Bf8fDCmJFXE
+	 Whz1ZKQKQHh+t74MVQ8bca7shk4uD1RX6d8Ie2FcaCdpr2q4+AM/Ipj4Sv4poSZSLxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892055;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892077;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=g7OooAgXVyrp/xMdwbWWynIIIxWieLjdlc+2il+3n9U=;
-	b=NMwg9tuy8zM63v71L+EWkmXXsG8evF/GtQHPYVsedpy8AfEMc9DymtIVLWS+jy8vDWnX
-	 aNXJvzDeyV/b/nD1Idp9uC8o1y5xrsxkfc6bO2KIEM9+MO+MubaM1cV9yZtMQe42hMBDG
-	 5ELQdg3B9XTQeSoaPmzCsMgf1Acg5G5HjM275sN5KzjIu+esreZHyS9gDjOPOJRAnH7D5
-	 C1nxQMgu5xVZUdJN2TTt7yuW7S05oMPn2UwWjnDvzc2Q/tMEXaEND5fwiHdQEZ3kcwNFY
-	 bhO297J5vIPKKRgu0XDWuf7zl3u0ivKfHR6fvnDrN1f1WZnyucE75z8V+rIUWDdffnA==
+	bh=u2u9PsPEFuJjBc6T1esj7oeDK3O7JwKIO6kYyidKbLY=;
+	b=VDHHlL9ODx3cixRMS4z7V0iPzpTO/g4EROjLoMhish1blNaBu0dfEMx6g9qRp5mcES1v
+	 7GDKAKg1pkapBZItJGS4hscUKmKQaaJY4wvrPsxdkaXUpl8VWabQQVgLCH2PTCjiK8hKe
+	 PYTTiLL25KnWGmkEzZEuQmCCmXKBeJv+D2mdIvnodkb6rK3jql3ZU8+yBgQzja7iNo7xc
+	 3BMdgpF/ul56igKu3XWL7Q42dcazqDRv/omoRdIm3tl0F7qW809cVwms2052Et40zNN9U
+	 eBpyWkcIkKPgVLhKZeh/PzcdsCyHCsNurqkTI1SBCqNKv8eVCUbNf9ZHpnCHhmJnQwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=adYbJztv;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rqPPKMgk;
+	arc=none smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE986082BC8
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:20:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBE986082BC8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1330606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:21:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1330606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=adYbJztv
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-9440304604aso87886385a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:20:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rqPPKMgk
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eafb65e204so641005e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:21:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892054; x=1794496854; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1793892076; x=1794496876; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g7OooAgXVyrp/xMdwbWWynIIIxWieLjdlc+2il+3n9U=;
-        b=adYbJztv1KkpNtEqZot0xRjgVbMuObrkgEOc4jvRIE0WqspU1MFLYYVPGTqjzSSmSC
-         TwBD6eggaI9ZU7TCa3LUrInT2iKrhkaSqN2HBIktdfnPuJ/ZuL0zsjqKAXI9r3NxJD4k
-         8VfMRUM/MTTG1Yuds15Z9y2RlMyEp1Qjp4QJz1dp+GMrkQ9JyKUNTN2DwWH2SDlTHZI0
-         aJnK/rqIJwfeCpIjL/9gDcBStHKvA7i9ElTVPOQdtxxxrf8A7+XrhFtOAhMPYyWSsHNd
-         Olw6Pqn35nzl6d940GZs2++t4fIv3MQaZ5lwpLYOzusbWLrIc/dO7GKBaY7cZK5dPpMi
-         hpBQ==
+        bh=u2u9PsPEFuJjBc6T1esj7oeDK3O7JwKIO6kYyidKbLY=;
+        b=rqPPKMgkREkU9IM211ra3k8AITo9T+TdNDhco6Oy60gtAM2RnRAKMggyHKkB4jLaSs
+         0r9s/bfxnQAXHahfiW2nyVtgFkMQ0n7u1IHZODS/U9HER4Q0JOoPMLF/vm5Hqu9i+XQz
+         XAqaJRpdK4CamQW7eDb8stBOv2z+fYBFmTDh/HbJISeOEhRmQ81xJGoc2NAcnoG8Tbes
+         P7aoACeIOyBklmTYbsiURKGDjOd1fqzO0ebyGCG1pbHMEt48DO5ayhwlLKFQ5Yca8eAe
+         GtAjVAatAZ2oQpZ/hg5WP2ob8L8VRCw+KHXnYfYZfdipb2KK72+QvrY3WmwfoXezTn2A
+         92LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892054; x=1794496854;
+        d=1e100.net; s=20260707; t=1793892076; x=1794496876;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g7OooAgXVyrp/xMdwbWWynIIIxWieLjdlc+2il+3n9U=;
-        b=N4RHHrbit2gCcJMaWNhm9/8V5SKEL/0BPN9U3yMcIq+udb8CJ6PHDfACrI4Ee/uPTg
-         JXvGsKwq0S6MmlrKoX5De7JMxhY5L8TdBX29lP0KTA0CGxKsMT+VZQsgud9ZOp02qqh+
-         wvg9iNXl1OT8HVh9Bnk+7BF/jX8PJNWDmJANiRTgKs2vGa3S1nfWYeqSU/DbCLV+fqL0
-         ujSIYXn/uJCYs38TYd0eoZaLYbMR9pNF98YTW8WdwYezTKRKkIuZuCp/fM6wMOjUnjeV
-         nC6DlT6RgYcJuCzxyiEynEwo3YOAfvP+OmG3mHsAyKihotuQisuC3s8LKI2uUwftwfie
-         YTig==
-X-Forwarded-Encrypted: i=1; AKwUvBzHDY4WAteyxyHHkc/w/JX8z1NM0s7yO949yqYbptKXp6V3QJle916YAbgsQetg3KIgdB0h58TxUAv0ce0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1QHxLbJf3XehO+Igqexp2hSaxUPlXzkriURUitAeshXHmJesn
-	QIQI/cOVZ+Ohjratu+G2Tb52PpXleWT+q2Uxj1ADffy8eFzkgCFE4LQwsLcNQtn4OxD4qai7/d7
-	z1hFowMk=
-X-Gm-Gg: AYBFou0kLofSb/1/DL/zSQBEZgakoBNKIs54f1lt2q/RlgU7d7A7iXCWsnb9md4Ch9g
-	Ui4WLp2VusBp99Zl+tbZ0Qt4szCeQ4r2U9/DHPwCzGwe/+/6lBPpnONN9GEus7qTizKh0X+kEDW
-	Km0UURE1iZ7y7ddnNCXkaUnXcgKZA3GSOX6ybAfA4LtFBHve5rIuUFH4KRFisNgblGsnUpFSLOr
-	q2aJ7lQPa/MxMleN9DRWrjd0WddHQfCtvBxQK+zp7Bom9JYv0be5jGP79A89ksP/7wMfUvNTaqn
-	q0wEvHmY7/yepO9WaLDkjMQqAlPEAWu1bxYrV9YZ92WbcjQ9gSETHtW2wuHwlSUjST1ypWs4ntZ
-	/3ldccehwA3Mu1Mcwlb83+yYwXZj7j2pQWr+euEv/rTsZx6/hIk4bp1GDVAyca93aE0uzElHwW0
-	FEAw+5rZve41zkBl8ciuc1Q/pAZFKYX/P875uBqh15ZTTckBOEtIuDsXkxvufFsLqe93HliB11w
-	SrCxuXoK9ZqBJV9EQ78DhZZGBduf7ZaJVQ/iBMT7wD/rnQnjCPywab3JZ7eKWJ411iZA5wKDdBC
-	q1DAv7V9uIuo68+MPmHv3hFx66iYdVoOHWGjnwu2Jesl
-X-Received: by 2002:a05:620a:4592:b0:93e:6618:f4a5 with SMTP id af79cd13be357-945e158cc18mr466781385a.3.1793892053536;
-        Thu, 05 Nov 2026 07:20:53 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.244])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4844be4sm485076885a.29.2026.11.05.07.20.49
+        bh=u2u9PsPEFuJjBc6T1esj7oeDK3O7JwKIO6kYyidKbLY=;
+        b=HOQyHaYabrVUf5WPHo9wzjKv/lTW471lImFs73Uqke4/tAFtZAtSbMcj52o6Rs7ukC
+         Lhxb6VSKb6T43S8BY/T6soaWnPfTVhusFTWlbbXsa1fQzvSjq3ocbi5Zy7jKk1oCFErZ
+         Wqc2+TV4lxjh3Z3UZq3VTKNvSKX9YRQSqcFTGk0aZTXF/oEbrpjNzWHPB8q40v+dr8sn
+         sDxSaw3wVMQ8Pndx2qz8nn2DgFK4Tj/s86tZDCNkzRIQoyMzn36xRBwhwq++YXqjw8Yy
+         57FeSCyDcxuGYoBW213t1URVOIVizjwMzg+gMlekgoNPMgzluvi041jhGtcwwlHTzhpR
+         nR2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxxkyR7h5NkiIy+MKYBFrxSnnqlhJTgXpygW1yrZTY1Cl5oby6BUACS68e9tLSQNETZ/Ykh5DzkzdqAbpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+a6v5waCKXbbqIVFparedCnPqwy+LCSOfyOjK1FK6C1qzElSe4
+	AQ0UPBzB4lr5Mrl3oDS8o5NdtAQvGZ8dwowdMP7vcA9ccsxwB8fObGeVNCF3IHcMTKQ=
+X-Gm-Gg: AYBFou20AACus8s0D6myTZ2Ag315yUm7P8EqeOSH7QuNUWU8APYllslGFry5iZAmL8B
+	C/PeUaf5O8MLhtdVt4JynDzK3s7FSMVkd2xTHHSoUoDASumKEbQKjLBPPA8kmw33q/rK1K8BaCF
+	QZv6ZrdTwwxbSbpoJIcuJG3RisPYiDrsjVYR0pq2qfFP+F6xgl45fCfCZLk/Hqk2zSNxXD5e/Fw
+	TrgDpKpH2plxMXpOT+z9rp/1XyqJSI4uFWQ8YCnherXm7ie53edY05EkSQQXlHYDHIairZ386f6
+	Os+Joa4dnxP4krt7RDO6J0QvF7w4cUI7mzx12MVV5arz+ISaixV4zHDadtSx4hUZzF2DcoT3qp9
+	bM67Wh6fvXI0vU761EFF90k/gUmdp0xFM/FBKrpjym6j29hLLVPH2LIar2UKfBTxKJRJ/OJqEiO
+	Fgu/WsJ4318mbm1bSi1tBk5KfW10gufbIk7dt4k50tNS0+p9U9maTXX+9LVjXPT3vIEY/PBqDyj
+	h3fcQTVQvwiJqNlFSZYBNyhUeZobVSBP7cZqeXZrqRhnNy+YznmJ5ZVZZ3kQ1OvbhuaxvSKnJel
+	GoU1va2Z2sMcjRleAZfzJJ0/djHx0OEUPf0pbwdFCw6L
+X-Received: by 2002:a05:6122:506:b0:5ea:e188:a5af with SMTP id 71dfb90a1353d-5ec6894ded1mr9818300e0c.11.1793892075876;
+        Thu, 05 Nov 2026 07:21:15 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.254])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-998d37aad94sm4845109241.0.2026.11.05.07.21.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:20:50 -0800 (PST)
+        Thu, 05 Nov 2026 07:21:14 -0800 (PST)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:48 +0000
-Subject: [PATCH RFC v3 56/90] cgroup: let a cell make cgroups below its
- budget
+Date: Thu, 05 Nov 2026 15:02:49 +0000
+Subject: [PATCH RFC v3 57/90] resctrl: let a cell change nothing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-56-bc9095937a84@toxicpanda.com>
+Message-Id: <20261105-b4-cells-v3-57-bc9095937a84@toxicpanda.com>
 References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 To: Christian Brauner <brauner@kernel.org>, 
@@ -107,62 +105,78 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890934; l=2016;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890934; l=2307;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=OTJ9QCzjA253vmOiFzdmdl9ASZAcRIOzDg5HpZYKTB4=;
+ bh=C92opVjn3f0vj1bT/yXpnChkXGGDp1qEgM2rpFsMc5I=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QIre0SmzA0yI/wJIyenH7ASDQ6yQ+AQo9cPfV8U2dBwxSpmbilBW5yHo+V0cJmVO98novDGWWSU
- Iorhwf+EV6As=
+ QMKEW3pc/80nYyED9rpa7CvnvI7XhWfomql1dcJdBJ9B9XfQzU8gbEdcv4Cn1d2ql9b8TmLlM0l
+ 1+OG3tgCHMws=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-An init that manages cgroups moves itself out of the root of its
-hierarchy, enables controllers there, and creates one cgroup per service.
-In a cell with a block of ids this fails at the first mkdir, with
-EOVERFLOW. cgroupfs is a filesystem of the host, so it cannot hold the ids
-of a cell. The init therefore never leaves the budget, and it can never
-enable a controller, because a cgroup that distributes a controller cannot
-contain tasks. The builder cannot create the cgroups and hand them over
-either, because nobody can name the ids of a cell.
+resctrl is delegated the same way as cgroupfs. A group belongs to whoever
+created it, and the owner can write to its files, create groups below it,
+and remove and rename them. A cell with a single id runs with the id of
+the user who created it, so it owns every group that this user owns.
 
-cgroupfs meets the conditions for holding those ids:
+Moving a task to another group through the tasks file is already refused
+across cells. But other operations affect tasks without checking them:
 
-  - cgroup_cell_budget_put() removes everything below the budget when the
-    cell is gone. If that fails, the block is never lent again.
-  - cgroup_may_change() stops a task of a cell from creating or changing
-    anything outside of its budget.
-  - The seal already stores an id of the cell on the budget itself.
+  - Removing a group moves its tasks to the parent.
+  - Renaming a monitoring group moves its tasks to another control group.
+  - A write to schemata, cpus or mode changes the conditions that the tasks
+    of the group run under.
 
-So set SB_I_LENT_IDS on the superblock of the default hierarchy.
+Creating groups also uses up hardware ids, of which there are only a few
+for the whole machine.
 
-The alternative would be to make cgroupfs idmappable. The ids that are
-stored would then be 0 to 65535. The limits of the budget, which belong to
-root on the host, would appear to belong to the root user of the cell. And
-uid 1000 on the host would own what uid 1000 of the cell created.
+All of this requires a builder that gives the cell access to resctrl. It
+should not do that, but the boundary of a cell should not depend on nobody
+making a mistake.
 
-Legacy hierarchies do not get the flag, because none of their cgroups is
-within a budget.
+No part of resctrl can belong to a cell. So implement may_change() and
+refuse every change by a task of a cell. Besides cgroupfs, resctrl is the
+only kernfs based filesystem that is delegated by changing ownership.
+
+Compile tested only.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- kernel/cgroup/cgroup.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/resctrl/rdtgroup.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index a0836b115c79..3f439ae0e3b7 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -2331,6 +2331,9 @@ static int cgroup_get_tree(struct fs_context *fc)
- 	ret = cgroup_do_get_tree(fc);
- 	if (!ret)
- 		apply_cgroup_root_flags(ctx->flags);
-+	/* See cgroup_may_change() for where, cgroup_cell_budget_put() for how. */
-+	if (!ret)
-+		fc->root->d_sb->s_iflags |= SB_I_LENT_IDS;
- 	return ret;
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 6b7b7daa9fd3..e7f2ec56f371 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -12,6 +12,7 @@
+ 
+ #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
+ 
++#include <linux/cell.h>
+ #include <linux/cpu.h>
+ #include <linux/debugfs.h>
+ #include <linux/fs.h>
+@@ -4451,11 +4452,18 @@ static int rdtgroup_show_options(struct seq_file *seq, struct kernfs_root *kf)
+ 	return 0;
  }
  
++/* Nothing here is a cell's, whatever the modes say and whoever owns it. */
++static int rdtgroup_may_change(struct kernfs_node *kn, enum kernfs_change what)
++{
++	return current_cell() ? -EPERM : 0;
++}
++
+ static struct kernfs_syscall_ops rdtgroup_kf_syscall_ops = {
+ 	.mkdir		= rdtgroup_mkdir,
+ 	.rmdir		= rdtgroup_rmdir,
+ 	.rename		= rdtgroup_rename,
+ 	.show_options	= rdtgroup_show_options,
++	.may_change	= rdtgroup_may_change,
+ };
+ 
+ static int rdtgroup_setup_root(struct rdt_fs_context *ctx)
 
 -- 
 2.55.0
