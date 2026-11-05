@@ -1,76 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793859284;
-	b=OoylZt5tSS1ml5cjWVSmYSw4JqTqixAIhrFurp6Wk25Pw1o/awjjsjyNSuXoOuIMaDTo
-	 DOmO6D0t0Loqr/KxxilGjZbgRaj1ofC3mCIkq0UuiJO4e4/upjnd7QpVIuWljdP06qT+/
-	 DJTFhswGJzeKenm9DVmer7CKe48njqBcnxGRHt5vakZ9tkG8NNKM0xmH3bgtD6NuiL5Vh
-	 r61IoVIeYTggNnI/DEcTtdem7ecPft3XUhIQdOXMkj4PKMr+29/8qhy76NtTsEMBiCazz
-	 2FMCFkYBZ+0u6QMsFso9ddr4KfneHlMBx42pNpgDn3/vZ+0L6a1qDOzUnAsbuefqpqw==
+	t=1793859410;
+	b=HtGzkwzkkMolcVNAxK6JsPtvlzMeAV51/T9cCwMqvp79Ea8CAvPAihWGzIWWRxt6s8o3
+	 r49mRb4k7kxNLWsSN2lDjKFsF1f1QEm8DXtHkClcUn0FkL4eLyy/Ve1lrD92ldKm9QE7q
+	 rJNmGSQDrS2oQPimIFvAiLYrCEGgdTb75iYU/Ww9HjUSqFeUEOU08Sd6LEIUqHTscKCH5
+	 AHh3Pm8SqKkQKxQh6nyuqomQ8Ds48PNPzrggCaIdGjN4m9bCgbn9UosdCX7IJMG6JafIO
+	 bJgI7QSNO6JRegB0Wd4Ddm7Ighc1x/aOQXqlPuKsxPNkHz5PiQfQWj+p+AsgJ+sm8sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793859284;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=hVvv46MqObsSbVKNxdb2wOsvci7D3s0OZ8w0s0IvXOw=;
-	b=kr9oxEpODRGN1ORkGXYa8Ug5/bHwRMrM6vaZ4v0/7SPZqkpagW/WdfrA+XU6dfuJ/Pj5
-	 mAt0wzDfc8XEfEYcFSqkP5S9T9HPC4JgjxphgdoWNsRRBjw5gzwCD/g37n7enCFnDTHxO
-	 T6b/ocwj2VOWR8GwaLJxBLzsjdiT0uprWANiem4bKtd2P5u+sQr8pN6ReQ4/xNLdfLnl2
-	 u+6pZ865DSl2Uj6uCVJfrvBXiRjLrgAmMBPJu9d6iDL/ZV2b7xTRaYywYotbALF0NeDwe
-	 e7g7V4IV2x+cxwJjXy1av0LvutYZ5SlqQBVLtyx+QVn5Xx0Nwa/0mqnQ3pR09XTRu9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793859410;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=KOzW1UB+t+jEelbcYPH5TbAEq94n39ZkhHY9cRiwXeo=;
+	b=oP5XUKfVPINf27YTwOw6dh3YVzrz/t6D28rqNE4OWYb6H4vGTJXZHXXJtpdyIACye62P
+	 qTNCdNm1xtgBFkkH1ktrevJHhX2QQTU0RqcRjwjSXRF03PXdsKR0qCLTmstbkiLjnKze5
+	 wi13VbCHoDvBh99jdRc7N26TQzgKPagRF5iROoo7gGmC6iKc4WzCABGIRtmGGudS2uzJg
+	 kbZDdeQum/yli2RZh9XSdOyHqdd1Zq7HTP4byAbFFdlu/8fQb3jX+tY3VUaMqVx4Nr6Si
+	 u9CX8SR11HDfTGHo32Jv8Md0vQOvPnxX/4hsc7DKu6CpCAtzTqE5P1KvQS7kYE9ai3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=No0RkY+2;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zpsT+AuA;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B446F606A31B;
-	Thu,  5 Nov 2026 06:14:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B446F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9435606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 06:16:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9435606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=No0RkY+2
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 669D540E01D2;
-	Thu,  5 Nov 2026 06:14:41 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id msEHwpIIfBCI; Thu,  5 Nov 2026 06:14:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793859278; bh=hVvv46MqObsSbVKNxdb2wOsvci7D3s0OZ8w0s0IvXOw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=No0RkY+2w2EZW2Crl+yiArPnOUV0CtAMg6s9t45dc1IuXkXL8vICQQ7cyvEbMpECy
-	 r3uGptBQI/oCG9OTvebR5IBDDZlvWZ5ftafbuxQKqEEpyrMZq7sbNNYYOfbUO352l0
-	 eMsTVdMml7ntgh7v9DvT7lo/Zq95zkYdpswKq7qfuHhXYSHa97FxZQPSauvhWw15z+
-	 VXdWBqfhi11onxJz2GdpNaJI7Ex7xJ6AclqBUKx3942kx+K2aAVJsePCDWRBcKwwwA
-	 a9K1CN4UiT7ZC6OU3PSURTLVTJY/8TtdLj9KP2ZJHPV0MUSIFBpPjjDL1GSP+gAyh9
-	 4H9jkNibjUgirqEbpdVuLAgqmkUOFDzl418kAzfEZSHIgmqJ7S6ipBHfhxa58vZxDB
-	 z64J/k54laMUExkUOtPsdj9X7RNz40eSOI7oW5hjSDI2Qh2Qi2YD0GQOGmryGBF4DF
-	 /ET3blc2+CFBQMaeZL6LaSTAGK4SxDZACkwxbBjaPZLTqMeaY0j0R4oVxFJvEpJfVN
-	 x131d7IGCkUuSWp2xuGTYJj5zF5p1aAFc3aHCQD7t2CaSCg+rkF4k9WAN/+VuOYNOZ
-	 Nl/nFRlvMvXs+zbMwIoXWIBQ5BgWa7onpigWGeNot0cznfqE9xlXUDT1AwSXuLOmk8
-	 O7L6n99MNvx/gZEQU8DPQNxY=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BD88040E0184;
-	Thu,  5 Nov 2026 06:14:32 +0000 (UTC)
-Date: Wed, 4 Nov 2026 22:14:29 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Vishal Badole <Vishal.Badole@amd.com>
-Cc: yazen.ghannam@amd.com, tony.luck@intel.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] EDAC/amd64: Consolidate Family 1Ah setup and add
- support for models 0x88 ... 0x8f
-Message-ID: <20261105061429.GHauwexa5ngBoEP3kV@fat_crate.local>
-References: <20261014085720.1471993-1-Vishal.Badole@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zpsT+AuA
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=KOzW1UB+t+jEelbcYPH5TbAEq94n39ZkhHY9cRiwXeo=;
+	b=zpsT+AuATWaQqVRa280d9OUqsdIn4rFnA3HnMKREtwqLUlsLzdAclJTRMeviQLiTw2dHHMZ5/
+	eTvy73Jc4eWuGpT90RVqYpez1wUD90XUueMmre6mOR2ZB2zoxqbRmfVRFKui8wh5zIhJ4m3o/rQ
+	qEzIVh9CTlIXeCSmS1lbOHY=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jKsX56XfQzRhSB;
+	Thu,  5 Nov 2026 14:16:37 +0800 (CST)
+Received: from kwepemk300016.china.huawei.com (unknown [7.202.195.98])
+	by mail.maildlp.com (Postfix) with ESMTPS id AA6744058F;
+	Thu,  5 Nov 2026 14:16:44 +0800 (CST)
+Received: from huawei.com (10.67.174.191) by kwepemk300016.china.huawei.com
+ (7.202.195.98) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 14:16:44 +0800
+From: Zhang Qiao <zhangqiao22@huawei.com>
+To: <sched-ext@lists.linux.dev>
+CC: <linux-kernel@vger.kernel.org>, <tj@kernel.org>, <void@manifault.com>,
+	<arighi@nvidia.com>, <changwoo@igalia.com>, <tanghui22@huawei.com>,
+	<zhangqiao22@huawei.com>
+Subject: [PATCH 4/4] sched_ext: Extract online CID construction from scx_cid_init
+Date: Thu, 5 Nov 2026 14:50:13 +0800
+Message-ID: <20261105065013.784398-5-zhangqiao22@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
+In-Reply-To: <20261105065013.784398-1-zhangqiao22@huawei.com>
+References: <20261105065013.784398-1-zhangqiao22@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,33 +70,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014085720.1471993-1-Vishal.Badole@amd.com>
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk300016.china.huawei.com (7.202.195.98)
 
-On Wed, Oct 14, 2026 at 02:27:18PM +0530, Vishal Badole wrote:
-> This series cleans up the Family 1Ah model handling in amd64_edac and
-> then adds support for the 0x88 ... 0x8f models.
-> 
-> Patch 1 consolidates the Family 1Ah setup: select the v2 UMC register
-> layout once for the whole family instead of per model, and reject models
-> that are not known to work.
-> 
-> Patch 2 adds the 0x88 ... 0x8f models, which use the default Family 1Ah
-> settings (2 UMCs, v2 register layout), so the driver can decode and
-> report memory errors on them.
-> 
-> Vishal Badole (2):
->   EDAC/amd64: Consolidate Family 1Ah model setup
->   EDAC/amd64: Add support for Family 1Ah models 0x88 ... 0x8f
-> 
->  drivers/edac/amd64_edac.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
+Move the node walk into scx_cid_build_online() so scx_cid_init() is
+left with allocation, diagnostics and cleanup only. Document the
+builder's mask ownership and add one-line summaries for the traversal
+helpers.
 
-Applied, thanks.
+The mapping, shard policy, publication timing and error paths are
+unchanged. Partial-SMT core counting and the single-core shard
+hard-cap corner case are left for separate fixes.
 
+Validation: compiled kernel/sched/build_policy.o with SCHED_CLASS_EXT
+enabled and CPUMASK_OFFSTACK both disabled and enabled. A temporary C
+harness compared all construction stages against the original across
+1800 topology/shard-size combinations and checked seven mask
+allocation failure paths under UBSan. Each patch passes strict
+checkpatch.
+
+Signed-off-by: Zhang Qiao <zhangqiao22@huawei.com>
+---
+ kernel/sched/ext/cid.c | 90 ++++++++++++++++++++++++------------------
+ 1 file changed, 51 insertions(+), 39 deletions(-)
+
+diff --git a/kernel/sched/ext/cid.c b/kernel/sched/ext/cid.c
+index 54eacdc23d32..688008823355 100644
+--- a/kernel/sched/ext/cid.c
++++ b/kernel/sched/ext/cid.c
+@@ -165,6 +165,7 @@ void scx_cid_retire_tables(void)
+ 	call_rcu(&tbls->rcu, scx_cid_tables_free_rcufn);
+ }
+ 
++/* Build-only state. The masks are borrowed from scx_cid_init(). */
+ struct scx_cid_builder {
+ 	struct scx_cid_tables *tbls;
+ 	struct cpumask *to_walk;
+@@ -180,6 +181,7 @@ struct scx_cid_builder {
+ 	u32 shard_size, max_cids;
+ };
+ 
++/* Consume one LLC from node_scratch and append its cids and shards. */
+ static s32 scx_cid_build_llc(struct scx_cid_builder *b, s32 nid,
+ 			     s32 node_cid, s32 node_idx)
+ {
+@@ -192,7 +194,7 @@ static s32 scx_cid_build_llc(struct scx_cid_builder *b, s32 nid,
+ 	s32 shard_cid, shard_idx;
+ 	s32 cluster_cid = -1, cluster_idx = -1;
+ 
+-	/* b->llc_scratch = b->node_scratch & this llc */
++	/* Intersect the remaining node CPUs with this LLC. */
+ 	cpumask_and(b->llc_scratch, b->node_scratch, llc_mask);
+ 	if (WARN_ON_ONCE(!cpumask_test_cpu(ncpu, b->llc_scratch)))
+ 		return -EINVAL;
+@@ -229,7 +231,7 @@ static s32 scx_cid_build_llc(struct scx_cid_builder *b, s32 nid,
+ 		core_cid = b->next_cid;
+ 		core_idx = b->next_core_idx++;
+ 
+-		/* b->core_scratch = b->cluster_scratch & this core */
++		/* Intersect the remaining cluster CPUs with this core. */
+ 		cpumask_and(b->core_scratch, b->cluster_scratch, sib);
+ 		if (WARN_ON_ONCE(!cpumask_test_cpu(lcpu, b->core_scratch)))
+ 			return -EINVAL;
+@@ -284,6 +286,45 @@ static s32 scx_cid_build_llc(struct scx_cid_builder *b, s32 nid,
+ 	return 0;
+ }
+ 
++/* Assign online CPUs by node, consuming to_walk as CPUs get their cids. */
++static s32 scx_cid_build_online(struct scx_cid_builder *b)
++{
++	cpumask_copy(b->to_walk, cpu_online_mask);
++
++	while (!cpumask_empty(b->to_walk)) {
++		s32 next_cpu = cpumask_first(b->to_walk);
++		s32 nid = cpu_to_node(next_cpu);
++		s32 node_cid = b->next_cid;
++		s32 node_idx;
++
++		/*
++		 * No NUMA info: skip and let scx_cid_build_notopo() assign a
++		 * no-topo cid. cpumask_of_node(-1) is undefined.
++		 */
++		if (nid < 0) {
++			cpumask_clear_cpu(next_cpu, b->to_walk);
++			continue;
++		}
++
++		node_idx = b->next_node_idx++;
++
++		/* Intersect the remaining online CPUs with this node. */
++		cpumask_and(b->node_scratch, b->to_walk, cpumask_of_node(nid));
++		if (WARN_ON_ONCE(!cpumask_test_cpu(next_cpu, b->node_scratch)))
++			return -EINVAL;
++
++		while (!cpumask_empty(b->node_scratch)) {
++			s32 ret;
++
++			ret = scx_cid_build_llc(b, nid, node_cid, node_idx);
++			if (ret)
++				return ret;
++		}
++	}
++
++	return 0;
++}
++
+ static void scx_cid_build_notopo(struct scx_cid_builder *b)
+ {
+ 	u32 notopo_in_shard;
+@@ -292,10 +333,10 @@ static void scx_cid_build_notopo(struct scx_cid_builder *b)
+ 
+ 	/*
+ 	 * No-topo section: any possible cpu without a cid - normally just the
+-	 * not-online ones. Pack into shards of up to min(@b->shard_size,
++	 * not-online ones. Pack into shards of up to min(b->shard_size,
+ 	 * SCX_CID_SHARD_MAX_CPUS) cids so that every cid has a valid shard
+-	 * assignment and the hard cap holds even with a large @b->shard_size.
+-	 * Collect any currently-online cpus that land here in @b->online_no_topo
++	 * assignment and the hard cap holds even with a large b->shard_size.
++	 * Collect any currently-online cpus that land here in b->online_no_topo
+ 	 * so we can warn about them at the end.
+ 	 */
+ 	notopo_in_shard = min_t(u32, b->shard_size, SCX_CID_SHARD_MAX_CPUS);
+@@ -348,7 +389,7 @@ static void scx_cid_finalize_tables(struct scx_cid_builder *b)
+ 
+ /**
+  * scx_cid_init - build the cid mapping
+- * @sch: the scx_sched being initialized; used as the scx_error() target
++ * @sch: scheduler whose ops specify the target shard size
+  *
+  * Build a fresh table set. It becomes visible through scx_cid_publish_tables()
+  * and is retired by scx_cid_retire_tables() at disable.
+@@ -370,7 +411,7 @@ s32 scx_cid_init(struct scx_sched *sch)
+ 	cpumask_var_t online_no_topo __free(free_cpumask_var) = CPUMASK_VAR_NULL;
+ 	struct scx_cid_tables *tbls;
+ 	struct scx_cid_builder b = {};
+-	s32 cpu, si;
++	s32 cpu, si, ret;
+ 
+ 	/* CMASK_MAX_WORDS in cid.bpf.h covers NR_CPUS up to 8192 */
+ 	BUILD_BUG_ON(NR_CPUS > 8192);
+@@ -412,38 +453,9 @@ s32 scx_cid_init(struct scx_sched *sch)
+ 	for (cpu = 0; cpu < nr_cpu_ids; cpu++)
+ 		tbls->cpu_to_cid[cpu] = -1;
+ 
+-	cpumask_copy(b.to_walk, cpu_online_mask);
+-
+-	while (!cpumask_empty(b.to_walk)) {
+-		s32 next_cpu = cpumask_first(b.to_walk);
+-		s32 nid = cpu_to_node(next_cpu);
+-		s32 node_cid = b.next_cid;
+-		s32 node_idx;
+-
+-		/*
+-		 * No NUMA info: skip and let the tail loop assign a no-topo
+-		 * cid. cpumask_of_node(-1) is undefined.
+-		 */
+-		if (nid < 0) {
+-			cpumask_clear_cpu(next_cpu, b.to_walk);
+-			continue;
+-		}
+-
+-		node_idx = b.next_node_idx++;
+-
+-		/* b.node_scratch = b.to_walk & this node */
+-		cpumask_and(b.node_scratch, b.to_walk, cpumask_of_node(nid));
+-		if (WARN_ON_ONCE(!cpumask_test_cpu(next_cpu, b.node_scratch)))
+-			return -EINVAL;
+-
+-		while (!cpumask_empty(b.node_scratch)) {
+-			s32 ret;
+-
+-			ret = scx_cid_build_llc(&b, nid, node_cid, node_idx);
+-			if (ret)
+-				return ret;
+-		}
+-	}
++	ret = scx_cid_build_online(&b);
++	if (ret)
++		return ret;
+ 
+ 	scx_cid_build_notopo(&b);
+ 
 -- 
-Regards/Gruss,
-    Boris.
+2.43.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
