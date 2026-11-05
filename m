@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=129.69.192.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889011;
-	b=wiAOTqyicKhvGOFSNoI/qgwvNI6APnZjbTCGp9POs+q8P9fuAYnIi4IkWzYw84uIQou6
-	 XX31g9kjcAwGtlOrdHL7SfumzVgmKTTUV6iipXu7MLvO+YFTYbLhqTVptuiNb97GNxiz2
-	 8yzBzHIzYhsdTcbJQlAbSuGfrV1yANLwB9F1WB5SGWOnd10m7z6rDFqq8GJWFRQFdI7Pr
-	 lp6b+ykxATi3eM0ciMGEtJQ3AQ2qjxFyr92R+Wi94NRxHizkenlaJ881NJ6zss+ptcUUu
-	 TSTyFwqLq3heWKpmMkT23RtmVLDdQqQzuf6Klw+Ko80Z0Qbt3S80vMDOT8HRweu9xSw==
+	t=1793889006;
+	b=IqMlbOvvU3ZoXB9RCUzHPe3mmUYG/9yDEOt8xeXSgeepkmFloIrUmdJiwqja1QNdXISj
+	 lnOsYe9af4o39MPtTh3TMHak8QqajGz6hcLQShR8IoD6j2Aa/ZpqmWKk+mx7JZ6k8SUSu
+	 BH9luJMQYp+YFyJwXKsUuBKNnYoNKK2g8XxXqj2OOzqjnSNTd2dMH9Mz0V132V+nVcdhN
+	 04nutqhE5ySh9l9D8i1zZolvYCAvth3683m6IvjN8lvMOt4is6yqHT/0C5u50n6WMowHa
+	 QkIOL+EINRqTMyn986hq8VrcXFjo75OSToJGWyNjqmB1VfpnXz5dEu8bzngC1PZYejA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889011;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=uS5maslF+NSEg+gGxTdcbDpYYQEpFvFB0oh8VExIsdc=;
-	b=OaK/YTBRXEfLWG0ZXf7OZ105pB9IvOR4fjiZpUkl2RLoN0WvyBIxTn7b3eLbgOu16k+U
-	 mTBUyhJXu433CUokZHRQpFug4MZJqibwo6rfZ7/84Qh/wQCvWcZbQd6vRSWCrnscqCVVq
-	 /6jknRXlqMjiiaaWfQ95yIMrjwJXiOdi3dmcgTn+bEYZRcPueq4IEhxLrg1CV3h3nt4Wx
-	 eal/Le/K9K26B0mrgL6/NntFdXE4+0gQ9Uo1bhg9gY1BMakdd6hPp6tsGu7XrhgjI1VVz
-	 vLZIHVJqe2gGlimmhZEi77va9XzKuOnqYqfR2rA8QnX3XGyV2H5+jcEQzSVRKhO+YzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889006;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Content-Language:
+	 From:Autocrypt:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=s5Gj4IbvcZP067FUR//rCj4Ee2e5WoP48c2GXNB4yfs=;
+	b=rzqvns6xvMzmWr71zWx6TdDkLpPlyZR/cwToDP2RNtgrbx0Rfaot88OekAL+YxCYAl9g
+	 eGXqnh5JWyGNAaybH1XmgZTfs4QzHX+WfsSqSrrk+c3efgfK+2fJQjPQf3X/i+dQW0KPT
+	 tgNHj5ClHL3B2tD9YKIyUGQ1iuVHCekwCMEOH2AFm3jGaArFG4mU9vk1/jpo0g8qRnnya
+	 EooLMNmykaK+92mbbM49dKzBR1/V8q+/p/ynrgOkEP2Si99UmWL/4Fuhh9WL6RJz2hqzB
+	 jjcJII0o/2nQEoIvGPYxeEGtWn2MdE9BHqxZt4aev4CPvS8WKtFfV6XVRnEtee/pSng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NtC7j2Y4;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=tik.uni-stuttgart.de;
+	spf=pass smtp.mailfrom=tik.uni-stuttgart.de;
+	arc=none smtp.remote-ip=129.69.192.21
+Received: from mxex2.tik.uni-stuttgart.de (mxex2.tik.uni-stuttgart.de [129.69.192.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE428606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:30:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE428606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NtC7j2Y4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793889009; x=1825425009;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YpqY7Jc/FufberPpYzqr0pSP+kK5Ii1cJk0BaQt2L3s=;
-  b=NtC7j2Y4nwCRbLoriKREzOYOJDJtcE4YofSdWHwZT1TVNpwt+If5YaXz
-   gV2ECU7+ukKIFL0yUnGHkgDJ1AR2usGud2kWAYu7iKej9pqj7M05Aut2N
-   RmJ7h7PeLyX9nRnPXzRa5su39fMwR01j2FXiLlBSusx/IURsH+pojV6xa
-   PWOzbDkkjAw4h5YtxYQDOCycMrTG4iH+9j0jo+9CRqaodLucyhdlljgd7
-   XZOpVUghUxnyY93aXMmyPlXF58n//IPUfzBUcZWI1pGRIxSwDZgh+5DFS
-   5/Jl6SLTBCBJ174hWI1sdi53FFKvP6aYZyxB8zMUmRdFbJ765ZPHXgoBV
-   Q==;
-X-CSE-ConnectionGUID: vUeIgpvZRJaxdT+3ydyXww==
-X-CSE-MsgGUID: qLSez5+nTPaRzKCFyJTw5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2777943"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2777943"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:30:09 -0800
-X-CSE-ConnectionGUID: e4St1aMmSzGKxpplJxRyLQ==
-X-CSE-MsgGUID: fAYU5Qq3TVGmBI0Deeiy5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7142953"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 05 Nov 2026 06:30:07 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOyTb-00000000mJz-2yCy;
-	Thu, 05 Nov 2026 14:30:03 +0000
-Date: Thu, 5 Nov 2026 22:30:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>,
-	linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, akpm@linux-foundation.org,
-	richard120310@gmail.com, handyhandyman.adam@gmail.com,
-	tglx@kernel.org
-Subject: Re: [PATCH] lib/tests: add KUnit tests for the priority sorted list
- (plist)
-Message-ID: <202611052109.GqbzRkv1-lkp@intel.com>
-References: <20261103-plist-kunit-1-yuehongwu@cmss.chinamobile.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A52606A336;
+	Thu,  5 Nov 2026 14:30:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35A52606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tik.uni-stuttgart.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tik.uni-stuttgart.de
+Received: from localhost (localhost [127.0.0.1])
+	by mxex2.tik.uni-stuttgart.de (Postfix) with ESMTP id 5795660BCC;
+	Thu, 05 Nov 2026 15:29:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=uni-stuttgart.de;
+	 h=content-transfer-encoding:content-type:content-type:subject
+	:subject:from:from:content-language:user-agent:mime-version:date
+	:date:message-id; s=dkim; i=@tik.uni-stuttgart.de; t=1793888994;
+	 x=1795627795; bh=YTWOhMosYHzB0vhevYarHNdQBPGxqTmbk1nKMqAxFlA=; b=
+	Qae/v3dWVaUlbZCgGWpGC0Wx6mvqjSMHFyh6SWoxeC7eRADP5a0hVcTm8RGNpIGt
+	K70lw0P5M1wO3J3a+PqimY99cWPsEiiQodTLNOfyknmdUz71dELS0e0Jz8viBaiG
+	Z3psIIdXSLJ0G1022sG/vx4qAIqIjBKHu0zoFEb2dRPFfDiGwvx2ZgepD7YwGIY1
+	nIonh5Z/UAWNaW+3tnSBzeDxBGdyOV97ST3N/XWYBJA7epeObHF2N83Y2H8hppeC
+	kgg+otleGTHxdTQe+xU5xgI6Y06/Y67hNhGLYl/8ZcgEkafJNRFP3Y90dhtjWIcz
+	ER0h69mpWundpJDrWjgdYA==
+X-Virus-Scanned: USTUTT mailrelay AV services at mxex2.tik.uni-stuttgart.de
+Received: from mxex2.tik.uni-stuttgart.de ([127.0.0.1])
+ by localhost (mxex2.tik.uni-stuttgart.de [127.0.0.1]) (amavis, port 10031)
+ with ESMTP id uU4OrQQZm6ha; Thu,  5 Nov 2026 15:29:54 +0100 (CET)
+Received: from authenticated client
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxex2.tik.uni-stuttgart.de (Postfix) with ESMTPSA
+Message-ID: <ece93045-3df5-4645-8d3e-bc8392c45ed6@tik.uni-stuttgart.de>
+Date: Thu, 5 Nov 2026 15:29:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,39 +64,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-plist-kunit-1-yuehongwu@cmss.chinamobile.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+From: =?UTF-8?Q?Stefan_B=C3=BChler?= <stefan.buehler@tik.uni-stuttgart.de>
+Autocrypt: addr=stefan.buehler@tik.uni-stuttgart.de; keydata=
+ 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
+ rwHRmQ==
+Subject: [BUG] kernel.sysrq sysctl race condition(s) / list corruptions
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Yuehong,
+Hi,
 
-kernel test robot noticed the following build errors:
+we have `kernel.sysrq = 0` in /etc/sysctl.d/, and run `sysctl --system` 
+multiple times, possibly concurrently.  This week I found the system in 
+a weird state, and one `sysctl --system` process that couldn't be 
+killed, with a "list_del corruption" in the kernel log pointing to 
+`input_unregister_handle`.
 
-[auto build test ERROR on akpm-mm/mm-nonmm-unstable]
-[also build test ERROR on akpm-mm/mm-everything linus/master v7.4-rc1 next-20261030]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+This was on a debian stable 6.12.115+deb13.1-amd64, I think the most 
+interesting part of the logs is:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Yuehong-Wu/lib-tests-add-KUnit-tests-for-the-priority-sorted-list-plist/20261103-193652
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-nonmm-unstable
-patch link:    https://lore.kernel.org/r/20261103-plist-kunit-1-yuehongwu%40cmss.chinamobile.com
-patch subject: [PATCH] lib/tests: add KUnit tests for the priority sorted list (plist)
-config: i386-randconfig-1003-20261105 (https://download.01.org/0day-ci/archive/20261105/202611052109.GqbzRkv1-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611052109.GqbzRkv1-lkp@intel.com/reproduce)
+---
+list_del corruption. prev->next should be ffff8d6e4324d040, but was 
+ffffffff915cf038. (prev=ffffffff915cf038)
+------------[ cut here ]------------
+kernel BUG at lib/list_debug.c:62!
+Oops: invalid opcode: 0000 [#1] PREEMPT SMP NOPTI
+CPU: 0 UID: 0 PID: 1454 Comm: sysctl Not tainted 6.12.115+deb13.1-amd64 
+#1  Debian 6.12.115-2
+...
+Call Trace:
+  <TASK>
+  input_unregister_handle+0x1b/0x90
+  sysrq_disconnect+0x33/0x40
+  input_unregister_handler+0x3d/0xc0
+  sysrq_toggle_support+0x48/0x70
+---
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611052109.GqbzRkv1-lkp@intel.com/
+I can easily reproduce it by running two copies of this script (even on 
+a single CPU):
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+---
+#!/usr/bin/env python3
 
->> ERROR: modpost: lib/tests/plist_kunit.ko: symbol 'plist_add' undefined!
->> ERROR: modpost: lib/tests/plist_kunit.ko: symbol 'plist_del' undefined!
->> ERROR: modpost: lib/tests/plist_kunit.ko: symbol 'plist_requeue' undefined!
+with open("/proc/sys/kernel/sysrq", "w") as sysctl:
+     while True:
+         sysctl.write("0\n")
+         sysctl.seek(0)
+         sysctl.write("1\n")
+         sysctl.seek(0)
+---
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I think I can see how `sysrq_toggle_support` has a race condition; I 
+don't understand how that (in my original scenario that only tried 
+setting it to 0) could end in problems, even if it ran 
+sysrq_unregister_handler() multiple times without 
+sysrq_register_handler() between (the code looks like it should leave a 
+clean input_handler, and not do anything bad when passed a clean 
+input_handler).
+
+I see how it could run sysrq_register_handler() multiple times without 
+sysrq_unregister_handler() between when using my python script, and how 
+that is going to be a problem - and when I tried it with vanilla 
+7.4.0~rc1-g05441d697f7f (on a different system), I actually get a 
+"list_add double add":
+
+---
+list_add double add: new=ffffffffa9bea108, prev=ffffffffa9bea108, 
+next=ffffffffa9c09b20.
+------------[ cut here ]------------
+kernel BUG at lib/list_debug.c:35!
+Oops: invalid opcode: 0000 [#1] SMP NOPTI
+CPU: 0 UID: 0 PID: 1392 Comm: python3 Not tainted 7.4.0-rc1+ #3 
+PREEMPT(lazy)
+Hardware name: VMware, Inc. VMware Virtual Platform/440BX Desktop 
+Reference Platform, BIOS 6.00 11/12/2020
+RIP: 0010:__list_add_valid_or_report.cold+0x15/0x33
+Code: 36 fe ff e9 de 84 7d 00 4c 89 e6 bf 0f 00 00 00 e8 2e ff ff ff 48 
+89 f2 48 89 d9 48 89 fe 48 c7 c7 d0 d4 7b a9 e8 69 36 fe ff <0f> 0b 48 
+c7 c7 f8 d3 7b a9 e8 5b 36 fe ff 0f 0b 48 c7 c7 d0 d3 7b
+RSP: 0018:ffffd485c2f97a20 EFLAGS: 00010246
+RAX: 0000000000000058 RBX: ffffffffa9c09b20 RCX: 0000000000000000
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffffffffa9a5b680
+RBP: ffffffffa9bea0a0 R08: 3fffffffffff7fff R09: 0000000000000577
+R10: ffffd485c2f97840 R11: 0000000000000002 R12: ffffffffaa78ad50
+R13: ffffffffa9bea108 R14: ffffffffa92f4e00 R15: 0000000000000002
+FS:  00007f78eb9b9780(0000) GS:ffff8ce9cf828000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000007132b0 CR3: 00000001041a2006 CR4: 0000000000770ef0
+PKRU: 55555554
+Call Trace:
+  <TASK>
+  input_register_handler+0x89/0x130
+  sysrq_toggle_support+0x5f/0x70
+  sysrq_sysctl_handler+0xb0/0xc0
+  ? __pfx_sysrq_sysctl_handler+0x10/0x10
+...
+---
+
+It seems `input_register_handler` is usually called from module __init, 
+with freshly allocated data, or with a mutex being held - afaict only 
+sysrq is potentially calling it with an already registered handler.
+
+`sysrq_toggle_support` probably should use a mutex too.
+
+
+Summary:
+
+* my python script (run two instances) triggers a kernel BUG on both
+   debian stable 6.12.115+deb13.1 and vanilla 7.4.0~rc1-g05441d697f7f
+   within seconds
+* 6.12.155 shows a "list_del corruption" in `input_unregister_handle`,
+   which I can't explain (especially not in the original environment)
+* 7.4.0~rc1-g05441d697f7f shows "list_add double add" in
+   `input_register_handler`, which is kinda expected
+* sometimes a python script segfaults, sometimes it ends up unkillable
+* I don't think this is accessible from unprivileged userns / containers
+
+cheers,
+Stefan
+
