@@ -1,54 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793914005;
-	b=QDOy9CHMvm68zzzipbDigqNDjDa7A1KqmxcgeTdiMVaPWshWzm4mANwx7ad6D1ZDQoeE
-	 J4ieIkcIflS4QANHehCStdkDidOfeK5LwsJGlOLgmOKRv3tohZL6AbxUYBmJAml5NEopO
-	 mT7rM9HNmPWcA91zev3CkapeFC4Gpv5WqEyxomb2O77zdk5GNx30ceZcEdGP6Z1Ybj3PQ
-	 bN8RhE2ZYoeFPEAXUZPgM1p9+LJyQ9so4Nz1BvrL1n+4aiLqQ6f0Fy3q4uRwoM+3W5JsF
-	 TaGXeRfypTkdwzm8knRj3mPda9O6KAA5y/2nQaQJoJW3lu64qydrPxP9bbexCgkIQCQ==
+	t=1793914033;
+	b=VqH/6ah1GCY7LcbcFRhwVq2WXZyJTwcLCukFliNi1XsQds4+d+NNJ1P/DADWFPPxmDnH
+	 OlpMXP9vSY2nUsGt+D/YboQ1vS/zKzvHFSMM8JgFxn44HhwCVhP1sz0+Cm4t9ifJF7/hh
+	 WQORXy9gTHv/zHmO/xvP8/dJALjV5YOq56y1/GZmFp9vvNn1oP7wOpdO+O0O7yWR5RyPf
+	 L8uxJSHeTCGtlP+i03R/yJPg/CDP96pBoEjFfeGNnw6Mag2t6/eb5Uq4HjYuTUPBK96r1
+	 RVGE86sSZHd7/u44UCcnJwZY0A5Kyo/EURg4tLNxHjk5HfNbDowrNdZwKLIPQCcT/Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793914005;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=j6nLzJpF4CfBD1Utx6iKhdNHDK2kO6FZNPxEtGMJpzs=;
-	b=lbgKOqmCJez3By9+/iZ9+IQ2jQuaAehfwuAvniABe/kiat6Zw51ge9TU1DgAs9Tbh/dC
-	 yk4EG8wcK+MDK6J1PXArbOqckVL3iuaNIr98gfTHV7iCJP3xAJFIkfGshjBaKEDb+Bzko
-	 QQbG25myJeSQp2C8OoleZ4RyUoLKLl1ADUMWMRZzLL5CM8ZXJy0EJmYN125SWlt5ooxCZ
-	 ZX8YEzyv2mRaz6Cgl4LoU0P2suaHHGPWtqEAYkeniOiUsRh5VZxNKoT8+xGJSi0XwKm3z
-	 ihqNLXZXh0I9W1yYiBqzatrmrFGyaz/pduuMeE06e0mX63/4Odq80gXy64h5CwEErqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793914033;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=RmXdb3aNeF12CFaNr3KqfL/OLmu9GGiLL93Jl82TTsU=;
+	b=U9jX5LErkNRwS3PqLfuJPLpRBAYYfCSLQBgfVltobco2tQabEsqWBX8UnplAslXtu+Q0
+	 /yxmXV7K7FlC/8+/Su9dSotHV85AJURrXTQBM/Fpw3EINXvrEjhuxQ/lAzbZ4+7qlIhj+
+	 dTQbEWfG+tD1//YOt5PuKreYs6umN+YipccCkafPdBL8Xcn+FeWjxJ/EGcs8cTd5YsuMT
+	 evmpsnXnvKBKmegiZDGLJcKUjX3Mqfp701jHjtGFcPIMGDsfHTyR3KpoOJHs0VsY7yjDc
+	 4Yx9Lj5076FmrNo2jAJ5qUOHo/NOj53NijNg7hTZVu4/+w1NdD44r28J+dzN1JlQp7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Am3xs4yM;
-	arc=none smtp.remote-ip=91.218.175.225
-Received: from mta0.migadu.com (out-225.mta0.migadu.com [91.218.175.225])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=yjBOfcg3;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=JJX7w23R;
+	arc=none smtp.remote-ip=202.12.124.153
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577B0606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 577B0606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DB6606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 21:27:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13DB6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Am3xs4yM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=50QvR5Rz1ijGbYHRRdoYsuy3eEKLOBbyuMDTHm2jZh0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793914001; v=1; x=1794518801;
- b=Am3xs4yM6/tjgZMQlaNS6DAHZ1cTQ7pKDOqHRyT9OFD+dfNifribuzZxlRop6kVPZWOmK7gK
- ulKfFwQrn14tRMSNR/7+wAAEuiVr3iWU+zAr5uqVFzq5dMWNlNawycn+A6JVNm34fQXIMWxQ1Fg
- zMSAKacEyE/Vp2zfzjzVUXu4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 63581dc183f9fce4;
-	Thu, 05 Nov 2026 21:26:41 +0000
-X-Mizu-Trace-ID: 63581dc183f9fce4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a2667ffd-3bbe-40b2-afc2-56fb54fb546b@linux.dev>
-Date: Thu, 5 Nov 2026 22:26:36 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=yjBOfcg3;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=JJX7w23R
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 34F327A015E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:27:07 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Thu, 05 Nov 2026 16:27:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1793914026; x=
+	1794000426; bh=RmXdb3aNeF12CFaNr3KqfL/OLmu9GGiLL93Jl82TTsU=; b=y
+	jBOfcg3sSc6Z5cLjKsYMBuffMhP8cMGufagsEwULfWH9ewPP5E3l6dNEWj2sClui
+	YmFB44qy68jLK3W5UmOm4pPxq6KlwUBSVKv47Qf/a0EfUAKMR2EH933puoUS0Jhj
+	TKVYUTQToqrsaj1K63XvlLDT+1uC8KCQDha1bxR7jFJSL2961rWmVBRiRLzOGi9n
+	QwPasosc7jALxZ8Raa1DodRva00riZqwyXuYK4ruv9/D6fxwj/IReUhSZv3Hvg01
+	3exs7Elcuoq5WiAxwXOmEYEtk2NVGKX8OaelXQF++hqfyCyaXToE5tgOrPL4ZKqM
+	CI8CtLM0j+WE+P/r8y2mg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1793914026; x=1794000426; bh=R
+	mXdb3aNeF12CFaNr3KqfL/OLmu9GGiLL93Jl82TTsU=; b=JJX7w23RfDecFC0TV
+	Tpu7KwqByUJezX3Zt/lMw0akdrAxTdSy/LnFTPwIJy8TeiNkO7tpjInqg9wK4n/A
+	4SsCSQ1ZcNvTE1qmBMZySWZed1T6IqO9SDcZ7uLnGDCFn+QxeLa5CkvQPVvQEWxu
+	VT5vTCl+WoPJatFJ10AmDh4vrBBaRQqByvCHxjfrwJCHQezspyQ2f0dBDDzLB9Vy
+	HWFcReBKdx1At8oEmPUb2A3+xoovRZzmrFGmAdzzExLyZLVHroVqzYgdXNiKC+7n
+	f7AnXuUmnF/OmjY/KZiL06yXOWOd8b6AxkXc7YO45yjXGEQU93Ne6z6Ys+ddcuUj
+	/HiUg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793914026; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:2SkmPDsWjchGkNPCCBOW+lHYEfNCx+lSne5M2BHyFRQXoKr
+	FR6G2zRfj1MiBNdCVDdDR+mhup2wPo+YestfHI1qW4c7g1UiRsi19MMrcFcLAdY9
+	/KuCELyifxaFvgi8rDEpdxb5xU/oLNFmh2giMrRIvx8odFGpaof3Xia0Yqx8dkyw
+	b/XEeQv92J/Nhc9wW/73ALDsWowLWGMAfASPBwC0f8LXx6OdMRvOmk8HXRCabPdg
+	zS2F6TAH98dBbT5f6fbdDX81KealTdUH/P6wzF7NJTZdYbSwXxziYovfhEEFf2Vz
+	reCQUel0bsbHFLtJNFFJNHo2pWcsHxjcJg5Y+8Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:3OxlkttHmcTKeqh59aIGi58yqsXy4YiY2+yTqZmokSM=:RmXdb3aNeF12CFaNr3KqfL/OLmu9GGiLL93Jl82TTsU=;
+X-ME-Sender: <xms:qvTsauG8K4nyvnpITOjwO4vbbLq6l7lx4Kn9MQepvm49ACRUx47WTg>
+    <xme:qvTsarWPddFvbtX0Xr8SNzkEfWZ0Xw5zz9ZmuWL6oBcdfYuM3c_BmYSW1SpKHqWZq
+    qFVHZ8E03G9fYdN-2KQAtHbC0TwL1HUJZE8ksWNztMFIQq8GicGZ4c>
+X-ME-Received: <xmr:qvTsaqUeysFi_XX4w4s2nWB7CNzSNOvbjtN069ZzkOdG9N1gQxGlIqj2tnisMLRi>
+X-ME-Proxy-Cause: dmFkZTEWTdBxq9vHdWNf+AUmNYF8/no6ggmE2LrE9JgdzXjmDerwoDlTfiChh1wZ/nsZ7l
+    /+2KTJUBeEvdvGC4qI/zbIzFTWUdqbEFor5cbGWIiVGtv1LcT77Ijyo7KbAgIy4Dqi/2vF
+    Ctv1Q0FPpPokKxec8exlaP3eV+oTSdRLT+nU12hCpQbKMzYvBn4oKOm4zUruwttghegw0q
+    naZ4PNDVXHisY7jSTlgfiMqlXHo4REQzmpCnHU+oMLd7ZJdIYENKDEZhHnK4TdU5zRr1cH
+    3DLpkoB+wk0tL/Epj+vBy2Psy4siMP94+VGUYCFGnBS4uWscc++HNjOiAcX7tdsmdAEbDq
+    d1RMMPpSr7e9OkpvUpvD8E62quw/hwMmVuoNr7/vQYqw4c9qDwTEgKUMNyjDbUp6LqOPif
+    pjefsgBbWCsfNrn9QqXArraFOX+F6nM1OoX3e3DEZtWmmccQJMJdDi2bEZ6dVsUj3daaoB
+    5BKEVl6EDW+9iGNLk12BdTwwXztPO7vRQbltTPKYA4Wzxmhr/GuJpqHPLCxpkx+9KrpFLL
+    ASDVXE5U943Gl6NEWkAHA3Jt6yAaulfDWSLaRhY632cccVqYe9iNTI2KeX8HoiealLeFTx
+    +anYFmYGi8x2qA9Et359eUJykrw2pwTN6aaiRErvHlsBEtQEkANiieEXKVaQ
+X-ME-Proxy: <xmx:qvTsapIqZ6OJz74zVW6CDc5MQJLAiVSixGKY67OPgpuXHpiqkmksbA>
+    <xmx:qvTsaiAh4qTC_DFKP8lYuJCIUAN6iHojPlAlUgVjmbkv-eSez0BHLA>
+    <xmx:qvTsaheQF7Uh9uoS13QKYAByANVSquPsibX5LKVoz7hzcDMk1E2HrA>
+    <xmx:qvTsap0zMY9D-XPp9sEtW6Ja7Qk3C9MQBwu4EU5Rsvi25cVKP0oAcQ>
+    <xmx:qvTsauMYrOLsAjECJIemieRvmF0fa3dVyhI_6YqaYxXzvyAFhPlKr2wM>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 16:27:05 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH 1/2] ksmbd: skip metadata-only opens in sharing checks
+Date: Thu,  5 Nov 2026 15:26:52 -0600
+Message-ID: <20261105212652.697079-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAKYAXd-a+UH4q65J9K4e=EscH7tkHC+eEu_HC_oEeVzBdi0Kog@mail.gmail.com>
+References: <20261104183702.192452-1-icb@fastmail.org> <20261104183702.192452-2-icb@fastmail.org> <CAKYAXd-a+UH4q65J9K4e=EscH7tkHC+eEu_HC_oEeVzBdi0Kog@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,262 +130,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v3 for-next 2/3] block: allow error injection rules to delay
- bios
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-doc@vger.kernel.org
-References: <20260928221634.43239-1-haris.iqbal@linux.dev>
- <20260928221634.43239-3-haris.iqbal@linux.dev>
- <20261020233441.GB1582237-mkhalfella@purestorage.com>
-Content-Language: en-US
-From: Haris Iqbal <haris.iqbal@linux.dev>
-In-Reply-To: <20261020233441.GB1582237-mkhalfella@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Namjae,
 
+You're right. With this patch a CREATE for READ_CONTROL with
+FILE_OVERWRITE or FILE_SUPERSEDE skips the sharing check, and
+smb2_open() then truncates the file. In your example, with an existing
+FILE_READ_DATA open at ShareAccess 0, the second CREATE for
+READ_CONTROL and FILE_OVERWRITE at ShareAccess 0 succeeds and the
+file's data is lost. A test that runs smb2_open() confirms it.
 
-On 10/21/26 01:34, Mohamed Khalfella wrote:
-> On Tue 2026-09-29 00:16:33 +0200, Md Haris Iqbal wrote:
->> Error injection can only fail a bio today. Add a delay_us option so that
->> a rule can hold a bio back first, to model a slow device.
->>
->> If a matching rule has delay_us set, the bio is held for that long. It is
->> then failed if the rule also has a status, or resubmitted otherwise.
->>
->> The resubmission is done through submit_bio_noacct_nocheck(), which is
->> where the injection hook sits. To avoid the same delay rule being applied
->> to it again, mark the bio with the BIO_ERROR_INJECTED flag before queueing
->> the work in blk_error_inject_delay(). This also prevents bios that are
->> split later and resubmitted from being evaluated for delay (or error
->> injection) again. __bio_clone() does not propagate the flag, so a clone a
->> stacking driver aims at a lower device is still evaluated.
->>
->> The bio is submitted from a workqueue rather than from the timer, because
->> submitting a bio can sleep. Bios with REQ_NOWAIT are never delayed, and
->> values above 600 seconds are rejected.
->>
->> Cc: Christoph Hellwig <hch@lst.de>
->> Assisted-by: Claude:claude-opus-5
->> Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
->> ---
->>   block/error-injection.c   | 160 ++++++++++++++++++++++++++++++++++----
->>   block/error-injection.h   |   1 +
->>   include/linux/blk_types.h |   1 +
->>   3 files changed, 147 insertions(+), 15 deletions(-)
->>
->> diff --git a/block/error-injection.c b/block/error-injection.c
->> index db543fe27630..a35fe41a43e4 100644
->> --- a/block/error-injection.c
->> +++ b/block/error-injection.c
->> @@ -6,9 +6,17 @@
->>   #include <linux/blkdev.h>
->>   #include <linux/parser.h>
->>   #include <linux/seq_file.h>
->> +#include <linux/workqueue.h>
->>   #include "blk.h"
->>   #include "error-injection.h"
->>   
->> +/*
->> + * Cap the delay so that a typo can't wedge a device for good.  This is still
->> + * well beyond the default hung task timeout, which is one of the things a
->> + * delay is useful for triggering.
->> + */
->> +#define BLK_ERROR_INJECT_MAX_DELAY_US	(600 * USEC_PER_SEC)
-> 
-> DEFAULT_HUNG_TASK_TIMEOUT is 120 seconds (set in lib/Kconfig.debug)
-> 
->> +
->>   struct blk_error_inject {
->>   	struct list_head		entry;
->>   	sector_t			start;
->> @@ -18,14 +26,104 @@ struct blk_error_inject {
->>   
->>   	/* only inject every 1 / chance times */
->>   	unsigned int			chance;
->> +
->> +	/* hold the bio for this long before submitting or failing it */
->> +	unsigned int			delay_us;
->> +};
->> +
->> +/*
->> + * A bio held by a delay rule.  It does not point back at the rule, so rules
->> + * can be removed while delayed bios are outstanding.  The submitter holds the
->> + * bdev open until the bio completes, so the disk and queue stay allocated.
->> + * A delayed bio holds no queue usage counter reference, so it does not hold
->> + * up a queue freeze either.
->> + */
->> +struct blk_error_inject_delay {
->> +	struct delayed_work		dwork;
->> +	struct bio			*bio;
->> +	blk_status_t			status;
->>   };
->>   
->> +static struct workqueue_struct *blk_error_inject_wq;
->> +
->>   DEFINE_STATIC_KEY_FALSE(blk_error_injection_enabled);
->>   
->> +static void blk_error_inject_delay_work(struct work_struct *work)
->> +{
->> +	struct blk_error_inject_delay *d = container_of(to_delayed_work(work),
->> +			struct blk_error_inject_delay, dwork);
->> +	struct bio *bio = d->bio;
->> +	struct gendisk *disk = bio->bi_bdev->bd_disk;
->> +	blk_status_t status = d->status;
->> +
->> +	kfree(d);
->> +
->> +	if (status != BLK_STS_OK) {
->> +		pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
->> +				disk->part0, blk_status_to_str(status),
->> +				blk_op_str(bio_op(bio)), bio->bi_iter.bi_sector,
->> +				bio_sectors(bio));
->> +		bio->bi_status = status;
->> +		bio_endio(bio);
->> +	} else {
->> +		/*
->> +		 * Resubmit.  The BIO_ERROR_INJECTED flag ensures that a bio
->> +		 * that was delayed once skips error injection entirely from
->> +		 * here on, including any other rule that covers it.
->> +		 */
->> +		submit_bio_noacct_nocheck(bio, false);
->> +	}
->> +}
->> +
->> +/*
->> + * Hand the bio to a workqueue that submits or fails it once the delay has
->> + * expired.  Both blk_mq_submit_bio() and ->submit_bio can sleep, so this can't
->> + * be completed from the timer itself.
->> + *
->> + * Returns false if the bio can't be delayed, in which case the caller handles
->> + * it immediately instead.
->> + */
->> +static bool blk_error_inject_delay(struct gendisk *disk, struct bio *bio,
->> +		blk_status_t status, unsigned int delay_us)
->> +{
->> +	struct blk_error_inject_delay *d;
->> +
->> +	/* never block a bio that asked not to be blocked */
->> +	if (bio->bi_opf & REQ_NOWAIT)
->> +		return false;
->> +
->> +	d = kmalloc_obj(*d, GFP_NOIO);
->> +	if (!d)
->> +		return false;
->> +
->> +	pr_info_ratelimited("%pg: delaying %s at sector %llu:%u by %uus\n",
->> +			disk->part0, blk_op_str(bio_op(bio)),
->> +			bio->bi_iter.bi_sector, bio_sectors(bio), delay_us);
->> +
->> +	d->bio = bio;
->> +	d->status = status;
->> +	INIT_DELAYED_WORK(&d->dwork, blk_error_inject_delay_work);
->> +
->> +	/*
->> +	 * Mark the bio before queueing the work, which can complete it as soon
->> +	 * as it is queued.  Splitting happens below the injection hook, but
->> +	 * bio_submit_split_bioset() resubmits the remainder through the hook
->> +	 * again, and as bio_split() only advances the original bio that
->> +	 * remainder still matches the same rule.  Without this a bio would be
->> +	 * delayed once per split.
->> +	 */
->> +	bio_set_flag(bio, BIO_ERROR_INJECTED);
->> +	queue_delayed_work(blk_error_inject_wq, &d->dwork,
->> +			usecs_to_jiffies(delay_us));
-> 
-> How about comparing the delay against sysctl_hung_task_timeout_secs in
-> order not to trigger hung task detector?
+I'll send a v2 that does what you suggest: the sharing check counts an
+open that truncates the file as holding FILE_WRITE_DATA, and the
+returned handle keeps the open's own access. An open of a directory or
+a named stream, or one for attributes only, gets O_TRUNC but is not
+truncated, so it is not counted.
 
-Hitting the hung task detector is intentional; it's one of the things I 
-imagine would be useful to test, which is why the cap is well above the 
-default timeout.
+A truncating open is already on the inode's open list before it
+truncates, so v2 also counts it as holding FILE_WRITE_DATA, for as long
+as it is open, when deciding whether a later open is checked against
+it. Patch 2 does not change.
 
-
-The block layer's own waiters (blk_wait_io, blk_io_schedule) already 
-avoid the detector, so it only fires for upper layers that wait 
-uninterruptibly, which is what such a test is after.
-
-> 
->> +	return true;
->> +}
->> +
->>   bool __blk_error_inject(struct bio *bio)
->>   {
->>   	struct gendisk *disk = bio->bi_bdev->bd_disk;
->>   	struct blk_error_inject *inj;
->> +	blk_status_t status = BLK_STS_OK;
->> +	unsigned int delay_us = 0;
->>   
->>   	rcu_read_lock();
->>   	list_for_each_entry_rcu(inj, &disk->error_injection_list, entry) {
->> @@ -45,29 +143,38 @@ bool __blk_error_inject(struct bio *bio)
->>   		if (inj->chance > 1 && (get_random_u32() % inj->chance) != 0)
->>   			continue;
->>   
->> -		pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
->> -				disk->part0, blk_status_to_str(inj->status),
->> -				blk_op_str(inj->op), bio->bi_iter.bi_sector,
->> -				bio_sectors(bio));
->> -		bio->bi_status = inj->status;
->> -		rcu_read_unlock();
->> -		bio_endio(bio);
->> -		return true;
->> +		status = inj->status;
->> +		delay_us = inj->delay_us;
->> +		break;
->>   	}
->>   	rcu_read_unlock();
->> -	return false;
->> +
->> +	if (delay_us && blk_error_inject_delay(disk, bio, status, delay_us))
->> +		return true;
->> +	if (status == BLK_STS_OK)
->> +		return false;
-> 
-> status == BLK_STS_OK is permitted only if delay_us != 0. It means we are
-> here because blk_error_inject_delay() failed to inject a delay?
-
-Yes, correct.
-
-> 
-> Also, in case delay injection fails, do we want to continue with error
-> injection? Or inject nothing and return false instead?
-
-I think there is no reason not to continue with error injection. The 
-user wanted to delay and then fail the bio. There isn't a strict rule to 
-execute both or none.
-
-> 
->> +
->> +	pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
->> +			disk->part0, blk_status_to_str(status),
->> +			blk_op_str(bio_op(bio)), bio->bi_iter.bi_sector,
->> +			bio_sectors(bio));
->> +	bio->bi_status = status;
->> +	bio_endio(bio);
->> +	return true;
->>   }
->>   
->>   static int error_inject_add(struct gendisk *disk, enum req_op op,
->>   		sector_t start, u64 nr_sectors, blk_status_t status,
->> -		unsigned int chance)
->> +		unsigned int chance, unsigned int delay_us)
->>   {
->>   	struct blk_error_inject *inj;
->>   	int error = -EINVAL;
->>   
->>   	if (op == REQ_OP_LAST)
->>   		return -EINVAL;
->> -	if (status == BLK_STS_OK)
->> +	if (status == BLK_STS_OK && !delay_us)
->> +		return -EINVAL;
->> +	if (delay_us > BLK_ERROR_INJECT_MAX_DELAY_US)
->>   		return -EINVAL;
-> 
-> This could also compare against sysctl_hung_task_timeout_secs and maybe
-> drop BLK_ERROR_INJECT_MAX_DELAY_US?
-
+Thanks,
+Ian
