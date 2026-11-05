@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851686;
-	b=kmMNyY6frVawAVh7VTuimKU6Eq+c5fdu0KwhOy3bPHmly9R+oxN4mQm/cOiCJeSWo5xY
-	 8jHiCuWx8nE441tgG3xLNwza0bDQOmqrNivbvvxGStkaSmSp2a+5h9dZJ/XLkYunkP75n
-	 f+rHieIjhdn35Mrr4vsYLighWOMZ2wYlNLp6O3+BQSA2NuSGoWa8hBNlJSSEn5ae7nd7X
-	 xfY5dskXh4a66LtvhWgGfRS5pCAuZ5tcIkyfKQnwsb0ek1tQcJT/gPlzpVRhRDftG8N+g
-	 /y2OFqa/Q2Xmnk7jza2SmjZpNZ76BEYHX3YZtMs2WzxlaJ+Irzvo34ulhODfkEoY7zg==
+	t=1793851694;
+	b=iwM7mpZBNusO1rjaO8wz/6w525KyMxXgHqSbql07KU86YhikSKNd97nxqtKdHk0g3ya9
+	 fpAit/WJQVt8cPHSwVKmi3Hk79jldT3FjHtXpBGRBBVnl1PhKcSRaUcUQBdyS0vc2WQbX
+	 Gf7MgjWt/YVAobxmHOVcJkgEBFhwjQjapNIKEw7PGnyxxFdvZ0RZHcONSFNQian/Fwibb
+	 gJ62EQP7fkeZD91mHR/i0sTXPjJTMSuz8eMHPqiMW76gFe7rC591/6nrXC1Gy8piG++tq
+	 cgHUPopYLfuswpH3inwMFQqPRdonex4U5judefnqhyw6exfQNj3C3gO90V4ZjJDSZ3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851686;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793851694;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=NDjRE08wBO6pV06Ou8hAMmC9xnZwvIAddVeS9T1njfA=;
-	b=uP+bShLXIBarKwDgjpbBSELoId/GpbDsw4HdmPsPpDUIsXjJNYB9T3n8NQVv0wyF4cvR
-	 xljkceBsEd8rn4jQOsiRTkU6VTpw7PDmYbthe8vUnB434tN+8OE/aDyyZBnJfNvEUfV+e
-	 eYjwWYdZvh3/jffKfBhk+wxUvpSdv3N1NoFHws7LZVXmF20WTbtkAkDz5su4tSCOXWikM
-	 R3IeBu+/JHzYHe92AYsUsPXeQ4sEK8KfbIisY6xeRakRPTY/PbU+4pC1zurIQJJZj9lOm
-	 /aYVcnf4BqttBj0ddkUyts/uekP0ksuPITvLnKzuq3qaQfZ3YcRpKDGsfhbz2nPIrww==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7GrZJSLMSTaY7SkaFZ0uijDSfH3F6ZTWMMqOxToPn0s=;
+	b=u4h+7BZmk6hpRm6pqShPSlexDjD8fjx9NJOgarB8S7UV2N+1SAJfNuMB9lW5o2VjL8dn
+	 yoz6+qR5AoVx8qlqhaJIqM40+YLkEJO1D8FU9ZEHbL4hgoEMKrL8VS7h8BFRxxgJ/0R/a
+	 jXV5saga6wL45MPG9bSAGZ8RhlCK+/4GOMzgi+oLahJv8TkivbeP4mJCSJO1LDre5XH7E
+	 CtjZltx5tjFfN2U7nJq9vLwXdBs7ywgQVxmYUUBoXjman6D/b/5Sg7Rb8i44Z85JDwALX
+	 7M4QRkDtBMvBEk4+I4NmryMbDKXS5BlBR8utCpYpgA9YTb7K1f5BU9NFXsVGsQd/T8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h6bzdrvm;
-	arc=none smtp.remote-ip=95.215.58.207
-Received: from mta1.migadu.com (out-207.mta1.migadu.com [95.215.58.207])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=epfnCIBm;
+	arc=none smtp.remote-ip=95.215.58.211
+Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16F2606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:08:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F16F2606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7713606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:08:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7713606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h6bzdrvm
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=epfnCIBm
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Dpp0QW6dxtIsgsNrKwbD1Rm5WJVVVno7NqsqAW1y3b8=;
+DKIM-Signature: a=rsa-sha256; bh=Alk5PnLb93phS/NG/b1nkAJfppoj1kE8R+vJuoaKDh0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793851681; v=1; x=1794456481;
- b=h6bzdrvm/Ur0kv8vbffG2xS34Jim0MONoZAaiSfCMoP9t+dVQz4zUTEF54fwZ78dSJvhBncK
- QIdn7FAGic2YhO2wZaXxdhx3ZqbPK0+wERxy7YPaxfOCfKjXiNeWsBIymcoOe4RTuTBlMSzNUrj
- TTs6TD25LbuPBJmaBEcVVKBw=
+ t=1793851691; v=1; x=1794456491;
+ b=epfnCIBmVysud4BWPuiYphnUHipz+x+hK5PFhSK0kbOjAhVRnBUISTQhTNnjqHTu90uAoC3z
+ 2I8LmQPXIfv825QP4NQrjTmuMnduc1ghTn9nyJ8IZZXUiTpq2xdxvImJh1jarrsFsKo3kTTmjAH
+ 6uz59nKYiczWuoihtWQ+CcZI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aab9737a8e26880c;
-	Thu, 05 Nov 2026 04:08:01 +0000
-X-Mizu-Trace-ID: aab9737a8e26880c
+Received: by smtp.migadu.com with ESMTPS id ed0532ae4a2af54b;
+	Thu, 05 Nov 2026 04:08:10 +0000
+X-Mizu-Trace-ID: ed0532ae4a2af54b
 X-Migadu-Flow: FLOW_OUT
 From: Qi Zheng <qi.zheng@linux.dev>
 To: muchun.song@linux.dev,
@@ -55,11 +56,14 @@ To: muchun.song@linux.dev,
 	lance.yang@linux.dev
 Cc: linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: [PATCH v2 0/4] mm: hugetlb: fix CMA-related issues
-Date: Thu,  5 Nov 2026 12:07:42 +0800
-Message-ID: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/4] x86: hugetlb: disable default CMA reservations on 32-bit kernel
+Date: Thu,  5 Nov 2026 12:07:43 +0800
+Message-ID: <ece5aebe95f6565046d17ffb738670feb3202943.1793850539.git.zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,48 +77,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Hi all,
+A 32-bit x86 kernel can run on a 64-bit-capable CPU advertising GBPAGES.
+arch_hugetlb_cma_order() checks only this feature and returns a nonzero
+order, although gigantic HugeTLB support on x86 requires CONFIG_X86_64.
+Specifying hugetlb_cma= can therefore reserve a CMA area that cannot
+serve the intended gigantic HugeTLB allocations.
 
-This series fixes four CMA-related issues in HugeTLB reservation,
-long-term pinning and allocation:
+On non-PAE kernels, the folded PUD_SHIFT yields a 4 MiB order, which is
+equal to MAX_PAGE_ORDER. With CONFIG_DEBUG_VM enabled, this triggers the
+VM_WARN_ON(order <= MAX_PAGE_ORDER) check in hugetlb_cma_reserve(),
+warning that hugetlb_cma is attempting to reserve a non-gigantic order.
 
- - Avoid ineffective CMA reservations on 32-bit x86 kernels running on
-   CPUs that advertise 1 GiB page support.
- - Allow long-term pins of explicitly CMA-allocated HugeTLB folios,
-   which already own their CMA bitmap ranges.
- - Preserve the caller's GFP mask when allocating from CMA.
- - Enforce cpuset restrictions on gigantic surplus allocations while
-   preserving memory policy semantics.
+Require CONFIG_X86_64 as well as GBPAGES when selecting the default CMA
+order to avoid these ineffective reservations.
 
-Changes in v2:
- - Replace the PF_MEMALLOC_PIN allocation restriction with a GUP exception
-   for HugeTLB folios marked HPG_cma. (suggested by Muchun Song)
- - Pass the caller's GFP mask through cma_alloc_frozen_compound() instead
-   of skipping CMA when direct reclaim is disallowed.
-   (suggested by sashiko)
- - Remove unnecessary revalidation of successfully allocated folios after
-   cpuset changes. Retry only failed allocations.
-   (pointed by Jose A. Perez de Azpillaga)
- - collect Reviewed-by and Acked-by.
- - Rebase onto next-20261104.
+Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+ arch/x86/mm/hugetlbpage.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Qi Zheng (4):
-  x86: hugetlb: disable default CMA reservations on 32-bit kernel
-  mm: gup: allow long-term pins of CMA-allocated HugeTLB folios
-  mm: hugetlb: fix GFP mask propagation to CMA
-  mm: hugetlb: fix cpuset violations in gigantic surplus allocations
-
- arch/x86/mm/hugetlbpage.c |  2 +-
- include/linux/cma.h       |  2 +-
- include/linux/mm.h        | 29 +----------------------------
- mm/cma.c                  |  4 ++--
- mm/gup.c                  | 31 +++++++++++++++++++++++++++++++
- mm/hugetlb.c              | 25 ++++++++++++++++++-------
- mm/hugetlb_cma.c          |  4 ++--
- 7 files changed, 56 insertions(+), 41 deletions(-)
-
-
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+diff --git a/arch/x86/mm/hugetlbpage.c b/arch/x86/mm/hugetlbpage.c
+index 3b26621c91286..70726a99ede7b 100644
+--- a/arch/x86/mm/hugetlbpage.c
++++ b/arch/x86/mm/hugetlbpage.c
+@@ -45,7 +45,7 @@ arch_initcall(gigantic_pages_init);
+ 
+ unsigned int __init arch_hugetlb_cma_order(void)
+ {
+-	if (boot_cpu_has(X86_FEATURE_GBPAGES))
++	if (IS_ENABLED(CONFIG_X86_64) && boot_cpu_has(X86_FEATURE_GBPAGES))
+ 		return PUD_SHIFT - PAGE_SHIFT;
+ 
+ 	return 0;
 -- 
 2.54.0
 
