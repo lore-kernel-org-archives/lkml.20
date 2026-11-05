@@ -1,53 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.146
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877906;
-	b=EENfEBp6ofT0cRnxCsAjZlgZKZsE+2v53rcJbFRNUlt2vDlnn55ShR5pzCsFPQJeaGld
-	 H9eCVVVNzxn9lWqxQ5zLoSBgJgfgDpKvIHDALK3xtsQUR56KVMeDOI6tEQKbb4im+bgj0
-	 WL/eZzWk5EK7CYVwZAMgQSrQ5UqajcJrwWsXEn7tv81+Wsw+1UWRAs6FQFe/VGNiarAb2
-	 8TNT8orYVhJq21OGXHossFqb7ZJC3uMGnr2uc1CipoDITbyvzuK+RpyEExCM3xDjtcm/S
-	 ZJJsEM/ejV74Uh6HrAOkrQzPd3OL9kcb+S/8W9b747fWxxNetlnj7z7NAadTAxIFzlQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877906;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
-	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=01DUIvb1IJuENO9EdWMmyv2FrnNG3AfV/+JsaWuI+qA=;
-	b=Uea4EteYAJ8rZlGTG2Aef4XJPo4/ofX1GboQcNHvwUzSvv8fPBduVgSKIUP/ORG1F+R5
-	 O8nJlXVQyTS/1qCZrYGgf2sIS6G/xnV/9eAs8QQpNTuviEchk3CzMN+HNG2iOw1DU9mW5
-	 hajl1gLdQta+4eSH6eCiPIU0MMyotMPhYFYk9DJabbnYthOsdduELq4kHYb6pWRiIElDd
-	 46OiCSs3xovI8M1T1PSk/j9BJC9pB7tENN0gcfv+R8YwvMYa2q+yW4ZeADhagjMG+g96g
-	 7VoZTPssvn5nhdFye3qE1Nj3xRNJOBzHyJcIbbbu8AiQG/LsLjYmxOql9FQacJiat7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.146
-Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com [115.124.28.146])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793877896;
+	b=NMKBLExJHecqUJHezBTxE9xXcS2xgoghUM7pSiV/iulYoNqDgBlr+xwmfeoMUicv0yrM
+	 MJSrbzg1AEWkpHRy1ho2rGXd5ocs2WBmpVQ9pO9gOHtqTfWHFXTYrp3p0hO7dkK1IOqZV
+	 pix0SLjI6J3LkMVfdPmMbfIcaVyDaEGOqp11l4WN97QPfpa6F817eVDkK541v0wcBkpWe
+	 FaVjWJ6XLf0UtmFwa/G+yUQnbOwhvP6k8ICUaLH7KpWvMV7UEwbQGRxcsK0OX9EdbimvO
+	 5bDXBV0q34Z7k84eI/CyhoObAy4lbXbMC3bBueRmnxaMsgsPDZ56N+O2fYagkAEuKNA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877896;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=HjqOLsC9Wph7UCiYV9mqAnewJ39Cf8CLpFtU3LV33mU=;
+	b=ClISKCzo/8eaV4UvHc2bpVIwPsdQoVJBqPpBpNzpSiqSpbbfmUiTnQkyTZGPx7VLxnaB
+	 zEfy7I8WtJcWpCq4kZ+frcs9puS2RfKtSzFEwmisrPMliyzMk/JWhb/j/kMlGKvtktS7f
+	 0o4K8UQxOPqYctDD4B8RtMwgDndpMtyqFPvvJGjXXnHhao6wV4a8+Q87mYQFvXZdNobnK
+	 uKY5mpREToWy9/KvCVJBOX7FLjR02nw272RrcglhcAsM2KNdUEHZNwZYxeEaadST8Hm5G
+	 QCcv8rCO6zzMxxdzPxx7ERhcTwpMITvjzHP+ImmElBqD+TxKnO0URajimXriUfMLkSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CCyRuxf0;
+	arc=fail smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91417606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:25:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91417606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0120184-0.00112337-0.986858;FP=1569355884121404667|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jxTdn7z_1793877889;
-Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jxTdn7z_1793877889 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 19:24:50 +0800
-Subject: Re: [PATCH] sched/fair: Distribute burst-woken tasks when rq depth
- reaches 3x average
-To: K Prateek Nayak <kprateek.nayak@amd.com>, mingo@redhat.com,
- peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com
-Cc: linux-kernel@vger.kernel.org
-References: <20261104091842.266273-1-likunyu@open-hieco.net>
- <7269c4e1-1e58-4600-bd01-94dc92e0f2b7@amd.com>
-From: Li kunyu <likunyu@open-hieco.net>
-Message-ID: <e81ddaea-6245-dc67-765b-c24f892e9a9f@open-hieco.net>
-Date: Thu, 5 Nov 2026 19:24:54 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41654606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:24:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41654606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CCyRuxf0
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4ced671398so269935166b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:24:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793877895; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SjTxwtrsqFdTbI1x6Yq2M6J89J7fvwsq03ZXVlyUylXJaMrB/W4EIEuTDpd1zkf5o2
+         kjfBRgFrADVvekzug6RMm4sg/s8o/cUN9Lt2avkktd2dV6gPrngTrseo6ApL3HgQMwEt
+         jQVBD8r54SB3cDalxU0Cug9PiBZjB7/zaFe/yfTaaEbTohBDEF7nug+02O6no0v1GD93
+         bMvzeldQ2RhYLHOuFiHWDpnTCY4h74HP2ciNFo2o4gAsFQYDe7jLXgoGJRM7HAduxlUd
+         On3VbWfu4RR2oerf+x9Bv3bUriu5aFUQ/m2LwYvmDk09VS165irnIjT/rObKliuz79gp
+         UPlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HjqOLsC9Wph7UCiYV9mqAnewJ39Cf8CLpFtU3LV33mU=;
+        fh=SYNg6iZ2r/cBJVG9iohnyCgiYFjFIawd18cAEvywM6Q=;
+        b=cTkn44izYwHMwJv39xloiHZCITfhn6KVfPBUsQ7HcD/Mqn16NTbDmJNBhLq5dK19wX
+         7Pli8Y+gduD7jCXZkUvys/L4tlcS3LUQz3mCwy+ptvHD6FM7vaohaNNxikYNRWSaER42
+         ahmOc5KDxv/ktgEKeKHSMcRT15o7XJLjy7HugSWnBbjFSytGEkNiFj1h48Q8efmdZJ6N
+         83IKa8IUrmpNuy6FT12T6Qr2a7KOsGyUtG6z6kyOHxyFzM7pqTRDvQZd4IwDsNKgTvrM
+         3G4I+ChotiKTMTLPBhkObXW0UHwACG8APL2fdmF2S13Miy1xHnEFhqJaka1/yj6vgy1g
+         YQ8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793877895; x=1794482695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HjqOLsC9Wph7UCiYV9mqAnewJ39Cf8CLpFtU3LV33mU=;
+        b=CCyRuxf0P6J6k8bWApFVRzmmmQ4a3nezFhlH23PgLEzGEftofIdTYht54rkMPSxqZ2
+         /N6dWyeLvZ3t5ckDi74aRNo2yvUplMuzeF87p+SrRLFswIheQK11EAMfgONQoUmsEnEe
+         ak3lTmUJPNYDs7n+W3y+FrnQqNLfaVlgsCS7/AoEJSXFGJS/uoo6dTu0piEUOcSwoNXy
+         qSQc4qOwI5/lBCfCziXhsnKcQriiZn1/LpLXFBVGVCBa5Nm1lMvs3nCLwfOv1t+ObDwv
+         66A1hJWg9khNx60mm6v/I6sK000uQTULOFdYaXulbZrAc/k9t8/TzBP4LYJIO4G33uyO
+         snLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793877895; x=1794482695;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HjqOLsC9Wph7UCiYV9mqAnewJ39Cf8CLpFtU3LV33mU=;
+        b=z2/BJROErwN825SZwV40V23n04eP1M8R2/N81/ZJbXmHVBBwAAmkpn4K3GDwnaVbzn
+         OvzIwCCywonBfbT70u6JfmFeus886UE0m5JjZt7c2jXO8HkNauudttdU74882pfCJEq7
+         ecf1EUEEjoWEaM52ch0y7fUWUNn3P1QP75UCtqUmNgltQftsvbABI0mlOdS1ARM0NtVg
+         7VJEVM/nKlrtDgWvBujTgHlYcTGAZlW45kAtoGejbhrz+ygDuNit1+lmWcdyREso91Ap
+         yY4hSrU+934Y0G2ury9bgEiCLt2em1n3YU3Vk9mbzYjG7rmMusCgsXCehA8D/80rkToH
+         ZQMg==
+X-Forwarded-Encrypted: i=1; AKwUvBze0wYwEMXdKRnZvvwMeSjJfwLHbfjBjE3dD42dF3aTiEoumuNTjLvEuezu1Lc8+55q5nYlOcoVcogzgcA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yidJvU04bDnAO3TFGm5FpTHP1a4KDBmB944ySpak2Bpu7oCjf
+	Mc21oN3C9pCBkR0a5fWy1+FscNNgidurbYs290ydEmE4uWO2Ee64YWcf8E3phd0S+vEbmTFBIGW
+	IYYRljsSPvXvDtCodx/u7TvIMXhzImmQ=
+X-Gm-Gg: AYBFou1i5mtQurR5JHecOlF6tcO4pkanHWB5sXjgBGbbZKEbKSqrn33zl8Nouiv2XOs
+	c5vPvk0SxuothSHhN0z5zshNaZhvMIy4g3vw8vfrH8rxB8j8DamZMbk3J/OUQ9bLBLhfsEpHOXP
+	070fJjG4jtlpnqq2x5rD8qkj2qrulaiuBlwDxHylg3PGOw31jrvHyVI2d/LcU6LYxOPdlljSMP4
+	Q/xoCa+DX1jkpkllmVFgCaMaZp6D7686vUWYzFeo1OifGC4hhPiw7QP4nbviUCsOT2ZV5La/wMp
+	0uduA21WgXmFWA2ETeePr5dRgvm2MA1afNos418Prn29FIVnJKLRGmhDiWuMSnJ94zCUg797x2/
+	Wgmp9mKesfHS6ENAl25Pgv4XM5wlrOk0GRm5oh/8MT8kEvUnKPGeiUa2HdzNpUd3gVgpXzVp3aX
+	y+dYHe2uwtM8SJlTZ5rPwK3aYbK1LR+ya0GYa8o5PPLHb7b9CLbYJA9iocPmw3/xO+QcLou3HbD
+	Yftz2c+cxypjUgwA0nvjXUBlxLBb1JaGbgrNlKGAOp98OrO8ZJFqyuApPPa9A==
+X-Received: by 2002:a17:907:6d20:b0:c46:75e7:25af with SMTP id
+ a640c23a62f3a-c4ca7a0dcb0mr1704269766b.11.1793877894389; Thu, 05 Nov 2026
+ 03:24:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,224 +106,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <7269c4e1-1e58-4600-bd01-94dc92e0f2b7@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1793876837.git.alx@kernel.org>
+In-Reply-To: <cover.1793876837.git.alx@kernel.org>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 5 Nov 2026 13:24:18 +0200
+X-Gm-Features: AclHuK8KWMbqNnaK7YSgn2BAcqklpjMSStieDr0-B_LC0DeuPxzb2lhrGJOckGM
+Message-ID: <CAHp75VdFH146fNhw1ysUbgCPbpv+K++kWvbyZxU=V7tDh0T88Q@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2] Add strprefix() and fix a bug with it
+To: Alejandro Colomar <alx@kernel.org>
+Cc: linux-hardening@vger.kernel.org, alx+linux-hardening@kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, 
+	Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Prateek,
+On Thu, Nov 5, 2026 at 1:13=E2=80=AFPM Alejandro Colomar <alx@kernel.org> w=
+rote:
+>
+> str_has_prefix() is based on sizes and lengths, which means it must
+> overload the valid length 0 to mean not found.  This is a typical
+> consequence of choosing to design an API around sizes and lengths, and
+> vanishes when moving to pointer-based similar APIs.
+>
+> This patch set adds strprefix(), deprecates str_has_prefix(), and uses
+> strprefix() in one place to fix a bug reported by Bartosz.
+>
+> We can later work on replacing the other uses of str_has_prefix(), which
+> might hide similar bugs.
+>
+> Testing
+> ~~~~~~~
+>
+> I've built this patch set with 'allmodconfig'.  I've not run the
+> resulting kernel, though.
 
-On 2026/11/5 11:44, K Prateek Nayak wrote:
-> On 11/4/2026 2:48 PM, Li kunyu wrote:
->> +/*
->> + * Check if a CPU's rq depth reaches 3x the system-wide average tracked
->> + * in root_domain (scaled by SCHED_CAPACITY_SCALE, floored at 1 task).
->> + */
->> +static inline bool rq_burst_overloaded(int cpu)
->> +{
->> +	struct rq *rq = cpu_rq(cpu);
->> +	unsigned long avg;
->> +
->> +	if (unlikely(!rq->rd))
->> +		return false;
->> +
->> +	avg = max_t(unsigned long, READ_ONCE(rq->rd->avg_nr_running),
->> +		    SCHED_CAPACITY_SCALE);
->> +
->> +	return (READ_ONCE(rq->nr_running) << SCHED_CAPACITY_SHIFT) >= avg * 3;
-> You can just store (avg * 3) >> SCHED_CAPACITY_SHIFT in rd and skip
-> this math all the time.
+No, all lib/ new code should be accompanied with new (Kunit) test
+cases. Update the respective lib/tests/* for that or if not yet
+converted to Kunit something in lib/*test*.c
 
-Thanks for pointing this out; this part has been updated in the new code.
-
->> +}
->> +
->> +static inline void reset_periodic_lb_interval(int cpu)
->> +{
->> +	struct sched_domain *sd;
->> +
->> +	/*
->> +	 * Only the most basic values are updated here to avoid excessive
->> +	 * cost.
->> +	 */
->> +	for_each_domain(cpu, sd) {
->> +		if (READ_ONCE(sd->balance_interval) > sd->min_interval)
->> +			WRITE_ONCE(sd->balance_interval, sd->min_interval);
-> Isn't 'sd->balance_interval' only stretched for LBF_ALL_PINNED cases?
-> Why does this make a difference?
-
-I don't quite understand this part. Should we remove the assignment to
-sd->balance_interval?
-
-Besides LBF_ALL_PINNED and active_balance, sd->balance_interval is also doubled
-in the out_balanced / out_all_pinned /out_one_pinned paths when the system was
-previously idle or balanced (if (sd->balance_interval < sd->max_interval)
-sd->balance_interval *= 2;).
-
-The assignment to sd->balance_interval has now been removed here, and the
-following code has been added:
-
-if (time_after(READ_ONCE(rq->next_balance), now))
-        WRITE_ONCE(rq->next_balance, now);
-
-The test results are quite good.
-
->> +	}
->> +}
->> +
->>  /*
->>   * select_task_rq_fair: Select target runqueue for the waking task in domains
->>   * that have the relevant SD flag set. In practice, this is SD_BALANCE_WAKE,
->> @@ -9972,11 +10004,19 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
->>  
->>  	/* Slow path */
->>  	if (unlikely(sd))
->> -		return sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
->> -
->> +		new_cpu = sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
->>  	/* Fast path */
->> -	if (wake_flags & WF_TTWU)
->> -		return select_idle_sibling(p, prev_cpu, new_cpu);
->> +	else if (wake_flags & WF_TTWU)
->> +		new_cpu = select_idle_sibling(p, prev_cpu, new_cpu);
-> Why even do select_idle_sibling() if you are not going to use that
-> data? Can't we check rq_burst_overloaded() beforehand?
-
-The code has already been placed at this location, as follows:
-
-@@ -9942,6 +9963,17 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu,
-int wake_flags)
-                want_affine = !wake_wide(p) && cpumask_test_cpu(cpu, p->cpus_ptr);
-        }
-
-+       target_rq = want_affine ? this_rq() : cpu_rq(prev_cpu);
-+       if (unlikely(rq_burst_overloaded(target_rq))) {
-+               int dist_cpu = cpumask_any_and_distribute(p->cpus_ptr,
-cpu_active_mask);
-+
-+               if (likely(dist_cpu < nr_cpumask_bits &&
-cpu_rq(dist_cpu)->nr_running <
-+                          target_rq->nr_running)) {
-+                       reset_periodic_lb_interval(dist_cpu);
-+                       return dist_cpu;
-+               }
-+       }
-+
-        for_each_domain(cpu, tmp) {
-
-
->> +
->> +	if (unlikely(rq_burst_overloaded(new_cpu))) {
->> +		int dist_cpu = cpumask_any_and_distribute(p->cpus_ptr, cpu_active_mask);
->> +
->> +		if (likely(dist_cpu < nr_cpumask_bits)) {
->> +			reset_periodic_lb_interval(new_cpu);
-> This runs for every successful selection? Is that right? Why?
-
-Here, the call has been updated to reset_periodic_lb_interval(dist_cpu);.
-
->> +			return dist_cpu;
->> +		}
->> +	}
->>  
->>  	return new_cpu;
->>  }
->> @@ -11685,6 +11725,7 @@ struct sg_lb_stats {
->>  struct sd_lb_stats {
->>  	struct sched_group *busiest;		/* Busiest group in this sd */
->>  	struct sched_group *local;		/* Local group in this sd */
->> +	unsigned long total_nr_running;		/* Sum of nr_running in this sd */
->>  	unsigned long total_load;		/* Total load of all groups in sd */
->>  	unsigned long total_capacity;		/* Total capacity of all groups in sd */
->>  	unsigned long avg_load;			/* Average load across all groups in sd */
->> @@ -12964,6 +13005,7 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
->>  		/* Now, start updating sd_lb_stats */
->>  		sds->total_load += sgs->group_load;
->>  		sds->total_capacity += sgs->group_capacity;
->> +		sds->total_nr_running += sgs->sum_nr_running;
->>  
->>  		sum_util += sgs->group_util;
->>  		sg = sg->next;
->> @@ -12982,11 +13024,31 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
->>  		env->fbq_type = fbq_classify_group(&sds->busiest_stat);
->>  
->>  	if (!env->sd->parent) {
-> On a large, busy system, load balancing at topmost domain is only
-> done once ever couple seconds and keeping the 'avg_nr_running' the
-> same for that long seems dodgy.
-> 
-> An overshoot shouldn't be worse than what it is now, and an
-> undershoot would at-least wait till 3 tasks on the CPU so it should
-> be fine?
-> 
->> +		unsigned int weight = env->sd->span_weight;
->> +
->>  		/* update overload indicator if we are at root domain */
->>  		set_rd_overloaded(env->dst_rq->rd, sg_overloaded);
->>  
->>  		/* Update over-utilization (tipping point, U >= 0) indicator */
->>  		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
->> +
->> +		/*
->> +		 * We update the average task count at the top-level (root)
->> +		 * domain, as this incurs the least overhead and comes
->> +		 * closest to the ideal scenario. The trade-off is that we
->> +		 * must accept some temporary data inaccuracy.
->> +		 */
->> +		if (weight) {
->> +			unsigned long cur_avg;
->> +			unsigned long old_avg;
->> +
->> +			cur_avg = (sds->total_nr_running << SCHED_CAPACITY_SHIFT) / weight;
->> +			old_avg = READ_ONCE(env->dst_rq->rd->avg_nr_running);
->> +			if (old_avg)
->> +				cur_avg = (old_avg * 7 + cur_avg) >> 3;
-> Is this an open-coded update_avg()?
-
-It has been changed to the following:
-
-+               if (weight) {
-+                       unsigned long thresh;
-+
-+                       thresh = max_t(unsigned long,
-+                                      (sds->total_nr_running * 3) / weight, 3);
-+
-+                       if (READ_ONCE(env->dst_rq->rd->overload_nr_threshold) !=
-thresh)
-+
-WRITE_ONCE(env->dst_rq->rd->overload_nr_threshold, thresh);
-+               }
-        } else if (sg_overutilized) {
-
->> +
->> +			WRITE_ONCE(env->dst_rq->rd->avg_nr_running, cur_avg);
-> Can you do this selectively when old_avg != new_avg?
-> 
-> Also since you compare it with,
-> 
-> 	READ_ONCE(rq->nr_running) << SCHED_CAPACITY_SHIFT
-> 
-> Checking if (cur_avg * 3) >> SCHED_CAPACITY_SHIFT has changed and caching that
-> would be better and save on computation during wakeup.
-> 
->> +		}
->>  	} else if (sg_overutilized) {
->>  		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
->>  	}
->> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
->> index e656c7059bf8..4147e043407c 100644
->> --- a/kernel/sched/sched.h
->> +++ b/kernel/sched/sched.h
->> @@ -1077,6 +1077,9 @@ struct root_domain {
->>  	cpumask_var_t		rto_mask;
->>  	struct cpupri		cpupri;
->>  
->> +	/* Scaled (SCHED_CAPACITY_SCALE) average per-CPU rq depth */
->> +	unsigned long		avg_nr_running;
->> +
->>  	/*
->>  	 * NULL-terminated list of performance domains intersecting with the
->>  	 * CPUs of the rd. Protected by RCU.
-
--- 
-thanks,
-kunyu
+--=20
+With Best Regards,
+Andy Shevchenko
