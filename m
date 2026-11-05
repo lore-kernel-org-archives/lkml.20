@@ -1,97 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904040;
-	b=3AfSVjLXJYaAgjOiFWWpU/6gr7+y2x6ut6sjKHM6kTJSEXMTbN2wS8tktoSndOtbhLm1
-	 5+gsVIOF3K/rIdMtOlH/Xp+hMlVaI+8j/Ha6wV/1V0SPSCml7BmL3phCIBZedM+Jauhhf
-	 JK3BljZ66kpAZ/gfIlgrhxm+SAnfiFnmsZkKrPVarXeWY81LUlMV/pYj9oM4OjvNOacYY
-	 lz+Lkvcft9G/88wpH0P8ZyeErUBBssyAikvWocsmiQwJ+AJrPUDi115TspKmeIvw3/N2A
-	 iIa5rATkAgxfGdBP7Yxmkg2SV3VKVGZC1EXtJo378B8sPb/oeLuxlL1WgAnxhzYTrzw==
+	t=1793904036;
+	b=sAsM2xiFbRM9xNoAk1R8Okl1TDypVbVuntcYefbM5kK6M6Rg+JTIG0HlFAPz3lETXXvb
+	 fh+3CQ+17eRfeWA9K/LLMlStj+GdT1IKbwHj/pQydCQ6Zu/UnBBc4sKw347yZ+o3MAt0k
+	 RUOc95wDtwFXoPAbWi7OzJVlSz0M0sp1xfYraI87IaAIrxxtBZks/C4LGei03Q3WQ9W/F
+	 aHzlbkboy3WPKdJTV4C1A8SyuJ4nHP1G3dP4JsRCfSwBj6eqsQizi2orE4kMAutln7J3D
+	 TQuLJ7VWHC7BG5a8mZwJhXzLAQPmTGH/3JeUYVSLe4OCR6r/ObNmbz71Zmt2KxGt4XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904040;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BW1nQsutnrZitd0IEzC284qt4pUoWTmeWnhpOQZQ17M=;
-	b=ntimhxa7ODFSt03mAMVqrCCWo6RMerbVD8vZSWioRh4ipl22dVj9ky7yWqzrZ997n6Pz
-	 a7/tY+JTjlKuhNDgOnODZ9on2z40l2CPfXb05jQiBoiCZ4Xj+a8mKN1bDPp5lHby/Qbif
-	 6xKUrcLTAEn5ealOLvw86ScE4PDTr4reFiSae1qeSpzZk0k6R+4lq9lB2FuCpX6zqg5lb
-	 CAEY9ZP/B6S+P1MA6p6VZtiCFHWJr0pEiQRffSuyAWkAiWGwTlubdCXr7F33bgajKIlkt
-	 zGTJip+UUGKfiysI80ut2xldIN5CENF9v1oqBgg4e9w/NMs0f7phqi/9pbLfYjj7ciA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904036;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=owaKlD8oLnDzryLHo6z1T1KNQuIMA+s07F6t1tORQy4=;
+	b=SuUBPU1jq2rnbmFmF4/oOb9SY7oXbWuRvrV6fU1oyCDWluCUaOj+SGysmSyMRT4Zp+VE
+	 zkgX7391Cl8v6GXfauICiyQR2WZV6m8JqXxIhKUUvo5nG7Y0JuP2YvmNfHrXmBOsKjcPO
+	 fgo+gflFNNx7OeM/2lQTrPc9ye+qbQaIXhUqq5cvVAPfY/uUsfW3VYaC5cwNG1GRWRe66
+	 65RMwH48N7UBFzUhzRm3aUFl3CBNVLHH5qIPP/sxb5EBOh3d9Plo61KlPZuazHjUo75dp
+	 7N3DvHroRcM2dzB55pHNBIC/l1y8NLlk8uyJGDLOrgM5WIuHZPkWmARUbBFfzC0mgsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xiFtTF+U;
-	arc=none smtp.remote-ip=91.218.175.95
-Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxNA6PQR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E10606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:40:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E10606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA024606D801;
+	Thu,  5 Nov 2026 18:40:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xiFtTF+U
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wz3IjU8MmdepamXobqBOtTMChOSj7PBIYvSm39xyfBE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793904038; v=1; x=1794508838;
- b=xiFtTF+Ui1yW1hheZjC/GYAEq7qkv2Pn/Ap+dIotL/UKmFuuwNaxgA3PGhI3gWuvk1j+kRDt
- 7UaK0xTSrhxeGop6VjjFG822+hZlOJmPTT9Jwf+C8kYCgXbyourH4IYuvppWPO35RAeLBzxJTf+
- ZN25/Xwwi/rO8Y9VuKrFZ0w0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 50c412d95539fb94;
-	Thu, 05 Nov 2026 18:40:37 +0000
-X-Mizu-Trace-ID: 50c412d95539fb94
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org
-Cc: chenhuacai@kernel.org,
-	ying.huang@linux.alibaba.com,
-	Baoquan He <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	Liam R. Howlett <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	lance.yang@linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxNA6PQR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808641F000C1;
+	Thu,  5 Nov 2026 18:40:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793904035;
+	bh=owaKlD8oLnDzryLHo6z1T1KNQuIMA+s07F6t1tORQy4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KxNA6PQRF/ooZDITVNYoeJsxh4blye8mGQicqkeLhnzx3sSR9Wpuy6bYC6WxhdRnI
+	 iLpDZjY5rLhESJYSNt29rrC7kK7yblLO1JI5Sm6IBTIL/415UWOM1iSivDbErdGXTa
+	 wsizeELBGl3kKFfJX3oDSrnVkaTG+NxvmuS4IP+I7WoWo98tJ6Pps3Jh3/zhte7fkF
+	 Vk8uVFUMewyZpRKHPH95MkQLSi9G1Md6TW0XR8mU9tpdMx4Y1toRDo5gCDApTTwcgf
+	 Bv7OGeNkDm+i3rvZHQgkImZZCjl6GPlSCf2nBo+s3nzgrzii4vn9/rHly0leinzsMW
+	 gmoF4aZHXHRLQ==
+From: Conor Dooley <conor@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Wentao Liang <vulab@iscas.ac.cn>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Yixun Lan <dlan@kernel.org>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	linux-s390@vger.kernel.org
-Subject: [PATCH v9 06/32] s390: mm: add PMD swap-exclusive helpers
-Date: Thu,  5 Nov 2026 10:38:50 -0800
-Message-ID: <20261105183940.2236717-7-usama.arif@linux.dev>
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH] soc: microchip: mpfs-sys-controller: put the flash device reference
+Date: Thu,  5 Nov 2026 18:39:44 +0000
+Message-ID: <179390394386.1477457.365561090513206596.b4-ty@microchip.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105183940.2236717-1-usama.arif@linux.dev>
-References: <20261105183940.2236717-1-usama.arif@linux.dev>
+In-Reply-To: <20261104021435.1468301-1-vulab@iscas.ac.cn>
+References: <20261104021435.1468301-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,80 +78,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=646; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=ie3smbEtm3ecVbEoJiIqxoXtQG2xYonjbXDjOLJfKXU=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFlvzuZ+nl7jcuvbt2/TOHL3dQb35l1MTy9QvmnGrTGFQ XCqkUBNRykLgxgXg6yYIkvi7b4WqfV/XHY497yFmcPKBDKEgYtTACZyX5WR4ZjG0biI+Hv6ERf6 NQyTq2+J/rpqOW/TFlkXk2NG9pc2nmRk2MIlmZt3oZfx+xMzKWWR4JgCXUPxnwKu5hWKVw8r7J7 PAAA=
+X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
-Prepare for keeping a PMD-mapped anonymous THP mapped by a PMD across the
-swap round-trip, which makes PG_anon_exclusive have to survive in a swap
-PMD and not just in a swap PTE.
+From: Conor Dooley <conor.dooley@microchip.com>
 
-s390 is the one architecture where a swap PMD is not a swap PTE in
-disguise: it is an RSTE with its own layout, converted to a fake PTE swap
-entry for the common code. Give it its own exclusive bit rather than
-borrowing the PTE-format macro, and document it in the RSTE swap layout,
-where bit 52 was listed as unused.
+On Wed, 04 Nov 2026 02:14:35 +0000, Wentao Liang wrote:
+> of_get_mtd_device_by_node() returns an mtd_info with a reference taken
+> on the MTD device, which is stored in sys_controller->flash.  The
+> reference is never released, neither when the last sys_controller user
+> goes away nor on the probe error path that frees a freshly allocated
+> controller without initialising the kref.
+> 
+> Balance it with put_mtd_device() in both places.
+> 
+> [...]
 
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- arch/s390/include/asm/pgtable.h | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+Applied to riscv-soc-fixes, thanks!
 
-diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
-index 2d5c2ab06de98..2c6b5205ee3bc 100644
---- a/arch/s390/include/asm/pgtable.h
-+++ b/arch/s390/include/asm/pgtable.h
-@@ -333,6 +333,7 @@ void setup_protection_map(void);
- /* Common bits in region and segment table entries, for swap entries */
- #define _RST_ENTRY_COMM		0x0010	/* Common-Region/Segment, marks swap entry */
- #define _RST_ENTRY_INVALID	0x0020	/* invalid region/segment table entry */
-+#define _RST_ENTRY_SWP_EXCLUSIVE 0x0800	/* SW exclusive swap bit, see mk_swap_rste() */
- 
- #define _CRST_ENTRIES	2048	/* number of region/segment table entries */
- #define _PAGE_ENTRIES	256	/* number of page table entries	*/
-@@ -893,6 +894,21 @@ static inline pmd_t pmd_clear_soft_dirty(pmd_t pmd)
- }
- 
- #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-+static inline bool pmd_swp_exclusive(pmd_t pmd)
-+{
-+	return pmd_val(pmd) & _RST_ENTRY_SWP_EXCLUSIVE;
-+}
-+
-+static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
-+{
-+	return set_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
-+}
-+
-+static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
-+{
-+	return clear_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
-+}
-+
- #define pmd_swp_soft_dirty(pmd)		pmd_soft_dirty(pmd)
- #define pmd_swp_mksoft_dirty(pmd)	pmd_mksoft_dirty(pmd)
- #define pmd_swp_clear_soft_dirty(pmd)	pmd_clear_soft_dirty(pmd)
-@@ -1900,15 +1916,15 @@ static inline swp_entry_t __swp_entry(unsigned long type, unsigned long offset)
-  * Bits 59 and 63 are used to indicate the swap entry. Bit 58 marks the rste
-  * as invalid.
-  * A swap entry is indicated by bit pattern (rste & 0x011) == 0x010
-- * |			  offset			|Xtype |11TT|S0|
-+ * |			  offset			|Etype |11TT|S0|
-  * |0000000000111111111122222222223333333333444444444455|555555|5566|66|
-  * |0123456789012345678901234567890123456789012345678901|234567|8901|23|
-  *
-  * Bits 0-51 store the offset.
-+ * Bit 52 (E) is used to remember PG_anon_exclusive (_RST_ENTRY_SWP_EXCLUSIVE).
-  * Bits 53-57 store the type.
-  * Bit 62 (S) is used for softdirty tracking.
-  * Bits 60-61 (TT) indicate the table type: 0x01 for REGION3 and 0x00 for SEGMENT.
-- * Bit 52 (X) is unused.
-  */
- 
- #define __SWP_OFFSET_MASK_RSTE	((1UL << 52) - 1)
--- 
-2.53.0-Meta
+[1/1] soc: microchip: mpfs-sys-controller: put the flash device reference
+      https://git.kernel.org/conor/c/6fdd47bf3736
 
+Thanks,
+Conor.
