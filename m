@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872356;
-	b=R6ZG4RWGHIihiMRS7LmAjvNQr0ghPSu1x+zrJaaEfKR80wO/jObq9K2VeN79J3P7FVkc
-	 wlGZslcSXT3w/76d3zOrlQLCxchbSomRsy6uh88QNjxEuR8DJHk1MMJkGozSZRn/0cUMM
-	 AsdAgNs2Oy7PNrwkPt6C+GVvlyq+dKZ7cxmMdjEfyQSREC0qUAHpHHfB7jTuZZsgqUvpr
-	 NY47S1RvDxgzwGNMEwBOW70mh3DGeLVNUQEAAriHaU7jTSGnQr3mU55FYvc91sDmiQE8G
-	 uDxLHQ8fLAQZWvMuXQOZ0J93ZMP+BrIs7+8OKTPDpaNNlhpexBG0U6nJEGQXbaM3RbQ==
+	t=1793872387;
+	b=jZZeC2JheZcpmN0GR94z9KhxQmNCvLLpyechlQ9dUlepal2f7PjYYOtexbdu1QRP2j3d
+	 1Y50oBfuj9P1vQ0/cNON4bXVuoLp/GoZ6AymA28+0nm3PO06wPvynAoI21BqT1FJRUUYz
+	 icbJDOv1aAenW1GFs46WEOGk2+4vUMxWgecZ6+R42Zo8ZBIN5f7j2sYOb3ufd2F2TewEK
+	 mYNXz3HzdM5kiU88sZ7yDs2tVlHZtjPLyn2QIP5DCDdBIDxgx7kLYsyBVKX9vGZPMMmWm
+	 Lh24tvN2/dQ4p3uMMuLh2Xh98OsgroARrmmPwdiHbjuoKd5zj6mWybFjWfdmQsceiqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872356;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=SqrTjgENN7Dfs+HehxbKPgACeb32UvvfMAFijNHd6N4=;
-	b=r0sFFaXKKvZt68QsVEkDthP6HJd2vH5Zy41960zZ4V11vL3R/0V6sE6ePg1y4sShNpve
-	 jEqzZLq0nEzhVGG3t3YiVgWZv2B0jdnbTzh/bfn/iN3aMv5ghGhYZ8Zu0mAWGcCjIaHzG
-	 Di6owz5cT/ovnRJiVQou3njiP5QAeXhsPAMAF0I/Tp1z6sq5Ytr7sPMzQaNMQnXGaAloY
-	 qIAGv9Gw84nYHgFEqKq9wJKe2JpfOfdSzD4W2LM9HmsPUkNbuvFqmKlPjY67R4Dr7jlFL
-	 SXLOhui98Il6GZbrvFJ7iYKV3hXo/9ayCwccEGO96huQCcAJz+2BZxtuantEveh22qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872387;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=akx74pP0EqF+1pksOPbSGjk6x7dhXiLrhRaRT4PeLV0=;
+	b=UbnroLvMJ6PrOCJa+5/ELMezTwkTJ0KP5BO9PZh6d+L/Xpuy7VBNbIuIJDKjAcDW6MuK
+	 7Zxz+PA7Zdmdl4ZrNIrwyZtTmjTHOUd2KpJPbqYFhOPpPbxZmmHCZDu/XEZsHz8LtccaV
+	 Tur0ZFPtYuIf1HoJP5WGSB9koJa6gTY25Id59kJZeP/dmzXO+HL9XvXAXvupxB3XCatE+
+	 f1HSVgou3HMYTOUtgdUggRYyPeYC9YdNQG5giY5zSXdP7GkQzGyOnsy6CbHgyt9IXMYik
+	 vhSyfiCRO4g5ZpX5P81KP+twvfzLqIhK/zlqHcFaL61Hqv0nn0Z6MFLBFwFKfR8qEPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=rlFCPpNF;
+	arc=none smtp.remote-ip=115.124.30.97
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA479606A33B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:52:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA479606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53c4b82919fso21014951cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:52:35 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793872355; x=1794477155;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SqrTjgENN7Dfs+HehxbKPgACeb32UvvfMAFijNHd6N4=;
-        b=1a8VMWsti9zxjnOSZzAxopYJZIVkW9F4L7GAAJjlS1zWyt6jY0EzhBqAVdeVMZ8SY3
-         JS3x1ilpiYzeMCJ3KYCnkXj/DEkRBR0+jXXpChTNK3PGSgEsmmuX9XgzVMD3Z5cdDZgB
-         EfuNwNV6eraxqh/INZUDDP24P+TujXMTlqPJ7Jxr9b5q5g94z0Fe5YFcR/YHn4PdYM7a
-         xWmq2E5g4wsY/hRC5D8Kw3wYsswlhpAZBqgGv7u+wIGuyC6GRjvKR5GL5mG7ikEx7w7c
-         Axk7Y097A3wJH4Ra1BvUTPWJtRMB51FPezE37rkyQOtMcikTmRAS0VdfUHwG99b2fl0j
-         o+4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwbCZSNPDuiY+YONPSkMRMFQqU8FpU1GelBRLW/A5W4ylDyMR6OPpebLnySVqHK+4YmZ59iokq+kEAwKpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NGNBXJvKcA5QLcYFGq9tUM69NsRAfwz+9B+9vd9gf/c0ZS4/l
-	xqaesk27gN/P5+9zf0lgLDUaUX68zqEMDSeOYPJQJXyfLe5eqAqgFew2z++TfCQdol4=
-X-Gm-Gg: AYBFou2Ciq9BRzsr+8kJtky1JBX5+GUEiHeqm8FyWWkxA4JdOo3cgnzWJwXomGRkcnj
-	xB0ThA9ALcSEM3zdYbjjq0hXl/qDgjUCxVDjGMacw5zCj7Wv3XTIMUeqxqS2fu7PFvFEOLPEfFu
-	onnQjaGH7y7ktyfUCdYV8gYhreFTZ5PjdW1KnVkr+wLxAq0K+K/XCryP0cv5WQhmPY7uWTB3gvX
-	iCyL4AaPPkXuAfcbKMPh5woJc9LGV01Rt53Nw5KKqPtMZaua36aXKoqbRPIv59zg0vs+8UnYjAV
-	fG4OQHDwCgWqr3Dg2JPV5wPHYnxA+UzP7ZHGC0TW9INHsR6VOy+UrS81u8opaYFUzw79sbuOoPB
-	5BW2m926paCMts/wYaGbUtJRiV9KCiJ2jho+XM0ysd0S1Z5LnPt7HdkIzVLa4qR1jWBpe4XYl/v
-	U1TswVGwSKGMx4EJkjpLcHv1ZSUk9aOUCdO8sFUouakzsPYrZUrSgVN5wkoDLZO8DlxDIalbE7V
-	B/OEAuKHOS9W3KYOLJ9T+uuBa29Ddkt6RWpyRc9QwduYeuh9MSIR++60BwLZMHUxmvxzKnKlvJV
-	Z5VJM6BacJBCaEGedLKdIRv8e32Ugj5AJkFrh4k2zfMMMoaSlMY6oAThrwLEN+ygXL6i0tModKx
-	zQ0QK26bUm4JZNM8=
-X-Received: by 2002:a05:622a:8b08:b0:536:699d:9a22 with SMTP id d75a77b69052e-542b7916fe8mr306410541cf.57.1793872354656;
-        Thu, 05 Nov 2026 01:52:34 -0800 (PST)
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com. [209.85.160.172])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b36cc3c68sm44019801cf.24.2026.11.05.01.52.34
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:52:34 -0800 (PST)
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53653e30353so21940121cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:52:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz1AQ2gl3tNBiLUoIWpiggYxA1v/pjVuSF6nzPM0e04aj11EvevlX4j3sXsm2v60u4QCe4iFYotktxaYeQ=@vger.kernel.org
-X-Received: by 2002:a05:6102:3ec5:b0:7cc:2bb7:131d with SMTP id
- ada2fe7eead31-7d072baa484mr7324212137.9.1793871885062; Thu, 05 Nov 2026
- 01:44:45 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B31606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17B31606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=rlFCPpNF
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793872384; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=akx74pP0EqF+1pksOPbSGjk6x7dhXiLrhRaRT4PeLV0=;
+	b=rlFCPpNFJnW4yIijtLQ93A+kO+Q8GVlqs3F/7O2syHR0kuwKKP2zXyhFVisfu7qyUFK0bIQIy72E8GuKN8dIffZGYy3GB3XBLNUgZMsIlki56c9bbkKiKDX0kk1kPICmZsq9uuUwOR02t0Y7SG7SFhmOSWtEFFzb3Hof/CeTm5A=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R811e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=tongweilin@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XE8JNsC_1793872384;
+Received: from x31l07246.sqa.na131.tbsite.net(mailfrom:tongweilin@linux.alibaba.com fp:SMTPD_---0XE8JNsC_1793872384 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 17:53:04 +0800
+From: Weilin Tong <tongweilin@linux.alibaba.com>
+To: catalin.marinas@arm.com,
+	akpm@linux-foundation.org
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] mm: kmemleak: serialize disable-time cleanup
+Date: Thu,  5 Nov 2026 17:52:49 +0800
+Message-ID: <149d93f2cfe20d355f4d9882ce2bf99030217772.1793871596.git.tongweilin@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <cover.1793871596.git.tongweilin@linux.alibaba.com>
+References: <cover.1793871596.git.tongweilin@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,61 +62,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org> <20261104-work-procfs-bugfixes-v2-10-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-10-021c84d852e0@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 5 Nov 2026 10:44:33 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUy1RYKG0g8OWss3AD-jyYx3DXL0K7ABYkFUdxTxZ9VdQ@mail.gmail.com>
-X-Gm-Features: AclHuK9D-nB8icBns0zdoQH8fV1cfUPJ6LOey8o_VlUZpDIGqKC4cFf8-j5-HdE
-Message-ID: <CAMuHMdUy1RYKG0g8OWss3AD-jyYx3DXL0K7ABYkFUdxTxZ9VdQ@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 10/51] zorro: size the proc files like what they serve
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, 
-	Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
-	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
-	kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
-	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
-	samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
-	linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 4 Nov 2026 at 20:18, Christian Brauner <brauner@kernel.org> wrote:
-> The files under /proc/bus/zorro hand out a struct ConfigDev and seek
-> within that, but their size says sizeof(struct zorro_dev). Say
-> sizeof(struct ConfigDev).
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+kmemleak_do_cleanup() drops scan_mutex before removing tracked objects
+without kmemleak_lock. A concurrent clear command can therefore start
+another cleanup while the background cleanup is still running.
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Keep scan_mutex held until the background cleanup completes, serializing
+its lockless removals with explicit clearing and report readers.
 
-Gr{oetje,eeting}s,
+Fixes: 2abd839aa7e6 ("kmemleak: Do not corrupt the object_list during clean-up")
+Assisted-by: LLM
+Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
+---
+ mm/kmemleak.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+index 20c0eb41c..d959d11f6 100644
+--- a/mm/kmemleak.c
++++ b/mm/kmemleak.c
+@@ -2507,12 +2507,13 @@ static void kmemleak_do_cleanup(struct work_struct *work)
+ 	 * function.
+ 	 */
+ 	kmemleak_free_enabled = 0;
+-	mutex_unlock(&scan_mutex);
+ 
++	/* Serialize the lockless cleanup with report readers. */
+ 	if (!kmemleak_found_leaks)
+ 		__kmemleak_do_cleanup();
+ 	else
+ 		pr_info("Kmemleak disabled without freeing internal data. Reclaim the memory with \"echo clear > /sys/kernel/debug/kmemleak\".\n");
++	mutex_unlock(&scan_mutex);
+ }
+ 
+ static DECLARE_WORK(cleanup_work, kmemleak_do_cleanup);
