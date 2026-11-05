@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896914;
-	b=RQTfSxbrvTiYFrEji+czZ0IzUP15fPjsPnaKw+Rwq6jg+8o4ZwB3KUW1bBLtl5vJzVFV
-	 AUs9lynGYCpWVhsuSlga8kvBIki1Pr+MI2J/oeFCedNc8VrXFN459gX9ny/EgpXwkqTs6
-	 cKjbU4gfNKodf2lFtM7fXWkpPtwF5kGwuFmxXOOa7bYwsjggaZYwdvIf+5y/k5yj1UFbg
-	 uR3YxrW3j4Zo6PP6OytUuhNY1FKD4JKWCqpbncNd3lD4C5D8LJuruuKQwPvb/dI1pYjZQ
-	 4SKys7r6rOxzPtOg5a2aKP1M5S/uAIvUEP4zxn0awBlfyXutcQ7OdgwTzGI7pAlijYg==
+	t=1793896920;
+	b=D6byKhQJ2zpldf4/pZ/afOsVsQd16IvahksjgACYgt71YE2gxY2OMwe3ktEcu/TXBgAG
+	 jLnUeZ75Yhyuv/FKKs2m8+DQKnKH9bIZQ/1SE6c28l1Qmq/631je/atVSbaIke+Vcs1Z/
+	 6EmrOZN+ymGp/sAO7pkPuzlMh3u/ScKN/g2n/EhM0dUo4cg5PjJVT9FYaZ6kSSR/17Qgf
+	 t41CWYraHXV7+sPciBXteqNejuF1fOfcXBE6kNCvbJh71eAdRXY3iM+n+ZVF8LvJU8SU3
+	 TX3jq4Fxa9Go23PPYEfrE3M8TUoRU3Ul7mTADHwiYnvpYvIp+BYglfdkky/zcs7sciQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896914;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CGnWePpyPMsAtnOcvft0hZlNgPpJQ2/+v2kIeYn4WwA=;
-	b=PyXjY3VvS3RClVJjdxKEu9a4l5bKhj41b+AZ4BHxx4PvAg8GPWrkx1FWrP4rO8S2VCBN
-	 t4Y1PIZsZNwwcIaGOvRUbyfOAegTFYmjjsY2U9qFtJy8TID5/U9zWmK6i7SF5EN4RTYDV
-	 bzANjOxGgUUxJGMJqlDBkGMNk/MnsvZfySCfnhUWeCk0ldG7iYklgU6Cr/Uvvvuit8A93
-	 nfL5uvrRJf59X0LOmAECpBlr4DWTDP4Rfg7sZ76zeYsBgAtDdLyCPiEOx/IqciI5gjb8a
-	 UIu/hPJ1U1EShyibWVTbVHeyZuwmPBWUxMJ/5KpbEmvgNtblPRxYsZJfoBFzSb5LlZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896920;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hsr2BExTjVN6kFMut7DQ/MQ40pCbdd25UZGMKxUI80g=;
+	b=YIFJShKs3gx+olsv1EVSzMnf3cj3gT7NMmnhUzsHTzZ65ezdIMHd7Fmwio4BdL/ZS/uI
+	 8T9N+CVNbpIWUgd71o3P/IVEZgI+DVqPj6RQpSdGzcaVwhere9rkyycTcuoJofwYchFr2
+	 lF8kYKIjq2s12MxiQ69SsmweR5kNPi7OxtaDRUppBxXqgm6WT13NRtfRmb5+1MLBKH0Yx
+	 A+rTP7Kl/AMiwS0LbgdSB6j5e19De+xcCKG8gmg2fmW92jaYj3wjam2uQs0YnVowU3RiZ
+	 CJYQY7a4crndAG9KBGisXYPz6yXQFxap/3uHCdi46wzfbHB5piSVHWg9GOL6+VFJI7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=no0aY5X5;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDZGjgOK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7FE606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A7FE606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB7B606A328;
+	Thu,  5 Nov 2026 16:42:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=no0aY5X5
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35c76e9614aso2815093eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:41:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793896913; x=1794501713; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CGnWePpyPMsAtnOcvft0hZlNgPpJQ2/+v2kIeYn4WwA=;
-        b=no0aY5X55RXK2D+LpR4DqxRgaWQVogdW+onGhZ2/qFfyrpRdBcB/ffaNG/7MwBYt6E
-         SBrIBGwfk2HjQqTl90js8wRgIz3t0PH270o1oGqotwNE4i91c3kBkBvM3vOU6ctzzxuy
-         Q4EPqjH+Mx/5uAR7B++FAzbfaqe9hqXaMVkQcuCcXrd/PDI96kIlqqGJN2OMB5YOwBAL
-         6EgF2n+SAUhIWuzJVivQI4fI4fxpIv3bZK+SQ670T4tVID88iSd9N0zruERMenDVDsG3
-         0YqsOm4nCny39+00ivG1i2OJ89DLPI3JH5kndooU4fwNWA9gIW/3cvRjM2mc4Hj0H6UO
-         iO4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793896913; x=1794501713;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CGnWePpyPMsAtnOcvft0hZlNgPpJQ2/+v2kIeYn4WwA=;
-        b=HcNMqMJFHCKAM3K3AAUnjwv53VYnrZGj3Gucar3YxfO1AZPx1HRiv4Lofcsi4sfQAx
-         M5m3Ptcs1QS4teOsl5OyLx8PTU9K/T/KS57f7r/gIT6XeWdMBoIJi9RgbWXaU1idcJzG
-         JAJovI3px0QiLiLJXHMfzsAKQ6/9qd+gywCXaUOCF4zsHddsYikTaB0ULMw6t31cvyq1
-         yDc7WLGD5Gy4n6QrGk9COB/qeiOpyj8SrD7CggvvQJb7K6hHEeCfeVG30XoEtyH1t1T4
-         KGVAUTU57jMx2zJwj/PDlzyBx8+5wcw9zZhUd1e3LmSv/srP+U/XKkjRJm0S/waySszp
-         kYdw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIpb83PfbZbkDbyWby0ay4IgjAmjVJ+vClsBnj/6an1yKHnsfWcP8SxbQYoOhMbVlHKs9cz8TovwS5k98=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ydNgSovEK3a34KKONxZFn9ekhqKXMRncbJG7iXpzCT2PWXUtx
-	kkxlMSbIlyEOzGjMzM/Jt7SUQPjHfdAd2/iS2ILJhNvwOKHYxy6+094F
-X-Gm-Gg: AYBFou2l6kJKeIsdqsHUUh6FYYW0QjpHksbH7jIu4RYJrwXE+ZJWkFCUNCFzZptQO2Q
-	UllNN55talO1hSS/FEOUeX4v9xJ1yygZytKn+5FOB2vQCK986uDuHUKsjzrXeGaZjVizRpctwWK
-	Rh8OxKpLdxB0/BUNScybKx/3arHHl8L8ONiCSLfmmhYiCmwCxpCpHvsp62sG5pYvhPx7BP9ivba
-	CM6XAMfLBmYDm/Ep2jKDZDBhaI2JqzoYE2YTkWi0D+mxs0K8Ggvf5cfXVZJMN1D0ZnV7Cq8ZN1Z
-	+xSXDlvdRwLhpr4ryvwBms9ONm/1uj7eRyr3f3RO6i7T455MPz+XP6sGXGifgT7ut0mwDxxtVOT
-	9d2T6f7lc15L6iOcOFeLMsU/A6vrhQHQ+pW6mFBT6FqRKsrtInaVmcWw49LI9qwUp/UWkzDXxrN
-	bWdb5yjyYxbGY1PrTo+wBsIm5lapsxDT2gFS61O2A0r55vbgL7Q8wHvZfBYE+XPCMrDgE7GWyoO
-	SWHo5nfEi3avLBdAWWWVoDlPG3fJNQBIdBxGSNXPkzhf3Afbfw6p1eh3bZ/1M4pfepPfXZFF3rN
-	0kHYBHrZ0nAacLSL27mwtqMUUIdcugMX+OJDE13KYv6EmEgfcFybP3WqHGd8TX35H8+eDg==
-X-Received: by 2002:a05:7300:ea06:b0:36d:38c1:71c8 with SMTP id 5a478bee46e88-36d38c179f4mr5919822eec.11.1793896913063;
-        Thu, 05 Nov 2026 08:41:53 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3958747sm7844298eec.22.2026.11.05.08.41.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:41:52 -0800 (PST)
-Date: Thu, 5 Nov 2026 08:41:49 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-Subject: Re: [PATCH] regulator: arizona-ldo1: Fix double gpiod_put() on
- enable GPIO
-Message-ID: <auyxtliL5Nx-dJw1@google.com>
-References: <20261104-arizona-ldo1-gpiod-fix-v1-1-5b3c02d8a4d0@gmail.com>
- <auxUGE+zPcnAR49k@opensource.cirrus.com>
- <auxViNgjGPRdpfa2@opensource.cirrus.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDZGjgOK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2289D1F0093A;
+	Thu,  5 Nov 2026 16:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793896919;
+	bh=hsr2BExTjVN6kFMut7DQ/MQ40pCbdd25UZGMKxUI80g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RDZGjgOKEoJz2HySG7SipgNVDjdCNZ7ynnV2fAfQ7h1VIOiWVlBzHdHAHGccUWSLZ
+	 fgxrD9GbdWwoorykWcKl0Pi0qr0vGuFd6JuM+kB5DxRD7HAT1mVDgGEtwBXCS0A5fF
+	 2kjlvTbx04e4/sxscugvGst9cqtOweD8E2FQTwqtCmHLdwoMtOsGsdx7NbnXW/PpdS
+	 VtPFMo12aTLXCyXPB75ULl3Kdm4yK1zb18MkfviGm8dLDpNEgwbBHfGtdat+qMohTQ
+	 ARAf+Gyhxici1Gg2uVXYIxrSrbD1V+IEAKolPOZZ8mIXD0mQGcA5Ubuw0Qp9Gk7q8G
+	 aBdKgFhZJ8YGw==
+Message-ID: <303eec47-bd2b-4ce2-b28f-aedbda21f91a@kernel.org>
+Date: Thu, 5 Nov 2026 17:41:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,38 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auxViNgjGPRdpfa2@opensource.cirrus.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 01/19] spi: dt-bindings: add
+ spi-max-post-config-frequency-hz property
+To: Santhosh Kumar K <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, miquel.raynal@bootlin.com,
+ richard@nod.at, vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org,
+ takahiro.kuwano@infineon.com
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
+ praneeth@ti.com, sebin.francis@ti.com, u-kumar1@ti.com,
+ srikanth.boyapally@amd.com, m-shah@ti.com,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20261105105832.2134313-1-s-k6@ti.com>
+ <20261105105832.2134313-2-s-k6@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261105105832.2134313-2-s-k6@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 10:08:08AM +0000, Charles Keepax wrote:
-> On Thu, Nov 05, 2026 at 10:02:00AM +0000, Charles Keepax wrote:
-> > On Wed, Nov 04, 2026 at 10:38:32PM -0800, Dmitry Torokhov wrote:
-> > > When arizona-ldo1 registers the regulator, the regulator core takes
-> > > ownership of the GPIO descriptor passed in regulator_config.ena_gpiod.
-> > > The core frees this enable GPIO descriptor both on registration error
-> > > and when the regulator device is unregistered.
-> > > 
-> > > Because the driver also tracked the descriptor and called gpiod_put()
-> > > in its driver remove callback, unbinding the driver causes a duplicate
-> > > gpiod_put(). Remove the driver remove callback and stop storing the
-> > > enable GPIO descriptor in driver private data to avoid the double
-> > > free.
-> > > 
-> > > Fixes: a9191579ba10 ("regulator: arizona-ldo1: Use correct device to get enable GPIO")
-> > > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > > ---
-> > 
-> > Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+On 05/11/2026 11:58, Santhosh Kumar K wrote:
+> Add spi-max-post-config-frequency-hz, a generic property for SPI
+> peripherals that operate at two distinct clock rates: a conservative
+> rate always reachable without controller configuration, and a higher
+> rate achievable only after controller-side configuration.
 > 
-> Seems Lee has sent an almost identical patch:
+> When both properties are present, spi-max-frequency gives the
+> conservative pre-configuration rate and spi-max-post-config-frequency-hz
+> gives the higher post-configuration target.
 > 
-> https://lore.kernel.org/lkml/20261104182148.1176116-3-lee@kernel.org/
-> 
-> Perhaps we should go with that version as it also removes the
-> now redundant platform_set_drvdata.
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Tested-by: Srikanth Boyapally <srikanth.boyapally@amd.com>
+> Tested-by: Moteen Shah <m-shah@ti.com>
 
-Sure, fine with me.
+Drop tags, this did not happen. Please do not add blindly tags which are
+obviously not applicable.
 
--- 
-Dmitry
+Best regards,
+Krzysztof
