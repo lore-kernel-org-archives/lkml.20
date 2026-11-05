@@ -1,45 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793843316;
-	b=pk2Qngd/DYdMLsDK8PzabQ1YX3e0/9pJ4cediWNHBnnV4NpHP0caphgiQVLmj2CZ0rMj
-	 3BHmL0br32YB7D3ac9TwaB8fOO9Ir2IJ6f6jaWnx9zmXOrx1Dx5FUKZJ/AsVUQMJuoz5Z
-	 jeWr6ekjNHnuu6ni4/hqUmB4HdnxuFkrDv1pP8b1drnfGXQE2b1uzKrsXQJ1JbM9ZpkhI
-	 VHI33lHkV00xU5df/J+Zv2ip/siCFPcGhekBKNg/uMI3y7GiC1Uz87WMIQkjMXaT6Mz12
-	 0QCFzrTmFc2JM3WbwDttIl5/jXyDFLsDjmFkSZw0pIJa7AO6OMFilvA0JtBP0vhvlqg==
+	t=1793843318;
+	b=YjS7Zw2tTvBdfj+VfnVh4CJQb8O7nkWlFpHNfoWk+sea8gTlocyUysY9oO8rRDns45OU
+	 TAd+2eoGUhP/Bgtaj/qlW3oOLru+ugZIUCwMtfSjiB1ryuEwcooGIkdd6my34TgQ1I0z7
+	 41E5/Ugbr3TVx8ADAFBqVQcR25p7sEvV6uUVLBrw1E0Lj4Y27ivLww8KUuyS5CBs6ch/o
+	 oTKgSiOJ/CXh/hQH0C6N1GyVcwgIkweScJNip7DvMQyCu3JoqTHxUK9Mv+JD0oAKNEh7v
+	 CPwE7JBP314q927aQWPUmiFN9YS8sgcBw9TfCFLtHJDa3tLqnDwg/Bf/wtIcC01O4SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843316;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
-	 In-Reply-To;
-	bh=9vvDZpN7FpoRVw1aQmaxfyTaMcpHriKPFg+a1zP/OAA=;
-	b=FkgZRWy7iv8Crq//yaVlhw7tAooZq70AW1rdNgK/0mS/LWjCcpEEeXgKM0+2zyGEdi5j
-	 gOzg9DWtioQTIuz3vtHVyv5TiKvws42bBxiuHkZLhyddKFMXKKHsQ6DKC5jxSaQ17L2BM
-	 IxPC1pYlVLV9CMQYMJ8ZhhrmI8hW27E35Gs+vxwi0FmIgUdoj6cabe2RdLzRvv+rjCpme
-	 61cGTFwD+xidBarAWd3qo8bF7IgE/vZ9B6ABz75scsRf9ugZ/FjdCKOPs44lF4F/0+Wmc
-	 mchxjXH8bNmsgkX2o0oPVzDopfwrFNQiPH/+M9ajl9NvHJZ2QiIQPoxyZILK6rz0GJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843318;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sQkjxX3K1joAq68TfOUhRaY9yTvSWkChu+qzeIISQGI=;
+	b=k390gizi9SooEPalg8hxKhqFm/dBq3YszSEyblxGH0YwxZr8fE3W+u2vvSk0sSrps6T/
+	 KaNAdd69wMRstInBbpj7JznhX3wrPzzjQSPMkeFcb1Ddjpk1sR7uXwJ1Bgb6wIhAufdfV
+	 bJ7r/GMJA02SZ7h/cuZB3NWtrUnRorgJeuWU5JBcqqXvQAPJu6+p5v/QsBTWbIfL/72gJ
+	 l8snbVictkj4JF7Rz4mA9TGGgd0CgwfIDhFMQhhwV+E3gcTaCD0nUQWUE/U7trauGeDsb
+	 E0sf1lb3/57C7E9whOTYBJicuCxLaEmG+8o+/yWTZcoVQF6hA5wCBsRou06xiRsSAWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMfCl4kP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.212
+Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18213606A329;
-	Thu,  5 Nov 2026 01:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TMfCl4kP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5D61F00919;
-	Thu,  5 Nov 2026 01:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793843315;
-	bh=9vvDZpN7FpoRVw1aQmaxfyTaMcpHriKPFg+a1zP/OAA=;
-	h=Date:From:Subject:Cc:To:References:In-Reply-To;
-	b=TMfCl4kPtncdHPI1OeaHlYAMmJLRskwd+hwH1Blq5cEGCVA8tGKpKPqPvsCa7CfvO
-	 sReQlNksmv4nQM17myZJ/JqX7GOnXjT9C/LC7TtjPFKN0uztCbpGpZKS1sbHAE3OTE
-	 5wb4Ws0h+5Sco4GndgZmiAsYLxe4a2sAppSfPjpIA5ZiVMyNoPjJ20Z4WCFaZMaNxl
-	 JYyeYlmBAYmQGbTbSwUskdzdTZkJSnpcy1oW+xhaxJCWM3n+3PMI3UflNa/eBBDsrL
-	 yfDauqWwEvCV9wxELjPKdJGEAgzGmnrC76pcsNVfQ8emGRZXzHGD/35B5Yaek1kKbJ
-	 LP/gaeCCr/vrg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DD0606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:48:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DD0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=E+Tnnknq496cXrkg+nZvAVLx4JY0DVaLftLc8cBxV7o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793843313; v=1; x=1794448113;
+ b=Bj6MbLCe42vYTLjGG2GoPahv/cBkkaGFa15VL9LAyQs2zARA+S7dw2BtKaWofKCwoCT3DCB7
+ /p32Ia1MzTYptErzDopKP17SIwpt4yRpYYS+9OQQ3G4ifSyh28A+6E5FpaoFrjQLRKFbDgSYY1x
+ aV7ReBKBjjc7D9qJmjieIemo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id db3cfca7bcba751d;
+	Thu, 05 Nov 2026 01:48:33 +0000
+X-Mizu-Trace-ID: db3cfca7bcba751d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4f830c30-f99c-4f75-851b-1a3f6d1342b1@linux.dev>
+Date: Thu, 5 Nov 2026 09:48:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,54 +54,187 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 02:48:33 +0100
-Message-Id: <DMMWDTG48CAN.LHRVFXXDY5YV@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] driver core: fix race between bus_remove_driver() and
- dev_driver_uevent()
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
-References: <as71DkwHeLGNDsPv@google.com>
- <2026101444-unnoticed-caliber-21d5@gregkh> <as8dAu4R99pP1GHD@google.com>
- <2026101409-unkind-ablaze-08a3@gregkh>
- <21f4cbf39c7872893f8f2d3bfde7d829@gmail.com>
-In-Reply-To: <21f4cbf39c7872893f8f2d3bfde7d829@gmail.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 7/7] mm/mglru: add tracepoint for aging
+To: Barry Song <baohua@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Dave Chinner
+ <david@fromorbit.com>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261104130817.849089-1-ridong.chen@linux.dev>
+ <20261104130817.849089-8-ridong.chen@linux.dev>
+ <CAGsJ_4y_Ay0mYO3ic72oepjtW6KYf2sKRXEHb3Ff8uwKrOJZjQ@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4y_Ay0mYO3ic72oepjtW6KYf2sKRXEHb3Ff8uwKrOJZjQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu Nov 5, 2026 at 2:21 AM CET, Dmitry Torokhov wrote:
-> Just a gentle ping on this patch. Could it be picked up, or would you
-> prefer a plain spin_lock()/spin_unlock() pair instead of the empty
-> scoped_guard() block?
 
-Personally I like the scoped_guard(), but to me either is fine.
 
-But I'd consider updating the comment above dev_driver_uevent() accordingly=
-,
-e.g.:
+On 11/5/2026 4:56 AM, Barry Song wrote:
+> On Wed, Nov 4, 2026 at 9:10 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> Aging in MGLRU advances max_seq to create a new youngest generation.
+>> It is triggered from try_to_shrink_lruvec() when should_run_aging()
+>> finds that eviction is no longer possible, or that it would be better
+>> to age first at the current priority. There is currently no tracepoint
+>> on this path, so it cannot be observed when and why aging is needed.
+>>
+>> Add mm_mglru_aging, emitted in try_to_shrink_lruvec() right before
+>> try_to_inc_max_seq(), with the node id, memcg id, sc->priority,
+>> swappiness, max_seq, the anon and file min_seq, and the number of pages
+>> in each generation for both types, as computed by lruvec_gen_size().
+>>
+>> The reason for aging is not reported explicitly, as the logic in
+>> should_run_aging() may change, e.g. for imbalance-based aging. It can
+>> be derived from the generation window and the per-generation sizes,
+>> which are taken before aging, so the youngest generation is populated
+>> as well.
+>>
+>> The nr_anon/nr_file arrays are ordered by seq rather than by generation
+>> slot: entry i holds the generation max_seq - MAX_NR_GENS + 1 + i, i.e.
+>> they go from the oldest generation to the newest, the same order as the
+>> debugfs lru_gen file, so the output can be read directly without mapping
+>> slots back to seqs. The arrays are printed with __print_array(), so the
+>> output is hex and its length follows MAX_NR_GENS automatically.
+>>
+>> Only the lruvec, sc and swappiness are passed in; everything else,
+>> including max_seq, is read in TP_fast_assign(), so try_to_shrink_lruvec()
+>> does no extra work when the event is disabled. Reading max_seq there
+>> rather than using the caller's copy keeps the window consistent with
+>> the per-generation sizes read right after it, should another reclaimer
+>> age the lruvec in between.
+>>
+>> The event marks the aging decision, not its result: the following
+>> try_to_inc_max_seq() may find that aging is already in progress or
+>> done by another reclaimer, so concurrent reclaimers can each emit it
+>> for the same max_seq. Whether max_seq was advanced can be seen from the
+>> following mm_mglru_scan_folios.
+>>
+>> Suggested-by: Barry Song <baohua@kernel.org>
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+> 
+> Much better now:
+> 
+> ~ # echo 1 > /sys/kernel/tracing/events/vmscan/mm_mglru_aging/enable
+> ~ # ./a.out
+> Mapped 400 MB at 0xffff98a00000
+> ^C
+> ~ # cat /sys/kernel/tracing/trace | grep mglru_aging
+>           kswapd0-49      [001] .....   104.277689: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=6 swappiness=60 max_seq=3 anon_min_seq=2
+> file_min_seq=1 nr_anon={0x0,0x0,0xd360,0x0}
+> nr_file={0x0,0x23e2,0x0,0x0}
+>           kswapd0-49      [001] .....   104.536448: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=3 swappiness=60 max_seq=4 anon_min_seq=2
+> file_min_seq=2 nr_anon={0x0,0x20,0xf8bc,0x0}
+> nr_file={0x0,0x91a,0xbd,0x0}
+>             a.out-79      [000] .....   104.689518: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=4 swappiness=60 max_seq=5 anon_min_seq=3
+> file_min_seq=4 nr_anon={0x0,0xf8a0,0x1188,0x0}
+> nr_file={0x0,0x0,0x2,0x7}
+>           kswapd0-49      [001] .....   107.282038: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=2 swappiness=60 max_seq=6 anon_min_seq=4
+> file_min_seq=5 nr_anon={0x0,0x6c50,0xa168,0x605}
+> nr_file={0x0,0x0,0x98,0x18}
+>           kswapd0-49      [001] .....   107.812598: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=1 swappiness=60 max_seq=7 anon_min_seq=5
+> file_min_seq=6 nr_anon={0x0,0xfe10,0x1721,0x54}
+> nr_file={0x0,0x0,0x1a,0x3}
+>             a.out-79      [000] .....   108.936872: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=2 swappiness=60 max_seq=8 anon_min_seq=6
+> file_min_seq=7 nr_anon={0x8,0x7d29,0x8c54,0xc90}
+> nr_file={0x0,0x0,0x4,0x2}
+>           kswapd0-49      [001] .....   108.937115: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=2 swappiness=60 max_seq=8 anon_min_seq=6
+> file_min_seq=7 nr_anon={0x0,0x7d15,0x8c94,0xcac}
+> nr_file={0x0,0x0,0x4,0x2}
+>           kswapd0-49      [001] .....   109.425258: mm_mglru_aging:
+> nid=0 memcg_id=1 priority=1 swappiness=60 max_seq=9 anon_min_seq=7
+> file_min_seq=8 nr_anon={0x0,0xed69,0x24bc,0x488}
+> nr_file={0x0,0x0,0x3,0x3}
+> 
+> One thing that looks a bit weird, though. For example:
+> 
+> max_seq=3 anon_min_seq=2
+> 
+> We have only two generations for anon, but we print four:
+> 
+> nr_anon={0x0,0x0,0xd360,0x0}
+> 
+> The two oldest generations don't actually exist. Ideally,
+> we would print only the two existing generations:
+> 
+> nr_anon={0xd360,0x0}
+> 
+> you should be able to fix it by:
+> 
+> __print_array(__entry->nr_anon, __entry->max_seq -
+> __entry->anon_min_seq + 1 , sizeof(unsigned long)),
+> __print_array(__entry->nr_file, __entry->max_seq -
+> __entry->file_min_seq + 1, sizeof(unsigned long)))
+> 
+> But I guess it's fine, since the two extra entries are both
+> zero.
+> 
+> And, I personally prefer the youngest-to-oldest order,
+> as we usually have:
+> 
+> head ---------- tail
+> 
+> where head is young and tail is old.
+> 
+> Your output uses:
+> 
+> tail ---------- head
+> 
+> But anyway, I guess this is just a matter of whether we
+> read it from left to right or right to left. Personally, I
+> find it more natural to read from youngest to oldest.
+> 
+> If you're not tired of working on this and would like to make
+> a few more improvements, you could address the two issues
+> above. But it is up to you.
+> 
+> For the patch,
+> 
+> Reviewed-by: Barry Song <baohua@kernel.org>
 
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index cbe05197d4a0..cc6a1016c251 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -2705,9 +2705,12 @@ static const char *dev_uevent_name(const struct kobj=
-ect *kobj)
-  * risky as driver pointer is transitioning to NULL, so READ_ONCE() should
-  * be used to make sure we are dealing with the same pointer, and to
-  * ensure that driver structure is not going to disappear from under us
-- * we take bus' drivers klist lock. The assumption that only registered
-- * driver can be bound to a device, and to unregister a driver bus code
-- * will take the same lock.
-+ * we take the bus' drivers klist lock. During driver unregistration,
-+ * bus_remove_driver() acquires and releases this lock after detaching
-+ * all devices and clearing their driver pointers. This waits for readers
-+ * that observed the old pointer to finish accessing the driver name
-+ * before the driver can be freed. Readers acquiring the lock afterward
-+ * cannot observe the removed driver.
-  */
- static void dev_driver_uevent(const struct device *dev, struct kobj_uevent=
-_env *env)
- {
+Hi, Barry,
+
+Thanks a lot for testing and the Reviewed-by.
+
+Updating it would be fine with me, but I'd slightly prefer the current
+output, to keep it consistent with the debugfs lru_gen_full file. It
+also prints a fixed window of MAX_NR_GENS generations from the oldest
+to the newest, marking the ones below min_seq with 'x'. The event
+reports anon_min_seq and file_min_seq in place of the 'x', so the
+generations that don't exist can still be told apart, and they always
+read 0. Keeping the same window and order makes it easy to compare the
+event with debugfs, e.g. when looking at both while debugging.
+
+That said, if others such as Baolin, Baoquan or Kairui also prefer
+printing only the existing generations from the youngest to the
+oldest, I'm happy to send another version with that change.
+
+-- 
+Best regards
+Ridong
+
