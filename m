@@ -1,67 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884271;
-	b=nPt57sUf72LxPYJQ4yirDFngEDvWX2kzEMhhd6l1OY/gOCJFjLAqsUKm1k+dPNItQTNu
-	 zIFe2xxMyL/zeaI4QQ5JQVC8LNWWADwUwPuc+nabBDXO66tr8qCW0QMC3EKcQ0cWhHoHp
-	 N0/ThcNOKWEqZqzG4A+7xaVMaJp2R3N/LHayLEE9v+Q0MHQkZecgtNvuFWxx48wyxR9Tz
-	 /3toaNFnhC0mQxeWNd6jfFt+c4xkxWixbBgrPJkaTuHFeR3uXdoi9nq9wVyd5S/APMrPK
-	 1xSGt+/WgB8WZ+bqVMEPfR3DLQnNLCxxPAhLficnBlHiDXYCSUmcNW1fIKPUMe6Qrbw==
+	t=1793884278;
+	b=lTvaowqJ3hUq2ThPIsXyDj5bUbngzGRgZhDl1YlRcXc+CCxkns8MTlqhoXVj7Yc6Dx2R
+	 4g0Bn7/boOcQF3nvRhLE4q1IoXF/nz/IFS4nzn6iIM2Vtpr9dpvmwXEGw0gxeNDJxVNsV
+	 6Dd6AiXQ5iCcXnwh6IL7xgyYTWwOwYv63mAVAXBHcQdkRsHgYLZ3DVsCbVqJNo62FiXH2
+	 NRYCdTNj6Z+abFxP1uk8FraIrxDl7zt+8gVyMtimAJriAZAID8ezWT0WkfvYM7Mtaj9yZ
+	 Em1QJMbJWlcCZ69SdziBBGvKGHzlYnCap3dazLlEJeZJTO+krpT/tYKpat8Tbr2BdSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884271;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=zFarGEUyw1j9qFI3A4zGklNXn5up3QuYvyOkYkpFrao=;
-	b=TljYtSigwl683FUME8RyQpbvfYuPdXTwg5agqrrCEZQJDPKT4QgdY5limuxC96q0k9wn
-	 moMZzxYjUHwextNUhZ7Vp0+6PATbtOt+EQ/trYny6zNpnOATZrMkQMQIhfdMgYJw7JEf2
-	 FXlGUuoPIqrWM2Ea29n4kDOew1iRyJ1trnXjAwnpPha9Vlevpg3Alm4WUnXHP+as0L2Pn
-	 ZAWc/qjWf39cgbskppVgcHfP+xsR1uSQWubldE6H/Nx1sDKrQSEOKZ2WXKcPEkZiCHsZ1
-	 Yc23/IzN1kSTBxLK15hdOdEfJn9R6QiQLSIcBxapRrdu7KWingsfG2poDS96Dad69CQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884278;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=O+uAOf22ku0nBzO5a3bnCrNp2btg27dwJZHDk2t3+oc=;
+	b=waUJsQdr8+ace3zwgswwP3orfcFRtNfsGChElLwMu2Vxr9d60RJFv+uPB9hggptji+Y1
+	 ziT51AAY+D9yVCzPBYQmE3T7o17WSVGGcXw2j0bUhZzlJ1yxtUSeYN8gQvhUqNqK+SHfJ
+	 mJyFUGlvbpPZwHE30LvFHrwUR9LihZh0p7QD8ML9fnxLNCBXUgyTxxVVkM1qSQ7Zhr2gu
+	 tEN1ISutz7oBsK8A/A93rRDsHEGkgdPZGbDxK4DhAeGpA3X1BkXQxPeE4zrdvtoB9gcQa
+	 6dbn4tx5CpUYdmkUvHXFnsbpym4tnHLnGcRmULRCHbd14EgcD5bO+5ZtTqETjL/3+bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=UuWPi6xk;
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6DY1Waz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE5E606D82A;
-	Thu,  5 Nov 2026 13:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FE5E606D82A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7232F606D815;
+	Thu,  5 Nov 2026 13:11:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=UuWPi6xk
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A9D5F14966F6;
-	Thu, 05 Nov 2026 14:11:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793884304; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zFarGEUyw1j9qFI3A4zGklNXn5up3QuYvyOkYkpFrao=;
-	b=UuWPi6xklvAj+GDfZCkgc7wZ6CkbNbnR4k/D+KclqmiU3337WzAGx+3e285SIqb+lnZbQw
-	bzKGdlutJAvHBdIK0C6lSR4+0rqUiu/h28kAwVl4XgSQLzEE6xFousbbgtKKpMkLmoH2PV
-	FLb5YaYJp7aazptcXNzI8VGIHAHIfsGRtVJTmfZr3DQ0IVr8m/DSpyZ1TEUKRgfw/RscDw
-	xGelgEXoSVKFTQlOxrGxSDb7ojdqfmw1AJJlStKy1SWFwnIC59cxEpf1dLvZT3VJnya8VT
-	60rHwPZq1HanMc+np/U8tLNZ5yC6C2lLvyKl/oQ1sVRvt4s7fn9BMRYRqwXGrQ==
-From: Alexander Dahl <ada@thorsis.com>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v4 13/16] ARM: dts: microchip: sama7g5: Add OTPC clocks
-Date: Thu,  5 Nov 2026 12:06:49 +0100
-Message-ID: <20261105110715.2486432-14-ada@thorsis.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
-References: <20261105110715.2486432-1-ada@thorsis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6DY1Waz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BFA1F00A1B;
+	Thu,  5 Nov 2026 13:11:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793884278;
+	bh=O+uAOf22ku0nBzO5a3bnCrNp2btg27dwJZHDk2t3+oc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=C6DY1WazDreIp0tqngL8J96ms2jUv/PGhhduU/iK8a4K4yiFtHbCImq5yDnpJSB/i
+	 MfT83/xUbBuNgTPO+k6ECz01TEg9sNUG1vuGIMo+eDHmOGuSyK/iXBga1oxUJvU6aU
+	 UleLYrBcEjbSEdPFjdvQZRHBf0w+ObpAzE/dWNnyZlxsEfa1E2GGa23gAVJlVV3E2C
+	 gukdedk+fcJrHXpCAgX66uTS9c7Ioybk9NhVkXaGy0WzWE98E7/aHLlU95nZJV9z19
+	 Oqc96TL3rSJh9YcyeeyatdylmcGOyB3tpTtGz6gvzdl2DJExwADPbM5H/dn42p891Z
+	 1EkqpbCJAaDaw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 05 Nov 2026 14:10:14 +0100
+Subject: [PATCH 5/5] mm/gup: limit pagecache folio refcount when grabbing
+ references
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,48 +53,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-refcount_overflow_stable-v1-5-70b9c655da3e@kernel.org>
+References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
+In-Reply-To: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
+ Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Steve Sistare <steven.sistare@oracle.com>, 
+ John Hubbard <jhubbard@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ iommu@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2098; i=david@kernel.org;
+ h=from:subject:message-id; bh=IBF3fb4To5eP04NbeBZ/jj0H6jfX9PmTFRUfnhgVDek=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLeNFhOiqkz3PLwi9bq1D/7fq4JYkqqbdslJTwlJHeTN
+ +MK/mNNHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzEN4aR4YGas5mNyg05jdwp
+ L5pmXlDsVHMPbzDdvbWu5rHw8ek3kxj+6X9Yrf89V7Sg1lXs6jzOC3F8x1TtJ+29GvphkYnibr/
+ ZPAA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-These clocks should be enabled, datasheet says:
+Let's replace our existing safety check by the new
+folio_ref_count_over_limit() check in fast and slow GUP before acquiring
+additional references or pins.
 
-> The OTPC is clocked through the Power Management Controller (PMC).
-> The user must power on the main RC oscillator and enable the
-> peripheral clock of the OTPC prior to reading or writing the OTP
-> memory.
+Keep it simple and use the check for all folio types.
 
-Earlier discussions suggest, MCK0 must be enabled, too.  MCK0 is parent
-of peripheral otpc_clk, so this is done implicitly.
+Drop the WARN_ON_ONCE(), because apparently these things can currently
+happen with large pagecache folios.
 
-Link: https://lore.kernel.org/linux-clk/ec34efc2-2051-4b8a-b5d8-6e2fd5e08c28@microchip.com/T/#u
-Signed-off-by: Alexander Dahl <ada@thorsis.com>
+Keep the zero-refcount rejection if the refcount is 0.
+
+Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
+ mm/gup.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Notes:
-    v4:
-    - no changes
-    
-    v3:
-    - Removed clock-names, not part of bindings anymore, and not used by driver
-    
-    v2:
-    - new patch, not present in v1
-
- arch/arm/boot/dts/microchip/sama7g5.dtsi | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm/boot/dts/microchip/sama7g5.dtsi b/arch/arm/boot/dts/microchip/sama7g5.dtsi
-index b8296391fc696..30193f3bf9775 100644
---- a/arch/arm/boot/dts/microchip/sama7g5.dtsi
-+++ b/arch/arm/boot/dts/microchip/sama7g5.dtsi
-@@ -1036,6 +1036,7 @@ otpc: efuse@e8c00000 {
- 			reg = <0xe8c00000 0x100>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
-+			clocks = <&pmc PMC_TYPE_CORE SAMA7G5_PMC_MAIN_RC>, <&pmc PMC_TYPE_PERIPHERAL 67>;
+diff --git a/mm/gup.c b/mm/gup.c
+index 2ab42fc6834e5..db9db6b2a4662 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -77,7 +77,7 @@ static inline struct folio *try_get_folio(struct page *page, int refs)
  
- 			temperature_calib: calib@1 {
- 				reg = <OTP_PKT(1) 76>;
+ retry:
+ 	folio = page_folio(page);
+-	if (WARN_ON_ONCE(folio_ref_count(folio) < 0))
++	if (unlikely(folio_ref_count_over_limit(folio)))
+ 		return NULL;
+ 	if (unlikely(!folio_ref_try_add(folio, refs)))
+ 		return NULL;
+@@ -140,7 +140,11 @@ static void gup_put_folio(struct folio *folio, int refs, unsigned int flags)
+ int __must_check try_grab_folio(struct folio *folio, int refs,
+ 				unsigned int flags)
+ {
+-	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
++	if ((flags & (FOLL_GET | FOLL_PIN)) &&
++	    unlikely(folio_ref_count_over_limit(folio)))
++		return -ENOMEM;
++
++	if (WARN_ON_ONCE(!folio_ref_count(folio)))
+ 		return -ENOMEM;
+ 
+ 	if (unlikely(!(flags & FOLL_PCI_P2PDMA) && folio_is_pci_p2pdma(folio)))
+@@ -1482,8 +1486,8 @@ static long __get_user_pages(struct mm_struct *mm,
+ 				struct folio *folio = page_folio(page);
+ 
+ 				/*
+-				 * Since we already hold refcount on the
+-				 * large folio, this should never fail.
++				 * Grabbing more references can fail once we
++				 * hit folio refcount limits.
+ 				 */
+ 				if (try_grab_folio(folio, page_increm - 1,
+ 						   gup_flags)) {
+
 -- 
-2.47.3
+2.43.0
 
