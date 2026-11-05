@@ -1,56 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793922390;
-	b=X4C+cHOeygvsGyuBKnMQ2sNI2Fwp8xUxocNsPR/wnsK3YGeT1cro420dxh9NFPG4lcE8
-	 eKD3jC2PsxPjD+/i2TFlZyCtYQ0cRsGnFhZnJTRWFxLZA0CsEn+AE5fLNgmn2topmegzH
-	 NnaJ6/kjB4NG3Gl1vVpaXj4yFk59X/REDFZr2HcRPjp5awIngmBayVv6dVVbZpexfLK67
-	 t4fF9X7+VFyGoqLSx9OOe6TwJ3kBcPcHSOeB9I7H7F2BrDghWPme5dXL8bZp8JuAuDNOi
-	 u1gI2AXYeXPWfPbvnIB3VRQRKjZxGiB4RHyp4QyKmp8uNLS7ihB938YF/jZvD/grSaQ==
+	t=1793922459;
+	b=sExmsGMVXkx0Gf58ItCoUjVNFQNqpxnqBDxb7es0WT9cAZ+/rvvanQwD8npVvcKgXMAE
+	 akTR8o9ity22G4f+S9KeD+t+a3RJ24I9Y3K5ZWtkRwqoprVN65MWXl/nRMSCAEnRvb7aa
+	 7/GAv7ltQcjNfdoxX0Yjn0vEq+VVye3LRLDuz/cUwx6QERYsjO0K1cWKTAgHCSFJiyJIz
+	 Eqw/B0beMZEglomLgvr0QWkAW9pFOvlbjBrpHJj3Uq1vmUa+JKwYTcJ/qqOA+Y64UPA4z
+	 qiEF0SxUSai2tjFs2mvZOvtMJ4qhpATk2aTAszQ0Cjw+9yfqMwYdwedDekIHvlNDEVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793922390;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=x2dyM7YPg9X82mHGO35QN78CKwYix99R7vjyLHrtwD0=;
-	b=ewornltsx+N009e4UsyqhkR3uqx7XdvG7IwP5Soxi7l+4gOlQvQrtFVsRKXTkQWbMA17
-	 OWezmFdWhvgETqs9peiR08BC1QiTnQIDkorplmXaSUqwYdIa8QOdNd/CEsGlvNO7egKOB
-	 i9VWN4kGU02fu40a+f3h1Bh3TVsHcBophGIIoOOUd7rsiuZ+GNwTd/y+5UaGV8kP5XSov
-	 5EAL6Vc4EYg4SC1P1dIWUukGl1N808IgEYkT859pd9OSmz+Y/Me6FzBG71wwYPl3Zir+6
-	 8cOq6awM+BPrJ/gRO/MeHRPShsTU/TTbnvFMECHxw5eoZFn0oTbOTvqSj8+ifhODW8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793922459;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=vppuJPSFZeGPAma4MS2y5frLVFc2Qg9ddu30RekCHa4=;
+	b=5kN5PIOq+/HzhErDf5sqKtNYwp+RTEURWzHBg+19m68mffXGF5n+bS/Jtct0s7VFJzP7
+	 EkjqsK4VYqwtrUzmN+Ti2HPb3EOXZoE6B3t1zZz6zVxRBqldsHcA9/e0N0KVs5wl+lrHv
+	 z+77ITFhwM1c1w82y6hc96qJzaGqDXRdS3hJiMAERoYswfT43yUepP04UyQGx4vZyIrIn
+	 TyLCLMi+DK5qnHu22mC7HHeCg46sxGTVDqsXY9onDhgjkCjFxuI7gAK5TavGs06hnHUiE
+	 uMScDX58deksLjWdSizy7wP4b0S9/Hy7Qfv5eKl4+/kMGvcIXITCNjluxCqua3gR4QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSYx4jRR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZT1SeCP5;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3533B606A31B;
-	Thu,  5 Nov 2026 23:46:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4B7606D80F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F4B7606D80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSYx4jRR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5C31F0089F;
-	Thu,  5 Nov 2026 23:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793922389;
-	bh=x2dyM7YPg9X82mHGO35QN78CKwYix99R7vjyLHrtwD0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=mSYx4jRRjrkeiS7dQtSIOFO8rz7cUj15q/amOhkjUpjTR6pYfsmDNuSk+5cLdkgDK
-	 J4PPnPpS6obHquWGzVYKp32nIlRywl8HQkCCituI9216Wqaf+756v0WLcm1+45qBXu
-	 T+FWkR5iJLFVdtZnRawyVxOxevERwr/DpTTEsmDKMOGyeESKXCKGa3XHKWGj4BC8Gh
-	 C8W6uAU5vaHxN3u1zAY6o+3Rz8Mk0X6WSTWXf6c8b8Cq/2zLeunESE8pqtcGZDy6sg
-	 c6stw06/AXbPEnvhOP1ZQP2ikjqQLIwZryMUML9nIO+8WKvNOm7iSEu253yLdJpBdc
-	 kXUI82WxK1BWg==
-Date: Thu, 5 Nov 2026 17:46:28 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Poulin, Louis" <poulin.louis@student.oaklandcc.edu>
-Cc: linux-pci@vger.kernel.org, ZhaoJinming <zhaojinming@uniontech.com>,
-	Lukas Wunner <lukas@wunner.de>, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Dragan Simic <dsimic@manjaro.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>, Kees Cook <kees@kernel.org>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Subject: Re: [PATCH] PCI/ASPM: Add missing NULL check for link in sysfs
- show/store callbacks
-Message-ID: <20261105234628.GA1576767@bhelgaas>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ZT1SeCP5
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2eb2437d752so1043235ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:47:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793922458; x=1794527258; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vppuJPSFZeGPAma4MS2y5frLVFc2Qg9ddu30RekCHa4=;
+        b=ZT1SeCP5+JxLZdCKvh5EI0rMajSP6zCJdal3OeRXLRc1Z4/VXVP2X9Ls+fgx2mkMCf
+         JOcGcHpEBOjnlXMrzEJ+SXQ0H/yaCyaGrKldaHGpVjx4DBMzLLU3/ebO8bi2+CQAg0TZ
+         ucgLg/49c+ooG9cbigE/7iENAZ4+rcKLSnZBdO3aoLe0D2S2bYqPahBskIN0/lORZfrl
+         7+WCue4HlQOiv/R8AQnt6UbuRJ56a3JTtWs2QxprNXQfwXj9hDRw9bBMEfp8VrhsO0QG
+         Wf2taNmet1xjh4L137vQZN6BZQJg17gDvjT9lzty9LvCHTqtUWzjYczXNznY5Nx4LF+Z
+         nePg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793922458; x=1794527258;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vppuJPSFZeGPAma4MS2y5frLVFc2Qg9ddu30RekCHa4=;
+        b=InaSeCItoFjSg31xEIjxeesk9uhhg5ViiWH3YEZTXWRfeawFiboUs/SdV5MmXjX5zS
+         x15D/KEJ7WQlNDQZbU12myQ9DzDcCnVSka3Jdac6p3OZv1d3dfRlzyew0UL+GBZ2iihG
+         Y1A/3YTOWXYZ0g1IWuOkQrH9FzIQgXkIoKXGh11Nas0TNgLsm06jIVbVUjZf5oYp2Eh8
+         TkYydG7MEq/sA897bmgn5ui2mKtKvYq4D5gMMBY/sYYe0nkFpwV+ez8xYxTCaNJKQpu0
+         T699rD3GHB/ksX+e6SU4c4OTevhWWxHXn57rBMHhBKTUDRC3LlWvJhRiGQ+CyOlsrRJ4
+         395w==
+X-Forwarded-Encrypted: i=1; AKwUvBzV73/bxF7xqBacdeFC+kmvoo+MvmOyHpH9QR3tJUV9wj0anQhriIaEcVEWvF/sr7VIMKyG8rN4mmzg2m4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ABzdcR1Nv+3vdzIgcWUUlIiQKmLutyCkmID+d473fsDJv9ckP
+	VVTDg0T+ZpDT3EXjCwlJrhqq8fxRbL72fahhKbo3k+PCKroqPOHXFvitZC/tfBjgIhMDE2AJ33h
+	Br+I2pw==
+X-Received: from plsh11.prod.google.com ([2002:a17:902:b94b:b0:2e2:ec03:928c])
+ (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf4b:b0:2df:aed3:2ac0
+ with SMTP id d9443c01a7336-2ed416a9ffemr13800745ad.10.1793922457565; Thu, 05
+ Nov 2026 15:47:37 -0800 (PST)
+Date: Thu, 05 Nov 2026 23:46:49 +0000
+In-Reply-To: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +78,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGQButtv-1k9DzOLEBwjoKQP+=-u4obM5bBHZZs=Mw2vd1cBnQ@mail.gmail.com>
+Mime-Version: 1.0
+References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com>
+X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793922452; l=1655;
+ i=wyihan@google.com; s=20260319; h=from:subject:message-id;
+ bh=V4TjxTrjbEWZZ89lwzM/hggtPKH7gxroDMryZjL/1oM=; b=e4e3a7HKXJEtxQDmamP9yWNpd6ntThLNO1R8K/2BpnR+Ks4Qi73B8ahTCyxAZj4l+XpTYE3BM
+ 50G9CQ/t/OSBI0sAAQ0FgZS8Qxl/1ussSPyihInZSFEEl0Dn3GTDpC/
+X-Mailer: b4 0.14.3
+Message-ID: <20261105-tdx-selftests-v16-5-2024e8fa517a@google.com>
+Subject: [PATCH v16 05/20] tools: include: Add kbuild.h for assembly structure offsets
+From: Lisa Wang <wyihan@google.com>
+To: Andrew Jones <ajones@ventanamicro.com>, Ackerley Tng <ackerleytng@google.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
+	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
+	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
+	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
+	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Oliver Upton <oupton@kernel.org>
+Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, x86@kernel.org, Lisa Wang <wyihan@google.com>, 
+	Ira Weiny <iweiny@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 
-[+cc other members of conversation at
-https://lore.kernel.org/all/20260727072915.3954329-1-zhaojinming@uniontech.com]
+From: Sagi Shahar <sagis@google.com>
 
-On Wed, Nov 04, 2026 at 03:22:51PM -0800, Poulin, Louis wrote:
-> Hi,
-> 
-> We observed a cold-boot crash in l0s_aspm_show() that appears to
-> contradict the assumption in this thread that the visibility check
-> always keeps readers out when the ASPM link is unavailable.
-> 
-> This was on an ASUS TUF GAMING X870-PLUS WIFI, BIOS 1805, running
-> Bazzite's 7.2.15-ogc1.1.fc45.x86_64 kernel with InputPlumber 0.83.1.
-> The fault occurred about 10 seconds into a cold boot. An earlier boot
-> on the same system had the same fault address and symbol offset on
-> 7.2.9-ogc3.1.fc44.x86_64 with InputPlumber 0.83.0. Both observations
-> were on downstream kernels. The captured 7.2.15 kernel was tainted
-> O/E (out-of-tree and unsigned module).
-> 
-> Relevant excerpt from 7.2.15:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000030
->   Comm: inputplumber
->   RIP: 0010:l0s_aspm_show+0x47/0x80
->   RAX: 0000000000000000
->   CR2: 0000000000000030
->   Call Trace:
->     dev_attr_show+0x1f/0x50
->     sysfs_kf_seq_show+0xa8/0x110
->     seq_read_iter+0x132/0x4c0
->     vfs_read+0x34d/0x490
-> 
-> The faulting instruction accesses offset 0x30 from the NULL register.
-> In the corresponding source, aspm_attr_show_common() dereferences the
-> result of pcie_aspm_get_link(). The read reached the callback even
-> though that lookup had no link to return. The kernel killed the
-> InputPlumber main thread and the service stopped answering
-> ObjectManager.GetManagedObjects. This blocked the boot-time controller
-> setup.
-> 
-> We are building a diagnostic kernel that returns -ENODEV in that
-> specific read callback when the link is absent and logs the PCI device
-> and upstream bridge. The device and the reason its link state was
-> missing are still unknown. We have not reproduced the fault on an
-> unmodified upstream kernel.
-> 
-> Would this trace justify a guard in the read callback, or is there a
-> preferred way to instrument link-state teardown and sysfs visibility
-> on this hardware? We can follow up with the device and bridge once
-> captured.
+Add the Kbuild macros needed to enable the filechk_offsets mechanism to
+generate C header files containing structure member offset information.
 
-I don't think we should add a guard in addition to
-aspm_ctrl_attrs_are_visible().
+Tools depending on assembly code that operate on structures have to
+hardcode the offsets of structure members. The Kbuild infrastructure
+can instead generate C header files with these offsets automatically,
+allowing them to be included in assembly code as symbolic constants.
 
-pcie_aspm_get_link() must have returned non-NULL in
-aspm_ctrl_attrs_are_visible() for the sysfs file to be visible.
+For example, the TDX guest boot code requires access to parameters
+passed in the C structure (struct td_boot_parameters). This header
+provides the macros needed to extract these offsets from C code and
+expose them to assembly, ensuring the two remain synchronized.
 
-If it later returned NULL in aspm_attr_show_common(), we must have a
-bug, like a lifetime issue or some kind of corruption.  Adding a guard
-would just hide the bug.
+Signed-off-by: Sagi Shahar <sagis@google.com>
+Signed-off-by: Lisa Wang <wyihan@google.com>
+Reviewed-by: Ira Weiny <ira.weiny@intel.com>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+---
+ tools/include/linux/kbuild.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Your next message suggests that the device and upstream bridge are
-valid, so possibly bridge->link_state was NULL.  I would instrument
-pcie_aspm_get_link() to verify that and add a dump_stack() in
-free_link_state().
+diff --git a/tools/include/linux/kbuild.h b/tools/include/linux/kbuild.h
+new file mode 100644
+index 000000000000..957fd55cd159
+--- /dev/null
++++ b/tools/include/linux/kbuild.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __TOOLS_LINUX_KBUILD_H
++#define __TOOLS_LINUX_KBUILD_H
++
++#define DEFINE(sym, val) \
++	asm volatile("\n.ascii \"->" #sym " %0 " #val "\"" : : "i" (val))
++
++#define OFFSET(sym, str, mem) \
++	DEFINE(sym, __builtin_offsetof(struct str, mem))
++
++#endif /* __TOOLS_LINUX_KBUILD_H */
 
-> Kernel source for the captured build
-> https://github.com/OpenGamingCollective/linux/blob/f6857d4bfd614b90302903490796ef376be0a67d/drivers/pci/pcie/aspm.c
-> 
-> Thanks,
-> Louis
+-- 
+2.56.0.455.g6c5a503b38-goog
+
