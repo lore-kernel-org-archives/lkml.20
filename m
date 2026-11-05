@@ -1,73 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793843276;
-	b=Fm0FJPl/APucVA/fKG7IibK3ky0KkzqSuq37dRQoVBfDAPWEP/8/9U1JaA5tY5MnZ2VV
-	 fyjsAFrFjHD6PvFdS/jpiVrUiJg7nKKoga77Q5orfGzgg2/EK6z9tQbebxC1sTZVHd64I
-	 XS7+R+fdkfdDf7dyFsZ8ITQqy+SRnsIREc71uBEsYkTtx8jJkWS+bEUyf4abDDw33+mR2
-	 pJJbOAPII6pwCoHxV02tfKEmDkmhW+XBRStjAjWGCKZ95EwZuDlMa3osuR2q7f3HoMLNu
-	 rm5kBHUcS9uzFlMZAWrb4/EgpKoUpkCBXU0mLRlAHFQhrMhiK1cxmkUjTHfc92Mjf3w==
+	t=1793843308;
+	b=zL84Wu4t0iK/KFqGHdaUd57x3iEE1m3IT/xzN0elufVL2Ux/y/Jl6U9DkN5anNpu2IKz
+	 ySehzsBfS4T0XJ1NkdBko8/jTIEvEqzZlvldpRjTyCS7OMJ9Deq3QVlUq4aTv0nBEiBrb
+	 +iugNY0y6mS5haAttWigzo6Ukj0u1yWqQ+kgXe7YuLTl2jMJkmmXL0/t3jviJde1rR08n
+	 KLGprR7kQlQ9jAQy0yILmz/sRLVNNAvVygjHNFNNb/ByjK2vb3I4WLhMDsYvdHzmfsIaI
+	 usFkcHYx3YnJeAiZDMec6Ht4BrjoM0pvqBTwgG6hTFob+aNN5yZYAFf2DgGAQpYgAow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843276;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=kalKeHz4b1WciVSS541VQ/8h2ygqFGC8Xteygkp/h7I=;
-	b=SJytNQthhXevQ1OlnQx5gm7IyFkfYmHCEU2dM8mRo3vHbO5PD7nI47GFEUS/hF56EYOp
-	 adyEhCZ4UZwPht+01WfYj+bAzfenWwFc9o2KSX6Egp7C9U88/u+IgbzG0gtFbQlfc2WeO
-	 6qAStYBQwxwBzw7wrYTRHy4of+HvoR0Uk7qHqOART+/WFBPcV9R0NJKxtydmA42ACP1e3
-	 UQbMD8mDNOnqUQr/Ch2CgnArquQaurYRYZ5yUWqQIoXEwO1KlPaiC31gQtgPddxOCAKST
-	 HYUWeSiycqWlpNieQJZFsRE15JCQUPqtTCTHG9AWpF962CEsYpko3AI8eT27VvtycEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843308;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=ofUF77oywNWCpwsnLT2i2Q7oO68s6mg0Qp5AM7aQI6A=;
+	b=tmQ+raCZJZb3IoFAXywjr4XQ40aA5qiCJyi4MseEVubf+o30FaUI0hBA1CLdQsn8RiCP
+	 lpim0fezZPG6cYdHtsG4DqUQn/x8tQwAhmG14WAw6AScK5gi0vm9A2EmMQiB+7S328LXn
+	 ZLOoXIoi5TAatglIFu91ns5MsPdBIZioXZSsuEzbJ/BjlGe+gRBBq+iN9eV5rcMqOtmT6
+	 NOnQWgkvjokQyOPE+Iu4KYas0cuLnMOVgJnxDQVhOQ1gziChFRAUssBnE5dv01htUaOMO
+	 sn1SlXLMCGtbas02+S6cT3425SyeFm5FVPwD94GkL5RPmOzLHF5VHyxD55IUR6daEgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLTksyDu;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=RMVlsqzW;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D698606A328;
-	Thu,  5 Nov 2026 01:47:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D698606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024C3606A31B;
+	Thu,  5 Nov 2026 01:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 024C3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLTksyDu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793843274; x=1825379274;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=JKcF5uoUnOYX3yU9/edU7461NqAwwX9bktRSNqowsmc=;
-  b=KLTksyDu/M24HNGyNenoXJ0YEqLIa/RwRpoYp2XgOsUowWk4IjUA131C
-   w1jczqUGNSMCZIZ2s0neDtdNF0lbSPwFzUQRqbWfmttlpI6oxYS3AjpvX
-   N4gqoBoL4bWCrVd3jzRWrqj7JUhyikZo8S7XbXVUMCWxt+QN8QNiOe1OL
-   Cx+xLUvr8Q/b66yRv0Qul0fr2ZItZYtGw6S0E8voFTYCWMACLin/7H96s
-   Irh3UD/393CQxWh5O1ivREW95JrCMVWY7BBSpBSHdqbmkVyFvI9CrBLHy
-   XT0a6cchqdOqRgH/lo6cyIrnX4C5pBmnpgp8uwC3yOYoOny3bDXYwiRJ1
-   Q==;
-X-CSE-ConnectionGUID: AJ4y09eoQA+dh6t6nfxTVg==
-X-CSE-MsgGUID: rdlLkHZdSNy8H3XNuLI1lQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2611756"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2611756"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:47:53 -0800
-X-CSE-ConnectionGUID: jiMWaJVrRhyffksXJPhXFw==
-X-CSE-MsgGUID: TBrdxYTtTeKlMmYhrjcbDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="8643408"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:47:50 -0800
-Date: Thu, 5 Nov 2026 09:47:45 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Ian Rogers <irogers@google.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-perf-users@vger.kernel.org, yi1.lai@intel.com
-Subject: [linus:master] [perf vendor events intel]  31efbec216:
- perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU.fail
-Message-ID: <202611050912.2cdf1ff5-lkp@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=RMVlsqzW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1793843222;
+	bh=ofUF77oywNWCpwsnLT2i2Q7oO68s6mg0Qp5AM7aQI6A=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=RMVlsqzWCh91N9VHpTpR0EGzzpBcmb9c8MFguhiVla4t+diqNMcwcyylpcmxzbKQ1
+	 EdDe7WawcDkunNHCw0bl/uMDhrA7EJiXA0BhNNvxoMg85zrTslH3l3YXHDXsRpMdry
+	 TArKNY82Rt9DrKgiKcCMErjgwzF3JMbyXwSYg9eM=
+X-QQ-mid: esmtpsz16t1793843206tea9c35d8
+X-QQ-Originating-IP: jy6+eKO2jeW0sZWkj3TdWUmveIympHx8jZKmpuARVig=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 05 Nov 2026 09:46:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9435009914500537099
+EX-QQ-RecipientCnt: 10
+From: raoxu <raoxu@uniontech.com>
+To: perex@perex.cz
+Cc: tiwai@suse.com,
+	luiz.von.dentz@intel.com,
+	pmenzel@molgen.mpg.de,
+	pengpeng@iscas.ac.cn,
+	brgl@kernel.org,
+	u.kleine-koenig@baylibre.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com
+Subject: [PATCH v2] ALSA: intel8x0: keep AC97 PCM descriptors for ICH4 capture
+Date: Thu,  5 Nov 2026 09:46:42 +0800
+Message-ID: <5387AE07DB9C7930+20261105014642.73877-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,84 +74,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NvxNySBpH0QlG3lu1wPPSa1zkDPjjUIJX8sZXesL9bg5wywe5nxdKG7L
+	/dwzx9l2Xwft0qHgrcnOAw/NSR0S2BGd2gGbIzD/zHPb7CSlBzkmhhINZ44bNwxHq8Q2K76
+	nUToJMApItsgSVMqTpvHdrVf6BnH3siVbDcRrDuq1fM92QSeCg7gx2X9Ua7amSFQpO9WrhE
+	265IifN8KVVFCsozRcEvVMncWkFFgqLHw7rLBG9tR0oZWaxRvIeLaiKRUiyoXB3FqlCBRwH
+	fG+Ojd+C+E54qf/W4W0JZeprFqy7IGqG6xrIR4aDsqhZAyIjix1zvIFcEpxf4x5ILNAwwnw
+	ukhfBhS9c9Ot+ufGYaZyC2EbH1dY2T7vYsfockI2nXIhzrTFsEmI+Uj6ZLcO27bxRBQATWc
+	kSJxZjVuTaGeWqF94K+euJsKDCTcv7efUHhIo8Ojd3VcCaVRKIEiyOmjfoRDfevosfIQsT9
+	lHr5K3obkR4QgYklm8on4i2cfVxOLPtNGI1dSDWKnwgzRDyqWUZYKtmj5hjXGb98Kfps7Hm
+	5j8Iy58AIf0nseQko41en7HsoV2o0uly9pzg42RyeDqcqAtxkemtKjsSkkRFyj5JTzI0l6G
+	9OuZhn0dqRaBgjvDPpylJNHioW33p/UsFXI8nhb0z+eB7Y3Q0rEsMDin43JUWXBmVonu8KN
+	gF01cxMYf6wd8+sYV3IcwLgkWDZX9jc+y/OMTRpRtlZoR+4HnYBst6uAo5/hKh7ldqs8t6W
+	QwF+w/7dwKDXpRAXlM1DsRhoit2G83haupvBDzgMj3IuD/xYw4vSFQ/iw7D6dN5XXw04bTm
+	O57fdTNF7UBQythkoqmKXF8cjnDrGSeS2Pc0kh/ebmGZWC6r/WXLDQzUZknHUZrXhjE7OGz
+	/xNKhsLwh/DwWVtoAZVERKiJqHZQmfIvS/TmJu1w2wxfboIC9WPKrHArbVbd0P/Ohf+L2U9
+	Okow8hsXa1mlCz/JoAx+DzFPy/UtcnzxYOBhkmnTyKvHpgqDW0PhECRf0bRnx88YZR5/0GL
+	vhNFCiqdAdQlxgOFninnYIbo0/cfhYpYfJc9uHEeTMfT9/RuP9+kdCUlwFpASHdY1WiXAGk
+	g==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
+From: Xu Rao <raoxu@uniontech.com>
 
+When S/PDIF uses the AC-link, spdif_idx is negative and the AC97
+PCM assignment drops its last descriptor.  On ICH4 this leaves five
+entries, but PCM2IN and MIC2 still use entries four and five.
+Opening MIC2 then reads beyond the allocated descriptor array.
 
-Hello,
+Keep all six descriptors on ICH4 so the capture stream indices stay
+valid.  The S/PDIF descriptor occupies its fixed position but does
+not create a separate hardware PCM when S/PDIF uses the AC-link.
+Other controller types retain their existing descriptor counts.
 
-kernel test robot noticed "perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU.fail" on:
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+Changes in v2:
+- Group the S/PDIF descriptor count adjustment with the non-ICH4 case,
+  as suggested by Takashi Iwai.
 
-commit: 31efbec2161d2d31b020b086958e41f35f070a38 ("perf vendor events intel: Update sapphirerapids events from 1.39 to 1.40") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+ sound/pci/intel8x0.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-[test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
-
-in testcase: perf-stat-tests
-with following parameters:
-
-
-config: x86_64-rhel-9.4-bpf
-compiler: gcc-14
-test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611050912.2cdf1ff5-lkp@intel.com
-
-
-EventName: UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU
-2026-10-05 17:15:24 perf stat -e UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU -a sleep 0.1
-event syntax error: 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
-                     \___ Bad event name
-
-Unable to find event on a PMU of 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-Run 'perf list' for a list of valid events
-
- Usage: perf stat [<options>] [<command>]
-
-    -e, --event <event>   event selector. use 'perf list' to list available events
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261105/202611050912.2cdf1ff5-lkp@intel.com
-
-
+diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
+index 339024182a26..69fe42747750 100644
+--- a/sound/pci/intel8x0.c
++++ b/sound/pci/intel8x0.c
+@@ -2289,10 +2289,11 @@ static int snd_intel8x0_mixer(struct intel8x0 *chip, int ac97_clock,
+ 		pbus->isdin = 1;
+ 	/* find the available PCM streams */
+ 	i = ARRAY_SIZE(ac97_pcm_defs);
+-	if (chip->device_type != DEVICE_INTEL_ICH4)
++	if (chip->device_type != DEVICE_INTEL_ICH4) {
+ 		i -= 2;		/* do not allocate PCM2IN and MIC2 */
+-	if (chip->spdif_idx < 0)
+-		i--;		/* do not allocate S/PDIF */
++		if (chip->spdif_idx < 0)
++			i--;		/* do not allocate S/PDIF */
++	}
+ 	err = snd_ac97_pcm_assign(pbus, i, ac97_pcm_defs);
+ 	if (err < 0)
+ 		goto __err;
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
-
+2.50.1
