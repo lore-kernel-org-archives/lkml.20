@@ -1,66 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900314;
-	b=G7dBUl/RN7peNs7S1HL6V7mAs0YgJh/rWli21O92juPdh/DcMoGVYsD3l2+KM8eapD0b
-	 w0RxTd+bpO9hsBiaGHRO+6pg2tjbmtUqvVUq+pmb9z90NaT5GOI0CM947rFJPrnJCxyoX
-	 QwpxJnYLquvo+dL7q6YfHHg8oQXJBz4Q8bpsLykj8mrFps1FJNxqlwKIOy/yTmnWXqoGR
-	 maGtQeLUcoOuVjBQm6EgBKjRW66HFp/zhrqsCrU1GCFaS6gQtMYP76cp5Owl2Izfx+Ycz
-	 9QcKP444SgB2g2vcD1kbjM8IzHnDlEMAxEBCY0LnJoOmR9VoS3sYSVMY68DHgM2sCLg==
+	t=1793900332;
+	b=5OvSHQeyqKrd80bLd5bx3nlGM7CQPnCqlhauqXagVu1hCDm3JWlWcZMYid5sIHxCSLgN
+	 xPaygklZSw3CraAaHnYIggXr2T6eI4aOZmnTrpgD3BcZtActmU29E31PXao1QYUX9y0W6
+	 bPpR1mvRpnS6cz7uYwjjiiSH2yKAxWE6PZEvUAFRIfiExYSDoTbj9qcYqFtKrws5ZOxW0
+	 Gqn+IuGZVX1KAO3aAMhSlCLqS84TWs5gC96QhY10g0/D7/77fKNnV2ibB0PDWRT8Rd5R7
+	 TMsy+/AWbqZYuG2MD60Fo8JQ6uwP8o+9LDPmDfsKTonSxgDyxQltgcAFWlC0d7QFZFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900314;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8fz6RmNx4rsL9ZO9RoSk+toa+/2KKetNvBTZ87Q/PdE=;
-	b=XeMaBITzK4o/TTzdJNxm3SKMICn4jyPwQu6tnTxNfzbigK8TRGmRVeMfocjivIXLE2pN
-	 HrGop5nSKQqrDpMrkI70qHGHFIV1NbiBvuUoFzppGv8ghWHaukUa9+OgwaRT9W+SCj+qZ
-	 f4O78ekyMd0QtBSoU2AiwKQ3tf3p0xrpFXYN2KJ20m9E026UwtJSCSuU3Sz4PmIqryY09
-	 0cDhhsBVGhxoTEejZkBkaUGOOiAY3koN13TQ/uk5AAaUCbR1ucw2UT5PQKT7F8VlyGsCw
-	 IZlM233J9uS2RqTGb6f0TASvdphgQYDxDR5mNzanFTE0FZ9fxDSI3r/8FCqzC62dI3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900332;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=rdzlIaUH6Hn5s4YN1L9yR2AveCxOlTSI0/zi9qQe1hE=;
+	b=zpLes47TzsOwZ7Jf3IP5oF4d/UvWAbckpkD1IgBYNRX5afwGTP4dnNfanLZvdv/Bgcxw
+	 t89WLg9cORk1d6uk89NFMVHsBVwX76W7RtDsK6mZgVSqaCFkZRU63S+xbnx4BJvF13Bs9
+	 saaAPSoaJNQ8pCl9Z5tMaybaUccUcgLXPWBj+Cp4jD3gnqoXJY/at6m1qWhbqnMrNiU18
+	 dRp/mPhK962dG7Igg+OAuYrMhBRTM8KFEjA3pSGAAnN6O1qRFvOgGapnRPfvuMAJIBvMJ
+	 yNgJuNATScGbVcLFFerUAhiogqsM1ti/nBxxjuakH0VpT6xpej/ENYpfO6u2gKbTpmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=baRLamw0;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F698606A31B;
-	Thu,  5 Nov 2026 17:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F698606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pgxDCjP0;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A29606A31B;
+	Thu,  5 Nov 2026 17:38:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A29606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=baRLamw0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4D3B168F;
-	Thu,  5 Nov 2026 09:38:29 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F9CA3F628;
-	Thu,  5 Nov 2026 09:38:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793900312; bh=kQasTs69GJMYTewLpWCOSipBS9yqMY8wtuGqJ6c4A5I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=baRLamw0BEo+tFUEnaSWrk8Nev4Q5y0Y6eyDS+bv2ePivPxrN/r6dmXeVJw6EAruG
-	 LmVvAwErn2pWSVM95ht9FO1Jat+mG0L3qVd816hE8H5/fdYhC/yFe8eoYfW8dKF/Dp
-	 GuOi21pPZk+MOhq3hVAGBNMbSd7yiVE5q6xXpyWA=
-Date: Thu, 5 Nov 2026 17:38:20 +0000
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-	philip.radford@arm.com, david@kernel.org,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v14 03/32] firmware: arm_scmi: Refactor
- __scmi_event_handler_get_ops helper
-Message-ID: <auy_DP2okO9o7Yee@pluto>
-References: <20261016185553.2794459-1-cristian.marussi@arm.com>
- <20261016185553.2794459-4-cristian.marussi@arm.com>
- <20261019134657.0000624a@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pgxDCjP0
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiEQ73787730;
+	Thu, 5 Nov 2026 17:38:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=rdzlIa
+	UH6Hn5s4YN1L9yR2AveCxOlTSI0/zi9qQe1hE=; b=pgxDCjP0xdaLvbvLVASo69
+	nSYnte/UzO55UeAI/scwutSPLHdIEWwwGo43/tz9MEpJ4Rh2m2d6OGdqP9d4Kovz
+	RjBCPB3U/ehRY6z+OEJJHCnSRj62QsCFQ/6370u8Jp5lko+uRRGViRJVA4iZsgHv
+	3f27t9oXcDHDOS7QmF8/N13Fg2KUsCiemZQPrDv6jsiiqwbPs50W0QTiPD1Ho0Tc
+	ahcB908WbiJ2Yy3ki3guxWFLs/IJWp+ia2Onwcm7X51Di7zfOE/nXKg6v7vlr2uI
+	/c9w1GgbK7+ONoEHJ2BtqGBMT3Zrht+y7zgvjoW5cChakyydcTOMoTTR+3TitqtA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn82742pe-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 17:38:28 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5GuFld1746147;
+	Thu, 5 Nov 2026 17:38:27 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrk9mkgbr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 17:38:27 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5HcR4R31392354
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 17:38:27 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5AD6C58056;
+	Thu,  5 Nov 2026 17:38:27 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 67DA858052;
+	Thu,  5 Nov 2026 17:38:23 +0000 (GMT)
+Received: from [9.68.10.150] (unknown [9.68.10.150])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 17:38:23 +0000 (GMT)
+Message-ID: <0bfde967-9b68-4edb-96d7-ee9580fa1358@linux.ibm.com>
+Date: Thu, 5 Nov 2026 18:38:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,95 +86,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019134657.0000624a@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/20] coverage: move gcov and kcov under
+ kernel/coverage/
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Alexander Potapenko <glider@google.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Andrey Konovalov <andreyknvl@gmail.com>,
+        Ben Segall <bsegall@google.com>, Bill Wendling <morbo@google.com>,
+        Chuck Wolber <chuck@wolber.net>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Dmitry Vyukov <dvyukov@google.com>, Ingo Molnar <mingo@redhat.com>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Justin Stitt <justinstitt@google.com>, kasan-dev@googlegroups.com,
+        K Prateek Nayak <kprateek.nayak@amd.com>, linux-doc@vger.kernel.org,
+        llvm@lists.linux.dev, Marco Elver <elver@google.com>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Mel Gorman <mgorman@suse.de>, Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Steven Rostedt <rostedt@goodmis.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Valentin Schneider <vschneid@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>
+References: <20261103015238.3780910-1-sashal@kernel.org>
+ <20261103015238.3780910-2-sashal@kernel.org>
+From: Peter Oberparleiter <oberpar@linux.ibm.com>
+Content-Language: en-US
+In-Reply-To: <20261103015238.3780910-2-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: rkdU5601SIlyTEcZImOEhpH2nM8SvIsv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2OCBTYWx0ZWRfX6NJgN8/MJS35
+ pbK2PumL8jSiuQmWVCw5maGSbcS30Ek2XXkqSVWxt5CiIze/p2m8RSuSfrT1TocToRxb2dOkIWs
+ CnlZzrH2Pzk62SVShoGHP7rYRw75T7L047aSenT+9ZCUBADK9xweoRN8gD5ligVMTacUUJykEor
+ pEBu3irqghJrnWuCwO4aRVyVm7ufppv0WvZQ93q11ReemzEk4kVp2F7Ih54k6fv5uWU7UKMVq6t
+ EIHEDBHyVEaQL3wQVbyF6J3tK7durH77k8zA8x3bq5OMK0CGPJ2LfjCvKtA4z7oeTF9vfLFTXCJ
+ 95X3CcsvMvpMV6h/HZpUhqgCrISkahyAQkNXaEUV4vlOm0IF7CvPf9r3KRP4r8noW2GrN7un6eC
+ gJVmiBHO3EmYhBYNhIHbqMWp1XoCGITD+pLuMa8m04DS9wzkwi8D9jat2fKMl5/g8OS2qi/7xwh
+ nOE6C2meI2UzXHrJGRA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2OCBTYWx0ZWRfX4pCvlQhJn+tP
+ fedwpzoYFglsAh62fLOLIf8wKvMnTmjUJpkkGVc8oXHoANVNG/zcdndiG0cLEI66MaCxoxvbBU6
+ 4BSo6rbWEWa0bgu/4qqs1prGmifX1LM=
+X-Proofpoint-GUID: V_V2ysk_22Dp2O_arpjz6QdKTGBpjRLM
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aecbf15 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=uAUjUfugXiV6-CzwXu8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1011 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050068
 
-On Mon, Oct 19, 2026 at 01:46:57PM -0700, Jonathan Cameron wrote:
-> On Fri, 16 Oct 2026 19:55:24 +0100
-> Cristian Marussi <cristian.marussi@arm.com> wrote:
+On 03.11.2026 02:52, Sasha Levin wrote:
+> The kernel carries more than one code coverage implementation, each
+> with its own directory, Kconfig menu, build plumbing and debugfs
+> interface. Start consolidating them by moving the existing
+> implementations next to each other:
 > 
-> > Refactor the __scmi_event_handler_get_ops notification helper to simplify
-> > its logic and make use of guards for locking.
-> > 
-> > Mostly no functional change, in the sense that while the functionality
-> > remained the same, a richer set of errors is returned where before was
-> > always a -EINVAL.
+>   kernel/gcov/  -> kernel/coverage/gcov/
+>   kernel/kcov.c -> kernel/coverage/kcov.c
 > 
-> Maybe mention why scmi_allocate_event_handler() is now wrapped in
-> an scmi_allocate_pending_event_handler()
+> Both are configured from a new "Code coverage" menu in
+> kernel/coverage/Kconfig, which is sourced from "Kernel Testing and
+> Coverage" where the KCOV options used to live. The gcov options move
+> there from "General architecture-dependent options".
 > 
-> I like the change but beyond logical division of activities it
-> isn't immediately obvious why that split exists.
+> No functional change: the Kconfig symbols and their dependencies are
+> unchanged, and so are the per-object compiler flags of kcov.o, which
+> move to kernel/coverage/Makefile.
+> 
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-I'll do.
+For the gcov portion:
 
-> 
-> One really minor thing inline that I don't care that much about.
-> 
-> Anyhow, both trivial so
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> 
-> > 
-> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
-> > ---
-> >  drivers/firmware/arm_scmi/notify.c | 73 +++++++++++++++++++-----------
-> >  1 file changed, 46 insertions(+), 27 deletions(-)
-> > 
-> > diff --git a/drivers/firmware/arm_scmi/notify.c b/drivers/firmware/arm_scmi/notify.c
-> > index 7d1bb424a723..2bc2e03df639 100644
-> > --- a/drivers/firmware/arm_scmi/notify.c
-> > +++ b/drivers/firmware/arm_scmi/notify.c
-> > @@ -890,7 +890,6 @@ void scmi_deregister_protocol_events(const struct scmi_handle *handle,
-> >  
-> >  /**
-> >   * scmi_allocate_event_handler()  - Allocate Event handler
-> > - * @ni: A reference to the notification instance to use
-> >   * @evt_key: 32bit key uniquely bind to the event identified by the tuple
-> >   *	     (proto_id, evt_id, src_id)
-> >   *
-> > @@ -903,8 +902,7 @@ void scmi_deregister_protocol_events(const struct scmi_handle *handle,
-> >   * Context: Assumes to be called with @pending_mtx already acquired.
-> >   * Return: the freshly allocated structure on Success
-> >   */
-> > -static struct scmi_event_handler *
-> > -scmi_allocate_event_handler(struct scmi_notify_instance *ni, u32 evt_key)
-> > +static struct scmi_event_handler *scmi_allocate_event_handler(u32 evt_key)
-> >  {
-> >  	struct scmi_event_handler *hndl;
-> >  
-> > @@ -914,8 +912,20 @@ scmi_allocate_event_handler(struct scmi_notify_instance *ni, u32 evt_key)
-> >  	hndl->key = evt_key;
-> >  	BLOCKING_INIT_NOTIFIER_HEAD(&hndl->chain);
-> >  	refcount_set(&hndl->users, 1);
-> > -	/* New handlers are created pending */
-> > -	hash_add(ni->pending_events_handlers, &hndl->hash, hndl->key);
-> > +
-> > +	return hndl;
-> > +}
-> > +
-> > +static struct scmi_event_handler *
-> > +scmi_allocate_pending_event_handler(struct scmi_notify_instance *ni,
-> > +				    u32 evt_key)
-> > +{
-> > +	struct scmi_event_handler *hndl;
-> > +
-> > +	lockdep_assert_held(&ni->pending_mtx);
-> > +	hndl =  scmi_allocate_event_handler(evt_key);
-> > +	if (hndl)
-> > +		hash_add(ni->pending_events_handlers, &hndl->hash, hndl->key);
-> Trivial but I'd keep to a strict errors out of line
-> 	if (!hndl)
-> 		return NULL
-> 
-> 	hash_add(ni->...
-> 	
-> 	return hndl;
-> 
-> It burns a few lines be saves a few brain cells.
-> 
+Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
 
-yes, I prefer this too...I'll do.
 
-Thanks,
-Cristian
+-- 
+Peter Oberparleiter
+Linux on IBM Z Development - IBM Germany R&D
