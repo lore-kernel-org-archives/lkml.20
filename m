@@ -1,91 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793921006;
-	b=lBVxP9YIBUMHc49zVwZPjRI/hHpWCl1lfTee+wxNKQJXVFH/JaGX7te7SptaSnXDKPTh
-	 UQNRSmjW3nuY29qVY9/D1cyFTGsnIjzi/BrPgGaGqcQpTNTUzR/LqAgQNHq+Qf8IcSATY
-	 ZvnnADSgY1AJrYEfXPBoK+80BPoGiSUjAHE87BdLafb4wRKCHloIWr7NnXFfDUW+yl1nF
-	 P28VeEzQTOD4oQaQUKFGyF08Wd7dJjD4ZCYlN8vePvBkj+LTldLANmugGpr0bgnn6aazm
-	 2G+0qqA60z72sIJvA9SKPhFirZu1QuqzVhsZSOUFx5fAoTHnpK3yO1WGDvLPv7DUGPg==
+	t=1793921015;
+	b=S8GfmksbQFYzYGSBehiWj6mwd/crDvhbcb+JKZeUf1i7mujyAMrTG7L3nnU/n44/Agwh
+	 e+3Njw6T/ks4SCU+w/vN6Gt4KZb9/DgXEqe8TKnx9dzbS1SkwiKw303sjcrHgvL90aq7k
+	 ba0sH6wgEiiKWZzDZzTToKbXMkXGjnppLIu3QbJ9gXAfxIVHdtobcPA9hilmsJxBrMTY6
+	 jTeiGzI7maNmVe0CmcM79gvI4ygKnAAvUnD/cYCI304lCQXKfud8Q4UOIaOB0H3jMI6PK
+	 DlaUmvDZ4jVdAeOtjhGCAP2oSAAaNTXNUcdER2phpHOOgnk/JTES1qv7tvHVeLhHsVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793921006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793921015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=7a48SL2J6QQ6m+cZHRMVykFklMv/YM8YuhePjmhR4UA=;
-	b=Dwm06g6v8Mbw2WrMd7NQ7hlsR+XWJR+uZdUIb7LKJDEVFnTF5u3DnrQsYxHrHmHrbAfn
-	 +G1yirN7o9IWVpckeX5FEC8XwMRaoMQYGfYqRSG0ctjMyK1UPNd7+7VqRR7FqNTzVftXY
-	 +eLz70H2GmVrbWngT02pf/l1JnaSQ/7u39h4XbkznUEJh1TeRCWQmOH46ZxBbFWI4OvF3
-	 x77r7GqQGkMke+ThHvWSchngWsfvpcDkgjn1INcW0GCBCmLrfJjEaHw9KF2EFT3cDW8nC
-	 M86WOwUTcwF/eUGRzJ2HWj7m4LlPTSvmerwo4gPLCq7t+f45uWjaOI5rzfn3ocTjFuw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=++VDHdPlpTNkCnA4mn1+LWZP5PXeiA0pzKCa5Fy4gJ4=;
+	b=C3EGCYkGo26dLoWvkLMLFT9P4s8CzrVYRsZVj0cVd9qTtzMVt2WkzDNBzngmHfzdbXmZ
+	 L0fyotsmmmb+us/RacrK/NbseveEivFBwAoL55ff1Jp04ouqZM/dW76MAy466im1OmymP
+	 Ngtg4kD+maxdh8Fdf/b6IVNbLABDoF+3fFnbqXCvt3yT1yXTSV+nnpPLbVYtWG/Apek7E
+	 X2aQm2xVB+jHUbur5I9+np3jqg2Dl/gV83hdsFeqhZQ6L8fkTGteca2rWn4/t/dFUh63f
+	 DuF/6WIoOsiKdqjqA8hkV9/i9nc2671AvDgndTeBsBh0an1QVlSuUg3a5510L1lp1qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=d31fr3Kr;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwEhz+cv;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B364B606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B364B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24863606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:23:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24863606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=d31fr3Kr
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4c9abc1824so7167066b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:23:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwEhz+cv
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b0d09fc934so10264a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:23:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793921004; x=1794525804; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7a48SL2J6QQ6m+cZHRMVykFklMv/YM8YuhePjmhR4UA=;
-        b=d31fr3Kr5hDPBZJNWhNRAPiLHMaeY365aKphN719Wa0YimBeyCjkj5McXpcYvfbGTF
-         4AHs1CrXc9Ao/6/qQyzIKOf3HLULlbWntHcPc++fyvszH7SMkRS+ll6vRywQrq58/kBc
-         PFSQzyve9Fbt9pV/+/Tx78ka3jfumU8tyCsxg=
+        d=gmail.com; s=20260707; t=1793921014; x=1794525814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=++VDHdPlpTNkCnA4mn1+LWZP5PXeiA0pzKCa5Fy4gJ4=;
+        b=lwEhz+cvmKxY+3AyfjBFSx/KuYZciYjwvWqjEpzgONTUQWMMjbGXC/myBcx3WrAci4
+         DtXOMPIC6dCJaB14U+9KcT9yJs0B7ZFFnphmYMcJWbL7twfS9T50PtRp3phmaMufiDMH
+         LLXdGtnC1zZRoprf7APyggElz6MRxkd/Hjfdu1dNfFnsuN4uStAr2OXt07yUsndQmNfd
+         cQdtVjcYaZ1yPYsLhs0uHEDpJPZFbaE7HN4iuOPQGgorBhUUYthJKnA7G4osbEDGv9uu
+         AoQfQrf75KCp4agb0EQ1ZrQDa1YoC+Tq3PjJ49lJxpaSjJy0xPn/s+4ap6/3x8DGBZ3H
+         lP6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793921004; x=1794525804;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7a48SL2J6QQ6m+cZHRMVykFklMv/YM8YuhePjmhR4UA=;
-        b=fnvuaj9z+9O7M4pA94ECzN/4XfHq5CQUVRCp3xVdCTYME2dr1rdT02rlel/Iwjp4v4
-         Z+w2sq+Qf9LLANyTGHY9x+WQEstrMGwB1/U7TheZQlWrxF8SqjvIpK0i2TCHIqqgJmn5
-         y7yWRGyBAJd3y7995H5r2RmhiE9na+DkgiI66thzJCr6t3tn4K6G7rcAC68Zi9frspBM
-         p2WC+2OgA57X4jElecpetW6mosqgT2FoR4MGEIZ5yM5eQXytcs8ZDkyBao0jD0N1jqLV
-         2iTb/fm2gVFa4u6g8IXEDwYEh06Mkb9ZV6yu6CGroOrmvHlZW5r4Eio3kO1G5zAITlXN
-         ZY8g==
-X-Forwarded-Encrypted: i=1; AKwUvByBlMzeMGlySc3fd8fI0oP+iXv9cx9P4b9cUH9r45BVjEwi34BN+6RqCJ37lW06hnxB8QaFv8JmzIhGMjw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89uQ8ed//znngOGjl1LNQSPVgR5wqHRo75yRAIp0DMQcSHbpN/
-	RKj3GBJZJzAxjDZWxrwA8kED/hPGWV83+HeUafyGOG4tRcBOR0K2krAoNqkUDimcnwttbGSB2yt
-	+1WfxOVGx
-X-Gm-Gg: AYBFou3EA19UALDwDl45v+CF6K3M9OMz5c+InSSN5KaRP7DvTR83+SWd2eVQp39pwAk
-	sNDSLv7gDwyUqtiyZVFRIj8lqbNi/vpY0ziDxhSx/QAcXs8flFZM3mAODU+dyAzyvpLylSqC+YO
-	WvvqICHlSNU9/MrZwJ5vyjayVh7Dx+pvOOfEN58iknhm+90onfvph/DDKXHZnrrzvc3DRBfTDft
-	SKEB1YLYsvaNyv3RmHMcZSTiofIwf8J0Hq9e8JFtZDz0fuc2u/Zq9t+HkMA//AEjU1Yy8ZJGxLI
-	0maoVtpfMOhGJkIwJh/jAMBK/SV7sbtVQjqU14pR8E3w61w+pt/+5BU7WgsaXxFAJnwa4Oi/kHO
-	ijhmJmRchOBHmckq+CDao4RbJu9x849HBN/A8UWx4lx8w8LP8lZzqgUhQae/uYgLogrIiL7OHzA
-	hN3iYjtgH+wbfvbx2oZGdNAaKm7eiFgGXVTkkw5cGLxUvNxZXnTvlcHfCHZBjxbaiEkgnnkXoWI
-	KHFYvIqDg/mXVPSe4OJ/Ko6557M3taKtfFXC/nr4gtr20gVQ9tw1PV1Z+EIP9VUb4gLCnWTZshp
-	SnY6UV6n6Q6Yb+d53A7+7FXTzcvZ6Yfkpjy43YJmqh9fg2aRF5UV0/BJI7FGTLeRBDgmpKPoI39
-	BAg6odZwsdoLl
-X-Received: by 2002:a17:907:1b0a:b0:c34:e9fe:82ed with SMTP id a640c23a62f3a-c4d3530f014mr69883166b.28.1793921003997;
-        Thu, 05 Nov 2026 15:23:23 -0800 (PST)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com. [209.85.218.49])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3569f15bsm25371766b.49.2026.11.05.15.23.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 15:23:23 -0800 (PST)
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c450ab1483cso5992866b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:23:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwUmS0/fUctuj/sv2wIWzPudBjEDb9wUyT5DjvsNXTiSqrsf0145khbg1rUZxTfEeM95ABYqdK6A3Of6/E=@vger.kernel.org
-X-Received: by 2002:a05:600c:4e14:b0:4a9:18f4:925e with SMTP id
- 5b1f17b1804b1-4b6df8c9443mr8848245e9.18.1793920627925; Thu, 05 Nov 2026
- 15:17:07 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793921014; x=1794525814;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=++VDHdPlpTNkCnA4mn1+LWZP5PXeiA0pzKCa5Fy4gJ4=;
+        b=loDGsjytGAt2rspQ+mES+CR/WeRR071LQE/OcLGjz06XVZv654hebsdUCgsrFEch1x
+         z8fVb+v+zJyTehXl+TwwDFHQN5wOmcISfWEwgtml7+M2Y2TsBPPmvvN6NgdV2UawrfHR
+         A32DuKWxa44UUENzEngHj+itihtgw8duRD9Ep24MeQv1JD5tV4uERRqkxNayE1MAwRxa
+         LMWnJrlMn06qRzplfy7+ph5GVzo7ImLbF0u3TlVB+OYwKtJgL70HoTFUIsAWGhvaT+Qs
+         on5dkdUSPEhv5ml9HMsNWsyb9h3578kmmGB4pKuJHfwmzFCszBIas1jtYeGf2Cmo1sXU
+         vztQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBDUIGHDnhD+XkDBomFZ/z164KIiYlARfQ+P7zaZYT4406ApGAC1oT+ih2tHrxmK2mvmlpV47cdQP8/xk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hkGQ2vgLh62Ypg40Rfc86HWJWJSLyKtclHaI35YPrz2GOhk6R
+	X6QqjYBcwG09kCv8bk/C4y4Zmmir4LExonQSQHaGZ0Vp6VYI2qzROaPV
+X-Gm-Gg: AYBFou0y3tWCP07ho1Q9rQYAVvfjlB8vHbpB7nypOLBbsqt7fEBoFHlGJf+rhG1v+Fs
+	c1c3vyBs/7ZKASJp5q3wHJS25CsV/XTnCAZwIiferYjb5kR4hs6+BmydLN7SQSDQxVG6emCIu6p
+	Vfz6nVpBNcQgSegoEZzJFeQowiXaZxuHmDL4UklWSpomNXAhBZQ5xVhAU35byCNh3a3LL7Gypfx
+	Vc79/03o7rFo2YClEBCuvEzSSwHSaQiv8P+H3sG36U7rzerbgDEvL1PWdbcnqugtsaDZN8JnaXQ
+	ht+xbQwYjXbqp4cLEt1B/FuP74TvOqT4KNL5AlQR1kE1wcdeCvyJg4vaD+OvNp4pqlXIMNObxbx
+	trVGIir5O/ooWO01MD1O4W6mp/G8YDma3ApYCp6K5CcpBBhqiXxXgodWeXTlokeCNo8KxjPrpA7
+	Xp8KpSJwInVeIWWAaM1k3B//VtREz14gNDGwreobZcTmviXtCzJ6yGgFER8BZp3UoUvVjntGSId
+	Uc6srQOg9pTs711OVCEXxJlFKOmJ7JqTFlS24rLIVtybtWjWhblWkzLrErpvEpkGxT8WOuda60K
+	rh0I1ihVTPITWXvqr1QwDXHKPEvWmbCn7vmbZvJWIG9+vDza7+SWGvbc5Gsyg2qpXmCggVmS4sx
+	qRZQLPM0=
+X-Received: by 2002:a17:90b:2590:b0:3a0:c1b1:45fb with SMTP id 98e67ed59e1d1-3b0db014274mr896768a91.0.1793921014532;
+        Thu, 05 Nov 2026 15:23:34 -0800 (PST)
+Received: from FAIZEL-KB.. ([2001:569:5b64:e100:f564:53e0:ae9d:9600])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3b0b323cd3csm5317297a91.3.2026.11.05.15.23.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 15:23:33 -0800 (PST)
+From: Faizel K B <faizel.kb@gmail.com>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Michael Riesch <michael.riesch@collabora.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	libcamera-devel@lists.libcamera.org,
+	Robert Mader <robert.mader@collabora.com>,
+	Faizel K B <faizel.kb@gmail.com>
+Subject: [PATCH 0/2] media: rockchip: rkcif: ENUM_FMT and bytesperline fixes
+Date: Thu,  5 Nov 2026 16:23:08 -0700
+Message-ID: <20261105232310.385463-1-faizel.kb@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,80 +103,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104174554.1.I8556199ea4f1335169ce16e97309aa63ae2e2310@changeid>
- <20261105052401.GA862715@ax162> <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
- <CAF1bQ=S52KWHopqxksctbBirFEr5Mz1dKKMAoWh-dqLHii3Nig@mail.gmail.com> <CAD=FV=XE+KuTDCa3cLOsHPfQ9ngFOXrokFbxr=jDm_UFwKdQDQ@mail.gmail.com>
-In-Reply-To: <CAD=FV=XE+KuTDCa3cLOsHPfQ9ngFOXrokFbxr=jDm_UFwKdQDQ@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 5 Nov 2026 15:16:56 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=Wow=+pDDu=RHkr5nekOjDNe5wGr+WsV_WFgh4YYnm5Hg@mail.gmail.com>
-X-Gm-Features: AclHuK979bKOyfBMwiTt2PX8WJCz_unHupEnRKfbNiYMNWMSzKi0DQ3cEAIAtrs
-Message-ID: <CAD=FV=Wow=+pDDu=RHkr5nekOjDNe5wGr+WsV_WFgh4YYnm5Hg@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: AutoFDO: Enable -salvage-stale-profile
-To: Rong Xu <xur@google.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
-	Han Shen <shenhan@google.com>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
-	Bill Wendling <morbo@google.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Justin Stitt <justinstitt@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This series fixes two issues in the rkcif MIPI capture path, found while
+using the libcamera simple pipeline handler with a Sony IMX415 on a
+Radxa ROCK 5B+ (RK3588).
 
-On Thu, Nov 5, 2026 at 1:30=E2=80=AFPM Doug Anderson <dianders@chromium.org=
-> wrote:
->
-> > While I haven't looked into this specific bug yet and am unsure if it
-> > is unique to FS-AFDO, I recommend using -fno-sample-profile-use-profi
-> > to disable Profi for now.
->
-> Interesting. I can suggest that to the team digging into it and see if
-> it solves the problem. My AI agent says it will though. It claims that
-> the default flipped recently and "-fno-sample-profile-use-profi" will
-> restore the old (tested) behavior.
->
-> Should I send a patch adding that flag?
+Patch 1 makes VIDIOC_ENUM_FMT honour the mbus_code field, as required
+for V4L2_CAP_IO_MC devices. Without it, userspace can select a pixel
+format that doesn't match the media bus format, e.g. a different Bayer
+order, and the captured images have wrong colours.
 
-I went ahead and posted the patch:
+Patch 2 aligns bytesperline to 8 bytes, as required by the MIPI DMA,
+and honours a larger value requested by userspace. This allows the
+capture buffers to be imported as DMA-BUFs by the libcamera GPU
+software ISP on Panfrost, which needs a 64-byte stride alignment,
+instead of copying every frame.
 
-https://lore.kernel.org/r/20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1=
-bafce6370@changeid
+Tested on ROCK 5B+ with IMX415 (SGBRG10, 3864x2192): correct colours
+without any userspace workaround, and a stride of 7936 bytes accepted
+and used for zero-copy import. The corresponding libcamera change is
+under review at:
+https://patchwork.libcamera.org/patch/28662/
 
-Obviously that patch and this patch conflict because they touch the
-same lines of code. If folks think we should still move forward with
-both patches, I'm happy to rebase.
+Faizel K B (2):
+  media: rockchip: rkcif: Filter enumerated formats by media bus code
+  media: rockchip: rkcif: Honour the requested bytesperline on MIPI
+
+ .../platform/rockchip/rkcif/rkcif-stream.c    | 37 ++++++++++++++++---
+ 1 file changed, 32 insertions(+), 5 deletions(-)
 
 
-> > Regarding the "--mllvm=3D-salvage-stale-profile" flag, I also have
-> > reservations about adding it for the following reasons:
-> > 1.  It is heuristic-based and not enabled by default. I am unsure how
-> > thoroughly it has been tested, so we should assess it further before
-> > enabling it.
->
-> FWIW, we did find that Android seems to enable this globally across
-> its userspace, which suggests it has been fairly well tested. You can
-> see the change here, which landed about 1.5 years ago.
->
-> https://android-review.git.corp.google.com/c/platform/build/soong/+/35242=
-91
->
-> A few notes:
->
-> * That change _also_ adds
-> "--salvage-stale-profile-max-callsites=3D2000". Internally, there has
-> been debate about whether adding that would be a good idea, too.
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
-The conclusion of the internal debate is that, yes, we should add
-`--salvage-stale-profile-max-callsites=3D2000` too. So if we decide to
-move forward with this patch, I'll send a v2 that adds that flag as
-well. For now I'll hold off until there is consensus. :-)
-
--Doug
