@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893883;
-	b=FiP/y4cIFYyOOkYUk+hA59yu9MzEwc68VUTXzT7hMaNITgvhPALg6Sx1P1yejcJLjvYo
-	 aaIgkz57npOWmQPIV4xLT7cldIAOr9R4SG6IRFMDJ2V3GdrQhwPHiU6dlg4fJRbzCpdcN
-	 L7SG5BRVcuxdsrmZNY0qI6DOiDYF5kBOFyX7nKaqujt+cxzsy0M1YlC2Yf4YbA1ulX0to
-	 i8E7UGyLhHN2yht1TOwSr6yVAdDeKIKow920VQc79HODZoHyaLeYo0ArWNtqDF0596S4Y
-	 8ZPJ9iB8bieRn1fhcm26tHec81RRo5bV+Tc6v/wGaKAXvGA0LW+K123qxmDsD1phm8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893883;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vcoQZXzUSKAjGDFyua49S/KsemIMXjn1uFYHAPFPdCI=;
-	b=FmeCHjN9bTdKL7PdR2nknuhKF0mSDTV/cwV3HTj9oIokprIQZm/lmUKo2MKCNGU4Nbna
-	 r9lPQuIHQIY5j5IEv7Yx95g30OJ0aVqo7VYkcxdjp2rCXeQkLfYxQbvYHURVd8+ggKKdL
-	 E8BS8NxW30SL8XnZb14OUQy1AGwxd2g35mduFKeArBtZ321y0MJzN9aGxWK9yCedVPdjF
-	 g8MRwrpKEwNKpMrQJ5/L0anESP4tHCVVGnkejpklnMeKAUYW1icZ7kDG7dQ2fnqEjc7aJ
-	 ZHafuREp1PaH8mdg7aMENvp2OuN3/rR9RF1px+3QMJ4xyNYEPnsu9fN9bO5WmbOtmng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eh4uz2E8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793893901;
+	b=b3cVkwfR4BPOS88Hmm8vd7Z3A2/qfWLTudN+KEe26uaTkucudwf+UtHzcqkuPVW+0fjg
+	 RjldkUN6tdPuv29TTpEhT15QfBtuKeKNjNVk6hyuCjr6eGg0ZMwAaaTFZXMHg51Z4Feqd
+	 cX8TXc8AFgfIHBKvqMrPpZQAKiCfXOnC6eheHqPOH3j9twsHgSc3x7xJMGr0pD9UYnBZs
+	 KsWwE91Fx95RUYawN075+X8lWWHDYByjqFQKBTYSlSWdZ0GexNymnkfQxS+jY5KtuZ3kQ
+	 7v3CyM8wpHv8stbhlSrkQx/mQ8qXApYufN+zHqk+wWjXJlbsDSvB3FiNTTEhcpi/L7Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893901;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sb1nds3N1n1E4eNTokf+Kj95VGWvI0/rKQqniWGByQY=;
+	b=gBqCm2xNJcbFnPf7Rl8fS/nXbvkHxyKPNsq1GYukXudVzYA43CLE/TE7An/nD6KW1Xnt
+	 jvbJvaV5XkbfK5tQIO9ZASWmjLzRyhoKprpUXabYw3qo4whFP3gZITcLdJ1+bSix2LeZZ
+	 b/AMrY7cQTKuO5Cu8OxFCkgO0jy6wO1owz4PZUiUcCllS6QchPTQVwj2YKkBqPfp+tDet
+	 34AbnlEwGgmcnjPxY53+EBlfOltcE3QR0tZMJj6Xhis5E79k5olliIT+og6owc3rDJrXw
+	 K26mo2fkcn+n8c52bxBrLrsT5ojTLgWsAh0yXnbgdxvjjRNbZtL9JRJId20UdiRjuag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ULAS4RRJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.42
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010042.outbound.protection.outlook.com [52.101.201.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC504606A330;
-	Thu,  5 Nov 2026 15:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A98606A330
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:51:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66A98606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eh4uz2E8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0F11F0093A;
-	Thu,  5 Nov 2026 15:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793893882;
-	bh=vcoQZXzUSKAjGDFyua49S/KsemIMXjn1uFYHAPFPdCI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eh4uz2E8DxtizBT/qw3y4t094WXgVTrlelAfeVdHut710Alzy8V538PI4x5YiPXtx
-	 dUZN/TLFUPezR/ZFZdb8a2vqFcYiL+xJSsb5A/WXzlmAW6IW/6W33uWRMz72HjFxBN
-	 UuvaPkB475995+O8hLONeDFXuN1nPYMooDLgiPBV+tdTqyS2Bp/Ms2HEwag44Xy/ak
-	 E6rLjZoD9W40NZ/US2DZe2ptZO2+8eIQVgeETJrjQkLVMgd54Nx2NeTYDtghhq1i9P
-	 P505FsGRfhntdBL8X4cU+bTOsiZx9vW4qVZJoiM2on8vYmFykyrh6gy2Yakd1tVc4e
-	 qZ442+tMryYTg==
-Message-ID: <e135e15d-6a93-4856-a7ac-30977a2a2b5d@kernel.org>
-Date: Thu, 5 Nov 2026 16:51:14 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ULAS4RRJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aDBJQRrcUNwr3dK0Es48g3WreV7o/4TITS4QHxpUwkMEKC8CKgEh3/qArR/cuYYvbnD4j+SzR8a9awMhjpqvn8bT6892Gq8ZHUGG2FkCGehzlzvYM1MsJlKUDiKupsXqvRUGEnyuhqMl6XGu+NuOfzOLJoTWnaHZSD+RZmY0eWSflFy5l3y8RRmdW6K71lhYYqUg5IIYPMIyR/eLZL0oOmlZs23GRGB/yUme1AZovfc3MuGdkwxIxZfV4P+BpR2SyRbMVb393cNVJfv/G+VulsU3Sh5BfBob7zfW5ORxxa4OiMWpqDiIuTX2rbDY/8dJdoaFHof68QWQ8sizaFUHxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sb1nds3N1n1E4eNTokf+Kj95VGWvI0/rKQqniWGByQY=;
+ b=o0EODFgzyG/yyNwD9gf2R/KeNjqrxhlhSofZxIQ+Ot1zAIbWtVvCxtHJ4qN7E8a90K6ffkSA8fd/gGZEn9KDpBfrNcQVn5V6nvkbnfMbQLrcVU8zgNmWoXASDZqjravyoFhJxO5k7lSDxpVS485p9qk7DN/7bcfchI4z4S+kCAAHnWUp70JDSKC/jNGcjQjSf/6t6ER2ksIne2JEoNxAdtudh/Ndld+y6bvyZTO0QA1ktSXSLfmtI8oOeFbSsuYlBvGOS4o7uV01TTuTvaW6MiGS4W2/G+rVGsv2mLoC1S1VruW9gFgauZB78XE6t3tTq6/dY50dEvCaGyI2W+Iuxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sb1nds3N1n1E4eNTokf+Kj95VGWvI0/rKQqniWGByQY=;
+ b=ULAS4RRJ+BPxikUc1vAhhMxQxmxPD52PHyYM1d9MkkqHFwgJCmGOIVVzHYmjBFceB6hSxdanL7z++90Mv4QVE2StJw/V/VYUXAPxH1WzyqANtAYaNsDEAtPNT4zSspxUoIn1QRRng9xPGL4TexUtVpgvPqjKjl3Z3VVDEauQZ/Y=
+Received: from CH2PR15CA0021.namprd15.prod.outlook.com (2603:10b6:610:51::31)
+ by SJ2PR12MB8111.namprd12.prod.outlook.com (2603:10b6:a03:4fe::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 15:51:35 +0000
+Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
+ (2603:10b6:610:51:cafe::99) by CH2PR15CA0021.outlook.office365.com
+ (2603:10b6:610:51::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
+ Nov 2026 15:51:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.0 via Frontend Transport; Thu, 5 Nov 2026 15:51:34 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 5 Nov
+ 2026 09:51:33 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Thu, 5 Nov 2026 09:51:28 -0600
+Subject: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
+ reports
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,102 +100,322 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: skip split_huge_page_test without the
- split_huge_pages file
-To: Zi Yan <ziy@nvidia.com>, Sasha Levin <sashal@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Lorenzo Stoakes
- <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261105030242.1241448-1-sashal@kernel.org>
- <4B926B36-D797-4861-B6D6-27E8D7870287@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <4B926B36-D797-4861-B6D6-27E8D7870287@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
+X-B4-Tracking: v=1; b=H4sIAP+l7GoC/3WNQQ6CMBBFr0Jm7RjaKlFX3MOwoMMgNRaaDhAN4
+ e4WXLt8yfvvLyAcHQvcsgUiz07c0CfQhwyoq/sHo2sSg851oVR+QpkCR6/w5QX7MGFhyVjL5kL
+ 6CmkVIrfuvRfv1Y9lsk+mcctsRudkHOJnv5zV5v2vzwoVNrZtic61JW3K2jdHGjxU67p+AXIn8
+ Oi+AAAA
+X-Change-ID: 20261104-superm1-lms-npu-6bc3bbe38c29
+To: Lizhi Hou <lizhi.hou@amd.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Mario
+ Limonciello" <mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|SJ2PR12MB8111:EE_
+X-MS-Office365-Filtering-Correlation-Id: 026e9ba4-48bc-4b8b-4fcb-08df3b54ab1e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|10067099003|11063799006|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261022115727099003|261022105027099003|261022075727099003|261021123027099003|56012099006|261021121427099003|261009223027099003|260925021311599003|260925022911599003|260925021911599003;
+X-Microsoft-Antispam-Message-Info:
+	XsY4uQAQIssoWrf5js6nWCFMJ8AMhZwzPv8X7GqmiO9cSsTyzf8xKHrMS2BRDB5AP0PEyHGOeRX6aEw/VhncGvPzQfPWiarTIZNxV6mlMKQBq1P8NEkMAXjnOUuMv4zYbxjcdpPFNARL16/WOobS/86gfpXT2PIvIRsfuq4TumeYokaBI/d44lPXtHRICCBD9SSBtQQwUzu+xIRm1wrQuOB/U+T5zZ9Tyb81LG6b5LKiroftAFFpetH8aEXCr0nSSCeQpu8boa4ndNppUFRbCQQovemSkXYXGOq+Cj4XO3Fo6LDFhTIhiWSj1uhTdFREWP5e1gLu3oAzPOWePoN7hcnrlAe3aIgVGr5rxK/zwHX7hyQVr9IbXjtDZ4NIkvSG5QEO0XqkLdE6RGVuyMpa233y7yteTa4MVYZDyN/Q+7MAr+iBIP05cKY/qn3lPdLnOznH4Q3ltaTGY+NygZDXY9IjoFl4F1M6O3nkMZ6UTWkoZ9fZvzNi/tE3HaKu+6pM8nWMuh1+uXZiFzOYD+L97H7UFysu2AW3gYBVXsrfxTZalGIPrEEeHFApBs74TCn1x6KMd0LpamXNJYTx/VN0Ev7tLTfuwKldNu2H9sVpgDrmOTWTfxScN6yM5Kiast8e0zToiMziz+RpLivqcdfMtg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(10067099003)(11063799006)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261022115727099003)(261022105027099003)(261022075727099003)(261021123027099003)(56012099006)(261021121427099003)(261009223027099003)(260925021311599003)(260925022911599003)(260925021911599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xTHUz3bEU57lytdKcTkuPfDjLa6tqQtS+nvu/dqHdAXfT/hox4bvcUI9eyL5CVbpOyOAt4oUUpzSCuhLyJ7gwD5mONWKBcJPzUS6B2jR/GwSBP9iWiZpCUosWgWleoby9ylWBk2wBg/iLfhMKBNp6XmQUU4QbfisSYEeVQ5N6nVXmScMna3XvTtvOrH+i7UAcHEI7ha6gWzKd6KDwP+Pw9gmIYKKNCumw3aUOEm2f/C0n/xznKkSXQQ1v+NXUuFJcGXpZpe56JyTJ+W6eHY5SseqbhQX0PT5zZQU0oHc1pPRIFcFyQMADA+CLixzBV9oyd/zSDhImrUoEhLUlM5J8wbHt40zfN23qGUKDPvRVM83+EV+Fz2TzavjRHy/BNVN5mn6QpvtOj4vP78V4X4jbpCdSjqmFgcn5ZgvMjlfig1SM4xS0bE4EjJKCAyIt018
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:51:34.3651
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 026e9ba4-48bc-4b8b-4fcb-08df3b54ab1e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B374.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8111
 
-On 11/5/26 16:19, Zi Yan wrote:
-> On 4 Nov 2026, at 22:02, Sasha Levin wrote:
-> 
->> Every case in split_huge_page_test goes through
->> /sys/kernel/debug/split_huge_pages. When that file does not exist,
->> because debugfs is not mounted or the kernel has no CONFIG_DEBUG_FS, the
->> first write bails out of the whole test and it is reported as a failure:
->>
->>   Bail out! write_file(/sys/kernel/debug/split_huge_pages): No such file or directory
->>
->> Skip the test in that case.
->>
->> Fixes: fa6c02315f74 ("mm: huge_memory: a new debugfs interface for splitting THP tests")
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> ---
->> Found with KernelCI's NVIDIA lab, which runs the tests in a chroot
->> without debugfs. Tested on an AMD EPYC 9655P with KernelCI's x86_64
->> build of next-20261104: without debugfs the test now skips, and with
->> debugfs mounted it still passes all 62 cases.
->>
->>  tools/testing/selftests/mm/split_huge_page_test.c | 3 +++
->>  1 file changed, 3 insertions(+)
->>
-> 
-> Thanks. But I do think we need a way of specifying the necessary
-> Kconfig options for selftests. Oh, we do have one:
-> https://elixir.bootlin.com/linux/v7.3.1/source/tools/testing/selftests/mm/config. Can you add CONFIG_DEBUG_FS=y to it while at it?
+Some Platforms ship BIOS with either a default or an alternative trust
+authority. The PSP validates the NPU firmware, so it must be signed with
+the matching scheme. Firmware for the alternative scheme is named with
+an "_l" suffix before the extension. A preproduction part needs firmware
+of its own, named with a "_p" suffix.
 
-Just what I was thinking.
+The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
+whether this is a preproduction part. A preproduction part that also
+reports the alternative scheme is not expected, so warn about it and
+use the default firmware.
 
--- 
-Cheers,
+Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
+images of the aie4 devices so that initramfs generators include them.
 
-David
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+Changes in v2:
+- Initialize val in aie4_psp_fw_variant() so a failed SMN read can't leave
+  it uninitialized
+- Only read the PSP firmware variant after the npufw/certfw path check, so
+  VFs (which have no firmware paths) skip the SMN access
+- Drop the redundant all-ones check, amd_smn_read() already returns -ENODEV
+- Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1-dbffcc5abc23@amd.com
+---
+ drivers/accel/amdxdna/Kconfig           |   1 +
+ drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++++++------
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
+ 3 files changed, 141 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/Kconfig
+index eddff490b4f75..cd17a89cf4146 100644
+--- a/drivers/accel/amdxdna/Kconfig
++++ b/drivers/accel/amdxdna/Kconfig
+@@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+ 	depends on DRM_ACCEL
+ 	depends on PCI && HAS_IOMEM
+ 	depends on X86_64
++	depends on AMD_NODE
+ 	depends on AMD_PMF || !AMD_PMF
+ 	select DRM_SCHED
+ 	select DRM_GEM_SHMEM_HELPER
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+index 02dcb2f813d45..26c6162893760 100644
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
+@@ -11,6 +11,8 @@
+ #include <linux/debugfs.h>
+ #include <linux/firmware.h>
+ #include <linux/sizes.h>
++#include <linux/string.h>
++#include <asm/amd/node.h>
+ 
+ #include "aie.h"
+ #include "aie4_msg_priv.h"
+@@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct amdxdna_dev_hdl *ndev)
+ 	aie4_fw_stop(ndev);
+ }
+ 
+-static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+-				 const struct firmware **npufw,
+-				 const struct firmware **certfw)
++/*
++ * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = alternative
++ * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction part
++ */
++#define AIE4_PSP_C2PMSG_63_SMN_ADDR	0x38109fc
++#define AIE4_PSP_FW_SIGN_ALT		BIT(6)
++#define AIE4_PSP_FW_PREPROD		BIT(28)
++
++enum aie4_fw_variant {
++	AIE4_FW_DEFAULT,
++	AIE4_FW_ALT,		/* "_l" images */
++	AIE4_FW_PREPROD,	/* "_p" images */
++};
++
++/*
++ * The PSP only trusts firmware signed with the scheme the platform firmware
++ * uses and a preproduction part needs firmware of its own. Reading which one is
++ * in use is optional and only used as a hint for which images to try first:
++ * anything but a clear answer is treated as default.
++ */
++static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev *xdna)
+ {
+-	struct amdxdna_dev *xdna = ndev->aie.xdna;
+-	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+-	char fw_name[128];
++	u32 val = 0;
+ 	int ret;
+ 
+-	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+-		       pdev->device, pdev->revision, ndev->priv->npufw_path);
+-	if (ret >= sizeof(fw_name)) {
+-		XDNA_ERR(xdna, "npu firmware path is truncated");
+-		return -EINVAL;
++	ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
++	if (ret) {
++		XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", ret);
++		return AIE4_FW_DEFAULT;
+ 	}
+ 
+-	ret = request_firmware(npufw, fw_name, &pdev->dev);
+-	if (ret) {
+-		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
+-		return ret;
++	if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
++		XDNA_WARN(xdna,
++			  "Preproduction part with alternative signing, using default firmware");
++		return AIE4_FW_DEFAULT;
+ 	}
+ 
+-	ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+-		       pdev->device, pdev->revision, ndev->priv->certfw_path);
+-	if (ret >= sizeof(fw_name)) {
+-		XDNA_ERR(xdna, "cert firmware path is truncated");
+-		ret = -EINVAL;
+-		goto release_npufw;
++	if (val & AIE4_PSP_FW_PREPROD)
++		return AIE4_FW_PREPROD;
++
++	return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
++}
++
++/*
++ * Images for the other variants have a suffix before the ".sbin" extension.
++ * Returns -ENOENT if @path has no such variant.
++ */
++static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t size,
++			const char *path, enum aie4_fw_variant variant)
++{
++	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
++	const char *suffix;
++	size_t len, base;
++	int ret;
++
++	ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
++		       pdev->device, pdev->revision, path);
++	if (ret >= size) {
++		XDNA_ERR(xdna, "firmware path %s is truncated", path);
++		return -EINVAL;
+ 	}
+ 
+-	ret = request_firmware(certfw, fw_name, &pdev->dev);
+-	if (ret) {
+-		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", fw_name, ret);
+-		goto release_npufw;
++	switch (variant) {
++	case AIE4_FW_ALT:
++		suffix = "_l.sbin";
++		break;
++	case AIE4_FW_PREPROD:
++		suffix = "_p.sbin";
++		break;
++	default:
++		return 0;
+ 	}
+ 
++	len = ret;
++	if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), ".sbin"))
++		return -ENOENT;
++
++	base = len - strlen(".sbin");
++	if (strscpy(name + base, suffix, size - base) < 0)
++		return -EOVERFLOW;
++
+ 	return 0;
++}
++
++static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const struct firmware **fw,
++			    const char *path, enum aie4_fw_variant variant)
++{
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
++	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
++	char name[128];
++	int ret;
++
++	ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
++	if (ret)
++		return ret;
+ 
+-release_npufw:
+-	release_firmware(*npufw);
++	ret = firmware_request_nowarn(fw, name, &pdev->dev);
++	if (ret)
++		XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
++
++	return ret;
++}
++
++/* The NPU and cert images are validated together, so both use the same variant */
++static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
++				 const struct firmware **npufw,
++				 const struct firmware **certfw,
++				 enum aie4_fw_variant variant)
++{
++	int ret;
++
++	ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, variant);
++	if (ret)
++		return ret;
++
++	ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, variant);
++	if (ret)
++		release_firmware(*npufw);
+ 
+ 	return ret;
+ }
+@@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
+ 	return 0;
+ }
+ 
++/*
++ * The firmware can only be started once. It is the PSP that decides whether it
++ * accepts the images, and it does that when the firmware is started, so there
++ * is no trying a variant and falling back. Pick the variant that the PSP
++ * reported (the default one if it can't be read) and use the others only if
++ * its images are missing.
++ */
+ static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
+ 			void __iomem *tbl[PCI_NUM_RESOURCES])
+ {
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
+ 	const struct firmware *npufw, *certfw;
+-	int ret;
++	enum aie4_fw_variant order[3], hint;
++	int i, n = 0, ret = -ENOENT;
+ 
+ 	if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
+ 		return 0;
+ 
+-	ret = aie4_request_firmware(ndev, &npufw, &certfw);
+-	if (ret)
++	hint = aie4_psp_fw_variant(xdna);
++	order[n++] = hint;
++	if (hint != AIE4_FW_DEFAULT)
++		order[n++] = AIE4_FW_DEFAULT;
++	if (hint != AIE4_FW_ALT)
++		order[n++] = AIE4_FW_ALT;
++
++	for (i = 0; i < n; i++) {
++		ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
++		if (!ret)
++			break;
++	}
++	if (ret) {
++		XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
+ 		return ret;
++	}
+ 
+ 	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
+ 	aie4_release_firmware(ndev, npufw, certfw);
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index f233eb70a2957..dab8603e2381f 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
+ MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
+ MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
++MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
+ 
+ /*
+  * 0.0: Initial version
+
+---
+base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
+change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
+
+Best regards,
+--  
+Mario Limonciello <mario.limonciello@amd.com>
+
