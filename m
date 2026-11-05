@@ -1,65 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882981;
-	b=YFKVbMx5diwngJneDm5PERzfsto1adqV8pLmmgnWuQvqrU7hmghZ/HMpNALorIyH2HDS
-	 1jHvBkxdiTJoHaX83ZD4SjKXU6NzF0a8/HjSvt78pI7+aPkcwuCjewywAjudxHJ27RDp8
-	 KcSg47UwHQv6UQrFmSjK1eWbufwg93Z+WTFbvQhlPLROsIUIag4kVTKZImX7+NyB+dTBr
-	 QFqWjK3aHKrsjdOkf0mxVRHfchMonGEMh0sj4CT327Z330lLNO0wnDydFVqV3vWF5qN5d
-	 JfsZCKe7qB8OddsP5F8nUQO7M3eD8v3GJ9JuwZY+Stt9AWSOXodebQZKpoiPuBjPqvA==
+	t=1793882977;
+	b=VKDGma66N9tPOuCyDiD+f2m6oRihSuZa0bR1kiNzeyH0/Fcs1AeuUUJ+BSOZUc367hp2
+	 jGz7Gv+I6oMNpb5UOgvzHwf4sWNMfQPqmolj8P0qCSBMGFhxkL8G3FmIzsdWjMbylM2TX
+	 SZv4eL3qR1X3j5cuT1W5vLAsN5f/qpXAfAOmMPi34zgzbXqfQXnNPOI2Q/8Ed272zU3nb
+	 UfilAZHO1UDCaafgp0XWi4NjTCNpqdjUe5gLmMkAgSHQB/jegI6/06M8AFJxl8elLNgfC
+	 0jXv/d/vY/5ii/T0a6CEryGY5S0zXZopQhhCCnGYk3YT/MbRU7udaCMEUKsTPaNofGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882981;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=M15O/B9yC/WOawdn7jyj2AadwGXmudVfBrAQSwYveoQ=;
-	b=j4n8B07YDQd2PoHTLQCBuDXI0vuWMokmiu2IUhu8UmOFTBLxXrLOyoTB3aAWDx9QsVvp
-	 hn9uS2VGQ8GgvZ0o61o9reMIa68sUsj4ZDsPzO+t8FqzVj70/wzljnqFPV1PeFso6THP+
-	 Ylu+U6dCUyuR1eOZVJch3Hbzkop80hGbWzcIxnl6ul71A4pPVRwPekJYb3ohC9Zezcogq
-	 6u+DbZlt3E6BtPWhzK/zv3SAL9QD+kGpfY8ekm9hoUsi2JBweEDq8QRizgwD/0HlfqGNn
-	 9Xn+8fDRXDBib8T+mCZzWUNvggynkb+tWBfNvG0GlkPorpqlf31QXW3MmN/E+DRq/MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882977;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=n8S5ScCzZMKTwtLSsBjbF893S2FXC4EMIPZpDHsFCCs=;
+	b=2DXHJP3j09rg0DvCz2jJIpxW83kYtucav/doodfz8zaAWz5Od3JlrCQGxz5wMLBB+LmH
+	 4YVhRPuaF91HnGYevNUqtVIMV3Z3F8u0IKIOn/dHvKSoqKmQEAlIPa5vL8l5ltFmduQUB
+	 Ofj/FFFvPAGURmNo6sNj85IPzFLy4iamkqHRcAZWGigZucIEDvpbFvrP7AeT2Uw0fnMky
+	 NtOFuHE6CnKVwRNkZtM/NtKRx1p0U1viSG3fIeMe3BxHeg62eryJxQveE7W9RxMczQirP
+	 389E21BQx4miynoDvHPBBEe9TTuhrHJFwNhQjQiuxsbCwTYGx+kMJi5iszVv+uxLdZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibOo1Rtg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdP5O4ti;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C0E606A31B;
-	Thu,  5 Nov 2026 12:49:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2671606D804
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:49:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2671606D804
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibOo1Rtg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4909A1F000C1;
-	Thu,  5 Nov 2026 12:49:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793882980;
-	bh=M15O/B9yC/WOawdn7jyj2AadwGXmudVfBrAQSwYveoQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ibOo1Rtg85Epay9/H+AegOFjwAPptCrIhp+JD5uEZimCF5bJi4Y04CR6dhTOkVZDO
-	 Ht9hiqhz+6HHU2xZoey9L8SAKBsTQ6qmFX9m8lTmJDrqfEgkhA2NO0WMDSeRPxJXeq
-	 a6prvOBaUtodxm6JQNGzxCQ0CeBmnddZMdNmUsdOW7sp49A7J0/aOAHIIxxyyCPFJb
-	 1xBnFmN/EncwUCFynwiJSKsgGZpTfEPmT54Xh0K9NdE/FNKFW7A1FZMoi6KuIG/TM6
-	 vwpsvVUVRI2xyDh6LC94Od4T0Bir11QaQ8G2cfofhUt+swmKQCtW7AjDd6pFHxepKS
-	 B0sz/3POPGJUQ==
-Date: Thu, 5 Nov 2026 13:49:33 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] Add strprefix() and fix a bug with it
-Message-ID: <aux7GHsXcRxzB5RO@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <i6htkk2ggfh5fdgooihazeaqlnx25seyb3y77qyvldu2efj4ud@4dgvnv2xpbl2>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdP5O4ti
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36cad25b8b0so2672282eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:49:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793882976; x=1794487776; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n8S5ScCzZMKTwtLSsBjbF893S2FXC4EMIPZpDHsFCCs=;
+        b=wdP5O4tihaK2Jy6TtTKVgO20LnlYjG4+DN+QYUKpqF4o5ThaWx8S5x9dW2QuzqFAWc
+         UrfiSF0epJZ4FEspPg44KxM3lyMbLafCKwJw9Ey4a9oohV80dncqX+8EZdwf1nqQHoUe
+         uWcEqHo9bcXhPmC+lqEawurzWvIjnJZTcGZgDjU3sVs6I1PIaWV0A+zjmmLLYFay+XTo
+         zEqRaFDxtzwKO28fnFSA1bM1RO8UewfYH8gITryphoUGLaGsPXVRaUh5xqBBWrYhmG1N
+         uPiBnzZnjr7MbEE9NatDqYLxEe5JedRsrKNr16FOouw1Uty2calT24LzmtR49wRhJIds
+         plsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793882976; x=1794487776;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n8S5ScCzZMKTwtLSsBjbF893S2FXC4EMIPZpDHsFCCs=;
+        b=LOFEQf99Sttsk9QWupmI4DyBu19SMfxNMyyYORNumhyrsibb4Qbo6bbthZysGCkxp2
+         Z/eY4izAF4vmNTFFXkTGRrSThHXc2hTxpkjbfiQviACP1WC8mCGLT4U5AsJbMjmkyJ/7
+         kp1GGQi8tk1PjlvHW0rXKmAbBK+aIhG1ZsBz0RS3cZhpBOELVWgiQTjz/Uq1VJWUNMtF
+         9zFStxLvoCGxZhWsTv5i49k+hi3vIzKSBIz0kNocwu8HLwVpV1puksMLCF90vyqKqvNd
+         SlzrTJGnU73/ZszPfXEEiX4U0By2V3WWpNC3IjKIlZKRn0HMRTu5/nhHbah3z8LjjoYo
+         eviQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwIlgf9+RH3hz7CnyK/Krb+5BDXA295zf3wbh8S68iMtlCRh757DCPUWDh4ez0/mujMxuXxv+k+R4PR2NQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3Myw9TtEhzmoes2UK95thVcHNd8EkFp0rurvOFkucm3dQ0kM+
+	xZJ+IrUc90JWX/rSYlWNJ2E0HjMAp5VsblDk+ADtu/ByoXlXn7T5CH3a
+X-Gm-Gg: AYBFou1oA5if45Q+8Wjrq2h4higyUIwY7b1/x08/SPdaHCVr07F37rh4JEUxfTT3E7+
+	LsT5LWsRjPnYysz2/lJccT/aHhaYXe5hBfGBx6gcfDkiRCcRHw2oY3ISjCFrWHYIzRKijBKm7ca
+	WDKml7HBYPc9P73BT2gkfUSSQp+4+q8D2nVUedwuEs8PkAnxIu+uVJuH4cCk8nn+PvHeb/dPZnw
+	pNmg5kpbBTmouruzETm5mcVoSD211n4Xb+3rY/u5eD+VJ9g3l3jo79c4PAGL+RcsbranRA4EI/K
+	lGF+AGHO38fcT1PMmlzuUPjBgW761wkY82qJCoGPe1IlhiFB9yVm870UKYQs53yIfeR1HE9UUD6
+	ApVFUR3Mg76LbYlNQarKm/fsAwOng0nx4sHeu6APhFr2BqtoDoPmm0lc48dwqIn0uHEgw0eg0dL
+	GpD/AGD6rw201nUy9z+0NoLBIS0tFueduNCAN6BhiAyeEDvJdXVOni+m3aFZEiDL67IO93v+Gc0
+	oLGVJid90MzbaZKR6itwmU0lu1Oh4oq/gHWnVTUjBWj4DUnG0X+xoFiJdxYiuD27n28ZWqzE0pf
+	m3VNyPSwCvQ8sQAZkOtmnaZ1C/B5IZXCrD6SHRf/07PzSKG2iQ1ooSI0e1iWfgHR7s5dxEVy5A4
+	CkCldCTJyQ9c4EG38wSzHuXyNqGQYlcYw+/wtmtiC9BZbFszF90oeuxKhwdySkSyRxCChBwKifw
+	==
+X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a42437876mr29038541eec.34.1793882975233;
+        Thu, 05 Nov 2026 04:49:35 -0800 (PST)
+Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d46fcsm17708130eec.13.2026.11.05.04.49.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 04:49:34 -0800 (PST)
+From: Anil Kaushik <anilkaushikwireless@gmail.com>
+To: netdev@vger.kernel.org
+Cc: netdev-bot+sashiko@kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Florian Westphal <fw@strlen.de>,
+	Mat Martineau <martineau@kernel.org>,
+	XingWang Xiang <v3rdant.xiang@gmail.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	linux-kernel@vger.kernel.org,
+	Anil Kaushik <anilkaushikwireless@gmail.com>
+Subject: Re: [PATCH net v5 1/2] genetlink: Reject joining multicast groups no family owns
+Date: Thu,  5 Nov 2026 12:49:27 +0000
+Message-Id: <20261105124927.336300-1-anilkaushikwireless@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <179387152067.488856.5027284112549941042@kernel.org>
+References: <179387152067.488856.5027284112549941042@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,97 +113,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e4bitkibv2evwuva"
-Content-Disposition: inline
-In-Reply-To: <i6htkk2ggfh5fdgooihazeaqlnx25seyb3y77qyvldu2efj4ud@4dgvnv2xpbl2>
+Content-Transfer-Encoding: 8bit
 
-
---e4bitkibv2evwuva
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] Add strprefix() and fix a bug with it
-Message-ID: <aux7GHsXcRxzB5RO@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <i6htkk2ggfh5fdgooihazeaqlnx25seyb3y77qyvldu2efj4ud@4dgvnv2xpbl2>
-MIME-Version: 1.0
-In-Reply-To: <i6htkk2ggfh5fdgooihazeaqlnx25seyb3y77qyvldu2efj4ud@4dgvnv2xpbl2>
-
-Hi Bartosz,
-
-> Date: 2026-11-05 13:30:08+0100
-> From: Bartosz Golaszewski <brgl@kernel.org>
+> The commit message says:
 >
-> On Thu, Nov 05, 2026 at 12:12:55PM +0100, Alejandro Colomar wrote:
-> > Hi!
-> >=20
-> > str_has_prefix() is based on sizes and lengths, which means it must
-> > overload the valid length 0 to mean not found.  This is a typical
-> > consequence of choosing to design an API around sizes and lengths, and
-> > vanishes when moving to pointer-based similar APIs.
-> >=20
-> > This patch set adds strprefix(), deprecates str_has_prefix(), and uses
-> > strprefix() in one place to fix a bug reported by Bartosz.
-> >=20
-> > We can later work on replacing the other uses of str_has_prefix(), which
-> > might hide similar bugs.
-> >
->=20
-> Thanks. As Andy said, we'd need kunit tests for that.
+>     Nothing is ever sent to such a group, so joining it has no use.
+>
+> Does this hold for the group IDs that genetlink assigns as fixed values?
 
-Agree.  v2 (sent a few seconds ago) contains kunit tests.
+No, that sentence is too broad. An early join does get the messages once
+a family registers. That is the problem this patch fixes.
 
-> I can also fold it
-> into my series that actually triggered the problem if you like.
+> Is this regression intended for privileged callers? I couldn't find
+> existing userspace that does this; dropwatch appears to resolve the
+> family first.
 
-Sounds good.  Thanks!
+Yes. Before the family registers there are no group flags to check, so
+the patch rejects every caller. I don't know of a program that joins
+early either. A program that resolves the family first still joins.
 
+> The commit message mentions the getsockname() change and the setsockopt()
+> -ENOENT. Could it also say that early subscription to fixed IDs stops
+> working for privileged callers, and that NETLINK_LIST_MEMBERSHIPS output
+> changes as well?
 
-Have a lovely day!
-Alex
+I can add both, and a comment on the -ENOENT meaning on the bind member,
+if a new version is needed. I won't send one only for this unless
+someone asks.
 
->=20
-> Bart
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---e4bitkibv2evwuva
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrse1wACgkQ64mZXMKQ
-wqkf2g//dAqTvtCu9yZxvUMFRKCF48KLSUCPu6uRODX46y9DQNpvNIXB3nZGsEFC
-5VDia828Tmg802ue95bBDb0hjp3pL6gNldzY5uEfar55WwUtEXEKzAl33m3F/Y20
-8/TqYpsAVrVFmSYzum/W5QR3BE44lPFZ5SDDqbwJdnPXUeHp01igeXyAl2bMvGDn
-OVghBH0gvLj8PzUbC2WCheo8IS6g2FvSy124QeQm5Qj1Ndaq2RJXgQXW7Z2ktDHW
-8khkKbuSdrONhXcTW+o6bct3v74BEZRsEZl+SGVD9to9VNRZJUWMhtiV4FXupktN
-aR5fc7KBwqk25ek8E1WDr0LNFF215jFxyu0BA4fcrxbYPCT7hvTI277UUpaT2PSQ
-g5DDMRNbdUEbbBujhF39Vz7yuvRlzbfZc+lBkVSx2/+C/ClVj6aXv2utCR6Lrz+V
-tyomeHG0MW3nkTeCCt4ed1ZqWA4HucU+Yre/Fa6JsLi2n7dt1A1a5Bb8IwocIlgB
-qTyG/YfGyzs62peqsmVXdvxAOBDAmceXjR48f6dEAmb2R9fWYCMcr5u8QGMKxkxz
-3Eu3hdDEtSCnOGaVrD0r38+EMblBvsUgikhiE5SigIPdSgeAgNlcZKjSycId17hq
-9TiMmwA4ERx4ArfbylcIStdpEoLKtkKdc15QbRkk8P6xh9lERZY=
-=8wgW
------END PGP SIGNATURE-----
-
---e4bitkibv2evwuva--
+Anil
