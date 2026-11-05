@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883913;
-	b=rFe/NfeZaaQC6AuQ+bKrnVcKIhNk3zf7E9lsV4TEblfaUCI6UItKVHPf97xRjSSbWDYy
-	 0oSjeBqcWRbfQT2Vqxk18KTpZCN6Piys8etJpAQwwo8KjeeEoRSM7uWcSiG2vlD/1Hnt0
-	 GMaERyznSYBvX/J5ZXPRksbMQtjDgkyXon5bLrI7kdjDplBCBOTo7KYL0sU5OeBxiXhBQ
-	 s1D7puqzjh5XUNLAXaLMb4DPK7af8c/7EbTTtiKwluHIANH5ud1s9OfoeQvAiZQ2AA6yk
-	 Nn4tDBaZgJwQR9R0EcyT02flhihULdTqruGikA+PzMCLbLff10UMms2F0R5KrFSi5iw==
+	t=1793883928;
+	b=dM/B9MAyewfVfvDWIYygQC3b/N91Tjv5w7rwLKcU6a/3EEks9VkxHrQXamPETFmFbuXK
+	 JyVrGARDY3yyn+R5buYP/acogBc72xt2fHzi7UHTyc/8pNrV0gFPv/x0nrDTji1jF4n/4
+	 SDpH1zLs7OydsPyG+rnELBOt6BKEwchcjYxjnqsP0mxjdW0hoe1PXscgX2dks6gmCrUTl
+	 9BE5aJfeNz/utwIoIAq4ymPoP0vOEd2yBRkMs8PWYGHiFNpBjhx6HRX9KhrNxtVT2ZtfA
+	 zcmr1FncrMro6bRCSM1O7FPEuI9S1112OkmP4vCAnKWbB/idLkcTPLU3FB1mSyZ6oRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883913;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=3RgQWlmxjKmIIIaRP+hCX7cVIije+8zVOuEZz3JeD74=;
-	b=nIFlzbDy2jbYR4jIM1wXVBaerd4D4uuqUhnngQOv0glxv8uCxb871demh7nq7iTtoc0/
-	 K69NSKT65ZH4rtWrJEpxz3qX9D7yXdk0jn4lN5cGFV72YP7rwEccdDxaeQpQbxuB6RSqJ
-	 23vK18csWPP42T12/dP1LRSNZgpk4x+l1qNKPCNDV7PL/5k82Ck8tK18/ozvyxOjaR/ao
-	 0sjzZO0hAG65Ay6guA/SgGDHXAaX81Kz/h7VAzNlGgeeZ7wA4oc41zvku8i5mXIONOVaW
-	 PtP5i4O/RkeQBHY/LrRnKG5sUlR4vuRDv2GBTXWC/4pICWNrOc0q2aMz4l3SzmzAtNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883928;
+	h=Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ME3C+3I1moR9zuX6vPDKVLw16xDyzhIK7WbtwWzTCfE=;
+	b=K/Rxx1vdijiHPEqY/WWTKaHNNe5BCV4XMNE1uuYNVJ8kyaVhXW06d5ErUwqoivUUMKHd
+	 GvWKRKBIqABV472sExWlW7b959N1G1u0ZYp+GS6WMF0Q1VIWb7gK10CN6sUF+VDRoLVMQ
+	 e4lMB270gOZQdij2BoggBBophbhOkRa/jVJJ8toBHFEruBidRnoRmXFFrh0flaZsSiNZ7
+	 dLArs7Fcn+sjksb145mLaW9BUi3RzC2bW5flzhHBHlFPbthYy3mtuU9Q8wSJMb6HBz8jT
+	 d2v7hrkxs/m9L2BVesRS2H7+TlVF2hA2+qUyReNk+awzFKiwsoIGFa/MkSMEpcSML5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BukH0N2f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A434606A335;
-	Thu,  5 Nov 2026 13:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BukH0N2f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103D21F00A17;
-	Thu,  5 Nov 2026 13:05:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883912;
-	bh=3RgQWlmxjKmIIIaRP+hCX7cVIije+8zVOuEZz3JeD74=;
-	h=Date:From:To:Cc:Subject;
-	b=BukH0N2fCETNXA66jDzpOA0i4+m17lLR1TYpBzvT0XW9HDiBvX3GqEpXIN7TsObNl
-	 qfqKjKsHytAK/dCoyTN4DmhfnyI6Khatb8msr0u2T1CwK/B3YJL3J51WM20Qrav47U
-	 km7e7/RmcvQr7G2tf8mE5LpAMn4iin9HHFBmDw9a8LPK4qxCBA62VQMxMQFpFD5uRC
-	 NsB+fSisuwSBBe/Vny6uZULUiBxNUOYBZDpqnklk5ZBA9rQnsSz2anCrJ9/my7rf7A
-	 RtoogUiOErtdvGfYhTbwyoJJeTfmxbg68SW+c/iAjNso8kw5tmLh+885YGAl0hxCb+
-	 EGglWqKqMeVOQ==
-Date: Thu, 5 Nov 2026 13:05:08 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Greg KH <greg@kroah.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ivy Lopez <skunkolee@gmail.com>, Josef Bacik <josef@toxicpanda.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the w1 tree with the char-misc.current
- tree
-Message-ID: <aux_BMw8rXApWEu6@sirena.org.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD02606D830;
+	Thu,  5 Nov 2026 13:05:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002811F000C1;
+	Thu,  5 Nov 2026 13:05:23 +0000 (UTC)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: laurent.pinchart@ideasonboard.com
+Cc: bmasney+clk@redhat.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	geert+renesas@glider.be,
+	jbrunet+clk@baylibre.com,
+	kieran.bingham+renesas@ideasonboard.com,
+	krzk+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	magnus.damm@gmail.com,
+	mchehab@kernel.org,
+	p.zabel@pengutronix.de,
+	paul.elder+renesas@ideasonboard.com,
+	robh@kernel.org,
+	sboyd@kernel.org,
+	ulfh@kernel.org
+Subject: Re: [PATCH DNI v3 04/15] arm64: renesas: r8a78000: Add FCPV[BI] nodes
+Date: Thu,  5 Nov 2026 14:05:21 +0100
+Message-ID: <20261105130521.85109-1-geert@linux-m68k.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030211225.GA3144851@killaraus.ideasonboard.com>
+References: <20261030211225.GA3144851@killaraus.ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,89 +62,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9R7HviFh8MulKpa5"
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+	Hi Laurent,
 
---9R7HviFh8MulKpa5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 30 Oct 2026 at 23:12:25 +0200, Laurent Pinchart wrote:
+> On Thu, Oct 15, 2026 at 04:51:44PM +0900, Paul Elder wrote:
+> > Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
+> > 
+> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> 
+> I need to reconsider this...
+> 
+> > Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > ---
+> >  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 72 +++++++++++++++++++++++++++++++
+> >  1 file changed, 72 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> > index 9a07753b221541ed49a975e0c95f2f5d1fdc6ac2..2f8886f8b6545026397fd83969882f8c62afa9d3 100644
+> > --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> > @@ -1000,6 +1000,78 @@ mdlc_aon: system-controller@c1338000 {
+> >  			bootph-all;
+> >  		};
+> >  
+> > +		fcpvi0: fcp@c5030000 {
+> > +			compatible = "renesas,fcpv";
+> > +			reg = <0 0xc5030000 0 0x1000>;
+> > +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> 
+> ... as this may not be the correct clock.
+> 
+> The user manual lists the following SGD clocks for the media-related IP
+> cores:
+> 
+> - CSI[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ,
+> 			SGD4_VIO_CSI[0123]φ, SGD16_VIO_CSI[0123]φ
+> 
+> - VIN[012]:		SGD1_VIO_CSI0φ, SGD4_VIO_CSI0φ
+> - VIN[345]:		SGD1_VIO_CSI1φ, SGD4_VIO_CSI1φ
+> - VIN[678]:		SGD1_VIO_CSI2φ, SGD4_VIO_CSI2φ
+> - VIN{9,10,11}:		SGD1_VIO_CSI3φ, SGD4_VIO_CSI3φ
+> 
+> - ISP CS[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ
+> - ISP Core[0123]:	SGD1_VIO_ISP[0123]φ, SGD2_VIO_ISP[0123]φ
+> 
+> - FCPV[BI][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+> - FCPVD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+> - FCPVX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+> 
+> - VSP[BI][0-9]:		SGD1_VIO_DP_OTHERφ, SGD4_VIO_DP_OTHERφ
+> - VSPD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+> - VSPX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+> 
+> - VCON[0123]:		SGD1_VIO_DP_OTHER0φ, SGD4_VIO_DP_OTHER0φ
+> - VCON[4567]:		SGD1_VIO_DP_OTHER1φ, SGD4_VIO_DP_OTHER2φ
+> - VCON[89]:		SGD1_VIO_DP_OTHER2φ, SGD4_VIO_DP_OTHER2φ
+> 
+> - DPTX[012]:		SGD2_VIO_DP_TXφ, SGD16_VIO_DP_TXφ
+> 
+> Those IP cores are connected in four types of pipelines:
+> 
+> - FCPV[BI] -> VSP[BI]
+> - FCPVD -> VSPD -> VCON -> DPTX
+> - FCPVX -> VSPX -> ISP Core
+> - CSI -> VIN -> ISP CS
+> 
+> It would be quite logical for all IP cores in the same pipeline to use
+> the same clock. This would be
+> 
+> - FCPV[BI] -> VSP[BI]:			SGD*_VIO_DP_OTHERφ
+> - FCPVD -> VSPD -> VCON -> DPTX:	SGD*_VIO_DP_TXφ
+> - FCPVX -> VSPX -> ISP Core:		SGD*_VIO_ISP[0123]φ
+> - CSI -> VIN -> ISP CS:			SGD*_VIO_CSI[0123]φ
+> 
+> This mostly matches the clocks listed in the user manual, except for
+> 
+> - FCPV[BI] that is listed as using SGD*_VIO_DP_TXφ
+> - VCON that is listed as using SGD*_VIO_DP_OTHER[012]φ
+> 
+> Now, note how in the clock diagram document the VIO "ISP" and "CSI"
+> hierarchies both show 4 groups of SGD clocks (respectively named
+> SGD*_VIO_ISP0 and SGD*_VIO_CSI0 in the first group), the VIO "DP"
+> hierarchies show 3 groups of SGD clocks (named SGD*_VIO_DP0 in the first
+> group) and the VIO "DP_OTHER" hierarchy shows a single group of SGD
+> clocks (named SGD*_VIO_DP_OTHER).
+> 
+> This makes me believe that, wherever the user manual lists
+> SGD*_VIO_DP_TXφ, it actually means SGD*_VIO_DP[012]φ. Similarly, where
+> the user manual lists SGD*_VIO_DP_OTHER[012]φ for VCON, I believe it
+> should be SGD*_VIO_DP[012]φ, both because there is a single
+> SGD*_VIO_DP_OTHERφ, and because the rest of the VCON pipelines (FCPVD,
+> VSPD and DPTX) all use SGD*_VIO_DP[012]φ.
 
-Hi all,
+The clock diagram has 3 VIO_DP[012] hierarchies and a single
+VIO_DP_OTHER, while the clock list has 3 VIO_DP_OTHER[012] hierarchies
+and a single VIO_DP_TX.
+The clock diagram has VIO_MAIN (system bus) clocks, while the clock list
+has VIO_OTHER and VIO_BUS clocks.
 
-Today's linux-next merge of the w1 tree got a conflict in:
+> For full consistency, I also suppose that the FCPV[BI][0-9] instances
+> match the corresponding VSP[BI][0-9] and use the SGD*_VIO_DP_OTHERφ
+> clocks, not the listed SGD*_VIO_DP_TXφ clocks.
+> 
+> This being said, in practice this probably makes no difference, as all
+> those clocks derive from the same SGD1_VIO_MAIN clock and none of them
+> are programmable or gateable.
 
-  drivers/w1/masters/ds2482.c
+Probably, but it would be good to have that confirmed.
 
-between commit:
+> If the above explanation makes sense to you (and to Geert), we can ask
+> Renesas to check if the issue I suspect are errors in the documentation.
 
-  e4f673632fa82 ("w1: ds2482: set the strong pull-up with its byte")
+Agreed.
 
-=66rom the char-misc.current tree and commit:
+Current SCMI firmware does not have the CSI3 group.  It does have
+VIO_IM[012], which was replaced by DP_OTHER{012] according to the
+"Differences" sheet in the clock list.
 
-  8847bbf3adfc5 ("w1: fix spelling mistakes in comments across the subsyste=
-m")
+I guess we really need to know if e.g. all these SGD* clocks are the
+same, and if they can be gated individually.  Same for the various DIV6
+clocks, as there is only a single register to control them (which
+probably controls the parent/singleton in reality).
 
-=66rom the w1 tree.
+Gr{oetje,eeting}s,
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+						Geert
 
-diff --cc drivers/w1/masters/ds2482.c
-index 5498bb04f7cec,70854336a1731..0000000000000
---- a/drivers/w1/masters/ds2482.c
-+++ b/drivers/w1/masters/ds2482.c
-@@@ -437,16 -423,24 +437,16 @@@ static u8 ds2482_w1_set_pullup(void *da
- =20
-  	/* if delay is non-zero activate the pullup,
-  	 * the strong pullup will be automatically deactivated
-- 	 * by the master, so do not explicitly deactive it
-+ 	 * by the master, so do not explicitly deactivate it
- +	 *
- +	 * The setting is used up by the next byte on any channel of the chip:
- +	 * ds2482_w1_write_byte() makes it, in one go with the byte.
-  	 */
- -	if (delay) {
- -		/* both waits are crucial, otherwise devices might not be
- -		 * powered long enough, causing e.g. a w1_therm sensor to
- -		 * provide wrong conversion results
- -		 */
- -		ds2482_wait_1wire_idle(pdev);
- -		/* note: it seems like both SPU and APU have to be set! */
- -		retval =3D ds2482_send_cmd_data(pdev, DS2482_CMD_WRITE_CONFIG,
- -			ds2482_calculate_config(DS2482_REG_CFG_SPU |
- -						DS2482_REG_CFG_APU));
- -		ds2482_wait_1wire_idle(pdev);
- -	}
- +	if (!delay)
- +		return 1;
- =20
- -	return retval;
- +	pchan->spu =3D true;
- +	return 0;
-  }
- =20
- =20
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---9R7HviFh8MulKpa5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrsfwMACgkQJNaLcl1U
-h9BOhgf+Ne7LH5lVBBM1f4bSreJmCPTjHajTkiQTLTI/U8GspLKDixbnowDAX/Mg
-1OVg4Ktia9BbYmT2w2j/BEiFfvEq4yZDwopUyAlvnl1fEMw4I+3dhWQ/FPd6UMbw
-QR2dad1vZjZB6mB4ZkO8KYXWjI4JNfmC7IemjZaIsHeNASmWgEERO6uefucJXIgJ
-uODZcaTG4V0soM2ZSA92vguwa54lX0PBuSAE6rWGhOe/4OmdHaCDgpiWjHRPP5Ha
-gLMPL4LhRGelggrSokzdlS3h/6DD69tDaiBTAla6VqdnNd9m8gSvkZZa7HQwXaB7
-XRKUt3fsfV/lEcjwn8+3LywuVrzhYQ==
-=f/lE
------END PGP SIGNATURE-----
-
---9R7HviFh8MulKpa5--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
