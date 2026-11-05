@@ -1,62 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.90.104.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899001;
-	b=xc20bX1p/6slbR7uMl31pPyJRbS7y/aPTaPhMPB8t5u/L382glSt3vGUzwv8ffdgkXDs
-	 AfpxBfuZKtBoAHErp8EE/6T9UKacuoDBLMrts3QFfYpWCNWv4irAXeG4clchcMfqbpnxI
-	 7Jz6GkNeQO4l70iQAJtPamMgHTahZNeAqXAz8KbRBWzZYVDZ/S0vREZHngQU0p3xyFaYO
-	 CrTAh5AfY+Hqbx+AoSnDpruTTTrtWMdeFFyIllRiyv1OSzAQ+Ul3yfhIC4h3NUikjLJiV
-	 CcSA25htIcn6WYwwfpaV7iNwkFdaJha2Ztm9pH9UVvJVMqAke0Ly0S2QqaPSPMPAvQg==
+	t=1793899007;
+	b=ICLC1hMKO0tB+2ZzZmJr3H7NXg29NyThaaH/SN1rfytki+EhXEaY1kSI6aMIv+HWxFT1
+	 wb+Z4PPMT53jb0BOC5vN+mqTKEKlfE2qziCeP7HiJ9wx4jM7FlQZA6Oaxqg6G8QGpk/9+
+	 i0Jq3+3ppfCPbjBw5I1DLKpZYzoA7Ag2YSRGPAkqBL57cWIuRKs8D2kDYzT8COCfxsWhi
+	 v1VBWJ7VLX/StC0eF8zcwT9QWjRThiSqKubqzK9UPsJHweFfIqQwiZaJd7DcEfse9dC21
+	 IdUT71+zswWj/r3mRBWeOtpTnaJ/H4vuncDZZJQnrrbwSARtgTaDG5NKzJoZnmp6sDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899001;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=mlozEQJqTD17Kdg9fKmit8CMQRbYKQwG4XIhXLnNK9c=;
-	b=ZUYGP5w1EDy/cVy0ANu7ptA2cD2YDzOJWZpIB6E/XO9AVdp6OUvBddRpmb6FJdonwFZX
-	 n3IrX141XBAFoOiu3ahRlYE6ziHaV+ismrCeF3eq7WNTt5LYMQKvPi6BSVVmM96yFeFUw
-	 0dqq7LcmfVfFNkr1vA6W7lul3eWUAJAaAPKobz+PRJIQOCHBg3AW0FrjAQvPu6kIB8ImF
-	 Q69fHRHeezVvdydV9G7lT5Ovv5C2a1qvJmqy/xxSlRzoVi9ZKytC7wgahWK8M8JPWbEiF
-	 Hs9n2wVFbSrhYyDIKwwXQu3NykWs6fT8oYC0/1GevQ3EB3Ko3IxLLyArCcjmuW1vV1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899007;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=sZzW7JYVrmh754uY37zU3QW1aKqFPt/3sf0AcxHaA8U=;
+	b=XYRfpbFlBpy0AgpE5n0y6O8tpaJ7XplceeHt5JDUL71/GmUSJvbxslmmdrHc4Th3On5D
+	 TuLfTSKEijbpoTcQOtJOMv7V5JtPWb8J/4idl3MgRJlx/gA0ngbo4Ib2TNo22lVRuh86X
+	 PVSp62491jOMSE425daFezowAxRIOq9/xKIH+PdaPyCmF0/hhj6pVYAl9P8R59NxX0PJG
+	 KUh0XF1ZNRfnNFE/CwKkcxWUCdwByFLIsf+R2TiLIX29nI4XKRcHhBlyaRpk2ynfZjiQQ
+	 dc+m9aQS3NgblWURuckP84tvPmr/SXjjdfe7lmRGUawv2hcIhUL7STu1KHJTjSls0JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mobileye.com;
-	spf=pass smtp.mailfrom=mobileye.com;
-	arc=none smtp.remote-ip=23.90.104.144
-Received: from esa1.hc555-34.eu.iphmx.com (esa1.hc555-34.eu.iphmx.com [23.90.104.144])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A22B3606EEB1;
-	Thu,  5 Nov 2026 17:16:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A22B3606EEB1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1793899000; x=1825435000;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=3jyyUN+2uw6JFBOwpE+o/eA+FGjKrA2InO/IUR82Kg0=;
-  b=RfM7UhnIhV06jB+7r7sDhQw+iOO34rcYarqHQMvZ7VPA59sBi+D0VAnA
-   gQzRoOJ59ycYadg+Il0PKUT+qC8y47pYMgW3Zt1Qom4NTWclMpYZtiCmv
-   0Yna9+jNBWoxiutZ0KhisPGff5AzsgaLqeqeLhJF2dQQChSQGegY9evhc
-   CoeQN/Pz5ITQeiiPJWO2g1WAiRL4VD24Hb/SKjhpX6lbzGWFEiA5IRhTG
-   OcEdR2QACv3UvO1Y2+LBaZJ2kgPyPXMVl335WDJqGzSG5TWUuNcIQxE0n
-   7K09k8jedNkt/tHo69LICvMmFWqgc96/3G3LQrPxR5IoPuD5ChSb3zaop
-   g==;
-X-CSE-ConnectionGUID: NYIjUvP0Q8q5IfoXBCRtyA==
-X-CSE-MsgGUID: KbmlAUO+QtuWcj+BISCMRQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
-  by esa1.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:16:32 +0200
-X-CSE-ConnectionGUID: Q2rOifoGRTWF94W7W8RBmQ==
-X-CSE-MsgGUID: uJOAv3ouRK+VlizjS+FESw==
-Received: from unknown (HELO epgd056.me-corp.lan) ([10.154.54.2])
-  by ces02_data.me-corp.lan with SMTP; 05 Nov 2026 19:24:30 +0200
-Received: by epgd056.me-corp.lan (sSMTP sendmail emulation); Thu, 05 Nov 2026 19:16:30 +0200
-From: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
-Date: Thu, 05 Nov 2026 19:15:26 +0200
-Subject: [PATCH RFC v3 05/14] i2c: trace: pass message length separately in
- trace_i2c_reply()
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BDigdHUc;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A37876082BF4;
+	Thu,  5 Nov 2026 17:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A37876082BF4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=BDigdHUc
+Received: from localhost (unknown [4.194.122.144])
+	by linux.microsoft.com (Postfix) with ESMTPSA id DC88420B7166;
+	Thu,  5 Nov 2026 09:16:12 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DC88420B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793898990;
+	bh=sZzW7JYVrmh754uY37zU3QW1aKqFPt/3sf0AcxHaA8U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=BDigdHUcFCn/BGRR+msSMNpyCmQhCddheyhTHa7wwd9XqbOQJv7c+S9FDhQb3VNVZ
+	 RLnMGIyNgvt+VCa/EaPADFS35i/IrjwJEXySHjy9vWowetESB57/SzTQSzchZl/PMv
+	 YUtjHkuVWQPmp+6/ZuXR4XHcImqNujF+A/aE2m08=
+Date: Thu, 5 Nov 2026 09:16:22 -0800
+From: Jacob Pan <jacob.pan@linux.microsoft.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ iommu@lists.linux.dev, Alex Williamson <alex@shazbot.org>, Alexey
+ Kardashevskiy <aik@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Catalin
+ Marinas <catalin.marinas@arm.com>, Joerg Roedel <joro@8bytes.org>, Jonathan
+ Cameron <jic23@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Kevin
+ Tian <kevin.tian@intel.com>, Krishna Reddy <vdumpa@nvidia.com>, Lukas
+ Wunner <lukas@wunner.de>, Nicolin Chen <nicolinc@nvidia.com>, Robin Murphy
+ <robin.murphy@arm.com>, Samuel Ortiz <sameo@rivosinc.com>, Shameer Kolothum
+ <shameerali.kolothum.thodi@huawei.com>, Steven Price
+ <steven.price@arm.com>, Suravee Suthikulpanit
+ <suravee.suthikulpanit@amd.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Thierry Reding <thierry.reding@kernel.org>, Vasant Hegde
+ <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>, Xu Yilun
+ <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-coco@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-tegra@vger.kernel.org, jacob.pan@linux.microsoft.com
+Subject: Re: [PATCH v8 12/15] iommufd/viommu: Allow PCI TSM backends to
+ provide vIOMMU operations
+Message-ID: <20261105091622.00004a9c@linux.microsoft.com>
+In-Reply-To: <20261105004934.GE3889730@ziepe.ca>
+References: <20261104161632.3547423-1-aneesh.kumar@kernel.org>
+	<20261104161632.3547423-13-aneesh.kumar@kernel.org>
+	<20261104152351.00002565@linux.microsoft.com>
+	<20261105004934.GE3889730@ziepe.ca>
+Organization: LSG
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,82 +81,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-i2c-fault-reporting-v3-5-515ad74ac4c9@mobileye.com>
-References: <20261105-i2c-fault-reporting-v3-0-515ad74ac4c9@mobileye.com>
-In-Reply-To: <20261105-i2c-fault-reporting-v3-0-515ad74ac4c9@mobileye.com>
-To: Andi Shyti <andi.shyti@kernel.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Dmitry Guzman <Dmitry.Guzman@mobileye.com>, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16.0
 
-In trace_i2c_reply(), add separate argument for message length and use it
-instead of taking the message length from struct i2c_msg. This allows to
-trace the read data of an interrupted read message.
+Hi Jason,
 
-This is preparation for implementation of detailed transfer reporting
-feature.
+On Wed, 4 Nov 2026 20:49:34 -0400
+Jason Gunthorpe <jgg@ziepe.ca> wrote:
 
-Signed-off-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
----
- drivers/i2c/i2c-core-base.c |  2 +-
- include/trace/events/i2c.h  | 10 +++++-----
- 2 files changed, 6 insertions(+), 6 deletions(-)
+> On Wed, Nov 04, 2026 at 03:23:51PM -0800, Jacob Pan wrote:
+> 
+> > I am thinking MSHV/pKVM can register an assignment-only tsm_dev to
+> > leverage this? Could PCI/TSM support this role without
+> > device-security?  
+> 
+> It is certainly not what TSM was originally imagined for, but with our
+> new arrangement, yah maybe so?
+I will rebase on this set and send out patches for a detailed review.
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 12b49c01baed..3dd7ef02c562 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -2349,7 +2349,7 @@ int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
- 		int i;
- 		for (i = 0; i < ret; i++)
- 			if (msgs[i].flags & I2C_M_RD)
--				trace_i2c_reply(adap, &msgs[i], i);
-+				trace_i2c_reply(adap, &msgs[i], msgs[i].len, i);
- 		trace_i2c_result(adap, num, ret);
- 	}
- 
-diff --git a/include/trace/events/i2c.h b/include/trace/events/i2c.h
-index 142a23c6593c..b3267dcec420 100644
---- a/include/trace/events/i2c.h
-+++ b/include/trace/events/i2c.h
-@@ -88,22 +88,22 @@ TRACE_EVENT_FN(i2c_read,
-  */
- TRACE_EVENT_FN(i2c_reply,
- 	       TP_PROTO(const struct i2c_adapter *adap, const struct i2c_msg *msg,
--			int num),
--	       TP_ARGS(adap, msg, num),
-+			int data_len, int num),
-+	       TP_ARGS(adap, msg, data_len, num),
- 	       TP_STRUCT__entry(
- 		       __field(int,	adapter_nr		)
- 		       __field(__u16,	msg_nr			)
- 		       __field(__u16,	addr			)
- 		       __field(__u16,	flags			)
- 		       __field(__u16,	len			)
--		       __dynamic_array(__u8, buf, msg->len)	),
-+		       __dynamic_array(__u8, buf, data_len)	),
- 	       TP_fast_assign(
- 		       __entry->adapter_nr = adap->nr;
- 		       __entry->msg_nr = num;
- 		       __entry->addr = msg->addr;
- 		       __entry->flags = msg->flags;
--		       __entry->len = msg->len;
--		       memcpy(__get_dynamic_array(buf), msg->buf, msg->len);
-+		       __entry->len = data_len;
-+		       memcpy(__get_dynamic_array(buf), msg->buf, data_len);
- 			      ),
- 	       TP_printk("i2c-%d #%u a=%03x f=%04x l=%u [%*phD]",
- 			 __entry->adapter_nr,
+> TSM basically just becomes this weird overlay driver on the PCI device
+> that does stuff. Some of the stuff it might do:
+>  - Register an attestation subsystem device to do SPDM
+>  - Register to allow iommufd to create a viommu
+>  - Some status sysfs ?
+>  - ??
+> 
+So we may expand pci tsm to have more than one role? currently it has
+one.
+int pci_tsm_register(struct tsm_dev *tsm_dev) {
+...
+	roles = is_link_tsm(tsm_dev) + is_devsec_tsm(tsm_dev) +
+		is_assignment_tsm(tsm_dev);
+	if (roles != 1)
+		return -EINVAL;
+> It all seems separable and composable to me, so if you don't want to
+> launch an attestation subsystem device because there is no SPDM then I
+> think that might be OK?
+> 
+> Another option would be to somehow obtain the viommu from the kvm file
+> descriptor and rely on the fd to handle the module pinning/etc. I
+> don't know how to do that nicely with the way the modules work
+> though..
+I did this in mshv-iommufd RFC to associate hypervisor FD file to
+viommu.
+VMM:
+	struct iommu_viommu_hypervisor hypervisor = {
+		.vm_fd = vm_fd,
+	};
+	struct iommu_viommu_alloc alloc = {
+		.size = sizeof(alloc),
+		.type = IOMMU_VIOMMU_TYPE_HYPERVISOR,
+		.dev_id = dev_id,
+		.data_len = sizeof(hypervisor),
+		.data_uptr = (uintptr_t)&hypervisor,
+	};
+	rc = do_ioctl(iommufd, IOMMU_VIOMMU_ALLOC, &alloc,
+		      "IOMMU_VIOMMU_ALLOC");
 
--- 
-2.43.0
+Since mshv creates partition file with anon_inode_getfile() which does a
+try_module_get(fops->owner), then in mshv_viommu_init, it does
+fget(hypervisor.vm_fd) which will indirectly keep the module pinned.
 
+I guess we have to enforce this pattern to make it universally viable?
+
+Thanks,
+
+Jacob
