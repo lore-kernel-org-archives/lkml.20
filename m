@@ -1,77 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869404;
-	b=4E//+BMLBPBUEZPnFHmFB+TtyB9RUNT/K+40JR6vxA/qIiEdva7DVRHj6t29WT5lilco
-	 epQfD2UNex0lH/DmT7fBHg2N6y++GeynW6XXep0ov9zuYDtm+/5pxjEkta1FnxX+6HOga
-	 A8rdIDdWKaLffHT6o7YXl3dPj5XOeIwKm/lgOQNsbvTdJrRlDQfAH1s1Tpnt1R0prhhm4
-	 PleNME9L4wQdLgp3WgOlz28MQiOTvLbk0uLQScLd7Liw8iHKeJl9fxOYQ50h2Jfr+eRPe
-	 uucHIPC//98DIYfWmd9kJdUH1Gf92hAhZf9p+8ej6Qvpc/d9hhVqSXJ8Yua9gQbyM7w==
+	t=1793869416;
+	b=4E45c8JR93uGf3kxl23CFDm+T9ao3lvvrazyx2mrPRukUGsiXTSxMhqUIbXRKiRdGh2c
+	 iiGMFZVL1cBrbSR2cp0xXD3rFhBYwZWOJUus9c7PZMY4/dTZspvofQl+ggPUeVhDGyai3
+	 bcFPZCdL9jbyequcGCwcSFOaFmOAF6rmdH2oASOOZij6ai0oDa8zzQpIWrBtgFEw/zKxd
+	 CnHnWp2S2+wevWtfbB412QhjuGai8D019kA5OQrhJ+D/1yWU+SYvcmADFU+Pq+tDcSS31
+	 u9SBh23ZTFPk1M93KHaTdGqafpoREIEGcOMGupapreQFYRPBDovS4aNg9hgfzrli0dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869404;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1NYk/R+AjvZfblsV7HCmGu0xMESmf/3Rl3LdxJTF5qY=;
-	b=eUZg6iCvHwQDfNgKZJkCRcItsGjgvl+lhp1rJfta556RfVacM1VA7NlWWf3HM4nVM8ox
-	 8F6Em8X3XIzRQkpSkYcGJhtzLl+8mOHXt9o1qCqt4hbFrPR9k3i7dpCn+e//um759UFKD
-	 0ojYmyHKSqQEilUSsRuTvN2GitNFA2QlgSNEIMDBKGLbfTaqe+0nA7cn4HxzekezXjpCD
-	 iSIJpQafQL6g6pGruGnUK8pkZNwfBY5Zg0AHQfrVW6FssTGLzoHX8IfQgkhX+Wd/WSWQO
-	 Fr3ayCOAAR5St/Do9POAA9pbZqDU0LiScWI4YbZWe5qKM869AyBKnIQ1FAG41bHE6bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869416;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=eS9VYztUf5BhQvnJ4h2DtC/aMQpmGtFib9xuKTI/0vw=;
+	b=rajLvdOZyeWvvxQkc3HbxgNyj8os2mTinnJTdAxvmX7VL4B2uCHf0jUaZUp83tQ42hv/
+	 Vvl+i5KTRNYOwyuo0NFjUKzqc9Fohn/yXMGiFxiNfTIrgSTSwwCdHM3d1uEvYirUMAn1A
+	 aiTBnvo+64ERNuoASFNEKN4eTgk9e7bMHTndzrG0yZGpbK8cMhdrIajhw/g+miJpZM+F8
+	 FK/j75JQEZ5oxhIxAC2A+UMclQR9en3QyPEg3/28VJoL1Pc29JLo5jNnMJ6CzVN/r1vVo
+	 fIDwYmwE8NcHxlSI6jJVJZil0Z75UBO7moFuvarHM6gowWFjKjcDHGrd5e5ejBkLJZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=pmNLQSFO;
-	arc=none smtp.remote-ip=115.124.30.97
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25613606A31B;
-	Thu,  5 Nov 2026 09:03:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25613606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fpkytpAQ;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48F11606A326;
+	Thu,  5 Nov 2026 09:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48F11606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=pmNLQSFO
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793869399; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=1NYk/R+AjvZfblsV7HCmGu0xMESmf/3Rl3LdxJTF5qY=;
-	b=pmNLQSFOpq/RuRuhP0vzWZQi+r2DSovBx8mbaVk24pezHXtwBKmp9/8XAPGE4gUt5nNM5gtVYmEo7HW6q/uzke4zADGtHy2IriKE+h6xZfOzrVwLbt12RwIY9O8luJNn4U7bqlbiLt4H19tTsSrH6vK432upsOL+i6+b125lCWM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XE8DYxW_1793869381;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XE8DYxW_1793869381 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 17:03:17 +0800
-From: Chen Pei <cp0613@linux.alibaba.com>
-To: acme@kernel.org
-Cc: adrian.hunter@intel.com,
-	alexander.shishkin@linux.intel.com,
-	anup@brainfault.org,
-	david.laight.linux@gmail.com,
-	guoren@kernel.org,
-	irogers@google.com,
-	james.clark@linaro.org,
-	john.g.garry@oracle.com,
-	jolsa@kernel.org,
-	leo.yan@linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fpkytpAQ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D8921684;
+	Thu,  5 Nov 2026 01:03:30 -0800 (PST)
+Received: from e127648.cambridge.arm.com (e127648.arm.com [10.0.130.179])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 19C793F628;
+	Thu,  5 Nov 2026 01:03:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793869413; bh=GZMKqxaEq2gR6E0jak2AgZFPjcc1Ujbbf2jajBLL0gY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fpkytpAQZk+hGLsWE40JXJUHydyx9jjqOQwsbp9+TZ8FgWfOuQprujrkBzE3W3kNM
+	 ybxKj+9zA/gQaE+VOBnb7knDoiIS3JKUMVOUh8H2vOuRYvy+HR/DuYssgN0G6tQ7US
+	 GkMhNiwvp4g13LRoBYe99ptNw9mlBWB/WMGqnr2g=
+From: Christian Loehle <christian.loehle@arm.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	mark.rutland@arm.com,
-	mike.leach@arm.com,
-	mingo@redhat.com,
-	namhyung@kernel.org,
-	palmer@dabbelt.com,
-	peterz@infradead.org,
-	pjw@kernel.org,
-	will@kernel.org
-Subject: Re: [PATCH v3 0/2] perf riscv: Implement rdtsc()
-Date: Thu,  5 Nov 2026 17:02:57 +0800
-Message-ID: <20261105090300.2889-1-cp0613@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009032715.2841-1-cp0613@linux.alibaba.com>
-References: <20261009032715.2841-1-cp0613@linux.alibaba.com>
+	sumitg@nvidia.com,
+	zhanjie9@hisilicon.com,
+	superm1@kernel.org,
+	zhangpengjie2@huawei.com
+Subject: [PATCH v2 0/2] cpufreq: Fix global boost state updates
+Date: Thu,  5 Nov 2026 09:03:09 +0000
+Message-Id: <20261105090311.1026648-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,14 +65,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 11:27:13AM +0800, Chen Pei wrote:
-> [PATCH v3 0/2] perf riscv: Implement rdtsc()
+Preserve the global boost state on failure and serialize concurrent
+global boost writes.
 
-Gentle ping on this series.
+Changes in v2:
+- Split rollback and serialization into separate patches, with the
+  corresponding Fixes tags (Zhongqiu Han)
+- Carry Pengjie Zhang's Reviewed-by onto both patches since code
+  is unchanged.
 
-Is there anything else you need from me to get it queued for the next
-perf-tools cycle? If you would rather see it resent on a newer base,
-or want a change I have not thought of, say the word and I will do that.
+v1: https://lore.kernel.org/r/20261104161657.546370-1-christian.loehle@arm.com
 
-Best regards,
-Chen
+Christian Loehle (2):
+  cpufreq: Preserve global boost state on failed updates
+  cpufreq: Serialize global boost updates
