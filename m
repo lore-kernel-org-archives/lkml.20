@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793843049;
-	b=Uy/q5hMP8h+M/5NNDOyZiRxjditMLnB9xFRQQFToULCsiavRJjkPYhjBMKZsp31z8g0x
-	 zF7zkK1L3bQaPzPK4St5GR3satNvBqT3jSDV4RQ8mMu+6hCz/ywAZdY7l1PD/1b8pUhe3
-	 EnvDXbY6ZUSq0RbhCdYfHjFYazy78HzN15wHhNVdkZEMU+PSYtJAZJ7Y17R/LRpsoXXRQ
-	 qvi2lpDynsV0k8+JFMD8+QreOcvIZYtjYU9qXZkxVig2o9BqrEVQlpvNNKcMzDZsnQCPM
-	 NLtY+sMuroQBueVvabWe1y0Xs/7xmlTuEc5+nLmQhPj0zbq2giBUqJ57CuoNCzqzdSQ==
+	t=1793843085;
+	b=pPcq+IO/sfwlyKwwvosOimGDanhAZp6MVZLBpX3eDKJh2QpAvRJLL6VoVvF84nK4oEm0
+	 UcT4DXktYzKiZdACT3MgjDzdcwUod0vt340VGjgMWX6rAlLk9Dygr0DXuR4MPN1ahhLrN
+	 Zz3WE77b3ghvGGu+EymHcDd8xK6DtRFfT3esZyiH+qJgr7ZRY2f1z4vUzYLf8zYGA21I+
+	 3lPxvG/GzQkmCpUuj7WOMQtnFWbsciW++HZ6ZOxDox1S1wyJR+M0Ox852Pa5bhryy1akJ
+	 iXJkeyujfKWPXClhqUGuNuhuIDIYs8HWNBszQ4+TD8VLjHiNf7PQUinEsYFIj7DUy1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843049;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=48fhyPC/y+c8FJusEcnheL0b5UlugtkX/uQTSOjVLxQ=;
-	b=Rwtp7+qTthi8lOyq6fldu+n++8jJ8Gqy5kHida7fPiSa6JJYwzSxXa2jIW5zKnIzGvEa
-	 0qZP61p81qpjrORan6R1a+CBv/7XghJ0V/8m+GQapCxCMM9sbkOBG2j2nQQVesFrPBbnH
-	 vCbPvZrvAOrL/AhAPdV9l7+36lgGMsZrPeS2Xo+NY5WN3RPLOCxsLjgqiWKl0djHwKv0K
-	 eL9MRdwSv+fH5pl+NPbYy80cMInQnK2omBUNIbzUR99ooxr0GAnx0DG34KsCqRMTLahKu
-	 O3Vgwe/o5G6xC+nZFOYOHA6uw4alvpop5gX0IYjPRD+oINLqLjP//IccgJA2D2A5pGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843085;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=KCPP0dcD8EhOUqbX6pSZ0CLuO8QQgf4ncI0Xmf3yuyY=;
+	b=M9K4sHjmgibYEhuX9jFgNHLIhrNvu+G3+dIPSZ82+86qiX9KABDJgNLBVAhLDFSvvgHT
+	 5moSMkM5HwwtAlz4bMy/brBqvRZQ2JVr0Ub91owh/oUee1NUAxJauGsFfFMamVKbeQ1f5
+	 qUmvK7LdAgbdA6XKn4ZpUg0B7AUujUbgTq4oDj98UkF3Ge8uYf/4r4XIvarn2zOeJm/tW
+	 xmH8vwaR3Sn4BOSNVRWKdUP/BAiX/T7Je79+GKqPz7BNtn9sw/Wv0dOFVKB3W5dJuDT/L
+	 k1VTX93stFa1zzZDrw/lp8l0ohAwj+7LNENquflfD/Xb0HnmFmlzl6hBHdYa1hkZCeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9DkfzPH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=raidlab.org;
+	spf=pass smtp.mailfrom=raidlab.org;
+	arc=none smtp.remote-ip=79.135.106.111
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3656A606A31B;
-	Thu,  5 Nov 2026 01:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9DkfzPH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7F611F000C1;
-	Thu,  5 Nov 2026 01:44:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793843048;
-	bh=48fhyPC/y+c8FJusEcnheL0b5UlugtkX/uQTSOjVLxQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=C9DkfzPH4+QOF8iSJRtvwJRnu2ZulxzE7FHXcSvx5hJaM1MdmIo68jJZPqhk9Haed
-	 7WmgrbLbgJpt2i6seTWX/S5VqKqP5ZR7F7VqOtMO81rc5IMtFyjHqiNSc+HS6Q71G7
-	 V4og7KGDsjpL/w84CTSjUSu/ETzvqvwq35qQDuulFIRYlmjHF2zdfiNxy8GsOsvjBT
-	 U/5V2tyeBA8XnRt5VNKRHDtDwd/3/pdk4lXjpto7dszSSrryjrts5jgGvUaVLjiP09
-	 dvHpQ6M+6ZwYdvrEy0LFYMrRkGXztCRujcIqazgcfliiyz53cajISwtQytzQSWv2wn
-	 PEv3osPWfWYSw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 7EC56CE0B0B; Wed,  4 Nov 2026 17:44:08 -0800 (PST)
-Date: Wed, 4 Nov 2026 17:44:08 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rcu@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] srcu: Add list_splice_init_srcu()
-Message-ID: <dfae041c-e597-45b0-a0ba-197ee7820e86@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
- <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
- <9f8c94ff-29e3-4ea5-b9ec-b04b2bc21b1c@paulmck-laptop>
- <20261105012242.623962-1-odys.yuan@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1537606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 01:44:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1537606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=raidlab.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raidlab.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=raidlab.org;
+	s=protonmail; t=1793843081; x=1794102281;
+	bh=KCPP0dcD8EhOUqbX6pSZ0CLuO8QQgf4ncI0Xmf3yuyY=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=O+WjvewahS1O7uDT8Yim7m+7q/1JG9unKziCUB3Ti6maqnoJeIL6y30bPDdqs6v6G
+	 YCPJGBZuz0QjvW7DsY7io32qvLwQD1SUs8quAvycFed7kDEXcJH+qbb2Eqy5faP3UK
+	 ky6HDmKW2xS+Bsp9aPw/MCa1nsErvvUHpQO7mA3z2v4mjAhiT6AXkWjW+qlqor8K8Y
+	 /rBShc8/vbkH+UkgqFGED2zlrmQy4F9CM3PmGZeIItV8zpAvDsiqHCl/HaiDgqjkiB
+	 6V1E7P9W6OxLA7uSUk1RdZQ4CmzGKdtBgnAeH9QfWh1r68EBQm7ZZSctHFUpR6qXIh
+	 gCdt+X3PN9nrw==
+X-Pm-Submission-Id: 4jKlVJ1dv4z2ScX3
+From: Miroslav Cimerman <mc@raidlab.org>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Miroslav Cimerman <mc@raidlab.org>
+Subject: [PATCH] null_blk: reset throttled state before device setup
+Date: Thu,  5 Nov 2026 01:42:45 +0000
+Message-ID: <20261105014245.436826-1-mc@raidlab.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,62 +59,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105012242.623962-1-odys.yuan@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 08:22:42PM -0500, Qiliang Yuan wrote:
-> On Wed, Nov 04, 2026 at 09:14:12AM -0800, Paul E. McKenney wrote:
-> > I am not inalterably opposed to adding a list_splice_init_srcu(),
-> > especially if quite a few more users show up, but here is what I was
-> > expecting people to do:
-> >
-> > 	static void synchronize_my_srcu(void)
-> > 	{
-> > 		synchronize_srcu(&my_srcu);
-> > 	}
-> >
-> > 	...
-> >
-> > 	list_splice_init_rcu(l, h, synchronize_my_srcu);
-> >
-> > We need at least six uses of the above idiom to break even on the line
-> > of code required for introducing a list_splice_init_srcu().
-> 
-> That works for a global srcu_struct, but nvme has one per controller,
-> next to the list it protects:
-> 
-> 	struct nvme_ctrl {
-> 		...
-> 		struct list_head namespaces;
-> 		struct mutex namespaces_lock;
-> 		struct srcu_struct srcu;
-> 		...
-> 	};
-> 
-> nvme_init_ctrl() calls init_srcu_struct(&ctrl->srcu) for every
-> controller, and readers walk the list under that controller's srcu,
-> e.g. nvme_wait_freeze():
-> 
-> 	srcu_idx = srcu_read_lock(&ctrl->srcu);
-> 	list_for_each_entry_srcu(ns, &ctrl->namespaces, list,
-> 				 srcu_read_lock_held(&ctrl->srcu))
-> 		blk_mq_freeze_queue_wait(ns->queue);
-> 	srcu_read_unlock(&ctrl->srcu, srcu_idx);
-> 
-> nvme_remove_namespaces() thus has to wait on the srcu of the controller
-> being deleted, which a sync function that takes no argument can't get
-> at.
-> 
-> So the choice here is between list_splice_init_srcu(), as Christoph
-> suggested on v1, and open-coding the splice in nvme_remove_namespaces()
-> as v1 did. Which would you prefer?
+The NULLB_DEV_FL_THROTTLED flag is set at power on when mbps is set, and
+is never cleared. Since commit 00a8cdb84fcb ("null_blk: remove
+NULLB_DEV_FL_CONFIGURED on turning off nullb device") mbps can change
+when the device is off. After a change to 0, the stale THROTTLED flag
+sends I/O into the throttled I/O handler, whose hrtimer_active() runs on
+an uninitialized timer, dereferencing a NULL pointer. A crash happens at
+power on, as the first I/O that triggers the NULL dereference is
+partition scanning I/O. This sequence triggers the crash:
 
-Sigh!  I hereby withdraw all objections to list_splice_init_srcu(),
-and thank you for bearing with me.
+  echo 100 > mbps; echo 1 > power; echo 0 > power; echo 0 > mbps;
+  echo 1 > power
 
-(Yes, you could squirrel away a pointer to the srcu_struct structure
-in the task_struct structure or some such, but that cure is worse than
-the disease.)
+Clear the flag at the start of null_add_dev(), as is done in commit
+5a4236bf2262 ("null_blk: reset cache state before device setup") for
+NULLB_DEV_FL_CACHE. It is set again when mbps is set.
 
-							Thanx, Paul
+Fixes: 00a8cdb84fcb ("null_blk: remove NULLB_DEV_FL_CONFIGURED on turning off nullb device")
+Signed-off-by: Miroslav Cimerman <mc@raidlab.org>
+---
+ drivers/block/null_blk/main.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+index ec0d7ba4d938..924ec6cfdcaa 100644
+--- a/drivers/block/null_blk/main.c
++++ b/drivers/block/null_blk/main.c
+@@ -1977,6 +1977,7 @@ static int null_add_dev(struct nullb_device *dev)
+ 	if (rv)
+ 		return rv;
+ 	clear_bit(NULLB_DEV_FL_CACHE, &dev->flags);
++	clear_bit(NULLB_DEV_FL_THROTTLED, &dev->flags);
+ 
+ 	nullb = kzalloc_node(sizeof(*nullb), GFP_KERNEL, dev->home_node);
+ 	if (!nullb) {
+
+base-commit: e6ac1da6a53c5f670bf09e60a2500d15be68d2fc
+-- 
+2.53.0
+
