@@ -1,73 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793905702;
-	b=POrUleQmkZEAmH6oyuag8BiYSk52pfdD6f26YA0K21IBMS391DzrPVG4PPIpN4vHQJH8
-	 UC3+7zGzBpdyrZBpYp9l56QHCjawDb7xnfLVHvfvVacTGXfKeW72WFtw/vAU/O8SUGPXN
-	 SKfed7gU7JGAo5/0ojHsexWG3bsb82s7czp7tVvx5FYI5c+qfQZMaaCHwfeQSwrG/oSQy
-	 mxpAviTI1FJjhTBJv2v+FGTe45o7iTj9LOMbbUWjXviNlKvkRsoKgHX65wsNX/eH+mkZ7
-	 UWOY1LhA2JmUYEXl0emyBh74Aqshdz9LF/E8tEL8FNjaJZ9ss5iPh/1ADojHRC2T62Q==
+	t=1793905737;
+	b=MBFHi6i2LENk8/uCZ0j3wzKhPZ4UyQ9SPYiIhbujC2zCYDuaDIbiLxA0/5lZprDY6X7f
+	 smbdtovwRa0mLGcxor+HgxFSSSsNE9fS8zHDhhT45vrWX2gKyxm0qbQn9KrgN1lgTxj+b
+	 7wn+eEZQzAQEktHA7bqGOOv43Ndl4dUDH+dxJo9UpuRrfwQy255INVsmM37VOxk+VKjya
+	 P1o5q4lf5dT0Siw/LLBiMjIFiud9K732NP8MHf8Ricm0Au65myqn9WjUOoetraV5IMU06
+	 lDHvExCn/fWsRabfyg6vlZkPhhCS+NZ9/zoD8Vv7/WOBUmdFM1G06j1/uzgAenYlE6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905702;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=EgrEjWq1dkccGneJGxtKcBDSZQyn1idPPnv0strekvo=;
-	b=JR8Z6MUyh/tte0Jd9jtaKMO7AOU0HO9FuHIcq0VmIsFqkRhVp9Fz3ZyJOtLgFaYdK2PF
-	 Lcp4G4BtGJlmtpGPIwgs6RulJ4LU6Dtg90B3X7GEdvyviHShkyDCq5h2lyCyZJ9Y4jEhz
-	 YXIL8XJI4hJEbH50QyhTwt3SSd5orvMPIapVoDsRzg34tipSavZ9kyj/TrdSii2HApIcS
-	 pACCozMzEWr59hGGU3Q/aK1+ldnqbknlv/YXqiNmmezmhJkvTja6tr/ktMo5BQXHxJ7kr
-	 ZSyZI14LhTQpRhCcexhlsMhrheDepoXIyfrqOrXWGwO3rKIb/ztwMVO5VaGUxxY2OSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905737;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=V7cpDqfJH1y1hZnJH2Vx1+b0eI4492tyg6A/STECMPY=;
+	b=b3B/rdzArL09GGzEZNnuPTUZRP+uLJGHEY8LXSAJdvA/hbyDSeGTiPqLjRQyIwJLoYz7
+	 B4fsdZc1Koc80mXH50+/HbSx5NtVtULNa3x/bGIkFTafYh42O/FAMRpAcnChBQ29HL2Sj
+	 fmftHmzpS05ATerx65kslk9v7qtvfBvX0LDOkxJEqQgwExHmFb3s0ezfGjiYlEIslx9F1
+	 8gRVSnRc439PkexCDd6c1y8NGKbYlbGYJy8JTf4Yjc8OrC7ePgFzPAYousJCu1OlU7cFu
+	 ixFbF/uPr0cjqhnC1+0YdjWYSPMbGOYhIXIRbL7rlFzBbZAqut1j+dhiwzJtDVbRgoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Z1t3HC4J;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LET9d5GD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F9F606A328
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90F9F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C0F606A326;
+	Thu,  5 Nov 2026 19:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Z1t3HC4J
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ed216ed20dso8123545ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:08:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793905702; x=1794510502; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EgrEjWq1dkccGneJGxtKcBDSZQyn1idPPnv0strekvo=;
-        b=Z1t3HC4JPfaqY5QaOL1TJjLm2Yf8K3fz6vV0RGq//80ezjK0r8FvaUcvEGDJz83cjv
-         prpeOohIpU9/yXt/YPfd1Bi39Hh2QwZC8jzoXly0ZI5jRTrxKVvX31zF2oJQdkWdu4h4
-         crWCNQFLe0zGzMVrLw+B4jCGZvm4+8OBcqu0Je+R9clIwI0dqEw/OiT9VjKKhpWXa7gS
-         XGVPy6CRxOcVctae7OkBKgeSrrtGPcy07MRquXAlr5+elHzx0itjg4Gle0OzSUQY8/fg
-         N29D3GkDi0xB14axB4uWFjW7gZMdXkl619+h+Rnc6ycPTHexMkknQKYVgCUFSHwpUfPG
-         JfTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793905702; x=1794510502;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EgrEjWq1dkccGneJGxtKcBDSZQyn1idPPnv0strekvo=;
-        b=lwNzFouK9ImSeOsUlLNXG2G8IH7Ak8g18YHAlvRVD5auPVBWftl/dSas6SWDsIeZJa
-         OG/+I8RcddDjky7HrvNDcGiOBA1A/zIu8T/6iw56A++LN4kNrYUMSboF26CK7F33xgh4
-         YNBktozqANZ1bo020f1ZgJqcXY3sInpIgiledq5HwSxEK2/SALgz6fhomTM9W+PHoooQ
-         gX2aOgLOGchooPrYgye03cgX63p0OnGivfB8FnqlSnhuuU5Z5OvVSItUvtsBtCaXigbs
-         5jLjsyZ40K9A8jTQkHgjUGRnby1GdjxJKEDoGqqvBNGttI6p5FeWocFnSwNgTagk27cj
-         6Mmw==
-X-Gm-Message-State: APuU4Z+u1FubGXhKKSCVy7KILtn6TQw+wBH9dW3U7IwcXlRoEaptLSTg
-	bEDhK3itIqBsODw09/vh5CFBXgE2k2wPe3exJEXlr969dm2uyTkox8Zd8+eFJETqRTlzALVAdku
-	USlk+2Q==
-X-Received: from plbay8.prod.google.com ([2002:a17:902:8b88:b0:2eb:337a:cac])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:19c3:b0:2e7:67ad:8e9d
- with SMTP id d9443c01a7336-2ed40da6654mr4115955ad.30.1793905701489; Thu, 05
- Nov 2026 11:08:21 -0800 (PST)
-Date: Thu, 5 Nov 2026 11:08:20 -0800
-In-Reply-To: <20261105164531.313849-6-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LET9d5GD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD3D1F000C1;
+	Thu,  5 Nov 2026 19:08:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793905736;
+	bh=V7cpDqfJH1y1hZnJH2Vx1+b0eI4492tyg6A/STECMPY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LET9d5GDd0AI7Q3ARWLfcNkSwf/TfYOAsmLg3K5t6xVeJvx7g/INQOasebQmjLKkg
+	 /PGg3W9WCO3J8LYuq3Ob6Qwl4zr6hU3JsTir091SentB8bi7EC0N6YmdGU1QJg8vAo
+	 aeKWauZcS849c6OH1T8KQXyEttfsdWBE7ndjjVcmZ5RQbrEzdz+8gw2VJm0IFdwdT7
+	 XQ3Sabv0bmNxxbgqxBlpZOUrQIuoZPlBgkRcPn+H9KwwM4mynp96WyjtOHn9pMg+en
+	 9xHWepFf4IQld04OQqXn+lg16EyR0quVDOQb4R5kzVixrOzEp41GyDZiPqjwpgfbZL
+	 umqHfLuBo+CAQ==
+Date: Thu, 5 Nov 2026 19:08:51 +0000
+From: Conor Dooley <conor@kernel.org>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: Olivier Louvignes <olivier@mgcrea.io>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+Message-ID: <20261105-pregame-ditch-cb9fb68a0040@spud>
+References: <20261102201155.10948-1-olivier@mgcrea.io>
+ <20261102201155.10948-2-olivier@mgcrea.io>
+ <20261102-salute-cylinder-22c9a8896ca9@spud>
+ <C0C6F46A-45B7-4B1E-9398-71CD8A26FBD5@goldelico.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,53 +67,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261105164531.313849-1-pbonzini@redhat.com> <20261105164531.313849-6-pbonzini@redhat.com>
-Message-ID: <auzUJOrdHz4pwMuL@google.com>
-Subject: Re: [PATCH 5/5] KVM: x86: move asynchronous page fault handling to vcpu_enter_guest()
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	Hillf Danton <hdanton@sina.com>, Steven Rostedt <rostedt@goodmis.org>, Harry Yoo <harry@kernel.org>, 
-	syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5rHQxFgV20QGdNEt"
+Content-Disposition: inline
+In-Reply-To: <C0C6F46A-45B7-4B1E-9398-71CD8A26FBD5@goldelico.com>
 
-On Thu, Nov 05, 2026, Paolo Bonzini wrote:
-> Fully handle the PV async #PF in vcpu_enter_guest().  This has several
-> advantages; first of all nested async #PF code (which has more to do
-> with host page faults than nested MMU page faults) is moved away from
-> MMU page fault handling, second host_apf_flags is hidden (though only
-> partly so, because it is replaced by EXIT_FASTPATH_APF) and the node
-> put on the stack.
-> 
-> Reported-by: syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com
-> Link: https://patch.msgid.link/auqAsEk9o6buPNiR@google.com
-> Co-authored-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  arch/x86/include/asm/kvm_host.h |  6 +++---
->  arch/x86/kvm/mmu.h              | 21 ++++++++++++---------
->  arch/x86/kvm/mmu/mmu.c          | 21 ++-------------------
->  arch/x86/kvm/svm/nested.c       |  4 ----
->  arch/x86/kvm/svm/svm.c          | 14 +++++++-------
->  arch/x86/kvm/vmx/main.c         | 20 +++++++++++---------
->  arch/x86/kvm/vmx/nested.c       |  3 +--
->  arch/x86/kvm/vmx/vmx.c          |  6 +-----
->  arch/x86/kvm/x86.c              | 17 +++++++++++++++--
->  9 files changed, 52 insertions(+), 60 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-> index 93170c70a17c..f72028efe2ca 100644
-> --- a/arch/x86/include/asm/kvm_host.h
-> +++ b/arch/x86/include/asm/kvm_host.h
-> @@ -209,6 +209,7 @@ enum exit_fastpath_completion {
->  	EXIT_FASTPATH_REENTER_GUEST,
->  	EXIT_FASTPATH_EXIT_HANDLED,
->  	EXIT_FASTPATH_EXIT_USERSPACE,
-> +	EXIT_FASTPATH_APF,
+--5rHQxFgV20QGdNEt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Ha!  I had coded up EXIT_FASTPATH_PF too, but never proposed it because it wasn't
-useful since my approach used a dedicated kvm_x86_ops hook.
+On Thu, Nov 05, 2026 at 10:57:58AM +0100, H. Nikolaus Schaller wrote:
+> Hi Olivier, Conor,
+>=20
+> > Am 02.11.2026 um 21:48 schrieb Conor Dooley <conor@kernel.org>:
+> >=20
+> > On Mon, Nov 02, 2026 at 09:11:54PM +0100, Olivier Louvignes wrote:
+> >> The X1600's SAR ADC has four auxiliary channels and none of the
+> >> touchscreen or battery engines of the JZ47xx ADCs in ingenic,adc.yaml,
+> >> so it gets a binding of its own.
+> >>=20
+> >> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> >> ---
+> >> .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 53 +++++++++++++++++++
+> >> MAINTAINERS                                   |  5 ++
+> >> 2 files changed, 58 insertions(+)
+> >> create mode 100644 Documentation/devicetree/bindings/iio/adc/ingenic,x=
+1600-adc.yaml
+> >>=20
+> >> diff --git a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-a=
+dc.yaml b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> >> new file mode 100644
+> >> index 000000000000..f6356ea97980
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> >> @@ -0,0 +1,53 @@
+> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >> +%YAML 1.2
+> >> +---
+> >> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: Ingenic X1600 ADC
+> >> +
+> >> +maintainers:
+> >> +  - Olivier Louvignes <olivier@mgcrea.io>
+> >> +
+> >> +description:
+> >> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input cha=
+nnels
+> >> +  measured against a 3.3 V reference.
+> >=20
+> > The wording here makes me wonder if a 3v3 supply is missing here? Or is
+> > this some internal supply on the soc?
+>=20
+> It is an external SADC_VREFP input pin (ball P12) which is usually connec=
+ted to
+> the 3v3 supply. But it is specified to be min=3D0V .. typical=3D3.3V ... =
+max=3DVADC
+> voltage levels.
+>=20
+> VADC is indeed the power supply for the SADC on a separate ball. It must
+> be in the range of 2.97V .. 3.3V .. 3.63V so that it is extremely likely =
+to be
+> connected to the system 3.3V rail.
 
-I'll take a close look at this series today or tomorrow.
+Probably there should be at least an optional supply then, in case it
+has a dedicated one for $reasons.
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+>=20
+> Therefore I do not see a necessity to require a separate regulator refere=
+nce here.
+
+--5rHQxFgV20QGdNEt
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauzUQwAKCRB4tDGHoIJi
+0r8CAQCHI9gqXrfjEz8CofeFY5j+Ga0itdM/tPS1ksd1H+qUsAEA1KxEDpDfxkas
+NnICKTM6EXj60ZHCA3zoEw8srW6ZJA4=
+=0+bX
+-----END PGP SIGNATURE-----
+
+--5rHQxFgV20QGdNEt--
