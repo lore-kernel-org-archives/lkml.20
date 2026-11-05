@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793894132;
-	b=5Avq8SLYQQk+uioShfXQs9P5m5MX1yU9a5SSP/hm+VjSq7dutouXv9TUM8PhA/EWDz5a
-	 eH4F4t2vDQXcTfZwV3ysYcfy3KFX4WkzM79j2ATMTsq/8DEz0HNvqsDFOCwvQgokeKtM/
-	 QSy+xX/pR9GvEOLWfLRFO11bVItRHOeV8Gd+FKh+jAsf3N7f3qWRfv8NfmQQNJfBjwMBj
-	 OMBAw3uVrn2xODncFWuLJsS2EU7VyA+wmgzOgeAhVXD1jDCVuMdNy/8U1qpVXdXA/iauc
-	 A/awpml4TCqoQ5igB5AznrTmW3mxAj4vmytadZ81UvDZB1bvU2qno+D6FRYYXYKp51g==
+	t=1793894121;
+	b=PTMkVgGWumyhDRIwzIfJDwJulk2dUxeyWQM2C8SghH+6iHkxjAqZHsXS8U1gf3fV3kkb
+	 P1IEPtpL/Ntrjv7nM0hGcRNth2f6eWzO35/KpCJsAfzeM+BP6nmheg6NoDXsnbPS41M6g
+	 Z8cApt7U+SaOJppVmzc7gT6dV5TJuYCmW1hLqq6RBYn6/R8bY2PzqjaFSfp1fnJGFIKl8
+	 TBi2OntrkDzp2IybHfm+GcmxBinZWSUfUW/5Lf8mm4AaleFjUdRNaDqj/RlCi5CGkm32s
+	 fMHyg7hJcXC6YqrU4KRYFDV2vJWxntDVibvekHevKU+fhZ2+wm7cEHdLLj2a/GKHSmg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894132;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894121;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=sXVdw7vU5ofz/MC7RbWYsGV4+QyERagQ3Me77tggaqA=;
-	b=TSq+8q5197C2kZBvxwUNuUPO8RP4EkBjifMITNtElpLBvV5nS76Os5MxiAYvqFsCSdLP
-	 wHuxYQX9WnrKc9auzxJOsXFKnPQGDQSKSV7vZCMjFaIJpomcekdRYOBjWPrwy9gFX1aeS
-	 m7sDZgcwU6PDT9aCpxX3GsdpP214CBTTV4hfItYzWxzkSK5p0bdjUUJYq4u165fw2fivJ
-	 NuFG7A7uUDMmTvzlQXdxO7RcT14u/zW3wX6VUHivUmOYk23q9jSDtlU+M4MZLL+eaKzw1
-	 HH9JNgknbxzKhg70Az2jap+LgysIwwAWwkaIS/ajKfajEYdBPP4wyxOKWW6epw/KrxA==
+	bh=W2FNCl6kD+yG1An6J1qP2q3ElD4JbRyD4zLE3KUhfnA=;
+	b=QdGiFgv6nMG3HIXG0WNXbFOQZoNQcVMKHmfcfd7Lsc5D3vYtKnk06r6lij748vZoMXat
+	 vOZIG+L4NGIPKd0MdSUVkJrd5ibVg6PD2s5sQt5ssjoNDz4fgh8PulKmdUC7zdYw6cO/u
+	 asVOWVkAO8VD41KerpswINYROVgkJffWWhEllmzaFMqT40FLdQXtpQZmxRKs8ZZajUwDk
+	 nPNBAQIC8t0RbsyF8EVaacWdOeFfK8K9YMtvKos6RVjd6McwURxD7KYs8/C9h4WODq1nq
+	 Cu0YqWONdrE3ZbaplmPRSABlUdxgMHtnVs6RKb+KW+Gn7Jw/P/qKW6gob6IOhI3k2EQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="Da0wH/cG";
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NFdow1Mz;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E116070782;
-	Thu,  5 Nov 2026 15:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3E116070782
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658FB606F97F;
+	Thu,  5 Nov 2026 15:55:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 658FB606F97F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Da0wH/cG
-ARC-Seal: i=1; a=rsa-sha256; t=1793894005; cv=none; 
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NFdow1Mz
+ARC-Seal: i=1; a=rsa-sha256; t=1793894023; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=R7uf2llnfIu0oqpbnc9sVETu5emQPBr69ahcUBhDgAgKf7TgqdbSkw+oYDyF4JOdNOKwBuwVfsZI/d9c/nE1eLBKB/NlVeC0O1QiIL+b6MtkQHBqEDg2M6TlFyJUF6jont21YyNmG66ZBR/zOaqPDIamx321zrfI5keTmIM2qcc=
+	b=OmTeZTxAqlmANhnjCngef9pdUbuHsK9RH5SpmpXV1RgDOCNLK5Zyg0iJ/c4cd7yzlkxR/VW07bmL0Vp6qchKfggrqQwjJuMuE8eY0cB8Qw7HS+Uny+J6E7R95stUXxr1ie2C70XWnR2t/Zj1ZV5EiPIZoeSOGkyBMzKk9U6rSTE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793894005; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=sXVdw7vU5ofz/MC7RbWYsGV4+QyERagQ3Me77tggaqA=; 
-	b=DsNrNti6LrJiJzr7cUcac6V2ny95DWA5mJfQ8d5ezJgpFH7oRH80dMv+w3fB5M7XGgUWvGvQ0RHH2Vk8deSwxwJe94UsoQXQUgx+wHJ99iCXsL1e+xAaOwbOhabVhk2IiUNM8zkOyD4P6NIqaEOxCf6MHpnj1gGdro+XUuK4y3M=
+	t=1793894023; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=W2FNCl6kD+yG1An6J1qP2q3ElD4JbRyD4zLE3KUhfnA=; 
+	b=ccBnVQySOrUKamhS/52N58N3U9nGb1bvD3M9449W7kZ0zw2Mdb4xXWVzJdFs4pF8lkiaCcYk+cj1LZSuuXay23rVtVLbQQV2h8UVzdM89vduSktWd2RUzOwGpDJQdmELH1BaBEIIdaOvT3wm+/FLwJQC+OfSCCc940bT0sutibI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
 	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=Da0wH/cGyb1nyuZoG2Y+e2i436r0rCOAR3nUQui+vXs3iDVpWmjqAxKTNDi/II5cva0TJDNNg3LnWDDADgT9cTrh3Zon0XUYukoaE6OSqBkPWArm4iJ26EJ69jV0vU9Az86uzcr2gHr3f+eXo4vhmRtcXl2EhnNg8cBEezQmHbo=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=sXVdw7vU5ofz/MC7RbWYsGV4+QyERagQ3Me77tggaqA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179389400272574.3566153246461;
-	Thu, 5 Nov 2026 07:53:22 -0800 (PST)
+DKIM-Signature: a=rsa-sha256; b=NFdow1MzCjpa+Omtv1/OlQOn4J+aKeVH5qOLCmAUD1FMeB2Y8kLKnZOdIT6r21LYC/cCHLDxAt/50cRovCMtqCynQBA7f7ruG5YKZdHMbDplJRf9IxcbZVBXZ+mQufBVVyymOy8YC0bgYsd6tgeV2MUoQdM2aSO300uYhMyXkKM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=W2FNCl6kD+yG1An6J1qP2q3ElD4JbRyD4zLE3KUhfnA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179389402211268.39076411374003;
+	Thu, 5 Nov 2026 07:53:42 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Nov 2026 16:51:59 +0100
-Subject: [PATCH v2 08/27] drm/connector: Add
- drm_display_info_is_vrr_capable
+Date: Thu, 05 Nov 2026 16:52:02 +0100
+Subject: [PATCH v2 11/27] drm: Implement VRR rate limiting
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-vrr-limiter-uapi-v2-8-55f4215be2c2@collabora.com>
+Message-Id: <20261105-vrr-limiter-uapi-v2-11-55f4215be2c2@collabora.com>
 References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
 To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
@@ -88,63 +87,318 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 X-Mailer: b4 0.15.2
 
-Add a function to return whether a sink, as described by a
-drm_display_info struct, is capable of receiving VRR signals.
+Currently, VRR is allowed to use the entire range advertised by the
+sink's EDID. Userspace may find it desirable, however, to limit this
+range, or set a fixed target rate entirely. The latter is mainly useful
+for multimedia playback applications, where judder can be avoided by
+matching the content's frame rate precisely.
 
-For HDMI sinks, this can just check the HDMI specific vrr_cap.supported
-field, which is set by the EDID parsing code. For other types of
-displays, the generally agreed-upon method appears to be to check
-whether the monitor range's minimum frequency is above 0.
+With the new VRR target frame rate properties, the necessary
+infrastructure is in place to allow implementing this.
 
+Add the necessary logic to hdmi_validate_vrr, as well as the VRR
+helpers. Since not every target rate can be reached precisely, the
+per-frame error is calculated, and dithered one row at a time across
+subsequent frames. This means some frames are one vtotal larger than
+others, so that averaged over the frames, the desired target rate is
+achieved. Such dithering is explicitly permitted by HDMI, and is still
+considered a constant target frame rate.
+
+Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 19 +++++++++++++++++++
- include/drm/drm_connector.h     |  2 ++
- 2 files changed, 21 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 134 +++++++++++++++++++++---
+ drivers/gpu/drm/drm_crtc_helper.c               |  34 +++++-
+ include/drm/drm_crtc.h                          |   3 +
+ include/drm/drm_crtc_helper.h                   |   2 +
+ 4 files changed, 156 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 65c14b6e47a6..a44afba8c5ff 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1378,6 +1378,25 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index ce680eaa5047..846f7a72fddc 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -5,6 +5,7 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_connector.h>
++#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_print.h>
+@@ -1051,15 +1052,60 @@ static int hdmi_calculate_vtotal(const struct drm_display_mode *mode,
+ 	return 0;
  }
- EXPORT_SYMBOL(drm_display_info_set_bus_formats);
  
-+/**
-+ * drm_display_info_is_vrr_capable - Check whether sink is VRR capable
-+ * @info: pointer to a &struct drm_display_info representing the sink
-+ *
-+ * Check whether the sink supports variable refresh rate signals.
-+ *
-+ * Returns:
-+ * - true if variable refresh rate is supported by the sink
-+ * - false otherwise
-+ */
-+bool drm_display_info_is_vrr_capable(const struct drm_display_info *info)
++static int hdmi_validate_vrr_limits(struct drm_crtc_state *crtc_state, u16 vrr_min)
 +{
-+	if (info->is_hdmi)
-+		return info->hdmi.vrr_cap.supported;
++	struct drm_crtc_vrr_state *vrr_state = &crtc_state->vrr_state;
++	const struct drm_display_mode *mode = &crtc_state->mode;
++	u32 limit_d;
++	u8 round;
++	int ret;
 +
-+	return info->monitor_range.min_vfreq > 0;
++	/* No limiter, don't need to validate, but reset the error */
++	if (!drm_crtc_helper_vrr_is_fixed_rate(vrr_state)) {
++		vrr_state->per_frame_err = 0;
++		vrr_state->cur_err = 0;
++		return 0;
++	}
++
++	/* Don't allow rates equal to or below the minimum VRR rate / 1.001 */
++	if (cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
++			 vrr_min * 1000, 1001) < 0)
++		return -EINVAL;
++
++	if (check_mul_overflow(mode->crtc_htotal, vrr_state->vrr_min_n, &limit_d))
++		return -ERANGE;
++
++	ret = hdmi_calculate_vtotal(&crtc_state->mode, vrr_state->vrr_min_n,
++				    vrr_state->vrr_min_d, &vrr_state->base_vtotal,
++				    &vrr_state->denom, &vrr_state->per_frame_err);
++	if (ret)
++		return ret;
++
++	/* Allow rounding up for the vtotal check below */
++	if (vrr_state->per_frame_err >= vrr_state->denom / 2)
++		round = 1;
++	else
++		round = 0;
++
++	if (vrr_state->base_vtotal + round < mode->crtc_vtotal)
++		return -EINVAL;
++
++	return 0;
 +}
-+EXPORT_SYMBOL(drm_display_info_is_vrr_capable);
 +
- /* Optional connector properties. */
- static const struct drm_prop_enum_list drm_scaling_mode_enum_list[] = {
- 	{ DRM_MODE_SCALE_NONE, "None" },
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 9df745ecff92..5b6920c1a996 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1078,6 +1078,8 @@ int drm_display_info_set_bus_formats(struct drm_display_info *info,
- 				     const u32 *formats,
- 				     unsigned int num_formats);
+ static int hdmi_validate_vrr(struct drm_connector *connector,
+ 			     struct drm_atomic_commit *state)
+ {
+ 	struct drm_connector_state *new_conn_state =
+ 		drm_atomic_get_new_connector_state(state, connector);
++	struct drm_connector_state *old_conn_state =
++		drm_atomic_get_old_connector_state(state, connector);
+ 	struct drm_crtc_state *new_crtc_state =
+ 		drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
+ 	struct drm_crtc_vrr_state *vrr_state =
+ 		&new_crtc_state->vrr_state;
++	struct drm_crtc_vrr_state *old_vrr_state;
++	struct drm_crtc_state *old_crtc_state = NULL;
+ 	struct drm_display_info *info = &connector->display_info;
+ 	const struct drm_display_mode *mode = &new_crtc_state->mode;
+ 	struct drm_device *dev = connector->dev;
+@@ -1068,10 +1114,14 @@ static int hdmi_validate_vrr(struct drm_connector *connector,
+ 	u32 min_vfreq_d = 1;
+ 	u32 max_vfreq_n = info->hdmi.vrr_cap.vrr_max;
+ 	u32 max_vfreq_d = 1;
++	bool is_fixed;
  
-+bool drm_display_info_is_vrr_capable(const struct drm_display_info *info);
+ 	if (!new_crtc_state->vrr_enabled)
+ 		return 0;
+ 
++	if (old_conn_state)
++		old_crtc_state = drm_atomic_get_old_crtc_state(state, old_conn_state->crtc);
++
+ 	if (!info->hdmi.vrr_cap.supported)
+ 		return -EOPNOTSUPP;
+ 
+@@ -1087,6 +1137,21 @@ static int hdmi_validate_vrr(struct drm_connector *connector,
+ 	if (!max_vfreq_n || max_vfreq_n > mode_refresh)
+ 		max_vfreq_n = mode_refresh;
+ 
++	is_fixed = drm_crtc_helper_vrr_is_fixed_rate(vrr_state);
++	if (is_fixed && info->hdmi.vrr_cap.cinema_vrr)
++		min_vfreq_n = 24;
++
++	/* If the VRR target changed, make sure to reset the error accumulator */
++	if (old_crtc_state) {
++		old_vrr_state = &old_crtc_state->vrr_state;
++		if (drm_crtc_helper_vrr_is_fixed_rate(old_vrr_state) != is_fixed ||
++		    cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
++				 old_vrr_state->vrr_min_n, old_vrr_state->vrr_min_d) ||
++		    cmp_fraction(vrr_state->vrr_max_n, vrr_state->vrr_max_d,
++				 old_vrr_state->vrr_max_n, old_vrr_state->vrr_max_d))
++			vrr_state->cur_err = 0;
++	}
++
+ 	if (!min_vfreq_n) {
+ 		drm_dbg_kms(dev, "Could not get minimum VRR rate from sink\n");
+ 		return -EINVAL;
+@@ -1098,25 +1163,64 @@ static int hdmi_validate_vrr(struct drm_connector *connector,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (cmp_fraction(min_vfreq_n, min_vfreq_d, max_vfreq_n, max_vfreq_d) > 0) {
+-		drm_dbg_kms(dev, "Target max (%u/%u) > target min (%u/%u)\n",
+-			    max_vfreq_n, max_vfreq_d, min_vfreq_n, min_vfreq_d);
+-		return -EINVAL;
+-	}
+-
+-	ret = hdmi_calculate_vtotal(mode, max_vfreq_n, max_vfreq_d,
+-				    &vrr_state->base_vtotal, NULL, NULL);
++	ret = hdmi_validate_vrr_limits(new_crtc_state, min_vfreq_n);
+ 	if (ret) {
+-		drm_dbg_kms(dev, "Couldn't calculate base_vtotal: %pe\n", ERR_PTR(ret));
++		drm_dbg_kms(dev, "Invalid VRR fixed target rate: %pe\n", ERR_PTR(ret));
+ 		return ret;
+ 	}
+ 
+-	/*
+-	 * Even at its fastest, it can't go faster than the mode, so
+-	 * clamp to avoid imprecisely rounded mode_refresh values we
+-	 * can't do anything about from ruining our day.
+-	 */
+-	vrr_state->base_vtotal = max(vrr_state->base_vtotal, mode->crtc_vtotal);
++	if (!is_fixed) {
++		vrr_state->dynamic = true;
++
++		if (vrr_state->vrr_min_n) {
++			if (!vrr_state->vrr_min_d)
++				return -EINVAL;
++
++			if (cmp_fraction(vrr_state->vrr_min_n, vrr_state->vrr_min_d,
++					 min_vfreq_n * 1000, 1001) < 0) {
++				drm_dbg_kms(dev, "Target min (%u/%u) < supported min (%u/%u)\n",
++					    vrr_state->vrr_min_n, vrr_state->vrr_min_d,
++					    min_vfreq_n, min_vfreq_d);
++				return -EINVAL;
++			}
++			min_vfreq_n = vrr_state->vrr_min_n;
++			min_vfreq_d = vrr_state->vrr_min_d;
++		}
++		if (vrr_state->vrr_max_n) {
++			if (!vrr_state->vrr_max_d)
++				return -EINVAL;
++
++			if (cmp_fraction(vrr_state->vrr_max_n, vrr_state->vrr_max_d,
++					 max_vfreq_n, max_vfreq_d) > 0) {
++				drm_dbg_kms(dev, "Target max (%u/%u) > supported max (%u/%u)\n",
++					    vrr_state->vrr_max_n, vrr_state->vrr_max_d,
++					    max_vfreq_n, max_vfreq_d);
++				return -EINVAL;
++			}
++			max_vfreq_n = vrr_state->vrr_max_n;
++			max_vfreq_d = vrr_state->vrr_max_d;
++		}
++		if (cmp_fraction(min_vfreq_n, min_vfreq_d, max_vfreq_n, max_vfreq_d) > 0) {
++			drm_dbg_kms(dev, "Target max (%u/%u) > target min (%u/%u)\n",
++				    max_vfreq_n, max_vfreq_d, min_vfreq_n, min_vfreq_d);
++			return -EINVAL;
++		}
++
++		ret = hdmi_calculate_vtotal(mode, max_vfreq_n, max_vfreq_d,
++					    &vrr_state->base_vtotal, NULL, NULL);
++		if (ret) {
++			drm_dbg_kms(dev, "Couldn't calculate base_vtotal: %pe\n", ERR_PTR(ret));
++			return ret;
++		}
++
++		/*
++		 * Even at its fastest, it can't go faster than the mode, so
++		 * clamp to avoid imprecisely rounded mode_refresh values we
++		 * can't do anything about from ruining our day.
++		 */
++		vrr_state->base_vtotal = max(vrr_state->base_vtotal,
++					     mode->crtc_vtotal);
++	}
+ 
+ 	if (cmp_fraction(min_vfreq_n, min_vfreq_d, mode_refresh, 1) >= 0) {
+ 		/* refresh <= VRR min, don't do VRR vtotal adjustment */
+diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+index 4ffb3b0b7878..dd696f0c5016 100644
+--- a/drivers/gpu/drm/drm_crtc_helper.c
++++ b/drivers/gpu/drm/drm_crtc_helper.c
+@@ -838,6 +838,22 @@ int drm_crtc_helper_set_config(struct drm_mode_set *set,
+ }
+ EXPORT_SYMBOL(drm_crtc_helper_set_config);
+ 
++bool drm_crtc_helper_vrr_is_fixed_rate(const struct drm_crtc_vrr_state *vrr)
++{
++	if (!vrr->vrr_min_n)
++		return false;
++
++	if (!vrr->vrr_min_d || !vrr->vrr_max_d)
++		return false;
++
++	if (mul_u32_u32(vrr->vrr_min_n, vrr->vrr_max_d) ==
++	    mul_u32_u32(vrr->vrr_min_d, vrr->vrr_max_n))
++		return true;
++
++	return false;
++}
++EXPORT_SYMBOL(drm_crtc_helper_vrr_is_fixed_rate);
 +
  /**
-  * struct drm_connector_tv_margins - TV connector related margins
-  *
+  * drm_crtc_helper_vrr_flush - Update VRR state on frame ready
+  * @crtc_state: pointer to &struct drm_crtc_state of CRTC that has a new frame ready
+@@ -864,6 +880,9 @@ bool drm_crtc_helper_vrr_flush(struct drm_crtc_state *crtc_state)
+ 		return false;
+ 	}
+ 
++	if (drm_crtc_helper_vrr_is_fixed_rate(vrr))
++		return false;
++
+ 	if (vrr->cur_vtotal == vrr->base_vtotal)
+ 		return false;
+ 
+@@ -889,10 +908,21 @@ bool drm_crtc_helper_vrr_vsync(struct drm_crtc_state *crtc_state)
+ 	struct drm_crtc_vrr_state *vrr = &crtc_state->vrr_state;
+ 	u16 old_vtotal = vrr->cur_vtotal;
+ 
+-	if (!crtc_state->vrr_enabled)
++	if (!crtc_state->vrr_enabled) {
+ 		vrr->cur_vtotal = 0;
+-	else
++		vrr->cur_err = 0;
++	} else if (drm_crtc_helper_vrr_is_fixed_rate(vrr)) {
++		if (vrr->cur_err >= (int) (vrr->denom / 2)) {
++			vrr->cur_err -= vrr->denom;
++			vrr->cur_vtotal = vrr->base_vtotal + 1;
++		} else {
++			vrr->cur_vtotal = vrr->base_vtotal;
++		}
++
++		vrr->cur_err += vrr->per_frame_err;
++	} else {
+ 		vrr->cur_vtotal = vrr->max_vtotal;
++	}
+ 
+ 	if (abs_diff(vrr->cur_vtotal, old_vtotal) > 1)
+ 		vrr->dynamic = true;
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 9004f7c2f21e..cfd051ccbd2e 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -70,6 +70,9 @@ struct drm_crtc_vrr_state {
+ 	u32 vrr_min_d;
+ 	u32 vrr_max_n;
+ 	u32 vrr_max_d;
++	u32 denom;
++	u32 per_frame_err;
++	int cur_err;
+ 	u16 base_vtotal;
+ 	bool dynamic;
+ };
+diff --git a/include/drm/drm_crtc_helper.h b/include/drm/drm_crtc_helper.h
+index 0c8c11ea36dd..7d7b75045bd9 100644
+--- a/include/drm/drm_crtc_helper.h
++++ b/include/drm/drm_crtc_helper.h
+@@ -45,6 +45,7 @@ struct drm_framebuffer;
+ struct drm_mode_set;
+ struct drm_modeset_acquire_ctx;
+ struct drm_crtc_state;
++struct drm_crtc_vrr_state;
+ 
+ void drm_helper_disable_unused_functions(struct drm_device *dev);
+ int drm_crtc_helper_set_config(struct drm_mode_set *set,
+@@ -63,6 +64,7 @@ int drm_helper_connector_dpms(struct drm_connector *connector, int mode);
+ void drm_helper_resume_force_mode(struct drm_device *dev);
+ int drm_helper_force_disable_all(struct drm_device *dev);
+ 
++bool drm_crtc_helper_vrr_is_fixed_rate(const struct drm_crtc_vrr_state *vrr);
+ bool drm_crtc_helper_vrr_flush(struct drm_crtc_state *crtc_state);
+ bool drm_crtc_helper_vrr_vsync(struct drm_crtc_state *crtc_state);
+ 
 
 -- 
 2.56.0
