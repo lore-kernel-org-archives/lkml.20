@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793853266;
-	b=urx7QNf+qIf+cmJyRly8B/dGYM1T0k6HpT5eX1QYWVLIrqOOcKBDCwWb1Tx5eoamyecq
-	 BVYwcaeZfkXe4qaU4L8Nt2EDUT44/vfbPYIA1zbMP32MPGGIvamsT++Mq3fN799OQ5m9L
-	 ODc6/jaNIQOcQLbZUb50Hu4dhLcrXjMEMrgOOSUyk1zMzv8SfpAlZM0Bhg5MwNrv6Wlg1
-	 zn8T59F9EYWuXxNlfbsNkMh3aUX7QPYuIhECl0TU+VAllpnQiHeyXGimXr9n+YLOxBDkG
-	 ZYPidgAun1QDwIhlGK3JGIytYvjJ9p12Jmor+7nUm/3EyvN3uo40nSRCbKZqIg5SgRA==
+	t=1793853274;
+	b=lmN5CJB6k7z/xmXgw2sqK7Lnbf36d8+8I1kMcfKQ6UL/xPk6m4ywsKecE0i9QCdTXyt7
+	 fCfiYD823FqE2gEApMblYZ2xUtncGTuDp62hAFyo7V4fWnbx6aYbgu0MY4OgHP+r1e/ho
+	 OakcYjlhCfzCMBF8cof7SALIeHPj4HJtKvljpOaTj6Tt3hw7Y4isWcjzQXQnE9FggLcIN
+	 t2RFV/RAZse5+mXNtc41bqdMiS5nwKc+2IFAyBMVzf5Anri8S7pnI55IdYzf8X4gU2aJ4
+	 SbelkzgYfVdgebr6H6+aQGccIw8CzCSlR2VlL8WEe4DGYV6hz5W+Mi09mcEkAedxrww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853266;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/gDPj65v4kU4IoOQgkvIJRh3qMYya8c6ta2Q1iTNIEM=;
-	b=f26QXdVSUuzhhB2FhS9M1gP8vY+29F2HfW9xUu/+lg8bNrAqoo/fMVIuuSTAp+jmBIqi
-	 Ogkz/b+Bsl/4dOTXEebFuIC8pJmgRARXcVkZy/ZqbsECm/Uqp1Yv1VTJUaaJh1APZZg2O
-	 al2inu42mgmZZthuHs/7F7yZg41mofl1jbjLkbPTff2zw8EfoZq/Dq2A4YfOKuwBf+JtY
-	 6/5yqW456bWF42086ouWIG5buLp22c917Wunhxjj+DPoV0j54rrqcdVKt9ggp2qGSjKlJ
-	 aATU7HOnPLOJw1IcIw5VV61TMfst8XbH2PhzHkAMenQA3l/Yvh+p/C7Gu95y8Kd2JRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853274;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=uybwsAJQuB7JYpjUDH4A7OxDLSrNrGRSbd7CyU7FLoA=;
+	b=DiJ9Ia5o0rbYgVnMe9iSCqMvmYB+aiROGJ6s63PtcENorza1evDjJXOF2WFaQZqLFIHA
+	 VR6eLt92+fI3PnqkkB3aSVESTgw9l9Ob7pl7hCPyAhgXUl218gzdoMi4J7dREf/A9OLXX
+	 sOQplzmcMAQywstz4Ylio7zRBwOQZEFZQnP4RfNt/G+PVfJcz9vxvI89Rv1Q+fH5u6iD4
+	 teb2wbDJsx7hONcWnw3zkslu3mOYG1dvb3YDJ0pb1anw7rmUCrGH3CbTj/e1ftQiG6S41
+	 +BzUgPn1YnV+uOi45wwGeA15aOKj4RadvIVebRNNlay5WYDsyFxizrPsTW5CQb5IMSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mXr+2q0k;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C92BF606D818
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 04:34:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C92BF606D818
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=IBI1fbuT;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0420E606A335;
+	Thu,  5 Nov 2026 04:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0420E606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=mXr+2q0k
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 39AFE19F6;
-	Wed,  4 Nov 2026 20:34:21 -0800 (PST)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E6733F673;
-	Wed,  4 Nov 2026 20:34:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793853264; bh=YMvyhBBWtwmuxhWT7mouYJfWEoDx0fz5M8Us5l0el7c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mXr+2q0kLwlFvxodJ1lH29upT6NrCnrtZ6SE5usG/1+6VbJ0D+uxxOKSyFAb4GKuy
-	 aWQZszzdI1FgJZWALDPvjKW53MC9oPL3u0DxSo8O8jWwkOT7+K3Fk5lwoWWvN+HlBP
-	 LROVLc7PBvdRSJz1JxNLH+TQRi9+sv0TG1IdAbQs=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	catalin.marinas@arm.com,
-	will@kernel.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	kasan-dev@googlegroups.com
-Subject: [PATCH V4 4/4] arm64/mm: Use pgdp_get() for PGD accesses
-Date: Thu,  5 Nov 2026 10:04:03 +0530
-Message-ID: <20261105043403.3326445-5-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105043403.3326445-1-anshuman.khandual@arm.com>
-References: <20261105043403.3326445-1-anshuman.khandual@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=IBI1fbuT
+Received: from [192.168.166.159] (unknown [67.168.101.66])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 26DFC20B7168;
+	Wed,  4 Nov 2026 20:34:17 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 26DFC20B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793853257;
+	bh=uybwsAJQuB7JYpjUDH4A7OxDLSrNrGRSbd7CyU7FLoA=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
+	b=IBI1fbuTwD+Mh2OnOY0JrkHzfSgXQNIRc7sEUtfZifblMLrC5P0ImROdvMimnb8/s
+	 r2jdnbTxTYBTdXcVgT4dWaIYMd6ZJ90dyFGZ2pfZkk+CKtaXbSyHV+aJvfL5HOBW0G
+	 MTD+MmvCwofQHLzmOMtERvlFNs55y3S0+4P2RqwE=
+Message-ID: <9558730f-42d5-4d90-8fe8-f6d1c150164f@linux.microsoft.com>
+Date: Wed, 4 Nov 2026 20:34:32 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,229 +53,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, linux-arch@vger.kernel.org,
+ easwar.hariharan@linux.microsoft.com, jgg@nvidia.com,
+ jacob.pan@linux.microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, arnd@arndb.de
+Subject: Re: [PATCH V4 4/5] iommu/hyperv: Only call pviommu init on non-root
+ VMs
+To: Mukesh R <mrathor@linux.microsoft.com>
+References: <20261105020106.3496339-1-mrathor@linux.microsoft.com>
+ <20261105020106.3496339-5-mrathor@linux.microsoft.com>
+From: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Content-Language: en-US
+In-Reply-To: <20261105020106.3496339-5-mrathor@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Replace READ_ONCE() with pgdp_get() for PGD accesses in preparation for
-supporting both D64 and D128 translation table formats.
+On 11/4/2026 18:01, Mukesh R wrote:
+> Next patch introduces root iommu init. Since both can co-exist, set
+> x86 iommu_init to pviommu init only on non-root VMs. Also, rename
+> hv_iommu_init() to hv_pviommu_init().
 
-READ_ONCE() cannot currently be used for 128-bit page table entries on
-arm64 because it does not provide the required 128-bit single-copy
-atomicity, causing builds to fail for accesses wider than 64 bits.
+[...]Lastly, check for null iommu_init
+> before assignement as suggested by one of the pviommu authors.
 
-Although LDP/STP provide the required atomicity when FEAT_LSE is
-available (as required by FEAT_D128), extending READ_ONCE() to support
-128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-so doing so could encourage other 128-bit users that would either fail
-to build in configurations without D128 support or, if D128 becomes a
-runtime option, silently permit tearing on systems without the required
-hardware support.
+You no longer do this below. Also, please wait a week or so before spinning
+a new revision to collect additional comments.
 
-Instead, standardize PGD accesses on the existing page-table helpers.
-These can be overridden on arm64 to provide 128-bit single-copy
-atomicity when required.
+With that fixed,
 
-Both READ_ONCE() instances in p4d_offset_[phys]() could not be converted
-into pgpd_get() because of cyclic dependency between <linux/pgtable.h> and
-<asm/pgtable.h>. Move the function inside <arch/arm64/mm/mmu.c> instead to
-workaround the problem.
+Reviewed-by: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
 
-No functional change intended.
-
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: kasan-dev@googlegroups.com
-Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
----
-Changes in V4:
-
-- Dropped pgdp_get() platform override
-- Moved both p4d_offset[_phys]() inside arch/arm64/mm/mmu.c
-
- arch/arm64/include/asm/pgtable.h | 12 ++----------
- arch/arm64/mm/fault.c            |  2 +-
- arch/arm64/mm/hugetlbpage.c      |  2 +-
- arch/arm64/mm/kasan_init.c       |  6 +++---
- arch/arm64/mm/mmu.c              | 20 +++++++++++++++++---
- arch/arm64/mm/pageattr.c         |  2 +-
- arch/arm64/mm/trans_pgd.c        |  4 ++--
- 7 files changed, 27 insertions(+), 21 deletions(-)
-
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 8dffa7f787ac..6a38de07e599 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -1072,12 +1072,7 @@ static inline p4d_t *pgd_to_folded_p4d(pgd_t *pgdp, unsigned long addr)
- 	return (p4d_t *)PTR_ALIGN_DOWN(pgdp, PAGE_SIZE) + p4d_index(addr);
- }
- 
--static inline phys_addr_t p4d_offset_phys(pgd_t *pgdp, unsigned long addr)
--{
--	VM_WARN_ON_ONCE(!pgtable_l5_enabled());
--
--	return pgd_page_paddr(READ_ONCE(*pgdp)) + p4d_index(addr) * sizeof(p4d_t);
--}
-+phys_addr_t p4d_offset_phys(pgd_t *pgdp, unsigned long addr);
- 
- static inline
- p4d_t *p4d_offset_lockless(pgd_t *pgdp, pgd_t pgd, unsigned long addr)
-@@ -1088,10 +1083,7 @@ p4d_t *p4d_offset_lockless(pgd_t *pgdp, pgd_t pgd, unsigned long addr)
- }
- #define p4d_offset_lockless p4d_offset_lockless
- 
--static inline p4d_t *p4d_offset(pgd_t *pgdp, unsigned long addr)
--{
--	return p4d_offset_lockless(pgdp, READ_ONCE(*pgdp), addr);
--}
-+p4d_t *p4d_offset(pgd_t *pgdp, unsigned long addr);
- 
- static inline p4d_t *p4d_set_fixmap(unsigned long addr)
- {
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index 934b534c5b89..0b489fbeeb07 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
- 	guard(irqsave)();
- 
- 	pgdp = pgd_offset(mm, addr);
--	pgd = READ_ONCE(*pgdp);
-+	pgd = pgdp_get(pgdp);
- 	ptval_to_str(pxd_str, pgd_val(pgd));
- 	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
- 
-diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-index 5771bf49e1fe..e05e5b41ae50 100644
---- a/arch/arm64/mm/hugetlbpage.c
-+++ b/arch/arm64/mm/hugetlbpage.c
-@@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
- 	pmd_t *pmdp, pmd;
- 
- 	pgdp = pgd_offset(mm, addr);
--	if (!pgd_present(READ_ONCE(*pgdp)))
-+	if (!pgd_present(pgdp_get(pgdp)))
- 		return NULL;
- 
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-index 4dd8c1186471..f61f5bc09467 100644
---- a/arch/arm64/mm/kasan_init.c
-+++ b/arch/arm64/mm/kasan_init.c
-@@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
- static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
- 				      bool early)
- {
--	if (pgd_none(READ_ONCE(*pgdp))) {
-+	if (pgd_none(pgdp_get(pgdp))) {
- 		phys_addr_t p4d_phys = early ?
- 				__pa_symbol(kasan_early_shadow_p4d)
- 					: kasan_alloc_zeroed_page(node);
-@@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
- static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
- {
- 	int idx = root_level_idx(addr);
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memcpy(pud, pudp, PAGE_SIZE);
-@@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
-  */
- static void __init clear_next_level(int pgd_idx, int start, int end)
- {
--	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
-+	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
- 	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
- 
- 	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 711d734a63f7..1f56db9a946c 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
- {
- 	int ret;
- 	unsigned long next;
--	pgd_t pgd = READ_ONCE(*pgdp);
-+	pgd_t pgd = pgdp_get(pgdp);
- 	p4d_t *p4dp;
- 
- 	if (pgd_none(pgd)) {
-@@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
- 
-@@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
- 	do {
- 		next = pgd_addr_end(addr, end);
- 		pgdp = pgd_offset_k(addr);
--		pgd = READ_ONCE(*pgdp);
-+		pgd = pgdp_get(pgdp);
- 		if (pgd_none(pgd))
- 			continue;
- 
-@@ -2464,3 +2464,17 @@ pud_t *pud_offset(p4d_t *p4dp, unsigned long addr)
- 	return pud_offset_lockless(p4dp, p4dp_get(p4dp), addr);
- }
- #endif /* CONFIG_PGTABLE_LEVELS > 3 */
-+
-+#if CONFIG_PGTABLE_LEVELS > 4
-+phys_addr_t p4d_offset_phys(pgd_t *pgdp, unsigned long addr)
-+{
-+	VM_WARN_ON_ONCE(!pgtable_l5_enabled());
-+
-+	return pgd_page_paddr(pgdp_get(pgdp)) + p4d_index(addr) * sizeof(p4d_t);
-+}
-+
-+p4d_t *p4d_offset(pgd_t *pgdp, unsigned long addr)
-+{
-+	return p4d_offset_lockless(pgdp, pgdp_get(pgdp), addr);
-+}
-+#endif /* CONFIG_PGTABLE_LEVELS > 4 */
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 172bc516164c..b3b7c508564f 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -347,7 +347,7 @@ bool kernel_page_present(struct page *page)
- 	unsigned long addr = (unsigned long)page_address(page);
- 
- 	pgdp = pgd_offset_k(addr);
--	if (pgd_none(READ_ONCE(*pgdp)))
-+	if (pgd_none(pgdp_get(pgdp)))
- 		return false;
- 
- 	p4dp = p4d_offset(pgdp, addr);
-diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-index 7afe2beca4ba..06470d690f9f 100644
---- a/arch/arm64/mm/trans_pgd.c
-+++ b/arch/arm64/mm/trans_pgd.c
-@@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	unsigned long next;
- 	unsigned long addr = start;
- 
--	if (pgd_none(READ_ONCE(*dst_pgdp))) {
-+	if (pgd_none(pgdp_get(dst_pgdp))) {
- 		dst_p4dp = trans_alloc(info);
- 		if (!dst_p4dp)
- 			return -ENOMEM;
-@@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
- 	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
- 	do {
- 		next = pgd_addr_end(addr, end);
--		if (pgd_none(READ_ONCE(*src_pgdp)))
-+		if (pgd_none(pgdp_get(src_pgdp)))
- 			continue;
- 		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
- 			return -ENOMEM;
--- 
-2.43.0
+> 
+> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+> ---
+>  arch/x86/hyperv/hv_init.c             | 3 ++-
+>  arch/x86/include/asm/mshyperv.h       | 2 +-
+>  drivers/iommu/hyperv/hv-iommu-guest.c | 2 +-
+>  3 files changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/hyperv/hv_init.c b/arch/x86/hyperv/hv_init.c
+> index b90e6f487533..ea50708c3ae6 100644
+> --- a/arch/x86/hyperv/hv_init.c
+> +++ b/arch/x86/hyperv/hv_init.c
+> @@ -580,7 +580,8 @@ void __init hyperv_init(void)
+>  	x86_init.timers.setup_percpu_clockev = hv_stimer_setup_percpu_clockev;
+>  
+>  #ifdef CONFIG_HYPERV_PVIOMMU
+> -	x86_init.iommu.iommu_init = hv_iommu_init;
+> +	if (!hv_root_partition())
+> +		x86_init.iommu.iommu_init = hv_pviommu_init;
+>  #endif
+>  
+>  	hv_apic_init();
+> diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyperv.h
+> index 24b19cd28a05..c95d75ae645e 100644
+> --- a/arch/x86/include/asm/mshyperv.h
+> +++ b/arch/x86/include/asm/mshyperv.h
+> @@ -320,7 +320,7 @@ static inline void __mshv_vtl_return_call(struct mshv_vtl_cpu_context *vtl0) {}
+>  #endif
+>  
+>  #ifdef CONFIG_HYPERV_PVIOMMU
+> -int __init hv_iommu_init(void);
+> +int __init hv_pviommu_init(void);
+>  #endif
+>  
+>  #include <asm-generic/mshyperv.h>
+> diff --git a/drivers/iommu/hyperv/hv-iommu-guest.c b/drivers/iommu/hyperv/hv-iommu-guest.c
+> index 876a22f21f1e..a40a8ceb3261 100644
+> --- a/drivers/iommu/hyperv/hv-iommu-guest.c
+> +++ b/drivers/iommu/hyperv/hv-iommu-guest.c
+> @@ -601,7 +601,7 @@ hv_init_iommu_device(struct hv_iommu_dev *hv_iommu,
+>  	hv_iommu_device = hv_iommu;
+>  }
+>  
+> -int __init hv_iommu_init(void)
+> +int __init hv_pviommu_init(void)
+>  {
+>  	u64 status;
+>  	int ret = 0;
 
