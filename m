@@ -1,103 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837371;
-	b=Ved6cpd5HmYzUPbWdo+vuCgU4dHpORAe0AAnh9rpjnRpg3Ze/4mpvJmzcXgL4t2OojqD
-	 0pQ4AW7MRV93y3JKuuwWsvcdSzBT4JW4BE1FQS8SlhxYErUXbnk+nMx53bUVcrgt1xvZe
-	 GPJOUEX3C2RVKTjVJe/jrlEmGFtrwZWuSnF2+1b2n4n+fJKe+lCbmH1vKg6szM4QQ1DIK
-	 tSyU8B7fyZiJ64ve0kCJ082IdrIQ5inYy0JjzHYvDsm0oE2M6rt5e7kSCW/rdjHzowxyj
-	 ljpWs5EKslHgDbsjgxA5Cu95LvjO99dAdXmknr5Byg9qDM5sN5+8/U9cUa1FZd9HVRA==
+	t=1793837363;
+	b=5n+92hHAW01aMHVtDePCs9DtOKhjwB3SjtwvxCQ+jepgDFSrgwtw/qw/QVE2y31io0dU
+	 J8qKZmx+gBgGZJvFFaqM5URdFbSlrg0KQeqqEdx5Mfktpbi6ns2g3ypYeUgFDrPaNh7To
+	 uy4/uFMLeJA9CGkhsdFzr15Of5xbXG6LlLmVEw9fskX0PsBA5mlpc6YgqrdT4BpY3F7D5
+	 WMWzWrgMl6iV1oKFZubJaqyQHMFzkfo+Th+MpXY7AtuG1fuItkcCdnW+6aGCjiNAD3gzW
+	 krRcVIaOzjYP8RQ3pU9eX7SYJttSt1MQFSmbXbt1c8XYfooODogAIvYn49qvMrzmmwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837371;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Vq33bnlu/OQ1LhE9PZ9KLC/HSs9IVBdbU21ySq3r478=;
-	b=qdfUnx7jBMkDhUeigkjo5We51kVLBNToK75br9kubYKeG+0IO1a+QAgYXbrfd4KVJuJp
-	 paOPCH5FoGiMj2pB2NzDooH6QNYZ42vF1B5f50YpDcSE6hm2Zno5dQV27av8RNpmXB+QO
-	 uZJ1OqEfl8xLoZYvWpFkEOnICxV0UtwV6PewtndQ0mauuczoYVOeKfhcXGVIC83UrNOFp
-	 F0Ek8cDFOLeTwbS+uI8w8wWNtgmQtk1+MY6Izw4nkt2RYW1pTVJAN4Zij8c2CEZVnjD5d
-	 vkARwkPiGIYuu59ihOlbiU8IUl+nLo8fhQSMr5NEecyMZHGx+eEPC/DCeOtEyeSK3dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837363;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NKXzOfToa87zMXfMlEIzFY3Ksu9fdXYOSMLur3xYKW4=;
+	b=tY8IElpm/PD1Vkl1rElVLG8pSTFcqcC9HyZwB8bcyOtjd3J/C7oXMZD87FLiPfbL//3g
+	 vGdLoPDHJMNOhX22fWeiPFesCaud7YcTohHLdwBGzEzZmum7BvXWXD5ytBetFJGUy/20y
+	 t4HAX6jgkBh07KK01uim6FZF2ccrzVd38THFdbvRLBRc94V0AHFn1CRXKcPMpF506SthA
+	 Gb7ApfjNTqMJ1FX9JovqAgb2yRgs/v6OXo90FN0SNg5J6W5sEBISyX3YGS2ZtQDoTX4NP
+	 syE1qgOTWoVifKvoGU7Iuh55PKqPX51RqvYn6kJzq5h4V05QnMMLGeSHTmaWDKGG7Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jl6OFb5z;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2r3ilxl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41C7606D834
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:09:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C41C7606D834
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C19606A336;
+	Thu,  5 Nov 2026 00:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jl6OFb5z
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-ccca948203aso575985a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 16:09:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793837370; x=1794442170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vq33bnlu/OQ1LhE9PZ9KLC/HSs9IVBdbU21ySq3r478=;
-        b=jl6OFb5zBydNsD/tNT6jBv/GBZ8ZMQye/xJcvyH0okOw+yu4OewG++lPVsQbbNLf+u
-         iEogngGvmBSPwP6LOTrM7lwcICdBjt9aFHG1vQ9UZk7ST5SO6mG8uV4rTLqJx2wEQ2Jl
-         DVvTBWL2S9SX9IY51lDkUD5bRYNSdVlYpiGvkNSoFAa7uvrmS37L8ayDIKVGwKG6Fiis
-         xamH3kbyG01qqnPmyCubvJ+9B4pnknpnd2aajEFigos/0KPc3fPEncS0/xkrAzQHZ7m5
-         X6TkBDaLvMDtpvSajhL2y4jq64tLDj5MDlhs2UPMg/GpYIumQTVTIS2F5CAY56VBaPjb
-         zPLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793837370; x=1794442170;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vq33bnlu/OQ1LhE9PZ9KLC/HSs9IVBdbU21ySq3r478=;
-        b=wmSRNd46cmbUjI36ofzMdTZeXBZ8M1ONscpaKEOZpQW9mzkMUsmz/3e7LY0HcQ+6eo
-         OdF0Jjfxi2Y2gFUekjovgNS5pEc/KCWyXBfpF/wDjTXOfEzStAVw960ikdZnm1fIr1kk
-         FF848fDPRwRSSpUipoRIvZfKKY3buCsgUX7agHLMjqVjL9zvM6neUeUMgMXBW4tqd2A5
-         zdSvhQSo775B9/hSLSw9vRDijVAuAf9ZyxvJvJ24oo0ZW54C5dz1C7jfCAuk0FwbQs/B
-         Ae1YUlbq4Nr+6IvH42ycm5/ipE5sTWlGVASsru2PbDSxG0kf/XTNi4wjxbniP7o+BrqQ
-         z9Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBw+OMJ8/VX6ZiiYWY5Md/6gswYd7C1pvImdfr6oFtLqdsO5QJr5cNRgFtqmgjIJTaDPT0oI6GWMmG6mnTU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8HIfyrDFYJwnbeQfezR3dIj3WEEyKOQaGUhMtsRHE+xCBP1kb
-	j8vGybGbclZ+peWw0/uZCImrI9/6dldLIOuY1NrpC6MFj7mgT7q+r0Bn
-X-Gm-Gg: AYBFou32PCM3ZOfyQpnoWkHKN7di6UcrakhO40sxhHLZuL+W+90QXJXEUQ/4SeGh/eR
-	vaWm/0oG95Yp+b+tvN5i5Fw9HUwxuFs4b3cB6QNeOm9BVydV41IL67/aoPXqAGlnnXI2dNXKaX3
-	gDgUuR76nHkWObP/10G3Y0X1D4+G/dzxriZqt3waKX1fDGfYadmXah3By1UBOzd6go2QENmYDPX
-	BK84dMvs+07+hIW6FiFH1XJvln3ZjGFPcJ5OlUNhbm2F04k9JIL2bl4AenOZTBgOlaQ0yXQ4L4S
-	FZlzJXPh2eEU1HEycR/JE9a9eRoDljIZzB/+TB6zCRSEFJW5nmBSMBp++NFKTMbc8F2IALlNAen
-	SmXkf5kNK6NCivXZpW/T1Oixu0/ql5NAi/aA43M9n9bQFDjpHRr26XRfsEuF4vEYLpO8mQk2ce+
-	PFur6/SNzFzjeExn7QIytsK839n3EgYPKpks4Tzk9girmupqzIxP+AleJw6dH3L7u5O6yBj0TUF
-	OIab7gcu0/WKuMpi+2cVLdxijoxP8emue99fbjUM8W+PpAjnlPYQH/n3DMrGVv48DUUQrwiFu5e
-	yC3sKnR0I2AHZvQjNyi9/eDB9Q1tV03t9TFTcVhnRWeTnmuqdd+SWJD4wv6P0zxKWTHzgHL/qa9
-	1LSLNTOYhexLDluuSTuEBEf+3ZoWTX0twT+wASbGlpo7++n0=
-X-Received: by 2002:a17:90a:e187:b0:3ac:77c8:ac29 with SMTP id 98e67ed59e1d1-3ae896f862emr13929601a91.15.1793837369930;
-        Wed, 04 Nov 2026 16:09:29 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b323c18fsm897208a91.4.2026.11.04.16.09.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 16:09:28 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v15 02/12] ALSA: pcm: report partial progress under the stream lock
-Date: Thu,  5 Nov 2026 09:09:05 +0900
-Message-ID: <20261105000915.15177-3-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261105000915.15177-1-mynameisjune111@gmail.com>
-References: <20261105000915.15177-1-mynameisjune111@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I2r3ilxl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755481F000C1;
+	Thu,  5 Nov 2026 00:09:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793837362;
+	bh=NKXzOfToa87zMXfMlEIzFY3Ksu9fdXYOSMLur3xYKW4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=I2r3ilxlzKe858yvvM/0L3TsobO3AlHQ9pkeByAwg1L+qCV8xlbpwF/PhiQIJM+9W
+	 5+YtsOCGmFyBsBBDfTfO0hMOl6BrAu7GxN0ZJzpwFt3z4/yyTBR77GtYA4FT4pHWNc
+	 c01Vwr8mDwkKgE/+XMkXJ/65yIHnUAEFrEs8bD0+44x23jMc2esPIwy5WTD0AC2wF/
+	 0o5DWU69dlJv5rj3B9q5ox5RaIw8bDXdCBXV31E67zBxcRXkkNKz+1mxGZyIwSIva6
+	 YDI/be4R587oGqSmte1nUGzAb8iceYEZ0BwxlEwd/XiOI8RNVGKe9yKijSGwMkmwPB
+	 ORgtLKVJcCYRw==
+Date: Wed, 4 Nov 2026 18:09:21 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, joro@8bytes.org,
+	Bjorn Helgaas <bhelgaas@google.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rafael@kernel.org,
+	Len Brown <lenb@kernel.org>, Joerg Roedel <joerg.roedel@amd.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Dave Jiang <dave.jiang@intel.com>, Dan Williams <djbw@kernel.org>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v1 2/5] PCI/CXL: Probe the underlying bus reset in
+ cxl_reset_bus_function()
+Message-ID: <20261105000921.GA1478400@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,68 +63,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6c09d2f78d4bb9db7f49fa14a6550f5176721121.1793729707.git.nicolinc@nvidia.com>
 
-Staged capture can make readable data available before a complete period
-has elapsed. Skipping notification leaves a blocked reader asleep, while
-using the period-interrupt path for this event can infer a false ring wrap
-when the notification is delayed.
+On Tue, Nov 03, 2026 at 10:33:43AM -0800, Nicolin Chen wrote:
+> cxl_reset_bus_function() reports "supported" to a probe after checking only
+> that the upstream bridge carries a CXL port DVSEC. The underlying bus reset
+> can still be unavailable, e.g. on a bus shared with other devices, so both
+> the reset_methods[] array and the reset_method sysfs node end up listing a
+> "cxl_bus" that is guaranteed to fail with -ENOTTY when it is attempted.
+> 
+> Probe the underlying pci_dev_reset_slot_function() and then, if it is not
+> applicable, pci_parent_bus_reset(). These are the same two checks that the
+> actual reset runs, so a shared-bus CXL device no longer advertises a method
+> that can never succeed.
+> 
+> Probing via pci_reset_bus_function() would not work: its cxl_sbr_masked()
+> check rejects every CXL port with a masked SBR, while the do-reset path in
+> this function unmasks the SBR before resetting. Such a port would wrongly
+> probe as unsupported.
+> 
+> Move the port control register read above the probe branch as well, so that
+> probe runs the same checks. That read asserts no reset, and a failure means
+> the device cannot be reset this way, which is a probe-time answer.
+> 
+> Also pass an explicit PCI_RESET_DO_RESET at the do-reset call site, since
+> probe is always false at that point.
+> 
+> Fixes: 53c49b6e6dd2e ("PCI/CXL: Add 'cxl_bus' reset method for devices below CXL Ports")
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 
-Add snd_pcm_progress_under_stream_lock() to update the hardware pointer
-through the non-interrupt path and notify readers and fasync listeners.
-It runs under the caller's PCM stream lock and does not tick the PCM timer.
-The driver must release its pointer and trigger locks before calling it.
-Existing period notification callers keep their current behavior.
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 
-Atomic and nonatomic synthetic PCM tests reproduced the missing wakeup
-and false-wrap alternatives. The new helper delivered 64 final frames and
-reported four available frames after delayed partial progress without XRUN.
-
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
-
----
-include/sound/pcm.h  |    1 +
- sound/core/pcm_lib.c |   19 +++++++++++++++++++
- 2 files changed, 20 insertions(+)
-
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -1182,6 +1182,7 @@
- int snd_pcm_lib_ioctl(struct snd_pcm_substream *substream,
- 		      unsigned int cmd, void *arg);                      
- void snd_pcm_period_elapsed_under_stream_lock(struct snd_pcm_substream *substream);
-+void snd_pcm_progress_under_stream_lock(struct snd_pcm_substream *substream);
- void snd_pcm_period_elapsed(struct snd_pcm_substream *substream);
- snd_pcm_sframes_t __snd_pcm_lib_xfer(struct snd_pcm_substream *substream,
- 				     void *buf, bool interleaved,
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -1919,6 +1919,25 @@
- EXPORT_SYMBOL(snd_pcm_period_elapsed_under_stream_lock);
- 
- /**
-+ * snd_pcm_progress_under_stream_lock - Report progress without a period IRQ
-+ * @substream: PCM substream
-+ *
-+ * Context: PCM stream lock held, with no driver pointer or trigger locks held.
-+ * Updates the pointer and wakes readers for partial-period transfers. Unlike
-+ * a period notification, this does not imply an elapsed period or tick the PCM
-+ * timer. The same pointer, trigger and timestamp callbacks may be invoked.
-+ */
-+void snd_pcm_progress_under_stream_lock(struct snd_pcm_substream *substream)
-+{
-+	if (PCM_RUNTIME_CHECK(substream) || !snd_pcm_running(substream))
-+		return;
-+	snd_pcm_update_hw_ptr(substream);
-+	snd_kill_fasync(substream->runtime->fasync, SIGIO, POLL_IN);
-+}
-+EXPORT_SYMBOL_GPL(snd_pcm_progress_under_stream_lock);
-+
-+
-+/**
-  * snd_pcm_period_elapsed() - update the status of runtime for the next period by acquiring lock of
-  *			      PCM substream.
-  * @substream: the instance of PCM substream.
+> ---
+>  drivers/pci/pci.c | 16 ++++++++++++----
+>  1 file changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 38b680e7c3d60..e9b06b360850e 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -5075,13 +5075,21 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
+>  	if (!dvsec)
+>  		return -ENOTTY;
+>  
+> -	if (probe)
+> -		return 0;
+> -
+>  	rc = pci_read_config_word(bridge, dvsec + PCI_DVSEC_CXL_PORT_CTL, &reg);
+>  	if (rc)
+>  		return -ENOTTY;
+>  
+> +	/*
+> +	 * Do not probe via pci_reset_bus_function(), which would reject a
+> +	 * masked SBR that the do-reset path below unmasks before resetting.
+> +	 */
+> +	if (probe) {
+> +		rc = pci_dev_reset_slot_function(dev, PCI_RESET_PROBE);
+> +		if (rc != -ENOTTY)
+> +			return rc;
+> +		return pci_parent_bus_reset(dev, PCI_RESET_PROBE);
+> +	}
+> +
+>  	rc = pci_dev_reset_iommu_prepare(dev);
+>  	if (rc) {
+>  		pci_err(dev, "failed to stop IOMMU for a PCI reset: %d\n", rc);
+> @@ -5096,7 +5104,7 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
+>  				      val);
+>  	}
+>  
+> -	rc = pci_reset_bus_function(dev, probe);
+> +	rc = pci_reset_bus_function(dev, PCI_RESET_DO_RESET);
+>  
+>  	if (reg != val)
+>  		pci_write_config_word(bridge, dvsec + PCI_DVSEC_CXL_PORT_CTL,
+> -- 
+> 2.43.0
+> 
