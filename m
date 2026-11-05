@@ -1,58 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864122;
-	b=awFUrUeJNhcvjmEzHjHrcVWwIRiWB53kEgyHQray3otfkx0Vc0IiGD78U/NjNtZvHmTD
-	 EZao3lE/LcFypWQWM5pOBKYIb8dMVYXzmvAHN13Aty1fsGfchu6UBvKdK8fHaefHiDm0s
-	 /dcNA5Zh56U5ktYk+2TGkxXHSeEb8vIUCX4XAHQHGHveUVT6qdK+VknpTMV33Xnk4CNli
-	 KVu/ao5e2yKlxuoU9vScgQm6buInhPYfmrNlYFpjzkvQND1lvoyDKzymOqemwf2bJW1O3
-	 052sBzCfBP1jvCNfiRSwcoas92pUDd4zzhDtQDU9yW2xyrs07JWMIC6B0Llh9C5OYRQ==
+	t=1793864134;
+	b=I5hVeURJg3tbAyB94mM22ume3f5B3GEtjaqABFZJddgJ7MZnoMx8JE0IseK8XqX16TUO
+	 EEPSnd2sYj4deR5HkIV62+0VgyXCC59g/O/usBv5vq37A0zkfuZmHa0CgXSjRcpPL/9Zw
+	 I+YeIm20eADK/wTvz7EcUO7CQOk7A+ax5s6D4mSmp5BipejjRhoclW5vx3D1oqB4PIWxM
+	 i8gmez9Wyl5UPjDSDzoj4eyH9tidTk07VSVTiLdfr5IEptk9tbhKIBkxwPQQYAtFOLbgy
+	 HUlPn+Tb28FguUbnj4W2tjUeFiltMOVvnHG6O0fK5FJ0YUgCX6lVfsx+fUiRFQiWbDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864122;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zrvvUaVfaZs4vDYlI6rznRYoDcQzDwIPJyL+WelT6AU=;
-	b=u7vKJytQ2tQEGRqCV/E+KLduABR5W3NdpzCOFFIhbk66wtc9PmIHJfK46y2cSu/jMnyB
-	 SuIuL2MRTonttWuVJGV3Xy2SgGfqEtfHC4cRnj5BpYdxji1Uw8mlLn6fJszsDIJuRmMdL
-	 L9cRN3sI1YcXzm84gQjWzSJXwjl84jfArTLHaRqug6CTR8T7puUuP5TlxgrA3jEseLTdR
-	 jYpBBEp6PG016ZG+9MZeVV7JfxURDnBbvCJS3u7KylEtO1FEzod+WmFAo/4wbDhl/ZWuK
-	 /7gMkhcERGdlxdRVPgss9I7NN1fm9AsqJNQjkocTyn8WvGauWSQgeNnkhDSitxeK16w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864134;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=H32Q4xeGHAL5HVsaW0o1uw523KoBqyjwpUq440U+kXU=;
+	b=QelFGpM9H3LnViPWwyiCgYIVFiSxJ7T5F5X1MOJeslO+joNhbO1tprGfesJV64pssvBz
+	 SoQFpFJmm2d4+dRliRf8hvQMZSuc2COwVWu7K8fLTekY6rt7ZmamTaLkn7GyGhZHP3YL/
+	 sHFBbnpeLigBjNlhLj2Qdo69fpxGTCRAW9Fx0c5/94krsVJgLuOuEiHnMnI0VWk/v5fqR
+	 htPf2j089SlROLlUwPkmE4qbmO+LsfMC3rbySegZNN5xbOFKrJVDh5bap0OA1JZ/aj0bh
+	 8ta0UDRQ7vSyEp6FDpZ7TipXndWOBw9yXLG/hydAVEFFFnonK30BoLbt/nvrDk7yJOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TX8/hlrZ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AA1606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 07:35:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TX8/hlrZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C818B1F00A17;
-	Thu,  5 Nov 2026 07:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793864122;
-	bh=zrvvUaVfaZs4vDYlI6rznRYoDcQzDwIPJyL+WelT6AU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TX8/hlrZnmQT8FsWt5Y+gLHUMA+kFofqylnXc/dIK7wGgmMzD+42ZAdjIXSw+G2ZF
-	 yVQK5Bzv+T+XNntoBIQLAYD+gH4oU24IYm0kFKwn+JujgJctaFxjFxvNqEjUHpajPP
-	 NS3q3DP/lDqf2waCTm3Bp4eVvpZj5zc4q6uMdaE9vDOlIYqLgg836Y4e8HolcQA7Lh
-	 WfkVV6s5bI/XBq5HgtxK0qdGjTrvOTxSJn/eBFNeZ4RtJbS+Py6G1Y3xA5Ee8X5hbr
-	 cYDKnzao5ceNGDTEbR9m8fVERzuHJm1QoY9PV52W6cPadbflFp3PZI6zAO/dZBv3pq
-	 aZ8fVmbDum/MA==
-Date: Thu, 5 Nov 2026 08:35:17 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Sascha Bischoff <sascha.bischoff@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/10] irqchip/gic-v5: Reject SPIs not backed by an IRS
-Message-ID: <auwxtSfBOeKXC6w_@red-moon>
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
- <20261104-host_gicv5_fixes-v2-1-e47ad20ea3c8@arm.com>
+	dmarc=none header.from=phytium.com.cn;
+	spf=pass smtp.mailfrom=phytium.com.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94E03606A31B;
+	Thu,  5 Nov 2026 07:35:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94E03606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
+Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
+	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwD313y3Mexq6bTlAQ--.26457S2;
+	Thu, 05 Nov 2026 15:35:19 +0800 (CST)
+Received: from [10.22.77.56] (unknown [123.150.8.50])
+	by mail (Coremail) with SMTP id AQAAf8DwS3KyMexqcxb2AA--.18258S2;
+	Thu, 05 Nov 2026 15:35:15 +0800 (CST)
+Message-ID: <c6af23c8-ee5a-47b7-bdf1-dc853ea388d9@phytium.com.cn>
+Date: Thu, 5 Nov 2026 15:35:14 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,56 +45,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-host_gicv5_fixes-v2-1-e47ad20ea3c8@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
+To: Krzysztof Kozlowski <krzk@kernel.org>, Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Wang Yinfeng <wangyinfeng@phytium.com.cn>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+ <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
+ <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
+ <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
+ <c0313537-532f-4c9c-86fb-067838829427@kernel.org>
+From: Cui Chao <cuichao1753@phytium.com.cn>
+In-Reply-To: <c0313537-532f-4c9c-86fb-067838829427@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAf8DwS3KyMexqcxb2AA--.18258S2
+X-CM-SenderInfo: pfxlux1drrlkut6sx5pwlxzhxfrphubq/1tbiAQAKAGrrh8gDWQAAsf
+Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=cuichao175
+	3@phytium.com.cn;
+X-Coremail-Antispam: 1Uk129KBjvJXoWxGr4xGrW3Wry3Wry5XrWfAFb_yoW5Kr1kpF
+	WFqFZxGrW8Xr18Jr4Utr1UJFy5JF4Fka1kJr15J3WDAF90vF1jqr4jgF409ryUWF48Xw1U
+	tFsrJryjvF4kXaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
+	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
+	UUUUU
 
-On Wed, Nov 04, 2026 at 05:47:55PM +0000, Sascha Bischoff wrote:
-> It is possible to build a multi-IRS GICv5 system where there are gaps
-> in the global SPI range that are not backed by any IRS. In the current
-> incarnation, this results in dereferencing a null pointer.
-> 
-> Reject cases where the firmware attempts to use those SPIs during IRQ
-> allocation by catching the case where there is no chip_data associated
-> with the irq (meaning that there is no IRS to back it). Spit out a
-> warning about broken firmware when this is encountered as it shouldn't
-> be using non-existent SPIs in the first place.
-> 
-> Fixes: 5cb1b6dab2def ("irqchip/gic-v5: Add GICv5 IRS/SPI support")
-> Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
 
-https://docs.kernel.org/process/maintainer-tip.html
+On 11/4/2026 3:23 PM, Krzysztof Kozlowski wrote:
+> On 03/11/2026 03:57, Cui Chao wrote:
+>> On 11/2/2026 6:00 PM, Krzysztof Kozlowski wrote:
+>>> On 02/11/2026 10:51, Cui Chao wrote:
+>>>> Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
+>>>> host bridges.
+>>>>
+>>>> By default, the 'linux,pci-domain' property must be unique across all
+>>>> host bridges. This property allows a host bridge to explicitly opt-out
+>>>> of this uniqueness check, permitting multiple host bridges to reuse the
+>>>> same software domain number.
+>>> Why isn't this deducible from the compatibles?
+>> Hi Krzysztof,
+>>
+>> Thanks.
+>>
+>> The compatible cannot express this. "pci-host-ecam-generic" only
+> You have vendor specific compatibles, no?
 
-"Ordering of commit tags", if there is a v3.
 
-Lorenzo
+I used a tool to assist me earlier. I will now discuss directly.
+The driver used by our hardware is not a vendor specific driver but
+the generic "pci-host-generic" driver, so previously the compatible
+in our DTS was only "pci-host-ecam-generic", with no vendor specific
+compatibles.
 
-> ---
->  drivers/irqchip/irq-gic-v5.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/irqchip/irq-gic-v5.c b/drivers/irqchip/irq-gic-v5.c
-> index 8c0303af71e7d..f3cce2bd28cc3 100644
-> --- a/drivers/irqchip/irq-gic-v5.c
-> +++ b/drivers/irqchip/irq-gic-v5.c
-> @@ -727,6 +727,15 @@ static int gicv5_irq_spi_domain_alloc(struct irq_domain *domain, unsigned int vi
->  
->  	irqd = irq_desc_get_irq_data(irq_to_desc(virq));
->  	chip_data = gicv5_irs_lookup_by_spi_id(hwirq);
-> +	/*
-> +	 * The global SPI range may contain IDs not covered by any IRS, i.e., it
-> +	 * may have gaps, in which case there is no IRS to back the SPI. Catch
-> +	 * broken firmware trying to use any of those SPIs.
-> +	 */
-> +	if (!chip_data) {
-> +		pr_warn("Firmware bug! Unimplemented SPI (0x%lx)!\n", hwirq);
-> +		return -EINVAL;
-> +	}
->  
->  	irq_domain_set_info(domain, virq, hwirq, &gicv5_spi_irq_chip, chip_data,
->  			    handle_fasteoi_irq, NULL, NULL);
-> 
-> -- 
-> 2.34.1
-> 
+>> describes how configuration space is accessed; it does not describe
+>> whether two host bridge instances may share one Linux PCI domain.
+>>
+>> The same compatible is used on systems where every host bridge must
+>> have a unique domain and on this system where two RCs intentionally
+>> share a domain with disjoint bus ranges and resource windows.
+>> Comparing the compatible strings of the nodes therefore cannot
+>> distinguish our case.
+> OK, so let's look at your DTS - where is it posted for upstream?
+
+
+The DTS has not been uploaded upstream. Below is our DTS (with
+irrelevant information such as interrupts and IOMMU omitted). Both
+nodes use only "pci-host-ecam-generic", and their resources do not
+overlap, but the domain is the same.
+
+  pcie0: pcie@80000000 {
+         compatible = "pci-host-ecam-generic";
+         device_type = "pci";
+         #address-cells = <0x3>;
+         #size-cells = <0x2>;
+         #interrupt-cells = <0x1>;
+         reg = <0x0 0x80000000 0x0 0x8000000>;
+         linux,pci-domain = <0>;
+         bus-range = <0x0 0x7f>;
+         ranges = <0x1000000 0x0 0x100000 0x0 0x10000000 0x0 0x100000
+                           0x2000000 0x0 0x20000000 0x0 0x20000000 0x0 
+0x10000000
+                           0x43000000 0x200 0x0 0x200 0x0 0x100 0x0>;
+  };
+
+  pcie1: pcie@88000000 {
+         compatible = "pci-host-ecam-generic";
+         device_type = "pci";
+         #address-cells = <0x3>;
+         #size-cells = <0x2>;
+         #interrupt-cells = <0x1>;
+         reg = <0x0 0x88000000 0x0 0x8000000>;
+         linux,pci-domain = <0>;
+         bus-range = <0x80 0xff>;
+         ranges = <0x1000000 0x0 0x200000 0x0 0x10100000 0x0 0x100000
+                           0x2000000 0x0 0x30000000 0x0 0x30000000 0x0 
+0x10000000
+                           0x43000000 0x300 0x0 0x300 0x0 0x100 0x0>;
+  };
+
+>> Adding a vendor-specific compatible only to trigger this Linux policy
+>> would not describe a different hardware programming model either.
+>> What actually makes reuse valid is the platform-level relationship:
+>> the bus ranges and resource windows are disjoint.
+>>
+>> If you prefer to avoid a new property, I can rework this to derive or
+>> validate reuse from the non-overlapping bus-range and resource layout
+>> instead. Would that be the preferred direction?
+>>
+> This one is clear paste of LLM output to a message.
+>
+>
+> Best regards,
+> Krzysztof
+
+-- 
+Best regards,
+Cui Chao.
+
