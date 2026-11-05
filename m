@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874733;
-	b=mXnrTv+TA5FortsJtwtCcvbljuWS/4sPi8q70QzK01/v9o0FpuUxul40wAoCCyNZNeYc
-	 eqcwZJ6sehkwekLad32ucFLFAxr0p2ViVlvOFJ5dq3niZX8RuAydFlbAZn2am1ut0LNZ8
-	 mLPrEnTwNM3zRxzy7dpHHVuEpCQyqvtcsT6LrkqeMWTD7wkbfnWaj0KCN1KW6ExV6YHbM
-	 I/d4iDTpsamxRmO9nRxbbv3jb9ddfNN4Qwax/OhJHLaxElV9kJtpXPb/pZlj47MBB/LMU
-	 WzsaaVB9MpYxKcjIVWSBOrlz6F3J8y2PTm/jIxUIhhbkowtu027aKHBIza8+P/WLYAw==
+	t=1793874743;
+	b=CXTd2fp9Iv3SypTRK/mdfyZRdrcuQaZIdXKMOAwKD3eFeg6pE95ea3gxWKGIeWTb1sjv
+	 Iacd7OAMcrjJIF1AwDiZFDrTxub6FL0hf2RD2rGyPebPXS0+GL6w1j1GjxQT6IZPBcTKG
+	 onSiHs8e9bjCWHW+gpAIdJ4AQHLNjDCyqF7VwPWr9il4tVAqYzwflammORVERSoL8dl6o
+	 PkEPaMuPBW7HzEZ0Qt++hV39eoBU3Xh7fMmGn2r6a60K7+5u/xcWjlFLo7IFR5FSY3scc
+	 o07Jq20GEA0A5MIcS8ZntDk37HYzwkSFXF9vrD5EplhnzbzZnAq+FaczvbifpUdQzvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874733;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Lrnsp6197nXbKfz7bzeAhyKJ69gwaEJNrVqWiF67Y5k=;
-	b=R9sT2NFJemBJRJqn1HCka2ptw5J3nN1epOqA1zjykPKp0fEyIbOexvvAWNOPC5tJHot4
-	 RwEsKeT1HjG0hzQZmxaRxi1AAKhTfVduZ5XwyZjKyjiw+5Nl3vMmagayV1i2RQBAX64nO
-	 /inDMA0XSt6BUCBN3AFuqRO+5gxlp2XBE41xsDpw8U3tWYjC57NVlys8KjumJbN/ZHHCS
-	 ELxL8qCxePj0TI5zB8K4iPLr6nAQuECmow4kICj4o9ZAu0U9wGJSlgw2+V3jAST46WaFp
-	 YWgJH0GxjJCXRvwAkQsjz38uheWAcbAfgjrdvRKbW8ELbk91jYrZ192gH7722ROWZPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874743;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=NHF/C0B6VR5CCEw0CB0/0Ffnk61+Mmzx7DVRfoty6b8=;
+	b=hWRCaBKIJHKd7ZoodgYl61ayS3zSIjf1PnlypmmcFiLzqUlDSLX3l2V45s9IpjS3eAYG
+	 Klq8fel9o5C92pELixKMpiQY7N2uMBAWm8I9MNVstQ0k++EQSdDGpBsK/Vro9kbbyLaMb
+	 KedVYc/WtJh3i+fbU2oqJqMkwadaTetmM4POlBxWUrMxq4nRHKa2da7kYMKVS5ilnwk8P
+	 twWNLdIy/ms7RHC1FLD5pZA4Gln0QakcOTH0ZMUFCE3UXf/B8oKpoSgcyqzR64jfkueBv
+	 xFXfRUQu5Wya+hN0Dr2I+NsH1YYJK+hhetdOhI+0Ee6i8zl0ZpI4LxZHLhed0QvBbkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9zNBmkH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="hNPa0U/x";
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768DC606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:32:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CEB4606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:32:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CEB4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9zNBmkH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCA91F00A1A
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:32:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793874732;
-	bh=Lrnsp6197nXbKfz7bzeAhyKJ69gwaEJNrVqWiF67Y5k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f9zNBmkHXUDiM2i79TBUhngAJT/offW9uUYj7IT+ay84jKVv+24MqoxOIEqQ6AMRR
-	 SWNwxvFW6yWgHhGLXyjZVMGxvy75ZtGcEfKqcisBvOrr3Jhv84zK355MGnsfx7DgzM
-	 GcV3i/+acM8IEYqtLbs3IEY7/GNq/7h8vmDVZvM+xH0cDbgDF55i74kmNVoNhYyfgl
-	 PgBc4oQ1XPHtaEXCozt90UoSz8PU54zFAO4YNbMj+OwxMZX4C0FJhZp8b8AgBoRNpo
-	 +5S/srbbWH3rHda8ianAjjPMiFJxQoJtzdkuVe0U7iS2Chtkkxil7XFVKE3PTqKTMm
-	 FwmwY4nf37uHQ==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4697404c2bso232990866b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:32:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByf+pdyepyfCBE0w1mTwQxaSplrjKNtVOfXf0NhHscVzO9xxDAbAldj8aKSE5jsM60CYxV6AbaaUxrgOkg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8bkPJPmERMl8AwygSVFRm5OyCfEwWGENh2DOPlujsjbwLY8JPC
-	w7vyfklg7v+0x8cVkaL2UN8GVuRNKTtRlj5GEFxWiNpZt7GQ1xM9gGMS8QidrzjP6DUWJf+CjP6
-	ZHZDTfGQXr4GgW2kv/0rQ/eK4443QDW4=
-X-Received: by 2002:a17:907:9446:b0:c49:a571:c4f9 with SMTP id
- a640c23a62f3a-c4ca7a4205emr1647597366b.13.1793874730739; Thu, 05 Nov 2026
- 02:32:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hNPa0U/x
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 1C7B34E40774;
+	Thu,  5 Nov 2026 10:32:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E5C795FF85;
+	Thu,  5 Nov 2026 10:32:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E6A4810329267;
+	Thu,  5 Nov 2026 11:32:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793874739; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=NHF/C0B6VR5CCEw0CB0/0Ffnk61+Mmzx7DVRfoty6b8=;
+	b=hNPa0U/xBGfTsJajA+2APdmifg0n1NzWF+8W1sJfyJepfpVZfvS1zcb6SriKr8XQgHXn8d
+	3iOjXJWsp9plUamab3pgrT8Je7IWPJcWXrNpD3JYSwcYSJiZLbxYmSiq4uXwphtfGmL2xx
+	QwVIOM2zt9q+s9rAG+CedAUE0SR81mOIKzMmLYosvDrgTGjkoZm3zXy3SoG8o9rKRPKPFv
+	n4ovTC4CorsMAOfPgQ4vBUS98kaIrkqY27NqDemiibH8GT+UtGuADg+GWJ38Rue+cNEa+W
+	uZUjKUqEB84Hi/L3fgiGseB3VT5g1lzZv4td0i2L68Zq5/GuWtxMQfUGBWYRug==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Thu, 05 Nov 2026 11:32:06 +0100
+Subject: [PATCH v4 2/3] drm/vc4: dsi: stop using deprecated
+ drmm_of_get_bridge()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,160 +64,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260922121058.972734-2-maobibo@loongson.cn> <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
- <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
- <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn> <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
- <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn>
-In-Reply-To: <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Thu, 5 Nov 2026 18:31:57 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
-X-Gm-Features: AclHuK80sIQTIxtcfwQ99SF2CCbdvpwZDrcVmzv31AZq50iDlL8vqX3SPfF4FJ4
-Message-ID: <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: rafael@kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org, 
-	lixianglai@loongson.cn, loongarch@lists.linux.dev, 
-	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261105-drm-fix-of_get_bridge-build-regression-v4-2-906ca343ac1b@bootlin.com>
+References: <20261105-drm-fix-of_get_bridge-build-regression-v4-0-906ca343ac1b@bootlin.com>
+In-Reply-To: <20261105-drm-fix-of_get_bridge-build-regression-v4-0-906ca343ac1b@bootlin.com>
+To: Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Paul Cercueil <paul.cercueil@bootlin.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Nov 5, 2026 at 5:49=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> wrote=
-:
->
->
->
-> On 2026/11/5 =E4=B8=8B=E5=8D=885:31, Huacai Chen wrote:
-> > On Thu, Nov 5, 2026 at 5:14=E2=80=AFPM Bibo Mao <maobibo@loongson.cn> w=
-rote:
-> >>
-> >>
-> >>
-> >> On 2026/10/23 =E4=B8=8B=E5=8D=883:59, Huacai Chen wrote:
-> >>> Bibo,
-> >>>
-> >>> Now I have applied this series but with some modifications, please
-> >>> double check and test the code.
-> >>>
-> >>> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loon=
-gson.git/log/?h=3Dloongarch-next
-> >> In my v4 submit, it is:
-> >> +               case ACPI_IOVT_DEVICE_ENTRY_START:
-> >> +                       is_start =3D true;
-> >> +                       start_devid =3D ep->device_id;
-> >> +                       break;
-> >> however in rc1, it is modified as:
-> >>                   case ACPI_IOVT_DEVICE_ENTRY_START:
-> >>                           is_start =3D true;
-> >>                           entry->start_devid =3D ep->device_id;
-> >>                           break;
-> >> Here entry is not allocated and NULL pointer, it is allocated in
-> >> ACPI_IOVT_DEVICE_ENTRY_END switch case.
-> >>
-> >> I really do not know what is aid to modify it and let others to test.
-> > Sorry, it's my fault.
-> >
-> > In theory I should point out the modification (eliminating the local
-> > variable start_devid) and refresh a new version. But we have no time
-> > to do this because when the first patch is merged into the ACPI repo
-> > it is near the merge window.
-> Maybe our work style is different, I do not care much for the coding styl=
-e.
-> >
-> > If you agree, I will submit such modifications to fix it.
-> fix is welcome.
-> >
-> > diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iov=
-t.c
-> > index 87cee4f0fc80..4cdac28a1fd0 100644
-> > --- a/drivers/acpi/loongarch/iovt.c
-> > +++ b/drivers/acpi/loongarch/iovt.c
-> > @@ -115,6 +115,10 @@ static int __init iovt_add_iommu(struct
-> > acpi_iovt_iommu *iommu)
-> >          for (i =3D 0; i < iommu->device_entry_num; i++) {
-> >                  switch (ep->type) {
-> >                  case ACPI_IOVT_DEVICE_ENTRY_START:
-> > +                       entry =3D kzalloc_obj(struct iovt_device_entry,
-> > GFP_ATOMIC);
-> There will be memory leak problem if there are START/START/END in the tab=
-le.
-That means a broken table? I think we don't need to consider broken
-tables, because there may be kinds of broken pattern rather than just
-a START/START/END.
+drmm_of_get_bridge() is deprecated, switch to
+of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
+a refcounted bridge, ensure it is put by using bridge.next_bridge.
 
-Huacai
+drm_panel.h becomes unused, drop the include.
 
->
-> Regards
-> Bibo Mao
-> > +                       if (!entry)
-> > +                               return -ENOMEM;
-> > +
-> >                          is_start =3D true;
-> >                          entry->start_devid =3D ep->device_id;
-> >                          break;
-> > @@ -122,10 +126,6 @@ static int __init iovt_add_iommu(struct
-> > acpi_iovt_iommu *iommu)
-> >                          if (!is_start)
-> >                                  break;
-> >
-> > -                       entry =3D kzalloc_obj(struct iovt_device_entry,
-> > GFP_ATOMIC);
-> > -                       if (!entry)
-> > -                               return -ENOMEM;
-> > -
-> >                          is_start =3D false;
-> >                          entry->end_devid =3D ep->device_id;
-> >                          list_add_tail(&entry->list, &np->ep_list);
-> >
-> > Huacai
-> >
-> >>
-> >>>
-> >>> Huacai
-> >>>
-> >>> On Mon, Oct 12, 2026 at 3:16=E2=80=AFPM Bibo Mao <maobibo@loongson.cn=
-> wrote:
-> >>>>
-> >>>> This change is already merged in acpica tree.
-> >>>>
-> >>>> slightly ping.
-> >>>>
-> >>>> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
-> >>>>    > According to the IOVT specification, define macros for each bit=
- of the
-> >>>>    > Flags field in the IOVT IOMMU structure.
-> >>>>    >
-> >>>>    > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
-> >>>>    > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-> >>>>    > ---
-> >>>>    >  include/acpi/actbl2.h | 7 +++++++
-> >>>>    >  1 file changed, 7 insertions(+)
-> >>>>    >
-> >>>>    > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
-> >>>>    > index baef525367b5..76e4a5bc79b4 100644
-> >>>>    > --- a/include/acpi/actbl2.h
-> >>>>    > +++ b/include/acpi/actbl2.h
-> >>>>    > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
-> >>>>    >       u32 device_entry_offset;
-> >>>>    >  };
-> >>>>    >
-> >>>>    > +/* Masks for Flags field above */
-> >>>>    > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
-> >>>>    > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
-> >>>>    > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
-> >>>>    > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
-> >>>>    > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
-> >>>>    > +
-> >>>>    >  struct acpi_iovt_device_entry {
-> >>>>    >       u8 type;
-> >>>>    >       u8 length;
-> >>>>    > --
-> >>>>    > 2.39.3
-> >>>>    >
-> >>>>
-> >>
-> >>
->
+Also remove an outdated comment: now panels are just bridges.
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+---
+
+Changes in v4:
+- Fix next_bridge leak on component rebind (sashiko)
+- Remove outdated comment (Maíra)
+
+Changes in v3:
+- fix bridge reference leak in error path
+---
+ drivers/gpu/drm/vc4/vc4_dsi.c | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+index 5ed3c35ee9c7..581b54e04ce4 100644
+--- a/drivers/gpu/drm/vc4/vc4_dsi.c
++++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+@@ -35,7 +35,6 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ 
+@@ -554,7 +553,6 @@ struct vc4_dsi {
+ 
+ 	struct platform_device *pdev;
+ 
+-	struct drm_bridge *out_bridge;
+ 	struct drm_bridge bridge;
+ 
+ 	void __iomem *regs;
+@@ -1163,8 +1161,7 @@ static int vc4_dsi_bridge_attach(struct drm_bridge *bridge,
+ {
+ 	struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
+ 
+-	/* Attach the panel or bridge to the dsi bridge */
+-	return drm_bridge_attach(encoder, dsi->out_bridge,
++	return drm_bridge_attach(encoder, dsi->bridge.next_bridge,
+ 				 &dsi->bridge, flags);
+ }
+ 
+@@ -1748,9 +1745,10 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
+ 		return ret;
+ 	}
+ 
+-	dsi->out_bridge = drmm_of_get_bridge(drm, dev->of_node, 0, 0);
+-	if (IS_ERR(dsi->out_bridge))
+-		return PTR_ERR(dsi->out_bridge);
++	struct drm_bridge *next_bridge __free(drm_bridge_put) =
++		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
++	if (IS_ERR(next_bridge))
++		return PTR_ERR(next_bridge);
+ 
+ 	/* The esc clock rate is supposed to always be 100Mhz. */
+ 	ret = clk_set_rate(dsi->escape_clock, 100 * 1000000);
+@@ -1774,15 +1772,27 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
+ 	if (ret)
+ 		return ret;
+ 
++	dsi->bridge.next_bridge = drm_bridge_get(next_bridge);
++
+ 	ret = drm_bridge_attach(encoder, &dsi->bridge, NULL, 0);
+-	if (ret)
++	if (ret) {
++		drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
+ 		return ret;
++	}
+ 
+ 	return 0;
+ }
+ 
++static void vc4_dsi_unbind(struct device *dev, struct device *master, void *data)
++{
++	struct vc4_dsi *dsi = dev_get_drvdata(dev);
++
++	drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
++}
++
+ static const struct component_ops vc4_dsi_ops = {
+ 	.bind   = vc4_dsi_bind,
++	.unbind = vc4_dsi_unbind,
+ };
+ 
+ static int vc4_dsi_dev_probe(struct platform_device *pdev)
+
+-- 
+2.56.0
+
