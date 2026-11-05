@@ -1,81 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892222;
-	b=qj75g6L2o4QenHzW+wfVaYV0a/rWvx0sNM6ORiLLLOFiCQGUwYOt6h50sWyFM620UYjS
-	 75RFrR5qwG8oHDkB9B+xRJ197RWZTenzNGniGU9Ym8HeIMbXBcFz7bpZRh6uT4J4axa6E
-	 8k1ZaktXPDIYQgws4E/69F3Nd8F+xdyqZ7vt4lKidSO3kxV0/O+yK43qbx0tFfVJh9nrS
-	 2qXBY9BhtxgBl98vwXMJXbcONFmKXHtqLixiPCU8slhERQ2kETRNLOhr4k8zU14OKJJ3J
-	 4pa3GdYebcqnN8fKcKi/X5HrMsLeTdEkg5QC4Y3UiXDAz1nqLRd+0xfViKnToVhUA/w==
+	t=1793892240;
+	b=vHYXGNYte6APaUOkoj0ZPwwNK9EHNP7smgYGD4W8cTA989bf3Wk/+g8QBKyy3OKqIRrx
+	 fBzEASYzq6v5Dak72yOMc9grCZmn7zVl2Wwl9mzVAF9TYHfEJsxY23ya3WVHFJmPU48Un
+	 tZXh9wwvprB097Eljz3YfpAU0aWsL0NiiVs4voDe7m83SvM4PQlGqF4JLLB8RnX3FIJna
+	 fovCSuNZJv1JnGTv46KIx9cVc+LROB0XkFVum1ykWHRVcLFh8qR5p1UNNoMHcFqSjUoJ8
+	 4m8J4ngETvniOIC7lfzdzeCr1hYX/SlI5E3TdeLUIuXfSipIQBut+n1HcntCdxkxO6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892222;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=DT1BsS1jyuPyNRrdkSexz5S4IsBfNSt7ax5gSpAirZ4=;
-	b=qJVL6LXesUwD2yni4lBtJmbrIQ+0lK6DGMELAxuNEX3AkquQvnHN6Y/CbgqwCpgKyIkW
-	 +IUDrriBJ9yICk6GKhGs0f+nO/R9peekQSG3KDTVdKlHSAZCjynTcW7Gh06U+RsloA15k
-	 3JQRk2RwX9eNKzfYowhXT/I37THp3c4DthByDBWN++EHNsIvtnX7i6DIsI9EzihjfkzxH
-	 dfHMUcgUwJweQVkvVI+DLBJ2LrcjIxd79uyOXpf5hIAdxIMOXuEwsGtoKtpembQ5lID77
-	 FiV5NvWjBjJT3k78gs4Lq84RkI/S36giXTqzB9UbrB67QkDfqxb6Juq73hxsSRIowmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892240;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sNeCcAcnq+kq7Knv2crVqvIQp/nQfPFY9SZmNDJttrk=;
+	b=EMUZbuI7LXm52GcyLatR2Qkdq+zYQ71MF+UOxAYQLm2MbThe1OQbhB5gKrT7+UO4Dzvf
+	 3sGe+Psi99UN3PwBXBj12A0kxVEf6TupTtIfbN9H7us594rcySJx8GM3cHTqWJNVx9iKT
+	 yNgazqHFFizQlqfDdkvFkOpbIE2JR9Ns0D5YZQxOshOXLo+BOZy87xtFLl48Fei0Q2/1n
+	 cTFitHeSez90zeVXr2xGtAWRu7YO2dAHgLtdK+S1Gkp3H/Vji6g492TKopcfdl8IGGLf5
+	 FPhl+dhnc26/xIZGGo9SPg7D4hA/uuCmr3Tw5212eVYLQN8vUAj5rqRMAqAH9k++BGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ARGr01Vs;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gba+nzdQ;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0D2606A329;
-	Thu,  5 Nov 2026 15:23:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F0D2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9915E606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9915E606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ARGr01Vs
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EiRFX3788136;
-	Thu, 5 Nov 2026 15:23:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=DT1BsS
-	1jyuPyNRrdkSexz5S4IsBfNSt7ax5gSpAirZ4=; b=ARGr01VsOnOimr7DXByzSz
-	zyj5BE6I9JzdvMJytjZgAXqIUsOrnDCqTgawDKs9iwUziwTeA/VGxh2KLIdH966a
-	JUMe5oHARm6uegOKdD1jSZGl0Rs2IA1/3YRGVb4vykesoFxPgEoVF2QRoZ6HZtCN
-	7u8JXdjkFe1CFNraCbmF9BTEwYQZEmaarNwlhqc/uJ/eh8AAvBlVfdAhxV3fc6QJ
-	SCLYLKm0tERwhV4a1XnfyyviDJUVJ4XBrcsWaHg9Vd0zoS5gUXRBf7YcXBtABjUB
-	7vhkmf+R/lSRE128SWrbhvIVNDKDkfmT0jMHb/z5fzgqb3cA095811gXrwJBG4Qw
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn827342t-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 15:23:40 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EYxQv1685712;
-	Thu, 5 Nov 2026 15:23:39 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hrmrejbag-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 15:23:39 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5FNZBn13894036
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 15:23:35 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3782C20043;
-	Thu,  5 Nov 2026 15:23:35 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F16AF20040;
-	Thu,  5 Nov 2026 15:23:34 +0000 (GMT)
-Received: from [9.68.16.159] (unknown [9.68.16.159])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  5 Nov 2026 15:23:34 +0000 (GMT)
-Message-ID: <fa1128de-56c5-438e-8350-1eb4b0bb96a8@linux.ibm.com>
-Date: Thu, 5 Nov 2026 16:23:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gba+nzdQ
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so3375188c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:23:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793892239; x=1794497039; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sNeCcAcnq+kq7Knv2crVqvIQp/nQfPFY9SZmNDJttrk=;
+        b=Gba+nzdQHGBvFjCoCbsAwcHyr8hLjYByQcMINR4Ay4Y6elfwFUyrwZGSiMM7qK5hws
+         z6szCkiN7iCTSfdnZOx6A/ilhnZCkmccj8qdMtniW0nMa4ewwFJhY/BsFgZD5n9sP9KX
+         yP/fI8DHgR7fT+v9AFqwQJICjISpAzOcIMwFoodasxIF2og6ZmtuoqpNyHVysMlXfUUA
+         swL9gBNXIkuUF0jah7B6AcUEvXMNy61Du2twV2bwHiZJmQjnV97yYWsiyCosXYhIuoqs
+         N7xvi+qA4XW4LkvkpfQJoFZyGX7+sHJOL6W9ShhnuWDxov3zsTQ6Ee8NzFVwl1Yzy3Q7
+         TkFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892239; x=1794497039;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sNeCcAcnq+kq7Knv2crVqvIQp/nQfPFY9SZmNDJttrk=;
+        b=Ih82bqkq8RDJ8pXa/KmjaZ0ImWjVmKaVbW11/4yl+AAsWOKqxD3YMhyyVcwOI1xtPu
+         CasSkWawRkjV753PkC/KSbT3N28MSWb1Z4NYVFweEO+FQavmMkUX6W+s2p855E3jEoGe
+         S72xzHzgjkKbLvXS6sU0Fe0zWvCrMUDBphmKgCsdHExxWLSQXxnxMVxqeBMn0NvYhDIc
+         oEl0uRPWTDpZFhekWfgSzWCOpz6/OPQeF1s79LUuAvlCJvPydpxq9ybswaPNV8Y5OmTy
+         YfdWi0zMpmeBROVAjweolNNLiS9C1nVFgfk1xmCYSf1Nk34HUfh1pljm/izcE6ojGW/S
+         BN4w==
+X-Forwarded-Encrypted: i=1; AKwUvBz+MsIWBuAVJEr81Tv/ZB+r+3B5QZjXSVegxEsDpPN9I1JALsUXEudzKKl68xRJx6oPlQDRZw0iBKf3C9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8scZVd7BDn959W+2RezcN0QXEn20ZznVIIBjhtZLjavvgulaRH
+	3DGXVrEPfNguOHklsn9LCDj1sy/NakDBNAG4dU7TQnilsM983a1jmU14
+X-Gm-Gg: AYBFou1yhQvXv/B+9ltfxJv1CmCyQKW35s4x1jbIjjylvcF6YhlHrsiLj7O2jRXrCdK
+	Ayg+fdYmkY0GrG70EwtCTGdsHMcdXjWXYFxgF4q/42XKEkafyqj/RymA1qsGY5FYg5FHAbDTI12
+	m7Idm0hbO608V3/M5azjkBBULdCdX+FYbogGuYSHoPgnEdhjK9TDd9MgXm8koIXvR4p0xto7a9K
+	OTZBgD5uvTHXokfbnGk0PUpA5npZ5k2E4XjjXg9gNZFDcf7XyxHGNqBNYONoRphi8bdaypQbkpu
+	4M+OXlvtEPE7ZEYBxh1TBtVhda8gYc+cVB2hVfz0Ad6P22Y+y8ppUyGQU/5+WYkX1TBSyLvcBrb
+	tjNcc913KFB1/aCln5fvKaANFINDJnW7Rb3odXQmM01yuLmvIF2eYTNnxx5hVWK4N8hijzTES3e
+	L8KMh6JQgMVyNUOOfdPnSg/chPnX1m2G21ReeFnO7Ac72ZHhi+KZRxKx1JepdheBAq740COOXk1
+	6KqQw7M/BfjL9NA0W5yVISDyxAJhGqX1uZffi0WXhQCRGylSyvFu/O8sGieS6fzanxMQGXVkK8W
+	2LU8CMH9L1HtwwmCLIaYUDLYkIfwLtZ/h79tgPSslI1kuA==
+X-Received: by 2002:a05:7022:f108:b0:150:c9c5:1ce4 with SMTP id a92af1059eb24-1ac55960a70mr24069179c88.6.1793892236997;
+        Thu, 05 Nov 2026 07:23:56 -0800 (PST)
+Received: from debian.prasanth ([103.183.205.43])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245ac2f44sm17862752c88.0.2026.11.05.07.23.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:23:56 -0800 (PST)
+From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+To: linusw@kernel.org
+Cc: andrew@codeconstruct.com.au,
+	joel@jms.id.au,
+	brgl@kernel.org,
+	tan.siewert@9elements.com,
+	billy_tsai@aspeedtech.com,
+	linux-aspeed@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Subject: [PATCH v3] pinctrl: aspeed: Hand over global GPIOP passthrough to local mux controls
+Date: Thu,  5 Nov 2026 20:53:47 +0530
+Message-ID: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261022024314.48623-1-prasanth.padarthi10@gmail.com>
+References: <20261022024314.48623-1-prasanth.padarthi10@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,166 +106,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] KVM: s390: pv: remove misleading gaddr output from
- KVM_PV_DUMP_CONFIG_STOR_STATE
-To: Gautam Gala <ggala@linux.ibm.com>, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com
-Cc: david@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
-        agordeev@linux.ibm.com, svens@linux.ibm.com, kvm@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261028111651.66917-1-ggala@linux.ibm.com>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <20261028111651.66917-1-ggala@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: iATJZcgaTipyR8iQA9cjapTOFVADjqR3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX9EgdyNufDIPK
- 85qUoPAUgyUXLimPw3KwxA8RA7uAK9ZPEQ/RUM0dghKoJggTzcgQDjwW5gFgV5hgUuR9ZLTiGzc
- tpTgK4HH8q5AIemleZPIAdbkGiFIxIy1PYHuNSLTJqSDWfT47rIP7qZy090RgloGGSB1pht27wh
- 6abdNP8HR34X7sw3ea4c7RxL9umYjobBlKauJ7iy/gIqvIqpa+E+qUakmbSa7Xc6vc0cV3VKgft
- CEa5dk4Bm1ZpM3UGOA8IoLVfAz/Rcju0FYT7/s+dWXRjJJwJz6+1sCkCm1ftlpfp/lQe0FTOVI1
- 7ytzoAA5q1vmmbAuxuT+xMLD5mDAz0WzHuvN3JrtnfPZY2FC01XZeNqbpJct/pBtReAdUHKolLV
- TcwPE4N18zpqyZjWry6dJp9LJeATmr8WpZDE4xgiPWxB7FHMQf+khicYqNFRp/oRQ90e+wxxio1
- K9xhgdHWMS/ANIpUcqg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX98LVJZXfh/x4
- PILoHaROGMmliHoZP/vqX89Z3AVPF/wJggdYEuLoGQpTsiR6n32aL2Avq2CsJBAGa3OX9RLiVPv
- YhiC4p8pjj2chOPvPaC06Vqm/eFluCg=
-X-Proofpoint-GUID: iATJZcgaTipyR8iQA9cjapTOFVADjqR3
-X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6aec9f7c cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=HnjXUhQ4soRVsTnYCPEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050060
+Content-Transfer-Encoding: 8bit
 
-Am 28.10.26 um 12:16 schrieb Gautam Gala:
-> A comment in kvm_s390_pv_dmp() suggested gaddr is an output parameter
-> for KVM_PV_DUMP_CONFIG_STOR_STATE, and kvm_s390_pv_dump_stor_state()
-> wrote back uvcb.gaddr through the pointer accordingly.
-> 
-> However, api.rst does not document that KVM_PV_DUMP_CONFIG_STOR_STATE
-> writes back dump.gaddr and QEMU does not use it. Furthermore, the
-> write-back would not have reached userspace in any case: dmp was passed
-> by value to kvm_s390_pv_dmp() so copy_to_user() in the caller always
-> copied the unmodified input gaddr, not the updated one.
-> 
-> Drop the write-back and the misleading comment, and change the gaddr
-> parameter of kvm_s390_pv_dump_stor_state() to u64 to reflect its
-> input-only role.
-> 
-> Fixes: 0460eb35b443 ("KVM: s390: Add configuration dump functionality")
+On B650D4U, GPIO-only host power control fails when SCU51C[9]
+enables GPIOP passthrough, even after the normal GPIO request path
+clears the individual SCU4BC selections.
 
-I will remove this, no need to backport.
+Transfer globally selected GPIOP0-P5 THRU roles to SCU4BC[29:24]
+before registering the controller, then clear the active shared
+sources. Leave PWM selection and the strap-source selector unchanged.
+Clear SCU510[28] through SCU514 and verify the shared enables cleared.
 
-> Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-> Signed-off-by: Gautam Gala <ggala@linux.ibm.com>
-> Reviewed-by: Janosch Frank <frankja@linux.ibm.com>
+If handover fails, retain an instance-local error and reject affected
+GPIO and mux requests before changing their mux state. Check every
+pin in a mux group before calling the shared helper. Retain prepared
+local selections after partial failure rather than blindly restoring
+a shared enable.
 
+Probe-time normalization policy, concurrent SCU writers and
+post-handover registration failure remain open design questions.
+Electrical continuity, mixed-pair forwarding, protected-write paths,
+PWM coexistence and SCU510[28] hardware handling remain unvalidated.
 
+The implementation passed remote power-on, remote graceful power-off
+and physical-button power-on tests on B650D4U with an OpenBMC Linux
+6.18.24-based kernel. The rebased version was ARM compile-tested on
+v7.4-rc1 using aspeed_g5_defconfig with AST2600 pinctrl enabled.
+The rebased kernel has not been tested on hardware.
 
-Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+---
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 145 ++++++++++++++++++++-
+ 1 file changed, 141 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+index 85d6640ff..be22a9184 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+@@ -4,7 +4,10 @@
+ #include <linux/init.h>
+ #include <linux/io.h>
+ #include <linux/kernel.h>
++#include <linux/mfd/syscon.h>
+ #include <linux/platform_device.h>
++#include <linux/slab.h>
++#include <linux/string.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
+ #include <linux/types.h>
+@@ -36,6 +39,8 @@
+ #define SCU4D8		0x4D8 /* Multi-function Pin Control #23 */
+ #define SCU500		0x500 /* Hardware Strap 1 */
+ #define SCU510		0x510 /* Hardware Strap 2 */
++#define SCU514		0x514 /* Hardware Strap 2 Clear */
++#define SCU51C		0x51c /* Hardware Strap 3 */
+ #define SCU610		0x610 /* Disable GPIO Internal Pull-Down #0 */
+ #define SCU614		0x614 /* Disable GPIO Internal Pull-Down #1 */
+ #define SCU618		0x618 /* Disable GPIO Internal Pull-Down #2 */
+@@ -2743,12 +2748,56 @@ static struct aspeed_pinctrl_data aspeed_g6_pinctrl_data = {
+ 	.nconfmaps = ARRAY_SIZE(aspeed_g6_pin_config_map),
+ };
+ 
++struct aspeed_g6_probe_data {
++	struct aspeed_pinctrl_data pdata;
++	int thru_error;
++};
++
++static bool aspeed_g6_is_thru_pin(unsigned int pin)
++{
++	return pin >= AB22 && pin <= AB23;
++}
++
++static int aspeed_g6_gpio_request_enable(struct pinctrl_dev *pctldev,
++					 struct pinctrl_gpio_range *range,
++					 unsigned int offset)
++{
++	struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
++	struct aspeed_g6_probe_data *g6 =
++		container_of(pdata, struct aspeed_g6_probe_data, pdata);
++
++	if (g6->thru_error && aspeed_g6_is_thru_pin(offset))
++		return g6->thru_error;
++
++	return aspeed_gpio_request_enable(pctldev, range, offset);
++}
++
++static int aspeed_g6_set_mux(struct pinctrl_dev *pctldev,
++			     unsigned int function, unsigned int group)
++{
++	struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
++	struct aspeed_g6_probe_data *g6 =
++		container_of(pdata, struct aspeed_g6_probe_data, pdata);
++	const struct aspeed_pin_group *pgroup = &pdata->pinmux.groups[group];
++	unsigned int i;
++
++	/* Check the entire group before the shared helper changes any pin. */
++	if (g6->thru_error) {
++		for (i = 0; i < pgroup->npins; i++) {
++			if (aspeed_g6_is_thru_pin(pgroup->pins[i]))
++				return g6->thru_error;
++		}
++	}
++
++	return aspeed_pinmux_set_mux(pctldev, function, group);
++}
++
+ static const struct pinmux_ops aspeed_g6_pinmux_ops = {
+ 	.get_functions_count = aspeed_pinmux_get_fn_count,
+ 	.get_function_name = aspeed_pinmux_get_fn_name,
+ 	.get_function_groups = aspeed_pinmux_get_fn_groups,
+-	.set_mux = aspeed_pinmux_set_mux,
+-	.gpio_request_enable = aspeed_gpio_request_enable,
++	.set_mux = aspeed_g6_set_mux,
++	.gpio_request_enable = aspeed_g6_gpio_request_enable,
+ 	.strict = true,
+ };
+ 
+@@ -2778,15 +2827,103 @@ static const struct pinctrl_desc aspeed_g6_pinctrl_desc = {
+ 	.confops = &aspeed_g6_conf_ops,
+ };
+ 
++/*
++ * Experimental: transfer the global GPIOP0-P5 THRU selection to the
++ * individual mux controls before registering any pinctrl consumers.
++ * PWM selection is higher priority and is deliberately left unchanged.
++ *
++ * Do not undo the local selections on error: a shared enable may already
++ * have cleared. Keeping the equivalent local selections preserves routing
++ * while rejecting affected requests, rather than granting an unsafe GPIO.
++ * Signal continuity during this transfer still needs hardware validation.
++ */
++static int aspeed_g6_thru_handover(struct regmap *scu)
++{
++	const u32 local_mask = GENMASK(29, 24);
++	unsigned int strap2, strap3, local;
++	int ret;
++
++	ret = regmap_read(scu, SCU510, &strap2);
++	if (ret)
++		return ret;
++	ret = regmap_read(scu, SCU51C, &strap3);
++	if (ret)
++		return ret;
++
++	if (!(strap2 & BIT(28)) &&
++	    ((strap2 & BIT(30)) || !(strap3 & BIT(9))))
++		return 0;
++
++	/* Preserve every globally selected role, including under PWM. */
++	ret = regmap_update_bits(scu, SCU4BC, local_mask, local_mask);
++	if (ret)
++		return ret;
++	ret = regmap_read(scu, SCU4BC, &local);
++	if (ret)
++		return ret;
++	if ((local & local_mask) != local_mask)
++		return -EPERM;
++
++	/* Leave the inactive GPIOZ6 source alone in dedicated-strap mode. */
++	if (!(strap2 & BIT(30)) && (strap3 & BIT(9))) {
++		ret = regmap_update_bits(scu, SCU51C, BIT(9), 0);
++		if (ret)
++			return ret;
++	}
++
++	if (strap2 & BIT(28)) {
++		/* SCU510 is write-one-set; do not use an ordinary RW clear. */
++		ret = regmap_write(scu, SCU514, BIT(28));
++		if (ret)
++			return ret;
++	}
++
++	ret = regmap_read(scu, SCU510, &strap2);
++	if (ret)
++		return ret;
++	ret = regmap_read(scu, SCU51C, &strap3);
++	if (ret)
++		return ret;
++	if ((strap2 & BIT(28)) ||
++	    (!(strap2 & BIT(30)) && (strap3 & BIT(9))))
++		return -EPERM;
++
++	return 0;
++}
++
+ static int aspeed_g6_pinctrl_probe(struct platform_device *pdev)
+ {
+-	int i;
++	struct aspeed_g6_probe_data *g6;
++	struct regmap *scu;
++	int i, ret;
++
++	if (!pdev->dev.parent)
++		return -ENODEV;
++	scu = syscon_node_to_regmap(pdev->dev.parent->of_node);
++	if (IS_ERR(scu))
++		return dev_err_probe(&pdev->dev, PTR_ERR(scu),
++				     "No SCU regmap for THRU handover\n");
++
++	g6 = devm_kzalloc(&pdev->dev, sizeof(*g6), GFP_KERNEL);
++	if (!g6)
++		return -ENOMEM;
++	memcpy(&g6->pdata, &aspeed_g6_pinctrl_data, sizeof(g6->pdata));
++
++	ret = aspeed_g6_thru_handover(scu);
++	if (ret == -EPROBE_DEFER)
++		return ret;
++	if (ret) {
++		g6->thru_error = ret;
++		dev_warn(&pdev->dev,
++			 "THRU handover failed (%d); GPIOP0-P5 mux requests blocked\n",
++			 ret);
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(aspeed_g6_pins); i++)
+ 		aspeed_g6_pins[i].number = i;
+ 
+ 	return aspeed_pinctrl_probe(pdev, &aspeed_g6_pinctrl_desc,
+-			&aspeed_g6_pinctrl_data);
++			&g6->pdata);
+ }
+ 
+ static const struct of_device_id aspeed_g6_pinctrl_of_match[] = {
 
-thanks applied.
-> ---
->   arch/s390/kvm/s390/pv.c   | 16 ++++++----------
->   arch/s390/kvm/s390/s390.c |  7 +------
->   arch/s390/kvm/s390/s390.h |  2 +-
->   3 files changed, 8 insertions(+), 17 deletions(-)
-> 
-> diff --git a/arch/s390/kvm/s390/pv.c b/arch/s390/kvm/s390/pv.c
-> index b18abd0e29ef..a9bc32d5be6f 100644
-> --- a/arch/s390/kvm/s390/pv.c
-> +++ b/arch/s390/kvm/s390/pv.c
-> @@ -901,10 +901,9 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
->    *
->    * Stores buff_len bytes of tweak component values to buff_user
->    * starting with the 1MB block specified by the absolute guest address
-> - * (gaddr). The gaddr pointer will be updated with the last address
-> - * for which data was written when returning to userspace. buff_user
-> - * might be written to even if an error rc is returned. For instance
-> - * if we encounter a fault after writing the first page of data.
-> + * (gaddr). buff_user might be written to even if an error rc is
-> + * returned. For instance if we encounter a fault after writing the
-> + * first page of data.
->    *
->    * Context: kvm->lock needs to be held
->    *
-> @@ -917,13 +916,13 @@ int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc)
->    *  -EFAULT if copying the result to buff_user failed
->    */
->   int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
-> -				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
-> +				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc)
->   {
->   	struct uv_cb_dump_stor_state uvcb = {
->   		.header.cmd = UVC_CMD_DUMP_CONF_STOR_STATE,
->   		.header.len = sizeof(uvcb),
->   		.config_handle = kvm->arch.pv.handle,
-> -		.gaddr = *gaddr,
-> +		.gaddr = gaddr,
->   		.dump_area_origin = 0,
->   	};
->   	const u64 increment_len = uv_info.conf_dump_storage_state_len;
-> @@ -934,7 +933,7 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
->   
->   	ret = -EINVAL;
->   	/* UV call processes 1MB guest storage chunks at a time */
-> -	if (!IS_ALIGNED(*gaddr, HPAGE_SIZE))
-> +	if (!IS_ALIGNED(gaddr, HPAGE_SIZE))
->   		goto out;
->   
->   	/*
-> @@ -989,9 +988,6 @@ int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
->   		}
->   	} while (buff_user_len);
->   
-> -	/* Report back where we ended dumping */
-> -	*gaddr = uvcb.gaddr;
-> -
->   	/* Lets only log errors, we don't want to spam */
->   out:
->   	if (ret)
-> diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
-> index e4912db67adc..1f975ebeca82 100644
-> --- a/arch/s390/kvm/s390/s390.c
-> +++ b/arch/s390/kvm/s390/s390.c
-> @@ -2522,12 +2522,7 @@ static int kvm_s390_pv_dmp(struct kvm *kvm, struct kvm_pv_cmd *cmd,
->   		if (!kvm->arch.pv.dumping)
->   			break;
->   
-> -		/*
-> -		 * gaddr is an output parameter since we might stop
-> -		 * early. As dmp will be copied back in our caller, we
-> -		 * don't need to do it ourselves.
-> -		 */
-> -		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, &dmp.gaddr, dmp.buff_len,
-> +		r = kvm_s390_pv_dump_stor_state(kvm, result_buff, dmp.gaddr, dmp.buff_len,
->   						&cmd->rc, &cmd->rrc);
->   		break;
->   	}
-> diff --git a/arch/s390/kvm/s390/s390.h b/arch/s390/kvm/s390/s390.h
-> index aa0d1d062f8d..5d6c36c6ba34 100644
-> --- a/arch/s390/kvm/s390/s390.h
-> +++ b/arch/s390/kvm/s390/s390.h
-> @@ -316,7 +316,7 @@ int kvm_s390_pv_unpack(struct kvm *kvm, unsigned long addr, unsigned long size,
->   int kvm_s390_pv_set_cpu_state(struct kvm_vcpu *vcpu, u8 state);
->   int kvm_s390_pv_dump_cpu(struct kvm_vcpu *vcpu, void *buff, u16 *rc, u16 *rrc);
->   int kvm_s390_pv_dump_stor_state(struct kvm *kvm, void __user *buff_user,
-> -				u64 *gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
-> +				u64 gaddr, u64 buff_user_len, u16 *rc, u16 *rrc);
->   int kvm_s390_pv_dump_complete(struct kvm *kvm, void __user *buff_user,
->   			      u16 *rc, u16 *rrc);
->   int kvm_s390_pv_destroy_page(struct kvm *kvm, unsigned long gaddr);
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.47.3
 
