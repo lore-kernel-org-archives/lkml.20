@@ -1,64 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847382;
-	b=jgxR74x/9qzGbbH9j2tMjH2rH4qC1HD5O1W/Qel5kMJqyIMrO28Gmu/NtacCyVeAWiDf
-	 lxB6MzT0DHUpvg9/06kfLzF9S78Dxqte1W6HEyDyUxUTSdTXrvAgUI7B9tgAg3fTU2Q0g
-	 lpvlkltvdSMhBp+T3nsn7ZvDDdm7qF5QWvq/h6QjEwvRH9EtoNxZF6IeyNQvvoGzLQUVa
-	 AlCca1ipZEPvfOElM5y85xxOBl2nSTXehLgs5CucjUbUCYfp+bFu8zR1ec0DWwzz882G2
-	 OpX7mZsCaeivPMWbaBHCxgnEOURbGZG+24DCn4OGlZg/9BuVvEGEAvFyxHyNfmIK2Pg==
+	t=1793847410;
+	b=T4faOrDL7WXPiV9T2qf98870zk96RTqgDCT1dTnEwpNGklMVgrujjq+4luMUUVhlAPnT
+	 94cZTSji0cg2ofPJPAemKi29art7KwHXMQjG/Bn6DwtQmrNxZXeYVWI104X3vo1SSPeh5
+	 0eOaaNnG2ua3DPCvFNGmSaWiCRQq3qb3AJ8MxiiC9fg3PIhPvJ5lPsw4Rm6nElmHTt2XP
+	 v6rNGziZDzu5nLEZI0SXGVAGOmk17nlXRVOHVYbNwj5BuUJ4krdszlKEXXV12M27rAb6k
+	 R11lo08LKll/qALlq8+TGddtgu/oL1ovDmbe4yZ/jLiKERsSD40Dty2vxfYCH5OSEiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847382;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=homTZI+6uxBvAHqxiM6mH0I0hG0/U8SZI8MJlOi/WMw=;
-	b=JA4F+k8PeE4xgzHbdz/6cGSDT2jUaNEQpOgiZZks5cpUZBZdDadDFkp+53iw3UlvcqIq
-	 ydarJbY9Anq0ddyPCOkljFrKh3G5dsCx+Uf2zIfzqhTUMDN5+HXX38TDR1ae5XR15L+Fo
-	 IsHIBGY6EzgQSaE91aLczZkFLw0mgq2SJPBxt+Ndb1Y8KInAUPUe9jYb45phKgueck0iQ
-	 FD5pRC9cFuXG2/wHRkKFtI+IUsocgH/P6qQc4AcgVybP0lziTRXeB82wWHxQGPZFJLr0S
-	 HH1J4wlwgeCZ+q5/7G8As3Ou9OSffyI/QrzRt9fuaHpUcawgr/0fsnJGb3xWvTqz5dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847410;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=e7HItsBXSCgxUc39U3iHUfM+8l/Wb7Jodni6FIfl/KA=;
+	b=eG3yDyV3LEktgJIYuPN1Zrfz+C59XRXzXYQJpGGaKUw5No/Nw0V92vth3ovNsdQhHg+5
+	 fVikTHFlLHMjEGLm6CeORJL2JXPbdxbDUu2lLj0CEUZ05ArFI5q617f8xtMUdFWZRpxe8
+	 MQZMSbaQ5IECWysVxf2AWJV+A1IXTTSNTYnIEdn9wsw18ahWXpPTbvJHiPdxpfsp5CAgP
+	 i2/JWeOWgUH5BdjvUAUlK7z+gxc4LgV6AiCnAUsTIPFDdIFyHBG2yXR+I7FG2YOLYbJxL
+	 9Owspgb1UfBXFdIydaQpgyzoFfJ7QiFi3hT8n1rEM3yG5X9qep/tFsUu28xvZuPBtQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MrkKiyr9;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sJhi3beE;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA3F606D806;
-	Thu,  5 Nov 2026 02:56:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DA3F606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AA6606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 02:56:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39AA6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MrkKiyr9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ho
-	mTZI+6uxBvAHqxiM6mH0I0hG0/U8SZI8MJlOi/WMw=; b=MrkKiyr9S9pu50iCwg
-	V8HHdsR9R7WBV1xoDJ9Ak5biGthLPymSowRDjue5p+oKGnpuz3/t0hrd0FV/2eks
-	X9I4lTN5wlNSjTQ/R4E3PaoV5cRva91O6Ii70HBcFkpDsZBQSj510pgPrzx8Ytdq
-	OBI8qHk0jUe/qcae1nPP51f78=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3v14m8OtqcGAKFQ--.12622S6;
-	Thu, 05 Nov 2026 10:55:59 +0800 (CST)
-From: Qunqin Zhao <zhaoqunqin@163.com>
-To: bp@alien8.de
-Cc: tony.luck@intel.com,
-	linux-edac@vger.kernel.org,
-	chenhuacai@kernel.org,
-	zhaoqunqin@loongson.cn,
-	linux-kernel@vger.kernel.org,
-	Wusheng <wusheng@loongson.cn>,
-	Wang Jinwei <wangjinwei@loongson.cn>,
-	Huacai Chen <chenhuacai@loongson.cn>
-Subject: [PATCH v6 4/4] EDAC/loongson: Add CS4-7 timeout filter for cross-node access
-Date: Thu,  5 Nov 2026 10:55:32 +0800
-Message-Id: <20261105025532.2055-5-zhaoqunqin@163.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261105025532.2055-1-zhaoqunqin@163.com>
-References: <20261105025532.2055-1-zhaoqunqin@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sJhi3beE
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793847399; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=e7HItsBXSCgxUc39U3iHUfM+8l/Wb7Jodni6FIfl/KA=;
+	b=sJhi3beEBbsEJE9qy/YnTi+EiZCxX2WyfElrwLg3DzOlo6HeMMD+4xHjp/9asCxLslZKpJjLzOYWqgDBRMgPucqE5hrjxSaqp2FmPEJF5IFz8xpAPr/P26XflXQ+NWCmqCCT0HiFytm2GRM8aEWMmqa0HJQ9By1AuYRN2rkcUNY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XE7G6W0_1793847397;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XE7G6W0_1793847397 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 05 Nov 2026 10:56:38 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: riel@surriel.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	harry@kernel.org,
+	jannh@google.com,
+	lance.yang@linux.dev,
+	qi.zheng@linux.dev,
+	pfalcato@suse.de,
+	ayushr@modal.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm: synchronize with PTE table reclaim for all folio sizes
+Date: Thu,  5 Nov 2026 10:56:28 +0800
+Message-ID: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,111 +72,78 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v14m8OtqcGAKFQ--.12622S6
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy7GFyUCF45Xw18Ar1xAFb_yoW5uFWfpF
-	45Can8trW8Kr1q9w1ktrWUZa45CFZagFZrWFZay34rWr9Iy34DZryagr12vFn8C34Fkrn8
-	X3WrKr4xCF4UAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5ID7UUUUU=
-X-CM-SenderInfo: 52kd01pxqtx0i6rwjhhfrp/xtbC7R-gIGrr8D9xnAAA3R
 
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
+folios"), the '!pmd_present()' check in page_vma_mapped_walk() can also race
+with concurrent page table reclamation via zap_empty_pte_table().
 
-On Loongson 3C6000 multi-node systems, when the EDAC driver running
-on one node accesses the memory controller registers of another node,
-the read operation may timeout and return random values. This causes
-false CE error reports because the random values in CS0-3 (low 32 bits)
-are misinterpreted as valid ECC error counts.
+page_vma_mapped_walk() is used by many functions including try_to_unmap(),
+try_to_migrate(), folio_mkclean(), pfn_mkclean_range(), remove_migration_ptes(),
+page_mapped_in_vma(), and mapping_wrprotect_range(). Except for try_to_unmap()
+and try_to_migrate(), the other callers do not perform post-walk accounting
+checks, so the race has no observable impact on them.
 
-For cross-node accesses, check CS4-7 (high 32 bits) of the ECC
-count register. If the valid-cs-bits firmware property is set and
-the high bits are non-zero, it indicates a timeout or random value,
-so skip the report and return the previous count.
+For migration, the race can cause unnecessary retries. For reclaim via
+try_to_unmap(), the race can cause failure to reclaim a folio that is in
+fact already unmapped (as shown below), which may lead to unexpected OOM
+or increased refaults.
 
-To avoid undefined behavior on 8-CS systems where valid_cs_bits=64,
-guard the shift with a bounds check (valid_cs_bits < 64).
+CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
+--------------------------------    --------------------------------
+folio_lock(F)
+try_to_unmap(F, TTU_SYNC)
+                                    zap_pte_range(full PMD range)
+                                      spin_lock(ptl)
+                                      clear PTEs
+                                      zap_empty_pte_table()
+                                        spin_trylock(pml)
+                                        pmd_clear()
+                                        spin_unlock(pml)
 
-Signed-off-by: Wusheng <wusheng@loongson.cn>
-Signed-off-by: Wang Jinwei <wangjinwei@loongson.cn>
-Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+  page_vma_mapped_walk()
+    observe !pmd_present(pmde)
+    nr_pages < HPAGE_PMD_NR
+    skip synchronization
+    return false
+
+try_to_unmap() returns
+folio_mapped(F) == true
+nr_unmap_fail += folio_nr_pages(F)
+                                    tlb_flush_mmu_tlbonly()
+                                    tlb_flush_rmaps()
+                                      remove F's rmaps
+                                    spin_unlock(ptl)
+
+Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+has already moved the PMD clear operation (via zap_empty_pte_table()) to
+after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
+use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
+issues on weakly ordered CPUs.
+
+Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+Cc: stable@vger.kernel.org
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 ---
- drivers/edac/loongson_edac.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ mm/page_vma_mapped.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
-index c19b025004..4f79c74cb7 100644
---- a/drivers/edac/loongson_edac.c
-+++ b/drivers/edac/loongson_edac.c
-@@ -27,6 +27,7 @@ struct loongson_pvt {
- 	 */
- 	int last_ce_count;
- 	u32 mcs_per_node;
-+	u32 valid_cs_bits;
- 	bool mc_idx_valid;
- };
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index e6b6170c2f4f..8797467b6f0c 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			spin_unlock(pvmw->ptl);
+ 			pvmw->ptl = NULL;
+ 		} else if (!pmd_present(pmde)) {
+-			if ((pvmw->flags & PVMW_SYNC) &&
+-			    thp_vma_suitable_order(vma, pvmw->address,
+-						   PMD_ORDER) &&
+-			    (pvmw->nr_pages >= HPAGE_PMD_NR))
++			if (pvmw->flags & PVMW_SYNC)
+ 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
  
-@@ -37,11 +38,21 @@ static int read_ecc(struct mem_ctl_info *mci)
- 	int cs;
- 
- 	ecc = readq(pvt->ecc_base + ECC_CS_COUNT_REG);
--	/* cs0 -- cs3 */
-+	/* Discard the read value if any invalid bit is set to 1 */
-+	if (pvt->valid_cs_bits < 64 && (ecc >> pvt->valid_cs_bits)) {
-+		edac_mc_printk(mci, KERN_DEBUG, "ECC read invalid, skip: 0x%llx\n", ecc);
-+		return pvt->last_ce_count;
-+	}
-+
-+	/* cs0 -- cs7 */
- 	cs = ecc & 0xff;
- 	cs += (ecc >> 8) & 0xff;
- 	cs += (ecc >> 16) & 0xff;
- 	cs += (ecc >> 24) & 0xff;
-+	cs += (ecc >> 32) & 0xff;
-+	cs += (ecc >> 40) & 0xff;
-+	cs += (ecc >> 48) & 0xff;
-+	cs += (ecc >> 56) & 0xff;
- 
- 	return cs;
- }
-@@ -111,14 +122,15 @@ static void dimm_config_init(struct mem_ctl_info *mci)
- }
- 
- static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase,
--		     bool mc_idx_valid, u32 mcs_per_node)
-+		     bool mc_idx_valid, u32 mcs_per_node, u32 valid_cs_bits)
- {
- 	struct loongson_pvt *pvt = mci->pvt_info;
- 
- 	pvt->ecc_base = vbase;
--	pvt->last_ce_count = read_ecc(mci);
- 	pvt->mc_idx_valid = mc_idx_valid;
- 	pvt->mcs_per_node = mcs_per_node;
-+	pvt->valid_cs_bits = valid_cs_bits;
-+	pvt->last_ce_count = read_ecc(mci);
- }
- 
- static int loongson_probe(struct platform_device *pdev)
-@@ -127,7 +139,7 @@ static int loongson_probe(struct platform_device *pdev)
- 	struct mem_ctl_info *mci;
- 	struct device *dev = &pdev->dev;
- 	void __iomem *vbase;
--	u32 mcs_per_node;
-+	u32 mcs_per_node, valid_cs_bits;
- 	bool mc_idx_valid = true;
- 	int ret;
- 
-@@ -165,7 +177,10 @@ static int loongson_probe(struct platform_device *pdev)
- 	if (device_property_read_u32(dev, "mcs-per-node", &mcs_per_node) || mcs_per_node == 0)
- 		mcs_per_node = 4;
- 
--	pvt_init(mci, vbase, mc_idx_valid, mcs_per_node);
-+	if (device_property_read_u32(dev, "valid-cs-bits", &valid_cs_bits))
-+		valid_cs_bits = 32;
-+
-+	pvt_init(mci, vbase, mc_idx_valid, mcs_per_node, valid_cs_bits);
- 	dimm_config_init(mci);
- 
- 	ret = edac_mc_add_mc(mci);
+ 			goto next_pmd;
 -- 
-2.47.2
+2.47.3
 
