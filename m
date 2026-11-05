@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890707;
-	b=Ypcj/NQRxPFA6BlUTlAm2696ZYGUjE+x3852AhfC5q4AScRaYbeDrfcRWNDIex+T2X4I
-	 BCCfArfZGinKbLl6/dXAhUL8eWPuiZk4c0WCDygdeGP7p6GchOuPUvF0NDjuj4xvJmNzE
-	 ux89NoCPRBM5//Dms7Vfzmtk4CCcPpXitR3JzP7w/l6oNWxikhM2FJD2EOwihGgwEh6h1
-	 xrpUH4g7fhMKUSEYc0E1G6bM5vOBcBRCKYVGHd6qvoxJ7wx7XZFuUp1OfGc/usMmk5H1Z
-	 vKxDcRY28MWkLPwTA1HCeQH9TnQNY7B/ChRlFtYBv0UVibuzmDTccb/zpapvNNmFjEQ==
+	t=1793890712;
+	b=GrqmTme9vIvbk8/QjmgUPn3LW4HTeujV/osrhU8fFhWnTQvr81MAktStJFNwFepenbes
+	 zY+19WDcLTo0plTJl2LIvGELVWx9UbLv2mDB5Ec+AcOhHYBVkYfK5vOk/+l5uWufNL4g0
+	 greBiJx0wgqxoD/Ig1SEwLftNr5L97aHpyApuxaAnMEWe22M6u0M31rF+aVLbH8Jm9YPe
+	 X5GlY5HkClsJGap91WMf2slz688MGQewUbamz8nsMZ9wZNv1It6tyeilRlEyNFW49AQfP
+	 R/1B2eSNq6ASuIuynMO0NnBylPFalOXHvQVh1xLvuyX3yAN8yUnrzjJ9l2uuQgCuqgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890707;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890712;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=2nslQvC/aVHnWdIM3Z4G4/15txf2h77Oj9uqNFdqD0I=;
-	b=bi2fnpVVaKGfnWkFOjmTUd3SPL3szjvzrLTpK/JqlL22fg5U2Ogd2UAvt1EH0rzhr0oW
-	 QEPy7Al2kq8ALtQvP6OvKqwB7aCcxDwd7RssKLMPvLUg/74sH2mbE/prNwHxkgkALl0+v
-	 MPnnMPqVLpQ9fEtsqd1Zq3DPurmULrYg2Cq0EKRnp0QdDVirWIqsyt8qWHHbOuxlJxlY5
-	 lFJeUbqlZMwBR686vs6TPVYiSUWigLsrQhWTxgT6EuB1KWTYKnYUfOmW15WSCleAeQoZI
-	 jyFLxy8HDnxE9ayqrMf3/G/7RtIfTu9yrCa2FdMNGvI+ixisQErzZnvFQH/SBAnYENQ==
+	bh=wNn/hkKgF7gP2pmTvef/IRMHIXPvMFLFwDwyb0gIb98=;
+	b=bA6nrlwfXpJxskDtTmkU1AVr5+8Jk2pVmtsW9LJ4xncgSWQEZod3KC+7vRNQM11zoVyU
+	 Es6KLWQ2MO3Ulq/o1S36TkZlL01lwhAJboFrP9OaaxeZRIrsEhMHSsXVQAuOEkOL1MPLl
+	 98TL3iwZLRsqcsXWSMeUYqmwvnqxExO7DNRE+z4a9Vk7qBdzO/GM/Y+IlA48qFz/bnJka
+	 Ehm40i2sXkOe3ahCF0SVe4JKgsbiXqtnCDUzl6ZuEIc51H8tIGTcH6Lrr4NKvab2dgqyY
+	 IHVVDTYGUwynT3RHIK9mIL0l8rYOn+98dy1RprOcvyqU7bT9MVukF/P8ZppN9cfDDTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=OjG4onLT;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Nq1po80d;
+	arc=none smtp.remote-ip=209.85.222.177
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF88606EEA3
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BF88606EEA3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E84C60A261B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E84C60A261B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=OjG4onLT
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4d7034a99a9so1184450b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:58:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Nq1po80d
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93f269e335eso227269285a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:58:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793890705; x=1794495505; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1793890711; x=1794495511; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2nslQvC/aVHnWdIM3Z4G4/15txf2h77Oj9uqNFdqD0I=;
-        b=OjG4onLTyO9/HeWu2wWrKpIlBgalaUbSg1aE8cDuWWJKH2+2YcCmfYNv0Ilp8T/mWO
-         l7W+Y1w+bb90O/WEIwazfUTxIuBgTzkUGZyP4yp5ZFp83GmZZRI5VttMl2QyXeMA9eDk
-         gcBlMNfM9KTR/ieWpT9Th23oXinpOI2jWIucbHNEQAHQJflGN9/q61RpmZZ2dpVGzlWe
-         TX4I9vaVohguCAftJewTlwT0dJO4TI4SarTFKR0uZ8lgtyGJvo9R0FHmDmgu8aOZwEaR
-         G9D+s/70lZof4PFw1B1NONGqP35dfDKMHXzsnWgRrYHeb3YVw4/uCL2RcYJJ5pi8iEoQ
-         suAg==
+        bh=wNn/hkKgF7gP2pmTvef/IRMHIXPvMFLFwDwyb0gIb98=;
+        b=Nq1po80dyupX4JQj4k/xAoj82bE2yLjgGXQE+czDMGSX9aBQgZYdGN+E0F0IPd2L/y
+         B6M7IWWYd8MhGBgNj4frEEhRRqTI09RcE0LzwXn1g8uXyi4OoJTwq2ajnXiui+4lXkG5
+         5XDzoTGyvQn+axkl2TceoWbl95VSfE/lTRmPkTz3TJX/imfYcDhqguz/QA69Z3P6y4YZ
+         Hxzxu/CZhHSeNAf099S4k6R3d3vHiSrrdH5IPSMhl/envFqUM5CqpGcip9TinX1jDgk4
+         2J9yYQ+hHchQhZCUaF/g5/W377SbP+/lF2Z/ZigdVZmn7ug07Gzjo0e6jHolSXbCksUv
+         B+Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890705; x=1794495505;
+        d=1e100.net; s=20260707; t=1793890711; x=1794495511;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2nslQvC/aVHnWdIM3Z4G4/15txf2h77Oj9uqNFdqD0I=;
-        b=iVPrDeP07XaSqVYNnJNPVpcw6RNOE+jwcT9+khRowOJtgT78lTc1J0+iX6BwZj/qvo
-         UptnQ681ICkjQwgfnpoXLL8OMTF/uNs5Z9kmxgvsI7wtq8M0UX1R8dzn88tA3CzFo8Ls
-         VBgw/w9rtGYB+G7QPw5Cnn2SQiK1lbvDm0lWO2/Za1mzUKjCOwaM7vIrndVnSEYCZGhc
-         N585TLnuGY04nmGsE4a/urVzzKevSPoU5HiM7xO9/pErxNRr8Ul7BpNoX7QONpLc2Jfi
-         LCPTkc5Mgukktf0IaOYVuNPMWSQq0BtSRNu0HXwD539eLc3nGWNbpD5yND4jHOBoZ53z
-         BWcw==
-X-Forwarded-Encrypted: i=1; AKwUvBymPdlLQYCCWRyMAK80bLUUEkkamkhaxXmahkGMO3+9ClSpgOy3hIPLRHgCQeW/pTwNqluYlE6HWygdUVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5y+Ai13fOw5gFDvrleT6yG062s4BAH+oHUUcBE+q3FJRiIq0x
-	t0gFByxpdjvh3FpiZqU/HZX11ip3GVKOMAUi41C3/zSzWy0+U14bN5UuvXI8Lb2EbNw=
-X-Gm-Gg: AYBFou1ecxMOYTSkYIg2Hv/XO83KpmUWtcubVaji+gLBX2K+BDX2rlXLQ6SP8+tDYfs
-	v7uZo9vNaTGrR7NJYDrA9HxfalsiUVoG/nJnm4Og/MUJOTs6ciZH1EcTs1Yuq9tLU3pHx1q9btr
-	qWcDUf1zHe2dtAgyzQG48duvnNypjxCqt/fh5dpy8x1AiXaMVKoOli+8eorbtb3GfM1Ei31+QC2
-	NkHTCFInlKF82YsbtmVOMv5K0/ttzfH3W9P2h149RUYkC2u3dSrIeY1A2zxyGel6SaRGYBQB6wx
-	pB5LCU9JR5wByugDsb5BaWZ9Rtlqedt8jUjqXjqwPdVZ+ZCoe1b1/6SSlaD9tYV4UqqCAxDRxZd
-	Up/pV5raRBLdfH2wx0JZOMRPJu0WL+d3CnAQ8g7vCKgzttCHBc3cCjhRzNbHB+XV5E4XrCuZRM8
-	f4MIfx5arzsT2i9Kp5QhOZs5ch9k6SfKfHRN1fsTn8zqsSgc2s37A+hPXZ02rt8LZ0Yl6raGsk0
-	qsew8VXNHZgbQLubKzix5C9PXabUX8eqhXZc8IWqD5uZMSReELKCbygt7rJtAVAdU5W0vy+v4ww
-	nLo1M4FAN3jw3OFYYSLdsXAsVlw6F4uV90tN1tU1LTeLHw==
-X-Received: by 2002:a05:6808:1798:b0:4f4:b62c:a3d8 with SMTP id 5614622812f47-5640dcc0142mr13239065b6e.33.1793890705297;
-        Thu, 05 Nov 2026 06:58:25 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.251])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9f34acbsm4419244b6e.7.2026.11.05.06.58.22
+        bh=wNn/hkKgF7gP2pmTvef/IRMHIXPvMFLFwDwyb0gIb98=;
+        b=z7wCYCk3pPx9ubffL0mMxwBLGqMC6SJOkOoCmTkz1Xiw761Mrai9wjIimtXuZeTDpy
+         B+YAItEyRpS3Idlyer+l5eL4B3W5bjso0YL6139ONqWnSppXNaCG1UmzdP9fp4cqn4N/
+         vuT3haL7vw9Q7HBO0KZ2bRWE/onKLXJPTDWyqavTbl8LEBeXIFzEZif9Dq6DVb/CUfoy
+         sXdBzUdwq4sD5Iaw6zN7DG5weuyOgOSg8f9QemezWZrd8yINIfXFjTvZbKXTaHLhhkg8
+         WvqP+jVWWQNc1JY+6dEebPd3nizsXYMB0tpzmewjYVWR+/FY6W2YvXS7tl2BSyLrqI2i
+         0OMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzatxT1QrS7Pdon4AzfKOQxCn4q7SqdO8pRNVmmcIsOhbgJZJqi7YbkkgwfmiObUP/spIrjglMYs8z5udI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XbcP9N2pDVY7S4Jcv8ZJsfRjqjzHijjG7AyBwDqkTQiSR3Bh1
+	SmWqfMkPLZDeb8dK4NnfDPdjo/lZIYQNSM8mLb2nfPF6GlW7x0O5Rond1vk+NcZ3xGo=
+X-Gm-Gg: AYBFou3kGfBKdk0u/MjxwMa5BthMgUWtXbpYC/zWflUBoGHutwe8xg2YcO1YDu2/t5n
+	RMMDHQq9khbjWJ4wFvsIMudWXUzISqYSuLryfSqrh0rMTZ0/rocl8bj5cWpiq+ZngQlx9lewMOZ
+	cm/eh+KQxoM1ACUCxqUrnPS7TgS0jAUXsX0vgs7Q3j5wgSUtXZ8QQPsGCoyXtHak7cp2DXkTS1C
+	SwFlfX+YaLUxrTQXoO+mZHS7Q/J0LA+bt9ZQRosjkDYMdzy8XWqAVJbYrf6yOMt55gLFWS4bhsg
+	RUIDNkJBz6TA9D70m4nvvGAGXMOkc+zHXPwp277Gg4CHnyE9TAokdyKbuLHHDVcRpAIyAXp3HOz
+	uX0GRrWWEJKkfWlMNjba8UN7GE5QpnX/Sysrg93EgWqN3hFZRz1xrUt+i7YsuUwf1Rb2W0p4/Q7
+	WkZ32P+yzGbsHRQAOUgoqA0TOut0NFP7j+lyUTFb3jFlWKkpnQuCUEXqvhkDjkzKgwxHEUjtskk
+	57SdSiFrNMggzoxM9DGTDD0q1EsYmiqZok/CCngvMoeP7himiErn2mQ2Vppqwp2AdWXC+j5+GUa
+	GCSvvAvZFzYf0jt59hatRVgpcdwFS6fm5BlSNBEv7+6msA==
+X-Received: by 2002:a05:620a:414f:b0:93e:9171:b83 with SMTP id af79cd13be357-944216970c2mr3290481885a.43.1793890710900;
+        Thu, 05 Nov 2026 06:58:30 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.242])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4813a6fsm480460785a.21.2026.11.05.06.58.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 06:58:23 -0800 (PST)
+        Thu, 05 Nov 2026 06:58:30 -0800 (PST)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 14:57:06 +0000
-Subject: [PATCH RFC v3 15/90] fs: let an idmapping pin the ids of a cell
+Date: Thu, 05 Nov 2026 14:57:10 +0000
+Subject: [PATCH RFC v3 19/90] cgroup: add cgroup_cell_kill()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-15-bc9095937a84@toxicpanda.com>
+Message-Id: <20261105-b4-cells-v3-19-bc9095937a84@toxicpanda.com>
 References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 To: Christian Brauner <brauner@kernel.org>, 
@@ -105,73 +105,81 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890670; l=1943;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890670; l=2413;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=LEm7jnZkkI0mYjYi1LA7l2MoWWec+D2ZoGJVtMUTiwE=;
+ bh=lrXR3eWWfGFuCEHq20WRo32/lde2D/wq5xCJx3XPUN8=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QGBAr7sDJpJH2aFRSBZBN348qhOGfAgviJxZyIAOk4k8MK5LiEamnB164r4rMbVuLGjKA1h5/fr
- qPx5HzTh/6gE=
+ QAAUw7r/Z8aogW8tutRr3DqJtm6L2omqesHEDbkUMtyrwHdgKy2KT9c65OWJjDfhJDMUxDlaDOP
+ czr6ifynkYgA=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-A struct mnt_idmap holds a copy of the id maps of the user namespace it
-was created from. The copy does not pin the namespace.
+Killing a cell means killing everything in its budget. Add
+cgroup_cell_kill(). It does what a write to cgroup.kill does, which
+includes forks that are in flight. It also reports whether the cgroup is
+still populated, so that a cell is only reported dead once nothing is left
+in it.
 
-So a mount that was idmapped for a cell can outlive the cell. It would
-keep translating on-disk ids into the ids of the block after the block has
-been lent to another cell. A set-uid file on that mount would then run as
-the root of the new cell.
-
-Let an idmapping that was created from the user namespace of a cell hold a
-reference on that namespace. The block is released when the namespace is
-freed, so it cannot be lent again while such a mount exists.
+It uses the populated state of the cgroup rather than a task iterator. An
+iterator skips a task that is exiting, but such a task keeps its cgroup
+populated until it has been scheduled out for the last time.
+cgroup_destroy_locked() uses the populated state too, and it is called
+next, for the cgroups that the cell created below its budget.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- fs/mnt_idmapping.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ include/linux/cgroup.h |  1 +
+ kernel/cgroup/cgroup.c | 24 ++++++++++++++++++++++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/fs/mnt_idmapping.c b/fs/mnt_idmapping.c
-index bed57094cef0..93a34bc93efd 100644
---- a/fs/mnt_idmapping.c
-+++ b/fs/mnt_idmapping.c
-@@ -21,6 +21,14 @@ struct mnt_idmap {
- 	struct uid_gid_map uid_map;
- 	struct uid_gid_map gid_map;
- 	refcount_t count;
-+#ifdef CONFIG_CELLS
-+	/*
-+	 * The maps are a copy, and a copy pins nothing. The ids of a cell are
-+	 * only lent to it, until its user namespace is freed, so an idmapping
-+	 * that names them holds on to that.
-+	 */
-+	struct user_namespace *cell_ns;
-+#endif
- };
+diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
+index 4d9baf195f1e..57a4037671c9 100644
+--- a/include/linux/cgroup.h
++++ b/include/linux/cgroup.h
+@@ -155,6 +155,7 @@ struct cgroup *cgroup_get_from_fd(int fd);
  
- /*
-@@ -281,6 +289,9 @@ static void free_mnt_idmap(struct mnt_idmap *idmap)
- 		kfree(idmap->gid_map.forward);
- 		kfree(idmap->gid_map.reverse);
+ struct cgroup *cgroup_cell_budget_get(struct file *file, kuid_t *uid, kgid_t *gid);
+ int cgroup_cell_chown(struct cgroup *cgrp, kuid_t uid, kgid_t gid);
++bool cgroup_cell_kill(struct cgroup *cgrp);
+ int cgroup_cell_budget_put(struct cgroup *cgrp, bool handed, kuid_t uid, kgid_t gid);
+ struct cgroup *cgroup_v1v2_get_from_fd(int fd);
+ 
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index e5e6761522eb..75f8367271aa 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -7199,6 +7199,30 @@ int cgroup_cell_chown(struct cgroup *cgrp, kuid_t uid, kgid_t gid)
  	}
-+#ifdef CONFIG_CELLS
-+	put_user_ns(idmap->cell_ns);
-+#endif
- 	kfree(idmap);
+ 	return ret;
  }
++
++/**
++ * cgroup_cell_kill - kill everything in a cgroup and below
++ * @cgrp: the cgroup
++ *
++ * As a write to cgroup.kill. It closes against forks in flight by kill_seq.
++ *
++ * Return: whether the cgroup is still populated, as cgroup.events has it. A
++ * task counts until it has been switched out for the last time, see
++ * cgroup_task_dead(). That is longer than a task iterator shows it, and it is
++ * what cgroup_destroy_locked() goes by.
++ */
++bool cgroup_cell_kill(struct cgroup *cgrp)
++{
++	bool busy = false;
++
++	cgroup_lock();
++	if (!cgroup_is_dead(cgrp)) {
++		cgroup_kill(cgrp);
++		busy = cgroup_is_populated(cgrp);
++	}
++	cgroup_unlock();
++	return busy;
++}
+ #endif /* CONFIG_CELLS */
  
-@@ -294,6 +305,10 @@ struct mnt_idmap *alloc_mnt_idmap(struct user_namespace *mnt_userns)
- 		return ERR_PTR(-ENOMEM);
- 
- 	refcount_set(&idmap->count, 1);
-+#ifdef CONFIG_CELLS
-+	if (userns_is_cell(mnt_userns))
-+		idmap->cell_ns = get_user_ns(mnt_userns);
-+#endif
- 	ret = copy_mnt_idmap(&mnt_userns->uid_map, &idmap->uid_map);
- 	if (!ret)
- 		ret = copy_mnt_idmap(&mnt_userns->gid_map, &idmap->gid_map);
+ /**
 
 -- 
 2.55.0
