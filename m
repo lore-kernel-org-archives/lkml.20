@@ -1,76 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870828;
-	b=GKeHue3LLYZN6RcWUoiA2zPuH6SqkKtIM4+KqUXH4Ytci3AjB+NyH42+yvxdnIDZjP+e
-	 3Hd+OrFH6G62w3bzOo6U94kdSYithjK52ot6yVZiHZtNlBmg5SdfiItP4BXgyx9AinPSa
-	 4a7d24Tg+zIvWzM81uwr3yfrFUN8e88qDL6LwswxSzCMK617zTWalfVbCauPfFbfSWEYt
-	 7Znpn8Sm8jBAFyxcXICEfDxmsTs77pHQXtL7omljQbq7iQ1vLLgy4Rh3IbpgfYnJmW8bg
-	 iNe7aMzZliQoGj/fP6h406vjfbg/Ms/UIaEwoS/Qs5x0FbS1t4RormP2H2swTnL+40g==
+	t=1793870837;
+	b=siqTHHVoTq9AoqJnx5AUA8rz088R3fiuGew7kuPD3Sv536OPSd9DmmB/zj+cAsN2w29E
+	 ZJp94ltlj/jWw2o+7yst4b6GefAdvjsmjX5DteV9Vdm1DVRupXUSrBgWuHbCDn7MqKEUd
+	 yyDUixYl8h+6/XcZccyxQ+/ao7EfrD5JUQoB1hsXx6tjLe+1P0Bt48/NV/ACnWyBHwVu3
+	 rucKUsETCu/fHUejUoBzFfpAs/TBLTKUp4IAgndOg1lCiSO6Mu6bKi1a+FzkZTIfzliW+
+	 jHKTBqQiX378leMn4tA68NhtPlwXGdcoMRXMVrKkinDu+uQrTvXHAVujk+Pfgts0UXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870828;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=9pg1eAqFe+iTfmNTfa/GRPtY3M6bs2CHPsTRd5ndQTA=;
-	b=LOrT8d75eXmkuduqYXgBTUYnMOoPRVJfbhhvlahzZ2AIMPkzoAENqR2PhFohXwnDWLNQ
-	 G5xGOhafl2ZRKck3f+nCREDITw8gC/g6ojmQMzCzUHRl+YezvBe9fArE1jcX/7b2ngo8l
-	 C9RA3dc4Xjj4MawaG+jmCFdVmda3edasRghlkv6S6PMhgtWkZOSxCK29qIs/0WjqE7jVd
-	 gQR4KAmehgWo+ghiXvQYglX/MU35adwMU0U3/jnK98WdiVkdam6tSeB8Pi2aC/CZkbFBe
-	 uNw7WnUwabOfSpvx6W0GpKZJeSolfxNGrAt6gd2SD72ACKHKJJ+DWvGqa6b6PUaD37A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870837;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=S8OhL0sWlaiu9HTVuPROxOXwPJKrkeDv120Lpyg3CIo=;
+	b=rdpNbjIufyX/m2GhufzS2EbdCa+Qud3H/KgdjHgmWpRd+RRfXFR8qTAwTG65sSq4iVoo
+	 8qbH0zq8pG+iwRnbAVYkbhGSFhfRcYZeAPBGxrTsHDAMZkeazhtotACqzVDDgJIwkKu5h
+	 vkQC9C4oHQm3ECk+ee/McILzhEgjA6DYHQFtBZE8Epg0ksvV5u4orOKGDQadT9zAXCQNb
+	 +WP3uanfGzgldA/fNO7VMN/sMXhqWn6qI2f9RZNM0vEpUOiH6jY3IA7jUncaDMQ9tjwI5
+	 wlNUAxn+9X28EbW7sf8vDMKvMqymwS44W5Ty0IKyupowiblMNTjDamLjN8VbjJyHyYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GlwtRxbi;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AD9606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:27:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3AD9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91ea16d8072so100356d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:27:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793870827; x=1794475627;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9pg1eAqFe+iTfmNTfa/GRPtY3M6bs2CHPsTRd5ndQTA=;
-        b=AbyMDOtTWRnd289n3vKKYOBJRY8KQ8z3l9zPwLmkgGeTGK6oVrBIj0J93qku3OSf0Q
-         yjrOTciMPag8OaFluRPqVevLjfLwyOmTDiDxyxWVjCObnGXwNGJ8n6xutEBeZgRU6Fjg
-         joo2RcVIqxXhmcmm7JpLpOabePyjTRPyRsdroVpttmOJt9PfNE4j0sG30Bfp1rJW9SQe
-         RlRwUEzYMVEd/eEnJ7rTz4D++ol9qsqSBpDanb+GhhaTkkOc47IKuK5r8TNmeK7ha75g
-         gfDF8RajWjI+sBI8YH88LCziTfhGtgBO3gNEL6J7ZEJklxfqbJzYqh6RMIo6RQ0LIyMd
-         hNcw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSw4evzXr61nfzCaUd7l43//5DI1l0Z9MdioKe0YJxbDhPwAL+bghlIw2tpbobiES1be3LG4ATxoNSzb0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/PfUuwP8ohAKGmPU08d/caiWmQsD5HIqrE+wE/SJ75KiXvpBI5
-	Bgbgj7m0fuphf+JLFuWTfj3NplBeKOknIFhFQFh4n8PVnE9CI8csva4Ft5lGrsI26GU=
-X-Gm-Gg: AYBFou1JETkzW1mbZwDtXtyh3PmNV6Ua9CJgZR42qwf4aLQIsFmxFK4uBhYnE254QJP
-	xLjmrI7LlOVH8piOlGn9l71m5fWMqhJx7Ibv1QR8Tuv9tuMCFqr4Uoq4ZdJikBQisBTzxiUhsi3
-	R2y4It0iGuUk3ZfWsb0DFD8xwHNat13olOf0imjUodCyzNz2rLpxn2/1exo4DhdkTAV0W94dZOM
-	4XdyR+y+SL9BhSLlKZbWZrlO/aoYsWWiE+cxBpCqE1UJ3qL/30dr2uQFYuMP2ABvf9uWuklhVHd
-	wDdxTEMl110v96a+5mqClXVYSTR9iU3UsrrHBcFtsd7iY7tcAgduMMC5DM4lIOo40rPSfgAVbWh
-	BfhVxbzI7t276DxH7vBg2BXS8gE3RimI0GRpMOiAo+PTV3/4D+PNdU7XrdP/6DKuBbTYv5TuKvy
-	QmeLEvibkEL1VgKNhVoelBUxz82Z/YkpXvfnkJynQb+1uFCztc7E2RYgkYgOsxKoLq/MW05pIN/
-	Qgrxs2frmJHkZ2u+4qDE74btgt8LVXrQDN+VMYSGsIbs6/+Y3HevqnekJ0/69wuADYw6aIiG09/
-	h8lokwki/kXryk2YZ0tO7UW1ObErnxIcsr070p9cjXrvws7iCK2TFX+chDKwFDR5HxZJjw==
-X-Received: by 2002:a05:6214:484:b0:91c:751f:5951 with SMTP id 6a1803df08f44-91ca4bfa993mr310465886d6.51.1793870826417;
-        Thu, 05 Nov 2026 01:27:06 -0800 (PST)
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com. [209.85.222.180])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e8e4b81b3sm26893586d6.24.2026.11.05.01.27.05
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:27:05 -0800 (PST)
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-930c0f9c1b1so175410185a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:27:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwxC5A7IUgcFZX0a4v5hets95mdGMQPBwV8YBrqK5LCrXd+7ivbw0Bb3zrwxsPMOfFgMYBajwuKxDurgYw=@vger.kernel.org
-X-Received: by 2002:a05:6102:e0b:b0:7cc:1045:610 with SMTP id
- ada2fe7eead31-7d072cc4a42mr6604019137.27.1793870415083; Thu, 05 Nov 2026
- 01:20:15 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA482606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:27:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA482606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GlwtRxbi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=S8OhL0sWlaiu9HTVuPROxOXwPJKrkeDv120Lpyg3CIo=;
+	b=GlwtRxbijzUXJNq0K8qSjdS3z5kMtIMdNd4guz9kWdeoQhFysajAt3d6VgJwf1
+	uki9EnDa5V9fgFGSOZFxJWHXyeJGk+XXhnX/TNoFKxRF+CfJi9gSuNqpEdPP8fzs
+	A3Z8XV3IEOV4NpkOrhsudlykaTrHvF1b/KGZ3HWEFxHcA=
+Received: from [IPV6:2409:8900:1fc3:1c4:3f62:6239:6a4a:222a] (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgBnaJHYS+xqZ2xoEA--.8144S2;
+	Thu, 05 Nov 2026 17:26:50 +0800 (CST)
+Message-ID: <470adc85-93ad-4e75-9e72-ab35362373bd@163.com>
+Date: Thu, 5 Nov 2026 17:26:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,95 +54,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261104152253.3279052-1-Frank.Li@oss.nxp.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 5 Nov 2026 10:20:03 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUfYZmbf6ADFFoKSod6yhu7jQVt5CBNuQpmRUUWR3OZGw@mail.gmail.com>
-X-Gm-Features: AclHuK-9tAw2bAtaZucYUxK8rDds9GR808jJtyoj1R1Fxu-dNuDK-M2tP9yoLrk
-Message-ID: <CAMuHMdUfYZmbf6ADFFoKSod6yhu7jQVt5CBNuQpmRUUWR3OZGw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-To: Frank.Li@oss.nxp.com
-Cc: Mark Brown <broonie@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>, 
-	Ryan Wanner <ryan.wanner@microchip.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean <olteanv@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>, 
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Mack <daniel@zonque.org>, 
-	Haojian Zhuang <haojian.zhuang@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Heiko Stuebner <heiko@sntech.de>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>, 
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Laxman Dewangan <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Sowjanya Komatineni <skomatineni@nvidia.com>, 
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>, 
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>, 
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>, 
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>, 
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>, 
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>, 
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, 
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>, 
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, 
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, Thierry Reding <treding@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: fix out-of-bounds write race in
+ NTFS_IOC_LIST_STREAMS
+To: Xingyuan Mo <hdthky0@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>,
+ Hyunchul Lee <hyc.lee@gmail.com>
+Cc: "open list:NTFS FILESYSTEM" <ntfs@lists.linux.dev>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261105073353.433854-1-hdthky0@gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20261105073353.433854-1-hdthky0@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgBnaJHYS+xqZ2xoEA--.8144S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF43Xw4rtFW3Gw4UJrWrKrg_yoWrCF15pF
+	y3K3ySqrs7Jr1xArs7ta1Y9ry093Z2gw4UKrZagFy2va13Xr1aqF17K3y8Wry8CrZ8uFyU
+	Aas0q39xWw1Uua7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U24iUUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hreqWrsS9pZagAA3j
 
-Hi Frank,
 
-On Wed, 4 Nov 2026 at 16:30, <Frank.Li@oss.nxp.com> wrote:
-> From: Frank Li <Frank.Li@nxp.com>
->
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across SPI bus drivers.
->
-> No functional change intended. Prepare make to struct
-> dma_async_tx_descriptor private to the DMA engine.
->
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-> Acked-by: Alain Volmat <alain.volmat@foss.st.com>
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> Reviewed-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-> Acked-by: Thierry Reding <treding@nvidia.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+
+在 2026/11/5 15:34, Xingyuan Mo 写道:
+> NTFS_IOC_LIST_STREAMS walks the base inode's MFT attributes twice:
+> a first pass sizes the output buffer, a second pass fills it, both
+> times filtering out streams that ntfs_stream_unlinked() reports as
+> unlinked.  That filter is the culprit: it treats a stream inode that
+> is no longer in the inode hash as live, which is precisely the state
+> a stream being deleted ends up in.
+> 
+> When a base file is deleted while one of its named streams is still
+> open, ntfs_cleanup_deleted_inode() sets NInoStreamUnlinked on the
+> stream inode and removes it from the inode hash after dropping the
+> MFT record lock.  Nothing serializes this against the ioctl's two
+> passes, so if the flag and the unhash land between them, the first
+> pass excludes the stream while the second pass includes it, and the
+> ioctl writes an entry the allocation never accounted for.
+> 
+> The per-entry bounds check cannot catch this divergence, because
+> "offset > required - entry_size" underflows when entry_size exceeds
+> required.  With a 1-character stream sizing the buffer at 48 bytes and
+> a 250-character stream surfacing only in the second pass, a 544-byte
+> entry is written into the 48-byte kmalloc-64 allocation.
+> 
+> Close the hole in two steps:
+> 
+> - Reject base inodes that are being deleted before walking their
+>    attributes, like the other named stream entry points in this file
+>    already do.  This also stops the listing from reporting streams of a
+>    deleted base file as live, which is reproducible even without the
+>    race.
+> 
+> - Make the bounds check underflow-safe so any remaining divergence
+>    between the passes can only produce -EOVERFLOW, never an
+>    out-of-bounds write.
+> 
+> KASAN report from the reproducer (timestamps stripped):
+> 
+> BUG: KASAN: slab-out-of-bounds in ntfs_ioctl_list_streams+0x7a9/0xa00
+> Write of size 500 at addr ffff88800b1931a8 by task ntfs_ads_race/305
+> CPU: 2 UID: 0 PID: 305 Comm: ntfs_ads_race
+> Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> Call Trace:
+>   <TASK>
+>   dump_stack_lvl+0x73/0xb0
+>   print_report+0xd1/0x610
+>   kasan_report+0xff/0x130
+>   kasan_check_range+0x10c/0x1c0
+>   __asan_memcpy+0x3f/0x70
+>   ntfs_ioctl_list_streams+0x7a9/0xa00
+>   ntfs_ioctl+0x3b6/0x420
+>   __x64_sys_ioctl+0xd1/0x120
+>   x64_sys_call+0x2a5/0x2220
+>   do_syscall_64+0x109/0x5e0
+>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   </TASK>
+> 
+> Allocated by task 305:
+>   kasan_save_stack+0x3d/0x60
+>   kasan_save_track+0x18/0x40
+>   kasan_save_alloc_info+0x3b/0x50
+>   __kasan_kmalloc+0x9c/0xa0
+>   __kvmalloc_node_noprof+0x2dd/0x800
+>   ntfs_ioctl_list_streams+0x57f/0xa00
+>   ntfs_ioctl+0x3b6/0x420
+>   __x64_sys_ioctl+0xd1/0x120
+>   x64_sys_call+0x2a5/0x2220
+>   do_syscall_64+0x109/0x5e0
+>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> The buggy address belongs to the object at ffff88800b193180
+>   which belongs to the cache kmalloc-64 of size 64
+> The buggy address is located 40 bytes inside of
+>   allocated 48-byte region [ffff88800b193180, ffff88800b1931b0)
+> 
+> Fixes: 48996054b706 ("ntfs: add named stream ioctls support")
+> Signed-off-by: Xingyuan Mo <hdthky0@gmail.com>
 > ---
-> change in v2
-> - add missed set_callback in rspi_dma_transfer() (sashiko
-> - collect review by tags
-> - drop void *
+>   fs/ntfs/named_stream.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ntfs/named_stream.c b/fs/ntfs/named_stream.c
+> index 95a3c05f9821..70c589207713 100644
+> --- a/fs/ntfs/named_stream.c
+> +++ b/fs/ntfs/named_stream.c
+> @@ -1632,6 +1632,10 @@ int ntfs_ioctl_list_streams(struct file *filp, unsigned long arg)
+>   	ubuf = (void __user *)arg + sizeof(hdr);
+>   
+>   	mutex_lock(&ni->mrec_lock);
+> +	if (NInoBeingDeleted(ni) || !inode->i_nlink) {
+> +		mutex_unlock(&ni->mrec_lock);
+> +		return -ENOENT;
+> +	}
+>   	actx = ntfs_attr_get_search_ctx(ni, NULL);
+>   	if (!actx) {
+>   		mutex_unlock(&ni->mrec_lock);
+> @@ -1731,7 +1735,7 @@ int ntfs_ioctl_list_streams(struct file *filp, unsigned long arg)
+>   		}
+>   
+>   		entry_size = ALIGN(name_offset + name_len, 8);
+> -		if (offset > required - entry_size) {
+> +		if (offset > required || entry_size > required - offset) {
+>   			ret = -EOVERFLOW;
+>   			kfree(sn);
+>   			sn = NULL;
 
-You have lost the "# Renesas related drivers" part from Wolfram's
-review?
-https://lore.kernel.org/all/auoQiuIm9FxdOrYl@shikoro/
+Looks good to me.
 
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
