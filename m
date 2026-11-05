@@ -1,79 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793896243;
-	b=gyHFPV8sBjUM8GvKwq9vHzQ7uZUH/+c82H1+dGOQX6Rcy2IYqYJ/2JUzyjSFZ0CKKnMQ
-	 IL7yoa+nMooUNW2U7M5m0Rh55pr9XiyPktIGn50sCMIE0hxrELiMZF8DkdoZ1KBQQ2XdG
-	 LjiTBpxQh6fEpRlZpJFuCH1YsyHdbqHKPLqwv3nNW7j8VGdNRJLHrjoGQ5zO6jem87sTc
-	 Q5dEkTa9xxZwYsjzIr9qr5RXwy1tuYEXOJD2q9oge3wFAZYo92J3tIZs0LO5O7jdV87Qd
-	 PCJ8O0za2MLbXgH5pnoJU0ffldZ9TbW/TEP1ezj5gd7/zSIVffYgb1T+f0JrOg4ufDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896243;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=brRaNVsXCbgcZvAnf8uwz53iJFQBIOQzw2Yzz5STZMo=;
-	b=Zt5fXh7pHCDGgK+oP/hI+qpRcfINskI2K/VnGnSZ+nKJUzYC5nQiGdort3EXJNlj9a6u
-	 MOPn9BjnIgUtDQz3eMr79oM+qMau7LX503BZ6PFlz4feo7/s6foBVR3BmJvSqW6q8misR
-	 9BzLeXrIz1xcTc3NgvfFJiZpWs6icGNsHElyaOcxmMKNvvbE7HnXl2EU90Z2aJjs/AdfE
-	 emg36vWCIiW5MP++KsditpOxiPX6zpJk9rxAxVb85XbAQuZ9iYghJf+rOPTJygneC4EUf
-	 D+U3CQkdx9NOUtz25xL9HoJ8kiE7fPGSW+z5Nrk3nJluGPq4jEtgZ70gxEgxKUbiWLg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iT+m03tv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F02606D80A;
-	Thu,  5 Nov 2026 16:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iT+m03tv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793896242;
-	b=GcPLlnqfmK+HnJ3mHp3rkZKsHiEtSjlhkWI1cBh7vfi/1FVVg4LPsb8CaXPoh7O4b2OL
-	 xZ1LCDxOcCwNopIGOE2W80jYurCW9bY2PKT2ohQ/lpF+KYmTFOIfhog7YW8UwZYK+NKTc
-	 HD+lQ5XjkSLH7K4GcKfd1GY+iMcwZ9/YFkAFuWgZxtv3q5c4kB+cy/fxBnJKiP2wTqjkx
-	 aAHEH8H7aTS0YUEIj6eCL2VAal0fqWSqVFfbbkdv/49lD4K+5ONXp7fII9c/hAK5c6Vbc
-	 lHIvFg9rMiP18XGNF6+Imzh/YgYs67aQj80X8qvuZ/X/00wu9uiZxCxls8jfkOsl5sw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793896242;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=brRaNVsXCbgcZvAnf8uwz53iJFQBIOQzw2Yzz5STZMo=;
-	b=eIYnHxt9L6QwO6c+ExAvdPfsW0g0vJoO2Sj/Tyjz1zzAzsUIKbjjpJo4dqOgeIBFizgP
-	 jHqu4AynVLkZM2JtzbOsM2Sig6rg12mpKWPAnlUwsjp1wcZdqTvhN1XuLe1eqe49NdJfu
-	 vhxpVVJA4Ku6ukPbdZrvAm3ZUmP6qpB8zkxjSgKNWYQ27gEo3OXOHOf0lHu219JI91Tph
-	 JPopNVe8WGSdYF7oIM0NyBNxUj/Tk4W4y+i5+2IWiyG4/VgPTATe7/BBfm+C0/rRoTHyO
-	 H98XdTEcodV0sIANIxGogVY0B6Wb8zKPd6ZgQd3Qj1jfuiW9GBLf8wA59gatWo2fH4w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793896247;
+	b=3Md+1xoTavlfJm3Jzx6FSEpt3stVFCErrjoz9nUZZQpXkELmpFiQmQXM9/C3AVhHws0r
+	 Y+x+T97H/iGdqglkJbQdlHIR+phD/kxB9XkHZZT0lK/cCwnxT6J32W4v42jhO3Om1WfyQ
+	 OVvL1RPjLsQeIH0Hz3yA5tLdo7Lo3aUGbF/khMlpWdr37t4xnJNtSWQCaHjYTPydjkh62
+	 cV+S2hahEhq0jGTpW2s4D76lzyVMPz4OCepUS77qPLXzWGBSuLJa/43DvCKpoFsjNDozH
+	 9JPNveU9MhQaAXPq84w28DajWAE5+gMuY/8TuyDAWFjBK2pTTYKc93pNbLoVd2Vx68Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896247;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5prWUgliJcOAr4R1nMCKAcSyRg6dSeYd31zgPiidQv4=;
+	b=I2h1I1nD0Y3GlCJlNZOAHOiyHJOR90Tx9xy+AQiodl1PyqSjMwC/7xzMAsTL/9nrn/tY
+	 jmyjCPxpWv/FyP6hqXVG6FoxlF3Mc3Rg7iJqzyMNT5sK5iNhBoGlbxL1XatnhDRmFQjQn
+	 wrLPk82PpBVDkWLXKpCv5vB3DgxBmYo99PQ1xUmvUaQ4XUd4NfbvK61V0M3MqoieR6jo2
+	 GaCV1CarY65gP75XUkdpi3OYGc0XGJ68aeApc7zs45nMSZE3YCCrDuf4gtG5rMYWd1Jyl
+	 dwM0kvLXDLnzgHst09bw0Iu1oP+ttYWHbJ2hY1JrIV5awqzDkdjJ++7/gI5JYcdYPGw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oZj2Qthq;
+	arc=none smtp.remote-ip=209.85.208.172
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EA06A1F0093A;
-	Thu,  5 Nov 2026 16:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896242;
-	bh=brRaNVsXCbgcZvAnf8uwz53iJFQBIOQzw2Yzz5STZMo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iT+m03tvViyhXjOr6UhRpvTtMZz1L8NmSvjbpc1wdgsvyUGZbAQEZhMkF50ip+p33
-	 exOW4FDguNqi4x1hRdYq0t/iesMjIbWzkoi1JdlfBEXgholdUaSx18tjOfxxOp0XFm
-	 E2RDuI+6luTdfUFjOr4cNaREptlQox79be6ZPsrxfALimxoCZWFSJgbqO8Calt4H3c
-	 c3Nas+uS19GSn1WpTdbsHwsWl6106NRn3ab58EQObfTpzl59GCc6S3Nr2eLdhRW/JB
-	 1xz+JWv9GWeYRv02Nvn/dGspU7kTl/IWdeheW4yh9iqxxOEQfSUY2CzEJl9Y0lATIt
-	 U7W6C+N7Gk4eg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7921847324;
-	Thu,  5 Nov 2026 16:30:39 +0000 (UTC)
-From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 11:30:38 -0500
-Subject: [PATCH net-next v6 2/6] tls: add socket options to register the
- traffic secrets
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401AF606A33F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 401AF606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oZj2Qthq
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a49a022221so17060881fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:30:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793896245; x=1794501045; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5prWUgliJcOAr4R1nMCKAcSyRg6dSeYd31zgPiidQv4=;
+        b=oZj2QthqIaoMgX12bDQzDLYYigovLdATU1ZTvS2usFr/kf3cMUEP5DF+aV+bxQF11X
+         DBERifKPAwogTciTcx+oUAujKCKAQyZz40EXzMb3WzGXer4sebyZ1pIz9PDmaRW7ZVbH
+         GqQUSgQfTnrbBKzWTywZpI4MWB4K6h73PM0Eo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793896245; x=1794501045;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5prWUgliJcOAr4R1nMCKAcSyRg6dSeYd31zgPiidQv4=;
+        b=vd+XCuYMVtpQDspkkKLrdDlhJfkb1CwBClyB1s/LlX0sY8WIuiUlmmbpSVpwHxqhTH
+         /vCxXcLfBiiCHNaBsDBAHXWCFiDw1oc7otLBNnLe6eKhyXPu2z1ER+roBmbmtzoGEL6W
+         VjlzUwqd9Ea9UY+OTCBjED5k1JIXKpjLoKbyP1YiiLZ2I94kjVsBPQgvG4zV6d/aOQlK
+         7j/GsRuuN3pd8RthCkTnLIg6MxOZa3VjKQzW/XKM/m2AG6UH67h5TDcpRiFTe/YEqUhc
+         o0grRIgB0asGlDL0DKAOjmIRWkShcsn7hiSySAJ4h/hly8I/zfnHwW25kuwRIYVegSR7
+         Qlyw==
+X-Forwarded-Encrypted: i=1; AKwUvBx1NyshZ+QieV4mrjW0q4YxiTZx4G0lZPkKEDquQyMEvbTI8BCV0jDR6xPjQdiBUgJzPOczysUZlI8dUn0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EN3vYdDA915DINZVbeNQoMNWKjolZGUSqIs6DarnqNOLk9XvR
+	hSz7c4/LUDXtqDFAj3svxLUaSAznFOfhO5OBWRiTXMxHOO7CtL9CBr0onppoNfAAoD3tVDaXH45
+	wzFwQnLu3
+X-Gm-Gg: AYBFou3nJLLHsSk7ePaSmuUDKBkKnZCgHQ3XakFhCug4e3QbTR+9ej2BX9GLgW61iLy
+	b0HFX4qgokI6hcjq9rNU4nJSDmMi28/kyswa7Tr/2D2l3DK/ouywkpv4mhO762KRdqx7X2I1seg
+	oXLcBxouYmKf0KdVfZWPaLLQ6WF2KrOM1ffbFQZ7jf3POMlRvefeGEoAJUpimInv6bU/7/MKS9H
+	SBP41gf8VgbDLIsU05E7vMZ7wde29CsKCSUfI6A3TJZS7Io5ErQxHyra2F1i74EyKc61/nKschN
+	Vc7EAMsaVosyTCl8qhrzsyTjpW0nhfoR4L8y/bk+lZz3JUUM7bHFbRKk1CEla/vApc+5ekpmsYF
+	4EaUIJk5fqiBr4FEKkkEPNkUpJTvI1EdER4PUP7QV1PgUfYTIbFHb+9kmMGx2HZIcinfUnJlzzD
+	lWS3JIDav4onadZ0/ZZ8ee72oOVnRFt6DQUcr20JW2IKWHZAnACU6YMzZZyBEEP5cr6HNFOoZ6v
+	GQP9x6GBK0tL8DeDRHr/i7JQAUQ1MLiMG/9YArSRG2koQNX1A/jod3YhbKPxcnZkh/NkmH7pOMt
+	eBhB1wYN1MjZDpUbAMXY099ilcK27v/apoQS6haIJtX2WKHeFYfQbF6Ka/mUjpS6IlbaxME=
+X-Received: by 2002:a05:651c:c91:b0:3a6:6f81:1027 with SMTP id 38308e7fff4ca-3acb7b2366emr46774791fa.24.1793896245355;
+        Thu, 05 Nov 2026 08:30:45 -0800 (PST)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com. [209.85.208.177])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6bec5asm10526361fa.9.2026.11.05.08.30.44
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 08:30:44 -0800 (PST)
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3acd239776cso18034771fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:30:44 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxkXLswoHQDEeUwgdlgRnwTuz/NNw5j16w/rMToUGLsp02mxEu1XjKagL+4OVDjAfgp7hkJyLhnvrNgpiA=@vger.kernel.org
+X-Received: by 2002:a05:600d:a:b0:4ac:aae6:6400 with SMTP id
+ 5b1f17b1804b1-4acaae665a6mr332973265e9.13.1793895857514; Thu, 05 Nov 2026
+ 08:24:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,346 +94,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-keyupdate-rfc-v6-2-99b695f9eb4f@gmail.com>
-References: <20261105-keyupdate-rfc-v6-0-99b695f9eb4f@gmail.com>
-In-Reply-To: <20261105-keyupdate-rfc-v6-0-99b695f9eb4f@gmail.com>
-To: John Fastabend <john.fastabend@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>, 
- kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org, 
- Alistair Francis <alistair.francis@wdc.com>, 
- Martin Belanger <martin.nvme.dev@gmail.com>, 
- Martin Belanger <martin.belanger@dell.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793896238; l=10201;
- i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
- bh=r6MOueP4C93wiwe38pcIKjBlfMibLAZRKIdg+hDA0KY=;
- b=Hn8KAMvRyFWbLyCR+e6STXbErBqmAD12YGhGJhQMg0ZwaxEkx0Zz+rAG73E8vtd6sr445SMF7
- U3pHYKOdEHSBAZ+fLZoovY59YepbVk30HvPHZZWhWgqrZep4nuCBsG6
-X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
- pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
-X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
- with auth_id=1176
-X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
-Reply-To: martin.nvme.dev@gmail.com
+References: <20261104174554.1.I8556199ea4f1335169ce16e97309aa63ae2e2310@changeid>
+ <20261105052401.GA862715@ax162>
+In-Reply-To: <20261105052401.GA862715@ax162>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 5 Nov 2026 08:24:03 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
+X-Gm-Features: AclHuK8NKe2Ice8G3ieACvjOY5cRy1bgQZ2ikhne4c6q9f8t2mnwrvferc3g3-I
+Message-ID: <CAD=FV=Vx4gHvF0TegRBwZetTNjP5AsjbBK9+sjNA43OpL1Wjiw@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Enable -salvage-stale-profile
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
+	Rong Xu <xur@google.com>, Han Shen <shenhan@google.com>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>, 
+	Bill Wendling <morbo@google.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Boqun Feng <boqun@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Justin Stitt <justinstitt@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Martin Belanger <martin.belanger@dell.com>
+Hi Nathan,
 
-kTLS holds the key and IV of each direction, but not the traffic secret
-they were derived from. The derivation is one-way, so the kernel cannot
-compute the next generation for a KeyUpdate on its own.
+On Wed, Nov 4, 2026 at 9:24=E2=80=AFPM Nathan Chancellor <nathan@kernel.org=
+> wrote:
+>
+> On Wed, Nov 04, 2026 at 05:45:55PM -0800, Douglas Anderson wrote:
+> > From: Han Wang <nesthanwang@google.com>
+> >
+> > AutoFDO profiles are commonly collected on one kernel revision and
+> > reused across subsequent commits or stable merges before a fresh
+> > profile is generated. While AutoFDO uses function-relative line
+> > numbers to tolerate edits above a function, adding or removing lines
+> > inside a function (or an inlined helper) shifts all subsequent
+> > relative line offsets within that function. Without stale profile
+> > salvaging, shifted callsites fail to match their nested inlinee
+> > profiles in SampleProfileLoader (dropping profile-guided inlining for
+> > those callees) and basic block sample counts are misattributed to the
+> > wrong instructions, degrading branch probability estimation and
+> > machine function splitting.
+> >
+> > Enable LLVM stale profile salvaging (-salvage-stale-profile, supported
+> > since LLVM 17) for C, Rust, and ThinLTO builds when
+> > CLANG_AUTOFDO_PROFILE is specified. This instructs SampleProfileMatcher
+> > to use lexical callsite anchors within functions to fuzzy-match and
+> > remap shifted line offsets when querying the profile.
+> >
+> > While -salvage-stale-profile is not enabled by default in LLVM due to
+> > the minor compile-time/memory cost of sequence-matching callsite
+> > anchors (which is unnecessary when profiles are freshly generated on
+> > the exact commit being built) and the heuristic nature of fuzzy
+> > matching on heavily rewritten functions, enabling it makes sense for
+> > the kernel: hardware PMU profiles are rarely regenerated on every
+> > commit, and anchoring on callsite names is strictly more resilient
+> > than blind line-offset lookup when functions are edited.
+> >
+> > As a side benefit, remapping shifted line offsets also avoids feeding
+> > mismatched weights from stale profiles into MIRProfileLoader's flow
+> > inference solver (applyFlowInference), working around a compiler bug
+> > [1] where a small intra-function line shift (such as in
+> > __vm_normal_page() in mm/memory.c) can cause applyFlowInference to
+> > spend 30+ minutes compiling unmap_page_range().
+> >
+> > Link: https://github.com/ClangBuiltLinux/linux/issues/2188 [1]
+> > Signed-off-by: Han Wang <nesthanwang@google.com>
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > ---
+> > Much of the commit-message justification here is AI-generated. Sorry!
+> > :( Folks who know better, feel free to call bullshit.
+>
+> The justification does not seem wrong to me on initial read but it
+> definitely feels like the first and third paragraphs could be reduced in
+> verbosity since this can basically be summarized by "AutoFDO profiles
+> are often reused, which can be problematic without profile salvaging
+> enabled, which is designed for this exact situation".
 
-Add TLS_TX_TRAFFIC_SECRET and TLS_RX_TRAFFIC_SECRET. The owner of the
-socket passes the TLS 1.3 application traffic secret of a direction after
-installing its key. The cipher of the installed key selects the hash, so
-the option takes only the secret. A socket without a registered secret
-behaves as before.
+Happy to reword or happy for upstream maintainers to reword themselves
+when landing. If you want a v2 sent with shorter wording, let me know.
 
-The secret must give the installed key and IV, or the option fails with
--EINVAL. A wrong secret would otherwise fail only at the first
-KeyUpdate.
-
-The TX secret can be registered alone. The RX secret needs the TX secret
-first: a received KeyUpdate can ask for one in reply, and since the
-kernel consumes the record, only the kernel can send that reply.
-
-Installing a new key with TLS_TX or TLS_RX removes the secrets that no
-longer apply. The secrets are cleared when the context is freed and
-cannot be read back.
-
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Martin Belanger <martin.belanger@dell.com>
-Reviewed-by: Chuck Lever <cel@kernel.org>
----
- Documentation/networking/tls.rst |  26 +++++++
- include/net/tls.h                |  13 ++++
- include/uapi/linux/tls.h         |   2 +
- net/tls/tls_main.c               | 145 ++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 185 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/networking/tls.rst b/Documentation/networking/tls.rst
-index 980c442d7161..2e011bd1ce4a 100644
---- a/Documentation/networking/tls.rst
-+++ b/Documentation/networking/tls.rst
-@@ -300,6 +300,32 @@ extra byte used by the ContentType field.
- 
- [1] https://datatracker.ietf.org/doc/html/rfc8449
- 
-+TLS_TX_TRAFFIC_SECRET and TLS_RX_TRAFFIC_SECRET
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+``TLS_TX_TRAFFIC_SECRET`` registers the TLS 1.3 application traffic secret
-+of the transmit direction, ``TLS_RX_TRAFFIC_SECRET`` that of the receive
-+direction. With a registered secret, the kernel performs KeyUpdate for that
-+direction itself (RFC 9846, section 4.7.3). The value is the secret itself.
-+TLS 1.3 only, software path only.
-+
-+Install the key of the direction first, with the ``TLS_TX`` or ``TLS_RX``
-+socket option described above. The cipher of that key selects the hash, and
-+the secret must have the length of that hash: 32 bytes for SHA-256
-+(AES-128-GCM, AES-128-CCM, ChaCha20-Poly1305) or 48 bytes for SHA-384
-+(AES-256-GCM). Other ciphers return ``EOPNOTSUPP``.
-+
-+Each secret can be registered once. ``TLS_RX_TRAFFIC_SECRET`` needs
-+``TLS_TX_TRAFFIC_SECRET`` first: a received KeyUpdate can ask for one in
-+reply, and only the kernel sees it. ``TLS_TX_TRAFFIC_SECRET`` alone is
-+allowed.
-+
-+If the application installs a new key itself with ``TLS_TX``, both secrets
-+are removed. With ``TLS_RX``, the RX secret is removed. KeyUpdate for that
-+direction is then left to the application again.
-+
-+The secrets cannot be read back.
-+
- Statistics
- ==========
- 
-diff --git a/include/net/tls.h b/include/net/tls.h
-index e57bef58851e..aacc6d12226e 100644
---- a/include/net/tls.h
-+++ b/include/net/tls.h
-@@ -65,6 +65,9 @@ struct tls_rec;
- 
- #define TLS_AAD_SPACE_SIZE		13
- 
-+/* SHA-384, the longest hash of a TLS 1.3 cipher suite kTLS supports */
-+#define TLS_MAX_TRAFFIC_SECRET_SIZE	48
-+
- #define TLS_MAX_IV_SIZE			16
- #define TLS_MAX_SALT_SIZE		4
- #define TLS_TAG_SIZE			16
-@@ -224,6 +227,12 @@ struct tls_prot_info {
- 	u16 tail_size;
- };
- 
-+/* A TLS 1.3 application traffic secret. len is 0 if none is registered. */
-+struct tls_traffic_secret {
-+	u8 data[TLS_MAX_TRAFFIC_SECRET_SIZE];
-+	u8 len;
-+};
-+
- struct tls_context {
- 	/* read-only cache line */
- 	struct tls_prot_info prot_info;
-@@ -266,6 +275,10 @@ struct tls_context {
- 	union tls_crypto_context crypto_send;
- 	union tls_crypto_context crypto_recv;
- 
-+	/* Registered for KeyUpdate, protected by the socket lock */
-+	struct tls_traffic_secret tx_secret;
-+	struct tls_traffic_secret rx_secret;
-+
- 	struct list_head list;
- 	refcount_t refcount;
- 	struct rcu_head rcu;
-diff --git a/include/uapi/linux/tls.h b/include/uapi/linux/tls.h
-index 1245ab38afc1..d1b136ecea96 100644
---- a/include/uapi/linux/tls.h
-+++ b/include/uapi/linux/tls.h
-@@ -42,6 +42,8 @@
- #define TLS_TX_ZEROCOPY_RO	3	/* TX zerocopy (only sendfile now) */
- #define TLS_RX_EXPECT_NO_PAD	4	/* Attempt opportunistic zero-copy */
- #define TLS_TX_MAX_PAYLOAD_LEN	5	/* Maximum plaintext size */
-+#define TLS_TX_TRAFFIC_SECRET	6	/* TLS 1.3 TX traffic secret */
-+#define TLS_RX_TRAFFIC_SECRET	7	/* TLS 1.3 RX traffic secret */
- 
- /* Supported versions */
- #define TLS_VERSION_MINOR(ver)	((ver) & 0xFF)
-diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
-index b8d5a843f761..3ab71e98527a 100644
---- a/net/tls/tls_main.c
-+++ b/net/tls/tls_main.c
-@@ -31,6 +31,8 @@
-  * SOFTWARE.
-  */
- 
-+#include <crypto/sha2.h>
-+#include <crypto/utils.h>
- #include <linux/module.h>
- 
- #include <net/tcp.h>
-@@ -325,6 +327,8 @@ void tls_ctx_free(struct sock *sk, struct tls_context *ctx)
- 
- 	memzero_explicit(&ctx->crypto_send, sizeof(ctx->crypto_send));
- 	memzero_explicit(&ctx->crypto_recv, sizeof(ctx->crypto_recv));
-+	memzero_explicit(&ctx->tx_secret, sizeof(ctx->tx_secret));
-+	memzero_explicit(&ctx->rx_secret, sizeof(ctx->rx_secret));
- 	mutex_destroy(&ctx->tx_lock);
- 
- 	if (sk)
-@@ -757,8 +761,16 @@ static int do_tls_setsockopt_conf(struct sock *sk, sockptr_t optval,
- 		ctx->rx_conf = conf;
- 	update_sk_prot(sk, ctx);
- 
--	if (update)
-+	if (update) {
-+		/* The registered secret no longer matches the key. The RX
-+		 * secret also needs the TX one, see do_tls_setsockopt_secret().
-+		 */
-+		if (tx)
-+			memzero_explicit(&ctx->tx_secret,
-+					 sizeof(ctx->tx_secret));
-+		memzero_explicit(&ctx->rx_secret, sizeof(ctx->rx_secret));
- 		return 0;
-+	}
- 
- 	if (tx) {
- 		ctx->sk_write_space = sk->sk_write_space;
-@@ -868,6 +880,130 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
- 	return 0;
- }
- 
-+/* Length of the TLS 1.3 traffic secret for @cipher_type, the size of
-+ * its hash. 0 if KeyUpdate is not supported for the cipher.
-+ */
-+static int tls_traffic_secret_len(u16 cipher_type)
-+{
-+	switch (cipher_type) {
-+	case TLS_CIPHER_AES_GCM_128:
-+	case TLS_CIPHER_AES_CCM_128:
-+	case TLS_CIPHER_CHACHA20_POLY1305:
-+		return SHA256_DIGEST_SIZE;
-+	case TLS_CIPHER_AES_GCM_256:
-+		return SHA384_DIGEST_SIZE;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+/* The installed key and IV must be the ones that @secret gives
-+ * (RFC 9846 section 7.3):
-+ *
-+ *   key = HKDF-Expand-Label(secret, "key", "", key_length)
-+ *   iv  = HKDF-Expand-Label(secret, "iv", "", iv_length)
-+ *
-+ * crypto_info holds the iv as salt followed by iv. Each KeyUpdate
-+ * derives the next key from the secret, so a wrong secret fails only
-+ * at the first KeyUpdate, with no clear cause.
-+ */
-+static int tls_check_traffic_secret(struct tls_crypto_info *crypto_info,
-+				    const u8 *secret, int len)
-+{
-+	const struct tls_cipher_desc *cipher_desc;
-+	u8 iv[TLS_MAX_SALT_SIZE + TLS_MAX_IV_SIZE];
-+	u8 key[TLS_CIPHER_AES_GCM_256_KEY_SIZE];
-+	int rc;
-+
-+	cipher_desc = get_cipher_desc(crypto_info->cipher_type);
-+	if (!cipher_desc || cipher_desc->key > sizeof(key) ||
-+	    cipher_desc->salt + cipher_desc->iv > sizeof(iv))
-+		return -EINVAL;
-+
-+	rc = tls_hkdf_expand_label(secret, len, "key", key, cipher_desc->key);
-+	if (rc)
-+		goto out;
-+
-+	rc = tls_hkdf_expand_label(secret, len, "iv", iv,
-+				   cipher_desc->salt + cipher_desc->iv);
-+	if (rc)
-+		goto out;
-+
-+	if (crypto_memneq(key, crypto_info_key(crypto_info, cipher_desc),
-+			  cipher_desc->key) ||
-+	    crypto_memneq(iv, crypto_info_salt(crypto_info, cipher_desc),
-+			  cipher_desc->salt) ||
-+	    crypto_memneq(iv + cipher_desc->salt,
-+			  crypto_info_iv(crypto_info, cipher_desc),
-+			  cipher_desc->iv))
-+		rc = -EINVAL;
-+
-+out:
-+	memzero_explicit(key, sizeof(key));
-+	memzero_explicit(iv, sizeof(iv));
-+
-+	return rc;
-+}
-+
-+static int do_tls_setsockopt_secret(struct sock *sk, sockptr_t optval,
-+				    unsigned int optlen, int tx)
-+{
-+	struct tls_context *ctx = tls_get_ctx(sk);
-+	struct tls_crypto_info *crypto_info;
-+	struct tls_traffic_secret *secret;
-+	u8 data[TLS_MAX_TRAFFIC_SECRET_SIZE];
-+	int len, rc;
-+
-+	if (tx) {
-+		crypto_info = &ctx->crypto_send.info;
-+		secret = &ctx->tx_secret;
-+	} else {
-+		crypto_info = &ctx->crypto_recv.info;
-+		secret = &ctx->rx_secret;
-+	}
-+
-+	/* The key must be installed first: its cipher selects the hash */
-+	if (!TLS_CRYPTO_INFO_READY(crypto_info) ||
-+	    crypto_info->version != TLS_1_3_VERSION)
-+		return -EINVAL;
-+
-+	if ((tx ? ctx->tx_conf : ctx->rx_conf) != TLS_SW)
-+		return -EOPNOTSUPP;
-+
-+	len = tls_traffic_secret_len(crypto_info->cipher_type);
-+	if (!len)
-+		return -EOPNOTSUPP;
-+
-+	if (sockptr_is_null(optval) || optlen != len)
-+		return -EINVAL;
-+
-+	/* A received KeyUpdate may ask for one in reply. The kernel
-+	 * consumes the record, so only the kernel can send the reply.
-+	 */
-+	if (!tx && !ctx->tx_secret.len)
-+		return -EINVAL;
-+
-+	if (secret->len)
-+		return -EBUSY;
-+
-+	if (copy_from_sockptr(data, optval, len)) {
-+		rc = -EFAULT;
-+		goto out;
-+	}
-+
-+	rc = tls_check_traffic_secret(crypto_info, data, len);
-+	if (rc)
-+		goto out;
-+
-+	memcpy(secret->data, data, len);
-+	secret->len = len;
-+
-+out:
-+	memzero_explicit(data, sizeof(data));
-+
-+	return rc;
-+}
-+
- static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
- 			     unsigned int optlen)
- {
-@@ -901,6 +1037,13 @@ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
- 		release_sock(sk);
- 		mutex_unlock(&ctx->tx_lock);
- 		break;
-+	case TLS_TX_TRAFFIC_SECRET:
-+	case TLS_RX_TRAFFIC_SECRET:
-+		lock_sock(sk);
-+		rc = do_tls_setsockopt_secret(sk, optval, optlen,
-+					      optname == TLS_TX_TRAFFIC_SECRET);
-+		release_sock(sk);
-+		break;
- 	default:
- 		rc = -ENOPROTOOPT;
- 		break;
-
--- 
-2.53.0
+FWIW, I actually asked the AI to add some of this text. Specifically,
+I felt it was important to explain why LLVM would not make this the
+default behavior but why it was still the correct behavior for the
+kernel. ;-)
 
 
+> > Honestly, this patch came about because of AI analysis compiles taking
+> > 30 minutes to run (see the clang bug [1]). It seems to work around the
+> > problem. Obviously, we should fix the compiler. That being said, upon
+> > further analysis it seemed like adding this flag was beneficial
+> > anyway, so I'm posting it upstream. If folks disagree, we can simply
+> > drop this patch.
+>
+> I would definitely like to see that issue triaged but like you say, it
+> probably does not need to done before this is merged since it has
+> reasonable justification on its own. I would love to get thoughts from
+> other folks though.
+
+Sounds good. Thanks for looking. Let's see what others say. :-)
+
+-Doug
