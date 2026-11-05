@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888214;
-	b=SqNI0pL2NEej77ZOvXl+JxQowHJxVnXQ1RvvVggY5Bo84S/Qh7vmtd2s1FHyL1ZcvIkB
-	 W87QXK4Zz/qwuhiJFyPR1KgBf6ksQHq1Mu6e7ip/jeRiI5N/mo4HYlfLCLkm11wiSR0hy
-	 SdZLrpo0EfCFTOkjwqYyXGxwNYePkz8q95174qcXVbBo1S7KkqBN3L+xa7hrR5sYnTe5V
-	 kCnujOND3QmLG8R7o0Dzk/F4oxAKfyJBCWw+tDqDKMb0dHh26YJTz+ziH27svnuYVYHOA
-	 HEfUfBBA6Vbf/YIgEblqVY3627rRVkwMoaulddfXz/JkxW+dKBHARaUMuYp9dI3Vwfw==
+	t=1793888249;
+	b=KrxeNbyc6vz2CFnQiQCxv0mUySN0fJfHDEAMX/znLe2AFZA8g7JzbBlAHOyhoquS6m3P
+	 UF5zgVLs8GHdlN9XQyFUzUM1zAl87F49dIrzxjFYKO2qmsPItwN4ePDfsI+Luuof5DmCU
+	 KVJBRDdiPV0gNLUSxCj41GSArBUz3vcw0IUAGmwQfN87jdWW3b0ho0AZxUpDUYbZkf/I8
+	 aX032WPUrFu6ruYbQiSkr1EMxUVtxTypgUMK5AHHjKxNQYpw0RBMPi53hesMlFOGJlKPu
+	 eq7zG7Adoh5SS+Toyr8exnuaFdRIb5G/TM/+uoseAA/r6nOogtd+ywFASy58kvR6qoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888214;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Jo1r7Eqpd5Kwul0AOD+n/BJ1YPC7hEey4ChbCDP8t4Y=;
-	b=YJLaJ4SEtzFiSaFJZtA0gggWsNcPXfKiKrNzDGCKpjzMHuoLus60mnhYdVRJJxO6LvsJ
-	 vFo2Al4+naOTjyMqAORD6XWGTBitsObIBs4YjWAcx0jN3N943qEqesoJNgrNHyEzgUUAk
-	 gDOCVeEeDqT9Puj2Rfd3ob9xDT9HvRbqVUVKeNe2+z2umpj6PGtm1zylPSHiO+ha4LQue
-	 mZWcoNARFNJNyGuwsKZkAB22oMpzeYqyEV2boPnRw4Dxn5a6ea8V1ZcpGQSseJetUIGR+
-	 VSdMnWKKD1AEJiTi8fv/VPQgQNQwUTUmPmtfZ4cQYUY90C/mKn3/O7omDLLR1JHk1Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888249;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc;
+	bh=Zm1SeUU+Jxb7BuZJDD+o5hL962TS6FgnURIAybrs8rY=;
+	b=QB4KsG0c6vL0ZLDmkBKORbn0UmBgOmgiOVHbbuLqGWsIwKVrMFmBh5DvvYSibju/gmyS
+	 9C2HyGkAnY6J31snADOq9FM85Q1Gzhux3ryvAI3ptEGvg17N4nQd3REXBRTpJIqyv7pSN
+	 SNa8wtbZ1KogC1JoIdbJzWhaLSwRl4/xtqW1ESVdd03BrBPTY6JK52DqfUtxdBC/6ntyB
+	 jcjLEFIS9f51axcGeP/JrvSKNlXWeGh/xzApo1Ybyxk9Suk77CeKZYBo2UvIr/ZmTLKw4
+	 B7F0/mI6XhbWSneBznFh2v5WLWfoVdNlg+pYCfathLKvTN7/3uq2ignYmwf92i/wzSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoKDw4ug;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0TbWIw15;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Xroi6Sbz;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA279606A329;
-	Thu,  5 Nov 2026 14:16:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62215606A337;
+	Thu,  5 Nov 2026 14:17:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62215606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoKDw4ug
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18E371F000C1;
-	Thu,  5 Nov 2026 14:16:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888213;
-	bh=Jo1r7Eqpd5Kwul0AOD+n/BJ1YPC7hEey4ChbCDP8t4Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZoKDw4ugUs1vqT8KwUAFE22r38SFUo+5Kl1uRGyN1HnMz8m5Cx8cbaRxUBW9tukjf
-	 pfRfbBQ7vIr/s526utqwnRQ6vk2y2lOMLblQ1212FvZpZ1BI2XoGocuLC9nbUSSe/a
-	 2dXQf+lEKU3Oo91fIaA/QYKw+C30UBnr39JkfgTnNSIVKXxiw+fX1O2cB8ypomyVpk
-	 aB/rmLvKtxIjYQxiJhoCfCxAT1pMUoX+WyBlN7Qy5nKzBPLHAIem4nMZa2mznOYdOu
-	 E3V1FxDTksYsAIHY6DdxE1taJ5HY3zyRGUoOl2KnYFhCvgJMRI/ou3asr4DC8TXWzo
-	 1fsCZ4HsI6iag==
-Date: Thu, 5 Nov 2026 15:16:45 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auyOkL1Vb1iKicS9@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0TbWIw15;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Xroi6Sbz
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793888247;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Zm1SeUU+Jxb7BuZJDD+o5hL962TS6FgnURIAybrs8rY=;
+	b=0TbWIw15Q9SG4yCRbGARaQKknDn/ebQYf6/F26WHHt3/Sjc0ADD3BM1BLLrT4ojv7SYuwi
+	UNwAPfF1iAruJkwGPoO01l94asqtdStWgZ3TpRMtGBkqoo8yFH1jWcCFcRE4ZdzbkhSjBX
+	AXPcEesJik8N+dgeOZ2SWWItD2ggO5rBEQHQC6vMdk7SnJHMfxioPKSsgtm07QM6AMyPvC
+	xzk2KZc0RSxnDRbwe6HeLiipS544nc6fEcvB1EuvUW2KX7E+vrVmke3BwzbVoNcNa0nEqC
+	FRJ6Zf4CytY2N3CNijL6BvTA3HpS7fbtsV2RjADC0elz1aZei66MczAQ+al38g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793888247;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Zm1SeUU+Jxb7BuZJDD+o5hL962TS6FgnURIAybrs8rY=;
+	b=Xroi6SbzBEwxwVWNtjaQoiRXAHTnxP0+MMHpchhUSQrpLKffpNYz4xiwomjGRoREhsn4Yl
+	tCU4aslSydrIh7Bw==
+Date: Thu, 05 Nov 2026 15:16:47 +0100
+Subject: [PATCH net-next v4 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch function
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,99 +69,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lbomulgyy7xwzfvd"
-Content-Disposition: inline
-In-Reply-To: <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
+References: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+In-Reply-To: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, Eric Dumazet <edumazet@kernel.org>, 
+ Lee Jones <lee@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: Vasilij Strassheim <v.strassheim@linutronix.de>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, mfd@lists.linux.dev, 
+ Martin Kaistra <martin.kaistra@linutronix.de>, 
+ Benedikt Spranger <b.spranger@linutronix.de>
 
+Add a binding for the Ethernet switch function integrated into SoC-e
+SWIP cores.
 
---lbomulgyy7xwzfvd
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auyOkL1Vb1iKicS9@devuan>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
-MIME-Version: 1.0
-In-Reply-To: <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
+Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+---
+ .../bindings/net/dsa/soce,swip-switch.yaml         | 96 ++++++++++++++++++++++
+ 1 file changed, 96 insertions(+)
 
-Hi Bart,
+diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+new file mode 100644
+index 000000000000..daac779c466d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+@@ -0,0 +1,96 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/dsa/soce,swip-switch.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SoC-e SWIP FPGA Ethernet switch function
++
++maintainers:
++  - Vasilij Strassheim <v.strassheim@linutronix.de>
++
++description:
++  Ethernet switch function of the SoC-e Switch IP (SWIP) FPGA core. The port
++  count and presence of VLAN and STP register blocks depend on the FPGA
++  synthesis configuration.
++
++$ref: dsa.yaml#/$defs/ethernet-ports
++
++properties:
++  compatible:
++    const: soce,swip-switch-00-04-0c-10
++    description:
++      This compatible identifies the register layout; its suffix gives
++      the offsets of the core version and feature identification
++      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
++      features depend on the FPGA synthesis configuration and are
++      detected at runtime using this register layout.
++
++  reg: false
++
++  reg-names: false
++
++  ethernet-ports:
++    type: object
++    patternProperties:
++      '^ethernet-port@[0-9a-f]+$':
++        type: object
++
++        properties:
++          reg:
++            maximum: 30
++            description: Switch port index, from 0 through 30.
++
++          phy-mode:
++            enum:
++              - mii
++              - gmii
++              - rmii
++              - rgmii
++              - rgmii-id
++              - rgmii-rxid
++              - rgmii-txid
++
++        required:
++          - reg
++          - phy-mode
++
++required:
++  - compatible
++  - ethernet-ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    ethernet-switch {
++        compatible = "soce,swip-switch-00-04-0c-10";
++
++        ethernet-ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ethernet-port@0 {
++                reg = <0>;
++                phy-handle = <&switchphy0>;
++                phy-mode = "rgmii-id";
++            };
++
++            ethernet-port@1 {
++                reg = <1>;
++                phy-handle = <&switchphy1>;
++                phy-mode = "rgmii-id";
++            };
++
++            ethernet-port@2 {
++                reg = <2>;
++                ethernet = <&eth0>;
++                phy-mode = "gmii";
++
++                fixed-link {
++                    speed = <1000>;
++                    full-duplex;
++                };
++            };
++        };
++    };
 
-> Date: 2026-11-05 15:01:22+0100
-> From: Bartosz Golaszewski <brgl@kernel.org>
->
-[...]
->=20
-> I have no idea what causes it but I'm getting so many patches lately
-> that are subsequent iterations of a series sent with In-Reply-To: header
-> pointing to a previous thread.
+-- 
+2.39.5
 
-I don't know what others do, but in my case it's a conscious manual
-action.  I use --in-reply-to in git-format-patch(1) to make all
-revisions of patch sets be descendants of the cover letter of v1.
-
-We do this in the Linux man-pages, as it helps me keep track of all
-revisions of a patch set easily in mutt(1), without having to follow
-links or use more-complex tools like b4(1).
-
-> Don't do this. Each new iteration must be a separate thread. Please use
-> b4 to manage patch series.
-
-I won't use b4(1); I like bare git-send-email(1) and git-format-patch(1).
-But yeah, I can send them as separate threads, if that's the preference
-here.
-
-Out of curiosity, what's the benefit of having separate threads?
-(Or the converse question: what's the main problem of using a single
- thread?)
-They're morally a continuation of the previous threads, which is why it
-makes sense to me to have them as subthreads.
-
-
-Cheers,
-Alex
-
->=20
-> Bart
-
---=20
-<https://www.alejandro-colomar.es>
-
---lbomulgyy7xwzfvd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsj8gACgkQ64mZXMKQ
-wqmoMQ//TtGWqCjfcnXsWY/oa7xvsHVefRAzug6vGgPHtltQxL2N+ABWVUEnj08P
-DCpNPQ2e9Mv7M5ABKIaSYajzjRXovNQ0ooTFjhsYaIVXK7yTl2K8Faj8FDNpDLdO
-hAg3B9y6uy7O2IK8Vl//8oDO+YfzPVH8vLp6QSvy5OvuXAcL/cHu5nUd12XewLVj
-t6AHllKmnjmuc4HjpvyPX/73CW02iBj++erXy2SF8PBTDvZeeX00a3lVPKQnIq9O
-VdNTfoWyqpmbaXB3y4hkltNXePY+BY/WFLVYf3zJQKsfoK5FRLs5Fr4lrwEmjcbG
-4x5ZcNK/Tc/K8+mpt2Mq9tEU1ocQlpF6RJXIOOtJs0uaD4QowMTBtLL+daCCECgN
-KVmOYGqoEEmxXcLMZKWf2Nza034nWPHQKONPUeM01gILFVJILBEfI36zI9W7bVlE
-yyO5SF1Rx2KzBxnGZikRTrWQdM8fCWDn5aiFuTlOB24yvGFACZfKNd/tVfZQQ/BP
-mHMZr1lZwJwveUzdn0qDWv3Bvw+Dp5sSbwYLCx/nwU+A3dqrCMa/wLJPdHrH4S6Y
-uff3mbFO6kxGqCbv3Y89dEogwr3mqxgoYZaFsNlg5HSujG4/cV+0SWphRuhg9I4S
-rREyduC6a5jqzyHPqzDCP1Q0/gMEtQgiJNdffQr1B3q/uiNVqPU=
-=7MyL
------END PGP SIGNATURE-----
-
---lbomulgyy7xwzfvd--
