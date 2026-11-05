@@ -1,47 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901126;
-	b=D1WjE9jt1a4yYOWmoDUdBNC6npjlO6hQCNkGciZcrJigUzMEzxB07Bc8vulf4t73S9Ye
-	 7vGSsUc1FRYDAjvfDmO2+IoSfzgia2NYrDl4F5IO2Fz6Jh/9Y57stIDKFVC5Y9In/ZPac
-	 /R6227T2XFAGo0H9px33NTW6p14mNwZHmoFks3EqSH/Nn03x8aY1XbT21xhW7XAu6h8Md
-	 GPl83on54JknFkcH+JJiaAe+FkkSz98bTHxQy+m8IUvR2rK3+m3UxRuhxhFwHnRQXbFtH
-	 oLC0xc0m7WoclWIg0Ex6e2cIn8Ubs7QEtnnMfU29lprkCnRyUBYaa9f65EqXu+kjR7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901126;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TU2co5OHwPqZGsjHAK77lVb6RAQX9yPBM909tv534g8=;
-	b=5hYwksnhsiYYDM0Qj9BjbJNLwlAcJyzAx6Hmqtx7QPUetrvZTNW0ewJqiysN3bP+w4lJ
-	 zrxzVcAveJ9b+JxuKqf3ufZgWFZ//UXvzxck4u0SPKBlnst1w5DRvXIFnIpIO+uKNLAUC
-	 ZlibuopIHdOvN9K3QLBabdFGpboDGjKcCKjK4j4FtScYTRGFa6PpK9kQW5j1OgR0UHGXq
-	 H0gsJk9+bKQZ/hSP53hyPqjUnetLebHCwcMgw+PuhuBxguUq+SyOewWGQAFWnn1+WeLWA
-	 zHpxstu8wlimHUGRbvLnJ+r79nyXSdYxR1oeMfQKX8qe1RuKyH9Y24kQK9uYGBbiisw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BrB1bRD/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.61
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793901150;
+	b=mCh99u6GSHI3ojgYdzPHPqrpiSzTy+hP3w0lOBovRMUzlvzdxuTUWmAYQCr4uscYYr01
+	 hhFOJ4ApB3X875SheHbf7pgjrAMa+cVqKsuiRWR27TsIdZIxmtn4s+/qmrNSlRlhWtuez
+	 43QBoXouYr3f0a/u1GSZ75FPLZ2Y2hj433BomQRtFZhYM4tXY2oKAcraX6pFIPY7Prwbo
+	 5WzEwiy+F+FmeAezv+KZ99kLV2rv1hi2uOa1OIU34Wy8wYP/ciwgdZOf1SkVU2ArqTn0X
+	 jjM9j55HlD2YBo80Ogdm8Td3d3R0gh4widWs5f9gDa0UWKbnPRzSfLzox0QWo6zGcTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901150;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=50nPFRXRnBFn8Zx5v3yf5gXABfHFg/x/IWnNUu7chhw=;
+	b=nKOB8KUtmIFBE4Vyg+GH7Qd5JL1qB81gzC3645aMpML/xv+nHeFnOjKQMFzW1CPEO0Ro
+	 Mxkyv/HxZEVoCs2S1yjQ17PWL93U3KWngjjsUqSHdsnxYFsLsamsbg8ym7f8A6otjq+uQ
+	 53kbnGoZIy+kcS1gpv7a0VPSe8AMqJiUaUFvnWqT29InYCbuxnF/QDc+n9o0EDmb8YI37
+	 AxmEMxjZnwM5TXVRoZbfpqjfUrVgGplZc+js7mZu7Cw1tXCbxHkrH/PO+TSPvfs7tfoRa
+	 dgOOakN2YSwPN3wGEab/A16MRdB+v3HkFSTtTxAD+7GfDqcQHm7U78AB1uur4ol9etA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KPdWAQx5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.61
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013061.outbound.protection.outlook.com [40.93.196.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA86606A326;
-	Thu,  5 Nov 2026 17:52:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EAD606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 17:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5EAD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrB1bRD/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D681F000C1;
-	Thu,  5 Nov 2026 17:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793901125;
-	bh=TU2co5OHwPqZGsjHAK77lVb6RAQX9yPBM909tv534g8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BrB1bRD/Soh7jF52sv//X1vQCquFJ8zymfkK/FXO3wwGJCCa1tEzIwzqm+fYvdCY2
-	 DhOXVYoY20C6gB4jzI06/aa3FJKL16cXAVTE6GEma7rI1e7g4iXKOlePRLiF288XT4
-	 VranzWw07bgVjhZQsOa83Q/zQ3MuhhyHnyb2Y6HAkPVvrS/Wn+pivLXwQqw5DGkCmY
-	 Cz1VF9gZFLMgCfghzav+g+H8FtHrcNJ/t8tgMMFQF3ADgfQtXjJ3DcjRu6FOLIlaUE
-	 W42fuX0MRzbloN/Ga6DFTl1WfqZzBIulN3KaPzlLmT4L3jFyDf4xTB+qfOgbKxHlU6
-	 KSfFjlSeP944Q==
-Message-ID: <b21a62bb-db95-48d7-8de3-e8b4d80a3a4d@kernel.org>
-Date: Thu, 5 Nov 2026 18:51:53 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KPdWAQx5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oIhLAOasj2LVQvfTLiHA3lCBeAB8mEBz52MKlBmdFjPC4kNP8+CFo9EEmMUyQTQqK26fnU9ezup6ixmg5NCoVguI9oHtU4bLdyS/NxgTRtBQs1RRlWnN06q9ihPMlUwpayJdacZuzxbhPskNK9nyV42ZTuC8rf507VDRg6mp+DYvDGcDhzL41u1/xqOMIDjQ41+RbsUHYK6piLAKlk2q62o4AWhIGAn2aJXvyZKvq4sg4Yz+jje4E1UwcKkeIQkaDu4KC9Xz/TMmyRHRerugx81OBTzTdYxXoA+kENgojXW1yUIHbfeASZ2h6xDJ7u/d3mvlmghcvQHvA7fFUbg/bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=50nPFRXRnBFn8Zx5v3yf5gXABfHFg/x/IWnNUu7chhw=;
+ b=gSSme+S1PpgezqBE7xAoH0Dq+lVWdfc90iGjG77tOjN8YVYy5Jc/LZjuQ9SuKcZLxot2urY8WbaR7zyvKObxMF3P4qn8669cDmadrzn4T81nn1ge/uvfp6fsfa30S4fdIVghrd7WBpgNV5qhYIjDgxItinkWPX0HHGzYXOW+JSkJWxJM+Y2vmA0lBPmTTa+ynvW8u8nzvncL6ynZ7Q+Dx93yfc//wSCkYrRh+2QtUDxNq07JUsYtKJHVyZpfeUiCuq6YRyU450IJITlvoUa1p+hIRtt5EMloLzhzrzrzrJLZTMG/TCeFjxeUoqAoMVhuJMzJKvAzvugrcAW+6xXEZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=50nPFRXRnBFn8Zx5v3yf5gXABfHFg/x/IWnNUu7chhw=;
+ b=KPdWAQx536YPZFTgqdftlLejFzp/KMknI9OvUjqXRHaTsVrkuyXS8OZzfRcP2U5uVX9E9Ugh0St5oR6fhP6BitB6S5khtYB9Yr2IAZecvkx2MaQWHDJF6E/TmP1VE3eGrk7ptFxWufl2LTtg3SJ/+nC6fvTYiLsPtZuyhqeDgUs=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by SJ2PR12MB8136.namprd12.prod.outlook.com (2603:10b6:a03:4f8::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 17:52:21 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 17:52:21 +0000
+Message-ID: <d8287036-7b05-41b3-bc99-3d351a3bce90@amd.com>
+Date: Thu, 5 Nov 2026 11:52:19 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/amdxdna: Load the aie4 firmware variant the PSP
+ reports
+Content-Language: en-US
+To: Lizhi Hou <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261105-superm1-lms-npu-v2-1-ad6704226d47@amd.com>
+ <18efa128-ffd5-793c-fe4e-6538d6eacd24@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <18efa128-ffd5-793c-fe4e-6538d6eacd24@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH2PR07CA0047.namprd07.prod.outlook.com
+ (2603:10b6:610:5b::21) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,126 +97,378 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] mm: limit pagecache folio refcount
-To: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- iommu@lists.linux.dev, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SJ2PR12MB8136:EE_
+X-MS-Office365-Filtering-Correlation-Id: b248e1fd-9c0a-4619-6028-08df3b658aa1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261026140227099003|261026121527099003|261022115727099003|261028144727099003|261021123027099003|261102123227099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|260925021311599003|260925022911599003|260925021911599003;
+X-Microsoft-Antispam-Message-Info:
+	BkOP+fMvatNkWt/z3YZsY4VDYTbtF07QWHFuppcZ3W4kt/uo+aRk3lK5o097zmEsDkaXeoXFs26qgJ/54E0bFLpXWStd7VszMvu4Vm5aA15BFWNi6aTgjd6chSnBvRUmMGppyXexFQSbZogyyHx+0D/MS8586xpHEviK/T7TRxJ3V3MpjqXCWQFpHsBtqK/YXbM/RHQuvoH/jNrR1ZD+XlxByo4f1yq+1XExW/LatyZnmY+/V2UULDLJVnrXXm037Jx50c8SHwHzvOc3aBmA4gwP0gv5SGgEpW1RARw/id2G7Dd5JPOuMZqm598AqttMLsPlLTCQ7bL9pIVdoLbmqD1W05OtD2zPCzFTipyh5TNX1qLj2mG4G36VswhancYuIbdKM6S7tprZ1g4QAsS5IsPTUNr0Qv0NVLf7MXO18hqxeauRFb2mJfd6QexjijLrJfXKj1k96HnkhbVQ9fHDRa6bEqHEG5u3xh8rIm+k7gGv77EUcT9vXs7U5NfUtu2MjH4HrmvaoTYQXe2/2UnP5GftKwPFuaF7Aej7suZeSjINd8NHOgnvSSUj/yNrt6n6mjR97jcZ3r7AavLK3Kd8yWJsE+KiPmG8MsGrp+omqGc9wHqFtpCyMxu1RhppPe+l
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261026140227099003)(261026121527099003)(261022115727099003)(261028144727099003)(261021123027099003)(261102123227099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(260925021311599003)(260925022911599003)(260925021911599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejVtaFUyRklBRTM0T2lVbDB2RFcxVnBhdFpXQjd4RHpUcVBvYlRLQWxpQ2k4?=
+ =?utf-8?B?dXJVVTljVExDWnJXSDlXS0tVS2UwTjNtNUw2S0t1cHRmRHQxWWtlTXpmK1ln?=
+ =?utf-8?B?Ukx2YVZWejcyeXgza0JpaFJib3pONi9vMG5ZM2FLOWFwekdoVXRNL3p2SUQr?=
+ =?utf-8?B?WW5PeEFmNmp2VVFlKzIrTTljaXhsMVhnMmNQeUpBVGxtMjhWYVF0MzNpeGE4?=
+ =?utf-8?B?T0pPclB3QzN5MWNMejJTZEF4a2UxdG54YmJGcS9aZkYycVVSTXhRR29xaEl6?=
+ =?utf-8?B?azd4dzZla2Y0WUs4aWd4amo1bFpxQktsdVplTkhHZ3lpSUJMYmErVVNldkI5?=
+ =?utf-8?B?ZnlwZFdqODlYZkZmRFR0WjNhZFl6ZVJiaURVRS82TmtnckRLcG5USEdTUWtB?=
+ =?utf-8?B?UVhUWXdJSWZEeVBKVEtrV1NmU0Fza1ZtU1RlQSszYjRmcmJId3p5WHR2S2d0?=
+ =?utf-8?B?Um9FUWd6MTJqbzgwNXNGdkVvblo4REpYcDNjYno0WnlvY2dqdldJYm9tRlV0?=
+ =?utf-8?B?ZXNlajRKTWEybjB5NzA5Ymp6ckpoZW82UWZGS1F6bWVzbHFxKzU3ZHZUdkVi?=
+ =?utf-8?B?a3J2SC9Nb0tSN3ZQT1IwWExyRERxYWhER21oZ3ZwZzIycGlQOEJCcmZLeWtM?=
+ =?utf-8?B?eXAwdzNhbXdVMDlnUEQ1RGgvTEJTMzVDRG1tdDI5c2gza05zczQ0cjRqbnNG?=
+ =?utf-8?B?aUM5dlZjTWptUUhsVmw4N2FpVHlOemFWQnNoRnIyNFBuM3FlMnhhemNoQ2Vk?=
+ =?utf-8?B?S3I1YXdmYy82Y1dZYWZaenNuNUlBemRWenVnRTNleldvaU1MVVpJUTlyREdJ?=
+ =?utf-8?B?L1prTnNqa1VWMjVhWTJuSk9PVXJPTHVYdDQ0VXVXNmJYc2xqZWNjRjNjYXh2?=
+ =?utf-8?B?Y3lzUVVNMzhNcmZrOGJOcVlaWWNUc3hvckNZdG9oS0RwSUhHa3pxMzJXM1VQ?=
+ =?utf-8?B?UjNSdDVVNzJCbGZ2WTQ4U1piNHg0aG1EbkZtWEZ3M0tXcDJqUnV1YnBQMjQ5?=
+ =?utf-8?B?NURBd25EeE5QM0V6MDBCR3BwSmc4TWt1Yzhmb3d0aWxHNGpyYk9QTmdzQ011?=
+ =?utf-8?B?ZXlXVUhGazZaeXBVaHhEOUc5VWdoajU5bEhOK0FVUUZJWDFnWXE3QVAzY3BQ?=
+ =?utf-8?B?ODU1NVk2ejJsd0RqMGROY1E5a3JUdHNwMFA0U1puSmNZN2RqZ2VXM3VkUzMr?=
+ =?utf-8?B?cHl3dThPcWlPWjNqSzhRTE4zYVZ6bTd1c2NuWloxT2J5MmJSNkFYYndvWmF5?=
+ =?utf-8?B?V1RLZzRDdGNEeDFjK2ViR21POUF0aDBMeW5oaGI0NjUxSnBxMTZubGQyRzF0?=
+ =?utf-8?B?WVZuUmlvdjVOb013MEtUc2Z0S1ovRTlUa2premI4aTdTdkVaOXB0YlllcnIx?=
+ =?utf-8?B?cmJjUkN1TzFUTHJGU0QxUk0wdTN4c1dZNVlybTJyU0htRm9OTC94dDl4blJ6?=
+ =?utf-8?B?c09ld3FyejAvNTRRR0psK2c5ajZpV2FsaDFHRnJvcWwrNlN0STVXQ0FsZ1RD?=
+ =?utf-8?B?Q2dHdjBhNk1Xd3NacGdvcXlBRVFHNzhVZEZPMXBGOGZ5ZzVDRWRQeUJJWGVP?=
+ =?utf-8?B?MTlCTnJoZWhOS2MzSThMWE15RTlRU0YvNncyQjVmaThsTWtQQzJINGVKZWtO?=
+ =?utf-8?B?L0JQK1J3S21kdzErTEpRWld2M0tJb2NZYmovZXkxejhUWWVLMEtuZldqdno3?=
+ =?utf-8?B?YXE3ZVh4WUR0SW4yNjhaaE9OS1JyUFFzeHlHL3BYYktzVldqb0NYaGZRTndC?=
+ =?utf-8?B?YU1UTnFOREhsclpzdE9BSElJeXlQM2dubkY4S3k3T3A3ZzdITEZCTDlSMmRD?=
+ =?utf-8?B?M0VhNVNTTTN2cmtJUlRlY1ptV1loYllSeDJCVWt6YUZ5R29ZVVNWQ2NJb0Ro?=
+ =?utf-8?B?anBNckt1UHhNVVZJMUhST3VXUXYrSGdxOCswL1FydzF6cDVLZHEwTlBkaEpv?=
+ =?utf-8?B?ODhKZm42WHFXZEJyZmxPVWthb0paeFltODNFQ3FSazhwL2JOR0g0a1NBQWIv?=
+ =?utf-8?B?cm83ajUzK3IwNG92a1ZwdnR2bU8rUE9OallIRUQvakdLT1hsUkJsQktYSlEz?=
+ =?utf-8?B?YlBGYXIzbk42V3V4TFNKV2tNM2NRbGhmb3YyeUlKNVN0bUthNzZOSW9hRzIw?=
+ =?utf-8?B?b0Jvb0NUcTN5aCsvb0pNQjY4aXZZV1c5QXhXejZwM1hxSjBSS2NCU1JNSjFC?=
+ =?utf-8?B?bG5FaitVN3VPSlZ5ZlExM05qZEdDUVQwczBxc010ZUEyZnFxNHdNb1lodmVZ?=
+ =?utf-8?B?Sm0rMU1PNzI0SHdXNUt3YTgxdTFNTjRWb05wZVU5VHZDYUl0RlhOZGVLWXE3?=
+ =?utf-8?Q?1qkOj9Vm41aOBV0+UN?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b248e1fd-9c0a-4619-6028-08df3b658aa1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 17:52:21.5878
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FLb3viU7EcLbx2hW5SvAQZ1scvWls1WWSKC8lYhqFfpVVUDX5b0R8Aj2eRHSwJxiB/S5IEoekl8R/LlpvIXVWw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8136
 
-On 11/5/26 14:10, David Hildenbrand (Arm) wrote:
-> Users can create a lot of folio references to pagecache folios, making
-> it possible to overflow the refcount of large folios.
+
+
+On 11/5/26 11:47, Lizhi Hou wrote:
 > 
-> While we knew that one could in theory overflow a folio's refcount, we
-> mostly assumed that bad things would happen and it wouldn't go
-> unnoticed.
-> 
-> Not so sure if that is really always the case, and leaving that problem
-> unsolved is irresponsible, so let's limit pagecache folio refcounts.
-> 
-> This is really only relevant for large folios / thps in the page cache.
-> With anon folios (including THPs), we should not be
-> able to trigger folio refcount overflows (until we get PUD-sized ones ;) ).
+> On 11/5/26 07:51, Mario Limonciello wrote:
+>> Some Platforms ship BIOS with either a default or an alternative trust
+>> authority. The PSP validates the NPU firmware, so it must be signed with
+>> the matching scheme. Firmware for the alternative scheme is named with
+>> an "_l" suffix before the extension. A preproduction part needs firmware
+>> of its own, named with a "_p" suffix.
+>>
+>> The PSP reports the signing type in bit 6 of C2PMSG_63, and in bit 28
+>> whether this is a preproduction part. A preproduction part that also
+>> reports the alternative scheme is not expected, so warn about it and
+>> use the default firmware.
+>>
+>> Add MODULE_FIRMWARE() entries for the "_l" variants of the npu and cert
+>> images of the aie4 devices so that initramfs generators include them.
+>>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>> Changes in v2:
+>> - Initialize val in aie4_psp_fw_variant() so a failed SMN read can't 
+>> leave
+>>    it uninitialized
+>> - Only read the PSP firmware variant after the npufw/certfw path 
+>> check, so
+>>    VFs (which have no firmware paths) skip the SMN access
+>> - Drop the redundant all-ones check, amd_smn_read() already returns - 
+>> ENODEV
+>> - Link to v1: https://patch.msgid.link/20261104-superm1-lms-npu-v1-1- 
+>> dbffcc5abc23@amd.com
+>> ---
+>>   drivers/accel/amdxdna/Kconfig           |   1 +
+>>   drivers/accel/amdxdna/aie4_pci.c        | 162 ++++++++++++++++++++++ 
+>> ++++------
+>>   drivers/accel/amdxdna/amdxdna_pci_drv.c |   8 ++
+>>   3 files changed, 141 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/Kconfig b/drivers/accel/amdxdna/ 
+>> Kconfig
+>> index eddff490b4f75..cd17a89cf4146 100644
+>> --- a/drivers/accel/amdxdna/Kconfig
+>> +++ b/drivers/accel/amdxdna/Kconfig
+>> @@ -6,6 +6,7 @@ config DRM_ACCEL_AMDXDNA
+>>       depends on DRM_ACCEL
+>>       depends on PCI && HAS_IOMEM
+>>       depends on X86_64
+>> +    depends on AMD_NODE
+>>       depends on AMD_PMF || !AMD_PMF
+>>       select DRM_SCHED
+>>       select DRM_GEM_SHMEM_HELPER
+>> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/ 
+>> aie4_pci.c
+>> index 02dcb2f813d45..26c6162893760 100644
+>> --- a/drivers/accel/amdxdna/aie4_pci.c
+>> +++ b/drivers/accel/amdxdna/aie4_pci.c
+>> @@ -11,6 +11,8 @@
+>>   #include <linux/debugfs.h>
+>>   #include <linux/firmware.h>
+>>   #include <linux/sizes.h>
+>> +#include <linux/string.h>
+>> +#include <asm/amd/node.h>
+>>   #include "aie.h"
+>>   #include "aie4_msg_priv.h"
+>> @@ -558,46 +560,124 @@ static void aie4_classic_hw_stop(struct 
+>> amdxdna_dev_hdl *ndev)
+>>       aie4_fw_stop(ndev);
+>>   }
+>> -static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+>> -                 const struct firmware **npufw,
+>> -                 const struct firmware **certfw)
+>> +/*
+>> + * PSP C2PMSG_63 (SMN) bit 6: 0 = default firmware signing, 1 = 
+>> alternative
+>> + * PSP C2PMSG_63 (SMN) bit 28: 0 = production part, 1 = preproduction 
+>> part
+>> + */
+>> +#define AIE4_PSP_C2PMSG_63_SMN_ADDR    0x38109fc
+>> +#define AIE4_PSP_FW_SIGN_ALT        BIT(6)
+>> +#define AIE4_PSP_FW_PREPROD        BIT(28)
+>> +
+>> +enum aie4_fw_variant {
+>> +    AIE4_FW_DEFAULT,
+>> +    AIE4_FW_ALT,        /* "_l" images */
+>> +    AIE4_FW_PREPROD,    /* "_p" images */
+>> +};
+>> +
+>> +/*
+>> + * The PSP only trusts firmware signed with the scheme the platform 
+>> firmware
+>> + * uses and a preproduction part needs firmware of its own. Reading 
+>> which one is
+>> + * in use is optional and only used as a hint for which images to try 
+>> first:
+>> + * anything but a clear answer is treated as default.
+>> + */
+>> +static enum aie4_fw_variant aie4_psp_fw_variant(struct amdxdna_dev 
+>> *xdna)
+>>   {
+>> -    struct amdxdna_dev *xdna = ndev->aie.xdna;
+>> -    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>> -    char fw_name[128];
+>> +    u32 val = 0;
+>>       int ret;
+>> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+>> -               pdev->device, pdev->revision, ndev->priv->npufw_path);
+>> -    if (ret >= sizeof(fw_name)) {
+>> -        XDNA_ERR(xdna, "npu firmware path is truncated");
+>> -        return -EINVAL;
+>> +    ret = amd_smn_read(0, AIE4_PSP_C2PMSG_63_SMN_ADDR, &val);
+>> +    if (ret) {
+>> +        XDNA_DBG(xdna, "PSP firmware variant not available, ret %d", 
+>> ret);
+>> +        return AIE4_FW_DEFAULT;
+>>       }
+>> -    ret = request_firmware(npufw, fw_name, &pdev->dev);
+>> -    if (ret) {
+>> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
+>> fw_name, ret);
+>> -        return ret;
+>> +    if ((val & AIE4_PSP_FW_SIGN_ALT) && (val & AIE4_PSP_FW_PREPROD)) {
+>> +        XDNA_WARN(xdna,
+>> +              "Preproduction part with alternative signing, using 
+>> default firmware");
+>> +        return AIE4_FW_DEFAULT;
+>>       }
+>> -    ret = snprintf(fw_name, sizeof(fw_name), "amdnpu/%04x_%02x/%s",
+>> -               pdev->device, pdev->revision, ndev->priv->certfw_path);
+>> -    if (ret >= sizeof(fw_name)) {
+>> -        XDNA_ERR(xdna, "cert firmware path is truncated");
+>> -        ret = -EINVAL;
+>> -        goto release_npufw;
+>> +    if (val & AIE4_PSP_FW_PREPROD)
+>> +        return AIE4_FW_PREPROD;
+>> +
+>> +    return (val & AIE4_PSP_FW_SIGN_ALT) ? AIE4_FW_ALT : AIE4_FW_DEFAULT;
+>> +}
+>> +
+>> +/*
+>> + * Images for the other variants have a suffix before the ".sbin" 
+>> extension.
+>> + * Returns -ENOENT if @path has no such variant.
+>> + */
+>> +static int aie4_fw_name(struct amdxdna_dev *xdna, char *name, size_t 
+>> size,
+>> +            const char *path, enum aie4_fw_variant variant)
+>> +{
+>> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>> +    const char *suffix;
+>> +    size_t len, base;
+>> +    int ret;
+>> +
+>> +    ret = snprintf(name, size, "amdnpu/%04x_%02x/%s",
+>> +               pdev->device, pdev->revision, path);
+>> +    if (ret >= size) {
+>> +        XDNA_ERR(xdna, "firmware path %s is truncated", path);
+>> +        return -EINVAL;
+>>       }
+>> -    ret = request_firmware(certfw, fw_name, &pdev->dev);
+>> -    if (ret) {
+>> -        XDNA_ERR(xdna, "failed to request_firmware %s, ret %d", 
+>> fw_name, ret);
+>> -        goto release_npufw;
+>> +    switch (variant) {
+>> +    case AIE4_FW_ALT:
+>> +        suffix = "_l.sbin";
+>> +        break;
+>> +    case AIE4_FW_PREPROD:
+>> +        suffix = "_p.sbin";
+>> +        break;
+>> +    default:
+>> +        return 0;
+>>       }
+>> +    len = ret;
+>> +    if (len < strlen(".sbin") || strcmp(name + len - strlen(".sbin"), 
+>> ".sbin"))
+>> +        return -ENOENT;
+>> +
+>> +    base = len - strlen(".sbin");
+>> +    if (strscpy(name + base, suffix, size - base) < 0)
+>> +        return -EOVERFLOW;
+>> +
+>>       return 0;
+>> +}
+>> +
+>> +static int aie4_request_one(struct amdxdna_dev_hdl *ndev, const 
+>> struct firmware **fw,
+>> +                const char *path, enum aie4_fw_variant variant)
+>> +{
+>> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
+>> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>> +    char name[128];
+>> +    int ret;
+>> +
+>> +    ret = aie4_fw_name(xdna, name, sizeof(name), path, variant);
+>> +    if (ret)
+>> +        return ret;
+>> -release_npufw:
+>> -    release_firmware(*npufw);
+>> +    ret = firmware_request_nowarn(fw, name, &pdev->dev);
+>> +    if (ret)
+>> +        XDNA_DBG(xdna, "firmware %s not loaded, ret %d", name, ret);
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +/* The NPU and cert images are validated together, so both use the 
+>> same variant */
+>> +static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+>> +                 const struct firmware **npufw,
+>> +                 const struct firmware **certfw,
+>> +                 enum aie4_fw_variant variant)
+>> +{
+>> +    int ret;
+>> +
+>> +    ret = aie4_request_one(ndev, npufw, ndev->priv->npufw_path, 
+>> variant);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    ret = aie4_request_one(ndev, certfw, ndev->priv->certfw_path, 
+>> variant);
+>> +    if (ret)
+>> +        release_firmware(*npufw);
+>>       return ret;
+>>   }
+>> @@ -645,18 +725,40 @@ static int aie4_prepare_firmware(struct 
+>> amdxdna_dev_hdl *ndev,
+>>       return 0;
+>>   }
+>> +/*
+>> + * The firmware can only be started once. It is the PSP that decides 
+>> whether it
+>> + * accepts the images, and it does that when the firmware is started, 
+>> so there
+>> + * is no trying a variant and falling back. Pick the variant that the 
+>> PSP
+>> + * reported (the default one if it can't be read) and use the others 
+>> only if
+>> + * its images are missing.
+>> + */
+>>   static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
+>>               void __iomem *tbl[PCI_NUM_RESOURCES])
+>>   {
+>> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
+>>       const struct firmware *npufw, *certfw;
+>> -    int ret;
+>> +    enum aie4_fw_variant order[3], hint;
+>> +    int i, n = 0, ret = -ENOENT;
+>>       if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
+>>           return 0;
+>> -    ret = aie4_request_firmware(ndev, &npufw, &certfw);
+>> -    if (ret)
+>> +    hint = aie4_psp_fw_variant(xdna);
+>> +    order[n++] = hint;
+>> +    if (hint != AIE4_FW_DEFAULT)
+>> +        order[n++] = AIE4_FW_DEFAULT;
+>> +    if (hint != AIE4_FW_ALT)
+>> +        order[n++] = AIE4_FW_ALT;
+>> +
+>> +    for (i = 0; i < n; i++) {
+>> +        ret = aie4_request_firmware(ndev, &npufw, &certfw, order[i]);
+>> +        if (!ret)
+>> +            break;
+>> +    }
+>> +    if (ret) {
+>> +        XDNA_ERR(xdna, "failed to load firmware, ret %d", ret);
+>>           return ret;
+>> +    }
+>>       ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
+>>       aie4_release_firmware(ndev, npufw, certfw);
+>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/ 
+>> amdxdna/amdxdna_pci_drv.c
+>> index f233eb70a2957..dab8603e2381f 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> @@ -37,6 +37,14 @@ MODULE_FIRMWARE("amdnpu/17f1_13/npu.sbin");
+>>   MODULE_FIRMWARE("amdnpu/17f1_13/cert.sbin");
+>>   MODULE_FIRMWARE("amdnpu/17f2_13/npu.sbin");
+>>   MODULE_FIRMWARE("amdnpu/17f2_13/cert.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_10/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_10/cert_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_10/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_10/cert_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_13/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f1_13/cert_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_13/npu_l.sbin");
+>> +MODULE_FIRMWARE("amdnpu/17f2_13/cert_l.sbin");
+> need to add entries for "_p" images.
 
-Just a note that I don't think anon THP are as really relevant today, at least
-for 4k kernels, as one would usually need that so many processes (consuming so
-much memory for everything else) that this is mostly irrelevant in practice as
-an attack vector.
+Let me tell you my thought process in excluding them.
 
-At least with 512 pages per THP.
+They are only for pre-prod hardware, and so *most people* who use this 
+driver after the product launches shouldn't need them in their 
+initramfs; they'll just bloat the initramfs.
 
-The exception might be arm64 with 16k or 64k page size with 2k. (putting aside
-that 512M THPs are barely usable in practice).
+If you think they should still be there; I'll spin a v3 an add them.
 
-#processes to overflow the folio refcount
+>>   /*
+>>    * 0.0: Initial version
+>>
+>> ---
+>> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
+>> change-id: 20261104-superm1-lms-npu-6bc3bbe38c29
+>>
+>> Best regards,
+>> -- 
+>> Mario Limonciello <mario.limonciello@amd.com>
+>>
 
-4k kernel: 512 pages per THP: 4m processes (irrelevant in practice)
-
-16k kernel: 2048 pages per THP: 1m processes (mostly irrelevant in practice)
-
-64k kernel: 8192 pages per THP: 256k processes
-
-The 64k case might be the only relevant one, but I think even there all
-processes combined would already consume way more than 100 GiB of kernel memory.
-
-If we really care about the latter case we could throw in some cheap checks
-during fork() checks.
-
-Handling migration entry restore / swapin would be a bit more nasty, but not
-sure if that's really something to worry about in the big scheme of things.
-
--- 
-Cheers,
-
-David
