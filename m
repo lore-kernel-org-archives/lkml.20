@@ -1,115 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904275;
-	b=MA5BOP08/Bn+jxh9YgGAapmMxSiGyGzAX8tagRRDGHG6Nmvl8doLXJxGBovb+EGsYWf7
-	 QSFITFFrWCoQhP/u0/vlA9o1VR7b+jKP6Uvm6l3euiplallNvssG1O+vbVgsUOq+u+JsA
-	 1Da+kfZGnGWWapOjLTdt6Oe56H7NIVGV2VhdF40W6NLuHYznk/mtiOvPtFVacW0ZrvhV6
-	 +sXkt3SawPoBGNM1W1P9k0HhpvJpHkycul5j8s0hWIPlbDxYJlVV6g6zdKSepMuMCTnb1
-	 xIYfHMes0kX4Mw9pbmL2LG4xlg3HtZwxWmSzd/4AUbESRsOCIIvsT6aEmKm/teHUG2w==
+	t=1793904287;
+	b=e20895yC01nIMzqjoW9F5PkWGJWkiCFKys/mI/Sy4HSXt9bfKKWKygzkWjZRtCPAGumn
+	 BT4Avkn4xZ8mlpzxTDt1MCvabfCenXZGy4bSuN1DpYEa1IXMyMPZUEfTYxikmQVKh7XKM
+	 LyaNKawTMefFQ4WKhDWuJ4/Wo9Cnp0yV+WpdsPvY7nX//rJhnGhQfGfBH2tFjupO19NYL
+	 /QEnlC7XN3a4ArnWCrAsKGb0jjDT1Sj8yzl0TbYvI4kvCjJVsMU58J0uwBoWjIwf2iBQk
+	 E9di7eT/qbHWdR7g5S2fOxeELhKNiwjKtDLCQ+bxwhIo8pIs1wnSo8wlBLXx0h4V9OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904275;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R3MeO5bU9u9vZq0BWi1LFpN7YGyhm0gURVRh2ZqhZrE=;
-	b=JLrUqAry34eLL/tNASsWhmxKX79yud4Dk6rsnpnZYYiA4RP8Oh4FU121tSlgjpgqZOdM
-	 48c+IBkH4g01tPEdsRPYd+y3ieFUXXD6mfcukvCx6cUGuG0crKWwxLOwj0QkZzZUqm0de
-	 2Rb2igrkfg6Gd1JBZrZ8DbHWev/wSszMIL64JXPjiStR4j+JYZibAHhHGztqHdM2tlnvr
-	 CsvkMs6EzVJ4LtZs4vEuLBnPFaDPXe7oZZM0O7CYGXZeiQ/y87pyjsguAAbxRtqLNJNfl
-	 B7+CswzpCyBj3KTyolVZJFlVUSnjeor06ceV8Urul26USUTEUOdt0rxqPF2fJuO0hXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904287;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=o7Tf0Vl1HXrQW/KomSdCbhPIwR8sGoUxO+YGv2hwBkY=;
+	b=lJlpcVmMqXarguSQMrWrsF35GCh+b4w3hPJ9NMq1Bjrfryc8w2OSyBpr42feQwA8C0kK
+	 FMgNWSfG2wxMr/L6QbfWJTuuOMUUfguZK6+2iRVm3eHdSHfBvFO0g+u+yF060EksZGPxh
+	 F6s07rxCInCR4h/90ec3B+ThOXY3kaXstF/BaAyIR5xmoIXCDOmECALRljM38cBBUbCuq
+	 PF2eF/pIhHwABtiECDFhTc5svrhv0gJtQQxj5YC4i5KBQFVeXWdAcmJ4P+9xVFhGSmAlR
+	 qIiGAMmBiVx3rNPT9FeK0V0i4ybrCJ0eFKZ+HrsFc9Lh9fwz+PdRj4zq6S3Jh20QN5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e0yO+Yt1;
-	arc=none smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+YpoM4C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A47606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 18:44:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2A47606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D079606A31B;
+	Thu,  5 Nov 2026 18:44:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e0yO+Yt1
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b57182c4c6so2231524a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 10:44:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793904273; x=1794509073; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R3MeO5bU9u9vZq0BWi1LFpN7YGyhm0gURVRh2ZqhZrE=;
-        b=e0yO+Yt1X9dK5zUWtqluc01kM8rGMGf1AjxO5Vx4oz11JObBFSGNEtaZoL0SyWsUqS
-         QbUys7570/8D8S2wooUCG2fa83MBkuMwT4+81BD2e8XBtMDQHw7jmJNoNWVqhN4H5WrJ
-         o4RjOc3YgikXkNbNIA375TNF0wptj9v6u13xV750RZBb5gXKbevXpRbMMrZbCI2M43/h
-         fyVEKdY06hsmqXxDbi/h8x/t4KnPya55oFcQvnNY/ZrG3Vi50pBhuvLXE9oX8M8vGADU
-         rv7jJP/d98piUPYaBt7FIAAcKsouzDpcJ7CjFebfr1McSyjYGPjKA4X7mNjtTFVa4oCm
-         ehHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793904273; x=1794509073;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R3MeO5bU9u9vZq0BWi1LFpN7YGyhm0gURVRh2ZqhZrE=;
-        b=jO+d+2S5XKOs7LMI2qa+Dz3RJNsFuMRqRNlrJi5S0EkKL9bTnySe3hsZ2kreXDJ++y
-         8FWxxeoLG+IfEltz/uUj1DxX5GU3ihQix5UKYNBbPt8iD1YBCY0V0yoWvE4BOzmPJgn2
-         /LV9v7TwciFnpjhANCUTvyy1umlrG16CPmbgOS/tfvu4YNchCfcNmhao7IdNtiIvMZGH
-         4BCJUdbxXGIwzWOTLDj/TQsO9vuCbDknM1RNu1OdCeGC01ei54zHgGNHpJI+LwQtS1sL
-         yiilLvOH5OpxtDoyAVg6cyuaoKoDpz0vZKr6cPyB3cK7a/Hb0X0Sjsvpfc4bmUU5b+sU
-         JW4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzNI2vohLlnXW0RLt6LnkLhBdeEUcjP2QVmqBwTxFqaM+bWwZ+2HZ75Ibr+CB8DWhY67uJ3icZnNi/yfYQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8s5sDIPpVcsCp1rMC76JPo0WClByXDPPV5FTTbdNGrginzLoox
-	mD/rQJpTvqBxxQQrZYIYYsL8e+9z3UVhq8Au7jovUfQoKyc7wuc2YsJB
-X-Gm-Gg: AYBFou3zl9jXZaHSJDNUkwdSaTqs2IpEFbfRcXPytRYAAIjOymN6zgAN3/7UJr+O7D5
-	hXXvI/a6Yx7dgCR3SDM4ftl3TceQmWVjWrHBeI72zejs+7fmhz9UCm9LtG3VjYnhW3svCpXMjPT
-	RrKAerC35XsmKp5IWE/uj2tvm3Wb5SpuCKnN3gIrTyJx8Jegvbnh6fATiyTw0MMTEWPC/mFAxgs
-	d2vlLXQOxzXrWCzQ94/tAuWzpqWARBDwUX/NpCaxel9Q1akQfDsilII0MFzPKRgQPymcFHdbCAL
-	HV/4ayi32f0uGKkLUYTYJdtVF7b0vQFFrG8Zc0yTcn9bp6ASOAz5GQcNZqpoLqSnwoOfdq8chSe
-	AouzFasftBHCoDrZAjqymsFbChk6YD4v2DumskQeR9QT3+EdiSc036d4UaUctg7XMwQ6jjEDN6b
-	DgJNoLNq4YSGugJd1wzwhEd3/AG01lde1ZOCk4940888mlDsyeK1DWX+w0hdtXdotf7lkofpKIG
-	cFpvakQAaB9qXu/NXqAoQupFvLf3acwZPz7FdFI3LiH6XZQeO3VhL+4zJbt+WhvV2De
-X-Received: by 2002:a17:907:d0f:b0:c48:a838:c188 with SMTP id a640c23a62f3a-c4d34c59db0mr39140466b.13.1793904272964;
-        Thu, 05 Nov 2026 10:44:32 -0800 (PST)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d354ac249sm8993666b.5.2026.11.05.10.44.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 10:44:32 -0800 (PST)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Thu, 5 Nov 2026 19:44:30 +0100
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Uladzislau Rezki <urezki@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <auzOjphJ8DWpXwUy@milan>
-References: <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
- <auaFhOa5EBz4gJwK@gondor.apana.org.au>
- <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
- <auqtTjXhD8is-y9f@gondor.apana.org.au>
- <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au>
- <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
- <aurJZ81qnbiHH_P1@gondor.apana.org.au>
- <ausS3LQNkdc6lBy3@milan>
- <auxDm_YO4oACA_d2@gondor.apana.org.au>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+YpoM4C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E87701F000C1;
+	Thu,  5 Nov 2026 18:44:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793904286;
+	bh=o7Tf0Vl1HXrQW/KomSdCbhPIwR8sGoUxO+YGv2hwBkY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y+YpoM4C1BVe/Yi1WqdxzeQMurpj+UUeVHzOIWGi4xhvlPs5Gco2X34yo5CuHzhgl
+	 PMCr23a90J+k0uWhGmURNNPL5o1byCJ6BM6vmNMXI0I+nyFobEx+X24QnydwjXDxRp
+	 ScVK3Mpcm86RPpuqvn9CENZZcGUEMitgoZOdzeD6FE4nU6n6jSYddWiOSvuDJ8MmI0
+	 KWC+t/qzVw0V8JXY5QmfQs7nREntfjCIWhV+aqxEjEEOfYlx+5FGYNyla5xA5qJ6Rb
+	 gJQ7elWxLbIDMJR5SRw7JanyJ2mPQTR2mAapDY4RjaNAUY4yZQrwNWSr14hUOC8Ksw
+	 RPMqUsS7dJodA==
+Date: Thu, 5 Nov 2026 20:44:42 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH 05/17] USB: Lock registered interfaces during manual
+ driver binding
+Message-ID: <20261105184442.GF8298@unreal>
+References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+ <20261105-device-trust-core-v1-5-1e536825b4eb@nvidia.com>
+ <bb83fe3c-cebb-4bc8-bfc9-24df1cf72b0b@rowland.harvard.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,70 +91,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auxDm_YO4oACA_d2@gondor.apana.org.au>
+In-Reply-To: <bb83fe3c-cebb-4bc8-bfc9-24df1cf72b0b@rowland.harvard.edu>
 
-On Thu, Nov 05, 2026 at 04:51:39PM +0800, Herbert Xu wrote:
-> On Wed, Nov 04, 2026 at 12:11:24PM +0100, Uladzislau Rezki wrote:
-> >
-> > There are users in kernel. For example:
-> 
-> Thanks for the list.
-> 
-> > drivers/GPU
-> >     /* Allocate the file in vmalloc memory, it's likely to be big */
-> >     iter.start = __vmalloc(file_size, GFP_NOWAIT);
+On Thu, Nov 05, 2026 at 12:24:33PM -0500, Alan Stern wrote:
+> On Thu, Nov 05, 2026 at 01:42:18PM +0200, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
 > > 
-> > AMD-GPU:
-> >     kvzalloc(size, GFP_NOWAIT);
-> >     kvzalloc_objs(struct amdgpu_coredump_ring, GFP_NOWAIT);
-> >     kvzalloc(ring->ring_size, GFP_NOWAIT);
+> > Interface claims hold the USB device lock, but device_bind_driver()
+> > requires the target interface lock. Without it, trust-policy writes can
+> > race admission.
 > 
-> These appear to be executing out of process context without spin
-> locks so they're not really GFP_ATOMIC.
+> This says nothing about usb_driver_release_refused_claim() and the code 
+> related to it.  It is an incomplete description of the patch.
 > 
-> > Virtio ring-testing:
-> >     (alloc_ring(0)), gfpflags_allow_blocking(0) does not allow blocking.
-> 
-> I didn't really look into this as it's just test code.
-> 
-> > net/ipv4/udp.c:
-> >     err = bpf_iter_udp_realloc_batch(iter, batch_sks, GFP_NOWAIT);
-> 
-> This looks buggy in exactly the same way as rhashtable.  It's
-> called under spin_lock_bh, and the same lock can be taken on
-> the softirq path on another CPU.
-> 
-> So are there any safe users of kvmalloc with GFP_ATOMIC? If not
-> I suggest that we change kvmalloc to disallow vmalloc when called
-> with GFP_ATOMIC.
-> 
-kvmalloc() disallow and vmalloc() allow?
+> Note that nothing prevents drivers from using an interface they claim 
+> before that interface is registered.  For your scheme to work properly, 
+> you should make sure the claim is authorized when 
+> usb_driver_claim_interface() is called, not when the interface is 
+> registered.
 
-The deadlock looks like from below spin_lock():
+This patch is unrelated to authorization; it ensures that the lock is
+acquired when the driver is bound. The authorization flow will be handled
+separately, as discussed here.
+https://lore.kernel.org/linux-pci/20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com/T/#mb66dc792d2b8e5089df40ea8f08824e7d451088a
 
-<snip>
-diff --git a/net/bridge/br_fdb.c b/net/bridge/br_fdb.c
-index e4570bbed854..97aac4a4a92b 100644
---- a/net/bridge/br_fdb.c
-+++ b/net/bridge/br_fdb.c
-@@ -1025,7 +1025,13 @@ void br_fdb_update(struct net_bridge *br, struct net_bridge_port *source,
- 			}
- 		}
- 	} else {
--		spin_lock(&br->hash_lock);
-+		if (in_serving_softirq()) {
-+			if (!spin_trylock(&br->hash_lock))
-+				return;
-+		} else {
-+			spin_lock(&br->hash_lock);
-+		}
-+
- 		fdb = fdb_create(br, source, addr, vid, flags);
- 		if (fdb) {
- 			trace_br_fdb_update(br, source, addr, vid, flags);
-<snip>
+Thanks
 
-is that applicable for bridge update code?
-
---
-Uladzislau Rezki
+> 
+> Alan Stern
+> 
+> > +/*
+> > + * The driver core refused to bind an interface that a sibling claimed before
+> > + * it was registered, and dropped the claim. Let the claimant release the
+> > + * interface instead of operating it with a bound interface but no driver.
+> > + */
+> > +void usb_driver_release_refused_claim(struct usb_interface *iface,
+> > +				      struct device_driver *claimant)
+> > +{
+> > +	struct device *dev = &iface->dev;
+> > +
+> > +	device_lock(dev);
+> > +	if (!dev->driver && iface->condition == USB_INTERFACE_BOUND) {
+> > +		dev->driver = claimant;
+> > +		usb_unbind_interface(dev);
+> > +		dev_set_drvdata(dev, NULL);
+> > +		dev->driver = NULL;
+> > +	}
+> > +	device_unlock(dev);
+> > +}
+> > +
+> >  /* returns 0 if no match, 1 if match */
+> >  int usb_match_device(struct usb_device *dev, const struct usb_device_id *id)
+> >  {
+> > diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
+> > index a738d03c23eac..d35a7710c8ef4 100644
+> > --- a/drivers/usb/core/message.c
+> > +++ b/drivers/usb/core/message.c
+> > @@ -2264,6 +2264,7 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
+> >  	 */
+> >  	for (i = 0; i < nintf; ++i) {
+> >  		struct usb_interface *intf = cp->interface[i];
+> > +		struct device_driver *claimant;
+> >  
+> >  		if (intf->dev.of_node &&
+> >  		    !of_device_is_available(intf->dev.of_node)) {
+> > @@ -2277,7 +2278,14 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
+> >  			dev_name(&intf->dev), configuration,
+> >  			intf->cur_altsetting->desc.bInterfaceNumber);
+> >  		device_enable_async_suspend(&intf->dev);
+> > +		claimant = intf->dev.driver;
+> > +		if (claimant && !try_module_get(claimant->owner))
+> > +			claimant = NULL;
+> >  		ret = device_add(&intf->dev);
+> > +		if (!ret && claimant && !intf->dev.driver)
+> > +			usb_driver_release_refused_claim(intf, claimant);
+> > +		if (claimant)
+> > +			module_put(claimant->owner);
+> >  		if (ret != 0) {
+> >  			dev_err(&dev->dev, "device_add(%s) --> %d\n",
+> >  				dev_name(&intf->dev), ret);
+> > diff --git a/drivers/usb/core/usb.h b/drivers/usb/core/usb.h
+> > index a9b37aeb515be..293340a48b6c5 100644
+> > --- a/drivers/usb/core/usb.h
+> > +++ b/drivers/usb/core/usb.h
+> > @@ -49,6 +49,8 @@ extern int usb_set_isoch_delay(struct usb_device *dev);
+> >  extern int usb_get_bos_descriptor(struct usb_device *dev);
+> >  extern void usb_release_bos_descriptor(struct usb_device *dev);
+> >  extern int usb_set_configuration(struct usb_device *dev, int configuration);
+> > +void usb_driver_release_refused_claim(struct usb_interface *iface,
+> > +				      struct device_driver *claimant);
+> >  extern int usb_choose_configuration(struct usb_device *udev);
+> >  extern int usb_generic_driver_probe(struct usb_device *udev);
+> >  extern void usb_generic_driver_disconnect(struct usb_device *udev);
+> > 
+> > -- 
+> > 2.56.0
