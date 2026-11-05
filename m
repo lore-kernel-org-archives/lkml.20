@@ -1,64 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906002;
-	b=HZy8ef0ooOBzf2vTOWYJSLU/YHUpBVvRuOgdd3Nybvw7pc9O0ITeU9HSHEDxApZuMmde
-	 OxnEl+wT7Y4TTCnvVj/nuPZAAd0wuvpkguPXJBkNpswPIeFCSujpP1UL6frJmQyVZRkLB
-	 1ABkQhs0kP52LFtGqDWu+z49b6KX+YELVX+f2DXs5cEQ4aTGiXyF8UC0UpmAF9Z4bFUDL
-	 XB08ASnr1s+bNWuWQFReIEQODLPQJVcFx8dJF6cDx2IipKdxuqDCkhJsUgQ+fOQxyD5ZG
-	 lyuClre7adKWFE6c9TcUIj0hqCvwTzMoS8Oq51Zt38vX1+c3IQwiZhY8004b/LNtH4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906002;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=bWoUw0v85zV3qDcWRLloegiWXI8H90sykJZsNR/TAqw=;
-	b=fWz4G9UmphQ3f4VyyvhrwwRpr6sdHHCyZ0J5Ha+g4m13MxcSpJp0QQgRGE2Tq7FnxZ+f
-	 3K51EfMvvmr7eDhylrvZnCajn3aUQ+5tZIqkT92em3xIYu/iaiNPr/EVjM0+6jX4yeBSU
-	 9CBLTuFekYV9GPBjo7+q1jCwJUyMZ8C/nf10hfGlmDXGg9WGceDnebsyGT73yfWWGMecl
-	 HJxWCoB2Kc18e60LMNaOYI3TL9CCn94kNKY1grNITD4zk28zCh48LUUar+kv8IOnoTaIk
-	 H1ebib96WHO3BFShuTXr5DaxYvJMJj4/dbqDGdNRq0leTEmTfNXPtMdptmy03hfTjzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCgVm33R;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793906025;
+	b=H1BuX8tpjxNsw3R7WB3DFn3vjnEUNrFvWJIOs85G+bgCx9tPaK59JbxdiES0kmca0MTf
+	 B2cota9aY0e2SXKrJd79TlqVb17DCgRjZiT982cdYBGov9QIq6eLG7f+kIYbocIIqXiRn
+	 wzWg6mkITtzLu5tDVQeH3Ic1eQoL+/hWCneC/zeOAvPj7IgSQWZsumhAiTskcJybhx39r
+	 TsIhh6hCUMBHvD+02W5GXwq7GnzXWyOSGUnzy4Z8UeDbthpQ0zbNwRzau77oo9xR/FXJt
+	 CEoAYLriCMIjWzG/vES28WPmKi48VXq5VWOXD9aC6JJPAb4l+Dvf6bwx7AP6S4rKDZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906025;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fT/GdW6figLxnCoxqMzuTffBsR2kRDwcttPZq737fr0=;
+	b=wiQ78eECQSrcdLw2k+uSFXXSRDXsZIruSUTtPyT7ZkyLq8PWYnlf/SeekJRQ4Budg2Fi
+	 AiAn9HsUeBfJgyl3yG6/Ct8PFdRRk6Mhwj4S1IRdy52gR7i4ScqNv+E9OYfOveIPrVErW
+	 /mLSafhEuBVKC+QWgyEFNHYHyrKfNzxVadKhcSQEIc5QTI13O8TT63cRlQoLuHFhlYB1D
+	 BH+hbmDfA2ckgkBdHhlsuweXCHCjHGJjVJaXqfsDXd6EL/97dm4DJ8bVPAC2wgSY0vZrs
+	 0XEV+o13saULZqcmANsGheqtQz0XBBdtvteDc3YasOUBV+I07nukDmCXg908lsHIRhQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=F24EjW1N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010052.outbound.protection.outlook.com [52.101.61.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A20606A31B;
-	Thu,  5 Nov 2026 19:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CFE9606A31B;
+	Thu,  5 Nov 2026 19:13:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CFE9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCgVm33R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C151F000C1;
-	Thu,  5 Nov 2026 19:13:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793906001;
-	bh=bWoUw0v85zV3qDcWRLloegiWXI8H90sykJZsNR/TAqw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lCgVm33RLYIh8TNpmuCn12/xAde129MgnsOWokB3gB6Rv91jNMzmtOSM257Ty9a7N
-	 2e/SKFKpw1DOZe70ojYG0BZqOUu/bOxnqFqPKtSfGkfEDaakQFFeoQ6C4uiT3eIX+m
-	 FUVnkJnAIULk52NAqho+YjViL9OsMWyVhVU6dKdskJOqEt7fpnQJVTyHjAO2V+nFDA
-	 dhgTSRbkn4RZzfNe+5+HAHoPmopQe0uGJn1ylama7Q1583QpQpqYqTguX4twG4mfvr
-	 dsr9nonV2SFJUqJAgK5Lewr2vtbCbR65T5vRCoLXUS23ND2em+CVCdH+J0b2uAkdZq
-	 FcztQSYXaouUA==
-Message-ID: <sashiko-outbox-199823@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 01/26] mtd: rawnand: sunxi: centralize OOB handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Sebastian
- Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Philipp
- Zabel" <p.zabel@pengutronix.de>
-Cc: "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, "Maxime Ripard" <mripard@kernel.org>, "Richard
- Genoud" <richard.genoud@bootlin.com>, "Boris Brezillon" <bbrezillon@kernel.org>, "Masahiro
- Yamada" <yamada.masahiro@socionext.com>, "Brian Norris" <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-1-dca1f6ed29a8@gmail.com>
-References: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
- <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-1-dca1f6ed29a8@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 19:13:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=F24EjW1N
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vG0fax/kYdnwbzd7jhc3MRC9oj5BIWqzgmWUCYhYtcmd8vgfIdnCxvg5MaVfX93M1LVmG6ApPs76FTSYn1MawM5pgXCrDiVt1Eo0UVVNP8/BEyBxIXmxUVoKZ6Tl62zeC0cOPBxEnvrVW62YC4K/vbOPNaZSw4NpNp6n4e69vFItdEiGKRU8jlWsXx/JHBskcLfvJmjB0vb6LUXhGRVAs23D/o03CANtRlCYysOEs8dOIhOwqGG7+uxT5Ba1qsC/NDVzJNZV0O9I6LTJrQ+fmzeml4Ut5eAp4/cUuuf0IFgZAehXqhmeXxiMR2lq2tLd93GMTgYyj6kE97F8EAyZFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fT/GdW6figLxnCoxqMzuTffBsR2kRDwcttPZq737fr0=;
+ b=kh5aj/KQgUrMv88C3GvZecTsVi1CkWVvwW3/fME7ZGPKL4b3nE0aXCZRjzfW1TGsc5HaHOjTrAeOmAiyM9LZShwFvQHeCoqngr5wv45ru+EJBk8vGMpvZFghrEy1MH3cfYaMMydZKTKBCC5M559nYlcCHUOnyygTjFvprsr7VwC8qleaznzy+KTiRaZH3adVRpfKUIyS5qKhVw4Qtcbo98VcyPVaruNkIShAYZ9NmSpumMrrN41ahOZC/3VG/2zI9Z1/GTmYkmMRL7BwCc1WE7/AusPjCofAicxzAaKA59W+MKhaLPYQa8Ro+W/cOQcEc4rdNjSXjQg6nuZAJngZCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fT/GdW6figLxnCoxqMzuTffBsR2kRDwcttPZq737fr0=;
+ b=F24EjW1Nrz0Qizy26OtXtsnLCfE+zgozDp0vNqLrVyW/zZZr2XAS4eLN5nFek9aHOueR74MRgpR2vwVzjneBSSET24zrvfSDB69zGPb1bE/S0Mz49w7SgLe2qBQLB/heX8og1nFpadm2tQRwdxNdoOvRnkScsXhiLjMtl/T+SfUC4whXe6GMbXBJHIrjlM6aNpjS7Ov6H1Y3Y7zJcTJHuVkhrWcTldoBQVyc3jxvIBcweGNKSP+TUn6HeJQxZaFrdsiH6ZSuqI2LUIvPOg4POLx+bTV2WRx/zBhJXcXuzHHJoySsRnMpGA40R0HxcsSI3uqtRWH2OEB5Off4POIKGQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5) by LV8PR12MB9229.namprd12.prod.outlook.com
+ (2603:10b6:408:191::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
+ 19:13:23 +0000
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 19:13:23 +0000
+Message-ID: <fb3835c9-955c-41ec-8fc4-3ed91e310577@nvidia.com>
+Date: Thu, 5 Nov 2026 11:13:19 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 11/16] cxl: Validate and synchronize HDM ranges around
+ reset
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
+ Jonathan Cameron <jic23@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20261011021422.3428136-1-smadhavan@nvidia.com>
+ <20261011021422.3428136-12-smadhavan@nvidia.com>
+ <auApYR-A3qihqLbP@aschofie-mobl2.lan>
+ <370ae30d-8550-44d8-9191-e9638508b291@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <370ae30d-8550-44d8-9191-e9638508b291@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR13CA0190.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::15) To LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,115 +109,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|LV8PR12MB9229:EE_
+X-MS-Office365-Filtering-Correlation-Id: f697fb7a-f848-4c16-f799-08df3b70dca5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|261022105027099003|11063799006|261028144727099003|4143699003|56012099006|261021121427099003|261026140227099003|261102123227099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	tVvwbHs3815D0yg8+hYQqjLPoXLyGLgI7qFdZPKwKzeAKoD4CaKUbeCmt1CVCvgP0KKWWYcWw6rTN/coPivkJfPf7TilfKLjmHCZYlgJ++0m5Q4KdTD/QE74ZmFpy8HcLwr5e9FQ/PRj5JZSqZZ9y1lnjkc2lpKh2uir3D+TsBYh9cIV/uPYvLRjBsAl9gDGA7c2GfV5ZjgoJrUWhTDC8nmjyorpEPLNdlE/oAAck3+2OoMx+4M0zCwhUkblz2WhP5YARhlzl2LfwsABYzcEq0YBM8fFbVkT0ZYiPWPin+A/Y1/BLM/ZbMBItszSMIbtJBig77JCOuGeGgUItzmQ3qWegszni2uzSfIK6/fJegaKpwoMZrXDgjiwMyaJF47f7kYPR54FAj8AuDp9KgJpv4HJ43B/dXrJKJ2uITG94SKvJllNx9DWD0beroG7/txipKHuvgvWWvwoSUObVOJ9EbgWoi6CPamn0YY3OnaBYirmnVsJYjoad1H4ymdvCKY7wOxTJ0gkwPckP00euI8kGUAYGI8LeX6fV4F7cAjWg2g51PlJ1FUvEGBIfMdiiLdwazdIhtfULpIBX8ZGzMmZPnpXzQl27GepOLhRYxV0qZpqFN0E8ruPuX8wo7qJswgP5Eac0Ya2+l/jE6znb5jYMrAsJ4ZrNL9FmjVyPmX8ChA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(261022105027099003)(11063799006)(261028144727099003)(4143699003)(56012099006)(261021121427099003)(261026140227099003)(261102123227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bE40Nm5Nc3BOSUw0dk5lTy9jTlN3anV5L3RFS1NWZnBQMGJ2OS9ZNlhhMTlH?=
+ =?utf-8?B?ck9NR2gyRS85N1o0THd6NGN1cjFSTUduNEdlV1BmaGM3T0JJeGEvaUlPamVZ?=
+ =?utf-8?B?RmJham9vWDl3cUFJakFXc0pmTjhwazRBanNtVm55ZTlWRm9JdWdFRnNCQVJP?=
+ =?utf-8?B?WFF1ek4reUNiSUc2Q3NzTmVES1NLakxIb1dnRGM4RExRQ3BTY3NLRWRZaFlq?=
+ =?utf-8?B?dzl4U1ZnRGpUTlFsQ2xnRWZ6dEp5bFBPMzd4cU9FUzgyVjlVdkRpZFN1WXhR?=
+ =?utf-8?B?c0xSM1Y4WWozcDF2QU9TMHo5SmswU3FxL1d5ek4rZkU2SmNUaFRDWmwwRFdr?=
+ =?utf-8?B?czlKcXl1ZmZHN2tPT0xrOGFtOGpmRkVjbjFnS1BaSis0aXF6M291S3p3ZzdR?=
+ =?utf-8?B?bWQvTmNubUlvVlFTQlhIUHNQTXZ4WVF2NkhkT1RZbk1VVTd4OUM4amxuT1p1?=
+ =?utf-8?B?QThaeWhzTUxnSS95a1lwYS9BUVJsdXArL2RUdWRueXBPU3luMUVpcWFSR25K?=
+ =?utf-8?B?SG5QVEVKK0F4OFhGTkhUY2p1MC81Y0NyaFFFbGRqWUhxSXg5S2NMV3pGaFNh?=
+ =?utf-8?B?L00wU3FheTFHSGF4MkVpUUQyV0doQmtzOGl5bkFMSExWLytpYTB4NzMybVl4?=
+ =?utf-8?B?M2tNY0pCdVhXTTkzbzlOb0lZd2ZwdHBOQlg5MVR5eEV6OFVrdElqRCtPVW0y?=
+ =?utf-8?B?VGhSbHo5dWdPeDlLblRhTVA1TnVqNmJyd1p1VGlITXgyOGdGTjZCaWk2NkxM?=
+ =?utf-8?B?aEc5bXN0aXJwamluZnlyR1RYdUpMdHRTQzBZcDdQZFQ3MU85OGxpZSthYVEx?=
+ =?utf-8?B?eEMxRjdRTFlaTnpBcllJNFJ3Si9wQ0FnejdtcUpxRmpVUkJmRDN0TTAzaFQ0?=
+ =?utf-8?B?M0VLNkk0c2NFV0dvbEpjaUxMVWxDMDl3VXF3NkRBQWQrSS9vckRmclNlaVVt?=
+ =?utf-8?B?N0REOXhhVlRmNWdPOGxVaHJZQ0U3NEtUcmNDbWlwL2piRnJDVjBKOUd4MVY4?=
+ =?utf-8?B?Y3B3c3ZkSU04T1c5YkNSTEVhV0lsbk11YTJ3bUtEeW4yRDNZWms1TVpUVWxL?=
+ =?utf-8?B?dDdyQ24rY3Y3SE9PQWdqUEF0VkplUDhCQ0o0a3pjaEYxRUQ2dm0rbnhSSVhG?=
+ =?utf-8?B?NWtJWkF3cXhmM1EvdHU1empQQTlyZ3pVVGJGdEdGc3RRK3JIVkRMYXpCbGo2?=
+ =?utf-8?B?YWJLUkV3T0p6UVZWZlN0WFlWUGNVL3FzSnRPR2tNSjFUUUhTQkIzVGoyNVRa?=
+ =?utf-8?B?eGtFV1lQc1VVY1lWdTRCd0t5Vnl3bzlYZGFwR09WS1VsR3VPbzEvbjhVMjgw?=
+ =?utf-8?B?QUVNbE9qdGxxYkhKVjNFdHRqTHY4UXJpcW5LODVuMTFZNWJwSS91LzREQ0lP?=
+ =?utf-8?B?MG9Wb3lXVlJlcktTNHpXdW5GVGlGd2lZa2VMZmRZTU1OSDlGQ3BoSGRTQnJZ?=
+ =?utf-8?B?SStUNXVycGIyNVlYVHF0QWNoQ3Jsa3E2MlFrK1dqaDViaWJaWW05SmVSVGFT?=
+ =?utf-8?B?VlRoUnk1UnFWcEtUaldpdTI4KzZKTUYyOStUL3N5UmZlMlZheGcyMWQ1VlFn?=
+ =?utf-8?B?c21CSjBzeDdUdjJVbDhicmZyaWhFM0VOS1JWbUEvV0hnVVcrTVVRY25YSy9l?=
+ =?utf-8?B?KzJ0M3B3N1VLdlBYbmZvUlZsSzZYbVdiYm1Oeks0a2FiL1Bqb3ZBWG9YekUr?=
+ =?utf-8?B?aHp1YmdkcER0eStkM2Y1NFZTUkRlOE1NVU5MT3p6NW9XU0RPQzR5QjcxV1hx?=
+ =?utf-8?B?NUxXUFN6a1JWS0dBMnI1dHZ0cTEwenFHbFNnYmhVOTRHYTlOUjl0YTR3eDlL?=
+ =?utf-8?B?ZW9zMDh3Mi91STRya3dWZ2lGRXg4YXlyYU5Fa0VRVjFXZGd0RHp4MitYa1BU?=
+ =?utf-8?B?OStsd3lnbUdRajBtaFpzMTV1Z3I3UVpvOEtCa1FXQThsbVpNRUREQk9HTmZF?=
+ =?utf-8?B?NWM5b1NHMlBCUUltcFJEY0JnckUzblJKcnlzL2lTSzkzeFBMaXN0R3FidEE4?=
+ =?utf-8?B?TEMzazFrYjBlNThvNDhVekNQWW55N1RlOXQvMVErT2FXdmNla2pNSk1WT1Fu?=
+ =?utf-8?B?QkpORFFlRW1pT3o0dEE3WHZTUVlKWSt5U3pIVEpjV1pjaHl5TnJqdStxaUZ6?=
+ =?utf-8?B?d3cwM2llMEZDcUV2NThwUklhN3k0M08zZVNtRDk1MEdaQXBtWDBjY25QV2Jx?=
+ =?utf-8?B?cU0xZ2hva0FDTmdlVEpMZ1NOSUJUQjN3eTZRb0IzTkI1RzIvaHR1WFVqc0o2?=
+ =?utf-8?B?Tzg2dGJJZG1sS1gvR1lsL1ZpMGVPYkdZQ3N6cUt0OHdBc3NUWkh6eXJvMHp0?=
+ =?utf-8?B?Q2tnczBUdW1pSnQxQ0dPdUNrdXE5L01iZVRrUzkzZnRJMWpqM1hZQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f697fb7a-f848-4c16-f799-08df3b70dca5
+X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:13:23.5296
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WVVdZMlwoemEYE48sDDK+DRuX3rOONYJbi1bykkuqjO1yno5+sCTitIIdQCdpLKJ5Pe4jSkBsuIT1Gl4LybDpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9229
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] mtd: rawnand: sunxi: premature oob_ops selection in sunxi_nand_att=
-ach_chip()
-- [Medium] mtd: rawnand: sunxi: unaddressed maintainer NACK on vendor OOB l=
-ayout ops
---
+On 10/29/26 6:43 PM, Srirangan Madhavan wrote:
+>>
+>> I'm not sure you should include the links in the commit log since
+>> they are to a private git tree. Maybe just include below the line.
+>> Those links are on more patches than just the ones you added
+>> DaveJ as Suggested-by, so very that is odd too.
+>>
+>> Anyway, that's for you and DaveJ to sort out 🙂
+>>
+>> -- Alison
+> 
+> Hi Alison!
+> 
+> Thanks for pointing it out. I put suggested-by and linked Dave's branch
+> as I wasn't sure what the right tags were.
+> 
+> I moved the reference-branch links below the patch separator (I can
+> remove them altogether if they are not useful) and removed Dave’s
+> Suggested-by tags in v16.
+> Checkpatch was complaining about Co-developed-by tag without his
+> accompanying Signed-off-by. I'll reinsert them once I get ack.
+> 
+> Dave, the refactor starts at v15 patch 6; after the split, the related
+> v16 patches are 6–13, 15, and 17. Would Co-developed-by be appropriate
+> for any of these, and can I add the Signed-off-by for the applicable
+> patches?
 
-commit 8fda5c99d9befa1771418516828f040de60c5845
-Author: James Hilliard <james.hilliard1@gmail.com>
+Hi Dave,
 
-mtd: rawnand: sunxi: centralize OOB handling
+A gentle ping on this. v17 still carries no Co-developed-by or
+Signed-off-by for you, and only links your reference branch below the
+patch separator. Would Co-developed-by be appropriate for the 
+aforementioned patches based on your reference implementation and can I 
+add your Signed-off-by for them? If not, please let me know which 
+attribution you prefer.
 
-This commit centralizes hardware ECC result interpretation, protected OOB
-retrieval, erased-chunk checking, and user-data layout reservation behind
-per-chip sunxi_nfc_oob_ops callbacks for both PIO and DMA paths.
-
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index f41feebe42571..80006d1a33d68 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-[ ... ]
-> @@ -2066,6 +2096,58 @@ static int sunxi_nfc_maximize_user_data(struct nan=
-d_chip *nand, uint32_t oobsize
-[ ... ]
-> +/*
-> + * Both modes use the same layout and ECC policy. Scrambled transfers al=
-so
-> + * compensate the first two user bytes to keep the on-flash BBM unmodifi=
-ed.
-> + */
-> +static const struct sunxi_nfc_oob_ops sunxi_nfc_plain_oob_ops =3D {
-> +	.min_user_data =3D sunxi_nfc_oob_min_user_data,
-> +	.init_user_data =3D sunxi_nfc_oob_init_user_data,
-> +	.read_batch =3D sunxi_nfc_oob_read_batch,
-> +	.finish_read =3D sunxi_nfc_oob_finish_read,
-> +};
-> +
-> +static const struct sunxi_nfc_oob_ops sunxi_nfc_scrambled_plain_bbm_oob_=
-ops =3D {
-> +	.min_user_data =3D sunxi_nfc_oob_min_user_data,
-> +	.init_user_data =3D sunxi_nfc_oob_init_user_data,
-> +	.transform_bbm =3D sunxi_nfc_randomize_bbm,
-> +	.read_batch =3D sunxi_nfc_oob_read_batch,
-> +	.finish_read =3D sunxi_nfc_oob_finish_read,
-> +};
-
-[Severity: Medium]
-As reported by Miquel Raynal on v6 [1], the series adding support for the
-vendor-specific Allwinner randomized OOB layout was declined due to
-maintainability concerns and kernel policy against vendor-specific NAND
-layouts, with an invitation to submit only the standalone fixes outside of
-the randomized layout support.
-
-Here, sunxi_nfc_plain_oob_ops and sunxi_nfc_scrambled_plain_bbm_oob_ops use
-identical callbacks for min_user_data, init_user_data, read_batch, and
-finish_read, differing only in transform_bbm. The remaining indirection in
-struct sunxi_nfc_oob_ops is only used by the vendor-specific randomized OOB
-layout patch later in the series.
-
-Could the PIO and DMA ECC read helpers be shared directly and the standalone
-fixes split out without introducing the struct sunxi_nfc_oob_ops vtable?
-
-[ ... ]
-> @@ -2254,6 +2303,9 @@ static int sunxi_nand_attach_chip(struct nand_chip =
-*nand)
->  	if (!ecc->size || !ecc->strength)
->  		return -EINVAL;
-> =20
-> +	sunxi_nand->oob_ops =3D nand->options & NAND_NEED_SCRAMBLING ?
-> +		&sunxi_nfc_scrambled_plain_bbm_oob_ops : &sunxi_nfc_plain_oob_ops;
-
-[Severity: High]
-Does selecting sunxi_nand->oob_ops in sunxi_nand_attach_chip() break bad
-block marker compensation for chips that set NAND_NEED_SCRAMBLING during
-nand_manufacturer_init()?
-
-In nand_scan_with_ids(), nand_attach() runs before nand_scan_tail():
-
-  nand_scan_with_ids()
-    -> nand_scan_ident()
-    -> nand_attach()
-      -> sunxi_nand_attach_chip()
-    -> nand_scan_tail()
-      -> nand_manufacturer_init()
-
-For ONFI-compliant chips where nand_onfi_detect() succeeds in nand_detect()
-and jumps to ident_done without setting NAND_NEED_SCRAMBLING, the flag can
-be set later in nand_manufacturer_init(), such as in
-drivers/mtd/nand/raw/nand_toshiba.c:
-
-  toshiba_nand_init()
-    -> tc58teg5dclta00_init()
-      chip->options |=3D NAND_NEED_SCRAMBLING;
-
-Because sunxi_nand_attach_chip() runs before nand_manufacturer_init(),
-sunxi_nand->oob_ops is latched to sunxi_nfc_plain_oob_ops (where
-transform_bbm is NULL). Later, during page and OOB reads and writes,
-sunxi_nfc_randomizer_config() and sunxi_nfc_randomizer_enable() dynamically
-check nand->options & NAND_NEED_SCRAMBLING and enable hardware scrambling,
-while sunxi_nfc_hw_ecc_get_prot_oob_bytes() and
-sunxi_nfc_hw_ecc_set_prot_oob_bytes() check sunxi_nand->oob_ops->transform_=
-bbm
-and skip calling sunxi_nfc_randomize_bbm().
-
-[1] https://lore.kernel.org/r/871p9v4a1x.fsf@bootlin.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-submit-sun=
-xi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com?part=3D1
+-- 
+Regards,
+Srirangan
