@@ -1,73 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888133;
-	b=AAqDdDli+2czNbUUTUK39TNyxpKficcOvODq0/PdqvExyvIS3E2Ut1lIN1GqKUgldcFs
-	 dNCbp1Wgjk52kti5VNUJFGFn/LepdtEXNVvuRuKE7067n4DtrJovXdjbfRCElnYeRR+ob
-	 /XHMy9Qz0L3A0oSrdXvg/5IvGlRYKveZPIu0svbMdgkmBQgBUlXtRXHt9K7CY2zAe0f3c
-	 FEFjIN4qaT3duBryliUUyau+/crA4IwrAbs9sdGjUaiVxW1YlTptgYYxmGIfjqJ/2wLbu
-	 wEoFvFNNmUV+LRIE2Yk8PPugWrUW+uDISTpXHXli5A/GZgfW9yRqk6ExPqITG8ErfNQ==
+	t=1793888131;
+	b=G1j2poI0jJKZeAuLA5pzIpzEFBScknfSIveXvlj+FcPPmiQU8eRWP3T3iUM/qACsPI+I
+	 uOh0XAnoPIhyrAFBhdCcx1GEs9duOrQ4SoiF3qCawxsQxk9p/PBEk4vW2Ek0R3pzdvZ4/
+	 2buIzwYbW33b+jfDyJkqlpd6Yvvuo7b1z7qVFG0BRjaR7OcTp0F5EiuK2Nls/g1KaP2Bj
+	 +Z84SYlwKz+fM1sLXDfynmTKgzFMEI7xkKnYz2TqHw8Hjp1w3t2x9SV8XWsEaqg/6RiLa
+	 I8FsUMKYTrsogOtuApRqE+7QhMf7OblK7TPzAjuZl+2OSMnS3YaBGRq3NrEEsTvFBVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888133;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=dWl9qIyyT5GTbz8Zh9XS4FgbJfrczPtjtTFP/gieClM=;
-	b=GTgXQ4nB4YJeraN8CIeuejRS0GXfD70catXL2wUx0fGdUqjYAqIaJUWvXeBA9oxkPQu1
-	 uBDS8w5AMtH1/knkqoUERoB4wtr323hxKP0iTLdsJKVtnDFW+B2Ot3mrQI5nTm2sCRfaB
-	 s3B0Kkdb8vUNMDcbJVmYn/VYc/4eTG+RXbuwyZUjPzPVXJ3nc7jfb96jFkKmuSh0ELIaa
-	 fXjg38UDMfOX1VQPq/Y08ecWOYOIV/9ipH1VmvAp4Fz3JfrilhTgnyJMnW+WaKTmJVVTf
-	 Eq0Fb7Ln9lV4Qf2wLQZLnlDc0Nr6CT4uxKrAjdLymmIir/PvGuq/ZZNbu+Etx8kCCpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888131;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=AYCrl/o76CQIK0hYxKW+2eBH3mu3znrWT//PxWp7iBY=;
+	b=WqyFhX16qxeJ/un6usB/f4WznLhs6B346G80ReRst6Q/Ty/nE2sRpPi29o4pgq8yEi5V
+	 W2QzpnHrO3uowzMwH0qPfMzOyTnjL8+CfZoBFDg/WADN1/LF4KMTQZ9KJJOjo0JqGpN7/
+	 JeYmjD8VfDV0RcrR6qhBtbZZkXY0iGXyG7PTjlb5jfyidB2N8zs5SG20BhVY6tUK7BBXt
+	 74/s+9+2w6Xc3dyvV+wF6WMqBwnhxiCcOHTmCkLp9B7YMtvwcvfwQs18GW3c39Svym08E
+	 mxgHIwbP2GbZbLFxCnkfBCt7g3bgOp0sQsLRbsOXuO/jzGPT/NE37moy7lCwEeCY0eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mKQcTmkb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QXwWR1bI;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD26606D819
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:15:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F84B606A334;
+	Thu,  5 Nov 2026 14:15:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F84B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mKQcTmkb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40CB1F000C1;
-	Thu,  5 Nov 2026 14:15:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888133;
-	bh=dWl9qIyyT5GTbz8Zh9XS4FgbJfrczPtjtTFP/gieClM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=mKQcTmkbt11MCNwBKVETHsQOgfg/+WDhuA6RUc5+7CzZXwoLI+YexCeQeXmlja1sc
-	 iPGzOro5pPuNag61GsAhJe3ytqO8BFFwGP3LGvzursf7f7DNrhnrglihlVCLsVujl3
-	 sD0CrDnPJDlNVBN0fgK4lPrA0FQFZkT6bUTtiGyKb6ape1C6ee2CgjpizgU7bIcpPf
-	 vFtHqiQmwocADdg4z9F7VUd9083uJFmois5oys08koIOG+5vzEzXWaivQMw8Sc1pA8
-	 tlCPYNDoAOLtLDtG1Y4HCijgWY64rSsuS11NEtba5ibdg3Q5R6eYH0w20rSPuBUdUN
-	 OP7GTSPwz8uPw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 3DA55F40069;
-	Thu,  5 Nov 2026 09:15:32 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 05 Nov 2026 09:15:32 -0500
-X-ME-Sender: <xms:hI_sansukuYM_t2Qfasbo28ErltExv8dQGMxneb9gDg4TjR_s2hJEQ>
-    <xme:hI_sajQg8-BTdgG1ZanLHYzGVtx_v-6RZA6d-AszW_9kbNKVw2iUZbgzIreKsKrA7
-    9DPdn4Bpoh3TPhYdjB7djhTD_vwruEpVCHF1MIjz7pTN4F2UYEtbBc>
-X-ME-Proxy-Cause: dmFkZTEbqNS91ZW1Hk6vrRrfzyGwFYp0ZDpS1rfXn7DNPUhYK9RmUTVjl7XbEQQY7PbTB6
-    k12X0E6UvtpNpw6FkuR+AXnEAJJQ3YOJFHNk/CU6Wy9rda+HQxEWbadEuOtZsU4/kxuwow
-    ZrsbFxMuldzYp+IfNFXdr5kYJdOPE7Quoikws9qrwk5YIKv8gl0tqboUQ3IPVUFeotjSE1
-    MbGPCLNi6Syat30cUXTJGSC6u8eSeHDeCeL4Y/PwVlZYs/n3vGyohvaaY6Sw2oFrO8hI1Z
-    N+vCVdsb2/IEQAnelDC9nsbkDfF8j65ed3Fx9mC0q39JqIprfH9svuVucqNkoJS0VcsHTn
-    LHuOwL9FBOQjZFeZVaWPQ0dGLUlfkOjDYLK1ov7ar7iPMbAJ+qCW24Lnj63aayZlsZCB/9
-    uTHLzRhnahNhIBd9JXObovybo00SHugK5rWtIpQuog7zhCgOuFUo6Jdq3B/i2c0y67Fkim
-    F9/DKXUEI/hA2m2IYPBc0z2Ls32kgNWY01gPO50ikjSVbWpZ/AdCriJCwMdS+5q6T/JSvL
-    GM6sZOfoMOJm6Oq6UUfgK4y8H96umFw1gvub7tbgOEVgXMeYjVuyraCEHGPKsyxd6XFv3+
-    X8+CIYba23GN1WPV6tfQAyj3bIEk85uvtHsNgdBg7UM9r98cBZp/XZqkLXBg
-X-ME-Proxy: <xmx:hI_saneRUGvh7UmYi0YmCIPSYBZfh6mjEwrQkrCl-zEXWtvJSEzeOQ>
-    <xmx:hI_sanrnSynP0hMTtSKvPPk5QqPf8m7mIMwmbh_t0Q81R7YVmgmKQQ>
-    <xmx:hI_saoCpK0q-bCiXMAhxkmGXubBFu1MB1I9jM1oe6GZ7aWA-lVOY5w>
-    <xmx:hI_sagdN0I10iJuAdGdrVG89ugUiN4XVayVTYJD-vQ6MLnP-L9AVZA>
-    <xmx:hI_saou1xgB1RiVu-m2hk8zgrmsfU2mlPAG3Okpun14aDq9eOFECmZ0l>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 1E75578273E; Thu,  5 Nov 2026 09:15:32 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QXwWR1bI
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AECMr3166406;
+	Thu, 5 Nov 2026 14:15:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=AYCrl/o76CQIK0hYxKW+2eBH3mu3
+	znrWT//PxWp7iBY=; b=QXwWR1bIUaycaITbxxhkZhXDy+6WwusN5zXqBGlu/FSF
+	HQ9vfw93ZouZ1DUNBveRBjyeR78XdVsBAcYRvaYtrGlywu8oEjq0cADc7wQ5H2LI
+	fnk7dDDI4L47MATO7w71GHruKxrDVc79P3DclrpMtff1YiXxTyppS8hvMB9sv2PX
+	JzZKKknmIZJHNufxY/7BFWcibEY3rt/O76EIRfJjA17jxD2VjNVpZt5bonIs9vmf
+	JUfFV5dzXfNm7UOItnbGAE9ogW7cxJcLn+gYY1bSmU9+o0jQkopSV8Zdv1md9icM
+	yXqx0NTYwwHV1aUcaGiKdW1SoLs7uMIxubZ2cs7Rhg==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rj2e9m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 14:15:28 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5DbfeV1476854;
+	Thu, 5 Nov 2026 14:15:27 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hrka6t98u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 14:15:27 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5EFQbW2949672
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 5 Nov 2026 14:15:26 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A63DB5805E;
+	Thu,  5 Nov 2026 14:15:26 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A48C358051;
+	Thu,  5 Nov 2026 14:15:24 +0000 (GMT)
+Received: from a46lp21.lnxne.boe (unknown [9.87.84.240])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  5 Nov 2026 14:15:24 +0000 (GMT)
+From: Andreas Grapentin <gra@linux.ibm.com>
+Date: Thu, 05 Nov 2026 15:14:29 +0100
+Subject: [PATCH] KVM: s390: arm64: Tolerate unused functions in extracted
+ source
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,113 +86,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AZw_cbuSOhNR
-Date: Thu, 05 Nov 2026 09:15:11 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: "Tim Menninger" <tmenninger@everpuredata.com>
-Cc: "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
- "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Eric Badger" <ebadger@everpuredata.com>,
- "Jon Curley" <jcurley@everpuredata.com>
-Message-Id: <1c6254c3-6b90-4a2f-b797-5d8b1ec9ca34@slotpi15m67>
-In-Reply-To: <20261105030710.2652306-1-tmenninger@everpuredata.com>
-References: <20261105030710.2652306-1-tmenninger@everpuredata.com>
-Subject: Re: [PATCH 0/2] SUNRPC: let cancelled RPC/RDMA requests drain before release
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-series1-fixups2-v1-1-55f59e6c4c7b@linux.ibm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNTXYh6Q920zIrSgmIjXYvkVLPkZFOTRCPDNCWgroKiVKAU2MTo2Np
+ aAJLhddphAAAA
+X-Change-ID: 20261105-series1-fixups2-8ce6cc54a21f
+To: Steffen Eiden <seiden@linux.ibm.com>, Marc Zyngier <maz@kernel.org>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>
+Cc: kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Andreas Grapentin <gra@linux.ibm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1811; i=gra@linux.ibm.com;
+ h=from:subject:message-id; bh=yCJ8zGH+ys0Hbi94LcD/skXHomxBfRnUILXn21GG6fM=;
+ b=owEBbQKS/ZANAwAKAXUg1t0k8konAcsmYgBq7I96JowTaCmMZeVHPm0wzskK+pz7jLWynmv7v
+ PMRsqKugR6JAjMEAAEKAB0WIQRrKkreGscL2VvlPix1INbdJPJKJwUCauyPegAKCRB1INbdJPJK
+ J9eqD/98WkIoZIeqbaWO1pF4HvruVvBayNPYCt1u+ayvQxp99lfsgRTWT+TaWI9fGrtinWpeiEv
+ Nva7qI/uB2SPUTLQbRt9DB3z7D1at9mZRkxz2DwzWiDe91ww4P0HrhwHnqBnazVdnVdsXchAiok
+ 4789G9Uy6u5lYkGoWtDWYcrCxs6ET7wTXzTFftNKDUfiy31IoLA6Dd4lQCOUozRMKmDKC40H96R
+ accVrdi8BomJ9ZMFCKIv9rELHGvhw9tL41BQuNuruJvnY76G7uPFc3DRuQNRLvU/t/fYIdT7V4x
+ A8jMgnFrhGvqRedFDWB9Dr4veZAPMSmeMkxkgr/O4VplxHNXvBmF5zVlA/fmpD9Mh+zBLv/oYfE
+ 1s51PqO9CTpko8rOLBo81uQkCz1N5ezgnboJgIk0tUAcJyhHWntYARlfg2GcxkzAjA3ZrVFKlem
+ kVRaNjJ4UgFGUwbRVc6LFaarKf9LaoqAzF1Qyfed/edfgtPaNu3Zu9KZ/mClt7rxAHKHhKDI9RG
+ 1qOYLraSw59Tv8zy9kNdwjBoato5dp7pMdXu9BDvofmBdEoUJ+FAkQTBpzC4SwQxuewoIArJx/M
+ rEEkbajLrnB+HG33eXCt47QlMqjPOj53HP2ec2gEJAzjZonzIMtEzaRbuzahLqAnRNsABGrV/mb
+ g9AqUxr8UYqYxQA==
+X-Developer-Key: i=gra@linux.ibm.com; a=openpgp;
+ fpr=3B910193D094AA78FD974A04D8BFC37DD553D93F
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: JqCHrPexS5atIXJlMebujOw8HEeRsmlZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1NiBTYWx0ZWRfX0WE0RHBivj6E
+ loA130TDGlYpmTxfbUG/k7i/VTEkUqXotLiO3wB6A+ODExk9lQNcQ/YKm1xWR6mFB35Mw6uQDOd
+ r+GhBis0uTvNKTPim69fQXk0LPZ+Hac=
+X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6aec8f80 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=R7EaXgVFCislUhSyr_kA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1NiBTYWx0ZWRfX1UU9DjYlv7Wu
+ Vqt09p0Zh4AOdmrwEhnDntSlbkFqKmvAxoAh9fsCAgUj4PWMhtQzf4ISMMy2GzRudJFmrqjL3Wk
+ YUVgW1vWJAayE3TrC/CLFumcnJ2lBzB5wU61v7yFIF8bJuHtHyD7QIJVOE9AviZjq2dWVSpI9qF
+ 01m17tlKnwZcsjlEJBdzcxW8T2ibp94d93G1bmsX7+cdUmBmF7jMwjyiNPC083bmLojYbO0A6+X
+ +XIjFpESC1kEVOvmAR8xvoMiQkiJ22R+RvQ9YKbQkVYAjgBg6EgkFcn2W9K/iepvRyy7EVwzS8p
+ nqcSGRtAVjd46ULkQlo/BcsEx9AxFvMB6/g1zmOFNlOf9g4K/ucXdCgniarjoKM1eyU7JW8Kq9w
+ s6Q4FyryGPiKOTPkjaXbIifNfKismd0S3kjWwXc8yAZb/evf+EQ1o6Pphu5Go9EpaSMBlj2BIXF
+ n25bNqBRmxBxPsNHeWw==
+X-Proofpoint-GUID: JqCHrPexS5atIXJlMebujOw8HEeRsmlZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050056
 
-On 11/5/26 3:07 AM, Tim Menninger wrote:
-> Cancelling an RPC task does not establish that the server has finished
-> accessing its advertised Read or Write chunks. Releasing the request can
-> invalidate those registrations before the server finishes using them. A
-> subsequent remote access can fault the QP, disrupting other RPCs and
-> driving further layout cancellation and transport recovery.
->
-> This series lets eligible cancelled RPC/RDMA requests remain available
-> for normal Reply-driven cleanup instead of immediately releasing them.
+Extracting static declared arm64 functions with no consumer on the s390
+side into the generated sources causes compiler warnings when subsuming
+the generated sources from s390. This causes spurious compiler warnings
+that make it harder to extract larger, more cohesive portions of the
+arm64 source.
 
-Apologies in advance for the length of this response.
+Update the extraction logic to wrap the extracted source into diagnostic
+pragmas to disable -Wunused-function for the extracted block. This
+allows us to share more freely, and also opens up more paths for future
+code sharing with a separation of extraction and definition of consumers
+in separate commits.
 
-My first concern on reading the cover was the client's memory
-protection model. An RPC/RDMA Requester invalidates the MRs a request
-registered before it releases the request, so that the Responder can
-never see the contents of memory that has moved on to another use. I
-wanted to be sure the series avoids the connection drops without
-weakening that model.
+Obviously no functional change intended.
 
-RFC 8166 attaches the protection obligation to reuse, not to the
-upper layer's authorization state. Section 4.4.1 requires that the
-Requester protect a region from Responder access before the upper
-layer may touch the data. Section 8.1.3 requires invalidation before
-a terminated RPC's regions are released for reuse. Section 8.1.5
-permits a Requester to invalidate on cancel, and gives the reason as
-stopping a late Reply from altering memory after it has been reused.
-That section then describes cancel-then-invalidate churn as a
-denial-of-service exposure, because the Responder's replies terminate
-the connection. That churn is the storm this series is addressing.
+Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+Reviewed-by: Steffen Eiden <seiden@linux.ibm.com>
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+---
+ arch/s390/kvm/arm64/copy-arm64c.awk | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-One might ask whether a layout revocation obliges the NFS client to
-invalidate at once to fence the DS. The pNFS layouts were not written
-with RPC/RDMA in mind, but the SCSI and NVMe layouts are the closest
-analogue, since the host registers its buffers for the storage
-controller much as a Requester advertises Write chunks. RFC 8154
-Section 2.4.9 and RFC 9561 Section 2.2.3 put the fence on the MDS,
-which preempts the client's reservation at the device, and that fence
-covers in-flight I/O. The client learns it was fenced from a
-Reservation Conflict on its outstanding commands. No host driver
-unmaps a buffer under an outstanding command on a live connection.
-The flexfiles layout over RPC/RDMA has no reservation, so the MDS
-has no way to abort in-flight DS access, and the only fence the NFS
-client has is a disconnect.
+diff --git a/arch/s390/kvm/arm64/copy-arm64c.awk b/arch/s390/kvm/arm64/copy-arm64c.awk
+index 640a7bcb7e23..a318be97c419 100644
+--- a/arch/s390/kvm/arm64/copy-arm64c.awk
++++ b/arch/s390/kvm/arm64/copy-arm64c.awk
+@@ -42,6 +42,9 @@ BEGIN {
+ 	print "#endif /* __INCL_GEN_ARM_FILE */"
+ 	print "#undef __INCL_GEN_ARM_FILE"
+ 	print ""
++	print "__diag_push()"
++	print "__diag_ignore_all(\"-Wunused-function\", \"tolerate unused functions shared from arm64\")"
++	print ""
+ 
+ 	file_header_done = 1
+ }
+@@ -78,5 +81,10 @@ copying {
+ }
+ 
+ END {
+-	exit error || !found_marker || copying
++	ok = !error && found_marker && !copying
++	if (ok) {
++		print ""
++		print "__diag_pop()"
++	}
++	exit !ok
+ }
 
-When these patches are applied, cancel now means "wait for the Reply
-anyway, up to the request timeout". The task holds its slot, its MRs,
-and its ULP references, including lsegs, for that whole window. I
-expect the held lsegs are why the lseg patch is needed to avoid the
-livelock. It looks like the request's RPC/RDMA credit is held for
-that period as well. That might introduce a deadlock opportunity.
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261105-series1-fixups2-8ce6cc54a21f
 
-My other concern is complexity. __rpc_execute() already juggles
-tk_rpc_status, the signalled state, queued callbacks, and the wakeup
-of tasks that acquired an exit status while asleep, and that loop is
-hard enough to reason about as it stands. This series adds a third
-exit path, a drain, with its own exemption from the wakeup check, a
-drain function that re-derives the request state under queue_lock
-through three nested conditions, a special case in xprt_timer(), a new
--ECANCELED result from xprt_request_transmit(), and a condition on the
-conditional disconnect in xprt_release(). Each of those is a new place
-where a cancellation, a signal, a timeout, and a Reply can interleave,
-and the interactions are spread across sched.c, xprt.c, and
-transport.c.
-
-A handful of specific complaints:
-
-- xprt_request_release_needs_wait() takes the RPC_TASK_NEED_XMIT
-  branch before consulting the transport. It dequeues the transmit
-  and returns false, so a request with MRs still on rl_registered from
-  an earlier transmission is released without draining. On RDMA a
-  retransmit normally follows a disconnect, so the connect cookie
-  would not match anyway, but the branch order means the transport is
-  never asked. The commit message or a comment should carry that
-  argument.
-
-- A request whose marshal registered MRs but whose Send was never
-  posted has RPC_TASK_NEED_RECV set and a live connection. It drains
-  for a full timeout waiting for a Reply that cannot arrive, then
-  xprt_rdma_timer forces a disconnect. The drain turns a cheap local
-  failure into a connection drop.
-
-- Widening every rpc_task by an atomic64 and converting the hot-path
-  reads of tk_rpc_status is a lot of surface for one abort bit. Is
-  there a reason the signalled state cannot live in tk_runstate with
-  a documented ordering against tk_rpc_status? The race that
-  5bbd6e863b15 fixed was the flag and the errno disagreeing, so the
-  argument for the combined word needs to be made against that
-  specific race.
-
-
+Best regards,
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Andreas Grapentin <gra@linux.ibm.com>
+
