@@ -1,78 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906136;
-	b=tNhPT23fNa6h8v3fcdGPFqs+muu/7pxkdjYmd3dF2DZmWtGgxHnnfBsK3hJRWqlU/jNj
-	 SJLySRuhSnsfTldXB7qS8hssBAJ9HnPHBd016xJhuPV3Gp5k18lTcxGhDTwM51CGGQ69g
-	 IkQM4MfEBJFDc4XC1Yvw2SXx4tc7ADMKT71fR4m8Om/nmBaOlEea6bKOkWmrFvwA+3dnh
-	 8UZzve7KdMpXbcX0Vb9RhjhjzdgOACiGExFi3eAUq1h4ovAA467VHusiXFWaHgdfENcBl
-	 gX+uXP58aRJP7hz38djntrzeuGZn+Us9qm2EfS0OBFMqjlhjKmnVyT5jExGk35VMa1g==
+	t=1793906158;
+	b=sEqoSGn+wm6u/7eRwxecY/T+iQDFZPxHEvCjL4GsncTcgrejOzmIYJYGOvY5w+NubCx6
+	 83c/ayu1rbvIoBO2lG8UeisAc5Jyb96RqVVdvEsTS3/QKGAjvUAS3obDJYE/ROiF2hNAK
+	 raJmmBLieyHNmsjXNCKeJegzMcZKRODLpZr3DLr33/jSlJai4WKK3E7OHkvbXXW+MSr3K
+	 aX/oux+P9WIU6Jc1XOmcfGoeclTSGfRIZwsmY1uXZE8agkLJuUIRW2w0IE11vQIEiqRez
+	 BhkZzojL3rHHuQcqPJEIS47Obu6kaG2+BrrO7cU5Nu2kwHTjVWQv29+q50MAOJ90VzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906136;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=SmXGLtwdL6+xdqj7AXF13PSOAqPEIyOh4wlNcIxilCA=;
-	b=e3FbWOdaQJUTxmd4n4l9Z8DMke0x8fIDse8a75lI+sJrnDMNuv4OZrxiNGpPajY8YlRv
-	 M+I7pjweiZ7GgVusx/dWBwXZLG//ngUIHr7YQ4BWqKzFJGpPZwZUbgCK1kbTxIgnDiO3b
-	 DSfO+LrxogGK8rW5bXFuUlNr/gGORdQa5itf+l8wF92c2PWK8LsrRkn+t1PrTa8FpUr4R
-	 J2xwan0CV8uxOmHx7uA8vBmwm+awqnhGoDaE8q7aDKQfIzsbsUqJ04Om0W0ZDNY4jxYE0
-	 ku2wRAmHb4L34AwwUzNywsUuA2RjDH+veYmllwknAAgNq1uU258yYLvtERNtWFkVskQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906158;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
+	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
+	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=aQrmpbsg39RJZHsj8bCxeHyZoqHs5GXsCVBSVz32+gY=;
+	b=VCuDwVVR90Gxlct6sI/K8xoXmlUDipc6XfI+f1GmivyDrK/SeGV1wrWSoyUvG1RtwJJx
+	 71aB/0pcsZR1XLs3rCAeTkQJR/3LpstzZTUe+eLE/hvLnL3dgyLfTzog19/+kTEC+rCUS
+	 9UoT2MNeKH3+q8dEfdN0M8FvgUEBzYWaUs96q5XqzbPD7z9gC9O/sd+xztNnqXtGa32G/
+	 IxN4e7K4footI/3JHppHwF5/HuynVckDYls2VJnTE05YIdTPahVHF503QuxV+efTNORw2
+	 lY3hh5RNeFenM/CnV1/FerPVEi0iYSGdQGp758V6PYv3zVx3W+a7W5cQGL87sep4+8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=aanBaxMn;
-	arc=none smtp.remote-ip=34.218.115.239
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=fqwqf.xyz;
+	spf=pass smtp.mailfrom=send.fqwqf.xyz;
+	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=l359l905;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=bljm+K07;
+	arc=none smtp.remote-ip=23.251.234.55
+Received: from e234-55.smtp-out.ap-northeast-1.amazonses.com (e234-55.smtp-out.ap-northeast-1.amazonses.com [23.251.234.55])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09D0606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:15:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E09D0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABB2606A326;
+	Thu,  5 Nov 2026 19:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ABB2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=aanBaxMn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793906135; x=1825442135;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SmXGLtwdL6+xdqj7AXF13PSOAqPEIyOh4wlNcIxilCA=;
-  b=aanBaxMn4ZG5Styl9Lef5uDoz1WOvx/erg9B+cr7WwW9oOGDV53lYfqb
-   4m2gjL+wFr7bET9h2BgRRHUR48uHgC9kSnnAOpafojnJRgftU/ItvrLyq
-   /HYtfDDdcAJMdaMJg5wQurUX3L/cEgRxSQGMrpC7ETyeijFZFdnpItZ57
-   39Ii5pcU/nx8fAIo3c6nK2PtsygCmkdKn98ZKKcg3S8+kvxQ1K9RZQyj3
-   VDj7orYfnnDr58ilkOecC7MiRq8OK73AJh8H3nfz+jJQI/vyoxSC+M52R
-   pQ338gA+Lmn/f0GTk+htnK7c0qPinFEVpUiFVgOfjlpoxPHPfHPzC6IYU
-   g==;
-X-CSE-ConnectionGUID: A9nJ3FyTRwKTVLb6rXkvPQ==
-X-CSE-MsgGUID: iG9TnQSaTA610vgUlcmtWw==
-X-IronPort-AV: E=Sophos;i="6.27,197,1787011200"; 
-   d="scan'208";a="33012070"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 19:15:35 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:19730]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.238:2525] with esmtp (Farcaster)
- id 40b2d56e-bfa4-4cd9-86df-f52e0a0d2fa6; Thu, 5 Nov 2026 19:15:35 +0000 (UTC)
-X-Farcaster-Flow-ID: 40b2d56e-bfa4-4cd9-86df-f52e0a0d2fa6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 5 Nov 2026 19:15:35 +0000
-Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 5 Nov 2026 19:15:34 +0000
-From: Mark Bundschuh <mkbund@amazon.com>
-To: <akpm@linux-foundation.org>, <muchun.song@linux.dev>, <osalvador@suse.de>
-CC: <david@kernel.org>, <jiaqiyan@google.com>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, Mark Bundschuh <mkbund@amazon.com>
-Subject: [PATCH v2] mm/hugetlb: add htlb_dissolve vmstat event
-Date: Thu, 5 Nov 2026 19:15:08 +0000
-Message-ID: <20261105191508.1021974-1-mkbund@amazon.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=l359l905;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=bljm+K07
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1793906156;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=7vtZbDvC8eB+jsWyFc0BvHDStt32S/c2OAorEvLzFoY=;
+	b=l359l905UEnZpTxVPT5JEgw2EhO+otwgxiBxy1i2AvlOFGVhB2FWNHU8NF7UtTD7
+	Gpb0dqYjj5gwnZkfqlV9levwrRKhQOYShQHQv9JRVE16sOR+lHUGt2b2MRvr1jz7Tai
+	DcDx9jWbVjaHMy6tW2EzQq6mNJmjuDrbUZ+/D6Uw=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906156;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=7vtZbDvC8eB+jsWyFc0BvHDStt32S/c2OAorEvLzFoY=;
+	b=bljm+K072iOhMh/0NPMy55AxUg+4VigIVaeKaUkfZnfBB0Az/aCkzpyrNLeUoSwZ
+	430K7+kNAfd/pH3lvPPwAwFOacXvkodtk2OdQomVbfcEsV2vf60Uuqik4+Olt1lrSGz
+	/iSbeaQoPG1iZ6FtKQYgN5/OAua0u3egFSBzIjZg=
+In-Reply-To:
+ <010601a1ad16c6ff-c0275058-3f89-4341-81eb-ca26372f8d70-000000@ap-northeast-1.amazonses.com>
+References:
+ <010601a1ad16c6ff-c0275058-3f89-4341-81eb-ca26372f8d70-000000@ap-northeast-1.amazonses.com>
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] HID: spi-hid: propagate reset assertion errors
+ during initialization
+Message-ID: <010601a1ad23a3f0-6052d99b-28c6-4649-a70d-e2ea74c1822d-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 5 Nov 2026 19:15:56 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,67 +72,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.11.05-23.251.234.55
 
-Memory offline and memory failure handling dissolve free hugetlb folios
-and lower nr_hugepages. Nothing records this, so when the pool shrinks
-it is hard to tell whether that or a write to nr_hugepages caused it.
+Stop initialization before power-up or IRQ enablement if asserting reset
+fails. Return the platform error through the core probe and frontend.
+This initialization path still ignores the assertion error in v7.
 
-Add an htlb_dissolve event, counted for each free folio that
-dissolve_free_hugetlb_folio() takes out of the pool.
-
-Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
+Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
 ---
-v2: say "takes out of the pool" instead of "frees" (Jiaqi)
+ drivers/hid/spi-hid/spi-h=
+id-core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-v1: https://lore.kernel.org/all/20261105020324.2011790-1-mkbund@amazon.com/
-
- include/linux/vm_event_item.h | 1 +
- mm/hugetlb.c                  | 1 +
- mm/vmstat.c                   | 1 +
- 3 files changed, 3 insertions(+)
-
-diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
-index 2628ccda076a..822fe862e5b3 100644
---- a/include/linux/vm_event_item.h
-+++ b/include/linux/vm_event_item.h
-@@ -71,6 +71,7 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
- #endif
- #ifdef CONFIG_HUGETLB_PAGE
- 		HTLB_BUDDY_PGALLOC, HTLB_BUDDY_PGALLOC_FAIL,
-+		HTLB_DISSOLVE,
- #endif
- #ifdef CONFIG_CMA
- 		CMA_ALLOC_SUCCESS,
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index da5d04edf7c1..7c79523b2a3c 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2047,6 +2047,7 @@ int dissolve_free_hugetlb_folio(struct folio *folio)
- 		}
- 
- 		update_and_free_hugetlb_folio(h, folio, false);
-+		count_vm_event(HTLB_DISSOLVE);
- 		return rc;
- 	}
- out:
-diff --git a/mm/vmstat.c b/mm/vmstat.c
-index a3e809c57f29..6282eef7074a 100644
---- a/mm/vmstat.c
-+++ b/mm/vmstat.c
-@@ -1397,6 +1397,7 @@ const char * const vmstat_text[] = {
- #ifdef CONFIG_HUGETLB_PAGE
- 	[I(HTLB_BUDDY_PGALLOC)]			= "htlb_buddy_alloc_success",
- 	[I(HTLB_BUDDY_PGALLOC_FAIL)]		= "htlb_buddy_alloc_fail",
-+	[I(HTLB_DISSOLVE)]			= "htlb_dissolve",
- #endif
- #ifdef CONFIG_CMA
- 	[I(CMA_ALLOC_SUCCESS)]			= "cma_alloc_success",
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
--- 
-2.50.1
-
+diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-h=
+id-core.c
+index 496b33cdf3..fd64d2d2cb 100644
+--- a/drivers/hid/spi-hid/spi=
+-hid-core.c
++++ b/drivers/hid/spi-hid/spi-hid-core.c
+@@ -1468,7 +1468,11 @@ static int spi_hid_dev_init(struct spi_hid *shid)
+=20
+ 	guard(mutex)(&shid->power_lock);
+=20
+-	shid->ops->assert_reset(shid->=
+ops);
++	error =3D shid->ops->assert_reset(shid->ops);
++	if (error) {
++		dev_err(dev, "failed to assert reset: %d\n", error);
++		return error;
++	}
+=20
+ 	shid->ops->sleep_minimal_reset_delay(shid->ops);
+=20
