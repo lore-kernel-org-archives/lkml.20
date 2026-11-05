@@ -1,95 +1,139 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847806;
-	b=AgW4mN+8o02TZeL/jOLaenZaXzp9qjFrptEMsKLZyKAjuCw//E8VywEJsHAj6SdDXNe8
-	 WreSU23YcTMUdgZzCHR9aU10Kl9gIivTuNfjOZeOMpeQVz6iZr0ArXIODTnQWz3l6Kh2k
-	 kzqtiZyZxERvGSVG6mdxycEsv6PI+PV2Ua2AwIr4/kcYspNNZKL+OBJBrGaXtt0ktVd3y
-	 GNSz5FrjFb7edh6LamVX833s4EdOFaVZ0JyUCXdbGUbbBwGXE6Va9TwSqBgWjcih79fnI
-	 7K6EwLayN/TinEv8r0HU/gk/I0kt2CNDYrPjZ9vT3a42DR8u6alwx+B0CK2BJTGpqdw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847806;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TmyrGImNoeERgzj0671/YFCWmU7Tn1bl23zRlCFzkls=;
-	b=m5rm2awMXiJopCQWCXA/JKP5UR0ZBrA6AB26gGAOulZkyRkHknisDq0Mu5ZfDFfMuETc
-	 LIow8zab1Auk0JdkKVYgDZYmWYSjFdObHq56WGA6GcQyVyyyTa4JpU0x/rGu17U1GpqAn
-	 FfrWjYAnj8G0tk+5cHx8SK7IUMxqDfsKhjoOSZHMdw0x8KquCj+2eZ8T6xCIuu18rMttb
-	 48WTHLGZ99EQ62P7UKS+KsNpuxfQQMg0zuAuJe0deIze7obZsDIyZNxXroz9XmRS9+Cuf
-	 QmY2fVp4u8G7SetDyhErqonuhJvwD8taGH5T6ECKttEbM2LjxZZ5z5+5VAAvIFsw6nA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.cmu.edu;
-	spf=pass smtp.mailfrom=andrew.cmu.edu;
-	dkim=pass header.d=cs.cmu.edu header.i=@cs.cmu.edu header.a=rsa-sha256 header.s=google-2021 header.b=HZ0rvCUd;
-	arc=none smtp.remote-ip=209.85.222.177
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793847885;
+	b=nvAWjOApCDZ4GV17511jemCokIeK0aMaAzZrFjVyOl1DyD6lXPlty48Da3scbTW3UHY8
+	 5JU23Vw2EV0GxZqfuQIDdMK4zGUVctWjyLVDoV52yth2pZKnrtEpI4tygwMFQ3tLi/Ntp
+	 4q2tbS7z0Ls/dkF/ZvS6frTuj51zM65Z2fz3lBsSnRlWLDu7YAYXeVgkpr5J18w/r0SsU
+	 ng7SLuX6mXDipcewY9DFXWVjx4jY1sHkOB23tOlY6YyKhqV2ziY+/uJyN9RYGm65BQkf5
+	 QDXJBLaQBunCylXb7ehSFq3wf7UXafeKqTzkjlWNY0Cx91At/e0RUhZlanKBwZgIEbw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847885;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=ai94bJjscu8BxhHv5pUORPUdLHb0FcQmfwquNU8MtDU=;
+	b=3p6MYNbzRhuxHJyW7niVKuBNPoAei8Jk9WLKH8GfavZcktKZBOmkt0sqjsOLu14K5r1h
+	 7My/TrSJZBQq2RSRsHNqddHXJJ0fzEvMZl7iredHxjX7eloUPmqfGotDtSIrsEGtMcIOD
+	 TeZfQCh/VpK9CJ9ptmF8zkKx5aIvH4sv3hHuoCyic6z2KdisRQtdNv8SxWZYzO2uO9FQF
+	 z7Bgtuv5agtfhqCsRQMc+XhZi8Ykyexd1TIbNujHTSvSQLnGALFAxMgCucxoSqls6h4wn
+	 bnvu7jAiuw3vh5a2412stKzqhfheCf+xeq2s+ol+GyA2oZhvn1GaBUiCBgiuU6PQGTg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OA9VQJdH;
+	arc=fail smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C53606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:03:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C53606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.cmu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrew.cmu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99FE606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 03:04:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C99FE606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.cmu.edu header.i=@cs.cmu.edu header.a=rsa-sha256 header.s=google-2021 header.b=HZ0rvCUd
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-93f30660e69so101705685a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 04 Nov 2026 19:03:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.cmu.edu; s=google-2021; t=1793847799; x=1794452599; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TmyrGImNoeERgzj0671/YFCWmU7Tn1bl23zRlCFzkls=;
-        b=HZ0rvCUdtiV8k6tqRF6TNPr6BxCfo26C8HCb+SArpySJ7XV0WATODALH96NFOW6e7o
-         ZGApbRrZ/QSzYLJ8X4t1ECE/Eu4lMlNDeD5wgFvEw8IqauOWePNXyp9HbuUJ7TnRzq9w
-         U3Fio9VNZSRrd/Z/2C9vHTz+SG5PyKTA8gsSf1cbn0lXq0B5Gfq+ofBHPqPkjgfeaBO5
-         /DXZLDSD0LWbJgTztTbwX8R2jJ4XcYm23CuYO5ko5CpQToVLBWnMG6CIHfph0jtfZrkO
-         8ugkjNiL0OzxmB6W5QvQOvvIzyubf5vGK0UgGFdBlaiG97CwLOofr5AdJpIJv6MOq/jP
-         CpGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793847799; x=1794452599;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TmyrGImNoeERgzj0671/YFCWmU7Tn1bl23zRlCFzkls=;
-        b=lR+ov+Y9sMEEziyGCEcpr5J/mdTurZzSGEhcsqB241u1zNYQ4lssDHdX0VO9sQ7HB1
-         ubebDcUHfLl1AiQh3OgBFx9ZWZWIgeFc5EDNDCXSOpIipAHNdAfWiy/tkLqOaDVh3DZU
-         rN+WMlf+f5NEZtB1hENnt4d74h7o6NCpDvoL+yJhslkF76wGoHv95hXnx/62RXNB8XaD
-         J7Fqa7OSP1KfCZpeq5Q8AlqD8j1ICNUtmSaGFjum0KSpPXkkpFTxW4Gtqm4p17E8NjTh
-         xj+CuxGg9JtkwYYUTNFDkH/Xd98U3/+E7mZV92qysPE/QuwWFahGJQ7nZxc+whK7MOBP
-         qhtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyD9eTD5h1TSe4Crl4g6ozDi5RqKCCAUxnBD/hgqVE4Wd+ZfdOimY+U6CaptuFiWvys9RrW6rTRVfzmQc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nWB29tRVBrUiN4ArwVFbS1CBt4wz9bl8ZozQhs5yMlJ36v52c
-	jfN6AZRxxglG3onauQjYN7Mgn9syLUgq6sZ1Gav7RvIGsHUIkGzKpPw+UWBfvga4Zw==
-X-Gm-Gg: AYBFou2Iex6XHb1gUYDrkcAuiwe/kf6bNjiZNMqjw/OjadHjDPyvM5aHsrid2VzOANu
-	D4mayWY8UXBpOsNaF+UqJWjAQ6sxhIrcEHlUqsMcmZoUOMnTKZhJGt1L0BuEWcz3DLZbhQYXr9E
-	p84VBii1dG2eOgSwphmAPY6Bhx3BXfcCzQBbtjJcPv7/QcL3voUPUBDu03h0xVWkvjeubFAI07V
-	puNuppW5YyHzsktcOTSp5S+S+006X55EAusiTAZkanT0vC1ZBRGFuJ1OLcoBGuA5DNcyhBvIHBb
-	L9sQN+p/tEg7MBXWyHfgiWOm52fVMerC6pvwXNouINeecwslBc38WWmJsYI+VxHdQc0acNHT8cK
-	U/S+F6Z0mnKjNBFUMsKYxLqKJp8BXA8cRRGcaG3QP6rETAyL3W32oQH2iRAmPJxHY3Fc7rrAz1e
-	lfDbX29w+7skZQgqRBzskHNJeyo/LkJmsZGYpSLCWijP48PxR38qtwjLOK+N2eS7UmP8dOnIrKP
-	S76fKAwWIXpQQgG0KtrdwwwORHgkmyT/9flX5JTR1fMSzjeaFMo9FTmmb6d6wUMpatax+JTk7BB
-	dg/khglwB5NJxQm1L+WnG6VEyO93d3iwOapm4Lv9koAmuo77DA==
-X-Received: by 2002:a05:620a:46a5:b0:93f:2e08:6420 with SMTP id af79cd13be357-94421741ccemr3073423785a.38.1793847799333;
-        Wed, 04 Nov 2026 19:03:19 -0800 (PST)
-Received: from cs.cmu.edu (tempest.elijah.cs.cmu.edu. [128.2.210.10])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d468fbe9sm362171485a.3.2026.11.04.19.03.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 19:03:18 -0800 (PST)
-Date: Wed, 4 Nov 2026 22:03:04 -0500
-From: Jan Harkes <jaharkes@cs.cmu.edu>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] coda: honor the append state of each write
-Message-ID: <20261105030304.ukyfkyh7xf66yf7w@cs.cmu.edu>
-Mail-Followup-To: Hungyu Lin <dennylin0707@gmail.com>,
-	viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261104191355.89544-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OA9VQJdH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793847885; x=1825383885;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=3L82b3WyfOfR7gz9iCENsxANJ/8680khTPCcES0tU6M=;
+  b=OA9VQJdHGvJ+J0vyI74Svz/2dMk/+A3aFbib9A4J48+O8Oys8A9TUZqF
+   81NpFfb0agM0NfLF6moPA7dCzPV5ZlscHegZMxI4hukYTEc4MVDeNNRDO
+   cjVSzwMymU1qUYkRpwKo1hYjgaJS0CHuonTngaEvunb9TqrR3V+fM5ziQ
+   4at4MxP7ylEHD1dezZqdkFQMcnKL2swCcShj97P6PBBXrI3f7iIX40wnP
+   xdGKEmfguc5bC4YRAyq6Yii1QtoAj5PImNY1SCKUCMEsudMgL810H4Frj
+   AFLcB/B3PrkB6jnBoSXt7nq3y9gubRXOgNM/0j0tseiEH7xeArwRSgXmF
+   Q==;
+X-CSE-ConnectionGUID: DR0OPKcATe+U9nbQsc6T4w==
+X-CSE-MsgGUID: SwS9OC2AQBiVAQr7owupuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2616669"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2616669"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 19:04:44 -0800
+X-CSE-ConnectionGUID: HLg9FbBGTZStcU1Z42f5bA==
+X-CSE-MsgGUID: PdZXemSFSb+tldbIaVwalg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6765219"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 19:04:44 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 19:04:43 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 19:04:43 -0800
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.33) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 19:04:43 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uouB0yfM7l4ikIfQ7npxGEzq0zfUcryuBjw1Um39MMqQ8RFGVujhkgPMqDVRdnWrYKgVFgMhr9DJEveckBrDsO2rp4VHEapE6zVb2ZCI0W0TPZuDSpll4wJJbX7rhLeV9BPT7PCGLTL0TXVzMgOfl3FoXblcvQbFfc4MW2TwkJzx1HbXAH72Dg+RYBEqrO9Dmd7eHzlyQSCpDM7acTYOkk6gmUBqrK1VsZ8sxO1dy2wrlIYX/CYU68pgwLyFeYKmofYYbm3ji/Ij1+aFwwsAfIqH29DkhZJ9/lZg+uaeycAuqbVs/LyIFENvbh3xdPDU4TSpukf5vrbJwzckXQsQYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AgtLlVE/IXWr0WRfK3ZSihp9ud2lYrKg7gO8EgXYm74=;
+ b=i8CDO0uWY88ghcrRhs68L1fLjUGH0PvHI+kEssl61i64qMVD4qlCNcC9NRpXLOUvjMZSvG7A/3YR2LyzlbEUl/ppkplem1pk/IEwprq8Kto+Jo8U7KlgqiOG++I3Yz0tJYKuZmM1ARnwDUJE2yanhg+96MRLhsUwoAZoGEgO8MvP1OB/dKTA2jjHTzpP1osTMmNDYv59U/GJViGboEkmyloyQzIxVJGzn6Cz9al2xsxdQlhkS7Cz48+jogbpaqpyhqF15d8SnHZzdP0fo+RhZczK/ilrxvt0lc2hzh4lA3pua6SeU0q14uwO5o669nLTWpSCEC1PUAK/VfJ2j3+Kow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by IA0PR11MB7861.namprd11.prod.outlook.com (2603:10b6:208:3de::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
+ 03:04:40 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 03:04:39 +0000
+Date: Wed, 4 Nov 2026 19:04:37 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Matthew Auld <matthew.auld@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	<linux-kernel@vger.kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+	<thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 28/33] drm/xe: Use IOVA-based DMA mapping for eligible
+ tt BOs
+Message-ID: <auvyRQSLB18mWIeJ@gsse-cloud1.jf.intel.com>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-29-matthew.brost@intel.com>
+ <a26a2160-fb6a-4d21-b132-d00093622b22@intel.com>
+ <aupCPWQ7v5kyCpcW@gsse-cloud1.jf.intel.com>
+ <7f567052-f8a8-488f-beb8-aff8f099fe0c@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7f567052-f8a8-488f-beb8-aff8f099fe0c@intel.com>
+X-ClientProxiedBy: MW4P223CA0006.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:303:80::11) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,87 +143,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104191355.89544-1-dennylin0707@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|IA0PR11MB7861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5897f05e-3715-4755-e096-08df3ae9881e
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7416014|23010399003|18002099003|22082099003|261009223027099003|261021121427099003|261022113327099003|261022105027099003|261028144727099003|261022075727099003|261026140227099003|261026121527099003|11063799006|56012099006|10067099003|261102123227099003|4143699003;
+X-Microsoft-Antispam-Message-Info: P1+hvo/6P3UTt9JRphJhNovLFzquW/izwI5Tqpai064HeT9hwN8VWO+ua14gPWaejFvWeoSFM0GTwYocRRS0RocAD4ZsPQroeoTWt/ewnAOL1gTuJd1H60/g8AD/NhzO0zFhCb9JSXK8O/ld2lXRqet3a2iG2qhqI9S+qtA8z7qWJkDtjFsx5IP/cn5FlpFgp9seIt5A1fOhiUBe1KQ5PgCtRYoeBsl4/nLBsu3+zrVFPnoSy8L+POwGY0eP6fa3PYueQy5FNbu/EDRc0kjNkuIhFvrDCEchAXJ58RxiW1YKujIe9ocgOjPzOVKKcWtxAbLBXMoUXtYxC1R57VBgM/TXesVHhLGEBXLOczKVBIPrrJWiUngHzxWtQ6Nprdwdx4+gAkLHChGeEgHros5+uNI38WHozD9YvOQMAeQaSxLFzHvg80QWMH2wyIjZHBAhUW83Z1Cl05OoExVZVAFN5PmFjYxtmi9//qznpUpI1IULutEucZfiFqubpSm8kzN1fMx4+uf6lXAEZvAOk/LktbeuUUNjqALLdxP6RvlluDCFpXu3Y42vjMqYf6FT0NxTwkV60tRV07SDH6edsKeHsTByoCpatOWDWGqTP6F/dOo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(18002099003)(22082099003)(261009223027099003)(261021121427099003)(261022113327099003)(261022105027099003)(261028144727099003)(261022075727099003)(261026140227099003)(261026121527099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?JrICf294QzHXpndjEwk/m0jzjCg1MP0dESWyD8QYlsXpA2R6Z0MAaBc/ot?=
+ =?iso-8859-1?Q?2VXj9GAfeMpbL3p7kEAJnMj8vmiY8jR+xWW6mjbtr4voHIjUe9ddo/vGAK?=
+ =?iso-8859-1?Q?vXHId1+0FEszIiv2FYrrFw99bgrsMxIiVYT79vBEYkJM7woOw+eqXS8Zt4?=
+ =?iso-8859-1?Q?a4GUe+esJRJQ3t5T+yd7QBUK2HOzvip6i5ORg3tFpwBaS2HE35kaPtHHg9?=
+ =?iso-8859-1?Q?N1SYCLqBadQbV9SOPHz7ERYv+k134Lj+gTqqkQNCysI6w4pEZ0J/mnob+J?=
+ =?iso-8859-1?Q?cqACskntSYK4osPukKPfUmbtwW1ibqf6D3Uii4E/VleTevdDWjccvwhVz9?=
+ =?iso-8859-1?Q?hrGVxS7Y+RZV4NgaL41aLO9VsgVXKQAGWs49VNQZ0LGHk9zx3aG9iGSt7t?=
+ =?iso-8859-1?Q?o9qdxm60FKNb/qAQ74hGxlIZVfd8KXP0QnFIUBpeKdipNsSBx3S8EthMC9?=
+ =?iso-8859-1?Q?QnB5rV+YLxptfvhfdmxYVMl9lBePPT9kUuWNM9JTtIq7KBQfemkm0SeYvy?=
+ =?iso-8859-1?Q?b3Me+6itou0VOB+kXD8uvgshZMhFs+hrrr/M7GbH2HtrduSMK/dZ2eKpTd?=
+ =?iso-8859-1?Q?fAPhpqirhi99IX7lBxqrpyQMk0oHNQtJYYHFibCLeQy7i/DchESpcM/bLr?=
+ =?iso-8859-1?Q?/IqlFa1jkwGFQLWOjl0/wN3vFhuf6H4HObrqKV+drjqGSfixEQ82Q8VrGJ?=
+ =?iso-8859-1?Q?YV/avzDsJiv7iQSx7QoZ75u2Sm7YcVNxmNp5gFEN4kQrG9eAtzhoFO32hT?=
+ =?iso-8859-1?Q?baeuLb4eoEq5q3TwCr+OZlHwOP9I1KgDXR0Oi/7YL2nN5TFoMxZoHFXlM5?=
+ =?iso-8859-1?Q?e4ibHAipenn8Fm0aC2fichg4FbgoU6yiR/3l/gvhchXggzpQN4ybsjuq+o?=
+ =?iso-8859-1?Q?Q1bhauMekU8SxFN+Vv4hg/yxDyqFc8Fk6eS6CtQ+neEOmPhpJ8RH5CTIKi?=
+ =?iso-8859-1?Q?s33MJ6CIbs3ZIc/EF2tRAgXoByfr/iLcFSRPu0lM9HC003YgVpogFmo+lG?=
+ =?iso-8859-1?Q?AsSGHnJCPOOHcksJWEIlo3Uv22rKrkK+r0zLvAR7IBvPEUeMdU049iteo5?=
+ =?iso-8859-1?Q?Y2YzbdKZxYfLksKiXOjMxrk56fsfwadlDPp8939BusTvhFjBOPugkIRo8D?=
+ =?iso-8859-1?Q?vXRxONwNirRCbx9gDySZuCa4S1SViMHGeh7PtutTqpW/tEysF5vAfNA6ps?=
+ =?iso-8859-1?Q?5mysLogMnUeLaTtG6sk73VeWxihudZPse82Lq6W2yIWBYwzanII7RNdyLm?=
+ =?iso-8859-1?Q?xoMa4UpHM/qnqqmwPAO/Cbh1iNPvUoqYQemGQLjsJPVY+jrJyNaEl9aZEE?=
+ =?iso-8859-1?Q?0bb8c7iWCRfFF8cx4gKXCkCyUDXqnyJIJP2lprXHycbNLkiE/PfoC6yu13?=
+ =?iso-8859-1?Q?pu20ZPlwpkjH4S/RvH+g+1+Trgz/m0WAxclFikioFHWiYbrjqkYCSHZH0I?=
+ =?iso-8859-1?Q?xl6e7iRoC/SDC9TaD2fb1dKCqig24RZKOEPQGKGxq+6Ga5MyACboHjWDFr?=
+ =?iso-8859-1?Q?eHt2YcUU8CpSrTL4i0u1kVkoU92RPIhc4ywVL76/+teR8YEIa61q2mE1V3?=
+ =?iso-8859-1?Q?TPbWvDfVEKOKI6rl5T0Hh6/nmxtmsLksOUs1F5ASXS3kQgpyQy3tbLgwOt?=
+ =?iso-8859-1?Q?/ItlyNmY0IysopkeNAx86p6I/+UpVVeR1hry5blGsxxdItQOvLXkP5wvKD?=
+ =?iso-8859-1?Q?y61ziCJ4KCAKsn9xnfC4h/qev26fbPxctQPr20hH7az5Gd97uqrNlZJalp?=
+ =?iso-8859-1?Q?z4K32tL70t27FAhKPmYH6p1kb05PhbBqGZ+JU9+5GyWz5BS/ag6MEFuNE8?=
+ =?iso-8859-1?Q?aYZcjdbGcw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: oOjKNzUH7ZMuSxnFm1/xT6FClxynJfDH8s44JKt0jZrRMMADf7cjRHiQB+eIzBzJDEGRBc+BsiqxpYAC3DIpT1L9vpr2cr3aEBLFRvVA3yW5VCd046olvtY2bDaZwFtE1ZJCC+F5KmsNEhjaiVcKnbXomkBRoLw5I56nZ6YkNyaJ6eFPNw/Lz2Int47PehzfkXkARkLsuGJZpjwY5Kf5Bl/aHYfQB8MhErfh0jA8V5ne0+L9L5C7fp1bVwWp5yMS0qpnem6gLPnWQd/o+aCSICLZSeg8hF4z96QgQywH9+qMUz0TCeEEWyaCX+vGAYzsO2xEEDDt/qGZQow9VbK71A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5897f05e-3715-4755-e096-08df3ae9881e
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 03:04:39.8319
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IkFJRYOwu9mEcA7dnEMpoX2UKLQXZoeeSh4IuPE1J1yWqX6uL3QP+zAlOtnfRvu9hEolvqLa+blZ2833Mb2pBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7861
+X-OriginatorOrg: intel.com
 
-On Wed, Nov 04, 2026 at 02:14:23PM -0500, Hungyu Lin wrote:
-> coda_open() adds O_APPEND to the container file's f_flags after it has
-> been opened, without updating its cached f_iocb_flags. An O_APPEND write
-
-Why do we now have cached copies of f_flags around? That sounds like a
-recipe for getting things out of sync.
-
-Anyway, your patch subtly changes the container file we write from
-cfi->cfi_container to host_file and I am not convinced that is a safe
-change.
-
-Yes, host_file is set to cfi->cfi_container but then we call
-venus_access_intent, which is an upcall to userspace which involves a
-context switch and may update the state of the container file.
-
-I am going to have to look at this a bit more carefully because we do
-use that cached host_file pointer to get i_size right after the write,
-so maybe it is safe and as far as I know our userspace cache manager
-only updates in place and never actually swaps the container file.
-
-I haven't looked at this in a while, but I think f_pos synchronization
-was assumed to run through the Coda inode, so the append used the
-coda_inode->i_size to decide where the write would land, but I can also
-see that with the locks being where they are and the access_intent upcalls
-that may not be a valid assumption anymore.
-
-You are correct that we cannot rely on the containers open time flags
-because that container file was opened by the userspace cache manager
-and is passed as an open fd to the kernel.  This handle is then shared
-by all users of the Coda inode, so some Coda file handles could be
-O_RDONLY, others may be O_RDWR, and some O_APPEND.
-
-So I think the core of your patch is probably right, but it may need
-some more careful thought, maybe the use of host_file is ok, maybe the
-i_size needs to be copied from cfi->cfi_container instead of host_file.
-
-Jan
-
-
-> can therefore overwrite existing data instead of appending. For example,
-> writing "Z" to a file containing "abc" produces "Zbc" rather than "abcZ".
+On Wed, Nov 04, 2026 at 11:39:30AM +0000, Matthew Auld wrote:
+> On 03/11/2026 20:21, Matthew Brost wrote:
+> > On Tue, Nov 03, 2026 at 07:00:24PM +0000, Matthew Auld wrote:
+> > > On 11/07/2026 03:56, Matthew Brost wrote:
+> > > > Add support for mapping a ttm_tt's pages using the IOVA-based DMA API
+> > > > (dma_iova_try_alloc()/link()/sync()/unlink()/free()) as an alternative
+> > > > to the scatter-gather list. An IOVA mapping is a single contiguous DMA
+> > > > range, which is cheaper to walk and program than an sg list.
+> > > > 
+> > > > Whether the IOVA API can be used depends on the IOMMU mode, so the
+> > > > decision is made once per tt at xe_ttm_tt_create() time and recorded in
+> > > > struct xe_ttm_tt::use_iova. To keep the scope limited, only device BOs
+> > > > that are not GGTT-mapped are eligible: dma-buf imports manage their own
+> > > > mapping and GGTT bindings are programmed directly from the sg list.
+> > > > dma_iova_try_alloc() may still fail, in which case the tt transparently
+> > > > falls back to the sg list, which remains the default.
+> > > > 
+> > > > The IOVA reservation is allocated at tt creation and freed at tt
+> > > > destroy. xe_tt_map_iova() links the tt pages (coalescing physically
+> > > > contiguous runs) and syncs the IOTLB; xe_tt_unmap_iova() unlinks them
+> > > > but keeps the reservation so the tt can be remapped without
+> > > > re-allocating IOVA space. xe_tt_map()/xe_tt_unmap() dispatch between the
+> > > > IOVA and sg backends, and xe_bo_dma_unmap_pinned() learns about the IOVA
+> > > > case.
+> > > > 
+> > > > Consumers that walked the sg list via xe_res_first_sg(xe_bo_sg()) now go
+> > > > through the new xe_res_first_tt() helper, which initializes either an
+> > > > IOVA cursor (xe_res_first_iova()) or an sg cursor depending on the tt's
+> > > > mapping mode.
+> > > > 
+> > > > Cc: Carlos Santa <carlos.santa@intel.com>
+> > > > Cc: Ryan Neph <ryanneph@google.com>
+> > > > Cc: Christian Koenig <christian.koenig@amd.com>
+> > > > Cc: Huang Rui <ray.huang@amd.com>
+> > > > Cc: Matthew Auld <matthew.auld@intel.com>
+> > > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > > > Cc: Maxime Ripard <mripard@kernel.org>
+> > > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > > > Cc: David Airlie <airlied@gmail.com>
+> > > > Cc: Simona Vetter <simona@ffwll.ch>
+> > > > Cc: dri-devel@lists.freedesktop.org
+> > > > Cc: linux-kernel@vger.kernel.org
+> > > > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > > > Assisted-by: GitHub_Copilot:claude-opus-4.8
+> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > > 
+> > > 
+> > > <snip>
+> > > 
+> > > >    static void xe_ttm_tt_destroy(struct ttm_device *ttm_dev, struct ttm_tt *tt)
+> > > >    {
+> > > > +	struct xe_ttm_tt *xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
+> > > > +
+> > > > +	/*
+> > > > +	 * Release the IOVA reservation made in xe_ttm_tt_create(). The pages
+> > > > +	 * must already have been unlinked by xe_tt_unmap().
+> > > > +	 */
+> > > > +	if (xe_tt->use_iova) {
+> > > > +		struct xe_device *xe = ttm_to_xe_device(ttm_dev);
+> > > > +
+> > > > +		xe_assert(xe, !xe_tt->iova_linked);
+> > > > +		dma_iova_free(xe->drm.dev, &xe_tt->iova);
+> > > 
+> > > Do we know if this is allowed? I think there is xe_bo_pci_dev_remove_all()
+> > > which requires that evict_all will correctly tear down iommu mappings on
+> > > stuff like pci unplug and I don't think tt_destroy is called in that flow?
+> > 
+> > But unpopulate is called which unlinks / syncs (TLB flush for the IOVA).
+> > 
+> > > Does having the iova here cause issues? Also, for VRAM flow I think there is
+> > > a tt_create() via pipeline gutting which will now create a new iova?
+> > > 
+> > 
+> > Maybe we shuffle this around a bit so the iova alloc is tied to
+> > populate/unpopulate. It was been a while I forget exactly why I did this
+> > way.
+> > 
+> > > Aside from that, maybe we can land 27/28 as standalone?
+> > 
+> > Yes, let me extract these two into standalone patches today and
+> > reworking if needed.
 > 
-> Pass RWF_APPEND or RWF_NOAPPEND to vfs_iter_write() according to the
-> incoming IOCB_APPEND state. This also honors changes made with F_SETFL
-> and per-write append overrides instead of relying on the container's
-> open-time flags.
+> Quickly double checked this, indeed looks to be needed:
 > 
-> Fixes: 164f4064ca81 ("keep iocb_flags() result cached in struct file")
-> Cc: stable@vger.kernel.org # 6.9+
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  fs/coda/file.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+
+Thanks was able recreate this + verify a local fix.
+
+27/28 has one TTM dependency [1] and also is staged behind dma mapping
+accounting [2]. So maybe once [2] lands an updated 27/28 can get posted
+as standalone.
+
+Matt
+
+[1] https://patchwork.freedesktop.org/patch/739339/?series=170216&rev=2
+[2] https://patchwork.freedesktop.org/series/177790/
+
+> [  808.058892] [IGT] core_hotunplug: finished subtest
+> hotreplug-lateclose-with-load, SUCCESS
+> [  808.058928] [IGT] core_hotunplug: exiting, ret=0
+> [  808.059673] BUG: kernel NULL pointer dereference, address:
+> [  808.061068] RIP: 0010:iommu_get_dma_domain+0x10/0x20
+> [  808.061141] PKRU: 55555554
+> [  808.061144] Call Trace:
+> [  808.061146]  <TASK>
+> [  808.061149]  dma_iova_free+0x18/0xf0
+> [  808.061153]  xe_ttm_tt_destroy+0x23/0x40 [xe]
+> [  808.061231]  ttm_bo_put+0x242/0x3d0 [ttm]
+> [  808.061412]  ? drm_gpuvm_bo_put+0x199/0x200 [drm_gpuvm]
+> [  808.061418]  xe_vma_destroy_late+0x89/0x90 [xe]
+> [  808.061476]  xe_vm_close_and_put+0x5de/0x920 [xe]
+> [  808.061534]  xe_file_close+0x105/0x190 [xe]
+> [  808.061712]  drm_file_free+0x218/0x260
+> [  808.061717]  drm_release_noglobal+0x6d/0xd0
+> [  808.061721]  __fput+0xf9/0x270
+> [  808.061725]  task_work_run+0x8b/0xb0
+> [  808.061730]  do_exit+0x229/0x8b0
+> [  808.061735]  do_group_exit+0x8b/0x90
+> [  808.061739]  __x64_sys_exit_group+0x17/0x20
+> [  808.061744]  x64_sys_call+0x18c6/0x18d0
+> [  808.061749]  do_syscall_64+0xee/0x350
+> [  808.061753]  ? __pte_offset_map+0x1d/0xd0
+> [  808.061757]  ? next_uptodate_folio+0xbb/0x3a0
+> [  808.061762]  ? set_pte_range+0x20d/0x290
+> [  808.061766]  ? filemap_map_pages+0x8e1/0x9c0
+> [  808.061772]  ? count_memcg_events+0x7c/0x1b0
+> [  808.061776]  ? handle_mm_fault+0xbde/0x14f0
+> [  808.061781]  ? __se_sys_close+0x7a/0xe0
+> [  808.061785]  ? __se_sys_close+0x7a/0xe0
+> [  808.061790]  ? do_user_addr_fault+0x272/0x6c0
+> [  808.061794]  ? irqentry_exit+0x3f/0x640
+> [  808.061799]  ? do_syscall_64+0x42/0x350
+> [  808.061803]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [  808.061808] RIP: 0033:0x7f95428c71b8
 > 
-> diff --git a/fs/coda/file.c b/fs/coda/file.c
-> index 6ca8bfcb58f2..ae03f0b30d84 100644
-> --- a/fs/coda/file.c
-> +++ b/fs/coda/file.c
-> @@ -71,6 +71,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
->  	struct file *host_file = cfi->cfi_container;
->  	loff_t ki_pos = iocb->ki_pos;
->  	size_t count = iov_iter_count(to);
-> +	rwf_t flags = (iocb->ki_flags & IOCB_APPEND) ? RWF_APPEND : RWF_NOAPPEND;
->  	ssize_t ret;
->  
->  	ret = venus_access_intent(coda_inode->i_sb, coda_i2f(coda_inode),
-> @@ -80,7 +81,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
->  		goto finish_write;
->  
->  	inode_lock(coda_inode);
-> -	ret = vfs_iter_write(cfi->cfi_container, to, &iocb->ki_pos, 0);
-> +	ret = vfs_iter_write(host_file, to, &iocb->ki_pos, flags);
->  	coda_inode->i_size = file_inode(host_file)->i_size;
->  	coda_inode->i_blocks = (coda_inode->i_size + 511) >> 9;
->  	inode_set_mtime_to_ts(coda_inode, inode_set_ctime_current(coda_inode));
+> I assume this is dev->iommu_group = NULL post unplug.
 > 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> -- 
-> 2.43.0
+> > 
+> > Matt
 > 
