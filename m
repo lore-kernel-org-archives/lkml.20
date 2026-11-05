@@ -1,98 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894105;
-	b=r1QNbNzakndGiN0K7sUuIWGol/Bm/6tO1q3gOoixpyw3B0b+fUu8RMjDVWLpy5zORspu
-	 itRc32mksBb+S7W010IYNolgWSQZ/cVh5d+bUWZdaTWCCbYOBIPbZLCC4IV34fDpWwbT9
-	 c5GI3YfUwhlja1STLgUPXdYp4rOAGei6jbwsMQ/UQR59tFCJSvnpgp1lBw49AsW2E9Sb4
-	 mc/wYbTTm0xCSyS+1a2LMx/42nEuOSoMx6XPS7d5Z8cdzULe5V05Kjj4bRpuAnjRp8O4z
-	 tkUKG9SKwQIJScs2VApLFTIFJPZX1x509+phDzp9B6tK34W52yUA+1ZDjO7i5MnsVtg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894105;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=dL326s4hlVlCdK8Nbo2Jt7cLhdWe7U4R6wIiuXLSfdU=;
-	b=H9OOeSnEw/73Oul2vZRhJsS/OyzeKNH59/ZUaEO8rO5ejztygNr14l8Enxwka4+ITXTq
-	 nCGOHDkpH6Yk/jvHzODLZ5vyMNVFY5SVNSf0LZLE+cBIXDZvrpxuv+lWLvCeeBVLAvkO8
-	 drTHRJdjNEFccQAiuywuLrPU3rPpzk+9mPQGfOAnxeVzHXfwUcGflA/iyg/e3Um/Ehv85
-	 cVFbowtazHs4jMWvCpxZuB+bpiVer48RK+W/X5UsWDvEmS2/PYlEgIFfpPZLDmm6tjMQE
-	 uS3SvWshKPLrXwRMuAVgnOi6NTa4RX7s3nfzPgKQ9DIyGaDJ8sonaRtgri7qabDHTew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GRAzJJQK;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793894101;
+	b=xxNCL/rV6OnOspenmqMezbyYc1q7/00/ykOeikXtPSzNngqUUszsK9ABUqchy3KjSrfy
+	 yg2s570apJgWCCSG5hQ6bjZzAQEXvL9x+1qGPLEgSPVv6L+2yRIKSzpnCg4dQyTDazrc4
+	 k/riWjh4FCdWX+wnNKjMkPkLKDtLd+bo57yKowVAkeAUccXQfyy497KyXiqNwWu6yk2Ih
+	 a7qx96lmg+h8lWso3HrOXxGcKHc6giwDyz+0XAWPFce4+p9q4XcluhMFa+1X+EOZ4mOtg
+	 uPsJfGDtxC7GsWP6WeiwZmxt20yM5wPxYMp8FmFyCj7WJCEfYpAmCOxPxjwaAdXVnGg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894101;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=8yQyhPCe79CCtZXo/sw+mFhQfjfA+Kf2lu1++L8BKHg=;
+	b=UIHrAlzUal0WrdP82daivov8uiYWWmiKlIN3ESSQ+wlfTyzfvHhdDsUrKlX+evusBUHI
+	 /8rv8HRIcMS9lel3F6CTnWRKScOQDkqVI6LvQbGba33TYE3OJgyPH7Mk2wIEVPdewCCGD
+	 H0YzH4iwjPzY3ndu3ToMf4e9sosaSkwiIxScBEX1yNW2FbJMlcdmNcU7zHIOjkC12ugW+
+	 K33TqOwWPra3XmuCpJqzjgNUURo61earu/oLdfmIzQpEQ7dvZTZXOnhJbEe+heA1uStdV
+	 RpUUNq4tUy6SjxSZHu8ho+H+dpj6XlJX83Ixdx92aw0dzEDYaYt7oPIIJVPgVO8H0ug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE1A60A3806
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:55:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFE1A60A3806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GRAzJJQK
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4af520023fdso5545495e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:55:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793894103; x=1794498903; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dL326s4hlVlCdK8Nbo2Jt7cLhdWe7U4R6wIiuXLSfdU=;
-        b=GRAzJJQK3Ofx0pF/a5fPpjk8fVXGsbELbdamwdlPk0VtjOKsLe3wwVAs/DLvS/M/E0
-         tJkZITtMz4ZaqUztF7TnR7x+qAVMJIBVWlzK03hii8nM+cpIl5JYOfJ3ZIMAp6v3QdNk
-         wT07EgBZJ7mT0hTO1CukSoTvqZATZ/lp//XmyXnRlfrLEffytKqYAf8qLrcI5NglawbW
-         6VhcbX/0QR/ry2PFeCi4nNuKdkDNUp6wkIsXUD5Ycf0h4rtiPAi3SaYO565z8Axxkths
-         INOh/OzJyYhrE3KTCyq/ocO3t62aJn5MrGQ5eCzCtJGGrXO74ABVKtaFON0VnjdCK+CL
-         5OUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894103; x=1794498903;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dL326s4hlVlCdK8Nbo2Jt7cLhdWe7U4R6wIiuXLSfdU=;
-        b=L0agXOnSXHmlxu52ufRr9+6uUF0erYfMIdc8JmDFrGiw5zY4Xv/GBlLa54oO946FfL
-         l8gr8DXdKPpoB1hrpZdqgSv+tQaaUrDOrMlOYNuPLiQfdByLyGIPP2Eqm0srmEVYbC2v
-         aiUB5F5Pf5xwD/Zeg42VDh0fe2DoTm9IQzXOjz7CkFiLd6yPdfIdXqeYeueXa4MMx3ai
-         4bfSQTi9+BooiqZ84+VjGrTF7IErIkfa4+ttUYFXivJ1VZI93iEpdyt23Rbes8fHJ5qa
-         mscCrJuvmq1BB1KtCNW9gsY5fgr78Ld+Z15DVV80H39O0fn6wWU3XEbeVDtbwjUhDNXb
-         VTnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuCDb7eggVoFPOGkHpk5wtmGjLqUNitEpB4oBuUxag9tf32VcHV/ZGypNsiC7zk172dBbM6WMzgblWA/k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ewLDSS9zu1Iv1o+i7O5QlQLkrMxEgKHTryvFx/EXYCm+y1BY9
-	xKfNlVYrskQk05CqwSMda/sa8+9oOa7epIPKg+r3hN1illadMj7wc0SP
-X-Gm-Gg: AYBFou1EN96bYs46QTmlWW5ZXHdkeHaPbCI6sQs5KYlVZYo/zNCN0fpvqgem+19UB7y
-	zyR90hSCrDvb+sIl1cpEUJp9OEtmikiJGh3Mj9GN6nYII0ua/rQk7S4YhIDUQlhw4Vmb2PSllFk
-	oVuH+2K+g90xfrSQMh5wU0r5FT9kPG9jyM+WG+o8DYrAR5f6HkWOf7evl5mcimrGyJn1L7WQI5C
-	+RiNIO9cUMftEenZbqvS2DaeIfCClMitVgXVX2h5LVL0QBXLs7GGbj2HFkMNcIT5Fm4/EQC2pp5
-	lTzF6sE8OsacGlOvkM/8O5hu1f5emsBkgdeIQnZEVw1a1SM5sidGt0NyVI3kP926zVekfSre26o
-	E0xuzNRnddL5tRgSCCYAi2Na100h5WWnoAWo7+mLr7HmdJlRsNbywUmF3sVrO9QernGskvoUBS7
-	4kWubyNxbMQ0IIl87N7QGWH+K0KlKG7Sqirx5y75r+06LnzrVupChN4oIe3ph7R4hgsxKo0oj9q
-	q9Y20JLc8rttO5R8oyG3eM5ueRg8+KnfldIsjOKAW5lPQY/I3fMhkCr5KpLoiYtTUsCdbEuCTb3
-	AI9tNHAM6JjTFDAz/faZrb3HtqUVbK9bQRorTOmqaMMoTNH90Rdx7dY=
-X-Received: by 2002:a05:600c:a5a5:b0:4a1:e774:370d with SMTP id 5b1f17b1804b1-4ac1765d60fmr275939985e9.1.1793894103083;
-        Thu, 05 Nov 2026 07:55:03 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f0237aesm76917685e9.9.2026.11.05.07.55.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:55:02 -0800 (PST)
-Date: Thu, 5 Nov 2026 18:54:58 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Qais Yousef <qyousef@layalina.io>
-Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Christian Loehle <christian.loehle@arm.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v5 3/4] Revert "sched/rt: Substract number of tasks
- of throttled queues from rq->nr_running"
-Message-ID: <auyR6v0tKagzo986@scheduler.schedules>
-References: <20261103005953.56271-1-qyousef@layalina.io>
- <20261103005953.56271-4-qyousef@layalina.io>
- <auoRQiZbirZCFF1x@scheduler.schedules>
- <8401ef7a-de1a-4cb2-a3eb-be02a8436360@layalina.io>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03A5606CFAE;
+	Thu,  5 Nov 2026 15:54:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D03A5606CFAE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+ARC-Seal: i=1; a=rsa-sha256; t=1793893960; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=KGyqzZzBdp/MVUr6Emz2v9RfWvkYSayrG3eO1mk2IFhJi8l2U5hQ6vXTseia9reI+Qo2tf8rnrrd8k8o6RkuNZVD6I1zQc5joc11fGbb1xSMz8GweacIeHCp68ZAkCppBnY34yFpPZrzz2MH6gSUB5mNkmZnQGNMFKyDSrzGhBw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793893960; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8yQyhPCe79CCtZXo/sw+mFhQfjfA+Kf2lu1++L8BKHg=; 
+	b=FQhry/SBwETuvjClpvmkGF00D7Gg1vegtBXlOcYiuXZGpBd8a3jvOzY4J6FP30gcIPalelmtLDZEsNsLjM/lNA+07ga5NC30Djcer9vFN4pZFlSm48wSdhA4qSB5R1MDbVsPVTwbe34iHDu5YozMT4MJ+61C/AIicjiL7VdzI7M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=JRTJC/bMM1HpmWBmu/2E5lTPzaZpvSoCda4yEYiUXgcya/xfeibLOY+Eeiy8JYplhusPXz2olgKhdKAzeIbqdqSnYm63/pXKQYt4S9r60sJqH6bwx8Lq2/yt0xg5BYBXAbfsZ4Y6b8g8MK5s76BPPdS6SD82JNFrELoKHnALFH8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=8yQyhPCe79CCtZXo/sw+mFhQfjfA+Kf2lu1++L8BKHg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793893958648883.6976838744795;
+	Thu, 5 Nov 2026 07:52:38 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 05 Nov 2026 16:51:52 +0100
+Subject: [PATCH v2 01/27] drm: Add VRR state
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,119 +56,301 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8401ef7a-de1a-4cb2-a3eb-be02a8436360@layalina.io>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-vrr-limiter-uapi-v2-1-55f4215be2c2@collabora.com>
+References: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+In-Reply-To: <20261105-vrr-limiter-uapi-v2-0-55f4215be2c2@collabora.com>
+To: Xaver Hugl <xaver.hugl@gmail.com>, Vidith Madhu <vmadhu@nvidia.com>, 
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+ Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Stone <daniels@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com, 
+ Derek Foreman <derek.foreman@collabora.com>, 
+ wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 
-On Thu, Nov 05, 2026 at 01:31:37AM +0000, Qais Yousef wrote:
-> On 11/3/26 18:51, Kayra Cizmeci wrote:
-> 
-> > So, as I was saying above I gave this a run. Did some tests:
-> > 
-> > In my base a RT task can only get a CPU's %95.5, with the series %99.9.
-> > Even when rt_throttled is 1, task doesn't stop running. I opened
-> > CONFIG_RT_GROUP_SCHED and set cpu.rt_runtime_us to 950000. cgroup v1.
-> > 
-> > 
-> > And AFAICT from the code and my tests, nr_running is handled
-> > differently/wrong with this patch.
-> > 
-> > When there is a RT group while throttling is enabled, with 2 tasks when
-> > the group throttles nr_running should be 0. Since, there is nothing to
-> > run. (If the group is alone in the rq tho :>) But with the patch series,
-> > it stays 2. I think it's because dec_rt_tasks() does not call
-> > sub_nr_running() in the group_rt_rq() case of se.
-> > 
-> > 
-> > Or am I missing something :-)?
-> 
-> This is an RFC as I was looking for potential historical context why it had to
-> be done this way. I did call out in the cover letter that I am not sure about
-> the implementation of inc/dec_rt_tasks() and was looking for advise too.
-> 
-> I might have just missed that we have rt_task_is_entity(), does things get
-> better with the below? Otherwise I'll just need to find the time to figure out
-> the code and test it properly. Thanks!
-> 
-> --->8---
-> 
-> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-> index 96d37a1ccc2a8..520273086134d 100644
-> --- a/kernel/sched/rt.c
-> +++ b/kernel/sched/rt.c
-> @@ -1132,7 +1132,7 @@ void inc_rt_tasks(struct sched_rt_entity *rt_se, struct
-> rt_rq *rt_rq)
->         inc_rt_prio(rt_rq, prio);
->         inc_rt_group(rt_se, rt_rq);
-> 
-> -       if (!group_rt_rq(rt_se)) {
-> +       if (rt_entity_is_task(rt_se)) {
->                 struct rq *rq = rq_of_rt_rq(rt_rq);
-> 
->                 add_nr_running(rq, 1);
-> @@ -1151,7 +1151,7 @@ void dec_rt_tasks(struct sched_rt_entity *rt_se, struct
-> rt_rq *rt_rq)
->         dec_rt_prio(rt_rq, rt_se_prio(rt_se));
->         dec_rt_group(rt_se, rt_rq);
-> 
-> -       if (!group_rt_rq(rt_se)) {
-> +       if (rt_entity_is_task(rt_se)) {
->                 struct rq *rq = rq_of_rt_rq(rt_rq);
-> 
->                 sub_nr_running(rq, 1);
-> 
+Add preliminary state tracking for VRR, and VRR state validation. This
+will be used for generating VTEM infoframes in order to support variable
+refresh rate functionality.
 
+Co-developed-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Derek Foreman <derek.foreman@collabora.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 208 ++++++++++++++++++++++++
+ include/drm/drm_crtc.h                          |  10 ++
+ 2 files changed, 218 insertions(+)
 
-Well I'm *thinking* it's the same thing :/, no?
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index c63d439382bb..eb6abfd1350d 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -887,6 +887,210 @@ hdmi_generate_infoframes(const struct drm_connector *connector,
+ 	return 0;
+ }
+ 
++/**
++ * cmp_fraction - compares two fractional numbers
++ * @a: numerator of the first fraction
++ * @b: denominator of the first fraction
++ * @c: numerator of the second fraction
++ * @d: denominator of the second fraction
++ *
++ * Compare fractional expression given by @a divided by @b with fractional
++ * expression given by @c divided by @d, without running into rounding issues.
++ *
++ * Neither @b nor @d should be 0.
++ *
++ * Returns:
++ *  - %1 if @a / @b > @c / @d
++ *  - %-1 if @a / @b < @c / @d
++ *  - %0 if @a / @b == @c / @d
++ *  - %-EDOM if @b is zero or @d is zero.
++ */
++static int cmp_fraction(u32 a, u32 b, u32 c, u32 d)
++{
++	u64 a_d = mul_u32_u32(a, d);
++	u64 b_c = mul_u32_u32(b, c);
++
++	if (WARN_ON(!b || !d))
++		return -EDOM;
++
++	/* a/b > c/d */
++	if (a_d > b_c)
++		return 1;
++
++	/* a/b < c/d */
++	if (a_d < b_c)
++		return -1;
++
++	/* a/b == c/d */
++	return 0;
++}
++
++static int hdmi_calculate_vtotal(const struct drm_display_mode *mode,
++				 u32 rate_n, u32 rate_d, u16 *out_vtotal,
++				 u32 *out_denom, u32 *out_frame_err)
++{
++	u32 denom, result, err;
++	u64 numerator;
++
++	/*
++	 * We perform VRR based rate limiting by adjusting the vertical front
++	 * porch. We do that by picking a new Vtotal to pass to the hardware,
++	 * which extends the display period. Since we can change no other
++	 * timings, this rarely results in a perfect integer match to the
++	 * target framerate. However, we would like to correct for this error
++	 * using only integer math.
++	 *
++	 * For a given refresh rate:
++	 *
++	 * Vtotal =              clock
++	 *          ----------------------------------
++	 *               Htotal * target_refresh
++	 *
++	 * We specify target_refresh as a ratio, because the possible target
++	 * framerates include rates like 23.97... that are actually 24 / 1.001,
++	 * or 24000 / 1001.
++	 *
++	 *                        clock
++	 * Vtotal = ----------------------------------
++	 *            Htotal * target_n / target_d
++	 *
++	 * Some algebra brings us to:
++	 *
++	 *                clock * target_n
++	 * Vtotal = ----------------------------------
++	 *                Htotal * rate_n
++	 *
++	 * The amount of timing error we accumulate every frame will be
++	 * the remainder of that division.
++	 *
++	 * We store the remainder for later. Every frame we add the remainder
++	 * to an accumulator, and when the accumulator exceeds the denominator,
++	 * one Htotal worth of error has accumulated.
++	 *
++	 * In practice, as soon as the accumulated error exceeds half the
++	 * denominator, it is dithered across frames by temporarily extending
++	 * Vtotal by a single row on that frame.
++	 */
++
++	if (check_mul_overflow(mode->crtc_htotal, rate_n, &denom))
++		return -ERANGE;
++
++	if (check_mul_overflow(mode->crtc_clock * 1000ULL, rate_d, &numerator))
++		return -ERANGE;
++
++	result = div_u64_rem(numerator, denom, &err);
++	if (result > U16_MAX)
++		return -ERANGE;
++
++	if (out_vtotal)
++		*out_vtotal = result;
++	if (out_denom)
++		*out_denom = denom;
++	if (out_frame_err)
++		*out_frame_err = err;
++
++	return 0;
++}
++
++static int hdmi_validate_vrr(struct drm_connector *connector,
++			     struct drm_atomic_commit *state)
++{
++	struct drm_connector_state *new_conn_state =
++		drm_atomic_get_new_connector_state(state, connector);
++	struct drm_crtc_state *new_crtc_state =
++		drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
++	struct drm_crtc_vrr_state *vrr_state =
++		&new_crtc_state->vrr_state;
++	struct drm_display_info *info = &connector->display_info;
++	const struct drm_display_mode *mode = &new_crtc_state->mode;
++	struct drm_device *dev = connector->dev;
++	int mode_refresh, vfront, ret;
++	u32 min_vfreq_n = info->hdmi.vrr_cap.vrr_min;
++	u32 min_vfreq_d = 1;
++	u32 max_vfreq_n = info->hdmi.vrr_cap.vrr_max;
++	u32 max_vfreq_d = 1;
++
++	if (!new_crtc_state->vrr_enabled)
++		return 0;
++
++	if (!info->hdmi.vrr_cap.supported)
++		return -EOPNOTSUPP;
++
++	mode_refresh = drm_mode_vrefresh(mode);
++
++	/* HDMI uses 10 bits to signal the base refresh. */
++	if (mode_refresh < 0 || mode_refresh > 1023) {
++		drm_dbg_kms(dev, "Mode's refresh of %dHz > HDMI VRR maximum (1023)\n",
++			    mode_refresh);
++		return -EINVAL;
++	}
++
++	if (!max_vfreq_n || max_vfreq_n > mode_refresh)
++		max_vfreq_n = mode_refresh;
++
++	if (!min_vfreq_n) {
++		drm_dbg_kms(dev, "Could not get minimum VRR rate from sink\n");
++		return -EINVAL;
++	}
++
++	vfront = mode->crtc_vsync_start - mode->crtc_vdisplay;
++	if (vfront < 0 || vfront > U8_MAX) {
++		drm_dbg_kms(dev, "Vfront of %d would not fit in VTEM packet\n", vfront);
++		return -EINVAL;
++	}
++
++	if (cmp_fraction(min_vfreq_n, min_vfreq_d, max_vfreq_n, max_vfreq_d) > 0) {
++		drm_dbg_kms(dev, "Target max (%u/%u) > target min (%u/%u)\n",
++			    max_vfreq_n, max_vfreq_d, min_vfreq_n, min_vfreq_d);
++		return -EINVAL;
++	}
++
++	ret = hdmi_calculate_vtotal(mode, max_vfreq_n, max_vfreq_d,
++				    &vrr_state->base_vtotal, NULL, NULL);
++	if (ret) {
++		drm_dbg_kms(dev, "Couldn't calculate base_vtotal: %pe\n", ERR_PTR(ret));
++		return ret;
++	}
++
++	/*
++	 * Even at its fastest, it can't go faster than the mode, so
++	 * clamp to avoid imprecisely rounded mode_refresh values we
++	 * can't do anything about from ruining our day.
++	 */
++	vrr_state->base_vtotal = max(vrr_state->base_vtotal, mode->crtc_vtotal);
++
++	if (cmp_fraction(min_vfreq_n, min_vfreq_d, mode_refresh, 1) >= 0) {
++		/* refresh <= VRR min, don't do VRR vtotal adjustment */
++		vrr_state->max_vtotal = mode->crtc_vtotal;
++	} else {
++		/*
++		 * Allow additional front porch until effective rate == VRR min
++		 * In essence, this is mode->vtotal * mode_refresh / min_vfreq
++		 * but the relevant factors factored out from drm_mode_vrefresh()
++		 * to avoid working with rounded values, as well as using the
++		 * hardware adjusted crtc_* values instead.
++		 */
++		ret = hdmi_calculate_vtotal(mode, min_vfreq_n, min_vfreq_d,
++					    &vrr_state->max_vtotal, NULL, NULL);
++		if (ret) {
++			drm_dbg_kms(dev, "Couldn't calculate max_vtotal: %pe\n", ERR_PTR(ret));
++			return ret;
++		}
++
++		if (vrr_state->max_vtotal < mode->crtc_vtotal) {
++			drm_dbg_kms(dev, "max_vtotal=%u < crtc_vtotal=%u\n",
++				    vrr_state->max_vtotal, mode->crtc_vtotal);
++			return -EINVAL;
++		}
++	}
++
++	drm_dbg_kms(dev, "VRR has base_vtotal=%u max_vtotal=%u from %u/%uHz <= rate <= %u/%uHz\n",
++		    vrr_state->base_vtotal, vrr_state->max_vtotal, min_vfreq_n,
++		    min_vfreq_d, max_vfreq_n, max_vfreq_d);
++
++	return 0;
++}
++
+ /**
+  * drm_atomic_helper_connector_hdmi_check() - Helper to check HDMI connector atomic state
+  * @connector: DRM Connector
+@@ -919,6 +1123,10 @@ int drm_atomic_helper_connector_hdmi_check(struct drm_connector *connector,
+ 
+ 	new_conn_state->hdmi.is_limited_range = hdmi_is_limited_range(connector, new_conn_state);
+ 
++	ret = hdmi_validate_vrr(connector, state);
++	if (ret)
++		return ret;
++
+ 	ret = hdmi_generate_infoframes(connector, new_conn_state);
+ 	if (ret)
+ 		return ret;
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index be5dca538d87..bfb2b0741625 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -63,6 +63,13 @@ struct drm_atomic_commit;
+ struct drm_crtc_helper_funcs;
+ struct drm_plane_helper_funcs;
+ 
++struct drm_crtc_vrr_state {
++	u16 cur_vtotal;
++	u16 max_vtotal;
++	u16 base_vtotal;
++	bool dynamic;
++};
++
+ /**
+  * struct drm_crtc_state - mutable CRTC state
+  *
+@@ -397,6 +404,9 @@ struct drm_crtc_state {
+ 	 */
+ 	struct drm_pending_vblank_event *event;
+ 
++	/** @vrr_state: State related to variable refresh rate. */
++	struct drm_crtc_vrr_state vrr_state;
++
+ 	/**
+ 	 * @commit:
+ 	 *
 
-  #define rt_entity_is_task(rt_se) (!(rt_se)->my_q)
-
-
-  And look at this:
-
-  static inline struct rt_rq *group_rt_rq(struct sched_rt_entity *rt_se)
-  {
-  	return rt_se->my_q;
-  }
-
-
-
-
-Also, my other test was for this case that you said:
-
-"It also had a confusing call in sched_rt_rq_dequeue() to
-dequeue_top_rt_rq() when it is essentially a dead code - in existing
-code base at least."
-
-It's not dead. My other test was just for that case. Normally it
-should, but when we change root's cgroup cpu.rt_runtime_us to 950000, it runs.
-
-Because of two things:
-
-
-1. We remove dequeue_top_rt_rq() calls, and in root throttle path that is
-the thing that preventing root from being selected with reseting
-rt_queued.
-
-2. We remove rt_queued itself AND remove the rt_queued check from
-rt_rq_is_runnable().
-
-So when we come to pick_task_rt() sched_rt_runnable() returns true,
-and we don't return NULL.
-
-
-Or, is my brain oopsed?
-
-BTW, fixing both of these AFAICT requires bit of
-doing the same thing as the commit we are trying to revert. So may be
-dropping the revert would be better. Its up to you tho.
-
-
-What ya think?
-
-
-
-Cheers,
-
-Kayra
+-- 
+2.56.0
 
