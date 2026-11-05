@@ -1,60 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900530;
-	b=RM3DWjBXjaAfd7ALguBnBZHAziNJ+CYE7tJ8Q6Ol/4XPMeOxNvzABe49TTY4fjNrp4NW
-	 zaje4PlWEvZDA1w2FIAa4/J0hcSh18jVMvkSeIa4eDZZCnk8HmIJemxSjpZtLUcyVxavT
-	 xOiuc0CYMvK0/4tJEgA7SbvvNnuA9EpWAO5IiV97blLr2fccgDb5mUxTQvXGQlTT3mb+t
-	 9RnZ/HZKbePY2ycHpuYbCCB0xV9UlM00oGnpTAX4fTnsfPqvSSdTdgRv2inrq+2VyF49Q
-	 Qm7+ndz5nAiBncZLPMXQ/xU1KH+EGUrJJuDtMXPzgtP6ozstWktoBayPYeOJlSAsfdw==
+	t=1793900538;
+	b=zswgak0ih6S+9dPHFtyR0o6eH1dMEuZh3/rFJeVaQ70C1l4fuLz33k1i9B/adnApfWl4
+	 3Mb3wl4pi953Xe/l56LgEiUfIEuC9uWTzL/7UI9r+Q5oQUvrhI1ojNT1WompIX3QO2vRG
+	 3juZTliPE6YJSHq67FabbP/WMQ6XXR9XaiaZ1gm7grNDV4iVoKnJQ+f+r6Kajet0aP6ha
+	 7i50n+0LgXsvcPngoOoXlGLFb/6io9ljc5xLYgNIBwyr0Z1N5qcBlrHorkHd5l03+lc2W
+	 nxXBudEiH4z6PglPE+1vtxlsZ+sCTDYBWQR1GUFrAGshEqXyPvE06FA93/SZZvmeibQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900530;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0rXJbNmYKVxxCLX1v/9lf02/YwIQm3gFrERmrjN+1QM=;
-	b=oKGlD7RqT6GNwRmzpImivkTpuKD0D/mB+Q53fk9daF0iBhebGkZbcgiLu0LLVWyB+aIB
-	 pNJiSrPmHCr3cLkjI2iH83+Kzpu1jVb1kFmUlLONOWxWUVGazzmj8rw6YLM1A5gSfgWcQ
-	 YAjMb5/yuVdsJydTv0yrFtcfl119JXEyipjwsq4fgqE7CnmSPvL/kmx/WhqlYuhV1ahqb
-	 owKCWLzhq1sJeADqDTvQrw6mJdL3hV5ldFz1BJMkpKlyauWruWafsuEMVbd9G0o8njR03
-	 vk2KliGGyCx3opEjrqacayVf/5qskEJ3cXAI+qAkmFVUk0ml5yVZpJipJwg/9t5b1IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900538;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=oTHjCu0LuGcIRh50R1eAfy0Rx3NQD8kakUvV0IXvgdk=;
+	b=NxSl8q+HxDjOLQptfsM08SPUonxjvyGt7qDPFfxEHcPoGda0OgwEY1VuPpSkAdk16T8e
+	 WtM4VVuxpziuz+kvYdNkSwq7jK76NnUr//j9Yqg+cEk8dd6arz+EaI5IUkzZ+viytEkoc
+	 QUSoTPP+2MRMpc7an7YU3BH8UaWYMnMdvBOGTmOhXzQorEsTHH62/Rys+b1IIe9X5HIQD
+	 7lSjBUW6+00t8EwEDvGPEhISkDQoDZNDt4tKlBaGyp5v/X/K+zvsRNkPsozRac9zyxO1J
+	 Ns7WNwekcQihXn1JsqTWQtxh5Ijr3NDpH0oGqxfdy8kva4VtIYOyUhOtM7HoSOeKF9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qa1DlUGL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Mhab/l40";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E413606A31B;
-	Thu,  5 Nov 2026 17:42:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B6A606A337;
+	Thu,  5 Nov 2026 17:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qa1DlUGL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DDA51F000C1;
-	Thu,  5 Nov 2026 17:42:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mhab/l40
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8FF1F0093A;
+	Thu,  5 Nov 2026 17:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793900530;
-	bh=0rXJbNmYKVxxCLX1v/9lf02/YwIQm3gFrERmrjN+1QM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qa1DlUGLxUY/8uO2FRVrri2F8vsGfZl1yWCTUzmA1IApUTonvbCu7kKbl6KAXSMRP
-	 fa1CkT6wTADxDzzOA05xKHAxkwETAOpScyUvte2a2qMZrolCiulG5AHR3nxGxQj27i
-	 mNHfEWrh+ozaIbdfAHzbuVkiZ0CpMN863R729Mgnb2FBckKNU1ilyztA61Bm/64BZ9
-	 yuQtacxXojAIMZVKAkYgFOgbdH068BJGA+d7WCGHOC+YP9Z1+KN7Nzai9RNVEnfKSI
-	 x6C0QJDe9lF4u2AUCHbGr6wmJiGa6O+oHk9cKP7+QdjzWE6d3bN4/ILxLQxtHyoDD8
-	 8azgLEU5V6rxA==
-Date: Thu, 5 Nov 2026 10:42:07 -0700
-From: Tycho Andersen <tycho@kernel.org>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Kees Cook <kees@kernel.org>, Andy Lutomirski <luto@amacapital.net>, 
-	Will Drewry <wad@chromium.org>, Shuah Khan <shuah@kernel.org>, 
-	Christian Brauner <brauner@kernel.org>, Sargun Dhillon <sargun@sargun.me>, Hui Peng <benquike@gmail.com>, 
-	Bradley Morgan <brads@mainlining.org>, Cong Wang <cwang@multikernel.io>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH 1/4] seccomp: wake poll waiters after failed addfd send
-Message-ID: <auy_NtEpqMU-g913@tycho.pizza>
-References: <20261104103736.71956-1-parri.andrea@gmail.com>
- <20261104103736.71956-2-parri.andrea@gmail.com>
- <autZ5kL0S5MkX_8l@tycho.pizza>
- <20261105153735.5368-1-parri.andrea@gmail.com>
- <auysN9YTg8Ih8QLZ@tycho.pizza>
- <20261105173530.39081-1-parri.andrea@gmail.com>
+	s=k20260515; t=1793900537;
+	bh=oTHjCu0LuGcIRh50R1eAfy0Rx3NQD8kakUvV0IXvgdk=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Mhab/l402h4Lf/3cz4XzcGuiQQL8yfS/02KiNRD6mUwsKekRoshxkt0O0hrxVfG8z
+	 814X+3nfnhZIbfprkweX++k/GWQYvu5ienfsHJK3E6NC2JBTYUqwiNNy/fygUwq8Rz
+	 phqYxWNzCxffjb73zM21F4xDq95QlgMUDhFOh4kV3s6pNWPFaKz+yyAQYFJ2NQYdW2
+	 RsVU9vKkSIlz+pAf05Q6nx20zgPqxuDNJCdd/czGq81RmUWEwqQpTU4AE1JhkwPaBf
+	 XwyWJdw+QyBLzhkCAULCbE0BolamYHqhXfjKC30iQKmwa5qo8OM2459Db39PIL7/6m
+	 2c9rct+Y7nX0A==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 0C6B927B45C5;
+	Thu, 05 Nov 2026 17:42:05 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,23 +52,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105173530.39081-1-parri.andrea@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] ASoC: codec: pcm1681: Acquire sck when bound to a card
+From: Mark Brown <broonie@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+ Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
+References: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
+Date: Thu, 05 Nov 2026 17:42:03 +0000
+Message-Id: <179390052368.3073895.16132231139898724200.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1716; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=CdVAXl6InBlLA2D6W+tvuTQS7KcpYmzS0ufCPYeNK0s=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLe7H9zeJZKZOd302nv0s7s+bhx4maRRfOjtiltzzaWv
+ b7L/Jm3V0cpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmUsfEyLDvHuvdvm9q12of
+ ZT1dUOGnIPUvMVP0416127NfJ7I53XnE8E9XsVmfJTP/R+D+nCO9XWpW73+kfXcQD2WYWfilSnl
+ 5Og8A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, Nov 05, 2026 at 06:35:28PM +0100, Andrea Parri wrote:
-> On Thu, Nov 05, 2026 at 09:25:17AM -0700, Tycho Andersen wrote:
-> > Seems like a solution in search of a problem to me.
-> >
-> > Is there a sane action a supervisor can take on failure here besides
-> > killing the thread that made the syscall? If so, perhaps it's
-> > worthwhile. Or maybe it's worth it "for completeness" and I'm just
-> > being grumpy :)
-> 
-> There is: seccomp_handle_addfd() puts the notification back in SENT on
-> failure, so the supervisor can still reply.
+> The sck clock is taken once at i2c probe and held for the lifetime of
+> the device. On Qualcomm boards it is an LPASS clock exported by the
+> q6prm clock controller, which lives on the DSP and is unregistered and
+> registered anew whenever the ADSP is stopped and restarted. fw_devlink
+> cannot tie pcm1681 to that provider, since the provider node only gets
+> a device once the DSP is up, so it falls back to the remoteproc device,
+> which stays bound across a DSP restart. pcm1681 is therefore never
+> unbound and keeps a clk handle to the dead provider.
 
-But what would it reply with other than EMFILE as you note or SIGKILL,
-both of which it would do inline with the ioctl?
+This seems like something that ought to be dealt with on the Qualcomm
+or fw_devlink side TBH, registering the clocks and returning -EBUSY on
+attempts to use them would be less disruptive to other components in the
+system.  I don't understand what fw_devlink would be doing with
+reparenting clocks...
 
-Tycho
+> +static int pcm1681_component_probe(struct snd_soc_component *component)
+> +{
+> +	struct pcm1681_private *priv = snd_soc_component_get_drvdata(component);
+> +	struct device *dev = component->dev;
+> +	int ret;
+> +
+> +	priv->sck = clk_get_optional(dev, "sck");
+> +	if (IS_ERR(priv->sck)) {
+> +		ret = PTR_ERR(priv->sck);
+> +		priv->sck = NULL;
+> +		return dev_err_probe(dev, ret, "Failed to get sck\n");
+> +	}
+
+This is the oppositie of the standard advice for drivers, and we don't
+deal well with probe deferral from component probes - in particular,
+nothing will trigger a rebind of the card if we don't probe a new
+component and that's not going to happen if the CODEC already bound and
+isn't waiting for the clock.
+
+Also dev_err_probe() will only DTRT from device model probe.
+
+-- 
+Mark Brown <broonie@kernel.org>
