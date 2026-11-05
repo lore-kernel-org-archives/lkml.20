@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793919821;
-	b=WrbwS7rDbSKW86JQbY99OdH5s8DjsqVc2Dq/oSK5whCTXJTyu2YLzKzVc7lHk+pCShQd
-	 9EBD2k5jGod7nZe0+9jhkOKFEL1ljZb/wMQRf+2GTSeBKZLKv/A3DTtutRMfm+d+6B+8Q
-	 UxsDfbWxuFQeODB3JNT239CGEo2gRx/WAwiOigxKCAifQ90fgpt/XOjUwd8EHuXS1IeDk
-	 Bkw9zYkkm3K09RPZlM3veKkjpvMISwuR0hYaX5kOXgy/K22M/8F24lzdVGzMDJ62dgHoF
-	 txiZhVGxCX8naeHavyAcwAROhjEYbPZqIqesxiAul/4vDMdH7mbpVBsFffBILaY9R5g==
+	t=1793919854;
+	b=WxMi0ypGtDijk0LFvoHCygnPOPJFAKGZOzqh7QpD6o1Ryli72cp4Iad5jXqeBtYISW4x
+	 2oQeX1SAQVLz155yLK6ua+dF/t+ooa6OvB+4kFt6IiXELvUzxig2+ClSjFQ5Pnt9FmGWE
+	 WUEX+EfW7riy5KGI7BetGgOK9VJXSV3K3RGYfG1kyZqYVagkvAX6aGTqjQjj1AjAb68B6
+	 Yoc6q0Juo96xWWlfT+fWRr7t0wOyxlb/HCjfGWC0Xsd+39fJrPotQ0tDWg11nRmVsn6XY
+	 PZzwczWLvhsQR+9qqSobyXefsF8/D6oTj+U5D0E2aMzbRua4/RQyt61oAvpPV0prSfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793919821;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vfF/zL1HCGWmzc39aGM7Cx1wAkHKEMskWplLH7mdoFw=;
-	b=rBkriEBe7z50OEf3cZtalwcU/fZbgrVIs0c0Hjp6Hh93zUcis9smmtjNWCrmISunOqsK
-	 OHgoVACHCGaNj6EJqyVSqD+TZdvs6889iBkQN9wSPbAj66hyRFL0sftmdQzfyxu68j62c
-	 DWW5rHEQmgBPQf11RnpjjbucqfbBBU+9Vt1cvV7bo5l8CSvwW1GCIQN+1VK9EHehhWFYz
-	 BngzuTED1Lj8evF0DStwVZD/sSNb5VDjwKfRyYf0LRuQJ09RueWOSMDYEdfz21HFZSygH
-	 561pz3p1SGT6pXVgycfQepbMM3Xh2+kXSU0mAZ9QJa8EDRq3hSSwZLq8lfmjig68o+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793919854;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=b6WzBUDutO2lD1ahYOBqGggoJ+tH7oqdGLJy3rjPKoo=;
+	b=bcfk1Vv3ff5Amfy9SSAOzT6g//Ds/GP8Hasvsq1coG0JHvDV7RjL0CChYA/4js2PJg4N
+	 lm3YNwC0ob4bANaTikdJqouT9hqURhtMqu6eG7FqsPgWL91QYspj4q4StJTeI00JALAL0
+	 KIYOyrxTGRgYAuPQQ92qmkXehBfDaJxrTWa8Y8N7phQnJs1M//KmO5xiyIPgjRGhbfu/s
+	 UsGnsjwjrGUv+pFBRg6z9pS/gEbvaDmAsl4jMEBglCjvj3QDqWmWnyE9wBKshjqfpfbLr
+	 oLXjUBIp7H0yToqSgF2pKm25FuKtJkSX1CKXfpgsateNgG1fWv0lHFZ7Hyoa+5q83pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LndA58dN;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="l/3cijac";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29009606A339
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 23:03:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29009606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57501606A31B;
+	Thu,  5 Nov 2026 23:04:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LndA58dN
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so426645e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 15:03:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793919818; x=1794524618; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vfF/zL1HCGWmzc39aGM7Cx1wAkHKEMskWplLH7mdoFw=;
-        b=LndA58dNBOpHOgDIA4pjmq+84QQ3Q1xUWfC4Mf0dBfJ3M/y8ucfa1MUBpcdZ/lCY7q
-         3Ug23wG+xMabY3yHGNioYyMjAq1uIvGLCrG2JnrxLUIjK8txWJ6SPbDp7PGlLItmSJIf
-         uAtOw4feivI9KoRcTu0hsFJvlgqtKpS2myfQ2MVzOzlOybHWv9bD9SXW/sJfX+a180bw
-         5OB2ehhGkAluGNC68Eq4vqcbqnUGD3ZA9ilvitmY6n0v8oyyAK4KRPkU4JN/R3+CtIPh
-         fVomz7612P3o9gMEQWuI536z9VueNhzJx2xJdBPLsR+UkMiZuTO5pqGEjoGSlMLonXq6
-         ikbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793919818; x=1794524618;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vfF/zL1HCGWmzc39aGM7Cx1wAkHKEMskWplLH7mdoFw=;
-        b=zuLeiP5kyjMTQIrfIuNgw8E6v8q42sq3+yEe9Oc4Hx0kCjGT95szCC86Q5wxm3pyuH
-         W39j763ve4NCHQUlhueHL7kQgHxg9+xM4VpHkd1KTrkBITUwrsEMlVbfXM40Z+Q8Spl1
-         RCft+c7j7djrq7LOm/aSSg0CLARMyjMZJsKATpMxzfm6pvBwmyrldhgYrRAzBmniMscs
-         8YJVodPH6wFn7CblVdI3PAeigXUV9jcZQODYItVXmx5CJredjNSSI1oRfL+8etJguEAV
-         tAkUdKNbNgG4qBV6NdzEhyYG/yL26dH/B6kU15tdpeE20OVxGrZ63bZAHx+yONDqXVFm
-         YyXg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6WW2PJ7J2aOwi4W/ZS+uFmDYnerLYRaQF/wBao29v1wT6W3r/+5x95p23AoTrobdBqdUeP8C5H1ZwIiI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8Zr9J4JCWLyuuboZXgP6Fa+xAfK+sNOqwdMDc7N2GhSMwqvU0
-	vMEyj78VpKZqPGArYIrFIBvQaJC4AJngZZJoW4b+RKbiR60TFnHVQR2v
-X-Gm-Gg: AYBFou2D8Otu/EydboRZr6OysXvBhfpR+LSUy3PrexpA6MDTOfXX0lE/Xt6n2OxiKU+
-	+YccFWUpy34jxDKgMe4A9Yc+YPlc4bbqFaNmFxOJ4fm+hWOrrQsdyW+bB9E2a2AU4qnbWGBsFW2
-	o3+TIKjV3Rz/BNNJzqn8HDdn1g6Ldc+CRGZpEI0LV6yLD7bU8fi4Qiy7FyDU7DH4e47kgLplz6r
-	pD1yLMnqt2cmbdEn9Ty0Nmv9eI5b1/bUwtzPyNesIlOBvHsSMeJpozdxsM1ZNwFHa6y3xNOUxFz
-	6QNnDrgI2MVgnBgR4ddnZfqsc+9DuBg7I7b2nvyHLqsS3viuBzcQIGYNZdALgzlnY2Z8tSNzuFl
-	mEXK2ZVFYbNrtOsy304ZZPF2gk8RdAneILFFP6CpsBNqZRfSjudk02iSa8d7ZW2MS3xVKdRouxu
-	sbELNUVipoNm2WGDdbph6Ynfrz6i9W3u8CyzbAjDesnKzgRynCDG4DdGRh2E1oowL+h9RJUbPSt
-	QRvzw/tBGrBIPzQkVwE8Xn672C6a+LtqRr0+nxF8U8Vh0mYgrGWwNHpEjwBMdlGlRTxgMAvRUJ4
-	TdIZp4dZJLcXmk8+fPUA1UQivi0PqZE1rS2T/uiwb21oyEXo0D0jqg36yqiylltQAvycoQ==
-X-Received: by 2002:a05:600c:3e8d:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4b6df5eaac6mr8963635e9.18.1793919818475;
-        Thu, 05 Nov 2026 15:03:38 -0800 (PST)
-Received: from figssurface ([176.223.29.246])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e2029209sm12267215e9.11.2026.11.05.15.03.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 15:03:37 -0800 (PST)
-From: Afonso Figuinha <afonso.figuinha@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Bingbu Cao <bingbu.cao@amd.com>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] media: ipu-bridge: Add OV9734 to the supported sensors list
-Date: Thu,  5 Nov 2026 23:03:24 +0000
-Message-ID: <20261105230327.10852-2-afonso.figuinha@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105230327.10852-1-afonso.figuinha@gmail.com>
-References: <20261105230327.10852-1-afonso.figuinha@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l/3cijac
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C924E1F0089F;
+	Thu,  5 Nov 2026 23:04:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793919854;
+	bh=b6WzBUDutO2lD1ahYOBqGggoJ+tH7oqdGLJy3rjPKoo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=l/3cijacEoj3ryM+3VWgQngDJh1ItuBMvCc2qntCoKzPUCJilUSe2FrdijlqXSclr
+	 zeOgsavwkWeY4MqvITCJQYXgAF5NVJbdzao/52T69QFGwJ9N68yK2WvL6x8jrzMUXe
+	 3MG1+c0o3qUrOdXvtm/s4jy3g6PkmMpbDp8zee0t36TeYLdZQEBtJmyjXwDH7tvD3H
+	 NflR4YwihyDKR0QEROaf4aDdaeY4Mj2QxJk1JN/YldhyQV7WX5FAMsUSYbQIhCG/zM
+	 KAAs8tuYsfWYLupVCg2cGD6eQjp+DoYI77JoiUN5TibF2wEQYI3yfjABtaMO7PG/Nh
+	 khmCKQ81OeyyQ==
+Date: Thu, 5 Nov 2026 17:04:12 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Danny Gonzalez <digonzal@google.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, David Decotigny <decot@google.com>,
+	Sheena Mohan <sheenamo@google.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH] PCI/ATS: Disable ATS when ACS TB is set upstream
+Message-ID: <20261105230412.GA1450377@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,38 +61,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020181053.2646782-1-digonzal@google.com>
 
-The Microsoft Surface Laptop 1 uses an OmniVision OV9734 as its front
-camera. It is connected to the IPU3 CIO2 and described in ACPI with HID
-OVTI9734. Add it to the list of supported sensors, so the bridge builds
-the fwnode graph the ov9734 driver needs.
+[+cc other folks interested in ATS]
 
-The ov9734 driver supports only a 180 MHz link frequency, so list that
-one.
+On Tue, Oct 20, 2026 at 06:10:52PM +0000, Danny Gonzalez wrote:
+> Enabling ATS allows an endpoint to cache translations and initiate DMA
+> requests with Translated addresses, which an upstream bridge with ACS
+> Translation Blocking (PCI_ACS_TB) set will block as ACS Violations.
+> Because pci_enable_acs() preserves existing PCI_ACS_CTRL bits (e.g., from
+> firmware, a kexec kernel, or "pci=config_acs=") without relaxing them,
+> PCI_ACS_TB may remain set on upstream bridges.
+> 
+> Update pci_ats_supported() to walk upstream bridges and return false if
+> any bridge has PCI_ACS_TB set, leaving the endpoint to use Untranslated
+> addresses.
+> 
+> Tested by booting a machine with an endpoint advertising the ATS Capability
+> behind a Root Port with PCI_ACS_TB set; verified ATS is disabled and the
+> system boots cleanly.
 
-The change and this description were drafted with an AI coding
-assistant (Claude Code, model Claude Opus 5.5). The author reviewed
-them and tested them on a Microsoft Surface Laptop 1.
+There was a v2 at
+https://lore.kernel.org/all/20261028233651.960835-1-digonzal@google.com,
+which added pci_ats_check_acs() in pci_dma_configure().  I thought
+that was a non-obvious way to make pci_ats_supported() return "false",
+and I proposed doing the checking in pci_ats_supported() directly to
+avoid adding the new pci_ats_check_acs() interface.
 
-Signed-off-by: Afonso Figuinha <afonso.figuinha@gmail.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+I'm responding to v1 because it *did* add the checking in
+pci_ats_supported().  But sashiko found some issues with it:
+https://lore.kernel.org/all/sashiko-outbox-179488@kernel.org.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 3739c4a2a..4982b77de 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -120,6 +120,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- 	/* Omnivision OV8856 */
- 	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+	/* Omnivision OV9734 */
-+	IPU_SENSOR_CONFIG("OVTI9734", 1, 180000000),
- 	/* Sony IMX471 */
- 	IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- 	/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
--- 
-2.53.0
+> Signed-off-by: Danny Gonzalez <digonzal@google.com>
+> ---
+>  drivers/pci/ats.c | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
+> diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
+> index 9cb23780093d..094f4f825acf 100644
+> --- a/drivers/pci/ats.c
+> +++ b/drivers/pci/ats.c
+> @@ -31,6 +31,24 @@ void pci_ats_init(struct pci_dev *dev)
+>  	dev->ats_cap = pos;
+>  }
+>  
+> +static struct pci_dev *pci_acs_tb_path_blocked(struct pci_dev *dev)
+> +{
+> +	struct pci_dev *bridge;
+> +
+> +	for (bridge = pci_upstream_bridge(dev); bridge;
+> +	     bridge = pci_upstream_bridge(bridge)) {
+> +		u16 ctrl;
+> +
+> +		if (!bridge->acs_cap)
+> +			continue;
+> +		pci_read_config_word(bridge, bridge->acs_cap + PCI_ACS_CTRL,
+> +				     &ctrl);
 
+Sashiko noted that if bridge is inaccessible, this read sets ctrl to
+~0, so we think PCI_ACS_TB is set.  Maybe worth checking for
+PCI_POSSIBLE_ERROR() before using ctrl.
+
+> +		if (ctrl & PCI_ACS_TB)
+> +			return bridge;
+> +	}
+> +	return NULL;
+> +}
+> +
+>  /**
+>   * pci_ats_supported - check if the device can use ATS
+>   * @dev: the PCI device
+> @@ -40,12 +58,22 @@ void pci_ats_init(struct pci_dev *dev)
+>   */
+>  bool pci_ats_supported(struct pci_dev *dev)
+>  {
+> +	struct pci_dev *bridge;
+> +
+>  	if (!dev->ats_cap || dev->untrusted)
+>  		return false;
+>  
+>  	if (dev->is_virtfn)
+>  		return pci_ats_supported(pci_physfn(dev));
+>  
+> +	/* Do not allow ATS if any upstream bridge blocks translation */
+> +	bridge = pci_acs_tb_path_blocked(dev);
+> +	if (bridge) {
+> +		pci_warn_once(dev, "ATS disabled: upstream bridge %s has ACS Translation Blocking enabled\n",
+> +			      pci_name(bridge));
+
+I think I suggested it, but now I'm not sure the warning is
+worthwhile.  I think this might be too far down in the bowels for it
+to be useful.  And sashiko complained about the warn-once bit too,
+which is fair.
+
+> +		return false;
+> +	}
+> +
+
+Sashiko also noted problems if pci_ats_supported() returns different
+values in:
+
+  * intel_iommu_probe_device() vs intel_iommu_release_device()
+
+      Different values break rbtree 'info' management: _probe_device()
+      can put 'info' in the rbtree and _release_device() may fail to
+      remove it.
+
+      I think the fix is for intel_iommu_probe_device() to keep its own
+      bit in struct device_domain_info to say whether 'info' is in the
+      rbtree so _release_device() doesn't need pci_ats_supported().
+
+  * pci_dev_reset_iommu_prepare() vs pci_dev_reset_iommu_done()
+
+      Different values will make gdev->reset_depth, group->recovery_cnt,
+      group->domain, and gdev->blocked get out of sync.
+
+      I think it would be better if _iommu_prepare() and _iommu_done()
+      themselves tracked what _iommu_done() needs to do, for example
+      they could do something like this:
+
+        int pci_dev_reset_iommu_prepare(struct pci_dev *pdev, bool *restore)
+        {
+            if (!pci_ats_supported(pdev) || !dev_has_iommu(&pdev->dev)) {
+                *restore = false;
+                return 0;
+            }
+
+            *restore = true;
+            ...
+        }
+
+      Then pci_dev_reset_iommu_done() wouldn't need to call
+      pci_ats_supported() or dev_has_iommu(), and users would look like
+      this:
+
+        int pcie_flr(...)
+        {
+            bool restore;
+
+            ret = pci_dev_reset_iommu_prepare(dev, &restore);
+            ...
+            if (restore)
+                pci_dev_reset_iommu_done(dev);
+        }
+
+      Or I guess we could call pci_dev_reset_iommu_done()
+      unconditionally and pass it 'restore' and it could test it
+      internally.
+
+>  	return true;
+>  }
+>  EXPORT_SYMBOL_GPL(pci_ats_supported);
+> -- 
+> 2.56.0.218.g1ec904b173-goog
+> 
