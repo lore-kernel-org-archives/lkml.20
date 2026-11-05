@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793906419;
-	b=ChHZOfnq/wS0b3DCK1ZPLA3Fi8FcdvyyLmdGVAeY7Z2aCIbz8p2P+Y8gR9FEUZFNqljF
-	 H5zLG6XFv++Vjw8LFKXDnoyUNAJ00L2eZilyeE/f+H8mKUgMqcG/O3vcaEgoAUl2dx6nb
-	 Q0At93R46g8yREtI6lIMkycSyo5MBdMIc4i11GnrNQEjbyF/QuwqhgnuS3uBCvqtCULR+
-	 3SqCJL35s9+hkAXrbFQkX5o1Wkq3hrgI9MzXO4dSGUXInAG12yfug5C+AumekcKszT0la
-	 Le/gNdU7pG7tQ6yxr6WxBy1q8MAnCU+g5lRtOkZZnCOhTiyuSGSSALFpaG5qiK9Upsg==
+	t=1793906420;
+	b=TPauDL9JVcPMshhhDbgf6KyXtgIZGDs5C5W1bOuHXqsq9CbHnyy4sObLG9n5DZqKEt1L
+	 lXEgOxSvb9ONZm6QvzSNLwlMsPXRlQmvkSfIIUUCyXf2giFPMnAhDoZorikDN9DICVAde
+	 Mmy78XYpVJ631nQ+oFbCIXyKwZdO8vqFZ5wUpHp0hqfhphoLBpnJBiOy+7M7d3U87N/GX
+	 nU/E/RqMEqIaj2qb/Vq5K/XhSDIA/yaiG7aOCAxst0llu4hT/K1XVBkn7fnIAvbNjSNsK
+	 vfUoIUchVh/xZsGBjupLnLQX7OwDrnAAOAdbDhuBvYLT/ccQ8dLEalGNz7NcIz265Eg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906419;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Pp/TG21mhE7k1t/eWybpON9LpBrMSOVs3egyXyjekZI=;
-	b=QopgOhj9LJNQ5ZnYsnD5rwxnxRKrras5OHzjR2GlsfHa7wtgBaUuFpPJZvsUnwzmHOUi
-	 gNCrUYbuY4Xh/xjSUaeRAqsQ90lT9+MNtW1Rxtt8R2Vq3cQIf0Zz9LNdT75OiiKuE4GRl
-	 r4D24bvR200XTrzXF2Qpq3qpzgL/NtQQoUpkFxd38DrRcpstYXrk/+tt2ID/xGuP8MKv5
-	 JsoDp5xyHSK6CxDHm0OyGI+yQN+VC/X1MwIAuLzeU9Js5uwTsEz15FBaLwvluDKKzEYVT
-	 +dP9BHLIlMy2/25i0C/YkDNt6Eac6j6fl/vbrxJqnohaZDznd5opHZk26R8usvbuaPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906420;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6Bljr1uC7IbWpOg6SVLCyxLBHvHmsEA9na/XTcirQ6A=;
+	b=lP9nrA/Sowl5utlO8DIKMMizY0pusjSIsg+4Xi0EytGO8/91MyFKl21kJIOGPPX/AmOP
+	 F02Y/Kril1HhW6wFXZAiBg1dHwOJVzIbT9kS2IlX5ij7DrnTrPSKZrCHXjZ9EVJjt1/F6
+	 80xuk0hLuYzugkAvoVtMuCyklcuCxzE37asC5CuvUoS5Byo7Te+tY2A2/DxAbvH55aXIE
+	 Eaka+4xjuulwRvvf/d/DfOjDfkCoBHP9JDTxA2krquXmZkIUK9Eh8N3H/hvOdadcjDz09
+	 WZCKRg833Tb0V2qqh9oJvMOdVDMNS/g55qZ1XOBc3rw6BUgOiDErIlwDF8+sYE+oJVw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=goxBSdge;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWUUB8qK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B546606A32D;
+	Thu,  5 Nov 2026 19:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWUUB8qK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793906419;
+	b=CGIkOrBfFqzG/0QFZAe2wl9bcRAK0qEAoDQNpiY+AEDqn/ECeKejK5RpSP3aLzQrvSXq
+	 sd3GNEOOtiFd8/9Vn+YgI7DzlwNwruP8i3S/b8qEnBamynNLIad7iYQaqGuH08wOvKDWR
+	 5cbb0mL/eTdZ9TMA8JDWOCVemROvSicsI/hzTrHmDZDuJIhBGHirPs93M0jvnhmyFhGIL
+	 lkzb1kp/H1O11oTUrBVzbPiI1JFMYpxlziVuSLvE1YSFCtajRliM3xjNFGlc9E7QytIIZ
+	 QACk/j94c82AowIcbkMt+SGNLGYKzi2Wn6iFBMys7s3C2ghVGpVmQXhtwkYrMXgrOJg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793906419;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6Bljr1uC7IbWpOg6SVLCyxLBHvHmsEA9na/XTcirQ6A=;
+	b=0yUiHNigWA9ECRCBM37b9vC2PS90ohFJE0CaC/Io80vQspuDdWDU2Cuor8/BVaRP/f6c
+	 RffzHAI+Xdf1EX69ckQ2zQVhJDlHBawrm5bsPalfvri8QE1smFDPJSe0xfYIKR5qngy0+
+	 wD0YHSx3uC1E16Rfi6sDcxNppLUPPrs/t5M4w2V+0s+SaRdXQMbABt45mZoZ6Tx0RRa3n
+	 B+7o0la6oSdjr9NIAobRUpn3jnQgWJB/DT9y3NBlt5gIZhulL/Hxo4dsgjwChe45qgdpC
+	 AW2HrefwSsli3c56/uCZ5oMNLAb5AQKDe5E5iPHDgHl0wWzwNhBnCZEhDHvtRgdy9zg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CF1606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 19:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04CF1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=goxBSdge
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f2049ea7aso175244085a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 11:20:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793906417; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BbBwxgIq0FhL6E+gZ25OhAJbdw2oNvW+9cAvHTpIkotp+1h8RkoG57tf6x42cjkd/M
-         OrwCE1qq5SITlTxr83DEIR3m0VcMRCg8jkzt3OMjf2pDlpVH+Vr3pVqKjQcy4GLd9o6y
-         DUic8EfH3DXMe45DTvfVwtFAVU2JD49hwrT2bLs+duwcCvPz16xVyW6b262gQsXtdbbk
-         BpLpO9ORDA2R3k/b0WfxqfVDy7D4EZ92X1Qi8HpuIIsQcruwNr7a1CVs/dXA6fTfX89C
-         YAcm/5nBDSgiPaRQ5x45XLivt7WdR3eLeB4SH4kIuXSwKYQJTvcIgmt71NxWjQ3IVlqQ
-         5FgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Pp/TG21mhE7k1t/eWybpON9LpBrMSOVs3egyXyjekZI=;
-        fh=X5trX215dlaxUk/J3oa15EeTO5Y7ydsPuOLgciUqSSM=;
-        b=qTo8xBM2C7YF43CPPsrCGzQmwkWSr8cgqE2caVEXX/OrZuhtPLKkFMO/DcHAr8HBG2
-         RhJoEjThvvVOUKb7pTm5FELAQmk/qmd8CQKnwDWHhY8WTHJR5rD4x5CO30vOn4FRoj0x
-         s2UhdXWiNjDXq2OIJs2l1dvh/+xzhpnVJP+PNXY2NeGUhwXauHIMb6uA9y0ZfJWxDKRE
-         kG6RpTAPQg6yT4I05hv4DQb27hfyoEsA5boYBEua18eDm/peSMvIUIRHGmYV4OVVeQBU
-         JoapMhoaJzRwX10WYaxE/bjclyPhLX1ovyQ9rBiBFQKZ6sGyyTW9aILPYY9a3j930r+g
-         UAgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793906417; x=1794511217; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pp/TG21mhE7k1t/eWybpON9LpBrMSOVs3egyXyjekZI=;
-        b=goxBSdgeBbdHj66o9Nu3RNovXtI7CJhsb0Rr7p21S9IEWF5RADy2eV4UGrMXXidFAl
-         cTO0oAVzKBF5fO9sS/GOG37u8hhgHva6nZ/mle/Tp3bNfFyFKTXYJRAtKuu76p953xid
-         afvRQG/ybr6Ut8n2erud5xXY/aDItoKUKt6VGisPWURfTnLLI1F9adpLJGkPPQQMKa2X
-         3ygmX5UszfB7oFk/DshDKWoLiKPhzINYoTv7p/1tfte7N6+0mVfMFUUBEkGXI5WX1y1F
-         TaRwiDOCSfgP1UpHoUWjnfCzogY3bzcRPH7XygMsHTMFXkryttjpg7un4zngWdx12xFL
-         huPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793906417; x=1794511217;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pp/TG21mhE7k1t/eWybpON9LpBrMSOVs3egyXyjekZI=;
-        b=qBh9hXSNo39lfZYlP1gMj0qzzh472eJh8ItrF0srFCHKc7JjNIa+A3l2d/DtCdrJOt
-         vqDAnOP/Npm2vMK7C+KGY3SWO0Phm3FS4b+MzZexkG72DyHECXwAu2lOY0OurH7v/zCR
-         n0yasDbL/wTENcLn1Vf3TYA3DquOnIhoRtzKRpuQEAHuUT8GY16rxOPSWz90d76EonXV
-         q3mjMnB2XofEl8Ukiph3toqOUdNU7B6RsxCBLLVeiA4VO909yj2bqEm/lOFL31/jxh/Q
-         B+y7UMAS1AewOmZOyH9hoL8+JhVdlXq+KjYKv+cg2wOCbXww9wgAwOA+vgBEpcjB9gNt
-         xTzw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoBcSXc1urJKCbGSRPf/DQQmNGQP4L/dqaXM+O+shEFU+Gz3wd9H8leJsf25QvGbAhtSIb1tz9xZcC2zU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/vC1Ci+hYyBCobljGKPgN8M//N54H6PBq7Zfuznq3OJN8QJ25U
-	huRu6rtc7i8t1PInUgE/nigxJT+mldGgIquXFHGO8fL9BOqTHIszPJkBirL8uHXg/TJMe9OAPWy
-	wjYpxtvjDjl4bZKsXu3Ep84e4Y1Th4m4=
-X-Gm-Gg: AYBFou1YioHV3vePabb2++hfUlnR57PrV78z8idtTTWFKfEMThIyEBUIvXNIHhpr2jn
-	WUygJrAlWtLlOjqQPAee1mj7shaHdx6PWbP+4N01cFQsflRyHficec2yiBwZLH6MsBJxiZbOZLQ
-	CjtRmWBsiiUCbNYx8MadMpwQ+YIKW6KVUNKuccgbt4cOu4uF/ZkINBbxB5KufieNF8JtdKqn3uy
-	ZdxMtOx1daUMpDcVBHuRVySei3iqDgfuWYotyXC91GDJumaJFvCmgTeC/bk0FQ48WeZq7U1ODQV
-	rd5sFe2dXH59+rXmB4mPGIT7K5FHP2LXbwWpiD8/z5dba9SXaQFSJHVo7KGcqPJRtJCLlFBhcup
-	KaD8sJqSppBy0euuqZf2TOtaPEToJeFst5fqR
-X-Received: by 2002:a05:620a:4015:b0:93c:c2c2:40eb with SMTP id
- af79cd13be357-945f35e6c2bmr5090185a.66.1793906416804; Thu, 05 Nov 2026
- 11:20:16 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 44EE41F000C1;
+	Thu,  5 Nov 2026 19:20:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793906419;
+	bh=6Bljr1uC7IbWpOg6SVLCyxLBHvHmsEA9na/XTcirQ6A=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=SWUUB8qKgkBoNjcRM2a9/aa9bkjMy0tgY0yC9p5tYU7JJR2U1lMcUMSovPuvi/LiF
+	 DIVV/pzEtuZS5bghYLatfE42B76KrDRu4g+eHhTpDu10sb/A/IyU0sCz2LsC2+ycI+
+	 7a4IZk3bpp9t/luGMNxSSS7oaOyLfNzBxjgGoyEuxvjP5cusnkqUlWiuLRLbvZ4SVY
+	 NDGJenvO/4GkxuEdvW0We4IrDj43uRFEr91v0hxiV1tclJllYN81shIHyvXc8BkVWN
+	 p1Xs70PIaz4QlW5pFp1cEx9aNrJ0ZOKS1FVieQqlI3VWnEyIi6+MaXtP2J6SVCeHPg
+	 NhiqAJ11uNC+A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 96DED473D0;
+	Thu,  5 Nov 2026 19:20:18 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Date: Thu, 05 Nov 2026 13:20:18 -0600
+Subject: [PATCH] wifi: ath11k: keep the PPDU status for the full monitor
+ delivery
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,163 +83,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260915111448.2726869-1-qwe.aldo@gmail.com> <20260915145229.3036596-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260915145229.3036596-1-qwe.aldo@gmail.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Thu, 5 Nov 2026 11:20:05 -0800
-X-Gm-Features: AclHuK-4ryZB_pVHQTvIJoueiQY69x_P5hoZ4Ix7YJII7Qwx1mdwYxlfMzqsWMk
-Message-ID: <CANRwn3RYhEu0g9Lx+Vg=Uy8V7BWWz-jWV9d7UVuyRK-MGdbHOA@mail.gmail.com>
-Subject: Re: [PATCH v3] HID: wacom: avoid overflows in sequence number tracking
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-ath11k-full-mon-ppdu-status-v1-1-819a3e225b9b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAPHW7GoC/yXMwQ6CMAwA0F8hPduEzcDBXzEexlqkiGNZN2JC+
+ HenHN/l7aCchBVuzQ6JN1FZQ4W5NOAnF56MQtVgW9sb03bo8mTMC8eyLPheA8ZIBTW7XBRp8D0
+ RdXy1HuoQE4/y+e/3x2ktw8w+/0o4ji9o+0FSfwAAAA==
+X-Change-ID: 20261105-ath11k-full-mon-ppdu-status-dbc6ddd5e32c
+To: Jeff Johnson <jjohnson@kernel.org>, 
+ Aloka Dixit <quic_alokad@quicinc.com>, Kalle Valo <kvalo@kernel.org>, 
+ Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
+ Matthew Leach <matthew.leach@collabora.com>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+ Christopher Griffin <christophergriffin05@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793906418; l=3067;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=4fc48RxbyexxMZuKcYsZ86QAk9wyIus7mswxJpeNaL4=;
+ b=WK2YA9h1OGQghson9ByDiVw1Yk8uOT5wEVWfCpprjGXlhy4pmBnjrs0003SkGBXpkiJhACRHO
+ rkV3EfhvuD3AunvDGwOYvlu78FVAhnPm60sL1gMENVBq2FgoAarSVdq
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 9:17=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gmail=
-.com> wrote:
->
-> The dropped-packet calculation derives the sequence range in signed int
-> arithmetic. A sequence field whose logical range spans all 32-bit values
-> makes the range calculation wrap to zero, so the following modulo trigger=
-s
-> a divide exception.
->
-> Normalize the maximum and current value according to the HID parser's
-> signedness rule, and keep the sequence state and arithmetic in s64. Use
-> div64_s64() for the remainder to avoid __moddi3 link failures on 32-bit
-> architectures. This also avoids overflowing value + 1 at the logical
-> maximum.
->
-> Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 1=
-6-bit")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-Generally speaking, I feel like NAK-ing this patch as it currently is.
-I'm happy to take a patch that specifically addresses the divide
-exception, without expanding the size of sequence_number (mostly
-because that particular part is a bit unnecessary with our hardware
-unlikely to ever spend more than 32 bits on a sequence number). It
-should be possible to introduce a helper function that calculates the
-value with a branch rather than explicit division, e.g. something
-like:
+In full monitor mode (QCN9074), ath11k_dp_rx_process_full_mon_status_ring()
+reaps the status buffer of the held PPDU with
+ath11k_dp_rx_process_mon_status() and then delivers the PPDU's MPDUs with
+pmon->mon_ppdu_info, the status that function parsed. But
+ath11k_dp_rx_process_mon_status() clears mon_ppdu_info again after each
+status buffer whose PPDU names a peer ID, whether the peer is found or
+not. Since commit 2a2451a34afd ("wifi: ath11k: fix peer resolution on rx
+path when peer_id=0") a PPDU from a station without a peer, which is
+every frame a monitor hears from other BSSs, names peer ID 0 and is
+cleared too. Every frame a QCN9074 monitor delivers then has an empty
+status: signal -95 dBm (the default noise floor and a zero rssi_comb),
+no TSFT, and the rate of its rx descriptor instead of its PPDU's.
 
-int wrapped_dist(int after, int before, int min, int max) {
-        if (after >=3D before) {
-               return after - before;
-        }
-       else {
-              return (max - before) + (after - min) + 1;
-       }
-}
+Each status buffer is already parsed from a cleared status. Drop the
+clear after it, so that the status of the last parsed PPDU stays for the
+delivery. The other monitor path is not affected: it delivers from
+within the loop, before the clear.
 
-Jason (she/they)
+On a QCN9074 alone in monitor mode on 6 GHz (5975, 6135 and 6455 MHz,
+frames from neighbouring APs), 311 of 313 frames had signal -95 dBm and
+TSFT 0 before. After, 307 of 309 had their received level (-79 and
+-80 dBm for the nearest AP's beacons) and their TSFT, and the beacons
+their 6 Mb/s rate instead of 48.
+
+Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.5.r4-00683-QCAHKSWPL_SILICONZ-1
+
+Fixes: 67a9d399fcb0 ("ath11k: enable RX PPDU stats in monitor co-exist mode")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
 ---
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
+ drivers/net/wireless/ath/ath11k/dp_rx.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
->
-> Changes in v3:
->   - Replace raw s64 modulo with div64_s64()-based remainder to avoid
->     __moddi3 link failure on 32-bit architectures (i386, arm32).
->     Reported by Sashiko AI review.
->
-> Changes in v2:
->   - Normalize logical_maximum/value as unsigned when logical_minimum >=3D=
- 0,
->     matching HID parser signedness. Store sequence state as s64.
->     Fixes unsigned 0..UINT32_MAX range that broke v1.
->
->  drivers/hid/wacom_wac.c | 33 ++++++++++++++++++++++++---------
->  drivers/hid/wacom_wac.h |  2 +-
->  2 files changed, 25 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index da1f0ea856..af94f59a5d 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -7,6 +7,7 @@
->  #include "wacom.h"
->  #include <linux/input/mt.h>
->  #include <linux/jiffies.h>
-> +#include <linux/math64.h>
->
->  /* resolution for penabled devices */
->  #define WACOM_PL_RES           20
-> @@ -2527,18 +2528,33 @@ static void wacom_wac_pen_event(struct hid_device=
- *hdev, struct hid_field *field
->         case WACOM_HID_WD_BARRELSWITCH3:
->                 wacom_wac->hid_data.barrelswitch3 =3D value;
->                 return;
-> -       case WACOM_HID_WD_SEQUENCENUMBER:
-> -               if (wacom_wac->hid_data.sequence_number !=3D value &&
-> +       case WACOM_HID_WD_SEQUENCENUMBER: {
-> +               s64 sequence_minimum =3D field->logical_minimum;
-> +               s64 sequence_maximum =3D sequence_minimum < 0 ?
-> +                       (s64)field->logical_maximum :
-> +                       (s64)(u32)field->logical_maximum;
-> +               s64 sequence_value =3D sequence_minimum < 0 ?
-> +                       (s64)value : (s64)(u32)value;
-> +
-> +               if (wacom_wac->hid_data.sequence_number !=3D sequence_val=
-ue &&
->                     wacom_wac->hid_data.sequence_number >=3D 0) {
-> -                       int sequence_size =3D field->logical_maximum - fi=
-eld->logical_minimum + 1;
-> -                       int drop_count =3D (value - wacom_wac->hid_data.s=
-equence_number) % sequence_size;
-> -                       hid_warn(hdev, "Dropped %d packets", drop_count);
-> +                       s64 sequence_size =3D sequence_maximum -
-> +                                           sequence_minimum + 1;
-> +                       s64 drop_count =3D sequence_value -
-> +                                        wacom_wac->hid_data.sequence_num=
-ber;
-> +
-> +                       drop_count -=3D div64_s64(drop_count, sequence_si=
-ze) *
-> +                                     sequence_size;
-> +                       if (drop_count < 0)
-> +                               drop_count +=3D sequence_size;
-> +                       hid_warn(hdev, "Dropped %lld packets",
-> +                                (long long)drop_count);
->                 }
-> -               wacom_wac->hid_data.sequence_number =3D value + 1;
-> -               if (wacom_wac->hid_data.sequence_number > field->logical_=
-maximum)
-> -                       wacom_wac->hid_data.sequence_number =3D field->lo=
-gical_minimum;
-> +               if (sequence_value >=3D sequence_maximum)
-> +                       wacom_wac->hid_data.sequence_number =3D sequence_=
-minimum;
-> +               else
-> +                       wacom_wac->hid_data.sequence_number =3D sequence_=
-value + 1;
->                 return;
->         }
-> +       }
->
->         /* send pen events only when touch is up or forced out
->          * or touch arbitration is off
-> diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
-> index 126bec6e5c..74e7c5a04a 100644
-> --- a/drivers/hid/wacom_wac.h
-> +++ b/drivers/hid/wacom_wac.h
-> @@ -324,7 +324,7 @@ struct hid_data {
->         int bat_connected;
->         int ps_connected;
->         bool pad_input_event_flag;
-> -       int sequence_number;
-> +       s64 sequence_number;
->         ktime_t time_delayed;
->  };
->
-> --
-> 2.43.0
->
+diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
+index 6d95f7b343a55..8bee3bfe33dfe 100644
+--- a/drivers/net/wireless/ath/ath11k/dp_rx.c
++++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
+@@ -5290,6 +5290,10 @@ int ath11k_dp_rx_process_mon_status(struct ath11k_base *ab, int mac_id,
+ 		if (log_type != ATH11K_PKTLOG_TYPE_INVALID)
+ 			trace_ath11k_htt_rxdesc(ar, skb->data, log_type, rx_buf_sz);
+ 
++		/* Each status buffer is parsed from a clear status. The last one's
++		 * stays in mon_ppdu_info: full monitor mode delivers its PPDU after
++		 * this returns, with that status (signal, TSFT, rate).
++		 */
+ 		memset(ppdu_info, 0, sizeof(*ppdu_info));
+ 		ppdu_info->peer_id = HAL_INVALID_PEERID;
+ 		hal_status = ath11k_hal_rx_parse_mon_status(ab, ppdu_info, skb);
+@@ -5334,8 +5338,6 @@ int ath11k_dp_rx_process_mon_status(struct ath11k_base *ab, int mac_id,
+ 		rcu_read_unlock();
+ 
+ 		dev_kfree_skb_any(skb);
+-		memset(ppdu_info, 0, sizeof(*ppdu_info));
+-		ppdu_info->peer_id = HAL_INVALID_PEERID;
+ 	}
+ exit:
+ 	return num_buffs_reaped;
+
+---
+base-commit: 5c8eab13e391aaabd5a1ad58f3ee4bb10ce7573e
+change-id: 20261105-ath11k-full-mon-ppdu-status-dbc6ddd5e32c
+
+Best regards,
+--  
+Christopher Griffin <christophergriffin05@gmail.com>
+
+
