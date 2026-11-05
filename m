@@ -1,103 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910721;
-	b=4V/P3jWEzXeeZYORioL1L1sh29to/A2kTM2/qiVrQfcCb5/hVPV2BvU1H2dzHXy3f0lU
-	 ZN57dLIYPoE8svKLqxgcxKptFonLTQQczGOto75X0Q1LnLlOBLCJnKbVusQx88YKigd9k
-	 C45CNIkN+yCWFvCDf8S4rXZjJ4xV9G7cvg3UVU4yaszOyUPBgVUN0mDq/EzjsFyuDxo1q
-	 7rrsxPxRw0HGEj9P7JLXlFIuB5raUMO1PiJ9K2I9p5blUhj0NRfkEOH/U0WAktpMwnNOw
-	 QvEHGPm+cWi1wlqOMdyt8PRV5bWW8UnzbBq1a3kk2j1s4tcg2V3ddcvaVBo0CIH0v0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910721;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=naL9ZYlGHpjK154MUN/eO3m7g6+A6qo1lAhYSkBJyWI=;
-	b=tVqq0SnTTRarAKcZ8+l8//VClw3cNArFprSO0hQLeawvn8d/6wf72+qO1sGcs6qzXWYk
-	 huXdcOx09a/zG8u+7dEd8fwQMaxNZCMzyevqcPbNgNIYXQCQKbJxdSHFAxc4PzcsyTd/9
-	 1mWPsNsGru7oUHPCPZEH4egjL/yEiJSmFwnv0tdbCffjlZ4M+6frb6QoVWt8QMpQW/puG
-	 tzddWiJAqVjy9QybUn/ZkBVLmA4LFdEGbKZN7cGVc0MCF2MHdpjHocyzFKk3ER4+DkPE6
-	 0Sut3htiZPBfhKZtPbSdwuZDWnWLrDADCx2yHjG7rKzhLIzoWrT2CoBEkXOqoQAkIfw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=QuEcehMG;
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793910734;
+	b=HN8wOPKsmw0gnWihakJ28VhaVfYmg9RvZI+pJS2kGXuvAUdzZqJYnTqs19ttXZ9sxiw7
+	 UrcTISK+buYweWzWChLdI2OApdG7YVD8QPPHFf28M3moo1COjE7KzZl+By9dLBluoK+h8
+	 NJzZtesVnAh5xd2jjenXSStlhvaWwwgDKEVoIeIZn/85toyapXK2k6dv/jYmUSFHD8VKD
+	 mY1yP9uK07OMTCTHV0Qv8x5EaVMJUBNXvS6T4FqHZLN8tfQRSwqwOoyJaIEcLmwzv2869
+	 dZTVSPWzSZOy30uDjxtRAX5CwV6F6HhwltdArC05INP/5Iw+u5XfcJlnqZ0eH5Y7yQw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910734;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RiRoU5OgJXo06INlNWZ9Bkbf6Z6zd3CcI/JCpLo707w=;
+	b=ie/1t4gD3vYeITv906fcZzuviuGgi5ab+f2kTLhyl81MFjk+YoWfYm2hI5wvOv327eSa
+	 Sh6VQ91Boq+q20GFpsMU3vlNgaKm+DfIHYmW6cqzWInH174rSWgpmBWqogVjBuE3EsnTm
+	 Lwaz/t6IeM2Nk/IfR2Y2EDyFhP5eh4bWFmiOjB1C9Agd0Ftk0Lt+C7KfW42IdD59lTiMa
+	 TI34xpK8U7BPABk4hHXwTRtW8iF0y/ZA9D/SAhqYFR9l60tbQUVAHcAyMuCVUEs8XkpBc
+	 lE5qLMSd0viaCokb15VOcD0g9K+d86w+LDCN3mh81qKqmcSCrxDw/lLdirjGAux52uQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwfv71nj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A2B606A33E;
+	Thu,  5 Nov 2026 20:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwfv71nj
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793910734;
+	b=O3HzVsUz/49FM5KnzxwX3cCNz/886F7qSKG36k7WPZgkUXoHIbxJEmAKd86yZ8IrQOpt
+	 CDKpodZGYodQKaO6CNT3EdwBRwxJQEXZ0gjC3wvvLHN4hQ2Jfr1MK4Iv5wEFLy/R6ytis
+	 3ZRHGDw/ASGBo3w3OdYQUCijQ12ZpqLEPk3KXvEK8zaLRjhpo4Lz4uUxM4jkOyharJk/i
+	 cvvGK+r+Ykx6xcF3ec5cNEgSwJDKvwWjjl4ivCz6/Kvmcw51cEnnSPr8nCD2bbY0ayWfE
+	 skAT0RONLvrSbVcG26j7Y9CzQ6mVOutRDfRVNUT9VXV5Mt91Ocs1or/ZZZh6LIXIyAw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793910734;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RiRoU5OgJXo06INlNWZ9Bkbf6Z6zd3CcI/JCpLo707w=;
+	b=Q9u6tTnpaUTg0WThRmmTEy1cZ2ePC3hmhoEqYs7e5V10kZQMq+74SYMfsovCFxTfJo3J
+	 aSUxUtbjI6EJ0NjsImbyxuAxUSO2DW+G6fpWnTm8JiFUWl4dxYpj/qizbqxvPHavTFwCs
+	 2trW/A+0XdKT32EYVnC7ixy5RGhL4zfDRysfyYNMnmWO0rPchkM0mxcan3r6XC8YUqaex
+	 hzo/mKMCjtX7XQRh5wML0n3G6p5yfoE5phKgMCNUfMGBPZ9oRVI9bCUwFqFWFRItN/xtu
+	 Rx4RSaOJOZKdLf+Se4B2jROik0IoVZ46ukbeNnUV3eZAELzRTdI9S/MFtPtmflT51bQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC50D606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 20:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC50D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=QuEcehMG
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-535179e995bso23700961cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 12:32:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793910720; x=1794515520; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=naL9ZYlGHpjK154MUN/eO3m7g6+A6qo1lAhYSkBJyWI=;
-        b=QuEcehMGpMoP1K0IVbN/jVj5FL16+s94k5t0K2g5d5AuYxTOCh6G4Jz8w3y0e27Ot2
-         zjBFLHRAzM/Ti0n2KRuJaKiZ6olZN9GtZRXeHTVndUylx9APp6ow0YwbN7xjTxyx10zJ
-         kdOYN2vLpWaJFVSHUEHHJ1hmP19gmsD7CISX8rluknE01JEHFdBxhDChOCXZKhEPxxPl
-         v87bQoOa90cvKjHG3/jJXdY7C5Zm7dx6vyByYMIw0erq7zDu+/jRkawvk1sbni8vxpQW
-         vi1jBCewTx7IZ0PNMjwxUuVSUuI553Yxr1C6eovL76hM822B3OBk+EWb0+m3HwoCP2UL
-         hVQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793910720; x=1794515520;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=naL9ZYlGHpjK154MUN/eO3m7g6+A6qo1lAhYSkBJyWI=;
-        b=to17i0IbsEVjfxtyQV33lL47uCixcefR4ZhYHHK+ZNiv6u87+5ngIXyNubpFyHkTct
-         6BbOfKCKDVLI55GFyCnz5koD0m7Q4gQSCZxtlG1h0NPscVgxRA5cnTzI2VWCFSLl09ul
-         F6ROj81e0QlHfess+FkzQbWuSb4XOhggAueoPovY5hQiI/lFLdnbQp1S5ISU3uffgm1K
-         GOyNIXmV6PAVPRUjRbMiZepMlKmxZfS5OmI19UmVnkarRuK95dRz8a114q2luczcqkwx
-         vgMSCoEomtA95UmL/gHLmS3hhq65bDiFkLBT11UA+PcGWaSWTfDHgTc5Xah4POOASdMK
-         WEUg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6ld6B40K4we/Af00UpHbiVKAGKu0Bn1bHEXsvikmuWolF930zsKDLaRDfTPUE7SzJyfqFV7frSA1jcIc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+smH20ccgYtev+/9bK7iWvTA+BAWgaRQNOQGdIVwif4Z/5QU9h
-	ad1z8+JkjyMWJ4SbsH2ON+3ZzL0NJbEPCsxY2cC+6z6QkeQXv90kIKKbTyasBs49Nw==
-X-Gm-Gg: AYBFou3sbIO7/1acc/Rbbx2JHKWH9O5mG6tObFXUSOHrMeXLD/b37KU1LM+ddf+ZxvF
-	gfdISa3pWKNTd3imw5fovIPH2Ip+BhIQS/ZsUKli+FSf5aGmyrdCgPaKNhDbcya9tRxxq8GCN4M
-	nuMcr4uzv5ZBlv18prZEbu0iUSlvPcvoxV/oOjP6HOm/1MK9ohGPxZoe6TYGMJMVUKeORLp3jon
-	IPCkAzpevg57xFAA/9lhEJ0QC1VZdo1ElfxECJ0BRuNHqXF2e5FDjqnXq66OG5vQqW3mBuCRFKZ
-	AFokSJlCXpOWFLnGtEGt/TTEFPYJILLg56/YCIWl7ZPydZmbvhycADgh402wVZQ+jrEkj3Gdl0/
-	Da7fiWNWCsfUTwfQOqcLjdeREaqiTFMXKmSbRpmv4t1MGer3HP3XnO83hpWE899vti+WMbENvIg
-	Zqpe+ZbTKtPWWtjtVAKgsEG+nKVlhAmRGp6WKnyZ0ezcAzgJEgxkU1wW5YEEeFOtqCwjeU7LTsH
-	NtU3gq2zCjI0SkdWQcpSlwrMPmMvv9S+xKqD2XqtjpQqovh8Xa22hU4pghqP5CywQvcwKIie6+S
-	dEWs/HF9Lzk6cL5lZmo83ydyRqeE
-X-Received: by 2002:a05:622a:5a18:b0:535:85c0:fda2 with SMTP id d75a77b69052e-54e100e5826mr8821511cf.11.1793910719615;
-        Thu, 05 Nov 2026 12:31:59 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a870dcsm3921886d6.30.2026.11.05.12.31.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:31:58 -0800 (PST)
-Date: Thu, 5 Nov 2026 15:31:56 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: James Clark <jjc@jclark.com>
-Cc: sashiko-reviews@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>, Bastien Nocera <hadess@hadess.net>,
-	Matthias Kaehlcke <mka@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Robert Nelson <robertcnelson@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH v3 2/2] usb: core: add a pre_probe callback for device
- drivers that may defer
-Message-ID: <a0918852-57e6-42b3-9321-38d766a20025@rowland.harvard.edu>
-References: <cover.1793669297.git.jjc@jclark.com>
- <e96b91c85945237ca455869bf4d5a1e177358b54.1793669297.git.jjc@jclark.com>
- <sashiko-outbox-194542@kernel.org>
- <20261103053952.1138398-1-jjc@jclark.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3AC151F008A3;
+	Thu,  5 Nov 2026 20:32:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793910734;
+	bh=RiRoU5OgJXo06INlNWZ9Bkbf6Z6zd3CcI/JCpLo707w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=bwfv71njopTO/nMSree5Yb19pT9RTJOTlMzFOwalYL0ink3PmmJ1ShTj/py0tqmSD
+	 sKKExOoI+nxLxJQzchiCX0o1kzjlh+6OMo1ndECKV7B+pxG2VqMYmaU+HyPdN2N2Px
+	 iy7dQ0EjEgZcG4sCa3hF8XMIw7ifJENKF5dLfSJQsC6y0/hGV7Y1C0yBQ+xGfeBqWu
+	 yceVBm1bkbKqKFyH5FJ7YbbcMKi1y7WBkIxJmhw+SWBWikdFb/BiU+aCU6+rpi9eMv
+	 HUFzzQ8QzPMKyJSBBpBMMzZRMrjnAy8sZd7g2ewDw6NYmTxBVK0ZSU7ICXhserWAeh
+	 EEdM08VOCVejA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B62CF41DE6;
+	Thu,  5 Nov 2026 20:32:12 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Thu, 05 Nov 2026 15:32:14 -0500
+Subject: [PATCH v2 3/3] kprobes: Arm reused optprobe on cooling list
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,70 +82,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103053952.1138398-1-jjc@jclark.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-kprobes-optprobe-state-v2-3-7a2f5290baa0@columbia.edu>
+References: <20261105-kprobes-optprobe-state-v2-0-7a2f5290baa0@columbia.edu>
+In-Reply-To: <20261105-kprobes-optprobe-state-v2-0-7a2f5290baa0@columbia.edu>
+To: Masami Hiramatsu <mhiramat@kernel.org>, 
+ Naveen N Rao <naveen@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, 
+ "David S. Miller" <davem@davemloft.net>, linux-trace-kernel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793910731; l=2160;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=/HCAv1Fv22PKOX1Qzyg9tXxCq5Zh9hIH5VnZqnVHksw=;
+ b=ftE/orfEOyDjW80q5zI9iiCT+8OyojyN8qC5+QqeNDmikou06iUZOqX1EUfK+MCZdeqhsGSqC
+ lNfP//+EoNCABHJJ/XqJqKnqiTeGJuhQ0JUzVLKZR+GYU1DpuQF63VJ
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 12:39:52PM +0700, James Clark wrote:
-> On Tue, 03 Nov 2026 03:51:41 +0000, sashiko-bot@kernel.org wrote:
-> > First, when udriver->pre_probe(udev) returns -ENODEV (for example from
-> > onboard_dev_usbdev_pre_probe() -> _find_onboard_dev()), usb_probe_device()
-> > still calls usb_autoresume_device(udev) and usb_generic_driver_probe(udev)
-> > to configure the device, bind all child interface drivers (triggering
-> > deferred probing), and emit USB_DEVICE_ADD, only to immediately tear them
-> > all down a few lines later in the error == -ENODEV block via
-> > usb_generic_driver_disconnect(udev) and usb_autosuspend_device(udev).
-> 
-> This is deliberate, and documented in the @pre_probe kerneldoc. An
-> error from pre_probe() other than -EPROBE_DEFER is handled as if
-> probe() had returned it, after the generic probe has run. This keeps
-> the -ENODEV fallback to the generic driver working as it does for
-> probe(). For onboard_usb_dev nothing changes: its -ENODEV used to come
-> from probe().
-> 
-> > Second, if udriver->pre_probe(udev) or udriver->probe(udev) fails with any
-> > other error (such as -EINVAL or -ENOMEM), usb_probe_device() jumps to
-> > err_pre_probe, which only calls udriver->disconnect(udev) and does not call
-> > usb_generic_driver_disconnect(udev) or usb_autosuspend_device(udev) to
-> > unwind the generic probe and runtime PM state. Because really_probe()
-> > clears udev->dev.driver to NULL when usb_probe_device() fails:
-> >
-> > - When udev is later unplugged, usb_disconnect() -> device_del() skips
-> >   usb_unbind_device() because udev->dev.driver is NULL, so
-> >   usb_notify_remove_device() (USB_DEVICE_REMOVE) is never sent. Subscribers
-> >   such as usbport_trig_notify() in drivers/usb/core/ledtrig-usbport.c never
-> >   remove the port entries added on USB_DEVICE_ADD, leaking struct
-> >   usbport_trig_port objects and sysfs attributes with a dangling port->hub
-> >   pointer to the freed struct usb_device, and usbdev_notify() in
-> >   drivers/usb/core/devio.c never runs usbdev_remove().
-> 
-> This was raised in Sashiko's review of v2. I missed that it can be fixed
-> when the device is unplugged. I will attempt to fix this in v4. I think
-> it can be fixed by recording in struct usb_device that USB_DEVICE_ADD
-> has been sent, and having usb_disconnect() send USB_DEVICE_REMOVE for a
-> device that has no driver.
-> 
-> > - For drivers with supports_autosuspend = 1 (such as
-> >   onboard_dev_usbdev_driver), usb_probe_device() does not take a runtime PM
-> >   reference, and hub_configure() enables autosuspend on hub devices; once
-> >   the device suspends, usb_resume_device() fails with -ENOTCONN because
-> >   udev->dev.driver is NULL.
-> 
-> This is a pre-existing bug that is new in this review.
-> usb_suspend_device() does a generic suspend for a device without a
-> driver, but usb_resume_device() refuses to resume one. I don't know
-> why resume is refused. If a generic resume is safe there, that would
-> fix it.
-> 
-> > Third, if udriver->pre_probe(udev) succeeds and udriver->probe(udev) then
-> > returns -ENODEV, the error == -ENODEV block runs
-> > usb_generic_driver_disconnect(udev) and usb_autosuspend_device(udev) before
-> > err_pre_probe calls udriver->disconnect(udev), reversing the teardown order
-> > used in usb_unbind_device():
-> 
-> I will fix this in v4.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-This is all starting to sound very complicated and fragile.  Isn't there 
-any way to simplify it?
+A new probe that reuses an unused probe still on a cooling list doesn't
+fire.  reuse_unused_kprobe() clears DISABLED, so register_aggr_kprobe()
+doesn't arm it and the probe has no int3 until it's optimized again, or
+ever if it can't be (e.g., it has a post_handler).
 
-Alan Stern
+Keep a reused cooling probe disabled instead, so register_aggr_kprobe()
+arms it if the new probe is enabled, or enable_kprobe() does it later.
+The probe is then still unused when add_new_kprobe() force-unoptimizes
+it for a new probe with a post_handler, which would unhash it and queue
+it for freeing.  Skip that since a cooling probe is already unoptimized.
+With the fix, the new probe fires.
+
+Fixes: 06e0d3b89da1 ("kprobes: Make optprobe optimizer multi-generational and asynchronous")
+Suggested-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Changes in v2:
+- Keep a reused cooling probe disabled so register_aggr_kprobe() arms it
+  only for an enabled new probe (Masami, Sashiko)
+- Skip the forced unoptimization in add_new_kprobe() for a cooling probe
+---
+ kernel/kprobes.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/kprobes.c b/kernel/kprobes.c
+index 099a38ca146a..5f8ce6892bd1 100644
+--- a/kernel/kprobes.c
++++ b/kernel/kprobes.c
+@@ -1059,6 +1059,10 @@ static int reuse_unused_kprobe(struct kprobe *ap)
+ 	 */
+ 	op = container_of(ap, struct optimized_kprobe, kp);
+ 	WARN_ON_ONCE(list_empty(&op->list));
++	/* Already disarmed, the caller arms it only for an enabled probe */
++	if (optprobe_queued_cooling(op))
++		return 0;
++
+ 	/* Enable the probe again */
+ 	ap->flags &= ~KPROBE_FLAG_DISABLED;
+ 	/* Optimize it again. (remove from 'op->list') */
+@@ -1571,7 +1575,8 @@ void kprobe_busy_end(void)
+ /* Add the new probe to 'ap->list'. */
+ static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
+ {
+-	if (p->post_handler)
++	/* A reused cooling probe is already unoptimized */
++	if (p->post_handler && !kprobe_unused(ap))
+ 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
+ 
+ 	list_add_rcu(&p->list, &ap->list);
+
+-- 
+2.53.0
+
+
