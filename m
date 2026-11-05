@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870777;
-	b=io8QFiGCkt6e6zS+cCgAE/qi8/DgQoRspjV1Oc3s0mfmCR91XHIeH31qRdu07He3PrO4
-	 XCkUxyPnqvfoYlW2N/+MhCE6NiRerUq4doziSctUmt+H7GMyFwkGBZqFlc7PBvHla+eWV
-	 YENhil08SBSyljpsZcucXiGCLBnd5ycjs/EZKH/m2SXGJ7HGLvOgIT8IMFBsSRVX0w4EB
-	 vTas3D6wd6uwuvgEAozFjnj87Py+CxD1QbucQVGWYociVYRUs5kExl5V4S3UMRvbSqd4V
-	 K6wM6RH9h8979YaFqJKneEf7a8UlOX83cPYFFwXhoavrqDgrGZHWVmXjiGyzcA4atCw==
+	t=1793870782;
+	b=JMAnz2L8YrP8l7fJOeF8yOj0rxARrS2MrfF9xxSns19ng/OOn4ESxpNyWXzQKvsqAJ2+
+	 oO8dlP8V5NTYW80p8ZnV0+yNdkPYWkE0ooDVgBk//HJJv5KiSU9bQf/zIbUAnOx5E1JIc
+	 WllS3Qsej09BzWSxbV9MpFzIhxeVHM9hOWXsrnShjxL89tZQ5Wzmk2APF2dgnOeHQ+slC
+	 e0CavZqWKaQ7F8dWw+o+0Oyo5JMeubgEMOJBMvY1rAO6ZpkhFN7sZss2CSOjVDuqfizxx
+	 /Yq9Ja1ShbpitnPAJUx0x1tLFi4VUZr5Jj72OVxJekKy6BtlJ2nIHNjaIxgPYNPKFcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870777;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dPKDQBCBYQNiMfvrFyD8dFjYAwa7Jdg7sOpNKNrqofY=;
-	b=ny/dvmKhsPIHi3zRIqkovFRo/wAgrH83d72CPDBN5sAMFh7grMs1WOMhS9oHnznhxeyx
-	 IF6dtAdUprKpePjBOfthbOWUzcAAxllRNGcnZaCK7II2esWPoB+XQ2RZ+kKAdFoybljmt
-	 yIRu/Yc2WAa0rJqf4K1itdpF7c/TFEPF8glY+4nvvY2OiA/97HDgRipXD6DL2vJKHR7Wk
-	 H6ysKCIiMk7LqL/7rAAhQISv2tKFB9OJLTZSw8fr2b+0dw85epSuKTri7AxRW0KQRN6U4
-	 i6ePH5Ffw3RJF2iS1EH8zB71SWseR6QFTCxew9ilzyawUU52B0twZZItcl+sGZEv8cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870782;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5weTVNfU4RUIXGu4AdbAlzA0cfDEQJq11kojXW+pkrY=;
+	b=VS9q5QbbfTNDiwXkt8cOHIJ/EC/ttXkEwTbBl5LZ7heMtOjNvlZ0pMRQpcYQ1E85cv+f
+	 9YU52IvrZzoddOFqgj6QrYzU95svjToPqehzc0RgRPnrHWrmXv1oqW0cxaluxCT9QH/YE
+	 x37Z6uY4fnGpapfW8H8qnTzzUPTbivyIBs3H56ZEU+tIhmCMK3i1w6bBwivOUA+qpxLIS
+	 bXKxiLeuDHfJ1FzMwtNOSrVr267uiIjZbgTBEJX4uRyZO4N7BEl2rUkre/h9PKB/8m3D2
+	 rA3Xi7pLcR7WBd5Xbovve1U5T/8p+PdDEnIEMA8hdQqIRU7pQEQtDALFTz+uhmWPHvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q80U/Jse";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbG3gRvn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA55C606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:26:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B967606A32F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:26:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q80U/Jse
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A621D1F00919;
-	Thu,  5 Nov 2026 09:26:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbG3gRvn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE1E1F00A1B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:26:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870776;
-	bh=dPKDQBCBYQNiMfvrFyD8dFjYAwa7Jdg7sOpNKNrqofY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q80U/JsetB0EGKNlhWAcY1cZ1tYtokLqJ+h6xwcw+jOr5gyZcw9/4tQvSIhTM/KpN
-	 cZJ+dUR7XWwP74J1yWKuFgMMtpArg4ZXiWdUEayzYfx9+TXmQycQcdp4Wr9Fy6dqM/
-	 pY9+hmLZbu8HnyPDdkMOYKeOVI6BXNEFxrAoI57F26PUd2vqYsPwYAshjzx+DJtN6B
-	 yXX9uurlUAQOJgmMAZJ+G2fzglJR5LzaU1IVo7W7XaA84eAFhJSXvssj5DMShq1KGX
-	 AS/AyLlA5yRHvzbHPZdTB6YC6Q97/Igw54dI0RoGTag/do/m1n6nAX/4shIrbluaWj
-	 AVVyfXJ+30Wkw==
-Date: Thu, 5 Nov 2026 11:26:10 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	George Guo <guodongtai@kylinos.cn>, Kexin Liu <liukexin@kylinos.cn>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 3/3] kho: fix bootmem sizing
-Message-ID: <auxLssVxRqlgMFRt@kernel.org>
-References: <20261104-kho-bootmem-sizing-v2-0-b0d1a834780f@kernel.org>
- <20261104-kho-bootmem-sizing-v2-3-b0d1a834780f@kernel.org>
- <179381862329.2089669.11972657670874869389.b4-review@b4>
+	s=k20260515; t=1793870777;
+	bh=5weTVNfU4RUIXGu4AdbAlzA0cfDEQJq11kojXW+pkrY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZbG3gRvnER6mcmNZ78al8p9Yy2sUU9nAr67z7Iu0pOZ0CbD6QzrYO0YAVZOxtEz6U
+	 OBYxMo4sEj9zh33od6kOmsZvuLCSVgR7j2oIdAXZNw0JkJ1Y66Dxlnuho5lLA0wGns
+	 ilLArm0Npn8kEe2gSbElNRJ6zx6U/KEW0orbBvOkXKjU5ru6yfZ36aYFrNCInS1uOw
+	 sOgA4lAfSpDqGbD2F+YIS32RslRYwvYzaQjaYyqEK37TkcIwUh1jZRw6zKyln2zhvC
+	 4QsYlRIiukxWDgmNxXpTfYbOnnqR+r7uK1pDgFAF9pAZjPLd/7ho2jD3SrFRqrYJav
+	 CvKGREnllCpkA==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be42ae8eb1so966320e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:26:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy11P/Kh8kvq3m+fY+DytJToGpeEZofajL7LH3OjB3Si+TeIl+ir4Fexiiv+muHYgi/OFt5p3XwWWjwBJs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/zVuKY7K+jynj6XmKpZ6xLIxiEHbjnk49RLfRqaAqn3tPLrXm
+	DvyGy4j0afgfpweg3aMfsFRr7dYFGvvpp8t3vimvZKQBb+c20j4du80scSMQgc1wN3vQmjA3/to
+	h5FKyatb+MePQzBpo7hX8rgWqW17ETdY=
+X-Received: by 2002:a05:6512:3da6:b0:5bc:f29b:1a5c with SMTP id
+ 2adb3069b0e04-5bfd956517bmr6620245e87.23.1793870775961; Thu, 05 Nov 2026
+ 01:26:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,28 +59,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179381862329.2089669.11972657670874869389.b4-review@b4>
+References: <CAKNLDZOndyGxLSWgBDrq0Vfbt88Pa5S2MDHVcnkHzAH3TQDpaQ@mail.gmail.com>
+In-Reply-To: <CAKNLDZOndyGxLSWgBDrq0Vfbt88Pa5S2MDHVcnkHzAH3TQDpaQ@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 10:26:03 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkgFOGT54_W6gOnz+aWG4_q3XHc7Cr5_=8mcdv8-aTcXA@mail.gmail.com>
+X-Gm-Features: AclHuK8CorVO8MUeqTFvv7Et7OujtWjRgY906_d19hm5pp_OhIMEqRRrkZlLLfw
+Message-ID: <CAD++jLkgFOGT54_W6gOnz+aWG4_q3XHc7Cr5_=8mcdv8-aTcXA@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/1] reset: add support the GPIO provider with #gpio-cells=3
+To: Marc Taylor <marctaylor700@gmail.com>
+Cc: bigunclemax@gmail.com, p.zabel@pengutronix.de, brgl@kernel.org, 
+	krzk@kernel.org, andre.przywara@arm.com, martin.botka@somainline.org, 
+	dlan@kernel.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 04, 2026 at 01:57:03PM -0500, Pasha Tatashin wrote:
-> > -
-> > -	return round_up(size, BOOTMEM_ALIGNMENT_BYTES);
-> > +	for_each_node_state(nid, N_MEMORY)
-> > +		bootmem_size_node[nid] = round_up(bootmem_size_node[nid],
-> > +						  BOOTMEM_ALIGNMENT_BYTES);
-> 
-> Nit, but I prefer to avoid multi-line indented statements without 
-> braces. Just put a braces around the above.
+On Wed, Nov 4, 2026 at 4:57=E2=80=AFAM Marc Taylor <marctaylor700@gmail.com=
+> wrote:
 
-Yep, I'll fix it up while applying.
- 
-> Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-> 
-> -- 
-> Pasha
-> 
+> Sorry, my mail client mangled the inline diff in my previous reply
+> (indentation stripped, and it turned "https://www.google.com/url?q=3Dhttp=
+://spec.np&source=3Dgmail&ust=3D1793850929317000&sa=3DE" into a link). The
+> attached reset-gpio-3cell-v7.2.15.patch is the correct version; it is
+> re-attached here so this message stands on its own.
 
--- 
-Sincerely yours,
-Mike.
+Don't send attachments, inline patches only.
+
+Check:
+https://docs.kernel.org/process/email-clients.html
+
+Yours,
+Linus Walleij
