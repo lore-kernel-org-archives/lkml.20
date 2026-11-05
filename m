@@ -1,72 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793875402;
-	b=RlW0jYUDysfmv12GOZdna5eROLVgwoGG8v5BuE2im/iotiFbPD/PYR+V83EiUcDuJhkl
-	 dEJISuklPLst8NQHNA48FhAgkZ7eA0fXADMQYwuP2vh422Q6fW9RWHD/h52MOtcHMwczb
-	 GiV3mGC/DNsfrf0dyhCyP+KpLdDC45Rdy8dSjSrjDftIu8lMOHnuaeWkqmo7NgX44FrBC
-	 ZWuHfSrVFK456v2z+NAkTqLA6O3/d51ZuXKjpXtIBqaG9s0TbDRpV5S4zd60ElECiOB1Y
-	 DleIxWoksL3TwdRdVPjFght5vXtmcQ6sKHJyWrlXG0y4okvt7gnDUim5GPfSxbIjjHQ==
+	b=4PhswYW9maJgdCCkRU7oAv57W60EXO1LVxIApEh7cmT8SiF7Lx3VfJhNpOMhCH0p1E3n
+	 xxRZm1oYD/DDFfnH1PRwm+z5f+c2uvy2kZSQ49PN/Y91U82sOqVEILJdJDokYeCzBxA0H
+	 FnQqmalGM9ls9O0dr5XXlG00wyAYdLyE2RwRjYYEz2X4vdUNnfuCnsNhz3O2PkOhuhTAv
+	 EUupXLzErHxUZinnDW2vXuap0QpU+YAAVsCevZ1D12Tqc9LIyHOzc2m61RtrpVlgCoenY
+	 WtS1gSQplMShBxuicgac2AIkXwN0X8kIBqxMEqFASXAwEsPvtwUnq+OfWsoFGnJ8ORA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793875402;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=rMqzSCS0erpbygzu/gLDyREb4eAHjrFX8W3+ToVWtNg=;
-	b=1JC3/UBdC2TcjEw8XAM1Vw2ziwejhpc3gBbdak1ys7nFkial+LB6QagniXEs72CHB/OO
-	 aap5u8JW1gkzbuokLYGtyP/Z1wq5GELlkp/F0OAACt7obZZpJBuJ1vxi1LOFeHFPRcugF
-	 wNnSADvUs9rhlH1+BOVzI4GBJ3nx4Su7UtWn7nzxqHoX5SBYBvq8YgiCM07EdZv6i8ljl
-	 tCFdwsV2iIrB7G/a2PGSLT6f5N1UKiNVx4Q3ZQME+IVjStekTc8/RmuhWAU6yYaAXQXVk
-	 DxbPNqiDiBm3xvyndT24DWU7xMx5xkfLCpHj5Ekj8PkTWaiUkDc3ziMDZIPj97tlYHQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aTbOMPeQQR/WAw575MjV+whoOIimG2HfOgrdg3UiGjw=;
+	b=ArgAqPRZdY51VzuVDMihNUlmjYYmqM0/iN6JA2WEK3UWMclmw32PAFRMj7G8xTbsErB2
+	 buvd923bYSBPgGO1UVXmidBwPxFR+iSqKBUgtVbrPJzbr+fxHNnAT5gTU8qwo60u7e3wG
+	 Mo2PzrKO4sxO+8MFQd0VJTkb0zcCuGjfA/zV1r1WWHmgsKgo6OR69wawtNLaCU08PEn4L
+	 QCkIzBrP/xMczni9OACLRx5Rw8pqrIeOi5ymw/xFFMDJd7rWCR6A1v/XI5yXv235PsZBZ
+	 W2WGIoYq/juK5qfnjoS6NWQIM+EmH4V2hUNC/5+gM506c5cc7UNQWlMRH9hmBWfCpAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--zyta.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=THdUeKnB;
-	arc=none smtp.remote-ip=209.85.208.69
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLIeblBE;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C389606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B60606D832
 	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C389606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--zyta.bounces.google.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B60606D832
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=THdUeKnB
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b3dc91781fso1844841a12.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLIeblBE
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b244fb7fffso2315559c88.1
         for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 02:43:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793875400; x=1794480200; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rMqzSCS0erpbygzu/gLDyREb4eAHjrFX8W3+ToVWtNg=;
-        b=THdUeKnBiBTn2SB6gxDxCinrJRPMq44JKrGQEdC/ISjQLeRR/ApqCnpyslvsZTUekR
-         RBafyM9Nn4GcFjyPQ8GqX+yCSX9lIDha/IUPIHPX/DAMlPXfh87IHZm06rkDlqFucFVU
-         pnXKZict1tyiMzQu9NkY6TL1Sbwio+aaB5kVm8cBnUAVIRa/Efz82iwvZfsdjh0QVV5y
-         +mjiw1a0V6CnAY1J/sIMRKyjEkFKdRfh1aEvnJRFAiTrClyZ5YoSPWIqRxfMgNXgaoMN
-         8T8DTblZ1mtcOY7jXR2zajDl1+yGi8y8h134ZlDAfeFoPqaJkNcoopv6tQHDtFLAQOeF
-         OvRQ==
+        d=gmail.com; s=20260707; t=1793875401; x=1794480201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aTbOMPeQQR/WAw575MjV+whoOIimG2HfOgrdg3UiGjw=;
+        b=TLIeblBEEIGVxHHVL2cF4zb8CnljWHioAn/7QCc6FRrwapk6if3yXcqSENHLjOItoj
+         GV/YLKxHgC5cCNbtAx9Q6mSZ7mtoHHIy5I5aMrBToEc8nt5fsqfRMEt4X/x9cGwEi1dk
+         H64gEhPTZlU8q1vVfIc8cVCpRi3kv77lozmf9C1M/jSVvf7p53flna1B4M+8xZNTDirC
+         faMWVgxvPN7ZhB8GRiGsUj8zlbloGKhqvTFQ01bEyIrYJuQkM07jpKeiRkAbOIq/UlxX
+         qtjoDk5q6gx9jE/Po60aypFGMLaNundaWCOkBz5pNhRDFbLt8MYgj2TwRTcdPFdHxBr1
+         ZkaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793875400; x=1794480200;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rMqzSCS0erpbygzu/gLDyREb4eAHjrFX8W3+ToVWtNg=;
-        b=grVEbjrdzhBco2UHJy2Ocf3kIv4LrcxCmHVJr53qqgPg7CVTd8RXN1f5pL4XZ8VKk8
-         OVTmX/yD0C6EtI6C+5WZedsrfC27xvLvWgBYO5r7NRymqARSSu07vDgZ+G+d335+yWS6
-         hDVrwqkq+kShNXcu3iJnrWiowA9vSmtMD8kgyGx5WSHFc9Zn0w9lGpwtAneiyHiGmZzU
-         iCTLx29eQDln0tdP4vmjOBIToQLVzoGENiXCyZ29ySoeIBMylCjZJAUwZEFQwzGNwlg4
-         +xAQSUcblIVDWfW8gfNKUNnmeFC1/0c+8ItfKPweLl5xPWAJkhhzdXxtkC7FBeyZXjq6
-         19yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMgwbvjNv9bz4tDQuphBqwCGQ2XJ0Ndm77Ny1Icel6ZDIoCX14X95dkP+yY+SldC1d0CZd1W2MJ6uD5YQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hSwNg9E2m77n9VEMk3ATXoQyXvnVpbpUgczxPnyCC6agI0lnr
-	HNIT0phVs4aZ7LM+vmgUjqIB+NQV4sicqyrcmu2lxQyCltEYYwieAHHytTI+rwrFRkbY5XC3aQ=
-	=
-X-Received: from edtr26.prod.google.com ([2002:aa7:cb9a:0:b0:6b4:1882:2675])
- (user=zyta job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:c4d2:20b0:6b4:16be:4fa
- with SMTP id 4fb4d7f45d1cf-6b4d467583fmr11096477a12.15.1793875399815; Thu, 05
- Nov 2026 02:43:19 -0800 (PST)
-Date: Thu,  5 Nov 2026 10:42:34 +0000
+        d=1e100.net; s=20260707; t=1793875401; x=1794480201;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aTbOMPeQQR/WAw575MjV+whoOIimG2HfOgrdg3UiGjw=;
+        b=stTVWVQjE/60TrFh32wGEBfmbpAaImi7+vWnjuTtbux1rVE1hOkI0Udz26DEvodWwe
+         J+dm7jJILNItLfc7WLWXs/WOeNkPvDOBBf5Bk2lj6igkFLQZItUcf+e2CHdXQ6WsSl/r
+         JWeCdWD0wXYvhIb2l/vdI4MDX5VYGrVFers5Tm+sk08TFsgMHw68OA13cuqhayMHMbdT
+         ofgVlbh++Ob09HqwJ8sKMQdFiMDJSBQQbzD6Eig+vwZz7FbIAwVXa4kzpKlc9mOxQGtC
+         97VaX4fxVm8jjgOLjZMIIR7/AniSkqlFZg2uAcDhLQHVXqC7+3uatN8KsuHLdl23AxLS
+         Tldg==
+X-Forwarded-Encrypted: i=1; AKwUvBwy/22S0Mdw39z+Rllwj7Qk6TQQ1NlsGtC3uV/xLaNuG+xpBTEqXVAu+VDHn+WtHotUsVelOVVt9dv2+EY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Qb7XfxShN278vNyS4veTikbkiy6NbVEI5dmzkcfBzSp5TudY7
+	IStUzYxim9WuXkZQQGb3JO3qqVPdQJgjGWfHs0oZwe2HFnYWBunwjHU2BmDaYg==
+X-Gm-Gg: AYBFou0Bq7u9NRKqyHhlk7/3o5I7j8TvNMNVADRByRD7J+HdHdIl8JX2P/FPfc5A8T7
+	X9LaKH1BsheIqYJ5qnyRzFSQJJWW3UzmzsL7PHaRL6hQWMikZnTkC0pBovZFihz4qbu3mYRYHwj
+	M6o1Q6B2qEqbjUQaZxPtE5MNj/KVBk2tqwNBABGxoCkO7thNWq12mPg5YfiQHcIMP/XJKEFVdDO
+	7EWSNzjSM22F3/6cjr/1+MJIlaKfM/SDyAKTgVPGPxw8/t5cpFWvUBRbdHYgxsigBP7iAEyhkWQ
+	cRohrZXT3tUzA39hJ7xUWDdcOeS++Ibd5OT7r63XX0X4dTfLN36R+lY9vzTDkLvHxHjA87hbi1d
+	G4nqxmHfoxqo7nHWgA4j7dOWW0xcbTVrRn3T5862aOWn0+bquKYZhGMboldaUEN33CObBYd6ls4
+	ubYZxyYCbLqfvmh6OLh44YOYqiUAAxpSogztraX7rhzCn85YULiAe/9wJ2dmiYpHcx1brNmcEbN
+	Wx/hFw2EZt+hJZHtiXryOi1CXnYq9Wo4IVdBYlg00a5XQSnv7FFlgSdNQkhAJDOezXKUBH/A6Ie
+	60kQGiMtYdolp0Bye+nmZKkQfpOuy+xHWkc5T0AsEetX403sIyD9d8hf03psFU5yYUcyX1JxZ0Z
+	UTqv2nCezvkPCf/9C7ezqYfhAH8+pPABRurkz/Epaoh1j
+X-Received: by 2002:a05:7023:d04:b0:14f:4b01:40a1 with SMTP id a92af1059eb24-1ac4fc00dffmr29448840c88.0.1793875400690;
+        Thu, 05 Nov 2026 02:43:20 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c272sm15595215c88.8.2026.11.05.02.43.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:43:20 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 02/10] ASoC: fsl_sai: Use optional clock getter for MCLKs
+Date: Thu,  5 Nov 2026 17:42:29 +0700
+Message-ID: <20261105104237.38542-3-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261105104237.38542-1-phucduc.bui@gmail.com>
+References: <20261105104237.38542-1-phucduc.bui@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,81 +107,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
-Message-ID: <20261105104234.2734199-1-zyta@google.com>
-Subject: [PATCH] irqchip/mediatek: Add Kconfig option for MediaTek SYSIRQ and CIRQ
-From: Zyta Szpak <zyta@google.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	Zyta Szpak <zyta@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Currently, the MediaTek SYSIRQ (irq-mtk-sysirq) and CIRQ (irq-mtk-cirq)
-interrupt controller drivers are unconditionally built whenever
-CONFIG_ARCH_MEDIATEK is enabled, without a dedicated Kconfig symbol.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Not all MediaTek SoCs require SYSIRQ or CIRQ (for example, newer ARMv8
-SoCs and platforms using the MStar interrupt controller), so building
-these drivers unconditionally prevents disabling them in tailored kernel
-configurations. Tying the build rule directly to CONFIG_ARCH_MEDIATEK in
-the Makefile also prevents compile-testing these drivers on non-MediaTek
-architectures via CONFIG_COMPILE_TEST.
+The current code uses devm_clk_get() and sets the clock pointer
+to NULL when it returns an error. However, this silently ignores
+errors such as -EPROBE_DEFER, allowing the driver to continue
+probing without the requested clock.
 
-Introduce the CONFIG_MTK_IRQ Kconfig option to control building
-irq-mtk-sysirq.o and irq-mtk-cirq.o. Make it depend on ARCH_MEDIATEK ||
-COMPILE_TEST, default to ARCH_MEDIATEK to preserve existing behavior for
-all MediaTek configurations, and select IRQ_DOMAIN and
-IRQ_DOMAIN_HIERARCHY as required by both drivers.
+Use devm_clk_get_optional() to handle missing optional clocks
+automatically, and dev_err_probe() to properly propagate other
+errors, including -EPROBE_DEFER.
 
-Signed-off-by: Zyta Szpak <zyta@google.com>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- drivers/irqchip/Kconfig  | 14 ++++++++++++++
- drivers/irqchip/Makefile |  2 +-
- 2 files changed, 15 insertions(+), 1 deletion(-)
+ sound/soc/fsl/fsl_sai.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 136bab41f801..2edf121c7841 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -793,6 +793,20 @@ config MST_IRQ
- 	help
- 	  Support MStar Interrupt Controller.
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 042885ba415e..44a34f48a0cf 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1589,12 +1589,10 @@ static int fsl_sai_probe(struct platform_device *pdev)
  
-+config MTK_IRQ
-+	bool "MediaTek Interrupt Controller"
-+	depends on ARCH_MEDIATEK || COMPILE_TEST
-+	default ARCH_MEDIATEK
-+	select IRQ_DOMAIN
-+	select IRQ_DOMAIN_HIERARCHY
-+	help
-+	  Support for the MediaTek System Interrupt Controller (SYSIRQ) and
-+	  Core Interrupt Controller (CIRQ) found on various MediaTek SoCs.
-+	  SYSIRQ provides interrupt polarity configuration in front of the
-+	  GIC, while CIRQ records and flushes external interrupts during
-+	  system suspend and resume when the primary interrupt controller
-+	  is powered down.
-+
- config WPCM450_AIC
- 	bool "Nuvoton WPCM450 Advanced Interrupt Controller"
- 	depends on ARCH_WPCM450
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index 16a5fd126c9a..eb539d41251e 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -72,7 +72,7 @@ obj-$(CONFIG_BCM7120_L2_IRQ)		+= irq-bcm7120-l2.o
- obj-$(CONFIG_BRCMSTB_L2_IRQ)		+= irq-brcmstb-l2.o
- obj-$(CONFIG_KEYSTONE_IRQ)		+= irq-keystone.o
- obj-$(CONFIG_MIPS_GIC)			+= irq-mips-gic.o
--obj-$(CONFIG_ARCH_MEDIATEK)		+= irq-mtk-sysirq.o irq-mtk-cirq.o
-+obj-$(CONFIG_MTK_IRQ)			+= irq-mtk-sysirq.o irq-mtk-cirq.o
- obj-$(CONFIG_ARCH_DIGICOLOR)		+= irq-digicolor.o
- obj-$(CONFIG_ARCH_SA1100)		+= irq-sa11x0.o
- obj-$(CONFIG_INGENIC_IRQ)		+= irq-ingenic.o
-
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+ 	for (i = 1; i < FSL_SAI_MCLK_MAX; i++) {
+ 		sprintf(tmp, "mclk%d", i);
+-		sai->mclk_clk[i] = devm_clk_get(dev, tmp);
+-		if (IS_ERR(sai->mclk_clk[i])) {
+-			dev_err(dev, "failed to get mclk%d clock: %ld\n",
+-					i, PTR_ERR(sai->mclk_clk[i]));
+-			sai->mclk_clk[i] = NULL;
+-		}
++		sai->mclk_clk[i] = devm_clk_get_optional(dev, tmp);
++		if (IS_ERR(sai->mclk_clk[i]))
++			return dev_err_probe(dev, PTR_ERR(sai->mclk_clk[i]),
++					     "failed to get mclk%d clock\n", i);
+ 	}
+ 
+ 	if (sai->soc_data->mclk0_is_mclk1)
 -- 
-2.56.0.398.g882cbad275-goog
+2.43.0
 
