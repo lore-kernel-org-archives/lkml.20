@@ -1,54 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884071;
-	b=Xpo7nnrwRY3+niWqmI0G0HSqbeXzyB9hqtfZQntZlnUdC5befKDoR6SEx/8hl46zN4Tr
-	 6kkMS0FTwuFpXq1Xew8xPSMqkTW6fsIva2KrnE+YtWgqSHwKMhYJF3ubURU+D9P3uH3xM
-	 KghjElCd03RRxw0nlfNIsYxARWUhCO0e5qB3z9lr2cDKIlghMJcK7gfW6w52TAS9+DrO6
-	 hKdDIyE/Pg7JMjxRCSfjqP/nW4oI0esmhMvCp2rbVlWZLIPhiaiN29ZfDuiRmbZxQynRg
-	 h0jqA4enWIZtUS4x8xsXAL9dUD8lL8KNoUe+S9VlHIdNFbvTxnMACAR8QYim2BBbDYA==
+	t=1793884079;
+	b=2H9AJZGGsdhDiPvAx2VRt3KqJ0J0p3IQL/p+NEGCFmHVs9x0mjhcRbaazcxNWWLBIegs
+	 8o8hvndBe9R5JmV0yR0Y3rLCTebAHdGr8d41abGz1rYayxs+Chf+cFVSKFQE8OOxCkM62
+	 iR0iUBY6R4gp2VTXmlTnsCH5EXWKuJmd69tU0mq9AiIW/fhVEDWzATU3YPzLjgJF4jwif
+	 7hTVAizJz4L7EYmvoN7aa3kUAaRG6BPm2Kvdckx56xl3K/u0iiRQ5KsofInMNslfgeK8r
+	 h1Gzro3e7jFIfDpEu3GLWFP5F5AMmd4nhrR7J4tAGaxaAvDcRX4Vl1wGz/kz60nhbEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884071;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DDMJqi9+UI9Rc5hDnMfgiXJQaFJ1svl0Msg8vKsIEKI=;
-	b=FuyvtRlZiSW2rDrpz365qMpc2gnGcTf8t0tnzOiogeZTGwacYZdheGYhSohL0XcEW5qk
-	 KliIktAPiuXSowuz9FO9Ee8iyv7nNFT4uWiafH2AGG2GeDAcUCX/V2sAWASyralTp/ocZ
-	 ASBdJxYBCcXjacAThYRxkRBpllqOJWjdp/XhimF7VZ3c2KkOro//qZbMFCkw+SAY3SQU2
-	 VC/6H93OoBY5xp4bad8HZe+UtJt3r4r1IHrPADuk3QLTyf7QPLyTf9FGAC5Uo+fDee+eH
-	 abThw2QA4m8Mppic4A7S3rB6DmAh9J8VCHi+q5ke+Z/E5ciJM/dmhb7AIZIItiF1Eyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884079;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Bxy4cfAf042PiXXoQRywKNCGpgVupBVLw8AvprKIGyo=;
+	b=V8lKdNMlwfaYU1SNcBcNsrpyRgtrgJAmztk/O0ZsiYQH1B07zpCNp1wxsne1JgdLt9mh
+	 PJ2K66D1CyiABN/WtUXqbrS0UdmO/haqC0d70CTox98i9Di4fNEctYJxuldmfj1NFVCNZ
+	 f3xb/SYq4yVzVQ9cOICkkLMh3hnYY3gXmq8FrGfKm8WlI93t/76m+PSgdefTSh4YnOY08
+	 ZM7woePeUmWPzmS8O5P8UNTreZN18CbeG+yhZz/RM/kF/8KRFq0Fd3ouxsk4lpqraDB5E
+	 nFYdwwrEI5C1c4uaqylZS5iXgzmEmlUO1BZ4JFYRbbHtoHQurVSz5nnv8rvh5RDLqMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n03FXmaB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iWI9qNq1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bZ+zZ3BQ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0A0606A328;
-	Thu,  5 Nov 2026 13:07:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C3606D801
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 13:07:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED9C3606D801
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n03FXmaB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C6D31F000C1;
-	Thu,  5 Nov 2026 13:07:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793884070;
-	bh=DDMJqi9+UI9Rc5hDnMfgiXJQaFJ1svl0Msg8vKsIEKI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n03FXmaBWz7ZgobicOSU6malSdCLkUxxCVAZ1jaHuQlT36WZ7RzXBmRzkJQrbcMqx
-	 gN8QTw/KeTqxXa3vWuYymNASkXk31OBJfDYfVtYgXqgOr0Xq3d4aPTBfC57XrwsFic
-	 De98RUAzvILI4qj3RQtl7HD6LAvQxbZxh+xP4Od+PyN9UpBJ003nkcI3uBMvolWIv4
-	 LwHYUYW10cqVkP+boO/K+4Fo3LSgwDdo2dTTRDhytu+R9Pe5kUI0osWxUc6xjfV0Au
-	 72lugz5VPq7QXmAzNL0bCK5hu2FtimXRNlIVX9dpFhePkxTAxlnuzR9fh6iiMEfmdt
-	 klhogOJ2ZvUVA==
-Date: Thu, 5 Nov 2026 14:07:48 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Aniruddha Rao <anrao@nvidia.com>, jonathanh@nvidia.com, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/5] firmware: tegra: bpmp: Add ACPI support
-Message-ID: <aux8RS55HqzuTL3g@orome>
-References: <20260929095915.2215685-1-anrao@nvidia.com>
- <20260929095915.2215685-3-anrao@nvidia.com>
- <20261105-fiery-gentle-pudu-e985dd@sudeepholla>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iWI9qNq1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bZ+zZ3BQ
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tQYJ406612
+	for <linux-kernel@vger.kernel.org>; Thu, 5 Nov 2026 13:07:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Bxy4cfAf042PiXXoQRywKNCGpgVupBVLw8AvprKIGyo=; b=iWI9qNq112thdf33
+	0XDVH+gA9LeblzYLIjo0mSPHZFhVVVuc4SbxnERXyWgs3laqK/FLPlI9FNKKevMO
+	z80lAFzy1sM0bAl2Z4HSAroLCbSAb29i/DHKFOZuBdRYapf2yxdN+WaQZtSXnfmc
+	tU7bp6rgXV7lL6SPi5+1d3uEfXQ6EfKxkmxyc6AbwntXE10Gy3M1la1pD7nqzXiv
+	W/OXUGr4kEyDoBbbr2nSD2ugUeO/BlJqXl6/vzkKiQQNcX6vaki6LVLk32MzjQ4e
+	G77ODg0FeWryDXnHcgnbA1ppCa9pzyniUnOOTT6MSxvjpWOmVqx+94rtGDAuOktp
+	sqGbeg==
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrm9v1p98-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 13:07:58 +0000 (GMT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8ab3dc2a7adso28770807b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 05:07:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793884077; x=1794488877; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bxy4cfAf042PiXXoQRywKNCGpgVupBVLw8AvprKIGyo=;
+        b=bZ+zZ3BQ8kekoA04GN8iDJwkmEtuihQKu/1w57J5amMOqbVgSRQ54MqK7lD/AuabbY
+         ARDqFUIhlOii5YNnnVRjFFLGwBjnsIAtTxAd9NpCHGmqF5TZMgfryukGXZ5KrEBQtPy3
+         K5KhaUeogLVCoZl68ZYqBkQB/u2mZNIPBj4s5j3bgGfyJ0y+aQl8MBXJDtEY8cB6thXq
+         zVPX4g/za1Xve9dacUQyNXFn4ZXRkKnbcyJerXvOMamjbMI+eDXVj1G+twdVwTl7zSmZ
+         kQL3m8k7L7BE5tHKzgFvvPVDkzWLBFNXrwvHvXOxcWuejyxDtISlTfixXohZigyIDO74
+         TAsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793884077; x=1794488877;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bxy4cfAf042PiXXoQRywKNCGpgVupBVLw8AvprKIGyo=;
+        b=q14sZEpGIziiSiXGzlCeLCJVmmGXfB95+T7ExWeWCfBnIFi6fH9Fg/01wwfiEPWxtK
+         LCJqFC7ZZ02mOJJB4Na5pfQcLVorxQZbHy7VzZz6f++ZhGh+CmCTUj8EMRa9cnLh5vvM
+         JbidDtvKg4D0afL3wirebZ1+ZLdHg/WsgDdQRjIze95TwfFjf599TrkwwT5gf7TFkJwh
+         l5DTsVAsOMppqWimBtwRJhf6DW7ax1gk2i/erx1hn8a+QP3VWOY1qYSFwihFVskVk/dA
+         +SE3SMrGVCzfSM7gGG0deoTpO3P1KSK0l1Ke8LEBJZzfjP/iBBddn5CPIjF0/XJ0DTRQ
+         pc4Q==
+X-Forwarded-Encrypted: i=1; AKwUvByUaRCAuh/BkGrmzNQ0XNvUJaMo7WlCIoAYtKNYph4UXmRcmka2HDFQFSFI2DoODxbCxO/BQzWiLXicZgg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LZAjCPe88gUXGxDm2G07elMMqnU4Xfza2IjZcidai+lZ95kSZ
+	ZVF0bb+eXyLBwwVFGcLK53OW5FEJDP+dnv1kHE9wQ0/2nigSStE0snN1vE2pGOe5aflsPqjzTGM
+	KN7zzZCPsUUVvd1TeYTMZchVwuP3hGR/oeXWP+DIwW0zMyGkFkVyKlKowpb9JZLGrJQc=
+X-Gm-Gg: AYBFou23Pbm53jfXeknqlUtp5KDFOPSgV1iVSTitV+EdVkVouDX5ovBEAjWqlxgmDcL
+	yKJXNPxuI+R0yoQfErm5QNbfZZ9avm1KLUSlocu8uh0JHNwU0j/l715nzsnUzGCtA5pYsnzXxta
+	VvBMWEOvfRw6N8Mv7oBXoyXCISw7K7QKUyi0gefNKQeXAOuWwPryChotm5Jgfrb2Uc2IT09659Q
+	hZVztmGJW/IPrfwqARpWqgtZJXryJOaiZyVVYOwu+91xdQ0QMW2W7C3RFXxp26Rr2ueGRqqDa5Z
+	/XSJY/JGiwFfN8Lr1aLUDpu1B4Gxzrphtt5zEuhRda60SQZ5xu4aHeeC6nvID4jqpoz6opPnba7
+	WY4m8mh8FcRlPTYBcIKZrEeSskrfBKVibpGvc1KP7iHlRnNO/iz9W7LCFYI1keEMP5je9tEc1ga
+	cnqAnbnsgDJSZS9kB9
+X-Received: by 2002:a05:690c:c510:b0:8b3:2870:3231 with SMTP id 00721157ae682-8b328703cd1mr16270067b3.95.1793884077091;
+        Thu, 05 Nov 2026 05:07:57 -0800 (PST)
+X-Received: by 2002:a05:690c:c510:b0:8b3:2870:3231 with SMTP id 00721157ae682-8b328703cd1mr16268357b3.95.1793884071062;
+        Thu, 05 Nov 2026 05:07:51 -0800 (PST)
+Received: from hu-luoj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bb4406sm38915937b3.40.2026.11.05.05.07.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 05:07:50 -0800 (PST)
+From: Luo Jie <jie.luo@oss.qualcomm.com>
+Date: Thu, 05 Nov 2026 05:07:12 -0800
+Subject: [PATCH 1/5] dt-bindings: clock: qcom: Add NSS clock controller for
+ IPQ5210 SoC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,101 +117,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q5n7ddzkli4abmdo"
-Content-Disposition: inline
-In-Reply-To: <20261105-fiery-gentle-pudu-e985dd@sudeepholla>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-qcom_ipq5210_nsscc-v1-1-d4fcb5c32b51@oss.qualcomm.com>
+References: <20261105-qcom_ipq5210_nsscc-v1-0-d4fcb5c32b51@oss.qualcomm.com>
+In-Reply-To: <20261105-qcom_ipq5210_nsscc-v1-0-d4fcb5c32b51@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, netdev@vger.kernel.org,
+        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+        quic_leiwei@quicinc.com, Luo Jie <jie.luo@oss.qualcomm.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793884066; l=12138;
+ i=jie.luo@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
+ bh=OHhmxjAaFrk/KrSfVg+GuvTHorpv3eRxfNre0pIomoQ=;
+ b=39vtdtAAl6Wi7EkyISXKlqYqt0K9FLtLEFarSVPATywIMsSs9jBns0kU2KjNHJgSX7j46UR9A
+ 1jCWBkhmOjOC7Dv9HxfAUA2VJLNqq/dyhiJrAej/jLacirJwtjTB4rY
+X-Developer-Key: i=jie.luo@oss.qualcomm.com; a=ed25519;
+ pk=gSsYMDakxtd6UDFYDdA9y9yjIs5Etp5GK/3DoXWPyS0=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MiBTYWx0ZWRfX6J38AyRMKzT6
+ ASTakEQmyqD3GaRG319yNNblcR0SwMxtfDEB0inqxZ0wQwNY7ofjyuqK15ovWn84+6NoHUAGWBQ
+ wXQr3QIpQv+KS8LIVkMDnzdR2aceQvI=
+X-Authority-Analysis: v=2.4 cv=KrHYSmWN c=1 sm=1 tr=0 ts=6aec7fae cx=c_pps
+ a=0mLRTIufkjop4KoA/9S1MA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=U5FYPQ0ST96qNyfkX9wA:9
+ a=QEXdDO2ut3YA:10 a=WgItmB6HBUc_1uVUp3mg:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MiBTYWx0ZWRfXxySkS5B99ETZ
+ hsITFadJBCff970pbv+AQsom3oegc/2267MH1psqejytM9lJZ4bc2T0Hib+hQDcObniIoTWnrCa
+ eqRSQ9qs4yB27m5ckVJWfN84xh8PEzTQ7F7r2PsunQ42JWwLnRkAW1638yoBk/a9aj3fakmbxng
+ D4qdS5pZa28vPc6rZznnvPjhBb86TLYagheqOeJnpNx1fpEy2Db2aWkKyuT9sGGcKVARCCBoxZe
+ Il4romnaqHEgBJ36cyRdvkbRkPXRTdVvGGj/rSCdTPcUwnNtKrmZZZMx8+ADUY9vzD9d3RkIKmO
+ b7RSJKHrBdL6B3/tj0o634qvoxsioHI+mUI4eS9gp2GeUa+k6uM7G/Y8Yo0pmlMeRg98/IIA71D
+ 3a0HkkjQ4sPFvlerPZrwLgX3m3dyWcc7Q10wWzJktdQVV2cREPBf7WU6TluBPt56/9eQp8wV7sv
+ mGzUnFJpRRxuiriKNhw==
+X-Proofpoint-GUID: WokNOW4mnOVqJ0h_U-cJIzfXgCV5SA7e
+X-Proofpoint-ORIG-GUID: WokNOW4mnOVqJ0h_U-cJIzfXgCV5SA7e
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 phishscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050052
 
+NSS clock controller provides the clocks and resets to the networking
+blocks such as PPE (Packet Process Engine), UNIPHY (PCS) and EPHY on
+IPQ5210 devices.
 
---q5n7ddzkli4abmdo
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 2/5] firmware: tegra: bpmp: Add ACPI support
-MIME-Version: 1.0
+Add support for the compatible string "qcom,ipq5210-nsscc" based on the
+existing IPQ9574/IPQ5424 NSS clock controller Device Tree binding. IPQ5210
+additionally exposes a pair of EPHY-RAW Rx/Tx clock sources used to derive
+the clocks for its integrated 2.5G Ethernet PHY, so extend the clocks and
+clock-names lists with "ephy_rx" and "ephy_tx".
 
-On Thu, Nov 05, 2026 at 09:50:26AM +0000, Sudeep Holla wrote:
-> On Tue, Sep 29, 2026 at 09:59:12AM +0000, Aniruddha Rao wrote:
-> > Add required changes in the Tegra BPMP driver to make it compatible with
-> > ACPI-based platforms.
-> >=20
-> > On ACPI systems, IPC is handled through an AML method instead of the
-> > kernel mailbox and IVC frameworks.
-> >=20
-> > Clock, reset and power-domain providers are not controlled by the Linux
-> > BPMP driver on ACPI-based systems, so do not initialize them there.
-> >=20
->=20
-> The above 2 statements are very clear and says this driver is not much
-> useful on ACPI systems which is good and aligns with the general
-> expectations.
->=20
-> > Keep transport initialization in the SoC-specific init operation. Use an
-> > optional init_providers operation for DT child and provider registration
-> > after BPMP communication has been established and the firmware tag has
-> > been read. ACPI platforms leave this operation unset.
-> >=20
->=20
-> "ACPI platforms leave this operation unset" - I don't fully understand
-> what this means ? If it means we need to do something on ACPI systems,
-> why can't it be done by some boot firmware instead ?
+Also add master/slave ids for IPQ5210 networking interfaces, which are used
+by the nsscc-ipq5210 driver for providing interconnect services using the
+icc-clk framework.
 
-I think it just means that the "init_providers" operation isn't needed
-on ACPI systems because we don't expose clocks, resets or power domains
-in ACPI (we do this only on DT so that we can have cross-references
-between device tree nodes). I don't think anything needs to be done in
-the ACPI case, so leaving this operation unset is exactly that.
+Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
+---
+ .../bindings/clock/qcom,ipq9574-nsscc.yaml         |  47 ++++++++-
+ include/dt-bindings/clock/qcom,ipq5210-nsscc.h     | 106 +++++++++++++++++++++
+ include/dt-bindings/interconnect/qcom,ipq5210.h    |  18 ++++
+ include/dt-bindings/reset/qcom,ipq5210-nsscc.h     |  60 ++++++++++++
+ 4 files changed, 228 insertions(+), 3 deletions(-)
 
-> > DT transports register an MRQ_PING handler for requests initiated by
-> > BPMP firmware. This request direction was used only by a diagnostic
-> > command in older firmware and is not provided by firmware on ACPI-based
-> > systems. The ACPI transport therefore does not register an incoming
-> > handler; its init operation only sends the outgoing MRQ_PING request us=
-ed
-> > to verify communication with firmware.
-> >=20
->=20
-> OK, I am more confused as you state more things are not needed on ACPI
-> systems. Why do we need to add any support for ACPI systems then? Can you
-> make it clear as what is needed on ACPI systems and why it needs to be
-> done by OSPM and not any boot firmware if it is just one time initialisat=
-ion.
+diff --git a/Documentation/devicetree/bindings/clock/qcom,ipq9574-nsscc.yaml b/Documentation/devicetree/bindings/clock/qcom,ipq9574-nsscc.yaml
+index a35bbc7b1924..dc7d90a99dc7 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,ipq9574-nsscc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,ipq9574-nsscc.yaml
+@@ -4,24 +4,28 @@
+ $id: http://devicetree.org/schemas/clock/qcom,ipq9574-nsscc.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Qualcomm Networking Sub System Clock & Reset Controller on IPQ9574 and IPQ5424
++title: Qualcomm Networking Sub System Clock & Reset Controller on IPQ SoCs
+ 
+ maintainers:
+   - Bjorn Andersson <andersson@kernel.org>
++  - Luo Jie <jie.luo@oss.qualcomm.com>
+ 
+ description: |
+   Qualcomm networking sub system clock control module provides the clocks,
+-  resets on IPQ9574 and IPQ5424
++  resets on IPQ9574, IPQ5424 and IPQ5210
+ 
+   See also:
++    include/dt-bindings/clock/qcom,ipq5210-nsscc.h
+     include/dt-bindings/clock/qcom,ipq5424-nsscc.h
+     include/dt-bindings/clock/qcom,ipq9574-nsscc.h
++    include/dt-bindings/reset/qcom,ipq5210-nsscc.h
+     include/dt-bindings/reset/qcom,ipq5424-nsscc.h
+     include/dt-bindings/reset/qcom,ipq9574-nsscc.h
+ 
+ properties:
+   compatible:
+     enum:
++      - qcom,ipq5210-nsscc
+       - qcom,ipq5424-nsscc
+       - qcom,ipq9574-nsscc
+ 
+@@ -42,6 +46,9 @@ properties:
+       - description: Uniphy2 NSS Rx clock source
+       - description: Uniphy2 NSS Tx clock source
+       - description: GCC NSSCC clock source
++      - description: CMN_PLL EPHY-RAW Rx clock source
++      - description: CMN_PLL EPHY-RAW Tx clock source
++    minItems: 11
+ 
+   '#interconnect-cells':
+     const: 1
+@@ -63,6 +70,9 @@ properties:
+       - const: uniphy2_rx
+       - const: uniphy2_tx
+       - const: bus
++      - const: ephy_rx
++      - const: ephy_tx
++    minItems: 11
+ 
+ required:
+   - compatible
+@@ -77,6 +87,8 @@ allOf:
+           const: qcom,ipq9574-nsscc
+     then:
+       properties:
++        clocks:
++          maxItems: 11
+         clock-names:
+           items:
+             - const: xo
+@@ -90,8 +102,35 @@ allOf:
+             - const: uniphy2_rx
+             - const: uniphy2_tx
+             - const: bus
+-    else:
++  - if:
++      properties:
++        compatible:
++          const: qcom,ipq5424-nsscc
++    then:
++      properties:
++        clocks:
++          maxItems: 11
++        clock-names:
++          items:
++            - const: xo
++            - const: nss
++            - const: ppe
++            - const: gpll0_out
++            - const: uniphy0_rx
++            - const: uniphy0_tx
++            - const: uniphy1_rx
++            - const: uniphy1_tx
++            - const: uniphy2_rx
++            - const: uniphy2_tx
++            - const: bus
++  - if:
++      properties:
++        compatible:
++          const: qcom,ipq5210-nsscc
++    then:
+       properties:
++        clocks:
++          minItems: 13
+         clock-names:
+           items:
+             - const: xo
+@@ -105,6 +144,8 @@ allOf:
+             - const: uniphy2_rx
+             - const: uniphy2_tx
+             - const: bus
++            - const: ephy_rx
++            - const: ephy_tx
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/include/dt-bindings/clock/qcom,ipq5210-nsscc.h b/include/dt-bindings/clock/qcom,ipq5210-nsscc.h
+new file mode 100644
+index 000000000000..62ead8d9b076
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,ipq5210-nsscc.h
+@@ -0,0 +1,106 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_CLOCK_QCOM_IPQ5210_NSSCC_H
++#define _DT_BINDINGS_CLOCK_QCOM_IPQ5210_NSSCC_H
++
++#define NSS_CC_PPE_CLK_SRC			0
++#define NSS_CC_PPE_SWITCH_IPE_CLK		1
++#define NSS_CC_PPE_SWITCH_BTQ_CLK		2
++#define NSS_CC_PPE_SWITCH_CLK			3
++#define NSS_CC_PPE_SWITCH_CFG_CLK		4
++#define NSS_CC_PPE_EDMA_CLK			5
++#define NSS_CC_PPE_EDMA_CFG_CLK			6
++#define NSS_CC_PORT1_MAC_CLK			7
++#define NSS_CC_PORT1_RX_CLK			8
++#define NSS_CC_PORT1_RX_CLK_SRC			9
++#define NSS_CC_PORT1_RX_DIV_CLK_SRC		10
++#define NSS_CC_PORT1_TX_CLK			11
++#define NSS_CC_PORT1_TX_CLK_SRC			12
++#define NSS_CC_PORT1_TX_DIV_CLK_SRC		13
++#define NSS_CC_PORT2_MAC_CLK			14
++#define NSS_CC_PORT2_RX_CLK			15
++#define NSS_CC_PORT2_RX_CLK_SRC			16
++#define NSS_CC_PORT2_RX_DIV_CLK_SRC		17
++#define NSS_CC_PORT2_TX_CLK			18
++#define NSS_CC_PORT2_TX_CLK_SRC			19
++#define NSS_CC_PORT2_TX_DIV_CLK_SRC		20
++#define NSS_CC_PORT3_MAC_CLK			21
++#define NSS_CC_PORT3_RX_CLK			22
++#define NSS_CC_PORT3_RX_CLK_SRC			23
++#define NSS_CC_PORT3_RX_DIV_CLK_SRC		24
++#define NSS_CC_PORT3_TX_CLK			25
++#define NSS_CC_PORT3_TX_CLK_SRC			26
++#define NSS_CC_PORT3_TX_DIV_CLK_SRC		27
++#define NSS_CC_PORT4_MAC_CLK			28
++#define NSS_CC_PORT4_RX_CLK			29
++#define NSS_CC_PORT4_RX_CLK_SRC			30
++#define NSS_CC_PORT4_RX_DIV_CLK_SRC		31
++#define NSS_CC_PORT4_TX_CLK			32
++#define NSS_CC_PORT4_TX_CLK_SRC			33
++#define NSS_CC_PORT4_TX_DIV_CLK_SRC		34
++#define NSS_CC_PORT5_MAC_CLK			35
++#define NSS_CC_PORT5_RX_CLK			36
++#define NSS_CC_PORT5_RX_CLK_SRC			37
++#define NSS_CC_PORT5_RX_DIV_CLK_SRC		38
++#define NSS_CC_PORT5_TX_CLK			39
++#define NSS_CC_PORT5_TX_CLK_SRC			40
++#define NSS_CC_PORT5_TX_DIV_CLK_SRC		41
++#define NSS_CC_PORT6_MAC_CLK			42
++#define NSS_CC_PORT6_RX_CLK			43
++#define NSS_CC_PORT6_RX_CLK_SRC			44
++#define NSS_CC_PORT6_RX_DIV_CLK_SRC		45
++#define NSS_CC_PORT6_TX_CLK			46
++#define NSS_CC_PORT6_TX_CLK_SRC			47
++#define NSS_CC_PORT6_TX_DIV_CLK_SRC		48
++#define NSS_CC_NSSNOC_PPE_CLK			49
++#define NSS_CC_NSSNOC_PPE_CFG_CLK		50
++#define NSS_CC_UNIPHY_PORT1_RX_CLK		51
++#define NSS_CC_UNIPHY_PORT1_TX_CLK		52
++#define NSS_CC_UNIPHY_PORT2_RX_CLK		53
++#define NSS_CC_UNIPHY_PORT2_TX_CLK		54
++#define NSS_CC_UNIPHY_PORT3_RX_CLK		55
++#define NSS_CC_UNIPHY_PORT3_TX_CLK		56
++#define NSS_CC_UNIPHY_PORT4_RX_CLK		57
++#define NSS_CC_UNIPHY_PORT4_TX_CLK		58
++#define NSS_CC_UNIPHY_PORT5_RX_CLK		59
++#define NSS_CC_UNIPHY_PORT5_TX_CLK		60
++#define NSS_CC_UNIPHY_PORT6_RX_CLK		61
++#define NSS_CC_UNIPHY_PORT6_TX_CLK		62
++#define NSS_CC_XGMAC0_PTP_REF_CLK		63
++#define NSS_CC_XGMAC0_PTP_REF_DIV_CLK_SRC	64
++#define NSS_CC_XGMAC1_PTP_REF_CLK		65
++#define NSS_CC_XGMAC1_PTP_REF_DIV_CLK_SRC	66
++#define NSS_CC_XGMAC2_PTP_REF_CLK		67
++#define NSS_CC_XGMAC2_PTP_REF_DIV_CLK_SRC	68
++#define NSS_CC_PON_CLK				69
++#define NSS_CC_EPHY_RX_CLK_SRC			70
++#define NSS_CC_EPHY_RX_CLK			71
++#define NSS_CC_EPHY_TX_CLK_SRC			72
++#define NSS_CC_EPHY_TX_CLK			73
++#define NSS_CC_UNIPHY_PORT1_RX_DIV4_CLK_SRC	74
++#define NSS_CC_UNIPHY_PORT1_TX_DIV4_CLK_SRC	75
++#define NSS_CC_UNIPHY_PORT2_RX_DIV4_CLK_SRC	76
++#define NSS_CC_UNIPHY_PORT2_TX_DIV4_CLK_SRC	77
++#define NSS_CC_UNIPHY_PORT3_RX_DIV4_CLK_SRC	78
++#define NSS_CC_UNIPHY_PORT3_TX_DIV4_CLK_SRC	79
++#define NSS_CC_UNIPHY_PORT4_RX_DIV4_CLK_SRC	80
++#define NSS_CC_UNIPHY_PORT4_TX_DIV4_CLK_SRC	81
++#define NSS_CC_UNIPHY_PORT1_RX_DIV4_CLK		82
++#define NSS_CC_UNIPHY_PORT1_TX_DIV4_CLK		83
++#define NSS_CC_UNIPHY_PORT2_RX_DIV4_CLK		84
++#define NSS_CC_UNIPHY_PORT2_TX_DIV4_CLK		85
++#define NSS_CC_UNIPHY_PORT3_RX_DIV4_CLK		86
++#define NSS_CC_UNIPHY_PORT3_TX_DIV4_CLK		87
++#define NSS_CC_UNIPHY_PORT4_RX_DIV4_CLK		88
++#define NSS_CC_UNIPHY_PORT4_TX_DIV4_CLK		89
++#define NSS_CC_EIP_BFDCD_CLK_SRC		90
++#define NSS_CC_EIP_CLK				91
++#define NSS_CC_NSSNOC_EIP_CLK			92
++#define NSS_CC_CFG_CLK_SRC			93
++#define NSS_CC_NSS_CSR_CLK			94
++#define NSS_CC_NSSNOC_NSS_CSR_CLK		95
++
++#endif
+diff --git a/include/dt-bindings/interconnect/qcom,ipq5210.h b/include/dt-bindings/interconnect/qcom,ipq5210.h
+new file mode 100644
+index 000000000000..44f8d35a372a
+--- /dev/null
++++ b/include/dt-bindings/interconnect/qcom,ipq5210.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef INTERCONNECT_QCOM_IPQ5210_H
++#define INTERCONNECT_QCOM_IPQ5210_H
++
++#define MASTER_NSSNOC_PPE		0
++#define SLAVE_NSSNOC_PPE		1
++#define MASTER_NSSNOC_PPE_CFG		2
++#define SLAVE_NSSNOC_PPE_CFG		3
++#define MASTER_NSSNOC_NSS_CSR		4
++#define SLAVE_NSSNOC_NSS_CSR		5
++#define MASTER_NSSNOC_EIP		6
++#define SLAVE_NSSNOC_EIP		7
++
++#endif /* INTERCONNECT_QCOM_IPQ5210_H */
+diff --git a/include/dt-bindings/reset/qcom,ipq5210-nsscc.h b/include/dt-bindings/reset/qcom,ipq5210-nsscc.h
+new file mode 100644
+index 000000000000..0616a3623897
+--- /dev/null
++++ b/include/dt-bindings/reset/qcom,ipq5210-nsscc.h
+@@ -0,0 +1,60 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_RESET_QCOM_IPQ5210_NSSCC_H
++#define _DT_BINDINGS_RESET_QCOM_IPQ5210_NSSCC_H
++
++#define NSS_CC_PPE_BCR				0
++#define NSS_CC_PPE_SWITCH_IPE_CLK_ARES		1
++#define NSS_CC_PPE_SWITCH_BTQ_CLK_ARES		2
++#define NSS_CC_PPE_SWITCH_CLK_ARES		3
++#define NSS_CC_PPE_SWITCH_CFG_CLK_ARES		4
++#define NSS_CC_PPE_EDMA_CLK_ARES		5
++#define NSS_CC_PPE_EDMA_CFG_CLK_ARES		6
++#define NSS_CC_PORT1_MAC_CLK_ARES		7
++#define NSS_CC_PORT2_MAC_CLK_ARES		8
++#define NSS_CC_PORT3_MAC_CLK_ARES		9
++#define NSS_CC_PORT4_MAC_CLK_ARES		10
++#define NSS_CC_PORT5_MAC_CLK_ARES		11
++#define NSS_CC_PORT6_MAC_CLK_ARES		12
++#define NSS_CC_PON_CLK_ARES			13
++#define NSS_CC_XGMAC0_PTP_REF_CLK_ARES		14
++#define NSS_CC_XGMAC1_PTP_REF_CLK_ARES		15
++#define NSS_CC_XGMAC2_PTP_REF_CLK_ARES		16
++#define NSS_CC_NSSNOC_PPE_CLK_ARES		17
++#define NSS_CC_NSSNOC_PPE_CFG_CLK_ARES		18
++#define NSS_CC_PORT1_RX_CLK_ARES		19
++#define NSS_CC_PORT1_TX_CLK_ARES		20
++#define NSS_CC_PORT2_RX_CLK_ARES		21
++#define NSS_CC_PORT2_TX_CLK_ARES		22
++#define NSS_CC_PORT3_RX_CLK_ARES		23
++#define NSS_CC_PORT3_TX_CLK_ARES		24
++#define NSS_CC_PORT4_RX_CLK_ARES		25
++#define NSS_CC_PORT4_TX_CLK_ARES		26
++#define NSS_CC_PORT5_RX_CLK_ARES		27
++#define NSS_CC_PORT5_TX_CLK_ARES		28
++#define NSS_CC_PORT6_RX_CLK_ARES		29
++#define NSS_CC_PORT6_TX_CLK_ARES		30
++#define NSS_CC_EPHY_RX_CLK_ARES			31
++#define NSS_CC_EPHY_TX_CLK_ARES			32
++#define NSS_CC_UNIPHY_PORT1_RX_CLK_ARES		33
++#define NSS_CC_UNIPHY_PORT1_TX_CLK_ARES		34
++#define NSS_CC_UNIPHY_PORT2_RX_CLK_ARES		35
++#define NSS_CC_UNIPHY_PORT2_TX_CLK_ARES		36
++#define NSS_CC_UNIPHY_PORT3_RX_CLK_ARES		37
++#define NSS_CC_UNIPHY_PORT3_TX_CLK_ARES		38
++#define NSS_CC_UNIPHY_PORT4_RX_CLK_ARES		39
++#define NSS_CC_UNIPHY_PORT4_TX_CLK_ARES		40
++#define NSS_CC_UNIPHY_PORT5_RX_CLK_ARES		41
++#define NSS_CC_UNIPHY_PORT5_TX_CLK_ARES		42
++#define NSS_CC_UNIPHY_PORT6_RX_CLK_ARES		43
++#define NSS_CC_UNIPHY_PORT6_TX_CLK_ARES		44
++#define NSS_CC_EIP_CLK_ARES			45
++#define NSS_CC_NSSNOC_EIP_CLK_ARES		46
++#define NSS_CC_NSS_CSR_CLK_ARES			47
++#define NSS_CC_NSSNOC_NSS_CSR_CLK_ARES		48
++#define NSS_CC_DEBUG_CLK_ARES			49
++
++#endif
 
-My understanding of this is that the goal was to completely hide BPMP on
-ACPI systems and do all the clock, reset and power domain handling via
-standard ACPI operations. MBWT is a feature that's needed on ACPI
-systems and that can't be represented as a standard ACPI operation, as I
-understand it, hence the addition of ACPI support to BPMP.
+-- 
+2.43.0
 
-So some of this patch is stripping out things that don't make sense on
-ACPI (the ACPI support for BPMP is very minimal) just to get enough
-support in place to expose the MBWT caps via sysfs.
-
-The sysfs knobs exposed in patches 4 and 5 exist because the bandwidth
-caps may need to be adjusted dynamically at runtime. It is indeed a bit
-absurd to bootstrap a restricted version of BPMP like this for just this
-one feature, but I don't see any alternatives.
-
-Thierry
-
---q5n7ddzkli4abmdo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrsf6EACgkQ3SOs138+
-s6EAYhAAqfoUns+qeN0UotEckKvK2104hIx8mnnPzgF5b4lBfWwPl394CLPdgJVM
-emYTXmkyT9qYP8DPwMJltgkui043Da9EDyJjm5e8YpKrHMMfPtVgVdAPw5Dmps4Q
-nthg2oL0/GQyrSIqSVwVZAA3X9NCXv/enDnjInC91FLFawgucB+a9GgHlv1fwB+s
-Bsf5D0tJ+25A244CzmWu0a6PkRVPnX+5gt6AMJ8Gx+xsL7sNt4bF/sACY8yUTwv1
-9AHpFOe2uXuc9PjrCgZtLbXtrsJwiS6HO/l6xK7OL/0q90pCO1NoGivZQKXkL/iz
-M9aXcG7iVSk/532Uqw9h2fAyJmhVicrrBQRtu91TmwtrVAoHVbQ8AHZ+sMeDEKYt
-QiRO4F6UzisZoDkSC2RZvcIGEXs4Jh5Izky5Mx0GrKzk5ZYiY/2iWCeQ/WtinOQ9
-I+hOKpXyn56JApVD+qbBroRCtwiTXmSbHd9IQQYsEj6qwvsveaaB5QGm1IxshUOc
-nVteqC+LOJqgDS8/B/ZDmPH4N5mh0aa5hLbHQtMwJ0XID0UYfTsNWPcFKIOFz6sM
-6z581/jPAzjOfZeeOA3imCC1OvmIQ4+yGair6ybWMeI8ac9pc+grV2NvNXDzbgnR
-VviSSAMOuI0ogHcK7gVoN/iorwnHqlZpTBeEPn80mpI2WBtaejo=
-=+AY3
------END PGP SIGNATURE-----
-
---q5n7ddzkli4abmdo--
