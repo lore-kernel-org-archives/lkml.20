@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892170;
-	b=b5Bm1uk6Lwy1y/AhreKVkVQnpV/61JYtbGi5vjSbygMu2TddLoBqeNPppMBmo/v8mYAN
-	 rdGJ8/s3aBzO0qT0jYmSRPee6GMJVZYmmLCT+p/eokAIg3I9w7JoW9imxjGa2z58K5Hoz
-	 P/e5dNTHYtTgRoFa3lG/GEzUBcdo9ZIv3CUTiOJMrJo1PMT1Ie330z4U8eq0ETKbLjcu1
-	 Y3qOoanUhFKI6ahbU2L82esREvdBp2qTNsOYtOj08SMQxu5I8To3FbH2qhD+0AwnjbHbO
-	 WfqNAlqI4GdFG68iT1hxC76tfvXh7DbydhNcsWjK/tJWhob3MzjFmaTkLG0DJobx88Q==
+	t=1793892183;
+	b=GBdNC6rmNtkSNVdrjVtIxmy4AqtmDUKcqPM+udIJfYRSko4ZhLcvEYdl005qn9r+QbFQ
+	 /4jcOH6KUhuVYusMUJDQVhIA/NBL0fMoJuNtD+FsS3Ohx94mX8DFq8miFJxM7Q0sv98N6
+	 AlIcr4aJC5KS8M1J+p7oscaXK7/sTtBsTefA5vDagpzpgbFcxvTl5PsPAYBgqLGmgYzQY
+	 irDXMG+HwGSgkb7zGTYBKqnFkBpSBBupKsqEkl4i5w/aGkD8PSZKA22y21rOLQdGGW8ce
+	 7NO+Qp0glC8a9dR+h1KT/yJMyoztwq9WDRPHIx11SoSe26YghfGYaCzUk4kJOhBYNZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892170;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=xJYfi5g2zuSnSXCCV+vaULGoe+tZgbf+KcLjRuVRvl0=;
-	b=apd3zcuQdWVWe7dEz9+cPJew1Hbk4E3lZV6EnTMOmInhpmdJ7Op4Pw87VTsBUTNqfVLw
-	 AXTO+4bRDUCzVv5TPevDskaDwMMZiew9Cy07E9XGWEkE9c5uIw9Z1dYdxBAfAOCXnu+ak
-	 LrLwEq0W7WOYUI9GWtwm6MCkjJqg8tWu3lzmSA4CVYQTftEsy5O0uongFUQiNJLWrK6a9
-	 qvhM9qKolv+wNNfPixDKuTd01f0pU46JPM6Czn+OFs7V1hg0tRmrMKSiikdo8ZNiQb/r6
-	 YEmOFLYmRldDTI4bLWH5pC3SPISMrn1ZGux+pUSWGS0KYsfCrSxodiauL+22poNxLeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892183;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7v4V8/4X0TjPkcYr+xi2naJa0ss/5ymYdMLn3Qm3uOs=;
+	b=JZdUGveRPlT/7JqXKbpyCl0G++t1pxPZRggYlEhESCSSJrFcqin85sTpSrHszPUzkGKh
+	 S3ZR2NHRDKK1ljGi5tgZH8J3CJqyqmZ3jEDjBifOgj1mW3HTGM5DQwmGBv5UlEnQ+vY11
+	 dSfpmfy2iKts2Ef7GN4AFTTlEQNnbX1HWHluqQCYynP1fP/+eOxYCK+zofrVXrL2A574T
+	 6J6gRb9V/rVd3Q3RcAnBsPXUN56Ue5VB0SD5QOlrM8PPsDpePLhAntbeNn/LDnjK8PEDT
+	 eJr2J+uvl4Dgy+Wa65Zxlmzi3qAAkku63AbMHrZAtm2HLlG/vOGfgaw4JwV0loZz6RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b="X/dPG5lH";
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEZbSxVP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4247D606A329
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4247D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49430606A329;
+	Thu,  5 Nov 2026 15:23:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=X/dPG5lH
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f30660e69so149241485a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:22:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892169; x=1794496969; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xJYfi5g2zuSnSXCCV+vaULGoe+tZgbf+KcLjRuVRvl0=;
-        b=X/dPG5lHSuvt6yi6rtg1orMQuOPGrHGThAsuGl10prX4ljoFpTACCJzvzyQ17gPgzv
-         Z0ccOPXiB7o8j0O+uMo6Rl5ow7e0CDu+UAhFtJS/Xi8ogWHTKE0JeKwypDtSXgEIg1iO
-         +3SRNVkJ9a11P1C6Fjvf3p9j717Xe/qoLZo64i9pbJTwZsrka2mZxX44jgmTwRgctJZg
-         p03Pp2iRTGk0b49neBvC4H5hqDyVj9bNyZqr/efTi+5a6ARXPsM24h6rk90IIsTmQb0w
-         p4tXBcaZuDsGXWgWSH6EQM5V7oGB1IeOAl7Z0DXnL9MTDssLVKVXy5KuVw6KkI0vKJjW
-         3X2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892169; x=1794496969;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xJYfi5g2zuSnSXCCV+vaULGoe+tZgbf+KcLjRuVRvl0=;
-        b=t+X5x5Sf4s7UNGJPZiQ+Jzcf4HJ97+LPJygXXaTwWi+XfXm49zpAhKx2g/rYO1RLvv
-         uVVCJG/xtKMQBXl/owOvjv2zwxtiqk7/e5KIUbvnQcLIJ8WZTn3tnt86OeL9dlxoHYRK
-         XPXF85UfEffHev78cze0noayFLgmWVSGts6SQl4txm112rtsF43j15mVv4GQjXF0GJrV
-         fiYUIdgV23DIhib1y0JU94BaoJ2/T8xoNO5Wrj8MjEEjr5mBVutY/62XTnCr9wc/yZxH
-         HqQfJs3+SrtjrMLuZDyiqNCN6Aa2uLAs4yTxPlcLWWSTZrxp4HfYqmZMHOIBSuxzH8Sn
-         by/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxTDCXRfZ6GEskSjEHfpaYEvcRLRPJ5sluOa2xSmo46DIjs2ljuP/WqW1NoWAtw0DwSZvGMqjXXC6MSKeU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86DdUfZs/nZwmSP4cIYls+qWZsi0fk8iYdDQR7ft0uVDYvMf+K
-	CBA+x44qc7E2zPKs4OhtYKeY+f3hj4kkfBCKcvngNlOIWqpikyxsWqOEuaD7nY+AB/4=
-X-Gm-Gg: AYBFou2pTaXowUnkQkvNyCAGgLuf/QKLapevEQRuqZ5wr0mus27J2/p9TY1rcH5TfxW
-	xbxRnwOcq1EMvF4SAhD+GWsK/6GSkN55wa0vJMaqTFbIvJswJZFOv2o3z6IugUIr/v+W48lVHus
-	nn5CqaAf2shM4PNw5xFy4TnGJ60ovpYxMnUkJSc7mAvfo4LLke55IKL9bit4a8JypDYOWuUiVGz
-	cp5gf9KCkm6ucUcZwYfzSnqzXzMq0XvGdH/hv6dgdys/fwOt/4FiYAjiZDCV7ErZOzcQZbQQOoE
-	8VIuQ6Fkv+PY026IjjtO3tK1gTT0/1+HjIvz/jpn0yLxgbrL2Kdpfux1fzCr1rITJKXBosTS11m
-	EPclnCIAVyXzserS2/IUVfcH+08uBn+cHrRjANyNArr6rUN5ifuJPAPsH+gPefi6SUt/GkK1hDN
-	cdEK4q9y8v417/knM50Nx0SetuXAK1nteq8oG9UMMgbs6mRqfP+WTUsLxyVkd9uyzA8//v21NCY
-	wG83d1EWfI9eZ6QEEh7S5Au3ctF1MaudIU2fhrVYzPevvXrJrrzem9IrzrLfT+fAP0T2HnjjBJH
-	hlW1y1+klzul+luqouHwIpt+b8QosGes/cis+hi/TDem
-X-Received: by 2002:a05:620a:28c6:b0:945:df59:e62c with SMTP id af79cd13be357-945df59ea90mr616362985a.61.1793892169185;
-        Thu, 05 Nov 2026 07:22:49 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.244])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e9a5d0656sm16382296d6.16.2026.11.05.07.22.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:22:48 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:02:53 +0000
-Subject: [PATCH RFC v3 61/90] fs: accept a cellfd for MOUNT_ATTR_IDMAP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEZbSxVP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0B21F000C1;
+	Thu,  5 Nov 2026 15:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793892182;
+	bh=7v4V8/4X0TjPkcYr+xi2naJa0ss/5ymYdMLn3Qm3uOs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XEZbSxVPp7P+6DCvBeS1fYcBTKKFA8Ha7Jl4bhp/kBeJ54vGatjc+bX6k0kObz436
+	 CtPqzd+USA6qX5S1JHghC/mr7XsPM49vwBPA16wkGqmmeKQyES5OJNLYzYo3wZTQhb
+	 Tin5ClkzUFqrLlL8Fq9wLBDURSGpbKOpheR4ywJBmZjfHFE7slfW94G3B6wTCDyKpN
+	 Yblpifrc40qgpV2v2Y0e3U+8UngGO6t2tzPs8pZml9XwqwrafVxnDSh95z7CTTAF5u
+	 sa71q+OIVZ3i1ZoRXRHp0l35vB4tCkO30gN9LLgRP4rYSnybLSamdn6kjtVuGbSuUl
+	 yhtA+C90f8gFw==
+Date: Thu, 5 Nov 2026 16:22:59 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jyri Sarha <jyri.sarha@iki.fi>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Paul Cercueil <paul@crapouillou.net>, 
+	Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Linus Walleij <linusw@kernel.org>, 
+	Sandy Huang <hjc@rock-chips.com>, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Alison Wang <alison.wang@nxp.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Yannick Fertre <yannick.fertre@foss.st.com>, Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+	Philippe Cornu <philippe.cornu@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
+	Javier Martinez Canillas <javierm@redhat.com>, Igor Reznichenko <igor@reznichenko.net>, 
+	Michael Walle <mwalle@kernel.org>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+	Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
+	Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>, Purism Kernel Team <kernel@puri.sm>, 
+	Jerry Han <hanxu5@huaqin.corp-partner.google.com>, Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
+	Michael Trimarchi <michael@amarulasolutions.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Casey Connolly <casey.connolly@linaro.org>, Michael Tretter <m.tretter@pengutronix.de>, 
+	Cristian Cozzolino <cristian_ci@protonmail.com>, Junjie Cao <junjie.cao@linux.dev>, 
+	Ryan Brue <ryanbrue.dev@gmail.com>, Nickolay Goppen <setotau@mainlining.org>, 
+	Stefan Mavrodiev <stefan@olimex.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Robert Chiras <robert.chiras@nxp.com>, 
+	Alexander Koskovich <akoskovich@pm.me>, Markuss Broks <markuss.broks@gmail.com>, 
+	Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
+	Dzmitry Sankouski <dsankouski@gmail.com>, Yedaya Katsman <yedaya.ka@gmail.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org
+Subject: Re: [PATCH 27/35] drm/bridge-connector: let the bridges set up the
+ connector
+Message-ID: <auyfJAn3f-is-eXX@houat>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-27-5e3070a3478f@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,127 +103,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-61-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890935; l=3291;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=pj31SOm7YhN2z/Z+1E3HdN5yhsS7Wipq66JFp95Wo/0=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QMZwjK0FbnpD+vbAPIynxe0pA6geEdHqcn0vbeS6RE+ART3eHfqSZcVz2It7s/NbKFeTyZq8WCN
- n2uuh799BDQU=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="nvlajszkdnqh6lds"
+Content-Disposition: inline
+In-Reply-To: <20261026-drm-panel-funcs-v1-27-5e3070a3478f@oss.qualcomm.com>
 
-The builder of a cell has to idmap the mounts that it puts into the tree
-of the cell. But it cannot name the ids that the kernel chose for the
-cell.
 
-Accept a cellfd in mount_attr.userns_fd. It means "idmap this mount for
-the cell": on-disk ids from 0 upwards map to the ids of the cell. This
-works while the cell is being built, once its ids have been set.
+--nvlajszkdnqh6lds
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 27/35] drm/bridge-connector: let the bridges set up the
+ connector
+MIME-Version: 1.0
 
-mount_setattr() normally requires CAP_SYS_ADMIN over the user namespace.
-That check stops a caller from mapping file ownership to ids that it does
-not control. Here the ids belong to the cell and nobody else can hold
-them, so the check is not needed. The checks that can_idmap_mount() makes
-on the filesystem are unchanged.
+On Mon, Oct 26, 2026 at 01:10:16PM +0200, Dmitry Baryshkov wrote:
+> Call drm_bridge_chain_connector_init() once the connector is initialized,
+> so that the bridges implementing the connector_init callback get to set
+> up their part of it.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
+/drm/display/drm_bridge_connector.c
+> index 81f3e26f6fdf..2d982c7109b5 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -1141,6 +1141,10 @@ struct drm_connector *drm_bridge_connector_init(st=
+ruct drm_device *drm,
+>  		connector->polled =3D DRM_CONNECTOR_POLL_CONNECT
+>  				  | DRM_CONNECTOR_POLL_DISCONNECT;
+> =20
+> +	ret =3D drm_bridge_chain_connector_init(encoder, connector);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+>  	if (panel_bridge)
+>  		drm_panel_bridge_set_orientation(connector, panel_bridge);
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- fs/namespace.c         | 13 +++++++++++++
- include/linux/cell.h   |  7 +++++++
- kernel/cell/boundary.c | 25 +++++++++++++++++++++++++
- 3 files changed, 45 insertions(+)
+I don't really mind this change, but we should have a user for it and it
+doesn't look like you have any in this series?
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 30167f8863bf..e2406d7f7bcc 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -5207,6 +5207,19 @@ static int build_mount_idmapped(const struct mount_attr *attr, size_t usize,
- 	if (fd_empty(f))
- 		return -EBADF;
- 
-+	/*
-+	 * "For this cell." The ids on the caller's side of the mapping are
-+	 * the cell's own, so there is nobody to ask about them. What is asked
-+	 * about the filesystem is the same as ever.
-+	 */
-+	mnt_userns = cell_idmap_userns(fd_file(f));
-+	if (mnt_userns) {
-+		if (IS_ERR(mnt_userns))
-+			return PTR_ERR(mnt_userns);
-+		kattr->mnt_userns = mnt_userns;
-+		return 0;
-+	}
-+
- 	if (!proc_ns_file(fd_file(f)))
- 		return -EINVAL;
- 
-diff --git a/include/linux/cell.h b/include/linux/cell.h
-index 2107cd3c994b..f204c47ee783 100644
---- a/include/linux/cell.h
-+++ b/include/linux/cell.h
-@@ -249,4 +249,11 @@ bool cell_may_change_cgroup(struct cgroup *cgrp);
- static inline bool cell_may_change_cgroup(struct cgroup *cgrp) { return true; }
- #endif
- 
-+/* A mount is idmapped for a cell. */
-+#ifdef CONFIG_CELLS
-+struct user_namespace *cell_idmap_userns(const struct file *file);
-+#else
-+static inline struct user_namespace *cell_idmap_userns(const struct file *f) { return NULL; }
-+#endif
-+
- #endif /* _LINUX_CELL_H */
-diff --git a/kernel/cell/boundary.c b/kernel/cell/boundary.c
-index 3f5cc898dc48..3891dfe899f2 100644
---- a/kernel/cell/boundary.c
-+++ b/kernel/cell/boundary.c
-@@ -8,6 +8,31 @@
- 
- #include "internal.h"
- 
-+/**
-+ * cell_idmap_userns - the user namespace to idmap a mount with, by cellfd
-+ * @file: what was passed in mount_attr.userns_fd
-+ *
-+ * A cellfd there means "for this cell". It works while the cell is being built
-+ * and once its ids have been set.
-+ *
-+ * Return: the user namespace of the cell with a reference, NULL if @file is no
-+ * cellfd, or an ERR_PTR().
-+ */
-+struct user_namespace *cell_idmap_userns(const struct file *file)
-+{
-+	struct cell *cell = cell_from_file(file);
-+
-+	if (!cell)
-+		return NULL;
-+
-+	guard(mutex)(&cell->lock);
-+	if (cell->state != CELL_BUILDING)
-+		return ERR_PTR(-EBUSY);
-+	if (!cell->ids_count)
-+		return ERR_PTR(-EINVAL);
-+	return get_user_ns(cell->user_ns);
-+}
-+
- /**
-  * cell_may_migrate - may a task be moved to a cgroup?
-  * @task: the task
+Maxime
 
--- 
-2.55.0
+--nvlajszkdnqh6lds
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCauyfTAAKCRAnX84Zoj2+
+dlpBAX9vmlt6LO/z8/cZ2e9AdKjYtQICZ+l2BzUxUnN/1vgtuPBo4ZauhGowfRnu
+dCnXGMoBf0dGFfOI0idM2rRpYmxj//Dz342c5BaFpa3YCCrW5V+qnd1vuLuKWMX4
+8+jAJrTriw==
+=Icn+
+-----END PGP SIGNATURE-----
+
+--nvlajszkdnqh6lds--
