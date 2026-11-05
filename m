@@ -1,122 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869878;
-	b=yV9Nh62vuweVh8ZyIg8i9C6QpKjLTGnNPtY+5cpprQHmXyIhpfWtkn5QA1TdemFDUTq5
-	 MJX4pkKMb3iHJVKoIqPO6Bea4W3nb1LUcDIYFTYYl/VR+bklI4DOMT5qC994nCA/7Yxo/
-	 wqg0Our1q+1YZOrN4ybVS948KABCm6aiyMt33ia+oVu3G6NlH2Rx4vieqYuxaVLefqthY
-	 hmUeAOrWID01vmAPWtOLfBmQrXep2omq/7kgSZX3lBzE1fnFNiy9maxqpfH/T5m+gO1XR
-	 yxI74ATINelOQ+024bXBY3UWZBxqthbIk6X9Wcjib9OcrEX7JHMBNRRebP1TjExQJQg==
+	t=1793869883;
+	b=OwgQwgnYSh7MvUvGvc2yOPuj9GbuhmK1TAbl/w0dAAYGVi7imXziRKCE4BKgCG/yUdwq
+	 pJFicGjNeo1obQO2RH1WIXWxxLgAxBc4LMa/C4PymqpPkKiXa0qayQrwqqg6fsWHxYamL
+	 zHr3RYdlmOgFfMwmCzVbgb6ZWc1SrVc0elrCV3lQGwesdCYIJio3g/RvmFq7K04nEUcow
+	 QwtWzcMxVcIhf3To66GZ2UfJ91mPMXIHcCwz1q2i+C7hshAFjyGlzQSTjTkFQUTb9kKbE
+	 gqq/Rq964/g8ZAam3MfU/P+Z7xTAdzZV/7rqVDar8XoFeW23/mHV5sVYtCTioQBBFSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869878;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=Efbomni5FaxQHZdenx6VDnwExzQwrJdXuRlq+gsLE7U=;
-	b=pjB+Q8xsYbwOgsKiKRrUFv6sbFl8NLvyNq4/LsFCLbp00INJZiHvSmsK8581hJ/VuqOQ
-	 E6WVdUGUN9e1KHvhIhyvDI/QalPnGatSm3cQxp+gY01hH20NbolZ+K2n7yqaEA9iTsUn5
-	 YDonEoW3t1wPRi3gDi2XAv6XCMRkcWJJteN62jHvuMSRnErHuwYow0Wb2vQ1506JBHor9
-	 CQ5NN4SubTxt1M0xMcHW4OBkdQy/Tr/gz1csGEl5fVBnY4a83pSCFaOF70200zozDZ0Wx
-	 QsqlxNS7erV1lsHFPm9g3kV7rbH+vQD2HGra9yX+76QT5dbb2zgG+zrsk7SM2o259lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869883;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZRGJdN+0ZU0Q+8Po4r5uRyGAvRT/GQRrEp1MKzJo7zw=;
+	b=dollEYBC0frFWk2x9LdwTNv33XUDUjdhF8dSv+yoA2zHtzQ0Nrp0YAPpRYT00aoPbUXx
+	 8cNbX8hjB8uK3VdExcES9hf7unlT8CHVBxFUjWKTpyI4PkrCJ/VePyGDSsIsFu7oZdcbe
+	 5Zrx9HV9ZPmQcTsV5PDGWjBJumnpAccg/X4tYOyqL4MJCXjixYr7GFIKT4ILeJEJQ7kky
+	 UoBkFzY7ySQ7L5/gEl5Y1QRU4gwqr6i33gYFZQ9tjXcCHyCCa9wyt7E60nvHJ/J/v2Wtv
+	 3rn/3Imex7PQpF0IShhyIqmxY4bs2JD8WhbpLpjH0G8yh9XXS/ELhTP0i5we3Ao7U5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fTFhFNIr;
-	arc=none smtp.remote-ip=209.85.215.225
-Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oU7t7yli;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F43606A338
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:11:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5F43606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D92606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08D92606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=fTFhFNIr
-Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cdb628232d2so15760a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:11:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793869877; x=1794474677;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Efbomni5FaxQHZdenx6VDnwExzQwrJdXuRlq+gsLE7U=;
-        b=k30zeX4EeeFNpL3AdB1jPdLx0VR0kmGQBoEidzxyCzEV/oSbTYAkiYosEz2NSI8Mnj
-         uupR7iV2wqCzG+3H1oMiXOIyfs6h7VWZ1U25C1gUmatJzed/Lk7/kr2Qzr+WJbKBeyLr
-         5Gh3yy+cTNe4FC/j6IKjX1mm93CeAEgqzl4EYDV02ehT2HnsrAOtEYTqmYGaOLuj2TOV
-         mxtWkPjBe+Gso4AfUhXeAig14YuR5JrA84GtfMPFHSfz9fUUdZbdSa3os1+1406qNfqd
-         FjsbFcG3Y6yLKIkKe45szX34Kuma+jzk+oY5H1DqKSex/hWQJMWGRAA0Yjwz7olJL4Uo
-         DaEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxxEqcRzr8gX5TXRUDKx50+GlnqbxaEn599p23viWpnrq4ZqY9/zAQgg9fPOEJCuwDqBChBCLuRexlQhNA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oU9C/az2gbDPKEp6GkiIrtA9hKm4tyWu/odUPYADlEGd17PRU
-	qcDq8cLwrUHx073SjZoVy8t5f6fgbXGyTH3QybXtHmdFUgJAppT6NiUv3W0n9ATS6cCMANjbhr/
-	ulm2b13jSy1MUYjZte1WL+U4Sa73UpGsHgfOQpLAJ4cHmDDGqPNi3LBd0XraLsx1ENhgSHWi/z4
-	Tr78i1KkU/zx1JVo8VEASkiON0gddAIoaqH7k+ugr11oSUBflN7yVPiY6sLN/iGqQKPyWZq767C
-	HzSKpq8Wzj9S5XPhRTO
-X-Gm-Gg: AYBFou03aUEOfyKwb6duv/wqc0oOt+P5a+Lbjb8j+MitWe56tx4WgsQuEGdYoczN2eL
-	QfKyjWY66yTvyUB+T0l5A1vBSXPv2zXDf9gm80jVWtozigYe/RkqfYiH1MDWMDr62Z1q23cfXFA
-	AmTuBLd8mP2T1QsxtFC8L7xogI3zWsQPHr8YFsGjmdTamS0nenQKiR1jkxW/LUyy7e/JntycEOG
-	aAe2/15Ge/crZ1wBPqIPbPUY1r4DUwkyhHF88gFEY2o8zYGSMraw4Lk7TgYntmab7r7jmjQQVMT
-	eCn+hCR5Y+9yjRtAGaFC8GeJFe236qaAjz2oIRzbNcmbO/JM9uMIvHC0CbFyMpzeYxsOxVfhtKS
-	Q36pBsOxv796pn1t6yqQDGQg7f415zz9WOPzNjwmY0sPpDDc30agnwk5Cu+/mWAiZSzmPiv9qNw
-	uiVyGa82HO1Wr/Mh+IRXRHaAMpujzKaYd6vA==
-X-Received: by 2002:a17:90b:28c5:b0:3ad:ce24:acfa with SMTP id 98e67ed59e1d1-3ae897c652dmr15104586a91.20.1793869877259;
-        Thu, 05 Nov 2026 01:11:17 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b31cfb16sm1448655a91.6.2026.11.05.01.11.16
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:11:17 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-542fc619afaso20957821cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:11:16 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oU7t7yli
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15dd124bbe7so944065c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 01:11:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793869876; x=1794474676; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1793869882; x=1794474682; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZRGJdN+0ZU0Q+8Po4r5uRyGAvRT/GQRrEp1MKzJo7zw=;
+        b=oU7t7ylijINXThW7aWPeYyWvYHIu/36pRaJyeQXj9xl7T0c2MT7uMwy6EpXd11RXoS
+         9lttFVStTc3RkmBkz6PsOmudzwE7hbNe48vCXYaZ1iWej6K+2Il3jaoqapJoaOzu9S9q
+         305oo/+xT6Ih+7UI2IEj9rhumv1lscoy4kucQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793869882; x=1794474682;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Efbomni5FaxQHZdenx6VDnwExzQwrJdXuRlq+gsLE7U=;
-        b=fTFhFNIrbaeJsoGhzpELfgfxjzUeFGExlp6EMmgQOXi3pcp6zdnKlDwfh+vu7WZYfU
-         2ITQLCKhtXBeakj23XWP60P7LaJ9RY/p+GpwglzgLfh0REIsWsYdBwZIt3isIanLE4rv
-         PM6FRU0T4cqaO4d+lSBtGU3DQ3AEuY5WSuohQ=
-X-Forwarded-Encrypted: i=1; AKwUvBzNmyM4GAxVA/QzYzQBCTHDY0nGXcJjYQnMXm0H5uOL/hOyKd8eslpDNkUPceDC1yIcgPYa8zHRHyfSLlI=@vger.kernel.org
-X-Received: by 2002:a05:622a:4d08:b0:537:a19e:5561 with SMTP id d75a77b69052e-542b6d5eb2emr306536131cf.43.1793869875745;
-        Thu, 05 Nov 2026 01:11:15 -0800 (PST)
-X-Received: by 2002:a05:622a:4d08:b0:537:a19e:5561 with SMTP id d75a77b69052e-542b6d5eb2emr306535821cf.43.1793869875156;
-        Thu, 05 Nov 2026 01:11:15 -0800 (PST)
-Received: from mgmt5.dhcp.broadcom.net ([192.19.222.250])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b100af507sm47298591cf.6.2026.11.05.01.11.13
+        bh=ZRGJdN+0ZU0Q+8Po4r5uRyGAvRT/GQRrEp1MKzJo7zw=;
+        b=f6bN5ieSev9oy53kREInaG+psY9fDlzsLEguI+gnxucoIJ5RUt540xPjVn845/h2ty
+         KxB1mMW0lZN6FzqARUa8QrQh7eWO2cpwRDRNy5NAbUR4juvyKP23gGSn6tnct/PM6iO7
+         6JmRIjJQh91MXzVoU2yTvFB50iVAFPSRj2qd+iNAoJ93Mvm0jpxa6nx7ftk5Zq7hpOts
+         twDdEgp6xnO7fzTmImR1lcoXH3ThDTch+X5eHchUVPSiDUHKwGZcqJ0n9f35WOpkUqfU
+         eYfUOx06cAq3G87tQ1+eobN6UpKMr22y/chN5U0LYUQIt5SRWVZ+lvYr/zi2M6agY6zO
+         9QIA==
+X-Forwarded-Encrypted: i=1; AKwUvBwRjWytwCyc+xZNxnshOYzfeBBc4BLRb3BmfMNQjX4BssgeU9LlKRCJUSlx/KErX+J86E6W/zAfgjxpfSg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lLSmZVJT0ygyPKidJ2ZDgRPJ5BLD146QO4fF+hLLApNyA5MQz
+	arKRZLBJ8m6wdAKoZXSr1VJMJG4RoRbGWmfUU7EuI2x8nYGtQUM6bc9ZlO7gXypOCQ==
+X-Gm-Gg: AYBFou0H+ZuQm4VUUrDAT/NFYN5F7I6GUQnHkvYPPuPPbn5tYU2psafKDzkm6auWccs
+	mSFXsy1nQ6cyoil20ZR7iM7OnkYsstcj/Q8aLu7cuDAoUC5X00SnsArlIFVzA+h844VqwhMQ0Ls
+	vPilbYgxOHYAts63pxWsi8UFunmd9wutzL0bNHor6bT9aRbHq3H9RwG4B8thc5tpMwqplj1Pm9w
+	wtmohHWk+YVCFGzEtses4jzqbMNoWXenw/mk/Ipt0izsG4aTS1Ke+pkD8oeRY7ts57oapLcRrYO
+	8Y9rttcyJVOjyc9YOSWH9I0wX8dPBghXXSPV8lr0u2eJDRhJDyfxsh4TofenImwfoAiIQTEQAlT
+	btLnaLvh+MmeOahFjNKx8qyD4z0rVF65DPwaqpsx4wLW7LPdqypHIxki2CmcRJsG4ZKyOBqEvgn
+	VVDdl/AoI83kocILnaghN7GE6E/MlnRLgkcz9V8kK7CeeGP5vk56LIzj6ZgrH/Rx/gunWf71CA4
+	+apZoG1WBOtJX2nB82fBhPAW47YjPz2kOgEMzHTLLMLAvZMdBLpegmbXd3Z6kJhFlu6IWRybpSt
+	2rvorKtQ122WaIkDpk/KB2fbROwnlJYMTIIHqIWS5KpTT9CRoWSR8uHvHGA5ZpcJAPF0DKX2E8m
+	fIfZGgi3xj/3l/1OxYdUsHezW/2so3AAE05PblA==
+X-Received: by 2002:a05:7022:eb42:20b0:186:4a57:94e5 with SMTP id a92af1059eb24-1ac5c272744mr29105381c88.34.1793869881711;
+        Thu, 05 Nov 2026 01:11:21 -0800 (PST)
+Received: from fshao-cloudtop.c.googlers.com.com (61.14.81.34.bc.googleusercontent.com. [34.81.14.61])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm20117002eec.27.2026.11.05.01.11.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 01:11:14 -0800 (PST)
-From: Siva Reddy Kallam <siva.kallam@broadcom.com>
-To: leonro@nvidia.com,
-	jgg@nvidia.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
+        Thu, 05 Nov 2026 01:11:21 -0800 (PST)
+From: Fei Shao <fshao@chromium.org>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Fei Shao <fshao@chromium.org>,
+	David Airlie <airlied@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	vikas.gupta@broadcom.com,
-	ajit.khaparde@broadcom.com,
-	dharmender.garg@broadcom.com,
-	sachin.holla@broadcom.com,
-	Siva Reddy Kallam <siva.kallam@broadcom.com>,
-	Saswati Das <saswati.das@broadcom.com>
-Subject: [net-next v3 3/3] bnge: Reserve ring resources for upcoming RoCE MPC support
-Date: Thu,  5 Nov 2026 01:01:54 -0800
-Message-ID: <20261105090154.1293846-4-siva.kallam@broadcom.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <20261105090154.1293846-1-siva.kallam@broadcom.com>
-References: <20261105090154.1293846-1-siva.kallam@broadcom.com>
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] drm/mediatek: Validate gamma_lut size
+Date: Thu,  5 Nov 2026 17:10:43 +0800
+Message-ID: <20261105091054.3993611-1-fshao@chromium.org>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,217 +101,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Sachin Holla <sachin.holla@broadcom.com>
+The DRM core only checks that a GAMMA_LUT blob size is a multiple of
+sizeof(struct drm_color_lut), not that its entry count matches the
+hardware LUT size. mtk_gamma_set() and mtk_aal_gamma_set() then read
+the blob up to the hardware LUT size, which is an OOB read when the blob
+is shorter.
 
-Reserve one additional TX ring and one additional completion ring
-per RoCE-enabled function for forthcoming RoCE MPC support.
+Add mtk_crtc_atomic_check() and reject gamma_lut with invalid length.
 
-Reduce the L2 ring limits before adding MPC resources to the firmware
-reservation demand. Exclude MPC resources from firmware grants before
-adjusting L2 counts, allowing partial grants that leave sufficient
-resources for L2 and MPC.
-
-The corresponding RoCE MPC allocation and use will follow in a
-separate RDMA patch series. Until then, these reservations remain
-unused and reduce the resources available to L2.
-
-Disable RoCE before selecting default resources when the reported ring
-limits cannot accommodate MPC and minimum L2 operation, preserving
-the L2 ring budget on resource-constrained functions.
-
-Rebuild the default RSS indirection table when the effective L2 RX
-queue count changes, even if the firmware RX grant remains unchanged.
-Initialize the table after successful default-ring setup so a failed
-reservation followed by a successful retry cannot skip initialization.
-
-Signed-off-by: Sachin Holla <sachin.holla@broadcom.com>
-Signed-off-by: Siva Reddy Kallam <siva.kallam@broadcom.com>
-Signed-off-by: Saswati Das <saswati.das@broadcom.com>
-Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
+Fixes: 2f3f4dda747c ("drm/mediatek: Add gamma correction.")
+Signed-off-by: Fei Shao <fshao@chromium.org>
 ---
- .../net/ethernet/broadcom/bnge/bnge_core.c    |  9 +++
- .../ethernet/broadcom/bnge/bnge_hwrm_lib.c    |  3 +-
- .../net/ethernet/broadcom/bnge/bnge_resc.c    | 56 +++++++++++++++++--
- 3 files changed, 61 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_core.c b/drivers/net/ethernet/broadcom/bnge/bnge_core.c
-index 68b74eb2c3a2..c5d51b8ee9d1 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_core.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_core.c
-@@ -312,6 +312,15 @@ static int bnge_probe_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	max_irqs = bnge_get_max_irq(pdev);
- 	bnge_set_max_func_irqs(bd, max_irqs);
- 
-+	/* Preserve L2 operation if the additional MPC rings cannot fit. */
-+	if (bnge_is_roce_en(bd) &&
-+	    (bd->hw_resc.max_tx_rings <= 1 ||
-+	     bd->hw_resc.max_cp_rings <= 2)) {
-+		dev_warn(bd->dev,
-+			 "Not enough rings for RoCE MPC, disabling RoCE\n");
-+		bd->flags &= ~BNGE_EN_ROCE;
-+	}
-+
- 	bnge_aux_init_dflt_config(bd);
- 
- 	rc = bnge_net_init_dflt_config(bd);
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-index 651c5e783516..01547311add8 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_hwrm_lib.c
-@@ -441,7 +441,8 @@ static int bnge_hwrm_get_rings(struct bnge_dev *bd)
- 	tx = hw_resc->resv_tx_rings;
- 	if (bnge_is_agg_reqd(bd))
- 		rx >>= 1;
--	if (cp < (rx + tx)) {
-+	/* RoCE ring counts are adjusted after excluding MPC resources. */
-+	if (!bnge_is_roce_en(bd) && cp < (rx + tx)) {
- 		rc = bnge_fix_rings_count(&rx, &tx, cp, false);
- 		if (rc)
- 			goto get_rings_exit;
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-index 65ef34536e36..90185482da33 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.c
-@@ -110,9 +110,24 @@ static u16 bnge_nqs_demand(struct bnge_dev *bd)
- 	return bd->nq_nr_rings + bnge_aux_get_msix(bd);
+ drivers/gpu/drm/mediatek/mtk_crtc.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
+index 2920f3198ef6..fd9b51fd00ea 100644
+--- a/drivers/gpu/drm/mediatek/mtk_crtc.c
++++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+@@ -880,6 +880,26 @@ static void mtk_crtc_atomic_flush(struct drm_crtc *crtc,
+ 	mtk_crtc_update_config(mtk_crtc, !!mtk_crtc->event);
  }
  
-+static u16 bnge_tx_rings_demand(struct bnge_dev *bd)
++static int mtk_crtc_atomic_check(struct drm_crtc *crtc, struct drm_atomic_commit *state)
 +{
-+	u16 tx_rings = bd->tx_nr_rings;
++	struct mtk_crtc *mtk_crtc = to_mtk_crtc(crtc);
++	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++	struct drm_property_blob *gamma_lut = crtc_state->gamma_lut;
++	unsigned int lut_size;
++	int i;
 +
-+	if (bnge_is_roce_en(bd))
-+		tx_rings += 1; /* For MPC TX ring */
++	if (!gamma_lut)
++		return 0;
 +
-+	return tx_rings;
++	for (i = 0; i < mtk_crtc->ddp_comp_nr; i++) {
++		lut_size = mtk_ddp_gamma_get_lut_size(mtk_crtc->ddp_comp[i]);
++		if (lut_size && gamma_lut->length != lut_size * sizeof(struct drm_color_lut))
++			return -EINVAL;
++	}
++
++	return 0;
 +}
 +
- static u16 bnge_cprs_demand(struct bnge_dev *bd)
- {
--	return bd->tx_nr_rings + bd->rx_nr_rings;
-+	u16 cprs = bd->tx_nr_rings + bd->rx_nr_rings;
-+
-+	if (bnge_is_roce_en(bd))
-+		cprs += 1; /* For MPC CQ ring */
-+
-+	return cprs;
- }
+ static const struct drm_crtc_funcs mtk_crtc_funcs = {
+ 	.set_config		= drm_atomic_helper_set_config,
+ 	.page_flip		= drm_atomic_helper_page_flip,
+@@ -899,6 +919,7 @@ static const struct drm_crtc_helper_funcs mtk_crtc_helper_funcs = {
+ 	.atomic_flush	= mtk_crtc_atomic_flush,
+ 	.atomic_enable	= mtk_crtc_atomic_enable,
+ 	.atomic_disable	= mtk_crtc_atomic_disable,
++	.atomic_check	= mtk_crtc_atomic_check,
+ };
  
- static u16 bnge_get_avail_msix(struct bnge_dev *bd, int num)
-@@ -251,7 +266,7 @@ static bool bnge_need_reserve_rings(struct bnge_dev *bd)
- 	u16 nqs = bnge_nqs_demand(bd);
- 	u16 vnic;
- 
--	if (hw_resc->resv_tx_rings != bd->tx_nr_rings)
-+	if (hw_resc->resv_tx_rings != bnge_tx_rings_demand(bd))
- 		return true;
- 
- 	vnic = bnge_get_total_vnics(bd, rx);
-@@ -271,8 +286,8 @@ static bool bnge_need_reserve_rings(struct bnge_dev *bd)
- int bnge_reserve_rings(struct bnge_dev *bd)
- {
- 	u16 aux_dflt_msix = bnge_aux_get_dflt_msix(bd);
-+	u16 rx_rings, old_rx_rings, old_rx_nr_rings;
- 	struct bnge_hw_rings hwr = {0};
--	u16 rx_rings, old_rx_rings;
- 	u16 nq = bd->nq_nr_rings;
- 	u16 aux_msix = 0;
- 	bool sh = false;
-@@ -294,11 +309,11 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 		hwr.nq = bnge_nqs_demand(bd);
- 	}
- 
--	hwr.tx = bd->tx_nr_rings;
-+	hwr.tx = bnge_tx_rings_demand(bd);
- 	hwr.rx = bd->rx_nr_rings;
- 	if (bd->flags & BNGE_EN_SHARED_CHNL)
- 		sh = true;
--	hwr.cmpl = hwr.rx + hwr.tx;
-+	hwr.cmpl = bnge_cprs_demand(bd);
- 
- 	hwr.vnic = bnge_get_total_vnics(bd, hwr.rx);
- 
-@@ -308,6 +323,7 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 	hwr.rss_ctx = bnge_rss_ctxs_in_use(bd, &hwr);
- 	hwr.stat = bnge_func_stat_ctxs_demand(bd);
- 	old_rx_rings = bd->hw_resc.resv_rx_rings;
-+	old_rx_nr_rings = bd->rx_nr_rings;
- 
- 	rc = bnge_hwrm_reserve_rings(bd, &hwr);
- 	if (rc)
-@@ -315,6 +331,14 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 
- 	bnge_copy_reserved_rings(bd, &hwr);
- 
-+	/* Exclude the MPC reservation before adjusting the L2 rings. */
-+	if (bnge_is_roce_en(bd)) {
-+		if (hwr.tx <= 1 || hwr.cmpl <= 2)
-+			return -ENOMEM;
-+		hwr.tx--;
-+		hwr.cmpl--;
-+	}
-+
- 	rx_rings = hwr.rx;
- 	if (bnge_is_agg_reqd(bd)) {
- 		if (hwr.rx >= 2)
-@@ -330,12 +354,19 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 	hwr.nq = min_t(u16, hwr.nq, hwr.stat);
- 
- 	/* Adjust the rings */
-+	rc = bnge_fix_rings_count(&rx_rings, &hwr.tx, hwr.cmpl, false);
-+	if (rc)
-+		return rc;
- 	rc = bnge_adjust_rings(bd, &rx_rings, &hwr.tx, hwr.nq, sh);
-+	if (rc)
-+		return rc;
- 	if (bnge_is_agg_reqd(bd))
- 		hwr.rx = rx_rings << 1;
- 	tx_cp = hwr.tx;
- 	hwr.nq = sh ? max_t(u16, tx_cp, rx_rings) : tx_cp + rx_rings;
- 	bd->tx_nr_rings = hwr.tx;
-+	if (!bd->num_tc)
-+		bd->tx_nr_rings_per_tc = bd->tx_nr_rings;
- 
- 	if (rx_rings != bd->rx_nr_rings)
- 		dev_warn(bd->dev, "RX rings resv reduced to %d than earlier %d requested\n",
-@@ -347,7 +378,8 @@ int bnge_reserve_rings(struct bnge_dev *bd)
- 	if (!bnge_rings_ok(&hwr))
- 		return -ENOMEM;
- 
--	if (old_rx_rings != bd->hw_resc.resv_rx_rings)
-+	if (old_rx_rings != bd->hw_resc.resv_rx_rings ||
-+	    old_rx_nr_rings != bd->rx_nr_rings)
- 		bnge_set_dflt_rss_indir_tbl(bd);
- 
- 	if (!bnge_aux_registered(bd)) {
-@@ -452,6 +484,17 @@ static void _bnge_get_max_rings(struct bnge_dev *bd, u16 *max_rx,
- 
- 	max_cp = bnge_get_max_func_cp_rings(bd);
- 
-+	/* Leave one TX ring and one completion ring for RoCE MPC. */
-+	if (bnge_is_roce_en(bd)) {
-+		if (*max_tx <= 1 || max_cp <= 2) {
-+			*max_rx = 0;
-+			*max_tx = 0;
-+			return;
-+		}
-+		(*max_tx)--;
-+		max_cp--;
-+	}
-+
- 	/* Fix RX and TX rings according to number of CPs available */
- 	rc = bnge_fix_rings_count(max_rx, max_tx, max_cp, false);
- 	if (rc) {
-@@ -595,6 +638,7 @@ int bnge_net_init_dflt_config(struct bnge_dev *bd)
- 	if (rc)
- 		goto err_free_tbl;
- 
-+	bnge_set_dflt_rss_indir_tbl(bd);
- 	hw_resc = &bd->hw_resc;
- 	bd->max_fltr = hw_resc->max_rx_em_flows + hw_resc->max_rx_wm_flows +
- 		       BNGE_L2_FLTR_MAX_FLTR;
+ static int mtk_crtc_init(struct drm_device *drm, struct mtk_crtc *mtk_crtc,
 -- 
-2.43.5
+2.56.0.455.g6c5a503b38-goog
 
