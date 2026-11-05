@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882578;
-	b=gMt822DwzcETs2MoWkZDhRyeSXXbrfoRJ+hn3h2EGub54MWu4QUL0XTVxwJe3l8E8MUj
-	 IzFqBvl943+ftdWG7Ek1YsIdhQ6fPxjDYKZl5iEJEBjhoqv/fhuiyiLKasugSHaPMxwgl
-	 EuucsNlqpqf1HFwcjLx4dHfQqc5hPzip0fDZ3W1NxLpFmxXuzcyRbENDsdxIfj4amjlDT
-	 LHNXInzVgyQ9dgtVPitcb4u7/qRYaqud6Eeqh5D66dJDCjeVzGpuVLsy9XqtbXdv5+gn+
-	 ET1EzKQDtBVVxAJNClYgmAG3aWF2Cj4Bl6MW3oLh7ixUwJ/CqqRSvboU9eDI3fDYm0Q==
+	t=1793882575;
+	b=HCgI71O6zg0fwrf2H44nvSJlZNVBOjSTOp2b9S5ll8XFgfOkcLtLM/K4lkz7WMeqnQgX
+	 viTaizXKhJvaFbt0gD6N2fdjo28yWxlU4FICzfYZvltFatoEJhy7k7cyo9PT/mCfSr2en
+	 XlberYLfC18BLnk+1OpAtstSrNK/QB4b6LJhYmcaoq70AnRccHNzH2V5u5uxCWP8+yCOH
+	 +/U4y7aWuGT43OTr1BaID5UceDsHyR8W+tp2ajREgAQni2m+FopkP3FBF9IL35FrUq2R0
+	 2XOb5yZo5k1reXTZISnwXuFvQPJSfRypnXwcp/0tw0wNS9HiISZtX/pYHsTv+rv0OMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882575;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=ASjEmzHMS/wg9bt+8inalUSlMGb2bGBK9yrxbmuPTYE=;
-	b=X0gqr+gu2vucKG7xolJTM1v0qxkVNt5ZMiu3Hsry5qAza8D+4YKY5ElASY/cU6qbKzc6
-	 eaPpJoTlPFd1bhfsoY6OuGP+vjQX8e8L4v7l49auTn4OR+L7lkExE0lw09Wre3DVAG5v6
-	 C0zJOEndTNd0C/N4wc66qlhc+DlOQT5ARL7qgVcB/BbpSx6p8mbcSIIiN0rbBuVaGkyNN
-	 eIOoyjkugmB3RpYKYnj0dKhtHyLTJc1k6k6giPGUkkrYcKzV1OZNbN76qCx1KjyMed+x6
-	 W8Bc0WzNGBAwvA3eZlohqdoPV8uAOSh8gfyAutFwNJn74S9NOdEn+Po8A8qJ0oFTPdQ==
+	bh=1Ne75eyG2UyJXHCI/3L+TP/oCHE9qyAF9KYGixpkjUI=;
+	b=rxci3glN4UibtMG2G/s56A7duy1TT4yyiUHdGOhM3Bugk09twu8b9CtI7bJlqXiLQdw7
+	 r4bpLS3xeHd1yehwIRcS9AWWjwXh9IlN7NOIodC+hNefB4zrjp5UeBBaS1SAPyJdz7RtR
+	 ziy5kvEZ4X8Hp//E8W9LqPCv4//wr1Lw8jp0I2C1osebn2oS/YrLArr3inPrdnZVhDqmg
+	 vncybNYl3l3OzjKRMY3jHbqaIDUOQUaS8uVcqT4sGwlgX+Z8zyfoOcmHHopMYjPqnEn12
+	 hmKxHLJ3NJ9WqyynavYfnocZqXhZwYAoV5NfV6fpfeZWfvTD/IL153yc7sqkr3z2mcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RR3Ap7e3;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Iq/RsRJ4";
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36C06082BF8
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B36C06082BF8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA44606EE89
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 12:42:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EA44606EE89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RR3Ap7e3
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so18639195e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:42:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Iq/RsRJ4
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso12249425e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 04:42:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793882575; x=1794487375; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ASjEmzHMS/wg9bt+8inalUSlMGb2bGBK9yrxbmuPTYE=;
-        b=RR3Ap7e3OJNNbZakaTrbgZptLcPiJs7PLGXhAia9EUXyrO8BE8v+BYICnD3sy4FU/y
-         s2oYCb3S4OLxq1hRv0XB7MKJDKy2o54zPCKBbCNtARV6VSuF3Px/UT2mElSIMhmXeYrJ
-         R1JmizaLzZeI1DeONIObsHKhc4p9hBuD8667kfh14lYQe06/tudf65H7mVqm/a3Zf0iI
-         RUpzEgxA+l4lbFDD4o3z8RmDjuQcYu1/+dqapIoASK2X6bXAFq1tJsCnC/YgrzjgogYI
-         2XL11FZzf2568V9NNHGF50J57FYjE/8H5NY1QJZCNAOuTQa5EzfnoOA7vgZbQ+hmPuRm
-         0oZA==
+        d=linaro.org; s=google; t=1793882573; x=1794487373; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1Ne75eyG2UyJXHCI/3L+TP/oCHE9qyAF9KYGixpkjUI=;
+        b=Iq/RsRJ4FsBgNrS+n61bnnkncfY3sB1utDJz4yKMa8JmxtntKvltA7XUnIUJlt0kpA
+         QMFuu+8SAgTWPRaT7UvfwS5VivCUqcB/2qfMqThFc4z3B1I6eERj7as7Ylf1yWfyTzNI
+         S1ZKyvYz1AZhQFycQHFAtuireiThe7zLVuv/N51Csjb9LggQWMvcxAt8KnICGFYTQnfz
+         pDzUixOyPM9CSnPzxdbbvnG06wwxondl8WwHBFBrhyKgaIa7qyRxyOEG5J6MXx7548jK
+         uXuijpg/ZS0Y+yQPXD5R5cgaoyvTnkBblpitcCRcBrJ0GcZVY4tWysEYijBtCxFVcXok
+         h36g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793882575; x=1794487375;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ASjEmzHMS/wg9bt+8inalUSlMGb2bGBK9yrxbmuPTYE=;
-        b=b7Y79Rt//ZVUZrUu0qBZpxG8Xu1ejTX0RrpbjYpmF6osq0h060FjGkCniIdMMFKkf2
-         SHrFG95xBWSjAOB58rfx6rqnsdBa8HySnWtNbcZIXGCNoFPwmJGgtvXMXn9/iS7bIcEd
-         JZq1NtbvVQ1VVMug4Z7rROhYpHuy8C+Fii2/rApSCQz1bhLzOPJpgiJeL64WKRIB+nU3
-         F2bHrsnEPlVvvEu6I9u4gjHlhmCdx8MV3GH+DWLt+F6HbpyY+vv/avvCBzZFCUT1mqAB
-         fcbVvs0IqKy5eKVFobTZIMIUyu4SgsRXBPYbJhZ4zXrLkIB0eOQDjkDA8NGCS1aL6ehL
-         ed3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwnSOw06apO37Fjc4et61i1XGXWAIKo9igdJSoM0m9XLR+jBoCbkn16UGC8ltlqAe81d6zH1zgKlt4wBsk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z867aoJzz3xjJspblbPBycKreOBuukOXcKHwjlH8gSxbrt1Liit
-	NIN421ascIGqpEYBS1WYm++JCppu6Ipy/4QmG1zf+HYrV5O8Zp9AcTQaq2oBj6uPC3U=
-X-Gm-Gg: AYBFou20Z9nF5aczt06mpgYU4X+1ZhzO0oTKPuaUvpHAGZ5mxr8peGhVefg4/JfCsiG
-	P8kdr3SZ8nxo+5m++UUJbOA7rEykEvFU5T+riq1Gc9vIa1r7lo7TSL9MO92rnrpTrLAVRI+TLiz
-	jw+Xsoa6daoInIEB3EEj4FehJYz6OBFjvq0wZPFxJcnOP49H7SBgUJUMbo6n0UM5FWmsCO8tuPg
-	tClQpuLl8L5hFAQmadpT+pTuaa9E5LTZPcGfNbzzd4f1zHvurD1qp0AuaRRqgB2ymTF8FtttiMf
-	XwwE/YY2eYJbeYIhOMOClcRprJyhihLf0WbJ3VRPqsCXoOcic0HsJjaNCKRb9UzPC6Q4vkKSxP6
-	f9357IMksT2jM87byTvJN1p/8irXTN5rRSuzZjQoui1Es0oDPH9DSZnCMGknjidzo7SgUX5foVo
-	05ocBe89Oieg6pU0sB4VX4xlvQ/5NOjjC0Cg4BpYX/HpaWzPv9L+AJpwdgop/+rwIj4OKziGXNJ
-	U2mcRQpmcczEp1r1kHYzCq8FqtNMjyAlZ2ColIFcP/9CmEc0m5NtpPFaCxZ/OcnNLgyPjVgqQO5
-	/7Lrr9yAgW5ELiCT7PILcKL8p3/ob2HwNXD0rJ5AlkMe
-X-Received: by 2002:a05:600c:698d:b0:4a1:d97e:cd60 with SMTP id 5b1f17b1804b1-4ac185bd1e2mr418515995e9.16.1793882574901;
-        Thu, 05 Nov 2026 04:42:54 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793882573; x=1794487373;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1Ne75eyG2UyJXHCI/3L+TP/oCHE9qyAF9KYGixpkjUI=;
+        b=hTfKi17sMV40aVBetgZPOodY6rbUVfLoixfidwVcXIm8A0TKjWgIsHOi9dqZ7/+2cd
+         saeY92IFxp3VaW/rjrzfy4GvdHLOYxMxXtlLV4Ej3X9w9sQGytKjbU45COxdnnuzOJKk
+         DxlWig/aymCWurznWRCmH6qKJZjpY/vW3zv/wFNIHPOd3cgYiqRjYoIxg/MhRMaoKHMT
+         1LHL1Zvzc8R7nhx+R5QMUZUbDDKKmlF8DODB82gPrgRPsuLuEvcGhmKs9fLo4DxUQW/w
+         WcARo0Wl+qQ2v9BXE2uZ2HmADriuo+++PbUwEfKtifnbEmIIrCSz6Inq9ifzNq+1KL7b
+         FpGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwr0llGjug8ginqRw46fl81qbh2kFOfbBvC1J+zleThqwvPT9IYj/O/+BH052PB9x7nXNTqFjFzIJFYSro=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6vayXVVOWjb2Qgt0hf+Ol5eL8nCsd25DCZDL2b3u+tHyQNmM0
+	Yhttgf1p80pLA2AmKlP7m8raPcL2c13sLqUqyrja2me1xhDgWCiJGWH0OnMKnVXQVVU=
+X-Gm-Gg: AYBFou0inB1A651vCWnhQacixB7w3/sCYnUyE7q9Uhk09kdO9ibnGrivWFZk/J46+cn
+	heDGOAw1TX08hnL7PKMnS+3yBkN10yHGj7yd7sGrMGyIDQN1e59An4DsjLbIVnOgpIqlHofxjch
+	GMrzUL2tXVMytWdBtc5dV4FhuD3Z347BYodr/QSjgonQtrZuQesMFDnRZHD8zwzUStghaAd4D4h
+	7fl8q7A2Ok5zYEpUMIo4LjgrYfueFq4COP5/Ipi+bUFMBgHgsgPy/OQCpGoCHdxsvEyFNVM/0BD
+	cfNu/gJ2n80Fnpg602Jny78I845ZYCYGW4zaN9FhjqcUhVjAlbaVvJdMgh2hbPXwaIAorzJnDHO
+	kqEvFCuQRk8XGLm7+QDO/+hHZT5/5/75MoHG9FeNzxrS9zAzpDqaVY4ux7GVQ+o3lHpfDHT/z7Q
+	h8NTjjC1G9ybpad3lqNiW+4Fsy1uI+CNi63bWDl3nYeZjlHXnNXE9TvIfv7vzU1wWFP1BqqBG9Z
+	MMqXasQUq2EG9c9xQCcoYSQ8DVgSNRC/jN0Xovk7hyyPydV4/ZuAELg34A7V8LRnFdQC2qzN2/o
+	ePCy39W0J8aOAGKVwcq8WowUthNLfPou1OqZb54jOIED
+X-Received: by 2002:a05:600c:3b88:b0:4a1:cf60:dcc3 with SMTP id 5b1f17b1804b1-4ac187a6ffcmr448518465e9.29.1793882572597;
+        Thu, 05 Nov 2026 04:42:52 -0800 (PST)
 Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57373f7f1sm73487895e9.15.2026.11.05.04.42.54
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57373f7f1sm73487895e9.15.2026.11.05.04.42.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:42:54 -0800 (PST)
+        Thu, 05 Nov 2026 04:42:52 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 05 Nov 2026 13:42:48 +0100
-Subject: [PATCH v6 3/3] iio: adc: add driver for the MAX34417 Four-Channel
+Subject: [PATCH v6 0/3] iio: adc: add support for the MAX34417 Four-Channel
  High Dynamic Range Power Accumulator
+Date: Thu, 05 Nov 2026 13:42:45 +0100
+Message-Id: <20261105-topic-sm8x50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,10 +94,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-topic-sm8x50-iio-max34417-adc-v6-3-63b4e8279633@linaro.org>
-References: <20261105-topic-sm8x50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org>
-In-Reply-To: <20261105-topic-sm8x50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAMZ57GoC/43PQW7DIBAF0KtErEs1DODYXfUeVRYYhoSqMRG4l
+ qPIdy+kUhvVC3f5pa/3Z24sUwqU2cvuxhJNIYc4lNA87Zg9meFIPLiSGQI20KHkY7wEy/O5nTX
+ wECI/m1kqJfbcOMsROmpb0FL6nhXjksiH+e6/Hb5z/uzfyY4VrY1TyGNM1/sBk6i9/25NggNXw
+ qneiN5bJV4/wmBSfI7pyOrYhI+c2uKwcJ2B0qU9em1XnPzhBIjN62ThnGxAGVIGsVtx6oHDdot
+ TlSuvGi+JOpArTv9yxdvidOHAe6NJe3R/nl2W5QvEWufUGQIAAA==
+X-Change-ID: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
 To: Jonathan Cameron <jic23@kernel.org>, 
  David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -107,28 +110,31 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Michael Hennerich <Michael.Hennerich@analog.com>
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux@analog.com
+ Neil Armstrong <neil.armstrong@linaro.org>, linux@analog.com, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Marius Cristea <marius.cristea@microchip.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=28040;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7272;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=sebI9i75SxMSxIYeelavBRy4TRbn4FOLHMP4RLhak88=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq7HnLrNPEtwiMHPCaH0rOt5GvxoAfp5dbhEfxDZjs
- C8IQQkmJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaux5ywAKCRB33NvayMhJ0S3sD/
- 0dzJwe9/NJnojgSC+21GLVlC+2TMtqT8ekn2myglaM0Tq3CSJKBZLW71J46njP7sUR/nhN0KolGjOd
- xvllbam6HH8YXz2RNFlGn/ypMa+wI7J1NzPrw7YCi71pFpGdUfaQup/hHA8RHMyll2iKnjocLSvEDi
- LtMBmDEvUYqlFhji03IkVNMWcecCaP5wC2FYnr1+65qote8irOVuUGz+YHGExA8JUMSDs0CR3vHPRg
- w2GLdRaSfW8jE9/xwbTJbQ89OjM58eM+agsvlvSf4lU/QbVU7zoxLzcUDjYLO9x7P9A1VNIPNYoIvS
- RaOpixhsI0s5tmRKH+MgG2xN8DU2vv526WwkP1WtgQJxddpyhZ3DH+7KtbDba/nGu6/Av0g+6XAV/9
- 2zI8jKMnDa99Zq3yBwcB1nCub+yIBEuLLRl2bru/WCtgmzEvfkqRNirjWqIzc7p7cBv9jHovmCnMcs
- Cnmk7ZAHlzZSehrH+zX8Cs3ldRpqq5nl9ankzeagq6XfKWOq8a8vjjP96MvRGPn5MrITLAv+hFMgwL
- 1LYO2b1mh6I4Q73V6wyE2xKN5CQdT1QamDzJWPoc+LsIoOE/OIcSPdGYpbijJXWLlsNSGLCY4h7kj5
- E1jlMWMouVQEBgqU1iQO1Y0z3444eEFqRjV6M515SWurQwzREFXHhHeXxy3g==
+ bh=LlEAGHxTmhCT5Msd7aVO4EmAR3EMf33/+99ZdmDLrbY=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq7HnKlfP9xl0hE98PNnbXKlRlkcWKbuLo0lWcBbXi
+ NLXyT22JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaux5ygAKCRB33NvayMhJ0RtpD/
+ 46dOeyJve/cyfLReO5da4Z4mHdX6/zl6GdHvnxYLnKOcMe8bDYcgwakiF5wrc0hqPVLBCM3dnRv11U
+ VaMlrBuFauKiq7JKfSKTrtPQWmITBDLvLr7MH7Gb/tWGH4NxvSUIFU2dmDXDOP218CXkso3aYjJYvO
+ MFrT0b5a0dks2qZp1yOrp+N68D2YwOF044pdGf8c1VHzBq8gu7Q659gIeO3r7rGWVyDOMvn52J9KWh
+ p+JQ8INYVj4vMGSXH8MPo2ZBgeTq5CbLmUrATwilnXe7O3ru5aycdqHMwn6U7dGhFuzQxxRgKg1k2Z
+ ghpr8rUxugKlwtaJaPdDl3QDvDnFJxhFPVT2qhmrIyfbszTDLeWfV7M2pP2Twic3pit4Y3UylM71YF
+ q7mUZDyuGNXOZ4JGewO59J39B2y//73x3RmsTmtW1gCZtMcx6s37htMrW5SJEuZLTN0w7FHBikeS8k
+ MnTdvaP2VA2Yquo9AXaJZ4hapSu5T6O3aBnY0c2T/mSyse5jl7AAusQ/XoGlYxySAcLrv4D9odlWQi
+ dMsFCqYXFYSAW0XP92VxTKm69oYxIUj7lEKbBCtdQKqAHeCZ/oHz2p9X8aQsus08gA2SWZgR+nIY2l
+ EX+Ju+kvvmLbOtCV157do2r3KiuduqxkxJ7DZz5bWalf1OKncIwBW6od3JpQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
 The MAX34417 is a specialized current and voltage monitor used to
-determine power consumption of portable systems. The driver support
-getting the channels voltage, average power, accumulated average
+determine power consumption of portable systems. The driver supports
+getting the channels voltage, average power and accumulated average
 power and energy over an I2C/SMBUS serial interface.
 
 The MAX34417 datasheet only specified on how to calculate the
@@ -146,899 +152,152 @@ to permit reading individual channels we must accumulate the
 other channels in the driver when Continuous Accumulation Mode
 is enabled.
 
+The get_unaligned_be56() helper is added since we effectly
+get an unaligned 56bit value from the HW.
+
+While Analog Devices originally provided an HWMON driver for this
+IC, using IIO makes much more sense because it provides
+much more flexibility to support getting the power values
+and will make it easier to support trigger to dump all
+channels in a single shot and then support the Bulk Update
+feature to update all MAX34417 on the same bus via the
+trigger mechanism.
+
+The v3 implementation has been completely revised since
+v1/v2 to better match the capabilities of the MAX34417 and
+allow getting accumulated Energy plus provide single
+channel read without loosing other channels accumulations.
+
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/iio/adc/Kconfig    |  11 +
- drivers/iio/adc/Makefile   |   1 +
- drivers/iio/adc/max34417.c | 845 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 857 insertions(+)
+Changes in v6:
+- Fixed sashiko comments
+  - Fixed the binding example indentation
+  - Added a timestamp to make sure we don't call UPDATE in less than 1ms
+  - Switched ENERGY to return Joules instead of mJ, simplifying the scale formlula and use IIO_VAL_FRACTIONAL_LOG2
+- Dropped using SMM and using the default mode, simplifies the process for same result
+- Added software overflow check
+- Switch to s64/s32 everywhere to make sure we don't mess the sign since we return signed int values
+- Added readable_noinc_reg to mark the data regs as noinc
+- Added explicit comments on the OVF check, UPDATE sequencing and byte0 content
+- Dropped the channel type in the channel label
+- Moved the DT channel probe into a separate function
+- Link to v5: https://patch.msgid.link/20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a802d8ee4dd9..b7d66dffdb89 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1144,6 +1144,17 @@ config MAX34408
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called max34408.
- 
-+config MAX34417
-+	tristate "Maxim MAX34417 ADC driver"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say yes here to build ADC support for Maxim MAX34417 Four-Channel High
-+	  Dynamic Range Power Accumulator.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called max34417.
-+
- config MAX40080
- 	tristate "Analog Devices MAX40080 Current Sense Amplifier"
- 	depends on I2C
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 9e82c21dbd37..26ddf3828fe4 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -97,6 +97,7 @@ obj-$(CONFIG_MAX1241) += max1241.o
- obj-$(CONFIG_MAX1363) += max1363.o
- obj-$(CONFIG_MAX14001) += max14001.o
- obj-$(CONFIG_MAX34408) += max34408.o
-+obj-$(CONFIG_MAX34417) += max34417.o
- obj-$(CONFIG_MAX40080) += max40080.o
- obj-$(CONFIG_MAX77541_ADC) += max77541-adc.o
- obj-$(CONFIG_MAX9611) += max9611.o
-diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
-new file mode 100644
-index 000000000000..f12d0e8ef1a6
---- /dev/null
-+++ b/drivers/iio/adc/max34417.c
-@@ -0,0 +1,845 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IIO driver for Analog Devices MAX34417 ADC, 4-Channels High Dynamic Range Power Accumulator
-+ *
-+ * Datasheet: https://www.analog.com/en/products/max34417.html
-+ *
-+ * TODO: Slow Mode, Park Feature, Bulk Update, Perr_Verr Correction
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/iio/iio.h>
-+#include <linux/init.h>
-+#include <linux/ktime.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/sysfs.h>
-+#include <linux/unaligned.h>
-+#include <linux/units.h>
-+
-+#define MAX34417_UPDATE_REG		0x0
-+#define MAX34417_CONTROL_REG		0x1
-+#define MAX34417_ACC_COUNT_REG		0x2
-+
-+#define MAX34417_PWR_ACC_1_REG		0x3
-+#define MAX34417_PWR_ACC_2_REG		0x4
-+#define MAX34417_PWR_ACC_3_REG		0x5
-+#define MAX34417_PWR_ACC_4_REG		0x6
-+
-+#define MAX34417_V_CH1_REG		0x7
-+#define MAX34417_V_CH2_REG		0x8
-+#define MAX34417_V_CH3_REG		0x9
-+#define MAX34417_V_CH4_REG		0xa
-+
-+#define MAX34417_DID_REG		0xf
-+
-+#define MAX34417_BULK_POWER_READOUT_REG		0x10
-+#define MAX34417_BULK_VOLTAGE_READOUT_REG	0x11
-+
-+#define MAX34417_BULK_UPDATE_ADDRESS	0x2c
-+#define MAX34417_BULK_UPDATE_REG	0x0
-+
-+/* Bit masks for control register */
-+#define MAX34417_CONTROL_OVF		BIT(0)
-+#define MAX34417_CONTROL_SLOW		BIT(1)
-+#define MAX34417_CONTROL_PARK0		BIT(2)
-+#define MAX34417_CONTROL_PARK1		BIT(3)
-+#define MAX34417_CONTROL_PARK_EN	BIT(4)
-+#define MAX34417_CONTROL_SMM		BIT(5)
-+#define MAX34417_CONTROL_CAM		BIT(6)
-+#define MAX34417_CONTROL_MODE		BIT(7)
-+
-+#define MAX34417_ACC_COUNT_READ_LENGTH	4
-+#define MAX34417_ACC_COUNT_READ_OFFSET	1
-+
-+#define MAX34417_POWER_READ_LENGTH	8
-+#define MAX34417_POWER_READ_OFFSET	1
-+
-+#define MAX34417_VOLTAGE_READ_LENGTH	3
-+#define MAX34417_VOLTAGE_READ_OFFSET	1
-+
-+#define MAX34417_MIN_RSENSE		(1 * MILLI) /* 1000 microOhm */
-+#define MAX34417_MAX_RSENSE		(100 * MILLI) /* 100000 microOhm */
-+#define MAX34417_DEFAULT_RSENSE		(1 * MILLI) /* 1000 microOhm */
-+
-+#define MAX34417_PWR_CORRECTION_SCALE		24
-+#define MAX34417_PWR_AVG_FULL_SCALE_BITS	30
-+
-+#define MAX34417_VOLTAGE_CORRECTION_SCALE	24
-+#define MAX34417_VOLTAGE_FULL_SCALE_BITS	14
-+
-+/* TODO implement IIO_CHAN_INFO_SAMP_FREQ for slow mode */
-+#define MAX34417_SLOW_SPS_BIT			3 /* 8 SPS */
-+#define MAX34417_FAST_SPS_BIT			10 /* 1024 SPS */
-+#define MAX34417_FAST_SPS_CAM			1536 /* 1.5 * 1024 SPS */
-+
-+#define MAX34417_CHANNEL_COUNT			4
-+
-+/**
-+ * struct max34417_data - MAX34417 specific data.
-+ * @indio_dev:  IIO Device.
-+ * @regmap:	Device register map.
-+ * @lock:	Lock for protecting access to device hardware registers, mostly
-+ *		for reading common accumulator count and control register.
-+ * @input_correction:	Correction based on the Rsense value from channel nodes.
-+ * @input_label:	Channel label from channel nodes.
-+ * @acc_power:		Saved power accumulator for each channel when in CAM mode.
-+ * @acc_count:		Saved counter for each channel when in CAM mode.
-+ * @overflow:		Indicates if a channel saved data has overflowed.
-+ * @last_update:	Timestamp of the last UPDATE call in CAM mode.
-+ * @cam_mode:		State of the Continuous Accumulate Mode feature.
-+ */
-+struct max34417_data {
-+	struct iio_dev *indio_dev;
-+	struct regmap *regmap;
-+	struct mutex lock;
-+	u32 input_correction[MAX34417_CHANNEL_COUNT];
-+	const char *input_label[MAX34417_CHANNEL_COUNT];
-+	s64 acc_power[MAX34417_CHANNEL_COUNT];
-+	s64 acc_count[MAX34417_CHANNEL_COUNT];
-+	bool overflow[MAX34417_CHANNEL_COUNT];
-+	ktime_t last_update;
-+	bool cam_mode;
-+};
-+
-+static bool max34417_writeable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case MAX34417_UPDATE_REG:
-+	case MAX34417_CONTROL_REG:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool max34417_readable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case MAX34417_UPDATE_REG:
-+		return false;
-+	default:
-+		return true;
-+	}
-+}
-+
-+static bool max34417_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case MAX34417_DID_REG:
-+		return false;
-+	/* MAX34417_CONTROL_REG field OVF is volatile */
-+	case MAX34417_CONTROL_REG:
-+	default:
-+		return true;
-+	}
-+}
-+
-+static bool max34417_readable_noinc_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case MAX34417_UPDATE_REG:
-+	case MAX34417_CONTROL_REG:
-+	case MAX34417_DID_REG:
-+		return false;
-+	default:
-+		return true;
-+	}
-+}
-+
-+static const struct regmap_config max34417_regmap_config = {
-+	.reg_bits	= 8,
-+	.val_bits	= 8,
-+	.max_register	= MAX34417_BULK_VOLTAGE_READOUT_REG,
-+	.writeable_reg	= max34417_writeable_reg,
-+	.readable_reg	= max34417_readable_reg,
-+	.volatile_reg	= max34417_volatile_reg,
-+	/*
-+	 * While the DATA registers are not FIFOs, each register
-+	 * type has a different byte count and requires a
-+	 * Block Read transaction to read the value
-+	 */
-+	.readable_noinc_reg = max34417_readable_noinc_reg,
-+	/* No cache since the only non-volatile register is read-only */
-+};
-+
-+#define MAX34417_CHANNEL(_index, _v_address, _power_address)	\
-+	{							\
-+		.type = IIO_VOLTAGE,				\
-+		.info_mask_separate =				\
-+			BIT(IIO_CHAN_INFO_RAW) |		\
-+			BIT(IIO_CHAN_INFO_SCALE),		\
-+		.channel = (_index),				\
-+		.address = (_v_address),			\
-+		.indexed = 1,					\
-+	},							\
-+	{							\
-+		.type = IIO_POWER,				\
-+		.info_mask_separate =				\
-+			BIT(IIO_CHAN_INFO_RAW) |		\
-+			BIT(IIO_CHAN_INFO_AVERAGE_RAW) |	\
-+			BIT(IIO_CHAN_INFO_SCALE),		\
-+		.channel = (_index),				\
-+		.address = (_power_address),			\
-+		.indexed = 1,					\
-+	},							\
-+	{							\
-+		.type = IIO_ENERGY,				\
-+		.info_mask_separate =				\
-+			BIT(IIO_CHAN_INFO_RAW) |		\
-+			BIT(IIO_CHAN_INFO_SCALE),		\
-+		.info_mask_shared_by_type =			\
-+			BIT(IIO_CHAN_INFO_ENABLE),		\
-+		.channel = (_index),				\
-+		.address = (_power_address),			\
-+		.indexed = 1,					\
-+	}
-+
-+static const struct iio_chan_spec max34417_channels[] = {
-+	MAX34417_CHANNEL(0, MAX34417_V_CH1_REG, MAX34417_PWR_ACC_1_REG),
-+	MAX34417_CHANNEL(1, MAX34417_V_CH2_REG, MAX34417_PWR_ACC_2_REG),
-+	MAX34417_CHANNEL(2, MAX34417_V_CH3_REG, MAX34417_PWR_ACC_3_REG),
-+	MAX34417_CHANNEL(3, MAX34417_V_CH4_REG, MAX34417_PWR_ACC_4_REG),
-+};
-+
-+/* TODO Implement trigger to update accumulator once and get all channels at once */
-+
-+static int max34417_read_acc_count(struct max34417_data *max34417, u32 *acc_count)
-+{
-+	u8 buf[MAX34417_ACC_COUNT_READ_LENGTH];
-+	struct regmap *map = max34417->regmap;
-+	int rc;
-+
-+	rc = regmap_noinc_read(map, MAX34417_ACC_COUNT_REG, &buf, sizeof(buf));
-+	if (rc)
-+		return rc;
-+
-+	/* Ignore first byte which contains the Byte Count */
-+	*acc_count = get_unaligned_be24(&buf[MAX34417_ACC_COUNT_READ_OFFSET]);
-+
-+	return 0;
-+}
-+
-+static int max34417_read_acc_power(struct max34417_data *max34417, unsigned int address,
-+				   s64 *acc_power)
-+{
-+	struct regmap *map = max34417->regmap;
-+	u8 buf[MAX34417_POWER_READ_LENGTH];
-+	int rc;
-+
-+	rc = regmap_noinc_read(map, address, &buf, sizeof(buf));
-+	if (rc)
-+		return rc;
-+
-+	/* Ignore first byte which contains the Byte Count */
-+	*acc_power = get_unaligned_be56(&buf[MAX34417_POWER_READ_OFFSET]);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Check the OVF status bit indicating if one of the channels
-+ * has reached overflow, meaning one of the accumulators has
-+ * saturated and the MAX34417 stopped measuring.
-+ * The registers contains valid measurements, not wrapped,
-+ * and were already added to the local context accumulators.
-+ * The OVF bit is required to be cleared followed by an UPDATE
-+ * command to resume the accumulation mode sequence.
-+ */
-+static int max34417_check_ovf(struct max34417_data *max34417)
-+{
-+	struct regmap *map = max34417->regmap;
-+	u32 control;
-+	int rc;
-+
-+	rc = regmap_read(map, MAX34417_CONTROL_REG, &control);
-+	if (rc)
-+		return rc;
-+
-+	if (!(control & MAX34417_CONTROL_OVF))
-+		return 0;
-+
-+	rc = regmap_clear_bits(map, MAX34417_CONTROL_REG,
-+			       MAX34417_CONTROL_OVF);
-+	if (rc)
-+		return rc;
-+
-+	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+	if (rc)
-+		return rc;
-+
-+	/* Save the timestamp for the next read */
-+	max34417->last_update = ktime_get();
-+
-+	return 0;
-+}
-+
-+/*
-+ * Save all power accumulators and counter after each UPDATE command
-+ * since it will reset the internal registers for ALL channels,
-+ * so in order to not loose any captured data we retrieve all registers
-+ * and accumulate them in the context variables.
-+ * When user gets either power or energy, those variables content
-+ * will be returned and zero-ed to return the power accumulated
-+ * since last read for each separate channel.
-+ */
-+static int max34417_save_accumulators(struct max34417_data *max34417)
-+{
-+	s64 acc_power;
-+	s32 acc_count;
-+	int rc;
-+
-+	rc = max34417_read_acc_count(max34417, &acc_count);
-+	if (rc)
-+		return rc;
-+
-+	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++) {
-+		rc = max34417_read_acc_power(max34417, MAX34417_PWR_ACC_1_REG + i,
-+					     &acc_power);
-+		if (rc)
-+			return rc;
-+
-+		/* Checked for overflow on local accumulators */
-+		if (check_add_overflow(max34417->acc_power[i], acc_power,
-+				       &max34417->acc_power[i]) ||
-+		    check_add_overflow(max34417->acc_count[i], acc_count,
-+				       &max34417->acc_count[i])) {
-+			max34417->overflow[i] = true;
-+		}
-+	}
-+
-+	/* Check for overflow */
-+	return max34417_check_ovf(max34417);
-+}
-+
-+static int max34417_read_voltage(struct max34417_data *max34417,
-+				 const struct iio_chan_spec *chan, int *val)
-+{
-+	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
-+	struct regmap *map = max34417->regmap;
-+	u8 buf[MAX34417_VOLTAGE_READ_LENGTH];
-+	int rc;
-+
-+	/* Sleep up to 1msec to make sure we have a measurement cycle done */
-+	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
-+		fsleep((1 * USEC_PER_MSEC) - delta_us);
-+
-+	/*
-+	 * When not in CAM mode, we use the default mode where each
-+	 * UPDATE command will move the current accumulated data to the
-+	 * SMbus registers, reset those accumulators and run a new
-+	 * measurement cycle.
-+	 */
-+	if (!max34417->cam_mode) {
-+		/* Reset the accumulators and perform a measurement cycle */
-+		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+		if (rc)
-+			return rc;
-+		/*
-+		 * UPDATE commands should be no less than 1msec apart for reliable
-+		 * measurements, since in Manual mode the SPS is 1kHz, we need wait
-+		 * for the measurement to finish before moving the data in the SMbus
-+		 * registers.
-+		 */
-+		fsleep(1 * USEC_PER_MSEC);
-+	}
-+
-+	/*
-+	 * Move the new UPDATE data into the SMBus read registers.
-+	 * This will also reset the accumulators, returning the
-+	 * power accumulated since the last UPDATE.
-+	 */
-+	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+	if (rc)
-+		return rc;
-+
-+	/* Save the timestamp for the next read */
-+	max34417->last_update = ktime_get();
-+
-+	if (max34417->cam_mode) {
-+
-+		/* Retrieve all channels to avoid missing data for other channels */
-+		rc = max34417_save_accumulators(max34417);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	rc = regmap_noinc_read(map, chan->address, &buf, sizeof(buf));
-+	if (rc)
-+		return rc;
-+
-+	/* Ignore first byte which contains the Byte Count & data starts at Bit 2 */
-+	*val = get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
-+
-+	return IIO_VAL_INT;
-+}
-+
-+static int max34417_read_power(struct max34417_data *max34417,
-+			       const struct iio_chan_spec *chan,
-+			       int *val, int *val2)
-+{
-+	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
-+	struct regmap *map = max34417->regmap;
-+	s64 power;
-+	int rc;
-+
-+	/* Sleep up to 1msec to make sure we have a measurement cycle done */
-+	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
-+		fsleep((1 * USEC_PER_MSEC) - delta_us);
-+
-+	/*
-+	 * When not in CAM mode, we use the default mode where each
-+	 * UPDATE command will move the current accumulated data to the
-+	 * SMbus registers, reset those accumulators and run a new
-+	 * measurement cycle.
-+	 */
-+	if (!max34417->cam_mode) {
-+		/* Reset the accumulators and perform a measurement cycle */
-+		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+		if (rc)
-+			return rc;
-+		/*
-+		 * UPDATE commands should be no less than 1msec apart for reliable
-+		 * measurements, since in Manual mode the SPS is 1kHz, we need wait
-+		 * for the measurement to finish before moving the data in the SMbus
-+		 * registers.
-+		 */
-+		fsleep(1 * USEC_PER_MSEC);
-+	}
-+
-+	/*
-+	 * Move the new UPDATE data into the SMBus read registers.
-+	 * This will also reset the accumulators, returning the
-+	 * power accumulated since the last UPDATE.
-+	 */
-+	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+	if (rc)
-+		return rc;
-+
-+	/* Save the timestamp for the next read */
-+	max34417->last_update = ktime_get();
-+
-+	/*
-+	 * Only get the accumulator counter in CAM mode, in normal mode
-+	 * we only accumulate once, so the counter is 1
-+	 */
-+	if (max34417->cam_mode) {
-+		s64 acc_count;
-+		s64 acc_power;
-+
-+		/* Retrieve all channels to avoid missing data for other channels */
-+		rc = max34417_save_accumulators(max34417);
-+		if (rc)
-+			return rc;
-+
-+		if (max34417->overflow[chan->channel]) {
-+			max34417->overflow[chan->channel] = false;
-+			max34417->acc_power[chan->channel] = 0;
-+			max34417->acc_count[chan->channel] = 0;
-+			return -EOVERFLOW;
-+		}
-+
-+		/* Get current channel power, counter and reset them */
-+		acc_power = max34417->acc_power[chan->channel];
-+		acc_count = max34417->acc_count[chan->channel];
-+		max34417->acc_power[chan->channel] = 0;
-+		max34417->acc_count[chan->channel] = 0;
-+
-+		if (acc_count == 0) {
-+			dev_warn_ratelimited(&max34417->indio_dev->dev,
-+					     "unexpected zero accumulator count\n");
-+			power = 0;
-+		} else {
-+			power = div64_s64(acc_power, acc_count);
-+		}
-+	} else {
-+		rc = max34417_read_acc_power(max34417, chan->address, &power);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	iio_val_s64_decompose(power, val, val2);
-+
-+	return IIO_VAL_INT_64;
-+}
-+
-+static int max34417_read_energy(struct max34417_data *max34417,
-+			       const struct iio_chan_spec *chan,
-+			       int *val, int *val2)
-+{
-+	struct regmap *map = max34417->regmap;
-+	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
-+	s64 acc_power;
-+	int rc;
-+
-+	/* Sleep up to 1msec to make sure we have a measurement cycle done */
-+	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
-+		fsleep((1 * USEC_PER_MSEC) - delta_us);
-+
-+	/* Move the data to the SMBus registers */
-+	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+	if (rc)
-+		return rc;
-+
-+	/* Save the timestamp for the next read */
-+	max34417->last_update = ktime_get();
-+
-+	/* Retrieve all channels to avoid missing data for other channels */
-+	rc = max34417_save_accumulators(max34417);
-+	if (rc)
-+		return rc;
-+
-+	if (max34417->overflow[chan->channel]) {
-+		max34417->overflow[chan->channel] = false;
-+		max34417->acc_power[chan->channel] = 0;
-+		max34417->acc_count[chan->channel] = 0;
-+		return -EOVERFLOW;
-+	}
-+
-+	/* Get current channel power and reset them */
-+	acc_power = max34417->acc_power[chan->channel];
-+	max34417->acc_power[chan->channel] = 0;
-+	max34417->acc_count[chan->channel] = 0;
-+
-+	iio_val_s64_decompose(acc_power, val, val2);
-+
-+	return IIO_VAL_INT_64;
-+}
-+
-+/*
-+ * The Continuous Accumulation Mode (CAM) will automatically
-+ * run measurement cycles 1536 times per second and update
-+ * the ACC_COUNT register, while in normal mode the measument
-+ * cycle is only done after an UPDATE command.
-+ * The Single Measurement Mode (SMM) is like CAM, but each
-+ * measurement cycle is triggered with an UPDATE command
-+ * but the accumulators registers are not cleared out on the
-+ * UPDATE command.
-+ */
-+static int max34417_setup_cam_mode(struct max34417_data *max34417, int val)
-+{
-+	struct regmap *map = max34417->regmap;
-+	int rc;
-+
-+	if (max34417->cam_mode && !val) {
-+		rc = regmap_clear_bits(map, MAX34417_CONTROL_REG,
-+				       MAX34417_CONTROL_CAM);
-+		if (rc)
-+			return rc;
-+
-+		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+		if (rc)
-+			return rc;
-+	} else if (!max34417->cam_mode && val) {
-+		/*
-+		 * If CAM mode must be set, the Control byte must be set to
-+		 * desired values with CAM = 0, then followed by an UPDATE
-+		 */
-+		rc = regmap_clear_bits(map, MAX34417_CONTROL_REG,
-+				       MAX34417_CONTROL_CAM);
-+		if (rc)
-+			return rc;
-+
-+		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+		if (rc)
-+			return rc;
-+
-+		rc = regmap_set_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_CAM);
-+		if (rc)
-+			return rc;
-+
-+		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+		if (rc)
-+			return rc;
-+
-+		/* Reset counters and accumulators */
-+		for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++) {
-+			max34417->acc_power[i] = 0;
-+			max34417->acc_count[i] = 0;
-+			max34417->overflow[i] = false;
-+		}
-+	}
-+
-+	/* Save the timestamp for the next read */
-+	max34417->last_update = ktime_get();
-+
-+	max34417->cam_mode = val;
-+
-+	return 0;
-+}
-+
-+static int max34417_read_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct max34417_data *max34417 = iio_priv(indio_dev);
-+
-+	guard(mutex)(&max34417->lock);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		switch (chan->type) {
-+		case IIO_VOLTAGE:
-+			return max34417_read_voltage(max34417, chan, val);
-+		case IIO_POWER:
-+			/* In default mode, we return a single measurement */
-+			if (max34417->cam_mode)
-+				return -EINVAL;
-+
-+			return max34417_read_power(max34417, chan, val, val2);
-+		case IIO_ENERGY:
-+			if (!max34417->cam_mode)
-+				return -EINVAL;
-+
-+			return max34417_read_energy(max34417, chan, val, val2);
-+		default:
-+			return -EINVAL;
-+		}
-+	case IIO_CHAN_INFO_AVERAGE_RAW:
-+		if (chan->type != IIO_POWER)
-+			return -EINVAL;
-+
-+		/* In CAM mode, we return an average measurement */
-+		if (!max34417->cam_mode)
-+			return -EINVAL;
-+
-+		return max34417_read_power(max34417, chan, val, val2);
-+	case IIO_CHAN_INFO_SCALE:
-+		switch (chan->type) {
-+		case IIO_VOLTAGE:
-+			/* Scale to mV */
-+			*val = MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
-+			*val2 = MAX34417_VOLTAGE_FULL_SCALE_BITS;
-+
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		case IIO_POWER:
-+			/*
-+			 * Scale to mW
-+			 * (1000 * (Power Accumulation / Counter) * Correction) / 2^30
-+			 */
-+			*val = max34417->input_correction[chan->channel] * MILLIWATT_PER_WATT;
-+			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS;
-+
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		case IIO_ENERGY:
-+			/*
-+			 * Scale to Joules
-+			 * P=((Power Accumulation / Counter) * Correction) / 2^30
-+			 * t=(Counter / Samples per Second)
-+			 * E=(P * t)
-+			 * Can be simplified to:
-+			 * (Power Accumulation * Correction) / (2^30 * SPS)
-+			 * But the denominator won't fit in 32bit and is not power of 2.
-+			 * But we can divide the numerator by SPS and shift both terms
-+			 * by a large power of two number and still use IIO_VAL_FRACTIONAL_LOG2
-+			 */
-+			*val = div_u64(max34417->input_correction[chan->channel] << 19,
-+				       MAX34417_FAST_SPS_CAM);
-+			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS + 19;
-+
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		default:
-+			return -EINVAL;
-+		}
-+	case IIO_CHAN_INFO_ENABLE:
-+		*val = max34417->cam_mode;
-+
-+		return IIO_VAL_INT;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max34417_write_raw(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      int val, int val2, long mask)
-+{
-+	struct max34417_data *max34417 = iio_priv(indio_dev);
-+
-+	guard(mutex)(&max34417->lock);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_ENABLE:
-+		/* Setup the CAM mode for the 4 channels */
-+		return max34417_setup_cam_mode(max34417, val);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max34417_read_label(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       char *label)
-+{
-+	struct max34417_data *max34417 = iio_priv(indio_dev);
-+	const char *input_label = max34417->input_label[chan->channel];
-+
-+	if (input_label)
-+		return sysfs_emit(label, "%s\n", input_label);
-+
-+	return sysfs_emit(label, "channel%d\n", chan->channel);
-+}
-+
-+static const struct iio_info max34417_info = {
-+	.read_raw	= max34417_read_raw,
-+	.write_raw	= max34417_write_raw,
-+	.read_label	= max34417_read_label,
-+};
-+
-+static u32 max34417_calc_input_correction(u32 rsense_uOhm)
-+{
-+	/* Derived from Table 14. Correction Factors for Various Current-Sense Resistor Values */
-+	return (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_uOhm;
-+}
-+
-+static int max34417_probe_channel_node(struct device *dev,
-+				       struct max34417_data *max34417,
-+				       struct fwnode_handle *node)
-+{
-+	u32 rsense_uOhm, index;
-+	int rc;
-+
-+	rc = fwnode_property_read_u32(node, "reg", &index);
-+	if (rc)
-+		return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
-+				     node);
-+
-+	if (index >= MAX34417_CHANNEL_COUNT)
-+		return dev_err_probe(dev, -ECHRNG, "invalid reg %d of %pfwP\n",
-+				     index, node);
-+
-+	if (fwnode_property_present(node, "label")) {
-+		rc = fwnode_property_read_string(node, "label",
-+						 &max34417->input_label[index]);
-+		if (rc)
-+			return dev_err_probe(dev, rc,
-+					     "failure reading label property of %pfwP\n",
-+					     node);
-+	}
-+
-+	if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
-+		rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
-+					      &rsense_uOhm);
-+		if (rc)
-+			return dev_err_probe(dev, rc,
-+					     "failure reading shunt property of %pfwP\n",
-+					     node);
-+
-+		if (rsense_uOhm < MAX34417_MIN_RSENSE ||
-+		    rsense_uOhm > MAX34417_MAX_RSENSE)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "invalid shunt value %d of %pfwP\n",
-+					     rsense_uOhm, node);
-+
-+		max34417->input_correction[index] =
-+			max34417_calc_input_correction(rsense_uOhm);
-+	}
-+
-+	return 0;
-+}
-+
-+static int max34417_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct max34417_data *max34417;
-+	struct iio_dev *indio_dev;
-+	struct regmap *map;
-+	int rc;
-+
-+	map = devm_regmap_init_i2c(client, &max34417_regmap_config);
-+	if (IS_ERR(map))
-+		return dev_err_probe(dev, PTR_ERR(map), "regmap_init failed\n");
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	rc = devm_regulator_get_enable(dev, "vdd");
-+	if (rc)
-+		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
-+
-+	rc = devm_regulator_get_enable(dev, "vio");
-+	if (rc)
-+		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
-+
-+	max34417 = iio_priv(indio_dev);
-+	max34417->regmap = map;
-+	max34417->indio_dev = indio_dev;
-+
-+	rc = devm_mutex_init(dev, &max34417->lock);
-+	if (rc)
-+		return rc;
-+
-+	/* Set default input correction for all channels */
-+	for (int i = 0; i < MAX34417_CHANNEL_COUNT; i++)
-+		max34417->input_correction[i] =
-+			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
-+
-+	device_for_each_child_node_scoped(dev, node) {
-+		rc = max34417_probe_channel_node(dev, max34417, node);
-+		if (rc)
-+			return rc;
-+	}
-+
-+	indio_dev->channels = max34417_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
-+	indio_dev->name = "max34417";
-+	indio_dev->info = &max34417_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	/*
-+	 * Reset mode and set accumulator width to Wide
-+	 *
-+	 * The MAX34407 variant could be supported by setting the
-+	 * MAX34417_CONTROL_MODE field to 0 and handling a smaller
-+	 * accumulator width.
-+	 */
-+	rc = regmap_write(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_MODE);
-+	if (rc)
-+		return dev_err_probe(dev, rc, "Error writing control register\n");
-+
-+	/* Reset the accumulators */
-+	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-+	if (rc)
-+		return rc;
-+
-+	/* Save the timestamp for the next read */
-+	max34417->last_update = ktime_get();
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct of_device_id max34417_of_match[] = {
-+	{ .compatible = "adi,max34417" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, max34417_of_match);
-+
-+static const struct i2c_device_id max34417_id[] = {
-+	{ .name = "max34417" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, max34417_id);
-+
-+static struct i2c_driver max34417_driver = {
-+	.driver = {
-+		.name   = "max34417",
-+		.of_match_table = max34417_of_match,
-+	},
-+	.probe = max34417_probe,
-+	.id_table = max34417_id,
-+};
-+module_i2c_driver(max34417_driver);
-+
-+MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
-+MODULE_DESCRIPTION("Analog Devices MAX34417 ADC driver");
-+MODULE_LICENSE("GPL");
+Changes in v5:
+- Collected review tags
+- Fixed patch 2 commit message
+- Added sysfs.h include
+- Finished all struct max34417_data with .
+- Added explicit MAX34417_CONTROL_REG: to is_volatile callback
+- Added local *map to all functions, shortening regmap calls
+- Explicited the 1ms UPDATE delay for manual mode
+- Simplified max34417_check_ovf logic
+- Simplified acc_count == 0 logic
+- Used iio_val_s64_decompose
+- Used regmap_update_bits to compine regmap clear and set
+- Added switch instead of if/else for IIO_CHAN_INFO_SCALE
+- Changed max34417_calc_input_correction comment and return type
+- Switch to rsense_uOhm
+- Return -ECHRNG for invalide channel count
+- Link to v4: https://patch.msgid.link/20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org
 
--- 
-2.34.1
+Changes in v4:
+- Fix bindings with Conor review on v2
+ - Rename to Analog Devices and "adi" prefix
+ - Move reg before #*-cells
+ - Remove "label: true"
+ - Make supplies required
+ - Update DT example
+- Rebase on linux-next
+- Fix RSENSE defines
+- Drop dev from max34417_data struct
+- Move acc_count to u64
+- Add regmap writeable/readable/volatile callbacks
+- Use regmap_set/clear_bits() when needed
+- Fix MAX34417_CHANNEL layout
+- Drop useless comments
+- Move i in the "for (int i...") and use i++ instead of ++i
+- Move mutex guard into iio callbacks
+- Use lower_32_bits/upper_32_bits instead of FIELD_GET()
+- Use div_u64() when returning the Power scale to make sure it runs on 32bit systems
+- Reorganize the get_label() callback
+- Use devm_mutex_init
+- Drop fwnode_property_present(node, "reg") before getting reg
+- Rename rsense variable to rsense_microOhm
+- Drop !rsense test
+- Register iio device after device init
+- Add comment about supporting MAX34407
+- Link to v3: https://patch.msgid.link/20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org
+
+Changes in v3:
+- Implement Continuous Accumulate Mode and default to single-shot mode
+- Fix includes
+- Better define Rsense and default rsensd in driver & bindings
+- Define all read length and offsets
+- Define the SPS bits
+- Fix comments first letters
+- Fix max register
+- Add ENERGY channel with shared enable for Continuous Accumulate Mode
+- By default reset the MAX34417 counters for each readout to do a single-shot measure
+- Handle zero counter
+- Add get_unaligned_be56
+- Use get_unaligned_* macros
+- Better handle the DT properties and report errors
+- Reset the MAX34417 at the end of probe
+- Link to v2: https://patch.msgid.link/20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org
+
+Changes in v2:
+- switch to shunt-resistor-micro-ohms no more required
+- removed gpio.h from example
+- Fixed max34417->MAX34417 in Kconfig and comments
+- Added missing includes and remove unneeded
+- Fixed typos in comments
+- Switched to fsleep()
+- Better aligned max34417_read_power declararation
+- Handled 0 acc_count
+- Switched to GENMASK_ULL() for 32bits systems
+- Added missing empty lines
+- Moved the input correction into a helper
+- Set default input correction for all channels
+- Switched to dev_err_probe() to return from probe
+- Switched to device_for_each_child_node_scoped()
+- Handled invalid shunt-resistor-micro-ohms value
+- Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux@analog.com
+
+---
+Marius Cristea (1):
+      unaligned: introduce be56 unaligned accessors
+
+Neil Armstrong (2):
+      dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+      iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+
+ .../devicetree/bindings/iio/adc/adi,max34417.yaml  | 103 +++
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/max34417.c                         | 845 +++++++++++++++++++++
+ include/linux/unaligned.h                          |  27 +
+ 5 files changed, 987 insertions(+)
+---
+base-commit: 54729cd85a044e8e2ee3f73ddda2d7c2fb39e199
+change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
