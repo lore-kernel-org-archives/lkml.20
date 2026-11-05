@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793843122;
-	b=tqQZOYE66b9ORffW6qKiqY+iheX0939LVk5VA2g7G+tPFrVC6MeLUPqXgJzad4hdZbK1
-	 DYoKTRhJooXIN+1v/tWo3JWXDYIqYqyrOW3iK49Vmo5TvfXswb1L5XdDwIfEx10tJktvL
-	 ab7gcHm8VYGaq1WO8yz7fItffAzYuf+WvZPkDrN/W7Pu6JDDbtduB/cLbhK4rNZzipFaD
-	 Y5nbHo7sn3ZoQ0W0WpPRtd2WmUz/rel7MW7jtKZNvtWbG0VkiayabRVoPUNXAjDLbaD+A
-	 BFuO+PAeyhXtw4XBjmDNYw5zQb76HDidtEDcnuu4j7hK/s0KlSKGjmcEmmg+e6SxL2Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843122;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793843151;
+	b=shTLzTV0dF4ogGeMVIL93N5JBbA9RSOAc+A6Hys+SXFb2D0n8gbd6VyK8laAYqhZeceK
+	 IfI4zPnle4SN5oTu3faEcxrPm2wyqpEwP0qRD05PWyiv6o6USVntdFaYWw1TD3r7DbXeQ
+	 j89Qq53vzCd4HLEdfnEBjPAABm/QQ+hQuNNL0lXjoJFmIS5xmfziOm98F0xO7qFXMGVL7
+	 gY5ToxC/kq4UJbx1arv/ZzqJfXo2+Gq5VHGDQiXA6PyvVEvdz064IUTrBDjfZvr8NaDsQ
+	 Ip5G9vJ7+9rVxWOGUfbI5zT0vAnev8DiU7VhWUkP/YOpMblIua0TEPxbHTPulS43Ejw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843151;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Qz2KgSvxs/QubGSn6ctkR3NuYfESAeObXcUr3tbspdM=;
-	b=QVCp7ncA13V4N7Rc73BINaXg8GbDpY48GNd1w/4/ehOJyTz1E7dmAU2z0/PV+cK+5gyK
-	 TNTKtCdxS/cg+tZXouyc4JveyApXgwdmNrnCdXQIKnyAm7BgfQlXOXrOMF+AWCFoBZBpG
-	 Ap/Djgt6P++xeqXoItY6UEf2S1+yw6DU2FV6ZaGjXD3fxdYff0e9MijVmPX9/o3KdDNN8
-	 lfRnsSAjlXttI0Oks0a6i5NoIfDSRQpQeWz5rpEd7uBwDuF2YqE4ZJcaViWx9hl0fqfVk
-	 tg/Jpja1YIGe8oahiambdUp7NAU0IBsOKYRL9aNFz3B0YUzCMllQ25BGUprOydh6RUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=by21JAX5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+	bh=R1jIRfB3ox1HJm5a/fEcBWWhlLh4Dq97+JTDcDcZ0rw=;
+	b=5CIiwoKSriNL+nGnbFLLfPniU70K6QGHnMNq2J3Oi8JdE3gRll5Mq3KIgiGfqnRKc+L7
+	 KLypP0by5cI+tNgFS/ZqG/gqfnwou0+ZckrS7VivonMfCtfKeGwNqDPDw1tSM4n0At6Ic
+	 wXqiljfSoZJKToABYOeU019qlIth6T1GfJk5gY4iVVtPzUuixx5+kVLc36r/+fEhwKCtj
+	 RMCRfsr+X+Zbu53CAQtYtUfC1Ns2ivQvRo/TtgYIkDEBz254D1xhLArzaqqqrdd3SjOdx
+	 mYi7QiYt1WU58V6qnqJ1KW/85ZxKF1cdb8OLGtU1gFJz0dVT5vVXJ2p9B7++JycYp7A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AD4606A32D;
-	Thu,  5 Nov 2026 01:45:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52AD4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=by21JAX5
-ARC-Seal: i=1; a=rsa-sha256; t=1793843096; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=Yuofk1O36nbwUk0teyUxBHcwFtB6oYbW8laHO1bPwqKjuaUVxh2pNk2cVRd6reWo2zokw7ekbkYk7qPOcBooOIq8RGAFinerkkj/EfmgsW9z70wMYNWznUIrZuY2OBIfiQfzpfEJQdmRU0X0e/4zPaI92fEqGq/CAfZmw8zBBNM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793843096; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Qz2KgSvxs/QubGSn6ctkR3NuYfESAeObXcUr3tbspdM=; 
-	b=cAqXRxjmIvDH9BHAkZOnilJaKMfbXcp+dX49vSKTW+vO6w8mErwWQseqw9YeV33p1StRXSVYMbce7q2+rRuGn2FYJpL68+OTG51tzfrP/L68GQBNbPf8MYSf+Q8nXLEIt7Dc73N94S+GCQzTgba/iHXgqY+oP4YFhfCRgW3h8dk=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=by21JAX5eS17IyPINnm3VUQLZdKacWLqLKfQqeNoPP+8mDh++WkkOA5DPxoDEywi2BQ1NgJXLJHkXLgv4NVRPbZ8hI1cJLWEgQcOBhn2J/qblujzvpAjDH/ehWy//ktm9ZEMGuuaI9akOSWIgfgOpygsDkfjvpuyuuqyXN7dKR8=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=Qz2KgSvxs/QubGSn6ctkR3NuYfESAeObXcUr3tbspdM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793843093919792.6849770156605;
-	Thu, 5 Nov 2026 02:44:53 +0100 (CET)
-Date: Thu, 05 Nov 2026 03:44:52 +0200
-From: Igor Velkov <iav@iav.lv>
-To: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-Cc: iav@iav.lv, shawn.lin@rock-chips.com, lpieralisi@kernel.org,
- kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- heiko@sntech.de, dlemoal@kernel.org, devicetree@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/2] PCI: rockchip-host: Make the PERST# inactive delay configurable
-Message-ID: <20261105-ehbello-perst-v5-tested-by-1@iav.lv>
-In-Reply-To: <20261104215848.2087944-1-ehbello@gmail.com>
-References: <20261104215848.2087944-1-ehbello@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96F7606A326;
+	Thu,  5 Nov 2026 01:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C96F7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 9cc8c31ed8ba11f19a56ed5b684f684d-20261105
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:180433c3-3af0-485a-a815-f7c2618ea917,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:866045d403429875fc3256654106fb97,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 9cc8c31ed8ba11f19a56ed5b684f684d-20261105
+X-User: zhangheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1407439296; Thu, 05 Nov 2026 09:45:43 +0800
+From: Zhang Heng <zhangheng@kylinos.cn>
+To: tiwai@suse.com
+Cc: robin.traftec@gmail.com,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	Zhang Heng <zhangheng@kylinos.cn>
+Subject: [PATCH] ALSA: hda: cs35l41: Add support for HP OmniBook 7 Laptop 16-ay0xxx
+Date: Thu,  5 Nov 2026 09:45:35 +0800
+Message-Id: <20261105014535.47907-1-zhangheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,20 +70,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Tested on Helios64 (JMB585 behind a GPIO-switched slot supply) and
-ROCK Pi 4A (empty slot and a WD SN770 NVMe), 7.3.1 with the series
-backported, one s2idle cycle per boot:
+Add a configuration entry for the HP OmniBook 7 Laptop 16-ay0xxx,
+which uses the HDA subsystem ID 103C8E13.
 
-  Helios64, no property:          resume 20/20, abort in rockchip_pcie_rd_conf() at probe on 1 of 21 boots
-  Helios64, <10> probe and s2r:   resume 20/20, the same abort on 1 of 21 boots
-  ROCK Pi 4A, empty slot, none/<10>:  10/10, 10/10
-  ROCK Pi 4A, SN770, none/<10>:       10/10, 10/10, NVMe readable after each resume
+The laptop has a malformed _DSD which causes the cirrus,dev-index
+property to fail to parse, so it needs to be supported using the
+configuration table.
 
-The default behaves as before, and 10 ms changes nothing here; the
-slow JMB585 link on Helios64 shows up at the same rate with either
-pulse width.
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222202
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+---
+ sound/hda/codecs/side-codecs/cs35l41_hda_property.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Tested-by: Igor Velkov <iav@iav.lv>
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+index c50c7e689533..958432058285 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
+@@ -85,6 +85,7 @@ static const struct cs35l41_config cs35l41_config_table[] = {
+ 	{ "103C8C51", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4100, 24 },
+ 	{ "103C8CDD", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4100, 24 },
+ 	{ "103C8CDE", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 3900, 24 },
++	{ "103C8E13", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4500, 24 },
+ 	{ "103C8E60", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 4500, 24 },
+ 	{ "103C8F07", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 1000, 3900, 24 },
+ 	{ "104312AF", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
+@@ -543,6 +544,7 @@ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+ 	{ "CSC3551", "103C8C6A", hp_i2c_int_2amp_dual_spkid },
+ 	{ "CSC3551", "103C8CDD", generic_dsd_config },
+ 	{ "CSC3551", "103C8CDE", generic_dsd_config },
++	{ "CSC3551", "103C8E13", generic_dsd_config },
+ 	{ "CSC3551", "103C8E60", generic_dsd_config },
+ 	{ "CSC3551", "103C8F07", generic_dsd_config },
+ 	{ "CSC3551", "104312AF", generic_dsd_config },
+-- 
+2.25.1
+
