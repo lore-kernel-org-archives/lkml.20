@@ -1,72 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888570;
-	b=J47gh3ifad832HfSJTMqyhlaNaqdmQwsYGzHDNM5nLveOiPuXDVNZuV7u/U2hbn0SRQl
-	 IgcQOfUKC9px/NL2NHdvyHB3zcfqfdhwmV87YYmOms54E/rrFHuxmhpKcIF2QCccloWDW
-	 MQceuF1SCD+7YH3/MG/l97hcdKlSc23UBz9UyjdMUlRWCwsnTAR5jG8rIAmI+tMiv4mOT
-	 nwBxXe7+diuMtReU1j4dfulTnm3cdqcj6j2W0Se1g55Qxp5zdd7Hx/qgM6KTcyO0Lt7v3
-	 75oRjiPJKorX+tG1wmZjI5fREAqhBxJi01gAJVwp2IEaWa5ddvP0bN4iv8GV+I2iulQ==
+	t=1793888583;
+	b=HE1Fj0EjRlkZJhE6zapZVeNPKpKrgnwQufDNyT6Io3qGcA5aNsFyzqKIxoPvePhqcDwh
+	 6urO93Ts4thHtJQtB54tkRxDnR3iJgbRkx61A6Gt4+M4HidcjIff5RN1QeyuM4pQ/A4hT
+	 mH4BkifTRh20WAL5aplxx5OJbLYHsGcnnep4NLZAYOAQz/We7JQEdwmUjWo5WiQ9QFP37
+	 JF+PuZB0IrMg2ToaRvMbdpTenSyoGRpdF8vqVZrdMJtj5B0460Xfrc17iDnafyxFNrzh5
+	 92M74LFqwET3OcToh/+2YooluPuZna8a2HyQSr38+jD1K3EnyQd2unrZoGZlaoamJlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888570;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=R9DxwFLYIJqDVvBQ1nVU7YyZL8dG/41aua4Y+2jjDZQ=;
-	b=Q1utMDFUww/hK6w+NkySUuv0q5wicR0eMxtF6ull5DG0SCpRTWRxfGldzT1EUSPBADQK
-	 0iTkenZz0KNvVR//NmpWv93UzhRZMdcfK5TTItPl1H0qMFY10OFdnSXoRSFs1eH466RDe
-	 x9mWoiBxEhMZZ7qJgySIra5BlGMvLSCvwYLDqTomLGz+3W4qu/YM/uPu469zyEJGGLH2d
-	 h6TxKxp4qBW2LTEOKV6hCyKT+zwG5WJQ8uhjveXQCTDPCU2KFDYHtKPfQ1V3zipEoNpBH
-	 /z0JVHHo1i2aDH01TMknVa+ci5xACoKfwAtFlOlpDGPr78JZiwyHDZ8d00mNejVugjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888583;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=FN370TWSiQQTuqW2+R3xWeEzcFS3wozY9CEFOHp4uTU=;
+	b=3/dRJ2UcguQMMXh7WXjJfK6Um6JyOqgHOnC0rWGHUe+rDHEvWd0W+dA4oDe18gDsxxRb
+	 kdO9LBzr8ZpNl5uKRjiKvGffDDmPzPMBonngMH6j/XebSuPBxw+lSg+mUC3buv5HBx1I/
+	 qAuwjGGh8pxos30HgJaNIREDu10SD44EkZ7SNa5JHLY4Urq+ulCZXh/CVidNFN7xVrzxa
+	 EUJxZ8cGRU7vosAhqcDuWJIJ6ZXhwdXk8R1zxYHEdP/TRt7sk6Uz4MfwAdkxDFoecVIWs
+	 FOpVIb1dk72lMBcVg9xMlRLP0ATxmSmJDx3M8NjrYTd5Vc30d3qotHJO7P04VVecaSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=gEfQR5+7;
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oG0XqXEM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78CCE606A32C
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:22:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78CCE606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386B9606A32E;
+	Thu,  5 Nov 2026 14:23:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=gEfQR5+7
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id OxQAxoYQ9OOJnOyMaxa1iC; Thu, 05 Nov 2026 14:22:48 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id OyMVxOW9dq5xIOyMVxKMKg; Thu, 05 Nov 2026 14:22:43 +0000
-X-Authority-Analysis: v=2.4 cv=RayQC0tv c=1 sm=1 tr=0 ts=6aec9138
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=R9DxwFLYIJqDVvBQ1nVU7YyZL8dG/41aua4Y+2jjDZQ=; b=gEfQR5+7JtwGZMQ01+H7dCX+lb
-	SqmGldBJwfL0sxfAnBe9nv2mt3a5PyeB9NhzDlyjUz+OaiLJgpwRe9GHg7UWns4IMybGEBBG0EmKf
-	JnhZzOF+31+Uh4uAv1YoY1ODrRQbmJdcN9NrK8zjUK/Lh/c4Q862lsGtOnOJSwrKNQTtv3FFtUgdi
-	FH30eVw5jYMZN0xp/zRCO+EbvBSEb4C0utT10ESiB/RThAmsE7oOIUg0mqwa9t+CmW62zM/kk+rjQ
-	AEwbORZf613yBV+GdrrG9L20mtjk22oBBT2BSRsDw2dPrF0x2mjVhAbYzPMbAV0TQ2+3bw0tCRF9c
-	WycX47Fw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:45296 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xOyMU-00000000Xjh-1su0;
-	Thu, 05 Nov 2026 07:22:42 -0700
-Message-ID: <4fdc073d-5895-4caa-bfbd-2f29be825f5b@w6rz.net>
-Date: Thu, 5 Nov 2026 06:22:40 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oG0XqXEM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C801F000C1;
+	Thu,  5 Nov 2026 14:23:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793888582;
+	bh=FN370TWSiQQTuqW2+R3xWeEzcFS3wozY9CEFOHp4uTU=;
+	h=Date:From:To:Cc:Subject;
+	b=oG0XqXEMpWM9F9JlZCEl1WnKdYPEQWMkJdmwpwyjbWv7Mq2t3IKU9KNrYk6ZM/dbb
+	 GU7Jm2TQ7GvkUPLioIZ2Mk/4B2l3H8xPeLUlbcrP1Uzys4EhWQeVyxHY13A+UZyEeF
+	 1H4ckqL4GzWNLYwT+LEwqjwejb8k02IJYpuYOC0NXkJTOLnkcBGfh/WHBa4jqJeCr+
+	 RacWmmOqtHj4IuTbtiOueVOnTG6YLWOIt629WX6eD/VPB9MUE1mYMtnyzVanLH44OK
+	 jpu3hE/KF+NIrYZRVdpWEx4zTs4744lOv8HA6PnqHcxtD0xqolj7DeGcaPTWWlsqCf
+	 SGnYMV8Ve6IiA==
+Date: Thu, 5 Nov 2026 14:22:59 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Nov 5
+Message-ID: <auyRQx48UB6C1kgo@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,63 +54,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/1005] 6.18.61-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261104211043.516122098@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xOyMU-00000000Xjh-1su0
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:45296
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 37
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOxzDTom8OYgAU4BnorMeUTUwP+lXwEtgmAG2lWq6H26scSWiacG6fkj7PQ007XU97shH3taxgLtTbhUkRQlMFyMbEPjfYmlI+Ujbpqj8TgjrXtHSpbw
- aL3WxbfylJYmtnYPCnvLRbzNQR7TM8HGwahd50JhLQaTTfElsHtPKHX9OBhwlhPCGLK1l644UHdCrjcFAugYXqJg7M0ClIYoC+Q=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BT/1i25FtVucNigM"
+Content-Disposition: inline
 
-On 11/4/26 12:55, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.61 release.
-> There are 1005 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.61-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+--BT/1i25FtVucNigM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Tested-by: Ron Economos <re@w6rz.net>
+Hi all,
 
+Changes since 20261104:
+
+The wireless-next tree acquired a conflict with the net tree.
+
+The w1 tree acquired a conflict with the char-misc.current tree.
+
+The leds-lj tree acquired a build failure, I used the version from
+next-20261104 intsead.
+
+Non-merge commits (relative to Linus' tree): 3339
+
+
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 436 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--BT/1i25FtVucNigM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrskUIACgkQJNaLcl1U
+h9CUowf+KyGFW4ETSpzf53NwIMgd0+F+Q+dQ4ls2EJH/sgw3LIwAxX7bOAkO6KWv
+FGtiFB0bMK7WGj8dA9QzHNHNiDUaVDV/hdlAGWSRA71CPrFgs/H5U0wRkPYYb60H
+gGyVVtBrEPLKoFpaDRBN4CFTnq3h37mu0oVWGlNBe5TunR0wBB76XvjwXBtqSV3F
+OXJd9rpl2XR8atejCQmumfpmfhUghsHy+7VfPWnTAEQRVo2RPNW+lPMfMNdqlgHR
+RkKAGEupISmB9cQOYGESuH0+RWAxjMiEkQBSb4V8v2mF7Sp/+XK3xBnW/h8XhsjH
+nd0GlDA4UdByXVRdgCQJK7Kz0QWlAg==
+=wUPD
+-----END PGP SIGNATURE-----
+
+--BT/1i25FtVucNigM--
