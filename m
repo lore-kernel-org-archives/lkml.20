@@ -1,82 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870798;
-	b=p3tckwUxHsO5MDviEdGEaF6BlV6IoM/oE+nPBjiq+83IxAl6YjELPB0lyy7TuaPPx9Fv
-	 q3oepvmc5gBytVJKKx8w+lfiAVdOpeLhlIxGs8ib4sHoBPDj7mEdGLwOT8iFuiRyX6Tix
-	 wnVPdTqg05z64loAEkya+18XL4BjCO+VvhA7YMOdE9k4oJLflaVeSXwd/n0UeL5tAKpNU
-	 C/lic8s2r3hLi5koGmWyyrtM28xv/DbvFfvxWrLSVHhikuNIPPhSiO2genW0P3105hTul
-	 aMsBoQNxRlDfjdefadjaoA8XRbXaNChjCBmcrm6fuywvpC4Iwlxy4Jws92dpaNyH1cw==
+	t=1793870812;
+	b=bIq5atEpJJPFXLFRLT6L859adwoCm0ATRq8KRqQ6HWZXQgIWEQ2w15vRv93NTM1QGaWn
+	 TJ4vVyrlEfGhcesOoc/NIY4bLeVR2rds4o0Opsxm4vc5w5pUV9G3mm7mry+r5wZhp6wOm
+	 JKCsnr21DnhCqItSFFy+6tlcc4QzFfu/6J1/VqH/weMauloZZfR3ty+faMYYi4WvwFRKQ
+	 cUujDCXRB/lVKHhnCMCr2gZQaJXg3/2vJVVrwyBGuhxgHm0VdCEDM6wZonO0VadKdabFs
+	 vbof7wOqj/Gpb9bo0m3btQYHOgkzmSvFGVMhfQYTLxO6rd7qSkSJOof0wDTalFXb4EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870798;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=NtkrILUGf/nvkIn8ZHAAFeGkoeBwy8D5sSoL52f0eEg=;
-	b=UBiNe+EgBCKcxqU3IjlNvmrywHgt1OENlLZkAb6b9D3AI/+WA92QIDljHurguGw4x3XN
-	 uOyXc474hjDcHIHmeP1h1gkjcd5qin3785tl/HajC6JnSkSEm0BIq2qMNhk7ThnQsjba9
-	 1vM9s560Cg4hQnJNGNVWPrOa1JEFROnUaKDutFxb4a92VhiiWK/ixA7NJ4JOjDcGR7er7
-	 nQF6xuxSbwnw7VQiL6ogqegGBZlApUxmfnQ6+eT1YXR+H7pKs+Ehu2x9kZAL11vI/FA+7
-	 VZ+6buidxCw8kzD8zrL4DjsKXufsU/ZIN0uZyD+S5DfNJgN2b1u+vTFg8S8/qYVj8sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870812;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uRkdO17Voxl0dXI2uG8wshwdNsr0g145kxXlot39KlA=;
+	b=DF/a1bYt86uULm8SDQ4oUeO8NghX2HS3nxj2XAhCeN0dvOqwT+8w1rcUucLOOD4DeBsy
+	 U1i/B5d8lC4kgE9VNij2C2gLBgBTTJCumOorK3PaOq3mxugCqM2Nu4RbWuexi4ds4N/kY
+	 9c1VXa6nSRxivhglCD1Vqz10wFvhTqgV/BPzEAyuXm06N1t3tWGsYB/IMQCV+obRAQJR4
+	 zc30WVtYULLsiYINOc8SSf2uHOOLL+TFk42ZWp+J3JfDkG0USYrwAsWDmwyXWLpLm1Gj0
+	 QLEqXpg2i5kkpc8SKO+PEWSr2nkDele8365pjuKX/BbOtkJu8GHxvm3veR+aYajFW+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O6XmLm05;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3Ff3mLR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069A5606A31B;
-	Thu,  5 Nov 2026 09:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069A5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603E0606A31B
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 09:26:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O6XmLm05
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793870798; x=1825406798;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ktfdzqD84OijbhUvLsS+l/5tXhEGShY8wNnNh7b07Xk=;
-  b=O6XmLm05vpdpS6iWpdNstSE9xFe0Hpx7Z8Feh2KTXuJCcqdZjT5Qr5Gz
-   2HzNLkUD3C0ky6UZzVF4zBqGv8m/K4IH8MpQMx6gSDW1dDmFnxmtJI/CZ
-   yM8CeOQJDvmmMmu0qESCh3fhfoUmULCxtWOR7T1zquiCQdXrSFRcjxn82
-   Z6yLvJaYzelfuGU0LiBz8cX/uOIdcaZD5XF0NqHEJgzaR3SauZJSKZevn
-   hRRssDgVAO5eOkV5UWEz1MHwpsoXjTb0c1sWox52dpiC3pMQzRo4HacIU
-   FYq1LZLSmTeZ9UlroNqHBP8uzsCMaIcTDvb7/gF3cce7lQAmXOwVl+QSS
-   w==;
-X-CSE-ConnectionGUID: NDdwBDT1RVG72yekPTBAtQ==
-X-CSE-MsgGUID: FqPRx8+4QwmcNpT0hxYvhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2551483"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2551483"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:26:37 -0800
-X-CSE-ConnectionGUID: bkATDqLmQWGkxmw7oZjk4Q==
-X-CSE-MsgGUID: sCDUJk5xRjeOB5NN4TzEUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7072608"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:26:34 -0800
-Date: Thu, 5 Nov 2026 11:26:32 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] docs: submitting-patches: Clarify half-baked review
- tags
-Message-ID: <auxLyK65Ycr7R9Un@ashevche-desk.local>
-References: <20261105082729.19622-2-krzysztof.kozlowski@oss.qualcomm.com>
- <auxDTdfMVS3yazCk@shikoro>
- <35983c5a-7deb-4b0e-9bd4-981754343200@oss.qualcomm.com>
- <auxHASG78dTviSz8@shikoro>
- <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3Ff3mLR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5D9A1F000C1;
+	Thu,  5 Nov 2026 09:26:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793870811;
+	bh=uRkdO17Voxl0dXI2uG8wshwdNsr0g145kxXlot39KlA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D3Ff3mLRu4OChP2iUFU4kKDEzNr1W2PkRr2N3WCoIANfV8eYMHtr1p+zNArTikMKv
+	 sIeNox3CK7OeKmR0k/aKUCimJ0pteSN4s1zni++glIrXGPwO7cvGWhSq552JhrNX49
+	 bGfQHQ8ydG09LI0e/Oql3VJY9nT9unfJeUw515TqftXpdlpc5ppVtOGIBv39kZS+zf
+	 ZCQFDxCNDKlsk22SXXDV5wi8rC9W2zjgj4O37W5RZvhthRVV52dbEIhMn+XJlTPFqo
+	 vQ6t0k65Vj7JsbJSQBIuTKGNtVNTBX2BYaNwnjSubsYvM+7XdWyIRrdNOPBSU+c56Z
+	 3ghh+boYYNBdw==
+Date: Thu, 5 Nov 2026 10:26:45 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	James Houghton <jthoughton@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 12/12] mm: hugetlb_vmemmap: make vmemmap PTE
+ conversion folio-oriented
+Message-ID: <auxL1Q4S9wllEn6B@localhost.localdomain>
+References: <20261104023510.260766-1-songmuchun@bytedance.com>
+ <20261104023510.260766-13-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,52 +66,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e1c7e287-ccc9-4705-bd72-e801ba203668@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261104023510.260766-13-songmuchun@bytedance.com>
 
-On Thu, Nov 05, 2026 at 10:12:00AM +0100, Krzysztof Kozlowski wrote:
-> On 05/11/2026 10:06, Wolfram Sang wrote:
-> > 
-> >> Reviewed-by even with the "# subpart" still appears in person's credits
-> >> and reviewing entire patch of 700 lines of diff code (like Frank's SPI
-> >> patch) is not the same as 10 diff codes for one driver.
-> > 
-> > Yes, if you want to spoil that, you'd need to introduce
-> > 
-> > 	Partly-reviewed-by: ...
-> > 
-> > or something.
+On Wed, Nov 04, 2026 at 10:35:10AM +0800, Muchun Song wrote:
+> Converting a folio's vmemmap mappings from PMDs to PTEs is a per-folio
+> operation, but the current interface exposes a raw address range and
+> hardcodes deferred TLB flushing.  This splits the common mechanism
+> across layers and couples it to the HugeTLB batching policy.
 > 
-> Ack is for that, no need for a new tag, quoting:
+> Make the folio the unit of PTE conversion and let callers select the TLB
+> flush policy through the folio-oriented interface.  This keeps
+> HugeTLB-specific eligibility and batching outside the common operation.
 > 
-> "Acked-by.... user may not have carried out a technical review of the
-> patch, yet they may be satisfied ..."
+> No functional change intended.
 > 
-> "Reviewed-by:, instead, indicates that *the patch* has been reviewed and
-> found acceptable according to the Reviewer's Statement:"
-> 
-> Note that there is little sense in reviewing - as in statement of
-> oversight credit review - pieces of patch in context I discuss here,
-> e.g. one big complex rework combined with updates of drivers. Who cares
-> about the drivers? The complex rework is important and should be
-> reviewed, but people skip bigger picture and put their stamp of approval.
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Nice, and what as a particular piece maintainer I should do if somebody
-created some helper somewhere (not Cc'ing me), waited to a cycle and started
-cleaning up or refactor the drivers based on that API? Basically I was stand
-in front of a fact, I may tell NAK to that, but what should we do if half of
-the kernel will use new API, half will use old one due to disagreements on
-implementation, naming, et cetera? Rb in this sense tells that I have reviewed
-the refactoring part that has been done on a piece that I'm in charge for and
-it looks good. Breaking the flow or behaviour might have been done on the
-upper layer for a bigger number of users.
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 
-> Stamp of approval is Ack, no need to mix it with reviewer's statement of
-> oversight.
+But I have to say that I would put the vmemmap_optimizable_order() check
+upfront in the caller, so by the time we call vmemmap_pteify_folio()
+we now we can proceed.
+
+
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Oscar Salvador
+SUSE Labs
