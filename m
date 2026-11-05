@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874047;
-	b=bAvBPOsiGAGgUorNsTi4DwkD++rac15uEm+Txa8jQScgnRJtJQVyb9fnwe2SCefhyW4J
-	 ZKZ8CuTRCG50WA5alvTthKBAm0H1wruKcezHqX94xmPfIJWVd+2zThHzaPIjhPMz404Gx
-	 cyZuATgcwj3PREdoTz7nN5z3fSR6l6dTRgxN4pGBMTTpjBE81kJTES87ubmwkX9piAIcM
-	 7HLk+VzdJ6CP4e12BGLsZXE+ze5TT40V8b6ZQq1ION8irHchh164YYh+WUeybV19QUmty
-	 4vkK/I5SBCR5M2X2kxOIfZlI0Ky3aEzSXkrMkifh+34KkGNCiOBVBrxuGPimhMIOFzg==
+	t=1793874057;
+	b=WpKt2rUX/cJAJYNLT969rf+ERfIdZ2KzcLXng/B7EmH19ex7Z+w9n7TsheFI/BX5DpYc
+	 zG5xX0iFI5kyAK3AM0JpM2SCREleq7CVT1VfFwMFdBceI7r2AMGTOq6+yPdHXPVGLgX80
+	 RwxIXtFUbrqt2A+F+S3teAZ9Q7CbR4IOHgV0ZJr+/zdftzC1KOk+cydv0OLwVmcI8zb7q
+	 fviKwMl/Ob66ZltEDf4oc1Yu8zWRSpWTxA4mcEMhOV4Rnvc9oFJ/CVv2Zg5Mh6Svg8HW7
+	 gTJCU1ALvu5OYL0jCh32jNu77es/sPGS0lyp6dIdGj+J45WP7as+aPH+HZgeYKABV7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874057;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8aBanT15VsNOxxNDyG0x1qGGvRswfohIN/oJLkopAqQ=;
-	b=OVbymSXRTzxXEWSPcv1jF5YtqjfjtECw+DS2kiF1VGloorzs9iWYZHQL3ui8Z+J+DSRJ
-	 coAbNstUBjeLeC/gZl+ljxFgdOlr2R1wkUVnOuHbSpIAmqkXnde/4JNzH/FiZKYGHmsyu
-	 4fJ2qlRQPcxyeihpiTsg22JqSqWC8lx/M4JEMrZRrt+laru/SNvBWssUw1KekPg41vnYM
-	 unm9+rr1cz8xEFrdFcOuFAXztgmtbm72xAOYcc1RNxpeckADYFQcTXBcq6aOo8PvATD7S
-	 61Z+7EmFtxFGlRPMpzq26WalNMc6asfDeBDPR7jQMGqVX1jBVTYpGmpjzAIO3+853VQ==
+	bh=Di+L1YHt/OArYl1l5fXQv+3OfcxuermdYXLB9zUDQFA=;
+	b=wS7m5G/G1oV+FhnCFdMevR/XC9+f7W+wFr6O5QlMXoSKgATVGjMpS4irPVU0jwfhJJ9k
+	 mTQNQj6kovur6WSg3W4A8Z381NXY66fTsJsyk3Zqmmjoh5rGrvNKoO0MnvE+KA4WYtR6l
+	 4rRTfdXQksx5ZrNblI0bpn4yRllpDb+0j6gi2MB5msFRsZrc3EQ80e8N+LlEVzIbzVioe
+	 TD4D2h5xsPEA3bKTt1xGEfecgEXWSTm/MmVn1lG7xe4Ff2tcjkRxmsF083BHpqAmv48MO
+	 R/+EXEkLwWTzyQ9Fxe5jHwLKV6hY0M2d0+sVIoCyQtivtHGcJZvC5a8GbGZ5Qb713oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iYrcPyOS;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CKiqOucl;
 	arc=none smtp.remote-ip=198.175.65.12
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17AB606A32F
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:20:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F17AB606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7456C606D806
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 10:20:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7456C606D806
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iYrcPyOS
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CKiqOucl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793874047; x=1825410047;
+  t=1793874057; x=1825410057;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=RuKdJwX/5y4/FXp7Qkne8H8JiYcuzXFsKHBoI57TM28=;
-  b=iYrcPyOS+MTHTKfVGvZhTw3qa9mMDSWmqCG1y83We4MKWOGXzJo7gHgC
-   YYVUvFoqrJaDFwnVPZ7Xycjlnmv4mD2gnnS6ecpGYLKlJGAvRT5wAyHyQ
-   scJUKB8KpD/NBK1uTE3itVIKrSmNBDUZURr6aMw0N1RfZ58DzmYVPKZoQ
-   a/O4TE9AopV8isSCEPMRfrE68QCtP3Z8lHpOYsqyBBOKeZK3aiEaMYDn3
-   Vdxh81x0PZbYPyJ/cRyrsTv4d5Mg8SzH/Kh5kzeWq1frQa8tKeFWLvI+/
-   lqhpq9QVLT/4yY5vvgaP8juX6yOIfuG93c4Dh1Tn2W1v10xC8mpoeZPHU
-   A==;
-X-CSE-ConnectionGUID: 5gB5ZUq2TIqBGD56EKdh2A==
-X-CSE-MsgGUID: rLpQD54cSPWVOZfdeAqUEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2530319"
+  bh=HKpOZqMP5mztqqRfZ6NboqJ+WYWDVIeJLeTuF3VtFCo=;
+  b=CKiqOucluVleibd5e8ewU08eDccg4WMD3mbMQNoIZKRVD9S4/Q3RtwXp
+   /TIT/QNgkbO+nqpNQeMXaaEUqfEfuvfgNEqDWq6FHeYtauD1QLZtfAw8T
+   BUJUwGr3Wh0SASDXCZZykUc7/Py18WQjHfbfAbKEsuVTc493dK2167eSr
+   hcX6KQRIEQhhdrGjoaIYzqu/GTJCM4k2mTlXARDaorVPKNGBIhD2GWBSz
+   3h3BtX4WUT7cLGVSunsqKXD+EVB3yY1w6SpmNXbUz/ibn8pCukLxJKPWq
+   b9cqJsQacbbckd9Qa9bFiegEbKnvfnWXjp+OWsFTK3iHYzT1g4QKQqpwn
+   Q==;
+X-CSE-ConnectionGUID: o23PMuk4RCGYD0tAHupPdw==
+X-CSE-MsgGUID: jWNdecq7TUyIuvgBZqbUUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2530328"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2530319"
+   d="scan'208";a="2530328"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:20:47 -0800
-X-CSE-ConnectionGUID: B3p/LI5ZSZGcE5d6KaC5UQ==
-X-CSE-MsgGUID: oLyT6AGyQzGOLHiToW6PgA==
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:20:57 -0800
+X-CSE-ConnectionGUID: S8xIhzP5TmCOzRKN7Hw+Nw==
+X-CSE-MsgGUID: p2CfSBM6ShGU4GKix9xgsg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7143796"
+   d="scan'208";a="7143859"
 Received: from chenyu-dev.sh.intel.com ([10.239.62.184])
-  by fmviesa003.fm.intel.com with ESMTP; 05 Nov 2026 02:20:43 -0800
+  by fmviesa003.fm.intel.com with ESMTP; 05 Nov 2026 02:20:52 -0800
 From: Chen Yu <yu.c.chen@intel.com>
 To: tony.luck@intel.com,
 	reinette.chatre@intel.com
@@ -75,9 +75,9 @@ Cc: tglx@kernel.org,
 	chen.yu@linux.dev,
 	x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 10/12] x86/resctrl: Introduce erdt_cpu_has() and erdt_support()
-Date: Thu,  5 Nov 2026 18:09:43 +0800
-Message-Id: <45db038115288e78f20d88b286a9afcbab0d8848.1793864720.git.yu.c.chen@intel.com>
+Subject: [PATCH v10 11/12] x86/resctrl: Add the ERDT CMT scale
+Date: Thu,  5 Nov 2026 18:09:53 +0800
+Message-Id: <051539a40e662d6cf0a9f0fd35204f23571137da.1793864720.git.yu.c.chen@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1793864720.git.yu.c.chen@intel.com>
 References: <cover.1793864720.git.yu.c.chen@intel.com>
@@ -92,93 +92,136 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce erdt_cpu_has() to verify if a specific RDT feature is backed by an
-ERDT table. A feature is only reported as ERDT backed when the CPU enumerates it
-via CPUID and firmware describes it in the ERDT table (and its sub-tables).
-erdt_cpu_has() also considers userspace input like "rdt=!cmt". Similar to
-rdt_cpu_has(), erdt_cpu_has() expects an x86 feature flag as parameter.
+The limbo handler polls the LLC occupancy of limbo RMIDs and makes an RMID
+available for reuse once its occupancy drops below
+resctrl_rmid_realloc_threshold. User space sets this threshold in bytes by
+writing to the "max_threshold_occupancy" file. The occupancy counter only has
+the granularity of its scale, the number of bytes one counter unit represents,
+so resctrl_arch_round_mon_val() rounds the written byte value down to a multiple
+of that scale before it is stored in resctrl_rmid_realloc_threshold.
 
-Introduce erdt_support() as a helper called by erdt_cpu_has() to check whether
-the ERDT firmware supports a given feature.
+resctrl_arch_round_mon_val() uses the CPUID-provided scale. LLC occupancy read
+via ERDT is instead scaled by the CMRC up_scale of each ERDT domain.
+resctrl_rmid_realloc_threshold is a single global value, so one scale has to be
+derived from the per-domain values.
 
-erdt_support() deliberately claims no feature yet and returns false. Features
-should be added to erdt_support() as their MMIO implementations are introduced.
+Add erdt_cmt_scale to hold the largest CMRC up_scale among all ERDT domains. Use
+the largest because rounding is a floor: a larger scale yields a slightly lower
+threshold, i.e. an RMID has to drop to a slightly lower occupancy before it is
+reused.
 
 Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
 Signed-off-by: Chen Yu <yu.c.chen@intel.com>
 Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
 ---
 Changes since v9:
-- Drop the erdt_get_scale() context: the ERDT scale is now introduced
-  after this patch by "x86/resctrl: Add the ERDT CMT scale". No code
-  change. (Reinette Chatre)
+- New patch, replacing v9 "x86/resctrl: Add a global ERDT monitor scale".
+  Place it after the CMRC parsing and erdt_cpu_has() patches so that the
+  scale is added in one coherent change instead of as a placeholder that
+  stays 0 until the last patch. (Reinette Chatre)
+- Rename erdt_scale/erdt_get_scale() to erdt_cmt_scale and
+  erdt_get_cmt_scale() so that the names say this is the CMT scale and
+  not a global monitor scale. Move the erdt_cpu_has() check from the
+  last patch into erdt_get_cmt_scale(). (Reinette Chatre)
+- Compute erdt_cmt_scale from the CMRC up_scale of each RMDD that is
+  accepted (moved here from the last patch), and reset it in
+  erdt_exit(). (Reinette Chatre)
+- Squash in the fix for the stale "h/w works in units of
+  boot_cpu_data.x86_cache_occ_scale" comment from the last patch.
+  (Reinette Chatre)
+- Changelog: say "limbo RMIDs" instead of "stale RMIDs", distinguish the
+  "max_threshold_occupancy" file from the resctrl_rmid_realloc_threshold
+  variable, and state that the threshold is in bytes. (Reinette Chatre)
 
- arch/x86/kernel/cpu/resctrl/core.c     | 13 +++++++++++--
- arch/x86/kernel/cpu/resctrl/erdt.c     |  5 +++++
- arch/x86/kernel/cpu/resctrl/internal.h |  2 ++
- 3 files changed, 18 insertions(+), 2 deletions(-)
+ arch/x86/kernel/cpu/resctrl/erdt.c     | 23 +++++++++++++++++++++++
+ arch/x86/kernel/cpu/resctrl/internal.h |  1 +
+ arch/x86/kernel/cpu/resctrl/monitor.c  |  7 +++++--
+ 3 files changed, 29 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index a2b012c94680..c71d6626c330 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -873,9 +873,8 @@ static int __init set_rdt_options(char *str)
- }
- __setup("rdt", set_rdt_options);
- 
--bool rdt_cpu_has(int flag)
-+static bool apply_rdt_options(int flag, bool ret)
- {
--	bool ret = boot_cpu_has(flag);
- 	struct rdt_options *o;
- 
- 	if (!ret)
-@@ -893,6 +892,16 @@ bool rdt_cpu_has(int flag)
- 	return ret;
- }
- 
-+bool rdt_cpu_has(int flag)
-+{
-+	return apply_rdt_options(flag, boot_cpu_has(flag));
-+}
-+
-+bool erdt_cpu_has(int flag)
-+{
-+	return apply_rdt_options(flag, boot_cpu_has(flag) && erdt_support(flag));
-+}
-+
- bool resctrl_arch_is_evt_configurable(enum resctrl_event_id evt)
- {
- 	if (!rdt_cpu_has(X86_FEATURE_BMEC))
 diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
-index ef7f51fde838..107d599bf586 100644
+index 107d599bf586..3d34e1050794 100644
 --- a/arch/x86/kernel/cpu/resctrl/erdt.c
 +++ b/arch/x86/kernel/cpu/resctrl/erdt.c
-@@ -36,6 +36,11 @@ static u16 first_rmdd_domain_id;
+@@ -36,11 +36,30 @@ static u16 first_rmdd_domain_id;
  /* Largest RMID that is valid in every ERDT domain. */
  static unsigned int erdt_max_rmid;
  
-+bool erdt_support(int flag)
++/*
++ * Used only to round the global resctrl_rmid_realloc_threshold for the limbo
++ * handler. resctrl_rmid_realloc_threshold is exposed to user space as a single
++ * global value, so ERDT uses one scale derived from the per-domain
++ * cmrc->up_scale values. Keep this single threshold conservative across
++ * domains because the rounding is a floor: a larger scale yields a slightly
++ * lower threshold, i.e. an RMID has to drop to a slightly lower occupancy
++ * before it is reused.
++ */
++static unsigned int erdt_cmt_scale;
++
+ bool erdt_support(int flag)
+ {
+ 	return false;
+ }
+ 
++unsigned int erdt_get_cmt_scale(void)
 +{
-+	return false;
++	if (!erdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC))
++		return 0;
++
++	return erdt_cmt_scale;
 +}
 +
  static void __iomem *erdt_ioremap(resource_size_t base, u32 num_pages, const char *desc)
  {
  	void __iomem *addr;
+@@ -256,6 +275,9 @@ static __init bool parse_rmdd_table(struct acpi_subtbl_hdr_16 *rmdd_hdr)
+ 	else
+ 		erdt_max_rmid = min(erdt_max_rmid, rmdd->max_rmid);
+ 
++	if (domain_info->cmrc)
++		erdt_cmt_scale = max(erdt_cmt_scale, domain_info->cmrc->up_scale);
++
+ 	list_add(&domain_info->entry, &domain_info_list);
+ 
+ 	return true;
+@@ -400,6 +422,7 @@ void erdt_exit(void)
+ 	valid_subtbl_mask = 0;
+ 	first_rmdd_domain_id = 0;
+ 	erdt_max_rmid = 0;
++	erdt_cmt_scale = 0;
+ }
+ 
+ static __init int enumerate_erdt_table(struct acpi_table_header *table_hdr)
 diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index 527e3ac91b26..fe8a4c1dd46b 100644
+index fe8a4c1dd46b..87494316becb 100644
 --- a/arch/x86/kernel/cpu/resctrl/internal.h
 +++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -291,6 +291,8 @@ static inline void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resour
- static inline bool intel_handle_aet_option(bool force_off, char *tok) { return false; }
- #endif
+@@ -293,6 +293,7 @@ static inline bool intel_handle_aet_option(bool force_off, char *tok) { return f
  
-+bool erdt_cpu_has(int flag);
-+bool erdt_support(int flag);
+ bool erdt_cpu_has(int flag);
+ bool erdt_support(int flag);
++unsigned int erdt_get_cmt_scale(void);
  void erdt_init(void);
  void erdt_exit(void);
  bool erdt_try_bind_domain(int cpu);
+diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
+index 510e947d98e6..05f6d24d0fc6 100644
+--- a/arch/x86/kernel/cpu/resctrl/monitor.c
++++ b/arch/x86/kernel/cpu/resctrl/monitor.c
+@@ -426,9 +426,12 @@ __init int snc_get_config(void)
+ 
+ unsigned int resctrl_arch_round_mon_val(unsigned int val)
+ {
+-	unsigned int scale = boot_cpu_data.x86_cache_occ_scale;
++	unsigned int scale = erdt_get_cmt_scale();
+ 
+-	/* h/w works in units of "boot_cpu_data.x86_cache_occ_scale" */
++	if (!scale)
++		scale = boot_cpu_data.x86_cache_occ_scale;
++
++	/* h/w works in units of the occupancy scale */
+ 	val /= scale;
+ 	return val * scale;
+ }
 -- 
 2.25.1
 
