@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890708;
-	b=wbh604K7auiafZx4VU547l229UKwENPXBQkD/ePeGN6McBP+DAqY0/wKtXnzL0V4uBQd
-	 uDcMeVUGFiQf1W2Fa2sMTCPfph/leZ6ZpIqC16On9p26hdy38TptHwvRjfG9s9jBFAOjn
-	 2nxP0GqLDwTyXYomNigBLUu82zpj59+6Io/uvpNXzbUCIsVPZJj0L8dj+ACtleUhm0B9V
-	 oUr7ErBu5OqDfsniXcNiCHRkJeN3VdmKI3ELCBZLeTqtrP+HTqMgPUbm2nJ6JSwSShsIg
-	 sBCdk6K7W7mmrFr8ekCacE531gQ+S7+sFzZhABE2D7m37NHXuHsHjYm3Im9uB5aRgyA==
+	t=1793890713;
+	b=5fD5iVbo+NMlsoLAIfhtmMKWgckME1nqCfDbUrVVdNrD3vYMCnR6mwGW7oRpW52yo2d5
+	 xpU6xLQhfTnnFbzlMgTXkT62PlwCD881DqS+bNlVfthNHn1XVCViJdxW/MkArkpFllL/6
+	 +l05/eJK5qmW2VCNk/t87YblwoVeCLMNPby4gtD/87E2gCwr+kIWSdfuGVxTgZUUFwvKM
+	 kDTFLfFwJA4r8VxCbWCTe2+E76VO9/+rL577fF+YtwTc/bgqcHKNgv8KYL74/AonKm7Zj
+	 2LUOt1/oPctxxh5HycKP33lnwK2CS78rMkHyo/obbF7EaxXOSC7O0oXpkqbrYCAl67w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890713;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=fv6eADMIHqv2yZnT+NZGhgBiOZjVmoiBo8vKGIylhO0=;
-	b=5iiV6M2g6mZZKGt8iXSsjqkihpdCuCv58zQa6+pICUB98xgOsu+yu2vlx12WlW7Iflkz
-	 3rDLQTzaKkHzhBUEy4yW1G6zI74MRu7JZcH5Wirreo69U+Oc6QZ8/KrI9Ig5FlVk+1HVh
-	 mIkqV2XTVMNnrLgZDWtIRV7vkUu/e3NFjeKFJWzc7qe3xUBr3ph9pLLbez163UPHCG81W
-	 H9iGQwvQLmhZa+7WBc2iOQyp89g39iJDQj7mo/0gClOGS7YsNtguauqfqNpsj48yP68Ur
-	 HIZwluOq2U0t/m2RVGvsW3iORwl5UWuAFjCrKSNNjl7FzuC0Y50iAIFXEeou6GMVcYg==
+	bh=MGaILMQfdt4chI3i7y0XG67rqkk49m3Gf84vXa5blcw=;
+	b=JPJVQZmnxbYMqflaIMUJGAJSi1nrRynS2m3maFP0eqLQreHgziT3sViqAOVUW8X1LUtZ
+	 rKozaKdnGiXDuaaNcvrLiMcAwCWClgZ5P0JgZ99kuBRqOovkG2Bn/M2AWJAIRq1nwzH0D
+	 HKgDraPjP05XZ4ITC52dWfPFQn6JqZ6SpKdGcmrHUrbEuj9X8UAvdcee3KI6CpQz1cM/M
+	 riJ1/dKgcSMQwrNDJpFnhXQPFWGF66ls1k9P+KHk1reQwoPgq/+YMKCxTA1PDae+R/EYW
+	 Kj+F7fQ1p9uFRpivyoy1grQimOzHrlXKlaALEDqH3LtpUk8DQmnsR39caEqc9CoTUPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=n+kU9QzN;
-	arc=none smtp.remote-ip=209.85.161.43
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=ARBGbxGY;
+	arc=none smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FB7606EEAA
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5FB7606EEAA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2311160A261F
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:58:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2311160A261F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=n+kU9QzN
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6aa9606ddadso1324424eaf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:58:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=ARBGbxGY
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93f3c89594cso177713385a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:58:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793890707; x=1794495507; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1793890712; x=1794495512; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fv6eADMIHqv2yZnT+NZGhgBiOZjVmoiBo8vKGIylhO0=;
-        b=n+kU9QzNJs6GZkPG6kvTb9gSmT068vQDoCHYqKSDCmFfQ0ml/auy4uqaCOyc9//8CV
-         aszFqHKOaQrNKkwAz6PcCseXcncmCcRYSsL+BRtnkw1Mkam/C4HVk1+oPULhi36IWn5X
-         f9tzR2FD/jzQ9zlD9zBHAbnEZmdz4TAgufWMI9MpYH5VQPuzE9MzFN+PFqkXB0gusWNI
-         rqw+D/Q2euOIngFKfpZ1kKqgTUCKurgXoSh1vit+AGUiQ4+KDsJPG9bdDUFR5Wtr47My
-         Lhl+su7HCy37KUa06rS8torOz9e0itF4opjycqJ2xmMuBywf+xrpv+ic9ExwM7EgVm2V
-         cdOg==
+        bh=MGaILMQfdt4chI3i7y0XG67rqkk49m3Gf84vXa5blcw=;
+        b=ARBGbxGYZf8apk2d3UWc46lm8VDLjyKnGemvEZq1gKWSENKQGdufwjisYxk+ADl96Z
+         99t5TzcoFXakO4O3xNZjOU8QtyKSPe4XlR/9ilMgfnmAno6DVz2tmqL+SLKbQLCB5w8+
+         2Y5SBy2Zdb+nm7ineKqnXb48hNn7aQNQllIQ2zzEyghxHCWbPC0uISs0s4lAS4bYVFuf
+         L0CzsoRdl4BB176KTv5EvU5zbf+VeLf1Q+BaFcJbqFSRNqHAE/cT3pRl+Ovteqfcz5CN
+         LULJqd1rzBXwP1FDxfdJivq9VWGtmblhkL7+F1Ox2UvfFZBhUdUeCUtI5RbCgBnatjV8
+         MxGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793890707; x=1794495507;
+        d=1e100.net; s=20260707; t=1793890712; x=1794495512;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fv6eADMIHqv2yZnT+NZGhgBiOZjVmoiBo8vKGIylhO0=;
-        b=WsTrmUFfKnz/xp3pWVyQpilO8py/ylRgYcmlIrUz4hJw0/0x9T0OBwT6xqqtSy+IDi
-         UqbsQdOWO9eK43kCrTqvhoyeN46JFMHTf1n4WjZupiqw2io4f7rCQrQUk+0C/WcIPCHZ
-         q27tw8sp/jdyNceNtQUcyacnulKe9zf21WovT6wLS5Kv1KvcvdAnLpi1m6VqFRbgCXCA
-         zsscKbMty5PpUoYBQPZXpiRhdh2+EFhk+n4asrmQSzOq2C3WTyP3PrZ2Pt7WDjTDgvSm
-         8DdWi3nhO30uZruYGglTdd22RygnnbLhQtZNvCn5IvXNlfWbAJLwib63dbceHpg4nIuJ
-         Zuxw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPpk1p8RSzc44hyjNhze8hTiRgdrYFqmdQ3GazXG8ZDSymytTtXE/wccD0g4CoOgW8rQya5Qpc38oEIY4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XITdXiXkN1vPAvUYp+oBzQcbOx9TGmG5Oo7BVr7c8K5rzR0/e
-	g1iH+oxuw5yKBx9DlgZRKeyfQZAnIfMOwnJ7PX4dgEG+rFNmxaQuORW5p3feUnOwcF8=
-X-Gm-Gg: AYBFou1E+QujpIakg8UG+5JGSPRifmYHUv1GuCjcq3p/KFvMQH62TAFp/6UUfHM2tu5
-	+9Nn9PXIYrspKd7liD4ZEYlnVWPzzcHRk3Kd9PRwxeCIrEStEMUpqS+iKycsQb9phxq0l6Aowle
-	aD02Ny5qTzUI2PhGdwt86O0AFSFTlAb21PBzQFdqcjwmL48ASVtRfPQ4R50RraNXp+BE0xqZKdm
-	mdPFlkpHZvd99aI6W//31xvat/wf8Qwv8s7OK6iHwqx4/hzKK6Df6GkMIHw9j37bP9TrUNadeIm
-	l+gXJI9bB4lGH+ykJa/gVfk8ikWERUvKTsJ091jAE7s20MaUa0i+OuubJ+tlIl/5hDVZu/iU7be
-	I2/BBny74aNlwAUH/bHh0BcVhobJrNzMM2o+cqJ+CHjBn6G/8MZzU+VI6gz8hHn6i645Mgd2AFc
-	OB2ukx6g+KGBb8Xb/jcoYgVAZAlDsE3RbG7DywhqXRnQ5VEOx1IYPy25oMVLND9PT8uMAD4vTFk
-	LBXH8f170GXvyK11zFPNVr62DtYOZyF99YAVLLuXy/anAPn/g8AcZ7DeBpbo8nC3BgLT0L0LV/v
-	2+VZCk1C6nDzR1lExcOLxHfD7B+qVUkkizvmF9oX9ILTew==
-X-Received: by 2002:a05:6820:a28f:20b0:716:c34d:c2b4 with SMTP id 006d021491bc7-716c34dc90bmr2346309eaf.78.1793890706669;
-        Thu, 05 Nov 2026 06:58:26 -0800 (PST)
+        bh=MGaILMQfdt4chI3i7y0XG67rqkk49m3Gf84vXa5blcw=;
+        b=vDHi9V/1T74KQOacIH9fPxXZ4OIAOhTDYyu/wnKgQjtoH1Lrds6ZKa5YZDVlok04qh
+         4MGIbkTsbk80L7GbhFaDdds4qbCuYBEolWUIRlBOj5YSGtOeLkU7ueeltO+xX0r+xRKc
+         OypVXxwo4HsvQ4sSkjkqTPQCIuHA6UvgtCZqt/W2Q0qlH+oOPgBt+s1fBHHpexnGDGQi
+         PLTpE/YfvBUEuaA0Ixh57v//uqLkf2HVMeWBdpv6+yrZlsI7OGCFvXuQdnJO+g96EnFU
+         3VAoR2Ih4jA5Y8Lg4uGs2Ugs3VIuel1O+l6W3dJ/ma4m3bwYwebYBAEtuOysqoDSsgjX
+         bGPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhG1zWVUgzxficuSzRKo2VCGKhqSsIS6bHCp5GOq/pzg/pCvMf7clyBH62OgJFj22Vpogv0kpnGUS7q9o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xlwzagU1DycSBmM1MPWRxM0H2t/ivHTc2yzyO30fnTcwLiPug
+	nB6jzOYxPrf04igw32CKWHF5moUw7EIZHIn3YAFNaXUy7yWK3O6O19S4or/3fGqg9gM=
+X-Gm-Gg: AYBFou3CgiLlkLCxQTen7ciV61ZKX2KpDj+CVHca5AsOCbC9QfZR7aDcVZ+EFFOIn5C
+	Swj+20p40y9H6a6g+Se79QRuyADEV5yUSzTw1col1aZ5oAc+x8qkMEsxciGnWMtfGFsXiGALn6C
+	gdPwvGUcfSmwY+CiEIKiltsfnbrXAXkEcqssbF1PZ4fK0V53mipzCB57DjbL/rfanLUNh1Cwo/C
+	izKEEHNsk9lIMA7kHkNDMdoOh+2jwVfHruxFAZz04taqbGh3QFx5FneY+1Rv0bfjQQamiefEs6M
+	jOgRydfPjilZb7R3X2+5zPSA4bDg3IiwLdPqBKVzPn9jr6QlC0f6BUx85fXs10nBRuTndKObJY/
+	T9UoCCqsaOQ5JhkYqeZQ2dHDeMp0Zg6qHrzUhW5zEmlLyfL9CRq88ig7rxmMZbl0/6IU3Cdh8+m
+	x2GhIE2GBXwimykRfStZjaC6OmTGZrCTcde0kO6gqsVVjtW0+6oI0hYnyxEwi051G0whR2CRNJQ
+	e3oQZ1l6r5Ilgt2vJn68WWlU23KxNXoVwHYjbTuGkcyOO0RMEXwlRVwKA9l4CK3LBUAsPgqOKEp
+	Sz/e+LqKt8NF2zCO9AUaaUuVZzx0+sdUb9Vk6HQiLPCm1Q==
+X-Received: by 2002:a05:620a:6483:b0:93e:acdd:acd9 with SMTP id af79cd13be357-944214d68bbmr2945212185a.7.1793890712094;
+        Thu, 05 Nov 2026 06:58:32 -0800 (PST)
 Received: from toxicpanda.com ([153.61.196.252])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acd5293de9sm4626402fac.2.2026.11.05.06.58.25
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d479e107sm478675985a.7.2026.11.05.06.58.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 06:58:26 -0800 (PST)
+        Thu, 05 Nov 2026 06:58:31 -0800 (PST)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 14:57:07 +0000
-Subject: [PATCH RFC v3 16/90] cgroup: let a cgroup become the budget of a
- cell
+Date: Thu, 05 Nov 2026 14:57:11 +0000
+Subject: [PATCH RFC v3 20/90] cgroup: root a cgroup namespace at a given
+ cgroup
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-16-bc9095937a84@toxicpanda.com>
+Message-Id: <20261105-b4-cells-v3-20-bc9095937a84@toxicpanda.com>
 References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
 To: Christian Brauner <brauner@kernel.org>, 
@@ -106,158 +106,128 @@ To: Christian Brauner <brauner@kernel.org>,
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890670; l=4775;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793890670; l=3752;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=HX8kVvVnrGiQT8dJrIDTJrXEajtmPQU0c9iSmryWYsU=;
+ bh=5CSluj2vtjSNuvg7pODJ3ZESLlCLSmlnzudcUt7/8ZE=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QOnQJhxy6HQSuRz2MuMdttF8jocsXSsbmkFD4sB1nJg5XaS0yqjv3C5z1EWxXcu8Eh0Z5Ny7LZC
- fb21PvQgNFQM=
+ QBSG6WoCW6bZ4VZGG1EWakfC2ytxq1dLYNArlzrzqVw8OIn7HD8k9GhL5QGy9uKe45yMZiCoq0j
+ 0sur/aYbNVgo=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-A cell needs a limit on the resources it can use, and a way to find every
-task in it, including forks that are in flight. A cgroup provides both.
+copy_cgroup_ns() roots the new cgroup namespace at the cgroup of the
+caller. The builder of a cell is not in the budget of the cell and never
+will be.
 
-Add cgroup_cell_budget_get(). It takes a cgroup2 directory as the budget
-of a cell and marks it with CGRP_CELL_BUDGET.
-
-From then on, holding the cellfd is enough to put a task into that cgroup.
-So the caller is checked here instead. It must pass every check that
-moving one of its own tasks into the cgroup would require, and it must own
-the directory.
-
-Killing a cell kills everything in its budget, so a budget can only belong
-to one cell. The cgroup must be empty, must have no children, and must not
-be the budget of another cell or lie inside of one.
+Add cgroup_cell_ns(), which creates a cgroup namespace that is rooted at a
+given cgroup, and cgroup_cell_cset(), which finds the css_set that it
+needs.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- include/linux/cgroup-defs.h |  3 ++
- include/linux/cgroup.h      |  2 ++
- kernel/cgroup/cgroup.c      | 82 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 87 insertions(+)
+ include/linux/cgroup.h    |  3 +++
+ kernel/cgroup/cgroup.c    | 17 +++++++++++++++++
+ kernel/cgroup/namespace.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 64 insertions(+)
 
-diff --git a/include/linux/cgroup-defs.h b/include/linux/cgroup-defs.h
-index cbfe8937647c..4626adbf45d6 100644
---- a/include/linux/cgroup-defs.h
-+++ b/include/linux/cgroup-defs.h
-@@ -72,6 +72,9 @@ enum {
- 
- 	/* Cgroup is frozen. */
- 	CGRP_FROZEN,
-+
-+	/* Cgroup is the budget of a cell. */
-+	CGRP_CELL_BUDGET,
- };
- 
- /* cgroup_root->flags */
 diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
-index 2afb4cb2bb4f..a5ef01688e7f 100644
+index 57a4037671c9..af467b402448 100644
 --- a/include/linux/cgroup.h
 +++ b/include/linux/cgroup.h
-@@ -152,6 +152,8 @@ struct cgroup_subsys_state *css_tryget_online_from_dir(struct dentry *dentry,
- 
- struct cgroup *cgroup_get_from_path(const char *path);
+@@ -154,6 +154,9 @@ struct cgroup *cgroup_get_from_path(const char *path);
  struct cgroup *cgroup_get_from_fd(int fd);
-+
-+struct cgroup *cgroup_cell_budget_get(struct file *file, kuid_t *uid, kgid_t *gid);
- struct cgroup *cgroup_v1v2_get_from_fd(int fd);
  
- /* Was this controller blocked from v1 hierarchies by cgroup_no_v1= ? */
+ struct cgroup *cgroup_cell_budget_get(struct file *file, kuid_t *uid, kgid_t *gid);
++struct css_set *cgroup_cell_cset(struct cgroup *cgrp);
++struct cgroup_namespace *cgroup_cell_ns(struct user_namespace *user_ns,
++					struct cgroup *cgrp);
+ int cgroup_cell_chown(struct cgroup *cgrp, kuid_t uid, kgid_t gid);
+ bool cgroup_cell_kill(struct cgroup *cgrp);
+ int cgroup_cell_budget_put(struct cgroup *cgrp, bool handed, kuid_t uid, kgid_t gid);
 diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index a284225f8dc9..c4bbb70f490f 100644
+index 75f8367271aa..051b220e2850 100644
 --- a/kernel/cgroup/cgroup.c
 +++ b/kernel/cgroup/cgroup.c
-@@ -7044,6 +7044,88 @@ static void cgroup_css_set_put_fork(struct kernel_clone_args *kargs)
- 	}
+@@ -7163,6 +7163,23 @@ int cgroup_cell_budget_put(struct cgroup *cgrp, bool handed, kuid_t uid, kgid_t
+ 	return ret;
+ }
+ 
++/**
++ * cgroup_cell_cset - the css_set a cgroup namespace rooted at a cgroup needs
++ * @cgrp: a cgroup on the default hierarchy
++ *
++ * Return: a css_set that has @cgrp on the default hierarchy and the root on
++ * every other, with a reference, or NULL if @cgrp is dead or memory is short.
++ */
++struct css_set *cgroup_cell_cset(struct cgroup *cgrp)
++{
++	struct css_set *cset;
++
++	cgroup_lock();
++	cset = cgroup_is_dead(cgrp) ? NULL : find_css_set(&init_css_set, cgrp);
++	cgroup_unlock();
++	return cset;
++}
++
+ /**
+  * cgroup_cell_chown - hand a cgroup to somebody
+  * @cgrp: the cgroup
+diff --git a/kernel/cgroup/namespace.c b/kernel/cgroup/namespace.c
+index 76660332ec64..987ec8cd5db6 100644
+--- a/kernel/cgroup/namespace.c
++++ b/kernel/cgroup/namespace.c
+@@ -87,6 +87,50 @@ struct cgroup_namespace *copy_cgroup_ns(u64 flags,
+ 	return new_ns;
  }
  
 +#ifdef CONFIG_CELLS
 +/**
-+ * cgroup_cell_budget_get - take a cgroup as the budget of a cell
-+ * @file: a cgroup2 directory
-+ * @uid:  returns who owns it now
-+ * @gid:  likewise
++ * cgroup_cell_ns - make a cgroup namespace rooted at a given cgroup
++ * @user_ns: the user namespace that will own it
++ * @cgrp:    the cgroup, on the default hierarchy
 + *
-+ * From here on holding the cellfd is all it takes to put a task into the
-+ * cgroup, and sealing the cell hands the cgroup to the cell's root. So whoever
-+ * fills the slot must be allowed both: everything moving a task of its own
-+ * there would take, and ownership of the directory.
++ * copy_cgroup_ns() roots the namespace wherever the caller happens to be. This
++ * is for a cell, whose builder is not in the budget.
 + *
-+ * Killing the cell kills everything in the cgroup. So it must be empty, have no
-+ * children, and neither be nor lie within the budget of another cell.
-+ *
-+ * Return: the cgroup, marked as a budget and with a reference, both for
-+ * cgroup_cell_budget_put() to undo, or an ERR_PTR(). Among the errors are
-+ * -EBADF if @file is no cgroup2 directory, -EPERM or -EACCES if the caller may
-+ * not, -EBUSY if the cgroup will not do and -ENODEV if it is dead.
++ * Return: the namespace with a reference, or an ERR_PTR().
 + */
-+struct cgroup *cgroup_cell_budget_get(struct file *file, kuid_t *uid, kgid_t *gid)
++struct cgroup_namespace *cgroup_cell_ns(struct user_namespace *user_ns,
++					struct cgroup *cgrp)
 +{
-+	struct super_block *sb = file->f_path.dentry->d_sb;
-+	struct cgroup *cgrp, *anc;
++	struct cgroup_namespace *new_ns;
++	struct ucounts *ucounts;
 +	struct css_set *cset;
-+	struct kstat stat;
-+	int ret;
 +
-+	cgrp = cgroup_get_from_file(file);
-+	if (IS_ERR(cgrp))
-+		return cgrp;
++	ucounts = inc_cgroup_namespaces(user_ns);
++	if (!ucounts)
++		return ERR_PTR(-ENOSPC);
 +
-+	/* Also brings the inode up to date with the kernfs node. */
-+	ret = vfs_getattr_nosec(&file->f_path, &stat, STATX_UID | STATX_GID, 0);
-+	if (ret) {
-+		cgroup_put(cgrp);
-+		return ERR_PTR(ret);
++	cset = cgroup_cell_cset(cgrp);
++	if (!cset) {
++		dec_cgroup_namespaces(ucounts);
++		return ERR_PTR(-ENOMEM);
 +	}
 +
-+	cgroup_lock();
-+
-+	spin_lock_irq(&css_set_lock);
-+	cset = task_css_set(current);
-+	get_css_set(cset);
-+	spin_unlock_irq(&css_set_lock);
-+
-+	ret = -ENODEV;
-+	if (cgroup_is_dead(cgrp))
-+		goto out;
-+	ret = -EPERM;
-+	if (!inode_owner_or_capable(&nop_mnt_idmap, file_inode(file)))
-+		goto out;
-+	ret = cgroup_may_write(cgrp, sb);
-+	if (ret)
-+		goto out;
-+	ret = cgroup_attach_permissions(cset->dfl_cgrp, cgrp, sb, true,
-+					current->nsproxy->cgroup_ns);
-+	if (ret)
-+		goto out;
-+	ret = -EBUSY;
-+	if (cgroup_is_populated(cgrp) || css_has_online_children(&cgrp->self))
-+		goto out;
-+	for (anc = cgrp; anc; anc = cgroup_parent(anc)) {
-+		if (test_bit(CGRP_CELL_BUDGET, &anc->flags))
-+			goto out;
++	new_ns = alloc_cgroup_ns();
++	if (IS_ERR(new_ns)) {
++		put_css_set(cset);
++		dec_cgroup_namespaces(ucounts);
++		return new_ns;
 +	}
 +
-+	set_bit(CGRP_CELL_BUDGET, &cgrp->flags);
-+	*uid = stat.uid;
-+	*gid = stat.gid;
-+	ret = 0;
-+out:
-+	put_css_set(cset);
-+	cgroup_unlock();
-+	if (ret) {
-+		cgroup_put(cgrp);
-+		return ERR_PTR(ret);
-+	}
-+	return cgrp;
++	new_ns->user_ns = get_user_ns(user_ns);
++	new_ns->ucounts = ucounts;
++	new_ns->root_cset = cset;
++
++	ns_tree_add(new_ns);
++	return new_ns;
 +}
-+#endif /* CONFIG_CELLS */
++#endif
 +
- /**
-  * cgroup_can_fork - called on a new task before the process is exposed
-  * @child: the child process
+ static int cgroupns_install(struct nsset *nsset, struct ns_common *ns)
+ {
+ 	struct nsproxy *nsproxy = nsset->nsproxy;
 
 -- 
 2.55.0
