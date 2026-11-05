@@ -1,88 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892690;
-	b=2IDtV18jG+G133OgI7oFaUIpGFjk/HklrpO56KGUVYJbYUrwJFOqrC6IBQXK4ibxigUL
-	 UsLEGQxmZ62fVDQcoyXl6pMF8Zd1fqaAJFgGFUDRapnPGMXTX0gXSWfi2Hsl7IBH+fegz
-	 lGH7WJhH/pngcRTBvI0GP2lwEE2wdpoHyzf1y2POBGAu2WC2kvtsZm2RfsoaVd9AhtNpG
-	 omTlYXNrDAfB7Ntk1/MDvuPZm7y6aXhGAzLHqLs7Bbrv276VSkg2SzuPvV7ARUqgSjrYV
-	 cX4dWWlHdwizGHK0nJBV+6I2dYd+H6GbWd4xd9S4hRKx8/dyQ7jXyLN63exy4okhFow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892690;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Lc1sKOCYSlHUV0fHl4eH9tFJeblOhHlw/u9aQiiKpG8=;
-	b=tyjgvWK24jxLWvHREKaaIUSts24/CS8JfrnJRnUyPONdWy5Z8mOOzpSCSXIu6PZNWkQP
-	 Nu+QW6IBUBbhtbURWLEbguPsmse/7lB82EPwENfZmCQEj0iLQeknkdx66i035Cc43fwPO
-	 GACPhMEwM20XFsPe5erTI2r0G6iYZcORCgSaCNrqFETnORCtjbuojQ+94d17VogYzIgxC
-	 P7Kjqd0QjhineVtElOiSMMnoHJPwe/4XUgzACfqE6L+/jGpOsA/bNBo0ihf9PxwUAaOE4
-	 5ISZBq3axhoojUpTosI2TDnIUnAJxp0S1HpxNfe7oiKwQH8MjVu+C/fv1cLfIgTxC2A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Ow7Bn4jV;
-	arc=none smtp.remote-ip=209.85.217.51
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793892691;
+	b=4ccI4EDlrHI0zWA4jMmmEbVK5j35hg7nvnhNtffOU2cc8pdhICaqJAr6ApmlYfzyMkZ/
+	 Rt4kWjGX95HFwS1h7KRSW5S6kvvRNWsNfxQvs/H+KJJzwPpkp4bplwkBncmHl9eKL2z0P
+	 A4LlV0fLTpEFr9EUlrwwjkzcxjqZGbrtitK0QU5B6Ia69yq+OoaI9FWoO/spOW+VtwuKK
+	 y8CChXvs19eGITG0cwiAf0BGXRJjJh/05x8yJDjQ7ZenvZtPjMgTwtB7ZH1JRsTTpOpRf
+	 Lb5dlZanOfGD219cIXkUN28fRz75ZM+HifXfNXWHdaE9Wxb3D7vHIbt+YKyZmoUsXSA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892691;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yiM2+qWqrWpX2d99iNyQUbswa+iIJehyzs1jXXgMmXs=;
+	b=Vgwr3OrrrGy2wy2Er1qLCGYoEkAEg8M5lMy5Y5PnNfZZlKN7rfu6bIpjHZrNNJ4DFt7M
+	 VzLHEU+yNCWAz8gSv4wZHLOxzTdpJvffIJtJuyIQkFWEz6JmcqWGFCN8ATrGVH/7H9W/M
+	 doeIvVytXPfnOqdoNzpXmjfaTpURjh4fd8crEmXnd56Ue+9d9DLdPAwOONfS5nW4MAYur
+	 slU/ehx85ftXFmgmd3pHe+XwpNB3jb9+0Cib8ypDqZbJfcMDrkiUIKLzFnGSTKwb5BzCo
+	 xQMCQDosksPJVxo9Nj8KCVooxiAsoODN0fpztXdMXHd2BzN5bRyYZ1Uraqc1ql9+gsQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgC0JBFU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7C3606A33E
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:31:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F7C3606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0124606D82D;
+	Thu,  5 Nov 2026 15:31:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Ow7Bn4jV
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7ce6cb4c6faso918134137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:31:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793892689; x=1794497489; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lc1sKOCYSlHUV0fHl4eH9tFJeblOhHlw/u9aQiiKpG8=;
-        b=Ow7Bn4jVMWNTW2BTiBf1oeu220zXvqX2/ixy6VJEzS7lT4YbYH49UvUCwNeJLvjGUs
-         zZC1gvlvCZlEsw/PgD2NjjS1bEPhr07eC/1OdSPjqOaNBYvbu79JZ0z5DwkpPkVGxrg6
-         PxCizCmixcKo091E1arV6nLRwfSah987kfDrP2FGx3ENiUAiOD3pzbsvVW4zhEd8xwJk
-         /IyM3XrrD2z67gY2DNDfuEh573tgIT8Z+QlFThqjpO6tROz7UX7ueDTLKje+6DyRMyWE
-         ce2NwC5VaxlQgn//CpxUCgGshsf91WPsuc6H6xIDCXwkEjLGOsOKRd8YqP0txXouqCGw
-         COwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793892689; x=1794497489;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lc1sKOCYSlHUV0fHl4eH9tFJeblOhHlw/u9aQiiKpG8=;
-        b=oJRlSz5Kobib/OUl9hdZjO5yaud6Bryfjft3o//ImaTU4Ft/QI9tq/jWpX3PA+K738
-         fKNIzFx3ahw5pTFbS4mXf6P2/UTw7S4rGD6G4PJKyImclH8q8VcVcVqDikpxcEoyeWIP
-         SCOB+pkIeeb3eFslm3EedNx33mkKYJ5m54X8nAHIQifSLiru77c66Prv0GqA6PAnXEKJ
-         m7T4555F8PuKEl8HRNHm2LOSRHvMeSRLjAD3XiBYcRLf63qxUN6MO+2A93PNC8kVlIW+
-         SyO+cjUO2qBKA2WInfvBGdYN5oqE4xPTmQoinrx0nC/sgssLxy/Dt/pzXq/50iohdTx6
-         sTfQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTAdYjC8+gfPpNAaA4JjWmCdE4JTAAv3fSgrkKLJLeTOlZt2yKp7uzqirHa1zk5rKj89XMWprZayqr2X4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9k2Z0+/abg6mX/BDaf9oH6gsRWK5m3GFxo8KcYG1hbSURMy9R/
-	rfzdAuROfaCyMEp+OMbeAuSR2H0lNVDSi4tC0CRPbOqBktWYfgS21elfsLnoLixgIpU=
-X-Gm-Gg: AYBFou3HZJvxmozkvEIfIYzepgmUDs6PT5chRHTE7NDBpQoPrImezBCDFxpXQz02ei8
-	XKCH1//n1gNDuPLtzyUAyiiK2AjgJ/R6di9KFNnRK1DJRCuoQITnLIpw9+jhvaocyxOPTZl7Qb1
-	dePVjuh98IIu3m8lfzXIxDUa6Oepqo3wOGrm2gm27aoqb+08S8eMSaIz9lz02dcFnBrW/v2EkG8
-	Kxb4vvS6F+Vzs8v626vSfbdIC0vRsBGPsnD2fG6BewtK4Yor/DTodchwNLFNL7TY0cRsfRPJAMA
-	XsrgpepvdncLAGQ/5WJT7NR8WaRPdULz2zYuD2vNFiE2E4HplCJov+jrX+cj8R9gJOzQ2GVK6Nm
-	jhRdJi2laEKtJDjcHDxPR49S0s6meAZfR7CRX9oTJB1atzzjOF8tfDkYqrDvpMigYdfKDSvg9US
-	XxyPxeJRCgDIVdiYrf1r6zCFYReWm7xoTho8t+fwigQmHz7MtJfRbrYIZ66BIPLMus6rsuPkw62
-	A7TysBpgfqnWEpCm9o+xzsKXIYwcQ1eNzfWef/3As7PSTiBXaf58oI2bK9mMOUBsjuJsl1qKZ3c
-	hoVC7zoFApwnY2R/u7KBaavlQEdu1FMdj3mDxkj3ZuyB
-X-Received: by 2002:a05:6102:5811:b0:7bf:74c1:b607 with SMTP id ada2fe7eead31-7d0728adb49mr10421912137.34.1793892689092;
-        Thu, 05 Nov 2026 07:31:29 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.244])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d2770ffbb4sm3644329137.0.2026.11.05.07.31.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:31:28 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 05 Nov 2026 15:03:17 +0000
-Subject: [PATCH RFC v3 85/90] tun: ignore an equal uid or gid across cells
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TgC0JBFU
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793892691;
+	b=OSNrHhiGCw/FEHYe+LiY1nA4kzR/s+c169Yfx5GosxYK5gSlQGJGxPdILbTe2DKH8Asy
+	 fYOIkqhtOLmBU8awVQSNEaot33jW0S1lWy3Cd2GhkDqNziUms/uqOIuAGMhu0S32VStK0
+	 ziQIRiphSrdLGPkAEPp49LD1CA5BR4xtjuU9dcbh+ib00iwgX25n6DrmHkwy/tgMUfT4a
+	 wc0TCE/EoT+jc4GnpKSwAaFw9ccJE6PEmaHnZSx5xl64Suj1PcCWNvWSdA/x1cfSv4K6p
+	 8snYjRir+zZwoC6f3A95BotaEVQxQA4DQEM39AiyyUpSG8C2i4gnYDF+pra3R683bGQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793892691;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yiM2+qWqrWpX2d99iNyQUbswa+iIJehyzs1jXXgMmXs=;
+	b=q+fS3JzANzYqDmNA+x+8jU+ykhHExNGNCAximltdubICj3uUgA2WXuTWtWhQvwhb55u0
+	 S9kya/ErBk4/b6Xe4R+7RW7+kyK7kBDzDw7gyttkI8iyrePb/LbbjNzfDdtdrYxrZP1f1
+	 K/g9iBxpflcTkOsB24MVKSbEoZi4XSEyj9Pm8gBTaed38TGbPMiOzVynVS2o4Nu3b0ydc
+	 GxqJGEuPcFOhGUt3YP+iwsGB7OlggkNZX2pfukEF1VNSqRkYmL79E+MK+m13SZCfxO2RT
+	 7mlEDdLu7pZt4xZV0AsxFjd8HHLk76TrEvd5qjivq48WJAafgm+oaHpIcaxst0zpI5Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id ED92E1F000C1;
+	Thu,  5 Nov 2026 15:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793892691;
+	bh=yiM2+qWqrWpX2d99iNyQUbswa+iIJehyzs1jXXgMmXs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TgC0JBFUVrX7kzgYx4pzt2nKkXBfgZO+t1vgratxVy53uqq0Om1Ak6JpM/w8edKrH
+	 Tv0t12+v5pzcHrXG8FNqdfVh5lnrlhI+tR1rXVtgiFBeuWUPqLCt7n8ny2NlQvxj/a
+	 eOS7v5vq5unhtEvktM+Py2BDNpZ0QNdNoGPrzeYiRDeVU+l2ovrbseXrjrmIMkV2T9
+	 yr2LbOVfjmjhkXJaR9HU3KSg95Ra5uIWnLgTctmzJgd2hyFDftxS+VcgFIkaBdAVqV
+	 yq/HttVz81pGvo4b63s6/mZoY50VQOzOZjl6DX9jYgzVCwKnAut7g0fBemewgRiXSk
+	 Qd0ggY58UUwHw==
+Date: Thu, 5 Nov 2026 16:31:18 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: jic23@kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andy@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com
+Subject: Re: [PATCH v4 1/2] iio: gyro: mpu3050: Split data ready trigger
+ enable/disable into helpers
+Message-ID: <20261105163118.00001538@kernel.org>
+In-Reply-To: <20261104040008.1458-2-laixiangwu@cmss.chinamobile.com>
+References: <20261104040008.1458-1-laixiangwu@cmss.chinamobile.com>
+	<20261104040008.1458-2-laixiangwu@cmss.chinamobile.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,112 +87,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-cells-v3-85-bc9095937a84@toxicpanda.com>
-References: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-In-Reply-To: <20261105-b4-cells-v3-0-bc9095937a84@toxicpanda.com>
-To: Christian Brauner <brauner@kernel.org>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Andrew Halaney <andrew@amutable.com>, Jeremy Bingham <jbingham@gmail.com>, 
- Tahera Fahimi <taherafahimi@linux.microsoft.com>, 
- Serge Hallyn <sergeh@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793890936; l=3435;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=vyjLLoQ/TDAckSS7Xa6CC+c0a1GTVBoLQwuVwjxlg80=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QNemlnyjEZ8c0KT6w9l885GJ0zr8f73y0iD7INQWVQ9lCbygUr5B4MKELt79MKPWVHgb/GQndZk
- wSRPhYAj+WQs=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-A tun device can have an owner and a group, set with TUNSETOWNER and
-TUNSETGROUP. tun_permitted() lets a task attach to the device without
-CAP_NET_ADMIN if its euid is the owner, or it is a member of the group, or
-both if both are set.
+On Wed,  4 Nov 2026 12:00:06 +0800
+Xiangwu Lai <laixiangwu@cmss.chinamobile.com> wrote:
 
-That check does not know about cells. A one-id cell runs with the uid and
-gid of the user who built it. If the cell has /dev/net/tun in its tree and
-uses a network namespace in which that user owns tun devices, its tasks
-pass the check for all of them. They can attach, read the packets and
-inject their own, with no capability and no right over the network.
+> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+> 
+> mpu3050_drdy_trigger_set_state() implements both the enable and the
+> disable path of the data ready trigger in the two legs of a large
+> if/else statement.
+> 
+> Split the two legs out into separate mpu3050_drdy_trigger_enable()
+> and mpu3050_drdy_trigger_disable() helpers and reduce
+> mpu3050_drdy_trigger_set_state() to dispatching to the appropriate
+> one. This is a pure code move with no functional change, done to make
+> the error handling of the enable path easier to read.
+> 
+> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+> ---
+> 
+> Changes in v4:
+> - use an else for the either/or dispatch in
+>   mpu3050_drdy_trigger_set_state(), as suggested by the reviewer.
+> 
+> Changes in v3:
+> - none; reposted in a new top-level thread.
+> 
+> Link: https://lore.kernel.org/r/20261103092002.1332-2-laixiangwu@cmss.chinamobile.com
+> Link: https://lore.kernel.org/r/20261101092327.197-2-laixiangwu@cmss.chinamobile.com
+>  drivers/iio/gyro/mpu3050-core.c | 173 ++++++++++++++++++--------------
+>  1 file changed, 99 insertions(+), 74 deletions(-)
+> 
+> diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+> index 07c0f9011..62e416df3 100644
+> --- a/drivers/iio/gyro/mpu3050-core.c
+> +++ b/drivers/iio/gyro/mpu3050-core.c
+> @@ -946,103 +946,128 @@ static irqreturn_t mpu3050_irq_thread(int irq, void *p)
+>  }
+>  
+>  /**
+> - * mpu3050_drdy_trigger_set_state() - set data ready interrupt state
+> - * @trig: trigger instance
+> - * @enable: true if trigger should be enabled, false to disable
+> + * mpu3050_drdy_trigger_enable() - enable the data ready trigger
+> + * @mpu3050: device to configure
+> + *
+> + * Power up the device, enable the FIFO and configure the data ready
+> + * interrupt.
+>   */
+> -static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+> -					  bool enable)
+> +static int mpu3050_drdy_trigger_enable(struct mpu3050 *mpu3050)
+>  {
+> -	struct iio_dev *indio_dev = iio_trigger_get_drvdata(trig);
+> -	struct mpu3050 *mpu3050 = iio_priv(indio_dev);
+>  	unsigned int val;
+>  	int ret;
+>  
+> -	/* Disabling trigger: disable interrupt and return */
+> -	if (!enable) {
+> -		/* Disable all interrupts */
+> -		ret = regmap_write(mpu3050->map,
+> -				   MPU3050_INT_CFG,
+> -				   0);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error disabling IRQ\n");
+> +	pm_runtime_get_sync(mpu3050->dev);
+> +	mpu3050->hw_irq_trigger = true;
+>  
+> -		/* Clear IRQ flag */
+> -		ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error clearing IRQ status\n");
+> +	/* Disable all things in the FIFO */
+> +	ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+> +	if (ret)
+> +		return ret;
+>  
+> -		/* Disable all things in the FIFO and reset it */
+> -		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+> -		if (ret)
+> -			dev_err(mpu3050->dev, "error disabling FIFO\n");
+> +	/* Reset and enable the FIFO */
+> +	ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+> +			      MPU3050_USR_CTRL_FIFO_EN |
+> +			      MPU3050_USR_CTRL_FIFO_RST);
+> +	if (ret)
+> +		return ret;
+>  
 
-A cell with a block of ids has a related problem. Blocks are reused, and a
-persistent tun device can outlive the cell that its owner belonged to. A
-later cell that is lent the same block would pass the check.
+Not sure if it's just me, but reading this patch is pretty hard;
+please use histogram as your default diff algorithm [1] when sending
+a patch next time.
 
-Fix both the way it is done for keys. Record the id of the cell that the
-caller of TUNSETOWNER or TUNSETGROUP is in, and honour the owner and the
-group only for tasks of that cell. Cell ids are never reused. Any other
-task needs NET_RIGHT_TUN, as it does for a device that belongs to somebody
-else.
+Otherwise LGTM (after viewing with the histogram option :)).
 
-As a consequence, an owner that a builder sets from outside of the cell no
-longer lets a task of the cell attach. The builder can hand the device to
-the task already open, or give the cell CELL_NET_TUN.
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- drivers/net/tun.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-index 0a2f864a253e..ef1cc5617812 100644
---- a/drivers/net/tun.c
-+++ b/drivers/net/tun.c
-@@ -47,6 +47,7 @@
- #include <linux/miscdevice.h>
- #include <linux/ethtool.h>
- #include <linux/rtnetlink.h>
-+#include <linux/cell.h>
- #include <linux/compat.h>
- #include <linux/if.h>
- #include <linux/if_arp.h>
-@@ -185,6 +186,8 @@ struct tun_struct {
- 	unsigned int 		flags;
- 	kuid_t			owner;
- 	kgid_t			group;
-+	u64			owner_cell;	/* the cell that @owner is to be read in */
-+	u64			group_cell;	/* and @group */
- 
- 	struct net_device	*dev;
- 	netdev_features_t	set_features;
-@@ -518,6 +521,14 @@ static inline bool tun_permitted(struct tun_struct *tun)
- 	const struct cred *cred = current_cred();
- 	struct net *net = dev_net(tun->dev);
- 
-+	/*
-+	 * Across cells an equal uid, or gid, means nothing: a cell of one id runs on
-+	 * those of its maker, and a block of ids is lent to one cell after another.
-+	 */
-+	if ((uid_valid(tun->owner) && tun->owner_cell != cred_cell_id(cred)) ||
-+	    (gid_valid(tun->group) && tun->group_cell != cred_cell_id(cred)))
-+		return net_may(net, NET_RIGHT_TUN);
-+
- 	/* If both uid and gid are set, *both* must match */
- 	if ((uid_valid(tun->owner) || gid_valid(tun->group)) &&
- 	    (!uid_valid(tun->owner) || uid_eq(cred->euid, tun->owner)) &&
-@@ -3338,6 +3349,7 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
- 			break;
- 		}
- 		WRITE_ONCE(tun->owner, owner);
-+		tun->owner_cell = current_cell_id();
- 		do_notify = true;
- 		netif_info(tun, drv, tun->dev, "owner set to %u\n",
- 			   from_kuid(&init_user_ns, owner));
-@@ -3351,6 +3363,7 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
- 			break;
- 		}
- 		WRITE_ONCE(tun->group, group);
-+		tun->group_cell = current_cell_id();
- 		do_notify = true;
- 		netif_info(tun, drv, tun->dev, "group set to %u\n",
- 			   from_kgid(&init_user_ns, group));
+[1] https://git-scm.com/docs/diff-algorithm-option.html
 
 -- 
-2.55.0
-
+Kind regards,
+Joshua Crofts
