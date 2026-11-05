@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793897907;
-	b=nLH1WLav6gYv6wYkNBZDyUZyHwKAKmUzT53OmLHG0za8+wTX+M250StIBIfwa2oR7U0V
-	 BWhVfJWnRqeXTzjepnFpmubiCeIOelk7vuyKu2XXL5o/5RPLgxDBX7wQ+T3yzDhGesYZ8
-	 m1ODk9C9juA9yUMErqLjEcBSnkoC6vNLSFZuH6hyJTFWYuxyiHLQ8aJp2A0raV1bBwL+D
-	 BWm345lY7aph4Z02FtiA0aIs2DsL/yHirj6siWGU0dwIjfWQJz2PkdUoW0hVFfaSRUoc+
-	 Y6J6fiCrMCgrr5qYwPuQWKTAZfjprtGs+TweJw3GC4ThbbkcnZD7ZHFz5f/tSESxD+w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897907;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.134
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793897957;
+	b=TwQyQyc3py0SmcxXms0UJk4pIM6aslXnAuQzPhlfUepcOD6+C+cKHYs39a5+7+Dum3Dd
+	 B68MvbDBHABcfF+jqoPmc9aFvhPmp4rwzUw6QtN/xALa/fMsAuF5Qz2Fk2jDBptr6JXhr
+	 RJtE9bOdbcsBEdobdTPv+EwVr9THF0QG0GUShCqfVVN7w2Ex5NjTXEKJqPUEYPj1F8k2r
+	 8YVk3zK9R5vY3QJntdn6AsQ8XHIqIc5tCDBwPl14PVGiBYzcJAYcrOCNG+7G6TR5TeXUb
+	 5jGU/Zvfeh5IanVf5GDRZ7uJejKpSx1bdRu0HrJWXEhqaXFfHDZLjXFlj+ZL8SY0jhA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897957;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TI8wWEeGQ/ZqWRYd10U2ka6i7cW6dlytnPcTCd6gW/c=;
-	b=5nHYRpBpHwdVWRKmA0GkCDU+k1pQ10vwyeP/8Hqaazz/1oX3xz1yRW62J4850kT2gsuv
-	 SbZ+RwIz9MEVZaNBj19VlSNbDDypyc7fH+zWrhcorPE58snAzbxbm8cH7xmYmmuZa6hvB
-	 b54mncHcp+9lffgbcElX71hw8FBWzupZqJsUd5WEDW+9N6KNDaVKWbQuHTINXbkr9BNh3
-	 bq7XPuoxzKQiDgmSXsnzabJT6ybApNl3Z+Sn8wz4UHQdMo+d56PmXButEm1br6J2lLe0L
-	 c9hOo9R98DKhsgpmRngPGspom563IhJXFRsO/lQwdcUkIfVrysO2xPjuV8fNzOObfYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=BblA8xMRj2hShO9QEYp5l8nk1qexS+YtM6CJDTGE8oQ=;
+	b=Hc9h+IYD5dwg4Iere4dybKZisGtOO3eSqgvkkQeD3D5NZc2kalsPRqa90Eg8RBmB6zDS
+	 PtS8pBAKnHpSz7BNOP6BrR1JUvQZXfKgPMD6YxMQDsDlkCbgW3yppna8FGlEoVr1Poyko
+	 a02T1JycTNDjQlGMo1gKW9oIWGgifUF+yGME0q+uPOvlIep3wmbYIuveZ3MkH6mWDwOiE
+	 3WGS/u/n7XK2fdsFWohWAYEbV2IJcQFtvS3uShI3x4Tf9/lBm0QWdgcSkNH8DKUbEV5tV
+	 NZOS8Csf3EXP/sAAqRX4I22YEQMs/TtAPLIJct/VQ9eN2ypvjcKm/KRVNrztMcI6e3A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VKSCTGQB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjWLQ7EV;
+	arc=none smtp.remote-ip=74.125.229.134
+Received: from mail-dl2-f6.google.com (mail-dl2-f6.google.com [74.125.229.134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805AF606A31B
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:58:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 805AF606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65117606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 16:59:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65117606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VKSCTGQB
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e942864693so12521195ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:58:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793897907; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sm9QhZcvGqJvy5Oj/fNY0TSCuiBX0TLdPIsrujOptFicXf40WbsBp+t9yKimtrNVzb
-         jJ2WElwiycK2zgecMAVcoLK1onNzlhbvYwem6Cxnl2Ik6dOVPIRVJonBKH5B0wYHYWn8
-         zOaaSW0lFjpeymumTPV0Xh0v9ENmDdGkh+TzYQxM9KXwR0b61XSir+QYDE1QPkl0xJ81
-         BufFt/s/sUgbS7uUheYgAgX0ep48hDJ3Pc9fzet4GyHFUHWnMSaYfw9JRm8Rj9U2tVwY
-         S1u1xYL0i9jQuKi8TZy2u4GTJq0lH9eIBeByV/xSPQin3Kr7pMtEd5/djsBl1ZDO46e8
-         Ok+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TI8wWEeGQ/ZqWRYd10U2ka6i7cW6dlytnPcTCd6gW/c=;
-        fh=PmqJXMRREBOK4b/BaOlvi1iiYcNTv71TFcxVmsz6GSY=;
-        b=ZGZrEUGOM25zdspV5iZCU+z5Kicvzi2/ctjtfPF7y7waNaHQB4gN7B20FI3CFJUHBb
-         DRqlGGlqAAHr6wxhAc/ItYlq5hAWRuB9fKZge0WxK3hJjPKIIKw7ya9TTC4nPdMblOol
-         4/w+WsJSug/vjGAf5rJR61HOkzoZiL0AWsWZ/iLGgLQuP1rd9BMJ4YeU11XzgmqG/aAj
-         msRpTbAvToEFodhqfMUt30cPZOAeRkOrcU6edpTniB5Ip8drJ7/XCQdyKXVrDP3nn6ME
-         w+YV5y6csEfKJj2Ly8zGc+TacxHn+xu6Axb8ghJl1eMT8LHqtN4MzlRtfh3hsPZSGnEF
-         akxg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjWLQ7EV
+Received: by mail-dl2-f6.google.com with SMTP id a92af1059eb24-14b4e009173so38938c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 08:59:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793897907; x=1794502707; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793897955; x=1794502755; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TI8wWEeGQ/ZqWRYd10U2ka6i7cW6dlytnPcTCd6gW/c=;
-        b=VKSCTGQBlEIj7gjwE2BtPw8Ij2jptN3J7STFMUX2+Y9LkeZRr3W4bf5fM55NfOM8Rf
-         f51+6C9QSJ+cYQ6JgOAFojVO9HA4IzZ5ozqvlXZ5PRR3FbxygVBnkVgLn2cNV9u9iKxx
-         KTshLKEDaSv7Esp2MxTsN9/D7N731Re5Vaxlh+G9XnamSe3lPq3OhzmHLx4YTHlZYyTB
-         znItnN/xX2uTn8oywl+l8SB2d4HzpG1D+uNHojVnWbHNIfJ+Y3gtMWsUt4hj9r0DtwPJ
-         2rrbaZnGixMME0wi0WUxC6ugAY+j/TYH6WyGx3HYge2mvA8TBklrhVrddMpwnEmJIYYX
-         vQxQ==
+        bh=BblA8xMRj2hShO9QEYp5l8nk1qexS+YtM6CJDTGE8oQ=;
+        b=HjWLQ7EVFUE+4RNIIskJhCqwes51RsBjMRSwSz3ErDY1kU/7gs1uOeMgTCT5DQG6t+
+         f8AFwK1fklYDwJzcXHNs6Y1Gke8+4VfWyoaRCKZybNYA5Jy7hUPqEOUecKzxyM1kThCk
+         RbvsW51nt9wrrZAMUgfpb6LCQloOLZjpr8QUvyYNsmYdUGLcH1FqZ8CXlzM/YGEHq8Zs
+         zRBRAdB7L+qY66ajgtSsuA0iOVBMhh9asFcWdC9tJ5l5L2DLDiV1r60HyPkqdqvUNMNp
+         2nCBGLr0Xa85FJVcEtDHBUEcXvpdFJBHDLr+05QlSy7RT3phk6zX0z8BwhumNPWyrckS
+         o6mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897907; x=1794502707;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793897955; x=1794502755;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TI8wWEeGQ/ZqWRYd10U2ka6i7cW6dlytnPcTCd6gW/c=;
-        b=oW0S3lVpggz+XGWt2hrsMVeT1bznzuvE5lTEzfyteCoIxhCEAOopT4Bi0v/W+W2OlJ
-         ECG1KZusw7nqG5iIGcXCyp8yPNAYymjFi8ljxTHT7sPFjTPPCc7OQlcnVJDAl2+p2ccN
-         /yEHwIxMNi26YMT16MjiM/l5pf8jouYwCASLbD4FacQBwixC3WMKUupiQojsw6eruRSk
-         omAIgOi+/hT+0NK2PC1GW45G9OpK62tZz6q6D8YT+m3c122pNyYIg56388Jua0r89vL5
-         lXB8ozJTqMnfYjZ4Phq+NV5eXyjtCi7MDsoe8QmcUoTTzjZkPagtljL6ZD5gr4hy2SOp
-         /pZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwi6IDilMEzrNqCR61AqWbcKa7xr2lllYMQ9JKIWqo8WiBzDVw9wdOxBvnSFExnEfPDHE9w1kPGfmB5IOM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+o9DfjHGbKvm72DZoagpoyjlddhqTBY4lI8crj7Cx4+VdQOFn/
-	Gnv7xFm8lwLE7HuMU2Q6WYKfYoSXqW6SKEteGok1JgRiHHXYjWQ3+/9N3NkUchlroYYRD9+BGwA
-	SFlXC9B+7HfHX8KzFi/hDZp6yvr1Zqjw=
-X-Gm-Gg: AYBFou39vhC9sjFyXQOVf7u5oicy/+JMWnwAFTHTRAVkwWMpQiBfHJP3Lljf0BB9BMu
-	LElIn3xPbivZw0XSa/0ASqNMDtqmd29AMYHup3sBFRWgY6s8Hv2aLjnaS49XWtN6wTjxpjfeLtN
-	FPUYQShb4pSxKIVOS8BbrVEqI2pQ6+Xh9NfJzCIRE4/1h6pFR/L8gFtNimRV6E1d00iFR2wn05U
-	xAj3+OttiWtyx4fncTdEe7H8eO6p7UIlkj9Adc2PlV4tvSFxHJmDAaY+NUpuLHVMYo1SvnlmQo5
-	9269i7R1UyLCV4JbfQL2B+bvyhVqkK0Ur043Fb1B/VczVwG1j8ewZz+iTZvTCPwUWSSt1/hsyir
-	ZDXSoeM2RD65SqlhQWfPtltrDWNSbsYnB+LG14s7Zj7eNpSpmdvtO3LiNSpjdnYdzOXoDiTpi4H
-	xAsMDA7HhBsrkyJpcZ22ruCAXGLFDL7aQPcQ==
-X-Received: by 2002:a17:902:ce03:b0:2dd:ad74:ac1d with SMTP id
- d9443c01a7336-2ed40c153e2mr2350665ad.24.1793897906699; Thu, 05 Nov 2026
- 08:58:26 -0800 (PST)
+        bh=BblA8xMRj2hShO9QEYp5l8nk1qexS+YtM6CJDTGE8oQ=;
+        b=gdb6YMgdFu5z4ufQ8CQ5xW59o+vc0KLI+BXY2HwSvWqPdcVK2EEQtHsjPynQUPl0Fr
+         vx4kMIy47b9MoBBqtfZjBtm9q/pAIMIQBmvcRxlQuaeXvfGuwZvJ8wXZxjYErnm75wrr
+         PKJqnUK9o/FWgNu/+lhiJXV7KLsVun5b6tmt2MibzjveqFtPYvQcorT4IVCutMcn6McM
+         UvqXDCRDUxYNkKCjnP4UINfQXy+q7RRP8M39R73WV9+wPLjvo6w6wtra0eTOa0lsFHpW
+         FuKeCcXMopj6loqPqu2/Q4gDkbqgrpuwe8EFDYkH3KTZADxtSJE/XmPdIieO8dcowWP+
+         7RxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxkSUc1+v7OblLAo/XDPk61+Q9IWjl85mJcnjFChmP/ezGNSquSFBM+bItLUQ939CJ4hE3QCM3tgQTOBmM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cZ5C+aD9M5lYDDyAPB3vL8d8NbNtfElvyiSz6JG0TQC3N+1Za
+	ZilahWK0h5I5spQQHdK52z5En8Xs1GsIWh+OXAf5s0LdKXhDVGxHpo8j
+X-Gm-Gg: AYBFou2fZgNuqNf/Hd4FbzHk5NOKj/jPfDDEdGLSlurTNz6GiDYHpN4djaFO6d375aV
+	Pt1HtZ3WovACx1IUDDolMhqocal7/QmleH5+hmcKk1AOSZ5L5PDp4ws4GfWy6ptAgXA6AMJADnN
+	YbS3AoP5JALSciNCO7kzl37IQ5ooKXEutyjxDWaZyLFn1D73nc0Z3pB3MnI2Z1jyvkeMA2QZVjI
+	px468Z5uMiPCEgC719ZU4mx7SsLaiC0bP1rT2YWm7Bdo6zCtyuvbmWCMuLQj6DhX1VmMbrf7Pwl
+	Iiqxw1Fg1NRho9Sdk1dFeyil9pm0421NkspzVfBp/29LVWPuXA+8JXtNjzoBp6WrzQaT1ezywRH
+	KVgU8Pmk1Km335ZRuRtlaP/R9h3X5whHOHy0B2subqFecIZpEpVCbcPLYYjMFym2o2pFTbBeU6d
+	t8e7Xv2lDpMPsMJlXUItNrzNi02D3FJKwuitoQ2QhzHjnyuC6Q/VrTcFlfvnqCFGn0RxetoNawA
+	9jMYVZhfo7vkmgQFovbbuqJmJRmTQwncjAtHhC5nA3ZlIZJGIOiI9YhTm8qH5iVP8kGM3Xrlf5I
+	BDuqpwWtbzoYd5BzOSxPvA==
+X-Received: by 2002:a05:7022:b042:10b0:19d:233:989d with SMTP id a92af1059eb24-1b24f44feecmr4573967c88.14.1793897955219;
+        Thu, 05 Nov 2026 08:59:15 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:41::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c30521sm19263403c88.13.2026.11.05.08.59.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:59:14 -0800 (PST)
+Date: Thu, 5 Nov 2026 08:57:07 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+	Eric Dumazet <edumazet@kernel.org>, Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, "David S. Miller" <davem@davemloft.net>, 
+	Simon Horman <horms@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>
+Subject: Re: [PATCH net-next v3 2/2] net: prevent mixing frags from different
+ memory providers or bindings
+Message-ID: <auy0aaY0-g32aYi9@devvm16445.scu0.facebook.com>
+References: <20261104042521.3979880-1-almasrymina@google.com>
+ <20261104042521.3979880-3-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,174 +103,270 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023124157.75524-1-puranjay@kernel.org> <CAEf4Bzb2jEjqpZrmtTk_+YCW3_jU8fcVzk26CBZnxkpYJ8kCbQ@mail.gmail.com>
- <317a989b-c79a-41a3-8c0a-7e952bdae6d0@amd.com> <CAEf4BzY4FYFuT2iSU+fEApnKK4LjHe3i0Xpq_kd4rt4iDLK3XA@mail.gmail.com>
- <b7456dbb-16fd-45b4-8742-e9ea3f896317@amd.com>
-In-Reply-To: <b7456dbb-16fd-45b4-8742-e9ea3f896317@amd.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Thu, 5 Nov 2026 08:58:13 -0800
-X-Gm-Features: AclHuK-koNzUnQPSK8rEJ-skoaGaQE4cmeNZ6ApCf89UrOhFAr6C5ZfeUCrAwqk
-Message-ID: <CAEf4BzatLECKrRstg-SKZNDRPwTdr-ZoHBf=NYf89V-fhG2PjA@mail.gmail.com>
-Subject: Re: [PATCH] perf/x86/amd/lbr: Freeze LBR on PMI only when kernel
- branches are recorded
-To: Sandipan Das <sandipan.das@amd.com>
-Cc: Puranjay Mohan <puranjay@kernel.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Andrii Nakryiko <andrii@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104042521.3979880-3-almasrymina@google.com>
 
-On Wed, Nov 4, 2026 at 10:17=E2=80=AFPM Sandipan Das <sandipan.das@amd.com>=
- wrote:
->
-> On 04-11-2026 00:39, Andrii Nakryiko wrote:
-> > On Mon, Nov 2, 2026 at 2:08=E2=80=AFAM Sandipan Das <sandipan.das@amd.c=
-om> wrote:
-> >>
-> >> On 30-10-2026 01:42, Andrii Nakryiko wrote:
-> >>> On Fri, Oct 23, 2026 at 5:42=E2=80=AFAM Puranjay Mohan <puranjay@kern=
-el.org> wrote:
-> >>>>
-> >>>> On CPUs with X86_FEATURE_AMD_LBR_PMC_FREEZE the LBR is always frozen=
- on
-> >>>> PMI, so the branch stack ends before the IP and callchain, which are
-> >>>> taken when the NMI is delivered. IBS rejects branch-stack events, so
-> >>>> there is no precise alternative.
-> >>>>
-> >>>> The freeze only keeps the PMI handler's branches out of the stack, w=
-hich
-> >>>> matters only when branches into the kernel are recorded; without it =
-the
-> >>>> stack fills with the handler's own branches. A user-only filter does=
- not
-> >>>> record them, and parts without the feature are never frozen (see com=
-mit
-> >>>> 598c2fafc06f ("perf/x86/amd/lbr: Use freeze based on availability"))=
-.
-> >>>>
-> >>>> Freeze unless the value written to LBR_SELECT, which is shared by al=
-l
-> >>>> events on the CPU, suppresses branches into the kernel.
-> >>>>
-> >>>> With perf record -e ex_ret_brn_tkn:u -j any,u on a Zen 5 part runnin=
-g
-> >>>> CPython, the function of the sampled IP differs from the function of
-> >>>> LBR[0].to in 84.3% of samples with the freeze and in 0.1% without it=
-.
-> >>>>
-> >>>> Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
-> >>>> ---
-> >>>>  arch/x86/events/amd/lbr.c | 9 +++++++--
-> >>>>  1 file changed, 7 insertions(+), 2 deletions(-)
-> >>>>
-> >>>> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-> >>>> index a55646fcb8465..7ec50380ac81d 100644
-> >>>> --- a/arch/x86/events/amd/lbr.c
-> >>>> +++ b/arch/x86/events/amd/lbr.c
-> >>>> @@ -392,7 +392,7 @@ void amd_pmu_lbr_sched_task(struct perf_event_pm=
-u_context *pmu_ctx,
-> >>>>  void amd_pmu_lbr_enable_all(void)
-> >>>>  {
-> >>>>         struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
-> >>>> -       u64 lbr_select, dbg_ctl, dbg_extn_cfg;
-> >>>> +       u64 lbr_select =3D 0, dbg_ctl, dbg_extn_cfg;
-> >>>>
-> >>>>         if (!cpuc->lbr_users || !x86_pmu.lbr_nr)
-> >>>>                 return;
-> >>>> @@ -405,7 +405,12 @@ void amd_pmu_lbr_enable_all(void)
-> >>>>
-> >>>>         if (cpu_feature_enabled(X86_FEATURE_AMD_LBR_PMC_FREEZE)) {
-> >>>>                 rdmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
-> >>>> -               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl | DEBUGCTLMSR_F=
-REEZE_LBRS_ON_PMI);
-> >>>> +               /* Freeze unless the filter suppresses branches into=
- the kernel */
-> >>>> +               if (lbr_select & LBR_KERNEL)
-> >>>
-> >>> On Intel CPU side, we reset this FREEZE bit in
-> >>> __intel_pmu_lbr_enable() if is_lbr_call_stack_bit_set(), with the
-> >>> comment "LBR callstack does not work well with FREEZE_LBRS_ON_PMI.".
-> >>> So this is not *exactly* what Intel side of things is doing, and I'm
-> >>> not sure I fully understand the differences, so hopefully someone mor=
-e
-> >>> knowledgeable can help.
-> >>>
-> >>> But what Puranjay is trying to do here is to at least make a
-> >>> user-mode-only LBR and IP + callstack to be coherent (for PGO data
-> >>> collection, which we then use for user space app compilation), by
-> >>> disabling freezing for LBR.
-> >>>
-> >>> It doesn't seem like there is anything we can do on AMD hardware for
-> >>> when we want kernel-side LBR and precise IP to be in sync,
-> >>> unfortunately, but at least for user-space only case it would allow u=
-s
-> >>> to not plain disable freezing altogether at kernel boot time.
-> >>>
-> >>> Does this approach make sense?
-> >>>
-> >>
-> >> Yes, the intent to keep the LBR and IP coherent is clear. However, my
-> >> concern is that this may end up dropping the branches preceding the
-> >> hotspots since a CPU might keep executing in userspace until the PMI
-> >> handler runs. I'm not sure about the effect that this is going to have
-> >> on PGO but what if we rely on a mechanism (UAPI + tool flags) to let
-> >> users explicitly request freeze?
-> >>
-> >> If there is an use-case where freeze helps, then the facility can be
-> >> explicitly requested.
-> >
-> > heh, it's actually the other way, freezing **hurts** consistency
-> > here... should API requested freeze *opt-out*? because freezing, if
-> > supported by CPU, currently, is the default behavior not requiring
-> > opt-in. Or are you proposing to not enable freeze (even if
-> > cpu_feature_enabled(X86_FEATURE_AMD_LBR_PMC_FREEZE) is true), and then
-> > make user space request freezing with the new UAPI config flag?
-> >
->
-> The latter. The default will be freeze disabled irrespective of the
-> CPUID feature bit.
->
+On 11/04, Mina Almasry wrote:
+> Enforce that all fragments in a nonlinear skb come from compatible
+> memory providers (and for devmem, the exact same binding):
+> 
+> - Add skb_has_net_iovs(skb), assuming skb->unreadable and net_iov-backed
+>   frags are equivalent for now (with a comment noting the two can be
+>   decoupled in the future if readable net_iovs are introduced).
+> - Add skb_net_iov_provider(), skb_mem_provider_compat(), and
+>   skb_frags_can_coalesce() so multi-skb coalescing, shifting, and GRO
+>   paths can share a single check across pp_recycle, skb_zcopy(), and
+>   fragment memory providers:
+>   - empty skbs (!len && !nr_frags && !skb_has_net_iovs()) are compatible
+>     without mixing readable payload
+>   - page vs net_iov is rejected via skb_has_net_iovs() (0 pointer chases)
+>   - page vs page is allowed via !skb_has_net_iovs() (0 pointer chases)
+>   - net_iov vs net_iov compares net_iov_owner(niov) for devmem and
+>     niov->desc.pp for other net_iov providers (e.g., io_uring zcrx)
+> - Add net_devmem_skb_binding() and use it in
+>   validate_xmit_unreadable_skb(), zerocopy_fill_skb_from_devmem(), and
+>   tcp_sendmsg_locked() so frags from different devmem bindings or memory
+>   providers cannot be mixed on TX.
+> - Use skb_frags_can_coalesce() across skb_try_coalesce(), skb_shift(),
+>   and skb_gro_receive().
+> - Use skb_mem_provider_compat() in skb_gro_receive_list(),
+>   tcp_skb_can_collapse(), and tcp_skb_can_collapse_rx().
+> - Reject converting linear head_frag payloads into page frags on
+>   unreadable skbs in skb_try_coalesce() and skb_gro_receive().
+> - Reject unreadable skbs in tcp_can_coalesce_send_queue_head() since
+>   tcp_clone_payload() does not propagate skb->unreadable and merges
+>   frags via skb_frag_page() (which returns NULL for net_iovs).
+> 
+> This issue is theoretical and was found by manual code inspection and
+> LLM review; it was not triggered in production. Verified with the
+> net_core KUnit test suite; not tested on real hardware.
+> 
+> Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
+> Fixes: bd61848900bf ("net: devmem: Implement TX path")
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>  include/linux/skbuff.h | 74 ++++++++++++++++++++++++++++++++++++++++++
+>  include/net/tcp.h      |  5 +--
+>  net/core/datagram.c    |  4 +--
+>  net/core/dev.c         | 14 +++-----
+>  net/core/devmem.h      | 22 +++++++++++++
+>  net/core/gro.c         | 16 +++------
+>  net/core/net_test.c    | 39 ++++++++++++++++++----
+>  net/core/skbuff.c      | 28 +++++++---------
+>  net/ipv4/tcp.c         |  2 +-
+>  net/ipv4/tcp_output.c  |  3 ++
+>  10 files changed, 160 insertions(+), 47 deletions(-)
+> 
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6ac3e4..7723c24786c34 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -1882,6 +1882,16 @@ static inline bool skb_frags_readable(const struct sk_buff *skb)
+>  	return !skb->unreadable;
+>  }
+>  
+> +/* Return true if frags in this skb are backed by net_iovs.
+> + * Assumes skb->unreadable and net_iov-backed frags are equivalent for now;
+> + * the two can be decoupled in the future if readable net_iovs in skbs are
+> + * introduced.
+> + */
+> +static inline bool skb_has_net_iovs(const struct sk_buff *skb)
+> +{
+> +	return skb->unreadable;
+> +}
+> +
+>  static inline void skb_mark_not_on_list(struct sk_buff *skb)
+>  {
+>  	skb->next = NULL;
+> @@ -3763,6 +3773,70 @@ static inline void *skb_frag_address(const skb_frag_t *frag)
+>  	return page_address(skb_frag_page(frag)) + skb_frag_off(frag);
+>  }
+>  
+> +/* Return an opaque pointer identifying the memory provider instance of @skb's
+> + * net_iov fragments:
+> + * - For devmem (NET_IOV_DMABUF), net_iov_owner(niov) (&binding->area, 1:1 with
+> + *   the binding across RX queues and TX).
+> + * - For other net_iov providers (e.g., io_uring zcrx), niov->desc.pp (shared
+> + *   across all areas of an io_zcrx_ifq).
+> + */
+> +static inline void *skb_net_iov_provider(const struct sk_buff *skb)
+> +{
+> +	struct net_iov *niov;
+> +
 
-sounds good, thanks! I'll ask Puranjay to make these changes for the
-next revision
+[..]
 
-> > I'm not against expanding UAPI, but it feels like a very quirky little
-> > thing which also stems from AMD-only limitation of not supporting
-> > precise IP capture with LBR enabled
-> >
->
-> I agree but it can live as an AMD-only flag in perf_event_attr.config2
-> or something similar and advertised through x86_pmu.format_attrs.
->
-> >
-> > BTW, the alternative that internal customers actually requested
-> > initially instead of this was to completely disable freezing at start
-> > up through the kernel command line. Which seems like the worst
-> > outcome.
-> >
-> > Thoughts? This all seems unfortunately messy, but hopefully we can
-> > figure out some non-intrusive but workable solution.
-> >
-> >>
-> >>>
-> >>>> +                       dbg_ctl &=3D ~DEBUGCTLMSR_FREEZE_LBRS_ON_PMI=
-;
-> >>>> +               else
-> >>>> +                       dbg_ctl |=3D DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
-> >>>> +               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
-> >>>>         }
-> >>>>
-> >>>>         rdmsrq(MSR_AMD_DBG_EXTN_CFG, dbg_extn_cfg);
-> >>>>
-> >>>> base-commit: 0f443787a7f6ae907975742680aac2600483eaf1
-> >>>> --
-> >>>> 2.53.0-Meta
-> >>>>
-> >>
->
+> +	if (!skb_has_net_iovs(skb) || !skb_shinfo(skb)->nr_frags)
+> +		return NULL;
+
+(a few nits/questions)
+
+Why !skb_has_net_iovs is not enough? (and if !nr_frags is required,
+maybe fold it into skb_has_net_iovs?)
+
+> +
+> +	niov = skb_frag_net_iov(&skb_shinfo(skb)->frags[0]);
+> +	if (!niov)
+> +		return NULL;
+> +
+> +	if (net_is_devmem_iov(niov))
+> +		return net_iov_owner(niov);
+> +
+> +	return niov->desc.pp;
+> +}
+> +
+> +/* Return true if the memory providers of @skb1 and @skb2 are compatible
+> + * for coalescing. For any struct page-backed provider (the buddy allocator
+> + * or a future provider handing out struct pages), coalescing is assumed
+> + * feasible. For net_iov-backed providers, the provider instance pointer
+> + * must match.
+> + */
+> +static inline bool skb_mem_provider_compat(const struct sk_buff *skb1,
+> +					   const struct sk_buff *skb2)
+> +{
+> +	void *prov1, *prov2;
+> +
+
+[..]
+
+> +	if ((!skb1->len && !skb_shinfo(skb1)->nr_frags &&
+> +	     !skb_has_net_iovs(skb1)) ||
+> +	    (!skb2->len && !skb_shinfo(skb2)->nr_frags &&
+> +	     !skb_has_net_iovs(skb2)))
+> +		return true;
+
+This deserves an explanation or a comment?
+
+> +
+> +	if (skb_has_net_iovs(skb1) != skb_has_net_iovs(skb2))
+> +		return false;
+> +
+
+[..]
+
+> +	if (!skb_has_net_iovs(skb1))
+> +		return true;
+
+This also seems extra? The bottom prov1 == prov2 covers this?
+
+> +
+> +	prov1 = skb_net_iov_provider(skb1);
+> +	prov2 = skb_net_iov_provider(skb2);
+> +	return prov1 && prov1 == prov2;
+> +}
+> +
+> +static inline bool skb_frags_can_coalesce(struct sk_buff *to,
+> +					  struct sk_buff *from)
+> +{
+> +	if (to->pp_recycle != from->pp_recycle)
+> +		return false;
+> +
+> +	if (skb_zcopy(to) || skb_zcopy(from))
+> +		return false;
+> +
+> +	return skb_mem_provider_compat(to, from);
+> +}
+> +
+>  /**
+>   * skb_frag_address_safe - gets the address of the data contained in a paged fragment
+>   * @frag: the paged fragment buffer
+> diff --git a/include/net/tcp.h b/include/net/tcp.h
+> index 3560adddf8215..07a222c0fe2d7 100644
+> --- a/include/net/tcp.h
+> +++ b/include/net/tcp.h
+> @@ -1268,14 +1268,15 @@ static inline bool tcp_skb_can_collapse(const struct sk_buff *to,
+>  		      mptcp_skb_can_collapse(to, from) &&
+>  		      !skb_cmp_decrypted(to, from) &&
+>  		      skb_pure_zcopy_same(to, from) &&
+> -		      skb_frags_readable(to) == skb_frags_readable(from));
+> +		      skb_mem_provider_compat(to, from));
+>  }
+>  
+>  static inline bool tcp_skb_can_collapse_rx(const struct sk_buff *to,
+>  					   const struct sk_buff *from)
+>  {
+>  	return likely(mptcp_skb_can_collapse(to, from) &&
+> -		      !skb_cmp_decrypted(to, from));
+> +		      !skb_cmp_decrypted(to, from) &&
+> +		      skb_mem_provider_compat(to, from));
+>  }
+>  
+>  /* Events passed to congestion control interface */
+> diff --git a/net/core/datagram.c b/net/core/datagram.c
+> index ecc30a6f83023..1e7db61e25a56 100644
+> --- a/net/core/datagram.c
+> +++ b/net/core/datagram.c
+> @@ -712,8 +712,8 @@ zerocopy_fill_skb_from_devmem(struct sk_buff *skb, struct iov_iter *from,
+>  	size_t virt_addr, size, off;
+>  	struct net_iov *niov;
+>  
+> -	if (i && skb_frags_readable(skb))
+> -		return -EFAULT;
+> +	if (skb->len && net_devmem_skb_binding(skb) != binding)
+> +		return -EMSGSIZE;
+>  
+>  	/* Devmem filling works by taking an IOVEC from the user where the
+>  	 * iov_addrs are interpreted as an offset in bytes into the dma-buf to
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 1aece2fe2429f..f241d8c650fcd 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -4169,8 +4169,7 @@ static struct sk_buff *sk_validate_xmit_skb(struct sk_buff *skb,
+>  static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+>  						    struct net_device *dev)
+>  {
+> -	struct skb_shared_info *shinfo;
+> -	struct net_iov *niov;
+> +	struct net_devmem_dmabuf_binding *binding;
+>  
+>  	if (likely(skb_frags_readable(skb) ||
+>  		   dev->netmem_tx == NETMEM_TX_NO_DMA))
+> @@ -4179,14 +4178,11 @@ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+>  	if (dev->netmem_tx == NETMEM_TX_NONE)
+>  		goto out_free;
+>  
+> -	shinfo = skb_shinfo(skb);
+> -
+>  	/* All net_iovs in an unreadable skb share the same binding. */
+> -	if (shinfo->nr_frags > 0) {
+> -		niov = netmem_to_net_iov(skb_frag_netmem(&shinfo->frags[0]));
+> -		if (net_is_devmem_iov(niov) &&
+> -		    (net_devmem_iov_binding(niov)->direction != DMA_TO_DEVICE ||
+> -		     READ_ONCE(net_devmem_iov_binding(niov)->dev) != dev))
+> +	if (skb_shinfo(skb)->nr_frags > 0) {
+> +		binding = net_devmem_skb_binding(skb);
+> +		if (!binding || binding->direction != DMA_TO_DEVICE ||
+> +		    READ_ONCE(binding->dev) != dev)
+>  			goto out_free;
+>  	}
+>  
+> diff --git a/net/core/devmem.h b/net/core/devmem.h
+> index c4f476947dfaa..33817b9e7c007 100644
+> --- a/net/core/devmem.h
+> +++ b/net/core/devmem.h
+> @@ -10,6 +10,7 @@
+>  #ifndef _NET_DEVMEM_H
+>  #define _NET_DEVMEM_H
+>  
+> +#include <linux/skbuff.h>
+>  #include <net/net_namespace.h>
+>  #include <net/netmem.h>
+>  #include <net/netdev_netlink.h>
+> @@ -117,6 +118,21 @@ net_devmem_iov_binding(const struct net_iov *niov)
+>  			    struct net_devmem_dmabuf_binding, area);
+>  }
+>  
+> +static inline struct net_devmem_dmabuf_binding *
+> +net_devmem_skb_binding(const struct sk_buff *skb)
+> +{
+> +	struct net_iov *niov;
+> +
+
+[..]
+
+> +	if (!skb_has_net_iovs(skb) || !skb_shinfo(skb)->nr_frags)
+> +		return NULL;
+
+Same question here about 'why !nr_frags' is needed. Can we simplify
+(or cover this in !skb_has_net_iovs)
