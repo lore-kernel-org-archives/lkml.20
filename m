@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877767;
-	b=FoAM5qnqFCBNL29yGQ/Vmbf5Vjsz274cA3VvNT1neDg6pmi9NM1UB0xcX/eYkxIVkW+J
-	 qsG+KR+mfYErAhI987V1qyflhhHZTzwvIXxJMRdlfjv8viRd221AuV94f9kU58m9w4fCg
-	 /YJU1SrnHHl3gnbM5iJBAx5tTPFJoAen2wW63ELPMVGquVnXHAdo7AuHQy1tlVUYm/UFZ
-	 /uE6/SrWMG4SnFgVjjcCmdYX4Z7wpyXUEMua5xHWqsFRLCXKFI0gBn7u+YBk06XAhzeK8
-	 1SO0BTGf8k//OTwb+Aw9fU4j9QfnkWFvQAKJ84xBQ+YzEdQFllMmU07h6nMVMjpv3KQ==
+	t=1793877818;
+	b=UrGNOHycgv7ds9Qfy5tIQ1vWDI7p8CT8ZL3MrMbsNhcZAkog9EfdwYkyxSBuZ8N2JzbL
+	 6Ym9j/VU0m8zufkq7Emzv4C7/T9dxGJ+xwN+N+A9KL7/4nUmH4JYaiyZkaOD9izRouSJe
+	 R1dg74+E8kJ9PLhmAvZJopjWk8m5RgUdbIfHZ5RA3jZAcEN+3HOruZ47cdIvtsmJSyuxl
+	 2lMAFZ3RPHVYQmk/4R0nv21q87pMmdq9zShXwlgCeZSDD3jB0Cp+Xnxtkd2pA5EaYGwtH
+	 ZfHZVrM1Tpa6gCx29py4axcM7RQ47kTHhydTbmN/UPjtCggQ2LvuGs6g92ceA4BLlbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877767;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=cmaFW9ug8iVH0wND/xcVo7iynyR/9c9bPF8WcjdPRdQ=;
-	b=SIhdQwJTTZ9zpU86ek6LVeyDWaX+In4Ulh/q4i2bu0sFnO+RXb+xW5L7K4aypIbiRCHR
-	 MpZC4xuvoTL4Y4gO1uohW8OouloArPbCbqefp2BbYW4InuU73CRiEhJl137guR5qd90Wl
-	 IXZYl+y0bNi0wqN6wJW8e6ojTVcIwCSKknhlma+9k8GVsui9+xdtjWaKA2sekGOxMzhR3
-	 IOe+JUCCIjjs92sXq2fak+D7URAKYIyLRLildjH1kUv9DPc+WIySnGxdgNKBhcqtyMqFX
-	 n+u3MGpL2pJF4gJXHdEE/2VvwZaPCykuQxtk2b+e+2FmdYlmaNB2bvE1p4vfEOGd6jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877818;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=jxlrlKy3TTaeE3w21PhEoPtsNeB27hAJRV3bZ6cez/Q=;
+	b=sKJyUSW7znXkAPhu6UOP0/xxpNDSq8pXx2S9XOb9XT5pQeLEkp7yFY7BB7O2f/VQ9FnY
+	 qghd0ZWE9+vLCrmHjHd1Bzta2WGpvliCEqh0sbqCulfbGFJ/mEhDg7Q9pwwtF34mhyhmk
+	 pcemFYJPM0SDeTnSo5sh9ScML71D7lHYBuQidOM5diXvSkjiGc/Ap5KsTW/LHzYHEoZ2C
+	 sHZLf2pu4MFbwplgu7ck4HndiW2T4eGVNwFNHo8gJPv2aruvi1vbYlUqh9eNGToAyCtFy
+	 zj9/jsb0XeNP/TH3PtYEh5GCeQconY/b5Dx8svycfFSKqeNyisUGiJHWZbL+FrOGjwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 01472606A332;
-	Thu,  5 Nov 2026 11:22:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01472606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8Axj9EDZ+xqW6YcAA--.17677S3;
-	Thu, 05 Nov 2026 19:22:43 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJAxmM3+ZuxqIY4yAA--.37214S2;
-	Thu, 05 Nov 2026 19:22:40 +0800 (CST)
-Subject: Re: [PATCH v4 1/4] ACPICA: actbl2.h: Add bit constants of the Flags
- field in the IOVT IOMMU structure
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: rafael@kernel.org, linux-acpi@vger.kernel.org,
- acpica-devel@lists.linux.dev, lenb@kernel.org, linux-kernel@vger.kernel.org,
- lixianglai@loongson.cn, loongarch@lists.linux.dev,
- maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com
-References: <20260922121058.972734-2-maobibo@loongson.cn>
- <10bd45f8-2d37-42f0-b7d2-a4a84933c9b3@loongson.cn>
- <CAAhV-H7Vq2ayLJNLRSo5RRiWOcmF2BXT_QOhEDg_jWOzYteqWw@mail.gmail.com>
- <6f8a9203-6fb1-268a-8d37-37e69fbf2ee9@loongson.cn>
- <CAAhV-H5k8EJrAuqPH44y_+1gcXGCjCoozzK5ii9cLtiLDj5eog@mail.gmail.com>
- <66b9d482-d577-748c-729d-0fba70701d3d@loongson.cn>
- <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <843a9418-2017-c2c6-45c5-38628e7e0bdb@loongson.cn>
-Date: Thu, 5 Nov 2026 19:23:54 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D8C606A326
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 11:23:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13D8C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a41f46d629so2629516b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 03:23:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793877817; x=1794482617;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jxlrlKy3TTaeE3w21PhEoPtsNeB27hAJRV3bZ6cez/Q=;
+        b=cRvaB2tlJ7Jy6rjv1SKxIFzWkly1IfrWaFeshixPXmOYqVO4zJchUNCSAsCmXG5/aD
+         BVqjldpsCMbP/7d5bOzyINGnE5+UI6WrSzsodU7BSN913FZIFHeCt+VQ4/JQ1TDyXoXv
+         ppYd4xLx6aDCsLO8zHdf5DF3bekA0UBhMVX2LEry2nLImcEZok8hXD8Vm2+79H/VcIqk
+         gDihxy1eatxaOmwszJOcilBdpsqgL8zM58pqisEykFoT3Dke//A3Va2Xnm/BXjMZFInQ
+         UGNuECML4o3Ngp7W87FA+YD06O9FYVrLfnjM6ChzEK9yyrXkmrvtovPDQKDh8GkZpxL6
+         MsFw==
+X-Forwarded-Encrypted: i=1; AKwUvByZrD5qB3eEejsUPaFHvdgZsgmrvzNZUj5D+p8zLia8/RAG2vzmLLryH0lpjSNyethfQIUKPZKM4XVSbDo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lggw4hV1hGHJiW1WJOmeXFXrbnKDXuZuHyJgPoXFAo66TNnmU
+	FrGJgouPi0QksnK3RmXc/csORyKn4W94u1ufdntjSf9KyrjQ4GqEswuVk1Zgw3I2G+UhVVUM7Jo
+	c2+qmRAn7B8HGor1fqUF/NfgvD4qh5TvQEQQHjCXWU65E6OV4amO1vbjfC8Q=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,166 +58,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H6PL6RLM3KA4BLQEt804FnsDE4CtKeB0KaW7Gj8rm2PMw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxmM3+ZuxqIY4yAA--.37214S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxAFy7ZFyfZFyxtrWxWw4UAwc_yoWruF1xpF
-	4xGay5KFWDJr17Grn2qw1DuF15tryUGryIgw1jgryUCr9a9r1FqF4UJF4YkF97ZrZ8CF1I
-	vF1jyrW3WF1UAFgCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBvb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
-	67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
-	AlzVAYIcxG8wCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
-	7xkEbVWUJVW8JwCFI7km07C267AKxVWUtVW8ZwC20s026c02F40E14v26r1j6r18MI8I3I
-	0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAI
-	cVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcV
-	CF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIE
-	c7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jreOLUUUUU=
+X-Received: by 2002:a05:6808:15a7:b0:4f4:4eef:52cc with SMTP id
+ 5614622812f47-5640de2513bmr13058770b6e.43.1793877816962; Thu, 05 Nov 2026
+ 03:23:36 -0800 (PST)
+Date: Thu, 05 Nov 2026 03:23:36 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aec6738.059f5055.2712e4.0005.GAE@google.com>
+Subject: [syzbot] [dm?] WARNING in raid_resume
+From: syzbot <syzbot+8b22a0459202f76b4096@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    8b7179210b22 Add linux-next specific files for 20261104
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=149d5969580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5dad87d6a9d5ee90
+dashboard link: https://syzkaller.appspot.com/bug?extid=8b22a0459202f76b4096
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/24dabb992a55/disk-8b717921.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/efb6c59219d5/vmlinux-8b717921.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ced4d906c236/bzImage-8b717921.xz
+
+AI-generated root cause summary:
+In dm-raid, the target expects the underlying MD sync thread recovery state to
+remain frozen (MD_RECOVERY_FROZEN) from creation (raid_ctr()) or postsuspend
+(raid_postsuspend()) until resume (raid_resume()). When reshaping a RAID10 array
+with a dirty region bitmap, raid_preresume() executes rs_start_reshape(), which
+calls raid10_start_reshape(). If an error occurs (such as bitmap resize
+failure), raid10_start_reshape() branches to its abort label, which
+unconditionally executes `mddev->recovery = 0;`, wiping out MD_RECOVERY_FROZEN.
+Because raid_preresume() swallows the reshape failure to continue without
+change, the subsequent call to raid_resume() encounters RT_FLAG_RS_SUSPENDED
+with MD_RECOVERY_FROZEN missing, triggering the assertion
+WARN_ON_ONCE(!test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)).
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=8b22a0459202f76b4096
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+8b22a0459202f76b4096@syzkaller.appspotmail.com
+
+device-mapper: table: 248:14: thin-pool: Error opening metadata block device (-ENOENT)
+device-mapper: ioctl: error adding target to table
+mdX: bitmap file is out of date, doing full recovery
+------------[ cut here ]------------
+!test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)
+WARNING: drivers/md/dm-raid.c:4139 at raid_resume+0x11fe/0x1290 drivers/md/dm-raid.c:4139, CPU#0: syz.5.1272/11312
+Modules linked in:
+CPU: 0 UID: 0 PID: 11312 Comm: syz.5.1272 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+RIP: 0010:raid_resume+0x11fe/0x1290 drivers/md/dm-raid.c:4139
+Code: c6 05 0f 85 fc 08 01 48 c7 c7 40 78 3d 8d be 2d 10 00 00 48 c7 c2 e0 b8 3d 8d e8 2d ec d6 f8 e9 b5 fe ff ff e8 13 95 fb f8 90 <0f> 0b 90 e9 63 fe ff ff e8 05 95 fb f8 90 0f 0b 90 e9 c5 fe ff ff
+RSP: 0018:ffffc900039e78c0 EFLAGS: 00010283
+RAX: ffffffff88cdbd5d RBX: 0000000000000000 RCX: 0000000000080000
+RDX: ffffc90010680000 RSI: 0000000000001342 RDI: 0000000000001343
+RBP: ffffc900039e7a40 R08: ffff888078c6c2bf R09: 1ffff1100f18d857
+R10: dffffc0000000000 R11: ffffed100f18d858 R12: 1ffff9200073cf28
+R13: ffff888078c6c058 R14: dffffc0000000000 R15: ffff888078c6c000
+FS:  00007fbfa88c06c0(0000) GS:ffff888123161000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005561081d2138 CR3: 000000007ce32000 CR4: 00000000003526f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000001800
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ dm_table_resume_targets+0x299/0x3f0 drivers/md/dm-table.c:2204
+ __dm_resume+0x22/0x1d0 drivers/md/dm.c:3117
+ dm_resume+0x21a/0x2e0 drivers/md/dm.c:3163
+ do_resume drivers/md/dm-ioctl.c:1332 [inline]
+ dev_suspend+0x6ff/0xaa0 drivers/md/dm-ioctl.c:1368
+ ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
+ dm_ctl_ioctl+0x9ec/0xe10 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x00007fbfa799fb19
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fbfa88c0028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007fbfa7c25fa0 RCX: 00007fbfa799fb19
+RDX: 0000200000000480 RSI: 00000000c138fd06 RDI: 0000000000000003
+RBP: 00007fbfa7a37b70 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fbfa7c26038 R14: 00007fbfa7c25fa0 R15: 00007fffea1356a8
+ </TASK>
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On 2026/11/5 下午6:31, Huacai Chen wrote:
-> On Thu, Nov 5, 2026 at 5:49 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->>
->>
->> On 2026/11/5 下午5:31, Huacai Chen wrote:
->>> On Thu, Nov 5, 2026 at 5:14 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>
->>>>
->>>>
->>>> On 2026/10/23 下午3:59, Huacai Chen wrote:
->>>>> Bibo,
->>>>>
->>>>> Now I have applied this series but with some modifications, please
->>>>> double check and test the code.
->>>>>
->>>>> https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git/log/?h=loongarch-next
->>>> In my v4 submit, it is:
->>>> +               case ACPI_IOVT_DEVICE_ENTRY_START:
->>>> +                       is_start = true;
->>>> +                       start_devid = ep->device_id;
->>>> +                       break;
->>>> however in rc1, it is modified as:
->>>>                    case ACPI_IOVT_DEVICE_ENTRY_START:
->>>>                            is_start = true;
->>>>                            entry->start_devid = ep->device_id;
->>>>                            break;
->>>> Here entry is not allocated and NULL pointer, it is allocated in
->>>> ACPI_IOVT_DEVICE_ENTRY_END switch case.
->>>>
->>>> I really do not know what is aid to modify it and let others to test.
->>> Sorry, it's my fault.
->>>
->>> In theory I should point out the modification (eliminating the local
->>> variable start_devid) and refresh a new version. But we have no time
->>> to do this because when the first patch is merged into the ACPI repo
->>> it is near the merge window.
->> Maybe our work style is different, I do not care much for the coding style.
->>>
->>> If you agree, I will submit such modifications to fix it.
->> fix is welcome.
->>>
->>> diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
->>> index 87cee4f0fc80..4cdac28a1fd0 100644
->>> --- a/drivers/acpi/loongarch/iovt.c
->>> +++ b/drivers/acpi/loongarch/iovt.c
->>> @@ -115,6 +115,10 @@ static int __init iovt_add_iommu(struct
->>> acpi_iovt_iommu *iommu)
->>>           for (i = 0; i < iommu->device_entry_num; i++) {
->>>                   switch (ep->type) {
->>>                   case ACPI_IOVT_DEVICE_ENTRY_START:
->>> +                       entry = kzalloc_obj(struct iovt_device_entry,
->>> GFP_ATOMIC);
->> There will be memory leak problem if there are START/START/END in the table.
-> That means a broken table? I think we don't need to consider broken
-> tables, because there may be kinds of broken pattern rather than just
-> a START/START/END.
-yes, START/END/START, START/START/END, START/SINGLE/END. what is the 
-relationship between "don't need to consider" and kinds of broken pattern?
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-what is the policy from your side with such BIOS table? let memory leak 
-and continue?
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-> 
-> Huacai
-> 
->>
->> Regards
->> Bibo Mao
->>> +                       if (!entry)
->>> +                               return -ENOMEM;
->>> +
->>>                           is_start = true;
->>>                           entry->start_devid = ep->device_id;
->>>                           break;
->>> @@ -122,10 +126,6 @@ static int __init iovt_add_iommu(struct
->>> acpi_iovt_iommu *iommu)
->>>                           if (!is_start)
->>>                                   break;
->>>
->>> -                       entry = kzalloc_obj(struct iovt_device_entry,
->>> GFP_ATOMIC);
->>> -                       if (!entry)
->>> -                               return -ENOMEM;
->>> -
->>>                           is_start = false;
->>>                           entry->end_devid = ep->device_id;
->>>                           list_add_tail(&entry->list, &np->ep_list);
->>>
->>> Huacai
->>>
->>>>
->>>>>
->>>>> Huacai
->>>>>
->>>>> On Mon, Oct 12, 2026 at 3:16 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>>>>>
->>>>>> This change is already merged in acpica tree.
->>>>>>
->>>>>> slightly ping.
->>>>>>
->>>>>> On Tue, Sep 22, 2026 at 08:10:55PM +0800, Bibo Mao wrote:
->>>>>>     > According to the IOVT specification, define macros for each bit of the
->>>>>>     > Flags field in the IOVT IOMMU structure.
->>>>>>     >
->>>>>>     > Link: https://github.com/open-acpica/acpica/commit/352f750e4cc0
->>>>>>     > Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->>>>>>     > ---
->>>>>>     >  include/acpi/actbl2.h | 7 +++++++
->>>>>>     >  1 file changed, 7 insertions(+)
->>>>>>     >
->>>>>>     > diff --git a/include/acpi/actbl2.h b/include/acpi/actbl2.h
->>>>>>     > index baef525367b5..76e4a5bc79b4 100644
->>>>>>     > --- a/include/acpi/actbl2.h
->>>>>>     > +++ b/include/acpi/actbl2.h
->>>>>>     > @@ -919,6 +919,13 @@ struct acpi_iovt_iommu {
->>>>>>     >       u32 device_entry_offset;
->>>>>>     >  };
->>>>>>     >
->>>>>>     > +/* Masks for Flags field above */
->>>>>>     > +#define ACPI_IOVT_IOMMU_PCI_DEVICE           (1<<0)
->>>>>>     > +#define ACPI_IOVT_IOMMU_PXM_VALID            (1<<1)
->>>>>>     > +#define ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT    (1<<2)
->>>>>>     > +#define ACPI_IOVT_IOMMU_HW_CAP_SUPPORT               (1<<3)
->>>>>>     > +#define ACPI_IOVT_IOMMU_MSI_INT_BYPASS               (1<<4)
->>>>>>     > +
->>>>>>     >  struct acpi_iovt_device_entry {
->>>>>>     >       u8 type;
->>>>>>     >       u8 length;
->>>>>>     > --
->>>>>>     > 2.39.3
->>>>>>     >
->>>>>>
->>>>
->>>>
->>
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
