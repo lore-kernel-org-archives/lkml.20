@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.84
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793893204;
-	b=yoOwqyAWEobw2wUedmSFi4kBQFYwGvQVBYZX7SM4QDk5qs+P0U9XACkRKy+05DavJEtB
-	 VkdF+bHrjO2gq9I+p7ty9JjO2geKMKDZgGK1JXPOu0qfNpvgi4Te8sKjVP4Q+sNjbqBeD
-	 laEqnxpzjA9RAUtpsC9fX+ni+Eh6vxfzDZvKSYaSYnh1np3mgin2bnDpCtNrIifO5n/Y7
-	 Io96iZigxTXHEa1FZo0OM31rbsJuzpwAwBhARG2I/RxELS+bBShVkVN0NNxPuGjs5UVSm
-	 Tm8DnXPrJoXERG1iP0xqlFYMRLHx1acbNcVQERlUfutm3sriLr95dhpwtMAAPYHtGKg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=YFWpnYdOT9Fxi2J2b4ywOgfHT/VzzS+Qiggx71LEbivO/+ujliiJlhHptBGmZDFxV8DI
+	 7VREjvayBh7WFRBEW0ICZnyqdwFk83KCTIAMLPjrmd4Yh5NVrYjkSxK1tVPMBIs03rkxI
+	 +137/XwWvIqCcbNbMkMM2MbUT8nwJeUijDQ/+2nlhD0CZnGTwY6GcRJQWL7K3oayKlQXy
+	 xy8+s/uWRI7Hk7BItuNsHeUe59nzdKcATawsIxNMZ/s/wfK7lbfDW/oljASaIQaNqRbRG
+	 xaB4fSm3qXDFhNQUDOQ5nJLZ9uWOKhmuYVMii0N3Mla79jf7OwIzur4nFP9ZctwTrgw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793893204;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jmr45+w5PXRg5RpCfeXMVb7gswM3LzfwVqEPfpZ/k7Y=;
-	b=wu8BuTCWozQNmleJs6+DX6w9xbLzC5iZa8WtR6C0SkMw+37LUBalUIwNjZo4QgNYKW1h
-	 z6UvT1ah4swMsAHLrnH06CNq5Ma9yzXkTcrXzXjcHAlyoTILwhL2hkWxx/4Uq3oB6vn23
-	 N+zHhbDY3AP8rcZgmLeBsuq2f+en659I0lx4cuiei02bCArHEwRrv6F7AB0uj9WNcsDe3
-	 O9j+ClsBk0fiDHwGDGKSYkzX624hb7vHFICSk2xQAaE+urp3mbKu9SPvIIjyG5YewQygr
-	 DQE3REsQsI7jkfcbeyVe78pGM4ORbEOdkpt5dOFP9khwppZCCWkQAHYz8Mq6jmPNwvg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=FtNXOa9w;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.84
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19011084.outbound.protection.outlook.com [52.103.23.84])
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=PDZV0+pjHqmTjjQUQ4uC9YSnJ7Vm1jvBfF5OI0JOMto=;
+	b=LcxO8ivCuby9huSjc8Z+Rj4wyvfB6FHyMfKBhls9HkO+L60wdn84u5yR7OKdj3/fEwaC
+	 2XKKLNM4XHgpQyBTMECzM1Q1032MjmccAyUp6VbDSqp+r55LNEnnFigxdAbugHNDECigj
+	 P/k+cTptOna3oUEuXC3L2J4L1m9/lELw9xH9w2C0Kb7wXjI1McDJjxGxw15RKN527uzUL
+	 gj6NOxMrX2nv84n56E1C3EYNC29QaB+aYVagyKcLvgl1PqELhTbkC0fwzIpWlYA4Cyxow
+	 uzezcxGguhq13VJQMe4L0Rf5FMdnBxmN0zdg4vcj5OMj5bIwRAb8zZdABz/XjNeFQRg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqgbKL+C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C07606A326
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:40:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7C07606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD75606A32E
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:40:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=FtNXOa9w
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CQ2Ciwh+nVGW+M4ieLsP41rCqgkiQn/5E9PfsJ62toeWGVvAg4ZwEIvRnNdrG1YTWsqjIC/ROdSXwz+cp9UpNuzp+avDzPSYF3gc0PiKhWSBH3UWTI5OHT58QK3jJ8sBjf5XAQ9VdHDkEHWxmxarEqdfdxdEXaCo+adD9KN4fbT/EkC2m7wpQHtAWHJsx9sISlRCRmD4oMMNCjRvRUFaeA8xINmMpKoOePtmJ0XCnnFdOx2PMByFajefR+jMVmHoSvBzYDq3SeXsdEgIwGQ7tbx5+lpHMO5/eefDb9t4K8DnBh/DJLD0vtuAyaZEZmhDxbw9TsDtPsAwBMbSPUbPuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jmr45+w5PXRg5RpCfeXMVb7gswM3LzfwVqEPfpZ/k7Y=;
- b=OgDVTXD0DUxcMvo2RBiuxKHuBta19mxOyGgxGNqH9H5G8eOsRgIYUvzHHop+0eKw9xVJlswZNHKIGXlKUUlmehTfYIhgUi3lJxmkdsRnYPs5cTlAEHPKgG47nikKCWtktk/womDLtB+k9mbxM+UbCsi1qSS6atL9xMoihxo9LPFxNZOCNXjYM4dZNqlPb2d2u9+SdAsGWySvFwpNNNAskRQehLwhxDb8QgRxxLQU+OBlesWHJwJtkcKdyFvTjvnSM5tTt0Xe8zMIs3O7kz8NYM5Fbt04T3eR3wytEhER0xSJcw8sJ88lBnGFlWOupl7y3Rp+SFyTLxZdkb9asGLkxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jmr45+w5PXRg5RpCfeXMVb7gswM3LzfwVqEPfpZ/k7Y=;
- b=FtNXOa9wX4diC+P2TSlhGdiD4e0+eKI8QfOEv+0UOcFyTTSrKSjYtG8xwSj0PSZB/02L0LYaUP4UD8sWmzh0UbJKh8i4zDOGhZ9i6BXBXufnp9Twou9x3ooeB1LRycphUFJfxZDR6tsN3Wa5bF+gzVEBZQkIB37RCwnqVWvYi1QHsTQAYWBmqUXimaV0/5BfaL225N8yyvQcQGDaKbq3ry7TOdJ8lgrCtNvh+VH///XjAnclmCLEAYGP6JxEq/ITJ3xCqM0hebU24w14sI5w0nXp91yuOjYdN5IvNfI34dYWAEkVZGGyasmkbcjCAHTQx8wx/Hsk7cFczax1q/NgFQ==
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
- by BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 15:40:00 +0000
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 15:40:00 +0000
-From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-To: andriy.shevchenko@linux.intel.com
-Cc: broonie@kernel.org,
-	chernyakin.victor.j@outlook.com,
-	dakr@kernel.org,
-	driver-core@lists.linux.dev,
-	gregkh@linuxfoundation.org,
-	johan@kernel.org,
-	linux-kernel@vger.kernel.org,
-	peng.fan@nxp.com,
-	rafael@kernel.org
-Subject: Re: [PATCH v1 1/1] regmap: Add REG_FIELD_GENMASK() helper macro
-Date: Thu,  5 Nov 2026 09:39:45 -0600
-Message-ID:
- <SN1PR12MB2528E9E6548816E119881537A5772@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
-References: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DS7PR05CA0037.namprd05.prod.outlook.com
- (2603:10b6:8:2f::24) To SN1PR12MB2528.namprd12.prod.outlook.com
- (2603:10b6:802:28::33)
-X-Microsoft-Original-Message-ID:
- <20261105153945.721769-1-chernyakin.victor.j@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EqgbKL+C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF381F00919
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:40:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793893203;
+	bh=PDZV0+pjHqmTjjQUQ4uC9YSnJ7Vm1jvBfF5OI0JOMto=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EqgbKL+C5NvEF8nHOZcg7HYI6aeL/KWezyfGE9tktcf6hCt/fZBzlmpHSzhGpqKTA
+	 1Bp7+DHi1qlvjwdiLqtkslWRSj7IRkXqEU5FF4UDEqh72a5AZ9VK2IpnMJa/BqFDJQ
+	 0YyM+nmtaIqfaqc/VTFjuCGeZMoqLp9EQlC0N9kYC/2TT8uwrGpX3XmIrQ+zrzgfBT
+	 PyuHKNJ9Pz6091Y0Mz2Wv5WdjdI3yk2qWu7xU0DvRo/JQ8nBzMzTD/MF6ZYWXWUQpk
+	 JJWjtgQQxqcA1jIAW3nP4e+dnq+0gjyOOoy9S6/NmfQ3h6Oy4bUdBi3gTPQ5Dreh8J
+	 K1uOZb7LV23Mg==
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso30675266b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:40:03 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzR9KfSzvCUAucRVifPB3V0QK23O6VNfI1MTJzpnvBPk9nInc2Vu6zrKfKmpljL1aQ8JGCgnP85qp9PcFQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MFTaH++IVcMZoU0luoJEbSM82ni/4XRaI5oUPIIiByJwHfG0d
+	AaJvQDKg0XI3cl2FbixrWGcSLpv0xrbczU8Z3JjdeLJBSafGjylNDBzcbpfld8Wu7MHdjYmSRqa
+	j083JHV5hv0ItVfh7WcVquokwsJdEngs=
+X-Received: by 2002:a17:906:9fd0:b0:c40:80eb:c54e with SMTP id
+ a640c23a62f3a-c4d3449c0c7mr1350366b.4.1793893202865; Thu, 05 Nov 2026
+ 07:40:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,84 +59,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|BL1PR12MB5849:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c37b606-2ff8-41be-8d28-08df3b530ceb
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|23021999003|22121099003|22091999003|5072599009|24121999003|39105399006|15080799012|8060799015|4140399003|19110799012|260925184616899003|24021099003|25010399006|440099028|3412199025|53005399003|40105399003|26121999007|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?6iQmxnYuCRtplt1H7zy0FQpP2x+ni1pQYOWla8FIZviCCrmG76J3J09dfNG1?=
- =?us-ascii?Q?I1J/sUvUNRP+B6KnJfBF59RVv4r3ylbteYKtZZNDFRnFSXIpgBMG3bWhxkK8?=
- =?us-ascii?Q?Ms+ArC1fjN1IrwBHgy7L7DpaIAwu12kGYHVw15qc2QJ+/XLNQS1DBijawwq9?=
- =?us-ascii?Q?PHn26fHlIxv1cm1frH3sBJfqT6D4BO5QZR/drBfcvtLoJH0SpCmPTPJRqjYY?=
- =?us-ascii?Q?ZfSW2LlO62UBdyRBctUF/fIMKrRv43Ai4uR6bNQUVDfIoyJNc1hIkmjNZe06?=
- =?us-ascii?Q?I/6hlWxzV4xId2dkwPqETxDHSfLhB1bKkz2mFI7oi+i78EimAFh0sPvYoe4z?=
- =?us-ascii?Q?uaKrxvMEAENdH6jQzAhOgWH1/fU9BS/DMc6eoqzTjiAADRrne2IcYLNBhcSu?=
- =?us-ascii?Q?aaX6sjqBA1xclyq9gC9dMhSvgGkIH/Id1eG5ELbIwlgW/MXBLDhFYT3He6Mm?=
- =?us-ascii?Q?BHzbn4elcAzmsKtJ9Q/FXL1liEd8BC6q3Ezvto4PXAJtRa7G1Se7jFzMAnt1?=
- =?us-ascii?Q?9qeYLs3UPdt+J44WwNUpF3O2hsuFZ6KUMfSCDSugtKPgOJ2FIxDYwtVkqC9F?=
- =?us-ascii?Q?r1EDU90PeFthmW6/vEWzJiw9ehTF0yaaRTY/WoAOSM/kAdkaNbW8HmtXOtti?=
- =?us-ascii?Q?ICfVt1Zfq/sgmdGsRxEjhZwUdcfOs9YSE+Qci+nnC4OpxyJ1QqlZL8H9qG1M?=
- =?us-ascii?Q?vQ72X1n1lMChjaj1TnE/DBvxnFLomlvfTb9lyVrQ679KtKekl2pB2I6P0Vyh?=
- =?us-ascii?Q?JLQ7KWCnfFjxhitdwQRS12jYhDD1xSiVfztmOE1aVnm75DoJ/GEXugIpHWkq?=
- =?us-ascii?Q?T48TzuErfTW0328KzWcQNB/Hj8/PmUYj5C+Wz3dNTOkcrZ7PISZ4/Gkjspr5?=
- =?us-ascii?Q?mEPczcbfM1fvm4IufKRptmFmUD4XpNAoHYfAzD2Spsh/Y6YZBKQFcXKGpq3D?=
- =?us-ascii?Q?UhWqcDzAOIQRMCi/Rl0XKLbyvSQdKfc27jk8elqVAe/SDeS0sm0BA34sC5vF?=
- =?us-ascii?Q?aG1RtlYhEOkKmHI2P8QKuJIiWRjzMnNfPAAEC2hzLDB9BVkGTeEKgyzRgK4x?=
- =?us-ascii?Q?Ae0+QbKUvod5OWMKEeIKYISv/gTvuuTcCQ+42YKjIKT4kk0kvQt7mu+Y0Bcr?=
- =?us-ascii?Q?5Hm8vI2efOJr?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eut6QflMfsn6cy+Fibnq2kiDNOAJmI1Ud8xmFT8nNrvq9M1nS5SUjNaoMLhc?=
- =?us-ascii?Q?mh6SgK+1QZ/Iq2UEK67abyyA5FgMRVatmiVlS7itGE/gc5CX4OSyof8AjNmW?=
- =?us-ascii?Q?4kWp/H00DWSi5sOSlc4yRfZB0clmWZOlV/QYZRIVqb6t4uRccUotnlOCloIZ?=
- =?us-ascii?Q?zuHgJcHviXKidzS31Kkj7U9fAeCFNCgxy4q8Kp5DDhTiyHLWcZCmlr5fEJ5P?=
- =?us-ascii?Q?38afioRTBS+v8SOaTwE3JrMK7F84tzSIaPHFdpGjAaS+D00S7DPJb9pk7Bo3?=
- =?us-ascii?Q?rI3T/IHvBN4NW3vd1hDygmNHLxJO/FmrCMjayq3d20lAIH9ZKSTJaBY5WmOB?=
- =?us-ascii?Q?OxTTATYcPIylrmEMTSaZhLmhUb6WZTHWqpemJ8MlH0OwhW21NB16GrSjdh6P?=
- =?us-ascii?Q?JKhD1WGjG3EJSv6A5vjNFP+twrSdYATtC3R3I12C4VzKWzgmWZSFMxojGaB6?=
- =?us-ascii?Q?+kE1l/GHGPqc9eKDWhg8C3aozMhAqeA33S7eG+kXI8rjialGBIC6mNBut0KG?=
- =?us-ascii?Q?VpBaFJYPOouw0NvsILYQU3ycHv7b8cTna8y0mRsnmxUPCbOx8tWAvwC6FsVl?=
- =?us-ascii?Q?NKB17LAyAcRiJHYp2Ya+dkk7alJaqW6aLjpiyrvFHaSrJrZMttkWWppJPLat?=
- =?us-ascii?Q?Kx6gVWdJKUX8ECwOCfh2X4NIe970YDd5PdngXTLfNzvnkWokxaJGU/SKYAtn?=
- =?us-ascii?Q?7DHHG0wjELLQSNAD/4Vtnii45FAzWaxWfFDWcv4glnytQad71GvjAGbN72IT?=
- =?us-ascii?Q?6TRmDezoNjuOmoYZW67hnMEEG+BqPBz9WL/5yAC2dsNkUFiIAJq+zBi2IV4r?=
- =?us-ascii?Q?En3+hV6zvQfUZ7+zkR/R11lUu0kkk/j7jpMFX0TmTYh7tiJWkEb/WWTS25TU?=
- =?us-ascii?Q?N/T9fVoRQNvoVAPN/HJDukx6R7EbpFhIllWfNRI3FiqUhInyTi5K1+q3C1ZJ?=
- =?us-ascii?Q?w7VZvf5A0qVanSAFj+O7hOVAK9D872usFNgxAgSq9qlp/4ADaO05iyJtK6s8?=
- =?us-ascii?Q?OJwPZGFnTfhr5xD60AWCmveGBU/fmQuVgUduAFCMkqpHhitgNTGfK2ZyKc6E?=
- =?us-ascii?Q?SR4lSYKVxWZL6me8hHvIZVufHQcP9WZFw1g9Fx8IKyRyR5YGbRm1TeVFWBI8?=
- =?us-ascii?Q?zFLWN9u6UaYfJzN3JOLdysNA41GWlPY2ebImsysCvN4wJ63FBSmhkmtRQPA4?=
- =?us-ascii?Q?s4o3kvlXbG6zSfREOeVMiPo+8JFUMhbNugx37IdofAi/1zdZFnPjZgwfNrVE?=
- =?us-ascii?Q?NtTOQTh2gvYxJe5pRQZ0YSmKbnrzuQqindarcGomXrau//IPDtIwScFM/2zN?=
- =?us-ascii?Q?GXkflohu/ASOPXTbGQOA3iVAgEtLj4CtZY8pJypqlhoTB9R+qVsQJrnfWv/g?=
- =?us-ascii?Q?jGVn6ngFZArv8PsRzXCiQOofWA19xii/0mGA1wqPV6qUxlZt7w=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c37b606-2ff8-41be-8d28-08df3b530ceb
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:40:00.1288
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5849
+References: <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
+ <anXJ-5_vO7-toSe1@google.com> <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
+ <auKqt6b4AxCLziIH@google.com> <aufPMirl4cD7tz0X@google.com>
+ <18e4542967ebdd10.3137322e32332e3235332e313736.1dfc41.0000sendgmr@google.com>
+ <CAKEwX=MV_xEUvz91pz6uc4qXWnWOUDtXZ2zASdNVOBHBLeA60w@mail.gmail.com>
+ <18e4ebf806e937ec.3137322e32332e3235332e313736.1bf52a.0000sendgmr@google.com>
+ <CAKEwX=PFdgEbba+H3fEnJFDnfkxCTsvuHEb4numVwJRaiMgwKQ@mail.gmail.com>
+ <179384102494.19062.12740032892044628762.b4-reply@b4> <auwOBaRtM9p_Wxfx@google.com>
+ <18e529a5ab0738f7.3137322e32332e3235332e313736.873cb.0000sendgmr@google.com>
+ <CAKEwX=OUt4=wqDLiPvYuiTnkpuZYnszkuNQScNR93hHhVPRRGA@mail.gmail.com> <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
+In-Reply-To: <CAO9r8zMMGem-LTJQseT5xSSBjfr3UX2gzG_ftpw6+KF8m9v5yw@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 5 Nov 2026 07:39:50 -0800
+X-Gmail-Original-Message-ID: <CAO9r8zOY1E7gCYnJZAfKvyHcbj8e2WVuXMqsaPGPsKR4-9itsg@mail.gmail.com>
+X-Gm-Features: AclHuK-nHEy3W7VEoyAO170_A3kmjjHwVOoZaVi1Y45j7hC5yeix6KXpEhEkBoE
+Message-ID: <CAO9r8zOY1E7gCYnJZAfKvyHcbj8e2WVuXMqsaPGPsKR4-9itsg@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction budget-aware
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Chris Wiseman <chriswiseman@google.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Xueyuan Chen <xueyuan.chen21@gmail.com>, Xueyuan Chen <xueyuan.chen@vivo.com>, 
+	Barry Song <baohua@kernel.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
+	Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> #define REG_FIELD_GENMASK(_reg_field)	GENMASK(_reg_field.msb, _reg_field.lsb)
+On Thu, Nov 5, 2026 at 7:38=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrote=
+:
+>
+> On Thu, Nov 5, 2026 at 7:08=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrot=
+e:
+> >
+> > On Thu, Nov 5, 2026 at 6:36=E2=80=AFAM Chris Wiseman <chriswiseman@goog=
+le.com> wrote:
+> > >
+> > > On Wed, Nov 4, 2026 at 9:05 PM Sergey Senozhatsky <senozhatsky@chromi=
+um.org> wrote:
+> > > >
+> > > > On (26/11/05 09:10), Xueyuan Chen wrote:
+> > > > [..]
+> > > > > > SGTM, but I'll let Sergey chime in!
+> > > > >
+> > > > > Thanks, Nhat and Chris, for the discussion.
+> > > > >
+> > > > > If Sergey has no objections, I'd be happy to send a follow-up ser=
+ies
+> > > > > to make the shrinker configurable and add the unlocked pre-check =
+as
+> > > > > Nhat suggested.
+> > > >
+> > > > Thanks.  Sounds like you and Chris will to have "Rock-Paper-Scissor=
+s"
+> > > > to determine who sends a oatch ;)  Just joking, let's first figure
+> > > > out how exactly we want that zsmalloc-shrinker thing to behave wrt
+> > > > zswap expectations.
+> > >
+> > > Haha, Xueyuan is welcome to send the patches!
+> > >
+> > > Dumb question on the zswap side - aren't the zswap shrinker and the
+> > > zsmalloc shrinker independent?  Even if zswap's shrinker is turned of=
+f
+> > > at runtime, normal swap-ins still free slots and leave fragmentation
+> > > behind, and unlike zram, zswap doesn't have a manual sysfs compact kn=
+ob.
+> > > Would it be simpler to just keep CONFIG_ZSMALLOC_SHRINKER as its own
+> > > standalone config rather than tying it to zswap's runtime knob?
+> >
+> > Yeah those 2 shrinkers are independent! I think we should just let
+> > ZSMALLOC_SHRINKER default to the value of ZSWAP_DEFAULT_ON.
+> > zswap_load() (i.e zswap-in) by itself is enough to create
+> > fragmentation. The zswap shrinker is just another trigger (and it's
+> > also irrelevant if zswap is disabled anyway).
+>
+> If zram doesn't benefit from zsmalloc shrinker, especially during
+> reclaim, I wonder how much zswap benefits. AFAICT, it was hooked up
+> before zsmalloc was hooked into compaction, and compaction seems like
+> the right place to do this although it technically is freeing pages
+> from the page allocator's perspective.
+>
+> I wonder if this is something we can collect some data about, and
+> maybe kill it off instead of putting off behind a config option. If
+> hooking it into compaction is not enough, maybe we should add a
+> similar interface in zswap to do proactive pool compaction from
+> userspace, or maybe move the interface to zsmalloc itself.
 
-Macro parameter should have parens around it:
+Never mind the compaction argument, this is just to move zsmalloc
+pages around, it doesn't help with internal fragmentation. -ENOCOFFEE.
 
-+ #define REG_FIELD_GENMASK(_reg_field)	GENMASK((_reg_field).msb, (_reg_field).lsb)
-
-(In the patch you link to, I wrote it without parens at first too,
-then had to figure out why I was getting "too many arguments to macro"
-error messages)
-
-
-
-
-BTW, I've been thinking about making reg_field store the mask directly,
-by putting GENMASK(lsb, msb) in the REG_FIELD macro, but that's probably
-a more involved change.
+I still think we should check if the zsmalloc shrinker actually helps
+zswap or not tho!
