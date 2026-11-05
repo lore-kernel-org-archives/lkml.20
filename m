@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889341;
-	b=u5eTJ8ZuYQEKJimM7hnMKXSqOU3AfYRtzuwjoUeHk/GgWQwwmbcMegX5kfEsdZjrRxTx
-	 aR2POeMFB7KhPOieM39lauRiHH1jvlUWPZ6FnO3UMdl9bWl96YuVJS4dDMaZS0heh/WnP
-	 iZ0xpnFqZU/gIExGGiprvJUfwAt1YaAtGXSXOdUHfuIbdSsl5tvo4pj+em94Iye4yxb94
-	 eixCG9aLemsy3ps+Wwvpst5wE+oTsoWhv4lfyJkC9njMf5my05yg8Tv/2tsSoIEwAlJs2
-	 z+ndKfyBSFxrrIwT0JS+p6cZgqGLM3Bt3KQRQTWeelE/M8c2D/ugsTM7Au1KfvLoBUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889341;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0r7l62CHaFTMRLxBz/to210M4G41eBZLZnjLmm0cmp0=;
-	b=dhqZ1uV2JdxQmynen9R0B78npZY7cg6ZnOJb8C5eU4ZW/GW70MhSWHaGH747+JpuM3tT
-	 iG51SC4JviGU/TWtGsWQ0qxK9wIWW8VYKckAZ89HEC8bJJR2n1ZzD0hk0tdFuO774m+4r
-	 MMKnqQYgl4jNRArYfGLF2v2/KhlVCW2yBnJV/KQYpVjHnW7MPpmNWVROiVRP9ZquYtwoQ
-	 Rxga09TkKC+tNf+Ys9pyjJuy9YM+tfz7jSKj3GEIrxvASuOVMO1VH4AaPobdN+A+rhH57
-	 0T+sQi1B/KABoo7fF9t/Rk7eVXsk+B5Dz/NRlSbQJo57ubW1ly7dy1c8TAd8/A85Tqw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cgj1r83m;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793889383;
+	b=g1NQZeQlE+g206op8kU9+01MYgn62ZPNQGjlNJd7FRoxXWGeUoGNqz490iYf0TN3JGiq
+	 UZKxg3Oq8tHrUJKmnG5wslmM4r5R+mPwKq+EvI/H5/8rHomi72giX2KBHOLWGCFIueR+p
+	 cdCFcDVc7q/Bw0MDOwu1VWtIebAAR1PnBF5KOr8uNoR3O7RSiTO9ZPKP+9B6NIzapn/pp
+	 3Q2QOu8moECQtJHDoyhciZ8njGNxYNrJBlDA2E4MliAbJju7waWE2Lzw8u0zzerbywx5n
+	 qgYnZsKRuka6b4FJlA8GmSnhgjecTbOpi8Xl6j9TiFlMJXTNAV6D4W3bg4pnaFuS4RA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889383;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
+	b=H8KuQXXMpy+eNBjl6PfbJc8Px+4kPNErQiqm5QGMYgMPRsE2tl+3pJ4Oo86bC1DbRZDZ
+	 ORD3B7IlqKSx4U4RnephmMOmkqy8fs6SfCt9myeUTVWXS5BM+F3RC6KEph+kwCht7MLJN
+	 feWELFPTV1BqO27Jr72xEJyedT7Se5lSePJZ94jds3N39wt8tkqD1O+Xfi+bQ8TFt1nxl
+	 N1dA2sDwpzmE2Dl838snsGLLlgBfad7oODu1EhClMpKJ4OWRIuA+hGV6T/gQy5fyYMdwE
+	 rex4kx1tuvXTeH9CdqE1mUahq9uU7c/nopT90v3BrwgX2Ki1W4UTj616SnY2aBtOWNQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=EAXbRDD8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589DF606A335;
-	Thu,  5 Nov 2026 14:35:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7EF606A32C
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 14:36:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7EF606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cgj1r83m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9476C1F0093A;
-	Thu,  5 Nov 2026 14:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793889340;
-	bh=0r7l62CHaFTMRLxBz/to210M4G41eBZLZnjLmm0cmp0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cgj1r83mYGIdLcLByG0bpU44Vt3oSEDD55lpg/y3f5ddqnfWdhb/Kech0vlPgNMl1
-	 74xxSgd+OK5Qf8rNYALVwNg02gq+O6fzubkCu7jgITeg2/fjs/cXpkY8MLQhIv/Gzs
-	 naVGcOEBXTd4dryVP1yx6Lw0II+7qIowvCb8E2kdap25q4OFII+kOE5YZ5XrSwRVBg
-	 3In6q+c2Ih+51VGvUv2nOkeWklXHlk8WGpUQzJWErb/iTpMqKZ7kkjFAJWwancT87g
-	 SPYrGmzQUmvq+ANrMgGUpTBFdB5XAQZLR9+3vLN5WpeoaPUN1YUaqG8zZMg5TR5o/B
-	 YLuIY1sCMzgkA==
-Message-ID: <2e12316d-d079-471f-9c29-ef5fb765216a@kernel.org>
-Date: Thu, 5 Nov 2026 15:35:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=EAXbRDD8
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so2286553c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 06:36:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793889382; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D7EZrwogmX29+ZwmA/HnXAGMnhAk5KWwqTi6oBO0CW6T1ZbVuu/bv2oZ/sWeAkQA+A
+         PjcvgKw17O/tVc0VKjHRVogNTGX4WqYtuUEvBxxehugFXZevZlQu8cFSoTBT5AWQ8j+Q
+         vL7UWh5HeRBS3EW9cm0vKfeRDAblos71QfgaWM49wAJuLKR8VyA1mVtEYQMu6Skt6my1
+         efm8LqENoojXQK0lY5HcF1jAdbw4EjMDQUH8AQ9jovcf0rTyeyn7pjYmxsIQ7m1LXRwb
+         RTsSVE9Egsd0nU0BkV/pOhdonCK8WV3SAI7WTa1cy5e0GqZsFFdrnHfMdFREQrMNbCcN
+         1z+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
+        fh=Sn2QEI6kFv2WKf9DHVoZd/bx3Xfjtkb+Ym7woO5Xnyw=;
+        b=KZxFhX65CBVo9V7LhtSXvJB+ijiYeOFJi2QCHMdEsbaxJz2M/beu+sJVnSX3W3jsX0
+         bWtebJJSNUlxfl30hySP6Drm3bcRWVr3AUIESo0EkQ8ak5ORvvSAvHKykrgMXmEbHzV+
+         Gge1L3N+y4AiweM6cbwCF8SsXWFxYaiTds8ihtIOkavCabUXWoaxzoTy+RGQTtTl4UxJ
+         EiovzpEGwr/JU7I9L4pkfVO5gzCqGpYdFqSvQbOx5srZVTLgNyJbq6WQmctM2naRU3md
+         VjQ4ibGnbXoWM0l3mdgqeQZPTOBSBCC82SbZC/0FPtDcTtVcCr5CCKpbPKz7g/w4kjLb
+         eM0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793889382; x=1794494182; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
+        b=EAXbRDD8sPltHa6XBhqWXbkrc/ZC+i4CS8Ku8plXQaYf9QBBBm8zCzj3beJ+iJb2M6
+         RzFCTpcS26U+H7+lm7nBXNGZv997OUq3zjfI0F8WpsKODOSx1VtIXWh5/X7ZpcFRrEZ1
+         620xnHa0XpczouAPiQKw6Rk0Xbl8qs46GMJH6i29KDAF0o4qzMclxnWoNqlG/FaJGir+
+         RVDs3YH8D0jXXC030fdhFYRHjR8f/FBoCXn3qo4W5adV4fP9YTB7aqu7/kxNqVXjzx/r
+         b2NDGAEUono/OKX+iSNxKYgZPf/pVrsqDl1u//0+il3RYD/eZ9BbnkEvsG87ZeDylPH2
+         A5kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793889382; x=1794494182;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Ymc+4AQvzzaiCWsBbLGU5SMznTThrS02qv+sUCHS1I=;
+        b=u0bWqYlARmdl6mq+gk5Gagx/vqPxqnxe29dVEdbb2lF6mtlOP97d0I74H4N9bD0jqh
+         a588zOKTHuiWBLLDfLIuUyY6Eug62UU6Kgc3VawFYKRfCAkD7jMHuHxx5QHtgmKWCCKG
+         oQVzyM5RCa2HsY64VDzD8qRZlh9BNpc0AvbOJ5t+8eSAcr68TE+LCY3nZpyoDQygbW0C
+         vsGJO9yIFXX4Ne7IqzkKxmEG9RSsvGIG7kwIQPGj+ESeKnej/HXxFr5+27cK4e2pt9xW
+         7+Nedui3iBKVf5JV+TUhIblKk1uL6WtBWCFNmvTV3d9y+3RHdu6+8uJfsT0RYXG5eT1S
+         3q0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz8Y/xjqgu8S7awXaZkRvZrfRiwM6dPopayAPt5QHx2pGQFK8f3MPbhkLBjD/hHCMoA81A7sJHsB/IWKiw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wnvueBCMnfgnlMGH0kizN5poXw8B65c4xi62MguI9hqxxcch2
+	MGZYVNdBOWU6ZrDUV/DBCjKeolXtqHm0odRLICgByzrTPcYih9ZRr8arM1IEfwKimoKtDf+1DmA
+	+KdJU/DSD74I6hzVQgtTXcZW4H529fstJSMFrCPvFnA==
+X-Gm-Gg: AYBFou0YCpCliotxn1Gp6Chvp5nEs+QTHO2CEt/+F9e4eRAxt0YXZaPNgixZ3U8ufaK
+	xDMlseJsdUhQoLuKlvFE6yOQ8BqY+T47s4iBORXIZUyW4gk9Aixs8v02WZWVtCbVA+L6e7xpa58
+	TbI4I8cRWxbTg5qQO1OJRmiFzSN842a9zV18EZZp9+GuU/yS3qlacsn35XHm3N3tWcUmGjbL2Pc
+	OBBFGylqKyJRVlDeoNk2xgGNZyxKxn26cFH0ffDqmjt01vpD/AuSTgoIH28KOLbYtcEcelYJQ01
+	x3E4GIr8LYsxp+4fIkgI1ROp9EWnTWZn1XMCSMr+ZkBs5Uadix7l/mMXBy4ELDueAEBm7cOkF5b
+	luICjpDqQIzNhuhNSwvQ7z1LdzOjyQZlDQ/M8
+X-Received: by 2002:a05:701b:454d:20b0:1b2:3b5b:b80b with SMTP id
+ a92af1059eb24-1b23b5bb847mr12680614c88.8.1793889382405; Thu, 05 Nov 2026
+ 06:36:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,144 +104,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] tty: serial: use dmaengine_desc_set_callback()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Thierry Reding <thierry.reding@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Russell King <linux@armlinux.org.uk>,
- Richard Genoud <richard.genoud@bootlin.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Peter Griffin
- <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Cunhao Lu <1579567540@qq.com>, Raul E Rangel <rrangel@chromium.org>,
- Yenchia Chen <yenchia.chen@mediatek.com>,
- Zhiyong Tao <zhiyong.tao@mediatek.com>, Carlo Caione <ccaione@baylibre.com>,
- Moteen Shah <m-shah@ti.com>, Kendall Willis <k-willis@ti.com>,
- Kartik Rajput <kkartik@nvidia.com>, Fan Wu <fanwu01@zju.edu.cn>,
- Nicolai Buchwitz <nb@tipi-net.de>, Karl Mehltretter
- <kmehltretter@gmail.com>, =?UTF-8?Q?Stefan_D=C3=B6singer?=
- <stefandoesinger@gmail.com>, Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
- Peng Fan <peng.fan@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
- John Ogness <john.ogness@linutronix.de>, Pan Chuang <panchuang@vivo.com>,
- Petr Mladek <pmladek@suse.com>, Robin Gong <yibin.gong@nxp.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>, Zhaoyang Yu
- <2426767509@qq.com>, "Nikola Z. Ivanov" <zlatistiv@gmail.com>,
- Haoxiang Li <haoxiang_li2024@163.com>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Myeonghun Pak <mhun512@gmail.com>, Wenhua Lin <Wenhua.Lin@unisoc.com>,
- Cixi Geng <cixi.geng@linux.dev>,
- "open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
- "open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-mediatek@lists.infradead.org>,
- "open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..."
- <imx@lists.linux.dev>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- "open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES"
- <linux-samsung-soc@vger.kernel.org>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, vkoul@kernel.org
-References: <20261102175527.3957740-1-Frank.Li@oss.nxp.com>
- <aux2VKHnVLwq_wzi@orome> <auyQEVmA2KeGu9DL@ashevche-desk.local>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <auyQEVmA2KeGu9DL@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
+ <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
+ <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com> <34506010.aRNtrjHk3s@diego>
+In-Reply-To: <34506010.aRNtrjHk3s@diego>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 5 Nov 2026 14:36:10 +0000
+X-Gm-Features: AclHuK-P65od5HCTUxTkNtF8XI9WRdmLEVnuoZ_IAiO-y4WkOrppI1hKYcCtIdc
+Message-ID: <CAPj87rMyMB05OTMDLSPe+oDZJYUW=oHF9E-f2LaTPCsBrKAAhQ@mail.gmail.com>
+Subject: Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
+ format on DW HDMI QP
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Sandy Huang <hjc@rock-chips.com>, 
+	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Sashiko <sashiko-bot@kernel.org>, 
+	Igor Paunovic <royalnet026@gmail.com>, Sebastian Reichel <sebastian.reichel@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 05/11/2026 15:17, Andy Shevchenko wrote:
->>> ---
->>>  drivers/tty/serial/8250/8250_dma.c  | 6 ++----
->>>  drivers/tty/serial/8250/8250_mtk.c  | 3 +--
->>>  drivers/tty/serial/8250/8250_omap.c | 6 ++----
->>>  drivers/tty/serial/amba-pl011.c     | 6 ++----
->>>  drivers/tty/serial/atmel_serial.c   | 6 ++----
->>>  drivers/tty/serial/fsl_lpuart.c     | 6 ++----
->>>  drivers/tty/serial/imx.c            | 6 ++----
->>>  drivers/tty/serial/msm_serial.c     | 6 ++----
->>>  drivers/tty/serial/mxs-auart.c      | 6 ++----
->>>  drivers/tty/serial/pch_uart.c       | 6 ++----
->>>  drivers/tty/serial/samsung_tty.c    | 6 ++----
->>>  drivers/tty/serial/serial-tegra.c   | 6 ++----
->>>  drivers/tty/serial/sh-sci.c         | 9 +++------
->>>  drivers/tty/serial/sprd_serial.c    | 3 +--
->>>  drivers/tty/serial/stm32-usart.c    | 6 ++----
->>>  15 files changed, 29 insertions(+), 58 deletions(-)
->>
->> Reviewed-by: Thierry Reding <treding@nvidia.com>
-> 
-> Krzysztof, now look at this case. I would argue that this is even less fit than
-> # subpart(s) case, because it might imply anything. Again the problem is the
-> bundle, and for such a case (when tons of independent changes are bundled in
-> the same stuff, *every* Rb tag has to be explained on what has been reviewed!
+On Thu, 5 Nov 2026 at 13:22, Heiko St=C3=BCbner <heiko@sntech.de> wrote:
+> except patch 9 of 15, or mail hasn't turned up yet :-)
+>
+> It does look fine to me, but if someone has an eye to spare ...
 
-I think this case is obvious - Thierry reviewed this patch and gives Rb
-tag, according to reviewer's statement of oversight. I don't see a
-problem here or what is questionable.
+Nah, I just forgot to send the mail / was waiting to send until the
+dclk reset thing was fixed (I forget which).
 
+Either way, it's done now!
 
-Best regards,
-Krzysztof
+Cheers,
+Daniel
