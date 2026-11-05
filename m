@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893096;
-	b=Zr1Hyy0mqvLQzeuKYGBIH/fM/gqjxLVZR4WjPUD7m3pWqAjUH0j0qCJLeNZ26+9ytGpk
-	 EdWBABTcqvkJWd03KXULrmjlpIIne5PGWeN9t2sjeE9cY5fcVkrrvHMLiFU8plbTWb1cR
-	 Dnpd8rqs6R9HCQne2oBwhw6qW7u16FOgwyumYQF3NyUblTHkvzxBdy1jNVo/OtXI5NkZ/
-	 ldZB12876lMSIbfPWdWZMHfP19/4GrQf76jS0FbObRHMwj8KYGD2pRVHEnNmHcQF3Km3J
-	 RwJSyNnntUNv+uZGV62XfY2USehag8lJUsHPn4+k2sgobqa5ye0cNYXuNjLXWm/12QQ==
+	t=1793893098;
+	b=RGnUFSlc/T3Rx+WyUo+nJwIHDm84vpERaNdcPx0r37STdNDd8aRLuVTFcYpRNBOvrOT5
+	 nLXNLOWt9B8U1Vzl/lO6JJpC/mKRnOX2jTBF91+HEo437OnZQELMWmqXkqgOGQJaO9hvv
+	 +8ImUNVvMFCX/sQ6oUfHPCR8jJ5SrhKDyAoLkBIDbKNv+d1Gvxp2pB2ukDDon8J9yP9nl
+	 4wBFQ1au0wo4/OYVXfIH9FhQuFUER0VCxgAKIfmtDNHuE/ZnxopKWZ3xhx57+9uSc3tcU
+	 Z7Mtv8biyyuvHrIahQjtyPjiClour0zQGKtUVtI0RoJmQI4Myd04aCcshv/IvizAKKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893098;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=F4fUx97bi7pwf9S3207BDQnL8pq2tpTO+X6+3lO1kvg=;
-	b=VqwFYdNEKgR7liavHNQKOIRz0C9p9JCI3HGWttvDHK3wl3i+V9UcwcztUziXFWDhFPWu
-	 Rv5mgPH2qY4eWzeznQdHLU+wU6aBUJtjCcY9l2y3pavdwxEkJJZ3dWoNuj14mtA1Fs9W9
-	 nh7Jq4PogGntzzZV61uJoXr0kEOsUPskh6DTx5rsciEDucT8TvjMKNgdsb4dYPh8GXh6S
-	 1wYfyXhHC/dLSyBY4SK+8We10K7FrcxBcyF2SVHJjz7sb9/iFKQcETAbBFy8EiorcV4Wg
-	 AnMTGvjzyKH+XeMaYyCLPhqPyGjGXubzKwYdaGAGHdev6Xb+vh9+Um7UKsxeYlamy+Q==
+	bh=5nwBNd9yUUsPIoz1aKyDtvky4U2vOuqkRzqvPOH8T5s=;
+	b=1XXpatdU3YkA9Z2MVgEOgSDT1FTUQF71v2w+qme18l7RFXCDGenwNMFYlsJYtdMlSj6b
+	 sKJgLo8wBRZksbjz5woDm4gazNhr7c8f83VkSpEW128oLY+usY5hqH/yRqZ0Vps1tJZrJ
+	 HOf6HRl+ug/c4JbHZLBwbjmhxjxeO+ryLqSOIh2F6VDKoGBgRBdWm1KZR8URqICiT55JG
+	 jIWq2xB7OQCMWnKnjAao3rYLFuRKXKo2iT/CGKmHwaxsPKYwWTDHnqacSdtDbZTaz/VWD
+	 KdkaIKYLRJ3lMs10DSgZFPNSzRXaBpTC4M3lp77P7P+IIFbnoww1bMFnh+UvruGbTNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=riscstar.com;
 	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=LqeGpx0o;
-	arc=none smtp.remote-ip=209.85.167.178
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=RzErGQWX;
+	arc=none smtp.remote-ip=209.85.167.176
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2DF606D81D
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F2DF606D81D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E514606A328
+	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 15:38:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E514606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=LqeGpx0o
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-53656465d1dso1066060b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:38:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=RzErGQWX
+Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-53ec9237600so1126160b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 07:38:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1793893095; x=1794497895; darn=vger.kernel.org;
+        d=riscstar.com; s=google; t=1793893097; x=1794497897; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=F4fUx97bi7pwf9S3207BDQnL8pq2tpTO+X6+3lO1kvg=;
-        b=LqeGpx0onwzV4nNyO7gBwy8hvbgQTlF1kY2WTObUIJzlJA0199/1A21cmefHZCNJUp
-         F36lt/w2/mBVr76879+aQx28ku60ASRAh00HEjWJ6kSUN7txwODiQWoCsDACTA7t5mAU
-         te9uqemzhvEIqBrRkDaM+F8O0X9/tlmKrShAHkJyGUnFTCqHbAmk9WeV/pZ7DgCO/cqK
-         oBUO0YrZRxytKcBuf0CF+umwg6WESLSLbMCUhPoHGnRU3ACelIjdDPXmMJX6MudTjKqM
-         twBfOVYYyWQThXl4gnAWbMqxSK3nP8Oiz0GWtV2xqXpMjCuA/ULcXu/bqFiMGPlpVTDu
-         EEsw==
+        bh=5nwBNd9yUUsPIoz1aKyDtvky4U2vOuqkRzqvPOH8T5s=;
+        b=RzErGQWXWtDnyIbyy3GTxW9gj5vi0VMVFINajMWK8dv+li28qECAg64FfIXnY/8w1Y
+         1Ipbecb3x4TYKK3ruVo+UuA92bD9fhOacV97hmDZB7/0r8oIqlaHw0TmINmHeYDS4Sil
+         3rG7b37+xKZRVgqhwr9w0em37IFnh5YgrfdJYSBi277DGvdeK9B2cQZiM5odv4TQWnfF
+         zVcjxDT3GdRZ4HF7Dq8ZbLq4HTwkLYAKJ/CMRGEIiAx1bsrwzWTHwXYc+esLQIYdF8VJ
+         cNv4Kc1a/+PYUJnUkzQSpg28cTgB8uzcWHfx34vLCalu/TReYTEg/1XcsAYgZGChXrts
+         kFaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793893095; x=1794497895;
+        d=1e100.net; s=20260707; t=1793893097; x=1794497897;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F4fUx97bi7pwf9S3207BDQnL8pq2tpTO+X6+3lO1kvg=;
-        b=sK1/vUkBzU83z/8CHuaoKYMs/hRe8AGhonNCbdVtaD1EfCbY68Y7zk+3LyP6YNFBdn
-         z/vhiI1kUYGho4miJ9OkreNZvdjMMVxWrhKDENnirTTHbgXhKRtZiQzKcTzs9KrfwguG
-         Q+zEW1OK1J8SL60QkSOwyt7kpD3xLiKO/yzEgLBrXePncaY7EscmmYgwIQYPCmkdIWo+
-         upXheOxmLm8C2TOMxTOyOjelCrGveX2ilrYGpIXitHT7IKKtj6iTIjAOZdCgGZ8Z9pHS
-         ct3kja+5NuN2Fvrb/s6itipXyhAwkbRsGbxL/0oTC2qHADhmoj5AapSjxH8gyPoT2oyZ
-         jVpA==
-X-Forwarded-Encrypted: i=1; AKwUvByrbok5Lo8qesIOPAcN9XGsqMXZDO8FoEooy+kbKICbMixuY1VqOgbPgK5G+HWkm7DI/g1jDH0faj0oPWA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zUrmeewebiCvhplEVroWr8NLj7t5gUBQU3dfFrneMmuVdExDD
-	GSiV8wpEnT12b8Es9Qr1UQ7V/v9BrdoDcw6QPWHvEgdjW0Mmb4Ti71oJRQqCy4o6v7JPWo8yycL
-	ttw60XC4=
-X-Gm-Gg: AYBFou2xR6SKsQpc5ALy1Xswg1TnXJyUOWB3PazQLmLL5gAYCwRXL0TRxPk7X7remFD
-	SznWtZrQkqx49FKy/xAKdJqPlcOHifEl5bvmLfO6ljv9NRcy8CO7ksO+kVeSsD4ZGdtMF+Mhl8F
-	/LPJNx5dHsuPgAxMurfs0apm6Byi9B3JxKLfArFdl01FvGDd/KvqyDuoICaFuAisO2DI6MAlu+w
-	kCG8vgpUJ4ZNyvcEDL55w2lQBcrNdQLN/7cvqLm+uGpCC3iwdJvxTh9zHCwb2PY0yKGrLwK2uKk
-	jVUCNshtPh5tDzNRBCT5FUkpaic8x0JS9n1xn8NGDLo4mx0t54hrSo65cGzYw6pNUe0QUyspTrP
-	nA0S5HnXktjCfbAf1bBC+24Bpv/GaTIwGaCvgPpFNJdhK1FINvbmBKWf+lh5jmeJnN56RTU59+B
-	AgOduuF4xdiklNd6zazh/eGkV9eY1o1GiB4Fn+zs9S4dhG452U3SDqdJZCyZ5/fRHKmSXB0wkN9
-	Efh/0u2PPsLq01Aj33RsKlLKuIYGsZW9+jAboRLX/flieegEZXtcMcf2wlW4FDwO2NEx9ZQOCtc
-	59171L8D5JfVHIvvg35GBFFByjfflE0EJg==
-X-Received: by 2002:a05:6808:1527:b0:4c4:28a5:1885 with SMTP id 5614622812f47-5640d9278d9mr14332042b6e.9.1793893095035;
-        Thu, 05 Nov 2026 07:38:15 -0800 (PST)
+        bh=5nwBNd9yUUsPIoz1aKyDtvky4U2vOuqkRzqvPOH8T5s=;
+        b=GlzsQd7V6fW/PJbcKo3Kh8K36ELbmDdGzXhYt3CarpbFb0nMMrGFyRjeZ4ULu8pS9Q
+         2kZ8bi9rZsbgZPU/we61lDJ8e+zLcXjksKACgG8XeyQs7As+Lp65I9q9zVUCNYwdGho+
+         +9AkpKV5sORqpAgtYz5DVFtBFQZnO0VziT8c6CPo6LOUUZCwpv2mwaS5gnfZwtnJqFrt
+         7QcgA+mcWNNXfVBL4VyQmjA+Gh3kpn+1yTIy65G48iDRI0BmHzfj2wri1GWR2YmOAwzu
+         GEIcAHu9rzzYZ2SGIGvNJ8GfMWm9ezSYuLCt55JRZjkO4JLvlk5w90YFO8HKLxyN4LOc
+         GZCA==
+X-Forwarded-Encrypted: i=1; AKwUvByeJ+mOPUFLZyyFi8JlNw0Jfe0KhFTBcEa2v0Wg0We2QO71ysfAiYyshz5acPBi3T1P1ww0IG0+ioUlQxk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++UYpSEsVaE5B9qu3k0SK4c902B9mt+tKXZwTPI4e2Rua8iigB
+	fhoihOB/7t8lcedTGoPR78Kezm2XERVpG4XbQbDS/XkEtiO10scb9oONPFTMHgQlxIo=
+X-Gm-Gg: AYBFou3zBYMd8TeuRmWAxsOHGWIEemHQaz13e8jTSfQ6Jo/Jw7R83s/608F/GrJ4uoP
+	GVD6mWy4ObcCmlibLdYj3sBcEIurF3YTCOM81Ij67Oue/wQO2L4zuJm3wyp3qDxP+RnIPp+pGIp
+	7j9gXUje+bPKUym5hQVJB9afWrb/IYSt1SQ8zl2sMwDtwpmxquYg0a7hYFM2EVMd7owfLafIFra
+	dcjI/CT75pOLWdO3EPOPdEUWIyZGeUvVIbchZ/LkD3K29PaU3hJNKR1AyDExTuL3CbuIOpkBmoe
+	gQMWk8b88wqwyZPuajr5TTUj2cArR1XFkd6sSDnuS2eaVsySLZOArdNETm5T3dtmGFsR4PAvPjT
+	ZqdNLtm2LzIjodk08o+N4GKNXw0PW9G8GfeHEvmzitgZr/dokm36LYDMmhiEauAMZ4rbE3X4Kxx
+	VBaN8q1D1jcuR7kSt7BTLS3Ozs4fFc53jT/gdDnLF0YdyWxHmtJrGVcZMJHPjgwiLFf5SHROvDo
+	Y2ZC0d1ubKjcgFmkLBRjI5km0BWEs3VL7OAmUmFbkIvPzMpuum5uQdu4uIwze9GNmd7XQ7KdxF0
+	3mSn62pRqs4D0TkHtoebZlIDSzQq5n9EkA==
+X-Received: by 2002:a05:6808:6ec3:b0:4eb:80c0:f4bc with SMTP id 5614622812f47-5640deeb2a2mr15565977b6e.10.1793893097040;
+        Thu, 05 Nov 2026 07:38:17 -0800 (PST)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef6e3bsm4435329b6e.5.2026.11.05.07.38.12
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef6e3bsm4435329b6e.5.2026.11.05.07.38.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:38:12 -0800 (PST)
+        Thu, 05 Nov 2026 07:38:16 -0800 (PST)
 From: Alex Elder <elder@riscstar.com>
 To: bhelgaas@google.com,
 	robh@kernel.org
@@ -87,11 +86,10 @@ Cc: herve.codina@bootlin.com,
 	mohd.anwar@oss.qualcomm.com,
 	lorenzo.bianconi@oss.qualcomm.com,
 	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v7 1/4] PCI: of: avoid allocations in of_pci_prop_compatible()
-Date: Thu,  5 Nov 2026 09:37:58 -0600
-Message-ID: <20261105153801.435566-2-elder@riscstar.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 2/4] PCI: of: drop the reg_num argument to of_pci_set_address()
+Date: Thu,  5 Nov 2026 09:37:59 -0600
+Message-ID: <20261105153801.435566-3-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105153801.435566-1-elder@riscstar.com>
 References: <20261105153801.435566-1-elder@riscstar.com>
@@ -106,74 +104,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Three compatible strings are formatted in of_pci_prop_compatible().
-Their sizes are known in advance, and the largest is 16 bytes.
+The reg_num argument passed to of_pci_set_address() is always zero,
+so get rid of it.
 
-Rather than dynamically allocating the space for those strings, just
-set aside a buffer on the stack large enough to hold all three.
-
-This avoids a problem that Sashiko pointed out, where an allocation
-failure would cause subsequent crash because strlen() is called
-unconditionally in of_changeset_add_prop_string_array().
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/sashiko-reviews/a647bd56-7dc8-4fec-9d96-834622054cdf@riscstar.com
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
-v7: - Don't check for snprintf() buffer overflow (buffer is big enough)
-
- drivers/pci/of_property.c | 29 +++++++++++++++++------------
- 1 file changed, 17 insertions(+), 12 deletions(-)
+ drivers/pci/of_property.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index 1500740cc55d2..d351f500c2ce1 100644
+index d351f500c2ce1..6236dfaaae628 100644
 --- a/drivers/pci/of_property.c
 +++ b/drivers/pci/of_property.c
-@@ -331,27 +331,32 @@ static int of_pci_prop_intr_map(struct pci_dev *pdev, struct of_changeset *ocs,
- 	return ret;
- }
+@@ -52,7 +52,7 @@ enum of_pci_prop_compatible {
+ };
  
-+/* The three compatible property strings have max sizes 12+1, 15+1, and 13+1 */
-+#define PROP_SIZE	16	/* Enough for any of the three strings */
- static int of_pci_prop_compatible(struct pci_dev *pdev,
- 				  struct of_changeset *ocs,
- 				  struct device_node *np)
+ static void of_pci_set_address(struct pci_dev *pdev, u32 *prop, u64 addr,
+-			       u32 reg_num, u32 flags, bool reloc)
++			       u32 flags, bool reloc)
  {
- 	const char *compat_strs[PROP_COMPAT_NUM] = { 0 };
--	int i, ret;
-+	char buf[PROP_COMPAT_NUM * PROP_SIZE] = { 0 };
-+	char *bufp = buf;
-+	int ret;
+ 	if (pdev) {
+ 		prop[0] = FIELD_PREP(OF_PCI_ADDR_FIELD_BUS, pdev->bus->number) |
+@@ -61,7 +61,7 @@ static void of_pci_set_address(struct pci_dev *pdev, u32 *prop, u64 addr,
+ 	} else
+ 		prop[0] = 0;
  
--	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] =
--		kasprintf(GFP_KERNEL, "pci%x,%x", pdev->vendor, pdev->device);
--	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] =
--		kasprintf(GFP_KERNEL, "pciclass,%06x", pdev->class);
--	compat_strs[PROP_COMPAT_PCICLASS_CCSS] =
--		kasprintf(GFP_KERNEL, "pciclass,%04x", pdev->class >> 8);
-+	ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
-+	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
-+	bufp += ret + 1;
+-	prop[0] |= flags | reg_num;
++	prop[0] |= flags;
+ 	if (!reloc) {
+ 		prop[0] |= OF_PCI_ADDR_FIELD_NONRELOC;
+ 		prop[1] = upper_32_bits(addr);
+@@ -135,7 +135,7 @@ static int of_pci_prop_ranges(struct pci_dev *pdev, struct of_changeset *ocs,
+ 			continue;
  
--	ret = of_changeset_add_prop_string_array(ocs, np, "compatible",
--						 compat_strs, PROP_COMPAT_NUM);
--	for (i = 0; i < PROP_COMPAT_NUM; i++)
--		kfree(compat_strs[i]);
-+	ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
-+	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
-+	bufp += ret + 1;
+ 		val64 = pci_bus_address(pdev, &res[j] - pdev->resource);
+-		of_pci_set_address(pdev, rp[i].parent_addr, val64, 0, flags,
++		of_pci_set_address(pdev, rp[i].parent_addr, val64, flags,
+ 				   false);
+ 		if (pci_is_bridge(pdev)) {
+ 			memcpy(rp[i].child_addr, rp[i].parent_addr,
+@@ -168,7 +168,7 @@ static int of_pci_prop_reg(struct pci_dev *pdev, struct of_changeset *ocs,
+ 	struct of_pci_addr_pair reg = { 0 };
  
--	return ret;
-+	ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
-+	compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
-+
-+	return of_changeset_add_prop_string_array(ocs, np, "compatible",
-+						  compat_strs, PROP_COMPAT_NUM);
- }
-+#undef PROP_SIZE
+ 	/* configuration space */
+-	of_pci_set_address(pdev, reg.phys_addr, 0, 0, 0, true);
++	of_pci_set_address(pdev, reg.phys_addr, 0, 0, true);
  
- int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
- 			  struct device_node *np)
+ 	return of_changeset_add_prop_u32_array(ocs, np, "reg", (u32 *)&reg,
+ 					       sizeof(reg) / sizeof(u32));
+@@ -470,7 +470,7 @@ static int of_pci_host_bridge_prop_ranges(struct pci_host_bridge *bridge,
+ 		/* PCI bus address */
+ 		val64 = res->start;
+ 		of_pci_set_address(NULL, &ranges[ranges_sz],
+-				   val64 - window->offset, 0, flags, false);
++				   val64 - window->offset, flags, false);
+ 		ranges_sz += OF_PCI_ADDRESS_CELLS;
+ 
+ 		/* Host bus address */
 -- 
 2.53.0
 
