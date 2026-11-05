@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839438;
-	b=x9iwxjq6txUDiwq5/HRUBJTNSDsaWSqRE19y8TFvSyxIOHp29VWhQ+MsmFm5oDCQWgH+
-	 2LFTmEagXN+Dsda3ftItEXaM0LQqO/FMywEXLDJ5ZMelSV/DEYt8T/8d78JfZvwtEblVc
-	 w/cY90JDivMECxD8bP0HyO0rG5BQbfqLnDaeqbJiy2Ui1nzgzN7Bw/I1iMqg9IdAFBasA
-	 rtS/Q4HdEXwFR0P4sbfXh8vGOgSAciDFds6PUUrxwjn2gtOHcCG/Way92dLLEZ27rNDgn
-	 46vksWlkurDMChPkjyzMSjnOvH+Je2N1zsTS9m2tbBmgCZRG5sVCFjzjn/lvnuA9egw==
+	t=1793839443;
+	b=C0T24crZktaf26dTdNfFBYbimP0UqSL9GLViMs1rdm83t3eefzjX1wmNju3cIf/w+LEv
+	 bGBELpR/nwNboIeiBanmeaE/rVuXlzTUoaDkWM4KuMEqdWDGk4pUsF/vbrnoHxZRPhLob
+	 HCfzloj4C39uoIKUSMVcbQknpYjX6YLitJZIURkREqF9EE6WlO59RmBBBFBWoPX/Ds09J
+	 6csRokCpQgHi16MjI70YXDegHPej+fH8BfnutQTAaAg6zKkVAwbicqMwNFTs0kmgU0Ybq
+	 W16j8rg9MYuf4Zpo9qCnSERh9QCF914Sg6m/cQ3anGKFCWBp8kEYi6vv9stH0jE9BJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839438;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=op8fE5/kODJq5uwPkW013cLOLSpSEKh3HwrWjMp4c9k=;
-	b=fCK5HtbCs3Fx1yYqqZCAdsiBmgBkhXd6+1R9olPRj9l13Y8RwJFCf2EUYlR0EXMa4N/w
-	 yZ9fJTsUs0Kx+pPeTNNJXhoYBBmTPwO6ZrH0dubq4whSttB64GVR719UfDGKOAO9IMhrF
-	 B65nGI0UjNo6xL7BROReMJWoSnh7iNaaS4Ht2vWv1hwHWRTGHOZ4Z+fiqze4Z6F1PwrZf
-	 b5FaXZ1APf/jQuADGtmZhnvUtoiVTcoLGnjtDzNXLwV10nnPX+tTzP5BSqHxGl1SIY4IB
-	 yIxYUjokj2Ban7ZcEO/jrXSachMM8q7uPvYHgEirw8uAE1z2jRCdOgUcvn3E7FKa8TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839443;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=3DdLetrTV4u5cttIyzMBSRRtMnG/YzDqmUfbr2V0daU=;
+	b=sfcbiUwUD6hEEWAJDvRMIXdcWo3DuzTni3hei9SxM8Hq3epMweXxeHEiUbqWOxQObsyd
+	 6RA7eVDb7gDC8ZSW+c4IraDNmTZgX7b16GAgfq61qMWRUyiuOBGpW4CC4rOUQSF54BL6A
+	 rcpeXXNVKPeMZ8xRYpNYQLO9dJwTx/kIdDH8yFX9ILMe3YMwRlPi8nEQSvWmGRsUOE28S
+	 akAaDpmMXRPJlPzl8zIYUcpJil9cKJ7qosQ+ZG9ygKbOYC3zog0Apj0JbRXNd4rGPdYp2
+	 Ejbj84z8+Kar2+ZGzTJP00ChMFUhhDPKldHJodcGFY2i8qYgdaGPVwCLquPVf9FoLdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=t1NBt9kj;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89E3606A331
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:43:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A89E3606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=t1NBt9kj
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261105004354epoutp03f6eb21e4e245ebe29c0a8645b7adb65c~k-3Yogxlg0329203292epoutp03P
-	for <linux-kernel@vger.kernel.org>; Thu,  5 Nov 2026 00:43:54 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261105004354epoutp03f6eb21e4e245ebe29c0a8645b7adb65c~k-3Yogxlg0329203292epoutp03P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793839434;
-	bh=op8fE5/kODJq5uwPkW013cLOLSpSEKh3HwrWjMp4c9k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=t1NBt9kjoGETIBgyoFqpRQ4GMSik8uA0352QcmfA6yhHzS3x/XjK4Ccy0LzlAFY3C
-	 li4Pjr7+t/tMIR07rLGgVGSl/sH9eyRAR+oe4xlXEjIFxq5TKyV6jWCxY/Vyfr9OSv
-	 mdATZI4CS0+RT7ovFIPoQHTVO5L75rfS9HthCoyg=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261105004354epcas2p1d7a3206ac45965d3f8eaa3a7d2fa8240~k-3YND8Zx2090420904epcas2p1I;
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E51A606A33F;
+	Thu,  5 Nov 2026 00:44:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E51A606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 2576992009E; Thu,  5 Nov 2026 01:43:54 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 1E3C692009C;
 	Thu,  5 Nov 2026 00:43:54 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.204]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jKk895QTlz2SSKf; Thu,  5 Nov
-	2026 00:43:53 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd~k-3XSUoji2090420904epcas2p1D;
-	Thu,  5 Nov 2026 00:43:53 +0000 (GMT)
-Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261105004352epsmtip2f4fadb5ac88cdc8a9cf27df9dcca85db~k-3XGTE280751407514epsmtip2t;
-	Thu,  5 Nov 2026 00:43:52 +0000 (GMT)
-From: Kiwoong Kim <kwmad.kim@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
-	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
-	cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
-	<kwmad.kim@samsung.com>
-Subject: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-Date: Thu,  5 Nov 2026 09:43:33 +0900
-Message-ID: <20261105004333.1097899-3-kwmad.kim@samsung.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105004333.1097899-1-kwmad.kim@samsung.com>
+Date: Thu, 5 Nov 2026 00:43:54 +0000 (GMT)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Hugo Villeneuve <hugo@hugovil.com>, 
+    sashiko-reviews@lists.linux.dev
+cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+    =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Crescent Hsieh <crescentcy.hsieh@moxa.com>, 
+    Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+    Johan Hovold <johan@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
+    Karl Mehltretter <kmehltretter@gmail.com>, linux-kernel@vger.kernel.org, 
+    linux-serial@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] serial: core: Unify uart_get_baud_rate() success
+ return paths
+In-Reply-To: <sashiko-outbox-196103@kernel.org>
+Message-ID: <alpine.DEB.2.21.2611050021560.6502@angie.orcam.me.uk>
+References: <alpine.DEB.2.21.2611030057510.15685@angie.orcam.me.uk> <alpine.DEB.2.21.2611032029130.15685@angie.orcam.me.uk> <sashiko-outbox-196103@kernel.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,122 +59,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd
-References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
-	<CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
+Content-Type: text/plain; charset=US-ASCII
 
-Extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the UTRD of a
-device management command after a successful SQ_CUS poll. UFSHCI does not
-specify the order between the OCS update and the SQ_CUS update, so OCS may
-still be stale when cleanup returns. Without this poll, a late response to
-a timed-out query can arrive while a retry is already in flight, leaving
-the host with two query contexts and raising IS.UTPES.
+On Tue, 3 Nov 2026, sashiko-bot@kernel.org wrote:
 
-The poll is limited to device management commands because
-ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
-them. For SCSI commands, the OCS in the UTRD stays
-OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
+> [Severity: High]
+> Can this break B0 hangup and trigger a division by zero when max is less
+> than max(min, 9600)?
+> 
+> Commit 091ea8e5d34e ("serial: core: prevent division by zero by always
+> returning non-zero baud rate") removed the hung_up guard from the
+> out-of-range fallback path in uart_get_baud_rate() because baud == 0
+> returned max(min, 9600) immediately before reaching the range check. With
+> this change, B0 is subject to the baud <= max check, and if that fails it
+> falls through into the termios-mutating fallback path:
 
-The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
-MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
-OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
-OCS_ABORTED reported by the host controller for the cleaned-up request,
-means the cleanup has completed.
+ I maintain that unifying the success return paths does have a value and 
+instead the failure path needs to be corrected as per 
+<https://lore.kernel.org/r/20261020184131.2893575-4-hugo@hugovil.com/> 
+outstanding (thanks, Hugo, for sending the ping for the series I've meant 
+to refer anyway, it made it easier for me to find it).
 
-The OCS is read under hwq->cq_lock. ufshcd_compl_one_cqe() updates the
-OCS under that lock before it sets cmd->result and calls scsi_done().
-Without the lock, cleanup could observe the new OCS and return while the
-completion is still running. The abort could then finish the command and
-a retry could reuse the same reserved request before the pending
-scsi_done() call, which would then complete the retry prematurely.
+> Several in-tree callers can pass max < max(min, 9600) to
+> uart_get_baud_rate():
 
-Here is the timeline of an actual case for this that happened with kernel 6.18.
-1. The host sent a query but the device didn't respond with it for a long time.
+ Well, if that is indeed the case (I thought 134.5bps times are long gone 
+and everyone does at least 9600bps nowadays), then shouldn't the (fallback 
+as from 2/2 in this series) B0 rate be min(max(min, 9600), max) instead?
 
-[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
-[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+ It's not in the hot path, so I think we ought to do this clipping anyway, 
+for safety.
 
-2. So after the query was timed out, the driver did SQ cleanup.
-Then the host updated CQ update and raised IS.CQES,
-Unfortunately, complete() was called the driver's ISR afterward.
+> Note that the follow-up commit "serial: core: Don't clobber the baud rate
+> on hangup via B0" changes the B0 assignment to:
+> 
+> 	baud = port->hup_speed ? port->hup_speed : max(min, 9600);
+> 
+> which still fails the baud <= max check whenever port->hup_speed is 0
 
-3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
-Then the driver didn't wait for completion due to the previous complete() call,
-and just checked OCS.
+ Well, this is obviously rubbish.
 
-[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
+> (such as before any valid speed has been saved, or when max == 0) or when
+> port->hup_speed exceeds a reduced max.
 
-4. The driver retried the query again, but the device didn't return anything,
-so the query was also timed-out.
+ See the discussion above.
 
-[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-5. A few seconds later, the device returned the response of the 1st query,
-but since the host was holding two query contexts and couldn't handle it,
-it raised IS.UTPES.
-
-Fixes: 8d7290348992 ("scsi: ufs: mcq: Add supporting functions for MCQ abort")
-Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
----
- drivers/ufs/core/ufs-mcq.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
-
-diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 8106d55f4041..44214616d9db 100644
---- a/drivers/ufs/core/ufs-mcq.c
-+++ b/drivers/ufs/core/ufs-mcq.c
-@@ -550,6 +550,18 @@ static int ufshcd_mcq_sq_start(struct ufs_hba *hba, struct ufs_hw_queue *hwq)
- 	return err;
- }
- 
-+/*
-+ * ufshcd_compl_one_cqe() updates the OCS under cq_lock before calling
-+ * scsi_done(). Holding cq_lock here makes sure that the completion has
-+ * finished once the updated OCS is observed.
-+ */
-+static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
-+					struct ufshcd_lrb *lrbp)
-+{
-+	guard(spinlock_irqsave)(&hwq->cq_lock);
-+	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
-+}
-+
- /**
-  * ufshcd_mcq_sq_cleanup - Clean up submission queue resources
-  * associated with the pending command.
-@@ -609,6 +621,23 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
- 			 __func__, id,
- 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
- 
-+	/*
-+	 * For device management commands, there is no order guaranteed between
-+	 * OCS update and CUS update, which is why we need to wait here. SCSI
-+	 * commands are excluded because the OCS in their UTRD is not updated
-+	 * from the CQE.
-+	 */
-+	if (!err && blk_mq_is_reserved_rq(rq)) {
-+		enum utp_ocs ocs;
-+
-+		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
-+					ocs != OCS_INVALID_COMMAND_STATUS, 20,
-+					MCQ_POLL_US, false, hwq, lrbp);
-+		if (err)
-+			dev_err(hba->dev, "%s: OCS not updated. hwq=%d, tag=%d err=%d\n",
-+				__func__, id, task_tag, err);
-+	}
-+
- 	if (ufshcd_mcq_sq_start(hba, hwq))
- 		err = -ETIMEDOUT;
- 
--- 
-2.43.0
-
+  Maciej
