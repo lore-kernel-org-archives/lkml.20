@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977914;
-	b=VMVd/ngBGoIMnxMerFi/rkw/uVo/JsJMV92gBVIFaD+BBFw8EsWqys6ErSleULWAVSyn
-	 +sXtfXlrllvRRnX2TI8ag/4XmhG1Fn2In90Q6cJzZPSm4LUWNIUDSydAL5XaDZG7yjBVN
-	 sDwyfR7glzvdFlNqkm0CiwZ8LVki77m1ACBlmJArBJ9DXs3sUXmopxTsEn4YXy43G/BUl
-	 v5YIjViwX32NpiG9sXw5BUL1IjvCHo+81juGt4aAcqRvrUKfbluTZFuQU8FOWcwQvrYWy
-	 DtCkdEQnAuujHgLWYqN2TaDZzNUVNyi/Wa+Cfr/6WgnFGzlMctC0LUQRK0aNCP8P9qQ==
+	t=1793977921;
+	b=YCkwuCeNeyWM4n4c09xGUEyAX/34JNNT3jlqaLBbExMXZJCOShg6uah5KGxt5xOTG3Gn
+	 ykpbTnknLkdJ43CDGxbL85U/W2X7YKFzXPn4UERMvsv+d/obZVKITPRyxN1RG1ygyogqv
+	 DNuOeA/q3AYZ05vf17FZ5NJ0ABYNkTlh0L2Qft00+iubTNeq1lLkl2HyCNH8PGAenMnPR
+	 DPyJZHYV+fXwkEYGFVufQwI9HEpQv/QO/TelZgJMNbaJ7MbS+5FX9ta4IJj+6V2Dylm0P
+	 LilnWxl19saktJAJdO7E032xYNo9OkXxUlpj7inrwL04QltjB53jOWiqN2A+ns6CNNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977914;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977921;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Cv8s/0EAszCylBUn/l89HelJSiucOWcHTNPbi/BT1f4=;
-	b=ANmWrmGh92obI/V4oabZuCbu+kcA7Z2WnltmIG4BvjIdk5kDjXdWgLGg98Conv9Sx0O5
-	 c3gd3PvEawF01/oQkSIgTPZn3IVqwwN+GB2DIgg3vesLMEKB3aLG5bt9avdDBo++xK759
-	 IlHUqvHxiXhrQkQQbL/vu1nE6dm1K4mQheUMedhRg/6yOQeDMQgHUpXl3ga8fVln6AZxw
-	 0ENkkPJhgdm4aaEE8rAafqJRfl65v7AWYCh6JmNcz2/m6vZ4SmdHXVmMbFVnWsoN6NVKL
-	 JfHWdFTfWaa0OBYh76u2nJXmevumfHCEEFDG4UniopLD5/VDz1iLV0D4TKKfHZqM0pw==
+	bh=TLDbmk1ZXcxHrpcMpC7HafFvi1Pw8dGElTyKgkks43w=;
+	b=Py15YNby0UsvfznkELDh/h7aHdbCjBgOnmqmWw1C7QhdePTax0YfHrevZo/4jHmdhhfx
+	 I+LtOLu+/D/ru2WNRMFpRHwlToQpy+/O6t6dIniQkNvn1MaUXzzKQUO+sXHYo9zPjjdhV
+	 0YgNmNikKVdevfo6Pt4EhtxE9hCGIqMWYCixRT7DI1rXWV9uOp2fW9Y1uXkaRuvSSRpYc
+	 a/U6DCIp1c/58Mr2bC8mTqMcXxHaCCvsFZOhT0zsTrlsiwWc5AskOnl9CZ0dI6U+GRXXd
+	 7JYYOBLhrS8VVGq8P2lU3M0fIRS/9De2KLTiBFcQkV11lQZRFkPxddCoIlzoc/bOHTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GEgasTjq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tixt9pNe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7731606A337
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:11:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74026606A334
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:12:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GEgasTjq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BA4C1F008A4;
-	Fri,  6 Nov 2026 15:11:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tixt9pNe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A41F1F008A2;
+	Fri,  6 Nov 2026 15:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793977913;
-	bh=Cv8s/0EAszCylBUn/l89HelJSiucOWcHTNPbi/BT1f4=;
+	s=k20260515; t=1793977921;
+	bh=TLDbmk1ZXcxHrpcMpC7HafFvi1Pw8dGElTyKgkks43w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GEgasTjq4ZPejm9sZ6app4Zav04q8SnDv5Sz56BoI4EjUc0+UNxHgnhxGfXgCUGKI
-	 bB/o9zqedy3xsYWqQCVeeas6wqJ2FYuEzTyrjPEtILtbZba1c993EoX25FW2KN8DTB
-	 kRh3gtka5lyJy5Omf0ExDF9VYIPWtyxpGj5L8B9DlM9/K/kKKXkZeZ6noJ1hpRQmPP
-	 GMPPo3Af0Get2HZzjbnS9GGswq6ZTLHgh4e+zjK3vpkjeVmuej+qE0IBeUYJVvPWTf
-	 YfySTNr0KbgY7B4sDKyr3NUnfbBpu4dbeEcxXUn6zz8bye260u5qMt0l+mfhSie/e2
-	 2dX7T6ZtCH0VQ==
+	b=Tixt9pNezgojkPjKPPpC984lO7ihMcXPmi6oh9eyPLi3/w/ktJErKzPWkRc8eqolj
+	 D6nqBByoqbOxA7y2kopVk3n/xK6yJWpebtM4zr49JRGq3nHT0tSN7lV0Cd8FNGR55/
+	 99UGYkla7/BCoi+lzGqOewAnjNrYHF9k+UIK/UyTCmyEe/6w5oEDmPGgYHonXxlhd/
+	 6S8S/goCsccZ//Wt6zf8dfYMsY8bdnzglHbxm2fVN4l2Mf6B8pCP6cEeQ5ffHqLouB
+	 nuSDQd5UojQ1quY1+vfRrnp4J4SNYXR+j/LlW+uBeLhV+CYcRDt5QWf8l/HyS99tIJ
+	 4VtBr3ZWFU6sA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 06 Nov 2026 16:11:39 +0100
-Subject: [PATCH v8 1/7] drm/amd/display: Fix planes atomic_create_state
- implementation
+Date: Fri, 06 Nov 2026 16:11:41 +0100
+Subject: [PATCH v8 3/7] drm/lease: Add a helper to tell whether a lease was
+ revoked
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,8 +54,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261106-drm-reset-state-flag-v8-1-50fd046b705f@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-drm-reset-state-flag-v8-3-50fd046b705f@kernel.org>
 References: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
 In-Reply-To: <20261106-drm-reset-state-flag-v8-0-50fd046b705f@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -72,58 +72,77 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1628; i=mripard@kernel.org;
- h=from:subject:message-id; bh=UXJpmo5ROHPzhMg+de0zko6SddYMdKZssZ+0PtShoSM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3+nLT/Gddj9hytw5so6XPcTSr3rpvQ08u0hR8GDRm
- f3Vir23O6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEVjxirDP5ZDxLNnTi8cMq
- B7ZJ7T+l8kVw9hYrz+NXou1tbGKmR1x97/DPpu5Ghpj4pJcad7b8nsZYp7w5kpEnPE2T42OUYej
- Ek7YNSndm75ZZdGx1p2ldsff1Ddf+/clKyJmxp8emgj9t8dUKAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2028; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=yJ3G96wvMCcjTj2LVCQz3AR51PPKuK+Q3wkQvYzXiSY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlv3xk8cvSb9TZnunb+GSGnz6Xu71UXuk2LbCrRn3N7/
+ 4rF5U7pHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi3Y2MteK+7tPK9y/ItdKM
+ FFJXYcxZHrH1tk/70uDNac8W/Zv/cmK5ujCfht9ToR3XHLNmd9rNYGy4feN9aHjwxIb9/w68bF3
+ izjtf/t1ss628bNMkV8ziPnbd9OyF7tqpjPaPWkqL7Zb13/sOAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
-converted the amdgpu planes to use atomic_create_state instead of reset.
+drm_lease_held() only answers whether a given object is part of a lease,
+and the answer can change from one call to the next. Code that needs to
+look at several objects in a row has no way to tell whether the lease it
+has been checking against is still around by the time it is done.
 
-Unlike reset, atomic_create_state is meant to allocate a new default
-state without any side effect on the hardware or software state.
+Add a helper reporting whether a lease has been revoked, so that such
+code can bail out instead of acting on a lease that went away.
 
-However, during the conversion we forgot to remove the call to destroy
-the existing plane state if any. While this was expected from a reset
-implementation, it's not for an atomic_create_state one. Remove it.
-
-Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
+ drivers/gpu/drm/drm_lease.c | 26 ++++++++++++++++++++++++++
+ include/drm/drm_lease.h     |  2 ++
+ 2 files changed, 28 insertions(+)
 
-To: Harry Wentland <harry.wentland@amd.com>
-To: Leo Li <sunpeng.li@amd.com>
-To: Rodrigo Siqueira <siqueira@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-To: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 91398230d408..31101c810bac 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1804,7 +1804,4 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
- 	}
+diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
+index 5d2cf724cbd7..dd59df14dcc0 100644
+--- a/drivers/gpu/drm/drm_lease.c
++++ b/drivers/gpu/drm/drm_lease.c
+@@ -148,4 +148,30 @@ bool drm_lease_held(struct drm_file *file_priv, int id)
+ }
  
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
--
- 	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
++/*
++ * Checks whether the file is a lessee whose lease has been revoked. A
++ * lease is always revoked as a whole, so an empty one has been revoked.
++ */
++bool drm_lease_revoked(struct drm_file *file_priv)
++{
++	struct drm_master *master;
++	bool ret = false;
++
++	if (!file_priv)
++		return false;
++
++	master = drm_file_get_master(file_priv);
++	if (!master)
++		return false;
++
++	if (master->lessor) {
++		mutex_lock(&master->dev->mode_config.idr_mutex);
++		ret = idr_is_empty(&master->leases);
++		mutex_unlock(&master->dev->mode_config.idr_mutex);
++	}
++
++	drm_master_put(&master);
++	return ret;
++}
++
+ /*
+  * Given a bitmask of crtcs to check, reconstructs a crtc mask based on the
+diff --git a/include/drm/drm_lease.h b/include/drm/drm_lease.h
+index 53545b4ca9ef..03f7ea36c37c 100644
+--- a/include/drm/drm_lease.h
++++ b/include/drm/drm_lease.h
+@@ -21,4 +21,6 @@ bool drm_lease_held(struct drm_file *file_priv, int id);
+ bool _drm_lease_held(struct drm_file *file_priv, int id);
+ 
++bool drm_lease_revoked(struct drm_file *file_priv);
++
+ void drm_lease_revoke(struct drm_master *master);
+ 
 
 -- 
 2.55.0
