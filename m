@@ -1,63 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929352;
-	b=ZOlh35Hd7R6Resww874JOezjehq8bmwYjJMVg3aVcTmuPYYYSXdRrHZxvUbAf/Dj7XGq
-	 99b7LBAvmggWsswX2Z1cWTMNOY39OwmHJJD3Tnb+xLOcvuPSPUlp6YknpTRWO/BZt3E70
-	 CDEJimuMjkYGmgw8a3aZEl0qNGUHgIn1XAaMKdcINhelJKvDNa5bPtytUtXeWey/adKwL
-	 6a34hZy8vdDYyyzo7zp6w4AlnK4iif7bAM2HJ1fQjD+sAAj5+P1hFCcdN8EawP+/YazdU
-	 zivXquVE8DS0qRNCAJafnP892aIZyfqpWV1KutSXcxTZx8BYqdZ2LVBIaZonNDdG7Bw==
+	t=1793929378;
+	b=bEJ2pxtAFT2K28eXrQajeEr2TzG24I4G0Dl08pPYtKw2bNhVBi6r2sGYHAT0Vynzcect
+	 35m/CoznADXtXAfZG8f54qZyH6v4V4I6Bn5pr8AHwpcSry/X5O0b3K+fBsQxp8G14SRHP
+	 xv+FOpS/Pdc69SnNN3KMl0WgTRgWtqHZ8RTezdD9vKUyHSjxDxeQarbzeb1fLG4wpVNQd
+	 j5ynrWlLXwwJmEdCIQwueed5nPLB/SG5YRNScW/byOUIuZG+YpY4qD9LJioKp9gVav/Um
+	 +IzNgFxVe2Rakhkl3y4HbIOUpHqzqa0bhfON14K6/6uqEiUNZSKd11MG8yM4D2F7Krw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929352;
-	h=DMARC-Filter:DKIM-Signature:Date:Content-Type:In-Reply-To:User-Agent:
-	 Content-Transfer-Encoding:X-Original-From:Cc:From:Subject:
-	 X-Lms-Return-Path:Reply-To:Message-Id:Mime-Version:References:
-	 Received:To;
-	bh=LVYOg5a0/eInBQvhoEnLTAhJV0x1AY9I/LvPOnR6dYw=;
-	b=yKfTaudYyLYJpM9w6LrAunZTaZ2KQLxTmiNX3aZOVgTp/kRBGpf4CMroM+kSd6prbyNW
-	 +8lH5IQtiYcBGRlBsvXLogb3C+HAtgIdpPVZUKfHN9MtrZeQ4xT+d3LVTHv7KlQSJveXA
-	 7UBRbcxWpDN5804axqaSyOf65VSKdrUHJtc/JJsgZVKt83pOEnQIwd4NlOy5EdmQNLkrm
-	 vPGTdO+0r0k0/K398jdJv5lin+BAwGJ3tPhM/OiRATLMB9yBA0ugzHhF/m/D4xeInjo38
-	 MU3eBSn/H/ZeDN3TPY3Zf9zE/ftVvOTlvOWy63w69ea4DuRPaE3aKRDx6kXKQlKLzAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929378;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
+	b=k3vE/PoCKPn7C+RvGRSaz/CnNSPLK64R9L429y12R/Z4n2k1n9T4zwMnPeQu+RaKRcXU
+	 JSN7WqzcX0nWKWtzcMwdiBZ0sa9PPuZdZLAC7/CUmAhGkSSYaZwp0JmgXT1vUtSYf5ktI
+	 Q/KR0lO4Y5xtT31jHVL18PynWtNbVNZteETExGzDMQ60kTmZngl3HSCkzA/98hX8o1CoF
+	 XGi+LOaJvZopHZZNEcU24KDGD75nLmInqb/GlSMhCzVFEvJp3RH3T3iR7qAqYSMHC+BXu
+	 zvo+3B7r66ypEg1HF+Na443Ufpv/JHgaXXN6jSiJ2IFcMDXlM/5bCfRlFNhxYa4fNvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b="kLlUZ/Lf";
-	arc=none smtp.remote-ip=209.127.231.44
-Received: from va-2-44.ptr.blmpb.com (va-2-44.ptr.blmpb.com [209.127.231.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HaHAd0so;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AA0606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:42:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26AA0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26F4606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 01:42:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E26F4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=kLlUZ/Lf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793929343;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=LVYOg5a0/eInBQvhoEnLTAhJV0x1AY9I/LvPOnR6dYw=;
- b=kLlUZ/Lf7BhYf3Hg1XZcRRqx6WgB8qE2oTqBUFnmjit3OdnrsjnkuRD4k0u/Y1KCc20tCJ
- JVZvOXfwYzTgikNRSgxrDUJ1spLke9ae14/uOOxvnjMgs6EslmrnjKlAMeS3MjDS1YTq8P
- JYLm/ZlSPTfyq+X2HFWt3MXX07+iO7z8TpEegzcSmmE8m1oFHVFFU7JeawosJeKR4Oh8aM
- eRPcImOX+auA5uMkN/LeCmSnmiON9m3JLc8Gb5vNj8m2hfEKnzC4Vndjzibyow4mWjmlgC
- qp+sCz7ZbLAByCPfOtY2R0eya6bucJnvY6s1zcTLw15zdktIWhkcXbEnCF6ADA==
-Date: Fri, 6 Nov 2026 09:42:18 +0800
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <20261102073555.53941-1-jinpu.wang@ionos.com>
-User-Agent: Mozilla Thunderbird
-Content-Transfer-Encoding: quoted-printable
-X-Original-From: yu kuai <yukuai@fygo.io>
-Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Jack Wang" <jinpu.wang@cloud.ionos.com>
-From: "yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH v3] md: clear MD_CLOSING when array_state_store() bails on interrupted lock
-X-Lms-Return-Path: <lba+26aed307e+5cdfe5+vger.kernel.org+yukuai@fygo.io>
-Reply-To: yukuai@fygo.io
-Message-Id: <54d9c6e7-7467-4c68-b34f-4a984f7fb318@fygo.io>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HaHAd0so
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so57498a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 17:42:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793929377; x=1794534177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
+        b=HaHAd0soOlAW4xzktGagX/fsOKIBTHrUK2I/D74+/s6cDhxTtgZMsU9EWYTFEga3Gg
+         K74l4ODs8nRIMvZtTornOwqcKn2Fd+4Xx0436T0L1zxqJtzEBWXv0eoioPjccGm0oB2F
+         r9qpV36SOBqGXJS7KWxI/CnjPEO62vFusou4g5aCegr3lojny3x7JwmpEwgO+IOB0bri
+         aUtiIv3gXwuVMLAkrpfp7IJsXa5BcqNGubydO8MVdUVkuCXJAzWzSEiW1QUfGD36f8yh
+         RPeaiuGNUekSmSuXj5X+Io75F+S1X9oKE/gBzUfF0wWXaYaMwQWvsCEA8LsgO7CjLiVM
+         XgSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793929377; x=1794534177;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n++rx2vPRlANelrrltmpXRwH4hFgG58r1hhbvby3m58=;
+        b=uAvvIOKWRI9w9EDp9EcV+pVF004fZcyGIr271ZrTQVZa49ly0d9n/B71aMs7fcpJ1/
+         LgwROWUWFNcepxFxUxKyfXoal/CsJH0Ux39pHxIGaHzIlNpaPI9m8v2zgeEH1Bz3yVgV
+         jZYaDRc5gncvFqIccZLNnGLuc7ILT4yJvTovck9rgidpHFvqIosCrPXm496muHpChfi8
+         xvnlNChcgYkiQPA3ClA3dT6fV3lObFnEk7QDHo7iDLmG7DnG2sPzKAsdSSqlsL2lRWAJ
+         02GHtiKmPb2n/czdFEiSvsyYGnTNJya4sAr1mUZHAa8AQCl6qT5UYzEy2NoQm/3RJ53c
+         9Gyg==
+X-Forwarded-Encrypted: i=1; AL+hErELBGMwLYBKaThw9RLJV1S3VMS0e8If80d2pK2xLSyMDFdUr1anSj9Eepa+wql08XpKeXUfrT9djhRLTWM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+t8WNWFlEbSH6eQCvsog5vi1gKYAEabV6U56U73ophlH2fAYoz
+	mbFqEkyQM2HGjczelB1cuAJa0ouG2+0+jom7xonhxmJRaZntC7JPwaC+
+X-Gm-Gg: AYBFou0mlvrGC44yoLsx3eHa9jkTWtl5Q166VwJykL48Z1CxF6lWBFPDHdZAqhFiIqJ
+	6AmVgcofidI5aqjYgIFOGcen30jPCaoP4RBNPTeR04JJqwxT8kCklf4XdocSNmzP4tN0qIbNGAJ
+	i3//gx+noKy218wFl441eglrOyRgqKXGzjPnY6JxjZ3L0gTstR3bGU7cAa/djXV65sCOlEIt0xQ
+	jLTXiKBqXATlngGSiTQL9SHz+GWEBWu8i0NtuCpOsLoCSHIkEl7tZqxH7lXAP4C2vDUos12YKcT
+	uIecKfuWQnjZn5qKA6WGQ1p/6UMnJlEorwme62IKvvbsnZh3A/J0a9Xr0HPDwH04lFOYIhXQ9Ka
+	A4URk9sjDhiZaWQvUjTottfUyzsXrlv/ptoJ+wccit1/KG9DgwplQ6hbR3WrLH0FxZOKZ3eIgtr
+	8uH/95k2p4oh55CMfqAqjws5hYWHE5DIAVfnModwxX+HbtCCK1dNtlBGHKMGYokMmMsCyX9mHWm
+	T24zOcZNfDvdX+2EEAjSqZA+kJMeoSF2oEPwIKz/JX2RD0AIwjqcfNhEbsVq1NrbmE12QSo2rXP
+	avxmVdxcPzwsdLvtor9egY+aebMln6wXjJ/HOPR94+rAbxgPMLN0851qP+eS+XkGpcVaJ0gKKH3
+	ootSoVngJ/YNIpk3G3oW1fU48SccfQiVfpaiwBW/jguukzojdH0VmBdvZQW8r1E4dH2xqZRia6a
+	6JGA==
+X-Received: by 2002:a17:90b:3b8f:b0:3b0:ad42:dcb3 with SMTP id 98e67ed59e1d1-3b0db6e4166mr802421a91.14.1793929377014;
+        Thu, 05 Nov 2026 17:42:57 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3265a52sm5407994a91.10.2026.11.05.17.42.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 17:42:56 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-phy@lists.infradead.org
+Cc: Alban Bedel <albeu@free.fr>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-arm-msm@vger.kernel.org (open list:ARM/QUALCOMM MAILING LIST),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] phy: ath79-usb: support the analog reset
+Date: Thu,  5 Nov 2026 17:42:54 -0800
+Message-ID: <20261106014254.544923-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,123 +100,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <eded31de-2e92-4a3b-9384-03dbebc5e9e7@fygo.io> <20261102073555.53941-1-jinpu.wang@ionos.com>
-Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Fri, 06 Nov 2026 01:42:22 +0000
-To: "Jack Wang" <jinpu.wang@ionos.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From AR934x on, the analog part of the USB PHY has its own reset. The
+old platform code released it after the PHY reset on AR934x, and left
+it to the bootloader on QCA955x.
 
-=E5=9C=A8 2026/11/2 15:35, Jack Wang =E5=86=99=E9=81=93:
-> From: Jack Wang <jinpu.wang@cloud.ionos.com>
->
-> Writing "clear", "readonly", "inactive" or "read_auto" to array_state
-> calls mddev_set_closing_and_sync_blockdev(), which sets MD_CLOSING to
-> keep the array from being reopened while it is torn down. The flag is
-> only cleared again at the tail of array_state_store() (for readonly /
-> read_auto / inactive, or the failed-clear case).
->
-> Between setting the flag and reaching that tail there is an early return:
->
-> 	err =3D mddev_lock(mddev);
-> 	if (err)
-> 		return err;
->
-> mddev_lock() is mutex_lock_interruptible() on reconfig_mutex. If the
-> writing task catches a signal while blocked there, it returns -EINTR and
-> MD_CLOSING is left set on a still-running array. do_md_stop() /
-> md_set_readonly() never ran, so the array keeps working internally, but
-> every subsequent md_open() now returns -ENODEV for all callers - the
-> device shows up in /proc/mdstat and sysfs is fully populated, yet cannot
-> be opened, and cannot be recovered without a reboot (all clear paths
-> either need the device open or re-enter test_and_set_bit(MD_CLOSING) and
-> bail with -EBUSY before the clear).
->
-> The window is easy to hit on a busy host: reconfig_mutex is held for long
-> stretches by a running resync/recovery, widening the interruptible wait,
-> and a userspace helper writing to array_state and then being killed or
-> timed out is enough to leak the flag.
->
-> Clear the flag directly in the interrupted-lock exit. Guard the clear
-> with a set_closing flag that records whether this write actually set
-> MD_CLOSING: the set call is skipped when the array is not running
-> read-write (or mddev->pers is NULL), and in that case this write must
-> not clear a MD_CLOSING it never set. This also tightens the pre-existing
-> tail clear, which had the same unconditional behaviour.
->
-> Fixes: 99b902ac1725 ("md: sync blockdev before stopping raid or setting r=
-eadonly")
-> Assisted-by: Claude:claude-opus-4-8 [Claude Code]
+Take it as an optional "phy-analog" reset, release it after the PHY one
+when powering on, and assert it first when powering off. This is the
+reset handling OpenWrt has used on its AR934x, QCA955x and QCA956x
+boards.
 
-checkpatch reprot error with this tag.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/phy/qualcomm/phy-ath79-usb.c | 33 +++++++++++++++++++++++++---
+ 1 file changed, 30 insertions(+), 3 deletions(-)
 
-> Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
-> ---
-> v3: (Kuai) clear MD_CLOSING directly at the mddev_lock() failure and
->      return, drop the out_clear_closing label; reword the commit message.
->      Keep the set_closing guard: the set call is skipped when the array
->      is not rdwr or mddev->pers is NULL, so this write may not own the
->      flag. Rebased on v7.4-rc1.
-> v2: guard the clear with set_closing.
->
->   drivers/md/md.c | 13 ++++++++++---
->   1 file changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 03e35386a802..f14a31387990 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -4671,6 +4671,7 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   {
->   	int err =3D 0;
->   	enum array_state st =3D match_word(buf, array_states);
-> +	bool set_closing =3D false;
->  =20
->   	/* No lock dependent actions */
->   	switch (st) {
-> @@ -4691,6 +4692,7 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   		err =3D mddev_set_closing_and_sync_blockdev(mddev, 0);
->   		if (err)
->   			return err;
-> +		set_closing =3D true;
->   		break;
->   	default:
->   		break;
-> @@ -4718,8 +4720,12 @@ array_state_store(struct mddev *mddev, const char =
-*buf, size_t len)
->   		return err ?: len;
->   	}
->   	err =3D mddev_lock(mddev);
-> -	if (err)
-> +	if (err) {
-> +		/* Interrupted before any teardown ran, don't leak MD_CLOSING */
-> +		if (set_closing)
-> +			clear_bit(MD_CLOSING, &mddev->flags);
->   		return err;
-> +	}
->  =20
->   	switch (st) {
->   	case inactive:
-> @@ -4792,8 +4798,9 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   	}
->   	mddev_unlock(mddev);
->  =20
-> -	if (st =3D=3D readonly || st =3D=3D read_auto || st =3D=3D inactive ||
-> -	    (err && st =3D=3D clear))
-> +	if (set_closing &&
-> +	    (st =3D=3D readonly || st =3D=3D read_auto || st =3D=3D inactive ||
-> +	     (err && st =3D=3D clear)))
+diff --git a/drivers/phy/qualcomm/phy-ath79-usb.c b/drivers/phy/qualcomm/phy-ath79-usb.c
+index 8e9565846b2f..1e7868fc0b5f 100644
+--- a/drivers/phy/qualcomm/phy-ath79-usb.c
++++ b/drivers/phy/qualcomm/phy-ath79-usb.c
+@@ -12,6 +12,7 @@
+ 
+ struct ath79_usb_phy {
+ 	struct reset_control *reset;
++	struct reset_control *analog_reset;
+ 	/* The suspend override logic is inverted, hence the no prefix
+ 	 * to make the code a bit easier to understand.
+ 	 */
+@@ -30,7 +31,19 @@ static int ath79_usb_phy_power_on(struct phy *phy)
+ 	}
+ 
+ 	err = reset_control_deassert(priv->reset);
+-	if (err && priv->no_suspend_override)
++	if (err)
++		goto err_suspend_override;
++
++	err = reset_control_deassert(priv->analog_reset);
++	if (err) {
++		reset_control_assert(priv->reset);
++		goto err_suspend_override;
++	}
++
++	return 0;
++
++err_suspend_override:
++	if (priv->no_suspend_override)
+ 		reset_control_deassert(priv->no_suspend_override);
+ 
+ 	return err;
+@@ -41,14 +54,22 @@ static int ath79_usb_phy_power_off(struct phy *phy)
+ 	struct ath79_usb_phy *priv = phy_get_drvdata(phy);
+ 	int err = 0;
+ 
+-	err = reset_control_assert(priv->reset);
++	err = reset_control_assert(priv->analog_reset);
+ 	if (err)
+ 		return err;
+ 
++	err = reset_control_assert(priv->reset);
++	if (err) {
++		reset_control_deassert(priv->analog_reset);
++		return err;
++	}
++
+ 	if (priv->no_suspend_override) {
+ 		err = reset_control_deassert(priv->no_suspend_override);
+-		if (err)
++		if (err) {
+ 			reset_control_deassert(priv->reset);
++			reset_control_deassert(priv->analog_reset);
++		}
+ 	}
+ 
+ 	return err;
+@@ -78,6 +99,12 @@ static int ath79_usb_phy_probe(struct platform_device *pdev)
+ 	if (IS_ERR(priv->no_suspend_override))
+ 		return PTR_ERR(priv->no_suspend_override);
+ 
++	/* AR934x and later also hold the analog part in reset */
++	priv->analog_reset = devm_reset_control_get_optional(&pdev->dev,
++							     "phy-analog");
++	if (IS_ERR(priv->analog_reset))
++		return PTR_ERR(priv->analog_reset);
++
+ 	phy = devm_phy_create(&pdev->dev, NULL, &ath79_usb_phy_ops);
+ 	if (IS_ERR(phy))
+ 		return PTR_ERR(phy);
+-- 
+2.56.0
 
-Just keep the checking of set_closing should be enough.
-
->   		clear_bit(MD_CLOSING, &mddev->flags);
->  =20
->   	return err ?: len;
-
---=20
-Thanks,
-Kuai
