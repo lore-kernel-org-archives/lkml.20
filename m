@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964616;
-	b=FHdwq+/gKU9lXPBS7aF0b+thgD6Fe+HCW/IF/Hsyi5g2+zKgwGU5gG2XfFTYbQ2uCHFb
-	 +e4cbTlsCm7Xw2cIgmAXa785CrS04NX8GuxBuEqi+yYkIvbghX6qBk7mXNF45NnQ2Pj1z
-	 UajJ2y+yjqbNdvHImmc46TRES6UTAOoA7K9ya+jk7qwCAUc3VkP9Zybyc9vBsmxLdPScT
-	 4MX5l7nQAJ2FVp0hPyaGHH5lqTjW+nr0fnJ8DSfidLyXiv02Q7hYhDbUjyc0dPechR/iH
-	 +VUESEJ8dBWM9Bj+oPi80hVNYrgzjEtbmy8T0GdLPf8qSqIhTOusOgoz1kumTBFVs6g==
+	t=1793964613;
+	b=f+C5ZbAdLM8aUjsFR8PRMDSKKWSll62FJdzTaEA9pYEyx/v7G9bM3aaTIMe77J8vfho8
+	 ZBxX0Jm0gFSgU3amL6FBl/ANiCuURIXGtQ6wo+BV04bBtJwoewZNbV4I1BAvSjtAHE4nl
+	 mq4+rb88goSXkJoBsIdeGYSSBUZgCCVPFouAztJf3+sn3g/xLVdzENiOoScKWRVAKyTYo
+	 UZczaYdP9UGb4GTb47pfHTGRe0G7r6IUyshw37pz79CTvA2Ogjf9eAuhptCBCqGgBzAXM
+	 FFDIVu1+2Q7Lph1c2U5O+GvFEDGiaQTyboVPzvqs1HH6A7NEA4vilK/Pth1tBwoB9TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964616;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QZdVv0AoqKGhSOeGpNQjce6sWXA6jAFaxzQW9Vhz4uc=;
-	b=Wfw/5CF5VZN/PHZxehzNn/K2fAtQeCrcynRDmqHTBzuZ7qyOMzQgyCd2yXsez3H3A+oA
-	 G5D84838OYH4nnw9/7ig5jTsZEPenqO5TSjyjuhHVvBQCkfxbd4WONKlQnU9+ZaPWi5Cf
-	 Ss5fwZD8ZgCjlZ3jCI1/VDb5E2PCxMyao9RmNeq2Ht9GadaNG7Wjf4c/vYhHHruiyS+tW
-	 mK6SJm52o+pabmUDl7dnDP26PWGIz1JDNkh3r5KuQZWVR0iRhewxjbwH09UrClasFgkQf
-	 GCaMKRJiWx1QgbZwlwBXubrzaQPZ4mdIihk7BmMdfvLpy+nGcIuoSyhY8z31rqMMGPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964613;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=r75pjL1lwsrTNpfsItTlJCD4RgVhy+TX8WewtawH42c=;
+	b=1OuJucQiqhYJCCIwkVYJWo2iUjng7legH8KLnvN8xBL/dWxxCTfqbCeYD3KrC7AwEXvw
+	 G8pSe6ZCUK5BmqpOvZdMED1W8D1D9o1dOGVLqYbJCdfBXeP3M60vHOcf5Y9fJrgAEyLP/
+	 wFrc4vgEpoVsl31Yp4IGV4yHjUfXoLPnhUY0N1Rqgppmd3uvTOFzb7xEw/89eGdg8Ncjt
+	 3i1in6EZaVW80db6b5H2/B2/QkVcxz2mhT3SVCpLDNbDBksd0YmT4SIJk4kT52nfhDEfP
+	 Zf6iMnlbH/8FU2wyr0nLnPgDHa5xSSfqtm5u/V3B2ynuKqp4CxMwjHSK/+Uaa+QIp7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g8OZB6VU;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF6D606D81D
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 11:30:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAF6D606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=qpgHAIOZ;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9ADCF606A330;
+	Fri,  6 Nov 2026 11:30:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ADCF606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g8OZB6VU
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a058315c79so232978b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 03:30:15 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=qpgHAIOZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964615; x=1794569415; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QZdVv0AoqKGhSOeGpNQjce6sWXA6jAFaxzQW9Vhz4uc=;
-        b=g8OZB6VUAn8mhaaN/mvT96SCEyqMkupXV3YRV14g1vx3YBx4I5tA5nRsP07Vhzy5Up
-         VPYSF80TT9LI1gG4D4NF9s9jZM1+zvvbmPdEXZuJwWdzl6tv/XUIskEIYdDhzRXb30li
-         6mG6m9uF9m9KypErwqGZgYOK86cSMavJEGKtmjdqmnBN9wxmrF3ptr5xrscJKqPb/R4W
-         87uV+SHcI/VF3K6DMzoIy/7tTVkU3cw+5en9gvBY9cm2Y07QjV1zGZdBE3hctRWwgszN
-         e0PO7C4zqWmiA3t/keBmknlIphMRoPKWbB2XW+E5cVJ5gyFlUuGRYSo+2ZJxBahgqYVJ
-         bYWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964615; x=1794569415;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QZdVv0AoqKGhSOeGpNQjce6sWXA6jAFaxzQW9Vhz4uc=;
-        b=bqJjR4uc8VYeYViTtSHPTUp0NuQF3GVSKHUGezwoFU/d3I7RMf7d2d/qk0YJNqUoUx
-         sgVPgC54S14i1dcLsYKoSXcS+zBV2/a1/qf4Za4uIy4YKpeWNPGDDSTS4cSnrKU/fgqs
-         eRrChSc2wLp8YS9EDvhZP/HeXyNmiWxHW9Oh8fUtcZu8r2DdJsj2h9ao5WuTwoAJIJrO
-         6iiqRGoQtgTdDHIupOX20WS3Nf3uplZOqTsbas4CUkeSXi7UUmDHiiFbjNoIH0ou/MxL
-         O+2Lx2tOWWDej/CyOpDDgeRyOK3DSW37bA3E3aWPPu+H5sBJ7mRGzjRPLEi9znL8Z/CA
-         na3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzNAmHpH+A+aDJht6w8Yrft1zMou9g5kG1hfi1KyEx6gohtRf5F7dVqzV1Y2P0KJkLLU7oFqJ+/cemyfa0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PDqL5KUUo0C+716e1PT/SIyvC8hbbQRt7HwGryPglzSXjljNL
-	I3MNtTEglW/TtZWHHC8gqAIZ6GbF6USX65a3PpgDHs//UJ5f2uRL9JZu
-X-Gm-Gg: AYBFou2t5HcEfx5U+cXgrIN6jkT86T5/so+Sfz4MLmvtm6365J+TZJiMOS4IeM4jQrI
-	kbyQg924AybQkC77uSwVyM9PnP7uwjkMGtveKqM1lY2VlVCnP/qusdxg484pbXoQav3HwO3GDw/
-	xksSaiKZvyj9+M9+22vNJHYbvPrPDqIDBxPLszAuDMaJcJcBD0MHrnfYMEbCzd5c11GsoBYix9Q
-	fRbxFkF6hDOofV8w+fTLE1x8kDesQR8ayReZjOdm1ngspIE9vxjEa3bIFYShwx2BqC7wPwjMmNs
-	NSAfEW8Z/PxbSsfVZ53vWDStEK4DkV2M1aw3BNViIyMKZfz4iGbBphDF0E6iDKTYH3t2QluIW8a
-	Zi+EiLe7iOmmt4bi1vknDW3S4VZNq2i8iUUFjViBWSF0Ri4ACHd/7T9ZzDTsZMuA+LMMFvAJyzA
-	J100Em2GK50MaPB8xvpPn6MJnczfQxS+aRtjh6PDC29qTFTzv8S/wpWSnEjGjm/ilO/rCTPudFl
-	Iu0zSydhGaAlkiM6WGliRvrcDfJTF3GFa5jwkyY7CU+uqKQGK7sfDKyz+wSEDII2HxC1fUYfmDj
-	VFxMn2Rq0mpn2YmP/VtxqfsBTUxOIs3JrIHZkMDk2ePV25/5jEW25mdu5c1zJJk1MnKohp2rR/Y
-	/ikBP1N0SciDuIk5sxDCGcCHm6gB3X3exaKD9CORhwC1yVTD7UIHS9t7z18HThXTWsg==
-X-Received: by 2002:a05:6a21:47c1:b0:3de:570:12a7 with SMTP id adf61e73a8af0-3ebb274ebadmr2230545637.8.1793964615221;
-        Fri, 06 Nov 2026 03:30:15 -0800 (PST)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb70aa6ab9sm479228a12.27.2026.11.06.03.30.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:30:14 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: Andrew Jackson <Andrew.Jackson@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Xingyu Wu <xingyu.wu@starfivetech.com>
-Cc: Tim Bird <tim.bird@sony.com>,
-	Yuri Zaporozhets <yuriz@vodafonemail.de>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Maxim Kochetkov <fido_max@inbox.ru>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 0/5] Fix several issues in the DesignWare I2S driver
-Date: Fri,  6 Nov 2026 18:29:35 +0700
-Message-ID: <20261106112940.53550-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=r75pjL1lws
+	rTNpfsItTlJCD4RgVhy+TX8WewtawH42c=; b=qpgHAIOZywucHtAOgEZTzJ2IGV
+	SBZuOcRTdmsG+EwTnDejktqP4dvbTjGSealupqbGhr3FKFOLOmMvZCVb/ivLkXB5
+	9REjGHrsrIWKjuCfKp+UnQU27jsJF6NOPWMLszGGtPg7wAfWrqnWBXq8nz40e9f/
+	6hd68ie/6l7B1I248=
+Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.75])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn2S09uu1qwTCPAA--.854S2;
+	Fri, 06 Nov 2026 19:30:05 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: [PATCH v7 0/2] regulator: add the Will Semiconductor WL2868C camera PMIC
+Date: Fri,  6 Nov 2026 19:30:03 +0800
+Message-ID: <20261106113005.970822-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,40 +63,158 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgBn2S09uu1qwTCPAA--.854S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtFWrZF1rJry3AFy5ZryUGFg_yoWxWw48pF
+	Z8KrZ3Gr4DtryIvrsrCr1Iqa45ua18Ar9xCr18Kw1UZw4YkF1xXrZ7tw45Z3WUWrn5Cr1a
+	vFyDWF1kGF1kZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUqHqcDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAAps3
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+*** AI-assistance disclosure ***
+This cover letter and the two patches below were prepared with the help of
+an LLM coding assistant.  The author reviewed every line, ran every gate
+quoted in this letter himself, and takes full responsibility for the
+content.
 
-Hi all,
+This is a two-patch series: the binding and the driver for the WL2868C, a
+seven-LDO I2C camera PMIC.  It supersedes the v6 posting
+(<20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>) in full, and it is
+deliberately smaller: the board devicetree patches of v6 (4/5 and 5/5) are
+not part of it.  The reason is in "Board devicetree held back" below.
 
-I've continued reviewing the DesignWare I2S driver and referred to
-the DesignWare APB I2S databook when looking into its clock
-configuration, channel limits, and FIFO handling.
+What changed, and why
+=====================
 
-I couldn't access the document through the manufacturer's website
-due to regional restrictions, so I've found an externally hosted
-copy for convenience. The Synopsys product page is also included
-for reference.
+Two reviews were waiting on this series: Krzysztof Kozlowski's
+changes-requested on 5/5 and 3/5, and sashiko's three Medium findings on
+the driver and two on the board devicetree.
 
-Databook: 
-https://www.scribd.com/document/891940768/Designware-apb-i2s
-Manufacturer's website: 
-https://www.synopsys.com/dw/ipdir.php?c=DW_apb_i2s
+Krzysztof, on 5/5: "I do not understand why this is a separate patch.  You
+add new hardware, so the commit is 'add new hardware'.  One logical
+action, one commit."  Taken -- and applied further than asked: the whole
+board enablement (compatible in arm/qcom.yaml, the board DTS, and the
+WL2868C regulators node) leaves this series, because it is not the same
+logical action as "add the driver for this chip", and because the board
+DTS cannot be sent on its own yet (see below).  The 3/5 commit message
+objection ("Board cannot be shipped with such compatible ... 'Add Lenovo
+Legion Y700 Gen4, an Qualcomm SM8750-based tablet'") is moot here for the
+same reason; when the board series goes out, the compatible and the
+message will be exactly that.
 
-Compile-tested only.
+Board devicetree held back
+==========================
 
-Best regards,
-Phuc
+v6 4/5 was a board skeleton: board clocks, reserved GPIOs and
+chassis-type, with SPMI PMICs, console and storage explicitly deferred.
+sashiko called it an unverified skeleton, and the v6 5/5 regulators node
+then referenced VIN12/VIN34/VIN5/VIN7 from SPMI rails that do not exist in
+the tree yet, so six LDOs ended up with dummy parents.  Krzysztof and
+Konrad have both said the same thing in other words: a board is not
+shipped as a skeleton.
 
-bui duc phuc (5):
-  ASoC: dwc: Fix bit clock rate in TDM mode
-  ASoC: dwc: Fix error handling in dw_i2s_set_fmt()
-  ASoC: dwc: Fix channels_max derived from COMP_PARAM_1
-  ASoC: dwc: Fix DMA fifo_size calculation
-  ASoC: dwc: Remove redundant error messages
+So the board devicetree is not sent here.  It will go out with the SM8750
+PMIC description and the camera consumers (CCI plus the two sensors) that
+give it meaning, in the board series that is already in progress.  The
+v6 4/5 + 5/5 content is kept, merged into one patch, in
+held-back/ of this series directory, so nothing is lost; it needs the
+PMIC rails described before it can be sent.
 
- sound/soc/dwc/dwc-i2s.c | 53 ++++++++++++++++-------------------------
- 1 file changed, 21 insertions(+), 32 deletions(-)
+Response to sashiko on the driver (three Medium findings)
+========================================================
 
--- 
-2.43.0
+ - "chip->enabled is not initialized, so a boot-enabled LDO bit is
+   cleared by the next write": fixed, the tracked set is seeded from
+   WL2868C_LDO_ENABLE during probe, so an output the firmware left on is
+   carried over by enable() and disable() instead of being dropped.
+
+ - "vsys-supply is never requested or enabled": fixed, probe enables it
+   with devm_regulator_get_enable() before reading the device ID.  This is
+   not cosmetic: the I2C interface is powered from the higher of VIN7 and
+   VSYS, so without it the device does not answer on the bus at all.
+
+ - "disable() clears the tracked bit before writing the register, so a
+   failed write desynchronises the driver from the core": fixed, the new
+   bit set is committed only after the register write succeeded.  A failed
+   write leaves the output on and the core's use count unchanged, which is
+   the only self-consistent state.
+
+Response to sashiko on the board patches (two Medium findings)
+==============================================================
+
+Both are answered by holding the board patches back, as described above:
+the skeleton devicetree is no longer part of this series, and the missing
+VIN parents go away with it (the regulators node travels with the PMIC
+description that provides them).
+
+Changes relative to v6
+======================
+
+ - 1/2: unchanged content, moved MAINTAINERS into this patch.
+ - 2/2: driver only; three state-consistency fixes above, and the commit
+   message now describes the seeded state and the VSYS requirement.
+ - dropped: v6 4/5 and 5/5 (board enablement), kept in held-back/.
+ - net: 5 files, 369 insertions(+), 0 deletions(-).
+
+Testing
+=======
+
+All re-run on this exact series:
+
+ - checkpatch.pl --strict --patch - (mbox on stdin): 0 errors, 0 warnings
+   for 1/2 (117 lines); 0 errors for 2/2 (270 lines) with one
+   FILE_PATH_CHANGES note ("does MAINTAINERS need updating?"), which is
+   checkpatch's per-patch heuristic -- MAINTAINERS is updated by 1/2 of
+   this same series, so the note does not apply.
+ - dt-doc-validate on willsemi,wl2868c.yaml: clean, exit 0.
+ - make W=1 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+   drivers/regulator/ with CONFIG_REGULATOR_WL2868C=m: 0 warnings, 0
+   errors.
+ - git am of 1/2..2/2 on f66469d9905b (torvalds master, 2026-11-06): applies
+   cleanly, resulting tree is identical to the series tip.
+ - scripts/check-series-selfcontained.sh: PASS, both patches replayed in
+   order.
+
+Board behaviour: this driver has been running on the tablet (Lenovo Legion
+Y700 Gen4, SM8750) for several weeks as a module, with all seven LDOs
+registered and the two camera sensors powered from LDO1/LDO2/LDO4/LDO7;
+the LDO voltages match the values the stock firmware programs.  The
+regulator node itself is part of the held-back board patch, so that
+evidence is about the driver, not about an in-tree user.
+
+Links
+=====
+
+v6: https://lore.kernel.org/all/20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn/
+Krzysztof on 5/5: <20261104-elfish-booby-of-awe-27d2b6@quoll>
+Krzysztof on 3/5: <20261104-offbeat-cerulean-degu-cfec1b@quoll>
+sashiko on 2/5: <sashiko-outbox-196615@kernel.org>
+sashiko on 4/5: <sashiko-outbox-196620@kernel.org>
+sashiko on 5/5: <sashiko-outbox-196621@kernel.org>
+
+Qianhui Xu (2):
+  regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
+  regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
+
+ .../bindings/regulator/willsemi,wl2868c.yaml  | 104 ++++++++
+ MAINTAINERS                                   |   7 +
+ drivers/regulator/Kconfig                     |  11 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/wl2868c-regulator.c         | 246 ++++++++++++++++++
+ 5 files changed, 369 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+ create mode 100644 drivers/regulator/wl2868c-regulator.c
+
+
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
 
