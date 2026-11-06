@@ -1,45 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794001812;
-	b=sNEfEjMtDiBaTNjis+6RJ3S55rzLx4X48YzxgecI9xJo3WVtpgLegU4VGijItF/H0bdn
-	 aUdOXRqvmmBRbj3omHVu3fwe78dzj4NXa5AQtRDioi3SuLQgfGvWoDIdYYBSy/+s0ooDk
-	 FQO5wC1N1f3fOFgWIoOwdEFdtj003ONVGHRPie/G6XOV/2sVi/37CRtpnBhJ3g9zWVyjg
-	 YLGLZBQZLP3dVRWS2Sf1ZiDjmgCdLFMxOd0xOSzc6nsF60CUA92MQ2ZH0o8uWPB9Pxorm
-	 SaqR1bnDWDE6clltzQAWP3zXti5jsnvhpgC1UU0JqxjvJrJW4lM/5725sHblPi7OSqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794001812;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=qyD4/QNMYslZrvex6UggevvD+mzpPjAON1auD7GtOww=;
-	b=JHDiayJlIjfdFvEI7it5Qq+/v1f7t+VY4gk5tHZq7h7RqaJIA/2B1kL9pOFhfcE535hE
-	 pUfvvPF6/mPb9xdygEPxoOiKuTVezkzHLYkuRhWGJ8rNDYzM31kApzgT5w8gtbdf0YyDk
-	 4FIni9Fvw2AyqUcKGXgRdh/VpLKX3gsjc23YFrWOJg7tlKE2A7oG+a6FhwwsKuOiegBB0
-	 ao66KbQIyHCMoS/j/ijGzGwTRecmhpUjluTSroJLqVjA+5W9qLCzQqSpjh96/YqbJGP00
-	 ZnupHSv/431pvmNBpfty1Rk9wOkD8gv5DtFfxpEonnnFAhi2liEOBLyJz1Q5niv9kJw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZliuqbHi;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794001828;
+	b=RccaEkDVzMGCRb66iEII/QhWXxIGAMx3QGGDq5wMVZBW93eVfw0MJihTLcfGnGKgu/0U
+	 0WB2io1Y9QFs4WjsSFbw7JlPpjtfF+cZJkGprzfocZTVxFnHoCDuEdG9Fe+/0quRL5kVL
+	 bDx7/yrGYi3B0hKVnFCW7UyB7T0XKgnOMFZUEufZXc33WpDtMx7Dha8muD3hZuCOGXoKv
+	 ucbhXvdMio2BUT6jCZcdBQNeUMExOtvXt7k1k+n/G/ggFmD4WJStHwSUQ95T2SG/8gf/q
+	 pKdvze/T0WuHVvik+KMqmMxmqsvjzwbH/UzxxyzshMxBc040OViH9VccGIW1GqtaBaA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794001828;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JH0LjgCVYJBofyndAf4VOWW8jyxyMo6HqV30iWjGyFw=;
+	b=Km3yuZPYSKOBCsTyLOSmWm8vAmgJ85jpAjQeqSBbYtGrKRJkrUo1v7/rjGzDRX8vDbot
+	 ovKmaOs1gqmLWf8zRFjT6Lc26eyO1t8bZnyaD4/G8dYBRbF1yUV4iWbS+W2DniG4tQ9db
+	 Y5a+A+0bHQOO3PU8dbi4RHYla7ACseCEop+eGSJE/6RXhprYpXcUooECtCHtihJzVDSH0
+	 PXRYM0nPE5FNgTU+QVpNfNrPX+psTDzX7d2Ea6+DiURu/ECWEEg9mckSPOG8B57iCHjOY
+	 TccTWMnfl7yJHEmc2mUgl7mbb6tsjdGb6sQW+hYb8lj5q0ojXVUYi0RVXekjJvxgFDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtcW4xj7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A34606A33B;
-	Fri,  6 Nov 2026 21:50:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3801C606A326;
+	Fri,  6 Nov 2026 21:50:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZliuqbHi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B231F0089F;
-	Fri,  6 Nov 2026 21:50:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtcW4xj7
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794001828;
+	b=OscBCCkhL5HxJqeBz+HsDlnNN2MPG8KwZ1WmQSzfk6CjSGthDTr6ehSa5QIQg34sFS7G
+	 vjNTq1CnMUJjgBEqHzaGUR0EU/1oq8xDU2BHBtB+6qmzgSXpvQkGL5aNwOvwKRq2s1jvC
+	 MrNrxs5yX1ee3YQIincSamUHbuO7MiGMy2UmtGfNxOd76tuLGHAA0zPFNMBkxd5JzlJjn
+	 UpBAiFeX8MMtr6Fo4Z8rS0nJuTBqRTHusTlBmlinqd0+mvFL4oJqT3HYgZjKJrql+ugU4
+	 3o9J7FYNuVcu/t3gaki95/t1PWb/AhvO3QmWXirlLXB2BcpxdhZspNVGKdD/u1ZbWJA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794001828;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JH0LjgCVYJBofyndAf4VOWW8jyxyMo6HqV30iWjGyFw=;
+	b=BFQuQAPLcVoG9pO/R9phJtqrlt+7KgDfH5F7mZw5LRTWTZGwSEH6oqDl3G/qoxdSwHPd
+	 tVqN9SWicE9EudzWrvlOrTRBvmvT/lmyi3x7Zin71rheyWJdaugDmLhYzGlRDLihjQan5
+	 JQZt/2AERHG2trK9jGZGzptB088etzxMm/f40BAnCDgoxTbqT5q5kvGRM7Fi4jiPl9CGN
+	 qvnGzLycZ64mvRAIXxJL8N6OjfUiaZKHPM9jCOO565mlhf2uVr5NMoa/whDL4MRmm1xHK
+	 4hDmjxttOcyBoijrKlTIysoIl1tZewW4UPv22dwXSn9GU+5177CMgnVR4sQQ4L/I2MA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 815761F008A1;
+	Fri,  6 Nov 2026 21:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794001811;
-	bh=qyD4/QNMYslZrvex6UggevvD+mzpPjAON1auD7GtOww=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=ZliuqbHiTp4hOSJgd46BNKEuRxFQO284wkTv506CQdYNSwWaaJRqaXucF1FnJ0Tvd
-	 p60pHUuXDzNqoCqgfF9IbpGd5UUfhPyXvnooGQF9uP1A/VP4JxZZLYukx5fxe1V3AO
-	 rc+nl0xTJ9xcRNkgusW54Ye/pPaJ7YDkixLe6uw1ufkR32J0pZfLLQB0cjeOvFxbbN
-	 yq1kqaIh5y5PRg5wWznDqOJJcLjqcXbqWz1VY5fZS9NfvUnkSjXpRNSl6miNtu6a8L
-	 YxVo+JjQ39XqfQBq79TayWqteqDNaD0Xa8NsBiD/9VsyIPRZtEDoyb6OExwx3DfdC9
-	 JH3hymS34yBOg==
-Content-Type: multipart/mixed; boundary="===============1506488348552457952=="
+	s=k20260515; t=1794001828;
+	bh=JH0LjgCVYJBofyndAf4VOWW8jyxyMo6HqV30iWjGyFw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=MtcW4xj7X0Dgpi004uG3O2QQBH7OkGotxwhVERll8QdNlc2NC4gRUzotrM/XRdg/n
+	 v4PNXM7pZRF+dGeVJkH7qDedcO4akIQLRChrdoJN7gMRct/fh0scAV/49P59yW87u2
+	 b8i/RSgBqcF4y31jZFxzxTTwBRWfU7RId1MqB2ZRiqs7N501P2uUQw1/d38/9mrg0p
+	 DyaaXKiERM0xiNqoVMd3gjMWpzFgVvIXe5HGRmvo8BMeE/rVgSez+CNJXKi7FpI6Vp
+	 e93TeO5oA3uqnWVn7NUAL2E1dgs/jTGSoo3MfXE+mr4OMu7Pi8jL2CkO5gESyBq8Z/
+	 FvGQe04tZOV2Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D24C0478A1;
+	Fri,  6 Nov 2026 21:50:26 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Fri, 06 Nov 2026 15:49:52 -0600
+Subject: [PATCH] doc: process: clarify legacy status of applying-patches
+ and point to Git
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,124 +83,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <82dc259cd905abb5ad4fcbb8151553fb8680d4d71b1e52babd3e2d588a90656b@mail.kernel.org>
-In-Reply-To: <20261106210314.1767267-15-a.s.protopopov@gmail.com>
-References: <20261106210314.1767267-15-a.s.protopopov@gmail.com>
-Subject: Re: [PATCH v1 bpf-next 15/18] resolve_btfids: Tag fmod_ret candidates as targets
-From: bot+bpf-ci@kernel.org
-To: a.s.protopopov@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,almagui@kernel.org,john.fastabend@gmail.com,qmo@kernel.org,brauner@kernel.org,kpsingh@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,sashal@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org
-Cc: a.s.protopopov@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  6 Nov 2026 21:50:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-doc-modernize-git-v1-1-8b59c1a578ba@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMBAF0avI1i64EVJ4FbEI5hu3MJFERBTvb
+ rB8xcxDBVlRaGgeyji1aIoV0jY0ry4GsPpqMp2xIp1ln2bekkeOeoODHixwkN4JrOmpdnvGotf
+ /HKf3/QAr9AyCYwAAAA==
+X-Change-ID: 20261106-doc-modernize-git-1eae13a1e623
+To: corbet@lwn.net, aleszlucero@gmail.com
+Cc: rdunlap@infradead.org, krzk@kernel.org, wy@wyuan.org, 
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794001826; l=2295;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=FfmGaQr2PKw9L5UvENGZLwJkaVf3M6sYK2t9mS4IA9Q=;
+ b=qPWnFdIadXQLDEOV/h49Nc6q7aih2Vny04cBm74A96kxu1S48fDPvEOo4mVC4VOwOTBHtFzOC
+ WI3IL+4cJxJAHlmSF3d0hcBEV43x5/eQDZwQyssZ2An4hUwRETenC/x
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
+Content-Transfer-Encoding: 8bit
 
---===============1506488348552457952==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-> resolve_btfids: Tag fmod_ret candidates as targets
+The applying-patches.rst document heavily details the legacy 'patch'
+utility, which creates confusion for new contributors since current
+development relies almost entirely on Git infrastructure.
 
-TL;DR: Nits only in resolve_btfids fmodret.c: duplicated alias-walk code in
-mark_traceable_function(), its unused bool return, and possibly obsolete
-section names (.meminit, .cpuinit, .devinit) in section_cannot_be_attached().
+This patch updates the opening notes to explicitly mark the manual
+patching process as a legacy reference and redirects readers to
+contemporary Git-based guides.
 
-> diff --git a/tools/bpf/resolve_btfids/fmodret.c b/tools/bpf/resolve_btfids/fmodret.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/tools/bpf/resolve_btfids/fmodret.c
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+---
+The applying-patches.rst document heavily details the legacy 'patch'
+utility, which creates confusion for new contributors since current
+development relies almost entirely on Git infrastructure.
 
-[ ... ]
+This series updates the introduction to explicitly mark the manual 
+patching process as a legacy reference and redirects readers to 
+contemporary Git-based guides.
 
-> +static bool mark_traceable_function(struct elf_function_list *list,
-> +				    Elf64_Section shndx, GElf_Addr address,
-> +				    enum ftrace_site_kind kind)
-> +{
-> +	size_t left = 0;
-> +	size_t right = list->nr;
-> +	size_t first;
-> +	size_t i;
-> +	bool found = false;
+Thanks to Randy Dunlap, Krzysztof Kozlowski, and Weijie Yuan for 
+their initial conceptual review and support.
+---
+ Documentation/process/applying-patches.rst | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-[ ... ]
-
-> +	if (first != SIZE_MAX) {
-> +		while (first && list->functions[first - 1].shndx == shndx &&
-> +		       list->functions[first - 1].value ==
-> +						list->functions[first].value)
-> +			first--;
-> +		for (i = first; i < list->nr &&
-> +		     list->functions[i].shndx == shndx &&
-> +		     list->functions[i].value ==
-> +					list->functions[first].value; i++) {
-> +			list->functions[i].traceable = true;
-> +			found = true;
-> +		}
-> +		return found;
-> +	}
-> +	if (kind == FTRACE_SITE_PATCHABLE || !left)
-> +		return false;
-> +
-> +	/* The nearest preceding function owns the call site. */
-> +	first = left - 1;
-> +	if (list->functions[first].shndx != shndx)
-> +		return false;
-> +	while (first && list->functions[first - 1].shndx == shndx &&
-> +	       list->functions[first - 1].value == list->functions[first].value)
-> +		first--;
-> +	for (i = first; i < list->nr &&
-> +	     list->functions[i].shndx == shndx &&
-> +	     list->functions[i].value == list->functions[first].value; i++) {
-> +		if (!function_contains(&list->functions[i], address))
-> +			continue;
-> +		list->functions[i].traceable = true;
-> +		found = true;
-> +	}
-> +	return found;
-> +}
-
-This isn't a bug, but mark_traceable_function() has two near-identical blocks
-that walk back to the first alias at a (shndx, value) pair and then loop
-forward over the aliases.  The second differs only by the
-function_contains() test.
-
-Could the walk back use function_at(list, shndx, list->functions[first].value),
-with one forward loop that takes the containment test as a condition?  Then
-the two copies would not need to be kept in sync.
-
-Also, this isn't a bug, but is the bool return of mark_traceable_function()
-meant for something, such as a -v count of unmatched ftrace sites?  None of
-its callers in mark_relocated_ftrace_sites() and read_ftrace_site_range()
-read the value, so could it return void and drop 'found'?
-
-[ ... ]
-
-> +static bool section_cannot_be_attached(const char *name)
-> +{
-> +	return section_prefix(name, ".init.text") ||
-> +	       section_prefix(name, ".exit.text") ||
-> +	       section_prefix(name, ".noinstr.text") ||
-> +	       section_prefix(name, ".meminit.text") ||
-> +	       section_prefix(name, ".memexit.text") ||
-> +	       section_prefix(name, ".cpuinit.text") ||
-> +	       section_prefix(name, ".cpuexit.text") ||
-> +	       section_prefix(name, ".devinit.text") ||
-> +	       section_prefix(name, ".devexit.text");
-> +}
-
-This isn't a bug, but are .meminit.text, .memexit.text, .cpuinit.text,
-.cpuexit.text, .devinit.text and .devexit.text still emitted anywhere?
-
-In include/linux/init.h, __meminit is now either empty or __init, and the
-__cpuinit/__devinit annotations were removed.  Neither vmlinux.lds.h nor
-scripts/module.lds.S places these sections, and modpost lists only
-.init.text and .exit.text as init/exit text.
-
-If they are gone, could section_cannot_be_attached() be reduced to
-.init.text, .exit.text and .noinstr.text?
-
+diff --git a/Documentation/process/applying-patches.rst b/Documentation/process/applying-patches.rst
+index c269f5e1a0a3..2ccd74d6dd05 100644
+--- a/Documentation/process/applying-patches.rst
++++ b/Documentation/process/applying-patches.rst
+@@ -8,8 +8,14 @@ Original by:
+ 
+ .. note::
+ 
+-   This document is obsolete.  In most cases, rather than using ``patch``
+-   manually, you'll almost certainly want to look at using Git instead.
++   This document focuses on the legacy method of manually manipulating source
++   trees using the traditional ``patch`` and ``diff`` utilities.
++
++   For the standard Git-based workflow used to clone the repository and work
++   with kernel patches, please refer to Documentation/process/howto.rst.
++
++   The information below is maintained as a reference for constrained
++   environments or legacy workflows where Git infrastructure is unavailable.
+ 
+ A frequently asked question on the Linux Kernel Mailing List is how to apply
+ a patch to the kernel or, more specifically, what base kernel a patch for
 
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261106-doc-modernize-git-1eae13a1e623
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42294987431
---===============1506488348552457952==--
+Best regards,
+-- 
+Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+
+
