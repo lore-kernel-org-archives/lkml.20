@@ -1,109 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.21.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793945284;
-	b=2D0IaFjr7fHvVXBjTwo0DqkDwtj+31bsc8ME2JjFb0Y7/4u0yKmo1V11rAvrLnZ+sPOA
-	 VUCBoHH0x66s9kniUv3xghRh6TgkoNggPhEtphcPmhuuigNFhRUL5IsgfCJBXl5pSXK1m
-	 BvCk5eZboX/dKoBY6QTn+z1vMeTTTZtGiflLoQH4LyL7iOhZTAal8dKtdmM06kOGtHeXf
-	 3zTnsLQ95fMquzHK/EKc/qBXQeIbchbK6et1IXw5Rcm38DP+Ch2LYTstS/7/ZuD2PDCVD
-	 iyo/PU/wB7qxNit+ncvU1ktih7i67PFyi0tbZLQOPtbP4g9Xo3by5/5FjgcKiK1aSXw==
+	b=s/tEIf2+wbNc8V2MdaVECUBwQCYpGPM57kQRExJL0wNc0+A6leolb8Ga8I02CD/IQeyz
+	 SDyqsEbzPk7wbyUZtjexDewJQTHo/hc3nH+C5aw6GHUpgn321cASwoFa8tBoShB7bWNFg
+	 JVXSP1QtQgnco24BP1svQRkLl9W6C7AJ5322i53kzMTd1Y0R3HYVc2Gds03+5x852Ryz1
+	 XnQE8867p3BPOlt3w9N+RrDtYSNRC9q+gzAyox0ZMmMTyc7GVshN8YkZZj/UOBF5FipsU
+	 G4nWJOZrLYQkKV4h/G/Pivjm2gd+DJ6L4hPk/p0GlhhX9cUOFHLBxRxZWwNUH4uhvNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793945284;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:Subject:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=o//CM1EA4RoX+EjPvzr1O0MDXhsmTL5cJW+JbW5CHYI=;
-	b=FKtb/vi2xwg70CqkvflKVrPzoVrnxvSEaBfcPsdXzzDXZCYLCw4TopSyCy3125h+a0dh
-	 W63DrbagEeGHAiNH7KeJbP8PAfzAN6NvzURZV47J5KyfncqD6HYub9vQu1xZ+as+8Vmfh
-	 tswXHsXTK8wEh4tW17AqBnmatyQbxO9XLUPHfIX3Q3nKwmH6d3iDqP8JaLU4zQjJsJ+nh
-	 jAeEKKuUp8FTknmqOuPkkmPM2+SE9MjYO+niLi26ocarg62WQT9QitxBF+n6ZEK1GcDq1
-	 1WVhxntWSBUSwVC77VTa14/ThsUpDwXPAs8oBxppjeEOoObYmoZtR9PTQq+kvfAnLJQ==
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:X-ME-Sender:
+	 X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:X-Greylist:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=a0zKFNSY5sEaJFF+2VZL4C671DXRma89VItapdXQj3I=;
+	b=IXxwhFAD7+ApucIrZftYBWCqK8WgkJmCJhJ5KZj/uZSXJFvQTkgkDMQhlzH6RkJOvhD7
+	 vmbb1Y2qZVHPJgpYnbryVSRzBYzkjmFLmWdEeRv0fTskuRm0K5UWj3Z9Ks53O+Wv7mrTb
+	 ruNrJlmhHnBq4zzC5CAMRLjAsp5IJtj0I9iejJEvCy4ZCeyeCbnEUFjLBP6QieGPMbZol
+	 zEIq8+p7juyQGYhpggx909hyd69+ydQsdJ3x5L3tQjlAZd+HOQgezrk7MTkvLK3lO4wZ7
+	 rP6yI7qYDG5XPq/WjkrnEw/Bd/FmIxuni/UDcKDspPGoPD5v2vWHheDYdEV9cMi5Qdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="TDGEt/lV";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZozKrp5t;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=sericyb.com.au;
+	spf=pass smtp.mailfrom=shining.glasswings.com.au;
+	dkim=pass header.d=sericyb.com.au header.i=@sericyb.com.au header.a=rsa-sha256 header.s=shining header.b="Q/8Uck+A";
+	arc=none smtp.remote-ip=178.63.21.144
+Received: from shining.glasswings.com.au (shining.glasswings.com.au [178.63.21.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAB3606D801
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:08:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDAB3606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A73606A333;
+	Fri,  6 Nov 2026 06:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A73606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sericyb.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shining.glasswings.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TDGEt/lV;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZozKrp5t
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A640rmW3419097
-	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 06:08:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=o//CM1EA4RoX+EjPvzr1O0
-	MDXhsmTL5cJW+JbW5CHYI=; b=TDGEt/lV/TK1fCbFrvVsq7/2pd8YrzuRzJllk3
-	rWX6N4wccKqgyObWn40mdbkEn800raN1FQ6TDQQAAQ6P86slarkCEjQwF1QB7KX4
-	0asjLd9iB1SrusMy+pgJ0LVVrPM8Y48sxO7Dior8JB9T8iAdWwXgbrh2RAuP6QVa
-	HMfuGCjANEAOZaQSnJ96gyntwN7KEjW74sazpu/2CE+2OCer41qDJWNeSuHmhS/L
-	7NIFZ25pytXzO3fOqj6zttZ1lh8PzeCDlQcdDCcHf2wAz5jWhvmnFParTukobKai
-	/GE606YbI8cVNj3JCKOXsk3DY9WWTdtVYco22ihE2wR3/Jrg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pb17yq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 06:08:02 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b0a13ae043so517940a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 22:08:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793945282; x=1794550082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o//CM1EA4RoX+EjPvzr1O0MDXhsmTL5cJW+JbW5CHYI=;
-        b=ZozKrp5tNPfZbGA58AQVvEUybxCZw4S6qR8WHiLt7QjNGj1eFznXqneBUSxYrHQrtV
-         KrEz9upOxGjoLBJ7AgpWW9NE4p3cDnQmX66de18Dyiiw/v1J03RhSgps77CGN9fFGPwr
-         sxRmq8JOEUtLDTvnBZuzxoAmAKBvEX1U/ze4fP8lOe2MIYBRNg2YWAU8UM046nRdAd8b
-         UI3yXQavn9Bfy4uHjUI06Ul6PMHUlgjG/Nx3nY/wO3TeFu0rRikNUh6VramYs0eBhuU/
-         Kvrmwn2z0PoTiJCUK9xMJYImqOQvxT1mYsIDK0ckeqkfYLcPCBxH0j9RKkw6E0l6F8F5
-         mx8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793945282; x=1794550082;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o//CM1EA4RoX+EjPvzr1O0MDXhsmTL5cJW+JbW5CHYI=;
-        b=uTRWmPTzQTDNmYUZessYCZXLaShdhbMa9pRKFL3vAGOQA2w2in9PMN2oyoODBtPpsu
-         wotLkTHYT8Ngo7loKyChcRu3/rZie5GBzmh2k1GdSF0s5D+yOBwwWwBRXpq8KQGhhhPf
-         f9PM2lCYUpf7gAejyBFs6Xn842Qa4beJGG/xkXo/oJYfpdYi1tWlIVYVVLCCp8uAK3H1
-         8BLv3KgdtB2kuyrwEvyODboYg2ZqkGLubBneLidbq+Cp2suQ0NRnOXwJUKyK0tT7nsEB
-         Ipvvtniuob1VmklH4R/KB1d1m/oVjlCcB/hXGUMex3ZLQr6GrpgGtkUPCviRFC9ip8SC
-         apaw==
-X-Forwarded-Encrypted: i=1; AL+hErEknjV+2hLR8bKACqcbKqLpKss2YFtIx4JQDdFSC8bGpaTq6MlQQIAafo9SIUb1BQqnQNGbEe78AZ10X24=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VfZFCv+TfnzotWrBfExVakAnwavcdaDMAd708ZcN0VDJ/xHTb
-	etvPT9EfF3Z+jxljqXPcEPsuhm4zKITFmjbPkboYakhFhchNkHeKASh0gxaEgLFge1D31cjwDmY
-	y0FhcbKQAWoyb3/wr5zHIbKMSWBEq8hrh8fdG+d70HezcbnIPwadZ2MM2XsBQ8kNfZug=
-X-Gm-Gg: AYBFou1KciVnjygMEHB1schl4T7U45Rxroles47f2vhrkMWoTfBpzcnkLcT8x7Z9HI8
-	4D0n4F3ILv+s49ag1EezneKzG5eRwonjoEpSLwHhcWtR4IIAhjpByLUwv62Uth8UNct2MrwrSkF
-	kOpHF9tsbnmg93mO1S4ykGaWYRm0PmrJQdKPue9U+JVxSSx//QjW/n3WMi+6abrjJCFOoZyhp+w
-	IRbVwQmwtG0JaziMp/2ikCOFhveAb7Xr85B0VALcKJXHoHJj9rgukrjaE+i5ny/loGesnsbKct/
-	TVRHCEa1jVRTfiU6GVDfEBudLHMk214Ag2FEie42LPRCDjlanY87+LnB2RMXtU8ZY0z0G/XKbL1
-	YifQO8RNGNVYN7Nn9copupikyKQtDdubnSIqUsavw1HDjh8AQbMSozriqk9TQJPTKeOzGfMMYnN
-	9tsLf1uRHUviVzZgeMJfMko4UfwAx5sy7jvrnwjlWaNhAwTE+2RHKYl74lQs6zHIk=
-X-Received: by 2002:a17:90b:3890:b0:3ac:a203:e0a5 with SMTP id 98e67ed59e1d1-3b0db6bbabdmr1594476a91.11.1793945281675;
-        Thu, 05 Nov 2026 22:08:01 -0800 (PST)
-X-Received: by 2002:a17:90b:3890:b0:3ac:a203:e0a5 with SMTP id 98e67ed59e1d1-3b0db6bbabdmr1594437a91.11.1793945281137;
-        Thu, 05 Nov 2026 22:08:01 -0800 (PST)
-Received: from [10.50.53.195] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b323a1fdsm6342907a91.5.2026.11.05.22.07.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 22:08:00 -0800 (PST)
-Message-ID: <1cb6d902-73f3-4d65-96f4-4b3c5217253c@oss.qualcomm.com>
-Date: Fri, 6 Nov 2026 11:37:55 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=sericyb.com.au header.i=@sericyb.com.au header.a=rsa-sha256 header.s=shining header.b=Q/8Uck+A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sericyb.com.au;
+	s=shining; t=1793945282;
+	bh=Ymh5l37azzUz/iuGx3AJgxSfhjkIPytOYWVOy/hm0Yc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Q/8Uck+AlWNdUpZn0KeIrjOwP9Up7ItaWFVWReBYQscviBvQSTBDt5RzBpSb0xUEH
+	 ty5nnJhq0C8ATu6Gcmo93Gs1/oKB7lWUAHnSQjcPaQYW6PrydvT2Gt6zQwCdeOyy0X
+	 Df9ToEGmdsz9bMozU3kf2Yx9EAWSjmzvwtNoBpf/md/TTT4Fkz+cMnz2jc62UyjtTI
+	 qXY4YZS0ji1P3N/0HiwGILeYAi7hK/ybi4sWE85dx07pLbVsU8Awwa/YA5jBsn+ElG
+	 Mt5zDLC69UzzRCxU8DAAz4pKRrtpPo0MMwbb4cpu6YETnA+5Rw2wtAJ1jd9OcunKdo
+	 5dbPJJ96UYnaA==
+Received: from fauth-a2-smtp.messagingengine.com (fauth-a2-smtp.messagingengine.com [103.168.172.201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by shining.glasswings.com.au (Postfix) with ESMTPSA id C818910924141;
+	Fri,  6 Nov 2026 06:08:00 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.phl.internal (Postfix) with ESMTP id AAFFCF40066;
+	Fri,  6 Nov 2026 01:07:59 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Fri, 06 Nov 2026 01:07:59 -0500
+X-ME-Sender: <xms:v27tag_tQ6kpPoh49D3nayd77LQbNCI73cB8iUSKlPlW-5--A_BkQg>
+    <xme:v27tajF-8Ctjr2qz8ttG8eDD7ehAWfOeJr9DeOOSvj2mSQTst6fFs4V6MKfqjPY1m
+    vI7OOQz9lloNvGo0SxagW383CqYH8xQgOUuGtOVfjcoLXZbDk35w-3C>
+X-ME-Received: <xmr:v27tasJguEZ_kfGlp_OMNwgx2CY8RTRw86fqYthaXgIdyc-2WJ3GttPOffzwOTHKTbDMsDTs_srdC8SoCZLFA4fC-TUK624VU5OQMkYnmHc>
+X-ME-Proxy-Cause: dmFkZTGJt3n1PQXC/FQG1+B4dDYdd7jzhZlyl3cBdgxPjc5MzKuIVzENiuR0E8tXhVCYot
+    oOxwUXQVpp6VAEFUg+Uag3+jV3NxxQBqkuwqHRpa3avIMsMf5rLSrLvoU9/YiPtVmmw1Nh
+    zLPLiGNoLWEom9MXOxTuny0wuIwJj+YnwLd3gmlT78BD8tHIS3uMrtPiOeTkzb/BpfqHcJ
+    ZJYCN1MdLe92Bp5QjUXsKpkDjC+xSg0gfYGGYkLbuDh5Mj+BFcqCO2KyQpU99GhnUhksCQ
+    Jqp321gTZQ359Pfjg6F4oa2enLz7ZLclUfrma4OACrOvjp2Zeu6dpHGkjEpDMo+QrHIVMT
+    Y5NLUAZ7xttUV8yw2L/EAfMFcEtjUl8AVZ87rWCSUT7yFwClTc3zmQF126lj8Ob8X7Qp5X
+    yM4rnV27L+2vdh3HVpI6fHvASta3yTp7rhh3u2AyVtaPnrpsg230CZIdDdBo9Z2LNhpIXR
+    JHHmxVMbAA4iZpdKWtP9VrGXobnkYD93sPOofRYuGNpzZ2vMTvuJqvpVibkUvcGd7E6hO6
+    9wQv2QEQG6sgrRhi21IYcj9/7tQZH3rMRxQCmIbDNwGessANy1lOY++zusKFNpZfjrK2ay
+    DlBmUKXvr2qLRdeIwOHNXYXeso+IvJw5NIXkcWmgbjo7pGQfmnWtblnYPHWQ
+X-ME-Proxy: <xmx:v27tarmirk35R3bGqtQ1tb52nfv2PAUVt2WZtEwXhls1hCODcDGlDw>
+    <xmx:v27tatyDRP7PMqhVEOK9DOHeUWMfvrCcrGmlTFS_znC49FIVYSrjDQ>
+    <xmx:v27tats_HlyWNLUj_GFTmOH6FXL2G_kCKFbf1v5BBLcLTzdwey_Jvw>
+    <xmx:v27tanFiB48yJdQrQU_KzuH71hg_9bOqSlKqMZsKkSlh91kyypFEwg>
+    <xmx:v27tar4_VJ31TJ8MXHl2UUJiMNnaTOvqPRywI4V8O9A1p_ZNlWcv3W7k>
+Feedback-ID: i558e4b61:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 01:07:55 -0500 (EST)
+From: Andrew Pam <andrew@sericyb.com.au>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: Andrew Pam <andrew@sericyb.com.au>,
+	Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] SUNRPC: reconnect client transports after resuming from hibernation
+Date: Fri,  6 Nov 2026 17:07:31 +1100
+Message-ID: <20261106060735.637295-4-andrew@sericyb.com.au>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106060735.637295-1-andrew@sericyb.com.au>
+References: <20261106060735.637295-1-andrew@sericyb.com.au>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,152 +108,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Lee Jones <lee@kernel.org>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-Cc: mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>
-From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Subject: [BUG] qcom-spmi-adc-tm5: lockdep reports invalid wait context in IRQ
- handler
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Ezv2HTX_Cr93QQt9ThndfKlKrlyIajva
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAyNCBTYWx0ZWRfX68WOfIWt7iJw
- NOK1moRkRvhf8sDzPqsQzr1k9eMVLRpXrvmADJ3yU3j5DSiuQTP6xdJmd1Iz1q5D/QTNDlC6mOF
- gqfo3fV+5CWklT321BoTpoT055RLJKE=
-X-Authority-Analysis: v=2.4 cv=LIrz05W9 c=1 sm=1 tr=0 ts=6aed6ec2 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=-h-ZKOrKgG6alCjGbVIA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: Ezv2HTX_Cr93QQt9ThndfKlKrlyIajva
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAyNCBTYWx0ZWRfX7tGYNpP7qDGl
- /skK9/dsrd/uxxqnxkEcINpyb29Du92OkP8FXhqdFkRnkRl5bv9kFGXaFSlDZDPZSZV0h48zIgX
- knLWRLxlc1aGI/SGVqonUcAksI/YFyvCDLoOco+XzdSljJWSWCjf1BZfQeBdl7pmSL/gMRJb142
- Lu6fpl+lncp1gge9hhrM9AInqnc3ytX66y/xWHA4MoNDxIbsbMCgG3iLz28KZPUbEUHNLtVO2jQ
- tCKzlSfRWt0bXkeIqnQpZiOq9cdBk1o8SGgum9YJRkl8NVZ91bVCnRp1KahD81CoT8diVB8wp8z
- xifLvdMNCmWfwtHuOIM40/t2JR0pfnp6rkHLvTsoIQOSdjJhwqSLgmlCPzb1teOdvVuGMB33H4G
- mKGdaIy+A0IjRWtYAyl/P04nIMwEqX0kSrQspS4dMMHCfYQ5KZMTYTKNaibEzg4S7zHCfYtwLTq
- qFAkfXKDXoGtowwcvgw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_01,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- lowpriorityscore=0 adultscore=0 phishscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611060024
+Content-Transfer-Encoding: 8bit
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2 (shining.glasswings.com.au [178.63.21.144]); Fri, 06 Nov 2026 06:08:02 +0000 (UTC)
+X-Virus-Scanned: clamav-milter 1.4.6 at shining
+X-Virus-Status: Clean
 
-Hello,
+With rpciod and xprtiod frozen across hibernation, no RPC is sent after
+the snapshot. TCP can still acknowledge data the server sends then,
+though: typically a reply that was in flight when the snapshot was
+taken. The restored image has not seen that data, and the server, which
+saw it acknowledged, will not send it again. The client then waits
+indefinitely for replies that never arrive.
 
-I am seeing the following lockdep warning on Linux v7.4-rc1 when
-CONFIG_PROVE_LOCKING is enabled. I can reproduce it on a Qualcomm Glymur
-CRD and so far I have only observed from v7.4-rc1 and only when
-CONFIG_PROVE_LOCKING is enabled.
+Captured in a QEMU test (below): on the one cycle of six that hung, the
+client's TCP acknowledgement went backwards by 200 bytes after the
+restore, and the requests outstanding (WRITE, COMMIT, GETATTR) stayed
+queued on xprt_pending with no further progress.
 
-The warning is triggered from the Qualcomm SPMI ADC TM5 Gen3 interrupt
-path while adc5_gen3_read() performs a regmap read:
+After resuming, disconnect every client transport. Requests in flight
+are retransmitted on the new connection, and the server answers any it
+has already executed from its reply cache. Because nothing was sent
+after the snapshot, NFSv4.1 session slot sequence ids still agree on
+both sides.
 
-swapper/0/0 is trying to lock:
-ffff000b67201018
-(qcom_spmi_pmic:259:(&spmi_regmap_config)->lock){....}-{3:3}, at:
-regmap_lock_spinlock+0x20/0x40
-other info that might help us debug this:
-context-{2:2}
-locks held by swapper/0/0: 0, last CPU#0
-stack backtrace:
+The disconnect is done from a PM notifier at PM_POST_HIBERNATION, which
+runs in the restored kernel once everything has thawed. It is also sent
+when hibernation fails, where the reconnect is unnecessary but harmless.
+xprt_put() may sleep, so references to the transports are collected
+under the client list lock and RCU, and released afterwards.
 
-CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc1 #1 PREEMPT(full)
+Tested in the QEMU setup described in the first patch of this series,
+with 20 hibernations in test_resume mode back to back while NFS writes
+(8 MB, fsync) and reads ran continuously. Without the series the client
+hung on the first cycle; with only the first two patches, on the sixth.
+With this patch all 20 cycles completed and I/O progressed on every
+one. The capture shows the client's acknowledgement going backwards on
+two of the old connections, and the client reconnecting and carrying on
+both times. The single-hibernation test is unchanged apart from one
+extra connection per resume: nothing reached the server during the
+image write, and the client resumed without errors.
 
-Call trace:
-check_wait_context.isra.0+0x2d8/0x380
-__lock_acquire+0x2ec/0x840
-lock_acquire.part.0+0xe0/0x250
-lock_acquire+0x8c/0x1e0
-_raw_spin_lock_irqsave+0x6c/0xd8
-regmap_lock_spinlock+0x20/0x40
-regmap_raw_read+0x88/0x328
-regmap_bulk_read+0x10c/0x340
-adc5_gen3_read+0x38/0x50 [qcom_spmi_adc5_gen3]
-adctm5_gen3_isr+0x90/0x130 [qcom_spmi_adc_tm5_gen3]
+Drafted with an AI coding assistant (Claude), which also ran the tests.
 
-There is also an ADC timeout around the same time:
+Signed-off-by: Andrew Pam <andrew@sericyb.com.au>
+---
+ net/sunrpc/clnt.c        | 85 ++++++++++++++++++++++++++++++++++++++++
+ net/sunrpc/sunrpc.h      |  2 +
+ net/sunrpc/sunrpc_syms.c |  7 ++++
+ 3 files changed, 94 insertions(+)
 
-qcom-spmi-adc5-gen3 c42d000.spmi:pmic@0:adc@9000:
-Reading ADC channel pm8550_gpio_02 timed out
+diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
+index 6cedc824cf82..a488be2891be 100644
+--- a/net/sunrpc/clnt.c
++++ b/net/sunrpc/clnt.c
+@@ -32,6 +32,8 @@
+ #include <linux/in.h>
+ #include <linux/in6.h>
+ #include <linux/un.h>
++#include <linux/suspend.h>
++#include <net/net_namespace.h>
+ 
+ #include <linux/sunrpc/clnt.h>
+ #include <linux/sunrpc/addr.h>
+@@ -878,6 +880,89 @@ int rpc_clnt_iterate_for_each_xprt(struct rpc_clnt *clnt,
+ }
+ EXPORT_SYMBOL_GPL(rpc_clnt_iterate_for_each_xprt);
+ 
++struct rpc_pm_xprt {
++	struct list_head	list;
++	struct rpc_xprt		*xprt;
++};
++
++/*
++ * After hibernation takes its snapshot, the kernel keeps running with the
++ * network up while it writes the image. rpciod and xprtiod are frozen by
++ * then, so no RPC is sent, but TCP still acknowledges anything the server
++ * sends, such as a reply that was in flight when the snapshot was taken.
++ * The restored image has not seen that data, and the server will not send
++ * it again, so the connection cannot make progress.
++ *
++ * Once the system has resumed, disconnect every client transport. Requests
++ * in flight are retransmitted on a new connection, and the server answers
++ * any it has already executed from its reply cache. Because nothing was
++ * sent after the snapshot, NFSv4.1 session slot sequence ids still agree.
++ */
++static int rpc_pm_notify(struct notifier_block *nb, unsigned long action,
++			 void *data)
++{
++	struct rpc_pm_xprt *entry, *tmp;
++	LIST_HEAD(xprts);
++	struct net *net;
++
++	if (action != PM_POST_HIBERNATION)
++		return NOTIFY_DONE;
++
++	/* xprt_put() may sleep, so collect references first */
++	down_read(&net_rwsem);
++	for_each_net(net) {
++		struct sunrpc_net *sn = net_generic(net, sunrpc_net_id);
++		struct rpc_clnt *clnt;
++
++		spin_lock(&sn->rpc_client_lock);
++		rcu_read_lock();
++		list_for_each_entry(clnt, &sn->all_clients, cl_clients) {
++			struct rpc_xprt_switch *xps;
++			struct rpc_xprt *xprt;
++
++			xps = rcu_dereference(clnt->cl_xpi.xpi_xpswitch);
++			if (!xps)
++				continue;
++			list_for_each_entry_rcu(xprt, &xps->xps_xprt_list,
++						xprt_switch) {
++				entry = kmalloc_obj(*entry, GFP_ATOMIC);
++				if (!entry)
++					break;
++				entry->xprt = xprt_get(xprt);
++				if (!entry->xprt) {
++					kfree(entry);
++					continue;
++				}
++				list_add(&entry->list, &xprts);
++			}
++		}
++		rcu_read_unlock();
++		spin_unlock(&sn->rpc_client_lock);
++	}
++	up_read(&net_rwsem);
++
++	list_for_each_entry_safe(entry, tmp, &xprts, list) {
++		xprt_force_disconnect(entry->xprt);
++		xprt_put(entry->xprt);
++		kfree(entry);
++	}
++	return NOTIFY_DONE;
++}
++
++static struct notifier_block rpc_pm_nb = {
++	.notifier_call = rpc_pm_notify,
++};
++
++int rpc_pm_notifier_register(void)
++{
++	return register_pm_notifier(&rpc_pm_nb);
++}
++
++void rpc_pm_notifier_unregister(void)
++{
++	unregister_pm_notifier(&rpc_pm_nb);
++}
++
+ /*
+  * Kill all tasks for the given client.
+  * XXX: kill their descendants as well?
+diff --git a/net/sunrpc/sunrpc.h b/net/sunrpc/sunrpc.h
+index e3c6e3b63f0b..6d7581a115ce 100644
+--- a/net/sunrpc/sunrpc.h
++++ b/net/sunrpc/sunrpc.h
+@@ -40,6 +40,8 @@ struct svc_serv;
+ struct svc_rqst;
+ int rpc_clients_notifier_register(void);
+ void rpc_clients_notifier_unregister(void);
++int rpc_pm_notifier_register(void);
++void rpc_pm_notifier_unregister(void);
+ void auth_domain_cleanup(void);
+ void svc_sock_update_bufs(struct svc_serv *serv);
+ enum svc_auth_status svc_authenticate(struct svc_rqst *rqstp);
+diff --git a/net/sunrpc/sunrpc_syms.c b/net/sunrpc/sunrpc_syms.c
+index 1a3884a0376a..d32786f51ae5 100644
+--- a/net/sunrpc/sunrpc_syms.c
++++ b/net/sunrpc/sunrpc_syms.c
+@@ -116,6 +116,10 @@ init_sunrpc(void)
+ 	if (err)
+ 		goto out6;
+ 
++	err = rpc_pm_notifier_register();
++	if (err)
++		goto out7;
++
+ 	sunrpc_debugfs_init();
+ #if IS_ENABLED(CONFIG_SUNRPC_DEBUG)
+ 	rpc_register_sysctl();
+@@ -124,6 +128,8 @@ init_sunrpc(void)
+ 	init_socket_xprt();	/* clnt sock transport */
+ 	return 0;
+ 
++out7:
++	genl_unregister_family(&sunrpc_nl_family);
+ out6:
+ 	rpc_sysfs_exit();
+ out5:
+@@ -141,6 +147,7 @@ init_sunrpc(void)
+ static void __exit
+ cleanup_sunrpc(void)
+ {
++	rpc_pm_notifier_unregister();
+ 	genl_unregister_family(&sunrpc_nl_family);
+ 	rpc_sysfs_exit();
+ 	rpc_cleanup_clids();
+-- 
+2.53.0
 
-Kernel/platform details:
-
-Kernel: 7.4.0-rc1 #1, PREEMPT(full), not tainted
-Platform: Qualcomm Glymur CRD
-Firmware: 6.0.260410.BOOT.MXF.2.4-00601-HAMOA-1 (04/10/2026)
-Config: CONFIG_PROVE_LOCKING=y
-
-The full backtrace is:
-
-[   12.924146] 7.4.0-rc1 #1 Not tainted
-[   12.927848] -----------------------------
-[   12.931982] swapper/0/0 is trying to lock:
-[   12.936217] ffff000b67201018
-(qcom_spmi_pmic:259:(&spmi_regmap_config)->lock){....}-{3:3}, at:
-regmap_lock_spinlock+0x20/0x40
-[   12.947855] other info that might help us debug this:
-[   12.953060] context-{2:2}
-[   12.955773] locks held by swapper/0/0: 0, last CPU#0
-[   12.960896] stack backtrace:
-[   12.963889] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
-7.4.0-rc1 #1 PREEMPT(full)
-[   12.972208] Hardware name: Qualcomm CRD, BIOS
-6.0.260410.BOOT.MXF.2.4-00601-HAMOA-1 04/10/2026
-[   12.981070] Call trace:
-[   12.983606] show_stack+0x20/0x38 (C)
-[   12.987398] dump_stack_lvl+0x7c/0xb0
-[   12.991180] dump_stack+0x18/0x24
-[   12.994610] check_wait_context.isra.0+0x2d8/0x380
-[   12.999552] __lock_acquire+0x2ec/0x840
-[   13.003514] lock_acquire.part.0+0xe0/0x250
-[   13.007837] lock_acquire+0x8c/0x1e0
-[   13.011530] _raw_spin_lock_irqsave+0x6c/0xd8
-[   13.013256] qcom-spmi-adc5-gen3 c42d000.spmi:pmic@0:adc@9000: Reading
-ADC channel pm8550_gpio_02 timed out
-[   13.025949] regmap_lock_spinlock+0x20/0x40
-[   13.030264] regmap_raw_read+0x88/0x328
-[   13.034227] regmap_bulk_read+0x10c/0x340
-[   13.038368] adc5_gen3_read+0x38/0x50 [qcom_spmi_adc5_gen3]
-[   13.044118] adctm5_gen3_isr+0x90/0x130 [qcom_spmi_adc_tm5_gen3]
-[   13.050313] __handle_irq_event_percpu+0xac/0x4c8
-[   13.055170] handle_irq_event+0x54/0x120
-[   13.059218] handle_edge_irq+0x104/0x1d0
-[   13.063272] handle_irq_desc+0x3c/0x68
-[   13.067152] generic_handle_irq+0x28/0x40
-[   13.071289] periph_interrupt+0xe8/0x1c0
-[   13.075353] pmic_arb_chained_irq+0x148/0x380
-[   13.079860] handle_irq_desc+0x3c/0x68
-[   13.083730] generic_handle_domain_irq+0x20/0x40
-[   13.088503] __gic_handle_irq.isra.0+0x58/0x108
-[   13.093179] gic_handle_irq+0x1c/0x40
-[   13.096976] call_on_irq_stack+0x30/0x48
-[   13.101024] do_interrupt_handler+0x88/0x98
-[   13.105342] el1_interrupt+0x3c/0x60
-[   13.109035] el1h_64_irq_handler+0x18/0x30
-[   13.113268] el1h_64_irq+0x78/0x80
-[   13.116791] cpuidle_enter_state+0x13c/0xa10 (P)
-[   13.121552] cpuidle_enter+0x40/0x60
-[   13.125251] cpuidle_idle_call+0x184/0x270
-[   13.129483] do_idle+0xac/0x150
-[   13.132729] cpu_startup_entry+0x40/0x58
-[   13.136786] rest_init+0x214/0x220
-[   13.140309] start_kernel+0x4c4/0x4d0
-[   13.144097] __primary_switched+0x88/0x98
-
-Please let me know if additional logs, the kernel config, or testing of
-a proposed fix would be useful.
-
-Thanks,
-Pankaj
