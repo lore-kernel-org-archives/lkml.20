@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793946756;
-	b=yJyh0iFDwfBUtVT1IE0LpgCoQBrsB79iQq2/0j5MlER7ev/amEieg28Eqn4Uc4GUCjXe
-	 0r8HFlBewTTHkHDTKxxMRSIw7uh76nCAQ1FxN1y5jT+nTGidV+2KVz5suNDcXYX6RC7KE
-	 IeZq0xD8eEPmcvW1k7lvrdFTOCoVwIFBaBlOZOICbkHSDZuy3do4iZHCHUqlDCoIMkGHH
-	 gt77Ic1bko0MuBO8rm3BPq7WOXd1xwyuVS1isDr89F/lWG7giEkEFfZKcCr2mVbevkSTB
-	 ajHZthy6SILX/sA7UBpbqoMQRm+eSwSfRvEL9StkpUv4MCQ58PE5v6YznA4Vpw3nlRw==
+	t=1793946764;
+	b=oyJhPTD03SKBLLd6WYUdiTOh0530C20ixibb9PN2MN0wfmtuVskfHFIOWRFTiMNbRTXI
+	 GKQQEskBPhgztbx+olAbD7dkhVPFU44hVk92p/A4xTqtA6aD98pt9rFr0A7nagp6/khOr
+	 KsmGZ2ZRi8rFIz3zuk5hj3UdYntLEKBYfs3SuP85WIjIpq/NUqVV418StiaWO1NopkDcf
+	 +iXcSOZW7o/kb1TviCIFK8tRJf036AW8vkBReKMeXZvsTC/YwIKaFlGFusxUvskvuUOpE
+	 9KDG0kq3NLnAhoAUtAsdQnh/j8O5hsLidgeyeNXWuuKklcQ9qQmiCo+U75r1sbpqVKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946756;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793946764;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=YcyzVpUqGgHbS0DEuw8VL9w2ojotbaIZJKlqcjhQGkk=;
-	b=4UKXsOjjq+yEyG7lud/FRzJCu1SCwoMxyo7iMAb8tJtxuHXz94UC89TlO1hHVyW0KtB1
-	 o3fxp3W+UOzC3clsuLbRCJPB11vkz50lE1I4RZARvocfGRPDaAbUfMFGzhnj1DgoF2DNA
-	 z3qJw7Ye6ewRlG7eMJdhiF2YHTt5FaGLiWVoT1cU8+hacc26FklpoYH6ofZx79QYFIWh9
-	 YlcikxIR6Gl8BQprm1kLE1cAetUp+Y1Aoyuj8VFt38HgRy0N3oIeC6O0DxecZT8gZsVvo
-	 ba5IEH1H4F5wj+xtLWY/KAnffAf9vAvgIo3j+jbnqeC73TFCwsLpFe5xsKCw3qDZ1fQ==
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:Sender:X-CM-SenderInfo;
+	bh=1Tsmwk+I5UWTMEeAt29TWBBpjf3klwLmGA8oOUh0Rws=;
+	b=1Rs2tMDDsMOnmiKkw1dGevygjXX/wInNUIePtHMvoDccaIHcWEC4MRc36kO8xZcM3zyk
+	 bI/YUh++D6p4j0875LQoeyrOGJAqMq2pzkSobrxfTarF/yCtJZ5ia8flRFcwACzchZoRf
+	 YnTuZJvKeEAb2w90Z6tiHgpcuJ9lP7Bx+kOTyh6oJQmZ6aheXw2/OG9o9FnpRNAjC5uit
+	 EZ4ebGLTdTU/vdgcZSFFRUSoHrcTZn5fcJK/Tj24sEtnOi9Wt4RSbGetSzMnQ0dpYwIBD
+	 5FPfe2mlf8KIp/h878BRM4jkJVGo/ecpJHAIqg4XZ7bWmtudZW3L5CmGDjhAFwGZ6pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
+	dmarc=none header.from=kylinos.cn;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Mql5wE22;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KBRaFesM;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3C4606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 06:32:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB3C4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC94606A329;
+	Fri,  6 Nov 2026 06:32:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC94606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Mql5wE22
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KBRaFesM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Yc
-	yzVpUqGgHbS0DEuw8VL9w2ojotbaIZJKlqcjhQGkk=; b=Mql5wE220JU6YHQ+If
-	2jvEeO5M7EiYd9m7VckxrRCyP891zBJkVSocLyN4/xN1YlvMY7s++78j021bxBdo
-	lgFRz+0cNzoMY2+Njmn2dDNRC0qkfIyYwzYawG9hazwUwEDs8IEXxvcw5Imh40t+
-	JWkvECdQb4SpdjSsa2DkmEMnU=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3lzdFdO1qwIxJFg--.3403S7;
-	Fri, 06 Nov 2026 14:31:39 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1T
+	smwk+I5UWTMEeAt29TWBBpjf3klwLmGA8oOUh0Rws=; b=KBRaFesMwOK3t5W0gg
+	nuwxEECK+AuEaUt0MI0Aw0xfADG2NENZF32mwAOtpX87ewzjC9c6GKCkb6ymxuG/
+	rUnW++apbv6zWLLSnVOeoTaaPF1DHSXepzqglSNcVaQnEnme5GmZBjnj6TgfHJv+
+	k5rbPEUv5p//dN3+2IAHyDWeQ=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wBnj5lmdO1qFrM5FA--.46456S2;
+	Fri, 06 Nov 2026 14:32:08 +0800 (CST)
+From: Wei Tao <taowei@kylinos.cn>
+To: jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v3 5/5] ntfs: support O_TMPFILE
-Date: Fri,  6 Nov 2026 14:30:59 +0800
-Message-ID: <20261106063059.2904988-6-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261106063059.2904988-1-liubaolin12138@163.com>
-References: <20261106063059.2904988-1-liubaolin12138@163.com>
+	Wei Tao <taowei@kylinos.cn>
+Subject: [PATCH net-next v2] net/sched: cls_fw: allow filter replace without re-specifying mask
+Date: Fri,  6 Nov 2026 14:31:33 +0800
+Message-Id: <20261106063133.98515-1-taowei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,195 +67,119 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3lzdFdO1qwIxJFg--.3403S7
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtr43Ww4xGryfurykXr1UZFb_yoWxWr4kpF
-	sxWryfGws7Jry2g392ka1UZr4Sgayxur4UXrW8W3W3A3Z0qw1FgF1xtFy5uF1fKrWrur4q
-	qF4UK34Uur1UZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URCJQUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QtFEGrtdEtCdAAA35
+X-CM-TRANSID:_____wBnj5lmdO1qFrM5FA--.46456S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1kXF1xXry8Cw4DArWxtFb_yoWrAw1UpF
+	s5K3WUGr4DtFyjgrZ7Jw1kt3Wa9rs7JFyxuF10kry5AFZagF4FqrWI93y7W3yUGrZ7C3W2
+	qF4Yq3yDGasrAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jA-B_UUUUU=
+Sender: cs_taowei@163.com
+X-CM-SenderInfo: xfvb3tprzhxqqrwthudrp/xtbC4QhNjmrtdGhgTwAA3e
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+The fw classifier keeps the fwmark mask in the fw_head shared by all
+filters of a tcf_proto instance, so the mask is a property of the head
+and not of the individual filter: it is set when the head is created
+and cannot be changed by a filter that is being replaced.  Nevertheless
+fw_set_parms() rejects such a replace with -EINVAL whenever the head
+mask is not the default 0xFFFFFFFF and the mask is not repeated on the
+command line:
 
-Allow regular files to be created without a FILE_NAME attribute or
-a directory index entry. Keep their on-disk link count at zero and use
-d_tmpfile() to attach the inode to the anonymous dentry. Clear the base
-inode's in-memory link count before initializing EAs so that attribute
-inodes inherit zero links and can be evicted rather than pinning an
-unpublished file in cache.
+  # tc qdisc add dev lo clsact
+  # tc filter add dev lo ingress prio 1 handle 1/0xffff fw classid 1:10
+  # tc filter replace dev lo ingress prio 1 handle 1 fw classid 1:20
+  RTNETLINK answers: Invalid argument
 
-Allow the first hard link of a zero-link inode only when the VFS marks
-it I_LINKABLE. Existing deletion checks remain in place, and the VFS
-controls O_EXCL and clears I_LINKABLE after publication. Reuse the
-zero-link eviction path for unpublished files.
+The same happens for tc filter change, which calls fw_set_parms() on the
+existing filter as well.
 
-Document the interface and the named-stream restriction before
-publication.
+The check only makes sense for a newly created filter, where the mask
+has to be spelled out so that a filter cannot silently match on a
+non-default mask inherited from the existing head.  A filter that is
+being replaced already shares the head mask and inherits it unchanged,
+so the check can be skipped for it.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+Tell the two cases apart with a new "new_filter" argument to
+fw_set_parms(), which fw_change() sets only when it creates a filter,
+and report the error through extack instead of failing silently.
+
+When reviewing commit b72e025ac556 ("net/sched: cls_route: reject
+change with no routing attribute") and its parent commit 41e85e54e564
+("net/sched: cls_route: Fix in-place replace"), I noticed that the
+series separates the create and replace paths in cls_route: a new
+filter must use a handle that matches the value built from its
+attributes, while a replace is not allowed to change the handle without
+specifying routing attributes. Then I analyzed the cls_fw code with
+an LLM.
+
+Tested on aarch64:
+
+  # tc qdisc add dev lo clsact
+  # tc filter add dev lo ingress prio 1 handle 1/0xffff fw classid 1:10
+  # tc filter replace dev lo ingress prio 1 handle 1 fw classid 1:20
+  # tc filter show dev lo ingress | cut -d' ' -f9-
+  handle 0x1/0xffff classid 1:20
+
+  # tc filter change dev lo ingress prio 1 handle 1 fw classid 1:30
+  # tc filter show dev lo ingress | cut -d' ' -f9-
+  handle 0x1/0xffff classid 1:30
+
+  # tc filter add dev lo ingress prio 1 handle 2 fw classid 1:40
+  Error: Mask must be provided for new filter.
+
+Signed-off-by: Wei Tao <taowei@kylinos.cn>
 ---
-Tested in QEMU with four CPUs, NTFS debug and lockdep enabled. Creation,
-publication, cleanup, O_EXCL, permissions, idmapped ownership, named
-streams, nonresident EAs, direct I/O, mmap, allocation and concurrent
-publication passed. Data and metadata survived cache eviction, remount
-and reboot; generic/004 and generic/389 passed.
+v2: https://lore.kernel.org/netdev/20261014024548.37874-1-taowei@kylinos.cn/
+  - drop the Fixes tag: this is not a regression fix
+  - describe how the issue was found and add the tested commands
+ net/sched/cls_fw.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-The basic ENOSPC test passed. Full-volume ACL creation failures remain
-subject to the pre-existing rollback bugs described in the cover letter.
-
- Documentation/filesystems/ntfs.rst | 15 +++++++++
- fs/ntfs/namei.c                    | 54 ++++++++++++++++++++++++++----
- 2 files changed, 63 insertions(+), 6 deletions(-)
-
-diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
-index d5819da6ab53..635301117807 100644
---- a/Documentation/filesystems/ntfs.rst
-+++ b/Documentation/filesystems/ntfs.rst
-@@ -10,6 +10,7 @@ The Linux NTFS filesystem driver
-    - Overview
-    - Utilities support
-    - Linux file attributes
-+   - Temporary files
-    - Supported mount options
+diff --git a/net/sched/cls_fw.c b/net/sched/cls_fw.c
+index 0f731595f839..3ca0598560c4 100644
+--- a/net/sched/cls_fw.c
++++ b/net/sched/cls_fw.c
+@@ -204,7 +204,8 @@ static const struct nla_policy fw_policy[TCA_FW_MAX + 1] = {
  
- 
-@@ -63,6 +64,20 @@ These Linux flags are enforced by Linux. Storing them in an NTFS EA does
- not make Windows enforce immutable, append-only, nodump or noatime semantics.
- 
- 
-+Temporary files
-+===============
-+
-+The driver supports ``O_TMPFILE`` for regular files. The file has no
-+directory entry until it is linked with linkat(2); ``O_EXCL`` prevents
-+this publication. Ownership and mode follow normal file creation rules.
-+With ACLs enabled, the file's access ACL is derived from the creation
-+directory's default ACL. Unpublished files are reclaimed when their last
-+reference is released.
-+
-+Named stream ioctls cannot create or open streams on an unpublished
-+temporary file. They can be used after the file has been linked.
-+
-+
- Supported mount options
- =======================
- 
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 5124e7a3e124..a8bfc732b558 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -489,9 +489,11 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 	simple_inode_init_ts(vi);
- 	ni->i_crtime = inode_get_ctime(vi);
- 
--	inode_set_mtime_to_ts(dir, ni->i_crtime);
--	inode_set_ctime_to_ts(dir, ni->i_crtime);
--	mark_inode_dirty(dir);
-+	if (name) {
-+		inode_set_mtime_to_ts(dir, ni->i_crtime);
-+		inode_set_ctime_to_ts(dir, ni->i_crtime);
-+		mark_inode_dirty(dir);
-+	}
- 
- 	err = ntfs_mft_record_alloc(dir_ni->vol, mode, &ni, NULL,
- 			&ni_mrec, -1);
-@@ -513,6 +515,10 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 	inode_set_iversion(vi, 1);
- 	insert_inode_hash(vi);
- 
-+	/* Attribute inodes must not pin an unpublished file in cache. */
-+	if (!name)
-+		clear_nlink(vi);
-+
- 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
- 	mutex_lock_nested(&dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
- 	if (NInoBeingDeleted(dir_ni)) {
-@@ -658,6 +664,12 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 	if (err)
- 		goto err_out;
- 
-+	if (!name) {
-+		ni_mrec->link_count = 0;
-+		mark_mft_record_dirty(ni);
-+		goto done;
-+	}
-+
- 	/* Create FILE_NAME attribute. */
- 	fn_len = sizeof(struct file_name_attr) + name_len * sizeof(__le16);
- 	fn = kzalloc(fn_len, GFP_NOFS);
-@@ -710,12 +722,13 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 		goto err_out;
- 	}
- 
-+	ni->flags = fn->file_attributes |
-+		    (ni->flags & FILE_ATTRIBUTE_RECALL_ON_OPEN);
-+done:
- 	unmap_mft_record(ni);
- 	mutex_unlock(&dir_ni->mrec_lock);
- 	mutex_unlock(&ni->mrec_lock);
- 
--	ni->flags = fn->file_attributes |
--		    (ni->flags & FILE_ATTRIBUTE_RECALL_ON_OPEN);
- 	/* Set the sequence number. */
- 	vi->i_generation = ni->seq_no;
- 	set_nlink(vi, 1);
-@@ -783,6 +796,8 @@ static struct ntfs_inode *__ntfs_create(const struct mnt_idmap *idmap, struct in
- 	mutex_unlock(&dir_ni->mrec_lock);
- 	mutex_unlock(&ni->mrec_lock);
- 
-+	/* The MFT record has already been freed above. */
-+	set_nlink(vi, 1);
- 	if (rollback_ea_vi)
- 		iput(rollback_ea_vi);
- 	if (rollback_eai_vi)
-@@ -857,6 +872,31 @@ static int ntfs_create(const struct mnt_idmap *idmap, struct inode *dir,
- 	return 0;
- }
- 
-+static int ntfs_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
-+			struct file *file, umode_t mode)
-+{
-+	struct ntfs_volume *vol = NTFS_SB(dir->i_sb);
-+	struct ntfs_inode *ni;
-+	struct inode *inode;
-+	int err;
-+
-+	if (NVolShutdown(vol))
-+		return -EIO;
-+
-+	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	if (err)
-+		return err;
-+
-+	ni = __ntfs_create(idmap, dir, NULL, 0, mode, 0, NULL, 0);
-+	if (IS_ERR(ni))
-+		return PTR_ERR(ni);
-+
-+	inode = VFS_I(ni);
-+	d_tmpfile(file, inode);
-+	unlock_new_inode(inode);
-+	return finish_open_simple(file, 0);
-+}
-+
- static int ntfs_check_unlinkable_dir(struct ntfs_attr_search_ctx *ctx, struct file_name_attr *fn)
+ static int fw_set_parms(struct net *net, struct tcf_proto *tp,
+ 			struct fw_filter *f, struct nlattr **tb,
+-			struct nlattr **tca, unsigned long base, u32 flags,
++			struct nlattr **tca, unsigned long base,
++			bool new_filter, u32 flags,
+ 			struct netlink_ext_ack *extack)
  {
- 	int link_count;
-@@ -1272,7 +1312,8 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 		goto err_out;
- 	}
+ 	struct fw_head *head = rtnl_dereference(tp->root);
+@@ -229,8 +230,10 @@ static int fw_set_parms(struct net *net, struct tcf_proto *tp,
+ 		mask = nla_get_u32(tb[TCA_FW_MASK]);
+ 		if (mask != head->mask)
+ 			return err;
+-	} else if (head->mask != 0xFFFFFFFF)
++	} else if (head->mask != 0xFFFFFFFF && new_filter) {
++		NL_SET_ERR_MSG(extack, "Mask must be provided for new filter");
+ 		return err;
++	}
  
--	if (le16_to_cpu(ni_mrec->link_count) == 0) {
-+	if (!ni_mrec->link_count &&
-+	    !(inode_state_read_once(vi) & I_LINKABLE)) {
- 		err = -ENOENT;
- 		goto err_out;
- 	}
-@@ -1708,6 +1749,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
- const struct inode_operations ntfs_dir_inode_ops = {
- 	.lookup		= ntfs_lookup,	/* VFS: Lookup directory. */
- 	.create		= ntfs_create,
-+	.tmpfile	= ntfs_tmpfile,
- 	.unlink		= ntfs_unlink,
- 	.mkdir		= ntfs_mkdir,
- 	.rmdir		= ntfs_rmdir,
+ 	if (tb[TCA_FW_CLASSID]) {
+ 		f->res.classid = nla_get_u32(tb[TCA_FW_CLASSID]);
+@@ -291,7 +294,8 @@ static int fw_change(struct net *net, struct sk_buff *in_skb,
+ 			return err;
+ 		}
+ 
+-		err = fw_set_parms(net, tp, fnew, tb, tca, base, flags, extack);
++		err = fw_set_parms(net, tp, fnew, tb, tca, base, false,
++				   flags, extack);
+ 		if (err < 0) {
+ 			tcf_exts_destroy(&fnew->exts);
+ 			kfree(fnew);
+@@ -340,7 +344,7 @@ static int fw_change(struct net *net, struct sk_buff *in_skb,
+ 	f->id = handle;
+ 	f->tp = tp;
+ 
+-	err = fw_set_parms(net, tp, f, tb, tca, base, flags, extack);
++	err = fw_set_parms(net, tp, f, tb, tca, base, true, flags, extack);
+ 	if (err < 0)
+ 		goto errout;
+ 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.25.1
 
