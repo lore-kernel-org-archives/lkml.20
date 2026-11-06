@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956550;
-	b=F0xA2yxJQ68HVOUkGjWnJkHL7wzgvNrY6NfMBuI/ePWIhXyrr8ejxZ9uZ0+x0ox/W6JC
-	 /1QP4Cp/ZkalV3s88xjxzRtwyGEgQeVay5+E7l4YBf2o5x6KJhGLQ0AtZaRmceYyk5jUt
-	 FbL3LU4zmHyoYI9y8JX7aEuewbHUkr3oVDxjx6wO81wqgeyFsYHnylBjXeiOQ2Nwo2Qp1
-	 coRY6wTyU6F13QdFov/qqd2jdP5vXhDZZoRaJvCN5rHc+nK6w+2bYVLDYsBAmIPBrShwp
-	 GQyRZ6s9PYWdK5szcy1BVXHO4C3D55MIgkG9NyugXqPOzCp+dh/BUuEhIaOr9cST2sg==
+	t=1793956594;
+	b=asDi6MUCKb0F8GFpIp3auoOMC3KZYuF2sWNjAUcoGJOMcN6aE204nJpUiq3BK3Gadfbq
+	 VEfNlbMyi0kZyfmbdYDAI5MtWPAO3ii39eaMdCA+HylmGaWXKvIAYlI2o3gnfbYv6zHCM
+	 sO1Wvb7hmDGEAte2qwwKdrxkslBWGOJM09w4X4AFF7RpuhkFPdV6RxA/vzRZMoKJxXdBB
+	 HwnnkwaDwS99vIAcZLZ9bNuw8euaVjgTWqZvS3aEorpdMGNN6UrAd025eChQMTrqzI9Ft
+	 qi//Zzh0fXvX577gd+Qv35YSdaWOOQxADQHuWWOYSIn8NMrV5U2Ig/oke+fDcvtaDJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956550;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=Ichcn6R1WA+kVr6ejRwn+uYrwL9UqNqqT+ZrDzCqQlU=;
-	b=WxoNoh9UulJOUYkH26Skxdr8is+0pTGGNEWT8S0lIF3jlomniFIPT3YioCPMhz5ZStyz
-	 oUzcD34YY7j9+O34qADx6ulztIqJz3g3auppJCGW7Tv7b8EnqumktxhYEiMXSaXiDKEJN
-	 FJcJAHh7nCrQmPWrQ+NgPQb4ziGqjG6f5XRrr0S9FOHmBc5IwfXpG6+nks4U3Z8DZOVbb
-	 RzKehHWy7gH9Jsgb2lQZuEyeuK2ssGXtEaIqsFq2Tdh/Xi3//trl5kkWXFJuM7pqldM7g
-	 OPlw/peAnnoUgtFgmQrIRXM/y7iclLcsVD+lC4LUHOd7fF4ock8Jh/QY48wdtC3DHPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956594;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vcL1NhYQpFcHWrVsIZpIrMZtOSmgli6Y91V/Xvy4p8E=;
+	b=3nW/XNebvIp6Iv7sioBS5mbyA1GU8ECAoMhaWdZ/ozszdS3FG8auGE8CSD8pBrCOBHuH
+	 EsGgVpMEsQYrUkJm2P2eJ/SwMvnc+mow5cW2Mx5jMPfiS5G46hshcoFy26cQfZ+proC7F
+	 SjQbpNZ05o3G9vG/LOmt40j5ADW9UmdCJlUtMCyC5jrc/BTV0J2MimCWMzmfnElyMr2rO
+	 Fl+q9i5RFk4tXUofj3+NtwlMJslKlz83mf0ipMzn6NDqgADwssmqvakNI0GuXOB/pia7W
+	 KnGDatk/U5/b3XDy24YnkJYW6FW7Mln4Ay+mgNk4RPpMLaf63CMDM666YqZpzlFNsmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CR6KPJIi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lBo+ULpn;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC09606A326;
-	Fri,  6 Nov 2026 09:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B66A606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:16:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B66A606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CR6KPJIi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012CA1F008A5;
-	Fri,  6 Nov 2026 09:15:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793956550;
-	bh=Ichcn6R1WA+kVr6ejRwn+uYrwL9UqNqqT+ZrDzCqQlU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=CR6KPJIiAYWgaVFI3RlaWUf7+QTpIe9G5TGty5Cs8wzHctDd2+y55HNlFY5QpprWU
-	 CotY0QXCKCuhgufyaGNDdgopzknZGZtcwhcMpugccp8+em9ee1gdTv4VEyx7hJrqrV
-	 M2jVo789nCaOAfE2KGXpZYUkqmcS/zzH7hSEJH/Ig5lXK+cQPY2EuyG/SPtcTR40PN
-	 tEse04g6lUBTg92d7oE55a9mGYbaqTB4at9AykOviovXddRjfnVQ20ZJKHwxxusZHX
-	 R9/7kUsL5IC/5g1uQNP/ofsRKO3LXgKAyMgl/BllHjGT2rsXbdsGMnLr9ksK6sDvmQ
-	 YvjU3ifaN+qHw==
-From: Christian Brauner <brauner@kernel.org>
-To: Luis de Bethencourt <luisbg@kernel.org>, 
- Salah Triki <salah.triki@gmail.com>, 
- =?utf-8?q?Axel_D=C3=B6rfler?= <axeld@pinc-software.de>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261102141714.306719-1-axeld@pinc-software.de>
-References: <20261102141714.306719-1-axeld@pinc-software.de>
-Subject: Re: [PATCH v2 0/2] befs: Large file support and a superblock check
- fix
-Message-Id: <20261106-ungemacht-beispiel-aufgearbeitet-e038f1941ca2@brauner>
-Date: Fri, 06 Nov 2026 10:15:46 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lBo+ULpn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793956588; bh=vcL1NhYQpFcHWrVsIZpIrMZtOSmgli6Y91V/Xvy4p8E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lBo+ULpn6XyHlDf7BECNGZZJM62FAnjsE0oO5cURVhwTPgPBgN1FQuM6OQnoM66zh
+	 NYyfFT8wZm8HDFyx3801TSQMdER7V8ZLEVFDkuddW1/oY3DMb/5452w0CIM/OiWOL0
+	 Vu/AKCZ+qgz65vChGGHrlrj92QcBxveJIlUIth+4=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 4192A03A; Fri, 06 Nov 2026 17:16:25 +0800
+X-QQ-mid: xmsmtpt1793956585tk93hi8a4
+Message-ID: <tencent_F81D5DFA8A2551DEADE91577474C68C2C705@qq.com>
+X-QQ-XMAILINFO: MDbayGdXPuoex5frKWRRy3d9y5cbZtT8RsCG+Yb3O57bGmK8/Zjcl9RKzPYwnK
+	 4uu0PfebxcBvHvL0deZnBgk/H05tzr8HW7XhVho5tcsEwIrrmAcsRLmz07MOWShBIIZYrZ8l5PP8
+	 B+Lq7tm28dAVlAhG+IZaGWd/x1Zsh1pgwLjBiD2isTCuNG7riQzHVpZ/JjhOlvQFekc345UgMTx3
+	 iClTh+XtN0ESjG6siWI/xLl/kEX/abBfksT9n2UB+wJNUEwYJBx8gkklTbnjeAUaXq5XOxdkwnHp
+	 d7HmPRT8PNXTgZcmlylhTEsgLZ+sCZJvLQV4olLE1K8Jkw380MFMEyuIlBwOOa6eod94fEwF7aSs
+	 Lb3Sqhjnq6kmy3dvsyT3loM1ngLODDoeGPf+snK7524mWUWDzBMBxEX5nNlt2wPB3aP5DCeC5oh0
+	 UFJiljebEtIBZkG3MgjzQoXTb1OjceQ6MZerW5l1TUAkO5xLfsNyjv0/2y0AZFl6I9DSIjXmLoFu
+	 DxH0qfECrb3mRnBG8Cc5unQVBGAcAIs9NqWHsRzh4Z7UGRovEXl8faGwbGeTQa0PAR9aWjxtlntb
+	 fejxrMWs0H3nLhYTwNgdU8ukj0La5akfUdwPhZ02o5csn3EgDGOLZn4WEcA8VoCmt895gdIjX0ta
+	 JGmO46o7XYLX4xWCg/ssZXEbcytUH04I/OEPYaMgh6TK0jRhewDOE3gNGL6exoTsJsVFZLSRPAnE
+	 CyuPF3H7q/TUcsjOYtMCpPNYQV48RNuyN3/LsVH1EfL5kozjNuC33VwDUIEDsqZKacNCSFEW/ZyK
+	 UPIbHSoIn4Wbot+9RNkU9xFGKrzft7gemH1HXrLU7sjdSv5p6PpZLVMvAUvmDp2wWnUj2hvpzXn6
+	 z+S8I6CuW/nO4CgSId5q0ZPCrj8Qv44Z2ELKQXyeYplq9U/Cz4BQ9G3GIROZwRFzEbQqI3hidw4/
+	 3YRr3CjByNTwIjji63umsAG7QlMDLpbRkz+oX0+qNFw9VMuQiZAqSKVkdEXD974F8/FqvBAWL93w
+	 7kWp4+xQMpOzJwHJNfszan3vgk8Q2AeRGNENa6ZbGFQzkjAf8qOpz7eCl1y3llZOs8uOgZDRce/f
+	 umMwnpu74qST/ryugeoSyFq52LSw==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Shuai Liu <847807867@qq.com>
+To: jack@suse.cz
+Cc: linux-ext4@vger.kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	sashiko-bot@kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	linux-kernel@vger.kernel.org,
+	Shuai Liu <847807867@qq.com>
+Subject: Re: [PATCH v8] ext4: fix slab-use-after-free in do_split()
+Date: Fri,  6 Nov 2026 17:16:25 +0800
+X-OQ-MSGID: <20261106091625.707374-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <zlob4iplebmd7bqzh6iniyz3vrgzifrhg4cqy22uljraftrjxc@hr5rvleofcrx>
+References: <zlob4iplebmd7bqzh6iniyz3vrgzifrhg4cqy22uljraftrjxc@hr5rvleofcrx>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,37 +89,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.17-dev-ce4c1
 
-On Mon, 02 Nov 2026 15:17:11 +0100, Axel Dörfler wrote:
-> Two small befs fixes I originally sent in 2019 [1][2], which never got
-> picked up. Rebased onto v7.3 and resent as v2.
-> 
-> Patch 1 lets befs serve files larger than 2GiB; the on-disk format and
-> the implementation already handle 64-bit file sizes, only s_maxbytes was
-> never raised from the MAX_NON_LFS default.
-> 
-> [...]
+Hi Honza,
 
-Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.misc branch should appear in linux-next soon.
+Thank you for the detailed review and the honest feedback.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+You are right - I was iterating against the AI review bot's findings
+without pausing to seek human feedback, and that was the wrong
+prioritization. I also agree with your point on maintainability: disk
+metadata can be corrupted in unbounded ways, ext4 has always treated
+graceful handling as best effort, and adding per-alias checks at every
+call site is expensive protection for a niche case.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Given that, how would you like to proceed? The syzbot crash itself is
+real (KASAN slab-use-after-free from aliased buffer heads), so I could
+downscale this to a minimal fix for the actual reported crash (just the
+do_split() *bh/bh2 alias check) if you think that single check is
+worthwhile. Alternatively I can drop the series entirely, and I would
+be interested in helping explore the buffer_head metadata tag approach
+you outlined, if that is something you would welcome.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.misc
-
-[1/2] befs: Allow file sizes beyond 2GiB
-      https://git.kernel.org/vfs/vfs/c/cd1fb89d09f9
-[2/2] befs: Fix allocation group consistency check
-      https://git.kernel.org/vfs/vfs/c/f51cd637b410
+Thanks again,
+Shuai Liu
 
