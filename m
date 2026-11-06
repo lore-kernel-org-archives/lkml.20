@@ -1,82 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793979993;
-	b=HNx6kvAmHOhU8u3sKD97zAwHKd3D6bzrTJ3lsDLB28Z84kFvb6BaoJQojH8ug0MO0O3M
-	 zUJMb7fPYLrC3K3kO+nWTFfO5blZURPa0xaPDZyCk+sjzywZpQ4IMXIv2AJ+9JHLCQFgX
-	 mMK26z1Tsh3PBKJtjP+6yByEtV6aQM7aqwlKxPZENqVSukV9bvD4lYXrSysTbmd3JGBWg
-	 YBoQrnytjeWdwqKavIbu9PBlx81HTiIuXOubBm4frE9rQoNP/juU7YUVI0nBIsa4Le7br
-	 6fHeovhO+GiGNf5R/yOAiWEGMdTxgZC4MgCxMcF+vi62YTlc3eZTV+eYKCkIsMrO2XQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979993;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=dQxWsk9tD+W0rC/Z3zWfzCTEEa3rqox9nlVNEL9xNjs=;
-	b=BLc7OaZqNcal9VHHYAqDaTW2uG6Krx3yT5YIQZkncKEPJVcYH6AM5e2VJIJgiSG2Z+uG
-	 V23FRt7jj4bHdn0fkKSzCzQ3O9MiM7cq995xSGm4Cz4p7s8Yens5KJ3XLBg6Cc+Qe0EUG
-	 g1U+e7oMhzU8RpiV93eOuvttlGScEwmvEc98c7BGnl9dsZekqS8qQkavPeFeI5CeKa+ny
-	 NDzhCIyL5/gQZb71nM4JXyoMGznjjreEf8T92w6Ru3XIiaW1nBQZl8PfTR8OPnq6UVUvp
-	 Y/CBtfvYM/t6s2knWKKiu1HVQ92Mv1vzRze6X691Pz4jFAI936rMJAVigr9hy1ZhSjg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="Sp/JpgQX";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793979980;
+	b=mBhUOrvJJND6yZR/Dbiokf82N+g+E+qjT4VeOSd+hIKIuFuAHVoiiPSNtz2DI7kQnYIo
+	 sVOJJlxg6ilNQzyOzrNEpGS0Kj0iFq0FwcU721GoB9CCJs5ZEndefi+3NdDDdzJhmHSkb
+	 8kfllE7G0Tep8/D/LiWCTGn+xQ7VVZwA8T7qXl39AbpsOMbpz7Mm835xEMb/sbpoV2dsg
+	 0s9yCyBRYihNOpPfwYyoeaRnbMsE3z6LCvMe7SnZyh7c/+mgB9FZyRSZLmOQdi85C85GR
+	 n8jQ983E9EiE66o3MH2j6l67ZThdAO2a2TUDZytqZ0bk8HfIk945fJsuo3u/KuWGAnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979980;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pql5uSvkXeVpmOTxFyX3IKXjR1NKu8eMj90jbya94rk=;
+	b=vPGRwCM80tr6kEOhh/wrWlGGFYVouEsqBFmmIwYDfqIKKlZ9ftz5Wq/TeRY5t+2qvnSS
+	 jP9BDciQvfkexZdfpuMfCrNreS8K68oGp4wD8h9jiQekJF/+SZNPk/eNCKYqLXwTOl6Gj
+	 ICH8GaRxaxREFAWT4u9Q669LQ+ekOZpPvyy3Q0V9d4IfHThlrJI/Eyk8TpY7MBBL7n5zQ
+	 QZ2XIt8bg5A1Y63pkz8zP/1NvOpdY69sao1ObGAFNwu08HvgoPrilFPYIHObAWKAEOsAR
+	 Xd0Cx4F4mAeBGmUWv0GhSTUmHeWAEhbWmflJUgIgsXgI/2uuY2pUDoAMOmew9/+aJYQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdAP8pj1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEB2606A330;
-	Fri,  6 Nov 2026 15:46:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CEB2606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A1F606A329;
+	Fri,  6 Nov 2026 15:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Sp/JpgQX
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5AA9F202AA2;
-	Fri, 06 Nov 2026 16:46:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793979986;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=dQxWsk9tD+W0rC/Z3zWfzCTEEa3rqox9nlVNEL9xNjs=;
-	b=Sp/JpgQXhr+nR259tgROCK66kbPxBRRhQyRqDv79wzPzEd1HnV3NEBZav5AuQprur9G6lm
-	wXxjtFo4UMTWckSktdHFs4qgt1WY9UrVWZt3mLW18Yb83XZ2Bex67fMv18+dlOIM/M4MzQ
-	OAChgFA5ONzT4TNaz7/TYU+uQ40ZF8tflbWO5G0RtJ1vZP9ZdUf4AKIkOQao+qOsx9mzHE
-	1qNs8GtmyBBbBEI05jOThq3hBvq91vEwSnqkitw5f3nsOJanpNa8qGt6j//EXeIHTcPxOc
-	kVFHFLoTmS3EWc1VRMtxd9hp3FM7m5daiv5OTyhKDPDAxAruFa++dbcvYjn43g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793979986;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=dQxWsk9tD+W0rC/Z3zWfzCTEEa3rqox9nlVNEL9xNjs=;
-	b=elygiWiaFCrYJ6qHiJfHR/G9HnJlkwBEwz6WZjXxxlIROt9cdFMD8jg1wXaR1Qr8kkZHic
-	6AR4h5Vbmd8jDRoZj5n0njDfiqHnYIgPj5s0pXxl0z2PbqKkgrQ561EemZa1es9g63cnlZ
-	A2WCZKdBvZwf4UCD65r0k3eflLMc79R+ELzR8BekQY1TderszKbjWmrLrQyL7eqIJ3DGz/
-	77YdSNjb9UYDf2UyjBrK02dPood+TMK5YvX/gNqsbqZ+shqU8os9jMS93V6GVZahd+L1sK
-	gtBpGmnBklQMvZ+AN8+QFA3M1gZ6kahyszJGD2TnKcBuBMc1udMAA4EsaFwGRA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793979986; a=rsa-sha256;
-	cv=none;
-	b=EespJsucjuk+1V30MTNlXQz8ldN+LyJ7mfkN9pgw4ifyqppT8w+fYNXVPXTIQYRAgl52Bg
-	1FZC68CXwKbWZVLKCph4uQh6ABJVMmgyDTOsUOiL+9y12g74wesPuOj1cnkLjIUNLJdCnd
-	0twYlyZGvJzHHCKQOzXKHjk9VzF6YvAom/GvrHh2JUWIzAr5InGVfHvfO/8RHOVkNRvOfR
-	3+bJZTlUppKLmiDQAUA936M1V8qiQzl3lU15Qd46eNUnpJU47QRnNnjhItt5GFy1IgUm04
-	0FF4V8MEviGWH7sELpWTdDE+im++ihj3j18qwqEQQerEqWWZQpmvgPNIGnuW2Q==
-Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1xPM94-002vNF-0r;
-	Fri, 06 Nov 2026 16:46:26 +0100
-From: Philipp Zabel <p.zabel@pengutronix.de>
-Date: Fri, 06 Nov 2026 16:46:15 +0100
-Subject: [PATCH] remoteproc: stm32_rproc: Do not request reset by index
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdAP8pj1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1601F0089F;
+	Fri,  6 Nov 2026 15:46:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793979979;
+	bh=pql5uSvkXeVpmOTxFyX3IKXjR1NKu8eMj90jbya94rk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CdAP8pj1TvsbC0jiYKygjvShWGbeP60dBbynQPv0CzBEdUOciS4X4Ij8inX3Um8y/
+	 espj/224ttGvPofC0sBpi2gTY05ds4L0Xtg+GOCODZFm5wIT2s6LFtKkodHfIiueP0
+	 p3wS3nF9vAjEfaGVV3KnkhLJD71S/0GaNVln40XkZDxBAm1WxFbXe4mvx/NpE5pv3A
+	 dGF8+qyD9lFLIXrOxCY0Pon+AaWQc3bowtqpHtpPjrkZEuRFnk6efHOTPDnBYOX+g2
+	 0u4gwalaHyVh70hJrwd3k/0MUlD/M7t2/wMv4IDwcjROjO37bFd4KXnJcAgoS9dUK4
+	 t1DXwQ8M7pwLA==
+Message-ID: <318911bd-dc33-4399-987e-fc05e86d732b@kernel.org>
+Date: Fri, 6 Nov 2026 16:46:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,53 +51,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] extcon: intel-int3496: drain ID work before its GPIOs
+ and extcon device are freed
+To: hyunjungg <hj351016@gmail.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>
+Cc: linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-samsung-soc@vger.kernel.org, stable@vger.kernel.org
+References: <20261106131730.2633139-1-hj351016@gmail.com>
+ <20261106131730.2633139-2-hj351016@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261106131730.2633139-2-hj351016@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-reset-deindex-rproc-v1-1-41a03fcc8496@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAEb27WoC/yXMQQqDMBBG4avIrDtgIgr2KqWLNPmt00WUGVsE8
- e5Gu/wW721kUIHRvdpI8ROTKRe4W0VxDPkNllRMvvadc3XHCsPCCZITVtZZp8hNdCF49I1vByr
- lrBhkva6P59/2fX0Ql3NF+34AL2AJoXcAAAA=
-X-Change-ID: 20261106-reset-deindex-rproc-3c1aa2e9325f
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-remoteproc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Philipp Zabel <p.zabel@pengutronix.de>
-X-Mailer: b4 0.15.2
 
-There is no need to request a single reset by index.
-Use devm_reset_control_get_exclusive() to request the first and only
-reset.
+Hi,
 
-Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
----
- drivers/remoteproc/stm32_rproc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 6-Nov-26 14:17, hyunjungg wrote:
+> From: Hyunjung Ko <hj351016@gmail.com>
+> 
+> int3496_probe() registers the debounce work for device-managed
+> cancellation before it acquires any of the resources that the work
+> handler dereferences:
+> 
+> 	devm_delayed_work_autocancel(dev, &data->work, int3496_do_usb_id);
+> 	...
+> 	data->gpio_usb_id  = devm_gpiod_get(dev, "id", ...);
+> 	data->gpio_vbus_en = devm_gpiod_get(dev, "vbus", ...);
+> 	data->gpio_usb_mux = devm_gpiod_get(dev, "mux", ...);
+> 	data->edev = devm_extcon_dev_allocate(dev, int3496_cable);
+> 	devm_extcon_dev_register(dev, data->edev);
+> 	devm_request_threaded_irq(dev, data->usb_id_irq, ...);
+> 
+> devres releases resources in reverse registration order, so on unbind
+> the extcon device and all three GPIO descriptors are released first and
+> the work is cancelled last:
+> 
+> 	/* free_irq() */
+> 	devm_extcon_dev_unregister() / extcon freed
+> 	gpiod_put(mux) / gpiod_put(vbus_en) / gpiod_put(usb_id)
+> 	...
+> 	cancel_delayed_work_sync(&data->work);		/* too late */
+> 
+> int3496_thread_isr() arms the work with mod_delayed_work() on every ID
+> pin edge, so a work instance can be pending or running at unbind. The
+> handler int3496_do_usb_id() dereferences data->gpio_usb_id
+> (gpiod_get_value_cansleep), data->gpio_usb_mux, data->gpio_vbus_en and
+> data->edev (extcon_set_state_sync) with no guard. If it runs in the
+> window after the GPIOs/extcon device have been released but before the
+> work is cancelled, it operates on freed resources -> use-after-free.
+> 
+> Register the work for cancellation after the GPIOs and extcon device
+> are acquired and registered (and before the IRQ, which arms it), so
+> devres (LIFO) frees the IRQ first, then cancels the work, and only then
+> releases the GPIOs and extcon device. devm_delayed_work_autocancel()
+> still performs INIT_DELAYED_WORK() before the work is first queued
+> (queue_delayed_work() below, and the IRQ handler, both run after it).
+> 
+> Found by static analysis / code review; compile-tested only, not
+> reproduced on hardware (requires an INT3496 ACPI USB-ID mux device).
+> 
+> Fixes: f94a5becabf4 ("extconn: Clean-up few drivers by using managed work init")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index a47e040c6db8..1443a4013d6c 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -696,8 +696,8 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
- 
- 	ddata->rst = devm_reset_control_get_optional(dev, "mcu_rst");
- 	if (!ddata->rst) {
--		/* Try legacy fallback method: get it by index */
--		ddata->rst = devm_reset_control_get_by_index(dev, 0);
-+		/* Try legacy fallback method: get the first reset */
-+		ddata->rst = devm_reset_control_get_exclusive(dev, NULL);
- 	}
- 	if (IS_ERR(ddata->rst))
- 		return dev_err_probe(dev, PTR_ERR(ddata->rst),
+Thanks, patch looks good to me:
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261106-reset-deindex-rproc-3c1aa2e9325f
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-Best regards,
---  
-Philipp Zabel <p.zabel@pengutronix.de>
+Regards,
+
+Hans
+
+
+
+> ---
+> diff --git a/drivers/extcon/extcon-intel-int3496.c b/drivers/extcon/extcon-intel-int3496.c
+> index 7d16d5b..40774fb 100644
+> --- a/drivers/extcon/extcon-intel-int3496.c
+> +++ b/drivers/extcon/extcon-intel-int3496.c
+> @@ -130,9 +130,6 @@ static int int3496_probe(struct platform_device *pdev)
+>  		return -ENOMEM;
+>  
+>  	data->dev = dev;
+> -	ret = devm_delayed_work_autocancel(dev, &data->work, int3496_do_usb_id);
+> -	if (ret)
+> -		return ret;
+>  
+>  	data->gpio_usb_id =
+>  		devm_gpiod_get(dev, "id", GPIOD_IN | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
+> @@ -169,6 +166,10 @@ static int int3496_probe(struct platform_device *pdev)
+>  		return ret;
+>  	}
+>  
+> +	ret = devm_delayed_work_autocancel(dev, &data->work, int3496_do_usb_id);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret = devm_request_threaded_irq(dev, data->usb_id_irq,
+>  					NULL, int3496_thread_isr,
+>  					IRQF_SHARED | IRQF_ONESHOT |
 
