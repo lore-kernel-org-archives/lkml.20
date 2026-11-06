@@ -1,55 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977228;
-	b=J/iCVw9LjOyhKh330PKs5lIIs66KwakaINUtQe/dufIjcJRYZmRb+noMkyH/3ogoZngR
-	 CBG/aZqZ+HKPccSmRvzz6ZEFWVchUGpiAIEc3jusWpWtIjFm7u1cXTnmjd3wjsXDxw8ot
-	 eFLE65AIw5ulabFin1QEAm6JiZz6VnL7Ctl5nesyCrL4hsN7m1Ep1CNvNII0AeRNHLiyM
-	 QU2bWHJOgEFqTZO0ouEinp6ghHvmpaBf5SWUOtoNSYKADVaS7OYAX/2ZkwI+wtG088eXQ
-	 ykVacYp+iwBPhMeF9BbgXLZU+E+fOHJ4y38jwIOs70cVgoS1Y5Ti2tu7DpM6AtkTZ0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977228;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=lEwWZMnT2E5q2mu75iPMVwDrV0VDr43djSV3nOSktwA=;
-	b=MeTokMWFkhVPDQTiqcC/RTuWLixG2eaxrAOLjOBclLCn8JEs9tM2K5HY1eKXph+M1zM0
-	 KUt22olE32Vm906moPmFJA4mHl4gtXhj+VSoqHuTqeMeiWS5KbeoxLdm5h6Y2BhZG0YT5
-	 I6LeAZUasEaMFaxF2EdgCe1Bjj7B6nkcKXM1gUEk7Rzyg+Qj11ty5oh0fNj3ghiBfcMuc
-	 XrxXA9Ki9+uHlXMiLfHRn9DjHS03vIwiiMGBmSUFpzxY9cLsEhjfvu4iLmqvS5G7g7yQ+
-	 NAq0dOyIzHgjN8ddzxPcV5fpVB4cIxdBcnMo7bcpYrL/fT5dpExADz7sf3RzLFtWd4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793977278;
+	b=4olITf707qkz3cxjVBfw1gwYDq9JysiYm73SNMHJLOwutDPfEcIi8QiB1TSpXk1QlAEI
+	 n0mqgmWrExFddbX1/ad3XbU3FarQR8Bb5vwtFLHuEDiaCuvdP7U8Rrgmqeci+CXG6uwbl
+	 CvPX4G/PTC0BQID+N/tIHROLyOaRoQrjDb/vbAtLPTo6dfn8z3raRkZN5wSfkO1C4UNxL
+	 F+qjxCASMH65uWLOILe4yjbkeIMP+q26+CsstgUxJ8zY/ABqjJDGmik8aAD3DAjfZE9rd
+	 RF8BJdJW82yYQI26hFeKlqNQiNQuZjhq5NP+JfHCeT1DG+bpzzawIMyvuPpd/NBhzNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977278;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=ztv+TKVPP1AgDahvYqKVGMZreynpb/PIkYakl383jiM=;
+	b=rB0WtkkWRoEvGB8ONqwerPren0i7aMfIB6zENAJRt4VItlM3TCnZOxU68/BHpI1Ve8Sk
+	 FTcRGzGD4u62za/gYkpWUl70FczyJ/lXrEBesPC9JmfFqgQI2kyONti4zI2mHUXE9C7W/
+	 SobMX8ajvCR/pxS8kagBYAiysYGj2zOd2qsVlgkB1QStzj+jjojwQyAlWHeEv3O+Smfyd
+	 x7QvbRxh/oevsOFRvJl8QPj25ekQfQbuaogG39q3kHlVEIqmOQ0fTe5c/Sotb7ywROtFV
+	 GdAfqx5gOquBo+CBuwSB6g6BfbM5ADJkBRTBxjj0jFWDFYZFR3Sg6ry5nUweFY1DuGw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V1hwmRD2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E1B606A329;
-	Fri,  6 Nov 2026 15:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1E1B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLj620pGhz8Xrr9;
-	Fri, 06 Nov 2026 23:00:26 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6A6F0GWE055283;
-	Fri, 6 Nov 2026 23:00:17 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 6 Nov 2026 23:00:20 +0800 (CST)
-X-Zmail-TransId: 2afa6aedeb84f92-76f49
-X-Mailer: Zmail v1.0
-Message-ID: <20261106230020595sdtR1cTOchAJ3lWjuD06g@zte.com.cn>
-In-Reply-To: <20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn>
-References: 20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn
-Date: Fri, 6 Nov 2026 23:00:20 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA97606A32E;
+	Fri,  6 Nov 2026 15:01:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FA97606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V1hwmRD2
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6D44C200B4C;
+	Fri, 06 Nov 2026 16:01:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793977274;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ztv+TKVPP1AgDahvYqKVGMZreynpb/PIkYakl383jiM=;
+	b=V1hwmRD2bpMXgXGcYJChwK62b64YPq7WekgSgeH9kZCrBKjQAVBTKNIPzMqOk0LBiUKES6
+	hEz1g5/9w43x/kS9mVYBGGSZQAZ7trU1DXLwPM1UejkXqkRKJ8+/lhv/Vkq/VUKijzfOJB
+	HXSQwiSmSk3ExZEQzW8RXTcQ3WVdyt0PCneE6nmrSQpInF/7PejKfnBrtNpfVBLeKy8pTM
+	w6hhSZsKQtwM2S5aDoRK6pdPCeUrghslq5U5ou2nH1hhEaDxJKyahxWLmDf0PWaeuj52bW
+	GDrSwSTA4A8QNgHFjanourHQs5Ka3xjd/ILA+F+iEg4JhkCnXnn288dV3gQ5rA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793977274;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ztv+TKVPP1AgDahvYqKVGMZreynpb/PIkYakl383jiM=;
+	b=MtIucEbQPejsMZXF/v015EWeXX/L0ToZQxb9Z+gY8PWoggx7zJPhAk9C8ooAyBLVc9u43K
+	AgtrWtULFFTO2SZaYFPxmSqXG4FgpmthCqisfscDoX5QENCE0EMs1dBg2Ex4mg6UgMxobr
+	sKUjFeu7/hheSJNvJES1A5tqld+YZEDwk+VGVWLmQ/IyxRr1scjwZVeSg6+HK76n4cqHED
+	zQr0f/Tx6EIwZ50iGyE5LctUo1tbhn4zuCTihP0ixfS4oARopRZDv2aWJ0RJASvByih5iE
+	k8k+RGUjoR62rzk5lqi8BZTVFibbinD523uXCY48vsw9ZzbP8zQWvdm460Y5BA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793977274; a=rsa-sha256;
+	cv=none;
+	b=Pb+Zv7jAHhcVSXeRBG8kXvmj2rs2iuYQHOLdSKdPAuMSk91GIHpAJRZqQRKjQUxoKyDsTg
+	WTaO7LNfyHHi7B9lMmouWe42VuX8Cs75ryhqO4nDOpY3/QjdovXaZtLR11yKlp2RVfXYPT
+	6epX5PgkSe5Ta3NPg8nOaC0Wx0TTfPtcy6mE9pzffOkRoU8zR/DNf7kIjy1Yf1452ZkIyU
+	KpBVpJxB6/iCCL0MYNHe04HTuvdK2FQyMuOD666QjTka9M4GZO2cXLR0Eeata4K9w8zshZ
+	fM6C4r2k+pA9tspSsH+qVAVUOTMiIQq/s859VuTH0CJoFdrFrHPGAtFfaPLBMA==
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1xPLRK-002v0X-15;
+	Fri, 06 Nov 2026 16:01:14 +0100
+From: Philipp Zabel <p.zabel@pengutronix.de>
+Date: Fri, 06 Nov 2026 16:01:10 +0100
+Subject: [PATCH 2/4] phy: cadence-torrent: Do not request reset by index
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,64 +87,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYyIDIvMl0gbnZtZXQ6IHpuczogcmV0dXJuIHRoZSBuYW1lc3BhY2UgbG9va3VwIGVycm9yIGZvciBJZGVudGlmeQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A6F0GWE055283
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 06 Nov 2026 23:00:26 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEDEB8A.000/4jLj620pGhz8Xrr9
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-reset-deindex-phy-v1-2-6a9c9f428be8@pengutronix.de>
+References: <20261106-reset-deindex-phy-v1-0-6a9c9f428be8@pengutronix.de>
+In-Reply-To: <20261106-reset-deindex-phy-v1-0-6a9c9f428be8@pengutronix.de>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
+X-Mailer: b4 0.15.2
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+There is no need to request a single reset by index.
+Use devm_reset_control_get_exclusive() to request the first and only
+reset.
 
-nvmet_execute_identify_ns_zns() jumps to done when nvmet_req_find_ns()
-fails, and that label overwrites status with a successful copy of the
-zeroed identify data.  An Identify with CNS 05h and CSI 02h for a
-missing NSID therefore completes with SUCCESS and zeroed data instead
-of Invalid Namespace.
+According to the device tree binding document, the PHY reset should be
+specified as first reset, with the name "torrent_reset". All in-tree
+device trees specify this correctly, but there may be a backwards
+compatibility reason for leaving the name unspecified in the driver.
 
-Return the lookup error instead.
-
-Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
 ---
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the loop transport
-and CONFIG_BLK_DEV_ZONED.
+ drivers/phy/cadence/phy-cadence-torrent.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-An Identify with CNS 05h and CSI 02h for a namespace that does not
-exist (NSID 100) completes successfully and returns a zeroed structure:
+diff --git a/drivers/phy/cadence/phy-cadence-torrent.c b/drivers/phy/cadence/phy-cadence-torrent.c
+index d446a0f97688..4a021a0838db 100644
+--- a/drivers/phy/cadence/phy-cadence-torrent.c
++++ b/drivers/phy/cadence/phy-cadence-torrent.c
+@@ -2790,7 +2790,7 @@ static int cdns_torrent_of_get_reset(struct cdns_torrent_phy *cdns_phy)
+ {
+ 	struct device *dev = cdns_phy->dev;
+ 
+-	cdns_phy->phy_rst = devm_reset_control_get_exclusive_by_index(dev, 0);
++	cdns_phy->phy_rst = devm_reset_control_get_exclusive(dev, NULL);
+ 	if (IS_ERR(cdns_phy->phy_rst)) {
+ 		dev_err(dev, "%s: failed to get reset\n",
+ 			dev->of_node->full_name);
 
-  unpatched                            patched
-  ret=0, all 4096 bytes zero           ret=24587 (Invalid Namespace)
+-- 
+2.47.3
 
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 92f5c1435582..cea05b4bc740 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -108,7 +108,7 @@ void nvmet_execute_identify_ns_zns(struct nvmet_req *req)
- 
- 	status = nvmet_req_find_ns(req);
- 	if (status)
--		goto done;
-+		goto out;
- 
- 	if (nvmet_ns_revalidate(req->ns)) {
- 		mutex_lock(&req->ns->subsys->lock);
-@@ -140,7 +140,6 @@ void nvmet_execute_identify_ns_zns(struct nvmet_req *req)
- 		mar--;
- 	id_zns->mar = cpu_to_le32(mar);
- 
--done:
- 	status = nvmet_copy_to_sgl(req, 0, id_zns, sizeof(*id_zns));
- out:
- 	kfree(id_zns);
