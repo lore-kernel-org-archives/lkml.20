@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950427;
-	b=0VGJgOHE7avaM7PxT1eetkwRllRBeKp1bHn1d9ozSK58yp/30TPfA7ObHlOXbUJdoiTA
-	 /jo3qc3cJjunEZiQ16EshP3UPUaWu1W/MRG3zv53SWvpuDTtLbdQxrH/KR/RhMWF7CQxi
-	 71TDu0QPF7TuFKPBcI3uebsdgfaJvEXt/lwkq14heoGQmuB66hLl29mN2OT3UidRKMF6k
-	 9kjsMWZZPMwWFR73w5eC4oxfRpxG5kBuGeMt8vyOlKPiHzkR7M4zkYITWT0f0QXowWdxp
-	 oc3s3SBt4y7aHfblf15FX4RsL7tYao6lQgoWXAo2ikQcD+PjxAJl9KJSKrysLZl8GXA==
+	t=1793950515;
+	b=QHf+15TW8/4IbTLje8DK6e5RsJj+/RT6OQkjMg8OLdo9KHSH8jr5tOx1nGpHElkQsSnt
+	 KCsFk5GaicjsxebGGGPIMjAvmL5gBDAzXAAHQwGY1ZOJKCgM+7sSGdRCwU9dds/ejfcuI
+	 6oxtTdpf2dL0NlY3s3R1/pRQY/iMpjtEgQS4c2TSALTU9ZDdlZBgbv9IbymCu4fu4f2FC
+	 dUOr7BbG18P5gtEMA6ArAhVkbalXah7ESZ2LVq9z7rwdos7ZH4Q06uViAfiFRrxNA9Nh/
+	 vLrdTO7HccNgfVVL1IyFluPgtJaowhDOdzVQGJt/WlaSFJSqkTm2C1v0NAnC/U3KcUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950427;
-	h=DMARC-Filter:Date:X-Lima-ML-UUID:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950515;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=rKxzvGAlPRe95V0pVMlRztyt1v5h62ch9oQN2DY4Clc=;
-	b=YMmhkC4gkX2CVzQ6ZPxlVbk7Kiv+2J3ZpBVjyallU02u8hUADT05Fiz3vQO5Gj73tp2Q
-	 jpLjwBhNywsvk2cEzHRdJrQS2FKYrOSF/m1K9ih4Uec3A4WrYNhkriuSPaKKWPPoFwHBm
-	 6jmsqgKI1yZP01m8Az/DylPi7AKBu4zF57lDxouUB0bwi9w+9gOM+hJxAk8NdhrM6INYT
-	 3SCfqXctfa5r4kCK09FTGkWlql9XDUySm+crBp4ZYw2bKQM7I6df2z0BH5CBbww6pGFne
-	 9zdgTPu4hKjgjJ2BXfkpz3x23vF5DNbF2YCSZncMRXODLWLgBGNLe6Caa6OV1yq851w==
+	bh=j6no1/Vpu6L+r0wRbefNhL88soVjvlfqiBGBjbBAWNo=;
+	b=nc9fewa1ZciSnxjQN2MOMCpJdr0Z/ZMXM26YB0l6AA9Zq5QP1jg6aVMehez66X69C8yK
+	 KG3QuNOTyS3qqJfzlgXJLRal9Ys+hLfApKZUOQthnsg2/PR7WIzSfQ6QTjD6PqxaxMfPR
+	 PdCVaP97fCRfpyka3IxO7wXR3Tgqak4tRr56Qsf7HNEWCpQeI/A9lZPdPCK3G6XF132vI
+	 GZ6I39s3adLrsff4wBlKSpbw82w9gChyqzusRZCv2sFL3dTNHqIWEPiiq/bj/xDiLqG2G
+	 zG+x71YBIfHwrXouodl9I36cKXD/1BLruLLkE5absiXDUvyAR94PNDrY8JjJZjuvVhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=r3862YK+;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SzSeg54+;
+	arc=none smtp.remote-ip=95.215.58.7
+Received: from mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7E8606A328;
-	Fri,  6 Nov 2026 07:33:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F7E8606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84EE606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:35:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A84EE606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=r3862YK+
-Date: Fri, 6 Nov 2026 08:33:39 +0100
-X-Lima-ML-UUID: efbc4d95-1bba-426c-9435-09581e33fd37
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1793950424;
-	bh=rKxzvGAlPRe95V0pVMlRztyt1v5h62ch9oQN2DY4Clc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=r3862YK+9lpiv6qXkmsupUVvoPmKKTuMSkwmoXBtEt1J2UDdsTGZQxuZaWt7uV1Z6
-	 aVB3DRULdeJM38mX2EwLQ4byQeH3TFmfP4nVeTiduKUE2ty+lAw1MG2XPWjgduG55v
-	 c2izJpRl2HNikrx/vcy6cU1U3ApgLRU5fUxW+FVFsf9kEvMG5xyDtP9n6UlzzXbt9b
-	 ygBAx8VYgcCEBKBs5OwV51TyDPv+haXs0MzCeyu7afPXUc7njU+bZxE5ond6DiVxO9
-	 0nm5Ef2v4Qry4tTJ5GfxccylX5PaZJceG7Uawu266B74Ln0S/aHn4nPae3u8hhhrnj
-	 V07HqlsjLQ3CA==
-From: =?UTF-8?B?QW5kcsOp?= Eikmeyer <dev@deq.rocks>
-To: Myria Sarvay <myrialsarvay@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- sven@kernel.org, j@jannau.net, neal@gompa.dev, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Yossef Osman
- <Yossef.Osman@proton.me>, Aditya Garg <aditya.garg@linux.dev>
-Subject: Re: [PATCH v2 1/2] Bluetooth: btbcm: raise ACL priority on Apple
- Broadcom controllers
-Message-ID: <20261106083339.677cc75d@kait2en-mbp15-1>
-In-Reply-To: <au1uH6uxtsw2vHfP@macbookair>
-References: <20261105085750.120392-1-dev@deq.rocks>
-	<20261105085750.120392-2-dev@deq.rocks>
-	<au1uH6uxtsw2vHfP@macbookair>
-Organization: KaiT2en
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SzSeg54+
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HiRolt3GBwHkqyoypDw0ynRAMEkeBRNLheBJrN0mHK0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793950513; v=1; x=1794555313;
+ b=SzSeg54+ZiDUxfoL1ZFqM+zpY0y53B6afShKeqsd4RNpbJiG5Ve7Id7Q4zDsprcLkZmUN/z9
+ vNBoI9X3jwGIldQixsF69AOvsxOSclsvNW4u95L5JHroh7bYr9tr7j4ht3Jel2w4EgDWYaLH2xf
+ LvSzRhPbLCL5KZcTwg9w8iIk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9d770d7a1c0543d0;
+	Fri, 06 Nov 2026 07:35:11 +0000
+X-Mizu-Trace-ID: 9d770d7a1c0543d0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7b661a26-70b5-47fd-af58-19e110c4b950@linux.dev>
+Date: Fri, 6 Nov 2026 15:35:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,27 +58,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] cgroup/cpuset: Release isolated CPUs when the
+ parent is invalid
+To: Ridong Chen <ridong.chen@linux.dev>, longman@redhat.com, tj@kernel.org
+Cc: hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261105130344.664336-1-guopeng.zhang@linux.dev>
+ <20261105130344.664336-4-guopeng.zhang@linux.dev>
+ <41a6de2b-e7eb-4574-a698-b4ff8af316fa@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <41a6de2b-e7eb-4574-a698-b4ff8af316fa@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 6 Nov 2026 17:05:19 +1100
-Myria Sarvay <myrialsarvay@gmail.com> wrote:
 
-> Just wanted to point it out, if you hadn't seen it before, that Sasha
-> has in the past sent a different patch [1] to run these priority
-> commands. They seem to take a different approach to when to enable/run
-> them. Wasn't sure if one was better or worse though.
 
-Hi Myria,
+在 2026/11/6 12:35, Ridong Chen 写道:
+> 
+> 
+> On 11/5/2026 9:03 PM, Guopeng Zhang wrote:
+>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>
+>> An isolated partition can be invalidated after its parent has already
+>> become invalid. update_parent_effective_cpumask() then skips returning
+>> CPUs to the parent, but also skips removing them from isolated_cpus.
+>> The invalid child continues to isolate CPUs that no longer belong to
+>> any valid isolated partition.
+>>
+>> For example, on a 32-CPU system with all CPUs online and without
+>> isolcpus= or nohz_full= boot parameters:
+>>
+>>    cd /sys/fs/cgroup
+>>    echo +cpuset > cgroup.subtree_control
+>>    mkdir A
+>>    echo 0,2-31 > A/cpuset.cpus
+>>    echo root > A/cpuset.cpus.partition
+>>    echo +cpuset > A/cgroup.subtree_control
+>>    mkdir A/B
+>>    echo 2-3 > A/B/cpuset.cpus
+>>    echo isolated > A/B/cpuset.cpus.partition
+>>    cat cpuset.cpus.isolated
+>>    2-3
+>>    echo 0 > /sys/devices/system/cpu/cpu1/online
+>>    cat A/B/cpuset.cpus.partition
+>>    isolated invalid
+>>    cat cpuset.cpus.isolated
+>>    2-3
+>>
+>> Release the invalidated child's isolated CPUs when its parent is no
+>> longer a valid partition. Use isolated_cpus_release() to preserve CPUs
+>> still covered by a valid isolated ancestor and by boot isolation.
+>>
+>> After this fix, cpuset.cpus.isolated is empty for this reproducer.
+>>
+>> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>> ---
+>>   kernel/cgroup/cpuset.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>> index fc5454c2740f..f3b808cea51c 100644
+>> --- a/kernel/cgroup/cpuset.c
+>> +++ b/kernel/cgroup/cpuset.c
+>> @@ -1976,10 +1976,15 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>           /*
+>>            * Make the current partition invalid.
+>>            */
+>> -        if (is_partition_valid(parent))
+>> +        if (is_partition_valid(parent)) {
+>>               adding = cpumask_and(tmp->addmask,
+>>                            cs->effective_xcpus,
+>>                            parent->effective_xcpus);
+>> +        } else if (old_prs == PRS_ISOLATED) {
+>> +            /* No valid parent will release these isolated CPUs. */
+>> +            cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>> +            isolated_cpus_release(cs, tmp->addmask);
+>> +        }
+>>           if (old_prs > 0)
+>>               new_prs = -old_prs;
+>>   
+> 
+> Hi Guopeng,
+> 
+> Thanks for the fix. Could you try this patch to see if it fixes the
+> issue?
+> 
+> https://lore.kernel.org/cgroups/20261105125215.2205892-4-ridong.chen@linux.dev/T/#u
+> 
 
-thanks, indeed I hadn't seen it. Sasha's approach is the better one
-IMO, it only raises the links that carry audio. The dropouts I measured
-are on the BCM4364 of the MacBookPro15,1 and 16,x behind hci_bcm, which
-only needs hci_set_brcm_capable() on Apple machines on top of Sasha's
-patch.
+Yes, I took another look at the code and tested your patch. It fixes the issue, so I'll drop mine in v3.
 
-Luiz, let me tinker. I'll drop 1/2 and send the hci_bcm part on top of
-Sasha's patch once I've tested. Then we should have it nice and
-consistent.
+> I'm concerned about whether the related issue has been fixed in all
+> the places that need fixing. In your reproducer, CPUs 2-3 are already
+> wrong when A becomes invalid: partition_xcpus_del() only updates
+> isolated_cpus when the old state differs from the parent's state, so
+> the CPUs that A gave back but had distributed to the isolated child B
+> are left in isolated_cpus. This patch only cleans them up later, when
+> B is invalidated with an invalid parent. Other paths that give back
+> CPUs of an isolated descendant may have the same problem.
+> 
 
-Andre
+Haha, good point! I missed that again.
+
+Thanks,
+Guopeng
+> My patch makes partition_xcpus_del() always set the isolation state of
+> the given back CPUs, including those of the descendants, to the state
+> of the parent that receives them. With it, isolated_cpus_release()
+> should no longer be needed.
+> 
+> It would also be good to add your reproducer to test_cpuset_prs.sh.
+> It can be expressed with O1=0 in the test matrix.
+> 
+
