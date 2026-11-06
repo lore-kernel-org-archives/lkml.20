@@ -1,54 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930768;
-	b=Udko0WJLEwHQQzr6MzYI557XeaMDftXl1raF6aO0gbRHz6jFfYUIuDD0ILk61J8faPsF
-	 /QujhQBlP1axEn3+TVf9m31pnOLBrh1XaSlcV2q/rvQWvZUCOxwQru0Br12FJQlDZk6/r
-	 MQg5ZaReB83GK4IkP6LXvhswCMuUaI8M/5H2Bqi+y+zF1YdIR4qBJIVIacElwVkE/szmH
-	 CVeSZ9NH1+ijmmTbJaKs9maj5dH9BHHb2bzwPQrH/cSzCseZyFUQwrfgZD98ujyON7YB5
-	 IRpKROoSnOiwj91hER8MKOij8lEs+q05LIeGwpd0YWh0krjWJ7OzviP/CkbFjPksW+g==
+	t=1793930769;
+	b=mavlSJpEdJiqxVaLPYNRtv3nnLlQB7WB28PgWvdOGi7YPAG05Wt2mkTAzrL9GQaoUlHF
+	 xxucdzLX6K3jsZqwqN0r7YIC1WAGkxLFQP/4ORjrx4DbAk6iNca2WNGoZOwf5IGH+qn1R
+	 BIbZ1k1e+TqgqB47/XkNeVxOI2m5Y2q75QfL4BzwHUkYHbIW1D8JKRbS8rfk+w+mDWVkw
+	 yNM9TOMnC4O5e3508em+zG1SZIlgXtK9byiCZS9ZcEXu6x4sWxiRWNfDYtWhcn16n6hpc
+	 ZHSRK6TWiV2ED1k0Z8czqQGM6qCLlrMZLLSwlzolKM++zzUIO9JxfpV/q1BdluX1AQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930769;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JU/kEulr0sCfPlgQi9t7wGxnFtKUBD8hcPHbhMmyvTo=;
-	b=SAiNInA1GkNy1b7cmSr4Yg5RscAh9GZB5wOCclvwA9jbvSScWJKted+K6YoGou8RutkL
-	 laHooU6veJd/xKYQlYCkXkksxMc84daVqJU4vvKkMg9+BDOCt9lqmwYMhUjSb7igCsYXh
-	 dncP/eympR9KqYQY3bHYO47bVDLkAhFPa3xMoCU6ISRHvoIU79LFuM+/68hxYcXufinIo
-	 o8vJ7erbUA6DwBpW/4kNOdI6TjXINPxPfAH8xpD0RfBYoeRrsMVKSeSdqPBm4lTaTLX8Z
-	 94ZElTSrwyIDUiP3zzlOZQQIJFKn8iOfj5zNqyFeoyRJ7CX7TY7V1SpPXY00rvhwNMA==
+	bh=0n/wDrzFbORfw6YzEg6DroNWO8MgvFUslfYGWlwdzxI=;
+	b=Lk7yIpHzPiv31/jROUg4YLoH1FAO6oQMngZDOm/iFHS6aMEpS8sIopJOQVL16a78VeST
+	 nwGC++cBmE6Krija/IQVlilSqQ+KatuTv7PIcRsJCjJfmBbuBIosoUx7N2Dz+5WouBEQ0
+	 1inqxUXDxg/lsQczrOOM1crSTgYn297BMCosNqSQKGWyc4U02Z5ipdpjWJhYN6wbBHMzo
+	 d6H5rJwAGTv5QRKqppgYc/ExuqWw/Dimipx6to38hrzcVBL1i5VXrQ1Mwzhz+X9DZcV1a
+	 /UwZppkkrUOjTXwx0C9I+OkJYYB5QtBhRmdgo42zK54bwdhnf3T216jAg6K3lzZoW+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYXRShHc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tphx6Tfi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBD5606A328;
-	Fri,  6 Nov 2026 02:06:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC04F606A33E;
+	Fri,  6 Nov 2026 02:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYXRShHc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A191F008A3;
-	Fri,  6 Nov 2026 02:06:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tphx6Tfi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2711F008A1;
+	Fri,  6 Nov 2026 02:06:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793930767;
-	bh=JU/kEulr0sCfPlgQi9t7wGxnFtKUBD8hcPHbhMmyvTo=;
+	s=k20260515; t=1793930768;
+	bh=0n/wDrzFbORfw6YzEg6DroNWO8MgvFUslfYGWlwdzxI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IYXRShHcXsbYaO0cZRrtcV7bQEp07dVMcV5AHu8xHpmHI7Sn4sKEv3CrQoHEDTpNO
-	 AZotsx3lhmFGBIua6I/LILHRLT4tBBBYljA/oYz1hwD5lMetrGbdsk0H45fVGc2SBW
-	 Dpy99ebFeB+E6KY9Q4ihu8FIRXyw3uhr25fHIEIqsyWb9pjTA37hT3UxXst3fZ/UdH
-	 ErHvpMmy2WyE38c40ruQDGM/ykpfqc1/2eSqewvF5oiQet+6rhp2RJfnjAmHJEnik7
-	 L1i1dNeYCiWWqa3irkm6pzHndH0rRVYP9vPIePcBT+eFACJs81sVW1u/OD57ipui4Q
-	 ecWH3504Vb5GA==
+	b=Tphx6Tfik8E4UtEnOk8Clt/iHUWlHE6k1PWmjL4eJTrPCPcxUwl5+3udkaPcNrUaV
+	 3/z9ygt75kQexmfFkoR79CmuIg78I8JbA3mUF9OBg7TCq3NK+BdukJSyeenTWcJd0i
+	 H4Z6L5acwe0egZDICo87IHlxCzsuIWcffoLi/GrVvoK9BwcVhfHRwzQGXOYZhedKQg
+	 ptMN9VhvdzR+RzuMfCDNoqAgjSjnNW4ig5xRWF7eLHQaye/ax+itiZfHjT/o6PL7BQ
+	 LYuErvG7amcFnH+i6tcKiMK4A1uyRZQb0h2FJTDRL/RrJosMEo2Y8Qfw67Xks8bGQ9
+	 7IfNSHH0Qo95A==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
 	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	Aveline Noir <jm5905938@gmail.com>
-Subject: [PATCH 2/4] mm/damon/sysfs-schemes: support DAMOS_FILTER_TYPE_AGE_MS
-Date: Thu,  5 Nov 2026 18:05:56 -0800
-Message-ID: <20261106020559.98352-3-sj@kernel.org>
+Subject: [PATCH 4/4] Docs/admin-guide/mm/damon/usage: update for age_ms damos core filter
+Date: Thu,  5 Nov 2026 18:05:58 -0800
+Message-ID: <20261106020559.98352-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261106020559.98352-1-sj@kernel.org>
 References: <20261106020559.98352-1-sj@kernel.org>
@@ -63,40 +67,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Support use of DAMOS_FILTER_TYPE_AGE_MS via DAMON sysfs ABI.  Add a user
-keyword "age_ms" for configuring a filter of the type using the existing
-filter configuration interface.  Reuse existing 'min' and 'max' sysfs
-files in the filter configuration directory for storing the age range in
-milliseconds.
+Update DAMON usage document for the newly added age_ms DAMOS core filter
+type.  Add an explanation of how the age range for the filter can be
+specified by the user.
 
 Reviewed-by: Aveline Noir <jm5905938@gmail.com>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ Documentation/admin-guide/mm/damon/usage.rst | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 637f1bd0c950b..230987efac3ac 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -593,6 +593,10 @@ damos_sysfs_filter_type_names[] = {
- 		.type = DAMOS_FILTER_TYPE_PROBE_HITS_WSUM,
- 		.name = "probe_hits_wsum",
- 	},
-+	{
-+		.type = DAMOS_FILTER_TYPE_AGE_MS,
-+		.name = "age_ms",
-+	},
- };
+diff --git a/Documentation/admin-guide/mm/damon/usage.rst b/Documentation/admin-guide/mm/damon/usage.rst
+index cc7465251bb6f..6093b1c8fbfd9 100644
+--- a/Documentation/admin-guide/mm/damon/usage.rst
++++ b/Documentation/admin-guide/mm/damon/usage.rst
+@@ -559,6 +559,9 @@ For ``probe_hits_wsum`` type, you can specify the minimum and maximum probe
+ hits weighted sum value for the filter to ``min`` and ``max`` files,
+ respectively.
  
- static ssize_t type_show(struct kobject *kobj,
-@@ -2875,6 +2879,7 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 			filter->sz_range.max = sysfs_filter->range_max;
- 			break;
- 		case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-+		case DAMOS_FILTER_TYPE_AGE_MS:
- 			filter->range_min = sysfs_filter->range_min;
- 			filter->range_max = sysfs_filter->range_max;
- 			break;
++For ``age_ms`` type, you can specify the minimum and maximum age in
++milliseconds for the filter to ``min`` and ``max`` files, respectively.
++
+ For ``memcg`` type, you can specify the memory cgroup of the interest by
+ writing the path of the memory cgroup from the cgroups mount point to
+ ``memcg_path`` file.  For ``addr`` type, you can specify the start and end
 -- 
 2.47.3
