@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793998337;
-	b=OQv149DIAsRABxlNll4hUdoK2QT6id7KJFGFtR3ZCw6x1ladi+94gOPDD/Udg9lkIDlU
-	 NUrnsaRWe2yl7KTXFyC35agbzNrN7xSw3/ThcH9x/Ng+8NBi7tQO6+VrSsefHiYEn7y6m
-	 DzRCN1u7MtQKDF9KQGwu54w4+GgMvg8Xkiekap3vZ/qKJ8o+9LUIf20dO9SNurMfDBxrl
-	 weBFn1lZQz98J4evitG0HyKTbmSx9Y7S4ajJ9h8AqiZQYPM75Ds5QaoC1+hZNVOZzzN1R
-	 eb2+7Cwltskqy+lJVyWZUcciuhA/yfwkOsgw+tnOfNH5QGk95A2sg24nyJdvWTaiSxw==
+	t=1793998338;
+	b=C871fcCAZIfi7A46zSsh9KeKivHCDs1QC6DZdf8MvHo4UxjW1oT/tNLyLUeQCxMWyr+M
+	 Ks9kan6tZEJvx2/gPzaxH463DUcO9WYvFzHbRIjSM7snrI/BFksNNC4+NaBF6JKpCLaYF
+	 2Lkqtiudlg07nDDaRFQEaGSVi996pzY/FGQHt08qis0Q8ba4laMorxOFizr7tFMRDs/Pk
+	 DWHKwZ2FBU77igPq/0IFQsNLaCLq1RpQzn9NpKkIGGRcNef4GDd8/N034nVuwvn4ww4PN
+	 6YkLqCoCp+2kkUKftSpT5LazJIFj2einPBvz//5Z1npRLl/z0hnSefLS//k1DP7x9iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793998337;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998338;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=BSQmYSj7ASxOoDycCnlWcf5b/d2VgwavVPobGw9DT/I=;
-	b=PFPqGMulKHQRgksmPebWf104HPlBJKuwUBFdCcYtwEE7saP6DXVurBVa9qD9uw9z3JSl
-	 aLB3sbkkR8jkACW52p9FEkc07FhLq35Rzr6mijA35HtrLNqWoqEOVBxmAFmFhBRtUVvlF
-	 OC2V4ePGUcjb0UFj0NeZrq1GN94Fb+l/9nl7XasUcqCHKqqPFOWJElDS5WBD7/Sr6kvWo
-	 WPgupRy3XNdsxzGatnJLvsYOhcbHESytcMxzw1Zaw21NhLI09yjc0zM9wYHs35p1QHndQ
-	 9LfBsgqIh0oF/v66c5/0aRAIS1hyyuR/oMezqNuP/PMnx85k4yd0HWpyEV/Ec0tSHLQ==
+	bh=Vv1IExS2I935n9pBlgYspHhjFGtUkBZ9r8CEJg3UIms=;
+	b=F8/x/bFnJGGe4spHhDazorB8HhuP82fbhw9U/dbgRvYnwlmkd28lqmSZ61dMxMT5QYEb
+	 0AGynUP5Ow6thZXwuXZFVeTx1ImBUNWHgIk4QSv0XsPvcAuasuL07eZH48tkd3IUSYbMh
+	 UFGPqSWZBjjMiN5y5O0uekBMrcJP/9S8sh9chrLnyX0aPPSfSjKDIDUTn+pxpdsPSm14K
+	 +XkSGcZquzaDMyYVaM39x67NUhHX2cggfV3/llSFkJMObU7b/ZKZCSkKkmxRYSv5xph3a
+	 VmPoGPSY7CwksBynCoS407jIMORvck+Ond+lPrVZzlaUVLeqxyic+As+26MwNthfouA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r0o5Fivu;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fgUIY9+B;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E65606EEB1
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:52:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1E65606EEB1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE676082BC5
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 20:52:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCE676082BC5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r0o5Fivu
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a208d93758so11231225e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:52:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fgUIY9+B
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so211715e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 12:52:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793998335; x=1794603135; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793998336; x=1794603136; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BSQmYSj7ASxOoDycCnlWcf5b/d2VgwavVPobGw9DT/I=;
-        b=r0o5FivuOBbRNSBaLuN+M5IlG8cmSnTkuKxppCmc5tyXsxaRalK2kJmwnDSAVr0NRp
-         KKRTPcJZ30LMsbkFyKq9Q5vuYCyalMIoSUI02XsbZpSPYbjlSWxCvdJuCfQSsnARYKP1
-         j5+h3XmgT5OU9IthA+qWsy3JfXm0SUdFcEvASUsb2wwgsSW170MVRlisA0X8qyEfIR4J
-         DkdWK7kjptQi3cSySnyl437h8M2JrhC6W9bVJzD+HbwxmHPaUANpFlLxnRqrLGL7rwVF
-         XFqxaa0/l3p1CXYllaMBYIwl5N6ARDkcSH/4Oxs0wuAskM3f4b+kaZRnNYgpruLO+fOz
-         iugw==
+        bh=Vv1IExS2I935n9pBlgYspHhjFGtUkBZ9r8CEJg3UIms=;
+        b=fgUIY9+B5lAK57Op/dDKd1d7PVapAOA9K2gT2X5qVUVOEWAuXLXE5vsCiVVuroFUs+
+         d27F7fic9fg9HuB3kdy/dyCTUuUfB4N7+03mLGO6LVTU2uSE1zoBdGBamxedYvCPGmbc
+         GTNeUqYnorfV2x6AqlFAX//dcg6+fnkARXptcSxaKgxVARtQ7Ejl06y4AuemZOcQSyH1
+         zETBgn4HpjH0ck3mRMYaMhOKkVF6ce3LHXh6IMTCv8WRwGqTqDQvyP62DMnniwYzlN3N
+         kcyudc9A0BeSgGDeg9mbawPfJ0S8xohAQgG3m/pVRZTJ/M2+8k3qeIxpGhd+EKf+Lnow
+         iWLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793998335; x=1794603135;
+        d=1e100.net; s=20260707; t=1793998336; x=1794603136;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BSQmYSj7ASxOoDycCnlWcf5b/d2VgwavVPobGw9DT/I=;
-        b=PIOkYpl2rJabwKJ8E0/h7ECrWaEbWx0Gld/JcTV+sOVE9LoM8nkEFkohiXQiw8JMVH
-         mevX4lw3mRjWwcedwCRGnKIrID6ROzlNEcR3nwGjtZvfii9fw2EJLoxZrcWcOMgAsANt
-         cnqpcSsu85p/WG7Yby/DvNGwLYMhFbSSkL+BEonTISbdCogqrwEASSpwXOYskZlo7QH7
-         sU5PN5AHV66WyEtCDciumki65WlkHRKu2YkPXI+xyeJRK0n8UE28ZXC5SzqRu1sZ2QL2
-         9Lf7oBofwsIynO8ZCFu7uOj8hwIGtNPKgYaWmj5WFiIKosMeQH+yJT7+j/x9wjU/LPjI
-         luNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwylaan2zJg97LV0+ZhqlUl73yJD27w9wJy/xDosFV1BREVCrST0c6MnMEzLWy0Q45JS2B0ZRwChkY3oVs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uwUcABQCupbbb9k26edPo/JCNuDCzn7Cv0AJU5XN4FpgZCFbE
-	hYpqFhYKpAYOlUJAVkHUFX5wYYRqb2tV47V2Ow2IkSFIyKod+KJl/NaG
-X-Gm-Gg: AYBFou1PLUYetFIGjPrAdejyI5EVa8YEs/qynbQcFes4IQYCovx7I3PPktS5E4Es4Yv
-	lfxU/dCxky+6pU/rJZeJddYlfG/JvSRF9DJk1lMSNgRkWYSXtylXW1xFG95ATfsszEiN24GfLgP
-	XB969fus60P6sXxhfBXMcn58bKybCkfsi69DNDOea39G+TPw5zRhoN17qwyu71pFOgNMO5ZkSrD
-	vBHCajpV/MbESjNrkQQiIKMHT1/h3JmmTkJTe/gYifOG/6Sjnav0XSQWVIRS9vDl9LL9H9F2kG9
-	rOjhH1DFHuhm6003ZLZ3CVp8IGXkIbn6ZpSxTkoPGhXGIF3wp6uzRVIEfMatbL14OjBPe/myK14
-	KkpPHcQcb89nPCXe+NUOc8kZE3oiOnNSEG2bTJKLXVKpKAuYJDNmKKeVUyaaCFCnOecZlwR6a5T
-	WOJHZtni17VYq9mhwf8ZIcnLCgWTLOQRDIhcBosm1UA/33nqSpV8R1b/3S+pubyiJtyK7Pz8gXE
-	qQgHH3GtZPW4Oy7LNFfDEzUyhARXRPHxEOaaeMhPKAeR+RFgQQ55mAspO0ijBK+02+ZKqkG90iw
-	NCZr096XFNe7e0JfylTl64lRFsXWbuthVxdpD44PHaEBHIg=
-X-Received: by 2002:a05:600c:3e8d:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4b6df5eaac6mr63442635e9.18.1793998335216;
-        Fri, 06 Nov 2026 12:52:15 -0800 (PST)
+        bh=Vv1IExS2I935n9pBlgYspHhjFGtUkBZ9r8CEJg3UIms=;
+        b=rxfwlOrfVKBMKD8Bj3qw/lkdu8U6zvg33TJDaerS45Nhf65czAY1gTDg7LripbVZFW
+         hijTT6la3uF8nZGW9SwDFSy7leW9GXXP+GdKIkA1Z+KJDMLSSM/LJyilomMQMlSDwgSO
+         mbM7rr4b8icQB9Polr3vnhcD4/e+onugEADaJHV9/Wa7II2vWPevqnGlWXyQGysUsIj3
+         l29OKPYW02Iv3eoP3JrAO7ap6KTFT4/7Gabh8KjWvXBaSkENYxiNhZg7PuUDyZiMZsnI
+         WLTVuoVYj4U0fqIywgk5dN4k3m7S4TXun/kP+x9GNlstC710ROF7D4TPQhiS9Cj0ayez
+         5ASA==
+X-Forwarded-Encrypted: i=1; AKwUvBzipEwVXv4qHNzazh99EjnGJQ1ySK2AdXkTnphBtqhhfTqBkuLOVkjED9ISVws0Ei+O5pvp/Xx5rw0K8mc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Yk3BIzvsgEjv7UXSU1BWCT8EUejg+L/00eDnEulHwMTJamn9t
+	sbTASQVM7VIsWXTHrCbaY81zqsZHxBxAv+mX13x7JgUOPEusscDwY5Cs
+X-Gm-Gg: AYBFou1Zm+j8PUJbK9B0SrG1xT5ZK0O7W9XUsMf0tbYBgpjZT7CrsmhD1o6wiAHpRJQ
+	1JJi6Y4hlTg8KHuzJhutlrWaTqGYX0OBPuiftLvgd9y4FLGRfGKbQz5wF6zwqoPMjui40Tqe3dA
+	UOmP0uBRNIxh1qNBBlFFs/wdERvJvl4BemC4E6zwEmQ8haljq8omRqC7ck9/nKe1ZMEnCoMUmKi
+	CUD4dzFAVXUfhJhC5AhePz8ENGbb+aF4tjNrYwLeLypJddXX5S/0L1Y7qtUYc779ztejKH17EeJ
+	3Cc0vJakV/T9MFm2WHL0Ad78KXgiRYDrb5UMMOab6ptl36h3rPrAm79725Xh6G69p4ny1KPuNX6
+	zoD1C+a+B/AvOGYH5Lgk1CK73jDOUbusATXdg4zPRW3rzFCglqypm74WBKD5U0t8HOPxtK6T/xb
+	WgQIJuwtbXT8Msly2+vT1r37YbspnWkNHeqMVQw2iNKX2uMxWNRuyy6fTa9w/DI/DQmg9xmRNKs
+	GAn6NP1VuEGTlIE8l4rD0BYqm5cflf3VtuopZedGjL/whcDzsO8cRTCVSDcJ3Vpowzpdjd7cPRg
+	A1He7IMo3u93ZWdlvBvZsnfW1qnAep0ap/s/PT+J06l4878=
+X-Received: by 2002:a05:600c:8b8c:b0:4b2:4b5e:8141 with SMTP id 5b1f17b1804b1-4b8190faf23mr2512415e9.9.1793998336255;
+        Fri, 06 Nov 2026 12:52:16 -0800 (PST)
 Received: from localhost.localdomain ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62edb4sm9075425e9.1.2026.11.06.12.52.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62edb4sm9075425e9.1.2026.11.06.12.52.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:52:14 -0800 (PST)
+        Fri, 06 Nov 2026 12:52:15 -0800 (PST)
 From: Anton Protopopov <a.s.protopopov@gmail.com>
 To: Alexei Starovoitov <ast@kernel.org>,
 	Daniel Borkmann <daniel@iogearbox.net>,
@@ -97,9 +97,9 @@ To: Alexei Starovoitov <ast@kernel.org>,
 	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Anton Protopopov <a.s.protopopov@gmail.com>
-Subject: [PATCH v1 bpf-next 13/18] bpf: Check the return values of fmod_ret programs on found targets
-Date: Fri,  6 Nov 2026 21:03:02 +0000
-Message-ID: <20261106210314.1767267-13-a.s.protopopov@gmail.com>
+Subject: [PATCH v1 bpf-next 14/18] bpf: Require the JIT for fmod_ret programs on found 64-bit targets
+Date: Fri,  6 Nov 2026 21:03:03 +0000
+Message-ID: <20261106210314.1767267-14-a.s.protopopov@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: 20261106205523.1765622-1-a.s.protopopov@gmail.com
 References: <20261106210314.1767267-1-a.s.protopopov@gmail.com>
@@ -114,254 +114,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A later patch lets resolve_btfids make the functions found by bpf_scan_ir
-fmod_ret targets. Each of them gets a "bpf_fmodret_retval:" decl tag with
-the values it returns on paths without side effects, for example
-"bpf_fmodret_retval:-22,-12". Returning such a value instead of calling
-the function looks to the callers like a real failure.
+The interpreter returns only the low 32 bits of the return value of a
+program, while the trampoline passes all 64 bits to the caller of the
+function. If an fmod_ret program on a found target which returns long
+is interpreted, then a valid return value like -14 reaches the caller
+as 4294967282. This value is not 0, so the function is skipped, and it
+is not an error either.
 
-Read the tag when an fmod_ret program is loaded and check at every exit
-that the program returns 0 or one of these values.
-
-A function which the static rules allow keeps today's behaviour. So do
-the functions declared in BTF_FMODRET sets, which have no such tag.
-
-Only a kernel function has such a tag, so do not look for it when the
-target is a BPF program. Remember the values in the program, and do not
-let an extension replace an fmod_ret program with restricted return
-values: it could return any value. Check this at load and when an
-extension is attached to another program later. Do not allow tail calls
-in such a program either: the program it jumps to returns for it, and a
-program array does not check the values it may return.
+Require the JIT for such programs, as for other features which the
+interpreter does not support. The caller of a function which returns int
+reads only the low 32 bits, so nothing changes for it.
 
 Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
 ---
- include/linux/bpf.h   |   6 ++
- kernel/bpf/syscall.c  |   1 +
- kernel/bpf/verifier.c | 146 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 153 insertions(+)
+ kernel/bpf/verifier.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index b011acc22c50..69387de119a6 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -1967,6 +1967,12 @@ struct bpf_prog_aux {
- 	const struct btf_type *attach_func_proto;
- 	/* function name for valid attach_btf_id */
- 	const char *attach_func_name;
-+	/*
-+	 * The values which an fmod_ret program may return besides 0, from the
-+	 * "bpf_fmodret_retval:" tag of its target, or NULL
-+	 */
-+	s64 *fmodret_retvals;
-+	u32 fmodret_retval_cnt;
- 	struct bpf_prog **func;
- 	struct bpf_prog_aux *main_prog_aux;
- 	/* main prog: there when the prog has timed may_goto */
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 9004f2673ccf..0a78f66a1622 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -2490,6 +2490,7 @@ static void __bpf_prog_put_noref(struct bpf_prog *prog, bool deferred)
- 	module_put(prog->aux->mod);
- 	kfree(prog->aux->kfunc_tab);
- 	kfree(prog->aux->ctx_arg_info);
-+	kfree(prog->aux->fmodret_retvals);
- 	if (prog->aux->attach_btf)
- 		btf_put(prog->aux->attach_btf);
- 
 diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index b7329d164771..a9da29a11963 100644
+index a9da29a11963..0448a33085fb 100644
 --- a/kernel/bpf/verifier.c
 +++ b/kernel/bpf/verifier.c
-@@ -13329,6 +13329,14 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
- 	}
+@@ -22996,6 +22996,9 @@ static int fmodret_retval_init(struct bpf_verifier_env *env, u32 btf_id,
  
- 	if (func_id == BPF_FUNC_tail_call) {
-+		/*
-+		 * The program which a tail call jumps to returns for this one,
-+		 * and a program array does not check the values it may return.
-+		 */
-+		if (env->prog->aux->fmodret_retvals) {
-+			verbose(env, "tail calls are not allowed in fmod_ret programs with restricted return values\n");
-+			return -EINVAL;
-+		}
- 		if (env->cur_state->curframe) {
- 			struct bpf_verifier_state *branch;
+ 	aux->fmodret_retvals = retvals;
+ 	aux->fmodret_retval_cnt = cnt;
++	/* The interpreter returns only 32 bits */
++	if (size == 8)
++		env->prog->jit_required = 1;
+ 	return 0;
  
-@@ -19887,6 +19895,73 @@ static bool program_returns_void(struct bpf_verifier_env *env)
- 	return false;
- }
- 
-+/*
-+ * A function which the build found by analysing its code has a
-+ * "bpf_fmodret_retval:" decl tag with the values it returns on paths without
-+ * side effects, for example "bpf_fmodret_retval:-22,-12". See the comment at
-+ * the top of tools/bpf/resolve_btfids/main.c. An fmod_ret program attached to
-+ * it may return only these values, or 0 to call the function.
-+ */
-+#define BTF_FMODRET_RETVAL_TAG "bpf_fmodret_retval:"
-+
-+/* Parse the next value of the list at *LIST and move *LIST past it */
-+static int fmodret_retval_next(const char **list, s64 *value)
-+{
-+	const char *end = strchrnul(*list, ',');
-+	size_t len = end - *list;
-+	char buf[24];
-+
-+	if (!len || len >= sizeof(buf) || (*end && !end[1]))
-+		return -EINVAL;
-+	memcpy(buf, *list, len);
-+	buf[len] = 0;
-+	*list = *end ? end + 1 : end;
-+	return kstrtos64(buf, 10, value);
-+}
-+
-+static bool fmodret_retval_allowed(const struct bpf_prog_aux *aux, u64 value)
-+{
-+	const struct btf_type *t;
-+	u32 i;
-+
-+	/* "w0 = -22" zero-extends, the caller of an int function sees -22 */
-+	t = btf_type_skip_modifiers(aux->attach_btf, aux->attach_func_proto->type, NULL);
-+	if (t->size == 4 && !upper_32_bits(value))
-+		value = (s32)value;
-+	if (!value)
-+		return true;
-+	for (i = 0; i < aux->fmodret_retval_cnt; i++) {
-+		if (aux->fmodret_retvals[i] == (s64)value)
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/* The program must return a constant: 0 or one of the values of the tag */
-+static int check_fmodret_retval(struct bpf_verifier_env *env, int regno,
-+				const char *exit_ctx, const char *reg_name)
-+{
-+	const struct bpf_prog_aux *aux = env->prog->aux;
-+	struct bpf_reg_state *reg = reg_state(env, regno);
-+	int err;
-+	u32 i;
-+
-+	if (reg->type == SCALAR_VALUE) {
-+		err = mark_chain_precision(env, regno);
-+		if (err)
-+			return err;
-+		if (tnum_is_const(reg->var_off) &&
-+		    fmodret_retval_allowed(aux, reg->var_off.value))
-+			return 0;
-+	}
-+
-+	verbose(env, "%s the register %s must be a constant, it should be 0 or one of", exit_ctx, reg_name);
-+	for (i = 0; i < aux->fmodret_retval_cnt; i++)
-+		verbose(env, "%s%lld", i ? "," : " ", aux->fmodret_retvals[i]);
-+	verbose(env, "\n");
-+	return -EINVAL;
-+}
-+
- static int check_return_code(struct bpf_verifier_env *env, int regno, const char *reg_name)
- {
- 	const char *exit_ctx = "At program exit";
-@@ -19943,6 +20018,9 @@ static int check_return_code(struct bpf_verifier_env *env, int regno, const char
- 	if (prog_type == BPF_PROG_TYPE_CGROUP_SKB && (env->prog->expected_attach_type == BPF_CGROUP_INET_EGRESS))
- 		enforce_attach_type_range = tnum_range(2, 3);
- 
-+	if (env->prog->aux->fmodret_retvals)
-+		return check_fmodret_retval(env, regno, exit_ctx, reg_name);
-+
- 	if (!return_retval_range(env, &range))
- 		return 0;
- 
-@@ -22874,6 +22952,58 @@ static int check_attach_modify_return(unsigned long addr, const char *func_name)
- 
- #endif /* CONFIG_FUNCTION_ERROR_INJECTION */
- 
-+/*
-+ * Programs attached to a function found by the analysis may return only the
-+ * values of its "bpf_fmodret_retval:" tag. A function which the static rules
-+ * allow stays unrestricted.
-+ */
-+static int fmodret_retval_init(struct bpf_verifier_env *env, u32 btf_id,
-+			       unsigned long addr, const char *tname)
-+{
-+	struct bpf_prog_aux *aux = env->prog->aux;
-+	const struct btf *btf = aux->attach_btf;
-+	const struct btf_type *t = btf_type_by_id(btf, btf_id);
-+	s64 *retvals = NULL;
-+	const char *values, *list;
-+	u32 cnt, size = 0;
-+	s64 v;
-+
-+	if (!check_attach_modify_return(addr, tname))
-+		return 0;
-+	values = btf_find_decl_tag_value(btf, t, -1, BTF_FMODRET_RETVAL_TAG);
-+	if (IS_ERR(values))
-+		return PTR_ERR(values) == -ENOENT ? 0 : PTR_ERR(values);
-+
-+	t = btf_type_by_id(btf, t->type);
-+	t = t ? btf_type_skip_modifiers(btf, t->type, NULL) : NULL;
-+	if (t && (btf_type_is_int(t) || btf_is_any_enum(t)))
-+		size = t->size;
-+	if (size != 4 && size != 8)
-+		goto invalid;
-+
-+	for (list = values, cnt = 1; *list; list++)
-+		cnt += *list == ',';
-+	retvals = kmalloc_array(cnt, sizeof(*retvals), GFP_KERNEL_ACCOUNT);
-+	if (!retvals)
-+		return -ENOMEM;
-+	for (list = values, cnt = 0; *list;) {
-+		if (fmodret_retval_next(&list, &v) || v >= 0 || (size == 4 && v < S32_MIN))
-+			goto invalid;
-+		retvals[cnt++] = v;
-+	}
-+	if (!cnt)
-+		goto invalid;
-+
-+	aux->fmodret_retvals = retvals;
-+	aux->fmodret_retval_cnt = cnt;
-+	return 0;
-+
-+invalid:
-+	kfree(retvals);
-+	verbose(env, "invalid %s%s tag of %s()\n", BTF_FMODRET_RETVAL_TAG, values, tname);
-+	return -EINVAL;
-+}
-+
- static bool is_tracing_multi_id(const struct bpf_prog *prog, u32 btf_id)
- {
- 	return is_tracing_multi(prog->expected_attach_type) && bpf_multi_func_btf_id[0] == btf_id;
-@@ -23283,6 +23413,15 @@ int bpf_check_attach_target(struct bpf_verifier_log *log,
- 			bpf_log(log, "Cannot extend fentry/fexit/fsession\n");
- 			return -EINVAL;
- 		}
-+		/*
-+		 * An extension could return any value for an fmod_ret program
-+		 * whose return values are restricted. This is also checked when
-+		 * an extension is attached to another program than at load.
-+		 */
-+		if (prog_extension && tgt_prog->aux->fmodret_retvals) {
-+			bpf_log(log, "Cannot extend an fmod_ret program with restricted return values\n");
-+			return -EINVAL;
-+		}
- 	} else {
- 		if (prog_extension) {
- 			bpf_log(log, "Cannot replace kernel functions\n");
-@@ -23662,6 +23801,13 @@ static int check_attach_btf_id(struct bpf_verifier_env *env)
- 		return -EINVAL;
- 	}
- 
-+	/* Only a kernel function has a "bpf_fmodret_retval:" tag */
-+	if (prog->expected_attach_type == BPF_MODIFY_RETURN && !tgt_prog) {
-+		ret = fmodret_retval_init(env, btf_id, tgt_info.tgt_addr, tgt_info.tgt_name);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/*
- 	 * We don't get trampoline for tracing_multi programs at this point,
- 	 * it's done when tracing_multi link is created.
+ invalid:
 -- 
 2.43.0
 
