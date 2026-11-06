@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988477;
-	b=iyKHWgmtgGSC1/srqkkxguFPRTZpA4dDAyrcACKZQCZ0K40tMiZouZlqd9KdhEPmGnD3
-	 5BrFVNGg/5YYHetOiv/bpmE8ebbbJ8kSNLR5m5+qnr6eAmytA7V6gZRIewdhY+B5R6Gcs
-	 l62RyLLVy5zn6wUeRl+i81XPFpXF4pdY4Yj5ZvBCPEh75L4+09F9+AA60c73t7cqHa9Wa
-	 O64MeCSz4p0k3AYUJeOhrJxm7+3SrkClH8SO/1CePDlzHfmpdlPZgRBsMeMIyFxJG2pFZ
-	 5H7CYXlByBUA9yfycajaLkzFf5v7AwZcDv5rNTJ0yXF3WURN42ZwGNiZ0ToBhJYi3lw==
+	t=1793988474;
+	b=dUc2AY9j62KeWTBRioSm72mrs0xy4ZSnmJ1tezelFYlwvwgO4WvN4rhapuKXqFbCb5/J
+	 3w5Dn/Lf6at8O/Bf8o/BtZdOouQ7UkLfe4UE7begkMMeN2mwVhPzx1KjvEx2OZbf7BXgj
+	 +GnQLwBSN4INibXdMZ4hjZfDWp19D5LRmdN1fM2KSez1Ag5UJfu3EEZWDE4m6N0YgDBXC
+	 gWeTyXaf/NnVf+v4VVGQ+R9HsQoVAB6aLb6SonFKtoX3ewwt5XHuvw3aCu8+Pk04Uc7Gb
+	 wU36c0LVAixr7LhyQGGGG2XcQd9iK/sftMrYnbbRNHlqsqr6k85v8hBB3UVDClysIJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988477;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988474;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=Mq52+ZwR7eTTvIHBXK4H6B5GMCr9hytQ2mtezFLcHK0=;
-	b=LJy7YdYN/PPn1ta/5pNlPQcDoAMDSG3ZW9WmaRZ01VkGQHRu5jGG9B0j14OgQUTVvm0J
-	 CdWyF4EDYnENXWV+kZdjuRnXa/2EYMiPG6xXm6/dBJeYk2WPyfRqIIEpSCiUpABwyHvJg
-	 XUTfmOYH4lQQjLqFK7rch1/HJJpbGHtREUwHcbXm8tUnG2igXghFuiYaxi9ow5yo3+dR9
-	 CsIXWkGpL2NF1eXQKzfGCM/GDTG9Amo/EO+pr1UAcX49K0rjcNozRO/61bjHQq5m3aaA0
-	 ZOpQLiGX+8PjKDB8YQt0YPVku+IydUPjKvTM4Wx9YLGAPAWh7Q6v0uqDwTXL8BzkKoA==
+	bh=OeL3iVtI+f+BcPhLd4D2lbmOiUvk6vvdmxa9cvjNvcQ=;
+	b=KbpWfLMqiKScKB1b3r5k2udafY0rvL75woNNqxTaPuO06ttW7xmyAZhyZlqJ1j4I8uYL
+	 SlzP3NroaRrr/z3A+joqXYdfu8Rp0pY82iqtkoEGJfQfBLpQfvxsX9CsTTeHuzeTL+VCf
+	 m3eOSW7v+gKoa65HESgppbjMJBxligJZRSg5Z0hNWempkpDiH4CjbhR6jxohDv4pNQ+Hg
+	 RRkqwXy5+AsXX+6UXWss6Z7Kriyd6VVZrTNu0PaJ2jR2a59mXgBnTpLSC09DAthYCFPBg
+	 yvkT2rMv+klqmQEhx5bAVVU3lTvl8pVmojZ1sdEZQuapVlX69rZno4XbwMBlfIuVv3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MPW0ndTN;
-	arc=none smtp.remote-ip=209.85.221.71
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cSsCb9Dk;
+	arc=none smtp.remote-ip=209.85.218.69
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D57E606EE95
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D57E606EE95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19012606D83E
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 18:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19012606D83E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MPW0ndTN
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48c6a1d4034so926970f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:07:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cSsCb9Dk
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c25501f4aa2so140800966b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 10:07:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793988476; x=1794593276; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793988472; x=1794593272; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mq52+ZwR7eTTvIHBXK4H6B5GMCr9hytQ2mtezFLcHK0=;
-        b=MPW0ndTNFtW7mh4pS9wjy6KqOYPtoSdJcYciPeUOUFUXdPtd2Nu6KTkiwJVmkqt4+a
-         UJ7nRUEblhprRa5FwXeMzbg1QYkTNoDa6M2+AC3QBXQQBchL1a8LQ0LScrxE6/IiUJb6
-         Jf3UVDKmWY7/7CBAonOFcJ2i1HUKT8Ff9qlEnCmQoxi5mHZU4adLaS4glIheO/YdGkEF
-         CD5vytf5aqPYvyCIsP+kpWyVMipg8RWCk4XfXyHwUDuQD9OZCJUC+1jwuF91kVidqQLD
-         OwPvxt76aWrPM6tLu0TnVe74J8uAxPLDfW8tVoW8Fu9C/VBwV+LQndFWSIj0/LUwNiCL
-         NAkQ==
+        bh=OeL3iVtI+f+BcPhLd4D2lbmOiUvk6vvdmxa9cvjNvcQ=;
+        b=cSsCb9Dk9ZmW2Y1Q+22iXrDUk+6huXv7OjN3xLFjRZXG8H6adzKDGwCZZeuV2GQrqW
+         EnQDyIpv+170kKb0Wleji9Ir3c8+Cr318kC1ykSRc7agueIY2htBjrHEB+KeoaSIYAsg
+         EcoppvgjFEx3x2PvXA4wKE5w0wMUZXWyGYlhuB4xuoqDj1SweIPErt3f3kdFo/Yy6Q3d
+         4LO8KZdvSKdj6fTHh3QxI/o6eNIgAN5Jjhcqrit3rDLLHUNxm9ou5ob4UEFeBEt0kKcG
+         kL/UFzeLtOWZMbWGeuCkexxNRp6/T70LcS9xFLwQR78FaJ6bLRhmK4NSmGQy9+CQ67Pp
+         o0tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988476; x=1794593276;
+        d=1e100.net; s=20260707; t=1793988472; x=1794593272;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Mq52+ZwR7eTTvIHBXK4H6B5GMCr9hytQ2mtezFLcHK0=;
-        b=oX66gm+OsOgQgm0tvwpD8xA2aFY5yTuTwjLezq8B/ANAD6xnH7+NYAeEFbDhE9E0Cp
-         P+rtUdr6StyQCkX0UdhfadCEbXwBSvoucMRG/Y1oeLzlkedDZXY5I/lP6XzMe38Zjza0
-         22NoDQdx0azk10nhniEr336e6Z/fC/QWFWrfq5TqbDFn0+jLdZYz/B1JcjsAzjH60BKl
-         n+tJ77jZA5/v0HC+hPUtoRN8p/XxQrJB4thVOJlxs7kIUR+vZ23syPI1OZ9Mx5Aokbfs
-         iZKO50dPKKF5w1tOPJReuV9MmkWO5y2mOVOWcCpuHTOS5Lhlx9DY1M/ROmwW2yzGxOZm
-         bZAg==
-X-Forwarded-Encrypted: i=1; AL+hErE7pAAGuzLhf54vprL80nPItpt6K4MaE7NST19+SMso2UOLbYFOseUOrLVV3S9JAVopQtoa5HEniobgcig=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++1cgpZSRE3f3CyPs+qkQ2M+rsW3NnRoK+fCvvH7hIqfeeNe/m
-	juTVIJDmllAzG7kFYagB30/7LuEAaIBN0ApgdgCr4JraeyJLCU1iXT2n4wm1GQ2BkzGEsFB2HU0
-	tgoZy1A65fOkxtfPif32rig==
-X-Received: from wrwf7.prod.google.com ([2002:a5d:6647:0:b0:48e:d9d:8364])
+        bh=OeL3iVtI+f+BcPhLd4D2lbmOiUvk6vvdmxa9cvjNvcQ=;
+        b=GzITtWV6x3C6De+eH/9YmfWzHUuA84f2c14Mkej3LyGFsIzoU6tWjGGCjYS8UqIWta
+         fEi4Fo8R6GcR4EJV35qzwkhXT2A4F+chiHm1TbN1KNO8cFAuxWnmWyD4HxdX+9ZfguRA
+         LTu/aCEFOOUIgN/RW6fqXbwcoPg//GhwNzBbi1933uIUtiaLOIztKigGNNwx/ah9v0w4
+         5XwM0oXBLjngue6NHKuE0NmLEN7GnQBZn80Nu8DdRtr+Rd6lt8WLkrwpzB9MXZZgZONJ
+         P3Z7hbKLrrToq9BFhF7Raf0qj1hip0uC13rkDK0DXP0dIymwRq+C3SS5QJAXucfPj5cO
+         2LiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2C5QNqC2UQsr0aRWBwYs/G3raDIM2vJE1dxLoKzWVUlUeV+EX1LHyVrTMudq7ApZJ6e3Kp2dqFN37kKQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gxoHYHetwGds6Rjm8GCiIds3yTTcUx7SkA3Gma/+Cq2dF01tc
+	zt0o8z26HumSSx9KL1aH0viGLuaxa1UYuKbz3JHgxYatHkijTFydVErv9BLaR7N0AZlWq1Mv+qr
+	KiesX83MGPxW3ACTEDFRx5Q==
+X-Received: from edbdc28.prod.google.com ([2002:a05:6402:311c:b0:6b1:d06e:c41a])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:22c1:b0:48d:fbdd:4132 with SMTP id ffacd0b85a97d-492760dbbe7mr7141638f8f.18.1793988475275;
- Fri, 06 Nov 2026 10:07:55 -0800 (PST)
-Date: Fri,  6 Nov 2026 18:06:47 +0000
+ 2002:a17:907:97c5:b0:c4c:b4fe:c9e2 with SMTP id a640c23a62f3a-c4d20659a4cmr553692866b.8.1793988472154;
+ Fri, 06 Nov 2026 10:07:52 -0800 (PST)
+Date: Fri,  6 Nov 2026 18:06:44 +0000
 In-Reply-To: <20261106180657.2460376-1-vdonnefort@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,67 +81,268 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261106180657.2460376-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106180657.2460376-12-vdonnefort@google.com>
-Subject: [PATCH v8 11/21] ring-buffer: Use irqsave for the reader lock in ring_buffer_poll_remote
+Message-ID: <20261106180657.2460376-9-vdonnefort@google.com>
+Subject: [PATCH v8 08/21] tracing/remotes: Add dmesg tracefs file
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
 Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>, 
-	Sashiko <sashiko-bot@kernel.org>
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Calling rb_wakeups with the reader lock held but interrupts enabled can
-lead to a deadlock: the irq_work might run on the same CPU, but will
-block when acquiring that very same reader spinlock.
+When enabled, the dmesg tracefs file enables the redirection of all
+events to dmesg. This is similar to tp_printk.
 
-First, rb_wakeups does not even need to be called under the reader lock.
-Move the function outside of the reader lock scope.
-
-Second, the reader lock must be acquired with IRQs disabled anyway. Use
-the irqsave variant of the spinlock.
-
-Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260602171146.2238998-1-vdonnefort%40google.com # patch 8
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- kernel/trace/ring_buffer.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ kernel/trace/trace_remote.c | 139 ++++++++++++++++++++++++++++++++----
+ 1 file changed, 125 insertions(+), 14 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 1fd28a72e6ee..4dab77883bd5 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6902,13 +6902,17 @@ int ring_buffer_poll_remote(struct trace_buffer *buffer, int cpu)
- 	struct ring_buffer_per_cpu *cpu_buffer;
+diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
+index 08a89b7315c3..3dbb4912dbd6 100644
+--- a/kernel/trace/trace_remote.c
++++ b/kernel/trace/trace_remote.c
+@@ -21,6 +21,7 @@
+ enum tri_type {
+ 	TRI_CONSUMING,
+ 	TRI_NONCONSUMING,
++	TRI_DMESG,
+ };
  
- 	if (cpu != RING_BUFFER_ALL_CPUS) {
-+		bool wakeup;
+ struct trace_remote_iterator {
+@@ -43,6 +44,7 @@ struct trace_remote {
+ 	void				*priv;
+ 	struct trace_buffer		*trace_buffer;
+ 	struct trace_buffer_desc	*trace_buffer_desc;
++	struct trace_remote_iterator	*dmesg;
+ 	struct dentry			*dentry;
+ 	struct eventfs_inode		*eventfs_root;
+ 	struct eventfs_inode		*eventfs_subdir;
+@@ -395,10 +397,15 @@ static int __alloc_ring_buffer_iter(struct trace_remote_iterator *iter, int cpu)
+ 	return 0;
+ }
+ 
++static bool trace_remote_do_dmesg(struct trace_remote *remote);
 +
- 		if (!cpumask_test_cpu(cpu, buffer->cpumask))
- 			return -EINVAL;
- 
- 		cpu_buffer = buffer->buffers[cpu];
- 
--		guard(raw_spinlock)(&cpu_buffer->reader_lock);
--		if (rb_read_remote_meta_page(cpu_buffer))
-+		scoped_guard(raw_spinlock_irqsave, &cpu_buffer->reader_lock)
-+			wakeup = rb_read_remote_meta_page(cpu_buffer);
+ static void trace_remote_do_poll(struct trace_remote *remote)
+ {
++	bool yield;
 +
-+		if (wakeup)
- 			rb_wakeups(buffer, cpu_buffer);
+ 	ring_buffer_poll_remote(remote->trace_buffer, RING_BUFFER_ALL_CPUS);
+-	schedule_delayed_work(&remote->poll_work, msecs_to_jiffies(remote->poll_ms));
++	yield = trace_remote_do_dmesg(remote);
++	schedule_delayed_work(&remote->poll_work, yield ? 0 : msecs_to_jiffies(remote->poll_ms));
+ }
  
- 		return 0;
-@@ -6923,7 +6927,7 @@ int ring_buffer_poll_remote(struct trace_buffer *buffer, int cpu)
- 	for_each_buffer_cpu(buffer, cpu) {
- 		cpu_buffer = buffer->buffers[cpu];
+ static void __poll_remote(struct work_struct *work)
+@@ -453,6 +460,14 @@ static struct trace_remote_iterator
+ 		trace_seq_init(&iter->seq);
  
--		guard(raw_spinlock)(&cpu_buffer->reader_lock);
-+		guard(raw_spinlock_irqsave)(&cpu_buffer->reader_lock);
- 		rb_read_remote_meta_page(cpu_buffer);
+ 		switch (type) {
++		case TRI_DMESG:
++			/* only one dmesg iter allowed */
++			if (WARN_ON_ONCE(remote->dmesg)) {
++				ret = -EBUSY;
++				break;
++			}
++			smp_store_release(&remote->dmesg, iter);
++			fallthrough;
+ 		case TRI_CONSUMING:
+ 			trace_remote_inc_poll(remote);
+ 			break;
+@@ -487,6 +502,11 @@ static void trace_remote_iter_free(struct trace_remote_iterator *iter)
+ 	lockdep_assert_held(&remote->lock);
+ 
+ 	switch (iter->type) {
++	case TRI_DMESG:
++		WARN_ON_ONCE(remote->dmesg != iter);
++		smp_store_release(&remote->dmesg, NULL);
++		flush_delayed_work(&remote->poll_work);
++		fallthrough;
+ 	case TRI_CONSUMING:
+ 		trace_remote_dec_poll(remote);
+ 		break;
+@@ -499,13 +519,24 @@ static void trace_remote_iter_free(struct trace_remote_iterator *iter)
+ 	trace_remote_put(remote);
+ }
+ 
++static bool trace_remote_iter_is_consuming(struct trace_remote_iterator *iter)
++{
++	switch (iter->type) {
++	case TRI_CONSUMING:
++	case TRI_DMESG:
++		return true;
++	default:
++		return false;
++	}
++}
++
+ static void trace_remote_iter_read_start(struct trace_remote_iterator *iter)
+ {
+ 	struct trace_remote *remote = iter->remote;
+ 	int cpu = iter->cpu;
+ 
+ 	/* Acquire global reader lock */
+-	if (cpu == RING_BUFFER_ALL_CPUS && iter->type == TRI_CONSUMING)
++	if (cpu == RING_BUFFER_ALL_CPUS && trace_remote_iter_is_consuming(iter))
+ 		down_write(&remote->reader_lock);
+ 	else
+ 		down_read(&remote->reader_lock);
+@@ -522,7 +553,7 @@ static void trace_remote_iter_read_start(struct trace_remote_iterator *iter)
+ 	if (WARN_ON_ONCE(!remote->pcpu_reader_locks))
+ 		return;
+ 
+-	if (iter->type == TRI_CONSUMING)
++	if (trace_remote_iter_is_consuming(iter))
+ 		down_write(&remote->pcpu_reader_locks[cpu]);
+ 	else
+ 		down_read(&remote->pcpu_reader_locks[cpu]);
+@@ -539,14 +570,14 @@ static void trace_remote_iter_read_finished(struct trace_remote_iterator *iter)
+ 		 * No need for the remote lock here, iter holds a reference on
+ 		 * remote->nr_readers
+ 		 */
+-		if (iter->type == TRI_CONSUMING)
++		if (trace_remote_iter_is_consuming(iter))
+ 			up_write(&remote->pcpu_reader_locks[cpu]);
+ 		else
+ 			up_read(&remote->pcpu_reader_locks[cpu]);
  	}
  
+ 	/* Release global reader lock */
+-	if (cpu == RING_BUFFER_ALL_CPUS && iter->type == TRI_CONSUMING)
++	if (cpu == RING_BUFFER_ALL_CPUS && trace_remote_iter_is_consuming(iter))
+ 		up_write(&remote->reader_lock);
+ 	else
+ 		up_read(&remote->reader_lock);
+@@ -563,10 +594,9 @@ __peek_event(struct trace_remote_iterator *iter, int cpu, u64 *ts, unsigned long
+ 	struct ring_buffer_event *rb_evt;
+ 	struct ring_buffer_iter *rb_iter;
+ 
+-	switch (iter->type) {
+-	case TRI_CONSUMING:
++	if (trace_remote_iter_is_consuming(iter)) {
+ 		return ring_buffer_peek(iter->remote->trace_buffer, cpu, ts, lost_events);
+-	case TRI_NONCONSUMING:
++	} else {
+ 		rb_iter = __get_rb_iter(iter, cpu);
+ 		if (!rb_iter)
+ 			return NULL;
+@@ -630,14 +660,10 @@ static void trace_remote_iter_move(struct trace_remote_iterator *iter)
+ {
+ 	struct trace_buffer *trace_buffer = iter->remote->trace_buffer;
+ 
+-	switch (iter->type) {
+-	case TRI_CONSUMING:
++	if (trace_remote_iter_is_consuming(iter))
+ 		ring_buffer_consume(trace_buffer, iter->evt_cpu, NULL, NULL);
+-		break;
+-	case TRI_NONCONSUMING:
++	else
+ 		ring_buffer_iter_advance(__get_rb_iter(iter, iter->evt_cpu));
+-		break;
+-	}
+ }
+ 
+ static struct remote_event *trace_remote_find_event(struct trace_remote *remote, unsigned short id);
+@@ -883,6 +909,87 @@ static const struct file_operations trace_fops = {
+ 	.release	= trace_release,
+ };
+ 
++static bool trace_remote_do_dmesg(struct trace_remote *remote)
++{
++	struct trace_remote_iterator *iter = smp_load_acquire(&remote->dmesg);
++	unsigned int max_events = 1000;
++
++	if (!iter)
++		return false;
++
++	trace_remote_iter_read_start(iter);
++
++	while (trace_remote_iter_read_event(iter)) {
++		trace_seq_init(&iter->seq);
++
++		trace_remote_iter_print_event(iter);
++		trace_seq_putc(&iter->seq, 0);
++		if (!pr_info("%s", seq_buf_str(&iter->seq.seq)))
++			break;
++
++		trace_remote_iter_move(iter);
++
++		if (!(--max_events))
++			break;
++	}
++
++	trace_remote_iter_read_finished(iter);
++
++	return !max_events;
++}
++
++static int trace_remote_enable_dmesg(struct trace_remote *remote, bool enable)
++{
++	struct trace_remote_iterator *iter = remote->dmesg;
++
++	lockdep_assert_held(&remote->lock);
++
++	if (enable == !!iter)
++		return 0;
++
++	if (enable) {
++		iter = trace_remote_iter(remote, RING_BUFFER_ALL_CPUS, TRI_DMESG);
++		if (IS_ERR(iter))
++			return PTR_ERR(iter);
++	} else {
++		trace_remote_iter_free(remote->dmesg);
++		/* trace_remote_iter_free has reset remote->dmesg */
++	}
++
++	return 0;
++}
++
++static ssize_t
++dmesg_write(struct file *filp, const char __user *ubuf, size_t cnt, loff_t *ppos)
++{
++	struct seq_file *seq = filp->private_data;
++	struct trace_remote *remote = seq->private;
++	bool val;
++	int ret;
++
++	ret = kstrtobool_from_user(ubuf, cnt, &val);
++	if (ret)
++		return ret;
++
++	guard(mutex)(&remote->lock);
++
++	ret = trace_remote_enable_dmesg(remote, val);
++	if (ret)
++		return ret;
++
++	return cnt;
++}
++
++static int dmesg_show(struct seq_file *s, void *unused)
++{
++	struct trace_remote *remote = s->private;
++
++	seq_printf(s, "%d\n", !!READ_ONCE(remote->dmesg));
++
++	return 0;
++}
++DEFINE_TRACE_REMOTE_ATTRIBUTE(dmesg);
++
+ static int trace_remote_init_tracefs(const char *name, struct trace_remote *remote)
+ {
+ 	struct dentry *remote_d, *percpu_d, *d;
+@@ -923,6 +1030,10 @@ static int trace_remote_init_tracefs(const char *name, struct trace_remote *remo
+ 	if (!d)
+ 		goto err;
+ 
++	d = trace_create_file("dmesg", TRACEFS_MODE_WRITE, remote_d, remote, &dmesg_fops);
++	if (!d)
++		goto err;
++
+ 	percpu_d = tracefs_create_dir("per_cpu", remote_d);
+ 	if (!percpu_d) {
+ 		pr_err("Failed to create tracefs dir "TRACEFS_DIR"%s/per_cpu/\n", name);
 -- 
 2.56.0.455.g6c5a503b38-goog
 
