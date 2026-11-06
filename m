@@ -1,99 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956831;
-	b=dY9O99Wg4mTpqWcG0fWSKIrnFNyK6Wl+kgTddJEpyAxj0Rs0MjFgbhkq39NsU982F3uB
-	 U6gJXmYR5tdOrDR5ta7nle4BmSJuC07VIDMkE001/UuOfw3hswIqmn0q4Tlc3nIVfttNb
-	 xZMiQl3IPus92JAbdOU8OyoG0ZUbBGTIqKWj2ZI2pJXbIOeyRRyUx2IH18r2YNfNIfUYP
-	 VBuK0WtvuyuC0u9DjEnYB8DD/URPDZiGT95SVTP+XR1gU2ncnCyqXG48uI73XYdIXXIwm
-	 9Hrwvlka8L1JsA+NTtu0CEz25RApt16Nld/jVc5iUvvYtkZEAa08zaiMAcSaQEvc62A==
+	t=1793956846;
+	b=gPTCKb1AbA2x4BHzqwjOZ0WfUfkNY/yKF29w+LKrCXtrvPZf6njVO9rf37LMWtTfBWDu
+	 zHyTQeeeg77ZmWcge8m/HNYuRpv7eg0iFghgWA1XWb8nmy1L4w0bkpHVfd4BkhEo+otW0
+	 wuXoCiQ+1SwrWr3I46F8IaZBZ1sgIgzopbeyRhauN8swsr8Hz82tOjKdCzMzoaIqx51pD
+	 kfbGUEMMQCs8ID5lK8uojb9B60w30YjVjlbPKOFdzRH98ikWBz66LnVMPAEy6nJzj0xPN
+	 XRpFPt9xvEvj0u+NZhHjBQ0LqyPJxQ9HofamBrVgqDJuqa69PdPN1KjRTq+VMDnDhxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956831;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956846;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ggqU2z0JBuwwyOOBFpelvoLoHdUUbWw3FkHf6dtYia8=;
-	b=s4/7cMucmpBzyYnpRVs3FrWV5wRmd13Fy1ODAuDBF1yjwNDWwQ3hNqWtpoohfavw/xxm
-	 zs0GXWMIuFBccr+TVwjyay2ZbBBg6+1CR9TOjewYmrwiL2uf2g4pbXB0ryorriW5jhxOo
-	 S9MO2ZG1GrV7qDkp8hKD8TX0dYbzXP907SsANV3rSSvlzvNwJlld7xAEjqB1DUc5YlVjn
-	 X1S2mvjGZ12sF9eDF1HXHECJy+IMrO145xAl+9sAEQj8mRN3LHdy5MQcaoM4w+lupGdFT
-	 IB6i6zPqqZkcvmTfuo7AIIRLtljOj4emO49+UK/TC83CEAEvOJTW6Xdy5Cj0OwKQ6uQ==
+	bh=zVZn/PHtKTXfIDqjN5+GVy65SE+it2qO3RfBBuitjt8=;
+	b=EtsXBBVGP+djA4ekbclWnQuQ/qAlrf8RwocxlAkHt+TFFyHVJLEdDZhpcjUxH1ijNkB0
+	 HdJ+ElPJh4qaX2QgKo/VhqfwIKt5N0VFj1qToaicB1i4cQGZp1Ef/UL5lfYwsToI94uMG
+	 vhTdYcQK/ufraICkcq71KK6AgRPegBQK2qRkDMVupfkreyXxQWeQ/Myqt+j3MZ1NHMUZ6
+	 T7mNecgcZAmZZKv6YcyTUaXKYKNzV5ClQboWkvy5dVeEnNnRdRDq+kD7fNqpJ3hYwWkrc
+	 4D/PzAHvuxWhEvulsHbCsPNjrzNgTlzdswh8BCibDxMHDuEwAyzCHX8cL/K4SvoXIbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d9sEdFZx;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=IKN2FFnQ;
+	arc=none smtp.remote-ip=115.124.28.74
+Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E8C606D806
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 09:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1E8C606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBE4606A328;
+	Fri,  6 Nov 2026 09:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CBE4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d9sEdFZx
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso717356eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 01:20:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793956830; x=1794561630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ggqU2z0JBuwwyOOBFpelvoLoHdUUbWw3FkHf6dtYia8=;
-        b=d9sEdFZxl/F57JPnGEkODh45bf2mF+RYjB6EC9cR505zxJxmd1sisNxiS9eewFjf8g
-         EnYac85LVJf2eSpER58mQmykeYcYFzWyn57Wq4TB3DqwYlpK7xsvN3BQNC4Z+IgiEMvV
-         a3MqpJVn8KZRDuC8tMkrSOJcaPO53uurv9/XilACN0duQL788w4S5d3avOTu+d+CbASR
-         3XMAzWTERKQSo1SzBKgtNlwJTzjzegTXoxJ7p3Xu7jFJ41Dz3xPIBGEZWK2DC/X6fpIn
-         SJBqeTZpQOsh1ZgdbJEMLDzVx0wETPLZR0okAcZVxENgoYE+gX9c27W5kh+EJ3wsP3Hy
-         8gjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956830; x=1794561630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ggqU2z0JBuwwyOOBFpelvoLoHdUUbWw3FkHf6dtYia8=;
-        b=QeAsOlF9knttAWFTCf9z0A0I0EeVeLpUQrW2Oe3b3A6M9OuYxj6FhV2cCcOgaI3fc4
-         CFrh5Alxn5fXAaDlva8qxJp862zH2/WQ6Tq1chanclXJN0XiEDldoWHu3JBwOe5+0xwj
-         Qs7tI9pETkBwA1OJTLl69ccupH2S1q10J+8hue/DyTxTiGfvESHT79fVXuPfPK7AlBBA
-         yekwiqHqsI2tu9kPCQAGrhqBk7HAutkEKxxPKbxmd4Qe3W7kogVrWgE/E0Q5KEQKdh9X
-         JkL9CoJgzkddkygERw4oWYCkzv/IGY3Z1Pc0SFsz4kyRT5g4REOLsPjmYgmMhfm4C9Uh
-         /5dg==
-X-Forwarded-Encrypted: i=1; AKwUvByxB4qyGflQg7bnz4ApKosrmNkKMev/ZJTE/0BOGnfbcBrCiRrOJVOzfpweFVOTcN4y78EUx0+vyaeulf4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jzSJfAV5e0VDb4tPdlIZUNS8wALvnTNaDYisSxY3ZTlVyoA4M
-	sOmgtOMwuLxCAKqd01vNCIAMBzsVnRDrXE9cZdEWg/Pt+7rjIaPqHTk=
-X-Gm-Gg: AYBFou0/VOdjzf7OKo+t5G2gCHKHrzx1xYezc4kEq4XXr/BWez5mQ0MlZmQqk6Qlvu2
-	0LcoL/63RreXEowOzeJp38MSmNhjqhLqjN8hhSMQitcfRU8oczbaBMfyjRwJdECgkr+YGSgdze1
-	NUfmXoEiMf1juCrFbONGt4ZbhrwGQK+j1A5E6lYDiYi5J28tGeNtyHhMDuxwVgWQvJTb0Ss19CS
-	IxvpmnCPnG1TcAA2YNuhap32BEcz8J1gMPhCLOqP1Jg+vwN4ys/+xeWGu5eJcBqx9l0A5d3+h84
-	T2DwaPemCfjZz8jqL7QoHPTa+EdlnBlzaqh9iONikVgUWwIahsgi6u9bFnwox7RBLD/P3N909Lt
-	oJKFlOST8Qi/DqJWlVHWrHcJ4tCqPhiWALPDXHcYfIBTH/h1QMO+MW1qSXV2dCghOSd28/5Dcyb
-	kw6ikYEKo/YCgsHTYy8JkgO3MlY4YZNVZyK60y1n+2ysht4q25SqsOsbJuaQ5ySWaF52GrgX69k
-	ekvHySdwtSzcGkQ+WhkLNhgsIU4rJYY+JXpPJsumEcSmNg6bn3T5ivxUKSc00P0LUGG3UD8ctqy
-	Gn1Vk+cs9MvcxoPKihFwNrTt8wSQLTEgMpiEwdSKf/44l+D24F1l6ZwK
-X-Received: by 2002:a05:701b:4507:20b0:1b0:f0f5:e38f with SMTP id a92af1059eb24-1b25d346c12mr2313612c88.34.1793956829858;
-        Fri, 06 Nov 2026 01:20:29 -0800 (PST)
-Received: from localhost.localdomain ([155.69.103.70])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4a610fsm3783796c88.11.2026.11.06.01.20.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 01:20:29 -0800 (PST)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Yige Jiang <yigejiang86@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=IKN2FFnQ
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793956834; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=zVZn/PHtKTXfIDqjN5+GVy65SE+it2qO3RfBBuitjt8=;
+	b=IKN2FFnQyHTTepagSBuuK3wH/x2GAwUPeXHFO75TYtkqyTRQCtLpcYpxPRvG5cDbJMOQfZOXX6H7nbC3B27oApZg0sJxiHxOVESfTHFeeM5oyexmDCoXsnat7y1zFY01pS0xeeEMtO/pzdfcMymlAZZuYIfiR1XcQkrdvGMwUVY=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08651333|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.01135-0.00149655-0.987153;FP=5149363861963095640|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jyFCtSG_1793956833;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jyFCtSG_1793956833 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 17:20:34 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Matthew Garrett <matthewgarrett@google.com>,
+	linux-integrity@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/mediatek: Keep the mutex node reference across deferred binds
-Date: Fri,  6 Nov 2026 17:20:23 +0800
-Message-ID: <confirmed-20261105-38-2e09963f1b23@gmail.com>
+Subject: [PATCH v2] tpm: efi: reject a final events table with an oversized preboot log
+Date: Fri,  6 Nov 2026 17:20:33 +0800
+Message-ID: <20261106092033.4041125-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <73a5f412-0962-400d-9e80-5b9eef92bb8e@app.fastmail.com>
+References: <73a5f412-0962-400d-9e80-5b9eef92bb8e@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,43 +68,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mtk_drm_probe() acquires private->mutex_node and releases that reference
-on probe failure or in mtk_drm_remove(). The component bind callback does
-not acquire another reference, so it must not put the node when the mutex
-platform device is not available.
+The preboot portion recorded in the main event log is subtracted from
+the size of the final events table taken from the firmware:
 
-If this bind failure propagates through component_master_add_with_match(),
-the probe error path puts the same reference again. A bind attempted after
-probe has returned can also leave the stored node without its reference
-for a later bind or remove.
+/*
+ * The 'final events log' size excludes the 'final events preboot log'
+ * at its beginning.
+ */
+final_events_log_size -= log_tbl->final_events_preboot_size;
 
-Remove the bind-time put and leave the node reference with its probe/remove
-owner.
+Both sizes come from EFI configuration tables and are not validated
+against each other. A final events table claiming a preboot portion
+larger than the table itself makes final_events_log_size go negative:
+the subsequent devm_krealloc() can then end up with a wrapped, too
+small allocation, and the memcpy() that appends the final events log
+uses the negative value as its length, running far past the buffer.
 
-Fixes: 119f5173628a ("drm/mediatek: Add DRM Driver for Mediatek SoC MT8173.")
+The boot path has no way to fix up such a table, so fail the final
+events log instead of appending from it. Warn before dropping it, so
+a malformed firmware table leaves a trace instead of a silently
+missing final events log.
+
+Fixes: 166a2809d65b ("tpm: Don't duplicate events from the final event log in the TCG2 log")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
-AI assistance was used for analysis and patch preparation.
 
-Based on next-20261104 (8b7179210b22).
-Compile-tested: arm64, GCC 14.2.0, W=1, drivers/gpu/drm/mediatek/mtk_drm_drv.o;
-baseline and patched objects built with no warnings.
-Static source review; no hardware, boot, or KASAN test was performed.
+v2: Add a pr_warn() before dropping the final events log, as suggested
+by Ard Biesheuvel, so a malformed firmware table leaves a trace.
 
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/char/tpm/eventlog/efi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index dc8e3e917dd771b950167d04c1ab87c14dbabf72..64c912ba95899128bfb1a41765579d9d70979a27 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -630,7 +630,6 @@ static int mtk_drm_bind(struct device *dev)
- 	if (!pdev) {
- 		dev_err(dev, "Waiting for disp-mutex device %pOF\n",
- 			private->mutex_node);
--		of_node_put(private->mutex_node);
- 		return -EPROBE_DEFER;
+diff --git a/drivers/char/tpm/eventlog/efi.c b/drivers/char/tpm/eventlog/efi.c
+index 4e9d7c2bf32e..76860f9a25de 100644
+--- a/drivers/char/tpm/eventlog/efi.c
++++ b/drivers/char/tpm/eventlog/efi.c
+@@ -82,6 +82,13 @@ int tpm_read_log_efi(struct tpm_chip *chip)
+ 		goto out;
  	}
+ 
++	if (log_tbl->final_events_preboot_size > final_events_log_size) {
++		pr_warn("UEFI TPM final events table has an oversized preboot log: %u > %d\n",
++			log_tbl->final_events_preboot_size,
++			final_events_log_size);
++		goto out;
++	}
++
+ 	/*
+ 	 * The 'final events log' size excludes the 'final events preboot log'
+ 	 * at its beginning.
+-- 
+2.50.1
 
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
