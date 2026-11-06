@@ -1,94 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954284;
-	b=EC80gRoq2DVIuIJhqwo8/qhTziVzQitODsPujTE2KJ5NDJdKGfMpSznwkC7kJKzIcfH5
-	 5up6QQx1fJ7Xfs+a+2AXZZHOS8s1mM2FZccPjdoGlJFXrI3ARFbRCLRBhFAnJJkRvWVwK
-	 6kd6hO3SSv7r4psXRwk0ravcbLIi1IF3HyzZURrtX4NSr5VzT+LHwv/6Vkto6lljUdC68
-	 XDClFDGGVWtHOHtM0vuYzpOZN+hVlJwLSPDqqpEbhOFM/S2pFpxhE0I4xCO+TsYgUJISZ
-	 nX3Ve++rnHKMY0TGsq6rPk2BNUS2GX07EKsR0kqQEPlsd1HwjuHFmvgx/pChXbdwccA==
+	t=1793954324;
+	b=lktvGA/iOoNne8VDvzv0pRA7J4hnqiiAe2CqiR8n1X9vdjIXhH1UvkBrD0zXTEEn9RPM
+	 U2Ov58FivkQ6hxcihGGuTKpc9Ibn281hq2GqFhRYlPVdGjx5xqWIfAB+UIw18UXoKTqDR
+	 y1A7Yx0MxcFuvEjT5W97zifugpeQEw2tcZfM0CH/usqpSe9h1pcVrNpZ5KP9mO6T7NFmc
+	 AWlluKot0x6O2lKLSpPk9AqhLKZvwZXyDfi6i4Qex91BgFtjLkoSaD6FwL+kxrbeI3rO9
+	 fK8P+2ZMlTAWXX5ANBDmqhwcxIXUGPT0bfMeIdEMO72eG+zDIxe/RimzglvfjraRnXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954284;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lCz99xV0pwCuHWp/MF8TtxJKQhzQ+E9UJnv/R9Hy57w=;
-	b=NAhMQ+MYls7KYLbhzkiCCvFC9p+kYxNyIn3F3+ku/8gYdOYFZrHuEd6F+gI1QiJyJhhI
-	 BjpYBXx3O/MpSeXvL9pk4Vx5Q5KT602cTc6bRMSL5RAOFO9NFmVVBlACeGQ+752znPoff
-	 +agriadYCz4nWRX2ROwism3SxLYlFMze3nU8RlKk2Id/IGgkUl3qLVrfvDNsyy1uI6Hu6
-	 8cKR58aw5EmAaNrV+GFkc0h3QxbuGzL58Tw3GgccWxwc6U5mRw4lB//h9m576YBK9Cyh1
-	 74oifd64Gy4KQk8THxsRI4IXjagR1+tTVpUJqnBEdWH2pLlsEHByE9e3bK33v8iqhxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954324;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7HL2QGS1OX92aMQqi1SQISrpLABTArOf/d1xsMjIfRU=;
+	b=GdHYdYNZFuEQT+80SSZOK+Gtc7VGlgStwXixpFduMC8PrC1VUefRCezF8aCKbVNYxPhH
+	 YUMciRn6Juh7SAZ+fu75dhED3ITQrh/roCKk2jsLr5O1sB+rJvKwEW64+wIEkE9i0rXa/
+	 fqxH02fSxBYivxKEYsIKm2UjCGtsoMu30F6CwgdrK8bM0ZEY2C+GSxP7oiPyr6abiAxou
+	 WEJ5lXhV57FOsPgiKZnkCFK5WTq1V+Jpt5IUMcHR0Bih6emp2moCJY9PymVKzNewWS97l
+	 cd1ZB1JhQRNt65yyfhuY6R8ozfeBJqsWH8MOsbNV4IXrEwAzMpn0BHWLTdazAeOD8rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+iunVLZ;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=avLsiJ0U;
+	arc=none smtp.remote-ip=95.215.58.139
+Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE831606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE831606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31F4606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 08:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D31F4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+iunVLZ
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c20aso4320445ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 00:38:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793954283; x=1794559083; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lCz99xV0pwCuHWp/MF8TtxJKQhzQ+E9UJnv/R9Hy57w=;
-        b=o+iunVLZDINC4ehShCH14286mSr9iLWUncdmU/oFy1R6yw2eha5PgvV65arbMyAnae
-         J7DA+Z27xjCldFjukhRix37WsZVVJH6lG8Z2Ddit/qNgozGq67dT1H4pTDg1EM5VKg7z
-         u2l2a8ytkN4O09k6zbSPuZtoVPuHcBzjJ1+VimKYZpIim0fW1I2Moz54DctKEqsFPe+K
-         RMC5ANzJjI75l0lH8u7NpDeZprppkL8tIJO9aL6Je7LbCPRGcfMtt0cYifrHqnK+Mrrj
-         hxVUOHqnne+f/CJTYJvFI1HUyy1X7vOe7v//e1p1nb7U9jFdNqMAkhU64AeIyumsealm
-         Vw3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793954283; x=1794559083;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lCz99xV0pwCuHWp/MF8TtxJKQhzQ+E9UJnv/R9Hy57w=;
-        b=sSLpZAv8A5In6LU3kLW/av+trXsHaWXsGYFsOYcNCobRYTlSpyYpWW/syPOOWR6QqY
-         JiTszCrZQtjEOeEnqBh81VukUodFn2GOPkGgqytoGxSkd5Gn4vDctU40cNMXlJZMh5/w
-         Iey5zMgMr3G0rjkB+tHSgoAQ2osXgIb5/AYrdcLgbJlhDE+409YBGmW/gIlQOuDBg3Af
-         mGsO23YK20nt0YUaUoAR0zZfMACdNBH/ubpv8p0oKIBjU3Dxp2KPo8g/frWRR4kcEvCM
-         bXrwS+39FLBHA/UQVwWRSAXl8JdC0oMuc03Dw09V/AWz3PkOmU3vqW7hCD67CT010UW7
-         LR/A==
-X-Forwarded-Encrypted: i=1; AKwUvBztubEohIyqH7n3vyV8qflcJp4uipavdKogWklmdl99ta2uFMBKXjOvjiEz7Zn8xf9Sg3Xishs6H7ubdcw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8H7dAEJUg1hHJyWsPmdx5E0GwgbRE6/Wn3OjLbyF9osKyknozU
-	fxDxw2O5DC116nxA9CJu0VCS7qujPOqMX+lCYrVEcht5RwhhD2enysTv
-X-Gm-Gg: AYBFou2ZExPVAZhKfo9u/4lFYYmkII0hXGlbK5C5elAkqf5poS3DRr3kCU4gI/AzZWV
-	+oTQXVseryqs5dWW0vOrQlxUcPpd1mJHi8sOtigPZWZcTgtgbmlA1hY+RDJCpa7jFyHC6S0vNdP
-	zHVGlyRQpI+kJRLMUr+baZ8XkwomC3RuvNwF6mSKwDjPthpnOUY5wyPKc7n83Wg/7zep53xCq1D
-	Vv1LaTPoSqXyi6tkGA1e3uI1SOQTdQDPyLJZqZXa8q5S2jzi8ITd8gTgIqVzVgU5YegS816GArd
-	uAG6cBJ2uU3mQdt84zm5SaTji78DZwST2b4eRDHmIpRKpkWxbr5KnFTjAtfJy/g+0mdfS+T1fl2
-	OOTOALcaOQXy4xw2rOZNvOf44TCL4BDG+vTxaahTSjRnFCMMi3HIg6+zK4B8bWEYkq/Fgj27jEZ
-	pd6tJY975wSQsKkXPKXuy+yZ00+yvc8WyRbaeqIHpO+AzNdMLA4FusxNoKc0IkF2ikppQcmk7LA
-	R7CT4MW23g8/L1Lquz49BFZENOzD3DUdY1f7DdWYc8DYX6Yt4A+BHTaIAYIqEYg3F+hpPdwZYiz
-	VxP/mHnccUgsmRRd+HnIJuJTaiX0/vQPk/h2NSg4nSiTkcA=
-X-Received: by 2002:a05:6a20:1449:b0:3eb:39fd:bacc with SMTP id adf61e73a8af0-3ebb2a9e69dmr2297053637.50.1793954283154;
-        Fri, 06 Nov 2026 00:38:03 -0800 (PST)
-Received: from localhost ([164.52.124.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b3596fae32sm414537b3a.21.2026.11.06.00.37.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 00:38:02 -0800 (PST)
-From: Jiabin Deng <dengjiabin2023@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Dragos Tatulea <dtatulea@nvidia.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net/mlx5e: SHAMPO, Disable end padding when relaxed ordering is supported
-Date: Fri,  6 Nov 2026 16:37:19 +0800
-Message-ID: <20261106083719.22798-1-dengjiabin2023@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=avLsiJ0U
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OQv2V6wgOoL/c3SmQoZgSHZMEHskeM3NZ49yCaWoo0Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793954320; v=1; x=1794559120;
+ b=avLsiJ0U8JkNoApkvbqr8ex0R1z0VcEIOEgvt78Xjk6zeNaX9AX6FOF114vxKtIRy6EwZDYp
+ sljQMWyAxHutm56MKltEfZuB5ZwjqOlyDDSJj18Wfn107hqxWm2eiDlOZ9G4RwSE3+zzXoQti2c
+ G4L/j7q1y6QOIZbU43ezAYDY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 36c4e4aa0a83de9a;
+	Fri, 06 Nov 2026 08:38:40 +0000
+X-Mizu-Trace-ID: 36c4e4aa0a83de9a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8e5956d5-ae03-40c0-b5a0-bd550f4c14b3@linux.dev>
+Date: Fri, 6 Nov 2026 16:38:35 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,55 +58,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Betterbird (macOS/Intel)
+Subject: Re: [PATCH v2] mm/mglru: fix a no-op lru_gen_clear_refs() call in
+ lru_lazyfree()
+To: Barry Song <baohua@kernel.org>, Kairui Song <ryncsn@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+References: <20261026084035.535989-1-hui.zhu@linux.dev>
+ <CAMgjq7AJSU9jUBTHGcm05mtGBH4EMQ_ua9YNwuLOGVzhkdLKkA@mail.gmail.com>
+ <CAGsJ_4zPZg6pCuhDtTpSkueS2EDSfWeYa23h7kC9hEU0iGB-+w@mail.gmail.com>
+ <CAMgjq7DvmrwTu0vz7oHx7y7w1B9uA0AbS3YJ5CcrDVg9VwKqpw@mail.gmail.com>
+ <CAMgjq7A6jJQ_Ncp0BCqjQJ8pJXrjr1PoOu0rdj0NJOivKp6e+A@mail.gmail.com>
+ <CAGsJ_4zO5S5XFc6dd70wKEs_mzqu_QW2bGOPyhKo4w2cjZrWUQ@mail.gmail.com>
+Content-Language: en-US
+From: Hui Zhu <hui.zhu@linux.dev>
+In-Reply-To: <CAGsJ_4zO5S5XFc6dd70wKEs_mzqu_QW2bGOPyhKo4w2cjZrWUQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-When SHAMPO and relaxed ordering writes are enabled, aligned RQ end
-padding can corrupt TCP data received directly into GPU DMA-BUF memory.
-The receiver gets the expected number of bytes, but some payload
-prefixes are zero-filled, with the corrupted ranges ending at 64-byte
-boundaries.
 
-The current RQ end padding selection avoids alignment padding for LRO,
-but not for SHAMPO. Extend the condition to SHAMPO to prevent this
-corruption.
+2026/11/6 05:13, Barry Song:
+> On Sat, Oct 31, 2026 at 3:27 PM Kairui Song <ryncsn@gmail.com> wrote:
+> [...]
+>>>>>>   mm/folio.c | 6 ++----
+>>>>>>   1 file changed, 2 insertions(+), 4 deletions(-)
+>>>>>>
+>>>>>> diff --git a/mm/folio.c b/mm/folio.c
+>>>>>> index 35e242b48870..ea3adb6a89d7 100644
+>>>>>> --- a/mm/folio.c
+>>>>>> +++ b/mm/folio.c
+>>>>>> @@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
+>>>>>>              folio_test_swapcache(folio) || folio_test_unevictable(folio))
+>>>>>>                  return;
+>>>>>>
+>>>>>> +       lru_gen_clear_refs(folio);
+>>>>>>          lruvec_del_folio(lruvec, folio);
+>>>>>>          folio_clear_active(folio);
+>>>>>> -       if (lru_gen_enabled())
+>>>>>> -               lru_gen_clear_refs(folio);
+>>>>>> -       else
+>>>>>> -               folio_clear_referenced(folio);
+>>>>>> +       folio_clear_referenced(folio);
+>>>>> Why can't we just call folio_set_lru_refs(.., 0), and should we clear
+>>>>> PG_workingset? Keeping it helps PSI on refualt / redirty tracking (not
+>>>>> sure if meaningful but CLRU does this), clearing it makes eviction
+>>>>> better, but the eviction issue is MGLRU-only, CLRU keeps it.
+>>>> I recall that in v1 [1], Hui mentioned:
+>>>>
+>>>> "Use folio_clear_referenced() rather than
+>>>> folio_set_lru_refs(), which is not defined without
+>>>> CONFIG_LRU_GEN."
+>>>>
+>>> Or prehaps we can have a folio_clear_lru_refs() do in a unified way
+>>> for For both CLRU / MGLRU? (Just like folio_migrate_lru_refs).
+>> And it will be better if we can keep this operation off-list just like
+>> right now :), some later works could benefit from it.
+> lru_gen_clear_refs() is currently multifunctional. It clears
+> refs/workingset, but also returns true to skip
+> folio_batch_add_and_move() in both deactivate_file_folio()
+> and folio_deactivate().
+>
+> This actually looks a bit weird. However, following the current
+> logic, I've drafted a version that we can use as a starting point
+> for discussion:
+>
+> diff --git a/mm/folio.c b/mm/folio.c
+> index dc2c796a4ea7..bc17cd3b6b6c 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -444,12 +444,12 @@ static bool lru_gen_clear_refs(struct folio *folio)
+>          int type = folio_is_file_lru(folio);
+>          unsigned long seq;
+>
+> -       if (gen < 0)
+> -               return true;
+> -
+>          folio_set_lru_refs(folio, 0);
+>          folio_clear_workingset(folio);
+>
+> +       if (gen < 0)
+> +               return true;
+> +
+>          rcu_read_lock();
+>          seq = READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
+>          rcu_read_unlock();
+> @@ -465,6 +465,8 @@ static void lru_gen_inc_refs(struct folio *folio)
+>
+>   static bool lru_gen_clear_refs(struct folio *folio)
+>   {
+> +       folio_clear_referenced(folio);
+> +       folio_clear_workingset(folio);
+>          return false;
+>   }
+>
+> The another option is:
+>
+> diff --git a/mm/folio.c b/mm/folio.c
+> index dc2c796a4ea7..8d1fd788188c 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -438,6 +438,12 @@ static void lru_gen_inc_refs(struct folio *folio)
+>          } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
+>   }
+>
+> +static inline void __lru_gen_clear_refs(struct folio *folio)
+> +{
+> +       folio_set_lru_refs(folio, 0);
+> +       folio_clear_workingset(folio);
+> +}
+> +
+>   static bool lru_gen_clear_refs(struct folio *folio)
+>   {
+>          int gen = folio_lru_gen(folio);
+> @@ -447,8 +453,7 @@ static bool lru_gen_clear_refs(struct folio *folio)
+>          if (gen < 0)
+>                  return true;
+>
+> -       folio_set_lru_refs(folio, 0);
+> -       folio_clear_workingset(folio);
+> +       __lru_gen_clear_refs(folio);
+>
+>          rcu_read_lock();
+>          seq = READ_ONCE(folio_lruvec(folio)->lrugen.min_seq[type]);
+> @@ -463,9 +468,10 @@ static void lru_gen_inc_refs(struct folio *folio)
+>   {
+>   }
+>
+> -static bool lru_gen_clear_refs(struct folio *folio)
+> +static inline void __lru_gen_clear_refs(struct folio *folio)
+>   {
+> -       return false;
+> +       folio_clear_referenced(folio);
+> +       folio_clear_workingset(folio);
+>   }
+>
+>   #endif /* CONFIG_LRU_GEN */
+> @@ -659,10 +665,7 @@ static void lru_lazyfree(struct lruvec *lruvec,
+> struct folio *folio)
+>
+>          lruvec_del_folio(lruvec, folio);
+>          folio_clear_active(folio);
+> -       if (lru_gen_enabled())
+> -               lru_gen_clear_refs(folio);
+> -       else
+> -               folio_clear_referenced(folio);
+> +       __lru_gen_clear_refs(folio);
+>          /*
+>           * Lazyfree folios are clean anonymous folios.  They have
+>           * the swapbacked flag cleared, to distinguish them from normal
 
-The issue was observed in a two-host test using a BlueField-3 NIC and
-an NVIDIA H20 GPU. In the original test with MTU 1500, 354 of 400
-transfers contained corrupted data before the fix. After applying this
-change, all 400 transfers across eight message sizes from 32 KiB to
-4 MiB, with 50 transfers per size, completed successfully, with no
-incorrect bytes or corrupted intervals.
 
-Fixes: e5ca8fb08ab2 ("net/mlx5e: Add control path for SHAMPO feature")
-Closes: https://lists.openwall.net/linux-kernel/2026/09/15/154
-Link: https://lists.openwall.net/linux-kernel/2026/10/20/1322
-Suggested-by: Dragos Tatulea <dtatulea@nvidia.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiabin Deng <dengjiabin2023@gmail.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/en/params.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Hi Barry, Kairui,
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
-index 5caf7820a136..159f79302a08 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
-@@ -911,10 +911,11 @@ static void mlx5e_build_rx_cq_param(struct mlx5_core_dev *mdev,
- 
- static u8 rq_end_pad_mode(struct mlx5_core_dev *mdev, struct mlx5e_params *params)
- {
--	bool lro_en = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO;
-+	bool no_pad = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO ||
-+		      params->packet_merge.type == MLX5E_PACKET_MERGE_SHAMPO;
- 	bool ro = MLX5_CAP_GEN(mdev, relaxed_ordering_write);
- 
--	return ro && lro_en ?
-+	return ro && no_pad ?
- 		MLX5_WQ_END_PAD_MODE_NONE : MLX5_WQ_END_PAD_MODE_ALIGN;
- }
- 
+>
+> I would personally prefer the latter. What do you think, Hui and Kairui?
 
-base-commit: fafbc4051123d5459ea6950899cec08ed946e278
--- 
-2.51.0
+I prefer option B too: it keeps the flag clearing independent of the
+list state and leaves the two deactivate callers untouched.
 
+But I'd suggest splitting this in two:
+
+1. Take v2 as the fix now. If that is acceptable, I will respin it
+    with Cc: stable added.
+
+2. Follow up with option B as a pure cleanup, no Fixes tag. The
+    lazyfree site then becomes the off-list __lru_gen_clear_refs()
+    call that Kairui wants for later work.
+
+The reason is backporting. Every stable from 6.14 (cc8ec7be78ff) to
+7.3 carries the regression, but B is written against
+folio_set_lru_refs(), which only landed in this merge window
+(64169ceea5b1e). None of the affected trees has that helper, so
+backporting B would drag the refs-flags rework along with it. v2
+applies to all of them with only the mm/swap.c -> mm/folio.c rename
+to adjust.
+
+B also starts clearing PG_workingset on the classic LRU. I agree
+with Kairui that this is the right semantics for MADV_FREE, but it
+is a change beyond this regression and deserves its own patch - it
+fits naturally in the MGLRU-FG flag cleanup, as does the sort_folio()
+lazyfree check.
+
+Best,
+Hui
+
+
+> Best,
+> Barry
