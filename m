@@ -1,49 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980438;
-	b=H878eAOVTvAk0OQ/njeoD0cryl2usZ9+rowy+tqnbNu41kZA0PNM4blA8xuJgc+RWinS
-	 VSqTelKCmtI0ORP+Wk30WTmXBNLsBWo6Pm1rC12zFsN8e+TSUPQRWouvx4ZwVN/yQOoOz
-	 Kvw8een5Un9KwVlOsSpcgUl0MoD0lMkUjDkZMxRW5lDc9vnC28xIJDPczxKB3S73rd4Cj
-	 U16qzEB3hci3MdBbKLcO4AhPdMddSwlY2iZTF0iyRg/7yoNc49EhlWI8G8LKJpwZTU6RT
-	 ifH+7WIJuMaGCXg2fnN/b6FksNuxkK5HTkx2R0GXnn588LzK+zg2dGsYuf4T2vtmzAA==
+	t=1793980529;
+	b=VIuYbC12xarybSBU7S7wSOGnYw2h81VbryVOmHpNgE2U6xf3x6ZyH0U55QGsFMgqGvqN
+	 3XENJmqtEIBHgU5ecK9FDMJXxaXvlKlultNSLurNng7WTOhWu14DGrFwppoosUX9BVZcS
+	 qt6zlT83s4IvMUxhUsKOA2QfP1N4tdchaSXKjV5HwfSLBrynNnR+j8Xi3ek5JzJWPJS0o
+	 xsfwzU3WRdtE2YYtRW2sqce1I13M1ff6QzCMZ3tlSR+Xt+IRddcdR0IJkw28vJypOEgS3
+	 v1xiqXCdXwzfO5eBuXFW8nj48d+2wd8FOowT18U5Gx/smnoC3Pvcn7Fqy5U93LfpxUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980438;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=DPOMwTSvbAo1LAqVB4mAhcsurb7daK3VuegSC4h7gt0=;
-	b=QM3xGw4Ujmj2sHyYYxduG8S1hLvZFkO2U6Snv5A1iO+cdLoGd5kydpfGqRBbzZ5pxZa1
-	 slVDXn/rlPIabGBA1V7C5qqYSDXyk9l5cK5jUsf9u7lLO++J3SbqR2R9DGC5fO7g9aatk
-	 /3UWg5nPA+H22lrpNhr1wgBNEy6En8o9yjJvL83ze85zbI3GkQXFcAMAFZfLoxrL2bTwC
-	 23u75jOkRHvgYTiG24eYJnQdlAE/1ELGNYN76DbrRey/Ey5H3z8VR75HCKnQPt3Jj28h6
-	 /GTNTo5RxbOuYU1IevmIDHqTn02Q0LMLv0kyfAVZWildg2rFkv6Hj2XwhCrtViOnmpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980529;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=o9kbdoBsE4U8B/2v2AZP0fcQdT5UCzBPj2wIoqruvs4=;
+	b=fCb4Ybb6WW1KeMii4GkGWfd/iioEeMv4G5HolQvOSUMLTOVLp0AqyLdwPS7gQ67Iq8RL
+	 ja6Ybc5nk8NOnTMd1iK7M9T2JAxmbBCMR9+Zp3cm1dG2bOFKteClbCM4R0NGnrO29Z1Qf
+	 FoUAPR5wbbsrBpMtHjxaqwzvR1HK3MLLMgzL48LhGIMnYGLM7hrGuAkTeTImctC4f6fTZ
+	 pNBFJ9+MVFGGktuB08cj2YuEDxEbrW0B/01D8wyjGjYKbb1yCT9+jr+JBtLOzI29W/0L8
+	 IDqFK4yHdfls+MmAxohUdpjuxmjM4A0EI6Kq5WDgl9tcnDAV38/9OY77JL7hUUOuJsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LRz9Rsg+;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B56B606A326;
-	Fri,  6 Nov 2026 15:53:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B56B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=thegoodpenguin.co.uk;
+	spf=pass smtp.mailfrom=thegoodpenguin.co.uk;
+	dkim=pass header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OvhWqfKe;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B270B606A326
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 15:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B270B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LRz9Rsg+
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 263AA1650;
-	Fri,  6 Nov 2026 07:53:53 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA1663F632;
-	Fri,  6 Nov 2026 07:53:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793980436; bh=lcGq0yAuWCPdJWtJp7e7QzyKs8GOrg+9krik9Z5TWOA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LRz9Rsg+CClLDbSj9N8YmKiWl+6uCwcSHo5pYgvqa4rKxcABe9yCflvMIm03x7c4e
-	 sUwPlUg1GJaCWiNFHkT3tH5Qg3q5SI+N7gBKW+kOkRAUGJnNQjOQWnViVANh8qJ/tv
-	 gelAftaYfM6xV4Gc0Q2YUmz5Ao3eu9ecMzWq5VFI=
-Message-ID: <c58c397e-26e4-4866-be80-59d9bd861654@arm.com>
-Date: Fri, 6 Nov 2026 15:53:52 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OvhWqfKe
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4910b863b84so1323056f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:55:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20260707.gappssmtp.com; s=20260707; t=1793980527; x=1794585327; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o9kbdoBsE4U8B/2v2AZP0fcQdT5UCzBPj2wIoqruvs4=;
+        b=OvhWqfKeNlNBrueqsKnaYRAeQPjoWvwmd9mwEND/vwmG+jm+NDNInHisaJfoIz/EBC
+         4WXVVTozXz0azIu0+5loTudCJuxf/t7UP1vrsp5aXLYBoGoIuWHa5FSjFDHr2YdPXq2U
+         OxiEi2Yzz7ByRPqueo8Jk35tmvwubKhLo3mDhoxxofTaKYYQ4wrs7y9jjZJqMCP4d8n4
+         rG5ncxfJLzqP93+TfhBvcbKURXCXQ3dXOjo+IuLJvdkmduTY12kpwAk+Dwyow8XPuCgR
+         iRfSQBgKE6Da2tZwJN4uJ++ReYCEF5WCq0CSNGz29J4XsouZ9EjGZNqNAYYnFBe7uHlb
+         xB2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793980527; x=1794585327;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=o9kbdoBsE4U8B/2v2AZP0fcQdT5UCzBPj2wIoqruvs4=;
+        b=M5FThPFm0O6yPtU7jz/i3CsyUFZNPp92h/Z+1bYd54RjVyxUdIEXNc7DmjWSgNPVgX
+         i7Ayc2IwICYJRdtw9ye4chMkF9cefz20n7nCGkRdAAezNTdGAekD10EZTu39HkCcARBQ
+         UPFi1v34u9+cVmc3kTnp6p2JkLSmvu1UhSoCNz1MqgdEFAK6h4cDwMA+5ZvFnf3WiXiy
+         f59p6PXso2zNz2p4kJXqkY57T18u3EQ2imMj05jTbUGoSi502nas65YgC4HTrYDLVN3l
+         KffRnv7Z7uYjEq58MJ/doFMLAlZf+Gl1D5R4Qs/JpKzmmax/eftXHSgWu+e2V/Ofjs/E
+         x+GQ==
+X-Forwarded-Encrypted: i=1; AL+hErHfJY0fZCHYG2q+4uX376qqdUsK9d1MrWG6gEQBKK6O4HpTbvgMKgsrdQ/gnO8cK0m7+PPnXlYIwNcsJFQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+soKPlJmPZLTLFZo3JCSUBhFvP7DUIhcfHCI7Iqjvu6r5SlzUu
+	G5XMIOaAHuhOrP4cXCHJlRYjGF9bG5/YKDnPgunVvlni2A9Nr7m3mTtFQjFFym6HAgQ=
+X-Gm-Gg: AYBFou1Jj5nVowngyrV6uHHW31VHPLHzVA1yIsyTINnUE3KOy5VkEZBrzw1Mk/DQ0lZ
+	R6UQpft/YB2OvVmACCIVN9b+B/ynv9OAeJx3w80nwgwnbsoqDGy8vDfj+QfwiPh6HlxB8eSJ6mY
+	ZJyTB6SgoCTwHEMRNT7GNEX68kk7qo6t6F/YPEwpmuRJY9kQIBVQhad2LDF6wVmnFkhsjjwiSau
+	IVb4/P1+XCTwF4pGeuf+o3b8ic+5o0RN2u3hq0UmDLuDrTBbOgUMCpMxmCBtMcb28fA3AFGJnj4
+	iH5BAFcw1BQlu5lDawCbi8wzEDfDNtOhh/p8V+CiaYxeTe1fPMXTEOQkr5PY7jHPrYH7GTsolKj
+	P6j//b7TF0lqcmTj3jITpsVZ0hIjwl4JUanAC9Pta0iiu8V+aVGIFelGEdTQzk8vwvT2WQBfhmz
+	NFq5UUbKLka/7gbCmX/xqIzb8N5UfL9dbhtnCqzQ8zxm9D85Cc/hOJT/lObEYgpmaZnRPMF71Li
+	WktT5rJYvFQ8PcJKjYK7B5ua2gBGSlY6y30MudaIpcrpU2WS0XXt5X+4WQSwG5/NE3nRvI3sima
+	tlLJXSqGm3IwJ7CT0FS3jiGTDEEOj4DZZ6XXyt837mx7fali9fKIk5l/s7QInegGeA==
+X-Received: by 2002:a05:6000:2893:b0:48e:7833:2e7b with SMTP id ffacd0b85a97d-49115c978f5mr13236722f8f.1.1793980527027;
+        Fri, 06 Nov 2026 07:55:27 -0800 (PST)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:153c:4b80:6e11:422])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d809ddbbsm4492288f8f.53.2026.11.06.07.55.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 07:55:26 -0800 (PST)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Fri, 06 Nov 2026 15:55:16 +0000
+Subject: [PATCH] mmc: sdhci: Use named initializers for acpi_device_id
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,266 +91,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] selftests/resctrl: Implement cl_flush() and sb()
- for aarch64
-To: Richard Cheng <icheng@nvidia.com>
-Cc: tony.luck@intel.com, reinette.chatre@intel.com, x86@kernel.org,
- shuah@kernel.org, fenghuay@nvidia.com, Dave.Martin@arm.com,
- james.morse@arm.com, babu.moger@amd.com, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kaihengf@nvidia.com, kobak@nvidia.com,
- newtonl@nvidia.com, kristinc@nvidia.com
-References: <20261012074729.40042-1-icheng@nvidia.com>
- <20261012074729.40042-2-icheng@nvidia.com>
- <847af89d-7b79-44b4-8273-243dfb51ef5e@arm.com>
- <9cccea63-397c-4913-95bc-eed38f0ebd66@arm.com> <aurOz7iGKInyjddW@MWDK4CY14F>
- <b94aa5e5-a4ab-4b61-a864-d10ff1ff2b63@arm.com> <auxM9hVAgp61Qbgv@MWDK4CY14F>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <auxM9hVAgp61Qbgv@MWDK4CY14F>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-acpi-mmc-v1-1-00934babd69e@thegoodpenguin.co.uk>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMj3cTkgkzd3NxkXfOkpCRLMxMz85QUCyWg8oKi1LTMCrBR0bEQfnF
+ pUlZqcglIv1JtLQABnyAqbAAAAA==
+X-Change-ID: 20261102-acpi-mmc-7bbb96467dd8
+To: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Hu Ziji <huziji@marvell.com>
+Cc: linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793980525; l=5528;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=wk0vJLpQ6eLGpzrrOfKv/kURpO3tO1+Cxw3RmtkJnps=;
+ b=w4MPYYFZwmLZeAw2/+63BAo7MARTNN03UeXZvJKjaw4YFtVxwA3b1mxsR+J0DpD3p+f2D1Jpj
+ EchWeco3koqDhaHCp0G1RXvxaQT3Gf186PUHp5qnBqR4NFHcjXSlAcs
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-Hi Richard,
+Use a designated initializer for the acpi_device_id fields which makes the
+code more readable and consistent with how lists are initialized in the
+rest of the kernel code base.
 
-On 05/11/2026 09:41, Richard Cheng wrote:
-> On Wed, Nov 04, 2026 at 05:09:28PM +0800, Ben Horgan wrote:
->> Hi Richard,
->>
->> On 04/11/2026 06:43, Richard Cheng wrote:
->>> On Wed, Oct 21, 2026 at 10:55:35AM +0800, Ben Horgan wrote:
->>>> Hi Richard,
->>>>
->>>> On 20/10/2026 17:30, Ben Horgan wrote:
->>>>> Hi Richard,
->>>>>
->>>>> Thanks for having a look at the arm64 side of the resctrl selftests. That hasn't had much love but
->>>>> it would be good to have them working properly.
->>>>>
->>>>> On 12/10/2026 08:47, Richard Cheng wrote:
->>>>>> cl_flush() and sb() compile to empty functions on aarch64, making
->>>>>> mem_flush() a silent no-op and leaving CMT/CAT tests operating on
->>>>>> unflushed state.
->>>>>>
->>>>>> Add "dsb sy" for sb(), ARM requires a DSB whose access type covers both
->>>>>> loads and stores.
->>>>>
->>>>> I guess this is referring to the synchronization required for the cache maintenance instruction but
->>>>> that's not what you are using in this patch.
->>>>>
->>>>>>
->>>>>> For cl_flush(), "dc civac" only reaches the Point of Coherency, on
->>>>>> ARM MPAM systems the SLC lies past the PoC and may be a NOP on coherent
->>>>>> platforms. Instead, dirty each cacheline with a store so that
->>>>>> mem_flush's full-buffer sweep evicts lines from the SLC via LRU
->>>>>> pressure.
->>>>>>
->>>>>> Signed-off-by: Richard Cheng <icheng@nvidia.com>
->>>>>> ---
->>>>>>  tools/testing/selftests/resctrl/fill_buf.c | 11 +++++++++++
->>>>>>  1 file changed, 11 insertions(+)
->>>>>>
->>>>>> diff --git a/tools/testing/selftests/resctrl/fill_buf.c b/tools/testing/selftests/resctrl/fill_buf.c
->>>>>> index b9fa7968cd6e..eae0262fe265 100644
->>>>>> --- a/tools/testing/selftests/resctrl/fill_buf.c
->>>>>> +++ b/tools/testing/selftests/resctrl/fill_buf.c
->>>>>> @@ -27,6 +27,9 @@ static void sb(void)
->>>>>>  #if defined(__i386) || defined(__x86_64)
->>>>>>  	asm volatile("sfence\n\t"
->>>>>>  		     : : : "memory");
->>>>>> +#elif defined(__aarch64__)
->>>>>> +	asm volatile("dsb sy\n\t"
->>>>>> +		     : : : "memory");
->>>>>>  #endif
->>>>>>  }
->>>>>>  
->>>>>> @@ -35,6 +38,14 @@ static void cl_flush(void *p)
->>>>>>  #if defined(__i386) || defined(__x86_64)
->>>>>>  	asm volatile("clflush (%0)\n\t"
->>>>>>  		     : : "r"(p) : "memory");
->>>>>> +#elif defined(__aarch64__)
->>>>>> +	/*
->>>>>> +	 * Dirty the cache line with a store. As mem_flush() sweeps
->>>>>> +	 * the full test buffer (sized larger than the SLC), cache pressure
->>>>>> +	 * evicts lines from the SLC via LRU replacement.
->>>>>> +	 */
->>>>>> +	asm volatile("strb wzr, [%0]\n\t"
->>>>>> +		     : : "r"(p) : "memory");
->>>>>>  #endif
->>>>
->>>> One more thing that occurred to me is that if this is intended to evict all existing data in the
->>>> cache then it would require that the cache portions bitmap for the control group (PARTID) in use is
->>>> set to all 1s. E.g. 'L3:0=0xffff'. Otherwise, you may not affect the whole cache. This likely means
->>>> that the cl_flush() function isn't the right abstraction for MPAM and the test needs a bit of
->>>> restructuring to get this to fit in elegantly. Similarly, to the limbo handler in resctrl you could
->>>> then check the llc_occupancy() to check it's under a "low enough" threshold.
->>>>
->>>> Thanks,
->>>>
->>>> Ben
->>>>
->>>
->>> Hi Ben,
->>>
->>> Thanks for the feedback. I checked the code and ran some tests.
->>> You're right, my implementation writes into the benchmark's own buffer using
->>> the same PARRID/PMG, and the buffer isn't always larger than the SLC.
->>>
->>> I can't claim that it produces an eviction sweep 100%.
->>>
->>> I think what are want to do is to check whether reducing a group's cache
->>> allocation causes more cache misses, thus the data left in cache from the
->>> previous allocation must not affect the next measurement. That is also
->>> why I want to reuse the concept of Intel's test with CLFLUSH before
->>> warming the buffer under the new allocation.
->>>
->>> I'm thinking maybe the assumption can't be achieve on ARM, I ran tests to
->>> measure occupancy before and after each preparation method.
->>>
->>> I tried this patch's implement, and "DC CIVAC" since I think it can affectively
->>> invalidate cacheline without throwing old data away, which should left
->>> occupancy almost unchanged.
->>> And one more method with a separate large buffer in another group.
->>>
->>> The result turns out like the following
->>>
->>> Preparation                     Before (MiB)   After (MiB)
->>> DC CIVAC + DSB SY                     51.19         50.47
->>> zero-byte stores + DSB SY          53.12         56.43
->>> Separate-buffer pressure             53.25          7.14
->>>
->>>
->>> The current method increased the benchmark group's occupancy instead of
->>> reducing it. "DC CIVAC" left occupancy almost unchanged.
->>> The separate buffer method reduced occupancy very much, but still left data
->>> behind.
->>>
->>> It makes me think we should reconsider the test method. I think the goal is
->>> to check whether the MPAM allocation limit works, clearing the cache is only
->>> how the Intel RDT test prepares for that check.
->>>
->>> How about we set a group's mask before its worker initialize the buffer and
->>
->> We'll still need to make sure that the PARTID used for the test hasn't got high occupancy in the
->> cache before running the benchmark.
->>
->>> then run sustained cache traffic and measure occupancy after it settles?
->>
->> I assume the occupancy is measured via resctrl, llc_occupancy.
->>
->>> Maybe compare full, half and quarter masks to see whether the allocation limits take effect.
->>>
->>> Does that sound like a useful direction for MPAM test for you ?
->>
->> Yes, I think so.
->>
->> Would it end up like this?
->>
->> 1. Choose a test control group and ensure that it doesn't have high cache occupancy using llc_occupancy
->> (If it does have high cache occupancy then clean it. Probably by using separate buffer with a
->> separate control group)
->> 2. Configure the L3 cache bitmap for the test control group
->> 3. Run a benchmark
->> 4. Check that the llc_occupancy is as expected
->> 5. Repeat 1-4 with different cache bitmaps.
->>
->> However, it doesn't sound specific to MPAM but more like a general test for the cache portion
->> bitmap. Possibly it can be a separate cross-architecture resctrl selftest that compliments the
->> (somewhat) intel specific cat_test. (There isn't a platform independent way of measuring slc cache
->> misses on arm64.) This depends of the resctrl selftest maintainers view.
->>
->> Thanks,
->>
->> Ben
->>
-> 
-> Hi Ben,
-> I like the idea to make it a general test for cache on different arch,
-> but yeah let's leave it for resctrl's maintainers to decide, I do not know other
-> arch's cache topology and such so what I'm designing is very likely to overfit on ARM64.
-> 
-> Anyway, per your suggestion, I tried a few experiment and came up with the approach
-> like the following, and still have some points needs to discuss with you if you don't mind.
-> 
-> We'll reuse one test group and buffer across tests for different bitmaps,
-> and a separate group and buffer for sweeping.
-> 
-> 1. Set up. Create the test and sweep group, assign workers, init buffer, give the sweep group the full cache mask.
-> 2. Prepare before each mask. Keep the test worker stopped. Run the sweep worker and check "llc_occupancy" repeately,
-> until it stays below a starting threshold, I set it as 4KB on my testing machine, we can discuss about it
+Unify the list terminator to have a single space between the brackets and
+no trailing comma.
 
-A starting threshold of 4KB on a machine with 164MB cache seems lower than required. Assuming, the
-maximum number of cache portions supported by resctrl, 32, then each portion is about 5MB, and so if
-you are measuring occupancy to check if the cache portion bitmap has the desired effect then 4KB is
-in the noise.
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+---
+This series is converting lists that contain the acpi_device_id struct,
+which is defined in the include/linux/device-id/acpi.h to make use of named
+initializers (which they do not use currently). This work is part of the on
+going effort in the kernel associated with device-ids [1]
 
-> since the value should fit on different machine. And we'll put a timeout for cleanup time.
-> 3. Stop the sweep and apply cache maskWarmup test workload for 3 sec
-> 4. Run the workloadRead llc_occupancy and see if it meets the expected value ( that's what we need to discuss )
-> 
-> So on my machine it has a 164 MB share cache, no matter what cache masks I use, the cache occupancy won't be 100%,
-> even I use some mask like 0001, 8000. I'm not sure what kind of expectation should we apply on the test,
-> just not exceeding the rule's enforcement is enough ? or should it exceed certain amount of usage ?
+The plan is to convert acpi_device_id::driver_data to have an anonymous
+union, similarly to what was introduced for PCI and I2C device ID tables.
+The goal is to increase type-safety (most of the existing casts are gone),
+to improve readability and to make use intent a bit more clear:
 
+```
+union {
+	kernel_ulong_t driver_data;
+	const void *driver_data_ptr;
+}
+```
 
-I'd say just sufficient precision to be able distinguish between a cache bitmap with n bit set and
-one with n + 1 bits.
+But for that to work all lists containing the structs need to use named
+initializers first to avoid triggering -Wmissing-braces. I already have
+patches that implement this and touching a lot of kernel subsystmes that
+use the acpi_device_id struct and that list keeps on growing. Therefore,
+I have decided to split the series per every subsystem into:
+- pre-clean-ups that convert the lists to use named initializers
+  (which is this series)
+- actual implementations that make some of the modules use the new
+  driver_data_ptr member
 
-Does checking which of these intervals the occupancy in give you a reproducible way of determining
-how many bits are set? Hopefully overshoot can be sized to make this reliable.
+That way the task can be fragmented into manageable and independent chunks
+of work and makes this effort easier to review.
 
-(0, size/num_bits + overshoot),
-(size/num_bits + overshoot, 2*size/num_bits + overshoot),
-(2*size/num_bits + overshoot, 3*size/num_bits + overshoot),
-...
-((num_bits - 1)*size/num_bits + overshoot, size)
+[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+---
+ drivers/mmc/host/sdhci-acpi.c       | 30 +++++++++++++++---------------
+ drivers/mmc/host/sdhci-iproc.c      |  2 +-
+ drivers/mmc/host/sdhci-of-dwcmshc.c |  2 +-
+ drivers/mmc/host/sdhci-xenon.c      |  8 ++++----
+ drivers/mmc/host/sdhci_f_sdh30.c    |  4 ++--
+ 5 files changed, 23 insertions(+), 23 deletions(-)
 
-As you mention above, making this reliable across architectures and even across arm platforms means
-that you can't be just be looking for precise numbers or exactly repeatable behaviour.
+diff --git a/drivers/mmc/host/sdhci-acpi.c b/drivers/mmc/host/sdhci-acpi.c
+index 84c7054607fc..e97c33614fd1 100644
+--- a/drivers/mmc/host/sdhci-acpi.c
++++ b/drivers/mmc/host/sdhci-acpi.c
+@@ -704,21 +704,21 @@ static const struct sdhci_acpi_uid_slot sdhci_acpi_uids[] = {
+ };
+ 
+ static const struct acpi_device_id sdhci_acpi_ids[] = {
+-	{ "80865ACA" },
+-	{ "80865ACC" },
+-	{ "80865AD0" },
+-	{ "80860F14" },
+-	{ "80860F16" },
+-	{ "INT33BB"  },
+-	{ "INT33C6"  },
+-	{ "INT3436"  },
+-	{ "INT344D"  },
+-	{ "PNP0D40"  },
+-	{ "QCOM8051" },
+-	{ "QCOM8052" },
+-	{ "AMDI0040" },
+-	{ "AMDI0041" },
+-	{ },
++	{ .id = "80865ACA" },
++	{ .id = "80865ACC" },
++	{ .id = "80865AD0" },
++	{ .id = "80860F14" },
++	{ .id = "80860F16" },
++	{ .id = "INT33BB" },
++	{ .id = "INT33C6" },
++	{ .id = "INT3436" },
++	{ .id = "INT344D" },
++	{ .id = "PNP0D40" },
++	{ .id = "QCOM8051" },
++	{ .id = "QCOM8052" },
++	{ .id = "AMDI0040" },
++	{ .id = "AMDI0041" },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, sdhci_acpi_ids);
+ 
+diff --git a/drivers/mmc/host/sdhci-iproc.c b/drivers/mmc/host/sdhci-iproc.c
+index 35ef5c5f5146..db5bed2397f6 100644
+--- a/drivers/mmc/host/sdhci-iproc.c
++++ b/drivers/mmc/host/sdhci-iproc.c
+@@ -350,7 +350,7 @@ static const struct acpi_device_id sdhci_iproc_acpi_ids[] = {
+ 	{ .id = "BRCM5872", .driver_data = (kernel_ulong_t)&iproc_data },
+ 	{ .id = "BCM2847",  .driver_data = (kernel_ulong_t)&bcm_arasan_data },
+ 	{ .id = "BRCME88C", .driver_data = (kernel_ulong_t)&bcm2711_data },
+-	{ /* sentinel */ }
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, sdhci_iproc_acpi_ids);
+ #endif
+diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci-of-dwcmshc.c
+index 09702022e708..113a9399d7dc 100644
+--- a/drivers/mmc/host/sdhci-of-dwcmshc.c
++++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
+@@ -2400,7 +2400,7 @@ static const struct acpi_device_id sdhci_dwcmshc_acpi_ids[] = {
+ 		.id = "MLNXBF30",
+ 		.driver_data = (kernel_ulong_t)&sdhci_dwcmshc_bf3_pdata,
+ 	},
+-	{}
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, sdhci_dwcmshc_acpi_ids);
+ #endif
+diff --git a/drivers/mmc/host/sdhci-xenon.c b/drivers/mmc/host/sdhci-xenon.c
+index 046e8100dd08..2e4926e722f3 100644
+--- a/drivers/mmc/host/sdhci-xenon.c
++++ b/drivers/mmc/host/sdhci-xenon.c
+@@ -700,10 +700,10 @@ MODULE_DEVICE_TABLE(of, sdhci_xenon_dt_ids);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id sdhci_xenon_acpi_ids[] = {
+-	{ .id = "MRVL0002", XENON_AP806},
+-	{ .id = "MRVL0003", XENON_AP807},
+-	{ .id = "MRVL0004", XENON_CP110},
+-	{}
++	{ .id = "MRVL0002", .driver_data = XENON_AP806 },
++	{ .id = "MRVL0003", .driver_data = XENON_AP807 },
++	{ .id = "MRVL0004", .driver_data = XENON_CP110 },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, sdhci_xenon_acpi_ids);
+ #endif
+diff --git a/drivers/mmc/host/sdhci_f_sdh30.c b/drivers/mmc/host/sdhci_f_sdh30.c
+index e9b934e159ad..f3d0a50d1a6f 100644
+--- a/drivers/mmc/host/sdhci_f_sdh30.c
++++ b/drivers/mmc/host/sdhci_f_sdh30.c
+@@ -227,8 +227,8 @@ MODULE_DEVICE_TABLE(of, f_sdh30_dt_ids);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id f_sdh30_acpi_ids[] = {
+-	{ "SCX0002" },
+-	{ /* sentinel */ }
++	{ .id = "SCX0002" },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, f_sdh30_acpi_ids);
+ #endif
 
-Thanks,
+---
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+change-id: 20261102-acpi-mmc-7bbb96467dd8
 
-Ben
-
-> And for the sweep method, even sweep like 100 times with another buffer, we can't gaurantee to evict all of the old data from the cache,
-> so I came up with another idea that everytime we make a new test, we use a new buffer and a new test group,
-> leaving old data in the old group.
-> 
-> However, sometimes non-zero reading still occurs, and it might happen more frequently on smaller machine,
-> so I think your proposed sweeping approach is better.
-> 
-> I hope this is getting closer to a desired design before I implement v6.
-> 
-> Best regards,
-> Richard Cheng.
-> 
-> 
-> 
-> 
->  
->>>
->>> Best regards,
->>> Richard Cheng.
->>>
->>>
->>>  
->>>>>
->>>>> Isn't this cl_flush() used without changing the resctrl control and monitor group (PARTID/PMG)?
->>>>> Hence, I expect you are ending up making the cache full of data associated with the identifiers that
->>>>> the benchmark runs with. Is that the case?
->>>>>
->>>>> I'm also unclear how this the cat_test will detect any performance differences on arm/MPAM as the
->>>>> perf events would need to specific to the system level cache implementation.
->>>>>
->>>>> Thanks,
->>>>>
->>>>> Ben
->>>>>
->>>>>
->>>>>
->>>>>>  }
->>>>>>  
->>>>>
->>>>
->>
+Best regards,
+--  
+Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 
