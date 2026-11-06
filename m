@@ -1,54 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950541;
-	b=vnq20gpwKpg5Yh4qYBqneM1cqZHhNHs54cDfunRbizKuFq0dR7bCZqQHA+n528SZszxv
-	 IB4tRiMo1k8WrZVR5lNL77EmD6uM27DwFzUK4MlZE86sj+bcDZpEqxryvmyDJzDO2rHPf
-	 UOEWJmEtIlP5jgaQeF5XyhdI60uGc3FADhdTFYN0+QM2xJ7bOzgXRHo0Ox8/CdhdRD3PF
-	 6DZ9yIP3oGSZYuMHEVWY/41y15cu1FxgBefJJ/qciRkS8THzsj/n/G6LRc4/PzwLugJBe
-	 bzfBHoBmvG1VUM+gl3NzrGy1szIAfWtik78xKjlgm7FviL6qXZT1NduTM9s+76CrcXg==
+	t=1793950670;
+	b=arC4OFc5hpaXbkmdzljQJDnUN7jr7QP4WCQtZzpM92aaZ0X6ZlYDVTCjdKj6hqX+FyKJ
+	 ffnNkB4A1epBFMJM2dwdpKlcOV//LcPt08r6hYWz+QI3yljuvB6nT5sQpYHK9fRyftwR/
+	 ckMSgAHe2/R9bCpms0vFoduxFAOqicubFWoqpdgE/YotEygfBkVMXcEDaRcdIPgMdoJsO
+	 5t/RwsQAciSNFZwLcWH3zvax5qXhPxvdCWkPq4IKLBX6V4brCjs9mG7KBviiOaYMssF2U
+	 4HXYOKndRbT/NmmEgQEYhQRy0giyFNCkP5TSaluqIR43+Na2hLT8JinmMYLZre+hCCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950541;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=jofUOUuZGiOeY+WDnYLz9GGB6wS0Rpuagpa+I9Ypomo=;
-	b=0DMfqaqTiCAr4TkA76bW/yPdT+zzVXgmS15h5vCcjLecZRhQwcCg61X/j2Ia8z/nrBUl
-	 KYDbLtTUXXruxNbmCXc8aQmQf/mlIyn75U+DPrKBtb2PLs/RYX6tpylIemSUwDjWwniwA
-	 Shan7kpgaS1ikIgJEVTjGiujoFRYLe7n6Xivzw7hiGoranGGIBQJs4ny6UWjXOSgvudd7
-	 XGcLjZZYxttTvuRtViBpW0k7wJMLrrVKBTnusZ0u5n5l/NsZfWAY9qjjDcXd6riwcbgpa
-	 +OQWbGMq/fI2/Cl0pEau+H4XuUSeCky0FEaDN7C1fvtc4WkR0icjRXc+gXZgooLR+rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950670;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=XmBZz8J29Lp9GQIu57kUSr13Q3mTJePiIqWSZfKucsE=;
+	b=WpF4LHt1CIZolrgeRsFDmIp4pojcxus2EmvxSaV/xlXDNruT5QTaUF40yk9JiFMh33c8
+	 DBZNPOs/Vc5wHUK62/vy6U9ogsiAXS9dXZQwVkHxGmDBH9Qjoj2GEmoCFH7Mndn9f7jxA
+	 GZV+k7yBSLrLN1jeWjuXdluZ96Z6DuiKLllu6Heh9MAytgFYiattmzorQzsE5dCszon16
+	 i57yzxpL5FX+skZr0rayWHYA3tVjD6MCJxKLYrn/iiGzMnX+33DPFEui3zDV63O0faqso
+	 nxk/p5qA7M+ga9iiqrih6/0ZsU0S6Inzf9D9CwwIiHynSM4vf0EiJgFhvNW+5B3zzvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pZ04+8ec;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PMSwk5uW;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3325C606A326
-	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:35:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3325C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4db3db8687fso521933b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:35:40 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FB4606A328
+	for <linux-kernel@vger.kernel.org>; Fri,  6 Nov 2026 07:37:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1FB4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pZ04+8ec;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PMSwk5uW
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RMI02933606
+	for <linux-kernel@vger.kernel.org>; Fri, 6 Nov 2026 07:37:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=XmBZz8J29Lp9GQIu57kUSr13Q3mTJePiIqW
+	SZfKucsE=; b=pZ04+8ecmdKCBnpBh2OngT6OWQDJP5SgMMUdEGtj6kx2pa2RVaY
+	3UBNCPSuYTRJHisQftVw/P7WapUVCkzVhDslkykEWgUwflp5a+aipABQo9dKXN60
+	v0fExz2YjcAsGMNdrWAbdRC66q9BlSFVuKYjr9W1JWY+zFgm9wHMCo0JKCj86P8s
+	2UwA0sS075yZ7SaVFvQwU56zmIk9p/rea6NgQkP689YuuNtwAXaSZywWDdMNlOHk
+	liQPe/F6QnM3AcujXI25sbYwzmGQKB3eTuUZ/Ck/WKrE7jGJdv8O2fQtqrO8KfdY
+	0W8bXJC58wjGUkQoezrpeVKxItu4r970/ug==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa1nr1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 06 Nov 2026 07:37:48 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-99062be02ddso42033241.3
+        for <linux-kernel@vger.kernel.org>; Thu, 05 Nov 2026 23:37:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793950668; x=1794555468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XmBZz8J29Lp9GQIu57kUSr13Q3mTJePiIqWSZfKucsE=;
+        b=PMSwk5uWPIMjdE5vKl62nh+bNu6HwOSmQcA7n4SF2yJ11QRtCfbnqect4hRyndQgpV
+         igVaZ/Ot2ZWZ244NlyeQdPMklnG5MBJXQjOvmQrYHMTQSxpxtRCnUz1DWCGpQK2t3j3E
+         zUYO9K535o6Y0tqZEfaahr/rMjNHqKfbI4TmrcVsXDSi9B/6itLa1ut+6e1AJLGPZhE3
+         dmx1UAYRBT5Z69xXS3DXW3hkbx0zCwnmbqVh1gQpQ7L9UmfbdtMi5dHWHG4bjVr2m342
+         D+fSqZWXuuofecQrlo9YNsYVdvxooAe/Ka4gZ9dNzAQ6JkAGt43RFqFeIPrhXg8zp0Xg
+         xdsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793950540; x=1794555340;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jofUOUuZGiOeY+WDnYLz9GGB6wS0Rpuagpa+I9Ypomo=;
-        b=UEfcrKKwYlS8EH0vclsOw6q/mgtkC6wNaBnkPm4cSe5v6y4DHZKCM7Tbwc739unyVy
-         7MuDrcqRIfhL/2jjvDyjF36dZ+Lbzfv1BAo/srdjpqzDRpI/8I5ciYt1tE5IHNyv2kuI
-         eG6X0HQXWtiAx4f6wwx6XKYgaN/ws0pHNAt2/EVU2RF21a91AfXWBXGDq0Bt4U1cmtMk
-         FQWgJD3f1BV8dvJ8rXUbSKDnVT8Ms16h3/tS2pv4QlffuV8yWth50WS2BM7uGbRMizp+
-         +hAhlT6FrRFcqKK+nH5kCSK/oUT043NRXPaHHIR4GY5YoPEN11ij6BHE4BTieyINbe75
-         3alA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/83vn7cQSj+Vfp5VGNhzLyCwgPhMIHzbLOjm7Uaope2Z6+ckqZwwTFKVA7CYiun6+sr8g3v+8pbY6RjA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bzkvGoOJFkd2AuelA93jJmMDlMfdetrBXUAEASmOm8xc5MBr0
-	sliOaPhm1+8VWcknzYm8rOpNHPEjGh+pfsxTzjV01VO8vtTwuNtNxLJnkmQUNwyQDDGLQzWdlrs
-	dplyMKaC6+IcvMf9khzmQ78CPe/v06UwPV9WIetF6mKVRieOlMxhAijzykQM=
+        d=1e100.net; s=20260707; t=1793950668; x=1794555468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XmBZz8J29Lp9GQIu57kUSr13Q3mTJePiIqWSZfKucsE=;
+        b=Hi9DfnlGEX8NZViU4YYFjALnY7Uu780E15ZwxY2IKPheTkRL/fPqX2bBaL1RqWsuMF
+         5Fev04TlseYDiRSRVVJZ+crOxWNnJ9R7RqtOTdqt1HimVZZNSEsJbD7141kyWXO0jPrV
+         MLunRXmB1nhFldlOUrN8gt4SZ5t2LyN4wZlh33sgW+mn/wUxY/wir4BT4T0Yye+to7Nf
+         t7WJQP3xhq5NDLAwbH6U+TCKSh6rJqWkicqVUZA3gJHn6FerrUndyNlTn08jmgY0taEB
+         qCRFXjwVVuWCEVvPjRP/soxpLcpau94Vxe5F5h4Eoede/pCxdlTtCHjKLcQmVROAAa9U
+         dpAw==
+X-Forwarded-Encrypted: i=1; AKwUvBws7Jvu5t70fg4KQy/jryxCfQ1l5H3jGRWoDIFK8AQZzvt8yKCRA5Onr0x3QsunK0SuMHx2wdiHXZI5PuE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88CZDvvCfPtCsEm9k9V2WlGPr8rc5SRBqANUo+Gqm84QMJgzC1
+	7UQzC2cBwD8OwFwyWR9U7CoQ90Z2+BdqEZZyJzidsD4ssKx/zykZ3pobbPTnt7dhohjeb9zueoi
+	A/ifMTHJ60bqoRhvD7vGNlxtyY5jLEr7yvYbTuxvt9qkgVwg65d7TyyZ1hGo2HsesO0lFZxapyw
+	0=
+X-Gm-Gg: AYBFou3t1E4Kz8zuT+uY0+CqZQWWp+ay3/Dek5BVdrCtGabdXPKcRDi+W6GAwtnMtzX
+	qq/PPqmKVBlWhFlMzHV+xSQrERqm7MUobqVQVl6/gookgIfTStVY7pmlZWo2KNHl6Y9fl+j9prx
+	ToUQ3CECsLjc7Q/1i2lmnSIiyhL/VX4o5OfjKGTVtWuW3AxQNRLHE7pWXT2J22LAyJzcLWoqTq5
+	5Xwp0H21xfxNGV9o1lWg7wEO3EFeqFZ2QTl6htjyVDqcKeyvP/FZb33YYyqKQluckUKAKS/9T8r
+	ELfD3VxJ+1IlvxXdUlTyROtefKnUvlLNA90zHdDVoae5dMuHwKCOBqBajUDSznT0Wvu6nTkHSOy
+	OtXt6q2IOE2UOC4Rs3RHN2517Ex3wTtcSESli899SnKDsYWlsFhkmndvJzNYN+w==
+X-Received: by 2002:a05:6102:c09:b0:7d2:7c8b:3d8 with SMTP id ada2fe7eead31-7d2a16e4764mr925014137.36.1793950667965;
+        Thu, 05 Nov 2026 23:37:47 -0800 (PST)
+X-Received: by 2002:a05:6102:c09:b0:7d2:7c8b:3d8 with SMTP id ada2fe7eead31-7d2a16e4764mr925004137.36.1793950667464;
+        Thu, 05 Nov 2026 23:37:47 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d84726basm2155324f8f.57.2026.11.05.23.37.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 23:37:46 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: qcom: eliza: Use GIC_SPI macro for interrupt-map
+Date: Fri,  6 Nov 2026 08:37:43 +0100
+Message-ID: <20261106073742.99552-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,152 +121,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:178e:b0:564:3fe1:2fad with SMTP id
- 5614622812f47-567e112c9c6mr1124051b6e.42.1793950540032; Thu, 05 Nov 2026
- 23:35:40 -0800 (PST)
-Date: Thu, 05 Nov 2026 23:35:40 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aed834c.dadc8e63.45095.0003.GAE@google.com>
-Subject: [syzbot] [usb?] general protection fault in mct_u232_open
-From: syzbot <syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, johan@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2003; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=vGSbtJOHPFOx04pTR/hXiaYZy2s4Vo3dK7FLfdtdByM=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq7YPG1leJxhCjOcL60LaENzMRXglqS58e7X6H5
+ S6SXsgTb+mJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCau2DxgAKCRDBN2bmhouD
+ 1ysBEACMKwXl2Jjl/OihJ+/SF7ONb1yHYvXj0qJ6IZeQSdpL9NOUNdqMQwosR5eboVUH8KLb6E+
+ oUtktzahxXUSsWJw1vdtvSXZMKu9gKV8tykPPlxUYNIfG+Zl9gaYRy3BMhgjSjKvLj80GI+9TUD
+ /GfeMfFELUnay0F27WpOOBjua3FZEvAV/2t3twVy9tCbIKpDkWGvMSTAzKBjoMvvn+jjWTA0rnE
+ WlhHGiOpKZgLZ0rjpFn5uR7q8L9eiAkDgHUHYhyxQqAYAFPh0WS3nian6ShEB3nHLafulpBs27X
+ LkCurfbfqhFKADiekIZeFbxK+evrBEPZPLQH38GcS5NzyLfbjeqn9yALHnJBcn+OMWkXHheVyJ/
+ s66B1BtNFOJ821DdSdOHd1Igeb7dyrThBB6x26B6gPZGqjK80oU7rYD4bpC+ZjRNLeJhUGOA8VH
+ /SfN89Zqss4fR/UKBOZa9hN1oFeYu5uS2Tt4IUkCsbFTPFYdY4vYQKk7s1xki0txzDJ++JnAmWc
+ MwhVJ9WSsFKKCf+pUdp/49pm6xZjEk3yrbdcIao3rNL61F9+6jQRPbLqWoqYWFAt9ei/Odsj65E
+ A4sD11p14EcaKe35bI24czFRBswEts9H1m50L+3wThJsRjmmynX84bSCVJTHjlUujAq6OS1AKmy oZqv8iCe6zC0cMA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: xxaBubMDTzzQFABQazeBWF8saSDN4XzA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfXx/FjRZ1YJYmi
+ nraEb5DhR6Ki8I/nqFDt6zHqfAdk0VwwIIIZlVAoOrxkmm+Qn5cI+MmD6IoKYODiv03n4+7p1KU
+ 6PUmTk9BnvorYfBi3VZw7+LmjnA0vTd5huStBYXSauJGX+RlaDU2zwwI165EJNORA8TsO+U5Ggh
+ BECXEoaBrHqpJItniu5jFib03R2PPXCwGMj/749E0U98yohizkLiNdH7N3AdOvr2S8EYZs9CaOS
+ 0iUkxylqI6GZu5ZzGwTQmrdtuvQuPm2vq/dTHlRyhtERy79+M/Dr+FNj++j1mJ0VvyLqBEFkjtp
+ cMWW+zDNO7no/aebVfMcMh0Im60ZgfE0pcwVviUivJePIrkVBlD8MGULKraGdXnQGF89dHeZa7X
+ ArEcDaJq/Z31Z5+cftMUAusphy35+a4/ItF7rdtmmohSqeaW6N7L+QbzIlJWqXLD88r6z7W/rd+
+ NFfCILVQdzMyVfvxkcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfX/nQ6ZwhlUW8m
+ 84Ws9jM6LjbRHnXU/7jBTRqLNqPK4bO2UThplX/0TQgv4GKHr4ddxzNjsdcYWHMxuMT5ucBmNk3
+ 2fsK8C4gnk/NTwWdgGjRcfQJlZuTe/U=
+X-Proofpoint-ORIG-GUID: xxaBubMDTzzQFABQazeBWF8saSDN4XzA
+X-Authority-Analysis: v=2.4 cv=CaKdd7rl c=1 sm=1 tr=0 ts=6aed83cc cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=7azGx4adrwFQZ_FdwBYA:9 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
+ bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060030
 
-Hello,
+Make the complicated interrupt-map property (with multiple '0' entries)
+a bit more readable by using known define for GIC_SPI.
 
-syzbot found the following issue on:
-
-HEAD commit:    ddfe51b0a0f5 Add linux-next specific files for 20261105
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=12627abe580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3dffa811bfeed6b4
-dashboard link: https://syzkaller.appspot.com/bug?extid=58b2d8b19cd6761a395b
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14f5f2be580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16627abe580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/181043a4bd52/disk-ddfe51b0.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/a69d8b670c38/vmlinux-ddfe51b0.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/906d515c0893/bzImage-ddfe51b0.xz
-
-AI-generated root cause summary:
-In mct_u232_open(), if submitting the read URB via
-usb_submit_urb(priv->read_urb, GFP_KERNEL) fails, the driver logs an error
-message referencing port->read_urb->pipe instead of priv->read_urb->pipe.
-Because the MCT U232 adapter uses interrupt-in endpoints instead of bulk-in
-endpoints, port->read_urb is never allocated or set up by the usb-serial core
-and remains NULL. Dereferencing port->read_urb->pipe in the error path results
-in a NULL-pointer dereference at offset 0x50 (the offset of the pipe field in
-struct urb), crashing the kernel with an oops.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=58b2d8b19cd6761a395b
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com
-
-mct_u232 ttyUSB0: Set MODEM CTRL 0xb failed (error = -71)
-mct_u232 ttyUSB0: Set LINE CTRL 0x3 failed (error = -71)
-mct_u232 ttyUSB0: Get MODEM STATus failed (error = -19)
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000000a: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
-CPU: 0 UID: 0 PID: 5718 Comm: syz-executor711 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-RIP: 0010:mct_u232_open+0x39c/0x680 drivers/usb/serial/mct_u232.c:460
-Code: 8d 9e 20 04 00 00 48 89 d8 48 c1 e8 03 42 80 3c 38 00 74 08 48 89 df e8 62 c3 6e fa 48 8b 1b 48 83 c3 50 48 89 d8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 0f 85 a7 01 00 00 8b 13 49 81 c6 40 05 00 00
-RSP: 0018:ffffc90003b7f760 EFLAGS: 00010206
-RAX: 000000000000000a RBX: 0000000000000050 RCX: ffff88802e889f40
-RDX: 0000000000000000 RSI: 00000000ffffffed RDI: 0000000000000000
-RBP: 00000000ffffffed R08: ffffffff91e120bf R09: 1ffffffff23c2417
-R10: dffffc0000000000 R11: fffffbfff23c2418 R12: 1ffff11005c8bf50
-R13: dffffc0000000000 R14: ffff888034df4000 R15: dffffc0000000000
-FS:  0000555579e9e400(0000) GS:ffff888123159000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f2cf0c571bc CR3: 0000000037ff2000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- serial_port_activate+0x151/0x250 drivers/usb/serial/usb-serial.c:268
- tty_port_open+0x1df/0x2d0 drivers/tty/tty_port.c:798
- tty_open+0x48a/0xd80 drivers/tty/tty_io.c:2112
- chrdev_open+0x4d9/0x600 fs/char_dev.c:413
- do_dentry_open+0x80e/0x1360 fs/open.c:1000
- vfs_open_consume+0x4a/0x350 fs/open.c:1131
- do_open fs/namei.c:4851 [inline]
- path_openat+0x16fc/0x20f0 fs/namei.c:5016
- do_file_open+0x23e/0x4a0 fs/namei.c:5045
- do_sys_openat2+0x115/0x200 fs/open.c:1443
- do_sys_open fs/open.c:1449 [inline]
- __do_sys_openat fs/open.c:1789 [inline]
- __se_sys_openat fs/open.c:1784 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1784
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x16a/0x530 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x00007f2cf0bf0079
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffe3866ad58 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f2cf0bf0079
-RDX: 0000000000000000 RSI: 0000200000000200 RDI: 00000000ffffff9c
-RBP: 00000000000f4240 R08: 0000000000000009 R09: 0000000000000009
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000014f37
-R13: 00007ffe3866ad6c R14: 00007ffe3866ad80 R15: 00007ffe3866ad70
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:mct_u232_open+0x39c/0x680 drivers/usb/serial/mct_u232.c:460
-Code: 8d 9e 20 04 00 00 48 89 d8 48 c1 e8 03 42 80 3c 38 00 74 08 48 89 df e8 62 c3 6e fa 48 8b 1b 48 83 c3 50 48 89 d8 48 c1 e8 03 <42> 0f b6 04 38 84 c0 0f 85 a7 01 00 00 8b 13 49 81 c6 40 05 00 00
-RSP: 0018:ffffc90003b7f760 EFLAGS: 00010206
-RAX: 000000000000000a RBX: 0000000000000050 RCX: ffff88802e889f40
-RDX: 0000000000000000 RSI: 00000000ffffffed RDI: 0000000000000000
-RBP: 00000000ffffffed R08: ffffffff91e120bf R09: 1ffffffff23c2417
-R10: dffffc0000000000 R11: fffffbfff23c2418 R12: 1ffff11005c8bf50
-R13: dffffc0000000000 R14: ffff888034df4000 R15: dffffc0000000000
-FS:  0000555579e9e400(0000) GS:ffff888123159000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f2cf0c92680 CR3: 0000000037ff2000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	8d 9e 20 04 00 00    	lea    0x420(%rsi),%ebx
-   6:	48 89 d8             	mov    %rbx,%rax
-   9:	48 c1 e8 03          	shr    $0x3,%rax
-   d:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1)
-  12:	74 08                	je     0x1c
-  14:	48 89 df             	mov    %rbx,%rdi
-  17:	e8 62 c3 6e fa       	call   0xfa6ec37e
-  1c:	48 8b 1b             	mov    (%rbx),%rbx
-  1f:	48 83 c3 50          	add    $0x50,%rbx
-  23:	48 89 d8             	mov    %rbx,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 0f b6 04 38       	movzbl (%rax,%r15,1),%eax <-- trapping instruction
-  2f:	84 c0                	test   %al,%al
-  31:	0f 85 a7 01 00 00    	jne    0x1de
-  37:	8b 13                	mov    (%rbx),%edx
-  39:	49 81 c6 40 05 00 00 	add    $0x540,%r14
-
-
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ arch/arm64/boot/dts/qcom/eliza.dtsi | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
+index a8042291bd07..2997af2f3c70 100644
+--- a/arch/arm64/boot/dts/qcom/eliza.dtsi
++++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+@@ -1915,10 +1915,10 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ 			iommu-map = <0x0 &apps_smmu 0x1480 0x0 0x1>,
+ 				    <0x100 &apps_smmu 0x1481 0x0 0x1>;
+ 
+-			interrupt-map = <0 0 0 1 &intc 0 0 0 564 IRQ_TYPE_LEVEL_HIGH>,
+-					<0 0 0 2 &intc 0 0 0 565 IRQ_TYPE_LEVEL_HIGH>,
+-					<0 0 0 3 &intc 0 0 0 566 IRQ_TYPE_LEVEL_HIGH>,
+-					<0 0 0 4 &intc 0 0 0 567 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-map = <0 0 0 1 &intc 0 0 GIC_SPI 564 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 2 &intc 0 0 GIC_SPI 565 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 3 &intc 0 0 GIC_SPI 566 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 4 &intc 0 0 GIC_SPI 567 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-map-mask = <0x0 0x0 0x0 0x7>;
+ 			#interrupt-cells = <1>;
+ 
+@@ -2085,10 +2085,10 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ 			iommu-map = <0x0 &apps_smmu 0x1400 0x0 0x1>,
+ 				    <0x100 &apps_smmu 0x1401 0x0 0x1>;
+ 
+-			interrupt-map = <0 0 0 1 &intc 0 0 0 149 IRQ_TYPE_LEVEL_HIGH>,
+-					<0 0 0 2 &intc 0 0 0 150 IRQ_TYPE_LEVEL_HIGH>,
+-					<0 0 0 3 &intc 0 0 0 151 IRQ_TYPE_LEVEL_HIGH>,
+-					<0 0 0 4 &intc 0 0 0 152 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-map = <0 0 0 1 &intc 0 0 GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 2 &intc 0 0 GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 3 &intc 0 0 GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>,
++					<0 0 0 4 &intc 0 0 GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-map-mask = <0x0 0x0 0x0 0x7>;
+ 			#interrupt-cells = <1>;
+ 
+-- 
+2.53.0
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
